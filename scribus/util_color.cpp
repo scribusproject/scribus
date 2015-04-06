@@ -900,50 +900,99 @@ bool importColorsFromFile(QString fileName, ColorList &EditColors, QHash<QString
 						quint16 count1 = 0;
 						quint16 count2 = 0;
 						ts >> count1;
-						ts.skipRawData(count1 * 10);
-						ts >> vers >> count2;
-						if ((vers == 2) && (count1 == count2))
+						qint64 pos = ts.device()->pos();
+						if (pos + count1 * 10 < fiC.size())
 						{
-							for (quint16 cc = 0; cc < count2; cc++)
+							ts.skipRawData(count1 * 10);
+							ts >> vers >> count2;
+							if ((vers == 2) && (count1 == count2))
+							{
+								for (quint16 cc = 0; cc < count2; cc++)
+								{
+									quint16 colType;
+									quint16 componentR, componentG, componentB, componentK;
+									ts >> colType >> componentR >> componentG >> componentB >> componentK;
+									QString name = readAdobeUniCodeString(ts);
+									if (!name.isEmpty())
+									{
+										bool validColor = false;
+										if (colType == 0)			// RBG
+										{
+											lf.setColorRGB(componentR >> 8, componentG >> 8, componentB >> 8);
+											validColor = true;
+										}
+										else if (colType == 1)		// HSB
+										{
+											uchar hc, sc, bc;
+											hc = componentR >> 8;
+											sc = componentG >> 8;
+											bc = componentB >> 8;
+											HSVTORGB(hc, sc, bc);
+											lf.setColorRGB(hc, sc, bc);
+											validColor = true;
+										}
+										else if (colType == 2)		// CMYK
+										{
+											lf.setColor(255 - (componentR >> 8), 255 - (componentG >> 8), 255 - (componentB >> 8), 255 - (componentK >> 8));
+											validColor = true;
+										}
+										else if (colType == 8)		// Grayscale
+										{
+											lf.setColor(0, 0, 0, qRound((componentK / 10000.0) * 255));
+											validColor = true;
+										}
+										if (validColor)
+										{
+											lf.setSpotColor(false);
+											lf.setRegistrationColor(false);
+											EditColors.tryAddColor(name, lf);
+										}
+									}
+								}
+							}
+						}
+						else
+						{
+							QFileInfo fiCinf(fileName);
+							QString baseName = fiCinf.baseName();
+							baseName.replace(" ", "_");
+							for (quint16 cc = 0; cc < count1; cc++)
 							{
 								quint16 colType;
 								quint16 componentR, componentG, componentB, componentK;
 								ts >> colType >> componentR >> componentG >> componentB >> componentK;
-								QString name = readAdobeUniCodeString(ts);
-								if (!name.isEmpty())
+								bool validColor = false;
+								if (colType == 0)			// RBG
 								{
-									bool validColor = false;
-									if (colType == 0)			// RBG
-									{
-										lf.setColorRGB(componentR >> 8, componentG >> 8, componentB >> 8);
-										validColor = true;
-									}
-									else if (colType == 1)		// HSB
-									{
-										uchar hc, sc, bc;
-										hc = componentR >> 8;
-										sc = componentG >> 8;
-										bc = componentB >> 8;
-										HSVTORGB(hc, sc, bc);
-										lf.setColorRGB(hc, sc, bc);
-										validColor = true;
-									}
-									else if (colType == 2)		// CMYK
-									{
-										lf.setColor(255 - (componentR >> 8), 255 - (componentG >> 8), 255 - (componentB >> 8), 255 - (componentK >> 8));
-										validColor = true;
-									}
-									else if (colType == 8)		// Grayscale
-									{
-										lf.setColor(0, 0, 0, qRound((componentK / 10000.0) * 255));
-										validColor = true;
-									}
-									if (validColor)
-									{
-										lf.setSpotColor(false);
-										lf.setRegistrationColor(false);
-										EditColors.tryAddColor(name, lf);
-									}
+									lf.setColorRGB(componentR >> 8, componentG >> 8, componentB >> 8);
+									validColor = true;
+								}
+								else if (colType == 1)		// HSB
+								{
+									uchar hc, sc, bc;
+									hc = componentR >> 8;
+									sc = componentG >> 8;
+									bc = componentB >> 8;
+									HSVTORGB(hc, sc, bc);
+									lf.setColorRGB(hc, sc, bc);
+									validColor = true;
+								}
+								else if (colType == 2)		// CMYK
+								{
+									lf.setColor(255 - (componentR >> 8), 255 - (componentG >> 8), 255 - (componentB >> 8), 255 - (componentK >> 8));
+									validColor = true;
+								}
+								else if (colType == 8)		// Grayscale
+								{
+									lf.setColor(0, 0, 0, qRound((componentK / 10000.0) * 255));
+									validColor = true;
+								}
+								if (validColor)
+								{
+									lf.setSpotColor(false);
+									lf.setRegistrationColor(false);
+									QString name = baseName+lf.name().toUpper();
+									EditColors.tryAddColor(name, lf);
 								}
 							}
 						}
