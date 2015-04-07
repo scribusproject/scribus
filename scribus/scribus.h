@@ -160,8 +160,8 @@ public:
 	void doPasteRecent(QString data);
 	bool getPDFDriver(const QString & filename, const QString & name, int components, const std::vector<int> & pageNumbers, const QMap<int,QPixmap> & thumbs, QString& error, bool* cancelled = NULL);
 	bool DoSaveAsEps(QString fn, QString& error);
-	QString CFileDialog(QString wDir = ".", QString caption = "", QString filter = "", QString defNa = "",
-						int optionFlags = fdExistingFiles, bool *docom = 0, bool *doFont = 0, bool *doProfiles = 0);
+	QString CFileDialog(QString workingDirectory = ".", QString dialogCaption = "", QString fileFilter = "", QString defNa = "",
+						int optionFlags = fdExistingFiles, bool *useCompression = 0, bool *useFonts = 0, bool *useProfiles = 0);
 	/*! \brief Recalculate the colors after changing CMS settings.
 	Call the appropriate document function and then update the GUI elements.
 	\param dia optional progress widget */

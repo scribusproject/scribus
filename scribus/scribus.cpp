@@ -3972,7 +3972,7 @@ void ScribusMainWindow::toogleInlineState()
 	if (currItem->isImageInline())
 	{
 		QFileInfo fiB(currItem->Pfile);
-		QString fna = fiB.fileName();
+
 		PrefsContext* docContext = prefsManager->prefsFile->getContext("docdirs", false);
 		QString wdir = ".";
 		if (doc->hasName)
@@ -3989,7 +3989,7 @@ void ScribusMainWindow::toogleInlineState()
 				wdir = docContext->get("place_as", ".");
 			wdir = QDir::fromNativeSeparators( wdir );
 		}
-		QString fileName = CFileDialog(wdir, tr("Filename and Path for Image"), tr("All Files (*)"), fna, fdHidePreviewCheckBox);
+		QString fileName = CFileDialog(wdir, tr("Filename and Path for Image"), tr("All Files (*)"), fiB.fileName(), fdHidePreviewCheckBox);
 		if (!fileName.isEmpty())
 		{
 			if (ScCore->fileWatcher->files().contains(currItem->Pfile) != 0)
@@ -4104,7 +4104,7 @@ bool ScribusMainWindow::slotFileSaveAs()
 	doc->is12doc=false;
 	//
 	bool ret = false;
-	QString fna;
+	QString filename;
 	PrefsContext* docContext = prefsManager->prefsFile->getContext("docdirs", false);
 	QString wdir = ".";
 	if (doc->hasName)
@@ -4116,7 +4116,7 @@ bool ScribusMainWindow::slotFileSaveAs()
 		else if (completeBaseName.endsWith(".gz", Qt::CaseInsensitive))
 			completeBaseName.chop(3);
 		wdir = QDir::fromNativeSeparators( fi.path() );
-		fna  = QDir::fromNativeSeparators( fi.path()+"/"+completeBaseName+".sla" );
+		filename  = QDir::fromNativeSeparators( fi.path()+"/"+completeBaseName+".sla" );
 	}
 	else
 	{
@@ -4127,29 +4127,29 @@ bool ScribusMainWindow::slotFileSaveAs()
 			wdir = docContext->get("save_as", ".");
 		wdir = QDir::fromNativeSeparators( wdir );
 		if (wdir.right(1) != "/")
-			fna = wdir + "/";
+			filename = wdir + "/";
 		else
-			fna = wdir;
-		fna += doc->DocName + ".sla";
+			filename = wdir;
+		filename += doc->DocName + ".sla";
 	}
 	bool saveCompressed=prefsManager->appPrefs.docSetupPrefs.saveCompressed;
 	if (saveCompressed)
-		fna.append(".gz");
+		filename.append(".gz");
 
 	QString fileSpec = tr("Documents (*.sla *.sla.gz);;All Files (*)");
 	int optionFlags = fdCompressFile | fdHidePreviewCheckBox;
-	QString fn = CFileDialog( wdir, tr("Save As"), fileSpec, fna, optionFlags, &saveCompressed);
+	QString fn = CFileDialog( wdir, tr("Save As"), fileSpec, filename, optionFlags, &saveCompressed);
 	if (!fn.isEmpty())
 	{
 		docContext->set("save_as", fn.left(fn.lastIndexOf("/")));
 		if ((fn.endsWith(".sla")) || (fn.endsWith(".sla.gz")))
-			fna = fn;
+			filename = fn;
 		else
-			fna = fn+".sla";
-		if (overwrite(this, fna))
+			filename = fn+".sla";
+		if (overwrite(this, filename))
 		{
 			QString savedFileName;
-			ret = DoFileSave(fna, &savedFileName);
+			ret = DoFileSave(filename, &savedFileName);
 			if (!ret && !savedFileName.isEmpty())
 				ScMessageBox::warning(this, CommonStrings::trWarning, tr("Your document was saved to a temporary file and could not be moved: \n%1").arg( QDir::toNativeSeparators(savedFileName) ));
 			else if (!ret)
@@ -6864,7 +6864,7 @@ void ScribusMainWindow::SaveAsEps()
 
 void ScribusMainWindow::reallySaveAsEps()
 {
-	QString fna;
+	QString filename;
 	if (docCheckerPalette->isIgnoreEnabled())
 	{
 		docCheckerPalette->hide();
@@ -6877,26 +6877,26 @@ void ScribusMainWindow::reallySaveAsEps()
 	{
 		QFileInfo fi(doc->DocName);
 		if (!doc->m_Selection->isEmpty())
-			fna = fi.path() + "/" + fi.completeBaseName() + "_selection.eps";
+			filename = fi.path() + "/" + fi.completeBaseName() + "_selection.eps";
 		else
-			fna = fi.path() + "/" + getFileNameByPage(doc, doc->currentPage()->pageNr(), "eps");
+			filename = fi.path() + "/" + getFileNameByPage(doc, doc->currentPage()->pageNr(), "eps");
 	}
 	else
 	{
 		QDir di = QDir();
 		if (!doc->m_Selection->isEmpty())
-			fna = di.currentPath() + "/" + doc->DocName + "_selection.eps";
+			filename = di.currentPath() + "/" + doc->DocName + "_selection.eps";
 		else
-			fna = di.currentPath() + "/" + getFileNameByPage(doc, doc->currentPage()->pageNr(), "eps");
+			filename = di.currentPath() + "/" + getFileNameByPage(doc, doc->currentPage()->pageNr(), "eps");
 	}
-	fna = QDir::toNativeSeparators(fna);
+	filename = QDir::toNativeSeparators(filename);
 	QString wdir = ".";
 	QString prefsDocDir=prefsManager->documentDir();
 	if (!prefsDocDir.isEmpty())
 		wdir = prefsManager->prefsFile->getContext("dirs")->get("eps", prefsDocDir);
 	else
 		wdir = prefsManager->prefsFile->getContext("dirs")->get("eps", ".");
-	QString fn = CFileDialog( wdir, tr("Save As"), tr("%1;;All Files (*)").arg(formatsManager->extensionsForFormat(FormatsManager::EPS)), fna, fdHidePreviewCheckBox | fdNone);
+	QString fn = CFileDialog( wdir, tr("Save As"), tr("%1;;All Files (*)").arg(formatsManager->extensionsForFormat(FormatsManager::EPS)), filename, fdHidePreviewCheckBox | fdNone);
 	if (!fn.isEmpty())
 	{
 		prefsManager->prefsFile->getContext("dirs")->set("eps", fn.left(fn.lastIndexOf("/")));
@@ -7832,30 +7832,30 @@ void ScribusMainWindow::StatusPic()
 	delete dia;
 }
 
-QString ScribusMainWindow::CFileDialog(QString wDir, QString caption, QString filter, QString defNa, int optionFlags, bool *docom, bool *doFont, bool *doProfiles)
+QString ScribusMainWindow::CFileDialog(QString workingDirectory, QString dialogCaption, QString fileFilter, QString defaultFilename, int optionFlags, bool *useCompression, bool *useFonts, bool *useProfiles)
 {
-	QString retval("");
 	// changed from "this" to qApp->activeWindow() to be sure it will be opened
 	// with the current active window as parent. E.g. it won't hide StoryEditor etc. -- PV
-	CustomFDialog *dia = new CustomFDialog(qApp->activeWindow(), wDir, caption, filter, optionFlags);
-	if (!defNa.isEmpty())
+	CustomFDialog *dia = new CustomFDialog(qApp->activeWindow(), workingDirectory, dialogCaption, fileFilter, optionFlags);
+	if (!defaultFilename.isEmpty())
 	{
-		QFileInfo f(defNa);
+		QFileInfo f(defaultFilename);
 		dia->setExtension(f.suffix());
 		dia->setZipExtension(f.suffix() + ".gz");
-		dia->setSelection(defNa);
-		if (docom != NULL && dia->SaveZip != NULL)
-			dia->SaveZip->setChecked(*docom);
+		dia->setSelection(defaultFilename);
+		if (useCompression != NULL && dia->SaveZip != NULL)
+			dia->SaveZip->setChecked(*useCompression);
 	}
 	if (optionFlags & fdDirectoriesOnly)
 	{
-		if (docom != NULL && dia->SaveZip != NULL)
-			dia->SaveZip->setChecked(*docom);
-		if (doFont != NULL)
-			dia->WithFonts->setChecked(*doFont);
-		if (doProfiles != NULL)
-			dia->WithProfiles->setChecked(*doProfiles);
+		if (useCompression != NULL && dia->SaveZip != NULL)
+			dia->SaveZip->setChecked(*useCompression);
+		if (useFonts != NULL)
+			dia->WithFonts->setChecked(*useFonts);
+		if (useProfiles != NULL)
+			dia->WithProfiles->setChecked(*useProfiles);
 	}
+	QString retval("");
 	if (dia->exec() == QDialog::Accepted)
 	{
 		LoadEnc = "";
@@ -7870,12 +7870,12 @@ QString ScribusMainWindow::CFileDialog(QString wDir, QString caption, QString fi
 		}
 		else
 		{
-			if (docom != NULL && dia->SaveZip != NULL)
-				*docom = dia->SaveZip->isChecked();
-			if (doFont != NULL)
-				*doFont = dia->WithFonts->isChecked();
-			if (doProfiles != NULL)
-				*doProfiles = dia->WithProfiles->isChecked();
+			if (useCompression != NULL && dia->SaveZip != NULL)
+				*useCompression = dia->SaveZip->isChecked();
+			if (useFonts != NULL)
+				*useFonts = dia->WithFonts->isChecked();
+			if (useProfiles != NULL)
+				*useProfiles = dia->WithProfiles->isChecked();
 		}
 		this->repaint();
 		retval = dia->selectedFile();
