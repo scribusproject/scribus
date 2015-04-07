@@ -2942,7 +2942,7 @@ void ScribusMainWindow::rebuildScrapbookMenu()
 		return;
 	QStringList scrapNames = scrapbookPalette->getOpenScrapbooksNames();
 	scrapNames.removeAt(1);
-	for (int i = 0; i < scrapNames.count(); i++)
+	for (int i = 0; i < scrapNames.count(); ++i)
 	{
 		ScrAction *act = new ScrAction( ScrAction::DataInt, QPixmap(), QPixmap(), scrapNames[i], QKeySequence(), this, i);
 		scrScrapActions.insert(scrapNames[i], act);
@@ -2968,90 +2968,88 @@ void ScribusMainWindow::pasteRecent(QString fn)
 
 void ScribusMainWindow::doPasteRecent(QString data)
 {
-	if (HaveDoc)
+	if (!HaveDoc)
+		return;
+	QFileInfo fi(data);
+	QString formatD(FormatsManager::instance()->extensionListForFormat(FormatsManager::RASTORIMAGES, 1));
+	QStringList rasterFiles = formatD.split("|");
+	QStringList vectorFiles = LoadSavePlugin::getExtensionsForPreview(FORMATID_FIRSTUSER);
+	if (vectorFiles.contains(fi.suffix().toLower()))
 	{
-		QFileInfo fi(data);
-		QString formatD(FormatsManager::instance()->extensionListForFormat(FormatsManager::RASTORIMAGES, 1));
-		QStringList rasterFiles = formatD.split("|");
-		QStringList vectorFiles = LoadSavePlugin::getExtensionsForPreview(FORMATID_FIRSTUSER);
-		if (vectorFiles.contains(fi.suffix().toLower()))
+		FileLoader *fileLoader = new FileLoader(data);
+		int testResult = fileLoader->testFile();
+		delete fileLoader;
+		if ((testResult != -1) && (testResult >= FORMATID_FIRSTUSER))
 		{
-			FileLoader *fileLoader = new FileLoader(data);
-			int testResult = fileLoader->testFile();
-			delete fileLoader;
-			if ((testResult != -1) && (testResult >= FORMATID_FIRSTUSER))
+			const FileFormat * fmt = LoadSavePlugin::getFormatById(testResult);
+			if( fmt )
 			{
-				const FileFormat * fmt = LoadSavePlugin::getFormatById(testResult);
-				if( fmt )
-				{
-					fmt->loadFile(data, LoadSavePlugin::lfUseCurrentPage|LoadSavePlugin::lfInteractive|LoadSavePlugin::lfScripted);
-				}
-			}
-			if (!doc->m_Selection->isEmpty())
-			{
-				double x2, y2, w, h;
-				doc->m_Selection->getGroupRect(&x2, &y2, &w, &h);
-				doc->moveGroup(doc->currentPage()->xOffset() - x2, doc->currentPage()->yOffset() - y2);
-				emit UpdateRequest(reqColorsUpdate|reqTextStylesUpdate|reqLineStylesUpdate);
+				fmt->loadFile(data, LoadSavePlugin::lfUseCurrentPage|LoadSavePlugin::lfInteractive|LoadSavePlugin::lfScripted);
 			}
 		}
-		else if (rasterFiles.contains(fi.suffix().toLower()))
+		if (!doc->m_Selection->isEmpty())
 		{
-			int z = doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, doc->currentPage()->xOffset(), doc->currentPage()->yOffset(), 1, 1, doc->itemToolPrefs().shapeLineWidth, doc->itemToolPrefs().imageFillColor, doc->itemToolPrefs().imageStrokeColor, true);
-			PageItem *b = doc->Items->at(z);
-			b->LayerID = doc->activeLayer();
-			doc->loadPict(data, b);
-			b->setWidth(static_cast<double>(b->OrigW * 72.0 / b->pixm.imgInfo.xres));
-			b->setHeight(static_cast<double>(b->OrigH * 72.0 / b->pixm.imgInfo.yres));
-			b->OldB2 = b->width();
-			b->OldH2 = b->height();
-			b->updateClip();
-			b->AdjustPictScale();
+			double x2, y2, w, h;
+			doc->m_Selection->getGroupRect(&x2, &y2, &w, &h);
+			doc->moveGroup(doc->currentPage()->xOffset() - x2, doc->currentPage()->yOffset() - y2);
+			emit UpdateRequest(reqColorsUpdate|reqTextStylesUpdate|reqLineStylesUpdate);
 		}
-		else
-		{
-			UndoTransaction pasteAction;
-			if(UndoManager::undoEnabled())
-				pasteAction = undoManager->beginTransaction(Um::SelectionGroup, Um::IGroup, Um::Create,"",Um::ICreate);
-			view->Deselect(true);
-			uint ac = doc->Items->count();
-			bool savedAlignGrid = doc->SnapGrid;
-			bool savedAlignGuides = doc->SnapGuides;
-			bool savedAlignElement = doc->SnapElement;
-			doc->SnapGrid = false;
-			doc->SnapGuides = false;
-			doc->SnapElement = false;
-			if ((view->dragX == 0) && (view->dragY == 0))
-				slotElemRead(data, doc->currentPage()->xOffset(), doc->currentPage()->yOffset(), true, true, doc, view);
-			else
-				slotElemRead(data, view->dragX, view->dragY, true, false, doc, view);
-			doc->SnapGrid = savedAlignGrid;
-			doc->SnapGuides = savedAlignGuides;
-			doc->SnapElement = savedAlignElement;
-			Selection tmpSelection(this, false);
-			tmpSelection.copy(*doc->m_Selection, true);
-			for (int as = ac; as < doc->Items->count(); ++as)
-			{
-				PageItem* currItem = doc->Items->at(as);
-				doc->setRedrawBounding(currItem);
-				tmpSelection.addItem(currItem, true);
-				if (currItem->isBookmark)
-					AddBookMark(currItem);
-			}
-			doc->m_Selection->copy(tmpSelection, false);
-			if (pasteAction)
-				pasteAction.commit();
-		}
-		slotDocCh(false);
-		doc->regionsChanged()->update(QRectF());
-		view->dragX = 0;
-		view->dragY = 0;
 	}
+	else if (rasterFiles.contains(fi.suffix().toLower()))
+	{
+		int z = doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, doc->currentPage()->xOffset(), doc->currentPage()->yOffset(), 1, 1, doc->itemToolPrefs().shapeLineWidth, doc->itemToolPrefs().imageFillColor, doc->itemToolPrefs().imageStrokeColor, true);
+		PageItem *b = doc->Items->at(z);
+		b->LayerID = doc->activeLayer();
+		doc->loadPict(data, b);
+		b->setWidth(static_cast<double>(b->OrigW * 72.0 / b->pixm.imgInfo.xres));
+		b->setHeight(static_cast<double>(b->OrigH * 72.0 / b->pixm.imgInfo.yres));
+		b->OldB2 = b->width();
+		b->OldH2 = b->height();
+		b->updateClip();
+		b->AdjustPictScale();
+	}
+	else
+	{
+		UndoTransaction pasteAction;
+		if(UndoManager::undoEnabled())
+			pasteAction = undoManager->beginTransaction(Um::SelectionGroup, Um::IGroup, Um::Create,"",Um::ICreate);
+		view->Deselect(true);
+		uint ac = doc->Items->count();
+		bool savedAlignGrid = doc->SnapGrid;
+		bool savedAlignGuides = doc->SnapGuides;
+		bool savedAlignElement = doc->SnapElement;
+		doc->SnapGrid = false;
+		doc->SnapGuides = false;
+		doc->SnapElement = false;
+		if ((view->dragX == 0) && (view->dragY == 0))
+			slotElemRead(data, doc->currentPage()->xOffset(), doc->currentPage()->yOffset(), true, true, doc, view);
+		else
+			slotElemRead(data, view->dragX, view->dragY, true, false, doc, view);
+		doc->SnapGrid = savedAlignGrid;
+		doc->SnapGuides = savedAlignGuides;
+		doc->SnapElement = savedAlignElement;
+		Selection tmpSelection(this, false);
+		tmpSelection.copy(*doc->m_Selection, true);
+		for (int as = ac; as < doc->Items->count(); ++as)
+		{
+			PageItem* currItem = doc->Items->at(as);
+			doc->setRedrawBounding(currItem);
+			tmpSelection.addItem(currItem, true);
+			if (currItem->isBookmark)
+				AddBookMark(currItem);
+		}
+		doc->m_Selection->copy(tmpSelection, false);
+		if (pasteAction)
+			pasteAction.commit();
+	}
+	slotDocCh(false);
+	doc->regionsChanged()->update(QRectF());
+	view->dragX = 0;
+	view->dragY = 0;
 }
 
 void ScribusMainWindow::importVectorFile()
 {
-	QString fileName = "";
 	QStringList formats;
 	QString allFormats = tr("All Supported Formats")+" (";
 	int fmtCode = FORMATID_FIRSTUSER;
@@ -3080,111 +3078,111 @@ void ScribusMainWindow::importVectorFile()
 	PrefsContext* dirs = PrefsManager::instance()->prefsFile->getContext("dirs");
 	QString wdir = dirs->get("pastefile", ".");
 	CustomFDialog dia(this, wdir, tr("Open"), allFormats, fdExistingFiles);
+	QString fileName("");
 	if (dia.exec() == QDialog::Accepted)
+	{
 		fileName = dia.selectedFile();
+		if (fileName.isEmpty())
+			return;
+	}
 	else
 		return;
-	if (!fileName.isEmpty())
+
+	PrefsManager::instance()->prefsFile->getContext("dirs")->set("pastefile", fileName.left(fileName.lastIndexOf("/")));
+	QFileInfo fi(fileName);
+	QString suffix = fi.suffix().toLower();
+	if ((suffix == "sce") || (suffix == "shape"))
 	{
-		PrefsManager::instance()->prefsFile->getContext("dirs")->set("pastefile", fileName.left(fileName.lastIndexOf("/")));
-		QFileInfo fi(fileName);
-		QString suffix = fi.suffix().toLower();
-		if ((suffix == "sce") || (suffix == "shape"))
+		QList<QUrl> urls;
+		QMimeData* md = new QMimeData();
+		urls.append( QUrl::fromLocalFile(fileName) );
+		md->setUrls(urls);
+		QDrag* dr = new QDrag(this);
+		dr->setMimeData(md);
+		const QPixmap& dragCursor = loadIcon("DragPix.xpm");
+		dr->setPixmap(dragCursor);
+		dr->exec();
+	}
+	else
+	{
+		FileLoader *fileLoader = new FileLoader(fileName);
+		int testResult = fileLoader->testFile();
+		delete fileLoader;
+		if ((testResult != -1) && (testResult >= FORMATID_FIRSTUSER))
 		{
-			QList<QUrl> urls;
-			QMimeData* md = new QMimeData();
-			urls.append( QUrl::fromLocalFile(fileName) );
-			md->setUrls(urls);
-			QDrag* dr = new QDrag(this);
-			dr->setMimeData(md);
-			const QPixmap& dragCursor = loadIcon("DragPix.xpm");
-			dr->setPixmap(dragCursor);
-			dr->exec();
-		}
-		else
-		{
-			FileLoader *fileLoader = new FileLoader(fileName);
-			int testResult = fileLoader->testFile();
-			delete fileLoader;
-			if ((testResult != -1) && (testResult >= FORMATID_FIRSTUSER))
+			const FileFormat * fmt = LoadSavePlugin::getFormatById(testResult);
+			if( fmt )
 			{
-				const FileFormat * fmt = LoadSavePlugin::getFormatById(testResult);
-				if( fmt )
-				{
-					doc->dontResize = true;
-					fmt->loadFile(fileName, LoadSavePlugin::lfUseCurrentPage|LoadSavePlugin::lfInteractive);
-					doc->dontResize = false;
-				}
+				doc->dontResize = true;
+				fmt->loadFile(fileName, LoadSavePlugin::lfUseCurrentPage|LoadSavePlugin::lfInteractive);
+				doc->dontResize = false;
 			}
 		}
-		requestUpdate(reqColorsUpdate | reqSymbolsUpdate | reqLineStylesUpdate | reqTextStylesUpdate);
 	}
+	requestUpdate(reqColorsUpdate | reqSymbolsUpdate | reqLineStylesUpdate | reqTextStylesUpdate);
 }
 
 void ScribusMainWindow::rebuildLayersList()
 {
-	if (HaveDoc)
+	if (!HaveDoc)
+		return;
+	scrMenuMgr->clearMenuStrings("ItemLayer");
+	scrLayersActions.clear();
+	ScLayers::iterator it;
+	if (doc->Layers.count()!= 0)
 	{
-		scrMenuMgr->clearMenuStrings("ItemLayer");
-		scrLayersActions.clear();
-		ScLayers::iterator it;
-		if (doc->Layers.count()!= 0)
-		{
-			for (it = doc->Layers.begin(); it != doc->Layers.end(); ++it)
-			{
-				scrLayersActions.insert(QString("%1").arg((*it).ID), new ScrAction( ScrAction::Layer, QPixmap(), QPixmap(), (*it).Name, QKeySequence(), this, (*it).ID));
-				scrLayersActions[QString("%1").arg((*it).ID)]->setToggleAction(true);
-				QPixmap pm(20,15);
-				pm.fill((*it).markerColor);
-				scrLayersActions[QString("%1").arg((*it).ID)]->setIcon(pm);
-			}
-		}
-		int currActiveLayer=doc->activeLayer();
-		bool found=false;
 		for (it = doc->Layers.begin(); it != doc->Layers.end(); ++it)
 		{
-			if ((*it).ID == currActiveLayer)
-			{
-				found=true;
-				break;
-			}
+			scrLayersActions.insert(QString("%1").arg((*it).ID), new ScrAction( ScrAction::Layer, QPixmap(), QPixmap(), (*it).Name, QKeySequence(), this, (*it).ID));
+			scrLayersActions[QString("%1").arg((*it).ID)]->setToggleAction(true);
+			QPixmap pm(20,15);
+			pm.fill((*it).markerColor);
+			scrLayersActions[QString("%1").arg((*it).ID)]->setIcon(pm);
 		}
-		Q_ASSERT(found);
-		scrLayersActions[QString("%1").arg((*it).ID)]->setChecked(true);
-
-		for( QMap<QString, QPointer<ScrAction> >::Iterator it = scrLayersActions.begin(); it!=scrLayersActions.end(); ++it )
-		{
-			scrMenuMgr->addMenuItemString(it.key(), "ItemLayer");
-			connect( (*it), SIGNAL(triggeredData(int)), doc, SLOT(itemSelection_SendToLayer(int)) );
-		}
-		scrMenuMgr->addMenuItemStringstoRememberedMenu("ItemLayer", scrLayersActions);
 	}
+	int currActiveLayer=doc->activeLayer();
+	bool found=false;
+	for (it = doc->Layers.begin(); it != doc->Layers.end(); ++it)
+	{
+		if ((*it).ID == currActiveLayer)
+		{
+			found=true;
+			break;
+		}
+	}
+	Q_ASSERT(found);
+	scrLayersActions[QString("%1").arg((*it).ID)]->setChecked(true);
+
+	for( QMap<QString, QPointer<ScrAction> >::Iterator it = scrLayersActions.begin(); it!=scrLayersActions.end(); ++it )
+	{
+		scrMenuMgr->addMenuItemString(it.key(), "ItemLayer");
+		connect( (*it), SIGNAL(triggeredData(int)), doc, SLOT(itemSelection_SendToLayer(int)) );
+	}
+	scrMenuMgr->addMenuItemStringstoRememberedMenu("ItemLayer", scrLayersActions);
 }
 
 void ScribusMainWindow::updateItemLayerList()
 {
-	if (HaveDoc)
+	if (!HaveDoc)
+		return;
+	QMap<QString, QPointer<ScrAction> >::Iterator itend=scrLayersActions.end();
+	for( QMap<QString, QPointer<ScrAction> >::Iterator it = scrLayersActions.begin(); it!=itend; ++it )
 	{
-		QMap<QString, QPointer<ScrAction> >::Iterator itend=scrLayersActions.end();
-		for( QMap<QString, QPointer<ScrAction> >::Iterator it = scrLayersActions.begin(); it!=itend; ++it )
-		{
-			disconnect( (*it), SIGNAL(triggeredData(int)), 0, 0 );
-			(*it)->setChecked(false);
-		}
-		if (!doc->m_Selection->isEmpty() && doc->m_Selection->itemAt(0))
-			scrLayersActions[QString("%1").arg(doc->m_Selection->itemAt(0)->LayerID)]->setChecked(true);
-		for( QMap<QString, QPointer<ScrAction> >::Iterator it = scrLayersActions.begin(); it!=itend; ++it )
-			connect( (*it), SIGNAL(triggeredData(int)), doc, SLOT(itemSelection_SendToLayer(int)) );
+		disconnect( (*it), SIGNAL(triggeredData(int)), 0, 0 );
+		(*it)->setChecked(false);
 	}
+	if (!doc->m_Selection->isEmpty() && doc->m_Selection->itemAt(0))
+		scrLayersActions[QString("%1").arg(doc->m_Selection->itemAt(0)->LayerID)]->setChecked(true);
+	for( QMap<QString, QPointer<ScrAction> >::Iterator it = scrLayersActions.begin(); it!=itend; ++it )
+		connect( (*it), SIGNAL(triggeredData(int)), doc, SLOT(itemSelection_SendToLayer(int)) );
 }
 
 void ScribusMainWindow::updateColorLists()
 {
-	if (HaveDoc)
-	{
-		requestUpdate(reqColorsUpdate | reqLineStylesUpdate);
-		styleManager->updateColorList();
-	}
+	if (!HaveDoc)
+		return;
+	requestUpdate(reqColorsUpdate | reqLineStylesUpdate);
+	styleManager->updateColorList();
 }
 
 bool ScribusMainWindow::slotFileOpen()
@@ -7836,7 +7834,7 @@ QString ScribusMainWindow::CFileDialog(QString workingDirectory, QString dialogC
 {
 	// changed from "this" to qApp->activeWindow() to be sure it will be opened
 	// with the current active window as parent. E.g. it won't hide StoryEditor etc. -- PV
-	CustomFDialog *dia = new CustomFDialog(qApp->activeWindow(), workingDirectory, dialogCaption, fileFilter, optionFlags);
+	CustomFDialog *dia = new CustomFDialog(qApp->activeWindow(), workingDirectory, dialogCaption, filter, optionFlags);
 	if (!defaultFilename.isEmpty())
 	{
 		QFileInfo f(defaultFilename);
