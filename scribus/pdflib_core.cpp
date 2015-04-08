@@ -6145,12 +6145,12 @@ QString PDFLibCore::PDF_TransparenzFill(PageItem *currItem)
 		double StartX, StartY, EndX, EndY, FocalX, FocalY, Gscale, Gskew;
 		int GType;
 		GType = currItem->GrMask;
-		StartX = currItem->GrMaskStartX;
-		StartY = currItem->GrMaskStartY;
-		EndX = currItem->GrMaskEndX;
-		EndY = currItem->GrMaskEndY;
-		FocalX = currItem->GrMaskFocalX;
-		FocalY = currItem->GrMaskFocalY;
+		StartX = currItem->GrMaskStartX + bleedDisplacementX;
+		StartY = currItem->GrMaskStartY + bleedDisplacementY;
+		EndX = currItem->GrMaskEndX + bleedDisplacementX;
+		EndY = currItem->GrMaskEndY + bleedDisplacementY;
+		FocalX = currItem->GrMaskFocalX + bleedDisplacementX;
+		FocalY = currItem->GrMaskFocalY + bleedDisplacementY;
 		Gscale = currItem->GrMaskScale;
 		Gskew = currItem->GrMaskSkew;
 		if (!(currItem->gradientMask().isEmpty()) && (doc.docGradients.contains(currItem->gradientMask())))
@@ -8147,12 +8147,12 @@ bool PDFLibCore::PDF_GradientFillStroke(QString& output, PageItem *currItem, boo
 	if (stroke)
 	{
 		GType = currItem->GrTypeStroke;
-		StartX = currItem->GrStrokeStartX;
-		StartY = currItem->GrStrokeStartY;
-		EndX = currItem->GrStrokeEndX;
-		EndY = currItem->GrStrokeEndY;
-		FocalX = currItem->GrStrokeFocalX;
-		FocalY = currItem->GrStrokeFocalY;
+		StartX = currItem->GrStrokeStartX + bleedDisplacementX;
+		StartY = currItem->GrStrokeStartY + bleedDisplacementY;
+		EndX = currItem->GrStrokeEndX + bleedDisplacementX;
+		EndY = currItem->GrStrokeEndY + bleedDisplacementY;
+		FocalX = currItem->GrStrokeFocalX + bleedDisplacementX;
+		FocalY = currItem->GrStrokeFocalY + bleedDisplacementY;
 		Gscale = currItem->GrStrokeScale;
 		Gskew = currItem->GrStrokeSkew;
 		if (!(currItem->strokeGradient().isEmpty()) && (doc.docGradients.contains(currItem->strokeGradient())))
@@ -8172,12 +8172,12 @@ bool PDFLibCore::PDF_GradientFillStroke(QString& output, PageItem *currItem, boo
 			return PDF_MeshGradientFill(output, currItem);
 		else if (GType == 12)
 			return PDF_PatchMeshGradientFill(output, currItem);
-		StartX = currItem->GrStartX;
-		StartY = currItem->GrStartY;
-		EndX = currItem->GrEndX;
-		EndY = currItem->GrEndY;
-		FocalX = currItem->GrFocalX;
-		FocalY = currItem->GrFocalY;
+		StartX = currItem->GrStartX + bleedDisplacementX;
+		StartY = currItem->GrStartY + bleedDisplacementY;
+		EndX = currItem->GrEndX + bleedDisplacementX;
+		EndY = currItem->GrEndY + bleedDisplacementY;
+		FocalX = currItem->GrFocalX + bleedDisplacementX;
+		FocalY = currItem->GrFocalY + bleedDisplacementY;
 		Gscale = currItem->GrScale;
 		Gskew = currItem->GrSkew;
 		if (!(currItem->gradient().isEmpty()) && (doc.docGradients.contains(currItem->gradient())))
