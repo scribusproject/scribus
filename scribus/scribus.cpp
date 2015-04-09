@@ -2874,20 +2874,20 @@ void ScribusMainWindow::removeRecent(QString fn, bool fromFileWatcher)
 	rebuildRecentFileMenu();
 }
 
-void ScribusMainWindow::removeRecentFromWatcher(QString fn)
+void ScribusMainWindow::removeRecentFromWatcher(QString filename)
 {
-	removeRecent(fn, true);
+	removeRecent(filename, true);
 }
 
-void ScribusMainWindow::loadRecent(QString fn)
+void ScribusMainWindow::loadRecent(QString filename)
 {
-	QFileInfo fd(fn);
+	QFileInfo fd(filename);
 	if (!fd.exists())
 	{
-		removeRecent(fn);
+		removeRecent(filename);
 		return;
 	}
-	loadDoc(fn);
+	loadDoc(filename);
 }
 
 void ScribusMainWindow::rebuildRecentFileMenu()
@@ -3383,8 +3383,7 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 	QFileInfo fi(fileName);
 	if (!fi.exists())
 	{
-		ScMessageBox::warning(this, CommonStrings::trWarning, tr("File does not exist on the specified path :\n%1").arg(QDir::toNativeSeparators(fileName)),
-		                           QMessageBox::Ok);
+		ScMessageBox::warning(this, CommonStrings::trWarning, tr("File does not exist on the specified path :\n%1").arg(QDir::toNativeSeparators(fileName)), QMessageBox::Ok);
 		return false;
 	}
 	
@@ -3466,7 +3465,6 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 		if (docFontDir3.exists())
 			prefsManager->appPrefs.fontPrefs.AvailFonts.AddScalableFonts(fi.absolutePath()+"/Document fonts", FName);
 		prefsManager->appPrefs.fontPrefs.AvailFonts.updateFontMap();
-
 		doc=new ScribusDoc();
 		doc->saveFilePermissions(QFile::permissions(fileName));
 		doc->is12doc=is12doc;

@@ -289,8 +289,8 @@ QRegion PageItem_TextFrame::calcAvailableRegion()
 			} // for all docItems
 		} // if(OnMasterPage.isEmpty()
 	} // if(!Embedded)
-	else
-		qDebug() << "QRegion empty";
+	//else
+	//	qDebug() << "QRegion empty";
 	return result;
 }
 
