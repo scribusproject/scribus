@@ -550,29 +550,29 @@ bool PluginManager::loadPlugin(PluginData & pda)
 void PluginManager::cleanupPlugins()
 {
 	for (PluginMap::Iterator it = pluginMap.begin(); it != pluginMap.end(); ++it)
-		if (it.value().enabled == true)
+		if (it.value().enabled)
 			finalizePlug(it.value());
 }
 
-void PluginManager::finalizePlug(PluginData & pda)
+void PluginManager::finalizePlug(PluginData & pluginData)
 {
 	typedef void (*freePluginPtr)(ScPlugin* plugin);
-	if (pda.plugin)
+	if (pluginData.plugin)
 	{
-		if (pda.enabled)
-			disablePlugin(pda);
-		Q_ASSERT(!pda.enabled);
+		if (pluginData.enabled)
+			disablePlugin(pluginData);
+		Q_ASSERT(!pluginData.enabled);
 		freePluginPtr freePlugin =
-			(freePluginPtr) resolveSym(pda.pluginDLL, QString(pda.pluginName + "_freePlugin").toLocal8Bit().data());
+			(freePluginPtr) resolveSym(pluginData.pluginDLL, QString(pluginData.pluginName + "_freePlugin").toLocal8Bit().data());
 		if ( freePlugin )
-			(*freePlugin)( pda.plugin );
-		pda.plugin = 0;
+			(*freePlugin)( pluginData.plugin );
+		pluginData.plugin = 0;
 	}
-	Q_ASSERT(!pda.enabled);
-	if (pda.pluginDLL)
+	Q_ASSERT(!pluginData.enabled);
+	if (pluginData.pluginDLL)
 	{
-		unloadDLL(pda.pluginDLL);
-		pda.pluginDLL = 0;
+		unloadDLL(pluginData.pluginDLL);
+		pluginData.pluginDLL = 0;
 	}
 }
 
@@ -584,6 +584,7 @@ void PluginManager::disablePlugin(PluginData & pda)
 	{
 		ScActionPlugin* plugin = dynamic_cast<ScActionPlugin*>(pda.plugin);
 		assert(plugin);
+		plugin->cleanupPlugin();
 		// FIXME: Correct way to delete action?
 		delete ScCore->primaryMainWindow()->scrActions[plugin->actionInfo().name];
 	}
@@ -702,8 +703,7 @@ bool PluginManager::enabled(const QString & pluginName)
 	return pluginMap[pluginName].enabled;
 }
 
-QStringList PluginManager::pluginNames(
-		bool includeDisabled, const char* inherits) const
+QStringList PluginManager::pluginNames( bool includeDisabled, const char* inherits) const
 {
 	// Scan the plugin map for plugins...
 	QStringList names;

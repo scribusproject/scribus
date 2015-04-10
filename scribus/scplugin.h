@@ -305,6 +305,19 @@ class SCRIBUS_API ScActionPlugin : public ScPlugin
 
 	public slots:
 		/**
+		 * @brief Deactivates the plugin for unloading / program quit
+		 *
+		 * This method will be called when the plug-in is about to be unloaded,
+		 * or if the plug-in manager has been asked to disable the plug-in.
+		 * This method will never be called unless initPlugin has been called
+		 * first, but there is no guarantee the plugin will actually be
+		 * unloaded after this is called, or before initPlugin is called again.
+		 *
+		 * @returns bool True for success.
+		 */
+		virtual bool cleanupPlugin() { return false; }
+
+		/**
 		 * @brief Run the plug-in's main action.
 		 *
 		 * Run the plug-in's default action synchronously, blocking the rest of
@@ -503,7 +516,7 @@ class SCRIBUS_API ScPersistentPlugin : public ScPlugin
 //
 // The API version is currently simply incremented with each incompatible
 // change. Future versions may introduce a minor/major scheme if necessary.
-#define PLUGIN_API_VERSION 0x00000105
+#define PLUGIN_API_VERSION 0x00000106
 
 
 #endif

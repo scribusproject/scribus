@@ -208,7 +208,7 @@ protected:
 	 *         The plug-in is marked unloaded in the map.
 	 *  \param pda plugin data
 	 */
-	void finalizePlug(PluginData & pda);
+	void finalizePlug(PluginData & pluginData);
 
 	/** \brief Configuration structure */
 	PrefsContext* prefs;

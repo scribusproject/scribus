@@ -5,7 +5,6 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 #include "picturebrowserplugin.h"
-//#include "picturebrowser.h"
 
 // See scplugin.h and pluginmanager.{cpp,h} for detail on what these methods
 // do. That documentatation is not duplicated here.
@@ -22,6 +21,12 @@ PictureBrowserPlugin::PictureBrowserPlugin() : ScActionPlugin()
 
 PictureBrowserPlugin::~PictureBrowserPlugin()
 {
+}
+
+bool PictureBrowserPlugin::cleanupPlugin()
+{
+	closePictureBrowser();
+	return true;
 }
 
 void PictureBrowserPlugin::languageChange()
@@ -66,7 +71,7 @@ bool PictureBrowserPlugin::run ( ScribusDoc* doc, QString target )
 	//picturebrowser isn't running yet, so create it
 	if ( !pictureBrowser )
 	{
-		pictureBrowser = new PictureBrowser ( doc, doc->scMW() );
+		pictureBrowser = new PictureBrowser ( doc, 0 );
 
 		if ( !pictureBrowser )
 		{
@@ -110,13 +115,21 @@ void PictureBrowserPlugin::changedDoc ( ScribusDoc* doc )
 //		pictureBrowser->changedDocument ( doc );
 }
 
-void PictureBrowserPlugin::pictureBrowserClosed()
+void PictureBrowserPlugin::closePictureBrowser()
 {
-	if(pictureBrowser)
-		pictureBrowser->close();
-	pictureBrowser = 0;
+	if (pictureBrowser)
+	{
+		if (pictureBrowser->isVisible())
+			pictureBrowser->close();
+		delete pictureBrowser;
+		pictureBrowser = NULL;
+	}
 }
 
+void PictureBrowserPlugin::pictureBrowserClosed()
+{
+	pictureBrowser = NULL;
+}
 
 // Low level plugin API
 int picturebrowser_getPluginAPIVersion()

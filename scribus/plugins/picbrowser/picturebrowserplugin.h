@@ -23,6 +23,7 @@ class PLUGIN_API PictureBrowserPlugin : public ScActionPlugin
 		//! \brief Standard plugin implementation
 		PictureBrowserPlugin();
 		virtual ~PictureBrowserPlugin();
+		virtual bool cleanupPlugin();
 		//! \brief main method to run the plug
 		virtual bool run ( ScribusDoc* doc, QString target = QString::null );
 		virtual const QString fullTrName() const;
@@ -34,10 +35,14 @@ class PLUGIN_API PictureBrowserPlugin : public ScActionPlugin
 		virtual void unsetDoc();
 		virtual void changedDoc ( ScribusDoc* doc );
 
+	public slots:
+		void closePictureBrowser();
+
 	private:
 		PictureBrowser *pictureBrowser;
 
 	private slots:
+		//only called on auto delete on close, resets ptr
 		void pictureBrowserClosed();
 };
 
