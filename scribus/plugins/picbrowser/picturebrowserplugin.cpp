@@ -106,8 +106,8 @@ void PictureBrowserPlugin::unsetDoc()
 
 void PictureBrowserPlugin::changedDoc ( ScribusDoc* doc )
 {
-	if ( pictureBrowser )
-		pictureBrowser->changedDocument ( doc );
+//	if ( pictureBrowser )
+//		pictureBrowser->changedDocument ( doc );
 }
 
 void PictureBrowserPlugin::pictureBrowserClosed()
