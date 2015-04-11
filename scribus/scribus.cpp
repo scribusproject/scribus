@@ -4760,6 +4760,74 @@ void ScribusMainWindow::slotEditPaste()
 			inlinePalette->unsetDoc();
 			inlinePalette->setDoc(doc);
 		}
+		else if (ScMimeData::clipboardHasKnownData())
+		{
+			bool savedAlignGrid = doc->SnapGrid;
+			bool savedAlignGuides = doc->SnapGuides;
+			bool savedAlignElement = doc->SnapElement;
+			FPoint minSize = doc->minCanvasCoordinate;
+			FPoint maxSize = doc->maxCanvasCoordinate;
+			doc->SnapGrid = false;
+			doc->SnapGuides = false;
+			doc->SnapElement = false;
+			QString ext = ScMimeData::clipboardKnownDataExt();
+			QByteArray bitsBits = ScMimeData::clipboardKnownDataData();
+			double x0 = (view->contentsX() / view->scale()) + ((view->visibleWidth() / 2.0) / view->scale());
+			double y0 = (view->contentsY() / view->scale()) + ((view->visibleHeight() / 2.0) / view->scale());
+			PageItem *retObj = getVectorFileFromData(doc, bitsBits, ext, x0, y0);
+			if (retObj != NULL)
+			{
+				double x = (view->contentsX() / view->scale()) + ((view->visibleWidth() / 2.0) / view->scale()) - (retObj->width() / 2.0);
+				double y = (view->contentsY() / view->scale()) + ((view->visibleHeight() / 2.0) / view->scale()) - (retObj->height() / 2.0);
+				retObj->setTextFlowMode(PageItem::TextFlowUsesBoundingBox);
+				retObj->setXYPos(x, y, true);
+				styleManager->setDoc(doc);
+				propertiesPalette->unsetDoc();
+				propertiesPalette->setDoc(doc);
+				marksManager->setDoc(doc);
+				nsEditor->setDoc(doc);
+				symbolPalette->unsetDoc();
+				symbolPalette->setDoc(doc);
+				doc->SnapGrid = savedAlignGrid;
+				doc->SnapGuides = savedAlignGuides;
+				doc->SnapElement = savedAlignElement;
+				Selection tempSelection(*doc->m_Selection);
+				doc->m_Selection->clear();
+				doc->m_Selection->delaySignalsOn();
+				doc->m_Selection->addItem(retObj);
+				doc->m_Selection->setGroupRect();
+				double gx, gy, gh, gw;
+				doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
+				retObj->isEmbedded = true;
+				retObj->setIsAnnotation(false);
+				retObj->isBookmark = false;
+				retObj->gXpos = retObj->xPos() - gx;
+				retObj->gYpos = retObj->yPos() - gy;
+				retObj->gWidth = gw;
+				retObj->gHeight = gh;
+				int fIndex = doc->addToInlineFrames(retObj);
+				doc->Items->removeAll(retObj);
+				doc->m_Selection->clear();
+				*doc->m_Selection=tempSelection;
+				doc->minCanvasCoordinate = minSize;
+				doc->maxCanvasCoordinate = maxSize;
+				if (outlinePalette->isVisible())
+					outlinePalette->BuildTree();
+				undoManager->setUndoEnabled(true);
+				if (UndoManager::undoEnabled())
+				{
+					SimpleState *is = new SimpleState(Um::Paste,"",Um::IPaste);
+					is->set("PASTE_INLINE", "paste_inline");
+					is->set("START",currItem->itemText.cursorPosition());
+					is->set("INDEX",fIndex);
+					undoManager->action(currItem, is);
+				}
+				currItem->itemText.insertObject(fIndex);
+				doc->m_Selection->delaySignalsOff();
+				inlinePalette->unsetDoc();
+				inlinePalette->setDoc(doc);
+			}
+		}
 		else
 		{
 			// K.I.S.S.:
@@ -4791,7 +4859,7 @@ void ScribusMainWindow::slotEditPaste()
 			else
 			{
 				QString buffer  = ScMimeData::clipboardScribusElem();
-				qDebug()<<buffer;
+			//	qDebug()<<buffer;
 				slotElemRead(buffer, doc->currentPage()->xOffset(), doc->currentPage()->yOffset(), false, true, doc, view);
 			}
 			// update style lists:
