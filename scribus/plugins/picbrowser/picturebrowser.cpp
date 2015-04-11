@@ -27,8 +27,8 @@ for which a new license (GPL+exception) is in place.
 
 PictureBrowser::PictureBrowser ( ScribusDoc* doc, QWidget *parent ) :
 	QDialog ( parent ),
-	pImages(0),
-	pModel(0)
+	pModel(0),
+	pImages(0)
 {
 	setupUi ( this );
 

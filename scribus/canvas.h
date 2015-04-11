@@ -149,7 +149,7 @@ public:
 	void setRenderModeUseBuffer(bool use) { m_renderMode = (use ? RENDER_BUFFERED : RENDER_NORMAL) ; }
 
 	double scale() const { return m_viewMode.scale; }
-	void setScale(double scale) { if (m_viewMode.scale != scale) { m_viewMode.scale = scale; clearBuffers(); update(); } }
+	void setScale(double scale);
 	QPoint canvasToLocal(FPoint p) const;
 	QPoint canvasToGlobal(FPoint p) const;
 	QPoint canvasToLocal(QPointF p) const;
@@ -265,7 +265,7 @@ private:
 	CanvasViewMode m_viewMode;
 	
 	RenderMode m_renderMode;
-	/*QImage*/QPixmap m_buffer;
+	QPixmap m_buffer;
 	QRect   m_bufferRect;
 	QPixmap m_selectionBuffer;
 	QRect   m_selectionRect;

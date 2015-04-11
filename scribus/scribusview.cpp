@@ -2315,7 +2315,6 @@ void ScribusView::setZoom()
 	int w = qRound(qMin(visibleWidth() / m_canvas->scale(), Doc->currentPage()->width()));
 	int h = qRound(qMin(visibleHeight() / m_canvas->scale(), Doc->currentPage()->height()));
 	rememberOldZoomLocation(w / 2 + x,h / 2 + y);
-	//zoom(oldX, oldY, zoomSpinBox->value() / 100.0 * Prefs->displayPrefs.displayScale, false);
 	zoom(oldX, oldY, m_ScMW->zoomSpinBox->value() / 100.0 * Prefs->displayPrefs.displayScale, false);
 	setFocus();
 }
@@ -4316,9 +4315,8 @@ void ScribusView::zoom(double scale)
 
 void ScribusView::zoom(int canvasX, int canvasY, double scale, bool preservePoint)
 {
-	QPoint canvasPoint;
 	QPoint globalPoint = m_canvas->canvasToGlobal(QPointF(canvasX, canvasY));
-	double newScale    = (scale > (Prefs->opToolPrefs.magMax / 100) * Prefs->displayPrefs.displayScale) ? ((Prefs->opToolPrefs.magMax / 100) * Prefs->displayPrefs.displayScale) : scale;
+	double newScale = (scale > (Prefs->opToolPrefs.magMax / 100) * Prefs->displayPrefs.displayScale) ? ((Prefs->opToolPrefs.magMax / 100) * Prefs->displayPrefs.displayScale) : scale;
 	undoManager->setUndoEnabled(false);
 	updatesOn(false);
 	setScale(newScale);
@@ -4326,13 +4324,11 @@ void ScribusView::zoom(int canvasX, int canvasY, double scale, bool preservePoin
 	int nw = qMax(qRound((Doc->maxCanvasCoordinate.x() - Doc->minCanvasCoordinate.x()) * m_canvas->scale()), visibleWidth());
 	int nh = qMax(qRound((Doc->maxCanvasCoordinate.y() - Doc->minCanvasCoordinate.y()) * m_canvas->scale()), visibleHeight());
 	resizeContents(nw, nh); // FIXME : should be avoided here, cause an unnecessary paintEvent despite updates disabled
+	QPoint canvasPoint;
 	if (preservePoint)
 		canvasPoint = viewport()->mapFromGlobal(globalPoint);
 	else
-	{
-		QSize viewsize = viewport()->size();
-		canvasPoint = QPoint(viewsize.width() / 2, viewsize.height() / 2);
-	}
+		canvasPoint = QPoint(viewport()->width() / 2, viewport()->height() / 2);
 	setContentsPos(localPoint.x() - canvasPoint.x(), localPoint.y() - canvasPoint.y());
 	updatesOn(true);
 	undoManager->setUndoEnabled(true);

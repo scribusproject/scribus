@@ -628,10 +628,19 @@ void Canvas::setRenderMode(RenderMode mode)
 
 void Canvas::clearBuffers()
 {
-	m_buffer = /*QImage()*/QPixmap();
+	m_buffer = QPixmap();
 	m_bufferRect = QRect();
 	m_selectionBuffer = QPixmap();
 	m_selectionRect = QRect();
+}
+
+void Canvas::setScale(double scale)
+{
+	if (m_viewMode.scale == scale)
+		return;
+	m_viewMode.scale = scale;
+	clearBuffers();
+	update();
 }
 
 
