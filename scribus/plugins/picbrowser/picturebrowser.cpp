@@ -25,7 +25,10 @@ for which a new license (GPL+exception) is in place.
 #include "util_icon.h"
 #include "util_formats.h"
 
-PictureBrowser::PictureBrowser ( ScribusDoc* doc, QWidget *parent ) : QDialog ( parent )
+PictureBrowser::PictureBrowser ( ScribusDoc* doc, QWidget *parent ) :
+	QDialog ( parent ),
+	pImages(0),
+	pModel(0)
 {
 	setupUi ( this );
 
@@ -280,6 +283,14 @@ PictureBrowser::PictureBrowser ( ScribusDoc* doc, QWidget *parent ) : QDialog ( 
 
 PictureBrowser::~PictureBrowser()
 {
+}
+
+void PictureBrowser::closeEvent(QCloseEvent* e)
+{
+	delete pImages;
+	pImages=0;
+	delete pModel;
+	pModel=0;
 }
 
 
@@ -1569,7 +1580,8 @@ void PictureBrowser::updateBrowser ( bool filter, bool sort, bool reload )
 
 	if ( sort )
 	{
-		pImages->sortPreviewImages ( pbSettings.sortSetting );
+		if (pImages)
+			pImages->sortPreviewImages ( pbSettings.sortSetting );
 	}
 
 	if ( reload )
@@ -1585,7 +1597,8 @@ void PictureBrowser::updateBrowser ( bool filter, bool sort, bool reload )
 		}
 	}
 
-	pModel->setModelItemsList ( pImages->previewImagesList );
+	if (pModel)
+		pModel->setModelItemsList ( pImages->previewImagesList );
 	statusLabel->setText ( QString ( "%1 image(s) displayed, %2 image(s) filtered" ).arg ( imagesDisplayed ).arg ( imagesFiltered ) );
 }
 

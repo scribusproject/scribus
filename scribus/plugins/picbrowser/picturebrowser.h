@@ -7,6 +7,7 @@ for which a new license (GPL+exception) is in place.
 #ifndef PICTUREBROWSER_H
 #define PICTUREBROWSER_H
 
+#include <QCloseEvent>
 #include <QDirModel>
 #include "ui_picturebrowser.h"
 
@@ -100,6 +101,7 @@ class PictureBrowser : public QDialog, Ui::PictureBrowser
 	public:
 		PictureBrowser ( ScribusDoc* doc, QWidget *parent = 0 );
 		~PictureBrowser();
+		void closeEvent(QCloseEvent *e);
 		void changedDocument ( ScribusDoc* doc );
 		void closedDocument();
 
