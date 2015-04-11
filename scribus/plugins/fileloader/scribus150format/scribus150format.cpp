@@ -315,12 +315,13 @@ bool Scribus150Format::loadElements(const QString & data, QString fileDir, int t
 				m_Doc->MLineStyles.insert(mlName, ml);
 			}
 		}
-		if ((tagName == "ITEM") || (tagName == "FRAMEOBJECT"))
+		if ((tagName == "ITEM") || (tagName == "PAGEOBJECT") || (tagName == "FRAMEOBJECT"))
 		{
 			ItemInfo itemInfo;
 			success = readObject(m_Doc, reader, itemInfo, fileDir, true);
 			if (!success)
 				break;
+			itemInfo.item->LayerID = LayerToPaste;
 			if (isNewFormat)
 			{
 				if (itemInfo.nextItem != -1)
@@ -3940,6 +3941,7 @@ bool Scribus150Format::readObject(ScribusDoc* doc, ScXmlStreamReader& reader, It
 					PageItem* currItem = GroupItems.at(as);
 					newItem->groupItemList.append(currItem);
 					currItem->Parent = newItem;
+					currItem->LayerID = newItem->LayerID;
 				}
 				doc->Items = DItems;
 			}
