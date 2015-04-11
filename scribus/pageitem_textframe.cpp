@@ -1817,7 +1817,7 @@ void PageItem_TextFrame::layout()
 							case SpecialChars::CJK_KANJI:
 							case SpecialChars::CJK_KANA:
 							case SpecialChars::CJK_NOTOP:
-								kern = wide / 4;
+								kern = charStyle.fontSize() / 10 / 4;
 								wide += kern;
 								glyphs->last()->xadvance += kern;
 							}
@@ -1830,7 +1830,7 @@ void PageItem_TextFrame::layout()
 								case SpecialChars::CJK_COMMA:
 								case SpecialChars::CJK_PERIOD:
 								case SpecialChars::CJK_MIDPOINT:
-									kern = -wide / 2;
+									kern = -charStyle.fontSize() / 10 / 2;
 									wide += kern;
 									glyphs->last()->xadvance += kern;
 								}
@@ -1840,7 +1840,7 @@ void PageItem_TextFrame::layout()
 								switch(nextStat & SpecialChars::CJK_CHAR_MASK){
 								case SpecialChars::CJK_FENCE_BEGIN:
 								case SpecialChars::CJK_FENCE_END:
-									kern = -wide / 2;
+									kern = -charStyle.fontSize() / 10 / 2;
 									wide += kern;
 									glyphs->last()->xadvance += kern;
 								}
@@ -1848,7 +1848,7 @@ void PageItem_TextFrame::layout()
 							case SpecialChars::CJK_MIDPOINT:
 								switch(nextStat & SpecialChars::CJK_CHAR_MASK){
 								case SpecialChars::CJK_FENCE_BEGIN:
-									kern = -wide / 2;
+									kern = -charStyle.fontSize() / 10 / 2;
 									wide += kern;
 									glyphs->last()->xadvance += kern;
 								}
@@ -1860,7 +1860,7 @@ void PageItem_TextFrame::layout()
 									prevStat = SpecialChars::getCJKAttr(itemText.text(a-1)) & SpecialChars::CJK_CHAR_MASK;
 								}
 								if (prevStat == SpecialChars::CJK_FENCE_BEGIN){
-									kern = -wide / 2;
+									kern = -charStyle.fontSize() / 10 / 2;
 									wide += kern;
 									glyphs->last()->xadvance += kern;
 									glyphs->last()->xoffset += kern;
@@ -1875,7 +1875,8 @@ void PageItem_TextFrame::layout()
 							case SpecialChars::CJK_KANJI:
 							case SpecialChars::CJK_KANA:
 							case SpecialChars::CJK_NOTOP:
-								kern = itemText.getGlyphs(a+1)->wide() / 4;
+								// use the size of the current char instead of the next one
+								kern = charStyle.fontSize() / 10 / 4;
 								wide += kern;
 								glyphs->last()->xadvance += kern;
 							}
