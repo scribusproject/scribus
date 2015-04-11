@@ -2420,7 +2420,6 @@ void ScribusMainWindow::newActWin(QMdiSubWindow *w)
 	ActWin = scw;
 	if (ActWin->doc() == NULL)
 		return;
-
 	if (doc != NULL)
 	{
 		if (doc->appMode == modeEditClip)
@@ -2429,7 +2428,6 @@ void ScribusMainWindow::newActWin(QMdiSubWindow *w)
 			outlinePalette->buildReopenVals();
 	}
 	docCheckerPalette->clearErrorList();
-
 	if (HaveDoc && (doc != NULL) && doc->hasGUI())
 	{
 		disconnect(undoManager, SIGNAL(undoRedoBegin()), doc, SLOT(undoRedoBegin()));
@@ -2437,21 +2435,19 @@ void ScribusMainWindow::newActWin(QMdiSubWindow *w)
 		disconnect(undoManager, SIGNAL(undoRedoDone()) , doc->view(), SLOT(DrawNew()));
 		disconnect(doc, SIGNAL(addBookmark(PageItem *)), this, SLOT(AddBookMark(PageItem *)));
 		disconnect(doc, SIGNAL(deleteBookmark(PageItem *)), this, SLOT(DelBookMark(PageItem *)));
-		disconnect(unitSwitcher, SIGNAL(activated(int)), doc->view(), SLOT(ChgUnit(int)));
-		disconnect(zoomSpinBox, SIGNAL(valueChanged(double)), doc->view(), SLOT(setZoom()));
-		disconnect(zoomDefaultToolbarButton, SIGNAL(clicked()), doc->view(), SLOT(slotZoom100()));
-		disconnect(zoomOutToolbarButton, SIGNAL(clicked()), doc->view(), SLOT(slotZoomOut()));
-		disconnect(zoomInToolbarButton, SIGNAL(clicked()), doc->view(), SLOT(slotZoomIn()));
-		disconnect(layerMenu, SIGNAL(activated(int)), doc->view(), SLOT(GotoLa(int)));
+		unitSwitcher->disconnect();
+		zoomSpinBox->disconnect();
+		zoomDefaultToolbarButton->disconnect();
+		zoomOutToolbarButton->disconnect();
+		zoomInToolbarButton->disconnect();
+		layerMenu->disconnect();
 		disconnect(viewToolBar->previewQualitySwitcher, SIGNAL(activated(int)), this, SLOT(changePreviewQuality(int)));
 		disconnect(viewToolBar->visualMenu, SIGNAL(activated(int)), doc->view(), SLOT(switchPreviewVisual(int)));
-		disconnect(pageSelector, 0, 0, 0);
+		pageSelector->disconnect();
 		pageSelector->setEnabled(false);
 	}
-
 	doc = ActWin->doc();
 	undoManager->switchStack(doc->DocName);
-
 	if ((doc != NULL) && doc->hasGUI())
 	{
 		connect(undoManager, SIGNAL(undoRedoBegin()), doc, SLOT(undoRedoBegin()));
@@ -2483,7 +2479,6 @@ void ScribusMainWindow::newActWin(QMdiSubWindow *w)
 		connect(pageSelector, SIGNAL(GotoPage(int)), this, SLOT(setCurrentPage(int)));
 		pageSelector->setEnabled(true);
 	}
-
 	if (view!=NULL)
 	{
 		actionManager->disconnectNewViewActions();
@@ -2491,11 +2486,10 @@ void ScribusMainWindow::newActWin(QMdiSubWindow *w)
 		if (ScCore->usingGUI())
 			disconnect(doc->m_Selection, SIGNAL(selectionIsMultiple(bool)), 0, 0);
 	}
-
 	view = ActWin->view();
-
+	bool b = zoomSpinBox->blockSignals(true);
 	zoomSpinBox->setValue(view->scale() * 100.0 / PrefsManager::instance()->appPrefs.displayPrefs.displayScale);
-	connect(zoomSpinBox, SIGNAL(valueChanged(double)), doc->view(), SLOT(setZoom()));
+	zoomSpinBox->blockSignals(b);
 	actionManager->connectNewViewActions(view);
 	actionManager->disconnectNewDocActions();
 	actionManager->connectNewDocActions(doc);
@@ -2506,7 +2500,6 @@ void ScribusMainWindow::newActWin(QMdiSubWindow *w)
 		connect(doc->m_Selection, SIGNAL(selectionIsMultiple(bool)), actionManager, SLOT( handleMultipleSelections(bool)));
 		//connect(doc->m_Selection, SIGNAL(empty()), propertiesPalette, SLOT( unsetItem()));
 	}
-
 	pagePalette->setView(view);
 	alignDistributePalette->setDoc(doc);
 	if (!doc->isLoading())
@@ -2627,6 +2620,7 @@ void ScribusMainWindow::HaveNewDoc()
 	updateActiveWindowCaption(doc->DocName);
 	propertiesPalette->setDoc(doc);
 	nsEditor->setDoc(doc);
+
 	marksManager->setDoc(doc);
 	symbolPalette->setDoc(doc);
 	inlinePalette->setDoc(doc);
@@ -3421,7 +3415,6 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 			return true;
 		}
 	}
-
 	UndoBlocker undoBlocker;
 	if (!fileName.isEmpty())
 	{
@@ -3448,7 +3441,6 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 			//Scribus 1.3.x warning, remove at a later stage
 			is12doc=true;
 		}
-
 		QDir docProfileDir(fi.absolutePath() + "/profiles");
 		ScCore->getCMSProfilesDir(fi.absolutePath()+"/", false, false);
 		if (docProfileDir.exists())
@@ -3526,7 +3518,9 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 		outlinePalette->setDoc(doc);
 		fileLoader->informReplacementFonts();
 		setCurrentComboItem(unitSwitcher, unitGetStrFromIndex(doc->unitIndex()));
+		bool b = zoomSpinBox->blockSignals(true);
 		zoomSpinBox->setValue(view->scale());
+		zoomSpinBox->blockSignals(b);
 		view->unitChange();
 		setScriptRunning(false);
 		view->Deselect(true);
@@ -3552,7 +3546,6 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 			lpo.Angle = 45;
 			doc->pdfOptions().LPISettings.insert("Black", lpo);
 		}
-
 		if (!doc->cmsSettings().CMSinUse)
 			doc->HasCMS = false;
 		if ((ScCore->haveCMS()) && (doc->cmsSettings().CMSinUse))
@@ -3789,6 +3782,7 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 	{
 		pagePalette->setView(0);
 	}
+
 	undoManager->switchStack(doc->DocName);
 	pagePalette->Rebuild();
 	qApp->restoreOverrideCursor();
@@ -7244,7 +7238,7 @@ QStringList ScribusMainWindow::scrapbookNames()
 
 void ScribusMainWindow::updateLayerMenu()
 {
-	disconnect(layerMenu, SIGNAL(activated(int)), this, SLOT(GotoLa(int)));
+	bool b = layerMenu->blockSignals(true);
 	layerMenu->clear();
 	if (doc==NULL)
 		return;
@@ -7256,7 +7250,7 @@ void ScribusMainWindow::updateLayerMenu()
 		pm.fill(doc->Layers.layerByName(*it)->markerColor);
 		layerMenu->addItem(pm, *it);
 	}
-	connect(layerMenu, SIGNAL(activated(int)), this, SLOT(GotoLa(int)));
+	layerMenu->blockSignals(b);
 }
 
 
@@ -7328,7 +7322,6 @@ void ScribusMainWindow::slotChangeUnit(int unitIndex, bool draw)
 	{
 		qApp->setStyleSheet(QString(stylesheet));
 	}
-
 	doc->setUnitIndex(unitIndex);
 	setCurrentComboItem(unitSwitcher, unitGetStrFromIndex(doc->unitIndex()));
 	view->unitChange();
@@ -8055,10 +8048,10 @@ void ScribusMainWindow::changeLayer(int )
 
 void ScribusMainWindow::setLayerMenuText(const QString &layerName)
 {
-	disconnect(layerMenu, SIGNAL(activated(int)), this, SLOT(GotoLa(int)));
+	bool b = layerMenu->blockSignals(true);
 	if (layerMenu->count() != 0)
 		setCurrentComboItem(layerMenu, layerName);
-	connect(layerMenu, SIGNAL(activated(int)), this, SLOT(GotoLa(int)));
+	layerMenu->blockSignals(b);
 }
 
 void ScribusMainWindow::showLayer()

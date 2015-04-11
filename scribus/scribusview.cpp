@@ -2440,9 +2440,9 @@ void ScribusView::DrawNew()
 	updateContents();
 	setRulerPos(contentsX(), contentsY());
 	m_ScMW->slotSetCurrentPage(Doc->currentPage()->pageNr());
-	disconnect(m_ScMW->zoomSpinBox, SIGNAL(valueChanged(double)), this, SLOT(setZoom()));
-	m_ScMW->zoomSpinBox->setValue(m_canvas->scale()/Prefs->displayPrefs.displayScale*100);
-	connect(m_ScMW->zoomSpinBox, SIGNAL(valueChanged(double)), this, SLOT(setZoom()));
+//	disconnect(m_ScMW->zoomSpinBox, SIGNAL(valueChanged(double)), this, SLOT(setZoom()));
+//	m_ScMW->zoomSpinBox->setValue(m_canvas->scale()/Prefs->displayPrefs.displayScale*100);
+//	connect(m_ScMW->zoomSpinBox, SIGNAL(valueChanged(double)), this, SLOT(setZoom()));
 }
 
 void ScribusView::SetCCPo(double x, double y)

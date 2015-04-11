@@ -608,7 +608,6 @@ private:
 
 	void updateColorMenu(QProgressBar* progressBar=NULL);
 
-
 	int ScriptRunning;
 
 	QLabel* mainWindowStatusLabel;
