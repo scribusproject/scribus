@@ -38,8 +38,8 @@ private:
 	bool m_parentDC, m_parentBul, m_parentNum;
 	CharSelectEnhanced * m_enhanced;
 	ScribusDoc * m_Doc;
-	QString currFontName;
-	ParagraphStyle* currPStyle;
+	QString m_currFontName;
+	ParagraphStyle* m_currPStyle;
 	StyleSet<CharStyle> *m_cstyles;
 
 	void fillBulletStrEditCombo();

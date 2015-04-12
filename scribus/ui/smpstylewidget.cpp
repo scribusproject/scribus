@@ -279,7 +279,7 @@ void SMPStyleWidget::checkParEffectState()
 
 void SMPStyleWidget::show(ParagraphStyle *pstyle, QList<ParagraphStyle> &pstyles, QList<CharStyle> &cstyles, int unitIndex, const QString &defLang)
 {
-	currPStyle = pstyle;
+	m_currPStyle = pstyle;
 	double unitRatio = unitGetRatioFromIndex(unitIndex);
 	parentCombo->setEnabled(!pstyle->isDefaultStyle());
 	const ParagraphStyle *parent = dynamic_cast<const ParagraphStyle*>(pstyle->parentStyle());
@@ -540,7 +540,7 @@ void SMPStyleWidget::show(QList<ParagraphStyle*> &pstyles, QList<ParagraphStyle>
 		show(pstyles[0], pstylesAll, cstyles, unitIndex, defLang);
 	else if (pstyles.count() > 1)
 	{
-		currPStyle = pstyles[0];
+		m_currPStyle = pstyles[0];
 		showLineSpacing(pstyles);
 		showSpaceAB(pstyles, unitIndex);
 		showDropCap(pstyles, cstyles, unitIndex);
@@ -1157,8 +1157,8 @@ void SMPStyleWidget::openEnhanced()
 		CharStyle chStyle = m_cstyles->get(styleName);
 		setCurrentComboItem(m_enhanced->fontSelector, chStyle.font().scName());
 	}
-	else if (currPStyle)
-		setCurrentComboItem(m_enhanced->fontSelector, currPStyle->charStyle().font().scName());
+	else if (m_currPStyle)
+		setCurrentComboItem(m_enhanced->fontSelector, m_currPStyle->charStyle().font().scName());
 	m_enhanced->newFont(m_enhanced->fontSelector->currentIndex());
 	m_enhanced->show();
 	QApplication::restoreOverrideCursor();

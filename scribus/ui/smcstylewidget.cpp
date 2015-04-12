@@ -121,13 +121,13 @@ void SMCStyleWidget::languageChange()
 // 	tracking_->setSuffix( tr(" %"));
 	fontSize_->setSuffix(unitGetSuffixFromIndex(0));
 }
-
+/*
 void SMCStyleWidget::fillLangCombo(QMap<QString,QString> langMap)
 {
 	QStringList sortList;
 	QMap<QString,QString>::Iterator it;
 
-	langMap_ = langMap;
+	m_langMap = langMap;
 
 	language_->clear();
 
@@ -141,7 +141,7 @@ void SMCStyleWidget::fillLangCombo(QMap<QString,QString> langMap)
 	if (tmpWidth > 0)
 		tmpView->setMinimumWidth(tmpWidth + 24);
 }
-
+*/
 void SMCStyleWidget::fillLangComboFromList(QStringList langList)
 {
 	language_->clear();
@@ -560,7 +560,6 @@ void SMCStyleWidget::showLanguage(const QList<CharStyle*> &cstyles, const QStrin
 		else
 			s = cstyles[i]->language();
 	}
-
 	if (s.isEmpty())
 	{
 		if (language_->itemText(language_->count() - 1) != "")
@@ -568,10 +567,7 @@ void SMCStyleWidget::showLanguage(const QList<CharStyle*> &cstyles, const QStrin
 		language_->setCurrentIndex(language_->count() - 1);
 	}
 	else
-	{
-		Q_ASSERT(langMap_.contains(s));
-		setCurrentComboItem(language_, langMap_[s]);
-	}
+		setCurrentComboItem(language_, LanguageManager::instance()->getLangFromAbbrev(s));
 }
 
 void SMCStyleWidget::showParent(const QList<CharStyle*> &cstyles)

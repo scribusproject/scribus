@@ -26,14 +26,14 @@ public:
 
 	void show(CharStyle *cstyle, QList<CharStyle> &cstyles, const QString &defLang, int unitIndex);
 	void show(QList<CharStyle*> &cstyles, QList<CharStyle> &cstylesAll, const QString &defLang, int unitIndex);
-	void fillLangCombo(QMap<QString,QString> langMap);
+	//void fillLangCombo(QMap<QString,QString> langMap);
 	void fillLangComboFromList(QStringList langList);
 	void fillColorCombo(ColorList &colors);
 	void languageChange();
 	void clearAll();
 
 private:
-	QMap<QString, QString> langMap_;
+	QMap<QString, QString> m_langMap;
 
 	void showSizeAndPosition(const QList<CharStyle*> &cstyles);
 	void showEffects(const QList<CharStyle*> &cstyles);

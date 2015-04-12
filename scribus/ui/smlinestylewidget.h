@@ -32,8 +32,8 @@ public:
 	void unitChange(int unitIndex);
 
 private:
-	multiLine  currentStyle;
-	ColorList  colors;
+	multiLine  m_currentStyle;
+	ColorList  m_colors;
 
 	void updateLineList();
 	QColor getColor(const QString &name, int shade);

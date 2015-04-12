@@ -77,10 +77,10 @@ void SMLineStyleWidget::showStyle(const multiLine &lineStyle, ColorList &colorLi
 {
 // 	disconnect(lineStyles, SIGNAL(highlighted(int)), this, SLOT(slotEditNewLine(int)));
 	disconnect(lineStyles, SIGNAL(currentRowChanged(int)), this, SLOT(slotEditNewLine(int)));
-	currentStyle = lineStyle;
+	m_currentStyle = lineStyle;
 	colorCombo->clear();
 	colorCombo->updateBox(colorList, ColorCombo::fancyPixmaps, false);
-	colors = colorList;
+	m_colors = colorList;
 	updateLineList();
 	slotEditNewLine(subLine);
 	connect(lineStyles, SIGNAL(currentRowChanged(int)), this, SLOT(slotEditNewLine(int)));
@@ -94,17 +94,17 @@ void SMLineStyleWidget::slotEditNewLine(int i)
 
 	// JG #5876 protect against broken line styles 
 	// JG #6099 no current item selected
-	if (currentStyle.count() <= i || (i < 0))
+	if (m_currentStyle.count() <= i || (i < 0))
 		return;
 
 	double unitRatio = lineWidth->unitRatio();
 
-	lineWidth->setValue(currentStyle[i].Width * unitRatio);
-	setCurrentComboItem(colorCombo, currentStyle[i].Color);
-	shadeBox->setValue(currentStyle[i].Shade);
+	lineWidth->setValue(m_currentStyle[i].Width * unitRatio);
+	setCurrentComboItem(colorCombo, m_currentStyle[i].Color);
+	shadeBox->setValue(m_currentStyle[i].Shade);
 	
-	dashCombo->setCurrentIndex(currentStyle[i].Dash - 1);
-	switch (static_cast<Qt::PenCapStyle>(currentStyle[i].LineEnd))
+	dashCombo->setCurrentIndex(m_currentStyle[i].Dash - 1);
+	switch (static_cast<Qt::PenCapStyle>(m_currentStyle[i].LineEnd))
 	{
 	case Qt::FlatCap:
 		endCombo->setCurrentIndex(0);
@@ -120,7 +120,7 @@ void SMLineStyleWidget::slotEditNewLine(int i)
 		break;
 	}
 
-	switch (static_cast<Qt::PenJoinStyle>(currentStyle[i].LineJoin))
+	switch (static_cast<Qt::PenJoinStyle>(m_currentStyle[i].LineJoin))
 	{
 	case Qt::MiterJoin:
 		joinCombo->setCurrentIndex(0);
@@ -144,7 +144,7 @@ void SMLineStyleWidget::updateLineList()
 	QPixmap * pm2;
 	double unitRatio = lineWidth->unitRatio();
 	int decimals = lineWidth->decimals();
-	for (multiLine::iterator it = currentStyle.begin(); it != currentStyle.end(); ++it)
+	for (multiLine::iterator it = m_currentStyle.begin(); it != m_currentStyle.end(); ++it)
 	{
 		pm2 = getWidePixmap(getColor(it->Color, it->Shade));
 		tmp2 = " "+ tmp.setNum(it->Width * unitRatio, 'f', decimals) + lineWidth->suffix() + " ";
@@ -156,8 +156,8 @@ void SMLineStyleWidget::updateLineList()
 
 QColor SMLineStyleWidget::getColor(const QString &name, int shade)
 {
-	const ScColor& color = colors[name];
-	QColor tmpf = ScColorEngine::getDisplayColor(color, colors.document(), shade);
+	const ScColor& color = m_colors[name];
+	QColor tmpf = ScColorEngine::getDisplayColor(color, m_colors.document(), shade);
 	return tmpf;
 }
 
