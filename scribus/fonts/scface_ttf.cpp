@@ -546,8 +546,7 @@ bool ScFace_ttf::hasNames() const
 
 	// The glyph name table embedded in Truetype fonts is not reliable.
 	// For those fonts we consequently use Adobe Glyph names whenever possible.
-	const bool avoidFntNames = (formatCode != ScFace::TYPE42 && typeCode == ScFace::TTF) &&
-	                           (face->charmap && face->charmap->encoding == FT_ENCODING_UNICODE);
+	const bool avoidFntNames = (formatCode != ScFace::TYPE42 && typeCode == ScFace::TTF) && hasMicrosoftUnicodeCmap(face);
 	if (avoidFntNames)
 		return true; // We use Adobe 'uniXXXX' names in such case
 
@@ -565,8 +564,7 @@ bool ScFace_ttf::glyphNames(QMap<uint, std::pair<QChar, QString> >& GList) const
 	
 	// The glyph name table embedded in Truetype fonts is not reliable.
 	// For those fonts we consequently use Adobe Glyph names whenever possible.
-	const bool avoidFntNames = (formatCode != ScFace::TYPE42 && typeCode == ScFace::TTF) &&
-	                           (face->charmap && face->charmap->encoding == FT_ENCODING_UNICODE);
+	const bool avoidFntNames = (formatCode != ScFace::TYPE42 && typeCode == ScFace::TTF) && hasMicrosoftUnicodeCmap(face);
 	if (!avoidFntNames)
 		return FtFace::glyphNames(GList);
 	

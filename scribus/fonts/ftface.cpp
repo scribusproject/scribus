@@ -9,6 +9,7 @@ for which a new license (GPL+exception) is in place.
 
 #include FT_OUTLINE_H
 #include FT_GLYPH_H
+#include FT_TRUETYPE_IDS_H
 
 #include <QObject>
 #include <QFile>
@@ -324,6 +325,12 @@ QString FtFace::adobeGlyphName(FT_ULong charcode)
 	}
 	return result;
 }
+
+bool FtFace::hasMicrosoftUnicodeCmap(FT_Face face)
+{
+	return (face->charmap && face->charmap->encoding == FT_ENCODING_UNICODE && face->charmap->platform_id == TT_PLATFORM_MICROSOFT);
+}
+
 
 bool FtFace::glyphNames(QMap<uint, std::pair<QChar, QString> >& GList) const
 {

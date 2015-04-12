@@ -314,6 +314,7 @@ QPixmap FontSample(const ScFace& fnt, int s, QString ts, QColor back, bool force
 	return pmr;
 }
 
+#if 0
 bool GlyphNames(const FtFace& fnt, QMap<uint, std::pair<QChar, QString> >& GList)
 {
 	char buf[50];
@@ -383,7 +384,7 @@ bool GlyphNames(const FtFace& fnt, QMap<uint, std::pair<QChar, QString> >& GList
 
 	return true;
 }
-
+#endif
 
 static int traceMoveto( FT_Vector *to, FPointArray *composite )
 {
