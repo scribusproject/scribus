@@ -33,7 +33,7 @@ public:
 	void clearAll();
 
 private:
-	QMap<QString, QString> m_langMap;
+	//QMap<QString, QString> m_langMap;
 
 	void showSizeAndPosition(const QList<CharStyle*> &cstyles);
 	void showEffects(const QList<CharStyle*> &cstyles);
