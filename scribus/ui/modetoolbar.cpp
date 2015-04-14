@@ -30,13 +30,11 @@ for which a new license (GPL+exception) is in place.
 #include "modetoolbar.h"
 
 #include "autoformbuttongroup.h"
-#include "ui/scmwmenumanager.h"
 #include "polyprops.h"
 #include "scraction.h"
 #include "scribus.h"
 #include "scribusdoc.h"
 #include "scrspinbox.h"
-#include "util.h"
 
 ModeToolBar::ModeToolBar(ScribusMainWindow* parent) : ScToolBar( tr("Tools"), "Tools", parent, Qt::Vertical)
 {
@@ -54,11 +52,11 @@ ModeToolBar::ModeToolBar(ScribusMainWindow* parent) : ScToolBar( tr("Tools"), "T
 	this->addAction(m_ScMW->scrActions["toolsInsertTable"]);
 	
 	this->addAction(m_ScMW->scrActions["toolsInsertShape"]);
-	Rechteck = new AutoformButtonGroup( NULL );
-	m_ScMW->scrActions["toolsInsertShape"]->setMenu(Rechteck);
+	autoFormButtonGroup = new AutoformButtonGroup( NULL );
+	m_ScMW->scrActions["toolsInsertShape"]->setMenu(autoFormButtonGroup);
 	QToolButton* tb = dynamic_cast<QToolButton*>(this->widgetForAction(m_ScMW->scrActions["toolsInsertShape"]));
 	tb->setPopupMode(QToolButton::DelayedPopup);
-	m_ScMW->scrActions["toolsInsertShape"]->setIcon(QIcon(Rechteck->getIconPixmap(0,16)));
+	m_ScMW->scrActions["toolsInsertShape"]->setIcon(QIcon(autoFormButtonGroup->getIconPixmap(0,16)));
 
 	this->addAction(m_ScMW->scrActions["toolsInsertPolygon"]);
 	insertPolygonButtonMenu = new QMenu();
@@ -108,7 +106,7 @@ ModeToolBar::ModeToolBar(ScribusMainWindow* parent) : ScToolBar( tr("Tools"), "T
 	this->addAction(m_ScMW->scrActions["toolsEyeDropper"]);
 
 	languageChange();
-	connect(Rechteck, SIGNAL(FormSel(int, int, qreal *)), this, SLOT(SelShape(int, int, qreal *)));
+	connect(autoFormButtonGroup, SIGNAL(FormSel(int, int, qreal *)), this, SLOT(SelShape(int, int, qreal *)));
 	connect(Angle, SIGNAL(valueChanged(double)), this, SLOT(newCalValues()));
 	connect(PWidth, SIGNAL(valueChanged(double)), this, SLOT(newCalValues()));
 }
@@ -132,7 +130,7 @@ void ModeToolBar::GetPolyProps()
 
 void ModeToolBar::SelShape(int s, int c, qreal *vals)
 {
-	m_ScMW->scrActions["toolsInsertShape"]->setIcon(QIcon(Rechteck->getIconPixmap(s,16)));
+	m_ScMW->scrActions["toolsInsertShape"]->setIcon(QIcon(autoFormButtonGroup->getIconPixmap(s,16)));
 	SubMode = s;
 	ValCount = c;
 	ShapeVals = vals;
