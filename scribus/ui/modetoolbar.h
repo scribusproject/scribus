@@ -69,7 +69,7 @@ public slots:
 	void languageChange();
 		
 protected:
-	AutoformButtonGroup* Rechteck;
+	AutoformButtonGroup* autoFormButtonGroup;
 	QWidgetAction* insertShapeButtonAct;
 	QMenu* insertShapeButtonMenu;
 	QMenu* insertPolygonButtonMenu;
