@@ -64,7 +64,9 @@ public:
 	\retval int page no */
 	int pageNr() const { return ((currentPage) ? currentPage->pageNr() : -1); }
 
-	int currentIndex() { return tabWidget->currentIndex(); };
+	int currentIndex() { return tabWidget->currentIndex(); }
+
+	void setGuideLock(bool guidesLocked);
 	
 	virtual void changeEvent(QEvent *e);
 

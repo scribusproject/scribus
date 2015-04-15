@@ -718,22 +718,23 @@ public:
 	/**
 	 * @brief Undo function for applying a master page
 	 */
-	void restoreMasterPageApplying(SimpleState *state, bool isUndo);
-	void restoreMasterPageRenaming(SimpleState *state, bool isUndo);
-	void restoreCopyPage(SimpleState *state, bool isUndo);
-	void restoreMovePage(SimpleState *state, bool isUndo);
-	void restoreSwapPage(SimpleState *state, bool isUndo);
-	void restoreAddMasterPage(SimpleState *state, bool isUndo);
-	void restoreChangePageProperties(SimpleState *state, bool isUndo);
+	void restoreMasterPageApplying(SimpleState* ss, bool isUndo);
+	void restoreMasterPageRenaming(SimpleState* ss, bool isUndo);
+	void restoreCopyPage(SimpleState* ss, bool isUndo);
+	void restoreMovePage(SimpleState* ss, bool isUndo);
+	void restoreSwapPage(SimpleState* ss, bool isUndo);
+	void restoreAddMasterPage(SimpleState* ss, bool isUndo);
+	void restoreChangePageProperties(SimpleState* ss, bool isUndo);
 	/**
 	 * @brief Undo function for grouping/ungrouping
 	 */
-	void restoreGrouping(SimpleState *state, bool isUndo);
+	void restoreGrouping(SimpleState* ss, bool isUndo);
 	/**
 	 * @brief Undo function for level
 	 */
-	void restoreLevelDown(SimpleState *state, bool isUndo);
-	void restoreLevelBottom(SimpleState *state, bool isUndo);
+	void restoreLevelDown(SimpleState* ss, bool isUndo);
+	void restoreLevelBottom(SimpleState* ss, bool isUndo);
+	void restoreGuideLock(SimpleState* ss, bool isUndo);
 	/**
 	 * @brief Save function
 	 */

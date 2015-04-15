@@ -4265,7 +4265,7 @@ bool ScribusMainWindow::DoFileClose()
 		else
 			QDir::setCurrent( QDir::homePath() );
 	}
-	disconnect(pageSelector, 0 ,0 ,0);
+	pageSelector->disconnect();
 	pageSelector->setMaximum(1);
 	pageSelector->setEnabled(false);
 	updateLayerMenu();
@@ -6070,8 +6070,7 @@ void ScribusMainWindow::deletePage(int from, int to)
 	}
 	if (tmpSelection.count() != 0)
 		doc->itemSelection_DeleteItem(&tmpSelection);
-	//disconnect(view->pageSelector, SIGNAL(GotoPage(int)), view, SLOT(GotoPa(int)));
-	pageSelector->blockSignals(true);
+	bool b = pageSelector->blockSignals(true);
 	view->updatesOn(false);
 	for (int a = to - 1; a >= from - 1; a--)
 	{
@@ -6100,8 +6099,7 @@ void ScribusMainWindow::deletePage(int from, int to)
 			doc->removePageFromSection(a);
 	}
 	pageSelector->setMaximum(doc->Pages->count());
-	//connect(view->pageSelector, SIGNAL(GotoPage(int)), view, SLOT(GotoPa(int)));
-	pageSelector->blockSignals(false);
+	pageSelector->blockSignals(b);
 	undoManager->setUndoEnabled(false); // ugly hack to disable object moving when undoing page deletion
 	view->reformPagesView();
 	undoManager->setUndoEnabled(true); // ugly hack continues
@@ -6112,9 +6110,7 @@ void ScribusMainWindow::deletePage(int from, int to)
 	doc->rebuildMasterNames();
 	pagePalette->rebuildMasters();
 	if (activeTransaction)
-	{
 		activeTransaction.commit();
-	}
 }
 
 void ScribusMainWindow::movePage()
@@ -8306,8 +8302,7 @@ void ScribusMainWindow::SearchText()
 	connect(dia, SIGNAL(NewFont(const QString&)), this, SLOT(SetNewFont(const QString&)));
 	connect(dia, SIGNAL(NewAbs(int)), this, SLOT(setAlignmentValue(int)));
 	dia->exec();
-	disconnect(dia, SIGNAL(NewFont(const QString&)), this, SLOT(SetNewFont(const QString&)));
-	disconnect(dia, SIGNAL(NewAbs(int)), this, SLOT(setAlignmentValue(int)));
+	dia->disconnect();
 	delete dia;
 	slotSelect();
 }

@@ -76,43 +76,26 @@ GuideManager::GuideManager(QWidget* parent) :
 			 SIGNAL(selectionChanged(const QItemSelection &, const QItemSelection &)),
 			 this, SLOT(forceDrawGuides(const QItemSelection &, const QItemSelection &)));
 
-	connect(applyToAllStdButton, SIGNAL(clicked()),
-			this, SLOT(applyToAllStdButton_clicked()));
-	connect(horizontalAutoCountSpin, SIGNAL(valueChanged(double)),
-			this, SLOT(horizontalAutoCountSpin_valueChanged(double)));
-	connect(verticalAutoCountSpin, SIGNAL(valueChanged(double)),
-			this, SLOT(verticalAutoCountSpin_valueChanged(double)));
-	connect(horizontalAutoGapCheck, SIGNAL(stateChanged(int)),
-			this, SLOT(horizontalAutoGapCheck_stateChanged(int)));
-	connect(verticalAutoGapCheck, SIGNAL(stateChanged(int)),
-			this, SLOT(verticalAutoGapCheck_stateChanged(int)));
-	connect(horizontalAutoGapSpin, SIGNAL(valueChanged(double)),
-			this, SLOT(horizontalAutoGapSpin_valueChanged(double)));
-	connect(verticalAutoGapSpin, SIGNAL(valueChanged(double)),
-			this, SLOT(verticalAutoGapSpin_valueChanged(double)));
+	connect(applyToAllStdButton, SIGNAL(clicked()), this, SLOT(applyToAllStdButton_clicked()));
+	connect(horizontalAutoCountSpin, SIGNAL(valueChanged(double)), this, SLOT(horizontalAutoCountSpin_valueChanged(double)));
+	connect(verticalAutoCountSpin, SIGNAL(valueChanged(double)), this, SLOT(verticalAutoCountSpin_valueChanged(double)));
+	connect(horizontalAutoGapCheck, SIGNAL(stateChanged(int)), this, SLOT(horizontalAutoGapCheck_stateChanged(int)));
+	connect(verticalAutoGapCheck, SIGNAL(stateChanged(int)), this, SLOT(verticalAutoGapCheck_stateChanged(int)));
+	connect(horizontalAutoGapSpin, SIGNAL(valueChanged(double)), this, SLOT(horizontalAutoGapSpin_valueChanged(double)));
+	connect(verticalAutoGapSpin, SIGNAL(valueChanged(double)), this, SLOT(verticalAutoGapSpin_valueChanged(double)));
 
-	connect(horizontalPageAutoButton, SIGNAL(toggled(bool)),
-			this, SLOT(horizontalPageAutoButton_toggled(bool)));
-	connect(horizontalMarginsAutoButton, SIGNAL(toggled(bool)),
-			this, SLOT(horizontalMarginsAutoButton_toggled(bool)));
-	connect(horizontalSelectionAutoButton, SIGNAL(toggled(bool)),
-			this, SLOT(horizontalSelectionAutoButton_toggled(bool)));
-	connect(verticalPageAutoButton, SIGNAL(toggled(bool)),
-			this, SLOT(verticalPageAutoButton_toggled(bool)));
-	connect(verticalMarginsAutoButton, SIGNAL(toggled(bool)),
-			this, SLOT(verticalMarginsAutoButton_toggled(bool)));
-	connect(verticalSelectionAutoButton, SIGNAL(toggled(bool)),
-			this, SLOT(verticalSelectionAutoButton_toggled(bool)));
+	connect(horizontalPageAutoButton, SIGNAL(toggled(bool)), this, SLOT(horizontalPageAutoButton_toggled(bool)));
+	connect(horizontalMarginsAutoButton, SIGNAL(toggled(bool)), this, SLOT(horizontalMarginsAutoButton_toggled(bool)));
+	connect(horizontalSelectionAutoButton, SIGNAL(toggled(bool)), this, SLOT(horizontalSelectionAutoButton_toggled(bool)));
+	connect(verticalPageAutoButton, SIGNAL(toggled(bool)), this, SLOT(verticalPageAutoButton_toggled(bool)));
+	connect(verticalMarginsAutoButton, SIGNAL(toggled(bool)), this, SLOT(verticalMarginsAutoButton_toggled(bool)));
+	connect(verticalSelectionAutoButton, SIGNAL(toggled(bool)), this, SLOT(verticalSelectionAutoButton_toggled(bool)));
 
-	connect(applyToAllAutoButton, SIGNAL(clicked()),
-			this, SLOT(applyToAllAutoButton_clicked()));
-	connect(deletePageButton, SIGNAL(clicked()),
-			this, SLOT(deletePageButton_clicked()));
-	connect(deleteAllGuides, SIGNAL(clicked()),
-			this, SLOT(deleteAllGuides_clicked()));
+	connect(applyToAllAutoButton, SIGNAL(clicked()), this, SLOT(applyToAllAutoButton_clicked()));
+	connect(deletePageButton, SIGNAL(clicked()), this, SLOT(deletePageButton_clicked()));
+	connect(deleteAllGuides, SIGNAL(clicked()), this, SLOT(deleteAllGuides_clicked()));
 
-	connect(lockCheck, SIGNAL(stateChanged(int)),
-			this, SLOT(lockCheck_stateChanged(int)));
+	connect(lockCheck, SIGNAL(stateChanged(int)), this, SLOT(lockCheck_stateChanged(int)));
 
 	connect(horizontalModel, SIGNAL(valueChanged()), this, SLOT(horizontalModel_valueChanged()));
 	connect(verticalModel, SIGNAL(valueChanged()), this, SLOT(verticalModel_valueChanged()));
@@ -488,6 +471,13 @@ Guides GuideManager::selectedVerticals()
 		ret.append(curr.at(i.row()));
 	}
 	return ret;
+}
+
+void GuideManager::setGuideLock(bool guidesLocked)
+{
+	bool b=lockCheck->blockSignals(true);
+	lockCheck->setChecked(guidesLocked);
+	lockCheck->blockSignals(b);
 }
 
 void GuideManager::forceDrawGuides(const QItemSelection &, const QItemSelection &)

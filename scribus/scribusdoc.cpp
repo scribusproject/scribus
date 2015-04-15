@@ -1766,12 +1766,7 @@ void ScribusDoc::restore(UndoState* state, bool isUndo)
 		else if (ss->contains("UNGROUP"))
 			restoreGrouping(ss, !isUndo);
 		else if (ss->contains("GUIDE_LOCK"))
-		{
-			if (isUndo)
-				GuideLock = !ss->getBool("GUIDE_LOCK");
-			else
-				GuideLock = ss->getBool("GUIDE_LOCK");
-		}
+			restoreGuideLock(ss, isUndo);
 		else if (ss->contains("UP_LAYER"))
 		{
 			if (isUndo)
@@ -2302,7 +2297,7 @@ void ScribusDoc::restore(UndoState* state, bool isUndo)
 	}
 }
 
-void ScribusDoc::restoreLevelDown(SimpleState *ss, bool isUndo)
+void ScribusDoc::restoreLevelDown(SimpleState* ss, bool isUndo)
 {
 	ScItemState<QList<QPointer<PageItem> > > *is = dynamic_cast<ScItemState<QList<QPointer<PageItem> > > *>(ss);
 	QList<QPointer<PageItem> > listItem = is->getItem();
@@ -2315,7 +2310,7 @@ void ScribusDoc::restoreLevelDown(SimpleState *ss, bool isUndo)
 		itemSelection_LowerItem();
 }
 
-void ScribusDoc::restoreLevelBottom(SimpleState *ss, bool isUndo)
+void ScribusDoc::restoreLevelBottom(SimpleState* ss, bool isUndo)
 {
 	ScItemState<QList<QPointer<PageItem> > > *is = dynamic_cast<ScItemState<QList<QPointer<PageItem> > > *>(ss);
 	QList<QPointer<PageItem> > listItem = is->getItem();
@@ -2328,7 +2323,15 @@ void ScribusDoc::restoreLevelBottom(SimpleState *ss, bool isUndo)
 		sendItemSelectionToBack();
 }
 
-void ScribusDoc::restoreAddMasterPage(SimpleState *ss, bool isUndo)
+void ScribusDoc::restoreGuideLock(SimpleState* ss, bool isUndo)
+{
+	if (isUndo)
+		GuideLock = !ss->getBool("GUIDE_LOCK");
+	else
+		GuideLock = ss->getBool("GUIDE_LOCK");
+}
+
+void ScribusDoc::restoreAddMasterPage(SimpleState* ss, bool isUndo)
 {
 	QString pageName = ss->get("MASTERPAGE_NAME");
 	int pageNr = ss->getInt("MASTERPAGE_NBR");
@@ -2395,10 +2398,10 @@ void ScribusDoc::restoreChangePageProperties(SimpleState* state, bool isUndo)
 //	scMW()->guidePalette->setupPage(false);
 }
 
-void ScribusDoc::restoreGrouping(SimpleState *state, bool isUndo)
+void ScribusDoc::restoreGrouping(SimpleState* ss, bool isUndo)
 {
 	double x, y, w, h;
-	ScItemState<QList<QPointer<PageItem> > > *is = dynamic_cast<ScItemState<QList<QPointer<PageItem> > >*>(state);
+	ScItemState<QList<QPointer<PageItem> > > *is = dynamic_cast<ScItemState<QList<QPointer<PageItem> > >*>(ss);
 	QList<QPointer<PageItem> > select = is->getItem();
 	m_Selection->delaySignalsOn();
 	for (int i = 0; i < select.count(); ++i)
@@ -2859,10 +2862,10 @@ void ScribusDoc::swapPage(const int a, const int b)
 	changed();
 }
 
-void ScribusDoc::restoreSwapPage(SimpleState *state, bool isUndo)
+void ScribusDoc::restoreSwapPage(SimpleState* ss, bool isUndo)
 {
-	int a = state->getInt("PAGE_SWAP_FROM");
-	int b = state->getInt("PAGE_SWAP_TO");
+	int a = ss->getInt("PAGE_SWAP_FROM");
+	int b = ss->getInt("PAGE_SWAP_TO");
 
 	if (isUndo)
 		swapPage(b,a);
@@ -2918,12 +2921,12 @@ void ScribusDoc::movePage(const int fromPage, const int toPage, const int dest, 
 	changed();
 }
 
-void ScribusDoc::restoreMovePage(SimpleState *state, bool isUndo)
+void ScribusDoc::restoreMovePage(SimpleState* ss, bool isUndo)
 {
-	int fromPage = state->getInt("PAGE_MOVE_FROM");
-	int toPage = state->getInt("PAGE_MOVE_TO");
-	int position = state->getInt("PAGE_MOVE_NEWPOS");
-	int dest = state->getInt("PAGE_MOVE_DEST");
+	int fromPage = ss->getInt("PAGE_MOVE_FROM");
+	int toPage = ss->getInt("PAGE_MOVE_TO");
+	int position = ss->getInt("PAGE_MOVE_NEWPOS");
+	int dest = ss->getInt("PAGE_MOVE_DEST");
 
 	if (isUndo)
 	{
@@ -4904,11 +4907,11 @@ bool ScribusDoc::applyMasterPage(const QString& pageName, const int pageNumber)
 }
 
 
-void ScribusDoc::restoreMasterPageApplying(SimpleState *state, bool isUndo)
+void ScribusDoc::restoreMasterPageApplying(SimpleState* ss, bool isUndo)
 {
-	int pageNumber = state->getInt("PAGE_NUMBER");
-	QString oldName = state->get("OLD_MASTERPAGE");
-	QString newName = state->get("NEW_MASTERPAGE");
+	int pageNumber = ss->getInt("PAGE_NUMBER");
+	QString oldName = ss->get("OLD_MASTERPAGE");
+	QString newName = ss->get("NEW_MASTERPAGE");
 	if (isUndo)
 		applyMasterPage(oldName, pageNumber);
 	else
@@ -4916,10 +4919,10 @@ void ScribusDoc::restoreMasterPageApplying(SimpleState *state, bool isUndo)
 	scMW()->pagePalette->rebuildPages();
 }
 
-void ScribusDoc::restoreMasterPageRenaming(SimpleState *state, bool isUndo)
+void ScribusDoc::restoreMasterPageRenaming(SimpleState* ss, bool isUndo)
 {
-	QString oldName = state->get("OLD_MASTERPAGE");
-	QString newName = state->get("NEW_MASTERPAGE");
+	QString oldName = ss->get("OLD_MASTERPAGE");
+	QString newName = ss->get("NEW_MASTERPAGE");
 	if (isUndo)
 		renameMasterPage(newName, oldName);
 	else
@@ -4927,12 +4930,12 @@ void ScribusDoc::restoreMasterPageRenaming(SimpleState *state, bool isUndo)
 	scMW()->pagePalette->updateMasterPageList();
 }
 
-void ScribusDoc::restoreCopyPage(SimpleState *state, bool isUndo)
+void ScribusDoc::restoreCopyPage(SimpleState* ss, bool isUndo)
 {
-	int pnum = state->getInt("PAGE_NUM");
-	int extPage = state->getInt("EXISTING_PAGE");
-	int whereTo = state->getInt("WHERE_TO");
-	int copyCount = state->getInt("COPY_COUNT");
+	int pnum = ss->getInt("PAGE_NUM");
+	int extPage = ss->getInt("EXISTING_PAGE");
+	int whereTo = ss->getInt("WHERE_TO");
+	int copyCount = ss->getInt("COPY_COUNT");
 
 	if (isUndo)
 	{

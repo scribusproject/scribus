@@ -36,11 +36,6 @@ public:
 	void setFont ( const QFont & );
 	int getCurrentPage();
 
-	QPushButton* startButton;
-	QPushButton* backButton;
-	QPushButton* forwardButton;
-	QPushButton* lastButton;
-
 public slots:
 	virtual void setGUIForPage(int i);
 	virtual void setMaximum(int i);
@@ -56,14 +51,17 @@ private slots:
 	virtual void goForward();
 
 protected:
+	QPushButton* startButton;
+	QPushButton* backButton;
+	QPushButton* forwardButton;
+	QPushButton* lastButton;
 	QHBoxLayout *PageSelectorLayout;
 	QLabel *pageCountLabel;
 	QString PageCountString;
-	int m_lastPage;
-	int m_currentPage;
-
 	QComboBox *m_pageCombo;
 	QIntValidator *m_validator;
+	int m_lastPage;
+	int m_currentPage;
 
 signals:
 	void GotoPage(int);
