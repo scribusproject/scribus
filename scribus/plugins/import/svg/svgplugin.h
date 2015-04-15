@@ -10,7 +10,8 @@ for which a new license (GPL+exception) is in place.
 #include <QDomElement>
 #include <QFont>
 #include <QList>
-#include <QSize>
+#include <QRectF>
+#include <QSizeF>
 #include <QStack>
 #include "pluginapi.h"
 #include "loadsaveplugin.h"
@@ -243,8 +244,8 @@ public:
 	bool isIgnorableNode( const QDomElement &e );
 	bool isIgnorableNodeName( const QString &n );
 	FPoint parseTextPosition(const QDomElement &e, const FPoint* pos = NULL);
-	QSize  parseWidthHeight(const QDomElement &e);
-	QRect  parseViewBox(const QDomElement &e);
+	QSizeF  parseWidthHeight(const QDomElement &e);
+	QRectF  parseViewBox(const QDomElement &e);
 	void parseDefs(const QDomElement &e);
 	void parseClipPath(const QDomElement &e);
 	void parseClipPathAttr(const QDomElement &e, FPointArray& clipPath);

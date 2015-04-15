@@ -247,7 +247,7 @@ QImage SVGPlug::readThumbnail(QString fName)
 	QDir::setCurrent(efp.path());
 	SvgStyle *gc = new SvgStyle;
 	QDomElement docElem = inpdoc.documentElement();
-	QSize wh = parseWidthHeight(docElem);
+	QSizeF wh = parseWidthHeight(docElem);
 	m_Doc = new ScribusDoc();
 	m_Doc->setup(0, 1, 1, 1, 1, "Custom", "Custom");
 	m_Doc->setPage(wh.width(), wh.height(), 0, 0, 0, 0, 0, 0, false, false);
@@ -271,7 +271,7 @@ QImage SVGPlug::readThumbnail(QString fName)
 		if (points.size() > 3)
 		{
 			QTransform matrix;
-			QSize wh2 = parseWidthHeight(docElem);
+			QSizeF wh2 = parseWidthHeight(docElem);
 			double w2 = wh2.width();
 			double h2 = wh2.height();
 			addGraphicContext();
@@ -366,7 +366,7 @@ void SVGPlug::convert(const TransactionSettings& trSettings, int flags)
 	bool ret = false;
 	SvgStyle *gc = new SvgStyle;
 	QDomElement docElem = inpdoc.documentElement();
-	QSize wh = parseWidthHeight(docElem);
+	QSizeF wh = parseWidthHeight(docElem);
 	double width = wh.width();
 	double height = wh.height();
 	if (!interactive || (flags & LoadSavePlugin::lfInsertPage))
@@ -418,7 +418,7 @@ void SVGPlug::convert(const TransactionSettings& trSettings, int flags)
 		if (points.size() > 3)
 		{
 			QTransform matrix;
-			QSize wh2 = parseWidthHeight(docElem);
+			QSizeF wh2 = parseWidthHeight(docElem);
 			double w2 = wh2.width();
 			double h2 = wh2.height();
 			addGraphicContext();
@@ -964,9 +964,9 @@ FPoint SVGPlug::parseTextPosition(const QDomElement &e, const FPoint* pos)
 	return FPoint(x, y);
 }
 
-QSize SVGPlug::parseWidthHeight(const QDomElement &e)
+QSizeF SVGPlug::parseWidthHeight(const QDomElement &e)
 {
-	QSize size(550, 841);
+	QSizeF size(550, 841);
 	QString sw = e.attribute("width", "100%");
 	QString sh = e.attribute("height", "100%");
 	double w =  550, h = 841;
@@ -976,7 +976,7 @@ QSize SVGPlug::parseWidthHeight(const QDomElement &e)
 		h = sh.endsWith("%") ? fromPercentage(sh) : parseUnit(sh);
 	if (!e.attribute("viewBox").isEmpty())
 	{
-		QRect viewBox = parseViewBox(e);
+		QRectF viewBox = parseViewBox(e);
 		double scw = (viewBox.width() > 0 && viewBox.height() > 0) ? viewBox.width()  : size.width();
 		double sch = (viewBox.width() > 0 && viewBox.height() > 0) ? viewBox.height() : size.height();
 		w *= (sw.endsWith("%") ? scw : 1.0);
@@ -994,14 +994,14 @@ QSize SVGPlug::parseWidthHeight(const QDomElement &e)
 		w = w / m * 842;
 		h = h / m * 842;
 	}
-	size.setWidth(qRound(w));
-	size.setHeight(qRound(h));
+	size.setWidth(w);
+	size.setHeight(h);
 	return size;
 }
 
-QRect SVGPlug::parseViewBox(const QDomElement &e)
+QRectF SVGPlug::parseViewBox(const QDomElement &e)
 {
-	QRect box(0, 0, 0, 0);
+	QRectF box(0, 0, 0, 0);
 	if ( !e.attribute( "viewBox" ).isEmpty() )
 	{
 		QString viewbox( e.attribute( "viewBox" ) );
