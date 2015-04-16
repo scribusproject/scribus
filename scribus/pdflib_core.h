@@ -147,7 +147,9 @@ private:
 //	QString    PDFEncode(const QString & in);
 	QByteArray ComputeMD5(const QString& in);
 	QByteArray ComputeRC4Key(int ObjNum);
-	
+
+	bool    PDF_ItemIsOnPage(PageItem* item, const Page* page, const QList<PageItem*>& itemList);
+
 	bool    PDF_ProcessItem(QString& output, PageItem* ite, const Page* pag, uint PNr, bool embedded = false, bool pattern = false);
 	QString PDF_ProcessTableItem(PageItem* ite, const Page* pag);
 	QString drawArrow(PageItem *ite, QMatrix &arrowTrans, int arrowIndex);

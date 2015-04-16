@@ -2868,6 +2868,8 @@ bool PDFLibCore::PDF_ProcessPage(const Page* pag, uint PNr, bool clip)
 				ite = PItems.at(a);
 				if (ite->LayerNr != ll.LNr)
 					continue;
+				if (!PDF_ItemIsOnPage(ite, pag, PItems))
+					continue;
 				QString grcon = "";
 				if (ite->isGroupControl)
 				{
@@ -3059,6 +3061,56 @@ QString PDFLibCore::Write_TransparencyGroup(double trans, int blend, QString &da
 	retString += "/"+name+" Do\n";
 	retString += "Q\n";
 	return retString;
+}
+
+bool PDFLibCore::PDF_ItemIsOnPage(PageItem* item, const Page* page, const QList<PageItem*>& itemList)
+{
+	PageItem* topItem = item;
+
+	if ((!page->pageName().isEmpty()) && 
+		(item->OwnPage != page->pageNr()) && 
+		(item->OwnPage != -1))
+	{
+		return false;
+	}
+
+	int groupID = -1;
+	if (item->isGroupControl && item->Groups.count() > 1)
+		groupID = topItem->Groups.first();
+	if (!item->isGroupControl && item->Groups.count() > 0)
+		groupID = topItem->Groups.first();
+
+	if (groupID >= 0)
+	{
+		for (int i = 0; i < itemList.count(); ++i)
+		{
+			PageItem* pageItem = itemList.at(i);
+			if (pageItem->Groups.count() <= 0)
+				continue;
+			if (pageItem->Groups.first() == groupID)
+			{
+				topItem = pageItem;
+				break;
+			}
+		}
+	}
+
+	topItem->setRedrawBounding();
+	double bLeft, bRight, bBottom, bTop;
+	getBleeds(page, bLeft, bRight, bBottom, bTop);
+	double x  = page->xOffset() - bLeft;
+	double y  = page->yOffset() - bTop;
+	double w  = page->width() + bLeft + bRight;
+	double h1 = page->height()+ bBottom + bTop;
+	double ilw= topItem->lineWidth();
+	double x2 = topItem->BoundingX - ilw / 2.0;
+	double y2 = topItem->BoundingY - ilw / 2.0;
+	double w2 = qMax(topItem->BoundingW + ilw, 1.0);
+	double h2 = qMax(topItem->BoundingH + ilw, 1.0);
+
+	if (!( qMax( x, x2 ) <= qMin( x+w, x2+w2 ) && qMax( y, y2 ) <= qMin( y+h1, y2+h2 )))
+		return false;
+	return true;
 }
 
 QString PDFLibCore::PDF_ProcessTableItem(PageItem* ite, const Page* pag)
