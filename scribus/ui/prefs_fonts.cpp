@@ -48,7 +48,7 @@ Prefs_Fonts::Prefs_Fonts(QWidget* parent, ScribusDoc* doc)
 	CurrentPath = "";
 	setMinimumSize(fontMetrics().width( tr( "Available Fonts" )+ tr( "Font Substitutions" )+ tr( "Additional Paths" ))+180, 200);
 
-	fontListTableView->setModel(new FontListModel(fontListTableView));
+	fontListTableView->setModel(new FontListModel(fontListTableView, m_doc));
 
 	fontSubstitutionsTableWidget->setRowCount(RList.count());
 	fontSubstitutionsTableWidget->setColumnCount(2);
