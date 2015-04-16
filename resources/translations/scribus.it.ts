@@ -3136,7 +3136,7 @@ Configurazione non valida</translation>
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.cpp" line="72"/>
         <source>Interleaved 2 of 5</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Interleaved 2 of 5</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.cpp" line="76"/>
@@ -3159,7 +3159,7 @@ Configurazione non valida</translation>
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.cpp" line="80"/>
         <source>Code 2 of 5</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Code 2 of 5</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.cpp" line="83"/>
@@ -4903,7 +4903,7 @@ Il tasto Inserisci inserisce un carattere (speciale) nell&apos;area di selezione
     <message>
         <location filename="../../scribus/ui/checkDocument.cpp" line="131"/>
         <source>Imported document contains non-embedded fonts</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Il documento importato contiene font non incorporati</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/checkDocument.cpp" line="131"/>
@@ -4943,12 +4943,12 @@ Il tasto Inserisci inserisce un carattere (speciale) nell&apos;area di selezione
     <message>
         <location filename="../../scribus/ui/checkDocument.cpp" line="137"/>
         <source>The assigned image file cannot be found.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Il file immagine assegnato non è stato trovato.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/checkDocument.cpp" line="138"/>
         <source>An object is placed somewhere outside of the page borders, it will not be printed and might be missing somewhere.</source>
-        <translation type="unfinished">Un oggetto è posizionato fuori dai bordi della pagina,non sarà stampato e potrebbe essere mancante.</translation>
+        <translation type="unfinished">Un oggetto è posizionato fuori dai bordi della pagina, non sarà stampato e potrebbe essere mancante.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/checkDocument.cpp" line="139"/>
@@ -4989,12 +4989,12 @@ Il tasto Inserisci inserisce un carattere (speciale) nell&apos;area di selezione
     <message>
         <location filename="../../scribus/ui/checkDocument.cpp" line="145"/>
         <source>This layer uses blendmodes which relies on transparency, only an issue if using older printing profiles. You may safely ignore this when using modern printing methods, or exporting to PDF version greater than 1.4.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Questo livello utilizza un metodo di fusione che fa affidamento su trasparenza, un problema solo in caso di profili di stampa vecchi. Puoi tranquillamente ignorare questo utilizzando metodi di stampa moderni, o esportare a versioni PDF successive a 1.4.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/checkDocument.cpp" line="146"/>
         <source>Print/Visible mismatch</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Incongruenza stampa/visibile</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/checkDocument.cpp" line="396"/>
