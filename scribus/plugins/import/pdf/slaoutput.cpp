@@ -207,7 +207,7 @@ SlaOutputDev::SlaOutputDev(ScribusDoc* doc, QList<PageItem*> *Elements, QStringL
 	m_Elements = Elements;
 	m_groupStack.clear();
 	pushGroup();
-	m_clipStack.clear();
+	m_clipPaths.clear();
 	m_currentMask = "";
 	m_importedColors = importedColors;
 	CurrColorStroke = "Black";
@@ -215,7 +215,6 @@ SlaOutputDev::SlaOutputDev(ScribusDoc* doc, QList<PageItem*> *Elements, QStringL
 	Coords = "";
 	pathIsClosed = false;
 	tmpSel = new Selection(m_doc, false);
-	grStackDepth = 0;
 	firstLayer = true;
 	layerNum = 1;
 	importerFlags = flags;
@@ -1216,6 +1215,11 @@ void SlaOutputDev::startPage(int pageNum, GfxState *, XRef *)
 	m_radioMap.clear();
 	m_radioButtons.clear();
 	m_actPage = pageNum;
+	m_groupStack.clear();
+	pushGroup();
+	m_currentClipPath.resize(0);
+	m_currentClipPath.svgInit();
+	m_clipPaths.clear();
 }
 
 void SlaOutputDev::endPage()
@@ -1241,9 +1245,7 @@ void SlaOutputDev::endPage()
 				ite->setItemName(it.key());
 				m_Elements->append(ite);
 				if (m_groupStack.count() != 0)
-				{
 					m_groupStack.top().Items.append(ite);
-				}
 			}
 		}
 	}
@@ -1254,134 +1256,82 @@ void SlaOutputDev::endPage()
 
 void SlaOutputDev::saveState(GfxState *state)
 {
-//	qDebug() << "saveState" << grStackDepth;
-	grStackDepth++;
+	m_clipPaths.push(m_currentClipPath);
+	pushGroup();
 }
 
 void SlaOutputDev::restoreState(GfxState *state)
 {
-//	qDebug() << "restoreState" << grStackDepth;
-	grStackDepth--;
 	if (m_groupStack.count() != 0)
-		m_groupStack.top().maskName = "";
-	if (m_clipStack.count() != 0)
 	{
-		while (m_clipStack.top().grStackDepth > grStackDepth)
+		groupEntry gElements = m_groupStack.pop();
+		if (gElements.Items.count() > 0)
 		{
-			clipEntry clp = m_clipStack.pop();
-			PageItem *ite = clp.ClipItem;
-			if (m_groupStack.count() != 0)
+			if ((gElements.Items.count() != 1) && (checkClip()))
 			{
-				groupEntry gElements = m_groupStack.pop();
-				if (gElements.Items.count() > 0)
+				tmpSel->clear();
+				for (int dre = 0; dre < gElements.Items.count(); ++dre)
 				{
-					for (int d = 0; d < gElements.Items.count(); d++)
-					{
-						m_Elements->removeAll(gElements.Items.at(d));
-					}
-					PageItem *sing = gElements.Items.first();
-					QPainterPath input1 = sing->PoLine.toQPainterPath(true);
-					if (sing->fillEvenOdd())
-						input1.setFillRule(Qt::OddEvenFill);
-					else
-						input1.setFillRule(Qt::WindingFill);
-					QPainterPath input2 = ite->PoLine.toQPainterPath(true);
-					if (ite->fillEvenOdd())
-						input2.setFillRule(Qt::OddEvenFill);
-					else
-						input2.setFillRule(Qt::WindingFill);
-					QPainterPath result = input1.intersected(input2);
-					if ((gElements.Items.count() == 1)
-						 && (sing->isGroup() && !result.isEmpty())
-						 && (sing->isImageFrame() || sing->isGroup() || sing->isPolygon() || sing->isPolyLine())
-						 && (ite->patternMask().isEmpty() || sing->patternMask().isEmpty() || (sing->patternMask() == ite->patternMask()))
-						 && (state->getFillOpacity() == (1.0 - ite->fillTransparency()))
-					   )
-					{
-						m_Elements->replace(m_Elements->indexOf(ite), sing);
-						m_doc->Items->removeAll(sing);
-						m_doc->Items->replace(m_doc->Items->indexOf(ite), sing);
-						if (m_groupStack.top().Items.indexOf(ite) > -1)
-							m_groupStack.top().Items.replace(m_groupStack.top().Items.indexOf(ite), sing);
-						else
-							m_groupStack.top().Items.append(sing);
-						sing->setFillTransparency(1.0 - (state->getFillOpacity() * (1.0 - ite->fillTransparency())));
-						sing->setFillBlendmode(getBlendMode(state));
-						if (!ite->patternMask().isEmpty())
-						{
-							sing->setPatternMask(ite->patternMask());
-							sing->setMaskType(ite->maskType());
-						}
-						if (sing->isGroup() || (sing->lineColor() == CommonStrings::None))
-						{
-							double dx = sing->xPos() - ite->xPos();
-							double dy = sing->yPos() - ite->yPos();
-							sing->PoLine.translate(dx, dy);
-							if (sing->isGroup())
-							{
-								QList<PageItem*> allItems = sing->asGroupFrame()->groupItemList;
-								for (int si = 0; si < allItems.count(); si++)
-								{
-									allItems[si]->moveBy(dx, dy, true);
-								}
-							}
-							sing->setXYPos(ite->xPos(), ite->yPos(), true);
-							sing->setWidthHeight(ite->width(), ite->height(), true);
-							sing->groupWidth = ite->width();
-							sing->groupHeight = ite->height();
-							sing->ClipEdited = true;
-							sing->FrameType = 3;
-							if (!result.isEmpty())
-								sing->PoLine.fromQPainterPath(result);
-							else
-								sing->SetRectFrame();
-							m_doc->AdjustItemSize(sing);
-							if (sing->isGroup())
-								sing->asGroupFrame()->adjustXYPosition();
-							if (sing->isImageFrame())
-							{
-								sing->setImageXYOffset(0, 0);
-								sing->AdjustPictScale();
-							}
-						}
-						delete ite;
-					}
-					else
-					{
-						m_doc->groupObjectsToItem(ite, gElements.Items);
-						ite->setFillTransparency(1.0 - state->getFillOpacity());
-						ite->setFillBlendmode(getBlendMode(state));
-					}
+					tmpSel->addItem(gElements.Items.at(dre), true);
+					m_Elements->removeAll(gElements.Items.at(dre));
 				}
-				else
+				PageItem *ite = m_doc->groupObjectsSelection(tmpSel);
+				ite->ClipEdited = true;
+				ite->FrameType = 3;
+				FPointArray out = m_currentClipPath.copy();
+				out.translate(m_doc->currentPage()->xOffset(), m_doc->currentPage()->yOffset());
+				out.translate(-ite->xPos(), -ite->yPos());
+				ite->PoLine = out.copy();
+				ite->setTextFlowMode(PageItem::TextFlowDisabled);
+				m_doc->AdjustItemSize(ite, true);
+				ite->OldB2 = ite->width();
+				ite->OldH2 = ite->height();
+				m_Elements->append(ite);
+				if (m_groupStack.count() != 0)
 				{
-					m_Elements->removeAll(ite);
-					m_doc->Items->removeAll(ite);
-					m_groupStack.top().Items.removeAll(ite);
-					delete ite;
+					applyMask(ite);
+					m_groupStack.top().Items.append(ite);
+				}
+				tmpSel->clear();
+			}
+			else
+			{
+				if (m_groupStack.count() != 0)
+				{
+					for (int dre = 0; dre < gElements.Items.count(); ++dre)
+					{
+						PageItem *ite = gElements.Items.at(dre);
+						applyMask(ite);
+						m_groupStack.top().Items.append(ite);
+					}
 				}
 			}
-			if (m_clipStack.count() == 0)
-				break;
 		}
 	}
+	if (m_clipPaths.count() != 0)
+		m_currentClipPath = m_clipPaths.pop();
 }
-/*
-void SlaOutputDev::updateFillColor(GfxState *state)
+
+void SlaOutputDev::beginTransparencyGroup(GfxState *state, double *bbox, GfxColorSpace * /*blendingColorSpace*/, GBool isolated, GBool knockout, GBool forSoftMask)
 {
-	int shade = 100;
-	CurrColorFill = getColor(state->getFillColorSpace(), state->getFillColor(), &shade);
-}
-*/
-void SlaOutputDev::beginTransparencyGroup(GfxState *state, double *bbox, GfxColorSpace * /*blendingColorSpace*/, GBool /*isolated*/, GBool /*knockout*/, GBool forSoftMask)
-{
-//	qDebug() << "Start Group";
 	pushGroup("", forSoftMask);
+}
+
+void SlaOutputDev::paintTransparencyGroup(GfxState *state, double *bbox)
+{
+	if (m_groupStack.count() != 0)
+	{
+		if ((m_groupStack.top().Items.count() != 0) && (!m_groupStack.top().forSoftMask))
+		{
+			PageItem *ite = m_groupStack.top().Items.last();
+			ite->setFillTransparency(1.0 - state->getFillOpacity());
+			ite->setFillBlendmode(getBlendMode(state));
+		}
+	}
 }
 
 void SlaOutputDev::endTransparencyGroup(GfxState *state)
 {
-//	qDebug() << "End Group";
 	if (m_groupStack.count() != 0)
 	{
 		groupEntry gElements = m_groupStack.pop();
@@ -1430,21 +1380,30 @@ void SlaOutputDev::endTransparencyGroup(GfxState *state)
 					ite = m_doc->groupObjectsSelection(tmpSel);
 				else
 					ite = gElements.Items.first();
+				if (ite->isGroup())
+				{
+					ite->ClipEdited = true;
+					ite->FrameType = 3;
+					if (checkClip())
+					{
+						FPointArray out = m_currentClipPath.copy();
+						out.translate(m_doc->currentPage()->xOffset(), m_doc->currentPage()->yOffset());
+						out.translate(-ite->xPos(), -ite->yPos());
+						ite->PoLine = out.copy();
+						ite->setTextFlowMode(PageItem::TextFlowDisabled);
+						m_doc->AdjustItemSize(ite, true);
+						ite->OldB2 = ite->width();
+						ite->OldH2 = ite->height();
+					}
+				}
 				ite->setFillTransparency(1.0 - state->getFillOpacity());
 				ite->setFillBlendmode(getBlendMode(state));
-				for (int as = 0; as < tmpSel->count(); ++as)
-				{
-					m_Elements->append(tmpSel->itemAt(as));
-				}
+				m_Elements->append(ite);
 				if (m_groupStack.count() != 0)
+				{
 					applyMask(ite);
-			}
-		}
-		if (m_groupStack.count() != 0)
-		{
-			for (int as = 0; as < tmpSel->count(); ++as)
-			{
-				m_groupStack.top().Items.append(tmpSel->itemAt(as));
+					m_groupStack.top().Items.append(ite);
+				}
 			}
 		}
 		tmpSel->clear();
@@ -1465,18 +1424,17 @@ void SlaOutputDev::setSoftMask(GfxState * /*state*/, double * /*bbox*/, GBool al
 			m_groupStack.top().inverted = false;
 		else
 			m_groupStack.top().inverted = true;
-//		qDebug() << "Inverted Softmask" << m_groupStack.top().inverted;
 		m_groupStack.top().maskName = m_currentMask;
 		m_groupStack.top().alpha = alpha;
+		if (m_groupStack.top().Items.count() != 0)
+			applyMask(m_groupStack.top().Items.last());
 	}
 }
 
 void SlaOutputDev::clearSoftMask(GfxState * /*state*/)
 {
 	if (m_groupStack.count() != 0)
-	{
 		m_groupStack.top().maskName = "";
-	}
 }
 
 void SlaOutputDev::updateFillColor(GfxState *state)
@@ -1502,43 +1460,30 @@ void SlaOutputDev::clip(GfxState *state)
 	if (!output.isEmpty())
 	{
 		out.parseSVG(output);
-		if (!pathIsClosed)
-			out.svgClosePath();
+		out.svgClosePath();
 		out.map(m_ctm);
+		if (checkClip())
+		{
+			QPainterPath pathN = out.toQPainterPath(true);
+			QPainterPath pathA = m_currentClipPath.toQPainterPath(true);
+			QPainterPath resultPath = pathA.intersected(pathN);
+			if (!resultPath.isEmpty())
+			{
+				FPointArray polyline;
+				polyline.resize(0);
+				polyline.fromQPainterPath(resultPath, true);
+				polyline.svgClosePath();
+				m_currentClipPath = polyline.copy();
+			}
+			else
+			{
+				m_currentClipPath.resize(0);
+				m_currentClipPath.svgInit();
+			}
+		}
+		else
+			m_currentClipPath = out.copy();
 	}
-	double xmin, ymin, xmax, ymax;
-	state->getClipBBox(&xmin, &ymin, &xmax, &ymax);
-	QRectF crect = QRectF(QPointF(xmin, ymin), QPointF(xmax, ymax));
-	crect = crect.normalized();
-	int z = m_doc->itemAdd(PageItem::Group, PageItem::Rectangle, crect.x() + m_doc->currentPage()->xOffset(), crect.y() + m_doc->currentPage()->yOffset(), crect.width(), crect.height(), 0, CommonStrings::None, CommonStrings::None, true);
-	PageItem *ite = m_doc->Items->at(z);
-	if (!output.isEmpty())
-	{
-		FPoint wh(getMinClipF(&out));
-		out.translate(-wh.x(), -wh.y());
-		FPoint dim = out.WidthHeight();
-		if (!((dim.x() == 0.0) || (dim.y() == 0.0)))		// avoid degenerate clipping paths
-			ite->PoLine = out.copy();  //FIXME: try to avoid copy if FPointArray when properly shared
-	}
-	ite->ClipEdited = true;
-	ite->FrameType = 3;
-	ite->setFillEvenOdd(false);
-	ite->Clip = FlattenPath(ite->PoLine, ite->Segments);
-	ite->ContourLine = ite->PoLine.copy();
-	ite->setTextFlowMode(PageItem::TextFlowDisabled);
-	m_doc->AdjustItemSize(ite);
-	m_Elements->append(ite);
-	if (m_groupStack.count() != 0)
-	{
-		m_groupStack.top().Items.append(ite);
-		applyMask(ite);
-	}
-	clipEntry clp;
-	clp.ClipItem = ite;
-	clp.grStackDepth = grStackDepth;
-	m_clipStack.push(clp);
-	m_doc->GroupCounter++;
-	pushGroup();
 }
 
 void SlaOutputDev::eoClip(GfxState *state)
@@ -1552,43 +1497,30 @@ void SlaOutputDev::eoClip(GfxState *state)
 	if (!output.isEmpty())
 	{
 		out.parseSVG(output);
-		if (!pathIsClosed)
-			out.svgClosePath();
+		out.svgClosePath();
 		out.map(m_ctm);
+		if (checkClip())
+		{
+			QPainterPath pathN = out.toQPainterPath(true);
+			QPainterPath pathA = m_currentClipPath.toQPainterPath(true);
+			QPainterPath resultPath = pathA.intersected(pathN);
+			if (!resultPath.isEmpty())
+			{
+				FPointArray polyline;
+				polyline.resize(0);
+				polyline.fromQPainterPath(resultPath, true);
+				polyline.svgClosePath();
+				m_currentClipPath = polyline.copy();
+			}
+			else
+			{
+				m_currentClipPath.resize(0);
+				m_currentClipPath.svgInit();
+			}
+		}
+		else
+			m_currentClipPath = out.copy();
 	}
-	double xmin, ymin, xmax, ymax;
-	state->getClipBBox(&xmin, &ymin, &xmax, &ymax);
-	QRectF crect = QRectF(QPointF(xmin, ymin), QPointF(xmax, ymax));
-	crect = crect.normalized();
-	int z = m_doc->itemAdd(PageItem::Group, PageItem::Rectangle, crect.x() + m_doc->currentPage()->xOffset(), crect.y() + m_doc->currentPage()->yOffset(), crect.width(), crect.height(), 0, CommonStrings::None, CommonStrings::None, true);
-	PageItem *ite = m_doc->Items->at(z);
-	if (!output.isEmpty())
-	{
-		FPoint wh(getMinClipF(&out));
-		out.translate(-wh.x(), -wh.y());
-		FPoint dim = out.WidthHeight();
-		if (!((dim.x() == 0.0) || (dim.y() == 0.0)))		// avoid degenerate clipping paths
-			ite->PoLine = out.copy();  //FIXME: try to avoid copy if FPointArray when properly shared
-	}
-	ite->ClipEdited = true;
-	ite->FrameType = 3;
-	ite->setFillEvenOdd(true);
-	ite->Clip = FlattenPath(ite->PoLine, ite->Segments);
-	ite->ContourLine = ite->PoLine.copy();
-	ite->setTextFlowMode(PageItem::TextFlowDisabled);
-	m_doc->AdjustItemSize(ite);
-	m_Elements->append(ite);
-	if (m_groupStack.count() != 0)
-	{
-		m_groupStack.top().Items.append(ite);
-		applyMask(ite);
-	}
-	clipEntry clp;
-	clp.ClipItem = ite;
-	clp.grStackDepth = grStackDepth;
-	m_clipStack.push(clp);
-	m_doc->GroupCounter++;
-	pushGroup();
 }
 
 void SlaOutputDev::stroke(GfxState *state)
@@ -1844,6 +1776,13 @@ GBool SlaOutputDev::axialShadedFill(GfxState *state, GfxAxialShading *shading, d
 	Coords = output;
 	int z = m_doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, xCoor + crect.x(), yCoor + crect.y(), crect.width(), crect.height(), 0, CurrColorFill, CommonStrings::None, true);
 	PageItem* ite = m_doc->Items->at(z);
+	if (checkClip())
+	{
+		FPointArray out = m_currentClipPath.copy();
+		FPoint wh(getMinClipF(&out));
+		out.translate(-wh.x(), -wh.y());
+		ite->PoLine = out.copy();
+	}
 	ite->ClipEdited = true;
 	ite->FrameType = 3;
 	ite->setFillShade(CurrFillShade);
@@ -1956,6 +1895,13 @@ GBool SlaOutputDev::radialShadedFill(GfxState *state, GfxRadialShading *shading,
 	Coords = output;
 	int z = m_doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, xCoor + crect.x(), yCoor + crect.y(), crect.width(), crect.height(), 0, CurrColorFill, CommonStrings::None, true);
 	PageItem* ite = m_doc->Items->at(z);
+	if (checkClip())
+	{
+		FPointArray out = m_currentClipPath.copy();
+		FPoint wh(getMinClipF(&out));
+		out.translate(-wh.x(), -wh.y());
+		ite->PoLine = out.copy();
+	}
 	ite->ClipEdited = true;
 	ite->FrameType = 3;
 	ite->setFillShade(CurrFillShade);
@@ -2011,6 +1957,13 @@ GBool SlaOutputDev::gouraudTriangleShadedFill(GfxState *state, GfxGouraudTriangl
 	m_ctm = QTransform(ctm[0], ctm[1], ctm[2], ctm[3], ctm[4], ctm[5]);
 	int z = m_doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, xCoor + crect.x(), yCoor + crect.y(), crect.width(), crect.height(), 0, CurrColorFill, CommonStrings::None, true);
 	PageItem* ite = m_doc->Items->at(z);
+	if (checkClip())
+	{
+		FPointArray out = m_currentClipPath.copy();
+		FPoint wh(getMinClipF(&out));
+		out.translate(-wh.x(), -wh.y());
+		ite->PoLine = out.copy();
+	}
 	ite->ClipEdited = true;
 	ite->FrameType = 3;
 	ite->setFillShade(CurrFillShade);
@@ -2092,6 +2045,13 @@ GBool SlaOutputDev::patchMeshShadedFill(GfxState *state, GfxPatchMeshShading *sh
 	m_ctm = QTransform(ctm[0], ctm[1], ctm[2], ctm[3], ctm[4], ctm[5]);
 	int z = m_doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, xCoor + crect.x(), yCoor + crect.y(), crect.width(), crect.height(), 0, CurrColorFill, CommonStrings::None, true);
 	PageItem* ite = m_doc->Items->at(z);
+	if (checkClip())
+	{
+		FPointArray out = m_currentClipPath.copy();
+		FPoint wh(getMinClipF(&out));
+		out.translate(-wh.x(), -wh.y());
+		ite->PoLine = out.copy();
+	}
 	ite->ClipEdited = true;
 	ite->FrameType = 3;
 	ite->setFillShade(CurrFillShade);
@@ -2311,6 +2271,13 @@ GBool SlaOutputDev::tilingPatternFill(GfxState *state, Gfx * /*gfx*/, Catalog *c
 	Coords = output;
 	int z = m_doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, xCoor + crect.x(), yCoor + crect.y(), crect.width(), crect.height(), 0, CurrColorFill, CommonStrings::None, true);
 	ite = m_doc->Items->at(z);
+	if (checkClip())
+	{
+		FPointArray out = m_currentClipPath.copy();
+		FPoint wh(getMinClipF(&out));
+		out.translate(-wh.x(), -wh.y());
+		ite->PoLine = out.copy();
+	}
 	ite->ClipEdited = true;
 	ite->FrameType = 3;
 	ite->setFillShade(CurrFillShade);
@@ -2445,7 +2412,8 @@ void SlaOutputDev::drawImageMask(GfxState *state, Object *ref, Stream *str, int 
 	}
 	int z = m_doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, xCoor + trect.x(), yCoor + trect.y(), trect.width(), trect.height(), 0, CommonStrings::None, CommonStrings::None, true);
 	PageItem* ite = m_doc->Items->at(z);
-	ite->SetRectFrame();
+	ite->ClipEdited = true;
+	ite->FrameType = 3;
 	m_doc->setRedrawBounding(ite);
 	ite->Clip = FlattenPath(ite->PoLine, ite->Segments);
 	ite->setTextFlowMode(PageItem::TextFlowDisabled);
@@ -2471,6 +2439,21 @@ void SlaOutputDev::drawImageMask(GfxState *state, Object *ref, Stream *str, int 
 			{
 				m_groupStack.top().Items.append(ite);
 				applyMask(ite);
+			}
+			if (checkClip())
+			{
+				FPointArray out = m_currentClipPath.copy();
+				out.translate(m_doc->currentPage()->xOffset(), m_doc->currentPage()->yOffset());
+				out.translate(-ite->xPos(), -ite->yPos());
+				ite->PoLine = out.copy();
+				FPoint wh = getMaxClipF(&ite->PoLine);
+				ite->setWidthHeight(wh.x(),wh.y());
+				ite->setTextFlowMode(PageItem::TextFlowDisabled);
+				ite->ScaleType   = true;
+				m_doc->AdjustItemSize(ite);
+				ite->OldB2 = ite->width();
+				ite->OldH2 = ite->height();
+				ite->updateClip();
 			}
 		}
 		else
@@ -2574,7 +2557,8 @@ void SlaOutputDev::drawSoftMaskedImage(GfxState *state, Object *ref, Stream *str
 	}
 	int z = m_doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, xCoor + trect.x(), yCoor + trect.y(), trect.width(), trect.height(), 0, CommonStrings::None, CommonStrings::None, true);
 	PageItem* ite = m_doc->Items->at(z);
-	ite->SetRectFrame();
+	ite->ClipEdited = true;
+	ite->FrameType = 3;
 	m_doc->setRedrawBounding(ite);
 	ite->Clip = FlattenPath(ite->PoLine, ite->Segments);
 	ite->setTextFlowMode(PageItem::TextFlowDisabled);
@@ -2602,6 +2586,21 @@ void SlaOutputDev::drawSoftMaskedImage(GfxState *state, Object *ref, Stream *str
 			{
 				m_groupStack.top().Items.append(ite);
 				applyMask(ite);
+			}
+			if (checkClip())
+			{
+				FPointArray out = m_currentClipPath.copy();
+				out.translate(m_doc->currentPage()->xOffset(), m_doc->currentPage()->yOffset());
+				out.translate(-ite->xPos(), -ite->yPos());
+				ite->PoLine = out.copy();
+				FPoint wh = getMaxClipF(&ite->PoLine);
+				ite->setWidthHeight(wh.x(),wh.y());
+				ite->setTextFlowMode(PageItem::TextFlowDisabled);
+				ite->ScaleType   = true;
+				m_doc->AdjustItemSize(ite);
+				ite->OldB2 = ite->width();
+				ite->OldH2 = ite->height();
+				ite->updateClip();
 			}
 		}
 		else
@@ -2712,7 +2711,8 @@ void SlaOutputDev::drawMaskedImage(GfxState *state, Object *ref, Stream *str,  i
 	}
 	int z = m_doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, xCoor + trect.x(), yCoor + trect.y(), trect.width(), trect.height(), 0, CommonStrings::None, CommonStrings::None, true);
 	PageItem* ite = m_doc->Items->at(z);
-	ite->SetRectFrame();
+	ite->ClipEdited = true;
+	ite->FrameType = 3;
 	m_doc->setRedrawBounding(ite);
 	ite->Clip = FlattenPath(ite->PoLine, ite->Segments);
 	ite->setTextFlowMode(PageItem::TextFlowDisabled);
@@ -2740,6 +2740,21 @@ void SlaOutputDev::drawMaskedImage(GfxState *state, Object *ref, Stream *str,  i
 			{
 				m_groupStack.top().Items.append(ite);
 				applyMask(ite);
+			}
+			if (checkClip())
+			{
+				FPointArray out = m_currentClipPath.copy();
+				out.translate(m_doc->currentPage()->xOffset(), m_doc->currentPage()->yOffset());
+				out.translate(-ite->xPos(), -ite->yPos());
+				ite->PoLine = out.copy();
+				FPoint wh = getMaxClipF(&ite->PoLine);
+				ite->setWidthHeight(wh.x(),wh.y());
+				ite->setTextFlowMode(PageItem::TextFlowDisabled);
+				ite->ScaleType   = true;
+				m_doc->AdjustItemSize(ite);
+				ite->OldB2 = ite->width();
+				ite->OldH2 = ite->height();
+				ite->updateClip();
 			}
 		}
 		else
@@ -2858,9 +2873,10 @@ void SlaOutputDev::drawImage(GfxState *state, Object *ref, Stream *str, int widt
 			img = image->transformed(mm);
 		}
 	}
-	int z = m_doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, xCoor + trect.x(), yCoor + trect.y(), trect.width(), trect.height(), 0, CommonStrings::None, CommonStrings::None, true);
+	int z = m_doc->itemAdd(PageItem::ImageFrame, PageItem::Rectangle, xCoor + trect.x(), yCoor + trect.y(), trect.width(), trect.height(), 0, CommonStrings::None, CommonStrings::None, true);
 	PageItem* ite = m_doc->Items->at(z);
-	ite->SetRectFrame();
+	ite->ClipEdited = true;
+	ite->FrameType = 3;
 	m_doc->setRedrawBounding(ite);
 	ite->Clip = FlattenPath(ite->PoLine, ite->Segments);
 	ite->setTextFlowMode(PageItem::TextFlowDisabled);
@@ -2882,6 +2898,8 @@ void SlaOutputDev::drawImage(GfxState *state, Object *ref, Stream *str, int widt
 				tempFile->close();
 				ite->isInlineImage = true;
 				ite->isTempFile = true;
+				ite->AspectRatio = false;
+				ite->ScaleType   = false;
 				TIFF* tif = TIFFOpen(fileName.toLocal8Bit().data(), "w");
 				if (tif)
 				{
@@ -2899,7 +2917,6 @@ void SlaOutputDev::drawImage(GfxState *state, Object *ref, Stream *str, int widt
 					TIFFClose(tif);
 					m_doc->loadPict(fileName, ite);
 				}
-				ite->setImageScalingMode(false, false);
 				m_Elements->append(ite);
 				if (m_groupStack.count() != 0)
 				{
@@ -2924,9 +2941,10 @@ void SlaOutputDev::drawImage(GfxState *state, Object *ref, Stream *str, int widt
 				tempFile->close();
 				ite->isInlineImage = true;
 				ite->isTempFile = true;
+				ite->AspectRatio = false;
+				ite->ScaleType   = false;
 				img.save(fileName, "PNG");
 				m_doc->loadPict(fileName, ite);
-				ite->setImageScalingMode(false, false);
 				m_Elements->append(ite);
 				if (m_groupStack.count() != 0)
 				{
@@ -2938,6 +2956,21 @@ void SlaOutputDev::drawImage(GfxState *state, Object *ref, Stream *str, int widt
 				m_doc->Items->removeAll(ite);
 		}
 		delete tempFile;
+	}
+	if (checkClip())
+	{
+		FPointArray out = m_currentClipPath.copy();
+		out.translate(m_doc->currentPage()->xOffset(), m_doc->currentPage()->yOffset());
+		out.translate(-ite->xPos(), -ite->yPos());
+		ite->PoLine = out.copy();
+		FPoint wh = getMaxClipF(&ite->PoLine);
+		ite->setWidthHeight(wh.x(),wh.y());
+		ite->setTextFlowMode(PageItem::TextFlowDisabled);
+		ite->ScaleType   = true;
+		m_doc->AdjustItemSize(ite);
+		ite->OldB2 = ite->width();
+		ite->OldH2 = ite->height();
+		ite->updateClip();
 	}
 	delete imgStr;
 	delete image;
@@ -3145,7 +3178,7 @@ void SlaOutputDev::updateFont(GfxState *state)
 
   } else {
 
-	if (!(fontLoc = gfxFont->locateFont(xref, gFalse))) {
+	if (!(fontLoc = gfxFont->locateFont(xref, 0))) {
 	  error(errSyntaxError, -1, "Couldn't find a font for '{0:s}'",
 		gfxFont->getName() ? gfxFont->getName()->getCString()
 						   : "(unnamed)");
@@ -4061,4 +4094,16 @@ QString SlaOutputDev::UnicodeParsedString(GooString *s1)
 		result += QChar( u );
 	}
 	return result;
+}
+
+bool SlaOutputDev::checkClip()
+{
+	bool ret = false;
+	if (m_currentClipPath.count() != 0)
+	{
+		FPoint wh = m_currentClipPath.WidthHeight();
+		if ((wh.x() > 0) && (wh.y() > 0))
+			ret = true;
+	}
+	return ret;
 }

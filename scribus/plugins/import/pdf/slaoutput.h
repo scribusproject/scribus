@@ -231,7 +231,7 @@ public:
 
 	//----- transparency groups and soft masks
 	virtual void beginTransparencyGroup(GfxState *state, double *bbox, GfxColorSpace * /*blendingColorSpace*/, GBool /*isolated*/, GBool /*knockout*/, GBool /*forSoftMask*/);
-	virtual void paintTransparencyGroup(GfxState *state, double *bbox) {}
+	virtual void paintTransparencyGroup(GfxState *state, double *bbox);
 	virtual void endTransparencyGroup(GfxState *state);
 	virtual void setSoftMask(GfxState * /*state*/, double * /*bbox*/, GBool /*alpha*/, Function * /*transferFunc*/, GfxColor * /*backdropColor*/);
 	virtual void clearSoftMask(GfxState * /*state*/);
@@ -265,6 +265,7 @@ private:
 	void applyMask(PageItem *ite);
 	void pushGroup(QString maskName = "", GBool forSoftMask = gFalse, GBool alpha = gFalse, bool inverted = false);
 	QString UnicodeParsedString(GooString *s1);
+	bool checkClip();
 	bool pathIsClosed;
 	QString CurrColorFill;
 	int CurrFillShade;
@@ -275,12 +276,8 @@ private:
 	QVector<double> DashValues;
 	double DashOffset;
 	QString Coords;
-	struct clipEntry
-	{
-		PageItem* ClipItem;
-		int grStackDepth;
-	};
-	QStack<clipEntry> m_clipStack;
+	FPointArray m_currentClipPath;
+	QStack<FPointArray> m_clipPaths;
 	struct groupEntry
 	{
 		QList<PageItem*> Items;
@@ -307,7 +304,6 @@ private:
 		QString ocgName;
 	};
 	QStack<mContent> m_mcStack;
-	int grStackDepth;
 	int layerNum;
 	int currentLayer;
 	bool firstLayer;
