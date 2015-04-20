@@ -1,6 +1,47 @@
 Scribus - 1.5.0svn (Released 2015-xx-xx)
 ========================================
 
+- 0013028: [Translation] Updated Russian translation for 1.5.0 (cbradney) - resolved.
+- 0012487: [Fonts] "Used in Document" flag is not set (jghali) - resolved.
+- 0013022: [Fonts] Useless "Used" column in font config (jghali) - resolved.
+- 0012977: [General] When opening other document,why is previous document view set back to 100%? (cbradney) - resolved.
+- 0013027: [Translation] Japanese translation update for 1.5 (jghali) - closed.
+- 0013018: [Translation] Italian translation update (FirasH) - closed.
+- 0013007: [Styles] Styles Menu: Clone a style and try to drag it up the list causes Signal 6 (cbradney) - closed.
+- 0012996: [Graphics / Image Frames] Pasted images coming from LO do not appear in "Inline Items" windows (fschmid) - closed.
+- 0012247: [User Interface] Ungroup crashes (most likely caused by copy/paste) (fschmid) - closed.
+- 0013004: [Translation] Updated Danish Translation (jghali) - closed.
+- 0013005: [Translation] Danish lorem ipsum (jghali) - closed.
+- 0013006: [User Interface] Picture Browser (Scribus) Crash (cbradney) - closed.
+- 0012990: [PDF] Gradients are being exported with an offset (fschmid) - closed.
+- 0011316: [Documentation] Update to Windows Build info (jghali) - closed.
+- 0012976: [Import / Export] opening eps window always says "clean.pdf" (cbradney) - closed.
+- 0012978: [Import / Export] ACO palettes cannot be imported (fschmid) - closed.
+- 0012972: [General] "Pen Angle" setting in Document Setup needs document reopening to be applied (cbradney) - closed.
+- 0012766: [Import / Export] 1.5 : Opening 1.4.4 sla that with path object (fschmid) - closed.
+- 0012867: [General] Changing item level does not update text flow around frame (fschmid) - closed.
+- 0012965: [General] Problem while opening scribus document (fschmid) - closed.
+- 0012955: [Translation] 1.5.0.svn Italian translation update (FirasH) - closed.
+- 0012961: [Graphics / Image Frames] Rotated photos are imported with rotation but exported to PDF without the rotation (jghali) - closed.
+- 0011802: [General] Strange phenomenon: Page 1 text is reflected in page 3 or 4 (cbradney) - closed.
+- 0012956: [Translation] Hungarian translation update for trunk (jghali) - closed.
+- 0012477: [Undo/Redo] Undo/Redo crashes Scribus changing Text > Color (jghali) - closed.
+- 0012460: [Undo/Redo] Undo/Redo is not able to manage multiple "Truncate text" actions (jghali) - closed.
+- 0012952: [Import / Export] Crash with SVM file (fschmid) - closed.
+- 0012947: [General] content > copy | paste | paste (absolute) do not work anymore (cbradney) - closed.
+- 0012948: [Import / Export] default export to image to png (cbradney) - closed.
+- 0012020: [Undo/Redo] Undo does not restore Page Properties (cbradney) - closed.
+- 0012945: [General] Modifying table cell color affects only one cell in selection (jghali) - closed.
+- 0004884: [Story Editor / Text Frames] Cursor in Story Editor always moves to top when switching window focus (cbradney) - closed.
+- 0010975: [User Interface] Attributes not retained correctly through cut and paste operations (cbradney) - closed.
+- 0012877: [User Interface] weld and unweld in history (cbradney) - closed.
+- 0012906: [Usability] Document "Zoom - Stepping" value not less than 100% (cbradney) - closed.
+- 0012927: [Usability] [PATCH] remove three and four fold from the new document dialog (cbradney) - closed.
+- 0012940: [General] qHash() returns uint and Scribus stores item IDs as ints. (cbradney) - closed.
+- 0011994: [Import / Export] The GraphicsMagick plug-in doesn't recognise all supported formats, even though they can be imported (cbradney) - closed.
+- 0012797: [Story Editor / Text Frames] Linking Text Frames in specific order (2nd>3rd;1st>2nd) leads to wrong linking (1st=3rd) (jghali) - closed.
+- 0012572: [Scripter] [patch] Add a --python-script command line option to run a script and exit (cbradney) - closed.
+- 0012938: [General] Changing "Copy Page" destination crashes Scribus (jghali) - closed.
 - 0012928: [Story Editor / Text Frames] Insufficient justification of Japanese text (cbradney) - resolved.
 - 0010975: [User Interface] Attributes not retained correctly through cut and paste operations (cbradney) - resolved.
 - 0008823: [General] New non modal resource manager (cbradney) - resolved.
