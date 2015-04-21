@@ -1268,6 +1268,9 @@ void AppModeHelper::setMasterPageEditMode(bool b, ScribusDoc* doc)
 	(*a_scrActions)["toolsPDFAnnot3D"]->setEnabled(b2);
 #endif
 	//(*a_scrActions)["viewPreviewMode"]->setEnabled(b2);
+	//TODO: Move to masterpage edit mode enable option for plugin actions
+	if (a_scrActions->contains("ExportAsImage"))
+		(*a_scrActions)["ExportAsImage"]->setEnabled(b2);
 }
 
 void AppModeHelper::updateTableMenuActions(ScribusDoc* doc)
