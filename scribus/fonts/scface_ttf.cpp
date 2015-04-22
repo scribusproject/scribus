@@ -16,6 +16,8 @@ for which a new license (GPL+exception) is in place.
 #include "fonts/scfontmetrics.h"
 #include "util_debug.h"
 #include "scconfig.h"
+#include "sfnt.h"
+
 
 KernFeature::KernFeature ( FT_Face face )
 		:m_valid ( true )
@@ -521,6 +523,14 @@ void ScFace_ttf::load() const
 	if ( !kernFeature )
 		kernFeature = new KernFeature ( ftFace() );
 	FtFace::load();
+	sfnt::PostTable checkPost;
+	FT_Face face = ftFace();
+	checkPost.readFrom(face);
+	if (!checkPost.usable)
+		qDebug() << "unusable post table for " << face->family_name << face->style_name << ":" << checkPost.errorMsg;
+	else
+		qDebug() << "posttable has names for" << checkPost.numberOfGlyphs() << "glyphs from" << maxGlyph;
+	const_cast<bool&>(hasGlyphNames) = checkPost.usable && checkPost.numberOfGlyphs() >= maxGlyph;
 }
 
 void ScFace_ttf::unload() const
@@ -606,7 +616,7 @@ void ScFace_ttf::RawData(QByteArray & bb) const {
 		if (! bb.data())
 			return;
 		// write header
-		sDebug(QObject::tr("memcpy header: %1 %2 %3").arg(0).arg(faceOffset).arg(headerLength));
+//		sDebug(QObject::tr("memcpy header: %1 %2 %3").arg(0).arg(faceOffset).arg(headerLength));
 		if (!copy(bb, 0, coll, faceOffset, headerLength))
 			return;
 
@@ -615,11 +625,11 @@ void ScFace_ttf::RawData(QByteArray & bb) const {
 		{
 			uint tableSize  = word(coll, faceOffset + OFFSET_TABLE_LEN + TDIR_ENTRY_LEN * i + 12);
 			uint tableStart = word(coll, faceOffset + OFFSET_TABLE_LEN + TDIR_ENTRY_LEN * i + 8);
-			sDebug(QObject::tr("table '%1'").arg(tag(coll, tableStart)));
-			sDebug(QObject::tr("memcpy table: %1 %2 %3").arg(pos).arg(tableStart).arg(tableSize));
+//			sDebug(QObject::tr("table '%1'").arg(tag(coll, tableStart)));
+//			sDebug(QObject::tr("memcpy table: %1 %2 %3").arg(pos).arg(tableStart).arg(tableSize));
 			if (!copy(bb, pos, coll, tableStart, tableSize)) break;
 			// write new offset to table entry
-			sDebug(QObject::tr("memcpy offset: %1 %2 %3").arg(OFFSET_TABLE_LEN + TDIR_ENTRY_LEN*i + 8).arg(pos).arg(4));
+//			sDebug(QObject::tr("memcpy offset: %1 %2 %3").arg(OFFSET_TABLE_LEN + TDIR_ENTRY_LEN*i + 8).arg(pos).arg(4));
 			// buggy: not endian aware: memcpy(bb.data() + OFFSET_TABLE_LEN + TDIR_ENTRY_LEN * i + 8, &pos, 4);
 			putWord(bb, OFFSET_TABLE_LEN + TDIR_ENTRY_LEN * i + 8, pos);
 			pos += tableSize;

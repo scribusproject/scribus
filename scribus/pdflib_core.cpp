@@ -1242,198 +1242,197 @@ bool PDFLibCore::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QStrin
 	{
 		ScFace& face(AllFonts[it.key()]);
 		ScFace::FontFormat fformat = face.format();
-		if ((!face.hasNames()) || (Options.SubsetList.contains(it.key())))
+		if (Options.OutlineList.contains(it.key()))
 		{
-			if (face.hasNames())
+			// Paint glyphs with XForm objects
+			QString fon("");
+			QMap<uint,FPointArray>& RealGlyphs(it.value());
+			QMap<uint,FPointArray>::Iterator ig;
+			for (ig = RealGlyphs.begin(); ig != RealGlyphs.end(); ++ig)
 			{
-				UsedFontsP.insert(it.key(), "/Fo"+QString::number(a));
-				uint SubFonts = 0;
-				int glyphCount = 0;
-				double minx =  std::numeric_limits<double>::max();
-				double miny =  std::numeric_limits<double>::max();
-				double maxx = -std::numeric_limits<double>::max();
-				double maxy = -std::numeric_limits<double>::max();
-				QList<uint> glyphWidths;
-				QStringList charProcs;
-				QString encoding = "<< /Type /Encoding\n/Differences [ 0\n";
-				QString fon("");
-				QMap<uint, uint> glyphMapping;
-				QMap<uint,std::pair<QChar,QString> > gl;
-				face.glyphNames(gl);
-				QMap<uint,FPointArray>& RealGlyphs(it.value());
-				QMap<uint,FPointArray>::Iterator ig;
-				for (ig = RealGlyphs.begin(); ig != RealGlyphs.end(); ++ig)
+				FPoint np, np1, np2;
+				bool nPath = true;
+				fon = "";
+				if (ig.value().size() > 3)
 				{
-					FPoint np, np1, np2;
-					bool nPath = true;
-					fon = "";
-					if (ig.value().size() > 3)
+					FPointArray gly = ig.value();
+					QTransform mat;
+					mat.scale(0.1, 0.1);
+					gly.map(mat);
+					for (int poi = 0; poi < gly.size()-3; poi += 4)
 					{
-						FPointArray gly = ig.value();
-						QTransform mat;
-						mat.scale(100.0, -100.0);
-						gly.map(mat);
-						gly.translate(0, 1000);
-						for (int poi = 0; poi < gly.size()-3; poi += 4)
+						if (gly.isMarker(poi))
 						{
-							if (gly.isMarker(poi))
-							{
-								fon += "h\n";
-								nPath = true;
-								continue;
-							}
-							if (nPath)
-							{
-								np = gly.point(poi);
-								fon += FToStr(np.x())+" "+FToStr(np.y())+" m\n";
-								nPath = false;
-							}
-							np = gly.point(poi+1);
-							np1 = gly.point(poi+3);
-							np2 = gly.point(poi+2);
-							fon += FToStr(np.x()) + " " + FToStr(np.y()) + " " + FToStr(np1.x()) + " " + FToStr(np1.y()) + " " + FToStr(np2.x()) + " " + FToStr(np2.y()) + " c\n";
+							fon += "h\n";
+							nPath = true;
+							continue;
 						}
-						fon += "h f*\n";
-						np = getMinClipF(&gly);
-						np1 = getMaxClipF(&gly);
-					}
-					else
-					{
-						fon = "h";
-						np = FPoint(0, 0);
-						np1 = FPoint(0, 0);
-					}
-					fon.prepend(QString::number(qRound(np1.x())) + " 0 "+QString::number(qRound(np.x()))+" "+QString::number(qRound(np.y()))+" "+QString::number(qRound(np1.x()))+ " "+QString::number(qRound(np1.y()))+" d1\n");
-					minx = qMin(minx, np.x());
-					miny = qMin(miny, np.y());
-					maxx = qMax(maxx, np1.x());
-					maxy = qMax(maxy, np1.y());
-					glyphWidths.append(qRound(np1.x()));
-					uint charProcObject = newObject();
-					charProcs.append("/"+gl[ig.key()].second+" "+QString::number(charProcObject)+" 0 R\n");
-					encoding += "/"+gl[ig.key()].second+" ";
-					glyphMapping.insert(ig.key(), glyphCount + SubFonts * 256);
-					StartObj(charProcObject);
-					if (Options.Compress)
-						fon = CompressStr(&fon);
-					PutDoc("<< /Length "+QString::number(fon.length()+1));
-					if (Options.Compress)
-						PutDoc("\n/Filter /FlateDecode");
-					PutDoc("\n>>\nstream\n"+EncStream(fon, charProcObject)+"\nendstream\nendobj\n");
-					glyphCount++;
-					int glyphsLeft = RealGlyphs.count() - SubFonts * 256;
-					if ((glyphCount > 255) || (glyphCount == glyphsLeft))
-					{
-						uint fontWidths = newObject();
-						StartObj(fontWidths);
-						PutDoc("[ ");
-						for (int ww = 0; ww < glyphWidths.count(); ++ww)
+						if (nPath)
 						{
-							PutDoc(QString::number(glyphWidths[ww])+" ");
+							np = gly.point(poi);
+							fon += FToStr(np.x())+" "+FToStr(-np.y())+" m\n";
+							nPath = false;
 						}
-						PutDoc("]\nendobj\n");
-						uint fontCharProcs = newObject();
-						StartObj(fontCharProcs);
-						PutDoc("<<\n");
-						for (int ww = 0; ww < charProcs.count(); ++ww)
-						{
-							PutDoc(charProcs[ww]);
-						}
-						PutDoc(">>\nendobj\n");
-						uint fontEncoding = newObject();
-						StartObj(fontEncoding);
-						PutDoc(encoding);
-						PutDoc("]\n");
-						PutDoc(">>\nendobj\n");
-						uint font3Object = newObject();
-						StartObj(font3Object);
-						PutDoc("<<\n/Type /Font\n/Subtype /Type3\n");
-						PutDoc("/Name /Fo"+QString::number(a)+"S"+QString::number(SubFonts)+"\n");
-						PutDoc("/FirstChar 0\n");
-						PutDoc("/LastChar "+QString::number(glyphCount-1)+"\n");
-						PutDoc("/Widths "+QString::number(fontWidths)+" 0 R\n");
-						PutDoc("/CharProcs "+QString::number(fontCharProcs)+" 0 R\n");
-						PutDoc("/FontBBox ["+QString::number(qRound(minx))+" "+QString::number(qRound(miny))+" "+QString::number(qRound(maxx))+ " "+QString::number(qRound(maxy))+"]\n");
-						PutDoc("/FontMatrix [0.001 0 0 0.001 0 0]\n");
-						PutDoc("/Encoding "+QString::number(fontEncoding)+" 0 R\n");
-						PutDoc(">>\nendobj\n");
-						Seite.FObjects["Fo"+QString::number(a)+"S"+QString::number(SubFonts)] = font3Object;
-						charProcs.clear();
-						glyphWidths.clear();
-//						glyphMapping.clear();
-						glyphCount = 0;
-						++SubFonts;
-						minx =  std::numeric_limits<double>::max();
-						miny =  std::numeric_limits<double>::max();
-						maxx = -std::numeric_limits<double>::max();
-						maxy = -std::numeric_limits<double>::max();
-						encoding = "<< /Type /Encoding\n/Differences [ 0\n";
+						np = gly.point(poi+1);
+						np1 = gly.point(poi+3);
+						np2 = gly.point(poi+2);
+						fon += FToStr(np.x()) + " " + FToStr(-np.y()) + " " +
+							FToStr(np1.x()) + " " + FToStr(-np1.y()) + " " +
+							FToStr(np2.x()) + " " + FToStr(-np2.y()) + " c\n";
 					}
+					fon += "h f*\n";
+					np = getMinClipF(&gly);
+					np1 = getMaxClipF(&gly);
 				}
-				Type3Fonts.insert("/Fo"+QString::number(a), glyphMapping);
-			}
-			else
-			{
-				QString fon("");
-				QMap<uint,FPointArray>& RealGlyphs(it.value());
-				QMap<uint,FPointArray>::Iterator ig;
-				for (ig = RealGlyphs.begin(); ig != RealGlyphs.end(); ++ig)
+				else
 				{
-					FPoint np, np1, np2;
-					bool nPath = true;
-					fon = "";
-					if (ig.value().size() > 3)
+					fon = "h";
+					np = FPoint(0, 0);
+					np1 = FPoint(0, 0);
+				}
+				uint fontGlyphXForm = newObject();
+				StartObj(fontGlyphXForm);
+				PutDoc("<<\n/Type /XObject\n/Subtype /Form\n/FormType 1\n");
+				PutDoc("/BBox [ "+FToStr(np.x())+" "+FToStr(-np.y())+" "+FToStr(np1.x())+ " "+FToStr(-np1.y())+" ]\n");
+				PutDoc("/Resources << /ProcSet [/PDF /Text /ImageB /ImageC /ImageI]\n");
+				PutDoc(">>\n");
+				if (Options.Compress)
+					fon = CompressStr(&fon);
+				PutDoc("/Length "+QString::number(fon.length()+1));
+				if (Options.Compress)
+					PutDoc("\n/Filter /FlateDecode");
+				PutDoc(" >>\nstream\n"+EncStream(fon, fontGlyphXForm)+"\nendstream\nendobj\n");
+				Seite.XObjects[face.psName().replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "_" )+QString::number(ig.key())] = fontGlyphXForm;
+			}
+		}
+		else if (Options.SubsetList.contains(it.key()))
+		{
+			// use PDF Type3 font
+			UsedFontsP.insert(it.key(), "/Fo"+QString::number(a));
+			uint SubFonts = 0;
+			int glyphCount = 0;
+			double minx =  std::numeric_limits<double>::max();
+			double miny =  std::numeric_limits<double>::max();
+			double maxx = -std::numeric_limits<double>::max();
+			double maxy = -std::numeric_limits<double>::max();
+			QList<uint> glyphWidths;
+			QStringList charProcs;
+			QString encoding = "<< /Type /Encoding\n/Differences [ 0\n";
+			QString fon("");
+			QMap<uint, uint> glyphMapping;
+			QMap<uint,std::pair<QChar,QString> > gl;
+			face.glyphNames(gl);
+			QMap<uint,FPointArray>& RealGlyphs(it.value());
+			QMap<uint,FPointArray>::Iterator ig;
+			for (ig = RealGlyphs.begin(); ig != RealGlyphs.end(); ++ig)
+			{
+				FPoint np, np1, np2;
+				bool nPath = true;
+				fon = "";
+				if (ig.value().size() > 3)
+				{
+					FPointArray gly = ig.value();
+					QTransform mat;
+					mat.scale(100.0, -100.0);
+					gly.map(mat);
+					gly.translate(0, 1000);
+					for (int poi = 0; poi < gly.size()-3; poi += 4)
 					{
-						FPointArray gly = ig.value();
-						QTransform mat;
-						mat.scale(0.1, 0.1);
-						gly.map(mat);
-						for (int poi = 0; poi < gly.size()-3; poi += 4)
+						if (gly.isMarker(poi))
 						{
-							if (gly.isMarker(poi))
-							{
-								fon += "h\n";
-								nPath = true;
-								continue;
-							}
-							if (nPath)
-							{
-								np = gly.point(poi);
-								fon += FToStr(np.x())+" "+FToStr(-np.y())+" m\n";
-								nPath = false;
-							}
-							np = gly.point(poi+1);
-							np1 = gly.point(poi+3);
-							np2 = gly.point(poi+2);
-							fon += FToStr(np.x()) + " " + FToStr(-np.y()) + " " +
-								FToStr(np1.x()) + " " + FToStr(-np1.y()) + " " +
-								FToStr(np2.x()) + " " + FToStr(-np2.y()) + " c\n";
+							fon += "h\n";
+							nPath = true;
+							continue;
 						}
-						fon += "h f*\n";
-						np = getMinClipF(&gly);
-						np1 = getMaxClipF(&gly);
+						if (nPath)
+						{
+							np = gly.point(poi);
+							fon += FToStr(np.x())+" "+FToStr(np.y())+" m\n";
+							nPath = false;
+						}
+						np = gly.point(poi+1);
+						np1 = gly.point(poi+3);
+						np2 = gly.point(poi+2);
+						fon += FToStr(np.x()) + " " + FToStr(np.y()) + " " + FToStr(np1.x()) + " " + FToStr(np1.y()) + " " + FToStr(np2.x()) + " " + FToStr(np2.y()) + " c\n";
 					}
-					else
+					fon += "h f*\n";
+					np = getMinClipF(&gly);
+					np1 = getMaxClipF(&gly);
+				}
+				else
+				{
+					fon = "h";
+					np = FPoint(0, 0);
+					np1 = FPoint(0, 0);
+				}
+				fon.prepend(QString::number(qRound(np1.x())) + " 0 "+QString::number(qRound(np.x()))+" "+QString::number(qRound(np.y()))+" "+QString::number(qRound(np1.x()))+ " "+QString::number(qRound(np1.y()))+" d1\n");
+				minx = qMin(minx, np.x());
+				miny = qMin(miny, np.y());
+				maxx = qMax(maxx, np1.x());
+				maxy = qMax(maxy, np1.y());
+				glyphWidths.append(qRound(np1.x()));
+				uint charProcObject = newObject();
+				charProcs.append("/"+gl[ig.key()].second+" "+QString::number(charProcObject)+" 0 R\n");
+				encoding += "/"+gl[ig.key()].second+" ";
+				glyphMapping.insert(ig.key(), glyphCount + SubFonts * 256);
+				StartObj(charProcObject);
+				if (Options.Compress)
+					fon = CompressStr(&fon);
+				PutDoc("<< /Length "+QString::number(fon.length()+1));
+				if (Options.Compress)
+					PutDoc("\n/Filter /FlateDecode");
+				PutDoc("\n>>\nstream\n"+EncStream(fon, charProcObject)+"\nendstream\nendobj\n");
+				glyphCount++;
+				int glyphsLeft = RealGlyphs.count() - SubFonts * 256;
+				if ((glyphCount > 255) || (glyphCount == glyphsLeft))
+				{
+					uint fontWidths = newObject();
+					StartObj(fontWidths);
+					PutDoc("[ ");
+					for (int ww = 0; ww < glyphWidths.count(); ++ww)
 					{
-						fon = "h";
-						np = FPoint(0, 0);
-						np1 = FPoint(0, 0);
+						PutDoc(QString::number(glyphWidths[ww])+" ");
 					}
-					uint fontGlyphXForm = newObject();
-					StartObj(fontGlyphXForm);
-					PutDoc("<<\n/Type /XObject\n/Subtype /Form\n/FormType 1\n");
-					PutDoc("/BBox [ "+FToStr(np.x())+" "+FToStr(-np.y())+" "+FToStr(np1.x())+ " "+FToStr(-np1.y())+" ]\n");
-					PutDoc("/Resources << /ProcSet [/PDF /Text /ImageB /ImageC /ImageI]\n");
-					PutDoc(">>\n");
-					if (Options.Compress)
-						fon = CompressStr(&fon);
-					PutDoc("/Length "+QString::number(fon.length()+1));
-					if (Options.Compress)
-						PutDoc("\n/Filter /FlateDecode");
-					PutDoc(" >>\nstream\n"+EncStream(fon, fontGlyphXForm)+"\nendstream\nendobj\n");
-					Seite.XObjects[face.psName().replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "_" )+QString::number(ig.key())] = fontGlyphXForm;
+					PutDoc("]\nendobj\n");
+					uint fontCharProcs = newObject();
+					StartObj(fontCharProcs);
+					PutDoc("<<\n");
+					for (int ww = 0; ww < charProcs.count(); ++ww)
+					{
+						PutDoc(charProcs[ww]);
+					}
+					PutDoc(">>\nendobj\n");
+					uint fontEncoding = newObject();
+					StartObj(fontEncoding);
+					PutDoc(encoding);
+					PutDoc("]\n");
+					PutDoc(">>\nendobj\n");
+					uint font3Object = newObject();
+					StartObj(font3Object);
+					PutDoc("<<\n/Type /Font\n/Subtype /Type3\n");
+					PutDoc("/Name /Fo"+QString::number(a)+"S"+QString::number(SubFonts)+"\n");
+					PutDoc("/FirstChar 0\n");
+					PutDoc("/LastChar "+QString::number(glyphCount-1)+"\n");
+					PutDoc("/Widths "+QString::number(fontWidths)+" 0 R\n");
+					PutDoc("/CharProcs "+QString::number(fontCharProcs)+" 0 R\n");
+					PutDoc("/FontBBox ["+QString::number(qRound(minx))+" "+QString::number(qRound(miny))+" "+QString::number(qRound(maxx))+ " "+QString::number(qRound(maxy))+"]\n");
+					PutDoc("/FontMatrix [0.001 0 0 0.001 0 0]\n");
+					PutDoc("/Encoding "+QString::number(fontEncoding)+" 0 R\n");
+					PutDoc(">>\nendobj\n");
+					Seite.FObjects["Fo"+QString::number(a)+"S"+QString::number(SubFonts)] = font3Object;
+					charProcs.clear();
+					glyphWidths.clear();
+//					glyphMapping.clear();
+					glyphCount = 0;
+					++SubFonts;
+					minx =  std::numeric_limits<double>::max();
+					miny =  std::numeric_limits<double>::max();
+					maxx = -std::numeric_limits<double>::max();
+					maxy = -std::numeric_limits<double>::max();
+					encoding = "<< /Type /Encoding\n/Differences [ 0\n";
 				}
 			}
+			Type3Fonts.insert("/Fo"+QString::number(a), glyphMapping);
 		}
 		else
 		{
@@ -1585,7 +1584,7 @@ bool PDFLibCore::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QStrin
 			++nglyphs;
 //			qDebug() << QString("pdflib: nglyphs %1 max %2").arg(nglyphs).arg(face.maxGlyph());
 			uint FontDes = fontDescriptor;
-			if ((face.isSymbolic() || Options.Version == PDFOptions::PDFVersion_X4) && 
+			if ((face.isSymbolic() || !face.hasNames() || Options.Version == PDFOptions::PDFVersion_X4) && 
 				(fformat == ScFace::SFNT || fformat == ScFace::TTCF))
 			{
 				uint fontWidths2 = newObject();
@@ -5508,7 +5507,7 @@ bool PDFLibCore::setTextCh(PageItem *ite, uint PNr, double x, double y, uint d, 
 			}
 			tmp2 += "S\n";
 		}
-		if (!style.font().hasNames())
+		if (Options.OutlineList.contains(style.font().replacementName()))
 		{
 			if (glyph != style.font().char2CMap(QChar(' ')))
 			{
@@ -5617,7 +5616,7 @@ bool PDFLibCore::setTextCh(PageItem *ite, uint PNr, double x, double y, uint d, 
 				else
 					idx1 = idx / 224;
 				ScFace currentFace = style.font();
-				if ((Options.Version == PDFOptions::PDFVersion_X4 || currentFace.isSymbolic())
+				if ((Options.Version == PDFOptions::PDFVersion_X4 || currentFace.isSymbolic() || !currentFace.hasNames())
 					&& (currentFace.format() == ScFace::SFNT || currentFace.format() == ScFace::TTCF)
 					&& ( !Options.SubsetList.contains(style.font().replacementName()) ) )
 					tmp+= UsedFontsP[currentFace.replacementName()]+" "+FToStr(tsz / 10.0)+" Tf\n";
@@ -5727,7 +5726,7 @@ bool PDFLibCore::setTextCh(PageItem *ite, uint PNr, double x, double y, uint d, 
 						tmp += "<"+QString(toHex(idx2))+"> Tj\n";
 					}
 				}
-				else if ((Options.Version == PDFOptions::PDFVersion_X4 || currentFace.isSymbolic()) && 
+				else if ((Options.Version == PDFOptions::PDFVersion_X4 || currentFace.isSymbolic() || !currentFace.hasNames()) && 
 				         (currentFace.format() == ScFace::SFNT || currentFace.format() == ScFace::TTCF))
 				{
 					QString val;

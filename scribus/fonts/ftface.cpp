@@ -90,8 +90,9 @@ void FtFace::load() const
 	}
 
 	const_cast<FtFace*>(this)->isStroked = false;
-	m_encoding = 0;
+	const_cast<FtFace*>(this)->hasGlyphNames = FT_HAS_GLYPH_NAMES(m_face);
 
+	m_encoding = 0;
 	m_uniEM = static_cast<qreal>(m_face->units_per_EM);
 
 	m_descent = m_face->descender / m_uniEM;

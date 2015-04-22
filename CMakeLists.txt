@@ -4,7 +4,7 @@
 #Set our CMake minimum version
 #Require 2.8.9 for Qt5
 #Require 3.2.0 for add_custom_target with byproducts
-CMAKE_MINIMUM_REQUIRED(VERSION 3.2.0 FATAL_ERROR)
+CMAKE_MINIMUM_REQUIRED(VERSION 2.8.9 FATAL_ERROR)
 
 #Pretty colors
 SET(CMAKE_COLOR_MAKEFILE ON)

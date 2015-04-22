@@ -113,6 +113,7 @@ public:
 	int  Binding;
 	QList<QString> EmbedList;
 	QList<QString> SubsetList;
+	QList<QString> OutlineList;
 	bool MirrorH;
 	bool MirrorV;
 	bool doClip;
