@@ -35,12 +35,12 @@ AboutPlugins::AboutPlugins( QWidget* parent )
 	}
 	// Hook up a connection to update the plugin info when
 	// the selection changes
-	connect(pluginList, SIGNAL(itemClicked(QListWidgetItem*)), SLOT(displayPlugin(QListWidgetItem*)));
+	connect(pluginList, SIGNAL(currentItemChanged(QListWidgetItem*,QListWidgetItem*)), SLOT(displayPlugin(QListWidgetItem*,QListWidgetItem*)));
 	// and select the first plugin, if any
 	if (pluginList->count())
 	{
 		pluginList->setCurrentRow(0);
-		displayPlugin(pluginList->currentItem());
+		displayPlugin(pluginList->currentItem(), pluginList->currentItem());
 	}
 }
 
@@ -48,9 +48,11 @@ AboutPlugins::~AboutPlugins()
 {
 }
 
-void AboutPlugins::displayPlugin(QListWidgetItem* item)
+void AboutPlugins::displayPlugin(QListWidgetItem* currItem, QListWidgetItem* prevItem)
 {
-	int sel = pluginList->row(item);
+	Q_UNUSED(prevItem);
+
+	int sel = pluginList->row(currItem);
 	// Look up the list entry to get the plugin name and use
 	// it to grab the plugin instance and get its about data.
 	PluginManager& pluginManager = PluginManager::instance();

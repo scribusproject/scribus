@@ -26,7 +26,7 @@ class AboutPlugins : public QDialog, Ui::AboutPlugins
 
 	private slots:
 		//! \brief Update the info on a new selection
-		void displayPlugin(QListWidgetItem* item);
+		void displayPlugin(QListWidgetItem* currItem, QListWidgetItem* prevItem);
 
 	private:
 		//! \brief Map list entry IDs to plugin names
