@@ -69,9 +69,10 @@ void AboutPlugins::displayPlugin(QListWidgetItem* currItem, QListWidgetItem* pre
 	html += "<table>";
 	html += QString("<tr><th>%1</th><td>%2</td></tr>").arg( tr("Filename:")).arg(fi.completeBaseName());
 	html += QString("<tr><th>%1</th><td>%2</td></tr>").arg( tr("Version:")).arg(about->version);
-	QString ena;
-	ena = pluginManager.enabled(name) ? CommonStrings::trYes : CommonStrings::trNo;
-	html += QString("<tr><th>%1</th><td>%2</td></tr>").arg( tr("Enabled:")).arg(ena);
+// As we dont allow users to disable plugins, hide this
+//	QString ena;
+//	ena = pluginManager.enabled(name) ? CommonStrings::trYes : CommonStrings::trNo;
+//	html += QString("<tr><th>%1</th><td>%2</td></tr>").arg( tr("Enabled:")).arg(ena);
 	html += QString("<tr><th>%1</th><td>%2</td></tr>").arg( tr("Release Date:")).arg(about->releaseDate.toString());
 	html += "</table>";
 	QString desc;
