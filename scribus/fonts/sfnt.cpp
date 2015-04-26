@@ -340,8 +340,12 @@ void PostTable::readFrom(FT_Face face)
             return;
         case sfnt::post_format20:
             break;
-        case sfnt::post_format25:
         case sfnt::post_format30:
+            errorMsg = QString("post table has no glyph names");
+            usable = false;
+            return;
+            
+        case sfnt::post_format25:
         case sfnt::post_format40:
         default:
             errorMsg = QString("unsupported post format %1").arg(QString::number(sfnt::word(postData,0),16));

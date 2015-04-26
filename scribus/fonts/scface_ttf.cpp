@@ -527,9 +527,9 @@ void ScFace_ttf::load() const
 	FT_Face face = ftFace();
 	checkPost.readFrom(face);
 	if (!checkPost.usable)
-		qDebug() << "unusable post table for " << face->family_name << face->style_name << ":" << checkPost.errorMsg;
+		qDebug() << "can't use post table from " << face->family_name << face->style_name << ":" << checkPost.errorMsg;
 	else
-		qDebug() << "posttable has names for" << checkPost.numberOfGlyphs() << "glyphs from" << maxGlyph;
+		qDebug() << "posttable from" << face->family_name << face->style_name << "has names for" << checkPost.numberOfGlyphs() << "glyphs and" << maxGlyph << "glyphs in charmap";
 	const_cast<bool&>(hasGlyphNames) = checkPost.usable && checkPost.numberOfGlyphs() >= maxGlyph;
 }
 
