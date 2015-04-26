@@ -90,15 +90,15 @@ FormatsManager::FormatsManager()
 	m_fmtNames[FormatsManager::SVG]  = QObject::tr("Scalable Vector Graphics");
 	m_fmtNames[FormatsManager::AI]   = QObject::tr("Adobe Illustrator");
 	m_fmtNames[FormatsManager::XFIG] = QObject::tr("Xfig File");
-	m_fmtNames[FormatsManager::CVG]  = QObject::tr("Calamus CVG File");
-	m_fmtNames[FormatsManager::WPG]  = QObject::tr("Word Perfect WPG File");
+	m_fmtNames[FormatsManager::CVG]  = QObject::tr("Calamus CVG");
+	m_fmtNames[FormatsManager::WPG]  = QObject::tr("Word Perfect WPG");
 	m_fmtNames[FormatsManager::BMP]  = QObject::tr("BMP");
-	m_fmtNames[FormatsManager::ORA]  = QObject::tr("Open Raster Files");
+	m_fmtNames[FormatsManager::ORA]  = QObject::tr("Open Raster");
 #ifdef GMAGICK_FOUND
-	m_fmtNames[FormatsManager::GMAGICK] = QObject::tr("GraphicsMagick File");
+	m_fmtNames[FormatsManager::GMAGICK] = QObject::tr("GraphicsMagick");
 #endif
-	m_fmtNames[FormatsManager::UNICONV] = QObject::tr("UniConvertor File");
-	m_fmtNames[FormatsManager::PCT]  = QObject::tr("Macintosh Pict File");
+	m_fmtNames[FormatsManager::UNICONV] = QObject::tr("UniConvertor");
+	m_fmtNames[FormatsManager::PCT]  = QObject::tr("Macintosh Pict");
 	m_fmtNames[FormatsManager::QT]  = QObject::tr("Qt supported File");
 
 	m_fmtMimeTypes.insert(FormatsManager::EPS,  QStringList() << "application/postscript");

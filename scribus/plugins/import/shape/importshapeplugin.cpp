@@ -52,8 +52,8 @@ void ImportShapePlugin::languageChange()
 {
 	importAction->setText( tr("Import Dia Shapes..."));
 	FileFormat* fmt = getFormatByExt("sml");
-	fmt->trName = tr("Dia Shapes File");
-	fmt->filter = tr("Dia Shapes File (*.shape *.SHAPE)");
+	fmt->trName = tr("Dia Shapes");
+	fmt->filter = tr("Dia Shapes (*.shape *.SHAPE)");
 }
 
 ImportShapePlugin::~ImportShapePlugin()
@@ -87,9 +87,9 @@ void ImportShapePlugin::deleteAboutData(const AboutData* about) const
 void ImportShapePlugin::registerFormats()
 {
 	FileFormat fmt(this);
-	fmt.trName = tr("Dia Shapes \"*.shape\" File"); // Human readable name
+	fmt.trName = tr("Dia Shapes"); // Human readable name
 	fmt.formatId = 0;
-	fmt.filter = tr("Dia shapes \"*.shape\" File (*.shape *.SHAPE)"); // QFileDialog filter
+	fmt.filter = tr("Dia shapes (*.shape *.SHAPE)"); // QFileDialog filter
 	fmt.fileExtensions = QStringList() << "shape";
 	fmt.load = true;
 	fmt.save = false;

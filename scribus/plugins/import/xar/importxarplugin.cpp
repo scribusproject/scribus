@@ -52,8 +52,8 @@ void ImportXarPlugin::languageChange()
 {
 	importAction->setText( tr("Import Xara..."));
 	FileFormat* fmt = getFormatByExt("xar");
-	fmt->trName = tr("XARA File");
-	fmt->filter = tr("XARA File (*.xar *.XAR)");
+	fmt->trName = tr("XARA");
+	fmt->filter = tr("XARA (*.xar *.XAR)");
 }
 
 ImportXarPlugin::~ImportXarPlugin()

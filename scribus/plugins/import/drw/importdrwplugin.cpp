@@ -59,8 +59,8 @@ void ImportDrwPlugin::languageChange()
 {
 	importAction->setText( tr("Import DRW..."));
 	FileFormat* fmt = getFormatByExt("drw");
-	fmt->trName = tr("Micrografx DRW File");
-	fmt->filter = tr("Micrografx DRW File (*.drw *.DRW)");
+	fmt->trName = tr("Micrografx DRW");
+	fmt->filter = tr("Micrografx DRW (*.drw *.DRW)");
 	fmt->fileExtensions = QStringList() << "drw";
 }
 
