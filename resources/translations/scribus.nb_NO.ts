@@ -211,7 +211,7 @@
     </message>
     <message>
         <source>Enabled:</source>
-        <translation>Skrudd på:</translation>
+        <translation type="vanished">Skrudd på:</translation>
     </message>
     <message>
         <source>Release Date:</source>
@@ -3943,10 +3943,6 @@ Nå %2 x %3 ppt</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>mage doesnt fit the whole space you reserved for it. Maybe this is intended, or maybe this is caused by bad inner placement or scale. The result will either be a cropped image or white space around the image.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>This warning alerts you that you are using a bitmap based graphic format that is typically not used for high resolution images (.gif is one of those). This may result in poor viewing quality (for example: when commercially printed, viewed on a high-resolution screens, etc...). If your PDF will be printed commercially, there are some printing systems that will have difficulty printing these types of images.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4000,6 +3996,10 @@ Nå %2 x %3 ppt</translation>
     </message>
     <message>
         <source>Print/Visible mismatch</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The image does not fit the whole space you reserved for it. Maybe this is intended, or maybe this is caused by bad inner placement or scale. The result will either be a cropped image or white space around the image.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -7177,6 +7177,14 @@ converting their vector data into Scribus objects.</source>
         <source>All Supported Formats</source>
         <translation type="unfinished">Alle støttede formater</translation>
     </message>
+    <message>
+        <source>Micrografx DRW</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Micrografx DRW (*.drw *.DRW)</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ImportEmfPlugin</name>
@@ -7461,14 +7469,6 @@ converting their vector data into Scribus objects.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Dia Shapes &quot;*.shape&quot; File</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Dia Shapes &quot;*.shape&quot; File (*.shape *.SHAPE)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Imports Dia shape Files</source>
         <translation type="unfinished"></translation>
     </message>
@@ -7478,12 +7478,20 @@ converting their vector data into Scribus objects.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Dia shapes &quot;*.shape&quot; File (*.shape *.SHAPE)</source>
+        <source>All Supported Formats</source>
+        <translation type="unfinished">Alle støttede formater</translation>
+    </message>
+    <message>
+        <source>Dia Shapes</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>All Supported Formats</source>
-        <translation type="unfinished">Alle støttede formater</translation>
+        <source>Dia Shapes (*.shape *.SHAPE)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Dia shapes (*.shape *.SHAPE)</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -7512,6 +7520,14 @@ converting their vector data into Scribus objects.</source>
     <message>
         <source>All Supported Formats</source>
         <translation type="unfinished">Alle støttede formater</translation>
+    </message>
+    <message>
+        <source>Kivio Stencils</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Kivio Stencils (*.sml *.SML)</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -7644,6 +7660,14 @@ converting their vector data into Scribus objects.</source>
     <message>
         <source>All Supported Formats</source>
         <translation type="unfinished">Alle støttede formater</translation>
+    </message>
+    <message>
+        <source>XARA</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>XARA (*.xar *.XAR)</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -21147,21 +21171,21 @@ Eksterne lenker
     </message>
     <message>
         <source>memcpy header: %1 %2 %3</source>
-        <translation type="unfinished">
+        <translation type="obsolete">
             </translation>
     </message>
     <message>
         <source>table &apos;%1&apos;</source>
-        <translation>tabell «%1»</translation>
+        <translation type="vanished">tabell «%1»</translation>
     </message>
     <message>
         <source>memcpy table: %1 %2 %3</source>
-        <translation type="unfinished">
+        <translation type="obsolete">
             </translation>
     </message>
     <message>
         <source>memcpy offset: %1 %2 %3</source>
-        <translation type="unfinished">
+        <translation type="obsolete">
             </translation>
     </message>
     <message>
@@ -22083,7 +22107,7 @@ Eksterne lenker
     </message>
     <message>
         <source>Calamus CVG File</source>
-        <translation>Calamus CVG-fil</translation>
+        <translation type="vanished">Calamus CVG-fil</translation>
     </message>
     <message>
         <source>BMP</source>
@@ -22091,7 +22115,7 @@ Eksterne lenker
     </message>
     <message>
         <source>Macintosh Pict File</source>
-        <translation>Macintosh Pict-fil</translation>
+        <translation type="vanished">Macintosh Pict-fil</translation>
     </message>
     <message>
         <source>Valid metrics were found for font %1, using metrics in file %2</source>
@@ -22421,43 +22445,7 @@ is not exhaustive due to exceptions from called functions.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Encapsulated PostScript &quot;*.eps&quot;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>PGF</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>PostScript &quot;*.ps&quot;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Adobe Photoshop &quot;*.psd&quot;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Windows Meta File &quot;*.wmf&quot;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Scalable Vector Graphics &quot;*.svg&quot;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Adobe Illustrator &quot;*.ai&quot;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Word Perfect WPG File</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>GraphicsMagick File</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>UniConvertor File</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -22894,10 +22882,6 @@ is not exhaustive due to exceptions from called functions.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Open Raster Files</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>unexpected null &lt;%1&gt; node</source>
         <comment>Load PDF settings</comment>
         <translation type="unfinished">uventet null &lt;%2&gt;-node {1&gt;?}</translation>
@@ -22958,6 +22942,62 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>Qt supported File</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Custom Shapes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>CustomShapes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Encapsulated PostScript</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>PostScript</source>
+        <translation type="unfinished">Postscript</translation>
+    </message>
+    <message>
+        <source>Adobe Photoshop</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Windows Meta File</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Scalable Vector Graphics</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Adobe Illustrator</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Calamus CVG</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Word Perfect WPG</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Open Raster</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>GraphicsMagick</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>UniConvertor</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Macintosh Pict</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -26850,6 +26890,29 @@ Former monitor profile will be used.</source>
     </message>
 </context>
 <context>
+    <name>ShapePalette</name>
+    <message>
+        <source>Choose a shape file to import</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Photoshop Custom Shape (*.csh *.CSH)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Custom Shapes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Load Photoshop Custom Shapes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Close current Tab</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>ShapePlug</name>
     <message>
         <source>Importing: %1</source>
@@ -26865,6 +26928,32 @@ Former monitor profile will be used.</source>
     </message>
     <message>
         <source>Group%1</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>ShapePlugin</name>
+    <message>
+        <source>Palette for Photoshop Custom Shapes.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>ShapeView</name>
+    <message>
+        <source>Delete selected Shape</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Delete all Shapes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Display Icons only</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Do you really want to clear all your shapes in this tab?</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

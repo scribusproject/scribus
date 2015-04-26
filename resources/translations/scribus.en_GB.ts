@@ -211,7 +211,7 @@
     </message>
     <message>
         <source>Enabled:</source>
-        <translation>Enabled:</translation>
+        <translation type="vanished">Enabled:</translation>
     </message>
     <message>
         <source>Release Date:</source>
@@ -3957,7 +3957,7 @@ currently %2 x %3 DPI</translation>
     </message>
     <message>
         <source>mage doesnt fit the whole space you reserved for it. Maybe this is intended, or maybe this is caused by bad inner placement or scale. The result will either be a cropped image or white space around the image.</source>
-        <translation>mage doesnt fit the whole space you reserved for it. Maybe this is intended, or maybe this is caused by bad inner placement or scale. The result will either be a cropped image or white space around the image.</translation>
+        <translation type="vanished">mage doesnt fit the whole space you reserved for it. Maybe this is intended, or maybe this is caused by bad inner placement or scale. The result will either be a cropped image or white space around the image.</translation>
     </message>
     <message>
         <source>This warning alerts you that you are using a bitmap based graphic format that is typically not used for high resolution images (.gif is one of those). This may result in poor viewing quality (for example: when commercially printed, viewed on a high-resolution screens, etc...). If your PDF will be printed commercially, there are some printing systems that will have difficulty printing these types of images.</source>
@@ -4014,6 +4014,10 @@ currently %2 x %3 DPI</translation>
     <message>
         <source>Print/Visible mismatch</source>
         <translation>Print/Visible mismatch</translation>
+    </message>
+    <message>
+        <source>The image does not fit the whole space you reserved for it. Maybe this is intended, or maybe this is caused by bad inner placement or scale. The result will either be a cropped image or white space around the image.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -7193,6 +7197,14 @@ converting their vector data into Scribus objects.</translation>
         <source>All Supported Formats</source>
         <translation>All Supported Formats</translation>
     </message>
+    <message>
+        <source>Micrografx DRW</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Micrografx DRW (*.drw *.DRW)</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ImportEmfPlugin</name>
@@ -7486,11 +7498,11 @@ converting their vector data into Scribus objects.</translation>
     </message>
     <message>
         <source>Dia Shapes &quot;*.shape&quot; File</source>
-        <translation>Dia Shapes &quot;*.shape&quot; File</translation>
+        <translation type="vanished">Dia Shapes &quot;*.shape&quot; File</translation>
     </message>
     <message>
         <source>Dia Shapes &quot;*.shape&quot; File (*.shape *.SHAPE)</source>
-        <translation>Dia Shapes &quot;*.shape&quot; File (*.shape *.SHAPE)</translation>
+        <translation type="vanished">Dia Shapes &quot;*.shape&quot; File (*.shape *.SHAPE)</translation>
     </message>
     <message>
         <source>Imports Dia shape Files</source>
@@ -7504,11 +7516,23 @@ converting their vector data into Scribus objects.</translation>
     </message>
     <message>
         <source>Dia shapes &quot;*.shape&quot; File (*.shape *.SHAPE)</source>
-        <translation>Dia shapes &quot;*.shape&quot; File (*.shape *.SHAPE)</translation>
+        <translation type="vanished">Dia shapes &quot;*.shape&quot; File (*.shape *.SHAPE)</translation>
     </message>
     <message>
         <source>All Supported Formats</source>
         <translation>All Supported Formats</translation>
+    </message>
+    <message>
+        <source>Dia Shapes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Dia Shapes (*.shape *.SHAPE)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Dia shapes (*.shape *.SHAPE)</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -7538,6 +7562,14 @@ converting their vector data into Scribus objects.</translation>
     <message>
         <source>All Supported Formats</source>
         <translation>All Supported Formats</translation>
+    </message>
+    <message>
+        <source>Kivio Stencils</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Kivio Stencils (*.sml *.SML)</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -7675,6 +7707,14 @@ converting their vector data into Scribus objects.</translation>
     <message>
         <source>All Supported Formats</source>
         <translation>All Supported Formats</translation>
+    </message>
+    <message>
+        <source>XARA</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>XARA (*.xar *.XAR)</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -21521,19 +21561,19 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>memcpy header: %1 %2 %3</source>
-        <translation>memcpy header: %1 %2 %3</translation>
+        <translation type="vanished">memcpy header: %1 %2 %3</translation>
     </message>
     <message>
         <source>table &apos;%1&apos;</source>
-        <translation>table &apos;%1&apos;</translation>
+        <translation type="vanished">table &apos;%1&apos;</translation>
     </message>
     <message>
         <source>memcpy table: %1 %2 %3</source>
-        <translation>memcpy table: %1 %2 %3</translation>
+        <translation type="vanished">memcpy table: %1 %2 %3</translation>
     </message>
     <message>
         <source>memcpy offset: %1 %2 %3</source>
-        <translation>memcpy offset: %1 %2 %3</translation>
+        <translation type="vanished">memcpy offset: %1 %2 %3</translation>
     </message>
     <message>
         <source>Scribus Crash</source>
@@ -22049,7 +22089,7 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>Encapsulated PostScript &quot;*.eps&quot;</source>
-        <translation>Encapsulated PostScript &quot;*.eps&quot;</translation>
+        <translation type="vanished">Encapsulated PostScript &quot;*.eps&quot;</translation>
     </message>
     <message>
         <source>GIF</source>
@@ -22073,35 +22113,35 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>PostScript &quot;*.ps&quot;</source>
-        <translation>PostScript &quot;*.ps&quot;</translation>
+        <translation type="vanished">PostScript &quot;*.ps&quot;</translation>
     </message>
     <message>
         <source>Adobe Photoshop &quot;*.psd&quot;</source>
-        <translation>Adobe Photoshop &quot;*.psd&quot;</translation>
+        <translation type="vanished">Adobe Photoshop &quot;*.psd&quot;</translation>
     </message>
     <message>
         <source>Windows Meta File &quot;*.wmf&quot;</source>
-        <translation>Windows Meta File &quot;*.wmf&quot;</translation>
+        <translation type="vanished">Windows Meta File &quot;*.wmf&quot;</translation>
     </message>
     <message>
         <source>Scalable Vector Graphics &quot;*.svg&quot;</source>
-        <translation>Scalable Vector Graphics &quot;*.svg&quot;</translation>
+        <translation type="vanished">Scalable Vector Graphics &quot;*.svg&quot;</translation>
     </message>
     <message>
         <source>Adobe Illustrator &quot;*.ai&quot;</source>
-        <translation>Adobe Illustrator &quot;*.ai&quot;</translation>
+        <translation type="vanished">Adobe Illustrator &quot;*.ai&quot;</translation>
     </message>
     <message>
         <source>GraphicsMagick File</source>
-        <translation>GraphicsMagick File</translation>
+        <translation type="vanished">GraphicsMagick File</translation>
     </message>
     <message>
         <source>UniConvertor File</source>
-        <translation>UniConvertor File</translation>
+        <translation type="vanished">UniConvertor File</translation>
     </message>
     <message>
         <source>Macintosh Pict File</source>
-        <translation>Macintosh Pict File</translation>
+        <translation type="vanished">Macintosh Pict File</translation>
     </message>
     <message>
         <source>TIFF</source>
@@ -22357,11 +22397,11 @@ Therefore the image may be not correct</source>
     </message>
     <message>
         <source>Calamus CVG File</source>
-        <translation>Calamus CVG File</translation>
+        <translation type="vanished">Calamus CVG File</translation>
     </message>
     <message>
         <source>Word Perfect WPG File</source>
-        <translation>Word Perfect WPG File</translation>
+        <translation type="vanished">Word Perfect WPG File</translation>
     </message>
     <message>
         <source>BMP</source>
@@ -22813,7 +22853,7 @@ Therefore the image may be not correct</source>
     </message>
     <message>
         <source>Open Raster Files</source>
-        <translation>Open Raster Files</translation>
+        <translation type="vanished">Open Raster Files</translation>
     </message>
     <message>
         <source>unexpected null &lt;%1&gt; node</source>
@@ -22877,6 +22917,62 @@ Therefore the image may be not correct</source>
     <message>
         <source>Qt supported File</source>
         <translation>Qt supported File</translation>
+    </message>
+    <message>
+        <source>Custom Shapes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>CustomShapes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Encapsulated PostScript</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>PostScript</source>
+        <translation type="unfinished">PostScript</translation>
+    </message>
+    <message>
+        <source>Adobe Photoshop</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Windows Meta File</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Scalable Vector Graphics</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Adobe Illustrator</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Calamus CVG</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Word Perfect WPG</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Open Raster</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>GraphicsMagick</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>UniConvertor</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Macintosh Pict</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -26730,6 +26826,29 @@ Consider using the Preflight Verifier to correct them</translation>
     </message>
 </context>
 <context>
+    <name>ShapePalette</name>
+    <message>
+        <source>Choose a shape file to import</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Photoshop Custom Shape (*.csh *.CSH)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Custom Shapes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Load Photoshop Custom Shapes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Close current Tab</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>ShapePlug</name>
     <message>
         <source>Importing: %1</source>
@@ -26746,6 +26865,32 @@ Consider using the Preflight Verifier to correct them</translation>
     <message>
         <source>Group%1</source>
         <translation>Group%1</translation>
+    </message>
+</context>
+<context>
+    <name>ShapePlugin</name>
+    <message>
+        <source>Palette for Photoshop Custom Shapes.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>ShapeView</name>
+    <message>
+        <source>Delete selected Shape</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Delete all Shapes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Display Icons only</source>
+        <translation type="unfinished">Display Icons only</translation>
+    </message>
+    <message>
+        <source>Do you really want to clear all your shapes in this tab?</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
