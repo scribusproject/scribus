@@ -6427,7 +6427,10 @@ QString PDFLibCore::PDF_TransparenzFill(PageItem *currItem)
 	}
 	else
 	{
-		Transpar[ShName] = writeGState("/ca "+FToStr(1.0 - currItem->fillTransparency())+"\n/SMask /None\n/AIS false\n/OPM 1\n/BM /" + blendMode(currItem->fillBlendmode()) + "\n");
+		if (currItem->GrType == 14)
+			Transpar[ShName] = writeGState("/CA "+FToStr(1.0 - currItem->fillTransparency())+"\n/ca "+FToStr(1.0 - currItem->fillTransparency())+"\n/SMask /None\n/AIS false\n/OPM 1\n/BM /" + blendMode(currItem->fillBlendmode()) + "\n");
+		else
+			Transpar[ShName] = writeGState("/ca "+FToStr(1.0 - currItem->fillTransparency())+"\n/SMask /None\n/AIS false\n/OPM 1\n/BM /" + blendMode(currItem->fillBlendmode()) + "\n");
 		tmp = "/"+ShName+" gs\n";
 	}
 	return tmp;
