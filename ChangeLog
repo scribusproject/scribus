@@ -1,6 +1,10 @@
-Scribus - 1.5.0svn (Released 2015-xx-xx)
+Scribus - 1.5.0svn (Released 2015-05-01)
 ========================================
 
+- 0013026: [PDF] "Hatch" fill transparency is ignored exporting to PDF (fschmid) - resolved.
+- 0012973: [Fonts] TTF embedding doesnt work (avox) - resolved.
+- 0013030: [Import / Export] -Save as image- in master page mode = Signal 6 (cbradney) - resolved.
+- 0012966: [Translation] German: mismatch between "Eintrag auswählen" and "Object" menu (christoph_s) - resolved.
 - 0013028: [Translation] Updated Russian translation for 1.5.0 (cbradney) - resolved.
 - 0012487: [Fonts] "Used in Document" flag is not set (jghali) - resolved.
 - 0013022: [Fonts] Useless "Used" column in font config (jghali) - resolved.

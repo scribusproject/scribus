@@ -8,13 +8,13 @@
   <release platform="OS2" stability="stablesvn" version="1.4.6.svn" />
   <release platform="MacOSX" stability="stablesvn" version="1.4.6.svn" />
   <release platform="Win32" stability="stablesvn" version="1.4.6.svn" />
-  <release platform="X11" stability="unstable" version="1.5.0.svn" />
-  <release platform="Win32" stability="unstable" version="1.5.0.svn" />
-  <release platform="MacOSX" stability="unstable" version="1.5.0.svn" />
-  <release platform="OS2" stability="unstable" version="1.5.0.svn" />
-  <release platform="X11" stability="unstablesvn" version="1.5.0.svn" />
-  <release platform="Win32" stability="unstablesvn" version="1.5.0.svn" />
-  <release platform="MacOSX" stability="unstablesvn" version="1.5.0.svn" />
-  <release platform="OS2" stability="unstablesvn" version="1.5.0.svn" />
-  <message lang="en" > - Scribus 1.4.5 is the latest stable release, released January 26 2015.<![CDATA[<br>]]> - Scribus 1.5.0.svn is the current development version. </message>
+  <release platform="X11" stability="unstable" version="1.5.0" />
+  <release platform="Win32" stability="unstable" version="1.5.0" />
+  <release platform="MacOSX" stability="unstable" version="1.5.0" />
+  <release platform="OS2" stability="unstable" version="1.5.0" />
+  <release platform="X11" stability="unstablesvn" version="1.5.1.svn" />
+  <release platform="Win32" stability="unstablesvn" version="1.5.1.svn" />
+  <release platform="MacOSX" stability="unstablesvn" version="1.5.1.svn" />
+  <release platform="OS2" stability="unstablesvn" version="1.5.1.svn" />
+  <message lang="en" > - Scribus 1.4.5 is the latest stable release, released January 26 2015.<![CDATA[<br>]]> - Scribus 1.5.0 is the current development version. </message>
 </scribus>

@@ -9,7 +9,7 @@
 #error "Include <scconfig.h> rather than using <config.h> directly"
 #endif
 
-#cmakedefine VERSION "1.5.0.svn"
+#cmakedefine VERSION "1.5.0"
 
 #cmakedefine BUILD_WINDOWS_VERSION 1
 #cmakedefine DLL_USE_NATIVE_API 1
