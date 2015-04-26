@@ -1156,9 +1156,9 @@ void CanvasMode_NodeEdit::handleNodeEditDrag(QMouseEvent* m, PageItem* currItem)
 					int prev = (curr+cli.size()-4)%cli.size();
 					int next = (curr+4)%cli.size();
 
-					if(abs(cli.point(prev).x()-cli.point(curr).x())<abs(cli.point(next).x()-cli.point(curr).x()))
+					if(std::abs(cli.point(prev).x()-cli.point(curr).x())<std::abs(cli.point(next).x()-cli.point(curr).x()))
 						tmpNode=next;
-					else if(abs(cli.point(prev).x()-cli.point(curr).x())==abs(cli.point(next).x()-cli.point(curr).x())){
+					else if(std::abs(cli.point(prev).x()-cli.point(curr).x())==std::abs(cli.point(next).x()-cli.point(curr).x())){
 						if(cli.point(prev).y()!=cli.point(curr).y())
 							tmpNode=next;
 						else

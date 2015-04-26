@@ -777,61 +777,61 @@ namespace {
 	{
 		if (! cstyle.font().usable())
 			cstyle.resetFont();
-		if (cstyle.fontSize() <= -16000 / 10)
+		if (cstyle.fontSize() <= NOVALUE / 10)
 			cstyle.resetFontSize();
 //		if (cstyle.effects() == 65535)
 //			cstyle.resetEffects();
 		if (cstyle.fillColor().isEmpty())
 			cstyle.resetFillColor();
-		if (cstyle.fillShade() <= -16000)
+		if (cstyle.fillShade() <= NOVALUE)
 			cstyle.resetFillShade();
 		if (cstyle.strokeColor().isEmpty())
 			cstyle.resetStrokeColor();
-		if (cstyle.strokeShade() <= -16000)
+		if (cstyle.strokeShade() <= NOVALUE)
 			cstyle.resetStrokeShade();
-		if (cstyle.shadowXOffset() <= -16000 / 10)
+		if (cstyle.shadowXOffset() <= NOVALUE / 10)
 			cstyle.resetShadowXOffset();
-		if (cstyle.shadowYOffset() <= -16000 / 10)
+		if (cstyle.shadowYOffset() <= NOVALUE / 10)
 			cstyle.resetShadowYOffset();
-		if (cstyle.outlineWidth() <= -16000 / 10)
+		if (cstyle.outlineWidth() <= NOVALUE / 10)
 			cstyle.resetOutlineWidth();
-		if (cstyle.underlineOffset() <= -16000 / 10)
+		if (cstyle.underlineOffset() <= NOVALUE / 10)
 			cstyle.resetUnderlineOffset();
-		if (cstyle.underlineWidth() <= -16000 / 10)
+		if (cstyle.underlineWidth() <= NOVALUE / 10)
 			cstyle.resetUnderlineWidth();
-		if (cstyle.strikethruOffset() <= -16000 / 10)
+		if (cstyle.strikethruOffset() <= NOVALUE / 10)
 			cstyle.resetStrikethruOffset();
-		if (cstyle.strikethruWidth() <= -16000 / 10)
+		if (cstyle.strikethruWidth() <= NOVALUE / 10)
 			cstyle.resetStrikethruWidth();
-		if (cstyle.scaleH() <= -16000 / 10)
+		if (cstyle.scaleH() <= NOVALUE / 10)
 			cstyle.resetScaleH();
-		if (cstyle.scaleV() <= -16000 / 10)
+		if (cstyle.scaleV() <= NOVALUE / 10)
 			cstyle.resetScaleV();
-		if (cstyle.baselineOffset() <= -16000 / 10)
+		if (cstyle.baselineOffset() <= NOVALUE / 10)
 			cstyle.resetBaselineOffset();
-		if (cstyle.tracking() <= -16000 / 10)
+		if (cstyle.tracking() <= NOVALUE / 10)
 			cstyle.resetTracking();
 	}
 	
 	void fixLegacyParStyle(ParagraphStyle& pstyle) 
 	{
-		if (pstyle.lineSpacing() <= -16000)
+		if (pstyle.lineSpacing() <= NOVALUE)
 			pstyle.resetLineSpacing();
-		if (pstyle.leftMargin() <= -16000)
+		if (pstyle.leftMargin() <= NOVALUE)
 			pstyle.resetLeftMargin();
-		if (pstyle.rightMargin() <= -16000)
+		if (pstyle.rightMargin() <= NOVALUE)
 			pstyle.resetRightMargin();
-		if (pstyle.firstIndent() <= -16000)
+		if (pstyle.firstIndent() <= NOVALUE)
 			pstyle.resetFirstIndent();
 		if (pstyle.alignment() < 0)
 			pstyle.resetAlignment();
-		if (pstyle.gapBefore() <= -16000)
+		if (pstyle.gapBefore() <= NOVALUE)
 			pstyle.resetGapBefore();
-		if (pstyle.gapAfter() <= -16000)
+		if (pstyle.gapAfter() <= NOVALUE)
 			pstyle.resetGapAfter();
 		if (pstyle.dropCapLines() < 0)
 			pstyle.resetDropCapLines();
-		if (pstyle.parEffectOffset() <= -16000)
+		if (pstyle.parEffectOffset() <= NOVALUE)
 			pstyle.resetParEffectOffset();
 		fixLegacyCharStyle(pstyle.charStyle());
 	}

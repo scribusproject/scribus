@@ -316,7 +316,7 @@ public:
   }
 
 // TODO: incomplete/buggy
-  Curve *reverse(double /*f*/, double /*t*/) const {
+  Curve *reverse(/*double f, double t*/) const {
     SVGEllipticalArc *ret = new SVGEllipticalArc (*this);
     ret->initial_ = final_;
     ret->final_ = initial_;
@@ -447,7 +447,7 @@ public:
 
   template <typename Impl>
   Path(BaseIterator<Impl> first, BaseIterator<Impl> last, bool closed=false)
-  : closed_(closed), final_(new LineSegment())
+  : final_(new LineSegment()), closed_(closed) 
   {
     curves_.push_back(final_);
     insert(begin(), first, last);

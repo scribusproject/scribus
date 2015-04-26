@@ -472,15 +472,15 @@ uint word16(QByteArray const & bb, uint pos)
 	const unsigned char * pp = reinterpret_cast<const unsigned char*>(bb.data()) + pos;
 	return pp[0] << 8 | pp[1];
 }
-QString tag(QByteArray const & bb, uint pos)
-{
-	char buf[5] = "1234";
-	buf[0] = bb.data()[pos];
-	buf[1] = bb.data()[pos+1];
-	buf[2] = bb.data()[pos+2];
-	buf[3] = bb.data()[pos+3];
-	return buf;
-}
+//QString tag(QByteArray const & bb, uint pos)
+//{
+//	char buf[5] = "1234";
+//	buf[0] = bb.data()[pos];
+//	buf[1] = bb.data()[pos+1];
+//	buf[2] = bb.data()[pos+2];
+//	buf[3] = bb.data()[pos+3];
+//	return buf;
+//}
 bool copy(QByteArray & dst, uint to, QByteArray & src, uint from, uint len) 
 {
 	if (!dst.data())

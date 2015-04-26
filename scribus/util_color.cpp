@@ -344,7 +344,7 @@ void HSVTORGB ( uchar& hue, uchar& saturation, uchar& value )
 	{
 		hue        = value;
 		saturation = value;
-		value      = value;
+		/* value   = value;*/
 	}
 	else
 	{

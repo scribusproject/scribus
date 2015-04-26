@@ -2243,7 +2243,7 @@ void Canvas::PaintSizeRect(QRect newRect)
 	if (!newRect.isNull())
 	{
 		if (!oldRect.isNull())
-			newRect.united(oldRect);
+			newRect = newRect.united(oldRect);
 		repaint(newRect.adjusted(-10, -10, 20, 20));
 	}
 	oldRect = newRect;
@@ -2258,7 +2258,7 @@ void Canvas::PaintSizeRect(QPolygon newRect)
 	if (!newR.isNull())
 	{
 		if (!oldRect.isNull())
-			newRect.united(oldRect);
+			newRect = newRect.united(oldRect);
 //		newR.moveBy(qRound(-m_doc->minCanvasCoordinate.x() * m_viewMode.scale), qRound(-m_doc->minCanvasCoordinate.y() * m_viewMode.scale));
 		m_viewMode.redrawPolygon = newRect;
 //		m_viewMode.redrawPolygon.translate(qRound(-m_doc->minCanvasCoordinate.x() * m_viewMode.scale), qRound(-m_doc->minCanvasCoordinate.y() * m_viewMode.scale));

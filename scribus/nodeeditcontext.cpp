@@ -5,10 +5,10 @@
 #include "util_math.h"
 
 NodeEditContext::NodeEditContext() :
-	m_submode(MOVE_POINT),
-	m_isContourLine(false),
 	oldClip(NULL),
 	nodeTransaction(NULL),
+	m_submode(MOVE_POINT),
+	m_isContourLine(false),
 	m_ClRe(-1),
 	m_ClRe2(-1),
 	m_SegP1(-1),

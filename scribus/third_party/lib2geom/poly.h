@@ -101,11 +101,12 @@ public:
         const size_type out_size = size() + terms;
         result.reserve(out_size);
         
-        if(terms < 0) {
+        /*if(terms < 0) {
             for(unsigned i = 0; i < out_size; i++) {
                 result.push_back((*this)[i-terms]);
             }
-        } else {
+        } else*/
+	{
             for(unsigned i = 0; i < terms; i++) {
                 result.push_back(0.0);
             }

@@ -74,17 +74,17 @@ class SCRIBUS_API NodeEditContext : public MassObservable<QPointF>
 		enum SubMode { MOVE_POINT = 0, ADD_POINT = 1, DEL_POINT = 2, SPLIT_PATH = 3 };
 
 	protected:
+		int m_submode;
 		bool m_isContourLine;
 
 		int m_ClRe;
 		int m_ClRe2;
+		int m_SegP1;
+		int m_SegP2;
 		bool m_EdPoints;
 		bool m_MoveSym;
 		QList<int> m_SelNode;
-		int m_SegP1;
-		int m_SegP2;
 		double m_oldItemX;
 		double m_oldItemY;
-		int m_submode;
 };
 #endif

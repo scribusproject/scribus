@@ -75,6 +75,7 @@ public:
 
     inline Ref& operator* () const { return *p; }
     inline Ref* operator->() const { return p; }
+    inline bool operator! () const { return p; }
 
     FPOPT_autoptr& operator= (Ref*        b) { Set(b); return *this; }
     FPOPT_autoptr& operator= (const FPOPT_autoptr& b) { Set(b.p); return *this; }
@@ -238,7 +239,7 @@ namespace FPoptimizer_CodeTree
         inline double GetImmed() const;
         inline unsigned GetVar() const;
         inline unsigned GetFuncNo() const;
-        inline bool IsDefined() const { return (&*data) != 0; }
+	inline bool IsDefined() const { return !data == false; }
 
         inline bool    IsImmed() const { return GetOpcode() == FUNCTIONPARSERTYPES::cImmed; }
         inline bool      IsVar() const { return GetOpcode() == FUNCTIONPARSERTYPES::cVar; }
@@ -1993,7 +1994,7 @@ namespace FPoptimizer_CodeTree
 
     bool CodeTree::IsIdenticalTo(const CodeTree& b) const
     {
-        if((!&*data) != (!&*b.data)) return false;
+        if((!data) != (!b.data)) return false;
         if(&*data == &*b.data) return true;
         return data->IsIdenticalTo(*b.data);
     }
@@ -3289,6 +3290,8 @@ namespace
                         return true; // Failure
                     case AnyParams:
                         return false; // Not a failure
+		    case GroupFunction:
+			break;
                 }
             }
             return false;
@@ -3311,7 +3314,7 @@ namespace
         {
             found = TestParams(rule.match_tree, tree, found.specs, info, true);
             if(found.found) break;
-            if(!&*found.specs)
+            if(!found.specs)
             {
                 // Did not match
         #ifdef DEBUG_SUBSTITUTIONS
@@ -3691,7 +3694,7 @@ namespace FPoptimizer_Optimize
                 }
                 else /* A subtree conforming these specs */
                 {
-                    if(!&*start_at)
+                    if(!start_at)
                     {
                         if(!TestImmedConstraints(param.constraints, tree)) return false;
                         if(tree.GetOpcode() != param.data.subfunc_opcode) return false;
@@ -3751,7 +3754,7 @@ namespace FPoptimizer_Optimize
     {
         FPOPT_autoptr<MatchPositionSpec_AnyWhere> position;
         unsigned a;
-        if(&*start_at)
+        if(!start_at == false)
         {
             position = (MatchPositionSpec_AnyWhere*) &*start_at;
             a = position->trypos;
@@ -3783,7 +3786,7 @@ namespace FPoptimizer_Optimize
                 return MatchResultType(true, &*position);
             } }
         retry_anywhere_2:
-            if(&*(*position)[a].start_at) // is there another try?
+            if(!((*position)[a].start_at) == false) // is there another try?
             {
                 goto retry_anywhere;
             }
@@ -3844,7 +3847,7 @@ namespace FPoptimizer_Optimize
                 /* Simple: Test all given parameters in succession. */
                 FPOPT_autoptr<MatchPositionSpec_PositionalParams> position;
                 unsigned a;
-                if(&*start_at)
+                if(!start_at == false)
                 {
                     position = (MatchPositionSpec_PositionalParams*) &*start_at;
                     a = model_tree.param_count - 1;
@@ -3873,7 +3876,7 @@ namespace FPoptimizer_Optimize
                   } }
                 retry_positionalparams_2:
                     // doesn't match
-                    if(&*(*position)[a].start_at) // is there another try?
+                    if(!((*position)[a].start_at) == false) // is there another try?
                     {
                         info = (*position)[a].info;
                         goto retry_positionalparams;
@@ -3919,7 +3922,7 @@ namespace FPoptimizer_Optimize
                 }
 
                 unsigned a;
-                if(&*start_at)
+                if(!start_at == false)
                 {
                     position = (MatchPositionSpec_AnyParams*) &*start_at;
                     a = model_tree.param_count - 1;
@@ -3959,7 +3962,7 @@ namespace FPoptimizer_Optimize
                   } }
                 retry_anyparams_2:
                     // doesn't match
-                    if(&*(*position)[a].start_at) // is there another try?
+                    if(!((*position)[a].start_at) == false) // is there another try?
                     {
                         info = (*position)[a].info;
                         used = (*position)[a].used;

@@ -1415,7 +1415,7 @@ const char* FunctionParser::CompileUnaryMinus(const char* function)
         if(op == '-')
         {
             // if we are negating a negation, we can remove both:
-            if((data->ByteCode.back() == cNeg))
+            if(data->ByteCode.back() == cNeg)
                 data->ByteCode.pop_back();
 
             // if we are negating a constant, negate the constant itself:

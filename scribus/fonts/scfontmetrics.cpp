@@ -30,13 +30,15 @@ for which a new license (GPL+exception) is in place.
 static FPoint firstP;
 static bool FirstM;
 static QMap<FT_ULong, QString> adobeGlyphNames;
+#if 0
 static const char* table[] = {
 //#include "glyphnames.txt.q"
 					NULL};
+#endif
 
 // private functions
-static void readAdobeGlyphNames();
-static QString adobeGlyphName(FT_ULong charcode);
+//static void readAdobeGlyphNames();
+//static QString adobeGlyphName(FT_ULong charcode);
 static int traceMoveto( FT_Vector *to, FPointArray *composite );
 static int traceLineto( FT_Vector *to, FPointArray *composite );
 static int traceQuadraticBezier( FT_Vector *control, FT_Vector *to, FPointArray *composite );
@@ -440,6 +442,7 @@ static int traceCubicBezier( FT_Vector *p, FT_Vector *q, FT_Vector *to, FPointAr
 	return 0;
 }
 
+#if 0
 /// init the Adobe Glyph List
 void readAdobeGlyphNames() 
 {
@@ -477,6 +480,7 @@ QString adobeGlyphName(FT_ULong charcode)
 	}
 	return result;
 }
+#endif
 
 /*
 qreal Cwidth(ScribusDoc *, ScFace* scFace, QString ch, int Size, QString ch2)
