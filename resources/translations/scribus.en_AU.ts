@@ -4017,7 +4017,7 @@ currently %2 x %3 DPI</translation>
     </message>
     <message>
         <source>The image does not fit the whole space you reserved for it. Maybe this is intended, or maybe this is caused by bad inner placement or scale. The result will either be a cropped image or white space around the image.</source>
-        <translation type="unfinished"></translation>
+        <translation>The image does not fit the whole space you reserved for it. Maybe this is intended, or maybe this is caused by bad inner placement or scale. The result will either be a cropped image or white space around the image.</translation>
     </message>
 </context>
 <context>
@@ -7199,11 +7199,11 @@ converting their vector data into Scribus objects.</translation>
     </message>
     <message>
         <source>Micrografx DRW</source>
-        <translation type="unfinished"></translation>
+        <translation>Micrografx DRW</translation>
     </message>
     <message>
         <source>Micrografx DRW (*.drw *.DRW)</source>
-        <translation type="unfinished"></translation>
+        <translation>Micrografx DRW (*.drw *.DRW)</translation>
     </message>
 </context>
 <context>
@@ -7524,15 +7524,15 @@ converting their vector data into Scribus objects.</translation>
     </message>
     <message>
         <source>Dia Shapes</source>
-        <translation type="unfinished"></translation>
+        <translation>Dia Shapes</translation>
     </message>
     <message>
         <source>Dia Shapes (*.shape *.SHAPE)</source>
-        <translation type="unfinished"></translation>
+        <translation>Dia Shapes (*.shape *.SHAPE)</translation>
     </message>
     <message>
         <source>Dia shapes (*.shape *.SHAPE)</source>
-        <translation type="unfinished"></translation>
+        <translation>Dia shapes (*.shape *.SHAPE)</translation>
     </message>
 </context>
 <context>
@@ -7565,11 +7565,11 @@ converting their vector data into Scribus objects.</translation>
     </message>
     <message>
         <source>Kivio Stencils</source>
-        <translation type="unfinished"></translation>
+        <translation>Kivio Stencils</translation>
     </message>
     <message>
         <source>Kivio Stencils (*.sml *.SML)</source>
-        <translation type="unfinished"></translation>
+        <translation>Kivio Stencils (*.sml *.SML)</translation>
     </message>
 </context>
 <context>
@@ -7710,11 +7710,11 @@ converting their vector data into Scribus objects.</translation>
     </message>
     <message>
         <source>XARA</source>
-        <translation type="unfinished"></translation>
+        <translation>XARA</translation>
     </message>
     <message>
         <source>XARA (*.xar *.XAR)</source>
-        <translation type="unfinished"></translation>
+        <translation>XARA (*.xar *.XAR)</translation>
     </message>
 </context>
 <context>
@@ -22920,59 +22920,59 @@ Therefore the image may be not correct</source>
     </message>
     <message>
         <source>Custom Shapes</source>
-        <translation type="unfinished"></translation>
+        <translation>Custom Shapes</translation>
     </message>
     <message>
         <source>CustomShapes</source>
-        <translation type="unfinished"></translation>
+        <translation>CustomShapes</translation>
     </message>
     <message>
         <source>Encapsulated PostScript</source>
-        <translation type="unfinished"></translation>
+        <translation>Encapsulated PostScript</translation>
     </message>
     <message>
         <source>PostScript</source>
-        <translation type="unfinished">PostScript</translation>
+        <translation>PostScript</translation>
     </message>
     <message>
         <source>Adobe Photoshop</source>
-        <translation type="unfinished"></translation>
+        <translation>Adobe Photoshop</translation>
     </message>
     <message>
         <source>Windows Meta File</source>
-        <translation type="unfinished"></translation>
+        <translation>Windows Meta File</translation>
     </message>
     <message>
         <source>Scalable Vector Graphics</source>
-        <translation type="unfinished"></translation>
+        <translation>Scalable Vector Graphics</translation>
     </message>
     <message>
         <source>Adobe Illustrator</source>
-        <translation type="unfinished"></translation>
+        <translation>Adobe Illustrator</translation>
     </message>
     <message>
         <source>Calamus CVG</source>
-        <translation type="unfinished"></translation>
+        <translation>Calamus CVG</translation>
     </message>
     <message>
         <source>Word Perfect WPG</source>
-        <translation type="unfinished"></translation>
+        <translation>Word Perfect WPG</translation>
     </message>
     <message>
         <source>Open Raster</source>
-        <translation type="unfinished"></translation>
+        <translation>Open Raster</translation>
     </message>
     <message>
         <source>GraphicsMagick</source>
-        <translation type="unfinished"></translation>
+        <translation>GraphicsMagick</translation>
     </message>
     <message>
         <source>UniConvertor</source>
-        <translation type="unfinished"></translation>
+        <translation>UniConvertor</translation>
     </message>
     <message>
         <source>Macintosh Pict</source>
-        <translation type="unfinished"></translation>
+        <translation>Macintosh Pict</translation>
     </message>
 </context>
 <context>
@@ -26829,23 +26829,23 @@ Consider using the Preflight Verifier to correct them</translation>
     <name>ShapePalette</name>
     <message>
         <source>Choose a shape file to import</source>
-        <translation type="unfinished"></translation>
+        <translation>Choose a shape file to import</translation>
     </message>
     <message>
         <source>Photoshop Custom Shape (*.csh *.CSH)</source>
-        <translation type="unfinished"></translation>
+        <translation>Photoshop Custom Shape (*.csh *.CSH)</translation>
     </message>
     <message>
         <source>Custom Shapes</source>
-        <translation type="unfinished"></translation>
+        <translation>Custom Shapes</translation>
     </message>
     <message>
         <source>Load Photoshop Custom Shapes</source>
-        <translation type="unfinished"></translation>
+        <translation>Load Photoshop Custom Shapes</translation>
     </message>
     <message>
         <source>Close current Tab</source>
-        <translation type="unfinished"></translation>
+        <translation>Close current Tab</translation>
     </message>
 </context>
 <context>
@@ -26871,26 +26871,26 @@ Consider using the Preflight Verifier to correct them</translation>
     <name>ShapePlugin</name>
     <message>
         <source>Palette for Photoshop Custom Shapes.</source>
-        <translation type="unfinished"></translation>
+        <translation>Palette for Photoshop Custom Shapes.</translation>
     </message>
 </context>
 <context>
     <name>ShapeView</name>
     <message>
         <source>Delete selected Shape</source>
-        <translation type="unfinished"></translation>
+        <translation>Delete selected Shape</translation>
     </message>
     <message>
         <source>Delete all Shapes</source>
-        <translation type="unfinished"></translation>
+        <translation>Delete all Shapes</translation>
     </message>
     <message>
         <source>Display Icons only</source>
-        <translation type="unfinished">Display Icons only</translation>
+        <translation>Display Icons only</translation>
     </message>
     <message>
         <source>Do you really want to clear all your shapes in this tab?</source>
-        <translation type="unfinished"></translation>
+        <translation>Do you really want to clear all your shapes in this tab?</translation>
     </message>
 </context>
 <context>
