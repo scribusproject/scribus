@@ -6807,12 +6807,12 @@ attualmente %2 x %3 DPI</translation>
     <message>
         <location filename="../../scribus/ui/downloadspalette.cpp" line="12"/>
         <source>Show In Finder</source>
-        <translation type="unfinished">Mostra in Finder</translation>
+        <translation>Mostra in Finder</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/downloadspalette.cpp" line="15"/>
         <source>Show In Explorer</source>
-        <translation type="unfinished">Mostra in Explorer</translation>
+        <translation>Mostra in Explorer</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/downloadspalette.cpp" line="17"/>
@@ -6830,7 +6830,7 @@ attualmente %2 x %3 DPI</translation>
     <message>
         <location filename="../../scribus/ui/downloadspalettebase.ui" line="14"/>
         <source>Downloads</source>
-        <translation type="unfinished">Download</translation>
+        <translation>Download</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/downloadspalettebase.ui" line="28"/>
@@ -9191,12 +9191,12 @@ convertendo i dati vettoriali in oggetti Scribus.</translation>
     <message>
         <location filename="../../scribus/plugins/import/drw/importdrwplugin.cpp" line="62"/>
         <source>Micrografx DRW</source>
-        <translation type="unfinished"></translation>
+        <translation>Micrografx DRW</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/drw/importdrwplugin.cpp" line="63"/>
         <source>Micrografx DRW (*.drw *.DRW)</source>
-        <translation type="unfinished"></translation>
+        <translation>Micrografx DRW (*.drw *.DRW)</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/drw/importdrwplugin.cpp" line="98"/>
@@ -9603,12 +9603,12 @@ convertendo i loro dati vettoriali in oggetti di Scribus.</translation>
         <location filename="../../scribus/plugins/import/shape/importshapeplugin.cpp" line="55"/>
         <location filename="../../scribus/plugins/import/shape/importshapeplugin.cpp" line="90"/>
         <source>Dia Shapes</source>
-        <translation type="unfinished"></translation>
+        <translation>Forme Dia</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/shape/importshapeplugin.cpp" line="56"/>
         <source>Dia Shapes (*.shape *.SHAPE)</source>
-        <translation type="unfinished"></translation>
+        <translation>Forme Dia (*.shape *.SHAPE)</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/shape/importshapeplugin.cpp" line="74"/>
@@ -9625,7 +9625,7 @@ convertendo i dati vettoriali in oggetti Scribus.</translation>
     <message>
         <location filename="../../scribus/plugins/import/shape/importshapeplugin.cpp" line="92"/>
         <source>Dia shapes (*.shape *.SHAPE)</source>
-        <translation type="unfinished"></translation>
+        <translation>Forme Dia (*.shape *.SHAPE)</translation>
     </message>
     <message>
         <source>Dia shapes &quot;*.shape&quot; File (*.shape *.SHAPE)</source>
@@ -9647,12 +9647,12 @@ convertendo i dati vettoriali in oggetti Scribus.</translation>
     <message>
         <location filename="../../scribus/plugins/import/sml/importsmlplugin.cpp" line="55"/>
         <source>Kivio Stencils</source>
-        <translation type="unfinished"></translation>
+        <translation>Kivio Stencils</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/sml/importsmlplugin.cpp" line="56"/>
         <source>Kivio Stencils (*.sml *.SML)</source>
-        <translation type="unfinished"></translation>
+        <translation>Kivio Stencils (*.sml *.SML)</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/sml/importsmlplugin.cpp" line="90"/>
@@ -9828,12 +9828,12 @@ convertendo i dati vettoriali in oggetti Scribus.</translation>
     <message>
         <location filename="../../scribus/plugins/import/xar/importxarplugin.cpp" line="55"/>
         <source>XARA</source>
-        <translation type="unfinished"></translation>
+        <translation>XARA</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/xar/importxarplugin.cpp" line="56"/>
         <source>XARA (*.xar *.XAR)</source>
-        <translation type="unfinished"></translation>
+        <translation>XARA (*.xar *.XAR)</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/xar/importxarplugin.cpp" line="90"/>
@@ -28403,47 +28403,47 @@ forniti nella documentazione delle funzioni.
     <message>
         <location filename="../../scribus/util_formats.cpp" line="89"/>
         <source>Windows Meta File</source>
-        <translation type="unfinished"></translation>
+        <translation>Windows Meta File</translation>
     </message>
     <message>
         <location filename="../../scribus/util_formats.cpp" line="90"/>
         <source>Scalable Vector Graphics</source>
-        <translation type="unfinished"></translation>
+        <translation>Scalable Vector Graphics</translation>
     </message>
     <message>
         <location filename="../../scribus/util_formats.cpp" line="91"/>
         <source>Adobe Illustrator</source>
-        <translation type="unfinished"></translation>
+        <translation>Adobe Illustrator</translation>
     </message>
     <message>
         <location filename="../../scribus/util_formats.cpp" line="93"/>
         <source>Calamus CVG</source>
-        <translation type="unfinished"></translation>
+        <translation>Calamus CVG</translation>
     </message>
     <message>
         <location filename="../../scribus/util_formats.cpp" line="94"/>
         <source>Word Perfect WPG</source>
-        <translation type="unfinished"></translation>
+        <translation>File Word Perfect WPG</translation>
     </message>
     <message>
         <location filename="../../scribus/util_formats.cpp" line="96"/>
         <source>Open Raster</source>
-        <translation type="unfinished"></translation>
+        <translation>Open Raster</translation>
     </message>
     <message>
         <location filename="../../scribus/util_formats.cpp" line="98"/>
         <source>GraphicsMagick</source>
-        <translation type="unfinished"></translation>
+        <translation>GraphicsMagick</translation>
     </message>
     <message>
         <location filename="../../scribus/util_formats.cpp" line="100"/>
         <source>UniConvertor</source>
-        <translation type="unfinished"></translation>
+        <translation>UniConvertor</translation>
     </message>
     <message>
         <location filename="../../scribus/util_formats.cpp" line="101"/>
         <source>Macintosh Pict</source>
-        <translation type="unfinished"></translation>
+        <translation>Macintosh Pict</translation>
     </message>
     <message>
         <source>PostScript &quot;*.ps&quot;</source>
@@ -28507,17 +28507,17 @@ forniti nella documentazione delle funzioni.
     <message>
         <location filename="../../scribus/util_formats.cpp" line="78"/>
         <source>Encapsulated PostScript</source>
-        <translation type="unfinished"></translation>
+        <translation>Encapsulated PostScript</translation>
     </message>
     <message>
         <location filename="../../scribus/util_formats.cpp" line="85"/>
         <source>PostScript</source>
-        <translation type="unfinished">PostScript</translation>
+        <translation>PostScript</translation>
     </message>
     <message>
         <location filename="../../scribus/util_formats.cpp" line="86"/>
         <source>Adobe Photoshop</source>
-        <translation type="unfinished"></translation>
+        <translation>Adobe Photoshop</translation>
     </message>
     <message>
         <location filename="../../scribus/util_formats.cpp" line="88"/>
@@ -29285,12 +29285,12 @@ Pertanto l&apos;immagine potrebbe essere non corretta</translation>
     <message>
         <location filename="../../scribus/plugins/shapes/shapeplugin.cpp" line="73"/>
         <source>Custom Shapes</source>
-        <translation type="unfinished"></translation>
+        <translation>Forme personali</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/shapes/shapeplugin.cpp" line="85"/>
         <source>CustomShapes</source>
-        <translation type="unfinished"></translation>
+        <translation>Forme personali</translation>
     </message>
 </context>
 <context>
@@ -34227,27 +34227,27 @@ Utilizzare la Verifica Preliminare per correggerli</translation>
     <message>
         <location filename="../../scribus/plugins/shapes/shapepalette.cpp" line="415"/>
         <source>Choose a shape file to import</source>
-        <translation type="unfinished"></translation>
+        <translation>Scegli un file forme da importare</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/shapes/shapepalette.cpp" line="415"/>
         <source>Photoshop Custom Shape (*.csh *.CSH)</source>
-        <translation type="unfinished"></translation>
+        <translation>Photoshop Custom Shape (*.csh *.CSH)</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/shapes/shapepalette.cpp" line="587"/>
         <source>Custom Shapes</source>
-        <translation type="unfinished"></translation>
+        <translation>Forme personali</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/shapes/shapepalette.cpp" line="588"/>
         <source>Load Photoshop Custom Shapes</source>
-        <translation type="unfinished"></translation>
+        <translation>Carica Forme personali di Photoshop</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/shapes/shapepalette.cpp" line="589"/>
         <source>Close current Tab</source>
-        <translation type="unfinished"></translation>
+        <translation>Chiudi la scheda corrente</translation>
     </message>
 </context>
 <context>
@@ -34278,7 +34278,7 @@ Utilizzare la Verifica Preliminare per correggerli</translation>
     <message>
         <location filename="../../scribus/plugins/shapes/shapeplugin.cpp" line="93"/>
         <source>Palette for Photoshop Custom Shapes.</source>
-        <translation type="unfinished"></translation>
+        <translation>Tavolozza per le Forme personali di Photoshop.</translation>
     </message>
 </context>
 <context>
@@ -34286,22 +34286,22 @@ Utilizzare la Verifica Preliminare per correggerli</translation>
     <message>
         <location filename="../../scribus/plugins/shapes/shapepalette.cpp" line="74"/>
         <source>Delete selected Shape</source>
-        <translation type="unfinished"></translation>
+        <translation>Elimina la Forma selezionata</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/shapes/shapepalette.cpp" line="77"/>
         <source>Delete all Shapes</source>
-        <translation type="unfinished"></translation>
+        <translation>Elimina tutte le Forme</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/shapes/shapepalette.cpp" line="81"/>
         <source>Display Icons only</source>
-        <translation type="unfinished">Mostra solo icone</translation>
+        <translation>Mostra solo icone</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/shapes/shapepalette.cpp" line="91"/>
         <source>Do you really want to clear all your shapes in this tab?</source>
-        <translation type="unfinished"></translation>
+        <translation>Vuoi veramente cancellare tutte le Forme in questa scheda?</translation>
     </message>
 </context>
 <context>
@@ -35603,7 +35603,7 @@ Utilizzare la Verifica Preliminare per correggerli</translation>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.ui" line="14"/>
         <source>TabWidget</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.ui" line="70"/>
