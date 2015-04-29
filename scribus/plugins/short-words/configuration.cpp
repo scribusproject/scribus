@@ -74,7 +74,7 @@ QStringList SWConfig::getShortWordsFromFile(QString lang, QString filename)
 		while (!t.atEnd())
 		{
 			aRow = t.readLine();
-			if (aRow.left(2) == lang)
+			if (aRow.left(2) == lang.left(2))
 			{
 				success = true;
 				shorts += aRow.remove(0, 3);
