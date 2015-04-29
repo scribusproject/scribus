@@ -85,7 +85,7 @@ bool SWDialog::useStyleLang()
 
 QString SWDialog::lang()
 {
-	return LanguageManager::instance()->getLangFromTransLang(languageComboBox->currentText());
+	return LanguageManager::instance()->getAbbrevFromLang(languageComboBox->currentText(), true);
 }
 
 void SWDialog::savePrefs()
