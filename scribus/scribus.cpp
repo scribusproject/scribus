@@ -1179,7 +1179,7 @@ void ScribusMainWindow::addDefaultWindowMenuItems()
 	scrMenuMgr->addMenuItemString("toolsPages", "Windows");
 	scrMenuMgr->addMenuItemString("toolsLayers", "Windows");
 	scrMenuMgr->addMenuItemString("toolsBookmarks", "Windows");
-	scrMenuMgr->addMenuItemString("toolsDownloads", "Windows");
+//	scrMenuMgr->addMenuItemString("toolsDownloads", "Windows");
 	scrMenuMgr->addMenuItemString("toolsResources", "Windows");
 	scrMenuMgr->addMenuItemString("SEPARATOR", "Windows");
 	scrMenuMgr->addMenuItemString("toolsScrapbook", "Windows");
