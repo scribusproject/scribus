@@ -53,21 +53,21 @@ void SWConfig::saveConfig()
 
 QStringList SWConfig::getShortWordsFromFile(QString lang, QString filename)
 {
-	// all shorts for one language
-	QString shorts = "";
-	// one line in cfg. file
-	QString aRow;
-	// cfg (doesn't) exists for the selected language indicator
-	bool success = false;
 	// path to the cfg. file
-	QFile f;
-
-	f.setFileName(filename);
+	QFile f(filename);
 	if (!f.exists())
 	{
 		qDebug("Short Words config file not found");
 		return QStringList();
 	}
+
+	// all shorts for one language
+	QString shorts;
+	// one line in cfg. file
+	QString aRow;
+	// cfg (doesn't) exists for the selected language indicator
+	bool success = false;
+
 	if (f.open(QIODevice::ReadOnly))
 	{
 		QTextStream t(&f);

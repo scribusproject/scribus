@@ -41,7 +41,7 @@ SWParse::SWParse()
 void SWParse::parseItem(PageItem *aFrame)
 {
 	// the content of the frame - text itself
-	QString content = QString();
+	QString content;
 	int changes = 0;
 	// list of the short words
 	QStringList shorts;
@@ -57,10 +57,10 @@ void SWParse::parseItem(PageItem *aFrame)
 		return;
 
 	// an ugly hack to get the language code from the item language property
-	if (lang.isNull() || lang.isEmpty())
+	if (lang.isEmpty())
 	{
 		lang = aFrame->itemText.charStyle(0).language();
-		if (lang.isNull() || lang.isEmpty())
+		if (lang.isEmpty())
 			qDebug("SWParse::parseItem - variable lang is still empty. No changes are made.");
 	}
 
