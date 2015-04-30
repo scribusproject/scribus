@@ -42,7 +42,13 @@ SWDialog::SWDialog(QWidget* parent) : QDialog(parent)
 
 	cfg = new SWConfig();
 
-	languageComboBox->addItems(cfg->getAvailableLanguagesList());
+	QStringList langCodes = cfg->getAvailableLanguagesList();
+	for (int i = 0; i< langCodes.count(); ++i)
+	{
+		QString code = langCodes.at(i);
+		QString lang = LanguageManager::instance()->getLangFromAbbrev(code, true);
+		languageComboBox->addItem(lang, code);
+	}
 
 	languageChange();
 	resize(minimumSizeHint());
@@ -57,7 +63,10 @@ SWDialog::SWDialog(QWidget* parent) : QDialog(parent)
 
 	selectAction(cfg->action);
 	styleCheckBox->setChecked(cfg->useStyle);
-	languageComboBox->setCurrentIndex(cfg->currentLanguage);
+
+	int langIndex = languageComboBox->findData(cfg->currentLanguage);
+	if (langIndex >= 0)
+		languageComboBox->setCurrentIndex(langIndex);
 }
 
 /*
@@ -85,14 +94,15 @@ bool SWDialog::useStyleLang()
 
 QString SWDialog::lang()
 {
-	return LanguageManager::instance()->getAbbrevFromLang(languageComboBox->currentText(), true);
+	QVariant langCode = languageComboBox->currentData(Qt::UserRole);
+	return langCode.toString();
 }
 
 void SWDialog::savePrefs()
 {
 	cfg->action = actionSelected();
 	cfg->useStyle = styleCheckBox->isChecked();
-	cfg->currentLanguage = languageComboBox->currentIndex();
+	cfg->currentLanguage = languageComboBox->currentData().toString();
 	cfg->saveConfig();
 }
 

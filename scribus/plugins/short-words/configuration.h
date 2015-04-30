@@ -35,9 +35,8 @@ public:
 	/*! \brief Id of the UI radiobutton  */
 	uint action;
 	//*! \brief UI checkbox */
-	//uint userConfig;
 	bool useStyle;
-	int currentLanguage;
+	QString currentLanguage;
 
 	/*! \brief Returns all options for specified language.
 	\param lang language of the ext frame */
@@ -46,10 +45,7 @@ public:
 	\retval QString with languages in the configuration. */
 	static QString getAvailableLanguages();
 	static QStringList getAvailableLanguagesList();
-	/*! \brief get lang code (en, cs, pl) from Scribus hyphenator configuration structure.
-	\param hyphenCode code of the language.
-	\retval QString full named language. */
-	static QString getLangCodeFromHyph(QString hyphenCode);
+
 	/*! \brief Save cfg. */
 	void saveConfig();
 
@@ -63,12 +59,11 @@ private:
 	QStringList getShortWordsFromFile(QString lang, QString filename);
 	/*! \brief getAvailableLanguages use this one. available config in the specified file for UI about
 	\param filename config file
-	\retval QString all supported languages in one string */
-	static QStringList getAvailableLanguagesFromFile(QString filename);
-	/*! \brief returns full lang name by lang code (en -> English)
-	\param code language code
-	\retval QString full named language */
-	static QString getLangFromCode(QString code);
+	\retval QStringList all supported language codes */
+	static QStringList getAvailableLanguageCodes(QString filename);
+	/*! \brief Retrieve translated language strings from language codes
+	\retval QStringList with languages. */
+	static QStringList getLanguageStringsFromCodes(QStringList codes);
 };
 
 #endif

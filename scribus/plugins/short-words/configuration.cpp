@@ -39,7 +39,7 @@ SWConfig::SWConfig()
 	//userConfig = prefs->getUInt("userConfig", 0);
 	//editor = prefs->get("editor", "");
 	useStyle = prefs->getBool("useStyle", true);
-	currentLanguage = prefs->getInt("currentLanguage", 0);
+	currentLanguage = prefs->get("currentLanguage", "en");
 }
 
 void SWConfig::saveConfig()
@@ -100,36 +100,28 @@ QStringList SWConfig::getShortWords(QString lang)
 	return allShorts + getShortWordsFromFile(lang, RC_PATH);*/
 }
 
-QStringList SWConfig::getAvailableLanguagesFromFile(QString filename)
+QStringList SWConfig::getAvailableLanguageCodes(QString filename)
 {
-	QStringList langs;
 	QStringList nations;
-	QString aRow;
+	QString aRow, code, lang;
 
 	QFile f(filename);
-	if (f.open(QIODevice::ReadOnly))
-	{
-		QTextStream t(&f);
-		while (!t.atEnd())
-		{
-			aRow = t.readLine();
-			if (aRow.left(1) != "#" && aRow.length() != 0 && aRow.left(1) != " " && !langs.contains(aRow.left(2)))
-			{
-				nations.append(getLangFromCode(aRow.left(2)));
-				langs.append(aRow.left(2));
-			}
-		}
-		f.close();
-	}
-	else
-	{
+	if (!f.open(QIODevice::ReadOnly))
 		return QStringList();
+
+	QTextStream t(&f);
+	while (!t.atEnd())
+	{
+		aRow = t.readLine();
+		code = aRow.left(2);
+		if (aRow.left(1) != "#" && aRow.length() != 0 && aRow.left(1) != " " && !nations.contains(code))
+		{
+			nations.append(code);
+		}
 	}
-// 	if (filename == RC_PATH_USR)
-// 		return QObject::tr("Custom (optional) configuration: ", "short words plugin") + " " + nations.join(", ");
-// 	if (filename == RC_PATH)
-// 		return QObject::tr("Standard configuration: ", "short words plugin") + " " + nations.join(", ");
-	return nations; //.join(", "); // save return only
+	f.close();
+
+	return nations;
 }
 
 QStringList SWConfig::getAvailableLanguagesList()
@@ -137,36 +129,38 @@ QStringList SWConfig::getAvailableLanguagesList()
 	QStringList allConfig;
 	
 	if (QFile::exists(RC_PATH_USR))
-		allConfig << getAvailableLanguagesFromFile(RC_PATH_USR);
+		allConfig = getAvailableLanguageCodes(RC_PATH_USR);
 	else
-		allConfig << getAvailableLanguagesFromFile(RC_PATH);
+		allConfig = getAvailableLanguageCodes(RC_PATH);
 	return allConfig;
 }
 
 QString SWConfig::getAvailableLanguages()
 {
-	QStringList allConfig;
+	QStringList allCodes, allConfig;
+	allCodes = getAvailableLanguageCodes(RC_PATH);
 	allConfig << QObject::tr("Standard configuration: ", "short words plugin") << "<p>";
-	allConfig << getAvailableLanguagesFromFile(RC_PATH).join(", ");
+	allConfig << getLanguageStringsFromCodes(allCodes).join(", ");
 	if (QFile::exists(RC_PATH_USR))
 	{
+		allCodes = getAvailableLanguageCodes(RC_PATH_USR);
 		allConfig << "<p>" << QObject::tr("Custom (optional) configuration: ", "short words plugin") << "<p>";
-		allConfig << getAvailableLanguagesFromFile(RC_PATH_USR).join(", ");
+		allConfig << getLanguageStringsFromCodes(allCodes).join(", ");
 	}
-	return  allConfig.join("");
+	return allConfig.join("");
 }
 
-QString SWConfig::getLangCodeFromHyph(QString hyphenCode)
+QStringList SWConfig::getLanguageStringsFromCodes(QStringList codes)
 {
-	hyphenCode.remove(0, 5);
-	return hyphenCode.remove(2, 10);
-}
+	QStringList languages;
 
-QString SWConfig::getLangFromCode(QString code)
-{
-	QMap<QString,QString>::Iterator it;
-	QString lang;
-// 	LanguageManager langmgr;
-// 	langmgr.init(false);
-	return LanguageManager::instance()->getLangFromAbbrev(code, true);
+	for (int i = 0; i < codes.count(); ++i)
+	{
+		QString code = codes.at(i);
+		QString lang = LanguageManager::instance()->getLangFromAbbrev(code, true);
+		if (lang.length() > 0)
+			languages.append(lang);
+	}
+
+	return languages;
 }

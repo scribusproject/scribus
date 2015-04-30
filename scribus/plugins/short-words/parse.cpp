@@ -63,11 +63,7 @@ void SWParse::parseItem(PageItem *aFrame)
 		if (lang.isNull() || lang.isEmpty())
 			qDebug("SWParse::parseItem - variable lang is still empty. No changes are made.");
 	}
-/* IL
-	QString langCode;
-// 	if (aFrame->doc()->scMW()->Sprachen.contains(lang))
-		langCode = cfg->getLangCodeFromHyph(LanguageManager::instance()->getHyphFilename(lang,false));
-*/
+
 	// apply spaces after shorts
 	shorts = cfg->getShortWords(lang);
 	if (shorts.count()==0)
@@ -134,7 +130,7 @@ void SWParse::parseSelection(ScribusDoc* doc)
 	doc->scMW()->mainWindowProgressBar->setMaximum(docSelectionCount);
 	for (uint i=0; i < docSelectionCount; ++i)
 	{
-	doc->scMW()->mainWindowProgressBar->setValue(i);
+		doc->scMW()->mainWindowProgressBar->setValue(i);
 		parseItem(doc->m_Selection->itemAt(i));
 	} // for items
 	doc->scMW()->mainWindowProgressBar->setValue(docSelectionCount);
