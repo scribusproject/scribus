@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>211</width>
-    <height>142</height>
+    <width>227</width>
+    <height>152</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -41,13 +41,6 @@
      </property>
     </widget>
    </item>
-   <item row="0" column="0">
-    <widget class="QCheckBox" name="dropCapBox">
-     <property name="text">
-      <string>use Drop Caps</string>
-     </property>
-    </widget>
-   </item>
    <item row="3" column="0" colspan="2">
     <widget class="QLabel" name="dropCapCharStyleLabel">
      <property name="text">
@@ -62,6 +55,13 @@
     <widget class="ScrSpinBox" name="dropCapOffset">
      <property name="minimum">
       <double>-99.989999999999995</double>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="0" colspan="2">
+    <widget class="QCheckBox" name="dropCapBox">
+     <property name="text">
+      <string>use Drop Caps</string>
      </property>
     </widget>
    </item>
