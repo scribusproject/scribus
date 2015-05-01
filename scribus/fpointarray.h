@@ -59,6 +59,7 @@ public:
 	QPointF pointQF(int i) const;
 	void translate( double dx, double dy );
 	void scale( double sx, double sy );
+	QRectF boundingRect();
 	FPoint WidthHeight() const;
 	void map(QTransform m);
 	FPointArray &operator=( const FPointArray &a );

@@ -33,6 +33,7 @@ for which a new license (GPL+exception) is in place.
 #include <QVector>
 
 #include "util.h"
+#include "util_math.h"
 #include "sclimits.h"
 
 using namespace std;
@@ -200,6 +201,12 @@ void FPointArray::scale( double sx, double sy )
 	}
 }
 
+QRectF FPointArray::boundingRect()
+{
+	FPoint min = getMinClipF(this);
+	FPoint max = getMaxClipF(this);
+	return QRectF(QPointF(min.x(), min.y()), QPointF(max.x(), max.y()));
+}
 
 FPoint FPointArray::WidthHeight() const
 {
