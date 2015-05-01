@@ -321,10 +321,10 @@ void FormatsManager::fileTypeStrings(int type, QString& formatList, QString& for
 
 bool extensionIndicatesPDF(const QString &ext)
 {
-// 	QStringList strl;
-// 	strl << "pdf";
-// 	return strl.contains(ext, Qt::CaseInsensitive);
-	return (QString::compare("pdf", ext, Qt::CaseInsensitive) == 0);
+	QStringList strl;
+	strl << "ai" << "pdf";
+	return strl.contains(ext, Qt::CaseInsensitive);
+//	return (QString::compare("pdf", ext, Qt::CaseInsensitive) == 0);
 }
 
 bool extensionIndicatesEPS(const QString &ext)

@@ -1863,6 +1863,8 @@ QList<PageItem*> IdmlPlug::parseItemXML(const QDomElement& itElem, QTransform pT
 	QByteArray imageData = "";
 	QString imageFileName = "";
 	QTransform imageTransform;
+	double imageDX = 0;
+	double imageDY = 0;
 	QString storyForPath = "";
 	int pathTextType = 0;
 	double pathTextStart = 0;
@@ -1990,6 +1992,10 @@ QList<PageItem*> IdmlPlug::parseItemXML(const QDomElement& itElem, QTransform pT
 		{
 			if (ite.hasAttribute("FittingOnEmptyFrame"))
 				imageFit = ite.attribute("FittingOnEmptyFrame");
+			if (ite.hasAttribute("LeftCrop"))
+				imageDX = ite.attribute("LeftCrop").toDouble();
+			if (ite.hasAttribute("TopCrop"))
+				imageDY = ite.attribute("TopCrop").toDouble();
 		}
 		else if (ite.tagName() == "TransparencySetting")
 		{
@@ -2066,7 +2072,7 @@ QList<PageItem*> IdmlPlug::parseItemXML(const QDomElement& itElem, QTransform pT
 			ScTextStream list(&imageTrans, QIODevice::ReadOnly);
 			double a, b, c, d, e, f;
 			list >> a >> b >> c >> d >> e >> f;
-			imageTransform = QTransform(a, b, c, d, e, f);
+			imageTransform = QTransform(a, b, c, d, e, f) * transformation;
 			for(QDomNode itp = ite.firstChild(); !itp.isNull(); itp = itp.nextSibling() )
 			{
 				QDomElement itpg = itp.toElement();
@@ -2605,8 +2611,8 @@ QList<PageItem*> IdmlPlug::parseItemXML(const QDomElement& itElem, QTransform pT
 								item->AspectRatio = false;
 							}
 							m_Doc->loadPict(fileName, item);
-							item->setImageXYOffset(dxi - grOffset.x(), dyi - grOffset.y());
 							item->setImageXYScale(scXi / item->pixm.imgInfo.xres * 72, scYi / item->pixm.imgInfo.xres * 72);
+							item->setImageXYOffset(-imageDX * scXi / item->imageXScale(), -imageDY * scXi / item->imageYScale());
 							item->setImageRotation(-roti);
 							item->AdjustPictScale();
 						}
@@ -2641,7 +2647,7 @@ QList<PageItem*> IdmlPlug::parseItemXML(const QDomElement& itElem, QTransform pT
 					}
 					m_Doc->loadPict(QUrl::fromPercentEncoding(fileName), item);
 					item->setImageXYScale(scXi / item->pixm.imgInfo.xres * 72, scYi / item->pixm.imgInfo.xres * 72);
-					item->setImageXYOffset((dxi - grOffset.x()) / item->imageXScale(), (dyi - grOffset.y()) / item->imageYScale());
+					item->setImageXYOffset(-imageDX * scXi / item->imageXScale(), -imageDY * scXi / item->imageYScale());
 					item->setImageRotation(-roti);
 					if (imageFit != "None")
 						item->AdjustPictScale();
