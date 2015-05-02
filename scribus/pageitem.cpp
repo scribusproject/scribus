@@ -1752,7 +1752,7 @@ void PageItem::DrawObj_Pre(ScPainter *p)
 	if (isGroup())
 		return;
 
-	if (hasSoftShadow())
+	if ((hasSoftShadow()) && (m_Doc->appMode != modeEdit))
 		DrawSoftShadow(p);
 	p->setBlendModeFill(fillBlendmode());
 	p->setLineWidth(lwCorr);
