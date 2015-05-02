@@ -452,15 +452,16 @@ bool ScImgDataLoader_PS::parseData(QString fn)
 		}
 	}
 	f.close();
-	return found;
+	return true;
 }
 
 bool ScImgDataLoader_PS::loadPicture(const QString& fn, int page, int gsRes, bool thumbnail)
 {
-	QStringList args;
-	double x, y, b, h;
+	double x = 0;
+	double y = 0;
+	double b = 0;
+	double h = 0;
 	bool found = false;
-	QString tmp, dummy, cmd1, cmd2, tmp2;
 	QFileInfo fi = QFileInfo(fn);
 	if (!fi.exists())
 		return false;
@@ -644,7 +645,16 @@ bool ScImgDataLoader_PS::loadPicture(const QString& fn, int page, int gsRes, boo
 			args.append("-sOutputFile="+tmpFiles);
 			args.append(picFile);
 //			qDebug() << "scimgdataloader_ps:" << args;
-			int retg = callGS(args, "bitcmyk");
+			int retg = callGS(args);
+			if (retg == 0)
+			{
+				m_image.load(tmpFile);
+				x = 0;
+				y = 0;
+				b = m_image.width() / gsRes * 72.0;
+				h = m_image.height() / gsRes * 72.0;
+			}
+			retg = callGS(args, "bitcmyk");
 			if (retg == 0)
 			{
 				m_image = QImage( qRound(b * gsRes / 72.0), qRound(h * gsRes / 72.0), QImage::Format_ARGB32 );
