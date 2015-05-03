@@ -144,30 +144,30 @@ void SWParse::parsePage(ScribusDoc* doc)
 
 void SWParse::parsePage(ScribusDoc* doc, int page)
 {
-	uint cnt = 0;
+	uint count = 0;
 	uint docItemsCount=doc->Items->count();
 	if (docItemsCount == 0)
 		return;
 
-	for (uint a = 0; a < docItemsCount; ++a)
+	for (uint i = 0; i < docItemsCount; ++i)
 	{
-		PageItem* b = doc->Items->at(a);
-		if (b->OwnPage == page)
-			++cnt;
+		PageItem* pi = doc->Items->at(i);
+		if (pi->OwnPage == page)
+			++count;
 	}
-	doc->scMW()->mainWindowProgressBar->setMaximum(cnt);
+	doc->scMW()->mainWindowProgressBar->setMaximum(count);
 	doc->view()->GotoPage(page);
-	uint i = 0;
-	for (uint a = 0; a < docItemsCount; ++a)
+	uint j = 0;
+	for (uint i = 0; i < docItemsCount; ++i)
 	{
-		PageItem* b = doc->Items->at(a);
-		if (b->OwnPage == page)
+		PageItem* pi = doc->Items->at(i);
+		if (pi->OwnPage == page)
 		{
-			doc->scMW()->mainWindowProgressBar->setValue(++i);
-			parseItem(b);
+			doc->scMW()->mainWindowProgressBar->setValue(++j);
+			parseItem(pi);
 		}
 	}
-	doc->scMW()->mainWindowProgressBar->setValue(cnt);
+	doc->scMW()->mainWindowProgressBar->setValue(count);
 }
 
 void SWParse::parseAll(ScribusDoc* doc)

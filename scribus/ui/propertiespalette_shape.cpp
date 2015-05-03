@@ -543,7 +543,7 @@ void PropertiesPalette_Shape::showTextFlowMode(PageItem::TextFlowMode mode)
 
 void PropertiesPalette_Shape::languageChange()
 {
-	QString ptSuffix = tr(" pt");
+	QString ptSuffix = unitGetSuffixFromIndex(SC_PT);
 	QString suffix   = m_doc ? unitGetSuffixFromIndex(m_doc->unitIndex()) : ptSuffix;
 	roundRect->setSuffix(suffix);
 

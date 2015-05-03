@@ -89,27 +89,20 @@ QStringList SWConfig::getShortWordsFromFile(QString lang, QString filename)
 
 QStringList SWConfig::getShortWords(QString lang)
 {
-	//QStringList allShorts;
 	if (QFile::exists(RC_PATH_USR))
 		return getShortWordsFromFile(lang, RC_PATH_USR);
 	return getShortWordsFromFile(lang, RC_PATH);
-	/*if (userConfig && QFile::exists(RC_PATH_USR))
-		return getShortWordsFromFile(lang, RC_PATH_USR);
-	if (!userConfig && QFile::exists(RC_PATH_USR))
-		allShorts = getShortWordsFromFile(lang, RC_PATH_USR);
-	return allShorts + getShortWordsFromFile(lang, RC_PATH);*/
 }
 
 QStringList SWConfig::getAvailableLanguageCodes(QString filename)
 {
-	QStringList nations;
-	QString aRow, code, lang;
-
 	QFile f(filename);
 	if (!f.open(QIODevice::ReadOnly))
 		return QStringList();
 
 	QTextStream t(&f);
+	QStringList nations;
+	QString aRow, code, lang;
 	while (!t.atEnd())
 	{
 		aRow = t.readLine();
