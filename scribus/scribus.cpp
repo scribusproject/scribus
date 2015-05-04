@@ -7234,10 +7234,10 @@ QStringList ScribusMainWindow::scrapbookNames()
 
 void ScribusMainWindow::updateLayerMenu()
 {
-	bool b = layerMenu->blockSignals(true);
-	layerMenu->clear();
 	if (doc==NULL)
 		return;
+	bool b = layerMenu->blockSignals(true);
+	layerMenu->clear();
 	QStringList newNames;
 	doc->orderedLayerList(&newNames);
 	for (QStringList::Iterator it=newNames.begin(); it!=newNames.end(); ++it)
