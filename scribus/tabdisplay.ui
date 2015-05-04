@@ -281,7 +281,7 @@
                <number>-150</number>
               </property>
               <property name="maximum" >
-               <number>150</number>
+               <number>500</number>
               </property>
               <property name="orientation" >
                <enum>Qt::Horizontal</enum>

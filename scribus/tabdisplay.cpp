@@ -187,7 +187,7 @@ void TabDisplay::restoreDisScale()
 {
 	disconnect(CaliSlider, SIGNAL(valueChanged(int)), this, SLOT(setDisScale()));
 	int dpi = qApp->desktop()->logicalDpiX();
-	if ((dpi < 60) || (dpi > 250))
+	if ((dpi < 60) || (dpi > 500))
 		dpi = 72;
 	DisScale = dpi / 72.0;
 	CaliSlider->setValue(qRound(100 * DisScale) - 150);
