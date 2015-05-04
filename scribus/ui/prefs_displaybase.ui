@@ -281,7 +281,7 @@
             <number>-150</number>
            </property>
            <property name="maximum">
-            <number>150</number>
+            <number>500</number>
            </property>
            <property name="orientation">
             <enum>Qt::Horizontal</enum>
@@ -375,8 +375,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>192</width>
-            <height>339</height>
+            <width>246</width>
+            <height>350</height>
            </rect>
           </property>
           <layout class="QFormLayout" name="formLayout_2">

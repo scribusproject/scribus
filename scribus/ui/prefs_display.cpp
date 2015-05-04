@@ -262,7 +262,7 @@ void Prefs_Display::restoreDisScale()
 {
 	disconnect(adjustDisplaySlider, SIGNAL(valueChanged(int)), this, SLOT(setDisScale()));
 	int dpi = qApp->desktop()->logicalDpiX();
-	if ((dpi < 60) || (dpi > 250))
+	if ((dpi < 60) || (dpi > 500))
 		dpi = 72;
 	displayScale = dpi / 72.0;
 	adjustDisplaySlider->setValue(qRound(100 * displayScale) - 150);
