@@ -78,6 +78,14 @@ ScribusMainWindow SCRIBUS_API *ScMW;
 ScribusQApp SCRIBUS_API *ScQApp;
 bool emergencyActivated;
 
+#if !defined(_CONSOLE)
+#if defined(_DEBUG)
+#pragma comment(lib, "qtmaind.lib")
+#else
+#pragma comment(lib, "qtmain.lib")
+#endif
+#endif
+
 int main(int argc, char *argv[])
 {
 	int result;
