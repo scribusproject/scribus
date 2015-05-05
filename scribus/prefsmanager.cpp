@@ -2114,7 +2114,7 @@ bool PrefsManager::ReadPref(QString ho)
 			appPrefs.itemToolPrefs.imageScaleY = ScCLocale::toDoubleC(dc.attribute("ImageScaleY"), 1.0);
 			appPrefs.itemToolPrefs.imageScaleType = static_cast<bool>(dc.attribute("ImageScaleType", "1").toInt());
 			appPrefs.itemToolPrefs.imageAspectRatio = static_cast<bool>(dc.attribute("ImageAspectRatio", "1").toInt());
-			appPrefs.itemToolPrefs.imageUseEmbeddedPath = static_cast<bool>(dc.attribute("EmbeddedPath", "0").toInt());
+			appPrefs.itemToolPrefs.imageUseEmbeddedPath = static_cast<bool>(dc.attribute("ImageUseEmbeddedPath", "0").toInt());
 			appPrefs.itemToolPrefs.imageLowResType = dc.attribute("ImageLowResType", "1").toInt();
 			appPrefs.itemToolPrefs.polyCorners = dc.attribute("PolygonCorners", "4").toInt();
 			appPrefs.itemToolPrefs.polyFactor = ScCLocale::toDoubleC(dc.attribute("PolygonFactor"), 0.5);
