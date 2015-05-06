@@ -6449,25 +6449,26 @@ void ScribusMainWindow::selectItemsFromOutlines(PageItem* ite, bool single, int 
 	doc->m_Selection->delaySignalsOn();
 	view->SelectItem(ite, true, single);
 	doc->m_Selection->delaySignalsOff();
-	doc->m_Selection->connectItemToGUI();
-	if (!doc->m_Selection->isEmpty())
-	{
-		PageItem *currItem = doc->m_Selection->itemAt(0);
-		QTransform itemTrans = currItem->getTransform();
-		double xOffset=0.0,yOffset=0.0;
-		switch (position)
-		{
-			case 1: //top left
-				break;
-			default: //center
-				xOffset = currItem->width() / 2.0;
-				yOffset = currItem->height() / 2.0;
-				break;
-		}
 
-		QPointF point = itemTrans.map(QPointF(xOffset, yOffset));
-		view->SetCCPo(point.x(), point.y());
+	if (doc->m_Selection->isEmpty())
+		return;
+	doc->m_Selection->connectItemToGUI();
+
+	PageItem *currItem = doc->m_Selection->itemAt(0);
+	QTransform itemTrans = currItem->getTransform();
+	double xOffset=0.0,yOffset=0.0;
+	switch (position)
+	{
+		case 1: //top left
+			break;
+		default: //center
+			xOffset = currItem->width() / 2.0;
+			yOffset = currItem->height() / 2.0;
+			break;
 	}
+
+	QPointF point = itemTrans.map(QPointF(xOffset, yOffset));
+	view->SetCCPo(point.x(), point.y());
 }
 
 void ScribusMainWindow::selectItemFromOutlines(PageItem *ite, bool single, int cPos)
