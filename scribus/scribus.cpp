@@ -6436,8 +6436,15 @@ void ScribusMainWindow::selectItemsFromOutlines(PageItem* ite, bool single, int 
 	view->Deselect(true);
 	if (!doc->symbolEditMode() && !doc->inlineEditMode())
 	{
-		if ((ite->OwnPage != -1) && (ite->OwnPage != static_cast<int>(doc->currentPage()->pageNr())))
-			view->GotoPage(ite->OwnPage);
+		int itemPage = ite->OwnPage;
+		PageItem* parentItem = ite->Parent;
+		while (parentItem && parentItem->isGroup())
+		{
+			itemPage = parentItem->OwnPage;
+			parentItem = parentItem->Parent;
+		}
+		if ((itemPage != -1) && (itemPage != static_cast<int>(doc->currentPage()->pageNr())))
+			view->GotoPage(itemPage);
 	}
 	doc->m_Selection->delaySignalsOn();
 	view->SelectItem(ite, true, single);
