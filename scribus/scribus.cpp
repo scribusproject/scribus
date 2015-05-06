@@ -6446,33 +6446,20 @@ void ScribusMainWindow::selectItemsFromOutlines(PageItem* ite, bool single, int 
 	if (!doc->m_Selection->isEmpty())
 	{
 		PageItem *currItem = doc->m_Selection->itemAt(0);
-	 	double rotation=currItem->rotation();
-		if ( rotation != 0.0 )
+		QTransform itemTrans = currItem->getTransform();
+		double xOffset=0.0,yOffset=0.0;
+		switch (position)
 		{
-			double MPI180=1.0/(180.0*M_PI);
-			double y1 = sin(rotation*MPI180) * currItem->width();
-			double x1 = cos(rotation*MPI180) * currItem->width();
-			double y2 = sin((rotation+90.0)*MPI180) * currItem->height();
-			double x2 = cos((rotation+90.0)*MPI180) * currItem->height();
-			double mx = currItem->xPos() + ((x1 + x2)/2.0);
-			double my = currItem->yPos() + ((y1 + y2)/2.0);
-			view->SetCCPo(mx, my);
+			case 1: //top left
+				break;
+			default: //center
+				xOffset = currItem->width() / 2.0;
+				yOffset = currItem->height() / 2.0;
+				break;
 		}
-		else
-		{
-			double xOffset=0.0,yOffset=0.0;
-			switch (position)
-			{
-				case 1: //top left
-					break;
-				default: //center
-					xOffset = currItem->width() / 2.0;
-					yOffset = currItem->height() / 2.0;
-					break;
-			}
 
-			view->SetCCPo(currItem->xPos() + xOffset, currItem->yPos() + yOffset);
-		}
+		QPointF point = itemTrans.map(QPointF(xOffset, yOffset));
+		view->SetCCPo(point.x(), point.y());
 	}
 }
 
