@@ -174,7 +174,7 @@ public:
 		if (doLayout)
 			it->layout();
 		double x, y, w, h;
-		QTransform t = it->getCombinedTransform();
+		QTransform t = it->getTransform();
 		w = it->visualWidth();
 		h = it->visualHeight();
 		x = -it->visualLineWidth() / 2.0;
@@ -6012,7 +6012,7 @@ int ScribusDoc::OnPage(PageItem *currItem)
 		double y = currentPage()->yOffset() - docPrefsData.docSetupPrefs.bleeds.top();
 		double w = currentPage()->width() + docPrefsData.docSetupPrefs.bleeds.left() + docPrefsData.docSetupPrefs.bleeds.right();
 		double h1 = currentPage()->height() + docPrefsData.docSetupPrefs.bleeds.bottom() + docPrefsData.docSetupPrefs.bleeds.top();
-		QTransform t = currItem->getCombinedTransform();
+		QTransform t = currItem->getTransform();
 		double w2 = currItem->visualWidth();
 		double h2 = currItem->visualHeight();
 		double x2 = -currItem->visualLineWidth() / 2.0;
@@ -6033,7 +6033,7 @@ int ScribusDoc::OnPage(PageItem *currItem)
 			double y = Pages->at(a)->yOffset() - pageBleeds.top();
 			double w = Pages->at(a)->width() + pageBleeds.left() + pageBleeds.right();
 			double h1 = Pages->at(a)->height() + pageBleeds.bottom() + pageBleeds.top();
-			QTransform t = currItem->getCombinedTransform();
+			QTransform t = currItem->getTransform();
 			double w2 = currItem->visualWidth();
 			double h2 = currItem->visualHeight();
 			double x2 = -currItem->visualLineWidth() / 2.0;
@@ -6108,7 +6108,7 @@ void  ScribusDoc::fixItemPageOwner()
 			double y1 = page->yOffset() - pageBleeds.top();
 			double w1 = page->width()   + pageBleeds.left() + pageBleeds.right();
 			double h1 = page->height()  + pageBleeds.bottom() + pageBleeds.top();
-			QTransform t = currItem->getCombinedTransform();
+			QTransform t = currItem->getTransform();
 			double w2 = currItem->visualWidth();
 			double h2 = currItem->visualHeight();
 			double x2 = -currItem->visualLineWidth() / 2.0;

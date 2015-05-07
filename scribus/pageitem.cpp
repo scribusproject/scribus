@@ -8906,13 +8906,6 @@ void PageItem::getTransform(QTransform& mat) const
 
 QTransform PageItem::getTransform() const
 {
-//	QTransform result;
-//	getTransform(result);
-	return getCombinedTransform();
-}
-
-QTransform PageItem::getCombinedTransform() const
-{
 	QTransform result;
 	if (isGroupChild())
 	{
@@ -9859,7 +9852,7 @@ QRect PageItem::getRedrawBounding(const double viewScale)
 	int w = qRound(ceil(BoundingW + Oldm_lineWidth + 10) * viewScale);
 	int h = qRound(ceil(BoundingH + Oldm_lineWidth + 10) * viewScale);
 	QRect ret = QRect(0, 0, w - x, h - y);
-	QTransform t = getCombinedTransform();
+	QTransform t = getTransform();
 	ret = t.mapRect(ret);
 	ret.translate(qRound(-m_Doc->minCanvasCoordinate.x() * viewScale), qRound(-m_Doc->minCanvasCoordinate.y() * viewScale));
 	return ret;

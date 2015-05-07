@@ -366,7 +366,7 @@ void CanvasMode::drawSelection(QPainter* psx, bool drawHandles)
 			double x, y, w, h;
 			if (currItem->isGroupChild())
 			{
-				QTransform t = currItem->getCombinedTransform();
+				QTransform t = currItem->getTransform();
 				double sx, sy;
 				getScaleFromMatrix(t, sx, sy);
 				psx->setTransform(t, true);
