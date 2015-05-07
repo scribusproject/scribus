@@ -1,6 +1,21 @@
 Scribus - 1.5.0svn (Released 2015-05-01)
 ========================================
 
+- 0012513: [Usability] Signitficant data-entry speed issue when the page contains a shaded object (fschmid) - resolved.
+- 0010627: [Graphics / Image Frames] Unable to open some PS images into Image Frame (fschmid) - resolved.
+- 0011857: [User Interface] Inconsistent file listing in file selectors (cbradney) - resolved.
+- 0012860: [Canvas] Windows > Outline may not set correctly document view importing pages (jghali) - closed.
+- 0013048: [General] "Free Scaling" setting in Preferences does not survive restart (jghali) - closed.
+- 0013025: [General] Status bar current layer is not in sync with Layers palette (cbradney) - closed.
+- 0011561: [Import / Export] IDML Import : problem with some images (fschmid) - resolved.
+- 0013038: [Plug-ins] Shortwords Plugin doesn't work in 1.5svn (cbradney) - resolved.
+- 0011857: [User Interface] Inconsistent file listing in file selectors (cbradney) - resolved.
+- 0013037: [Translation] 1.5.0 Italian translation update (FirasH) - closed.
+- 0013036: [Translation] Hungarian translation updates for 1.5.0 (cbradney) - closed.
+- 0012487: [Fonts] "Used in Document" flag is not set (jghali) - closed.
+- 0012966: [Translation] German: mismatch between "Eintrag auswählen" and "Object" menu (christoph_s) - closed.
+- 0012973: [Fonts] TTF embedding doesnt work (avox) - closed.
+- 0013022: [Fonts] Useless "Used" column in font config (jghali) - closed.
 - 0013026: [PDF] "Hatch" fill transparency is ignored exporting to PDF (fschmid) - resolved.
 - 0012973: [Fonts] TTF embedding doesnt work (avox) - resolved.
 - 0013030: [Import / Export] -Save as image- in master page mode = Signal 6 (cbradney) - resolved.
