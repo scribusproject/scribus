@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <menu>
 	<area text="Welcome" file="index.html">
-		<submenuitem text="New in Scribus 1.6" file="readme.html"/>
+		<submenuitem text="New in Scribus 1.5" file="readme.html"/>
 		<submenuitem text="Specification" file="specs.html"/>
 	</area>
 	<area text="Documentation" file="intro.html">
