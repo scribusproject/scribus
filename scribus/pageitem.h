@@ -38,6 +38,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "scribusapi.h"
 #include "annotation.h"
+#include "commonstrings.h"
 #include "colormgmt/sccolormgmtstructs.h"
 #include "desaxe/saxio.h"
 #include "observable.h"
@@ -1193,6 +1194,8 @@ public: // Start public functions
 	QString getItemTextSaxed(int selStart, int selLength); ///< used by notes frames to get content of notes from itemText
 	bool groupClipping() { return m_groupClips; }
 	void setGroupClipping(bool val) { m_groupClips = val; }
+	bool hasFill() { return ((fillColor() != CommonStrings::None) || (GrType != 0)); }
+	bool hasStroke() { return ((lineColor() != CommonStrings::None) || (GrTypeStroke != 0) || (!NamedLStyle.isEmpty()) || (!patternStrokeVal.isEmpty())); }
 
 		// End public functions
 

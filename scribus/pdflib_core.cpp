@@ -3521,19 +3521,57 @@ QString PDFLibCore::PDF_PutSoftShadow(PageItem* ite, const ScPage *pag)
 	maxSize = qMin(3000.0, maxSize * (softShadowDPI / 72.0));
 	bool savedShadow = ite->hasSoftShadow();
 	ite->setHasSoftShadow(false);
+	bool tmpFillNeeded = false;
+	if (!ite->hasFill())
+	{
+		tmpFillNeeded = true;
+		ite->setFillColor("White");
+	}
 	QImage imgC = ite->DrawObj_toImage(maxSize, PageItem::NoRotation);
-	ite->setHasSoftShadow(savedShadow);
-
 	imgC = imgC.copy(-pixelRadius,-pixelRadius,imgC.width()+2*pixelRadius,imgC.height()+2*pixelRadius); // Add border
-	ScImage img = imgC.alphaChannel().convertToFormat(QImage::Format_RGB32);
+	ScPainter *p = new ScPainter(&imgC, imgC.width(), imgC.height(), 1, 0);
+	p->setZoomFactor(softShadowDPI / 72.0);
+	p->save();
+	p->blur(pixelRadius);
+	p->restore();
+	p->end();
+	delete p;
+	if (tmpFillNeeded)
+	{
+		ScPainter *p = new ScPainter(&imgC, imgC.width(), imgC.height(), 1, 0);
+		p->setZoomFactor(softShadowDPI / 72.0);
+		p->save();
+		FPointArray sh = ite->PoLine.copy();
+		p->setupPolygon(&sh);
+		p->setBrush(Qt::white);
+		p->setFillMode(ScPainter::Solid);
+		p->setBlendModeFill(19);
+		p->fillPath();
+		if (ite->hasStroke())
+		{
+			p->setBlendModeStroke(19);
+			p->setStrokeMode(ScPainter::Solid);
+			p->setPen(Qt::white);
+			p->setLineWidth(ite->lineWidth());
+			p->strokePath();
+		}
+		p->restore();
+		p->end();
+		delete p;
+	}
 
+	ite->setHasSoftShadow(savedShadow);
+	if (tmpFillNeeded)
+		ite->setFillColor(CommonStrings::None);
+	ScImage img = imgC.alphaChannel().convertToFormat(QImage::Format_RGB32);
+/*
 	ImageEffect eff;
 	ScImageEffectList el;
 	eff.effectCode = ScImage::EF_BLUR;
 	eff.effectParameters = QString("%1 1.0").arg(pixelRadius);
 	el.append(eff);
 	img.applyEffect(el,ite->doc()->PageColors,false);
-
+*/
 	uint maskObj = newObject();
 	StartObj(maskObj);
 	PutDoc("<<\n/Type /XObject\n/Subtype /Image\n");

@@ -43,7 +43,6 @@ for which a new license (GPL+exception) is in place.
 #include "canvas.h"
 #include "cmsettings.h"
 #include "colorblind.h"
-#include "commonstrings.h"
 #include "desaxe/saxXML.h"
 #include "marks.h"
 #include "pageitem_arc.h"
@@ -2338,11 +2337,30 @@ void PageItem::DrawSoftShadow(ScPainter *p)
 	p->setupPolygon(&sh);
 	p->setBrush(tmp);
 	p->setFillMode(ScPainter::Solid);
-	p->setStrokeMode(ScPainter::Solid);
-	p->setPen(tmp, lwCorr, PLineArt, PLineEnd, PLineJoin);
 	p->fillPath();
-	p->strokePath();
+	if (hasStroke())
+	{
+		p->setStrokeMode(ScPainter::Solid);
+		p->setPen(tmp, lwCorr, PLineArt, PLineEnd, PLineJoin);
+		p->strokePath();
+	}
 	p->blur(m_softShadowBlurRadius * sc);
+	if (!hasFill())
+	{
+		sh = PoLine.copy();
+		p->setupPolygon(&sh);
+		p->setBrush(tmp);
+		p->setFillMode(ScPainter::Solid);
+		p->setBlendModeFill(19);
+		p->fillPath();
+		if (hasStroke())
+		{
+			p->setBlendModeStroke(19);
+			p->setStrokeMode(ScPainter::Solid);
+			p->setPen(tmp, lwCorr, PLineArt, PLineEnd, PLineJoin);
+			p->strokePath();
+		}
+	}
 	p->endLayer();
 	p->restore();
 }

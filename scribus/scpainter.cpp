@@ -540,6 +540,8 @@ void ScPainter::setRasterOp(int blendMode)
 		cairo_set_operator(m_cr, CAIRO_OPERATOR_DEST_IN);
 	else if (blendMode == 18)
 		cairo_set_operator(m_cr, CAIRO_OPERATOR_DEST_OUT);
+	else if (blendMode == 19)
+		cairo_set_operator(m_cr, CAIRO_OPERATOR_CLEAR);
 	else
 		cairo_set_operator(m_cr, CAIRO_OPERATOR_OVER);
 }
