@@ -311,7 +311,7 @@ QPixmap SampleItem::getSample(int width, int height)
 	previewItem->setFillShade(bgShade);
 	previewItem->SetRectFrame();
 	previewItem->setSampleItem(true);
-	previewItem->DrawObj(painter, QRect());
+	previewItem->DrawObj(painter, QRect(0, 0, width, height));
 	painter->end();
 	delete(painter);
 	delete previewItem;
