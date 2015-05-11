@@ -1,29 +1,26 @@
-Scribus - 1.5.0svn (Released 2015-05-01)
+Scribus - 1.5.0svn (Released 2015-05-12)
 ========================================
 
-- 0012513: [Usability] Signitficant data-entry speed issue when the page contains a shaded object (fschmid) - resolved.
-- 0010627: [Graphics / Image Frames] Unable to open some PS images into Image Frame (fschmid) - resolved.
+- 0013058: [Usability] Font Preview feature is unusable (jghali) - resolved.
 - 0011857: [User Interface] Inconsistent file listing in file selectors (cbradney) - resolved.
+- 0010627: [Graphics / Image Frames] Unable to open some PS images into Image Frame (fschmid) - closed.
+- 0012513: [Usability] Signitficant data-entry speed issue when the page contains a shaded object (fschmid) - closed.
+- 0013055: [Translation] Hungarian translation updates for 1.5.0 (jghali) - closed.
 - 0012860: [Canvas] Windows > Outline may not set correctly document view importing pages (jghali) - closed.
 - 0013048: [General] "Free Scaling" setting in Preferences does not survive restart (jghali) - closed.
 - 0013025: [General] Status bar current layer is not in sync with Layers palette (cbradney) - closed.
-- 0011561: [Import / Export] IDML Import : problem with some images (fschmid) - resolved.
-- 0013038: [Plug-ins] Shortwords Plugin doesn't work in 1.5svn (cbradney) - resolved.
-- 0011857: [User Interface] Inconsistent file listing in file selectors (cbradney) - resolved.
+- 0011561: [Import / Export] IDML Import : problem with some images (fschmid) - closed.
+- 0013038: [Plug-ins] Shortwords Plugin doesn't work in 1.5svn (cbradney) - closed.
 - 0013037: [Translation] 1.5.0 Italian translation update (FirasH) - closed.
 - 0013036: [Translation] Hungarian translation updates for 1.5.0 (cbradney) - closed.
 - 0012487: [Fonts] "Used in Document" flag is not set (jghali) - closed.
 - 0012966: [Translation] German: mismatch between "Eintrag auswählen" and "Object" menu (christoph_s) - closed.
 - 0012973: [Fonts] TTF embedding doesnt work (avox) - closed.
 - 0013022: [Fonts] Useless "Used" column in font config (jghali) - closed.
-- 0013026: [PDF] "Hatch" fill transparency is ignored exporting to PDF (fschmid) - resolved.
-- 0012973: [Fonts] TTF embedding doesnt work (avox) - resolved.
-- 0013030: [Import / Export] -Save as image- in master page mode = Signal 6 (cbradney) - resolved.
-- 0012966: [Translation] German: mismatch between "Eintrag auswählen" and "Object" menu (christoph_s) - resolved.
-- 0013028: [Translation] Updated Russian translation for 1.5.0 (cbradney) - resolved.
-- 0012487: [Fonts] "Used in Document" flag is not set (jghali) - resolved.
-- 0013022: [Fonts] Useless "Used" column in font config (jghali) - resolved.
-- 0012977: [General] When opening other document,why is previous document view set back to 100%? (cbradney) - resolved.
+- 0013026: [PDF] "Hatch" fill transparency is ignored exporting to PDF (fschmid) - closed.
+- 0013028: [Translation] Updated Russian translation for 1.5.0 (cbradney) - closed.
+- 0013030: [Import / Export] -Save as image- in master page mode = Signal 6 (cbradney) - closed.
+- 0012977: [General] When opening other document,why is previous document view set back to 100%? (cbradney) - closed.
 - 0013027: [Translation] Japanese translation update for 1.5 (jghali) - closed.
 - 0013018: [Translation] Italian translation update (FirasH) - closed.
 - 0013007: [Styles] Styles Menu: Clone a style and try to drag it up the list causes Signal 6 (cbradney) - closed.
@@ -61,11 +58,27 @@ Scribus - 1.5.0svn (Released 2015-05-01)
 - 0012797: [Story Editor / Text Frames] Linking Text Frames in specific order (2nd>3rd;1st>2nd) leads to wrong linking (1st=3rd) (jghali) - closed.
 - 0012572: [Scripter] [patch] Add a --python-script command line option to run a script and exit (cbradney) - closed.
 - 0012938: [General] Changing "Copy Page" destination crashes Scribus (jghali) - closed.
-- 0012928: [Story Editor / Text Frames] Insufficient justification of Japanese text (cbradney) - resolved.
-- 0010975: [User Interface] Attributes not retained correctly through cut and paste operations (cbradney) - resolved.
-- 0008823: [General] New non modal resource manager (cbradney) - resolved.
-- 0009700: [Import / Export] Import/Get Vectory File > .eps results in huge _additional_ frame with object in upper left (cbradney) - resolved.
-- 0012906: [Usability] Document "Zoom - Stepping" value not less than 100% (cbradney) - resolved.
+- 0012928: [Story Editor / Text Frames] Insufficient justification of Japanese text (cbradney) - closed.
+- 0008823: [General] New non modal resource manager (cbradney) - closed.
+- 0012517: [Usability] [PATCH] Port BAlpha swap-pages.patch (cbradney) - closed.
+ - 0012916: [General] "Swap with Page" feature does not correctly enable/disable dialog spinboxes (cbradney) - closed.
+ - 0012917: [Undo/Redo] "Swap with Page" action is not recorded in Action History (cbradney) - closed.
+- 0012371: [Undo/Redo] Undo/Redo crashes Scribus deleting items of a group (case 1) (cbradney) - closed.
+- 0012625: [Tables] "Delete Columns" will crash or freeze Scribus using "Merge Cells" (FirasH) - closed.
+- 0012930: [General] CLI output:"SMCStyleWidget::show(): deflan='en_GB'->''" (cbradney) - closed.
+- 0012149: [User Interface] Orphaned dialog caption of the Edit Welded Item widget (cbradney) - closed.
+- 0012148: [User Interface] Misleading menu entry: "Edit Welded Item" (cbradney) - closed.
+- 0009227: [Plug-ins] Update the UniConvertor plugin to let it handle the rewritten UC 1.1.5 (Herm) - closed.
+- 0007659: [Story Editor / Text Frames] Page numbering disappears when Text Frame is attached to Path (fschmid) - closed.
+- 0012071: [Scripter] Autoquote script fails when the second quotation mark is placed before a line break. (gpittman) - closed.
+- 0011221: [Scripter] Add a method to get list of all pages in document. (jainbasil) - closed.
+- 0003218: [Import / Export] OO Draw v2 document support (Metabug) - closed.
+ - 0003228: [Import / Export] Custom shapes support (OO Draw v2 import) - closed.
+- 0010122: [Translation] In french, "HSV" should be translatted "TSL" (jghali) - closed.
+- 0012674: [Shape Drawing] [TESTED-PATCH] Nodes tool might lead to strange results if Locking is applied (cbradney) - closed.
+- 0012782: [General] Upgrade libwpg 3rd party code (fschmid) - closed.
+- 0012783: [General] Upgrade libpgf 3rd party code (fschmid) - closed.
+- 0012489: [Releases] 1.5svn Changelog obsolete and needs to be updated (cbradney) - closed.
 - 0012031: [User Interface] Copy tooltip for printer margins to the Doc Setup/Prefs dialog (cbradney) - closed.
 - 0012503: [General] "Normal" Master Page is duplicated adding a new Master Page (jghali) - closed.
 - 0011487: [User Interface] [TESTED-PATCH] Add tooltips to the Picture Browser (jghali) - closed.
@@ -98,7 +111,6 @@ Scribus - 1.5.0svn (Released 2015-05-01)
 - 0012922: [Translation] Fix typo in Italian translation (FirasH) - closed.
 - 0012913: [Fonts] [Feature] Add Blokk font (for mockups, a Lorem Ipsum replacement) (cbradney) - closed.
 - 0012912: [OS-MacOSX] CLI error: IODevice::read: device not open (cbradney) - closed.
-- 0012517: [Usability] [PATCH] Port BAlpha swap-pages.patch (cbradney) - closed.
 - 0007388: [General] Ability to swap two pages (cbradney) - closed.
 - 0012560: [Import / Export] Picture Browser refuses to read home directory for new document (cbradney) - closed.
 - 0011935: [General] Picture Browser: Failure to read home directory after launch (cbradney) - closed.
@@ -107,12 +119,9 @@ Scribus - 1.5.0svn (Released 2015-05-01)
 - 0008959: [Scripter] PDFfile->save() doesn't use the checkbox value of Use Document Bleeds (jghali) - closed.
 - 0009766: [Usability] Arrange Page - Drag and Drop Master Pages doesn't seem to apply Text Area Guide (cbradney) - closed.
 - 0011336: [Scripter] Startup script crashes Scribus with EXCEPTION_ACCESS_VIOLATION - closed.
-- 0012572: [Scripter] [patch] Add a --python-script command line option to run a script and exit (cbradney) - closed.
 - 0012732: [Graphics / Image Frames] Extra > manage image : cannot see long filenames (cbradney) - closed.
 - 0012759: [Import / Export] Scribus doesnt build with libvisio/librevenge (fschmid) - closed.
 - 0012774: [User Interface] [patch] Write messages to cerr instead of QMessageBox when Scribus is run without a GUI (jghali) - closed.
-- 0012782: [General] Upgrade libwpg 3rd party code (fschmid) - closed.
-- 0012783: [General] Upgrade libpgf 3rd party code (fschmid) - closed.
 - 0012894: [Import / Export] Incorrect .wmf import (fschmid) - closed.
 - 0012897: [General] Fix wrongly re-enabled edit menu entries. (jghali) - closed.
 - 0010881: [OS-MacOSX] Scribus windows disappear when selecting another application. (cbradney) - closed.
@@ -146,7 +155,7 @@ Scribus - 1.5.0svn (Released 2015-05-01)
 - 0012795: [General] [TESTED-PATCH] Scribus menu entries might cause crash while editing Gradients (FirasH) - closed.
 - 0012793: [General] [TESTED-PATCH] Scribus ui/menu entries might cause crash while drawing a Bezier Curve (FirasH) - closed.
 - 0012760: [General] Node edit mode does not manage correctly enabled/disabled menu entries (FirasH) - closed.
-- 0012744: [Undo/Redo] Undo/Redo re-enables "Item > Convert to" entries (cbradney) - closed.
+ - 0012744: [Undo/Redo] Undo/Redo re-enables "Item > Convert to" entries (cbradney) - closed.
 - 0012786: [User Interface] [patch] Do not show the startup dialog when GUI is not requested (cbradney) - closed.
 - 0012785: [Internal] [patch] Remove unused code dealing with swapDialogButtonOrder (cbradney) - closed.
 - 0012784: [General] Closing document while in "Preview Mode" keeps disabled menu entries (cbradney) - closed.
@@ -179,7 +188,6 @@ Scribus - 1.5.0svn (Released 2015-05-01)
 - 0012688: [General] Symbol dependency calculation problem? (jghali) - closed.
 - 0011636: [General] Impossible to open files made with version prior to Rev 18297 (fschmid) - closed.
 - 0012595: [Shape Drawing] [PATCH] Nodes tools might crash Scribus moving item between Layers (cbradney) - closed.
-- 0012674: [Shape Drawing] [TESTED-PATCH] Nodes tool might lead to strange results if Locking is applied (cbradney) - closed.
 - 0012756: [Shape Drawing] Undo does not close "Nodes" dialog (jghali) - closed.
 - 0009753: [General] Segmentation fault (cbradney) - closed.
 - 0009721: [General] Scribus crashes due to Signal 0000006 when master page is applied (fschmid) - closed.
@@ -198,7 +206,7 @@ Scribus - 1.5.0svn (Released 2015-05-01)
 - 0012733: [Undo/Redo] Undo/Redo crashes Scribus editing Text using Ctrl+A in determined condition (jghali) - closed.
 - 0012728: [General] "Orientation" is not correctly managed when changing "Default Unit" in new doc dialog (jghali) - closed.
 - 0012662: [User Interface] DELETE key in "Colours & Fills" edit window (jghali) - closed.
-- 0012428: [User Interface] DELETE key on selected pattern should delete it (cbradney) - closed.
+ - 0012428: [User Interface] DELETE key on selected pattern should delete it (cbradney) - closed.
 - 0012652: [Graphics / Image Frames] Changing the opacity of layers in multi-layered PSD files essentially freezes Scribus (jghali) - closed.
 - 0012691: [Build System] [PATCH] Allow building Scribus against Qt5.4 (alpha) (cbradney) - closed.
 - 0012280: [Typography] Malfunctioning gradient treatment. (fschmid) - closed.
@@ -229,7 +237,6 @@ Scribus - 1.5.0svn (Released 2015-05-01)
 - 0011568: [User Interface] DELETE key in "Outline" palette should delete selected element (cbradney) - closed.
 - 0010560: [Scripter] two new Scripter commands: copyObject() and pasteObject() (plinnell) - closed.
 - 0012558: [Graphics / Image Frames] [PATCH] limit the "size" of dropped images (cbradney) - closed.
-- 0010122: [Translation] In french, "HSV" should be translatted "TSL" (jghali) - closed.
 - 0012606: [Shape Drawing] Enabling "Absolute Coordinates" crashes Scribus in determined condition (jghali) - closed.
 - 0012601: [Undo/Redo] Convert to > Symbol disables Undo/Redo in determined condition (jghali) - closed.
 - 0012599: [Translation] Hungarian translation update for trunk (jghali) - closed.
@@ -274,8 +281,6 @@ Scribus - 1.5.0svn (Released 2015-05-01)
 - 0012472: [General] Changing from Single Page to Double Page layout may lead to crash (jghali) - closed.
 - 0009409: [Import / Export] Imprt of pdf and ps blank. - closed.
 - 0012479: [Usability] Closing Scribus with multiple master pages open simultaneously (Signal 11) (jghali) - closed.
-- 0003218: [Import / Export] OO Draw v2 document support (Metabug) - closed.
-- 0003228: [Import / Export] Custom shapes support (OO Draw v2 import) - closed.
 - 0012229: [Undo/Redo] Undo does not restore shape position if Multiple Duplication is used (jghali) - closed.
 - 0012486: [Undo/Redo] Typo in Action History: Blue Radius > Blur Radius (jghali) - closed.
 - 0007734: [Shape Drawing] Nodes inserted into a path appear far away from where clicked - closed.
@@ -291,7 +296,6 @@ Scribus - 1.5.0svn (Released 2015-05-01)
 - 0011922: [Import / Export] Misplaced text in imported XAR files. (fschmid) - closed.
 - 0011956: [User Interface] Add a "Close" icon to document tabs (fschmid) - closed.
 - 0000102: [Story Editor / Text Frames] Bullet list support - closed.
-- 0011221: [Scripter] Add a method to get list of all pages in document. (jainbasil) - closed.
 - 0009653: [Shape Drawing] Add Snap to Point Feature - closed.
 - 0012421: [Undo/Redo] Undo/Redo asks confirmation to user when deleting content of an Image Frame (cbradney) - closed.
 - 0007758: [Story Editor / Text Frames] overflow icon with functionality - closed.
@@ -739,7 +743,7 @@ Scribus - 1.5.0svn (Released 2015-05-01)
 - 0009621: [Typography] Automatic linespacing does not work. (jghali) - closed.
 - 0002003: [User Interface] Tables-issues - closed.
 - 0002142: [Story Editor / Text Frames] Action History does not record all changes (Tsoots) - closed.
-- 0004820: [Undo/Redo] deletion/creation of masterpage is not being recorded by undo system (Chelen) - closed.
+ - 0004820: [Undo/Redo] deletion/creation of masterpage is not being recorded by undo system (Chelen) - closed.
 - 0010909: [Color Management] [PATCH] Crash in color palette (Chelen) - closed.
 - 0010905: [Undo/Redo] some more undo added and multiple image import (Chelen) - closed.
 - 0010814: [Story Editor / Text Frames] Error in label or in function of setting Story Editor Font/Background (jghali) - closed.
@@ -786,10 +790,10 @@ Scribus - 1.5.0svn (Released 2015-05-01)
 - 0006220: [Undo/Redo] Undoing split polygon doesn't work (Chelen) - closed.
 - 0010269: [Shape Drawing] CTRL shape-tool modifier (Chelen) - closed.
 - 0010808: [Undo/Redo] GSoC : git branch about option undo/redo functionnality (Chelen) - closed.
-- 0010809: [Undo/Redo] Undo/redo for rounded corner (Chelen) - closed.
-- 0010811: [Undo/Redo] undo/redo for show image option (Chelen) - closed.
-- 0010812: [Undo/Redo] undo/redo for image resolution option (Chelen) - closed.
-- 0010810: [Undo/Redo] flip item undo/redo (Chelen) - closed.
+ - 0010809: [Undo/Redo] Undo/redo for rounded corner (Chelen) - closed.
+ - 0010811: [Undo/Redo] undo/redo for show image option (Chelen) - closed.
+ - 0010812: [Undo/Redo] undo/redo for image resolution option (Chelen) - closed.
+ - 0010810: [Undo/Redo] flip item undo/redo (Chelen) - closed.
 - 0008608: [Undo/Redo] Undo after resizing figure does not work (Chelen) - closed.
 - 0010813: [Build System] Hardcoded multiarch parts in FindPOPPLER.cmake (jghali) - closed.
 - 0010820: [Usability] [PATCH] assigning a shortcut: when scribus warns me that the shortcut is taken, it should tell me by which command (ale) - closed.
@@ -859,7 +863,6 @@ Scribus - 1.5.0svn (Released 2015-05-01)
 - 0009456: [General] don't use the copy paste buffer when duplicating an object (fschmid) - closed.
 - 0009659: [General] Errors on non printable layers should not show up in the preflight verifier (fschmid) - closed.
 - 0001348: [User Interface] Dockable dialogs (fschmid) - closed.
-- 0007659: [Story Editor / Text Frames] Page numbering disappears when Text Frame is attached to Path (fschmid) - closed.
 - 0010199: [Story Editor / Text Frames] Group displas bad (fschmid) - closed.
 - 0010297: [User Interface] Frame of Glyphs to insert has too small height (fschmid) - closed.
 - 0001212: [Story Editor / Text Frames] styles for drop caps (Tsoots) - closed.
