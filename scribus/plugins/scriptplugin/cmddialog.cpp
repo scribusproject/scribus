@@ -77,18 +77,30 @@ PyObject *scribus_messdia(PyObject* /* self */, PyObject* args, PyObject* kw)
 	char *message = const_cast<char*>("");
 	uint result;
 	QMessageBox::Icon ico = QMessageBox::NoIcon;
-	int butt1 = QMessageBox::Ok|QMessageBox::Default;
-	int butt2 = QMessageBox::NoButton;
-	int butt3 = QMessageBox::NoButton;
+	int butt[3] = { QMessageBox::Ok|QMessageBox::Default, QMessageBox::NoButton, QMessageBox::NoButton };
+	QMessageBox::StandardButtons buttons = QMessageBox::StandardButtons(0);
+	enum QMessageBox::StandardButton defaultButton = QMessageBox::NoButton;
 	char* kwargs[] = {const_cast<char*>("caption"), const_cast<char*>("message"),
 						const_cast<char*>("icon"), const_cast<char*>("button1"),
 						const_cast<char*>("button2"), const_cast<char*>("button3"), NULL};
-	if (!PyArg_ParseTupleAndKeywords(args, kw, "eses|iiii", kwargs, "utf-8", &caption, "utf-8", &message, &ico, &butt1, &butt2, &butt3))
+	if (!PyArg_ParseTupleAndKeywords(args, kw, "eses|iiii", kwargs, "utf-8", &caption, "utf-8", &message, &ico, &butt[0], &butt[1], &butt[2]))
 		return NULL;
 	QApplication::changeOverrideCursor(QCursor(Qt::ArrowCursor));
 	// ScMessageBox mb(ico, butt1, butt2, butt3, ScCore->primaryMainWindow());
-	ScMessageBox mb(ico, QString::fromUtf8(caption), QString::fromUtf8(message), QMessageBox::Ok, ScCore->primaryMainWindow());
-	mb.setDefaultButton(QMessageBox::Ok);
+	for (int bi = 0; bi < 3; bi++) {
+		enum QMessageBox::StandardButton b = static_cast<QMessageBox::StandardButton>(butt[bi]);
+		if (b != QMessageBox::NoButton) {
+			if ((b & QMessageBox::Default) != 0) {
+				b = QMessageBox::StandardButton(b & ~QMessageBox::Default);
+				defaultButton = b;
+			}
+			buttons |= b;
+		}
+	}
+	ScMessageBox mb(ico, QString::fromUtf8(caption), QString::fromUtf8(message), buttons, ScCore->primaryMainWindow());
+	if (defaultButton != QMessageBox::NoButton) {
+		mb.setDefaultButton(defaultButton);
+	}
 	result = mb.exec();
 //	QApplication::restoreOverrideCursor();
 	return PyInt_FromLong(static_cast<long>(result));
