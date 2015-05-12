@@ -70,8 +70,8 @@ Archives with version specific libraries are named using following scheme scribu
 	- XXXXXX is a series of numbers representing a date.
 
 For building 15x dependencies,  an archive for Visual Studio 2012 is provided. The Visual Studio 2012 archive allows to build 
-libraries for 32bit and 64bit platforms using the different available toolsets. The default configuration, corresponding to the
-msvc 2012 default toolset (v110), allows to build binaries compatible with Windows Vista and up.
+libraries for 32bit and 64bit platforms using the different available toolsets, excluding the v110_xp and v120_xp ones. The default 
+configuration, corresponding to the msvc 2012 default toolset (v110), allows to build binaries compatible with Windows Vista and up.
 
 Once you downloaded the two appropriate archives :
 	- decompress them in the *same* directory.
@@ -127,8 +127,8 @@ copy  %SCRIBUS_SRC_PATH%\scribus\plugins\import\ps\import.prolog %SCRIBUS_INSTAL
 copy  %SCRIBUS_SRC_PATH%\scribus\plugins\barcodegenerator\barcode.ps %SCRIBUS_INSTALL_PATH%\share\plugins\barcode.ps
 xcopy %SCRIBUS_SRC_PATH%\scribus\ui\qml %SCRIBUS_INSTALL_PATH%\share\qml /s /y
 copy  %SCRIBUS_SRC_PATH%\scribus\unicodemap\unicodenameslist.txt %SCRIBUS_INSTALL_PATH%\share\unicodenameslist.txt
-del  %SCRIBUS_BUILD_ROOT%\*CMake* /s
-del  %SCRIBUS_BUILD_ROOT%\*MakeFile* /s
+del   %SCRIBUS_BUILD_ROOT%\*CMake* /s
+del   %SCRIBUS_BUILD_ROOT%\*MakeFile* /s
 
 Adjust SCRIBUS_SRC_PATH, SCRIBUS_BUILD_ROOT and SCRIBUS_INSTALL_PATH as needed and run batch script.
 

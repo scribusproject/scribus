@@ -55,6 +55,9 @@
 /* Define if you have the development files for python */
 #define HAVE_PYTHON 1
 
+/* Define if you have the development files for librevenge */
+#define HAVE_REVENGE 1
+
 /* Define to 1 if you have the `snprintf' function. */
 #undef HAVE_SNPRINTF
 #ifdef _MSC_VER

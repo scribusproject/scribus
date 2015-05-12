@@ -55,8 +55,12 @@
     <ICONV_DIR>$(SCRIBUS_LIB_ROOT)\libiconv-1.14</ICONV_DIR>
 	<ICONV_INCLUDE_DIR>$(ICONV_DIR)\include</ICONV_INCLUDE_DIR>
 	<ICONV_LIB_DIR>$(ICONV_DIR)\lib\$(Platform)-$(PlatformToolset)</ICONV_LIB_DIR>
-	<ICONV_LIB Condition="'$(Configuration)' == 'Debug'">iconv.lib</ICONV_LIB>
-    <ICONV_LIB Condition="'$(Configuration)' == 'Release'">iconv_d.lib</ICONV_LIB>
+	<ICONV_LIB Condition="'$(Configuration)' == 'Debug'">iconv_d.lib</ICONV_LIB>
+    <ICONV_LIB Condition="'$(Configuration)' == 'Release'">iconv.lib</ICONV_LIB>
+	<!-- Icu -->
+	<ICU_INCLUDE_DIR>$(SCRIBUS_LIB_ROOT)\icu-52.1\include</ICU_INCLUDE_DIR>
+	<ICU_LIB_DIR>$(SCRIBUS_LIB_ROOT)\icu-52.1\lib\$(Platform)-$(PlatformToolset)</ICU_LIB_DIR>
+	<ICU_LIB>icudt.lib;icuin.lib;icuuc.lib</ICU_LIB>
 	<!-- Littlecms -->
     <LCMS_DIR>$(SCRIBUS_LIB_ROOT)\lcms2-2.7</LCMS_DIR>
 	<LCMS_INCLUDE_DIR>$(LCMS_DIR)\include</LCMS_INCLUDE_DIR>
@@ -69,6 +73,11 @@
 	<LIBJPEG_LIB_DIR>$(LIBJPEG_DIR)\lib\$(Platform)-$(PlatformToolset)</LIBJPEG_LIB_DIR>
     <LIBJPEG_LIB Condition="'$(Configuration)' == 'Debug'">libjpeg9a_d.lib</LIBJPEG_LIB>
     <LIBJPEG_LIB Condition="'$(Configuration)' == 'Release'">libjpeg9a.lib</LIBJPEG_LIB>
+	<!-- Libmspub -->
+	<LIBMSPUB_INCLUDE_DIR>$(SCRIBUS_LIB_ROOT)\libmspub-0.1.2\inc</LIBMSPUB_INCLUDE_DIR>
+	<LIBMSPUB_LIB_DIR>$(SCRIBUS_LIB_ROOT)\libmspub-0.1.2\lib\$(Platform)-$(PlatformToolset)</LIBMSPUB_LIB_DIR>
+    <LIBMSPUB_LIB Condition="'$(Configuration)' == 'Debug'">libmspub_d.lib</LIBMSPUB_LIB>
+    <LIBMSPUB_LIB Condition="'$(Configuration)' == 'Release'">libmspub.lib</LIBMSPUB_LIB>
 	<!-- Libpagemaker -->
 	<LIBPAGEMAKER_INCLUDE_DIR>$(SCRIBUS_LIB_ROOT)\libpagemaker-0.0.2\inc</LIBPAGEMAKER_INCLUDE_DIR>
 	<LIBPAGEMAKER_LIB_DIR>$(SCRIBUS_LIB_ROOT)\libpagemaker-0.0.2\lib\$(Platform)-$(PlatformToolset)</LIBPAGEMAKER_LIB_DIR>
