@@ -3950,7 +3950,7 @@ void ScribusView::TextToPath()
 
 void ScribusView::keyPressEvent(QKeyEvent *k)
 {
-	if (m_canvasMode->handleKeyEvents())
+	if (m_canvasMode && m_canvasMode->handleKeyEvents())
 		m_canvasMode->keyPressEvent(k);
 	else
 		m_ScMW->keyPressEvent(k);
