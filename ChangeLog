@@ -1,6 +1,8 @@
-Scribus - 1.5.0svn (Released 2015-05-12)
+Scribus - 1.5.0svn (Released 2015-05-14)
 ========================================
 
+- 0012228: [Story Editor / Text Frames] Some accented characters dont get typed in text frames (cbradney) - resolved.
+- 0013062: [Scripter] [patch] fix dialog buttons in python messageBox() (cbradney) - resolved.
 - 0013058: [Usability] Font Preview feature is unusable (jghali) - resolved.
 - 0011857: [User Interface] Inconsistent file listing in file selectors (cbradney) - resolved.
 - 0010627: [Graphics / Image Frames] Unable to open some PS images into Image Frame (fschmid) - closed.
