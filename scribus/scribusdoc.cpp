@@ -4418,31 +4418,17 @@ QMap<QString,int> ScribusDoc::reorganiseFonts()
 
 void ScribusDoc::getUsedFonts(QMap<QString, QMap<uint, FPointArray> > & Really)
 {
-	QList<PageItem*> allItems;
+	QList<PageItem*>  allItems;
+	QList<PageItem*>* itemLists[] = { &MasterItems, &DocItems };
 	PageItem* it = NULL;
 	uint counter = 0;
 	for (uint lc = 0; lc < 2; ++lc)
 	{
-		switch (lc)
-		{
-			case 0:
-				counter = MasterItems.count();
-				break;
-			case 1:
-				counter = DocItems.count();
-				break;
-		}
+		QList<PageItem*>* itemList = itemLists[lc];
+		counter = itemList->count();
 		for (uint d = 0; d < counter; ++d)
 		{
-			switch (lc)
-			{
-				case 0:
-					it = MasterItems.at(d);
-					break;
-				case 1:
-					it = DocItems.at(d);
-					break;
-			}
+			it = itemList->at(d);
 			if (it->isGroup())
 				allItems = it->asGroupFrame()->getItemList();
 			else
