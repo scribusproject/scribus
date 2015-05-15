@@ -2693,8 +2693,8 @@ void ScribusMainWindow::HaveNewSel()
 	charPalette->setEnabled(false, 0);
 	view->horizRuler->textMode(false);
 	view->horizRuler->update();
-
-	appModeHelper->enableActionsForSelection(this, doc);
+	if (!doc->inAnEditMode())
+		appModeHelper->enableActionsForSelection(this, doc);
 
 	switch (SelectedType)
 	{
