@@ -504,15 +504,16 @@ void SEditor::handleContentsChange(int position, int charsRemoved, int charsAdde
 
 void SEditor::focusOutEvent(QFocusEvent *e)
 {
-	if (textCursor().hasSelection())
+	QTextCursor tc(textCursor());
+	if (tc.hasSelection())
 	{
-		SelParaStart = textCursor().selectionStart();
-		SelParaEnd = textCursor().selectionEnd();
+		SelParaStart = tc.selectionStart();
+		SelParaEnd = tc.selectionEnd();
 		StoredSel = true;
 	}
 	else
 	{
-		SelParaStart = textCursor().position();
+		SelParaStart = tc.position();
 		StoredSel = false;
 	}
 	QTextEdit::focusOutEvent(e);
@@ -520,18 +521,18 @@ void SEditor::focusOutEvent(QFocusEvent *e)
 
 void SEditor::focusInEvent(QFocusEvent *e)
 {
+	QTextCursor tc(textCursor());
 	if (StoredSel)
 	{
-		textCursor().setPosition(SelParaStart);
-		textCursor().setPosition(SelParaEnd, QTextCursor::KeepAnchor);
+		tc.setPosition(SelParaStart);
+		tc.setPosition(SelParaEnd, QTextCursor::KeepAnchor);
 		StoredSel = false;
 	}
 	else
 	{
-		textCursor().setPosition(SelParaStart);
-		StoredSel = false;
+		tc.setPosition(qMin(SelParaStart, StyledText.length()));
 	}
-		
+	setTextCursor(tc);
 	QTextEdit::focusInEvent(e);
 }
 
@@ -673,18 +674,17 @@ void SEditor::loadItemText(PageItem *currItem)
 	StyledText.append(currItem->itemText);
 	updateAll();
 	int npars = currItem->itemText.nrOfParagraphs();
-	SelParaStart = 0;
-	while (currItem->itemText.cursorPosition() >= (SelCharStart = currItem->itemText.endOfParagraph(SelParaStart))
-		   && SelParaStart < npars)
-		++SelParaStart;
+	int newSelParaStart = 0;
+	while (currItem->itemText.cursorPosition() >= (SelCharStart = currItem->itemText.endOfParagraph(newSelParaStart)) && newSelParaStart < npars)
+		++newSelParaStart;
 	if (currItem->itemText.cursorPosition() < SelCharStart)
 		SelCharStart = currItem->itemText.cursorPosition();
-	SelCharStart -= currItem->itemText.startOfParagraph(SelParaStart);
+	SelCharStart -= currItem->itemText.startOfParagraph(newSelParaStart);
 	StoredSel = false;
 	//qDebug() << "SE::loadItemText: cursor";
 //	setCursorPosition(SelParaStart, SelCharStart);
-	emit setProps(SelParaStart, SelCharStart);
-	SelParaStart = 0;
+	emit setProps(newSelParaStart, SelCharStart);
+	//SelParaStart = 0;
 }
 
 void SEditor::loadText(QString tx, PageItem *currItem)
@@ -2225,7 +2225,7 @@ bool StoryEditor::eventFilter( QObject* ob, QEvent* ev )
 					//				Editor->getCursorPosition(&CurrPara, &CurrChar);
 					updateStatus();
 					textChanged = false;
-					Editor->moveCursor(QTextCursor::Start, QTextCursor::MoveAnchor);
+					//Editor->moveCursor(QTextCursor::Start, QTextCursor::MoveAnchor);
 					Editor->repaint();
 					EditorBar->offs = 0;
 					//				EditorBar->doMove(0, Editor->contentsY());
