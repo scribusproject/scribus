@@ -2744,101 +2744,98 @@ bool PDFLibCore::PDF_ProcessPage(const Page* pag, uint PNr, bool clip)
 		PutPage(FToStr(ActPageP->Margins.Left)+" "+FToStr(ActPageP->Margins.Bottom)+" "+FToStr(maxBoxX)+" "+FToStr(maxBoxY)+" re W n\n");
 	//	PutPage("0 0 "+FToStr(ActPageP->width())+" "+FToStr(ActPageP->height())+" re W n\n");
 	}
-	if (!pag->MPageNam.isEmpty())
+	if (!pag->MPageNam.isEmpty() && (doc.MasterItems.count() != 0))
 	{
 		const Page* mPage = doc.MasterPages.at(doc.MasterNames[doc.DocPages.at(PNr)->MPageNam]);
 		int   mPageIndex  = doc.MasterPages.indexOf((Page* const) mPage) + 1;
-		if (doc.MasterItems.count() != 0)
+		if (!Options.MirrorH)
+			PutPage("1 0 0 1 0 0 cm\n");
+		for (int lam = 0; lam < doc.Layers.count() && !abortExport; ++lam)
 		{
-			if (!Options.MirrorH)
-				PutPage("1 0 0 1 0 0 cm\n");
-			for (int lam = 0; lam < doc.Layers.count() && !abortExport; ++lam)
+			doc.Layers.levelToLayer(ll, Lnr);
+			Lnr++;
+			if ((ll.isPrintable) || ((Options.Version == PDFOptions::PDFVersion_15) && (Options.useLayers)))
 			{
-				doc.Layers.levelToLayer(ll, Lnr);
-				Lnr++;
-				if ((ll.isPrintable) || ((Options.Version == PDFOptions::PDFVersion_15) && (Options.useLayers)))
+				if ((Options.Version == PDFOptions::PDFVersion_15) && (Options.useLayers))
+					PutPage("/OC /"+OCGEntries[ll.Name].Name+" BDC\n");
+				for (int am = 0; am < pag->FromMaster.count() && !abortExport; ++am)
 				{
-					if ((Options.Version == PDFOptions::PDFVersion_15) && (Options.useLayers))
-						PutPage("/OC /"+OCGEntries[ll.Name].Name+" BDC\n");
-					for (int am = 0; am < pag->FromMaster.count() && !abortExport; ++am)
+					ite = pag->FromMaster.at(am);
+					if (usingGUI)
+						qApp->processEvents();
+					if ((ite->LayerNr != ll.LNr) || (!ite->printEnabled()))
+						continue;
+					if ((!pag->pageName().isEmpty()) && (ite->OwnPage != static_cast<int>(pag->pageNr())) && (ite->OwnPage != -1))
+						continue;
+					QString name = QString("/master_page_obj_%1_%2").arg(mPageIndex).arg(ite->ItemNr);
+					if (ite->isGroupControl)
 					{
-						ite = pag->FromMaster.at(am);
-						if (usingGUI)
-							qApp->processEvents();
-						if ((ite->LayerNr != ll.LNr) || (!ite->printEnabled()))
-							continue;
-						if ((!pag->pageName().isEmpty()) && (ite->OwnPage != static_cast<int>(pag->pageNr())) && (ite->OwnPage != -1))
-							continue;
-						QString name = QString("/master_page_obj_%1_%2").arg(mPageIndex).arg(ite->ItemNr);
-						if (ite->isGroupControl)
-						{
-							PutPage("q\n");
-							FPointArray cl = ite->PoLine.copy();
-							FPointArray clb = ite->PoLine.copy();
-							QMatrix mm;
-							mm.translate(ite->xPos() - mPage->xOffset(), (ite->yPos() - mPage->yOffset()) - mPage->height());
-							mm.rotate(ite->rotation());
-							cl.map( mm );
-							ite->PoLine = cl;
-							PutPage(SetClipPath(ite));
-							PutPage("h W* n\n");
-							groupStack.push(ite->groupsLastItem);
-							ite->PoLine = clb.copy();
-							continue;
-						}
-						if (! ite->asTextFrame())
-							PutPage(name+" Do\n");
-						else
-						{
-							double oldX = ite->xPos();
-							double oldY = ite->yPos();
-							double OldBX = ite->BoundingX;
-							double OldBY = ite->BoundingY;
-							ite->setXPos(ite->xPos() - mPage->xOffset() + pag->xOffset(), true);
-							ite->setYPos(ite->yPos() - mPage->yOffset() + pag->yOffset(), true);
-							if (!PDF_ProcessItem(output, ite, pag, pag->pageNr()))
-								return false;
-							PutPage(output);
-							ite->setXYPos(oldX, oldY, true);
-							ite->BoundingX = OldBX;
-							ite->BoundingY = OldBY;
-						}
-						if (groupStack.count() != 0)
-						{
-							while (ite == groupStack.top())
-							{
-								PutPage("Q\n");
-								groupStack.pop();
-								if (groupStack.count() == 0)
-									break;
-							}
-						}
+						PutPage("q\n");
+						FPointArray cl = ite->PoLine.copy();
+						FPointArray clb = ite->PoLine.copy();
+						QMatrix mm;
+						mm.translate(ite->xPos() - mPage->xOffset(), (ite->yPos() - mPage->yOffset()) - mPage->height());
+						mm.rotate(ite->rotation());
+						cl.map( mm );
+						ite->PoLine = cl;
+						PutPage(SetClipPath(ite));
+						PutPage("h W* n\n");
+						groupStack.push(ite->groupsLastItem);
+						ite->PoLine = clb.copy();
+						continue;
 					}
-					for (int am = 0; am < pag->FromMaster.count(); ++am)
+					if (! ite->asTextFrame())
+						PutPage(name+" Do\n");
+					else
 					{
-						ite = pag->FromMaster.at(am);
-						if ((ite->LayerNr != ll.LNr) || (!ite->printEnabled()))
-							continue;
-						if (ite->ChangedMasterItem)
-							continue;
-						if ((!pag->pageName().isEmpty()) && (ite->OwnPage != static_cast<int>(pag->pageNr())) && (ite->OwnPage != -1))
-							continue;
-						if (!ite->isTableItem)
-							continue;
 						double oldX = ite->xPos();
 						double oldY = ite->yPos();
 						double OldBX = ite->BoundingX;
 						double OldBY = ite->BoundingY;
 						ite->setXPos(ite->xPos() - mPage->xOffset() + pag->xOffset(), true);
 						ite->setYPos(ite->yPos() - mPage->yOffset() + pag->yOffset(), true);
-						PutPage(PDF_ProcessTableItem(ite, pag));
+						if (!PDF_ProcessItem(output, ite, pag, pag->pageNr()))
+							return false;
+						PutPage(output);
 						ite->setXYPos(oldX, oldY, true);
 						ite->BoundingX = OldBX;
 						ite->BoundingY = OldBY;
 					}
-					if ((Options.Version == PDFOptions::PDFVersion_15) && (Options.useLayers))
-						PutPage("EMC\n");
+					if (groupStack.count() != 0)
+					{
+						while (ite == groupStack.top())
+						{
+							PutPage("Q\n");
+							groupStack.pop();
+							if (groupStack.count() == 0)
+								break;
+						}
+					}
 				}
+				for (int am = 0; am < pag->FromMaster.count(); ++am)
+				{
+					ite = pag->FromMaster.at(am);
+					if ((ite->LayerNr != ll.LNr) || (!ite->printEnabled()))
+						continue;
+					if (ite->ChangedMasterItem)
+						continue;
+					if ((!pag->pageName().isEmpty()) && (ite->OwnPage != static_cast<int>(pag->pageNr())) && (ite->OwnPage != -1))
+						continue;
+					if (!ite->isTableItem)
+						continue;
+					double oldX = ite->xPos();
+					double oldY = ite->yPos();
+					double OldBX = ite->BoundingX;
+					double OldBY = ite->BoundingY;
+					ite->setXPos(ite->xPos() - mPage->xOffset() + pag->xOffset(), true);
+					ite->setYPos(ite->yPos() - mPage->yOffset() + pag->yOffset(), true);
+					PutPage(PDF_ProcessTableItem(ite, pag));
+					ite->setXYPos(oldX, oldY, true);
+					ite->BoundingX = OldBX;
+					ite->BoundingY = OldBY;
+				}
+				if ((Options.Version == PDFOptions::PDFVersion_15) && (Options.useLayers))
+					PutPage("EMC\n");
 			}
 		}
 	}
