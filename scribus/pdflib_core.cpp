@@ -3236,7 +3236,7 @@ bool PDFLibCore::PDF_ProcessPage(const ScPage* pag, uint PNr, bool clip)
 bool PDFLibCore::PDF_ProcessMasterElements(const ScLayer& layer, const ScPage* pag, uint PNr)
 {
 	PageItem* ite;
-	QString output;
+	QString content, output;
 	QList<PageItem*> PItems;
 
 	if (pag->MPageNam.isEmpty())
@@ -3263,7 +3263,12 @@ bool PDFLibCore::PDF_ProcessMasterElements(const ScLayer& layer, const ScPage* p
 				continue;
 			QString name = QString("/master_page_obj_%1_%2").arg(mPageIndex).arg(qHash(ite));
 			if ((!ite->asTextFrame()) && (!ite->asPathText()) && (!ite->asTable()))
-				PutPage(name+" Do\n");
+			{
+				if (((layer.transparency != 1) || (layer.blendMode != 0)) && ((Options.Version >= PDFOptions::PDFVersion_14) || (Options.Version == PDFOptions::PDFVersion_X4)))
+					content += (name + " Do\n");
+				else
+					PutPage(name + " Do\n");
+			}
 			else
 			{
 				double oldX = ite->xPos();
@@ -3274,11 +3279,54 @@ bool PDFLibCore::PDF_ProcessMasterElements(const ScLayer& layer, const ScPage* p
 				ite->setYPos(ite->yPos() - mPage->yOffset() + pag->yOffset(), true);
 				if (!PDF_ProcessItem(output, ite, pag, pag->pageNr()))
 					return false;
-				PutPage(output);
+				if (((layer.transparency != 1) || (layer.blendMode != 0)) && ((Options.Version >= PDFOptions::PDFVersion_14) || (Options.Version == PDFOptions::PDFVersion_X4)))
+					content += output;
+				else
+					PutPage(output);
 				ite->setXYPos(oldX, oldY, true);
 				ite->BoundingX = OldBX;
 				ite->BoundingY = OldBY;
 			}
+		}
+		// Couldn't we use Write_TransparencyGroup() here?
+		if (((layer.transparency != 1) || (layer.blendMode != 0)) && ((Options.Version >= PDFOptions::PDFVersion_14) ||(Options.Version == PDFOptions::PDFVersion_X4)))
+		{
+			int Gobj = newObject();
+			StartObj(Gobj);
+			PutDoc("<< /Type /Group\n");
+			PutDoc("/S /Transparency\n");
+			PutDoc("/I false\n");
+			PutDoc("/K false\n");
+			PutDoc(">>\nendobj\n");
+			QString ShName = ResNam+QString::number(ResCount);
+			ResCount++;
+			Transpar[ShName] = writeGState("/CA "+FToStr(layer.transparency)+"\n"
+										   + "/ca "+FToStr(layer.transparency)+"\n"
+										   + "/SMask /None\n/AIS false\n/OPM 1\n"
+										   + "/BM /" + blendMode(layer.blendMode) + "\n");
+			uint formObject = newObject();
+			StartObj(formObject);
+			PutDoc("<<\n/Type /XObject\n/Subtype /Form\n/FormType 1\n");
+			double bleedRight = 0.0;
+			double bleedLeft  = 0.0;
+			getBleeds(ActPageP, bleedLeft, bleedRight);
+			double maxBoxX = ActPageP->width()+bleedRight+bleedLeft;
+			double maxBoxY = ActPageP->height()+Options.bleeds.top()+Options.bleeds.bottom();
+			PutDoc("/BBox [ "+FToStr(-bleedLeft)+" "+FToStr(-Options.bleeds.bottom())+" "+FToStr(maxBoxX)+" "+FToStr(maxBoxY)+" ]\n");
+			PutDoc("/Group "+QString::number(Gobj)+" 0 R\n");
+			if (Options.Compress)
+				content = CompressStr(&content);
+			PutDoc("/Length "+QString::number(content.length()+1));
+			if (Options.Compress)
+				PutDoc("\n/Filter /FlateDecode");
+			PutDoc(" >>\nstream\n"+EncStream(content, formObject)+"\nendstream\nendobj\n");
+			QString name = ResNam+QString::number(ResCount);
+			ResCount++;
+			Seite.XObjects[name] = formObject;
+			PutPage("q\n");
+			PutPage("/"+ShName+" gs\n");
+			PutPage("/"+name+" Do\n");
+			PutPage("Q\n");
 		}
 		if (((Options.Version == PDFOptions::PDFVersion_15) || (Options.Version == PDFOptions::PDFVersion_X4)) && (Options.useLayers))
 			PutPage("EMC\n");
@@ -3316,6 +3364,7 @@ bool PDFLibCore::PDF_ProcessPageElements(const ScLayer& layer, const ScPage* pag
 			else
 				PutPage(output);
 		}
+		// Couldn't we use Write_TransparencyGroup() here?
 		if (((layer.transparency != 1) || (layer.blendMode != 0)) && ((Options.Version >= PDFOptions::PDFVersion_14) ||(Options.Version == PDFOptions::PDFVersion_X4)))
 		{
 			int Gobj = newObject();
@@ -4489,7 +4538,7 @@ bool PDFLibCore::PDF_ProcessItem(QString& output, PageItem* ite, const ScPage* p
 					tmpD +=  "1 0 0 1 "+FToStr(embedded->gXpos)+" "+FToStr(ite->height() - embedded->gYpos)+" cm\n";
 					QString output;
 					if (inPattern > 0)
-						patternStackPos.push(QPointF(embedded->gXpos, -(embedded->gYpos - ite->height())));
+						patternStackPos.push(QPointF(embedded->gXpos, ite->height() - embedded->gYpos));
 					if (!PDF_ProcessItem(output, embedded, pag, PNr, true))
 						return "";
 					if (inPattern > 0)
