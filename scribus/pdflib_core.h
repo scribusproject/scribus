@@ -132,6 +132,7 @@ private:
 	QString SetGradientColor(const QString& farbe, double Shade);
 	QString putColor(const QString& color, double Shade, bool fill);
 	QString putColorUncached(const QString& color, int Shade, bool fill);
+	QString Write_FormXObject(QString &data, PageItem *controlItem = 0);
 	QString Write_TransparencyGroup(double trans, int blend, QString &data, PageItem *controlItem = 0);
 	QString setTextSt(PageItem *ite, uint PNr, const ScPage* pag);
 	bool    setTextCh(PageItem *ite, uint PNr, double x, double y, uint d,  QString &tmp, QString &tmp2, const CharStyle& cstyle, GlyphLayout *glyphs, PathData* pdata, const ParagraphStyle& pstyle, const ScPage* pag);

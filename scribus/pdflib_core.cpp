@@ -126,7 +126,9 @@ PDFLibCore::PDFLibCore(ScribusDoc & docu)
 	spotCount(0),
 	progressDialog(0),
 	abortExport(false),
-	usingGUI(ScCore->usingGUI())
+	usingGUI(ScCore->usingGUI()),
+	bleedDisplacementX(0),
+	bleedDisplacementY(0)
 {
 	KeyGen.resize(32);
 	OwnerKey.resize(32);
@@ -2019,6 +2021,10 @@ bool PDFLibCore::PDF_TemplatePage(const ScPage* pag, bool )
 	ll.isPrintable = false;
 	ll.ID = 0;
 	Content = "";
+
+	double bLeft, bRight, bBottom, bTop;
+	getBleeds(pag, bLeft, bRight, bBottom, bTop);
+
 	Seite.AObjects.clear();
 	for (int la = 0; la < doc.Layers.count(); ++la)
 	{
@@ -2034,8 +2040,6 @@ bool PDFLibCore::PDF_TemplatePage(const ScPage* pag, bool )
 				ite =PItems.at(a);
 				if (ite->LayerID != ll.ID)
 					continue;
-				double bLeft, bRight, bBottom, bTop;
-				getBleeds(pag, bLeft, bRight, bBottom, bTop);
 				double x  = pag->xOffset() - bLeft;
 				double y  = pag->yOffset() - bTop;
 				double w  = pag->width() + bLeft + bRight;
@@ -2603,8 +2607,8 @@ bool PDFLibCore::PDF_TemplatePage(const ScPage* pag, bool )
 							QTransform trans;
 							trans.scale(ite->width() / ite->groupWidth, ite->height() / ite->groupHeight);
 							trans.translate(0.0, -ite->height());
-							//trans.translate(ite->groupItemList.at(0)->gXpos, -ite->groupItemList.at(0)->gYpos);
 							PutPage(FToStr(trans.m11())+" "+FToStr(trans.m12())+" "+FToStr(trans.m21())+" "+FToStr(trans.m22())+" "+FToStr(trans.dx())+" "+FToStr(trans.dy())+" cm\n");
+							groupStackPos.push(QPointF(ite->xPos(), ite->height()));
 							for (int em = 0; em < ite->groupItemList.count(); ++em)
 							{
 								PageItem* embedded = ite->groupItemList.at(em);
@@ -2612,7 +2616,7 @@ bool PDFLibCore::PDF_TemplatePage(const ScPage* pag, bool )
 								tmpD +=  "1 0 0 1 "+FToStr(embedded->gXpos)+" "+FToStr(ite->height() - embedded->gYpos)+" cm\n";
 								QString output;
 								if (inPattern > 0)
-									patternStackPos.push(QPointF(embedded->gXpos, -(embedded->gYpos - ite->height())));
+									patternStackPos.push(QPointF(embedded->gXpos, ite->height() - embedded->gYpos));
 								if (!PDF_ProcessItem(output, embedded, pag, pag->pageNr(), true, true))
 									return "";
 								if (inPattern)
@@ -2620,10 +2624,11 @@ bool PDFLibCore::PDF_TemplatePage(const ScPage* pag, bool )
 								tmpD += output;
 								tmpD += "Q\n";
 							}
+							groupStackPos.pop();
 							if (Options.Version >= PDFOptions::PDFVersion_14 || Options.Version == PDFOptions::PDFVersion_X4)
 								PutPage(Write_TransparencyGroup(ite->fillTransparency(), ite->fillBlendmode(), tmpD, ite));
 							else
-								PutPage(tmpD);
+								PutPage(Write_FormXObject(tmpD, ite));
 							PutPage("Q\n");
 						}
 						break;
@@ -3407,6 +3412,126 @@ bool PDFLibCore::PDF_ProcessPageElements(const ScLayer& layer, const ScPage* pag
 			PutPage("EMC\n");
 	}
 	return true;
+}
+
+QString PDFLibCore::Write_FormXObject(QString &data, PageItem *controlItem)
+{
+	QString retString = "";
+	uint formObject = newObject();
+	StartObj(formObject);
+	PutDoc("<<\n/Type /XObject\n/Subtype /Form\n/FormType 1\n");
+	double bleedRight = 0.0;
+	double bleedLeft  = 0.0;
+	getBleeds(ActPageP, bleedLeft, bleedRight);
+	double maxBoxX = ActPageP->width()+bleedRight+bleedLeft;
+	double maxBoxY = ActPageP->height()+Options.bleeds.top()+Options.bleeds.bottom();
+	if (controlItem != NULL)
+	{
+		double scaleW, scaleH;
+		if (controlItem->isGroup())
+		{
+			if (controlItem->groupWidth > controlItem->width())
+				scaleW = controlItem->groupWidth / controlItem->width();
+			else
+				scaleW = 1.0 / (controlItem->groupWidth / controlItem->width());
+			if (controlItem->groupHeight > controlItem->height())
+				scaleH = controlItem->groupHeight / controlItem->height();
+			else
+				scaleH = 1.0 / (controlItem->groupHeight / controlItem->height());
+		//	PutDoc("/BBox [ "+FToStr(0)+" "+FToStr(-controlItem->height() * scaleH)+" "+FToStr(controlItem->groupWidth * scaleW)+" "+FToStr(controlItem->groupHeight * scaleH)+" ]\n");
+			PutDoc("/BBox [ "+FToStr(0)+" "+FToStr(-controlItem->height() * scaleH)+" "+FToStr(ActPageP->width())+" "+FToStr(controlItem->groupHeight * scaleH)+" ]\n");
+		}
+		if (controlItem->isSymbol())
+		{
+			ScPattern pat = doc.docPatterns[controlItem->pattern()];
+			if (pat.width > controlItem->width())
+				scaleW = pat.width / controlItem->width();
+			else
+				scaleW = 1.0 / (pat.width / controlItem->width());
+			if (pat.height > controlItem->height())
+				scaleH = pat.height / controlItem->height();
+			else
+				scaleH = 1.0 / (pat.height / controlItem->height());
+			PutDoc("/BBox [ "+FToStr(0)+" "+FToStr(-controlItem->height() * scaleH)+" "+FToStr(pat.width * scaleW)+" "+FToStr(pat.height * scaleH)+" ]\n");
+		}
+	}
+	else
+		PutDoc("/BBox [ "+FToStr(-bleedLeft)+" "+FToStr(-Options.bleeds.bottom())+" "+FToStr(maxBoxX)+" "+FToStr(maxBoxY)+" ]\n");
+	PutDoc("/Resources << /ProcSet [/PDF /Text /ImageB /ImageC /ImageI]\n");
+	if ((Seite.ImgObjects.count() != 0) || (Seite.XObjects.count() != 0))
+	{
+		PutDoc("/XObject <<\n");
+		QMap<QString,int>::Iterator it;
+		for (it = Seite.ImgObjects.begin(); it != Seite.ImgObjects.end(); ++it)
+			PutDoc("/"+it.key()+" "+QString::number(it.value())+" 0 R\n");
+		QMap<QString,int>::Iterator iti;
+		for (iti = Seite.XObjects.begin(); iti != Seite.XObjects.end(); ++iti)
+			PutDoc("/"+iti.key()+" "+QString::number(iti.value())+" 0 R\n");
+		PutDoc(">>\n");
+	}
+	if (Seite.FObjects.count() != 0)
+	{
+		PutDoc("/Font << \n");
+		QMap<QString,int>::Iterator it2;
+		for (it2 = Seite.FObjects.begin(); it2 != Seite.FObjects.end(); ++it2)
+			PutDoc("/"+it2.key()+" "+QString::number(it2.value())+" 0 R\n");
+		PutDoc(">>\n");
+	}
+	if (Shadings.count() != 0)
+	{
+		PutDoc("/Shading << \n");
+		QMap<QString,int>::Iterator it3;
+		for (it3 = Shadings.begin(); it3 != Shadings.end(); ++it3)
+			PutDoc("/"+it3.key()+" "+QString::number(it3.value())+" 0 R\n");
+		PutDoc(">>\n");
+	}
+	if (Patterns.count() != 0)
+	{
+		PutDoc("/Pattern << \n");
+		QMap<QString,int>::Iterator it3p;
+		for (it3p = Patterns.begin(); it3p != Patterns.end(); ++it3p)
+			PutDoc("/"+it3p.key()+" "+QString::number(it3p.value())+" 0 R\n");
+		PutDoc(">>\n");
+	}
+	if (Transpar.count() != 0)
+	{
+		PutDoc("/ExtGState << \n");
+		QMap<QString,int>::Iterator it3t;
+		for (it3t = Transpar.begin(); it3t != Transpar.end(); ++it3t)
+			PutDoc("/"+it3t.key()+" "+QString::number(it3t.value())+" 0 R\n");
+		PutDoc(">>\n");
+	}
+	if ((ICCProfiles.count() != 0) || (spotMap.count() != 0))
+	{
+		PutDoc("/ColorSpace << \n");
+		QMap<QString,ICCD>::Iterator it3c;
+		if (ICCProfiles.count() != 0)
+		{
+			for (it3c = ICCProfiles.begin(); it3c != ICCProfiles.end(); ++it3c)
+				PutDoc("/"+it3c.value().ResName+" "+QString::number(it3c.value().ResNum)+" 0 R\n");
+		}
+		QMap<QString,SpotC>::Iterator it3sc;
+		if (spotMap.count() != 0)
+		{
+			for (it3sc = spotMap.begin(); it3sc != spotMap.end(); ++it3sc)
+				PutDoc("/"+it3sc.value().ResName+" "+QString::number(it3sc.value().ResNum)+" 0 R\n");
+		}
+		PutDoc(">>\n");
+	}
+	PutDoc(">>\n");
+	if (Options.Compress)
+		data = CompressStr(&data);
+	PutDoc("/Length "+QString::number(data.length()+1));
+	if (Options.Compress)
+		PutDoc("\n/Filter /FlateDecode");
+	PutDoc(" >>\nstream\n"+EncStream(data, formObject)+"\nendstream\nendobj\n");
+	QString name = ResNam+QString::number(ResCount);
+	ResCount++;
+	Seite.XObjects[name] = formObject;
+	retString += "q\n";
+	retString += "/"+name+" Do\n";
+	retString += "Q\n";
+	return retString;
 }
 
 QString PDFLibCore::Write_TransparencyGroup(double trans, int blend, QString &data, PageItem *controlItem)
@@ -4550,7 +4675,7 @@ bool PDFLibCore::PDF_ProcessItem(QString& output, PageItem* ite, const ScPage* p
 				if (Options.Version >= PDFOptions::PDFVersion_14 || Options.Version == PDFOptions::PDFVersion_X4)
 					tmp += Write_TransparencyGroup(ite->fillTransparency(), ite->fillBlendmode(), tmpD, ite);
 				else
-					tmp += tmpD;
+					tmp += Write_FormXObject(tmpD, ite);
 				tmp += "Q\n";
 			}
 			break;
