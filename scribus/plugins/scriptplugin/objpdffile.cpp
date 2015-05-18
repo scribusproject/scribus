@@ -48,7 +48,7 @@ typedef struct
 	PyObject_HEAD
 	PyObject *file; // string - file to save into
 	PyObject *fonts; // list of string - fonts to  embed
-	PyObject *SubsetList; // list of string - fonts to outline
+	PyObject *subsetList; // list of string - fonts to outline
 	PyObject *pages; // list of int - pages to print
 	int thumbnails; // bool -
 	int cropMarks; // bool -
@@ -75,11 +75,11 @@ typedef struct
 	PyObject *lpival; // list of elements which has structure [siii]
 	PyObject *owner; // string - owner's password
 	PyObject *user; // string - user's password
-	int aprint; // bool -  allow printing
-	int achange; // bool - allow changing
-	int acopy; // bool - allow copying
-	int aanot; // bool - allow adding annotation and fields
-	int version; // int - version of pdf (12=1.2; 13=1.3; 14=1.4)
+	int allowPrinting; // bool -  allow printing
+	int allowChange; // bool - allow changing
+	int allowCopy; // bool - allow copying
+	int allowAnnots; // bool - allow adding annotation and fields
+	int version; // int - version of pdf (12=1.2; 13=1.3; 14=1.4; 15=1.5)
 	int outdst; // int - output destination 0 - screen, 1 - printer
 
 	int profiles; // bool
@@ -91,17 +91,17 @@ typedef struct
 	PyObject *imagepr; // string
 	PyObject *printprofc; // string
 	PyObject *info; // string
-	double bleedt; // double - 0 to hight of page
+	double bleedt; // double - 0 to height of page
 	double bleedl; // double - 0 to width of page
 	double bleedr; // double - 0 to width of page
-	double bleedb; // double - 0 to hight of page
-	int usedocbleeds; // bool
+	double bleedb; // double - 0 to height of page
+	int useDocBleeds; // bool
 	int useLayers;
 	int embedPDF;
 	int mirrorH;
 	int mirrorV;
 	int doClip;
-	PyObject * RotateDeg; // int
+	PyObject * rotateDeg; // int
 	int isGrayscale;
 	int pageLayout;
 	int displayBookmarks;
@@ -119,7 +119,7 @@ static void PDFfile_dealloc(PDFfile *self)
 {
 	Py_XDECREF(self->file);
 	Py_XDECREF(self->fonts);
-	Py_XDECREF(self->SubsetList);
+	Py_XDECREF(self->subsetList);
 	Py_XDECREF(self->pages);
 	Py_XDECREF(self->resolution);
 	Py_XDECREF(self->downsample);
@@ -131,7 +131,7 @@ static void PDFfile_dealloc(PDFfile *self)
 	Py_XDECREF(self->imagepr);
 	Py_XDECREF(self->printprofc);
 	Py_XDECREF(self->info);
-	Py_XDECREF(self->RotateDeg);
+	Py_XDECREF(self->rotateDeg);
 	Py_XDECREF(self->openAction);
 	self->ob_type->tp_free((PyObject *)self);
 }
@@ -160,8 +160,8 @@ static PyObject * PDFfile_new(PyTypeObject *type, PyObject * /*args*/, PyObject 
 			Py_DECREF(self);
 			return NULL;
 		}
-		self->SubsetList = PyList_New(0);
-		if (!self->SubsetList){
+		self->subsetList = PyList_New(0);
+		if (!self->subsetList){
 			Py_DECREF(self);
 			return NULL;
 		}
@@ -243,14 +243,14 @@ static PyObject * PDFfile_new(PyTypeObject *type, PyObject * /*args*/, PyObject 
 			Py_DECREF(self);
 			return NULL;
 		}
-// set aprint attribute
-		self->aprint = 1;
-// set achange attribute
-		self->achange = 1;
-// set acopy attribute
-		self->acopy = 1;
-// set aanot attribute
-		self->aanot = 1;
+// set allowPrinting attribute
+		self->allowPrinting = 1;
+// set allowChange attribute
+		self->allowChange = 1;
+// set allowCopy attribute
+		self->allowCopy = 1;
+// set allowAnnots attribute
+		self->allowAnnots = 1;
 // set version attribute
 		self->version = 14;
 // set output attribute
@@ -286,14 +286,14 @@ static PyObject * PDFfile_new(PyTypeObject *type, PyObject * /*args*/, PyObject 
 		self->bleedl = 0; // double -
 		self->bleedr = 0; // double -
 		self->bleedb = 0; // double -
-		self->usedocbleeds = 1; // bool
+		self->useDocBleeds = 1; // bool
 		self->useLayers = 0;
 		self->embedPDF = 0;
 		self->mirrorH = 0;
 		self->mirrorV = 0;
 		self->doClip = 0;
-		self->RotateDeg = PyInt_FromLong(0);
-		if (!self->RotateDeg){
+		self->rotateDeg = PyInt_FromLong(0);
+		if (!self->rotateDeg){
 			Py_DECREF(self);
 			return NULL;
 		}
@@ -375,13 +375,13 @@ static int PDFfile_init(PDFfile *self, PyObject * /*args*/, PyObject * /*kwds*/)
 			}
 //		}
 	}
-// init SubsetList
+// init subsetList
 	fonts = PyList_New(0);
 	if (fonts){
-		Py_DECREF(self->SubsetList);
-		self->SubsetList = fonts;
+		Py_DECREF(self->subsetList);
+		self->subsetList = fonts;
 	} else {
-		PyErr_SetString(PyExc_SystemError, "Can not initialize 'SubsetList' attribute");
+		PyErr_SetString(PyExc_SystemError, "Can not initialize 'subsetList' attribute");
 		return -1;
 	}
 // copied from TabPDFOptions::restoreDefaults()
@@ -390,11 +390,11 @@ static int PDFfile_init(PDFfile *self, PyObject * /*args*/, PyObject * /*kwds*/)
 		PyObject *tmp= NULL;
 		tmp = PyString_FromString(pdfOptions.SubsetList[fe].toLatin1().data());
 		if (tmp) {
-			PyList_Append(self->SubsetList, tmp);
+			PyList_Append(self->subsetList, tmp);
 			Py_DECREF(tmp);
 		}
 		else {
-			PyErr_SetString(PyExc_SystemError, "Can not initialize 'SubsetList' attribute");
+			PyErr_SetString(PyExc_SystemError, "Can not initialize 'subsetList' attribute");
 			return -1;
 		}
 	}
@@ -555,13 +555,13 @@ static int PDFfile_init(PDFfile *self, PyObject * /*args*/, PyObject * /*kwds*/)
 		return -1;
 	}
 // allow printing document
-	self->aprint = pdfOptions.Permissions & 4;
+	self->allowPrinting = pdfOptions.Permissions & 4;
 // allow changing document
-	self->achange = pdfOptions.Permissions & 8;
+	self->allowChange = pdfOptions.Permissions & 8;
 // allow copying document
-	self->acopy = pdfOptions.Permissions & 16;
+	self->allowCopy = pdfOptions.Permissions & 16;
 // allow adding annotation and fields
-	self->aanot = pdfOptions.Permissions & 32;
+	self->allowAnnots = pdfOptions.Permissions & 32;
 // use 1.4 pdf version *aka. Acrobat 5)
 	self->version = pdfOptions.Version;
 // output destination is screen
@@ -622,19 +622,19 @@ static int PDFfile_init(PDFfile *self, PyObject * /*args*/, PyObject * /*kwds*/)
 	self->bleedl = pdfOptions.bleeds.left() * currentDoc->unitRatio(); // double -
 	self->bleedr = pdfOptions.bleeds.right() * currentDoc->unitRatio(); // double -
 	self->bleedb = pdfOptions.bleeds.bottom() * currentDoc->unitRatio(); // double -
-	self->usedocbleeds = pdfOptions.useDocBleeds; // bool
+	self->useDocBleeds = pdfOptions.useDocBleeds; // bool
 	self->useLayers = pdfOptions.useLayers; // bool
 	self->embedPDF = pdfOptions.embedPDF; // bool
 	self->mirrorH = pdfOptions.MirrorH; // bool
 	self->mirrorV = pdfOptions.MirrorV; // bool
 	self->doClip = pdfOptions.doClip; // bool
-	PyObject *RotateDeg = NULL;
-	RotateDeg = PyInt_FromLong(0);
-	if (RotateDeg){
-		Py_DECREF(self->RotateDeg);
-		self->RotateDeg = RotateDeg;
+	PyObject *rotateDeg = NULL;
+	rotateDeg = PyInt_FromLong(0);
+	if (rotateDeg){
+		Py_DECREF(self->rotateDeg);
+		self->rotateDeg = rotateDeg;
 	} else {
-		PyErr_SetString(PyExc_SystemError, "Can not initialize 'RotateDeg' attribute");
+		PyErr_SetString(PyExc_SystemError, "Can not initialize 'rotateDeg' attribute");
 		return -1;
 	}
 	self->isGrayscale = pdfOptions.isGrayscale; // bool
@@ -680,10 +680,10 @@ static PyMemberDef PDFfile_members[] = {
 	{const_cast<char*>("uselpi"), T_INT, offsetof(PDFfile, uselpi), 0, const_cast<char*>("Use Custom Rendering Settings. Bool value")},
 	{const_cast<char*>("usespot"), T_INT, offsetof(PDFfile, usespot), 0, const_cast<char*>("Use Spot Colors. Bool value")},
 	{const_cast<char*>("domulti"), T_INT, offsetof(PDFfile, domulti), 0, const_cast<char*>("Produce a PDF File for every Page. Bool value")},
-	{const_cast<char*>("aprint"), T_INT, offsetof(PDFfile, aprint), 0, const_cast<char*>("Allow Printing the Document. Bool value")},
-	{const_cast<char*>("achange"), T_INT, offsetof(PDFfile, achange), 0, const_cast<char*>("Allow Changing the Document. Bool value")},
-	{const_cast<char*>("acopy"), T_INT, offsetof(PDFfile, acopy), 0, const_cast<char*>("Allow Copying Text and Graphics. Bool value")},
-	{const_cast<char*>("aanot"), T_INT, offsetof(PDFfile, aanot), 0, const_cast<char*>("Allow Adding Annotations and Fields. Bool value")},
+	{const_cast<char*>("allowPrinting"), T_INT, offsetof(PDFfile, allowPrinting), 0, const_cast<char*>("Allow Printing the Document. Bool value")},
+	{const_cast<char*>("allowChange"), T_INT, offsetof(PDFfile, allowChange), 0, const_cast<char*>("Allow Changing the Document. Bool value")},
+	{const_cast<char*>("allowCopy"), T_INT, offsetof(PDFfile, allowCopy), 0, const_cast<char*>("Allow Copying Text and Graphics. Bool value")},
+	{const_cast<char*>("allowAnnots"), T_INT, offsetof(PDFfile, allowAnnots), 0, const_cast<char*>("Allow Adding Annotations and Fields. Bool value")},
 	{const_cast<char*>("version"), T_INT, offsetof(PDFfile, version), 0, const_cast<char*>("Choose PDF version to use:\n\t10 = PDF/X4\n\t11 = PDF/X1a\n\t12 = PDF/X-3\n\t13 = PDF 1.3 (Acrobat 4)\n\t14 = PDF 1.4 (Acrobat 5)\n\t15 = PDF 1.5 (Acrobat 6)")},
 	{const_cast<char*>("outdst"), T_INT, offsetof(PDFfile, outdst), 0, const_cast<char*>("Output destination.\n\t0 - screen\n\t1 - printer")},
 	{const_cast<char*>("profiles"), T_INT, offsetof(PDFfile, profiles), 0, const_cast<char*>("Embed a color profile for solid colors. Bool value.")},
@@ -695,7 +695,7 @@ static PyMemberDef PDFfile_members[] = {
 	{const_cast<char*>("bleedl"), T_DOUBLE, offsetof(PDFfile, bleedl), 0, const_cast<char*>("Bleed Left\n""Distance for bleed from the left of the physical page")},
 	{const_cast<char*>("bleedr"), T_DOUBLE, offsetof(PDFfile, bleedr), 0, const_cast<char*>("Bleed Right\n""Distance for bleed from the right of the physical page")},
 	{const_cast<char*>("bleedb"), T_DOUBLE, offsetof(PDFfile, bleedb), 0, const_cast<char*>("Bleed Bottom\n""Distance for bleed from the bottom of the physical page")},
-	{const_cast<char*>("usedocbleeds"), T_INT, offsetof(PDFfile, usedocbleeds), 0, const_cast<char*>("Use the existing bleed settings from the document preferences. Bool value")},
+	{const_cast<char*>("useDocBleeds"), T_INT, offsetof(PDFfile, useDocBleeds), 0, const_cast<char*>("Use the existing bleed settings from the document preferences. Bool value")},
 	{const_cast<char*>("useLayers"), T_INT, offsetof(PDFfile, useLayers), 0, const_cast<char*>("Layers in your document are exported to the PDF Only available if PDF 1.5 is chosen.")},
 	{const_cast<char*>("embedPDF"), T_INT, offsetof(PDFfile, embedPDF), 0, const_cast<char*>("Export EPS and PDFs in image frames as embedded PDFs. This does *not* yet take care of colorspaces, so you should know what you are doing before setting this to 'true'.")},
 	{const_cast<char*>("mirrorH"), T_INT, offsetof(PDFfile, mirrorH), 0, const_cast<char*>("Mirror Page(s) horizontally")},
@@ -715,6 +715,11 @@ static PyMemberDef PDFfile_members[] = {
 	{const_cast<char*>("hideToolBar"), T_INT, offsetof(PDFfile, hideToolBar), 0, const_cast<char*>("Hide the viewer toolbar. The toolbar has usually selection and other editing capabilities.")},
 	{const_cast<char*>("hideMenuBar"), T_INT, offsetof(PDFfile, hideMenuBar), 0, const_cast<char*>("Hide the viewer menu bar, the PDF will display in a plain window.")},
 	{const_cast<char*>("fitWindow"), T_INT, offsetof(PDFfile, fitWindow), 0, const_cast<char*>("Fit the document page or pages to the available space in the viewer window.")},
+	/** Deprecated members */
+	{const_cast<char*>("aprint"), T_INT, offsetof(PDFfile, allowPrinting), 0, const_cast<char*>("Deprecated. Use 'allowPrinting' instead.")},
+	{const_cast<char*>("achange"), T_INT, offsetof(PDFfile, allowChange), 0, const_cast<char*>("Deprecated. Use 'allowChange' instead.")},
+	{const_cast<char*>("acopy"), T_INT, offsetof(PDFfile, allowCopy), 0, const_cast<char*>("Deprecated. Use 'allowCopy' instead.")},
+	{const_cast<char*>("aanot"), T_INT, offsetof(PDFfile, allowAnnots), 0, const_cast<char*>("Deprecated. Use 'allowAnnots' instead.")},
 	{NULL, 0, 0, 0, NULL} // sentinel
 };
 
@@ -778,31 +783,31 @@ static int PDFfile_setfonts(PDFfile *self, PyObject *value, void * /*closure*/)
 
 static PyObject *PDFfile_getSubsetList(PDFfile *self, void * /*closure*/)
 {
-	Py_INCREF(self->SubsetList);
-	return self->SubsetList;
+	Py_INCREF(self->subsetList);
+	return self->subsetList;
 }
 
 static int PDFfile_setSubsetList(PDFfile *self, PyObject *value, void * /*closure*/)
 {
 	if (value == NULL) {
-		PyErr_SetString(PyExc_TypeError, "Cannot delete 'SubsetList' attribute.");
+		PyErr_SetString(PyExc_TypeError, "Cannot delete 'subsetList' attribute.");
 		return -1;
 	}
 	if (!PyList_Check(value)) {
-		PyErr_SetString(PyExc_TypeError, "The 'SubsetList' attribute value must be list of strings.");
+		PyErr_SetString(PyExc_TypeError, "The 'subsetList' attribute value must be list of strings.");
 		return -1;
 	}
 	int n;
 	n = PyList_Size(value);
 	for (int i=0; i<n; ++i)
 		if (!PyString_Check(PyList_GetItem(value, i))) {
-			PyErr_SetString(PyExc_TypeError, "The 'SubsetList' list must contain only strings.");
+			PyErr_SetString(PyExc_TypeError, "The 'subsetList' list must contain only strings.");
 			return -1;
 		}
-	Py_DECREF(self->SubsetList);
+	Py_DECREF(self->subsetList);
 	Py_INCREF(value);
-	self->SubsetList = value;
-	PyList_Sort(self->SubsetList);
+	self->subsetList = value;
+	PyList_Sort(self->subsetList);
 	return 0;
 }
 
@@ -1119,28 +1124,28 @@ static int PDFfile_setinfo(PDFfile *self, PyObject *value, void * /*closure*/)
 
 static PyObject *PDFfile_getRotateDeg(PDFfile *self, void * /*closure*/)
 {
-	Py_INCREF(self->RotateDeg);
-	return self->RotateDeg;
+	Py_INCREF(self->rotateDeg);
+	return self->rotateDeg;
 }
 
 static int PDFfile_setRotateDeg(PDFfile *self, PyObject *value, void * /*closure*/)
 {
 	if (value == NULL) {
-		PyErr_SetString(PyExc_TypeError, "Cannot delete 'RotateDeg' attribute.");
+		PyErr_SetString(PyExc_TypeError, "Cannot delete 'rotateDeg' attribute.");
 		return -1;
 	}
 	if (!PyInt_Check(value)) {
-		PyErr_SetString(PyExc_TypeError, "'RotateDeg' attribute value must be integer.");
+		PyErr_SetString(PyExc_TypeError, "'rotateDeg' attribute value must be integer.");
 		return -1;
 	}
 	int n = PyInt_AsLong(value);
 	if (n!=0 && n!=90 && n!=180 && n!=270) {
-		PyErr_SetString(PyExc_TypeError, "'RotateDeg' value must be 0 or 90 or 180 or 270");
+		PyErr_SetString(PyExc_TypeError, "'rotateDeg' value must be 0 or 90 or 180 or 270");
 		return -1;
 	}
-	Py_DECREF(self->RotateDeg);
+	Py_DECREF(self->rotateDeg);
 	Py_INCREF(value);
-	self->RotateDeg = value;
+	self->rotateDeg = value;
 	return 0;
 }
 
@@ -1189,7 +1194,7 @@ static char *lpival_doc = const_cast<char*>(
 static PyGetSetDef PDFfile_getseters [] = {
 	{const_cast<char*>("file"), (getter)PDFfile_getfile, (setter)PDFfile_setfile, const_cast<char*>("Name of file to save into"), NULL},
 	{const_cast<char*>("fonts"), (getter)PDFfile_getfonts, (setter)PDFfile_setfonts, const_cast<char*>("List of fonts to embed."), NULL},
-	{const_cast<char*>("SubsetList"), (getter)PDFfile_getSubsetList, (setter)PDFfile_setSubsetList, const_cast<char*>("List of fonts to outlined."), NULL},
+	{const_cast<char*>("subsetList"), (getter)PDFfile_getSubsetList, (setter)PDFfile_setSubsetList, const_cast<char*>("List of fonts to outlined."), NULL},
 	{const_cast<char*>("pages"), (getter)PDFfile_getpages, (setter)PDFfile_setpages, const_cast<char*>("List of pages to print"), NULL},
 	{const_cast<char*>("resolution"), (getter)PDFfile_getresolution, (setter)PDFfile_setresolution, const_cast<char*>("Resolution of output file. Values from 35 to 4000."), NULL},
 	{const_cast<char*>("downsample"), (getter)PDFfile_getdownsample, (setter)PDFfile_setdownsample, const_cast<char*>("Downsample image resolusion to this value. Values from 35 to 4000\nSet 0 for not to downsample"), NULL},
@@ -1201,7 +1206,7 @@ static PyGetSetDef PDFfile_getseters [] = {
 	{const_cast<char*>("imagepr"), (getter)PDFfile_getimagepr, (setter)PDFfile_setimagepr, const_cast<char*>("Color profile for images"), NULL},
 	{const_cast<char*>("printprofc"), (getter)PDFfile_getprintprofc, (setter)PDFfile_setprintprofc, const_cast<char*>("Output profile for printing. If possible, get some guidance from your printer on profile selection."), NULL},
 	{const_cast<char*>("info"), (getter)PDFfile_getinfo, (setter)PDFfile_setinfo, const_cast<char*>("Mandatory string for PDF/X-3 or the PDF will fail\nPDF/X-3 conformance. We recommend you use the title of the document."), NULL},
-	{const_cast<char*>("RotateDeg"), (getter)PDFfile_getRotateDeg, (setter)PDFfile_setRotateDeg, const_cast<char*>("Automatically rotate the exported pages\n\tValue must be one of integers: 0, 90, 180 or 270"), NULL},
+	{const_cast<char*>("rotateDeg"), (getter)PDFfile_getRotateDeg, (setter)PDFfile_setRotateDeg, const_cast<char*>("Automatically rotate the exported pages\n\tValue must be one of integers: 0, 90, 180 or 270"), NULL},
 	{const_cast<char*>("openAction"), (getter)PDFfile_getopenAction, (setter)PDFfile_setopenAction, const_cast<char*>("Javascript to be executed when PDF document is opened."), NULL},
 	{NULL, NULL, NULL, NULL, NULL}  // sentinel
 };
@@ -1233,10 +1238,10 @@ static PyObject *PDFfile_save(PDFfile *self)
 	}
 // apply SubsetList attribute
 	pdfOptions.SubsetList.clear();
-	n = PyList_Size(self->SubsetList);
+	n = PyList_Size(self->subsetList);
 	for ( int i=0; i<n; ++i){
 		QString tmpFon;
-		tmpFon = QString(PyString_AsString(PyList_GetItem(self->SubsetList, i)));
+		tmpFon = QString(PyString_AsString(PyList_GetItem(self->subsetList, i)));
 		pdfOptions.SubsetList.append(tmpFon);
 	}
 // apply file attribute
@@ -1353,13 +1358,13 @@ static PyObject *PDFfile_save(PDFfile *self)
 		int Perm = -64;
 		if (pdfOptions.Version == PDFOptions::PDFVersion_14)
 			Perm &= ~0x00240000;
-		if (self->aprint)
+		if (self->allowPrinting)
 			Perm += 4;
-		if (self->achange)
+		if (self->allowChange)
 			Perm += 8;
-		if (self->acopy)
+		if (self->allowCopy)
 			Perm += 16;
-		if (self->aanot)
+		if (self->allowAnnots)
 			Perm += 32;
 		pdfOptions.Permissions = Perm;
 		pdfOptions.PassOwner = QString(PyString_AsString(self->owner));
@@ -1421,8 +1426,8 @@ static PyObject *PDFfile_save(PDFfile *self)
 	ReOrderText(ScCore->primaryMainWindow()->doc, ScCore->primaryMainWindow()->view);
 
 	MarginStruct optBleeds(pdfOptions.bleeds);
-	pdfOptions.useDocBleeds = self->usedocbleeds;
-	if (self->usedocbleeds)
+	pdfOptions.useDocBleeds = self->useDocBleeds;
+	if (self->useDocBleeds)
 		pdfOptions.bleeds = ScCore->primaryMainWindow()->doc->bleedsVal();
 	else {
 		self->bleedt = minmaxd(self->bleedt, 0, currentDoc->pageHeight() * currentDoc->unitRatio());
@@ -1439,7 +1444,7 @@ static PyObject *PDFfile_save(PDFfile *self)
 	pdfOptions.MirrorH = self->mirrorH;
 	pdfOptions.MirrorV = self->mirrorV;
 	pdfOptions.doClip = self->doClip;
-	pdfOptions.RotateDeg = PyInt_AsLong(self->RotateDeg);
+	pdfOptions.RotateDeg = PyInt_AsLong(self->rotateDeg);
 	pdfOptions.isGrayscale = self->isGrayscale;
 	pdfOptions.PageLayout = minmaxi(self->pageLayout, 0, 3);
 	pdfOptions.displayBookmarks = self->displayBookmarks;
@@ -1461,7 +1466,7 @@ static PyObject *PDFfile_save(PDFfile *self)
 		PyErr_SetString(PyExc_SystemError, fn.toLatin1());
 	}
 
-	if (self->usedocbleeds)
+	if (self->useDocBleeds)
 		pdfOptions.bleeds = optBleeds;
 
 	if (success)
