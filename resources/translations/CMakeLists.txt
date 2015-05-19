@@ -8,7 +8,7 @@ SET(LRELEASE_EXECUTABLE ${Qt5_LRELEASE_EXECUTABLE})
 FILE( GLOB SCRIBUS_TS_FILES ${CMAKE_CURRENT_SOURCE_DIR}/*.ts )
 MESSAGE(STATUS ${CMAKE_CURRENT_SOURCE_DIR})
 
-#Bit of a hack, preprocess all the filenames to generate our language string, needed for -DWANT_GUI_LANG=en_GB,de_DE , etc
+#Bit of a hack, preprocess all the filenames to generate our language string, needed for -DWANT_GUI_LANG=en_GB;de_DE , etc
 FOREACH(TS_FILEPATH ${SCRIBUS_TS_FILES})
   GET_FILENAME_COMPONENT(TS_FILENAME ${TS_FILEPATH} NAME)
   STRING(REGEX MATCH "\\.([0-9a-zA-Z_]*)\\." LANGSTR ${TS_FILENAME})
