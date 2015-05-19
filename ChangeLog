@@ -1,6 +1,9 @@
-Scribus - 1.5.0svn (Released 2015-05-14)
+Scribus - 1.5.0 (Released 2015-05-19)
 ========================================
 
+- 0013060: [Import / Export] exporting gradients to pdf/x-1 or x-3 fails (jghali) - resolved.
+- 0013062: [Scripter] [patch] fix dialog buttons in python messageBox() (cbradney) - resolved.
+- 0013064: [General] enableActionsForSelection() overwrites correctly enabled/disabled menu entries while in edit modes (cbradney) - closed.
 - 0012228: [Story Editor / Text Frames] Some accented characters dont get typed in text frames (cbradney) - resolved.
 - 0013062: [Scripter] [patch] fix dialog buttons in python messageBox() (cbradney) - resolved.
 - 0013058: [Usability] Font Preview feature is unusable (jghali) - resolved.
