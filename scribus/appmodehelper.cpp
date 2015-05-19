@@ -1703,7 +1703,8 @@ void AppModeHelper::setStartupActionsEnabled(bool enabled)
 	(*a_scrActions)["fileCollect"]->setEnabled(false);
 	(*a_scrActions)["fileClose"]->setEnabled(false);
 	(*a_scrActions)["PrintPreview"]->setEnabled(false);
-	(*a_scrActions)["SaveAsDocumentTemplate"]->setEnabled(false);
+	if ((*a_scrActions)["SaveAsDocumentTemplate"])
+		(*a_scrActions)["SaveAsDocumentTemplate"]->setEnabled(false);
 	(*a_scrActions)["fileExportAsPDF"]->setEnabled(false);
 	(*a_scrActions)["fileExportText"]->setEnabled(false);
 	(*a_scrActions)["fileExportAsEPS"]->setEnabled(false);
