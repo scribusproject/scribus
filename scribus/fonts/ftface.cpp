@@ -34,7 +34,7 @@ FT_Library FtFace::library = NULL;
             -2000    broken
             >= 0     ok, outline valid
    CharMap:  unicode -> glyph index
-             uint[256][256]
+             gid_type[256][256]
    unicode ignores: < 32, ...
    unicode emulate: spaces, hyphen, ligatures?, diacritics?
  *****/
@@ -167,16 +167,16 @@ void FtFace::unload() const
 }
 
 
-uint FtFace::char2CMap(QChar ch) const
+ScFace::gid_type FtFace::char2CMap(QChar ch) const
 {
 	// FIXME use cMap cache
 	FT_Face face = ftFace();
-	uint gl = FT_Get_Char_Index(face, ch.unicode());
+	ScFace::gid_type gl = FT_Get_Char_Index(face, ch.unicode());
 	return gl;
 }
 
 
-void FtFace::loadGlyph(uint gl) const
+void FtFace::loadGlyph(ScFace::gid_type gl) const
 {
 	if (m_glyphWidth.contains(gl))
 		return;
@@ -224,7 +224,7 @@ void FtFace::loadGlyph(uint gl) const
 }
 
 
-qreal FtFace::glyphKerning(uint gl, uint gl2, qreal size) const
+qreal FtFace::glyphKerning(ScFace::gid_type gl, ScFace::gid_type gl2, qreal size) const
 {
 	FT_Vector  delta;
 	FT_Face    face = ftFace();
@@ -250,7 +250,7 @@ qreal FtFace::glyphKerning(uint gl, uint gl2, qreal size) const
 }
 
 /*
-GlyphMetrics FtFace::glyphBBox (uint gl, qreal sz) const
+GlyphMetrics FtFace::glyphBBox (gid_type gl, qreal sz) const
 {
 	FT_Face    face = ftFace();
 	GlyphMetrics result;
@@ -307,25 +307,11 @@ FT_Error ftIOFunc( FT_Stream stream, unsigned long pos, unsigned char* buffer, u
 	return error;
 }
 
-QString FtFace::adobeGlyphName(FT_ULong charcode) 
+QString FtFace::adobeGlyphName(FT_ULong charcode)
 {
-	static const char HEX[] = "0123456789ABCDEF";
-	QString result;
-	if (charcode < 0x10000) {
-		result = QString("uni") + HEX[charcode>>12 & 0xF] 
-		                        + HEX[charcode>> 8 & 0xF] 
-		                        + HEX[charcode>> 4 & 0xF] 
-		                        + HEX[charcode     & 0xF];
-	}
-	else  {
-		result = QString("u");
-		for (int i= 28; i >= 0; i-=4) {
-			if (charcode & (0xF << i))
-				result += HEX[charcode >> i & 0xF];
-		}
-	}
-	return result;
+    return ::adobeGlyphName(charcode);
 }
+
 
 bool FtFace::hasMicrosoftUnicodeCmap(FT_Face face)
 {
@@ -333,7 +319,7 @@ bool FtFace::hasMicrosoftUnicodeCmap(FT_Face face)
 }
 
 
-bool FtFace::glyphNames(QMap<uint, std::pair<QChar, QString> >& GList) const
+bool FtFace::glyphNames(ScFace::FaceEncoding& GList) const
 {
 	char buf[50];
 	FT_ULong  charcode;
@@ -357,9 +343,9 @@ bool FtFace::glyphNames(QMap<uint, std::pair<QChar, QString> >& GList) const
 		// no valid glyphname except ".notdef" starts with '.'		
 //		qDebug() << "\t" << gindex << " '" << charcode << "' --> '" << (notfound? "notfound" : buf) << "'";
 		if (notfound || buf[0] == '\0' || buf[0] == '.')
-			GList.insert(gindex, std::make_pair(QChar(static_cast<uint>(charcode)), adobeGlyphName(charcode)));
+			GList.insert(gindex, std::make_pair(static_cast<ScFace::ucs4_type>(charcode), adobeGlyphName(charcode)));
 		else
-			GList.insert(gindex, std::make_pair(QChar(static_cast<uint>(charcode)), QString(reinterpret_cast<char*>(buf))));
+			GList.insert(gindex, std::make_pair(static_cast<ScFace::ucs4_type>(charcode), QString(reinterpret_cast<char*>(buf))));
 
 		charcode = FT_Get_Next_Char(face, charcode, &gindex );
 	}
@@ -378,17 +364,17 @@ bool FtFace::glyphNames(QMap<uint, std::pair<QChar, QString> >& GList) const
 		QString glyphname(reinterpret_cast<char*>(buf));
 
 		charcode = 0;
-		QMap<uint,std::pair<QChar,QString> >::Iterator gli;
+		ScFace::FaceEncoding::Iterator gli;
 		for (gli = GList.begin(); gli != GList.end(); ++gli)
 		{
 			if (glyphname == gli.value().second)
 			{
-				charcode = gli.value().first.unicode();
+				charcode = gli.value().first;
 				break;
 			}
 		}
 //		qDebug() << "\tmore: " << gindex << " '" << charcode << "' --> '" << buf << "'";
-		GList.insert(gindex, std::make_pair(QChar(static_cast<uint>(charcode)), glyphname));
+		GList.insert(gindex, std::make_pair(static_cast<ScFace::ucs4_type>(charcode), glyphname));
 	}
 
 	return true;

@@ -13,6 +13,12 @@ for which a new license (GPL+exception) is in place.
 #include <QRegExp>
 #include <QStringList>
 
+#include <ft2build.h>
+
+#include FT_FREETYPE_H
+#include FT_TRUETYPE_TABLES_H
+#include FT_TRUETYPE_IDS_H
+
 #include "fpoint.h"
 #include "fpointarray.h"
 #include "ftface.h"
@@ -32,12 +38,12 @@ static bool FirstM;
 static QMap<FT_ULong, QString> adobeGlyphNames;
 #if 0
 static const char* table[] = {
-//#include "glyphnames.txt.q"
-					NULL};
+//#include "glyphlist.txt.q"
+					0};
 #endif
 
 // private functions
-//static void readAdobeGlyphNames();
+static void readAdobeGlyphNames();
 //static QString adobeGlyphName(FT_ULong charcode);
 static int traceMoveto( FT_Vector *to, FPointArray *composite );
 static int traceLineto( FT_Vector *to, FPointArray *composite );
@@ -72,9 +78,13 @@ int setBestEncoding(FT_Face face)
 // Since the above function is only available in FreeType 2.1.10 its replaced by
 // the following line, assuming that the default charmap has the index 0
 	int defaultchmap = 0;
+    FT_ULong dbgInfo = 0;
+    FT_Load_Sfnt_Table( face, FT_MAKE_TAG('p','o','s','t'), 0, NULL, &dbgInfo );
+    qDebug() << "setBestEncoding for " << FT_Get_Postscript_Name(face) << " with " << face->num_glyphs << "glyphs, hasNames=" << FT_HAS_GLYPH_NAMES(face) << ", POST size=" << dbgInfo ;
 	for(int u = 0; u < face->num_charmaps; u++)
 	{
 		FT_CharMap charmap = face->charmaps[u];
+        qDebug() << "Checking cmap " << u << "(" << charmap->platform_id << "," << charmap->encoding_id << "," << FT_Get_CMap_Language_ID(charmap) << ") format " << FT_Get_CMap_Format(charmap);
 		if (charmap->encoding == FT_ENCODING_UNICODE)
 		{
 			FT_Set_Charmap(face, face->charmaps[u]);
@@ -86,19 +96,19 @@ int setBestEncoding(FT_Face face)
 				countUniCode++;
 				charcode = FT_Get_Next_Char(face, charcode, &gindex);
 			}
-//			qDebug() << "found Unicode enc for" << face->family_name << face->style_name  << "as map" << chmapUniCode << "with" << countUniCode << "glyphs";
+			qDebug() << "found Unicode enc for" << face->family_name << face->style_name  << "as map" << chmapUniCode << "with" << countUniCode << "glyphs";
 		}
 		if (charmap->encoding == FT_ENCODING_ADOBE_CUSTOM)
 		{
 			chmapCustom = u;
 			foundEncoding = true;
 			retVal = 1;
-//			qDebug() << "found Custom enc for" << face->family_name << face->style_name;
+			qDebug() << "found Custom enc for" << face->family_name << face->style_name;
 			break;
 		}
 		else if (charmap->encoding == FT_ENCODING_MS_SYMBOL)
 		{
-//			qDebug() << "found Symbol enc for" << face->family_name << face->style_name;
+			qDebug() << "found Symbol enc for" << face->family_name << face->style_name;
 
 			chmapCustom = u;
 			foundEncoding = true;
@@ -109,18 +119,18 @@ int setBestEncoding(FT_Face face)
 	int mapToSet = defaultchmap;
 	if (chmapUniCode >= 0 && countUniCode >= face->num_glyphs-1)
 	{
-//		qDebug() << "using Unicode enc for" << face->family_name << face->style_name;
+		qDebug() << "using Unicode enc for" << face->family_name << face->style_name;
 		mapToSet = chmapUniCode;
 		retVal = 0;
 	}
 	else if (foundEncoding)
 	{
-//		qDebug() << "using special enc for" << face->family_name << face->style_name;
+		qDebug() << "using special enc for" << face->family_name << face->style_name;
 		mapToSet = chmapCustom;
 	}
 	else
 	{
-//		qDebug() << "using default enc for" << face->family_name << face->style_name;
+		qDebug() << "using default enc for" << face->family_name << face->style_name;
 		mapToSet = defaultchmap;
 		retVal = 0;
 	}
@@ -160,7 +170,7 @@ int setBestEncoding(FT_Face face)
 	return retVal;
 }
 
-FPointArray traceGlyph(FT_Face face, FT_UInt glyphIndex, int chs, qreal *x, qreal *y, bool *err)
+FPointArray traceGlyph(FT_Face face, ScFace::gid_type glyphIndex, int chs, qreal *x, qreal *y, bool *err)
 {
 	bool error = false;
 	//AV: not threadsave, but tracechar is only used in ReadMetrics() and fontSample()
@@ -205,7 +215,7 @@ FPointArray traceGlyph(FT_Face face, FT_UInt glyphIndex, int chs, qreal *x, qrea
 }
 
 
-FPointArray traceChar(FT_Face face, uint chr, int chs, qreal *x, qreal *y, bool *err)
+FPointArray traceChar(FT_Face face, ScFace::ucs4_type chr, int chs, qreal *x, qreal *y, bool *err)
 {
 	bool error = false;
 	FT_UInt glyphIndex;
@@ -257,7 +267,7 @@ QPixmap FontSample(const ScFace& fnt, int s, QString ts, QColor back, bool force
 //	p->drawRect(0.0, 0.0, static_cast<qreal>(w), static_cast<qreal>(h));
 	p->setBrush(Qt::black);
 	FPointArray gly;
-	uint dv;
+	ScFace::ucs4_type dv;
 	dv = ts[0].unicode();
 	error = false;
 	gly = traceChar(face, dv, s, &x, &y, &error);
@@ -317,7 +327,7 @@ QPixmap FontSample(const ScFace& fnt, int s, QString ts, QColor back, bool force
 }
 
 #if 0
-bool GlyphNames(const FtFace& fnt, QMap<uint, std::pair<QChar, QString> >& GList)
+bool GlyphNames(const FtFace& fnt, FaceEncoding& GList)
 {
 	char buf[50];
 	FT_ULong  charcode;
@@ -333,7 +343,8 @@ bool GlyphNames(const FtFace& fnt, QMap<uint, std::pair<QChar, QString> >& GList
 	// The glyph name table embedded in Truetype fonts is not reliable.
 	// For those fonts we consequently use Adobe Glyph names whenever possible.
 	const bool avoidFntNames = (fnt.formatCode != ScFace::TYPE42 && fnt.typeCode == ScFace::TTF) &&
-	                           (face->charmap && face->charmap->encoding == FT_ENCODING_UNICODE);
+    (face->charmap && face->charmap->encoding == FT_ENCODING_UNICODE && face->charmap->platform_id == TT_PLATFORM_MICROSOFT);
+    
 	const bool hasPSNames = FT_HAS_GLYPH_NAMES(face);
 	
 //	qDebug() << "reading metrics for" << face->family_name << face->style_name;
@@ -348,9 +359,9 @@ bool GlyphNames(const FtFace& fnt, QMap<uint, std::pair<QChar, QString> >& GList
 		// no valid glyphname except ".notdef" starts with '.'		
 //		qDebug() << "\t" << gindex << " '" << charcode << "' --> '" << (notfound? "notfound" : buf) << "'";
 		if (notfound || buf[0] == '\0' || buf[0] == '.')
-			GList.insert(gindex, std::make_pair(QChar(static_cast<uint>(charcode)), adobeGlyphName(charcode)));
+			GList.insert(gindex, std::make_pair(static_cast<ucs4_type>(charcode), adobeGlyphName(charcode)));
 		else
-			GList.insert(gindex, std::make_pair(QChar(static_cast<uint>(charcode)), QString(reinterpret_cast<char*>(buf))));
+			GList.insert(gindex, std::make_pair(static_cast<ucs4_type>(charcode), QString(reinterpret_cast<char*>(buf))));
 
 		charcode = FT_Get_Next_Char(face, charcode, &gindex );
 	}
@@ -369,7 +380,7 @@ bool GlyphNames(const FtFace& fnt, QMap<uint, std::pair<QChar, QString> >& GList
 		QString glyphname(reinterpret_cast<char*>(buf));
 
 		charcode = 0;
-		QMap<uint,std::pair<QChar,QString> >::Iterator gli;
+		faceEncoding::Iterator gli;
 		for (gli = GList.begin(); gli != GList.end(); ++gli)
 		{
 			if (glyphname == gli.value().second)
@@ -381,7 +392,7 @@ bool GlyphNames(const FtFace& fnt, QMap<uint, std::pair<QChar, QString> >& GList
 //		qDebug() << "\tmore: " << gindex << " '" << charcode << "' --> '" << buf << "'";
 		if (avoidFntNames && buf[0] != '.' && buf[0] != '\0')
 			glyphname = adobeGlyphName(charcode);
-		GList.insert(gindex, std::make_pair(QChar(static_cast<uint>(charcode)), glyphname));
+		GList.insert(gindex, std::make_pair(static_cast<ucs4_type>(charcode), glyphname));
 	}
 
 	return true;
@@ -461,6 +472,8 @@ void readAdobeGlyphNames()
 /// if in AGL, use that name, else use "uni1234" or "u12345"
 QString adobeGlyphName(FT_ULong charcode) 
 {
+    if (adobeGlyphNames.empty())
+        readAdobeGlyphNames();
 	static const char HEX[] = "0123456789ABCDEF";
 	QString result;
 	if (adobeGlyphNames.contains(charcode))
@@ -488,8 +501,8 @@ qreal Cwidth(ScribusDoc *, ScFace* scFace, QString ch, int Size, QString ch2)
 	qreal width;
 	FT_Vector  delta;
 	FT_Face      face;
-	uint c1 = ch.at(0).unicode();
-	uint c2 = ch2.at(0).unicode();
+	ucs4_type c1 = ch.at(0).unicode();
+	ucs4_type c2 = ch2.at(0).unicode();
 	qreal size10=Size/10.0;
 	if (scFace->canRender(ch[0]))
 	{
@@ -501,8 +514,8 @@ qreal Cwidth(ScribusDoc *, ScFace* scFace, QString ch, int Size, QString ch2)
 		 ****\/
 		if (true || FT_HAS_KERNING(face) )
 		{
-			uint cl = FT_Get_Char_Index(face, c1);
-			uint cr = FT_Get_Char_Index(face, c2);
+			gid_type cl = FT_Get_Char_Index(face, c1);
+			gid_type cr = FT_Get_Char_Index(face, c2);
 			FT_Error error = FT_Get_Kerning(face, cl, cr, FT_KERNING_UNSCALED, &delta);
 			if (error) {
 				qDebug() << QString("Error %2 when accessing kerning pair for font %1").arg(scFace->scName()).arg(error);
@@ -524,12 +537,12 @@ qreal Cwidth(ScribusDoc *, ScFace* scFace, QString ch, int Size, QString ch2)
 qreal RealCWidth(ScribusDoc *, ScFace* scFace, QString ch, int Size)
 {
 	qreal w, ww;
-	uint c1 = ch.at(0).unicode();
+	ucs4_type c1 = ch.at(0).unicode();
 	FT_Face      face;
 	if (scFace->canRender(ch.at(0)))
 	{
 		face = scFace->ftFace();
-		uint cl = FT_Get_Char_Index(face, c1);
+		gid_type cl = FT_Get_Char_Index(face, c1);
 		int error = FT_Load_Glyph(face, cl, FT_LOAD_NO_SCALE | FT_LOAD_NO_BITMAP );
 		if (!error) {
 			qreal uniEM = static_cast<qreal>(face->units_per_EM);
@@ -547,12 +560,12 @@ qreal RealCWidth(ScribusDoc *, ScFace* scFace, QString ch, int Size)
 qreal RealCHeight(ScribusDoc *, ScFace* scFace, QString ch, int Size)
 {
 	qreal w;
-	uint c1 = ch.at(0).unicode();
+	ucs4_type c1 = ch.at(0).unicode();
 	FT_Face      face;
 	if (scFace->canRender(ch.at(0)))
 	{
 		face = scFace->ftFace();
-		uint cl = FT_Get_Char_Index(face, c1);
+		gid_type cl = FT_Get_Char_Index(face, c1);
 		int error = FT_Load_Glyph(face, cl, FT_LOAD_NO_SCALE | FT_LOAD_NO_BITMAP );
 		if (!error) {
 			qreal uniEM = static_cast<qreal>(face->units_per_EM);
@@ -571,12 +584,12 @@ qreal RealCHeight(ScribusDoc *, ScFace* scFace, QString ch, int Size)
 qreal RealCAscent(ScribusDoc *, ScFace* scFace, QString ch, int Size)
 {
 	qreal w;
-	uint c1 = ch.at(0).unicode();
+	ucs4_type c1 = ch.at(0).unicode();
 	FT_Face      face;
 	if (scFace->canRender(ch.at(0)))
 	{
 		face = scFace->ftFace();
-		uint cl = FT_Get_Char_Index(face, c1);
+		gid_type cl = FT_Get_Char_Index(face, c1);
 		int error = FT_Load_Glyph(face, cl, FT_LOAD_NO_SCALE | FT_LOAD_NO_BITMAP );
 		if (! error) {
 			qreal uniEM = static_cast<qreal>(face->units_per_EM);

@@ -908,28 +908,6 @@
 		8808DBD2123238D000B95A3F /* scimagecachewriteaction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = scimagecachewriteaction.h; path = ../../scribus/scimagecachewriteaction.h; sourceTree = SOURCE_ROOT; };
 		8808DBD3123238D000B95A3F /* scimagestructs.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = scimagestructs.cpp; path = ../../scribus/scimagestructs.cpp; sourceTree = SOURCE_ROOT; };
 		8808DBD4123238D000B95A3F /* scimagestructs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = scimagestructs.h; path = ../../scribus/scimagestructs.h; sourceTree = SOURCE_ROOT; };
-		8808DBD5123238D000B95A3F /* scimgdataloader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = scimgdataloader.cpp; path = ../../scribus/scimgdataloader.cpp; sourceTree = SOURCE_ROOT; };
-		8808DBD6123238D000B95A3F /* scimgdataloader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = scimgdataloader.h; path = ../../scribus/scimgdataloader.h; sourceTree = SOURCE_ROOT; };
-		8808DBD7123238D000B95A3F /* scimgdataloader_gimp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = scimgdataloader_gimp.cpp; path = ../../scribus/scimgdataloader_gimp.cpp; sourceTree = SOURCE_ROOT; };
-		8808DBD8123238D000B95A3F /* scimgdataloader_gimp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = scimgdataloader_gimp.h; path = ../../scribus/scimgdataloader_gimp.h; sourceTree = SOURCE_ROOT; };
-		8808DBD9123238D000B95A3F /* scimgdataloader_gmagick.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = scimgdataloader_gmagick.cpp; path = ../../scribus/scimgdataloader_gmagick.cpp; sourceTree = SOURCE_ROOT; };
-		8808DBDA123238D000B95A3F /* scimgdataloader_gmagick.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = scimgdataloader_gmagick.h; path = ../../scribus/scimgdataloader_gmagick.h; sourceTree = SOURCE_ROOT; };
-		8808DBDB123238D000B95A3F /* scimgdataloader_jpeg.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = scimgdataloader_jpeg.cpp; path = ../../scribus/scimgdataloader_jpeg.cpp; sourceTree = SOURCE_ROOT; };
-		8808DBDC123238D000B95A3F /* scimgdataloader_jpeg.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = scimgdataloader_jpeg.h; path = ../../scribus/scimgdataloader_jpeg.h; sourceTree = SOURCE_ROOT; };
-		8808DBDD123238D000B95A3F /* scimgdataloader_pdf.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = scimgdataloader_pdf.cpp; path = ../../scribus/scimgdataloader_pdf.cpp; sourceTree = SOURCE_ROOT; };
-		8808DBDE123238D000B95A3F /* scimgdataloader_pdf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = scimgdataloader_pdf.h; path = ../../scribus/scimgdataloader_pdf.h; sourceTree = SOURCE_ROOT; };
-		8808DBDF123238D000B95A3F /* scimgdataloader_pict.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = scimgdataloader_pict.cpp; path = ../../scribus/scimgdataloader_pict.cpp; sourceTree = SOURCE_ROOT; };
-		8808DBE0123238D000B95A3F /* scimgdataloader_pict.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = scimgdataloader_pict.h; path = ../../scribus/scimgdataloader_pict.h; sourceTree = SOURCE_ROOT; };
-		8808DBE1123238D000B95A3F /* scimgdataloader_ps.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = scimgdataloader_ps.cpp; path = ../../scribus/scimgdataloader_ps.cpp; sourceTree = SOURCE_ROOT; };
-		8808DBE2123238D000B95A3F /* scimgdataloader_ps.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = scimgdataloader_ps.h; path = ../../scribus/scimgdataloader_ps.h; sourceTree = SOURCE_ROOT; };
-		8808DBE3123238D000B95A3F /* scimgdataloader_psd.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = scimgdataloader_psd.cpp; path = ../../scribus/scimgdataloader_psd.cpp; sourceTree = SOURCE_ROOT; };
-		8808DBE4123238D000B95A3F /* scimgdataloader_psd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = scimgdataloader_psd.h; path = ../../scribus/scimgdataloader_psd.h; sourceTree = SOURCE_ROOT; };
-		8808DBE5123238D000B95A3F /* scimgdataloader_qt.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = scimgdataloader_qt.cpp; path = ../../scribus/scimgdataloader_qt.cpp; sourceTree = SOURCE_ROOT; };
-		8808DBE6123238D000B95A3F /* scimgdataloader_qt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = scimgdataloader_qt.h; path = ../../scribus/scimgdataloader_qt.h; sourceTree = SOURCE_ROOT; };
-		8808DBE7123238D000B95A3F /* scimgdataloader_tiff.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = scimgdataloader_tiff.cpp; path = ../../scribus/scimgdataloader_tiff.cpp; sourceTree = SOURCE_ROOT; };
-		8808DBE8123238D000B95A3F /* scimgdataloader_tiff.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = scimgdataloader_tiff.h; path = ../../scribus/scimgdataloader_tiff.h; sourceTree = SOURCE_ROOT; };
-		8808DBE9123238D000B95A3F /* scimgdataloader_wpg.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = scimgdataloader_wpg.cpp; path = ../../scribus/scimgdataloader_wpg.cpp; sourceTree = SOURCE_ROOT; };
-		8808DBEA123238D000B95A3F /* scimgdataloader_wpg.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = scimgdataloader_wpg.h; path = ../../scribus/scimgdataloader_wpg.h; sourceTree = SOURCE_ROOT; };
 		8808DBEB123238D000B95A3F /* sclayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = sclayer.cpp; path = ../../scribus/sclayer.cpp; sourceTree = SOURCE_ROOT; };
 		8808DBEC123238D000B95A3F /* sclayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = sclayer.h; path = ../../scribus/sclayer.h; sourceTree = SOURCE_ROOT; };
 		8808DBED123238D000B95A3F /* sclimits.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = sclimits.h; path = ../../scribus/sclimits.h; sourceTree = SOURCE_ROOT; };
@@ -946,10 +924,6 @@
 		8808DBF8123238D000B95A3F /* scpainter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = scpainter.h; path = ../../scribus/scpainter.h; sourceTree = SOURCE_ROOT; };
 		8808DBF9123238D000B95A3F /* scpainterex_cairo.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = scpainterex_cairo.cpp; path = ../../scribus/scpainterex_cairo.cpp; sourceTree = SOURCE_ROOT; };
 		8808DBFA123238D000B95A3F /* scpainterex_cairo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = scpainterex_cairo.h; path = ../../scribus/scpainterex_cairo.h; sourceTree = SOURCE_ROOT; };
-		8808DBFB123238D000B95A3F /* scpainterex_gdi.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = scpainterex_gdi.cpp; path = ../../scribus/scpainterex_gdi.cpp; sourceTree = SOURCE_ROOT; };
-		8808DBFC123238D000B95A3F /* scpainterex_gdi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = scpainterex_gdi.h; path = ../../scribus/scpainterex_gdi.h; sourceTree = SOURCE_ROOT; };
-		8808DBFD123238D000B95A3F /* scpainterex_gdiplus.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = scpainterex_gdiplus.cpp; path = ../../scribus/scpainterex_gdiplus.cpp; sourceTree = SOURCE_ROOT; };
-		8808DBFE123238D000B95A3F /* scpainterex_gdiplus.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = scpainterex_gdiplus.h; path = ../../scribus/scpainterex_gdiplus.h; sourceTree = SOURCE_ROOT; };
 		8808DBFF123238D000B95A3F /* scpainterex_ps2.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = scpainterex_ps2.cpp; path = ../../scribus/scpainterex_ps2.cpp; sourceTree = SOURCE_ROOT; };
 		8808DC00123238D000B95A3F /* scpainterex_ps2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = scpainterex_ps2.h; path = ../../scribus/scpainterex_ps2.h; sourceTree = SOURCE_ROOT; };
 		8808DC01123238D000B95A3F /* scpainterexbase.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = scpainterexbase.cpp; path = ../../scribus/scpainterexbase.cpp; sourceTree = SOURCE_ROOT; };
@@ -1875,6 +1849,10 @@
 		8808DFA4123238D100B95A3F /* vgradient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = vgradient.h; path = ../../scribus/vgradient.h; sourceTree = SOURCE_ROOT; };
 		8808DFA5123238D100B95A3F /* vgradientex.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = vgradientex.cpp; path = ../../scribus/vgradientex.cpp; sourceTree = SOURCE_ROOT; };
 		8808DFA6123238D100B95A3F /* vgradientex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = vgradientex.h; path = ../../scribus/vgradientex.h; sourceTree = SOURCE_ROOT; };
+		881004C81AF8434800F15514 /* cff.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = cff.h; sourceTree = "<group>"; };
+		881004C91AF9AA5C00F15514 /* pdfexportdialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = pdfexportdialog.cpp; sourceTree = "<group>"; };
+		881004CA1AF9AA5C00F15514 /* pdfexportdialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pdfexportdialog.h; sourceTree = "<group>"; };
+		881004CB1AF9AA5C00F15514 /* tabpdfoptions.ui */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = tabpdfoptions.ui; sourceTree = "<group>"; };
 		88628C1C18EEE57700325969 /* api_color.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = api_color.cpp; sourceTree = "<group>"; };
 		88628C1D18EEE57700325969 /* api_color.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = api_color.h; sourceTree = "<group>"; };
 		88628C1E18EEE57700325969 /* api_imageexport.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = api_imageexport.cpp; sourceTree = "<group>"; };
@@ -1894,12 +1872,190 @@
 		8885481C18EB38300063510D /* CMakeLists.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = "<group>"; };
 		8885481D18EB38300063510D /* xpsexplugin.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = xpsexplugin.cpp; sourceTree = "<group>"; };
 		8885481E18EB38300063510D /* xpsexplugin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = xpsexplugin.h; sourceTree = "<group>"; };
+		888D9ADA1A4F3C5F0079DACE /* pdfstructs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = pdfstructs.h; path = ../../scribus/pdfstructs.h; sourceTree = "<group>"; };
+		888D9ADB1A4F3C5F0079DACE /* pdfwriter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = pdfwriter.cpp; path = ../../scribus/pdfwriter.cpp; sourceTree = "<group>"; };
+		888D9ADC1A4F3C5F0079DACE /* pdfwriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = pdfwriter.h; path = ../../scribus/pdfwriter.h; sourceTree = "<group>"; };
+		88BD74391ADA51FF001F6CBD /* resourcemanager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = resourcemanager.cpp; sourceTree = "<group>"; };
+		88BD743A1ADA5200001F6CBD /* resourcemanager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = resourcemanager.h; sourceTree = "<group>"; };
+		88BD743B1ADA5200001F6CBD /* resourcemanagerbase.ui */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = resourcemanagerbase.ui; sourceTree = "<group>"; };
+		88BD743C1AE2A158001F6CBD /* sfnt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sfnt.h; sourceTree = "<group>"; };
+		88BD743D1AE2A30D001F6CBD /* sfnt.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = sfnt.cpp; sourceTree = "<group>"; };
+		88CC678E1AED78440014B26A /* sfnt_format.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = sfnt_format.h; sourceTree = "<group>"; };
+		88DD9E421AFC6267008FED2F /* cff.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cff.cpp; sourceTree = "<group>"; };
+		88DD9E431B0A97B4008FED2F /* appmodehelper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = appmodehelper.cpp; path = ../../scribus/appmodehelper.cpp; sourceTree = "<group>"; };
+		88DD9E441B0A97B4008FED2F /* appmodehelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = appmodehelper.h; path = ../../scribus/appmodehelper.h; sourceTree = "<group>"; };
+		88DD9E451B0A97B4008FED2F /* appmodes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = appmodes.h; path = ../../scribus/appmodes.h; sourceTree = "<group>"; };
+		88DD9E461B0A97B4008FED2F /* canvasgesture_cellselect.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = canvasgesture_cellselect.cpp; path = ../../scribus/canvasgesture_cellselect.cpp; sourceTree = "<group>"; };
+		88DD9E471B0A97B5008FED2F /* canvasgesture_cellselect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = canvasgesture_cellselect.h; path = ../../scribus/canvasgesture_cellselect.h; sourceTree = "<group>"; };
+		88DD9E481B0A97B5008FED2F /* canvasgesture_columnresize.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = canvasgesture_columnresize.cpp; path = ../../scribus/canvasgesture_columnresize.cpp; sourceTree = "<group>"; };
+		88DD9E491B0A97B5008FED2F /* canvasgesture_columnresize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = canvasgesture_columnresize.h; path = ../../scribus/canvasgesture_columnresize.h; sourceTree = "<group>"; };
+		88DD9E4A1B0A97B5008FED2F /* canvasgesture_rowresize.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = canvasgesture_rowresize.cpp; path = ../../scribus/canvasgesture_rowresize.cpp; sourceTree = "<group>"; };
+		88DD9E4B1B0A97B5008FED2F /* canvasgesture_rowresize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = canvasgesture_rowresize.h; path = ../../scribus/canvasgesture_rowresize.h; sourceTree = "<group>"; };
+		88DD9E4C1B0A97B5008FED2F /* canvasgesture_table.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = canvasgesture_table.cpp; path = ../../scribus/canvasgesture_table.cpp; sourceTree = "<group>"; };
+		88DD9E4D1B0A97B5008FED2F /* canvasgesture_table.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = canvasgesture_table.h; path = ../../scribus/canvasgesture_table.h; sourceTree = "<group>"; };
+		88DD9E4E1B0A97B5008FED2F /* canvasgesture_tableresize.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = canvasgesture_tableresize.cpp; path = ../../scribus/canvasgesture_tableresize.cpp; sourceTree = "<group>"; };
+		88DD9E4F1B0A97B5008FED2F /* canvasgesture_tableresize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = canvasgesture_tableresize.h; path = ../../scribus/canvasgesture_tableresize.h; sourceTree = "<group>"; };
+		88DD9E501B0A97B5008FED2F /* canvasmode_drawcalligraphic.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = canvasmode_drawcalligraphic.cpp; path = ../../scribus/canvasmode_drawcalligraphic.cpp; sourceTree = "<group>"; };
+		88DD9E511B0A97B5008FED2F /* canvasmode_drawcalligraphic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = canvasmode_drawcalligraphic.h; path = ../../scribus/canvasmode_drawcalligraphic.h; sourceTree = "<group>"; };
+		88DD9E521B0A97B5008FED2F /* canvasmode_editarc.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = canvasmode_editarc.cpp; path = ../../scribus/canvasmode_editarc.cpp; sourceTree = "<group>"; };
+		88DD9E531B0A97B5008FED2F /* canvasmode_editarc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = canvasmode_editarc.h; path = ../../scribus/canvasmode_editarc.h; sourceTree = "<group>"; };
+		88DD9E541B0A97B5008FED2F /* canvasmode_editmeshpatch.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = canvasmode_editmeshpatch.cpp; path = ../../scribus/canvasmode_editmeshpatch.cpp; sourceTree = "<group>"; };
+		88DD9E551B0A97B5008FED2F /* canvasmode_editmeshpatch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = canvasmode_editmeshpatch.h; path = ../../scribus/canvasmode_editmeshpatch.h; sourceTree = "<group>"; };
+		88DD9E561B0A97B5008FED2F /* canvasmode_editpolygon.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = canvasmode_editpolygon.cpp; path = ../../scribus/canvasmode_editpolygon.cpp; sourceTree = "<group>"; };
+		88DD9E571B0A97B5008FED2F /* canvasmode_editpolygon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = canvasmode_editpolygon.h; path = ../../scribus/canvasmode_editpolygon.h; sourceTree = "<group>"; };
+		88DD9E581B0A97B5008FED2F /* canvasmode_editspiral.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = canvasmode_editspiral.cpp; path = ../../scribus/canvasmode_editspiral.cpp; sourceTree = "<group>"; };
+		88DD9E591B0A97B6008FED2F /* canvasmode_editspiral.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = canvasmode_editspiral.h; path = ../../scribus/canvasmode_editspiral.h; sourceTree = "<group>"; };
+		88DD9E5A1B0A97B6008FED2F /* canvasmode_edittable.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = canvasmode_edittable.cpp; path = ../../scribus/canvasmode_edittable.cpp; sourceTree = "<group>"; };
+		88DD9E5B1B0A97B6008FED2F /* canvasmode_edittable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = canvasmode_edittable.h; path = ../../scribus/canvasmode_edittable.h; sourceTree = "<group>"; };
+		88DD9E5C1B0A97B6008FED2F /* canvasmode_editweldpoint.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = canvasmode_editweldpoint.cpp; path = ../../scribus/canvasmode_editweldpoint.cpp; sourceTree = "<group>"; };
+		88DD9E5D1B0A97B6008FED2F /* canvasmode_editweldpoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = canvasmode_editweldpoint.h; path = ../../scribus/canvasmode_editweldpoint.h; sourceTree = "<group>"; };
+		88DD9E5E1B0A97B6008FED2F /* canvasmode_imageimport.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = canvasmode_imageimport.cpp; path = ../../scribus/canvasmode_imageimport.cpp; sourceTree = "<group>"; };
+		88DD9E5F1B0A97B6008FED2F /* canvasmode_imageimport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = canvasmode_imageimport.h; path = ../../scribus/canvasmode_imageimport.h; sourceTree = "<group>"; };
+		88DD9E601B0A97B6008FED2F /* cellarea.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = cellarea.cpp; path = ../../scribus/cellarea.cpp; sourceTree = "<group>"; };
+		88DD9E611B0A97B6008FED2F /* cellarea.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = cellarea.h; path = ../../scribus/cellarea.h; sourceTree = "<group>"; };
+		88DD9E621B0A97B6008FED2F /* collapsedtablepainter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = collapsedtablepainter.cpp; path = ../../scribus/collapsedtablepainter.cpp; sourceTree = "<group>"; };
+		88DD9E631B0A97B6008FED2F /* collapsedtablepainter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = collapsedtablepainter.h; path = ../../scribus/collapsedtablepainter.h; sourceTree = "<group>"; };
+		88DD9E641B0A97B6008FED2F /* documentbuilder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = documentbuilder.cpp; path = ../../scribus/documentbuilder.cpp; sourceTree = "<group>"; };
+		88DD9E651B0A97B6008FED2F /* documentbuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = documentbuilder.h; path = ../../scribus/documentbuilder.h; sourceTree = "<group>"; };
+		88DD9E661B0A97B6008FED2F /* langdef.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = langdef.cpp; path = ../../scribus/langdef.cpp; sourceTree = "<group>"; };
+		88DD9E671B0A97B6008FED2F /* langdef.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = langdef.h; path = ../../scribus/langdef.h; sourceTree = "<group>"; };
+		88DD9E681B0A97B6008FED2F /* localemgr.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = localemgr.cpp; path = ../../scribus/localemgr.cpp; sourceTree = "<group>"; };
+		88DD9E691B0A97B6008FED2F /* localemgr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = localemgr.h; path = ../../scribus/localemgr.h; sourceTree = "<group>"; };
+		88DD9E6A1B0A97B6008FED2F /* margins.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = margins.h; path = ../../scribus/margins.h; sourceTree = "<group>"; };
+		88DD9E6B1B0A97B6008FED2F /* marks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = marks.h; path = ../../scribus/marks.h; sourceTree = "<group>"; };
+		88DD9E6C1B0A97B6008FED2F /* nodeeditcontext.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nodeeditcontext.cpp; path = ../../scribus/nodeeditcontext.cpp; sourceTree = "<group>"; };
+		88DD9E6D1B0A97B7008FED2F /* nodeeditcontext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = nodeeditcontext.h; path = ../../scribus/nodeeditcontext.h; sourceTree = "<group>"; };
+		88DD9E6E1B0A97B7008FED2F /* notesstyles.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = notesstyles.cpp; path = ../../scribus/notesstyles.cpp; sourceTree = "<group>"; };
+		88DD9E6F1B0A97B7008FED2F /* notesstyles.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = notesstyles.h; path = ../../scribus/notesstyles.h; sourceTree = "<group>"; };
+		88DD9E701B0A97B7008FED2F /* numeration.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = numeration.cpp; path = ../../scribus/numeration.cpp; sourceTree = "<group>"; };
+		88DD9E711B0A97B7008FED2F /* numeration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = numeration.h; path = ../../scribus/numeration.h; sourceTree = "<group>"; };
+		88DD9E721B0A97B7008FED2F /* pageitem_arc.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = pageitem_arc.cpp; path = ../../scribus/pageitem_arc.cpp; sourceTree = "<group>"; };
+		88DD9E731B0A97B7008FED2F /* pageitem_arc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = pageitem_arc.h; path = ../../scribus/pageitem_arc.h; sourceTree = "<group>"; };
+		88DD9E741B0A97B7008FED2F /* pageitem_group.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = pageitem_group.cpp; path = ../../scribus/pageitem_group.cpp; sourceTree = "<group>"; };
+		88DD9E751B0A97B7008FED2F /* pageitem_group.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = pageitem_group.h; path = ../../scribus/pageitem_group.h; sourceTree = "<group>"; };
+		88DD9E761B0A97B7008FED2F /* pageitem_noteframe.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = pageitem_noteframe.cpp; path = ../../scribus/pageitem_noteframe.cpp; sourceTree = "<group>"; };
+		88DD9E771B0A97B7008FED2F /* pageitem_noteframe.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = pageitem_noteframe.h; path = ../../scribus/pageitem_noteframe.h; sourceTree = "<group>"; };
+		88DD9E781B0A97B7008FED2F /* pageitem_regularpolygon.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = pageitem_regularpolygon.cpp; path = ../../scribus/pageitem_regularpolygon.cpp; sourceTree = "<group>"; };
+		88DD9E791B0A97B7008FED2F /* pageitem_regularpolygon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = pageitem_regularpolygon.h; path = ../../scribus/pageitem_regularpolygon.h; sourceTree = "<group>"; };
+		88DD9E7A1B0A97B7008FED2F /* pageitem_spiral.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = pageitem_spiral.cpp; path = ../../scribus/pageitem_spiral.cpp; sourceTree = "<group>"; };
+		88DD9E7B1B0A97B7008FED2F /* pageitem_spiral.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = pageitem_spiral.h; path = ../../scribus/pageitem_spiral.h; sourceTree = "<group>"; };
+		88DD9E7C1B0A97B7008FED2F /* pageitem_table.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = pageitem_table.cpp; path = ../../scribus/pageitem_table.cpp; sourceTree = "<group>"; };
+		88DD9E7D1B0A97B7008FED2F /* pageitem_table.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = pageitem_table.h; path = ../../scribus/pageitem_table.h; sourceTree = "<group>"; };
+		88DD9E7E1B0A97B7008FED2F /* pp_proxy.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = pp_proxy.cpp; path = ../../scribus/pp_proxy.cpp; sourceTree = "<group>"; };
+		88DD9E7F1B0A97B8008FED2F /* pp_proxy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = pp_proxy.h; path = ../../scribus/pp_proxy.h; sourceTree = "<group>"; };
+		88DD9E801B0A97B8008FED2F /* qtiocompressor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = qtiocompressor.cpp; path = ../../scribus/qtiocompressor.cpp; sourceTree = "<group>"; };
+		88DD9E811B0A97B8008FED2F /* qtiocompressor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = qtiocompressor.h; path = ../../scribus/qtiocompressor.h; sourceTree = "<group>"; };
+		88DD9E821B0A97B8008FED2F /* scdomelement.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = scdomelement.cpp; path = ../../scribus/scdomelement.cpp; sourceTree = "<group>"; };
+		88DD9E831B0A97B8008FED2F /* scdomelement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = scdomelement.h; path = ../../scribus/scdomelement.h; sourceTree = "<group>"; };
+		88DD9E841B0A97B8008FED2F /* scpage.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = scpage.cpp; path = ../../scribus/scpage.cpp; sourceTree = "<group>"; };
+		88DD9E851B0A97B8008FED2F /* scpage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = scpage.h; path = ../../scribus/scpage.h; sourceTree = "<group>"; };
+		88DD9E861B0A97B8008FED2F /* scribus.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; name = scribus.css; path = ../../scribus/scribus.css; sourceTree = "<group>"; };
+		88DD9E871B0A97B8008FED2F /* selectionrubberband.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = selectionrubberband.cpp; path = ../../scribus/selectionrubberband.cpp; sourceTree = "<group>"; };
+		88DD9E881B0A97B8008FED2F /* selectionrubberband.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = selectionrubberband.h; path = ../../scribus/selectionrubberband.h; sourceTree = "<group>"; };
+		88DD9E891B0A97B8008FED2F /* tableborder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = tableborder.cpp; path = ../../scribus/tableborder.cpp; sourceTree = "<group>"; };
+		88DD9E8A1B0A97B8008FED2F /* tableborder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = tableborder.h; path = ../../scribus/tableborder.h; sourceTree = "<group>"; };
+		88DD9E8B1B0A97B8008FED2F /* tablecell.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = tablecell.cpp; path = ../../scribus/tablecell.cpp; sourceTree = "<group>"; };
+		88DD9E8C1B0A97B8008FED2F /* tablecell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = tablecell.h; path = ../../scribus/tablecell.h; sourceTree = "<group>"; };
+		88DD9E8D1B0A97B8008FED2F /* tablehandle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = tablehandle.h; path = ../../scribus/tablehandle.h; sourceTree = "<group>"; };
+		88DD9E8E1B0A97B8008FED2F /* tablepainter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = tablepainter.h; path = ../../scribus/tablepainter.h; sourceTree = "<group>"; };
+		88DD9E8F1B0A97B8008FED2F /* tableutils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = tableutils.cpp; path = ../../scribus/tableutils.cpp; sourceTree = "<group>"; };
+		88DD9E901B0A97B9008FED2F /* tableutils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = tableutils.h; path = ../../scribus/tableutils.h; sourceTree = "<group>"; };
+		88DD9E911B0A97B9008FED2F /* undotransaction.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = undotransaction.cpp; path = ../../scribus/undotransaction.cpp; sourceTree = "<group>"; };
+		88DD9E921B0A97B9008FED2F /* undotransaction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = undotransaction.h; path = ../../scribus/undotransaction.h; sourceTree = "<group>"; };
+		88DD9E931B0A97B9008FED2F /* util_debug.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = util_debug.cpp; path = ../../scribus/util_debug.cpp; sourceTree = "<group>"; };
+		88DD9E941B0A97B9008FED2F /* util_debug.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = util_debug.h; path = ../../scribus/util_debug.h; sourceTree = "<group>"; };
+		88DD9E951B0A97B9008FED2F /* util_os.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = util_os.cpp; path = ../../scribus/util_os.cpp; sourceTree = "<group>"; };
+		88DD9E961B0A97B9008FED2F /* util_os.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = util_os.h; path = ../../scribus/util_os.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
 		08FB7794FE84155DC02AAC07 /* Scribus */ = {
 			isa = PBXGroup;
 			children = (
+				88DD9E431B0A97B4008FED2F /* appmodehelper.cpp */,
+				88DD9E441B0A97B4008FED2F /* appmodehelper.h */,
+				88DD9E451B0A97B4008FED2F /* appmodes.h */,
+				88DD9E461B0A97B4008FED2F /* canvasgesture_cellselect.cpp */,
+				88DD9E471B0A97B5008FED2F /* canvasgesture_cellselect.h */,
+				88DD9E481B0A97B5008FED2F /* canvasgesture_columnresize.cpp */,
+				88DD9E491B0A97B5008FED2F /* canvasgesture_columnresize.h */,
+				88DD9E4A1B0A97B5008FED2F /* canvasgesture_rowresize.cpp */,
+				88DD9E4B1B0A97B5008FED2F /* canvasgesture_rowresize.h */,
+				88DD9E4C1B0A97B5008FED2F /* canvasgesture_table.cpp */,
+				88DD9E4D1B0A97B5008FED2F /* canvasgesture_table.h */,
+				88DD9E4E1B0A97B5008FED2F /* canvasgesture_tableresize.cpp */,
+				88DD9E4F1B0A97B5008FED2F /* canvasgesture_tableresize.h */,
+				88DD9E501B0A97B5008FED2F /* canvasmode_drawcalligraphic.cpp */,
+				88DD9E511B0A97B5008FED2F /* canvasmode_drawcalligraphic.h */,
+				88DD9E521B0A97B5008FED2F /* canvasmode_editarc.cpp */,
+				88DD9E531B0A97B5008FED2F /* canvasmode_editarc.h */,
+				88DD9E541B0A97B5008FED2F /* canvasmode_editmeshpatch.cpp */,
+				88DD9E551B0A97B5008FED2F /* canvasmode_editmeshpatch.h */,
+				88DD9E561B0A97B5008FED2F /* canvasmode_editpolygon.cpp */,
+				88DD9E571B0A97B5008FED2F /* canvasmode_editpolygon.h */,
+				88DD9E581B0A97B5008FED2F /* canvasmode_editspiral.cpp */,
+				88DD9E591B0A97B6008FED2F /* canvasmode_editspiral.h */,
+				88DD9E5A1B0A97B6008FED2F /* canvasmode_edittable.cpp */,
+				88DD9E5B1B0A97B6008FED2F /* canvasmode_edittable.h */,
+				88DD9E5C1B0A97B6008FED2F /* canvasmode_editweldpoint.cpp */,
+				88DD9E5D1B0A97B6008FED2F /* canvasmode_editweldpoint.h */,
+				88DD9E5E1B0A97B6008FED2F /* canvasmode_imageimport.cpp */,
+				88DD9E5F1B0A97B6008FED2F /* canvasmode_imageimport.h */,
+				88DD9E601B0A97B6008FED2F /* cellarea.cpp */,
+				88DD9E611B0A97B6008FED2F /* cellarea.h */,
+				88DD9E621B0A97B6008FED2F /* collapsedtablepainter.cpp */,
+				88DD9E631B0A97B6008FED2F /* collapsedtablepainter.h */,
+				88DD9E641B0A97B6008FED2F /* documentbuilder.cpp */,
+				88DD9E651B0A97B6008FED2F /* documentbuilder.h */,
+				88DD9E661B0A97B6008FED2F /* langdef.cpp */,
+				88DD9E671B0A97B6008FED2F /* langdef.h */,
+				88DD9E681B0A97B6008FED2F /* localemgr.cpp */,
+				88DD9E691B0A97B6008FED2F /* localemgr.h */,
+				88DD9E6A1B0A97B6008FED2F /* margins.h */,
+				88DD9E6B1B0A97B6008FED2F /* marks.h */,
+				88DD9E6C1B0A97B6008FED2F /* nodeeditcontext.cpp */,
+				88DD9E6D1B0A97B7008FED2F /* nodeeditcontext.h */,
+				88DD9E6E1B0A97B7008FED2F /* notesstyles.cpp */,
+				88DD9E6F1B0A97B7008FED2F /* notesstyles.h */,
+				88DD9E701B0A97B7008FED2F /* numeration.cpp */,
+				88DD9E711B0A97B7008FED2F /* numeration.h */,
+				88DD9E721B0A97B7008FED2F /* pageitem_arc.cpp */,
+				88DD9E731B0A97B7008FED2F /* pageitem_arc.h */,
+				88DD9E741B0A97B7008FED2F /* pageitem_group.cpp */,
+				88DD9E751B0A97B7008FED2F /* pageitem_group.h */,
+				88DD9E761B0A97B7008FED2F /* pageitem_noteframe.cpp */,
+				88DD9E771B0A97B7008FED2F /* pageitem_noteframe.h */,
+				88DD9E781B0A97B7008FED2F /* pageitem_regularpolygon.cpp */,
+				88DD9E791B0A97B7008FED2F /* pageitem_regularpolygon.h */,
+				88DD9E7A1B0A97B7008FED2F /* pageitem_spiral.cpp */,
+				88DD9E7B1B0A97B7008FED2F /* pageitem_spiral.h */,
+				88DD9E7C1B0A97B7008FED2F /* pageitem_table.cpp */,
+				88DD9E7D1B0A97B7008FED2F /* pageitem_table.h */,
+				88DD9E7E1B0A97B7008FED2F /* pp_proxy.cpp */,
+				88DD9E7F1B0A97B8008FED2F /* pp_proxy.h */,
+				88DD9E801B0A97B8008FED2F /* qtiocompressor.cpp */,
+				88DD9E811B0A97B8008FED2F /* qtiocompressor.h */,
+				88DD9E821B0A97B8008FED2F /* scdomelement.cpp */,
+				88DD9E831B0A97B8008FED2F /* scdomelement.h */,
+				88DD9E841B0A97B8008FED2F /* scpage.cpp */,
+				88DD9E851B0A97B8008FED2F /* scpage.h */,
+				88DD9E861B0A97B8008FED2F /* scribus.css */,
+				88DD9E871B0A97B8008FED2F /* selectionrubberband.cpp */,
+				88DD9E881B0A97B8008FED2F /* selectionrubberband.h */,
+				88DD9E891B0A97B8008FED2F /* tableborder.cpp */,
+				88DD9E8A1B0A97B8008FED2F /* tableborder.h */,
+				88DD9E8B1B0A97B8008FED2F /* tablecell.cpp */,
+				88DD9E8C1B0A97B8008FED2F /* tablecell.h */,
+				88DD9E8D1B0A97B8008FED2F /* tablehandle.h */,
+				88DD9E8E1B0A97B8008FED2F /* tablepainter.h */,
+				88DD9E8F1B0A97B8008FED2F /* tableutils.cpp */,
+				88DD9E901B0A97B9008FED2F /* tableutils.h */,
+				88DD9E911B0A97B9008FED2F /* undotransaction.cpp */,
+				88DD9E921B0A97B9008FED2F /* undotransaction.h */,
+				88DD9E931B0A97B9008FED2F /* util_debug.cpp */,
+				88DD9E941B0A97B9008FED2F /* util_debug.h */,
+				88DD9E951B0A97B9008FED2F /* util_os.cpp */,
+				88DD9E961B0A97B9008FED2F /* util_os.h */,
 				8808D806123238CF00B95A3F /* actionmanager.cpp */,
 				8808D807123238CF00B95A3F /* actionmanager.h */,
 				8808D808123238CF00B95A3F /* annotation.cpp */,
@@ -2107,6 +2263,9 @@
 				8808D945123238CF00B95A3F /* pdflib.h */,
 				8808D946123238CF00B95A3F /* pdflib_core.cpp */,
 				8808D947123238CF00B95A3F /* pdflib_core.h */,
+				888D9ADA1A4F3C5F0079DACE /* pdfstructs.h */,
+				888D9ADB1A4F3C5F0079DACE /* pdfwriter.cpp */,
+				888D9ADC1A4F3C5F0079DACE /* pdfwriter.h */,
 				8808D948123238CF00B95A3F /* pdfoptions.cpp */,
 				8808D949123238CF00B95A3F /* pdfoptions.h */,
 				8808D94A123238CF00B95A3F /* pdfoptionsio.cpp */,
@@ -2172,28 +2331,6 @@
 				8808DBD2123238D000B95A3F /* scimagecachewriteaction.h */,
 				8808DBD3123238D000B95A3F /* scimagestructs.cpp */,
 				8808DBD4123238D000B95A3F /* scimagestructs.h */,
-				8808DBD5123238D000B95A3F /* scimgdataloader.cpp */,
-				8808DBD6123238D000B95A3F /* scimgdataloader.h */,
-				8808DBD7123238D000B95A3F /* scimgdataloader_gimp.cpp */,
-				8808DBD8123238D000B95A3F /* scimgdataloader_gimp.h */,
-				8808DBD9123238D000B95A3F /* scimgdataloader_gmagick.cpp */,
-				8808DBDA123238D000B95A3F /* scimgdataloader_gmagick.h */,
-				8808DBDB123238D000B95A3F /* scimgdataloader_jpeg.cpp */,
-				8808DBDC123238D000B95A3F /* scimgdataloader_jpeg.h */,
-				8808DBDD123238D000B95A3F /* scimgdataloader_pdf.cpp */,
-				8808DBDE123238D000B95A3F /* scimgdataloader_pdf.h */,
-				8808DBDF123238D000B95A3F /* scimgdataloader_pict.cpp */,
-				8808DBE0123238D000B95A3F /* scimgdataloader_pict.h */,
-				8808DBE1123238D000B95A3F /* scimgdataloader_ps.cpp */,
-				8808DBE2123238D000B95A3F /* scimgdataloader_ps.h */,
-				8808DBE3123238D000B95A3F /* scimgdataloader_psd.cpp */,
-				8808DBE4123238D000B95A3F /* scimgdataloader_psd.h */,
-				8808DBE5123238D000B95A3F /* scimgdataloader_qt.cpp */,
-				8808DBE6123238D000B95A3F /* scimgdataloader_qt.h */,
-				8808DBE7123238D000B95A3F /* scimgdataloader_tiff.cpp */,
-				8808DBE8123238D000B95A3F /* scimgdataloader_tiff.h */,
-				8808DBE9123238D000B95A3F /* scimgdataloader_wpg.cpp */,
-				8808DBEA123238D000B95A3F /* scimgdataloader_wpg.h */,
 				8808DBEB123238D000B95A3F /* sclayer.cpp */,
 				8808DBEC123238D000B95A3F /* sclayer.h */,
 				8808DBED123238D000B95A3F /* sclimits.h */,
@@ -2210,10 +2347,6 @@
 				8808DBF8123238D000B95A3F /* scpainter.h */,
 				8808DBF9123238D000B95A3F /* scpainterex_cairo.cpp */,
 				8808DBFA123238D000B95A3F /* scpainterex_cairo.h */,
-				8808DBFB123238D000B95A3F /* scpainterex_gdi.cpp */,
-				8808DBFC123238D000B95A3F /* scpainterex_gdi.h */,
-				8808DBFD123238D000B95A3F /* scpainterex_gdiplus.cpp */,
-				8808DBFE123238D000B95A3F /* scpainterex_gdiplus.h */,
 				8808DBFF123238D000B95A3F /* scpainterex_ps2.cpp */,
 				8808DC00123238D000B95A3F /* scpainterex_ps2.h */,
 				8808DC01123238D000B95A3F /* scpainterexbase.cpp */,
@@ -2492,6 +2625,11 @@
 				8808D8D1123238CF00B95A3F /* scface_ttf.h */,
 				8808D8D2123238CF00B95A3F /* scfontmetrics.cpp */,
 				8808D8D3123238CF00B95A3F /* scfontmetrics.h */,
+				88BD743C1AE2A158001F6CBD /* sfnt.h */,
+				88BD743D1AE2A30D001F6CBD /* sfnt.cpp */,
+				88CC678E1AED78440014B26A /* sfnt_format.h */,
+				88DD9E421AFC6267008FED2F /* cff.cpp */,
+				881004C81AF8434800F15514 /* cff.h */,
 			);
 			name = fonts;
 			path = ../../scribus/fonts;
@@ -3951,6 +4089,12 @@
 		8808DD71123238D000B95A3F /* ui */ = {
 			isa = PBXGroup;
 			children = (
+				881004C91AF9AA5C00F15514 /* pdfexportdialog.cpp */,
+				881004CA1AF9AA5C00F15514 /* pdfexportdialog.h */,
+				881004CB1AF9AA5C00F15514 /* tabpdfoptions.ui */,
+				88BD74391ADA51FF001F6CBD /* resourcemanager.cpp */,
+				88BD743A1ADA5200001F6CBD /* resourcemanager.h */,
+				88BD743B1ADA5200001F6CBD /* resourcemanagerbase.ui */,
 				8808DD72123238D000B95A3F /* about.cpp */,
 				8808DD73123238D000B95A3F /* about.h */,
 				8808DD74123238D000B95A3F /* aboutplugins.cpp */,
@@ -4543,6 +4687,8 @@
 /* Begin PBXProject section */
 		08FB7793FE84155DC02AAC07 /* Project object */ = {
 			isa = PBXProject;
+			attributes = {
+			};
 			buildConfigurationList = 1DEB919308733D9F0010E9CD /* Build configuration list for PBXProject "Scribus" */;
 			compatibilityVersion = "Xcode 3.1";
 			developmentRegion = English;

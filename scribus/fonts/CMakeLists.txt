@@ -9,9 +9,10 @@ SET(SCRIBUS_FONTS_LIB_SOURCES
   scface.cpp
   ftface.cpp
   scface_ps.cpp
+  cff.cpp
+  sfnt.cpp
   scface_ttf.cpp
   scfontmetrics.cpp
-  sfnt.cpp
 )
 SET(SCRIBUS_FONTS_LIB "scribus_fonts_lib")
 ADD_LIBRARY(${SCRIBUS_FONTS_LIB} STATIC ${SCRIBUS_FONTS_LIB_SOURCES})

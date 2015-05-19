@@ -116,7 +116,7 @@ class ScFace_pfb : public ScFace_postscript
 			formatCode = ScFace::PFB;
 		}
 
-		virtual bool EmbedFont(QString &str) const
+		virtual bool EmbedFont(QByteArray &str) const
 		{
 			QByteArray bb;
 			RawData(bb);
@@ -202,7 +202,7 @@ class ScFace_pfa : public ScFace_postscript
 		{
 			formatCode = ScFace::PFA;
 		}
-		virtual bool EmbedFont(QString &str) const
+		virtual bool EmbedFont(QByteArray &str) const
 		{
 			QByteArray bb;
 			RawData(bb);

@@ -79,7 +79,11 @@ public:
 		// handled by freetype:	PFB_MAC, DFONT, HQX, MACBIN,
 		SFNT, TTCF, UNKNOWN_FORMAT };
 
-	static const uint CONTROL_GLYPHS = 2000000000; // 2 billion
+    typedef uint gid_type;
+    typedef uint ucs4_type;
+    typedef QMap<gid_type, std::pair<ucs4_type, QString> > FaceEncoding;
+
+	static const gid_type CONTROL_GLYPHS = 2000000000; // 2 billion
 
 	struct GlyphData { 
 		FPointArray Outlines;
@@ -92,7 +96,7 @@ public:
 		GlyphData() : Outlines(), x(0), y(0), bbox_width(1), bbox_ascent(1), bbox_descent(0), broken(true) {}
 	};
 
-
+    
 	/// see accessors for ScFace for docs
 	class ScFaceData {
 	public:
@@ -118,11 +122,12 @@ public:
 		bool usable;
 		bool embedPs;
 		bool subset;
+        bool outline;
 
 		bool isStroked;
 		bool isFixedPitch;
 		bool hasGlyphNames;
-		uint maxGlyph;
+		gid_type maxGlyph;
 
 		ScFaceData();
 		virtual ~ScFaceData() { };
@@ -132,9 +137,9 @@ public:
 		Status cachedStatus;
 
 		// caches
-		mutable QHash<uint, qreal>     m_glyphWidth;
-		mutable QHash<uint, GlyphData> m_glyphOutline;
-		mutable QHash<uint, uint>      m_cMap;
+		mutable QHash<gid_type, qreal>     m_glyphWidth;
+		mutable QHash<gid_type, GlyphData> m_glyphOutline;
+		//mutable QHash<gid_type, uint>      m_cMap;
 
 		// fill caches & members
 
@@ -142,7 +147,7 @@ public:
 		{ 
 			m_glyphWidth.clear();
 			m_glyphOutline.clear();
-			m_cMap.clear();
+			//m_cMap.clear();
 
 			status = qMax(cachedStatus, ScFace::LOADED);
 		}
@@ -151,12 +156,12 @@ public:
 		{
 			m_glyphWidth.clear();
 			m_glyphOutline.clear();
-			m_cMap.clear();
+			//m_cMap.clear();
 
 			status = ScFace::UNKNOWN;
 		}
 
-		virtual void loadGlyph(uint /*gl*/) const {}
+		virtual void loadGlyph(gid_type /*gl*/) const {}
 
 		// dummy implementations
 		virtual qreal ascent(qreal sz)           const { return sz; }
@@ -173,20 +178,20 @@ public:
 		virtual qreal underlinePos(qreal /*sz*/)     const { return -1.0; }
 		virtual qreal strokeWidth(qreal /*sz*/)      const { return 0.1; }
 		virtual qreal maxAdvanceWidth(qreal sz)  const { return sz; }
-		virtual uint   char2CMap(QChar /*ch*/)         const { return 0; }
-		virtual qreal glyphKerning(uint gl1, uint gl2, qreal sz) const;
+		virtual gid_type char2CMap(QChar /*ch*/)         const { return 0; }
+		virtual qreal glyphKerning(gid_type gl1, gid_type gl2, qreal sz) const;
 		virtual QMap<QString,QString> fontDictionary(qreal sz=1.0) const;
-		virtual GlyphMetrics glyphBBox(uint gl, qreal sz) const;
-		virtual bool EmbedFont(QString &/*str*/)       const { return false; }
+		virtual GlyphMetrics glyphBBox(gid_type gl, qreal sz) const;
+		virtual bool EmbedFont(QByteArray &/*str*/)       const { return false; }
 		virtual void RawData(QByteArray & /*bb*/)      const {}
 
 		virtual bool hasNames() const { return hasGlyphNames; }
-		virtual bool glyphNames(QMap<uint, std::pair<QChar, QString> >& gList) const;
+		virtual bool glyphNames(QMap<gid_type, std::pair<ucs4_type, QString> >& gList) const;
 
 		// these use the cache:
-		virtual qreal      glyphWidth(uint gl, qreal sz)   const;
-		virtual FPointArray glyphOutline(uint gl, qreal sz) const; 
-		virtual FPoint      glyphOrigin (uint gl, qreal sz) const;
+		virtual qreal       glyphWidth(gid_type gl, qreal sz)   const;
+		virtual FPointArray glyphOutline(gid_type gl, qreal sz) const;
+		virtual FPoint      glyphOrigin (gid_type gl, qreal sz) const;
 
 		virtual bool isSymbolic() const { return false; }
 	};
@@ -214,9 +219,9 @@ public:
 	bool operator!=(const ScFace& other) const { return ! (*this == other); }
 
 
-	bool EmbedFont(QString &str);
+	bool EmbedFont(QByteArray &str);
 	void RawData(QByteArray & bb);
-	bool glyphNames(QMap<uint, std::pair<QChar, QString> >& gList);
+	bool glyphNames(QMap<gid_type, std::pair<ucs4_type, QString> >& gList);
 
 	/// prevent unloading of face data
 	void increaseUsage() const;
@@ -278,6 +283,9 @@ public:
 	/// test if this face can be used in documents
 	bool usable()      const { return m->usable && !isNone(); }
 
+    /// test if this face should be outlined in documents
+    bool outline()      const { return usable() && m->outline; }
+    
 	/// test if this face can be embedded in PS/PDF
 	bool embedPs()     const { return m->embedPs && m->status < BROKENGLYPHS; }
 
@@ -287,6 +295,7 @@ public:
 	void usable(bool flag)   { m->usable = flag; }
 	void embedPs(bool flag)  { m->embedPs = flag; }
 	void subset(bool flag)   { m->subset = flag; }
+    void outline(bool flag)   { m->outline = flag; }
 
 	/// deprecated? tells if the face has PS names
 	bool hasNames()    const { return m->hasNames(); }
@@ -301,7 +310,7 @@ public:
 	bool isOTF()       const { return m->typeCode == OTF; }
 
 	/// returns the highest glyph index in this face
-	uint maxGlyph()    const { return m->maxGlyph; }
+	gid_type maxGlyph() const { return m->maxGlyph; }
 
 	/// returns the font family as seen by Scribus
 	QString family()   const { return m->family; }
@@ -342,19 +351,19 @@ public:
 	// glyph interface
 
 	/// returns the glyphs normal advance width at size 'sz'
-	qreal glyphWidth(uint gl, qreal sz=1.0) const { return m->glyphWidth(gl, sz); }
+	qreal glyphWidth(gid_type gl, qreal sz=1.0) const { return m->glyphWidth(gl, sz); }
 
 	/// returns the glyph kerning between 'gl1' and 'gl2' at size 'sz'
-	qreal glyphKerning(uint gl1, uint gl2, qreal sz=1.0) const { return qMax(gl1,gl2) < CONTROL_GLYPHS ? m->glyphKerning(gl1, gl2, sz) : 0; } 
+	qreal glyphKerning(gid_type gl1, gid_type gl2, qreal sz=1.0) const { return qMax(gl1,gl2) < CONTROL_GLYPHS ? m->glyphKerning(gl1, gl2, sz) : 0; }
 
 	/// returns the glyphs bounding box at size 'sz', ie. the area where this glyph will produce marks
-	GlyphMetrics glyphBBox(uint gl, qreal sz=1.0) const { return m->glyphBBox(gl, sz); }
+	GlyphMetrics glyphBBox(gid_type gl, qreal sz=1.0) const { return m->glyphBBox(gl, sz); }
 
 	/// returns the glyph's outline as a cubic Bezier path
-	FPointArray glyphOutline(uint gl, qreal sz=1.0) const { return m->glyphOutline(gl, sz); }
+	FPointArray glyphOutline(gid_type gl, qreal sz=1.0) const { return m->glyphOutline(gl, sz); }
 
 	/// returns the glyph's origin FIXME: what's that exactly?
-	FPoint glyphOrigin(uint gl, qreal sz=1.0)    const { return m->glyphOrigin(gl, sz); }
+	FPoint glyphOrigin(gid_type gl, qreal sz=1.0)    const { return m->glyphOrigin(gl, sz); }
 
 	// char interface
 
@@ -362,7 +371,7 @@ public:
 	bool canRender(QChar ch)   const;
 
 	/// translate unicode to glyph index
-	uint char2CMap(QChar ch)   const;
+	gid_type char2CMap(QChar ch)   const;
 
 	/// returns the combined glyph width and kerning for 'ch' if followed by 'ch2'
 	qreal charWidth(QChar ch, qreal sz=1.0, QChar ch2 = QChar(0)) const;
@@ -390,7 +399,7 @@ private:
 
 	void initFaceData();
 	void checkAllGlyphs();
-	uint emulateGlyph(QChar c) const;
+	gid_type emulateGlyph(QChar c) const;
 };
 
 #endif

@@ -201,14 +201,14 @@ PSLib::PSLib(PrintOptions &options, bool psart, SCFonts &AllFonts, QMap<QString,
 			Fonts += "/Fo" + IToStr(a) + " /" + encodedName + " findfont definefont pop\n";
 			if (AllFonts[it.key()].embedPs())
 			{
-				QString tmp;
+				QByteArray tmp;
 				if(face.EmbedFont(tmp))
 				{
 					FontDesc += "%%BeginFont: " + encodedName + "\n";
 					FontDesc += tmp + "\n%%EndFont\n";
 				}
 			}
-			GlyphList gl;
+            ScFace::FaceEncoding gl;
 			face.glyphNames(gl);
 			GlyphsOfFont.insert(it.key(), gl);
 			a++;

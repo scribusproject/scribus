@@ -781,43 +781,43 @@ Margins::Margins(QObject *parent) : QObject(COLLECTOR)
  */
 double Margins::top()
 {
-	return ScCore->primaryMainWindow()->doc->margins()->Top;
+	return ScCore->primaryMainWindow()->doc->margins()->top();
 }
 
 
 
 /**
- * Scripter.activeDocument.margins.top
+ * Scripter.activeDocument.margins.left
  * Property
  * left-margin of active document as double
  */
 double Margins::left()
 {
-	return ScCore->primaryMainWindow()->doc->margins()->Left;
+	return ScCore->primaryMainWindow()->doc->margins()->left();
 }
 
 
 
 /**
- * Scripter.activeDocument.margins.top
+ * Scripter.activeDocument.margins.right
  * Property
  * right-margin of active document as double
  */
 double Margins::right()
 {
-	return ScCore->primaryMainWindow()->doc->margins()->Right;
+	return ScCore->primaryMainWindow()->doc->margins()->right();
 }
 
 
 
 /**
- * Scripter.activeDocument.margins.top
+ * Scripter.activeDocument.margins.bottom
  * Property
  * top-margin of active document as double
  */
 double Margins::bottom()
 {
-	return ScCore->primaryMainWindow()->doc->margins()->Bottom;
+	return ScCore->primaryMainWindow()->doc->margins()->bottom();
 }
 
 

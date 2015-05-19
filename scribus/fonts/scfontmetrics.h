@@ -29,9 +29,11 @@ class Scribusdoc;
 struct FtFace;
 
 int         SCRIBUS_API setBestEncoding(FT_Face face);
-FPointArray SCRIBUS_API traceChar(FT_Face face, uint chr, int chs, qreal *x, qreal *y, bool *err);
-FPointArray SCRIBUS_API traceGlyph(FT_Face face, uint chr, int chs, qreal *x, qreal *y, bool *err);
+QString     adobeGlyphName(FT_ULong charcode);
+
+FPointArray SCRIBUS_API traceChar(FT_Face face, ScFace::ucs4_type chr, int chs, qreal *x, qreal *y, bool *err);
+FPointArray SCRIBUS_API traceGlyph(FT_Face face, ScFace::gid_type gl, int chs, qreal *x, qreal *y, bool *err);
 QPixmap     SCRIBUS_API FontSample(const ScFace& fnt, int s, QString ts, QColor back, bool force = false);
-//bool        SCRIBUS_API GlyphNames(const FtFace& fnt, QMap<uint, std::pair<QChar, QString> >& GList);
+//bool        SCRIBUS_API GlyphNames(const FtFace& fnt, ScFace::FaceEncoding& GList);
 
 #endif

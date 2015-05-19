@@ -70,9 +70,9 @@ ScribusCore::~ScribusCore()
 }
 
 #ifndef NDEBUG
-static void abort_on_error(QtMsgType t, const char * m)
+static void abort_on_error(QtMsgType t, const QMessageLogContext&, const QString & m)
 {
-	std::cerr << m << "\n";
+	std::cerr << m.toLocal8Bit().data() << "\n";
 	if(t==QtFatalMsg) assert(false);
 //	if(t!=QtDebugMsg) assert(false);
 }
@@ -83,7 +83,7 @@ int ScribusCore::init(bool useGUI, const QList<QString>& filesToUse)
 	m_UseGUI=useGUI;
 	m_Files=filesToUse;
 #if !defined(NDEBUG) && !defined(_WIN32)
-	qInstallMsgHandler( & abort_on_error );
+	qInstallMessageHandler( & abort_on_error );
 #endif
 	return 0;
 }

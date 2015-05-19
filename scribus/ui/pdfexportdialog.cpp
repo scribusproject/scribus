@@ -240,7 +240,8 @@ void PDFExportDialog::updateDocOptions()
 	m_opts.Quality = Options->CQuality->currentIndex();
 	m_opts.Resolution = Options->Resolution->value();
 	m_opts.EmbedList = Options->fontsToEmbed();
-	m_opts.SubsetList = Options->fontsToOutline();
+	m_opts.SubsetList = Options->fontsToSubset();
+    m_opts.OutlineList = Options->fontsToOutline();
 	m_opts.RecalcPic = Options->DSColor->isChecked();
 	m_opts.PicRes = Options->ValC->value();
 	m_opts.embedPDF = Options->EmbedPDF->isChecked();

@@ -8,7 +8,7 @@ for which a new license (GPL+exception) is in place.
 #include <QPainter>
 
 #include "commonstrings.h"
-#include "fonts/scfontmetrics.h"
+//#include "fonts/scfontmetrics.h"
 #include "pageitem.h"
 #include "scimage.h"
 #include "scpage.h"

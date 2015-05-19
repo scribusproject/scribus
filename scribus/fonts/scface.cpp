@@ -30,13 +30,13 @@ ScFace::ScFaceData::ScFaceData() :
 {
 }
 
-qreal ScFace::ScFaceData::glyphKerning(uint /*gl1*/, uint /*gl2*/, qreal /*sz*/) const 
+qreal ScFace::ScFaceData::glyphKerning(gid_type /*gl1*/, gid_type /*gl2*/, qreal /*sz*/) const
 { 
 	return 0.0; 
 }
 
 
-bool ScFace::ScFaceData::glyphNames(QMap<uint, std::pair<QChar, QString> >& /*gList*/) const 
+bool ScFace::ScFaceData::glyphNames(FaceEncoding& /*gList*/) const
 { 
 	return false; 
 }
@@ -48,7 +48,7 @@ QMap<QString,QString> ScFace::ScFaceData::fontDictionary(qreal /*sz*/) const
 }
 
 
-GlyphMetrics ScFace::ScFaceData::glyphBBox(uint gl, qreal sz) const
+GlyphMetrics ScFace::ScFaceData::glyphBBox(gid_type gl, qreal sz) const
 {
 	GlyphMetrics res;
 	if (gl == 0 || gl >= CONTROL_GLYPHS)
@@ -68,7 +68,7 @@ GlyphMetrics ScFace::ScFaceData::glyphBBox(uint gl, qreal sz) const
 }
 
 
-qreal ScFace::ScFaceData::glyphWidth(uint gl, qreal size) const
+qreal ScFace::ScFaceData::glyphWidth(gid_type gl, qreal size) const
 {
 	if (gl >= CONTROL_GLYPHS)
 		return 0.0;
@@ -81,7 +81,7 @@ qreal ScFace::ScFaceData::glyphWidth(uint gl, qreal size) const
 }
 
 
-FPointArray ScFace::ScFaceData::glyphOutline(uint gl, qreal sz) const 
+FPointArray ScFace::ScFaceData::glyphOutline(gid_type gl, qreal sz) const
 { 
 	if (gl >= CONTROL_GLYPHS)
 		return FPointArray();
@@ -104,7 +104,7 @@ FPointArray ScFace::ScFaceData::glyphOutline(uint gl, qreal sz) const
 }
 
 
-FPoint ScFace::ScFaceData::glyphOrigin(uint gl, qreal sz) const 
+FPoint ScFace::ScFaceData::glyphOrigin(gid_type gl, qreal sz) const
 {
 	if (gl == 0 || gl >= CONTROL_GLYPHS)
 		return FPoint(0,0);
@@ -129,7 +129,7 @@ FPoint ScFace::ScFaceData::glyphOrigin(uint gl, qreal sz) const
             -2000    broken
             >= 0     ok, outline valid
    CharMap:  unicode -> glyph index
-             uint[256][256]
+             gid_type[256][256]
    unicode ignores: < 32, ...
    unicode emulate: spaces, hyphen, ligatures?, diacritics?
  *****/
@@ -341,12 +341,12 @@ void ScFace::unload() const
 	// clear caches
 	m->m_glyphWidth.clear();
 	m->m_glyphOutline.clear();
-	m->m_cMap.clear();
+	//m->m_cMap.clear();
 	m->status = ScFace::UNKNOWN;
 }
 
 
-uint ScFace::emulateGlyph(QChar ch) const
+ScFace::gid_type ScFace::emulateGlyph(QChar ch) const
 {
 	if (ch == SpecialChars::LINEBREAK || ch == SpecialChars::PARSEP 
 		|| ch == SpecialChars::FRAMEBREAK || ch == SpecialChars::COLBREAK 
@@ -362,7 +362,7 @@ uint ScFace::emulateGlyph(QChar ch) const
 }
 
 
-uint ScFace::char2CMap(QChar ch) const
+ScFace::gid_type ScFace::char2CMap(QChar ch) const
 {
 	if (m->status == ScFace::UNKNOWN) {
 		m->load();
@@ -371,7 +371,7 @@ uint ScFace::char2CMap(QChar ch) const
 	if (ch == SpecialChars::SHYPHEN)
 		return emulateGlyph(ch);
 
-	uint gl = m->char2CMap(ch);
+	gid_type gl = m->char2CMap(ch);
 
 	if (gl == 0)
 		return emulateGlyph(ch);
@@ -385,7 +385,7 @@ bool ScFace::canRender(QChar ch) const
 	if (!usable())
 		return false;
 	else {
-		uint gl = char2CMap(ch);    //  calls load()
+		gid_type gl = char2CMap(ch);    //  calls load()
 		if (gl >= CONTROL_GLYPHS)   //  those are always empty
 			return true;
 		else if (gl != 0) {
@@ -406,8 +406,8 @@ qreal ScFace::charWidth(QChar ch, qreal size, QChar ch2) const
 	else if (ch.unicode() == 28 || ch.unicode() == 13 || ch.unicode() == 9)
 		return ch.unicode() == 9 ? 1.0 : 0.0;
 	else {
-		uint gl1 = char2CMap(ch);
-		uint gl2 = char2CMap(ch2);
+		gid_type gl1 = char2CMap(ch);
+		gid_type gl2 = char2CMap(ch2);
 		qreal width = glyphWidth(gl1, size);
 		if (gl2 != 0)
 			width += glyphKerning(gl1, gl2, size);
@@ -417,7 +417,7 @@ qreal ScFace::charWidth(QChar ch, qreal size, QChar ch2) const
 }
 
 
-bool ScFace::EmbedFont(QString &str)
+bool ScFace::EmbedFont(QByteArray &str)
 {
 	if (m->status == ScFace::UNKNOWN) {
 		m->load();
@@ -426,7 +426,7 @@ bool ScFace::EmbedFont(QString &str)
 }
 
 
-bool ScFace::glyphNames(QMap<uint, std::pair<QChar, QString> >& gList)
+bool ScFace::glyphNames(FaceEncoding& gList)
 {
 	if (m->status == ScFace::UNKNOWN) {
 		m->load();
@@ -451,7 +451,7 @@ void ScFace::checkAllGlyphs()
 	if (m->status != ScFace::LOADED) {
 		return;
 	}
-	for (uint gl=0; gl <= m->maxGlyph; ++gl) {
+	for (gid_type gl=0; gl <= m->maxGlyph; ++gl) {
 		if (! m->m_glyphWidth.contains(gl)) {
 			m->loadGlyph(gl);
 			m->m_glyphWidth.remove(gl);

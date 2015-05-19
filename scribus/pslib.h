@@ -187,8 +187,7 @@ class SCRIBUS_API PSLib : public QObject
 		QString FontDesc;
 		QMap<QString, QString> UsedFonts;
 		QMap<QString, QString> FontSubsetMap;
-		typedef QMap<uint, std::pair<QChar, QString> > GlyphList;
-		QMap<QString, GlyphList> GlyphsOfFont;
+    QMap<QString, ScFace::FaceEncoding> GlyphsOfFont;
 		bool isPDF;
 		QFile Spool;
 		QDataStream spoolStream;

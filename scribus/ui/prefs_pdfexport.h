@@ -31,6 +31,7 @@ class SCRIBUS_API Prefs_PDFExport : public Prefs_Pane, Ui::Prefs_PDFExport
 		void enableCMS(bool);
 
 		QStringList fontsToEmbed();
+        QStringList fontsToSubset();
 		QStringList fontsToOutline();
 
 	signals:
@@ -64,6 +65,7 @@ class SCRIBUS_API Prefs_PDFExport : public Prefs_Pane, Ui::Prefs_PDFExport
 		void SelEFont(QListWidgetItem*);
 		void SelSFont(QListWidgetItem*);
 		void EmbedAll();
+        void SubsetAll();
 		void OutlineAll();
 		void PagePr();
 		void doDocBleeds();

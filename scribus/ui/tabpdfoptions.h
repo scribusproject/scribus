@@ -57,6 +57,7 @@ public:
 	void unitChange(int docUnitIndex);
 
 	QStringList fontsToEmbed();
+    QStringList fontsToSubset();
 	QStringList fontsToOutline();
 
 signals:
@@ -68,14 +69,15 @@ public slots:
 	void ToggleEncr();
 	void EnablePDFX(int a);
 	void DoDownsample();
-	void RemoveEmbed();
-	void PutToEmbed();
-	void RemoveOutline();
-	void PutToOutline();
-	void SelAFont(QListWidgetItem*);
-	void SelEFont(QListWidgetItem*);
-	void SelSFont(QListWidgetItem*);
+//	void RemoveEmbed();
+//	void PutToEmbed();
+//	void RemoveOutline();
+//	void PutToOutline();
+//	void SelAFont(QListWidgetItem*);
+//	void SelEFont(QListWidgetItem*);
+//	void SelSFont(QListWidgetItem*);
 	void EmbedAll();
+    void SubsetAll();
 	void OutlineAll();
 	void PagePr();
 	void SetPgEff(QListWidgetItem* current, QListWidgetItem* previous);

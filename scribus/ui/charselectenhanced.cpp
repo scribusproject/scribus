@@ -9,6 +9,7 @@ for which a new license (GPL+exception) is in place.
 #include <QMessageBox>
 
 #include "charselectenhanced.h"
+#include "fonts/scface.h"
 #include "fonts/scfontmetrics.h"
 #include "scribusdoc.h"
 #include "util.h"
@@ -105,12 +106,12 @@ void CharSelectEnhanced::scanFont()
 	charactersArabicPresentationFormsA.clear();
 	charactersArabicPresentationFormsB.clear();
 	charactersHebrew.clear();
-	QMap<uint, std::pair<QChar, QString> > glyphs;
+	ScFace::FaceEncoding glyphs;
 	(*m_doc->AllFonts)[m_fontInUse].glyphNames(glyphs);
-	for (QMap<uint, std::pair<QChar, QString> >::iterator it=glyphs.begin();
+	for (ScFace::FaceEncoding::iterator it=glyphs.begin();
 	        it != glyphs.end(); ++it)
 	{
-		charcode = it.value().first.unicode();
+		charcode = it.value().first;
 		gname = it.value().second;
 		charactersFull.append(charcode);
 		if ((charcode >= 0x0020) && (charcode <= 0x007F))

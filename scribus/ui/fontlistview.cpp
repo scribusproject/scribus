@@ -28,7 +28,7 @@ void FontListView::setModel(QAbstractItemModel * model)
 
 void FontListView::setFonts(SCFonts f)
 {
-	qobject_cast<FontListModel*>(model())->setFonts(f);
+	qobject_cast<FontListModel*>(model())->setFonts(f.keys());
 	if (!isSortingEnabled())
 		sortByColumn(FontListModel::SortIndex, Qt::AscendingOrder);
 }

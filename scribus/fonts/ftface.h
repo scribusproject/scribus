@@ -79,20 +79,20 @@ struct SCRIBUS_API FtFace : public ScFace::ScFaceData
 
 //FIXME	QMap<QString,QString> fontDictionary(qreal sz=1.0)      const;
 
-	uint         char2CMap(QChar ch)                         const;
+	ScFace::gid_type    char2CMap(QChar ch)                         const;
 
-	qreal       glyphKerning (uint gl1, uint gl2, qreal sz) const;
-//	GlyphMetrics glyphBBox (uint gl,               qreal sz) const;
+	qreal       glyphKerning (ScFace::gid_type gl1, ScFace::gid_type gl2, qreal sz) const;
+//	GlyphMetrics glyphBBox (gid_type gl,               qreal sz) const;
 
 	void RawData   (QByteArray & bb)            const;
 
 	static bool hasMicrosoftUnicodeCmap(FT_Face face);
 	static QString adobeGlyphName(FT_ULong charcode);
-	virtual bool glyphNames(QMap<uint, std::pair<QChar, QString> >& GList) const;
+	virtual bool glyphNames(ScFace::FaceEncoding& GList) const;
 
 	void load      ()                           const;
 	void unload    ()                           const;
-	void loadGlyph (uint ch)                    const;
+	void loadGlyph (ScFace::gid_type gl)        const;
 
 protected:
 	mutable FT_Face m_face;

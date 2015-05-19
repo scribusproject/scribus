@@ -444,159 +444,173 @@
         <number>10</number>
        </property>
        <item>
-        <layout class="QVBoxLayout" name="verticalLayout_4">
-         <property name="spacing">
-          <number>5</number>
-         </property>
-         <item>
-          <widget class="QLabel" name="label_7">
-           <property name="text">
-            <string>Available Fonts:</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QListWidget" name="AvailFlist"/>
-         </item>
-        </layout>
-       </item>
-       <item>
-        <layout class="QVBoxLayout" name="verticalLayout_5">
-         <property name="spacing">
-          <number>5</number>
-         </property>
-         <item>
-          <spacer name="verticalSpacer">
-           <property name="orientation">
-            <enum>Qt::Vertical</enum>
-           </property>
-           <property name="sizeType">
-            <enum>QSizePolicy::Minimum</enum>
-           </property>
-           <property name="sizeHint" stdset="0">
-            <size>
-             <width>20</width>
-             <height>40</height>
-            </size>
-           </property>
-          </spacer>
-         </item>
-         <item>
-          <widget class="QPushButton" name="ToEmbed">
-           <property name="text">
-            <string/>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QPushButton" name="FromEmbed">
-           <property name="text">
-            <string/>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <spacer name="verticalSpacer_2">
-           <property name="orientation">
-            <enum>Qt::Vertical</enum>
-           </property>
-           <property name="sizeType">
-            <enum>QSizePolicy::Expanding</enum>
-           </property>
-           <property name="sizeHint" stdset="0">
-            <size>
-             <width>20</width>
-             <height>40</height>
-            </size>
-           </property>
-          </spacer>
-         </item>
-        </layout>
-       </item>
-       <item>
-        <layout class="QVBoxLayout" name="verticalLayout_6">
-         <property name="spacing">
-          <number>5</number>
-         </property>
-         <item>
-          <widget class="QLabel" name="label_8">
-           <property name="text">
-            <string>Fonts to embed:</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QListWidget" name="EmbedList"/>
-         </item>
-         <item>
-          <layout class="QHBoxLayout" name="horizontalLayout_6">
-           <item>
-            <widget class="QPushButton" name="EmbedFonts">
-             <property name="text">
-              <string>&amp;Embed all</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <spacer name="horizontalSpacer">
-             <property name="orientation">
-              <enum>Qt::Horizontal</enum>
-             </property>
-             <property name="sizeHint" stdset="0">
-              <size>
-               <width>40</width>
-               <height>20</height>
-              </size>
-             </property>
-            </spacer>
-           </item>
-           <item>
-            <widget class="QPushButton" name="ToOutline">
-             <property name="text">
-              <string/>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QPushButton" name="FromOutline">
-             <property name="text">
-              <string/>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <spacer name="horizontalSpacer_2">
-             <property name="orientation">
-              <enum>Qt::Horizontal</enum>
-             </property>
-             <property name="sizeHint" stdset="0">
-              <size>
-               <width>40</width>
-               <height>20</height>
-              </size>
-             </property>
-            </spacer>
-           </item>
-          </layout>
-         </item>
-         <item>
-          <widget class="QLabel" name="label_9">
-           <property name="text">
-            <string>Fonts to outline:</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QListWidget" name="OutlineList"/>
-         </item>
-         <item>
-          <widget class="QPushButton" name="OutlineFonts">
-           <property name="text">
-            <string>&amp;Outline all</string>
-           </property>
-          </widget>
-         </item>
-        </layout>
+           <layout class="QVBoxLayout" name="verticalLayout_11">
+               <item>
+                   <widget class="QLabel" name="availableListLabel">
+                       <property name="text">
+                           <string>Used Fonts</string>
+                       </property>
+                   </widget>
+               </item>
+               <item>
+                   <widget class="QTableView" name="FontTable">
+                       <property name="sizePolicy">
+                           <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                               <horstretch>0</horstretch>
+                               <verstretch>0</verstretch>
+                           </sizepolicy>
+                       </property>
+                   </widget>
+               </item>
+               <item>
+                   <widget class="QFrame" name="frame">
+                       <property name="sizePolicy">
+                           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                               <horstretch>0</horstretch>
+                               <verstretch>1</verstretch>
+                           </sizepolicy>
+                       </property>
+                       <property name="frameShape">
+                           <enum>QFrame::StyledPanel</enum>
+                       </property>
+                       <property name="frameShadow">
+                           <enum>QFrame::Raised</enum>
+                       </property>
+                       <widget class="QWidget" name="gridLayoutWidget">
+                           <property name="geometry">
+                               <rect>
+                                   <x>0</x>
+                                   <y>0</y>
+                                   <width>581</width>
+                                   <height>151</height>
+                               </rect>
+                           </property>
+                           <layout class="QGridLayout" name="gridLayout_2" columnstretch="1,0">
+                               <property name="sizeConstraint">
+                                   <enum>QLayout::SetDefaultConstraint</enum>
+                               </property>
+                               <property name="topMargin">
+                                   <number>0</number>
+                               </property>
+                               <property name="horizontalSpacing">
+                                   <number>0</number>
+                               </property>
+                               <property name="verticalSpacing">
+                                   <number>-1</number>
+                               </property>
+                               <item row="0" column="0">
+                                   <widget class="QLabel" name="label_45">
+                                       <property name="sizePolicy">
+                                           <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
+                                               <horstretch>0</horstretch>
+                                               <verstretch>0</verstretch>
+                                           </sizepolicy>
+                                       </property>
+                                       <property name="locale">
+                                           <locale language="C" country="AnyCountry"/>
+                                       </property>
+                                       <property name="text">
+                                           <string>a) Embed fonts</string>
+                                       </property>
+                                       <property name="alignment">
+                                           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+                                       </property>
+                                       <property name="indent">
+                                           <number>24</number>
+                                       </property>
+                                   </widget>
+                               </item>
+                               <item row="2" column="0">
+                                   <widget class="QLabel" name="label_46">
+                                       <property name="sizePolicy">
+                                           <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
+                                               <horstretch>0</horstretch>
+                                               <verstretch>0</verstretch>
+                                           </sizepolicy>
+                                       </property>
+                                       <property name="locale">
+                                           <locale language="C" country="AnyCountry"/>
+                                       </property>
+                                       <property name="text">
+                                           <string>c) Outline fonts</string>
+                                       </property>
+                                       <property name="indent">
+                                           <number>24</number>
+                                       </property>
+                                   </widget>
+                               </item>
+                               <item row="1" column="1">
+                                   <widget class="QToolButton" name="SubsetAllFontsButton">
+                                       <property name="sizePolicy">
+                                           <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+                                               <horstretch>0</horstretch>
+                                               <verstretch>0</verstretch>
+                                           </sizepolicy>
+                                       </property>
+                                       <property name="locale">
+                                           <locale language="C" country="AnyCountry"/>
+                                       </property>
+                                       <property name="text">
+                                           <string>Subset all fonts</string>
+                                       </property>
+                                   </widget>
+                               </item>
+                               <item row="1" column="0">
+                                   <widget class="QLabel" name="label_44">
+                                       <property name="sizePolicy">
+                                           <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
+                                               <horstretch>0</horstretch>
+                                               <verstretch>0</verstretch>
+                                           </sizepolicy>
+                                       </property>
+                                       <property name="locale">
+                                           <locale language="C" country="AnyCountry"/>
+                                       </property>
+                                       <property name="text">
+                                           <string>b) Subset fonts</string>
+                                       </property>
+                                       <property name="indent">
+                                           <number>24</number>
+                                       </property>
+                                   </widget>
+                               </item>
+                               <item row="2" column="1">
+                                   <widget class="QToolButton" name="OutlineAllFontsButton">
+                                       <property name="sizePolicy">
+                                           <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+                                               <horstretch>0</horstretch>
+                                               <verstretch>0</verstretch>
+                                           </sizepolicy>
+                                       </property>
+                                       <property name="text">
+                                           <string>Outline all fonts</string>
+                                       </property>
+                                   </widget>
+                               </item>
+                               <item row="0" column="1">
+                                   <widget class="QToolButton" name="EmbedAllFontsButton">
+                                       <property name="sizePolicy">
+                                           <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+                                               <horstretch>0</horstretch>
+                                               <verstretch>0</verstretch>
+                                           </sizepolicy>
+                                       </property>
+                                       <property name="locale">
+                                           <locale language="C" country="AnyCountry"/>
+                                       </property>
+                                       <property name="text">
+                                           <string>Embed all fonts</string>
+                                       </property>
+                                       <property name="autoExclusive">
+                                           <bool>false</bool>
+                                       </property>
+                                   </widget>
+                               </item>
+                           </layout>
+                       </widget>
+                   </widget>
+               </item>
+           </layout>
        </item>
       </layout>
      </widget>

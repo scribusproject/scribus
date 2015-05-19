@@ -101,10 +101,10 @@ void PrinterAPI::doPrint()
 	options.registrationMarks = false;
 	options.colorMarks = false;
 	options.markOffset = 0.0;
-	options.bleeds.Top    = 0.0;
-	options.bleeds.Left   = 0.0;
-	options.bleeds.Right  = 0.0;
-	options.bleeds.Bottom = 0.0;
+	options.bleeds.setTop(0.0);
+	options.bleeds.setLeft(0.0);
+	options.bleeds.setRight(0.0);
+	options.bleeds.setBottom(0.0);
 	if (!PrinterUtil::checkPrintEngineSupport(options.printer, options.prnEngine, options.toFile))
 		options.prnEngine = PrinterUtil::getDefaultPrintEngine(options.printer, options.toFile);
 	printcomm = cmd;

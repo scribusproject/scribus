@@ -20,7 +20,7 @@ for which a new license (GPL+exception) is in place.
 #include <QRegExp>
 
 #include "commonstrings.h"
-#include "fonts/scfontmetrics.h"
+//#include "fonts/scfontmetrics.h"
 #include "fpointarray.h"
 #include "loadsaveplugin.h"
 #include "pageitem.h"

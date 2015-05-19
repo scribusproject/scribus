@@ -405,22 +405,7 @@ ScFace SCFonts::LoadScalableFont(const QString &filename)
 				t.subset(Subset);
 				break;
 			case ScFace::SFNT:
-				t = ScFace(new ScFace_ttf(fam, sty, "", ts, qpsName, filename, faceindex));
-				getSFontType(face, t.m->typeCode);
-				if (t.type() == ScFace::OTF)
-					t.subset(true);
-				else
-					t.subset(Subset);
-				break;
 			case ScFace::TTCF:
-				t = ScFace(new ScFace_ttf(fam, sty, "", ts, qpsName, filename, faceindex));
-				t.m->formatCode = ScFace::TTCF;
-				t.m->typeCode = ScFace::TTF;
-				if (t.type() == ScFace::OTF)
-					t.subset(true);
-				else
-					t.subset(Subset);
-				break;
 			case ScFace::TYPE42:
 				t = ScFace(new ScFace_ttf(fam, sty, "", ts, qpsName, filename, faceindex));
 				getSFontType(face, t.m->typeCode);
@@ -430,7 +415,7 @@ ScFace SCFonts::LoadScalableFont(const QString &filename)
 					t.subset(Subset);
 				break;
 			default:
-			/* catching any types not handled above to silence compiler */
+                /* catching any types not handled above to silence compiler */
 				break;
 		}
 		t.m->hasGlyphNames = HasNames;

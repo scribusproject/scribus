@@ -71,6 +71,8 @@ for which a new license (GPL+exception) is in place.
 #include "sccolor.h"
 #include "sccolorengine.h"
 #include "scfonts.h"
+#include "fonts/cff.h"
+#include "fonts/sfnt.h"
 #include "scpage.h"
 #include "scpaths.h"
 #include "scpattern.h"
@@ -109,18 +111,18 @@ PDFLibCore::PDFLibCore(ScribusDoc & docu)
 	Options(doc.pdfOptions()),
 	Bvie(0),
 	ucs2Codec(0),
-	ObjCounter(7),
+//	ObjCounter(7),
 	ResNam("RE"),
 	ResCount(0),
 	NDnam("LI"),
 	NDnum(0),
-	KeyGen(""),
-	OwnerKey(""),
-	UserKey(""),
-	FileID(""),
-	EncryKey(""),
-	Encrypt(0),
-	KeyLen(5),
+//	KeyGen(""),
+//	OwnerKey(""),
+//	UserKey(""),
+//	FileID(""),
+//	EncryKey(""),
+//	Encrypt(0),
+//	KeyLen(5),
 	colorsToUse(),
 	spotNam("Spot"),
 	spotCount(0),
@@ -130,11 +132,11 @@ PDFLibCore::PDFLibCore(ScribusDoc & docu)
 	bleedDisplacementX(0),
 	bleedDisplacementY(0)
 {
-	KeyGen.resize(32);
-	OwnerKey.resize(32);
-	UserKey.resize(32);
-	FileID.resize(16);
-	EncryKey.resize(5);
+//	KeyGen.resize(32);
+//	OwnerKey.resize(32);
+//	UserKey.resize(32);
+//	FileID.resize(16);
+//	EncryKey.resize(5);
 	Catalog.Outlines = 2;
 	Catalog.PageTree = 3;
 	Catalog.Dest = 4;
@@ -142,13 +144,13 @@ PDFLibCore::PDFLibCore(ScribusDoc & docu)
 	Outlines.First = 0;
 	Outlines.Last = 0;
 	Outlines.Count = 0;
-	Seite.ObjNum = 0;
-	Seite.Thumb = 0;
-	int kg_array[] = {0x28, 0xbf, 0x4e, 0x5e, 0x4e, 0x75, 0x8a, 0x41, 0x64, 0x00, 0x4e, 0x56, 0xff, 0xfa,
-			  0x01, 0x08, 0x2e, 0x2e, 0x00, 0xb6, 0xd0, 0x68, 0x3e, 0x80, 0x2f, 0x0c, 0xa9, 0xfe,
-			  0x64, 0x53, 0x69, 0x7a};
-	for (int a = 0; a < 32; ++a)
-		KeyGen[a] = kg_array[a];
+	pageData.ObjNum = 0;
+	pageData.Thumb = 0;
+//	int kg_array[] = {0x28, 0xbf, 0x4e, 0x5e, 0x4e, 0x75, 0x8a, 0x41, 0x64, 0x00, 0x4e, 0x56, 0xff, 0xfa,
+//			  0x01, 0x08, 0x2e, 0x2e, 0x00, 0xb6, 0xd0, 0x68, 0x3e, 0x80, 0x2f, 0x0c, 0xa9, 0xfe,
+//			  0x64, 0x53, 0x69, 0x7a};
+//	for (int a = 0; a < 32; ++a)
+//		KeyGen[a] = kg_array[a];
 	if (usingGUI)
 	{
 		progressDialog = new MultiProgressDialog( tr("Saving PDF"), CommonStrings::tr_Cancel, doc.scMW());
@@ -168,12 +170,12 @@ PDFLibCore::~PDFLibCore()
 	delete progressDialog;
 }
 
-static inline QString FToStr(double c)
+static inline QByteArray FToStr(double c)
 {
 	double v = c;
 	if (fabs(c) < 0.0000001)
 		v = 0.0;
-	return QString::number(v, 'f', 5);
+    return QByteArray::number(v, 'f', 5);
 };
 
 bool PDFLibCore::PDF_IsPDFX()
@@ -302,35 +304,40 @@ bool PDFLibCore::exportAborted(void) const
 	return abortExport;
 }
 
-void PDFLibCore::StartObj(int nr)
-{
-	for (int i=XRef.size(); i < nr; ++i)
-		XRef.append(0);
-	XRef[nr-1] = bytesWritten();
-	PutDoc(QString::number(nr)+ " 0 obj\n");
-}
+//#define StartObj(n) writer.startObj((n))
+#define PutDoc(s) writer.write(s)
+//#define newObject() writer.newObject()
 
-// Encode a string for inclusion in a
-// PDF (literal) .
-static QString PDFEncode(const QString & in)
-{
-	QString tmp("");
-	for (int d = 0; d < in.length(); ++d)
-	{
-		QChar cc(in.at(d));
-		if ((cc == '(') || (cc == ')') || (cc == '\\'))
-			tmp += '\\';
-		else if ((cc == '\r') || (cc == '\n'))
-		{
-			tmp += (cc == '\r') ? "\\r" : "\\n";
-			continue;
-		}
-		tmp += cc;
-	}
-	return tmp;
-}
 
-static QString blendMode(int code)
+//void PDFLibCore::StartObj(PdfId nr)
+//{
+//	for (int i=XRef.size(); i < nr; ++i)
+//		XRef.append(0);
+//	XRef[nr-1] = bytesWritten();
+//	PutDoc(Pdf::toPdf(nr)+ " 0 obj\n");
+//}
+
+//// Encode a string for inclusion in a
+//// PDF (literal) .
+//static QByteArray PDFEncode(const QString & in)
+//{
+//	QByteArray tmp("");
+//	for (int d = 0; d < in.length(); ++d)
+//	{
+//		QChar cc(in.at(d));
+//		if ((cc == '(') || (cc == ')') || (cc == '\\'))
+//			tmp += '\\';
+//		else if ((cc == '\r') || (cc == '\n'))
+//		{
+//			tmp += (cc == '\r') ? "\\r" : "\\n";
+//			continue;
+//		}
+//		tmp += cc;
+//	}
+//	return tmp;
+//}
+
+static QByteArray blendMode(int code)
 {
 	switch (code)
 	{
@@ -386,166 +393,146 @@ static QString blendMode(int code)
 			return "";
 	}
 }
+//
+//QByteArray PDFLibCore::EncodeUTF16(const QString &in)
+//{
+//	QString tmp = in;
+//	QByteArray cres = ucs2Codec->fromUnicode( tmp );
+//#ifndef WORDS_BIGENDIAN
+//	// on little endian systems we need to swap bytes:
+//	uchar sw;
+//	for(int d = 0; d < cres.size()-1; d += 2)
+//	{
+//		sw = cres[d];
+//		cres[d] = cres[d+1];
+//		cres[d+1] = sw;
+//	}
+//#endif
+//	return cres;
+//}
 
-QByteArray PDFLibCore::EncodeUTF16(const QString &in)
-{
-	QString tmp = in;
-	QByteArray cres = ucs2Codec->fromUnicode( tmp );
-#ifndef WORDS_BIGENDIAN
-	// on little endian systems we need to swap bytes:
-	uchar sw;
-	for(int d = 0; d < cres.size()-1; d += 2)
-	{
-		sw = cres[d];
-		cres[d] = cres[d+1];
-		cres[d+1] = sw;
-	}
-#endif
-	return cres;
-}
-
-QString PDFLibCore::EncStream(const QString & in, int ObjNum)
+QByteArray PDFLibCore::EncStream(const QByteArray & in, PdfId ObjNum)
 {
 	if (in.length() < 1)
-		return QString("");
+		return QByteArray();
 	else if (!Options.Encrypt)
 		return in;
-	rc4_context_t rc4;
-	QString tmp(in);
-	QByteArray us(tmp.length(), ' ');
-	QByteArray ou(tmp.length(), ' ');
-	for (int a = 0; a < tmp.length(); ++a)
-		us[a] = QChar(tmp.at(a)).cell();
-	QByteArray step1 = ComputeRC4Key(ObjNum);
-	rc4_init(&rc4, reinterpret_cast<uchar*>(step1.data()), qMin(KeyLen+5, 16));
-	rc4_encrypt(&rc4, reinterpret_cast<uchar*>(us.data()), reinterpret_cast<uchar*>(ou.data()), tmp.length());
-	QString uk = "";
-	for (int cl = 0; cl < tmp.length(); ++cl)
-		uk += QChar(ou[cl]);
-	return uk;
+    else
+        return writer.encryptBytes(in, ObjNum);
+//	rc4_context_t rc4;
+//	QByteArray tmp(in);
+//	QByteArray us(tmp.length(), ' ');
+//	QByteArray ou(tmp.length(), ' ');
+//	for (int a = 0; a < tmp.length(); ++a)
+//        us[a] = (tmp.at(a));
+//    QByteArray step1 = writer.ComputeRC4Key(ObjNum);
+//	rc4_init(&rc4, reinterpret_cast<uchar*>(step1.data()), qMin(KeyLen+5, 16));
+//	rc4_encrypt(&rc4, reinterpret_cast<uchar*>(us.data()), reinterpret_cast<uchar*>(ou.data()), tmp.length());
+//	QString uk = "";
+//	for (int cl = 0; cl < tmp.length(); ++cl)
+//		uk += QChar(ou[cl]);
+//	return ou;
 }
 
-QString PDFLibCore::EncString(const QString & in, int ObjNum)
+QByteArray PDFLibCore::EncString(const QByteArray & in, PdfId ObjNum)
 {
-	QString tmp;
+	QByteArray tmp;
 	if (in.length() < 1)
 		return "<>";
 	if (!Options.Encrypt)
 	{
-		tmp = "(" + PDFEncode(in) + ")";
-		return tmp;
+		//tmp = "(" + PDFEncode(in) + ")";
+        return Pdf::toLiteralString(in);
 	}
-	rc4_context_t rc4;
-	QByteArray us(in.length(), ' ');
-	QByteArray ou(in.length(), ' ');
-	for (int a = 0; a < in.length(); ++a)
-		us[a] = static_cast<uchar>(QChar(in.at(a)).cell());
-	QByteArray step1 = ComputeRC4Key(ObjNum);
-	rc4_init(&rc4, reinterpret_cast<uchar*>(step1.data()), qMin(KeyLen+5, 16));
-	rc4_encrypt(&rc4, reinterpret_cast<uchar*>(us.data()), reinterpret_cast<uchar*>(ou.data()), in.length());
-	QString uk = "";
-	for (int cl = 0; cl < in.length(); ++cl)
-		uk += QChar(ou[cl]);
-	tmp = "<"+String2Hex(&uk, false)+">";
-	return tmp;
+    
+//	rc4_context_t rc4;
+//	QByteArray us(in.length(), ' ');
+//	QByteArray ou(in.length(), ' ');
+//	for (int a = 0; a < in.length(); ++a)
+//		us[a] = static_cast<uchar>(QChar(in.at(a)).cell());
+//	QByteArray step1 = writer.ComputeRC4Key(ObjNum);
+//	rc4_init(&rc4, reinterpret_cast<uchar*>(step1.data()), qMin(KeyLen+5, 16));
+//	rc4_encrypt(&rc4, reinterpret_cast<uchar*>(us.data()), reinterpret_cast<uchar*>(ou.data()), in.length());
+//	QString uk = "";
+//	for (int cl = 0; cl < in.length(); ++cl)
+//		uk += QChar(ou[cl]);
+    
+    return Pdf::toHexString(writer.encryptBytes(in, ObjNum));
 }
 
-QString PDFLibCore::EncStringUTF16(const QString & in, int ObjNum)
+QByteArray PDFLibCore::EncStringUTF16(const QString & in, PdfId ObjNum)
 {
 	if (in.length() < 1)
 		return "<>";
 	if (!Options.Encrypt)
 	{
-		QByteArray us = EncodeUTF16(in);
-		QString uk = "";
-		for (int cl = 0; cl < us.size(); ++cl)
-			uk += QChar(us[cl]);
-		return "<"+String2Hex(&uk, false)+">";
+        QByteArray us = Pdf::toUTF16(in);
+//		QString uk = "";
+//		for (int cl = 0; cl < us.size(); ++cl)
+//			uk += QChar(us[cl]);
+		return Pdf::toHexString(us);
 	}
-	rc4_context_t rc4;
-	QByteArray us = EncodeUTF16(in);
-	QByteArray ou(us.size(), ' ');
-	QByteArray step1 = ComputeRC4Key(ObjNum);
-	rc4_init(&rc4, reinterpret_cast<uchar*>(step1.data()), qMin(KeyLen+5, 16));
-	rc4_encrypt(&rc4, reinterpret_cast<uchar*>(us.data()), reinterpret_cast<uchar*>(ou.data()), ou.size());
-	QString uk = "";
-	for (int cl = 0; cl < ou.size(); ++cl)
-		uk += QChar(ou[cl]);
-	QString tmp = "<"+String2Hex(&uk, false)+">";
+//	rc4_context_t rc4;
+    QByteArray us = Pdf::toUTF16(in);
+//	QByteArray ou(us.size(), ' ');
+//	QByteArray step1 = writer.ComputeRC4Key(ObjNum);
+//	rc4_init(&rc4, reinterpret_cast<uchar*>(step1.data()), qMin(KeyLen+5, 16));
+//	rc4_encrypt(&rc4, reinterpret_cast<uchar*>(us.data()), reinterpret_cast<uchar*>(ou.data()), ou.size());
+//	QString uk = "";
+//	for (int cl = 0; cl < ou.size(); ++cl)
+//		uk += QChar(ou[cl]);
+	QByteArray tmp = Pdf::toHexString(writer.encryptBytes(us, ObjNum));
 	return tmp;
 }
 
-bool PDFLibCore::EncodeArrayToStream(const QByteArray& in, int ObjNum)
+bool PDFLibCore::EncodeArrayToStream(const QByteArray& in, PdfId ObjNum)
 {
 	if (in.size() < 1)
 		return true;
 	bool succeed = false;
 	if (Options.Encrypt)
 	{
-		QByteArray step1 = ComputeRC4Key(ObjNum);
-		ScRC4EncodeFilter rc4Encode(&outStream, step1.data(), qMin(KeyLen+5, 16));
-		if (rc4Encode.openFilter())
+		ScStreamFilter* rc4Encode = writer.openStreamFilter(true, ObjNum);
+		if (rc4Encode->openFilter())
 		{
-			succeed  = rc4Encode.writeData(in.data(), in.size());
-			succeed &= rc4Encode.closeFilter();
+			succeed  = rc4Encode->writeData(in.data(), in.size());
+			succeed &= rc4Encode->closeFilter();
 		}
+        delete rc4Encode;
 	}
 	else
-		outStream.writeRawData(in, in.size());
-	return (outStream.status() == QDataStream::Ok);
+		writer.write(in);
+	return (writer.getOutStream().status() == QDataStream::Ok);
 }
 
-int PDFLibCore::WriteImageToStream(ScImage& image, int ObjNum, ColorSpaceEnum format, bool precal)
+int PDFLibCore::WriteImageToStream(ScImage& image, PdfId ObjNum, ColorSpaceEnum format, bool precal)
 {
 	bool fromCmyk, succeed = false;
 	int  bytesWritten = 0;
-	if (Options.Encrypt)
-	{
-		QByteArray step1 = ComputeRC4Key(ObjNum);
-		ScRC4EncodeFilter rc4Encode(&outStream, step1.data(), qMin(KeyLen+5, 16));
-		if (rc4Encode.openFilter())
-		{
-			switch (format)
-			{
-				case ColorSpaceMonochrome :
-					fromCmyk = !Options.UseRGB && !Options.isGrayscale && !(doc.HasCMS && Options.UseProfiles2);
-					succeed = image.writeMonochromeDataToFilter(&rc4Encode, fromCmyk); break;
-				case ColorSpaceGray :
-					succeed = image.writeGrayDataToFilter(&rc4Encode, precal); break;
-				case ColorSpaceCMYK :
-					succeed = image.writeCMYKDataToFilter(&rc4Encode); break;
-				default :
-					succeed = image.writeRGBDataToFilter(&rc4Encode); break;
-			}
-			succeed &= rc4Encode.closeFilter();
-			bytesWritten = rc4Encode.writtenToStream();
-		}
-	}
-	else
-	{
-		ScNullEncodeFilter nullEncode(&outStream);
-		if (nullEncode.openFilter())
-		{
-			switch (format)
-			{
-				case ColorSpaceMonochrome :
-					fromCmyk = !Options.UseRGB && !Options.isGrayscale && !(doc.HasCMS && Options.UseProfiles2);
-					succeed = image.writeMonochromeDataToFilter(&nullEncode, fromCmyk); break;
-				case ColorSpaceGray :
-					succeed = image.writeGrayDataToFilter(&nullEncode, precal); break;
-				case ColorSpaceCMYK :
-					succeed = image.writeCMYKDataToFilter(&nullEncode); break;
-				default :
-					succeed = image.writeRGBDataToFilter(&nullEncode); break;
-			}
-			succeed &= nullEncode.closeFilter();
-			bytesWritten = nullEncode.writtenToStream();
-		}
-	}
+
+    ScStreamFilter* rc4Encode = writer.openStreamFilter(Options.Encrypt, ObjNum);
+    if (rc4Encode->openFilter())
+    {
+        switch (format)
+        {
+            case ColorSpaceMonochrome :
+                fromCmyk = !Options.UseRGB && !Options.isGrayscale && !(doc.HasCMS && Options.UseProfiles2);
+                succeed = image.writeMonochromeDataToFilter(rc4Encode, fromCmyk); break;
+            case ColorSpaceGray :
+                succeed = image.writeGrayDataToFilter(rc4Encode, precal); break;
+            case ColorSpaceCMYK :
+                succeed = image.writeCMYKDataToFilter(rc4Encode); break;
+            default :
+                succeed = image.writeRGBDataToFilter(rc4Encode); break;
+        }
+        succeed &= rc4Encode->closeFilter();
+        bytesWritten = rc4Encode->writtenToStream();
+        delete rc4Encode;
+    }
 	return (succeed ? bytesWritten : 0);
 }
 
-int PDFLibCore::WriteJPEGImageToStream(ScImage& image, const QString& fn, int ObjNum, int quality, ColorSpaceEnum format,
+int PDFLibCore::WriteJPEGImageToStream(ScImage& image, const QString& fn, PdfId ObjNum, int quality, ColorSpaceEnum format,
 										 bool sameFile, bool precal)
 {
 	bool succeed = true;
@@ -568,18 +555,18 @@ int PDFLibCore::WriteJPEGImageToStream(ScImage& image, const QString& fn, int Ob
 	if (Options.Encrypt)
 	{
 		succeed = false;
-		QByteArray step1 = ComputeRC4Key(ObjNum);
-		ScRC4EncodeFilter rc4Encode(&outStream, step1.data(), qMin(KeyLen+5, 16));
-		if (rc4Encode.openFilter())
+        ScStreamFilter* rc4Encode = writer.openStreamFilter(true, ObjNum);
+        if (rc4Encode->openFilter())
 		{
-			succeed  = copyFileToFilter(jpgFileName, rc4Encode);
-			succeed &= rc4Encode.closeFilter();
-			bytesWritten = rc4Encode.writtenToStream();
+			succeed  = copyFileToFilter(jpgFileName, *rc4Encode);
+			succeed &= rc4Encode->closeFilter();
+			bytesWritten = rc4Encode->writtenToStream();
 		}
+        delete rc4Encode;
 	}
 	else
 	{
-		succeed &= copyFileToStream(jpgFileName, outStream);
+		succeed &= copyFileToStream(jpgFileName, writer.getOutStream());
 		QFileInfo jpgInfo(jpgFileName);
 		bytesWritten = jpgInfo.size();
 	}
@@ -588,240 +575,111 @@ int PDFLibCore::WriteJPEGImageToStream(ScImage& image, const QString& fn, int Ob
 	return (succeed ? bytesWritten : 0);
 }
 
-int PDFLibCore::WriteFlateImageToStream(ScImage& image, int ObjNum, ColorSpaceEnum format, bool precal)
+int PDFLibCore::WriteFlateImageToStream(ScImage& image, PdfId ObjNum, ColorSpaceEnum format, bool precal)
 {
-	bool fromCmyk, succeed = false;
-	int  bytesWritten = 0;
-	if (Options.Encrypt)
-	{
-		QByteArray step1 = ComputeRC4Key(ObjNum);
-		ScRC4EncodeFilter   rc4Encode(&outStream, step1.data(), qMin(KeyLen+5, 16));
-		ScFlateEncodeFilter flateEncode(&rc4Encode);
-		if (flateEncode.openFilter())
-		{
-			switch (format)
-			{
-				case ColorSpaceMonochrome :
-					fromCmyk = !Options.UseRGB && !Options.isGrayscale && !(doc.HasCMS && Options.UseProfiles2);
-					succeed = image.writeMonochromeDataToFilter(&flateEncode, fromCmyk); break;
-				case ColorSpaceGray :
-					succeed = image.writeGrayDataToFilter(&flateEncode, precal); break;
-				case ColorSpaceCMYK :
-					succeed = image.writeCMYKDataToFilter(&flateEncode); break;
-				default :
-					succeed = image.writeRGBDataToFilter(&flateEncode); break;
-			}
-			succeed &= flateEncode.closeFilter();
-			bytesWritten = flateEncode.writtenToStream();
-		}
-	}
-	else
-	{
-		ScFlateEncodeFilter flateEncode(&outStream);
-		if (flateEncode.openFilter())
-		{
-			switch (format)
-			{
-				case ColorSpaceMonochrome :
-					fromCmyk = !Options.UseRGB && !Options.isGrayscale && !(doc.HasCMS && Options.UseProfiles2);
-					succeed = image.writeMonochromeDataToFilter(&flateEncode, fromCmyk); break;
-				case ColorSpaceGray :
-					succeed = image.writeGrayDataToFilter(&flateEncode, precal); break;
-				case ColorSpaceCMYK :
-					succeed = image.writeCMYKDataToFilter(&flateEncode); break;
-				default :
-					succeed = image.writeRGBDataToFilter(&flateEncode); break;
-			}
-			succeed &= flateEncode.closeFilter();
-			bytesWritten = flateEncode.writtenToStream();
-		}
-	}
-	return (succeed ? bytesWritten : 0);
+    bool fromCmyk, succeed = false;
+    int  bytesWritten = 0;
+    ScStreamFilter* rc4Encode = writer.openStreamFilter(Options.Encrypt, ObjNum);
+    ScFlateEncodeFilter flateEncode(rc4Encode);
+    if (flateEncode.openFilter())
+    {
+        switch (format)
+        {
+            case ColorSpaceMonochrome :
+                fromCmyk = !Options.UseRGB && !Options.isGrayscale && !(doc.HasCMS && Options.UseProfiles2);
+                succeed = image.writeMonochromeDataToFilter(&flateEncode, fromCmyk); break;
+            case ColorSpaceGray :
+                succeed = image.writeGrayDataToFilter(&flateEncode, precal); break;
+            case ColorSpaceCMYK :
+                succeed = image.writeCMYKDataToFilter(&flateEncode); break;
+            default :
+                succeed = image.writeRGBDataToFilter(&flateEncode); break;
+        }
+        succeed &= flateEncode.closeFilter();
+        bytesWritten = flateEncode.writtenToStream();
+    }
+    delete rc4Encode;
+    return (succeed ? bytesWritten : 0);
 }
 
-QString PDFLibCore::FitKey(const QString & pass)
-{
-	QString pw(pass);
-	if (pw.length() < 32)
-	{
-		uint l = pw.length();
-		for (uint a = 0; a < 32 - l; ++a)
-			pw += QChar(KeyGen[a]);
-	}
-	else
-		pw = pw.left(32);
-	return pw;
-}
 
-void PDFLibCore::CalcOwnerKey(const QString & Owner, const QString & User)
-{
-	rc4_context_t rc4;
-	QString pw(FitKey(User));
-	QString pw2(FitKey(Owner.isEmpty() ? User : Owner));
-	QByteArray step1(16, ' ');
-	step1 = ComputeMD5(pw2);
-	if (KeyLen > 5)
-	{
-		for (int kl = 0; kl < 50; ++kl)
-			step1 = QCryptographicHash::hash(step1, QCryptographicHash::Md5);
-	}
-	QByteArray us(32, ' ');
-	QByteArray enk(16, ' ');
-	if (KeyLen > 5)
-	{
-		for (uint a2 = 0; a2 < 32; ++a2)
-			OwnerKey[a2] = QChar(pw.at(a2)).cell();
-		for (int rl = 0; rl < 20; rl++)
-		{
-			for (int j = 0; j < 16; j ++)
-				enk[j] = step1[j] ^ rl;
-			rc4_init(&rc4, reinterpret_cast<uchar*>(enk.data()), 16);
-			rc4_encrypt(&rc4, reinterpret_cast<uchar*>(OwnerKey.data()),
-					 reinterpret_cast<uchar*>(OwnerKey.data()), 32);
-		}
-	}
-	else
-	{
-		for (uint a = 0; a < 32; ++a)
-			us[a] = static_cast<uchar>(QChar(pw.at(a)).cell());
-		rc4_init(&rc4, reinterpret_cast<uchar*>(step1.data()), 5);
-		rc4_encrypt(&rc4, reinterpret_cast<uchar*>(us.data()),
-					reinterpret_cast<uchar*>(OwnerKey.data()), 32);
-	}
-}
 
-void PDFLibCore::CalcUserKey(const QString & User, int Permission)
+bool PDFLibCore::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, const QMap<QString, QMap<uint, FPointArray> >& DocFonts, BookMView* vi)
 {
-	rc4_context_t	rc4;
-	QString pw(FitKey(User));
-	QByteArray step1(16, ' ');
-	QByteArray perm(4, ' ');
-	uint perm_value = static_cast<uint>(Permission);
-	perm[0] = perm_value;
-	perm[1] = perm_value >> 8;
-	perm[2] = perm_value >> 16;
-	perm[3] = perm_value >> 24;
-	for (uint a = 0; a < 32; ++a)
-		pw += QChar(OwnerKey[a]);
-	for (uint a1 = 0; a1 < 4; ++a1)
-		pw += QChar(perm[a1]);
-	for (uint a3 = 0; a3 < 16; ++a3)
-		pw += QChar(FileID[a3]);
-	step1 = ComputeMD5(pw);
-	if (KeyLen > 5)
-	{
-		for (int kl = 0; kl < 50; ++kl)
-			step1 = QCryptographicHash::hash(step1, QCryptographicHash::Md5);
-		EncryKey.resize(16);
-	}
-	for (int a2 = 0; a2 < KeyLen; ++a2)
-		EncryKey[a2] = step1[a2];
-	if (KeyLen > 5)
-	{
-		QString pr2("");
-		for (int kl3 = 0; kl3 < 32; ++kl3)
-			pr2 += QChar(KeyGen[kl3]);
-		for (uint a4 = 0; a4 < 16; ++a4)
-			pr2 += QChar(FileID[a4]);
-		step1 = ComputeMD5(pr2);
-		QByteArray enk(16, ' ');
-		for (uint a3 = 0; a3 < 16; ++a3)
-			UserKey[a3] = step1[a3];
-		for (int rl = 0; rl < 20; rl++)
-		{
-			for (int j = 0; j < 16; j ++)
-				enk[j] = EncryKey[j] ^ rl;
-			rc4_init(&rc4, reinterpret_cast<uchar*>(enk.data()), 16);
-			rc4_encrypt(&rc4, reinterpret_cast<uchar*>(UserKey.data()), reinterpret_cast<uchar*>(UserKey.data()), 16);
-		}
-	}
-	else
-	{
-		rc4_init(&rc4, reinterpret_cast<uchar*>(step1.data()), 5);
-		rc4_encrypt(&rc4, reinterpret_cast<uchar*>(KeyGen.data()), reinterpret_cast<uchar*>(UserKey.data()), 32);
-	}
-}
+    if (!writer.open(fn))
+        return false;
+    
+    QFileInfo fiBase(fn);
+    QString baseDir = fiBase.absolutePath();
 
-QByteArray PDFLibCore::ComputeMD5(const QString& in)
-{
-	uint inlen=in.length();
-	QByteArray TBytes(inlen, ' ');
-	for (uint a = 0; a < inlen; ++a)
-		TBytes[a] = static_cast<uchar>(QChar(in.at(a)).cell());
-	return QCryptographicHash::hash(TBytes, QCryptographicHash::Md5);
-}
-
-QByteArray PDFLibCore::ComputeRC4Key(int ObjNum)
-{
-	int dlen = 0;
-	QByteArray data(10, ' ');
-	if (KeyLen > 5)
-		data.resize(21);
-	for (int cd = 0; cd < KeyLen; ++cd)
-	{
-		data[cd] = EncryKey[cd];
-		dlen++;
-	}
-	data[dlen++] = ObjNum;
-	data[dlen++] = ObjNum >> 8;
-	data[dlen++] = ObjNum >> 16;
-	data[dlen++] = 0;
-	data[dlen++] = 0;
-	QByteArray rc4Key(16, ' ');
-	rc4Key = QCryptographicHash::hash(data, QCryptographicHash::Md5);
-	rc4Key.resize(qMin(KeyLen+5, 16));
-	return rc4Key;
-}
-
-bool PDFLibCore::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QString, QMap<uint, FPointArray> > DocFonts, BookMView* vi)
-{
-	Spool.setFileName(fn);
-	if (!Spool.open(QIODevice::WriteOnly))
-		return false;
-	outStream.setDevice(&Spool);
-	QString tmp;
-	QString ok = "";
-	QString uk = "";
-	QFileInfo fd;
-	QString fext;
-	int a;
+//	QString tmp;
+//	QFileInfo fd;
+//	QString fext;
 	inPattern = 0;
 	Bvie = vi;
 	BookMinUse = false;
 	UsedFontsP.clear();
 	UsedFontsF.clear();
+    
+    writer.writeHeader(Options.Version);
+    
+//	if (((Options.Version == PDFOptions::PDFVersion_15) || (Options.Version == PDFOptions::PDFVersion_X4)) && (Options.useLayers))
+//		ObjCounter = 10;
+//	else
+//		ObjCounter = 9;
+//	switch (Options.Version)
+//	{
+//		case PDFOptions::PDFVersion_X1a:
+//		case PDFOptions::PDFVersion_X3:
+//		case PDFOptions::PDFVersion_13:
+//			PutDoc("%PDF-1.3\n");
+//			break;
+//		case PDFOptions::PDFVersion_14:
+//			PutDoc("%PDF-1.4\n");
+//			break;
+//		case PDFOptions::PDFVersion_X4:
+//		case PDFOptions::PDFVersion_15:
+//			PutDoc("%PDF-1.5\n");
+//			break;
+//	}
+//	if (PDF_IsPDFX())
+//		ObjCounter++;
+//	PutDoc("%\xc7\xec\x8f\xa2\n");
+
+    PDF_Begin_Catalog();
+    PDF_Begin_MetadataAndEncrypt();
+    PDF_Begin_WriteUsedFonts(AllFonts, PDF_Begin_FindUsedFonts(AllFonts, DocFonts));
+    PDF_Begin_Colors();
+    PDF_Begin_Layers();
+    
+    return true;
+}
+
+void PDFLibCore::PDF_Begin_Catalog()
+{
+    writer.startObj(writer.CatalogObj);
+    PutDoc("<<\n/Type /Catalog");
+    PutDoc("\n/Outlines " + Pdf::toObjRef(writer.OutlinesObj) +
+           "\n/Pages " + Pdf::toObjRef(writer.PagesObj) +
+           "\n/Dests " + Pdf::toObjRef(writer.DestsObj) +
+           "\n/AcroForm " + Pdf::toObjRef(writer.AcroFormObj) +
+           "\n/Names "+ Pdf::toObjRef(writer.NamesObj) +
+           "\n/Threads " +  Pdf::toObjRef(writer.ThreadsObj) +
+           "\n");
 	if (((Options.Version == PDFOptions::PDFVersion_15) || (Options.Version == PDFOptions::PDFVersion_X4)) && (Options.useLayers))
-		ObjCounter = 10;
-	else
-		ObjCounter = 9;
-	switch (Options.Version)
+    {
+        writer.OCPropertiesObj = writer.newObject();
+		PutDoc("/OCProperties " + Pdf::toObjRef(writer.OCPropertiesObj) + "\n");
+    }
+    if (PDF_IsPDFX())
+    {
+        writer.OutputIntentObj = writer.newObject();
+        PutDoc("/OutputIntents [ " +  Pdf::toObjRef(writer.OutputIntentObj) + " ]\n");
+    }
+    if ((Options.Version == PDFOptions::PDFVersion_X4))
 	{
-		case PDFOptions::PDFVersion_X1a:
-		case PDFOptions::PDFVersion_X3:
-		case PDFOptions::PDFVersion_13:
-			PutDoc("%PDF-1.3\n");
-			break;
-		case PDFOptions::PDFVersion_14:
-			PutDoc("%PDF-1.4\n");
-			break;
-		case PDFOptions::PDFVersion_X4:
-		case PDFOptions::PDFVersion_15:
-			PutDoc("%PDF-1.5\n");
-			break;
-	}
-	if (PDF_IsPDFX())
-		ObjCounter++;
-	PutDoc("%\xc7\xec\x8f\xa2\n");
-	StartObj(1);
-	PutDoc("<<\n/Type /Catalog\n/Outlines 3 0 R\n/Pages 4 0 R\n/Dests 5 0 R\n/AcroForm 6 0 R\n/Names 7 0 R\n/Threads 8 0 R\n");
-	if (((Options.Version == PDFOptions::PDFVersion_15) || (Options.Version == PDFOptions::PDFVersion_X4)) && (Options.useLayers))
-		PutDoc("/OCProperties 9 0 R\n");
-	if (PDF_IsPDFX())
-		PutDoc("/OutputIntents [ "+QString::number(ObjCounter-1)+" 0 R ]\n");
-	if ((Options.Version == PDFOptions::PDFVersion_X4))
-	{
-		ObjCounter++;
-		PutDoc("/Metadata "+QString::number(ObjCounter-1)+" 0 R\n");
+        writer.MetaDataObj = writer.newObject();
+		PutDoc("/Metadata "+ Pdf::toObjRef(writer.MetaDataObj) + "\n");
 	}
 	PutDoc("/PageLayout ");
 	switch (Options.PageLayout)
@@ -849,24 +707,25 @@ bool PDFLibCore::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QStrin
 			PutDoc("/PageMode /UseOC\n");
 	if (!Options.openAction.isEmpty())
 	{
-		PutDoc("/OpenAction << /S /JavaScript /JS (this."+Options.openAction+"\\(\\)) >>\n");
+        PutDoc("/OpenAction << /S /JavaScript /JS (this."+Pdf::toPdfDocEncoding(Options.openAction)+"\\(\\)) >>\n");
 	}
+    QString tmp;
 	QDateTime dt = QDateTime::currentDateTime().toUTC();
-	QDate d = dt.date();
-	Datum = "D:";
-	tmp.sprintf("%4d", d.year());
-	tmp.replace(QRegExp(" "), "0");
-	Datum += tmp;
-	tmp.sprintf("%2d", d.month());
-	tmp.replace(QRegExp(" "), "0");
-	Datum += tmp;
-	tmp.sprintf("%2d", d.day());
-	tmp.replace(QRegExp(" "), "0");
-	Datum += tmp;
-	tmp = dt.time().toString();
-	tmp.replace(QRegExp(":"), "");
-	Datum += tmp;
-	Datum += "Z";
+    Datum = Pdf::toDateString(dt);
+//    "D:";
+//	tmp.sprintf("%4d", d.year());
+//	tmp.replace(QRegExp(" "), "0");
+//	Datum += tmp;
+//	tmp.sprintf("%2d", d.month());
+//	tmp.replace(QRegExp(" "), "0");
+//	Datum += tmp;
+//	tmp.sprintf("%2d", d.day());
+//	tmp.replace(QRegExp(" "), "0");
+//	Datum += tmp;
+//	tmp = dt.time().toString();
+//	tmp.replace(QRegExp(":"), "");
+//	Datum += tmp;
+//	Datum += "Z";
 
 	// only include XMP to PDF/X-4 at the moment, could easily be extended to include it to any PDF
 	if (Options.Version == PDFOptions::PDFVersion_X4)
@@ -908,7 +767,12 @@ bool PDFLibCore::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QStrin
 		PutDoc("/HideMenubar true\n");
 	if (Options.fitWindow)
 		PutDoc("/FitWindow true\n");
-	PutDoc(" >>\n>>\nendobj\n");
+    PutDoc(" >>\n>>");
+    writer.endObj(writer.CatalogObj);
+}
+
+void PDFLibCore::PDF_Begin_MetadataAndEncrypt()
+{
 	QString IDg(Datum);
 	IDg += Options.fileName;
 	IDg += "Scribus "+QString(VERSION);
@@ -916,43 +780,24 @@ bool PDFLibCore::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QStrin
 	IDg += doc.documentInfo().title();
 	IDg += doc.documentInfo().author();
 	IDg += "/False";
-	FileID = ComputeMD5(IDg);
+    writer.setFileId(Pdf::toPdfDocEncoding(IDg));
 	if (Options.Encrypt)
 	{
-		if ((Options.Version == PDFOptions::PDFVersion_14) || (Options.Version == PDFOptions::PDFVersion_15))
-			KeyLen = 16;
-		else
-			KeyLen = 5;
-		CalcOwnerKey(Options.PassOwner, Options.PassUser);
-		CalcUserKey(Options.PassUser, Options.Permissions);
-		for (uint cl2 = 0; cl2 < 32; ++cl2)
-			ok += QChar(OwnerKey[cl2]);
-		if (KeyLen > 5)
-		{
-			for (uint cl3 = 0; cl3 < 16; ++cl3)
-				uk += QChar(UserKey[cl3]);
-			for (uint cl3r = 0; cl3r < 16; ++cl3r)
-				uk += QChar(KeyGen[cl3r]);
-		}
-		else
-		{
-			for (uint cl = 0; cl < 32; ++cl)
-				uk += QChar(UserKey[cl]);
-		}
+        writer.setEncryption((Options.Version == PDFOptions::PDFVersion_14) || (Options.Version == PDFOptions::PDFVersion_15), Pdf::toPdfDocEncoding(Options.PassOwner), Pdf::toPdfDocEncoding(Options.PassUser), Options.Permissions);
 	}
-	StartObj(2);
-	PutDoc("<<\n/Creator " + EncString("Scribus "+QString(VERSION), 2) + "\n");
-	PutDoc("/Producer " + EncString("Scribus PDF Library "+QString(VERSION), 2) + "\n");
+	writer.startObj(writer.InfoObj);
+    PutDoc("<<\n/Creator " + EncString(QByteArray("Scribus ") + VERSION, writer.InfoObj) + "\n");
+	PutDoc("/Producer " + EncString(QByteArray("Scribus PDF Library ") + VERSION, writer.InfoObj) + "\n");
 	QString docTitle = doc.documentInfo().title();
 	if ((PDF_IsPDFX()) && (docTitle.isEmpty()))
-		PutDoc("/Title " + EncStringUTF16(doc.DocName, 2) + "\n");
+		PutDoc("/Title " + EncStringUTF16(doc.DocName, writer.InfoObj) + "\n");
 	else
-		PutDoc("/Title " + EncStringUTF16(doc.documentInfo().title(), 2) + "\n");
-	PutDoc("/Author " + EncStringUTF16(doc.documentInfo().author(), 2) + "\n");
-	PutDoc("/Subject " + EncStringUTF16(doc.documentInfo().subject(), 2) + "\n");
-	PutDoc("/Keywords " + EncStringUTF16(doc.documentInfo().keywords(), 2) + "\n");
-	PutDoc("/CreationDate " + EncString(Datum, 2) + "\n");
-	PutDoc("/ModDate " + EncString(Datum, 2) + "\n");
+		PutDoc("/Title " + EncStringUTF16(doc.documentInfo().title(), writer.InfoObj) + "\n");
+	PutDoc("/Author " + EncStringUTF16(doc.documentInfo().author(), writer.InfoObj) + "\n");
+	PutDoc("/Subject " + EncStringUTF16(doc.documentInfo().subject(), writer.InfoObj) + "\n");
+	PutDoc("/Keywords " + EncStringUTF16(doc.documentInfo().keywords(), writer.InfoObj) + "\n");
+	PutDoc("/CreationDate " + EncString(Datum, writer.InfoObj) + "\n");
+	PutDoc("/ModDate " + EncString(Datum, writer.InfoObj) + "\n");
 	if (Options.Version == PDFOptions::PDFVersion_X1a)
 	{
 		PutDoc("/GTS_PDFXVersion (PDF/X-1:2001)\n");
@@ -962,30 +807,40 @@ bool PDFLibCore::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QStrin
 		PutDoc("/GTS_PDFXVersion (PDF/X-3:2002)\n");
 	if (Options.Version == PDFOptions::PDFVersion_X4)
 		PutDoc("/GTS_PDFXVersion (PDF/X-4)\n");
-	PutDoc("/Trapped /False\n>>\nendobj\n");
-	for (int t = 0; t < 6; ++t)
-		XRef.append(bytesWritten());
-	if (((Options.Version == PDFOptions::PDFVersion_15) || (Options.Version == PDFOptions::PDFVersion_X4)) && (Options.useLayers))
-		XRef.append(bytesWritten());
-	if (PDF_IsPDFX())
-		XRef.append(bytesWritten());
-	if (Options.Version == PDFOptions::PDFVersion_X4)
-		XRef.append(bytesWritten());
+    PutDoc("/Trapped /False\n>>");
+    writer.endObj(writer.InfoObj);
+
+    // Encrypt
+    
+//    for (int t = 0; t < 6; ++t)
+//		XRef.append(bytesWritten());
+//	if (((Options.Version == PDFOptions::PDFVersion_15) || (Options.Version == PDFOptions::PDFVersion_X4)) && (Options.useLayers))
+//		XRef.append(bytesWritten());
+//	if (PDF_IsPDFX())
+//		XRef.append(bytesWritten());
+//	if (Options.Version == PDFOptions::PDFVersion_X4)
+//		XRef.append(bytesWritten());
 	if (Options.Encrypt)
-	{
-		Encrypt = newObject();
-		StartObj(Encrypt);
-		PutDoc("<<\n/Filter /Standard\n");
-		PutDoc( KeyLen > 5 ? "/R 3\n/V 2\n/Length 128\n" : "/R 2\n/V 1\n");
-		PutDoc("/O <"+String2Hex(&ok)+">\n");
-		PutDoc("/U <"+String2Hex(&uk)+">\n");
-		PutDoc("/P "+QString::number(Options.Permissions)+"\n>>\nendobj\n");
+	{ // now done in writer.setEncrption():
+//		writer.EncryptObj = writer.newObject();
+//		writer.startObj(writer.EncryptObj);
+//		PutDoc("<<\n/Filter /Standard\n");
+//		PutDoc( KeyLen > 5 ? "/R 3\n/V 2\n/Length 128\n" : "/R 2\n/V 1\n");
+//		PutDoc("/O "+Pdf::toHexString(ok)+"\n");
+//		PutDoc("/U "+Pdf::toHexString(uk)+"\n");
+//        PutDoc("/P "+Pdf::toPdf(Options.Permissions)+"\n>>");
+//        writer.endObj(writer.EncryptObj);
 	}
+}
+
+QMap<QString, QMap<uint, FPointArray> >
+PDFLibCore::PDF_Begin_FindUsedFonts(SCFonts &AllFonts, const QMap<QString, QMap<uint, FPointArray> >& DocFonts)
+{
 	QMap<QString, QMap<uint, FPointArray> > ReallyUsed;
 	ReallyUsed.clear();
 	PageItem* pgit;
-	QMap<int, QString> ind2PDFabr;
-	const QString tmpf[] = {"/Courier", "/Courier-Bold", "/Courier-Oblique", "/Courier-BoldOblique",
+	QMap<int, QByteArray> ind2PDFabr;
+	const QByteArray tmpf[] = {"/Courier", "/Courier-Bold", "/Courier-Oblique", "/Courier-BoldOblique",
 												"/Helvetica", "/Helvetica-Bold", "/Helvetica-Oblique", "/Helvetica-BoldOblique",
 												"/Times-Roman", "/Times-Bold", "/Times-Italic", "/Times-BoldItalic",
 												"/ZapfDingbats", "/Symbol"};
@@ -1208,647 +1063,957 @@ bool PDFLibCore::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QStrin
 			}
 		}
 	}
-	a = 0;
-	QMap<QString, QString>::Iterator itStd;
-	for (itStd = StdFonts.begin(); itStd != StdFonts.end(); ++itStd)
-	{
-		uint fontObject = newObject();
-		StartObj(fontObject);
-		PutDoc("<<\n/Type /Font\n/Subtype /Type1\n");
-		PutDoc("/Name /FoStd"+QString::number(a)+"\n");
-		PutDoc("/BaseFont "+itStd.key()+"\n");
-		if (itStd.key() != "/ZapfDingbats")
-		{
-			PutDoc("/Encoding << \n");
-			PutDoc("/Differences [ \n");
-			PutDoc("24 /breve /caron /circumflex /dotaccent /hungarumlaut /ogonek /ring /tilde\n");
-			PutDoc("39 /quotesingle 96 /grave 128 /bullet /dagger /daggerdbl /ellipsis /emdash /endash /florin /fraction /guilsinglleft /guilsinglright\n");
-			PutDoc("/minus /perthousand /quotedblbase /quotedblleft /quotedblright /quoteleft /quoteright /quotesinglbase /trademark /fi /fl /Lslash /OE /Scaron\n");
-			PutDoc("/Ydieresis /Zcaron /dotlessi /lslash /oe /scaron /zcaron 164 /currency 166 /brokenbar 168 /dieresis /copyright /ordfeminine 172 /logicalnot\n");
-			PutDoc("/.notdef /registered /macron /degree /plusminus /twosuperior /threesuperior /acute /mu 183 /periodcentered /cedilla /onesuperior /ordmasculine\n");
-			PutDoc("188 /onequarter /onehalf /threequarters 192 /Agrave /Aacute /Acircumflex /Atilde /Adieresis /Aring /AE /Ccedilla /Egrave /Eacute /Ecircumflex\n");
-			PutDoc("/Edieresis /Igrave /Iacute /Icircumflex /Idieresis /Eth /Ntilde /Ograve /Oacute /Ocircumflex /Otilde /Odieresis /multiply /Oslash\n");
-			PutDoc("/Ugrave /Uacute /Ucircumflex /Udieresis /Yacute /Thorn /germandbls /agrave /aacute /acircumflex /atilde /adieresis /aring /ae /ccedilla\n");
-			PutDoc("/egrave /eacute /ecircumflex /edieresis /igrave /iacute /icircumflex /idieresis /eth /ntilde /ograve /oacute /ocircumflex /otilde /odieresis\n");
-			PutDoc("/divide /oslash /ugrave /uacute /ucircumflex /udieresis /yacute /thorn /ydieresis\n");
-			PutDoc("] >>\n");
-		}
-		PutDoc(">>\nendobj\n");
-		Seite.FObjects["FoStd"+QString::number(a)] = fontObject;
-		itStd.value() = "FoStd"+QString::number(a);
-		a++;
-	}
-	QMap<QString,QMap<uint, FPointArray> >::Iterator it;
-	a = 0;
-	for (it = ReallyUsed.begin(); it != ReallyUsed.end(); ++it)
-	{
-		ScFace& face(AllFonts[it.key()]);
-		ScFace::FontFormat fformat = face.format();
-		if (Options.OutlineList.contains(it.key()))
-		{
-			// Paint glyphs with XForm objects
-			QString fon("");
-			QMap<uint,FPointArray>& RealGlyphs(it.value());
-			QMap<uint,FPointArray>::Iterator ig;
-			for (ig = RealGlyphs.begin(); ig != RealGlyphs.end(); ++ig)
-			{
-				FPoint np, np1, np2;
-				bool nPath = true;
-				fon = "";
-				if (ig.value().size() > 3)
-				{
-					FPointArray gly = ig.value();
-					QTransform mat;
-					mat.scale(0.1, 0.1);
-					gly.map(mat);
-					for (int poi = 0; poi < gly.size()-3; poi += 4)
-					{
-						if (gly.isMarker(poi))
-						{
-							fon += "h\n";
-							nPath = true;
-							continue;
-						}
-						if (nPath)
-						{
-							np = gly.point(poi);
-							fon += FToStr(np.x())+" "+FToStr(-np.y())+" m\n";
-							nPath = false;
-						}
-						np = gly.point(poi+1);
-						np1 = gly.point(poi+3);
-						np2 = gly.point(poi+2);
-						fon += FToStr(np.x()) + " " + FToStr(-np.y()) + " " +
-							FToStr(np1.x()) + " " + FToStr(-np1.y()) + " " +
-							FToStr(np2.x()) + " " + FToStr(-np2.y()) + " c\n";
-					}
-					fon += "h f*\n";
-					np = getMinClipF(&gly);
-					np1 = getMaxClipF(&gly);
-				}
-				else
-				{
-					fon = "h";
-					np = FPoint(0, 0);
-					np1 = FPoint(0, 0);
-				}
-				uint fontGlyphXForm = newObject();
-				StartObj(fontGlyphXForm);
-				PutDoc("<<\n/Type /XObject\n/Subtype /Form\n/FormType 1\n");
-				PutDoc("/BBox [ "+FToStr(np.x())+" "+FToStr(-np.y())+" "+FToStr(np1.x())+ " "+FToStr(-np1.y())+" ]\n");
-				PutDoc("/Resources << /ProcSet [/PDF /Text /ImageB /ImageC /ImageI]\n");
-				PutDoc(">>\n");
-				if (Options.Compress)
-					fon = CompressStr(&fon);
-				PutDoc("/Length "+QString::number(fon.length()+1));
-				if (Options.Compress)
-					PutDoc("\n/Filter /FlateDecode");
-				PutDoc(" >>\nstream\n"+EncStream(fon, fontGlyphXForm)+"\nendstream\nendobj\n");
-				Seite.XObjects[face.psName().replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "_" )+QString::number(ig.key())] = fontGlyphXForm;
-			}
-		}
-		else if (Options.SubsetList.contains(it.key()))
-		{
-			// use PDF Type3 font
-			UsedFontsP.insert(it.key(), "/Fo"+QString::number(a));
-			uint SubFonts = 0;
-			int glyphCount = 0;
-			double minx =  std::numeric_limits<double>::max();
-			double miny =  std::numeric_limits<double>::max();
-			double maxx = -std::numeric_limits<double>::max();
-			double maxy = -std::numeric_limits<double>::max();
-			QList<uint> glyphWidths;
-			QStringList charProcs;
-			QString encoding = "<< /Type /Encoding\n/Differences [ 0\n";
-			QString fon("");
-			QMap<uint, uint> glyphMapping;
-			QMap<uint,std::pair<QChar,QString> > gl;
-			face.glyphNames(gl);
-			QMap<uint,FPointArray>& RealGlyphs(it.value());
-			QMap<uint,FPointArray>::Iterator ig;
-			for (ig = RealGlyphs.begin(); ig != RealGlyphs.end(); ++ig)
-			{
-				FPoint np, np1, np2;
-				bool nPath = true;
-				fon = "";
-				if (ig.value().size() > 3)
-				{
-					FPointArray gly = ig.value();
-					QTransform mat;
-					mat.scale(100.0, -100.0);
-					gly.map(mat);
-					gly.translate(0, 1000);
-					for (int poi = 0; poi < gly.size()-3; poi += 4)
-					{
-						if (gly.isMarker(poi))
-						{
-							fon += "h\n";
-							nPath = true;
-							continue;
-						}
-						if (nPath)
-						{
-							np = gly.point(poi);
-							fon += FToStr(np.x())+" "+FToStr(np.y())+" m\n";
-							nPath = false;
-						}
-						np = gly.point(poi+1);
-						np1 = gly.point(poi+3);
-						np2 = gly.point(poi+2);
-						fon += FToStr(np.x()) + " " + FToStr(np.y()) + " " + FToStr(np1.x()) + " " + FToStr(np1.y()) + " " + FToStr(np2.x()) + " " + FToStr(np2.y()) + " c\n";
-					}
-					fon += "h f*\n";
-					np = getMinClipF(&gly);
-					np1 = getMaxClipF(&gly);
-				}
-				else
-				{
-					fon = "h";
-					np = FPoint(0, 0);
-					np1 = FPoint(0, 0);
-				}
-				fon.prepend(QString::number(qRound(np1.x())) + " 0 "+QString::number(qRound(np.x()))+" "+QString::number(qRound(np.y()))+" "+QString::number(qRound(np1.x()))+ " "+QString::number(qRound(np1.y()))+" d1\n");
-				minx = qMin(minx, np.x());
-				miny = qMin(miny, np.y());
-				maxx = qMax(maxx, np1.x());
-				maxy = qMax(maxy, np1.y());
-				glyphWidths.append(qRound(np1.x()));
-				uint charProcObject = newObject();
-				charProcs.append("/"+gl[ig.key()].second+" "+QString::number(charProcObject)+" 0 R\n");
-				encoding += "/"+gl[ig.key()].second+" ";
-				glyphMapping.insert(ig.key(), glyphCount + SubFonts * 256);
-				StartObj(charProcObject);
-				if (Options.Compress)
-					fon = CompressStr(&fon);
-				PutDoc("<< /Length "+QString::number(fon.length()+1));
-				if (Options.Compress)
-					PutDoc("\n/Filter /FlateDecode");
-				PutDoc("\n>>\nstream\n"+EncStream(fon, charProcObject)+"\nendstream\nendobj\n");
-				glyphCount++;
-				int glyphsLeft = RealGlyphs.count() - SubFonts * 256;
-				if ((glyphCount > 255) || (glyphCount == glyphsLeft))
-				{
-					uint fontWidths = newObject();
-					StartObj(fontWidths);
-					PutDoc("[ ");
-					for (int ww = 0; ww < glyphWidths.count(); ++ww)
-					{
-						PutDoc(QString::number(glyphWidths[ww])+" ");
-					}
-					PutDoc("]\nendobj\n");
-					uint fontCharProcs = newObject();
-					StartObj(fontCharProcs);
-					PutDoc("<<\n");
-					for (int ww = 0; ww < charProcs.count(); ++ww)
-					{
-						PutDoc(charProcs[ww]);
-					}
-					PutDoc(">>\nendobj\n");
-					uint fontEncoding = newObject();
-					StartObj(fontEncoding);
-					PutDoc(encoding);
-					PutDoc("]\n");
-					PutDoc(">>\nendobj\n");
-					uint font3Object = newObject();
-					StartObj(font3Object);
-					PutDoc("<<\n/Type /Font\n/Subtype /Type3\n");
-					PutDoc("/Name /Fo"+QString::number(a)+"S"+QString::number(SubFonts)+"\n");
-					PutDoc("/FirstChar 0\n");
-					PutDoc("/LastChar "+QString::number(glyphCount-1)+"\n");
-					PutDoc("/Widths "+QString::number(fontWidths)+" 0 R\n");
-					PutDoc("/CharProcs "+QString::number(fontCharProcs)+" 0 R\n");
-					PutDoc("/FontBBox ["+QString::number(qRound(minx))+" "+QString::number(qRound(miny))+" "+QString::number(qRound(maxx))+ " "+QString::number(qRound(maxy))+"]\n");
-					PutDoc("/FontMatrix [0.001 0 0 0.001 0 0]\n");
-					PutDoc("/Encoding "+QString::number(fontEncoding)+" 0 R\n");
-					PutDoc(">>\nendobj\n");
-					Seite.FObjects["Fo"+QString::number(a)+"S"+QString::number(SubFonts)] = font3Object;
-					charProcs.clear();
-					glyphWidths.clear();
-//					glyphMapping.clear();
-					glyphCount = 0;
-					++SubFonts;
-					minx =  std::numeric_limits<double>::max();
-					miny =  std::numeric_limits<double>::max();
-					maxx = -std::numeric_limits<double>::max();
-					maxy = -std::numeric_limits<double>::max();
-					encoding = "<< /Type /Encoding\n/Differences [ 0\n";
-				}
-			}
-			Type3Fonts.insert("/Fo"+QString::number(a), glyphMapping);
-		}
-		else
-		{
-			UsedFontsP.insert(it.key(), "/Fo"+QString::number(a));
-			uint embeddedFontObject = 0;
-			if ((fformat == ScFace::PFB) && (Options.EmbedList.contains(it.key())))
-			{
-				QString fon("");
-				QByteArray bb;
-				embeddedFontObject = newObject();
-				StartObj(embeddedFontObject);
-				face.RawData(bb);
-				int posi;
-				for (posi = 6; posi < bb.size(); ++posi)
-				{
-					if ((bb[posi] == static_cast<char>(0x80)) && (static_cast<int>(bb[posi+1]) == 2))
-						break;
-					fon += QChar(bb[posi]);
-				}
-				int len1 = fon.length();
-				int ulen;
-				ulen = bb[posi+2] & 0xff;
-				ulen |= (bb[posi+3] << 8) & 0xff00;
-				ulen |= (bb[posi+4] << 16) & 0xff0000;
-				ulen |= (bb[posi+5] << 24) & 0xff000000;
-				if (ulen > bb.size())
-					ulen = bb.size()-7;
-				posi += 6;
-				for (int j = 0; j < ulen; ++j)
-					fon += QChar(bb[posi++]);
-				posi += 6;
-				int len2 = fon.length()-len1;
-				for (int j = posi; j < bb.size(); ++j)
-				{
-					if ((bb[j] == static_cast<char>(0x80)) && (static_cast<int>(bb[j+1]) == 3))
-						break;
-					if (bb[j] == '\r')
-						fon += "\n";
-					else
-						fon += QChar(bb[j]);
-				}
-				int len3 = fon.length()-len2-len1;
-				if (Options.Compress)
-					fon = CompressStr(&fon);
-				PutDoc("<<\n/Length "+QString::number(fon.length()+1)+"\n");
-				PutDoc("/Length1 "+QString::number(len1)+"\n");
-				PutDoc("/Length2 "+QString::number(len2)+"\n");
-				PutDoc("/Length3 "+QString::number(len3)+"\n");
-				if (Options.Compress)
-					PutDoc("/Filter /FlateDecode\n");
-				PutDoc(">>\nstream\n"+EncStream(fon,embeddedFontObject)+"\nendstream\nendobj\n");
-			}
-			if ((fformat == ScFace::PFA) && (Options.EmbedList.contains(it.key())))
-			{
-				QString fon("");
-				QString fon2("");
-				QString tm("");
-				uint value;
-				bool ok = true;
-				embeddedFontObject = newObject();
-				StartObj(embeddedFontObject);
-				face.EmbedFont(fon);
-				int len1 = fon.indexOf("eexec")+5;
-				fon2 = fon.left(len1)+"\n";
-				int len2 = fon.indexOf("0000000000000000000000000");
-				if (len2 == -1)
-					len2 = fon.length()+1;
-				int count = 0;
-				for (int xx = len1; xx < len2-1; ++xx)
-				{
-					tm = fon.at(xx);
-					if ((tm == QChar(13)) || (tm == QChar(10)))
-						continue;
-					xx++;
-					count++;
-					tm += fon.at(xx);
-					value = tm.toUInt(&ok, 16);
-					fon2 += QChar(value);
-				}
-				fon2 += fon.mid(len2);
-				if (Options.Compress)
-					fon2 = CompressStr(&fon2);
-				PutDoc("<<\n/Length "+QString::number(fon2.length()+1)+"\n");
-				PutDoc("/Length1 "+QString::number(len1+1)+"\n");
-				PutDoc("/Length2 "+QString::number(count)+"\n");
-				PutDoc(static_cast<int>(fon.length()-len2) == -1 ? QString("/Length3 0\n") : "/Length3 "+QString::number(fon.length()-len2)+"\n");
-				if (Options.Compress)
-					PutDoc("/Filter /FlateDecode\n");
-				PutDoc(">>\nstream\n"+EncStream(fon2, embeddedFontObject)+"\nendstream\nendobj\n");
-			}
-			if ((fformat == ScFace::SFNT || fformat == ScFace::TTCF) && (Options.EmbedList.contains(it.key())))
-			{
-				QByteArray bb;
-				embeddedFontObject = newObject();
-				StartObj(embeddedFontObject);
-				face.RawData(bb);
-				int len = bb.length();
-				if (Options.Compress)
-					bb = CompressArray(bb);
-				//qDebug() << QString("sfnt data: size=%1 compressed=%2").arg(len).arg(bb.length());
-				PutDoc("<<\n/Length " + QString::number(bb.length() + 1) + "\n");
-				PutDoc("/Length1 " + QString::number(len) + "\n");
-				if (Options.Compress)
-					PutDoc("/Filter /FlateDecode\n");
-				PutDoc(">>\nstream\n");
-				EncodeArrayToStream(bb, embeddedFontObject);
-				PutDoc("\nendstream\nendobj\n");
-			}
-			uint fontDescriptor = newObject();
-			StartObj(fontDescriptor);
-			// TODO: think about QByteArray ScFace::getFontDescriptor() -- AV
-			PutDoc("<<\n/Type /FontDescriptor\n");
-			PutDoc("/FontName /"  + face.psName().replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "_" ) + "\n");
-			PutDoc("/FontBBox [ " + face.pdfFontBBoxAsString() + " ]\n");
-			PutDoc("/Flags ");
-			//FIXME: isItalic() should be queried from ScFace, not from Qt -- AV
-			//QFontInfo fo = QFontInfo(it.data());
-			int pfl = 0;
-			if (face.isFixedPitch())
-				pfl = pfl ^ 1;
-			//if (fo.italic())
-			if (AllFonts[it.key()].italicAngleAsString() != "0")
-				pfl = pfl ^ 64;
-//			pfl = pfl ^ 4;
-			pfl = pfl ^ 32;
-			PutDoc(QString::number(pfl)+"\n");
-			PutDoc("/Ascent "      + face.pdfAscentAsString()+"\n");
-			PutDoc("/Descent "     + face.pdfDescentAsString()+"\n");
-			PutDoc("/CapHeight "   + face.pdfCapHeightAsString()+"\n");
-			PutDoc("/ItalicAngle " + face.italicAngleAsString()+"\n");
-			PutDoc("/StemV 1\n");
-			if ((fformat == ScFace::SFNT || fformat == ScFace::TTCF) && (Options.EmbedList.contains(it.key())))
-				PutDoc("/FontFile2 "+QString::number(embeddedFontObject)+" 0 R\n");
-			if ((fformat == ScFace::PFB) && (Options.EmbedList.contains(it.key())))
-				PutDoc("/FontFile "+QString::number(embeddedFontObject)+" 0 R\n");
-			if ((fformat == ScFace::PFA) && (Options.EmbedList.contains(it.key())))
-				PutDoc("/FontFile "+QString::number(embeddedFontObject)+" 0 R\n");
-			PutDoc(">>\nendobj\n");
+    return ReallyUsed;
+}
 
-			QMap<uint,std::pair<QChar,QString> > gl;
-			face.glyphNames(gl);
-			int nglyphs = 0;
-			QMap<uint,std::pair<QChar,QString> >::Iterator gli;
-			for (gli = gl.begin(); gli != gl.end(); ++gli)
-			{
-				if (gli.key() > static_cast<uint>(nglyphs))
-					nglyphs = gli.key();
-			}
-			++nglyphs;
-//			qDebug() << QString("pdflib: nglyphs %1 max %2").arg(nglyphs).arg(face.maxGlyph());
-			uint FontDes = fontDescriptor;
-			if ((face.isSymbolic() || !face.hasNames() || Options.Version == PDFOptions::PDFVersion_X4) && 
-				(fformat == ScFace::SFNT || fformat == ScFace::TTCF))
-			{
-				uint fontWidths2 = newObject();
-				StartObj(fontWidths2);
-				QStringList toUnicodeMaps;
-				QList<int> toUnicodeMapsCount;
-				QString toUnicodeMap = "";
-				int toUnicodeMapCounter = 0;
+static QByteArray sanitizeFontName(QString fn)
+{
+    return Pdf::toPdfDocEncoding(fn.replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "_" ));
+}
 
-				PutDoc("[ ");
-				QList<uint> keys = gl.uniqueKeys();
-				QList<uint>::iterator git;
-				for (git = keys.begin(); git != keys.end(); ++git)
-				{
-					PutDoc(QString::number(*git)+" ["+QString::number(static_cast<int>(face.glyphWidth(*git)* 1000))+"] " );
-					QString tmp, tmp2;
-					tmp.sprintf("%04X", *git);
-					tmp2.sprintf("%04X", gl.value(*git).first.unicode());
-					toUnicodeMap += QString("<%1> <%2>\n").arg(tmp).arg((tmp2));
-					toUnicodeMapCounter++;
-					if (toUnicodeMapCounter == 100)
-					{
-						toUnicodeMaps.append(toUnicodeMap);
-						toUnicodeMapsCount.append(toUnicodeMapCounter);
-						toUnicodeMap = "";
-						toUnicodeMapCounter = 0;
-					}
-				}
-				PutDoc("]\nendobj\n");
-				if (toUnicodeMapCounter != 0)
-				{
-					toUnicodeMaps.append(toUnicodeMap);
-					toUnicodeMapsCount.append(toUnicodeMapCounter);
-				}
-				QString toUnicodeMapStream = "";
-				toUnicodeMapStream += "/CIDInit /ProcSet findresource begin\n";
-				toUnicodeMapStream += "12 dict begin\n";
-				toUnicodeMapStream += "begincmap\n";
-				toUnicodeMapStream += "/CIDSystemInfo <<\n";
-				toUnicodeMapStream += "/Registry (Adobe)\n";
-				toUnicodeMapStream += "/Ordering (UCS)\n";
-				toUnicodeMapStream += "/Supplement 0\n";
-				toUnicodeMapStream += ">> def\n";
-				toUnicodeMapStream += "/CMapName /Adobe-Identity-UCS def\n";
-				toUnicodeMapStream += "/CMapType 2 def\n";
-				toUnicodeMapStream += "1 begincodespacerange\n";
-				toUnicodeMapStream += "<0000> <FFFF>\n";
-				toUnicodeMapStream += "endcodespacerange\n";
-				for (int uniC = 0; uniC < toUnicodeMaps.count(); uniC++)
-				{
-					toUnicodeMapStream += QString("%1 beginbfchar\n").arg(toUnicodeMapsCount[uniC]);
-					toUnicodeMapStream += toUnicodeMaps[uniC];
-					toUnicodeMapStream += "endbfchar\n";
-				}
-				toUnicodeMapStream += "endcmap\n";
-				toUnicodeMapStream += "CMapName currentdict /CMap defineresource pop\n";
-				toUnicodeMapStream += "end\n";
-				toUnicodeMapStream += "end\n";
-				uint fontToUnicode2 = WritePDFStream(toUnicodeMapStream);
-				uint fontObject2 = newObject();
-				StartObj(fontObject2);
-				PutDoc("<<\n/Type /Font\n/Subtype /Type0\n");
-				PutDoc("/Name /Fo"+QString::number(a)+"\n");
-				PutDoc("/BaseFont /"+face.psName().replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "_" )+"\n");
-				PutDoc("/Encoding /Identity-H\n");
-				PutDoc("/ToUnicode "+QString::number(fontToUnicode2)+" 0 R\n");
-				PutDoc("/DescendantFonts [");
-				PutDoc("<</Type /Font");
-				PutDoc("/Subtype /CIDFontType2");
-				PutDoc("/BaseFont /"+face.psName().replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "_" ));
-				PutDoc("/FontDescriptor "+QString::number(FontDes)+" 0 R");
-				PutDoc("/CIDSystemInfo <</Ordering(Identity)/Registry(Adobe)/Supplement 0>>");
-				PutDoc("/DW 1000");
-				PutDoc("/W "+QString::number(fontWidths2)+" 0 R");
-				PutDoc("/CIDToGIDMap /Identity");
-				PutDoc(">>"); // close CIDFont dictionary
-				PutDoc("]\n"); // close DescendantFonts array
-				PutDoc(">>\nendobj\n");
-				Seite.FObjects["Fo"+QString::number(a)] = fontObject2;
-			}
-			else
-			{
-				uint Fcc = nglyphs / 224;
-				if ((nglyphs % 224) != 0)
-					Fcc += 1;
-				for (uint Fc = 0; Fc < Fcc; ++Fc)
-				{
-					uint fontWidths2 = newObject();
-					StartObj(fontWidths2);
-					int chCount = 32;
-					PutDoc("[ 0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 ");
-					for (int ww = 32; ww < 256; ++ww)
-					{
-						uint glyph = 224 * Fc + ww - 32;
-						if (gl.contains(glyph))
-							PutDoc(QString::number(static_cast<int>(face.glyphWidth(glyph)* 1000))+" ");
-						else
-							PutDoc("0 ");
-						chCount++;
-						if (signed(glyph) == nglyphs-1)
-							break;
-					}
-					PutDoc("]\nendobj\n");
-					uint fontEncoding2 = newObject();
-					StartObj(fontEncoding2);
-					QStringList toUnicodeMaps;
-					QList<int> toUnicodeMapsCount;
-					QString toUnicodeMap = "";
-					int toUnicodeMapCounter = 0;
-					PutDoc("<< /Type /Encoding\n");
-					PutDoc("/Differences [ \n");
-					int crc = 0;
-					bool startOfSeq = true;
-					for (int ww2 = 32; ww2 < 256; ++ww2)
-					{
-						uint glyph = 224 * Fc + ww2 - 32;
-						QMap<uint,std::pair<QChar,QString> >::Iterator glIt = gl.find(glyph);
-						if (glIt != gl.end() && !glIt.value().second.isEmpty())
-						{
-							if (startOfSeq)
-							{
-								PutDoc(QString::number(ww2)+" ");
-								startOfSeq = false;
-							}
-							PutDoc("/"+glIt.value().second+" ");
-							QString tmp, tmp2;
-							tmp.sprintf("%02X", ww2);
-							tmp2.sprintf("%04X", glIt.value().first.unicode());
-							toUnicodeMap += QString("<%1> <%2>\n").arg(tmp).arg((tmp2));
-							toUnicodeMapCounter++;
-							if (toUnicodeMapCounter == 100)
-							{
-								toUnicodeMaps.append(toUnicodeMap);
-								toUnicodeMapsCount.append(toUnicodeMapCounter);
-								toUnicodeMap = "";
-								toUnicodeMapCounter = 0;
-							}
-							crc++;
-						}
-						else
-						{
-							startOfSeq = true;
-						}
-						if (signed(glyph) == nglyphs-1)
-							break;
-						if (crc > 8)
-						{
-							PutDoc("\n");
-							crc = 0;
-						}
-					}
-					if (toUnicodeMapCounter != 0)
-					{
-						toUnicodeMaps.append(toUnicodeMap);
-						toUnicodeMapsCount.append(toUnicodeMapCounter);
-					}
-					PutDoc("]\n");
-					PutDoc(">>\nendobj\n");
-					QString toUnicodeMapStream = "";
-					toUnicodeMapStream += "/CIDInit /ProcSet findresource begin\n";
-					toUnicodeMapStream += "12 dict begin\n";
-					toUnicodeMapStream += "begincmap\n";
-					toUnicodeMapStream += "/CIDSystemInfo <<\n";
-					toUnicodeMapStream += "/Registry (Adobe)\n";
-					toUnicodeMapStream += "/Ordering (UCS)\n";
-					toUnicodeMapStream += "/Supplement 0\n";
-					toUnicodeMapStream += ">> def\n";
-					toUnicodeMapStream += "/CMapName /Adobe-Identity-UCS def\n";
-					toUnicodeMapStream += "/CMapType 2 def\n";
-					toUnicodeMapStream += "1 begincodespacerange\n";
-					toUnicodeMapStream += "<0000> <FFFF>\n";
-					toUnicodeMapStream += "endcodespacerange\n";
-					for (int uniC = 0; uniC < toUnicodeMaps.count(); uniC++)
-					{
-						toUnicodeMapStream += QString("%1 beginbfchar\n").arg(toUnicodeMapsCount[uniC]);
-						toUnicodeMapStream += toUnicodeMaps[uniC];
-						toUnicodeMapStream += "endbfchar\n";
-					}
-					toUnicodeMapStream += "endcmap\n";
-					toUnicodeMapStream += "CMapName currentdict /CMap defineresource pop\n";
-					toUnicodeMapStream += "end\n";
-					toUnicodeMapStream += "end\n";
-					uint fontToUnicode2 = WritePDFStream(toUnicodeMapStream);
-					uint fontObject2 = newObject();
-					StartObj(fontObject2);
-					PutDoc("<<\n/Type /Font\n/Subtype ");
-					PutDoc((fformat == ScFace::SFNT || fformat == ScFace::TTCF) ? "/TrueType\n" : "/Type1\n");
-					PutDoc("/Name /Fo"+QString::number(a)+"S"+QString::number(Fc)+"\n");
-					PutDoc("/BaseFont /"+face.psName().replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "_" )+"\n");
-					PutDoc("/FirstChar 0\n");
-					PutDoc("/LastChar "+QString::number(chCount-1)+"\n");
-					PutDoc("/Widths "+QString::number(fontWidths2)+" 0 R\n");
-					PutDoc("/Encoding "+QString::number(fontEncoding2)+" 0 R\n");
-					PutDoc("/ToUnicode "+QString::number(fontToUnicode2)+" 0 R\n");
-					PutDoc("/FontDescriptor "+QString::number(FontDes)+" 0 R\n");
-					PutDoc(">>\nendobj\n");
-					Seite.FObjects["Fo"+QString::number(a)+"S"+QString::number(Fc)] = fontObject2;
-				} // for(Fc)
-				uint fontWidthsForm = newObject();
-				StartObj(fontWidthsForm);
-				PutDoc("[ 0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 ");
-				for (int ww = 32; ww < 256; ++ww)
-				{
-					uint glyph = face.char2CMap(QChar(ww));
-					if (gl.contains(glyph))
-						PutDoc(QString::number(static_cast<int>(face.glyphWidth(glyph)* 1000))+" ");
-					else
-						PutDoc("0 ");
-				}
-				PutDoc("]\nendobj\n");
-				uint fontObjectForm = newObject();
-				StartObj(fontObjectForm);
-				PutDoc("<<\n/Type /Font\n/Subtype ");
-				PutDoc((fformat == ScFace::SFNT || fformat == ScFace::TTCF) ? "/TrueType\n" : "/Type1\n");
-//				if (fformat == ScFace::SFNT || fformat == ScFace::TTCF)
-//				{
-//					PutDoc("/TrueType\n");
-					PutDoc("/Name /Fo"+QString::number(a)+"Form"+"\n");
-					Seite.FObjects["Fo"+QString::number(a)+"Form"] = fontObjectForm;
-					UsedFontsF.insert(it.key(), "/Fo"+QString::number(a)+"Form");
-/*				}
-				else
-				{
-					PutDoc("/Type1\n");
-					PutDoc("/Name /"+face.psName().replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "_" )+"\n");
-					Seite.FObjects[face.psName().replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "_" )] = ObjCounter;
-					UsedFontsF.insert(it.key(), "/"+face.psName().replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "_" ));
-				} */
-				PutDoc("/BaseFont /"+face.psName().replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "_" )+"\n");
-				PutDoc("/Encoding << \n");
-				PutDoc("/Differences [ \n");
-				PutDoc("24 /breve /caron /circumflex /dotaccent /hungarumlaut /ogonek /ring /tilde\n");
-				PutDoc("39 /quotesingle 96 /grave 128 /bullet /dagger /daggerdbl /ellipsis /emdash /endash /florin /fraction /guilsinglleft /guilsinglright\n");
-				PutDoc("/minus /perthousand /quotedblbase /quotedblleft /quotedblright /quoteleft /quoteright /quotesinglbase /trademark /fi /fl /Lslash /OE /Scaron\n");
-				PutDoc("/Ydieresis /Zcaron /dotlessi /lslash /oe /scaron /zcaron 164 /currency 166 /brokenbar 168 /dieresis /copyright /ordfeminine 172 /logicalnot\n");
-				PutDoc("/.notdef /registered /macron /degree /plusminus /twosuperior /threesuperior /acute /mu 183 /periodcentered /cedilla /onesuperior /ordmasculine\n");
-				PutDoc("188 /onequarter /onehalf /threequarters 192 /Agrave /Aacute /Acircumflex /Atilde /Adieresis /Aring /AE /Ccedilla /Egrave /Eacute /Ecircumflex\n");
-				PutDoc("/Edieresis /Igrave /Iacute /Icircumflex /Idieresis /Eth /Ntilde /Ograve /Oacute /Ocircumflex /Otilde /Odieresis /multiply /Oslash\n");
-				PutDoc("/Ugrave /Uacute /Ucircumflex /Udieresis /Yacute /Thorn /germandbls /agrave /aacute /acircumflex /atilde /adieresis /aring /ae /ccedilla\n");
-				PutDoc("/egrave /eacute /ecircumflex /edieresis /igrave /iacute /icircumflex /idieresis /eth /ntilde /ograve /oacute /ocircumflex /otilde /odieresis\n");
-				PutDoc("/divide /oslash /ugrave /uacute /ucircumflex /udieresis /yacute /thorn /ydieresis\n");
-				PutDoc("] >>\n");
-				PutDoc("/FirstChar 0\n");
-				PutDoc("/LastChar 255\n");
-				PutDoc("/Widths "+QString::number(fontWidthsForm)+" 0 R\n");
-				PutDoc("/FontDescriptor "+QString::number(FontDes)+" 0 R\n");
-				PutDoc(">>\nendobj\n");
-			}
-		}
-		a++;
-	}
+static QList<Pdf::Resource> asColorSpace(QList<PdfICCD> iccCSlist)
+{
+    QList<Pdf::Resource> result;
+    foreach (Pdf::Resource r, iccCSlist)
+    {
+        result.append(r);
+    }
+    return result;
+}
+
+static QList<Pdf::Resource> asColorSpace(QList<PdfSpotC> spotMapValues)
+{
+    QList<Pdf::Resource> result;
+    foreach (Pdf::Resource r, spotMapValues)
+    {
+        result.append(r);
+    }
+    return result;
+}
+
+
+void PDFLibCore::PDF_WriteStandardFonts()
+{
+    int a = 0;
+    QMap<QString, QString>::Iterator itStd;
+    for (itStd = StdFonts.begin(); itStd != StdFonts.end(); ++itStd)
+    {
+        PdfId fontObject = writer.newObject();
+        writer.startObj(fontObject);
+        PutDoc("<<\n/Type /Font\n/Subtype /Type1\n");
+        PutDoc("/Name /FoStd"+Pdf::toPdf(a)+"\n");
+        PutDoc("/BaseFont "+Pdf::toPdfDocEncoding(itStd.key())+"\n");
+        if (itStd.key() != "/ZapfDingbats")
+        {
+            PutDoc("/Encoding << \n");
+            PutDoc("/Differences [ \n");
+            PutDoc("24 /breve /caron /circumflex /dotaccent /hungarumlaut /ogonek /ring /tilde\n");
+            PutDoc("39 /quotesingle 96 /grave 128 /bullet /dagger /daggerdbl /ellipsis /emdash /endash /florin /fraction /guilsinglleft /guilsinglright\n");
+            PutDoc("/minus /perthousand /quotedblbase /quotedblleft /quotedblright /quoteleft /quoteright /quotesinglbase /trademark /fi /fl /Lslash /OE /Scaron\n");
+            PutDoc("/Ydieresis /Zcaron /dotlessi /lslash /oe /scaron /zcaron 164 /currency 166 /brokenbar 168 /dieresis /copyright /ordfeminine 172 /logicalnot\n");
+            PutDoc("/.notdef /registered /macron /degree /plusminus /twosuperior /threesuperior /acute /mu 183 /periodcentered /cedilla /onesuperior /ordmasculine\n");
+            PutDoc("188 /onequarter /onehalf /threequarters 192 /Agrave /Aacute /Acircumflex /Atilde /Adieresis /Aring /AE /Ccedilla /Egrave /Eacute /Ecircumflex\n");
+            PutDoc("/Edieresis /Igrave /Iacute /Icircumflex /Idieresis /Eth /Ntilde /Ograve /Oacute /Ocircumflex /Otilde /Odieresis /multiply /Oslash\n");
+            PutDoc("/Ugrave /Uacute /Ucircumflex /Udieresis /Yacute /Thorn /germandbls /agrave /aacute /acircumflex /atilde /adieresis /aring /ae /ccedilla\n");
+            PutDoc("/egrave /eacute /ecircumflex /edieresis /igrave /iacute /icircumflex /idieresis /eth /ntilde /ograve /oacute /ocircumflex /otilde /odieresis\n");
+            PutDoc("/divide /oslash /ugrave /uacute /ucircumflex /udieresis /yacute /thorn /ydieresis\n");
+            PutDoc("] >>\n");
+        }
+        PutDoc(">>");
+        writer.endObj(fontObject);
+        pageData.FObjects["FoStd"+Pdf::toPdf(a)] = fontObject;
+        itStd.value() = "FoStd"+Pdf::toPdf(a);
+        a++;
+    }
+}
+
+
+PdfFont PDFLibCore::PDF_WriteType3Font(const QByteArray& name, ScFace& face, const QMap<uint,FPointArray>& RealGlyphs)
+{
+    PdfFont result;
+    result.name = Pdf::toName(name);
+    result.method = Use_Type3;
+    result.encoding = Encode_256;
+
+    uint SubFonts = 0;
+    int glyphCount = 0;
+    double minx =  std::numeric_limits<double>::max();
+    double miny =  std::numeric_limits<double>::max();
+    double maxx = -std::numeric_limits<double>::max();
+    double maxy = -std::numeric_limits<double>::max();
+    QList<uint> glyphWidths;
+    QList<QByteArray> charProcs;
+    QByteArray encoding = "<< /Type /Encoding\n/Differences [ 0\n";
+    QByteArray fon;
+    QMap<uint, uint> glyphMapping;
+    ScFace::FaceEncoding gl;
+    face.glyphNames(gl);
+    QMap<uint,FPointArray>::ConstIterator ig;
+    for (ig = RealGlyphs.cbegin(); ig != RealGlyphs.cend(); ++ig)
+    {
+        FPoint np, np1, np2;
+        bool nPath = true;
+        fon.resize(0);
+        if (ig.value().size() > 3)
+        {
+            FPointArray gly = ig.value();
+            QTransform mat;
+            mat.scale(100.0, -100.0);
+            gly.map(mat);
+            gly.translate(0, 1000);
+            for (int poi = 0; poi < gly.size()-3; poi += 4)
+            {
+                if (gly.isMarker(poi))
+                {
+                    fon += "h\n";
+                    nPath = true;
+                    continue;
+                }
+                if (nPath)
+                {
+                    np = gly.point(poi);
+                    fon += FToStr(np.x())+" "+FToStr(np.y())+" m\n";
+                    nPath = false;
+                }
+                np = gly.point(poi+1);
+                np1 = gly.point(poi+3);
+                np2 = gly.point(poi+2);
+                fon += FToStr(np.x()) + " " + FToStr(np.y()) + " " + FToStr(np1.x()) + " " + FToStr(np1.y()) + " " + FToStr(np2.x()) + " " + FToStr(np2.y()) + " c\n";
+            }
+            fon += "h f*\n";
+            np = getMinClipF(&gly);
+            np1 = getMaxClipF(&gly);
+        }
+        else
+        {
+            fon = "h";
+            np = FPoint(0, 0);
+            np1 = FPoint(0, 0);
+        }
+        fon.prepend(Pdf::toPdf(qRound(np1.x())) + " 0 "+Pdf::toPdf(qRound(np.x()))+" "+Pdf::toPdf(qRound(np.y()))+" "+Pdf::toPdf(qRound(np1.x()))+ " "+Pdf::toPdf(qRound(np1.y()))+" d1\n");
+        minx = qMin(minx, np.x());
+        miny = qMin(miny, np.y());
+        maxx = qMax(maxx, np1.x());
+        maxy = qMax(maxy, np1.y());
+        glyphWidths.append(qRound(np1.x()));
+        PdfId charProcObject = writer.newObject();
+        charProcs.append(Pdf::toName(gl[ig.key()].second)+" "+Pdf::toPdf(charProcObject)+" 0 R\n");
+        encoding += Pdf::toName(gl[ig.key()].second)+" ";
+        glyphMapping.insert(ig.key(), glyphCount + SubFonts * 256);
+        writer.startObj(charProcObject);
+        if (Options.Compress)
+            fon = CompressArray(fon);
+        PutDoc("<< /Length "+Pdf::toPdf(fon.length()+1));
+        if (Options.Compress)
+            PutDoc("\n/Filter /FlateDecode");
+        PutDoc("\n>>\nstream\n"+EncStream(fon, charProcObject)+"\nendstream");
+        writer.endObj(charProcObject);
+        glyphCount++;
+        int glyphsLeft = RealGlyphs.count() - SubFonts * 256;
+        if ((glyphCount > 255) || (glyphCount == glyphsLeft))
+        {
+            PdfId fontWidths = writer.newObject();
+            writer.startObj(fontWidths);
+            PutDoc("[ ");
+            for (int ww = 0; ww < glyphWidths.count(); ++ww)
+            {
+                PutDoc(Pdf::toPdf(glyphWidths[ww])+" ");
+            }
+            PutDoc("]");
+            writer.endObj(fontWidths);
+            PdfId fontCharProcs = writer.newObject();
+            writer.startObj(fontCharProcs);
+            PutDoc("<<\n");
+            for (int ww = 0; ww < charProcs.count(); ++ww)
+            {
+                PutDoc(charProcs[ww]);
+            }
+            PutDoc(">>");
+            writer.endObj(fontCharProcs);
+            PdfId fontEncoding = writer.newObject();
+            writer.startObj(fontEncoding);
+            PutDoc(encoding);
+            PutDoc("]\n");
+            PutDoc(">>");
+            writer.endObj(fontEncoding);
+            PdfId font3Object = writer.newObject();
+            writer.startObj(font3Object);
+            PutDoc("<<\n/Type /Font\n/Subtype /Type3\n");
+            PutDoc("/Name /"+name+"S"+Pdf::toPdf(SubFonts)+"\n");
+            PutDoc("/FirstChar 0\n");
+            PutDoc("/LastChar "+Pdf::toPdf(glyphCount-1)+"\n");
+            PutDoc("/Widths "+Pdf::toPdf(fontWidths)+" 0 R\n");
+            PutDoc("/CharProcs "+Pdf::toPdf(fontCharProcs)+" 0 R\n");
+            PutDoc("/FontBBox ["+Pdf::toPdf(qRound(minx))+" "+Pdf::toPdf(qRound(miny))+" "+Pdf::toPdf(qRound(maxx))+ " "+Pdf::toPdf(qRound(maxy))+"]\n");
+            PutDoc("/FontMatrix [0.001 0 0 0.001 0 0]\n");
+            PutDoc("/Encoding "+Pdf::toPdf(fontEncoding)+" 0 R\n");
+            PutDoc(">>");
+            writer.endObj(font3Object);
+            pageData.FObjects[name+"S"+Pdf::toPdf(SubFonts)] = font3Object;
+            charProcs.clear();
+            glyphWidths.clear();
+            //						glyphMapping.clear();
+            glyphCount = 0;
+            ++SubFonts;
+            minx =  std::numeric_limits<double>::max();
+            miny =  std::numeric_limits<double>::max();
+            maxx = -std::numeric_limits<double>::max();
+            maxy = -std::numeric_limits<double>::max();
+            encoding = "<< /Type /Encoding\n/Differences [ 0\n";
+        }
+    }
+    result.glyphmap = glyphMapping;
+    return result;
+}
+
+
+PdfFont PDFLibCore::PDF_WriteGlyphsAsXForms(const QByteArray& fontName, ScFace& face, const QMap<uint,FPointArray>& RealGlyphs)
+{
+    PdfFont result;
+    result.name = Pdf::toName(fontName);
+    result.method = Use_XForm;
+    result.encoding = Encode_224;
+
+    QByteArray fon;
+    QMap<uint,FPointArray>::ConstIterator ig;
+    for (ig = RealGlyphs.cbegin(); ig != RealGlyphs.cend(); ++ig)
+    {
+        FPoint np, np1, np2;
+        bool nPath = true;
+        fon.resize(0);
+        if (ig.value().size() > 3)
+        {
+            FPointArray gly = ig.value();
+            QTransform mat;
+            mat.scale(0.1, 0.1);
+            gly.map(mat);
+            for (int poi = 0; poi < gly.size()-3; poi += 4)
+            {
+                if (gly.isMarker(poi))
+                {
+                    fon += "h\n";
+                    nPath = true;
+                    continue;
+                }
+                if (nPath)
+                {
+                    np = gly.point(poi);
+                    fon += FToStr(np.x())+" "+FToStr(-np.y())+" m\n";
+                    nPath = false;
+                }
+                np = gly.point(poi+1);
+                np1 = gly.point(poi+3);
+                np2 = gly.point(poi+2);
+                fon += FToStr(np.x()) + " " + FToStr(-np.y()) + " " +
+                FToStr(np1.x()) + " " + FToStr(-np1.y()) + " " +
+                FToStr(np2.x()) + " " + FToStr(-np2.y()) + " c\n";
+            }
+            fon += "h f*\n";
+            np = getMinClipF(&gly);
+            np1 = getMaxClipF(&gly);
+        }
+        else
+        {
+            fon = "h";
+            np = FPoint(0, 0);
+            np1 = FPoint(0, 0);
+        }
+        PdfId fontGlyphXForm = writer.newObject();
+        writer.startObj(fontGlyphXForm);
+        PutDoc("<<\n/Type /XObject\n/Subtype /Form\n/FormType 1\n");
+        PutDoc("/BBox [ "+FToStr(np.x())+" "+FToStr(-np.y())+" "+FToStr(np1.x())+ " "+FToStr(-np1.y())+" ]\n");
+        PutDoc("/Resources << /ProcSet [/PDF /Text /ImageB /ImageC /ImageI]\n");
+        PutDoc(">>\n");
+        if (Options.Compress)
+            fon = CompressArray(fon);
+        PutDoc("/Length "+Pdf::toPdf(fon.length()+1));
+        if (Options.Compress)
+            PutDoc("\n/Filter /FlateDecode");
+        PutDoc(" >>\nstream\n"+EncStream(fon, fontGlyphXForm)+"\nendstream");
+        writer.endObj(fontGlyphXForm);
+        pageData.XObjects[fontName + Pdf::toPdf(ig.key())] = fontGlyphXForm;
+    }
+    return result;
+}
+
+PdfId PDFLibCore::PDF_EmbedFontObject(const QByteArray& font, const QByteArray& subtype)
+
+{
+    PdfId embeddedFontObject = writer.newObject();
+    writer.startObj(embeddedFontObject);
+    int len = font.length();
+    QByteArray ttf = (Options.Compress? CompressArray(font) : font);
+    //qDebug() << QString("sfnt data: size=%1 compressed=%2").arg(len).arg(bb.length());
+    PutDoc("<<\n/Length " + Pdf::toPdf(ttf.length() + 1) + "\n");
+    PutDoc("/Length1 " + Pdf::toPdf(len) + "\n");
+    if (subtype.size() > 0)
+        PutDoc("/Subtype " + subtype);
+    if (Options.Compress)
+        PutDoc("/Filter /FlateDecode\n");
+    PutDoc(">>\nstream\n");
+    EncodeArrayToStream(ttf, embeddedFontObject);
+    PutDoc("\nendstream");
+    writer.endObj(embeddedFontObject);
+    return embeddedFontObject;
+}
+
+PdfId PDFLibCore::PDF_WriteFontDescriptor(const QByteArray& fontName, ScFace& face, ScFace::FontFormat fformat, PdfId embeddedFontObject)
+{
+    PdfId fontDescriptor = writer.newObject();
+    writer.startObj(fontDescriptor);
+    // TODO: think about QByteArray ScFace::getFontDescriptor() -- AV
+    PutDoc("<<\n/Type /FontDescriptor\n");
+    PutDoc("/FontName "  + Pdf::toName(fontName) + "\n");
+    PutDoc("/FontBBox [ " + Pdf::toAscii(face.pdfFontBBoxAsString()) + " ]\n");
+    PutDoc("/Flags ");
+    //FIXME: isItalic() should be queried from ScFace, not from Qt -- AV
+    //QFontInfo fo = QFontInfo(it.data());
+    int pfl = 0;
+    if (face.isFixedPitch())
+        pfl = pfl ^ 1;
+    //if (fo.italic())
+    if (face.italicAngleAsString() != "0")
+        pfl = pfl ^ 64;
+    //			pfl = pfl ^ 4;
+    pfl = pfl ^ 32;
+    PutDoc(Pdf::toPdf(pfl)+"\n");
+    PutDoc("/Ascent "      + Pdf::toAscii(face.pdfAscentAsString())+"\n");
+    PutDoc("/Descent "     + Pdf::toAscii(face.pdfDescentAsString())+"\n");
+    PutDoc("/CapHeight "   + Pdf::toAscii(face.pdfCapHeightAsString())+"\n");
+    PutDoc("/ItalicAngle " + Pdf::toAscii(face.italicAngleAsString())+"\n");
+    PutDoc("/StemV 1\n");
+    if (embeddedFontObject != 0)
+    {
+        if (fformat == ScFace::SFNT || fformat == ScFace::TTCF)
+        {
+            if (face.type() == ScFace::OTF)
+            {
+                PutDoc("/FontFile3 "+Pdf::toPdf(embeddedFontObject)+" 0 R\n");
+            }
+            else
+            {
+                PutDoc("/FontFile2 "+Pdf::toPdf(embeddedFontObject)+" 0 R\n");
+            }
+        }
+        else if (fformat == ScFace::PFB)
+            PutDoc("/FontFile "+Pdf::toPdf(embeddedFontObject)+" 0 R\n");
+        else if (fformat == ScFace::PFA)
+            PutDoc("/FontFile "+Pdf::toPdf(embeddedFontObject)+" 0 R\n");
+    }
+    PutDoc(">>");
+    writer.endObj(fontDescriptor);
+    return fontDescriptor;
+}
+
+PdfFont PDFLibCore::PDF_EncodeCidFont(const QByteArray& fontName, ScFace& face, const QByteArray& baseFont, PdfId fontDes, const ScFace::FaceEncoding& gl, const QMap<uint,uint> glyphmap  )
+{
+    PdfFont result;
+    result.name = Pdf::toName(fontName);
+    result.method = glyphmap.isEmpty()? Use_Embedded : Use_Subset;
+    result.encoding = glyphmap.isEmpty()? Encode_IdentityH : Encode_Subset;
+    result.glyphmap = glyphmap;
+    
+    PdfId fontWidths2 = writer.newObject();
+    writer.startObj(fontWidths2);
+    QList<QByteArray> toUnicodeMaps;
+    QList<int> toUnicodeMapsCount;
+    QByteArray toUnicodeMap = "";
+    int toUnicodeMapCounter = 0;
+    
+    PutDoc("[ ");
+    QList<uint> keys = gl.uniqueKeys();
+    QList<uint>::iterator git;
+    bool seenNotDef = false;
+    for (git = keys.begin(); git != keys.end(); ++git)
+    {
+        uint gid = result.encoding == Encode_Subset? glyphmap[*git] : *git;
+        if (gid > 0 || !seenNotDef)
+        {
+            seenNotDef |= (gid == 0);
+            PutDoc(Pdf::toPdf(gid)+" ["+Pdf::toPdf(static_cast<int>(face.glyphWidth(*git)* 1000))+"] " );
+            QString tmp, tmp2;
+            tmp.sprintf("%04X", gid);
+            tmp2.sprintf("%04X", gl.value(*git).first);
+            toUnicodeMap += "<" + Pdf::toAscii(tmp)+ "> <" + Pdf::toAscii(tmp2) + ">\n";
+            toUnicodeMapCounter++;
+            if (toUnicodeMapCounter == 100)
+            {
+                toUnicodeMaps.append(toUnicodeMap);
+                toUnicodeMapsCount.append(toUnicodeMapCounter);
+                toUnicodeMap = "";
+                toUnicodeMapCounter = 0;
+            }
+        }
+    }
+    PutDoc("]");
+    writer.endObj(fontWidths2);
+    if (toUnicodeMapCounter != 0)
+    {
+        toUnicodeMaps.append(toUnicodeMap);
+        toUnicodeMapsCount.append(toUnicodeMapCounter);
+    }
+    QByteArray toUnicodeMapStream = "";
+    toUnicodeMapStream += "/CIDInit /ProcSet findresource begin\n";
+    toUnicodeMapStream += "12 dict begin\n";
+    toUnicodeMapStream += "begincmap\n";
+    toUnicodeMapStream += "/CIDSystemInfo <<\n";
+    toUnicodeMapStream += "/Registry (Adobe)\n";
+    toUnicodeMapStream += "/Ordering (UCS)\n";
+    toUnicodeMapStream += "/Supplement 0\n";
+    toUnicodeMapStream += ">> def\n";
+    toUnicodeMapStream += "/CMapName /Adobe-Identity-UCS def\n";
+    toUnicodeMapStream += "/CMapType 2 def\n";
+    toUnicodeMapStream += "1 begincodespacerange\n";
+    toUnicodeMapStream += "<0000> <FFFF>\n";
+    toUnicodeMapStream += "endcodespacerange\n";
+    for (int uniC = 0; uniC < toUnicodeMaps.count(); uniC++)
+    {
+        toUnicodeMapStream += Pdf::toPdf(toUnicodeMapsCount[uniC]);
+        toUnicodeMapStream += " beginbfchar\n";
+        toUnicodeMapStream += toUnicodeMaps[uniC];
+        toUnicodeMapStream += "endbfchar\n";
+    }
+    toUnicodeMapStream += "endcmap\n";
+    toUnicodeMapStream += "CMapName currentdict /CMap defineresource pop\n";
+    toUnicodeMapStream += "end\n";
+    toUnicodeMapStream += "end\n";
+    PdfId fontToUnicode2 = WritePDFStream(toUnicodeMapStream);
+    PdfId fontObject2 = writer.newObject();
+    writer.startObj(fontObject2);
+    PutDoc("<<\n/Type /Font\n/Subtype /Type0\n");
+    PutDoc("/Name " + Pdf::toName(fontName) + "\n");
+    PutDoc("/BaseFont "+ baseFont +"\n");
+    PutDoc("/Encoding /Identity-H\n");
+    PutDoc("/ToUnicode "+Pdf::toPdf(fontToUnicode2)+" 0 R\n");
+    PutDoc("/DescendantFonts [");
+    PutDoc("<</Type /Font");
+    if (face.type() == ScFace::OTF)
+        PutDoc("/Subtype /CIDFontType0");
+    else
+        PutDoc("/Subtype /CIDFontType2");
+    PutDoc("/BaseFont " + baseFont);
+    PutDoc("/FontDescriptor " + Pdf::toPdf(fontDes)+ " 0 R");
+    PutDoc("/CIDSystemInfo <</Ordering(Identity)/Registry(Adobe)/Supplement 0>>");
+    PutDoc("/DW 1000");
+    PutDoc("/W "+Pdf::toPdf(fontWidths2)+" 0 R");
+    PutDoc("/CIDToGIDMap /Identity");
+    PutDoc(">>"); // close CIDFont dictionary
+    PutDoc("]\n"); // close DescendantFonts array
+    PutDoc(">>");
+    writer.endObj(fontObject2);
+    pageData.FObjects[fontName] = fontObject2;
+    return result;
+}
+
+
+PdfFont PDFLibCore::PDF_EncodeSimpleFont(const QByteArray& fontName, ScFace& face, const QByteArray& baseFont, const QByteArray& subtype, bool isEmbedded, PdfId fontDes, const ScFace::FaceEncoding& gl)
+{
+    PdfFont result;
+    result.name = Pdf::toName(fontName);
+    result.method = isEmbedded? Use_Embedded : Use_System;
+    result.encoding = Encode_224;
+    
+    int nglyphs = 0;
+    ScFace::FaceEncoding::ConstIterator gli;
+    for (gli = gl.cbegin(); gli != gl.cend(); ++gli)
+    {
+        if (gli.key() > static_cast<uint>(nglyphs))
+            nglyphs = gli.key();
+    }
+    ++nglyphs;
+    //			qDebug() << QString("pdflib: nglyphs %1 max %2").arg(nglyphs).arg(face.maxGlyph());
+    
+    uint Fcc = nglyphs / 224;
+    if ((nglyphs % 224) != 0)
+        Fcc += 1;
+    for (uint Fc = 0; Fc < Fcc; ++Fc)
+    {
+        PdfId fontWidths2 = writer.newObject();
+        writer.startObj(fontWidths2);
+        int chCount = 32;
+        PutDoc("[ 0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 ");
+        for (int ww = 32; ww < 256; ++ww)
+        {
+            uint glyph = 224 * Fc + ww - 32;
+            if (gl.contains(glyph))
+                PutDoc(Pdf::toPdf(static_cast<int>(face.glyphWidth(glyph)* 1000))+" ");
+            else
+                PutDoc("0 ");
+            chCount++;
+            if (signed(glyph) == nglyphs-1)
+                break;
+        }
+        PutDoc("]");
+        writer.endObj(fontWidths2);
+        PdfId fontEncoding2 = writer.newObject();
+        writer.startObj(fontEncoding2);
+        QStringList toUnicodeMaps;
+        QList<int> toUnicodeMapsCount;
+        QString toUnicodeMap = "";
+        int toUnicodeMapCounter = 0;
+        PutDoc("<< /Type /Encoding\n");
+        PutDoc("/Differences [ \n");
+        int crc = 0;
+        bool startOfSeq = true;
+        for (int ww2 = 32; ww2 < 256; ++ww2)
+        {
+            uint glyph = 224 * Fc + ww2 - 32;
+            ScFace::FaceEncoding::ConstIterator glIt = gl.find(glyph);
+            if (glIt != gl.cend() && !glIt.value().second.isEmpty())
+            {
+                if (startOfSeq)
+                {
+                    PutDoc(Pdf::toPdf(ww2)+" ");
+                    startOfSeq = false;
+                }
+                PutDoc(Pdf::toName(glIt.value().second)+" ");
+                QString tmp, tmp2;
+                tmp.sprintf("%02X", ww2);
+                tmp2.sprintf("%04X", glIt.value().first);
+                toUnicodeMap += "<" + Pdf::toAscii(tmp) + "> <" + Pdf::toAscii(tmp2) + ">\n";
+                //QString("<%1> <%2>\n").arg(tmp).arg((tmp2));
+                toUnicodeMapCounter++;
+                if (toUnicodeMapCounter == 100)
+                {
+                    toUnicodeMaps.append(toUnicodeMap);
+                    toUnicodeMapsCount.append(toUnicodeMapCounter);
+                    toUnicodeMap = "";
+                    toUnicodeMapCounter = 0;
+                }
+                crc++;
+            }
+            else
+            {
+                startOfSeq = true;
+            }
+            if (signed(glyph) == nglyphs-1)
+                break;
+            if (crc > 8)
+            {
+                PutDoc("\n");
+                crc = 0;
+            }
+        }
+        if (toUnicodeMapCounter != 0)
+        {
+            toUnicodeMaps.append(toUnicodeMap);
+            toUnicodeMapsCount.append(toUnicodeMapCounter);
+        }
+        PutDoc("]\n");
+        PutDoc(">>");
+        writer.endObj(fontEncoding2);
+        QByteArray toUnicodeMapStream = "";
+        toUnicodeMapStream += "/CIDInit /ProcSet findresource begin\n";
+        toUnicodeMapStream += "12 dict begin\n";
+        toUnicodeMapStream += "begincmap\n";
+        toUnicodeMapStream += "/CIDSystemInfo <<\n";
+        toUnicodeMapStream += "/Registry (Adobe)\n";
+        toUnicodeMapStream += "/Ordering (UCS)\n";
+        toUnicodeMapStream += "/Supplement 0\n";
+        toUnicodeMapStream += ">> def\n";
+        toUnicodeMapStream += "/CMapName /Adobe-Identity-UCS def\n";
+        toUnicodeMapStream += "/CMapType 2 def\n";
+        toUnicodeMapStream += "1 begincodespacerange\n";
+        toUnicodeMapStream += "<0000> <FFFF>\n";
+        toUnicodeMapStream += "endcodespacerange\n";
+        for (int uniC = 0; uniC < toUnicodeMaps.count(); uniC++)
+        {
+            toUnicodeMapStream += Pdf::toPdf(toUnicodeMapsCount[uniC]);
+            toUnicodeMapStream += " beginbfchar\n";
+            toUnicodeMapStream += toUnicodeMaps[uniC];
+            toUnicodeMapStream += "endbfchar\n";
+        }
+        toUnicodeMapStream += "endcmap\n";
+        toUnicodeMapStream += "CMapName currentdict /CMap defineresource pop\n";
+        toUnicodeMapStream += "end\n";
+        toUnicodeMapStream += "end\n";
+        PdfId fontToUnicode2 = WritePDFStream(toUnicodeMapStream);
+        PdfId fontObject2 = writer.newObject();
+        writer.startObj(fontObject2);
+        PutDoc("<<\n/Type /Font\n/Subtype ");
+        PutDoc(subtype + "\n");
+        PutDoc("/Name "+Pdf::toName(fontName)+"S"+Pdf::toPdf(Fc)+"\n");
+        PutDoc("/BaseFont "+baseFont+"\n");
+        PutDoc("/FirstChar 0\n");
+        PutDoc("/LastChar "+Pdf::toPdf(chCount-1)+"\n");
+        PutDoc("/Widths "+Pdf::toPdf(fontWidths2)+" 0 R\n");
+        PutDoc("/Encoding "+Pdf::toPdf(fontEncoding2)+" 0 R\n");
+        PutDoc("/ToUnicode "+Pdf::toPdf(fontToUnicode2)+" 0 R\n");
+        PutDoc("/FontDescriptor "+Pdf::toPdf(fontDes)+" 0 R\n");
+        PutDoc(">>");
+        writer.endObj(fontObject2);
+        pageData.FObjects[fontName + "S"+Pdf::toPdf(Fc)] = fontObject2;
+    } // for(Fc)
+    PdfId fontWidthsForm = writer.newObject();
+    writer.startObj(fontWidthsForm);
+    PutDoc("[ 0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 ");
+    for (int ww = 32; ww < 256; ++ww)
+    {
+        uint glyph = face.char2CMap(QChar(ww));
+        if (gl.contains(glyph))
+            PutDoc(Pdf::toPdf(static_cast<int>(face.glyphWidth(glyph)* 1000))+" ");
+        else
+            PutDoc("0 ");
+    }
+    PutDoc("]");
+    writer.endObj(fontWidthsForm);
+    PdfId fontObjectForm = writer.newObject();
+    PdfFont formFont;
+    formFont.name = Pdf::toName(fontName) + "Form";
+    formFont.usage = Used_in_Forms;
+    writer.startObj(fontObjectForm);
+    PutDoc("<<\n/Type /Font\n/Subtype ");
+    PutDoc(subtype + "\n");
+    //				if (fformat == ScFace::SFNT || fformat == ScFace::TTCF)
+    //				{
+    //					PutDoc("/TrueType\n");
+    PutDoc("/Name " + formFont.name+ "\n");
+    pageData.FObjects[formFont.name] = fontObjectForm;
+    UsedFontsF.insert(fontName, formFont);
+    /*				}
+     else
+     {
+     PutDoc("/Type1\n");
+     PutDoc("/Name /"+face.psName().replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "_" )+"\n");
+     pageData.FObjects[face.psName().replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "_" )] = ObjCounter;
+     UsedFontsF.insert(it.key(), "/"+face.psName().replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "_" ));
+     } */
+    PutDoc("/BaseFont "+Pdf::toName(sanitizeFontName(face.psName()))+"\n");
+    PutDoc("/Encoding << \n");
+    PutDoc("/Differences [ \n");
+    PutDoc("24 /breve /caron /circumflex /dotaccent /hungarumlaut /ogonek /ring /tilde\n");
+    PutDoc("39 /quotesingle 96 /grave 128 /bullet /dagger /daggerdbl /ellipsis /emdash /endash /florin /fraction /guilsinglleft /guilsinglright\n");
+    PutDoc("/minus /perthousand /quotedblbase /quotedblleft /quotedblright /quoteleft /quoteright /quotesinglbase /trademark /fi /fl /Lslash /OE /Scaron\n");
+    PutDoc("/Ydieresis /Zcaron /dotlessi /lslash /oe /scaron /zcaron 164 /currency 166 /brokenbar 168 /dieresis /copyright /ordfeminine 172 /logicalnot\n");
+    PutDoc("/.notdef /registered /macron /degree /plusminus /twosuperior /threesuperior /acute /mu 183 /periodcentered /cedilla /onesuperior /ordmasculine\n");
+    PutDoc("188 /onequarter /onehalf /threequarters 192 /Agrave /Aacute /Acircumflex /Atilde /Adieresis /Aring /AE /Ccedilla /Egrave /Eacute /Ecircumflex\n");
+    PutDoc("/Edieresis /Igrave /Iacute /Icircumflex /Idieresis /Eth /Ntilde /Ograve /Oacute /Ocircumflex /Otilde /Odieresis /multiply /Oslash\n");
+    PutDoc("/Ugrave /Uacute /Ucircumflex /Udieresis /Yacute /Thorn /germandbls /agrave /aacute /acircumflex /atilde /adieresis /aring /ae /ccedilla\n");
+    PutDoc("/egrave /eacute /ecircumflex /edieresis /igrave /iacute /icircumflex /idieresis /eth /ntilde /ograve /oacute /ocircumflex /otilde /odieresis\n");
+    PutDoc("/divide /oslash /ugrave /uacute /ucircumflex /udieresis /yacute /thorn /ydieresis\n");
+    PutDoc("] >>\n");
+    PutDoc("/FirstChar 0\n");
+    PutDoc("/LastChar 255\n");
+    PutDoc("/Widths "+Pdf::toPdf(fontWidthsForm)+" 0 R\n");
+    PutDoc("/FontDescriptor "+Pdf::toPdf(fontDes)+" 0 R\n");
+    PutDoc(">>");
+    writer.endObj(fontObjectForm);
+
+    return result;
+}
+
+
+static void dumpFont(QString name, QByteArray data)
+{
+    QFile file(name);
+    file.open(QIODevice::WriteOnly);
+    QDataStream out(&file);
+    out.writeRawData(data.data(), data.length());
+}
+
+static void dumpCFF(QString name, cff::CFF font)
+{
+    QFile file(name);
+    file.open(QIODevice::WriteOnly);
+    QDataStream out(&file);
+    font.dump(out);
+}
+
+
+PdfFont PDFLibCore::PDF_WriteTtfSubsetFont(const QByteArray& fontName, ScFace& face, const QMap<uint,FPointArray>& RealGlyphs)
+{
+    QByteArray font;
+    face.RawData(font);
+dumpFont(face.psName() + ".ttf", font);
+    QList<ScFace::gid_type> glyphs = RealGlyphs.uniqueKeys();
+    glyphs.removeAll(0);
+    glyphs.prepend(0);
+    QByteArray subset = sfnt::subsetFace(font, glyphs);
+dumpFont(face.psName()+"subs.ttf", subset);
+    PdfId embeddedFontObj = PDF_EmbedFontObject(subset, QByteArray());
+    PdfId fontDes = PDF_WriteFontDescriptor(fontName, face, face.format(), embeddedFontObj);
+    QByteArray baseFont = Pdf::toName(sanitizeFontName(face.psName()));
+    ScFace::FaceEncoding fullEncoding, subEncoding;
+    QMap<uint,uint> glyphmap;
+    face.glyphNames(fullEncoding);
+    for (int i = 0; i < glyphs.length(); ++i)
+    {
+        glyphmap[glyphs[i]] = i;
+        qDebug() << glyphs[i] << " --> " << i << QChar(fullEncoding[glyphs[i]].first);
+    }
+    
+    PdfFont result = PDF_EncodeCidFont(fontName, face, baseFont, fontDes, fullEncoding, glyphmap);
+    return result;
+}
+
+
+PdfFont PDFLibCore::PDF_WriteCffSubsetFont(const QByteArray& fontName, ScFace& face, const QMap<uint,FPointArray>& RealGlyphs)
+{
+//    QByteArray sfnt; //TEST
+//    face.RawData(sfnt);
+//    QByteArray cff = sfnt::getTable(sfnt, "CFF ");
+//    dumpFont(fontName, cff);
+//    cff::CFF cfffont(cff);
+//    cfffont.dump();
+//    QByteArray subsetfont = cff::subsetFace(cff, it.value().keys());
+//    dumpFont(it.key() + "subs.cff", subsetfont);
+//    cff::CFF subset(subsetfont);
+//    subset.dump();
+//    PDF_WriteFontDescriptor(fontName, face, fformat, 0);
+//    // END
+    
+    QByteArray font;
+    face.RawData(font);
+    font = sfnt::getTable(font, "CFF ");
+    dumpFont(face.psName() + ".cff", font);
+    QList<ScFace::gid_type> glyphs = RealGlyphs.uniqueKeys();
+    glyphs.removeAll(0);
+    glyphs.prepend(0);
+    QByteArray subset = cff::subsetFace(font, glyphs);
+    dumpFont(face.psName()+"subs.cff", subset);
+    PdfId embeddedFontObj = PDF_EmbedFontObject(subset, "/CIDFontType0C");
+    PdfId fontDes = PDF_WriteFontDescriptor(fontName, face, face.format(), embeddedFontObj);
+    QByteArray baseFont = Pdf::toName(sanitizeFontName(face.psName()));
+    ScFace::FaceEncoding fullEncoding, subEncoding;
+    QMap<uint,uint> glyphmap;
+    face.glyphNames(fullEncoding);
+    for (int i = 0; i < glyphs.length(); ++i)
+    {
+        glyphmap[glyphs[i]] = i;
+        qDebug() << glyphs[i] << " --> " << i << QChar(fullEncoding[glyphs[i]].first);
+    }
+    
+    PdfFont result = PDF_EncodeCidFont(fontName, face, baseFont, fontDes, fullEncoding, glyphmap);
+    return result;
+}
+
+
+PdfId PDFLibCore::PDF_EmbedType1AsciiFontObject(const QByteArray& fon)
+{
+    QByteArray fon2;
+    PdfId embeddedFontObject = writer.newObject();
+    writer.startObj(embeddedFontObject);
+    int len1 = fon.indexOf("eexec")+5;
+    fon2 = fon.left(len1) + "\n";
+    int len2 = fon.indexOf("0000000000000000000000000");
+    if (len2 == -1)
+        len2 = fon.length()+1;
+    //              QString tm;
+    //              uint value;
+    //              bool ok = true;
+    //				int count = 0;
+    //				for (int xx = len1; xx < len2-1; ++xx)
+    //				{
+    //					tm = fon.at(xx);
+    //					if ((tm == QChar(13)) || (tm == QChar(10)))
+    //						continue;
+    //					xx++;
+    //					count++;
+    //					tm += fon.at(xx);
+    //					value = tm.toUInt(&ok, 16);
+    //					fon2 += char(value);
+    //				}
+    QByteArray hexData = QByteArray::fromHex(fon.mid(len1, len2-len1));
+    fon2 += hexData;
+    fon2 += fon.mid(len2);
+    if (Options.Compress)
+        fon2 = CompressArray(fon2);
+    PutDoc("<<\n/Length "+Pdf::toPdf(fon2.length()+1)+"\n");
+    PutDoc("/Length1 "+Pdf::toPdf(len1+1)+"\n");
+    PutDoc("/Length2 "+Pdf::toPdf(hexData.length())+"\n");
+    if(static_cast<int>(fon.length()-len2) == -1)
+        PutDoc("/Length3 0\n");
+    else
+        PutDoc("/Length3 "+Pdf::toPdf(fon.length()-len2)+"\n");
+    if (Options.Compress)
+        PutDoc("/Filter /FlateDecode\n");
+    PutDoc(">>\nstream\n"+EncStream(fon2, embeddedFontObject)+"\nendstream");
+    writer.endObj(embeddedFontObject);
+    return embeddedFontObject;
+}
+
+
+PdfId PDFLibCore::PDF_EmbedType1BinaryFontObject(const QByteArray& bb)
+{
+    PdfId embeddedFontObject = writer.newObject();
+    QByteArray fon;
+    writer.startObj(embeddedFontObject);
+    int posi;
+    for (posi = 6; posi < bb.size(); ++posi)
+    {
+        if ((bb[posi] == static_cast<char>(0x80)) && (static_cast<int>(bb[posi+1]) == 2))
+            break;
+        fon += bb[posi];
+    }
+    int len1 = fon.length();
+    int ulen;
+    ulen = bb[posi+2] & 0xff;
+    ulen |= (bb[posi+3] << 8) & 0xff00;
+    ulen |= (bb[posi+4] << 16) & 0xff0000;
+    ulen |= (bb[posi+5] << 24) & 0xff000000;
+    if (ulen > bb.size())
+        ulen = bb.size()-7;
+    posi += 6;
+    for (int j = 0; j < ulen; ++j)
+        fon += bb[posi++];
+    posi += 6;
+    int len2 = fon.length()-len1;
+    for (int j = posi; j < bb.size(); ++j)
+    {
+        if ((bb[j] == static_cast<char>(0x80)) && (static_cast<int>(bb[j+1]) == 3))
+            break;
+        if (bb[j] == '\r')
+            fon += "\n";
+        else
+            fon += bb[j];
+    }
+    int len3 = fon.length()-len2-len1;
+    if (Options.Compress)
+        fon = CompressArray(fon);
+    PutDoc("<<\n/Length "+Pdf::toPdf(fon.length()+1)+"\n");
+    PutDoc("/Length1 "+Pdf::toPdf(len1)+"\n");
+    PutDoc("/Length2 "+Pdf::toPdf(len2)+"\n");
+    PutDoc("/Length3 "+Pdf::toPdf(len3)+"\n");
+    if (Options.Compress)
+        PutDoc("/Filter /FlateDecode\n");
+    PutDoc(">>\nstream\n"+EncStream(fon,embeddedFontObject)+"\nendstream");
+    writer.endObj(embeddedFontObject);
+    return embeddedFontObject;
+}
+
+
+PdfId PDFLibCore::PDF_EmbedFontObject(const QString& name, ScFace& face)
+{
+    PdfId embeddedFontObject = 0;
+    if (Options.EmbedList.contains(name))
+    {
+        ScFace::FontFormat fformat = face.format();
+        QByteArray bb;
+        face.RawData(bb);
+       if (fformat == ScFace::PFB)
+        {
+            embeddedFontObject = PDF_EmbedType1BinaryFontObject(bb);
+        }
+        if (fformat == ScFace::PFA)
+        {
+            embeddedFontObject = PDF_EmbedType1AsciiFontObject(bb);
+        }
+        if (fformat == ScFace::SFNT || fformat == ScFace::TTCF)
+        {
+            QByteArray subtype;
+            if (face.type() == ScFace::OTF)
+            {
+                subtype = "/CIDFontType0C";
+                bb = sfnt::getTable(bb, "CFF ");
+                dumpCFF(face.psName() + ".cff", cff::CFF(bb));
+                bb = cff::extractFace(bb, 0);
+                dumpCFF(face.psName() + "full.cff", cff::CFF(bb));
+            }
+            embeddedFontObject = PDF_EmbedFontObject(bb, subtype);
+        }
+    }
+    return embeddedFontObject;
+}
+
+
+void PDFLibCore::PDF_Begin_WriteUsedFonts(SCFonts &AllFonts, const QMap<QString, QMap<uint, FPointArray> >& ReallyUsed)
+{
+    qDebug() << "embed list:" << QStringList(Options.EmbedList).join(", ");
+    qDebug() << "subset list:" << QStringList(Options.SubsetList).join(", ");
+    qDebug() << "outline list:" << QStringList(Options.OutlineList).join(", ");
+    QMap<QString,QMap<uint, FPointArray> >::ConstIterator it;
+    int a = 0;
+    for (it = ReallyUsed.cbegin(); it != ReallyUsed.cend(); ++it)
+    {
+        ScFace& face(AllFonts[it.key()]);
+        ScFace::FontFormat fformat = face.format();
+        PdfFont pdfFont;
+        QByteArray fontName = QByteArray("Fo") + Pdf::toPdf(a);
+        
+        qDebug() << "pdf font" << it.key();
+        if (Options.OutlineList.contains(it.key()))
+        {
+            pdfFont = PDF_WriteGlyphsAsXForms(fontName, face, it.value());
+        }
+        else
+        {
+            if (Options.SubsetList.contains(it.key()))
+            {
+                if (fformat == ScFace::SFNT || fformat == ScFace::TTCF)
+                {
+                    if (face.type() == ScFace::TTF)
+                    {
+                        pdfFont = PDF_WriteTtfSubsetFont(fontName, face, it.value());
+                    }
+                    else
+                    {
+                        pdfFont = PDF_WriteCffSubsetFont(fontName, face, it.value());
+                    }
+                }
+                else
+                {
+                    pdfFont = PDF_WriteType3Font(fontName, face, it.value());
+                }
+            }
+            else
+            {
+                PdfId embeddedFontObject = PDF_EmbedFontObject(it.key(), face);
+                
+                PdfId fontDescriptor = PDF_WriteFontDescriptor(fontName, face, fformat, embeddedFontObject);
+                
+                ScFace::FaceEncoding gl;
+                face.glyphNames(gl);
+                
+                QByteArray baseFont = Pdf::toName(sanitizeFontName(face.psName()));
+                
+                if ((face.isSymbolic() || !face.hasNames() || Options.Version == PDFOptions::PDFVersion_X4 || face.type() == ScFace::OTF) &&
+                    (fformat == ScFace::SFNT || fformat == ScFace::TTCF))
+                {
+                    pdfFont = PDF_EncodeCidFont(fontName, face, baseFont, fontDescriptor, gl, QMap<uint,uint>());
+                }
+                else
+                {
+                    QByteArray subtype = (fformat == ScFace::SFNT || fformat == ScFace::TTCF) ? "/TrueType" : "/Type1";
+                    pdfFont = PDF_EncodeSimpleFont(fontName, face, baseFont, subtype, embeddedFontObject != 0, fontDescriptor, gl);
+                }
+            }
+            pdfFont.usage = Used_in_Content;
+            QString meth;
+            switch (pdfFont.method)
+            {
+                case Use_System:
+                    meth = "Systemfont (no embedding)"; break;
+                case Use_Embedded:
+                    meth = "Embed"; break;
+                case Use_Subset:
+                    meth = "Subset"; break;
+                case Use_Type3:
+                    meth = "Subset as Type3 font"; break;
+                case Use_XForm:
+                    meth = "Outline (PDF XForm)"; break;
+                default:
+                    meth = "?"; break;
+            }
+            qDebug() << pdfFont.name << "uses method" << meth << "and encoding" << pdfFont.encoding;
+            UsedFontsP.insert(it.key(), pdfFont);
+            a++;
+        }
+    }
+}
+
+void PDFLibCore::PDF_Begin_Colors()
+{
 	if (Options.UseLPI)
 	{
-		uint halftones = newObject();
-		StartObj(halftones);
+		uint halftones = writer.newObject();
+		writer.startObj(halftones);
 		PutDoc("<<\n/Type /Halftone\n/HalftoneType 5\n");
 		QMap<QString,LPIData>::const_iterator itlp;
 		for (itlp = Options.LPISettings.constBegin(); itlp != Options.LPISettings.constEnd(); ++itlp)
 		{
-			PutDoc("/"+itlp.key()+"\n<<\n/Type /Halftone\n/HalftoneType 1\n/Frequency ");
-			PutDoc(QString::number(itlp.value().Frequency)+"\n/Angle "+QString::number(itlp.value().Angle)+"\n/SpotFunction ");
-			QString func ("");
+            PutDoc(Pdf::toName(itlp.key()) + "\n<<\n/Type /Halftone\n/HalftoneType 1\n/Frequency ");
+			PutDoc(Pdf::toPdf(itlp.value().Frequency)+"\n/Angle "+Pdf::toPdf(itlp.value().Angle)+"\n/SpotFunction ");
+			QByteArray func ("");
 			switch (itlp.value().SpotFunc)
 			{
 				case 0:
@@ -1867,20 +2032,21 @@ bool PDFLibCore::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QStrin
 					func = "/SimpleDot";
 					break;
 			}
-			PutDoc(func+"\n>>\n");
+			PutDoc(func + "\n>>\n");
 		}
 		PutDoc("/Default\n<<\n/Type /Halftone\n/HalftoneType 1\n/Frequency 50\n/Angle 45\n/SpotFunction /Round\n>>\n");
-		PutDoc(">>\nendobj\n");
-		HTName = ResNam+QString::number(ResCount);
-		Transpar[HTName] = writeGState("/HT "+QString::number(halftones)+" 0 R\n");
+        PutDoc(">>");
+        writer.endObj(halftones);
+		HTName = ResNam+Pdf::toPdf(ResCount);
+		Transpar[HTName] = writeGState("/HT "+Pdf::toPdf(halftones)+" 0 R\n");
 		ResCount++;
 	}
 	if ((doc.HasCMS) && (Options.UseProfiles) && (Options.Version != PDFOptions::PDFVersion_X1a))
 	{
-		uint iccProfileObject = newObject();
-		StartObj(iccProfileObject);
+		PdfId iccProfileObject = writer.newObject();
+		writer.startObj(iccProfileObject);
 		QByteArray dataP;
-		struct ICCD dataD;
+		PdfICCD dataD;
 		loadRawBytes(ScCore->InputProfiles[Options.SolidProf], dataP);
 		PutDoc("<<\n");
 		if (Options.Compress)
@@ -1892,20 +2058,21 @@ bool PDFLibCore::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QStrin
 				dataP = compData;
 			}
 		}
-		PutDoc("/Length "+QString::number(dataP.size()+1)+"\n");
-		PutDoc("/N "+QString::number(Options.SComp)+"\n");
+		PutDoc("/Length "+Pdf::toPdf(dataP.size()+1)+"\n");
+		PutDoc("/N "+Pdf::toPdf(Options.SComp)+"\n");
 		PutDoc(">>\nstream\n");
 		EncodeArrayToStream(dataP, iccProfileObject);
-		PutDoc("\nendstream\nendobj\n");
-		uint iccColorspace = newObject();
-		StartObj(iccColorspace);
-		dataD.ResName = ResNam+QString::number(ResCount);
-		dataD.ICCArray = "[ /ICCBased "+QString::number(iccProfileObject)+" 0 R ]";
+        PutDoc("\nendstream");
+        writer.endObj(iccProfileObject);
+		PdfId iccColorspace = writer.newObject();
+		writer.startObj(iccColorspace);
+		dataD.ResName = ResNam+Pdf::toPdf(ResCount);
+		dataD.ICCArray = "[ /ICCBased "+Pdf::toPdf(iccProfileObject)+" 0 R ]";
 		dataD.ResNum = iccColorspace;
 		dataD.components = Options.SComp;
 		ICCProfiles[Options.SolidProf] = dataD;
-		PutDoc("[ /ICCBased "+QString::number(iccProfileObject)+" 0 R ]\n");
-		PutDoc("endobj\n");
+		PutDoc("[ /ICCBased "+Pdf::toPdf(iccProfileObject)+" 0 R ]");
+		writer.endObj(iccColorspace);
 		ResCount++;
 	}
 	if (((Options.isGrayscale == false) && (Options.UseRGB == false)) && (Options.UseSpotColors))
@@ -1918,29 +2085,31 @@ bool PDFLibCore::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QStrin
 			{
 				CMYKColor cmykValues;
 				int cc, cm, cy, ck;
-				struct SpotC spotD;
+				PdfSpotC spotD;
 				ScColorEngine::getCMYKValues(colorsToUse[itf.key()], &doc, cmykValues);
 				cmykValues.getValues(cc, cm, cy, ck);
-				QString colorDesc = "{\ndup "+FToStr(static_cast<double>(cc) / 255)+"\nmul exch dup ";
+				QByteArray colorDesc = "{\ndup "+FToStr(static_cast<double>(cc) / 255)+"\nmul exch dup ";
 				colorDesc += FToStr(static_cast<double>(cm) / 255)+"\nmul exch dup ";
 				colorDesc += FToStr(static_cast<double>(cy) / 255)+"\nmul exch ";
 				colorDesc += FToStr(static_cast<double>(ck) / 255)+" mul }";
-				uint separationFunction = newObject();
-				StartObj(separationFunction);
+				PdfId separationFunction = writer.newObject();
+				writer.startObj(separationFunction);
 				PutDoc("<<\n/FunctionType 4\n");
 				PutDoc("/Domain [0.0 1.0]\n");
 				PutDoc("/Range [0.0 1.0 0.0 1.0 0.0 1.0 0.0 1.0]\n");
-				PutDoc("/Length "+QString::number(colorDesc.length()+1)+"\n");
-				PutDoc(">>\nstream\n"+EncStream(colorDesc, separationFunction)+"\nendstream\nendobj\n");
-				uint separationColorspace= newObject();
-				StartObj(separationColorspace);
-				PutDoc("[ /Separation /");
+				PutDoc("/Length "+Pdf::toPdf(colorDesc.length()+1)+"\n");
+                PutDoc(">>\nstream\n"+EncStream(colorDesc, separationFunction)+"\nendstream");
+                writer.endObj(separationFunction);
+				PdfId separationColorspace= writer.newObject();
+				writer.startObj(separationColorspace);
+				PutDoc("[ /Separation ");
 				if (colorsToUse[itf.key()].isRegistrationColor())
-					PutDoc("All");
+					PutDoc("/All");
 				else
-					PutDoc(itf.key().simplified().replace("#", "#23").replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "#20" ));
-				PutDoc(" /DeviceCMYK "+QString::number(separationFunction)+" 0 R ]\nendobj\n");
-				spotD.ResName = spotNam+QString::number(spotCount);
+                    PutDoc(Pdf::toName(itf.key().simplified().replace("#", "#23").replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "#20" )));
+                PutDoc(" /DeviceCMYK "+Pdf::toObjRef(separationFunction)+" ]");
+                writer.endObj(separationColorspace);
+				spotD.ResName = spotNam+Pdf::toPdf(spotCount);
 				spotD.ResNum = separationColorspace;
 				spotMap.insert(itf.key(), spotD);
 				spotCount++;
@@ -1949,9 +2118,9 @@ bool PDFLibCore::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QStrin
 	}
 	if ((Options.cropMarks) || (Options.bleedMarks) || (Options.registrationMarks) || (Options.colorMarks) || (Options.docInfoMarks))
 	{
-		struct SpotC spotD;
-		uint registrationColorspace = newObject();
-		StartObj(registrationColorspace);
+		PdfSpotC spotD;
+		PdfId registrationColorspace = writer.newObject();
+		writer.startObj(registrationColorspace);
 		PutDoc("[ /Separation /All /DeviceCMYK\n");
 		PutDoc("<<\n/FunctionType 2\n");
 		PutDoc("/Domain [0.0 1.0]\n");
@@ -1959,33 +2128,35 @@ bool PDFLibCore::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QStrin
 		PutDoc("/C0 [0 0 0 0] \n");
 		PutDoc("/C1 [1 1 1 1] \n");
 		PutDoc("/N 1\n");
-		PutDoc(">>\n]\nendobj\n");
-		spotD.ResName = spotNam+QString::number(spotCount);
+        PutDoc(">>\n]");
+        writer.endObj(registrationColorspace);
+		spotD.ResName = spotNam+Pdf::toPdf(spotCount);
 		spotD.ResNum = registrationColorspace;
 		spotMapReg.insert("Register", spotD);
 		spotCount++;
 	}
+}
 
-
+void PDFLibCore::PDF_Begin_Layers()
+{
 	if ( ((Options.Version == PDFOptions::PDFVersion_15) || (Options.Version == PDFOptions::PDFVersion_X4)) && (Options.useLayers))
 	{
 		ScLayer ll;
-		struct OCGInfo ocg;
+		PdfOCGInfo ocg;
 		ll.isPrintable = false;
 		ll.ID = 0;
 		int Lnr = 0;
-		QString ocgNam("oc");
+		QByteArray ocgNam("oc");
 		uint docLayersCount=doc.Layers.count();
 		for (uint la = 0; la < docLayersCount; ++la)
 		{
-			uint optionalContent = newObject();
-			QString tmp("");
+			PdfId optionalContent = writer.newObject();
 			doc.Layers.levelToLayer(ll, Lnr);
-			ocg.Name = ocgNam+tmp.setNum(ll.ID);
+            ocg.Name = ocgNam + Pdf::toPdf(ll.ID);
 			ocg.ObjNum = optionalContent;
 			ocg.visible = ll.isViewable;
 			OCGEntries.insert(ll.Name, ocg);
-			StartObj(optionalContent);
+			writer.startObj(optionalContent);
 			PutDoc("<<\n");
 			PutDoc("/Type /OCG\n");
 			PutDoc("/Name ");
@@ -2003,16 +2174,16 @@ bool PDFLibCore::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QStrin
 				PutDoc("/OFF");
 			PutDoc(">>>>");
 			PutDoc("\n");
-			PutDoc(">>\nendobj\n");
+            PutDoc(">>");
+            writer.endObj(optionalContent);
 			Lnr++;
 		}
 	}
-	return true;
 }
 
 bool PDFLibCore::PDF_TemplatePage(const ScPage* pag, bool )
 {
-	QString tmp, tmpOut;
+	QByteArray tmp, tmpOut;
 	ActPageP = pag;
 	PageItem* ite;
 	QList<PageItem*> PItems;
@@ -2025,15 +2196,16 @@ bool PDFLibCore::PDF_TemplatePage(const ScPage* pag, bool )
 	double bLeft, bRight, bBottom, bTop;
 	getBleeds(pag, bLeft, bRight, bBottom, bTop);
 
-	Seite.AObjects.clear();
-	for (int la = 0; la < doc.Layers.count(); ++la)
+	pageData.AObjects.clear();
+
+    for (int la = 0; la < doc.Layers.count(); ++la)
 	{
 		doc.Layers.levelToLayer(ll, Lnr);
 		PItems = doc.MasterItems;
 		if ((ll.isPrintable) || (((Options.Version == PDFOptions::PDFVersion_15) || (Options.Version == PDFOptions::PDFVersion_X4)) && (Options.useLayers)))
 		{
 			if (((Options.Version == PDFOptions::PDFVersion_15) || (Options.Version == PDFOptions::PDFVersion_X4)) && (Options.useLayers))
-				PutPage("/OC /"+OCGEntries[ll.Name].Name+" BDC\n");
+                PutPage("/OC /" + OCGEntries[ll.Name].Name + " BDC\n");
 			for (int a = 0; a < PItems.count(); ++a)
 			{
 				Content = "";
@@ -2058,12 +2230,12 @@ bool PDFLibCore::PDF_TemplatePage(const ScPage* pag, bool )
 				PutPage("q\n");
 				if ((ite->doOverprint) && (!Options.UseRGB))
 				{
-					QString ShName = ResNam+QString::number(ResCount);
+					QByteArray ShName = ResNam + Pdf::toPdf(ResCount);
 					ResCount++;
 					Transpar[ShName] = writeGState("/OP true\n"
 												   "/op true\n"
 												   "/OPM 1\n");
-					PutPage("/"+ShName+" gs\n");
+					PutPage(Pdf::toName(ShName) + " gs\n");
 				}
 /* Bookmarks on Master Pages do not make any sense */
 //				if ((ite->isBookmark) && (Options.Bookmarks))
@@ -2088,12 +2260,12 @@ bool PDFLibCore::PDF_TemplatePage(const ScPage* pag, bool )
 						// #8758: Custom dotted lines don't export properly to pdf
 						// Null values have to be exported if line end != flat
 						if ((da != 0) || (ite->lineEnd() != Qt::FlatCap))
-							PutPage(QString::number(da)+" ");
+							PutPage(Pdf::toPdf(da)+" ");
 					}
-					PutPage("] "+QString::number(ite->DashOffset)+" d\n");
+					PutPage("] " + Pdf::toPdf(ite->DashOffset)+" d\n");
 				}
 				else
-					PutPage("["+getDashString(ite->PLineArt, ite->lineWidth())+"] 0 d\n");
+                    PutPage("[" + Pdf::toAscii(getDashString(ite->PLineArt, ite->lineWidth())) + "] 0 d\n");
 				switch (ite->PLineEnd)
 				{
 					case Qt::FlatCap:
@@ -2562,7 +2734,7 @@ bool PDFLibCore::PDF_TemplatePage(const ScPage* pag, bool )
 					case PageItem::Symbol:
 						if (doc.docPatterns.contains(ite->pattern()))
 						{
-							QString tmpD = "";
+							QByteArray tmpD = "";
 							ScPattern pat = doc.docPatterns[ite->pattern()];
 							PutPage("q\n");
 							PutPage(SetPathAndClip(ite));
@@ -2580,7 +2752,7 @@ bool PDFLibCore::PDF_TemplatePage(const ScPage* pag, bool )
 								PageItem* embedded = pat.items.at(em);
 								tmpD += "q\n";
 								tmpD +=  "1 0 0 1 "+FToStr(embedded->gXpos)+" "+FToStr(ite->height() - embedded->gYpos)+" cm\n";
-								QString output;
+								QByteArray output;
 								if (!PDF_ProcessItem(output, embedded, pag, pag->pageNr(), true))
 									return "";
 								tmpD += output;
@@ -2596,7 +2768,7 @@ bool PDFLibCore::PDF_TemplatePage(const ScPage* pag, bool )
 					case PageItem::Group:
 						if (ite->groupItemList.count() > 0)
 						{
-							QString tmpD = "";
+							QByteArray tmpD;
 							PutPage("q\n");
 							if (ite->groupClipping())
 								PutPage(SetPathAndClip(ite));
@@ -2614,7 +2786,7 @@ bool PDFLibCore::PDF_TemplatePage(const ScPage* pag, bool )
 								PageItem* embedded = ite->groupItemList.at(em);
 								tmpD += "q\n";
 								tmpD +=  "1 0 0 1 "+FToStr(embedded->gXpos)+" "+FToStr(ite->height() - embedded->gYpos)+" cm\n";
-								QString output;
+								QByteArray output;
 								patternStackPos.push(QPointF(embedded->gXpos, ite->height() - embedded->gYpos));
 								inPattern++; // We are not really exporting a pattern, but that fix gradient export
 								if (!PDF_ProcessItem(output, embedded, pag, pag->pageNr(), true, true))
@@ -2637,8 +2809,8 @@ bool PDFLibCore::PDF_TemplatePage(const ScPage* pag, bool )
 						break;
 				}
 				PutPage("Q\n");
-				uint templateObject = newObject();
-				StartObj(templateObject);
+				PdfId templateObject = writer.newObject();
+				writer.startObj(templateObject);
 				PutDoc("<<\n/Type /XObject\n/Subtype /Form\n/FormType 1\n");
 				double bleedRight = 0.0;
 				double bleedLeft  = 0.0;
@@ -2647,77 +2819,32 @@ bool PDFLibCore::PDF_TemplatePage(const ScPage* pag, bool )
 				double maxBoxY = ActPageP->height()+Options.bleeds.top()+Options.bleeds.bottom();
 				PutDoc("/BBox [ "+FToStr(-bleedLeft)+" "+FToStr(-Options.bleeds.bottom())+" "+FToStr(maxBoxX)+" "+FToStr(maxBoxY)+" ]\n");
 //				PutDoc("/BBox [ 0 0 "+FToStr(ActPageP->width())+" "+FToStr(ActPageP->height())+" ]\n");
-				PutDoc("/Resources << /ProcSet [/PDF /Text /ImageB /ImageC /ImageI]\n");
-				if ((Seite.ImgObjects.count() != 0) || (Seite.XObjects.count() != 0))
-				{
-					PutDoc("/XObject <<\n");
-					QMap<QString,int>::Iterator it;
-					for (it = Seite.ImgObjects.begin(); it != Seite.ImgObjects.end(); ++it)
-						PutDoc("/"+it.key()+" "+QString::number(it.value())+" 0 R\n");
-					QMap<QString,int>::Iterator iti;
-					for (iti = Seite.XObjects.begin(); iti != Seite.XObjects.end(); ++iti)
-						PutDoc("/"+iti.key()+" "+QString::number(iti.value())+" 0 R\n");
-					PutDoc(">>\n");
-				}
-				if (Seite.FObjects.count() != 0)
-				{
-					PutDoc("/Font << \n");
-					QMap<QString,int>::Iterator it2;
-					for (it2 = Seite.FObjects.begin(); it2 != Seite.FObjects.end(); ++it2)
-						PutDoc("/"+it2.key()+" "+QString::number(it2.value())+" 0 R\n");
-					PutDoc(">>\n");
-				}
-				if (Shadings.count() != 0)
-				{
-					PutDoc("/Shading << \n");
-					QMap<QString,int>::Iterator it3;
-					for (it3 = Shadings.begin(); it3 != Shadings.end(); ++it3)
-						PutDoc("/"+it3.key()+" "+QString::number(it3.value())+" 0 R\n");
-					PutDoc(">>\n");
-				}
-				if (Patterns.count() != 0)
-				{
-					PutDoc("/Pattern << \n");
-					QMap<QString,int>::Iterator it3p;
-					for (it3p = Patterns.begin(); it3p != Patterns.end(); ++it3p)
-						PutDoc("/"+it3p.key()+" "+QString::number(it3p.value())+" 0 R\n");
-					PutDoc(">>\n");
-				}
-				if (Transpar.count() != 0)
-				{
-					PutDoc("/ExtGState << \n");
-					QMap<QString,int>::Iterator it3t;
-					for (it3t = Transpar.begin(); it3t != Transpar.end(); ++it3t)
-						PutDoc("/"+it3t.key()+" "+QString::number(it3t.value())+" 0 R\n");
-					PutDoc(">>\n");
-				}
-				if ((ICCProfiles.count() != 0) || (spotMap.count() != 0))
-				{
-					PutDoc("/ColorSpace << \n");
-					QMap<QString,ICCD>::Iterator it3c;
-					if (ICCProfiles.count() != 0)
-					{
-						for (it3c = ICCProfiles.begin(); it3c != ICCProfiles.end(); ++it3c)
-							PutDoc("/"+it3c.value().ResName+" "+QString::number(it3c.value().ResNum)+" 0 R\n");
-					}
-					QMap<QString,SpotC>::Iterator it3sc;
-					if (spotMap.count() != 0)
-					{
-						for (it3sc = spotMap.begin(); it3sc != spotMap.end(); ++it3sc)
-							PutDoc("/"+it3sc.value().ResName+" "+QString::number(it3sc.value().ResNum)+" 0 R\n");
-					}
-					PutDoc(">>\n");
-				}
-				PutDoc(">>\n");
+				
+                Pdf::ResourceDictionary dict;
+                dict.XObject.unite(pageData.ImgObjects);
+                dict.XObject.unite(pageData.XObjects);
+                dict.Font = pageData.FObjects;
+                dict.Shading = Shadings;
+                dict.Pattern = Patterns;
+                dict.ExtGState = Transpar;
+                dict.ColorSpace.append(asColorSpace(ICCProfiles.values()));
+                dict.ColorSpace.append(asColorSpace(spotMap.values()));
+                writer.write("/Resources ");
+                writer.write(dict);
+                
 				if (Options.Compress)
-					Content = CompressStr(&Content);
-				PutDoc("/Length "+QString::number(Content.length()+1));
+					Content = CompressArray(Content);
+				PutDoc("/Length "+Pdf::toPdf(Content.length()+1));
 				if (Options.Compress)
 					PutDoc("\n/Filter /FlateDecode");
-				PutDoc(" >>\nstream\n"+EncStream(Content, templateObject)+"\nendstream\nendobj\n");
-				int pIndex   = doc.MasterPages.indexOf((ScPage* const) pag) + 1;
-				QString name = QString("master_page_obj_%1_%2").arg(pIndex).arg(qHash(ite));
-				Seite.XObjects[name] = templateObject;
+                PutDoc(" >>\nstream\n"+EncStream(Content, templateObject)+"\nendstream");
+                writer.endObj(templateObject);
+                
+                int pIndex = doc.MasterPages.indexOf((ScPage* const) pag) + 1;
+                QByteArray name = QByteArray("master_page_obj_%1_%2")
+                                            .replace("%1", Pdf::toPdf(pIndex))
+                                            .replace("%2", Pdf::toPdf(qHash(ite)));
+                pageData.XObjects[name] = templateObject;
 			}
 			if (((Options.Version == PDFOptions::PDFVersion_15) || (Options.Version == PDFOptions::PDFVersion_X4)) && (Options.useLayers))
 				PutPage("EMC\n");
@@ -2727,12 +2854,14 @@ bool PDFLibCore::PDF_TemplatePage(const ScPage* pag, bool )
 	return true;
 }
 
+
+
 void PDFLibCore::PDF_Begin_Page(const ScPage* pag, QPixmap pm)
 {
 	ActPageP = pag;
 	Content = "";
-	Seite.AObjects.clear();
-	Seite.radioButtonList.clear();
+	pageData.AObjects.clear();
+	pageData.radioButtonList.clear();
 	if (Options.Thumbnails)
 	{
 		ScImage img(pm.toImage());
@@ -2747,25 +2876,26 @@ void PDFLibCore::PDF_Begin_Page(const ScPage* pag, QPixmap pm)
 				compDataAvail = true;
 			}
 		}
-		uint thumbnail = newObject();
-		StartObj(thumbnail);
-		PutDoc("<<\n/Width "+QString::number(img.width())+"\n");
-		PutDoc("/Height "+QString::number(img.height())+"\n");
+		uint thumbnail = writer.newObject();
+		writer.startObj(thumbnail);
+		PutDoc("<<\n/Width "+Pdf::toPdf(img.width())+"\n");
+		PutDoc("/Height "+Pdf::toPdf(img.height())+"\n");
 		PutDoc("/ColorSpace /DeviceRGB\n/BitsPerComponent 8\n");
 
-		PutDoc("/Length "+QString::number(array.size()+1)+"\n");
+		PutDoc("/Length "+Pdf::toPdf(array.size()+1)+"\n");
 		if (Options.Compress && compDataAvail)
 			PutDoc("/Filter /FlateDecode\n");
 		PutDoc(">>\nstream\n");
 		EncodeArrayToStream(array, thumbnail);
-		PutDoc("\nendstream\nendobj\n");
-		Seite.Thumb = thumbnail;
+        PutDoc("\nendstream");
+        writer.endObj(thumbnail);
+		pageData.Thumb = thumbnail;
 	}
 }
 
 void PDFLibCore::PDF_End_Page(int physPage)
 {
-	if (!Seite.radioButtonList.isEmpty())
+	if (!pageData.radioButtonList.isEmpty())
 		PDF_RadioButtons();
 	uint PgNr =  ActPageP->pageNr();
 	double markOffs = 0.0;
@@ -2852,7 +2982,7 @@ void PDFLibCore::PDF_End_Page(int physPage)
 		if (Options.registrationMarks)
 		{
 			double regDelta  = markOffs - Options.markOffset;
-			QString regCross = "0 7 m\n14 7 l\nh\n7 0 m\n7 14 l\nh\n13 7 m\n13 10.31383 10.31383 13 7 13 c\n3.68629 13 1 10.31383 1 7 c\n1 3.68629 3.68629 1 7 1 c\n";
+			QByteArray regCross = "0 7 m\n14 7 l\nh\n7 0 m\n7 14 l\nh\n13 7 m\n13 10.31383 10.31383 13 7 13 c\n3.68629 13 1 10.31383 1 7 c\n1 3.68629 3.68629 1 7 1 c\n";
 			regCross += "10.31383 1 13 3.68629 13 7 c\nh\n10.5 7 m\n10.5 8.93307 8.93307 10.5 7 10.5 c\n5.067 10.5 3.5 8.93307 3.5 7 c\n";
 			regCross += "3.5 5.067 5.067 3.5 7 3.5 c\n8.93307 3.5 10.5 5.067 10.5 7 c\nh\nS\n";
 			PutPage("q\n");
@@ -2937,7 +3067,7 @@ void PDFLibCore::PDF_End_Page(int physPage)
 				docTitle = fi.fileName();
 			}
 //			docTitle += "  "+ tr("Page:")+" "+tmp.setNum(PgNr+1);
-			docTitle += "  "+ tr("Page:")+" "+ QString::number(PgNr+1);
+			docTitle += "  "+ tr("Page:")+" "+ Pdf::toPdf(PgNr+1);
 			PutPage("/"+spotMapReg["Register"].ResName+" cs 1 scn\n");
 			PutPage("q\n");
 			PutPage("1 0 0 1 "+FToStr(startX)+" "+FToStr(startY)+" cm\n");
@@ -2957,12 +3087,12 @@ void PDFLibCore::PDF_End_Page(int physPage)
 			PutPage("Q\n");
 		}
 	}
-	Seite.ObjNum = WritePDFStream(Content);
+	pageData.ObjNum = WritePDFStream(Content);
 	int Gobj = 0;
 	if ((Options.Version >= PDFOptions::PDFVersion_14) || (Options.Version == PDFOptions::PDFVersion_X4))
 	{
-		Gobj = newObject();
-		StartObj(Gobj);
+		Gobj = writer.newObject();
+		writer.startObj(Gobj);
 		PutDoc("<< /S /Transparency\n");
 		if (Options.UseRGB)
 			PutDoc("/CS /DeviceRGB\n");
@@ -2973,15 +3103,16 @@ void PDFLibCore::PDF_End_Page(int physPage)
 			else
 			{
 				if ((doc.HasCMS) && (Options.UseProfiles))
-					PutDoc("/CS "+ICCProfiles[Options.SolidProf].ICCArray+"\n");
+                    PutDoc("/CS " + ICCProfiles[Options.SolidProf].ICCArray + "\n");
 				else
 					PutDoc("/CS /DeviceCMYK\n");
 			}
 		}
-		PutDoc(">>\nendobj\n");
+        PutDoc(">>");
+        writer.endObj(Gobj);
 	}
-	uint pageObject = newObject();
-	StartObj(pageObject);
+	uint pageObject = writer.newObject();
+	writer.startObj(pageObject);
 	PutDoc("<<\n/Type /Page\n/Parent 4 0 R\n");
 	PutDoc("/MediaBox [0 0 "+FToStr(maxBoxX)+" "+FToStr(maxBoxY)+"]\n");
 	PutDoc("/BleedBox ["+FToStr(markOffs)+" "+FToStr(markOffs)+" "+FToStr(maxBoxX-markOffs)+" "+FToStr(maxBoxY-markOffs)+"]\n");
@@ -2989,27 +3120,27 @@ void PDFLibCore::PDF_End_Page(int physPage)
 	PutDoc("/TrimBox ["+FToStr(bleedLeft+markOffs)+" "+FToStr(Options.bleeds.bottom()+markOffs)+" "+FToStr(maxBoxX-bleedRight-markOffs)+" "+FToStr(maxBoxY-Options.bleeds.top()-markOffs)+"]\n");
 	if (Options.Version >= PDFOptions::PDFVersion_13) // PDF/X forbids having both art and trim box!
 		PutDoc("/ArtBox ["+FToStr(bleedLeft+markOffs)+" "+FToStr(Options.bleeds.bottom()+markOffs)+" "+FToStr(maxBoxX-bleedRight-markOffs)+" "+FToStr(maxBoxY-Options.bleeds.top()-markOffs)+"]\n");
-	PutDoc("/Rotate "+QString::number(Options.RotateDeg)+"\n");
-	PutDoc("/Contents "+QString::number(Seite.ObjNum)+" 0 R\n");
+	PutDoc("/Rotate "+Pdf::toPdf(Options.RotateDeg)+"\n");
+	PutDoc("/Contents "+Pdf::toPdf(pageData.ObjNum)+" 0 R\n");
 	if ((Options.Version >= PDFOptions::PDFVersion_14) || (Options.Version == PDFOptions::PDFVersion_X4)) // && (Transpar.count() != 0))
-		PutDoc("/Group "+QString::number(Gobj)+" 0 R\n");
+		PutDoc("/Group "+Pdf::toPdf(Gobj)+" 0 R\n");
 	if (Options.Thumbnails)
-		PutDoc("/Thumb "+QString::number(Seite.Thumb)+" 0 R\n");
-	if (Seite.AObjects.count() != 0)
+		PutDoc("/Thumb "+Pdf::toPdf(pageData.Thumb)+" 0 R\n");
+	if (pageData.AObjects.count() != 0)
 	{
 		PutDoc("/Annots [ ");
-		for (int b = 0; b < Seite.AObjects.count(); ++b)
-			PutDoc(QString::number(Seite.AObjects[b])+" 0 R ");
+		for (int b = 0; b < pageData.AObjects.count(); ++b)
+			PutDoc(Pdf::toPdf(pageData.AObjects[b])+" 0 R ");
 		PutDoc("]\n");
 	}
 	if (Options.PresentMode)
 	{
 		if (ActPageP->PresentVals.pageViewDuration > 0)
-			PutDoc("/Dur "+QString::number(ActPageP->PresentVals.pageViewDuration)+"\n");
+			PutDoc("/Dur "+Pdf::toPdf(ActPageP->PresentVals.pageViewDuration)+"\n");
 		if (ActPageP->PresentVals.effectType != 0)
 		{
 			PutDoc("/Trans << /Type /Trans\n");
-			PutDoc("/D "+QString::number(ActPageP->PresentVals.pageEffectDuration)+"\n");
+			PutDoc("/D "+Pdf::toPdf(ActPageP->PresentVals.pageEffectDuration)+"\n");
 			switch (ActPageP->PresentVals.effectType)
 			{
 				case 1:
@@ -3147,33 +3278,36 @@ void PDFLibCore::PDF_End_Page(int physPage)
 			PutDoc(">>\n");
 		}
 	}
-	PutDoc(">>\nendobj\n");
+    PutDoc(">>");
+    writer.endObj(pageObject);
 	PageTree.Count++;
 	PageTree.Kids[physPage] = pageObject;
 }
 
 
-void PDFLibCore::writeXObject(uint objNr, QString dictionary, QByteArray stream)
+void PDFLibCore::writeXObject(uint objNr, QByteArray dictionary, QByteArray stream)
 {
-	StartObj(objNr);
+	writer.startObj(objNr);
 	PutDoc("<<");
 	PutDoc(dictionary);
 	PutDoc(">>\nstream\n");
 	EncodeArrayToStream(stream, objNr);
-	PutDoc("\nendstream\nendobj\n");
+    PutDoc("\nendstream");
+    writer.endObj(objNr);
 }
 
 
-uint PDFLibCore::writeObject(QString type, QString dictionary)
+PdfId PDFLibCore::writeObject(QByteArray type, QByteArray dictionary)
 {
-	uint result = newObject();
-	StartObj(result);
+	PdfId result = writer.newObject();
+	writer.startObj(result);
 	PutDoc("<<");
 	if (!type.isEmpty())
 		PutDoc("/Type " + type + "\n");
 	PutDoc(dictionary);
-	PutDoc(">>\nendobj\n");
-	return result;
+    PutDoc(">>");
+    writer.endObj(result);
+    return result;
 }
 
 
@@ -3183,7 +3317,7 @@ bool PDFLibCore::PDF_ProcessPage(const ScPage* pag, uint PNr, bool clip)
 	ScLayer ll;
 	ll.isPrintable = false;
 	if (Options.UseLPI)
-		PutPage("/"+HTName+" gs\n");
+		PutPage(Pdf::toName(HTName) + " gs\n");
 	double bleedRight  = 0.0;
 	double bleedLeft   = 0.0;
 	double bleedBottom = 0.0;
@@ -3209,7 +3343,9 @@ bool PDFLibCore::PDF_ProcessPage(const ScPage* pag, uint PNr, bool clip)
 	{
 		double bbWidth  = ActPageP->width()  + bleedLeft + bleedRight;
 		double bbHeight = ActPageP->height() + bleedBottom + bleedTop;
-		PutPage( QString("%1 %2 %3 %4 re W n\n").arg(FToStr(-bleedLeft)).arg(FToStr(-bleedBottom)).arg(FToStr(bbWidth)).arg(FToStr(bbHeight)) );
+        const char* B = " ";
+        PutPage(FToStr(-bleedLeft) +B+ FToStr(-bleedBottom) +B+
+                FToStr(bbWidth) +B+ FToStr(bbHeight) + " re W n\n");
 	}
 	if ( (Options.MirrorH) && (!pag->MPageNam.isEmpty()) )
 		PutPage("-1 0 0 1 "+FToStr(ActPageP->width())+" 0 cm\n");
@@ -3241,7 +3377,7 @@ bool PDFLibCore::PDF_ProcessPage(const ScPage* pag, uint PNr, bool clip)
 bool PDFLibCore::PDF_ProcessMasterElements(const ScLayer& layer, const ScPage* pag, uint PNr)
 {
 	PageItem* ite;
-	QString content, output;
+	QByteArray content, output;
 	QList<PageItem*> PItems;
 
 	if (pag->MPageNam.isEmpty())
@@ -3266,7 +3402,9 @@ bool PDFLibCore::PDF_ProcessMasterElements(const ScLayer& layer, const ScPage* p
 				continue;
 			if ((!pag->pageName().isEmpty()) && (ite->OwnPage != static_cast<int>(pag->pageNr())) && (ite->OwnPage != -1))
 				continue;
-			QString name = QString("/master_page_obj_%1_%2").arg(mPageIndex).arg(qHash(ite));
+            QByteArray name = QByteArray("/master_page_obj_%1_%2")
+                                         .replace("%1", Pdf::toPdf(mPageIndex))
+                                         .replace("%2", Pdf::toPdf(qHash(ite)));
 			if ((!ite->asTextFrame()) && (!ite->asPathText()) && (!ite->asTable()))
 			{
 				if (((layer.transparency != 1) || (layer.blendMode != 0)) && ((Options.Version >= PDFOptions::PDFVersion_14) || (Options.Version == PDFOptions::PDFVersion_X4)))
@@ -3296,21 +3434,22 @@ bool PDFLibCore::PDF_ProcessMasterElements(const ScLayer& layer, const ScPage* p
 		// Couldn't we use Write_TransparencyGroup() here?
 		if (((layer.transparency != 1) || (layer.blendMode != 0)) && ((Options.Version >= PDFOptions::PDFVersion_14) ||(Options.Version == PDFOptions::PDFVersion_X4)))
 		{
-			int Gobj = newObject();
-			StartObj(Gobj);
+			PdfId Gobj = writer.newObject();
+			writer.startObj(Gobj);
 			PutDoc("<< /Type /Group\n");
 			PutDoc("/S /Transparency\n");
 			PutDoc("/I false\n");
 			PutDoc("/K false\n");
-			PutDoc(">>\nendobj\n");
-			QString ShName = ResNam+QString::number(ResCount);
+            PutDoc(">>");
+            writer.endObj(Gobj);
+			QByteArray ShName = ResNam+QByteArray::number(ResCount);
 			ResCount++;
 			Transpar[ShName] = writeGState("/CA "+FToStr(layer.transparency)+"\n"
 										   + "/ca "+FToStr(layer.transparency)+"\n"
 										   + "/SMask /None\n/AIS false\n/OPM 1\n"
 										   + "/BM /" + blendMode(layer.blendMode) + "\n");
-			uint formObject = newObject();
-			StartObj(formObject);
+			PdfId formObject = writer.newObject();
+			writer.startObj(formObject);
 			PutDoc("<<\n/Type /XObject\n/Subtype /Form\n/FormType 1\n");
 			double bleedRight = 0.0;
 			double bleedLeft  = 0.0;
@@ -3318,16 +3457,17 @@ bool PDFLibCore::PDF_ProcessMasterElements(const ScLayer& layer, const ScPage* p
 			double maxBoxX = ActPageP->width()+bleedRight+bleedLeft;
 			double maxBoxY = ActPageP->height()+Options.bleeds.top()+Options.bleeds.bottom();
 			PutDoc("/BBox [ "+FToStr(-bleedLeft)+" "+FToStr(-Options.bleeds.bottom())+" "+FToStr(maxBoxX)+" "+FToStr(maxBoxY)+" ]\n");
-			PutDoc("/Group "+QString::number(Gobj)+" 0 R\n");
+			PutDoc("/Group "+QByteArray::number(Gobj)+" 0 R\n");
 			if (Options.Compress)
-				content = CompressStr(&content);
-			PutDoc("/Length "+QString::number(content.length()+1));
+				content = CompressArray(content);
+			PutDoc("/Length "+QByteArray::number(content.length()+1));
 			if (Options.Compress)
 				PutDoc("\n/Filter /FlateDecode");
-			PutDoc(" >>\nstream\n"+EncStream(content, formObject)+"\nendstream\nendobj\n");
-			QString name = ResNam+QString::number(ResCount);
+            PutDoc(" >>\nstream\n"+EncStream(content, formObject)+"\nendstream");
+            writer.endObj(formObject);
+            QByteArray name = ResNam+QByteArray::number(ResCount);
 			ResCount++;
-			Seite.XObjects[name] = formObject;
+			pageData.XObjects[name] = formObject;
 			PutPage("q\n");
 			PutPage("/"+ShName+" gs\n");
 			PutPage("/"+name+" Do\n");
@@ -3342,14 +3482,14 @@ bool PDFLibCore::PDF_ProcessMasterElements(const ScLayer& layer, const ScPage* p
 bool PDFLibCore::PDF_ProcessPageElements(const ScLayer& layer, const ScPage* pag, uint PNr)
 {
 	PageItem* ite;
-	QString output;
+	QByteArray output;
 	QList<PageItem*> PItems;
 
 	int pc_exportpagesitems = usingGUI ? progressDialog->progress("ECPI") : 0;
 	PItems = (pag->pageName().isEmpty()) ? doc.DocItems : doc.MasterItems;
 	if ((layer.isPrintable) || (((Options.Version == PDFOptions::PDFVersion_15) || (Options.Version == PDFOptions::PDFVersion_X4)) && (Options.useLayers)))
 	{
-		QString inh = "";
+		QByteArray inh = "";
 		if (((Options.Version == PDFOptions::PDFVersion_15) || (Options.Version == PDFOptions::PDFVersion_X4)) && (Options.useLayers))
 			PutPage("/OC /"+OCGEntries[layer.Name].Name+" BDC\n");
 		for (int a = 0; a < PItems.count() && !abortExport; ++a)
@@ -3372,21 +3512,22 @@ bool PDFLibCore::PDF_ProcessPageElements(const ScLayer& layer, const ScPage* pag
 		// Couldn't we use Write_TransparencyGroup() here?
 		if (((layer.transparency != 1) || (layer.blendMode != 0)) && ((Options.Version >= PDFOptions::PDFVersion_14) ||(Options.Version == PDFOptions::PDFVersion_X4)))
 		{
-			int Gobj = newObject();
-			StartObj(Gobj);
+			int Gobj = writer.newObject();
+			writer.startObj(Gobj);
 			PutDoc("<< /Type /Group\n");
 			PutDoc("/S /Transparency\n");
 			PutDoc("/I false\n");
 			PutDoc("/K false\n");
-			PutDoc(">>\nendobj\n");
-			QString ShName = ResNam+QString::number(ResCount);
+            PutDoc(">>");
+            writer.endObj(Gobj);
+			QByteArray ShName = ResNam+Pdf::toPdf(ResCount);
 			ResCount++;
 			Transpar[ShName] = writeGState("/CA "+FToStr(layer.transparency)+"\n"
 										   + "/ca "+FToStr(layer.transparency)+"\n"
 										   + "/SMask /None\n/AIS false\n/OPM 1\n"
 										   + "/BM /" + blendMode(layer.blendMode) + "\n");
-			uint formObject = newObject();
-			StartObj(formObject);
+			PdfId formObject = writer.newObject();
+			writer.startObj(formObject);
 			PutDoc("<<\n/Type /XObject\n/Subtype /Form\n/FormType 1\n");
 			double bleedRight = 0.0;
 			double bleedLeft  = 0.0;
@@ -3394,18 +3535,19 @@ bool PDFLibCore::PDF_ProcessPageElements(const ScLayer& layer, const ScPage* pag
 			double maxBoxX = ActPageP->width()+bleedRight+bleedLeft;
 			double maxBoxY = ActPageP->height()+Options.bleeds.top()+Options.bleeds.bottom();
 			PutDoc("/BBox [ "+FToStr(-bleedLeft)+" "+FToStr(-Options.bleeds.bottom())+" "+FToStr(maxBoxX)+" "+FToStr(maxBoxY)+" ]\n");
-			PutDoc("/Group "+QString::number(Gobj)+" 0 R\n");
+			PutDoc("/Group "+Pdf::toPdf(Gobj)+" 0 R\n");
 			if (Options.Compress)
-				inh = CompressStr(&inh);
-			PutDoc("/Length "+QString::number(inh.length()+1));
+				inh = CompressArray(inh);
+			PutDoc("/Length "+Pdf::toPdf(inh.length()+1));
 			if (Options.Compress)
 				PutDoc("\n/Filter /FlateDecode");
-			PutDoc(" >>\nstream\n"+EncStream(inh, formObject)+"\nendstream\nendobj\n");
-			QString name = layer.Name.simplified().replace(QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "_") + QString::number(layer.ID) + QString::number(PNr);
-			Seite.XObjects[name] = formObject;
+            PutDoc(" >>\nstream\n"+EncStream(inh, formObject)+"\nendstream");
+            writer.endObj(formObject);
+            QByteArray name = Pdf::toPdfDocEncoding(layer.Name.simplified().replace(QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "_")) + Pdf::toPdf(layer.ID) + Pdf::toPdf(PNr);
+			pageData.XObjects[name] = formObject;
 			PutPage("q\n");
-			PutPage("/"+ShName+" gs\n");
-			PutPage("/"+name+" Do\n");
+			PutPage(Pdf::toName(ShName) + " gs\n");
+            PutPage(Pdf::toName(name) + " Do\n");
 			PutPage("Q\n");
 		}
 		if (((Options.Version == PDFOptions::PDFVersion_15) || (Options.Version == PDFOptions::PDFVersion_X4)) && (Options.useLayers))
@@ -3414,11 +3556,11 @@ bool PDFLibCore::PDF_ProcessPageElements(const ScLayer& layer, const ScPage* pag
 	return true;
 }
 
-QString PDFLibCore::Write_FormXObject(QString &data, PageItem *controlItem)
+QByteArray PDFLibCore::Write_FormXObject(QByteArray &data, PageItem *controlItem)
 {
-	QString retString = "";
-	uint formObject = newObject();
-	StartObj(formObject);
+	QByteArray retString = "";
+	PdfId formObject = writer.newObject();
+	writer.startObj(formObject);
 	PutDoc("<<\n/Type /XObject\n/Subtype /Form\n/FormType 1\n");
 	double bleedRight = 0.0;
 	double bleedLeft  = 0.0;
@@ -3457,94 +3599,47 @@ QString PDFLibCore::Write_FormXObject(QString &data, PageItem *controlItem)
 	}
 	else
 		PutDoc("/BBox [ "+FToStr(-bleedLeft)+" "+FToStr(-Options.bleeds.bottom())+" "+FToStr(maxBoxX)+" "+FToStr(maxBoxY)+" ]\n");
-	PutDoc("/Resources << /ProcSet [/PDF /Text /ImageB /ImageC /ImageI]\n");
-	if ((Seite.ImgObjects.count() != 0) || (Seite.XObjects.count() != 0))
-	{
-		PutDoc("/XObject <<\n");
-		QMap<QString,int>::Iterator it;
-		for (it = Seite.ImgObjects.begin(); it != Seite.ImgObjects.end(); ++it)
-			PutDoc("/"+it.key()+" "+QString::number(it.value())+" 0 R\n");
-		QMap<QString,int>::Iterator iti;
-		for (iti = Seite.XObjects.begin(); iti != Seite.XObjects.end(); ++iti)
-			PutDoc("/"+iti.key()+" "+QString::number(iti.value())+" 0 R\n");
-		PutDoc(">>\n");
-	}
-	if (Seite.FObjects.count() != 0)
-	{
-		PutDoc("/Font << \n");
-		QMap<QString,int>::Iterator it2;
-		for (it2 = Seite.FObjects.begin(); it2 != Seite.FObjects.end(); ++it2)
-			PutDoc("/"+it2.key()+" "+QString::number(it2.value())+" 0 R\n");
-		PutDoc(">>\n");
-	}
-	if (Shadings.count() != 0)
-	{
-		PutDoc("/Shading << \n");
-		QMap<QString,int>::Iterator it3;
-		for (it3 = Shadings.begin(); it3 != Shadings.end(); ++it3)
-			PutDoc("/"+it3.key()+" "+QString::number(it3.value())+" 0 R\n");
-		PutDoc(">>\n");
-	}
-	if (Patterns.count() != 0)
-	{
-		PutDoc("/Pattern << \n");
-		QMap<QString,int>::Iterator it3p;
-		for (it3p = Patterns.begin(); it3p != Patterns.end(); ++it3p)
-			PutDoc("/"+it3p.key()+" "+QString::number(it3p.value())+" 0 R\n");
-		PutDoc(">>\n");
-	}
-	if (Transpar.count() != 0)
-	{
-		PutDoc("/ExtGState << \n");
-		QMap<QString,int>::Iterator it3t;
-		for (it3t = Transpar.begin(); it3t != Transpar.end(); ++it3t)
-			PutDoc("/"+it3t.key()+" "+QString::number(it3t.value())+" 0 R\n");
-		PutDoc(">>\n");
-	}
-	if ((ICCProfiles.count() != 0) || (spotMap.count() != 0))
-	{
-		PutDoc("/ColorSpace << \n");
-		QMap<QString,ICCD>::Iterator it3c;
-		if (ICCProfiles.count() != 0)
-		{
-			for (it3c = ICCProfiles.begin(); it3c != ICCProfiles.end(); ++it3c)
-				PutDoc("/"+it3c.value().ResName+" "+QString::number(it3c.value().ResNum)+" 0 R\n");
-		}
-		QMap<QString,SpotC>::Iterator it3sc;
-		if (spotMap.count() != 0)
-		{
-			for (it3sc = spotMap.begin(); it3sc != spotMap.end(); ++it3sc)
-				PutDoc("/"+it3sc.value().ResName+" "+QString::number(it3sc.value().ResNum)+" 0 R\n");
-		}
-		PutDoc(">>\n");
-	}
+    PutDoc("/Resources ");
+    Pdf::ResourceDictionary dict;
+    dict.XObject.unite(pageData.ImgObjects);
+    dict.XObject.unite(pageData.XObjects);
+    dict.Font = pageData.FObjects;
+    dict.Shading = Shadings;
+    dict.Pattern = Patterns;
+    dict.ExtGState = Transpar;
+    dict.ColorSpace.append(asColorSpace(ICCProfiles.values()));
+    dict.ColorSpace.append(asColorSpace(spotMap.values()));
+    writer.write(dict);
+
 	PutDoc(">>\n");
 	if (Options.Compress)
-		data = CompressStr(&data);
-	PutDoc("/Length "+QString::number(data.length()+1));
+		data = CompressArray(data);
+	PutDoc("/Length "+QByteArray::number(data.length()+1));
 	if (Options.Compress)
 		PutDoc("\n/Filter /FlateDecode");
-	PutDoc(" >>\nstream\n"+EncStream(data, formObject)+"\nendstream\nendobj\n");
-	QString name = ResNam+QString::number(ResCount);
+    PutDoc(" >>\nstream\n"+EncStream(data, formObject)+"\nendstream");
+    writer.endObj(formObject);
+	QByteArray name = ResNam+QByteArray::number(ResCount);
 	ResCount++;
-	Seite.XObjects[name] = formObject;
+	pageData.XObjects[name] = formObject;
 	retString += "q\n";
 	retString += "/"+name+" Do\n";
 	retString += "Q\n";
 	return retString;
 }
 
-QString PDFLibCore::Write_TransparencyGroup(double trans, int blend, QString &data, PageItem *controlItem)
+QByteArray PDFLibCore::Write_TransparencyGroup(double trans, int blend, QByteArray &data, PageItem *controlItem)
 {
-	QString ShName = "";
-	QString retString = "";
-	int Gobj = newObject();
-	StartObj(Gobj);
+	QByteArray ShName = "";
+	QByteArray retString = "";
+	PdfId Gobj = writer.newObject();
+	writer.startObj(Gobj);
 	PutDoc("<< /Type /Group\n");
 	PutDoc("/S /Transparency\n");
 	PutDoc("/I false\n");
 	PutDoc("/K false\n");
-	PutDoc(">>\nendobj\n");
+    PutDoc(">>");
+    writer.endObj(Gobj);
 	if (controlItem != NULL)
 	{
 		retString += "q\n";
@@ -3552,17 +3647,17 @@ QString PDFLibCore::Write_TransparencyGroup(double trans, int blend, QString &da
 	}
 	else
 	{
-		ShName = ResNam+QString::number(ResCount);
+		ShName = ResNam+Pdf::toPdf(ResCount);
 		ResCount++;
 		Transpar[ShName] = writeGState("/CA "+FToStr(1.0 - trans)+"\n"
 									+ "/ca "+FToStr(1.0 - trans)+"\n"
 									+ "/SMask /None\n/AIS false\n/OPM 1\n"
 									+ "/BM /" + blendMode(blend) + "\n");
 		retString += "q\n";
-		retString += "/"+ShName+" gs\n";
+        retString += Pdf::toName(ShName) + " gs\n";
 	}
-	uint formObject = newObject();
-	StartObj(formObject);
+	PdfId formObject = writer.newObject();
+	writer.startObj(formObject);
 	PutDoc("<<\n/Type /XObject\n/Subtype /Form\n/FormType 1\n");
 	double bleedRight = 0.0;
 	double bleedLeft  = 0.0;
@@ -3601,88 +3696,39 @@ QString PDFLibCore::Write_TransparencyGroup(double trans, int blend, QString &da
 	}
 	else
 		PutDoc("/BBox [ "+FToStr(-bleedLeft)+" "+FToStr(-Options.bleeds.bottom())+" "+FToStr(maxBoxX)+" "+FToStr(maxBoxY)+" ]\n");
-	PutDoc("/Group "+QString::number(Gobj)+" 0 R\n");
-	PutDoc("/Resources << /ProcSet [/PDF /Text /ImageB /ImageC /ImageI]\n");
-	if ((Seite.ImgObjects.count() != 0) || (Seite.XObjects.count() != 0))
-	{
-		PutDoc("/XObject <<\n");
-		QMap<QString,int>::Iterator it;
-		for (it = Seite.ImgObjects.begin(); it != Seite.ImgObjects.end(); ++it)
-			PutDoc("/"+it.key()+" "+QString::number(it.value())+" 0 R\n");
-		QMap<QString,int>::Iterator iti;
-		for (iti = Seite.XObjects.begin(); iti != Seite.XObjects.end(); ++iti)
-			PutDoc("/"+iti.key()+" "+QString::number(iti.value())+" 0 R\n");
-		PutDoc(">>\n");
-	}
-	if (Seite.FObjects.count() != 0)
-	{
-		PutDoc("/Font << \n");
-		QMap<QString,int>::Iterator it2;
-		for (it2 = Seite.FObjects.begin(); it2 != Seite.FObjects.end(); ++it2)
-			PutDoc("/"+it2.key()+" "+QString::number(it2.value())+" 0 R\n");
-		PutDoc(">>\n");
-	}
-	if (Shadings.count() != 0)
-	{
-		PutDoc("/Shading << \n");
-		QMap<QString,int>::Iterator it3;
-		for (it3 = Shadings.begin(); it3 != Shadings.end(); ++it3)
-			PutDoc("/"+it3.key()+" "+QString::number(it3.value())+" 0 R\n");
-		PutDoc(">>\n");
-	}
-	if (Patterns.count() != 0)
-	{
-		PutDoc("/Pattern << \n");
-		QMap<QString,int>::Iterator it3p;
-		for (it3p = Patterns.begin(); it3p != Patterns.end(); ++it3p)
-			PutDoc("/"+it3p.key()+" "+QString::number(it3p.value())+" 0 R\n");
-		PutDoc(">>\n");
-	}
-	if (Transpar.count() != 0)
-	{
-		PutDoc("/ExtGState << \n");
-		QMap<QString,int>::Iterator it3t;
-		for (it3t = Transpar.begin(); it3t != Transpar.end(); ++it3t)
-			PutDoc("/"+it3t.key()+" "+QString::number(it3t.value())+" 0 R\n");
-		PutDoc(">>\n");
-	}
-	if ((ICCProfiles.count() != 0) || (spotMap.count() != 0))
-	{
-		PutDoc("/ColorSpace << \n");
-		QMap<QString,ICCD>::Iterator it3c;
-		if (ICCProfiles.count() != 0)
-		{
-			for (it3c = ICCProfiles.begin(); it3c != ICCProfiles.end(); ++it3c)
-				PutDoc("/"+it3c.value().ResName+" "+QString::number(it3c.value().ResNum)+" 0 R\n");
-		}
-		QMap<QString,SpotC>::Iterator it3sc;
-		if (spotMap.count() != 0)
-		{
-			for (it3sc = spotMap.begin(); it3sc != spotMap.end(); ++it3sc)
-				PutDoc("/"+it3sc.value().ResName+" "+QString::number(it3sc.value().ResNum)+" 0 R\n");
-		}
-		PutDoc(">>\n");
-	}
-	PutDoc(">>\n");
-	if (Options.Compress)
-		data = CompressStr(&data);
-	PutDoc("/Length "+QString::number(data.length()+1));
+	PutDoc("/Group "+Pdf::toObjRef(Gobj)+"\n");
+    PutDoc("/Resources ");
+    Pdf::ResourceDictionary dict;
+    dict.XObject.unite(pageData.ImgObjects);
+    dict.XObject.unite(pageData.XObjects);
+    dict.Font = pageData.FObjects;
+    dict.Shading = Shadings;
+    dict.Pattern = Patterns;
+    dict.ExtGState = Transpar;
+    dict.ColorSpace.append(asColorSpace(ICCProfiles.values()));
+    dict.ColorSpace.append(asColorSpace(spotMap.values()));
+    writer.write(dict);
+
+    if (Options.Compress)
+		data = CompressArray(data);
+	PutDoc("/Length "+Pdf::toPdf(data.length()+1));
 	if (Options.Compress)
 		PutDoc("\n/Filter /FlateDecode");
-	PutDoc(" >>\nstream\n"+EncStream(data, formObject)+"\nendstream\nendobj\n");
-	QString name = ResNam+QString::number(ResCount);
+    PutDoc(" >>\nstream\n" + EncStream(data, formObject) + "\nendstream");
+    writer.endObj(formObject);
+	QByteArray name = ResNam+Pdf::toPdf(ResCount);
 	ResCount++;
-	Seite.XObjects[name] = formObject;
-	retString += "/"+name+" Do\n";
+	pageData.XObjects[name] = formObject;
+    retString += Pdf::toName(name) + " Do\n";
 	retString += "Q\n";
 	return retString;
 }
 
-QString PDFLibCore::PDF_PutSoftShadow(PageItem* ite, const ScPage *pag)
+QByteArray PDFLibCore::PDF_PutSoftShadow(PageItem* ite, const ScPage *pag)
 {
 	if (Options.Version < PDFOptions::PDFVersion_14 || !ite->hasSoftShadow() || ite->softShadowColor() == CommonStrings::None || !ite->printEnabled())
 		return "";
-	QString tmp("q\n");
+	QByteArray tmp("q\n");
 	double softShadowDPI = Options.Resolution;
 	int pixelRadius = qRound(ite->softShadowBlurRadius() / 72.0 * softShadowDPI);
 	tmp += "1 0 0 1 ";
@@ -3742,38 +3788,39 @@ QString PDFLibCore::PDF_PutSoftShadow(PageItem* ite, const ScPage *pag)
 	ImageEffect eff;
 	ScImageEffectList el;
 	eff.effectCode = ScImage::EF_BLUR;
-	eff.effectParameters = QString("%1 1.0").arg(pixelRadius);
+    eff.effectParameters = Pdf::toPdf(pixelRadius) + " 1.0";
 	el.append(eff);
 	img.applyEffect(el,ite->doc()->PageColors,false);
 */
-	uint maskObj = newObject();
-	StartObj(maskObj);
+	PdfId maskObj = writer.newObject();
+	writer.startObj(maskObj);
 	PutDoc("<<\n/Type /XObject\n/Subtype /Image\n");
-	PutDoc("/Width "+QString::number(img.width())+"\n");
-	PutDoc("/Height "+QString::number(img.height())+"\n");
+	PutDoc("/Width "+Pdf::toPdf(img.width())+"\n");
+	PutDoc("/Height "+Pdf::toPdf(img.height())+"\n");
 	PutDoc("/ColorSpace /DeviceGray\n");
 	PutDoc("/BitsPerComponent 8\n");
-	uint lengthObj = newObject();
-	PutDoc("/Length "+QString::number(lengthObj)+" 0 R\n");
+	uint lengthObj = writer.newObject();
+	PutDoc("/Length "+Pdf::toPdf(lengthObj)+" 0 R\n");
 	PutDoc("/Filter /FlateDecode\n");
 	PutDoc(">>\nstream\n");
 	int bytesWritten = WriteFlateImageToStream(img, maskObj, ColorSpaceGray, false);
-	PutDoc("\nendstream\nendobj\n");
-	StartObj(lengthObj);
-	PutDoc(QString("    %1\n").arg(bytesWritten));
-	PutDoc("endobj\n");
+    PutDoc("\nendstream");
+    writer.endObj(maskObj);
+	writer.startObj(lengthObj);
+    PutDoc("    " + Pdf::toPdf(bytesWritten));
+	writer.endObj(lengthObj);
 
-	uint colObj = newObject();
-	StartObj(colObj);
+	PdfId colObj = writer.newObject();
+	writer.startObj(colObj);
 	PutDoc("<<\n/Type /XObject\n/Subtype /Image\n");
 	PutDoc("/Width 1\n");
 	PutDoc("/Height 1\n");
 	PutDoc("/Interpolate false\n");
 	PutDoc("/BitsPerComponent 8\n");
-	PutDoc("/SMask "+QString::number(maskObj)+" 0 R\n");
+	PutDoc("/SMask "+Pdf::toPdf(maskObj)+" 0 R\n");
 
 	ScImage col(1,1);
-	QString colstr = SetColor(ite->softShadowColor(), ite->softShadowShade());
+	QByteArray colstr = SetColor(ite->softShadowColor(), ite->softShadowShade());
 	if (Options.isGrayscale)
 	{
 		double gf;
@@ -3787,7 +3834,7 @@ QString PDFLibCore::PDF_PutSoftShadow(PageItem* ite, const ScPage *pag)
 		PutDoc("/Length 1\n");
 		PutDoc(">>\nstream\n");
 		WriteImageToStream(col, colObj, ColorSpaceGray, true);
-		PutDoc("\nendstream\nendobj\n");
+		PutDoc("\nendstream");
 	}
 	else if (Options.UseRGB)
 	{
@@ -3802,7 +3849,7 @@ QString PDFLibCore::PDF_PutSoftShadow(PageItem* ite, const ScPage *pag)
 		PutDoc("/Length 3\n");
 		PutDoc(">>\nstream\n");
 		WriteImageToStream(col, colObj, ColorSpaceRGB, false);
-		PutDoc("\nendstream\nendobj\n");
+		PutDoc("\nendstream");
 	}
 	else //CMYK
 	{
@@ -3818,36 +3865,36 @@ QString PDFLibCore::PDF_PutSoftShadow(PageItem* ite, const ScPage *pag)
 		PutDoc("/Length 4\n");
 		PutDoc(">>\nstream\n");
 		WriteImageToStream(col, colObj, ColorSpaceCMYK, false);
-		PutDoc("\nendstream\nendobj\n");
+		PutDoc("\nendstream");
 	}
-
-	QString colRes = ResNam+QString::number(ResCount);
-	Seite.ImgObjects[colRes] = colObj;
+    writer.endObj(colObj);
+	QByteArray colRes = ResNam+Pdf::toPdf(ResCount);
+	pageData.ImgObjects[colRes] = colObj;
 	ResCount++;
 
-	QString ShName = ResNam+QString::number(ResCount);
+	QByteArray ShName = ResNam+Pdf::toPdf(ResCount);
 	ResCount++;
 	Transpar[ShName] = writeGState("/ca "+FToStr(1.0 - ite->softShadowOpacity())+"\n"
 								   + "/AIS false\n/OPM 1\n"
 								   + "/BM /" + blendMode(ite->softShadowBlendMode()) + "\n");
 
-	tmp += "/"+ShName+" gs\n";
+    tmp += Pdf::toName(ShName) + " gs\n";
 
-	tmp += "/"+colRes+" Do Q\n";
+	tmp += Pdf::toName(colRes) + " Do Q\n";
 	return tmp;
 }
 
 /**
- * Fill this.output with the QString representation of the item.
+ * Fill this.output with the QByteArray representation of the item.
  * Checks if the item can be represented in the chosen PDF version, based on some of its caracteristics
  * and delegates the work to PDF_Image, PDF_GradientFillStroke, PDF_PatternFillStroke and so on for
  * filling this.output.
  * Returns false if the content can't be represented in the chosen PDF version,
  * if the image can't be loaded
  */
-bool PDFLibCore::PDF_ProcessItem(QString& output, PageItem* ite, const ScPage* pag, uint PNr, bool embedded, bool pattern)
+bool PDFLibCore::PDF_ProcessItem(QByteArray& output, PageItem* ite, const ScPage* pag, uint PNr, bool embedded, bool pattern)
 {
-	QString tmp(""), tmpOut;
+	QByteArray tmp(""), tmpOut;
 	if (ite->isGroup())
 		ite->asGroupFrame()->adjustXYPosition();
 	ite->setRedrawBounding();
@@ -3888,12 +3935,12 @@ bool PDFLibCore::PDF_ProcessItem(QString& output, PageItem* ite, const ScPage* p
 	tmp += "q\n";
 	if ((ite->doOverprint) && (!Options.UseRGB))
 	{
-		QString ShName = ResNam+QString::number(ResCount);
+		QByteArray ShName = ResNam+Pdf::toPdf(ResCount);
 		ResCount++;
 		Transpar[ShName] = writeGState("/OP true\n"
 									   "/op true\n"
 									   "/OPM 1\n");
-		tmp += "/"+ShName+" gs\n";
+		tmp += Pdf::toName(ShName) + " gs\n";
 	}
 //	if (((ite->fillTransparency() != 0) || (ite->lineTransparency() != 0)) && (Options.Version >= PDFOptions::PDFVersion_14))
 //		tmp += PDF_Transparenz(ite);
@@ -3924,12 +3971,12 @@ bool PDFLibCore::PDF_ProcessItem(QString& output, PageItem* ite, const ScPage* p
 			// #8758: Custom dotted lines don't export properly to pdf
 			// Null values have to be exported if line end != flat
 			if ((da != 0) || (ite->lineEnd() != Qt::FlatCap))
-				tmp += QString::number(da)+" ";
+				tmp += Pdf::toPdf(da)+" ";
 		}
-		tmp += "] "+QString::number(ite->DashOffset)+" d\n";
+		tmp += "] "+Pdf::toPdf(ite->DashOffset)+" d\n";
 	}
 	else
-		tmp += "["+getDashString(ite->PLineArt, ite->lineWidth())+"] 0 d\n";
+		tmp += "[" + Pdf::toAscii(getDashString(ite->PLineArt, ite->lineWidth())) + "] 0 d\n";
 	switch (ite->PLineEnd)
 	{
 		case Qt::FlatCap:
@@ -4111,7 +4158,7 @@ bool PDFLibCore::PDF_ProcessItem(QString& output, PageItem* ite, const ScPage* p
 			{
 				if (ite->annotation().Type() == Annotation::RadioButton)
 				{
-					Seite.radioButtonList.append(ite);
+					pageData.radioButtonList.append(ite);
 					break;
 				}
 				if (!PDF_Annotation(ite, PNr))
@@ -4607,7 +4654,7 @@ bool PDFLibCore::PDF_ProcessItem(QString& output, PageItem* ite, const ScPage* p
 		case PageItem::Symbol:
 			if (doc.docPatterns.contains(ite->pattern()))
 			{
-				QString tmpD = "";
+				QByteArray tmpD;
 				ScPattern pat = doc.docPatterns[ite->pattern()];
 				tmp += "q\n";
 				tmp += SetPathAndClip(ite);
@@ -4626,7 +4673,7 @@ bool PDFLibCore::PDF_ProcessItem(QString& output, PageItem* ite, const ScPage* p
 					PageItem* embedded = pat.items.at(em);
 					tmpD += "q\n";
 					tmpD +=  "1 0 0 1 "+FToStr(embedded->gXpos)+" "+FToStr(ite->height() - embedded->gYpos)+" cm\n";
-					QString output;
+					QByteArray output;
 					if (!PDF_ProcessItem(output, embedded, pag, PNr, true))
 						return "";
 					tmpD += output;
@@ -4643,7 +4690,7 @@ bool PDFLibCore::PDF_ProcessItem(QString& output, PageItem* ite, const ScPage* p
 		case PageItem::Group:
 			if (ite->groupItemList.count() > 0)
 			{
-				QString tmpD = "";
+				QByteArray tmpD;
 				tmp += "q\n";
 				if (ite->groupClipping())
 					tmp += SetPathAndClip(ite);
@@ -4661,7 +4708,7 @@ bool PDFLibCore::PDF_ProcessItem(QString& output, PageItem* ite, const ScPage* p
 					PageItem* embedded = ite->groupItemList.at(em);
 					tmpD += "q\n";
 					tmpD +=  "1 0 0 1 "+FToStr(embedded->gXpos)+" "+FToStr(ite->height() - embedded->gYpos)+" cm\n";
-					QString output;
+					QByteArray output;
 					if (inPattern > 0)
 						patternStackPos.push(QPointF(embedded->gXpos, ite->height() - embedded->gYpos));
 					if (!PDF_ProcessItem(output, embedded, pag, PNr, true))
@@ -4872,7 +4919,7 @@ bool PDFLibCore::PDF_ProcessItem(QString& output, PageItem* ite, const ScPage* p
 						PageItem* textFrame = cell.textFrame();
 						tmp += "q\n";
 						tmp +=  "1 0 0 1 "+FToStr(cell.contentRect().x())+" "+FToStr(-cell.contentRect().y())+" cm\n";
-						QString output;
+						QByteArray output;
 						PDF_ProcessItem(output, textFrame, pag, PNr, true);
 						tmp += output;
 						tmp += "Q\n";
@@ -4890,9 +4937,9 @@ bool PDFLibCore::PDF_ProcessItem(QString& output, PageItem* ite, const ScPage* p
 	return true;
 }
 
-QString PDFLibCore::paintBorder(const TableBorder& border, const QPointF& start, const QPointF& end, const QPointF& startOffsetFactors, const QPointF& endOffsetFactors)
+QByteArray PDFLibCore::paintBorder(const TableBorder& border, const QPointF& start, const QPointF& end, const QPointF& startOffsetFactors, const QPointF& endOffsetFactors)
 {
-	QString tmp;
+	QByteArray tmp;
 	tmp = "";
 	tmp += "q\n";
 	QPointF lineStart, lineEnd;
@@ -4918,21 +4965,21 @@ QString PDFLibCore::paintBorder(const TableBorder& border, const QPointF& start,
 			{
 				double da = *it;
 				if (da != 0)
-					tmp += QString::number(da)+" ";
+					tmp += Pdf::toPdf(da)+" ";
 			}
 			tmp += "] 0 d\n";
 		}
 		else
-			tmp += "["+getDashString(line.style(), line.width())+"] 0 d\n";
+			tmp += "[" + Pdf::toAscii(getDashString(line.style(), line.width())) + "] 0 d\n";
 		tmp += "0 J 0 j S\n";
 	}
 	tmp += "Q\n";
 	return tmp;
 }
 
-QString PDFLibCore::handleBrushPattern(PageItem* ite, QPainterPath &path, const ScPage* pag, uint PNr)
+QByteArray PDFLibCore::handleBrushPattern(PageItem* ite, QPainterPath &path, const ScPage* pag, uint PNr)
 {
-	QString tmp;
+	QByteArray tmp;
 	tmp = "";
 	ScPattern pat = doc.docPatterns[ite->strokePattern()];
 	double pLen = path.length() - ((pat.width / 2.0) * (ite->patternStrokeScaleX / 100.0));
@@ -4974,7 +5021,7 @@ QString PDFLibCore::handleBrushPattern(PageItem* ite, QPainterPath &path, const 
 			PageItem* embedded = pat.items.at(em);
 			tmp += "q\n";
 			tmp +=  "1 0 0 1 "+FToStr(embedded->gXpos)+" "+FToStr(embedded->gHeight - embedded->gYpos)+" cm\n";
-			QString output;
+			QByteArray output;
 			if (!PDF_ProcessItem(output, embedded, pag, PNr, true))
 				return "";
 			tmp += output;
@@ -4986,9 +5033,9 @@ QString PDFLibCore::handleBrushPattern(PageItem* ite, QPainterPath &path, const 
 	return tmp;
 }
 
-QString PDFLibCore::drawArrow(PageItem *ite, QTransform &arrowTrans, int arrowIndex)
+QByteArray PDFLibCore::drawArrow(PageItem *ite, QTransform &arrowTrans, int arrowIndex)
 {
-	QString tmp = "";
+	QByteArray tmp = "";
 	FPointArray arrow = doc.arrowStyles().at(arrowIndex-1).points.copy();
 	if (ite->NamedLStyle.isEmpty())
 	{
@@ -5004,20 +5051,20 @@ QString PDFLibCore::drawArrow(PageItem *ite, QTransform &arrowTrans, int arrowIn
 	arrow.map(arrowTrans);
 	if ((ite->lineTransparency() != 0) && ((Options.Version >= PDFOptions::PDFVersion_14) || (Options.Version == PDFOptions::PDFVersion_X4)))
 	{
-		QString ShName = ResNam+QString::number(ResCount);
+		QByteArray ShName = ResNam+Pdf::toPdf(ResCount);
 		ResCount++;
 		Transpar[ShName] = writeGState("/CA "+FToStr(1.0 - ite->lineTransparency())+"\n"
 									   + "/ca "+FToStr(1.0 - ite->lineTransparency())+"\n"
 									   + "/SMask /None\n/AIS false\n/OPM 1\n"
 									   + "/BM /Normal\n");
-		tmp += "/"+ShName+" gs\n";
+		tmp += Pdf::toName(ShName) + " gs\n";
 	}
 	if (ite->NamedLStyle.isEmpty())
 	{
 		if (!ite->strokePattern().isEmpty())
 		{
 			tmp += SetClipPathArray(&arrow);
-			QString tmpOut;
+			QByteArray tmpOut;
 			PDF_PatternFillStroke(tmpOut, ite, 1, true);
 			tmp += tmpOut;
 			tmp += "h\nf*\n";
@@ -5025,7 +5072,7 @@ QString PDFLibCore::drawArrow(PageItem *ite, QTransform &arrowTrans, int arrowIn
 		else if (ite->GrTypeStroke > 0)
 		{
 			tmp += SetClipPathArray(&arrow);
-			QString tmpOut;
+			QByteArray tmpOut;
 			PDF_GradientFillStroke(tmpOut, ite, true, true);
 			tmp += "q\n";
 			tmp += tmpOut;
@@ -5060,10 +5107,10 @@ QString PDFLibCore::drawArrow(PageItem *ite, QTransform &arrowTrans, int arrowIn
 	return tmp;
 }
 
-QString PDFLibCore::putColor(const QString& color, double shade, bool fill)
+QByteArray PDFLibCore::putColor(const QString& color, double shade, bool fill)
 {
-	QString tmp = "";
-	QString colString = SetColor(color, shade);
+	QByteArray tmp = "";
+	QByteArray colString = SetColor(color, shade);
 	ScColor tmpC;
 	tmpC = doc.PageColors[color];
 	if (((tmpC.isSpotColor()) || (tmpC.isRegistrationColor())) && ((Options.isGrayscale == false) && (Options.UseRGB == false))  && (Options.UseSpotColors))
@@ -5120,7 +5167,7 @@ QString PDFLibCore::putColor(const QString& color, double shade, bool fill)
 			}
 			else
 			{
-				QString tmp2[] = {"/Perceptual", "/RelativeColorimetric", "/Saturation", "/AbsoluteColorimetric"};
+				QByteArray tmp2[] = {"/Perceptual", "/RelativeColorimetric", "/Saturation", "/AbsoluteColorimetric"};
 				tmp += tmp2[Options.Intent]+ " ri\n";
 				if (color != CommonStrings::None)
 				{
@@ -5152,7 +5199,7 @@ QString PDFLibCore::putColor(const QString& color, double shade, bool fill)
 }
 
 /*CB 2982: cache code is borked somehow, original function is above
-QString PDFLibCore::putColor(const QString & colorName, int shade, bool fill)
+QByteArray PDFLibCore::putColor(const QString & colorName, int shade, bool fill)
 {
 	// Cache of last foreground and background colours We cache fg and bg
 	// separately because they're alternated so much.  The primary purpose of
@@ -5182,12 +5229,12 @@ QString PDFLibCore::putColor(const QString & colorName, int shade, bool fill)
 }
 */
 
-QString PDFLibCore::putColorUncached(const QString& color, int shade, bool fill)
+QByteArray PDFLibCore::putColorUncached(const QString& color, int shade, bool fill)
 {
 	ScColor tmpC(doc.PageColors[color]);
 	if (((tmpC.isSpotColor()) || (tmpC.isRegistrationColor())) && ((Options.isGrayscale == false) && (Options.UseRGB == false))  && (Options.UseSpotColors))
 	{
-		QString tmpSpot("");
+		QByteArray tmpSpot("");
 		if ((color != CommonStrings::None) && (spotMap.contains(color)))
 		{
 			if (fill)
@@ -5203,10 +5250,10 @@ QString PDFLibCore::putColorUncached(const QString& color, int shade, bool fill)
 		}
 		return tmpSpot;
 	}
-	QString colString(SetColor(color, shade));
+	QByteArray colString(SetColor(color, shade));
 	if (Options.isGrayscale)
 	{
-		QString tmpGray("");
+		QByteArray tmpGray("");
 		if (color != CommonStrings::None)
 		{
 			if (fill)
@@ -5216,7 +5263,7 @@ QString PDFLibCore::putColorUncached(const QString& color, int shade, bool fill)
 		}
 		return tmpGray;
 	}
-	QString tmp("");
+	QByteArray tmp("");
 	if (Options.UseRGB)
 	{
 		if (color != CommonStrings::None)
@@ -5243,7 +5290,7 @@ QString PDFLibCore::putColorUncached(const QString& color, int shade, bool fill)
 			}
 			else
 			{
-				QString tmp2[] = {"/Perceptual", "/RelativeColorimetric", "/Saturation", "/AbsoluteColorimetric"};
+				QByteArray tmp2[] = {"/Perceptual", "/RelativeColorimetric", "/Saturation", "/AbsoluteColorimetric"};
 				tmp += tmp2[Options.Intent]+ " ri\n";
 				if (color != CommonStrings::None)
 				{
@@ -5274,14 +5321,14 @@ QString PDFLibCore::putColorUncached(const QString& color, int shade, bool fill)
 	return tmp;
 }
 
-QString PDFLibCore::setStrokeMulti(struct SingleLine *sl)
+QByteArray PDFLibCore::setStrokeMulti(struct SingleLine *sl)
 {
-	QString tmp(
+	QByteArray tmp(
 			putColor(sl->Color, sl->Shade, false) +
 			FToStr(sl->Width)+" w\n"
 			);
-	QString Ds = getDashString(sl->Dash, sl->Width);
-	tmp += Ds.isEmpty() ? "[] 0 d\n" : QString("[%1] 0 d\n").arg(Ds);
+	QByteArray Ds =  Pdf::toAscii(getDashString(sl->Dash, sl->Width));
+	tmp += Ds.isEmpty() ? "[] 0 d\n" : "[" +  Ds + "] 0 d\n";
 	switch (static_cast<Qt::PenCapStyle>(sl->LineEnd))
 	{
 		case Qt::FlatCap:
@@ -5316,12 +5363,12 @@ QString PDFLibCore::setStrokeMulti(struct SingleLine *sl)
 }
 
 // Return a PDF substring representing a PageItem's text
-QString PDFLibCore::setTextSt(PageItem *ite, uint PNr, const ScPage* pag)
+QByteArray PDFLibCore::setTextSt(PageItem *ite, uint PNr, const ScPage* pag)
 {
 	int tabCc = 0;
 	int savedOwnPage = ite->OwnPage;
 	double tabDist = ite->textToFrameDistLeft();
-	QString tmp(""), tmp2("");
+	QByteArray tmp(""), tmp2("");
 	QList<ParagraphStyle::TabRecord> tTabValues;
 	ite->OwnPage = PNr;
 	ite->layout();
@@ -5541,11 +5588,11 @@ QString PDFLibCore::setTextSt(PageItem *ite, uint PNr, const ScPage* pag)
 	return tmp;
 }
 
-bool PDFLibCore::setTextCh(PageItem *ite, uint PNr, double x, double y, uint d, QString &tmp, QString &tmp2, const CharStyle& style, GlyphLayout *glyphs, PathData* pdata, const ParagraphStyle& pstyle, const ScPage* pag)
+bool PDFLibCore::setTextCh(PageItem *ite, uint PNr, double x, double y, uint d, QByteArray &tmp, QByteArray &tmp2, const CharStyle& style, GlyphLayout *glyphs, PathData* pdata, const ParagraphStyle& pstyle, const ScPage* pag)
 {
-	QString output;
-	QString FillColor = "";
-	QString StrokeColor = "";
+	QByteArray output;
+	QByteArray FillColor = "";
+	QByteArray StrokeColor = "";
 	if (ite->asPathText())
 	{
 		tmp += "q\n";
@@ -5639,6 +5686,7 @@ bool PDFLibCore::setTextCh(PageItem *ite, uint PNr, double x, double y, uint d, 
 		return true;
 	}
 
+    PdfFont pdfFont = UsedFontsP[style.font().replacementName()];
 	uint glyph = glyphs->glyph;
 
 	if (glyph == (ScFace::CONTROL_GLYPHS + SpecialChars::NBSPACE.unicode()) ||
@@ -5719,7 +5767,8 @@ bool PDFLibCore::setTextCh(PageItem *ite, uint PNr, double x, double y, uint d, 
 			}
 			tmp2 += "S\n";
 		}
-		if (Options.OutlineList.contains(style.font().replacementName()))
+        
+		if (pdfFont.method == Use_XForm)
 		{
 			if (glyph != style.font().char2CMap(QChar(' ')))
 			{
@@ -5769,7 +5818,8 @@ bool PDFLibCore::setTextCh(PageItem *ite, uint PNr, double x, double y, uint d, 
 					tmp2 += "1 0 0 1 0 "+FToStr( (((tsz / 10.0) - (tsz / 10.0) * (glyphs->scaleV)) / (tsz / 10.0)) * -1)+" cm\n";
 				tmp2 += FToStr(qMax(glyphs->scaleH, 0.1))+" 0 0 "+FToStr(qMax(glyphs->scaleV, 0.1))+" 0 0 cm\n";
 				if (style.fillColor() != CommonStrings::None)
-					tmp2 += "/"+style.font().psName().replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "_" )+QString::number(glyph)+" Do\n";
+                    tmp2 += pdfFont.name + Pdf::toPdf(glyph)+" Do\n";
+                
 				if (style.effects() & ScStyle_Outline)
 				{
 					FPointArray gly = style.font().glyphOutline(glyph);
@@ -5821,24 +5871,34 @@ bool PDFLibCore::setTextCh(PageItem *ite, uint PNr, double x, double y, uint d, 
 			}
 			if (glyph != style.font().char2CMap(QChar(' ')))
 			{
-				uint idx = glyphs->glyph;
-				uint idx1;
-				if (Options.SubsetList.contains(style.font().replacementName()))
-					idx1 = Type3Fonts[UsedFontsP[style.font().replacementName()]][idx] / 256;
+				uint gid = glyphs->glyph;
+				uint fontNr = 65535;
+                switch (pdfFont.encoding)
+                {
+                    case  Encode_256:
+                        gid = pdfFont.glyphmap[gid];
+                        fontNr = gid / 256;
+                        gid = gid % 256;
+                        break;
+                    case Encode_224:
+                        fontNr = gid / 224;
+                        gid = gid % 224 + 32;
+                        break;
+                    case Encode_Subset:
+                        gid = pdfFont.glyphmap[gid];
+                        break;
+                    case Encode_IdentityH:
+                        break;
+                }
+				if (fontNr == 65535)
+					tmp+= pdfFont.name + " " + FToStr(tsz / 10.0)+" Tf\n";
 				else
-					idx1 = idx / 224;
-				ScFace currentFace = style.font();
-				if ((Options.Version == PDFOptions::PDFVersion_X4 || currentFace.isSymbolic() || !currentFace.hasNames())
-					&& (currentFace.format() == ScFace::SFNT || currentFace.format() == ScFace::TTCF)
-					&& ( !Options.SubsetList.contains(style.font().replacementName()) ) )
-					tmp+= UsedFontsP[currentFace.replacementName()]+" "+FToStr(tsz / 10.0)+" Tf\n";
-				else
-					tmp += UsedFontsP[style.font().replacementName()]+"S"+QString::number(idx1)+" "+FToStr(tsz / 10.0)+" Tf\n";
+					tmp += pdfFont.name+"S"+Pdf::toPdf(fontNr) + " "+FToStr(tsz / 10.0)+" Tf\n";
 				if (style.strokeColor() != CommonStrings::None)
 					tmp += StrokeColor;
 				if (style.fillColor() != CommonStrings::None)
 					tmp += FillColor;
-				if ((Options.SubsetList.contains(style.font().replacementName())) && (style.effects() & ScStyle_Outline) && (style.strokeColor() != CommonStrings::None))
+				if (pdfFont.method == Use_Type3 && (style.effects() & ScStyle_Outline) && (style.strokeColor() != CommonStrings::None))
 				{
 					tmp2 += "q\n";
 					tmp2 += FToStr((tsz * style.outlineWidth() / 1000.0) / tsz)+" w\n[] 0 d\n0 J\n0 j\n";
@@ -5877,6 +5937,7 @@ bool PDFLibCore::setTextCh(PageItem *ite, uint PNr, double x, double y, uint d, 
 					if (glyphs->scaleV != 1.0)
 						tmp2 += "1 0 0 1 0 "+FToStr( (((tsz / 10.0) - (tsz / 10.0) * (glyphs->scaleV)) / (tsz / 10.0)) * -1)+" cm\n";
 					tmp2 += FToStr(qMax(glyphs->scaleH, 0.1))+" 0 0 "+FToStr(qMax(glyphs->scaleV, 0.1))+" 0 0 cm\n";
+                    /* paint outline */
 					FPointArray gly = style.font().glyphOutline(glyph);
 					QTransform mat;
 					mat.scale(0.1, 0.1);
@@ -5928,31 +5989,23 @@ bool PDFLibCore::setTextCh(PageItem *ite, uint PNr, double x, double y, uint d, 
 						tmp +=  FToStr(qMax(glyphs->scaleH, 0.1))+" 0 0 "+FToStr(qMax(glyphs->scaleV, 0.1))+" "+FToStr(x+ glyphs->xoffset)+" "+FToStr(-y- glyphs->yoffset+(style.fontSize() / 10.0) * (style.baselineOffset() / 1000.0))+" Tm\n";
 				}
 				else
-					tmp += FToStr(qMax(glyphs->scaleH, 0.1))+" 0 0 "+FToStr(qMax(glyphs->scaleV, 0.1))+" 0 0 Tm\n";
-				uchar idx2;
-				if (Options.SubsetList.contains(style.font().replacementName()))
-				{
-					if (style.fillColor() != CommonStrings::None)
-					{
-						idx2 = Type3Fonts[UsedFontsP[style.font().replacementName()]][idx] % 256;
-						tmp += "<"+QString(toHex(idx2))+"> Tj\n";
-					}
-				}
-				else if ((Options.Version == PDFOptions::PDFVersion_X4 || currentFace.isSymbolic() || !currentFace.hasNames()) && 
-				         (currentFace.format() == ScFace::SFNT || currentFace.format() == ScFace::TTCF))
-				{
-					QString val;
-					val.setNum(idx,16);
-					int numberOfZero = 4-val.size();
-					for (int i=0; i<numberOfZero; ++i)
-						val.prepend("0");
-					tmp += "<"+val+"> Tj\n";
-				}
-				else
-				{
-					idx2 = idx % 224 + 32;
-					tmp += "<"+QString(toHex(idx2))+"> Tj\n";
-				}
+                {
+                    tmp += FToStr(qMax(glyphs->scaleH, 0.1))+" 0 0 "+FToStr(qMax(glyphs->scaleV, 0.1))+" 0 0 Tm\n";
+                }
+                if (pdfFont.method != Use_Type3 || style.fillColor() != CommonStrings::None)
+                {
+                    switch (pdfFont.encoding)
+                    {
+                        case Encode_224:
+                        case Encode_256:
+                            tmp += Pdf::toHexString8(gid) + " Tj\n";
+                            break;
+                        case Encode_IdentityH:
+                        default:
+                            tmp += Pdf::toHexString16(gid) + " Tj\n";
+                            break;
+                    }
+                }
 			}
 		}
 		if ((style.effects() & ScStyle_Strikethrough) && (chstr != SpecialChars::PARSEP))
@@ -6011,15 +6064,15 @@ bool PDFLibCore::setTextCh(PageItem *ite, uint PNr, double x, double y, uint d, 
 	return true;
 }
 
-QString PDFLibCore::SetColor(const QString& farbe, double Shade)
+QByteArray PDFLibCore::SetColor(const QString& farbe, double Shade)
 {
 	const ScColor& col = doc.PageColors[farbe];
 	return SetColor(col, Shade);
 }
 
-QString PDFLibCore::SetColor(const ScColor& farbe, double Shade)
+QByteArray PDFLibCore::SetColor(const ScColor& farbe, double Shade)
 {
-	QString tmp;
+	QByteArray tmp;
 	RGBColor rgb;
 	CMYKColor cmyk;
 	int h, s, v, k;
@@ -6086,9 +6139,9 @@ QString PDFLibCore::SetColor(const ScColor& farbe, double Shade)
 	return tmp;
 }
 
-QString PDFLibCore::SetGradientColor(const QString& farbe, double Shade)
+QByteArray PDFLibCore::SetGradientColor(const QString& farbe, double Shade)
 {
-	QString tmp;
+	QByteArray tmp;
 	RGBColor rgb;
 	CMYKColor cmyk;
 	int h, s, v, k;
@@ -6166,9 +6219,9 @@ QString PDFLibCore::SetGradientColor(const QString& farbe, double Shade)
 	return tmp;
 }
 
-QString PDFLibCore::SetClipPath(PageItem *ite, bool poly)
+QByteArray PDFLibCore::SetClipPath(PageItem *ite, bool poly)
 {
-	QString tmp;
+	QByteArray tmp;
 	FPoint np, np1, np2, np3, np4, firstP;
 	bool nPath = true;
 	bool first = true;
@@ -6210,9 +6263,9 @@ QString PDFLibCore::SetClipPath(PageItem *ite, bool poly)
 	return tmp;
 }
 
-QString PDFLibCore::SetClipPathArray(FPointArray *ite, bool poly)
+QByteArray PDFLibCore::SetClipPathArray(FPointArray *ite, bool poly)
 {
-	QString tmp;
+	QByteArray tmp;
 	FPoint np, np1, np2, np3, np4, firstP;
 	bool nPath = true;
 	bool first = true;
@@ -6254,9 +6307,9 @@ QString PDFLibCore::SetClipPathArray(FPointArray *ite, bool poly)
 	return tmp;
 }
 
-QString PDFLibCore::SetClipPathImage(PageItem *ite)
+QByteArray PDFLibCore::SetClipPathImage(PageItem *ite)
 {
-	QString tmp;
+	QByteArray tmp;
 	if (ite->imageClip.size() <= 3)
 		return tmp;
 
@@ -6292,25 +6345,25 @@ QString PDFLibCore::SetClipPathImage(PageItem *ite)
 	return tmp;
 }
 
-QString PDFLibCore::SetImagePathAndClip(PageItem *item)
+QByteArray PDFLibCore::SetImagePathAndClip(PageItem *item)
 {
-	QString tmp = SetClipPathImage(item);
+	QByteArray tmp = SetClipPathImage(item);
 	if (tmp.length() > 0)
 		tmp += "h W* n\n";
 	return tmp;
 }
 
-QString PDFLibCore::SetPathAndClip(PageItem *item)
+QByteArray PDFLibCore::SetPathAndClip(PageItem *item)
 {
-	QString tmp = SetClipPath(item);
+	QByteArray tmp = SetClipPath(item);
 	if (tmp.length() > 0)
 		tmp += (item->fillRule ? "h W* n\n" : "h W n\n");
 	return tmp;
 }
 
-QString PDFLibCore::SetPathAndClip(PageItem *item, bool fillRule)
+QByteArray PDFLibCore::SetPathAndClip(PageItem *item, bool fillRule)
 {
-	QString tmp = SetClipPath(item);
+	QByteArray tmp = SetClipPath(item);
 	if (tmp.length() > 0)
 		tmp += (fillRule ? "h W* n\n" : "h W n\n");
 	return tmp;
@@ -6334,12 +6387,12 @@ void PDFLibCore::getBleeds(const ScPage* page, double &left, double &right, doub
 	top    = values.top();
 }
 
-QString PDFLibCore::PDF_TransparenzFill(PageItem *currItem)
+QByteArray PDFLibCore::PDF_TransparenzFill(PageItem *currItem)
 {
-	QString ShName = ResNam+QString::number(ResCount);
+	QByteArray ShName = ResNam+Pdf::toPdf(ResCount);
 	ResCount++;
-	QString tmp;
-	QString GXName;
+	QByteArray tmp;
+	QByteArray GXName;
 	double scaleX = 1.0;
 	double scaleY = 1.0;
 	if (currItem->itemType() == PageItem::Symbol)
@@ -6434,9 +6487,9 @@ QString PDFLibCore::PDF_TransparenzFill(PageItem *currItem)
 				TransVec.append(a);
 			}
 		}
-		QString TRes("");
-		uint patObject = newObject();
-		StartObj(patObject);
+		QByteArray TRes("");
+		PdfId patObject = writer.newObject();
+		writer.startObj(patObject);
 		PutDoc("<<\n/Type /Pattern\n");
 		PutDoc("/PatternType 2\n");
 		PutDoc("/Matrix ["+FToStr(mpa.m11())+" "+FToStr(mpa.m12())+" "+FToStr(mpa.m21())+" "+FToStr(mpa.m22())+" "+FToStr(mpa.dx())+" "+FToStr(mpa.dy())+"]\n");
@@ -6462,7 +6515,7 @@ QString PDFLibCore::PDF_TransparenzFill(PageItem *currItem)
 		if (StopVec.count() > 2)
 		{
 			PutDoc("/Bounds [");
-			QString bctx = "";
+			QByteArray bctx = "";
 			for (int bc = 1; bc < StopVec.count() - 1; bc++)
 			{
 				bctx += FToStr(StopVec.at(bc))+" ";
@@ -6471,7 +6524,7 @@ QString PDFLibCore::PDF_TransparenzFill(PageItem *currItem)
 		}
 		else
 			PutDoc("/Bounds []\n");
-		QString entx = "";
+		QByteArray entx = "";
 		PutDoc("/Functions\n");
 		PutDoc("[\n");
 		for (int cc = 0; cc < TransVec.count() - 1; cc++)
@@ -6490,9 +6543,11 @@ QString PDFLibCore::PDF_TransparenzFill(PageItem *currItem)
 		PutDoc(">>\n");
 		PutDoc(">>\n");
 		PutDoc(">>\n");
-		Patterns.insert("Pattern"+QString::number(patObject), patObject);
-		uint formObject = newObject();
-		StartObj(formObject);
+        writer.endObj(patObject);
+		Patterns.insert("Pattern"+Pdf::toPdf(patObject), patObject);
+        
+		PdfId formObject = writer.newObject();
+		writer.startObj(formObject);
 		PutDoc("<<\n/Type /XObject\n/Subtype /Form\n");
 		PutDoc("/FormType 1\n");
 		PutDoc("/Group << /S /Transparency /CS /DeviceGray >>\n");
@@ -6501,28 +6556,15 @@ QString PDFLibCore::PDF_TransparenzFill(PageItem *currItem)
 			PutDoc("/BBox [0 0 "+FToStr(ActPageP->width())+" "+FToStr(ActPageP->height())+" ]\n");
 		else
 			PutDoc("/BBox ["+FToStr(-lw / 2.0)+" "+FToStr(lw / 2.0)+" "+FToStr(currItem->width()+lw)+" "+FToStr(-(currItem->height()+lw))+" ]\n");
-		PutDoc("/Resources << /ProcSet [/PDF /Text /ImageB /ImageC /ImageI]\n");
-		if (Patterns.count() != 0)
-		{
-			PutDoc("/Pattern << \n");
-			QMap<QString,int>::Iterator it3p;
-			for (it3p = Patterns.begin(); it3p != Patterns.end(); ++it3p)
-				PutDoc("/"+it3p.key()+" "+QString::number(it3p.value())+" 0 R\n");
-			PutDoc(">>\n");
-		}
-		if ((Seite.ImgObjects.count() != 0) || (Seite.XObjects.count() != 0))
-		{
-			PutDoc("/XObject <<\n");
-			QMap<QString,int>::Iterator it;
-			for (it = Seite.ImgObjects.begin(); it != Seite.ImgObjects.end(); ++it)
-				PutDoc("/"+it.key()+" "+QString::number(it.value())+" 0 R\n");
-			QMap<QString,int>::Iterator iti;
-			for (iti = Seite.XObjects.begin(); iti != Seite.XObjects.end(); ++iti)
-				PutDoc("/"+iti.key()+" "+QString::number(iti.value())+" 0 R\n");
-			PutDoc(">>\n");
-		}
-		PutDoc(">>\n");
-		QString stre = "q\n";
+        PutDoc("/Resources ");
+        Pdf::ResourceDictionary dict;
+        dict.Pattern = Patterns;
+        dict.XObject.unite(pageData.ImgObjects);
+        dict.XObject.unite(pageData.XObjects);
+        writer.write(dict);
+		PutDoc("\n");
+		
+        QByteArray stre = "q\n";
 		if (currItem->isGroup())
 		{
 			QTransform mpa;
@@ -6540,27 +6582,28 @@ QString PDFLibCore::PDF_TransparenzFill(PageItem *currItem)
 		stre += SetClipPath(currItem)+"h\n";
 		stre += FToStr(fabs(currItem->lineWidth()))+" w\n";
 		stre += "/Pattern cs\n";
-		stre += "/Pattern"+QString::number(patObject)+" scn\nf*\n";
+		stre += "/Pattern"+Pdf::toPdf(patObject)+" scn\nf*\n";
 		stre += "Q\n";
 		if (Options.Compress)
-			stre = CompressStr(&stre);
-		PutDoc("/Length "+QString::number(stre.length())+"\n");
+			stre = CompressArray(stre);
+		PutDoc("/Length "+Pdf::toPdf(stre.length())+"\n");
 		if (Options.Compress)
 			PutDoc("/Filter /FlateDecode\n");
-		PutDoc(">>\nstream\n"+EncStream(stre, formObject)+"\nendstream\nendobj\n");
-		Seite.XObjects[ResNam+QString::number(ResCount)] = formObject;
+        PutDoc(">>\nstream\n"+EncStream(stre, formObject)+"\nendstream");
+        writer.endObj(formObject);
+		pageData.XObjects[ResNam+Pdf::toPdf(ResCount)] = formObject;
 		ResCount++;
-		GXName = ResNam+QString::number(ResCount);
+		GXName = ResNam+Pdf::toPdf(ResCount);
 		ResCount++;
-		Transpar[GXName] = writeGState("/SMask << /S /Luminosity /G "+QString::number(formObject)+" 0 R >>\n/AIS false\n/BM /" + blendMode(currItem->fillBlendmode()) + "\n");
-		tmp = "/"+GXName+" gs\n";
+		Transpar[GXName] = writeGState("/SMask << /S /Luminosity /G "+Pdf::toPdf(formObject)+" 0 R >>\n/AIS false\n/BM /" + blendMode(currItem->fillBlendmode()) + "\n");
+		tmp = Pdf::toName(GXName) + " gs\n";
 	}
 	else if ((currItem->GrMask == 3) || (currItem->GrMask == 6) || (currItem->GrMask == 7) || (currItem->GrMask == 8))
 	{
-		QString tmpOut = "";
+		QByteArray tmpOut = "";
 		PDF_PatternFillStroke(tmpOut, currItem, 2);
-		uint formObject = newObject();
-		StartObj(formObject);
+		PdfId formObject = writer.newObject();
+		writer.startObj(formObject);
 		PutDoc("<<\n/Type /XObject\n/Subtype /Form\n");
 		PutDoc("/FormType 1\n");
 		PutDoc("/Group << /S /Transparency ");
@@ -6583,28 +6626,15 @@ QString PDFLibCore::PDF_TransparenzFill(PageItem *currItem)
 			PutDoc("/BBox [0 0 "+FToStr(ActPageP->width())+" "+FToStr(ActPageP->height())+" ]\n");
 		else
 			PutDoc("/BBox [0 0 "+FToStr(currItem->width())+" "+FToStr(-(currItem->height()))+" ]\n");
-		PutDoc("/Resources << /ProcSet [/PDF /Text /ImageB /ImageC /ImageI]\n");
-		if (Patterns.count() != 0)
-		{
-			PutDoc("/Pattern << \n");
-			QMap<QString,int>::Iterator it3p;
-			for (it3p = Patterns.begin(); it3p != Patterns.end(); ++it3p)
-				PutDoc("/"+it3p.key()+" "+QString::number(it3p.value())+" 0 R\n");
-			PutDoc(">>\n");
-		}
-		if ((Seite.ImgObjects.count() != 0) || (Seite.XObjects.count() != 0))
-		{
-			PutDoc("/XObject <<\n");
-			QMap<QString,int>::Iterator it;
-			for (it = Seite.ImgObjects.begin(); it != Seite.ImgObjects.end(); ++it)
-				PutDoc("/"+it.key()+" "+QString::number(it.value())+" 0 R\n");
-			QMap<QString,int>::Iterator iti;
-			for (iti = Seite.XObjects.begin(); iti != Seite.XObjects.end(); ++iti)
-				PutDoc("/"+iti.key()+" "+QString::number(iti.value())+" 0 R\n");
-			PutDoc(">>\n");
-		}
-		PutDoc(">>\n");
-		QString stre = "q\n";
+        PutDoc("/Resources ");
+        Pdf::ResourceDictionary dict;
+        dict.Pattern = Patterns;
+        dict.XObject.unite(pageData.ImgObjects);
+        dict.XObject.unite(pageData.XObjects);
+        writer.write(dict);
+		PutDoc("\n");
+        
+		QByteArray stre = "q\n";
 		if ((currItem->isGroup()) || (currItem->itemType() == PageItem::Symbol))
 		{
 			QTransform mpa;
@@ -6618,24 +6648,25 @@ QString PDFLibCore::PDF_TransparenzFill(PageItem *currItem)
 		stre += tmpOut+" f*\n";
 		stre += "Q\n";
 		if (Options.Compress)
-			stre = CompressStr(&stre);
-		PutDoc("/Length "+QString::number(stre.length())+"\n");
+			stre = CompressArray(stre);
+		PutDoc("/Length "+Pdf::toPdf(stre.length())+"\n");
 		if (Options.Compress)
 			PutDoc("/Filter /FlateDecode\n");
-		PutDoc(">>\nstream\n"+EncStream(stre, formObject)+"\nendstream\nendobj\n");
-		Seite.XObjects[ResNam+QString::number(ResCount)] = formObject;
+        PutDoc(">>\nstream\n"+EncStream(stre, formObject)+"\nendstream");
+        writer.endObj(formObject);
+		pageData.XObjects[ResNam+Pdf::toPdf(ResCount)] = formObject;
 		ResCount++;
-		GXName = ResNam+QString::number(ResCount);
+		GXName = ResNam+Pdf::toPdf(ResCount);
 		ResCount++;
 		if (currItem->GrMask == 6)
-			Transpar[GXName] = writeGState("/SMask << /S /Luminosity /G "+QString::number(formObject)+" 0 R >>\n/BM /" + blendMode(currItem->fillBlendmode()) + "\n");
+			Transpar[GXName] = writeGState("/SMask << /S /Luminosity /G "+Pdf::toPdf(formObject)+" 0 R >>\n/BM /" + blendMode(currItem->fillBlendmode()) + "\n");
 		else if (currItem->GrMask == 7)
-			Transpar[GXName] = writeGState("/SMask << /S /Luminosity /G "+QString::number(formObject)+" 0 R /BC [ 1 1 1 ] /TR << /FunctionType 2 /Domain [ 0 1 ] /Range [ 0 1 ] /C0 [ 1 ] /C1 [ 0 ] /N 1 >> >>\n/BM /" + blendMode(currItem->fillBlendmode()) + "\n/AIS true\n");
+			Transpar[GXName] = writeGState("/SMask << /S /Luminosity /G "+Pdf::toPdf(formObject)+" 0 R /BC [ 1 1 1 ] /TR << /FunctionType 2 /Domain [ 0 1 ] /Range [ 0 1 ] /C0 [ 1 ] /C1 [ 0 ] /N 1 >> >>\n/BM /" + blendMode(currItem->fillBlendmode()) + "\n/AIS true\n");
 		else if (currItem->GrMask == 3)
-			Transpar[GXName] = writeGState("/SMask << /S /Alpha /G "+QString::number(formObject)+" 0 R >>\n/BM /" + blendMode(currItem->fillBlendmode()) + "\n");
+			Transpar[GXName] = writeGState("/SMask << /S /Alpha /G "+Pdf::toPdf(formObject)+" 0 R >>\n/BM /" + blendMode(currItem->fillBlendmode()) + "\n");
 		else if (currItem->GrMask == 8)
-			Transpar[GXName] = writeGState("/SMask << /S /Alpha /G "+QString::number(formObject)+" 0 R /BC [ 1 1 1 ] /TR << /FunctionType 2 /Domain [ 0 1 ] /Range [ 0 1 ] /C0 [ 1 ] /C1 [ 0 ] /N 1 >> >>\n/BM /" + blendMode(currItem->fillBlendmode()) + "\n");
-		tmp = "/"+GXName+" gs\n";
+			Transpar[GXName] = writeGState("/SMask << /S /Alpha /G "+Pdf::toPdf(formObject)+" 0 R /BC [ 1 1 1 ] /TR << /FunctionType 2 /Domain [ 0 1 ] /Range [ 0 1 ] /C0 [ 1 ] /C1 [ 0 ] /N 1 >> >>\n/BM /" + blendMode(currItem->fillBlendmode()) + "\n");
+		tmp = Pdf::toName(GXName)+" gs\n";
 	}
 	else
 	{
@@ -6643,23 +6674,22 @@ QString PDFLibCore::PDF_TransparenzFill(PageItem *currItem)
 			Transpar[ShName] = writeGState("/CA "+FToStr(1.0 - currItem->fillTransparency())+"\n/ca "+FToStr(1.0 - currItem->fillTransparency())+"\n/SMask /None\n/AIS false\n/OPM 1\n/BM /" + blendMode(currItem->fillBlendmode()) + "\n");
 		else
 			Transpar[ShName] = writeGState("/ca "+FToStr(1.0 - currItem->fillTransparency())+"\n/SMask /None\n/AIS false\n/OPM 1\n/BM /" + blendMode(currItem->fillBlendmode()) + "\n");
-		tmp = "/"+ShName+" gs\n";
+		tmp = Pdf::toName(ShName) + " gs\n";
 	}
 	return tmp;
 }
 
-QString PDFLibCore::PDF_TransparenzStroke(PageItem *currItem)
+QByteArray PDFLibCore::PDF_TransparenzStroke(PageItem *currItem)
 {
-	QString ShName = ResNam+QString::number(ResCount);
+	QByteArray ShName = ResNam+Pdf::toPdf(ResCount);
 	ResCount++;
 	Transpar[ShName] = writeGState("/CA "+FToStr(1.0 - currItem->lineTransparency())+"\n"
 								   + "/SMask /None\n/AIS false\n/OPM 1\n"
 								   + "/BM /" + blendMode(currItem->lineBlendmode()) + "\n");
-	QString tmp("/"+ShName+" gs\n");
-	return tmp;
+	return Pdf::toName(ShName) + " gs\n";
 }
 
-bool PDFLibCore::PDF_HatchFill(QString& output, PageItem *currItem)
+bool PDFLibCore::PDF_HatchFill(QByteArray& output, PageItem *currItem)
 {
 	output += "q\n1 w\n[] 0 d\n0 J\n0 j\n";
 	if ((currItem->hatchBackground != CommonStrings::None) && (currItem->hatchUseBackground))
@@ -6742,9 +6772,9 @@ bool PDFLibCore::PDF_HatchFill(QString& output, PageItem *currItem)
 	return true;
 }
 
-bool PDFLibCore::PDF_PatternFillStroke(QString& output, PageItem *currItem, int kind, bool forArrow)
+bool PDFLibCore::PDF_PatternFillStroke(QByteArray& output, PageItem *currItem, int kind, bool forArrow)
 {
-	QString tmp2 = "", tmpOut;
+	QByteArray tmp2 = "", tmpOut;
 	ScPattern *pat = NULL;
 	if (kind == 0)
 	{
@@ -6780,9 +6810,9 @@ bool PDFLibCore::PDF_PatternFillStroke(QString& output, PageItem *currItem, int 
 		tmp2 += "Q\n";
 	}
 	if (Options.Compress)
-		tmp2 = CompressStr(&tmp2);
-	uint patObject = newObject();
-	StartObj(patObject);
+		tmp2 = CompressArray(tmp2);
+	PdfId patObject = writer.newObject();
+	writer.startObj(patObject);
 	PutDoc("<< /Type /Pattern\n");
 	PutDoc("/PatternType 1\n");
 	PutDoc("/PaintType 1\n");
@@ -6849,83 +6879,35 @@ bool PDFLibCore::PDF_PatternFillStroke(QString& output, PageItem *currItem, int 
 	PutDoc("/Matrix ["+FToStr(mpa.m11())+" "+FToStr(mpa.m12())+" "+FToStr(mpa.m21())+" "+FToStr(mpa.m22())+" "+FToStr(mpa.dx())+" "+FToStr(mpa.dy())+"]\n");
 	PutDoc("/XStep "+FToStr(pat->width)+"\n");
 	PutDoc("/YStep "+FToStr(pat->height)+"\n");
-	PutDoc("/Resources << /ProcSet [/PDF /Text /ImageB /ImageC /ImageI]\n");
-	if ((Seite.ImgObjects.count() != 0) || (Seite.XObjects.count() != 0))
-	{
-		PutDoc("/XObject <<\n");
-		QMap<QString,int>::Iterator it;
-		for (it = Seite.ImgObjects.begin(); it != Seite.ImgObjects.end(); ++it)
-			PutDoc("/"+it.key()+" "+QString::number(it.value())+" 0 R\n");
-		QMap<QString,int>::Iterator iti;
-		for (iti = Seite.XObjects.begin(); iti != Seite.XObjects.end(); ++iti)
-			PutDoc("/"+iti.key()+" "+QString::number(iti.value())+" 0 R\n");
-		PutDoc(">>\n");
-	}
-	if (Seite.FObjects.count() != 0)
-	{
-		PutDoc("/Font << \n");
-		QMap<QString,int>::Iterator it2;
-		for (it2 = Seite.FObjects.begin(); it2 != Seite.FObjects.end(); ++it2)
-			PutDoc("/"+it2.key()+" "+QString::number(it2.value())+" 0 R\n");
-		PutDoc(">>\n");
-	}
-	if (Shadings.count() != 0)
-	{
-		PutDoc("/Shading << \n");
-		QMap<QString,int>::Iterator it3;
-		for (it3 = Shadings.begin(); it3 != Shadings.end(); ++it3)
-			PutDoc("/"+it3.key()+" "+QString::number(it3.value())+" 0 R\n");
-		PutDoc(">>\n");
-	}
-	if (Patterns.count() != 0)
-	{
-		PutDoc("/Pattern << \n");
-		QMap<QString,int>::Iterator it3p;
-		for (it3p = Patterns.begin(); it3p != Patterns.end(); ++it3p)
-			PutDoc("/"+it3p.key()+" "+QString::number(it3p.value())+" 0 R\n");
-		PutDoc(">>\n");
-	}
-	if (Transpar.count() != 0)
-	{
-		PutDoc("/ExtGState << \n");
-		QMap<QString,int>::Iterator it3t;
-		for (it3t = Transpar.begin(); it3t != Transpar.end(); ++it3t)
-			PutDoc("/"+it3t.key()+" "+QString::number(it3t.value())+" 0 R\n");
-		PutDoc(">>\n");
-	}
-	if ((ICCProfiles.count() != 0) || (spotMap.count() != 0))
-	{
-		PutDoc("/ColorSpace << \n");
-		QMap<QString,ICCD>::Iterator it3c;
-		if (ICCProfiles.count() != 0)
-		{
-			for (it3c = ICCProfiles.begin(); it3c != ICCProfiles.end(); ++it3c)
-				PutDoc("/"+it3c.value().ResName+" "+QString::number(it3c.value().ResNum)+" 0 R\n");
-		}
-		QMap<QString,SpotC>::Iterator it3sc;
-		if (spotMap.count() != 0)
-		{
-			for (it3sc = spotMap.begin(); it3sc != spotMap.end(); ++it3sc)
-				PutDoc("/"+it3sc.value().ResName+" "+QString::number(it3sc.value().ResNum)+" 0 R\n");
-		}
-		PutDoc(">>\n");
-	}
-	PutDoc(">>\n");
-	PutDoc("/Length "+QString::number(tmp2.length()));
+    PutDoc("/Resources ");
+    
+    Pdf::ResourceDictionary dict;
+    dict.XObject.unite(pageData.ImgObjects);
+    dict.XObject.unite(pageData.XObjects);
+    dict.Font = pageData.FObjects;
+    dict.Shading = Shadings;
+    dict.Pattern = Patterns;
+    dict.ExtGState = Transpar;
+    dict.ColorSpace.append(asColorSpace(ICCProfiles.values()));
+    dict.ColorSpace.append(asColorSpace(spotMap.values()));
+    writer.write(dict);
+    
+	PutDoc("/Length "+Pdf::toPdf(tmp2.length()));
 	if (Options.Compress)
 		PutDoc("\n/Filter /FlateDecode");
-	PutDoc(" >>\nstream\n"+EncStream(tmp2, patObject)+"\nendstream\nendobj\n");
-	Patterns.insert("Pattern"+QString::number(patObject), patObject);
-	QString tmp;
+    PutDoc(" >>\nstream\n"+EncStream(tmp2, patObject)+"\nendstream");
+    writer.endObj(patObject);
+	Patterns.insert("Pattern"+Pdf::toPdf(patObject), patObject);
+	QByteArray tmp;
 	if ((forArrow) || (kind != 1))
 	{
 		tmp = "/Pattern cs\n";
-		tmp += "/Pattern"+QString::number(patObject)+" scn\n";
+		tmp += "/Pattern"+Pdf::toPdf(patObject)+" scn\n";
 	}
 	else
 	{
 		tmp = "/Pattern CS\n";
-		tmp += "/Pattern"+QString::number(patObject)+" SCN\n";
+		tmp += "/Pattern"+Pdf::toPdf(patObject)+" SCN\n";
 	}
 	ResCount++;
 	output = tmp;
@@ -6961,7 +6943,7 @@ void PDFLibCore::encodeColor(QDataStream &vs, QString colName, int colShade, QSt
 		}
 		else
 		{
-			QStringList gcol = SetGradientColor(colName, colShade).split(" ");
+			QList<QByteArray> gcol = SetGradientColor(colName, colShade).split(' ');
 			for (int gcs = 0; gcs < gcol.count(); gcs++)
 			{
 				vs << encode16dVal(gcol[gcs].toDouble());
@@ -6974,7 +6956,7 @@ void PDFLibCore::encodeColor(QDataStream &vs, QString colName, int colShade, QSt
 	}
 	else
 	{
-		QStringList gcol = SetGradientColor(colName, colShade).split(" ");
+		QList<QByteArray> gcol = SetGradientColor(colName, colShade).split(' ');
 		for (int gcs = 0; gcs < gcol.count(); gcs++)
 		{
 			vs << encode16dVal(gcol[gcs].toDouble());
@@ -6982,7 +6964,7 @@ void PDFLibCore::encodeColor(QDataStream &vs, QString colName, int colShade, QSt
 	}
 }
 
-bool PDFLibCore::PDF_MeshGradientFill(QString& output, PageItem *c)
+bool PDFLibCore::PDF_MeshGradientFill(QByteArray& output, PageItem *c)
 {
 	QList<double> StopVec;
 	QList<double> TransVec;
@@ -7029,11 +7011,11 @@ bool PDFLibCore::PDF_MeshGradientFill(QString& output, PageItem *c)
 			Gcolors.append(SetGradientColor(mp1.colorName, mp1.shade));
 		}
 	}
-	QString TRes("");
+	QByteArray TRes;
 	if (((Options.Version >= PDFOptions::PDFVersion_14) || (Options.Version == PDFOptions::PDFVersion_X4)) && (transparencyFound))
 	{
-		uint shadeObjectT = newObject();
-		StartObj(shadeObjectT);
+		PdfId shadeObjectT = writer.newObject();
+		writer.startObj(shadeObjectT);
 		PutDoc("<<\n");
 		PutDoc("/ShadingType 7\n");
 		PutDoc("/ColorSpace /DeviceGray\n");
@@ -7069,63 +7051,63 @@ bool PDFLibCore::PDF_MeshGradientFill(QString& output, PageItem *c)
 			}
 		}
 		PutDoc("/Decode [-40000 40000 -40000 40000 0 1]\n");
-		QString dat = "";
+		QByteArray dat = "";
 		for (int vd = 0; vd < vertStreamT.count(); vd++)
 		{
 			dat += vertStreamT[vd];
 		}
 		if (Options.Compress)
-			dat = CompressStr(&dat);
-		PutDoc("/Length "+QString::number(dat.length())+"\n");
+			dat = CompressArray(dat);
+		PutDoc("/Length "+Pdf::toPdf(dat.length())+"\n");
 		if (Options.Compress)
 			PutDoc("/Filter /FlateDecode\n");
-		PutDoc(">>\nstream\n"+EncStream(dat, shadeObjectT)+"\nendstream\nendobj\n");
-		uint patObject = newObject();
-		StartObj(patObject);
+        PutDoc(">>\nstream\n"+EncStream(dat, shadeObjectT)+"\nendstream");
+        writer.endObj(shadeObjectT);
+        
+		PdfId patObject = writer.newObject();
+		writer.startObj(patObject);
 		PutDoc("<<\n/Type /Pattern\n");
 		PutDoc("/PatternType 2\n");
-		PutDoc("/Shading "+QString::number(shadeObjectT)+" 0 R\n");
-		PutDoc(">>\nendobj\n");
-		Patterns.insert("Pattern"+QString::number(patObject), patObject);
-		uint formObject = newObject();
-		StartObj(formObject);
+		PutDoc("/Shading "+Pdf::toPdf(shadeObjectT)+" 0 R\n");
+		PutDoc(">>");
+        writer.endObj(patObject);
+		Patterns.insert("Pattern"+Pdf::toPdf(patObject), patObject);
+		PdfId formObject = writer.newObject();
+		writer.startObj(formObject);
 		PutDoc("<<\n/Type /XObject\n/Subtype /Form\n");
 		PutDoc("/FormType 1\n");
 		PutDoc("/Group << /S /Transparency /CS /DeviceGray >>\n");
 		double lw = c->lineWidth();
 		PutDoc("/BBox ["+FToStr(-lw / 2.0)+" "+FToStr(lw / 2.0)+" "+FToStr(c->width()+lw)+" "+FToStr(-(c->height()+lw))+" ]\n");
-		PutDoc("/Resources << /ProcSet [/PDF /Text /ImageB /ImageC /ImageI]\n");
-		if (Patterns.count() != 0)
-		{
-			PutDoc("/Pattern << \n");
-			QMap<QString,int>::Iterator it3p;
-			for (it3p = Patterns.begin(); it3p != Patterns.end(); ++it3p)
-				PutDoc("/"+it3p.key()+" "+QString::number(it3p.value())+" 0 R\n");
-			PutDoc(">>\n");
-		}
-		PutDoc(">>\n");
-		QString stre = "q\n"+SetClipPath(c)+"h\n";
+        PutDoc("/Resources ");
+        
+        Pdf::ResourceDictionary dict;
+        dict.Pattern = Patterns;
+        writer.write(dict);
+
+        QByteArray stre = "q\n"+SetClipPath(c)+"h\n";
 		stre += FToStr(fabs(c->lineWidth()))+" w\n";
 		stre += "/Pattern cs\n";
-		stre += "/Pattern"+QString::number(patObject)+" scn\nf*\n";
+		stre += "/Pattern"+Pdf::toPdf(patObject)+" scn\nf*\n";
 		stre += "Q\n";
 		if (Options.Compress)
-			stre = CompressStr(&stre);
-		PutDoc("/Length "+QString::number(stre.length())+"\n");
+			stre = CompressArray(stre);
+		PutDoc("/Length "+Pdf::toPdf(stre.length())+"\n");
 		if (Options.Compress)
 			PutDoc("/Filter /FlateDecode\n");
-		PutDoc(">>\nstream\n"+EncStream(stre, formObject)+"\nendstream\nendobj\n");
-		Seite.XObjects[ResNam+QString::number(ResCount)] = formObject;
+        PutDoc(">>\nstream\n"+EncStream(stre, formObject)+"\nendstream");
+        writer.endObj(shadeObjectT);
+		pageData.XObjects[ResNam+Pdf::toPdf(ResCount)] = formObject;
 		ResCount++;
-		QString GXName = ResNam+QString::number(ResCount);
+		QByteArray GXName = ResNam+Pdf::toPdf(ResCount);
 		ResCount++;
-		Transpar[GXName] = writeGState("/SMask << /S /Luminosity /G "+QString::number(formObject)+" 0 R >>\n/BM /Normal\n");
+		Transpar[GXName] = writeGState("/SMask << /S /Luminosity /G "+Pdf::toPdf(formObject)+" 0 R >>\n/BM /Normal\n");
 		TRes = GXName;
 	}
-	QString entx = "";
-	uint spotObject = 0;
-	uint shadeObject = newObject();
-	StartObj(shadeObject);
+	QByteArray entx = "";
+	PdfId spotObject = 0;
+	PdfId shadeObject = writer.newObject();
+	writer.startObj(shadeObject);
 	PutDoc("<<\n");
 	PutDoc("/ShadingType 7\n");
 	if (Options.UseRGB)
@@ -7148,16 +7130,17 @@ bool PDFLibCore::PDF_MeshGradientFill(QString& output, PageItem *c)
 		entx = "0 1 0 1 0 1 0 1";
 		if ((Options.UseSpotColors) && ((spotColorSet.count() > 0) && (spotColorSet.count() < 28)))
 		{
-			spotObject = newObject();
+			spotObject = writer.newObject();
 			PutDoc("/ColorSpace [ /DeviceN [ /Cyan /Magenta /Yellow /Black");
 			for (int sc = 0; sc < spotColorSet.count(); sc++)
 			{
-				PutDoc(" /"+spotColorSet.at(sc).simplified().replace("#", "#23").replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "#20" ));
+                PutDoc(" " + Pdf::toName(spotColorSet.at(sc).simplified()));
+                       // " /"+spotColorSet.at(sc).simplified().replace("#", "#23").replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "#20" ));
 				entx += " 0 1";
 			}
 			PutDoc(" ]\n");
 			PutDoc("/DeviceCMYK\n");
-			PutDoc(QString::number(spotObject)+" 0 R\n");
+			PutDoc(Pdf::toPdf(spotObject)+" 0 R\n");
 			PutDoc("]\n");
 			spotMode = true;
 		}
@@ -7199,19 +7182,21 @@ bool PDFLibCore::PDF_MeshGradientFill(QString& output, PageItem *c)
 		}
 	}
 	PutDoc("/Decode [-40000 40000 -40000 40000 "+entx+"]\n");
-	QString dat = "";
+	QByteArray dat = "";
 	for (int vd = 0; vd < vertStream.count(); vd++)
 	{
 		dat += vertStream[vd];
 	}
 	if (Options.Compress)
-		dat = CompressStr(&dat);
-	PutDoc("/Length "+QString::number(dat.length())+"\n");
+		dat = CompressArray(dat);
+	PutDoc("/Length "+Pdf::toPdf(dat.length())+"\n");
 	if (Options.Compress)
 		PutDoc("/Filter /FlateDecode\n");
-	PutDoc(">>\nstream\n"+EncStream(dat, shadeObject)+"\nendstream\nendobj\n");
-	uint patObject = newObject();
-	StartObj(patObject);
+    PutDoc(">>\nstream\n"+EncStream(dat, shadeObject)+"\nendstream");
+    writer.endObj(shadeObject);
+    
+	PdfId patObject = writer.newObject();
+	writer.startObj(patObject);
 	PutDoc("<<\n/Type /Pattern\n");
 	PutDoc("/PatternType 2\n");
 	QTransform mpa;
@@ -7234,13 +7219,14 @@ bool PDFLibCore::PDF_MeshGradientFill(QString& output, PageItem *c)
 			mpa.translate(patternStackPos.top().x(), patternStackPos.top().y());
 	}
 	PutDoc("/Matrix ["+FToStr(mpa.m11())+" "+FToStr(mpa.m12())+" "+FToStr(mpa.m21())+" "+FToStr(mpa.m22())+" "+FToStr(mpa.dx())+" "+FToStr(mpa.dy())+"]\n");
-	PutDoc("/Shading "+QString::number(shadeObject)+" 0 R\n");
-	PutDoc(">>\nendobj\n");
-	Patterns.insert("Pattern"+QString::number(patObject), patObject);
+	PutDoc("/Shading "+Pdf::toPdf(shadeObject)+" 0 R\n");
+    PutDoc(">>");
+    writer.endObj(patObject);
+	Patterns.insert("Pattern"+Pdf::toPdf(patObject), patObject);
 	if (spotMode)
 	{
-		QString colorDesc;
-		StartObj(spotObject);
+		QByteArray colorDesc;
+		writer.startObj(spotObject);
 		PutDoc("<<\n/FunctionType 4\n");
 		PutDoc("/Domain [0 1 0 1 0 1 0 1");
 		for (int sc = 0; sc < spotColorSet.count(); sc++)
@@ -7262,7 +7248,7 @@ bool PDFLibCore::PDF_MeshGradientFill(QString& output, PageItem *c)
 			if (sc == 0)
 				colorDesc += "dup "+FToStr(static_cast<double>(cc) / 255.0)+" mul ";
 			else
-				colorDesc += QString::number(sc*4 + 1)+" -1 roll dup "+FToStr(static_cast<double>(cc) / 255.0)+" mul ";
+				colorDesc += Pdf::toPdf(sc*4 + 1)+" -1 roll dup "+FToStr(static_cast<double>(cc) / 255.0)+" mul ";
 			colorDesc += "exch dup "+FToStr(static_cast<double>(mc) / 255.0)+" mul ";
 			colorDesc += "exch dup "+FToStr(static_cast<double>(yc) / 255.0)+" mul ";
 			colorDesc += "exch "+FToStr(static_cast<double>(kc) / 255.0)+" mul\n";
@@ -7273,14 +7259,15 @@ bool PDFLibCore::PDF_MeshGradientFill(QString& output, PageItem *c)
 		}
 		colorDesc += "}\n";
 		PutDoc("/Range [0 1 0 1 0 1 0 1]\n");
-		PutDoc("/Length "+QString::number(colorDesc.length()+1)+"\n");
-		PutDoc(">>\nstream\n"+EncStream(colorDesc, spotObject)+"\nendstream\nendobj\n");
+		PutDoc("/Length "+Pdf::toPdf(colorDesc.length()+1)+"\n");
+        PutDoc(">>\nstream\n"+EncStream(colorDesc, spotObject)+"\nendstream");
+        writer.endObj(spotObject);
 	}
-	QString tmp;
+	QByteArray tmp;
 	if (((Options.Version >= PDFOptions::PDFVersion_14) || (Options.Version == PDFOptions::PDFVersion_X4)) && (transparencyFound))
-		tmp += "/"+TRes+" gs\n";
+		tmp += Pdf::toName(TRes) + " gs\n";
 	tmp += "/Pattern cs\n";
-	tmp += "/Pattern"+QString::number(patObject)+" scn\n";
+	tmp += "/Pattern"+Pdf::toPdf(patObject)+" scn\n";
 	output = tmp;
 	if (tmpAddedColors.count() != 0)
 	{
@@ -7292,7 +7279,7 @@ bool PDFLibCore::PDF_MeshGradientFill(QString& output, PageItem *c)
 	return true;
 }
 
-bool PDFLibCore::PDF_PatchMeshGradientFill(QString& output, PageItem *c)
+bool PDFLibCore::PDF_PatchMeshGradientFill(QByteArray& output, PageItem *c)
 {
 	QList<double> StopVec;
 	QList<double> TransVec;
@@ -7359,11 +7346,11 @@ bool PDFLibCore::PDF_PatchMeshGradientFill(QString& output, PageItem *c)
 		}
 		Gcolors.append(SetGradientColor(mp4.colorName, mp4.shade));
 	}
-	QString TRes("");
+	QByteArray TRes("");
 	if (((Options.Version >= PDFOptions::PDFVersion_14) || (Options.Version == PDFOptions::PDFVersion_X4)) && (transparencyFound))
 	{
-		uint shadeObjectT = newObject();
-		StartObj(shadeObjectT);
+		PdfId shadeObjectT = writer.newObject();
+		writer.startObj(shadeObjectT);
 		PutDoc("<<\n");
 		PutDoc("/ShadingType 7\n");
 		PutDoc("/ColorSpace /DeviceGray\n");
@@ -7397,63 +7384,62 @@ bool PDFLibCore::PDF_PatchMeshGradientFill(QString& output, PageItem *c)
 			vst << encode16dVal(TransVec[colInd4]) << encode16dVal(TransVec[colInd1]) << encode16dVal(TransVec[colInd2]) << encode16dVal(TransVec[colInd3]);
 		}
 		PutDoc("/Decode [-40000 40000 -40000 40000 0 1]\n");
-		QString dat = "";
+		QByteArray dat = "";
 		for (int vd = 0; vd < vertStreamT.count(); vd++)
 		{
 			dat += vertStreamT[vd];
 		}
 		if (Options.Compress)
-			dat = CompressStr(&dat);
-		PutDoc("/Length "+QString::number(dat.length())+"\n");
+			dat = CompressArray(dat);
+		PutDoc("/Length "+Pdf::toPdf(dat.length())+"\n");
 		if (Options.Compress)
 			PutDoc("/Filter /FlateDecode\n");
-		PutDoc(">>\nstream\n"+EncStream(dat, shadeObjectT)+"\nendstream\nendobj\n");
-		uint patObject = newObject();
-		StartObj(patObject);
+		PutDoc(">>\nstream\n"+EncStream(dat, shadeObjectT)+"\nendstream");
+        writer.endObj(shadeObjectT);
+		PdfId patObject = writer.newObject();
+		writer.startObj(patObject);
 		PutDoc("<<\n/Type /Pattern\n");
 		PutDoc("/PatternType 2\n");
-		PutDoc("/Shading "+QString::number(shadeObjectT)+" 0 R\n");
-		PutDoc(">>\nendobj\n");
-		Patterns.insert("Pattern"+QString::number(patObject), patObject);
-		uint formObject = newObject();
-		StartObj(formObject);
+		PutDoc("/Shading "+Pdf::toPdf(shadeObjectT)+" 0 R\n");
+		PutDoc(">>");
+        writer.endObj(patObject);
+		Patterns.insert("Pattern"+Pdf::toPdf(patObject), patObject);
+		PdfId formObject = writer.newObject();
+		writer.startObj(formObject);
 		PutDoc("<<\n/Type /XObject\n/Subtype /Form\n");
 		PutDoc("/FormType 1\n");
 		PutDoc("/Group << /S /Transparency /CS /DeviceGray >>\n");
 		double lw = c->lineWidth();
 		PutDoc("/BBox ["+FToStr(-lw / 2.0)+" "+FToStr(lw / 2.0)+" "+FToStr(c->width()+lw)+" "+FToStr(-(c->height()+lw))+" ]\n");
-		PutDoc("/Resources << /ProcSet [/PDF /Text /ImageB /ImageC /ImageI]\n");
-		if (Patterns.count() != 0)
-		{
-			PutDoc("/Pattern << \n");
-			QMap<QString,int>::Iterator it3p;
-			for (it3p = Patterns.begin(); it3p != Patterns.end(); ++it3p)
-				PutDoc("/"+it3p.key()+" "+QString::number(it3p.value())+" 0 R\n");
-			PutDoc(">>\n");
-		}
-		PutDoc(">>\n");
-		QString stre = "q\n"+SetClipPath(c)+"h\n";
+		PutDoc("/Resources ");
+        
+        Pdf::ResourceDictionary dict;
+        dict.Pattern = Patterns;
+        writer.write(dict);
+        
+        QByteArray stre = "q\n"+SetClipPath(c)+"h\n";
 		stre += FToStr(fabs(c->lineWidth()))+" w\n";
 		stre += "/Pattern cs\n";
-		stre += "/Pattern"+QString::number(patObject)+" scn\nf*\n";
+		stre += "/Pattern"+Pdf::toPdf(patObject)+" scn\nf*\n";
 		stre += "Q\n";
 		if (Options.Compress)
-			stre = CompressStr(&stre);
-		PutDoc("/Length "+QString::number(stre.length())+"\n");
+			stre = CompressArray(stre);
+		PutDoc("/Length "+Pdf::toPdf(stre.length())+"\n");
 		if (Options.Compress)
 			PutDoc("/Filter /FlateDecode\n");
-		PutDoc(">>\nstream\n"+EncStream(stre, formObject)+"\nendstream\nendobj\n");
-		Seite.XObjects[ResNam+QString::number(ResCount)] = formObject;
+		PutDoc(">>\nstream\n"+EncStream(stre, formObject)+"\nendstream");
+        writer.endObj(formObject);
+		pageData.XObjects[ResNam+Pdf::toPdf(ResCount)] = formObject;
 		ResCount++;
-		QString GXName = ResNam+QString::number(ResCount);
+		QByteArray GXName = ResNam+Pdf::toPdf(ResCount);
 		ResCount++;
-		Transpar[GXName] = writeGState("/SMask << /S /Luminosity /G "+QString::number(formObject)+" 0 R >>\n/BM /Normal\n");
+		Transpar[GXName] = writeGState("/SMask << /S /Luminosity /G "+Pdf::toPdf(formObject)+" 0 R >>\n/BM /Normal\n");
 		TRes = GXName;
 	}
-	QString entx = "";
-	uint spotObject = 0;
-	uint shadeObject = newObject();
-	StartObj(shadeObject);
+	QByteArray entx = "";
+	PdfId spotObject = 0;
+	PdfId shadeObject = writer.newObject();
+	writer.startObj(shadeObject);
 	PutDoc("<<\n");
 	PutDoc("/ShadingType 7\n");
 	if (Options.UseRGB)
@@ -7476,16 +7462,17 @@ bool PDFLibCore::PDF_PatchMeshGradientFill(QString& output, PageItem *c)
 		entx = "0 1 0 1 0 1 0 1";
 		if ((Options.UseSpotColors) && ((spotColorSet.count() > 0) && (spotColorSet.count() < 28)))
 		{
-			spotObject = newObject();
+			spotObject = writer.newObject();
 			PutDoc("/ColorSpace [ /DeviceN [ /Cyan /Magenta /Yellow /Black");
 			for (int sc = 0; sc < spotColorSet.count(); sc++)
 			{
-				PutDoc(" /"+spotColorSet.at(sc).simplified().replace("#", "#23").replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "#20" ));
+                PutDoc(" " + Pdf::toName(spotColorSet.at(sc).simplified()));
+                       //" /"+spotColorSet.at(sc).simplified().replace("#", "#23").replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "#20" ));
 				entx += " 0 1";
 			}
 			PutDoc(" ]\n");
 			PutDoc("/DeviceCMYK\n");
-			PutDoc(QString::number(spotObject)+" 0 R\n");
+			PutDoc(Pdf::toObjRef(spotObject) + "\n");
 			PutDoc("]\n");
 			spotMode = true;
 		}
@@ -7525,19 +7512,20 @@ bool PDFLibCore::PDF_PatchMeshGradientFill(QString& output, PageItem *c)
 		encodeColor(vs, colorNames[colInd3], colorShades[colInd3], spotColorSet, spotMode);
 	}
 	PutDoc("/Decode [-40000 40000 -40000 40000 "+entx+"]\n");
-	QString dat = "";
+	QByteArray dat = "";
 	for (int vd = 0; vd < vertStream.count(); vd++)
 	{
 		dat += vertStream[vd];
 	}
 	if (Options.Compress)
-		dat = CompressStr(&dat);
-	PutDoc("/Length "+QString::number(dat.length())+"\n");
+		dat = CompressArray(dat);
+	PutDoc("/Length "+Pdf::toPdf(dat.length())+"\n");
 	if (Options.Compress)
 		PutDoc("/Filter /FlateDecode\n");
-	PutDoc(">>\nstream\n"+EncStream(dat, shadeObject)+"\nendstream\nendobj\n");
-	uint patObject = newObject();
-	StartObj(patObject);
+	PutDoc(">>\nstream\n"+EncStream(dat, shadeObject)+"\nendstream");
+    writer.endObj(shadeObject);
+	PdfId patObject = writer.newObject();
+	writer.startObj(patObject);
 	PutDoc("<<\n/Type /Pattern\n");
 	PutDoc("/PatternType 2\n");
 	QTransform mpa;
@@ -7560,13 +7548,14 @@ bool PDFLibCore::PDF_PatchMeshGradientFill(QString& output, PageItem *c)
 			mpa.translate(patternStackPos.top().x(), patternStackPos.top().y());
 	}
 	PutDoc("/Matrix ["+FToStr(mpa.m11())+" "+FToStr(mpa.m12())+" "+FToStr(mpa.m21())+" "+FToStr(mpa.m22())+" "+FToStr(mpa.dx())+" "+FToStr(mpa.dy())+"]\n");
-	PutDoc("/Shading "+QString::number(shadeObject)+" 0 R\n");
-	PutDoc(">>\nendobj\n");
-	Patterns.insert("Pattern"+QString::number(patObject), patObject);
+	PutDoc("/Shading "+Pdf::toPdf(shadeObject)+" 0 R\n");
+	PutDoc(">>");
+    writer.endObj(patObject);
+	Patterns.insert("Pattern"+Pdf::toPdf(patObject), patObject);
 	if (spotMode)
 	{
-		QString colorDesc;
-		StartObj(spotObject);
+		QByteArray colorDesc;
+		writer.startObj(spotObject);
 		PutDoc("<<\n/FunctionType 4\n");
 		PutDoc("/Domain [0 1 0 1 0 1 0 1");
 		for (int sc = 0; sc < spotColorSet.count(); sc++)
@@ -7588,7 +7577,7 @@ bool PDFLibCore::PDF_PatchMeshGradientFill(QString& output, PageItem *c)
 			if (sc == 0)
 				colorDesc += "dup "+FToStr(static_cast<double>(cc) / 255.0)+" mul ";
 			else
-				colorDesc += QString::number(sc*4 + 1)+" -1 roll dup "+FToStr(static_cast<double>(cc) / 255.0)+" mul ";
+				colorDesc += Pdf::toPdf(sc*4 + 1)+" -1 roll dup "+FToStr(static_cast<double>(cc) / 255.0)+" mul ";
 			colorDesc += "exch dup "+FToStr(static_cast<double>(mc) / 255.0)+" mul ";
 			colorDesc += "exch dup "+FToStr(static_cast<double>(yc) / 255.0)+" mul ";
 			colorDesc += "exch "+FToStr(static_cast<double>(kc) / 255.0)+" mul\n";
@@ -7599,19 +7588,20 @@ bool PDFLibCore::PDF_PatchMeshGradientFill(QString& output, PageItem *c)
 		}
 		colorDesc += "}\n";
 		PutDoc("/Range [0 1 0 1 0 1 0 1]\n");
-		PutDoc("/Length "+QString::number(colorDesc.length()+1)+"\n");
-		PutDoc(">>\nstream\n"+EncStream(colorDesc, spotObject)+"\nendstream\nendobj\n");
+		PutDoc("/Length "+Pdf::toPdf(colorDesc.length()+1)+"\n");
+		PutDoc(">>\nstream\n"+EncStream(colorDesc, spotObject)+"\nendstream");
+        writer.endObj(spotObject);
 	}
-	QString tmp;
+	QByteArray tmp;
 	if (((Options.Version >= PDFOptions::PDFVersion_14) || (Options.Version == PDFOptions::PDFVersion_X4)) && (transparencyFound))
-		tmp += "/"+TRes+" gs\n";
+		tmp += Pdf::toName(TRes) + " gs\n";
 	tmp += "/Pattern cs\n";
-	tmp += "/Pattern"+QString::number(patObject)+" scn\n";
+	tmp += "/Pattern"+Pdf::toPdf(patObject)+" scn\n";
 	output = tmp;
 	return true;
 }
 
-bool PDFLibCore::PDF_DiamondGradientFill(QString& output, PageItem *c)
+bool PDFLibCore::PDF_DiamondGradientFill(QByteArray& output, PageItem *c)
 {
 	QList<double> StopVec;
 	QList<double> TransVec;
@@ -7653,11 +7643,11 @@ bool PDFLibCore::PDF_DiamondGradientFill(QString& output, PageItem *c)
 	QLineF edge2 = QLineF(cP, QPointF(c->GrControl2.x(), -c->GrControl2.y()));
 	QLineF edge3 = QLineF(cP, QPointF(c->GrControl3.x(), -c->GrControl3.y()));
 	QLineF edge4 = QLineF(cP, QPointF(c->GrControl4.x(), -c->GrControl4.y()));
-	QString TRes("");
+	QByteArray TRes("");
 	if (((Options.Version >= PDFOptions::PDFVersion_14) || (Options.Version == PDFOptions::PDFVersion_X4)) && (transparencyFound))
 	{
-		uint shadeObjectT = newObject();
-		StartObj(shadeObjectT);
+		PdfId shadeObjectT = writer.newObject();
+		writer.startObj(shadeObjectT);
 		PutDoc("<<\n");
 		PutDoc("/ShadingType 6\n");
 		PutDoc("/ColorSpace /DeviceGray\n");
@@ -7743,63 +7733,62 @@ bool PDFLibCore::PDF_DiamondGradientFill(QString& output, PageItem *c)
 			}
 		}
 		PutDoc("/Decode [-40000 40000 -40000 40000 0 1]\n");
-		QString dat = "";
+		QByteArray dat = "";
 		for (int vd = 0; vd < vertStreamT.count(); vd++)
 		{
 			dat += vertStreamT[vd];
 		}
 		if (Options.Compress)
-			dat = CompressStr(&dat);
-		PutDoc("/Length "+QString::number(dat.length())+"\n");
+			dat = CompressArray(dat);
+		PutDoc("/Length "+Pdf::toPdf(dat.length())+"\n");
 		if (Options.Compress)
 			PutDoc("/Filter /FlateDecode\n");
-		PutDoc(">>\nstream\n"+EncStream(dat, shadeObjectT)+"\nendstream\nendobj\n");
-		uint patObject = newObject();
-		StartObj(patObject);
+		PutDoc(">>\nstream\n"+EncStream(dat, shadeObjectT)+"\nendstream");
+        writer.endObj(shadeObjectT);
+		PdfId patObject = writer.newObject();
+		writer.startObj(patObject);
 		PutDoc("<<\n/Type /Pattern\n");
 		PutDoc("/PatternType 2\n");
-		PutDoc("/Shading "+QString::number(shadeObjectT)+" 0 R\n");
-		PutDoc(">>\nendobj\n");
-		Patterns.insert("Pattern"+QString::number(patObject), patObject);
-		uint formObject = newObject();
-		StartObj(formObject);
+		PutDoc("/Shading "+Pdf::toPdf(shadeObjectT)+" 0 R\n");
+		PutDoc(">>");
+        writer.endObj(patObject);
+		Patterns.insert("Pattern"+Pdf::toPdf(patObject), patObject);
+		PdfId formObject = writer.newObject();
+		writer.startObj(formObject);
 		PutDoc("<<\n/Type /XObject\n/Subtype /Form\n");
 		PutDoc("/FormType 1\n");
 		PutDoc("/Group << /S /Transparency /CS /DeviceGray >>\n");
 		double lw = c->lineWidth();
 		PutDoc("/BBox ["+FToStr(-lw / 2.0)+" "+FToStr(lw / 2.0)+" "+FToStr(c->width()+lw)+" "+FToStr(-(c->height()+lw))+" ]\n");
-		PutDoc("/Resources << /ProcSet [/PDF /Text /ImageB /ImageC /ImageI]\n");
-		if (Patterns.count() != 0)
-		{
-			PutDoc("/Pattern << \n");
-			QMap<QString,int>::Iterator it3p;
-			for (it3p = Patterns.begin(); it3p != Patterns.end(); ++it3p)
-				PutDoc("/"+it3p.key()+" "+QString::number(it3p.value())+" 0 R\n");
-			PutDoc(">>\n");
-		}
-		PutDoc(">>\n");
-		QString stre = "q\n"+SetClipPath(c)+"h\n";
+        PutDoc("/Resources ");
+        
+        Pdf::ResourceDictionary dict;
+        dict.Pattern = Patterns;
+        writer.write(dict);
+        
+		QByteArray stre = "q\n"+SetClipPath(c)+"h\n";
 		stre += FToStr(fabs(c->lineWidth()))+" w\n";
 		stre += "/Pattern cs\n";
-		stre += "/Pattern"+QString::number(patObject)+" scn\nf*\n";
+		stre += "/Pattern"+Pdf::toPdf(patObject)+" scn\nf*\n";
 		stre += "Q\n";
 		if (Options.Compress)
-			stre = CompressStr(&stre);
-		PutDoc("/Length "+QString::number(stre.length())+"\n");
+			stre = CompressArray(stre);
+		PutDoc("/Length "+Pdf::toPdf(stre.length())+"\n");
 		if (Options.Compress)
 			PutDoc("/Filter /FlateDecode\n");
-		PutDoc(">>\nstream\n"+EncStream(stre, formObject)+"\nendstream\nendobj\n");
-		Seite.XObjects[ResNam+QString::number(ResCount)] = formObject;
+		PutDoc(">>\nstream\n"+EncStream(stre, formObject)+"\nendstream");
+        writer.endObj(formObject);
+		pageData.XObjects[ResNam+Pdf::toPdf(ResCount)] = formObject;
 		ResCount++;
-		QString GXName = ResNam+QString::number(ResCount);
+		QByteArray GXName = ResNam+Pdf::toPdf(ResCount);
 		ResCount++;
-		Transpar[GXName] = writeGState("/SMask << /S /Luminosity /G "+QString::number(formObject)+" 0 R >>\n/BM /Normal\n");
+		Transpar[GXName] = writeGState("/SMask << /S /Luminosity /G "+Pdf::toPdf(formObject)+" 0 R >>\n/BM /Normal\n");
 		TRes = GXName;
 	}
-	QString entx = "";
-	uint spotObject = 0;
-	uint shadeObject = newObject();
-	StartObj(shadeObject);
+	QByteArray entx = "";
+	PdfId spotObject = 0;
+	PdfId shadeObject = writer.newObject();
+	writer.startObj(shadeObject);
 	PutDoc("<<\n");
 	PutDoc("/ShadingType 6\n");
 	if (Options.UseRGB)
@@ -7822,23 +7811,24 @@ bool PDFLibCore::PDF_DiamondGradientFill(QString& output, PageItem *c)
 		entx = "0 1 0 1 0 1 0 1";
 		if ((Options.UseSpotColors) && ((spotColorSet.count() > 0) && (spotColorSet.count() < 28)))
 		{
-			spotObject = newObject();
+			spotObject = writer.newObject();
 			PutDoc("/ColorSpace [ /DeviceN [ /Cyan /Magenta /Yellow /Black");
 			for (int sc = 0; sc < spotColorSet.count(); sc++)
 			{
-				PutDoc(" /"+spotColorSet.at(sc).simplified().replace("#", "#23").replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "#20" ));
+                PutDoc(" " + Pdf::toName(spotColorSet.at(sc).simplified()));
+                       //" /"+spotColorSet.at(sc).simplified().replace("#", "#23").replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "#20" ));
 				entx += " 0 1";
 			}
 			PutDoc(" ]\n");
 			PutDoc("/DeviceCMYK\n");
-			PutDoc(QString::number(spotObject)+" 0 R\n");
+			PutDoc(Pdf::toPdf(spotObject)+" 0 R\n");
 			PutDoc("]\n");
 			spotMode = true;
 		}
 		else
 			PutDoc("/ColorSpace /DeviceCMYK\n");
 	}
-	PutDoc("/Background [" + Gcolors.last() + "]\n");
+                       PutDoc("/Background [" + Pdf::toAscii(Gcolors.last()) + "]\n");
 	PutDoc("/BitsPerCoordinate 32\n");
 	PutDoc("/BitsPerComponent 16\n");
 	PutDoc("/BitsPerFlag 8\n");
@@ -7944,19 +7934,20 @@ bool PDFLibCore::PDF_DiamondGradientFill(QString& output, PageItem *c)
 		}
 	}
 	PutDoc("/Decode [-40000 40000 -40000 40000 "+entx+"]\n");
-	QString dat = "";
+	QByteArray dat = "";
 	for (int vd = 0; vd < vertStream.count(); vd++)
 	{
 		dat += vertStream[vd];
 	}
 	if (Options.Compress)
-		dat = CompressStr(&dat);
-	PutDoc("/Length "+QString::number(dat.length())+"\n");
+		dat = CompressArray(dat);
+	PutDoc("/Length "+Pdf::toPdf(dat.length())+"\n");
 	if (Options.Compress)
 		PutDoc("/Filter /FlateDecode\n");
-	PutDoc(">>\nstream\n"+EncStream(dat, shadeObject)+"\nendstream\nendobj\n");
-	uint patObject = newObject();
-	StartObj(patObject);
+	PutDoc(">>\nstream\n"+EncStream(dat, shadeObject)+"\nendstream");
+    writer.endObj(shadeObject);
+	PdfId patObject = writer.newObject();
+	writer.startObj(patObject);
 	PutDoc("<<\n/Type /Pattern\n");
 	PutDoc("/PatternType 2\n");
 	QTransform mpa;
@@ -7979,13 +7970,14 @@ bool PDFLibCore::PDF_DiamondGradientFill(QString& output, PageItem *c)
 			mpa.translate(patternStackPos.top().x(), patternStackPos.top().y());
 	}
 	PutDoc("/Matrix ["+FToStr(mpa.m11())+" "+FToStr(mpa.m12())+" "+FToStr(mpa.m21())+" "+FToStr(mpa.m22())+" "+FToStr(mpa.dx())+" "+FToStr(mpa.dy())+"]\n");
-	PutDoc("/Shading "+QString::number(shadeObject)+" 0 R\n");
-	PutDoc(">>\nendobj\n");
-	Patterns.insert("Pattern"+QString::number(patObject), patObject);
+	PutDoc("/Shading "+Pdf::toPdf(shadeObject)+" 0 R\n");
+	PutDoc(">>");
+    writer.endObj(patObject);
+	Patterns.insert("Pattern"+Pdf::toPdf(patObject), patObject);
 	if (spotMode)
 	{
-		QString colorDesc;
-		StartObj(spotObject);
+		QByteArray colorDesc;
+		writer.startObj(spotObject);
 		PutDoc("<<\n/FunctionType 4\n");
 		PutDoc("/Domain [0 1 0 1 0 1 0 1");
 		for (int sc = 0; sc < spotColorSet.count(); sc++)
@@ -8007,7 +7999,7 @@ bool PDFLibCore::PDF_DiamondGradientFill(QString& output, PageItem *c)
 			if (sc == 0)
 				colorDesc += "dup "+FToStr(static_cast<double>(cc) / 255.0)+" mul ";
 			else
-				colorDesc += QString::number(sc*4 + 1)+" -1 roll dup "+FToStr(static_cast<double>(cc) / 255.0)+" mul ";
+				colorDesc += Pdf::toPdf(sc*4 + 1)+" -1 roll dup "+FToStr(static_cast<double>(cc) / 255.0)+" mul ";
 			colorDesc += "exch dup "+FToStr(static_cast<double>(mc) / 255.0)+" mul ";
 			colorDesc += "exch dup "+FToStr(static_cast<double>(yc) / 255.0)+" mul ";
 			colorDesc += "exch "+FToStr(static_cast<double>(kc) / 255.0)+" mul\n";
@@ -8018,20 +8010,21 @@ bool PDFLibCore::PDF_DiamondGradientFill(QString& output, PageItem *c)
 		}
 		colorDesc += "}\n";
 		PutDoc("/Range [0 1 0 1 0 1 0 1]\n");
-		PutDoc("/Length "+QString::number(colorDesc.length()+1)+"\n");
-		PutDoc(">>\nstream\n"+EncStream(colorDesc, spotObject)+"\nendstream\nendobj\n");
+		PutDoc("/Length "+Pdf::toPdf(colorDesc.length()+1)+"\n");
+		PutDoc(">>\nstream\n"+EncStream(colorDesc, spotObject)+"\nendstream");
+        writer.endObj(spotObject);
 	}
-	QString tmp;
+	QByteArray tmp;
 	if (((Options.Version >= PDFOptions::PDFVersion_14) || (Options.Version == PDFOptions::PDFVersion_X4)) && (transparencyFound))
-		tmp += "/"+TRes+" gs\n";
+		tmp += Pdf::toName(TRes) + " gs\n";
 	tmp += "/Pattern cs\n";
-	tmp += "/Pattern"+QString::number(patObject)+" scn\n";
+	tmp += "/Pattern"+Pdf::toPdf(patObject)+" scn\n";
 	output = tmp;
 	return true;
 
 }
 
-bool PDFLibCore::PDF_TensorGradientFill(QString& output, PageItem *c)
+bool PDFLibCore::PDF_TensorGradientFill(QByteArray& output, PageItem *c)
 {
 	QList<int> colorShades;
 	QStringList spotColorSet;
@@ -8070,11 +8063,11 @@ bool PDFLibCore::PDF_TensorGradientFill(QString& output, PageItem *c)
 		}
 		Gcolors.append(SetGradientColor(colorNames.at(cst), colorShades[cst]));
 	}
-	QString TRes("");
+	QByteArray TRes("");
 	if (((Options.Version >= PDFOptions::PDFVersion_14) || (Options.Version == PDFOptions::PDFVersion_X4)) && (transparencyFound))
 	{
-		uint shadeObjectT = newObject();
-		StartObj(shadeObjectT);
+		PdfId shadeObjectT = writer.newObject();
+		writer.startObj(shadeObjectT);
 		PutDoc("<<\n");
 		PutDoc("/ShadingType 7\n");
 		PutDoc("/ColorSpace /DeviceGray\n");
@@ -8105,63 +8098,62 @@ bool PDFLibCore::PDF_TensorGradientFill(QString& output, PageItem *c)
 		vst << encode32dVal(c->GrControl2.x()) << encode32dVal(-c->GrControl2.y());
 		vst << encode16dVal(c->GrCol4transp) << encode16dVal(c->GrCol1transp) << encode16dVal(c->GrCol2transp) << encode16dVal(c->GrCol3transp);
 		PutDoc("/Decode [-40000 40000 -40000 40000 0 1]\n");
-		QString dat = "";
+		QByteArray dat = "";
 		for (int vd = 0; vd < vertStreamT.count(); vd++)
 		{
 			dat += vertStreamT[vd];
 		}
 		if (Options.Compress)
-			dat = CompressStr(&dat);
-		PutDoc("/Length "+QString::number(dat.length())+"\n");
+			dat = CompressArray(dat);
+		PutDoc("/Length "+Pdf::toPdf(dat.length())+"\n");
 		if (Options.Compress)
 			PutDoc("/Filter /FlateDecode\n");
-		PutDoc(">>\nstream\n"+EncStream(dat, shadeObjectT)+"\nendstream\nendobj\n");
-		uint patObject = newObject();
-		StartObj(patObject);
+		PutDoc(">>\nstream\n"+EncStream(dat, shadeObjectT)+"\nendstream");
+        writer.endObj(shadeObjectT);
+		PdfId patObject = writer.newObject();
+		writer.startObj(patObject);
 		PutDoc("<<\n/Type /Pattern\n");
 		PutDoc("/PatternType 2\n");
-		PutDoc("/Shading "+QString::number(shadeObjectT)+" 0 R\n");
-		PutDoc(">>\nendobj\n");
-		Patterns.insert("Pattern"+QString::number(patObject), patObject);
-		uint formObject = newObject();
-		StartObj(formObject);
+		PutDoc("/Shading "+Pdf::toPdf(shadeObjectT)+" 0 R\n");
+		PutDoc(">>");
+        writer.endObj(patObject);
+		Patterns.insert("Pattern"+Pdf::toPdf(patObject), patObject);
+		PdfId formObject = writer.newObject();
+		writer.startObj(formObject);
 		PutDoc("<<\n/Type /XObject\n/Subtype /Form\n");
 		PutDoc("/FormType 1\n");
 		PutDoc("/Group << /S /Transparency /CS /DeviceGray >>\n");
 		double lw = c->lineWidth();
 		PutDoc("/BBox ["+FToStr(-lw / 2.0)+" "+FToStr(lw / 2.0)+" "+FToStr(c->width()+lw)+" "+FToStr(-(c->height()+lw))+" ]\n");
-		PutDoc("/Resources << /ProcSet [/PDF /Text /ImageB /ImageC /ImageI]\n");
-		if (Patterns.count() != 0)
-		{
-			PutDoc("/Pattern << \n");
-			QMap<QString,int>::Iterator it3p;
-			for (it3p = Patterns.begin(); it3p != Patterns.end(); ++it3p)
-				PutDoc("/"+it3p.key()+" "+QString::number(it3p.value())+" 0 R\n");
-			PutDoc(">>\n");
-		}
-		PutDoc(">>\n");
-		QString stre = "q\n"+SetClipPath(c)+"h\n";
+        PutDoc("/Resources ");
+        
+        Pdf::ResourceDictionary dict;
+        dict.Pattern = Patterns;
+        writer.write(dict);
+        
+		QByteArray stre = "q\n"+SetClipPath(c)+"h\n";
 		stre += FToStr(fabs(c->lineWidth()))+" w\n";
 		stre += "/Pattern cs\n";
-		stre += "/Pattern"+QString::number(patObject)+" scn\nf*\n";
+		stre += "/Pattern"+Pdf::toPdf(patObject)+" scn\nf*\n";
 		stre += "Q\n";
 		if (Options.Compress)
-			stre = CompressStr(&stre);
-		PutDoc("/Length "+QString::number(stre.length())+"\n");
+			stre = CompressArray(stre);
+		PutDoc("/Length "+Pdf::toPdf(stre.length())+"\n");
 		if (Options.Compress)
 			PutDoc("/Filter /FlateDecode\n");
-		PutDoc(">>\nstream\n"+EncStream(stre, formObject)+"\nendstream\nendobj\n");
-		Seite.XObjects[ResNam+QString::number(ResCount)] = formObject;
+		PutDoc(">>\nstream\n"+EncStream(stre, formObject)+"\nendstream");
+        writer.endObj(formObject);
+		pageData.XObjects[ResNam+Pdf::toPdf(ResCount)] = formObject;
 		ResCount++;
-		QString GXName = ResNam+QString::number(ResCount);
+		QByteArray GXName = ResNam+Pdf::toPdf(ResCount);
 		ResCount++;
-		Transpar[GXName] = writeGState("/SMask << /S /Luminosity /G "+QString::number(formObject)+" 0 R >>\n/BM /Normal\n");
+		Transpar[GXName] = writeGState("/SMask << /S /Luminosity /G "+Pdf::toPdf(formObject)+" 0 R >>\n/BM /Normal\n");
 		TRes = GXName;
 	}
-	QString entx = "";
-	uint spotObject = 0;
-	uint shadeObject = newObject();
-	StartObj(shadeObject);
+	QByteArray entx = "";
+	PdfId spotObject = 0;
+	PdfId shadeObject = writer.newObject();
+	writer.startObj(shadeObject);
 	PutDoc("<<\n");
 	PutDoc("/ShadingType 7\n");
 	if (Options.UseRGB)
@@ -8184,16 +8176,17 @@ bool PDFLibCore::PDF_TensorGradientFill(QString& output, PageItem *c)
 		entx = "0 1 0 1 0 1 0 1";
 		if ((Options.UseSpotColors) && ((spotColorSet.count() > 0) && (spotColorSet.count() < 28)))
 		{
-			spotObject = newObject();
+			spotObject = writer.newObject();
 			PutDoc("/ColorSpace [ /DeviceN [ /Cyan /Magenta /Yellow /Black");
 			for (int sc = 0; sc < spotColorSet.count(); sc++)
 			{
-				PutDoc(" /"+spotColorSet.at(sc).simplified().replace("#", "#23").replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "#20" ));
+                PutDoc(" " + Pdf::toName(spotColorSet.at(sc).simplified()));
+                       //" /"+spotColorSet.at(sc).simplified().replace("#", "#23").replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "#20" ));
 				entx += " 0 1";
 			}
 			PutDoc(" ]\n");
 			PutDoc("/DeviceCMYK\n");
-			PutDoc(QString::number(spotObject)+" 0 R\n");
+			PutDoc(Pdf::toPdf(spotObject)+" 0 R\n");
 			PutDoc("]\n");
 			spotMode = true;
 		}
@@ -8263,19 +8256,20 @@ bool PDFLibCore::PDF_TensorGradientFill(QString& output, PageItem *c)
 		}
 	}
 	PutDoc("/Decode [-40000 40000 -40000 40000 "+entx+"]\n");
-	QString dat = "";
+	QByteArray dat = "";
 	for (int vd = 0; vd < vertStream.count(); vd++)
 	{
 		dat += vertStream[vd];
 	}
 	if (Options.Compress)
-		dat = CompressStr(&dat);
-	PutDoc("/Length "+QString::number(dat.length())+"\n");
+		dat = CompressArray(dat);
+	PutDoc("/Length "+Pdf::toPdf(dat.length())+"\n");
 	if (Options.Compress)
 		PutDoc("/Filter /FlateDecode\n");
-	PutDoc(">>\nstream\n"+EncStream(dat, shadeObject)+"\nendstream\nendobj\n");
-	uint patObject = newObject();
-	StartObj(patObject);
+	PutDoc(">>\nstream\n"+EncStream(dat, shadeObject)+"\nendstream");
+    writer.endObj(shadeObject);
+	PdfId patObject = writer.newObject();
+	writer.startObj(patObject);
 	PutDoc("<<\n/Type /Pattern\n");
 	PutDoc("/PatternType 2\n");
 	QTransform mpa;
@@ -8298,13 +8292,14 @@ bool PDFLibCore::PDF_TensorGradientFill(QString& output, PageItem *c)
 			mpa.translate(patternStackPos.top().x(), patternStackPos.top().y());
 	}
 	PutDoc("/Matrix ["+FToStr(mpa.m11())+" "+FToStr(mpa.m12())+" "+FToStr(mpa.m21())+" "+FToStr(mpa.m22())+" "+FToStr(mpa.dx())+" "+FToStr(mpa.dy())+"]\n");
-	PutDoc("/Shading "+QString::number(shadeObject)+" 0 R\n");
-	PutDoc(">>\nendobj\n");
-	Patterns.insert("Pattern"+QString::number(patObject), patObject);
+	PutDoc("/Shading "+Pdf::toPdf(shadeObject)+" 0 R\n");
+	PutDoc(">>");
+    writer.endObj(patObject);
+	Patterns.insert("Pattern"+Pdf::toPdf(patObject), patObject);
 	if (spotMode)
 	{
-		QString colorDesc;
-		StartObj(spotObject);
+		QByteArray colorDesc;
+		writer.startObj(spotObject);
 		PutDoc("<<\n/FunctionType 4\n");
 		PutDoc("/Domain [0 1 0 1 0 1 0 1");
 		for (int sc = 0; sc < spotColorSet.count(); sc++)
@@ -8326,7 +8321,7 @@ bool PDFLibCore::PDF_TensorGradientFill(QString& output, PageItem *c)
 			if (sc == 0)
 				colorDesc += "dup "+FToStr(static_cast<double>(cc) / 255.0)+" mul ";
 			else
-				colorDesc += QString::number(sc*4 + 1)+" -1 roll dup "+FToStr(static_cast<double>(cc) / 255.0)+" mul ";
+				colorDesc += Pdf::toPdf(sc*4 + 1)+" -1 roll dup "+FToStr(static_cast<double>(cc) / 255.0)+" mul ";
 			colorDesc += "exch dup "+FToStr(static_cast<double>(mc) / 255.0)+" mul ";
 			colorDesc += "exch dup "+FToStr(static_cast<double>(yc) / 255.0)+" mul ";
 			colorDesc += "exch "+FToStr(static_cast<double>(kc) / 255.0)+" mul\n";
@@ -8337,19 +8332,20 @@ bool PDFLibCore::PDF_TensorGradientFill(QString& output, PageItem *c)
 		}
 		colorDesc += "}\n";
 		PutDoc("/Range [0 1 0 1 0 1 0 1]\n");
-		PutDoc("/Length "+QString::number(colorDesc.length()+1)+"\n");
-		PutDoc(">>\nstream\n"+EncStream(colorDesc, spotObject)+"\nendstream\nendobj\n");
+		PutDoc("/Length "+Pdf::toPdf(colorDesc.length()+1)+"\n");
+		PutDoc(">>\nstream\n"+EncStream(colorDesc, spotObject)+"\nendstream");
+        writer.endObj(spotObject);
 	}
-	QString tmp;
+	QByteArray tmp;
 	if (((Options.Version >= PDFOptions::PDFVersion_14) || (Options.Version == PDFOptions::PDFVersion_X4)) && (transparencyFound))
-		tmp += "/"+TRes+" gs\n";
+		tmp += Pdf::toName(TRes) + " gs\n";
 	tmp += "/Pattern cs\n";
-	tmp += "/Pattern"+QString::number(patObject)+" scn\n";
+	tmp += "/Pattern"+Pdf::toPdf(patObject)+" scn\n";
 	output = tmp;
 	return true;
 }
 
-bool PDFLibCore::PDF_GradientFillStroke(QString& output, PageItem *currItem, bool stroke, bool forArrow)
+bool PDFLibCore::PDF_GradientFillStroke(QByteArray& output, PageItem *currItem, bool stroke, bool forArrow)
 {
 	QList<double> StopVec;
 	QList<double> TransVec;
@@ -8503,7 +8499,7 @@ bool PDFLibCore::PDF_GradientFillStroke(QString& output, PageItem *currItem, boo
 		}
 		lastStop = actualStop;
 	}
-	QString TRes("");
+	QByteArray TRes;
 	if (((Options.Version >= PDFOptions::PDFVersion_14) || (Options.Version == PDFOptions::PDFVersion_X4)) && (transparencyFound))
 	{
 		QTransform mpM;
@@ -8525,8 +8521,8 @@ bool PDFLibCore::PDF_GradientFillStroke(QString& output, PageItem *currItem, boo
 			mpM.translate(-StartX, StartY);
 			mpM.scale(1, Gscale);
 		}
-		uint patObject = newObject();
-		StartObj(patObject);
+		PdfId patObject = writer.newObject();
+		writer.startObj(patObject);
 		PutDoc("<<\n/Type /Pattern\n");
 		PutDoc("/PatternType 2\n");
 		PutDoc("/Matrix ["+FToStr(mpM.m11())+" "+FToStr(mpM.m12())+" "+FToStr(mpM.m21())+" "+FToStr(mpM.m22())+" "+FToStr(mpM.dx())+" "+FToStr(mpM.dy())+"]\n");
@@ -8552,7 +8548,7 @@ bool PDFLibCore::PDF_GradientFillStroke(QString& output, PageItem *currItem, boo
 		if (StopVec.count() > 2)
 		{
 			PutDoc("/Bounds [");
-			QString bctx = "";
+			QByteArray bctx = "";
 			for (int bc = 1; bc < StopVec.count() - 1; bc++)
 			{
 				bctx += FToStr(StopVec.at(bc))+" ";
@@ -8561,7 +8557,7 @@ bool PDFLibCore::PDF_GradientFillStroke(QString& output, PageItem *currItem, boo
 		}
 		else
 			PutDoc("/Bounds []\n");
-		QString entx = "";
+		QByteArray entx = "";
 		PutDoc("/Functions\n");
 		PutDoc("[\n");
 		for (int cc = 0; cc < TransVec.count() - 1; cc++)
@@ -8580,53 +8576,51 @@ bool PDFLibCore::PDF_GradientFillStroke(QString& output, PageItem *currItem, boo
 		PutDoc(">>\n");
 		PutDoc(">>\n");
 		PutDoc(">>\n");
-		Patterns.insert("Pattern"+QString::number(patObject), patObject);
-		uint formObject = newObject();
-		StartObj(formObject);
+        writer.endObj(patObject);
+		Patterns.insert("Pattern"+Pdf::toPdf(patObject), patObject);
+		PdfId formObject = writer.newObject();
+		writer.startObj(formObject);
 		PutDoc("<<\n/Type /XObject\n/Subtype /Form\n");
 		PutDoc("/FormType 1\n");
 		PutDoc("/Group << /S /Transparency /CS /DeviceGray >>\n");
 		double lw = currItem->lineWidth();
 		PutDoc("/BBox ["+FToStr(-lw / 2.0)+" "+FToStr(lw / 2.0)+" "+FToStr(currItem->width()+lw)+" "+FToStr(-(currItem->height()+lw))+" ]\n");
-		PutDoc("/Resources << /ProcSet [/PDF /Text /ImageB /ImageC /ImageI]\n");
-		if (Patterns.count() != 0)
-		{
-			PutDoc("/Pattern << \n");
-			QMap<QString,int>::Iterator it3p;
-			for (it3p = Patterns.begin(); it3p != Patterns.end(); ++it3p)
-				PutDoc("/"+it3p.key()+" "+QString::number(it3p.value())+" 0 R\n");
-			PutDoc(">>\n");
-		}
-		PutDoc(">>\n");
-		QString stre = "q\n"+SetClipPath(currItem)+"h\n";
+        PutDoc("/Resources ");
+        
+        Pdf::ResourceDictionary dict;
+        dict.Pattern = Patterns;
+        writer.write(dict);
+
+        QByteArray stre = "q\n"+SetClipPath(currItem)+"h\n";
 		stre += FToStr(fabs(currItem->lineWidth()))+" w\n";
 		if ((forArrow) || (!stroke))
 		{
 			stre += "/Pattern cs\n";
-			stre += "/Pattern"+QString::number(patObject)+" scn\nf*\n";
+			stre += "/Pattern"+Pdf::toPdf(patObject)+" scn\nf*\n";
 		}
 		else
 		{
 			stre += "/Pattern CS\n";
-			stre += "/Pattern"+QString::number(patObject)+" SCN\nS\n";
+			stre += "/Pattern"+Pdf::toPdf(patObject)+" SCN\nS\n";
 		}
 		stre += "Q\n";
 		if (Options.Compress)
-			stre = CompressStr(&stre);
-		PutDoc("/Length "+QString::number(stre.length())+"\n");
+			stre = CompressArray(stre);
+		PutDoc("/Length "+Pdf::toPdf(stre.length())+"\n");
 		if (Options.Compress)
 			PutDoc("/Filter /FlateDecode\n");
-		PutDoc(">>\nstream\n"+EncStream(stre, formObject)+"\nendstream\nendobj\n");
-		Seite.XObjects[ResNam+QString::number(ResCount)] = formObject;
+		PutDoc(">>\nstream\n"+EncStream(stre, formObject)+"\nendstream");
+        writer.endObj(formObject);
+		pageData.XObjects[ResNam+Pdf::toPdf(ResCount)] = formObject;
 		ResCount++;
-		QString GXName = ResNam+QString::number(ResCount);
+		QByteArray GXName = ResNam+Pdf::toPdf(ResCount);
 		ResCount++;
-		Transpar[GXName] = writeGState("/SMask << /S /Luminosity /G "+QString::number(formObject)+" 0 R >>\n/BM /Normal\n");
+		Transpar[GXName] = writeGState("/SMask << /S /Luminosity /G "+Pdf::toPdf(formObject)+" 0 R >>\n/BM /Normal\n");
 		TRes = GXName;
 	}
-	uint patObject = newObject();
-	uint spotObject = 0;
-	StartObj(patObject);
+	PdfId patObject = writer.newObject();
+	PdfId spotObject = 0;
+	writer.startObj(patObject);
 	PutDoc("<<\n/Type /Pattern\n");
 	PutDoc("/PatternType 2\n");
 	PutDoc("/Matrix ["+FToStr(mpa.m11())+" "+FToStr(mpa.m12())+" "+FToStr(mpa.m21())+" "+FToStr(mpa.m22())+" "+FToStr(mpa.dx())+" "+FToStr(mpa.dy())+"]\n");
@@ -8646,15 +8640,16 @@ bool PDFLibCore::PDF_GradientFillStroke(QString& output, PageItem *currItem, boo
 	{
 		if ((Options.UseSpotColors) && ((spotColorSet.count() > 0) && (spotColorSet.count() < 28)))
 		{
-			spotObject = newObject();
+			spotObject = writer.newObject();
 			PutDoc("/ColorSpace [ /DeviceN [ /Cyan /Magenta /Yellow /Black");
 			for (int sc = 0; sc < spotColorSet.count(); sc++)
 			{
-				PutDoc(" /"+spotColorSet.at(sc).simplified().replace("#", "#23").replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "#20" ));
+                PutDoc("" + Pdf::toName(spotColorSet.at(sc).simplified()));
+                       //" /"+spotColorSet.at(sc).simplified().replace("#", "#23").replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "#20" ));
 			}
 			PutDoc(" ]\n");
 			PutDoc("/DeviceCMYK\n");
-			PutDoc(QString::number(spotObject)+" 0 R\n");
+			PutDoc(Pdf::toPdf(spotObject)+" 0 R\n");
 			PutDoc("]\n");
 			spotMode = true;
 		}
@@ -8676,7 +8671,7 @@ bool PDFLibCore::PDF_GradientFillStroke(QString& output, PageItem *currItem, boo
 	if (StopVec.count() > 2)
 	{
 		PutDoc("/Bounds [");
-		QString bctx = "";
+		QByteArray bctx = "";
 		for (int bc = 1; bc < StopVec.count() - 1; bc++)
 		{
 			bctx += FToStr(StopVec.at(bc))+" ";
@@ -8685,7 +8680,7 @@ bool PDFLibCore::PDF_GradientFillStroke(QString& output, PageItem *currItem, boo
 	}
 	else
 		PutDoc("/Bounds []\n");
-	QString entx = "";
+	QByteArray entx = "";
 	PutDoc("/Functions\n");
 	PutDoc("[\n");
 	for (int cc = 0; cc < colorNames.count() - 1; cc++)
@@ -8709,7 +8704,7 @@ bool PDFLibCore::PDF_GradientFillStroke(QString& output, PageItem *currItem, boo
 			}
 			else
 			{
-				PutDoc("/C0 ["+Gcolors[cc]);
+                PutDoc("/C0 [" + Pdf::toAscii(Gcolors[cc]));
 				for (int sc = 0; sc < spotColorSet.count(); sc++)
 				{
 					PutDoc(" 0");
@@ -8729,7 +8724,7 @@ bool PDFLibCore::PDF_GradientFillStroke(QString& output, PageItem *currItem, boo
 			}
 			else
 			{
-				PutDoc("/C1 ["+Gcolors[cc+1]);
+                PutDoc("/C1 [" + Pdf::toAscii(Gcolors[cc+1]));
 				for (int sc = 0; sc < spotColorSet.count(); sc++)
 				{
 					PutDoc(" 0");
@@ -8739,8 +8734,8 @@ bool PDFLibCore::PDF_GradientFillStroke(QString& output, PageItem *currItem, boo
 		}
 		else
 		{
-			PutDoc("/C0 ["+Gcolors[cc]+"]\n");
-			PutDoc("/C1 ["+Gcolors[cc+1]+"]\n");
+            PutDoc("/C0 [" + Pdf::toAscii(Gcolors[cc]) + "]\n");
+            PutDoc("/C1 [" + Pdf::toAscii(Gcolors[cc+1]) + "]\n");
 		}
 		PutDoc("/N 1\n");
 		PutDoc(">>\n");
@@ -8750,12 +8745,12 @@ bool PDFLibCore::PDF_GradientFillStroke(QString& output, PageItem *currItem, boo
 	PutDoc(">>\n");
 	PutDoc(">>\n");
 	PutDoc(">>\n");
-	PutDoc("endobj\n");
-	Patterns.insert("Pattern"+QString::number(patObject), patObject);
+    writer.endObj(patObject);
+	Patterns.insert("Pattern"+Pdf::toPdf(patObject), patObject);
 	if (spotMode)
 	{
-		QString colorDesc;
-		StartObj(spotObject);
+		QByteArray colorDesc;
+		writer.startObj(spotObject);
 		PutDoc("<<\n/FunctionType 4\n");
 		PutDoc("/Domain [0 1 0 1 0 1 0 1");
 		for (int sc = 0; sc < spotColorSet.count(); sc++)
@@ -8777,7 +8772,7 @@ bool PDFLibCore::PDF_GradientFillStroke(QString& output, PageItem *currItem, boo
 			if (sc == 0)
 				colorDesc += "dup "+FToStr(static_cast<double>(cc) / 255.0)+" mul ";
 			else
-				colorDesc += QString::number(sc*4 + 1)+" -1 roll dup "+FToStr(static_cast<double>(cc) / 255.0)+" mul ";
+				colorDesc += Pdf::toPdf(sc*4 + 1)+" -1 roll dup "+FToStr(static_cast<double>(cc) / 255.0)+" mul ";
 			colorDesc += "exch dup "+FToStr(static_cast<double>(mc) / 255.0)+" mul ";
 			colorDesc += "exch dup "+FToStr(static_cast<double>(yc) / 255.0)+" mul ";
 			colorDesc += "exch "+FToStr(static_cast<double>(kc) / 255.0)+" mul\n";
@@ -8788,21 +8783,22 @@ bool PDFLibCore::PDF_GradientFillStroke(QString& output, PageItem *currItem, boo
 		}
 		colorDesc += "}\n";
 		PutDoc("/Range [0 1 0 1 0 1 0 1]\n");
-		PutDoc("/Length "+QString::number(colorDesc.length()+1)+"\n");
-		PutDoc(">>\nstream\n"+EncStream(colorDesc, spotObject)+"\nendstream\nendobj\n");
+		PutDoc("/Length "+Pdf::toPdf(colorDesc.length()+1)+"\n");
+		PutDoc(">>\nstream\n"+EncStream(colorDesc, spotObject)+"\nendstream");
+        writer.endObj(spotObject);
 	}
-	QString tmp;
+	QByteArray tmp;
 	if (((Options.Version >= PDFOptions::PDFVersion_14) || (Options.Version == PDFOptions::PDFVersion_X4)) && (transparencyFound))
-		tmp += "/"+TRes+" gs\n";
+		tmp += Pdf::toName(TRes) + " gs\n";
 	if ((forArrow) || (!stroke))
 	{
 		tmp += "/Pattern cs\n";
-		tmp += "/Pattern"+QString::number(patObject)+" scn\n";
+		tmp += "/Pattern"+Pdf::toPdf(patObject)+" scn\n";
 	}
 	else
 	{
 		tmp += "/Pattern CS\n";
-		tmp += "/Pattern"+QString::number(patObject)+" SCN\n";
+		tmp += "/Pattern"+Pdf::toPdf(patObject)+" SCN\n";
 	}
 	output = tmp;
 	return true;
@@ -8832,15 +8828,15 @@ bool PDFLibCore::PDF_3DAnnotation(PageItem *ite, uint)
 	double y2 = y-ite->height();
 	PageItem_OSGFrame *osgframe = ite->asOSGFrame();
 	QList<uint> viewList;
-	uint viewObj = 0;
+	PdfId viewObj = 0;
 	QHash<QString, PageItem_OSGFrame::viewDefinition>::iterator itv;
 	for (itv = osgframe->viewMap.begin(); itv != osgframe->viewMap.end(); ++itv)
 	{
-		uint viewObjL = newObject();
+		PdfId viewObjL = writer.newObject();
 		viewList.append(viewObjL);
 		if (osgframe->currentView == itv.key())
 			viewObj = viewObjL;
-		StartObj(viewObjL);
+		writer.startObj(viewObjL);
 		PutDoc("<<\n/Type /3DView\n");
 		PutDoc("/MS /M\n");
 		PutDoc("/C2W ["+osgframe->getPDFMatrix(itv.key())+" ]\n");
@@ -8860,16 +8856,17 @@ bool PDFLibCore::PDF_3DAnnotation(PageItem *ite, uint)
 		}
 		PutDoc("/XN ("+PDFEncode(itv.key())+")\n");
 		PutDoc("/IN ("+PDFEncode(itv.key())+")\n");
-		PutDoc(">>\nendobj\n");
+		PutDoc(">>");
+        writer.endObj(viewObjL);
 	}
-	uint appearanceObj = newObject();
-	StartObj(appearanceObj);
+	PdfId appearanceObj = writer.newObject();
+	writer.startObj(appearanceObj);
 	PutDoc("<<\n/Type /3D\n");
 	PutDoc("/Subtype /PRC\n");
 	PutDoc("/VA [");
 	for (int vl = 0; vl < viewList.count(); vl++)
 	{
-		PutDoc(QString::number(viewList.at(vl))+" 0 R ");
+		PutDoc(Pdf::toPdf(viewList.at(vl))+" 0 R ");
 	}
 	PutDoc("]\n");
 	QByteArray dataP;
@@ -8883,30 +8880,32 @@ bool PDFLibCore::PDF_3DAnnotation(PageItem *ite, uint)
 			dataP = compData;
 		}
 	}
-	PutDoc("/Length "+QString::number(dataP.size()+1)+"\n");
+	PutDoc("/Length "+Pdf::toPdf(dataP.size()+1)+"\n");
 	PutDoc(">>\nstream\n");
 	EncodeArrayToStream(dataP, appearanceObj);
-	PutDoc("\nendstream\nendobj\n");
-	uint annotationObj = newObject();
-	StartObj(annotationObj);
-	Seite.AObjects.append(annotationObj);
+	PutDoc("\nendstream");
+    writer.endObj(appearanceObj);
+	PdfId appearanceObj = writer.newObject();
+	writer.startObj(annotationObj);
+	pageData.AObjects.append(annotationObj);
 	PutDoc("<<\n/Type /Annot\n");
 	PutDoc("/Subtype /3D\n");
 	PutDoc("/F 4\n");
-	PutDoc("/3DD "+QString::number(appearanceObj)+" 0 R\n");
-	PutDoc("/3DV "+QString::number(viewObj)+" 0 R\n");
+	PutDoc("/3DD "+Pdf::toPdf(appearanceObj)+" 0 R\n");
+	PutDoc("/3DV "+Pdf::toPdf(viewObj)+" 0 R\n");
 	PutDoc("/3DA <<\n/A /PV\n/TB true\n/NP true\n>>\n");
-	QString onState = QString("/%1").arg(ite->itemName().replace(".", "_" ));
+    QByteArray onState = Pdf::toName(ite->itemName().replace(".", "_" ));
 	PutDoc("/AS "+onState+"\n");
-	uint appearanceObj1 = newObject();
-	PutDoc("/AP << /N <<\n" + onState + " " + QString::number(appearanceObj1)+" 0 R >> >>\n");
+	PdfId appearanceObj1 = writer.newObject();
+	PutDoc("/AP << /N <<\n" + onState + " " + Pdf::toPdf(appearanceObj1)+" 0 R >> >>\n");
 	PutDoc("/Rect [ "+FToStr(x+bleedDisplacementX)+" "+FToStr(y2+bleedDisplacementY)+" "+FToStr(x2+bleedDisplacementX)+" "+FToStr(y+bleedDisplacementY)+" ]\n");
-	PutDoc(">>\nendobj\n");
+	PutDoc(">>");
+    writer.endObj(appearanceObj);
 	if (!ite->Pfile.isEmpty())
 	{
 		PDF_Image(ite, ite->Pfile, ite->imageXScale(), ite->imageYScale(), ite->imageXOffset(), -ite->imageYOffset(), true);
-		QString cc = QString::number(ite->pixm.width())+" 0 0 "+QString::number(ite->pixm.height())+" 0 0 cm\n";
-		cc += "/"+ResNam+"I"+QString::number(ResCount-1)+" Do";
+		QByteArray cc = Pdf::toPdf(ite->pixm.width())+" 0 0 "+Pdf::toPdf(ite->pixm.height())+" 0 0 cm\n";
+        cc += Pdf::toName(ResNam+"I"+Pdf::toPdf(ResCount-1)) + " Do";
 		PDF_xForm(appearanceObj1, ite->pixm.width(), ite->pixm.height(), cc);
 	}
 	delete tempImageFile;
@@ -8917,15 +8916,15 @@ bool PDFLibCore::PDF_3DAnnotation(PageItem *ite, uint)
 void PDFLibCore::PDF_RadioButtons()
 {
 	QMap<PageItem*, QList<PageItem*> > rbMap;
-	for (int a = 0; a < Seite.radioButtonList.count(); a++)
+	for (int a = 0; a < pageData.radioButtonList.count(); a++)
 	{
-		PageItem* pa = Seite.radioButtonList[a]->Parent;
+		PageItem* pa = pageData.radioButtonList[a]->Parent;
 		if (rbMap.contains(pa))
-			rbMap[pa].append(Seite.radioButtonList[a]);
+			rbMap[pa].append(pageData.radioButtonList[a]);
 		else
 		{
 			QList<PageItem*> aList;
-			aList.append(Seite.radioButtonList[a]);
+			aList.append(pageData.radioButtonList[a]);
 			rbMap.insert(pa, aList);
 		}
 	}
@@ -8933,47 +8932,48 @@ void PDFLibCore::PDF_RadioButtons()
 	for (it = rbMap.begin(); it != rbMap.end(); ++it)
 	{
 		QList<PageItem*> bList = it.value();
-		QList<uint> kidsList;
-		uint parentObject = newObject();
-		QString onState = "";
-		QString anTitle;
+		QList<PdfId> kidsList;
+		PdfId parentObject = writer.newObject();
+		QByteArray onState = "";
+		QByteArray anTitle;
 		if (it.key() == 0)
-			anTitle = QString("Page%1").arg(ActPageP->pageNr() + 1);
+            anTitle = "Page" + Pdf::toPdf(ActPageP->pageNr() + 1);
 		else
-			anTitle = QString("/%1").arg(it.key()->itemName().replace(".", "_" ));
+            anTitle = Pdf::toName(it.key()->itemName().replace(".", "_" ));
 		for (int a = 0; a < bList.count(); a++)
 		{
-			uint kid = PDF_RadioButton(bList[a], parentObject, anTitle);
+			PdfId kid = PDF_RadioButton(bList[a], parentObject, anTitle);
 			kidsList.append(kid);
 			if (bList[a]->annotation().IsChk())
-				onState = QString("/%1").arg(bList[a]->itemName().replace(".", "_" ));
+                onState = Pdf::toName(bList[a]->itemName().replace(".", "_" ));
 		}
-		StartObj(parentObject);
-		Seite.AObjects.append(parentObject);
-		Seite.FormObjects.append(parentObject);
+		writer.startObj(parentObject);
+		pageData.AObjects.append(parentObject);
+		pageData.FormObjects.append(parentObject);
 		PutDoc("<<\n/Type /Annot\n");
 		PutDoc("/Subtype /Widget\n");
 		PutDoc("/FT /Btn\n");
 		PutDoc("/T " + EncString(anTitle, parentObject) + "\n");
 		PutDoc("/Contents " + EncStringUTF16(anTitle, parentObject) + "\n");
-		PutDoc("/Ff "+QString::number(Annotation::Flag_Radio | Annotation::Flag_NoToggleToOff)+"\n");
+		PutDoc("/Ff "+Pdf::toPdf(Annotation::Flag_Radio | Annotation::Flag_NoToggleToOff)+"\n");
 		PutDoc("/V "+onState+"\n");
 		PutDoc("/DV "+onState+"\n");
 		PutDoc("/Kids\n[\n");
 		for (int a = 0; a < kidsList.count(); a++)
 		{
-			PutDoc(QString::number(kidsList[a]) + " 0 R\n");
+			PutDoc(Pdf::toPdf(kidsList[a]) + " 0 R\n");
 		}
 		PutDoc("]\n");
 		PutDoc("/Rect [0 0 0 0]\n");
-		PutDoc(">>\nendobj\n");
+		PutDoc(">>");
+        writer.endObj(parentObject);
 	}
 }
 
-uint PDFLibCore::PDF_RadioButton(PageItem* ite, uint parent, QString parentName)
+PdfId PDFLibCore::PDF_RadioButton(PageItem* ite, PdfId parent, QString parentName)
 {
-	QMap<int, QString> ind2PDFabr;
-	static const QString bifonts[] = {"/Courier", "/Courier-Bold", "/Courier-Oblique", "/Courier-BoldOblique",
+	QMap<int, QByteArray> ind2PDFabr;
+	static const QByteArray bifonts[] = {"/Courier", "/Courier-Bold", "/Courier-Oblique", "/Courier-BoldOblique",
 												"/Helvetica", "/Helvetica-Bold", "/Helvetica-Oblique", "/Helvetica-BoldOblique",
 												"/Times-Roman", "/Times-Bold", "/Times-Italic", "/Times-BoldItalic",
 												"/ZapfDingbats", "/Symbol"};
@@ -8984,25 +8984,25 @@ uint PDFLibCore::PDF_RadioButton(PageItem* ite, uint parent, QString parentName)
 	double y = ActPageP->height() - (ite->yPos()  - ActPageP->yOffset());
 	double x2 = x+ite->width();
 	double y2 = y-ite->height();
-	QString cc;
-	uint annotationObj = newObject();
-	uint actionObj = 0;
+	QByteArray cc;
+	PdfId annotationObj = writer.newObject();
+	PdfId actionObj = 0;
 	if ((ite->annotation().Type() > 1) && ((ite->annotation().ActionType() == Annotation::Action_JavaScript) || (ite->annotation().AAact())) && (!ite->annotation().Action().isEmpty()))
 		actionObj = WritePDFString(ite->annotation().Action());
-	uint AActionObj = writeActions(ite->annotation(), annotationObj);
-	StartObj(annotationObj);
-	Seite.AObjects.append(annotationObj);
+	PdfId AActionObj = writeActions(ite->annotation(), annotationObj);
+	writer.startObj(annotationObj);
+	pageData.AObjects.append(annotationObj);
 	PutDoc("<<\n/Type /Annot\n");
 	PutDoc("/Subtype /Widget\n");
-	PutDoc("/Parent " + QString::number(parent) + " 0 R\n");
+	PutDoc("/Parent " + Pdf::toPdf(parent) + " 0 R\n");
 	PutDoc("/Contents " + EncStringUTF16(parentName, annotationObj) + "\n");
 	if (!ite->annotation().ToolTip().isEmpty())
 		PutDoc("/TU " + EncStringUTF16(ite->annotation().ToolTip(), annotationObj) + "\n");
 	PutDoc("/F ");
-	QString mm[] = {"4", "2", "0", "32"};
+	QByteArray mm[] = {"4", "2", "0", "32"};
 	PutDoc(mm[ite->annotation().Vis()]);
 	PutDoc("\n");
-	QString cnx = "/"+StdFonts["/ZapfDingbats"];
+    QByteArray cnx = Pdf::toName(StdFonts["/ZapfDingbats"]);
 	cnx += " "+FToStr(ite->itemText.defaultStyle().charStyle().fontSize() / 10.0)+" Tf";
 	if (ite->itemText.defaultStyle().charStyle().fillColor() != CommonStrings::None)
 		cnx += " "+ putColor(ite->itemText.defaultStyle().charStyle().fillColor(), ite->itemText.defaultStyle().charStyle().fillShade(), true);
@@ -9012,12 +9012,12 @@ uint PDFLibCore::PDF_RadioButton(PageItem* ite, uint parent, QString parentName)
 	int flg = ite->annotation().Flag();
 	if (Options.Version == PDFOptions::PDFVersion_13)
 		flg = flg & 522247;
-	PutDoc("/Ff "+QString::number(flg)+"\n");
+	PutDoc("/Ff "+Pdf::toPdf(flg)+"\n");
 	PutDoc("/FT /Btn\n");
 	PutDoc("/BS << /Type /Border /W ");
-	PutDoc(ite->annotation().borderColor() != CommonStrings::None ? QString::number(ite->annotation().Bwid()) : QString("0"));
+	PutDoc(ite->annotation().borderColor() != CommonStrings::None ? Pdf::toPdf(ite->annotation().Bwid()) : "0");
 	PutDoc(" /S /");
-	const QString xb[] = {"S", "D", "U", "B", "I"};
+	const QByteArray xb[] = {"S", "D", "U", "B", "I"};
 	PutDoc(xb[ite->annotation().Bsty()]);
 	PutDoc(" >>\n");
 	PutDoc("/MK << ");
@@ -9025,18 +9025,18 @@ uint PDFLibCore::PDF_RadioButton(PageItem* ite, uint parent, QString parentName)
 	if (ite->annotation().borderColor() != CommonStrings::None)
 		PutDoc("/BC [ "+SetColor(ite->annotation().borderColor(), 100)+" ] ");
 	if (ite->rotation() != 0)
-		PutDoc("/R "+QString::number((abs(static_cast<int>(ite->rotation())) / 90)*90)+" ");
+		PutDoc("/R "+Pdf::toPdf((abs(static_cast<int>(ite->rotation())) / 90)*90)+" ");
 	PutDoc(">>\n");
-	QString onState = QString("/%1").arg(ite->itemName().replace(".", "_" ));
+    QByteArray onState = Pdf::toName(ite->itemName().replace(".", "_" ));
 	if (ite->annotation().IsChk())
 		PutDoc("/AS "+onState+"\n");
 	else
 		PutDoc("/AS /Off\n");
-	uint appearanceObj1 = newObject();
-	uint appearanceObj2 = newObject();
+	PdfId appearanceObj1 = writer.newObject();
+	PdfId appearanceObj2 = writer.newObject();
 	PutDoc("/AP << /N <<\n");
-	PutDoc(onState + " " + QString::number(appearanceObj1)+" 0 R\n");
-	PutDoc("/Off " + QString::number(appearanceObj2)+" 0 R\n");
+	PutDoc(onState + " " + Pdf::toObjRef(appearanceObj1)+"\n");
+	PutDoc("/Off " + Pdf::toObjRef(appearanceObj2)+"\n");
 	PutDoc(">> >>\n");
 	if ((ite->annotation().ActionType() != Annotation::Action_None) || (ite->annotation().AAact()))
 	{
@@ -9044,16 +9044,16 @@ uint PDFLibCore::PDF_RadioButton(PageItem* ite, uint parent, QString parentName)
 		{
 			if (!ite->annotation().Action().isEmpty())
 			{
-				PutDoc("/A << /Type /Action /S /JavaScript /JS " + QString::number(actionObj) + " 0 R >>\n");
+				PutDoc("/A << /Type /Action /S /JavaScript /JS " + Pdf::toPdf(actionObj) + " 0 R >>\n");
 			}
 		}
 		if (ite->annotation().AAact())
 		{
 			if (!ite->annotation().Action().isEmpty())
 			{
-				PutDoc("/A << /Type /Action /S /JavaScript /JS " + QString::number(actionObj) + " 0 R >>\n");
+				PutDoc("/A << /Type /Action /S /JavaScript /JS " + Pdf::toPdf(actionObj) + " 0 R >>\n");
 			}
-			PutDoc("/AA " + QString::number(AActionObj) + " 0 R\n");
+			PutDoc("/AA " + Pdf::toPdf(AActionObj) + " 0 R\n");
 		}
 	}
 	switch (((abs(static_cast<int>(ite->rotation())) / 90)*90))
@@ -9080,7 +9080,8 @@ uint PDFLibCore::PDF_RadioButton(PageItem* ite, uint parent, QString parentName)
 			break;
 	}
 	PutDoc("/Rect [ "+FToStr(x+bleedDisplacementX)+" "+FToStr(y2+bleedDisplacementY)+" "+FToStr(x2+bleedDisplacementX)+" "+FToStr(y+bleedDisplacementY)+" ]\n");
-	PutDoc(">>\nendobj\n");
+	PutDoc(">>");
+    writer.endObj(annotationObj);
 	cc = createBorderAppearance(ite);
 	if (ite->itemText.defaultStyle().charStyle().fillColor() != CommonStrings::None)
 		cc += putColor(ite->itemText.defaultStyle().charStyle().fillColor(), ite->itemText.defaultStyle().charStyle().fillShade(), true);
@@ -9107,8 +9108,8 @@ bool PDFLibCore::PDF_Annotation(PageItem *ite, uint PNr)
 	ScImage img;
 	ScImage img2;
 	ScImage img3;
-	QMap<int, QString> ind2PDFabr;
-	static const QString bifonts[] = {"/Courier", "/Courier-Bold", "/Courier-Oblique", "/Courier-BoldOblique",
+	QMap<int, QByteArray> ind2PDFabr;
+	static const QByteArray bifonts[] = {"/Courier", "/Courier-Bold", "/Courier-Oblique", "/Courier-BoldOblique",
 												"/Helvetica", "/Helvetica-Bold", "/Helvetica-Oblique", "/Helvetica-BoldOblique",
 												"/Times-Roman", "/Times-Bold", "/Times-Italic", "/Times-BoldItalic",
 												"/ZapfDingbats", "/Symbol"};
@@ -9120,37 +9121,34 @@ bool PDFLibCore::PDF_Annotation(PageItem *ite, uint PNr)
 	double x2 = x+ite->width();
 	double y2 = y-ite->height();
 	QString bmUtf16("");
-	QString cc;
-	QFileInfo fiBase(Spool.fileName());
-	QString baseDir = fiBase.absolutePath();
 	if (!((ite->itemText.length() == 1) && (ite->itemText.text(0, 1) == QChar(13))))
 	{
 		// #6823 EncStringUTF16() perform the string encoding by its own
 		// via EncodeUTF16() so bmUtf16 must not encoded before
 		for (uint d = 0; d < static_cast<uint>(ite->itemText.length()); ++d)
 		{
-			cc = ite->itemText.text(d, 1);
+			QString cc = ite->itemText.text(d, 1);
 			bmUtf16 += (cc == QChar(13) ? QChar(10) : cc);
 		}
 	}
-	QString anTitle = ite->itemName().replace(".", "_" );
+    QByteArray anTitle = Pdf::toPdfDocEncoding(ite->itemName().replace(".", "_" ));
 	QStringList bmstUtf16 = bmUtf16.split(QChar(10), QString::SkipEmptyParts);
-	const QString m[] = {"4", "5", "F", "l", "H", "n"};
-	QString ct(m[ite->annotation().ChkStil()]);
-	uint annotationObj = newObject();
-	uint appearanceObj = 0;
-	uint appearanceObj1 = 0;
-	uint appearanceObj2 = 0;
-	uint icon1Obj = 0;
-	uint icon2Obj = 0;
-	uint icon3Obj = 0;
-	uint actionObj = 0;
+	const QByteArray m[] = {"4", "5", "F", "l", "H", "n"};
+	QByteArray ct(m[ite->annotation().ChkStil()]);
+	PdfId annotationObj = writer.newObject();
+	PdfId appearanceObj = 0;
+	PdfId appearanceObj1 = 0;
+	PdfId appearanceObj2 = 0;
+	PdfId icon1Obj = 0;
+	PdfId icon2Obj = 0;
+	PdfId icon3Obj = 0;
+	PdfId actionObj = 0;
 	if ((ite->annotation().Type() > 1) && ((ite->annotation().ActionType() == Annotation::Action_JavaScript) || (ite->annotation().AAact())) && (!ite->annotation().Action().isEmpty()))
 		actionObj = WritePDFString(ite->annotation().Action());
-	uint AActionObj = writeActions(ite->annotation(), annotationObj);
-	StartObj(annotationObj);
-	Seite.AObjects.append(annotationObj);
-	QString onState = QString("/%1").arg(ite->itemName().replace(".", "_" ));
+	PdfId AActionObj = writeActions(ite->annotation(), annotationObj);
+	writer.startObj(annotationObj);
+	pageData.AObjects.append(annotationObj);
+    QByteArray onState = Pdf::toName(ite->itemName().replace(".", "_" ));
 	PutDoc("<<\n/Type /Annot\n");
 	switch (ite->annotation().Type())
 	{
@@ -9203,25 +9201,25 @@ bool PDFLibCore::PDF_Annotation(PageItem *ite, uint PNr)
 			PutDoc("/Subtype /Link\n");
 			if (ite->annotation().ActionType() == Annotation::Action_GoTo)
 			{
-				PutDoc("/Dest /"+NDnam+QString::number(NDnum)+"\n");
-				Dest de;
-				de.Name = NDnam+QString::number(NDnum);
-				de.Seite = ite->annotation().Ziel();
+				PutDoc("/Dest /"+NDnam+Pdf::toPdf(NDnum)+"\n");
+				PdfDest de;
+				de.Name = NDnam+Pdf::toPdf(NDnum);
+				de.PageNr = ite->annotation().Ziel();
 				de.Act = ite->annotation().Action();
 				NamedDest.append(de);
 				NDnum++;
 			}
 			if (ite->annotation().ActionType() == Annotation::Action_GoToR_FileRel)
 			{
-				PutDoc("/A << /Type /Action /S /GoToR\n/F " + EncString(Path2Relative(ite->annotation().Extern(), baseDir), annotationObj) + "\n");
-				PutDoc("/D ["+QString::number(ite->annotation().Ziel())+" /XYZ "+ite->annotation().Action()+"]\n>>\n");
+                PutDoc("/A << /Type /Action /S /GoToR\n/F " + EncString(Pdf::toPdfDocEncoding(Path2Relative(ite->annotation().Extern(), baseDir)), annotationObj) + "\n");
+                PutDoc("/D ["+Pdf::toPdf(ite->annotation().Ziel())+" /XYZ "+Pdf::toPdfDocEncoding(ite->annotation().Action())+"]\n>>\n");
 			}
 			if (ite->annotation().ActionType() == Annotation::Action_URI)
-				PutDoc("/A << /Type /Action /S /URI\n/URI " + EncString(ite->annotation().Extern(), annotationObj) + "\n>>\n");
+				PutDoc("/A << /Type /Action /S /URI\n/URI " + EncString(Pdf::toPdfDocEncoding(ite->annotation().Extern()), annotationObj) + "\n>>\n");
 			if (ite->annotation().ActionType() == Annotation::Action_GoToR_FileAbs)
 			{
-				PutDoc("/A << /Type /Action /S /GoToR\n/F " + EncString(ite->annotation().Extern(), ObjCounter-1) + "\n");
-				PutDoc("/D ["+QString::number(ite->annotation().Ziel())+" /XYZ "+ite->annotation().Action()+"]\n>>\n");
+				PutDoc("/A << /Type /Action /S /GoToR\n/F " + EncString(Pdf::toPdfDocEncoding(ite->annotation().Extern()), annotationObj) + "\n");
+                PutDoc("/D ["+Pdf::toPdf(ite->annotation().Ziel())+" /XYZ " + Pdf::toPdfDocEncoding(ite->annotation().Action())+"]\n>>\n");
 			}
 			break;
 		case Annotation::Button:
@@ -9229,30 +9227,30 @@ bool PDFLibCore::PDF_Annotation(PageItem *ite, uint PNr)
 		case Annotation::Checkbox:
 		case Annotation::Combobox:
 		case Annotation::Listbox:
-			Seite.FormObjects.append(annotationObj);
+			pageData.FormObjects.append(annotationObj);
 			PutDoc("/Subtype /Widget\n");
 			PutDoc("/T " + EncString(anTitle, annotationObj) + "\n");
 			if (!ite->annotation().ToolTip().isEmpty())
 				PutDoc("/TU " + EncStringUTF16(ite->annotation().ToolTip(), annotationObj) + "\n");
 			PutDoc("/F ");
-			QString mm[] = {"4", "2", "0", "32"};
+			QByteArray mm[] = {"4", "2", "0", "32"};
 			PutDoc(mm[ite->annotation().Vis()]);
 			PutDoc("\n");
 			PutDoc("/BS << /Type /Border /W ");
-			PutDoc(ite->annotation().borderColor() != CommonStrings::None ? QString::number(ite->annotation().Bwid()) : QString("0"));
+			PutDoc(ite->annotation().borderColor() != CommonStrings::None ? Pdf::toPdf(ite->annotation().Bwid()) : "0");
 			PutDoc(" /S /");
-			const QString x[] = {"S", "D", "U", "B", "I"};
+			const QByteArray x[] = {"S", "D", "U", "B", "I"};
 			PutDoc(x[ite->annotation().Bsty()]);
 			PutDoc(" >>\n");
-			QString cnx;
+			QByteArray cnx;
 			if (ite->annotation().Type() == Annotation::Checkbox)
-				cnx += "/"+StdFonts["/ZapfDingbats"];
+                cnx += Pdf::toName(StdFonts["/ZapfDingbats"]);
 			else
 			{
 				if (Options.Version < PDFOptions::PDFVersion_14)
-					cnx += "/"+StdFonts[ind2PDFabr[ite->annotation().Font()]];
+                    cnx += Pdf::toName(StdFonts[ind2PDFabr[ite->annotation().Font()]]);
 				else
-					cnx += UsedFontsF[ite->itemText.defaultStyle().charStyle().font().replacementName()];
+					cnx += UsedFontsF[ite->itemText.defaultStyle().charStyle().font().replacementName()].name;
 //					cnx += UsedFontsP[ite->itemText.defaultStyle().charStyle().font().replacementName()]+"Form";
 			}
 			cnx += " "+FToStr(ite->itemText.defaultStyle().charStyle().fontSize() / 10.0)+" Tf";
@@ -9264,8 +9262,8 @@ bool PDFLibCore::PDF_Annotation(PageItem *ite, uint PNr)
 			int flg = ite->annotation().Flag();
 			if (Options.Version == PDFOptions::PDFVersion_13)
 				flg = flg & 522247;
-			PutDoc("/Ff "+QString::number(flg)+"\n");
-			QString xs[] = {"N", "I", "O", "P"};
+			PutDoc("/Ff "+Pdf::toPdf(flg)+"\n");
+			QByteArray xs[] = {"N", "I", "O", "P"};
 			switch (ite->annotation().Type())
 			{
 				case Annotation::Button:
@@ -9274,18 +9272,18 @@ bool PDFLibCore::PDF_Annotation(PageItem *ite, uint PNr)
 					PutDoc(xs[ite->annotation().Feed()]);
 					PutDoc("\n");
 					PutDoc("/Q 0\n");
-					appearanceObj = newObject();
-					PutDoc("/AP << /N "+QString::number(appearanceObj)+" 0 R >>\n");
+					appearanceObj = writer.newObject();
+					PutDoc("/AP << /N "+Pdf::toPdf(appearanceObj)+" 0 R >>\n");
 					break;
 				case Annotation::Textfield:
 					PutDoc("/FT /Tx\n");
 					PutDoc("/V " + EncStringUTF16(bmUtf16, annotationObj) + "\n");
 					PutDoc("/DV "+ EncStringUTF16(bmUtf16, annotationObj) + "\n");
-					PutDoc("/Q "+QString::number(qMin(ite->itemText.defaultStyle().alignment(), ParagraphStyle::Rightaligned))+"\n");
-					appearanceObj = newObject();
-					PutDoc("/AP << /N "+QString::number(appearanceObj)+" 0 R >>\n");
+					PutDoc("/Q "+Pdf::toPdf(qMin(ite->itemText.defaultStyle().alignment(), ParagraphStyle::Rightaligned))+"\n");
+					appearanceObj = writer.newObject();
+					PutDoc("/AP << /N "+Pdf::toPdf(appearanceObj)+" 0 R >>\n");
 					if (ite->annotation().MaxChar() != -1)
-						PutDoc("/MaxLen "+QString::number(ite->annotation().MaxChar())+"\n");
+						PutDoc("/MaxLen "+Pdf::toPdf(ite->annotation().MaxChar())+"\n");
 					break;
 				case Annotation::Checkbox:
 					PutDoc("/FT /Btn\n");
@@ -9293,18 +9291,16 @@ bool PDFLibCore::PDF_Annotation(PageItem *ite, uint PNr)
 						PutDoc("/V "+onState+"\n/DV "+onState+"\n/AS "+onState+"\n");
 					else
 						PutDoc("/V /Off\n/DV /Off\n/AS /Off\n");
-					appearanceObj1 = newObject();
-					appearanceObj2 = newObject();
+					appearanceObj1 = writer.newObject();
+					appearanceObj2 = writer.newObject();
 					PutDoc("/AP << /N <<\n");
-					PutDoc(onState + " " + QString::number(appearanceObj1)+" 0 R\n");
-					PutDoc("/Off " + QString::number(appearanceObj2)+" 0 R\n");
+					PutDoc(onState + " " + Pdf::toPdf(appearanceObj1)+" 0 R\n");
+					PutDoc("/Off " + Pdf::toPdf(appearanceObj2)+" 0 R\n");
 					PutDoc(">> >>\n");
 					break;
 				case Annotation::Combobox:
 				case Annotation::Listbox:
-					cnx = "%1";
-					cnx = cnx.arg((bmstUtf16.count() > 0) ? bmstUtf16[0] : "");
-					cnx = EncStringUTF16(cnx, annotationObj);
+                    cnx = EncStringUTF16(bmstUtf16.count() > 0 ? bmstUtf16[0] : "", annotationObj);
 					PutDoc("/FT /Ch\n");
 					PutDoc("/V " + cnx + "\n");
 					PutDoc("/DV " + cnx + "\n");
@@ -9312,8 +9308,8 @@ bool PDFLibCore::PDF_Annotation(PageItem *ite, uint PNr)
 					for (int bmc = 0; bmc < bmstUtf16.count(); ++bmc)
 						PutDoc(EncStringUTF16(bmstUtf16[bmc], annotationObj)+"\n");
 					PutDoc("]\n");
-					appearanceObj = newObject();
-					PutDoc("/AP << /N "+QString::number(appearanceObj)+" 0 R >>\n");
+					appearanceObj = writer.newObject();
+					PutDoc("/AP << /N "+Pdf::toPdf(appearanceObj)+" 0 R >>\n");
 					break;
 			}
 			PutDoc("/MK << ");
@@ -9330,22 +9326,22 @@ bool PDFLibCore::PDF_Annotation(PageItem *ite, uint PNr)
 				if (ite->annotation().borderColor() != CommonStrings::None)
 					PutDoc("/BC [ "+SetColor(ite->annotation().borderColor(), 100)+" ] ");
 			}
-			int IconOb = 0;
+			PdfId IconOb = 0;
 			switch (ite->annotation().Type())
 			{
 				case Annotation::Button:
-					PutDoc("/CA " + EncString(bmUtf16, annotationObj) + " ");
+					PutDoc("/CA " + EncStringUTF16(bmUtf16, annotationObj) + " ");
 					if (!ite->annotation().RollOver().isEmpty())
-						PutDoc("/RC " + EncString(ite->annotation().RollOver(), annotationObj) + " ");
+                        PutDoc("/RC " + EncStringUTF16(ite->annotation().RollOver(), annotationObj) + " ");
 					if (!ite->annotation().Down().isEmpty())
-						PutDoc("/AC " + EncString(ite->annotation().Down(), annotationObj) + " ");
+						PutDoc("/AC " + EncStringUTF16(ite->annotation().Down(), annotationObj) + " ");
 					if (ite->annotation().UseIcons())
 					{
 						if (!ite->Pfile.isEmpty())
 						{
 							IconOb += ite->pixm.hasAlpha() ? 3 : 2;
-							icon1Obj = newObject();
-							PutDoc("/I "+QString::number(icon1Obj)+" 0 R ");
+							icon1Obj = writer.newObject();
+							PutDoc("/I "+Pdf::toPdf(icon1Obj)+" 0 R ");
 						}
 						if (!ite->Pfile2.isEmpty())
 						{
@@ -9356,8 +9352,8 @@ bool PDFLibCore::PDF_Annotation(PageItem *ite, uint PNr)
 							img3.getAlpha(ite->Pfile2, 1, im, true, false);
 							IconOb += !im.isEmpty() ? 3 : 2;
 							im.resize(0);
-							icon2Obj = newObject();
-							PutDoc("/IX "+QString::number(icon2Obj)+" 0 R ");
+							icon2Obj = writer.newObject();
+							PutDoc("/IX "+Pdf::toPdf(icon2Obj)+" 0 R ");
 						}
 						if (!ite->Pfile3.isEmpty())
 						{
@@ -9368,12 +9364,12 @@ bool PDFLibCore::PDF_Annotation(PageItem *ite, uint PNr)
 							img3.getAlpha(ite->Pfile3, 1, im, true, false);
 							IconOb += !im.isEmpty() ? 3 : 2;
 							im.resize(0);
-							icon3Obj = newObject();
-							PutDoc("/RI "+QString::number(icon3Obj)+" 0 R ");
+							icon3Obj = writer.newObject();
+							PutDoc("/RI "+Pdf::toObjRef(icon3Obj)+" ");
 						}
-						PutDoc("/TP "+QString::number(ite->annotation().IPlace())+" ");
+						PutDoc("/TP "+Pdf::toPdf(ite->annotation().IPlace())+" ");
 						PutDoc("/IF << /SW /");
-						QString x[] = {"A", "S", "B", "N"};
+						QByteArray x[] = {"A", "S", "B", "N"};
 						PutDoc(x[ite->annotation().ScaleW()]);
 						PutDoc(" /S /");
 						PutDoc(ite->imageXScale() != ite->imageYScale() ? "A" : "P");
@@ -9408,27 +9404,27 @@ bool PDFLibCore::PDF_Annotation(PageItem *ite, uint PNr)
 					break;
 			}
 			if (ite->rotation() != 0)
-				PutDoc("/R "+QString::number((abs(static_cast<int>(ite->rotation())) / 90)*90)+" ");
+				PutDoc("/R "+Pdf::toPdf((abs(static_cast<int>(ite->rotation())) / 90)*90)+" ");
 			PutDoc(">>\n");
 			if ((ite->annotation().ActionType() != Annotation::Action_None) || (ite->annotation().AAact()))
 			{
 				if (ite->annotation().ActionType() == Annotation::Action_GoToR_FileRel)
 				{
-					PutDoc("/A << /Type /Action /S /GoToR\n/F " + EncString(Path2Relative(ite->annotation().Extern(), baseDir), annotationObj) + "\n");
-					PutDoc("/D ["+QString::number(ite->annotation().Ziel())+" /XYZ "+ite->annotation().Action()+"]\n>>\n");
+                    PutDoc("/A << /Type /Action /S /GoToR\n/F " + EncString(Pdf::toPdfDocEncoding(Path2Relative(ite->annotation().Extern(), baseDir)), annotationObj) + "\n");
+                    PutDoc("/D ["+Pdf::toPdf(ite->annotation().Ziel())+" /XYZ "+ Pdf::toPdfDocEncoding(ite->annotation().Action())+"]\n>>\n");
 				}
 				if (ite->annotation().ActionType() == Annotation::Action_GoToR_FileAbs)
 				{
-					PutDoc("/A << /Type /Action /S /GoToR\n/F " + EncString(ite->annotation().Extern(), ObjCounter-1) + "\n");
-					PutDoc("/D ["+QString::number(ite->annotation().Ziel())+" /XYZ "+ite->annotation().Action()+"]\n>>\n");
+					PutDoc("/A << /Type /Action /S /GoToR\n/F " + EncString(Pdf::toPdfDocEncoding(ite->annotation().Extern()), annotationObj) + "\n");
+                    PutDoc("/D ["+Pdf::toPdf(ite->annotation().Ziel())+" /XYZ "+ Pdf::toPdfDocEncoding(ite->annotation().Action())+"]\n>>\n");
 				}
 				if (ite->annotation().ActionType() == Annotation::Action_ImportData)
-					PutDoc("/A << /Type /Action /S /ImportData\n/F " + EncString(ite->annotation().Action(), annotationObj) + " >>\n");
+					PutDoc("/A << /Type /Action /S /ImportData\n/F " + EncString(Pdf::toPdfDocEncoding(ite->annotation().Action()), annotationObj) + " >>\n");
 				if (ite->annotation().ActionType() == Annotation::Action_ResetForm)
 					PutDoc("/A << /Type /Action /S /ResetForm >>\n");
 				if (ite->annotation().ActionType() == Annotation::Action_SubmitForm)
 				{
-					PutDoc("/A << /Type /Action /S /SubmitForm\n/F << /FS /URL /F " + EncString(ite->annotation().Action(), annotationObj) + " >>\n");
+					PutDoc("/A << /Type /Action /S /SubmitForm\n/F << /FS /URL /F " + EncString(Pdf::toPdfDocEncoding(ite->annotation().Action()), annotationObj) + " >>\n");
 //					if (ite->annotation().HTML())
 //						PutDoc("/Flags 4");
 					switch (ite->annotation().HTML())
@@ -9457,23 +9453,23 @@ bool PDFLibCore::PDF_Annotation(PageItem *ite, uint PNr)
 				{
 					if (!ite->annotation().Action().isEmpty())
 					{
-						PutDoc("/A << /Type /Action /S /JavaScript /JS " + QString::number(actionObj) + " 0 R >>\n");
+						PutDoc("/A << /Type /Action /S /JavaScript /JS " + Pdf::toPdf(actionObj) + " 0 R >>\n");
 					}
 				}
 				if (ite->annotation().AAact())
 				{
 					if (!ite->annotation().Action().isEmpty())
 					{
-						PutDoc("/A << /Type /Action /S /JavaScript /JS " + QString::number(actionObj) + " 0 R >>\n");
+						PutDoc("/A << /Type /Action /S /JavaScript /JS " + Pdf::toPdf(actionObj) + " 0 R >>\n");
 					}
-					PutDoc("/AA " + QString::number(AActionObj) + " 0 R\n");
+					PutDoc("/AA " + Pdf::toPdf(AActionObj) + " 0 R\n");
 				}
 				if (ite->annotation().ActionType() == Annotation::Action_GoTo)
 				{
-					PutDoc("/A << /Type /Action /S /GoTo /D /" + NDnam + QString::number(NDnum) + " >>\n");
-					Dest de;
-					de.Name = NDnam+QString::number(NDnum);
-					de.Seite = ite->annotation().Ziel();
+					PutDoc("/A << /Type /Action /S /GoTo /D /" + NDnam + Pdf::toPdf(NDnum) + " >>\n");
+					PdfDest de;
+					de.Name = NDnam+Pdf::toPdf(NDnum);
+					de.PageNr = ite->annotation().Ziel();
 					de.Act = ite->annotation().Action();
 					NamedDest.append(de);
 					NDnum++;
@@ -9482,7 +9478,7 @@ bool PDFLibCore::PDF_Annotation(PageItem *ite, uint PNr)
 				{
 					if (!ite->annotation().Action().isEmpty())
 					{
-						PutDoc("/A << /Type /Action /S /Named /N /" + ite->annotation().Action() + " >>\n");
+                        PutDoc("/A << /Type /Action /S /Named /N /" + Pdf::toPdfDocEncoding(ite->annotation().Action()) + " >>\n");
 					}
 				}
 			}
@@ -9514,7 +9510,8 @@ bool PDFLibCore::PDF_Annotation(PageItem *ite, uint PNr)
 			break;
 	}
 	PutDoc("/Rect [ "+FToStr(x+bleedDisplacementX)+" "+FToStr(y2+bleedDisplacementY)+" "+FToStr(x2+bleedDisplacementX)+" "+FToStr(y+bleedDisplacementY)+" ]\n");
-	PutDoc(">>\nendobj\n");
+	PutDoc(">>");
+    writer.endObj(annotationObj);
 	// write icons
 	if ((ite->annotation().Type() == Annotation::Button) && (ite->annotation().UseIcons()))
 	{
@@ -9522,31 +9519,31 @@ bool PDFLibCore::PDF_Annotation(PageItem *ite, uint PNr)
 		{
 			if (!PDF_Image(ite, ite->Pfile, ite->imageXScale(), ite->imageYScale(), ite->imageXOffset(), -ite->imageYOffset(), true))
 				return false;
-			cc = QString::number(ite->pixm.width())+" 0 0 "+QString::number(ite->pixm.height())+" 0 0 cm\n";
-			cc += "/"+ResNam+"I"+QString::number(ResCount-1)+" Do";
+			QByteArray cc = Pdf::toPdf(ite->pixm.width())+" 0 0 "+Pdf::toPdf(ite->pixm.height())+" 0 0 cm\n";
+            cc += Pdf::toName(ResNam+"I"+Pdf::toPdf(ResCount-1)) + " Do";
 			PDF_xForm(icon1Obj, ite->pixm.width(), ite->pixm.height(), cc);
 		}
 		if (!ite->Pfile2.isEmpty())
 		{
 			if (!PDF_Image(ite, ite->Pfile2, ite->imageXScale(), ite->imageYScale(), ite->imageXOffset(), -ite->imageYOffset(), true))
 				return false;
-			cc = QString::number(img.width())+" 0 0 "+QString::number(img.height())+" 0 0 cm\n";
-			cc += "/"+ResNam+"I"+QString::number(ResCount-1)+" Do";
+			QByteArray cc = Pdf::toPdf(img.width())+" 0 0 "+Pdf::toPdf(img.height())+" 0 0 cm\n";
+			cc += Pdf::toName(ResNam+"I"+Pdf::toPdf(ResCount-1)) + " Do";
 			PDF_xForm(icon2Obj, img.width(), img.height(), cc);
 		}
 		if (!ite->Pfile3.isEmpty())
 		{
 			if (!PDF_Image(ite, ite->Pfile3, ite->imageXScale(), ite->imageYScale(), ite->imageXOffset(), -ite->imageYOffset(), true))
 				return false;
-			cc = QString::number(img2.width())+" 0 0 "+QString::number(img2.height())+" 0 0 cm\n";
-			cc += "/"+ResNam+"I"+QString::number(ResCount-1)+" Do";
+			QByteArray cc = Pdf::toPdf(img2.width())+" 0 0 "+Pdf::toPdf(img2.height())+" 0 0 cm\n";
+			cc += Pdf::toName(ResNam+"I"+Pdf::toPdf(ResCount-1)) + " Do";
 			PDF_xForm(icon3Obj, img2.width(), img2.height(), cc);
 		}
 	}
 	// write Appearance?
 	if (ite->annotation().Type() == Annotation::Button)
 	{
-		cc = "";
+		QByteArray cc;
 		cc += "q 1 g\n";
 		cc += "0 0 "+FToStr(x2-x)+" "+FToStr(y-y2)+" re\nf\n";
 		cc += createBorderAppearance(ite);
@@ -9556,7 +9553,7 @@ bool PDFLibCore::PDF_Annotation(PageItem *ite, uint PNr)
 		if (Options.Version < PDFOptions::PDFVersion_14)
 			cc += "/"+StdFonts[ind2PDFabr[ite->annotation().Font()]];
 		else
-			cc += UsedFontsF[ite->itemText.defaultStyle().charStyle().font().replacementName()];
+			cc += UsedFontsF[ite->itemText.defaultStyle().charStyle().font().replacementName()].name;
 //			cc += UsedFontsP[ite->itemText.defaultStyle().charStyle().font().replacementName()]+"Form";
 		cc += " "+FToStr(ite->itemText.defaultStyle().charStyle().fontSize() / 10.0)+" Tf\n";
 		cc += "1 0 0 1 0 0 Tm\n0 0 Td\n";
@@ -9568,7 +9565,7 @@ bool PDFLibCore::PDF_Annotation(PageItem *ite, uint PNr)
 	}
 	if (ite->annotation().Type() == Annotation::Textfield)
 	{
-		cc = "";
+        QByteArray cc;
 		if (ite->fillColor() != CommonStrings::None)
 			cc += putColor(ite->fillColor(), ite->fillShade(), false);
 		cc += FToStr(x)+" "+FToStr(y2)+" "+FToStr(x2-x)+" "+FToStr(y-y2)+" re\nf\n";
@@ -9579,7 +9576,7 @@ bool PDFLibCore::PDF_Annotation(PageItem *ite, uint PNr)
 		if (Options.Version < PDFOptions::PDFVersion_14)
 			cc += "/"+StdFonts[ind2PDFabr[ite->annotation().Font()]];
 		else
-			cc += UsedFontsF[ite->itemText.defaultStyle().charStyle().font().replacementName()];
+			cc += UsedFontsF[ite->itemText.defaultStyle().charStyle().font().replacementName()].name;
 //			cc += UsedFontsP[ite->itemText.defaultStyle().charStyle().font().replacementName()]+"Form";
 		cc += " "+FToStr(ite->itemText.defaultStyle().charStyle().fontSize() / 10.0)+" Tf\n";
 		if (bmstUtf16.count() > 1)
@@ -9598,7 +9595,7 @@ bool PDFLibCore::PDF_Annotation(PageItem *ite, uint PNr)
 	}
 	if (ite->annotation().Type() == Annotation::Checkbox)
 	{
-		cc = "";
+        QByteArray cc;
 		cc += "q\n1 g\n";
 		cc += "0 0 "+FToStr(x2-x)+" "+FToStr(y-y2)+" re\nf\n";
 		cc += createBorderAppearance(ite);
@@ -9606,7 +9603,7 @@ bool PDFLibCore::PDF_Annotation(PageItem *ite, uint PNr)
 		if (ite->itemText.defaultStyle().charStyle().fillColor() != CommonStrings::None)
 			cc += putColor(ite->itemText.defaultStyle().charStyle().fillColor(), ite->itemText.defaultStyle().charStyle().fillShade(), true);
 		cc += "/"+StdFonts["/ZapfDingbats"]+" "+FToStr(ite->itemText.defaultStyle().charStyle().fontSize() / 10.0)+" Tf\n";
-		cc += QString::number(ite->annotation().Bwid())+" "+QString::number(ite->annotation().Bwid())+" Td\n("+ct+") Tj\nET\nQ";
+		cc += Pdf::toPdf(ite->annotation().Bwid())+" "+Pdf::toPdf(ite->annotation().Bwid())+" Td\n("+ct+") Tj\nET\nQ";
 		PDF_xForm(appearanceObj1, ite->width(), ite->height(), cc);
 		cc = "";
 		cc += "q\n1 g\n";
@@ -9617,7 +9614,7 @@ bool PDFLibCore::PDF_Annotation(PageItem *ite, uint PNr)
 	}
 	if ((ite->annotation().Type() == Annotation::Combobox) || (ite->annotation().Type() == Annotation::Listbox))
 	{
-		cc = "";
+        QByteArray cc;
 		cc += "1 g\n";
 		cc += "0 0 "+FToStr(x2-x)+" "+FToStr(y-y2)+" re\nf\n";
 		cc += createBorderAppearance(ite);
@@ -9626,7 +9623,7 @@ bool PDFLibCore::PDF_Annotation(PageItem *ite, uint PNr)
 		if (Options.Version < PDFOptions::PDFVersion_14)
 			cc += "/"+StdFonts[ind2PDFabr[ite->annotation().Font()]];
 		else
-			cc += UsedFontsF[ite->itemText.defaultStyle().charStyle().font().replacementName()];
+			cc += UsedFontsF[ite->itemText.defaultStyle().charStyle().font().replacementName()].name;
 //			cc += UsedFontsP[ite->itemText.defaultStyle().charStyle().font().replacementName()]+"Form";
 		cc += " "+FToStr(ite->itemText.defaultStyle().charStyle().fontSize() / 10.0)+" Tf\n";
 		cc += "1 0 0 1 0 0 Tm\n0 0 Td\n";
@@ -9655,11 +9652,11 @@ bool PDFLibCore::PDF_Annotation(PageItem *ite, uint PNr)
 	return true;
 }
 
-QString PDFLibCore::createBorderAppearance(PageItem *ite)
+QByteArray PDFLibCore::createBorderAppearance(PageItem *ite)
 {
 	double dx = ite->width();
 	double dy = ite->height();
-	QString ret = "";
+	QByteArray ret = "";
 	if (ite->annotation().borderColor() == CommonStrings::None)
 		return ret;
 	if (ite->annotation().Bwid() == 0)
@@ -9672,11 +9669,11 @@ QString PDFLibCore::createBorderAppearance(PageItem *ite)
 		if ((ite->annotation().Bsty() == 0) || (ite->annotation().Bsty() == 1))
 		{
 			ret += putColor(ite->annotation().borderColor(), 100, false);
-			ret += QString::number(ite->annotation().Bwid())+" w\n";
+			ret += Pdf::toPdf(ite->annotation().Bwid())+" w\n";
 			ret += "0 J\n";
 			ret += "0 j\n";
 			if (ite->annotation().Bsty() == 1)
-				ret += "["+QString::number(ite->annotation().Bwid()*4)+" "+QString::number(ite->annotation().Bwid()*2)+"] 0 d\n";
+				ret += "["+Pdf::toPdf(ite->annotation().Bwid()*4)+" "+Pdf::toPdf(ite->annotation().Bwid()*2)+"] 0 d\n";
 			double bwh = ite->annotation().Bwid() / 2.0;
 			double rad = qMin(ite->width() - ite->annotation().Bwid(), ite->height() - ite->annotation().Bwid());
 			QPainterPath clp;
@@ -9711,7 +9708,7 @@ QString PDFLibCore::createBorderAppearance(PageItem *ite)
 			double rb = 0.5 * (dx < dy ? dx : dy);
 			double r = rb - 0.25 * ite->annotation().Bwid();
 			double bzc = 0.55228475;
-			ret += QString::number(bwh)+" w\n";
+			ret += Pdf::toPdf(bwh)+" w\n";
 			ret += FToStr(cx + r)+" "+FToStr(cy)+" m\n";
 			ret += FToStr(cx + r)+" "+FToStr(cy + bzc * r)+" "+FToStr(cx + bzc * r)+" "+FToStr(cy + r)+" "+FToStr(cx)+" "+FToStr(cy + r)+" c\n";
 			ret += FToStr(cx - bzc * r)+" "+FToStr(cy + r)+" "+FToStr(cx - r)+" "+FToStr(cy + bzc * r)+" "+FToStr(cx - r)+" "+FToStr(cy)+" c\n";
@@ -9739,11 +9736,11 @@ QString PDFLibCore::createBorderAppearance(PageItem *ite)
 		if ((ite->annotation().Bsty() == 0) || (ite->annotation().Bsty() == 1))
 		{
 			ret += putColor(ite->annotation().borderColor(), 100, false);
-			ret += QString::number(ite->annotation().Bwid())+" w\n";
+			ret += Pdf::toPdf(ite->annotation().Bwid())+" w\n";
 			ret += "0 J\n";
 			ret += "0 j\n";
 			if (ite->annotation().Bsty() == 1)
-				ret += "["+QString::number(ite->annotation().Bwid()*4)+" "+QString::number(ite->annotation().Bwid()*2)+"] 0 d\n";
+				ret += "["+Pdf::toPdf(ite->annotation().Bwid()*4)+" "+Pdf::toPdf(ite->annotation().Bwid()*2)+"] 0 d\n";
 			double bwh = ite->annotation().Bwid() / 2.0;
 			QPainterPath clp;
 			clp.addRect(QRectF(bwh, bwh, ite->width() - ite->annotation().Bwid(), ite->height() - ite->annotation().Bwid()));
@@ -9793,30 +9790,30 @@ QString PDFLibCore::createBorderAppearance(PageItem *ite)
 	return ret;
 }
 
-uint PDFLibCore::writeActions(const Annotation&	annot, uint annotationObj)
+PdfId PDFLibCore::writeActions(const Annotation&	annot, PdfId annotationObj)
 {
 	// write actions
 	if ((annot.Type() > 1) && (annot.AAact()))
 	{
-		uint E = 0;
+		PdfId E = 0;
 		if (!annot.E_act().isEmpty())
 			E = WritePDFString(annot.E_act());
-		uint X = 0;
+		PdfId X = 0;
 		if (!annot.X_act().isEmpty())
 			X = WritePDFString(annot.X_act());
-		uint D = 0;
+		PdfId D = 0;
 		if (!annot.D_act().isEmpty())
 			D = WritePDFString(annot.D_act());
-		uint Fo = 0;
+		PdfId Fo = 0;
 		if (!annot.Fo_act().isEmpty())
 			Fo = WritePDFString(annot.Fo_act());
-		uint Bl = 0;
+		PdfId Bl = 0;
 		if (!annot.Bl_act().isEmpty())
 			Bl = WritePDFString(annot.Bl_act());
-		uint K = 0;
-		uint F = 0;
-		uint V = 0;
-		uint C = 0;
+		PdfId K = 0;
+		PdfId F = 0;
+		PdfId V = 0;
+		PdfId C = 0;
 		if ((annot.Type() == Annotation::Textfield) || (annot.Type() == Annotation::Combobox) || (annot.Type() == Annotation::Listbox))
 		{
 			if (!annot.K_act().isEmpty())
@@ -9832,71 +9829,73 @@ uint PDFLibCore::writeActions(const Annotation&	annot, uint annotationObj)
 			}
 		}
 
-		uint result = newObject();
-		StartObj(result);
+		PdfId result = writer.newObject();
+		writer.startObj(result);
 		PutDoc("<<\n");
 		if (E)
 		{
-			PutDoc("/E << /Type /Action /S /JavaScript /JS "+QString::number(E)+" 0 R >>\n");
+			PutDoc("/E << /Type /Action /S /JavaScript /JS "+Pdf::toPdf(E)+" 0 R >>\n");
 		}
 		if (X)
 		{
-			PutDoc("/X << /Type /Action /S /JavaScript /JS "+QString::number(X)+" 0 R >>\n");
+			PutDoc("/X << /Type /Action /S /JavaScript /JS "+Pdf::toPdf(X)+" 0 R >>\n");
 		}
 		if (D)
 		{
-			PutDoc("/D << /Type /Action /S /JavaScript /JS "+QString::number(D)+" 0 R >>\n");
+			PutDoc("/D << /Type /Action /S /JavaScript /JS "+Pdf::toPdf(D)+" 0 R >>\n");
 		}
 		if (Fo)
 		{
-			PutDoc("/Fo << /Type /Action /S /JavaScript /JS "+QString::number(Fo)+" 0 R >>\n");
+			PutDoc("/Fo << /Type /Action /S /JavaScript /JS "+Pdf::toPdf(Fo)+" 0 R >>\n");
 		}
 		if (Bl)
 		{
-			PutDoc("/Bl << /Type /Action /S /JavaScript /JS "+QString::number(Bl)+" 0 R >>\n");
+			PutDoc("/Bl << /Type /Action /S /JavaScript /JS "+Pdf::toPdf(Bl)+" 0 R >>\n");
 		}
 		if ((annot.Type() == Annotation::Textfield) || (annot.Type() == Annotation::Combobox) || (annot.Type() == Annotation::Listbox))
 		{
 			if (K)
 			{
-				PutDoc("/K << /Type /Action /S /JavaScript /JS "+QString::number(K) + " 0 R >>\n");
+				PutDoc("/K << /Type /Action /S /JavaScript /JS "+Pdf::toPdf(K) + " 0 R >>\n");
 			}
 			if (F)
 			{
-				PutDoc("/F << /Type /Action /S /JavaScript /JS "+QString::number(F) + " 0 R >>\n");
+				PutDoc("/F << /Type /Action /S /JavaScript /JS "+Pdf::toPdf(F) + " 0 R >>\n");
 			}
 			if (V)
 			{
-				PutDoc("/V << /Type /Action /S /JavaScript /JS "+QString::number(V)+" 0 R >>\n");
+				PutDoc("/V << /Type /Action /S /JavaScript /JS "+Pdf::toPdf(V)+" 0 R >>\n");
 			}
 			if (C)
 			{
-				PutDoc("/C << /Type /Action /S /JavaScript /JS "+QString::number(C)+" 0 R >>\n");
+				PutDoc("/C << /Type /Action /S /JavaScript /JS "+Pdf::toPdf(C)+" 0 R >>\n");
 			}
 		}
-		PutDoc(">>\nendobj\n");
+		PutDoc(">>");
+        writer.endObj(annotationObj);
 		return result;
 	}
 	return 0;
 }
 
-uint PDFLibCore::WritePDFStream(const QString& cc)
+PdfId PDFLibCore::WritePDFStream(const QByteArray& cc)
 {
-	uint result = newObject();
-	QString tmp(cc);
+	PdfId result = writer.newObject();
+	QByteArray tmp(cc);
 	if (Options.Compress)
-		tmp = CompressStr(&tmp);
-	StartObj(result);
-	PutDoc("<< /Length "+QString::number(tmp.length()));  // moeglicherweise +1
+		tmp = CompressArray(tmp);
+	writer.startObj(result);
+	PutDoc("<< /Length "+Pdf::toPdf(tmp.length()));  // moeglicherweise +1
 	if (Options.Compress)
 		PutDoc("\n/Filter /FlateDecode");
-	PutDoc(" >>\nstream\n"+EncStream(tmp, result)+"\nendstream\nendobj\n");
+	PutDoc(" >>\nstream\n"+EncStream(tmp, result)+"\nendstream");
+    writer.endObj(result);
 	return result;
 }
 
-uint PDFLibCore::WritePDFString(const QString& cc)
+PdfId PDFLibCore::WritePDFString(const QString& cc)
 {
-	QString tmp;
+	QByteArray tmp;
 	for (int i = 0; i < cc.length(); ++i)
 	{
 		if (cc[i].unicode() > 255)
@@ -9911,55 +9910,40 @@ uint PDFLibCore::WritePDFString(const QString& cc)
 	return WritePDFStream(tmp);
 }
 
-void PDFLibCore::PDF_xForm(uint objNr, double w, double h, QString im)
+void PDFLibCore::PDF_xForm(PdfId objNr, double w, double h, QByteArray im)
 {
-	StartObj(objNr);
+	writer.startObj(objNr);
 	PutDoc("<<\n/Type /XObject\n/Subtype /Form\n");
 	PutDoc("/BBox [ 0 0 "+FToStr(w)+" "+FToStr(h)+" ]\n");
-	PutDoc("/Resources << /ProcSet [/PDF /Text /ImageB /ImageC /ImageI]\n");
-	if ((Seite.ImgObjects.count() != 0) || (Seite.XObjects.count() != 0))
-	{
-		PutDoc("/XObject <<\n");
-		QMap<QString,int>::Iterator it;
-		for (it = Seite.ImgObjects.begin(); it != Seite.ImgObjects.end(); ++it)
-			PutDoc("/"+it.key()+" "+QString::number(it.value())+" 0 R\n");
-		QMap<QString,int>::Iterator iti;
-		for (iti = Seite.XObjects.begin(); iti != Seite.XObjects.end(); ++iti)
-			PutDoc("/"+iti.key()+" "+QString::number(iti.value())+" 0 R\n");
-		PutDoc(">>\n");
-	}
-	if (Seite.FObjects.count() != 0)
-	{
-		PutDoc("/Font << \n");
-		QMap<QString,int>::Iterator it2;
-		for (it2 = Seite.FObjects.begin(); it2 != Seite.FObjects.end(); ++it2)
-			PutDoc("/"+it2.key()+" "+QString::number(it2.value())+" 0 R\n");
-		PutDoc(">>\n");
-	}
-	PutDoc(">>\n");
-	PutDoc("/Length "+QString::number(im.length())+"\n");
-	PutDoc(">>\nstream\n"+EncStream(im, objNr)+"\nendstream\nendobj\n");
-	Seite.XObjects[ResNam+QString::number(ResCount)] = objNr;
+    PutDoc("/Resources ");
+    
+    Pdf::ResourceDictionary dict;
+    dict.XObject.unite(pageData.ImgObjects);
+    dict.XObject.unite(pageData.XObjects);
+    dict.Font = pageData.FObjects;
+    writer.write(dict);
+
+    PutDoc("/Length "+Pdf::toPdf(im.length())+"\n");
+	PutDoc(">>\nstream\n"+EncStream(im, objNr)+"\nendstream");
+    writer.endObj(objNr);
+	pageData.XObjects[ResNam+Pdf::toPdf(ResCount)] = objNr;
 	ResCount++;
 }
 
-void PDFLibCore::PDF_Form(const QString& im) // unused? - av
+void PDFLibCore::PDF_Form(const QByteArray& im) // unused? - av
 {
-	uint form = newObject();
-	StartObj(form);
+	PdfId form = writer.newObject();
+	writer.startObj(form);
 	PutDoc("<<\n");
-	PutDoc("/Resources << /ProcSet [/PDF /Text /ImageB /ImageC /ImageI]\n");
-	if (Seite.FObjects.count() != 0)
-	{
-		PutDoc("/Font << \n");
-		QMap<QString,int>::Iterator it2;
-		for (it2 = Seite.FObjects.begin(); it2 != Seite.FObjects.end(); ++it2)
-			PutDoc("/"+it2.key()+" "+QString::number(it2.value())+" 0 R\n");
-		PutDoc(">>\n");
-	}
-	PutDoc(">>\n");
-	PutDoc("/Length "+QString::number(im.length())+"\n");
-	PutDoc(">>\nstream\n"+EncStream(im, form)+"\nendstream\nendobj\n");
+	PutDoc("/Resources ");
+    
+    Pdf::ResourceDictionary dict;
+    dict.Font = pageData.FObjects;
+    writer.write(dict);
+
+    PutDoc("/Length "+Pdf::toPdf(im.length())+"\n");
+	PutDoc(">>\nstream\n"+EncStream(im, form)+"\nendstream");
+    writer.endObj(form);
 }
 
 void PDFLibCore::PDF_Bookmark(PageItem *currItem, double ypos)
@@ -9968,7 +9952,7 @@ void PDFLibCore::PDF_Bookmark(PageItem *currItem, double ypos)
 	BookMinUse = true;
 }
 
-bool PDFLibCore::PDF_EmbeddedPDF(PageItem* c, const QString& fn, double sx, double sy, double x, double y, bool fromAN, const QString& Profil, bool Embedded, int Intent, ShIm& imgInfo, QString* output)
+bool PDFLibCore::PDF_EmbeddedPDF(PageItem* c, const QString& fn, double sx, double sy, double x, double y, bool fromAN, const QString& Profil, bool Embedded, int Intent, ShIm& imgInfo, QByteArray* output)
 {
 	if (!Options.embedPDF)
 		return false;
@@ -10003,29 +9987,29 @@ bool PDFLibCore::PDF_EmbeddedPDF(PageItem* c, const QString& fn, double sx, doub
 		if (contents && contents->GetDataType() ==  PoDoFo::ePdfDataType_Dictionary)
 		{
 			PoDoFo::PdfStream* stream = contents->GetStream();
-			QMap<PoDoFo::PdfReference, uint> importedObjects;
+			QMap<PoDoFo::PdfReference, PdfId> importedObjects;
 			QList<PoDoFo::PdfReference> referencedObjects;
 			PoDoFo::PdfObject* nextObj;
-			uint xObj = newObject();
-			uint xResources = newObject();
-			uint xParents = 0;
+			PdfId xObj = writer.newObject();
+			PdfId xResources = writer.newObject();
+			PdfId xParents = 0;
 			importedObjects[page->GetObject()->Reference()] = xObj;
-			StartObj(xObj);
+			writer.startObj(xObj);
 			PutDoc("<<\n/Type /XObject\n/Subtype /Form\n/FormType 1");
 			PoDoFo::PdfRect pagesize = page->GetPageSize();
 			int rotation = page->GetRotation();
 			QTransform pageM;
 			pageM.scale(1.0/pagesize.GetWidth(), 1.0/pagesize.GetHeight());
 			pageM.rotate(-rotation);
-			PutDoc("\n/BBox [" + QString::number(pagesize.GetLeft(), 'f'));
-			PutDoc(" " + QString::number(pagesize.GetBottom(), 'f'));
-			PutDoc(" " + QString::number(pagesize.GetLeft() + pagesize.GetWidth(), 'f'));
-			PutDoc(" " + QString::number(pagesize.GetBottom() + pagesize.GetHeight(), 'f'));
+			PutDoc("\n/BBox [" + Pdf::toPdf(pagesize.GetLeft()));
+			PutDoc(" " + Pdf::toPdf(pagesize.GetBottom()));
+			PutDoc(" " + Pdf::toPdf(pagesize.GetLeft() + pagesize.GetWidth()));
+			PutDoc(" " + Pdf::toPdf(pagesize.GetBottom() + pagesize.GetHeight()));
 			PutDoc("]");
-			PutDoc("\n/Matrix [" + QString::number(pageM.m11(), 'f') + " "
-								 + QString::number(pageM.m12(), 'f') + " "
-								 + QString::number(pageM.m21(), 'f') + " "
-								 + QString::number(pageM.m22(), 'f') + " ");
+			PutDoc("\n/Matrix [" + Pdf::toPdf(pageM.m11()) + " "
+								 + Pdf::toPdf(pageM.m12()) + " "
+								 + Pdf::toPdf(pageM.m21()) + " "
+								 + Pdf::toPdf(pageM.m22()) + " ");
 			if (rotation == 0)
 				PutDoc("0 0");
 			else if (rotation == 90)
@@ -10033,12 +10017,12 @@ bool PDFLibCore::PDF_EmbeddedPDF(PageItem* c, const QString& fn, double sx, doub
 			else if (rotation == 180)
 				PutDoc("1 1");
 			else if (rotation == 270)
-				PutDoc(QString::number(pagesize.GetHeight() / pagesize.GetWidth(), 'f') + " " + QString::number(1.0 - 1.0 / (pagesize.GetHeight() / pagesize.GetWidth()), 'f'));
+				PutDoc(Pdf::toPdf(pagesize.GetHeight() / pagesize.GetWidth()) + " " + Pdf::toPdf(1.0 - 1.0 / (pagesize.GetHeight() / pagesize.GetWidth())));
 			else
 				PutDoc("0 0");
 			PutDoc("]");
-//			PutDoc("\n/Matrix [" + QString::number(1.0/pagesize.GetWidth()) + " 0 0 " + QString::number(1.0/pagesize.GetHeight()) + " 0 0]");
-			PutDoc("\n/Resources " + QString::number(xResources) + " 0 R");
+//			PutDoc("\n/Matrix [" + Pdf::toPdf(1.0/pagesize.GetWidth()) + " 0 0 " + Pdf::toPdf(1.0/pagesize.GetHeight()) + " 0 0]");
+			PutDoc("\n/Resources " + Pdf::toPdf(xResources) + " 0 R");
 			nextObj = page->GetObject()->GetIndirectKey("Group");
 			if (nextObj)
 			{
@@ -10049,8 +10033,8 @@ bool PDFLibCore::PDF_EmbeddedPDF(PageItem* c, const QString& fn, double sx, doub
 			PoDoFo::PdfObject parents = page->GetObject()->GetIndirectKey("StructParents");
 			if (parents)
 			{
-				xParents = newObject();
-				PutDoc("\n/StructParents " + QString::number(xParents)); // required if page uses structured content
+				xParents = writer.newObject();
+				PutDoc("\n/StructParents " + Pdf::toPdf(xParents)); // required if page uses structured content
 			}
 			*/
 			char * mbuffer = NULL;
@@ -10068,7 +10052,7 @@ bool PDFLibCore::PDF_EmbeddedPDF(PageItem* c, const QString& fn, double sx, doub
 #endif
 			if (mbuffer[mlen-1] == '\n')
 				--mlen;
-			PutDoc("\n/Length " + QString::number(mlen));
+			PutDoc("\n/Length " + Pdf::toPdf(mlen));
 			nextObj = contents->GetIndirectKey("Filter");
 			if (nextObj)
 			{
@@ -10087,7 +10071,8 @@ bool PDFLibCore::PDF_EmbeddedPDF(PageItem* c, const QString& fn, double sx, doub
 				EncodeArrayToStream(buffer, xObj);
 			}  // disconnect QByteArray from raw data
 			free (mbuffer);
-			PutDoc("\nendstream\nendobj\n");
+			PutDoc("\nendstream");
+            writer.endObj(xObj);
 			// write resources
 			if (resources)
 			{
@@ -10095,8 +10080,9 @@ bool PDFLibCore::PDF_EmbeddedPDF(PageItem* c, const QString& fn, double sx, doub
 			}
 			else
 			{
-				StartObj(xResources);
-				PutDoc("<< >>\nendobj\n");
+				writer.startObj(xResources);
+				PutDoc("<< >>");
+                writer.endObj(xResources);
 			}
 			if (xParents)
 			{
@@ -10110,7 +10096,7 @@ bool PDFLibCore::PDF_EmbeddedPDF(PageItem* c, const QString& fn, double sx, doub
 				copyPoDoFoObject(nextObj, importedObjects[nextObj->Reference()], importedObjects);
 			}
 
-			Seite.ImgObjects[ResNam+"I"+QString::number(ResCount)] = xObj;
+			pageData.ImgObjects[ResNam+"I"+Pdf::toPdf(ResCount)] = xObj;
 			imgInfo.ResNum = ResCount;
 			ResCount++;
 			// Avoid a divide-by-zero if width/height are less than 1 point:
@@ -10127,29 +10113,29 @@ bool PDFLibCore::PDF_EmbeddedPDF(PageItem* c, const QString& fn, double sx, doub
 		}
 		else if (contents && contents->GetDataType() ==  PoDoFo::ePdfDataType_Array)//Page contents might be an array
 		{
-			QMap<PoDoFo::PdfReference, uint> importedObjects;
+			QMap<PoDoFo::PdfReference, PdfId> importedObjects;
 			QList<PoDoFo::PdfReference> referencedObjects;
 			PoDoFo::PdfObject* nextObj;
-			uint xObj = newObject();
-			uint xResources = newObject();
-			uint xParents = 0;
+			PdfId xObj = writer.newObject();
+			PdfId xResources = writer.newObject();
+			PdfId xParents = 0;
 			importedObjects[page->GetObject()->Reference()] = xObj;
-			StartObj(xObj);
+			writer.startObj(xObj);
 			PutDoc("<<\n/Type /XObject\n/Subtype /Form\n/FormType 1");
 			PoDoFo::PdfRect pagesize = page->GetPageSize();
 			int rotation = page->GetRotation();
 			QMatrix pageM;
 			pageM.scale(1.0/pagesize.GetWidth(), 1.0/pagesize.GetHeight());
 			pageM.rotate(-rotation);
-			PutDoc("\n/BBox [" + QString::number(pagesize.GetLeft(), 'f'));
-			PutDoc(" " + QString::number(pagesize.GetBottom(), 'f'));
-			PutDoc(" " + QString::number(pagesize.GetLeft() + pagesize.GetWidth(), 'f'));
-			PutDoc(" " + QString::number(pagesize.GetBottom() + pagesize.GetHeight(), 'f'));
+			PutDoc("\n/BBox [" + Pdf::toPdf(pagesize.GetLeft()));
+			PutDoc(" " + Pdf::toPdf(pagesize.GetBottom()));
+			PutDoc(" " + Pdf::toPdf(pagesize.GetLeft() + pagesize.GetWidth()));
+			PutDoc(" " + Pdf::toPdf(pagesize.GetBottom() + pagesize.GetHeight()));
 			PutDoc("]");
-			PutDoc("\n/Matrix [" + QString::number(pageM.m11(), 'f') + " "
-								 + QString::number(pageM.m12(), 'f') + " "
-								 + QString::number(pageM.m21(), 'f') + " "
-								 + QString::number(pageM.m22(), 'f') + " ");
+			PutDoc("\n/Matrix [" + Pdf::toPdf(pageM.m11()) + " "
+								 + Pdf::toPdf(pageM.m12()) + " "
+								 + Pdf::toPdf(pageM.m21()) + " "
+								 + Pdf::toPdf(pageM.m22()) + " ");
 			if (rotation == 0)
 				PutDoc("0 0");
 			else if (rotation == 90)
@@ -10157,11 +10143,11 @@ bool PDFLibCore::PDF_EmbeddedPDF(PageItem* c, const QString& fn, double sx, doub
 			else if (rotation == 180)
 				PutDoc("1 1");
 			else if (rotation == 270)
-				PutDoc(QString::number(pagesize.GetHeight() / pagesize.GetWidth(), 'f') + " " + QString::number(1.0 - 1.0 / (pagesize.GetHeight() / pagesize.GetWidth()), 'f'));
+				PutDoc(Pdf::toPdf(pagesize.GetHeight() / pagesize.GetWidth()) + " " + Pdf::toPdf(1.0 - 1.0 / (pagesize.GetHeight() / pagesize.GetWidth())));
 			else
 				PutDoc("0 0");
 			PutDoc("]");
-			PutDoc("\n/Resources " + QString::number(xResources) + " 0 R");
+			PutDoc("\n/Resources " + Pdf::toPdf(xResources) + " 0 R");
 			nextObj = page->GetObject()->GetIndirectKey("Group");
 			if (nextObj)
 			{
@@ -10208,7 +10194,7 @@ bool PDFLibCore::PDF_EmbeddedPDF(PageItem* c, const QString& fn, double sx, doub
 			mbuffer = outMemStream.TakeBuffer();
 //			if (mbuffer[mlen-1] == '\n')
 //				--mlen;
-			PutDoc("\n/Length " + QString::number(mlen));
+			PutDoc("\n/Length " + Pdf::toPdf(mlen));
 /*
  nextObj = contents->GetIndirectKey("Filter");
 			if (nextObj)
@@ -10229,7 +10215,8 @@ bool PDFLibCore::PDF_EmbeddedPDF(PageItem* c, const QString& fn, double sx, doub
 				EncodeArrayToStream(buffer, xObj);
 			}  // disconnect QByteArray from raw data
 			free (mbuffer);
-			PutDoc("\nendstream\nendobj\n");
+			PutDoc("\nendstream");
+            writer.endObj(xObj);
 			// write resources
 			if (resources)
 			{
@@ -10237,8 +10224,9 @@ bool PDFLibCore::PDF_EmbeddedPDF(PageItem* c, const QString& fn, double sx, doub
 			}
 			else
 			{
-				StartObj(xResources);
-				PutDoc("<< >>\nendobj\n");
+				writer.startObj(xResources);
+				PutDoc("<< >>");
+                writer.endObj(xResources);
 			}
 			if (xParents)
 			{
@@ -10252,7 +10240,7 @@ bool PDFLibCore::PDF_EmbeddedPDF(PageItem* c, const QString& fn, double sx, doub
 				copyPoDoFoObject(nextObj, importedObjects[nextObj->Reference()], importedObjects);
 			}
 
-			Seite.ImgObjects[ResNam+"I"+QString::number(ResCount)] = xObj;
+			pageData.ImgObjects[ResNam+"I"+Pdf::toPdf(ResCount)] = xObj;
 			imgInfo.ResNum = ResCount;
 			ResCount++;
 			// Avoid a divide-by-zero if width/height are less than 1 point:
@@ -10283,17 +10271,17 @@ bool PDFLibCore::PDF_EmbeddedPDF(PageItem* c, const QString& fn, double sx, doub
 
 #if HAVE_PODOFO
 
-void PDFLibCore::copyPoDoFoDirect(const PoDoFo::PdfVariant* obj, QList<PoDoFo::PdfReference>& referencedObjects, QMap<PoDoFo::PdfReference, uint>& importedObjects)
+void PDFLibCore::copyPoDoFoDirect(const PoDoFo::PdfVariant* obj, QList<PoDoFo::PdfReference>& referencedObjects, QMap<PoDoFo::PdfReference, PdfId>& importedObjects)
 {
 	switch (obj->GetDataType())
 	{
 	case PoDoFo::ePdfDataType_Reference:
 		{
 		const PoDoFo::PdfReference reference(obj->GetReference());
-		uint objNr;
+		PdfId objNr;
 		if (!importedObjects.contains(reference))
 		{
-			objNr = newObject();
+			objNr = writer.newObject();
 			importedObjects[reference] = objNr;
 			referencedObjects.append(reference);
 		}
@@ -10301,7 +10289,7 @@ void PDFLibCore::copyPoDoFoDirect(const PoDoFo::PdfVariant* obj, QList<PoDoFo::P
 		{
 			objNr = importedObjects[reference];
 		}
-		PutDoc(" " + QString::number(objNr) + " 0 R");
+		PutDoc(" " + Pdf::toPdf(objNr) + " 0 R");
 		}
 		break;
 	case PoDoFo::ePdfDataType_Array:
@@ -10336,11 +10324,11 @@ void PDFLibCore::copyPoDoFoDirect(const PoDoFo::PdfVariant* obj, QList<PoDoFo::P
 
 }
 
-void PDFLibCore::copyPoDoFoObject(const PoDoFo::PdfObject* obj, uint scObjID, QMap<PoDoFo::PdfReference, uint>& importedObjects)
+void PDFLibCore::copyPoDoFoObject(const PoDoFo::PdfObject* obj, PdfId scObjID, QMap<PoDoFo::PdfReference, PdfId>& importedObjects)
 {
 	PoDoFo::PdfVecObjects* allObjects = obj->GetOwner();
 	QList<PoDoFo::PdfReference> referencedObjects;
-	StartObj(scObjID);
+	writer.startObj(scObjID);
 	copyPoDoFoDirect(obj, referencedObjects, importedObjects);
 	if (obj->HasStream())
 	{
@@ -10368,7 +10356,8 @@ void PDFLibCore::copyPoDoFoObject(const PoDoFo::PdfObject* obj, uint scObjID, QM
 		free (mbuffer);
 		PutDoc("\nendstream");
 	}
-	PutDoc("\nendobj\n");
+	PutDoc("");
+    writer.endObj(scObjID);
 	// recurse:
 	for (int i=0; i < referencedObjects.size();  ++i)
 	{
@@ -10395,14 +10384,15 @@ static ColorSpaceEnum getOutputType(const bool gray, const bool cmyk)
  * Add the image item to this.output
  * Returns false if the image can't be read or if it can't be added to this.output
 */
-bool PDFLibCore::PDF_Image(PageItem* c, const QString& fn, double sx, double sy, double x, double y, bool fromAN, const QString& Profil, bool Embedded, eRenderIntent Intent, QString* output)
+bool PDFLibCore::PDF_Image(PageItem* c, const QString& fn, double sx, double sy, double x, double y, bool fromAN, const QString& Profil, bool Embedded, eRenderIntent Intent, QByteArray* output)
 {
 	QFileInfo fi = QFileInfo(fn);
 	QString ext = fi.suffix().toLower();
 	if (ext.isEmpty())
 		ext = getImageType(fn);
 	ScImage img;
-	QString tmp, tmpy, dummy, cmd1, cmd2, BBox;
+    QByteArray tmp, tmpy, dummy, cmd1, cmd2;
+    QString BBox;
 	QChar  tc;
 	bool   found = false;
 	bool   alphaM = false;
@@ -10513,7 +10503,7 @@ bool PDFLibCore::PDF_Image(PageItem* c, const QString& fn, double sx, double sy,
 						QDataStream ts(&f);
 						while (!ts.atEnd())
 						{
-							tmp = readLinefromDataStream(ts);
+							QString tmp = readLinefromDataStream(ts);
 							if (tmp.startsWith("%%BoundingBox:"))
 							{
 								found = true;
@@ -10530,6 +10520,8 @@ bool PDFLibCore::PDF_Image(PageItem* c, const QString& fn, double sx, double sy,
 							if (tmp.startsWith("%%EndComments"))
 								break;
 						}
+                        // BBox is not used...
+                        
 						f.close();
 						if (found)
 						{
@@ -10631,10 +10623,10 @@ bool PDFLibCore::PDF_Image(PageItem* c, const QString& fn, double sx, double sy,
 				{
 					ScImage img3;
 					int components = 0;
-					uint embeddedProfile = newObject();
-					StartObj(embeddedProfile);
+					PdfId embeddedProfile = writer.newObject();
+					writer.startObj(embeddedProfile);
 					QByteArray dataP;
-					struct ICCD dataD;
+					PdfICCD dataD;
 					if ((Embedded) && (!Options.EmbeddedI))
 						img3.getEmbeddedProfile(fn, &dataP, &components);
 					if ((dataP.isEmpty()) || ((img.imgInfo.colorspace == ColorSpaceGray) && (hasColorEffect) && (components == 1)))
@@ -10688,20 +10680,21 @@ bool PDFLibCore::PDF_Image(PageItem* c, const QString& fn, double sx, double sy,
 								dataP = compData;
 							}
 						}
-						PutDoc("/Length "+QString::number(dataP.size()+1)+"\n");
-						PutDoc("/N "+QString::number(components)+"\n");
+						PutDoc("/Length "+Pdf::toPdf(dataP.size()+1)+"\n");
+						PutDoc("/N "+Pdf::toPdf(components)+"\n");
 						PutDoc(">>\nstream\n");
 						EncodeArrayToStream(dataP, embeddedProfile);
-						PutDoc("\nendstream\nendobj\n");
-						uint profileResource = newObject();
-						StartObj(profileResource);
-						dataD.ResName = ResNam+QString::number(ResCount);
-						dataD.ICCArray = "[ /ICCBased "+QString::number(embeddedProfile)+" 0 R ]";
+						PutDoc("\nendstream");
+                        writer.endObj(embeddedProfile);
+						PdfId profileResource = writer.newObject();
+						writer.startObj(profileResource);
+						dataD.ResName = ResNam+Pdf::toPdf(ResCount);
+						dataD.ICCArray = "[ /ICCBased "+Pdf::toPdf(embeddedProfile)+" 0 R ]";
 						dataD.ResNum = profileResource;
 						dataD.components = components;
 						ICCProfiles[profInUse] = dataD;
-						PutDoc("[ /ICCBased "+QString::number(embeddedProfile)+" 0 R ]\n");
-						PutDoc("endobj\n");
+						PutDoc("[ /ICCBased "+Pdf::toPdf(embeddedProfile)+" 0 R ]");
+						writer.endObj(profileResource);
 						ResCount++;
 					}
 					if (components == 1)
@@ -10717,10 +10710,10 @@ bool PDFLibCore::PDF_Image(PageItem* c, const QString& fn, double sx, double sy,
 							if (!ICCProfiles.contains(profInUse))
 							{
 								int components = 3;
-								uint embeddedProfile = newObject();
-								StartObj(embeddedProfile);
+								PdfId embeddedProfile = writer.newObject();
+								writer.startObj(embeddedProfile);
 								QByteArray dataP;
-								struct ICCD dataD;
+								PdfICCD dataD;
 								loadRawBytes(ScCore->InputProfiles[c->doc()->cmsSettings().DefaultImageRGBProfile], dataP);
 								components = 3;
 								PutDoc("<<\n");
@@ -10733,20 +10726,21 @@ bool PDFLibCore::PDF_Image(PageItem* c, const QString& fn, double sx, double sy,
 										dataP = compData;
 									}
 								}
-								PutDoc("/Length "+QString::number(dataP.size()+1)+"\n");
-								PutDoc("/N "+QString::number(components)+"\n");
+								PutDoc("/Length "+Pdf::toPdf(dataP.size()+1)+"\n");
+								PutDoc("/N "+Pdf::toPdf(components)+"\n");
 								PutDoc(">>\nstream\n");
 								EncodeArrayToStream(dataP, embeddedProfile);
-								PutDoc("\nendstream\nendobj\n");
-								uint profileResource = newObject();
-								StartObj(profileResource);
-								dataD.ResName = ResNam+QString::number(ResCount);
-								dataD.ICCArray = "[ /ICCBased "+QString::number(embeddedProfile)+" 0 R ]";
+								PutDoc("\nendstream");
+                                writer.endObj(embeddedProfile);
+								PdfId profileResource = writer.newObject();
+								writer.startObj(profileResource);
+								dataD.ResName = ResNam+Pdf::toPdf(ResCount);
+								dataD.ICCArray = "[ /ICCBased "+Pdf::toPdf(embeddedProfile)+" 0 R ]";
 								dataD.ResNum = profileResource;
 								dataD.components = components;
 								ICCProfiles[profInUse] = dataD;
-								PutDoc("[ /ICCBased "+QString::number(embeddedProfile)+" 0 R ]\n");
-								PutDoc("endobj\n");
+								PutDoc("[ /ICCBased "+Pdf::toPdf(embeddedProfile)+" 0 R ]");
+								writer.endObj(profileResource);
 								ResCount++;
 							}
 						}
@@ -10794,12 +10788,12 @@ bool PDFLibCore::PDF_Image(PageItem* c, const QString& fn, double sx, double sy,
 				ImInfo.sxa = sx * (1.0 / ImInfo.reso);
 				ImInfo.sya = sy * (1.0 / ImInfo.reso);
 			}
-			uint maskObj = 0;
+			PdfId maskObj = 0;
 			if (alphaM)
 			{
 				bool compAlphaAvail = false;
-				maskObj = newObject();
-				StartObj(maskObj);
+				maskObj = writer.newObject();
+				writer.startObj(maskObj);
 				PutDoc("<<\n/Type /XObject\n/Subtype /Image\n");
 				if (Options.CompressMethod != PDFOptions::Compression_None)
 				{
@@ -10812,32 +10806,33 @@ bool PDFLibCore::PDF_Image(PageItem* c, const QString& fn, double sx, double sy,
 				}
 				if ((Options.Version >= PDFOptions::PDFVersion_14) || (Options.Version == PDFOptions::PDFVersion_X4))
 				{
-					PutDoc("/Width "+QString::number(origWidth)+"\n");
-					PutDoc("/Height "+QString::number(origHeight)+"\n");
+					PutDoc("/Width "+Pdf::toPdf(origWidth)+"\n");
+					PutDoc("/Height "+Pdf::toPdf(origHeight)+"\n");
 					PutDoc("/ColorSpace /DeviceGray\n");
 					PutDoc("/BitsPerComponent 8\n");
-					PutDoc("/Length "+QString::number(im2.size())+"\n");
+					PutDoc("/Length "+Pdf::toPdf(im2.size())+"\n");
 				}
 				else
 				{
-					PutDoc("/Width "+QString::number(origWidth)+"\n");
-					PutDoc("/Height "+QString::number(origHeight)+"\n");
+					PutDoc("/Width "+Pdf::toPdf(origWidth)+"\n");
+					PutDoc("/Height "+Pdf::toPdf(origHeight)+"\n");
 					PutDoc("/ImageMask true\n/BitsPerComponent 1\n");
-					PutDoc("/Length "+QString::number(im2.size())+"\n");
+					PutDoc("/Length "+Pdf::toPdf(im2.size())+"\n");
 				}
 				if ((Options.CompressMethod != PDFOptions::Compression_None) && compAlphaAvail)
 					PutDoc("/Filter /FlateDecode\n");
 				PutDoc(">>\nstream\n");
 				EncodeArrayToStream(im2, maskObj);
-				PutDoc("\nendstream\nendobj\n");
-				Seite.ImgObjects[ResNam+"I"+QString::number(ResCount)] = maskObj;
+				PutDoc("\nendstream");
+                writer.endObj(maskObj);
+				pageData.ImgObjects[ResNam+"I"+Pdf::toPdf(ResCount)] = maskObj;
 				ResCount++;
 			}
-			uint imageObj = newObject();
-			StartObj(imageObj);
+			PdfId imageObj = writer.newObject();
+			writer.startObj(imageObj);
 			PutDoc("<<\n/Type /XObject\n/Subtype /Image\n");
-			PutDoc("/Width "+QString::number(img.width())+"\n");
-			PutDoc("/Height "+QString::number(img.height())+"\n");
+			PutDoc("/Width "+Pdf::toPdf(img.width())+"\n");
+			PutDoc("/Height "+Pdf::toPdf(img.height())+"\n");
 			enum PDFOptions::PDFCompression compress_method = Options.CompressMethod;
  			enum PDFOptions::PDFCompression cm = Options.CompressMethod;
 			bool exportToCMYK = false, exportToGrayscale = false, jpegUseOriginal = false;
@@ -10936,7 +10931,7 @@ bool PDFLibCore::PDF_Image(PageItem* c, const QString& fn, double sx, double sy,
 				int inte2 = Intent;
 				if (Options.EmbeddedI)
 					inte2 = Options.Intent2;
-				static const QString cmsmode[] = {"Perceptual", "RelativeColorimetric", "Saturation", "AbsoluteColorimetric"};
+				static const QByteArray cmsmode[] = {"Perceptual", "RelativeColorimetric", "Saturation", "AbsoluteColorimetric"};
 				PutDoc(cmsmode[inte2] + "\n");
 			}
 			else
@@ -10953,8 +10948,8 @@ bool PDFLibCore::PDF_Image(PageItem* c, const QString& fn, double sx, double sy,
 				PutDoc("/BitsPerComponent 1\n");
 			else
 				PutDoc("/BitsPerComponent 8\n");
-			uint lengthObj = newObject();
-			PutDoc("/Length "+QString::number(lengthObj)+" 0 R\n");
+			PdfId lengthObj = writer.newObject();
+			PutDoc("/Length "+Pdf::toPdf(lengthObj)+" 0 R\n");
 			if (cm == PDFOptions::Compression_JPEG)
 				PutDoc("/Filter /DCTDecode\n");
 			else if (cm != PDFOptions::Compression_None)
@@ -10964,9 +10959,9 @@ bool PDFLibCore::PDF_Image(PageItem* c, const QString& fn, double sx, double sy,
 			if (alphaM)
 			{
 				if ((Options.Version >= PDFOptions::PDFVersion_14) || (Options.Version == PDFOptions::PDFVersion_X4))
-					PutDoc("/SMask "+QString::number(maskObj)+" 0 R\n");
+					PutDoc("/SMask "+Pdf::toPdf(maskObj)+" 0 R\n");
 				else
-					PutDoc("/Mask "+QString::number(maskObj)+" 0 R\n");
+					PutDoc("/Mask "+Pdf::toPdf(maskObj)+" 0 R\n");
 			}
 			PutDoc(">>\nstream\n");
 			if (cm == PDFOptions::Compression_JPEG) // Fixme: should not do this with monochrome images?
@@ -10980,16 +10975,17 @@ bool PDFLibCore::PDF_Image(PageItem* c, const QString& fn, double sx, double sy,
 				bytesWritten = WriteFlateImageToStream(img, imageObj, outType, (!hasColorEffect && hasGrayProfile));
 			else
 				bytesWritten = WriteImageToStream(img, imageObj, outType, (!hasColorEffect && hasGrayProfile));
-			PutDoc("\nendstream\nendobj\n");
+			PutDoc("\nendstream");
+            writer.endObj(imageObj);
 			if (bytesWritten <= 0)
 			{
 				PDF_Error_ImageWriteFailure(fn);
 				return false;
 			}
-			StartObj(lengthObj);
-			PutDoc(QString("    %1\n").arg(bytesWritten));
-			PutDoc("endobj\n");
-			Seite.ImgObjects[ResNam+"I"+QString::number(ResCount)] = imageObj;
+			writer.startObj(lengthObj);
+            PutDoc("    " + Pdf::toPdf(bytesWritten));
+            writer.endObj(lengthObj);
+            pageData.ImgObjects[ResNam+"I"+Pdf::toPdf(ResCount)] = imageObj;
 			ImInfo.ResNum = ResCount;
 			ImInfo.Width = img.width();
 			ImInfo.Height = img.height();
@@ -11015,7 +11011,7 @@ bool PDFLibCore::PDF_Image(PageItem* c, const QString& fn, double sx, double sy,
 		syn = SharedImages[fn].sya * sy / SharedImages[fn].ya;
 		*/
 	}
-	QString embedPre = "";
+	QByteArray embedPre = "";
 	if ((bitmapFromGS) || (isEmbeddedPDF)) // compensate gsResolution setting
 	{
 		if (isEmbeddedPDF)
@@ -11055,25 +11051,40 @@ bool PDFLibCore::PDF_Image(PageItem* c, const QString& fn, double sx, double sy,
 		}
 		else
 			embedPre += FToStr(ImInfo.Width*ImInfo.sxa)+" 0 0 "+FToStr(ImInfo.Height*ImInfo.sya)+" "+FToStr(x*sx)+" "+FToStr((-ImInfo.Height*ImInfo.sya+y*sy))+" cm\n";
-		*output = QString(embedPre + "/"+ResNam+"I"+QString::number(ImInfo.ResNum)+" Do\n");
-//		*output = QString(embedPre + FToStr(ImInfo.Width*ImInfo.sxa)+" 0 0 "+FToStr(ImInfo.Height*ImInfo.sya)+" "+FToStr(x*sx)+" "+FToStr((-ImInfo.Height*ImInfo.sya+y*sy))+" cm\n/"+ResNam+"I"+QString::number(ImInfo.ResNum)+" Do\n");
+		*output = embedPre + Pdf::toName(ResNam+"I"+Pdf::toPdf(ImInfo.ResNum)) + " Do\n";
+//		*output = QString(embedPre + FToStr(ImInfo.Width*ImInfo.sxa)+" 0 0 "+FToStr(ImInfo.Height*ImInfo.sya)+" "+FToStr(x*sx)+" "+FToStr((-ImInfo.Height*ImInfo.sya+y*sy))+" cm\n/"+ResNam+"I"+Pdf::toPdf(ImInfo.ResNum)+" Do\n");
 	}
 	else if (output)
-		*output = QString("");
+		*output = QByteArray("");
 	return true;
 }
 
 bool PDFLibCore::PDF_End_Doc(const QString& PrintPr, const QString& Name, int Components)
 {
-	QString tmp;
-	int ResO;
+    PDF_End_Bookmarks();
+    PDF_End_Resources();
+    PDF_End_Outlines();
+    PDF_End_PageTree();
+    PDF_End_NamedDests();
+    PDF_End_FormObjects();
+    PDF_End_JavaScripts();
+    PDF_End_Articles();
+    PDF_End_Layers();
+    PDF_End_OutputProfile(PrintPr, Name, Components);
+    PDF_End_Metadata();
+    return PDF_End_XRefAndTrailer();
+}
+
+void PDFLibCore::PDF_End_Bookmarks()
+{
+	QByteArray tmp;
 	BookMItem* ip;
-	QString Inhal = "";
-	QMap<int,QString> Inha;
+	QByteArray Inhal = "";
+	QMap<int,QByteArray> Inha;
 	if ((Bvie->topLevelItemCount() != 0) && (Options.Bookmarks) && (BookMinUse))
 	{
-		int Basis = ObjCounter - 1;
-		Outlines.Count = Bvie->topLevelItemCount();
+        Outlines.Count = Bvie->topLevelItemCount();
+		PdfId Basis = writer.reserveObjects(Outlines.Count) - 1;
 		ip = (BookMItem*)Bvie->topLevelItem(0);
 		Outlines.First = ip->ItemNr+Basis;
 		Outlines.Last  = ((BookMItem*) Bvie->topLevelItem(Outlines.Count - 1))->ItemNr+Basis;
@@ -11082,117 +11093,66 @@ bool PDFLibCore::PDF_End_Doc(const QString& PrintPr, const QString& Name, int Co
 		{
 			ip = (BookMItem*)(*it);
 			QString encText = ip->text(0);
-			Inhal  = QString::number(ip->ItemNr+Basis)+ " 0 obj\n";
+			Inhal  = ""; //Pdf::toPdf(ip->ItemNr+Basis)+ " 0 obj\n";
 			Inhal += "<<\n/Title " + EncStringUTF16(encText, ip->ItemNr+Basis) + "\n";
 			if (ip->Pare == 0)
 				Inhal += "/Parent 3 0 R\n";
 			else
-				Inhal += "/Parent "+QString::number(ip->Pare+Basis)+" 0 R\n";
+				Inhal += "/Parent "+Pdf::toPdf(ip->Pare+Basis)+" 0 R\n";
 			if (ip->Prev != 0)
-				Inhal += "/Prev "+QString::number(ip->Prev+Basis)+" 0 R\n";
+				Inhal += "/Prev "+Pdf::toPdf(ip->Prev+Basis)+" 0 R\n";
 			if (ip->Next != 0)
-				Inhal += "/Next "+QString::number(ip->Next+Basis)+" 0 R\n";
+				Inhal += "/Next "+Pdf::toPdf(ip->Next+Basis)+" 0 R\n";
 			if (ip->First != 0)
-				Inhal += "/First "+QString::number(ip->First+Basis)+" 0 R\n";
+				Inhal += "/First "+Pdf::toPdf(ip->First+Basis)+" 0 R\n";
 			if (ip->Last != 0)
-				Inhal += "/Last "+QString::number(ip->Last+Basis)+" 0 R\n";
+				Inhal += "/Last "+Pdf::toPdf(ip->Last+Basis)+" 0 R\n";
 			if (ip->childCount())
-				Inhal += "/Count -"+QString::number(ip->childCount())+"\n";
+				Inhal += "/Count -"+Pdf::toPdf(ip->childCount())+"\n";
 			if ((ip->PageObject->OwnPage != -1) && PageTree.Kids.contains(ip->PageObject->OwnPage))
 			{
-				QString action = ip->Action;
+                QByteArray action = Pdf::toPdfDocEncoding(ip->Action);
 				if (action.isEmpty())
 				{
 					const ScPage* page = doc.DocPages.at(ip->PageObject->OwnPage);
 					double actionPos = page->height() - (ip->PageObject->yPos() - page->yOffset());
-					action = QString("/XYZ 0 %1 0").arg(actionPos);
+                    action = "/XYZ 0 " + Pdf::toPdf(actionPos) + " 0";
 				}
-				Inhal += "/Dest ["+QString::number(PageTree.Kids[ip->PageObject->OwnPage])+" 0 R "+action+"\n";
+				Inhal += "/Dest ["+Pdf::toPdf(PageTree.Kids[ip->PageObject->OwnPage])+" 0 R "+action+"\n";
 			}
-			Inhal += ">>\nendobj\n";
+			//Inhal += ">>\nendObj\n");
 			Inha[ip->ItemNr] = Inhal;
 			++it;
 		}
-		QMap<int,QString> ::ConstIterator contentIt;
+		QMap<int,QByteArray> ::ConstIterator contentIt;
 		for (contentIt = Inha.begin(); contentIt != Inha.end(); ++contentIt)
 		{
-			XRef.append(bytesWritten());
+            writer.startObj(ip->ItemNr+Basis);
 			PutDoc(contentIt.value());
-			ObjCounter++;
+            writer.endObj(ip->ItemNr+Basis);
 		}
 	}
-	StartObj(ObjCounter);
-	ResO = ObjCounter;
-	PutDoc("<< /ProcSet [/PDF /Text /ImageB /ImageC /ImageI]\n");
-	if ((Seite.ImgObjects.count() != 0) || (Seite.XObjects.count() != 0))
-	{
-		PutDoc("/XObject <<\n");
-		QMap<QString,int>::Iterator it;
-		for (it = Seite.ImgObjects.begin(); it != Seite.ImgObjects.end(); ++it)
-			PutDoc("/"+it.key()+" "+QString::number(it.value())+" 0 R\n");
-		QMap<QString,int>::Iterator iti;
-		for (iti = Seite.XObjects.begin(); iti != Seite.XObjects.end(); ++iti)
-			PutDoc("/"+iti.key()+" "+QString::number(iti.value())+" 0 R\n");
-		PutDoc(">>\n");
-	}
-	if (Seite.FObjects.count() != 0)
-	{
-		PutDoc("/Font << \n");
-		QMap<QString,int>::Iterator it2;
-		for (it2 = Seite.FObjects.begin(); it2 != Seite.FObjects.end(); ++it2)
-			PutDoc("/"+it2.key()+" "+QString::number(it2.value())+" 0 R\n");
-		PutDoc(">>\n");
-	}
-	if (Shadings.count() != 0)
-	{
-		PutDoc("/Shading << \n");
-		QMap<QString,int>::Iterator it3;
-		for (it3 = Shadings.begin(); it3 != Shadings.end(); ++it3)
-			PutDoc("/"+it3.key()+" "+QString::number(it3.value())+" 0 R\n");
-		PutDoc(">>\n");
-	}
-	if (Patterns.count() != 0)
-	{
-		PutDoc("/Pattern << \n");
-		QMap<QString,int>::Iterator it3p;
-		for (it3p = Patterns.begin(); it3p != Patterns.end(); ++it3p)
-			PutDoc("/"+it3p.key()+" "+QString::number(it3p.value())+" 0 R\n");
-		PutDoc(">>\n");
-	}
-	if (Transpar.count() != 0)
-	{
-		PutDoc("/ExtGState << \n");
-		QMap<QString,int>::Iterator it3t;
-		for (it3t = Transpar.begin(); it3t != Transpar.end(); ++it3t)
-			PutDoc("/"+it3t.key()+" "+QString::number(it3t.value())+" 0 R\n");
-		PutDoc(">>\n");
-	}
-	if ((ICCProfiles.count() != 0) || (spotMap.count() != 0) || (spotMapReg.count() != 0))
-	{
-		PutDoc("/ColorSpace << \n");
-		QMap<QString,ICCD>::Iterator it3c;
-		if (ICCProfiles.count() != 0)
-		{
-			for (it3c = ICCProfiles.begin(); it3c != ICCProfiles.end(); ++it3c)
-				PutDoc("/"+it3c.value().ResName+" "+QString::number(it3c.value().ResNum)+" 0 R\n");
-		}
-		QMap<QString,SpotC>::Iterator it3sc;
-		if (spotMap.count() != 0)
-		{
-			for (it3sc = spotMap.begin(); it3sc != spotMap.end(); ++it3sc)
-				PutDoc("/"+it3sc.value().ResName+" "+QString::number(it3sc.value().ResNum)+" 0 R\n");
-		}
-		QMap<QString,SpotC>::Iterator it3scr;
-		if (spotMapReg.count() != 0)
-		{
-			for (it3scr = spotMapReg.begin(); it3scr != spotMapReg.end(); ++it3scr)
-				PutDoc("/"+it3scr.value().ResName+" "+QString::number(it3scr.value().ResNum)+" 0 R\n");
-		}
-		PutDoc(">>\n");
-	}
+}
+
+void PDFLibCore::PDF_End_Resources()
+{
+	writer.ResourcesObj = writer.newObject();
+    writer.startObj(writer.ResourcesObj);
+    
+    Pdf::ResourceDictionary dict;
+    dict.XObject.unite(pageData.ImgObjects);
+    dict.XObject.unite(pageData.XObjects);
+    dict.Font = pageData.FObjects;
+    dict.Shading = Shadings;
+    dict.Pattern = Patterns;
+    dict.ExtGState = Transpar;
+    dict.ColorSpace.append(asColorSpace(ICCProfiles.values()));
+    dict.ColorSpace.append(asColorSpace(spotMap.values()));
+    dict.ColorSpace.append(asColorSpace(spotMapReg.values()));
+
+    dict.Properties.clear();
 	if (((Options.Version == PDFOptions::PDFVersion_15) || (Options.Version == PDFOptions::PDFVersion_X4))&& (Options.useLayers))
 	{
-		PutDoc("/Properties <<\n");
 		ScLayer ll;
 		ll.isPrintable = false;
 		ll.ID = 0;
@@ -11200,96 +11160,130 @@ bool PDFLibCore::PDF_End_Doc(const QString& PrintPr, const QString& Name, int Co
 		for (int la = 0; la < doc.Layers.count(); ++la)
 		{
 			doc.Layers.levelToLayer(ll, la);
-			PutDoc("/"+OCGEntries[ll.Name].Name+" "+QString::number(OCGEntries[ll.Name].ObjNum)+" 0 R\n");
+            dict.Properties[OCGEntries[ll.Name].Name] = OCGEntries[ll.Name].ObjNum;
+//			PutDoc("/"+OCGEntries[ll.Name].Name + " " + Pdf::toObjRef(OCGEntries[ll.Name].ObjNum) + "\n");
 			Lnr++;
 		}
-		PutDoc(">>\n");
 	}
-	PutDoc(">>\nendobj\n");
-	ObjCounter++;
-	XRef[2] = bytesWritten();
-	PutDoc("3 0 obj\n<<\n/Type /Outlines\n");
-	PutDoc("/Count "+QString::number(Outlines.Count)+"\n");
+
+    writer.write(dict);
+    writer.endObj(writer.ResourcesObj);
+}
+
+void PDFLibCore::PDF_End_Outlines()
+{
+    writer.startObj(writer.OutlinesObj);
+    PutDoc("<<\n/Type /Outlines\n");
+	PutDoc("/Count "+Pdf::toPdf(Outlines.Count)+"\n");
 // 	if ((Bvie->childCount() != 0) && (Options.Bookmarks))
 	if ((Bvie->topLevelItemCount() != 0) && (Options.Bookmarks))
 	{
-		PutDoc("/First "+QString::number(Outlines.First)+" 0 R\n");
-		PutDoc("/Last "+QString::number(Outlines.Last)+" 0 R\n");
+		PutDoc("/First "+Pdf::toPdf(Outlines.First)+" 0 R\n");
+		PutDoc("/Last "+Pdf::toPdf(Outlines.Last)+" 0 R\n");
 	}
-	PutDoc(">>\nendobj\n");
-	XRef[3] = bytesWritten();
-	PutDoc("4 0 obj\n<<\n/Type /Pages\n/Kids [");
+    PutDoc(">>");
+    writer.endObj(writer.OutlinesObj);
+}
+
+void PDFLibCore::PDF_End_PageTree()
+{
+    writer.startObj(writer.PagesObj);
+    PutDoc("<<\n/Type /Pages\n/Kids [");
 	QMap<int, int>::Iterator kidsIt;
 	for (kidsIt = PageTree.Kids.begin(); kidsIt != PageTree.Kids.end(); ++kidsIt)
-		PutDoc(QString::number(kidsIt.value())+" 0 R ");
+		PutDoc(Pdf::toPdf(kidsIt.value())+" 0 R ");
 	PutDoc("]\n");
-	PutDoc("/Count "+QString::number(PageTree.Count)+"\n");
-	PutDoc("/Resources "+QString::number(ObjCounter-1)+" 0 R\n");
-	PutDoc(">>\nendobj\n");
-	XRef[4] = bytesWritten();
-	PutDoc("5 0 obj\n<<\n");
+	PutDoc("/Count "+Pdf::toPdf(PageTree.Count)+"\n");
+	PutDoc("/Resources "+Pdf::toPdf(writer.ResourcesObj)+" 0 R\n");
+    PutDoc(">>");
+    writer.endObj(writer.PagesObj);
+}
+
+void PDFLibCore::PDF_End_NamedDests()
+{
+    writer.startObj(writer.DestsObj);
+	PutDoc("<<\n");
 	if (NamedDest.count() != 0)
 	{
-		QList<Dest>::Iterator vt;
+		QList<PdfDest>::Iterator vt;
 		for (vt = NamedDest.begin(); vt != NamedDest.end(); ++vt)
 		{
-			if (PageTree.Kids.contains((*vt).Seite))
-				PutDoc("/"+(*vt).Name+" ["+QString::number(PageTree.Kids[(*vt).Seite])+" 0 R /XYZ "+(*vt).Act+"]\n");
+			if (PageTree.Kids.contains((*vt).PageNr))
+                PutDoc(Pdf::toName((*vt).Name) + " [" + Pdf::toObjRef(PageTree.Kids[(*vt).PageNr])
+                       + " /XYZ " + Pdf::toPdfDocEncoding((*vt).Act) + "]\n");
 		}
 	}
-	PutDoc(">>\nendobj\n");
-	XRef[5] = bytesWritten();
-	PutDoc("6 0 obj\n<<\n");
+    PutDoc(">>");
+    writer.endObj(writer.DestsObj);
+}
+
+void PDFLibCore::PDF_End_FormObjects()
+{
+    writer.startObj(writer.AcroFormObj);
+	PutDoc("<<\n");
 	PutDoc("/Fields [ ");
-	if (Seite.FormObjects.count() != 0)
+	if (pageData.FormObjects.count() != 0)
 	{
-		for (int fo = 0; fo < Seite.FormObjects.count(); ++fo)
-			PutDoc(QString::number(Seite.FormObjects[fo])+" 0 R ");
+		for (int fo = 0; fo < pageData.FormObjects.count(); ++fo)
+			PutDoc(Pdf::toObjRef(pageData.FormObjects[fo])+" ");
 	}
-	PutDoc(" ]\n");
+	PutDoc("]\n");
 	if (CalcFields.count() != 0)
 	{
 		PutDoc("/CO [ ");
 		for (int foc = 0; foc < CalcFields.count(); ++foc)
-			PutDoc(QString::number(CalcFields[foc])+" 0 R ");
-		PutDoc(" ]\n");
+			PutDoc(Pdf::toObjRef(CalcFields[foc]) + " ");
+		PutDoc("]\n");
 	}
-	if ((Seite.FormObjects.count() != 0) || (CalcFields.count() != 0))
-		PutDoc("/NeedAppearances true\n/DR "+QString::number(ResO)+" 0 R\n");
-	PutDoc(">>\nendobj\n");
+	if ((pageData.FormObjects.count() != 0) || (CalcFields.count() != 0))
+		PutDoc("/NeedAppearances true\n/DR " + Pdf::toObjRef(writer.ResourcesObj) + "\n");
+    PutDoc(">>");
+    writer.endObj(writer.AcroFormObj);
+}
+
+void PDFLibCore::PDF_End_JavaScripts()
+{
+    PdfId jsNameTreeObj = 0;
 	if (doc.JavaScripts.count() != 0)
 	{
-		int Fjav0 = ObjCounter;
+		QList<PdfId> Fjav;
 		QMap<QString,QString>::Iterator itja0;
 		for (itja0 = doc.JavaScripts.begin(); itja0 != doc.JavaScripts.end(); ++itja0)
-			WritePDFString(itja0.value());
-		int Fjav = ObjCounter;
+			Fjav.append(WritePDFString(itja0.value()));
 		QMap<QString,QString>::Iterator itja;
+        int i = 0;
 		for (itja = doc.JavaScripts.begin(); itja != doc.JavaScripts.end(); ++itja)
 		{
-			StartObj(ObjCounter);
-			ObjCounter++;
-			PutDoc("<< /S /JavaScript /JS "+QString::number(Fjav0)+" 0 R >>\n");
-			PutDoc("endobj\n");
-			Fjav0++;
+			PdfId Fjav1 = writer.startObj();
+            Fjav.append(Fjav1);
+			PutDoc("<< /S /JavaScript /JS "+Pdf::toPdf(Fjav[i])+" 0 R >>");
+            writer.endObj(Fjav1);
+            ++i;
 		}
-		StartObj(ObjCounter);
-		ObjCounter++;
+        jsNameTreeObj = writer.startObj();
 		PutDoc("<< /Names [ ");
 		QMap<QString,QString>::Iterator itja2;
 		for (itja2 = doc.JavaScripts.begin(); itja2 != doc.JavaScripts.end(); ++itja2)
 		{
-			PutDoc(EncString(itja2.key(), 6)+" "+QString::number(Fjav) + " 0 R ");
-			Fjav++;
+            PutDoc(EncString(Pdf::toPdfDocEncoding(itja2.key()), jsNameTreeObj) + " " + Pdf::toObjRef(Fjav[i]) + " ");
+			++i;
 		}
-		PutDoc("] >>\nendobj\n");
-	}
-	XRef[6] = bytesWritten();
-	PutDoc("7 0 obj\n<< ");
+        PutDoc("] >>");
+        writer.endObj(jsNameTreeObj);
+    }
+
+    writer.startObj(writer.NamesObj);
+	PutDoc("<< ");
 	if (doc.JavaScripts.count() != 0)
-		PutDoc("/JavaScript "+QString::number(ObjCounter-1)+" 0 R");
-	PutDoc(" >>\nendobj\n");
-	Threads.clear();
+		PutDoc("/JavaScript "+Pdf::toPdf(jsNameTreeObj)+" 0 R");
+    PutDoc(" >>");
+    writer.endObj(writer.NamesObj);
+}
+
+void PDFLibCore::PDF_End_Articles()
+{
+    Threads.clear();
+    PdfId currentThreadObj = 0;
 	if (Options.Articles)
 	{
 		for (int ele = 0; ele < doc.Items->count(); ++ele)
@@ -11299,10 +11293,13 @@ bool PDFLibCore::PDF_End_Doc(const QString& PrintPr, const QString& Name, int Co
 					(!tel->inPdfArticle))
 			{
 				Beads.clear();
-				struct Bead bd;
-				int fir = ObjCounter + 1;
-				int ccb = ObjCounter + 1;
-				bd.Parent = ObjCounter;
+				PdfBead bd;
+                if (currentThreadObj == 0)
+                    currentThreadObj = writer.newObject();
+                
+				PdfId fir = currentThreadObj + 1;
+				PdfId ccb = currentThreadObj + 1;
+				bd.Parent = currentThreadObj;
 				while (tel->nextInChain() != 0)
 				{
 					if ((tel->OwnPage != -1) && PageTree.Kids.contains(tel->OwnPage))
@@ -11311,7 +11308,7 @@ bool PDFLibCore::PDF_End_Doc(const QString& PrintPr, const QString& Name, int Co
 						bd.Prev = ccb - 1;
 						ccb++;
 						bd.Page = PageTree.Kids[tel->OwnPage];
-						bd.Recht = QRect(static_cast<int>(tel->xPos() - doc.DocPages.at(tel->OwnPage)->xOffset()),
+						bd.Rect = QRect(static_cast<int>(tel->xPos() - doc.DocPages.at(tel->OwnPage)->xOffset()),
 									static_cast<int>(doc.DocPages.at(tel->OwnPage)->height() - (tel->yPos()  - doc.DocPages.at(tel->OwnPage)->yOffset())),
 									static_cast<int>(tel->width()),
 									static_cast<int>(tel->height()));
@@ -11325,7 +11322,7 @@ bool PDFLibCore::PDF_End_Doc(const QString& PrintPr, const QString& Name, int Co
 				if ((tel->OwnPage != -1) && PageTree.Kids.contains(tel->OwnPage))
 				{
 					bd.Page = PageTree.Kids[tel->OwnPage];
-					bd.Recht = QRect(static_cast<int>(tel->xPos() - doc.DocPages.at(tel->OwnPage)->xOffset()),
+					bd.Rect = QRect(static_cast<int>(tel->xPos() - doc.DocPages.at(tel->OwnPage)->xOffset()),
 								static_cast<int>(doc.DocPages.at(tel->OwnPage)->height() - (tel->yPos()  - doc.DocPages.at(tel->OwnPage)->yOffset())),
 								static_cast<int>(tel->width()),
 								static_cast<int>(tel->height()));
@@ -11334,44 +11331,52 @@ bool PDFLibCore::PDF_End_Doc(const QString& PrintPr, const QString& Name, int Co
 				tel->inPdfArticle = true;
 				if (Beads.count() > 0)
 				{
-					int threadObj = newObject();
-					StartObj(threadObj);
-					Threads.append(threadObj);
+					writer.startObj(currentThreadObj);
+					Threads.append(currentThreadObj);
 					PutDoc("<< /Type /Thread\n");
-					PutDoc("   /F "+QString::number(threadObj + 1)+" 0 R\n");
-					PutDoc(">>\nendobj\n");
+					PutDoc("   /F "+Pdf::toPdf(fir)+" 0 R\n");
+                    PutDoc(">>");
+                    writer.endObj(currentThreadObj);
+                    
 					Beads[0].Prev = fir + Beads.count()-1;
 					Beads.last().Next = fir;
-				}
-				for (int beac = 0; beac < Beads.count(); ++beac)
-				{
-					StartObj(ObjCounter);
-					ObjCounter++;
-					PutDoc("<< /Type /Bead\n");
-					PutDoc("   /T "+QString::number(Beads[beac].Parent)+" 0 R\n");
-					PutDoc("   /N "+QString::number(Beads[beac].Next)+" 0 R\n");
-					PutDoc("   /V "+QString::number(Beads[beac].Prev)+" 0 R\n");
-					PutDoc("   /P "+QString::number(Beads[beac].Page)+" 0 R\n");
-					PutDoc("   /R [ "+QString::number(Beads[beac].Recht.x())+" "+
-							QString::number(Beads[beac].Recht.y())+" ");
-					PutDoc(QString::number(Beads[beac].Recht.bottomRight().x())+" "+QString::number(Beads[beac].Recht.y()-Beads[beac].Recht.height())+" ]\n");
-					PutDoc(">>\nendobj\n");
-				}
+				
+                    for (int beac = 0; beac < Beads.count(); ++beac)
+                    {
+                        PdfId beadObj = writer.startObj();
+                        PutDoc("<< /Type /Bead\n");
+                        PutDoc("   /T "+Pdf::toPdf(Beads[beac].Parent)+" 0 R\n");
+                        PutDoc("   /N "+Pdf::toPdf(Beads[beac].Next)+" 0 R\n");
+                        PutDoc("   /V "+Pdf::toPdf(Beads[beac].Prev)+" 0 R\n");
+                        PutDoc("   /P "+Pdf::toPdf(Beads[beac].Page)+" 0 R\n");
+                        PutDoc("   /R [ "+Pdf::toPdf(Beads[beac].Rect.x())+" "+
+                                Pdf::toPdf(Beads[beac].Rect.y())+" ");
+                        PutDoc(Pdf::toPdf(Beads[beac].Rect.bottomRight().x())+" "+Pdf::toPdf(Beads[beac].Rect.y()-Beads[beac].Rect.height())+" ]\n");
+                        PutDoc(">>");
+                        writer.endObj(beadObj);
+                    }
+                    currentThreadObj = 0;
+                }
 			}
 		}
 		for (int ele = 0; ele < doc.Items->count(); ++ele)
 			doc.Items->at(ele)->inPdfArticle = false;
 	}
-	XRef[7] = bytesWritten();
-	PutDoc("8 0 obj\n[");
+    writer.startObj(writer.ThreadsObj);
+    PutDoc("[ ");
 	for (int th = 0; th < Threads.count(); ++th)
-		PutDoc(QString::number(Threads[th])+" 0 R ");
-	PutDoc("]\nendobj\n");
+		PutDoc(Pdf::toObjRef(Threads[th])+" ");
+    PutDoc("]");
+    writer.endObj(writer.ThreadsObj);
+}
+
+void PDFLibCore::PDF_End_Layers()
+{
 	if (((Options.Version == PDFOptions::PDFVersion_15) || (Options.Version == PDFOptions::PDFVersion_X4)) && (Options.useLayers))
 	{
-		XRef[8] = bytesWritten();
-		QStringList lay;
-		PutDoc("9 0 obj\n<<\n");
+		QList<QByteArray> lay;
+        writer.startObj(writer.OCPropertiesObj);
+		PutDoc("<<\n");
 		PutDoc("/D << /Order [ ");
 		ScLayer ll;
 		ll.isPrintable = false;
@@ -11381,7 +11386,7 @@ bool PDFLibCore::PDF_End_Doc(const QString& PrintPr, const QString& Name, int Co
 		{
 			doc.Layers.levelToLayer(ll, la);
 			if (ll.isEditable)
-				lay.prepend(QString::number(OCGEntries[ll.Name].ObjNum)+" 0 R ");
+				lay.prepend(Pdf::toObjRef(OCGEntries[ll.Name].ObjNum)+" ");
 			Lnr++;
 		}
 		for (int layc = 0; layc < lay.count(); ++layc)
@@ -11394,14 +11399,14 @@ bool PDFLibCore::PDF_End_Doc(const QString& PrintPr, const QString& Name, int Co
 		{
 			PutDoc("/BaseState /ON\n");
 			QString occdName = "Default";
-			PutDoc("/Name ("+PDFEncode(occdName)+")\n");
+            PutDoc("/Name "+Pdf::toLiteralString(occdName)+"\n");
 		}
 		PutDoc("/OFF [ ");
-		QHash<QString, OCGInfo>::Iterator itoc;
+		QHash<QString, PdfOCGInfo>::Iterator itoc;
 		for (itoc = OCGEntries.begin(); itoc != OCGEntries.end(); ++itoc)
 		{
 			if (!itoc.value().visible)
-				PutDoc(QString::number(itoc.value().ObjNum)+" 0 R ");
+				PutDoc(Pdf::toObjRef(itoc.value().ObjNum) + " ");
 		}
 		PutDoc("]\n");
 		if (Options.Version != PDFOptions::PDFVersion_X4)
@@ -11409,12 +11414,12 @@ bool PDFLibCore::PDF_End_Doc(const QString& PrintPr, const QString& Name, int Co
 			PutDoc("/AS [<</Event /Print /OCGs [ ");
 			for (itoc = OCGEntries.begin(); itoc != OCGEntries.end(); ++itoc)
 			{
-				PutDoc(QString::number(itoc.value().ObjNum)+" 0 R ");
+				PutDoc(Pdf::toObjRef(itoc.value().ObjNum) + " ");
 			}
 			PutDoc("] /Category [/Print]>> <</Event /View /OCGs [");
 			for (itoc = OCGEntries.begin(); itoc != OCGEntries.end(); ++itoc)
 			{
-				PutDoc(QString::number(itoc.value().ObjNum)+" 0 R ");
+				PutDoc(Pdf::toObjRef(itoc.value().ObjNum) + " ");
 			}
 			PutDoc("] /Category [/View]>>]\n");
 		}
@@ -11422,15 +11427,19 @@ bool PDFLibCore::PDF_End_Doc(const QString& PrintPr, const QString& Name, int Co
 		PutDoc("/OCGs [ ");
 		for (itoc = OCGEntries.begin(); itoc != OCGEntries.end(); ++itoc)
 		{
-			PutDoc(QString::number(itoc.value().ObjNum)+" 0 R ");
+			PutDoc(Pdf::toObjRef(itoc.value().ObjNum)+" ");
 		}
 		PutDoc("]\n");
-		PutDoc(">>\nendobj\n");
-	}
+        PutDoc(">>");
+        writer.endObj(writer.OCPropertiesObj);
+    }
+}
+
+void PDFLibCore::PDF_End_OutputProfile(const QString& PrintPr, const QString& Name, int Components)
+{
 	if (PDF_IsPDFX())
 	{
-		StartObj(ObjCounter);
-		ObjCounter++;
+		PdfId profileObj =writer.startObj();
 		QByteArray dataP;
 		loadRawBytes(PrintPr, dataP);
 		PutDoc("<<\n");
@@ -11443,78 +11452,65 @@ bool PDFLibCore::PDF_End_Doc(const QString& PrintPr, const QString& Name, int Co
 				dataP = compData;
 			}
 		}
-		PutDoc("/Length "+QString::number(dataP.size()+1)+"\n");
-		PutDoc("/N "+QString::number(Components)+"\n");
+		PutDoc("/Length "+Pdf::toPdf(dataP.size()+1)+"\n");
+		PutDoc("/N "+Pdf::toPdf(Components)+"\n");
 		PutDoc(">>\nstream\n");
 		PutDoc(dataP);
-		PutDoc("\nendstream\nendobj\n");
+        PutDoc("\nendstream");
+        writer.endObj(profileObj);
 
-		if ((Options.Version == PDFOptions::PDFVersion_X4) && (Options.useLayers))
-		{
-			XRef[9] = bytesWritten();
-			PutDoc("10 0 obj\n");
-		}
-		if ((Options.Version == PDFOptions::PDFVersion_X3) || (Options.Version == PDFOptions::PDFVersion_X1a) || ((Options.Version == PDFOptions::PDFVersion_X4) && !(Options.useLayers)))
-		{
-			XRef[8] = bytesWritten();
-			PutDoc("9 0 obj\n");
-		}
+//		if ((Options.Version == PDFOptions::PDFVersion_X4) && (Options.useLayers))
+//		{
+//			XRef[9] = bytesWritten();
+//			PutDoc("10 0 obj\n");
+//		}
+//		if ((Options.Version == PDFOptions::PDFVersion_X3) || (Options.Version == PDFOptions::PDFVersion_X1a) || ((Options.Version == PDFOptions::PDFVersion_X4) && !(Options.useLayers)))
+//		{
+//			XRef[8] = bytesWritten();
+//			PutDoc("9 0 obj\n");
+//		}
+        
+        writer.startObj(writer.OutputIntentObj);
 
 		PutDoc("<<\n/Type /OutputIntent\n/S /GTS_PDFX\n");
-		PutDoc("/DestOutputProfile "+QString::number(ObjCounter-1)+" 0 R\n");
+		PutDoc("/DestOutputProfile " + Pdf::toObjRef(profileObj) + "\n");
 		PutDoc("/OutputConditionIdentifier (Custom)\n");
-		PutDoc("/Info ("+PDFEncode(Options.Info)+")\n");
-		PutDoc("/OutputCondition ("+PDFEncode(Name)+")\n");
-		PutDoc(">>\nendobj\n");
+        PutDoc("/Info " + Pdf::toLiteralString(Options.Info) + "\n");
+		PutDoc("/OutputCondition " + Pdf::toLiteralString(Name) + "\n");
+        PutDoc(">>");
+        writer.endObj(writer.OutputIntentObj);
 	}
+}
+
+void PDFLibCore::PDF_End_Metadata()
+{
 	if (Options.Version == PDFOptions::PDFVersion_X4)
 	{
-		if (Options.useLayers) // OCProperties dictionary was included as '9 0 obj', OutputIntents was included as '10 0 obj'
-		{
-			XRef[10] = bytesWritten();
-			PutDoc("11 0 obj\n");
-		}
-		else // There was no OCProperties dictionary
-		{
-			XRef[9] = bytesWritten();
-			PutDoc("10 0 obj\n");
-		}
+//		if (Options.useLayers) // OCProperties dictionary was included as '9 0 obj', OutputIntents was included as '10 0 obj'
+//		{
+//			XRef[10] = bytesWritten();
+//			PutDoc("11 0 obj\n");
+//		}
+//		else // There was no OCProperties dictionary
+//		{
+//			XRef[9] = bytesWritten();
+//			PutDoc("10 0 obj\n");
+//		}
+        writer.startObj(writer.MetaDataObj);
 		PutDoc("<<\n");
-		PutDoc("/Length "+QString::number(xmpPacket.size()+1)+"\n");
+		PutDoc("/Length "+Pdf::toPdf(xmpPacket.size()+1)+"\n");
 		PutDoc("/Type /Metadata\n");
 		PutDoc("/Subtype /XML\n");
 		PutDoc(">>\nstream\n");
 		PutDoc(xmpPacket);
-		PutDoc("\nendstream\nendobj\n");
+		PutDoc("\nendstream");
+        writer.endObj(writer.MetaDataObj);
 	}
-	uint StX = bytesWritten();
-	PutDoc("xref\n");
-	PutDoc("0 "+QString::number(ObjCounter)+"\n");
-	PutDoc("0000000000 65535 f \n");
-	for (int a = 0; a < XRef.count(); ++a)
-	{
-		if (XRef[a] > 0)
-		{
-			tmp.sprintf("%10d", XRef[a]);
-			tmp.replace(QRegExp(" "), "0");
-			PutDoc(tmp+" 00000 n \n");
-		}
-		else
-		{
-			// unused object, mark as free-never-to-be-used-again
-			PutDoc("0000000000 65535 f \n");
-		}
-	}
-	PutDoc("trailer\n<<\n/Size "+QString::number(XRef.count()+1)+"\n");
-	QString IDs ="";
-	for (uint cl = 0; cl < 16; ++cl)
-		IDs += QChar(FileID[cl]);
-	IDs = String2Hex(&IDs);
-	PutDoc("/Root 1 0 R\n/Info 2 0 R\n/ID [<"+IDs+"><"+IDs+">]\n");
-	if (Options.Encrypt)
-		PutDoc("/Encrypt "+QString::number(Encrypt)+" 0 R\n");
-	PutDoc(">>\nstartxref\n");
-	PutDoc(QString::number(StX)+"\n%%EOF\n");
+}
+
+bool PDFLibCore::PDF_End_XRefAndTrailer()
+{
+    writer.writeXrefAndTrailer();
 	return closeAndCleanup();
 }
 
@@ -11612,8 +11608,8 @@ void PDFLibCore::generateXMP(const QString& timeStamp)
 	descXMPMM.setAttribute("xmpMM:RenditionClass", "default");
 	descXMPMM.setAttribute("xmpMM:VersionID", 1);
 
-	xmpPacket.append(xmpDoc.toString(4));
-	QString tenSpaces = "          ";
+	xmpPacket.append(xmpDoc.toByteArray(4));
+	QByteArray tenSpaces = "          ";
 	for (int i=0; i<25; ++i)
 	{
 		for (int j=0; j<10; ++j)
@@ -11657,20 +11653,15 @@ void PDFLibCore::PDF_Error_InsufficientMemory(void)
 
 bool PDFLibCore::closeAndCleanup()
 {
-	bool writeSucceed = (Spool.error() == QFile::NoError);
+    bool writeSucceed = writer.close(abortExport);
 	if (!writeSucceed)
 		PDF_Error_WriteFailure();
-	Spool.close();
-	if (abortExport || !writeSucceed)
-	{
-		if (Spool.exists())
-			Spool.remove();
-	}
-	Seite.XObjects.clear();
-	Seite.ImgObjects.clear();
-	Seite.FObjects.clear();
-	Seite.AObjects.clear();
-	Seite.FormObjects.clear();
+
+    pageData.XObjects.clear();
+	pageData.ImgObjects.clear();
+	pageData.FObjects.clear();
+	pageData.AObjects.clear();
+	pageData.FormObjects.clear();
 	CalcFields.clear();
 	Shadings.clear();
 	Transpar.clear();

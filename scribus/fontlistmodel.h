@@ -35,15 +35,16 @@ class SCRIBUS_API FontListModel : public QAbstractTableModel
 		FontListModel(QObject * parent = 0, ScribusDoc * doc = 0);
 
 		enum ColumnTypes {
-			FontName = 0,
-			FontUsable,
-			FontFamily,
-			FontStyle,
-			FontVariant,
+            FontUsable = 0,
+			FontName,
+//			FontFamily,
+//			FontStyle,
+//			FontVariant,
 			FontType,
 			FontFormat,
 			FontEmbed,
 			FontSubset,
+            FontOutline,
 			FontAccess,
 			FontInDoc,
 			FontFile,
@@ -72,21 +73,33 @@ class SCRIBUS_API FontListModel : public QAbstractTableModel
 		are able to be edited by user. */
 		Qt::ItemFlags flags(const QModelIndex &index) const;
 
-		//! Returns Scribus fonts. TODO: is it required?
-		SCFonts fonts() { return m_fonts; };
-		//! Sets Scribus fonts and refresh the model. TODO: is it required?
-		void setFonts(SCFonts f);
+		//! Returns the font list
+		QList<QString> fonts() { return m_font_names; };
+		//! Sets font list and refresh the model. This will detach the model from the main Scribus font list!
+		void setFonts(QList<QString> f);
 
 		/*! Get the font name for current index.
 		\note Remember to use the mapToSource() if you're using QSortFilterProxyModel
 		*/
 		QString nameForIndex(const QModelIndex & index);
 
+        bool isLive() const { return m_embedMethod.count() == 0; }
 	private:
+    
+    enum EmbedMethod {
+        DontEmbed = 0,
+        EmbedFont = 1,
+        SubsetFont = 2,
+        OutlineFont = 3
+    };
+    
 		ScribusDoc * m_doc;
 		//! Scribus fonts. \note: It's shared!
 		SCFonts m_fonts;
 		QList<ScFace> m_font_values;
+        QList<QString> m_font_names;
+        QList<EmbedMethod> m_embedMethod;
+    
 		//! Display icons by the Qt::DecorationRole
 		QPixmap ttfFont;
 		QPixmap otfFont;
