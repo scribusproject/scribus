@@ -50,7 +50,7 @@ ImportCvgPlugin::ImportCvgPlugin() : LoadSavePlugin(),
 
 void ImportCvgPlugin::languageChange()
 {
-	importAction->setText( tr("Import Cvg..."));
+	importAction->setText( tr("Import Calamus Vector Graphics..."));
 	FileFormat* fmt = getFormatByExt("cvg");
 	fmt->trName = FormatsManager::instance()->nameOfFormat(FormatsManager::CVG); // Human readable name
 	fmt->filter = FormatsManager::instance()->extensionsForFormat(FormatsManager::CVG); // QFileDialog filter
@@ -63,7 +63,7 @@ ImportCvgPlugin::~ImportCvgPlugin()
 
 const QString ImportCvgPlugin::fullTrName() const
 {
-	return QObject::tr("Cvg Importer");
+	return QObject::tr("Calamus Vector Graphics Importer");
 }
 
 
@@ -71,8 +71,8 @@ const ScActionPlugin::AboutData* ImportCvgPlugin::getAboutData() const
 {
 	AboutData* about = new AboutData;
 	about->authors = "Franz Schmid <franz@scribus.info>";
-	about->shortDescription = tr("Imports Cvg Files");
-	about->description = tr("Imports most Cvg files into the current document,\nconverting their vector data into Scribus objects.");
+	about->shortDescription = tr("Imports Calamus Vector Graphics Files");
+	about->description = tr("Imports most Calamus Vector Graphics files into the current document,\nconverting their vector data into Scribus objects.");
 	about->license = "GPL";
 	Q_CHECK_PTR(about);
 	return about;

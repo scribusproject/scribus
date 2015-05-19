@@ -57,10 +57,10 @@ ImportCgmPlugin::ImportCgmPlugin() : LoadSavePlugin(),
 
 void ImportCgmPlugin::languageChange()
 {
-	importAction->setText( tr("Import Cgm..."));
+	importAction->setText( tr("Import Computer Graphics Metafile..."));
 	FileFormat* fmt = getFormatByExt("cgm");
-	fmt->trName = tr("CGM File");
-	fmt->filter = tr("CGM File (*.cgm *.CGM)");
+	fmt->trName = tr("Computer Graphics Metafile");
+	fmt->filter = tr("Computer Graphics Metafile (*.cgm *.CGM)");
 }
 
 ImportCgmPlugin::~ImportCgmPlugin()

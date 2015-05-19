@@ -50,7 +50,7 @@ ImportPctPlugin::ImportPctPlugin() : LoadSavePlugin(),
 
 void ImportPctPlugin::languageChange()
 {
-	importAction->setText( tr("Import Pict..."));
+	importAction->setText( tr("Import Macintosh Pict..."));
 	FileFormat* fmt = getFormatByExt("pct");
 	fmt->trName = FormatsManager::instance()->nameOfFormat(FormatsManager::PCT); // Human readable name
 	fmt->filter = FormatsManager::instance()->extensionsForFormat(FormatsManager::PCT); // QFileDialog filter
@@ -71,8 +71,8 @@ const ScActionPlugin::AboutData* ImportPctPlugin::getAboutData() const
 {
 	AboutData* about = new AboutData;
 	about->authors = "Franz Schmid <franz@scribus.info>";
-	about->shortDescription = tr("Imports Pict Files");
-	about->description = tr("Imports most Mac Pict files into the current document,\nconverting their vector data into Scribus objects.");
+	about->shortDescription = tr("Imports Macintosh Pict Files");
+	about->description = tr("Imports most Macintosh Pict files into the current document,\nconverting their vector data into Scribus objects.");
 	about->license = "GPL";
 	Q_CHECK_PTR(about);
 	return about;

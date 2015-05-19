@@ -55,7 +55,7 @@ void ImportCdrPlugin::languageChange()
 	importAction->setText( tr("Import Corel Draw..."));
 	FileFormat* fmt = getFormatByExt("cdr");
 	fmt->trName = tr("Corel Draw");
-	fmt->filter = tr("Corel Draw CDR (*.cdr *.CDR)");
+	fmt->filter = tr("Corel Draw (*.cdr *.CDR)");
 }
 
 ImportCdrPlugin::~ImportCdrPlugin()

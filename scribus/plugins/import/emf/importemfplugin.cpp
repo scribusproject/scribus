@@ -55,10 +55,10 @@ ImportEmfPlugin::ImportEmfPlugin() : LoadSavePlugin(), importAction(new ScrActio
 
 void ImportEmfPlugin::languageChange()
 {
-	importAction->setText( tr("Import EMF..."));
+	importAction->setText( tr("Import Enhanced Metafile..."));
 	FileFormat* fmt = getFormatByExt("emf");
-	fmt->trName = tr("EMF");
-	fmt->filter = tr("EMF (*.emf *.EMF)");
+	fmt->trName = tr("Enhanced Metafile");
+	fmt->filter = tr("Enhanced Metafile (*.emf *.EMF)");
 }
 
 ImportEmfPlugin::~ImportEmfPlugin()

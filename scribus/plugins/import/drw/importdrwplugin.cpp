@@ -57,10 +57,10 @@ ImportDrwPlugin::ImportDrwPlugin() : LoadSavePlugin(),
 
 void ImportDrwPlugin::languageChange()
 {
-	importAction->setText( tr("Import DRW..."));
+	importAction->setText( tr("Import Micrografx Draw..."));
 	FileFormat* fmt = getFormatByExt("drw");
-	fmt->trName = tr("Micrografx DRW");
-	fmt->filter = tr("Micrografx DRW (*.drw *.DRW)");
+	fmt->trName = tr("Micrografx Draw");
+	fmt->filter = tr("Micrografx Draw (*.drw *.DRW)");
 	fmt->fileExtensions = QStringList() << "drw";
 }
 

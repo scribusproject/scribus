@@ -50,7 +50,7 @@ ImportWpgPlugin::ImportWpgPlugin() : LoadSavePlugin(),
 
 void ImportWpgPlugin::languageChange()
 {
-	importAction->setText( tr("Import WPG..."));
+	importAction->setText( tr("Import WordPerfect Graphics..."));
 	FileFormat* fmt = getFormatByExt("wpg");
 	fmt->trName = FormatsManager::instance()->nameOfFormat(FormatsManager::WPG);
 	fmt->filter = FormatsManager::instance()->extensionsForFormat(FormatsManager::WPG);
@@ -71,8 +71,8 @@ const ScActionPlugin::AboutData* ImportWpgPlugin::getAboutData() const
 {
 	AboutData* about = new AboutData;
 	about->authors = "Franz Schmid <franz@scribus.info>";
-	about->shortDescription = tr("Imports WPG Files");
-	about->description = tr("Imports most WPG files into the current document,\nconverting their vector data into Scribus objects.");
+	about->shortDescription = tr("Imports WordPerfect Graphics Files");
+	about->description = tr("Imports most WordPerfect Graphics files into the current document,\nconverting their vector data into Scribus objects.");
 	about->license = "GPL";
 	Q_CHECK_PTR(about);
 	return about;
