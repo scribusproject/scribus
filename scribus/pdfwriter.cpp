@@ -3,7 +3,7 @@
 #include "rc4.h"
 #include "scstreamfilter_rc4.h"
 #include "util.h"
-#include <QCryptoGraphicHash>
+#include <QCryptographicHash>
 
 namespace Pdf
 {
