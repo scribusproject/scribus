@@ -10052,7 +10052,7 @@ bool PDFLibCore::PDF_EmbeddedPDF(PageItem* c, const QString& fn, double sx, doub
 #endif
 			if (mbuffer[mlen-1] == '\n')
 				--mlen;
-			PutDoc("\n/Length " + Pdf::toPdf(mlen));
+			PutDoc("\n/Length " + Pdf::toPdf(static_cast<qlonglong>(mlen)));
 			nextObj = contents->GetIndirectKey("Filter");
 			if (nextObj)
 			{
@@ -10194,7 +10194,7 @@ bool PDFLibCore::PDF_EmbeddedPDF(PageItem* c, const QString& fn, double sx, doub
 			mbuffer = outMemStream.TakeBuffer();
 //			if (mbuffer[mlen-1] == '\n')
 //				--mlen;
-			PutDoc("\n/Length " + Pdf::toPdf(mlen));
+			PutDoc("\n/Length " + Pdf::toPdf(static_cast<qlonglong>(mlen)));
 /*
  nextObj = contents->GetIndirectKey("Filter");
 			if (nextObj)
