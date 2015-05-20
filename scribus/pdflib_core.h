@@ -89,48 +89,48 @@ private:
 	bool PDF_IsPDFX(PDFOptions::PDFVersion ver);
 
 	bool PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, const QMap<QString, QMap<uint, FPointArray> >& DocFonts, BookMView* vi);
-    void PDF_Begin_Catalog();
-    void PDF_Begin_MetadataAndEncrypt();
-    QMap<QString, QMap<uint, FPointArray> >
-         PDF_Begin_FindUsedFonts(SCFonts &AllFonts, const QMap<QString, QMap<uint, FPointArray> >& DocFonts);
-    void PDF_Begin_WriteUsedFonts(SCFonts &AllFonts, const QMap<QString, QMap<uint, FPointArray> >& ReallyUsed);
-    void PDF_WriteStandardFonts();
-    PdfFont PDF_WriteType3Font(const QByteArray& name, ScFace& face, const QMap<uint,FPointArray>& RealGlyphs);
-    PdfFont PDF_WriteGlyphsAsXForms(const QByteArray& fontName, ScFace& face, const QMap<uint,FPointArray>& RealGlyphs);
-    
-    PdfId PDF_WriteFontDescriptor(const QByteArray& fontName, ScFace& face, ScFace::FontFormat fformat, PdfId embeddedFontObject);
-    PdfFont PDF_WriteTtfSubsetFont(const QByteArray& fontName, ScFace& face, const QMap<uint,FPointArray>& RealGlyphs);
-    PdfFont PDF_WriteCffSubsetFont(const QByteArray& fontName, ScFace& face, const QMap<uint,FPointArray>& RealGlyphs);
-    PdfFont PDF_EncodeSimpleFont(const QByteArray& fontname, ScFace& face,  const QByteArray& baseFont, const QByteArray& subtype, bool isEmbedded, PdfId fontDes, const ScFace::FaceEncoding& gl);
-    PdfFont PDF_EncodeCidFont(const QByteArray& fontname, ScFace& face, const QByteArray& baseFont, PdfId fontDes, const ScFace::FaceEncoding& gl, const QMap<uint,uint> glyphmap);
-    PdfId PDF_EmbedFontObject(const QString& fontName, ScFace &face);
-    PdfId PDF_EmbedFontObject(const QByteArray& ttf, const QByteArray& subtype);
-    PdfId PDF_EmbedType1AsciiFontObject(const QByteArray& fontData);
-    PdfId PDF_EmbedType1BinaryFontObject(const QByteArray& fontData);
-    void PDF_Begin_Colors();
-    void PDF_Begin_Layers();
-    
+	void PDF_Begin_Catalog();
+	void PDF_Begin_MetadataAndEncrypt();
+	QMap<QString, QMap<uint, FPointArray> >
+	     PDF_Begin_FindUsedFonts(SCFonts &AllFonts, const QMap<QString, QMap<uint, FPointArray> >& DocFonts);
+	void PDF_Begin_WriteUsedFonts(SCFonts &AllFonts, const QMap<QString, QMap<uint, FPointArray> >& ReallyUsed);
+	void PDF_WriteStandardFonts();
+	PdfFont PDF_WriteType3Font(const QByteArray& name, ScFace& face, const QMap<uint,FPointArray>& RealGlyphs);
+	PdfFont PDF_WriteGlyphsAsXForms(const QByteArray& fontName, ScFace& face, const QMap<uint,FPointArray>& RealGlyphs);
+	
+	PdfId PDF_WriteFontDescriptor(const QByteArray& fontName, ScFace& face, ScFace::FontFormat fformat, PdfId embeddedFontObject);
+	PdfFont PDF_WriteTtfSubsetFont(const QByteArray& fontName, ScFace& face, const QMap<uint,FPointArray>& RealGlyphs);
+	PdfFont PDF_WriteCffSubsetFont(const QByteArray& fontName, ScFace& face, const QMap<uint,FPointArray>& RealGlyphs);
+	PdfFont PDF_EncodeSimpleFont(const QByteArray& fontname, ScFace& face,  const QByteArray& baseFont, const QByteArray& subtype, bool isEmbedded, PdfId fontDes, const ScFace::FaceEncoding& gl);
+	PdfFont PDF_EncodeCidFont(const QByteArray& fontname, ScFace& face, const QByteArray& baseFont, PdfId fontDes, const ScFace::FaceEncoding& gl, const QMap<uint,uint> glyphmap);
+	PdfId PDF_EmbedFontObject(const QString& fontName, ScFace &face);
+	PdfId PDF_EmbedFontObject(const QByteArray& ttf, const QByteArray& subtype);
+	PdfId PDF_EmbedType1AsciiFontObject(const QByteArray& fontData);
+	PdfId PDF_EmbedType1BinaryFontObject(const QByteArray& fontData);
+	void PDF_Begin_Colors();
+	void PDF_Begin_Layers();
+	
 	void PDF_Begin_Page(const ScPage* pag, QPixmap pm);
 	void PDF_End_Page(int physPage);
 	bool PDF_TemplatePage(const ScPage* pag, bool clip = false);
 	bool PDF_ProcessPage(const ScPage* pag, uint PNr, bool clip = false);
 	bool PDF_ProcessMasterElements(const ScLayer& layer, const ScPage* page, uint PNr);
 	bool PDF_ProcessPageElements(const ScLayer& layer, const ScPage* page, uint PNr);
-    
+	
 	bool PDF_End_Doc(const QString& PrintPr = "", const QString& Name = "", int Components = 0);
-    void PDF_End_Bookmarks();
-    void PDF_End_Resources();
-    void PDF_End_Outlines();
-    void PDF_End_PageTree();
-    void PDF_End_NamedDests();
-    void PDF_End_FormObjects();
-    void PDF_End_JavaScripts();
-    void PDF_End_Articles();
-    void PDF_End_Layers();
-    void PDF_End_OutputProfile(const QString& PrintPr, const QString& Name, int Components);
-    void PDF_End_Metadata();
-    bool PDF_End_XRefAndTrailer();
-    bool closeAndCleanup();
+	void PDF_End_Bookmarks();
+	void PDF_End_Resources();
+	void PDF_End_Outlines();
+	void PDF_End_PageTree();
+	void PDF_End_NamedDests();
+	void PDF_End_FormObjects();
+	void PDF_End_JavaScripts();
+	void PDF_End_Articles();
+	void PDF_End_Layers();
+	void PDF_End_OutputProfile(const QString& PrintPr, const QString& Name, int Components);
+	void PDF_End_Metadata();
+	bool PDF_End_XRefAndTrailer();
+	bool closeAndCleanup();
 
 	void PDF_Error(const QString& errorMsg);
 	void PDF_Error_WriteFailure(void);
@@ -234,13 +234,13 @@ private:
 	void generateXMP(const QString& timeStamp);
 //	int bytesWritten() { return Spool.pos(); }
 
-    PdfCatalog Catalog;
-    PdfPageData pageData;
-    PdfPageTree PageTree;
-    PdfOutlines Outlines;
-    Pdf::Writer writer;
-    QString baseDir;
-    
+	PdfCatalog Catalog;
+	PdfPageData pageData;
+	PdfPageTree PageTree;
+	PdfOutlines Outlines;
+	Pdf::Writer writer;
+	QString baseDir;
+	
 	QByteArray Content;
 	QString ErrorMessage;
 	ScribusDoc & doc;
@@ -253,7 +253,7 @@ private:
 	QList<PdfId> Threads;
 	QList<PdfBead> Beads;
 	QList<PdfId> CalcFields;
-    Pdf::ResourceMap Patterns;
+	Pdf::ResourceMap Patterns;
 	Pdf::ResourceMap Shadings;
 	Pdf::ResourceMap Transpar;
 	QMap<QString,PdfICCD> ICCProfiles;
@@ -287,7 +287,7 @@ private:
 	bool usingGUI;
 	double bleedDisplacementX;
 	double bleedDisplacementY;
-    QByteArray xmpPacket;
+	QByteArray xmpPacket;
 	QStack<QPointF> groupStackPos;
 	QStack<QPointF> patternStackPos;
 
