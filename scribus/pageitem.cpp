@@ -203,6 +203,8 @@ PageItem::PageItem(const PageItem & other)
 	m_softShadowYOffset(other.m_softShadowYOffset),
 	m_softShadowOpacity(other.m_softShadowOpacity),
 	m_softShadowBlendMode(other.m_softShadowBlendMode),
+	m_softShadowErasedByObject(other.m_softShadowErasedByObject),
+	m_softShadowHasObjectTransparency(other.m_softShadowHasObjectTransparency),
 	LeftLink(other.LeftLink),
 	RightLink(other.RightLink),
 	TopLink(other.TopLink),
@@ -857,6 +859,8 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 	m_softShadowYOffset = 5.0;
 	m_softShadowOpacity = 0.0;
 	m_softShadowBlendMode = 0;
+	m_softShadowErasedByObject = false;
+	m_softShadowHasObjectTransparency = false;
 	m_groupClips = true;
 	hatchAngle = 0;
 	hatchDistance = 2;
@@ -1748,11 +1752,11 @@ void PageItem::DrawObj_Pre(ScPainter *p)
 		return;
 	}
 
-	if (isGroup())
-		return;
 
 	if ((hasSoftShadow()) && (m_Doc->appMode != modeEdit))
 		DrawSoftShadow(p);
+	if (isGroup())
+		return;
 	p->setBlendModeFill(fillBlendmode());
 	p->setLineWidth(lwCorr);
 	if (GrType != 0)
@@ -2317,8 +2321,6 @@ void PageItem::DrawSoftShadow(ScPainter *p)
 {
 	if (m_softShadowColor == CommonStrings::None)
 		return;
-	if ((itemType() == PathText) || (itemType() == Symbol) || (itemType() == Group) || (itemType() == Line) || (itemType() == PolyLine) || (itemType() == Spiral))
-		return;
 	double lwCorr = m_lineWidth;
 	double sc = p->zoomFactor();
 	if ((m_lineWidth * sc) < 1)
@@ -2331,34 +2333,75 @@ void PageItem::DrawSoftShadow(ScPainter *p)
 		tmp = defect.convertDefect(tmp, m_Doc->previewVisual);
 	}
 	p->save();
-	FPointArray sh = PoLine.copy();
-	sh.translate(m_softShadowXOffset, m_softShadowYOffset);
-	p->beginLayer(1.0 - m_softShadowOpacity, m_softShadowBlendMode);
-	p->setupPolygon(&sh);
-	p->setBrush(tmp);
-	p->setFillMode(ScPainter::Solid);
-	p->fillPath();
-	if (hasStroke())
-	{
-		p->setStrokeMode(ScPainter::Solid);
-		p->setPen(tmp, lwCorr, PLineArt, PLineEnd, PLineJoin);
-		p->strokePath();
-	}
-	p->blur(m_softShadowBlurRadius * sc);
+	if (m_softShadowHasObjectTransparency)
+		p->beginLayer(1.0 - fillTransparency(), m_softShadowBlendMode);
+	else
+		p->beginLayer(1.0 - m_softShadowOpacity, m_softShadowBlendMode);
 	if (!hasFill())
 	{
-		sh = PoLine.copy();
+		double transF = fillTransparency();
+		double transS = lineTransparency();
+		bool savedShadow = hasSoftShadow();
+		double rotation_Old = m_rotation;
+		setHasSoftShadow(false);
+		m_rotation = 0;
+		isEmbedded = true;
+		invalid = true;
+		setFillTransparency(0.0);
+		setLineTransparency(0.0);
+		p->save();
+		p->translate(m_softShadowXOffset, m_softShadowYOffset);
+		DrawObj(p, QRectF());
+		p->colorizeAlpha(tmp);
+		if (m_softShadowBlurRadius > 0)
+			p->blur(m_softShadowBlurRadius * sc);
+		p->restore();
+		if (m_softShadowErasedByObject)
+		{
+			p->save();
+			FPointArray sh = PoLine.copy();
+			p->beginLayer(1.0, 18, &sh);
+			DrawObj(p, QRectF());
+			p->endLayer();
+			p->restore();
+		}
+		setFillTransparency(transF);
+		setLineTransparency(transS);
+		isEmbedded = false;
+		m_rotation = rotation_Old;
+		setHasSoftShadow(savedShadow);
+	}
+	else
+	{
+		FPointArray sh = PoLine.copy();
+		sh.translate(m_softShadowXOffset, m_softShadowYOffset);
 		p->setupPolygon(&sh);
 		p->setBrush(tmp);
 		p->setFillMode(ScPainter::Solid);
-		p->setBlendModeFill(19);
 		p->fillPath();
 		if (hasStroke())
 		{
-			p->setBlendModeStroke(19);
 			p->setStrokeMode(ScPainter::Solid);
 			p->setPen(tmp, lwCorr, PLineArt, PLineEnd, PLineJoin);
 			p->strokePath();
+		}
+		if (m_softShadowBlurRadius > 0)
+			p->blur(m_softShadowBlurRadius * sc);
+		if (m_softShadowErasedByObject)
+		{
+			sh = PoLine.copy();
+			p->setupPolygon(&sh);
+			p->setBrush(tmp);
+			p->setFillMode(ScPainter::Solid);
+			p->setBlendModeFill(19);
+			p->fillPath();
+			if (hasStroke())
+			{
+				p->setBlendModeStroke(19);
+				p->setStrokeMode(ScPainter::Solid);
+				p->setPen(tmp, lwCorr, PLineArt, PLineEnd, PLineJoin);
+				p->strokePath();
+			}
 		}
 	}
 	p->endLayer();
@@ -4694,6 +4737,38 @@ void PageItem::setSoftShadowBlendMode(int val)
 	m_softShadowBlendMode = val;
 }
 
+void PageItem::setSoftShadowErasedByObject(bool val)
+{
+	if (m_softShadowErasedByObject == val)
+		return;
+
+	if (UndoManager::undoEnabled())
+	{
+		SimpleState *ss = new SimpleState(Um::SoftShadowErase, 0, Um::IGroup);
+		ss->set("SOFT_SHADOW_ERASE", "SOFT_SHADOW_ERASE");
+		ss->set("NEW_VALUE", val);
+		ss->set("OLD_VALUE", m_softShadowErasedByObject);
+		undoManager->action(this, ss);
+	}
+	m_softShadowErasedByObject = val;
+}
+
+void PageItem::setSoftShadowHasObjectTransparency(bool val)
+{
+	if (m_softShadowHasObjectTransparency == val)
+		return;
+
+	if (UndoManager::undoEnabled())
+	{
+		SimpleState *ss = new SimpleState(Um::SoftShadowObjectTrans, 0, Um::IGroup);
+		ss->set("SOFT_SHADOW_OBJTRANS", "SOFT_SHADOW_OBJTRANS");
+		ss->set("NEW_VALUE", val);
+		ss->set("OLD_VALUE", m_softShadowHasObjectTransparency);
+		undoManager->action(this, ss);
+	}
+	m_softShadowHasObjectTransparency = val;
+}
+
 void PageItem::toggleLock()
 {
 	if (UndoManager::undoEnabled())
@@ -5407,6 +5482,10 @@ void PageItem::restore(UndoState *state, bool isUndo)
 				restoreSoftShadowOpacity(ss, isUndo);
 			else if (ss->contains("SOFT_SHADOW_BLEND_MODE"))
 				restoreSoftShadowBlendMode(ss, isUndo);
+			else if (ss->contains("SOFT_SHADOW_ERASE"))
+				restoreSoftShadowErasedByObject(ss, isUndo);
+			else if (ss->contains("SOFT_SHADOW_OBJTRANS"))
+				restoreSoftShadowHasObjectTransparency(ss, isUndo);
 		}
 	}
 	if (!OnMasterPage.isEmpty())
@@ -5545,6 +5624,24 @@ void PageItem::restoreSoftShadowOpacity(SimpleState *state, bool isUndo)
 		m_softShadowOpacity = state->getDouble("OLD_VALUE");
 	else
 		m_softShadowOpacity = state->getDouble("NEW_VALUE");
+	update();
+}
+
+void PageItem::restoreSoftShadowErasedByObject(SimpleState *state, bool isUndo)
+{
+	if (isUndo)
+		m_softShadowErasedByObject = state->getInt("OLD_VALUE");
+	else
+		m_softShadowErasedByObject = state->getInt("NEW_VALUE");
+	update();
+}
+
+void PageItem::restoreSoftShadowHasObjectTransparency(SimpleState *state, bool isUndo)
+{
+	if (isUndo)
+		m_softShadowHasObjectTransparency = state->getInt("OLD_VALUE");
+	else
+		m_softShadowHasObjectTransparency = state->getInt("NEW_VALUE");
 	update();
 }
 

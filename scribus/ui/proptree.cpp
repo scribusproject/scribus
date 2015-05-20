@@ -97,7 +97,8 @@ void PropTreeItemDelegate::paint(QPainter *painter, const QStyleOptionViewItem &
 			painter->setFont(itemOpts.font);
 		}
 		QRect textrect = QRect(r.left() + i*2, r.top(), r.width() - (i * 2), r.height());
-		QString text = itemOpts.fontMetrics.elidedText(index.model()->data(index, Qt::DisplayRole).toString(), Qt::ElideMiddle, itemOpts.rect.width(), Qt::TextShowMnemonic);
+	//	QString text = itemOpts.fontMetrics.elidedText(index.model()->data(index, Qt::DisplayRole).toString(), Qt::ElideMiddle, itemOpts.rect.width(), Qt::TextShowMnemonic);
+		QString text = index.model()->data(index, Qt::DisplayRole).toString();
 		QApplication::style()->drawItemText(painter, textrect, Qt::AlignVCenter | Qt::AlignLeft | Qt::TextShowMnemonic, itemOpts.palette, (itemOpts.state & QStyle::State_Enabled), text, QPalette::Text);
 		painter->restore();
 	}

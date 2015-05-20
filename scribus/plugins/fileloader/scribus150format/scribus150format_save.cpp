@@ -2761,6 +2761,8 @@ void Scribus150Format::SetItemProps(ScXmlStreamWriter& docu, PageItem* item, con
 		docu.writeAttribute("SOFTSHADOWSHADE",item->softShadowShade());
 		docu.writeAttribute("SOFTSHADOWBLENDMODE",item->softShadowBlendMode());
 		docu.writeAttribute("SOFTSHADOWOPACITY",item->softShadowOpacity());
+		docu.writeAttribute("SOFTSHADOWERASE",item->softShadowErasedByObject());
+		docu.writeAttribute("SOFTSHADOWOBJTRANS",item->softShadowHasObjectTransparency());
 	}
 
 	if (item->isTable())

@@ -3636,7 +3636,10 @@ QByteArray PDFLibCore::Write_TransparencyGroup(double trans, int blend, QByteArr
 	writer.startObj(Gobj);
 	PutDoc("<< /Type /Group\n");
 	PutDoc("/S /Transparency\n");
-	PutDoc("/I false\n");
+	if (controlItem->isGroup())
+		PutDoc("/I true\n");
+	else
+		PutDoc("/I false\n");
 	PutDoc("/K false\n");
     PutDoc(">>");
     writer.endObj(Gobj);
@@ -3728,27 +3731,28 @@ QByteArray PDFLibCore::PDF_PutSoftShadow(PageItem* ite, const ScPage *pag)
 {
 	if (Options.Version < PDFOptions::PDFVersion_14 || !ite->hasSoftShadow() || ite->softShadowColor() == CommonStrings::None || !ite->printEnabled())
 		return "";
+	double maxSize;
 	QByteArray tmp("q\n");
 	double softShadowDPI = Options.Resolution;
 	int pixelRadius = qRound(ite->softShadowBlurRadius() / 72.0 * softShadowDPI);
-	tmp += "1 0 0 1 ";
-	tmp += FToStr(ite->softShadowXOffset() - ite->softShadowBlurRadius())+" ";
-	tmp += FToStr(-ite->softShadowYOffset() - ite->softShadowBlurRadius())+" cm\n";
-	tmp += "1 0 0 1 0 " + FToStr(-(ite->height() + ite->visualLineWidth()))+" cm\n";
-	tmp += FToStr(ite->width() + ite->visualLineWidth() + 2 * ite->softShadowBlurRadius()) + " 0 0 " + FToStr(ite->height() + ite->visualLineWidth() + 2 * ite->softShadowBlurRadius())+" 0 0 cm\n" ;
-
-	double maxSize = qMax(ite->visualWidth(), ite->visualHeight());
+	tmp += "1 0 0 1 " + FToStr(ite->softShadowXOffset() - ite->softShadowBlurRadius()) + " " + FToStr(-(ite->softShadowYOffset() + ite->softShadowBlurRadius()))+" cm\n";
+	if (ite->isPathText())
+		ite->updatePolyClip();
+	tmp += "1 0 0 1 " + FToStr(-(ite->xPos() - ite->visualXPos())) + " " + FToStr(ite->yPos() - ite->visualYPos())+" cm\n";
+	tmp += "1 0 0 1 0 " + FToStr(-ite->visualHeight())+" cm\n";
+	tmp += FToStr(ite->visualWidth() + 2 * ite->softShadowBlurRadius()) + " 0 0 " + FToStr(ite->visualHeight() + 2 * ite->softShadowBlurRadius())+" 0 0 cm\n" ;
+	maxSize = qMax(ite->visualWidth(), ite->visualHeight());
 	maxSize = qMin(3000.0, maxSize * (softShadowDPI / 72.0));
 	bool savedShadow = ite->hasSoftShadow();
 	ite->setHasSoftShadow(false);
-	bool tmpFillNeeded = false;
-	if (!ite->hasFill())
-	{
-		tmpFillNeeded = true;
-		ite->setFillColor("White");
-	}
-	QImage imgC = ite->DrawObj_toImage(maxSize, PageItem::NoRotation);
-	imgC = imgC.copy(-pixelRadius,-pixelRadius,imgC.width()+2*pixelRadius,imgC.height()+2*pixelRadius); // Add border
+	double transF = ite->fillTransparency();
+	double transS = ite->lineTransparency();
+	ite->setFillTransparency(0.0);
+	ite->setLineTransparency(0.0);
+	QImage imgA = ite->DrawObj_toImage(maxSize, PageItem::NoRotation);
+	ite->setFillTransparency(transF);
+	ite->setLineTransparency(transS);
+	QImage imgC = imgA.copy(-pixelRadius, -pixelRadius, imgA.width() + 2 * pixelRadius, imgA.height() + 2 * pixelRadius); // Add border
 	ScPainter *p = new ScPainter(&imgC, imgC.width(), imgC.height(), 1, 0);
 	p->setZoomFactor(softShadowDPI / 72.0);
 	p->save();
@@ -3756,42 +3760,20 @@ QByteArray PDFLibCore::PDF_PutSoftShadow(PageItem* ite, const ScPage *pag)
 	p->restore();
 	p->end();
 	delete p;
-	if (tmpFillNeeded)
+	if (ite->softShadowErasedByObject())
 	{
 		ScPainter *p = new ScPainter(&imgC, imgC.width(), imgC.height(), 1, 0);
-		p->setZoomFactor(softShadowDPI / 72.0);
-		p->save();
-		FPointArray sh = ite->PoLine.copy();
-		p->setupPolygon(&sh);
-		p->setBrush(Qt::white);
-		p->setFillMode(ScPainter::Solid);
-		p->setBlendModeFill(19);
-		p->fillPath();
-		if (ite->hasStroke())
-		{
-			p->setBlendModeStroke(19);
-			p->setStrokeMode(ScPainter::Solid);
-			p->setPen(Qt::white);
-			p->setLineWidth(ite->lineWidth());
-			p->strokePath();
-		}
-		p->restore();
+		p->translate(pixelRadius, pixelRadius);
+		p->translate(-ite->softShadowXOffset() * (softShadowDPI / 72.0), -ite->softShadowYOffset() * (softShadowDPI / 72.0));
+		p->beginLayer(1.0, 18);
+		p->drawImage(&imgA);
+		p->endLayer();
 		p->end();
 		delete p;
 	}
 
 	ite->setHasSoftShadow(savedShadow);
-	if (tmpFillNeeded)
-		ite->setFillColor(CommonStrings::None);
 	ScImage img = imgC.alphaChannel().convertToFormat(QImage::Format_RGB32);
-/*
-	ImageEffect eff;
-	ScImageEffectList el;
-	eff.effectCode = ScImage::EF_BLUR;
-    eff.effectParameters = Pdf::toPdf(pixelRadius) + " 1.0";
-	el.append(eff);
-	img.applyEffect(el,ite->doc()->PageColors,false);
-*/
 	PdfId maskObj = writer.newObject();
 	writer.startObj(maskObj);
 	PutDoc("<<\n/Type /XObject\n/Subtype /Image\n");
@@ -3874,10 +3856,18 @@ QByteArray PDFLibCore::PDF_PutSoftShadow(PageItem* ite, const ScPage *pag)
 
 	QByteArray ShName = ResNam+Pdf::toPdf(ResCount);
 	ResCount++;
-	Transpar[ShName] = writeGState("/ca "+FToStr(1.0 - ite->softShadowOpacity())+"\n"
-								   + "/AIS false\n/OPM 1\n"
-								   + "/BM /" + blendMode(ite->softShadowBlendMode()) + "\n");
-
+	if (ite->softShadowHasObjectTransparency())
+	{
+		Transpar[ShName] = writeGState("/ca "+FToStr(1.0 - ite->fillTransparency())+"\n"
+									   + "/AIS false\n/OPM 1\n"
+									   + "/BM /" + blendMode(ite->softShadowBlendMode()) + "\n");
+	}
+	else
+	{
+		Transpar[ShName] = writeGState("/ca "+FToStr(1.0 - ite->softShadowOpacity())+"\n"
+									   + "/AIS false\n/OPM 1\n"
+									   + "/BM /" + blendMode(ite->softShadowBlendMode()) + "\n");
+	}
     tmp += Pdf::toName(ShName) + " gs\n";
 
 	tmp += Pdf::toName(colRes) + " Do Q\n";
@@ -8839,10 +8829,10 @@ bool PDFLibCore::PDF_3DAnnotation(PageItem *ite, uint)
 		writer.startObj(viewObjL);
 		PutDoc("<<\n/Type /3DView\n");
 		PutDoc("/MS /M\n");
-		PutDoc("/C2W ["+osgframe->getPDFMatrix(itv.key())+" ]\n");
-		PutDoc("/LS << /Subtype /" + lightModes[itv.value().illumination] + " >>\n");
+		PutDoc("/C2W ["+osgframe->getPDFMatrix(itv.key()).toLatin1()+" ]\n");
+		PutDoc("/LS << /Subtype /" + lightModes[itv.value().illumination].toLatin1() + " >>\n");
 		PutDoc("/RM\n<<\n");
-		PutDoc("/Subtype /" + renderModes[itv.value().rendermode] + "\n");
+		PutDoc("/Subtype /" + renderModes[itv.value().rendermode].toLatin1() + "\n");
 		PutDoc("/AC [/DeviceRGB " + FToStr(itv.value().colorAC.redF()) + " " + FToStr(itv.value().colorAC.greenF()) + " " + FToStr(itv.value().colorAC.blueF()) + "]\n");
 		PutDoc("/FC [/DeviceRGB " + FToStr(itv.value().colorFC.redF()) + " " + FToStr(itv.value().colorFC.greenF()) + " " + FToStr(itv.value().colorFC.blueF()) + "]\n");
 		PutDoc("/O " + FToStr(1.0 - itv.value().addedTransparency) + "\n");
@@ -8854,8 +8844,8 @@ bool PDFLibCore::PDF_3DAnnotation(PageItem *ite, uint)
 			PutDoc("/BG << /Type /3DBG\n");
 			PutDoc("/C [ "+SetColor(ite->fillColor(), ite->fillShade())+" ]\n>>\n");
 		}
-		PutDoc("/XN ("+PDFEncode(itv.key())+")\n");
-		PutDoc("/IN ("+PDFEncode(itv.key())+")\n");
+		PutDoc("/XN ("+Pdf::toAscii(itv.key())+")\n");
+		PutDoc("/IN ("+Pdf::toAscii(itv.key())+")\n");
 		PutDoc(">>");
         writer.endObj(viewObjL);
 	}
@@ -8885,7 +8875,7 @@ bool PDFLibCore::PDF_3DAnnotation(PageItem *ite, uint)
 	EncodeArrayToStream(dataP, appearanceObj);
 	PutDoc("\nendstream");
     writer.endObj(appearanceObj);
-	PdfId appearanceObj = writer.newObject();
+	PdfId annotationObj = writer.newObject();
 	writer.startObj(annotationObj);
 	pageData.AObjects.append(annotationObj);
 	PutDoc("<<\n/Type /Annot\n");

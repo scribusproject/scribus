@@ -1022,6 +1022,8 @@ PageItem* VivaPlug::parseObjectDetailsXML(const QDomElement& obNode, int baseTyp
 	double shadowBlur = 0.0;
 	double shadowOpacity = 0.0;
 	int shadowTint = 100;
+	bool shadowErase = false;
+	bool shadowObjTrans = false;
 	QString shadowColor = "Black";
 	StoryText itemText;
 	itemText.clear();
@@ -1298,6 +1300,10 @@ PageItem* VivaPlug::parseObjectDetailsXML(const QDomElement& obNode, int baseTyp
 							shadowOffset = parseUnit(spo.text());
 						else if (spo.tagName() == "uni:softValue")
 							shadowBlur = parseUnit(spo.text());
+						else if (spo.tagName() == "uni:coverShadow")
+							shadowErase = (spo.text() == "true");
+						else if (spo.tagName() == "uni:applyElementOpacity")
+							shadowObjTrans = (spo.text() == "true");
 					}
 					QLineF oLine = QLineF(0, 0, shadowOffset, 0);
 					oLine.setAngle(shadowAngle - 180.0);
@@ -1633,6 +1639,8 @@ PageItem* VivaPlug::parseObjectDetailsXML(const QDomElement& obNode, int baseTyp
 			item->setSoftShadowShade(shadowTint);
 			item->setSoftShadowOpacity(shadowOpacity);
 			item->setSoftShadowBlendMode(0);
+			item->setSoftShadowErasedByObject(shadowErase);
+			item->setSoftShadowHasObjectTransparency(shadowObjTrans);
 		}
 		if (baseType == 1)
 		{

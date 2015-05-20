@@ -7826,7 +7826,7 @@ void ScribusDoc::itemSelection_RaiseItem()
 	}
 }
 
-void ScribusDoc::itemSelection_SetSoftShadow(bool has, QString color, double dx, double dy, double radius, int shade, double opac, int blend)
+void ScribusDoc::itemSelection_SetSoftShadow(bool has, QString color, double dx, double dy, double radius, int shade, double opac, int blend, bool erase, bool objopa)
 {
 	if (color == CommonStrings::tr_NoneColor)
 		color = CommonStrings::None;
@@ -7850,6 +7850,8 @@ void ScribusDoc::itemSelection_SetSoftShadow(bool has, QString color, double dx,
 			currItem->setSoftShadowShade(shade);
 			currItem->setSoftShadowOpacity(opac);
 			currItem->setSoftShadowBlendMode(blend);
+			currItem->setSoftShadowErasedByObject(erase);
+			currItem->setSoftShadowHasObjectTransparency(objopa);
 			QRectF newRect = currItem->getVisualBoundingRect().adjusted(-dx, -dy, dx, dy);
 			currItem->invalidateLayout();
 			regionsChanged()->update(newRect);

@@ -169,7 +169,7 @@ public:
     // writing
     void writeHeader(PDFOptions::PDFVersion vers);
     void writeXrefAndTrailer();
-    void write(const QByteArray& bytes);
+	void write(const QByteArray& bytes);
     void write(const Pdf::ResourceDictionary& dict);
     void write(const PdfFont font);
 

@@ -758,7 +758,7 @@ namespace Pdf
     void Writer::write(const QByteArray& bytes)
     {
         outStream.writeRawData(bytes, bytes.size());
-    }
+	}
     
     void Writer::write(const ResourceDictionary& dict)
     {
@@ -836,7 +836,7 @@ namespace Pdf
     {
         assert( CurrentObj == 0);
         CurrentObj = id;
-        while (XRef.length() <= id)
+		while (static_cast<uint>(XRef.length()) <= id)
             XRef.append(0);
         XRef[id] = bytesWritten();
         write(toPdf(id));

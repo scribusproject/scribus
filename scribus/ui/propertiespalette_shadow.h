@@ -56,6 +56,8 @@ private slots:
 	void handleNewShade(double value);
 	void handleNewOpacity(double value);
 	void handleNewBlendmode(int value);
+	void handleNewErase(bool value);
+	void handleNewObjTrans(bool value);
 
 protected slots:
 	void updateSpinBoxConstants();
@@ -70,6 +72,8 @@ protected:
 	PropTreeItem *softShadowShade;
 	PropTreeItem *softShadowOpacity;
 	PropTreeItem *softShadowBlendMode;
+	PropTreeItem *softShadowErase;
+	PropTreeItem *softShadowObjTrans;
 	ScribusMainWindow *m_ScMW;
 
 	bool      m_haveDoc;

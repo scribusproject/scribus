@@ -4150,5 +4150,7 @@ void OdgPlug::finishItem(PageItem* item, ObjStyle &obState)
 		item->setSoftShadowShade(100);
 		item->setSoftShadowOpacity(obState.shadowTrans);
 		item->setSoftShadowBlendMode(0);
+		item->setSoftShadowErasedByObject(false);
+		item->setSoftShadowHasObjectTransparency(false);
 	}
 }

@@ -1042,7 +1042,7 @@ public:
 	void itemSelection_SetNamedCharStyle(const QString & name, Selection* customSelection=0);
 	void itemSelection_SetNamedLineStyle(const QString & name, Selection* customSelection=0);
 
-	void itemSelection_SetSoftShadow(bool has, QString color, double dx, double dy, double radius, int shade, double opac, int blend);
+	void itemSelection_SetSoftShadow(bool has, QString color, double dx, double dy, double radius, int shade, double opac, int blend, bool erase, bool objopa);
 
 	void itemSelection_SetLineWidth(double w);
 	void itemSelection_SetLineArt(Qt::PenStyle w);

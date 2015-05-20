@@ -1078,6 +1078,8 @@ QString UndoManager::SoftShadowXOffset  = "";
 QString UndoManager::SoftShadowYOffset  = "";
 QString UndoManager::SoftShadowOpacity  = "";
 QString UndoManager::SoftShadowBlendMode= "";
+QString UndoManager::SoftShadowErase    = "";
+QString UndoManager::SoftShadowObjectTrans = "";
 
 /*** Icons for UndoObjects *******************************************/
 QPixmap *UndoManager::IImageFrame      = 0;

@@ -3206,6 +3206,8 @@ void RawPainter::applyShadow(PageItem* ite)
 		ite->setSoftShadowShade(100);
 		ite->setSoftShadowOpacity(shadowTrans);
 		ite->setSoftShadowBlendMode(0);
+		ite->setSoftShadowErasedByObject(false);
+		ite->setSoftShadowHasObjectTransparency(false);
 
 	}
 }

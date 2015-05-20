@@ -93,11 +93,6 @@ void ScPainter::beginLayer(double transparency, int blendmode, FPointArray *clip
 	la.data = cairo_get_group_target(m_cr);
 	la.fillRule = m_fillRule;
 	cairo_push_group(m_cr);
-/*	if (clipArray != NULL)
-	{
-		setupPolygon(clipArray);
-		setClipPath();
-	} */
 	la.pushed = true;
 	Layers.push(la);
 }
@@ -2071,6 +2066,66 @@ void ScPainter::drawShadePanel(const QRectF &r, const QColor color, bool sunken,
 	closePath();
 	setBrush(light);
 	fillPath();
+}
+
+void ScPainter::colorizeAlpha(QColor color)
+{
+	cairo_surface_t *data = cairo_get_group_target(m_cr);
+	cairo_surface_flush(data);
+	int w   = cairo_image_surface_get_width(data);
+	int h   = cairo_image_surface_get_height(data);
+	int stride = cairo_image_surface_get_stride(data);
+	unsigned char *d = cairo_image_surface_get_data(data);
+	int cr = color.red();
+	int cg = color.green();
+	int cb = color.blue();
+	for(int y = 0; y < h; ++y)
+	{
+		QRgb *dst = (QRgb*)d;
+		for(int x = 0; x < w; ++x)
+		{
+			if (qAlpha(*dst) > 0)
+				*dst = qRgba(cr, cg, cb, qAlpha(*dst));
+			dst++;
+		}
+		d += stride;
+	}
+	cairo_surface_mark_dirty(data);
+}
+
+void ScPainter::colorize(QColor color)
+{
+	cairo_surface_t *data = cairo_get_group_target(m_cr);
+	cairo_surface_flush(data);
+	int w   = cairo_image_surface_get_width(data);
+	int h   = cairo_image_surface_get_height(data);
+	int stride = cairo_image_surface_get_stride(data);
+	unsigned char *d = cairo_image_surface_get_data(data);
+	int cr = color.red();
+	int cg = color.green();
+	int cb = color.blue();
+	int hu, sa, v;
+	int cc2, cm2, cy2, k2;
+	QColor tmpR;
+	for(int y = 0; y < h; ++y)
+	{
+		QRgb *dst = (QRgb*)d;
+		for(int x = 0; x < w; ++x)
+		{
+			if (qAlpha(*dst) > 0)
+			{
+				k2 = 255 - qMin(qRound(0.3 * qRed(*dst) + 0.59 * qGreen(*dst) + 0.11 * qBlue(*dst)), 255);
+				tmpR.setRgb(cr, cg, cb);
+				tmpR.getHsv(&hu, &sa, &v);
+				tmpR.setHsv(hu, sa * k2 / 255, 255 - ((255 - v) * k2 / 255));
+				tmpR.getRgb(&cc2, &cm2, &cy2);
+				*dst = qRgba(cc2, cm2, cy2, qAlpha(*dst));
+			}
+			dst++;
+		}
+		d += stride;
+	}
+	cairo_surface_mark_dirty(data);
 }
 
 void ScPainter::blurAlpha(int radius)
