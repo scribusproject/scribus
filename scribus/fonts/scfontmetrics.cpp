@@ -78,13 +78,13 @@ int setBestEncoding(FT_Face face)
 // Since the above function is only available in FreeType 2.1.10 its replaced by
 // the following line, assuming that the default charmap has the index 0
 	int defaultchmap = 0;
-    FT_ULong dbgInfo = 0;
-    FT_Load_Sfnt_Table( face, FT_MAKE_TAG('p','o','s','t'), 0, NULL, &dbgInfo );
-    qDebug() << "setBestEncoding for " << FT_Get_Postscript_Name(face) << " with " << face->num_glyphs << "glyphs, hasNames=" << FT_HAS_GLYPH_NAMES(face) << ", POST size=" << dbgInfo ;
+	FT_ULong dbgInfo = 0;
+	FT_Load_Sfnt_Table( face, FT_MAKE_TAG('p','o','s','t'), 0, NULL, &dbgInfo );
+	qDebug() << "setBestEncoding for " << FT_Get_Postscript_Name(face) << " with " << face->num_glyphs << "glyphs, hasNames=" << FT_HAS_GLYPH_NAMES(face) << ", POST size=" << dbgInfo ;
 	for(int u = 0; u < face->num_charmaps; u++)
 	{
 		FT_CharMap charmap = face->charmaps[u];
-        qDebug() << "Checking cmap " << u << "(" << charmap->platform_id << "," << charmap->encoding_id << "," << FT_Get_CMap_Language_ID(charmap) << ") format " << FT_Get_CMap_Format(charmap);
+		qDebug() << "Checking cmap " << u << "(" << charmap->platform_id << "," << charmap->encoding_id << "," << FT_Get_CMap_Language_ID(charmap) << ") format " << FT_Get_CMap_Format(charmap);
 		if (charmap->encoding == FT_ENCODING_UNICODE)
 		{
 			FT_Set_Charmap(face, face->charmaps[u]);
@@ -343,8 +343,8 @@ bool GlyphNames(const FtFace& fnt, FaceEncoding& GList)
 	// The glyph name table embedded in Truetype fonts is not reliable.
 	// For those fonts we consequently use Adobe Glyph names whenever possible.
 	const bool avoidFntNames = (fnt.formatCode != ScFace::TYPE42 && fnt.typeCode == ScFace::TTF) &&
-    (face->charmap && face->charmap->encoding == FT_ENCODING_UNICODE && face->charmap->platform_id == TT_PLATFORM_MICROSOFT);
-    
+	                           (face->charmap && face->charmap->encoding == FT_ENCODING_UNICODE && face->charmap->platform_id == TT_PLATFORM_MICROSOFT);
+
 	const bool hasPSNames = FT_HAS_GLYPH_NAMES(face);
 	
 //	qDebug() << "reading metrics for" << face->family_name << face->style_name;
@@ -453,8 +453,8 @@ static int traceCubicBezier( FT_Vector *p, FT_Vector *q, FT_Vector *to, FPointAr
 	return 0;
 }
 
-#if 0
 /// init the Adobe Glyph List
+#if 0
 void readAdobeGlyphNames() 
 {
 	adobeGlyphNames.clear();
@@ -467,13 +467,11 @@ void readAdobeGlyphNames()
 		}
 	}
 }
-
+#endif
 
 /// if in AGL, use that name, else use "uni1234" or "u12345"
 QString adobeGlyphName(FT_ULong charcode) 
 {
-    if (adobeGlyphNames.empty())
-        readAdobeGlyphNames();
 	static const char HEX[] = "0123456789ABCDEF";
 	QString result;
 	if (adobeGlyphNames.contains(charcode))
@@ -493,7 +491,6 @@ QString adobeGlyphName(FT_ULong charcode)
 	}
 	return result;
 }
-#endif
 
 /*
 qreal Cwidth(ScribusDoc *, ScFace* scFace, QString ch, int Size, QString ch2)

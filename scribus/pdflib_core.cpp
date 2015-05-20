@@ -10275,50 +10275,52 @@ void PDFLibCore::copyPoDoFoDirect(const PoDoFo::PdfVariant* obj, QList<PoDoFo::P
 {
 	switch (obj->GetDataType())
 	{
-	case PoDoFo::ePdfDataType_Reference:
+		case PoDoFo::ePdfDataType_Reference:
 		{
-		const PoDoFo::PdfReference reference(obj->GetReference());
-		PdfId objNr;
-		if (!importedObjects.contains(reference))
-		{
-			objNr = writer.newObject();
-			importedObjects[reference] = objNr;
-			referencedObjects.append(reference);
+			const PoDoFo::PdfReference reference(obj->GetReference());
+			PdfId objNr;
+			if (!importedObjects.contains(reference))
+			{
+				objNr = writer.newObject();
+				importedObjects[reference] = objNr;
+				referencedObjects.append(reference);
+			}
+			else
+			{
+				objNr = importedObjects[reference];
+			}
+			PutDoc(" " + Pdf::toPdf(objNr) + " 0 R");
+			break;
 		}
-		else
+		case PoDoFo::ePdfDataType_Array:
 		{
-			objNr = importedObjects[reference];
+			const PoDoFo::PdfArray& array(obj->GetArray());
+			PutDoc("[");
+			for (uint i=0; i < array.size(); ++i)
+				copyPoDoFoDirect( &(array[i]), referencedObjects, importedObjects);
+				PutDoc("]");	
+			break;
 		}
-		PutDoc(" " + Pdf::toPdf(objNr) + " 0 R");
-		}
-		break;
-	case PoDoFo::ePdfDataType_Array:
+		case PoDoFo::ePdfDataType_Dictionary:
 		{
-		const PoDoFo::PdfArray& array(obj->GetArray());
-		PutDoc("[");
-		for (uint i=0; i < array.size(); ++i)
-			copyPoDoFoDirect( &(array[i]), referencedObjects, importedObjects);
-			PutDoc("]");
+			const PoDoFo::PdfDictionary& dict(obj->GetDictionary());
+			const PoDoFo::TKeyMap keys = dict.GetKeys();
+			PutDoc("<<");
+			for (PoDoFo::TCIKeyMap k=keys.begin(); k != keys.end(); ++k)
+			{
+				std::string str("\n/" + k->first.GetEscapedName());
+				PutDoc(QByteArray::fromRawData(str.data(), str.size()));
+				copyPoDoFoDirect(k->second, referencedObjects, importedObjects);
+			}
+			PutDoc(" >>");
+			break;
 		}
-		break;
-	case PoDoFo::ePdfDataType_Dictionary:
+		default:
 		{
-		const PoDoFo::PdfDictionary& dict(obj->GetDictionary());
-		const PoDoFo::TKeyMap keys = dict.GetKeys();
-		PutDoc("<<");
-		for (PoDoFo::TCIKeyMap k=keys.begin(); k != keys.end(); ++k)
-		{
-			PutDoc("\n/" + k->first.GetEscapedName());
-			copyPoDoFoDirect(k->second, referencedObjects, importedObjects);
-		}
-		PutDoc(" >>");
-		}
-		break;
-	default:
-		{
-		std::string str;
-		obj->ToString(str);
-		PutDoc(" " + str);
+			std::string str;
+			obj->ToString(str);
+			str = " " + str;
+			PutDoc(QByteArray::fromRawData(str.data(), str.size()));
 		}
 	}
 
