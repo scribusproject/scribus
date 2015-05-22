@@ -614,7 +614,7 @@ namespace cff {
 		QList<CFF_Number> stack;
 		
 		uint pos = 0;
-		while (pos < dict.length())
+		while (pos < (uint) dict.length())
 		{
 			CFF_Number num = parseDictElement(dict, pos);
 			if (num.type == cff_varnt_Operator)
@@ -919,7 +919,7 @@ namespace cff {
 				}
 				break;
 			case 1:
-				while (result.length() < nGlyphs)
+				while ((uint) result.length() < nGlyphs)
 				{
 					first = readCard(pos);
 					pos += 2;
@@ -931,7 +931,7 @@ namespace cff {
 				}
 				break;
 			case 2:
-				while (result.length() < nGlyphs)
+				while ((uint) result.length() < nGlyphs)
 				{
 					first = readCard(pos);
 					pos += 2;

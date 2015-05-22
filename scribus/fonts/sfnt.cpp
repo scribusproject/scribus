@@ -317,7 +317,7 @@ uint PostTable::numberOfGlyphs() const
 
 QString PostTable::nameFor(uint glyph) const
 {
-	if (glyph < names.length())
+	if (glyph < (uint) names.length())
 	{
 		return names[glyph];
 	}
@@ -378,7 +378,7 @@ void PostTable::readFrom(FT_Face face)
 	
 	uint nrOfGlyphs = sfnt::word16(postData, ttf_post_header_length);
 	uint stringPos = ttf_post_header_length + 2 + 2 * nrOfGlyphs;
-	while (stringPos < postData.length())
+	while (stringPos < (uint) postData.length())
 	{
 		int strLen = byte(postData, stringPos);
 		++stringPos;
@@ -386,7 +386,7 @@ void PostTable::readFrom(FT_Face face)
 		stringPos += strLen;
 	}
 	uint pos = ttf_post_header_length + 2;
-	for (int gid = 0; gid < nrOfGlyphs; ++gid)
+	for (uint gid = 0; gid < nrOfGlyphs; ++gid)
 	{
 		uint nameIndex = sfnt::word16(postData, pos);
 		pos += 2;
@@ -645,7 +645,7 @@ QByteArray extractFace(const QByteArray& coll, int faceIndex)
 			result.append(std::pair<qint16,quint16>(advance, leftSideBearing));
 			pos += 4;
 		}
-		while (pos < hmtx.length())
+		while (pos < (uint) hmtx.length())
 		{
 			leftSideBearing = word16(hmtx, pos);
 			qDebug() << pos << "hmtx =" << advance << leftSideBearing;
@@ -680,7 +680,7 @@ QByteArray extractFace(const QByteArray& coll, int faceIndex)
 		uint startOfUnicodeTable = 0;
 		uint format = 0;
 		uint pos = ttf_cmap_encodings;
-		for (int i = 0; i < numSubtables; ++i)
+		for (uint i = 0; i < numSubtables; ++i)
 		{
 			uint platform = word16(cmaps, pos + ttf_cmap_encoding_platformID);
 			uint encoding = word16(cmaps, pos + ttf_cmap_encoding_platformSpecificID);
@@ -709,7 +709,7 @@ QByteArray extractFace(const QByteArray& coll, int faceIndex)
 				uint idRangeOffsets = idDeltas + segCount2 + ttf_cmap4_IdRangeOffsets_IdDeltas;
 				//uint glyphIndexArray = idRangeOffsets + segCount2 + ttf_cmap4_GlyphIds_IdRangeOffsets;
 				
-				for (int seg = 0; seg < segCount2; seg+=2)
+				for (uint seg = 0; seg < segCount2; seg+=2)
 				{
 					uint start = word16(cmaps, startCodes + seg);
 					uint end = word16(cmaps, endCodes + seg);
@@ -748,7 +748,7 @@ QByteArray extractFace(const QByteArray& coll, int faceIndex)
 				uint firstCode = word16(cmaps, startOfUnicodeTable + ttf_cmap6_firstCode);
 				uint count = word16(cmaps, startOfUnicodeTable + ttf_cmap6_entryCount);
 				pos = word16(cmaps, startOfUnicodeTable + ttf_cmap6_glyphIndexArray);
-				for (int i = 0; i < count; ++i)
+				for (uint i = 0; i < count; ++i)
 				{
 					result[firstCode + i] = word16(cmaps, pos);
 					pos += 2;
@@ -824,7 +824,7 @@ QByteArray extractFace(const QByteArray& coll, int faceIndex)
 			quint16 end = start;
 			quint16 next;
 			++pos;
-			while (pos < chars.length() && (next = chars[pos]) == end+1)
+			while (pos < (uint) chars.length() && (next = chars[pos]) == end+1)
 			{
 				end = next;
 				if (delta != (quint16)(cmap[chars[pos]] - next))
@@ -838,7 +838,7 @@ QByteArray extractFace(const QByteArray& coll, int faceIndex)
 			idDeltas.append(delta);
 			rangeOffsets.append(rangeOffset);
 		}
-		while(pos < chars.length());
+		while (pos < (uint) chars.length());
 		
 		startCodes.append(0xFFFF);
 		endCodes.append(0xFFFF);
