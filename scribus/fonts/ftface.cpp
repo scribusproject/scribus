@@ -309,7 +309,7 @@ FT_Error ftIOFunc( FT_Stream stream, unsigned long pos, unsigned char* buffer, u
 
 QString FtFace::adobeGlyphName(FT_ULong charcode)
 {
-    return ::adobeGlyphName(charcode);
+	return ::adobeGlyphName(charcode);
 }
 
 
