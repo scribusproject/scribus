@@ -36,7 +36,7 @@ FontPreview::FontPreview(QString fontName, QWidget* parent, ScribusDoc* doc)
 	proxyModel->setDynamicSortFilter(true);
 	proxyModel->setFilterCaseSensitivity(Qt::CaseInsensitive);
 	proxyModel->setSourceModel(fontModel);
-	proxyModel->setFilterKeyColumn(0);
+	proxyModel->setFilterKeyColumn(1);
 	proxyModel->setSortCaseSensitivity(Qt::CaseInsensitive);
 	fontList->setModel(proxyModel);
 
@@ -206,6 +206,10 @@ void FontPreview::fontList_currentChanged(const QModelIndex &, const QModelIndex
 
 void FontPreview::setExtendedView(bool state)
 {
-	for (int i=1; i < fontList->model()->columnCount(); ++i)
+	for (int i=0; i < fontList->model()->columnCount(); ++i)
+	{
+		if (i == 1)
+			continue;
 		fontList->setColumnHidden(i, !state);
+	}
 }
