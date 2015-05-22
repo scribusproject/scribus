@@ -51,14 +51,14 @@ static int traceQuadraticBezier( FT_Vector *control, FT_Vector *to, FPointArray 
 static int traceCubicBezier( FT_Vector *p, FT_Vector *q, FT_Vector *to, FPointArray *composite );
 
 FT_Outline_Funcs OutlineMethods =
-    {
-        (FT_Outline_MoveTo_Func) traceMoveto,
-        (FT_Outline_LineTo_Func) traceLineto,
-        (FT_Outline_ConicTo_Func) traceQuadraticBezier,
-        (FT_Outline_CubicTo_Func) traceCubicBezier,
-        0,
-        0
-    };
+	{
+		(FT_Outline_MoveTo_Func) traceMoveto,
+		(FT_Outline_LineTo_Func) traceLineto,
+		(FT_Outline_ConicTo_Func) traceQuadraticBezier,
+		(FT_Outline_CubicTo_Func) traceCubicBezier,
+		0,
+		0
+	};
 
 
 const qreal FTSCALE = 64.0;
