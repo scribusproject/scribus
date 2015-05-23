@@ -14875,6 +14875,14 @@ void ScribusDoc::scaleGroup(double scx, double scy, bool scaleText, Selection* c
 				PageItem_Spiral* item = bb->asSpiral();
 				item->recalcPath();
 			}
+			else if (bb->isGroup() || bb->isSymbol())
+			{
+				double oldGW = bb->groupWidth;
+				double oldGH = bb->groupHeight;
+				AdjustItemSize(bb, true, false);
+				bb->groupWidth = oldGW;
+				bb->groupHeight = oldGH;
+			}
 			else
 				AdjustItemSize(bb, true, false);
 			QTransform ma3;
@@ -14891,7 +14899,16 @@ void ScribusDoc::scaleGroup(double scx, double scy, bool scaleText, Selection* c
 				QTransform ma;
 				ma.rotate(-bb->rotation());
 				bb->PoLine.map(ma);
-				AdjustItemSize(bb, true, false);
+				if (bb->isGroup() || bb->isSymbol())
+				{
+					double oldGW = bb->groupWidth;
+					double oldGH = bb->groupHeight;
+					AdjustItemSize(bb, true, false);
+					bb->groupWidth = oldGW;
+					bb->groupHeight = oldGH;
+				}
+				else
+					AdjustItemSize(bb, true, false);
 			}
 		}
 		if (scaleText)
