@@ -7483,6 +7483,7 @@ void ScribusMainWindow::editInlineEnd()
 	doc->currentEditedTextframe = NULL;
 	view->DrawNew();
 	pagePalette->Rebuild();
+	propertiesPalette->unsetItem();
 	propertiesPalette->updateColorList();
 	inlinePalette->editingFinished();
 	layerPalette->setEnabled(true);

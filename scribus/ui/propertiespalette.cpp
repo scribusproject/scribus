@@ -302,6 +302,7 @@ void PropertiesPalette::unsetItem()
 	Cpal->setCurrentItem(NULL);
 	Tpal->setCurrentItem(NULL);
 	tablePal->unsetItem();
+	groupPal->unsetItem();
 	handleSelectionChanged();
 }
 
