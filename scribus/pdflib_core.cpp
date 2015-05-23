@@ -1978,26 +1978,26 @@ void PDFLibCore::PDF_Begin_WriteUsedFonts(SCFonts &AllFonts, const QMap<QString,
 				}
 			}
 			pdfFont.usage = Used_in_Content;
-			QString meth;
-			switch (pdfFont.method)
-			{
-				case Use_System:
-					meth = "Systemfont (no embedding)"; break;
-				case Use_Embedded:
-					meth = "Embed"; break;
-				case Use_Subset:
-					meth = "Subset"; break;
-				case Use_Type3:
-					meth = "Subset as Type3 font"; break;
-				case Use_XForm:
-					meth = "Outline (PDF XForm)"; break;
-				default:
-					meth = "?"; break;
-			}
-			qDebug() << pdfFont.name << "uses method" << meth << "and encoding" << pdfFont.encoding;
-			UsedFontsP.insert(it.key(), pdfFont);
-			a++;
 		}
+		a++;
+		QString meth;
+		switch (pdfFont.method)
+		{
+			case Use_System:
+				meth = "Systemfont (no embedding)"; break;
+			case Use_Embedded:
+				meth = "Embed"; break;
+			case Use_Subset:
+				meth = "Subset"; break;
+			case Use_Type3:
+				meth = "Subset as Type3 font"; break;
+			case Use_XForm:
+				meth = "Outline (PDF XForm)"; break;
+			default:
+				meth = "?"; break;
+		}
+		qDebug() << pdfFont.name << "uses method" << meth << "and encoding" << pdfFont.encoding;
+		UsedFontsP.insert(it.key(), pdfFont);
 	}
 }
 
