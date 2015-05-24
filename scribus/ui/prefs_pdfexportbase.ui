@@ -1313,17 +1313,17 @@
           <widget class="QComboBox" name="fontEmbeddingCombo">
            <item>
             <property name="text">
-             <string>Embed or subset</string>
+             <string>Embed or Subset</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>Outline fonts</string>
+             <string>Outline All Fonts</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>Don't embed</string>
+             <string>Do Not Embed</string>
             </property>
            </item>
           </widget>
