@@ -121,6 +121,7 @@ protected:
 	bool readList(QDomElement& parent, QString name, QList<QString>* value);
 
 	bool readPDFVersion();
+	bool readPDFFontEmbeddingMode();
 	bool readPresentationData();
 	bool readLPISettings();
 

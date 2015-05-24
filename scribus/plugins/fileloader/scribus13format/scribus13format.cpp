@@ -641,6 +641,7 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 				m_Doc->pdfOptions().Resolution = pg.attribute("Resolution").toInt();
 				m_Doc->pdfOptions().Binding = pg.attribute("Binding").toInt();
 				m_Doc->pdfOptions().fileName = "";
+				m_Doc->pdfOptions().FontEmbedding = PDFOptions::EmbedFonts;
 				m_Doc->pdfOptions().isGrayscale = static_cast<bool>(pg.attribute("Grayscale", "0").toInt());
 				m_Doc->pdfOptions().UseRGB = static_cast<bool>(pg.attribute("RGBMode", "0").toInt());
 				m_Doc->pdfOptions().UseProfiles = static_cast<bool>(pg.attribute("UseProfiles", "0").toInt());

@@ -35,7 +35,6 @@ for which a new license (GPL+exception) is in place.
 
 
 #include "ui/createrange.h"
-#include "fontlistmodel.h"
 #include "pdfoptions.h"
 #include "prefsmanager.h"
 #include "scribuscore.h"
@@ -96,16 +95,10 @@ TabPDFOptions::TabPDFOptions(QWidget* parent, PDFOptions & Optionen,
 
 	// Fonts tab
 	groupFontLayout->setAlignment( Qt::AlignTop );
-    FontTable->setModel(new FontListModel(this, doc));
-    FontTable->resizeColumnsToContents();
-    
-//	AvailFlist->setMaximumHeight(300);
-//	EmbedList->setMaximumHeight(105);
-//	ToEmbed->setIcon(QIcon(loadIcon("22/go-next.png")));
-//	FromEmbed->setIcon(QIcon(loadIcon("22/go-previous.png")));
-//	ToOutline->setIcon(QIcon(loadIcon("22/go-down.png")));
-//	FromOutline->setIcon(QIcon(loadIcon("22/go-up.png")));
-//	OutlineList->setMaximumHeight(105);c
+	EmbedList->setMaximumHeight(300);
+	SubsetList->setMaximumHeight(300);
+	ToSubset->setIcon(QIcon(loadIcon("22/go-next.png")));
+	FromSubset->setIcon(QIcon(loadIcon("22/go-previous.png")));
 
 	// Presentation tab
 	effectsLayout->setAlignment( Qt::AlignTop );
@@ -173,16 +166,13 @@ TabPDFOptions::TabPDFOptions(QWidget* parent, PDFOptions & Optionen,
 
 	restoreDefaults(Optionen, AllFonts, PDFXProfiles, DocFonts);
 
-	connect(EmbedAllFontsButton, SIGNAL(clicked()), this, SLOT(EmbedAll()));
-    connect(SubsetAllFontsButton, SIGNAL(clicked()), this, SLOT(SubsetAll()));
-    connect(OutlineAllFontsButton, SIGNAL(clicked()), this, SLOT(OutlineAll()));
-//	connect(AvailFlist, SIGNAL(itemClicked(QListWidgetItem*)), this, SLOT(SelAFont(QListWidgetItem*)));
-//	connect(EmbedList, SIGNAL(itemClicked(QListWidgetItem*)), this, SLOT(SelEFont(QListWidgetItem*)));
-//	connect(ToEmbed, SIGNAL(clicked()), this, SLOT(PutToEmbed()));
-//	connect(FromEmbed, SIGNAL(clicked()), this, SLOT(RemoveEmbed()));
-//	connect(OutlineList, SIGNAL(itemClicked(QListWidgetItem*)), this, SLOT(SelSFont(QListWidgetItem*)));
-//	connect(ToOutline, SIGNAL(clicked()), this, SLOT(PutToOutline()));
-//	connect(FromOutline, SIGNAL(clicked()), this, SLOT(RemoveOutline()));
+	connect(fontEmbeddingCombo, SIGNAL(currentIndexChanged(int)), this, SLOT(EmbeddingModeChange()));
+	connect(EmbedFonts, SIGNAL(clicked()), this, SLOT(EmbedAll()));
+	connect(EmbedList, SIGNAL(itemClicked(QListWidgetItem*)), this, SLOT(SelEFont(QListWidgetItem*)));
+	connect(SubsetFonts, SIGNAL(clicked()), this, SLOT(SubsetAll()));
+	connect(SubsetList, SIGNAL(itemClicked(QListWidgetItem*)), this, SLOT(SelSFont(QListWidgetItem*)));
+	connect(ToSubset, SIGNAL(clicked()), this, SLOT(PutToSubset()));
+	connect(FromSubset, SIGNAL(clicked()), this, SLOT(RemoveSubset()));
 	connect(PagePrev, SIGNAL(clicked()), this, SLOT(PagePr()));
 	connect(Pages, SIGNAL(currentItemChanged(QListWidgetItem*, QListWidgetItem*)), this, SLOT(SetPgEff(QListWidgetItem*, QListWidgetItem*)));
 	connect(EffectType, SIGNAL(activated(int)), this, SLOT(SetEffOpts(int)));
@@ -235,9 +225,9 @@ TabPDFOptions::TabPDFOptions(QWidget* parent, PDFOptions & Optionen,
 	ValC->setToolTip( "<qt>" + tr( "DPI (Dots Per Inch) for image export.") + "</qt>" );
 
 	// Tooltips : Fonts tab
-	EmbedAllFontsButton->setToolTip( "<qt>" + tr( "Embed fonts into the PDF. Embedding the fonts will preserve the layout and appearance of your document." ) + "</qt>");
+	EmbedFonts->setToolTip( "<qt>" + tr( "Embed fonts into the PDF. Embedding the fonts will preserve the layout and appearance of your document." ) + "</qt>");
 	CheckBox10->setToolTip( "<qt>" + tr( "Enables presentation effects when using Adobe&#174; Reader&#174; and other PDF viewers which support this in full screen mode." ) + "</qt>");
-	OutlineAllFontsButton->setToolTip( "<qt>" + tr("Convert all glyphs in the document to outlines.") + "</qt>");
+	SubsetFonts->setToolTip( "<qt>" + tr("Embed only subset fonts with glyphs used in the document into the PDF.") + "</qt>");
 
 	// Tooltips : Presentation tab
 	PagePrev->setToolTip( "<qt>" + tr( "Show page previews of each page listed above." ) + "</qt>");
@@ -301,64 +291,43 @@ TabPDFOptions::TabPDFOptions(QWidget* parent, PDFOptions & Optionen,
 	InfoString->setToolTip( "<qt>" + tr( "Mandatory string for PDF/X or the PDF will fail PDF/X conformance. We recommend you use the title of the document." ) + "</qt>" );
 }
 
-static bool checkState(FontListModel* table, int row, int column)
+PDFOptions::PDFFontEmbedding TabPDFOptions::fontEmbeddingMode()
 {
-    return table->data(table->index(row, column), Qt::CheckStateRole) == Qt::Checked;
-}
-
-static void setState(FontListModel* table, int row, int column)
-{
-    table->setData(table->index(row, column), Qt::CheckStateRole, Qt::Checked);
-}
-
-static void setState(FontListModel* table, QString name, int column)
-{
-    for (int row = 0; row < table->rowCount(); ++row)
-        if (name == table->nameForIndex(table->index(row, column)))
-            setState(table, row, column);
+	return (PDFOptions::PDFFontEmbedding) fontEmbeddingCombo->currentIndex();
 }
 
 QStringList TabPDFOptions::fontsToEmbed()
 {
-    QStringList fonts;
-    FontListModel* table = qobject_cast<FontListModel*>(FontTable->model());
-    for (int i = 0; i < table->rowCount(); ++i)
-        if (checkState(table, i, FontListModel::FontEmbed) &&
-            !checkState(table, i, FontListModel::FontSubset))
-        {
-            fonts.append(table->data(table->index(i, FontListModel::FontName)).toString());
-        }
-    return fonts;
+	PDFOptions::PDFFontEmbedding embeddingMode = fontEmbeddingMode();
+	if (embeddingMode != PDFOptions::EmbedFonts)
+		return QStringList();
+
+	QStringList fonts;
+	for (int i = 0; i < EmbedList->count(); ++i)
+		fonts.append(EmbedList->item(i)->text());
+	return fonts;
 }
 
 QStringList TabPDFOptions::fontsToSubset()
 {
-    QStringList fonts;
-    FontListModel* table = qobject_cast<FontListModel*>(FontTable->model());
-    for (int i = 0; i < table->rowCount(); ++i)
-    {
-        QString font = table->data(table->index(i, FontListModel::FontName)).toString();
-        if (checkState(table, i, FontListModel::FontSubset) &&
-            !checkState(table, i, FontListModel::FontOutline))
-        {
-            fonts.append(font);
-        }
-    }
-    return fonts;
+	PDFOptions::PDFFontEmbedding embeddingMode = fontEmbeddingMode();
+	if (embeddingMode != PDFOptions::EmbedFonts)
+		return QStringList();
+
+	QStringList fonts;
+	for (int i = 0; i < SubsetList->count(); ++i)
+		fonts.append(SubsetList->item(i)->text());
+	return fonts;
 }
 
 QStringList TabPDFOptions::fontsToOutline()
 {
-    QStringList fonts;
-    FontListModel* table = qobject_cast<FontListModel*>(FontTable->model());
-    for (int i = 0; i < table->rowCount(); ++i)
-        if (checkState(table, i, FontListModel::FontOutline))
-        {
-            fonts.append(table->data(table->index(i, FontListModel::FontName)).toString());
-        }
-    return fonts;
-}
+	PDFOptions::PDFFontEmbedding embeddingMode = fontEmbeddingMode();
+	if (embeddingMode != PDFOptions::OutlineFonts)
+		return QStringList();
 
+	return m_docFonts;
+}
 
 void TabPDFOptions::restoreDefaults(PDFOptions & Optionen,
 									const SCFonts &AllFonts,
@@ -420,6 +389,22 @@ void TabPDFOptions::restoreDefaults(PDFOptions & Optionen,
 	ValC->setValue(Opts.PicRes);
 	ValC->setEnabled(DSColor->isChecked() ? true : false);
 
+	m_docFonts = DocFonts.keys();
+	if (Opts.Version == PDFOptions::PDFVersion_X1a ||
+		Opts.Version == PDFOptions::PDFVersion_X3  ||
+		Opts.Version == PDFOptions::PDFVersion_X4 )
+	{
+		Opts.FontEmbedding = PDFOptions::EmbedFonts;
+	}
+	fontEmbeddingCombo->setCurrentIndex((int) Opts.FontEmbedding);
+
+	EmbedList->setEnabled(Opts.FontEmbedding == PDFOptions::EmbedFonts);
+	EmbedFonts->setEnabled(Opts.FontEmbedding == PDFOptions::EmbedFonts);
+	SubsetList->setEnabled(Opts.FontEmbedding == PDFOptions::EmbedFonts);
+	SubsetFonts->setEnabled(Opts.FontEmbedding == PDFOptions::EmbedFonts);
+	ToSubset->setEnabled(Opts.FontEmbedding == PDFOptions::EmbedFonts);
+	FromSubset->setEnabled(Opts.FontEmbedding == PDFOptions::EmbedFonts);
+
 //	Build a list of all Fonts used in Annotations;
 	PageItem *pgit;
 	QList<PageItem*> allItems;
@@ -438,7 +423,7 @@ void TabPDFOptions::restoreDefaults(PDFOptions & Optionen,
 				int annotType  = pgit->annotation().Type();
 				bool mustEmbed = ((annotType >= Annotation::Button) && (annotType <= Annotation::Listbox) && (annotType != Annotation::Checkbox));
 				if (pgit->itemText.length() > 0 || mustEmbed)
-					AnnotationFonts.insert(pgit->itemText.defaultStyle().charStyle().font().replacementName(), "");
+					m_annotationFonts.insert(pgit->itemText.defaultStyle().charStyle().font().replacementName(), "");
 			}
 		}
 		allItems.clear();
@@ -458,7 +443,7 @@ void TabPDFOptions::restoreDefaults(PDFOptions & Optionen,
 				int annotType  = pgit->annotation().Type();
 				bool mustEmbed = ((annotType >= Annotation::Button) && (annotType <= Annotation::Listbox) && (annotType != Annotation::Checkbox));
 				if (pgit->itemText.length() > 0 || mustEmbed)
-					AnnotationFonts.insert(pgit->itemText.defaultStyle().charStyle().font().replacementName(), "");
+					m_annotationFonts.insert(pgit->itemText.defaultStyle().charStyle().font().replacementName(), "");
 			}
 		}
 		allItems.clear();
@@ -478,67 +463,48 @@ void TabPDFOptions::restoreDefaults(PDFOptions & Optionen,
 				int annotType  = pgit->annotation().Type();
 				bool mustEmbed = ((annotType >= Annotation::Button) && (annotType <= Annotation::Listbox) && (annotType != Annotation::Checkbox));
 				if (pgit->itemText.length() > 0 || mustEmbed)
-					AnnotationFonts.insert(pgit->itemText.defaultStyle().charStyle().font().replacementName(), "");
+					m_annotationFonts.insert(pgit->itemText.defaultStyle().charStyle().font().replacementName(), "");
 			}
 		}
 		allItems.clear();
 	}
-    
-    
-    FontListModel* table = qobject_cast<FontListModel*>(FontTable->model());
-    table->setFonts(DocFonts.keys());
-    if (!FontTable->isSortingEnabled())
-        FontTable->sortByColumn(FontListModel::SortIndex, Qt::AscendingOrder);
-    
-    
-//	QMap<QString,int>::const_iterator it;
-//	AvailFlist->clear();
-//	for (it = DocFonts.constBegin(); it != DocFonts.constEnd(); ++it)
-//	{
-//		if (AllFonts[it.key()].isReplacement())
-//			new QListWidgetItem( QIcon(loadIcon("font_subst16.png")), it.key(), AvailFlist );
-//		else if (AllFonts[it.key()].type() == ScFace::TYPE1)
-//			new QListWidgetItem( QIcon(loadIcon("font_type1_16.png")), it.key(), AvailFlist );
-//		else if (AllFonts[it.key()].type() == ScFace::TTF)
-//			new QListWidgetItem( QIcon(loadIcon("font_truetype16.png")), it.key(), AvailFlist );
-//		else if (AllFonts[it.key()].type() == ScFace::OTF)
-//			new QListWidgetItem( QIcon(loadIcon("font_otf16.png")), it.key(), AvailFlist );
-//	}
-//	ToEmbed->setEnabled(false);
-//	FromEmbed->setEnabled(false);
-//	ToOutline->setEnabled(false);
-//	FromOutline->setEnabled(false);
+	ToSubset->setEnabled(false);
+	FromSubset->setEnabled(false);
+
 	if ((Opts.EmbedList.count() == 0) && (Opts.SubsetList.count() == 0) && (Opts.firstUse))
 		EmbedAll();
 	else
 	{
-		for (int fe = 0; fe < Opts.EmbedList.count(); ++fe)
-            setState(table, Opts.EmbedList[fe], FontListModel::FontEmbed);
-		if (Opts.SubsetList.count() != 0)
+		EmbedList->clear();
+		SubsetList->clear();
+		for (int fe = 0; fe < m_docFonts.count(); ++ fe)
 		{
-			for (int fe = 0; fe < Opts.SubsetList.count(); ++fe)
-				setState(table, Opts.SubsetList[fe], FontListModel::FontSubset);		}
-        if (Opts.SubsetList.count() != 0)
-        {
-            for (int fe = 0; fe < Opts.OutlineList.count(); ++fe)
-                setState(table, Opts.OutlineList[fe], FontListModel::FontOutline);
-        }
-//		QMap<QString, QString>::Iterator itAnn;
-//		for (itAnn = AnnotationFonts.begin(); itAnn != AnnotationFonts.end(); ++itAnn)
-//		{
-//			QList<QListWidgetItem *> itEmbed = EmbedList->findItems(itAnn.key(), Qt::MatchExactly);
-//			if (itEmbed.count() == 0)
-//			{
-//				EmbedList->addItem(itAnn.key());
-//				EmbedList->item(EmbedList->count()-1)->setFlags(Qt::ItemIsEnabled);
-//			}
-//			QList<QListWidgetItem *> itOutline = OutlineList->findItems(itAnn.key(), Qt::MatchExactly);
-//			for (int itOut = 0; itOut < itOutline.count(); ++itOut)
-//			{
-//				QListWidgetItem* item = itOutline[itOut];
-//				delete OutlineList->takeItem(OutlineList->row(item));
-//			}
-//		}
+			QString fontName = m_docFonts.at(fe);
+			if (Opts.EmbedList.contains(fontName))
+				addFontItem(fontName, EmbedList);
+			else
+			{
+				addFontItem(fontName, SubsetList);
+				if (!Opts.SubsetList.contains(fontName))
+					Opts.SubsetList.append(fontName);
+			}
+		}
+		QMap<QString, QString>::Iterator itAnn;
+		for (itAnn = m_annotationFonts.begin(); itAnn != m_annotationFonts.end(); ++itAnn)
+		{
+			QList<QListWidgetItem *> itEmbed = EmbedList->findItems(itAnn.key(), Qt::MatchExactly);
+			if (itEmbed.count() == 0)
+			{
+				QListWidgetItem* item = addFontItem(itAnn.key(), EmbedList);
+				item->setFlags(Qt::ItemIsEnabled);
+			}
+			QList<QListWidgetItem *> itSubset = SubsetList->findItems(itAnn.key(), Qt::MatchExactly);
+			for (int itOut = 0; itOut < itSubset.count(); ++itOut)
+			{
+				QListWidgetItem* item = itSubset[itOut];
+				delete SubsetList->takeItem(SubsetList->row(item));
+			}
+		}
 	}
 	CheckBox10->setChecked(Opts.PresentMode);
 	PagePrev->setChecked(false);
@@ -773,6 +739,7 @@ void TabPDFOptions::storeValues(PDFOptions& pdfOptions)
 	pdfOptions.pageRangeSelection = AllPages->isChecked() ? 0 : 1;
 	pdfOptions.pageRangeString = PageNr->text();
 	pdfOptions.Articles = Article->isChecked();
+	pdfOptions.FontEmbedding =  (PDFOptions::PDFFontEmbedding) fontEmbeddingCombo->currentIndex();
 	pdfOptions.Encrypt = Encry->isChecked();
 	pdfOptions.UseLPI = UseLPI->isChecked();
 	pdfOptions.UseSpotColors = !useSpot->isChecked();
@@ -965,6 +932,7 @@ void TabPDFOptions::EnablePDFX(int a)
 
 	if (a < 3)  // not PDF/X
 	{
+		fontEmbeddingCombo->setEnabled(true);
 		X3Group->setEnabled(false);
 		setTabEnabled(indexOf(tabSecurity), true);
 		OutCombo->setEnabled(true);
@@ -973,10 +941,7 @@ void TabPDFOptions::EnablePDFX(int a)
 		emit hasInfo();
 
 		CheckBox10->setEnabled(true);
-//		EmbedAllFontsButton->setEnabled(true);
-//		if (EmbedList->count() != 0)
-//			FromEmbed->setEnabled(true);
-//		ToEmbed->setEnabled(true);
+		EmbedFonts->setEnabled(true);
 		EnablePr(OutCombo->currentIndex());
 		return;
 	}
@@ -999,11 +964,19 @@ void TabPDFOptions::EnablePDFX(int a)
 		EmbedProfs2->setEnabled(false);
 	}
 
+	fontEmbeddingCombo->setCurrentIndex(0);
+	fontEmbeddingCombo->setEnabled(false);
+
+	EmbedList->setEnabled(true);
+	EmbedFonts->setEnabled(true);
+	SubsetList->setEnabled(true);
+	SubsetFonts->setEnabled(true);
+	ToSubset->setEnabled(true);
+	FromSubset->setEnabled(true);
+
 	EmbedAll();
 	CheckBox10->setChecked(false);
 	CheckBox10->setEnabled(false);
-//	FromEmbed->setEnabled(false);
-//	ToEmbed->setEnabled(false);
 	if (InfoString->text().isEmpty())
 		emit noInfo();
 	else
@@ -1340,130 +1313,53 @@ void TabPDFOptions::DoDownsample()
 		ValC->setEnabled(false);
 }
 
-
-#if 0
-void TabPDFOptions::RemoveEmbed()
+void TabPDFOptions::EmbeddingModeChange()
 {
-	delete EmbedList->takeItem(EmbedList->currentRow());
-	EmbedList->clearSelection();
-	if (EmbedList->count() == 0)
-	{
-		FromEmbed->setEnabled(false);
-		ToOutline->setEnabled(false);
-	}
-	else
-	{
-		if (!EmbedList->item(EmbedList->currentRow())->flags() & Qt::ItemIsSelectable)
-		{
-			FromEmbed->setEnabled(false);
-			ToOutline->setEnabled(false);
-		}
-	}
+	PDFOptions::PDFFontEmbedding embeddingMode = fontEmbeddingMode();
+
+	EmbedList->setEnabled(embeddingMode == PDFOptions::EmbedFonts);
+	EmbedFonts->setEnabled(embeddingMode == PDFOptions::EmbedFonts);
+	SubsetList->setEnabled(embeddingMode == PDFOptions::EmbedFonts);
+	SubsetFonts->setEnabled(embeddingMode == PDFOptions::EmbedFonts);
+	ToSubset->setEnabled(embeddingMode == PDFOptions::EmbedFonts);
+	FromSubset->setEnabled(embeddingMode == PDFOptions::EmbedFonts);
 }
 
-void TabPDFOptions::PutToEmbed()
+void TabPDFOptions::RemoveSubset()
 {
-	QString currentFont = AvailFlist->currentItem()->text();
-	if (EmbedList->count() != 0)
+	QString currentFont = SubsetList->currentItem()->text();
+	const ScFace fontFace = AllFonts[currentFont];
+	if ((fontFace.type() != ScFace::OTF) && (!fontFace.subset()))
 	{
-		if (!AllFonts[currentFont].subset())
-		{
-			if (EmbedList->findItems(currentFont, Qt::MatchExactly).count() == 0)
-			{
-				EmbedList->addItem(currentFont);
-				if (AnnotationFonts.contains(currentFont))
-					EmbedList->item(EmbedList->count()-1)->setFlags(Qt::ItemIsEnabled);
-			}
-		}
-		else
-		{
-			if (OutlineList->count() != 0)
-			{
-				if (OutlineList->findItems(currentFont, Qt::MatchExactly).count() == 0)
-					OutlineList->addItem(currentFont);
-			}
-			else
-			{
-				OutlineList->addItem(currentFont);
-			}
-		}
+		addFontItem(currentFont, EmbedList);
+		delete SubsetList->takeItem(SubsetList->currentRow());
 	}
-	else
-	{
-		if ((AllFonts[currentFont].type() != ScFace::OTF) && (!AllFonts[currentFont].subset()))
-		{
-			EmbedList->addItem(currentFont);
-			if (AnnotationFonts.contains(currentFont))
-				EmbedList->item(EmbedList->count()-1)->setFlags(Qt::ItemIsEnabled);
-		}
-		else
-		{
-			if (OutlineList->count() != 0)
-			{
-				if (OutlineList->findItems(currentFont, Qt::MatchExactly).count() == 0)
-					OutlineList->addItem(currentFont);
-			}
-			else
-			{
-				OutlineList->addItem(currentFont);
-			}
-		}
-	}
+	SubsetList->clearSelection();
+	if (SubsetList->count() == 0)
+		FromSubset->setEnabled(false);
 }
 
-void TabPDFOptions::RemoveOutline()
-{
-	QString currentFont = OutlineList->currentItem()->text();
-	if ((AllFonts[currentFont].type() != ScFace::OTF) && (!AllFonts[currentFont].subset()))
-	{
-		EmbedList->addItem(currentFont);
-	}
-	delete OutlineList->takeItem(OutlineList->currentRow());
-	OutlineList->clearSelection();
-	if (OutlineList->count() == 0)
-		FromOutline->setEnabled(false);
-}
-
-void TabPDFOptions::PutToOutline()
+void TabPDFOptions::PutToSubset()
 {
 	QString currentFont = EmbedList->currentItem()->text();
-	if (OutlineList->count() != 0)
+	if (SubsetList->count() != 0)
 	{
-		if (OutlineList->findItems(currentFont, Qt::MatchExactly).count() == 0)
-			OutlineList->addItem(currentFont);
+		if (SubsetList->findItems(currentFont, Qt::MatchExactly).count() == 0)
+			addFontItem(currentFont, SubsetList);
 	}
 	else
 	{
-		OutlineList->addItem(currentFont);
+		addFontItem(currentFont, SubsetList);
 	}
 	delete EmbedList->takeItem(EmbedList->currentRow());
 	EmbedList->clearSelection();
 	if (EmbedList->count() == 0)
 	{
-		FromEmbed->setEnabled(false);
-		ToOutline->setEnabled(false);
+		ToSubset->setEnabled(false);
 	}
-	else
+	else if (!(EmbedList->currentItem()->flags() & Qt::ItemIsSelectable))
 	{
-		if (!(EmbedList->currentItem()->flags() & Qt::ItemIsSelectable))
-		{
-			FromEmbed->setEnabled(false);
-			ToOutline->setEnabled(false);
-		}
-	}
-}
-
-void TabPDFOptions::SelAFont(QListWidgetItem *c)
-{
-	if (c != NULL)
-	{
-		FromEmbed->setEnabled(false);
-		if (c->flags() & Qt::ItemIsSelectable)
-			ToEmbed->setEnabled(true);
-		ToOutline->setEnabled(false);
-		FromOutline->setEnabled(false);
-		EmbedList->clearSelection();
-		OutlineList->clearSelection();
+		ToSubset->setEnabled(false);
 	}
 }
 
@@ -1471,16 +1367,10 @@ void TabPDFOptions::SelEFont(QListWidgetItem *c)
 {
 	if (c != NULL)
 	{
-		if ((PDFVersionCombo->currentIndex() < 3) && (c->flags() & Qt::ItemIsSelectable))
-			FromEmbed->setEnabled(true);
-		else
-			FromEmbed->setEnabled(false);
-		ToEmbed->setEnabled(false);
 		if (c->flags() & Qt::ItemIsSelectable)
-			ToOutline->setEnabled(true);
-		FromOutline->setEnabled(false);
-		AvailFlist->clearSelection();
-		OutlineList->clearSelection();
+			ToSubset->setEnabled(true);
+		FromSubset->setEnabled(false);
+		SubsetList->clearSelection();
 	}
 }
 
@@ -1491,100 +1381,82 @@ void TabPDFOptions::SelSFont(QListWidgetItem *c)
 		if (PDFVersionCombo->currentIndex() == 4)
 		{
 			if ((AllFonts[c->text()].type() == ScFace::OTF) || (AllFonts[c->text()].subset()))
-				FromOutline->setEnabled(false);
+				FromSubset->setEnabled(false);
 			else
-				FromOutline->setEnabled(true);
+				FromSubset->setEnabled(true);
 		}
 		else
-			FromOutline->setEnabled(true);
-		ToOutline->setEnabled(false);
-		ToEmbed->setEnabled(false);
-		FromEmbed->setEnabled(false);
+			FromSubset->setEnabled(true);
+		ToSubset->setEnabled(false);
 		EmbedList->clearSelection();
-		AvailFlist->clearSelection();
 	}
-}
-
-#endif
-
-void TabPDFOptions::SubsetAll()
-{
-    FontListModel* table = qobject_cast<FontListModel*>(FontTable->model());
-    for (int row = 1; row < table->rowCount(); ++row)
-        if (!checkState(table, row, FontListModel::FontSubset))
-            setState(table, row, FontListModel::FontSubset);
 }
 
 void TabPDFOptions::EmbedAll()
 {
-    FontListModel* table = qobject_cast<FontListModel*>(FontTable->model());
-    for (int row = 1; row < table->rowCount(); ++row)
-        if (!checkState(table, row, FontListModel::FontEmbed))
-            setState(table, row, FontListModel::FontEmbed);
-#if 0
 	EmbedList->clear();
-	OutlineList->clear();
-	FromEmbed->setEnabled(false);
-	ToEmbed->setEnabled(false);
-	ToOutline->setEnabled(false);
-	FromOutline->setEnabled(false);
-	for (int a=0; a < AvailFlist->count(); ++a)
+	SubsetList->clear();
+	ToSubset->setEnabled(false);
+	FromSubset->setEnabled(false);
+	for (int a = 0; a < m_docFonts.count(); ++a)
 	{
-		QListWidgetItem* item = AvailFlist->item(a);
-		if ((item->flags() & Qt::ItemIsSelectable) == 0)
-			continue;
-		if (!AllFonts[item->text()].subset())
+		QString fontName = m_docFonts.at(a);
+		if (!AllFonts[fontName].subset())
 		{
-			EmbedList->addItem(item->text());
-			if (AnnotationFonts.contains(item->text()))
-				EmbedList->item(EmbedList->count()-1)->setFlags(Qt::ItemIsEnabled);
+			QListWidgetItem* item = addFontItem(fontName, EmbedList);
+			if (m_annotationFonts.contains(item->text()))
+				item->setFlags(Qt::ItemIsEnabled);
+		}
+		else if (m_annotationFonts.contains(fontName))
+		{
+			QListWidgetItem* item = addFontItem(fontName, EmbedList);
+			item->setFlags(Qt::ItemIsEnabled);
 		}
 		else
 		{
-			if (AnnotationFonts.contains(item->text()))
-			{
-				EmbedList->addItem(item->text());
-				EmbedList->item(EmbedList->count()-1)->setFlags(Qt::ItemIsEnabled);
-			}
-			else
-			{
-				OutlineList->addItem(item->text());
-			}
+			addFontItem(fontName, SubsetList);
 		}
 	}
-#endif
 }
 
-void TabPDFOptions::OutlineAll()
+void TabPDFOptions::SubsetAll()
 {
-    FontListModel* table = qobject_cast<FontListModel*>(FontTable->model());
-    for (int row = 1; row < table->rowCount(); ++row)
-        if (!checkState(table, row, FontListModel::FontOutline))
-            setState(table, row, FontListModel::FontOutline);
-
-#if 0
 	EmbedList->clear();
-	OutlineList->clear();
-	FromEmbed->setEnabled(false);
-	ToEmbed->setEnabled(false);
-	ToOutline->setEnabled(false);
-	FromOutline->setEnabled(false);
-	for (int a = 0; a < AvailFlist->count(); ++a)
+	SubsetList->clear();
+	ToSubset->setEnabled(false);
+	FromSubset->setEnabled(false);
+	for (int a = 0; a < m_docFonts.count(); ++a)
 	{
-		QListWidgetItem* item = AvailFlist->item(a);
-		if ((item->flags() & Qt::ItemIsSelectable) == 0)
-			continue;
-		if (AnnotationFonts.contains(item->text()))
+		QString fontName = m_docFonts.at(a);
+		if (m_annotationFonts.contains(fontName))
 		{
-			EmbedList->addItem(item->text());
-			EmbedList->item(EmbedList->count()-1)->setFlags(Qt::ItemIsEnabled);
+			QListWidgetItem* item = addFontItem(fontName, EmbedList);
+			item->setFlags(Qt::ItemIsEnabled);
 		}
 		else
 		{
-			OutlineList->addItem(item->text());
+			addFontItem(fontName, SubsetList);
 		}
 	}
-#endif
+}
+
+QListWidgetItem* TabPDFOptions::addFontItem(QString fontName, QListWidget* fontList)
+{
+	QListWidgetItem* item = 0;
+	if (!AllFonts.contains(fontName))
+		return 0;
+
+	const ScFace& face = AllFonts.value(fontName);
+	if (face.isReplacement())
+		item = new QListWidgetItem( QIcon(loadIcon("font_subst16.png")), fontName, fontList );
+	else if (face.type() == ScFace::TYPE1)
+		item = new QListWidgetItem( QIcon(loadIcon("font_type1_16.png")), fontName, fontList );
+	else if (face.type() == ScFace::TTF)
+		item = new QListWidgetItem( QIcon(loadIcon("font_truetype16.png")), fontName, fontList );
+	else if (face.type() == ScFace::OTF)
+		item = new QListWidgetItem( QIcon(loadIcon("font_otf16.png")), fontName, fontList );
+
+	return item;
 }
 
 void TabPDFOptions::unitChange(int docUnitIndex)

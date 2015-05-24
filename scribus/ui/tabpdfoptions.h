@@ -10,6 +10,8 @@ for which a new license (GPL+exception) is in place.
 #include <QTabWidget>
 #include <QMap>
 #include <QList>
+#include <QStringList>
+
 class QGridLayout;
 class QHBoxLayout;
 class QVBoxLayout;
@@ -56,8 +58,9 @@ public:
 
 	void unitChange(int docUnitIndex);
 
+	PDFOptions::PDFFontEmbedding fontEmbeddingMode();
 	QStringList fontsToEmbed();
-    QStringList fontsToSubset();
+	QStringList fontsToSubset();
 	QStringList fontsToOutline();
 
 signals:
@@ -69,16 +72,13 @@ public slots:
 	void ToggleEncr();
 	void EnablePDFX(int a);
 	void DoDownsample();
-//	void RemoveEmbed();
-//	void PutToEmbed();
-//	void RemoveOutline();
-//	void PutToOutline();
-//	void SelAFont(QListWidgetItem*);
-//	void SelEFont(QListWidgetItem*);
-//	void SelSFont(QListWidgetItem*);
+	void EmbeddingModeChange();
+	void RemoveSubset();
+	void PutToSubset();
+	void SelEFont(QListWidgetItem*);
+	void SelSFont(QListWidgetItem*);
 	void EmbedAll();
-    void SubsetAll();
-	void OutlineAll();
+	void SubsetAll();
 	void PagePr();
 	void SetPgEff(QListWidgetItem* current, QListWidgetItem* previous);
 	void SetEffOpts(int nr);
@@ -112,6 +112,8 @@ protected:
 	QList<PDFPresentationData> EffVal;
 	QString SelLPIcolor;
 
+	QListWidgetItem* addFontItem(QString fontName, QListWidget* fontList);
+
 private:
 	// Non-GUI protected members
 	double unitRatio;
@@ -119,7 +121,9 @@ private:
 	const SCFonts & AllFonts;
 	PDFOptions & Opts;
 	bool cms;
-	QMap<QString, QString> AnnotationFonts;
+
+	QStringList m_docFonts;
+	QMap<QString, QString> m_annotationFonts;
 
 };
 #endif

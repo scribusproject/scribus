@@ -239,9 +239,10 @@ void PDFExportDialog::updateDocOptions()
 	m_opts.CompressMethod = (PDFOptions::PDFCompression) Options->CMethod->currentIndex();
 	m_opts.Quality = Options->CQuality->currentIndex();
 	m_opts.Resolution = Options->Resolution->value();
+	m_opts.FontEmbedding = Options->fontEmbeddingMode();
 	m_opts.EmbedList = Options->fontsToEmbed();
 	m_opts.SubsetList = Options->fontsToSubset();
-    m_opts.OutlineList = Options->fontsToOutline();
+	m_opts.OutlineList = Options->fontsToOutline();
 	m_opts.RecalcPic = Options->DSColor->isChecked();
 	m_opts.PicRes = Options->ValC->value();
 	m_opts.embedPDF = Options->EmbedPDF->isChecked();

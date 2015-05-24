@@ -74,6 +74,13 @@ public:
 		Compression_None = 3
 	};
 
+	enum PDFFontEmbedding
+	{
+		EmbedFonts = 0,
+		OutlineFonts = 1,
+		DontEmbed  = 2
+	};
+
 	/**
 	 * @author Craig Ringer
 	 * @brief Sanity check the options defined.
@@ -111,6 +118,7 @@ public:
 	PDFVersion Version;
 	int  Resolution;
 	int  Binding;
+	PDFFontEmbedding FontEmbedding;
 	QList<QString> EmbedList;
 	QList<QString> SubsetList;
 	QList<QString> OutlineList;

@@ -1536,6 +1536,7 @@ bool Scribus134Format::readPDFOptions(ScribusDoc* doc, ScXmlStreamReader& reader
 	doc->pdfOptions().Resolution = attrs.valueAsInt("Resolution");
 	doc->pdfOptions().Binding    = attrs.valueAsInt("Binding");
 	doc->pdfOptions().fileName   = "";
+	doc->pdfOptions().FontEmbedding = (PDFOptions::PDFFontEmbedding) attrs.valueAsInt("FontEmbedding", 0);
 	doc->pdfOptions().isGrayscale   = attrs.valueAsBool("Grayscale", false);
 	doc->pdfOptions().UseRGB        = attrs.valueAsBool("RGBMode", false);
 	doc->pdfOptions().UseProfiles   = attrs.valueAsBool("UseProfiles", false);

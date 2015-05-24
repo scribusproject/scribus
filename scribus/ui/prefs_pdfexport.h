@@ -30,8 +30,9 @@ class SCRIBUS_API Prefs_PDFExport : public Prefs_Pane, Ui::Prefs_PDFExport
 		virtual void saveGuiToPrefs(struct ApplicationPrefs *prefsData) const;
 		void enableCMS(bool);
 
+		PDFOptions::PDFFontEmbedding fontEmbeddingMode();
 		QStringList fontsToEmbed();
-        QStringList fontsToSubset();
+		QStringList fontsToSubset();
 		QStringList fontsToOutline();
 
 	signals:
@@ -57,21 +58,20 @@ class SCRIBUS_API Prefs_PDFExport : public Prefs_Pane, Ui::Prefs_PDFExport
 		void enablePDFX(int);
 		void SelLPIcol(int);
 		void DoDownsample();
-		//void RemoveEmbed();
-		//void PutToEmbed();
-		//void RemoveOutline();
-		//void PutToOutline();
-		void SelAFont(QListWidgetItem*);
+		void EmbeddingModeChange();
+		void RemoveSubset();
+		void PutToSubset();
 		void SelEFont(QListWidgetItem*);
 		void SelSFont(QListWidgetItem*);
 		void EmbedAll();
-        void SubsetAll();
+		void SubsetAll();
 		void OutlineAll();
 		void PagePr();
 		void doDocBleeds();
 		void SetEffOpts(int nr);
 
 	protected:
+		QListWidgetItem* addFontItem(QString fontName, QListWidget* fontList);
 		void setCustomRenderingWidgetsShown(bool);
 		void setSolidsImagesWidgetsShown(bool);
 		void enableCustomRenderingWidgets(bool);

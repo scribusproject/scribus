@@ -129,6 +129,20 @@ void PDFOptionsIO::buildSettings()
 	addElem(m_root, "pdfVersion", pdfVersString);
 	addElem(m_root, "resolution", m_opts->Resolution);
 	addElem(m_root, "binding", m_opts->Binding);
+	QString embeddingModeString;
+	switch (m_opts->FontEmbedding)
+	{
+		case PDFOptions::OutlineFonts:
+			embeddingModeString = "OutlineFonts";
+			break;
+		case PDFOptions::DontEmbed:
+			embeddingModeString = "DontEmbed";
+			break;
+		default:
+			embeddingModeString = "EmbedFonts";
+			break;
+	}
+	addElem(m_root, "fontEmbedding", embeddingModeString);
 	addList(m_root, "embedFonts", m_opts->EmbedList);
 	addList(m_root, "subsetFonts", m_opts->SubsetList);
 	addElem(m_root, "mirrorH", m_opts->MirrorH);
@@ -351,6 +365,8 @@ bool PDFOptionsIO::readSettings()
 		return false;
 	if (!readElem(m_root, "binding", &m_opts->Binding))
 		return false;
+	if (!readPDFFontEmbeddingMode())
+		return false;
 	if (!readList(m_root, "embedFonts", &m_opts->EmbedList))
 		return false;
 	if (!readList(m_root, "subsetFonts", &m_opts->SubsetList))
@@ -471,6 +487,34 @@ bool PDFOptionsIO::readPDFVersion()
 			.arg(QObject::tr("<pdfVersion> invalid", "Load PDF settings"));
 		return false;
 	}
+}
+
+bool PDFOptionsIO::readPDFFontEmbeddingMode()
+{
+	QString embeddingMode;
+	if (!readElem(m_root, "fontEmbedding", &embeddingMode))
+		return false;
+
+	if (embeddingMode == "EmbedFonts")
+	{
+		m_opts->FontEmbedding = PDFOptions::EmbedFonts;
+		return true;
+	}
+	else if (embeddingMode == "OutlineFonts")
+	{
+		m_opts->FontEmbedding = PDFOptions::OutlineFonts;
+		return true;
+	}
+	else if (embeddingMode == "DontEmbed")
+	{
+		m_opts->FontEmbedding = PDFOptions::DontEmbed;
+		return true;
+	}
+
+	m_opts->FontEmbedding = PDFOptions::EmbedFonts;
+	m_error = QObject::tr("Unable to read settings XML: %1")
+			.arg(QObject::tr("<fontEmbedding> invalid", "Load PDF settings"));
+	return false;
 }
 
 // returns a null node on failure

@@ -1073,6 +1073,7 @@ void Scribus150Format::writePdfOptions(ScXmlStreamWriter & docu)
 	docu.writeAttribute("RotateDeg", static_cast<int>(m_Doc->pdfOptions().RotateDeg));
 	docu.writeAttribute("PresentMode", static_cast<int>(m_Doc->pdfOptions().PresentMode));
 	docu.writeAttribute("RecalcPic", static_cast<int>(m_Doc->pdfOptions().RecalcPic));
+	docu.writeAttribute("FontEmbedding", static_cast<int>(m_Doc->pdfOptions().FontEmbedding));
 	docu.writeAttribute("Grayscale", static_cast<int>(m_Doc->pdfOptions().isGrayscale));
 	docu.writeAttribute("RGBMode", static_cast<int>(m_Doc->pdfOptions().UseRGB));
 	docu.writeAttribute("UseProfiles", static_cast<int>(m_Doc->pdfOptions().UseProfiles));
@@ -1118,16 +1119,21 @@ void Scribus150Format::writePdfOptions(ScXmlStreamWriter & docu)
 	docu.writeAttribute("openAfterExport", static_cast<int>(m_Doc->pdfOptions().openAfterExport));
 	docu.writeAttribute("PageLayout", m_Doc->pdfOptions().PageLayout);
 	docu.writeAttribute("openAction", m_Doc->pdfOptions().openAction);
-	for (int pdoF = 0; pdoF < m_Doc->pdfOptions().EmbedList.count(); ++pdoF)
+
+	const QList<QString>& embedList = m_Doc->pdfOptions().EmbedList;
+	for (int pdoF = 0; pdoF < embedList.count(); ++pdoF)
 	{
 		docu.writeEmptyElement("Fonts");
-		docu.writeAttribute("Name", m_Doc->pdfOptions().EmbedList[pdoF]);
+		docu.writeAttribute("Name", embedList.at(pdoF));
 	}
-	for (int pdoS = 0; pdoS < m_Doc->pdfOptions().SubsetList.count(); ++pdoS)
+
+	const QList<QString>& subsetList = m_Doc->pdfOptions().SubsetList;
+	for (int pdoS = 0; pdoS < subsetList.count(); ++pdoS)
 	{
 		docu.writeEmptyElement("Subset");
-		docu.writeAttribute("Name", m_Doc->pdfOptions().SubsetList[pdoS]);
+		docu.writeAttribute("Name", subsetList.at(pdoS));
 	}
+
 	QMap<QString,LPIData>::Iterator itlp;
 	for (itlp = m_Doc->pdfOptions().LPISettings.begin(); itlp != m_Doc->pdfOptions().LPISettings.end(); ++itlp)
 	{

@@ -24,7 +24,16 @@
     <property name="spacing">
      <number>5</number>
     </property>
-    <property name="margin">
+    <property name="leftMargin">
+     <number>10</number>
+    </property>
+    <property name="topMargin">
+     <number>10</number>
+    </property>
+    <property name="rightMargin">
+     <number>10</number>
+    </property>
+    <property name="bottomMargin">
      <number>10</number>
     </property>
     <item>
@@ -41,7 +50,16 @@
          <property name="spacing">
           <number>5</number>
          </property>
-         <property name="margin">
+         <property name="leftMargin">
+          <number>10</number>
+         </property>
+         <property name="topMargin">
+          <number>10</number>
+         </property>
+         <property name="rightMargin">
+          <number>10</number>
+         </property>
+         <property name="bottomMargin">
           <number>10</number>
          </property>
          <item>
@@ -172,7 +190,16 @@
          <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
         </property>
         <layout class="QGridLayout" name="fileOptionsLayout">
-         <property name="margin">
+         <property name="leftMargin">
+          <number>10</number>
+         </property>
+         <property name="topMargin">
+          <number>10</number>
+         </property>
+         <property name="rightMargin">
+          <number>10</number>
+         </property>
+         <property name="bottomMargin">
           <number>10</number>
          </property>
          <property name="spacing">
@@ -307,7 +334,16 @@
        <string>Image Quality Settings</string>
       </property>
       <layout class="QGridLayout" name="imageQualityLayout">
-       <property name="margin">
+       <property name="leftMargin">
+        <number>10</number>
+       </property>
+       <property name="topMargin">
+        <number>10</number>
+       </property>
+       <property name="rightMargin">
+        <number>10</number>
+       </property>
+       <property name="bottomMargin">
         <number>10</number>
        </property>
        <property name="spacing">
@@ -428,7 +464,16 @@
     <property name="spacing">
      <number>5</number>
     </property>
-    <property name="margin">
+    <property name="leftMargin">
+     <number>10</number>
+    </property>
+    <property name="topMargin">
+     <number>10</number>
+    </property>
+    <property name="rightMargin">
+     <number>10</number>
+    </property>
+    <property name="bottomMargin">
      <number>10</number>
     </property>
     <item>
@@ -436,181 +481,153 @@
       <property name="title">
        <string>Embedding</string>
       </property>
-      <layout class="QHBoxLayout" name="groupFontLayout">
-       <property name="spacing">
-        <number>5</number>
+      <layout class="QVBoxLayout" name="groupFontLayout">
+       <property name="leftMargin">
+        <number>10</number>
        </property>
-       <property name="margin">
+       <property name="topMargin">
+        <number>10</number>
+       </property>
+       <property name="rightMargin">
+        <number>10</number>
+       </property>
+       <property name="bottomMargin">
         <number>10</number>
        </property>
        <item>
-           <layout class="QVBoxLayout" name="verticalLayout_11">
-               <item>
-                   <widget class="QLabel" name="availableListLabel">
-                       <property name="text">
-                           <string>Used Fonts</string>
-                       </property>
-                   </widget>
-               </item>
-               <item>
-                   <widget class="QTableView" name="FontTable">
-                       <property name="sizePolicy">
-                           <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-                               <horstretch>0</horstretch>
-                               <verstretch>0</verstretch>
-                           </sizepolicy>
-                       </property>
-                   </widget>
-               </item>
-               <item>
-                   <widget class="QFrame" name="frame">
-                       <property name="sizePolicy">
-                           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-                               <horstretch>0</horstretch>
-                               <verstretch>1</verstretch>
-                           </sizepolicy>
-                       </property>
-                       <property name="frameShape">
-                           <enum>QFrame::StyledPanel</enum>
-                       </property>
-                       <property name="frameShadow">
-                           <enum>QFrame::Raised</enum>
-                       </property>
-                       <widget class="QWidget" name="gridLayoutWidget">
-                           <property name="geometry">
-                               <rect>
-                                   <x>0</x>
-                                   <y>0</y>
-                                   <width>581</width>
-                                   <height>151</height>
-                               </rect>
-                           </property>
-                           <layout class="QGridLayout" name="gridLayout_2" columnstretch="1,0">
-                               <property name="sizeConstraint">
-                                   <enum>QLayout::SetDefaultConstraint</enum>
-                               </property>
-                               <property name="topMargin">
-                                   <number>0</number>
-                               </property>
-                               <property name="horizontalSpacing">
-                                   <number>0</number>
-                               </property>
-                               <property name="verticalSpacing">
-                                   <number>-1</number>
-                               </property>
-                               <item row="0" column="0">
-                                   <widget class="QLabel" name="label_45">
-                                       <property name="sizePolicy">
-                                           <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
-                                               <horstretch>0</horstretch>
-                                               <verstretch>0</verstretch>
-                                           </sizepolicy>
-                                       </property>
-                                       <property name="locale">
-                                           <locale language="C" country="AnyCountry"/>
-                                       </property>
-                                       <property name="text">
-                                           <string>a) Embed fonts</string>
-                                       </property>
-                                       <property name="alignment">
-                                           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-                                       </property>
-                                       <property name="indent">
-                                           <number>24</number>
-                                       </property>
-                                   </widget>
-                               </item>
-                               <item row="2" column="0">
-                                   <widget class="QLabel" name="label_46">
-                                       <property name="sizePolicy">
-                                           <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
-                                               <horstretch>0</horstretch>
-                                               <verstretch>0</verstretch>
-                                           </sizepolicy>
-                                       </property>
-                                       <property name="locale">
-                                           <locale language="C" country="AnyCountry"/>
-                                       </property>
-                                       <property name="text">
-                                           <string>c) Outline fonts</string>
-                                       </property>
-                                       <property name="indent">
-                                           <number>24</number>
-                                       </property>
-                                   </widget>
-                               </item>
-                               <item row="1" column="1">
-                                   <widget class="QToolButton" name="SubsetAllFontsButton">
-                                       <property name="sizePolicy">
-                                           <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
-                                               <horstretch>0</horstretch>
-                                               <verstretch>0</verstretch>
-                                           </sizepolicy>
-                                       </property>
-                                       <property name="locale">
-                                           <locale language="C" country="AnyCountry"/>
-                                       </property>
-                                       <property name="text">
-                                           <string>Subset all fonts</string>
-                                       </property>
-                                   </widget>
-                               </item>
-                               <item row="1" column="0">
-                                   <widget class="QLabel" name="label_44">
-                                       <property name="sizePolicy">
-                                           <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
-                                               <horstretch>0</horstretch>
-                                               <verstretch>0</verstretch>
-                                           </sizepolicy>
-                                       </property>
-                                       <property name="locale">
-                                           <locale language="C" country="AnyCountry"/>
-                                       </property>
-                                       <property name="text">
-                                           <string>b) Subset fonts</string>
-                                       </property>
-                                       <property name="indent">
-                                           <number>24</number>
-                                       </property>
-                                   </widget>
-                               </item>
-                               <item row="2" column="1">
-                                   <widget class="QToolButton" name="OutlineAllFontsButton">
-                                       <property name="sizePolicy">
-                                           <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
-                                               <horstretch>0</horstretch>
-                                               <verstretch>0</verstretch>
-                                           </sizepolicy>
-                                       </property>
-                                       <property name="text">
-                                           <string>Outline all fonts</string>
-                                       </property>
-                                   </widget>
-                               </item>
-                               <item row="0" column="1">
-                                   <widget class="QToolButton" name="EmbedAllFontsButton">
-                                       <property name="sizePolicy">
-                                           <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
-                                               <horstretch>0</horstretch>
-                                               <verstretch>0</verstretch>
-                                           </sizepolicy>
-                                       </property>
-                                       <property name="locale">
-                                           <locale language="C" country="AnyCountry"/>
-                                       </property>
-                                       <property name="text">
-                                           <string>Embed all fonts</string>
-                                       </property>
-                                       <property name="autoExclusive">
-                                           <bool>false</bool>
-                                       </property>
-                                   </widget>
-                               </item>
-                           </layout>
-                       </widget>
-                   </widget>
-               </item>
-           </layout>
+        <layout class="QHBoxLayout" name="horizontalLayout_5">
+         <item>
+          <widget class="QLabel" name="label_6">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Maximum" vsizetype="Preferred">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="text">
+            <string>Embedding Mode:</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QComboBox" name="fontEmbeddingCombo">
+           <item>
+            <property name="text">
+             <string>Embed or subset</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Outline fonts</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Don't embed</string>
+            </property>
+           </item>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_9">
+         <item>
+          <layout class="QVBoxLayout" name="verticalLayout_6">
+           <property name="spacing">
+            <number>5</number>
+           </property>
+           <item>
+            <widget class="QLabel" name="label_8">
+             <property name="text">
+              <string>Fonts to embed:</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QListWidget" name="EmbedList"/>
+           </item>
+           <item>
+            <widget class="QPushButton" name="EmbedFonts">
+             <property name="text">
+              <string>&amp;Embed all</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <layout class="QVBoxLayout" name="verticalLayout_8">
+           <property name="spacing">
+            <number>5</number>
+           </property>
+           <item>
+            <spacer name="verticalSpacer">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>20</width>
+               <height>40</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item>
+            <widget class="QPushButton" name="ToSubset">
+             <property name="text">
+              <string/>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="FromSubset">
+             <property name="text">
+              <string/>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <spacer name="verticalSpacer_2">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>20</width>
+               <height>40</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <layout class="QVBoxLayout" name="verticalLayout_5">
+           <property name="spacing">
+            <number>5</number>
+           </property>
+           <item>
+            <widget class="QLabel" name="label_9">
+             <property name="text">
+              <string>Fonts to subset:</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QListWidget" name="SubsetList"/>
+           </item>
+           <item>
+            <widget class="QPushButton" name="SubsetFonts">
+             <property name="text">
+              <string>&amp;Subset all</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+        </layout>
        </item>
       </layout>
      </widget>
@@ -622,7 +639,16 @@
     <string>E&amp;xtras</string>
    </attribute>
    <layout class="QGridLayout" name="gridLayout_4">
-    <property name="margin">
+    <property name="leftMargin">
+     <number>10</number>
+    </property>
+    <property name="topMargin">
+     <number>10</number>
+    </property>
+    <property name="rightMargin">
+     <number>10</number>
+    </property>
+    <property name="bottomMargin">
      <number>10</number>
     </property>
     <property name="spacing">
@@ -865,7 +891,16 @@
     <property name="spacing">
      <number>5</number>
     </property>
-    <property name="margin">
+    <property name="leftMargin">
+     <number>10</number>
+    </property>
+    <property name="topMargin">
+     <number>10</number>
+    </property>
+    <property name="rightMargin">
+     <number>10</number>
+    </property>
+    <property name="bottomMargin">
      <number>10</number>
     </property>
     <item>
@@ -877,7 +912,16 @@
        <property name="spacing">
         <number>5</number>
        </property>
-       <property name="margin">
+       <property name="leftMargin">
+        <number>10</number>
+       </property>
+       <property name="topMargin">
+        <number>10</number>
+       </property>
+       <property name="rightMargin">
+        <number>10</number>
+       </property>
+       <property name="bottomMargin">
         <number>10</number>
        </property>
        <item>
@@ -885,7 +929,16 @@
          <property name="spacing">
           <number>5</number>
          </property>
-         <property name="margin">
+         <property name="leftMargin">
+          <number>0</number>
+         </property>
+         <property name="topMargin">
+          <number>0</number>
+         </property>
+         <property name="rightMargin">
+          <number>0</number>
+         </property>
+         <property name="bottomMargin">
           <number>0</number>
          </property>
          <item>
@@ -897,7 +950,16 @@
             <property name="spacing">
              <number>5</number>
             </property>
-            <property name="margin">
+            <property name="leftMargin">
+             <number>10</number>
+            </property>
+            <property name="topMargin">
+             <number>10</number>
+            </property>
+            <property name="rightMargin">
+             <number>10</number>
+            </property>
+            <property name="bottomMargin">
              <number>10</number>
             </property>
             <item>
@@ -940,7 +1002,16 @@
             <property name="spacing">
              <number>5</number>
             </property>
-            <property name="margin">
+            <property name="leftMargin">
+             <number>10</number>
+            </property>
+            <property name="topMargin">
+             <number>10</number>
+            </property>
+            <property name="rightMargin">
+             <number>10</number>
+            </property>
+            <property name="bottomMargin">
              <number>10</number>
             </property>
             <item>
@@ -1013,7 +1084,16 @@
           <property name="spacing">
            <number>5</number>
           </property>
-          <property name="margin">
+          <property name="leftMargin">
+           <number>10</number>
+          </property>
+          <property name="topMargin">
+           <number>10</number>
+          </property>
+          <property name="rightMargin">
+           <number>10</number>
+          </property>
+          <property name="bottomMargin">
            <number>10</number>
           </property>
           <item>
@@ -1052,7 +1132,16 @@ when PDF document is opened:</string>
     <property name="spacing">
      <number>5</number>
     </property>
-    <property name="margin">
+    <property name="leftMargin">
+     <number>10</number>
+    </property>
+    <property name="topMargin">
+     <number>10</number>
+    </property>
+    <property name="rightMargin">
+     <number>10</number>
+    </property>
+    <property name="bottomMargin">
      <number>10</number>
     </property>
     <item>
@@ -1074,7 +1163,16 @@ when PDF document is opened:</string>
        <string>Passwords</string>
       </property>
       <layout class="QGridLayout" name="groupPassLayout">
-       <property name="margin">
+       <property name="leftMargin">
+        <number>10</number>
+       </property>
+       <property name="topMargin">
+        <number>10</number>
+       </property>
+       <property name="rightMargin">
+        <number>10</number>
+       </property>
+       <property name="bottomMargin">
         <number>10</number>
        </property>
        <property name="spacing">
@@ -1132,7 +1230,16 @@ when PDF document is opened:</string>
        <property name="spacing">
         <number>5</number>
        </property>
-       <property name="margin">
+       <property name="leftMargin">
+        <number>10</number>
+       </property>
+       <property name="topMargin">
+        <number>10</number>
+       </property>
+       <property name="rightMargin">
+        <number>10</number>
+       </property>
+       <property name="bottomMargin">
         <number>10</number>
        </property>
        <item>
@@ -1176,7 +1283,16 @@ when PDF document is opened:</string>
     <property name="spacing">
      <number>5</number>
     </property>
-    <property name="margin">
+    <property name="leftMargin">
+     <number>10</number>
+    </property>
+    <property name="topMargin">
+     <number>10</number>
+    </property>
+    <property name="rightMargin">
+     <number>10</number>
+    </property>
+    <property name="bottomMargin">
      <number>10</number>
     </property>
     <item>
@@ -1188,7 +1304,16 @@ when PDF document is opened:</string>
        <property name="spacing">
         <number>5</number>
        </property>
-       <property name="margin">
+       <property name="leftMargin">
+        <number>10</number>
+       </property>
+       <property name="topMargin">
+        <number>10</number>
+       </property>
+       <property name="rightMargin">
+        <number>10</number>
+       </property>
+       <property name="bottomMargin">
         <number>10</number>
        </property>
        <item>
@@ -1243,7 +1368,16 @@ when PDF document is opened:</string>
        <string>Rendering Settings</string>
       </property>
       <layout class="QGridLayout" name="lpiGroupLayout">
-       <property name="margin">
+       <property name="leftMargin">
+        <number>10</number>
+       </property>
+       <property name="topMargin">
+        <number>10</number>
+       </property>
+       <property name="rightMargin">
+        <number>10</number>
+       </property>
+       <property name="bottomMargin">
         <number>10</number>
        </property>
        <property name="spacing">
@@ -1341,7 +1475,16 @@ when PDF document is opened:</string>
        <string>Solid Colors:</string>
       </property>
       <layout class="QGridLayout" name="solidColorsGroupLayout">
-       <property name="margin">
+       <property name="leftMargin">
+        <number>10</number>
+       </property>
+       <property name="topMargin">
+        <number>10</number>
+       </property>
+       <property name="rightMargin">
+        <number>10</number>
+       </property>
+       <property name="bottomMargin">
         <number>10</number>
        </property>
        <property name="spacing">
@@ -1407,7 +1550,16 @@ when PDF document is opened:</string>
        <string>Images:</string>
       </property>
       <layout class="QGridLayout" name="imageProfileGroupLayout">
-       <property name="margin">
+       <property name="leftMargin">
+        <number>10</number>
+       </property>
+       <property name="topMargin">
+        <number>10</number>
+       </property>
+       <property name="rightMargin">
+        <number>10</number>
+       </property>
+       <property name="bottomMargin">
         <number>10</number>
        </property>
        <property name="spacing">
@@ -1497,7 +1649,16 @@ when PDF document is opened:</string>
     <property name="spacing">
      <number>5</number>
     </property>
-    <property name="margin">
+    <property name="leftMargin">
+     <number>10</number>
+    </property>
+    <property name="topMargin">
+     <number>10</number>
+    </property>
+    <property name="rightMargin">
+     <number>10</number>
+    </property>
+    <property name="bottomMargin">
      <number>10</number>
     </property>
     <item>
@@ -1506,7 +1667,16 @@ when PDF document is opened:</string>
        <string>Printer Marks</string>
       </property>
       <layout class="QGridLayout" name="markGroupLayout">
-       <property name="margin">
+       <property name="leftMargin">
+        <number>10</number>
+       </property>
+       <property name="topMargin">
+        <number>10</number>
+       </property>
+       <property name="rightMargin">
+        <number>10</number>
+       </property>
+       <property name="bottomMargin">
         <number>10</number>
        </property>
        <property name="spacing">
@@ -1576,7 +1746,16 @@ when PDF document is opened:</string>
        <string>Bleed Settings</string>
       </property>
       <layout class="QGridLayout" name="bleedGroupLayout">
-       <property name="margin">
+       <property name="leftMargin">
+        <number>10</number>
+       </property>
+       <property name="topMargin">
+        <number>10</number>
+       </property>
+       <property name="rightMargin">
+        <number>10</number>
+       </property>
+       <property name="bottomMargin">
         <number>10</number>
        </property>
        <property name="spacing">
@@ -1638,7 +1817,16 @@ when PDF document is opened:</string>
        <string>PDF/X Output Intent</string>
       </property>
       <layout class="QGridLayout" name="X3GroupLayout">
-       <property name="margin">
+       <property name="leftMargin">
+        <number>10</number>
+       </property>
+       <property name="topMargin">
+        <number>10</number>
+       </property>
+       <property name="rightMargin">
+        <number>10</number>
+       </property>
+       <property name="bottomMargin">
         <number>10</number>
        </property>
        <property name="spacing">

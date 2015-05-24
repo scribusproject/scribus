@@ -429,6 +429,7 @@ void PrefsManager::initDefaults()
 	appPrefs.pdfPrefs.Version = PDFOptions::PDFVersion_14;
 	appPrefs.pdfPrefs.Resolution = 300;
 	appPrefs.pdfPrefs.Binding = 0;
+	appPrefs.pdfPrefs.FontEmbedding = PDFOptions::EmbedFonts;
 	appPrefs.pdfPrefs.EmbedList.clear();
 	appPrefs.pdfPrefs.SubsetList.clear();
 	appPrefs.pdfPrefs.MirrorH = false;
@@ -1738,6 +1739,7 @@ bool PrefsManager::WritePref(QString ho)
 	pdf.setAttribute("PicRes", appPrefs.pdfPrefs.PicRes);
 	pdf.setAttribute("Resolution", appPrefs.pdfPrefs.Resolution);
 	pdf.setAttribute("Version", appPrefs.pdfPrefs.Version);
+	pdf.setAttribute("FontEmbedding", static_cast<int>(appPrefs.pdfPrefs.FontEmbedding));
 	pdf.setAttribute("Intent", appPrefs.pdfPrefs.Intent);
 	pdf.setAttribute("Intent2", appPrefs.pdfPrefs.Intent2);
 	pdf.setAttribute("SolidProfile", appPrefs.pdfPrefs.SolidProf);
@@ -2470,10 +2472,11 @@ bool PrefsManager::ReadPref(QString ho)
 			appPrefs.pdfPrefs.RotateDeg = dc.attribute("RotateDeg", "0").toInt();
 			appPrefs.pdfPrefs.PresentMode = static_cast<bool>(dc.attribute("PresentMode").toInt());
 			appPrefs.pdfPrefs.PicRes = dc.attribute("PicRes").toInt();
-			appPrefs.pdfPrefs.Version = (PDFOptions::PDFVersion)dc.attribute("Version").toInt();
+			appPrefs.pdfPrefs.Version = (PDFOptions::PDFVersion) dc.attribute("Version").toInt();
 			appPrefs.pdfPrefs.Resolution = dc.attribute("Resolution").toInt();
 			appPrefs.pdfPrefs.Binding = dc.attribute("Binding").toInt();
 			appPrefs.pdfPrefs.fileName = "";
+			appPrefs.pdfPrefs.FontEmbedding = (PDFOptions::PDFFontEmbedding)  dc.attribute("FontEmbedding", "0").toInt();
 			appPrefs.pdfPrefs.isGrayscale = static_cast<bool>(dc.attribute("Grayscale", "0").toInt());
 			appPrefs.pdfPrefs.UseRGB = static_cast<bool>(dc.attribute("RGBMode", "0").toInt());
 			appPrefs.pdfPrefs.UseProfiles = static_cast<bool>(dc.attribute("UseProfiles", "0").toInt());
