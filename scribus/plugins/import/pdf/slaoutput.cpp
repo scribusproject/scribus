@@ -1284,6 +1284,7 @@ void SlaOutputDev::restoreState(GfxState *state)
 				ite->PoLine = out.copy();
 				ite->setTextFlowMode(PageItem::TextFlowDisabled);
 				m_doc->AdjustItemSize(ite, true);
+				m_doc->resizeGroupToContents(ite);
 				ite->OldB2 = ite->width();
 				ite->OldH2 = ite->height();
 				m_Elements->append(ite);
@@ -1315,6 +1316,7 @@ void SlaOutputDev::restoreState(GfxState *state)
 void SlaOutputDev::beginTransparencyGroup(GfxState *state, double *bbox, GfxColorSpace * /*blendingColorSpace*/, GBool isolated, GBool knockout, GBool forSoftMask)
 {
 	pushGroup("", forSoftMask);
+	m_groupStack.top().isolated = isolated;
 }
 
 void SlaOutputDev::paintTransparencyGroup(GfxState *state, double *bbox)
@@ -1376,7 +1378,7 @@ void SlaOutputDev::endTransparencyGroup(GfxState *state)
 					tmpSel->addItem(gElements.Items.at(dre), true);
 					m_Elements->removeAll(gElements.Items.at(dre));
 				}
-				if (gElements.Items.count() != 1)
+				if ((gElements.Items.count() != 1) || (gElements.isolated))
 					ite = m_doc->groupObjectsSelection(tmpSel);
 				else
 					ite = gElements.Items.first();
@@ -1392,6 +1394,7 @@ void SlaOutputDev::endTransparencyGroup(GfxState *state)
 						ite->PoLine = out.copy();
 						ite->setTextFlowMode(PageItem::TextFlowDisabled);
 						m_doc->AdjustItemSize(ite, true);
+						m_doc->resizeGroupToContents(ite);
 						ite->OldB2 = ite->width();
 						ite->OldH2 = ite->height();
 					}
@@ -1957,13 +1960,6 @@ GBool SlaOutputDev::gouraudTriangleShadedFill(GfxState *state, GfxGouraudTriangl
 	m_ctm = QTransform(ctm[0], ctm[1], ctm[2], ctm[3], ctm[4], ctm[5]);
 	int z = m_doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, xCoor + crect.x(), yCoor + crect.y(), crect.width(), crect.height(), 0, CurrColorFill, CommonStrings::None, true);
 	PageItem* ite = m_doc->Items->at(z);
-	if (checkClip())
-	{
-		FPointArray out = m_currentClipPath.copy();
-		FPoint wh(getMinClipF(&out));
-		out.translate(-wh.x(), -wh.y());
-		ite->PoLine = out.copy();
-	}
 	ite->ClipEdited = true;
 	ite->FrameType = 3;
 	ite->setFillShade(CurrFillShade);
@@ -2045,13 +2041,6 @@ GBool SlaOutputDev::patchMeshShadedFill(GfxState *state, GfxPatchMeshShading *sh
 	m_ctm = QTransform(ctm[0], ctm[1], ctm[2], ctm[3], ctm[4], ctm[5]);
 	int z = m_doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, xCoor + crect.x(), yCoor + crect.y(), crect.width(), crect.height(), 0, CurrColorFill, CommonStrings::None, true);
 	PageItem* ite = m_doc->Items->at(z);
-	if (checkClip())
-	{
-		FPointArray out = m_currentClipPath.copy();
-		FPoint wh(getMinClipF(&out));
-		out.translate(-wh.x(), -wh.y());
-		ite->PoLine = out.copy();
-	}
 	ite->ClipEdited = true;
 	ite->FrameType = 3;
 	ite->setFillShade(CurrFillShade);
@@ -2069,7 +2058,6 @@ GBool SlaOutputDev::patchMeshShadedFill(GfxState *state, GfxPatchMeshShading *sh
 		m_groupStack.top().Items.append(ite);
 		applyMask(ite);
 	}
-//	qDebug() << "Mesh of" << shading->getNPatches() << "Patches";
 	ite->meshGradientPatches.clear();
 	for (int i = 0; i < shading->getNPatches(); i++)
 	{
@@ -2501,14 +2489,7 @@ void SlaOutputDev::drawSoftMaskedImage(GfxState *state, Object *ref, Stream *str
 		maskColorMap->getGrayLine(pix, mdest, maskWidth);
 	}
 	if ((maskWidth != width) || (maskHeight != height))
-	{
-		delete imgStr;
-		delete[] buffer;
-		delete image;
-		delete mskStr;
-		delete[] mbuffer;
-		return;
-	}
+		*image = image->scaled(maskWidth, maskHeight, Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
 	QImage res = image->convertToFormat(QImage::Format_ARGB32);
 	unsigned char cc, cm, cy, ck;
 	int s = 0;
@@ -2655,14 +2636,7 @@ void SlaOutputDev::drawMaskedImage(GfxState *state, Object *ref, Stream *str,  i
 		}
 	}
 	if ((maskWidth != width) || (maskHeight != height))
-	{
-		delete imgStr;
-		delete[] buffer;
-		delete image;
-		delete mskStr;
-		delete[] mbuffer;
-		return;
-	}
+		*image = image->scaled(maskWidth, maskHeight, Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
 	QImage res = image->convertToFormat(QImage::Format_ARGB32);
 	unsigned char cc, cm, cy, ck;
 	int s = 0;

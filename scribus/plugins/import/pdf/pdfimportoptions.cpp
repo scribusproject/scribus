@@ -56,6 +56,11 @@ int PdfImportOptions::getCropBox()
 	return ret;
 }
 
+bool PdfImportOptions::croppingEnabled()
+{
+	return ui->cropGroup->isChecked();
+}
+
 void PdfImportOptions::setUpOptions(QString fileName, int actPage, int numPages, bool interact, bool cropPossible, PdfPlug* plug)
 {
 	m_plugin = plug;

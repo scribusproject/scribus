@@ -24,6 +24,7 @@ public:
 	void setUpOptions(QString fileName, int actPage, int numPages, bool interact, bool cropPossible, PdfPlug* plug);
 	QString getPagesString();
 	int getCropBox();
+	bool croppingEnabled();
 	void paintEvent(QPaintEvent *e);
 
 protected:

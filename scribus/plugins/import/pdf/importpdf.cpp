@@ -18,6 +18,7 @@ for which a new license (GPL+exception) is in place.
 #include "slaoutput.h"
 #include <poppler/ErrorCodes.h>
 #include <poppler/GlobalParams.h>
+#include <poppler/OptionalContent.h>
 #include <poppler/PageTransition.h>
 #include <poppler/ViewerPreferences.h>
 #include <poppler/poppler-config.h>
@@ -441,7 +442,7 @@ bool PdfPlug::convert(QString fn)
 				int firstPage = 1;
 				int lastPage = pdfDoc->getNumPages();
 				GBool useMediaBox = gTrue;
-				GBool crop = gFalse;
+				GBool crop = gTrue;
 				GBool printing = gFalse;
 				PDFRectangle *mediaBox = pdfDoc->getPage(1)->getMediaBox();
 				QRectF mediaRect = QRectF(QPointF(mediaBox->x1, mediaBox->y1), QPointF(mediaBox->x2, mediaBox->y2)).normalized();
@@ -474,12 +475,17 @@ bool PdfPlug::convert(QString fn)
 						return false;
 					}
 					pageString = optImp->getPagesString();
-					int cb = optImp->getCropBox();
-					if (cb > Media_Box)
+					contentRect = optImp->getCropBox();
+					cropped = optImp->croppingEnabled();
+					if (!cropped)
+						crop = cropped;
+					if (contentRect != Media_Box)
+						useMediaBox = gFalse;
+				/*	if (cb > Media_Box)
 					{
 						cropped = true;
 						contentRect = cb;
-					}
+					} */
 					delete optImp;
 					qApp->changeOverrideCursor(QCursor(Qt::WaitCursor));
 					if (progressDialog)
@@ -578,7 +584,9 @@ bool PdfPlug::convert(QString fn)
 									currentLayer = m_Doc->addLayer(UnicodeParsedString(oc->getName()), false);
 								else
 									currentLayer = m_Doc->layerIDFromName(UnicodeParsedString(oc->getName()));
-								if ((oc->getViewState() == OptionalContentGroup::ocUsageOn) || (oc->getViewState() == OptionalContentGroup::ocUsageUnset))
+								if (oc->getState() == OptionalContentGroup::On)
+									m_Doc->setLayerVisible(currentLayer, true);
+								else if (oc->getViewState() == OptionalContentGroup::ocUsageOn)
 									m_Doc->setLayerVisible(currentLayer, true);
 								else
 									m_Doc->setLayerVisible(currentLayer, false);
@@ -705,24 +713,36 @@ bool PdfPlug::convert(QString fn)
 							m_Doc->reformPages(true);
 							if (hasOcg)
 							{
+							//	int numObj = m_Doc->Items->count();
+							//	if (cropped)
+							//		pdfDoc->displayPageSlice(dev, pp, hDPI, vDPI, rotate, useMediaBox, crop, printing, crBox.x(), crBox.y(), crBox.width(), crBox.height(), NULL, NULL, dev->annotations_callback, dev);
+							//	else
+							//		pdfDoc->displayPage(dev, pp, hDPI, vDPI, rotate, useMediaBox, crop, printing, NULL, NULL, dev->annotations_callback, dev);
+							//	int numObj2 = m_Doc->Items->count();
+							//	int countObj = numObj2 - numObj;
 								for (int a = 0; a < ocgGroups.count(); a++)
 								{
 									OptionalContentGroup *oc = ocgGroups[a];
-								//	m_Doc->setActiveLayer(UnicodeParsedString(oc->getName()));
-								//	currentLayer = m_Doc->activeLayer();
+							//		m_Doc->setActiveLayer(UnicodeParsedString(oc->getName()));
+							//		currentLayer = m_Doc->activeLayer();
 									oc->setState(OptionalContentGroup::On);
-								//	pdfDoc->displayPage(dev, pp + 1, hDPI, vDPI, rotate, useMediaBox, crop, printing);
-								//	oc->setState(OptionalContentGroup::Off);
+									if (cropped)
+										pdfDoc->displayPageSlice(dev, pp, hDPI, vDPI, rotate, useMediaBox, crop, printing, crBox.x(), mediaRect.bottom() - crBox.bottom(), crBox.width(), crBox.height(), NULL, NULL, dev->annotations_callback, dev);
+									else
+										pdfDoc->displayPage(dev, pp, hDPI, vDPI, rotate, useMediaBox, crop, printing, NULL, NULL, dev->annotations_callback, dev);
+									oc->setState(OptionalContentGroup::Off);
+							//		for (int dd = 0; dd < countObj; dd++)
+							//		{
+							//			PageItem *iteD = m_Doc->Items->takeAt(numObj2);
+							//			delete iteD;
+							//		}
+							//		numObj2 = m_Doc->Items->count();
 								}
-								if (cropped)
-									pdfDoc->displayPageSlice(dev, pp, hDPI, vDPI, rotate, useMediaBox, crop, printing, crBox.x(), crBox.y(), crBox.width(), crBox.height(), NULL, NULL, dev->annotations_callback, dev);
-								else
-									pdfDoc->displayPage(dev, pp, hDPI, vDPI, rotate, useMediaBox, crop, printing, NULL, NULL, dev->annotations_callback, dev);
 							}
 							else
 							{
 								if (cropped)
-									pdfDoc->displayPageSlice(dev, pp, hDPI, vDPI, rotate, useMediaBox, crop, printing, crBox.x(), crBox.y(), crBox.width(), crBox.height(), NULL, NULL, dev->annotations_callback, dev);
+									pdfDoc->displayPageSlice(dev, pp, hDPI, vDPI, rotate, useMediaBox, crop, printing, crBox.x(), mediaRect.bottom() - crBox.bottom(), crBox.width(), crBox.height(), NULL, NULL, dev->annotations_callback, dev);
 								else
 									pdfDoc->displayPage(dev, pp, hDPI, vDPI, rotate, useMediaBox, crop, printing, NULL, NULL, dev->annotations_callback, dev);
 							}

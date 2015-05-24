@@ -164,6 +164,7 @@ public:
 	virtual GBool useShadedFills(int type) { return type <= 7; }
 	virtual GBool useFillColorStop() { return gTrue; }
 	virtual GBool useDrawForm() { return gFalse; }
+//	virtual GBool needClipToCropBox() { return gTrue; }
 	virtual void startPage(int pageNum, GfxState *, XRef *);
 	virtual void endPage();
 	// grapics state
@@ -175,6 +176,7 @@ public:
 	virtual void fill(GfxState *state);
 	virtual void eoFill(GfxState *state);
 	GBool tilingPatternFill(GfxState *state, Gfx *gfx, Catalog *cat, Object *str, double *pmat, int paintType, int tilingType, Dict *resDict, double *mat, double *bbox, int x0, int y0, int x1, int y1, double xStep, double yStep);
+	virtual GBool functionShadedFill(GfxState * /*state*/, GfxFunctionShading * /*shading*/) { qDebug() << "Function Shaded Fill";  return gFalse; }
 	virtual GBool axialShadedFill(GfxState *state, GfxAxialShading *shading, double tMin, double tMax);
 	virtual GBool axialShadedSupportExtend(GfxState *state, GfxAxialShading *shading) { return (shading->getExtend0() == shading->getExtend1()); }
 	virtual GBool radialShadedFill(GfxState *state, GfxRadialShading *shading, double sMin, double sMax);
@@ -282,6 +284,7 @@ private:
 	{
 		QList<PageItem*> Items;
 		GBool forSoftMask;
+		GBool isolated;
 		GBool alpha;
 		QString maskName;
 		bool inverted;
