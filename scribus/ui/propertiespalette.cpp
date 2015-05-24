@@ -266,7 +266,7 @@ void PropertiesPalette::unsetDoc()
 	m_doc=NULL;
 	m_item = NULL;
 
-	xyzPal->unsetItem();
+	imagePal->unsetItem();
 	xyzPal->unsetDoc();
 	shadowPal->unsetItem();
 	shadowPal->unsetDoc();
@@ -301,8 +301,14 @@ void PropertiesPalette::unsetItem()
 	m_item     = NULL;
 	Cpal->setCurrentItem(NULL);
 	Tpal->setCurrentItem(NULL);
+	imagePal->unsetItem();
 	tablePal->unsetItem();
+	shapePal->unsetItem();
 	groupPal->unsetItem();
+	textPal->unsetItem();
+	shadowPal->unsetItem();
+	imagePal->unsetItem();
+	linePal->unsetItem();
 	handleSelectionChanged();
 }
 
