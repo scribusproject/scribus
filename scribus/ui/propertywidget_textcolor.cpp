@@ -90,6 +90,7 @@ void PropertyWidget_TextColor::setCurrentItem(PageItem *item)
 	//if (m_item == i)
 	//	return;
 
+	m_item = item;
 	if (item && m_doc.isNull())
 		setDoc(item->doc());
 	if (item == NULL)
@@ -97,7 +98,6 @@ void PropertyWidget_TextColor::setCurrentItem(PageItem *item)
 	if (!item->isTable() && !item->isTextFrame())
 		return;
 
-	m_item = item;
 	disconnectSignals();
 	configureWidgets();
 

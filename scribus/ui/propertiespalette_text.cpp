@@ -206,6 +206,7 @@ void PropertiesPalette_Text::unsetItem()
 {
 	m_haveItem = false;
 	m_item     = NULL;
+	colorWidgets->setCurrentItem(m_item);
 	handleSelectionChanged();
 }
 

@@ -24,6 +24,7 @@ public:
 	~PropertyWidget_TextColor() {};
 
 	void updateColorList();
+	void setCurrentItem(PageItem *i);
 
 protected:
 	PageItem *         m_item;
@@ -33,7 +34,6 @@ protected:
 	void disconnectSignals();
 
 	void configureWidgets(void);
-	void setCurrentItem(PageItem *i);
 
 	virtual void changeEvent(QEvent *e);
 
