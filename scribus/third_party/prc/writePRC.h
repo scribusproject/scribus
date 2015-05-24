@@ -24,9 +24,7 @@
 #include <vector>
 #include <deque>
 #include <list>
-#ifdef __GNUC__
-#include <ext/slist>
-#endif
+
 #include <map>
 #include <iostream>
 #include "PRCbitStream.h"
@@ -223,11 +221,8 @@ class PRCAttribute : public PRCAttributeEntry
   void addKey(const PRCSingleAttribute &key) { attribute_keys.push_back(key); }
   std::deque<PRCSingleAttribute> attribute_keys;
 };
-#ifdef __GNUC__
-typedef __gnu_cxx::slist<PRCAttribute> PRCAttributeList;
-#else
+
 typedef std::list<PRCAttribute> PRCAttributeList;
-#endif
 
 class PRCAttributes
 {
