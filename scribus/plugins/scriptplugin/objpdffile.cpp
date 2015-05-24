@@ -47,6 +47,7 @@ typedef struct
 {
 	PyObject_HEAD
 	PyObject *file; // string - file to save into
+	PyObject *fontEmbedding; // int - 0: Embed fonts, 1:Outline fonts, 2:Dont embed any font
 	PyObject *fonts; // list of string - fonts to  embed
 	PyObject *subsetList; // list of string - fonts to outline
 	PyObject *pages; // list of int - pages to print
@@ -118,6 +119,7 @@ typedef struct
 static void PDFfile_dealloc(PDFfile *self)
 {
 	Py_XDECREF(self->file);
+	Py_XDECREF(self->fontEmbedding);
 	Py_XDECREF(self->fonts);
 	Py_XDECREF(self->subsetList);
 	Py_XDECREF(self->pages);
@@ -150,7 +152,13 @@ static PyObject * PDFfile_new(PyTypeObject *type, PyObject * /*args*/, PyObject 
 	if (self) {
 // set file attribute
 		self->file = PyString_FromString("");
-		if (!self->file){
+		if (!self->file) {
+			Py_DECREF(self);
+			return NULL;
+		}
+// set font embedding mode attribute
+		self->fontEmbedding = PyInt_FromLong(0);
+		if (!self->fontEmbedding) {
 			Py_DECREF(self);
 			return NULL;
 		}
@@ -341,6 +349,16 @@ static int PDFfile_init(PDFfile *self, PyObject * /*args*/, PyObject * /*kwds*/)
 		PyErr_SetString(PyExc_SystemError, "Can not initialize 'file' attribute");
 		return -1;
 	}
+// font embedding mode
+	PyObject *embeddingMode = NULL;
+	embeddingMode = PyInt_FromLong(0);
+	if (embeddingMode){
+		Py_DECREF(self->fontEmbedding);
+		self->fontEmbedding = embeddingMode;
+	} else {
+		PyErr_SetString(PyExc_SystemError, "Can not initialize 'fontEmbedding' attribute");
+		return -1;
+	}
 // embed all used fonts
 	PyObject *fonts = NULL;
 	fonts = PyList_New(0);
@@ -354,26 +372,23 @@ static int PDFfile_init(PDFfile *self, PyObject * /*args*/, PyObject * /*kwds*/)
 	// get all used fonts
 	QMap<QString,int> ReallyUsed = currentDoc->UsedFonts;
 	// create list of all used fonts
-	QList<QString> tmpEm;
-	tmpEm = ReallyUsed.keys();
-	QList<QString>::Iterator itef;
-	for (itef = tmpEm.begin(); itef != tmpEm.end(); ++itef) {
-// AV: dunno what this is for, but it looks as if it's the only place where HasMetrics is used...
-//		if (PrefsManager::instance()->appPrefs.AvailFonts[(*itef).toLatin1()]->HasMetrics) {
-			PyObject *tmp= NULL;
-			tmp = PyString_FromString((*itef).toLatin1());
-			if (tmp) {
-				PyList_Append(self->fonts, tmp);
+	QList<QString> tmpEm = ReallyUsed.keys();
+	for (int i = 0; i < tmpEm.count(); ++i) 
+	{
+		QString fontName = tmpEm.at(i);
+		PyObject *tmp= NULL;
+		tmp = PyString_FromString(fontName.toLatin1());
+		if (tmp) {
+			PyList_Append(self->fonts, tmp);
 // do i need Py_DECREF(tmp) here?
 // Does PyList_Append increase reference or 'steal' one from provided argument
 // If it 'steal' reference comment next line
-				Py_DECREF(tmp);
-			}
-			else {
-				PyErr_SetString(PyExc_SystemError, "Can not initialize 'fonts' attribute");
-				return -1;
-			}
-//		}
+			Py_DECREF(tmp);
+		}
+		else {
+			PyErr_SetString(PyExc_SystemError, "Can not initialize 'fonts' attribute");
+			return -1;
+		}
 	}
 // init subsetList
 	fonts = PyList_New(0);
@@ -450,7 +465,7 @@ static int PDFfile_init(PDFfile *self, PyObject * /*args*/, PyObject * /*kwds*/)
 		Py_DECREF(self->resolution);
 		self->resolution = resolution;
 	} else {
-		PyErr_SetString(PyExc_SystemError, "Can not initialize 'resolutin' attribute");
+		PyErr_SetString(PyExc_SystemError, "Can not initialize 'resolution' attribute");
 		return -1;
 	}
 // do not downsample images
@@ -748,6 +763,33 @@ static int PDFfile_setfile(PDFfile *self, PyObject *value, void * /*closure*/)
 	return 0;
 }
 
+static PyObject *PDFfile_getFontEmbeddingMode(PDFfile *self, void * /*closure*/)
+{
+	Py_INCREF(self->fontEmbedding);
+	return self->fontEmbedding;
+}
+
+static int PDFfile_setFontEmbeddingMode(PDFfile *self, PyObject *value, void * /*closure*/)
+{
+	if (value == NULL) {
+		PyErr_SetString(PyExc_TypeError, "Cannot delete 'fontEmbedding' attribute.");
+		return -1;
+	}
+	if (!PyInt_Check(value)) {
+		PyErr_SetString(PyExc_TypeError, "'fontEmbedding' attribute value must be integer.");
+		return -1;
+	}
+	int n = PyInt_AsLong(value);
+	if (n < 0 || n > 2) {
+		PyErr_SetString(PyExc_ValueError, "'fontEmbedding' value must be an integer between 0 and 2");
+		return -1;
+	}
+	Py_DECREF(self->fontEmbedding);
+	Py_INCREF(value);
+	self->fontEmbedding = value;
+	return 0;
+}
+
 static PyObject *PDFfile_getfonts(PDFfile *self, void * /*closure*/)
 {
 	Py_INCREF(self->fonts);
@@ -894,7 +936,7 @@ static int PDFfile_setdownsample(PDFfile *self, PyObject *value, void * /*closur
 	}
 	int n = PyInt_AsLong(value);
 	if (n!=0 && (n<35 || n>PyInt_AsLong(self->resolution))) {
-		PyErr_SetString(PyExc_TypeError, "'downsample' value must be 0 or in interval from 35 to value of 'resolutin'");
+		PyErr_SetString(PyExc_TypeError, "'downsample' value must be 0 or in interval from 35 to value of 'resolution'");
 		return -1;
 	}
 	Py_DECREF(self->downsample);
@@ -1193,8 +1235,9 @@ static char *lpival_doc = const_cast<char*>(
 
 static PyGetSetDef PDFfile_getseters [] = {
 	{const_cast<char*>("file"), (getter)PDFfile_getfile, (setter)PDFfile_setfile, const_cast<char*>("Name of file to save into"), NULL},
+	{const_cast<char*>("fontEmbedding"), (getter)PDFfile_getFontEmbeddingMode, (setter)PDFfile_setFontEmbeddingMode, const_cast<char*>("Font embedding mode.\n\tValue must be one of integers: 0 (Embed), 1 (Outline), 2 (No embedding)."), NULL},
 	{const_cast<char*>("fonts"), (getter)PDFfile_getfonts, (setter)PDFfile_setfonts, const_cast<char*>("List of fonts to embed."), NULL},
-	{const_cast<char*>("subsetList"), (getter)PDFfile_getSubsetList, (setter)PDFfile_setSubsetList, const_cast<char*>("List of fonts to outlined."), NULL},
+	{const_cast<char*>("subsetList"), (getter)PDFfile_getSubsetList, (setter)PDFfile_setSubsetList, const_cast<char*>("List of fonts to subsetted."), NULL},
 	{const_cast<char*>("pages"), (getter)PDFfile_getpages, (setter)PDFfile_setpages, const_cast<char*>("List of pages to print"), NULL},
 	{const_cast<char*>("resolution"), (getter)PDFfile_getresolution, (setter)PDFfile_setresolution, const_cast<char*>("Resolution of output file. Values from 35 to 4000."), NULL},
 	{const_cast<char*>("downsample"), (getter)PDFfile_getdownsample, (setter)PDFfile_setdownsample, const_cast<char*>("Downsample image resolusion to this value. Values from 35 to 4000\nSet 0 for not to downsample"), NULL},
@@ -1228,10 +1271,15 @@ static PyObject *PDFfile_save(PDFfile *self)
 	if (ScCore->primaryMainWindow()->bookmarkPalette->BView->topLevelItemCount() == 0)
 		pdfOptions.Bookmarks = false;
 
+// get PDF version
+	self->version = minmaxi(self->version, PDFOptions::PDFVersion_Min, PDFOptions::PDFVersion_Max);
+	pdfOptions.Version = (PDFOptions::PDFVersion) self->version;
+
 // apply fonts attribute
 	pdfOptions.EmbedList.clear();
 	int n = PyList_Size(self->fonts);
-	for ( int i=0; i<n; ++i){
+	for ( int i=0; i<n; ++i)
+	{
 		QString tmpFon;
 		tmpFon = QString(PyString_AsString(PyList_GetItem(self->fonts, i)));
 		pdfOptions.EmbedList.append(tmpFon);
@@ -1239,10 +1287,45 @@ static PyObject *PDFfile_save(PDFfile *self)
 // apply SubsetList attribute
 	pdfOptions.SubsetList.clear();
 	n = PyList_Size(self->subsetList);
-	for ( int i=0; i<n; ++i){
+	for (int i = 0; i < n; ++i)
+	{
 		QString tmpFon;
 		tmpFon = QString(PyString_AsString(PyList_GetItem(self->subsetList, i)));
 		pdfOptions.SubsetList.append(tmpFon);
+	}
+// apply font embedding mode
+	pdfOptions.FontEmbedding = (PDFOptions::PDFFontEmbedding) PyInt_AsLong(self->fontEmbedding);
+	if (pdfOptions.Version == PDFOptions::PDFVersion_X1a ||
+	    pdfOptions.Version == PDFOptions::PDFVersion_X3 ||
+	    pdfOptions.Version == PDFOptions::PDFVersion_X4)
+	{
+		pdfOptions.FontEmbedding = PDFOptions::EmbedFonts;
+	}
+	if (pdfOptions.FontEmbedding == PDFOptions::EmbedFonts)
+	{
+		QStringList docFonts = currentDoc->UsedFonts.keys();
+		for (int i = 0; i < docFonts.count(); ++i)
+		{
+			QString fontName = docFonts.at(i);
+			if (pdfOptions.SubsetList.contains(fontName))
+				continue;
+			if (pdfOptions.EmbedList.contains(fontName))
+				continue;
+			pdfOptions.SubsetList.append(fontName);
+		}
+		pdfOptions.OutlineList = QStringList();
+	}
+	else if (pdfOptions.FontEmbedding == PDFOptions::OutlineFonts)
+	{
+		pdfOptions.EmbedList   = QStringList();
+		pdfOptions.SubsetList  = QStringList();
+		pdfOptions.OutlineList = currentDoc->UsedFonts.keys();
+	}
+	else
+	{
+		pdfOptions.EmbedList   = QStringList();
+		pdfOptions.SubsetList  = QStringList();
+		pdfOptions.OutlineList = QStringList();
 	}
 // apply file attribute
 	QString fn;
@@ -1294,55 +1377,44 @@ static PyObject *PDFfile_save(PDFfile *self)
 
 	QList<PDFPresentationData> PresentVals;
 	PresentVals.clear();
-	int tmpnum;
-	tmpnum=PyList_Size(self->effval);
-	for (int i=0; i<tmpnum; ++i) {
+	int tmpnum = PyList_Size(self->effval);
+	for (int i = 0; i < tmpnum; ++i) 
+	{
 		PDFPresentationData t;
-// How do I make this commented piece of code to work?
-// I always get an error here
 		PyObject *ti = PyList_GetItem(self->effval, i);
-//		 if (!PyArg_ParseTuple(ti , "[iiiiii]",
-//				  &t.pageEffectDuration, &t.pageViewDuration, &t.effectType, &t.Dm,
-//				  &t.M, &t.Di)) {
-//			 PyErr_SetString(PyExc_SystemError, "while parsing 'effval'. WHY THIS HAPPENED????");
-//			 return NULL;
-//		 }
-//		 PresentVals.append(t);
-				// pv 10/03/2004 crashed when pt is null
-				if (ti)
-				{
-					// Do I Need to check if every PyInt_AsLong and PyList_GetItem funtion succeed???
-					t.pageEffectDuration = PyInt_AsLong(PyList_GetItem(ti, 0));
-					t.pageViewDuration = PyInt_AsLong(PyList_GetItem(ti, 1));
-					t.effectType = PyInt_AsLong(PyList_GetItem(ti, 2));
-					t.Dm = PyInt_AsLong(PyList_GetItem(ti, 3));
-					t.M = PyInt_AsLong(PyList_GetItem(ti, 4));
-					t.Di = PyInt_AsLong(PyList_GetItem(ti, 5));
-				//	PresentVals.append(t);
-				} // if ti=NULL
-
+		if (!ti)
+			continue;
+		// Do I Need to check if every PyInt_AsLong and PyList_GetItem funtion succeed???
+		t.pageEffectDuration = PyInt_AsLong(PyList_GetItem(ti, 0));
+		t.pageViewDuration = PyInt_AsLong(PyList_GetItem(ti, 1));
+		t.effectType = PyInt_AsLong(PyList_GetItem(ti, 2));
+		t.Dm = PyInt_AsLong(PyList_GetItem(ti, 3));
+		t.M = PyInt_AsLong(PyList_GetItem(ti, 4));
+		t.Di = PyInt_AsLong(PyList_GetItem(ti, 5));
+		//	PresentVals.append(t);
 	}
 
 //	pdfOptions.PresentVals = PresentVals;
 // apply lpival
 	int n2 = PyList_Size(self->lpival);
-	for (int i=0; i<n2; ++i){
+	for (int i = 0; i < n2; ++i)
+	{
 		LPIData lpi;
 		PyObject *t = PyList_GetItem(self->lpival, i);
 // This code always raise exception - WHY???
 //		char *s;
-//		 if (!PyArg_ParseTuple(t, "[siii]", &s, &lpi.Frequency,
-//				  &lpi.Angle, &lpi.SpotFunc)) {
-//			 PyErr_SetString(PyExc_SystemError, "while parsing 'lpival'. WHY THIS HAPPENED????");
-//			 return NULL;
-//		 }
-//		 pdfOptions.LPISettings[QString(s)]=lpi;
+//		if (!PyArg_ParseTuple(t, "[siii]", &s, &lpi.Frequency,
+//				 &lpi.Angle, &lpi.SpotFunc)) {
+//			PyErr_SetString(PyExc_SystemError, "while parsing 'lpival'. WHY THIS HAPPENED????");
+//			return NULL;
+//		}
+//		pdfOptions.LPISettings[QString(s)]=lpi;
 		QString st;
 		st = QString(PyString_AsString(PyList_GetItem(t,0)));
 		lpi.Frequency = PyInt_AsLong(PyList_GetItem(t, 1));
 		lpi.Angle = PyInt_AsLong(PyList_GetItem(t, 2));
 		lpi.SpotFunc = PyInt_AsLong(PyList_GetItem(t, 3));
-		pdfOptions.LPISettings[st]=lpi;
+		pdfOptions.LPISettings[st] = lpi;
 	}
 
 	pdfOptions.Articles = self->article;
@@ -1350,9 +1422,7 @@ static PyObject *PDFfile_save(PDFfile *self)
 	pdfOptions.UseLPI = self->uselpi;
 	pdfOptions.UseSpotColors = self->usespot;
 	pdfOptions.doMultiFile = self->domulti;
-	self->version = minmaxi(self->version, PDFOptions::PDFVersion_Min, PDFOptions::PDFVersion_Max);
-	// FIXME: Sanity check version
-	pdfOptions.Version = (PDFOptions::PDFVersion)self->version;
+	
 	if (self->encrypt)
 	{
 		int Perm = -64;

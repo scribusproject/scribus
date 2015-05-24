@@ -42,30 +42,30 @@
 	<dd><p>Allow printing the Document. Bool value</p></dd>
 
 	<dt><strong>article</strong> = &lt;member 'article' of 'PDFfile' objects&gt;</dt>
-	<dd><p>Save linked text frames as PDF articles<br> Bool value</p></dd>
+	<dd><p>Save linked text frames as PDF articles<br/> Bool value</p></dd>
 
 	<dt><strong>binding</strong> = &lt;member 'binding' of 'PDFfile' objects&gt;</dt>
-	<dd><p>Choose binding.<br>
-	0 - Left binding<br>
+	<dd><p>Choose binding.<br/>
+	0 - Left binding<br/>
 	1 - Right binding</p></dd>
 	
 	<dt><strong>bleedMarks</strong> = &lt;attribute 'bleedMarks' of 'PDFfile' objects&gt;</dt>
 	<dd><p>Create marks delimiting the bleed area.</p></dd>
 
 	<dt><strong>bleedb</strong> = &lt;member 'bleedb' of 'PDFfile' objects&gt;</dt>
-	<dd><p>Bleed Bottom<br>Distance for bleed from the bottom of the physical page</p></dd>
+	<dd><p>Bleed Bottom<br/>Distance for bleed from the bottom of the physical page</p></dd>
 
 	<dt><strong>bleedl</strong> = &lt;member 'bleedl' of 'PDFfile' objects&gt;</dt>
-	<dd><p>Bleed Left<br>Distance for bleed from the left of the physical page</p></dd>
+	<dd><p>Bleed Left<br/>Distance for bleed from the left of the physical page</p></dd>
 
 	<dt><strong>bleedr</strong> = &lt;member 'bleedr' of 'PDFfile' objects&gt;</dt>
-	<dd><p>Bleed Right<br>Distance for bleed from the right of the physical page</p></dd>
+	<dd><p>Bleed Right<br/>Distance for bleed from the right of the physical page</p></dd>
 
 	<dt><strong>bleedt</strong> = &lt;member 'bleedt' of 'PDFfile' objects&gt;</dt>
-	<dd><p>Bleed Top<br>Distance for bleed from the top of the physical page</p></dd>
+	<dd><p>Bleed Top<br/>Distance for bleed from the top of the physical page</p></dd>
 
 	<dt><strong>bookmarks</strong> = &lt;member 'bookmarks' of 'PDFfile' objects&gt;</dt>
-	<dd><p>Embed the bookmarks you created in your document.<br>These are useful for navigating long PDF documents.<br>Bool value</p></dd>
+	<dd><p>Embed the bookmarks you created in your document.<br/>These are useful for navigating long PDF documents.<br/>Bool value</p></dd>
 
 	<dt><strong>colorMarks</strong> = &lt;member 'colorMarks' of 'PDFfile' objects&gt;</dt>
 	<dd><p>Add color calibration bars.</p></dd>
@@ -74,10 +74,10 @@
 	<dd><p>Compression switch. Bool value.</p></dd>
 
 	<dt><strong>compressmtd</strong> = &lt;member 'compressmtd' of 'PDFfile' objects&gt;</dt>
-	<dd><p>Compression method.<br>
-	0 - Automatic<br>
-	1 - JPEG<br>
-	2 - zip<br>
+	<dd><p>Compression method.<br/>
+	0 - Automatic<br/>
+	1 - JPEG<br/>
+	2 - zip<br/>
 	3 - None.</p></dd>
 	
 	<dt><strong>cropMarks</strong> = &lt;attribute 'cropMarks' of 'PDFfile' objects&gt;</dt>
@@ -102,10 +102,10 @@
 	<dd><p>Do not show objects outside the margins in the exported file.</p></dd>
 
 	<dt><strong>downsample</strong> = &lt;attribute 'downsample' of 'PDFfile' objects&gt;</dt>
-	<dd><p>Downsample image resolusion to this value. Values from 35 to 4000<br>Set 0 for not to downsample</p></dd>
+	<dd><p>Downsample image resolusion to this value. Values from 35 to 4000<br/>Set 0 for not to downsample</p></dd>
 
 	<dt><strong>effval</strong> = &lt;attribute 'effval' of 'PDFfile' objects&gt;</dt>
-	<dd><p>List of effection values for each saved page.<br>
+	<dd><p>List of effection values for each saved page.<br/>
 	<pre>
 It is list of list of six integers. Those int have the following meaning:
         - Length of time the page is shown before the presentation
@@ -136,8 +136,8 @@ It is list of list of six integers. Those int have the following meaning:
 </dl>
 <dl>
 <dt><strong>embedPDF</strong> = &lt;member 'embedPDF' of 'PDFfile' objects&gt;</dt>
-<dd><p>Export PDFs in image frames as embedded PDFs.<br>
-This does *not* yet take care of colorspaces, so you should know what you are doing before setting this to 'true'.<br>
+<dd><p>Export PDFs in image frames as embedded PDFs.<br/>
+This does *not* yet take care of colorspaces, so you should know what you are doing before setting this to 'true'.<br/>
 Bool value.</p></dd>
 
 <dt><strong>encrypt</strong> = &lt;member 'encrypt' of 'PDFfile' objects&gt;</dt>
@@ -148,6 +148,12 @@ Bool value.</p></dd>
 
 <dt><strong>fitWindow</strong> = &lt;attribute 'fitWindow' of 'PDFfile' objects&gt;</dt>
 <dd><p>Fit the document page or pages to the available space in the viewer window.</p></dd>
+
+<dt><strong>fontEmbedding</strong> = &lt;attribute 'fontEmbedding' of 'PDFfile' objects&gt;</dt>
+<dd><p>Choose the font embedding mode :<br/>
+0 - Embed fonts fully or as subset depending on 'fonts' attribute<br/>
+1 - Outline fonts: fonts will be converted to vector<br/>
+2 - No embedding: no font will be embedded.</p></dd>
 
 <dt><strong>fonts</strong> = &lt;attribute 'fonts' of 'PDFfile' objects&gt;</dt>
 <dd><p>List of fonts to embed.</p></dd>
@@ -165,24 +171,24 @@ Bool value.</p></dd>
 <dd><p>Mandatory string for PDF/X-3 or the PDF will fail PDF/X-3 conformance. We recommend you use the title of the document.</p></dd>
 
 <dt><strong>intenti</strong> = &lt;member 'intenti' of 'PDFfile' objects&gt;</dt>
-<dd><p>Rendering intent for images<br>
-0 - Perceptual<br>
-1 - Relative Colorimetric<br>
-2 - Saturation<br>
+<dd><p>Rendering intent for images<br/>
+0 - Perceptual<br/>
+1 - Relative Colorimetric<br/>
+2 - Saturation<br/>
 3 - Absolute Colorimetric</p></dd>
 
 <dt><strong>intents</strong> = &lt;member 'intents' of 'PDFfile' objects&gt;</dt>
-<dd><p>Rendering intent for solid colors<br>
-0 - Perceptual<br>
-1 - Relative Colorimetric<br>
-2 - Saturation<br>
+<dd><p>Rendering intent for solid colors<br/>
+0 - Perceptual<br/>
+1 - Relative Colorimetric<br/>
+2 - Saturation<br/>
 3 - Absolute Colorimetric</p></dd>
 
 <dt><strong>isGrayscale</strong> = &lt;attribute 'isGrayscale' of 'PDFfile' objects&gt;</dt>
 <dd><p>Export PDF in grayscale.</p></dd>
 
 <dt><strong>lpival</strong> = &lt;attribute 'lpival' of 'PDFfile' objects&gt;</dt>
-<dd><p>Rendering Settings for individual colors.<br>
+<dd><p>Rendering Settings for individual colors.<br/>
 <pre>
 This is list of values for each color.
 Color values have structure [siii] which stand for:
@@ -213,18 +219,18 @@ Be careful when supplying these values as they are not checked for validity.</p>
 <dd><p>Don't use embedded ICC profiles. Bool value</p></dd>
 
 <dt><strong>outdst</strong> = &lt;member 'outdst' of 'PDFfile' objects&gt;</dt>
-<dd><p>Output destination.<br>
-0 - screen<br>
+<dd><p>Output destination.<br/>
+0 - screen<br/>
 1 - printer</p></dd>
 
 <dt><strong>owner</strong> = &lt;attribute 'owner' of 'PDFfile' objects&gt;</dt>
 <dd><p>Owner's password</p></dd>
 
 <dt><strong>pageLayout</strong> = &lt;attribute 'pageLayout' of 'PDFfile' objects&gt;</dt>
-<dd><p>Document layout in PDF viewer:<br>
-0 - Show the document in single page mode<br>
-1 - Show the document in single page mode with the pages displayed continuously end to end like a scroll<br>
-2 - Show the document with facing pages, starting with the first page displayed on the left<br>
+<dd><p>Document layout in PDF viewer:<br/>
+0 - Show the document in single page mode<br/>
+1 - Show the document in single page mode with the pages displayed continuously end to end like a scroll<br/>
+2 - Show the document with facing pages, starting with the first page displayed on the left<br/>
 3 - Show the document with facing pages, starting with the first page displayed on the right</p></dd>
 
 <dt><strong>pages</strong> = &lt;attribute 'pages' of 'PDFfile' objects&gt;</dt>
@@ -243,11 +249,11 @@ Be careful when supplying these values as they are not checked for validity.</p>
 <dd><p>Embed a color profile for solid colors. Bool value.</p></dd>
 
 <dt><strong>quality</strong> = &lt;member 'quality' of 'PDFfile' objects&gt;</dt>
-<dd><p>Image quality<br>
-0 - Maximum<br>
-1 - High<br>
-2 - Medium<br>
-3 - Low<br>
+<dd><p>Image quality<br/>
+0 - Maximum<br/>
+1 - High<br/>
+2 - Medium<br/>
+3 - Low<br/>
 4 - Minimum</p></dd>
 
 <dt><strong>registrationMarks</strong> = &lt;attribute 'registrationMarks' of 'PDFfile' objects&gt;</dt>
@@ -275,11 +281,11 @@ Be careful when supplying these values as they are not checked for validity.</p>
 <dd><p>User's password</p></dd>
 
 <dt><strong>version</strong> = &lt;member 'version' of 'PDFfile' objects&gt;</dt>
-<dd><p>Choose PDF version to use:<br>
-11 = PDF/X-1a<br>
-12 = PDF/X-3<br>
-13 = PDF 1.3 (Acrobat 4)<br>
-14 = PDF 1.4 (Acrobat 5)<br>
+<dd><p>Choose PDF version to use:<br/>
+11 = PDF/X-1a<br/>
+12 = PDF/X-3<br/>
+13 = PDF 1.3 (Acrobat 4)<br/>
+14 = PDF 1.4 (Acrobat 5)<br/>
 15 = PDF 1.5 (Acrobat 6)</p></dd>
 
 </dl>
