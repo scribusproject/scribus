@@ -112,8 +112,8 @@ set SCRIBUS_INSTALL_PATH=.\Scribus-builds\scribus-debug-win32-v110
  copy %SCRIBUS_SRC_PATH%\TRANSLATION %SCRIBUS_INSTALL_PATH%\share\doc
 xcopy %SCRIBUS_SRC_PATH%\scribus\doc %SCRIBUS_INSTALL_PATH%\share\doc /s /y /D
 xcopy %SCRIBUS_SRC_PATH%\resources\dicts %SCRIBUS_INSTALL_PATH%\share\dicts /s /y /D
-xcopy %SCRIBUS_SRC_PATH%\resources\editorconfig %SCRIBUS_INSTALL_PATH%\share\editorconfig /s /y
-xcopy %SCRIBUS_SRC_PATH%\resources\icons %SCRIBUS_INSTALL_PATH%\share\icons /s /y /D
+xcopy %SCRIBUS_SRC_PATH%\resources\editorconfig   %SCRIBUS_INSTALL_PATH%\share\editorconfig /s /y
+xcopy %SCRIBUS_SRC_PATH%\resources\iconsets\1_5_0 %SCRIBUS_INSTALL_PATH%\share\icons /s /y /D
 xcopy %SCRIBUS_SRC_PATH%\resources\loremipsum %SCRIBUS_INSTALL_PATH%\share\loremipsum /s /y
 xcopy %SCRIBUS_SRC_PATH%\resources\profiles %SCRIBUS_INSTALL_PATH%\share\profiles /s /y
 xcopy %SCRIBUS_SRC_PATH%\resources\swatches %SCRIBUS_INSTALL_PATH%\share\swatches /s /y
