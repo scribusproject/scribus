@@ -8875,6 +8875,14 @@ bool PDFLibCore::PDF_3DAnnotation(PageItem *ite, uint)
 	EncodeArrayToStream(dataP, appearanceObj);
 	PutDoc("\nendstream");
 	writer.endObj(appearanceObj);
+	PdfId appearanceObj1 = writer.newObject();
+	if (!ite->Pfile.isEmpty())
+	{
+		PDF_Image(ite, ite->Pfile, ite->imageXScale(), ite->imageYScale(), ite->imageXOffset(), -ite->imageYOffset(), true);
+		QByteArray cc = Pdf::toPdf(ite->pixm.width())+" 0 0 "+Pdf::toPdf(ite->pixm.height())+" 0 0 cm\n";
+		cc += Pdf::toName(ResNam+"I"+Pdf::toPdf(ResCount-1)) + " Do";
+		PDF_xForm(appearanceObj1, ite->pixm.width(), ite->pixm.height(), cc);
+	}
 	PdfId annotationObj = writer.newObject();
 	writer.startObj(annotationObj);
 	pageData.AObjects.append(annotationObj);
@@ -8886,18 +8894,10 @@ bool PDFLibCore::PDF_3DAnnotation(PageItem *ite, uint)
 	PutDoc("/3DA <<\n/A /PV\n/TB true\n/NP true\n>>\n");
 	QByteArray onState = Pdf::toName(ite->itemName().replace(".", "_" ));
 	PutDoc("/AS "+onState+"\n");
-	PdfId appearanceObj1 = writer.newObject();
 	PutDoc("/AP << /N <<\n" + onState + " " + Pdf::toPdf(appearanceObj1)+" 0 R >> >>\n");
 	PutDoc("/Rect [ "+FToStr(x+bleedDisplacementX)+" "+FToStr(y2+bleedDisplacementY)+" "+FToStr(x2+bleedDisplacementX)+" "+FToStr(y+bleedDisplacementY)+" ]\n");
 	PutDoc(">>");
-	writer.endObj(appearanceObj);
-	if (!ite->Pfile.isEmpty())
-	{
-		PDF_Image(ite, ite->Pfile, ite->imageXScale(), ite->imageYScale(), ite->imageXOffset(), -ite->imageYOffset(), true);
-		QByteArray cc = Pdf::toPdf(ite->pixm.width())+" 0 0 "+Pdf::toPdf(ite->pixm.height())+" 0 0 cm\n";
-		cc += Pdf::toName(ResNam+"I"+Pdf::toPdf(ResCount-1)) + " Do";
-		PDF_xForm(appearanceObj1, ite->pixm.width(), ite->pixm.height(), cc);
-	}
+	writer.endObj(annotationObj);
 	delete tempImageFile;
 	return true;
 }
