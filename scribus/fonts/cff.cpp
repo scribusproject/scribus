@@ -815,11 +815,14 @@ namespace cff {
 		QList<QByteArray> result;
 		uint N = readCard(pos);
 		pos += 2;
+		if (N == 0)
+			return result;
+
 		uint offSize = bytes[pos++];
 		uint dataStart = pos + offSize * (N+1) - 1;
 		qDebug() << "size" << N << "offsetsize" << offSize << "dataStart" << dataStart;
 		uint start = 0;
-		uint end;
+		uint end = 0;
 		for (uint c = 0; c < offSize; ++c)
 		{
 			start = start << 8 | (uchar) bytes[pos++];
