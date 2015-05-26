@@ -1762,9 +1762,9 @@ PdfFont PDFLibCore::PDF_WriteCffSubsetFont(const QByteArray& fontName, ScFace& f
 //	PDF_WriteFontDescriptor(fontName, face, fformat, 0);
 //	// END
 	
-	QByteArray font;
-	face.RawData(font);
-	font = sfnt::getTable(font, "CFF ");
+	QByteArray font, data;
+	face.RawData(data);
+	font = sfnt::getTable(data, "CFF ");
 	dumpFont(face.psName() + ".cff", font);
 	QList<ScFace::gid_type> glyphs = RealGlyphs.uniqueKeys();
 	glyphs.removeAll(0);
