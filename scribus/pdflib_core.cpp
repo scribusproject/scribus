@@ -5800,8 +5800,8 @@ bool PDFLibCore::setTextCh(PageItem *ite, uint PNr, double x, double y, uint d, 
 				}
 				else
 				{
-					if (ite->BaseOffs != 0)
-						tmp2 += "1 0 0 1 0 "+FToStr( -ite->BaseOffs)+" cm\n";
+				//	if (ite->BaseOffs != 0)
+				//		tmp2 += "1 0 0 1 0 "+FToStr( -ite->BaseOffs)+" cm\n";
 					tmp2 += FToStr(tsz / 10.0)+" 0 0 "+FToStr(tsz / 10.0)+" 0 "+FToStr(tsz / 10.0)+" cm\n";
 				}
 				if (glyphs->scaleV != 1.0)
