@@ -6220,6 +6220,10 @@ Use 72 dpi for Images intended for the Screen</translation>
         <source>Click to change the value</source>
         <translation>Click to change the value</translation>
     </message>
+    <message>
+        <source>Outline</source>
+        <translation type="unfinished">Outline</translation>
+    </message>
 </context>
 <context>
     <name>FontPreview</name>
@@ -7084,7 +7088,7 @@ converting their vector data into Scribus objects.</translation>
     </message>
     <message>
         <source>Corel Draw CDR (*.cdr *.CDR)</source>
-        <translation>Corel Draw CDR (*.cdr *.CDR)</translation>
+        <translation type="vanished">Corel Draw CDR (*.cdr *.CDR)</translation>
     </message>
     <message>
         <source>Imports Corel Draw Files</source>
@@ -7123,7 +7127,7 @@ Document Liberation Project http://www.documentliberation.org</translation>
     <name>ImportCgmPlugin</name>
     <message>
         <source>Import Cgm...</source>
-        <translation>Import Cgm...</translation>
+        <translation type="vanished">Import Cgm...</translation>
     </message>
     <message>
         <source>CGM File</source>
@@ -7147,33 +7151,58 @@ converting their vector data into Scribus objects.</translation>
         <source>All Supported Formats</source>
         <translation>All Supported Formats</translation>
     </message>
+    <message>
+        <source>Import Computer Graphics Metafile...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Computer Graphics Metafile</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Computer Graphics Metafile (*.cgm *.CGM)</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ImportCvgPlugin</name>
     <message>
         <source>Import Cvg...</source>
-        <translation>Import Cvg...</translation>
+        <translation type="vanished">Import Cvg...</translation>
     </message>
     <message>
         <source>Imports Cvg Files</source>
-        <translation>Imports Cvg Files</translation>
+        <translation type="vanished">Imports Cvg Files</translation>
     </message>
     <message>
         <source>Imports most Cvg files into the current document,
 converting their vector data into Scribus objects.</source>
-        <translation>Imports most Cvg files into the current document,
+        <translation type="vanished">Imports most Cvg files into the current document,
 converting their vector data into Scribus objects.</translation>
     </message>
     <message>
         <source>All Supported Formats</source>
         <translation>All Supported Formats</translation>
     </message>
+    <message>
+        <source>Import Calamus Vector Graphics...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Imports Calamus Vector Graphics Files</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Imports most Calamus Vector Graphics files into the current document,
+converting their vector data into Scribus objects.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ImportDrwPlugin</name>
     <message>
         <source>Import DRW...</source>
-        <translation>Import DRW...</translation>
+        <translation type="vanished">Import DRW...</translation>
     </message>
     <message>
         <source>Micrografx DRW File</source>
@@ -7199,18 +7228,30 @@ converting their vector data into Scribus objects.</translation>
     </message>
     <message>
         <source>Micrografx DRW</source>
-        <translation>Micrografx DRW</translation>
+        <translation type="vanished">Micrografx DRW</translation>
     </message>
     <message>
         <source>Micrografx DRW (*.drw *.DRW)</source>
-        <translation>Micrografx DRW (*.drw *.DRW)</translation>
+        <translation type="vanished">Micrografx DRW (*.drw *.DRW)</translation>
+    </message>
+    <message>
+        <source>Import Micrografx Draw...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Micrografx Draw</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Micrografx Draw (*.drw *.DRW)</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>ImportEmfPlugin</name>
     <message>
         <source>Import EMF...</source>
-        <translation>Import EMF...</translation>
+        <translation type="vanished">Import EMF...</translation>
     </message>
     <message>
         <source>EMF</source>
@@ -7233,6 +7274,18 @@ converting their vector data into Scribus objects.</translation>
     <message>
         <source>All Supported Formats</source>
         <translation>All Supported Formats</translation>
+    </message>
+    <message>
+        <source>Import Enhanced Metafile...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enhanced Metafile</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enhanced Metafile (*.emf *.EMF)</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -7390,21 +7443,34 @@ converting their vector data into Scribus objects.</translation>
     <name>ImportPctPlugin</name>
     <message>
         <source>Import Pict...</source>
-        <translation>Import Pict...</translation>
+        <translation type="vanished">Import Pict...</translation>
     </message>
     <message>
         <source>Imports Pict Files</source>
-        <translation>Imports Pict Files</translation>
+        <translation type="vanished">Imports Pict Files</translation>
     </message>
     <message>
         <source>Imports most Mac Pict files into the current document,
 converting their vector data into Scribus objects.</source>
-        <translation>Imports most Mac Pict files into the current document,
+        <translation type="vanished">Imports most Mac Pict files into the current document,
 converting their vector data into Scribus objects.</translation>
     </message>
     <message>
         <source>All Supported Formats</source>
         <translation>All Supported Formats</translation>
+    </message>
+    <message>
+        <source>Import Macintosh Pict...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Imports Macintosh Pict Files</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Imports most Macintosh Pict files into the current document,
+converting their vector data into Scribus objects.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -7663,21 +7729,34 @@ converting their vector data into Scribus objects.</translation>
     <name>ImportWpgPlugin</name>
     <message>
         <source>Import WPG...</source>
-        <translation>Import WPG...</translation>
+        <translation type="vanished">Import WPG...</translation>
     </message>
     <message>
         <source>Imports WPG Files</source>
-        <translation>Imports WPG Files</translation>
+        <translation type="vanished">Imports WPG Files</translation>
     </message>
     <message>
         <source>Imports most WPG files into the current document,
 converting their vector data into Scribus objects.</source>
-        <translation>Imports most WPG files into the current document,
+        <translation type="vanished">Imports most WPG files into the current document,
 converting their vector data into Scribus objects.</translation>
     </message>
     <message>
         <source>All Supported Formats</source>
         <translation>All Supported Formats</translation>
+    </message>
+    <message>
+        <source>Import WordPerfect Graphics...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Imports WordPerfect Graphics Files</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Imports most WordPerfect Graphics files into the current document,
+converting their vector data into Scribus objects.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -15675,7 +15754,7 @@ A value of 0 means unlimited hyphenations.</translation>
     </message>
     <message>
         <source>rangeButtonGroup</source>
-        <translation>rangeButtonGroup</translation>
+        <translation type="vanished">rangeButtonGroup</translation>
     </message>
     <message>
         <source>Choose Pages</source>
@@ -15923,7 +16002,7 @@ A value of 0 means unlimited hyphenations.</translation>
     </message>
     <message>
         <source>Available Fonts</source>
-        <translation>Available Fonts</translation>
+        <translation type="vanished">Available Fonts</translation>
     </message>
     <message>
         <source>Embed All</source>
@@ -15931,7 +16010,7 @@ A value of 0 means unlimited hyphenations.</translation>
     </message>
     <message>
         <source>Outline All</source>
-        <translation>Outline All</translation>
+        <translation type="vanished">Outline All</translation>
     </message>
     <message>
         <source>Fonts to Embed</source>
@@ -15939,7 +16018,7 @@ A value of 0 means unlimited hyphenations.</translation>
     </message>
     <message>
         <source>Fonts to Outline</source>
-        <translation>Fonts to Outline</translation>
+        <translation type="vanished">Fonts to Outline</translation>
     </message>
     <message>
         <source>Extras</source>
@@ -16419,7 +16498,7 @@ A value of 0 means unlimited hyphenations.</translation>
     </message>
     <message>
         <source>Convert all glyphs in the document to outlines.</source>
-        <translation>Convert all glyphs in the document to outlines.</translation>
+        <translation type="vanished">Convert all glyphs in the document to outlines.</translation>
     </message>
     <message>
         <source>Show the document in single page mode</source>
@@ -16488,6 +16567,34 @@ A value of 0 means unlimited hyphenations.</translation>
     <message>
         <source>Create a range of pages</source>
         <translation>Create a range of pages</translation>
+    </message>
+    <message>
+        <source>Embedding mode:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Embed or Subset</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Outline All Fonts</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Do Not Embed</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Fonts to Subset</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Subset All</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Embed only subset fonts with glyphs used in the document into the PDF.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -16908,7 +17015,7 @@ A value of 0 means unlimited hyphenations.</translation>
     </message>
     <message>
         <source>All</source>
-        <translation>All</translation>
+        <translation type="vanished">All</translation>
     </message>
     <message>
         <source>Length:</source>
@@ -18512,6 +18619,16 @@ Note: PDF Forms will not be exported.</source>
         <source>Luminosity</source>
         <translation>Luminosity</translation>
     </message>
+    <message>
+        <source>Content covers
+Drop Shadow</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Inherit Object
+Transparency</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>PropertiesPalette_ShadowBase</name>
@@ -18628,7 +18745,7 @@ Note: PDF Forms will not be exported.</source>
     <name>PropertiesPalette_Shape</name>
     <message>
         <source> pt</source>
-        <translation> pt</translation>
+        <translation type="vanished"> pt</translation>
     </message>
     <message>
         <source>Shape:</source>
@@ -22329,7 +22446,7 @@ Therefore the image may be not correct</source>
     </message>
     <message>
         <source>Cvg Importer</source>
-        <translation>Cvg Importer</translation>
+        <translation type="vanished">Cvg Importer</translation>
     </message>
     <message>
         <source>Pict Importer</source>
@@ -22916,7 +23033,7 @@ Therefore the image may be not correct</source>
     </message>
     <message>
         <source>Qt supported File</source>
-        <translation>Qt supported File</translation>
+        <translation type="vanished">Qt supported File</translation>
     </message>
     <message>
         <source>Custom Shapes</source>
@@ -22952,11 +23069,11 @@ Therefore the image may be not correct</source>
     </message>
     <message>
         <source>Calamus CVG</source>
-        <translation>Calamus CVG</translation>
+        <translation type="vanished">Calamus CVG</translation>
     </message>
     <message>
         <source>Word Perfect WPG</source>
-        <translation>Word Perfect WPG</translation>
+        <translation type="vanished">Word Perfect WPG</translation>
     </message>
     <message>
         <source>Open Raster</source>
@@ -22973,6 +23090,27 @@ Therefore the image may be not correct</source>
     <message>
         <source>Macintosh Pict</source>
         <translation>Macintosh Pict</translation>
+    </message>
+    <message>
+        <source>&lt;fontEmbedding&gt; invalid</source>
+        <comment>Load PDF settings</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Calamus Vector Graphics Importer</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Calamus Vector Graphics</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>WordPerfect Graphics</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Qt Supported File</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -27670,7 +27808,7 @@ Consider using the Preflight Verifier to correct them</translation>
     </message>
     <message>
         <source>Available Fonts:</source>
-        <translation>Available Fonts:</translation>
+        <translation type="vanished">Available Fonts:</translation>
     </message>
     <message>
         <source>Fonts to embed:</source>
@@ -28300,15 +28438,15 @@ when PDF document is opened:</translation>
     </message>
     <message>
         <source>Fonts to outline:</source>
-        <translation>Fonts to outline:</translation>
+        <translation type="vanished">Fonts to outline:</translation>
     </message>
     <message>
         <source>&amp;Outline all</source>
-        <translation>&amp;Outline all</translation>
+        <translation type="vanished">&amp;Outline all</translation>
     </message>
     <message>
         <source>Convert all glyphs in the document to outlines.</source>
-        <translation>Convert all glyphs in the document to outlines.</translation>
+        <translation type="vanished">Convert all glyphs in the document to outlines.</translation>
     </message>
     <message>
         <source>Document Layout</source>
@@ -28493,6 +28631,34 @@ when PDF document is opened:</translation>
     <message>
         <source> °</source>
         <translation> °</translation>
+    </message>
+    <message>
+        <source>Embedding Mode:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Embed or Subset</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Outline All Fonts</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Do Not Embed</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Fonts to subset:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Subset all</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Embed only subset fonts with glyphs used in the document into the PDF.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
