@@ -473,6 +473,10 @@ Hvis objektet «name» tilhører en gruppe blir hele gruppen flyttet.
         <source>Unable to open %1 file. Please check your install directory or the Scribus website for %1 information.</source>
         <translation>Klarte ikke å åpne fila %1. Sjekk installasjonsmappa eller Scribus sin nettside for informasjon om %1.</translation>
     </message>
+    <message>
+        <source>Haiku Port:</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>AboutPlugins</name>
