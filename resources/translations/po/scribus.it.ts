@@ -6354,7 +6354,7 @@ May throw ValueError if any of the distances are out of bounds (must be positive
     <message>
         <location filename="../../../scribus/about.cpp" line="307"/>
         <source>Haiku Port:</source>
-        <translation type="unfinished"></translation>
+        <translation>Versione per Haiku:</translation>
     </message>
     <message>
         <location filename="../../../scribus/about.cpp" line="311"/>
