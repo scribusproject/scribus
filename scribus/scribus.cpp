@@ -3457,6 +3457,11 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 		if (docFontDir3.exists())
 			prefsManager->appPrefs.fontPrefs.AvailFonts.AddScalableFonts(fi.absolutePath()+"/Document fonts", FName);
 		prefsManager->appPrefs.fontPrefs.AvailFonts.updateFontMap();
+		if (view != NULL)
+		{
+			actionManager->disconnectNewViewActions();
+			disconnect(view, SIGNAL(signalGuideInformation(int, qreal)), alignDistributePalette, SLOT(setGuide(int, qreal)));
+		}
 		doc=new ScribusDoc();
 		doc->saveFilePermissions(QFile::permissions(fileName));
 		doc->is12doc=is12doc;

@@ -206,8 +206,6 @@ ScribusView::ScribusView(QWidget* win, ScribusMainWindow* mw, ScribusDoc *doc) :
 	setRulersShown(Doc->guidesPrefs().rulersShown);
 	m_canvas->m_viewMode.viewAsPreview = false;
 	m_canvas->setPreviewVisual(-1);
-//	shiftSelItems = false;
-//	inItemCreation = false;
 	m_previousMode = -1;
 	redrawMode = 0;
 	redrawCount = 0;
@@ -215,8 +213,10 @@ ScribusView::ScribusView(QWidget* win, ScribusMainWindow* mw, ScribusDoc *doc) :
 	redrawMarker->hide();
 	m_canvas->newRedrawPolygon();
 	m_canvas->resetRenderMode();
-	m_ScMW->scrActions["viewPreviewMode"]->setChecked(m_canvas->m_viewMode.viewAsPreview);
-//	m_SnapCounter = 0;
+//  #13101 : "viewPreviewMode" is checked if necessary in ScribusMainWindow::newActWin()
+//  At this point the view and parent window may not be able to perform all what is necessary to
+//  enable preview mode anyway, especially when loading an existing doc.
+//	m_ScMW->scrActions["viewPreviewMode"]->setChecked(m_canvas->m_viewMode.viewAsPreview);
 	m_mousePointDoc = FPoint(0,0);
 	Doc->regionsChanged()->connectObserver(this);
 	connect(this, SIGNAL(HaveSel()), Doc, SLOT(selectionChanged()));
@@ -4343,7 +4343,6 @@ void ScribusView::stopAllDrags() // deprecated
 	m_canvas->m_viewMode.m_MouseButtonPressed = false;
 	m_canvas->m_viewMode.operItemMoving = false;
 	m_canvas->m_viewMode.operItemResizing = false;
-//FIXME:av	inItemCreation = false;
 	MidButt = false;
 }
 
