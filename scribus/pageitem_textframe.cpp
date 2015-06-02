@@ -675,9 +675,10 @@ struct LineControl {
 		double maxX = colRight - morespace;
 		if (legacy) maxX -= lineCorr;
 
-		double StartX = floor(qMax(line.x, qMin(maxX,breakXPos-maxShrink-1))-1);
-		int xPos  = static_cast<int>(ceil(maxX));
+		double StartX = floor(qMax(line.x, qMin(maxX, breakXPos-maxShrink-1))-1);
+		StartX = qMax(0.0, StartX);
 
+		int xPos  = static_cast<int>(ceil(maxX));
 		QPoint  pt12 (xPos, yAsc);
 		QPoint  pt22 (xPos, yDesc);
 
