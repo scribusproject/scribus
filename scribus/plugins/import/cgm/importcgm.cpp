@@ -2858,9 +2858,9 @@ ScColor CgmPlug::getBinaryDirectColor(ScBitReader *breader)
 	ScColor ret;
 	if (m_colorModel == 1)		// RGB
 	{
-		uint r = breader->getUInt(colorPrecision);
-		uint g = breader->getUInt(colorPrecision);
-		uint b = breader->getUInt(colorPrecision);
+		int r = breader->getUInt(colorPrecision);
+		int g = breader->getUInt(colorPrecision);
+		int b = breader->getUInt(colorPrecision);
 		r = qRound(r * (maxColor - minColor) / static_cast<double>(maxColor));
 		g = qRound(g * (maxColor - minColor) / static_cast<double>(maxColor));
 		b = qRound(b * (maxColor - minColor) / static_cast<double>(maxColor));
@@ -2890,9 +2890,9 @@ ScColor CgmPlug::getBinaryDirectColor(QDataStream &ts)
 		{
 			quint8 ri, gi, bi;
 			ts >> ri >> gi >> bi;
-			uint r = ri;
-			uint g = gi;
-			uint b = bi;
+			int r = ri;
+			int g = gi;
+			int b = bi;
 			r = qRound(r * (maxColor - minColor) / static_cast<double>(maxColor));
 			g = qRound(g * (maxColor - minColor) / static_cast<double>(maxColor));
 			b = qRound(b * (maxColor - minColor) / static_cast<double>(maxColor));
@@ -2902,9 +2902,9 @@ ScColor CgmPlug::getBinaryDirectColor(QDataStream &ts)
 		{
 			quint16 ri, gi, bi;
 			ts >> ri >> gi >> bi;
-			uint r = ri;
-			uint g = gi;
-			uint b = bi;
+			int r = ri;
+			int g = gi;
+			int b = bi;
 			r = qRound((r * (maxColor - minColor) / static_cast<double>(maxColor)) / static_cast<double>(maxColor) * 255.0);
 			g = qRound((g * (maxColor - minColor) / static_cast<double>(maxColor)) / static_cast<double>(maxColor) * 255.0);
 			b = qRound((b * (maxColor - minColor) / static_cast<double>(maxColor)) / static_cast<double>(maxColor) * 255.0);
@@ -2929,9 +2929,9 @@ ScColor CgmPlug::getBinaryDirectColor(QDataStream &ts)
 			ts >> p1;
 			bi = p2 << 8;
 			bi |= p1;
-			uint r = ri;
-			uint g = gi;
-			uint b = bi;
+			int r = ri;
+			int g = gi;
+			int b = bi;
 			r = qRound((r * (maxColor - minColor) / static_cast<double>(maxColor)) / static_cast<double>(maxColor) * 255.0);
 			g = qRound((g * (maxColor - minColor) / static_cast<double>(maxColor)) / static_cast<double>(maxColor) * 255.0);
 			b = qRound((b * (maxColor - minColor) / static_cast<double>(maxColor)) / static_cast<double>(maxColor) * 255.0);
@@ -2941,9 +2941,9 @@ ScColor CgmPlug::getBinaryDirectColor(QDataStream &ts)
 		{
 			quint32 ri, gi, bi;
 			ts >> ri >> gi >> bi;
-			uint r = ri;
-			uint g = gi;
-			uint b = bi;
+			int r = ri;
+			int g = gi;
+			int b = bi;
 			r = qRound((r * (maxColor - minColor) / static_cast<double>(maxColor)) / static_cast<double>(maxColor) * 255.0);
 			g = qRound((g * (maxColor - minColor) / static_cast<double>(maxColor)) / static_cast<double>(maxColor) * 255.0);
 			b = qRound((b * (maxColor - minColor) / static_cast<double>(maxColor)) / static_cast<double>(maxColor) * 255.0);

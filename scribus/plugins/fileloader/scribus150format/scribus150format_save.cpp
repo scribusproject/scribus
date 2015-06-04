@@ -568,8 +568,16 @@ void Scribus150Format::writeColors(ScXmlStreamWriter & docu, bool part)
 		docu.writeAttribute("NAME",itc.key());
 		if (m_Doc->PageColors[itc.key()].getColorModel() == colorModelRGB)
 			docu.writeAttribute("RGB",m_Doc->PageColors[itc.key()].nameRGB());
-		else
+		else if (m_Doc->PageColors[itc.key()].getColorModel() == colorModelCMYK)
 			docu.writeAttribute("CMYK",m_Doc->PageColors[itc.key()].nameCMYK());
+		else
+		{
+			double L, a, b;
+			m_Doc->PageColors[itc.key()].getLab(&L, &a, &b);
+			docu.writeAttribute("L", L);
+			docu.writeAttribute("A", a);
+			docu.writeAttribute("B", b);
+		}
 		if (m_Doc->PageColors[itc.key()].isSpotColor())
 			docu.writeAttribute("Spot",static_cast<int>(m_Doc->PageColors[itc.key()].isSpotColor()));
 		if (m_Doc->PageColors[itc.key()].isRegistrationColor())

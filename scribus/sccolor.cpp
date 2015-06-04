@@ -57,6 +57,16 @@ ScColor::ScColor(int r, int g, int b)
 	setColorRGB(r, g, b);
 }
 
+ScColor::ScColor(double l, double a, double b)
+{
+	Spot = false;
+	Regist = false;
+	Model = colorModelLab;
+	L_val = l;
+	a_val = a;
+	b_val = b;
+}
+
 bool ScColor::operator==(const ScColor& other) const
 {
 	if (Model != other.Model)
@@ -83,6 +93,14 @@ void ScColor::setColor(int c, int m, int y, int k)
 	YB = y;
 	K = k;
 	Model = colorModelCMYK;
+}
+
+void ScColor::setColor(double l, double a, double b)
+{
+	Model = colorModelLab;
+	L_val = l;
+	a_val = a;
+	b_val = b;
 }
 
 void ScColor::setColorRGB(int r, int g, int b)
@@ -154,6 +172,15 @@ void ScColor::getCMYK(int *c, int *m, int *y, int *k) const
 	*m = MG;
 	*y = YB;
 	*k = K;
+}
+
+void ScColor::getLab(double *L, double *a, double *b) const
+{
+	if( Model != colorModelLab )
+		qDebug("calling getLab with a non Lab color");
+	*L = L_val;
+	*a = a_val;
+	*b = b_val;
 }
 
 QString ScColor::name()

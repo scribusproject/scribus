@@ -112,11 +112,14 @@ public:
 	ScColorProfile   monitorProfile;
 	ScColorProfile   defaultRGBProfile;
 	ScColorProfile   defaultCMYKProfile;
+	ScColorProfile   defaultLabProfile;
 	ScColorTransform defaultRGBToScreenSolidTrans;
 	ScColorTransform defaultRGBToScreenImageTrans;
 	ScColorTransform defaultCMYKToScreenImageTrans;
 	ScColorTransform defaultRGBToCMYKTrans;
 	ScColorTransform defaultCMYKToRGBTrans;
+	ScColorTransform defaultLabToRGBTrans;
+	ScColorTransform defaultLabToCMYKTrans;
 	//CB FIXME protect
 // 	QWidget *m_PaletteParent;
 	

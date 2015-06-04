@@ -950,6 +950,10 @@ void ScribusDoc::SetDefaultCMSParams()
 	stdTransImg           = ScCore->defaultRGBToScreenImageTrans;
 	stdProofImg           = ScCore->defaultRGBToScreenImageTrans;
 	stdProofImgCMYK       = ScCore->defaultCMYKToScreenImageTrans;
+	stdLabToRGBTrans      = ScCore->defaultLabToRGBTrans;
+	stdLabToCMYKTrans     = ScCore->defaultLabToCMYKTrans;
+	stdProofLab           = ScCore->defaultLabToRGBTrans;
+	stdProofLabGC         = ScCore->defaultLabToRGBTrans;
 }
 
 bool ScribusDoc::OpenCMSProfiles(ProfilesL InPo, ProfilesL InPoCMYK, ProfilesL MoPo, ProfilesL PrPo)
@@ -1039,6 +1043,15 @@ bool ScribusDoc::OpenCMSProfiles(ProfilesL InPo, ProfilesL InPoCMYK, ProfilesL M
 						DocPrinterProf,
 						IntentColors,
 						Intent_Relative_Colorimetric, dcmsFlags | Ctf_GamutCheck);
+	stdProofLab = colorEngine.createProofingTransform(ScCore->defaultLabProfile, Format_Lab_Dbl,
+						DocDisplayProf, Format_RGB_16,
+						DocPrinterProf,
+						IntentColors,
+						Intent_Relative_Colorimetric, dcmsFlags);
+	stdProofLabGC = colorEngine.createProofingTransform(ScCore->defaultLabProfile, Format_Lab_Dbl,
+						DocDisplayProf, Format_RGB_16,
+						DocPrinterProf, IntentColors,
+						Intent_Relative_Colorimetric, dcmsFlags| Ctf_GamutCheck);
 
 	if (DocInputRGBProf.colorSpace() == ColorSpace_Rgb)
 			docPrefsData.colorPrefs.DCMSset.ComponentsInput2 = 3;
@@ -1046,10 +1059,13 @@ bool ScribusDoc::OpenCMSProfiles(ProfilesL InPo, ProfilesL InPoCMYK, ProfilesL M
 			docPrefsData.colorPrefs.DCMSset.ComponentsInput2 = 4;
 	if (DocInputRGBProf.colorSpace() == ColorSpace_Cmy)
 			docPrefsData.colorPrefs.DCMSset.ComponentsInput2 = 3;
+	stdLabToRGBTrans   = colorEngine.createTransform(ScCore->defaultLabProfile, Format_Lab_Dbl, DocDisplayProf, Format_RGB_8, Intent_Perceptual, dcmsFlags);
+	stdLabToCMYKTrans = colorEngine.createTransform(ScCore->defaultLabProfile, Format_Lab_Dbl, DocPrinterProf, Format_CMYK_8, Intent_Perceptual, dcmsFlags);
 
 	bool success  = (stdTransRGBMon && stdTransCMYKMon && stdProofImg  && stdProofImgCMYK &&
 		             stdTransImg    && stdTransRGB     && stdTransCMYK && stdProof       &&
-	                 stdProofGC     && stdProofCMYK    && stdProofCMYKGC);
+					 stdProofGC     && stdProofCMYK    && stdProofCMYKGC &&
+					 stdLabToRGBTrans && stdLabToCMYKTrans && stdProofLab && stdProofLabGC);
 	if (!success)
 	{
 		CloseCMSProfiles();

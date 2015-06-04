@@ -79,7 +79,6 @@ public:
 	QPixmap imageN;
 	QPixmap alertIcon;
 	ScColor Farbe;
-	bool CMYKmode;
 	bool Wsave;
 	bool dynamic;
 	bool isNew;

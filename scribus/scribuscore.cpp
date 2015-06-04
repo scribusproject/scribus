@@ -420,20 +420,18 @@ void ScribusCore::InitDefaultColorTransforms(void)
 	// Now create default color transforms (used mainly when color management is "disabled")
 	int dcmsFlags        = Ctf_BlackPointCompensation;
 	eRenderIntent intent = Intent_Relative_Colorimetric;
+	defaultLabProfile = defaultEngine.createProfile_Lab();
 
-	defaultRGBToScreenSolidTrans  = defaultEngine.createTransform(defaultRGBProfile, Format_RGB_16, 
-	            defaultRGBProfile, Format_RGB_16, intent, dcmsFlags);
-	defaultRGBToScreenImageTrans  = defaultEngine.createTransform(defaultRGBProfile, Format_RGBA_8, 
-	            defaultRGBProfile, Format_RGBA_8, intent, dcmsFlags);
-	defaultCMYKToScreenImageTrans = defaultEngine.createTransform(defaultCMYKProfile, Format_CMYK_8,
-	            defaultRGBProfile, Format_RGBA_8, intent, dcmsFlags);
-	defaultRGBToCMYKTrans = defaultEngine.createTransform(defaultRGBProfile, Format_RGB_16,
-				defaultCMYKProfile, Format_CMYK_16, intent, dcmsFlags);
-	defaultCMYKToRGBTrans = defaultEngine.createTransform(defaultCMYKProfile, Format_CMYK_16,
-				defaultRGBProfile, Format_RGB_16, intent, dcmsFlags);
+	defaultRGBToScreenSolidTrans  = defaultEngine.createTransform(defaultRGBProfile, Format_RGB_16,  defaultRGBProfile, Format_RGB_16, intent, dcmsFlags);
+	defaultRGBToScreenImageTrans  = defaultEngine.createTransform(defaultRGBProfile, Format_RGBA_8,  defaultRGBProfile, Format_RGBA_8, intent, dcmsFlags);
+	defaultCMYKToScreenImageTrans = defaultEngine.createTransform(defaultCMYKProfile, Format_CMYK_8, defaultRGBProfile, Format_RGBA_8, intent, dcmsFlags);
+	defaultRGBToCMYKTrans         = defaultEngine.createTransform(defaultRGBProfile, Format_RGB_16, defaultCMYKProfile, Format_CMYK_16, intent, dcmsFlags);
+	defaultCMYKToRGBTrans         = defaultEngine.createTransform(defaultCMYKProfile, Format_CMYK_16, defaultRGBProfile, Format_RGB_16, intent, dcmsFlags);
+	defaultLabToRGBTrans           = defaultEngine.createTransform(defaultLabProfile, Format_Lab_Dbl, defaultRGBProfile, Format_RGB_8, Intent_Perceptual, dcmsFlags);
+	defaultLabToCMYKTrans         = defaultEngine.createTransform(defaultLabProfile, Format_Lab_Dbl, defaultCMYKProfile, Format_CMYK_8, Intent_Perceptual, dcmsFlags);
 	if (!defaultRGBToScreenSolidTrans  || !defaultRGBToScreenImageTrans || 
 		!defaultCMYKToScreenImageTrans || !defaultRGBToCMYKTrans || 
-		!defaultCMYKToRGBTrans )
+		!defaultCMYKToRGBTrans || !defaultLabToRGBTrans|| !defaultLabToCMYKTrans)
 	{
 		ResetDefaultColorTransforms();
 	}
@@ -448,6 +446,8 @@ void ScribusCore::ResetDefaultColorTransforms(void)
 	defaultCMYKToScreenImageTrans = ScColorTransform();
 	defaultRGBToCMYKTrans = ScColorTransform();
 	defaultCMYKToRGBTrans = ScColorTransform();
+	defaultLabToRGBTrans = ScColorTransform();
+	defaultLabToCMYKTrans = ScColorTransform();
 }
 
 void ScribusCore::initCMS()

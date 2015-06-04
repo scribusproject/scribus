@@ -47,6 +47,7 @@ eColorType colorFormatType(eColorFormat format)
 		type = Color_Gray;
 		break;
 	case Format_LabA_8:
+	case Format_Lab_Dbl:
 		type = Color_Lab;
 		break;
 	case Format_Undefined:
@@ -90,6 +91,9 @@ uint colorFormatNumChannels(eColorFormat format)
 	case Format_LabA_8:
 		channels = 4;
 		break;
+	case Format_Lab_Dbl:
+		channels = 3;
+		break;
 	default: // For the pure sake of shutting gcc up
 		channels = 0;
 		break;
@@ -122,6 +126,9 @@ uint colorFormatBytesPerChannel(eColorFormat format)
 	case Format_YMCK_16:
 	case Format_GRAY_16:
 		bytes = 2;
+		break;
+	case Format_Lab_Dbl:
+		bytes = 8;
 		break;
 	default: // For the pure sake of shutting gcc up
 		bytes = 0;

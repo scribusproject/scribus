@@ -5014,7 +5014,7 @@ void PSLib::SetColor(const ScColor& farb, double shade, int *h, int *s, int *v, 
 {
 	int h1 = *h, s1 = *s, v1 = *v, k1 = *k;
 	ScColor tmp(farb);
-	if (farb.getColorModel() == colorModelRGB)
+	if (farb.getColorModel() != colorModelCMYK)
 		tmp = ScColorEngine::convertToModel(farb, m_Doc, colorModelCMYK);
 	if ((gcr) && (!farb.isRegistrationColor()))
 		ScColorEngine::applyGCR(tmp, m_Doc);

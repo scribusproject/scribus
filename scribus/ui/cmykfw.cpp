@@ -56,10 +56,6 @@ CMYKChoose::CMYKChoose( QWidget* parent, ScribusDoc* doc, ScColor orig, QString 
 	setModal(true);
 	m_doc = doc;
 	isNew = newCol;
-	if (orig.getColorModel () == colorModelCMYK)
-		CMYKmode = true;
-	else
-		CMYKmode = false;
 	dynamic = true;
 	Wsave = false;
 	EColors = Colors;
@@ -78,15 +74,6 @@ CMYKChoose::CMYKChoose( QWidget* parent, ScribusDoc* doc, ScColor orig, QString 
 	QPixmap image1 = sliderPix(300);
 	QPixmap image2 = sliderPix(60);
 	QPixmap image3 = sliderBlack();
-	CMYKColor cmyk;
-	double ccd, cmd, cyd, ckd;
-	ScColorEngine::getCMYKValues(orig, m_doc, cmyk);
-	ccd = cmyk.c / 2.55;
-	cmd = cmyk.m / 2.55;
-	cyd = cmyk.y / 2.55;
-	ckd = cmyk.k / 2.55;
-	RGBColor rgb;
-	ScColorEngine::getRGBValues(orig, m_doc, rgb);
 	resize( 498, 306 );
 	setWindowTitle( tr( "Edit Color" ) );
 	setWindowIcon(QIcon(loadIcon("AppIcon.png")));
@@ -115,8 +102,8 @@ CMYKChoose::CMYKChoose( QWidget* parent, ScribusDoc* doc, ScColor orig, QString 
 	ComboBox1->addItem( tr( "CMYK" ) );
 	ComboBox1->addItem( tr( "RGB" ) );
 	ComboBox1->addItem( tr( "Web Safe RGB" ) );
-	if (!CMYKmode)
-		ComboBox1->setCurrentIndex( 1 );
+	ComboBox1->addItem( tr( "Lab" ) );
+
 	TextLabel3->setBuddy( ComboBox1 );
 	Layout23->addWidget( ComboBox1 );
 
@@ -241,7 +228,6 @@ CMYKChoose::CMYKChoose( QWidget* parent, ScribusDoc* doc, ScColor orig, QString 
 	Layout1_2->setMargin( 0 );
 
 	CyanP = new QLabel( Frame4 );
-//	CyanP->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)5, (QSizePolicy::SizeType)5, CyanP->sizePolicy().hasHeightForWidth() ) );
 	CyanP->setMinimumSize( QSize( 200, 10 ) );
 	CyanP->setPixmap(image0);
 	CyanP->setScaledContents( true );
@@ -257,8 +243,6 @@ CMYKChoose::CMYKChoose( QWidget* parent, ScribusDoc* doc, ScColor orig, QString 
 	CyanSp = new ScrSpinBox( 0, 100, Frame4, 0 );
 	CyanSp->setSuffix( tr(" %"));
 	Layout2x->addWidget(CyanSp, 0, 2);
-	CyanSp->setValue(ccd);
-	CyanSL->setValue(qRound(ccd));
 
 	MagentaT = new QLabel( tr( "M:" ), Frame4 );
 	Layout2x->addWidget(MagentaT, 1, 0);
@@ -268,7 +252,6 @@ CMYKChoose::CMYKChoose( QWidget* parent, ScribusDoc* doc, ScColor orig, QString 
 	Layout1_2_2->setMargin( 0 );
 
 	MagentaP = new QLabel( Frame4 );
-//	MagentaP->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)5, (QSizePolicy::SizeType)5, MagentaP->sizePolicy().hasHeightForWidth() ) );
 	MagentaP->setMinimumSize( QSize( 200, 10 ) );
 	MagentaP->setPixmap(image1);
 	MagentaP->setScaledContents( true );
@@ -284,8 +267,6 @@ CMYKChoose::CMYKChoose( QWidget* parent, ScribusDoc* doc, ScColor orig, QString 
 	MagentaSp = new ScrSpinBox( 0, 100, Frame4, 0 );
 	MagentaSp->setSuffix( tr(" %"));
 	Layout2x->addWidget(MagentaSp, 1, 2);
-	MagentaSp->setValue(cmd);
-	MagentaSL->setValue(qRound(cmd));
 
 	YellowT = new QLabel( tr( "Y:" ), Frame4 );
 	Layout2x->addWidget(YellowT, 2, 0);
@@ -295,7 +276,6 @@ CMYKChoose::CMYKChoose( QWidget* parent, ScribusDoc* doc, ScColor orig, QString 
 	Layout1_2_3->setMargin( 0 );
 
 	YellowP = new QLabel( Frame4);
-//	YellowP->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)5, (QSizePolicy::SizeType)5, YellowP->sizePolicy().hasHeightForWidth() ) );
 	YellowP->setMinimumSize( QSize( 200, 10 ) );
 	YellowP->setPixmap(image2);
 	YellowP->setScaledContents( true );
@@ -311,8 +291,6 @@ CMYKChoose::CMYKChoose( QWidget* parent, ScribusDoc* doc, ScColor orig, QString 
 	YellowSp = new ScrSpinBox( 0, 100, Frame4, 0 );
 	YellowSp->setSuffix( tr(" %"));
 	Layout2x->addWidget(YellowSp, 2, 2);
-	YellowSp->setValue(cyd);
-	YellowSL->setValue(qRound(cyd));
 
 	BlackT = new QLabel( tr( "K:" ), Frame4 );
 	Layout2x->addWidget(BlackT, 3, 0);
@@ -322,7 +300,6 @@ CMYKChoose::CMYKChoose( QWidget* parent, ScribusDoc* doc, ScColor orig, QString 
 	Layout1_2_4->setMargin( 0 );
 
 	BlackP = new QLabel( Frame4 );
-//	BlackP->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)5, (QSizePolicy::SizeType)5, BlackP->sizePolicy().hasHeightForWidth() ) );
 	BlackP->setMinimumSize( QSize( 200, 10 ) );
 	BlackP->setPixmap(image3);
 	BlackP->setScaledContents( true );
@@ -338,13 +315,30 @@ CMYKChoose::CMYKChoose( QWidget* parent, ScribusDoc* doc, ScColor orig, QString 
 	BlackSp = new ScrSpinBox( 0, 100, Frame4, 0 );
 	BlackSp->setSuffix( tr(" %"));
 	Layout2x->addWidget(BlackSp, 3, 2);
-	BlackSp->setValue(ckd);
-	BlackSL->setValue(qRound(ckd));
-	BlackComp = cmyk.k;
 	Frame4Layout->addLayout( Layout2x );
 	QSpacerItem* spacer2 = new QSpacerItem( 2, 2, QSizePolicy::Minimum, QSizePolicy::Expanding );
 	Frame4Layout->addItem( spacer2 );
 	CMYKColorLayout->addWidget( Frame4 );
+
+	if (orig.getColorModel () == colorModelCMYK)
+	{
+		double ccd, cmd, cyd, ckd;
+		CMYKColor cmyk;
+		ScColorEngine::getCMYKValues(orig, m_doc, cmyk);
+		ccd = cmyk.c / 2.55;
+		cmd = cmyk.m / 2.55;
+		cyd = cmyk.y / 2.55;
+		ckd = cmyk.k / 2.55;
+		CyanSp->setValue(ccd);
+		CyanSL->setValue(qRound(ccd));
+		MagentaSp->setValue(cmd);
+		MagentaSL->setValue(qRound(cmd));
+		YellowSp->setValue(cyd);
+		YellowSL->setValue(qRound(cyd));
+		BlackSp->setValue(ckd);
+		BlackSL->setValue(qRound(ckd));
+		BlackComp = cmyk.k;
+	}
 	int h, s, v;
 	ScColorEngine::getRGBColor(orig, m_doc).getHsv(&h, &s, &v);
 	ColorMap->drawPalette(v);
@@ -355,6 +349,27 @@ CMYKChoose::CMYKChoose( QWidget* parent, ScribusDoc* doc, ScColor orig, QString 
 	TabStack->setCurrentIndex(0);
 	setFixedSize(minimumSizeHint());
 	setContextMenuPolicy(Qt::CustomContextMenu);
+	if (orig.getColorModel () == colorModelRGB)
+	{
+		ComboBox1->setCurrentIndex(1);
+		selModel ( tr( "RGB" ));
+	}
+	else if (orig.getColorModel() == colorModelCMYK)
+	{
+		ComboBox1->setCurrentIndex(0);
+		selModel ( tr( "CMYK" ));
+	}
+	else if (orig.getColorModel() == colorModelLab)
+	{
+		ComboBox1->setCurrentIndex(3);
+		selModel ( tr( "Lab" ));
+	}
+	isRegistration = Farbe.isRegistrationColor();
+	if (Farbe.isRegistrationColor())
+	{
+		ComboBox1->setEnabled(false);
+		Separations->setEnabled(false);
+	}
 	// signals and slots connections
 //	Regist->setToolTip( "<qt>" + tr( "Choosing this will enable printing this on all plates. Registration colors are used for printer marks such as crop marks, registration marks and the like. These are not typically used in the layout itself." ) + "</qt>");
 	Separations->setToolTip( "<qt>" + tr( "Choosing this will make this color a spot color, thus creating another spot when creating plates or separations. This is used most often when a logo or other color needs exact representation or cannot be replicated with CMYK inks. Metallic and fluorescent inks are good examples which cannot be easily replicated with CMYK inks." ) + "</qt>");
@@ -381,14 +396,6 @@ CMYKChoose::CMYKChoose( QWidget* parent, ScribusDoc* doc, ScColor orig, QString 
 //	connect(Regist, SIGNAL(clicked()), this, SLOT(setRegist()));
 	connect(this, SIGNAL(customContextMenuRequested (const QPoint &)), this, SLOT(slotRightClick()));
 	layout()->activate();
-	if (!CMYKmode)
-		selModel ( tr( "RGB" ));
-	isRegistration = Farbe.isRegistrationColor();
-	if (Farbe.isRegistrationColor())
-	{
-		ComboBox1->setEnabled(false);
-		Separations->setEnabled(false);
-	}
 }
 
 void CMYKChoose::setValSLiders(double value)
@@ -441,10 +448,10 @@ void CMYKChoose::setValueS(int val)
 void CMYKChoose::toggleSL()
 {
 	dynamic = !dynamic;
-	CyanP->setPixmap(sliderPix(CMYKmode ? 180 : 0));
-	MagentaP->setPixmap(sliderPix(CMYKmode? 300 : 120));
-	YellowP->setPixmap(sliderPix(CMYKmode? 60 : 240));
-	if (CMYKmode)
+	CyanP->setPixmap(sliderPix(Farbe.getColorModel() == colorModelCMYK ? 180 : 0));
+	MagentaP->setPixmap(sliderPix(Farbe.getColorModel() == colorModelCMYK? 300 : 120));
+	YellowP->setPixmap(sliderPix(Farbe.getColorModel() == colorModelCMYK? 60 : 240));
+	if (Farbe.getColorModel() == colorModelCMYK)
 		BlackP->setPixmap(sliderBlack());
 }
 
@@ -460,7 +467,7 @@ QPixmap CMYKChoose::sliderPix(int farbe)
 	QColor tmp;
 	for (int x = 0; x < 255; x += 5)
 	{
-		if (CMYKmode)
+		if (Farbe.getColorModel() == colorModelCMYK)
 		{
 			ScColorEngine::getCMYKValues(Farbe, m_doc, cmyk);
 			cmyk.getValues(c, m, y, k);
@@ -497,7 +504,7 @@ QPixmap CMYKChoose::sliderPix(int farbe)
 				p.setBrush(tmp);
 			}
 		}
-		else
+		else if (Farbe.getColorModel() == colorModelRGB)
 		{
 			ScColorEngine::getRGBValues(Farbe, m_doc, rgb);
 			rgb.getValues(r, g, b);
@@ -529,6 +536,44 @@ QPixmap CMYKChoose::sliderPix(int farbe)
 					break;
 				case 240:
 					tmp = ScColorEngine::getDisplayColorGC(ScColor(0, 0, x), m_doc);
+					break;
+				}
+				p.setBrush(tmp);
+			}
+		}
+		else if (Farbe.getColorModel() == colorModelLab)
+		{
+			double L, a, b;
+			double val = static_cast<double>(x) / 255.0;
+			Farbe.getLab(&L, &a, &b);
+			if (dynamic)
+			{
+				switch (farbe)
+				{
+				case 0:
+					tmp = ScColorEngine::getDisplayColorGC(ScColor(100 * val, a, b), m_doc);
+					break;
+				case 120:
+					tmp = ScColorEngine::getDisplayColorGC(ScColor(L, 256 * val - 128.0, b), m_doc);
+					break;
+				case 240:
+					tmp = ScColorEngine::getDisplayColorGC(ScColor(L, a, 256 * val - 128.0), m_doc);
+					break;
+				}
+				p.setBrush(tmp);
+			}
+			else
+			{
+				switch (farbe)
+				{
+				case 0:
+					tmp = ScColorEngine::getDisplayColorGC(ScColor(100 * val, 0.0, 0.0), m_doc);
+					break;
+				case 120:
+					tmp = ScColorEngine::getDisplayColorGC(ScColor(100.0, 256 * val - 128.0, 0.0), m_doc);
+					break;
+				case 240:
+					tmp = ScColorEngine::getDisplayColorGC(ScColor(100.0, 0.0, 256 * val - 128.0), m_doc);
 					break;
 				}
 				p.setBrush(tmp);
@@ -632,7 +677,6 @@ void CMYKChoose::selModel(const QString& mod)
 	disconnect( BlackSL, SIGNAL( valueChanged(int) ), this, SLOT( setColor() ) );
 	if (mod == tr("CMYK"))
 	{
-		CMYKmode = true;
 		Wsave = false;
 		CyanSL->setMaximum( 100 );
 		MagentaSL->setMaximum( 100 );
@@ -658,20 +702,20 @@ void CMYKChoose::selModel(const QString& mod)
 		CyanT->setText( tr("C:"));
 		MagentaT->setText( tr("M:"));
 		YellowT->setText( tr("Y:"));
-		CyanP->setPixmap(sliderPix(180));
-		MagentaP->setPixmap(sliderPix(300));
-		YellowP->setPixmap(sliderPix(60));
-		BlackP->setPixmap(sliderBlack());
 		BlackP->show();
 		BlackSL->show();
 		BlackSp->show();
 		BlackT->show();
 		Farbe = ScColorEngine::convertToModel(Farbe, m_doc, colorModelCMYK);
+		CyanP->setPixmap(sliderPix(180));
+		MagentaP->setPixmap(sliderPix(300));
+		YellowP->setPixmap(sliderPix(60));
+		BlackP->setPixmap(sliderBlack());
+		ColorMap->setEnabled(true);
 		setValues();
 	}
-	else
+	else if ((mod == tr("Web Safe RGB")) || (mod == tr("RGB")))
 	{
-		CMYKmode = false;
 		Wsave = false;
 		CyanSL->setMaximum( 255 );
 		MagentaSL->setMaximum( 255 );
@@ -697,9 +741,6 @@ void CMYKChoose::selModel(const QString& mod)
 		CyanT->setText( tr("R:"));
 		MagentaT->setText( tr("G:"));
 		YellowT->setText( tr("B:"));
-		CyanP->setPixmap(sliderPix(0));
-		MagentaP->setPixmap(sliderPix(120));
-		YellowP->setPixmap(sliderPix(240));
 		Layout2x->setSizeConstraint(QLayout::SetFixedSize);
 		BlackP->hide();
 		BlackSL->hide();
@@ -719,7 +760,60 @@ void CMYKChoose::selModel(const QString& mod)
 			YellowSp->setSingleStep(51);
 		}
 		Farbe = ScColorEngine::convertToModel(Farbe, m_doc, colorModelRGB);
+		CyanP->setPixmap(sliderPix(0));
+		MagentaP->setPixmap(sliderPix(120));
+		YellowP->setPixmap(sliderPix(240));
 		setValues();
+		ColorMap->setEnabled(true);
+	}
+	else if (mod == tr("Lab"))
+	{
+		Wsave = false;
+		CyanSL->setSingleStep(1);
+		CyanSL->setPageStep(10);
+		CyanSL->setMaximum( 100 );
+		MagentaSL->setSingleStep(1);
+		MagentaSL->setPageStep(10);
+		MagentaSL->setMaximum( 128 );
+		MagentaSL->setMinimum( -128 );
+		YellowSL->setSingleStep(1);
+		YellowSL->setPageStep(10);
+		YellowSL->setMaximum( 128 );
+		YellowSL->setMinimum( -128 );
+
+		CyanSp->setDecimals(2);
+		CyanSp->setSingleStep(1);
+		CyanSp->setMaximum( 100 );
+		CyanSp->setSuffix( tr(""));
+
+		MagentaSp->setDecimals(2);
+		MagentaSp->setSingleStep(1);
+		MagentaSp->setMaximum( 128);
+		MagentaSp->setMinimum( -128 );
+		MagentaSp->setSuffix("");
+
+		YellowSp->setDecimals(2);
+		YellowSp->setMaximum( 128 );
+		YellowSp->setMinimum( -128 );
+		YellowSp->setSingleStep(1);
+		YellowSp->setSuffix("");
+
+		CyanT->setText( tr("L:"));
+		MagentaT->setText( tr("a:"));
+		YellowT->setText( tr("b:"));
+
+
+		Layout2x->setSizeConstraint(QLayout::SetFixedSize);
+		BlackP->hide();
+		BlackSL->hide();
+		BlackSp->hide();
+		BlackT->hide();
+		Farbe = ScColorEngine::convertToModel(Farbe, m_doc, colorModelLab);
+		CyanP->setPixmap(sliderPix(0));
+		MagentaP->setPixmap(sliderPix(120));
+		YellowP->setPixmap(sliderPix(240));
+		setValues();
+		ColorMap->setEnabled(false);
 	}
 	imageN.fill( ScColorEngine::getDisplayColor(Farbe, m_doc) );
 	if (ScColorEngine::isOutOfGamut(Farbe, m_doc))
@@ -744,41 +838,19 @@ void CMYKChoose::selModel(const QString& mod)
 
 void CMYKChoose::setColor()
 {
-	int c, m, y, k;
-	if (CMYKmode)
+	int c, m, y;
+	int h, s, v;
+	int k = 0;
+	double L, a, b;
+	ScColor tmp;
+	if (Farbe.getColorModel() == colorModelCMYK)
 	{
 		c = qRound(CyanSp->value() * 2.55);
 		m = qRound(MagentaSp->value() * 2.55);
 		y = qRound(YellowSp->value() * 2.55);
 		k = qRound(BlackSp->value() * 2.55);
-	}
-	else
-	{
-		c = qRound(CyanSp->value());
-		m = qRound(MagentaSp->value());
-		y = qRound(YellowSp->value());
-		k = qRound(BlackSp->value());
-	}
-	int h, s, v;
-	BlackComp = k;
-	if (Wsave)
-	{
-		blockSignals(true);
-		c = c / 51 * 51;
-		m = m / 51 * 51;
-		y = y / 51 * 51;
-		CyanSp->setValue(c);
-		MagentaSp->setValue(m);
-		YellowSp->setValue(y);
-		CyanSL->setValue(c);
-		MagentaSL->setValue(m);
-		YellowSL->setValue(y);
-		blockSignals(false);
-	}
-	ScColor tmp;
-	if (CMYKmode)
-	{
 		tmp.setColor(c, m, y, k);
+		Farbe = tmp;
 		if (dynamic)
 		{
 			CyanP->setPixmap(sliderPix(180));
@@ -786,28 +858,63 @@ void CMYKChoose::setColor()
 			YellowP->setPixmap(sliderPix(60));
 			BlackP->setPixmap(sliderBlack());
 		}
+		BlackComp = k;
 	}
-	else
+	else if (Farbe.getColorModel() == colorModelRGB)
 	{
+		c = qRound(CyanSp->value());
+		m = qRound(MagentaSp->value());
+		y = qRound(YellowSp->value());
+		k = qRound(BlackSp->value());
+		if (Wsave)
+		{
+			blockSignals(true);
+			c = c / 51 * 51;
+			m = m / 51 * 51;
+			y = y / 51 * 51;
+			CyanSp->setValue(c);
+			MagentaSp->setValue(m);
+			YellowSp->setValue(y);
+			CyanSL->setValue(c);
+			MagentaSL->setValue(m);
+			YellowSL->setValue(y);
+			blockSignals(false);
+		}
 		tmp.setColorRGB(c, m, y);
 		QColor tmp2 = QColor(c, m, y);
 		tmp2.getHsv(&h, &s, &v);
 		BlackComp = 255 - v;
+		Farbe = tmp;
 		if (dynamic)
 		{
 			CyanP->setPixmap(sliderPix(0));
 			MagentaP->setPixmap(sliderPix(120));
 			YellowP->setPixmap(sliderPix(240));
 		}
+		BlackComp = k;
+	}
+	else if (Farbe.getColorModel() == colorModelLab)
+	{
+		L = CyanSp->value();
+		a = MagentaSp->value();
+		b = YellowSp->value();
+		tmp.setColor(L, a, b);
+		Farbe = tmp;
+		if (dynamic)
+		{
+			CyanP->setPixmap(sliderPix(0));
+			MagentaP->setPixmap(sliderPix(120));
+			YellowP->setPixmap(sliderPix(240));
+		}
+		BlackComp = qRound(L * 2.55);
 	}
 	imageN.fill(ScColorEngine::getDisplayColor(tmp, m_doc) );
 	if ( ScColorEngine::isOutOfGamut(tmp, m_doc) )
 		paintAlert(alertIcon, imageN, 2, 2, false);
 	ScColorEngine::getRGBColor(tmp, m_doc).getHsv(&h, &s, &v);
-	NewC->setPixmap( imageN );
-	Farbe = tmp;
 	ColorMap->drawPalette(v);
 	ColorMap->setMark(h, s);
+	NewC->setPixmap( imageN );
 }
 
 void CMYKChoose::setColor2(int h, int s, bool ende)
@@ -817,12 +924,17 @@ void CMYKChoose::setColor2(int h, int s, bool ende)
 	tm.getRgb(&r, &g, &b);
 	ScColor tmp;
 	tmp.fromQColor(tm);
-	if (CMYKmode)
+	if (Farbe.getColorModel() == colorModelCMYK)
 	{
 		CMYKColor cmyk;
 		ScColorEngine::getCMYKValues(tmp, m_doc, cmyk);
 		tmp.setColor(cmyk.c, cmyk.m, cmyk.y, cmyk.k);
 	}
+	else if (Farbe.getColorModel() == colorModelLab)
+	{
+		ScColorEngine::convertToModel(tmp, m_doc, colorModelLab);
+	}
+
 	imageN.fill( ScColorEngine::getDisplayColor(tmp, m_doc) );
 	if ( ScColorEngine::isOutOfGamut(tmp, m_doc) )
 		paintAlert(alertIcon, imageN, 2, 2, false);
@@ -877,7 +989,7 @@ void CMYKChoose::setValues()
 	YellowSL->blockSignals(true);
 	BlackSp->blockSignals(true);
 	BlackSL->blockSignals(true);
-	if (CMYKmode)
+	if (Farbe.getColorModel() == colorModelCMYK)
 	{
 		CMYKColor cmyk;
 		int cc, cm, cy, ck;
@@ -899,7 +1011,7 @@ void CMYKChoose::setValues()
 			BlackP->setPixmap(sliderBlack());
 		}
 	}
-	else
+	else if (Farbe.getColorModel() == colorModelRGB)
 	{
 		RGBColor rgb;
 		int r, g, b;
@@ -920,6 +1032,17 @@ void CMYKChoose::setValues()
 			MagentaP->setPixmap(sliderPix(120));
 			YellowP->setPixmap(sliderPix(240));
 		}
+	}
+	else if (Farbe.getColorModel() == colorModelLab)
+	{
+		double L, a, b;
+		Farbe.getLab(&L, &a, &b);
+		CyanSp->setValue(L);
+		CyanSL->setValue(L);
+		MagentaSp->setValue(a);
+		MagentaSL->setValue(a);
+		YellowSp->setValue(b);
+		YellowSL->setValue(b);
 	}
 	CyanSp->blockSignals(false);
 	CyanSL->blockSignals(false);

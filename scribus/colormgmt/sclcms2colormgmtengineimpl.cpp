@@ -462,6 +462,8 @@ cmsUInt32Number ScLcms2ColorMgmtEngineImpl::translateFormatToLcmsFormat(eColorFo
 		lFormat = TYPE_GRAY_16;
 	if (format == Format_LabA_8)
 		lFormat = COLORSPACE_SH(PT_Lab)|CHANNELS_SH(3)|BYTES_SH(1)|EXTRA_SH(1);
+	if (format == Format_Lab_Dbl)
+		lFormat = TYPE_Lab_DBL;
 	return lFormat;
 }
 

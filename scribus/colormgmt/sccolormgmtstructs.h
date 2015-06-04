@@ -31,7 +31,8 @@ typedef enum
 	Format_YMCK_16,
 	Format_GRAY_8,
 	Format_GRAY_16,
-	Format_LabA_8
+	Format_LabA_8,
+	Format_Lab_Dbl
 } eColorFormat;
 
 typedef enum

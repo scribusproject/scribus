@@ -44,7 +44,8 @@ class ScribusDoc;
 enum colorModel
 {
 	colorModelRGB,
-	colorModelCMYK
+	colorModelCMYK,
+	colorModelLab
 };
 
 class SCRIBUS_API ScColor 
@@ -59,6 +60,8 @@ public:
 	ScColor(int c, int m, int y, int k);
 	/** \brief Constructs a RGBColor with 3 Components in the range from 0 - 255 */
 	ScColor(int r, int g, int b);
+	/** \brief Constructs a LabColor with 3 Components */
+	ScColor(double l, double a, double b);
 	
 	bool operator==(const ScColor& other) const;
 
@@ -67,6 +70,9 @@ public:
 
 	/** \brief Same as the Constructor but for an existing Color */
 	void setColor(int c, int m, int y, int k);
+
+	/** \brief Same as the Constructor but for an existing Color */
+	void setColor(double l, double a, double b);
 
 	/** \brief Computes a ScColor from an RGB-Color
 	* Applies Gray-Component-Removal to the resulting ScColor
@@ -93,6 +99,11 @@ public:
 	* Returns meaningful results only if color is a rgb color.
 	* Must not be called if color is the None Color. */
 	void getRGB(int *r, int *g, int *b) const;
+
+	/** \brief Returns the 3 Values that form an LabColor
+	* Returns meaningful results only if color is a Lab color.
+	* Must not be called if color is the None Color. */
+	void getLab(double *L, double *a, double *b) const;
 
 	/** \brief Returns the ScColor as an Hex-String in the Form #CCYYMMKK for a CMYK color or ##RRGGBB for a RGB color. 
 	* For the None color return the "None" string. */
@@ -126,6 +137,12 @@ private:
 	int YB;
 	/** \brief Black-Component of Color */
 	int K;
+	/** \brief L component of Color */
+	double L_val;
+	/** \brief a component of Color */
+	double a_val;
+	/** \brief b component of Color */
+	double b_val;
 
 	/** \brief Flag, true if the Color is a Spotcolor */
 	bool Spot;

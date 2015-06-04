@@ -2367,8 +2367,15 @@ bool Scribus150Format::readColor(ColorList& colors, ScXmlStreamAttributes& attrs
 	ScColor color;
 	if (attrs.hasAttribute("CMYK"))
 		color.setNamedColor(attrs.valueAsString("CMYK"));
-	else
+	else if (attrs.hasAttribute("RGB"))
 		color.fromQColor(QColor(attrs.valueAsString("RGB")));
+	else
+	{
+		double L = attrs.valueAsDouble("L", 0);
+		double a = attrs.valueAsDouble("A", 0);
+		double b = attrs.valueAsDouble("B", 0);
+		color.setColor(L, a, b);
+	}
 	color.setSpotColor( attrs.valueAsBool("Spot", false) );
 	color.setRegistrationColor( attrs.valueAsBool("Register", false) );
 	QString name = attrs.valueAsString("NAME", color.name());

@@ -45,17 +45,23 @@ ScColorShade::ScColorShade( const ScColor& c, int level )
 ScColor ScColorShade::getShadedColor(void)
 {
 	ScColor value;
-	if( color.getColorModel() == colorModelRGB )
+	if (color.getColorModel() == colorModelRGB)
 	{
 		RGBColor rgb;
 		ScColorEngine::getShadeColorRGB(color, NULL, rgb, shade);
 		value.setColorRGB( rgb.r, rgb.g, rgb.b );
 	}
-	else
+	else if (color.getColorModel() == colorModelCMYK)
 	{
 		CMYKColor cmyk;
 		ScColorEngine::getShadeColorCMYK(color, NULL, cmyk, shade);
 		value.setColor( cmyk.c, cmyk.m, cmyk.y, cmyk.k );
+	}
+	else if (color.getColorModel() == colorModelLab)
+	{
+		double L, a, b;
+		color.getLab(&L, &a, &b);
+		value.setColor(L * (shade / 100.0), a, b);
 	}
 	return value;
 }

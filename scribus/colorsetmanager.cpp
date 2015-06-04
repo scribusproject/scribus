@@ -80,8 +80,15 @@ void ColorSetManager::initialiseDefaultPrefs(struct ApplicationPrefs& appPrefs)
 					{
 						if (pg.hasAttribute("CMYK"))
 							lf.setNamedColor(pg.attribute("CMYK"));
-						else
+						else if (pg.hasAttribute("RGB"))
 							lf.fromQColor(QColor(pg.attribute("RGB")));
+						else
+						{
+							double L = pg.attribute("L", 0).toDouble();
+							double a = pg.attribute("A", 0).toDouble();
+							double b = pg.attribute("B", 0).toDouble();
+							lf.setColor(L, a, b);
+						}
 						if (pg.hasAttribute("Spot"))
 							lf.setSpotColor(static_cast<bool>(pg.attribute("Spot").toInt()));
 						else
@@ -146,7 +153,7 @@ void ColorSetManager::findPaletteLocations()
 void ColorSetManager::searchDir(QString path, QMap<QString, QString> &pList, QTreeWidgetItem* parent)
 {
 	QStringList exts;
-	exts << "acb" << "aco" << "ai" << "eps" << "gpl" << "skp" << "sla" << "soc" << "xar" << "xml";
+	exts << "acb" << "aco" << "ai" << "eps" << "gpl" << "skp" << "sla" << "soc" << "xar" << "xml" << "sbz";
 	QDir dirs(path, "*", QDir::Name,  QDir::Dirs | QDir::NoDotAndDotDot | QDir::Files | QDir::NoSymLinks);
 	dirs.setSorting(QDir::Name | QDir::DirsFirst);
 	if ((dirs.exists()) && (dirs.count() != 0))

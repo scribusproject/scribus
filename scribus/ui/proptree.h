@@ -74,7 +74,7 @@ public:
 		DoubleSpinBox = 2,
 		ComboBox      = 3,
 		CheckBox      = 4,
-		ColorCombo    = 5
+		ColorComboBox = 5
 	};
 
 	int valueAsInt();

@@ -54,7 +54,7 @@ PropertiesPalette_Shadow::PropertiesPalette_Shadow( QWidget* parent) : PropTreeW
 	softShadowBlurRadius->setMinMaxValues(-20.0, 20.0);
 	softShadowBlurRadius->setDoubleValue(2.0);
 
-	softShadowColor = new PropTreeItem(this, PropTreeItem::ColorCombo, tr( "Color:"));
+	softShadowColor = new PropTreeItem(this, PropTreeItem::ColorComboBox, tr( "Color:"));
 	softShadowColor->setStringValue( tr( "Black"));
 
 	softShadowShade = new PropTreeItem(this, PropTreeItem::IntSpinBox, tr( "Shade:"));
@@ -83,16 +83,16 @@ PropertiesPalette_Shadow::PropertiesPalette_Shadow( QWidget* parent) : PropTreeW
 	languageChange();
 	m_haveItem = false;
 	setSizePolicy( QSizePolicy(QSizePolicy::Maximum, QSizePolicy::Maximum));
-	connect(hasSoftShadow, SIGNAL(valueChanged(bool)), this, SLOT(handleShadow(bool)));
-	connect(softShadowXOffset, SIGNAL(valueChanged(double)), this, SLOT(handleNewXOffset(double)));
-	connect(softShadowYOffset, SIGNAL(valueChanged(double)), this, SLOT(handleNewYOffset(double)));
-	connect(softShadowBlurRadius, SIGNAL(valueChanged(double)), this, SLOT(handleNewBlur(double)));
-	connect(softShadowColor, SIGNAL(valueChanged(QString)), this, SLOT(handleNewColor(QString)));
-	connect(softShadowShade, SIGNAL(valueChanged(double)), this, SLOT(handleNewShade(double)));
-	connect(softShadowOpacity, SIGNAL(valueChanged(double)), this, SLOT(handleNewOpacity(double)));
-	connect(softShadowBlendMode, SIGNAL(valueChanged(int)), this, SLOT(handleNewBlendmode(int)));
-	connect(softShadowErase, SIGNAL(valueChanged(bool)), this, SLOT(handleNewErase(bool)));
-	connect(softShadowObjTrans, SIGNAL(valueChanged(bool)), this, SLOT(handleNewObjTrans(bool)));
+	connect(hasSoftShadow, SIGNAL(valueChanged(bool)), this, SLOT(handleNewValues()));
+	connect(softShadowXOffset, SIGNAL(valueChanged(double)), this, SLOT(handleNewValues()));
+	connect(softShadowYOffset, SIGNAL(valueChanged(double)), this, SLOT(handleNewValues()));
+	connect(softShadowBlurRadius, SIGNAL(valueChanged(double)), this, SLOT(handleNewValues()));
+	connect(softShadowColor, SIGNAL(valueChanged(QString)), this, SLOT(handleNewValues()));
+	connect(softShadowShade, SIGNAL(valueChanged(double)), this, SLOT(handleNewValues()));
+	connect(softShadowOpacity, SIGNAL(valueChanged(double)), this, SLOT(handleNewValues()));
+	connect(softShadowBlendMode, SIGNAL(valueChanged(int)), this, SLOT(handleNewValues()));
+	connect(softShadowErase, SIGNAL(valueChanged(bool)), this, SLOT(handleNewValues()));
+	connect(softShadowObjTrans, SIGNAL(valueChanged(bool)), this, SLOT(handleNewValues()));
 
 	m_haveItem = false;
 }
@@ -263,206 +263,6 @@ void PropertiesPalette_Shadow::handleNewValues()
 	}
 }
 
-void PropertiesPalette_Shadow::handleShadow(bool value)
-{
-	if (m_haveItem)
-	{
-		double x = softShadowXOffset->valueAsDouble() / m_unitRatio;
-		double y = softShadowYOffset->valueAsDouble() / m_unitRatio;
-		double r = softShadowBlurRadius->valueAsDouble() / m_unitRatio;
-		QString color = softShadowColor->valueAsString();
-		if (color == CommonStrings::tr_NoneColor)
-			color = CommonStrings::None;
-		int b = softShadowBlendMode->valueAsInt();
-		double o = (100 - softShadowOpacity->valueAsDouble()) / 100.0;
-		int s = softShadowShade->valueAsInt();
-		if (m_haveDoc)
-		{
-			m_doc->itemSelection_SetSoftShadow(value, color, x, y, r, s, o, b, softShadowErase->valueAsBool(), softShadowObjTrans->valueAsBool());
-		}
-	}
-}
-
-void PropertiesPalette_Shadow::handleNewXOffset(double value)
-{
-	if (m_haveItem)
-	{
-		double x = value / m_unitRatio;
-		double y = softShadowYOffset->valueAsDouble() / m_unitRatio;
-		double r = softShadowBlurRadius->valueAsDouble() / m_unitRatio;
-		QString color = softShadowColor->valueAsString();
-		if (color == CommonStrings::tr_NoneColor)
-			color = CommonStrings::None;
-		int b = softShadowBlendMode->valueAsInt();
-		double o = (100 - softShadowOpacity->valueAsInt()) / 100.0;
-		int s = softShadowShade->valueAsInt();
-		if (m_haveDoc)
-		{
-			m_doc->itemSelection_SetSoftShadow(hasSoftShadow->valueAsBool(), color, x, y, r, s, o, b, softShadowErase->valueAsBool(), softShadowObjTrans->valueAsBool());
-		}
-	}
-}
-
-void PropertiesPalette_Shadow::handleNewYOffset(double value)
-{
-	if (m_haveItem)
-	{
-		double x = softShadowXOffset->valueAsDouble() / m_unitRatio;
-		double y = value / m_unitRatio;
-		double r = softShadowBlurRadius->valueAsDouble() / m_unitRatio;
-		QString color = softShadowColor->valueAsString();
-		if (color == CommonStrings::tr_NoneColor)
-			color = CommonStrings::None;
-		int b = softShadowBlendMode->valueAsInt();
-		double o = (100 - softShadowOpacity->valueAsInt()) / 100.0;
-		int s = softShadowShade->valueAsInt();
-		if (m_haveDoc)
-		{
-			m_doc->itemSelection_SetSoftShadow(hasSoftShadow->valueAsBool(), color, x, y, r, s, o, b, softShadowErase->valueAsBool(), softShadowObjTrans->valueAsBool());
-		}
-	}
-}
-
-void PropertiesPalette_Shadow::handleNewBlur(double value)
-{
-	if (m_haveItem)
-	{
-		double x = softShadowXOffset->valueAsDouble() / m_unitRatio;
-		double y = softShadowYOffset->valueAsDouble() / m_unitRatio;
-		double r = value / m_unitRatio;
-		QString color = softShadowColor->valueAsString();
-		if (color == CommonStrings::tr_NoneColor)
-			color = CommonStrings::None;
-		int b = softShadowBlendMode->valueAsInt();
-		double o = (100 - softShadowOpacity->valueAsDouble()) / 100.0;
-		int s = softShadowShade->valueAsInt();
-		if (m_haveDoc)
-		{
-			m_doc->itemSelection_SetSoftShadow(hasSoftShadow->valueAsBool(), color, x, y, r, s, o, b, softShadowErase->valueAsBool(), softShadowObjTrans->valueAsBool());
-		}
-	}
-}
-
-void PropertiesPalette_Shadow::handleNewColor(QString value)
-{
-	if (m_haveItem)
-	{
-		double x = softShadowXOffset->valueAsDouble() / m_unitRatio;
-		double y = softShadowYOffset->valueAsDouble() / m_unitRatio;
-		double r = softShadowBlurRadius->valueAsDouble() / m_unitRatio;
-		QString color = value;
-		if (color == CommonStrings::tr_NoneColor)
-			color = CommonStrings::None;
-		int b = softShadowBlendMode->valueAsInt();
-		double o = (100 - softShadowOpacity->valueAsDouble()) / 100.0;
-		int s = softShadowShade->valueAsInt();
-		if (m_haveDoc)
-		{
-			m_doc->itemSelection_SetSoftShadow(hasSoftShadow->valueAsBool(), color, x, y, r, s, o, b, softShadowErase->valueAsBool(), softShadowObjTrans->valueAsBool());
-		}
-	}
-}
-
-void PropertiesPalette_Shadow::handleNewShade(double value)
-{
-	if (m_haveItem)
-	{
-		double x = softShadowXOffset->valueAsDouble() / m_unitRatio;
-		double y = softShadowYOffset->valueAsDouble() / m_unitRatio;
-		double r = softShadowBlurRadius->valueAsDouble() / m_unitRatio;
-		QString color = softShadowColor->valueAsString();
-		if (color == CommonStrings::tr_NoneColor)
-			color = CommonStrings::None;
-		int b = softShadowBlendMode->valueAsInt();
-		double o = (100 - softShadowOpacity->valueAsDouble()) / 100.0;
-		int s = qRound(value);
-		if (m_haveDoc)
-		{
-			m_doc->itemSelection_SetSoftShadow(hasSoftShadow->valueAsBool(), color, x, y, r, s, o, b, softShadowErase->valueAsBool(), softShadowObjTrans->valueAsBool());
-		}
-	}
-}
-
-void PropertiesPalette_Shadow::handleNewOpacity(double value)
-{
-	if (m_haveItem)
-	{
-		double x = softShadowXOffset->valueAsDouble() / m_unitRatio;
-		double y = softShadowYOffset->valueAsDouble() / m_unitRatio;
-		double r = softShadowBlurRadius->valueAsDouble() / m_unitRatio;
-		QString color = softShadowColor->valueAsString();
-		if (color == CommonStrings::tr_NoneColor)
-			color = CommonStrings::None;
-		int b = softShadowBlendMode->valueAsInt();
-		double o = (100 - value) / 100.0;
-		int s = softShadowShade->valueAsInt();
-		if (m_haveDoc)
-		{
-			m_doc->itemSelection_SetSoftShadow(hasSoftShadow->valueAsBool(), color, x, y, r, s, o, b, softShadowErase->valueAsBool(), softShadowObjTrans->valueAsBool());
-		}
-	}
-}
-
-void PropertiesPalette_Shadow::handleNewBlendmode(int value)
-{
-	if (m_haveItem)
-	{
-		double x = softShadowXOffset->valueAsDouble() / m_unitRatio;
-		double y = softShadowYOffset->valueAsDouble() / m_unitRatio;
-		double r = softShadowBlurRadius->valueAsDouble() / m_unitRatio;
-		QString color = softShadowColor->valueAsString();
-		if (color == CommonStrings::tr_NoneColor)
-			color = CommonStrings::None;
-		int b = value;
-		double o = (100 - softShadowOpacity->valueAsDouble()) / 100.0;
-		int s = softShadowShade->valueAsInt();
-		if (m_haveDoc)
-		{
-			m_doc->itemSelection_SetSoftShadow(hasSoftShadow->valueAsBool(), color, x, y, r, s, o, b, softShadowErase->valueAsBool(), softShadowObjTrans->valueAsBool());
-		}
-	}
-}
-
-void PropertiesPalette_Shadow::handleNewErase(bool value)
-{
-	if (m_haveItem)
-	{
-		double x = softShadowXOffset->valueAsDouble() / m_unitRatio;
-		double y = softShadowYOffset->valueAsDouble() / m_unitRatio;
-		double r = softShadowBlurRadius->valueAsDouble() / m_unitRatio;
-		QString color = softShadowColor->valueAsString();
-		if (color == CommonStrings::tr_NoneColor)
-			color = CommonStrings::None;
-		int b = softShadowBlendMode->valueAsInt();
-		double o = (100 - softShadowOpacity->valueAsDouble()) / 100.0;
-		int s = softShadowShade->valueAsInt();
-		if (m_haveDoc)
-		{
-			m_doc->itemSelection_SetSoftShadow(hasSoftShadow->valueAsBool(), color, x, y, r, s, o, b, value, softShadowObjTrans->valueAsBool());
-		}
-	}
-}
-
-void PropertiesPalette_Shadow::handleNewObjTrans(bool value)
-{
-	if (m_haveItem)
-	{
-		double x = softShadowXOffset->valueAsDouble() / m_unitRatio;
-		double y = softShadowYOffset->valueAsDouble() / m_unitRatio;
-		double r = softShadowBlurRadius->valueAsDouble() / m_unitRatio;
-		QString color = softShadowColor->valueAsString();
-		if (color == CommonStrings::tr_NoneColor)
-			color = CommonStrings::None;
-		int b = softShadowBlendMode->valueAsInt();
-		double o = (100 - softShadowOpacity->valueAsDouble()) / 100.0;
-		int s = softShadowShade->valueAsInt();
-		if (m_haveDoc)
-		{
-			m_doc->itemSelection_SetSoftShadow(hasSoftShadow->valueAsBool(), color, x, y, r, s, o, b, softShadowErase->valueAsBool(), value);
-		}
-	}
-}
-
 void PropertiesPalette_Shadow::changeEvent(QEvent *e)
 {
 	if (e->type() == QEvent::LanguageChange)
@@ -512,7 +312,4 @@ void PropertiesPalette_Shadow::updateSpinBoxConstants()
 		return;
 	if(m_doc->m_Selection->count()==0)
 		return;
-//	softShadowXOffset->setConstants(&m_doc->constants());
-//	softShadowYOffset->setConstants(&m_doc->constants());
-
 }

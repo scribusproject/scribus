@@ -118,14 +118,17 @@ void ColorFancyItemDelegate::redraw(const QVariant& data) const
 	static QPixmap alertIcon;
 	static QPixmap cmykIcon;
 	static QPixmap rgbIcon;
+	static QPixmap labIcon;
 	static QPixmap spotIcon;
 	static QPixmap regIcon;
 	static bool iconsInitialized = false;
 
-	if ( !iconsInitialized ) {
+	if ( !iconsInitialized )
+	{
 		alertIcon = loadIcon("alert.png", true);
 		cmykIcon = loadIcon("cmyk.png", true);
 		rgbIcon = loadIcon("rgb.png", true);
+		labIcon = loadIcon("lab.png", true);
 		spotIcon = loadIcon("spot.png", true);
 		regIcon = loadIcon("register.png", true);
 		iconsInitialized = true;
@@ -153,8 +156,10 @@ void ColorFancyItemDelegate::redraw(const QVariant& data) const
 			paintAlert(alertIcon, *pPixmap, 15, 0);
 		if (item.m_color.getColorModel() == colorModelCMYK)
 			paintAlert(cmykIcon, *pPixmap, 30, 0);
-		else
+		else if (item.m_color.getColorModel() == colorModelRGB)
 			paintAlert(rgbIcon, *pPixmap, 30, 0);
+		else if (item.m_color.getColorModel() == colorModelLab)
+			paintAlert(labIcon, *pPixmap, 30, 0);
 		if (item.m_color.isSpotColor())
 			paintAlert(spotIcon, *pPixmap, 45, 0);
 		if (item.m_color.isRegistrationColor())

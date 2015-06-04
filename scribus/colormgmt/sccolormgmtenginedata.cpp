@@ -10,6 +10,7 @@ for which a new license (GPL+exception) is in place.
 #include "sccolorspacedata_cmyka.h"
 #include "sccolorspacedata_gray.h"
 #include "sccolorspacedata_laba.h"
+#include "sccolorspacedata_labdbl.h"
 #include "sccolorspacedata_rgb.h"
 #include "sccolorspacedata_rgba.h"
 
@@ -62,6 +63,8 @@ ScColorSpace ScColorMgmtEngineData::createColorSpace(ScColorProfile& profile, eC
 	{
 		if (colorFormat == Format_LabA_8)
 			colorSpace = ScColorSpace(new ScColorSpaceData_LabA8(profile));
+		if (colorFormat == Format_Lab_Dbl)
+			colorSpace = ScColorSpace(new ScColorSpaceData_LabD(profile));
 	}
 	return colorSpace;
 }

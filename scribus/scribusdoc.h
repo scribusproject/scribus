@@ -1304,6 +1304,10 @@ public:
 	ScColorTransform stdTransRGB;
 	ScColorTransform stdProofGC;
 	ScColorTransform stdProofCMYKGC;
+	ScColorTransform stdLabToRGBTrans;
+	ScColorTransform stdLabToCMYKTrans;
+	ScColorTransform stdProofLab;
+	ScColorTransform stdProofLabGC;
 	bool BlackPoint;
 	bool SoftProofing;
 	bool Gamut;

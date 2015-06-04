@@ -156,7 +156,7 @@ QWidget *PropTreeItemDelegate::createEditor(QWidget *parent, const QStyleOptionV
 		connect(editor, SIGNAL(clicked(bool)), item, SIGNAL(valueChanged(bool)));
 		connect(editor, SIGNAL(clicked(bool)), this, SLOT(valueHasChanged()));
 	}
-	else if (item->m_type == PropTreeItem::ColorCombo)
+	else if (item->m_type == PropTreeItem::ColorComboBox)
 	{
 		ColorCombo *editor = new ColorCombo(parent);
 		editor->updateBox(item->m_colors, ColorCombo::fancyPixmaps, false);
@@ -197,7 +197,7 @@ void PropTreeItemDelegate::setEditorData(QWidget *editor, const QModelIndex &ind
 		QCheckBox *checkBox = static_cast<QCheckBox*>(editor);
 		checkBox->setChecked(index.model()->data(index, Qt::UserRole).toBool());
 	}
-	else if (item->m_type == PropTreeItem::ColorCombo)
+	else if (item->m_type == PropTreeItem::ColorComboBox)
 	{
 		ColorCombo *comboBox = static_cast<ColorCombo*>(editor);
 		setCurrentComboItem(comboBox ,index.model()->data(index, Qt::UserRole).toString());
@@ -241,7 +241,7 @@ void PropTreeItemDelegate::setModelData(QWidget *editor, QAbstractItemModel *mod
 		model->setData(index, value, Qt::UserRole);
 		model->setData(index, value, Qt::DisplayRole);
 	}
-	else if (item->m_type == PropTreeItem::ColorCombo)
+	else if (item->m_type == PropTreeItem::ColorComboBox)
 	{
 		ColorCombo *comboBox = static_cast<ColorCombo*>(editor);
 		QString value = comboBox->currentText();
