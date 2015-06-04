@@ -241,6 +241,7 @@
   <ItemGroup>
     <moc Include="..\..\..\scribus\appmodehelper.h" />
     <ClInclude Include="..\..\..\scribus\appmodes.h" />
+    <ClInclude Include="..\..\..\scribus\colormgmt\sccolorspacedata_labdbl.h" />
     <ClInclude Include="..\..\..\scribus\desaxe\actions.h" />
     <ClInclude Include="..\..\..\scribus\desaxe\automata.h" />
     <ClInclude Include="..\..\..\scribus\desaxe\base_actions.h" />
