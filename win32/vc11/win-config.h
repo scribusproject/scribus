@@ -71,9 +71,8 @@
 #undef HAVE_RES_INIT
 
 /* Define to 1 if you have the `snprintf' function. */
-#undef HAVE_SNPRINTF
-#ifdef _MSC_VER
 #define HAVE_SNPRINTF 1
+#if defined(_MSC_VER) && (_MSC_VER < 1900)
 #define snprintf(a, b, c, d) _snprintf(a, b, c, d)
 #endif
 
