@@ -44,19 +44,16 @@ SwatchCombo::SwatchCombo( QWidget* parent ) : QToolButton(parent)
 
 void SwatchCombo::itemActivated(QTreeWidgetItem* item)
 {
-	if (item)
+	if (item && (item->flags() & Qt::ItemIsSelectable))
 	{
-		if (item->flags() & Qt::ItemIsSelectable)
-		{
-			menu()->hide();
-			setText(item->text(0));
-			QFontMetrics fm(font());
-			QString elText = fm.elidedText(item->text(0), Qt::ElideMiddle, width());
-			setText(elText);
-			setToolTip(item->text(0));
-			emit activated(item->text(0));
-			emit activated(item);
-		}
+		menu()->hide();
+		setText(item->text(0));
+		QFontMetrics fm(font());
+		QString elText = fm.elidedText(item->text(0), Qt::ElideMiddle, width());
+		setText(elText);
+		setToolTip(item->text(0));
+		emit activated(item->text(0));
+		emit activated(item);
 	}
 }
 
@@ -99,19 +96,31 @@ void SwatchCombo::setCurrentComboItem(QString text)
 	lg = dataTree->findItems(txt, Qt::MatchExactly | Qt::MatchRecursive);
 	if (lg.count() <= 0) return;
 
-	QString dText = fo.absolutePath();
-	for (int a = 0; a < lg.count(); a++)
+	// Case of HSV map in new color dialog
+	if (fo.isRelative() && (lg.count() == 1))
 	{
-		if (dText == lg[a]->data(0, Qt::UserRole).toString())
+		if ((lg[0]->flags() & Qt::ItemIsSelectable))
 		{
 			dataTree->setCurrentItem(lg[0]);
+			QString elText = fm.elidedText(txt, Qt::ElideMiddle, width());
+			setText(elText);
+			return;
+		}
+	}
+
+	QString dText = fo.absolutePath();
+	for (int i = 0; i < lg.count(); i++)
+	{
+		if (dText == lg[i]->data(0, Qt::UserRole).toString())
+		{
+			dataTree->setCurrentItem(lg[i]);
 			QString elText = fm.elidedText(txt, Qt::ElideMiddle, width());
 			setText(elText);
 			break;
 		}
 	}
 
-	if(!dataTree->currentItem())
+	if (!dataTree->currentItem())
 		setCurrentComboItem("Scribus Small");
 }
 

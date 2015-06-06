@@ -123,6 +123,8 @@ protected:
 	QTreeWidgetItem *hsvSelector;
 	QStringList customColSet;
 	
+	virtual void showEvent(QShowEvent * event);
+
 	QPixmap sliderPix(int farbe);
 	QPixmap sliderBlack();
 };

@@ -184,7 +184,11 @@ CMYKChoose::CMYKChoose( QWidget* parent, ScribusDoc* doc, ScColor orig, QString 
 	csm.findUserPalettes(userSwatches);
 	customColSet = csm.userPaletteNames();
 	userSwatches->setExpanded(true);
-	Swatches->setCurrentComboItem( tr( "HSV Color Map" ));
+	// Swatches combo uses elided text strings, so we cannot
+	// set default combo item in constructor: at that point
+	// the swatch combo widget does not know its width yet.
+	// We set it in the dialog showEvent().
+	// Swatches->setCurrentComboItem( tr( "HSV Color Map" ));
 	Frame4Layout->addWidget( Swatches );
 
 	TabStack = new QStackedWidget( Frame4 );
@@ -1052,6 +1056,13 @@ void CMYKChoose::setValues()
 	YellowSL->blockSignals(false);
 	BlackSp->blockSignals(false);
 	BlackSL->blockSignals(false);
+}
+
+void CMYKChoose::showEvent(QShowEvent * event)
+{
+	if (!event->spontaneous())
+		Swatches->setCurrentComboItem( tr( "HSV Color Map" ));
+	QDialog::showEvent(event);
 }
 
 void CMYKChoose::leave()
