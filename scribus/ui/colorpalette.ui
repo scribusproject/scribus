@@ -1059,7 +1059,7 @@
   <customwidget>
    <class>ScrSpinBox</class>
    <extends>QSpinBox</extends>
-   <header location="global">ui/scrspinbox.h</header>
+   <header>ui/scrspinbox.h</header>
   </customwidget>
   <customwidget>
    <class>ScComboBox</class>
