@@ -29,6 +29,16 @@ for which a new license (GPL+exception) is in place.
 #include "scribuscore.h"
 #include "scribusdoc.h"
 
+ColorChart::ColorChart(QWidget *parent) : QWidget(parent), m_doc(0)
+{
+	Xp = 0;
+	Yp = 0;
+	doDrawMark = false;
+	isLabMode = false;
+	setAutoFillBackground(false);
+	drawPalette(255);
+}
+
 ColorChart::ColorChart(QWidget *parent, ScribusDoc* doc) : QWidget(parent), m_doc(doc)
 {
 	Xp = 0;

@@ -43,6 +43,7 @@ for which a new license (GPL+exception) is in place.
 #include "scribusdoc.h"
 #include "scrspinbox.h"
 #include "swatchcombo.h"
+#include "ui_cmykfwbase.h"
 #include "ui/scmessagebox.h"
 #include "util.h"
 #include "util_color.h"
@@ -74,105 +75,29 @@ CMYKChoose::CMYKChoose( QWidget* parent, ScribusDoc* doc, ScColor orig, QString 
 	QPixmap image1 = sliderPix(300);
 	QPixmap image2 = sliderPix(60);
 	QPixmap image3 = sliderBlack();
+
 	resize( 498, 306 );
 	setWindowTitle( tr( "Edit Color" ) );
 	setWindowIcon(QIcon(loadIcon("AppIcon.png")));
-	CMYKColorLayout = new QHBoxLayout( this );
-	CMYKColorLayout->setSpacing( 5 );
-	CMYKColorLayout->setMargin( 10 );
-	Layout23 = new QVBoxLayout;
-	Layout23->setSpacing( 5 );
-	Layout23->setMargin( 0 );
 
-	TextLabel1 = new QLabel( tr( "&Name:" ), this );
-	TextLabel1->setMinimumSize( QSize( 200, 22 ) );
-	Layout23->addWidget( TextLabel1 );
+	setupUi(this);
+	ColorMap->setDoc(doc);
 
-	ColorName = new QLineEdit( this );
-	ColorName->setMinimumSize( QSize( 200, 22 ) );
 	ColorName->setText( name );
-	TextLabel1->setBuddy( ColorName );
-	Layout23->addWidget( ColorName );
-
-	TextLabel3 = new QLabel( tr( "Color &Model" ), this );
-	TextLabel3->setMinimumSize( QSize( 100, 22 ) );
-	Layout23->addWidget( TextLabel3 );
-
-	ComboBox1 = new ScComboBox( this );
 	ComboBox1->addItem( tr( "CMYK" ) );
 	ComboBox1->addItem( tr( "RGB" ) );
 	ComboBox1->addItem( tr( "Web Safe RGB" ) );
 	ComboBox1->addItem( tr( "Lab" ) );
 
-	TextLabel3->setBuddy( ComboBox1 );
-	Layout23->addWidget( ComboBox1 );
-
-	Separations = new QCheckBox( this );
-	Separations->setText( tr( "Is Spot Color" ) );
 	Separations->setChecked(orig.isSpotColor());
-	Layout23->addWidget( Separations );
-	QSpacerItem* spacer = new QSpacerItem( 1, 1, QSizePolicy::Minimum, QSizePolicy::Expanding );
-	Layout23->addItem( spacer );
 
-	Layout2 = new QGridLayout();
-	Layout2->setSpacing( 6 );
-	Layout2->setMargin( 0 );
-
-	TextLabel5_2 = new QLabel( tr( "New" ), this );
-	TextLabel5_2->setMinimumSize( QSize( 50, 22 ) );
-	TextLabel5_2->setMaximumSize( QSize( 100, 22 ) );
-
-	Layout2->addWidget( TextLabel5_2, 0, 1 );
-
-	OldC = new QLabel( "", this );
-	OldC->setMinimumSize( QSize( 50, 50 ) );
-	OldC->setMaximumSize( QSize( 50, 50 ) );
-	OldC->setFrameShape( QLabel::WinPanel );
-	OldC->setFrameShadow( QLabel::Sunken );
-	OldC->setScaledContents( true );
-	OldC->setAlignment(Qt::AlignCenter);
 	OldC->setPixmap( imageA );
-
-	Layout2->addWidget( OldC, 1, 0 );
-
-	TextLabel5 = new QLabel( tr( "Old" ), this );
-	TextLabel5->setMinimumSize( QSize( 50, 22 ) );
-	TextLabel5->setMaximumSize( QSize( 100, 22 ) );
-
-	Layout2->addWidget( TextLabel5, 0, 0 );
-
-	NewC = new QLabel( "", this );
-	NewC->setMinimumSize( QSize( 50, 50 ) );
-	NewC->setMaximumSize( QSize( 50, 50 ) );
-	NewC->setFrameShape( QLabel::WinPanel );
-	NewC->setFrameShadow( QLabel::Sunken );
-	NewC->setScaledContents( true );
-	NewC->setAlignment(Qt::AlignCenter);
 	NewC->setPixmap( imageN );
 
-	Layout2->addWidget( NewC, 1, 1 );
-	Layout23->addLayout( Layout2 );
+	buttonOK->setText(CommonStrings::tr_OK);
+	buttonOK->setDefault( true );
+	buttonCancel->setText(CommonStrings::tr_Cancel);
 
-	Layout21 = new QHBoxLayout;
-	Layout21->setSpacing( 20 );
-	Layout21->setMargin( 10 );
-
-	Cancel_2 = new QPushButton( CommonStrings::tr_OK, this );
-	Cancel_2->setDefault( true );
-	Layout21->addWidget( Cancel_2 );
-	Cancel = new QPushButton( CommonStrings::tr_Cancel, this );
-	Layout21->addWidget( Cancel );
-	Layout23->addLayout( Layout21 );
-	CMYKColorLayout->addLayout( Layout23 );
-
-	Frame4 = new QFrame( this );
-	Frame4->setFrameShape( QFrame::NoFrame );
-	Frame4->setFrameShadow( QFrame::Raised );
-	Frame4Layout = new QVBoxLayout( Frame4 );
-	Frame4Layout->setSpacing( 5 );
-	Frame4Layout->setMargin( 0 );
-
-	Swatches = new SwatchCombo( Frame4 );
 	hsvSelector = Swatches->addTopLevelItem( tr( "HSV Color Map" ) );
 	hsvSelector->setFlags(Qt::ItemIsSelectable | Qt::ItemIsUserCheckable | Qt::ItemIsEnabled);
 	csm.findPaletteLocations();
@@ -189,140 +114,33 @@ CMYKChoose::CMYKChoose( QWidget* parent, ScribusDoc* doc, ScColor orig, QString 
 	// the swatch combo widget does not know its width yet.
 	// We set it in the dialog showEvent().
 	// Swatches->setCurrentComboItem( tr( "HSV Color Map" ));
-	Frame4Layout->addWidget( Swatches );
 
-	TabStack = new QStackedWidget( Frame4 );
-	TabStack->setFrameShape( QFrame::NoFrame );
+	slidersLayout->setSpacing(5);
+	slidersLayout->setMargin(0);
 
-	Frame5a = new QFrame( TabStack );
-	Frame5a->setFrameShape( QFrame::NoFrame );
-	Frame5a->setFrameShadow( QFrame::Raised );
-	Frame5aLayout = new QHBoxLayout( Frame5a );
-	Frame5aLayout->setSpacing( 0 );
-	Frame5aLayout->setMargin( 0 );
-	Frame5 = new QFrame(Frame5a);
-	Frame5->setFrameShape( QLabel::WinPanel );
-	Frame5->setFrameShadow( QLabel::Sunken );
-	Frame5->setMinimumSize( QSize( 182, 130 ) );
-	Frame5->setMaximumSize( QSize( 182, 130 ) );
-	Frame5Layout = new QHBoxLayout( Frame5 );
-	Frame5Layout->setSpacing( 0 );
-	Frame5Layout->setMargin( 0 );
-	ColorMap = new ColorChart( Frame5, doc);
-	ColorMap->setMinimumSize( QSize( 180, 128 ) );
-	ColorMap->setMaximumSize( QSize( 180, 128 ) );
-	Frame5Layout->addWidget( ColorMap );
-	Frame5aLayout->addWidget( Frame5, 0, Qt::AlignCenter);
-	TabStack->addWidget( Frame5a );
-
-	ColorSwatch = new ColorListBox(TabStack);
-	TabStack->addWidget( ColorSwatch );
-
-	Frame4Layout->addWidget( TabStack );
-
-	Layout2x = new QGridLayout();
-	Layout2x->setSpacing( 5 );
-	Layout2x->setMargin( 0 );
-
-	CyanT = new QLabel( tr( "C:" ), Frame4 );
-	Layout2x->addWidget(CyanT, 0, 0);
-
-	Layout1_2 = new QVBoxLayout;
-	Layout1_2->setSpacing( 0 );
-	Layout1_2->setMargin( 0 );
-
-	CyanP = new QLabel( Frame4 );
-	CyanP->setMinimumSize( QSize( 200, 10 ) );
 	CyanP->setPixmap(image0);
-	CyanP->setScaledContents( true );
-	Layout1_2->addWidget( CyanP );
-
-	CyanSL = new QSlider( Frame4 );
-	CyanSL->setMinimumSize( QSize( 200, 16 ) );
-	CyanSL->setMaximum( 100 );
-	CyanSL->setOrientation( Qt::Horizontal );
-	Layout1_2->addWidget( CyanSL );
-	Layout2x->addLayout(Layout1_2, 0, 1);
-
-	CyanSp = new ScrSpinBox( 0, 100, Frame4, 0 );
+	CyanSp->setNewUnit(0);
+	CyanSp->setMinimum(0);
+	CyanSp->setMaximum(100);
 	CyanSp->setSuffix( tr(" %"));
-	Layout2x->addWidget(CyanSp, 0, 2);
 
-	MagentaT = new QLabel( tr( "M:" ), Frame4 );
-	Layout2x->addWidget(MagentaT, 1, 0);
-
-	Layout1_2_2 = new QVBoxLayout;
-	Layout1_2_2->setSpacing( 0 );
-	Layout1_2_2->setMargin( 0 );
-
-	MagentaP = new QLabel( Frame4 );
-	MagentaP->setMinimumSize( QSize( 200, 10 ) );
 	MagentaP->setPixmap(image1);
-	MagentaP->setScaledContents( true );
-	Layout1_2_2->addWidget( MagentaP );
-
-	MagentaSL = new QSlider( Frame4 );
-	MagentaSL->setMinimumSize( QSize( 200, 16 ) );
-	MagentaSL->setMaximum( 100 );
-	MagentaSL->setOrientation( Qt::Horizontal );
-	Layout1_2_2->addWidget( MagentaSL );
-	Layout2x->addLayout(Layout1_2_2, 1, 1);
-
-	MagentaSp = new ScrSpinBox( 0, 100, Frame4, 0 );
+	MagentaSp->setNewUnit(0);
+	MagentaSp->setMinimum(0);
+	MagentaSp->setMaximum(100);
 	MagentaSp->setSuffix( tr(" %"));
-	Layout2x->addWidget(MagentaSp, 1, 2);
 
-	YellowT = new QLabel( tr( "Y:" ), Frame4 );
-	Layout2x->addWidget(YellowT, 2, 0);
-
-	Layout1_2_3 = new QVBoxLayout;
-	Layout1_2_3->setSpacing( 0 );
-	Layout1_2_3->setMargin( 0 );
-
-	YellowP = new QLabel( Frame4);
-	YellowP->setMinimumSize( QSize( 200, 10 ) );
 	YellowP->setPixmap(image2);
-	YellowP->setScaledContents( true );
-	Layout1_2_3->addWidget( YellowP );
-
-	YellowSL = new QSlider( Frame4 );
-	YellowSL->setMinimumSize( QSize( 200, 16 ) );
-	YellowSL->setMaximum( 100 );
-	YellowSL->setOrientation( Qt::Horizontal );
-	Layout1_2_3->addWidget( YellowSL );
-	Layout2x->addLayout(Layout1_2_3, 2, 1);
-
-	YellowSp = new ScrSpinBox( 0, 100, Frame4, 0 );
+	YellowSp->setNewUnit(0);
+	YellowSp->setMinimum(0);
+	YellowSp->setMaximum(100);
 	YellowSp->setSuffix( tr(" %"));
-	Layout2x->addWidget(YellowSp, 2, 2);
 
-	BlackT = new QLabel( tr( "K:" ), Frame4 );
-	Layout2x->addWidget(BlackT, 3, 0);
-
-	Layout1_2_4 = new QVBoxLayout;
-	Layout1_2_4->setSpacing( 0 );
-	Layout1_2_4->setMargin( 0 );
-
-	BlackP = new QLabel( Frame4 );
-	BlackP->setMinimumSize( QSize( 200, 10 ) );
 	BlackP->setPixmap(image3);
-	BlackP->setScaledContents( true );
-	Layout1_2_4->addWidget( BlackP );
-
-	BlackSL = new QSlider( Frame4 );
-	BlackSL->setMinimumSize( QSize( 200, 16 ) );
-	BlackSL->setMaximum( 100 );
-	BlackSL->setOrientation( Qt::Horizontal );
-	Layout1_2_4->addWidget( BlackSL );
-	Layout2x->addLayout(Layout1_2_4, 3, 1);
-
-	BlackSp = new ScrSpinBox( 0, 100, Frame4, 0 );
+	BlackSp->setNewUnit(0);
+	BlackSp->setMinimum(0);
+	BlackSp->setMaximum(100);
 	BlackSp->setSuffix( tr(" %"));
-	Layout2x->addWidget(BlackSp, 3, 2);
-	Frame4Layout->addLayout( Layout2x );
-	QSpacerItem* spacer2 = new QSpacerItem( 2, 2, QSizePolicy::Minimum, QSizePolicy::Expanding );
-	Frame4Layout->addItem( spacer2 );
-	CMYKColorLayout->addWidget( Frame4 );
 
 	if (orig.getColorModel () == colorModelCMYK)
 	{
@@ -377,8 +195,8 @@ CMYKChoose::CMYKChoose( QWidget* parent, ScribusDoc* doc, ScColor orig, QString 
 	// signals and slots connections
 //	Regist->setToolTip( "<qt>" + tr( "Choosing this will enable printing this on all plates. Registration colors are used for printer marks such as crop marks, registration marks and the like. These are not typically used in the layout itself." ) + "</qt>");
 	Separations->setToolTip( "<qt>" + tr( "Choosing this will make this color a spot color, thus creating another spot when creating plates or separations. This is used most often when a logo or other color needs exact representation or cannot be replicated with CMYK inks. Metallic and fluorescent inks are good examples which cannot be easily replicated with CMYK inks." ) + "</qt>");
-	connect( Cancel, SIGNAL( clicked() ), this, SLOT( reject() ) );
-	connect( Cancel_2, SIGNAL( clicked() ), this, SLOT( leave() ) );
+	connect( buttonCancel, SIGNAL( clicked() ), this, SLOT( reject() ) );
+	connect( buttonOK, SIGNAL( clicked() ), this, SLOT( leave() ) );
 	connect( CyanSp, SIGNAL( valueChanged(double) ), this, SLOT( setValSLiders(double) ) );
 	connect( MagentaSp, SIGNAL( valueChanged(double) ), this, SLOT( setValSLiders(double) ) );
 	connect( YellowSp, SIGNAL( valueChanged(double) ), this, SLOT( setValSLiders(double) ) );
@@ -400,6 +218,16 @@ CMYKChoose::CMYKChoose( QWidget* parent, ScribusDoc* doc, ScColor orig, QString 
 //	connect(Regist, SIGNAL(clicked()), this, SLOT(setRegist()));
 	connect(this, SIGNAL(customContextMenuRequested (const QPoint &)), this, SLOT(slotRightClick()));
 	layout()->activate();
+}
+
+QString CMYKChoose::colorName()
+{
+	return ColorName->text();
+}
+
+bool CMYKChoose::isSpotColor()
+{
+	return Separations->isChecked();
 }
 
 void CMYKChoose::setValSLiders(double value)
@@ -655,14 +483,14 @@ void CMYKChoose::selSwatch()
 
 void CMYKChoose::setSpot()
 {
-	disconnect( ComboBox1, SIGNAL(activated(const QString&)), this, SLOT(selModel(const QString&)));
+	disconnect(ComboBox1, SIGNAL(activated(const QString&)), this, SLOT(selModel(const QString&)));
 	if (Separations->isChecked())
 	{
 		ComboBox1->setCurrentIndex( 0 );
 //		Commented out to allow RGB Spot-Colors
 //		selModel( tr("CMYK"));
 	}
-	connect( ComboBox1, SIGNAL(activated(const QString&)), this, SLOT(selModel(const QString&)));
+	connect(ComboBox1, SIGNAL(activated(const QString&)), this, SLOT(selModel(const QString&)));
 }
 
 void CMYKChoose::selModel(const QString& mod)
@@ -697,6 +525,7 @@ void CMYKChoose::selModel(const QString& mod)
 		CyanSp->setDecimals(1);
 		MagentaSp->setDecimals(1);
 		YellowSp->setDecimals(1);
+		BlackSp->setDecimals(1);
 		CyanSp->setSingleStep(1);
 		MagentaSp->setSingleStep(1);
 		YellowSp->setSingleStep(1);
@@ -745,7 +574,7 @@ void CMYKChoose::selModel(const QString& mod)
 		CyanT->setText( tr("R:"));
 		MagentaT->setText( tr("G:"));
 		YellowT->setText( tr("B:"));
-		Layout2x->setSizeConstraint(QLayout::SetFixedSize);
+		slidersLayout->setSizeConstraint(QLayout::SetFixedSize);
 		BlackP->hide();
 		BlackSL->hide();
 		BlackSp->hide();
@@ -806,8 +635,7 @@ void CMYKChoose::selModel(const QString& mod)
 		MagentaT->setText( tr("a:"));
 		YellowT->setText( tr("b:"));
 
-
-		Layout2x->setSizeConstraint(QLayout::SetFixedSize);
+		slidersLayout->setSizeConstraint(QLayout::SetFixedSize);
 		BlackP->hide();
 		BlackSL->hide();
 		BlackSp->hide();

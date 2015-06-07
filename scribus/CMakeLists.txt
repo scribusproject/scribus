@@ -99,6 +99,7 @@ SET(SCRIBUS_UI_SRC
 	ui/charselect.ui
 	ui/charselectenhanced.ui
 	ui/cmsprefsbase.ui
+	ui/cmykfwbase.ui
 	ui/colorpalette.ui
 	ui/downloadspalettebase.ui
 	ui/gradientaddedit.ui

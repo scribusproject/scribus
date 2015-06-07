@@ -2902,6 +2902,9 @@
     <uic Include="..\..\..\scribus\ui\tabpdfoptions.ui">
       <Filter>Form Files</Filter>
     </uic>
+    <uic Include="..\..\..\scribus\ui\cmykfwbase.ui">
+      <Filter>Form Files</Filter>
+    </uic>
   </ItemGroup>
   <ItemGroup>
     <lrelease Include="..\..\..\resources\translations\scribus.af.ts">

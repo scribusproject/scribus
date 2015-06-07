@@ -1014,6 +1014,7 @@ FORMS += scribus/ui/aboutplugins.ui \
          scribus/ui/charselect.ui \
          scribus/ui/charselectenhanced.ui \
          scribus/ui/cmsprefsbase.ui \
+         scribus/ui/cmykfwbase.ui \
          scribus/ui/colorpalette.ui \
          scribus/ui/copypagetomasterpage.ui \
          scribus/ui/createrange.ui \

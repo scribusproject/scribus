@@ -1531,6 +1531,7 @@
     <uic Include="..\..\..\scribus\ui\charselect.ui" />
     <uic Include="..\..\..\scribus\ui\charselectenhanced.ui" />
     <uic Include="..\..\..\scribus\ui\cmsprefsbase.ui" />
+    <uic Include="..\..\..\scribus\ui\cmykfwbase.ui" />
     <uic Include="..\..\..\scribus\ui\colorpalette.ui" />
     <uic Include="..\..\..\scribus\ui\copypagetomasterpage.ui" />
     <uic Include="..\..\..\scribus\ui\createrange.ui" />

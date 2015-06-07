@@ -41,16 +41,21 @@ class SCRIBUS_API ColorChart : public QWidget
 
 Q_OBJECT
 
-public: 
+public:
+	ColorChart(QWidget *parent);
 	ColorChart(QWidget *parent, ScribusDoc* doc);
 	~ColorChart() {};
+
 	void mouseMoveEvent(QMouseEvent *m);
 	void mousePressEvent(QMouseEvent *m);
 	void mouseReleaseEvent(QMouseEvent *m);
 	void paintEvent(QPaintEvent *e);
+
+	void setDoc(ScribusDoc* doc) { m_doc = doc; }
 	void drawMark(int x, int y);
 	void setMark(int h, int s);
 	void drawPalette(int val);
+
 	int Xp;
 	int Yp;
 	bool doDrawMark;
