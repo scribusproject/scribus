@@ -111,7 +111,7 @@ void ColorChart::drawPalette(int val)
 	int ySize = height();
 	if (isLabMode)
 	{
-		QImage image(256, 256, QImage::Format_ARGB32);
+		QImage image(128, 128, QImage::Format_ARGB32);
 		bool doSoftProofing = m_doc ? m_doc->SoftProofing : false;
 		bool doGamutCheck   = m_doc ? m_doc->Gamut : false;
 		if (doSoftProofing && doGamutCheck)
@@ -124,21 +124,22 @@ void ColorChart::drawPalette(int val)
 		}
 		QColor color;
 		double L = val /  2.55;
-		for (int y = 0; y < 256; y++)
+		for (int y = 0; y < 128; y++)
 		{
 			unsigned int* p = reinterpret_cast<unsigned int*>(image.scanLine(y));
-			for (int x = 0; x < 256; x++)
+			for (int x = 0; x < 128; x++)
 			{
+				double yy = y * 2.0;
 				if (doSoftProofing && doGamutCheck)
 				{
 					bool outOfG = false;
-					color = ScColorEngine::getDisplayColorGC(ScColor(L, x - 128.0, y - 128.0), m_doc, &outOfG);
+					color = ScColorEngine::getDisplayColorGC(ScColor(L, (x * 2.0) - 128.0, yy - 128.0), m_doc, &outOfG);
 					if (!outOfG)
 						*p = color.rgb();
 				}
 				else
 				{
-					color = ScColorEngine::getDisplayColor(ScColor(L, x - 128.0, y - 128.0), m_doc);
+					color = ScColorEngine::getDisplayColor(ScColor(L, (x * 2.0) - 128.0, yy - 128.0), m_doc);
 					*p = color.rgb();
 				}
 				++p;
