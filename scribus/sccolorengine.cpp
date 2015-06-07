@@ -193,7 +193,7 @@ void ScColorEngine::getCMYKValues(const ScColor& color, const ScribusDoc* doc, C
 			inC[0] = color.L_val;
 			inC[1] = color.a_val;
 			inC[2] = color.b_val;
-			quint8 outC[4];
+			quint16 outC[4];
 			trans.apply(inC, outC, 1);
 			cmyk.c = outC[0] / 257;
 			cmyk.m = outC[1] / 257;
