@@ -1059,8 +1059,8 @@ bool ScribusDoc::OpenCMSProfiles(ProfilesL InPo, ProfilesL InPoCMYK, ProfilesL M
 			docPrefsData.colorPrefs.DCMSset.ComponentsInput2 = 4;
 	if (DocInputRGBProf.colorSpace() == ColorSpace_Cmy)
 			docPrefsData.colorPrefs.DCMSset.ComponentsInput2 = 3;
-	stdLabToRGBTrans   = colorEngine.createTransform(ScCore->defaultLabProfile, Format_Lab_Dbl, DocDisplayProf, Format_RGB_8, Intent_Perceptual, dcmsFlags);
-	stdLabToCMYKTrans = colorEngine.createTransform(ScCore->defaultLabProfile, Format_Lab_Dbl, DocPrinterProf, Format_CMYK_8, Intent_Perceptual, dcmsFlags);
+	stdLabToRGBTrans   = colorEngine.createTransform(ScCore->defaultLabProfile, Format_Lab_Dbl, DocDisplayProf, Format_RGB_16, Intent_Absolute_Colorimetric, dcmsFlags);
+	stdLabToCMYKTrans = colorEngine.createTransform(ScCore->defaultLabProfile, Format_Lab_Dbl, DocPrinterProf, Format_CMYK_16, Intent_Absolute_Colorimetric, dcmsFlags);
 
 	bool success  = (stdTransRGBMon && stdTransCMYKMon && stdProofImg  && stdProofImgCMYK &&
 		             stdTransImg    && stdTransRGB     && stdTransCMYK && stdProof       &&

@@ -58,12 +58,12 @@ ScColor ScColorEngine::convertToModel(const ScColor& color, const ScribusDoc* do
 		{
 			ScColorProfile profRGB = doc ? doc->DocInputRGBProf : ScCore->defaultRGBProfile;
 			ScColorProfile profLab = ScCore->defaultLabProfile;
-			ScColorTransform trans = engine.createTransform(profRGB, Format_RGB_8, profLab, Format_Lab_Dbl, Intent_Perceptual, 0);
+			ScColorTransform trans = engine.createTransform(profRGB, Format_RGB_16, profLab, Format_Lab_Dbl, Intent_Perceptual, 0);
 			double outC[3];
 			unsigned short inC[3];
-			inC[0] = color.CR;
-			inC[1] = color.MG;
-			inC[2] = color.YB;
+			inC[0] = color.CR * 257;
+			inC[1] = color.MG * 257;
+			inC[2] = color.YB * 257;
 			trans.apply(inC, outC, 1);
 			newCol.setColor(outC[0], outC[1], outC[2]);
 		}
@@ -71,13 +71,13 @@ ScColor ScColorEngine::convertToModel(const ScColor& color, const ScribusDoc* do
 		{
 			ScColorProfile profRGB = doc ? doc->DocInputCMYKProf : ScCore->defaultCMYKProfile;
 			ScColorProfile profLab = ScCore->defaultLabProfile;
-			ScColorTransform trans = engine.createTransform(profRGB, Format_CMYK_8, profLab, Format_Lab_Dbl, Intent_Perceptual, 0);
+			ScColorTransform trans = engine.createTransform(profRGB, Format_CMYK_16, profLab, Format_Lab_Dbl, Intent_Perceptual, 0);
 			double outC[3];
 			unsigned short inC[4];
-			inC[0] = color.CR;
-			inC[1] = color.MG;
-			inC[2] = color.YB;
-			inC[3] = color.K;
+			inC[0] = color.CR * 257;
+			inC[1] = color.MG * 257;
+			inC[2] = color.YB * 257;
+			inC[3] = color.K * 257;
 			trans.apply(inC, outC, 1);
 			newCol.setColor(outC[0], outC[1], outC[2]);
 		}
@@ -117,11 +117,11 @@ void ScColorEngine::getRGBValues(const ScColor& color, const ScribusDoc* doc, RG
 			inC[0] = color.L_val;
 			inC[1] = color.a_val;
 			inC[2] = color.b_val;
-			quint8 outC[3];
+			quint16 outC[3];
 			trans.apply(inC, outC, 1);
-			rgb.r = outC[0];
-			rgb.g = outC[1];
-			rgb.b = outC[2];
+			rgb.r = outC[0] / 257;
+			rgb.g = outC[1] / 257;
+			rgb.b = outC[2] / 257;
 		}
 	}
 	else if (model == colorModelCMYK)
@@ -143,11 +143,11 @@ void ScColorEngine::getRGBValues(const ScColor& color, const ScribusDoc* doc, RG
 		inC[0] = color.L_val;
 		inC[1] = color.a_val;
 		inC[2] = color.b_val;
-		quint8 outC[3];
+		quint16 outC[3];
 		trans.apply(inC, outC, 1);
-		rgb.r = outC[0];
-		rgb.g = outC[1];
-		rgb.b = outC[2];
+		rgb.r = outC[0] / 257;
+		rgb.g = outC[1] / 257;
+		rgb.b = outC[2] / 257;
 	}
 }
 
@@ -195,10 +195,10 @@ void ScColorEngine::getCMYKValues(const ScColor& color, const ScribusDoc* doc, C
 			inC[2] = color.b_val;
 			quint8 outC[4];
 			trans.apply(inC, outC, 1);
-			cmyk.c = outC[0];
-			cmyk.m = outC[1];
-			cmyk.y = outC[2];
-			cmyk.k = outC[3];
+			cmyk.c = outC[0] / 257;
+			cmyk.m = outC[1] / 257;
+			cmyk.y = outC[2] / 257;
+			cmyk.k = outC[3] / 257;
 		}
 	}
 	else if (model == colorModelRGB)
@@ -222,12 +222,12 @@ void ScColorEngine::getCMYKValues(const ScColor& color, const ScribusDoc* doc, C
 		inC[0] = color.L_val;
 		inC[1] = color.a_val;
 		inC[2] = color.b_val;
-		quint8 outC[4];
+		quint16 outC[4];
 		trans.apply(inC, outC, 1);
-		cmyk.c = outC[0];
-		cmyk.m = outC[1];
-		cmyk.y = outC[2];
-		cmyk.k = outC[3];
+		cmyk.c = outC[0] / 257;
+		cmyk.m = outC[1] / 257;
+		cmyk.y = outC[2] / 257;
+		cmyk.k = outC[3] / 257;
 	}
 }
 
@@ -255,12 +255,12 @@ void ScColorEngine::getShadeColorCMYK(const ScColor& color, const ScribusDoc* do
 		inC[0] = color.L_val * (level / 100.0);
 		inC[1] = color.a_val;
 		inC[2] = color.b_val;
-		quint8 outC[4];
+		quint16 outC[4];
 		trans.apply(inC, outC, 1);
-		cmyk.c = outC[0];
-		cmyk.m = outC[1];
-		cmyk.y = outC[2];
-		cmyk.k = outC[3];
+		cmyk.c = outC[0] / 257;
+		cmyk.m = outC[1] / 257;
+		cmyk.y = outC[2] / 257;
+		cmyk.k = outC[3] / 257;
 	}
 }
 
@@ -294,11 +294,11 @@ void ScColorEngine::getShadeColorRGB(const ScColor& color, const ScribusDoc* doc
 		inC[0] = color.L_val * (level / 100.0);
 		inC[1] = color.a_val;
 		inC[2] = color.b_val;
-		quint8 outC[3];
+		quint16 outC[3];
 		trans.apply(inC, outC, 1);
-		rgb.r = outC[0];
-		rgb.g = outC[1];
-		rgb.b = outC[2];
+		rgb.r = outC[0] / 257;
+		rgb.g = outC[1] / 257;
+		rgb.b = outC[2] / 257;
 	}
 }
 
@@ -329,9 +329,9 @@ QColor ScColorEngine::getDisplayColor(const ScColor& color, const ScribusDoc* do
 		inC[0] = color.L_val;
 		inC[1] = color.a_val;
 		inC[2] = color.b_val;
-		quint8 outC[3];
+		quint16 outC[3];
 		trans.apply(inC, outC, 1);
-		tmp = QColor(outC[0], outC[1], outC[2]);
+		tmp = QColor(outC[0] / 257, outC[1] / 257, outC[2] / 257);
 	}
 	return tmp;
 }
@@ -365,14 +365,14 @@ QColor ScColorEngine::getDisplayColor(const ScColor& color, const ScribusDoc* do
 		inC[0] = color.L_val * (level / 100.0);
 		inC[1] = color.a_val;
 		inC[2] = color.b_val;
-		quint8 outC[3];
+		quint16 outC[3];
 		trans.apply(inC, outC, 1);
-		tmp = QColor(outC[0], outC[1], outC[2]);
+		tmp = QColor(outC[0] / 257, outC[1] / 257, outC[2] / 257);
 	}
 	return tmp;
 }
 
-QColor ScColorEngine::getDisplayColorGC(const ScColor& color, const ScribusDoc* doc)
+QColor ScColorEngine::getDisplayColorGC(const ScColor& color, const ScribusDoc* doc, bool *outOfG)
 {
 	QColor tmp;
 	bool doSoftProofing = doc ? doc->SoftProofing : false;
@@ -380,6 +380,8 @@ QColor ScColorEngine::getDisplayColorGC(const ScColor& color, const ScribusDoc* 
 	if ( doSoftProofing && doGamutCheck )
 	{
 		bool outOfGamutFlag = isOutOfGamut(color, doc);
+		if (outOfG != NULL)
+			*outOfG = outOfGamutFlag;
 		tmp = outOfGamutFlag ? QColor(0, 255, 0) : getDisplayColor(color, doc);
 	}
 	else
@@ -468,7 +470,7 @@ QColor ScColorEngine::getShadeColorProof(const ScColor& color, const ScribusDoc*
 		inC[0] = color.L_val * (level / 100.0);
 		inC[1] = color.a_val;
 		inC[2] = color.b_val;
-		quint8 outC[3];
+		quint16 outC[3];
 		ScColorTransform trans  = doc ? doc->stdLabToRGBTrans : ScCore->defaultLabToRGBTrans;
 		ScColorTransform transProof   = doc ? doc->stdProofLab   : ScCore->defaultLabToRGBTrans;
 		ScColorTransform transProofGC = doc ? doc->stdProofLabGC : ScCore->defaultLabToRGBTrans;
@@ -481,7 +483,7 @@ QColor ScColorEngine::getShadeColorProof(const ScColor& color, const ScribusDoc*
 		else
 		{
 			trans.apply(inC, outC, 1);
-			tmp = QColor(outC[0], outC[1], outC[2]);
+			tmp = QColor(outC[0] / 257, outC[1] / 257, outC[2] / 257);
 		}
 	}
 	

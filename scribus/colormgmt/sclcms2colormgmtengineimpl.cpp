@@ -219,7 +219,7 @@ ScColorProfile ScLcms2ColorMgmtEngineImpl::createProfile_Lab(ScColorMgmtEngine& 
 	if (!profile.isNull())
 		return profile;
 
-	cmsHPROFILE lcmsProf = cmsCreateLab2Profile(NULL);
+	cmsHPROFILE lcmsProf = cmsCreateLab4Profile(NULL);
 	if (lcmsProf)
 	{
 		ScLcms2ColorProfileImpl* profData = new ScLcms2ColorProfileImpl(engine, lcmsProf);

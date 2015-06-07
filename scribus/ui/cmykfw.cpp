@@ -334,11 +334,11 @@ CMYKChoose::CMYKChoose( QWidget* parent, ScribusDoc* doc, ScColor orig, QString 
 		cyd = cmyk.y / 2.55;
 		ckd = cmyk.k / 2.55;
 		CyanSp->setValue(ccd);
-		CyanSL->setValue(qRound(ccd));
+		CyanSL->setValue(qRound(ccd * 1000));
 		MagentaSp->setValue(cmd);
-		MagentaSL->setValue(qRound(cmd));
+		MagentaSL->setValue(qRound(cmd * 1000));
 		YellowSp->setValue(cyd);
-		YellowSL->setValue(qRound(cyd));
+		YellowSL->setValue(qRound(cyd * 1000));
 		BlackSp->setValue(ckd);
 		BlackSL->setValue(qRound(ckd));
 		BlackComp = cmyk.k;
@@ -406,13 +406,13 @@ void CMYKChoose::setValSLiders(double value)
 {
 	int val = qRound(value);
 	if (CyanSp == sender())
-		CyanSL->setValue(val);
+		CyanSL->setValue(val * 1000);
 	if (MagentaSp == sender())
-		MagentaSL->setValue(val);
+		MagentaSL->setValue(val * 1000);
 	if (YellowSp == sender())
-		YellowSL->setValue(val);
+		YellowSL->setValue(val * 1000);
 	if (BlackSp == sender())
-		BlackSL->setValue(val);
+		BlackSL->setValue(val * 1000);
 }
 
 void CMYKChoose::slotRightClick()
@@ -435,13 +435,13 @@ void CMYKChoose::setValueS(int val)
 	disconnect( YellowSp, SIGNAL( valueChanged(double) ), this, SLOT( setValSLiders(double) ) );
 	disconnect( BlackSp, SIGNAL( valueChanged(double) ), this, SLOT( setValSLiders(double) ) );
 	if (CyanSL == sender())
-		CyanSp->setValue(val);
+		CyanSp->setValue(val / 1000.0);
 	if (MagentaSL == sender())
-		MagentaSp->setValue(val);
+		MagentaSp->setValue(val / 1000.0);
 	if (YellowSL == sender())
-		YellowSp->setValue(val);
+		YellowSp->setValue(val / 1000.0);
 	if (BlackSL == sender())
-		BlackSp->setValue(val);
+		BlackSp->setValue(val / 1000.0);
 	setColor();
 	connect( CyanSp, SIGNAL( valueChanged(double) ), this, SLOT( setValSLiders(double) ) );
 	connect( MagentaSp, SIGNAL( valueChanged(double) ), this, SLOT( setValSLiders(double) ) );
@@ -682,18 +682,18 @@ void CMYKChoose::selModel(const QString& mod)
 	if (mod == tr("CMYK"))
 	{
 		Wsave = false;
-		CyanSL->setMaximum( 100 );
-		MagentaSL->setMaximum( 100 );
-		YellowSL->setMaximum( 100 );
+		CyanSL->setMaximum( 100 * 1000.0);
+		MagentaSL->setMaximum( 100 * 1000.0 );
+		YellowSL->setMaximum( 100 * 1000.0 );
 		CyanSp->setMaximum( 100 );
 		MagentaSp->setMaximum( 100);
 		YellowSp->setMaximum( 100 );
-		CyanSL->setSingleStep(1);
-		MagentaSL->setSingleStep(1);
-		YellowSL->setSingleStep(1);
-		CyanSL->setPageStep(10);
-		MagentaSL->setPageStep(10);
-		YellowSL->setPageStep(10);
+		CyanSL->setSingleStep(1 * 1000.0);
+		MagentaSL->setSingleStep(1 * 1000.0);
+		YellowSL->setSingleStep(1 * 1000.0);
+		CyanSL->setPageStep(10 * 1000.0);
+		MagentaSL->setPageStep(10 * 1000.0);
+		YellowSL->setPageStep(10 * 1000.0);
 		CyanSp->setDecimals(1);
 		MagentaSp->setDecimals(1);
 		YellowSp->setDecimals(1);
@@ -715,21 +715,21 @@ void CMYKChoose::selModel(const QString& mod)
 		MagentaP->setPixmap(sliderPix(300));
 		YellowP->setPixmap(sliderPix(60));
 		BlackP->setPixmap(sliderBlack());
-		ColorMap->setEnabled(true);
+		ColorMap->isLabMode = false;
 		setValues();
 	}
 	else if ((mod == tr("Web Safe RGB")) || (mod == tr("RGB")))
 	{
 		Wsave = false;
-		CyanSL->setMaximum( 255 );
-		MagentaSL->setMaximum( 255 );
-		YellowSL->setMaximum( 255 );
-		CyanSL->setSingleStep(1);
-		MagentaSL->setSingleStep(1);
-		YellowSL->setSingleStep(1);
-		CyanSL->setPageStep(1);
-		MagentaSL->setPageStep(1);
-		YellowSL->setPageStep(1);
+		CyanSL->setMaximum( 255 * 1000.0 );
+		MagentaSL->setMaximum( 255 * 1000.0 );
+		YellowSL->setMaximum( 255 * 1000.0 );
+		CyanSL->setSingleStep(1 * 1000.0);
+		MagentaSL->setSingleStep(1 * 1000.0);
+		YellowSL->setSingleStep(1 * 1000.0);
+		CyanSL->setPageStep(1 * 1000.0);
+		MagentaSL->setPageStep(1 * 1000.0);
+		YellowSL->setPageStep(1 * 1000.0);
 		CyanSp->setSingleStep(1);
 		MagentaSp->setSingleStep(1);
 		YellowSp->setSingleStep(1);
@@ -753,12 +753,12 @@ void CMYKChoose::selModel(const QString& mod)
 		if (mod == tr("Web Safe RGB"))
 		{
 			Wsave = true;
-			CyanSL->setSingleStep(51);
-			MagentaSL->setSingleStep(51);
-			YellowSL->setSingleStep(51);
-			CyanSL->setPageStep(51);
-			MagentaSL->setPageStep(51);
-			YellowSL->setPageStep(51);
+			CyanSL->setSingleStep(51 * 1000.0);
+			MagentaSL->setSingleStep(51 * 1000.0);
+			YellowSL->setSingleStep(51 * 1000.0);
+			CyanSL->setPageStep(51 * 1000.0);
+			MagentaSL->setPageStep(51 * 1000.0);
+			YellowSL->setPageStep(51 * 1000.0);
 			CyanSp->setSingleStep(51);
 			MagentaSp->setSingleStep(51);
 			YellowSp->setSingleStep(51);
@@ -767,23 +767,23 @@ void CMYKChoose::selModel(const QString& mod)
 		CyanP->setPixmap(sliderPix(0));
 		MagentaP->setPixmap(sliderPix(120));
 		YellowP->setPixmap(sliderPix(240));
+		ColorMap->isLabMode = false;
 		setValues();
-		ColorMap->setEnabled(true);
 	}
 	else if (mod == tr("Lab"))
 	{
 		Wsave = false;
-		CyanSL->setSingleStep(1);
-		CyanSL->setPageStep(10);
-		CyanSL->setMaximum( 100 );
-		MagentaSL->setSingleStep(1);
-		MagentaSL->setPageStep(10);
-		MagentaSL->setMaximum( 128 );
-		MagentaSL->setMinimum( -128 );
-		YellowSL->setSingleStep(1);
-		YellowSL->setPageStep(10);
-		YellowSL->setMaximum( 128 );
-		YellowSL->setMinimum( -128 );
+		CyanSL->setSingleStep(1 * 1000.0);
+		CyanSL->setPageStep(10 * 1000.0);
+		CyanSL->setMaximum( 100 * 1000.0 );
+		MagentaSL->setSingleStep(1 * 1000.0);
+		MagentaSL->setPageStep(10 * 1000.0);
+		MagentaSL->setMaximum( 128 * 1000.0 );
+		MagentaSL->setMinimum( -128 * 1000.0 );
+		YellowSL->setSingleStep(1 * 1000.0);
+		YellowSL->setPageStep(10 * 1000.0);
+		YellowSL->setMaximum( 128 * 1000.0 );
+		YellowSL->setMinimum( -128 * 1000.0 );
 
 		CyanSp->setDecimals(2);
 		CyanSp->setSingleStep(1);
@@ -817,7 +817,9 @@ void CMYKChoose::selModel(const QString& mod)
 		MagentaP->setPixmap(sliderPix(120));
 		YellowP->setPixmap(sliderPix(240));
 		setValues();
-		ColorMap->setEnabled(false);
+		ColorMap->isLabMode = true;
+		ColorMap->drawPalette(CyanSp->value() * 2.55);
+		ColorMap->setMark(MagentaSp->value(), YellowSp->value());
 	}
 	imageN.fill( ScColorEngine::getDisplayColor(Farbe, m_doc) );
 	if (ScColorEngine::isOutOfGamut(Farbe, m_doc))
@@ -863,6 +865,9 @@ void CMYKChoose::setColor()
 			BlackP->setPixmap(sliderBlack());
 		}
 		BlackComp = k;
+		ScColorEngine::getRGBColor(tmp, m_doc).getHsv(&h, &s, &v);
+		ColorMap->drawPalette(v);
+		ColorMap->setMark(h, s);
 	}
 	else if (Farbe.getColorModel() == colorModelRGB)
 	{
@@ -879,9 +884,9 @@ void CMYKChoose::setColor()
 			CyanSp->setValue(c);
 			MagentaSp->setValue(m);
 			YellowSp->setValue(y);
-			CyanSL->setValue(c);
-			MagentaSL->setValue(m);
-			YellowSL->setValue(y);
+			CyanSL->setValue(c * 1000.0);
+			MagentaSL->setValue(m * 1000.0);
+			YellowSL->setValue(y * 1000.0);
 			blockSignals(false);
 		}
 		tmp.setColorRGB(c, m, y);
@@ -896,9 +901,14 @@ void CMYKChoose::setColor()
 			YellowP->setPixmap(sliderPix(240));
 		}
 		BlackComp = k;
+		ScColorEngine::getRGBColor(tmp, m_doc).getHsv(&h, &s, &v);
+		ColorMap->drawPalette(v);
+		ColorMap->setMark(h, s);
 	}
 	else if (Farbe.getColorModel() == colorModelLab)
 	{
+		double Lalt;
+		Farbe.getLab(&Lalt, &a, &b);
 		L = CyanSp->value();
 		a = MagentaSp->value();
 		b = YellowSp->value();
@@ -911,34 +921,36 @@ void CMYKChoose::setColor()
 			YellowP->setPixmap(sliderPix(240));
 		}
 		BlackComp = qRound(L * 2.55);
+		if (L != Lalt)
+			ColorMap->drawPalette(L * 2.55);
+		ColorMap->setMark(a, b);
 	}
 	imageN.fill(ScColorEngine::getDisplayColor(tmp, m_doc) );
 	if ( ScColorEngine::isOutOfGamut(tmp, m_doc) )
 		paintAlert(alertIcon, imageN, 2, 2, false);
-	ScColorEngine::getRGBColor(tmp, m_doc).getHsv(&h, &s, &v);
-	ColorMap->drawPalette(v);
-	ColorMap->setMark(h, s);
 	NewC->setPixmap( imageN );
 }
 
 void CMYKChoose::setColor2(int h, int s, bool ende)
 {
-	QColor tm = QColor::fromHsv(qMax(qMin(359,h),0), qMax(qMin(255,255-s),0), 255-BlackComp, QColor::Hsv);
-	int r, g, b;
-	tm.getRgb(&r, &g, &b);
 	ScColor tmp;
-	tmp.fromQColor(tm);
-	if (Farbe.getColorModel() == colorModelCMYK)
+	if (Farbe.getColorModel() == colorModelLab)
 	{
-		CMYKColor cmyk;
-		ScColorEngine::getCMYKValues(tmp, m_doc, cmyk);
-		tmp.setColor(cmyk.c, cmyk.m, cmyk.y, cmyk.k);
+		tmp = ScColor(CyanSp->value(), static_cast<double>(h), static_cast<double>(s));
 	}
-	else if (Farbe.getColorModel() == colorModelLab)
+	else
 	{
-		ScColorEngine::convertToModel(tmp, m_doc, colorModelLab);
+		QColor tm = QColor::fromHsv(qMax(qMin(359,h),0), qMax(qMin(255,255-s),0), 255-BlackComp, QColor::Hsv);
+		int r, g, b;
+		tm.getRgb(&r, &g, &b);
+		tmp.fromQColor(tm);
+		if (Farbe.getColorModel() == colorModelCMYK)
+		{
+			CMYKColor cmyk;
+			ScColorEngine::getCMYKValues(tmp, m_doc, cmyk);
+			tmp.setColor(cmyk.c, cmyk.m, cmyk.y, cmyk.k);
+		}
 	}
-
 	imageN.fill( ScColorEngine::getDisplayColor(tmp, m_doc) );
 	if ( ScColorEngine::isOutOfGamut(tmp, m_doc) )
 		paintAlert(alertIcon, imageN, 2, 2, false);
@@ -1000,13 +1012,13 @@ void CMYKChoose::setValues()
 		ScColorEngine::getCMYKValues(Farbe, m_doc, cmyk);
 		cmyk.getValues(cc, cm, cy, ck);
 		CyanSp->setValue(cc / 2.55);
-		CyanSL->setValue(qRound(cc / 2.55));
+		CyanSL->setValue(qRound(cc / 2.55) * 1000.0);
 		MagentaSp->setValue(cm / 2.55);
-		MagentaSL->setValue(qRound(cm / 2.55));
+		MagentaSL->setValue(qRound(cm / 2.55) * 1000.0);
 		YellowSp->setValue(cy / 2.55);
-		YellowSL->setValue(qRound(cy / 2.55));
+		YellowSL->setValue(qRound(cy / 2.55) * 1000.0);
 		BlackSp->setValue(ck / 2.55);
-		BlackSL->setValue(qRound(ck / 2.55));
+		BlackSL->setValue(qRound(ck / 2.55) * 1000.0);
 		if (dynamic)
 		{
 			CyanP->setPixmap(sliderPix(180));
@@ -1022,11 +1034,11 @@ void CMYKChoose::setValues()
 		ScColorEngine::getRGBValues(Farbe, m_doc, rgb);
 		rgb.getValues(r, g, b);
 		CyanSp->setValue(static_cast<double>(r));
-		CyanSL->setValue(r);
+		CyanSL->setValue(r * 1000.0);
 		MagentaSp->setValue(static_cast<double>(g));
-		MagentaSL->setValue(g);
+		MagentaSL->setValue(g * 1000.0);
 		YellowSp->setValue(static_cast<double>(b));
-		YellowSL->setValue(b);
+		YellowSL->setValue(b * 1000.0);
 		int h, s, v;
 		ScColorEngine::getRGBColor(Farbe, m_doc).getHsv(&h, &s, &v);
 		BlackComp = 255 - v;
@@ -1042,11 +1054,17 @@ void CMYKChoose::setValues()
 		double L, a, b;
 		Farbe.getLab(&L, &a, &b);
 		CyanSp->setValue(L);
-		CyanSL->setValue(L);
+		CyanSL->setValue(L * 1000.0);
 		MagentaSp->setValue(a);
-		MagentaSL->setValue(a);
+		MagentaSL->setValue(a * 1000.0);
 		YellowSp->setValue(b);
-		YellowSL->setValue(b);
+		YellowSL->setValue(b * 1000.0);
+		if (dynamic)
+		{
+			CyanP->setPixmap(sliderPix(0));
+			MagentaP->setPixmap(sliderPix(120));
+			YellowP->setPixmap(sliderPix(240));
+		}
 	}
 	CyanSp->blockSignals(false);
 	CyanSL->blockSignals(false);

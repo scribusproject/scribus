@@ -54,6 +54,7 @@ public:
 	int Xp;
 	int Yp;
 	bool doDrawMark;
+	bool isLabMode;
 	QPixmap pmx;
 
 protected:
