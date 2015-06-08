@@ -43,7 +43,6 @@ for which a new license (GPL+exception) is in place.
 #include "scribusdoc.h"
 #include "scrspinbox.h"
 #include "swatchcombo.h"
-#include "ui_cmykfwbase.h"
 #include "ui/scmessagebox.h"
 #include "util.h"
 #include "util_color.h"
