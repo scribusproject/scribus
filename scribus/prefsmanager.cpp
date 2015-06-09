@@ -176,6 +176,7 @@ void PrefsManager::initDefaults()
 	appPrefs.uiPrefs.useTabs = false;
 	appPrefs.uiPrefs.stickyTools = false;
 	appPrefs.uiPrefs.grayscaleIcons = false;
+	appPrefs.uiPrefs.iconSet = "1_5_0";
 	appPrefs.guidesPrefs.marginsShown = true;
 	appPrefs.guidesPrefs.framesShown = true;
 	appPrefs.guidesPrefs.layerMarkersShown = false;
@@ -1308,6 +1309,7 @@ bool PrefsManager::WritePref(QString ho)
 	dcUI.setAttribute("PaletteFontSize", appPrefs.uiPrefs.paletteFontSize);
 	dcUI.setAttribute("RecentDocumentCount", appPrefs.uiPrefs.recentDocCount);
 	dcUI.setAttribute("UseGrayscaleIcons", appPrefs.uiPrefs.grayscaleIcons);
+	dcUI.setAttribute("IconSet", appPrefs.uiPrefs.iconSet);
 	elem.appendChild(dcUI);
 
 	QDomElement deDocumentSetup=docu.createElement("DocumentSetup");
@@ -1915,6 +1917,7 @@ bool PrefsManager::ReadPref(QString ho)
 			appPrefs.uiPrefs.useTabs = static_cast<bool>(dc.attribute("UseDocumentTabs", "0").toInt());
 			appPrefs.uiPrefs.stickyTools = static_cast<bool>(dc.attribute("StickyTools", "0").toInt());
 			appPrefs.uiPrefs.grayscaleIcons = static_cast<bool>(dc.attribute("UseGrayscaleIcons",0).toInt());
+			appPrefs.uiPrefs.iconSet = dc.attribute("IconSet", "1_5_0");
 		}
 
 		if (dc.tagName()=="DocumentSetup")

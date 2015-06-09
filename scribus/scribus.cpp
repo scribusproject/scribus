@@ -1279,7 +1279,7 @@ void ScribusMainWindow::initStatusBar()
 	QByteArray stylesheet;
 	if (loadRawText(ScPaths::instance().libDir() + "scribus.css", stylesheet))
 	{
-		QString downArrow(ScPaths::instance().iconDir()+"16/go-down.png");
+		QString downArrow(pathForIcon("16/go-down.png"));
 		QByteArray da;
 		da.append(downArrow);
 		stylesheet.replace("___downArrow___", da);

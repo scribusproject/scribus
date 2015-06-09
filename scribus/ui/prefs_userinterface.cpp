@@ -30,8 +30,10 @@ Prefs_UserInterface::Prefs_UserInterface(QWidget* parent, ScribusDoc* doc)
 	// qt styles
 	QStringList styleList = QStyleFactory::keys();
 	themeComboBox->addItem("");
-	for (int i = 0; i < styleList.count(); ++i)
-		themeComboBox->addItem(styleList[i]);
+	themeComboBox->addItems(styleList);
+	QStringList iconSetList;
+	iconSetList<<"1_5_0"<<"1_5_1";
+	iconSetComboBox->addItems(iconSetList);
 
 	connect(languageComboBox, SIGNAL(activated(const QString &)), this, SLOT(setSelectedGUILang(const QString &)));
 	connect(storyEditorFontPushButton, SIGNAL(clicked()), this, SLOT(changeStoryEditorFont()));
@@ -46,6 +48,7 @@ void Prefs_UserInterface::languageChange()
 {
 	languageComboBox->setToolTip( "<qt>" + tr( "Select your default language for Scribus to run with. Leave this blank to choose based on environment variables. You can still override this by passing a command line option when starting Scribus" )+"</qt>");
 	themeComboBox->setToolTip( "<qt>" + tr( "Choose the default window decoration and looks. Scribus inherits any available KDE or Qt themes, if Qt is configured to search KDE plugins." ) + "</qt>");
+	iconSetComboBox->setToolTip( "<qt>" + tr( "Choose the default icon set" ) + "</qt>");
 	useSmallWidgetsCheckBox->setToolTip( "<qt>" + tr( "Palette windows will use smaller (space savy) widgets. Requires application restart" ) + "</qt>");
 	recentDocumentsSpinBox->setToolTip( "<qt>" + tr( "Number of recently edited documents to show in the File menu" ) + "</qt>");
 	fontSizeMenuSpinBox->setToolTip( "<qt>" + tr( "Default font size for the menus and windows" ) + "</qt>");
@@ -61,6 +64,7 @@ void Prefs_UserInterface::restoreDefaults(struct ApplicationPrefs *prefsData)
 	selectedGUILang = prefsData->uiPrefs.language;
 	setCurrentComboItem(languageComboBox, LanguageManager::instance()->getLangFromAbbrev(selectedGUILang));
 	setCurrentComboItem(themeComboBox, prefsData->uiPrefs.style);
+	setCurrentComboItem(iconSetComboBox, prefsData->uiPrefs.iconSet);
 	fontSizeMenuSpinBox->setValue( prefsData->uiPrefs.applicationFontSize );
 	fontSizePaletteSpinBox->setValue( prefsData->uiPrefs.paletteFontSize);
 	wheelJumpSpinBox->setValue( prefsData->uiPrefs.wheelJump );
@@ -84,6 +88,7 @@ void Prefs_UserInterface::saveGuiToPrefs(struct ApplicationPrefs *prefsData) con
 {
 	prefsData->uiPrefs.language=selectedGUILang;
 	prefsData->uiPrefs.style=themeComboBox->currentText();
+	prefsData->uiPrefs.iconSet=iconSetComboBox->currentText();
 	prefsData->uiPrefs.applicationFontSize=fontSizeMenuSpinBox->value();
 	prefsData->uiPrefs.paletteFontSize=fontSizePaletteSpinBox->value();
 	prefsData->uiPrefs.wheelJump=wheelJumpSpinBox->value();
@@ -109,22 +114,22 @@ void Prefs_UserInterface::setSelectedGUILang( const QString &newLang )
 void Prefs_UserInterface::changeStoryEditorFontColor()
 {
 	QColor newColor(QColorDialog::getColor(seFontColor, this));
-	if (newColor.isValid())
-	{
-		QPixmap pm(100, 30);
-		pm.fill(newColor);
-		seFontColor = newColor;
-		storyEditorFontColorPushButton->setIcon(pm);
-	}
+	if (!newColor.isValid())
+		return;
+	QPixmap pm(100, 30);
+	pm.fill(newColor);
+	seFontColor = newColor;
+	storyEditorFontColorPushButton->setIcon(pm);
 }
+
 
 void Prefs_UserInterface::changeStoryEditorFont()
 {
 	bool ok;
 	QFont newFont(QFontDialog::getFont( &ok, seFont, this ));
-	if (ok)
-	{
-		seFont = newFont;
-		storyEditorFontPushButton->setText(seFont.family());
-	}
+	if (!ok)
+		return;
+	seFont = newFont;
+	storyEditorFontPushButton->setText(seFont.family());
 }
+

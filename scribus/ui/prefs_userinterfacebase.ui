@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>803</width>
-    <height>431</height>
+    <height>434</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -90,21 +90,21 @@
          <item row="1" column="1">
           <widget class="QComboBox" name="themeComboBox"/>
          </item>
-         <item row="2" column="1">
+         <item row="3" column="1">
           <widget class="QCheckBox" name="useSmallWidgetsCheckBox">
            <property name="text">
             <string>Use Small Widgets on Palettes</string>
            </property>
           </widget>
          </item>
-         <item row="3" column="1">
+         <item row="4" column="1">
           <widget class="QCheckBox" name="useTabsForDocumentsCheckBox">
            <property name="text">
             <string>Use Tabs for Documents</string>
            </property>
           </widget>
          </item>
-         <item row="4" column="0">
+         <item row="5" column="0">
           <widget class="QLabel" name="recentDocumentsLabel">
            <property name="text">
             <string>&amp;Recent Documents:</string>
@@ -114,26 +114,20 @@
            </property>
           </widget>
          </item>
-         <item row="4" column="1">
+         <item row="5" column="1">
           <widget class="QSpinBox" name="recentDocumentsSpinBox"/>
          </item>
+         <item row="2" column="1">
+          <widget class="QComboBox" name="iconSetComboBox"/>
+         </item>
+         <item row="2" column="0">
+          <widget class="QLabel" name="label_3">
+           <property name="text">
+            <string>Icon Set:</string>
+           </property>
+          </widget>
+         </item>
         </layout>
-       </item>
-       <item>
-        <spacer name="verticalSpacer_4">
-         <property name="orientation">
-          <enum>Qt::Vertical</enum>
-         </property>
-         <property name="sizeType">
-          <enum>QSizePolicy::Fixed</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>20</width>
-           <height>20</height>
-          </size>
-         </property>
-        </spacer>
        </item>
        <item>
         <widget class="QLabel" name="label_2">

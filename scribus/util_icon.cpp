@@ -38,24 +38,42 @@ QPixmap loadIcon(const QString nam, bool forceUseColor)
 	if (pxCache.contains(nam))
 		return *pxCache[nam];
 
-	QString iconFilePath(QString("%1%2").arg(ScPaths::instance().iconDir()).arg(nam));
-	QPixmap *pm = new QPixmap();
-	
+	QString iconFilePath(pathForIcon(nam));
+/*	QString iconset(PrefsManager::instance()->appPrefs.uiPrefs.iconSet);
+	QString iconSubdir("1_5_0/");
+	QString primaryIconSubdir("1_5_0/");
+	//temporary until second icon dir is there
+	if (iconset=="Dezso")
+		iconSubdir="1_5_1/";
+
+
+	QString iconFilePath(QString("%1%2%3").arg(ScPaths::instance().iconDir()).arg(iconSubdir).arg(nam));
+
+
+	if (!QFile::exists(iconFilePath))
+	{
+		qWarning("Unable to load icon %s: File not found", iconFilePath.toLatin1().constData());
+		iconFilePath=QString("%1%2%3").arg(ScPaths::instance().iconDir()).arg(primaryIconSubdir).arg(nam);
+	}
+
 	if (!QFile::exists(iconFilePath))
 		qWarning("Unable to load icon %s: File not found", iconFilePath.toLatin1().constData());
 	else
 	{
-		pm->load(iconFilePath);
-		if (pm->isNull())
-			qWarning("Unable to load icon %s: Got null pixmap", iconFilePath.toLatin1().constData());
-		if (PrefsManager::instance()->appPrefs.uiPrefs.grayscaleIcons && !forceUseColor)
-			iconToGrayscale(pm);
-	}
+*/
+	QPixmap *pm = new QPixmap();
+	pm->load(iconFilePath);
+	if (pm->isNull())
+		qWarning("Unable to load icon %s: Got null pixmap", iconFilePath.toLatin1().constData());
+//	else
+//		qDebug()<<"Successful icon load from"<<iconFilePath;
+	if (PrefsManager::instance()->appPrefs.uiPrefs.grayscaleIcons && !forceUseColor)
+		iconToGrayscale(pm);
 	pxCache.insert(nam, pm);
 	return *pm;
 }
 
-void SCRIBUS_API iconToGrayscale(QPixmap* pm)
+void iconToGrayscale(QPixmap* pm)
 {
 	QImage qi(pm->toImage());
 	int h=qi.height();
@@ -74,3 +92,28 @@ void SCRIBUS_API iconToGrayscale(QPixmap* pm)
 }
 
 
+
+
+QString pathForIcon(const QString nam)
+{
+	QString iconset(PrefsManager::instance()->appPrefs.uiPrefs.iconSet);
+	QString iconSubdir("1_5_0/");
+	QString primaryIconSubdir("1_5_0/");
+	//temporary until second icon dir is there
+	if (iconset=="Dezso" || iconset=="1_5_1")
+		iconSubdir="1_5_1/";
+
+
+	QString iconFilePath(QString("%1%2%3").arg(ScPaths::instance().iconDir()).arg(iconSubdir).arg(nam));
+	if (QFile::exists(iconFilePath))
+		return iconFilePath;
+
+	qWarning("pathForIcon: Unable to load icon %s: File not found", iconFilePath.toLatin1().constData());
+	iconFilePath=QString("%1%2%3").arg(ScPaths::instance().iconDir()).arg(primaryIconSubdir).arg(nam);
+
+	if (QFile::exists(iconFilePath))
+		return iconFilePath;
+
+	qWarning("pathForIcon: Unable to load icon %s: File not found", iconFilePath.toLatin1().constData());
+	return "";
+}

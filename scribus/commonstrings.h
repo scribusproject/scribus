@@ -289,6 +289,7 @@ public:
 	static QString altModifier;
 	static QString shiftModifier;
 	static QString metaModifier;
+
 };
 
 #endif

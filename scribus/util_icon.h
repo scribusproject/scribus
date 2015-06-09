@@ -13,6 +13,7 @@ for which a new license (GPL+exception) is in place.
 #include "scribusapi.h"
 
 QPixmap SCRIBUS_API loadIcon(const QString nam, bool forceUseColor=false);
+QString SCRIBUS_API pathForIcon(const QString nam);
 void SCRIBUS_API iconToGrayscale(QPixmap *pm);
 
 #endif
