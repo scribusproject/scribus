@@ -1022,6 +1022,107 @@ bool importColorsFromFile(QString fileName, ColorList &EditColors, QHash<QString
 					fiC.close();
 				}
 			}
+			else if (ext == "ase")			// Adobe swatch exchange format
+			{
+				QFile fiC(fileName);
+				if (fiC.open(QIODevice::ReadOnly))
+				{
+					ScColor lf = ScColor();
+					QDataStream ts(&fiC);
+					ts.setByteOrder(QDataStream::BigEndian);
+					ts.setFloatingPointPrecision(QDataStream::SinglePrecision);
+					quint16 vers1 = 0;
+					quint16 vers2 = 0;
+					quint32 signature;
+					ts >> signature;
+					ts >> vers1 >> vers2;
+					if ((signature == 0x41534546) && (vers1 == 1) && (vers2 == 0))
+					{
+						QString blockName;
+						quint32 numBlocks;
+						ts >> numBlocks;
+						for (quint32 n = 0; n < numBlocks; n++)
+						{
+							quint16 blockType;
+							quint32 blockLen;
+							ts >> blockType;
+							ts >> blockLen;
+							if (blockType == 0xC001)
+								blockName = readAdobeUniCodeString16(ts);
+							else if (blockType == 0x0001)
+							{
+								if (blockName.isEmpty())
+									blockName = fi.baseName();
+								QString Cname = readAdobeUniCodeString16(ts);
+								quint32 clrType;
+								quint16 spotMode;
+								ts >> clrType;
+								if (clrType == 0x52474220)		// RGB
+								{
+									float r, g, b;
+									ts >> r >> g >> b;
+									ts >> spotMode;
+									lf.setColorRGB(qRound(255 * r), qRound(255 * g), qRound(255 * b));
+									lf.setSpotColor(spotMode == 2);
+									lf.setRegistrationColor(false);
+									if (Cname.isEmpty())
+									{
+										Cname = blockName + QString("#%1%2%3").arg(qRound(255 * r),2,16,QChar('0')).arg(qRound(255 * g),2,16,QChar('0')).arg(qRound(255 * b),2,16,QChar('0')).toUpper();
+										Cname.replace(" ","_");
+									}
+									EditColors.tryAddColor(Cname, lf);
+								}
+								else if (clrType == 0x434D594B)	// CMYK
+								{
+									float c, m, y, k;
+									ts >> c >> m >> y >> k;
+									ts >> spotMode;
+									lf.setColor(qRound(255 * c), qRound(255 * m), qRound(255 * y), qRound(255 * k));
+									lf.setSpotColor(spotMode == 2);
+									lf.setRegistrationColor(false);
+									if (Cname.isEmpty())
+									{
+										Cname = blockName + QString("#%1%2%3%4").arg(qRound(255 * c),2,16,QChar('0')).arg(qRound(255 * m),2,16,QChar('0')).arg(qRound(255 * y),2,16,QChar('0')).arg(qRound(255 * k),2,16,QChar('0')).toUpper();
+										Cname.replace(" ","_");
+									}
+									EditColors.tryAddColor(Cname, lf);
+								}
+								else if (clrType == 0x47726179)	// Gray
+								{
+									float g;
+									ts >> g;
+									ts >> spotMode;
+									lf.setColor(0, 0, 0, qRound(255 * g));
+									lf.setSpotColor(spotMode == 2);
+									lf.setRegistrationColor(false);
+									if (Cname.isEmpty())
+									{
+										Cname = blockName + QString("#000000%1").arg(qRound(255 * g),2,16,QChar('0')).toUpper();
+										Cname.replace(" ","_");
+									}
+									EditColors.tryAddColor(Cname, lf);
+								}
+								else if (clrType == 0x4C414220) // Lab
+								{
+									float L, a, b;
+									ts >> L >> a >> b;
+									ts >> spotMode;
+									lf.setColor(L * 100.0, a, b);
+									lf.setSpotColor(spotMode == 2);
+									lf.setRegistrationColor(false);
+									if (Cname.isEmpty())
+									{
+										Cname = blockName + QString("_%1_%2_%3").arg(qRound(L * 100)).arg(qRound(a)).arg(qRound(b));
+										Cname.replace(" ","_");
+									}
+									EditColors.tryAddColor(Cname, lf);
+								}
+							}
+						}
+					}
+					fiC.close();
+				}
+			}
 			else if (ext == "skp")			// Sk1 palette
 			{
 				QFile fiC(fileName);
@@ -1198,8 +1299,15 @@ bool importColorsFromFile(QString fileName, ColorList &EditColors, QHash<QString
 							{
 								if (pg.hasAttribute("CMYK"))
 									lf.setNamedColor(pg.attribute("CMYK"));
-								else
+								else if (pg.hasAttribute("RGB"))
 									lf.fromQColor(QColor(pg.attribute("RGB")));
+								else
+								{
+									double L = pg.attribute("L", "0").toDouble();
+									double a = pg.attribute("A", "0").toDouble();
+									double b = pg.attribute("B", "0").toDouble();
+									lf.setColor(L, a, b);
+								}
 								if (pg.hasAttribute("Spot"))
 									lf.setSpotColor(static_cast<bool>(pg.attribute("Spot").toInt()));
 								else

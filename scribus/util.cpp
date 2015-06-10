@@ -790,6 +790,21 @@ QString readAdobeUniCodeString(QDataStream &s)
 	return ret;
 }
 
+QString readAdobeUniCodeString16(QDataStream &s)
+{
+	QString ret = "";
+	quint16 len;
+	s >> len;
+	for (quint16 i = 0; i < len; i++)
+	{
+		quint16 ch;
+		s >> ch;
+		if (ch != 0)
+			ret.append(QChar(ch));
+	}
+	return ret;
+}
+
 QString getDashString(int dashtype, double linewidth)
 {
 	QString dashString;
