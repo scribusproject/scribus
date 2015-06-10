@@ -1063,7 +1063,7 @@ bool importColorsFromFile(QString fileName, ColorList &EditColors, QHash<QString
 									ts >> r >> g >> b;
 									ts >> spotMode;
 									lf.setColorRGB(qRound(255 * r), qRound(255 * g), qRound(255 * b));
-									lf.setSpotColor(spotMode == 2);
+									lf.setSpotColor(spotMode == 1);
 									lf.setRegistrationColor(false);
 									if (Cname.isEmpty())
 									{
@@ -1078,7 +1078,7 @@ bool importColorsFromFile(QString fileName, ColorList &EditColors, QHash<QString
 									ts >> c >> m >> y >> k;
 									ts >> spotMode;
 									lf.setColor(qRound(255 * c), qRound(255 * m), qRound(255 * y), qRound(255 * k));
-									lf.setSpotColor(spotMode == 2);
+									lf.setSpotColor(spotMode == 1);
 									lf.setRegistrationColor(false);
 									if (Cname.isEmpty())
 									{
@@ -1093,7 +1093,7 @@ bool importColorsFromFile(QString fileName, ColorList &EditColors, QHash<QString
 									ts >> g;
 									ts >> spotMode;
 									lf.setColor(0, 0, 0, qRound(255 * g));
-									lf.setSpotColor(spotMode == 2);
+									lf.setSpotColor(spotMode == 1);
 									lf.setRegistrationColor(false);
 									if (Cname.isEmpty())
 									{
@@ -1108,7 +1108,7 @@ bool importColorsFromFile(QString fileName, ColorList &EditColors, QHash<QString
 									ts >> L >> a >> b;
 									ts >> spotMode;
 									lf.setColor(L * 100.0, a, b);
-									lf.setSpotColor(spotMode == 2);
+									lf.setSpotColor(spotMode == 1);
 									lf.setRegistrationColor(false);
 									if (Cname.isEmpty())
 									{
