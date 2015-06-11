@@ -716,9 +716,6 @@
        </spacer>
       </item>
      </layout>
-     <zorder>verticalSpacer_2</zorder>
-     <zorder>Swatches</zorder>
-     <zorder>TabStack</zorder>
     </widget>
    </item>
   </layout>
