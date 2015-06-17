@@ -2343,15 +2343,12 @@ void PageItem::DrawSoftShadow(ScPainter *p)
 		double transS = lineTransparency();
 		bool savedShadow = hasSoftShadow();
 		double rotation_Old = m_rotation;
-		// #13139: Because setHasSoftShadow() and al. create undo actions
-		// if item has a drop shadow setup
-		UndoManager::instance()->setUndoEnabled(false);
-		setHasSoftShadow(false);
+		m_hasSoftShadow = false;
 		m_rotation = 0;
 		isEmbedded = true;
 		invalid = true;
-		setFillTransparency(0.0);
-		setLineTransparency(0.0);
+		fillTransparencyVal = 0.0;
+		lineTransparencyVal = 0.0;
 		p->save();
 		p->translate(m_softShadowXOffset, m_softShadowYOffset);
 		DrawObj(p, QRectF());
@@ -2368,12 +2365,11 @@ void PageItem::DrawSoftShadow(ScPainter *p)
 			p->endLayer();
 			p->restore();
 		}
-		setFillTransparency(transF);
-		setLineTransparency(transS);
+		fillTransparencyVal = transF;
+		lineTransparencyVal = transS;
 		isEmbedded = false;
 		m_rotation = rotation_Old;
-		setHasSoftShadow(savedShadow);
-		UndoManager::instance()->setUndoEnabled(true);
+		m_hasSoftShadow = savedShadow;
 	}
 	else
 	{
