@@ -125,8 +125,8 @@ QWidget *PropTreeItemDelegate::createEditor(QWidget *parent, const QStyleOptionV
 		editor->setValues(item->m_min, item->m_max, 0, val);
 		edito = editor;
 		edito->setAutoFillBackground(true);
-		connect(editor, SIGNAL(valueChanged(double)), item, SIGNAL(valueChanged(double)));
 		connect(editor, SIGNAL(valueChanged(double)), this, SLOT(valueHasChanged()));
+		connect(editor, SIGNAL(valueChanged(double)), item, SIGNAL(valueChanged(double)));
 	}
 	else if (item->m_type == PropTreeItem::DoubleSpinBox)
 	{
@@ -135,8 +135,8 @@ QWidget *PropTreeItemDelegate::createEditor(QWidget *parent, const QStyleOptionV
 		editor->setValues(item->m_fmin, item->m_fmax, item->m_decimals, val);
 		edito = editor;
 		edito->setAutoFillBackground(true);
-		connect(editor, SIGNAL(valueChanged(double)), item, SIGNAL(valueChanged(double)));
 		connect(editor, SIGNAL(valueChanged(double)), this, SLOT(valueHasChanged()));
+		connect(editor, SIGNAL(valueChanged(double)), item, SIGNAL(valueChanged(double)));
 	}
 	else if (item->m_type == PropTreeItem::ComboBox)
 	{
@@ -144,17 +144,17 @@ QWidget *PropTreeItemDelegate::createEditor(QWidget *parent, const QStyleOptionV
 		editor->addItems(index.model()->data(index, Qt::UserRole+1).toStringList());
 		edito = editor;
 		edito->setAutoFillBackground(true);
+		connect(editor, SIGNAL(activated(int)), this, SLOT(valueHasChanged()));
 		connect(editor, SIGNAL(activated(int)), item, SIGNAL(valueChanged(int)));
 		connect(editor, SIGNAL(activated(QString)), item, SIGNAL(valueChanged(QString)));
-		connect(editor, SIGNAL(activated(int)), this, SLOT(valueHasChanged()));
 	}
 	else if (item->m_type == PropTreeItem::CheckBox)
 	{
 		QCheckBox *editor = new QCheckBox(parent);
 		edito = editor;
 		edito->setAutoFillBackground(true);
-		connect(editor, SIGNAL(clicked(bool)), item, SIGNAL(valueChanged(bool)));
 		connect(editor, SIGNAL(clicked(bool)), this, SLOT(valueHasChanged()));
+		connect(editor, SIGNAL(clicked(bool)), item, SIGNAL(valueChanged(bool)));
 	}
 	else if (item->m_type == PropTreeItem::ColorComboBox)
 	{
@@ -162,9 +162,9 @@ QWidget *PropTreeItemDelegate::createEditor(QWidget *parent, const QStyleOptionV
 		editor->updateBox(item->m_colors, ColorCombo::fancyPixmaps, false);
 		edito = editor;
 		edito->setAutoFillBackground(true);
+		connect(editor, SIGNAL(activated(int)), this, SLOT(valueHasChanged()));
 		connect(editor, SIGNAL(activated(int)), item, SIGNAL(valueChanged(int)));
 		connect(editor, SIGNAL(activated(QString)), item, SIGNAL(valueChanged(QString)));
-		connect(editor, SIGNAL(activated(int)), this, SLOT(valueHasChanged()));
 	}
 	else
 		edito = 0;

@@ -82,17 +82,9 @@ PropertiesPalette_Shadow::PropertiesPalette_Shadow( QWidget* parent) : PropTreeW
 
 	languageChange();
 	m_haveItem = false;
+
 	setSizePolicy( QSizePolicy(QSizePolicy::Maximum, QSizePolicy::Maximum));
-	connect(hasSoftShadow, SIGNAL(valueChanged(bool)), this, SLOT(handleNewValues()));
-	connect(softShadowXOffset, SIGNAL(valueChanged(double)), this, SLOT(handleNewValues()));
-	connect(softShadowYOffset, SIGNAL(valueChanged(double)), this, SLOT(handleNewValues()));
-	connect(softShadowBlurRadius, SIGNAL(valueChanged(double)), this, SLOT(handleNewValues()));
-	connect(softShadowColor, SIGNAL(valueChanged(QString)), this, SLOT(handleNewValues()));
-	connect(softShadowShade, SIGNAL(valueChanged(double)), this, SLOT(handleNewValues()));
-	connect(softShadowOpacity, SIGNAL(valueChanged(double)), this, SLOT(handleNewValues()));
-	connect(softShadowBlendMode, SIGNAL(valueChanged(int)), this, SLOT(handleNewValues()));
-	connect(softShadowErase, SIGNAL(valueChanged(bool)), this, SLOT(handleNewValues()));
-	connect(softShadowObjTrans, SIGNAL(valueChanged(bool)), this, SLOT(handleNewValues()));
+	connect(this->model(), SIGNAL(dataChanged(const QModelIndex&, const QModelIndex&)), this, SLOT(handleNewValues()));
 
 	m_haveItem = false;
 }

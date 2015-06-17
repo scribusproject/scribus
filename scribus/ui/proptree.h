@@ -67,6 +67,7 @@ public:
 //	PropTreeItem(QTreeWidget* parent, QString title, bool value);
 //	PropTreeItem(QTreeWidget *parent, QString title, QString value);
 	~PropTreeItem() {};
+
 	enum PropItemType
 	{
 		Title      = 0,
