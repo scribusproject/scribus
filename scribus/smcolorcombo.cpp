@@ -56,7 +56,7 @@ void SMColorCombo::setCurrentText(const QString &s)
 	hasParent_ = false;
 	pItem_ = -1;
 	pText_ = s;
-	setCurrentComboItem(this, s);
+	setCurrentComboItem(this, (s == CommonStrings::None) ? CommonStrings::tr_NoneColor : s);
 	connect(this, SIGNAL(highlighted(int)), this, SLOT(currentChanged()));
 }
 
@@ -66,7 +66,7 @@ void SMColorCombo::setCurrentText(const QString &s, bool isParentValue)
 	hasParent_ = true;
 	pItem_ = -1;
 	pText_ = s;
-	setCurrentComboItem(this, s);
+	setCurrentComboItem(this, (s == CommonStrings::None) ? CommonStrings::tr_NoneColor : s);
 	setFont(!isParentValue);
 	connect(this, SIGNAL(highlighted(int)), this, SLOT(currentChanged()));
 }
