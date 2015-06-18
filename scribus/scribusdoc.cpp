@@ -14891,6 +14891,12 @@ void ScribusDoc::scaleGroup(double scx, double scy, bool scaleText, Selection* c
 				PageItem_Spiral* item = bb->asSpiral();
 				item->recalcPath();
 			}
+			else if (bb->isRegularPolygon())
+			{
+				PageItem_RegularPolygon* item = bb->asRegularPolygon();
+				item->setWidthHeight(item->width() * scx, item->height() * scy, true);
+				item->recalcPath();
+			}
 			else if (bb->isGroup() || bb->isSymbol())
 			{
 				double oldGW = bb->groupWidth;
