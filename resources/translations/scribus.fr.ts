@@ -1113,7 +1113,7 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1702"/>
         <source>&amp;Shape</source>
-        <translation type="unfinished">Forme (&amp;S)</translation>
+        <translation type="unfinished">Forme</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1704"/>
@@ -1138,7 +1138,7 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1709"/>
         <source>&amp;Freehand Line</source>
-        <translation type="unfinished">Ligne à main levée (&amp;F)</translation>
+        <translation type="unfinished">Ligne à main levée</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1685"/>
@@ -22706,7 +22706,7 @@ Note: les champs de formulaires ne seront pas exportés.</translation>
     <message>
         <location filename="../../scribus/ui/propertiespalette.cpp" line="921"/>
         <source>&amp;Shape</source>
-        <translation>Forme (&amp;S)</translation>
+        <translation>Forme</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette.cpp" line="922"/>
