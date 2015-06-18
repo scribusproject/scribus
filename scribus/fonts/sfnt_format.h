@@ -93,6 +93,8 @@ enum TTF_cmap_Format {
 
 enum TTF_glyf_Format {
     ttf_glyf_numberOfContours = 0,
+    ttf_glyf_Max_numberOfContours = 0x7fff,
+
     ttf_glyf_xMin = 2,
     ttf_glyf_yMin = 4,
     ttf_glyf_xMax = 6,

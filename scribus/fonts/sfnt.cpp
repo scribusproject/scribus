@@ -944,16 +944,12 @@ QByteArray extractFace(const QByteArray& coll, int faceIndex)
 			/* glyphindex */
 			uint glyphIndex = word16(srcGlyf, pos);
 			pos += 2;
-			if (newForOldGid.contains(glyphIndex))
+			if (!newForOldGid.contains(glyphIndex))
 			{
-				glyphIndex = newForOldGid[glyphIndex];
-			}
-			else
-			{
-				glyphIndex = nextFreeGid++;
 				result.append(glyphIndex);
-				newForOldGid[glyphIndex] = glyphIndex;
+				newForOldGid[glyphIndex] = nextFreeGid++;
 			}
+			glyphIndex = newForOldGid[glyphIndex];
 			appendWord16(destGlyf, glyphIndex);
 			
 			/* args */
@@ -1015,7 +1011,7 @@ QByteArray extractFace(const QByteArray& coll, int faceIndex)
 		if (glyphLength > 0)
 		{
 			uint nrOfContours = word16(srcGlyf, glyphStart);
-			if (nrOfContours > 0)
+			if (nrOfContours <= ttf_glyf_Max_numberOfContours)
 			{
 				// simple glyph
 				uint destStart = destGlyf.size();
