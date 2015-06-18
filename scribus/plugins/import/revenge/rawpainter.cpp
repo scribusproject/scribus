@@ -282,14 +282,14 @@ void RawPainter::openGroup(const librevenge::RVNGPropertyList &propList)
 {
 	if (!doProcessing)
 		return;
-	qDebug() << "openGroup";
+	startLayer(propList);
 }
 
 void RawPainter::closeGroup()
 {
 	if (!doProcessing)
 		return;
-	qDebug() << "closeGroup";
+	endLayer();
 }
 
 void RawPainter::setStyle(const librevenge::RVNGPropertyList &propList)
@@ -1049,7 +1049,7 @@ void RawPainter::startTextObject(const librevenge::RVNGPropertyList &propList)
 			else if (align == "bottom")
 				ite->setVerticalAlignment(2);
 		}
-		ite->setFirstLineOffset(FLOPFontAscent);
+		ite->setFirstLineOffset(FLOPLineSpacing);
 		actTextItem = ite;
 		QString pStyle = CommonStrings::DefaultParagraphStyle;
 		ParagraphStyle newStyle;
@@ -1254,6 +1254,8 @@ void RawPainter::openSpan(const librevenge::RVNGPropertyList &propList)
 		textCharStyle.setFontSize(valueAsPoint(propList["fo:font-size"]) * 10.0);
 		m_maxFontSize = qMax(m_maxFontSize, valueAsPoint(propList["fo:font-size"]));
 	}
+	if (propList["style:text-scale"])
+		textCharStyle.setFontSize(textCharStyle.fontSize() * fromPercentage(QString(propList["style:text-scale"]->getStr().cstr())));
 	if (propList["fo:color"])
 		textCharStyle.setFillColor(parseColor(QString(propList["fo:color"]->getStr().cstr())));
 	if (propList["style:font-name"])
@@ -1262,6 +1264,15 @@ void RawPainter::openSpan(const librevenge::RVNGPropertyList &propList)
 		if (propList["fo:font-weight"])
 			fontVari = QString(propList["fo:font-weight"]->getStr().cstr());
 		QString fontName = QString(propList["style:font-name"]->getStr().cstr());
+		QString realFontName = constructFontName(fontName, fontVari);
+		textCharStyle.setFont((*m_Doc->AllFonts)[realFontName]);
+	}
+	if (propList["fo:font-name"])
+	{
+		QString fontVari = "";
+		if (propList["fo:font-weight"])
+			fontVari = QString(propList["fo:font-weight"]->getStr().cstr());
+		QString fontName = QString(propList["fo:font-name"]->getStr().cstr());
 		QString realFontName = constructFontName(fontName, fontVari);
 		textCharStyle.setFont((*m_Doc->AllFonts)[realFontName]);
 	}
