@@ -17,7 +17,7 @@ for which a new license (GPL+exception) is in place.
 #include "commonstrings.h"
 // #include "qdebug.h"
 
-ColorCombo::ColorCombo( QWidget* parent ) : QComboBox(parent)
+ColorCombo::ColorCombo(QWidget* parent) : QComboBox(parent)
 {
 #ifdef Q_OS_MAC
 //	setStyle( new ColorCombo::ScMacStyle() );
@@ -29,7 +29,7 @@ ColorCombo::ColorCombo( QWidget* parent ) : QComboBox(parent)
 	setView( lb );
 }
 
-ColorCombo::ColorCombo( bool rw, QWidget* parent ) : QComboBox(parent)
+ColorCombo::ColorCombo(bool rw, QWidget* parent) : QComboBox(parent)
 {
 #ifdef Q_OS_MAC
 //	setStyle( new ColorCombo::ScMacStyle() );
@@ -54,16 +54,16 @@ void ColorCombo::updateBox(ColorList& list, ColorCombo::PixmapType pixType , boo
 		return;
 
 	clb->clear();
-	if ( insertNone )
+	if (insertNone)
 	{
 		clb->addItem(CommonStrings::tr_NoneColor);
 		clb->item(0)->setData(Qt::UserRole, CommonStrings::None);
 	}
-	if ( pixType == ColorCombo::fancyPixmaps )
+	if (pixType == ColorCombo::fancyPixmaps)
 		clb->insertItems(list, ColorListBox::fancyPixmap);
-	else if ( pixType == ColorCombo::widePixmaps )
+	else if (pixType == ColorCombo::widePixmaps)
 		clb->insertItems(list, ColorListBox::widePixmap);
-	else if ( pixType == ColorCombo::smallPixmaps )
+	else if (pixType == ColorCombo::smallPixmaps)
 		clb->insertItems(list, ColorListBox::smallPixmap);
 }
 
@@ -73,32 +73,32 @@ void ColorCombo::insertItems(ColorList& list, ColorCombo::PixmapType pixType)
 	if (!clb)
 		return;
 
-	if ( pixType == ColorCombo::fancyPixmaps )
+	if (pixType == ColorCombo::fancyPixmaps)
 		clb->insertItems(list, ColorListBox::fancyPixmap);
-	else if ( pixType == ColorCombo::widePixmaps )
+	else if (pixType == ColorCombo::widePixmaps)
 		clb->insertItems(list, ColorListBox::widePixmap);
-	else if ( pixType == ColorCombo::smallPixmaps )
+	else if (pixType == ColorCombo::smallPixmaps)
 		clb->insertItems(list, ColorListBox::smallPixmap);
 }
 
-void ColorCombo::insertSmallItem( const ScColor& col, ScribusDoc* doc, const QString& colName )
+void ColorCombo::insertSmallItem(const ScColor& col, ScribusDoc* doc, const QString& colName)
 {
 	ColorListBox* clb = dynamic_cast<ColorListBox*>(view());
-	if ( clb )
+	if (clb)
 		clb->addItem( new ColorPixmapItem(ColorPixmapValue(col, doc, colName)), ColorListBox::smallPixmap );
 }
 
-void ColorCombo::insertWideItem ( const ScColor& col, ScribusDoc* doc, const QString& colName )
+void ColorCombo::insertWideItem (const ScColor& col, ScribusDoc* doc, const QString& colName)
 {
 	ColorListBox* clb = dynamic_cast<ColorListBox*>(view());
-	if ( clb )
+	if (clb)
 		clb->addItem( new ColorPixmapItem(ColorPixmapValue(col, doc, colName)), ColorListBox::widePixmap );
 }
 
-void ColorCombo::insertFancyItem( const ScColor& col, ScribusDoc* doc, const QString& colName )
+void ColorCombo::insertFancyItem(const ScColor& col, ScribusDoc* doc, const QString& colName)
 {
 	ColorListBox* clb = dynamic_cast<ColorListBox*>(view());
-	if ( clb )
+	if (clb)
 		clb->addItem( new ColorPixmapItem(ColorPixmapValue(col, doc, colName)), ColorListBox::fancyPixmap );
 }
 
