@@ -5960,7 +5960,7 @@ attualmente %2 x %3 DPI</translation>
     <message>
         <location filename="../../scribus/ui/contextmenu.cpp" line="136"/>
         <source>Print: </source>
-        <translation>Stampa:</translation>
+        <translation>Stampa: </translation>
     </message>
     <message>
         <location filename="../../scribus/ui/contextmenu.cpp" line="139"/>
@@ -7887,12 +7887,12 @@ Usa 72 dpi per immagini da visualizzare su schermo</translation>
     <message>
         <location filename="../../scribus/fontlistmodel.cpp" line="91"/>
         <source>Subset</source>
-        <translation>Sottoinsieme</translation>
+        <translation>Crea sottoinsieme</translation>
     </message>
     <message>
         <location filename="../../scribus/fontlistmodel.cpp" line="93"/>
         <source>Outline</source>
-        <translation type="unfinished">Schema documento</translation>
+        <translation>Contorna</translation>
     </message>
     <message>
         <location filename="../../scribus/fontlistmodel.cpp" line="95"/>
@@ -9148,17 +9148,17 @@ Document Liberation Project http://www.documentliberation.org</translation>
     <message>
         <location filename="../../scribus/plugins/import/cgm/importcgmplugin.cpp" line="60"/>
         <source>Import Computer Graphics Metafile...</source>
-        <translation type="unfinished"></translation>
+        <translation>Importa Computer Graphics Metafile...</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/cgm/importcgmplugin.cpp" line="62"/>
         <source>Computer Graphics Metafile</source>
-        <translation type="unfinished"></translation>
+        <translation>Computer Graphics Metafile</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/cgm/importcgmplugin.cpp" line="63"/>
         <source>Computer Graphics Metafile (*.cgm *.CGM)</source>
-        <translation type="unfinished"></translation>
+        <translation>Computer Graphics Metafile (*.cgm *.CGM)</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/cgm/importcgmplugin.cpp" line="82"/>
@@ -9192,18 +9192,19 @@ convertendo i dati vettoriali in oggetti Scribus.</translation>
     <message>
         <location filename="../../scribus/plugins/import/cvg/importcvgplugin.cpp" line="53"/>
         <source>Import Calamus Vector Graphics...</source>
-        <translation type="unfinished"></translation>
+        <translation>Importa Calamus Vector Graphics...</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/cvg/importcvgplugin.cpp" line="74"/>
         <source>Imports Calamus Vector Graphics Files</source>
-        <translation type="unfinished"></translation>
+        <translation>Importa file Calamus Vector Graphics</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/cvg/importcvgplugin.cpp" line="75"/>
         <source>Imports most Calamus Vector Graphics files into the current document,
 converting their vector data into Scribus objects.</source>
-        <translation type="unfinished"></translation>
+        <translation>Importa la maggior parte dei file Calamus Vector Graphics nel documento corrente,
+convertendo i dati vettoriali in oggetti Scribus.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/cvg/importcvgplugin.cpp" line="122"/>
@@ -9243,17 +9244,17 @@ converting their vector data into Scribus objects.</source>
     <message>
         <location filename="../../scribus/plugins/import/drw/importdrwplugin.cpp" line="60"/>
         <source>Import Micrografx Draw...</source>
-        <translation type="unfinished"></translation>
+        <translation>Importa Micrografx Draw...</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/drw/importdrwplugin.cpp" line="62"/>
         <source>Micrografx Draw</source>
-        <translation type="unfinished"></translation>
+        <translation>Micrografx Draw</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/drw/importdrwplugin.cpp" line="63"/>
         <source>Micrografx Draw (*.drw *.DRW)</source>
-        <translation type="unfinished"></translation>
+        <translation>Micrografx Draw (*.drw *.DRW)</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/drw/importdrwplugin.cpp" line="83"/>
@@ -9292,17 +9293,17 @@ convertendo i dati vettoriali in oggetti Scribus.</translation>
     <message>
         <location filename="../../scribus/plugins/import/emf/importemfplugin.cpp" line="58"/>
         <source>Import Enhanced Metafile...</source>
-        <translation type="unfinished"></translation>
+        <translation>Importa Enhanced Metafile...</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/emf/importemfplugin.cpp" line="60"/>
         <source>Enhanced Metafile</source>
-        <translation type="unfinished"></translation>
+        <translation>Enhanced Metafile</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/emf/importemfplugin.cpp" line="61"/>
         <source>Enhanced Metafile (*.emf *.EMF)</source>
-        <translation type="unfinished"></translation>
+        <translation>Enhanced Metafile (*.emf *.EMF)</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/emf/importemfplugin.cpp" line="80"/>
@@ -9528,18 +9529,19 @@ convertendo i dati vettoriali in oggetti Scribus.</translation>
     <message>
         <location filename="../../scribus/plugins/import/pct/importpctplugin.cpp" line="53"/>
         <source>Import Macintosh Pict...</source>
-        <translation type="unfinished"></translation>
+        <translation>Importa Macintosh Pict...</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/pct/importpctplugin.cpp" line="74"/>
         <source>Imports Macintosh Pict Files</source>
-        <translation type="unfinished"></translation>
+        <translation>Importa file Macintosh Pict</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/pct/importpctplugin.cpp" line="75"/>
         <source>Imports most Macintosh Pict files into the current document,
 converting their vector data into Scribus objects.</source>
-        <translation type="unfinished"></translation>
+        <translation>Importa la maggior parte dei file Macintosh Pict nel documento corrente,
+convertendo i dati vettoriali in oggetti Scribus.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/pct/importpctplugin.cpp" line="122"/>
@@ -9879,18 +9881,19 @@ convertendo i dati vettoriali in oggetti Scribus.</translation>
     <message>
         <location filename="../../scribus/plugins/import/wpg/importwpgplugin.cpp" line="53"/>
         <source>Import WordPerfect Graphics...</source>
-        <translation type="unfinished"></translation>
+        <translation>Importa WordPerfect Graphics...</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/wpg/importwpgplugin.cpp" line="74"/>
         <source>Imports WordPerfect Graphics Files</source>
-        <translation type="unfinished"></translation>
+        <translation>Importa file WordPerfect Graphics</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/wpg/importwpgplugin.cpp" line="75"/>
         <source>Imports most WordPerfect Graphics files into the current document,
 converting their vector data into Scribus objects.</source>
-        <translation type="unfinished"></translation>
+        <translation>Importa la maggior parte dei file WordPerfect Graphics nel documento corrente,
+convertendo i dati vettoriali in oggetti Scribus.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/wpg/importwpgplugin.cpp" line="122"/>
@@ -20297,32 +20300,32 @@ Un valore uguale a 0 significa sillabazioni illimitate.</translation>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1308"/>
         <source>Embedding mode:</source>
-        <translation type="unfinished"></translation>
+        <translation>Modalità di incorporazione:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1316"/>
         <source>Embed or Subset</source>
-        <translation type="unfinished"></translation>
+        <translation>Incorpora o crea sottoinsieme</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1321"/>
         <source>Outline All Fonts</source>
-        <translation type="unfinished"></translation>
+        <translation>Contorna tutti i font</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1326"/>
         <source>Do Not Embed</source>
-        <translation type="unfinished"></translation>
+        <translation>Non incorporare</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1410"/>
         <source>Fonts to Subset</source>
-        <translation type="unfinished"></translation>
+        <translation>Font da cui creare sottoinsieme</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1420"/>
         <source>Subset All</source>
-        <translation type="unfinished"></translation>
+        <translation>Crea sottoinsieme di tutti</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1083"/>
@@ -21033,7 +21036,7 @@ Un valore uguale a 0 significa sillabazioni illimitate.</translation>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="661"/>
         <source>Embed only subset fonts with glyphs used in the document into the PDF.</source>
-        <translation type="unfinished"></translation>
+        <translation>Incorpora solo un sottoinsieme dei font con i glifi utilizzati nel documento PDF.</translation>
     </message>
     <message>
         <source>Convert all glyphs in the document to outlines.</source>
@@ -23599,14 +23602,16 @@ Nota: I formulari PDF non saranno esportati.</translation>
         <location filename="../../scribus/ui/propertiespalette_shadow.cpp" line="485"/>
         <source>Content covers
 Drop Shadow</source>
-        <translation type="unfinished"></translation>
+        <translation>Contenuto copre
+ombra</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_shadow.cpp" line="80"/>
         <location filename="../../scribus/ui/propertiespalette_shadow.cpp" line="486"/>
         <source>Inherit Object
 Transparency</source>
-        <translation type="unfinished"></translation>
+        <translation>Eredita trasparenza
+dell&apos;oggetto</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_shadow.cpp" line="489"/>
@@ -28556,7 +28561,7 @@ forniti nella documentazione delle funzioni.
     <message>
         <location filename="../../scribus/util_formats.cpp" line="94"/>
         <source>WordPerfect Graphics</source>
-        <translation type="unfinished"></translation>
+        <translation>WordPerfect Graphics</translation>
     </message>
     <message>
         <location filename="../../scribus/util_formats.cpp" line="99"/>
@@ -28640,7 +28645,7 @@ forniti nella documentazione delle funzioni.
     <message>
         <location filename="../../scribus/util_formats.cpp" line="80"/>
         <source>Calamus Vector Graphics</source>
-        <translation type="unfinished"></translation>
+        <translation>Calamus Vector Graphics</translation>
     </message>
     <message>
         <location filename="../../scribus/util_formats.cpp" line="90"/>
@@ -29427,7 +29432,7 @@ Pertanto l&apos;immagine potrebbe essere non corretta</translation>
     <message>
         <location filename="../../scribus/plugins/import/cvg/importcvgplugin.cpp" line="66"/>
         <source>Calamus Vector Graphics Importer</source>
-        <translation type="unfinished"></translation>
+        <translation>Importatore Calamus Vector Graphics</translation>
     </message>
 </context>
 <context>
@@ -35769,32 +35774,32 @@ Utilizzare la Verifica Preliminare per correggerli</translation>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.ui" line="508"/>
         <source>Embedding Mode:</source>
-        <translation type="unfinished"></translation>
+        <translation>Modalità di incorporazione:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.ui" line="516"/>
         <source>Embed or Subset</source>
-        <translation type="unfinished"></translation>
+        <translation>Incorpora o crea sottoinsieme</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.ui" line="521"/>
         <source>Outline All Fonts</source>
-        <translation type="unfinished"></translation>
+        <translation>Contorna tutti i font</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.ui" line="526"/>
         <source>Do Not Embed</source>
-        <translation type="unfinished"></translation>
+        <translation>Non incorporare</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.ui" line="614"/>
         <source>Fonts to subset:</source>
-        <translation type="unfinished"></translation>
+        <translation>Font da cui creare sottoinsieme:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.ui" line="624"/>
         <source>&amp;Subset all</source>
-        <translation type="unfinished"></translation>
+        <translation>Crea &amp;sottoinsieme di tutti</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.ui" line="1419"/>
@@ -35939,7 +35944,7 @@ Utilizzare la Verifica Preliminare per correggerli</translation>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="230"/>
         <source>Embed only subset fonts with glyphs used in the document into the PDF.</source>
-        <translation type="unfinished"></translation>
+        <translation>Incorpora solo un sottoinsieme dei font con i glifi utilizzati nel documento PDF.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="259"/>
