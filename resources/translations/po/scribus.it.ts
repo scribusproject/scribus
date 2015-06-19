@@ -29305,7 +29305,7 @@ Utilizzare la Verifica Preliminare per correggerli</translation>
         <location filename="../../../scribus/contextmenu.cpp" line="123"/>
         <location filename="../../../scribus/pageitem.cpp" line="6125"/>
         <source>Print: </source>
-        <translation>Stampa:</translation>
+        <translation>Stampa: </translation>
     </message>
     <message>
         <location filename="../../../scribus/contextmenu.cpp" line="126"/>
