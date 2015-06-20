@@ -53,7 +53,7 @@ void ImportFhPlugin::languageChange()
 	importAction->setText( tr("Import Freehand..."));
 	FileFormat* fmt = getFormatByExt("fh*");
 	fmt->trName = tr("Freehand");
-	fmt->filter = tr("Freehand FH* (*.fh* *.FH*)");
+	fmt->filter = tr("Freehand (*.fh* *.FH*)");
 }
 
 ImportFhPlugin::~ImportFhPlugin()
@@ -88,7 +88,7 @@ void ImportFhPlugin::registerFormats()
 {
 	FileFormat fmt(this);
 	fmt.trName = tr("Freehand");
-	fmt.filter = tr("Freehand FH* (*.fh* *.FH*)");
+	fmt.filter = tr("Freehand (*.fh* *.FH*)");
 	fmt.formatId = 0;
 	fmt.fileExtensions = QStringList() << "fh*" << "fh3" << "fh34" << "fh5" << "fh6" << "fh7" << "fh8" << "fh9" << "fh10" << "fh11";
 	fmt.load = true;
