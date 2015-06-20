@@ -720,8 +720,8 @@ GlyphLayout* StoryText::getGlyphs(int pos)
 
     assert(pos >= 0);
     assert(pos < length());
-
-	assert((this->d->at(pos)->glyph).scaleH > 0.5);
+	// WTF ?! removing this assert as it gives crashes when Scale goes below 51 %
+//	assert((this->d->at(pos)->glyph).scaleH > 0.5);
 	return &(this->d->at(pos)->glyph);
 }
 
@@ -733,7 +733,8 @@ const GlyphLayout* StoryText::getGlyphs(int pos) const
     assert(pos >= 0);
     assert(pos < length());
 
-	assert( (const_cast<StoryText *>(this)->d->at(pos)->glyph).scaleH > 0.5);
+	// WTF ?! removing this assert as it gives crashes when Scale goes below 51 %
+//	assert( (const_cast<StoryText *>(this)->d->at(pos)->glyph).scaleH > 0.5);
 	return &(const_cast<StoryText *>(this)->d->at(pos)->glyph);
 }
 
