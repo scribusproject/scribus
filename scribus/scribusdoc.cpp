@@ -15485,6 +15485,20 @@ void ScribusDoc::removeFromGroup(PageItem* item)
 			item->PoLine.translate(0, item->height());
 		}
 	}
+	if (item->isTextFrame() || item->isPathText())
+	{
+		if (item->itemText.length() != 0)
+		{
+			for (int aa = 0; aa < item->itemText.length(); ++aa)
+			{
+				CharStyle fsStyle;
+				fsStyle.setFontSize(qMax(qRound(item->itemText.charStyle(aa).fontSize()*((grScXi+grScYi)/2)), 1));
+				item->itemText.applyCharStyle(aa, 1, fsStyle);
+			}
+			if (item->asPathText())
+				item->updatePolyClip();
+		}
+	}
 	item->setXYPos(nX, nY, true);
 	item->rotateBy(-gRot);
 	item->setLineWidth(item->lineWidth() * qMax(grScXi, grScYi));
