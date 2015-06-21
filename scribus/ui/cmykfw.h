@@ -64,11 +64,20 @@ protected:
 	QTreeWidgetItem *userSwatches;
 	QTreeWidgetItem *hsvSelector;
 	QStringList customColSet;
+	QMenu *cMenu;
+	QMenu *mMenu;
+	QMenu *yMenu;
+	QMenu *kMenu;
+	QSlider *CyanSL;
+	QSlider *MagentaSL;
+	QSlider *YellowSL;
+	QSlider *BlackSL;
+	bool isHLC;
 	
 	virtual void showEvent(QShowEvent * event);
 
-	QPixmap sliderPix(int farbe);
-	QPixmap sliderBlack();
+	QPalette sliderPix(int farbe);
+	QPalette sliderBlack();
 };
 
 #endif // CMYKFARBEN_H
