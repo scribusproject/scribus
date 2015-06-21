@@ -43,7 +43,7 @@ for which a new license (GPL+exception) is in place.
 #include "selection.h"
 #include "units.h"
 
-#include "util_icon.h"
+#include "iconmanager.h"
 
 
 #ifdef Q_OS_MAC
@@ -332,7 +332,7 @@ void Hruler::mouseReleaseEvent(QMouseEvent *m)
 void Hruler::enterEvent(QEvent *e)
 {
 	if (textEditMode)
-		qApp->changeOverrideCursor(QCursor(loadIcon("tab.png"), 3));
+		qApp->changeOverrideCursor(QCursor(IconManager::instance()->loadPixmap("tab.png"), 3));
 }
 
 void Hruler::leaveEvent(QEvent *m)
@@ -446,7 +446,7 @@ void Hruler::mouseMoveEvent(QMouseEvent *m)
 		}
 		if ((!Mpressed) && (m->y() < height()) && (m->y() > 0) && (m->x() > ColStart - 2*m_doc->guidesPrefs().grabRadius) && (m->x() < ColEnd + 2*m_doc->guidesPrefs().grabRadius))
 		{
-			setCursor(QCursor(loadIcon("tab.png"), 3));
+			setCursor(QCursor(IconManager::instance()->loadPixmap("tab.png"), 3));
 			switch(findRulerHandle(m->pos(), m_doc->guidesPrefs().grabRadius))
 			{
 				case rc_leftFrameDist: 
@@ -475,7 +475,7 @@ void Hruler::mouseMoveEvent(QMouseEvent *m)
 		}
 		if ((Mpressed) && (RulerCode == rc_tab) && ((m->y() > height()) || (m->y() < 0)))
 		{
-			setCursor(QCursor(loadIcon("DelPoint.png"), 1, 1));
+			setCursor(QCursor(IconManager::instance()->loadPixmap("DelPoint.png"), 1, 1));
 			return;
 		}
 		setCursor(QCursor(Qt::ArrowCursor));

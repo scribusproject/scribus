@@ -15,12 +15,12 @@ for which a new license (GPL+exception) is in place.
 #include <QRegExpValidator>
 #include "commonstrings.h"
 #include "ui/scmessagebox.h"
-#include "util_icon.h"
+#include "iconmanager.h"
 
 Query::Query( QWidget* parent,  const char* name, bool modal, QString text, QString titel ) : QDialog( parent )
 {
 	setWindowTitle( titel );
-	setWindowIcon(loadIcon("AppIcon.png"));
+	setWindowIcon(IconManager::instance()->loadIcon("AppIcon.png"));
 	setModal(modal);
 	queryLayout = new QVBoxLayout( this );
 	queryLayout->setMargin(5);

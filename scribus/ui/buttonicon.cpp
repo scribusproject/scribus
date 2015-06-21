@@ -20,14 +20,14 @@ for which a new license (GPL+exception) is in place.
 #include "scfonts.h"
 #include "scribusstructs.h"
 #include "pageitem.h"
-#include "util_icon.h"
+#include "iconmanager.h"
 
 ButtonIcon::ButtonIcon(QWidget* parent, PageItem* ite) : QDialog( parent )
 {
 	Item = ite;
 	setModal(true);
 	setWindowTitle( tr( "Icon Placement" ) );
-	setWindowIcon(loadIcon("AppIcon.png"));
+	setWindowIcon(IconManager::instance()->loadPixmap("AppIcon.png"));
 	ButtonIconLayout = new QVBoxLayout( this );
 	ButtonIconLayout->setMargin(10);
 	ButtonIconLayout->setSpacing(5);

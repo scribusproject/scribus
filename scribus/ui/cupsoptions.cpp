@@ -44,14 +44,14 @@ for which a new license (GPL+exception) is in place.
 #include <cups/cups.h>
 #include <cups/ppd.h>
 #endif
-#include "util_icon.h"
+#include "iconmanager.h"
 
 CupsOptions::CupsOptions(QWidget* parent, QString Geraet) : QDialog( parent )
 {
 	FlagsOpt.clear();
 	setModal(true);
 	setWindowTitle( tr( "Printer Options" ) );
-	setWindowIcon(QIcon(loadIcon ( "AppIcon.png" )));
+	setWindowIcon(IconManager::instance()->loadIcon("AppIcon.png"));
 	prefs = PrefsManager::instance()->prefsFile->getContext("cups_options");
 	setSizeGripEnabled(true);
 	CupsOptionsLayout = new QVBoxLayout( this );

@@ -14,26 +14,27 @@ for which a new license (GPL+exception) is in place.
 #include "sccolorengine.h"
 #include "scrspinbox.h"
 #include "util_color.h"
-#include "util_icon.h"
+#include "iconmanager.h"
 #include "util.h"
 
 
 SMLineStyleWidget::SMLineStyleWidget() : QWidget()
 {
 	setupUi(this);
-	addButton->setIcon(QIcon(loadIcon("penciladd.png")));
-	removeButton->setIcon(QIcon(loadIcon("pencilsub.png")));
+	IconManager* im  = IconManager::instance();
+	addButton->setIcon(im->loadIcon("penciladd.png"));
+	removeButton->setIcon(im->loadIcon("pencilsub.png"));
 
 	lineWidth->setMinimum(0.0);
 	lineWidth->setMaximum(300.0);
 
-	endCombo->addItem(loadIcon("ButtCap.png"), tr( "Flat Cap" ) );
-	endCombo->addItem(loadIcon("SquareCap.png"), tr( "Square Cap" ) );
-	endCombo->addItem(loadIcon("RoundCap.png"), tr( "Round Cap" ) );
+	endCombo->addItem(im->loadIcon("ButtCap.png"), tr( "Flat Cap" ) );
+	endCombo->addItem(im->loadIcon("SquareCap.png"), tr( "Square Cap" ) );
+	endCombo->addItem(im->loadIcon("RoundCap.png"), tr( "Round Cap" ) );
 
-	joinCombo->addItem(loadIcon("MiterJoin.png"), tr( "Miter Join" ) );
-	joinCombo->addItem(loadIcon("BevelJoin.png"), tr( "Bevel Join" ) );
-	joinCombo->addItem(loadIcon("RoundJoin.png"), tr( "Round Join" ) );
+	joinCombo->addItem(im->loadIcon("MiterJoin.png"), tr( "Miter Join" ) );
+	joinCombo->addItem(im->loadIcon("BevelJoin.png"), tr( "Bevel Join" ) );
+	joinCombo->addItem(im->loadIcon("RoundJoin.png"), tr( "Round Join" ) );
 
 	languageChange();
 }

@@ -38,7 +38,7 @@ for which a new license (GPL+exception) is in place.
 #include "units.h"
 #include "undomanager.h"
 #include "util.h"
-#include "util_icon.h"
+#include "iconmanager.h"
 #include "util_math.h"
 
 //using namespace std;
@@ -82,37 +82,37 @@ PropertiesPalette_XYZ::PropertiesPalette_XYZ( QWidget* parent) : QWidget(parent)
 
 	rotationSpin->setNewUnit(6);
 	rotationLabel->setBuddy(rotationSpin);
-
-	levelUp->setIcon(QIcon(loadIcon("16/go-up.png")));
-	levelDown->setIcon(QIcon(loadIcon("16/go-down.png")));
-	levelTop->setIcon(QIcon(loadIcon("16/go-top.png")));
-	levelBottom->setIcon(QIcon(loadIcon("16/go-bottom.png")));
+	IconManager* im=IconManager::instance();
+	levelUp->setIcon(im->loadIcon("16/go-up.png"));
+	levelDown->setIcon(im->loadIcon("16/go-down.png"));
+	levelTop->setIcon(im->loadIcon("16/go-top.png"));
+	levelBottom->setIcon(im->loadIcon("16/go-bottom.png"));
 	levelLabel->setAlignment( Qt::AlignCenter );
 
-	doGroup->setIcon(QIcon(loadIcon("group.png")));
-	doUnGroup->setIcon(QIcon(loadIcon("ungroup.png")));
+	doGroup->setIcon(im->loadIcon("group.png"));
+	doUnGroup->setIcon(im->loadIcon("ungroup.png"));
 
-	flipH->setIcon(QIcon(loadIcon("16/flip-object-horizontal.png")));
+	flipH->setIcon(im->loadIcon("16/flip-object-horizontal.png"));
 	flipH->setCheckable( true );
-	flipV->setIcon(QIcon(loadIcon("16/flip-object-vertical.png")));
+	flipV->setIcon(im->loadIcon("16/flip-object-vertical.png"));
 	flipV->setCheckable( true );
 	
 	doLock->setCheckable( true );
 	QIcon a = QIcon();
-	a.addPixmap(loadIcon("16/lock.png"), QIcon::Normal, QIcon::On);
-	a.addPixmap(loadIcon("16/lock-unlocked.png"), QIcon::Normal, QIcon::Off);
+	a.addPixmap(im->loadPixmap("16/lock.png"), QIcon::Normal, QIcon::On);
+	a.addPixmap(im->loadPixmap("16/lock-unlocked.png"), QIcon::Normal, QIcon::Off);
 	doLock->setIcon(a);
 
 	noPrint->setCheckable( true );
 	QIcon a2 = QIcon();
-	a2.addPixmap(loadIcon("NoPrint.png"), QIcon::Normal, QIcon::On);
-	a2.addPixmap(loadIcon("16/document-print.png"), QIcon::Normal, QIcon::Off);
+	a2.addPixmap(im->loadPixmap("NoPrint.png"), QIcon::Normal, QIcon::On);
+	a2.addPixmap(im->loadPixmap("16/document-print.png"), QIcon::Normal, QIcon::Off);
 	noPrint->setIcon(a2);
 
 	noResize->setCheckable( true );
 	QIcon a3 = QIcon();
-	a3.addPixmap(loadIcon("framenoresize.png"), QIcon::Normal, QIcon::On);
-	a3.addPixmap(loadIcon("frameresize.png"), QIcon::Normal, QIcon::Off);
+	a3.addPixmap(im->loadPixmap("framenoresize.png"), QIcon::Normal, QIcon::On);
+	a3.addPixmap(im->loadPixmap("frameresize.png"), QIcon::Normal, QIcon::Off);
 	noResize->setIcon(a3);
 
 	m_lineMode = false;

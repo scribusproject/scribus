@@ -13,39 +13,37 @@ for which a new license (GPL+exception) is in place.
 #endif
 #include <cmath>
 
-
 #include "appmodes.h"
-#include "commonstrings.h"
+#include "colorcombo.h"
 #include "colorlistbox.h"
+#include "commonstrings.h"
+#include "fontcombo.h"
+#include "iconmanager.h"
 #include "pageitem.h"
 #include "pageitem_table.h"
 #include "pageitem_textframe.h"
 #include "propertiespalette_utils.h"
 #include "propertywidget_advanced.h"
 #include "propertywidget_distance.h"
-#include "propertywidget_pareffect.h"
 #include "propertywidget_flop.h"
 #include "propertywidget_optmargins.h"
 #include "propertywidget_orphans.h"
+#include "propertywidget_pareffect.h"
 #include "propertywidget_pathtext.h"
 #include "propertywidget_textcolor.h"
 #include "sccombobox.h"
 #include "scfonts.h"
-
-#include "scribuscore.h"
 #include "scraction.h"
-
+#include "scribuscore.h"
 #include "selection.h"
 #include "spalette.h"
 #include "styleselect.h"
 #include "tabmanager.h"
-#include "units.h"
 #include "undomanager.h"
+#include "units.h"
 #include "util.h"
-#include "util_icon.h"
 #include "util_math.h"
-#include "fontcombo.h"
-#include "colorcombo.h"
+
 
 //using namespace std;
 
@@ -62,13 +60,13 @@ PropertiesPalette_Text::PropertiesPalette_Text( QWidget* parent) : QWidget(paren
 	setSizePolicy( QSizePolicy(QSizePolicy::Maximum, QSizePolicy::Maximum));
 
 	fontSize->setPrefix( "" );
-	fontSizeLabel->setPixmap(loadIcon("Zeichen.xpm"));
-	lineSpacingLabel->setPixmap(loadIcon("linespacing2.png"));
+	fontSizeLabel->setPixmap(IconManager::instance()->loadPixmap("Zeichen.xpm"));
+	lineSpacingLabel->setPixmap(IconManager::instance()->loadPixmap("linespacing2.png"));
 
 	paraStyleLabel->setBuddy(paraStyleCombo);
-	paraStyleClear->setIcon(loadIcon("16/edit-clear.png"));
+	paraStyleClear->setIcon(IconManager::instance()->loadPixmap("16/edit-clear.png"));
 	charStyleLabel->setBuddy(charStyleCombo);
-	charStyleClear->setIcon(loadIcon("16/edit-clear.png"));
+	charStyleClear->setIcon(IconManager::instance()->loadPixmap("16/edit-clear.png"));
 
 	colorWidgets = new PropertyWidget_TextColor(textTree);
 	colorWidgetsItem = textTree->addWidget( tr("Color && Effects"), colorWidgets);

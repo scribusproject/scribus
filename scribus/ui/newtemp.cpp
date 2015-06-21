@@ -16,17 +16,17 @@ for which a new license (GPL+exception) is in place.
 #include <QPushButton>
 
 #include "commonstrings.h"
+#include "iconmanager.h"
 #include "pagestructs.h"
 #include "scpage.h"
 #include "scribusdoc.h"
-#include "util_icon.h"
 
 NewTm::NewTm( QWidget* parent, QString text, QString titel, ScribusDoc *doc, const QString& answerText)
 		: QDialog( parent )
 {
 	setModal(true);
 	setWindowTitle(titel);
-	setWindowIcon(QIcon(loadIcon ( "AppIcon.png" )));
+	setWindowIcon(IconManager::instance()->loadIcon("AppIcon.png"));
 	QueryLayout = new QVBoxLayout( this );
 	QueryLayout->setSpacing( 5 );
 	QueryLayout->setMargin( 5 );

@@ -46,23 +46,23 @@ for which a new license (GPL+exception) is in place.
 
 #include "colorlistbox.h"
 #include "commonstrings.h"
-#include "sccombobox.h"
-#include "scribusdoc.h"
-#include "scrspinbox.h"
 #include "gradienteditor.h"
+#include "iconmanager.h"
 #include "insertTable.h"
 #include "pageitem.h"
 #include "sccolorengine.h"
+#include "sccombobox.h"
 #include "sclistwidgetdelegate.h"
 #include "scpage.h"
 #include "scpainter.h"
 #include "scpattern.h"
 #include "scribus.h"
+#include "scribusdoc.h"
 #include "scribusview.h"
+#include "scrspinbox.h"
 #include "selection.h"
 #include "undomanager.h"
 #include "units.h"
-#include "util_icon.h"
 #include "util.h"
 #include "util_math.h"
 
@@ -701,7 +701,7 @@ void Cpalette::updateGradientList()
 		VGradient gr = gradientList->value(patK[a]);
 		QImage pixm(48, 12, QImage::Format_ARGB32_Premultiplied);
 		QPainter pb;
-		QBrush b(QColor(205,205,205), loadIcon("testfill.png"));
+		QBrush b(QColor(205,205,205), IconManager::instance()->loadPixmap("testfill.png"));
 		pb.begin(&pixm);
 		pb.fillRect(0, 0, 48, 12, b);
 		pb.end();

@@ -31,6 +31,7 @@ for which a new license (GPL+exception) is in place.
 #include "colormgmt/sccolormgmtenginefactory.h"
 #include "commonstrings.h"
 #include "filewatcher.h"
+#include "iconmanager.h"
 #include "localemgr.h"
 #include "pluginmanager.h"
 #include "prefsmanager.h"
@@ -142,6 +143,9 @@ int ScribusCore::initScribusCore(bool showSplash, bool showFontInfo, bool showPr
 								 const QString newGuiLanguage, const QString prefsUserFile)
 {
 	CommonStrings::languageChange();
+	iconManager = IconManager::instance();
+	iconManager->setup();
+
 	// FIXME: Splash needs the prefs loaded by initDefaults() to know if it must force the image to grayscale
 	initSplash(showSplash);
 	LocaleManager::instance();
@@ -194,7 +198,7 @@ void ScribusCore::initSplash(bool showSplash)
 	m_SplashScreen = NULL;
 	if (!showSplash)
 		return;
-	QPixmap pix = loadIcon("scribus_splash.png", true);
+	QPixmap pix = IconManager::instance()->loadPixmap("scribus_splash.png", true);
 	m_SplashScreen = new ScSplashScreen(pix, Qt::WindowStaysOnTopHint);
 	if (m_SplashScreen != NULL)
 		m_SplashScreen->show();

@@ -30,12 +30,13 @@ for which a new license (GPL+exception) is in place.
 #include <QPushButton>
 #include <QVBoxLayout>
 
-#include "undogui.h"
+#include "iconmanager.h"
 #include "prefsmanager.h"
+#include "scraction.h"
 #include "scribuscore.h"
 #include "ui/scmwmenumanager.h"
-#include "scraction.h"
-#include "util_icon.h"
+#include "undogui.h"
+
 
 UndoGui::UndoGui(QWidget* parent, const char* name, Qt::WindowFlags f) : ScDockPalette(parent, name, f)
 {
@@ -251,9 +252,9 @@ UndoPalette::UndoPalette(QWidget* parent, const char* name) : UndoGui(parent, na
 	QHBoxLayout* buttonLayout = new QHBoxLayout;
 	buttonLayout->setMargin(0);
 	buttonLayout->setSpacing(5);
-	undoButton = new QPushButton(loadIcon("16/edit-undo.png"), "", this);
+	undoButton = new QPushButton(IconManager::instance()->loadPixmap("16/edit-undo.png"), "", this);
 	buttonLayout->addWidget(undoButton);
-	redoButton = new QPushButton(loadIcon("16/edit-redo.png"), "", this);
+	redoButton = new QPushButton(IconManager::instance()->loadPixmap("16/edit-redo.png"), "", this);
 	buttonLayout->addWidget(redoButton);
 	//Save the translated key sequence - hopefully we get the translated one here!
 	initialUndoKS = undoButton->shortcut();

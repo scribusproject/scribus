@@ -30,13 +30,12 @@ for which a new license (GPL+exception) is in place.
 #include <QHideEvent>
 #include <QPoint>
 
+#include "iconmanager.h"
 #include "prefscontext.h"
 #include "prefsfile.h"
 #include "prefsmanager.h"
-
 #include "scrpalettebase.h"
 #include "util.h"
-#include "util_icon.h"
 
 ScrPaletteBase::ScrPaletteBase(  QWidget * parent, const QString& prefsContext, bool modal, Qt::WindowFlags f)
 	: QDialog ( parent, f | Qt::Tool | Qt::CustomizeWindowHint
@@ -63,7 +62,7 @@ ScrPaletteBase::ScrPaletteBase(  QWidget * parent, const QString& prefsContext, 
 	}
 	originalParent=parent;
 	tempParent=0;
-	setWindowIcon(loadIcon("AppIcon.png"));
+	setWindowIcon(IconManager::instance()->loadIcon("AppIcon.png"));
 	setPrefsContext(prefsContext);
 	setModal(modal);
 	connect(PrefsManager::instance(), SIGNAL(prefsChanged()), this, SLOT(setFontSize()));

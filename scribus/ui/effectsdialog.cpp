@@ -27,23 +27,24 @@ for which a new license (GPL+exception) is in place.
 #include "cmsettings.h"
 #include "colorcombo.h"
 #include "curvewidget.h"
-#include "sccombobox.h"
+#include "iconmanager.h"
 #include "scclocale.h"
+#include "sccombobox.h"
 #include "scpage.h"
 #include "scribusdoc.h"
 #include "scrspinbox.h"
 #include "sctextstream.h"
 #include "shadebutton.h"
-#include "util_color.h"
-#include "util_icon.h"
 #include "util.h"
+#include "util_color.h"
+
 
 
 EffectsDialog::EffectsDialog( QWidget* parent, PageItem* item, ScribusDoc* docc ) : QDialog( parent )
 {
 	setModal(true);
 	setWindowTitle( tr( "Image Effects" ) );
-	setWindowIcon(QIcon(loadIcon ( "AppIcon.png" )));
+	setWindowIcon(IconManager::instance()->loadIcon("AppIcon.png"));
 	m_item = item;
 	effectsList = m_item->effectsInUse;
 	m_doc = docc;
@@ -254,7 +255,7 @@ EffectsDialog::EffectsDialog( QWidget* parent, PageItem* item, ScribusDoc* docc 
 	CurveD1Button = new QToolButton( WStackPage_8 );
 	CurveD1Button->setText( "" );
 	CurveD1Button->setMaximumSize( QSize( 22, 22 ) );
-	CurveD1Button->setIcon(loadIcon("curve.png"));
+	CurveD1Button->setIcon(IconManager::instance()->loadIcon("curve.png"));
 	CurveD1Button->setMenu(CurveD1Pop);
 	CurveD1Button->setPopupMode(QToolButton::InstantPopup);
 	WStackPage8Layout->addWidget( CurveD1Button, 1, 2 );
@@ -275,7 +276,7 @@ EffectsDialog::EffectsDialog( QWidget* parent, PageItem* item, ScribusDoc* docc 
 	CurveD2Button = new QToolButton( WStackPage_8 );
 	CurveD2Button->setText( "" );
 	CurveD2Button->setMaximumSize( QSize( 22, 22 ) );
-	CurveD2Button->setIcon(loadIcon("curve.png"));
+	CurveD2Button->setIcon(IconManager::instance()->loadIcon("curve.png"));
 	CurveD2Button->setMenu(CurveD2Pop);
 	CurveD2Button->setPopupMode(QToolButton::InstantPopup);
 	WStackPage8Layout->addWidget( CurveD2Button, 3, 2 );
@@ -304,7 +305,7 @@ EffectsDialog::EffectsDialog( QWidget* parent, PageItem* item, ScribusDoc* docc 
 	CurveT1Button = new QToolButton( WStackPage_9 );
 	CurveT1Button->setText( "" );
 	CurveT1Button->setMaximumSize( QSize( 22, 22 ) );
-	CurveT1Button->setIcon(loadIcon("curve.png"));
+	CurveT1Button->setIcon(IconManager::instance()->loadIcon("curve.png"));
 	CurveT1Button->setMenu(CurveT1Pop);
 	CurveT1Button->setPopupMode(QToolButton::InstantPopup);
 	WStackPage9Layout->addWidget( CurveT1Button, 1, 2 );
@@ -324,7 +325,7 @@ EffectsDialog::EffectsDialog( QWidget* parent, PageItem* item, ScribusDoc* docc 
 	CurveT2Button = new QToolButton( WStackPage_9 );
 	CurveT2Button->setText( "" );
 	CurveT2Button->setMaximumSize( QSize( 22, 22 ) );
-	CurveT2Button->setIcon(loadIcon("curve.png"));
+	CurveT2Button->setIcon(IconManager::instance()->loadIcon("curve.png"));
 	CurveT2Button->setMenu(CurveT2Pop);
 	CurveT2Button->setPopupMode(QToolButton::InstantPopup);
 	WStackPage9Layout->addWidget( CurveT2Button, 3, 2 );
@@ -344,7 +345,7 @@ EffectsDialog::EffectsDialog( QWidget* parent, PageItem* item, ScribusDoc* docc 
 	CurveT3Button = new QToolButton( WStackPage_9 );
 	CurveT3Button->setText( "" );
 	CurveT3Button->setMaximumSize( QSize( 22, 22 ) );
-	CurveT3Button->setIcon(loadIcon("curve.png"));
+	CurveT3Button->setIcon(IconManager::instance()->loadIcon("curve.png"));
 	CurveT3Button->setMenu(CurveT3Pop);
 	CurveT3Button->setPopupMode(QToolButton::InstantPopup);
 	WStackPage9Layout->addWidget( CurveT3Button, 5, 2 );
@@ -370,7 +371,7 @@ EffectsDialog::EffectsDialog( QWidget* parent, PageItem* item, ScribusDoc* docc 
 	CurveQ1Button = new QToolButton( WStackPage_10 );
 	CurveQ1Button->setText( "" );
 	CurveQ1Button->setMaximumSize( QSize( 22, 22 ) );
-	CurveQ1Button->setIcon(loadIcon("curve.png"));
+	CurveQ1Button->setIcon(IconManager::instance()->loadIcon("curve.png"));
 	CurveQ1Button->setMenu(CurveQ1Pop);
 	CurveQ1Button->setPopupMode(QToolButton::InstantPopup);
 	WStackPage10Layout->addWidget( CurveQ1Button, 1, 2 );
@@ -390,7 +391,7 @@ EffectsDialog::EffectsDialog( QWidget* parent, PageItem* item, ScribusDoc* docc 
 	CurveQ2Button = new QToolButton( WStackPage_10 );
 	CurveQ2Button->setText( "" );
 	CurveQ2Button->setMaximumSize( QSize( 22, 22 ) );
-	CurveQ2Button->setIcon(loadIcon("curve.png"));
+	CurveQ2Button->setIcon(IconManager::instance()->loadIcon("curve.png"));
 	CurveQ2Button->setMenu(CurveQ2Pop);
 	CurveQ2Button->setPopupMode(QToolButton::InstantPopup);
 	WStackPage10Layout->addWidget( CurveQ2Button, 3, 2 );
@@ -410,7 +411,7 @@ EffectsDialog::EffectsDialog( QWidget* parent, PageItem* item, ScribusDoc* docc 
 	CurveQc3Button = new QToolButton( WStackPage_10 );
 	CurveQc3Button->setText( "" );
 	CurveQc3Button->setMaximumSize( QSize( 22, 22 ) );
-	CurveQc3Button->setIcon(loadIcon("curve.png"));
+	CurveQc3Button->setIcon(IconManager::instance()->loadIcon("curve.png"));
 	CurveQc3Button->setMenu(CurveQc3Pop);
 	CurveQc3Button->setPopupMode(QToolButton::InstantPopup);
 	WStackPage10Layout->addWidget( CurveQc3Button, 5, 2 );
@@ -430,7 +431,7 @@ EffectsDialog::EffectsDialog( QWidget* parent, PageItem* item, ScribusDoc* docc 
 	CurveQ4Button = new QToolButton( WStackPage_10 );
 	CurveQ4Button->setText( "" );
 	CurveQ4Button->setMaximumSize( QSize( 22, 22 ) );
-	CurveQ4Button->setIcon(loadIcon("curve.png"));
+	CurveQ4Button->setIcon(IconManager::instance()->loadIcon("curve.png"));
 	CurveQ4Button->setMenu(CurveQ4Pop);
 	CurveQ4Button->setPopupMode(QToolButton::InstantPopup);
 	WStackPage10Layout->addWidget( CurveQ4Button, 7, 2 );
@@ -598,12 +599,12 @@ EffectsDialog::EffectsDialog( QWidget* parent, PageItem* item, ScribusDoc* docc 
 	layout7->addItem( spacer4 );
 	effectUp = new QPushButton( this );
 	effectUp->setText( "" );
-	effectUp->setIcon(loadIcon("16/go-up.png"));
+	effectUp->setIcon(IconManager::instance()->loadIcon("16/go-up.png"));
 	effectUp->setEnabled(false);
 	layout7->addWidget( effectUp );
 	effectDown = new QPushButton( this );
 	effectDown->setText( "" );
-	effectDown->setIcon(loadIcon("16/go-down.png"));
+	effectDown->setIcon(IconManager::instance()->loadIcon("16/go-down.png"));
 	effectDown->setEnabled(false);
 	layout7->addWidget( effectDown );
 	QSpacerItem* spacer5 = new QSpacerItem( 1, 1, QSizePolicy::Expanding, QSizePolicy::Minimum );
@@ -638,7 +639,7 @@ EffectsDialog::EffectsDialog( QWidget* parent, PageItem* item, ScribusDoc* docc 
 	int x = (pixmapLabel1->width() - im.qImage().width()) / 2;
 	int y = (pixmapLabel1->height() - im.qImage().height()) / 2;
 	QPainter p;
-	QBrush b(QColor(205,205,205), loadIcon("testfill.png"));
+	QBrush b(QColor(205,205,205), IconManager::instance()->loadPixmap("testfill.png"));
 	p.begin(&Bild);
 	p.fillRect(0, 0, pixmapLabel1->width(), pixmapLabel1->height(), b);
 	p.drawImage(x, y, im.qImage());
@@ -747,7 +748,7 @@ void EffectsDialog::createPreview()
 	int x = (pixmapLabel1->width() - im.qImage().width()) / 2;
 	int y = (pixmapLabel1->height() - im.qImage().height()) / 2;
 	QPainter p;
-	QBrush b(QColor(205,205,205), loadIcon("testfill.png"));
+	QBrush b(QColor(205,205,205), IconManager::instance()->loadPixmap("testfill.png"));
 	p.begin(&Bild);
 	p.fillRect(0, 0, pixmapLabel1->width(), pixmapLabel1->height(), b);
 	p.drawImage(x, y, im.qImage());

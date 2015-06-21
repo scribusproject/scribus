@@ -18,7 +18,7 @@ for which a new license (GPL+exception) is in place.
 #include "prefsfile.h"
 #include "scpaths.h"
 #include "scribuscore.h"
-#include "util_icon.h"
+#include "iconmanager.h"
 
 class CategoriesReader : public QXmlDefaultHandler
 {
@@ -41,7 +41,7 @@ SATDialog::SATDialog(QWidget* parent, QString tmplName, int pageW, int pageH) : 
 	setupUi(this);
 	setModal(true);
 	setWindowTitle( tr("Save as Template"));
-	setWindowIcon(loadIcon("AppIcon.png"));
+	setWindowIcon(IconManager::instance()->loadIcon("AppIcon.png"));
 	readPrefs();
 	
 	nameEdit->setText(tmplName);

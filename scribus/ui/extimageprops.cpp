@@ -28,7 +28,7 @@ for which a new license (GPL+exception) is in place.
 #include "scpainter.h"
 #include "scribusdoc.h"
 #include "scribusview.h"
-#include "util_icon.h"
+#include "iconmanager.h"
 #include "util_math.h"
 #include "util.h"
 #include "ui/scrspinbox.h"
@@ -38,7 +38,7 @@ ExtImageProps::ExtImageProps( QWidget* parent, ImageInfoRecord *info, PageItem *
 {
 	setModal(true);
 	setWindowTitle( tr( "Extended Image Properties" ) );
-	setWindowIcon(QIcon(loadIcon ( "AppIcon.png" )));
+	setWindowIcon(IconManager::instance()->loadIcon ( "AppIcon.png" ));
 	ExtImagePropsLayout = new QVBoxLayout( this );
 	ExtImagePropsLayout->setMargin(6);
 	ExtImagePropsLayout->setSpacing(6);
@@ -146,7 +146,7 @@ ExtImageProps::ExtImageProps( QWidget* parent, ImageInfoRecord *info, PageItem *
 		layout1->addWidget( opacitySpinBox );
 		tabLayout->addLayout( layout1 );
 		layerTable = new QTableWidget(info->layerInfo.count(), 3, tab );
-		layerTable->setHorizontalHeaderItem(0, new QTableWidgetItem(QIcon(loadIcon("16/show-object.png")), ""));
+		layerTable->setHorizontalHeaderItem(0, new QTableWidgetItem(IconManager::instance()->loadIcon("16/show-object.png"), ""));
 		layerTable->setHorizontalHeaderItem(1, new QTableWidgetItem(""));
 		layerTable->setHorizontalHeaderItem(2, new QTableWidgetItem( tr("Name")));
 		QHeaderView* headerH = layerTable->horizontalHeader();

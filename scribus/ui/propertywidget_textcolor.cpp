@@ -5,13 +5,13 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 
-#include "propertywidget_textcolor.h"
 
 #include "appmodes.h"
+#include "iconmanager.h"
 #include "pageitem_table.h"
+#include "propertywidget_textcolor.h"
 #include "scribus.h"
 #include "selection.h"
-#include "util_icon.h"
 
 PropertyWidget_TextColor::PropertyWidget_TextColor(QWidget* parent) : QFrame(parent)
 {
@@ -26,17 +26,17 @@ PropertyWidget_TextColor::PropertyWidget_TextColor(QWidget* parent) : QFrame(par
 	layout()->setAlignment( Qt::AlignLeft );
 
 	fillLayout->setAlignment( Qt::AlignLeft );
-	fillIcon->setPixmap(loadIcon("16/color-fill.png"));
+	fillIcon->setPixmap(IconManager::instance()->loadPixmap("16/color-fill.png"));
 	fillIcon->setScaledContents( false );
-	fillShadeLabel->setPixmap(loadIcon("shade.png"));
+	fillShadeLabel->setPixmap(IconManager::instance()->loadPixmap("shade.png"));
 
 	strokeLayout->setAlignment( Qt::AlignLeft );
-	strokeIcon->setPixmap(loadIcon("16/color-stroke.png"));
+	strokeIcon->setPixmap(IconManager::instance()->loadPixmap("16/color-stroke.png"));
 	strokeIcon->setScaledContents( false );
-	strokeShadeLabel->setPixmap(loadIcon("shade.png"));
+	strokeShadeLabel->setPixmap(IconManager::instance()->loadPixmap("shade.png"));
 
 	effectsLayout->setAlignment( Qt::AlignLeft );
-	revertButton->setIcon(loadIcon("Revers.png"));
+	revertButton->setIcon(IconManager::instance()->loadIcon("Revers.png"));
 	revertButton->setCheckable( true );
 
 	languageChange();

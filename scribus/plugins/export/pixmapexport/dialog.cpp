@@ -13,6 +13,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "commonstrings.h"
 #include "dialog.h"
+#include "iconmanager.h"
 #include "prefscontext.h"
 #include "prefsfile.h"
 #include "prefsmanager.h"
@@ -21,7 +22,6 @@ for which a new license (GPL+exception) is in place.
 #include "ui/scrspinbox.h"
 #include "usertaskstructs.h"
 #include "util.h"
-#include "util_icon.h"
 
 ExportForm::ExportForm(QWidget* parent, ScribusDoc* doc, int size, int quality, QString type)
 	: QDialog(parent, 0), m_doc(doc), m_PageCount(doc->DocPages.count())
@@ -44,7 +44,7 @@ ExportForm::ExportForm(QWidget* parent, ScribusDoc* doc, int size, int quality, 
 	DPIBox->setValue(size);
 	enlargementBox->setValue(size);
 	onePageRadio->setChecked( true );
-	pageNrButton->setIcon(loadIcon("ellipsis.png"));
+	pageNrButton->setIcon(IconManager::instance()->loadIcon("ellipsis.png"));
 	rangeVal->setEnabled(false);
 	pageNrButton->setEnabled(false);
 	noBackground->setChecked(false);

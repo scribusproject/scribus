@@ -12,12 +12,12 @@ for which a new license (GPL+exception) is in place.
 #include <QPushButton>
 #include "ui/polygonwidget.h"
 #include "commonstrings.h"
-#include "util_icon.h"
+#include "iconmanager.h"
 
 PolyVectorDialog::PolyVectorDialog(QWidget* parent, int polyC, double polyF, bool polyS, double polyR, double polyCurvature, double polyInnerRot, double polyOuterCurvature) : ScrPaletteBase( parent, "PolyVectorDialog", false, 0 )
 {
 	setWindowTitle( tr( "Polygon Properties" ) );
-	setWindowIcon(QIcon(loadIcon ( "AppIcon.png" )));
+	setWindowIcon(IconManager::instance()->loadIcon("AppIcon.png"));
 	PolygonPropsLayout = new QVBoxLayout( this );
 	PolygonPropsLayout->setMargin(10);
 	PolygonPropsLayout->setSpacing(5);
@@ -37,7 +37,7 @@ PolygonProps::PolygonProps(QWidget* parent, int polyC, double polyF, bool polyS,
 {
 	setModal(true);
 	setWindowTitle( tr( "Polygon Properties" ) );
-	setWindowIcon(QIcon(loadIcon ( "AppIcon.png" )));
+	setWindowIcon(IconManager::instance()->loadIcon("AppIcon.png"));
 	PolygonPropsLayout = new QVBoxLayout( this );
 	PolygonPropsLayout->setMargin(10);
 	PolygonPropsLayout->setSpacing(5);

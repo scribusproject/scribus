@@ -11,24 +11,24 @@ for which a new license (GPL+exception) is in place.
 #define _USE_MATH_DEFINES
 #endif
 #include <cmath>
+
 #include "arrowchooser.h"
 #include "commonstrings.h"
 #include "dasheditor.h"
+#include "iconmanager.h"
 #include "pageitem.h"
 #include "pageitem_textframe.h"
 #include "sccolorengine.h"
 #include "sccombobox.h"
-
-#include "scribuscore.h"
 #include "scraction.h"
-
+#include "scribuscore.h"
 #include "selection.h"
-#include "units.h"
-#include "undomanager.h"
-#include "util.h"
-#include "util_icon.h"
-#include "util_math.h"
 #include "ui/propertiespalette_utils.h"
+#include "undomanager.h"
+#include "units.h"
+#include "util.h"
+#include "util_math.h"
+
 
 //using namespace std;
 
@@ -674,16 +674,17 @@ void PropertiesPalette_Line::languageChange()
 
 	int oldLJoinStyle=lineJoinStyle->currentIndex();
 	lineJoinStyle->clear();
-	lineJoinStyle->addItem(loadIcon("16/stroke-join-miter.png"), tr("Miter Join"));
-	lineJoinStyle->addItem(loadIcon("16/stroke-join-bevel.png"), tr("Bevel Join"));
-	lineJoinStyle->addItem(loadIcon("16/stroke-join-round.png"), tr("Round Join"));
+	IconManager* im=IconManager::instance();
+	lineJoinStyle->addItem(im->loadIcon("16/stroke-join-miter.png"), tr("Miter Join"));
+	lineJoinStyle->addItem(im->loadIcon("16/stroke-join-bevel.png"), tr("Bevel Join"));
+	lineJoinStyle->addItem(im->loadIcon("16/stroke-join-round.png"), tr("Round Join"));
 	lineJoinStyle->setCurrentIndex(oldLJoinStyle);
 
 	int oldLEndStyle=lineEndStyle->currentIndex();
 	lineEndStyle->clear();
-	lineEndStyle->addItem(loadIcon("16/stroke-cap-butt.png"), tr("Flat Cap"));
-	lineEndStyle->addItem(loadIcon("16/stroke-cap-square.png"), tr("Square Cap"));
-	lineEndStyle->addItem(loadIcon("16/stroke-cap-round.png"), tr("Round Cap"));
+	lineEndStyle->addItem(im->loadIcon("16/stroke-cap-butt.png"), tr("Flat Cap"));
+	lineEndStyle->addItem(im->loadIcon("16/stroke-cap-square.png"), tr("Square Cap"));
+	lineEndStyle->addItem(im->loadIcon("16/stroke-cap-round.png"), tr("Round Cap"));
 	lineEndStyle->setCurrentIndex(oldLEndStyle);
 	lineEndLabel->setText( tr("&Endings:"));
 

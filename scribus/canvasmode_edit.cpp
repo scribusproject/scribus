@@ -36,6 +36,7 @@
 #include "fpoint.h"
 #include "fpointarray.h"
 #include "hyphenator.h"
+#include "iconmanager.h"
 #include "pageitem_noteframe.h"
 #include "pageitem_textframe.h"
 #include "prefscontext.h"
@@ -57,8 +58,8 @@
 #include "undomanager.h"
 #include "units.h"
 #include "util.h"
-#include "util_icon.h"
 #include "util_math.h"
+
 
 CanvasMode_Edit::CanvasMode_Edit(ScribusView* view) : CanvasMode(view), m_ScMW(view->m_ScMW) 
 {
@@ -415,7 +416,7 @@ void CanvasMode_Edit::mouseMoveEvent(QMouseEvent *m)
 			{
 				if (m->modifiers() & Qt::ShiftModifier)
 				{
-					m_view->setCursor(QCursor(loadIcon("Rotieren2.png")));
+					m_view->setCursor(IconManager::instance()->loadCursor("Rotieren2.png"));
 					QTransform p = currItem->getTransform();
 					p.translate(currItem->imageXOffset()*currItem->imageXScale(), currItem->imageYOffset()*currItem->imageYScale());
 					QPointF rotP = p.map(QPointF(0.0, 0.0));
@@ -425,7 +426,7 @@ void CanvasMode_Edit::mouseMoveEvent(QMouseEvent *m)
 				}
 				else
 				{
-					m_view->setCursor(QCursor(loadIcon("HandC.xpm")));
+					m_view->setCursor(IconManager::instance()->loadCursor("HandC.xpm"));
 					QTransform mm1 = currItem->getTransform();
 					QTransform mm2 = mm1.inverted();
 					QPointF rota = mm2.map(QPointF(newX, newY)) - mm2.map(QPointF(Mxp, Myp));
@@ -495,9 +496,9 @@ void CanvasMode_Edit::mouseMoveEvent(QMouseEvent *m)
 						if (currItem->asImageFrame())
 						{
 							if (m->modifiers() & Qt::ShiftModifier)
-								m_view->setCursor(QCursor(loadIcon("Rotieren2.png")));
+								m_view->setCursor(IconManager::instance()->loadCursor("Rotieren2.png"));
 							else
-								m_view->setCursor(QCursor(loadIcon("HandC.xpm")));
+								m_view->setCursor(IconManager::instance()->loadCursor("HandC.xpm"));
 						}
 					}
 				}

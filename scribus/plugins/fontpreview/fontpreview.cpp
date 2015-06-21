@@ -15,7 +15,7 @@ for which a new license (GPL+exception) is in place.
 #include "selection.h"
 #include "sampleitem.h"
 #include "fontlistmodel.h"
-#include "util_icon.h"
+#include "iconmanager.h"
 
 
 FontPreview::FontPreview(QString fontName, QWidget* parent, ScribusDoc* doc)
@@ -23,7 +23,7 @@ FontPreview::FontPreview(QString fontName, QWidget* parent, ScribusDoc* doc)
 {
 	setupUi(this);
 	setModal(true);
-	setWindowIcon(loadIcon("AppIcon.png"));
+	setWindowIcon(IconManager::instance()->loadIcon("AppIcon.png"));
 	m_Doc=doc;
 
 	sampleItem = new SampleItem();

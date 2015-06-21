@@ -19,13 +19,13 @@ for which a new license (GPL+exception) is in place.
 #include <QString>
 #include <QStringList>
 
-#include "util_icon.h"
+#include "iconmanager.h"
 
 CsvDialog::CsvDialog() : QDialog(0)
 {
 	setModal(true);
 	setWindowTitle( tr("CSV Importer Options"));
-	setWindowIcon(QIcon(loadIcon ( "AppIcon.png" )));
+	setWindowIcon(QIcon(IconManager::instance()->loadIcon ( "AppIcon.png" )));
 
 	QBoxLayout* layout = new QVBoxLayout(this);
 	layout->setMargin(0);

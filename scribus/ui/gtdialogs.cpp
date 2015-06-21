@@ -24,31 +24,29 @@ for which a new license (GPL+exception) is in place.
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.             *
  ***************************************************************************/
 
+#include "commonstrings.h"
 #include "gtdialogs.h"
-#include "prefsmanager.h"
+#include "iconmanager.h"
 #include "prefscontext.h"
 #include "prefsfile.h"
+#include "prefsmanager.h"
 #include "sccombobox.h"
-#include <QLabel>
-//Added by qt3to4:
-#include <QHBoxLayout>
-#include <QPixmap>
-#include <QVBoxLayout>
-#include <QToolTip>
-#include <QPushButton>
-#include "commonstrings.h"
-#include "util_icon.h"
 #include "ui/gtfiledialog.h"
+#include <QHBoxLayout>
+#include <QLabel>
+#include <QPixmap>
+#include <QPushButton>
+#include <QToolTip>
+#include <QVBoxLayout>
 
 extern QString DocDir;
-
 
 /********* Class gtImporterDialog*******************************************************************/
 
 gtImporterDialog::gtImporterDialog(const QStringList& importers, int currentSelection)
 {
 	setWindowTitle( tr("Choose the importer to use"));
-	setWindowIcon(loadIcon("AppIcon.png"));
+	setWindowIcon(IconManager::instance()->loadIcon("AppIcon.png"));
 
 	QBoxLayout* layout = new QVBoxLayout(this);
 

@@ -21,8 +21,7 @@ for which a new license (GPL+exception) is in place.
 #include "prefsfile.h"
 #include "prefsmanager.h"
 
-//provides loadIcon()
-#include "util_icon.h"
+#include "iconmanager.h"
 #include "util_formats.h"
 
 PictureBrowser::PictureBrowser ( ScribusDoc* doc, QWidget *parent ) :
@@ -1605,26 +1604,27 @@ void PictureBrowser::updateBrowser ( bool filter, bool sort, bool reload )
 
 void PictureBrowser::loadIcons()
 {
-	iconArrowUp = new QIcon ( loadIcon ( "pitr_green_arrows_set_1.svg" ) );
-	iconArrowDown = new QIcon ( loadIcon ( "pitr_green_arrows_set_5.svg" ) );
-	iconFolderBrowser = new QIcon ( loadIcon ( "sarxos_Simple_Folder_Seek.svg" ) );
-	iconCollectionsBrowser = new QIcon ( loadIcon ( "sarxos_Simple_Green_Yellow_Blue_Violet_Folders.svg" ) );
-	iconDocumentBrowser = new QIcon ( loadIcon ( "sarxos_Paper_Sheets.svg" ) );
-	iconDocument = new QIcon ( loadIcon ( "doc.png" ) );
-	iconCollection = new QIcon ( loadIcon ( "cmyk.png" ) );
-	iconOk = new QIcon ( loadIcon ( "ok22.png" ) );
-	iconClose = new QIcon ( loadIcon ( "/16/close.png" ) );
-	iconZoomPlus = new QIcon ( loadIcon ( "viewmagin.png" ) );
-	iconZoomMinus = new QIcon ( loadIcon ( "viewmagout.png" ) );
-	iconNew = new QIcon ( loadIcon ( "/16/insert-table.png" ) );
-	iconNew2 = new QIcon ( loadIcon ( "/16/document-new.png" ) );
-	iconEdit = new QIcon ( loadIcon ( "/16/document-properties.png" ) );
-	iconRemove = new QIcon ( loadIcon ( "/16/edit-cut.png" ) );
-	iconLoad = new QIcon ( loadIcon ( "/16/document-open.png" ) );
-	iconSave = new QIcon ( loadIcon ( "/16/document-save.png" ) );
-	iconPlus = new QIcon ( loadIcon ( "/16/list-add.png" ) );
-	iconMinus = new QIcon ( loadIcon ( "/16/list-remove.png" ) );
-	iconPen = new QIcon ( loadIcon ( "/16/story-editor.png" ) );
+	IconManager *im=IconManager::instance();
+	iconArrowUp = new QIcon ( im->loadIcon ( "pitr_green_arrows_set_1.svg" ) );
+	iconArrowDown = new QIcon ( im->loadIcon ( "pitr_green_arrows_set_5.svg" ) );
+	iconFolderBrowser = new QIcon ( im->loadIcon ( "sarxos_Simple_Folder_Seek.svg" ) );
+	iconCollectionsBrowser = new QIcon ( im->loadIcon ( "sarxos_Simple_Green_Yellow_Blue_Violet_Folders.svg" ) );
+	iconDocumentBrowser = new QIcon ( im->loadIcon ( "sarxos_Paper_Sheets.svg" ) );
+	iconDocument = new QIcon ( im->loadIcon ( "doc.png" ) );
+	iconCollection = new QIcon ( im->loadIcon ( "cmyk.png" ) );
+	iconOk = new QIcon ( im->loadIcon ( "ok22.png" ) );
+	iconClose = new QIcon ( im->loadIcon ( "/16/close.png" ) );
+	iconZoomPlus = new QIcon ( im->loadIcon ( "viewmagin.png" ) );
+	iconZoomMinus = new QIcon ( im->loadIcon ( "viewmagout.png" ) );
+	iconNew = new QIcon ( im->loadIcon ( "/16/insert-table.png" ) );
+	iconNew2 = new QIcon ( im->loadIcon ( "/16/document-new.png" ) );
+	iconEdit = new QIcon ( im->loadIcon ( "/16/document-properties.png" ) );
+	iconRemove = new QIcon ( im->loadIcon ( "/16/edit-cut.png" ) );
+	iconLoad = new QIcon ( im->loadIcon ( "/16/document-open.png" ) );
+	iconSave = new QIcon ( im->loadIcon ( "/16/document-save.png" ) );
+	iconPlus = new QIcon ( im->loadIcon ( "/16/list-add.png" ) );
+	iconMinus = new QIcon ( im->loadIcon ( "/16/list-remove.png" ) );
+	iconPen = new QIcon ( im->loadIcon ( "/16/story-editor.png" ) );
 
 	collectionsNewCategoryButton->setIcon ( *iconNew );
 	collectionsNewButton->setIcon ( *iconNew2 );

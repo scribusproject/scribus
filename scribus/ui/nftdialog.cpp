@@ -12,14 +12,14 @@ for which a new license (GPL+exception) is in place.
 
 #include "scconfig.h"
 #include "scribusapi.h"
-#include "util_icon.h"
+#include "iconmanager.h"
 
 
 nftdialog::nftdialog(QWidget* parent, QString lang) : QDialog(parent)
 {
 	setupUi(this);
 	setModal(true);
-	setWindowIcon(loadIcon("AppIcon.png"));
+	setWindowIcon(IconManager::instance()->loadIcon("AppIcon.png"));
 	nftGui->setupSettings(lang);
 	buttonBox->button(QDialogButtonBox::Cancel)->setDefault(true);
 	buttonBox->button(QDialogButtonBox::Ok)->setDisabled(true);

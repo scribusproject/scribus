@@ -47,7 +47,7 @@ for which a new license (GPL+exception) is in place.
 #include "util.h"
 #include "util_color.h"
 #include "util_formats.h"
-#include "util_icon.h"
+#include "iconmanager.h"
 
 
 CMYKChoose::CMYKChoose( QWidget* parent, ScribusDoc* doc, ScColor orig, QString name, ColorList *Colors, bool newCol  )
@@ -61,7 +61,7 @@ CMYKChoose::CMYKChoose( QWidget* parent, ScribusDoc* doc, ScColor orig, QString 
 	isHLC = false;
 	EColors = Colors;
 	CurrSwatch.clear();
-	alertIcon = loadIcon("alert.png");
+	alertIcon = IconManager::instance()->loadPixmap("alert.png");
 	imageA = QPixmap(50,50);
 	imageA.fill( ScColorEngine::getDisplayColor(orig, m_doc) );
 	if ( ScColorEngine::isOutOfGamut(orig, m_doc) )
@@ -74,7 +74,7 @@ CMYKChoose::CMYKChoose( QWidget* parent, ScribusDoc* doc, ScColor orig, QString 
 
 	resize( 498, 306 );
 	setWindowTitle( tr( "Edit Color" ) );
-	setWindowIcon(QIcon(loadIcon("AppIcon.png")));
+	setWindowIcon(IconManager::instance()->loadIcon("AppIcon.png"));
 
 	setupUi(this);
 	ColorMap->setDoc(doc);

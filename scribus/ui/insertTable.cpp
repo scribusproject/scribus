@@ -7,13 +7,13 @@ for which a new license (GPL+exception) is in place.
 #include "insertTable.h"
 
 #include "commonstrings.h"
-#include "util_icon.h"
+#include "iconmanager.h"
 
 InsertTable::InsertTable( QWidget* parent, int maxRow, int maxCol ) : QDialog( parent )
 
 {
 	setWindowTitle( tr( "Insert Table" ) );
-	setWindowIcon(loadIcon("AppIcon.png"));
+	setWindowIcon(IconManager::instance()->loadIcon("AppIcon.png"));
 	setModal(true);
 	InsertTableLayout = new QVBoxLayout( this );
 	InsertTableLayout->setMargin(10);

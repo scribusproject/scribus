@@ -23,7 +23,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "gradientvectordialog.h"
 #include "units.h"
-#include "util_icon.h"
+#include "iconmanager.h"
 
 GradientVectorDialog::GradientVectorDialog(QWidget* parent) : ScrPaletteBase( parent, "GradientVectorPalette", false, 0 )
 {
@@ -82,21 +82,22 @@ GradientVectorDialog::GradientVectorDialog(QWidget* parent) : ScrPaletteBase( pa
 	connect(resetAllPControlPoints, SIGNAL(clicked()), this, SIGNAL(resetAllControl()));
 	connect(snapToGrid, SIGNAL(clicked()), this, SLOT(handleSnapToGridBox()));
 	QSize iconSize = QSize(22, 22);
-	editPoints->setIcon(QIcon(loadIcon("MoveNode.png")));
+	IconManager* im=IconManager::instance();
+	editPoints->setIcon(im->loadIcon("MoveNode.png"));
 	editPoints->setIconSize(iconSize);
-	editControlPoints->setIcon(QIcon(loadIcon("MoveKontrol.png")));
+	editControlPoints->setIcon(im->loadIcon("MoveKontrol.png"));
 	editControlPoints->setIconSize(iconSize);
-	resetControlPoint->setIcon(QIcon(loadIcon("Reset1Node.png")));
+	resetControlPoint->setIcon(im->loadIcon("Reset1Node.png"));
 	resetControlPoint->setIconSize(iconSize);
-	resetAllControlPoints->setIcon(QIcon(loadIcon("ResetNode.png")));
+	resetAllControlPoints->setIcon(im->loadIcon("ResetNode.png"));
 	resetAllControlPoints->setIconSize(iconSize);
-	editPPoint->setIcon(QIcon(loadIcon("MoveNode.png")));
+	editPPoint->setIcon(im->loadIcon("MoveNode.png"));
 	editPPoint->setIconSize(iconSize);
-	editPControlPoints->setIcon(QIcon(loadIcon("MoveKontrol.png")));
+	editPControlPoints->setIcon(im->loadIcon("MoveKontrol.png"));
 	editPControlPoints->setIconSize(iconSize);
-	resetPControlPoint->setIcon(QIcon(loadIcon("Reset1Node.png")));
+	resetPControlPoint->setIcon(im->loadIcon("Reset1Node.png"));
 	resetPControlPoint->setIconSize(iconSize);
-	resetAllPControlPoints->setIcon(QIcon(loadIcon("ResetNode.png")));
+	resetAllPControlPoints->setIcon(im->loadIcon("ResetNode.png"));
 	resetAllPControlPoints->setIconSize(iconSize);
 	languageChange();
 	selectLinear();

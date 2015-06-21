@@ -36,7 +36,7 @@ for which a new license (GPL+exception) is in place.
 #include "sccolorengine.h"
 #include "scpattern.h"
 #include "selection.h"
-#include "util_icon.h"
+#include "iconmanager.h"
 #include "util_math.h"
 
 NodeItem::NodeItem(QRectF geom, uint num, MeshDistortionDialog *parent) : QGraphicsEllipseItem(geom)
@@ -121,9 +121,9 @@ MeshDistortionDialog::MeshDistortionDialog(QWidget* parent, ScribusDoc *doc) : Q
 {
 	setupUi(this);
 	setModal(true);
-	setWindowIcon(QIcon(loadIcon("AppIcon.png")));
-	buttonZoomOut->setIcon(QIcon(loadIcon("16/zoom-out.png")));
-	buttonZoomIn->setIcon(QIcon(loadIcon("16/zoom-in.png")));
+	setWindowIcon(QIcon(IconManager::instance()->loadIcon("AppIcon.png")));
+	buttonZoomOut->setIcon(QIcon(IconManager::instance()->loadIcon("16/zoom-out.png")));
+	buttonZoomIn->setIcon(QIcon(IconManager::instance()->loadIcon("16/zoom-in.png")));
 	m_doc = doc;
 	addItemsToScene(doc->m_Selection, doc, 0, 0);
 	for(unsigned dim = 0; dim < 2; dim++)

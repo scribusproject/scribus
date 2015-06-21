@@ -44,6 +44,7 @@ for which a new license (GPL+exception) is in place.
 #include "cmsettings.h"
 #include "colorblind.h"
 #include "desaxe/saxXML.h"
+#include "iconmanager.h"
 #include "marks.h"
 #include "pageitem_arc.h"
 #include "pageitem_group.h"
@@ -79,10 +80,8 @@ for which a new license (GPL+exception) is in place.
 #include "util.h"
 #include "util_file.h"
 #include "util_formats.h"
-#include "util_icon.h"
 #include "util_math.h"
 #include "util_text.h"
-
 
 #include <cairo.h>
 
@@ -2148,7 +2147,7 @@ void PageItem::DrawObj_Decoration(ScPainter *p)
 				{
 					p->save();
 					p->translate(ofx, ofy);
-					QImage ico = loadIcon("22/dialog-warning.png").toImage();
+					QImage ico = IconManager::instance()->loadPixmap("22/dialog-warning.png").toImage();
 					p->drawImage(&ico);
 					p->restore();
 				}

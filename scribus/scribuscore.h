@@ -31,6 +31,7 @@ for which a new license (GPL+exception) is in place.
 
 class QWidget;
 class FileWatcher;
+class IconManager;
 class PluginManager;
 class ScSplashScreen;
 class ScribusMainWindow;
@@ -67,6 +68,7 @@ public:
 	int initScribusCore(bool showSplash, bool showFontInfo, bool showProfileInfo, const QString newGuiLanguage, const QString prefsUserFile);
 	bool initialized() const {return m_ScribusInitialized;};
 	const QString& getGuiLanguage() const;
+
 	void initSplash(bool showSplash);
 	bool initFonts(bool showFontInfo);
 	void showSplash(bool);
@@ -130,6 +132,7 @@ protected:
 	int m_currScMW;
 	
 	ScSplashScreen *m_SplashScreen;
+	IconManager *iconManager;
 	UndoManager *undoManager;
 	PrefsManager *prefsManager;
 	bool m_ScribusInitialized;

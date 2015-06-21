@@ -26,21 +26,22 @@ for which a new license (GPL+exception) is in place.
 	#include <QVBoxLayout>
 #endif
 
-#include "util_icon.h"
+#include "iconmanager.h"
 
 Editor::Editor( QWidget* parent, QString daten, ScribusView* vie) : QDialog( parent )
 {
 	setModal(true);
-	setWindowTitle( tr( "Editor" ) );
-	setWindowIcon(loadIcon("AppIcon.png"));
+	setWindowTitle(tr("Editor"));
+	IconManager* im=IconManager::instance();
+	setWindowIcon(im->loadIcon("AppIcon.png"));
 	view = vie;
 	dirs = PrefsManager::instance()->prefsFile->getContext("dirs");
 	EditorLayout = new QVBoxLayout(this);
 	EditTex = new QTextEdit(this);
-	newAct = new QAction(QIcon(loadIcon("16/document-new.png")), tr("&New"), this);
+	newAct = new QAction(im->loadIcon("16/document-new.png"), tr("&New"), this);
 	newAct->setShortcut(tr("Ctrl+N"));
 	connect(newAct, SIGNAL(triggered()), EditTex, SLOT(clear()));
-	openAct = new QAction(QIcon(loadIcon("16/document-open.png")), tr("&Open..."), this);
+	openAct = new QAction(im->loadIcon("16/document-open.png"), tr("&Open..."), this);
 	connect(openAct, SIGNAL(triggered()), this, SLOT(OpenScript()));
 	saveAsAct = new QAction( tr("Save &As..."), this);
 	connect(saveAsAct, SIGNAL(triggered()), this, SLOT(SaveAs()));
@@ -48,21 +49,21 @@ Editor::Editor( QWidget* parent, QString daten, ScribusView* vie) : QDialog( par
 	connect(saveExitAct, SIGNAL(triggered()), this, SLOT(accept()));
 	exitAct = new QAction( tr("&Exit without Saving"), this);
 	connect(exitAct, SIGNAL(triggered()), this, SLOT(reject()));
-	undoAct = new QAction(QIcon(loadIcon("16/edit-undo.png")), tr("&Undo"), this);
+	undoAct = new QAction(im->loadIcon("16/edit-undo.png"), tr("&Undo"), this);
 	undoAct->setShortcut(tr("Ctrl+Z"));
 	connect(undoAct, SIGNAL(triggered()), EditTex, SLOT(undo()));
-	redoAct = new QAction(QIcon(loadIcon("16/edit-redo.png")),  tr("&Redo"), this);
+	redoAct = new QAction(im->loadIcon("16/edit-redo.png"),  tr("&Redo"), this);
 	connect(redoAct, SIGNAL(triggered()), EditTex, SLOT(redo()));
-	cutAct = new QAction(QIcon(loadIcon("16/edit-cut.png")), tr("Cu&t"), this);
+	cutAct = new QAction(im->loadIcon("16/edit-cut.png"), tr("Cu&t"), this);
 	cutAct->setShortcut(tr("Ctrl+X"));
 	connect(cutAct, SIGNAL(triggered()), EditTex, SLOT(cut()));
-	copyAct = new QAction(QIcon(loadIcon("16/edit-copy.png")), tr("&Copy"), this);
+	copyAct = new QAction(im->loadIcon("16/edit-copy.png"), tr("&Copy"), this);
 	copyAct->setShortcut(tr("Ctrl+C"));
 	connect(copyAct, SIGNAL(triggered()), EditTex, SLOT(copy()));
-	pasteAct = new QAction(QIcon(loadIcon("16/edit-paste.png")), tr("&Paste"), this);
+	pasteAct = new QAction(im->loadIcon("16/edit-paste.png"), tr("&Paste"), this);
 	pasteAct->setShortcut(tr("Ctrl-V"));
 	connect(pasteAct, SIGNAL(triggered()), EditTex, SLOT(paste()));
-	clearAct = new QAction(QIcon(loadIcon("16/edit-delete.png")), tr("C&lear"), this);
+	clearAct = new QAction(im->loadIcon("16/edit-delete.png"), tr("C&lear"), this);
 	connect(clearAct, SIGNAL(triggered()), this, SLOT(del()));
 	getFieldAct = new QAction( tr("&Get Field Names"), this);
 	connect(getFieldAct, SIGNAL(triggered()), this, SLOT(GetFieldNames()));

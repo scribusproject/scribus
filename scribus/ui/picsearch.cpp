@@ -10,13 +10,14 @@ for which a new license (GPL+exception) is in place.
 
 #include "cmsettings.h"
 #include "commonstrings.h"
+#include "iconmanager.h"
 #include "scimage.h"
 #include "scpaths.h"
 #include "scribusstructs.h"
 #include "util.h"
 #include "util_color.h"
 #include "util_formats.h"
-#include "util_icon.h"
+
 
 
 PicSearch::PicSearch(QWidget* parent, const QString & fileName, const QStringList & avalableFiles) : QDialog(parent), currentImage(QString())
@@ -101,7 +102,7 @@ void PicSearch::createPreview()
 		else
 			im2 = im.qImage(); // no need to copy
 		QPainter p;
-		QBrush b(QColor(205,205,205), loadIcon("testfill.png"));
+		QBrush b(QColor(205,205,205), IconManager::instance()->loadPixmap("testfill.png"));
 		p.begin(&pm);
 		p.fillRect(0, 0, w, h-44, b);
 		p.fillRect(0, h-44, w, 44, QColor(255, 255, 255));

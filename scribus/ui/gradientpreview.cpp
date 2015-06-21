@@ -21,8 +21,6 @@ for which a new license (GPL+exception) is in place.
  *                                                                         *
  ***************************************************************************/
 
-#include "gradientpreview.h"
-
 #include <QApplication>
 #include <QCursor>
 #include <QEvent>
@@ -34,10 +32,10 @@ for which a new license (GPL+exception) is in place.
 #include <QPolygon>
 #include <QToolTip>
 
-
-#include "scpainter.h"
 #include "fpoint.h"
-#include "util_icon.h"
+#include "gradientpreview.h"
+#include "iconmanager.h"
+#include "scpainter.h"
 
 
 GradientPreview::GradientPreview(QWidget *pa) : QFrame(pa)
@@ -83,7 +81,7 @@ void GradientPreview::paintEvent(QPaintEvent *e)
 	}
 	QImage pixm(width()-20, 37, QImage::Format_ARGB32_Premultiplied);
 	QPainter pb;
-	QBrush b(QColor(205,205,205), loadIcon("testfill.png"));
+	QBrush b(QColor(205,205,205), IconManager::instance()->loadPixmap("testfill.png"));
 	pb.begin(&pixm);
 	pb.fillRect(0, 0, pixm.width(), pixm.height(), b);
 	pb.end();
@@ -245,7 +243,7 @@ void GradientPreview::mouseMoveEvent(QMouseEvent *m)
 		qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 		if ((!Mpressed) && (m->y() < height()) && (m->y() > 43) && (m->x() > 9) && (m->x() < width()-9))
 		{
-			setCursor(QCursor(loadIcon("AddPoint.png"), 1, 1));
+			setCursor(QCursor(IconManager::instance()->loadPixmap("AddPoint.png"), 1, 1));
 			for (int yg = 0; yg < static_cast<int>(StopM.count()); ++yg)
 			{
 				fpo = QRect(static_cast<int>(StopM[yg])-4, 43, 8, 13);
@@ -280,7 +278,7 @@ void GradientPreview::mouseMoveEvent(QMouseEvent *m)
 				repaint();
 			}
 			if ((Mpressed) && (outside || !insideRect.contains(m->pos())) && (ActStop > 0) && (ActStop != static_cast<int>(StopM.count()-1)))
-				qApp->changeOverrideCursor(QCursor(loadIcon("DelPoint.png"), 1, 1));
+				qApp->changeOverrideCursor(QCursor(IconManager::instance()->loadPixmap("DelPoint.png"), 1, 1));
 		}
 	}
 }
@@ -292,7 +290,7 @@ void GradientPreview::leaveEvent(QEvent*)
 		if (Mpressed)
 		{
 			if ((ActStop > 0) && (ActStop != static_cast<int>(StopM.count()-1)))
-				qApp->changeOverrideCursor(QCursor(loadIcon("DelPoint.png"), 1, 1));
+				qApp->changeOverrideCursor(QCursor(IconManager::instance()->loadPixmap("DelPoint.png"), 1, 1));
 			else
 				qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 		}

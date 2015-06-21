@@ -14,7 +14,7 @@ for which a new license (GPL+exception) is in place.
 #include "nftwidget.h"
 #include "scconfig.h"
 #include "scribusapi.h"
-#include "util_icon.h"
+#include "iconmanager.h"
 
 
 nftwidget::nftwidget(QWidget* parent) : QWidget(parent)
@@ -32,9 +32,9 @@ void nftwidget::setupSettings(QString lang)
 	tnailGrid->addAction(removeAction);
 	tnailGrid->addAction(openAction);
 	setupAbout();
-	toolBox->setItemIcon(0, loadIcon("16/information.png"));
-	toolBox->setItemIcon(1, loadIcon("16/image-x-generic.png"));
-	toolBox->setItemIcon(2, loadIcon("16/help-browser.png"));
+	toolBox->setItemIcon(0, IconManager::instance()->loadIcon("16/information.png"));
+	toolBox->setItemIcon(1, IconManager::instance()->loadIcon("16/image-x-generic.png"));
+	toolBox->setItemIcon(2, IconManager::instance()->loadIcon("16/help-browser.png"));
 	tnailGrid->setIconSize(QSize(60, 60));
 	// Signals and Slots Connections
 	connect(categoryList, SIGNAL(itemSelectionChanged()), this, SLOT(setThumbnails()));

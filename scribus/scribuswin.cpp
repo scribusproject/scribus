@@ -27,11 +27,12 @@ for which a new license (GPL+exception) is in place.
 #include <QDir>
 #include <QMessageBox>
 
+#include "commonstrings.h"
+#include "iconmanager.h"
 #include "scribus.h"
 #include "scribusdoc.h"
 #include "scribusview.h"
-#include "commonstrings.h"
-#include "util_icon.h"
+
 
 ScribusWin::ScribusWin(QWidget* parent, ScribusDoc* doc) :
 	QMainWindow(parent),
@@ -40,7 +41,7 @@ ScribusWin::ScribusWin(QWidget* parent, ScribusDoc* doc) :
 	m_View(0),
 	m_winIndex(0)
 {
-	setWindowIcon(loadIcon("AppIcon2.png"));
+	setWindowIcon(IconManager::instance()->loadIcon("AppIcon2.png"));
 	setAttribute(Qt::WA_DeleteOnClose);
 	m_Doc = doc;
 }

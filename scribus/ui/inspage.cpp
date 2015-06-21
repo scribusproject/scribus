@@ -15,12 +15,12 @@ for which a new license (GPL+exception) is in place.
 #include <QPushButton>
 
 #include "commonstrings.h"
+#include "iconmanager.h"
+#include "pagesize.h"
 #include "scpage.h"
 #include "scribusdoc.h"
 #include "scrspinbox.h"
-#include "pagesize.h"
 #include "units.h"
-#include "util_icon.h"
 #include "util.h"
 
 InsPage::InsPage( QWidget* parent, ScribusDoc* currentDoc, int currentPage, int maxPages)
@@ -29,7 +29,7 @@ InsPage::InsPage( QWidget* parent, ScribusDoc* currentDoc, int currentPage, int 
 	masterPageCombos.clear();
 	setModal(true);
 	setWindowTitle( tr( "Insert Page" ) );
-	setWindowIcon(loadIcon("AppIcon.png"));
+	setWindowIcon(IconManager::instance()->loadIcon("AppIcon.png"));
 	dialogLayout = new QVBoxLayout(this);
 	dialogLayout->setSpacing( 5 );
 	dialogLayout->setMargin( 5 );

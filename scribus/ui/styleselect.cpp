@@ -8,8 +8,7 @@ for which a new license (GPL+exception) is in place.
 #include <QEvent>
 
 #include "styleselect.h"
-
-#include "util_icon.h"
+#include "iconmanager.h"
 
 
 StrikeValues::StrikeValues( QWidget* parent ) : QFrame( parent )
@@ -130,6 +129,7 @@ void ShadowValues::languageChange()
 
 StyleSelect::StyleSelect(QWidget* parent) : QWidget(parent)
 {
+	IconManager* im = IconManager::instance();
 	ssLayout = new QHBoxLayout(this);
 	ssLayout->setSpacing( 0 );
 	ssLayout->setMargin( 0 );
@@ -142,7 +142,7 @@ StyleSelect::StyleSelect(QWidget* parent) : QWidget(parent)
 	underlineButton = new QToolButton( this );
 	underlineButton->setText( "" );
 	underlineButton->setMaximumSize( QSize( 22, 22 ) );
-	underlineButton->setIcon(QIcon(loadIcon("Unter.xpm")));
+	underlineButton->setIcon(im->loadIcon("Unter.xpm"));
 	underlineButton->setCheckable( true );
 	underlineButton->setMenu(UnderlinePop);
 	underlineButton->setPopupMode(QToolButton::DelayedPopup);
@@ -150,7 +150,7 @@ StyleSelect::StyleSelect(QWidget* parent) : QWidget(parent)
 	underlineWordButton = new QToolButton( this );
 	underlineWordButton->setText( "" );
 	underlineWordButton->setMaximumSize( QSize( 22, 22 ) );
-	underlineWordButton->setIcon(QIcon(loadIcon("wordsOnly.png")));
+	underlineWordButton->setIcon(im->loadIcon("wordsOnly.png"));
 	underlineWordButton->setCheckable( true );
 	underlineWordButton->setMenu(UnderlinePop);
 	underlineWordButton->setPopupMode(QToolButton::DelayedPopup);
@@ -159,26 +159,26 @@ StyleSelect::StyleSelect(QWidget* parent) : QWidget(parent)
 	subscriptButton = new QToolButton( this );
 	subscriptButton->setText( "" );
 	subscriptButton->setMaximumSize( QSize( 22, 22 ) );
-	subscriptButton->setIcon(QIcon(loadIcon("Tief.xpm")));
+	subscriptButton->setIcon(im->loadIcon("Tief.xpm"));
 	subscriptButton->setCheckable( true );
 	ssLayout->addWidget( subscriptButton );
 	superscriptButton = new QToolButton( this );
 	superscriptButton->setText( "" );
 	superscriptButton->setMaximumSize( QSize( 22, 22 ) );
-	superscriptButton->setIcon(QIcon(loadIcon("Hoch.xpm")));
+	superscriptButton->setIcon(im->loadIcon("Hoch.xpm"));
 	superscriptButton->setCheckable( true );
 	ssLayout->addWidget( superscriptButton );
 
 	allcapsButton = new QToolButton( this );
 	allcapsButton->setMaximumSize( QSize( 22, 22 ) );
 	allcapsButton->setText("");
-	allcapsButton->setIcon(QIcon(loadIcon("AllCaps.png")));
+	allcapsButton->setIcon(im->loadIcon("AllCaps.png"));
 	allcapsButton->setCheckable( true );
 	ssLayout->addWidget( allcapsButton );
 	smallcapsButton = new QToolButton( this );
 	smallcapsButton->setMaximumSize( QSize( 22, 22 ) );
 	smallcapsButton->setText("");
-	smallcapsButton->setIcon(QIcon(loadIcon("Kapital.xpm")));
+	smallcapsButton->setIcon(im->loadIcon("Kapital.xpm"));
 	smallcapsButton->setCheckable( true );
 	ssLayout->addWidget( smallcapsButton );
 
@@ -190,7 +190,7 @@ StyleSelect::StyleSelect(QWidget* parent) : QWidget(parent)
 	strikeoutButton = new QToolButton( this );
 	strikeoutButton->setText( "" );
 	strikeoutButton->setMaximumSize( QSize( 22, 22 ) );
-	strikeoutButton->setIcon(QIcon(loadIcon("Strike.xpm")));
+	strikeoutButton->setIcon(im->loadIcon("Strike.xpm"));
 	strikeoutButton->setCheckable( true );
 	strikeoutButton->setMenu(StrikePop);
 	strikeoutButton->setPopupMode(QToolButton::DelayedPopup);
@@ -204,7 +204,7 @@ StyleSelect::StyleSelect(QWidget* parent) : QWidget(parent)
 	outlineButton = new QToolButton( this );
 	outlineButton->setText( "" );
 	outlineButton->setMaximumSize( QSize( 22, 22 ) );
-	outlineButton->setIcon(QIcon(loadIcon("outlined.png")));
+	outlineButton->setIcon(im->loadIcon("outlined.png"));
 	outlineButton->setCheckable( true );
 	outlineButton->setMenu(OutlinePop);
 	outlineButton->setPopupMode(QToolButton::DelayedPopup);
@@ -218,7 +218,7 @@ StyleSelect::StyleSelect(QWidget* parent) : QWidget(parent)
 	shadowButton = new QToolButton( this );
 	shadowButton->setText( "" );
 	shadowButton->setMaximumSize( QSize( 22, 22 ) );
-	shadowButton->setIcon(QIcon(loadIcon("shadow.png")));
+	shadowButton->setIcon(im->loadIcon("shadow.png"));
 	shadowButton->setCheckable( true );
 	shadowButton->setMenu(ShadowPop);
 	shadowButton->setPopupMode(QToolButton::DelayedPopup);

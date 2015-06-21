@@ -9,12 +9,12 @@ for which a new license (GPL+exception) is in place.
 #include "commonstrings.h"
 #include "scribuscore.h"
 #include "scribusdoc.h"
-#include "util_icon.h"
+#include "iconmanager.h"
 
 AdjustCmsDialog::AdjustCmsDialog( QWidget* parent, ScribusDoc* doc ) : QDialog( parent )
 {
 	setWindowTitle( tr("CMS Settings") );
-	setWindowIcon(loadIcon("AppIcon.png"));
+	setWindowIcon(IconManager::instance()->loadPixmap("AppIcon.png"));
 	setModal(true);
 	queryLayout = new QVBoxLayout( this );
 	queryLayout->setMargin(5);

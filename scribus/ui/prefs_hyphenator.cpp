@@ -14,8 +14,9 @@ for which a new license (GPL+exception) is in place.
 #include <QTextStream>
 
 #include "downloadmanager/scdlmgr.h"
-#include "prefs_hyphenator.h"
+#include "iconmanager.h"
 #include "langmgr.h"
+#include "prefs_hyphenator.h"
 #include "prefsstructs.h"
 #include "scpaths.h"
 #include "scribusapp.h"
@@ -23,7 +24,6 @@ for which a new license (GPL+exception) is in place.
 #include "third_party/zip/scribus_zip.h"
 #include "util.h"
 #include "util_file.h"
-#include "util_icon.h"
 
 extern ScribusQApp* ScQApp;
 
@@ -37,13 +37,13 @@ Prefs_Hyphenator::Prefs_Hyphenator(QWidget* parent, ScribusDoc* doc)
 	languageList.sort();
 	hyphLanguageComboBox->addItems( languageList );
 
-	exceptionAddButton->setIcon(QIcon(loadIcon("16/list-add.png")));
+	exceptionAddButton->setIcon(IconManager::instance()->loadIcon("16/list-add.png"));
 	exceptionEditButton->setEnabled(false);
-	exceptionRemoveButton->setIcon(QIcon(loadIcon("16/list-remove.png")));
+	exceptionRemoveButton->setIcon(IconManager::instance()->loadIcon("16/list-remove.png"));
 	exceptionRemoveButton->setEnabled(false);
-	ignoreAddButton->setIcon(QIcon(loadIcon("16/list-add.png")));
+	ignoreAddButton->setIcon(IconManager::instance()->loadIcon("16/list-add.png"));
 	ignoreEditButton->setEnabled(false);
-	ignoreRemoveButton->setIcon(QIcon(loadIcon("16/list-remove.png")));
+	ignoreRemoveButton->setIcon(IconManager::instance()->loadIcon("16/list-remove.png"));
 	ignoreRemoveButton->setEnabled(false);
 	connect(ignoreAddButton, SIGNAL(clicked()), this, SLOT(addToIgnoreList()));
 	connect(ignoreEditButton, SIGNAL(clicked()), this, SLOT(editIgnoreListEntry()));

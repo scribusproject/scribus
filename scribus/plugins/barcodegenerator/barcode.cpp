@@ -9,7 +9,7 @@ for which a new license (GPL+exception) is in place.
 #include "barcodegenerator.h"
 #include "scribuscore.h"
 #include "scribusstructs.h"
-#include "util_icon.h"
+#include "iconmanager.h"
 
 Barcode::Barcode() : ScActionPlugin()
 {
@@ -29,8 +29,8 @@ void Barcode::languageChange()
 		m_actionInfo.menuAfterName = "toolsInsertRenderFrame";
 		m_actionInfo.toolbar = "Tools";
 	}
-	m_actionInfo.icon1 = loadIcon("16/insert-barcode.png");
-	m_actionInfo.icon2 = loadIcon("22/insert-barcode.png");
+	m_actionInfo.icon1 = IconManager::instance()->loadPixmap("16/insert-barcode.png");
+	m_actionInfo.icon2 = IconManager::instance()->loadPixmap("22/insert-barcode.png");
 	m_actionInfo.enabledOnStartup = false;
 //	m_actionInfo.forAppMode.append(modeNormal);
 	m_actionInfo.needsNumObjects = -1;

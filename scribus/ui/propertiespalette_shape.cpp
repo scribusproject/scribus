@@ -15,6 +15,7 @@ for which a new license (GPL+exception) is in place.
 #include "appmodes.h"
 #include "autoform.h"
 #include "commonstrings.h"
+#include "iconmanager.h"
 #include "pageitem_arc.h"
 #include "pageitem_regularpolygon.h"
 #include "pageitem_textframe.h"
@@ -32,8 +33,8 @@ for which a new license (GPL+exception) is in place.
 #include "undomanager.h"
 #include "units.h"
 #include "util.h"
-#include "util_icon.h"
 #include "util_math.h"
+
 
 PropertiesPalette_Shape::PropertiesPalette_Shape( QWidget* parent) : QWidget(parent)
 {
@@ -51,11 +52,11 @@ PropertiesPalette_Shape::PropertiesPalette_Shape( QWidget* parent) : QWidget(par
 
 	roundRectLabel->setBuddy(roundRect);
 
-	textFlowDisabled->setIcon(QIcon(loadIcon("flow-none.png")));
-	textFlowUsesFrameShape->setIcon(QIcon(loadIcon("flow-frame.png")));
-	textFlowUsesBoundingBox->setIcon(QIcon(loadIcon("flow-bounding.png")));
-	textFlowUsesContourLine->setIcon(QIcon(loadIcon("flow-contour.png")));
-	textFlowUsesImageClipping->setIcon(QIcon(loadIcon("flow-contour.png")));
+	textFlowDisabled->setIcon(IconManager::instance()->loadIcon("flow-none.png"));
+	textFlowUsesFrameShape->setIcon(IconManager::instance()->loadIcon("flow-frame.png"));
+	textFlowUsesBoundingBox->setIcon(IconManager::instance()->loadIcon("flow-bounding.png"));
+	textFlowUsesContourLine->setIcon(IconManager::instance()->loadIcon("flow-contour.png"));
+	textFlowUsesImageClipping->setIcon(IconManager::instance()->loadIcon("flow-contour.png"));
 
 	languageChange();
 

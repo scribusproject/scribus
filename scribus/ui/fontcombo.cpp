@@ -30,20 +30,20 @@ for which a new license (GPL+exception) is in place.
 #include <QStringList>
 
 #include "fontcombo.h"
+#include "iconmanager.h"
 #include "prefsmanager.h"
 #include "sccombobox.h"
 #include "scpage.h"
 #include "scribusdoc.h"
-#include "util_icon.h"
 #include "util.h"
 
 FontCombo::FontCombo(QWidget* pa) : QComboBox(pa)
 {
 	prefsManager = PrefsManager::instance();
-	ttfFont = loadIcon("font_truetype16.png");
-	otfFont = loadIcon("font_otf16.png");
-	psFont = loadIcon("font_type1_16.png");
-	substFont = loadIcon("font_subst16.png");
+	ttfFont = IconManager::instance()->loadPixmap("font_truetype16.png");
+	otfFont = IconManager::instance()->loadPixmap("font_otf16.png");
+	psFont = IconManager::instance()->loadPixmap("font_type1_16.png");
+	substFont = IconManager::instance()->loadPixmap("font_subst16.png");
 	setEditable(false);
 	QFont f(font());
 	f.setPointSize(f.pointSize()-1);
@@ -103,10 +103,10 @@ FontComboH::FontComboH(QWidget* parent, bool labels) :
 {
 	currDoc = NULL;
 	prefsManager = PrefsManager::instance();
-	ttfFont = loadIcon("font_truetype16.png");
-	otfFont = loadIcon("font_otf16.png");
-	psFont = loadIcon("font_type1_16.png");
-	substFont = loadIcon("font_subst16.png");
+	ttfFont = IconManager::instance()->loadPixmap("font_truetype16.png");
+	otfFont = IconManager::instance()->loadPixmap("font_otf16.png");
+	psFont = IconManager::instance()->loadPixmap("font_type1_16.png");
+	substFont = IconManager::instance()->loadPixmap("font_subst16.png");
 	fontComboLayout = new QGridLayout(this);
 	fontComboLayout->setMargin(0);
 	fontComboLayout->setSpacing(0);

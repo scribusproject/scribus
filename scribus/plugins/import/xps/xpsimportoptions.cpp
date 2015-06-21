@@ -8,12 +8,12 @@ for which a new license (GPL+exception) is in place.
 #include "ui_xpsimportoptions.h"
 #include "ui/createrange.h"
 #include "usertaskstructs.h"
-#include "util_icon.h"
+#include "iconmanager.h"
 
 XpsImportOptions::XpsImportOptions(QWidget *parent) : QDialog(parent), ui(new Ui::XpsImportOptions)
 {
 	ui->setupUi(this);
-	ui->pageSelectButton->setIcon(QIcon(loadIcon("ellipsis.png")));
+	ui->pageSelectButton->setIcon(IconManager::instance()->loadIcon("ellipsis.png"));
 	m_maxPage = 0;
 }
 

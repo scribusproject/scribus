@@ -25,7 +25,7 @@
 #include "scribusdoc.h"
 #include "scribusview.h"
 #include "ui/guidemanager.h"
-#include "util_icon.h"
+#include "iconmanager.h"
 
 
 RulerGesture::RulerGesture(ScribusView *view, RulerGesture::Mode mode) :
@@ -235,7 +235,7 @@ void RulerGesture::movePoint(QMouseEvent* m, bool mouseRelease)
 			{ 
 				if (m_haveGuide)
 				{
-					qApp->changeOverrideCursor(QCursor(loadIcon("DelPoint.png")));
+					qApp->changeOverrideCursor(IconManager::instance()->loadCursor("DelPoint.png"));
 					if (mouseRelease)
 					{
 						m_doc->Pages->at(m_page)->guides.deleteHorizontal( m_guide, GuideManagerCore::Standard);
@@ -291,7 +291,7 @@ void RulerGesture::movePoint(QMouseEvent* m, bool mouseRelease)
 			{ 
 				if (m_haveGuide)
 				{
-					qApp->changeOverrideCursor(QCursor(loadIcon("DelPoint.png")));
+					qApp->changeOverrideCursor(IconManager::instance()->loadCursor("DelPoint.png"));
 					if (mouseRelease)
 					{
 						m_doc->Pages->at(m_page)->guides.deleteVertical( m_guide, GuideManagerCore::Standard);

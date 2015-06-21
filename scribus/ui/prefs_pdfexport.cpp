@@ -8,17 +8,16 @@ for which a new license (GPL+exception) is in place.
 #include <QStandardItem>
 #include <QAbstractItemView>
 
-#include "ui/prefs_pdfexport.h"
-#include "ui/createrange.h"
+#include "iconmanager.h"
 #include "prefsstructs.h"
-
 #include "scribuscore.h"
 #include "scribusdoc.h"
 #include "scribusview.h"
+#include "ui/createrange.h"
+#include "ui/prefs_pdfexport.h"
 #include "ui/scrspinbox.h"
 #include "units.h"
 #include "util.h"
-#include "util_icon.h"
 
 Prefs_PDFExport::Prefs_PDFExport(QWidget* parent, ScribusDoc* doc)
 	: Prefs_Pane(parent),
@@ -27,8 +26,8 @@ Prefs_PDFExport::Prefs_PDFExport(QWidget* parent, ScribusDoc* doc)
 	exportingPDF(false)
 {
 	setupUi(this);
-	pageMirrorHorizontalToolButton->setIcon(QIcon(loadIcon("16/flip-object-horizontal.png")));
-	pageMirrorVerticalToolButton->setIcon(QIcon(loadIcon("16/flip-object-vertical.png")));
+	pageMirrorHorizontalToolButton->setIcon(IconManager::instance()->loadIcon("16/flip-object-horizontal.png"));
+	pageMirrorVerticalToolButton->setIcon(IconManager::instance()->loadIcon("16/flip-object-vertical.png"));
 	unitChange(0);
 	languageChange();
 
@@ -156,13 +155,13 @@ QListWidgetItem* Prefs_PDFExport::addFontItem(QString fontName, QListWidget* fon
 
 	const ScFace face = AllFonts.value(fontName);
 	if (face.isReplacement())
-		item = new QListWidgetItem( QIcon(loadIcon("font_subst16.png")), fontName, fontList );
+		item = new QListWidgetItem( IconManager::instance()->loadIcon("font_subst16.png"), fontName, fontList );
 	else if (face.type() == ScFace::TYPE1)
-		item = new QListWidgetItem( QIcon(loadIcon("font_type1_16.png")), fontName, fontList );
+		item = new QListWidgetItem( IconManager::instance()->loadIcon("font_type1_16.png"), fontName, fontList );
 	else if (face.type() == ScFace::TTF)
-		item = new QListWidgetItem( QIcon(loadIcon("font_truetype16.png")), fontName, fontList );
+		item = new QListWidgetItem( IconManager::instance()->loadIcon("font_truetype16.png"), fontName, fontList );
 	else if (face.type() == ScFace::OTF)
-		item = new QListWidgetItem( QIcon(loadIcon("font_otf16.png")), fontName, fontList );
+		item = new QListWidgetItem( IconManager::instance()->loadIcon("font_otf16.png"), fontName, fontList );
 
 	return item;
 }

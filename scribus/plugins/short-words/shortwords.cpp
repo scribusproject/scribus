@@ -24,21 +24,20 @@ or documentation
 #include <QTextCodec>
 #include <QPixmap>
 
-#include "shortwords.h"
-
 #include "configuration.h"
+#include "iconmanager.h"
 #include "parse.h"
 #include "prefs_shortwords.h"
-#include "swdialog.h"
-#include "swprefsgui.h"
-#include "version.h"
-
 #include "scpage.h"
 #include "scpaths.h"
 #include "scribus.h"
 #include "scribusdoc.h"
 #include "scribusview.h"
-#include "util_icon.h"
+#include "shortwords.h"
+#include "swdialog.h"
+#include "swprefsgui.h"
+#include "version.h"
+
 
 int scribusshortwords_getPluginAPIVersion()
 {
@@ -164,7 +163,7 @@ bool ShortWordsPlugin::newPrefsPanelWidget(QWidget* parent, PrefsPanel*& panel, 
 	panel = new SWPrefsGui(parent);
 	Q_CHECK_PTR(panel);
 	caption = tr("Short Words");
-	icon = loadIcon("shortwords.png");
+	icon = IconManager::instance()->loadPixmap("shortwords.png");
 	return true;
 }
 
@@ -173,6 +172,6 @@ bool ShortWordsPlugin::newPrefsPanelWidget(QWidget* parent, Prefs_Pane*& panel, 
 	panel = new Prefs_ShortWords(parent);
 	Q_CHECK_PTR(panel);
 	caption = tr("Short Words");
-	icon = loadIcon("shortwords_16.png");
+	icon = IconManager::instance()->loadPixmap("shortwords_16.png");
 	return true;
 }

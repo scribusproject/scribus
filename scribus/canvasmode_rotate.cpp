@@ -22,6 +22,7 @@
 #include "appmodes.h"
 #include "canvas.h"
 #include "fpoint.h"
+#include "iconmanager.h"
 #include "pageitem.h"
 #include "prefsmanager.h"
 #include "scribus.h"
@@ -32,9 +33,7 @@
 #include "ui/pageselector.h"
 #include "ui/scrspinbox.h"
 #include "undomanager.h"
-#include "util_icon.h"
 #include "util_math.h"
-
 
 CanvasMode_Rotate::CanvasMode_Rotate(ScribusView* view) : CanvasMode(view)
 {
@@ -410,7 +409,7 @@ void CanvasMode_Rotate::mouseMoveEvent(QMouseEvent *m)
 					{
 						setResizeCursor(how);
 					}
-					m_view->setCursor(QCursor(loadIcon("Rotieren2.png")));
+					m_view->setCursor(IconManager::instance()->loadCursor("Rotieren2.png"));
 				}
 				else
 				{
@@ -431,7 +430,7 @@ void CanvasMode_Rotate::mouseMoveEvent(QMouseEvent *m)
 					tx = p.mapRect(QRect(0, 0, static_cast<int>(currItem->width()), static_cast<int>(currItem->height())));
 					if ((tx.intersects(mpo)) && (!currItem->locked()))
 					{
-						m_view->setCursor(QCursor(loadIcon("Rotieren2.png")));
+						m_view->setCursor(IconManager::instance()->loadCursor("Rotieren2.png"));
 						if (!currItem->sizeLocked())
 							m_view->HandleCurs(currItem, mpo);
 					}

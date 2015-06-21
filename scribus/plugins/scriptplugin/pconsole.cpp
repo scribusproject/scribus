@@ -14,19 +14,20 @@ the Free Software Foundation; either version 2 of the License, or
 #include "pconsole.h"
 
 #include <QFileDialog>
-#include "commonstrings.h"
-#include "prefsmanager.h"
-#include "prefsfile.h"
-#include "prefscontext.h"
 
+#include "commonstrings.h"
+#include "iconmanager.h"
+#include "prefscontext.h"
+#include "prefsfile.h"
+#include "prefsmanager.h"
 #include "scribuscore.h"
-#include "util_icon.h"
+
 
 PythonConsole::PythonConsole( QWidget* parent)
 	: QMainWindow( parent )
 {
 	setupUi(this);
-	setWindowIcon(loadIcon("AppIcon.png"));
+	setWindowIcon(IconManager::instance()->loadIcon("AppIcon.png"));
 
 	changedLabel = new QLabel(this);
 	cursorTemplate = tr("Col: %1 Row: %2/%3");
@@ -34,11 +35,11 @@ PythonConsole::PythonConsole( QWidget* parent)
 	statusBar()->addPermanentWidget(changedLabel);
 	statusBar()->addPermanentWidget(cursorLabel);
 
-	action_Open->setIcon(loadIcon("16/document-open.png"));
-	action_Save->setIcon(loadIcon("16/document-save.png"));
-	actionSave_As->setIcon(loadIcon("16/document-save-as.png"));
-	action_Exit->setIcon(loadIcon("exit.png"));
-	action_Run->setIcon(loadIcon("ok.png"));
+	action_Open->setIcon(IconManager::instance()->loadIcon("16/document-open.png"));
+	action_Save->setIcon(IconManager::instance()->loadIcon("16/document-save.png"));
+	actionSave_As->setIcon(IconManager::instance()->loadIcon("16/document-save-as.png"));
+	action_Exit->setIcon(IconManager::instance()->loadIcon("exit.png"));
+	action_Run->setIcon(IconManager::instance()->loadIcon("ok.png"));
 
 	action_Open->setShortcut(tr("Ctrl+O"));
 	action_Save->setShortcut(tr("Ctrl+S"));

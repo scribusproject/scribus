@@ -24,7 +24,7 @@ for which a new license (GPL+exception) is in place.
 #include "colorchart.h"
 #include <QPainter>
 #include "util_color.h"
-#include "util_icon.h"
+#include "iconmanager.h"
 #include "sccolorengine.h"
 #include "scribuscore.h"
 #include "scribusdoc.h"
@@ -164,7 +164,7 @@ void ColorChart::drawPalette(int val)
 		if (doSoftProofing && doGamutCheck)
 		{
 			QPainter p;
-			QBrush b(QColor(205,205,205), loadIcon("testfill.png"));
+			QBrush b(QColor(205,205,205), IconManager::instance()->loadPixmap("testfill.png"));
 			p.begin(&image);
 			p.fillRect(0, 0, image.width(), image.height(), b);
 			p.end();

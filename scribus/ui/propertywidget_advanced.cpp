@@ -8,12 +8,12 @@ for which a new license (GPL+exception) is in place.
 #include "propertywidget_advanced.h"
 
 #include "appmodes.h"
+#include "iconmanager.h"
 #include "pageitem_table.h"
 #include "scribus.h"
 #include "scribusdoc.h"
 #include "selection.h"
 #include "units.h"
-#include "util_icon.h"
 
 PropertyWidget_Advanced::PropertyWidget_Advanced(QWidget* parent) : QFrame(parent)
 {
@@ -28,14 +28,14 @@ PropertyWidget_Advanced::PropertyWidget_Advanced(QWidget* parent) : QFrame(paren
 	layout()->setAlignment( Qt::AlignLeft );
 
 	textBase->setValue( 0 );
-	textBaseLabel->setPixmap(loadIcon("textbase.png"));
-	trackingLabel->setPixmap(loadIcon("textkern.png"));
+	textBaseLabel->setPixmap(IconManager::instance()->loadPixmap("textbase.png"));
+	trackingLabel->setPixmap(IconManager::instance()->loadPixmap("textkern.png"));
 
 	scaleH->setValues(10, 400, 2, 100 );
-	scaleHLabel->setPixmap(loadIcon("textscaleh.png"));
+	scaleHLabel->setPixmap(IconManager::instance()->loadPixmap("textscaleh.png"));
 
 	scaleV->setValues(10, 400, 2, 100 );
-	scaleVLabel->setPixmap(loadIcon("textscalev.png"));
+	scaleVLabel->setPixmap(IconManager::instance()->loadPixmap("textscalev.png"));
 
 	minWordTrackingLabel->setBuddy(minWordTrackingSpinBox);
 	normWordTrackingLabel->setBuddy(normWordTrackingSpinBox);

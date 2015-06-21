@@ -30,7 +30,7 @@ for which a new license (GPL+exception) is in place.
 #include "commonstrings.h"
 #include "scpage.h"
 #include "scribusdoc.h"
-#include "util_icon.h"
+#include "iconmanager.h"
 
 enum {
     CurrentPage,
@@ -50,7 +50,7 @@ ApplyMasterPageDialog::ApplyMasterPageDialog( QWidget* parent ) : QDialog( paren
 {
 	setModal(true);
 	setWindowTitle( tr( "Possible Hyphenation" ));
-	setWindowIcon(QIcon(loadIcon ( "AppIcon.png" )));
+	setWindowIcon(IconManager::instance()->loadIcon( "AppIcon.png" ));
 	ApplyMasterPageDialogLayout = new QVBoxLayout(this);
 	ApplyMasterPageDialogLayout->setMargin(10);
 	ApplyMasterPageDialogLayout->setSpacing(5);

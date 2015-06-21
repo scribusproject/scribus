@@ -8,7 +8,7 @@ for which a new license (GPL+exception) is in place.
 #include <QPushButton>
 
 #include "delpages.h"
-#include "util_icon.h"
+#include "iconmanager.h"
 #include "commonstrings.h"
 #include "ui/scrspinbox.h"
 
@@ -16,7 +16,7 @@ DelPages::DelPages( QWidget* parent, int currentPage, int maxPage ) : QDialog( p
 {
 	setWindowTitle( tr( "Delete Pages" ) );
 	setModal(true);
-	setWindowIcon(loadIcon("AppIcon.png"));
+	setWindowIcon(IconManager::instance()->loadIcon("AppIcon.png"));
 	dialogLayout = new QVBoxLayout( this );
 	dialogLayout->setSpacing( 5 );
 	dialogLayout->setMargin( 10 );

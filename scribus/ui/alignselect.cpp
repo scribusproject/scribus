@@ -9,10 +9,11 @@ for which a new license (GPL+exception) is in place.
 #include <QEvent>
 #include <QPixmap>
 #include <QToolTip>
-#include "util_icon.h"
+#include "iconmanager.h"
 
 AlignSelect::AlignSelect(QWidget* parent) : QWidget(parent)
 {
+	IconManager* im=IconManager::instance();
 	buttonGroup = new QButtonGroup(this);
 
 	GroupAlignLayout = new QHBoxLayout( this );
@@ -21,7 +22,7 @@ AlignSelect::AlignSelect(QWidget* parent) : QWidget(parent)
 
 	TextL = new QToolButton( this );
 	TextL->setMaximumSize( QSize( 22, 22 ) );
-	TextL->setIcon(QIcon(loadIcon("16/format-justify-left.png")));
+	TextL->setIcon(im->loadIcon("16/format-justify-left.png"));
 	TextL->setCheckable( true );
 	TextL->setChecked( true );
 	GroupAlignLayout->addWidget( TextL );
@@ -29,28 +30,28 @@ AlignSelect::AlignSelect(QWidget* parent) : QWidget(parent)
 
 	TextC = new QToolButton( this );
 	TextC->setMaximumSize( QSize( 22, 22 ) );
-	TextC->setIcon(QIcon(loadIcon("16/format-justify-center.png")));
+	TextC->setIcon(im->loadIcon("16/format-justify-center.png"));
 	TextC->setCheckable( true );
 	GroupAlignLayout->addWidget( TextC );
 	buttonGroup->addButton(TextC, 1);
 
 	TextR = new QToolButton( this );
 	TextR->setMaximumSize( QSize( 22, 22 ) );
-	TextR->setIcon(QIcon(loadIcon("16/format-justify-right.png")));
+	TextR->setIcon(im->loadIcon("16/format-justify-right.png"));
 	TextR->setCheckable( true );
 	GroupAlignLayout->addWidget( TextR );
 	buttonGroup->addButton(TextR, 2);
 
 	TextB = new QToolButton( this );
 	TextB->setMaximumSize( QSize( 22, 22 ) );
-	TextB->setIcon(QIcon(loadIcon("16/format-justify-fill-block.png")));
+	TextB->setIcon(im->loadIcon("16/format-justify-fill-block.png"));
 	TextB->setCheckable( true );
 	GroupAlignLayout->addWidget( TextB );
 	buttonGroup->addButton(TextB, 3);
 
 	TextF = new QToolButton( this );
 	TextF->setMaximumSize( QSize( 22, 22 ) );
-	TextF->setIcon(QIcon(loadIcon("16/format-justify-fill.png")));
+	TextF->setIcon(im->loadIcon("16/format-justify-fill.png"));
 	TextF->setCheckable( true );
 	GroupAlignLayout->addWidget( TextF );
 	buttonGroup->addButton(TextF, 4);

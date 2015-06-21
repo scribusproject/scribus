@@ -46,11 +46,12 @@ for which a new license (GPL+exception) is in place.
 #include <cmath>
 
 
+
 #include "appmodes.h"
 #include "commonstrings.h"
+#include "iconmanager.h"
 #include "sccombobox.h"
 #include "scraction.h"
-
 #include "scribuscore.h"
 #include "scribusdoc.h"
 #include "scribusview.h"
@@ -64,8 +65,8 @@ for which a new license (GPL+exception) is in place.
 #include "undomanager.h"
 #include "units.h"
 #include "util.h"
-#include "util_icon.h"
 #include "util_math.h"
+
 
 
 PropertiesPalette_Group::PropertiesPalette_Group( QWidget* parent) : QWidget(parent)
@@ -82,11 +83,11 @@ PropertiesPalette_Group::PropertiesPalette_Group( QWidget* parent) : QWidget(par
 	setupUi(this);
 	setSizePolicy( QSizePolicy(QSizePolicy::Maximum, QSizePolicy::Maximum));
 
-	textFlowDisabled->setIcon(QIcon(loadIcon("flow-none.png")));
-	textFlowUsesFrameShape->setIcon(QIcon(loadIcon("flow-frame.png")));
-	textFlowUsesBoundingBox->setIcon(QIcon(loadIcon("flow-bounding.png")));
-	textFlowUsesContourLine->setIcon(QIcon(loadIcon("flow-contour.png")));
-	textFlowUsesImageClipping->setIcon(QIcon(loadIcon("flow-contour.png")));
+	textFlowDisabled->setIcon(IconManager::instance()->loadIcon("flow-none.png"));
+	textFlowUsesFrameShape->setIcon(IconManager::instance()->loadIcon("flow-frame.png"));
+	textFlowUsesBoundingBox->setIcon(IconManager::instance()->loadIcon("flow-bounding.png"));
+	textFlowUsesContourLine->setIcon(IconManager::instance()->loadIcon("flow-contour.png"));
+	textFlowUsesImageClipping->setIcon(IconManager::instance()->loadIcon("flow-contour.png"));
 
 	textFlowDisabled->setSizePolicy(QSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding));
 	textFlowUsesFrameShape->setSizePolicy(QSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding));

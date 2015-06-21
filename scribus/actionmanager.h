@@ -38,6 +38,7 @@ class QEvent;
 #include "scribusapi.h"
 #include "scraction.h"
 
+class IconManager;
 class ScribusDoc;
 class ScribusMainWindow;
 class ScribusQApp;
@@ -114,6 +115,7 @@ class SCRIBUS_API ActionManager : public QObject
 		ScribusMainWindow *mainWindow;
 		ScribusQApp *ScQApp;
 		UndoManager *undoManager;
+		IconManager* im;
 		QMap<QString, QPointer<ScrAction> > *scrActions;
 		QMultiHash<QString, QActionGroup*> *scrActionGroups;
 		QStringList *modeActionNames;

@@ -20,27 +20,29 @@ for which a new license (GPL+exception) is in place.
  *   (at your option) any later version.                                   *
  *                                                                         *
  ***************************************************************************/
+#include "iconmanager.h"
+#include "prefsfile.h"
+#include "prefsmanager.h"
+#include "scmimedata.h"
+#include "scpainter.h"
+#include "scribus.h"
+#include "scribusXml.h"
+#include "scribusdoc.h"
+#include "selection.h"
 #include "shapepalette.h"
+#include "ui/scmessagebox.h"
+#include "util.h"
+#include "util_math.h"
+
 #include <QApplication>
+#include <QByteArray>
 #include <QDomDocument>
 #include <QDomElement>
 #include <QDrag>
+#include <QFileDialog>
 #include <QMimeData>
 #include <QPainter>
-#include <QByteArray>
-#include <QFileDialog>
-#include "prefsfile.h"
-#include "prefsmanager.h"
-#include "scpainter.h"
-#include "scribusdoc.h"
-#include "scribus.h"
-#include "selection.h"
-#include "scmimedata.h"
-#include "scribusXml.h"
-#include "ui/scmessagebox.h"
-#include "util.h"
-#include "util_icon.h"
-#include "util_math.h"
+
 
 ShapeView::ShapeView(QWidget* parent) : QListWidget(parent)
 {
@@ -286,14 +288,14 @@ ShapePalette::ShapePalette( QWidget* parent) : ScDockPalette( parent, "Shap", 0)
 	buttonLayout->setMargin( 0 );
 	importButton = new QToolButton(this);
 	importButton->setSizePolicy(QSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed));
-	importButton->setIcon(loadIcon("16/document-open.png"));
+	importButton->setIcon(IconManager::instance()->loadIcon("16/document-open.png"));
 	importButton->setIconSize(QSize(16, 16));
 	buttonLayout->addWidget( importButton );
 	QSpacerItem* spacer = new QSpacerItem( 1, 1, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	buttonLayout->addItem( spacer );
 	closeButton = new QToolButton(this);
 	closeButton->setSizePolicy(QSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed));
-	closeButton->setIcon(loadIcon("16/close.png"));
+	closeButton->setIcon(IconManager::instance()->loadIcon("16/close.png"));
 	closeButton->setIconSize(QSize(16, 16));
 	buttonLayout->addWidget( closeButton );
 	vLayout->addLayout( buttonLayout );

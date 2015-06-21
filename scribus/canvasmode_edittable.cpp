@@ -31,7 +31,7 @@ for which a new license (GPL+exception) is in place.
 #include "selection.h"
 #include "tablehandle.h"
 #include "ui/scmwmenumanager.h"
-#include "util_icon.h"
+#include "iconmanager.h"
 
 // TODO: We should have a preference for this instead.
 #ifdef Q_OS_MAC
@@ -46,8 +46,8 @@ CanvasMode_EditTable::CanvasMode_EditTable(ScribusView* view) : CanvasMode(view)
 	m_longBlink(false),
 	m_cursorVisible(false),
 	m_lastCursorPos(-1),
-	m_selectRowCursor(loadIcon("select_row.png")),
-	m_selectColumnCursor(loadIcon("select_column.png")),
+	m_selectRowCursor(IconManager::instance()->loadCursor("select_row.png")),
+	m_selectColumnCursor(IconManager::instance()->loadCursor("select_column.png")),
 	m_tableResizeGesture(new TableResize(this)),
 	m_rowResizeGesture(new RowResize(this)),
 	m_columnResizeGesture(new ColumnResize(this)),

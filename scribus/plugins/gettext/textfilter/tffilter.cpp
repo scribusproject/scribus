@@ -21,7 +21,7 @@ for which a new license (GPL+exception) is in place.
 #include "scribusdoc.h"
 #include "prefsmanager.h"
 #include "prefsfile.h"
-#include "util_icon.h"
+#include "iconmanager.h"
 #include "util.h"
 
 tfFilter::tfFilter(QWidget *parent, const char *name,
@@ -133,12 +133,12 @@ void tfFilter::createWidget()
 // 	layout->addStretch(10);
 
 	layout->addSpacing(20);
-	removeButton = new QPushButton(loadIcon("22/list-remove.png"), 0, this);
+	removeButton = new QPushButton(IconManager::instance()->loadIcon("22/list-remove.png"), 0, this);
 	removeButton->setToolTip( tr("Remove this filter row"));
 	removeButton->setMaximumSize(QSize(25,25));
 	removeButton->setMinimumSize(QSize(25,25));
 	layout->addWidget(removeButton);
-	addButton = new QPushButton(loadIcon("22/list-add.png"), 0, this);
+	addButton = new QPushButton(IconManager::instance()->loadIcon("22/list-add.png"), 0, this);
 	addButton->setToolTip( tr("Add a new filter row"));
 	addButton->setMaximumSize(QSize(25,25));
 	addButton->setMinimumSize(QSize(25,25));

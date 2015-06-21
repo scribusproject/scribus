@@ -111,6 +111,7 @@ for which a new license (GPL+exception) is in place.
 #include "fpointarray.h"
 #include "gtgettext.h"
 #include "hyphenator.h"
+#include "iconmanager.h"
 #include "langmgr.h"
 #include "loadsaveplugin.h"
 #include "marks.h"
@@ -259,9 +260,7 @@ for which a new license (GPL+exception) is in place.
 #include "util_file.h"
 #include "util_formats.h"
 #include "util_ghostscript.h"
-#include "util_icon.h"
 #include "util_math.h"
-
 
 
 #ifdef HAVE_OSG
@@ -304,7 +303,7 @@ ScribusMainWindow::ScribusMainWindow()
 #ifdef Q_OS_MAC
 	//commenting this out until this is resolved :https://bugreports.qt.io/browse/QTBUG-44565
 	//ScQApp->setAttribute(Qt::AA_DontShowIconsInMenus);
-	noIcon = loadIcon("noicon.xpm");
+	noIcon = IconManager::instance()->loadPixmap("noicon.xpm");
 #endif
 }
 
@@ -350,7 +349,7 @@ int ScribusMainWindow::initScMW(bool primaryMainWindow)
 	setWindowTitle( tr("Scribus " VERSION));
 	setAttribute(Qt::WA_KeyCompression, false);
 	setAttribute(Qt::WA_InputMethodEnabled, true);
-	setWindowIcon(loadIcon("AppIcon.png"));
+	setWindowIcon(IconManager::instance()->loadIcon("AppIcon.png"));
 	setObjectName("MainWindow");
 	scrActionGroups.clear();
 	scrActions.clear();
@@ -1248,9 +1247,9 @@ void ScribusMainWindow::initStatusBar()
 	zoomInToolbarButton->setDefault( false );
 	zoomInToolbarButton->setAutoDefault( false );
 
-	zoomDefaultToolbarButton->setIcon(QIcon(loadIcon("16/zoom-original.png")));
-	zoomOutToolbarButton->setIcon(QIcon(loadIcon("16/zoom-out.png")));
-	zoomInToolbarButton->setIcon(QIcon(loadIcon("16/zoom-in.png")));
+	zoomDefaultToolbarButton->setIcon(QIcon(IconManager::instance()->loadIcon("16/zoom-original.png")));
+	zoomOutToolbarButton->setIcon(QIcon(IconManager::instance()->loadIcon("16/zoom-out.png")));
+	zoomInToolbarButton->setIcon(QIcon(IconManager::instance()->loadIcon("16/zoom-in.png")));
 
 
 	zoomLayout->addWidget( zoomSpinBox );
@@ -1279,7 +1278,7 @@ void ScribusMainWindow::initStatusBar()
 	QByteArray stylesheet;
 	if (loadRawText(ScPaths::instance().libDir() + "scribus.css", stylesheet))
 	{
-		QString downArrow(pathForIcon("16/go-down.png"));
+		QString downArrow(IconManager::instance()->pathForIcon("16/go-down.png"));
 		QByteArray da;
 		da.append(downArrow);
 		stylesheet.replace("___downArrow___", da);
@@ -1627,7 +1626,7 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 	{
 		if ((doc->appMode == modeMagnifier) && (kk == Qt::Key_Shift))
 		{
-			view->setCursor(QCursor(loadIcon("LupeZm.xpm")));
+			view->setCursor(IconManager::instance()->loadCursor("LupeZm.xpm"));
 			return;
 		}
 	}
@@ -1876,7 +1875,7 @@ void ScribusMainWindow::keyReleaseEvent(QKeyEvent *k)
 	if (HaveDoc)
 	{
 		if (doc->appMode == modeMagnifier)
-			view->setCursor(QCursor(loadIcon("LupeZ.xpm")));
+			view->setCursor(IconManager::instance()->loadCursor("LupeZ.xpm"));
 	}
 	if (k->isAutoRepeat() || !_arrowKeyDown)
 		return;
@@ -3093,7 +3092,7 @@ void ScribusMainWindow::importVectorFile()
 		md->setUrls(urls);
 		QDrag* dr = new QDrag(this);
 		dr->setMimeData(md);
-		const QPixmap& dragCursor = loadIcon("DragPix.xpm");
+		const QPixmap& dragCursor = IconManager::instance()->loadPixmap("DragPix.xpm");
 		dr->setPixmap(dragCursor);
 		dr->exec();
 	}
@@ -7401,7 +7400,7 @@ void ScribusMainWindow::editSymbolEnd()
 	slotSelect();
 	appModeHelper->setSymbolEditMode(false, doc);
 	scrActions["fileClose"]->setToolTip( tr("Close"));
-	scrActions["fileClose"]->setIcon(loadIcon("22/close.png"));
+	scrActions["fileClose"]->setIcon(IconManager::instance()->loadIcon("22/close.png"));
 	scrMenuMgr->setMenuEnabled("FileOpenRecent", true);
 	scrMenuMgr->setMenuEnabled("FileExport", true);
 
@@ -7471,7 +7470,7 @@ void ScribusMainWindow::editInlineEnd()
 	slotSelect();
 	appModeHelper->setInlineEditMode(false, doc);
 	scrActions["fileClose"]->setToolTip( tr("Close"));
-	scrActions["fileClose"]->setIcon(loadIcon("22/close.png"));
+	scrActions["fileClose"]->setIcon(IconManager::instance()->loadIcon("22/close.png"));
 	scrMenuMgr->setMenuEnabled("FileOpenRecent", true);
 	scrMenuMgr->setMenuEnabled("FileExport", true);
 	pagePalette->enablePalette(true);
@@ -7551,7 +7550,7 @@ void ScribusMainWindow::editMasterPagesEnd()
 	slotSelect();
 	appModeHelper->setMasterPageEditMode(false, doc);
 	scrActions["fileClose"]->setToolTip( tr("Close"));
-	scrActions["fileClose"]->setIcon(loadIcon("22/close.png"));
+	scrActions["fileClose"]->setIcon(IconManager::instance()->loadIcon("22/close.png"));
 	scrMenuMgr->setMenuEnabled("FileOpenRecent", true);
 	uint pageCount=doc->DocPages.count();
 	for (uint c=0; c<pageCount; ++c)

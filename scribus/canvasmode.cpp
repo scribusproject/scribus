@@ -66,7 +66,7 @@
 #include "ui/scresizecursor.h"
 #include "undomanager.h"
 #include "units.h"
-#include "util_icon.h"
+#include "iconmanager.h"
 #include "util_math.h"
 
 #include <QMdiArea>
@@ -747,56 +747,57 @@ void CanvasMode::drawOutline(QPainter* p, double scalex, double scaley, double d
 
 QCursor CanvasMode::modeCursor()
 {
+	IconManager* im=IconManager::instance();
 	QCursor cursor;
 	switch (m_doc->appMode)
 	{
 		case modeDrawShapes:
 		case modeDrawArc:
 		case modeDrawSpiral:
-			cursor = QCursor(loadIcon("DrawFrame.xpm"));
+			cursor = im->loadCursor("DrawFrame.xpm");
 			break;
 		case modeDrawImage:
-			cursor = QCursor(loadIcon("DrawImageFrame.xpm"));
+			cursor = im->loadCursor("DrawImageFrame.xpm");
 			break;
 		case modeDrawLatex:
-			cursor = QCursor(loadIcon("DrawLatexFrame.xpm"));
+			cursor = im->loadCursor("DrawLatexFrame.xpm");
 			break;
 		case modeDrawText:
-			cursor = QCursor(loadIcon("DrawTextFrame.xpm"));
+			cursor = im->loadCursor("DrawTextFrame.xpm");
 			break;
 		case modeDrawTable2:
-			cursor = QCursor(loadIcon("DrawTable.xpm"));
+			cursor = im->loadCursor("DrawTable.xpm");
 			break;
 		case modeDrawRegularPolygon:
-			cursor = QCursor(loadIcon("DrawPolylineFrame.xpm"));
+			cursor = im->loadCursor("DrawPolylineFrame.xpm");
 			break;
 		case modeDrawLine:
 		case modeDrawBezierLine:
 			cursor = QCursor(Qt::CrossCursor);
 			break;
 		case modeDrawFreehandLine:
-			cursor = QCursor(loadIcon("DrawFreeLine.png"), 0, 31);
+			cursor = QCursor(im->loadPixmap("DrawFreeLine.png"), 0, 31);
 			break;
 		case modeDrawCalligraphicLine:
-			cursor = QCursor(loadIcon("DrawCalligraphy.xpm"), 4, 4);
+			cursor = QCursor(im->loadPixmap("DrawCalligraphy.xpm"), 4, 4);
 			break;
 		case modeImportObject:
-			cursor = QCursor(loadIcon("DragPix.xpm"));
+			cursor = im->loadCursor("DragPix.xpm");
 			break;
 		case modeMagnifier:
 			if (m_view->Magnify)
-				cursor = QCursor(loadIcon("LupeZ.xpm"));
+				cursor = im->loadCursor("LupeZ.xpm");
 			else
-				cursor = QCursor(loadIcon("LupeZm.xpm"));
+				cursor = im->loadCursor("LupeZm.xpm");
 			break;
 		case modePanning:
-			cursor = QCursor(loadIcon("HandC.xpm"));
+			cursor = im->loadCursor("HandC.xpm");
 			break;
 		case modeEyeDropper:
-			cursor = QCursor(loadIcon("colorpickercursor.png"), 0, 31);
+			cursor = QCursor(im->loadPixmap("colorpickercursor.png"), 0, 31);
 			break;
 		case modeLinkFrames:
-			cursor = QCursor(loadIcon("LinkTextFrame.png"), 0, 31);
+			cursor = QCursor(im->loadPixmap("LinkTextFrame.png"), 0, 31);
 			break;
 		case modeMeasurementTool:
 		case modeEditGradientVectors:
@@ -826,56 +827,57 @@ QCursor CanvasMode::modeCursor()
 
 void CanvasMode::setModeCursor()
 {
+	IconManager* im=IconManager::instance();
 	//NOTE: Merge with similar code in ScribusMainWindow::setAppMode()
 	switch (m_doc->appMode)
 	{
 		case modeDrawShapes:
 		case modeDrawArc:
 		case modeDrawSpiral:
-			m_view->setCursor(QCursor(loadIcon("DrawFrame.xpm")));
+			m_view->setCursor(im->loadCursor("DrawFrame.xpm"));
 			break;
 		case modeDrawImage:
-			m_view->setCursor(QCursor(loadIcon("DrawImageFrame.xpm")));
+			m_view->setCursor(im->loadCursor("DrawImageFrame.xpm"));
 			break;
 		case modeDrawLatex:
-			m_view->setCursor(QCursor(loadIcon("DrawLatexFrame.xpm")));
+			m_view->setCursor(im->loadCursor("DrawLatexFrame.xpm"));
 			break;
 		case modeDrawText:
-			m_view->setCursor(QCursor(loadIcon("DrawTextFrame.xpm")));
+			m_view->setCursor(im->loadCursor("DrawTextFrame.xpm"));
 			break;
 		case modeDrawTable2:
-			m_view->setCursor(QCursor(loadIcon("DrawTable.xpm")));
+			m_view->setCursor(im->loadCursor("DrawTable.xpm"));
 			break;
 		case modeDrawRegularPolygon:
-			m_view->setCursor(QCursor(loadIcon("DrawPolylineFrame.xpm")));
+			m_view->setCursor(im->loadCursor("DrawPolylineFrame.xpm"));
 			break;
 		case modeDrawLine:
 		case modeDrawBezierLine:
 			m_view->setCursor(QCursor(Qt::CrossCursor));
 			break;
 		case modeDrawFreehandLine:
-			m_view->setCursor(QCursor(loadIcon("DrawFreeLine.png"), 0, 31));
+			m_view->setCursor(QCursor(im->loadPixmap("DrawFreeLine.png"), 0, 31));
 			break;
 		case modeDrawCalligraphicLine:
-			m_view->setCursor(QCursor(loadIcon("DrawCalligraphy.xpm"), 4, 4));
+			m_view->setCursor(QCursor(im->loadPixmap("DrawCalligraphy.xpm"), 4, 4));
 			break;
 		case modeImportObject:
-			m_view->setCursor(QCursor(loadIcon("DragPix.xpm")));
+			m_view->setCursor(im->loadCursor("DragPix.xpm"));
 			break;
 		case modeMagnifier:
 			if (m_view->Magnify)
-				m_view->setCursor(QCursor(loadIcon("LupeZ.xpm")));
+				m_view->setCursor(im->loadCursor("LupeZ.xpm"));
 			else
-				m_view->setCursor(QCursor(loadIcon("LupeZm.xpm")));
+				m_view->setCursor(im->loadCursor("LupeZm.xpm"));
 			break;
 		case modePanning:
-			m_view->setCursor(QCursor(loadIcon("HandC.xpm")));
+			m_view->setCursor(im->loadCursor("HandC.xpm"));
 			break;
 		case modeEyeDropper:
-			m_view->setCursor(QCursor(loadIcon("colorpickercursor.png"), 0, 31));
+			m_view->setCursor(QCursor(im->loadPixmap("colorpickercursor.png"), 0, 31));
 			break;
 		case modeLinkFrames:
-			m_view->setCursor(QCursor(loadIcon("LinkTextFrame.png"), 0, 31));
+			m_view->setCursor(QCursor(im->loadPixmap("LinkTextFrame.png"), 0, 31));
 			break;
 		case modeMeasurementTool:
 		case modeEditGradientVectors:
@@ -1730,7 +1732,7 @@ void CanvasMode::commonkeyReleaseEvent(QKeyEvent *e)
 	if ((m_doc->appMode == modePanning) && (e->key() == Qt::Key_Control) && (QApplication::mouseButtons() & Qt::RightButton))
 		m_view->requestMode(modeNormal);
 	if (m_doc->appMode == modeMagnifier)
-		m_view->setCursor(QCursor(loadIcon("LupeZ.xpm")));
+		m_view->setCursor(IconManager::instance()->loadCursor("LupeZ.xpm"));
 	if (e->isAutoRepeat() || !m_arrowKeyDown)
 		return;
 	switch(e->key())

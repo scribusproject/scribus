@@ -16,14 +16,14 @@ for which a new license (GPL+exception) is in place.
 
 #include "scrspinbox.h"
 #include "util.h"
-#include "util_icon.h"
+#include "iconmanager.h"
 
 ScInputDialog::ScInputDialog( QWidget* parent, const char* name, bool modal) : QDialog( parent )
 {
 	if ( !name )
 		setObjectName( "ScInputDialog" );
 	setModal(modal);
-	setWindowIcon(QIcon(loadIcon ( "AppIcon.png" )));
+	setWindowIcon(IconManager::instance()->loadIcon("AppIcon.png"));
 	setSizeGripEnabled( true );
 	ScInputDialogLayout = new QVBoxLayout( this );
 	ScInputDialogLayout->setMargin(10);

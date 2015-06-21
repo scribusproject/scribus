@@ -33,6 +33,7 @@ for which a new license (GPL+exception) is in place.
 #include <QVBoxLayout>
 
 #include "commonstrings.h"
+#include "iconmanager.h"
 #include "pdfoptions.h"
 #include "prefsfile.h"
 #include "prefsmanager.h"
@@ -40,11 +41,11 @@ for which a new license (GPL+exception) is in place.
 #include "scribusdoc.h"
 #include "scribusview.h"
 #include "ui/customfdialog.h"
-#include "ui/scmessagebox.h" 
+#include "ui/scmessagebox.h"
 #include "ui/scrspinbox.h"
 #include "units.h"
 #include "util.h"
-#include "util_icon.h"
+
 
 PDFExportDialog::PDFExportDialog( QWidget* parent, const QString & docFileName,
 								  const QMap<QString, int > & DocFonts,
@@ -61,7 +62,7 @@ PDFExportDialog::PDFExportDialog( QWidget* parent, const QString & docFileName,
 {
 	setModal(true);
 	setWindowTitle( tr( "Save as PDF" ) );
-	setWindowIcon(loadIcon("AppIcon.png"));
+	setWindowIcon(IconManager::instance()->loadIcon("AppIcon.png"));
 	PDFExportLayout = new QVBoxLayout( this );
 	PDFExportLayout->setSpacing( 5 );
 	PDFExportLayout->setMargin( 10 );

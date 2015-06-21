@@ -40,23 +40,24 @@ for which a new license (GPL+exception) is in place.
 
 #include "customfdialog.h"
 
-#include "fileloader.h"
-#include "loadsaveplugin.h"
 #include "../plugins/formatidlist.h"
-#include "prefsmanager.h"
-#include "scfilewidget.h"
 #include "cmsettings.h"
 #include "commonstrings.h"
+#include "fileloader.h"
+#include "iconmanager.h"
+#include "loadsaveplugin.h"
+#include "prefsmanager.h"
 #include "sccombobox.h"
+#include "scfilewidget.h"
 #include "scimage.h"
+#include "scpreview.h"
 #include "scribusstructs.h"
 #include "scslainforeader.h"
-#include "scpreview.h"
 #include "units.h"
 #include "util.h"
 #include "util_color.h"
 #include "util_formats.h"
-#include "util_icon.h"
+
 
 
 
@@ -69,14 +70,15 @@ ImIconProvider::ImIconProvider() : QFileIconProvider()
 	size_t array = sizeof(tmp) / sizeof(*tmp);
 	for (uint a = 0; a < array; ++a)
 		fmts.append(tmp[a]);
-	imagepm = QIcon(loadIcon("16/image-x-generic.png"));
-	pspm = QIcon(loadIcon("postscript.png"));
-	txtpm = QIcon(loadIcon("txt.png"));
-	docpm = QIcon(loadIcon("doc.png"));
-	pdfpm = QIcon(loadIcon("pdf.png"));
-	oosxdpm = QIcon(loadIcon("ooo_draw.png"));
-	oosxwpm = QIcon(loadIcon("ooo_writer.png"));
-	vectorpm = QIcon(loadIcon("vectorgfx.png"));
+	IconManager* im=IconManager::instance();
+	imagepm = im->loadIcon("16/image-x-generic.png");
+	pspm = im->loadIcon("postscript.png");
+	txtpm = im->loadIcon("txt.png");
+	docpm = im->loadIcon("doc.png");
+	pdfpm = im->loadIcon("pdf.png");
+	oosxdpm = im->loadIcon("ooo_draw.png");
+	oosxwpm = im->loadIcon("ooo_writer.png");
+	vectorpm = im->loadIcon("vectorgfx.png");
 }
 
 QIcon ImIconProvider::icon(const QFileInfo &fi) const
@@ -178,7 +180,7 @@ void FDialogPreview::GenPreview(QString name)
 			QString tmp2 = "";
 			QImage im2 = im.scaled(w - 5, h - 44, Qt::KeepAspectRatio, Qt::SmoothTransformation);
 			QPainter p;
-			QBrush b(QColor(205,205,205), loadIcon("testfill.png"));
+			QBrush b(QColor(205,205,205), IconManager::instance()->loadPixmap("testfill.png"));
 			// Qt4 FIXME imho should be better
 			pm = *pixmap();
 			p.begin(&pm);
@@ -218,7 +220,7 @@ void FDialogPreview::GenPreview(QString name)
 					desc += value2String(im.text("YSize").toDouble(), PrefsManager::instance()->appPrefs.docSetupPrefs.docUnitIndex, true, true);
 					im = im.scaled(w - 5, h - 21, Qt::KeepAspectRatio, Qt::SmoothTransformation);
 					QPainter p;
-					QBrush b(QColor(205,205,205), loadIcon("testfill.png"));
+					QBrush b(QColor(205,205,205), IconManager::instance()->loadPixmap("testfill.png"));
 					pm = *pixmap();
 					p.begin(&pm);
 					p.fillRect(0, 0, w, h-21, b);
@@ -246,7 +248,7 @@ void FDialogPreview::GenPreview(QString name)
 			QImage im = pre->createPreview(f);
 			im = im.scaled(w - 5, h - 21, Qt::KeepAspectRatio, Qt::SmoothTransformation);
 			QPainter p;
-			QBrush b(QColor(205,205,205), loadIcon("testfill.png"));
+			QBrush b(QColor(205,205,205), IconManager::instance()->loadPixmap("testfill.png"));
 			pm = *pixmap();
 			p.begin(&pm);
 			p.fillRect(0, 0, w, h-21, b);
@@ -295,7 +297,7 @@ CustomFDialog::CustomFDialog(QWidget *parent, QString wDir, QString caption, QSt
 {
 	setModal(true);
 	setWindowTitle(caption);
-	setWindowIcon(QIcon(loadIcon("AppIcon.png")));
+	setWindowIcon(IconManager::instance()->loadIcon("AppIcon.png"));
 	vboxLayout = new QVBoxLayout(this);
 	vboxLayout->setSpacing(5);
 	vboxLayout->setMargin(10);

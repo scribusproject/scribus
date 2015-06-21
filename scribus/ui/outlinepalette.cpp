@@ -28,6 +28,7 @@ for which a new license (GPL+exception) is in place.
 #include "canvasmode.h"
 #include "commonstrings.h"
 #include "contextmenu.h"
+#include "iconmanager.h"
 #include "layers.h"
 #include "outlinepalette.h"
 #include "propertiespalette.h"
@@ -41,8 +42,6 @@ for which a new license (GPL+exception) is in place.
 #include "util.h"
 #include "util_color.h"
 #include "util_formats.h"
-#include "util_icon.h"
-
 
 
 OutlineTreeItem::OutlineTreeItem(OutlineTreeItem* parent, OutlineTreeItem* after) : QTreeWidgetItem(parent, after)
@@ -306,7 +305,7 @@ bool OutlineWidget::viewportEvent(QEvent *event)
 					PageItem *pgItem = item->PageItemObject;
 					QPainter p;
 					QImage pm = QImage(80, 80, QImage::Format_ARGB32_Premultiplied);
-					QBrush b(QColor(205,205,205), loadIcon("testfill.png"));
+					QBrush b(QColor(205,205,205), IconManager::instance()->loadPixmap("testfill.png"));
 					p.begin(&pm);
 					p.fillRect(QRectF(0, 0, 80, 80), b);
 					QImage thumb = pgItem->DrawObj_toImage(80);
@@ -451,23 +450,24 @@ OutlinePalette::OutlinePalette( QWidget* parent) : ScDockPalette( parent, "Tree"
 	setWidget( containerWidget );
 
 	unsetDoc();
-	imageIcon = loadIcon("22/insert-image.png");
-	latexIcon = loadIcon("22/insert-latex.png");
-	lineIcon = loadIcon("Stift.xpm");
-	textIcon = loadIcon("22/insert-text-frame.png");
-	polylineIcon = loadIcon("22/draw-path.png");
-	polygonIcon = loadIcon("22/draw-polygon.png");
-	tableIcon = loadIcon("22/insert-table.png");
-	groupIcon = loadIcon("u_group.png");
-	buttonIcon = loadIcon("22/insert-button.png");
-	radiobuttonIcon = loadIcon("22/radiobutton.png");
-	textFieldIcon = loadIcon("22/text-field.png");
-	checkBoxIcon = loadIcon("22/checkbox.png");
-	comboBoxIcon = loadIcon("22/combobox.png");
-	listBoxIcon = loadIcon("22/list-box.png");
-	annotTextIcon = loadIcon("22/pdf-annotations.png");
-	annotLinkIcon = loadIcon("goto.png");
-	annot3DIcon = loadIcon("22/annot3d.png");
+	IconManager* im = IconManager::instance();
+	imageIcon = im->loadPixmap("22/insert-image.png");
+	latexIcon = im->loadPixmap("22/insert-latex.png");
+	lineIcon = im->loadPixmap("Stift.xpm");
+	textIcon = im->loadPixmap("22/insert-text-frame.png");
+	polylineIcon = im->loadPixmap("22/draw-path.png");
+	polygonIcon = im->loadPixmap("22/draw-polygon.png");
+	tableIcon = im->loadPixmap("22/insert-table.png");
+	groupIcon = im->loadPixmap("u_group.png");
+	buttonIcon = im->loadPixmap("22/insert-button.png");
+	radiobuttonIcon = im->loadPixmap("22/radiobutton.png");
+	textFieldIcon = im->loadPixmap("22/text-field.png");
+	checkBoxIcon = im->loadPixmap("22/checkbox.png");
+	comboBoxIcon = im->loadPixmap("22/combobox.png");
+	listBoxIcon = im->loadPixmap("22/list-box.png");
+	annotTextIcon = im->loadPixmap("22/pdf-annotations.png");
+	annotLinkIcon = im->loadPixmap("goto.png");
+	annot3DIcon = im->loadPixmap("22/annot3d.png");
 	selectionTriggered = false;
 	m_MainWindow  = NULL;
 	freeObjects   = NULL;

@@ -23,21 +23,23 @@ for which a new license (GPL+exception) is in place.
 
 #include <QDomDocument>
 #include <QPainter>
-#include "util_color.h"
-#include "scconfig.h"
-#include "scclocale.h"
-#include "scribusdoc.h"
-#include "scpixmapcache.h"
+
 #include "commonstrings.h"
-#include "sctextstream.h"
-#include "sccolorengine.h"
 #include "fileloader.h"
+#include "iconmanager.h"
 #include "loadsaveplugin.h"
 #include "plugins/formatidlist.h"
+#include "scclocale.h"
+#include "sccolorengine.h"
+#include "scconfig.h"
+#include "scpixmapcache.h"
+#include "scribusdoc.h"
+#include "sctextstream.h"
 #include "third_party/zip/scribus_zip.h"
 #include "util.h"
+#include "util_color.h"
 #include "util_formats.h"
-#include "util_icon.h"
+
 
 using namespace std;
 
@@ -247,12 +249,13 @@ QPixmap * getFancyPixmap(const ScColor& col, ScribusDoc* doc)
 
 	if ( !iconsInitialized )
 	{
-		alertIcon = loadIcon("alert.png");
-		cmykIcon = loadIcon("cmyk.png");
-		rgbIcon = loadIcon("rgb.png");
-		labIcon = loadIcon("lab.png");
-		spotIcon = loadIcon("spot.png");
-		regIcon = loadIcon("register.png");
+		IconManager* im=IconManager::instance();
+		alertIcon = im->loadPixmap("alert.png");
+		cmykIcon = im->loadPixmap("cmyk.png");
+		rgbIcon = im->loadPixmap("rgb.png");
+		labIcon = im->loadPixmap("lab.png");
+		spotIcon = im->loadPixmap("spot.png");
+		regIcon = im->loadPixmap("register.png");
 		iconsInitialized = true;
 	}
 

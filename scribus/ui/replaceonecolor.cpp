@@ -25,14 +25,14 @@ for which a new license (GPL+exception) is in place.
 ***************************************************************************/
 
 #include "replaceonecolor.h"
-#include "util_icon.h"
+#include "iconmanager.h"
 #include "util.h"
 
 replaceColorDialog::replaceColorDialog(QWidget* parent, ColorList &availableColors, ColorList &usedColors) : QDialog(parent)
 {
 	setupUi(this);
 	setModal(true);
-	setWindowIcon(QIcon(loadIcon( "AppIcon.png" )));
+	setWindowIcon(IconManager::instance()->loadIcon("AppIcon.png" ));
 	originalColor->addItem(CommonStrings::tr_NoneColor);
 	originalColor->insertItems(usedColors, ColorCombo::fancyPixmaps);
 	replacementColor->addItem(CommonStrings::tr_NoneColor);

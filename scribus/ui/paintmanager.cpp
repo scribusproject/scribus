@@ -34,34 +34,36 @@ for which a new license (GPL+exception) is in place.
 #include <QImageReader>
 #include <QDir>
 #include <QFileDialog>
+
 #include "cmykfw.h"
 #include "colorlistbox.h"
 #include "commonstrings.h"
-#include "ui/customfdialog.h"
 #include "dcolor.h"
 #include "fileloader.h"
 #include "gradientaddedit.h"
+#include "iconmanager.h"
 #include "loadsaveplugin.h"
 #include "plugins/formatidlist.h"
 #include "prefsfile.h"
 #include "prefsmanager.h"
 #include "query.h"
+#include "scclocale.h"
 #include "sccolor.h"
 #include "sccolorengine.h"
 #include "scconfig.h"
 #include "sclimits.h"
 #include "sclistboxpixmap.h"
-#include "scclocale.h"
 #include "scpainter.h"
 #include "scpaths.h"
 #include "scribus.h"
-#include "sctextstream.h"
 #include "scribusXml.h"
+#include "sctextstream.h"
+#include "ui/customfdialog.h"
 #include "undomanager.h"
 #include "util.h"
 #include "util_color.h"
 #include "util_formats.h"
-#include "util_icon.h"
+
 
 PaintManagerDialog::PaintManagerDialog(QWidget* parent, QHash<QString, VGradient> *docGradients, ColorList doco, QString docColSet, QHash<QString, ScPattern> *docPatterns, ScribusDoc *doc, ScribusMainWindow *scMW) : QDialog(parent)
 {
@@ -73,7 +75,7 @@ PaintManagerDialog::PaintManagerDialog(QWidget* parent, QHash<QString, VGradient
 	m_doc = doc;
 	m_colorList = doco;
 	mainWin = scMW;
-	setWindowIcon(QIcon(loadIcon ( "AppIcon.png" )));
+	setWindowIcon(IconManager::instance()->loadIcon("AppIcon.png"));
 	dataTree->setContextMenuPolicy(Qt::CustomContextMenu);
 	dataTree->setIconSize(QSize(60, 48));
 	colorItems = new QTreeWidgetItem(dataTree);
@@ -222,7 +224,7 @@ QTreeWidgetItem* PaintManagerDialog::updateGradientList(QString addedName)
 		VGradient gr = dialogGradients.value(patK[a]);
 		QImage pixm(48, 12, QImage::Format_ARGB32);
 		QPainter pb;
-		QBrush b(QColor(205,205,205), loadIcon("testfill.png"));
+		QBrush b(QColor(205,205,205), IconManager::instance()->loadPixmap("testfill.png"));
 		pb.begin(&pixm);
 		pb.fillRect(0, 0, 48, 12, b);
 		pb.end();

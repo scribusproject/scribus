@@ -58,7 +58,7 @@ for which a new license (GPL+exception) is in place.
 #include "prefsmanager.h"
 #include "scribuscore.h"
 #include "util_debug.h"
-#include "util_icon.h"
+#include "iconmanager.h"
 
 /*! \brief XML parsef for documantation history.
 This is small helper class which reads saved bookmarks configuration
@@ -229,7 +229,7 @@ void HelpBrowser::closeEvent(QCloseEvent * event)
 
 void HelpBrowser::setupLocalUI()
 {
-	setWindowIcon(loadIcon("AppIcon.png"));
+	setWindowIcon(IconManager::instance()->loadIcon("AppIcon.png"));
 	//Add Menus
 	fileMenu=menuBar()->addMenu("");
 	editMenu=menuBar()->addMenu("");
@@ -237,10 +237,10 @@ void HelpBrowser::setupLocalUI()
 	histMenu=new QMenu(this);
 
 	//Add Menu items
-	filePrint=fileMenu->addAction(loadIcon("16/document-print.png"), "", this, SLOT(print()), Qt::CTRL+Qt::Key_P);
+	filePrint=fileMenu->addAction(IconManager::instance()->loadIcon("16/document-print.png"), "", this, SLOT(print()), Qt::CTRL+Qt::Key_P);
 	fileMenu->addSeparator();
-	fileExit=fileMenu->addAction(loadIcon("exit.png"), "", this, SLOT(close()), Qt::CTRL+Qt::Key_W);
-	editFind=editMenu->addAction(loadIcon("find.png"), "", this, SLOT(find()), Qt::CTRL+Qt::Key_F);
+	fileExit=fileMenu->addAction(IconManager::instance()->loadIcon("exit.png"), "", this, SLOT(close()), Qt::CTRL+Qt::Key_W);
+	editFind=editMenu->addAction(IconManager::instance()->loadIcon("find.png"), "", this, SLOT(find()), Qt::CTRL+Qt::Key_F);
 	editFindNext=editMenu->addAction( "", this, SLOT(findNext()), Qt::Key_F3);
 	editFindPrev=editMenu->addAction( "", this, SLOT(findPrevious()), Qt::SHIFT+Qt::Key_F3);
 	bookAdd=bookMenu->addAction( "", this, SLOT(bookmarkButton_clicked()), Qt::CTRL+Qt::Key_D);
@@ -248,9 +248,9 @@ void HelpBrowser::setupLocalUI()
 	bookDelAll=bookMenu->addAction( "", this, SLOT(deleteAllBookmarkButton_clicked()));
 
 	//Add Toolbar items
-	goHome=toolBar->addAction(loadIcon("16/go-home.png"), "", textBrowser, SLOT(home()));
-	goBack=toolBar->addAction(loadIcon("16/go-previous.png"), "", textBrowser, SLOT(back()));
-	goFwd=toolBar->addAction(loadIcon("16/go-next.png"), "", textBrowser, SLOT(forward()));
+	goHome=toolBar->addAction(IconManager::instance()->loadIcon("16/go-home.png"), "", textBrowser, SLOT(home()));
+	goBack=toolBar->addAction(IconManager::instance()->loadIcon("16/go-previous.png"), "", textBrowser, SLOT(back()));
+	goFwd=toolBar->addAction(IconManager::instance()->loadIcon("16/go-next.png"), "", textBrowser, SLOT(forward()));
 	goBack->setMenu(histMenu);
 	
 	helpNav->listView->header()->hide();

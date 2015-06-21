@@ -8,15 +8,15 @@ for which a new license (GPL+exception) is in place.
 */
 
 #include "smcellstylewidget.h"
-#include "util_icon.h"
+#include "iconmanager.h"
 
 SMCellStyleWidget::SMCellStyleWidget(QWidget *parent) : QWidget()
 {
 	setupUi(this);
 
-	fillColorIcon->setPixmap(loadIcon("16/color-fill.png"));
+	fillColorIcon->setPixmap(IconManager::instance()->loadPixmap("16/color-fill.png"));
 	fillColor->addItem(CommonStrings::tr_NoneColor);
-	fillShadeLabel->setPixmap( loadIcon("shade.png") );
+	fillShadeLabel->setPixmap(IconManager::instance()->loadPixmap("shade.png") );
 	fillShade->setToolTip( tr("Fill Shade"));
 }
 

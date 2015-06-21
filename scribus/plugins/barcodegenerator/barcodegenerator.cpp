@@ -5,17 +5,18 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 
+
 #include "../formatidlist.h"
 #include "barcodegenerator.h"
 #include "commonstrings.h"
+#include "iconmanager.h"
 #include "loadsaveplugin.h"
 #include "scpaths.h"
-
 #include "scribuscore.h"
+#include "ui/paintmanager.h"
 #include "undomanager.h"
 #include "util_ghostscript.h"
-#include "util_icon.h"
-#include "ui/paintmanager.h"
+
 
 #include <QTextStream>
 
@@ -111,7 +112,7 @@ BarcodeGenerator::BarcodeGenerator(QWidget* parent, const char* name)
 	ui.bcCombo->addItems(map.keys());
 	ui.okButton->setText(CommonStrings::tr_OK);
 	ui.cancelButton->setText(CommonStrings::tr_Cancel);
-	ui.resetButton->setIcon(loadIcon("u_undo16.png"));
+	ui.resetButton->setIcon(IconManager::instance()->loadIcon("u_undo16.png"));
 
 	if (ScCore->primaryMainWindow()->doc->PageColors.contains("Black"))
 	{

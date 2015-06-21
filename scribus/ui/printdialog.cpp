@@ -28,7 +28,7 @@ for which a new license (GPL+exception) is in place.
 	#include <cups/cups.h>
 #endif
 #include "util_printer.h"
-#include "util_icon.h"
+#include "iconmanager.h"
 #include "util.h"
 #include "units.h"
 #include "usertaskstructs.h"
@@ -48,8 +48,8 @@ PrintDialog::PrintDialog( QWidget* parent, ScribusDoc* doc, const PrintOptions& 
 	prefs = PrefsManager::instance()->prefsFile->getContext("print_options");
 	DevMode = printOptions.devMode;
 	PrinterOpts = "";
-	setWindowIcon(QIcon(loadIcon("AppIcon.png")));
- 	pageNrButton->setIcon(QIcon(loadIcon("ellipsis.png")));
+	setWindowIcon(IconManager::instance()->loadIcon("AppIcon.png"));
+	pageNrButton->setIcon(IconManager::instance()->loadIcon("ellipsis.png"));
 	printEngines->addItem( CommonStrings::trPostScript1 );
 	printEngines->addItem( CommonStrings::trPostScript2 );
 	printEngines->addItem( CommonStrings::trPostScript3 );

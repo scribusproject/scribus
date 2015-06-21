@@ -39,6 +39,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "commonstrings.h"
 #include "downloadmanager/scdlmgr.h"
+#include "iconmanager.h"
 #include "langmgr.h"
 #include "localemgr.h"
 #include "prefsfile.h"
@@ -117,6 +118,7 @@ ScribusQApp::~ScribusQApp()
 	PrefsManager::deleteInstance();
 	LocaleManager::deleteInstance();
 	LanguageManager::deleteInstance();
+	IconManager::deleteInstance();
 }
 
 void ScribusQApp::initLang()

@@ -22,18 +22,19 @@ for which a new license (GPL+exception) is in place.
 #include "appmodes.h"
 #include "canvasmode.h"
 #include "commonstrings.h"
+#include "iconmanager.h"
 #include "mergedoc.h"
 #include "newtemp.h"
 #include "pagestructs.h"
 #include "prefsmanager.h"
 #include "scpage.h"
 #include "scribus.h"
+#include "scribusXml.h"
 #include "scribusdoc.h"
 #include "scribusview.h"
-#include "scribusXml.h"
 #include "selection.h"
-#include "util_icon.h"
 #include "util_os.h"
+
 
 PagePalette_MasterPages::PagePalette_MasterPages( QWidget* parent, ScribusView *pCurrentView, QString masterPageName) : QWidget(parent)
 {
@@ -42,10 +43,10 @@ PagePalette_MasterPages::PagePalette_MasterPages( QWidget* parent, ScribusView *
 
 	setupUi(this);
 
-	importButton->setIcon(QIcon(loadIcon("16/document-open.png")));
-	newButton->setIcon(QIcon(loadIcon("16/document-new.png")));
-	duplicateButton->setIcon(QIcon(loadIcon("16/edit-copy.png")));
-	deleteButton->setIcon(QIcon(loadIcon("16/edit-delete.png")));
+	importButton->setIcon(IconManager::instance()->loadIcon("16/document-open.png"));
+	newButton->setIcon(IconManager::instance()->loadIcon("16/document-new.png"));
+	duplicateButton->setIcon(IconManager::instance()->loadIcon("16/edit-copy.png"));
+	deleteButton->setIcon(IconManager::instance()->loadIcon("16/edit-delete.png"));
 
 	masterPageListBox->setSelectionMode(QAbstractItemView::ExtendedSelection);
 	styleChange();

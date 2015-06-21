@@ -20,7 +20,7 @@ for which a new license (GPL+exception) is in place.
 #include "scribusview.h"
 #include "ui/scmessagebox.h"
 #include "util.h"
-#include "util_icon.h"
+#include "iconmanager.h"
 
 
 
@@ -30,11 +30,11 @@ CharSelect::CharSelect(QWidget* parent) : ScrPaletteBase(parent, "CharSelect"), 
 
 	paletteFileMask = tr("Scribus Char Palette (*.ucp);;All Files (*)");
 
-	hideButton->setIcon(loadIcon("22/insert-table.png"));
-	unicodeButton->setIcon(loadIcon("find.png"));
-	uniLoadButton->setIcon(loadIcon("22/document-open.png"));
-	uniSaveButton->setIcon(loadIcon("22/document-save.png"));
-	uniClearButton->setIcon(loadIcon("22/document-new.png"));
+	hideButton->setIcon(IconManager::instance()->loadIcon("22/insert-table.png"));
+	unicodeButton->setIcon(IconManager::instance()->loadIcon("find.png"));
+	uniLoadButton->setIcon(IconManager::instance()->loadIcon("22/document-open.png"));
+	uniSaveButton->setIcon(IconManager::instance()->loadIcon("22/document-save.png"));
+	uniClearButton->setIcon(IconManager::instance()->loadIcon("22/document-new.png"));
 
 	m_userTableModel = new CharTableModel(this, 6, m_doc, PrefsManager::instance()->appPrefs.itemToolPrefs.textFont);
 	loadUserContent(ScPaths::getApplicationDataDir() + "charpalette.ucp");

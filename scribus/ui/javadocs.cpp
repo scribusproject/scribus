@@ -22,14 +22,14 @@ for which a new license (GPL+exception) is in place.
 #include "scpage.h"
 #include "scribusdoc.h"
 #include "ui/scmessagebox.h"
-#include "util_icon.h"
+#include "iconmanager.h"
 
 
 JavaDocs::JavaDocs(QWidget* parent, ScribusDoc *doc, ScribusView* vie) : QDialog( parent )
 {
 	setModal(true);
 	setWindowTitle( tr( "Edit JavaScripts" ) );
-	setWindowIcon(loadIcon("AppIcon.png"));
+	setWindowIcon(IconManager::instance()->loadIcon("AppIcon.png"));
 	m_Doc = doc;
 	m_View = vie;
 	JavaDocsLayout = new QHBoxLayout(this);

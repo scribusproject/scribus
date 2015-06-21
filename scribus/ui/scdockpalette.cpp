@@ -31,13 +31,12 @@ for which a new license (GPL+exception) is in place.
 #include <QMainWindow>
 #include <QPoint>
 
+#include "iconmanager.h"
 #include "prefscontext.h"
 #include "prefsfile.h"
 #include "prefsmanager.h"
 #include "scdockpalette.h"
-
 #include "util.h"
-#include "util_icon.h"
 
 ScDockPalette::ScDockPalette( QWidget * parent, const QString& prefsContext, Qt::WindowFlags f)
 #if defined(Q_OS_MAC) || defined(Q_OS_WIN)
@@ -67,7 +66,7 @@ ScDockPalette::ScDockPalette( QWidget * parent, const QString& prefsContext, Qt:
 	originalParent=parent;
 	tempParent=0;
 	setAllowedAreas(Qt::LeftDockWidgetArea | Qt::RightDockWidgetArea);
-	setWindowIcon(loadIcon("AppIcon.png"));
+	setWindowIcon(IconManager::instance()->loadPixmap("AppIcon.png"));
 	setPrefsContext(prefsContext);
 	setObjectName(prefsContext);
 	connect(PrefsManager::instance(), SIGNAL(prefsChanged()), this, SLOT(setFontSize()));

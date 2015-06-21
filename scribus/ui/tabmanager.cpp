@@ -15,13 +15,13 @@ for which a new license (GPL+exception) is in place.
 #include "units.h"
 #include "scribusstructs.h"
 #include "commonstrings.h"
-#include "util_icon.h"
+#include "iconmanager.h"
 
 TabManager::TabManager( QWidget* parent, int dEin, QList<ParagraphStyle::TabRecord> inTab, double) : QDialog( parent )
 {
 	setModal(true);
 	setWindowTitle( tr( "Manage Tabulators" ) );
-	setWindowIcon(QIcon(loadIcon ( "AppIcon.png" )));
+	setWindowIcon(IconManager::instance()->loadIcon("AppIcon.png"));
 	docUnitRatio = unitGetRatioFromIndex(dEin);
 	tmpTab = inTab;
 	TabManagerLayout = new QVBoxLayout( this );

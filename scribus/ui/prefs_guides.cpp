@@ -8,21 +8,21 @@ for which a new license (GPL+exception) is in place.
 #include <QColorDialog>
 
 #include "commonstrings.h"
-#include "ui/prefs_guides.h"
+#include "iconmanager.h"
 #include "prefsstructs.h"
 #include "scribusdoc.h"
 #include "scrspinbox.h"
+#include "ui/prefs_guides.h"
 #include "units.h"
-#include "util_icon.h"
 
 Prefs_Guides::Prefs_Guides(QWidget* parent, ScribusDoc* doc)
 	: Prefs_Pane(parent)
 {
 	setupUi(this);
 	languageChange();
-	buttonUp->setIcon(loadIcon("16/go-up.png"));
+	buttonUp->setIcon(IconManager::instance()->loadIcon("16/go-up.png"));
 	buttonUp->setEnabled(false);
-	buttonDown->setIcon(loadIcon("16/go-down.png"));
+	buttonDown->setIcon(IconManager::instance()->loadIcon("16/go-down.png"));
 	buttonDown->setEnabled(false);
 
 	QString pxSuffix = QString(" %1").arg(CommonStrings::trStrPX);

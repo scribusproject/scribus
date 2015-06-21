@@ -10,20 +10,21 @@ for which a new license (GPL+exception) is in place.
 #include <QInputDialog>
 #include <QMessageBox>
 
-#include "ui/prefs_keyboardshortcuts.h"
 #include "actionmanager.h"
 #include "commonstrings.h"
+#include "iconmanager.h"
 #include "pluginmanager.h"
+#include "prefscontext.h"
+#include "prefsfile.h"
 #include "prefsmanager.h"
 #include "prefsstructs.h"
-#include "prefsfile.h"
-#include "prefscontext.h"
 #include "scpaths.h"
 #include "scplugin.h"
 #include "scraction.h"
+#include "ui/prefs_keyboardshortcuts.h"
 #include "ui/scmessagebox.h"
 #include "util.h"
-#include "util_icon.h"
+
 
 Prefs_KeyboardShortcuts::Prefs_KeyboardShortcuts(QWidget* parent, ScribusDoc* doc)
 	: Prefs_Pane(parent)
@@ -69,7 +70,7 @@ Prefs_KeyboardShortcuts::Prefs_KeyboardShortcuts(QWidget* parent, ScribusDoc* do
 	keyDisplay->setMinimumWidth(fontMetrics().width("CTRL+ALT+SHIFT+W"));
 	keyDisplay->setText("");
 
-	clearSearchButton->setIcon(loadIcon("clear_right.png"));
+	clearSearchButton->setIcon(IconManager::instance()->loadIcon("clear_right.png"));
 	// signals and slots connections
 	connect( keyTable, SIGNAL(currentItemChanged(QTreeWidgetItem *, QTreeWidgetItem *)),
 			 this, SLOT(dispKey(QTreeWidgetItem *, QTreeWidgetItem *)));

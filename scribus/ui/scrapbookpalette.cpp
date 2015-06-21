@@ -7,51 +7,52 @@ for which a new license (GPL+exception) is in place.
 
 #include "scrapbookpalette.h"
 
-#include <QEvent>
-#include <QDataStream>
-#include <QApplication>
-#include <QHBoxLayout>
-#include <QVBoxLayout>
-#include <QSpacerItem>
-#include <QKeyEvent>
-#include <QByteArray>
-#include <QPixmap>
-#include <QFileDialog>
-#include <QUrl>
-#include <QDropEvent>
-#include <QMenu>
 #include <QAction>
-#include <QSignalMapper>
-#include <QFile>
-#include <QFileInfo>
-#include <QDomDocument>
-#include <QToolButton>
+#include <QApplication>
+#include <QByteArray>
 #include <QCursor>
-#include <QToolBox>
-#include <QMessageBox>
-#include <QToolTip>
-#include <QPainter>
-#include <QProgressDialog>
+#include <QDataStream>
+#include <QDomDocument>
 #include <QDrag>
+#include <QDropEvent>
+#include <QEvent>
+#include <QFile>
+#include <QFileDialog>
+#include <QFileInfo>
+#include <QHBoxLayout>
+#include <QKeyEvent>
+#include <QMenu>
+#include <QMessageBox>
 #include <QMimeData>
+#include <QPainter>
+#include <QPixmap>
+#include <QProgressDialog>
+#include <QSignalMapper>
+#include <QSpacerItem>
+#include <QToolBox>
+#include <QToolButton>
+#include <QToolTip>
+#include <QUrl>
+#include <QVBoxLayout>
 
-#include "commonstrings.h"
 #include "cmsettings.h"
+#include "commonstrings.h"
+#include "fileloader.h"
 #include "filewatcher.h"
+#include "iconmanager.h"
+#include "loadsaveplugin.h"
+#include "plugins/formatidlist.h"
 #include "prefsfile.h"
 #include "prefsmanager.h"
 #include "query.h"
-#include "scpreview.h"
 #include "scimage.h"
+#include "scpreview.h"
 #include "scribuscore.h"
-#include "fileloader.h"
-#include "loadsaveplugin.h"
-#include "plugins/formatidlist.h"
 #include "util.h"
 #include "util_color.h"
 #include "util_file.h"
 #include "util_formats.h"
-#include "util_icon.h"
+
 //CB TODO bring in the prefsManager instance locally here too
 
 /* The Scrapbook View Class
@@ -536,7 +537,7 @@ void BibView::ReadContents(QString name)
 			}
 			if (dd[dc].compare(".ScribusThumbs", Qt::CaseInsensitive) == 0)
 				continue;
-			QPixmap pm = loadIcon("folder.png");
+			QPixmap pm = IconManager::instance()->loadPixmap("folder.png");
 			AddObj(dd[dc], "", pm, true);
 		}
 	}
@@ -710,23 +711,23 @@ Biblio::Biblio( QWidget* parent) : ScDockPalette( parent, "Sclib", 0)
 	buttonLayout->setMargin( 0 );
 	newButton = new QToolButton(this);
 	newButton->setSizePolicy(QSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed));
-	newButton->setIcon(loadIcon("16/document-new.png"));
+	newButton->setIcon(IconManager::instance()->loadPixmap("16/document-new.png"));
 	newButton->setIconSize(QSize(16, 16));
 	upButton = new QToolButton(this);
 	upButton->setSizePolicy(QSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed));
-	upButton->setIcon(loadIcon("16/go-up.png"));
+	upButton->setIcon(IconManager::instance()->loadPixmap("16/go-up.png"));
 	upButton->setIconSize(QSize(16, 16));
 	importButton = new QToolButton(this);
 	importButton->setSizePolicy(QSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed));
-	importButton->setIcon(loadIcon("compfile16.png"));
+	importButton->setIcon(IconManager::instance()->loadPixmap("compfile16.png"));
 	importButton->setIconSize(QSize(16, 16));
 	closeButton = new QToolButton(this);
 	closeButton->setSizePolicy(QSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed));
-	closeButton->setIcon(loadIcon("16/close.png"));
+	closeButton->setIcon(IconManager::instance()->loadPixmap("16/close.png"));
 	closeButton->setIconSize(QSize(16, 16));
 	configButton = new QToolButton(this);
 	configButton->setSizePolicy(QSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed));
-	configButton->setIcon(loadIcon("16/configure.png"));
+	configButton->setIcon(IconManager::instance()->loadPixmap("16/configure.png"));
 	configButton->setIconSize(QSize(16, 16));
 	configMenue = new QMenu();
 	conf_HideDirs = configMenue->addAction( tr("Hide Directories"));
@@ -800,7 +801,7 @@ void Biblio::setOpenScrapbooks(QStringList &fileNames)
 		if (activeBView->canWrite)
 			Frame3->addItem(activeBView, d.dirName());
 		else
-			Frame3->addItem(activeBView, QIcon(loadIcon("16/lock.png")), d.dirName());
+			Frame3->addItem(activeBView, IconManager::instance()->loadIcon("16/lock.png"), d.dirName());
 		activeBView->ReadContents(fileName);
 		activeBView->ScFilename = fileName;
 		activeBView->visibleName = d.dirName();
@@ -938,7 +939,7 @@ void Biblio::NewLib()
 	if (activeBView->canWrite)
 		Frame3->addItem(activeBView, d.dirName());
 	else
-		Frame3->addItem(activeBView, QIcon(loadIcon("16/lock.png")), d.dirName());
+		Frame3->addItem(activeBView, IconManager::instance()->loadIcon("16/lock.png"), d.dirName());
 	activeBView->ReadContents(fileName);
 	activeBView->ScFilename = fileName;
 	activeBView->visibleName = d.dirName();
@@ -1083,7 +1084,7 @@ void Biblio::handleDoubleClick(QListWidgetItem *ite)
 			if (fd.isWritable())
 				Frame3->addItem(activeBView, d.dirName());
 			else
-				Frame3->addItem(activeBView, QIcon(loadIcon("16/lock.png")), d.dirName());
+				Frame3->addItem(activeBView, IconManager::instance()->loadIcon("16/lock.png"), d.dirName());
 		}
 		activeBView->canWrite = fd.isWritable();
 		activeBView->setAcceptDrops(activeBView->canWrite);
@@ -1092,7 +1093,7 @@ void Biblio::handleDoubleClick(QListWidgetItem *ite)
 		activeBView->visibleName = d.dirName();
 		Frame3->setItemText(Frame3->indexOf(activeBView), d.dirName());
 		if (!activeBView->canWrite)
-			Frame3->setItemIcon(Frame3->indexOf(activeBView), QIcon(loadIcon("16/lock.png")));
+			Frame3->setItemIcon(Frame3->indexOf(activeBView), IconManager::instance()->loadIcon("16/lock.png"));
 		ScCore->fileWatcher->addDir(d.absolutePath(), true);
 		d.cdUp();
 		PrefsContext* dirs = PrefsManager::instance()->prefsFile->getContext("dirs");
@@ -1123,7 +1124,7 @@ void Biblio::goOneDirUp()
 	activeBView->visibleName = d.dirName();
 	Frame3->setItemText(Frame3->indexOf(activeBView), d.dirName());
 	if (!activeBView->canWrite)
-		Frame3->setItemIcon(Frame3->indexOf(activeBView), QIcon(loadIcon("16/lock.png")));
+		Frame3->setItemIcon(Frame3->indexOf(activeBView), IconManager::instance()->loadIcon("16/lock.png"));
 	ScCore->fileWatcher->addDir(d.absolutePath(), true);
 	d.cdUp();
 	PrefsContext* dirs = PrefsManager::instance()->prefsFile->getContext("dirs");

@@ -37,7 +37,7 @@ for which a new license (GPL+exception) is in place.
 	#include "svnversion.h"
 #endif
 #include "util_ghostscript.h"
-#include "util_icon.h"
+#include "iconmanager.h"
 #include "upgradechecker.h"
 #include "langmgr.h"
 
@@ -96,7 +96,7 @@ About::About( QWidget* parent, AboutMode diaMode ) : QDialog( parent )
 	m_mode = diaMode;
 	m_firstShow = true;
 	setWindowTitle( tr("About Scribus %1").arg(VERSION) );
-	setWindowIcon(loadIcon("AppIcon.png", true));
+	setWindowIcon(IconManager::instance()->loadIcon("AppIcon.png", true));
 	setModal(true);
 	aboutLayout = new QVBoxLayout( this );
 	aboutLayout->setSpacing( 6 );
@@ -108,7 +108,7 @@ About::About( QWidget* parent, AboutMode diaMode ) : QDialog( parent )
 	tabLayout1->setSpacing( 6 );
 	tabLayout1->setMargin( 15 );
 	pixmapLabel1 = new QLabel( tab );
-	pixmapLabel1->setPixmap(loadIcon("scribus_splash.png", true));
+	pixmapLabel1->setPixmap(IconManager::instance()->loadPixmap("scribus_splash.png", true));
 	pixmapLabel1->setFixedSize(QSize(pixmapLabel1->pixmap()->width(), pixmapLabel1->pixmap()->height()));
 	pixmapLabel1->setAlignment(Qt::AlignCenter);
 	tabLayout1->addWidget( pixmapLabel1 );

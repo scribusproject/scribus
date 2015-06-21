@@ -25,13 +25,13 @@ for which a new license (GPL+exception) is in place.
 #include <prefstable.h>
 
 #include "commonstrings.h"
-#include "util_icon.h"
+#include "iconmanager.h"
 #include "util.h"
 
 tfDia::tfDia() : QDialog()
 {
 	setModal(true);
-	setWindowIcon(QIcon(loadIcon ( "AppIcon.png" )));
+	setWindowIcon(QIcon(IconManager::instance()->loadIcon ( "AppIcon.png" )));
 	setWindowTitle( tr("Create filter"));
 	setMinimumWidth(524);
 	prefs = PrefsManager::instance()->prefsFile->getPluginContext("TextFilter");

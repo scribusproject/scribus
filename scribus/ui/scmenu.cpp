@@ -27,7 +27,7 @@ for which a new license (GPL+exception) is in place.
 #include "scmenu.h"
 #include "scraction.h"
 #include "util_debug.h"
-#include "util_icon.h"
+#include "iconmanager.h"
 
 
 ScrPopupMenu::ScrPopupMenu ( QWidget * parent, const QString pMenuName, const QString pMenuText, const QString parentName, bool pCheckable ) : QObject(parent)
@@ -166,7 +166,7 @@ bool ScrPopupMenu::insertMenuItem(ScrAction *newMenuAction)
 			}
 		}
 		if (newMenuAction->icon().isNull() && ! menuListHasNoIcons)
-			newMenuAction->setIcon(loadIcon("noicon.xpm"));
+			newMenuAction->setIcon(IconManager::instance()->loadIcon("noicon.xpm"));
 #endif
 
 		menuItemList.append(newMenuAction);
@@ -201,7 +201,7 @@ bool ScrPopupMenu::insertMenuItemAfter(ScrAction *newMenuAction, ScrAction *afte
 #ifdef Q_OS_MAC
 	if (newMenuAction && afterMenuAction)
 		if (newMenuAction->icon().isNull() && ! (afterMenuAction->icon().isNull()))
-			newMenuAction->setIcon(loadIcon("noicon.xpm"));
+			newMenuAction->setIcon(IconManager::instance()->loadIcon("noicon.xpm"));
 #endif
 		
 	int pos=menuItemList.indexOf(QPointer<QObject>(afterMenuAction));

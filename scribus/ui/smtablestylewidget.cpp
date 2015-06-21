@@ -8,15 +8,15 @@ for which a new license (GPL+exception) is in place.
 */
 
 #include "smtablestylewidget.h"
-#include "util_icon.h"
+#include "iconmanager.h"
 
 SMTableStyleWidget::SMTableStyleWidget(QWidget *parent) : QWidget()
 {
 	setupUi(this);
 
-	fillColorIcon->setPixmap(loadIcon("16/color-fill.png"));
+	fillColorIcon->setPixmap(IconManager::instance()->loadPixmap("16/color-fill.png"));
 	fillColor->addItem(CommonStrings::tr_NoneColor);
-	fillShadeLabel->setPixmap( loadIcon("shade.png") );
+	fillShadeLabel->setPixmap(IconManager::instance()->loadPixmap("shade.png") );
 }
 
 SMTableStyleWidget::~SMTableStyleWidget()

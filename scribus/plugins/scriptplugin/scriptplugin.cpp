@@ -38,15 +38,12 @@ for which a new license (GPL+exception) is in place.
 #include "cmdtext.h"
 #include "cmdutil.h"
 #include "cmdstyle.h"
-#include "ui/customfdialog.h"
 #include "guiapp.h"
-#include "ui/helpbrowser.h"
-#include "ui/scmwmenumanager.h"
+#include "iconmanager.h"
 #include "objimageexport.h"
 #include "objpdffile.h"
 #include "objprinter.h"
 #include "prefs_scripter.h"
-#include "ui/propertiespalette.h"
 #include "scconfig.h"
 #include "scpaths.h"
 #include "scribuscore.h"
@@ -55,8 +52,12 @@ for which a new license (GPL+exception) is in place.
 #include "scripterprefsgui.h"
 #include "scriptplugin.h"
 #include "svgimport.h"
+#include "ui/customfdialog.h"
+#include "ui/helpbrowser.h"
+#include "ui/propertiespalette.h"
+#include "ui/scmwmenumanager.h"
 #include "units.h"
-#include "util_icon.h"
+
 
 #include <QApplication>
 #include <QMessageBox>
@@ -205,7 +206,7 @@ bool ScriptPlugin::newPrefsPanelWidget(QWidget* parent, PrefsPanel*& panel, QStr
 	Q_CHECK_PTR(panel);
 	connect(panel, SIGNAL(prefsChanged()), scripterCore, SLOT(updateSyntaxHighlighter()));
 	caption = tr("Scripter");
-	icon = loadIcon("python.png");
+	icon = IconManager::instance()->loadPixmap("python.png");
 	return true;
 }
 
@@ -216,7 +217,7 @@ bool ScriptPlugin::newPrefsPanelWidget(QWidget* parent, Prefs_Pane*& panel, QStr
 	Q_CHECK_PTR(panel);
 	connect(panel, SIGNAL(prefsChanged()), scripterCore, SLOT(updateSyntaxHighlighter()));
 	caption = tr("Scripter");
-	icon = loadIcon("python_16.png");
+	icon = IconManager::instance()->loadPixmap("python_16.png");
 	return true;
 }
 

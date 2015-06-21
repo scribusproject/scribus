@@ -27,7 +27,7 @@ for which a new license (GPL+exception) is in place.
 #include "sccolorengine.h"
 #include "scribusdoc.h"
 #include "util.h"
-#include "util_icon.h"
+#include "iconmanager.h"
 
 #include <QPixmap>
 #include <QPainter>
@@ -38,17 +38,17 @@ PathFinderDialog::PathFinderDialog(QWidget* parent, ScribusDoc* doc, PageItem *s
 	m_doc = doc;
 	setupUi(this);
 	setModal(true);
-	setWindowIcon(QIcon(loadIcon("AppIcon.png")));
+	setWindowIcon(QIcon(IconManager::instance()->loadIcon("AppIcon.png")));
 	opCombine->setText( QString::null );
 	opSubtraction->setText( QString::null );
 	opIntersection->setText( QString::null );
 	opExclusion->setText( QString::null );
 	opParts->setText( QString::null );
-	opExclusion->setIcon(QIcon(loadIcon("pathexclusion.png")));
-	opIntersection->setIcon(QIcon(loadIcon("pathintersection.png")));
-	opParts->setIcon(QIcon(loadIcon("pathparts.png")));
-	opSubtraction->setIcon(QIcon(loadIcon("pathsubtraction.png")));
-	opCombine->setIcon(QIcon(loadIcon("pathunite.png")));
+	opExclusion->setIcon(QIcon(IconManager::instance()->loadIcon("pathexclusion.png")));
+	opIntersection->setIcon(QIcon(IconManager::instance()->loadIcon("pathintersection.png")));
+	opParts->setIcon(QIcon(IconManager::instance()->loadIcon("pathparts.png")));
+	opSubtraction->setIcon(QIcon(IconManager::instance()->loadIcon("pathsubtraction.png")));
+	opCombine->setIcon(QIcon(IconManager::instance()->loadIcon("pathunite.png")));
 	otherColorComboLine->addItem(CommonStrings::tr_NoneColor);
 	otherColorComboLine->insertItems(m_doc->PageColors, ColorCombo::fancyPixmaps);
 	otherColorComboFill->addItem(CommonStrings::tr_NoneColor);
@@ -151,7 +151,7 @@ void PathFinderDialog::updatePreview(QLabel *label, QPainterPath &path, QColor c
 	QPainter p;
 	p.begin(&pm);
 	p.setRenderHint(QPainter::Antialiasing, true);
-	QBrush b(QColor(205,205,205), loadIcon("testfill.png"));
+	QBrush b(QColor(205,205,205), IconManager::instance()->loadPixmap("testfill.png"));
 	p.fillRect(0, 0, pm.width(), pm.height(), b);
 	QRectF bb = m_input1.boundingRect().united(m_input2.boundingRect());
 	p.translate(5, 5);
@@ -170,7 +170,7 @@ void PathFinderDialog::updatePartPreview(QColor color, double scale)
 	QPainter p;
 	p.begin(&pm);
 	p.setRenderHint(QPainter::Antialiasing, true);
-	QBrush b(QColor(205,205,205), loadIcon("testfill.png"));
+	QBrush b(QColor(205,205,205), IconManager::instance()->loadPixmap("testfill.png"));
 	p.fillRect(0, 0, pm.width(), pm.height(), b);
 	QRectF bb = m_input1.boundingRect().united(m_input2.boundingRect());
 	p.translate(5, 5);

@@ -14,7 +14,7 @@ for which a new license (GPL+exception) is in place.
 #include <QCheckBox>
 #include <QLabel>
 
-#include "util_icon.h"
+#include "iconmanager.h"
 
 WortEdit::WortEdit ( QWidget* parent ) : QLineEdit ( parent )
 {}
@@ -46,7 +46,7 @@ HyAsk::HyAsk ( QWidget* parent, QString HWort ) : QDialog ( parent )
 {
 	setModal(true);
 	setWindowTitle( tr( "Possible Hyphenation" ));
-	setWindowIcon(QIcon(loadIcon ( "AppIcon.png" )));
+	setWindowIcon(IconManager::instance()->loadIcon ( "AppIcon.png" ));
 	HyAskLayout = new QVBoxLayout(this);
 	HyAskLayout->setMargin(10);
 	HyAskLayout->setSpacing(5);

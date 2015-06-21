@@ -6,22 +6,22 @@ for which a new license (GPL+exception) is in place.
 */
 
 #include <QCheckBox>
-#include "fontlistmodel.h"
-#include "prefsmanager.h"
-#include "util_icon.h"
-#include "scribusdoc.h"
-#include "commonstrings.h"
 
+#include "commonstrings.h"
+#include "fontlistmodel.h"
+#include "iconmanager.h"
+#include "prefsmanager.h"
+#include "scribusdoc.h"
 
 FontListModel::FontListModel(QObject * parent, ScribusDoc * doc)
 	: QAbstractTableModel(parent),
 	m_doc(doc),
 	m_fonts(PrefsManager::instance()->appPrefs.fontPrefs.AvailFonts)
 {
-	ttfFont = loadIcon("font_truetype16.png");
-	otfFont = loadIcon("font_otf16.png");
-	psFont = loadIcon("font_type1_16.png");
-	substFont = loadIcon("font_subst16.png");
+	ttfFont = IconManager::instance()->loadPixmap("font_truetype16.png");
+	otfFont = IconManager::instance()->loadPixmap("font_otf16.png");
+	psFont = IconManager::instance()->loadPixmap("font_type1_16.png");
+	substFont = IconManager::instance()->loadPixmap("font_subst16.png");
 	m_font_values = m_fonts.values();
 	m_font_names = m_fonts.keys();
 }

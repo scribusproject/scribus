@@ -245,6 +245,7 @@ SET(SCRIBUS_MOC_CLASSES
 	guidesmodel.h
 	guidesview.h
 	hyphenator.h
+	iconmanager.h
 	latexhelpers.h
 	loadsaveplugin.h
 	menumanager.h
@@ -609,6 +610,7 @@ SET(SCRIBUS_SOURCES
 	guidesmodel.cpp
 	guidesview.cpp
 	hyphenator.cpp
+	iconmanager.cpp
 	ioapi.c
 	KarbonCurveFit.cpp
 	langdef.cpp

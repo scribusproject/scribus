@@ -16,10 +16,11 @@ for which a new license (GPL+exception) is in place.
 #include "undomanager.h"
 #include "undostate.h"
 #include "units.h"
-#include "util_icon.h"
+#include "iconmanager.h"
 
 NodePalette::NodePalette( QWidget* parent) : ScrPaletteBase( parent, "nodePalette", false, 0)
 {
+	IconManager* im = IconManager::instance();
 	QSize iconSize = QSize(22, 22);
 	m_doc=0;
 	unitRatio=1.0;
@@ -31,7 +32,7 @@ NodePalette::NodePalette( QWidget* parent) : ScrPaletteBase( parent, "nodePalett
 	gridLayout->setMargin(0);
 	MoveNode = new QToolButton(this);
 	MoveNode->setText( "" );
-	MoveNode->setIcon(QIcon(loadIcon("MoveNode.png")));
+	MoveNode->setIcon(im->loadIcon("MoveNode.png"));
 	MoveNode->setIconSize(iconSize);
 	MoveNode->setContentsMargins(0, 0, 0, 0);
 	MoveNode->setCheckable(true);
@@ -40,7 +41,7 @@ NodePalette::NodePalette( QWidget* parent) : ScrPaletteBase( parent, "nodePalett
 	gridLayout->addWidget(MoveNode, 0, 0, 1, 1);
 
 	AddNode = new QToolButton(this);
-	AddNode->setIcon(QIcon(loadIcon("AddNode.png")));
+	AddNode->setIcon(im->loadIcon("AddNode.png"));
 	AddNode->setIconSize(iconSize);
 	AddNode->setContentsMargins(0, 0, 0, 0);
 	AddNode->setEnabled(true);
@@ -49,7 +50,7 @@ NodePalette::NodePalette( QWidget* parent) : ScrPaletteBase( parent, "nodePalett
 	gridLayout->addWidget(AddNode, 0, 1, 1, 1);
 
 	DeleteNode = new QToolButton(this);
-	DeleteNode->setIcon(QIcon(loadIcon("DeleteNode.png")));
+	DeleteNode->setIcon(im->loadIcon("DeleteNode.png"));
 	DeleteNode->setIconSize(iconSize);
 	DeleteNode->setContentsMargins(0, 0, 0, 0);
 	DeleteNode->setEnabled(true);
@@ -58,7 +59,7 @@ NodePalette::NodePalette( QWidget* parent) : ScrPaletteBase( parent, "nodePalett
 	gridLayout->addWidget(DeleteNode, 0, 2, 1, 1);
 
 	ResNode = new QToolButton(this);
-	ResNode->setIcon(QIcon(loadIcon("ResetNode.png")));
+	ResNode->setIcon(im->loadIcon("ResetNode.png"));
 	ResNode->setIconSize(iconSize);
 	ResNode->setContentsMargins(0, 0, 0, 0);
 	ResNode->setEnabled(true);
@@ -66,7 +67,7 @@ NodePalette::NodePalette( QWidget* parent) : ScrPaletteBase( parent, "nodePalett
 	gridLayout->addWidget(ResNode, 0, 3, 1, 1);
 
 	MoveControl = new QToolButton(this);
-	MoveControl->setIcon(QIcon(loadIcon("MoveKontrol.png")));
+	MoveControl->setIcon(im->loadIcon("MoveKontrol.png"));
 	MoveControl->setIconSize(iconSize);
 	MoveControl->setContentsMargins(0, 0, 0, 0);
 	MoveControl->setCheckable(true);
@@ -74,7 +75,7 @@ NodePalette::NodePalette( QWidget* parent) : ScrPaletteBase( parent, "nodePalett
 	gridLayout->addWidget(MoveControl, 1, 0, 1, 1);
 
 	AsymMove = new QToolButton(this);
-	AsymMove->setIcon(QIcon(loadIcon("MoveAsym.png")));
+	AsymMove->setIcon(im->loadIcon("MoveAsym.png"));
 	AsymMove->setIconSize(iconSize);
 	AsymMove->setContentsMargins(0, 0, 0, 0);
 	AsymMove->setEnabled(false);
@@ -83,7 +84,7 @@ NodePalette::NodePalette( QWidget* parent) : ScrPaletteBase( parent, "nodePalett
 	gridLayout->addWidget(AsymMove, 1, 1, 1, 1);
 
 	SymMove = new QToolButton(this);
-	SymMove->setIcon(QIcon(loadIcon("MoveSym.png")));
+	SymMove->setIcon(im->loadIcon("MoveSym.png"));
 	SymMove->setIconSize(iconSize);
 	SymMove->setContentsMargins(0, 0, 0, 0);
 	SymMove->setEnabled(false);
@@ -92,7 +93,7 @@ NodePalette::NodePalette( QWidget* parent) : ScrPaletteBase( parent, "nodePalett
 	gridLayout->addWidget(SymMove, 1, 2, 1, 1);
 
 	Res1Node = new QToolButton(this);
-	Res1Node->setIcon(QIcon(loadIcon("Reset1Node.png")));
+	Res1Node->setIcon(im->loadIcon("Reset1Node.png"));
 	Res1Node->setIconSize(iconSize);
 	Res1Node->setContentsMargins(0, 0, 0, 0);
 	Res1Node->setEnabled(false);
@@ -102,7 +103,7 @@ NodePalette::NodePalette( QWidget* parent) : ScrPaletteBase( parent, "nodePalett
 	PolySplit = new QToolButton(this);
 	PolySplit->setEnabled(false);
 	PolySplit->setCheckable(true);
-	PolySplit->setIcon(QIcon(loadIcon("PolyCut.png")));
+	PolySplit->setIcon(im->loadIcon("PolyCut.png"));
 	PolySplit->setIconSize(iconSize);
 	PolySplit->setContentsMargins(0, 0, 0, 0);
 	PolySplit->setSizePolicy(QSizePolicy(static_cast<QSizePolicy::Policy>(3), static_cast<QSizePolicy::Policy>(3)));
@@ -110,28 +111,28 @@ NodePalette::NodePalette( QWidget* parent) : ScrPaletteBase( parent, "nodePalett
 
 	BezierClose = new QToolButton(this);
 	BezierClose->setEnabled(false);
-	BezierClose->setIcon(QIcon(loadIcon("BezierClose.png")));
+	BezierClose->setIcon(im->loadIcon("BezierClose.png"));
 	BezierClose->setIconSize(iconSize);
 	BezierClose->setContentsMargins(0, 0, 0, 0);
 	BezierClose->setSizePolicy(QSizePolicy(static_cast<QSizePolicy::Policy>(3), static_cast<QSizePolicy::Policy>(3)));
 	gridLayout->addWidget(BezierClose, 2, 1, 1, 1);
 
 	PolyMirrorH = new QToolButton(this);
-	PolyMirrorH->setIcon(QIcon(loadIcon("hmirror.png")));
+	PolyMirrorH->setIcon(im->loadIcon("hmirror.png"));
 	PolyMirrorH->setIconSize(iconSize);
 	PolyMirrorH->setContentsMargins(0, 0, 0, 0);
 	PolyMirrorH->setSizePolicy(QSizePolicy(static_cast<QSizePolicy::Policy>(3), static_cast<QSizePolicy::Policy>(3)));
 	gridLayout->addWidget(PolyMirrorH, 2, 2, 1, 1);
 
 	PolyMirrorV = new QToolButton(this);
-	PolyMirrorV->setIcon(QIcon(loadIcon("vmirror.png")));
+	PolyMirrorV->setIcon(im->loadIcon("vmirror.png"));
 	PolyMirrorV->setIconSize(iconSize);
 	PolyMirrorV->setContentsMargins(0, 0, 0, 0);
 	PolyMirrorV->setSizePolicy(QSizePolicy(static_cast<QSizePolicy::Policy>(3), static_cast<QSizePolicy::Policy>(3)));
 	gridLayout->addWidget(PolyMirrorV, 2, 3, 1, 1);
 
 	PolyShearL = new QToolButton(this);
-	PolyShearL->setIcon(QIcon(loadIcon("22/transform-shear-left.png")));
+	PolyShearL->setIcon(im->loadIcon("22/transform-shear-left.png"));
 	PolyShearL->setIconSize(iconSize);
 	PolyShearL->setContentsMargins(0, 0, 0, 0);
 	PolyShearL->setSizePolicy(QSizePolicy(static_cast<QSizePolicy::Policy>(3), static_cast<QSizePolicy::Policy>(3)));
@@ -139,7 +140,7 @@ NodePalette::NodePalette( QWidget* parent) : ScrPaletteBase( parent, "nodePalett
 	gridLayout->addWidget(PolyShearL, 3, 0, 1, 1);
 
 	PolyShearR = new QToolButton(this);
-	PolyShearR->setIcon(QIcon(loadIcon("22/transform-shear-right.png")));
+	PolyShearR->setIcon(im->loadIcon("22/transform-shear-right.png"));
 	PolyShearR->setIconSize(iconSize);
 	PolyShearR->setContentsMargins(0, 0, 0, 0);
 	PolyShearR->setSizePolicy(QSizePolicy(static_cast<QSizePolicy::Policy>(3), static_cast<QSizePolicy::Policy>(3)));
@@ -147,7 +148,7 @@ NodePalette::NodePalette( QWidget* parent) : ScrPaletteBase( parent, "nodePalett
 	gridLayout->addWidget(PolyShearR, 3, 1, 1, 1);
 
 	PolyShearU = new QToolButton(this);
-	PolyShearU->setIcon(QIcon(loadIcon("22/transform-shear-up.png")));
+	PolyShearU->setIcon(im->loadIcon("22/transform-shear-up.png"));
 	PolyShearU->setIconSize(iconSize);
 	PolyShearU->setContentsMargins(0, 0, 0, 0);
 	PolyShearU->setSizePolicy(QSizePolicy(static_cast<QSizePolicy::Policy>(3), static_cast<QSizePolicy::Policy>(3)));
@@ -155,7 +156,7 @@ NodePalette::NodePalette( QWidget* parent) : ScrPaletteBase( parent, "nodePalett
 	gridLayout->addWidget(PolyShearU, 3, 2, 1, 1);
 
 	PolyShearD = new QToolButton(this);
-	PolyShearD->setIcon(QIcon(loadIcon("22/transform-shear-down.png")));
+	PolyShearD->setIcon(im->loadIcon("22/transform-shear-down.png"));
 	PolyShearD->setIconSize(iconSize);
 	PolyShearD->setContentsMargins(0, 0, 0, 0);
 	PolyShearD->setSizePolicy(QSizePolicy(static_cast<QSizePolicy::Policy>(3), static_cast<QSizePolicy::Policy>(3)));
@@ -168,14 +169,14 @@ NodePalette::NodePalette( QWidget* parent) : ScrPaletteBase( parent, "nodePalett
 	gridLayout1->setMargin(0);
 
 	RotateCCW = new QToolButton(this);
-	RotateCCW->setIcon(QIcon(loadIcon("rotate_ccw.png")));
+	RotateCCW->setIcon(im->loadIcon("rotate_ccw.png"));
 	RotateCCW->setIconSize(iconSize);
 	RotateCCW->setContentsMargins(0, 0, 0, 0);
 	RotateCCW->setAutoRepeat(true);
 	gridLayout1->addWidget(RotateCCW, 0, 0, 1, 1);
 
 	RotateCW = new QToolButton(this);
-	RotateCW->setIcon(QIcon(loadIcon("rotate_cw.png")));
+	RotateCW->setIcon(im->loadIcon("rotate_cw.png"));
 	RotateCW->setIconSize(iconSize);
 	RotateCW->setContentsMargins(0, 0, 0, 0);
 	RotateCW->setAutoRepeat(true);
@@ -189,14 +190,14 @@ NodePalette::NodePalette( QWidget* parent) : ScrPaletteBase( parent, "nodePalett
 	gridLayout1->addWidget(RotVal, 0, 2, 1, 1);
 
 	Expand = new QToolButton(this);
-	Expand->setIcon(QIcon(loadIcon("expand.png")));
+	Expand->setIcon(im->loadIcon("expand.png"));
 	Expand->setIconSize(iconSize);
 	Expand->setContentsMargins(0, 0, 0, 0);
 	Expand->setAutoRepeat(true);
 	gridLayout1->addWidget(Expand, 1, 0, 1, 1);
 
 	Shrink = new QToolButton(this);
-	Shrink->setIcon(QIcon(loadIcon("crop.png")));
+	Shrink->setIcon(im->loadIcon("crop.png"));
 	Shrink->setIconSize(iconSize);
 	Shrink->setContentsMargins(0, 0, 0, 0);
 	Shrink->setAutoRepeat(true);
@@ -209,14 +210,14 @@ NodePalette::NodePalette( QWidget* parent) : ScrPaletteBase( parent, "nodePalett
 	gridLayout1->addWidget(scalePercentage, 1, 2, 1, 1);
 
 	Enlarge = new QToolButton(this);
-	Enlarge->setIcon(QIcon(loadIcon("expand.png")));
+	Enlarge->setIcon(im->loadIcon("expand.png"));
 	Enlarge->setIconSize(iconSize);
 	Enlarge->setContentsMargins(0, 0, 0, 0);
 	Enlarge->setAutoRepeat(true);
 	gridLayout1->addWidget(Enlarge, 2, 0, 1, 1);
 
 	Reduce = new QToolButton(this);
-	Reduce->setIcon(QIcon(loadIcon("crop.png")));
+	Reduce->setIcon(im->loadIcon("crop.png"));
 	Reduce->setIconSize(iconSize);
 	Reduce->setContentsMargins(0, 0, 0, 0);
 	Reduce->setAutoRepeat(true);
@@ -286,7 +287,7 @@ NodePalette::NodePalette( QWidget* parent) : ScrPaletteBase( parent, "nodePalett
 	resetDefaultButton->setEnabled(true);
 	gridLayout2->addWidget(resetDefaultButton, 8, 0, 1, 2);
 
-	editEditButton = new QPushButton(loadIcon("22/exit.png"), tr("OK"), this);
+	editEditButton = new QPushButton(IconManager::instance()->loadIcon("22/exit.png"), tr("OK"), this);
 	editEditButton->setEnabled(true);
 	editEditButton->setDefault(true);
 	gridLayout2->addWidget(editEditButton, 9, 0, 1, 1);

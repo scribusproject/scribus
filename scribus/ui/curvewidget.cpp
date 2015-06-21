@@ -23,14 +23,15 @@ for which a new license (GPL+exception) is in place.
 
 
 #include "commonstrings.h"
-#include "ui/customfdialog.h"
+#include "iconmanager.h"
 #include "prefsfile.h"
 #include "prefsmanager.h"
 #include "scclocale.h"
+#include "ui/customfdialog.h"
 #include "ui/scmessagebox.h"
 #include "util.h"
 #include "util_color.h"
-#include "util_icon.h"
+
 
 
 KCurve::KCurve(QWidget *parent) : QWidget(parent)
@@ -325,19 +326,19 @@ CurveWidget::CurveWidget( QWidget* parent ) : QWidget( parent )
 
 	invertButton = new QPushButton( this );
 	invertButton->setSizePolicy(QSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed));
-	invertButton->setIcon( loadIcon("invert.png") );
+	invertButton->setIcon( IconManager::instance()->loadIcon("invert.png") );
 	invertButton->setIconSize(QSize(22, 22));
 	layout1->addWidget( invertButton );
 
 	resetButton = new QPushButton( this );
 	resetButton->setSizePolicy(QSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed));
-	resetButton->setIcon( loadIcon("reload.png") );
+	resetButton->setIcon( IconManager::instance()->loadIcon("reload.png") );
 	resetButton->setIconSize(QSize(22, 22));
 	layout1->addWidget( resetButton );
 	linearButton = new QPushButton( this );
 	QIcon ic;
-	ic.addPixmap(loadIcon("curvebezier.png"), QIcon::Normal, QIcon::Off);
-	ic.addPixmap(loadIcon("curvelinear.png"), QIcon::Normal, QIcon::On);
+	ic.addPixmap(IconManager::instance()->loadPixmap("curvebezier.png"), QIcon::Normal, QIcon::Off);
+	ic.addPixmap(IconManager::instance()->loadPixmap("curvelinear.png"), QIcon::Normal, QIcon::On);
 	linearButton->setIcon(ic);
 	linearButton->setCheckable( true );
 	linearButton->setChecked(false);
@@ -348,13 +349,13 @@ CurveWidget::CurveWidget( QWidget* parent ) : QWidget( parent )
 	layout1->addItem( spacer1 );
 
 	loadButton = new QPushButton( this );
-	loadButton->setIcon( loadIcon("22/document-open.png") );
+	loadButton->setIcon( IconManager::instance()->loadIcon("22/document-open.png") );
 	loadButton->setIconSize(QSize(22, 22));
 	loadButton->setSizePolicy(QSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed));
 	layout1->addWidget( loadButton );
 
 	saveButton = new QPushButton( this );
-	saveButton->setIcon( loadIcon("22/document-save-as.png") );
+	saveButton->setIcon( IconManager::instance()->loadIcon("22/document-save-as.png") );
 	saveButton->setIconSize(QSize(22, 22));
 	saveButton->setSizePolicy(QSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed));
 	layout1->addWidget( saveButton );

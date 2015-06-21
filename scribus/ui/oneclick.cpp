@@ -15,20 +15,21 @@ for which a new license (GPL+exception) is in place.
 #include <QGroupBox>
 #include <QToolTip>
 #include <QSpacerItem>
-#include "util_icon.h"
 
-#include "ui/basepointwidget.h"
-#include "scrspinbox.h"
-#include "linkbutton.h"
-#include "units.h"
 #include "commonstrings.h"
+#include "iconmanager.h"
+#include "linkbutton.h"
+#include "scrspinbox.h"
+#include "ui/basepointwidget.h"
+#include "units.h"
+
 
 OneClick::OneClick( QWidget* parent, QString titel, int unitIndex, double defW, double defH, bool remember, int origin, int mode ) : QDialog( parent )
 {
 	double m_unitRatio = unitGetRatioFromIndex(unitIndex);
 	QString m_suffix = unitGetSuffixFromIndex(unitIndex);
 	setWindowTitle( titel );
-	setWindowIcon(loadIcon("AppIcon.png"));
+	setWindowIcon(IconManager::instance()->loadIcon("AppIcon.png"));
 	queryLayout = new QVBoxLayout( this );
 	queryLayout->setSpacing( 5 );
 	queryLayout->setMargin( 10 );

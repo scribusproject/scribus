@@ -21,7 +21,7 @@
 #include "canvas.h"
 #include "scribusapp.h" // for qApp
 #include "scribusview.h"
-#include "util_icon.h"
+#include "iconmanager.h"
 
 PanGesture::PanGesture (CanvasMode* parent) : CanvasGesture(parent)
 {
@@ -30,7 +30,7 @@ PanGesture::PanGesture (CanvasMode* parent) : CanvasGesture(parent)
 void PanGesture::activate(bool fromGesture)
 {
 	m_cursor = m_view->cursor();
-	m_view->setCursor(QCursor(loadIcon("HandC.xpm")));
+	m_view->setCursor(IconManager::instance()->loadCursor("HandC.xpm"));
 }
 
 void PanGesture::deactivate(bool forgesture)

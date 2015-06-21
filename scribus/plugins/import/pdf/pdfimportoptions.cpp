@@ -9,12 +9,12 @@ for which a new license (GPL+exception) is in place.
 #include "importpdf.h"
 #include "ui/createrange.h"
 #include "usertaskstructs.h"
-#include "util_icon.h"
+#include "iconmanager.h"
 
 PdfImportOptions::PdfImportOptions(QWidget *parent) : QDialog(parent), ui(new Ui::PdfImportOptions)
 {
 	ui->setupUi(this);
-	ui->pageSelectButton->setIcon(QIcon(loadIcon("ellipsis.png")));
+	ui->pageSelectButton->setIcon(IconManager::instance()->loadIcon("ellipsis.png"));
 	m_plugin = NULL;
 	m_maxPage = 0;
 	m_resized = false;

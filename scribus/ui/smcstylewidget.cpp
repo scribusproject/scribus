@@ -9,7 +9,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "langmgr.h"
 #include "smcstylewidget.h"
-#include "util_icon.h"
+#include "iconmanager.h"
 #include "util.h"
 #include "units.h"
 
@@ -18,36 +18,17 @@ SMCStyleWidget::SMCStyleWidget(QWidget *parent) : QWidget()
 {
 	setupUi(this);
 
-// 	fontSize_->setMinimum(1.0);
-// 	fontSize_->setMaximum(2048.0);
-	fontSizeLabel_->setPixmap(loadIcon("Zeichen.xpm"));
-
-	trackingLabel_->setPixmap( loadIcon("textkern.png") );
-// 	tracking_->setMinimum(-300.0);
-// 	tracking_->setMaximum(300.0);
-// 	tracking_->setSuffix( tr( " %" ) );
-	
-	widthSpaceLabel->setPixmap( loadIcon("spacewidth.png") );
-
-	baselineOffsetLabel_->setPixmap( loadIcon("textbase.png") );
-// 	baselineOffset_->setMinimum(-100.0);
-// 	baselineOffset_->setMaximum(100.0);
-// 	baselineOffset_->setSuffix( tr( " %" ) );
-
-	hscaleLabel_->setPixmap( loadIcon("textscaleh.png") );
-// 	fontHScale_->setMinimum(10.0);
-// 	fontHScale_->setMaximum(400.0);
-// 	fontHScale_->setSuffix( tr( " %" ) );
-
-	vscaleLabel_->setPixmap( loadIcon("textscalev.png") );
-// 	fontVScale_->setMinimum(10.0);
-// 	fontVScale_->setMaximum(400.0);
-// 	fontVScale_->setSuffix( tr( " %" ) );
-
-	FillIcon->setPixmap(loadIcon("16/color-fill.png"));
-	fillShadeLabel->setPixmap( loadIcon("shade.png") );
-	StrokeIcon->setPixmap(loadIcon("16/color-stroke.png"));
-	strokeShadeLabel->setPixmap( loadIcon("shade.png") );
+	IconManager* im = IconManager::instance();
+	fontSizeLabel_->setPixmap(im->loadPixmap("Zeichen.xpm"));
+	trackingLabel_->setPixmap(im->loadPixmap("textkern.png"));
+	widthSpaceLabel->setPixmap(im->loadPixmap("spacewidth.png"));
+	baselineOffsetLabel_->setPixmap(im->loadPixmap("textbase.png"));
+	hscaleLabel_->setPixmap(im->loadPixmap("textscaleh.png"));
+	vscaleLabel_->setPixmap(im->loadPixmap("textscalev.png"));
+	FillIcon->setPixmap(im->loadPixmap("16/color-fill.png"));
+	fillShadeLabel->setPixmap(im->loadPixmap("shade.png"));
+	StrokeIcon->setPixmap(im->loadPixmap("16/color-stroke.png"));
+	strokeShadeLabel->setPixmap(im->loadPixmap("shade.png"));
 
 	fillColor_->clear();
 	strokeColor_->clear();

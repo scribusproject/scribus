@@ -24,6 +24,7 @@ for which a new license (GPL+exception) is in place.
 #include "colorlistbox.h"
 #include "commonstrings.h"
 #include "fontcombo.h"
+#include "iconmanager.h"
 #include "prefscontext.h"
 #include "prefsfile.h"
 #include "prefsmanager.h"
@@ -34,7 +35,6 @@ for which a new license (GPL+exception) is in place.
 #include "styleselect.h"
 #include "ui/storyeditor.h"
 #include "util.h"
-#include "util_icon.h"
 #include "util_text.h"
 
 SearchReplace::SearchReplace( QWidget* parent, ScribusDoc *doc, PageItem* ite, bool mode )
@@ -48,7 +48,7 @@ SearchReplace::SearchReplace( QWidget* parent, ScribusDoc *doc, PageItem* ite, b
 
 	setModal(true);
 	setWindowTitle( tr( "Search/Replace" ) );
-	setWindowIcon(QIcon(loadIcon ( "AppIcon.png" )));
+	setWindowIcon(IconManager::instance()->loadIcon("AppIcon.png"));
 
 	SearchReplaceLayout = new QVBoxLayout( this );
 	SearchReplaceLayout->setMargin(10);

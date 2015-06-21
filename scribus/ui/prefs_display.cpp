@@ -11,19 +11,19 @@ for which a new license (GPL+exception) is in place.
 #include <QDesktopWidget>
 #include <QPainter>
 
+#include "iconmanager.h"
 #include "prefs_display.h"
 #include "prefsstructs.h"
 #include "scribuscore.h"
 #include "scribusdoc.h"
 #include "units.h"
-#include "util_icon.h"
 
 Prefs_Display::Prefs_Display(QWidget* parent, ScribusDoc* doc) : Prefs_Pane(parent), m_doc(doc)
 {
 	setupUi(this);
 	languageChange();
 
-	buttonRestoreDPI->setIcon(QIcon(loadIcon("screen.png")));
+	buttonRestoreDPI->setIcon(IconManager::instance()->loadIcon("screen.png"));
 
 	connect(pageFillColorButton, SIGNAL(clicked()), this, SLOT(changePaperColor()));
 

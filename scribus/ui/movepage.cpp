@@ -12,7 +12,7 @@ for which a new license (GPL+exception) is in place.
 #include <QPushButton>
 
 #include "commonstrings.h"
-#include "util_icon.h"
+#include "iconmanager.h"
 #include "ui/scrspinbox.h"
 
 /*
@@ -26,7 +26,7 @@ MovePages::MovePages( QWidget* parent, int currentPage, int maxPages, bool movin
 {
 	move = moving;	
 	setWindowTitle (move ? tr("Move Pages") : tr("Copy Page"));
-	setWindowIcon(loadIcon("AppIcon.png"));
+	setWindowIcon(IconManager::instance()->loadIcon("AppIcon.png"));
 	setModal(true);
 	dialogLayout = new QVBoxLayout( this );
 	dialogLayout->setSpacing( 5 );

@@ -34,12 +34,12 @@ for which a new license (GPL+exception) is in place.
 #include <QCheckBox>
 #include <QPushButton>
 #include "scribusapi.h"
-#include "util_icon.h"
+#include "iconmanager.h"
 
 OdtDialog::OdtDialog(bool update, bool prefix, bool pack) : QDialog(0)
 {
 	setModal(true);
-	setWindowIcon(QIcon(loadIcon ( "AppIcon.png" )));
+	setWindowIcon(QIcon(IconManager::instance()->loadIcon ( "AppIcon.png" )));
 	setWindowTitle( tr("OpenDocument Importer Options"));
 
 	QBoxLayout* layout = new QVBoxLayout(this);

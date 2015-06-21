@@ -7,20 +7,22 @@ for which a new license (GPL+exception) is in place.
 
 #include <QListWidget>
 #include <QStringList>
-#include "ui/prefs_pagesizes.h"
+
+#include "iconmanager.h"
 #include "pagesize.h"
 #include "prefsmanager.h"
 #include "prefsstructs.h"
 #include "scribusdoc.h"
-#include "util_icon.h"
+#include "ui/prefs_pagesizes.h"
+
 
 Prefs_PageSizes::Prefs_PageSizes(QWidget* parent, ScribusDoc* doc)
 	: Prefs_Pane(parent)
 {
 	setupUi(this);
 	languageChange();
-	toActiveButton->setIcon(QIcon(loadIcon("22/go-next.png")));
-	fromActiveButton->setIcon(QIcon(loadIcon("22/go-previous.png")));
+	toActiveButton->setIcon(IconManager::instance()->loadIcon("22/go-next.png"));
+	fromActiveButton->setIcon(IconManager::instance()->loadIcon("22/go-previous.png"));
 	connect(toActiveButton, SIGNAL(clicked()), this, SLOT(moveToActive()));
 	connect(fromActiveButton, SIGNAL(clicked()), this, SLOT(moveFromActive()));
 }

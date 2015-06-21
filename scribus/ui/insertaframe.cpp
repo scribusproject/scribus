@@ -12,21 +12,6 @@ for which a new license (GPL+exception) is in place.
 //
 //
 
-#include "ui/insertaframe.h"
-
-#include "ui/createrange.h"
-#include "ui/customfdialog.h"
-#include "ui/scrspinbox.h"
-#include "pageitem.h"
-#include "prefsfile.h"
-#include "prefsmanager.h"
-#include "scribusdoc.h"
-#include "units.h"
-#include "util.h"
-#include "util_formats.h"
-#include "util_icon.h"
-#include "scpaths.h"
-
 #include <QCheckBox>
 #include <QGroupBox>
 #include <QIcon>
@@ -38,13 +23,29 @@ for which a new license (GPL+exception) is in place.
 #include <QTextEdit>
 #include <QStackedWidget>
 
+
+#include "iconmanager.h"
+#include "pageitem.h"
+#include "prefsfile.h"
+#include "prefsmanager.h"
+#include "scpaths.h"
+#include "scribusdoc.h"
+#include "ui/createrange.h"
+#include "ui/customfdialog.h"
+#include "ui/insertaframe.h"
+#include "ui/scrspinbox.h"
+#include "units.h"
+#include "util.h"
+#include "util_formats.h"
+
+
 InsertAFrame::InsertAFrame(QWidget* parent, ScribusDoc *doc) :
 	QDialog(parent),
 	m_Doc(doc)
 {
 	setupUi(this);
 	
-	placementPagesRangeButton->setIcon(QIcon(loadIcon("ellipsis.png")));
+	placementPagesRangeButton->setIcon(IconManager::instance()->loadIcon("ellipsis.png"));
 	
 	//set tab order
 	QWidget::setTabOrder(radioButtonCustomPosition, xPosScrSpinBox);

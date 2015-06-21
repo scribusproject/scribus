@@ -29,23 +29,23 @@ for which a new license (GPL+exception) is in place.
 #include "commonstrings.h"
 #include "sccolorengine.h"
 #include "util_color.h"
-#include "util_icon.h"
+#include "iconmanager.h"
 #include <QHeaderView>
 
 replaceColorsDialog::replaceColorsDialog(QWidget* parent, ColorList &colorList, ColorList &colorListUsed) : QDialog(parent)
 {
 	setupUi(this);
 	setModal(true);
-	setWindowIcon(QIcon(loadIcon ( "AppIcon.png" )));
+	setWindowIcon(IconManager::instance()->loadPixmap("AppIcon.png"));
 	EditColors = colorList;
 	UsedColors = colorListUsed;
 	selectedRow = -1;
 	replaceMap.clear();
-	alertIcon = loadIcon("alert.png", true);
-	cmykIcon = loadIcon("cmyk.png", true);
-	rgbIcon = loadIcon("rgb.png", true);
-	spotIcon = loadIcon("spot.png", true);
-	regIcon = loadIcon("register.png", true);
+	alertIcon = IconManager::instance()->loadPixmap("alert.png", true);
+	cmykIcon = IconManager::instance()->loadPixmap("cmyk.png", true);
+	rgbIcon = IconManager::instance()->loadPixmap("rgb.png", true);
+	spotIcon = IconManager::instance()->loadPixmap("spot.png", true);
+	regIcon = IconManager::instance()->loadPixmap("register.png", true);
 	replacementTable->horizontalHeader()->setSectionsClickable(false );
 	replacementTable->horizontalHeader()->setSectionsMovable( false );
 	replacementTable->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);

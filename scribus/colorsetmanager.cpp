@@ -12,7 +12,7 @@ for which a new license (GPL+exception) is in place.
 #include "colorsetmanager.h"
 #include "scpaths.h"
 #include "util.h"
-#include "util_icon.h"
+#include "iconmanager.h"
 #include "util_color.h"
 #include "util_formats.h"
 #include "commonstrings.h"
@@ -177,7 +177,7 @@ void ColorSetManager::searchDir(QString path, QMap<QString, QString> &pList, QTr
 						{
 							item = new QTreeWidgetItem(parent);
 							item->setFlags(Qt::ItemIsEditable | Qt::ItemIsUserCheckable | Qt::ItemIsEnabled);
-							item->setIcon(0, QIcon(loadIcon("16/folder.png")));
+							item->setIcon(0, QIcon(IconManager::instance()->loadIcon("16/folder.png")));
 							item->setText(0, setName);
 						}
 						searchDir(path + dirs[dc] + "/", pList, item);
@@ -200,7 +200,7 @@ void ColorSetManager::searchDir(QString path, QMap<QString, QString> &pList, QTr
 						item->setText(0, setName);
 						item->setData(0, Qt::UserRole, fi.absolutePath());
 						if ((!fi.isWritable()) || (fi.absolutePath().contains(ScPaths::getApplicationDataDir()+"swatches/locked")))
-							item->setIcon(0, QIcon(loadIcon("16/lock.png")));
+							item->setIcon(0, QIcon(IconManager::instance()->loadIcon("16/lock.png")));
 					}
 				}
 			}

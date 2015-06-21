@@ -36,6 +36,7 @@ for which a new license (GPL+exception) is in place.
 #include "colorlistbox.h"
 #include "commonstrings.h"
 #include "editor.h"
+#include "iconmanager.h"
 #include "navigator.h"
 #include "pageitem.h"
 #include "prefscontext.h"
@@ -49,9 +50,8 @@ for which a new license (GPL+exception) is in place.
 #include "selfield.h"
 #include "ui/customfdialog.h"
 #include "ui/propertiespalette_utils.h"
-#include "util_formats.h"
-#include "util_icon.h"
 #include "util.h"
+#include "util_formats.h"
 
 ScAnnot::ScAnnot(QWidget* parent, PageItem *it, int Seite, int b, int h, ColorList Farben, ScribusView* vie)
 		: QDialog( parent )
@@ -59,7 +59,7 @@ ScAnnot::ScAnnot(QWidget* parent, PageItem *it, int Seite, int b, int h, ColorLi
 	ScribusDoc* doc = Farben.document();
 	setModal(true);
 	setWindowTitle( tr( "Field Properties" ) );
-	setWindowIcon(QIcon(loadIcon ( "AppIcon.png" )));
+	setWindowIcon(IconManager::instance()->loadIcon("AppIcon.png"));
 	item = it;
 	Width = b;
 	Height = h;

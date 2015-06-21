@@ -15,11 +15,11 @@ for which a new license (GPL+exception) is in place.
 
 #include "commonstrings.h"
 #include "fontcombo.h"
+#include "iconmanager.h"
 #include "prefsmanager.h"
 #include "scpage.h"
 #include "scribusdoc.h"
 #include "util.h"
-#include "util_icon.h"
 
 static const char* const image100_data[] =
     {
@@ -307,7 +307,7 @@ MissingFont::MissingFont( QWidget* parent, QString fon, ScribusDoc* doc ) : QDia
 	QPixmap image0( ( const char** ) image100_data );
 	setModal(true);
 	setWindowTitle( tr("Missing Font"));
-	setWindowIcon(QIcon(loadIcon("AppIcon.png")));
+	setWindowIcon(IconManager::instance()->loadIcon("AppIcon.png"));
 	missingFontLayout = new QHBoxLayout( this );
 	missingFontLayout->setMargin(10);
 	missingFontLayout->setSpacing(0);

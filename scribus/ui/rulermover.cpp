@@ -30,15 +30,16 @@ for which a new license (GPL+exception) is in place.
 #include <QPalette>
 #include <QWidget>
 
+
 #include "canvas.h"
 #include "canvasgesture_rulermove.h"
-#include "ui/guidemanager.h"
-#include "scribusview.h"
-#include "scribusdoc.h"
+#include "iconmanager.h"
 #include "scraction.h"
 #include "scribus.h"
+#include "scribusdoc.h"
+#include "scribusview.h"
+#include "ui/guidemanager.h"
 
-#include "util_icon.h"
 
 RulerMover::RulerMover(ScribusView *pa) : QWidget(pa)
 {
@@ -46,7 +47,7 @@ RulerMover::RulerMover(ScribusView *pa) : QWidget(pa)
 	setAutoFillBackground(true);
 	QPalette palette;
 	palette.setBrush(QPalette::Window, QColor(240, 240, 240));
-	palette.setBrush(backgroundRole(), QBrush(loadIcon("mover.png")));
+	palette.setBrush(backgroundRole(), QBrush(IconManager::instance()->loadPixmap("mover.png")));
 	setPalette(palette);
 	currView = pa;
 	rulerGesture = new RulerGesture(currView, RulerGesture::ORIGIN);

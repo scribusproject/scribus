@@ -31,7 +31,7 @@ for which a new license (GPL+exception) is in place.
 #include "selection.h"
 #include "ui/scmessagebox.h"
 #include "util.h"
-#include "util_icon.h"
+#include "iconmanager.h"
 #include <QPainterPathStroker>
 #include <QMessageBox>
 
@@ -73,8 +73,8 @@ void PathCutPlugin::languageChange()
 	m_actionInfo.text = tr("Cut Polygon");
 	m_actionInfo.helpText = tr("Cuts a Polygon with a Path.");
 	// Menu
-	m_actionInfo.icon1 = loadIcon("22/transform-crop-and-resize.png");
-	m_actionInfo.icon2 = loadIcon("22/transform-crop-and-resize.png");
+	m_actionInfo.icon1 = IconManager::instance()->loadPixmap("22/transform-crop-and-resize.png");
+	m_actionInfo.icon2 = IconManager::instance()->loadPixmap("22/transform-crop-and-resize.png");
 	m_actionInfo.menu = "ItemPathOps";
 	m_actionInfo.parentMenu = "Item";
 	m_actionInfo.subMenuName = tr("Path Tools");

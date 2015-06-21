@@ -18,17 +18,17 @@ for which a new license (GPL+exception) is in place.
 #include <QToolTip>
 #include <QCloseEvent>
 
-#include "fontcombo.h"
 #include "commonstrings.h"
-#include "util_icon.h"
-#include "util.h"
+#include "fontcombo.h"
+#include "iconmanager.h"
 #include "scribusstructs.h"
+#include "util.h"
 
 FontReplaceDialog::FontReplaceDialog( QWidget* parent, QMap<QString, QString> *RList) : QDialog( parent )
 {
 	setModal(true);
 	setWindowTitle( tr( "Font Substitution" ) );
-	setWindowIcon(QIcon(loadIcon ( "AppIcon.png" )));
+	setWindowIcon(IconManager::instance()->loadIcon("AppIcon.png"));
 	ReplaceList = RList;
 	FontReplaceDialogLayout = new QVBoxLayout( this );
 	FontReplaceDialogLayout->setMargin(10);

@@ -15,13 +15,13 @@ for which a new license (GPL+exception) is in place.
 #include <QGroupBox>
 #include <QPushButton>
 #include "commonstrings.h"
-#include "util_icon.h"
+#include "iconmanager.h"
 
 ImageInfoDialog::ImageInfoDialog( QWidget* parent, ImageInfoRecord *info  ) : QDialog( parent )
 {
 	setModal(true);
 	setWindowTitle( tr( "Image Info" ) );
-	setWindowIcon(loadIcon("AppIcon.png"));
+	setWindowIcon(IconManager::instance()->loadIcon("AppIcon.png"));
 
 	ImageInfoDialogLayout = new QVBoxLayout( this );
 	ImageInfoDialogLayout->setMargin(10);

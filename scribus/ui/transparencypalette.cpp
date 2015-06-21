@@ -26,7 +26,7 @@ for which a new license (GPL+exception) is in place.
 #include "scpainter.h"
 #include "scpattern.h"
 #include "scribus.h"
-#include "util_icon.h"
+#include "iconmanager.h"
 #include "util.h"
 #include "util_math.h"
 
@@ -38,8 +38,8 @@ Tpalette::Tpalette(QWidget* parent) : QWidget(parent)
 	TGradDia = new GradientVectorDialog(this->parentWidget());
 	TGradDia->hide();
 	setupUi(this);
-	editLineSelector->setIcon(QIcon(loadIcon("16/color-stroke.png")));
-	editFillSelector->setIcon(QIcon(loadIcon("16/color-fill.png")));
+	editLineSelector->setIcon(IconManager::instance()->loadIcon("16/color-stroke.png"));
+	editFillSelector->setIcon(IconManager::instance()->loadIcon("16/color-fill.png"));
 	editFillSelector->setChecked(true);
 	strokeOpacity->setDecimals(0);
 	fillOpacity->setDecimals(0);
@@ -229,7 +229,7 @@ void Tpalette::updateGradientList()
 		VGradient gr = gradientList->value(patK[a]);
 		QImage pixm(48, 12, QImage::Format_ARGB32_Premultiplied);
 		QPainter pb;
-		QBrush b(QColor(205,205,205), loadIcon("testfill.png"));
+		QBrush b(QColor(205,205,205), IconManager::instance()->loadPixmap("testfill.png"));
 		pb.begin(&pixm);
 		pb.fillRect(0, 0, 48, 12, b);
 		pb.end();

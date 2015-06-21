@@ -34,6 +34,7 @@
 #include "canvas.h"
 #include "fpoint.h"
 #include "fpointarray.h"
+#include "iconmanager.h"
 #include "pageitem_textframe.h"
 #include "prefscontext.h"
 #include "prefsfile.h"
@@ -48,9 +49,7 @@
 #include "undomanager.h"
 #include "units.h"
 #include "util.h"
-#include "util_icon.h"
 #include "util_math.h"
-
 
 CanvasMode_Magnifier::CanvasMode_Magnifier(ScribusView* view) : CanvasMode(view)
 {
@@ -165,12 +164,12 @@ void CanvasMode_Magnifier::mousePressEvent(QMouseEvent *m)
 	if ((m->modifiers() == Qt::ShiftModifier) || (m->button() == Qt::RightButton))
 	{
 		m_view->Magnify = false;
-		m_view->setCursor(QCursor(loadIcon("LupeZm.xpm")));
+		m_view->setCursor(IconManager::instance()->loadCursor("LupeZm.xpm"));
 	}
 	else
 	{
 		m_view->Magnify = true;
-		m_view->setCursor(QCursor(loadIcon("LupeZ.xpm")));
+		m_view->setCursor(IconManager::instance()->loadCursor("LupeZ.xpm"));
 	}
 	Mxp = mousePointDoc.x(); //m->globalPos().x();
 	Myp = mousePointDoc.y(); //m->globalPos().y();
@@ -225,9 +224,9 @@ void CanvasMode_Magnifier::mouseReleaseEvent(QMouseEvent *m)
 			else
 			{
 				if (m->modifiers() & Qt::ShiftModifier)
-					m_view->setCursor(QCursor(loadIcon("LupeZm.xpm")));
+					m_view->setCursor(IconManager::instance()->loadCursor("LupeZm.xpm"));
 				else
-					m_view->setCursor(QCursor(loadIcon("LupeZ.xpm")));
+					m_view->setCursor(IconManager::instance()->loadCursor("LupeZ.xpm"));
 			}
 		}
 	}

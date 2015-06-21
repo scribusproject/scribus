@@ -20,16 +20,15 @@ for which a new license (GPL+exception) is in place.
 #include <QPainter>
 
 #include "commonstrings.h"
+#include "iconmanager.h"
 #include "pagelayout.h"
 #include "pagepalette_pages.h"
 #include "pagepalette_widgets.h"
 #include "sccombobox.h"
 #include "scpage.h"
-
 #include "scribuscore.h"
 #include "scribusdoc.h"
 #include "scribusview.h"
-#include "util_icon.h"
 
 PagePalette_Pages::PagePalette_Pages(QWidget* parent) : QWidget(parent)
 {
@@ -61,7 +60,7 @@ PagePalette_Pages::PagePalette_Pages(QWidget* parent) : QWidget(parent)
 	trash->setMinimumSize(QSize(32,32));
 	trash->setMaximumSize(QSize(32,32));
 
-	pix = loadIcon("32/page-simple.png");
+	pix = IconManager::instance()->loadPixmap("32/page-simple.png");
 
 	currView = 0;
 	Rebuild();

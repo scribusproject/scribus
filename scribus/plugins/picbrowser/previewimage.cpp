@@ -20,7 +20,7 @@
 #include "picturebrowser.h"
 #include "collection.h"
 
-#include "util_icon.h"
+#include "iconmanager.h"
 #include "util.h"
 
 #include <QPainter>
@@ -64,7 +64,7 @@ bool previewImage::createPreviewIcon ( const QImage &image, int size )
 
 	previewIcon = QPixmap ( size, size );
 
-	QBrush b ( QColor ( 205,205,205 ), loadIcon ( "testfill.png" ) );
+	QBrush b ( QColor ( 205,205,205 ), IconManager::instance()->loadPixmap( "testfill.png" ) );
 
 	p.begin ( &previewIcon );
 
@@ -403,7 +403,7 @@ void PreviewImagesModel::createDefaultIcon ( int size )
 
 	defaultIcon = QPixmap ( size, size );
 
-	QBrush b ( QColor ( 205,205,205 ), loadIcon ( "testfill.png" ) );
+	QBrush b ( QColor ( 205,205,205 ), IconManager::instance()->loadPixmap( "testfill.png" ) );
 
 	p.begin ( &defaultIcon );
 

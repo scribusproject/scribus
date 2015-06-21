@@ -5,27 +5,29 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 #include "tabruler.h"
-#include <QVariant>
+
+#include <QApplication>
+#include <QColor>
 #include <QComboBox>
+#include <QCursor>
+#include <QEvent>
 #include <QLabel>
+#include <QLayout>
+#include <QMouseEvent>
+#include <QPaintEvent>
+#include <QPainter>
+#include <QPixmap>
+#include <QPolygon>
 #include <QPushButton>
 #include <QToolButton>
-#include <QLayout>
 #include <QToolTip>
-#include <QPainter>
-#include <QCursor>
-#include <QColor>
-#include <QApplication>
-#include <QPolygon>
-#include <QPixmap>
-#include <QMouseEvent>
-#include <QEvent>
-#include <QPaintEvent>
+#include <QVariant>
+
 #include "commonstrings.h"
 #include "units.h"
 #include "scribusstructs.h"
 #include "scrspinbox.h"
-#include "util_icon.h"
+#include "iconmanager.h"
 #include "util.h"
 
 RulerT::RulerT(QWidget *pa, int ein, QList<ParagraphStyle::TabRecord> Tabs, bool ind, double wid) : QWidget(pa)
@@ -315,7 +317,7 @@ void RulerT::mouseMoveEvent(QMouseEvent *m)
 	}
 	if ((!mousePressed) && (m->y() < height()) && (m->y() > 0) && (m->x() > 0) && (m->x() < width()))
 	{
-		setCursor(QCursor(loadIcon("tab.png"), 3));
+		setCursor(QCursor(IconManager::instance()->loadPixmap("tab.png"), 3));
 		if (haveInd)
 		{
 			fpo = QRect(static_cast<int>(firstLine+leftIndent-offset)-4, 0, 8, 12);
@@ -346,7 +348,7 @@ void RulerT::mouseMoveEvent(QMouseEvent *m)
 	}
 	if ((mousePressed) && ((m->y() > height()) || (m->y() < 0) || (m->x() < 0) || (m->x() > width())))
 	{
-		qApp->changeOverrideCursor(QCursor(loadIcon("DelPoint.png"), 1, 1));
+		qApp->changeOverrideCursor(QCursor(IconManager::instance()->loadPixmap("DelPoint.png"), 1, 1));
 	}
 }
 
@@ -355,7 +357,7 @@ void RulerT::leaveEvent(QEvent*)
 	if (mousePressed)
 	{
 		if (rulerCode == 3)
-			qApp->changeOverrideCursor(QCursor(loadIcon("DelPoint.png"), 1, 1));
+			qApp->changeOverrideCursor(QCursor(IconManager::instance()->loadPixmap("DelPoint.png"), 1, 1));
 		else
 			qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 	}
@@ -555,20 +557,20 @@ Tabruler::Tabruler( QWidget* parent, bool haveFirst, int dEin, QList<ParagraphSt
 		firstLineData->setValue(0);
 		firstLineLabel = new QLabel(this);
 		firstLineLabel->setText("");
-		firstLineLabel->setPixmap(loadIcon("firstline.png"));
+		firstLineLabel->setPixmap(IconManager::instance()->loadPixmap("firstline.png"));
 		indentLayout->addWidget( firstLineLabel );
 		indentLayout->addWidget( firstLineData );
 		leftIndentData = new ScrSpinBox( 0, ww / docUnitRatio, this, dEin );
 		leftIndentData->setValue(0);
 		leftIndentLabel = new QLabel(this);
 		leftIndentLabel->setText("");
-		leftIndentLabel->setPixmap(loadIcon("leftindent.png"));
+		leftIndentLabel->setPixmap(IconManager::instance()->loadPixmap("leftindent.png"));
 		layout4->addWidget( leftIndentLabel );
 		layout4->addWidget( leftIndentData );
 		layout4->addStretch(10);
 		rightIndentLabel = new QLabel(this);
 		rightIndentLabel->setText("");
-		rightIndentLabel->setPixmap(loadIcon("rightindent.png"));
+		rightIndentLabel->setPixmap(IconManager::instance()->loadPixmap("rightindent.png"));
 		rightIndentData = new ScrSpinBox(0, ww / docUnitRatio, this, dEin);
 		rightIndentData->setValue(0);
 		indentLayout->addWidget(rightIndentLabel);

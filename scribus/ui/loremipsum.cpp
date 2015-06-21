@@ -35,19 +35,15 @@ for which a new license (GPL+exception) is in place.
 #include "appmodes.h"
 #include "commonstrings.h"
 #include "hyphenator.h"
+#include "iconmanager.h"
 #include "langmgr.h"
 #include "pageitem.h"
 #include "pageitem_table.h"
-//#include "pageitem_textframe.h"
 #include "prefsmanager.h"
 #include "scpaths.h"
-//
 #include "scribusdoc.h"
-//
 #include "selection.h"
 #include "undomanager.h"
-#include "util_icon.h"
-
 
 QString getLoremLocation(QString fname)
 {
@@ -141,7 +137,7 @@ LoremManager::LoremManager(ScribusDoc* doc, QWidget* parent) : QDialog( parent )
 	m_Doc=doc;
 	setModal(true);
 	setWindowTitle( tr( "Lorem Ipsum" ) );
-	setWindowIcon(QIcon(loadIcon ( "AppIcon.png" )));
+	setWindowIcon(IconManager::instance()->loadIcon("AppIcon.png"));
 	LoremManagerLayout = new QGridLayout(this) ;
 	LoremManagerLayout->setMargin(10);
 	LoremManagerLayout->setSpacing(5);

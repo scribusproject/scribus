@@ -15,6 +15,7 @@ for which a new license (GPL+exception) is in place.
 #include <QCheckBox>
 
 #include "commonstrings.h"
+#include "iconmanager.h"
 #include "margindialog.h"
 #include "marginwidget.h"
 #include "pagesize.h"
@@ -23,13 +24,12 @@ for which a new license (GPL+exception) is in place.
 #include "scribusdoc.h"
 #include "scrspinbox.h"
 #include "units.h"
-#include "util_icon.h"
 
 MarginDialog::MarginDialog( QWidget* parent, ScribusDoc* doc ) : QDialog( parent)
 {
 	setModal(true);
 	setWindowTitle( tr( "Manage Page Properties" ) );
-	setWindowIcon(QIcon(loadIcon ( "AppIcon.png" )));
+	setWindowIcon(IconManager::instance()->loadIcon("AppIcon.png"));
 	unitRatio = doc->unitRatio();
 	dialogLayout = new QVBoxLayout(this);
 	dialogLayout->setMargin(10);

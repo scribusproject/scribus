@@ -20,13 +20,13 @@ for which a new license (GPL+exception) is in place.
 #include "pageitem.h"
 #include "scfonts.h"
 #include "scribusdoc.h"
-#include "util_icon.h"
+#include "iconmanager.h"
 
 SelectFields::SelectFields(QWidget* parent, QString Felder, QString Own, ScribusDoc *Doc, int Art) : QDialog(parent)
 {
 	setModal(true);
 	setWindowTitle( tr( "Select Fields" ) );
-	setWindowIcon(QIcon(loadIcon ( "AppIcon.png" )));
+	setWindowIcon(IconManager::instance()->loadIcon("AppIcon.png"));
 	FTyp = Art;
 	SelectFieldsLayout = new QVBoxLayout( this );
 	SelectFieldsLayout->setMargin(10);

@@ -26,13 +26,13 @@ for which a new license (GPL+exception) is in place.
 
 #include "selectobjects.h"
 #include "commonstrings.h"
-#include "util_icon.h"
+#include "iconmanager.h"
 
 selectDialog::selectDialog(QWidget* parent, ColorList &availableColors, int unitIndex) : QDialog(parent)
 {
 	setupUi(this);
 	setModal(true);
-	setWindowIcon(QIcon(loadIcon ( "AppIcon.png" )));
+	setWindowIcon(IconManager::instance()->loadIcon("AppIcon.png"));
 	backgroundCombo->addItem(CommonStrings::tr_NoneColor);
 	backgroundCombo->insertItems(availableColors, ColorCombo::fancyPixmaps);
 	lineCombo->addItem(CommonStrings::tr_NoneColor);

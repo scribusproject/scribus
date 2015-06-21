@@ -66,9 +66,9 @@ for which a new license (GPL+exception) is in place.
 #include <QDir>
 #include <QSizeGrip>
 
-#include "appmodes.h"
 #include "actionmanager.h"
 #include "appmodehelper.h"
+#include "appmodes.h"
 #include "canvas.h"
 #include "canvasgesture.h"
 #include "canvasmode.h"
@@ -78,6 +78,7 @@ for which a new license (GPL+exception) is in place.
 #include "fileloader.h"
 #include "filewatcher.h"
 #include "hyphenator.h"
+#include "iconmanager.h"
 #include "loadsaveplugin.h"
 #include "pageitem.h"
 #include "pageitem_group.h"
@@ -126,8 +127,8 @@ for which a new license (GPL+exception) is in place.
 #include "util.h"
 #include "util_color.h"
 #include "util_formats.h"
-#include "util_icon.h"
 #include "util_math.h"
+
 
 
 
@@ -228,7 +229,7 @@ ScribusView::ScribusView(QWidget* win, ScribusMainWindow* mw, ScribusDoc *doc) :
 	clockLabel = new ClockWidget(this, Doc);
 	clockLabel->setGeometry(m_vhRulerHW + 1, height() - m_vhRulerHW - 61, 60, 60);
 	clockLabel->setVisible(false);
-	endEditButton = new QPushButton(loadIcon("22/exit.png"), tr("End Edit"), this);
+	endEditButton = new QPushButton(IconManager::instance()->loadIcon("22/exit.png"), tr("End Edit"), this);
 	endEditButton->setGeometry(m_vhRulerHW + 1, height() - m_vhRulerHW - endEditButton->minimumSizeHint().height() - 1, endEditButton->minimumSizeHint().width(), endEditButton->minimumSizeHint().height());
 	endEditButton->setVisible(false);
 	connect(endEditButton, SIGNAL(clicked()), m_ScMW, SLOT(slotEndSpecialEdit()));
@@ -510,6 +511,7 @@ void ScribusView::requestMode(int appMode)
 
 void ScribusView::setCursorBasedOnAppMode(int appMode)
 {
+	IconManager* im=IconManager::instance();
 	int docSelectionCount = Doc->m_Selection->count();
 	switch (appMode)
 	{
@@ -518,41 +520,41 @@ void ScribusView::setCursorBasedOnAppMode(int appMode)
 		case modeDrawSpiral:
 			if (docSelectionCount!=0)
 				Deselect(true);
-			setCursor(QCursor(loadIcon("DrawFrame.xpm")));
+			setCursor(im->loadCursor("DrawFrame.xpm"));
 			break;
 		case modeDrawImage:
 			if (docSelectionCount!=0)
 				Deselect(true);
-			setCursor(QCursor(loadIcon("DrawImageFrame.xpm")));
+			setCursor(im->loadCursor("DrawImageFrame.xpm"));
 			break;
 		case modeDrawLatex:
 			if (docSelectionCount!=0)
 				Deselect(true);
-			setCursor(QCursor(loadIcon("DrawLatexFrame.xpm")));
+			setCursor(im->loadCursor("DrawLatexFrame.xpm"));
 			break;
 		case modeDrawText:
 			if (docSelectionCount!=0)
 				Deselect(true);
-			setCursor(QCursor(loadIcon("DrawTextFrame.xpm")));
+			setCursor(im->loadCursor("DrawTextFrame.xpm"));
 			break;
 		case modeDrawTable2:
 			if (docSelectionCount!=0)
 				Deselect(true);
-			setCursor(QCursor(loadIcon("DrawTable.xpm")));
+			setCursor(im->loadCursor("DrawTable.xpm"));
 			break;
 		case modeDrawRegularPolygon:
 			if (docSelectionCount!=0)
 				Deselect(true);
-			setCursor(QCursor(loadIcon("DrawPolylineFrame.xpm")));
+			setCursor(im->loadCursor("DrawPolylineFrame.xpm"));
 			break;
 		case modeMagnifier:
 			if (docSelectionCount!=0)
 				Deselect(true);
 			Magnify = true;
-			setCursor(QCursor(loadIcon("LupeZ.xpm")));
+			setCursor(im->loadCursor("LupeZ.xpm"));
 			break;
 		case modePanning:
-			setCursor(QCursor(loadIcon("HandC.xpm")));
+			setCursor(im->loadCursor("HandC.xpm"));
 			break;
 		case modeDrawLine:
 		case modeDrawBezierLine:
@@ -560,10 +562,10 @@ void ScribusView::setCursorBasedOnAppMode(int appMode)
 			break;
 		case modeDrawCalligraphicLine:
 		case modeDrawFreehandLine:
-			setCursor(QCursor(loadIcon("DrawFreeLine.png"), 0, 32));
+			setCursor(QCursor(im->loadPixmap("DrawFreeLine.png"), 0, 32));
 			break;
 		case modeEyeDropper:
-			setCursor(QCursor(loadIcon("colorpickercursor.png"), 0, 32));
+			setCursor(QCursor(im->loadPixmap("colorpickercursor.png"), 0, 32));
 			break;
 		case modeInsertPDFButton:
 		case modeInsertPDFRadioButton:
@@ -1687,7 +1689,7 @@ void ScribusView::HandleCurs(PageItem *currItem, QRect mpo)
 	if (mpo.contains(tx) || mpo.contains(tx2))
 	{
 		if (Doc->appMode == modeRotation)
-			setCursor(QCursor(loadIcon("Rotieren2.png")));
+			setCursor(IconManager::instance()->loadCursor("Rotieren2.png"));
 		else
 		{
 			double rr = fabs(currItem->rotation());
@@ -1722,7 +1724,7 @@ void ScribusView::HandleCurs(PageItem *currItem, QRect mpo)
 	if (mpo.contains(tx) || mpo.contains(tx2))
 	{
 		if (Doc->appMode == modeRotation)
-			setCursor(QCursor(loadIcon("Rotieren2.png")));
+			setCursor(IconManager::instance()->loadCursor("Rotieren2.png"));
 		else if (!currItem->sizeHLocked() && ! currItem->sizeVLocked())
 		{
 			double rr = fabs(currItem->rotation());

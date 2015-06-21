@@ -13,20 +13,20 @@ for which a new license (GPL+exception) is in place.
 #include <QSpacerItem>
 #include <QPushButton>
 
-#include "commonstrings.h"
 #include "colorcombo.h"
+#include "commonstrings.h"
 #include "dcolor.h"
+#include "iconmanager.h"
 #include "prefsmanager.h"
 #include "scpage.h"
 #include "scribusdoc.h"
-#include "util_icon.h"
 
 DelColor::DelColor( QWidget* parent, ColorList colorList, QString colorName, bool haveDoc) : QDialog( parent )
 {
 	setModal(true);
 	cList = colorList;
 	setWindowTitle( tr( "Delete Color" ) );
-	setWindowIcon(QIcon(loadIcon ( "AppIcon.png" )));
+	setWindowIcon(IconManager::instance()->loadIcon( "AppIcon.png" ));
 	dialogLayout = new QVBoxLayout( this );
 	dialogLayout->setMargin(10);
 	dialogLayout->setSpacing(5);

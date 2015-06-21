@@ -23,8 +23,9 @@
 #include "canvasgesture_pan.h"
 #include "canvasgesture_rectselect.h"
 #include "fpoint.h"
-#include "pageitem.h"
+#include "iconmanager.h"
 #include "nodeeditcontext.h"
+#include "pageitem.h"
 #include "scraction.h"
 #include "scribus.h"
 #include "scribusXml.h"
@@ -35,7 +36,6 @@
 #include "ui/propertiespalette.h"
 #include "ui/scrspinbox.h"
 #include "undomanager.h"
-#include "util_icon.h"
 #include "util_math.h"
 
 CanvasMode_NodeEdit::CanvasMode_NodeEdit(ScribusView* view) : CanvasMode(view), m_rectangleSelect(NULL)
@@ -1017,9 +1017,9 @@ bool CanvasMode_NodeEdit::handleNodeEditMove(QMouseEvent* m, QRect, PageItem* cu
 				if (m_doc->nodeEdit.submode() == NodeEditContext::MOVE_POINT)
 					m_view->setCursor(QCursor(Qt::SizeAllCursor));
 				if (m_doc->nodeEdit.submode() == NodeEditContext::DEL_POINT)
-					m_view->setCursor(QCursor(loadIcon("DelPoint.png"), 1, 1));
+					m_view->setCursor(QCursor(IconManager::instance()->loadPixmap("DelPoint.png"), 1, 1));
 				if (m_doc->nodeEdit.submode() == NodeEditContext::SPLIT_PATH)
-					m_view->setCursor(QCursor(loadIcon("Split.png"), 1, 1));
+					m_view->setCursor(QCursor(IconManager::instance()->loadPixmap("Split.png"), 1, 1));
 				return true;
 			}
 		}
@@ -1048,11 +1048,11 @@ bool CanvasMode_NodeEdit::handleNodeEditMove(QMouseEvent* m, QRect, PageItem* cu
 					if (m_canvas->hitsCanvasPoint(m->globalPos(), FPoint(pl.x(), pl.y())))
 					{
 						if (m_doc->nodeEdit.submode() == NodeEditContext::MOVE_POINT)
-							m_view->setCursor(QCursor(loadIcon("HandC.xpm")));
+							m_view->setCursor(IconManager::instance()->loadCursor("HandC.xpm"));
 						else if (m_doc->nodeEdit.submode() == NodeEditContext::ADD_POINT)
-							m_view->setCursor(QCursor(loadIcon("AddPoint.png"), 1, 1));
+							m_view->setCursor(QCursor(IconManager::instance()->loadPixmap("AddPoint.png"), 1, 1));
 						else if (m_doc->nodeEdit.submode() == NodeEditContext::SPLIT_PATH)
-							m_view->setCursor(QCursor(loadIcon("Split.png"), 1, 1));
+							m_view->setCursor(QCursor(IconManager::instance()->loadPixmap("Split.png"), 1, 1));
 						else
 							m_view->setCursor(QCursor(Qt::ArrowCursor));
 						m_doc->nodeEdit.setClre2(poi);
