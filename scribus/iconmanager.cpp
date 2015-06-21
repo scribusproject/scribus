@@ -193,9 +193,6 @@ void IconManager::iconToGrayscale(QPixmap* pm)
 	*pm=QPixmap::fromImage(qi);
 }
 
-
-
-
 QString IconManager::pathForIcon(const QString nam)
 {
 	QString iconset(PrefsManager::instance()->appPrefs.uiPrefs.iconSet);
@@ -218,5 +215,10 @@ QString IconManager::pathForIcon(const QString nam)
 
 	qWarning("pathForIcon: Unable to load icon %s: File not found", iconFilePath.toLatin1().constData());
 	return "";
+}
+
+void IconManager::languageChange()
+{
+
 }
 
