@@ -6,12 +6,12 @@ Microsoft Visual Studio. No help regarding use of Visual Studio and
 related tools will be provided.
 
 You will need:
-	- Microsoft Vista, 7 or a more recent version
-	- Microsoft Visual Studio 2012 or later (for 32/64bit build)
-	- A recent Qt release built with corresponding Visual Studio version (minimum 5.2, recommended >= 5.3.2)
-	- Scribus common libraries kit downloaded from http://sourceforge.net/projects/scribus/files/scribus-libs/
-	- Scribus 15x libraries kit downloaded from http://sourceforge.net/projects/scribus/files/scribus-libs/
-	
+- Microsoft Vista, 7 or a more recent version
+- Microsoft Visual Studio 2012 or later (for 32/64bit build)
+- A recent Qt release built with corresponding Visual Studio version (minimum 5.2, recommended >= 5.3.2)
+- Scribus common libraries kit downloaded from http://sourceforge.net/projects/scribus/files/scribus-libs/
+- Scribus 15x libraries kit downloaded from http://sourceforge.net/projects/scribus/files/scribus-libs/
+
 It is possible to use Microsoft Visual Studio 2012 or 2013 Express editions.
 
 GETTING DEPENDENCIES
@@ -36,9 +36,9 @@ Start a command line and import your Visual Studio environment:
 - for building 32bit : \path\to\visual\studio\VC\vcvarsall.bat x86
 - for building 64bit : \path\to\visual\studio\VC\vcvarsall.bat x86_amd64
 
-now cd to C:\Developer\qt-everywhere-whatever and run configure:
-	- Visual Studio 2012 : configure -platform win32-msvc2012 -prefix /path/where/you/want/qt5/to/be/installed -nomake examples -nomake tests -opengl desktop -opensource -mp
-	- Visual Studio 2013 : configure -platform win32-msvc2013 -prefix /path/where/you/want/qt5/to/be/installed -nomake examples -nomake tests -opengl desktop -opensource -mp 
+Now cd to C:\Developer\qt-everywhere-whatever and run configure:
+- Visual Studio 2012 : configure -platform win32-msvc2012 -prefix /path/where/you/want/qt5/to/be/installed -nomake examples -nomake tests -opengl desktop -opensource -mp
+- Visual Studio 2013 : configure -platform win32-msvc2013 -prefix /path/where/you/want/qt5/to/be/installed -nomake examples -nomake tests -opengl desktop -opensource -mp 
 
 After configure has finished its work, run nmake. Depending on the number of processors available on your machine, a complete Qt build may 
 take from a few hours to several days. Once Qt has finished building, run following command to install Qt to its install directory:
@@ -54,30 +54,30 @@ nmake distclean
 Building 3rd party libraries:
 -----------------------------
 
-Archives with ready-to-build solutions for scribus dependencies have been made available on sourceforge. These archives can be used to
-compile all dependencies necessary for Scribus.
+Archives with ready-to-build solutions for scribus dependencies have been made available on Sourceforge: 
+http://sourceforge.net/projects/scribus/files/scribus-libs/
+These archives can be used to compile all dependencies necessary for Scribus.
 
 Two different archives are needed :
-	- common libraries for 14x and trunk : contains boost and python, no compilation is required here
-	- Scribus 15x specific libraries : libraries used to compile current Scribus 1.5.x releases
+- scribus-commmon-libs-YYYYMMDD.7z : common libraries for 14x and trunk, no compilation is required here
+- scribus-15x-libs-msvcXXXX-YYYYMMDD.7z : Scribus 15x specific libraries used for current Scribus 1.5.x releases
 
-Common libraries and version specific libraries can be downloaded on Sourceforge from this directory:
-http://sourceforge.net/projects/scribus/files/scribus-libs/
+These archives are named using a scheme where:
+- msvcXXXX represents the Visual Studio version needed to compile provided Visual Studio solution
+- YYYYMMDD represents the date where the archive has been prepared/uploaded to Sourceforge.
 
-Common libraries are named with following scheme : scribus-commmon-libs-XXXXXX where XXXXX represents a date.
-Archives with version specific libraries are named using following scheme scribus-15x-libs-msvcXXXX-XXXXXX where :
-	- msvcXXXX represent the Visual Studio version needed to compile provided Visual Studio solution
-	- XXXXXX is a series of numbers representing a date.
-
-For building 15x dependencies,  an archive for Visual Studio 2012 is provided. The Visual Studio 2012 archive allows to build 
-libraries for 32bit and 64bit platforms using the different available toolsets, excluding the v110_xp and v120_xp ones. The default 
+For building 15x dependencies, an archive for Visual Studio 2012 is provided. This archive allows to build libraries 
+for 32bit and 64bit platforms using the different available toolsets, excluding the v110_xp and v120_xp ones. The default 
 configuration, corresponding to the msvc 2012 default toolset (v110), allows to build binaries compatible with Windows Vista and up.
 
 Once you downloaded the two appropriate archives :
-	- decompress them in the *same* directory.
-	- open the visual studio solution (*.sln) located in the scribus-1.5.x-libs-* directory
-	- build debug and release configurations for all platforms (Win32 and/or x64) you plan to execute scribus on
-	
+- decompress them in the *same* directory so as to get a layout similar to this one :
+    - your_script_libs_directory
+       |- scribus-1.5.x-libs-msvc2012
+       |- scribus-common-libs
+- open the visual studio solution (*.sln) located in the scribus-1.5.x-libs-* directory
+- build debug and release configurations for all platforms (Win32 and/or x64) you plan to execute scribus on
+
 If you want to build using a different toolset, you can use msbuild through the command line. To do so you can use the provided 
 build-all-platform-libs.bat script. For example :
 - to build with Visual Studio 2010 toolset for Win32 platform: build-all-platform-libs.bat Win32 v100
@@ -106,43 +106,46 @@ set SCRIBUS_SRC_PATH=.\Scribus
 set SCRIBUS_BUILD_ROOT=.\Scribus-builds
 set SCRIBUS_INSTALL_PATH=.\Scribus-builds\scribus-debug-win32-v110
 
- copy %SCRIBUS_SRC_PATH%\AUTHORS %SCRIBUS_INSTALL_PATH%\share\doc
- copy %SCRIBUS_SRC_PATH%\COPYING %SCRIBUS_INSTALL_PATH%\share\doc
- copy %SCRIBUS_SRC_PATH%\LINKS %SCRIBUS_INSTALL_PATH%\share\doc
- copy %SCRIBUS_SRC_PATH%\TRANSLATION %SCRIBUS_INSTALL_PATH%\share\doc
-xcopy %SCRIBUS_SRC_PATH%\scribus\doc %SCRIBUS_INSTALL_PATH%\share\doc /s /y /D
-xcopy %SCRIBUS_SRC_PATH%\resources\dicts %SCRIBUS_INSTALL_PATH%\share\dicts /s /y /D
-xcopy %SCRIBUS_SRC_PATH%\resources\editorconfig   %SCRIBUS_INSTALL_PATH%\share\editorconfig /s /y
-xcopy %SCRIBUS_SRC_PATH%\resources\iconsets\1_5_0 %SCRIBUS_INSTALL_PATH%\share\icons /s /y /D
-xcopy %SCRIBUS_SRC_PATH%\resources\loremipsum %SCRIBUS_INSTALL_PATH%\share\loremipsum /s /y
-xcopy %SCRIBUS_SRC_PATH%\resources\profiles %SCRIBUS_INSTALL_PATH%\share\profiles /s /y
-xcopy %SCRIBUS_SRC_PATH%\resources\swatches %SCRIBUS_INSTALL_PATH%\share\swatches /s /y
-xcopy %SCRIBUS_SRC_PATH%\resources\templates %SCRIBUS_INSTALL_PATH%\share\templates /s /y /D
- copy %SCRIBUS_SRC_PATH%\scribus\scribus.css %SCRIBUS_INSTALL_PATH%\libs\scribus.css /y
- copy %SCRIBUS_SRC_PATH%\scribus\plugins\tools\pathcut\*.png %SCRIBUS_INSTALL_PATH%\share\icons\ /y
- copy %SCRIBUS_SRC_PATH%\scribus\plugins\tools\pathfinder\*.png %SCRIBUS_INSTALL_PATH%\share\icons\ /y
-xcopy %SCRIBUS_SRC_PATH%\scribus\plugins\scriptplugin\scripts %SCRIBUS_INSTALL_PATH%\share\scripts /s /y /D
-xcopy %SCRIBUS_SRC_PATH%\scribus\plugins\scriptplugin\samples %SCRIBUS_INSTALL_PATH%\share\samples /s /y
-copy  %SCRIBUS_SRC_PATH%\scribus\plugins\import\ps\import.prolog %SCRIBUS_INSTALL_PATH%\libs\import.prolog
+ copy %SCRIBUS_SRC_PATH%\AUTHORS                        %SCRIBUS_INSTALL_PATH%\share\doc
+ copy %SCRIBUS_SRC_PATH%\COPYING                        %SCRIBUS_INSTALL_PATH%\share\doc
+ copy %SCRIBUS_SRC_PATH%\LINKS                          %SCRIBUS_INSTALL_PATH%\share\doc
+ copy %SCRIBUS_SRC_PATH%\TRANSLATION                    %SCRIBUS_INSTALL_PATH%\share\doc
+xcopy %SCRIBUS_SRC_PATH%\doc                            %SCRIBUS_INSTALL_PATH%\share\doc /s /y /D
+xcopy %SCRIBUS_SRC_PATH%\resources\dicts                %SCRIBUS_INSTALL_PATH%\share\dicts /s /y /D
+xcopy %SCRIBUS_SRC_PATH%\resources\editorconfig         %SCRIBUS_INSTALL_PATH%\share\editorconfig /s /y
+xcopy %SCRIBUS_SRC_PATH%\resources\iconsets\1_5_0       %SCRIBUS_INSTALL_PATH%\share\icons /s /y /D
+ copy %SCRIBUS_SRC_PATH%\resources\iconsets\1_5_0\*.xml %SCRIBUS_INSTALL_PATH%\share\icons /y
+xcopy %SCRIBUS_SRC_PATH%\resources\iconsets\1_5_1       %SCRIBUS_INSTALL_PATH%\share\icons /s /y /D
+ copy %SCRIBUS_SRC_PATH%\resources\iconsets\1_5_1\*.xml %SCRIBUS_INSTALL_PATH%\share\icons /y
+xcopy %SCRIBUS_SRC_PATH%\resources\loremipsum           %SCRIBUS_INSTALL_PATH%\share\loremipsum /s /y
+xcopy %SCRIBUS_SRC_PATH%\resources\profiles             %SCRIBUS_INSTALL_PATH%\share\profiles /s /y
+xcopy %SCRIBUS_SRC_PATH%\resources\swatches             %SCRIBUS_INSTALL_PATH%\share\swatches /s /y
+xcopy %SCRIBUS_SRC_PATH%\resources\templates            %SCRIBUS_INSTALL_PATH%\share\templates /s /y /D
+ copy %SCRIBUS_SRC_PATH%\scribus\scribus.css            %SCRIBUS_INSTALL_PATH%\libs\scribus.css /y
+ copy %SCRIBUS_SRC_PATH%\scribus\plugins\tools\pathcut\*.png      %SCRIBUS_INSTALL_PATH%\share\icons\ /y
+ copy %SCRIBUS_SRC_PATH%\scribus\plugins\tools\pathfinder\*.png   %SCRIBUS_INSTALL_PATH%\share\icons\ /y
+xcopy %SCRIBUS_SRC_PATH%\scribus\plugins\scriptplugin\scripts     %SCRIBUS_INSTALL_PATH%\share\scripts /s /y /D
+xcopy %SCRIBUS_SRC_PATH%\scribus\plugins\scriptplugin\samples     %SCRIBUS_INSTALL_PATH%\share\samples /s /y
+copy  %SCRIBUS_SRC_PATH%\scribus\plugins\import\ps\import.prolog  %SCRIBUS_INSTALL_PATH%\libs\import.prolog
 copy  %SCRIBUS_SRC_PATH%\scribus\plugins\barcodegenerator\barcode.ps %SCRIBUS_INSTALL_PATH%\share\plugins\barcode.ps
-xcopy %SCRIBUS_SRC_PATH%\scribus\ui\qml %SCRIBUS_INSTALL_PATH%\share\qml /s /y
-copy  %SCRIBUS_SRC_PATH%\scribus\unicodemap\unicodenameslist.txt %SCRIBUS_INSTALL_PATH%\share\unicodenameslist.txt
+xcopy %SCRIBUS_SRC_PATH%\scribus\ui\qml                           %SCRIBUS_INSTALL_PATH%\share\qml /s /y
+copy  %SCRIBUS_SRC_PATH%\scribus\unicodemap\unicodenameslist.txt  %SCRIBUS_INSTALL_PATH%\share\unicodenameslist.txt
 del   %SCRIBUS_BUILD_ROOT%\*CMake* /s
 del   %SCRIBUS_BUILD_ROOT%\*MakeFile* /s
 
 Adjust SCRIBUS_SRC_PATH, SCRIBUS_BUILD_ROOT and SCRIBUS_INSTALL_PATH as needed and run batch script.
 
 To install common libs:
-	- open the scribus-common-libs directory where you uncompressed 15x/trunk libs
-	- open the copy-dlls-to-15x-build-dir.bat file from scribus-common-libs directory in a text editor
-	- modify the SCRIBUS_BUILDS_DIR, SCRIBUS_LIB_TOOLSET and PYTHON_DIR_* variables appropriately
-	- execute batch file
+- open the scribus-common-libs directory where you uncompressed 15x/trunk libs
+- open the copy-dlls-to-15x-build-dir.bat file from scribus-common-libs directory in a text editor
+- modify the SCRIBUS_BUILDS_DIR, SCRIBUS_LIB_TOOLSET and PYTHON_DIR_* variables appropriately
+- execute batch file
 
 To install version specific libs:
-	- open the scribus-15x-libs-msvc* directory where you uncompressed Scribus 15x libs
-	- open the copy-*-dlls-to-build-dir.bat file in a text editor
-	- modify the SCRIBUS_BUILDS_DIR and SCRIBUS_LIB_TOOLSET variables appropriately
-	- execute batch file
+- open the scribus-15x-libs-msvc* directory where you uncompressed Scribus 15x libs
+- open the copy-*-dlls-to-build-dir.bat file in a text editor
+- modify the SCRIBUS_BUILDS_DIR and SCRIBUS_LIB_TOOLSET variables appropriately
+- execute batch file
 
 Finally copy Qt DLLs to build directory and Qt plugins directory to "qtplugins" directory.
 Scribus should now run.

@@ -258,6 +258,7 @@
     <ClInclude Include="..\..\..\scribus\fonts\cff.h" />
     <ClInclude Include="..\..\..\scribus\fonts\sfnt.h" />
     <ClInclude Include="..\..\..\scribus\fonts\sfnt_format.h" />
+    <moc Include="..\..\..\scribus\iconmanager.h" />
     <ClInclude Include="..\..\..\scribus\KarbonCurveFit.h" />
     <moc Include="..\..\..\scribus\ui\about.h" />
     <moc Include="..\..\..\scribus\ui\aboutplugins.h" />
@@ -757,7 +758,6 @@
     <ClInclude Include="..\..\..\scribus\util_file.h" />
     <ClInclude Include="..\..\..\scribus\util_formats.h" />
     <ClInclude Include="..\..\..\scribus\util_ghostscript.h" />
-    <ClInclude Include="..\..\..\scribus\util_icon.h" />
     <ClInclude Include="..\..\..\scribus\util_layer.h" />
     <ClInclude Include="..\..\..\scribus\util_math.h" />
     <ClInclude Include="..\..\..\scribus\util_printer.h" />
@@ -903,6 +903,7 @@
     <ClCompile Include="..\..\..\scribus\desaxe\uniqueid.cpp" />
     <ClCompile Include="..\..\..\scribus\fonts\cff.cpp" />
     <ClCompile Include="..\..\..\scribus\fonts\sfnt.cpp" />
+    <ClCompile Include="..\..\..\scribus\iconmanager.cpp" />
     <ClCompile Include="..\..\..\scribus\nodeeditcontext.cpp" />
     <ClCompile Include="..\..\..\scribus\pdfwriter.cpp" />
     <ClCompile Include="..\..\..\scribus\qtiocompressor.cpp" />
@@ -1482,7 +1483,6 @@
     <ClCompile Include="..\..\..\scribus\util_file.cpp" />
     <ClCompile Include="..\..\..\scribus\util_formats.cpp" />
     <ClCompile Include="..\..\..\scribus\util_ghostscript.cpp" />
-    <ClCompile Include="..\..\..\scribus\util_icon.cpp" />
     <ClCompile Include="..\..\..\scribus\util_layer.cpp" />
     <ClCompile Include="..\..\..\scribus\util_math.cpp" />
     <ClCompile Include="..\..\..\scribus\util_printer.cpp" />
