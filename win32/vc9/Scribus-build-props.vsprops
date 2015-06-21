@@ -6,11 +6,11 @@
 	>
 	<!-- Qt4 -->
 	<UserMacro Name="QT4_DIR"
-		Value="F:\Libraries-vcall\Qt-4.8.6\msvc2008"
+		Value="F:\Libraries-vcall\Qt-4.8.7\msvc2008"
 	/>
 	<!-- Boost -->
 	<UserMacro Name="BOOST_DIR"
-		Value="F:\Scribus Libs\scribus-common-libs\boost-1.51.0"
+		Value="F:\Scribus Libs\scribus-common-libs\boost-1.58.0"
 	/>
 	<!-- Cairo -->
 	<UserMacro Name="CAIRO_DIR"
@@ -34,7 +34,7 @@
 	/>
 	<!-- Hunspell -->
 	<UserMacro Name="HUNSPELL_DIR"
-		Value="F:\Scribus Libs\scribus-1.4.x-libs-msvc2008\hunspell-1.3.2"
+		Value="F:\Scribus Libs\scribus-1.4.x-libs-msvc2008\hunspell-1.3.3"
 	/>
 	<UserMacro Name="HUNSPELL_DEBUG_LIB"
 		Value="libhunspell_staticD.lib"
@@ -44,7 +44,7 @@
 	/>
 	<!-- Iconv -->
 	<UserMacro Name="ICONV_DIR"
-		Value="F:\Scribus Libs\scribus-1.4.x-libs-msvc2008\iconv-1.14"
+		Value="F:\Scribus Libs\scribus-1.4.x-libs-msvc2008\libiconv-1.14"
 	/>
 	<UserMacro Name="ICONV_DEBUG_LIB"
 		Value="iconv_d.lib"
@@ -64,13 +64,13 @@
 	/>
 	<!-- Libjpeg -->
 	<UserMacro Name="LIBJPEG_DIR"
-		Value="F:\Scribus Libs\scribus-1.4.x-libs-msvc2008\libjpeg-8d"
+		Value="F:\Scribus Libs\scribus-1.4.x-libs-msvc2008\libjpeg-9a"
 	/>
 	<UserMacro Name="LIBJPEG_DEBUG_LIB"
-		Value="jpeg8d_d.lib"
+		Value="libjpeg9a_d.lib"
 	/>
 	<UserMacro Name="LIBJPEG_RELEASE_LIB"
-		Value="jpeg8d.lib"
+		Value="libjpeg9a.lib"
 	/>
 	<!-- Libtiff -->
 	<UserMacro Name="LIBTIFF_DIR"
@@ -104,7 +104,7 @@
 	/>
 	<!-- Python -->
 	<UserMacro Name="PYTHON_DIR"
-		Value="F:\Scribus Libs\scribus-common-libs\python-2.7.8-win32"
+		Value="F:\Scribus Libs\scribus-common-libs\python-2.7.10-win32"
 	/>
 	<UserMacro Name="PYTHON_DEBUG_LIB"
 		Value="python27_d.lib"
