@@ -34,7 +34,6 @@ for which a new license (GPL+exception) is in place.
 #include "undomanager.h"
 #include "undoobject.h"
 #include "undostate.h"
-#include "util_icon.h"
 
 UndoTransaction::UndoTransaction() : Transaction(0)
 {};

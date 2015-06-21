@@ -24,7 +24,6 @@ for which a new license (GPL+exception) is in place.
 #include <QHeaderView>
 
 #include "bookmwin.h"
-#include "util_icon.h"
 
 
 BookMItem::BookMItem(QTreeWidgetItem* parent, struct ScribusDoc::BookMa *Bm)

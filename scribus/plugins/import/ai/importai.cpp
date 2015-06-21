@@ -52,7 +52,6 @@ for which a new license (GPL+exception) is in place.
 #include "util_file.h"
 #include "util_formats.h"
 #include "util_ghostscript.h"
-#include "util_icon.h"
 #include "util_math.h"
 
 #include <cairo.h>

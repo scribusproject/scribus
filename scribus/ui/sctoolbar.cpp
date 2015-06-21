@@ -36,7 +36,6 @@ for which a new license (GPL+exception) is in place.
 #include "prefscontext.h"
 #include "prefsfile.h"
 #include "prefsmanager.h"
-#include "util_icon.h"
 
 ScToolBar::ScToolBar(const QString& name, const QString &prefName, QMainWindow *parent, Qt::Orientation o)
 : QToolBar(name, parent),

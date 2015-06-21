@@ -17,7 +17,6 @@ for which a new license (GPL+exception) is in place.
 #include "splash.h"
 
 #include "util.h"
-#include "util_icon.h"
 
 #ifdef HAVE_SVNVERSION
 	#include "svnversion.h"

@@ -49,7 +49,6 @@ for which a new license (GPL+exception) is in place.
 #include "scribus.h"
 #include "undomanager.h"
 #include "util.h"
-#include "util_icon.h"
 #include "util_text.h"
 #include "ui/propertiespalette.h"
 #include "ui/propertiespalette_text.h"

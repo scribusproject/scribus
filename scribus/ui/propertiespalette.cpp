@@ -64,7 +64,6 @@ for which a new license (GPL+exception) is in place.
 #include "units.h"
 #include "undomanager.h"
 #include "util.h"
-#include "util_icon.h"
 #include "util_math.h"
 #include "dasheditor.h"
 #include "fontcombo.h"

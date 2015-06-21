@@ -24,7 +24,6 @@ for which a new license (GPL+exception) is in place.
 #include "scraction.h"
 #include "scribus.h"
 #include "scribusdoc.h"
-#include "util_icon.h"
 
 ScrAction::ScrAction( QObject * parent ) : QAction( parent )
 {

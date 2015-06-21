@@ -9,7 +9,6 @@ for which a new license (GPL+exception) is in place.
 
 #include "scribusdoc.h"
 #include "units.h"
-#include "util_icon.h"
 
 PropertyWidget_Flop::PropertyWidget_Flop(QWidget* parent) : QFrame(parent)
 {

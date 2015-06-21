@@ -43,7 +43,6 @@ for which a new license (GPL+exception) is in place.
 #include "undomanager.h"
 #include "util_debug.h"
 #include "util_ghostscript.h"
-#include "util_icon.h"
 
 
 extern ScribusQApp* ScQApp;

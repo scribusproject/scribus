@@ -16,7 +16,6 @@ for which a new license (GPL+exception) is in place.
 #include "selection.h"
 #include "tabmanager.h"
 #include "units.h"
-#include "util_icon.h"
 
 PropertyWidget_Distance::PropertyWidget_Distance(QWidget* parent) : QFrame(parent)
 {

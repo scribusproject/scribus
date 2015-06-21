@@ -37,7 +37,6 @@ for which a new license (GPL+exception) is in place.
 #include "undostate.h"
 #include "util_color.h"
 #include "util_math.h"
-#include "util_icon.h"
 
 #include <QMessageBox>
 #include <QPixmap>

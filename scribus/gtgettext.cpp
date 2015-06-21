@@ -34,7 +34,6 @@ for which a new license (GPL+exception) is in place.
 #include "gtwriter.h"
 //Added by qt3to4:
 #include <QPixmap>
-#include "util_icon.h"
 
 // Constructor
 gtGetText::gtGetText(ScribusDoc* doc)

@@ -41,7 +41,6 @@
 #include "ui/scrspinbox.h"
 #include "undomanager.h"
 #include "util.h"
-#include "util_icon.h"
 #include "util_math.h"
 
 

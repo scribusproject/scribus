@@ -40,7 +40,6 @@ for which a new license (GPL+exception) is in place.
 #include "undogui.h"
 #include "undostack.h"
 #include "undotransaction.h"
-#include "util_icon.h"
 
 UndoManager* UndoManager::instance_          = 0;
 bool         UndoManager::undoEnabled_       = true;

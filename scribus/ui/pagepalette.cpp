@@ -24,7 +24,6 @@ for which a new license (GPL+exception) is in place.
 #include "scribus.h"
 #include "scribusdoc.h"
 #include "scribusview.h"
-#include "util_icon.h"
 
 PagePalette::PagePalette(QWidget* parent) : ScDockPalette(parent, "PagePalette", 0)
 {

@@ -37,7 +37,6 @@ for which a new license (GPL+exception) is in place.
 #include "pageitem.h"
 #include "navigator.h"
 #include "scribusview.h"
-#include "util_icon.h"
 #include "util_formats.h"
 #include "ui/scrspinbox.h"
 

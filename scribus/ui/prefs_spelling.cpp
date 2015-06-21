@@ -26,7 +26,6 @@ for which a new license (GPL+exception) is in place.
 #include "third_party/zip/scribus_zip.h"
 #include "util.h"
 #include "util_file.h"
-#include "util_icon.h"
 
 
 

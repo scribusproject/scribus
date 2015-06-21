@@ -37,7 +37,6 @@ for which a new license (GPL+exception) is in place.
 #include "ui/scrspinbox.h"
 #include "ui/vruler.h"
 #include "undomanager.h"
-#include "util_icon.h"
 
 
 AppModeHelper::AppModeHelper(QObject *parent) :

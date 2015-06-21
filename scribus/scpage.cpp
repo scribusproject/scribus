@@ -32,7 +32,6 @@ for which a new license (GPL+exception) is in place.
 #include "selection.h"
 #include "undomanager.h"
 #include "undostate.h"
-#include "util_icon.h"
 
 #include "ui/guidemanager.h"
 #include "ui/nodeeditpalette.h"

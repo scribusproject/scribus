@@ -37,7 +37,6 @@
 #include "selection.h"
 #include "ui/propertiespalette.h"
 #include "util.h"
-#include "util_icon.h"
 #include "util_math.h"
 
 
