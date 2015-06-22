@@ -30,7 +30,7 @@ for which a new license (GPL+exception) is in place.
 #include <cstdlib>
 #include <cassert>
 #include <string>
-#include "util_icon.h"
+#include "iconmanager.h"
 #include "AdapterWidget.h"
 
 AdapterWidget::AdapterWidget ( QWidget * parent, const char * name, const QGLWidget * shareWidget) : QGLWidget ( parent, shareWidget)
@@ -69,7 +69,7 @@ void AdapterWidget::mousePressEvent ( QMouseEvent* event )
 			button = 2;
 			break;
 		case Qt::RightButton:
-			qApp->setOverrideCursor(QCursor(loadIcon("LupeZ.xpm")));
+			qApp->setOverrideCursor(IconManager::instance()->loadIcon("LupeZ.xpm"));
 			button = 3;
 			break;
 		case Qt::NoButton:

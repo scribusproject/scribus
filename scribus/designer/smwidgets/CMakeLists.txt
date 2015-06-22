@@ -6,7 +6,7 @@ SET(SCRIBUS_SMALIGNSELECTPLUGIN_PLUGIN_MOC_CLASSES
 smalignselectplugin.h
 ../../smalignselect.h
 ../../alignselect.h
-../../util_icon.h
+../../iconmanager.h
 ../../scpaths.h
 ../../prefsmanager.h
 ../../commonstrings.h
@@ -17,7 +17,7 @@ SET(SCRIBUS_SMALIGNSELECTPLUGIN_PLUGIN_SOURCES
 smalignselectplugin.cpp
 ../../smalignselect.cpp
 ../../alignselect.cpp
-../../util_icon.cpp
+../../iconmanager.cpp
 ../../scpaths.cpp
 ../../prefsmanager.cpp
 ../../commonstrings.cpp

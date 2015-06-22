@@ -16,7 +16,7 @@ for which a new license (GPL+exception) is in place.
 #include <QAction>
 #include <QPainter>
 
-#include "util_icon.h"
+#include "iconmanager.h"
 
 
 nftdialog::nftdialog(QWidget* parent, QString lang, QString templateDir) : QDialog(parent)
@@ -26,7 +26,7 @@ nftdialog::nftdialog(QWidget* parent, QString lang, QString templateDir) : QDial
 
 	settings = new nftsettings(lang, templateDir);
 
-	setWindowIcon(loadIcon("AppIcon.png"));
+	setWindowIcon(IconManager::instance->loadIcon("AppIcon.png"));
 	
 	// context menu
 	removeAction = new QAction(tr("&Remove"), tnailGrid);
@@ -36,9 +36,9 @@ nftdialog::nftdialog(QWidget* parent, QString lang, QString templateDir) : QDial
 
 	setupAbout();
 	
-	toolBox->setItemIcon(0, loadIcon("16/information.png"));
-	toolBox->setItemIcon(1, loadIcon("16/image-x-generic.png"));
-	toolBox->setItemIcon(2, loadIcon("16/help-browser.png"));
+	toolBox->setItemIcon(0, IconManager::instance->loadIcon("16/information.png"));
+	toolBox->setItemIcon(1, IconManager::instance->loadIcon("16/image-x-generic.png"));
+	toolBox->setItemIcon(2, IconManager::instance->loadIcon("16/help-browser.png"));
 	tnailGrid->setIconSize(QSize(60, 60));
 	
 	// Signals and Slots Connections

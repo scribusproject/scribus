@@ -21,6 +21,7 @@
 
 #include "prefsstructs.h"
 #include "scribusapi.h"
+#include "scpixmapcache.h"
 
 class PrefsFile;
 class ScribusMainWindow;
@@ -66,6 +67,7 @@ private:
 	*/
 	static IconManager* _instance;
 	QMap<QString, ScIconSetData> m_iconSets;
+	ScPixmapCache<QString> pxCache;
 
 	bool initIcons();
 	void readIconConfigFiles();

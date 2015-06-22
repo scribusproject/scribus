@@ -23,7 +23,6 @@
 #include "iconmanager.h"
 #include "prefsmanager.h"
 #include "scpaths.h"
-#include "scpixmapcache.h"
 
 IconManager* IconManager::_instance = 0;
 
@@ -158,7 +157,6 @@ QIcon IconManager::loadIcon(const QString nam, bool forceUseColor)
 
 QPixmap IconManager::loadPixmap(const QString nam, bool forceUseColor)
 {
-	static ScPixmapCache<QString> pxCache;
 	if (pxCache.contains(nam))
 		return *pxCache[nam];
 
