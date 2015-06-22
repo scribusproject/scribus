@@ -281,15 +281,14 @@ void CMYKChoose::setValSLiders(double value)
 	disconnect( MagentaSL, SIGNAL( valueChanged(int) ), this, SLOT( setColor() ) );
 	disconnect( YellowSL, SIGNAL( valueChanged(int) ), this, SLOT( setColor() ) );
 	disconnect( BlackSL, SIGNAL( valueChanged(int) ), this, SLOT( setColor() ) );
-	int val = qRound(value);
 	if (CyanSp == sender())
-		CyanSL->setValue(val * 1000);
+		CyanSL->setValue(value * 1000);
 	if (MagentaSp == sender())
-		MagentaSL->setValue(val * 1000);
+		MagentaSL->setValue(value * 1000);
 	if (YellowSp == sender())
-		YellowSL->setValue(val * 1000);
+		YellowSL->setValue(value * 1000);
 	if (BlackSp == sender())
-		BlackSL->setValue(val * 1000);
+		BlackSL->setValue(value * 1000);
 	connect( CyanSL, SIGNAL( valueChanged(int) ), this, SLOT( setColor() ) );
 	connect( MagentaSL, SIGNAL( valueChanged(int) ), this, SLOT( setColor() ) );
 	connect( YellowSL, SIGNAL( valueChanged(int) ), this, SLOT( setColor() ) );
@@ -663,7 +662,6 @@ void CMYKChoose::selModel(const QString& mod)
 		YellowSL->setPalette(sliderPix(60));
 		BlackSL->setPalette(sliderBlack());
 		ColorMap->drawMode = 0;
-		ColorMap->setFixedWidth(180);
 		setValues();
 	}
 	else if ((mod == tr("Web Safe RGB")) || (mod == tr("RGB")))
@@ -716,7 +714,6 @@ void CMYKChoose::selModel(const QString& mod)
 		MagentaSL->setPalette(sliderPix(120));
 		YellowSL->setPalette(sliderPix(240));
 		ColorMap->drawMode = 0;
-		ColorMap->setFixedWidth(180);
 		setValues();
 	}
 	else if (mod == tr("Lab"))
@@ -766,7 +763,6 @@ void CMYKChoose::selModel(const QString& mod)
 		YellowSL->setPalette(sliderPix(240));
 		setValues();
 		ColorMap->drawMode = 1;
-		ColorMap->setFixedWidth(180);
 		ColorMap->drawPalette(CyanSp->value() * 2.55);
 		ColorMap->setMark(MagentaSp->value(), YellowSp->value());
 	}
@@ -818,7 +814,6 @@ void CMYKChoose::selModel(const QString& mod)
 		YellowSL->setPalette(sliderPix(240));
 		setValues();
 		ColorMap->drawMode = 2;
-		ColorMap->setFixedWidth(128);
 		double L, a, b;
 		Farbe.getLab(&L, &a, &b);
 		ColorMap->drawPalette(L * 2.55);

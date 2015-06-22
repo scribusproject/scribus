@@ -53,17 +53,7 @@ void ColorChart::mouseMoveEvent(QMouseEvent *m)
 {
 	drawMark(m->x(), m->y());
 	if (drawMode > 0)
-	{
-		if (drawMode == 2)
-		{
-			QPainterPath clp;
-			clp.addEllipse(0, 0, width(), height());
-			if (clp.contains(QPointF(m->x(), m->y())))
-				emit ColorVal(m->x() * 256 / width() - 128, 256 - (m->y() * 256 / height()) - 128, true);
-		}
-		else
-			emit ColorVal(m->x() * 256 / width() - 128, 256 - (m->y() * 256 / height()) - 128, true);
-	}
+		emit ColorVal(m->x() * 256 / width() - 128, 256 - (m->y() * 256 / height()) - 128, true);
 	else
 		emit ColorVal(m->x() * 359 / width(), m->y() * 255 / height(), true);
 }
@@ -72,17 +62,7 @@ void ColorChart::mousePressEvent(QMouseEvent *m)
 {
 	drawMark(m->x(), m->y());
 	if (drawMode > 0)
-	{
-		if (drawMode == 2)
-		{
-			QPainterPath clp;
-			clp.addEllipse(0, 0, width(), height());
-			if (clp.contains(QPointF(m->x(), m->y())))
-				emit ColorVal(m->x() * 256 / width() - 128, 256 - (m->y() * 256 / height()) - 128, true);
-		}
-		else
-			emit ColorVal(m->x() * 256 / width() - 128, 256 - (m->y() * 256 / height()) - 128, true);
-	}
+		emit ColorVal(m->x() * 256 / width() - 128, 256 - (m->y() * 256 / height()) - 128, true);
 	else
 		emit ColorVal(m->x() * 359 / width(), m->y() * 255 / height(), true);
 }
@@ -91,17 +71,7 @@ void ColorChart::mouseReleaseEvent(QMouseEvent *m)
 {
 	drawMark(m->x(), m->y());
 	if (drawMode > 0)
-	{
-		if (drawMode == 2)
-		{
-			QPainterPath clp;
-			clp.addEllipse(0, 0, width(), height());
-			if (clp.contains(QPointF(m->x(), m->y())))
-				emit ColorVal(m->x() * 256 / width() - 128, 256 - (m->y() * 256 / height()) - 128, true);
-		}
-		else
-			emit ColorVal(m->x() * 256 / width() - 128, 256 - (m->y() * 256 / height()) - 128, true);
-	}
+		emit ColorVal(m->x() * 256 / width() - 128, 256 - (m->y() * 256 / height()) - 128, true);
 	else
 		emit ColorVal(m->x() * 359 / width(), m->y() * 255 / height(), true);
 }
@@ -114,13 +84,6 @@ void ColorChart::paintEvent(QPaintEvent *e)
 	p.setClipRect(e->rect());
 	QImage tmp = QImage(width(), height(), QImage::Format_ARGB32_Premultiplied);
 	p2.begin(&tmp);
-	p2.fillRect(QRect(0, 0, width(), height()), palette().background());
-	if (drawMode == 2)
-	{
-		QPainterPath clp;
-		clp.addEllipse(0, 0, width(), height());
-		p2.setClipPath(clp);
-	}
 	p2.drawPixmap(0, 0, pmx);
 	if (doDrawMark)
 	{
