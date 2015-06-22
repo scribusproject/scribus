@@ -9190,6 +9190,8 @@ void ScribusMainWindow::managePaints()
 			doc = NULL;
 		}
 	}
+	if (!HaveDoc)
+		doc = NULL;
 	delete dia;
 	undoManager->setUndoEnabled(true);
 }
