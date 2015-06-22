@@ -69,7 +69,7 @@ void AdapterWidget::mousePressEvent ( QMouseEvent* event )
 			button = 2;
 			break;
 		case Qt::RightButton:
-			qApp->setOverrideCursor(IconManager::instance()->loadIcon("LupeZ.xpm"));
+			qApp->setOverrideCursor(IconManager::instance()->loadCursor("LupeZ.xpm"));
 			button = 3;
 			break;
 		case Qt::NoButton:
