@@ -303,7 +303,7 @@ ScribusMainWindow::ScribusMainWindow()
 #ifdef Q_OS_MAC
 	//commenting this out until this is resolved :https://bugreports.qt.io/browse/QTBUG-44565
 	//ScQApp->setAttribute(Qt::AA_DontShowIconsInMenus);
-	noIcon = IconManager::instance()->loadPixmap("noicon.xpm");
+	//noIcon = IconManager::instance()->loadPixmap("noicon.xpm");
 #endif
 }
 

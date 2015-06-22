@@ -10,12 +10,15 @@ for which a new license (GPL+exception) is in place.
 #include <QPixmap>
 #include <QStyleFactory>
 
+#include "iconmanager.h"
 #include "langmgr.h"
 #include "prefs_userinterface.h"
 #include "prefsstructs.h"
+#include "scribusapp.h"
 #include "scribusdoc.h"
 #include "util.h"
 
+extern ScribusQApp *ScQApp;
 
 Prefs_UserInterface::Prefs_UserInterface(QWidget* parent, ScribusDoc* doc)
 	: Prefs_Pane(parent)
@@ -32,7 +35,7 @@ Prefs_UserInterface::Prefs_UserInterface(QWidget* parent, ScribusDoc* doc)
 	themeComboBox->addItem("");
 	themeComboBox->addItems(styleList);
 	QStringList iconSetList;
-	iconSetList<<"1_5_0"<<"1_5_1";
+	iconSetList=IconManager::instance()->nameList(ScQApp->currGUILanguage());
 	iconSetComboBox->addItems(iconSetList);
 
 	connect(languageComboBox, SIGNAL(activated(const QString &)), this, SLOT(setSelectedGUILang(const QString &)));
@@ -88,7 +91,7 @@ void Prefs_UserInterface::saveGuiToPrefs(struct ApplicationPrefs *prefsData) con
 {
 	prefsData->uiPrefs.language=selectedGUILang;
 	prefsData->uiPrefs.style=themeComboBox->currentText();
-	prefsData->uiPrefs.iconSet=iconSetComboBox->currentText();
+	prefsData->uiPrefs.iconSet=IconManager::instance()->baseNameForTranslation(iconSetComboBox->currentText());
 	prefsData->uiPrefs.applicationFontSize=fontSizeMenuSpinBox->value();
 	prefsData->uiPrefs.paletteFontSize=fontSizePaletteSpinBox->value();
 	prefsData->uiPrefs.wheelJump=wheelJumpSpinBox->value();

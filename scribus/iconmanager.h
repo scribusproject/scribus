@@ -48,12 +48,17 @@ public:
 	* Must be called when IconManager is no longer needed.
 	*/
 	static void deleteInstance();
-	void setup();
+	bool setup();
 	QCursor loadCursor(const QString nam, bool forceUseColor=false);
 	QIcon loadIcon(const QString nam, bool forceUseColor=false);
 	QPixmap loadPixmap(const QString nam, bool forceUseColor=false);
 	QString pathForIcon(const QString nam);
+	QStringList pathList();
+	QStringList nameList(QString language);
 	void iconToGrayscale(QPixmap *pm);
+	bool setActiveFromPrefs(QString prefsSet);
+	QString activeSetBasename() { return m_activeSetBasename; }
+	QString baseNameForTranslation(QString transName);
 
 public slots:
 	void languageChange();
@@ -67,7 +72,11 @@ private:
 	*/
 	static IconManager* _instance;
 	QMap<QString, ScIconSetData> m_iconSets;
-	ScPixmapCache<QString> pxCache;
+	ScPixmapCache<QString> m_pxCache;
+	QString m_activeSetBasename;
+	QString m_activeSetVersion;
+	QString m_backupSetBasename;
+	QString m_backupSetVersion;
 
 	bool initIcons();
 	void readIconConfigFiles();

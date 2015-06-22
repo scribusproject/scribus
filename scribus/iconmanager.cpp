@@ -50,17 +50,21 @@ void IconManager::deleteInstance()
 	_instance = 0;
 }
 
-void IconManager::setup()
+bool IconManager::setup()
 {
 	if (!initIcons())
+	{
 		qDebug()<<"No icons found :(";
+		return false;
+	}
+	return true;
 }
 
 
 bool IconManager::initIcons()
 {
 	readIconConfigFiles();
-	if (m_iconSets.isEmpty())
+	if (m_iconSets.isEmpty() || m_activeSetBasename.isEmpty())
 		return false;
 	return true;
 }
@@ -82,7 +86,7 @@ void IconManager::readIconConfigFiles()
 		for (uint i = 0; i < id.count(); ++i)
 		{
 			QFileInfo file(*it + id[i]);
-			qDebug()<<file.absoluteFilePath();
+			//qDebug()<<file.absoluteFilePath();
 			QFile dataFile(file.absoluteFilePath());
 			if (!dataFile.exists())
 				continue;
@@ -112,35 +116,75 @@ void IconManager::readIconConfigFiles()
 				QDomElement e = n.toElement();
 				if( !e.isNull() )
 				{
+					//qDebug()<<e.tagName()<<e.text();
 					if (e.tagName()=="path")
 					{
 						isd.path=e.text();
-						isd.baseName=e.text();
-						qDebug()<<e.tagName()<<e.text();
 					}
 					else
 					if (e.tagName()=="author")
 					{
 						isd.author=e.text();
-						qDebug()<<e.tagName()<<e.text();
 					}
 					else
 					if (e.tagName()=="license")
 					{
 						isd.license=e.text();
-						qDebug()<<e.tagName()<<e.text();
+					}
+					else
+					if (e.tagName()=="activeversion")
+					{
+						isd.activeversion=e.text();
 					}
 					else
 					if (e.tagName()=="nametext")
 					{
 						if (e.hasAttribute("lang"))
+						{
 							isd.nameTranslations.insert(e.attribute("lang"),e.text());
-						qDebug()<<e.tagName()<<e.text();
+							if (e.attribute("lang")=="en_US")
+								isd.baseName=e.text();
+						}
 					}
 				}
 				n = n.nextSibling();
 			}
-			m_iconSets.insert(isd.path, isd);
+			//just in case there's no en_US basename
+			if (!isd.baseName.isEmpty())
+			{
+
+				m_iconSets.insert(isd.baseName, isd);
+				if(!isd.activeversion.isEmpty())
+				{
+					int av_major, av_minor, av_patch, curr_major, curr_minor, curr_patch, ver_major, ver_minor, ver_patch;
+					av_major=isd.activeversion.section(".",0,0).toInt();
+					av_minor=isd.activeversion.section(".",1,1).toInt();
+					av_patch=isd.activeversion.section(".",2,2).toInt();
+					curr_major=m_activeSetVersion.section(".",0,0).toInt();
+					curr_minor=m_activeSetVersion.section(".",1,1).toInt();
+					curr_patch=m_activeSetVersion.section(".",2,2).toInt();
+					ver_major=QString(VERSION).section(".",0,0).toInt();
+					ver_minor=QString(VERSION).section(".",1,1).toInt();
+					ver_patch=QString(VERSION).section(".",2,2).toInt();
+					//If iconset version <= app version, and iconset version >= current active iconset version
+					if (av_major<=ver_major &&
+						av_minor<=ver_minor &&
+						av_patch<=ver_patch &&
+						(
+						av_major>=curr_major ||
+						(av_major==curr_major && av_minor>=curr_minor) ||
+						(av_major==curr_major && av_minor==curr_minor && av_patch>=curr_patch)
+						)
+						)
+					{
+						m_backupSetBasename=m_activeSetBasename;
+						m_backupSetVersion=m_backupSetVersion;
+						m_activeSetBasename=isd.baseName;
+						m_activeSetVersion=isd.activeversion;
+						//qDebug()<<"backupSetBasename"<<m_backupSetBasename<<"activeSetBasename"<<m_activeSetBasename;
+					}
+				}
+			}
 		}
 	}
 }
@@ -157,8 +201,8 @@ QIcon IconManager::loadIcon(const QString nam, bool forceUseColor)
 
 QPixmap IconManager::loadPixmap(const QString nam, bool forceUseColor)
 {
-	if (pxCache.contains(nam))
-		return *pxCache[nam];
+	if (m_pxCache.contains(nam))
+		return *m_pxCache[nam];
 
 	QString iconFilePath(pathForIcon(nam));
 	QPixmap *pm = new QPixmap();
@@ -169,7 +213,7 @@ QPixmap IconManager::loadPixmap(const QString nam, bool forceUseColor)
 //		qDebug()<<"Successful icon load from"<<iconFilePath;
 	if (PrefsManager::instance()->appPrefs.uiPrefs.grayscaleIcons && !forceUseColor)
 		iconToGrayscale(pm);
-	pxCache.insert(nam, pm);
+	m_pxCache.insert(nam, pm);
 	return *pm;
 }
 
@@ -191,15 +235,39 @@ void IconManager::iconToGrayscale(QPixmap* pm)
 	*pm=QPixmap::fromImage(qi);
 }
 
+bool IconManager::setActiveFromPrefs(QString prefsSet)
+{
+	//qDebug()<<"setting active from prefs to"<<prefsSet;
+	if (m_iconSets.contains(prefsSet))
+	{
+		m_activeSetBasename=m_iconSets[prefsSet].baseName;
+		m_activeSetVersion=m_iconSets[prefsSet].activeversion;
+		return true;
+	}
+	return false;
+}
+
+QString IconManager::baseNameForTranslation(QString transName)
+{
+	QString name;
+	foreach (ScIconSetData value, m_iconSets)
+	{
+		QMapIterator<QString, QString> nameValue(value.nameTranslations);
+		while (nameValue.hasNext())
+		{
+			nameValue.next();
+			if (nameValue.value()==transName)
+				return value.nameTranslations["en_US"];
+		}
+	}
+	return name;
+}
+
 QString IconManager::pathForIcon(const QString nam)
 {
 	QString iconset(PrefsManager::instance()->appPrefs.uiPrefs.iconSet);
-	QString iconSubdir("1_5_0/");
-	QString primaryIconSubdir("1_5_0/");
-	//temporary until second icon dir is there
-	if (iconset=="Dezso" || iconset=="1_5_1")
-		iconSubdir="1_5_1/";
-
+	QString iconSubdir(m_iconSets[m_activeSetBasename].path+"/");
+	QString primaryIconSubdir(m_iconSets[m_backupSetBasename].path+"/");
 
 	QString iconFilePath(QString("%1%2%3").arg(ScPaths::instance().iconDir()).arg(iconSubdir).arg(nam));
 	if (QFile::exists(iconFilePath))
@@ -209,10 +277,38 @@ QString IconManager::pathForIcon(const QString nam)
 	iconFilePath=QString("%1%2%3").arg(ScPaths::instance().iconDir()).arg(primaryIconSubdir).arg(nam);
 
 	if (QFile::exists(iconFilePath))
+	{
+		//qDebug()<<iconFilePath;
 		return iconFilePath;
+	}
 
 	qWarning("pathForIcon: Unable to load icon %s: File not found", iconFilePath.toLatin1().constData());
 	return "";
+}
+
+QStringList IconManager::pathList()
+{
+	QStringList paths;
+	foreach (ScIconSetData value, m_iconSets)
+		paths << value.path;
+	return paths;
+}
+
+QStringList IconManager::nameList(QString language)
+{
+	QStringList names;
+	foreach (ScIconSetData value, m_iconSets)
+	{
+		if (value.nameTranslations.contains(language))
+			names << value.nameTranslations.value(language);
+		else if (value.nameTranslations.contains("en_US"))
+			names << value.nameTranslations.value("en_US");
+		else if (value.nameTranslations.contains("en"))
+			names << value.nameTranslations.value("en");
+		else
+			names << value.path;
+	}
+	return names;
 }
 
 void IconManager::languageChange()

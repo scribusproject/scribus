@@ -503,6 +503,7 @@ struct ScIconSetData
 	QString baseName;
 	QString license;
 	QString author;
+	QString activeversion;
 	QMap<QString, QString> nameTranslations;
 };
 

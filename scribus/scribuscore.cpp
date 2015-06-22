@@ -102,11 +102,11 @@ int ScribusCore::startGUI(bool showSplash, bool showFontInfo, bool showProfileIn
 	ScMWList.append(scribus);
 	m_currScMW=0;
 	int retVal=initScribusCore(showSplash, showFontInfo, showProfileInfo,newGuiLanguage, prefsUserFile);
-	if (retVal == 1)
+	if (retVal == EXIT_FAILURE)
 		return(EXIT_FAILURE);
 	
 	retVal = scribus->initScMW(true);
-	if (retVal == 1)
+	if (retVal == EXIT_FAILURE)
 		return(EXIT_FAILURE);
 	
 	closeSplash();
@@ -143,7 +143,8 @@ int ScribusCore::initScribusCore(bool showSplash, bool showFontInfo, bool showPr
 {
 	CommonStrings::languageChange();
 	iconManager = IconManager::instance();
-	iconManager->setup();
+	if (!iconManager->setup())
+		return EXIT_FAILURE;
 
 	// FIXME: Splash needs the prefs loaded by initDefaults() to know if it must force the image to grayscale
 	initSplash(showSplash);
@@ -154,7 +155,7 @@ int ScribusCore::initScribusCore(bool showSplash, bool showFontInfo, bool showPr
 	bool haveFonts=false;
 	haveFonts=ScCore->initFonts(showFontInfo);
 	if (!haveFonts)
-		return 1;
+		return EXIT_FAILURE;
 	prefsManager->initDefaults();
 	prefsManager->initDefaultGUIFont(qApp->font());
 	prefsManager->initArrowStyles();
@@ -170,7 +171,12 @@ int ScribusCore::initScribusCore(bool showSplash, bool showFontInfo, bool showPr
 	else
 		prefsManager->ReadPrefs(prefsUserFile);
 	prefsManager->appPrefs.uiPrefs.showSplashOnStartup=showSplash;
-		
+	if (!iconManager->setActiveFromPrefs(prefsManager->appPrefs.uiPrefs.iconSet))
+	{
+		//reset prefs name to chosen name based on version, when prefs is empty or not found
+		prefsManager->appPrefs.uiPrefs.iconSet=iconManager->activeSetBasename();
+	}
+
 	m_HaveGS = testGSAvailability();
 	m_HavePngAlpha = testGSDeviceAvailability("pngalpha");
 	m_HaveTiffSep = testGSDeviceAvailability("tiffsep");

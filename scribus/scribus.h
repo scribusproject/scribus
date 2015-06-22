@@ -612,7 +612,7 @@ private:
 
 	QLabel* mainWindowStatusLabel;
 	QString statusLabelText;
-	QPixmap noIcon;
+	//QPixmap noIcon;
 
 	int toolbarMenuTools;
 	int toolbarMenuPDFTools;
