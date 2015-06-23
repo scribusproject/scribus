@@ -243,7 +243,7 @@ void GradientPreview::mouseMoveEvent(QMouseEvent *m)
 		qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 		if ((!Mpressed) && (m->y() < height()) && (m->y() > 43) && (m->x() > 9) && (m->x() < width()-9))
 		{
-			setCursor(QCursor(IconManager::instance()->loadPixmap("AddPoint.png"), 1, 1));
+			setCursor(IconManager::instance()->loadCursor("AddPoint.png", 1, 1));
 			for (int yg = 0; yg < static_cast<int>(StopM.count()); ++yg)
 			{
 				fpo = QRect(static_cast<int>(StopM[yg])-4, 43, 8, 13);
@@ -278,7 +278,7 @@ void GradientPreview::mouseMoveEvent(QMouseEvent *m)
 				repaint();
 			}
 			if ((Mpressed) && (outside || !insideRect.contains(m->pos())) && (ActStop > 0) && (ActStop != static_cast<int>(StopM.count()-1)))
-				qApp->changeOverrideCursor(QCursor(IconManager::instance()->loadPixmap("DelPoint.png"), 1, 1));
+				qApp->changeOverrideCursor(IconManager::instance()->loadCursor("DelPoint.png", 1, 1));
 		}
 	}
 }
@@ -290,7 +290,7 @@ void GradientPreview::leaveEvent(QEvent*)
 		if (Mpressed)
 		{
 			if ((ActStop > 0) && (ActStop != static_cast<int>(StopM.count()-1)))
-				qApp->changeOverrideCursor(QCursor(IconManager::instance()->loadPixmap("DelPoint.png"), 1, 1));
+				qApp->changeOverrideCursor(IconManager::instance()->loadCursor("DelPoint.png", 1, 1));
 			else
 				qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 		}

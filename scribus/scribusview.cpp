@@ -562,10 +562,10 @@ void ScribusView::setCursorBasedOnAppMode(int appMode)
 			break;
 		case modeDrawCalligraphicLine:
 		case modeDrawFreehandLine:
-			setCursor(QCursor(im->loadPixmap("DrawFreeLine.png"), 0, 32));
+			setCursor(im->loadCursor("DrawFreeLine.png", 0, 32));
 			break;
 		case modeEyeDropper:
-			setCursor(QCursor(im->loadPixmap("colorpickercursor.png"), 0, 32));
+			setCursor(im->loadCursor("colorpickercursor.png", 0, 32));
 			break;
 		case modeInsertPDFButton:
 		case modeInsertPDFRadioButton:

@@ -189,9 +189,9 @@ void IconManager::readIconConfigFiles()
 	}
 }
 
-QCursor IconManager::loadCursor(const QString nam, bool forceUseColor)
+QCursor IconManager::loadCursor(const QString nam, int hotX, int hotY, bool forceUseColor)
 {
-	return QCursor(loadPixmap(nam, forceUseColor));
+	return QCursor(loadPixmap(nam, forceUseColor), hotX, hotY);
 }
 
 QIcon IconManager::loadIcon(const QString nam, bool forceUseColor)

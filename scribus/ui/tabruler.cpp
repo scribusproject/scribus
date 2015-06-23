@@ -317,7 +317,7 @@ void RulerT::mouseMoveEvent(QMouseEvent *m)
 	}
 	if ((!mousePressed) && (m->y() < height()) && (m->y() > 0) && (m->x() > 0) && (m->x() < width()))
 	{
-		setCursor(QCursor(IconManager::instance()->loadPixmap("tab.png"), 3));
+		setCursor(IconManager::instance()->loadCursor("tab.png", 3));
 		if (haveInd)
 		{
 			fpo = QRect(static_cast<int>(firstLine+leftIndent-offset)-4, 0, 8, 12);
@@ -348,7 +348,7 @@ void RulerT::mouseMoveEvent(QMouseEvent *m)
 	}
 	if ((mousePressed) && ((m->y() > height()) || (m->y() < 0) || (m->x() < 0) || (m->x() > width())))
 	{
-		qApp->changeOverrideCursor(QCursor(IconManager::instance()->loadPixmap("DelPoint.png"), 1, 1));
+		qApp->changeOverrideCursor(IconManager::instance()->loadCursor("DelPoint.png", 1, 1));
 	}
 }
 
@@ -357,7 +357,7 @@ void RulerT::leaveEvent(QEvent*)
 	if (mousePressed)
 	{
 		if (rulerCode == 3)
-			qApp->changeOverrideCursor(QCursor(IconManager::instance()->loadPixmap("DelPoint.png"), 1, 1));
+			qApp->changeOverrideCursor(IconManager::instance()->loadCursor("DelPoint.png", 1, 1));
 		else
 			qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 	}

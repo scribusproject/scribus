@@ -776,10 +776,10 @@ QCursor CanvasMode::modeCursor()
 			cursor = QCursor(Qt::CrossCursor);
 			break;
 		case modeDrawFreehandLine:
-			cursor = QCursor(im->loadPixmap("DrawFreeLine.png"), 0, 31);
+			cursor = im->loadCursor("DrawFreeLine.png", 0, 31);
 			break;
 		case modeDrawCalligraphicLine:
-			cursor = QCursor(im->loadPixmap("DrawCalligraphy.xpm"), 4, 4);
+			cursor = im->loadCursor("DrawCalligraphy.xpm", 4, 4);
 			break;
 		case modeImportObject:
 			cursor = im->loadCursor("DragPix.xpm");
@@ -794,10 +794,10 @@ QCursor CanvasMode::modeCursor()
 			cursor = im->loadCursor("HandC.xpm");
 			break;
 		case modeEyeDropper:
-			cursor = QCursor(im->loadPixmap("colorpickercursor.png"), 0, 31);
+			cursor = im->loadCursor("colorpickercursor.png", 0, 31);
 			break;
 		case modeLinkFrames:
-			cursor = QCursor(im->loadPixmap("LinkTextFrame.png"), 0, 31);
+			cursor = im->loadCursor("LinkTextFrame.png", 0, 31);
 			break;
 		case modeMeasurementTool:
 		case modeEditGradientVectors:
@@ -856,10 +856,10 @@ void CanvasMode::setModeCursor()
 			m_view->setCursor(QCursor(Qt::CrossCursor));
 			break;
 		case modeDrawFreehandLine:
-			m_view->setCursor(QCursor(im->loadPixmap("DrawFreeLine.png"), 0, 31));
+			m_view->setCursor(im->loadCursor("DrawFreeLine.png", 0, 31));
 			break;
 		case modeDrawCalligraphicLine:
-			m_view->setCursor(QCursor(im->loadPixmap("DrawCalligraphy.xpm"), 4, 4));
+			m_view->setCursor(im->loadCursor("DrawCalligraphy.xpm", 4, 4));
 			break;
 		case modeImportObject:
 			m_view->setCursor(im->loadCursor("DragPix.xpm"));
@@ -874,10 +874,10 @@ void CanvasMode::setModeCursor()
 			m_view->setCursor(im->loadCursor("HandC.xpm"));
 			break;
 		case modeEyeDropper:
-			m_view->setCursor(QCursor(im->loadPixmap("colorpickercursor.png"), 0, 31));
+			m_view->setCursor(im->loadCursor("colorpickercursor.png", 0, 31));
 			break;
 		case modeLinkFrames:
-			m_view->setCursor(QCursor(im->loadPixmap("LinkTextFrame.png"), 0, 31));
+			m_view->setCursor(im->loadCursor("LinkTextFrame.png", 0, 31));
 			break;
 		case modeMeasurementTool:
 		case modeEditGradientVectors:
