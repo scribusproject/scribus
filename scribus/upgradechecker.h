@@ -13,7 +13,7 @@ for which a new license (GPL+exception) is in place.
 #include <QString>
 #include <QStringList>
 #include <QNetworkAccessManager>
-class ScTextBrowser;
+#include <QTextBrowser>
 
 /**
 	@author Craig Bradney <cbradney@zip.com.au>
@@ -60,12 +60,12 @@ class UpgradeCheckerGUI : public UpgradeChecker
 	Q_OBJECT
 	
 public:
-	UpgradeCheckerGUI(ScTextBrowser *tb=0);
+	UpgradeCheckerGUI(QTextBrowser *tb=0);
 	~UpgradeCheckerGUI();
 	
 protected:
 	virtual void outputText(QString text, bool noLineFeed=false);
-	ScTextBrowser *outputWidget;
+	QTextBrowser *outputWidget;
 };
 
 

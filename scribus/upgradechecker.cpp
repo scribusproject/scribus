@@ -266,7 +266,7 @@ void UpgradeChecker::reportError(const QString& s)
 	}
 }
 
-UpgradeCheckerGUI::UpgradeCheckerGUI(ScTextBrowser *tb) : UpgradeChecker()
+UpgradeCheckerGUI::UpgradeCheckerGUI(QTextBrowser *tb) : UpgradeChecker()
 {
 	outputWidget=tb;
 	writeToConsole=false;
@@ -278,7 +278,7 @@ UpgradeCheckerGUI::~UpgradeCheckerGUI()
 
 void UpgradeCheckerGUI::outputText(QString text, bool noLineFeed)
 {
-	ScTextBrowser* w=outputWidget;
+	QTextBrowser* w=outputWidget;
 	if (w)
 	{
 		QString wText(w->toPlainText());

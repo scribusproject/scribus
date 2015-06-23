@@ -32,7 +32,6 @@ for which a new license (GPL+exception) is in place.
 #include "commonstrings.h"
 #include "scconfig.h"
 #include "scpaths.h"
-#include "sctextbrowser.h"
 #ifdef HAVE_SVNVERSION
 	#include "svnversion.h"
 #endif
@@ -180,45 +179,39 @@ About::About( QWidget* parent, AboutMode diaMode ) : QDialog( parent )
 	buildID->setText( tr("<p align=\"center\"><b>%1 %2</b></p><p align=\"center\">%3<br>%4 %5<br>%6</p>").arg( tr("Scribus Version")).arg(version).arg(built).arg( tr("Build ID:")).arg(bu).arg(gsver));
 	tabLayout1->addWidget( buildID, 0, Qt::AlignHCenter );
 	tabWidget2->addTab( tab, tr( "&About" ) );
+
+	/*! AUTHORS tab */
 	tab_2 = new QWidget( tabWidget2 );
 	tabLayout = new QHBoxLayout( tab_2 );
 	tabLayout->setSpacing( 6 );
 	tabLayout->setMargin( 10 );
+	authorView = new QTextBrowser( tab_2 );
+	authorView->setHtml(About::parseAuthorFile(ScPaths::instance().docDir() + "AUTHORS"));
+	tabLayout->addWidget( authorView );
+	tabWidget2->addTab( tab_2, tr("A&uthors"));
 
-
-	/*! AUTHORS tab */
-	// /usr/local/scribus14/share/doc/scribus-1.3.5svn/AUTHORS
-	textView1 = new ScTextBrowser( tab_2 );
-	textView1->setHtml(About::parseAuthorFile(ScPaths::instance().docDir() + "AUTHORS"));
-	textView1->swallowContextMenus(true);
-	tabLayout->addWidget( textView1 );
-	tabWidget2->addTab( tab_2, tr( "A&uthors" ) );
+	/*! TRANSLATION tab */
 	tab_3 = new QWidget( tabWidget2 );
 	tabLayout_2 = new QHBoxLayout( tab_3 );
 	tabLayout_2->setSpacing( 6 );
 	tabLayout_2->setMargin( 10 );
-	textView2 = new ScTextBrowser( tab_3);
-// 	LanguageManager langmgr;
-// 	langmgr.init(false);
-
-	/*! TRANSLATION tab */
-	// /usr/local/scribus14/share/doc/scribus-1.3.5svn/TRANSLATION
-	textView2->setHtml(About::parseTranslationFile(ScPaths::instance().docDir() + "TRANSLATION"));
-	textView2->swallowContextMenus(true);
-	tabLayout_2->addWidget( textView2 );
+	transView = new QTextBrowser( tab_3);
+	transView->setHtml(About::parseTranslationFile(ScPaths::instance().docDir() + "TRANSLATION"));
+	tabLayout_2->addWidget( transView );
 	tabWidget2->addTab( tab_3, tr( "&Translations" ) );
 
 	/*! ONLINE tab (03/04/2004 petr vanek) */
-	// /usr/local/scribus14/share/doc/scribus-1.3.5svn/LINKS
 	tab_4 = new QWidget( tabWidget2 );
-	textView4 = new ScTextBrowser( tab_4 );
-	textView4->setHtml(About::parseLinksFile(ScPaths::instance().docDir() + "LINKS"));
-	textView4->swallowContextMenus(true);
+	onlineView = new QTextBrowser( tab_4 );
+	onlineView->setHtml(About::parseLinksFile(ScPaths::instance().docDir() + "LINKS"));
+	onlineView->setOpenExternalLinks(true);
 	tabLayout_4 = new QHBoxLayout( tab_4 );
 	tabLayout_4->setSpacing( 6 );
 	tabLayout_4->setMargin( 10 );
-	tabLayout_4->addWidget( textView4 );
+	tabLayout_4->addWidget( onlineView );
 	tabWidget2->addTab( tab_4, tr( "&Online" ) );
+
+
 	/*! UPDATE tab */
 	tab_5 = new QWidget( tabWidget2 );
 	tabWidget2->addTab( tab_5, tr( "&Updates" ) );
@@ -226,9 +219,9 @@ About::About( QWidget* parent, AboutMode diaMode ) : QDialog( parent )
 	updateLayout->setSpacing( 6 );
 	updateLayout->setMargin( 10 );
 	checkForUpdateButton = new QPushButton( tr( "Check for Updates" ), tab_5 );
-	textView5 = new ScTextBrowser( tab_5);
+	updateView = new QTextBrowser( tab_5);
 	updateLayout->addWidget( checkForUpdateButton );
-	updateLayout->addWidget( textView5 );
+	updateLayout->addWidget( updateView );
 	
 	/*! LICENCE tab */
 	tab_Licence = new QWidget( tabWidget2 );
@@ -236,21 +229,21 @@ About::About( QWidget* parent, AboutMode diaMode ) : QDialog( parent )
 	licenceLayout = new QVBoxLayout( tab_Licence );
 	licenceLayout->setSpacing( 6 );
 	licenceLayout->setMargin( 10 );
-	textViewLicence = new ScTextBrowser( tab_Licence);
+	textViewLicence = new QTextBrowser( tab_Licence);
 	licenceLayout->addWidget( textViewLicence );
 	
 	QFile licenceFile(ScPaths::instance().docDir() + "/COPYING");
 	if (!licenceFile.open(QIODevice::ReadOnly | QIODevice::Text))
-		textViewLicence->setSimpleText( tr("Unable to open licence file. Please check your install directory or the Scribus website for licencing information.") );
+		textViewLicence->setPlainText(tr("Unable to open licence file. Please check your install directory or the Scribus website for licencing information.") );
 	else
 	{
 		QTextStream inTS(&licenceFile);
 		inTS.setAutoDetectUnicode(true);
 		inTS.setCodec("UTF-8");
 		QString licenceText = inTS.readAll();
-		textViewLicence->setSimpleText(licenceText);
+		textViewLicence->setPlainText(licenceText);
 	} 
-	textViewLicence->swallowContextMenus(true);
+
 	//Add tab widget to about window
 	aboutLayout->addWidget( tabWidget2 );
 
@@ -685,8 +678,8 @@ void About::setVisible (bool visible)
 
 void About::runUpdateCheck()
 {
-	textView5->clear();
-	UpgradeCheckerGUI uc(textView5);
+	updateView->clear();
+	UpgradeCheckerGUI uc(updateView);
 	disconnect( checkForUpdateButton, SIGNAL( clicked() ), this, SLOT( runUpdateCheck() ) );
 	uc.fetch();
 	connect( checkForUpdateButton, SIGNAL( clicked() ), this, SLOT( runUpdateCheck() ) );

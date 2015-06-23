@@ -8,12 +8,12 @@ for which a new license (GPL+exception) is in place.
 #define ABOUT_H
 
 #include <QDialog>
+#include <QTextBrowser>
 #include <QVBoxLayout>
 #include <QHBoxLayout>
 
 #include "scribusapi.h"
 
-#include "ui/sctextbrowser.h"
 class QLabel;
 class QWidget;
 class QTabWidget;
@@ -48,11 +48,11 @@ protected:
 	QWidget* tab_4;
 	QWidget* tab_5;
 	QWidget* tab_Licence;
-	ScTextBrowser* textView1;
-	ScTextBrowser* textView2;
-	ScTextBrowser* textView4;
-	ScTextBrowser* textView5;
-	ScTextBrowser* textViewLicence;
+	QTextBrowser* authorView;
+	QTextBrowser* transView;
+	QTextBrowser* onlineView;
+	QTextBrowser* updateView;
+	QTextBrowser* textViewLicence;
 	QVBoxLayout* aboutLayout;
 	QVBoxLayout* updateLayout;
 	QVBoxLayout* licenceLayout;
