@@ -53,3 +53,11 @@ QComboBox#unitSwitcher:!editable:on, QComboBox::drop-down:editable:on { backgrou
 QComboBox#unitSwitcher:on { padding-top: 3px; padding-left: 4px; }
 QComboBox#unitSwitcher::drop-down { subcontrol-origin: padding; subcontrol-position: top right; width: 15px; border-left-width: 1px; border-left-color: darkgray; border-left-style: solid; border-top-right-radius: 3px; border-bottom-right-radius: 3px; }
 
+/*
+FileToolBar QToolButton::menu-indicator { background:red }
+EditToolBar QToolButton::menu-indicator { color:red }
+*/
+ScToolBar QToolButton::menu-indicator { image: url(___tb_menu_arrow___); }
+/*
+PDFToolBar QToolButton::menu-indicator { color:red }
+*/

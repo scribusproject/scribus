@@ -473,6 +473,8 @@ int ScribusMainWindow::initScMW(bool primaryMainWindow)
 	}
 	appModeHelper->setStartupActionsEnabled(false);
 
+	setStyleSheet();
+
 	return retVal;
 }
 
@@ -514,6 +516,35 @@ void ScribusMainWindow::initToolBars()
 	connect(scrActions["toolsToolbarTools"], SIGNAL(toggled(bool)), modeToolBar, SLOT(setVisible(bool)) );
 	connect(viewToolBar, SIGNAL(visibilityChanged(bool)), scrActions["toolsToolbarView"], SLOT(setChecked(bool)));
 	connect(scrActions["toolsToolbarView"], SIGNAL(toggled(bool)), viewToolBar, SLOT(setVisible(bool)) );
+}
+
+void ScribusMainWindow::setStyleSheet()
+{
+	QByteArray stylesheet;
+	if (loadRawText(ScPaths::instance().libDir() + "scribus.css", stylesheet))
+	{
+		QString downArrow(IconManager::instance()->pathForIcon("16/go-down.png"));
+		QByteArray da;
+		da.append(downArrow);
+		stylesheet.replace("___downArrow___", da);
+		QString toolbararrow(IconManager::instance()->pathForIcon("stylesheet/down_arrow.png"));
+		QByteArray tba;
+		tba.append(toolbararrow);
+		stylesheet.replace("___tb_menu_arrow___", tba);
+	}
+
+	layerMenu->setStyleSheet(stylesheet);
+	unitSwitcher->setStyleSheet(stylesheet);
+	zoomDefaultToolbarButton->setStyleSheet(stylesheet);
+	zoomInToolbarButton->setStyleSheet(stylesheet);
+	zoomOutToolbarButton->setStyleSheet(stylesheet);
+	zoomSpinBox->setStyleSheet(stylesheet);
+
+	fileToolBar->setStyleSheet(stylesheet);
+	editToolBar->setStyleSheet(stylesheet);
+	modeToolBar->setStyleSheet(stylesheet);
+	pdfToolBar->setStyleSheet(stylesheet);
+	viewToolBar->setStyleSheet(stylesheet);
 }
 
 
@@ -1247,9 +1278,9 @@ void ScribusMainWindow::initStatusBar()
 	zoomInToolbarButton->setDefault( false );
 	zoomInToolbarButton->setAutoDefault( false );
 
-	zoomDefaultToolbarButton->setIcon(QIcon(IconManager::instance()->loadIcon("16/zoom-original.png")));
-	zoomOutToolbarButton->setIcon(QIcon(IconManager::instance()->loadIcon("16/zoom-out.png")));
-	zoomInToolbarButton->setIcon(QIcon(IconManager::instance()->loadIcon("16/zoom-in.png")));
+	zoomDefaultToolbarButton->setIcon(IconManager::instance()->loadIcon("16/zoom-original.png"));
+	zoomOutToolbarButton->setIcon(IconManager::instance()->loadIcon("16/zoom-out.png"));
+	zoomInToolbarButton->setIcon(IconManager::instance()->loadIcon("16/zoom-in.png"));
 
 
 	zoomLayout->addWidget( zoomSpinBox );
@@ -1275,6 +1306,7 @@ void ScribusMainWindow::initStatusBar()
 	mainWindowYPosDataLabel->setMinimumWidth(mainWindowYPosDataLabel->fontMetrics().width("99999.999"));
 	statusBarLanguageChange();
 
+	/*
 	QByteArray stylesheet;
 	if (loadRawText(ScPaths::instance().libDir() + "scribus.css", stylesheet))
 	{
@@ -1283,6 +1315,7 @@ void ScribusMainWindow::initStatusBar()
 		da.append(downArrow);
 		stylesheet.replace("___downArrow___", da);
 	}
+	*/
 
 	layerMenu->setObjectName("layerMenu");
 	unitSwitcher->setObjectName("unitSwitcher");
@@ -1291,12 +1324,14 @@ void ScribusMainWindow::initStatusBar()
 	zoomOutToolbarButton->setObjectName("zoomOutToolbarButton");
 	zoomSpinBox->setObjectName("zoomSpinBox");
 
+	/*
 	layerMenu->setStyleSheet(stylesheet);
 	unitSwitcher->setStyleSheet(stylesheet);
 	zoomDefaultToolbarButton->setStyleSheet(stylesheet);
 	zoomInToolbarButton->setStyleSheet(stylesheet);
 	zoomOutToolbarButton->setStyleSheet(stylesheet);
 	zoomSpinBox->setStyleSheet(stylesheet);
+	*/
 
 	statusBar()->setFont(fo);
 	statusBar()->addPermanentWidget(mainWindowStatusLabel, 5);
