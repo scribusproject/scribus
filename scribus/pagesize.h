@@ -49,6 +49,7 @@ public:
 	double height() const { return m_height; }
 	double originalWidth() const { return m_width*unitGetRatioFromIndex(m_pageUnitIndex); }
 	double originalHeight() const { return m_height*unitGetRatioFromIndex(m_pageUnitIndex); }
+	QString originalUnit() const { return unitGetSuffixFromIndex(m_pageUnitIndex); }
 	QStringList sizeList() const;
 	QStringList sizeTRList() const;
 	QStringList activeSizeList() const;

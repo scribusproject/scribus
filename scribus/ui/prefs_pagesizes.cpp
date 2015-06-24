@@ -38,15 +38,30 @@ void Prefs_PageSizes::languageChange()
 void Prefs_PageSizes::restoreDefaults(struct ApplicationPrefs *prefsData)
 {
 	PageSize ps(prefsData->docSetupPrefs.pageSize);
-	QStringList sl(ps.sizeTRList());
+	QStringList sizeList(ps.sizeList());
+	QStringList activeSizeList(ps.activeSizeList());
 	activeSizesListWidget->clear();
-	activeSizesListWidget->addItems(ps.activeSizeTRList());
-	
 	availableSizesListWidget->clear();
-	for (int i = 0; i < sl.count(); ++i)
+
+	for (int i = 0; i < activeSizeList.count(); ++i)
 	{
-		if (activeSizesListWidget->findItems(sl.at(i), Qt::MatchExactly).isEmpty())
-			availableSizesListWidget->addItem(sl.at(i));
+		QListWidgetItem* lwi=new QListWidgetItem();
+		PageSize ps2(activeSizeList.at(i));
+		lwi->setText(ps2.nameTR());
+		lwi->setToolTip(QString("%1 x %2 %3").arg(ps2.originalWidth()).arg(ps2.originalHeight()).arg(ps2.originalUnit()));
+		activeSizesListWidget->addItem(lwi);
+	}
+
+	for (int i = 0; i < sizeList.count(); ++i)
+	{
+		if (!activeSizeList.contains(sizeList.at(i)))
+		{
+			QListWidgetItem* lwi=new QListWidgetItem();
+			PageSize ps2(sizeList.at(i));
+			lwi->setText(ps2.nameTR());
+			lwi->setToolTip(QString("%1 x %2 %3").arg(ps2.originalWidth()).arg(ps2.originalHeight()).arg(ps2.originalUnit()));
+			availableSizesListWidget->addItem(lwi);
+		}
 	}
 }
 
