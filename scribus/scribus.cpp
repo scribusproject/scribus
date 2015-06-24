@@ -7434,10 +7434,6 @@ void ScribusMainWindow::editSymbolEnd()
 	}
 	slotSelect();
 	appModeHelper->setSymbolEditMode(false, doc);
-	scrActions["fileClose"]->setToolTip( tr("Close"));
-	scrActions["fileClose"]->setIcon(IconManager::instance()->loadIcon("22/close.png"));
-	scrMenuMgr->setMenuEnabled("FileOpenRecent", true);
-	scrMenuMgr->setMenuEnabled("FileExport", true);
 
 	if ( ScCore->haveGS() || ScCore->isWinGUI() )
 		scrActions["PrintPreview"]->setEnabled(true);
@@ -7504,10 +7500,6 @@ void ScribusMainWindow::editInlineEnd()
 	}
 	slotSelect();
 	appModeHelper->setInlineEditMode(false, doc);
-	scrActions["fileClose"]->setToolTip( tr("Close"));
-	scrActions["fileClose"]->setIcon(IconManager::instance()->loadIcon("22/close.png"));
-	scrMenuMgr->setMenuEnabled("FileOpenRecent", true);
-	scrMenuMgr->setMenuEnabled("FileExport", true);
 	pagePalette->enablePalette(true);
 	pagePalette->rebuildMasters();
 	view->setScale(storedViewScale);
@@ -7584,9 +7576,6 @@ void ScribusMainWindow::editMasterPagesEnd()
 	}
 	slotSelect();
 	appModeHelper->setMasterPageEditMode(false, doc);
-	scrActions["fileClose"]->setToolTip( tr("Close"));
-	scrActions["fileClose"]->setIcon(IconManager::instance()->loadIcon("22/close.png"));
-	scrMenuMgr->setMenuEnabled("FileOpenRecent", true);
 	uint pageCount=doc->DocPages.count();
 	for (uint c=0; c<pageCount; ++c)
 		Apply_MasterPage(doc->DocPages.at(c)->MPageNam, c, false);

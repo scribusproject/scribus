@@ -20,7 +20,6 @@ for which a new license (GPL+exception) is in place.
 #include "prefsmanager.h"
 #include "scpaths.h"
 #include "scribuscore.h"
-#include "ui/sctextbrowser.h"
 #include "upgradechecker.h"
 
 
