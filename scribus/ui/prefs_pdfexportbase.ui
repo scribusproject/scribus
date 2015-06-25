@@ -1161,6 +1161,13 @@
             </widget>
            </item>
            <item>
+            <widget class="QCheckBox" name="useDocumentBleedsCheckBox">
+             <property name="text">
+              <string>Use Document Bleeds</string>
+             </property>
+            </widget>
+           </item>
+           <item>
             <layout class="QHBoxLayout" name="horizontalLayout_4">
              <item>
               <widget class="NewMarginWidget" name="bleedsWidget" native="true"/>
@@ -1179,13 +1186,6 @@
               </spacer>
              </item>
             </layout>
-           </item>
-           <item>
-            <widget class="QCheckBox" name="useDocumentBleedsCheckBox">
-             <property name="text">
-              <string>Use Document Bleeds</string>
-             </property>
-            </widget>
            </item>
            <item>
             <spacer name="bleedSettingsVerticalSpacer">
@@ -1869,7 +1869,6 @@
   <tabstop>printPageInfoCheckBox</tabstop>
   <tabstop>markLengthSpinBox</tabstop>
   <tabstop>markOffsetSpinBox</tabstop>
-  <tabstop>useDocumentBleedsCheckBox</tabstop>
   <tabstop>pdfx3OutputProfileComboBox</tabstop>
   <tabstop>pdfx3InfoStringLineEdit</tabstop>
   <tabstop>subsettedFontsListWidget</tabstop>
