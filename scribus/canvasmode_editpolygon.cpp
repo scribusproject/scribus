@@ -243,13 +243,14 @@ void CanvasMode_EditPolygon::applyValues(int polyC, double polyF, bool polyUseCF
 {
 	PageItem *currItem = m_doc->m_Selection->itemAt(0);
 	PageItem_RegularPolygon* item = currItem->asRegularPolygon();
+	QRectF oldRect = item->getBoundingRect();
 	polyCorners = polyC;
 	polyFactor = polyF;
 	polyRotation = polyR;
 	polyCurvature = polyCur;
 	polyInnerRot = polyIRot;
 	polyOuterCurvature = polyOCur;
-	if(UndoManager::undoEnabled())
+	if (UndoManager::undoEnabled())
 	{
 		SimpleState *ss = new SimpleState(Um::EditPolygon,"",Um::IPolygon);
 		ss->set("POLYGON","polygon");
@@ -280,7 +281,8 @@ void CanvasMode_EditPolygon::applyValues(int polyC, double polyF, bool polyUseCF
 	updateFromItem();
 	QTransform itemMatrix = currItem->getTransform();
 	QPainterPath path = itemMatrix.map(RegularPolygonPath(item->width(), item->height(), polyCorners, polyUseFactor, polyFactor, polyRotation, polyCurvature, polyInnerRot, polyOuterCurvature));
-	m_doc->regionsChanged()->update(path.boundingRect().adjusted(-5, -5, 10, 10));
+	QRectF updateRect = oldRect.united(path.boundingRect());
+	m_doc->regionsChanged()->update(updateRect.adjusted(-5, -5, 10, 10));
 }
 
 double CanvasMode_EditPolygon::getUserValFromFactor(double factor)
