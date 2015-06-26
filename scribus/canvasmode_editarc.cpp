@@ -288,7 +288,7 @@ void CanvasMode_EditArc::deactivate(bool forGesture)
 {
 	disconnect(VectorDialog, SIGNAL(paletteShown(bool)), this, SLOT(endEditing(bool)));
 	VectorDialog->close();
-	delete VectorDialog;
+	VectorDialog->deleteLater();
 	m_view->setRedrawMarkerShown(false);
 	m_arcPoint = noPointDefined;
 	disconnect(m_doc, SIGNAL(docChanged()), this, SLOT(updateFromItem()));
