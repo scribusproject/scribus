@@ -39,16 +39,16 @@ FileToolBar::FileToolBar(ScribusMainWindow* p) : ScToolBar( tr("File"), "File", 
 	addAction(p->scrActions["filePrint"]);
 	addAction(p->scrActions["toolsPreflightVerifier"]);
 	addAction(p->scrActions["fileExportAsPDF"]);
+	fileOpenButtonMenu = new QMenu();
+	QToolButton* tb = dynamic_cast<QToolButton*>(widgetForAction(parent->scrActions["fileOpen"]));
+	tb->setMenu(fileOpenButtonMenu);
+	tb->setPopupMode(QToolButton::DelayedPopup);
 }
 
 void FileToolBar::rebuildRecentFileMenu()
 {
-	QToolButton* tb = dynamic_cast<QToolButton*>(widgetForAction(parent->scrActions["fileOpen"]));
-	QMenu *m=new QMenu(this);
+	fileOpenButtonMenu->clear();
 	ScrAction *recentFileAction;
 	foreach (recentFileAction, parent->scrRecentFileActions)
-		m->addAction(recentFileAction);
-	tb->setMenu(m);
-//	tb->setPopupMode(QToolButton::MenuButtonPopup);
-	tb->setPopupMode(QToolButton::DelayedPopup);
+		fileOpenButtonMenu->addAction(recentFileAction);
 }

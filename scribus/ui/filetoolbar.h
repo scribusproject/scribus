@@ -43,6 +43,7 @@ class SCRIBUS_API FileToolBar : public ScToolBar
 
 	protected:
 		ScribusMainWindow* parent;
+		QMenu* fileOpenButtonMenu;
 };
 
 #endif
