@@ -2909,14 +2909,11 @@ void ScribusMainWindow::removeRecentFromWatcher(QString filename)
 
 void ScribusMainWindow::loadRecent(QString filename)
 {
-	qDebug()<<filename;
 	QFileInfo fd(filename);
 	if (!fd.exists())
-	{
 		removeRecent(filename);
-		return;
-	}
-	loadDoc(filename);
+	else
+		loadDoc(filename);
 }
 
 void ScribusMainWindow::rebuildRecentFileMenu()
