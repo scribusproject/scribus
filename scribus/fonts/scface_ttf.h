@@ -97,6 +97,8 @@ public:
 	void RawData(QByteArray & bb) const;
 
 	qreal glyphKerning ( uint gl1, uint gl2, qreal sz ) const;
+	
+	virtual bool isSymbolic() const;
 
 private:
 	mutable KernFeature * kernFeature;

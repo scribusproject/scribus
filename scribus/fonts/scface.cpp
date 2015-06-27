@@ -208,6 +208,14 @@ const ScFace& ScFace::none()
 	return NONE; 
 }
 
+bool ScFace::isSymbolic() const
+{
+	if (m->status == ScFace::UNKNOWN) {
+		m->load();
+	}
+	return m->isSymbolic();
+}
+
 QString ScFace::pdfAscentAsString() const
 {
 	if (m->status == ScFace::UNKNOWN) {

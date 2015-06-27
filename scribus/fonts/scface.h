@@ -187,6 +187,7 @@ public:
 		virtual FPointArray glyphOutline(uint gl, qreal sz) const; 
 		virtual FPoint      glyphOrigin (uint gl, qreal sz) const;
 		
+		virtual bool isSymbolic() const { return false; }
 	};
 		
 	
@@ -200,6 +201,9 @@ public:
 
 	/// test for null object
 	bool isNone() const   { return m->status == NULLFACE; }
+
+	/// test if font is a symbolic font
+	bool isSymbolic() const;
 	
 	ScFace& operator=(const ScFace& other);
 	/** two ScFaces are equal if they either are both NULLFACEs or they
