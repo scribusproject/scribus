@@ -372,6 +372,7 @@ void TabKeyboardShortcutsWidget::insertActions()
 		lviToMenuMap.append(currMenuLVI);
 		currMenuLVI->setText(0, itmenu->first);
 		currMenuLVI->setExpanded(true);
+		currMenuLVI->setFlags(Qt::ItemIsEnabled);
 		prevMenuLVI=currMenuLVI;
 		first=true;
 		currLVI=0;
@@ -406,6 +407,7 @@ void TabKeyboardShortcutsWidget::insertActions()
 		lviToMenuMap.append(currMenuLVI);
 		currMenuLVI->setText(0, itmenu->first);
 		currMenuLVI->setExpanded(true);
+		currMenuLVI->setFlags(Qt::ItemIsEnabled);
 		prevMenuLVI=currMenuLVI;
 		first=true;
 		currLVI=0;
