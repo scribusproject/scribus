@@ -38,8 +38,8 @@ Prefs_KeyboardShortcuts::Prefs_KeyboardShortcuts(QWidget* parent, ScribusDoc* do
 	QVector< QPair<QString, QStringList> >::Iterator itnmenua = defNonMenuActions->begin();
 	PluginManager& pluginManager(PluginManager::instance());
 	QStringList pluginNames(pluginManager.pluginNames(false));
-	ScPlugin* plugin;
-	ScActionPlugin* ixplug;
+	ScPlugin* plugin = NULL;
+	ScActionPlugin* ixplug = NULL;
 	QString pName;
 	for (int i = 0; i < pluginNames.count(); ++i)
 	{
@@ -344,6 +344,7 @@ void Prefs_KeyboardShortcuts::insertActions()
 		lviToMenuMap.append(currMenuLVI);
 		currMenuLVI->setText(0, itmenu->first);
 		currMenuLVI->setExpanded(true);
+		currMenuLVI->setFlags(Qt::ItemIsEnabled);
 		prevMenuLVI=currMenuLVI;
 		first=true;
 		currLVI=0;
@@ -378,6 +379,7 @@ void Prefs_KeyboardShortcuts::insertActions()
 		lviToMenuMap.append(currMenuLVI);
 		currMenuLVI->setText(0, itmenu->first);
 		currMenuLVI->setExpanded(true);
+		currMenuLVI->setFlags(Qt::ItemIsEnabled);
 		prevMenuLVI=currMenuLVI;
 		first=true;
 		currLVI=0;
