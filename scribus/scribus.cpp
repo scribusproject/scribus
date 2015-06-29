@@ -6649,61 +6649,62 @@ void ScribusMainWindow::slotDocSetup()
 		return;
 	struct ApplicationPrefs oldDocPrefs(doc->prefsData());
 	PreferencesDialog prefsDialog(this, oldDocPrefs, doc);
-	int prefsResult=prefsDialog.exec();
-	if (prefsResult==QDialog::Accepted)
+	int prefsResult = prefsDialog.exec();
+	if (prefsResult != QDialog::Accepted)
+		return;
+
+	struct ApplicationPrefs newDocPrefs(prefsDialog.prefs());
+	bool resizePages, resizeMasterPages, resizePageMargins, resizeMasterPageMargins;
+	prefsDialog.getResizeDocumentPages(resizePages, resizeMasterPages, resizePageMargins, resizeMasterPageMargins);
+	doc->setNewPrefs(newDocPrefs, oldDocPrefs, resizePages, resizeMasterPages, resizePageMargins, resizeMasterPageMargins);
+
+	slotChangeUnit(doc->unitIndex(), false);
+
+	if (oldDocPrefs.itemToolPrefs.imageLowResType!=newDocPrefs.itemToolPrefs.imageLowResType)
 	{
-		struct ApplicationPrefs newDocPrefs(prefsDialog.prefs());
-		bool resizePages, resizeMasterPages, resizePageMargins, resizeMasterPageMargins;
-		prefsDialog.getResizeDocumentPages(resizePages, resizeMasterPages, resizePageMargins, resizeMasterPageMargins);
-		doc->setNewPrefs(newDocPrefs, oldDocPrefs, resizePages, resizeMasterPages, resizePageMargins, resizeMasterPageMargins);
-
-		slotChangeUnit(doc->unitIndex(), false);
-
-		if (oldDocPrefs.itemToolPrefs.imageLowResType!=newDocPrefs.itemToolPrefs.imageLowResType)
-		{
-			setStatusBarInfoText( tr("Updating Images"));
-			mainWindowProgressBar->reset();
-			qApp->setOverrideCursor(QCursor(Qt::WaitCursor));
-			qApp->processEvents();
-			doc->recalcPicturesRes(true);
-			qApp->restoreOverrideCursor();
-			setStatusBarInfoText("");
-			mainWindowProgressBar->reset();
-			viewToolBar->setDoc(doc);
-		}
-		if (oldDocPrefs.typoPrefs != newDocPrefs.typoPrefs)
-		{
-			doc->invalidateAll();
-		}
-		emit UpdateRequest(reqDocFontListUpdate);
-		scrActions["viewShowMargins"]->setChecked(doc->guidesPrefs().marginsShown);
-		scrActions["viewShowBleeds"]->setChecked(doc->guidesPrefs().showBleed);
-		scrActions["viewShowFrames"]->setChecked(doc->guidesPrefs().framesShown);
-		scrActions["viewShowLayerMarkers"]->setChecked(doc->guidesPrefs().layerMarkersShown);
-		scrActions["viewShowGrid"]->setChecked(doc->guidesPrefs().gridShown);
-		scrActions["viewShowGuides"]->setChecked(doc->guidesPrefs().guidesShown);
-		scrActions["viewShowColumnBorders"]->setChecked(doc->guidesPrefs().colBordersShown);
-		scrActions["viewShowBaseline"]->setChecked(doc->guidesPrefs().baselineGridShown);
-		scrActions["viewShowImages"]->setChecked(doc->guidesPrefs().showPic);
-		scrActions["viewShowTextChain"]->setChecked(doc->guidesPrefs().linkShown);
-		scrActions["viewShowTextControls"]->setChecked(doc->guidesPrefs().showControls);
-		scrActions["viewShowRulers"]->setChecked(doc->guidesPrefs().rulersShown);
-		scrActions["viewRulerMode"]->setChecked(doc->guidesPrefs().rulerMode);
-		scrActions["extrasGenerateTableOfContents"]->setEnabled(doc->hasTOCSetup());
-		scrActions["extrasUpdateDocument"]->setEnabled(true);
-		scrActions["viewToggleCMS"]->setChecked(doc->HasCMS);
-		//doc emits changed() via this
-		doc->setMasterPageMode(true);
-		view->reformPages();
-		doc->setMasterPageMode(false);
-		view->reformPages();
-		view->GotoPage(doc->currentPage()->pageNr());
-		view->DrawNew();
-		pagePalette->rebuildPages();
-		emit UpdateRequest(reqCmsOptionsUpdate);
-		doc->changed();
-		modeToolBar->setDoc(doc);
+		setStatusBarInfoText( tr("Updating Images"));
+		mainWindowProgressBar->reset();
+		qApp->setOverrideCursor(QCursor(Qt::WaitCursor));
+		qApp->processEvents();
+		doc->recalcPicturesRes(true);
+		qApp->restoreOverrideCursor();
+		setStatusBarInfoText("");
+		mainWindowProgressBar->reset();
+		viewToolBar->setDoc(doc);
 	}
+	if (oldDocPrefs.typoPrefs != newDocPrefs.typoPrefs)
+	{
+		doc->invalidateAll();
+	}
+	emit UpdateRequest(reqDocFontListUpdate);
+	scrActions["viewShowMargins"]->setChecked(doc->guidesPrefs().marginsShown);
+	scrActions["viewShowBleeds"]->setChecked(doc->guidesPrefs().showBleed);
+	scrActions["viewShowFrames"]->setChecked(doc->guidesPrefs().framesShown);
+	scrActions["viewShowLayerMarkers"]->setChecked(doc->guidesPrefs().layerMarkersShown);
+	scrActions["viewShowGrid"]->setChecked(doc->guidesPrefs().gridShown);
+	scrActions["viewShowGuides"]->setChecked(doc->guidesPrefs().guidesShown);
+	scrActions["viewShowColumnBorders"]->setChecked(doc->guidesPrefs().colBordersShown);
+	scrActions["viewShowBaseline"]->setChecked(doc->guidesPrefs().baselineGridShown);
+	scrActions["viewShowImages"]->setChecked(doc->guidesPrefs().showPic);
+	scrActions["viewShowTextChain"]->setChecked(doc->guidesPrefs().linkShown);
+	scrActions["viewShowTextControls"]->setChecked(doc->guidesPrefs().showControls);
+	scrActions["viewShowRulers"]->setChecked(doc->guidesPrefs().rulersShown);
+	scrActions["viewRulerMode"]->setChecked(doc->guidesPrefs().rulerMode);
+	scrActions["extrasGenerateTableOfContents"]->setEnabled(doc->hasTOCSetup());
+	scrActions["extrasUpdateDocument"]->setEnabled(true);
+	scrActions["viewToggleCMS"]->setChecked(doc->HasCMS);
+	view->setRulersShown(doc->guidesPrefs().rulersShown);
+	//doc emits changed() via this
+	doc->setMasterPageMode(true);
+	view->reformPages();
+	doc->setMasterPageMode(false);
+	view->reformPages();
+	view->GotoPage(doc->currentPage()->pageNr());
+	view->DrawNew();
+	pagePalette->rebuildPages();
+	emit UpdateRequest(reqCmsOptionsUpdate);
+	doc->changed();
+	modeToolBar->setDoc(doc);
 }
 
 int ScribusMainWindow::ShowSubs()
