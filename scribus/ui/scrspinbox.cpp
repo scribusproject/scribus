@@ -168,9 +168,11 @@ double ScrSpinBox::valueFromText ( const QString & text ) const
 	QString crtSepGroup(QString::fromLocal8Bit( lc->thousands_sep ));
 	// this could be hardcoded: "."
 	QString cSepDecimal(QLocale::c().decimalPoint());
-	ts.remove(sysSepGroup);
+	if (sysSepGroup != sysSepDecimal)
+		ts.remove(sysSepGroup);
 	ts.replace(sysSepDecimal, crtSepDecimal);
-	ts.remove(crtSepGroup);
+	if (crtSepGroup != crtSepDecimal)
+		ts.remove(crtSepGroup);
 	ts.replace(crtSepDecimal, cSepDecimal);
 	
 	ts.replace(CommonStrings::trStrPX, "");
