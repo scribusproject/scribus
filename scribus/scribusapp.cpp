@@ -476,7 +476,8 @@ void ScribusQApp::changeGUILanguage(const QString & newGUILang)
 Helper procedure */
 static void printArgLine(QTextStream & ts, const char * smallArg, const char* fullArg, const QString desc)
 {
-	ts << qPrintable(QString("     %1 %2 %3").arg(QString("%1,").arg(smallArg), -5).arg(fullArg, -28).arg(desc)) << endl;
+	ts << QString("     %1 %2 %3").arg(QString("%1,").arg(smallArg), -5).arg(fullArg, -32).arg(desc);
+	endl(ts);
 }
 
 void ScribusQApp::showUsage()
