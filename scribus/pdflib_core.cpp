@@ -3611,7 +3611,6 @@ QByteArray PDFLibCore::Write_FormXObject(QByteArray &data, PageItem *controlItem
 	dict.ColorSpace.append(asColorSpace(spotMap.values()));
 	writer.write(dict);
 
-	PutDoc(">>\n");
 	if (Options.Compress)
 		data = CompressArray(data);
 	PutDoc("/Length "+QByteArray::number(data.length()+1));
