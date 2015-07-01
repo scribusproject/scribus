@@ -8,10 +8,13 @@ for which a new license (GPL+exception) is in place.
 #define SCTEXTBROWSER_H
 
 #include "scribusapi.h"
-#include <QUrl>
-#include <QWebView>
 
-class SCRIBUS_API ScTextBrowser : public QWebView
+#include <QString>
+#include <QTextBrowser>
+#include <QUrl>
+
+
+class SCRIBUS_API ScTextBrowser : public QTextBrowser
 {
 	Q_OBJECT
 
@@ -21,15 +24,7 @@ class SCRIBUS_API ScTextBrowser : public QWebView
 		ScTextBrowser( QWidget * parent = 0 );
 
 		void clear();
-		void setSimpleText(const QString& str);
 		void find(const QString& txt, const int& options = 0);
-		void swallowContextMenus(bool b);
-		QString toPlainText();
-
-	protected:
-		bool event(QEvent *e);
-		void contextMenuEvent(QContextMenuEvent *e);
-		bool hideContextMenus;
 
 	public slots:
 		void home();
@@ -37,6 +32,9 @@ class SCRIBUS_API ScTextBrowser : public QWebView
 	private slots:
 		void catchHome(QUrl url);
 		void externalLinkClick(QUrl url);
+
+	protected:
+		QString m_baseDir;
 
 };
 

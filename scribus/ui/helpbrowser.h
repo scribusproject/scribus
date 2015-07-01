@@ -80,8 +80,8 @@ public:
 	QMap<QAction*, histd2> mHistory;
 	/*! \brief Set text to the browser
 	\param str a QString with text (html) */
-	void setText(const QString& str);
-	
+	void setHtml(const QString& str);
+
 	static bool firstRun;
 
 public slots:
@@ -144,10 +144,6 @@ protected slots:
 //	void showLinkContents(const QString &link);
 	QString bookmarkFile();
 	QString historyFile();
-
-	void loadStart();
-	void loadProcess(int);
-	void loadEnd(bool);
 
 	/*! \brief Load doc file when user select filename in content view. */
 	void itemSelected(const QItemSelection & selected, const QItemSelection & deselected);

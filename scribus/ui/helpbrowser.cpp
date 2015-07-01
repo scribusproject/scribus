@@ -59,6 +59,7 @@ for which a new license (GPL+exception) is in place.
 #include "scribuscore.h"
 #include "util_debug.h"
 #include "iconmanager.h"
+#include "util.h"
 
 /*! \brief XML parsef for documantation history.
 This is small helper class which reads saved bookmarks configuration
@@ -160,6 +161,7 @@ HelpBrowser::HelpBrowser( QWidget* parent, const QString& /*caption*/, const QSt
 	setupLocalUI();
 	language = guiLanguage.isEmpty() ? QString("en") : guiLanguage.left(2);
 	finalBaseDir = ScPaths::instance().docDir() + "en/"; //Sane default for help location
+	textBrowser->setSearchPaths(QStringList(finalBaseDir));
 	menuModel=NULL;
 	loadMenu();
 	if (menuModel!=NULL)
@@ -249,7 +251,7 @@ void HelpBrowser::setupLocalUI()
 
 	//Add Toolbar items
 	goHome=toolBar->addAction(IconManager::instance()->loadIcon("16/go-home.png"), "", textBrowser, SLOT(home()));
-	goBack=toolBar->addAction(IconManager::instance()->loadIcon("16/go-previous.png"), "", textBrowser, SLOT(back()));
+	goBack=toolBar->addAction(IconManager::instance()->loadIcon("16/go-previous.png"), "", textBrowser, SLOT(backward()));
 	goFwd=toolBar->addAction(IconManager::instance()->loadIcon("16/go-next.png"), "", textBrowser, SLOT(forward()));
 	goBack->setMenu(histMenu);
 	
@@ -280,10 +282,7 @@ void HelpBrowser::setupLocalUI()
 //	connect(textBrowser, SIGNAL(overLink(const QString &)), this, SLOT(showLinkContents(const QString &)));
 
 	// status bar
-	connect( textBrowser, SIGNAL(statusBarMessage(QString)), this->statusBar(), SLOT(showMessage(QString)));
-	connect(textBrowser,SIGNAL(loadStarted()), this, SLOT(loadStart()));
-	connect(textBrowser,SIGNAL(loadProgress(int)), this, SLOT(loadProcess(int)));
-	connect(textBrowser,SIGNAL(loadFinished(bool)), this, SLOT(loadEnd(bool)));
+//	connect(textBrowser,SIGNAL(statusBarMessage(QString)), this->statusBar(), SLOT(showMessage(QString)));
 	
 	languageChange();
 }
@@ -293,26 +292,6 @@ void HelpBrowser::setupLocalUI()
 //	statusBar()->showMessage(link);
 //}
 
-void HelpBrowser::loadStart()
-{
-	progressBar->setValue(0);
-	progressBar->setVisible(true);
-}
-
-void HelpBrowser::loadProcess(int p)
-{
-	progressBar->setValue(p);
-}
-
-void HelpBrowser::loadEnd(bool e)
-{
-	progressBar->setVisible(false);
-	if(e)
-		statusBar()->showMessage( textBrowser->title() );
-	else
-		statusBar()->showMessage( tr("Loading Failed") );
-}
-
 void HelpBrowser::changeEvent(QEvent *e)
 {
 	if (e->type() == QEvent::LanguageChange)
@@ -321,6 +300,11 @@ void HelpBrowser::changeEvent(QEvent *e)
 	}
 	else
 		QWidget::changeEvent(e);
+}
+
+void HelpBrowser::setHtml(const QString& str)
+{
+	textBrowser->setHtml(str);
 }
 
 void HelpBrowser::languageChange()
@@ -342,7 +326,7 @@ void HelpBrowser::languageChange()
 	Ui::HelpBrowser::retranslateUi(this);
 	if (!firstRun)
 	{
-		QString fname(QDir::cleanPath(textBrowser->url().toLocalFile()));
+		QString fname(QDir::cleanPath(textBrowser->source().toLocalFile()));
 		QFileInfo fi(fname);
 		QString filename(fi.fileName());
 		if (ScCore->getGuiLanguage().isEmpty())
@@ -446,12 +430,12 @@ void HelpBrowser::findPrevious()
 
 void HelpBrowser::bookmarkButton_clicked()
 {
-	QString title = textBrowser->title();
-	QString fname(QDir::cleanPath(textBrowser->url().toLocalFile()));
- 	title = QInputDialog::getText(this, tr("New Bookmark"), tr("New Bookmark's Title:"), QLineEdit::Normal, title, 0);
+/*	QString title = textBrowser->title();
+	QString fname(QDir::cleanPath(textBrowser->source().toLocalFile()));
+	title = QInputDialog::getText(this, tr("New Bookmark"), tr("New Bookmark's Title:"), QLineEdit::Normal, title, 0);
 	// user cancel
- 	if (title.isNull())
- 		return;
+	if (title.isNull())
+		return;
 	//TODO: start storing full paths
  	QString toFind(fname.remove(QDir::toNativeSeparators(finalBaseDir)));
 	toFind=toFind.mid(1, toFind.length()-1);
@@ -465,6 +449,7 @@ void HelpBrowser::bookmarkButton_clicked()
 			helpNav->bookmarksView->addTopLevelItem(new QTreeWidgetItem(helpNav->bookmarksView, QStringList() << title));
 		}
 	}
+*/
 }
 
 void HelpBrowser::deleteBookmarkButton_clicked()
@@ -487,7 +472,8 @@ void HelpBrowser::deleteAllBookmarkButton_clicked()
 void HelpBrowser::histChosen(QAction* i)
 {
 	if (mHistory.contains(i))
-		textBrowser->setUrl( QUrl::fromLocalFile(mHistory[i].url) );
+		textBrowser->setSource( QUrl::fromLocalFile(mHistory[i].url) );
+
 }
 
 void HelpBrowser::jumpToHelpSection(const QString& jumpToSection, const QString& jumpToFile, bool dontChangeIfAlreadyLoaded)
@@ -515,7 +501,7 @@ void HelpBrowser::jumpToHelpSection(const QString& jumpToSection, const QString&
 	}
 	else
 	{
-		toLoad=ScPaths::instance().docDir() + language + "/" + jumpToFile;
+		toLoad=finalBaseDir + "/" + jumpToFile;
 	}
 	if (!noDocs)
 		loadHelp(toLoad);
@@ -537,7 +523,7 @@ void HelpBrowser::loadHelp(const QString& filename)
 			toLoad=filename;
 		else
 		{
-			toLoad = QDir::toNativeSeparators(ScPaths::instance().docDir() + "en/index.html");
+			toLoad = QDir::toNativeSeparators(finalBaseDir + "/index.html");
 // 			language="en";
 			fi = QFileInfo(toLoad);
 			if (!fi.exists())
@@ -551,9 +537,9 @@ void HelpBrowser::loadHelp(const QString& filename)
 		Avail=false;
 	if (Avail)
 	{
-		textBrowser->setUrl( QUrl::fromLocalFile(toLoad) );
+		textBrowser->setSource(toLoad);
 		
-		his.title = textBrowser->title();
+//		his.title = textBrowser->title();
 		if (his.title.isEmpty())
 			his.title = toLoad;
 		his.url = toLoad;
@@ -621,6 +607,7 @@ void HelpBrowser::loadMenu()
 	}
 	//Set our final location for loading the help files
 	finalBaseDir=baseFi.path();
+	textBrowser->setSearchPaths(QStringList(finalBaseDir));
 	if (baseFi.exists())
 	{
 		if (menuModel!=NULL)
@@ -661,11 +648,6 @@ void HelpBrowser::readHistory()
  	QXmlSimpleReader reader;
  	reader.setContentHandler(&handler);
  	reader.parse(source);
-}
-
-void HelpBrowser::setText(const QString& str)
-{
-	textBrowser->setSimpleText(str);
 }
 
 void HelpBrowser::itemSelected(const QItemSelection & selected, const QItemSelection & deselected)
@@ -757,7 +739,7 @@ void HelpBrowser::displayNoHelp()
 	QString noHelpMsg=tr("<h2><p>Sorry, no manual is installed!</p><p>Please see:</p><ul><li>http://docs.scribus.net for updated documentation</li><li>http://www.scribus.net for downloads</li></ul></h2>",
 						 "HTML message for no documentation available to show");
 
-	textBrowser->setSimpleText(noHelpMsg);
+	textBrowser->setPlainText(noHelpMsg);
 	
 	filePrint->setEnabled(false);
 	editFind->setEnabled(false);

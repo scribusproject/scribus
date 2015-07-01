@@ -535,7 +535,7 @@ void ScripterCore::aboutScript()
 	html += "</body></html>";
 	input.close();
 	HelpBrowser *dia = new HelpBrowser(0, QObject::tr("About Script") + " " + fi.fileName(), "en");
-	dia->setText(html);
+	dia->setHtml(html);
 	dia->show();
 }
 
