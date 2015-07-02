@@ -109,7 +109,7 @@
       <ForcedIncludeFiles>plugins_pch.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>$(QT5CORE_LIB);$(QT5GUI_LIB);$(QT5WEBKIT_LIB);$(QT5WIDGETS_LIB);$(QT5XML_LIB);$(FREETYPE_LIB);$(LIBJPEG_LIB);$(LIBTIFF_LIB);$(LCMS_LIB);$(PYTHON_LIB);scribus-api.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>$(QT5CORE_LIB);$(QT5GUI_LIB);$(QT5WIDGETS_LIB);$(QT5XML_LIB);$(FREETYPE_LIB);$(LIBJPEG_LIB);$(LIBTIFF_LIB);$(LCMS_LIB);$(PYTHON_LIB);scribus-api.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(LCMS_LIB_DIR);$(FREETYPE_LIB_DIR);$(LIBJPEG_LIB_DIR);$(LIBTIFF_LIB_DIR);$(PYTHON_LIB_DIR)s;$(QT5_DIR)\lib;$(OutDir)..;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <ProgramDatabaseFile>$(OutDir)scriptplugin.pdb</ProgramDatabaseFile>
@@ -136,7 +136,7 @@
       <ForcedIncludeFiles>plugins_pch.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>$(QT5CORE_LIB);$(QT5GUI_LIB);$(QT5WEBKIT_LIB);$(QT5WIDGETS_LIB);$(QT5XML_LIB);$(FREETYPE_LIB);$(LIBJPEG_LIB);$(LIBTIFF_LIB);$(LCMS_LIB);$(PYTHON_LIB);scribus-api.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>$(QT5CORE_LIB);$(QT5GUI_LIB);$(QT5WIDGETS_LIB);$(QT5XML_LIB);$(FREETYPE_LIB);$(LIBJPEG_LIB);$(LIBTIFF_LIB);$(LCMS_LIB);$(PYTHON_LIB);scribus-api.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(LCMS_LIB_DIR);$(FREETYPE_LIB_DIR);$(LIBJPEG_LIB_DIR);$(LIBTIFF_LIB_DIR);$(PYTHON_LIB_DIR)s;$(QT5_DIR)\lib;$(OutDir)..;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <ProgramDatabaseFile>$(OutDir)scriptplugin.pdb</ProgramDatabaseFile>
@@ -166,7 +166,7 @@
       <ForcedIncludeFiles>plugins_pch.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>$(QT5CORE_LIB);$(QT5GUI_LIB);$(QT5WEBKIT_LIB);$(QT5WIDGETS_LIB);$(QT5XML_LIB);$(FREETYPE_LIB);$(LIBJPEG_LIB);$(LIBTIFF_LIB);$(LCMS_LIB);$(PYTHON_LIB);scribus-api.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>$(QT5CORE_LIB);$(QT5GUI_LIB);$(QT5WIDGETS_LIB);$(QT5XML_LIB);$(FREETYPE_LIB);$(LIBJPEG_LIB);$(LIBTIFF_LIB);$(LCMS_LIB);$(PYTHON_LIB);scribus-api.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(LCMS_LIB_DIR);$(FREETYPE_LIB_DIR);$(LIBJPEG_LIB_DIR);$(LIBTIFF_LIB_DIR);$(PYTHON_LIB_DIR)s;$(QT5_DIR)\lib;$(OutDir)..;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <ProgramDatabaseFile>$(OutDir)scriptplugin.pdb</ProgramDatabaseFile>
@@ -198,7 +198,7 @@
       <ForcedIncludeFiles>plugins_pch.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>$(QT5CORE_LIB);$(QT5GUI_LIB);$(QT5WEBKIT_LIB);$(QT5WIDGETS_LIB);$(QT5XML_LIB);$(FREETYPE_LIB);$(LIBJPEG_LIB);$(LIBTIFF_LIB);$(LCMS_LIB);$(PYTHON_LIB);scribus-api.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>$(QT5CORE_LIB);$(QT5GUI_LIB);$(QT5WIDGETS_LIB);$(QT5XML_LIB);$(FREETYPE_LIB);$(LIBJPEG_LIB);$(LIBTIFF_LIB);$(LCMS_LIB);$(PYTHON_LIB);scribus-api.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(LCMS_LIB_DIR);$(FREETYPE_LIB_DIR);$(LIBJPEG_LIB_DIR);$(LIBTIFF_LIB_DIR);$(PYTHON_LIB_DIR)s;$(QT5_DIR)\lib;$(OutDir)..;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <ProgramDatabaseFile>$(OutDir)scriptplugin.pdb</ProgramDatabaseFile>

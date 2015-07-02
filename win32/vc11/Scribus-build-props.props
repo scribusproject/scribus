@@ -23,10 +23,6 @@
 	<QT5QML_LIB Condition="'$(Configuration)' == 'Release'">Qt5Qml.lib</QT5QML_LIB>
 	<QT5QUICK_LIB Condition="'$(Configuration)' == 'Debug'">Qt5Quickd.lib</QT5QUICK_LIB>
 	<QT5QUICK_LIB Condition="'$(Configuration)' == 'Release'">Qt5Quick.lib</QT5QUICK_LIB>
-	<QT5WEBKIT_LIB Condition="'$(Configuration)' == 'Debug'">Qt5Webkitd.lib</QT5WEBKIT_LIB>
-	<QT5WEBKIT_LIB Condition="'$(Configuration)' == 'Release'">Qt5Webkit.lib</QT5WEBKIT_LIB>
-	<QT5WEBKITWIDGETS_LIB Condition="'$(Configuration)' == 'Debug'">Qt5WebkitWidgetsd.lib</QT5WEBKITWIDGETS_LIB>
-	<QT5WEBKITWIDGETS_LIB Condition="'$(Configuration)' == 'Release'">Qt5WebkitWidgets.lib</QT5WEBKITWIDGETS_LIB>
 	<QT5WIDGETS_LIB Condition="'$(Configuration)' == 'Debug'">Qt5Widgetsd.lib</QT5WIDGETS_LIB>
 	<QT5WIDGETS_LIB Condition="'$(Configuration)' == 'Release'">Qt5Widgets.lib</QT5WIDGETS_LIB>
 	<QT5XML_LIB Condition="'$(Configuration)' == 'Debug'">Qt5Xmld.lib</QT5XML_LIB>
