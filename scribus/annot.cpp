@@ -1949,16 +1949,16 @@ void Annot::SetValues()
 				break;
 		}
 	}
-	item->annotation().setAction("");
 	switch (ActionCombo->currentIndex())
-		{
+	{
 		case 0:
 			item->annotation().setActionType(0);
+			item->annotation().setAction(QString());
 			break;
 		case 1:
 			item->annotation().setActionType(1);
 			switch (ScrEdited)
-				{
+			{
 				case 0:
 					item->annotation().setAction(EditJava->toPlainText());
 					break;
@@ -1980,7 +1980,7 @@ void Annot::SetValues()
 				case 6:
 					item->annotation().setK_act(EditJava->toPlainText());
 					break;
-				}
+			}
 			break;
 		case 2:
 			if ((LExtern->isChecked()) && (!Destfile->text().isEmpty()))
@@ -2007,12 +2007,17 @@ void Annot::SetValues()
 			break;
 		case 4:
 			item->annotation().setActionType(4);
+			item->annotation().setAction(QString());
 			break;
 		case 5:
 			item->annotation().setActionType(5);
 			item->annotation().setAction(SubURLa->text().simplified());
 			break;
-		}
+		default:
+			item->annotation().setActionType(0);
+			item->annotation().setAction(QString());
+			break;
+	}
 	if (!item->annotation().E_act().isEmpty())
 		AAct = true;
 	if (!item->annotation().X_act().isEmpty())
