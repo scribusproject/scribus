@@ -513,37 +513,34 @@ void HelpBrowser::jumpToHelpSection(const QString& jumpToSection, const QString&
 void HelpBrowser::loadHelp(const QString& filename)
 {
 	struct histd2 his;
-	bool Avail = true;
+	bool Avail = false;
 	QString toLoad;
 	QFileInfo fi;
 	fi = QFileInfo(filename);
 	if (fi.fileName().length()>0)
 	{
 		if (fi.exists())
-			toLoad=filename;
+			toLoad = filename;
 		else
 		{
-			toLoad = QDir::toNativeSeparators(finalBaseDir + "/index.html");
-// 			language="en";
+			toLoad = finalBaseDir + "/index.html";
 			fi = QFileInfo(toLoad);
-			if (!fi.exists())
-			{
-				displayNoHelp();
-				Avail = false;
-			}
 		}
+		Avail = fi.exists();
 	}
-	else
-		Avail=false;
 	if (Avail)
 	{
-		textBrowser->setSource(toLoad);
+		textBrowser->setSource(QUrl::fromLocalFile(toLoad));
 		
 //		his.title = textBrowser->title();
 		if (his.title.isEmpty())
 			his.title = toLoad;
 		his.url = toLoad;
 		mHistory[histMenu->addAction(his.title)] = his;
+	}
+	else
+	{
+		displayNoHelp();
 	}
 	if (mHistory.count() > 15)
 	{
@@ -739,7 +736,7 @@ void HelpBrowser::displayNoHelp()
 	QString noHelpMsg=tr("<h2><p>Sorry, no manual is installed!</p><p>Please see:</p><ul><li>http://docs.scribus.net for updated documentation</li><li>http://www.scribus.net for downloads</li></ul></h2>",
 						 "HTML message for no documentation available to show");
 
-	textBrowser->setPlainText(noHelpMsg);
+	textBrowser->setHtml(noHelpMsg);
 	
 	filePrint->setEnabled(false);
 	editFind->setEnabled(false);
