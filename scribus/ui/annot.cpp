@@ -2060,10 +2060,10 @@ void ScAnnot::SetValues()
 			annotation.setActionType(Annotation::Action_JavaScript);
 			switch (ScrEdited)
 			{
-				case Annotation::Java_PressButton:
+				case Annotation::Java_ReleaseButton:
 					annotation.setAction(EditJava->toPlainText());
 					break;
-				case Annotation::Java_ReleaseButton:
+				case Annotation::Java_PressButton:
 					annotation.setD_act(EditJava->toPlainText());
 					break;
 				case Annotation::Java_EnterWidget:
