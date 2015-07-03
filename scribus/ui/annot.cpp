@@ -2107,6 +2107,7 @@ void ScAnnot::SetValues()
 			break;
 		case 4:
 			annotation.setActionType(Annotation::Action_ResetForm);
+			annotation.setAction(QString());
 			break;
 		case 5:
 			annotation.setActionType(Annotation::Action_ImportData);
@@ -2117,6 +2118,7 @@ void ScAnnot::SetValues()
 			annotation.setAction(nameActionCombo->itemData(nameActionCombo->currentIndex()).toString());
 			break;
 		default:
+			annotation.setActionType(Annotation::Action_None);
 			annotation.setAction(QString());
 			break;
 	}
