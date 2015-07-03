@@ -2050,11 +2050,11 @@ void ScAnnot::SetValues()
 				break;
 		}
 	}
-	annotation.setAction("");
 	switch (ActionCombo->currentIndex())
 	{
 		case 0:
 			annotation.setActionType(Annotation::Action_None);
+			annotation.setAction(QString());
 			break;
 		case 1:
 			annotation.setActionType(Annotation::Action_JavaScript);
@@ -2115,6 +2115,9 @@ void ScAnnot::SetValues()
 		case 6:
 			annotation.setActionType(Annotation::Action_Named);
 			annotation.setAction(nameActionCombo->itemData(nameActionCombo->currentIndex()).toString());
+			break;
+		default:
+			annotation.setAction(QString());
 			break;
 	}
 	if (!annotation.E_act().isEmpty())
