@@ -94,6 +94,7 @@ SET(SCRIBUS_ITEMSETTERS_SRC
 SET(SCRIBUS_UI_SRC
 	ui/aboutplugins.ui
 	ui/aligndistribute.ui
+	ui/annot.ui
 	ui/arcvectorbase.ui
 	ui/arcwidgetbase.ui
 	ui/charselect.ui

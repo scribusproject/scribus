@@ -1009,6 +1009,7 @@ HEADERS += scribus/actionmanager.h \
            scribus/styles/linestyle.attrdefs.cxx
 FORMS += scribus/ui/aboutplugins.ui \
          scribus/ui/aligndistribute.ui \
+         scribus/ui/annot.ui \
          scribus/ui/arcvectorbase.ui \
          scribus/ui/arcwidgetbase.ui \
          scribus/ui/charselect.ui \

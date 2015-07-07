@@ -57,6 +57,8 @@ ScAnnot::ScAnnot(QWidget* parent, PageItem *it, int Seite, int b, int h, ColorLi
 		: QDialog( parent )
 {
 	ScribusDoc* doc = Farben.document();
+
+	setupUi(this);
 	setModal(true);
 	setWindowTitle( tr( "Field Properties" ) );
 	setWindowIcon(IconManager::instance()->loadIcon("AppIcon.png"));
@@ -82,111 +84,22 @@ ScAnnot::ScAnnot(QWidget* parent, PageItem *it, int Seite, int b, int h, ColorLi
 		tl.append("0");
 	}
 
-	AnnotLayout = new QVBoxLayout( this );
-	AnnotLayout->setSpacing( 5 );
-	AnnotLayout->setMargin( 10 );
-
-	Layout1 = new QHBoxLayout;
-	Layout1->setSpacing( 5 );
-	Layout1->setMargin( 0 );
-
-	TextLabel1 = new QLabel( this );
-	TextLabel1->setText( tr( "Type:" ) );
-	Layout1->addWidget( TextLabel1 );
-
-	ComboBox1 = new QComboBox( this );
-	QString tmp[] = { tr("Button"), tr("Text Field"), tr("Check Box"), tr("Combo Box"), tr("List Box"), tr("Radio Button")};
-	size_t array = sizeof(tmp) / sizeof(*tmp);
-	for (uint a = 0; a < array; ++a)
-		ComboBox1->addItem(tmp[a]);
-	ComboBox1->setEditable(false);
-	Layout1->addWidget( ComboBox1 );
-	AnnotLayout->addLayout( Layout1 );
 	if (annotation.Type() != Annotation::RadioButton)
 		ComboBox1->setCurrentIndex(annotation.Type()-2);
 	else
 		ComboBox1->setCurrentIndex(5);
 
-	Fram = new QStackedWidget(this);
-	AnnotLayout->addWidget( Fram );
+	PropertiesGroup->layout()->setAlignment(Qt::AlignTop);
 
-	GroupBox10 = new QGroupBox( this );
-//	GroupBox10->setFixedSize(QSize(360, 350));
-//	GroupBox10->setGeometry( QRect( 11, 41, 360, 350 ) );
-	GroupBox10->setTitle( tr( "Properties" ) );
-	GroupBox10Layout = new QVBoxLayout( GroupBox10 );
-	GroupBox10Layout->setSpacing( 5 );
-	GroupBox10Layout->setMargin( 10 );
-	GroupBox10Layout->setAlignment( Qt::AlignTop );
-
-	Layout60 = new QGridLayout;
-	Layout60->setSpacing( 5 );
-	Layout60->setMargin( 0 );
-	TextLabel20 = new QLabel( GroupBox10 );
-	TextLabel20->setText( tr( "Name:" ) );
-	Layout60->addWidget( TextLabel20, 0, 0 );
-
-	Tip = new QLineEdit( GroupBox10 );
 	Tip->setText(annotation.ToolTip());
-	Layout60->addWidget( Tip, 1, 1 );
-
-	Name = new NameWidget(GroupBox10);
 	Name->setText(item->itemName());
-	Layout60->addWidget( Name, 0, 1 );
 	OldName = item->itemName();
 
-	TextLabel30 = new QLabel( GroupBox10 );
-	TextLabel30->setText( tr( "Tooltip:" ) );
-	Layout60->addWidget( TextLabel30, 1, 0);
-	GroupBox10Layout->addLayout( Layout60 );
-
-	TabWidget2 = new QTabWidget( GroupBox10 );
-
-	tab = new QWidget( TabWidget2 );
-	tabLayout = new QVBoxLayout(tab);
-	tabLayout->setSpacing( 5 );
-	tabLayout->setMargin( 10 );
-
-	GroupBox40 = new QGroupBox( tab );
-	GroupBox40->setTitle( tr( "Text" ) );
-	GroupBox40Layout = new QGridLayout( GroupBox40 );
-	GroupBox40Layout->setSpacing( 5 );
-	GroupBox40Layout->setMargin( 10 );
-	GroupBox40Layout->setAlignment( Qt::AlignTop );
-	TextLabel60 = new QLabel( GroupBox40 );
-	TextLabel60->setText( tr( "Font for use with PDF 1.3:" ) );
-	GroupBox40Layout->addWidget( TextLabel60, 0, 0 );
-	Schrift = new QComboBox(GroupBox40);
-	/* PFJ - 28/02/04 - Altered from char* to QString. Renamed to fonts and the
-	                    loop changed from uint to int and the name to propogate */
-	/* FS - 08.03.04 - loop variable must be uint otherwise you get a compiler warning */
-	QString fonts[]={"Courier", "Courier Bold", "Courier Italic",
-	                 "Courier Bold Italic", "Helvetica",
-	                 "Helvetica Bold", "Helvetica Italic", "Helvetica Bold Italic",
-	                 "Times", "Times Bold",
-	                 "Times Italic", "Times Bold Italic", "Zapf Dingbats",
-	                 "Symbols"};
-	size_t fontsArray = sizeof(fonts) / sizeof(*fonts);
-	for (uint propogate = 0; propogate < fontsArray; ++propogate)
-		Schrift->addItem(fonts[propogate]);
-	Schrift->setEditable(false);
+	TextGroup->layout()->setAlignment(Qt::AlignTop);
 	Schrift->setCurrentIndex(annotation.Font());
-	GroupBox40Layout->addWidget( Schrift, 0, 1, 1, 2);
-	tabLayout->addWidget( GroupBox40 );
 
-	Layout10 = new QHBoxLayout;
-	Layout10->setSpacing( 5 );
-	Layout10->setMargin( 0 );
-	GroupBox20 = new QGroupBox( tab );
-	GroupBox20->setTitle( tr( "Border" ) );
-	GroupBox20Layout = new QGridLayout( GroupBox20 );
-	GroupBox20Layout->setSpacing( 5 );
-	GroupBox20Layout->setMargin( 10 );
-	GroupBox20Layout->setAlignment( Qt::AlignTop );
-	TextLabel40a = new QLabel( GroupBox20 );
-	TextLabel40a->setText( tr( "Color:" ) );
-	GroupBox20Layout->addWidget( TextLabel40a, 0, 0 );
-	BorderC = new ColorCombo( false, GroupBox20);
+	BorderGroup->layout()->setAlignment(Qt::AlignTop);
+
 	ColorList::Iterator cit;
 	BorderC->addItem(CommonStrings::tr_NoneColor);
 	if (annotation.borderColor() == CommonStrings::None)
@@ -197,182 +110,33 @@ ScAnnot::ScAnnot(QWidget* parent, PageItem *it, int Seite, int b, int h, ColorLi
 		if (cit.key() == annotation.borderColor())
 			BorderC->setCurrentIndex(BorderC->count()-1);
 	}
-	GroupBox20Layout->addWidget( BorderC, 0, 1 );
-	TextLabel40 = new QLabel( GroupBox20 );
-	TextLabel40->setText( tr( "Width:" ) );
-	GroupBox20Layout->addWidget( TextLabel40, 1, 0 );
-	BorderW = new QComboBox( GroupBox20 );
+
 	// PFJ - 28/02/04 - Altered to the QString/size_t/for style
 	QString borders[] = {CommonStrings::tr_NoneColor, tr("Thin"), tr("Normal"), tr("Wide")};
 	size_t bordersArray = sizeof(borders) / sizeof(*borders);
+	BorderW->clear();
 	for (uint propogate = 0; propogate < bordersArray; ++propogate)
 		BorderW->addItem(borders[propogate]);
-	BorderW->setEditable(false);
 	BorderW->setCurrentIndex(annotation.Bwid());
-	GroupBox20Layout->addWidget( BorderW, 1, 1 );
-	TextLabel50 = new QLabel( GroupBox20 );
-	TextLabel50->setText( tr( "Style:" ) );
-	GroupBox20Layout->addWidget( TextLabel50, 2, 0 );
-	BorderS = new QComboBox( GroupBox20 );
-	/* PFJ - 28/02/04 - Altered to the QString/size_t/for style */
-	QString borders2[] = {tr("Solid"), tr("Dashed"), tr("Underline"),
-	                      tr("Beveled"), tr("Inset")};
-	size_t borders2Array = sizeof(borders2) / sizeof(*borders2);
-	for (uint propogate = 0; propogate < borders2Array; ++propogate)
-		BorderS->addItem(borders2[propogate]);
-	BorderS->setEditable(false);
+
 	BorderS->setCurrentIndex(annotation.Bsty());
-	GroupBox20Layout->addWidget( BorderS, 2, 1 );
-	Layout10->addWidget( GroupBox20 );
 
-	GroupBox30 = new QGroupBox( tab );
-	GroupBox30->setTitle( tr( "Other" ) );
-	GroupBox30Layout = new QGridLayout( GroupBox30 );
-	GroupBox30Layout->setSpacing( 5 );
-	GroupBox30Layout->setMargin( 10 );
-	GroupBox30Layout->setAlignment( Qt::AlignTop );
-	ReadOnly = new QCheckBox( GroupBox30 );
-	ReadOnly->setText( tr( "Read Only" ) );
-	if (annotation.Type() == Annotation::Button)
-		ReadOnly->setEnabled(false);
+	OtherGroup->layout()->setAlignment(Qt::AlignTop);
+
+	ReadOnly->setEnabled(annotation.Type() != Annotation::Button);
 	ReadOnly->setChecked(annotation.Flag() & Annotation::Flag_ReadOnly);
-	GroupBox30Layout->addWidget( ReadOnly, 0, 0, 1, 2 );
-	Required = new QCheckBox( GroupBox30 );
-	Required->setText( tr( "Required" ) );
-	if (annotation.Type() == Annotation::Button)
-		Required->setEnabled(false);
+	Required->setEnabled(annotation.Type() != Annotation::Button);
 	Required->setChecked(annotation.Flag() & Annotation::Flag_Required);
-	GroupBox30Layout->addWidget( Required, 1, 0, 1, 2 );
-	NoExport = new QCheckBox( GroupBox30 );
-	NoExport->setText( tr( "Do Not Export Value" ) );
-	if (annotation.Type() == Annotation::Button)
-		NoExport->setEnabled(false);
+	NoExport->setEnabled(annotation.Type() != Annotation::Button);
 	NoExport->setChecked(annotation.Flag() & Annotation::Flag_NoExport);
-	GroupBox30Layout->addWidget( NoExport, 2, 0, 1, 2 );
-	TextLabel90 = new QLabel( GroupBox30 );
-	TextLabel90->setText( tr( "Visibility:" ) );
-	GroupBox30Layout->addWidget( TextLabel90, 3, 0 );
-	Visib = new QComboBox( GroupBox30 );
-	/* PFJ - 28/02/04 - Altered to the QString/size_t/for style */
-	QString visible[] = {tr("Visible"), tr("Hidden"), tr("No Print"),
-	                     tr("No View")};
-	size_t visibleArray = sizeof(visible) / sizeof(*visible);
-	for (uint propogate = 0; propogate < visibleArray; ++propogate)
-		Visib->addItem(visible[propogate]);
-	Visib->setEditable(false);
 	Visib->setCurrentIndex(annotation.Vis());
-	GroupBox30Layout->addWidget( Visib, 3, 1 );
-	Layout10->addWidget( GroupBox30 );
-	tabLayout->addLayout( Layout10 );
-	TabWidget2->addTab( tab, tr( "Appearance" ) );
 
-	tab_3 = new QWidget( TabWidget2 );
-	tabLayout_3 = new QVBoxLayout( tab_3 );
-	tabLayout_3->setSpacing( 5 );
-	tabLayout_3->setMargin( 10 );
-	FramOp = new QStackedWidget(tab_3);
-	Frame4a = new QFrame( tab_3 );
-	Frame4aLayout = new QGridLayout( Frame4a );
-	Frame4aLayout->setSpacing( 0 );
-	Frame4aLayout->setMargin( 0 );
-	GroupBox40a = new QGroupBox( Frame4a );
-	GroupBox40a->setTitle( tr( "Text" ) );
-	GroupBox40aLayout = new QGridLayout( GroupBox40a );
-	GroupBox40aLayout->setSpacing( 5 );
-	GroupBox40aLayout->setMargin( 10 );
-	GroupBox40aLayout->setAlignment( Qt::AlignTop );
-	CheckBox30 = new QLabel( GroupBox40a );
-	CheckBox30->setText( tr( "Text for Button Down" ) );
-	GroupBox40aLayout->addWidget( CheckBox30, 0, 0, 1, 2 );
-	CheckBox40 = new QLabel( GroupBox40a );
-	CheckBox40->setText( tr( "Text for Roll Over" ) );
-	GroupBox40aLayout->addWidget( CheckBox40, 1, 0, 1, 2 );
-	DownT = new QLineEdit( GroupBox40a );
+	TextOptionGroup->layout()->setAlignment(Qt::AlignTop);
 	DownT->setText(annotation.Down());
-	GroupBox40aLayout->addWidget( DownT, 0, 2 );
-	TextO = new QLineEdit( GroupBox40a );
 	TextO->setText(annotation.RollOver());
-	GroupBox40aLayout->addWidget( TextO, 1, 2 );
-	Frame4aLayout->addWidget( GroupBox40a, 0, 0, 1, 2 );
 
-	OptIcons = new QGroupBox( Frame4a );
-	OptIcons->setTitle( tr( "Icons" ) );
-	OptIconsLayout = new QVBoxLayout( OptIcons );
-	OptIconsLayout->setSpacing( 5 );
-	OptIconsLayout->setMargin( 10 );
-	OptIconsLayout->setAlignment( Qt::AlignTop );
-	UseIcons = new QCheckBox(OptIcons);
-	UseIcons->setText( tr("Use Icons"));
+	IconOptionGroup->layout()->setAlignment(Qt::AlignTop);
 	UseIcons->setChecked(annotation.UseIcons());
-	OptIconsLayout->addWidget(UseIcons);
-	Layout17 = new QHBoxLayout;
-	Layout17->setSpacing( 5 );
-	Layout17->setMargin( 0 );
-
-	Layout14 = new QGridLayout;
-	Layout14->setSpacing( 5 );
-	Layout14->setMargin( 0 );
-	IconN = new QPushButton( OptIcons );
-	IconN->setText( tr( "Normal" ) );
-	Layout14->addWidget( IconN, 0, 0, 1, 3);
-	NiconPrev = new QLabel( OptIcons );
-	NiconPrev->setMinimumSize( QSize( 25, 25 ) );
-	NiconPrev->setMaximumSize( QSize( 25, 25 ) );
-	NiconPrev->setFrameShape( QLabel::Panel );
-	NiconPrev->setFrameShadow( QLabel::Raised );
-	NiconPrev->setScaledContents( true );
-	Layout14->addWidget( NiconPrev, 1, 1 );
-	IconNR = new QPushButton( OptIcons );
-	IconNR->setText( tr( "Remove" ) );
-	Layout14->addWidget( IconNR, 2, 0, 1, 3);
-	Layout17->addLayout( Layout14 );
-
-	Layout15 = new QGridLayout;
-	Layout15->setSpacing( 5 );
-	Layout15->setMargin( 0 );
-	IconP = new QPushButton( OptIcons );
-	IconP->setText( tr( "Pressed" ) );
-	Layout15->addWidget( IconP, 0, 0, 1, 3 );
-	PiconPrev = new QLabel( OptIcons );
-	PiconPrev->setMinimumSize( QSize( 25, 25 ) );
-	PiconPrev->setMaximumSize( QSize( 25, 25 ) );
-	PiconPrev->setFrameShape( QLabel::Panel );
-	PiconPrev->setFrameShadow( QLabel::Raised );
-	PiconPrev->setScaledContents( true );
-	Layout15->addWidget( PiconPrev, 1, 1 );
-	IconPR = new QPushButton( OptIcons );
-	IconPR->setText( tr( "Remove" ) );
-	Layout15->addWidget( IconPR, 2, 0, 1, 3);
-	Layout17->addLayout( Layout15 );
-
-	Layout16 = new QGridLayout;
-	Layout16->setSpacing( 5 );
-	Layout16->setMargin( 0 );
-	IconR = new QPushButton( OptIcons );
-	IconR->setText( tr( "Roll Over" ) );
-	Layout16->addWidget( IconR, 0, 0, 1, 3 );
-	RiconPrev = new QLabel( OptIcons );
-	RiconPrev->setMinimumSize( QSize( 25, 25 ) );
-	RiconPrev->setMaximumSize( QSize( 25, 25 ) );
-	RiconPrev->setFrameShape( QLabel::Panel );
-	RiconPrev->setFrameShadow( QLabel::Raised );
-	RiconPrev->setScaledContents( true );
-	Layout16->addWidget( RiconPrev, 1, 1 );
-	IconRR = new QPushButton( OptIcons );
-	IconRR->setText( tr( "Remove" ) );
-	Layout16->addWidget( IconRR, 2, 0, 1, 3);
-	Layout17->addLayout( Layout16 );
-	OptIconsLayout->addLayout( Layout17 );
-
-	Layout18 = new QHBoxLayout;
-	Layout18->setSpacing( 5 );
-	Layout18->setMargin( 0 );
-	PlaceIcon = new QPushButton( OptIcons );
-	PlaceIcon->setText( tr( "Icon Placement..." ) );
-	Layout18->addWidget( PlaceIcon );
-	QSpacerItem* spacer_2x = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
-	Layout18->addItem( spacer_2x );
-	OptIconsLayout->addLayout( Layout18 );
 	IconNR->setEnabled(false);
 	IconPR->setEnabled(false);
 	IconRR->setEnabled(false);
@@ -414,139 +178,26 @@ ScAnnot::ScAnnot(QWidget* parent, PageItem *it, int Seite, int b, int h, ColorLi
 			IconRR->setEnabled(true);
 		}
 	}
-	Frame4aLayout->addWidget( OptIcons, 1, 0 );
 
-	GroupBox30a = new QGroupBox( Frame4a );
-	GroupBox30a->setTitle( tr( "Highlight" ) );
-	GroupBox30aLayout = new QGridLayout( GroupBox30a );
-	GroupBox30aLayout->setSpacing( 5 );
-	GroupBox30aLayout->setMargin( 10 );
-	GroupBox30aLayout->setAlignment( Qt::AlignTop );
-	ComboBox7_2 = new QComboBox(GroupBox30a);
-	// PFJ - 28/02/04 - Altered to QString/size_t/for style
-	QString combo[] = {tr("None", "highlight"), tr("Invert"), tr("Outlined"), tr("Push")};
-	size_t comboArray = sizeof(combo) / sizeof(*combo);
-	for (uint propogate = 0; propogate < comboArray; ++propogate)
-		ComboBox7_2->addItem(combo[propogate]);
-	ComboBox7_2->setEditable(false);
+	HighlightOptionGroup->layout()->setAlignment(Qt::AlignTop);
 	ComboBox7_2->setCurrentIndex(annotation.Feed());
-	GroupBox30aLayout->addWidget( ComboBox7_2, 0, 0 );
-	Frame4aLayout->addWidget( GroupBox30a, 1, 1 );
-	FramOp->addWidget( Frame4a );
 
-	OptTextFeld = new QGroupBox( tab_3 );
-	OptTextFeld->setTitle( "" );
-	OptTextFeldLayout = new QVBoxLayout( OptTextFeld );
-	OptTextFeldLayout->setSpacing( 5 );
-	OptTextFeldLayout->setMargin( 10 );
-	OptTextFeldLayout->setAlignment( Qt::AlignTop );
-	MultiL = new QCheckBox( OptTextFeld );
-	MultiL->setText( tr( "Multi-Line" ) );
 	MultiL->setChecked(annotation.Flag() & Annotation::Flag_Multiline);
-	OptTextFeldLayout->addWidget( MultiL );
-	Passwd = new QCheckBox( OptTextFeld );
-	Passwd->setText( tr( "Password" ) );
 	Passwd->setChecked(annotation.Flag() & Annotation::Flag_Password);
-	OptTextFeldLayout->addWidget( Passwd );
-	Layout8 = new QHBoxLayout;
-	Layout8->setSpacing( 5 );
-	Layout8->setMargin( 0 );
-	Limit = new QCheckBox( OptTextFeld );
-	Limit->setText( tr( "Limit of" ) );
-	Layout8->addWidget( Limit );
-	MaxChars = new QSpinBox( OptTextFeld );
 	MaxChars->setMinimum(0);
 	MaxChars->setMaximum(32768);
 	bool setter = annotation.MaxChar() != -1 ? true : false;
 	MaxChars->setValue(setter == true ? annotation.MaxChar() : 0);
 	Limit->setChecked(setter);
 	MaxChars->setEnabled(setter);
-	Layout8->addWidget( MaxChars );
-	TextLabel2_2 = new QLabel( OptTextFeld );
-	TextLabel2_2->setText( tr( "Characters" ) );
-	Layout8->addWidget( TextLabel2_2 );
-	QSpacerItem* spacer_2 = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
-	Layout8->addItem( spacer_2 );
-	OptTextFeldLayout->addLayout( Layout8 );
-	NoScroll = new QCheckBox( OptTextFeld );
-	NoScroll->setText( tr( "Do Not Scroll" ) );
 	NoScroll->setChecked(annotation.Flag() & Annotation::Flag_DoNotScroll);
-	OptTextFeldLayout->addWidget( NoScroll );
-	NoSpell = new QCheckBox( OptTextFeld );
-	NoSpell->setText( tr( "Do Not Spell Check" ) );
 	NoSpell->setChecked(annotation.Flag() & Annotation::Flag_DoNotSpellCheck);
-	OptTextFeldLayout->addWidget( NoSpell );
-	FramOp->addWidget( OptTextFeld );
 
-	OptCheck = new QGroupBox( tab_3 );
-	OptCheck->setTitle( "" );
-	OptCheckLayout = new QVBoxLayout( OptCheck );
-	OptCheckLayout->setSpacing( 5 );
-	OptCheckLayout->setMargin( 10 );
-	OptCheckLayout->setAlignment( Qt::AlignTop );
-	ChkLayout = new QHBoxLayout;
-	ChkLayout->setSpacing( 5 );
-	ChkLayout->setMargin( 0 );
-	CText1 = new QLabel( OptCheck );
-	CText1->setText( tr( "Check Style:" ) );
-	ChkLayout->addWidget( CText1 );
-	ChkStil = new QComboBox( OptCheck );
-	QString tmp_chkstil2[]={ tr("Check"), tr("Cross"), tr("Diamond"), tr("Circle"), tr("Star"), tr("Square")};
-	size_t array_chk2 = sizeof(tmp_chkstil2) / sizeof(*tmp_chkstil2);
-	/* PFJ - 28/02/04 - Altered from uint to int and altered var name */
-	for (uint propogate = 0; propogate < array_chk2; ++propogate)
-		ChkStil->addItem(tmp_chkstil2[propogate]);
-
-	ChkStil->setEditable(false);
 	ChkStil->setCurrentIndex(annotation.ChkStil());
-	ChkLayout->addWidget( ChkStil );
-	QSpacerItem* spacerC = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
-	ChkLayout->addItem( spacerC );
-	OptCheckLayout->addLayout( ChkLayout );
-
-	isChkd = new QCheckBox( OptCheck );
-	isChkd->setText( tr( "Default is Checked" ) );
 	isChkd->setChecked(annotation.IsChk());
-	OptCheckLayout->addWidget( isChkd );
-	FramOp->addWidget( OptCheck );
 
-	OptCombo = new QGroupBox( tab_3 );
-	OptCombo->setTitle( "" );
-	OptComboLayout = new QVBoxLayout( OptCombo );
-	OptComboLayout->setSpacing( 5 );
-	OptComboLayout->setMargin( 10 );
-	OptComboLayout->setAlignment( Qt::AlignTop );
-	CanEdit = new QCheckBox( OptCombo );
-	CanEdit->setText( tr( "Editable" ) );
 	CanEdit->setChecked(annotation.Flag() & Annotation::Flag_Edit);
-	OptComboLayout->addWidget( CanEdit );
-	FramOp->addWidget( OptCombo );
 
-	tabLayout_3->addWidget( FramOp );
-
-	TabWidget2->addTab( tab_3, tr( "Options" ) );
-
-	tab_2 = new QWidget( TabWidget2 );
-	tabLayout_2 = new QVBoxLayout( tab_2 );
-	tabLayout_2->setSpacing( 5 );
-	tabLayout_2->setMargin( 10 );
-
-	Layout20 = new QHBoxLayout;
-	Layout20->setSpacing( 5 );
-	Layout20->setMargin( 0 );
-
-	TextLabel70 = new QLabel( tab_2 );
-	TextLabel70->setText( tr( "Type:" ) );
-	Layout20->addWidget( TextLabel70 );
-
-	ActionCombo = new QComboBox(tab_2);
-	QString tmp_actcom[] = { tr("None", "action"), tr("JavaScript"), tr("Go To"),
-							tr("Submit Form"), tr("Reset Form"), tr("Import Data"), tr("Named")};
-	size_t array_act = sizeof(tmp_actcom) / sizeof(*tmp_actcom);
-	/* PFJ - 28/02/04 - Altered from uint to int and var name */
-	for (uint propogate = 0; propogate < array_act; ++propogate)
-		ActionCombo->addItem(tmp_actcom[propogate]);
-	ActionCombo->setEditable(false);
 	int tmpac = annotation.ActionType();
 	if (annotation.ActionType() < 0)
 		tmpac = 1;
@@ -556,48 +207,6 @@ ScAnnot::ScAnnot(QWidget* parent, PageItem *it, int Seite, int b, int h, ColorLi
 		tmpac = 6;
 	ActionCombo->setCurrentIndex(tmpac);
 
-	Layout20->addWidget( ActionCombo );
-	tabLayout_2->addLayout( Layout20 );
-
-	Fram2 = new QStackedWidget(tab_2);
-	tabLayout_2->addWidget( Fram2 );
-
-	Frame4 = new QFrame( tab_2 );
-	Frame4->setFrameShape( QFrame::NoFrame );
-	Frame4->setFrameShadow( QFrame::Raised );
-	Fram2->addWidget( Frame4 );
-
-	Frame3 = new QFrame( tab_2 );
-	Frame3->setFrameShape( QFrame::Box );
-	Frame3->setFrameShadow( QFrame::Sunken );
-	Frame3Layout = new QVBoxLayout( Frame3 );
-	Frame3Layout->setSpacing( 5 );
-	Frame3Layout->setMargin( 10 );
-	Layout7 = new QHBoxLayout;
-	Layout7->setSpacing( 5 );
-	Layout7->setMargin( 0 );
-	AcText1 = new QLabel( Frame3 );
-	AcText1->setText( tr( "Event:" ) );
-	Layout7->addWidget( AcText1 );
-	SelAction = new QComboBox(Frame3);
-	QString tmp_selact[]={ tr("Mouse Up"), tr("Mouse Down"), tr("Mouse Enter"),
-	                      tr("Mouse Exit"), tr("On Focus"), tr("On Blur")};
-	size_t array_sel = sizeof(tmp_selact) / sizeof(*tmp_selact);
-	/* PFJ - 28/02/04 - Altered from uint to int and var name */
-	for (uint propogate = 0; propogate < array_sel; ++propogate)
-		SelAction->addItem(tmp_selact[propogate]);
-	SelAction->setEditable(false);
-	Layout7->addWidget( SelAction );
-	QSpacerItem* spacerac = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
-	Layout7->addItem( spacerac );
-	Frame3Layout->addLayout( Layout7 );
-	AcText2 = new QLabel( Frame3 );
-	AcText2->setText( tr( "Script:" ) );
-	Frame3Layout->addWidget( AcText2 );
-	Layout71 = new QHBoxLayout;
-	Layout71->setSpacing( 5 );
-	Layout71->setMargin( 0 );
-	EditJava = new QTextEdit( Frame3 );
 	QPalette palTxt = EditJava->palette();
 	palTxt.setColor(QPalette::Base, palette().color(QPalette::Window));
 	if ((annotation.ActionType() == Annotation::Action_JavaScript) || (annotation.AAact()))
@@ -609,127 +218,38 @@ ScAnnot::ScAnnot(QWidget* parent, PageItem *it, int Seite, int b, int h, ColorLi
 	EditJava->setPalette(palTxt);
 	EditJava->setMinimumSize( QSize( 0, 50 ) );
 	EditJava->setFocusPolicy(Qt::NoFocus);
-	Layout71->addWidget( EditJava );
-	EditJ = new QPushButton( Frame3 );
-	EditJ->setText( tr( "Edit..." ) );
-	Layout71->addWidget( EditJ );
-	Frame3Layout->addLayout( Layout71 );
-	Fram2->addWidget( Frame3 );
 
-	GroupBox11 = new QGroupBox( tab_2 );
-	GroupBox11->setTitle( tr( "Destination" ) );
-	GroupBox11Layout = new QGridLayout( GroupBox11 );
-	GroupBox11Layout->setSpacing( 5 );
-	GroupBox11Layout->setMargin( 10 );
-	GroupBox11Layout->setAlignment( Qt::AlignTop );
-	LExtern = new QCheckBox(GroupBox11);
-	LExtern->setText( tr("To File:"));
-	GroupBox11Layout->addWidget( LExtern, 0, 0 );
-	Destfile = new QLineEdit(GroupBox11);
+	GroupBoxDestination->layout()->setAlignment(Qt::AlignTop);
 	Destfile->setText(annotation.Extern());
 	Destfile->setReadOnly(true);
-	GroupBox11Layout->addWidget( Destfile, 0, 1 );
-	ChFile = new QPushButton(GroupBox11);
-	ChFile->setText( tr("Change..."));
-	GroupBox11Layout->addWidget( ChFile, 0, 2 );
-	useAbsolute = new QCheckBox( tr("Export absolute Filename"), GroupBox11);
-	GroupBox11Layout->addWidget( useAbsolute, 1, 0, 1, 3 );
 	if (annotation.ActionType() == Annotation::Action_GoToR_FileRel)
 		useAbsolute->setChecked(false);
 	else if (annotation.ActionType() == Annotation::Action_GoToR_FileAbs)
 		useAbsolute->setChecked(true);
-	TextLabel31 = new QLabel( GroupBox11 );
-	TextLabel31->setText( tr( "Page:" ) );
-	GroupBox11Layout->addWidget( TextLabel31, 2, 0 );
-	SpinBox11 = new QSpinBox( GroupBox11 );
 	SpinBox11->setMinimum(1);
 	SpinBox11->setMaximum(((annotation.ActionType() == Annotation::Action_GoToR_FileRel) || (annotation.ActionType() == Annotation::Action_GoToR_FileAbs)) ? 1000 : Seite);
 	SpinBox11->setValue(qMin(annotation.Ziel()+1, Seite));
-	GroupBox11Layout->addWidget( SpinBox11, 2, 1 );
+
 	if ((annotation.ActionType() == Annotation::Action_GoToR_FileRel) || (annotation.ActionType() == Annotation::Action_GoToR_FileAbs))
-		Pg1 = new Navigator( GroupBox11, 100, annotation.Ziel()+1, view, annotation.Extern());
+		Pg1 = new Navigator( GroupBoxDestination, 100, annotation.Ziel()+1, view, annotation.Extern());
 	else
-		Pg1 = new Navigator( GroupBox11, 100, qMin(annotation.Ziel(), Seite-1), view);
+		Pg1 = new Navigator( GroupBoxDestination, 100, qMin(annotation.Ziel(), Seite-1), view);
 	Pg1->setMinimumSize(QSize(Pg1->pmx.width(), Pg1->pmx.height()));
-	GroupBox11Layout->addWidget(Pg1, 2, 2, 3, 1);
-	TextLabel41 = new QLabel( GroupBox11 );
-	TextLabel41->setText( tr( "X-Pos:" ) );
-	GroupBox11Layout->addWidget( TextLabel41, 3, 0 );
-	SpinBox21 = new QSpinBox( GroupBox11 );
+
 	SpinBox21->setSuffix( tr( " pt" ) );
 	SpinBox21->setMaximum(Width);
 	SpinBox21->setValue(tl[0].toInt());
-	GroupBox11Layout->addWidget( SpinBox21, 3, 1 );
-	TextLabel51 = new QLabel( GroupBox11 );
-	TextLabel51->setText( tr( "Y-Pos:" ) );
-	GroupBox11Layout->addWidget( TextLabel51, 4, 0 );
-	SpinBox31 = new QSpinBox( GroupBox11 );
 	SpinBox31->setMaximum(Height);
 	SpinBox31->setSuffix( tr( " pt" ) );
 	SpinBox31->setValue(Height-tl[1].toInt());
-	GroupBox11Layout->addWidget( SpinBox31, 4, 1 );
-	Fram2->addWidget(GroupBox11);
 
-	Frame3b = new QFrame( tab_2 );
-	Frame3b->setFrameShape( QFrame::Box );
-	Frame3b->setFrameShadow( QFrame::Sunken );
-	Frame3bLayout = new QVBoxLayout( Frame3b );
-	Frame3bLayout->setSpacing( 5 );
-	Frame3bLayout->setMargin( 10 );
-	SubText1 = new QLabel( Frame3b );
-	SubText1->setText( tr( "Submit to URL:" ) );
-	Frame3bLayout->addWidget( SubText1 );
-	SubURL = new QLineEdit( Frame3b );
-	Frame3bLayout->addWidget( SubURL );
 	if (annotation.ActionType() == Annotation::Action_SubmitForm)
 		SubURL->setText(annotation.Action());
-
-	SubText2 = new QLabel( Frame3b );
-	SubText2->setText( tr( "Submit format:" ) );
-	Frame3bLayout->addWidget( SubText2 );
-	SelAsHtml = new QComboBox( Frame3b );
-	QString tmp_selhtml[]={tr("FDF"), tr("HTML"), tr("XFDF"), tr("PDF")};
-	//QString tmp_selhtml[]={"FDF", "HTML", "XFDF", "PDF"};
-	size_t array_selhtml = sizeof(tmp_selhtml) / sizeof(*tmp_selhtml);
-	/* PFJ - 28/02/04 - Altered from uint to int and var name */
-	for (uint propogate2 = 0; propogate2 < array_selhtml; ++propogate2)
-		SelAsHtml->addItem(tmp_selhtml[propogate2]);
-	SelAsHtml->setEditable(false);
 	SelAsHtml->setCurrentIndex(annotation.HTML());
-	Frame3bLayout->addWidget( SelAsHtml );
 
-
-	QSpacerItem* spacerSu = new QSpacerItem( 2, 2, QSizePolicy::Minimum, QSizePolicy::Expanding );
-	Frame3bLayout->addItem( spacerSu);
-	Fram2->addWidget( Frame3b );
-
-	Frame3c = new QFrame( tab_2 );
-	Frame3c->setFrameShape( QFrame::Box );
-	Frame3c->setFrameShadow( QFrame::Sunken );
-	Frame3cLayout = new QVBoxLayout( Frame3c );
-	Frame3cLayout->setSpacing( 5 );
-	Frame3cLayout->setMargin( 10 );
-	SubText1a = new QLabel( Frame3c );
-	SubText1a->setText( tr( "Import Data from:" ) );
-	Frame3cLayout->addWidget( SubText1a );
-	SubURLa = new QLineEdit( Frame3c );
-	Frame3cLayout->addWidget( SubURLa );
 	if (annotation.ActionType() == Annotation::Action_ImportData)
 		SubURLa->setText(annotation.Action());
-	QSpacerItem* spacerSua = new QSpacerItem( 2, 2, QSizePolicy::Minimum, QSizePolicy::Expanding );
-	Frame3cLayout->addItem( spacerSua);
-	Fram2->addWidget( Frame3c );
 
-	Frame5 = new QFrame( tab_2 );
-	Frame5->setFrameShape( QFrame::Box );
-	Frame5->setFrameShadow( QFrame::Sunken );
-	Frame5Layout = new QVBoxLayout( Frame5 );
-	Frame5Layout->setSpacing( 5 );
-	Frame5Layout->setMargin( 10 );
-	TextLabel5 = new QLabel( Frame5 );
-	TextLabel5->setText( tr("Action Name"));
-	Frame5Layout->addWidget( TextLabel5 );
-	nameActionCombo = new QComboBox( Frame5 );
 	nameActionCombo->addItem( tr("First Page"), QString("FirstPage"));
 	nameActionCombo->addItem( tr("Previous Page"), QString("PrevPage"));
 	nameActionCombo->addItem( tr("Next Page"), QString("NextPage"));
@@ -782,12 +302,7 @@ ScAnnot::ScAnnot(QWidget* parent, PageItem *it, int Seite, int b, int h, ColorLi
 	nameActionCombo->addItem( tr("Show/Hide Optional Content"), QString("ShowHideOptCont"));
 	nameActionCombo->addItem( tr("Show/Hide Model Tree"), QString("ShowHideModelTree"));
 	nameActionCombo->addItem( tr("Show/Hide Signatures"), QString("ShowHideSignatures"));
-	Frame5Layout->addWidget( nameActionCombo );
-	QSpacerItem* spacerNea = new QSpacerItem( 2, 2, QSizePolicy::Minimum, QSizePolicy::Expanding );
-	Frame5Layout->addItem( spacerNea);
-	Fram2->addWidget( Frame5 );
 
-	TabWidget2->addTab( tab_2, tr( "Action" ) );
 	if ((annotation.ActionType() == Annotation::Action_GoToR_FileRel) || (annotation.ActionType() == Annotation::Action_GoToR_FileAbs))
 	{
 		LExtern->setChecked(true);
@@ -810,207 +325,28 @@ ScAnnot::ScAnnot(QWidget* parent, PageItem *it, int Seite, int b, int h, ColorLi
 		LExtern->setChecked(false);
 	}
 
-	tab4 = new QWidget( TabWidget2 );
-	Layout = new QVBoxLayout( tab4 );
-	Layout->setSpacing( 5 );
-	Layout->setMargin( 10 );
-	FLayout = new QHBoxLayout;
-	FLayout->setSpacing( 5 );
-	FLayout->setMargin( 0 );
-	TextForm1 = new QLabel( tab4 );
-	TextForm1->setText( tr( "Field is formatted as:" ) );
-	FLayout->addWidget( TextForm1 );
-	TxFormat = new QComboBox(tab4);
-	QString tmp_txf[]={ tr("Plain"), tr("Number"), tr("Percentage"), tr("Date"), tr("Time"), tr("Custom")};
-	size_t array_txf = sizeof(tmp_txf) / sizeof(*tmp_txf);
-	for (uint a = 0; a < array_txf; ++a)
-		TxFormat->addItem(tmp_txf[a]);
-	TxFormat->setEditable(false);
+	// Format tab settings
 	TxFormat->setCurrentIndex(annotation.Format());
-	FLayout->addWidget( TxFormat );
-	QSpacerItem* spacer_3 = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
-	FLayout->addItem( spacer_3 );
-	Layout->addLayout( FLayout );
-	FoFram = new QStackedWidget(tab4);
 
-	FoFrameNone = new QFrame( tab4 );
-	FoFrameNone->setFrameShape( QFrame::NoFrame );
-	FoFrameNone->setFrameShadow( QFrame::Plain );
-	FoFram->addWidget(FoFrameNone);
-
-	NumbGroup = new QGroupBox( tab4 );
-	NumbGroup->setTitle( tr( "Number Format" ) );
-	NumbGroupLayout = new QVBoxLayout( NumbGroup );
-	NumbGroupLayout->setSpacing( 5 );
-	NumbGroupLayout->setMargin( 10 );
-	NumbGroupLayout->setAlignment( Qt::AlignTop );
-	LayoutFN1 = new QHBoxLayout;
-	LayoutFN1->setSpacing( 5 );
-	LayoutFN1->setMargin( 0 );
-	TextNu1 = new QLabel( NumbGroup );
-	TextNu1->setText( tr( "Decimals:" ) );
-	LayoutFN1->addWidget( TextNu1 );
-	Decim = new QSpinBox( NumbGroup );
+	NumbGroup->layout()->setAlignment( Qt::AlignTop );
 	Decim->setMinimum(0);
 	Decim->setMaximum(12);
 	Decim->setValue(0);
-	LayoutFN1->addWidget( Decim );
-	QSpacerItem* spacer_4 = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
-	LayoutFN1->addItem( spacer_4 );
-	NumbGroupLayout->addLayout( LayoutFN1 );
-	LayoutFN2 = new QHBoxLayout;
-	LayoutFN2->setSpacing( 5 );
-	LayoutFN2->setMargin( 0 );
-	UseCurr = new QCheckBox( NumbGroup );
-	UseCurr->setText( tr( "Use Currency Symbol" ) );
-	LayoutFN2->addWidget( UseCurr );
-	CurSym = new QLineEdit( NumbGroup );
-	LayoutFN2->addWidget( CurSym );
 	CurSym->setEnabled(false);
-	QSpacerItem* spacer_5 = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
-	LayoutFN2->addItem( spacer_5 );
-	NumbGroupLayout->addLayout( LayoutFN2 );
-	PreCurr = new QCheckBox( NumbGroup );
-	PreCurr->setText( tr( "Prepend Currency Symbol" ) );
 	PreCurr->setEnabled(false);
-	NumbGroupLayout->addWidget( PreCurr );
-	NumGroup2 = new QGroupBox( NumbGroup );
-	NumGroup2->setTitle( tr( "Formatting" ) );
-	NumGroup2Layout = new QGridLayout( NumGroup2 );
-	NumGroup2Layout->setSpacing( 5 );
-	NumGroup2Layout->setMargin( 10 );
-	NumGroup2Layout->setAlignment( Qt::AlignTop );
-	Format0 = new QRadioButton( NumGroup2 );
-	Format0->setText("9,999.99");
-	Format0->setChecked( true );
-	FormNum = 0;
-	NumGroup2Layout->addWidget( Format0, 0, 0 );
-	Format1 = new QRadioButton( NumGroup2 );
-	Format1->setText("9999.99");
-	NumGroup2Layout->addWidget( Format1, 1, 0 );
-	Format2 = new QRadioButton( NumGroup2 );
-	Format2->setText("9.999,99");
-	NumGroup2Layout->addWidget( Format2, 0, 1 );
-	Format3 = new QRadioButton( NumGroup2 );
-	Format3->setText("9999,99");
-	NumGroup2Layout->addWidget( Format3, 1, 1 );
-	NumbGroupLayout->addWidget( NumGroup2 );
-	FoFram->addWidget(NumbGroup);
 
-	PercGroup = new QGroupBox( tab4 );
-	PercGroup->setTitle( tr( "Percent Format" ) );
-	PercGroupLayout = new QVBoxLayout( PercGroup );
-	PercGroupLayout->setSpacing( 5 );
-	PercGroupLayout->setMargin( 10 );
-	PercGroupLayout->setAlignment( Qt::AlignTop );
-	LayoutFN1a = new QHBoxLayout;
-	LayoutFN1a->setSpacing( 5 );
-	LayoutFN1a->setMargin( 0 );
-	TextNu1a = new QLabel( PercGroup );
-	TextNu1a->setText( tr( "Decimals:" ) );
-	LayoutFN1a->addWidget( TextNu1a );
-	Decim2 = new QSpinBox( PercGroup );
+	FormNum = 0;
+
 	Decim2->setMinimum(0);
 	Decim2->setMaximum(12);
 	Decim2->setValue(0);
-	LayoutFN1a->addWidget( Decim2 );
-	QSpacerItem* spacer_4a = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
-	LayoutFN1a->addItem( spacer_4a );
-	PercGroupLayout->addLayout( LayoutFN1a );
-	NumGroup2a = new QGroupBox( PercGroup );
-	NumGroup2a->setTitle( tr( "Formatting" ) );
-	NumGroup2aLayout = new QGridLayout( NumGroup2a );
-	NumGroup2aLayout->setSpacing( 5 );
-	NumGroup2aLayout->setMargin( 10 );
-	NumGroup2aLayout->setAlignment( Qt::AlignTop );
-	Format0a = new QRadioButton( NumGroup2a );
-	Format0a->setText("9,999.99");
-	Format0a->setChecked( true );
-	FormNum = 0;
-	NumGroup2aLayout->addWidget( Format0a, 0, 0 );
-	Format1a = new QRadioButton( NumGroup2a );
-	Format1a->setText("9999.99");
-	NumGroup2aLayout->addWidget( Format1a, 1, 0 );
-	Format2a = new QRadioButton( NumGroup2a );
-	Format2a->setText("9.999,99");
-	NumGroup2aLayout->addWidget( Format2a, 0, 1 );
-	Format3a = new QRadioButton( NumGroup2a );
-	Format3a->setText("9999,99");
-	NumGroup2aLayout->addWidget( Format3a, 1, 1 );
-	PercGroupLayout->addWidget( NumGroup2a );
-	FoFram->addWidget(PercGroup);
 
-	DateGroup = new QGroupBox( tab4 );
-	DateGroup->setTitle( tr( "Date Format" ) );
-	DateGroupLayout = new QVBoxLayout( DateGroup );
-	DateGroupLayout->setSpacing( 5 );
-	DateGroupLayout->setMargin( 10 );
-	DateGroupLayout->setAlignment( Qt::AlignTop );
-	LayoutFN1c = new QHBoxLayout;
-	LayoutFN1c->setSpacing( 5 );
-	LayoutFN1c->setMargin( 0 );
-	Format0c = new QComboBox(DateGroup);
-	QString tmp_form[] = {"m/d", "m/d/yy", "mm/dd/yy", "mm/yy", "d-mmm", "d-mmm-yy", "dd-mmm-yy", "dd/mm/yy", "dd/mm/yyyy", "dd.mm.yyyy", "yy-mm-dd",
-	                    "mmm-yy", "mmmm-yy", "mmm d, yyyy", "mmmm d, yyyy", "m/d/yy h:MM tt", "m/d/yy HH:MM", "yyyy-mm-dd"};
-	size_t array_form = sizeof(tmp_form) / sizeof(*tmp_form);
-	/* PFJ - 28/02/04 - Altered from uint to int and var name */
-	for (uint prop = 0; prop < array_form; ++prop)
-		Format0c->addItem(tmp_form[prop]);
-	Format0c->setEditable(false);
-	LayoutFN1c->addWidget( Format0c );
-	QSpacerItem* spacer_4c = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
-	LayoutFN1c->addItem( spacer_4c );
-	DateGroupLayout->addLayout( LayoutFN1c );
-	TextDa1 = new QLabel( DateGroup );
-	TextDa1->setText( "" );
-	DateGroupLayout->addWidget( TextDa1 );
-	FoFram->addWidget(DateGroup);
+	NumGroup2a->layout()->setAlignment(Qt::AlignTop);
 
-	TimeGroup = new QGroupBox( tab4 );
-	TimeGroup->setTitle( tr( "Time Format" ) );
-	TimeGroupLayout = new QVBoxLayout( TimeGroup );
-	TimeGroupLayout->setSpacing( 5 );
-	TimeGroupLayout->setMargin( 10 );
-	TimeGroupLayout->setAlignment( Qt::AlignTop );
-	Format0b = new QRadioButton( TimeGroup );
-	Format0b->setText("HH:MM");
-	Format0b->setChecked( true );
-	FormNum = 0;
-	TimeGroupLayout->addWidget( Format0b);
-	Format1b = new QRadioButton( TimeGroup );
-	Format1b->setText("h:MM tt");
-	TimeGroupLayout->addWidget( Format1b);
-	Format2b = new QRadioButton( TimeGroup );
-	Format2b->setText("HH:MM:ss");
-	TimeGroupLayout->addWidget( Format2b);
-	Format3b = new QRadioButton( TimeGroup );
-	Format3b->setText("h:MM:ss tt");
-	TimeGroupLayout->addWidget( Format3b);
-	FoFram->addWidget(TimeGroup);
-
-	GroupCust = new QGroupBox( tab4 );
-	GroupCust->setTitle( tr( "Custom Scripts" ) );
-	GroupCustLayout = new QVBoxLayout( GroupCust );
-	GroupCustLayout->setSpacing( 5 );
-	GroupCustLayout->setMargin( 10 );
-	GroupCustLayout->setAlignment( Qt::AlignTop );
-	FLayout3 = new QVBoxLayout;
-	FLayout3->setSpacing( 5 );
-	FLayout3->setMargin( 0 );
-	FLayout2 = new QHBoxLayout;
-	FLayout2->setSpacing( 5 );
-	FLayout2->setMargin( 0 );
-	TextForm2 = new QLabel( GroupCust );
-	TextForm2->setText( tr( "Format:" ) );
-	FLayout2->addWidget( TextForm2 );
-	EditFormat = new QPushButton( GroupCust );
-	EditFormat->setText( tr( "Edit..." ) );
-	EditFormat->setAutoDefault( false );
+	GroupCust->layout()->setAlignment(Qt::AlignTop);
+	EditFormat->setAutoDefault(false);
 	if (annotation.Format() != 5)
 		EditFormat->setEnabled( false );
-	FLayout2->addWidget( EditFormat );
-	FLayout3->addLayout( FLayout2 );
-	FormatScript = new QTextEdit( GroupCust );
 	if (annotation.Format() == 5)
 		FormatScript->setPlainText( annotation.F_act() );
 	FormatScript->setReadOnly(true);
@@ -1018,25 +354,9 @@ ScAnnot::ScAnnot(QWidget* parent, PageItem *it, int Seite, int b, int h, ColorLi
 	FormatScript->setPalette(palTxt);
 	FormatScript->setMaximumSize(QSize(32000,50));
 	FormatScript->setFocusPolicy(Qt::NoFocus);
-	FLayout3->addWidget( FormatScript );
-	GroupCustLayout->addLayout( FLayout3 );
-	FLayout5 = new QVBoxLayout;
-	FLayout5->setSpacing( 5 );
-	FLayout5->setMargin( 0 );
-	FLayout4 = new QHBoxLayout;
-	FLayout4->setSpacing( 5 );
-	FLayout4->setMargin( 0 );
-	TextForm3 = new QLabel( GroupCust );
-	TextForm3->setText( tr( "Keystroke:" ) );
-	FLayout4->addWidget( TextForm3 );
-	EditKeystr = new QPushButton( GroupCust );
-	EditKeystr->setText( tr( "Edit..." ) );
 	EditKeystr->setAutoDefault( false );
 	if (annotation.Format() != 5)
 		EditKeystr->setEnabled( false );
-	FLayout4->addWidget( EditKeystr );
-	FLayout5->addLayout( FLayout4 );
-	KeyScript = new QTextEdit( GroupCust );
 	if (annotation.Format() == 5)
 		KeyScript->setPlainText( annotation.K_act() );
 	KeyScript->setReadOnly(true);
@@ -1044,177 +364,42 @@ ScAnnot::ScAnnot(QWidget* parent, PageItem *it, int Seite, int b, int h, ColorLi
 	KeyScript->setPalette(palTxt);
 	KeyScript->setMaximumSize(QSize(32000,50));
 	KeyScript->setFocusPolicy(Qt::NoFocus);
-	FLayout5->addWidget( KeyScript );
-	GroupCustLayout->addLayout( FLayout5 );
-	FoFram->addWidget(GroupCust);
 
 	DecodeNum();
 
-	Layout->addWidget( FoFram );
-	TabWidget2->addTab( tab4, tr( "Format" ) );
-	TabWidget2->setTabEnabled(TabWidget2->indexOf(tab4), false);
+	TabWidget2->setTabEnabled(TabWidget2->indexOf(tabFormat), false);
 
-	tab_4 = new QWidget( TabWidget2 );
-	tabLayout_4 = new QVBoxLayout( tab_4 );
-	tabLayout_4->setSpacing( 5 );
-	tabLayout_4->setMargin( 10 );
 
-	ValidateGroup = new QGroupBox( tab_4 );
-	ValidateGroup->setTitle( "" );
-	ValidateGroupLayout = new QVBoxLayout( ValidateGroup );
-	ValidateGroupLayout->setSpacing( 5 );
-	ValidateGroupLayout->setMargin( 10 );
-	ValidateGroupLayout->setAlignment( Qt::AlignTop );
-
-	NoValid = new QRadioButton( ValidateGroup );
-	NoValid->setText( tr( "Value is not validated" ) );
-	NoValid->setChecked( true );
-	ValidateGroupLayout->addWidget( NoValid );
-
-	VLayout1 = new QGridLayout;
-	VLayout1->setSpacing( 5 );
-	VLayout1->setMargin( 0 );
-
-	SimpleValid = new QRadioButton( ValidateGroup );
-	SimpleValid->setText( tr( "Value must be greater than or equal to:" ) );
-
-	VLayout1->addWidget( SimpleValid, 0, 0 );
-	TextVa = new QLabel( ValidateGroup );
-	TextVa->setText( tr( "and less or equal to:" ) );
-	VLayout1->addWidget( TextVa, 1, 0, Qt::AlignRight );
-
-	MinValid = new QLineEdit( ValidateGroup );
-	VLayout1->addWidget( MinValid, 0, 1 );
-
-	MaxValid = new QLineEdit( ValidateGroup );
-	VLayout1->addWidget( MaxValid, 1, 1 );
-	ValidateGroupLayout->addLayout( VLayout1 );
-
-	CustomValid = new QRadioButton( ValidateGroup );
-	CustomValid->setText( tr( "Custom validate script:" ) );
-	ValidateGroupLayout->addWidget( CustomValid );
-
-	VLayout2 = new QHBoxLayout;
-	VLayout2->setSpacing( 5 );
-	VLayout2->setMargin( 0 );
-
-	ValidScript = new QTextEdit( ValidateGroup );
+	// Value validation settings
+	/*ValidateGroup->layout()->setAlignment(Qt::AlignTop);*/
 	ValidScript->setMinimumSize( QSize( 0, 50 ) );
 	ValidScript->setFocusPolicy(Qt::NoFocus);
 	ValidScript->setReadOnly( true );
 	ValidScript->setAutoFillBackground(true);
 	ValidScript->setPalette(palTxt);
-	VLayout2->addWidget( ValidScript );
-
-	EditValScript = new QPushButton( ValidateGroup );
-	EditValScript->setText( tr( "Edit..." ) );
 	EditValScript->setAutoDefault( false );
-	VLayout2->addWidget( EditValScript );
-	ValidateGroupLayout->addLayout( VLayout2 );
-	tabLayout_4->addWidget( ValidateGroup );
-	TabWidget2->addTab( tab_4, tr( "Validate" ) );
-	TabWidget2->setTabEnabled(TabWidget2->indexOf(tab_4), false);
+
+	TabWidget2->setTabEnabled(TabWidget2->indexOf(tabValidate), false);
 	SetVali();
 
-	tab_5 = new QWidget( TabWidget2 );
-	tabLayout_5 = new QVBoxLayout( tab_5 );
-	tabLayout_5->setSpacing( 5 );
-	tabLayout_5->setMargin( 10 );
-
-	CalcGroup = new QGroupBox( tab_5 );
-	CalcGroup->setTitle( "" );
-	CalcGroupLayout = new QVBoxLayout( CalcGroup );
-	CalcGroupLayout->setSpacing( 5 );
-	CalcGroupLayout->setMargin( 10 );
-	CalcGroupLayout->setAlignment( Qt::AlignTop );
-
-	NoCalc = new QRadioButton( CalcGroup );
-	NoCalc->setText( tr( "Value is not calculated" ) );
-	NoCalc->setChecked( true );
-	CalcGroupLayout->addWidget( NoCalc );
-
-	CLayout1 = new QHBoxLayout;
-	CLayout1->setSpacing( 5 );
-	CLayout1->setMargin( 0 );
-
-	SimpleCalc = new QRadioButton( CalcGroup );
-	SimpleCalc->setText( tr( "Value is the" ) );
-	CLayout1->addWidget( SimpleCalc );
-
-	CalcArt = new QComboBox( CalcGroup );
-	/* PFJ - 28/02/04 - Altered to QString/size_t/for style */
-	QString calc[] = {tr("sum"), tr("product"), tr("average"), tr("minimum"),
-	                  tr("maximum")};
-	size_t calcArray = sizeof(calc) / sizeof(*calc);
-	for (uint prop = 0; prop < calcArray; ++prop)
-		CalcArt->addItem(calc[prop]);
-	CLayout1->addWidget( CalcArt );
-
-	TextLabel1_2 = new QLabel( CalcGroup );
-	TextLabel1_2->setText( tr( "of the following fields:" ) );
-	CLayout1->addWidget( TextLabel1_2 );
-	CalcGroupLayout->addLayout( CLayout1 );
-
-	CLayout3 = new QHBoxLayout;
-	CLayout3->setSpacing( 5 );
-	CLayout3->setMargin( 0 );
-	CalcFields = new QLineEdit( CalcGroup );
-	CLayout3->addWidget( CalcFields );
-	SeField = new QPushButton( CalcGroup );
-	SeField->setText( tr( "Pick..." ) );
-	CLayout3->addWidget( SeField );
-	CalcGroupLayout->addLayout( CLayout3 );
-
-	CustomCalc = new QRadioButton( CalcGroup );
-	CustomCalc->setText( tr( "Custom calculation script:" ) );
-	CalcGroupLayout->addWidget( CustomCalc );
-
-	CLayout2 = new QHBoxLayout;
-	CLayout2->setSpacing( 5 );
-	CLayout2->setMargin( 0 );
-
-	CalcScript = new QTextEdit( CalcGroup );
+	// Value calculation settings
+	/*CalcGroup->layout()->setAlignment(Qt::AlignTop);*/
 	CalcScript->setMinimumSize( QSize( 0, 50 ) );
 	CalcScript->setFocusPolicy(Qt::NoFocus);
 	CalcScript->setReadOnly( true );
-	CLayout2->addWidget( CalcScript );
 	CalcScript->setAutoFillBackground(true);
 	CalcScript->setPalette(palTxt);
 
-	EditCalc = new QPushButton( CalcGroup );
-	EditCalc->setText( tr( "Edit..." ) );
-	CLayout2->addWidget( EditCalc );
-	CalcGroupLayout->addLayout( CLayout2 );
-	tabLayout_5->addWidget( CalcGroup );
-	TabWidget2->addTab( tab_5, tr( "Calculate" ) );
-	TabWidget2->setTabEnabled(TabWidget2->indexOf(tab_5), false);
+	TabWidget2->setTabEnabled(TabWidget2->indexOf(tabCalculate), false);
 	SetCalc();
-	GroupBox10Layout->addWidget( TabWidget2 );
-	Fram->addWidget(GroupBox10);
-
-	Frame9 = new QFrame( this );
-	Frame9->setFrameShape( QFrame::NoFrame );
-	Frame9->setFrameShadow( QFrame::Plain );
-	Fram->addWidget(Frame9);
 
 	if (annotation.Type() == Annotation::RadioButton)
 		SetAnnotationType(5);
 	else
 		SetAnnotationType(annotation.Type()-2);
-	Layout1_2 = new QHBoxLayout;
-	Layout1_2->setSpacing( 5 );
-	Layout1_2->setMargin( 0 );
 
-	QSpacerItem* spacerr = new QSpacerItem( 2, 2, QSizePolicy::Expanding, QSizePolicy::Minimum );
-	Layout1_2->addItem( spacerr );
-	PushButton1 = new QPushButton( this );
-	PushButton1->setText( tr( "OK" ) );
 	PushButton1->setDefault( true );
-	Layout1_2->addWidget( PushButton1 );
-	PushButton2 = new QPushButton( this );
-	PushButton2->setText( tr( "Cancel" ) );
-	Layout1_2->addWidget( PushButton2 );
-	AnnotLayout->addLayout( Layout1_2 );
+
 	connect(PushButton1, SIGNAL(clicked()), this, SLOT(SetValues()));
 	connect(PushButton2, SIGNAL(clicked()), this, SLOT(reject()));
 	connect(EditFormat, SIGNAL(clicked()), this, SLOT(editFormatSc()));
@@ -1263,13 +448,15 @@ ScAnnot::ScAnnot(QWidget* parent, PageItem *it, int Seite, int b, int h, ColorLi
 	connect(ChFile, SIGNAL(clicked()), this, SLOT(GetFile()));
 	connect(LExtern, SIGNAL(clicked()), this, SLOT(SetExternLink()));
 	connect(Name, SIGNAL(Leaved()), this, SLOT(NewName()));
+
 	NoSpell->setToolTip( tr( "Flag is ignored for PDF 1.3" ) );
 	NoScroll->setToolTip( tr( "Flag is ignored for PDF 1.3" ) );
 	CalcFields->setToolTip( tr( "Enter a comma separated list of fields here" ) );
 	IconNR->setToolTip( tr("You need at least the Icon for Normal to use Icons for Buttons"));
+
 	SetPage(qMin(SpinBox11->value(), MaxSeite));
 	SetCross();
-	resize( minimumSizeHint() );
+	//resize( minimumSizeHint() );
 }
 
 ScAnnot::~ScAnnot()
@@ -2155,9 +1342,9 @@ void ScAnnot::SetAnnotationType(int it)
 	else if (tmpac == 10)
 		tmpac = 6;
 	int sela = it + 2;
-	TabWidget2->setTabEnabled(TabWidget2->indexOf(tab4), false);
-	TabWidget2->setTabEnabled(TabWidget2->indexOf(tab_4), false);
-	TabWidget2->setTabEnabled(TabWidget2->indexOf(tab_5), false);
+	TabWidget2->setTabEnabled(TabWidget2->indexOf(tabFormat), false);
+	TabWidget2->setTabEnabled(TabWidget2->indexOf(tabValidate), false);
+	TabWidget2->setTabEnabled(TabWidget2->indexOf(tabCalculate), false);
 	EditFormat->setEnabled( false );
 	EditKeystr->setEnabled( false );
 	CText1->show();
@@ -2203,9 +1390,9 @@ void ScAnnot::SetAnnotationType(int it)
 	case 7:
 		if ((sela == 3) || (sela == 5))
 		{
-			TabWidget2->setTabEnabled(TabWidget2->indexOf(tab4), true);
-			TabWidget2->setTabEnabled(TabWidget2->indexOf(tab_4), true);
-			TabWidget2->setTabEnabled(TabWidget2->indexOf(tab_5), true);
+			TabWidget2->setTabEnabled(TabWidget2->indexOf(tabFormat), true);
+			TabWidget2->setTabEnabled(TabWidget2->indexOf(tabValidate), true);
+			TabWidget2->setTabEnabled(TabWidget2->indexOf(tabCalculate), true);
 			TxFormat->setCurrentIndex(annotation.Format());
 			SetFoScript(annotation.Format());
 			SetVali();
