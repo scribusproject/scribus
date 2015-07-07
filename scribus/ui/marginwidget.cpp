@@ -173,12 +173,23 @@ void MarginWidget::slotLinkBleeds()
 	disconnect(BleedRight, SIGNAL(valueChanged(double)), this, SLOT(changeBleeds()));
 	disconnect(BleedTop, SIGNAL(valueChanged(double)), this, SLOT(changeBleeds()));
 	disconnect(BleedBottom, SIGNAL(valueChanged(double)), this, SLOT(changeBleeds()));
+
+	if (BleedLeft->hasFocus())
+		BleedLeft->clearFocus();
+	if (BleedRight->hasFocus())
+		BleedRight->clearFocus();
+	if (BleedTop->hasFocus())
+		BleedTop->clearFocus();
+	if (BleedBottom->hasFocus())
+		BleedBottom->clearFocus();
+
 	if (linkBleeds->isChecked())
 	{
 		BleedTop->setValue(BleedLeft->value());
 		BleedBottom->setValue(BleedLeft->value());
 		BleedRight->setValue(BleedLeft->value());
 	}
+
 	connect(BleedLeft, SIGNAL(valueChanged(double)), this, SLOT(changeBleeds()));
 	connect(BleedRight, SIGNAL(valueChanged(double)), this, SLOT(changeBleeds()));
 	connect(BleedTop, SIGNAL(valueChanged(double)), this, SLOT(changeBleeds()));
@@ -556,6 +567,16 @@ void MarginWidget::slotLinkMargins()
 	disconnect(bottomR, SIGNAL(valueChanged(double)), this, SLOT(setBottom()));
 	disconnect(leftR, SIGNAL(valueChanged(double)), this, SLOT(setLeft()));
 	disconnect(rightR, SIGNAL(valueChanged(double)), this, SLOT(setRight()));
+
+	if (leftR->hasFocus())
+		leftR->clearFocus();
+	if (rightR->hasFocus())
+		rightR->clearFocus();
+	if (topR->hasFocus())
+		topR->clearFocus();
+	if (bottomR->hasFocus())
+		bottomR->clearFocus();
+
 	if (linkMargins->isChecked())
 	{
 		bottomR->setValue(leftR->value());
@@ -563,7 +584,8 @@ void MarginWidget::slotLinkMargins()
 		rightR->setValue(leftR->value());
 		double newVal=leftR->value() / m_unitRatio;
 		marginData.set(newVal, newVal, newVal, newVal);
-	}	
+	}
+
 	connect(topR, SIGNAL(valueChanged(double)), this, SLOT(setTop()));
 	connect(bottomR, SIGNAL(valueChanged(double)), this, SLOT(setBottom()));
 	connect(leftR, SIGNAL(valueChanged(double)), this, SLOT(setLeft()));
