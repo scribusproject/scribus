@@ -1804,82 +1804,84 @@ void Annot::SetCross()
 
 void Annot::SetValues()
 {
+	bool AAct = false;
 	QString tmp, tmp2;
 	QString Nfo("");
-	bool AAct = false;
-	item->annotation().setType(ComboBox1->currentIndex()+2);
+	
+	Annotation& annotation = item->annotation();
+	annotation.setType(ComboBox1->currentIndex()+2);
 	if (Name->text() != OldName)
 		item->setItemName(Name->text());
-	item->annotation().setToolTip(Tip->text());
-	item->annotation().setRollOver(TextO->text());
-	item->annotation().setDown(DownT->text());
-	item->annotation().setBwid(BorderW->currentIndex());
-	item->annotation().setBsty(BorderS->currentIndex());
-	item->annotation().setFeed(ComboBox7_2->currentIndex());
-	item->annotation().setVis(Visib->currentIndex());
-	item->annotation().setFont(Schrift->currentIndex());
-	item->annotation().setFlag(0);
-	item->annotation().setIsChk(isChkd->isChecked());
-	item->annotation().setChkStil(ChkStil->currentIndex());
-	item->annotation().setBorderColor(BorderC->currentText());
-	if (item->annotation().borderColor() == CommonStrings::tr_NoneColor)
-		item->annotation().setBorderColor(CommonStrings::None);
-	Limit->isChecked() ? item->annotation().setMaxChar(MaxChars->value()) : item->annotation().setMaxChar(-1);
-	if (item->annotation().Type() == 2) // Button
+	annotation.setToolTip(Tip->text());
+	annotation.setRollOver(TextO->text());
+	annotation.setDown(DownT->text());
+	annotation.setBwid(BorderW->currentIndex());
+	annotation.setBsty(BorderS->currentIndex());
+	annotation.setFeed(ComboBox7_2->currentIndex());
+	annotation.setVis(Visib->currentIndex());
+	annotation.setFont(Schrift->currentIndex());
+	annotation.setFlag(0);
+	annotation.setIsChk(isChkd->isChecked());
+	annotation.setChkStil(ChkStil->currentIndex());
+	annotation.setBorderColor(BorderC->currentText());
+	if (annotation.borderColor() == CommonStrings::tr_NoneColor)
+		annotation.setBorderColor(CommonStrings::None);
+	Limit->isChecked() ? annotation.setMaxChar(MaxChars->value()) : annotation.setMaxChar(-1);
+	if (annotation.Type() == 2) // Button
 	{
-		item->annotation().addToFlag(65536);
+		annotation.addToFlag(65536);
 		if (item->Pfile.isEmpty())
-			item->annotation().setUseIcons(false);
-		item->annotation().setFormat(0);
-		item->annotation().setF_act(QString());
+			annotation.setUseIcons(false);
+		annotation.setFormat(0);
+		annotation.setF_act(QString());
 	}
 	else
 	{
-		item->annotation().setUseIcons(false);
+		annotation.setUseIcons(false);
 		if (ReadOnly->isChecked())
-			item->annotation().addToFlag(1);
+			annotation.addToFlag(1);
 		if (Required->isChecked())
-			item->annotation().addToFlag(2);
+			annotation.addToFlag(2);
 		if (NoExport->isChecked())
-			item->annotation().addToFlag(4);
+			annotation.addToFlag(4);
 	}
-	if (item->annotation().Type() == 4) // Checkbox
+	if (annotation.Type() == 4) // Checkbox
 	{
-		item->annotation().setFormat(0);
-		item->annotation().setF_act(QString());
+		annotation.setFormat(0);
+		annotation.setF_act(QString());
 	}
-	if (item->annotation().Type() == 5) // Combobox
+	if (annotation.Type() == 5) // Combobox
 	{
-		item->annotation().addToFlag(131072);
+		annotation.addToFlag(131072);
 		if (CanEdit->isChecked())
-			item->annotation().addToFlag(262144);
+			annotation.addToFlag(262144);
 	}
-	if (item->annotation().Type() == 6) // Checkbox
+	if (annotation.Type() == 6) // Checkbox
 	{
-		item->annotation().setFormat(0);
-		item->annotation().setF_act(QString());
+		annotation.setFormat(0);
+		annotation.setF_act(QString());
 	}
-	if (item->annotation().Type() == 3) // Textfield
+	if (annotation.Type() == 3) // Textfield
 	{
 		if (MultiL->isChecked())
-			item->annotation().addToFlag(4096);
+			annotation.addToFlag(4096);
 		if (Passwd->isChecked())
-			item->annotation().addToFlag(8192);
+			annotation.addToFlag(8192);
 		if (NoSpell->isChecked())
-			item->annotation().addToFlag(4194304);
+			annotation.addToFlag(4194304);
 		if (NoScroll->isChecked())
-			item->annotation().addToFlag(8388608);
+			annotation.addToFlag(8388608);
 	}
-	if ((item->annotation().Type() == 3) || (item->annotation().Type() == 5)) // Textfield or Combobox
+	if ((annotation.Type() == 3) || (annotation.Type() == 5)) // Textfield or Combobox
 	{
 		if (NoValid->isChecked())
-			item->annotation().setV_act("");
+			annotation.setV_act("");
 		if (SimpleValid->isChecked())
-			item->annotation().setV_act("AFRange_Validate(true, "+MinValid->text()+", true, "+MaxValid->text()+")");
+			annotation.setV_act("AFRange_Validate(true, "+MinValid->text()+", true, "+MaxValid->text()+")");
 		if (CustomValid->isChecked())
-			item->annotation().setV_act(ValidScript->toPlainText());
+			annotation.setV_act(ValidScript->toPlainText());
 		if (NoCalc->isChecked())
-			item->annotation().setC_act("");
+			annotation.setC_act("");
 		if (SimpleCalc->isChecked())
 		{
 			QString tmpCact = "AFSimple_Calculate(";
@@ -1913,15 +1915,15 @@ void Annot::SetValues()
 				}
 			}
 			tmpCact += "))";
-			item->annotation().setC_act(tmpCact);
+			annotation.setC_act(tmpCact);
 		}
 		if (CustomCalc->isChecked())
-			item->annotation().setC_act(CalcScript->toPlainText());
+			annotation.setC_act(CalcScript->toPlainText());
 		switch (TxFormat->currentIndex())
 		{
 			case 0:
-				item->annotation().setF_act("");
-				item->annotation().setK_act("");
+				annotation.setF_act("");
+				annotation.setK_act("");
 				break;
 			case 1:
 				Nfo = tmp.setNum(Decim->value())+", "+tmp2.setNum(FormNum)+", 0, 0, \"";
@@ -1937,118 +1939,118 @@ void Annot::SetValues()
 					Nfo += "\", true)";
 				else
 					Nfo += "\", false)";
-				item->annotation().setF_act("AFNumber_Format("+Nfo);
-				item->annotation().setK_act("AFNumber_Keystroke("+Nfo);
+				annotation.setF_act("AFNumber_Format("+Nfo);
+				annotation.setK_act("AFNumber_Keystroke("+Nfo);
 				break;
 			case 2:
 				Nfo = tmp.setNum(Decim2->value())+", "+tmp.setNum(FormNum)+")";
-				item->annotation().setF_act("AFPercent_Format("+Nfo);
-				item->annotation().setK_act("AFPercent_Keystroke("+Nfo);
+				annotation.setF_act("AFPercent_Format("+Nfo);
+				annotation.setK_act("AFPercent_Keystroke("+Nfo);
 				break;
 			case 3:
 				Nfo = Format0c->currentText()+"\")";
-				item->annotation().setF_act("AFDate_FormatEx(\""+Nfo);
-				item->annotation().setK_act("AFDate_KeystrokeEx(\""+Nfo);
+				annotation.setF_act("AFDate_FormatEx(\""+Nfo);
+				annotation.setK_act("AFDate_KeystrokeEx(\""+Nfo);
 				break;
 			case 4:
 				Nfo = tmp.setNum(FormNum)+")";
-				item->annotation().setF_act("AFTime_Format("+Nfo);
-				item->annotation().setK_act("AFTime_Keystroke("+Nfo);
+				annotation.setF_act("AFTime_Format("+Nfo);
+				annotation.setK_act("AFTime_Keystroke("+Nfo);
 				break;
 			case 5:
-				item->annotation().setF_act(FormatScript->toPlainText());
-				item->annotation().setK_act(KeyScript->toPlainText());
+				annotation.setF_act(FormatScript->toPlainText());
+				annotation.setK_act(KeyScript->toPlainText());
 				break;
 		}
 	}
 	switch (ActionCombo->currentIndex())
 	{
 		case 0:
-			item->annotation().setActionType(0);
-			item->annotation().setAction(QString());
+			annotation.setActionType(0);
+			annotation.setAction(QString());
 			break;
 		case 1:
-			item->annotation().setActionType(1);
+			annotation.setActionType(1);
 			switch (ScrEdited)
 			{
 				case 0:
-					item->annotation().setAction(EditJava->toPlainText());
+					annotation.setAction(EditJava->toPlainText());
 					break;
 				case 1:
-					item->annotation().setD_act(EditJava->toPlainText());
+					annotation.setD_act(EditJava->toPlainText());
 					break;
 				case 2:
-					item->annotation().setE_act(EditJava->toPlainText());
+					annotation.setE_act(EditJava->toPlainText());
 					break;
 				case 3:
-					item->annotation().setX_act(EditJava->toPlainText());
+					annotation.setX_act(EditJava->toPlainText());
 					break;
 				case 4:
-					item->annotation().setFo_act(EditJava->toPlainText());
+					annotation.setFo_act(EditJava->toPlainText());
 					break;
 				case 5:
-					item->annotation().setBl_act(EditJava->toPlainText());
+					annotation.setBl_act(EditJava->toPlainText());
 					break;
 				case 6:
-					item->annotation().setK_act(EditJava->toPlainText());
+					annotation.setK_act(EditJava->toPlainText());
 					break;
 			}
 			break;
 		case 2:
 			if ((LExtern->isChecked()) && (!Destfile->text().isEmpty()))
 			{
-				item->annotation().setExtern(Destfile->text());
+				annotation.setExtern(Destfile->text());
 				if (useAbsolute->isChecked())
-					item->annotation().setActionType(9);
+					annotation.setActionType(9);
 				else
-					item->annotation().setActionType(7);
+					annotation.setActionType(7);
 			}
 			else
 			{
-				item->annotation().setExtern("");
-				item->annotation().setActionType(2);
+				annotation.setExtern("");
+				annotation.setActionType(2);
 			}
-			item->annotation().setZiel(SpinBox11->value()-1);
-			item->annotation().setAction(tmp.setNum(SpinBox21->value())+" "+tmp2.setNum(Height-SpinBox31->value())+" 0");
+			annotation.setZiel(SpinBox11->value()-1);
+			annotation.setAction(tmp.setNum(SpinBox21->value())+" "+tmp2.setNum(Height-SpinBox31->value())+" 0");
 			break;
 		case 3:
-			item->annotation().setActionType(3);
-			item->annotation().setAction(SubURL->text().simplified());
-			item->annotation().setHTML(SelAsHtml->currentIndex());
-//			item->annotation().setHTML(SubAsHtml->isChecked());
+			annotation.setActionType(3);
+			annotation.setAction(SubURL->text().simplified());
+			annotation.setHTML(SelAsHtml->currentIndex());
+//			annotation.setHTML(SubAsHtml->isChecked());
 			break;
 		case 4:
-			item->annotation().setActionType(4);
-			item->annotation().setAction(QString());
+			annotation.setActionType(4);
+			annotation.setAction(QString());
 			break;
 		case 5:
-			item->annotation().setActionType(5);
-			item->annotation().setAction(SubURLa->text().simplified());
+			annotation.setActionType(5);
+			annotation.setAction(SubURLa->text().simplified());
 			break;
 		default:
-			item->annotation().setActionType(0);
-			item->annotation().setAction(QString());
+			annotation.setActionType(0);
+			annotation.setAction(QString());
 			break;
 	}
-	if (!item->annotation().E_act().isEmpty())
+	if (!annotation.E_act().isEmpty())
 		AAct = true;
-	if (!item->annotation().X_act().isEmpty())
+	if (!annotation.X_act().isEmpty())
 		AAct = true;
-	if (!item->annotation().D_act().isEmpty())
+	if (!annotation.D_act().isEmpty())
 		AAct = true;
-	if (!item->annotation().Fo_act().isEmpty())
+	if (!annotation.Fo_act().isEmpty())
 		AAct = true;
-	if (!item->annotation().Bl_act().isEmpty())
+	if (!annotation.Bl_act().isEmpty())
 		AAct = true;
-	if (!item->annotation().K_act().isEmpty())
+	if (!annotation.K_act().isEmpty())
 		AAct = true;
-	if (!item->annotation().F_act().isEmpty())
+	if (!annotation.F_act().isEmpty())
 		AAct = true;
-	if (!item->annotation().V_act().isEmpty())
+	if (!annotation.V_act().isEmpty())
 		AAct = true;
-	if (!item->annotation().C_act().isEmpty())
+	if (!annotation.C_act().isEmpty())
 		AAct = true;
-	item->annotation().setAAact(AAct);
+	annotation.setAAact(AAct);
 	accept();
 }
 
