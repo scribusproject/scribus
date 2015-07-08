@@ -1825,11 +1825,13 @@ void Annot::SetValues()
 	if (item->annotation().borderColor() == CommonStrings::tr_NoneColor)
 		item->annotation().setBorderColor(CommonStrings::None);
 	Limit->isChecked() ? item->annotation().setMaxChar(MaxChars->value()) : item->annotation().setMaxChar(-1);
-	if (item->annotation().Type() == 2)
+	if (item->annotation().Type() == 2) // Button
 	{
 		item->annotation().addToFlag(65536);
 		if (item->Pfile.isEmpty())
 			item->annotation().setUseIcons(false);
+		item->annotation().setFormat(0);
+		item->annotation().setF_act(QString());
 	}
 	else
 	{
@@ -1841,13 +1843,23 @@ void Annot::SetValues()
 		if (NoExport->isChecked())
 			item->annotation().addToFlag(4);
 	}
-	if (item->annotation().Type() == 5)
+	if (item->annotation().Type() == 4) // Checkbox
+	{
+		item->annotation().setFormat(0);
+		item->annotation().setF_act(QString());
+	}
+	if (item->annotation().Type() == 5) // Combobox
 	{
 		item->annotation().addToFlag(131072);
 		if (CanEdit->isChecked())
 			item->annotation().addToFlag(262144);
 	}
-	if (item->annotation().Type() == 3)
+	if (item->annotation().Type() == 6) // Checkbox
+	{
+		item->annotation().setFormat(0);
+		item->annotation().setF_act(QString());
+	}
+	if (item->annotation().Type() == 3) // Textfield
 	{
 		if (MultiL->isChecked())
 			item->annotation().addToFlag(4096);
@@ -1858,7 +1870,7 @@ void Annot::SetValues()
 		if (NoScroll->isChecked())
 			item->annotation().addToFlag(8388608);
 	}
-	if ((item->annotation().Type() == 3) || (item->annotation().Type() == 5))
+	if ((item->annotation().Type() == 3) || (item->annotation().Type() == 5)) // Textfield or Combobox
 	{
 		if (NoValid->isChecked())
 			item->annotation().setV_act("");
