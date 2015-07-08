@@ -1114,6 +1114,8 @@ void ScAnnot::SetValues()
 		annotation.addToFlag(Annotation::Flag_PushButton);
 		if (item->Pfile.isEmpty())
 			annotation.setUseIcons(false);
+		annotation.setFormat(0);
+		annotation.setF_act(QString());
 	}
 	else
 	{
@@ -1128,12 +1130,24 @@ void ScAnnot::SetValues()
 	if (annotation.Type() == Annotation::RadioButton)
 	{
 		annotation.addToFlag(Annotation::Flag_Radio | Annotation::Flag_NoToggleToOff);
+		annotation.setFormat(0);
+		annotation.setF_act(QString());
+	}
+	if (annotation.Type() == Annotation::Checkbox)
+	{
+		annotation.setFormat(0);
+		annotation.setF_act(QString());
 	}
 	if (annotation.Type() == Annotation::Combobox)
 	{
 		annotation.addToFlag(Annotation::Flag_Combo);
 		if (CanEdit->isChecked())
 			annotation.addToFlag(Annotation::Flag_Edit);
+	}
+	if (annotation.Type() == Annotation::Listbox)
+	{
+		annotation.setFormat(0);
+		annotation.setF_act(QString());
 	}
 	if (annotation.Type() == Annotation::Textfield)
 	{
