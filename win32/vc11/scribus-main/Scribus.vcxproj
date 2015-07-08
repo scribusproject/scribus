@@ -1526,6 +1526,7 @@
   <ItemGroup>
     <uic Include="..\..\..\scribus\ui\aboutplugins.ui" />
     <uic Include="..\..\..\scribus\ui\aligndistribute.ui" />
+    <uic Include="..\..\..\scribus\ui\annot.ui" />
     <uic Include="..\..\..\scribus\ui\arcvectorbase.ui" />
     <uic Include="..\..\..\scribus\ui\arcwidgetbase.ui" />
     <uic Include="..\..\..\scribus\ui\charselect.ui" />

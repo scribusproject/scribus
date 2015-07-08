@@ -1019,9 +1019,6 @@
     <ClInclude Include="..\..\..\scribus\colormgmt\sccolorspacedata_labdbl.h">
       <Filter>colorMgmt</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\scribus\iconmanager.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\scribus\desaxe\digester.cpp">
@@ -2905,6 +2902,9 @@
     <uic Include="..\..\..\scribus\ui\cmykfwbase.ui">
       <Filter>Form Files</Filter>
     </uic>
+    <uic Include="..\..\..\scribus\ui\annot.ui">
+      <Filter>Form Files</Filter>
+    </uic>
   </ItemGroup>
   <ItemGroup>
     <lrelease Include="..\..\..\resources\translations\scribus.af.ts">
@@ -4008,6 +4008,9 @@
       <Filter>Header Files</Filter>
     </moc>
     <moc Include="..\..\..\scribus\ui\resourcemanager.h">
+      <Filter>Header Files</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\iconmanager.h">
       <Filter>Header Files</Filter>
     </moc>
   </ItemGroup>
