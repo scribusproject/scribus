@@ -56,11 +56,7 @@ QVariant CharTableModel::data(const QModelIndex &index, int role) const
 
 	// tooltip
 	if (role == Qt::ToolTipRole)
-	{
-		QString tmp;
-		tmp.sprintf("%04X", currentChar);
-		return "Unicode:\n0x"+tmp;
-	}
+		return QString("Unicode:\n0x%1").arg(currentChar, 4, 16, QChar('0'));
 
 	// pixmap
 	if (role == Qt::DecorationRole)
