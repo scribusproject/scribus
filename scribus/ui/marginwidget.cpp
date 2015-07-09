@@ -174,20 +174,34 @@ void MarginWidget::slotLinkBleeds()
 	disconnect(BleedTop, SIGNAL(valueChanged(double)), this, SLOT(changeBleeds()));
 	disconnect(BleedBottom, SIGNAL(valueChanged(double)), this, SLOT(changeBleeds()));
 
+	double bleedValue = BleedLeft->value();
 	if (BleedLeft->hasFocus())
+	{
 		BleedLeft->clearFocus();
+		bleedValue = BleedLeft->value();
+	}
 	if (BleedRight->hasFocus())
+	{
 		BleedRight->clearFocus();
+		bleedValue = BleedRight->value();
+	}
 	if (BleedTop->hasFocus())
+	{
 		BleedTop->clearFocus();
+		bleedValue = BleedTop->value();
+	}
 	if (BleedBottom->hasFocus())
+	{
 		BleedBottom->clearFocus();
+		bleedValue = BleedBottom->value();
+	}
 
 	if (linkBleeds->isChecked())
 	{
-		BleedTop->setValue(BleedLeft->value());
-		BleedBottom->setValue(BleedLeft->value());
-		BleedRight->setValue(BleedLeft->value());
+		BleedLeft->setValue(bleedValue);
+		BleedTop->setValue(bleedValue);
+		BleedBottom->setValue(bleedValue);
+		BleedRight->setValue(bleedValue);
 	}
 
 	connect(BleedLeft, SIGNAL(valueChanged(double)), this, SLOT(changeBleeds()));
@@ -568,21 +582,35 @@ void MarginWidget::slotLinkMargins()
 	disconnect(leftR, SIGNAL(valueChanged(double)), this, SLOT(setLeft()));
 	disconnect(rightR, SIGNAL(valueChanged(double)), this, SLOT(setRight()));
 
+	double marginValue = leftR->value();
 	if (leftR->hasFocus())
+	{
 		leftR->clearFocus();
+		marginValue = leftR->value();
+	}
 	if (rightR->hasFocus())
+	{
 		rightR->clearFocus();
+		marginValue = rightR->value();
+	}
 	if (topR->hasFocus())
+	{
 		topR->clearFocus();
+		marginValue = topR->value();
+	}
 	if (bottomR->hasFocus())
+	{
 		bottomR->clearFocus();
+		marginValue = bottomR->value();
+	}
 
 	if (linkMargins->isChecked())
 	{
-		bottomR->setValue(leftR->value());
-		topR->setValue(leftR->value());
-		rightR->setValue(leftR->value());
-		double newVal=leftR->value() / m_unitRatio;
+		leftR->setValue(marginValue);
+		bottomR->setValue(marginValue);
+		topR->setValue(marginValue);
+		rightR->setValue(marginValue);
+		double newVal = marginValue / m_unitRatio;
 		marginData.set(newVal, newVal, newVal, newVal);
 	}
 
