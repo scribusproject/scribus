@@ -98,7 +98,7 @@ void LanguageManager::generateLangList()
 	langTable.append(LangDef("bs_BA",  "bs_BA", "Bosnian",                QObject::tr( "Bosnian" )) );
 	langTable.append(LangDef("ca",     "",      "Catalan",                QObject::tr( "Catalan" )) );
 	langTable.append(LangDef("cs",     "cs_CZ", "Czech",                  QObject::tr( "Czech" )) );
-	langTable.append(LangDef("cy",     "",      "Welsh",                  QObject::tr( "Welsh" )) );
+	langTable.append(LangDef("cy",     "cy_GB", "Welsh",                  QObject::tr( "Welsh" )) );
 	langTable.append(LangDef("da",     "da_DK", "Danish",                 QObject::tr( "Danish" )) );
 	langTable.append(LangDef("de",     "de_DE", "German",                 QObject::tr( "German" )) );
 	langTable.append(LangDef("de_1901","",      "German (Trad.)",         QObject::tr( "German (Trad.)" )) );
