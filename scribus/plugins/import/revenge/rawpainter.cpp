@@ -2503,7 +2503,7 @@ void RawPainter::drawGraphicObject(const ::WPXPropertyList &propList, const ::WP
 		}
 		else
 		{
-			else if ((m_style["libwpg:mime-type"]->getStr() == "image/wmf") || (m_style["libwpg:mime-type"]->getStr() == "image/emf"))
+			if ((m_style["libwpg:mime-type"]->getStr() == "image/wmf") || (m_style["libwpg:mime-type"]->getStr() == "image/emf"))
 			{
 				if (m_style["libwpg:mime-type"]->getStr() == "image/wmf")
 					imgExt = "wmf";
