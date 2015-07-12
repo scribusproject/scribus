@@ -90,7 +90,7 @@ void ImportFhPlugin::registerFormats()
 	fmt.trName = tr("Freehand");
 	fmt.filter = tr("Freehand (*.fh* *.FH*)");
 	fmt.formatId = 0;
-	fmt.fileExtensions = QStringList() << "fh*" << "fh3" << "fh34" << "fh5" << "fh6" << "fh7" << "fh8" << "fh9" << "fh10" << "fh11";
+	fmt.fileExtensions = QStringList() << "fh*" << "fh" << "fh3" << "fh34" << "fh5" << "fh6" << "fh7" << "fh8" << "fh9" << "fh10" << "fh11";
 	fmt.load = true;
 	fmt.save = false;
 	fmt.thumb = true;
