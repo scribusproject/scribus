@@ -53,6 +53,375 @@ extern SCRIBUS_API ScribusQApp * ScQApp;
 
 #if HAVE_REVENGE
 
+RawPainterPres::RawPainterPres(ScribusDoc* Doc, double x, double y, double w, double h, int iflags, QList<PageItem*> *Elem, QStringList *iColors, QStringList *iPatterns, Selection* tSel, QString fTyp) : librevenge::RVNGRawTextGenerator(false)
+{
+	painter = new RawPainter(Doc, x, y, w, h, iflags, Elem, iColors, iPatterns, tSel, fTyp);
+	mElements = Elem;
+	mDoc = Doc;
+}
+
+RawPainterPres::~RawPainterPres()
+{
+	delete painter;
+}
+
+void RawPainterPres::startDocument(const librevenge::RVNGPropertyList &propList)
+{
+	painter->startDocument(propList);
+}
+
+void RawPainterPres::endDocument()
+{
+	painter->endDocument();
+	if (pageElements.count() > 1)
+	{
+		for (int a = 1; a < pageElements.count(); ++a)
+		{
+			if (a < mDoc->Pages->count())
+			{
+				double bX = mDoc->Pages->at(a)->xOffset();
+				double bY = mDoc->Pages->at(a)->yOffset();
+				for (int b = 0; b < pageElements[a].count(); ++b)
+				{
+					PageItem *item = pageElements[a][b];
+					item->setXYPos(item->xPos() + bX, item->yPos() + bY, true);
+					if (item->isGroup())
+						mDoc->GroupOnPage(item);
+					else
+						item->OwnPage = mDoc->OnPage(item);
+					item->setRedrawBounding();
+				}
+			}
+		}
+	}
+}
+
+void RawPainterPres::setDocumentMetaData(const librevenge::RVNGPropertyList &propList)
+{
+	painter->setDocumentMetaData(propList);
+}
+
+void RawPainterPres::defineEmbeddedFont(const librevenge::RVNGPropertyList &propList)
+{
+	painter->defineEmbeddedFont(propList);
+}
+
+void RawPainterPres::definePageStyle(const librevenge::RVNGPropertyList &propList)
+{
+}
+
+void RawPainterPres::openPageSpan(const librevenge::RVNGPropertyList &propList)
+{
+	painter->startPage(propList);
+}
+
+void RawPainterPres::closePageSpan()
+{
+	painter->endPage();
+}
+
+void RawPainterPres::openHeader(const librevenge::RVNGPropertyList &propList)
+{
+}
+
+void RawPainterPres::closeHeader()
+{
+}
+
+void RawPainterPres::openFooter(const librevenge::RVNGPropertyList &propList)
+{
+}
+
+void RawPainterPres::closeFooter()
+{
+}
+
+void RawPainterPres::defineParagraphStyle(const librevenge::RVNGPropertyList &propList)
+{
+	painter->defineParagraphStyle(propList);
+}
+
+void RawPainterPres::openParagraph(const librevenge::RVNGPropertyList &propList)
+{
+	painter->openParagraph(propList);
+}
+
+void RawPainterPres::closeParagraph()
+{
+	painter->closeParagraph();
+}
+
+void RawPainterPres::defineCharacterStyle(const librevenge::RVNGPropertyList &propList)
+{
+	painter->defineCharacterStyle(propList);
+}
+
+void RawPainterPres::openSpan(const librevenge::RVNGPropertyList &propList)
+{
+	painter->openSpan(propList);
+}
+
+void RawPainterPres::closeSpan()
+{
+	painter->closeSpan();
+}
+
+void RawPainterPres::openLink(const librevenge::RVNGPropertyList &propList)
+{
+	painter->openLink(propList);
+}
+
+void RawPainterPres::closeLink()
+{
+	painter->closeLink();
+}
+
+void RawPainterPres::defineSectionStyle(const librevenge::RVNGPropertyList &propList)
+{
+}
+
+void RawPainterPres::openSection(const librevenge::RVNGPropertyList &propList)
+{
+}
+
+void RawPainterPres::closeSection()
+{
+}
+
+void RawPainterPres::insertTab()
+{
+	painter->insertTab();
+}
+
+void RawPainterPres::insertSpace()
+{
+	painter->insertSpace();
+}
+
+void RawPainterPres::insertText(const librevenge::RVNGString &text)
+{
+	painter->insertText(text);
+}
+
+void RawPainterPres::insertLineBreak()
+{
+	painter->insertLineBreak();
+}
+
+void RawPainterPres::insertField(const librevenge::RVNGPropertyList &propList)
+{
+	painter->insertField(propList);
+}
+
+void RawPainterPres::openOrderedListLevel(const librevenge::RVNGPropertyList &propList)
+{
+	painter->openOrderedListLevel(propList);
+}
+
+void RawPainterPres::openUnorderedListLevel(const librevenge::RVNGPropertyList &propList)
+{
+	painter->openUnorderedListLevel(propList);
+}
+
+void RawPainterPres::closeOrderedListLevel()
+{
+	painter->closeOrderedListLevel();
+}
+
+void RawPainterPres::closeUnorderedListLevel()
+{
+	painter->closeUnorderedListLevel();
+}
+
+void RawPainterPres::openListElement(const librevenge::RVNGPropertyList &propList)
+{
+	painter->openListElement(propList);
+}
+
+void RawPainterPres::closeListElement()
+{
+	painter->closeListElement();
+}
+
+void RawPainterPres::openFootnote(const librevenge::RVNGPropertyList &propList)
+{
+}
+
+void RawPainterPres::closeFootnote()
+{
+}
+
+void RawPainterPres::openEndnote(const librevenge::RVNGPropertyList &propList)
+{
+}
+
+void RawPainterPres::closeEndnote()
+{
+}
+
+void RawPainterPres::openComment(const librevenge::RVNGPropertyList &propList)
+{
+}
+
+void RawPainterPres::closeComment()
+{
+}
+
+void RawPainterPres::openTextBox(const librevenge::RVNGPropertyList &propList)
+{
+	painter->startTextObject(propList);
+}
+
+void RawPainterPres::closeTextBox()
+{
+	painter->endTextObject();
+}
+
+void RawPainterPres::openTableRow(const librevenge::RVNGPropertyList &propList)
+{
+	painter->openTableRow(propList);
+}
+
+void RawPainterPres::closeTableRow()
+{
+	painter->closeTableRow();
+}
+
+void RawPainterPres::openTableCell(const librevenge::RVNGPropertyList &propList)
+{
+	painter->openTableCell(propList);
+}
+
+void RawPainterPres::closeTableCell()
+{
+	painter->closeTableCell();
+}
+
+void RawPainterPres::openTable(const librevenge::RVNGPropertyList &propList)
+{
+}
+
+void RawPainterPres::insertCoveredTableCell(const librevenge::RVNGPropertyList &propList)
+{
+}
+
+void RawPainterPres::closeTable()
+{
+}
+
+void RawPainterPres::openFrame(const librevenge::RVNGPropertyList &propList)
+{
+}
+
+void RawPainterPres::closeFrame()
+{
+}
+
+void RawPainterPres::openGroup(const librevenge::RVNGPropertyList &propList)
+{
+	painter->openGroup(propList);
+}
+
+void RawPainterPres::closeGroup()
+{
+	painter->closeGroup();
+}
+
+void RawPainterPres::defineGraphicStyle(const librevenge::RVNGPropertyList &propList)
+{
+	painter->setStyle(propList);
+}
+
+void RawPainterPres::drawRectangle(const librevenge::RVNGPropertyList &propList)
+{
+	painter->drawRectangle(propList);
+	if (propList["text:anchor-page-number"])
+	{
+		int pgNum = propList["text:anchor-page-number"]->getInt() - 1;
+		if (pgNum >= pageElements.count())
+		{
+			QList<PageItem*> tmpElements;
+			pageElements.append(tmpElements);
+		}
+		pageElements[pgNum].append(mElements->last());
+	}
+}
+
+void RawPainterPres::drawEllipse(const librevenge::RVNGPropertyList &propList)
+{
+	painter->drawEllipse(propList);
+	if (propList["text:anchor-page-number"])
+	{
+		int pgNum = propList["text:anchor-page-number"]->getInt() - 1;
+		if (pgNum >= pageElements.count())
+		{
+			QList<PageItem*> tmpElements;
+			pageElements.append(tmpElements);
+		}
+		pageElements[pgNum].append(mElements->last());
+	}
+}
+
+void RawPainterPres::drawPolygon(const librevenge::RVNGPropertyList &propList)
+{
+	painter->drawPolygon(propList);
+	if (propList["text:anchor-page-number"])
+	{
+		int pgNum = propList["text:anchor-page-number"]->getInt() - 1;
+		if (pgNum >= pageElements.count())
+		{
+			QList<PageItem*> tmpElements;
+			pageElements.append(tmpElements);
+		}
+		pageElements[pgNum].append(mElements->last());
+	}
+}
+
+void RawPainterPres::drawPolyline(const librevenge::RVNGPropertyList &propList)
+{
+	painter->drawPolyline(propList);
+	if (propList["text:anchor-page-number"])
+	{
+		int pgNum = propList["text:anchor-page-number"]->getInt() - 1;
+		if (pgNum >= pageElements.count())
+		{
+			QList<PageItem*> tmpElements;
+			pageElements.append(tmpElements);
+		}
+		pageElements[pgNum].append(mElements->last());
+	}
+}
+
+void RawPainterPres::drawPath(const librevenge::RVNGPropertyList &propList)
+{
+	painter->drawPath(propList);
+	if (propList["text:anchor-page-number"])
+	{
+		int pgNum = propList["text:anchor-page-number"]->getInt() - 1;
+		if (pgNum >= pageElements.count())
+		{
+			QList<PageItem*> tmpElements;
+			pageElements.append(tmpElements);
+		}
+		pageElements[pgNum].append(mElements->last());
+	}
+}
+
+void RawPainterPres::drawConnector(const librevenge::RVNGPropertyList &propList)
+{
+	painter->drawConnector(propList);
+}
+
+void RawPainterPres::insertBinaryObject(const librevenge::RVNGPropertyList &propList)
+{
+	painter->startEmbeddedGraphics(propList);
+}
+
+void RawPainterPres::insertEquation(const librevenge::RVNGPropertyList &propList)
+{
+}
+
+
 struct RawPainterPrivate
 {
 	RawPainterPrivate();

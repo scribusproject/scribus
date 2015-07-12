@@ -161,6 +161,79 @@ private:
 	QString fileType;
 };
 
+class RawPainterPres : public librevenge::RVNGRawTextGenerator
+{
+public:
+	RawPainterPres(ScribusDoc* Doc, double x, double y, double w, double h, int iflags, QList<PageItem*> *Elem, QStringList *iColors, QStringList *iPatterns, Selection* tSel, QString fTyp);
+	~RawPainterPres();
+	void startDocument(const librevenge::RVNGPropertyList &propList);
+	void endDocument();
+	void setDocumentMetaData(const librevenge::RVNGPropertyList &propList);
+	void defineEmbeddedFont(const librevenge::RVNGPropertyList &propList);
+	void definePageStyle(const librevenge::RVNGPropertyList &propList);
+	void openPageSpan(const librevenge::RVNGPropertyList &propList);
+	void closePageSpan();
+	void openHeader(const librevenge::RVNGPropertyList &propList);
+	void closeHeader();
+	void openFooter(const librevenge::RVNGPropertyList &propList);
+	void closeFooter();
+	void defineParagraphStyle(const librevenge::RVNGPropertyList &propList);
+	void openParagraph(const librevenge::RVNGPropertyList &propList);
+	void closeParagraph();
+	void defineCharacterStyle(const librevenge::RVNGPropertyList &propList);
+	void openSpan(const librevenge::RVNGPropertyList &propList);
+	void closeSpan();
+	void openLink(const librevenge::RVNGPropertyList &propList);
+	void closeLink();
+	void defineSectionStyle(const librevenge::RVNGPropertyList &propList);
+	void openSection(const librevenge::RVNGPropertyList &propList);
+	void closeSection();
+	void insertTab();
+	void insertSpace();
+	void insertText(const librevenge::RVNGString &text);
+	void insertLineBreak();
+	void insertField(const librevenge::RVNGPropertyList &propList);
+	void openOrderedListLevel(const librevenge::RVNGPropertyList &propList);
+	void openUnorderedListLevel(const librevenge::RVNGPropertyList &propList);
+	void closeOrderedListLevel();
+	void closeUnorderedListLevel();
+	void openListElement(const librevenge::RVNGPropertyList &propList);
+	void closeListElement();
+	void openFootnote(const librevenge::RVNGPropertyList &propList);
+	void closeFootnote();
+	void openEndnote(const librevenge::RVNGPropertyList &propList);
+	void closeEndnote();
+	void openComment(const librevenge::RVNGPropertyList &propList);
+	void closeComment();
+	void openTextBox(const librevenge::RVNGPropertyList &propList);
+	void closeTextBox();
+	void openTable(const librevenge::RVNGPropertyList &propList);
+	void openTableRow(const librevenge::RVNGPropertyList &propList);
+	void closeTableRow();
+	void openTableCell(const librevenge::RVNGPropertyList &propList);
+	void closeTableCell();
+	void insertCoveredTableCell(const librevenge::RVNGPropertyList &propList);
+	void closeTable();
+	void openFrame(const librevenge::RVNGPropertyList &propList);
+	void closeFrame();
+	void openGroup(const librevenge::RVNGPropertyList &propList);
+	void closeGroup();
+	void defineGraphicStyle(const librevenge::RVNGPropertyList &propList);
+	void drawRectangle(const librevenge::RVNGPropertyList &propList);
+	void drawEllipse(const librevenge::RVNGPropertyList &propList);
+	void drawPolygon(const librevenge::RVNGPropertyList &propList);
+	void drawPolyline(const librevenge::RVNGPropertyList &propList);
+	void drawPath(const librevenge::RVNGPropertyList &propList);
+	void drawConnector(const librevenge::RVNGPropertyList &propList);
+	void insertBinaryObject(const librevenge::RVNGPropertyList &propList);
+	void insertEquation(const librevenge::RVNGPropertyList &propList);
+private:
+	QList<PageItem*> *mElements;
+	RawPainter *painter;
+	QList<QList<PageItem*> > pageElements;
+	ScribusDoc* mDoc;
+};
+
 #else
 	#include <libwpd-stream/libwpd-stream.h>
 	#include <libwpd/libwpd.h>

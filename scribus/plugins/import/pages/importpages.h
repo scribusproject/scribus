@@ -13,6 +13,80 @@ for which a new license (GPL+exception) is in place.
 #ifndef IMPORTPAGES_H
 #define IMPORTPAGES_H
 
+#if 0
+
+#include <QObject>
+#include <QString>
+
+#include "pluginapi.h"
+#include "pageitem.h"
+#include "sccolor.h"
+#include "fpointarray.h"
+#include "vgradient.h"
+#include <QList>
+#include <QTransform>
+#include <QMultiMap>
+#include <QVector>
+
+class MultiProgressDialog;
+class ScribusDoc;
+class Selection;
+class TransactionSettings;
+
+//! \brief FH importer plugin
+class PagesPlug : public QObject
+{
+	Q_OBJECT
+
+public:
+	/*!
+	\author Franz Schmid
+	\date
+	\brief Create the Fh importer window.
+	\param fName QString
+	\param flags combination of loadFlags
+	\param showProgress if progress must be displayed
+	\retval EPSPlug plugin
+	*/
+	PagesPlug( ScribusDoc* doc, int flags );
+	~PagesPlug();
+
+	/*!
+	\author Franz Schmid
+	\date
+	\brief Perform import.
+	\param fn QString
+	\param trSettings undo transaction settings
+	\param flags combination of loadFlags
+	\param showProgress if progress must be displayed
+	\retval bool true if import was ok
+	 */
+	bool import(QString fn, const TransactionSettings& trSettings, int flags, bool showProgress = true);
+	QImage readThumbnail(QString fn);
+
+private:
+	bool convert(QString fn);
+
+	QList<PageItem*> Elements;
+	double baseX, baseY;
+	double docWidth;
+	double docHeight;
+
+	QStringList importedColors;
+	QStringList importedPatterns;
+
+	bool interactive;
+	MultiProgressDialog * progressDialog;
+	bool cancel;
+	ScribusDoc* m_Doc;
+	Selection* tmpSel;
+	int importerFlags;
+
+public slots:
+	void cancelRequested() { cancel = true; }
+};
+#else
+
 #include "pluginapi.h"
 #include "pageitem.h"
 #include "sccolor.h"
@@ -199,5 +273,5 @@ private:
 public slots:
 	void cancelRequested() { cancel = true; }
 };
-
+#endif
 #endif
