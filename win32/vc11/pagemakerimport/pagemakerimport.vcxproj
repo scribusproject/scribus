@@ -107,7 +107,7 @@
       <DisableSpecificWarnings>4190;4251;4267;4996;%(DisableSpecificWarnings)</DisableSpecificWarnings>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>$(QT5CORE_LIB);$(QT5GUI_LIB);$(QT5WIDGETS_LIB);$(QT5XML_LIB);$(FREETYPE_LIB);$(LCMS_LIB);$(LIBJPEG_LIB);$(LIBPAGEMAKER_LIB);$(LIBREVENGE_LIB);$(LIBREVENGE_STREAM_LIB);$(LIBTIFF_LIB);$(ZLIB_LIB);scribus-api.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>$(QT5CORE_LIB);$(QT5GUI_LIB);$(QT5WIDGETS_LIB);$(QT5XML_LIB);$(FREETYPE_LIB);$(LCMS_LIB);$(LIBJPEG_LIB);$(LIBPAGEMAKER_LIB);$(LIBREVENGE_LIB);$(LIBREVENGE_GENERATORS_LIB);$(LIBREVENGE_STREAM_LIB);$(LIBTIFF_LIB);$(ZLIB_LIB);scribus-api.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(FREETYPE_LIB_DIR);$(LCMS_LIB_DIR);$(LIBJPEG_LIB_DIR);$(LIBPAGEMAKER_LIB_DIR);$(LIBREVENGE_LIB_DIR);$(LIBTIFF_LIB_DIR);$(ZLIB_LIB_DIR);$(QT5_DIR)\lib;$(OutDir)..;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <ProgramDatabaseFile>$(OutDir)importpm.pdb</ProgramDatabaseFile>
@@ -133,7 +133,7 @@
       <DisableSpecificWarnings>4190;4251;4267;4996;%(DisableSpecificWarnings)</DisableSpecificWarnings>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>$(QT5CORE_LIB);$(QT5GUI_LIB);$(QT5WIDGETS_LIB);$(QT5XML_LIB);$(FREETYPE_LIB);$(LCMS_LIB);$(LIBJPEG_LIB);$(LIBPAGEMAKER_LIB);$(LIBREVENGE_LIB);$(LIBREVENGE_STREAM_LIB);$(LIBTIFF_LIB);$(ZLIB_LIB);scribus-api.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>$(QT5CORE_LIB);$(QT5GUI_LIB);$(QT5WIDGETS_LIB);$(QT5XML_LIB);$(FREETYPE_LIB);$(LCMS_LIB);$(LIBJPEG_LIB);$(LIBPAGEMAKER_LIB);$(LIBREVENGE_LIB);$(LIBREVENGE_GENERATORS_LIB);$(LIBREVENGE_STREAM_LIB);$(LIBTIFF_LIB);$(ZLIB_LIB);scribus-api.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(FREETYPE_LIB_DIR);$(LCMS_LIB_DIR);$(LIBJPEG_LIB_DIR);$(LIBPAGEMAKER_LIB_DIR);$(LIBREVENGE_LIB_DIR);$(LIBTIFF_LIB_DIR);$(ZLIB_LIB_DIR);$(QT5_DIR)\lib;$(OutDir)..;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <ProgramDatabaseFile>$(OutDir)importpm.pdb</ProgramDatabaseFile>
@@ -161,7 +161,7 @@
       <DisableSpecificWarnings>4190;4251;4267;4996;%(DisableSpecificWarnings)</DisableSpecificWarnings>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>$(QT5CORE_LIB);$(QT5GUI_LIB);$(QT5WIDGETS_LIB);$(QT5XML_LIB);$(FREETYPE_LIB);$(LCMS_LIB);$(LIBJPEG_LIB);$(LIBPAGEMAKER_LIB);$(LIBREVENGE_LIB);$(LIBREVENGE_STREAM_LIB);$(LIBTIFF_LIB);$(ZLIB_LIB);scribus-api.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>$(QT5CORE_LIB);$(QT5GUI_LIB);$(QT5WIDGETS_LIB);$(QT5XML_LIB);$(FREETYPE_LIB);$(LCMS_LIB);$(LIBJPEG_LIB);$(LIBPAGEMAKER_LIB);$(LIBREVENGE_LIB);$(LIBREVENGE_GENERATORS_LIB);$(LIBREVENGE_STREAM_LIB);$(LIBTIFF_LIB);$(ZLIB_LIB);scribus-api.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(FREETYPE_LIB_DIR);$(LCMS_LIB_DIR);$(LIBJPEG_LIB_DIR);$(LIBPAGEMAKER_LIB_DIR);$(LIBREVENGE_LIB_DIR);$(LIBTIFF_LIB_DIR);$(ZLIB_LIB_DIR);$(QT5_DIR)\lib;$(OutDir)..;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <ProgramDatabaseFile>$(OutDir)importpm.pdb</ProgramDatabaseFile>
@@ -192,7 +192,7 @@
       <DisableSpecificWarnings>4190;4251;4267;4996;%(DisableSpecificWarnings)</DisableSpecificWarnings>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>$(QT5CORE_LIB);$(QT5GUI_LIB);$(QT5WIDGETS_LIB);$(QT5XML_LIB);$(FREETYPE_LIB);$(LCMS_LIB);$(LIBJPEG_LIB);$(LIBPAGEMAKER_LIB);$(LIBREVENGE_LIB);$(LIBREVENGE_STREAM_LIB);$(LIBTIFF_LIB);$(ZLIB_LIB);scribus-api.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>$(QT5CORE_LIB);$(QT5GUI_LIB);$(QT5WIDGETS_LIB);$(QT5XML_LIB);$(FREETYPE_LIB);$(LCMS_LIB);$(LIBJPEG_LIB);$(LIBPAGEMAKER_LIB);$(LIBREVENGE_LIB);$(LIBREVENGE_GENERATORS_LIB);$(LIBREVENGE_STREAM_LIB);$(LIBTIFF_LIB);$(ZLIB_LIB);scribus-api.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(FREETYPE_LIB_DIR);$(LCMS_LIB_DIR);$(LIBJPEG_LIB_DIR);$(LIBPAGEMAKER_LIB_DIR);$(LIBREVENGE_LIB_DIR);$(LIBTIFF_LIB_DIR);$(ZLIB_LIB_DIR);$(QT5_DIR)\lib;$(OutDir)..;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <ProgramDatabaseFile>$(OutDir)importpm.pdb</ProgramDatabaseFile>
