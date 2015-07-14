@@ -31,6 +31,12 @@ ScMWMenuManager::ScMWMenuManager(QMenuBar* mb, QObject *parent) :
 
 void ScMWMenuManager::languageChange()
 {
+
+	//Important for TRANSLATORS:
+	//keep the same exact translations as the ones already translated. This function is
+	//used when UI language is changed and updates main menus and sub-menus strings.
+	//see void ScribusMainWindow::initMenuBar() or ScribusMainWindow context in qt linguist
+
 	setText("File", ActionManager::defaultMenuNameEntryTranslated("File"));
 	setText("FileOpenRecent", tr("Open &Recent"));
 	setText("EditPasteRecent", tr("Paste Recent"));
@@ -39,20 +45,38 @@ void ScMWMenuManager::languageChange()
 	setText("Edit", ActionManager::defaultMenuNameEntryTranslated("Edit"));
 	setText("EditContents", tr("Contents"));
 	setText("Item", ActionManager::defaultMenuNameEntryTranslated("Item"));
+	setText("DuplicateTransform", tr("Duplicate/Transform"));
+	setText("Grouping", tr("Grouping"));
+	setText("Locking", tr("Locking"));
 	setText("ItemLevel", tr("&Level"));
 	setText("ItemLayer", tr("Send to Layer"));
+	setText("SendTo", tr("Send to"));
+	setText("ItemSendToScrapbook", tr("Scrapbook"));
+	setText("Adjust", tr("Adjust"));
+	setText("Image", tr("Image"));
 	setText("ItemPreviewSettings", tr("Previe&w Settings"));
 	setText("ItemPDFOptions", tr("&PDF Options"));
 	setText("ItemConvertTo", tr("C&onvert to"));
+	setText("TextLinking", tr("Text Frame Links"));
 //			setText("ItemPathOps", tr("Path Tools"));
+	setText("Weld", tr("Welding"));
 	setText("Insert", ActionManager::defaultMenuNameEntryTranslated("Insert"));
 	setText("InsertChar", tr("Character"));
 	setText("InsertQuote", tr("Quote"));
 	setText("InsertSpace", tr("Space"));
 	setText("InsertLigature", tr("Liga&ture"));
+	setText("InsertMark", tr("Marks"));
 	setText("Page", ActionManager::defaultMenuNameEntryTranslated("Page"));
-	setText("View", ActionManager::defaultMenuNameEntryTranslated("View"));
+	setText("ItemTable", ActionManager::defaultMenuNameEntryTranslated("Table"));
 	setText("Extras", ActionManager::defaultMenuNameEntryTranslated("Extras"));
+	setText("View", ActionManager::defaultMenuNameEntryTranslated("View"));
+	setText("ViewZoom", tr("Zoom"));
+	setText("ViewPreview", tr("Preview"));
+	setText("ViewMeasuring", tr("Measurement"));
+	setText("ViewTextFrames", tr("Text Frames"));
+	setText("ViewImageFrames", tr("Image Frames"));
+	setText("ViewDocument", tr("Document"));
+	setText("ViewGrids", tr("Grids and Guides"));
 	setText("Windows", ActionManager::defaultMenuNameEntryTranslated("Windows"));
 	setText("Help", ActionManager::defaultMenuNameEntryTranslated("Help"));
 	setText("Alignment", tr("&Alignment"));

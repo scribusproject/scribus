@@ -1086,7 +1086,7 @@ void ScribusMainWindow::initMenuBar()
 	scrMenuMgr->createMenu("ViewPreview", tr("Preview"), "View");
 	scrMenuMgr->addMenuItemString("ViewPreview", "View");
 	scrMenuMgr->addMenuItemString("viewPreviewMode", "ViewPreview");
-	scrMenuMgr->createMenu("ViewMeasuring", tr("Measures"), "View");
+	scrMenuMgr->createMenu("ViewMeasuring", tr("Measurement"), "View");
 	scrMenuMgr->addMenuItemString("ViewMeasuring", "View");
 	scrMenuMgr->addMenuItemString("viewShowRulers", "ViewMeasuring");
 	scrMenuMgr->addMenuItemString("viewRulerMode", "ViewMeasuring");
