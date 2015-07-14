@@ -158,7 +158,7 @@ void SMPStyleWidget::languageChange()
 	spaceAbove->setSuffix(unitGetSuffixFromIndex(0));
 	spaceBelow->setSuffix(unitGetSuffixFromIndex(0));
 	parentLabel->setText( tr("Based On:"));
-	distancesBox->setTitle( tr("Distances and Alignment"));
+	distancesBox->setTitle( tr("Alignment and Distances"));
 
 	//parEffectsBox->setTitle(tr("Paragraph Effects"));
 	bulletBox->setTitle(           tr("Bullets"));
