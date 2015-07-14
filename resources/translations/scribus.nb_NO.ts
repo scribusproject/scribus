@@ -3071,11 +3071,11 @@ Det er lurt å bruke dette hvis du har fotografier i dokumentet.</translation>
     </message>
     <message>
         <source>New</source>
-        <translation>Ny</translation>
+        <translation type="vanished">Ny</translation>
     </message>
     <message>
         <source>Old</source>
-        <translation>Gammel</translation>
+        <translation type="vanished">Gammel</translation>
     </message>
     <message>
         <source>C:</source>
@@ -3095,7 +3095,7 @@ Det er lurt å bruke dette hvis du har fotografier i dokumentet.</translation>
     </message>
     <message>
         <source>K:</source>
-        <translation>K:</translation>
+        <translation type="vanished">K:</translation>
     </message>
     <message>
         <source>Dynamic Color Bars</source>
@@ -3119,15 +3119,15 @@ Det er lurt å bruke dette hvis du har fotografier i dokumentet.</translation>
     </message>
     <message>
         <source>&amp;Name:</source>
-        <translation>&amp;Navn:</translation>
+        <translation type="vanished">&amp;Navn:</translation>
     </message>
     <message>
         <source>Color &amp;Model</source>
-        <translation>&amp;Fargemodell</translation>
+        <translation type="vanished">&amp;Fargemodell</translation>
     </message>
     <message>
         <source>Is Spot Color</source>
-        <translation>Er en punktfarge</translation>
+        <translation type="vanished">Er en punktfarge</translation>
     </message>
     <message>
         <source>You cannot create a color named &quot;%1&quot;.
@@ -3164,6 +3164,89 @@ Please give it a name</source>
         <source>The name of the color already exists.
 Please choose another one.</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Lab</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>HLC</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>L:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>a:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>b:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>H:</source>
+        <translation type="unfinished">H:</translation>
+    </message>
+</context>
+<context>
+    <name>CMYKChooseBase</name>
+    <message>
+        <source>Edit Color</source>
+        <translation type="unfinished">Rediger farger</translation>
+    </message>
+    <message>
+        <source>&amp;Name:</source>
+        <translation type="unfinished">&amp;Navn:</translation>
+    </message>
+    <message>
+        <source>Color &amp;Model</source>
+        <translation type="unfinished">&amp;Fargemodell</translation>
+    </message>
+    <message>
+        <source>Is Spot Color</source>
+        <translation type="unfinished">Er en punktfarge</translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation type="unfinished">Greit</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation type="unfinished">Avbryt</translation>
+    </message>
+    <message>
+        <source>New</source>
+        <translation type="unfinished">Ny</translation>
+    </message>
+    <message>
+        <source>Old</source>
+        <translation type="unfinished">Gammel</translation>
+    </message>
+    <message>
+        <source>C:</source>
+        <translation type="unfinished">C:</translation>
+    </message>
+    <message>
+        <source> %</source>
+        <translation type="unfinished"> %</translation>
+    </message>
+    <message>
+        <source>...</source>
+        <translation type="unfinished">…</translation>
+    </message>
+    <message>
+        <source>M:</source>
+        <translation type="unfinished">M:</translation>
+    </message>
+    <message>
+        <source>Y:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>K:</source>
+        <translation type="unfinished">K:</translation>
     </message>
 </context>
 <context>
@@ -5102,7 +5185,7 @@ Manglende bibliotekstøtte vises med *</translation>
         <translation>Lagre denne kurven</translation>
     </message>
     <message>
-        <source>Curve Files &quot;*.scu&quot; (*.scu *.SCU);;All Files (*)</source>
+        <source>Curve Files (*.scu *.SCU);;All Files (*)</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -6076,6 +6159,24 @@ Bruk 72 ppt for bilder som skal vises på en skjerm</translation>
     </message>
 </context>
 <context>
+    <name>FhPlug</name>
+    <message>
+        <source>Importing: %1</source>
+        <translation type="unfinished">Importerer: %1</translation>
+    </message>
+    <message>
+        <source>Analyzing File:</source>
+        <translation type="unfinished">Analyserer fila:</translation>
+    </message>
+    <message>
+        <source>Parsing failed!
+
+Please submit your file (if possible) to the
+Document Liberation Project http://www.documentliberation.org</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>FileLoader</name>
     <message>
         <source>Some fonts used by this document have been substituted:</source>
@@ -6719,11 +6820,11 @@ Bruk 72 ppt for bilder som skal vises på en skjerm</translation>
     </message>
     <message>
         <source>New Bookmark</source>
-        <translation>Nytt bokmerke</translation>
+        <translation type="vanished">Nytt bokmerke</translation>
     </message>
     <message>
         <source>New Bookmark&apos;s Title:</source>
-        <translation>Navn på bokmerke:</translation>
+        <translation type="vanished">Navn på bokmerke:</translation>
     </message>
     <message>
         <source>&amp;File</source>
@@ -6789,10 +6890,6 @@ Bruk 72 ppt for bilder som skal vises på en skjerm</translation>
     </message>
     <message>
         <source>Navigation</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Loading Failed</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -7241,6 +7338,34 @@ converting their vector data into Scribus objects.</source>
     <message>
         <source>Enhanced Metafile (*.emf *.EMF)</source>
         <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>ImportFhPlugin</name>
+    <message>
+        <source>Import Freehand...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Freehand</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Freehand (*.fh* *.FH*)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Imports Freehand Files</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Imports most Freehand files into the current document,
+converting their vector data into Scribus objects.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>All Supported Formats</source>
+        <translation type="unfinished">Alle støttede formater</translation>
     </message>
 </context>
 <context>
@@ -11600,6 +11725,13 @@ Often used for allowing items to be placed across page spreads</source>
     <message>
         <source>Generating Items</source>
         <translation type="unfinished">Lager objekter</translation>
+    </message>
+    <message>
+        <source>Parsing failed!
+
+Please submit your file (if possible) to the
+Document Liberation Project http://www.documentliberation.org</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -17503,6 +17635,14 @@ Nivå 1 eller 2 kan gi veldig store filer</translation>
         <source>Background Color:</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Icon Set:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Choose the default icon set</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>PresetLayout</name>
@@ -17965,6 +18105,14 @@ Merk: PDF-skjemaer blir ikke tatt med.</translation>
         <source>Use the clipping path of the image</source>
         <translation type="unfinished">
             </translation>
+    </message>
+    <message>
+        <source>Any path self-intersections or subpaths create holes in the fill.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Fill is solid unless a subpath is counterdirectional.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -18781,11 +18929,11 @@ Transparency</source>
             </translation>
     </message>
     <message>
-        <source>This rule determines the &amp;quot;insideness&amp;quot; of a point on the canvas by drawing a ray from that point to infinity in any direction and counting the number of path segments from the given shape that the ray crosses. If this number is odd, the point is inside, if even, the point is outside.</source>
+        <source>Any path self-intersections or subpaths create holes in the fill.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>This rule determines the &amp;quot;insideness&amp;quot; of a point on the canvas by drawing a ray from that point to infinity in any direction and then examining the places where a segment of the shape crosses the ray. Starting with a count of zero, add one each time a path segment crosses the ray from left to right and subtract one each time a path segment crosses the ray from right to left. If the result is zero then the point is outside the path. Otherwise, it is inside.</source>
+        <source>Fill is solid unless a subpath is counterdirectional.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -23013,10 +23161,6 @@ is not exhaustive due to exceptions from called functions.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>CustomShapes</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Encapsulated PostScript</source>
         <translation type="unfinished"></translation>
     </message>
@@ -23075,6 +23219,10 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>Qt Supported File</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Freehand Importer</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -23809,7 +23957,7 @@ Please choose another.</source>
     </message>
     <message>
         <source>Distances and Alignment</source>
-        <translation>Avstand og justering</translation>
+        <translation type="vanished">Avstand og justering</translation>
     </message>
     <message>
         <source>Drop Caps</source>
@@ -24843,7 +24991,7 @@ converting their vector data into Scribus objects.</source>
     <message>
         <source>None</source>
         <comment>highlight</comment>
-        <translation type="unfinished">Ingen</translation>
+        <translation type="obsolete">Ingen</translation>
     </message>
     <message>
         <source>Invert</source>
@@ -25052,7 +25200,7 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Plain</source>
-        <translation type="unfinished">Enkel</translation>
+        <translation type="obsolete">Enkel</translation>
     </message>
     <message>
         <source>Number</source>
@@ -25454,6 +25602,170 @@ converting their vector data into Scribus objects.</source>
         <source>Show/Hide Signatures</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Courier</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Courier Bold</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Courier Italic</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Courier Bold Italic</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Helvetica</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Helvetica Bold</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Helvetica Italic</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Helvetica Bold Italic</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Times</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Times Bold</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Times Italic</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Times Bold Italic</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Zapf Dingbats</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Symbols</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Plain Text</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>9,999.99</source>
+        <translation type="unfinished">270° {9,999.99?}</translation>
+    </message>
+    <message>
+        <source>9.999,99</source>
+        <translation type="unfinished">270° {9.999,99?}</translation>
+    </message>
+    <message>
+        <source>9999.99</source>
+        <translation type="unfinished">270° {9999.99?}</translation>
+    </message>
+    <message>
+        <source>9999,99</source>
+        <translation type="unfinished">270° {9999,99?}</translation>
+    </message>
+    <message>
+        <source>m/d</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>m/d/yy</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>mm/dd/yy</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>mm/yy</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>d-mmm</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>d-mmm-yy</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>dd-mmm-yy</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>dd/mm/yy</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>dd/mm/yyyy</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>dd.mm.yyyy</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>yy-mm-dd</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>mmm-yy</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>mmmm-yy</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>mmm d, yyyy</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>mmmm d, yyyy</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>m/d/yy h:MM tt</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>m/d/yy HH:MM</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>yyyy-mm-dd</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>HH:MM</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>h:MM tt</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>HH:MM:ss</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>h:MM:ss tt</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ScGTFileDialog</name>
@@ -25560,6 +25872,74 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>C&amp;onvert to</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Duplicate/Transform</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Grouping</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Locking</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Send to</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Scrapbook</source>
+        <translation type="unfinished">Kladdebok</translation>
+    </message>
+    <message>
+        <source>Adjust</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Image</source>
+        <translation type="unfinished">Bilde</translation>
+    </message>
+    <message>
+        <source>Text Frame Links</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Welding</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Marks</source>
+        <translation type="unfinished">Merker</translation>
+    </message>
+    <message>
+        <source>Zoom</source>
+        <translation type="unfinished">Skalering</translation>
+    </message>
+    <message>
+        <source>Preview</source>
+        <translation type="unfinished">Forhåndsvis</translation>
+    </message>
+    <message>
+        <source>Measurement</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Text Frames</source>
+        <translation type="unfinished">Tekstrammer</translation>
+    </message>
+    <message>
+        <source>Image Frames</source>
+        <translation type="unfinished">Bilderammer</translation>
+    </message>
+    <message>
+        <source>Document</source>
+        <translation type="unfinished">Dokument</translation>
+    </message>
+    <message>
+        <source>Grids and Guides</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -26137,7 +26517,7 @@ Former monitor profile will be used.</source>
     </message>
     <message>
         <source>Close</source>
-        <translation type="unfinished">Lukk</translation>
+        <translation type="obsolete">Lukk</translation>
     </message>
     <message>
         <source>Unknown</source>
@@ -26232,10 +26612,6 @@ Former monitor profile will be used.</source>
         <translation type="unfinished">Forhåndsvis</translation>
     </message>
     <message>
-        <source>Measures</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Text Frames</source>
         <translation type="unfinished">Tekstrammer</translation>
     </message>
@@ -26308,6 +26684,10 @@ Former monitor profile will be used.</source>
     <message>
         <source>C&amp;reate</source>
         <translation type="unfinished">&amp;Lag</translation>
+    </message>
+    <message>
+        <source>Measurement</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -26405,11 +26785,11 @@ Former monitor profile will be used.</source>
     </message>
     <message>
         <source>Stop the showing of the splashscreen on startup. Writes an empty file called .neversplash in ~/.scribus.</source>
-        <translation>ikke vis oppstartsbildet mer. Dette gjøres ved å lage en tom fil som heter .neversplash i mappa ~/.scribus.</translation>
+        <translation type="vanished">ikke vis oppstartsbildet mer. Dette gjøres ved å lage en tom fil som heter .neversplash i mappa ~/.scribus.</translation>
     </message>
     <message>
         <source>Download a file from the Scribus website and show the latest available version.</source>
-        <translation>Last ned en fil fra hjemmesiden til Scribus og vis hva som er siste tilgjengelige versjon.</translation>
+        <translation type="vanished">Last ned en fil fra hjemmesiden til Scribus og vis hva som er siste tilgjengelige versjon.</translation>
     </message>
     <message>
         <source>Display a console window</source>
@@ -26417,7 +26797,7 @@ Former monitor profile will be used.</source>
     </message>
     <message>
         <source>Show location ICC profile information on console while starting</source>
-        <translation type="unfinished">
+        <translation type="obsolete">
             </translation>
     </message>
     <message>
@@ -26434,6 +26814,18 @@ Former monitor profile will be used.</source>
     </message>
     <message>
         <source>Do not start GUI</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Stop showing the splashscreen on startup. Writes an empty file called .neversplash in ~/.scribus</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show location of ICC profile information on console while starting</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Download a file from the Scribus website and show the latest available version</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

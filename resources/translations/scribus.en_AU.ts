@@ -3076,11 +3076,11 @@ It is recommended that you enable this if you have photos in your document.</tra
     </message>
     <message>
         <source>New</source>
-        <translation>New</translation>
+        <translation type="vanished">New</translation>
     </message>
     <message>
         <source>Old</source>
-        <translation>Old</translation>
+        <translation type="vanished">Old</translation>
     </message>
     <message>
         <source>C:</source>
@@ -3096,7 +3096,7 @@ It is recommended that you enable this if you have photos in your document.</tra
     </message>
     <message>
         <source>K:</source>
-        <translation>K:</translation>
+        <translation type="vanished">K:</translation>
     </message>
     <message>
         <source>Dynamic Color Bars</source>
@@ -3124,15 +3124,15 @@ It is recommended that you enable this if you have photos in your document.</tra
     </message>
     <message>
         <source>&amp;Name:</source>
-        <translation>&amp;Name:</translation>
+        <translation type="vanished">&amp;Name:</translation>
     </message>
     <message>
         <source>Color &amp;Model</source>
-        <translation>Colour &amp;Model</translation>
+        <translation type="vanished">Colour &amp;Model</translation>
     </message>
     <message>
         <source>Is Spot Color</source>
-        <translation>Is Spot Colour</translation>
+        <translation type="vanished">Is Spot Colour</translation>
     </message>
     <message>
         <source>You cannot create a color named &quot;%1&quot;.
@@ -3171,6 +3171,89 @@ Please give it a name</translation>
 Please choose another one.</source>
         <translation>The name of the colour already exists.
 Please choose another one.</translation>
+    </message>
+    <message>
+        <source>Lab</source>
+        <translation>Lab</translation>
+    </message>
+    <message>
+        <source>HLC</source>
+        <translation>HLC</translation>
+    </message>
+    <message>
+        <source>L:</source>
+        <translation>L:</translation>
+    </message>
+    <message>
+        <source>a:</source>
+        <translation>a:</translation>
+    </message>
+    <message>
+        <source>b:</source>
+        <translation>b:</translation>
+    </message>
+    <message>
+        <source>H:</source>
+        <translation>H:</translation>
+    </message>
+</context>
+<context>
+    <name>CMYKChooseBase</name>
+    <message>
+        <source>Edit Color</source>
+        <translation>Edit Colour</translation>
+    </message>
+    <message>
+        <source>&amp;Name:</source>
+        <translation>&amp;Name:</translation>
+    </message>
+    <message>
+        <source>Color &amp;Model</source>
+        <translation>Colour &amp;Model</translation>
+    </message>
+    <message>
+        <source>Is Spot Color</source>
+        <translation>Is Spot Colour</translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation>OK</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation>Cancel</translation>
+    </message>
+    <message>
+        <source>New</source>
+        <translation>New</translation>
+    </message>
+    <message>
+        <source>Old</source>
+        <translation>Old</translation>
+    </message>
+    <message>
+        <source>C:</source>
+        <translation>C:</translation>
+    </message>
+    <message>
+        <source> %</source>
+        <translation> %</translation>
+    </message>
+    <message>
+        <source>...</source>
+        <translation>...</translation>
+    </message>
+    <message>
+        <source>M:</source>
+        <translation>M:</translation>
+    </message>
+    <message>
+        <source>Y:</source>
+        <translation>Y:</translation>
+    </message>
+    <message>
+        <source>K:</source>
+        <translation>K:</translation>
     </message>
 </context>
 <context>
@@ -5089,7 +5172,7 @@ currently %2 x %3 DPI</translation>
     </message>
     <message>
         <source>Curve Files &quot;*.scu&quot; (*.scu *.SCU);;All Files (*)</source>
-        <translation>Curve Files &quot;*.scu&quot; (*.scu *.SCU);;All Files (*)</translation>
+        <translation type="vanished">Curve Files &quot;*.scu&quot; (*.scu *.SCU);;All Files (*)</translation>
     </message>
     <message>
         <source>Save as</source>
@@ -5120,6 +5203,10 @@ currently %2 x %3 DPI</translation>
     <message>
         <source>Saves this curve</source>
         <translation>Saves this curve</translation>
+    </message>
+    <message>
+        <source>Curve Files (*.scu *.SCU);;All Files (*)</source>
+        <translation>Curve Files (*.scu *.SCU);;All Files (*)</translation>
     </message>
 </context>
 <context>
@@ -6091,6 +6178,27 @@ Use 72 dpi for Images intended for the Screen</translation>
     </message>
 </context>
 <context>
+    <name>FhPlug</name>
+    <message>
+        <source>Importing: %1</source>
+        <translation>Importing: %1</translation>
+    </message>
+    <message>
+        <source>Analyzing File:</source>
+        <translation>Analysing File:</translation>
+    </message>
+    <message>
+        <source>Parsing failed!
+
+Please submit your file (if possible) to the
+Document Liberation Project http://www.documentliberation.org</source>
+        <translation>Parsing failed!
+
+Please submit your file (if possible) to the
+Document Liberation Project http://www.documentliberation.org</translation>
+    </message>
+</context>
+<context>
     <name>FileLoader</name>
     <message>
         <source>Some fonts used by this document have been substituted:</source>
@@ -6222,7 +6330,7 @@ Use 72 dpi for Images intended for the Screen</translation>
     </message>
     <message>
         <source>Outline</source>
-        <translation type="unfinished">Outline</translation>
+        <translation>Outline</translation>
     </message>
 </context>
 <context>
@@ -6734,11 +6842,11 @@ Use 72 dpi for Images intended for the Screen</translation>
     </message>
     <message>
         <source>New Bookmark</source>
-        <translation>New Bookmark</translation>
+        <translation type="vanished">New Bookmark</translation>
     </message>
     <message>
         <source>New Bookmark&apos;s Title:</source>
-        <translation>New Bookmark&apos;s Title:</translation>
+        <translation type="vanished">New Bookmark&apos;s Title:</translation>
     </message>
     <message>
         <source>&amp;File</source>
@@ -6766,7 +6874,7 @@ Use 72 dpi for Images intended for the Screen</translation>
     </message>
     <message>
         <source>Loading Failed</source>
-        <translation>Loading Failed</translation>
+        <translation type="vanished">Loading Failed</translation>
     </message>
     <message>
         <source>&amp;Add Bookmark</source>
@@ -7153,15 +7261,15 @@ converting their vector data into Scribus objects.</translation>
     </message>
     <message>
         <source>Import Computer Graphics Metafile...</source>
-        <translation type="unfinished"></translation>
+        <translation>Import Computer Graphics Metafile...</translation>
     </message>
     <message>
         <source>Computer Graphics Metafile</source>
-        <translation type="unfinished"></translation>
+        <translation>Computer Graphics Metafile</translation>
     </message>
     <message>
         <source>Computer Graphics Metafile (*.cgm *.CGM)</source>
-        <translation type="unfinished"></translation>
+        <translation>Computer Graphics Metafile (*.cgm *.CGM)</translation>
     </message>
 </context>
 <context>
@@ -7186,16 +7294,17 @@ converting their vector data into Scribus objects.</translation>
     </message>
     <message>
         <source>Import Calamus Vector Graphics...</source>
-        <translation type="unfinished"></translation>
+        <translation>Import Calamus Vector Graphics...</translation>
     </message>
     <message>
         <source>Imports Calamus Vector Graphics Files</source>
-        <translation type="unfinished"></translation>
+        <translation>Imports Calamus Vector Graphics Files</translation>
     </message>
     <message>
         <source>Imports most Calamus Vector Graphics files into the current document,
 converting their vector data into Scribus objects.</source>
-        <translation type="unfinished"></translation>
+        <translation>Imports most Calamus Vector Graphics files into the current document,
+converting their vector data into Scribus objects.</translation>
     </message>
 </context>
 <context>
@@ -7236,15 +7345,15 @@ converting their vector data into Scribus objects.</translation>
     </message>
     <message>
         <source>Import Micrografx Draw...</source>
-        <translation type="unfinished"></translation>
+        <translation>Import Micrografx Draw...</translation>
     </message>
     <message>
         <source>Micrografx Draw</source>
-        <translation type="unfinished"></translation>
+        <translation>Micrografx Draw</translation>
     </message>
     <message>
         <source>Micrografx Draw (*.drw *.DRW)</source>
-        <translation type="unfinished"></translation>
+        <translation>Micrografx Draw (*.drw *.DRW)</translation>
     </message>
 </context>
 <context>
@@ -7277,15 +7386,44 @@ converting their vector data into Scribus objects.</translation>
     </message>
     <message>
         <source>Import Enhanced Metafile...</source>
-        <translation type="unfinished"></translation>
+        <translation>Import Enhanced Metafile...</translation>
     </message>
     <message>
         <source>Enhanced Metafile</source>
-        <translation type="unfinished"></translation>
+        <translation>Enhanced Metafile</translation>
     </message>
     <message>
         <source>Enhanced Metafile (*.emf *.EMF)</source>
-        <translation type="unfinished"></translation>
+        <translation>Enhanced Metafile (*.emf *.EMF)</translation>
+    </message>
+</context>
+<context>
+    <name>ImportFhPlugin</name>
+    <message>
+        <source>Import Freehand...</source>
+        <translation>Import Freehand...</translation>
+    </message>
+    <message>
+        <source>Freehand</source>
+        <translation>Freehand</translation>
+    </message>
+    <message>
+        <source>Freehand (*.fh* *.FH*)</source>
+        <translation>Freehand (*.fh* *.FH*)</translation>
+    </message>
+    <message>
+        <source>Imports Freehand Files</source>
+        <translation>Imports Freehand Files</translation>
+    </message>
+    <message>
+        <source>Imports most Freehand files into the current document,
+converting their vector data into Scribus objects.</source>
+        <translation>Imports most Freehand files into the current document,
+converting their vector data into Scribus objects.</translation>
+    </message>
+    <message>
+        <source>All Supported Formats</source>
+        <translation>All Supported Formats</translation>
     </message>
 </context>
 <context>
@@ -7461,16 +7599,17 @@ converting their vector data into Scribus objects.</translation>
     </message>
     <message>
         <source>Import Macintosh Pict...</source>
-        <translation type="unfinished"></translation>
+        <translation>Import Macintosh Pict...</translation>
     </message>
     <message>
         <source>Imports Macintosh Pict Files</source>
-        <translation type="unfinished"></translation>
+        <translation>Imports Macintosh Pict Files</translation>
     </message>
     <message>
         <source>Imports most Macintosh Pict files into the current document,
 converting their vector data into Scribus objects.</source>
-        <translation type="unfinished"></translation>
+        <translation>Imports most Macintosh Pict files into the current document,
+converting their vector data into Scribus objects.</translation>
     </message>
 </context>
 <context>
@@ -7747,16 +7886,17 @@ converting their vector data into Scribus objects.</translation>
     </message>
     <message>
         <source>Import WordPerfect Graphics...</source>
-        <translation type="unfinished"></translation>
+        <translation>Import WordPerfect Graphics...</translation>
     </message>
     <message>
         <source>Imports WordPerfect Graphics Files</source>
-        <translation type="unfinished"></translation>
+        <translation>Imports WordPerfect Graphics Files</translation>
     </message>
     <message>
         <source>Imports most WordPerfect Graphics files into the current document,
 converting their vector data into Scribus objects.</source>
-        <translation type="unfinished"></translation>
+        <translation>Imports most WordPerfect Graphics files into the current document,
+converting their vector data into Scribus objects.</translation>
     </message>
 </context>
 <context>
@@ -11667,6 +11807,16 @@ Often used for allowing items to be placed across page spreads</source>
     <message>
         <source>Generating Items</source>
         <translation>Generating Items</translation>
+    </message>
+    <message>
+        <source>Parsing failed!
+
+Please submit your file (if possible) to the
+Document Liberation Project http://www.documentliberation.org</source>
+        <translation>Parsing failed!
+
+Please submit your file (if possible) to the
+Document Liberation Project http://www.documentliberation.org</translation>
     </message>
 </context>
 <context>
@@ -16570,31 +16720,31 @@ A value of 0 means unlimited hyphenations.</translation>
     </message>
     <message>
         <source>Embedding mode:</source>
-        <translation type="unfinished"></translation>
+        <translation>Embedding mode:</translation>
     </message>
     <message>
         <source>Embed or Subset</source>
-        <translation type="unfinished"></translation>
+        <translation>Embed or Subset</translation>
     </message>
     <message>
         <source>Outline All Fonts</source>
-        <translation type="unfinished"></translation>
+        <translation>Outline All Fonts</translation>
     </message>
     <message>
         <source>Do Not Embed</source>
-        <translation type="unfinished"></translation>
+        <translation>Do Not Embed</translation>
     </message>
     <message>
         <source>Fonts to Subset</source>
-        <translation type="unfinished"></translation>
+        <translation>Fonts to Subset</translation>
     </message>
     <message>
         <source>Subset All</source>
-        <translation type="unfinished"></translation>
+        <translation>Subset All</translation>
     </message>
     <message>
         <source>Embed only subset fonts with glyphs used in the document into the PDF.</source>
-        <translation type="unfinished"></translation>
+        <translation>Embed only subset fonts with glyphs used in the document into the PDF.</translation>
     </message>
 </context>
 <context>
@@ -17542,6 +17692,14 @@ A value of 0 means unlimited hyphenations.</translation>
         <source>Background Color:</source>
         <translation>Background Colour:</translation>
     </message>
+    <message>
+        <source>Icon Set:</source>
+        <translation>Icon Set:</translation>
+    </message>
+    <message>
+        <source>Choose the default icon set</source>
+        <translation>Choose the default icon set</translation>
+    </message>
 </context>
 <context>
     <name>PresetLayout</name>
@@ -17992,6 +18150,14 @@ Note: PDF Forms will not be exported.</source>
     <message>
         <source>Use the clipping path of the image</source>
         <translation>Use the clipping path of the image</translation>
+    </message>
+    <message>
+        <source>Any path self-intersections or subpaths create holes in the fill.</source>
+        <translation>Any path self-intersections or subpaths create holes in the fill.</translation>
+    </message>
+    <message>
+        <source>Fill is solid unless a subpath is counterdirectional.</source>
+        <translation>Fill is solid unless a subpath is counterdirectional.</translation>
     </message>
 </context>
 <context>
@@ -18622,12 +18788,14 @@ Note: PDF Forms will not be exported.</source>
     <message>
         <source>Content covers
 Drop Shadow</source>
-        <translation type="unfinished"></translation>
+        <translation>Content covers
+Drop Shadow</translation>
     </message>
     <message>
         <source>Inherit Object
 Transparency</source>
-        <translation type="unfinished"></translation>
+        <translation>Inherit Object
+Transparency</translation>
     </message>
 </context>
 <context>
@@ -18805,11 +18973,19 @@ Transparency</source>
     </message>
     <message>
         <source>This rule determines the &amp;quot;insideness&amp;quot; of a point on the canvas by drawing a ray from that point to infinity in any direction and counting the number of path segments from the given shape that the ray crosses. If this number is odd, the point is inside, if even, the point is outside.</source>
-        <translation>This rule determines the &amp;quot;insideness&amp;quot; of a point on the canvas by drawing a ray from that point to infinity in any direction and counting the number of path segments from the given shape that the ray crosses. If this number is odd, the point is inside, if even, the point is outside.</translation>
+        <translation type="vanished">This rule determines the &amp;quot;insideness&amp;quot; of a point on the canvas by drawing a ray from that point to infinity in any direction and counting the number of path segments from the given shape that the ray crosses. If this number is odd, the point is inside, if even, the point is outside.</translation>
     </message>
     <message>
         <source>This rule determines the &amp;quot;insideness&amp;quot; of a point on the canvas by drawing a ray from that point to infinity in any direction and then examining the places where a segment of the shape crosses the ray. Starting with a count of zero, add one each time a path segment crosses the ray from left to right and subtract one each time a path segment crosses the ray from right to left. If the result is zero then the point is outside the path. Otherwise, it is inside.</source>
-        <translation>This rule determines the &amp;quot;insideness&amp;quot; of a point on the canvas by drawing a ray from that point to infinity in any direction and then examining the places where a segment of the shape crosses the ray. Starting with a count of zero, add one each time a path segment crosses the ray from left to right and subtract one each time a path segment crosses the ray from right to left. If the result is zero then the point is outside the path. Otherwise, it is inside.</translation>
+        <translation type="vanished">This rule determines the &amp;quot;insideness&amp;quot; of a point on the canvas by drawing a ray from that point to infinity in any direction and then examining the places where a segment of the shape crosses the ray. Starting with a count of zero, add one each time a path segment crosses the ray from left to right and subtract one each time a path segment crosses the ray from right to left. If the result is zero then the point is outside the path. Otherwise, it is inside.</translation>
+    </message>
+    <message>
+        <source>Any path self-intersections or subpaths create holes in the fill.</source>
+        <translation>Any path self-intersections or subpaths create holes in the fill.</translation>
+    </message>
+    <message>
+        <source>Fill is solid unless a subpath is counterdirectional.</source>
+        <translation>Fill is solid unless a subpath is counterdirectional.</translation>
     </message>
 </context>
 <context>
@@ -23041,7 +23217,7 @@ Therefore the image may be not correct</source>
     </message>
     <message>
         <source>CustomShapes</source>
-        <translation>CustomShapes</translation>
+        <translation type="vanished">CustomShapes</translation>
     </message>
     <message>
         <source>Encapsulated PostScript</source>
@@ -23094,23 +23270,27 @@ Therefore the image may be not correct</source>
     <message>
         <source>&lt;fontEmbedding&gt; invalid</source>
         <comment>Load PDF settings</comment>
-        <translation type="unfinished"></translation>
+        <translation>&lt;fontEmbedding&gt; invalid</translation>
     </message>
     <message>
         <source>Calamus Vector Graphics Importer</source>
-        <translation type="unfinished"></translation>
+        <translation>Calamus Vector Graphics Importer</translation>
     </message>
     <message>
         <source>Calamus Vector Graphics</source>
-        <translation type="unfinished"></translation>
+        <translation>Calamus Vector Graphics</translation>
     </message>
     <message>
         <source>WordPerfect Graphics</source>
-        <translation type="unfinished"></translation>
+        <translation>WordPerfect Graphics</translation>
     </message>
     <message>
         <source>Qt Supported File</source>
-        <translation type="unfinished"></translation>
+        <translation>Qt Supported File</translation>
+    </message>
+    <message>
+        <source>Freehand Importer</source>
+        <translation>Freehand Importer</translation>
     </message>
 </context>
 <context>
@@ -23841,7 +24021,7 @@ Please choose another.</translation>
     </message>
     <message>
         <source>Distances and Alignment</source>
-        <translation>Distances and Alignment</translation>
+        <translation type="vanished">Distances and Alignment</translation>
     </message>
     <message>
         <source>Drop Caps</source>
@@ -24869,7 +25049,7 @@ converting their vector data into Scribus objects.</translation>
     <message>
         <source>None</source>
         <comment>highlight</comment>
-        <translation>None</translation>
+        <translation type="vanished">None</translation>
     </message>
     <message>
         <source>Invert</source>
@@ -25078,7 +25258,7 @@ converting their vector data into Scribus objects.</translation>
     </message>
     <message>
         <source>Plain</source>
-        <translation>Plain</translation>
+        <translation type="vanished">Plain</translation>
     </message>
     <message>
         <source>Number</source>
@@ -25480,6 +25660,170 @@ converting their vector data into Scribus objects.</translation>
         <source>Show/Hide Signatures</source>
         <translation>Show/Hide Signatures</translation>
     </message>
+    <message>
+        <source>Courier</source>
+        <translation>Courier</translation>
+    </message>
+    <message>
+        <source>Courier Bold</source>
+        <translation>Courier Bold</translation>
+    </message>
+    <message>
+        <source>Courier Italic</source>
+        <translation>Courier Italic</translation>
+    </message>
+    <message>
+        <source>Courier Bold Italic</source>
+        <translation>Courier Bold Italic</translation>
+    </message>
+    <message>
+        <source>Helvetica</source>
+        <translation>Helvetica</translation>
+    </message>
+    <message>
+        <source>Helvetica Bold</source>
+        <translation>Helvetica Bold</translation>
+    </message>
+    <message>
+        <source>Helvetica Italic</source>
+        <translation>Helvetica Italic</translation>
+    </message>
+    <message>
+        <source>Helvetica Bold Italic</source>
+        <translation>Helvetica Bold Italic</translation>
+    </message>
+    <message>
+        <source>Times</source>
+        <translation>Times</translation>
+    </message>
+    <message>
+        <source>Times Bold</source>
+        <translation>Times Bold</translation>
+    </message>
+    <message>
+        <source>Times Italic</source>
+        <translation>Times Italic</translation>
+    </message>
+    <message>
+        <source>Times Bold Italic</source>
+        <translation>Times Bold Italic</translation>
+    </message>
+    <message>
+        <source>Zapf Dingbats</source>
+        <translation>Zapf Dingbats</translation>
+    </message>
+    <message>
+        <source>Symbols</source>
+        <translation>Symbols</translation>
+    </message>
+    <message>
+        <source>Plain Text</source>
+        <translation>Plain Text</translation>
+    </message>
+    <message>
+        <source>9,999.99</source>
+        <translation>9,999.99</translation>
+    </message>
+    <message>
+        <source>9.999,99</source>
+        <translation>9.999,99</translation>
+    </message>
+    <message>
+        <source>9999.99</source>
+        <translation>9999.99</translation>
+    </message>
+    <message>
+        <source>9999,99</source>
+        <translation>9999,99</translation>
+    </message>
+    <message>
+        <source>m/d</source>
+        <translation>m/d</translation>
+    </message>
+    <message>
+        <source>m/d/yy</source>
+        <translation>m/d/yy</translation>
+    </message>
+    <message>
+        <source>mm/dd/yy</source>
+        <translation>mm/dd/yy</translation>
+    </message>
+    <message>
+        <source>mm/yy</source>
+        <translation>mm/yy</translation>
+    </message>
+    <message>
+        <source>d-mmm</source>
+        <translation>d-mmm</translation>
+    </message>
+    <message>
+        <source>d-mmm-yy</source>
+        <translation>d-mmm-yy</translation>
+    </message>
+    <message>
+        <source>dd-mmm-yy</source>
+        <translation>dd-mmm-yy</translation>
+    </message>
+    <message>
+        <source>dd/mm/yy</source>
+        <translation>dd/mm/yy</translation>
+    </message>
+    <message>
+        <source>dd/mm/yyyy</source>
+        <translation>dd/mm/yyyy</translation>
+    </message>
+    <message>
+        <source>dd.mm.yyyy</source>
+        <translation>dd.mm.yyyy</translation>
+    </message>
+    <message>
+        <source>yy-mm-dd</source>
+        <translation>yy-mm-dd</translation>
+    </message>
+    <message>
+        <source>mmm-yy</source>
+        <translation>mmm-yy</translation>
+    </message>
+    <message>
+        <source>mmmm-yy</source>
+        <translation>mmmm-yy</translation>
+    </message>
+    <message>
+        <source>mmm d, yyyy</source>
+        <translation>mmm d, yyyy</translation>
+    </message>
+    <message>
+        <source>mmmm d, yyyy</source>
+        <translation>mmmm d, yyyy</translation>
+    </message>
+    <message>
+        <source>m/d/yy h:MM tt</source>
+        <translation>m/d/yy h:MM tt</translation>
+    </message>
+    <message>
+        <source>m/d/yy HH:MM</source>
+        <translation>m/d/yy HH:MM</translation>
+    </message>
+    <message>
+        <source>yyyy-mm-dd</source>
+        <translation>yyyy-mm-dd</translation>
+    </message>
+    <message>
+        <source>HH:MM</source>
+        <translation>HH:MM</translation>
+    </message>
+    <message>
+        <source>h:MM tt</source>
+        <translation>h:MM tt</translation>
+    </message>
+    <message>
+        <source>HH:MM:ss</source>
+        <translation>HH:MM:ss</translation>
+    </message>
+    <message>
+        <source>h:MM:ss tt</source>
+        <translation>h:MM:ss tt</translation>
+    </message>
 </context>
 <context>
     <name>ScGTFileDialog</name>
@@ -25584,6 +25928,74 @@ converting their vector data into Scribus objects.</translation>
     <message>
         <source>C&amp;onvert to</source>
         <translation>C&amp;onvert to</translation>
+    </message>
+    <message>
+        <source>Duplicate/Transform</source>
+        <translation>Duplicate/Transform</translation>
+    </message>
+    <message>
+        <source>Grouping</source>
+        <translation>Grouping</translation>
+    </message>
+    <message>
+        <source>Locking</source>
+        <translation>Locking</translation>
+    </message>
+    <message>
+        <source>Send to</source>
+        <translation>Send to</translation>
+    </message>
+    <message>
+        <source>Scrapbook</source>
+        <translation>Scrapbook</translation>
+    </message>
+    <message>
+        <source>Adjust</source>
+        <translation>Adjust</translation>
+    </message>
+    <message>
+        <source>Image</source>
+        <translation>Image</translation>
+    </message>
+    <message>
+        <source>Text Frame Links</source>
+        <translation>Text Frame Links</translation>
+    </message>
+    <message>
+        <source>Welding</source>
+        <translation>Welding</translation>
+    </message>
+    <message>
+        <source>Marks</source>
+        <translation>Marks</translation>
+    </message>
+    <message>
+        <source>Zoom</source>
+        <translation>Zoom</translation>
+    </message>
+    <message>
+        <source>Preview</source>
+        <translation>Preview</translation>
+    </message>
+    <message>
+        <source>Measurement</source>
+        <translation>Measurement</translation>
+    </message>
+    <message>
+        <source>Text Frames</source>
+        <translation>Text Frames</translation>
+    </message>
+    <message>
+        <source>Image Frames</source>
+        <translation>Image Frames</translation>
+    </message>
+    <message>
+        <source>Document</source>
+        <translation>Document</translation>
+    </message>
+    <message>
+        <source>Grids and Guides</source>
+        <translation>Grids and Guides</translation>
     </message>
 </context>
 <context>
@@ -26146,7 +26558,7 @@ Consider using the Preflight Verifier to correct them</translation>
     </message>
     <message>
         <source>Close</source>
-        <translation>Close</translation>
+        <translation type="vanished">Close</translation>
     </message>
     <message>
         <source>Unknown</source>
@@ -26242,7 +26654,7 @@ Consider using the Preflight Verifier to correct them</translation>
     </message>
     <message>
         <source>Measures</source>
-        <translation>Measures</translation>
+        <translation type="vanished">Measures</translation>
     </message>
     <message>
         <source>Text Frames</source>
@@ -26315,6 +26727,10 @@ Consider using the Preflight Verifier to correct them</translation>
     <message>
         <source>C&amp;reate</source>
         <translation>C&amp;reate</translation>
+    </message>
+    <message>
+        <source>Measurement</source>
+        <translation>Measurement</translation>
     </message>
 </context>
 <context>
@@ -26409,11 +26825,11 @@ Consider using the Preflight Verifier to correct them</translation>
     </message>
     <message>
         <source>Stop the showing of the splashscreen on startup. Writes an empty file called .neversplash in ~/.scribus.</source>
-        <translation>Stop the showing of the splashscreen on startup. Writes an empty file called .neversplash in ~/.scribus.</translation>
+        <translation type="vanished">Stop the showing of the splashscreen on startup. Writes an empty file called .neversplash in ~/.scribus.</translation>
     </message>
     <message>
         <source>Download a file from the Scribus website and show the latest available version.</source>
-        <translation>Download a file from the Scribus website and show the latest available version.</translation>
+        <translation type="vanished">Download a file from the Scribus website and show the latest available version.</translation>
     </message>
     <message>
         <source>Display a console window</source>
@@ -26421,7 +26837,7 @@ Consider using the Preflight Verifier to correct them</translation>
     </message>
     <message>
         <source>Show location ICC profile information on console while starting</source>
-        <translation>Show location ICC profile information on console while starting</translation>
+        <translation type="vanished">Show location ICC profile information on console while starting</translation>
     </message>
     <message>
         <source>Invalid argument: %1</source>
@@ -26438,6 +26854,18 @@ Consider using the Preflight Verifier to correct them</translation>
     <message>
         <source>Do not start GUI</source>
         <translation>Do not start GUI</translation>
+    </message>
+    <message>
+        <source>Stop showing the splashscreen on startup. Writes an empty file called .neversplash in ~/.scribus</source>
+        <translation>Stop showing the splashscreen on startup. Writes an empty file called .neversplash in ~/.scribus</translation>
+    </message>
+    <message>
+        <source>Show location of ICC profile information on console while starting</source>
+        <translation>Show location of ICC profile information on console while starting</translation>
+    </message>
+    <message>
+        <source>Download a file from the Scribus website and show the latest available version</source>
+        <translation>Download a file from the Scribus website and show the latest available version</translation>
     </message>
 </context>
 <context>
@@ -28634,31 +29062,31 @@ when PDF document is opened:</translation>
     </message>
     <message>
         <source>Embedding Mode:</source>
-        <translation type="unfinished"></translation>
+        <translation>Embedding Mode:</translation>
     </message>
     <message>
         <source>Embed or Subset</source>
-        <translation type="unfinished"></translation>
+        <translation>Embed or Subset</translation>
     </message>
     <message>
         <source>Outline All Fonts</source>
-        <translation type="unfinished"></translation>
+        <translation>Outline All Fonts</translation>
     </message>
     <message>
         <source>Do Not Embed</source>
-        <translation type="unfinished"></translation>
+        <translation>Do Not Embed</translation>
     </message>
     <message>
         <source>Fonts to subset:</source>
-        <translation type="unfinished"></translation>
+        <translation>Fonts to subset:</translation>
     </message>
     <message>
         <source>&amp;Subset all</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Subset all</translation>
     </message>
     <message>
         <source>Embed only subset fonts with glyphs used in the document into the PDF.</source>
-        <translation type="unfinished"></translation>
+        <translation>Embed only subset fonts with glyphs used in the document into the PDF.</translation>
     </message>
 </context>
 <context>
