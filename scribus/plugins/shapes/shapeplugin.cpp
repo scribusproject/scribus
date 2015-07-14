@@ -82,7 +82,7 @@ void ShapePlugin::addToMainWindowMenu(ScribusMainWindow* mw)
 
 const QString ShapePlugin::fullTrName() const
 {
-	return QObject::tr("CustomShapes");
+	return QObject::tr("Custom Shapes");
 }
 
 const ScActionPlugin::AboutData* ShapePlugin::getAboutData() const
