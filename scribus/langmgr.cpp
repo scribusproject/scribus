@@ -394,8 +394,8 @@ void LanguageManager::fillInstalledGUIStringList(QStringList *stringListToFill, 
 			if (langTable[i].m_transAvailable)
 				stringListToFill->append(langTable[i].m_transName);
 		}
+		stringListToFill->sort();
 	}
-	stringListToFill->sort();
 }
 
 void LanguageManager::fillInstalledHyphStringList(QStringList *stringListToFill)

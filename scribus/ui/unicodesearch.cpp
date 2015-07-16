@@ -117,6 +117,16 @@ UnicodeSearchModel::~UnicodeSearchModel()
 {
 }
 
+QString UnicodeSearchModel::descriptionFromHex(const QString& hex)
+{
+	foreach( UnicodeStruct I, m_unicode )
+	{
+		if ( I.hex == hex )
+			return I.description;
+	}
+	return QString();
+}
+
 int UnicodeSearchModel::rowCount(const QModelIndex & /*parent*/) const
 {
 	return m_unicode.count();

@@ -10,6 +10,7 @@ for which a new license (GPL+exception) is in place.
 #include "scribusapi.h"
 #include "scrpalettebase.h"
 #include "chartablemodel.h"
+#include "unicodesearch.h"
 #include "ui_charselect.h"
 
 class PageItem;
@@ -64,6 +65,7 @@ private:
 	ScribusDoc* m_doc;
 	//! \brief m_userTable model
 	CharTableModel * m_userTableModel;
+	UnicodeSearchModel *m_unicodeSearchModel;
 
 	CharSelectEnhanced * m_enhanced;
 
@@ -86,6 +88,7 @@ private slots:
 	void slot_insertSpecialChar();
 	void slot_insertSpecialChars(const QString & chars);
 	void slot_insertUserSpecialChar(QChar, QString font);
+	void slot_selectionChanged( const QItemSelection&, const QItemSelection& );
 	void uniLoadButton_clicked();
 	void uniSaveButton_clicked();
 	void uniClearButton_clicked();

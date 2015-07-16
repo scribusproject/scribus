@@ -82,6 +82,9 @@ class UnicodeSearchModel : public QAbstractTableModel
 		//! \brief Return hex-key for the row of given index. See m_keys.
 		QString hexData(const QModelIndex & index);
 
+		//! \brief Return character unicode description from hex code
+		QString descriptionFromHex(const QString& hex);
+
 	private:
 
 		//! \brief Easier to use QPair-like replacement
