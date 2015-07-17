@@ -12,8 +12,8 @@ for which a new license (GPL+exception) is in place.
 *   (at your option) any later version.                                   *
 *                                                                         *
 ***************************************************************************/
-#ifndef ADAPT_H
-#define ADAPTC_H
+#ifndef ADAPTERWIDGET_H
+#define ADAPTERWIDGET_H
 
 #include <QtCore>
 #include <QtGui>
