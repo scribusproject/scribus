@@ -43,6 +43,11 @@ UndoGui::UndoGui(QWidget* parent, const char* name, Qt::WindowFlags f) : ScDockP
 	setWindowTitle( tr("Action History"));
 }
 
+void UndoGui::languageChange()
+{
+	setWindowTitle( tr("Action History"));
+}
+
 /*** UndoWidget ***************************************************************/
 
 UndoWidget::UndoWidget(QWidget* parent, const char* name) : UndoGui(parent, name)
@@ -307,11 +312,13 @@ void UndoPalette::changeEvent(QEvent *e)
 		languageChange();
 	}
 	else
-		QWidget::changeEvent(e);
+		UndoGui::changeEvent(e);
 }
 
 void UndoPalette::languageChange()
 {
+	UndoGui::languageChange();
+
 	objectBox->setText( tr("Show Selected Object Only"));
 	undoButton->setText( tr("&Undo"));
 	redoButton->setText( tr("&Redo"));

@@ -74,6 +74,9 @@ public:
 
 	/** @brief Empties the undo stack representation. */
 	virtual void clear() = 0;
+
+	/** @brief Sets GUI strings on language change */
+	virtual void languageChange();
 	
 public slots:
 	/**
