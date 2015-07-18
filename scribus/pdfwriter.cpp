@@ -347,7 +347,7 @@ namespace Pdf
 			result.append("0123456789ABCDEF"[v / 16]);
 			result.append("0123456789ABCDEF"[v % 16]);
 			if (i % linelength == linelength-1)
-				result.append("\\\n");
+				result.append("\n");
 		}
 		result.append(">");
 		return result;
