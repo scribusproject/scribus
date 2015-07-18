@@ -514,6 +514,7 @@ void ScribusQApp::showUsage()
 	std::cout << "QT specific options as -display ..." ; endl(ts);
 */
 	endl(ts);
+	f.close();
 }
 
 void ScribusQApp::showAvailLangs()

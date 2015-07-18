@@ -22,10 +22,12 @@ for which a new license (GPL+exception) is in place.
 #include <iostream>
 #include <QDebug>
 #include <QDir>
+#include <QFile>
 #include <QFileInfo>
 #include <QMap>
 #include <QObject>
 #include <QStringList> 
+#include <QTextStream>
 
 #include "scconfig.h"
 #include "langmgr.h"
@@ -428,8 +430,16 @@ QStringList LanguageManager::languageList(bool getTranslated)
 
 void LanguageManager::printInstalledList()
 {
+	QFile f;
+	f.open(stderr, QIODevice::WriteOnly);
+	QTextStream ts(&f);
 	for (int i = 0; i < langTable.size(); ++i)
-		qDebug() << langTable[i].m_priAbbrev.leftJustified(6) << ": " << langTable[i].m_name;
+	{
+		ts << "  " << langTable[i].m_priAbbrev.leftJustified(8) << ": " << langTable[i].m_name;
+		endl(ts);
+	}
+	endl(ts);
+	f.close();
 }
 
 QString LanguageManager::numericSequence(QString seq)
