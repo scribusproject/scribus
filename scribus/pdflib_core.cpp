@@ -3569,32 +3569,19 @@ QByteArray PDFLibCore::Write_FormXObject(QByteArray &data, PageItem *controlItem
 	double maxBoxY = ActPageP->height()+Options.bleeds.top()+Options.bleeds.bottom();
 	if (controlItem != NULL)
 	{
-		double scaleW, scaleH;
+		double groupW, groupH;
 		if (controlItem->isGroup())
 		{
-			if (controlItem->groupWidth > controlItem->width())
-				scaleW = controlItem->groupWidth / controlItem->width();
-			else
-				scaleW = 1.0 / (controlItem->groupWidth / controlItem->width());
-			if (controlItem->groupHeight > controlItem->height())
-				scaleH = controlItem->groupHeight / controlItem->height();
-			else
-				scaleH = 1.0 / (controlItem->groupHeight / controlItem->height());
-		//	PutDoc("/BBox [ "+FToStr(0)+" "+FToStr(-controlItem->height() * scaleH)+" "+FToStr(controlItem->groupWidth * scaleW)+" "+FToStr(controlItem->groupHeight * scaleH)+" ]\n");
-			PutDoc("/BBox [ "+FToStr(0)+" "+FToStr(-controlItem->height() * scaleH)+" "+FToStr(ActPageP->width())+" "+FToStr(controlItem->groupHeight * scaleH)+" ]\n");
+			groupW = std::max(ActPageP->width(), std::max(controlItem->groupWidth,  controlItem->width()));
+			groupH = std::max(controlItem->groupHeight, controlItem->height());
+			PutDoc("/BBox [ "+FToStr(0)+" "+FToStr(-groupH)+" "+FToStr(groupW)+" "+FToStr(groupH)+" ]\n");
 		}
 		if (controlItem->isSymbol())
 		{
 			ScPattern pat = doc.docPatterns[controlItem->pattern()];
-			if (pat.width > controlItem->width())
-				scaleW = pat.width / controlItem->width();
-			else
-				scaleW = 1.0 / (pat.width / controlItem->width());
-			if (pat.height > controlItem->height())
-				scaleH = pat.height / controlItem->height();
-			else
-				scaleH = 1.0 / (pat.height / controlItem->height());
-			PutDoc("/BBox [ "+FToStr(0)+" "+FToStr(-controlItem->height() * scaleH)+" "+FToStr(pat.width * scaleW)+" "+FToStr(pat.height * scaleH)+" ]\n");
+			groupW = std::max(pat.width,  controlItem->width());
+			groupH = std::max(pat.height, controlItem->height());
+			PutDoc("/BBox [ "+FToStr(0)+" "+FToStr(-groupH)+" "+FToStr(groupW)+" "+FToStr(groupH)+" ]\n");
 		}
 	}
 	else
@@ -3668,32 +3655,19 @@ QByteArray PDFLibCore::Write_TransparencyGroup(double trans, int blend, QByteArr
 	double maxBoxY = ActPageP->height()+Options.bleeds.top()+Options.bleeds.bottom();
 	if (controlItem != NULL)
 	{
-		double scaleW, scaleH;
+		double groupW, groupH;
 		if (controlItem->isGroup())
 		{
-			if (controlItem->groupWidth > controlItem->width())
-				scaleW = controlItem->groupWidth / controlItem->width();
-			else
-				scaleW = 1.0 / (controlItem->groupWidth / controlItem->width());
-			if (controlItem->groupHeight > controlItem->height())
-				scaleH = controlItem->groupHeight / controlItem->height();
-			else
-				scaleH = 1.0 / (controlItem->groupHeight / controlItem->height());
-		//	PutDoc("/BBox [ "+FToStr(0)+" "+FToStr(-controlItem->height() * scaleH)+" "+FToStr(controlItem->groupWidth * scaleW)+" "+FToStr(controlItem->groupHeight * scaleH)+" ]\n");
-			PutDoc("/BBox [ "+FToStr(0)+" "+FToStr(-controlItem->height() * scaleH)+" "+FToStr(ActPageP->width())+" "+FToStr(controlItem->groupHeight * scaleH)+" ]\n");
+			groupW = std::max(ActPageP->width(), std::max(controlItem->groupWidth,  controlItem->width()));
+			groupH = std::max(controlItem->groupHeight, controlItem->height());
+			PutDoc("/BBox [ "+FToStr(0)+" "+FToStr(-groupH)+" "+FToStr(groupW)+" "+FToStr(groupH)+" ]\n");
 		}
 		if (controlItem->isSymbol())
 		{
 			ScPattern pat = doc.docPatterns[controlItem->pattern()];
-			if (pat.width > controlItem->width())
-				scaleW = pat.width / controlItem->width();
-			else
-				scaleW = 1.0 / (pat.width / controlItem->width());
-			if (pat.height > controlItem->height())
-				scaleH = pat.height / controlItem->height();
-			else
-				scaleH = 1.0 / (pat.height / controlItem->height());
-			PutDoc("/BBox [ "+FToStr(0)+" "+FToStr(-controlItem->height() * scaleH)+" "+FToStr(pat.width * scaleW)+" "+FToStr(pat.height * scaleH)+" ]\n");
+			groupW = std::max(pat.width,  controlItem->width());
+			groupH = std::max(pat.height, controlItem->height());
+			PutDoc("/BBox [ "+FToStr(0)+" "+FToStr(-groupH)+" "+FToStr(groupW)+" "+FToStr(groupH)+" ]\n");
 		}
 	}
 	else
