@@ -1634,7 +1634,7 @@ void SlaOutputDev::fill(GfxState *state)
 	FPoint wh = out.WidthHeight();
 	if ((out.size() > 3) && ((wh.x() != 0.0) || (wh.y() != 0.0)))
 	{
-		CurrColorFill = getColor(state->getFillColorSpace(), state->getFillColor(), &CurrFillShade);
+//		CurrColorFill = getColor(state->getFillColorSpace(), state->getFillColor(), &CurrFillShade);
 		int z;
 		if (pathIsClosed)
 			z = m_doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, xCoor, yCoor, 10, 10, 0, CurrColorFill, CommonStrings::None, true);
@@ -1679,7 +1679,7 @@ void SlaOutputDev::eoFill(GfxState *state)
 	FPoint wh = out.WidthHeight();
 	if ((out.size() > 3) && ((wh.x() != 0.0) || (wh.y() != 0.0)))
 	{
-		CurrColorFill = getColor(state->getFillColorSpace(), state->getFillColor(), &CurrFillShade);
+//		CurrColorFill = getColor(state->getFillColorSpace(), state->getFillColor(), &CurrFillShade);
 		int z;
 		if (pathIsClosed)
 			z = m_doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, xCoor, yCoor, 10, 10, 0, CurrColorFill, CommonStrings::None, true);
