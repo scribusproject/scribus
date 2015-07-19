@@ -2339,16 +2339,16 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Spell Checker Plugin Failed to Initialise.
+        <source>No Aspell dictionaries could be found.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Spell Checker Plugin Failed to Initialize.
 Configuration invalid</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Spell Checker Plugin Failed to Initialise.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>No Aspell dictionaries could be found.</source>
+        <source>Spell Checker Plugin Failed to Initialize.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -3657,6 +3657,10 @@ Document Liberation Project http://www.documentliberation.org</source>
     </message>
     <message>
         <source>Empty the Character Palette</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Font: %2</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

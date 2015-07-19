@@ -103,14 +103,14 @@ AspellPluginImpl::AspellPluginImpl(ScribusDoc* doc, QWidget* parent) :
 	}
 	catch( const std::invalid_argument& err )
 	{
-		QString warn = tr( "Spell Checker Plugin Failed to Initialise.\nConfiguration invalid" );
+		QString warn = tr( "Spell Checker Plugin Failed to Initialize.\nConfiguration invalid" );
 		qWarning()<<warn.toUtf8().data();
 		if (m_errorMessage.isEmpty())
 			m_errorMessage=warn;
 	}
 	catch( const std::runtime_error& err )
 	{
-		QString warn = tr( "Spell Checker Plugin Failed to Initialise.");
+		QString warn = tr( "Spell Checker Plugin Failed to Initialize.");
 		if (dictCount==0)
 			warn+="\n"+tr( "No Aspell dictionaries could be found." );
 		qWarning()<<warn.toUtf8().data();

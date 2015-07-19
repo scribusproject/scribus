@@ -446,7 +446,7 @@
     </message>
     <message>
         <source>Raize to &amp;Top</source>
-        <translation>Raize to &amp;Top</translation>
+        <translation type="vanished">Raize to &amp;Top</translation>
     </message>
     <message>
         <source>&amp;Lower</source>
@@ -454,7 +454,7 @@
     </message>
     <message>
         <source>&amp;Raize</source>
-        <translation>&amp;Raize</translation>
+        <translation type="vanished">&amp;Raize</translation>
     </message>
     <message>
         <source>&amp;Attributes...</source>
@@ -1697,6 +1697,14 @@
         <source>&amp;Resources</source>
         <translation>&amp;Resources</translation>
     </message>
+    <message>
+        <source>Raise to &amp;Top</source>
+        <translation>Raise to &amp;Top</translation>
+    </message>
+    <message>
+        <source>&amp;Raise</source>
+        <translation>&amp;Raise</translation>
+    </message>
 </context>
 <context>
     <name>AdjustCmsDialog</name>
@@ -2356,6 +2364,16 @@ Configuration invalid</translation>
         <source>No Aspell dictionaries could be found.</source>
         <translation>No Aspell dictionaries could be found.</translation>
     </message>
+    <message>
+        <source>Spell Checker Plugin Failed to Initialise.
+Configuration invalid</source>
+        <translation type="vanished">Spell Checker Plugin Failed to Initialise.
+Configuration invalid</translation>
+    </message>
+    <message>
+        <source>Spell Checker Plugin Failed to Initialise.</source>
+        <translation type="vanished">Spell Checker Plugin Failed to Initialise.</translation>
+    </message>
 </context>
 <context>
     <name>AutoformButtonGroup</name>
@@ -2686,7 +2704,11 @@ Configuration invalid</translation>
     </message>
     <message>
         <source>Minimum error checking; raized opportunistically if size of symbol is not increased</source>
-        <translation>Minimum error checking; raized opportunistically if size of symbol is not increased</translation>
+        <translation type="vanished">Minimum error checking; raized opportunistically if size of symbol is not increased</translation>
+    </message>
+    <message>
+        <source>Minimum error checking; raised opportunistically if size of symbol is not increased</source>
+        <translation>Minimum error checking; raised opportunistically if size of symbol is not increased</translation>
     </message>
 </context>
 <context>
@@ -3671,6 +3693,10 @@ Document Liberation Project http://www.documentliberation.org</translation>
     <message>
         <source>Empty the Character Palette</source>
         <translation>Empty the Character Palette</translation>
+    </message>
+    <message>
+        <source>Font: %2</source>
+        <translation>Font: %2</translation>
     </message>
 </context>
 <context>
@@ -28680,7 +28706,7 @@ Consider using the Preflight Verifier to correct them</translation>
     </message>
     <message>
         <source>This is an advanced setting which is not enabled by default. This should only be enabled when specifically requested by your printer and they have given you the exact details needed. Otherwize, your exported PDF may not print properly and is truly not portable across systems.</source>
-        <translation>This is an advanced setting which is not enabled by default. This should only be enabled when specifically requested by your printer and they have given you the exact details needed. Otherwize, your exported PDF may not print properly and is truly not portable across systems.</translation>
+        <translation type="vanished">This is an advanced setting which is not enabled by default. This should only be enabled when specifically requested by your printer and they have given you the exact details needed. Otherwize, your exported PDF may not print properly and is truly not portable across systems.</translation>
     </message>
     <message>
         <source>Display Settings</source>
@@ -29087,6 +29113,10 @@ when PDF document is opened:</translation>
     <message>
         <source>Embed only subset fonts with glyphs used in the document into the PDF.</source>
         <translation>Embed only subset fonts with glyphs used in the document into the PDF.</translation>
+    </message>
+    <message>
+        <source>This is an advanced setting which is not enabled by default. This should only be enabled when specifically requested by your printer and they have given you the exact details needed. Otherwise, your exported PDF may not print properly and is truly not portable across systems.</source>
+        <translation>This is an advanced setting which is not enabled by default. This should only be enabled when specifically requested by your printer and they have given you the exact details needed. Otherwise, your exported PDF may not print properly and is truly not portable across systems.</translation>
     </message>
 </context>
 <context>
@@ -29820,7 +29850,7 @@ to %2</translation>
     </message>
     <message>
         <source>Raize layer</source>
-        <translation>Raize layer</translation>
+        <translation type="vanished">Raize layer</translation>
     </message>
     <message>
         <source>Lower layer</source>
@@ -30339,6 +30369,10 @@ X: %4, Y: %5</translation>
     <message>
         <source>Unweld Items</source>
         <translation>Unweld Items</translation>
+    </message>
+    <message>
+        <source>Raise layer</source>
+        <translation>Raise layer</translation>
     </message>
 </context>
 <context>
