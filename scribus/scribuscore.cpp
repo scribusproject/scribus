@@ -166,7 +166,7 @@ int ScribusCore::initScribusCore(bool showSplash, bool showFontInfo, bool showPr
 	setSplashStatus( tr("Initializing Keyboard Shortcuts") );
 	prefsManager->initDefaultActionKeys();
 	setSplashStatus( tr("Reading Preferences") );
-	if (prefsUserFile.isNull())
+	if (prefsUserFile.isEmpty())
 		prefsManager->ReadPrefs();
 	else
 		prefsManager->ReadPrefs(prefsUserFile);

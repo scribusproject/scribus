@@ -879,7 +879,7 @@ void PrefsManager::convert12Preferences()
 void PrefsManager::ReadPrefs(const QString & fname)
 {
 	QString realFile;
-	if (fname.isNull())
+	if (fname.isEmpty())
 		realFile = prefsLocation + "/scribus150.rc";
 	else
 		realFile = fname;
