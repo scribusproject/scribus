@@ -4065,47 +4065,47 @@ Si prega di fornire un nome</translation>
     <message>
         <location filename="../../scribus/ui/cmykfwbase.ui" line="14"/>
         <source>Edit Color</source>
-        <translation type="unfinished">Modifica colore</translation>
+        <translation>Modifica colore</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/cmykfwbase.ui" line="28"/>
         <source>&amp;Name:</source>
-        <translation type="unfinished">&amp;Nome:</translation>
+        <translation>&amp;Nome:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/cmykfwbase.ui" line="54"/>
         <source>Color &amp;Model</source>
-        <translation type="unfinished">&amp;Modello di colore</translation>
+        <translation>&amp;Modello di colore</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/cmykfwbase.ui" line="67"/>
         <source>Is Spot Color</source>
-        <translation type="unfinished">Colore a tinta piatta</translation>
+        <translation>Colore a tinta piatta</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/cmykfwbase.ui" line="104"/>
         <source>OK</source>
-        <translation type="unfinished">OK</translation>
+        <translation>OK</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/cmykfwbase.ui" line="114"/>
         <source>Cancel</source>
-        <translation type="unfinished">Annulla</translation>
+        <translation>Annulla</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/cmykfwbase.ui" line="277"/>
         <source>New</source>
-        <translation type="unfinished">Nuovo</translation>
+        <translation>Nuovo</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/cmykfwbase.ui" line="299"/>
         <source>Old</source>
-        <translation type="unfinished">Vecchio</translation>
+        <translation>Vecchio</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/cmykfwbase.ui" line="375"/>
         <source>C:</source>
-        <translation type="unfinished">C:</translation>
+        <translation>C:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/cmykfwbase.ui" line="382"/>
@@ -4113,7 +4113,7 @@ Si prega di fornire un nome</translation>
         <location filename="../../scribus/ui/cmykfwbase.ui" line="442"/>
         <location filename="../../scribus/ui/cmykfwbase.ui" line="472"/>
         <source> %</source>
-        <translation type="unfinished"> %</translation>
+        <translation> %</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/cmykfwbase.ui" line="395"/>
@@ -4121,22 +4121,22 @@ Si prega di fornire un nome</translation>
         <location filename="../../scribus/ui/cmykfwbase.ui" line="455"/>
         <location filename="../../scribus/ui/cmykfwbase.ui" line="485"/>
         <source>...</source>
-        <translation type="unfinished">...</translation>
+        <translation>...</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/cmykfwbase.ui" line="405"/>
         <source>M:</source>
-        <translation type="unfinished">M:</translation>
+        <translation>M:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/cmykfwbase.ui" line="435"/>
         <source>Y:</source>
-        <translation type="unfinished">Y:</translation>
+        <translation>Y:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/cmykfwbase.ui" line="465"/>
         <source>K:</source>
-        <translation type="unfinished">K:</translation>
+        <translation>K:</translation>
     </message>
 </context>
 <context>
@@ -6547,7 +6547,7 @@ attualmente %2 x %3 DPI</translation>
         <location filename="../../scribus/ui/curvewidget.cpp" line="408"/>
         <location filename="../../scribus/ui/curvewidget.cpp" line="446"/>
         <source>Curve Files (*.scu *.SCU);;All Files (*)</source>
-        <translation type="unfinished"></translation>
+        <translation>File Curve (*.scu *.SCU);;Tutti i file (*)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/curvewidget.cpp" line="446"/>
@@ -7906,12 +7906,12 @@ Usa 72 dpi per immagini da visualizzare su schermo</translation>
     <message>
         <location filename="../../scribus/plugins/import/fh/importfh.cpp" line="143"/>
         <source>Importing: %1</source>
-        <translation type="unfinished">Importazione: %1</translation>
+        <translation>Importazione: %1</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/fh/importfh.cpp" line="146"/>
         <source>Analyzing File:</source>
-        <translation type="unfinished">Analisi file:</translation>
+        <translation>Analisi file:</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/fh/importfh.cpp" line="351"/>
@@ -7919,7 +7919,7 @@ Usa 72 dpi per immagini da visualizzare su schermo</translation>
 
 Please submit your file (if possible) to the
 Document Liberation Project http://www.documentliberation.org</source>
-        <translation type="unfinished">Analisi fallita!
+        <translation>Analisi fallita!
 
 Invia il tuo file (se possibile) al
 Document Liberation Project http://www.documentliberation.org</translation>
@@ -9470,35 +9470,36 @@ convertendo i dati vettoriali in oggetti Scribus.</translation>
     <message>
         <location filename="../../scribus/plugins/import/fh/importfhplugin.cpp" line="53"/>
         <source>Import Freehand...</source>
-        <translation type="unfinished"></translation>
+        <translation>Importa Freehand...</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/fh/importfhplugin.cpp" line="55"/>
         <location filename="../../scribus/plugins/import/fh/importfhplugin.cpp" line="90"/>
         <source>Freehand</source>
-        <translation type="unfinished"></translation>
+        <translation>Freehand</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/fh/importfhplugin.cpp" line="56"/>
         <location filename="../../scribus/plugins/import/fh/importfhplugin.cpp" line="91"/>
         <source>Freehand (*.fh* *.FH*)</source>
-        <translation type="unfinished"></translation>
+        <translation>Freehand (*.fh* *.FH*)</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/fh/importfhplugin.cpp" line="74"/>
         <source>Imports Freehand Files</source>
-        <translation type="unfinished"></translation>
+        <translation>Importa file Freehand</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/fh/importfhplugin.cpp" line="75"/>
         <source>Imports most Freehand files into the current document,
 converting their vector data into Scribus objects.</source>
-        <translation type="unfinished"></translation>
+        <translation>Importa la maggior parte dei file Freehand nel documento corrente,
+convertendo i dati vettoriali in oggetti Scribus.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/fh/importfhplugin.cpp" line="124"/>
         <source>All Supported Formats</source>
-        <translation type="unfinished">Tutti i formati supportati</translation>
+        <translation>Tutti i formati supportati</translation>
     </message>
 </context>
 <context>
@@ -15030,7 +15031,7 @@ Spesso utilizzato per permettere il posizionamento degli oggetti sulle pagine af
 
 Please submit your file (if possible) to the
 Document Liberation Project http://www.documentliberation.org</source>
-        <translation type="unfinished">Analisi fallita!
+        <translation>Analisi fallita!
 
 Invia il tuo file (se possibile) al
 Document Liberation Project http://www.documentliberation.org</translation>
@@ -22386,7 +22387,7 @@ Un valore uguale a 0 significa sillabazioni illimitate.</translation>
     <message>
         <location filename="../../scribus/ui/prefs_userinterfacebase.ui" line="126"/>
         <source>Icon Set:</source>
-        <translation type="unfinished"></translation>
+        <translation>Icone:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_userinterfacebase.ui" line="142"/>
@@ -22467,17 +22468,17 @@ Un valore uguale a 0 significa sillabazioni illimitate.</translation>
     <message>
         <location filename="../../scribus/ui/prefs_userinterface.cpp" line="53"/>
         <source>Select your default language for Scribus to run with. Leave this blank to choose based on environment variables. You can still override this by passing a command line option when starting Scribus</source>
-        <translation>Selezionare la lingua predefinita con cui eseguire Scribus. Lasciare vuoto se si desidera eseguirlo come da variabili locali. Viene ignorata se si esegue Sribus da linea di comando con l&apos;opzione per la lingua</translation>
+        <translation>Seleziona la lingua predefinita con cui eseguire Scribus. Lascia vuoto se vuoi eseguirlo secondo le variabili locali. Viene ignorata se si esegue Sribus da linea di comando con l&apos;opzione per la lingua</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_userinterface.cpp" line="54"/>
         <source>Choose the default window decoration and looks. Scribus inherits any available KDE or Qt themes, if Qt is configured to search KDE plugins.</source>
-        <translation>Seleziona il tema predefinita per l&apos;aspetto e le decorazioni della finestra. Scribus utilizzerà i temi KDE o Qt, se Qt è configurato per la ricerca delle estensioni KDE.</translation>
+        <translation>Seleziona il tema predefinito per l&apos;aspetto e le decorazioni della finestra. Scribus utilizzerà i temi KDE o Qt, se Qt è configurato per la ricerca delle estensioni KDE.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_userinterface.cpp" line="55"/>
         <source>Choose the default icon set</source>
-        <translation type="unfinished"></translation>
+        <translation>Seleziona il set di icone predefinito</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_userinterface.cpp" line="56"/>
@@ -29662,7 +29663,7 @@ Pertanto l&apos;immagine potrebbe essere non corretta</translation>
     <message>
         <location filename="../../scribus/plugins/import/fh/importfhplugin.cpp" line="66"/>
         <source>Freehand Importer</source>
-        <translation type="unfinished"></translation>
+        <translation>Importatore Freehand</translation>
     </message>
 </context>
 <context>
@@ -32986,17 +32987,17 @@ convertendo i dati vettoriali in oggetti Scribus.</translation>
     <message>
         <location filename="../../scribus/ui/scmwmenumanager.cpp" line="48"/>
         <source>Duplicate/Transform</source>
-        <translation type="unfinished">Duplica/Trasforma</translation>
+        <translation>Duplica/Trasforma</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/scmwmenumanager.cpp" line="49"/>
         <source>Grouping</source>
-        <translation type="unfinished">Raggruppamento</translation>
+        <translation>Raggruppamento</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/scmwmenumanager.cpp" line="50"/>
         <source>Locking</source>
-        <translation type="unfinished">Bloccaggio</translation>
+        <translation>Bloccaggio</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/scmwmenumanager.cpp" line="51"/>
@@ -33011,22 +33012,22 @@ convertendo i dati vettoriali in oggetti Scribus.</translation>
     <message>
         <location filename="../../scribus/ui/scmwmenumanager.cpp" line="53"/>
         <source>Send to</source>
-        <translation type="unfinished">Invia a</translation>
+        <translation>Invia a</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/scmwmenumanager.cpp" line="54"/>
         <source>Scrapbook</source>
-        <translation type="unfinished">Biblioteca</translation>
+        <translation>Biblioteca</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/scmwmenumanager.cpp" line="55"/>
         <source>Adjust</source>
-        <translation type="unfinished">Adatta</translation>
+        <translation>Adatta</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/scmwmenumanager.cpp" line="56"/>
         <source>Image</source>
-        <translation type="unfinished">Immagine</translation>
+        <translation>Immagine</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/scmwmenumanager.cpp" line="57"/>
@@ -33046,12 +33047,12 @@ convertendo i dati vettoriali in oggetti Scribus.</translation>
     <message>
         <location filename="../../scribus/ui/scmwmenumanager.cpp" line="60"/>
         <source>Text Frame Links</source>
-        <translation type="unfinished">Collegamento cornici di testo</translation>
+        <translation>Collegamento cornici di testo</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/scmwmenumanager.cpp" line="62"/>
         <source>Welding</source>
-        <translation type="unfinished">Saldatura</translation>
+        <translation>Saldatura</translation>
     </message>
     <message>
         <source>C&amp;onvert To</source>
@@ -33080,42 +33081,42 @@ convertendo i dati vettoriali in oggetti Scribus.</translation>
     <message>
         <location filename="../../scribus/ui/scmwmenumanager.cpp" line="68"/>
         <source>Marks</source>
-        <translation type="unfinished"></translation>
+        <translation>Note</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/scmwmenumanager.cpp" line="73"/>
         <source>Zoom</source>
-        <translation type="unfinished">Zoom</translation>
+        <translation>Zoom</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/scmwmenumanager.cpp" line="74"/>
         <source>Preview</source>
-        <translation type="unfinished">Anteprima</translation>
+        <translation>Anteprima</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/scmwmenumanager.cpp" line="75"/>
         <source>Measurement</source>
-        <translation type="unfinished"></translation>
+        <translation>Misure</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/scmwmenumanager.cpp" line="76"/>
         <source>Text Frames</source>
-        <translation type="unfinished">Cornici di testo</translation>
+        <translation>Cornici di testo</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/scmwmenumanager.cpp" line="77"/>
         <source>Image Frames</source>
-        <translation type="unfinished">Cornici immagine</translation>
+        <translation>Cornici immagine</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/scmwmenumanager.cpp" line="78"/>
         <source>Document</source>
-        <translation type="unfinished">Documento</translation>
+        <translation>Documento</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/scmwmenumanager.cpp" line="79"/>
         <source>Grids and Guides</source>
-        <translation type="unfinished">Griglia e guide</translation>
+        <translation>Griglia e guide</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/scmwmenumanager.cpp" line="82"/>
@@ -34006,7 +34007,7 @@ Utilizzare la Verifica Preliminare per correggerli</translation>
     <message>
         <location filename="../../scribus/scribus.cpp" line="1089"/>
         <source>Measurement</source>
-        <translation type="unfinished"></translation>
+        <translation>Misure</translation>
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="3659"/>
