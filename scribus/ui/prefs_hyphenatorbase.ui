@@ -48,7 +48,7 @@
        <item>
         <widget class="QCheckBox" name="hyphSuggestionsCheckBox">
          <property name="toolTip">
-          <string>A dialog box showing all possible hyphens for each word will show up when you use the Extras, Hyphenate Text option.</string>
+          <string>A dialog box showing all possible hyphens for each word will show up when you use the Extras &gt; Hyphenate Text option</string>
          </property>
          <property name="text">
           <string>&amp;Hyphenation Suggestions</string>
@@ -58,7 +58,7 @@
        <item>
         <widget class="QCheckBox" name="hyphAutoCheckBox">
          <property name="toolTip">
-          <string>Enables automatic hyphenation of your text while typing.</string>
+          <string>Enables automatic hyphenation of your text while typing</string>
          </property>
          <property name="text">
           <string>Hyphenate Text Automatically &amp;During Typing</string>
@@ -117,7 +117,7 @@
          <item>
           <widget class="QSpinBox" name="smallestWordSpinBox">
            <property name="toolTip">
-            <string>Length of the smallest word to be hyphenated.</string>
+            <string>Length of the smallest word to be hyphenated</string>
            </property>
            <property name="suffix">
             <string/>

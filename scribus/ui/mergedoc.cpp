@@ -70,8 +70,8 @@ MergeDoc::MergeDoc(QWidget* parent, bool importMasterPages, int targetDocPageCou
 		pageNumberData->setEnabled(false);
 		importPageLabel->setBuddy( pageNumberData );
 		pageNumberData->setToolTip( "<qt>" + tr( "Insert a comma separated list of tokens import where "
-		                           "a token can be * for all the pages, 1-5 for "
-		                           "a range of pages or a single page number.") + "</qt>");
+									"a token can be * for all the pages, 1-5 for "
+									"a range of pages or a single page number") + "</qt>");
 		fromInfoLayout->addWidget( pageNumberData, 1, 1 );
 		fromLabel = new QLabel(this);
 		fromInfoLayout->addWidget( fromLabel, 1, 2 );

@@ -246,7 +246,7 @@
         <property name="toolTip">
          <string>Insert a comma separated list of tokens where
 a token can be * for all the pages, 1-5 for
-a range of pages or a single page number.</string>
+a range of pages or a single page number</string>
         </property>
        </widget>
       </item>

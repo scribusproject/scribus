@@ -26,8 +26,8 @@ Prefs_ImageCache::~Prefs_ImageCache()
 void Prefs_ImageCache::languageChange()
 {
 	enableImageCacheCheckBox->setToolTip( "<qt>" + tr( "Enabling the image cache will significantly speed up the loading of images. Enable the cache if you are often working on large documents with lots of images and if you have plenty of disk space in your application data directory." ) + "</qt>" );
-	cacheSizeLimitSpinBox->setToolTip( "<qt>"+ tr("Limit the total size of all files in the image cache directory to this amount.")+"</qt>" );
-	cacheEntryLimitSpinBox->setToolTip( "<qt>" + tr( "Limit the number of cache entries to this number." ) + "</qt>" );
+	cacheSizeLimitSpinBox->setToolTip( "<qt>"+ tr("Limit the total size of all files in the image cache directory to this amount")+"</qt>" );
+	cacheEntryLimitSpinBox->setToolTip( "<qt>" + tr( "Limit the number of cache entries to this number" ) + "</qt>" );
 	compressionLevelSpinBox->setToolTip( "<qt>" + tr( "Set the level of compression for images in the cache. Higher values result in smaller cache files but also make writes to the cache slower." ) + "</qt>" );
 }
 

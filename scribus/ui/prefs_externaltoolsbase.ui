@@ -44,9 +44,9 @@
       <property name="geometry">
        <rect>
         <x>0</x>
-        <y>-379</y>
-        <width>730</width>
-        <height>992</height>
+        <y>0</y>
+        <width>739</width>
+        <height>752</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_3">
@@ -330,7 +330,7 @@
          <item>
           <widget class="QLineEdit" name="webBrowserLineEdit">
            <property name="toolTip">
-            <string>&lt;qt&gt;File system location for web browser.&lt;/qt&gt;</string>
+            <string>&lt;qt&gt;File system location for web browser&lt;/qt&gt;</string>
            </property>
           </widget>
          </item>
@@ -397,7 +397,7 @@
          <item>
           <widget class="QLineEdit" name="pdfViewerLineEdit">
            <property name="toolTip">
-            <string>&lt;qt&gt;File system location for PDF viewer.&lt;/qt&gt;</string>
+            <string>&lt;qt&gt;File system location for PDF viewer&lt;/qt&gt;</string>
            </property>
           </widget>
          </item>
@@ -457,7 +457,7 @@
          <item>
           <widget class="QLineEdit" name="uniconvertorLineEdit">
            <property name="toolTip">
-            <string>&lt;qt&gt;File system location for Uniconvertor.&lt;/qt&gt;</string>
+            <string>&lt;qt&gt;File system location for Uniconvertor&lt;/qt&gt;</string>
            </property>
           </widget>
          </item>
@@ -524,7 +524,7 @@
          <item>
           <layout class="QVBoxLayout" name="verticalLayout_2">
            <property name="spacing">
-            <number>-1</number>
+            <number>6</number>
            </property>
            <item>
             <widget class="QPushButton" name="latexConfigUpButton">
@@ -583,7 +583,7 @@
          <item>
           <widget class="QLineEdit" name="latexEditorLineEdit">
            <property name="toolTip">
-            <string>&lt;qt&gt;Path to the editor executable.&lt;/qt&gt;</string>
+            <string>&lt;qt&gt;Path to the editor executable&lt;/qt&gt;</string>
            </property>
           </widget>
          </item>
@@ -654,7 +654,7 @@
          <item>
           <widget class="QCheckBox" name="latexForceDPICheckBox">
            <property name="toolTip">
-            <string>Always use the configured DPI setting for calculating the size, even if the image file reports something different.</string>
+            <string>Always use the configured DPI setting for calculating the size, even if the image file reports something different</string>
            </property>
            <property name="text">
             <string>Force DPI</string>

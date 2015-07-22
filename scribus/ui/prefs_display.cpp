@@ -70,7 +70,7 @@ void Prefs_Display::languageChange()
 {
 	pageFillColorButton->setToolTip( "<qt>" + tr( "Color for paper (onscreen)" ) + "</qt>");
 	showUnprintableAreaInMarginColorCheckBox->setToolTip( "<qt>" + tr( "Mask the area outside the margins in the margin color" ) + "</qt>" );
-	showTextChainsCheckBox->setToolTip( "<qt>" + tr("Enable or disable  the display of linked frames.") + "</qt>");
+	showTextChainsCheckBox->setToolTip( "<qt>" + tr("Enable or disable the display of linked frames") + "</qt>");
 	showControlCharsCheckBox->setToolTip( "<qt>" + tr("Display non-printing characters such as paragraph markers in text frames") + "</qt>");
 	showFramesCheckBox->setToolTip( "<qt>" + tr("Turns the display of frames on or off") + "</qt>");
 	showLayerIndicatorsCheckBox->setToolTip( "<qt>" + tr("Turns the display of layer indicators on or off") + "</qt>");
