@@ -445,16 +445,16 @@
         <translation>Lower to &amp;Bottom</translation>
     </message>
     <message>
-        <source>Raize to &amp;Top</source>
-        <translation type="vanished">Raize to &amp;Top</translation>
+        <source>Raise to &amp;Top</source>
+        <translation type="vanished">Raise to &amp;Top</translation>
     </message>
     <message>
         <source>&amp;Lower</source>
         <translation>&amp;Lower</translation>
     </message>
     <message>
-        <source>&amp;Raize</source>
-        <translation type="vanished">&amp;Raize</translation>
+        <source>&amp;Raise</source>
+        <translation type="vanished">&amp;Raise</translation>
     </message>
     <message>
         <source>&amp;Attributes...</source>
@@ -2703,8 +2703,8 @@ Configuration invalid</translation>
         <translation>Error &amp;checking:</translation>
     </message>
     <message>
-        <source>Minimum error checking; raized opportunistically if size of symbol is not increased</source>
-        <translation type="vanished">Minimum error checking; raized opportunistically if size of symbol is not increased</translation>
+        <source>Minimum error checking; raised opportunistically if size of symbol is not increased</source>
+        <translation type="vanished">Minimum error checking; raised opportunistically if size of symbol is not increased</translation>
     </message>
     <message>
         <source>Minimum error checking; raised opportunistically if size of symbol is not increased</source>
@@ -29849,8 +29849,8 @@ to %2</translation>
         <translation>Rename layer</translation>
     </message>
     <message>
-        <source>Raize layer</source>
-        <translation type="vanished">Raize layer</translation>
+        <source>Raise layer</source>
+        <translation type="vanished">Raise layer</translation>
     </message>
     <message>
         <source>Lower layer</source>
