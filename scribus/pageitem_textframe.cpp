@@ -1630,12 +1630,11 @@ void PageItem_TextFrame::layout()
 				if (style.hasDropCap() || style.hasBullet() || style.hasNum())
 				{
 					const QString& curParent(style.hasParent() ? style.parent() : style.name());
-					CharStyle newStyle;
+					CharStyle newStyle(charStyle);
 					if (style.peCharStyleName().isEmpty())
 						newStyle.setParent(m_Doc->paragraphStyle(curParent).charStyle().name());
 					else if (charStyle.name() != style.peCharStyleName())
 						newStyle.setParent(m_Doc->charStyle(style.peCharStyleName()).name());
-					newStyle.applyCharStyle(charStyle);
 					charStyle.setStyle(newStyle);
 					itemText.setCharStyle(a, 1 , charStyle);
 				}
