@@ -669,14 +669,14 @@ void LayerPalette::languageChange()
 	lowerLayerButton->setToolTip( tr( "Lower Layer" ) );
 	blendMode->setToolTip( tr("Selects the Blendmode, works only in PDF 1.4"));
 	opacitySpinBox->setToolTip( tr("Layer Transparency, works only in PDF 1.4 and SVG"));
-	Table->horizontalHeaderItem(0)->setToolTip("<qt>" + tr("Color of the Layer Indicator - Each layer has a color assigned to display on the canvas when layer indicators are enabled. You can double click to edit the color. ") + "</qt>");
-	Table->horizontalHeaderItem(1)->setToolTip("<qt>" + tr("Make Layer Visible - Uncheck to hide the layer from the display ") + "</qt>" );
-	Table->horizontalHeaderItem(2)->setToolTip("<qt>" + tr("Print Layer - Uncheck to disable printing. ") + "</qt>" );
-	Table->horizontalHeaderItem(3)->setToolTip("<qt>" + tr("Lock or Unlock Layer - Unchecked is unlocked ") + "</qt>" );
-	Table->horizontalHeaderItem(4)->setToolTip("<qt>" + tr("Make text in lower layers flow around objects - Enabling this forces text in lower layers to flow around objects of the layer for which this option has been enabled") + "</qt>" );
-	Table->horizontalHeaderItem(5)->setToolTip("<qt>" + tr("Outline Mode - Toggles the 'wireframe' display of objects to speed the display of very complex objects.") + "</qt>" ) ;
-	Table->horizontalHeaderItem(6)->setToolTip("<qt>" + tr("Select Objects on Layer - Check to enable selecting. ") + "</qt>" );
-	Table->horizontalHeaderItem(7)->setToolTip("<qt>" + tr("Name of the Layer - Double click on the name of a layer to edit the name") + "</qt>" );
+	Table->horizontalHeaderItem(0)->setToolTip("<qt>" + tr("Color of the Layer Indicator. Each layer has a color assigned to display on the canvas when layer indicators are enabled. You can double click to edit the color.") + "</qt>");
+	Table->horizontalHeaderItem(1)->setToolTip("<qt>" + tr("Make Layer Visible. Uncheck to hide the layer from the display.") + "</qt>" );
+	Table->horizontalHeaderItem(2)->setToolTip("<qt>" + tr("Print Layer. Uncheck to disable printing.") + "</qt>" );
+	Table->horizontalHeaderItem(3)->setToolTip("<qt>" + tr("Lock or Unlock Layer. Unchecked is unlocked.") + "</qt>" );
+	Table->horizontalHeaderItem(4)->setToolTip("<qt>" + tr("Make text in lower layers flow around objects. Enabling this forces text in lower layers to flow around objects of the layer for which this option has been enabled.") + "</qt>" );
+	Table->horizontalHeaderItem(5)->setToolTip("<qt>" + tr("Outline Mode. Toggles the 'wireframe' display of objects to speed the display of very complex objects.") + "</qt>" ) ;
+	Table->horizontalHeaderItem(6)->setToolTip("<qt>" + tr("Select Objects on Layer. Check to enable selecting.") + "</qt>" );
+	Table->horizontalHeaderItem(7)->setToolTip("<qt>" + tr("Name of the Layer. Double click on the name of a layer to edit the name.") + "</qt>" );
 }
 
 

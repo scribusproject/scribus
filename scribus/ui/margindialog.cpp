@@ -177,7 +177,7 @@ MarginDialog::MarginDialog( QWidget* parent, ScribusDoc* doc ) : QDialog( parent
 	connect(heightSpinBox, SIGNAL(valueChanged(double)), this, SLOT(setPageHeight(double)));
 	
 	//tooltips
-	sizeQComboBox->setToolTip( tr( "Size of the inserted pages, either a standard or custom size." ) );
+	sizeQComboBox->setToolTip( tr( "Size of the inserted pages, either a standard or custom size" ) );
 	orientationQComboBox->setToolTip( tr( "Orientation of the page(s) to be inserted" ) );
 	widthSpinBox->setToolTip( tr( "Width of the page(s) to be inserted" ) );
 	heightSpinBox->setToolTip( tr( "Height of the page(s) to be inserted" ) );

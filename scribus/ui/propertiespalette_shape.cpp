@@ -557,8 +557,8 @@ void PropertiesPalette_Shape::languageChange()
 	evenOdd->setText( tr("Even-Odd"));
 	nonZero->setText( tr("Non Zero"));
 
-	evenOdd->setToolTip( "<qt>" + tr("Any path self-intersections or subpaths create holes in the fill.")  + "</qt>");
-	nonZero->setToolTip( "<qt>" + tr("Fill is solid unless a subpath is counterdirectional.")  + "</qt>");
+	evenOdd->setToolTip( "<qt>" + tr("Any path self-intersections or subpaths create holes in the fill")  + "</qt>");
+	nonZero->setToolTip( "<qt>" + tr("Fill is solid unless a subpath is counter-directional")  + "</qt>");
 
 	textFlowGroup->setTitle( tr("Text &Flow Around Frame"));
 	textFlowDisabled->setText( tr("Disabled"));

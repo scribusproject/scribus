@@ -263,7 +263,7 @@
          </size>
         </property>
         <property name="toolTip" >
-         <string>Sample color scheme.</string>
+         <string>Sample color scheme</string>
         </property>
         <property name="frameShape" >
          <enum>QFrame::Box</enum>

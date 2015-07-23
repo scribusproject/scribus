@@ -1043,7 +1043,7 @@ void NodePalette::languageChange()
 	ResetCont->setToolTip( tr("Reset the Contour Line to the Original Shape of the Frame"));
 	ResetContClip->setToolTip( tr("Reset the Contour Line to the Clipping Path of the Image"));
 	ResetShape2Clip->setToolTip( tr("Set the Shape to the Clipping Path of the Image"));
-	AbsMode->setToolTip(  "<qt>" + tr("When checked use coordinates relative to the page, otherwise coordinates are relative to the Object.") + "</qt>");
+	AbsMode->setToolTip(  "<qt>" + tr("When checked use coordinates relative to the page, otherwise coordinates are relative to the Object") + "</qt>");
 }
 
 void NodePalette::unitChange()

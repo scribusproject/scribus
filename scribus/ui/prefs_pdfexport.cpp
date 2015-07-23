@@ -56,7 +56,7 @@ Prefs_PDFExport::Prefs_PDFExport(QWidget* parent, ScribusDoc* doc)
 	pageBindingComboBox->setToolTip( "<qt>" + tr( "Determines the binding of pages in the PDF. Unless you know you need to change it leave the default choice - Left." ) + "</qt>" );
 	generateThumbnailsCheckBox->setToolTip( "<qt>" + tr( "Generates thumbnails of each page in the PDF. Some viewers can use the thumbnails for navigation." ) + "</qt>" );
 	saveLinkedTextFramesAsArticlesCheckBox->setToolTip( "<qt>" + tr( "Generate PDF Articles, which is useful for navigating linked articles in a PDF" ) + "</qt>" );
-	includeLayersCheckBox->setToolTip( "<qt>" + tr( "Layers in your document are exported to the PDF Only available if PDF 1.5 is chosen" ) + "</qt>" );
+	includeLayersCheckBox->setToolTip( "<qt>" + tr( "Layers in your document are exported to the PDF. Only available if PDF 1.5 is chosen." ) + "</qt>" );
 	includeBookmarksCheckBox->setToolTip( "<qt>" + tr( "Embed the bookmarks you created in your document. These are useful for navigating long PDF documents." ) + "</qt>" );
 	epsExportResolutionSpinBox->setToolTip( "<qt>" + tr( "Export resolution of text and vector graphics. This does not affect the resolution of bitmap images like photos." ) + "</qt>" );
 	embedPDFAndEPSFilesCheckBox->setToolTip( "<qt>" + tr( "Export PDFs in image frames as embedded PDFs. This does *not* yet take care of colorspaces, so you should know what you are doing before setting this to 'true'." ) + "</qt>" );

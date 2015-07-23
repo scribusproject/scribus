@@ -295,7 +295,7 @@ void PageLayouts::languageChange()
 	}
 	layoutLabel1->setText( tr( "First Page is:" ) );
 
-	QString layoutText( tr( "Number of pages to show side-by-side on the canvas\nOften used for allowing items to be placed across page spreads" ) );
+	QString layoutText( tr( "Number of pages to show side-by-side on the canvas. Often used for allowing items to be placed across page spreads." ) );
 	if (modus)
 		layoutsView->setToolTip(layoutText);
 	else
