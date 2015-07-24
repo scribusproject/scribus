@@ -59,7 +59,7 @@ SxwDialog::SxwDialog(bool update, bool prefix, bool pack) : QDialog(0)
 	dlayout->setSpacing(5);
 	doNotAskCheck = new QCheckBox( tr("Do not ask again"), this);
 	doNotAskCheck->setChecked(false);
-	doNotAskCheck->setToolTip( "<qt>" + tr("Make these settings the default and do not prompt again when importing an OpenOffice.org 1.x document.") +"</qt>");
+	doNotAskCheck->setToolTip( "<qt>" + tr("Make these settings the default and do not prompt again when importing an OpenOffice.org 1.x document") +"</qt>");
 	//dlayout->addStretch(10);
 	dlayout->addWidget(doNotAskCheck);
 	layout->addLayout(dlayout);

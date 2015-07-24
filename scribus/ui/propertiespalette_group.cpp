@@ -638,8 +638,8 @@ void PropertiesPalette_Group::languageChange()
 	textFlowUsesImageClipping->setText( tr("Use Image Clip Path"));
 
 	textFlowDisabled->setToolTip( tr("Disable text flow from lower frames around object"));
-	textFlowUsesFrameShape->setToolTip( tr("Use the frame shape for text flow of text frames below the object."));
-	textFlowUsesBoundingBox->setToolTip(  "<qt>" + tr("Use the bounding box, which is always rectangular, instead of the frame's shape for text flow of text frames below the object. ") + "</qt>" );
+	textFlowUsesFrameShape->setToolTip( tr("Use the frame shape for text flow of text frames below the object"));
+	textFlowUsesBoundingBox->setToolTip(  "<qt>" + tr("Use the bounding box, which is always rectangular, instead of the frame's shape for text flow of text frames below the object") + "</qt>" );
 	textFlowUsesContourLine->setToolTip(  "<qt>" + tr("When chosen, the contour line can be edited with the Edit Shape Tool on the palette further above. When edited via the shape palette, this becomes a second separate line originally based on the frame's shape for text flow of text frames below the object.") + "</qt>" );
 	textFlowUsesImageClipping->setToolTip(  "<qt>" + tr("Use the clipping path of the image") + "</qt>" );
 

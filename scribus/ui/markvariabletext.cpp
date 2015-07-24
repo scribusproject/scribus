@@ -15,7 +15,7 @@ MarkVariableText::MarkVariableText(const QList<Mark*>& marks, QWidget *parent) :
 			((QComboBox*) labelEditWidget)->addItem(marks[i]->label, QVariant::fromValue((void*) marks[i]));
 	}
 	((QComboBox*) labelEditWidget)->setEditable(true);
-	((QComboBox*) labelEditWidget)->lineEdit()->setToolTip(tr("Edit selected Mark`s label. To create new Mark select \"New Mark\" in drop list and input new label"));
+	((QComboBox*) labelEditWidget)->lineEdit()->setToolTip(tr("Edit selected Mark`s label. To create new Mark select \"New Mark\" in drop list and input new label."));
 	connect(((QComboBox*) labelEditWidget), SIGNAL(currentIndexChanged(int)),this,SLOT(onLabelList_currentIndexChanged(int)));
 	labelLayout->addWidget(labelEditWidget);
 	textEdit->setToolTip(tr("Edit variable text"));
@@ -28,7 +28,7 @@ MarkVariableText::MarkVariableText(const Mark* mark, QWidget *parent) : MarkInse
 	setupUi(this);
 
 	labelEditWidget = (QWidget*) new QLineEdit(parent);
-	((QLineEdit*) labelEditWidget)->setToolTip(tr("Edit selected Mark`s label."));
+	((QLineEdit*) labelEditWidget)->setToolTip(tr("Edit selected Mark`s label"));
 
 	labelLayout->addWidget(labelEditWidget);
 	textEdit->setToolTip(tr("Edit variable text"));

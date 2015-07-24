@@ -652,11 +652,11 @@ void Prefs_PDFExport::restoreDefaults(struct ApplicationPrefs *prefsData, const 
 		showPagePreviewsCheckBox->setToolTip( "<qt>" + tr( "Show page previews of each page listed above." ) + "</qt>");
 		effectDurationSpinBox->setToolTip( "<qt>" + tr( "Length of time the page is shown before the presentation starts on the selected page. Setting 0 will disable automatic page transition." ) + "</qt>" );
 		effectDurationSpinBox->setToolTip( "<qt>" + tr( "Length of time the effect runs. A shorter time will speed up the effect, a longer one will slow it down." ) + "</qt>" );
-		effectTypeComboBox->setToolTip( "<qt>" + tr( "Type of the display effect." ) + "</qt>" );
-		effectMovingDirectionComboBox->setToolTip( "<qt>" + tr( "Direction of the effect of moving lines for the split and blind effects." ) + "</qt>" );
-		effectInOutComboBox->setToolTip( "<qt>" + tr( "Starting position for the box and split effects." ) + "</qt>" );
-		effectDirectionComboBox->setToolTip( "<qt>" + tr( "Direction of the glitter or wipe effects." ) + "</qt>" );
-		applyEffectToAllPagesPushButton->setToolTip( "<qt>" + tr( "Apply the selected effect to all pages." ) + "</qt>" );
+		effectTypeComboBox->setToolTip( "<qt>" + tr( "Type of the display effect" ) + "</qt>" );
+		effectMovingDirectionComboBox->setToolTip( "<qt>" + tr( "Direction of the effect of moving lines for the split and blind effects" ) + "</qt>" );
+		effectInOutComboBox->setToolTip( "<qt>" + tr( "Starting position for the box and split effects" ) + "</qt>" );
+		effectDirectionComboBox->setToolTip( "<qt>" + tr( "Direction of the glitter or wipe effects" ) + "</qt>" );
+		applyEffectToAllPagesPushButton->setToolTip( "<qt>" + tr( "Apply the selected effect to all pages" ) + "</qt>" );
 		subsetAllButton->setToolTip( "<qt>" + tr("Embed only subset fonts with glyphs used in the document into the PDF.") + "</qt>");
 		singlePageRadioButton->setToolTip( "<qt>" + tr( "Show the document in single page mode" ) + "</qt>" );
 		continuousPagesRadioButton->setToolTip( "<qt>" + tr( "Show the document in single page mode with the pages displayed continuously end to end like a scroll" ) + "</qt>" );
@@ -668,8 +668,8 @@ void Prefs_PDFExport::restoreDefaults(struct ApplicationPrefs *prefsData, const 
 		useThumbnailsRadioButton->setToolTip( "<qt>" + tr( "Display the page thumbnails upon opening" ) + "</qt>" );
 		useLayersRadioButton->setToolTip( "<qt>" + tr( "Forces the displaying of layers. Useful only for PDF 1.5+." ) + "</qt>" );
 		hideViewerToolBarCheckBox->setToolTip( "<qt>" + tr( "Hides the Tool Bar which has selection and other editing capabilities" ) + "</qt>" );
-		hideViewerMenuBarCheckBox->setToolTip( "<qt>" + tr( "Hides the Menu Bar for the viewer, the PDF will display in a plain window. " ) + "</qt>" );
-		fitViewerWindowCheckBox->setToolTip( "<qt>" + tr( "Fit the document page or pages to the available space in the viewer window." ) + "</qt>" );
+		hideViewerMenuBarCheckBox->setToolTip( "<qt>" + tr( "Hides the Menu Bar for the viewer, the PDF will display in a plain window" ) + "</qt>" );
+		fitViewerWindowCheckBox->setToolTip( "<qt>" + tr( "Fit the document page or pages to the available space in the viewer window" ) + "</qt>" );
 	}
 }
 

@@ -94,7 +94,7 @@ void SWPrefsGui::languageChange()
 	// tooltips
 	okButton->setToolTip( tr("Save user configuration"));
 	resetButton->setToolTip( "<qt>" + tr("Reload system wide configuration and remove user defined one") + "</qt>");
-	cfgEdit->setToolTip( "<qt>" + tr("Edit custom configuration. If you save it, it will be used over system wide configuration") + "</qt>");
+	cfgEdit->setToolTip( "<qt>" + tr("Edit custom configuration. If you save it, it will be used over system wide configuration.") + "</qt>");
 }
 
 void SWPrefsGui::apply()

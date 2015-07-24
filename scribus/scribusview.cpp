@@ -259,7 +259,7 @@ void ScribusView::changeEvent(QEvent *e)
 
 void ScribusView::languageChange()
 {
-	endEditButton->setToolTip( tr("Click here to leave this special edit mode."));
+	endEditButton->setToolTip( tr("Click here to leave this special edit mode"));
 }
 
 void ScribusView::toggleCMS(bool cmsOn)

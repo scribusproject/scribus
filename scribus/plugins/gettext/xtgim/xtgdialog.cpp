@@ -52,7 +52,7 @@ XtgDialog::XtgDialog(bool prefix) : QDialog(0)
 	playout->setSpacing(5);
 	prefixCheck = new QCheckBox( tr("Use document name as a prefix for Styles"), this);
 	prefixCheck->setChecked(prefix);
-	prefixCheck->setToolTip( "<qt>" + tr("Prepend the document name to the Style name in Scribus.") +"</qt>");
+	prefixCheck->setToolTip( "<qt>" + tr("Prepend the document name to the Style name in Scribus") +"</qt>");
 	playout->addWidget(prefixCheck);
 	layout->addLayout(playout);
 
@@ -61,7 +61,7 @@ XtgDialog::XtgDialog(bool prefix) : QDialog(0)
 	dlayout->setSpacing(5);
 	doNotAskCheck = new QCheckBox( tr("Do not ask again"), this);
 	doNotAskCheck->setChecked(false);
-	doNotAskCheck->setToolTip( "<qt>" + tr("Make these settings the default and do not prompt again when importing an XPress Tags document.") +"</qt>");
+	doNotAskCheck->setToolTip( "<qt>" + tr("Make these settings the default and do not prompt again when importing an XPress Tags document") +"</qt>");
 	//dlayout->addStretch(10);
 	dlayout->addWidget(doNotAskCheck);
 	layout->addLayout(dlayout);

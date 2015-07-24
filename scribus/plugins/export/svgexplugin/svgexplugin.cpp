@@ -145,7 +145,7 @@ bool SVGExportPlugin::run(ScribusDoc* doc, QString filename)
 		openDia->addWidgets(inlineImages);
 		QCheckBox* exportBack = new QCheckBox(openDia.data());
 		exportBack->setText( tr("Export Page background"));
-		exportBack->setToolTip( tr("Adds the Page itself as background to the SVG."));
+		exportBack->setToolTip( tr("Adds the Page itself as background to the SVG"));
 		exportBack->setChecked(false);
 		openDia->addWidgets(exportBack);
 

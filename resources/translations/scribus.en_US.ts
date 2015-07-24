@@ -446,7 +446,7 @@
     </message>
     <message>
         <source>Raise to &amp;Top</source>
-        <translation type="vanished">Raise to &amp;Top</translation>
+        <translation>Raise to &amp;Top</translation>
     </message>
     <message>
         <source>&amp;Lower</source>
@@ -454,7 +454,7 @@
     </message>
     <message>
         <source>&amp;Raise</source>
-        <translation type="vanished">&amp;Raise</translation>
+        <translation>&amp;Raise</translation>
     </message>
     <message>
         <source>&amp;Attributes...</source>
@@ -1697,14 +1697,6 @@
         <source>&amp;Resources</source>
         <translation>&amp;Resources</translation>
     </message>
-    <message>
-        <source>Raise to &amp;Top</source>
-        <translation>Raise to &amp;Top</translation>
-    </message>
-    <message>
-        <source>&amp;Raise</source>
-        <translation>&amp;Raise</translation>
-    </message>
 </context>
 <context>
     <name>AdjustCmsDialog</name>
@@ -1753,7 +1745,11 @@
     </message>
     <message>
         <source>DockWidget</source>
-        <translation>DockWidget</translation>
+        <translation type="vanished">DockWidget</translation>
+    </message>
+    <message>
+        <source>Align and Distribute</source>
+        <translation type="unfinished">Align and Distribute</translation>
     </message>
 </context>
 <context>
@@ -2449,7 +2445,7 @@ Configuration invalid</translation>
     </message>
     <message>
         <source>Variable number of ASCII characters and special function symbols, starting with the appropriate start character for the initial character set. UCC/EAN-128s must have a mandatory FNC 1 symbol immediately following the start character.</source>
-        <translation>Variable number of ASCII characters and special function symbols, starting with the appropriate start character for the initial character set. UCC/EAN-128s must have a mandatory FNC 1 symbol immediately following the start character.</translation>
+        <translation type="vanished">Variable number of ASCII characters and special function symbols, starting with the appropriate start character for the initial character set. UCC/EAN-128s must have a mandatory FNC 1 symbol immediately following the start character.</translation>
     </message>
     <message>
         <source>Variable number of digits and any of the symbols -$:/.+ABCD.</source>
@@ -2529,7 +2525,7 @@ Configuration invalid</translation>
     </message>
     <message>
         <source>UCC/EAN-128</source>
-        <translation>UCC/EAN-128</translation>
+        <translation type="vanished">UCC/EAN-128</translation>
     </message>
     <message>
         <source>Rationalized Codabar</source>
@@ -2566,6 +2562,18 @@ Configuration invalid</translation>
     <message>
         <source>QR Code</source>
         <translation>QR Code</translation>
+    </message>
+    <message>
+        <source>Any data.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>GS1-128</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>GS1 Application Identifier standard format. FNC1 characters are included automatically.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -2701,10 +2709,6 @@ Configuration invalid</translation>
     <message>
         <source>Error &amp;checking:</source>
         <translation>Error &amp;checking:</translation>
-    </message>
-    <message>
-        <source>Minimum error checking; raised opportunistically if size of symbol is not increased</source>
-        <translation type="vanished">Minimum error checking; raised opportunistically if size of symbol is not increased</translation>
     </message>
     <message>
         <source>Minimum error checking; raised opportunistically if size of symbol is not increased</source>
@@ -3394,7 +3398,7 @@ Please choose another one.</translation>
     </message>
     <message>
         <source>Sample color scheme.</source>
-        <translation>Sample color scheme.</translation>
+        <translation type="vanished">Sample color scheme.</translation>
     </message>
     <message>
         <source>Simulate common vision defects here. Select type of the defect.</source>
@@ -3463,6 +3467,10 @@ Please choose another one.</translation>
     <message>
         <source>Document</source>
         <translation>Document</translation>
+    </message>
+    <message>
+        <source>Sample color scheme</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -4988,7 +4996,7 @@ currently %2 x %3 DPI</translation>
     </message>
     <message>
         <source>Doc Page Range</source>
-        <translation>Doc Page Range</translation>
+        <translation type="vanished">Doc Page Range</translation>
     </message>
     <message>
         <source>Basic Range Selection</source>
@@ -5064,7 +5072,7 @@ currently %2 x %3 DPI</translation>
     </message>
     <message>
         <source>Page Order</source>
-        <translation>Page Order</translation>
+        <translation type="vanished">Page Order</translation>
     </message>
     <message>
         <source>Sample Page Order:</source>
@@ -5982,7 +5990,7 @@ Name of the export file will be &apos;documentname-pagenumber.filetype&apos;</tr
         <source>Insert a comma separated list of tokens where
 a token can be * for all the pages, 1-5 for
 a range of pages or a single page number.</source>
-        <translation>Insert a comma separated list of tokens where
+        <translation type="vanished">Insert a comma separated list of tokens where
 a token can be * for all the pages, 1-5 for
 a range of pages or a single page number.</translation>
     </message>
@@ -6010,7 +6018,7 @@ Use 72 dpi for Images intended for the Screen</translation>
     </message>
     <message>
         <source>TextLabel</source>
-        <translation>TextLabel</translation>
+        <translation type="vanished">TextLabel</translation>
     </message>
     <message>
         <source>The compression ratio of your images - 100% is no compression, 0% highest compression. If in doubt, use &apos;Automatic&apos;</source>
@@ -6039,6 +6047,12 @@ Use 72 dpi for Images intended for the Screen</translation>
     <message>
         <source>Create a range of pages</source>
         <translation>Create a range of pages</translation>
+    </message>
+    <message>
+        <source>Insert a comma separated list of tokens where
+a token can be * for all the pages, 1-5 for
+a range of pages or a single page number</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -8850,23 +8864,23 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <source>Color of the Layer Indicator - Each layer has a color assigned to display on the canvas when layer indicators are enabled. You can double click to edit the color. </source>
-        <translation>Color of the Layer Indicator - Each layer has a color assigned to display on the canvas when layer indicators are enabled. You can double click to edit the color. </translation>
+        <translation type="vanished">Color of the Layer Indicator - Each layer has a color assigned to display on the canvas when layer indicators are enabled. You can double click to edit the color. </translation>
     </message>
     <message>
         <source>Make Layer Visible - Uncheck to hide the layer from the display </source>
-        <translation>Make Layer Visible - Uncheck to hide the layer from the display </translation>
+        <translation type="vanished">Make Layer Visible - Uncheck to hide the layer from the display </translation>
     </message>
     <message>
         <source>Print Layer - Uncheck to disable printing. </source>
-        <translation>Print Layer - Uncheck to disable printing. </translation>
+        <translation type="vanished">Print Layer - Uncheck to disable printing. </translation>
     </message>
     <message>
         <source>Lock or Unlock Layer - Unchecked is unlocked </source>
-        <translation>Lock or Unlock Layer - Unchecked is unlocked </translation>
+        <translation type="vanished">Lock or Unlock Layer - Unchecked is unlocked </translation>
     </message>
     <message>
         <source>Outline Mode - Toggles the &apos;wireframe&apos; display of objects to speed the display of very complex objects.</source>
-        <translation>Outline Mode - Toggles the &apos;wireframe&apos; display of objects to speed the display of very complex objects.</translation>
+        <translation type="vanished">Outline Mode - Toggles the &apos;wireframe&apos; display of objects to speed the display of very complex objects.</translation>
     </message>
     <message>
         <source>Selects the Blendmode, works only in PDF 1.4</source>
@@ -8894,15 +8908,47 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <source>Make text in lower layers flow around objects - Enabling this forces text in lower layers to flow around objects of the layer for which this option has been enabled</source>
-        <translation>Make text in lower layers flow around objects - Enabling this forces text in lower layers to flow around objects of the layer for which this option has been enabled</translation>
+        <translation type="vanished">Make text in lower layers flow around objects - Enabling this forces text in lower layers to flow around objects of the layer for which this option has been enabled</translation>
     </message>
     <message>
         <source>Name of the Layer - Double click on the name of a layer to edit the name</source>
-        <translation>Name of the Layer - Double click on the name of a layer to edit the name</translation>
+        <translation type="vanished">Name of the Layer - Double click on the name of a layer to edit the name</translation>
     </message>
     <message>
         <source>Select Objects on Layer - Check to enable selecting. </source>
-        <translation>Select Objects on Layer - Check to enable selecting. </translation>
+        <translation type="vanished">Select Objects on Layer - Check to enable selecting. </translation>
+    </message>
+    <message>
+        <source>Color of the Layer Indicator. Each layer has a color assigned to display on the canvas when layer indicators are enabled. You can double click to edit the color.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Make Layer Visible. Uncheck to hide the layer from the display.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Print Layer. Uncheck to disable printing.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Lock or Unlock Layer. Unchecked is unlocked.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Make text in lower layers flow around objects. Enabling this forces text in lower layers to flow around objects of the layer for which this option has been enabled.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Outline Mode. Toggles the &apos;wireframe&apos; display of objects to speed the display of very complex objects.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Select Objects on Layer. Check to enable selecting.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Name of the Layer. Double click on the name of a layer to edit the name.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -9147,7 +9193,7 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <source>Size of the inserted pages, either a standard or custom size.</source>
-        <translation>Size of the inserted pages, either a standard or custom size.</translation>
+        <translation type="vanished">Size of the inserted pages, either a standard or custom size.</translation>
     </message>
     <message>
         <source>Orientation of the page(s) to be inserted</source>
@@ -9164,6 +9210,10 @@ p, li { white-space: pre-wrap; }
     <message>
         <source>When inserting a new page between others, move objects with their current pages. This is the default action.</source>
         <translation>When inserting a new page between others, move objects with their current pages. This is the default action.</translation>
+    </message>
+    <message>
+        <source>Size of the inserted pages, either a standard or custom size</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -9214,7 +9264,7 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <source>Import the margins for the selected page size from the available printers.</source>
-        <translation>Import the margins for the selected page size from the available printers.</translation>
+        <translation type="vanished">Import the margins for the selected page size from the available printers.</translation>
     </message>
     <message>
         <source>Apply settings to:</source>
@@ -9282,11 +9332,23 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <source>Distance between the left margin guide and the edge of the page. If a double-sided, 3 or 4-fold layout is selected, this margin space can be used to achieve the correct margins for binding</source>
-        <translation>Distance between the left margin guide and the edge of the page. If a double-sided, 3 or 4-fold layout is selected, this margin space can be used to achieve the correct margins for binding</translation>
+        <translation type="vanished">Distance between the left margin guide and the edge of the page. If a double-sided, 3 or 4-fold layout is selected, this margin space can be used to achieve the correct margins for binding</translation>
     </message>
     <message>
         <source>Distance between the right margin guide and the edge of the page. If a double-sided, 3 or 4-fold layout is selected, this margin space can be used to achieve the correct margins for binding</source>
-        <translation>Distance between the right margin guide and the edge of the page. If a double-sided, 3 or 4-fold layout is selected, this margin space can be used to achieve the correct margins for binding</translation>
+        <translation type="vanished">Distance between the right margin guide and the edge of the page. If a double-sided, 3 or 4-fold layout is selected, this margin space can be used to achieve the correct margins for binding</translation>
+    </message>
+    <message>
+        <source>Import the margins for the selected page size from the available printers</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Distance between the left margin guide and the edge of the page. If a double-sided, 3 or 4-fold layout is selected, this margin space can be used to achieve the correct margins for binding.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Distance between the right margin guide and the edge of the page. If a double-sided, 3 or 4-fold layout is selected, this margin space can be used to achieve the correct margins for binding.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -9659,11 +9721,15 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <source>Insert a comma separated list of tokens import where a token can be * for all the pages, 1-5 for a range of pages or a single page number.</source>
-        <translation>Insert a comma separated list of tokens import where a token can be * for all the pages, 1-5 for a range of pages or a single page number.</translation>
+        <translation type="vanished">Insert a comma separated list of tokens import where a token can be * for all the pages, 1-5 for a range of pages or a single page number.</translation>
     </message>
     <message>
         <source>&amp;Select...</source>
         <translation>&amp;Select...</translation>
+    </message>
+    <message>
+        <source>Insert a comma separated list of tokens import where a token can be * for all the pages, 1-5 for a range of pages or a single page number</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -10116,11 +10182,11 @@ If no handle is selected all handles will be reset.</source>
     </message>
     <message>
         <source>Distance between the left margin guide and the edge of the page. If a double-sided, 3 or 4-fold layout is selected, this margin space can be used to achieve the correct margins for binding</source>
-        <translation>Distance between the left margin guide and the edge of the page. If a double-sided, 3 or 4-fold layout is selected, this margin space can be used to achieve the correct margins for binding</translation>
+        <translation type="vanished">Distance between the left margin guide and the edge of the page. If a double-sided, 3 or 4-fold layout is selected, this margin space can be used to achieve the correct margins for binding</translation>
     </message>
     <message>
         <source>Distance between the right margin guide and the edge of the page. If a double-sided, 3 or 4-fold layout is selected, this margin space can be used to achieve the correct margins for binding</source>
-        <translation>Distance between the right margin guide and the edge of the page. If a double-sided, 3 or 4-fold layout is selected, this margin space can be used to achieve the correct margins for binding</translation>
+        <translation type="vanished">Distance between the right margin guide and the edge of the page. If a double-sided, 3 or 4-fold layout is selected, this margin space can be used to achieve the correct margins for binding</translation>
     </message>
     <message>
         <source>&amp;Inside:</source>
@@ -10144,7 +10210,19 @@ If no handle is selected all handles will be reset.</source>
     </message>
     <message>
         <source>Import the margins for the selected page size from the available printers.</source>
-        <translation>Import the margins for the selected page size from the available printers.</translation>
+        <translation type="vanished">Import the margins for the selected page size from the available printers.</translation>
+    </message>
+    <message>
+        <source>Distance between the left margin guide and the edge of the page. If a double-sided, 3 or 4-fold layout is selected, this margin space can be used to achieve the correct margins for binding.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Distance between the right margin guide and the edge of the page. If a double-sided, 3 or 4-fold layout is selected, this margin space can be used to achieve the correct margins for binding.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Import the margins for the selected page size from the available printers</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -10267,7 +10345,7 @@ If no handle is selected all handles will be reset.</source>
     </message>
     <message>
         <source>When checked use coordinates relative to the page, otherwise coordinates are relative to the Object.</source>
-        <translation>When checked use coordinates relative to the page, otherwise coordinates are relative to the Object.</translation>
+        <translation type="vanished">When checked use coordinates relative to the page, otherwise coordinates are relative to the Object.</translation>
     </message>
     <message>
         <source>Shrink the Size of the Path by shown %</source>
@@ -10324,6 +10402,10 @@ If no handle is selected all handles will be reset.</source>
     <message>
         <source>Reset all edits</source>
         <translation>Reset all edits</translation>
+    </message>
+    <message>
+        <source>When checked use coordinates relative to the page, otherwise coordinates are relative to the Object</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -10862,7 +10944,7 @@ You cannot switch to different notes style before you apply that new one or pres
     </message>
     <message>
         <source>Enter a keyword or regular expression to filter the outline.</source>
-        <translation>Enter a keyword or regular expression to filter the outline.</translation>
+        <translation type="vanished">Enter a keyword or regular expression to filter the outline.</translation>
     </message>
     <message>
         <source>Filter:</source>
@@ -10891,6 +10973,10 @@ You cannot switch to different notes style before you apply that new one or pres
     <message>
         <source>Inline Frame</source>
         <translation>Inline Frame</translation>
+    </message>
+    <message>
+        <source>Enter a keyword or regular expression to filter the outline</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -11070,7 +11156,7 @@ You cannot switch to different notes style before you apply that new one or pres
     </message>
     <message>
         <source>Shows transparency and transparent items in your document. Requires Ghostscript 7.07 or later</source>
-        <translation>Shows transparency and transparent items in your document. Requires Ghostscript 7.07 or later</translation>
+        <translation type="vanished">Shows transparency and transparent items in your document. Requires Ghostscript 7.07 or later</translation>
     </message>
     <message>
         <source>Gives a print preview using simulations of generic CMYK inks, instead of RGB colors</source>
@@ -11158,7 +11244,7 @@ You cannot switch to different notes style before you apply that new one or pres
     </message>
     <message>
         <source>Resize the scale of the page.</source>
-        <translation>Resize the scale of the page.</translation>
+        <translation type="vanished">Resize the scale of the page.</translation>
     </message>
     <message>
         <source>Close</source>
@@ -11239,6 +11325,14 @@ You cannot switch to different notes style before you apply that new one or pres
     <message>
         <source>None</source>
         <translation>None</translation>
+    </message>
+    <message>
+        <source>Shows transparency and transparent items in your document. Requires Ghostscript 7.07 or later.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Resize the scale of the page</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -11646,11 +11740,15 @@ You cannot switch to different notes style before you apply that new one or pres
     <message>
         <source>Number of pages to show side-by-side on the canvas
 Often used for allowing items to be placed across page spreads</source>
-        <translation>Number of pages to show side-by-side on the canvasOften used for allowing items to be placed across page spreads</translation>
+        <translation type="vanished">Number of pages to show side-by-side on the canvasOften used for allowing items to be placed across page spreads</translation>
     </message>
     <message>
         <source>Location on the canvas where the first page of the document is placed</source>
         <translation>Location on the canvas where the first page of the document is placed</translation>
+    </message>
+    <message>
+        <source>Number of pages to show side-by-side on the canvas. Often used for allowing items to be placed across page spreads.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -12560,7 +12658,7 @@ The result is a combination of &quot;Intersection&quot; and &quot;Exclusion&quot
     </message>
     <message>
         <source>TextLabel</source>
-        <translation>TextLabel</translation>
+        <translation type="vanished">TextLabel</translation>
     </message>
     <message>
         <source>Page Range</source>
@@ -14318,7 +14416,7 @@ Do you want to migrate them to the new Scribus version?</translation>
     </message>
     <message>
         <source>Enable or disable  the display of linked frames.</source>
-        <translation>Enable or disable  the display of linked frames.</translation>
+        <translation type="vanished">Enable or disable  the display of linked frames.</translation>
     </message>
     <message>
         <source>Display non-printing characters such as paragraph markers in text frames</source>
@@ -14371,6 +14469,10 @@ Do you want to migrate them to the new Scribus version?</translation>
     <message>
         <source>Show Autosave Countdown Clock on the Canvas</source>
         <translation>Show Autosave Countdown Clock on the Canvas</translation>
+    </message>
+    <message>
+        <source>Enable or disable the display of linked frames</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -14972,7 +15074,7 @@ Do you want to migrate them to the new Scribus version?</translation>
     </message>
     <message>
         <source>&lt;qt&gt;Path to the editor executable.&lt;/qt&gt;</source>
-        <translation>&lt;qt&gt;Path to the editor executable.&lt;/qt&gt;</translation>
+        <translation type="vanished">&lt;qt&gt;Path to the editor executable.&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>Start with empty frame</source>
@@ -14984,7 +15086,7 @@ Do you want to migrate them to the new Scribus version?</translation>
     </message>
     <message>
         <source>Always use the configured DPI setting for calculating the size, even if the image file reports something different.</source>
-        <translation>Always use the configured DPI setting for calculating the size, even if the image file reports something different.</translation>
+        <translation type="vanished">Always use the configured DPI setting for calculating the size, even if the image file reports something different.</translation>
     </message>
     <message>
         <source>Force DPI</source>
@@ -15064,15 +15166,35 @@ Do you want to use this?</translation>
     </message>
     <message>
         <source>&lt;qt&gt;File system location for web browser.&lt;/qt&gt;</source>
-        <translation>&lt;qt&gt;File system location for web browser.&lt;/qt&gt;</translation>
+        <translation type="vanished">&lt;qt&gt;File system location for web browser.&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>&lt;qt&gt;File system location for PDF viewer.&lt;/qt&gt;</source>
-        <translation>&lt;qt&gt;File system location for PDF viewer.&lt;/qt&gt;</translation>
+        <translation type="vanished">&lt;qt&gt;File system location for PDF viewer.&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>&lt;qt&gt;File system location for Uniconvertor.&lt;/qt&gt;</source>
-        <translation>&lt;qt&gt;File system location for Uniconvertor.&lt;/qt&gt;</translation>
+        <translation type="vanished">&lt;qt&gt;File system location for Uniconvertor.&lt;/qt&gt;</translation>
+    </message>
+    <message>
+        <source>&lt;qt&gt;File system location for web browser&lt;/qt&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;qt&gt;File system location for PDF viewer&lt;/qt&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;qt&gt;File system location for Uniconvertor&lt;/qt&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;qt&gt;Path to the editor executable&lt;/qt&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Always use the configured DPI setting for calculating the size, even if the image file reports something different</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -15321,7 +15443,7 @@ Do you want to use this?</translation>
     </message>
     <message>
         <source>A dialog box showing all possible hyphens for each word will show up when you use the Extras, Hyphenate Text option.</source>
-        <translation>A dialogue box showing all possible hyphens for each word will show up when you use the Extras, Hyphenate Text option.</translation>
+        <translation type="vanished">A dialogue box showing all possible hyphens for each word will show up when you use the Extras, Hyphenate Text option.</translation>
     </message>
     <message>
         <source>&amp;Hyphenation Suggestions</source>
@@ -15329,7 +15451,7 @@ Do you want to use this?</translation>
     </message>
     <message>
         <source>Enables automatic hyphenation of your text while typing.</source>
-        <translation>Enables automatic hyphenation of your text while typing.</translation>
+        <translation type="vanished">Enables automatic hyphenation of your text while typing.</translation>
     </message>
     <message>
         <source>Hyphenate Text Automatically &amp;During Typing</source>
@@ -15349,7 +15471,7 @@ Do you want to use this?</translation>
     </message>
     <message>
         <source>Length of the smallest word to be hyphenated.</source>
-        <translation>Length of the smallest word to be hyphenated.</translation>
+        <translation type="vanished">Length of the smallest word to be hyphenated.</translation>
     </message>
     <message>
         <source>Characters</source>
@@ -15393,6 +15515,18 @@ A value of 0 means unlimited hyphenations.</translation>
         <source>Exception List</source>
         <translation>Exception List</translation>
     </message>
+    <message>
+        <source>A dialog box showing all possible hyphens for each word will show up when you use the Extras &gt; Hyphenate Text option</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enables automatic hyphenation of your text while typing</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Length of the smallest word to be hyphenated</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>Prefs_ImageCache</name>
@@ -15402,11 +15536,11 @@ A value of 0 means unlimited hyphenations.</translation>
     </message>
     <message>
         <source>Limit the total size of all files in the image cache directory to this amount.</source>
-        <translation>Limit the total size of all files in the image cache directory to this amount.</translation>
+        <translation type="vanished">Limit the total size of all files in the image cache directory to this amount.</translation>
     </message>
     <message>
         <source>Limit the number of cache entries to this number.</source>
-        <translation>Limit the number of cache entries to this number.</translation>
+        <translation type="vanished">Limit the number of cache entries to this number.</translation>
     </message>
     <message>
         <source>Set the level of compression for images in the cache. Higher values result in smaller cache files but also make writes to the cache slower.</source>
@@ -15439,6 +15573,14 @@ A value of 0 means unlimited hyphenations.</translation>
     <message>
         <source>Compression Level:</source>
         <translation>Compression Level:</translation>
+    </message>
+    <message>
+        <source>Limit the total size of all files in the image cache directory to this amount</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Limit the number of cache entries to this number</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -16322,7 +16464,7 @@ A value of 0 means unlimited hyphenations.</translation>
     </message>
     <message>
         <source>Insert a comma separated list of tokens where a token can be * for all the pages, 1-5 for a range of pages or a single page number.</source>
-        <translation>Insert a comma separated list of tokens where a token can be * for all the pages, 1-5 for a range of pages or a single page number.</translation>
+        <translation type="vanished">Insert a comma separated list of tokens where a token can be * for all the pages, 1-5 for a range of pages or a single page number.</translation>
     </message>
     <message>
         <source>Determines the PDF compatibility.&lt;br/&gt;The default is &lt;b&gt;PDF 1.3&lt;/b&gt; which gives the widest compatibility.&lt;br/&gt;Choose &lt;b&gt;PDF 1.4&lt;/b&gt; if your file uses features such as transparency or you require 128 bit encryption.&lt;br/&gt;&lt;b&gt;PDF 1.5&lt;/b&gt; is necessary when you wish to preserve objects in separate layers within the PDF.&lt;br/&gt;&lt;b&gt;PDF/X-3&lt;/b&gt; is for exporting the PDF when you want color managed RGB for commercial printing and is selectable when you have activated color management. Use only when advised by your printer or in some cases printing to a 4 color digital color laser printer.&lt;br/&gt;&lt;b&gt;PDF/X-1a&lt;/b&gt; is for blind exchange with colors strictly specified in CMYK or spot colors.&lt;br/&gt;&lt;b&gt;PDF/X-4&lt;/b&gt; is an extension of PDF/X-3 to support transparancy and layering.</source>
@@ -16338,11 +16480,11 @@ A value of 0 means unlimited hyphenations.</translation>
     </message>
     <message>
         <source>Generate PDF Articles, which is useful for navigating linked articles in a PDF.</source>
-        <translation>Generate PDF Articles, which is useful for navigating linked articles in a PDF.</translation>
+        <translation type="vanished">Generate PDF Articles, which is useful for navigating linked articles in a PDF.</translation>
     </message>
     <message>
         <source>Layers in your document are exported to the PDF Only available if PDF 1.5 is chosen.</source>
-        <translation>Layers in your document are exported to the PDF Only available if PDF 1.5 is chosen.</translation>
+        <translation type="vanished">Layers in your document are exported to the PDF Only available if PDF 1.5 is chosen.</translation>
     </message>
     <message>
         <source>Embed the bookmarks you created in your document. These are useful for navigating long PDF documents.</source>
@@ -16374,7 +16516,7 @@ A value of 0 means unlimited hyphenations.</translation>
     </message>
     <message>
         <source>DPI (Dots Per Inch) for image export.</source>
-        <translation>DPI (Dots Per Inch) for image export.</translation>
+        <translation type="vanished">DPI (Dots Per Inch) for image export.</translation>
     </message>
     <message>
         <source>Enable the security features in your exported PDF. If you selected PDF 1.3, the PDF will be protected by 40 bit encryption. If you selected PDF 1.4, the PDF will be protected by 128 bit encryption. Disclaimer: PDF encryption is not as reliable as GPG or PGP encryption and does have some limitations.</source>
@@ -16382,15 +16524,15 @@ A value of 0 means unlimited hyphenations.</translation>
     </message>
     <message>
         <source>Choose a password for users to be able to read your PDF.</source>
-        <translation>Choose a password for users to be able to read your PDF.</translation>
+        <translation type="vanished">Choose a password for users to be able to read your PDF.</translation>
     </message>
     <message>
         <source>Allow printing of the PDF. If un-checked, printing is prevented. </source>
-        <translation>Allow printing of the PDF. If un-checked, printing is prevented. </translation>
+        <translation type="vanished">Allow printing of the PDF. If un-checked, printing is prevented. </translation>
     </message>
     <message>
         <source>Allow modifying of the PDF. If un-checked, modifying the PDF is prevented.</source>
-        <translation>Allow modifying of the PDF. If un-checked, modifying the PDF is prevented.</translation>
+        <translation type="vanished">Allow modifying of the PDF. If un-checked, modifying the PDF is prevented.</translation>
     </message>
     <message>
         <source>Allow copying of text or graphics from the PDF. If unchecked, text and graphics cannot be copied.</source>
@@ -16771,6 +16913,34 @@ A value of 0 means unlimited hyphenations.</translation>
     <message>
         <source>Embed only subset fonts with glyphs used in the document into the PDF.</source>
         <translation>Embed only subset fonts with glyphs used in the document into the PDF.</translation>
+    </message>
+    <message>
+        <source>Insert a comma separated list of tokens where a token can be * for all the pages, 1-5 for a range of pages or a single page number</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Generate PDF Articles, which is useful for navigating linked articles in a PDF</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Layers in your document are exported to the PDF. Only available if PDF 1.5 is chosen.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>DPI (Dots Per Inch) for image export</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Choose a password for users to be able to read your PDF</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Allow printing of the PDF. If unchecked, printing is prevented. </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Allow modifying of the PDF. If unchecked, modifying the PDF is prevented.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -17230,7 +17400,7 @@ A value of 0 means unlimited hyphenations.</translation>
     </message>
     <message>
         <source>This enables the scrapbook to be used an extension to the copy/paste buffers. Simply copying an object or grouped object will send this to the Scrapbook automatically</source>
-        <translation>This enables the scrapbook to be used an extension to the copy/paste buffers. Simply copying an object or grouped object will send this to the Scrapbook automatically</translation>
+        <translation type="vanished">This enables the scrapbook to be used an extension to the copy/paste buffers. Simply copying an object or grouped object will send this to the Scrapbook automatically</translation>
     </message>
     <message>
         <source>This enables copied items to be kept permanently in the scrapbook</source>
@@ -17243,6 +17413,10 @@ A value of 0 means unlimited hyphenations.</translation>
     <message>
         <source>The minimum number is 1; the maximum is 100</source>
         <translation></translation>
+    </message>
+    <message>
+        <source>This enables the scrapbook to be used an extension to the copy/paste buffers. Simply copying an object or grouped object will send this to the Scrapbook automatically.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -17872,7 +18046,7 @@ A value of 0 means unlimited hyphenations.</translation>
         <source>Insert a comma separated list of tokens where
 a token can be * for all the pages, 1-5 for
 a range of pages or a single page number.</source>
-        <translation>Insert a comma separated list of tokens where
+        <translation type="vanished">Insert a comma separated list of tokens where
 a token can be * for all the pages, 1-5 for
 a range of pages or a single page number.</translation>
     </message>
@@ -17899,7 +18073,7 @@ a range of pages or a single page number.</translation>
     <message>
         <source>Sets the PostScript Level.
  Setting to Level 1 or 2 can create huge files</source>
-        <translation>Sets the PostScript Level.
+        <translation type="vanished">Sets the PostScript Level.
  Setting to Level 1 or 2 can create huge files</translation>
     </message>
     <message>
@@ -18045,7 +18219,7 @@ a range of pages or a single page number.</translation>
     <message>
         <source>Include PDF Annotations and Links into the output.
 Note: PDF Forms will not be exported.</source>
-        <translation>Include PDF Annotations and Links into the output.Note: PDF Forms will not be exported.</translation>
+        <translation type="vanished">Include PDF Annotations and Links into the output.Note: PDF Forms will not be exported.</translation>
     </message>
     <message>
         <source>Include PDF Annotations and Links</source>
@@ -18074,6 +18248,20 @@ Note: PDF Forms will not be exported.</source>
     <message>
         <source>Create a range of pages</source>
         <translation>Create a range of pages</translation>
+    </message>
+    <message>
+        <source>Insert a comma separated list of tokens where
+a token can be * for all the pages, 1-5 for
+a range of pages or a single page number</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Sets the PostScript Level. Setting to Level 1 or 2 can create huge files</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Include PDF Annotations and Links into the output. Note: PDF Forms will not be exported.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -19007,11 +19195,19 @@ Transparency</translation>
     </message>
     <message>
         <source>Any path self-intersections or subpaths create holes in the fill.</source>
-        <translation>Any path self-intersections or subpaths create holes in the fill.</translation>
+        <translation type="vanished">Any path self-intersections or subpaths create holes in the fill.</translation>
     </message>
     <message>
         <source>Fill is solid unless a subpath is counterdirectional.</source>
-        <translation>Fill is solid unless a subpath is counterdirectional.</translation>
+        <translation type="vanished">Fill is solid unless a subpath is counterdirectional.</translation>
+    </message>
+    <message>
+        <source>Any path self-intersections or subpaths create holes in the fill</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Fill is solid unless a subpath is counter-directional</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -19203,7 +19399,7 @@ Transparency</translation>
     </message>
     <message>
         <source>Select the line spacing mode.</source>
-        <translation>Select the line spacing mode.</translation>
+        <translation type="vanished">Select the line spacing mode.</translation>
     </message>
     <message>
         <source>Paragraph style of currently selected text or paragraph</source>
@@ -19236,6 +19432,10 @@ Transparency</translation>
     <message>
         <source>Paragraph Effects</source>
         <translation>Paragraph Effects</translation>
+    </message>
+    <message>
+        <source>Select the line spacing mode</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -20214,7 +20414,7 @@ Document Liberation Project http://www.documentliberation.org</translation>
     </message>
     <message>
         <source>Write your commands here. A selection is processed as script</source>
-        <translation>Write your commands here. A selection is processed as script</translation>
+        <translation type="vanished">Write your commands here. A selection is processed as script</translation>
     </message>
     <message>
         <source>Output of your script</source>
@@ -20289,6 +20489,10 @@ Scripter documentation for futher information. </translation>
 &gt;&gt;&gt; Another script is already running...</source>
         <translation>
 &gt;&gt;&gt; Another script is already running...</translation>
+    </message>
+    <message>
+        <source>Write your commands here. A selection is processed as script.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -23768,7 +23972,7 @@ Please choose another.</translation>
     </message>
     <message>
         <source>TextLabel</source>
-        <translation>TextLabel</translation>
+        <translation type="vanished">TextLabel</translation>
     </message>
     <message>
         <source>Colors</source>
@@ -23863,7 +24067,7 @@ Please choose another.</translation>
     </message>
     <message>
         <source>TextLabel</source>
-        <translation>TextLabel</translation>
+        <translation type="vanished">TextLabel</translation>
     </message>
     <message>
         <source>Fill Color</source>
@@ -23875,7 +24079,7 @@ Please choose another.</translation>
     </message>
     <message>
         <source>Text</source>
-        <translation>Text</translation>
+        <translation type="vanished">Text</translation>
     </message>
     <message>
         <source>Fill Shade</source>
@@ -24763,17 +24967,17 @@ converting their vector data into Scribus objects.</translation>
     <message>
         <source>Only selected frames processed.</source>
         <comment>short words plugin</comment>
-        <translation>Only selected frames processed.</translation>
+        <translation type="vanished">Only selected frames processed.</translation>
     </message>
     <message>
         <source>Only actual page processed.</source>
         <comment>short words plugin</comment>
-        <translation>Only actual page processed.</translation>
+        <translation type="vanished">Only actual page processed.</translation>
     </message>
     <message>
         <source>All items in document processed.</source>
         <comment>short words plugin</comment>
-        <translation>All items in document processed.</translation>
+        <translation type="vanished">All items in document processed.</translation>
     </message>
     <message>
         <source>Short Words</source>
@@ -24826,6 +25030,21 @@ converting their vector data into Scribus objects.</translation>
         <source>&amp;All Items</source>
         <comment>short words plugin</comment>
         <translation>&amp;All Items</translation>
+    </message>
+    <message>
+        <source>Only selected frames processed</source>
+        <comment>short words plugin</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Only actual page processed</source>
+        <comment>short words plugin</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>All items in document processed</source>
+        <comment>short words plugin</comment>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -28566,23 +28785,23 @@ Consider using the Preflight Verifier to correct them</translation>
     </message>
     <message>
         <source>Generate PDF Articles, which is useful for navigating linked articles in a PDF.</source>
-        <translation>Generate PDF Articles, which is useful for navigating linked articles in a PDF.</translation>
+        <translation type="vanished">Generate PDF Articles, which is useful for navigating linked articles in a PDF.</translation>
     </message>
     <message>
         <source>DPI (Dots Per Inch) for image export.</source>
-        <translation>DPI (Dots Per Inch) for image export.</translation>
+        <translation type="vanished">DPI (Dots Per Inch) for image export.</translation>
     </message>
     <message>
         <source>Choose a password for users to be able to read your PDF.</source>
-        <translation>Choose a password for users to be able to read your PDF.</translation>
+        <translation type="vanished">Choose a password for users to be able to read your PDF.</translation>
     </message>
     <message>
         <source>Allow printing of the PDF. If un-checked, printing is prevented. </source>
-        <translation>Allow printing of the PDF. If un-checked, printing is prevented. </translation>
+        <translation type="vanished">Allow printing of the PDF. If un-checked, printing is prevented. </translation>
     </message>
     <message>
         <source>Allow modifying of the PDF. If un-checked, modifying the PDF is prevented.</source>
-        <translation>Allow modifying of the PDF. If un-checked, modifying the PDF is prevented.</translation>
+        <translation type="vanished">Allow modifying of the PDF. If un-checked, modifying the PDF is prevented.</translation>
     </message>
     <message>
         <source>Embed a color profile for solid colors</source>
@@ -28678,7 +28897,7 @@ Consider using the Preflight Verifier to correct them</translation>
     </message>
     <message>
         <source>Insert a comma separated list of tokens where a token can be * for all the pages, 1-5 for a range of pages or a single page number.</source>
-        <translation>Insert a comma separated list of tokens where a token can be * for all the pages, 1-5 for a range of pages or a single page number.</translation>
+        <translation type="vanished">Insert a comma separated list of tokens where a token can be * for all the pages, 1-5 for a range of pages or a single page number.</translation>
     </message>
     <message>
         <source>Determines the binding of pages in the PDF. Unless you know you need to change it leave the default choice - Left.</source>
@@ -28796,7 +29015,7 @@ when PDF document is opened:</translation>
     </message>
     <message>
         <source>Layers in your document are exported to the PDF Only available if PDF 1.5 is chosen.</source>
-        <translation>Layers in your document are exported to the PDF Only available if PDF 1.5 is chosen.</translation>
+        <translation type="vanished">Layers in your document are exported to the PDF Only available if PDF 1.5 is chosen.</translation>
     </message>
     <message>
         <source>Color model for the output of your PDF. Choose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets. Choose Printer when printing to a true 4 color CMYK printer. Choose Grayscale when you want a grey scale PDF.</source>
@@ -29117,6 +29336,34 @@ when PDF document is opened:</translation>
     <message>
         <source>This is an advanced setting which is not enabled by default. This should only be enabled when specifically requested by your printer and they have given you the exact details needed. Otherwise, your exported PDF may not print properly and is truly not portable across systems.</source>
         <translation>This is an advanced setting which is not enabled by default. This should only be enabled when specifically requested by your printer and they have given you the exact details needed. Otherwise, your exported PDF may not print properly and is truly not portable across systems.</translation>
+    </message>
+    <message>
+        <source>Insert a comma separated list of tokens where a token can be * for all the pages, 1-5 for a range of pages or a single page number</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Generate PDF Articles, which is useful for navigating linked articles in a PDF</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Layers in your document are exported to the PDF. Only available if PDF 1.5 is chosen.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>DPI (Dots Per Inch) for image export</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Choose a password for users to be able to read your PDF</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Allow printing of the PDF. If unchecked, printing is prevented. </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Allow modifying of the PDF. If unchecked, modifying the PDF is prevented.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -29850,7 +30097,7 @@ to %2</translation>
     </message>
     <message>
         <source>Raise layer</source>
-        <translation type="vanished">Raise layer</translation>
+        <translation>Raise layer</translation>
     </message>
     <message>
         <source>Lower layer</source>
@@ -30370,10 +30617,6 @@ X: %4, Y: %5</translation>
         <source>Unweld Items</source>
         <translation>Unweld Items</translation>
     </message>
-    <message>
-        <source>Raise layer</source>
-        <translation>Raise layer</translation>
-    </message>
 </context>
 <context>
     <name>UndoPalette</name>
@@ -30611,7 +30854,7 @@ Would you like to start the system&apos;s default browser instead?</translation>
     </message>
     <message>
         <source>Select the visual appearance of the display. You can choose between normal and several color blindness forms</source>
-        <translation>Select the visual appearance of the display. You can choose between normal and several color blindness forms</translation>
+        <translation type="vanished">Select the visual appearance of the display. You can choose between normal and several color blindness forms</translation>
     </message>
     <message>
         <source>Select image preview quality</source>
@@ -30620,6 +30863,10 @@ Would you like to start the system&apos;s default browser instead?</translation>
     <message>
         <source>Select display visual appearance</source>
         <translation>Select display visual appearance</translation>
+    </message>
+    <message>
+        <source>Select the visual appearance of the display. You can choose between normal and several color blindness forms.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -30755,7 +31002,7 @@ converting their vector data into Scribus objects.</translation>
     </message>
     <message>
         <source>TextLabel</source>
-        <translation>TextLabel</translation>
+        <translation type="vanished">TextLabel</translation>
     </message>
     <message>
         <source>Page Range</source>
