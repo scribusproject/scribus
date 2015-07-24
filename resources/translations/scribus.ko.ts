@@ -4957,6 +4957,11 @@ Insert키는 사용자 정의문자를 선택으로 삽입합니다. Del키는 �
         <translation>다시 체크</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/checkDocument.cpp" line="121"/>
+        <source>Preflight profile to base the report generation on. Options can be set in Document Setup or Preferences.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../../scribus/ui/checkDocument.cpp" line="126"/>
         <source>Indicates that editorial changes have been made to a PDF are still present or your PDF contains unprintable annotation items. They may cause issues in professional printing. Also helpful reminder if you are wanting to publish a final draft without editorial relics.</source>
         <translation type="unfinished"></translation>
@@ -5091,9 +5096,8 @@ Insert키는 사용자 정의문자를 선택으로 삽입합니다. Del키는 �
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/checkDocument.cpp" line="121"/>
         <source>Preflight profile to base the report generation on. Options can be set in Document Setup or Preferences</source>
-        <translation>보고서 생성 기반 문서 검증 프로파일. 설정을 문서 설정 또는 기본 설정에서 설정할 수 있습니다</translation>
+        <translation type="vanished">보고서 생성 기반 문서 검증 프로파일. 설정을 문서 설정 또는 기본 설정에서 설정할 수 있습니다</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/checkDocument.cpp" line="122"/>
@@ -6487,6 +6491,11 @@ currently %2 x %3 DPI</source>
         <translation>시트당 페이지</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/cupsoptions.cpp" line="225"/>
+        <source>This panel displays various CUPS options when printing. The exact parameters available will depend on your printer driver. You can confirm CUPS support by selecting Help &gt; About. Look for the listings: C-C-T These equate to C=CUPS C=littlecms T=TIFF support. Missing library support is indicated by a *.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../../scribus/ui/cupsoptions.cpp" line="64"/>
         <source>Option</source>
         <translation>설정</translation>
@@ -6497,9 +6506,8 @@ currently %2 x %3 DPI</source>
         <translation>값</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/cupsoptions.cpp" line="225"/>
         <source>This panel displays various CUPS options when printing. The exact parameters available will depend on your printer driver. You can confirm CUPS support by selecting Help &gt; About. Look for the listings: C-C-T These equate to C=CUPS C=littlecms T=TIFF support. Missing library support is indicated by a *</source>
-        <translation>이 패널은 인쇄시 다양한 CUPS 설정을 보여줍니다. 이용가능한 정확한 인자는 프린터 드라이버에 의존합니다. 도움말 &gt; 소개를 선택함으로서 CUPS 지원을 확인할 수 있습니다. 목록 찾기: C-C-T에서 C=CUPS C=littlecms T=TIFF 지원함과 같습니다. 라이브러리 지원이 빠진 것은 *으로 표시합니다</translation>
+        <translation type="vanished">이 패널은 인쇄시 다양한 CUPS 설정을 보여줍니다. 이용가능한 정확한 인자는 프린터 드라이버에 의존합니다. 도움말 &gt; 소개를 선택함으로서 CUPS 지원을 확인할 수 있습니다. 목록 찾기: C-C-T에서 C=CUPS C=littlecms T=TIFF 지원함과 같습니다. 라이브러리 지원이 빠진 것은 *으로 표시합니다</translation>
     </message>
 </context>
 <context>
@@ -6819,23 +6827,44 @@ currently %2 x %3 DPI</source>
     </message>
     <message>
         <location filename="../../scribus/docinfo.cpp" line="167"/>
-        <source>The person or organisation primarily responsible for making the content of the document. This field can be embedded in the Scribus document for reference, as well as in the metadata of a PDF</source>
-        <translation>문서 내용을 제작하는 것에 대하여 주로 책임이 있는 사람 또는 조직. 이 필드는 PDF의 메타데이타와 참조를 위한 Scribus 문서에 삽입될 수 있습니다</translation>
+        <source>The person or organisation primarily responsible for making the content of the document. This field can be embedded in the Scribus document for reference, as well as in the metadata of a PDF.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/docinfo.cpp" line="168"/>
-        <source>A name given to the document. This field can be embedded in the Scribus document for reference, as well as in the metadata of a PDF</source>
-        <translation>문서에 언급된 이름. 이 필드는 PDF의 메타데이타와 참조를 위한 Scribus 문서에 삽입될 수 있습니다</translation>
+        <source>A name given to the document. This field can be embedded in the Scribus document for reference, as well as in the metadata of a PDF.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/docinfo.cpp" line="169"/>
-        <source>An account of the content of the document. This field is for a brief description or abstract of the document. It is embedded in the PDF on export</source>
-        <translation>문서 내용 분량.  이 필드는 문서 간략한 설명 또는 요약입니다. 이것은 PDF 내보내기에서 삽입될 수 있습니다</translation>
+        <source>An account of the content of the document. This field is for a brief description or abstract of the document. It is embedded in the PDF on export.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/docinfo.cpp" line="170"/>
+        <source>The topic of the content of the document. This field is for document keywords you wish to embed in a PDF, to assist searches and indexing of PDF files.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/docinfo.cpp" line="175"/>
+        <source>The physical or digital manifestation of the document. Media type and dimensions would be worth noting. RFC2045,RFC2046 for MIME types are also useful here.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The person or organisation primarily responsible for making the content of the document. This field can be embedded in the Scribus document for reference, as well as in the metadata of a PDF</source>
+        <translation type="vanished">문서 내용을 제작하는 것에 대하여 주로 책임이 있는 사람 또는 조직. 이 필드는 PDF의 메타데이타와 참조를 위한 Scribus 문서에 삽입될 수 있습니다</translation>
+    </message>
+    <message>
+        <source>A name given to the document. This field can be embedded in the Scribus document for reference, as well as in the metadata of a PDF</source>
+        <translation type="vanished">문서에 언급된 이름. 이 필드는 PDF의 메타데이타와 참조를 위한 Scribus 문서에 삽입될 수 있습니다</translation>
+    </message>
+    <message>
+        <source>An account of the content of the document. This field is for a brief description or abstract of the document. It is embedded in the PDF on export</source>
+        <translation type="vanished">문서 내용 분량.  이 필드는 문서 간략한 설명 또는 요약입니다. 이것은 PDF 내보내기에서 삽입될 수 있습니다</translation>
+    </message>
+    <message>
         <source>The topic of the content of the document. This field is for document keywords you wish to embed in a PDF, to assist searches and indexing of PDF files</source>
-        <translation>문서 내용 주제. 이 필드는 찾기 및 인덱싱에 도움을 주기 위하여, PDF에 삽입되기 바라는 문서 핵심어입니다</translation>
+        <translation type="vanished">문서 내용 주제. 이 필드는 찾기 및 인덱싱에 도움을 주기 위하여, PDF에 삽입되기 바라는 문서 핵심어입니다</translation>
     </message>
     <message>
         <location filename="../../scribus/docinfo.cpp" line="171"/>
@@ -6858,9 +6887,8 @@ currently %2 x %3 DPI</source>
         <translation>문서 내용의 요소 또는 장르, 즉 카테고리, 함수, 장르등</translation>
     </message>
     <message>
-        <location filename="../../scribus/docinfo.cpp" line="175"/>
         <source>The physical or digital manifestation of the document. Media type and dimensions would be worth noting. RFC2045,RFC2046 for MIME types are also useful here</source>
-        <translation>문서의 물리적 또는 디지털 명시, 미디어 형태와 크기는 쓸모없습니다. MIME 형태의  RFC2045,RFC2046가 유용합니다</translation>
+        <translation type="vanished">문서의 물리적 또는 디지털 명시, 미디어 형태와 크기는 쓸모없습니다. MIME 형태의  RFC2045,RFC2046가 유용합니다</translation>
     </message>
     <message>
         <location filename="../../scribus/docinfo.cpp" line="176"/>
@@ -8190,8 +8218,17 @@ Document Liberation Project http://www.documentliberation.org</source>
     </message>
     <message>
         <location filename="../../scribus/ui/fontreplacedialog.cpp" line="83"/>
+        <source>Cancels these font substitutions and stops loading the document</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/fontreplacedialog.cpp" line="85"/>
+        <source>If you select OK, then save, these substitutions are made permanent in the document</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Cancels these font substitutions and stops loading the document.</source>
-        <translation>글꼴 치환을 취소시키고, 문서 읽기를 그만 둠.</translation>
+        <translation type="vanished">글꼴 치환을 취소시키고, 문서 읽기를 그만 둠.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/fontreplacedialog.cpp" line="84"/>
@@ -8199,9 +8236,8 @@ Document Liberation Project http://www.documentliberation.org</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/fontreplacedialog.cpp" line="85"/>
         <source>If you select OK, then save, these substitutions are made permanent in the document.</source>
-        <translation>확인를 눌러 저장하면, 그 변환은 영구적으로 저장됩니다.</translation>
+        <translation type="vanished">확인를 눌러 저장하면, 그 변환은 영구적으로 저장됩니다.</translation>
     </message>
 </context>
 <context>
@@ -11819,7 +11855,7 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="../../scribus/ui/markvariabletext.cpp" line="18"/>
-        <source>Edit selected Mark`s label. To create new Mark select &quot;New Mark&quot; in drop list and input new label</source>
+        <source>Edit selected Mark`s label. To create new Mark select &quot;New Mark&quot; in drop list and input new label.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -11836,6 +11872,10 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="../../scribus/ui/markvariabletext.cpp" line="31"/>
+        <source>Edit selected Mark`s label</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../../scribus/ui/markvariabletext.cpp" line="48"/>
         <location filename="../../scribus/ui/markvariabletext.cpp" line="64"/>
         <source>Edit selected Mark`s label.</source>
@@ -13571,8 +13611,17 @@ You cannot switch to different notes style before you apply that new one or pres
     </message>
     <message>
         <location filename="../../scribus/plugins/gettext/odtim/odtdia.cpp" line="72"/>
+        <source>Prepend the document name to the paragraph style name in Scribus</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/plugins/gettext/odtim/odtdia.cpp" line="81"/>
+        <source>Make these settings the default and do not prompt again when importing an OASIS OpenDocument</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Prepend the document name to the paragraph style name in Scribus.</source>
-        <translation>Scribus에서 문서명을 문단스타일명으로 추가.</translation>
+        <translation type="vanished">Scribus에서 문서명을 문단스타일명으로 추가.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/gettext/odtim/odtdia.cpp" line="79"/>
@@ -13580,9 +13629,8 @@ You cannot switch to different notes style before you apply that new one or pres
         <translation>다시 묻지 않습니다</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/gettext/odtim/odtdia.cpp" line="81"/>
         <source>Make these settings the default and do not prompt again when importing an OASIS OpenDocument.</source>
-        <translation>이들 설정을 기본값으로 합니다 그리고 OASIS OpenDocument를 읽어올 때 다시 묻지 않습니다.</translation>
+        <translation type="vanished">이들 설정을 기본값으로 합니다 그리고 OASIS OpenDocument를 읽어올 때 다시 묻지 않습니다.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/gettext/odtim/odtdia.cpp" line="90"/>
@@ -13843,12 +13891,12 @@ You cannot switch to different notes style before you apply that new one or pres
     </message>
     <message>
         <location filename="../../scribus/ui/pdfexportdialog.cpp" line="135"/>
-        <source>Open the exported PDF with the PDF viewer as set in External Tools preferences, when not exporting to a multi-file export destination.</source>
+        <source>Open the exported PDF with the PDF viewer as set in External Tools preferences, when not exporting to a multi-file export destination</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pdfexportdialog.cpp" line="136"/>
-        <source>The save button will be disabled if you are trying to export PDF/X and the info string is missing from the PDF/X tab.</source>
+        <source>The save button will be disabled if you are trying to export PDF/X and the info string is missing from the PDF/X tab</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -16051,9 +16099,8 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>PicSearchOptions</name>
     <message>
-        <location filename="../../scribus/ui/picsearchoptions.cpp" line="52"/>
         <source>The filesystem will be searched for case insensitive file names when you check this on. Remember it is not default on most operating systems except MS Windows</source>
-        <translation>MS 윈도우만 대소문자 무시하고 파일시스템을 찾습니다. 다른 기종은 대소문자를 구별합니다</translation>
+        <translation type="vanished">MS 윈도우만 대소문자 무시하고 파일시스템을 찾습니다. 다른 기종은 대소문자를 구별합니다</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/picsearchoptions.cpp" line="59"/>
@@ -16065,6 +16112,11 @@ p, li { white-space: pre-wrap; }
         <location filename="../../scribus/ui/picsearchoptions.cpp" line="68"/>
         <source>Start Search</source>
         <translation>찾기 시작</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/picsearchoptions.cpp" line="52"/>
+        <source>The filesystem will be searched for case insensitive file names when you check this on. Remember it is not default on most operating systems except MS Windows.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/picsearchoptions.cpp" line="92"/>
@@ -19246,9 +19298,13 @@ Do you want to use this?</source>
         <translation type="unfinished">객체가 위치한 안내선에 붙이기 위한 거리. 이 설정 후 Scribus를 재실행해야 합니다.</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_guides.cpp" line="88"/>
         <source>Radius of the area where Scribus will allow you to grab an objects handles.After setting this you will need to restart Scribus to set this setting.</source>
-        <translation type="unfinished">Scribus가 객체 조절점을 붙잡을 수 있는 영향 반경. 이 설정을 한 후 Scribus를 재실행해야 합니다.</translation>
+        <translation type="obsolete">Scribus가 객체 조절점을 붙잡을 수 있는 영향 반경. 이 설정을 한 후 Scribus를 재실행해야 합니다.</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/prefs_guides.cpp" line="88"/>
+        <source>Radius of the area where Scribus will allow you to grab an objects handles. After setting this you will need to restart Scribus to set this setting.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_guides.cpp" line="89"/>
@@ -21137,28 +21193,58 @@ A value of 0 means unlimited hyphenations.</source>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="655"/>
-        <source>Type of the display effect.</source>
-        <translation type="unfinished">보이기 효과의 형태.</translation>
+        <source>Type of the display effect</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="656"/>
-        <source>Direction of the effect of moving lines for the split and blind effects.</source>
-        <translation type="unfinished">분해 또는 색맹효과를 위해서 선을 이동시키는 효과의 방향.</translation>
+        <source>Direction of the effect of moving lines for the split and blind effects</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="657"/>
-        <source>Starting position for the box and split effects.</source>
-        <translation type="unfinished">상자와 분리 효과를 위한 시작 위치.</translation>
+        <source>Starting position for the box and split effects</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="658"/>
-        <source>Direction of the glitter or wipe effects.</source>
-        <translation type="unfinished">Glitter 또는 Wipe 효과 방향.</translation>
+        <source>Direction of the glitter or wipe effects</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="659"/>
+        <source>Apply the selected effect to all pages</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="671"/>
+        <source>Hides the Menu Bar for the viewer, the PDF will display in a plain window</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="672"/>
+        <source>Fit the document page or pages to the available space in the viewer window</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Type of the display effect.</source>
+        <translation type="obsolete">보이기 효과의 형태.</translation>
+    </message>
+    <message>
+        <source>Direction of the effect of moving lines for the split and blind effects.</source>
+        <translation type="obsolete">분해 또는 색맹효과를 위해서 선을 이동시키는 효과의 방향.</translation>
+    </message>
+    <message>
+        <source>Starting position for the box and split effects.</source>
+        <translation type="obsolete">상자와 분리 효과를 위한 시작 위치.</translation>
+    </message>
+    <message>
+        <source>Direction of the glitter or wipe effects.</source>
+        <translation type="obsolete">Glitter 또는 Wipe 효과 방향.</translation>
+    </message>
+    <message>
         <source>Apply the selected effect to all pages.</source>
-        <translation type="unfinished">선택된 효과를 전체 페이지로 적용.</translation>
+        <translation type="obsolete">선택된 효과를 전체 페이지로 적용.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="660"/>
@@ -21220,14 +21306,12 @@ A value of 0 means unlimited hyphenations.</source>
         <translation type="unfinished">선택과 편집기능을 가진 툴바 숨기기</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="671"/>
         <source>Hides the Menu Bar for the viewer, the PDF will display in a plain window. </source>
-        <translation type="unfinished">뷰어를 위한 메뉴바 숨기기, PDF가 플레인 창에서 나타납니다.</translation>
+        <translation type="obsolete">뷰어를 위한 메뉴바 숨기기, PDF가 플레인 창에서 나타납니다.</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="672"/>
         <source>Fit the document page or pages to the available space in the viewer window.</source>
-        <translation type="unfinished">뷰어 창에서 문서 페이지를 가능한 저장공간에 맞추도록 합니다.</translation>
+        <translation type="obsolete">뷰어 창에서 문서 페이지를 가능한 저장공간에 맞추도록 합니다.</translation>
     </message>
 </context>
 <context>
@@ -21729,11 +21813,16 @@ A value of 0 means unlimited hyphenations.</source>
         <translation type="unfinished">부가 인쇄 설정을 사용하기 위하여 kprinter나 gtklp와 같은 대안 인쇄 관리자 사용</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_printer.cpp" line="33"/>
         <source>Sets the PostScript Level.
  Setting to Level 1 or 2 can create huge files</source>
-        <translation type="unfinished">포스트스크립트 레벌을 설정.
+        <translation type="obsolete">포스트스크립트 레벌을 설정.
 레벨 1 또는 2 설정은 큰 파일이 생성됩니다.</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/prefs_printer.cpp" line="33"/>
+        <source>Sets the PostScript Level.
+ Setting to Level 1 or 2 can create huge files.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_printer.cpp" line="34"/>
@@ -22400,9 +22489,8 @@ A value of 0 means unlimited hyphenations.</source>
         <translation type="unfinished">시동시 대화창 보이기</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_userinterface.cpp" line="53"/>
         <source>Select your default language for Scribus to run with. Leave this blank to choose based on environment variables. You can still override this by passing a command line option when starting Scribus</source>
-        <translation type="unfinished">Scribus 실행시 기본 언어 선택. 환경변수에 기반한 선택을 할 경우 이 곳을 빈 공백으로 둠. Scribus 시작시 명령어 라인 설정을 통하여 이것을 중복할 수 있습니다</translation>
+        <translation type="obsolete">Scribus 실행시 기본 언어 선택. 환경변수에 기반한 선택을 할 경우 이 곳을 빈 공백으로 둠. Scribus 시작시 명령어 라인 설정을 통하여 이것을 중복할 수 있습니다</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_userinterface.cpp" line="54"/>
@@ -22415,9 +22503,18 @@ A value of 0 means unlimited hyphenations.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_userinterface.cpp" line="56"/>
         <source>Palette windows will use smaller (space savy) widgets. Requires application restart</source>
-        <translation type="unfinished">팔레트 창은 더 작은 위젯을 사용할 것입니다. 재 시작이 필요합니다</translation>
+        <translation type="obsolete">팔레트 창은 더 작은 위젯을 사용할 것입니다. 재 시작이 필요합니다</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/prefs_userinterface.cpp" line="53"/>
+        <source>Select your default language for Scribus to run with. Leave this blank to choose based on environment variables. You can still override this by passing a command line option when starting Scribus.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/prefs_userinterface.cpp" line="56"/>
+        <source>Palette windows will use smaller (space savy) widgets. Requires application restart.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_userinterface.cpp" line="57"/>
@@ -23012,13 +23109,21 @@ Note: PDF Forms will not be exported.</source>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_group.cpp" line="641"/>
-        <source>Use the frame shape for text flow of text frames below the object.</source>
-        <translation type="unfinished">객체 아래 문자열 프레임의 문자열 흐름을 위한 프레임 모양 사용.</translation>
+        <source>Use the frame shape for text flow of text frames below the object</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_group.cpp" line="642"/>
+        <source>Use the bounding box, which is always rectangular, instead of the frame&apos;s shape for text flow of text frames below the object</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Use the frame shape for text flow of text frames below the object.</source>
+        <translation type="obsolete">객체 아래 문자열 프레임의 문자열 흐름을 위한 프레임 모양 사용.</translation>
+    </message>
+    <message>
         <source>Use the bounding box, which is always rectangular, instead of the frame&apos;s shape for text flow of text frames below the object. </source>
-        <translation type="unfinished">객체 아래 문자열 프레임의 문자열 흐름을 위한 프레임 모양 대신, 항상 직사각형 경계 박스를 사용.</translation>
+        <translation type="obsolete">객체 아래 문자열 프레임의 문자열 흐름을 위한 프레임 모양 대신, 항상 직사각형 경계 박스를 사용.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_group.cpp" line="643"/>
@@ -31283,8 +31388,12 @@ Caution: this will increase the file size!</source>
     </message>
     <message>
         <location filename="../../scribus/plugins/export/svgexplugin/svgexplugin.cpp" line="148"/>
+        <source>Adds the Page itself as background to the SVG</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Adds the Page itself as background to the SVG.</source>
-        <translation>페이지 자체 배경을 SVG에 더하기.</translation>
+        <translation type="vanished">페이지 자체 배경을 SVG에 더하기.</translation>
     </message>
 </context>
 <context>
@@ -31460,8 +31569,12 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <location filename="../../scribus/plugins/short-words/swprefsgui.cpp" line="97"/>
+        <source>Edit custom configuration. If you save it, it will be used over system wide configuration.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Edit custom configuration. If you save it, it will be used over system wide configuration</source>
-        <translation>사용자 설정 편집, 저장시 시스템 확장 설정으로 사용될 것입니다</translation>
+        <translation type="vanished">사용자 설정 편집, 저장시 시스템 확장 설정으로 사용될 것입니다</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/short-words/swprefsgui.cpp" line="110"/>
@@ -34065,11 +34178,6 @@ Consider using the Preflight Verifier to correct them</source>
 <context>
     <name>ScribusView</name>
     <message>
-        <location filename="../../scribus/scribusview.cpp" line="262"/>
-        <source>Click here to leave this special edit mode.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../../scribus/scribusview.cpp" line="1102"/>
         <source>Copy Here</source>
         <translation>이 곳에 복사</translation>
@@ -34122,6 +34230,11 @@ Consider using the Preflight Verifier to correct them</source>
         <location filename="../../scribus/scribusview.cpp" line="317"/>
         <source>Preview Mode</source>
         <translation>미리보기 모드</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/scribusview.cpp" line="262"/>
+        <source>Click here to leave this special edit mode</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/scribusview.cpp" line="318"/>
@@ -35633,8 +35746,12 @@ Consider using the Preflight Verifier to correct them</source>
     </message>
     <message>
         <location filename="../../scribus/plugins/gettext/sxwim/sxwdia.cpp" line="62"/>
+        <source>Make these settings the default and do not prompt again when importing an OpenOffice.org 1.x document</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Make these settings the default and do not prompt again when importing an OpenOffice.org 1.x document.</source>
-        <translation>이들 설정을 기본값으로 만들고, OASIS OpenDocument를 들여올 때 다시 묻지 않습니다.</translation>
+        <translation type="vanished">이들 설정을 기본값으로 만들고, OASIS OpenDocument를 들여올 때 다시 묻지 않습니다.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/gettext/sxwim/sxwdia.cpp" line="71"/>
@@ -36679,8 +36796,23 @@ when PDF document is opened:</source>
         <translation>손실 압축방법을 위한 압축 품질 레벨 : 최소(25%), 낮음(50%), 중간(75%), 높음(85%),최대(95%).  압축 품질 레벌은 출력 이미지 크기를 직접적으로 결정하는 것은 아닙니다. 이미지 크기와 품질의 손실은 정베지어선 레벌에서 다양하며 최대 JPEG에서 약간 품질의 손실이 있습니다.</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/tabpdfoptions.cpp" line="255"/>
+        <source>Hides the Menu Bar for the viewer, the PDF will display in a plain window</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/tabpdfoptions.cpp" line="256"/>
+        <source>Fit the document page or pages to the available space in the viewer window</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="260"/>
         <source>Choose an owner password which enables or disables all the security features in your exported PDF</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/tabpdfoptions.cpp" line="262"/>
+        <source>Allow printing of the PDF. If unchecked, printing is prevented.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -36764,14 +36896,12 @@ when PDF document is opened:</source>
         <translation>선택과 편집기능을 가진 툴바 숨기기</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/tabpdfoptions.cpp" line="255"/>
         <source>Hides the Menu Bar for the viewer, the PDF will display in a plain window. </source>
-        <translation>뷰어를 위한 메뉴바 숨기기, PDF가 플레인 창에서 나타납니다.</translation>
+        <translation type="vanished">뷰어를 위한 메뉴바 숨기기, PDF가 플레인 창에서 나타납니다.</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/tabpdfoptions.cpp" line="256"/>
         <source>Fit the document page or pages to the available space in the viewer window.</source>
-        <translation>뷰어 창에서 문서 페이지를 가능한 저장공간에 맞추도록 합니다.</translation>
+        <translation type="vanished">뷰어 창에서 문서 페이지를 가능한 저장공간에 맞추도록 합니다.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="226"/>
@@ -36801,11 +36931,6 @@ when PDF document is opened:</source>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="261"/>
         <source>Choose a password for users to be able to read your PDF</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/tabpdfoptions.cpp" line="262"/>
-        <source>Allow printing of the PDF. If unchecked, printing is prevented. </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -39003,17 +39128,17 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <location filename="../../scribus/plugins/gettext/xtgim/xtgdialog.cpp" line="55"/>
-        <source>Prepend the document name to the Style name in Scribus.</source>
+        <source>Prepend the document name to the Style name in Scribus</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/plugins/gettext/xtgim/xtgdialog.cpp" line="64"/>
+        <source>Make these settings the default and do not prompt again when importing an XPress Tags document</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/gettext/xtgim/xtgdialog.cpp" line="62"/>
         <source>Do not ask again</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/plugins/gettext/xtgim/xtgdialog.cpp" line="64"/>
-        <source>Make these settings the default and do not prompt again when importing an XPress Tags document.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

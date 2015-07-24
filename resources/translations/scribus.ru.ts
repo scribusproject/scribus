@@ -4962,6 +4962,11 @@ The Insert key inserts a Glyph into the Selection below and the Delete key remov
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/checkDocument.cpp" line="121"/>
+        <source>Preflight profile to base the report generation on. Options can be set in Document Setup or Preferences.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../../scribus/ui/checkDocument.cpp" line="133"/>
         <source>The image does not fit the whole space you reserved for it. Maybe this is intended, or maybe this is caused by bad inner placement or scale. The result will either be a cropped image or white space around the image.</source>
         <translation type="unfinished"></translation>
@@ -5037,9 +5042,8 @@ The Insert key inserts a Glyph into the Selection below and the Delete key remov
         <translation type="vanished">Аннотация использует не шрифт TrueType</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/checkDocument.cpp" line="121"/>
         <source>Preflight profile to base the report generation on. Options can be set in Document Setup or Preferences</source>
-        <translation>Профиль проверки, на основе которого составляется отчет. Параметры профиля настраиваются в диалоге параметров документа или программы.</translation>
+        <translation type="vanished">Профиль проверки, на основе которого составляется отчет. Параметры профиля настраиваются в диалоге параметров документа или программы.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/checkDocument.cpp" line="122"/>
@@ -6509,8 +6513,12 @@ currently %2 x %3 DPI</source>
     </message>
     <message>
         <location filename="../../scribus/ui/cupsoptions.cpp" line="225"/>
+        <source>This panel displays various CUPS options when printing. The exact parameters available will depend on your printer driver. You can confirm CUPS support by selecting Help &gt; About. Look for the listings: C-C-T These equate to C=CUPS C=littlecms T=TIFF support. Missing library support is indicated by a *.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>This panel displays various CUPS options when printing. The exact parameters available will depend on your printer driver. You can confirm CUPS support by selecting Help &gt; About. Look for the listings: C-C-T These equate to C=CUPS C=littlecms T=TIFF support. Missing library support is indicated by a *</source>
-        <translation>Здесь отображаются различные параметры CUPS для печати. Состав параметров зависит от используемой модели принтера. наличие поддержки можно проверить в диалоге «О Scribus», вызываемом через меню «Справка». Найдите сокращение вида &quot;C-C-T&quot;, которое расшифровывается так: C=CUPS C=littlecms T=TIFF. Отсутствующая библиотека помечается символом *</translation>
+        <translation type="vanished">Здесь отображаются различные параметры CUPS для печати. Состав параметров зависит от используемой модели принтера. наличие поддержки можно проверить в диалоге «О Scribus», вызываемом через меню «Справка». Найдите сокращение вида &quot;C-C-T&quot;, которое расшифровывается так: C=CUPS C=littlecms T=TIFF. Отсутствующая библиотека помечается символом *</translation>
     </message>
 </context>
 <context>
@@ -6828,6 +6836,26 @@ currently %2 x %3 DPI</source>
         <translation>&amp;Подробнее</translation>
     </message>
     <message>
+        <location filename="../../scribus/docinfo.cpp" line="167"/>
+        <source>The person or organisation primarily responsible for making the content of the document. This field can be embedded in the Scribus document for reference, as well as in the metadata of a PDF.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/docinfo.cpp" line="168"/>
+        <source>A name given to the document. This field can be embedded in the Scribus document for reference, as well as in the metadata of a PDF.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/docinfo.cpp" line="169"/>
+        <source>An account of the content of the document. This field is for a brief description or abstract of the document. It is embedded in the PDF on export.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/docinfo.cpp" line="170"/>
+        <source>The topic of the content of the document. This field is for document keywords you wish to embed in a PDF, to assist searches and indexing of PDF files.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../../scribus/docinfo.cpp" line="171"/>
         <source>A person or organisation responsible for making the document available</source>
         <translation>Человек или организация, ответственные за выпуск этого документа</translation>
@@ -6846,6 +6874,11 @@ currently %2 x %3 DPI</source>
         <location filename="../../scribus/docinfo.cpp" line="174"/>
         <source>The nature or genre of the content of the document, eg. categories, functions, genres, etc</source>
         <translation>Природа жанра содержимого этого документа, например, категории, функции и т.д.</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/docinfo.cpp" line="175"/>
+        <source>The physical or digital manifestation of the document. Media type and dimensions would be worth noting. RFC2045,RFC2046 for MIME types are also useful here.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/docinfo.cpp" line="176"/>
@@ -6878,29 +6911,24 @@ currently %2 x %3 DPI</source>
         <translation>&amp;Документ</translation>
     </message>
     <message>
-        <location filename="../../scribus/docinfo.cpp" line="167"/>
         <source>The person or organisation primarily responsible for making the content of the document. This field can be embedded in the Scribus document for reference, as well as in the metadata of a PDF</source>
-        <translation>Название организации, в первую очередь ответственной за создание этого документа. Это поле может быть встроено как в документ Scribus для ссылок на него, так и в метаданные PDF</translation>
+        <translation type="vanished">Название организации, в первую очередь ответственной за создание этого документа. Это поле может быть встроено как в документ Scribus для ссылок на него, так и в метаданные PDF</translation>
     </message>
     <message>
-        <location filename="../../scribus/docinfo.cpp" line="168"/>
         <source>A name given to the document. This field can be embedded in the Scribus document for reference, as well as in the metadata of a PDF</source>
-        <translation>Имя, данное документу. Это поле может быть встроено как в документ Scribus для ссылок на него, так и в метаданные PDF</translation>
+        <translation type="vanished">Имя, данное документу. Это поле может быть встроено как в документ Scribus для ссылок на него, так и в метаданные PDF</translation>
     </message>
     <message>
-        <location filename="../../scribus/docinfo.cpp" line="169"/>
         <source>An account of the content of the document. This field is for a brief description or abstract of the document. It is embedded in the PDF on export</source>
-        <translation>Краткое описание содержимого документа. Это поле для краткого описания или аннотации к документу, встраиваемое в экспортируемый файл PDF</translation>
+        <translation type="vanished">Краткое описание содержимого документа. Это поле для краткого описания или аннотации к документу, встраиваемое в экспортируемый файл PDF</translation>
     </message>
     <message>
-        <location filename="../../scribus/docinfo.cpp" line="170"/>
         <source>The topic of the content of the document. This field is for document keywords you wish to embed in a PDF, to assist searches and indexing of PDF files</source>
-        <translation>Тема этого документа. Это поле содержит ключевые слова документа для встраивания в файл PDF для упрощения поиска и индексирования таких файлов</translation>
+        <translation type="vanished">Тема этого документа. Это поле содержит ключевые слова документа для встраивания в файл PDF для упрощения поиска и индексирования таких файлов</translation>
     </message>
     <message>
-        <location filename="../../scribus/docinfo.cpp" line="175"/>
         <source>The physical or digital manifestation of the document. Media type and dimensions would be worth noting. RFC2045,RFC2046 for MIME types are also useful here</source>
-        <translation>Физическое или цифровое представление этого документа. Стоит указать тип носителя и его размеры. Также полезны RFC2045 и RFC2046 для типов MIME</translation>
+        <translation type="vanished">Физическое или цифровое представление этого документа. Стоит указать тип носителя и его размеры. Также полезны RFC2045 и RFC2046 для типов MIME</translation>
     </message>
     <message>
         <location filename="../../scribus/docinfo.cpp" line="178"/>
@@ -8201,8 +8229,18 @@ Document Liberation Project http://www.documentliberation.org</source>
         <translation>Использовать эту замену всегда</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/fontreplacedialog.cpp" line="83"/>
+        <source>Cancels these font substitutions and stops loading the document</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../../scribus/ui/fontreplacedialog.cpp" line="84"/>
         <source>Enabling this tells Scribus to use these replacements for missing fonts permanently in all future layouts. This can be reverted or changed in File &gt; Preferences &gt; Fonts.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/fontreplacedialog.cpp" line="85"/>
+        <source>If you select OK, then save, these substitutions are made permanent in the document</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -8211,14 +8249,12 @@ Document Liberation Project http://www.documentliberation.org</source>
         <translation>Некоторые шрифты, используемые в этом документе, отсутствуют в вашей системе. Выберите замену для них. Нажав кнопку «Отмена», вы прекратите загрузку документа.</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/fontreplacedialog.cpp" line="83"/>
         <source>Cancels these font substitutions and stops loading the document.</source>
-        <translation>Отмену замену шрифтов и прекратить загрузку документа.</translation>
+        <translation type="vanished">Отмену замену шрифтов и прекратить загрузку документа.</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/fontreplacedialog.cpp" line="85"/>
         <source>If you select OK, then save, these substitutions are made permanent in the document.</source>
-        <translation>Если нажать ОК, а затем сохранить, то эта замена станет постоянной для сохранённого документа.</translation>
+        <translation type="vanished">Если нажать ОК, а затем сохранить, то эта замена станет постоянной для сохранённого документа.</translation>
     </message>
 </context>
 <context>
@@ -11877,7 +11913,7 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="../../scribus/ui/markvariabletext.cpp" line="18"/>
-        <source>Edit selected Mark`s label. To create new Mark select &quot;New Mark&quot; in drop list and input new label</source>
+        <source>Edit selected Mark`s label. To create new Mark select &quot;New Mark&quot; in drop list and input new label.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -11894,6 +11930,10 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="../../scribus/ui/markvariabletext.cpp" line="31"/>
+        <source>Edit selected Mark`s label</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../../scribus/ui/markvariabletext.cpp" line="48"/>
         <location filename="../../scribus/ui/markvariabletext.cpp" line="64"/>
         <source>Edit selected Mark`s label.</source>
@@ -13637,9 +13677,8 @@ You cannot switch to different notes style before you apply that new one or pres
         <translation>Добавить название документа в начало абзацного стиля</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/gettext/odtim/odtdia.cpp" line="72"/>
         <source>Prepend the document name to the paragraph style name in Scribus.</source>
-        <translation>Добавить имя документа в начало имени стиля в Scribus.</translation>
+        <translation type="vanished">Добавить имя документа в начало имени стиля в Scribus.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/gettext/odtim/odtdia.cpp" line="79"/>
@@ -13647,9 +13686,8 @@ You cannot switch to different notes style before you apply that new one or pres
         <translation>Больше не спрашивать</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/gettext/odtim/odtdia.cpp" line="81"/>
         <source>Make these settings the default and do not prompt again when importing an OASIS OpenDocument.</source>
-        <translation>Сделать эти параметры исходными или больше не задавать вопросов при импорте OASIS OpenDocument.</translation>
+        <translation type="vanished">Сделать эти параметры исходными или больше не задавать вопросов при импорте OASIS OpenDocument.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/gettext/odtim/odtdia.cpp" line="90"/>
@@ -13660,6 +13698,16 @@ You cannot switch to different notes style before you apply that new one or pres
         <location filename="../../scribus/plugins/gettext/odtim/odtdia.cpp" line="43"/>
         <source>OpenDocument Importer Options</source>
         <translation>Параметры импорта OpenDocument</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/plugins/gettext/odtim/odtdia.cpp" line="72"/>
+        <source>Prepend the document name to the paragraph style name in Scribus</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/plugins/gettext/odtim/odtdia.cpp" line="81"/>
+        <source>Make these settings the default and do not prompt again when importing an OASIS OpenDocument</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/gettext/odtim/odtdia.cpp" line="92"/>
@@ -13909,14 +13957,8 @@ You cannot switch to different notes style before you apply that new one or pres
         <translation>&amp;Сохранить</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/pdfexportdialog.cpp" line="135"/>
-        <source>Open the exported PDF with the PDF viewer as set in External Tools preferences, when not exporting to a multi-file export destination.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/pdfexportdialog.cpp" line="136"/>
         <source>The save button will be disabled if you are trying to export PDF/X and the info string is missing from the PDF/X tab.</source>
-        <translation>Кнопка «Сохранить» станет недоступной при попытке экспортировать в PDF/X-3 с отсутствующей инфострокой.</translation>
+        <translation type="vanished">Кнопка «Сохранить» станет недоступной при попытке экспортировать в PDF/X-3 с отсутствующей инфострокой.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pdfexportdialog.cpp" line="218"/>
@@ -13927,6 +13969,16 @@ You cannot switch to different notes style before you apply that new one or pres
         <location filename="../../scribus/ui/pdfexportdialog.cpp" line="134"/>
         <source>This enables exporting one individually named PDF file for each page in the document. Page numbers are added automatically. This is most useful for imposing PDF for commercial printing.</source>
         <translation>Экспортировать каждую страницу документа в отдельный PDF. Номера страниц добавляются автоматически. Это полезнее всего для коммерческой печати.</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/pdfexportdialog.cpp" line="135"/>
+        <source>Open the exported PDF with the PDF viewer as set in External Tools preferences, when not exporting to a multi-file export destination</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/pdfexportdialog.cpp" line="136"/>
+        <source>The save button will be disabled if you are trying to export PDF/X and the info string is missing from the PDF/X tab</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pdfexportdialog.cpp" line="166"/>
@@ -16124,9 +16176,8 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>PicSearchOptions</name>
     <message>
-        <location filename="../../scribus/ui/picsearchoptions.cpp" line="52"/>
         <source>The filesystem will be searched for case insensitive file names when you check this on. Remember it is not default on most operating systems except MS Windows</source>
-        <translation>Поиск по файловой системе будет выполнен без учета регистра букв в именах файлов. По умолчанию этот параметр отключен везде кроме MS Windows.</translation>
+        <translation type="vanished">Поиск по файловой системе будет выполнен без учета регистра букв в именах файлов. По умолчанию этот параметр отключен везде кроме MS Windows.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/picsearchoptions.cpp" line="59"/>
@@ -16138,6 +16189,11 @@ p, li { white-space: pre-wrap; }
         <location filename="../../scribus/ui/picsearchoptions.cpp" line="68"/>
         <source>Start Search</source>
         <translation>Начать поиск</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/picsearchoptions.cpp" line="52"/>
+        <source>The filesystem will be searched for case insensitive file names when you check this on. Remember it is not default on most operating systems except MS Windows.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/picsearchoptions.cpp" line="92"/>
@@ -19330,9 +19386,13 @@ Do you want to use this?</source>
         <translation type="unfinished">Расстояние, начиная с которого объект начнёт прилипать к направляющим линиям. Изменение этого значения будет учтено при повторном запуске Scribus.</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_guides.cpp" line="88"/>
         <source>Radius of the area where Scribus will allow you to grab an objects handles.After setting this you will need to restart Scribus to set this setting.</source>
-        <translation type="unfinished">Радиус области, внутри которой можно захватывать ручки объекта. Изменение этого значения будет учтено при повторном запуске Scribus.</translation>
+        <translation type="obsolete">Радиус области, внутри которой можно захватывать ручки объекта. Изменение этого значения будет учтено при повторном запуске Scribus.</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/prefs_guides.cpp" line="88"/>
+        <source>Radius of the area where Scribus will allow you to grab an objects handles. After setting this you will need to restart Scribus to set this setting.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_guides.cpp" line="89"/>
@@ -21233,28 +21293,58 @@ A value of 0 means unlimited hyphenations.</source>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="655"/>
-        <source>Type of the display effect.</source>
-        <translation type="unfinished">Тип отображаемого эффекта.</translation>
+        <source>Type of the display effect</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="656"/>
-        <source>Direction of the effect of moving lines for the split and blind effects.</source>
-        <translation type="unfinished">Направление движения линий в эффектах split и blind.</translation>
+        <source>Direction of the effect of moving lines for the split and blind effects</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="657"/>
-        <source>Starting position for the box and split effects.</source>
-        <translation type="unfinished">Стартовая позиция эффектов box и split.</translation>
+        <source>Starting position for the box and split effects</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="658"/>
-        <source>Direction of the glitter or wipe effects.</source>
-        <translation type="unfinished">Направление эффектов glitter и wipe.</translation>
+        <source>Direction of the glitter or wipe effects</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="659"/>
+        <source>Apply the selected effect to all pages</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="671"/>
+        <source>Hides the Menu Bar for the viewer, the PDF will display in a plain window</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="672"/>
+        <source>Fit the document page or pages to the available space in the viewer window</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Type of the display effect.</source>
+        <translation type="obsolete">Тип отображаемого эффекта.</translation>
+    </message>
+    <message>
+        <source>Direction of the effect of moving lines for the split and blind effects.</source>
+        <translation type="obsolete">Направление движения линий в эффектах split и blind.</translation>
+    </message>
+    <message>
+        <source>Starting position for the box and split effects.</source>
+        <translation type="obsolete">Стартовая позиция эффектов box и split.</translation>
+    </message>
+    <message>
+        <source>Direction of the glitter or wipe effects.</source>
+        <translation type="obsolete">Направление эффектов glitter и wipe.</translation>
+    </message>
+    <message>
         <source>Apply the selected effect to all pages.</source>
-        <translation type="unfinished">Применить выбранный эффект ко всем страницам.</translation>
+        <translation type="obsolete">Применить выбранный эффект ко всем страницам.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="660"/>
@@ -21316,14 +21406,12 @@ A value of 0 means unlimited hyphenations.</source>
         <translation type="unfinished">Скрывать панель с инструментами выделения и редактирования</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="671"/>
         <source>Hides the Menu Bar for the viewer, the PDF will display in a plain window. </source>
-        <translation type="unfinished">Скрывать строку меню в просмотрщике. PDF будет отображен в простом окне.</translation>
+        <translation type="obsolete">Скрывать строку меню в просмотрщике. PDF будет отображен в простом окне.</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="672"/>
         <source>Fit the document page or pages to the available space in the viewer window.</source>
-        <translation type="unfinished">Уместить страницу или страницы документа в окне программы для просмотра</translation>
+        <translation type="obsolete">Уместить страницу или страницы документа в окне программы для просмотра</translation>
     </message>
 </context>
 <context>
@@ -21825,12 +21913,17 @@ A value of 0 means unlimited hyphenations.</source>
         <translation type="unfinished">Использовать альтернативный менеджер печати, например kprinter или gtklp, для расширенной настройки печати</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_printer.cpp" line="33"/>
         <source>Sets the PostScript Level.
  Setting to Level 1 or 2 can create huge files</source>
-        <translation type="unfinished">Указывает уровень PostScript.
+        <translation type="obsolete">Указывает уровень PostScript.
 Выбор Level 1 или 2 может привести к 
 созданию огромных файлов</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/prefs_printer.cpp" line="33"/>
+        <source>Sets the PostScript Level.
+ Setting to Level 1 or 2 can create huge files.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_printer.cpp" line="34"/>
@@ -22371,9 +22464,8 @@ A value of 0 means unlimited hyphenations.</source>
 <context>
     <name>Prefs_UserInterface</name>
     <message>
-        <location filename="../../scribus/ui/prefs_userinterface.cpp" line="53"/>
         <source>Select your default language for Scribus to run with. Leave this blank to choose based on environment variables. You can still override this by passing a command line option when starting Scribus</source>
-        <translation type="unfinished">Здесь определяется язык, используемый Scribus по умолчанию. Оставьте поле пустым, чтобы параметры брались из системного языкового окружения. Системные параметры можно также «обойти» специальным аргументом командной строки (см. вывод команды scribus --help)</translation>
+        <translation type="obsolete">Здесь определяется язык, используемый Scribus по умолчанию. Оставьте поле пустым, чтобы параметры брались из системного языкового окружения. Системные параметры можно также «обойти» специальным аргументом командной строки (см. вывод команды scribus --help)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_userinterface.cpp" line="54"/>
@@ -22386,9 +22478,18 @@ A value of 0 means unlimited hyphenations.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_userinterface.cpp" line="56"/>
         <source>Palette windows will use smaller (space savy) widgets. Requires application restart</source>
-        <translation type="unfinished">Лкна палитр используют экономные элементы интерфейса. Необходим перезапуск приложения</translation>
+        <translation type="obsolete">Лкна палитр используют экономные элементы интерфейса. Необходим перезапуск приложения</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/prefs_userinterface.cpp" line="53"/>
+        <source>Select your default language for Scribus to run with. Leave this blank to choose based on environment variables. You can still override this by passing a command line option when starting Scribus.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/prefs_userinterface.cpp" line="56"/>
+        <source>Palette windows will use smaller (space savy) widgets. Requires application restart.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_userinterface.cpp" line="57"/>
@@ -23111,13 +23212,21 @@ Note: PDF Forms will not be exported.</source>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_group.cpp" line="641"/>
-        <source>Use the frame shape for text flow of text frames below the object.</source>
-        <translation>Использовать очертания объекта для обтекания текстом под объектом.</translation>
+        <source>Use the frame shape for text flow of text frames below the object</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_group.cpp" line="642"/>
+        <source>Use the bounding box, which is always rectangular, instead of the frame&apos;s shape for text flow of text frames below the object</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Use the frame shape for text flow of text frames below the object.</source>
+        <translation type="vanished">Использовать очертания объекта для обтекания текстом под объектом.</translation>
+    </message>
+    <message>
         <source>Use the bounding box, which is always rectangular, instead of the frame&apos;s shape for text flow of text frames below the object. </source>
-        <translation>Использовать площадку, которая всегда прямоугольна. </translation>
+        <translation type="vanished">Использовать площадку, которая всегда прямоугольна. </translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_group.cpp" line="643"/>
@@ -31406,8 +31515,12 @@ Caution: this will increase the file size!</source>
     </message>
     <message>
         <location filename="../../scribus/plugins/export/svgexplugin/svgexplugin.cpp" line="148"/>
+        <source>Adds the Page itself as background to the SVG</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Adds the Page itself as background to the SVG.</source>
-        <translation>Добавить всю страницу как фон в SVG</translation>
+        <translation type="vanished">Добавить всю страницу как фон в SVG</translation>
     </message>
 </context>
 <context>
@@ -31583,8 +31696,12 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <location filename="../../scribus/plugins/short-words/swprefsgui.cpp" line="97"/>
+        <source>Edit custom configuration. If you save it, it will be used over system wide configuration.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Edit custom configuration. If you save it, it will be used over system wide configuration</source>
-        <translation>Изменить пользовательские параметры. Если их сохранить, они будут использоваться вместо общесистемных</translation>
+        <translation type="vanished">Изменить пользовательские параметры. Если их сохранить, они будут использоваться вместо общесистемных</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/short-words/swprefsgui.cpp" line="110"/>
@@ -34196,11 +34313,6 @@ Consider using the Preflight Verifier to correct them</source>
 <context>
     <name>ScribusView</name>
     <message>
-        <location filename="../../scribus/scribusview.cpp" line="262"/>
-        <source>Click here to leave this special edit mode.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../../scribus/scribusview.cpp" line="1102"/>
         <source>Copy Here</source>
         <translation>Скопировать сюда</translation>
@@ -34248,6 +34360,11 @@ Consider using the Preflight Verifier to correct them</source>
         <location filename="../../scribus/scribusview.cpp" line="2104"/>
         <source>Page %1 to %2</source>
         <translation>Страница %1 до %2</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/scribusview.cpp" line="262"/>
+        <source>Click here to leave this special edit mode</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/scribusview.cpp" line="317"/>
@@ -35733,6 +35850,11 @@ Consider using the Preflight Verifier to correct them</source>
         <translation>Больше не спрашивать</translation>
     </message>
     <message>
+        <location filename="../../scribus/plugins/gettext/sxwim/sxwdia.cpp" line="62"/>
+        <source>Make these settings the default and do not prompt again when importing an OpenOffice.org 1.x document</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../../scribus/plugins/gettext/sxwim/sxwdia.cpp" line="71"/>
         <source>OK</source>
         <translation>ОК</translation>
@@ -35768,9 +35890,8 @@ Consider using the Preflight Verifier to correct them</source>
         <translation>Добавить имя документа в начало имени стиля в Scribus.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/gettext/sxwim/sxwdia.cpp" line="62"/>
         <source>Make these settings the default and do not prompt again when importing an OpenOffice.org 1.x document.</source>
-        <translation>Сделать эти параметры исходными или больше не задавать вопросов при импорте документа OpenOffice.org 1.x.</translation>
+        <translation type="vanished">Сделать эти параметры исходными или больше не задавать вопросов при импорте документа OpenOffice.org 1.x.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/gettext/sxwim/sxwdia.cpp" line="73"/>
@@ -36601,9 +36722,24 @@ Consider using the Preflight Verifier to correct them</source>
         <translation>Включить сжатие текста и графики без потерь в качестве, чтобы снизить размер файла PDF. Оставьте включённым, если нет особых причин отключить.</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/tabpdfoptions.cpp" line="255"/>
+        <source>Hides the Menu Bar for the viewer, the PDF will display in a plain window</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/tabpdfoptions.cpp" line="256"/>
+        <source>Fit the document page or pages to the available space in the viewer window</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="259"/>
         <source>Enable the security features in your exported PDF. If you selected PDF 1.3, the PDF will be protected by 40 bit encryption. If you selected PDF 1.4, the PDF will be protected by 128 bit encryption. Disclaimer: PDF encryption is not as reliable as GPG or PGP encryption and does have some limitations.</source>
         <translation>Включить функции безопасности в экспортируемом файле PDF. Если выбран PDF 1.3, файл будет зашифрован 40-битным ключом. Если выбран PDF 1.4, файл будет зашифрован 128-битным ключом. Помните, что шифрование в PDF менее мощное и более ограниченное в сравнении с GPG и PGP.</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/tabpdfoptions.cpp" line="262"/>
+        <source>Allow printing of the PDF. If unchecked, printing is prevented.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="269"/>
@@ -36933,23 +37069,16 @@ when PDF document is opened:</source>
         <translation>Скрывать панель с инструментами выделения и редактирования</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/tabpdfoptions.cpp" line="255"/>
         <source>Hides the Menu Bar for the viewer, the PDF will display in a plain window. </source>
-        <translation>Скрывать строку меню в просмотрщике. PDF будет отображен в простом окне.</translation>
+        <translation type="vanished">Скрывать строку меню в просмотрщике. PDF будет отображен в простом окне.</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/tabpdfoptions.cpp" line="256"/>
         <source>Fit the document page or pages to the available space in the viewer window.</source>
-        <translation>Уместить страницу или страницы документа в окне программы для просмотра</translation>
+        <translation type="vanished">Уместить страницу или страницы документа в окне программы для просмотра</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="261"/>
         <source>Choose a password for users to be able to read your PDF</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/tabpdfoptions.cpp" line="262"/>
-        <source>Allow printing of the PDF. If unchecked, printing is prevented. </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -39149,8 +39278,17 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <location filename="../../scribus/plugins/gettext/xtgim/xtgdialog.cpp" line="55"/>
+        <source>Prepend the document name to the Style name in Scribus</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/plugins/gettext/xtgim/xtgdialog.cpp" line="64"/>
+        <source>Make these settings the default and do not prompt again when importing an XPress Tags document</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Prepend the document name to the Style name in Scribus.</source>
-        <translation>Вставить название импортируемого документа в начало имени каждого импортируемого стиля</translation>
+        <translation type="vanished">Вставить название импортируемого документа в начало имени каждого импортируемого стиля</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/gettext/xtgim/xtgdialog.cpp" line="62"/>
@@ -39158,9 +39296,8 @@ converting their vector data into Scribus objects.</source>
         <translation>Больше не спрашивать</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/gettext/xtgim/xtgdialog.cpp" line="64"/>
         <source>Make these settings the default and do not prompt again when importing an XPress Tags document.</source>
-        <translation>Всегда использовать указанные сейчас параметры и больше никогда о них не спрашивать</translation>
+        <translation type="vanished">Всегда использовать указанные сейчас параметры и больше никогда о них не спрашивать</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/gettext/xtgim/xtgdialog.cpp" line="73"/>

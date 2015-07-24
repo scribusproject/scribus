@@ -3978,7 +3978,7 @@ The Insert key inserts a Glyph into the Selection below and the Delete key remov
     </message>
     <message>
         <source>Preflight profile to base the report generation on. Options can be set in Document Setup or Preferences</source>
-        <translation>Preflight profile to base the report generation on. Options can be set in Document Setup or Preferences</translation>
+        <translation type="vanished">Preflight profile to base the report generation on. Options can be set in Document Setup or Preferences</translation>
     </message>
     <message>
         <source>Ignore found errors and continue to export or print. Be sure to understand the errors you are ignoring before continuing.</source>
@@ -4135,6 +4135,10 @@ currently %2 x %3 DPI</translation>
     <message>
         <source>The image does not fit the whole space you reserved for it. Maybe this is intended, or maybe this is caused by bad inner placement or scale. The result will either be a cropped image or white space around the image.</source>
         <translation>The image does not fit the whole space you reserved for it. Maybe this is intended, or maybe this is caused by bad inner placement or scale. The result will either be a cropped image or white space around the image.</translation>
+    </message>
+    <message>
+        <source>Preflight profile to base the report generation on. Options can be set in Document Setup or Preferences.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -5195,7 +5199,11 @@ currently %2 x %3 DPI</translation>
     </message>
     <message>
         <source>This panel displays various CUPS options when printing. The exact parameters available will depend on your printer driver. You can confirm CUPS support by selecting Help &gt; About. Look for the listings: C-C-T These equate to C=CUPS C=littlecms T=TIFF support. Missing library support is indicated by a *</source>
-        <translation>This panel displays various CUPS options when printing. The exact parameters available will depend on your printer driver. You can confirm CUPS support by selecting Help &gt; About. Look for the listings: C-C-T These equate to C=CUPS C=littlecms T=TIFF support. Missing library support is indicated by a *</translation>
+        <translation type="vanished">This panel displays various CUPS options when printing. The exact parameters available will depend on your printer driver. You can confirm CUPS support by selecting Help &gt; About. Look for the listings: C-C-T These equate to C=CUPS C=littlecms T=TIFF support. Missing library support is indicated by a *</translation>
+    </message>
+    <message>
+        <source>This panel displays various CUPS options when printing. The exact parameters available will depend on your printer driver. You can confirm CUPS support by selecting Help &gt; About. Look for the listings: C-C-T These equate to C=CUPS C=littlecms T=TIFF support. Missing library support is indicated by a *.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -5497,27 +5505,47 @@ currently %2 x %3 DPI</translation>
     </message>
     <message>
         <source>The person or organisation primarily responsible for making the content of the document. This field can be embedded in the Scribus document for reference, as well as in the metadata of a PDF</source>
-        <translation>The person or organisation primarily responsible for making the content of the document. This field can be embedded in the Scribus document for reference, as well as in the metadata of a PDF</translation>
+        <translation type="vanished">The person or organisation primarily responsible for making the content of the document. This field can be embedded in the Scribus document for reference, as well as in the metadata of a PDF</translation>
     </message>
     <message>
         <source>A name given to the document. This field can be embedded in the Scribus document for reference, as well as in the metadata of a PDF</source>
-        <translation>A name given to the document. This field can be embedded in the Scribus document for reference, as well as in the metadata of a PDF</translation>
+        <translation type="vanished">A name given to the document. This field can be embedded in the Scribus document for reference, as well as in the metadata of a PDF</translation>
     </message>
     <message>
         <source>An account of the content of the document. This field is for a brief description or abstract of the document. It is embedded in the PDF on export</source>
-        <translation>An account of the content of the document. This field is for a brief description or abstract of the document. It is embedded in the PDF on export</translation>
+        <translation type="vanished">An account of the content of the document. This field is for a brief description or abstract of the document. It is embedded in the PDF on export</translation>
     </message>
     <message>
         <source>The topic of the content of the document. This field is for document keywords you wish to embed in a PDF, to assist searches and indexing of PDF files</source>
-        <translation>The topic of the content of the document. This field is for document keywords you wish to embed in a PDF, to assist searches and indexing of PDF files</translation>
+        <translation type="vanished">The topic of the content of the document. This field is for document keywords you wish to embed in a PDF, to assist searches and indexing of PDF files</translation>
     </message>
     <message>
         <source>The physical or digital manifestation of the document. Media type and dimensions would be worth noting. RFC2045,RFC2046 for MIME types are also useful here</source>
-        <translation>The physical or digital manifestation of the document. Media type and dimensions would be worth noting. RFC2045,RFC2046 for MIME types are also useful here</translation>
+        <translation type="vanished">The physical or digital manifestation of the document. Media type and dimensions would be worth noting. RFC2045,RFC2046 for MIME types are also useful here</translation>
     </message>
     <message>
         <source>The language in which the content of the document is written, usually a ISO-639 language code optionally suffixed with a hypen and an ISO-3166 country code, eg. en-GB, fr-CH</source>
         <translation>The language in which the content of the document is written, usually a ISO-639 language code optionally suffixed with a hypen and an ISO-3166 country code, eg. en-GB, fr-CH</translation>
+    </message>
+    <message>
+        <source>The person or organisation primarily responsible for making the content of the document. This field can be embedded in the Scribus document for reference, as well as in the metadata of a PDF.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>A name given to the document. This field can be embedded in the Scribus document for reference, as well as in the metadata of a PDF.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>An account of the content of the document. This field is for a brief description or abstract of the document. It is embedded in the PDF on export.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The topic of the content of the document. This field is for document keywords you wish to embed in a PDF, to assist searches and indexing of PDF files.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The physical or digital manifestation of the document. Media type and dimensions would be worth noting. RFC2045,RFC2046 for MIME types are also useful here.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -6485,15 +6513,23 @@ Document Liberation Project http://www.documentliberation.org</translation>
     </message>
     <message>
         <source>Cancels these font substitutions and stops loading the document.</source>
-        <translation>Cancels these font substitutions and stops loading the document.</translation>
+        <translation type="vanished">Cancels these font substitutions and stops loading the document.</translation>
     </message>
     <message>
         <source>If you select OK, then save, these substitutions are made permanent in the document.</source>
-        <translation>If you select OK, then save, these substitutions are made permanent in the document.</translation>
+        <translation type="vanished">If you select OK, then save, these substitutions are made permanent in the document.</translation>
     </message>
     <message>
         <source>Enabling this tells Scribus to use these replacements for missing fonts permanently in all future layouts. This can be reverted or changed in File &gt; Preferences &gt; Fonts.</source>
         <translation>Enabling this tells Scribus to use these replacements for missing fonts permanently in all future layouts. This can be reverted or changed in File &gt; Preferences &gt; Fonts.</translation>
+    </message>
+    <message>
+        <source>Cancels these font substitutions and stops loading the document</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>If you select OK, then save, these substitutions are made permanent in the document</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -9451,7 +9487,7 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <source>Edit selected Mark`s label. To create new Mark select &quot;New Mark&quot; in drop list and input new label</source>
-        <translation>Edit selected Mark`s label. To create new Mark select &quot;New Mark&quot; in drop list and input new label</translation>
+        <translation type="vanished">Edit selected Mark`s label. To create new Mark select &quot;New Mark&quot; in drop list and input new label</translation>
     </message>
     <message>
         <source>Edit variable text</source>
@@ -9464,6 +9500,14 @@ p, li { white-space: pre-wrap; }
     <message>
         <source>Edit selected Mark`s label.</source>
         <translation>Edit selected Mark`s label.</translation>
+    </message>
+    <message>
+        <source>Edit selected Mark`s label. To create new Mark select &quot;New Mark&quot; in drop list and input new label.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Edit selected Mark`s label</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -10841,11 +10885,11 @@ You cannot switch to different notes style before you apply that new one or pres
     </message>
     <message>
         <source>Prepend the document name to the paragraph style name in Scribus.</source>
-        <translation>Prepend the document name to the paragraph style name in Scribus.</translation>
+        <translation type="vanished">Prepend the document name to the paragraph style name in Scribus.</translation>
     </message>
     <message>
         <source>Make these settings the default and do not prompt again when importing an OASIS OpenDocument.</source>
-        <translation>Make these settings the default and do not prompt again when importing an OASIS OpenDocument.</translation>
+        <translation type="vanished">Make these settings the default and do not prompt again when importing an OASIS OpenDocument.</translation>
     </message>
     <message>
         <source>Overwrite Paragraph Styles</source>
@@ -10858,6 +10902,14 @@ You cannot switch to different notes style before you apply that new one or pres
     <message>
         <source>Cancel</source>
         <translation>Cancel</translation>
+    </message>
+    <message>
+        <source>Prepend the document name to the paragraph style name in Scribus</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Make these settings the default and do not prompt again when importing an OASIS OpenDocument</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -11057,11 +11109,11 @@ You cannot switch to different notes style before you apply that new one or pres
     </message>
     <message>
         <source>Open the exported PDF with the PDF viewer as set in External Tools preferences, when not exporting to a multi-file export destination.</source>
-        <translation>Open the exported PDF with the PDF viewer as set in External Tools preferences, when not exporting to a multi-file export destination.</translation>
+        <translation type="vanished">Open the exported PDF with the PDF viewer as set in External Tools preferences, when not exporting to a multi-file export destination.</translation>
     </message>
     <message>
         <source>The save button will be disabled if you are trying to export PDF/X and the info string is missing from the PDF/X tab.</source>
-        <translation>The save button will be disabled if you are trying to export PDF/X and the info string is missing from the PDF/X tab.</translation>
+        <translation type="vanished">The save button will be disabled if you are trying to export PDF/X and the info string is missing from the PDF/X tab.</translation>
     </message>
     <message>
         <source>PDF Files (*.pdf);;All Files (*)</source>
@@ -11084,6 +11136,14 @@ You cannot switch to different notes style before you apply that new one or pres
     <message>
         <source>Save As</source>
         <translation>Save As</translation>
+    </message>
+    <message>
+        <source>Open the exported PDF with the PDF viewer as set in External Tools preferences, when not exporting to a multi-file export destination</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The save button will be disabled if you are trying to export PDF/X and the info string is missing from the PDF/X tab</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -12834,7 +12894,7 @@ p, li { white-space: pre-wrap; }
     <name>PicSearchOptions</name>
     <message>
         <source>The filesystem will be searched for case insensitive file names when you check this on. Remember it is not default on most operating systems except MS Windows</source>
-        <translation>The filesystem will be searched for case insensitive file names when you check this on. Remember it is not default on most operating systems except MS Windows</translation>
+        <translation type="vanished">The filesystem will be searched for case insensitive file names when you check this on. Remember it is not default on most operating systems except MS Windows</translation>
     </message>
     <message>
         <source>Cancel Search</source>
@@ -12889,6 +12949,10 @@ p, li { white-space: pre-wrap; }
 Please choose another one.</source>
         <translation>Base directory for search does not exist.
 Please choose another one.</translation>
+    </message>
+    <message>
+        <source>The filesystem will be searched for case insensitive file names when you check this on. Remember it is not default on most operating systems except MS Windows.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -15360,7 +15424,7 @@ Do you want to use this?</translation>
     </message>
     <message>
         <source>Radius of the area where Scribus will allow you to grab an objects handles.After setting this you will need to restart Scribus to set this setting.</source>
-        <translation>Radius of the area where Scribus will allow you to grab an objects handles.After setting this you will need to restart Scribus to set this setting.</translation>
+        <translation type="vanished">Radius of the area where Scribus will allow you to grab an objects handles.After setting this you will need to restart Scribus to set this setting.</translation>
     </message>
     <message>
         <source>Color of the minor grid lines</source>
@@ -15429,6 +15493,10 @@ Do you want to use this?</translation>
     <message>
         <source>BaselineGrid</source>
         <translation>BaselineGrid</translation>
+    </message>
+    <message>
+        <source>Radius of the area where Scribus will allow you to grab an objects handles. After setting this you will need to restart Scribus to set this setting.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -16796,23 +16864,23 @@ A value of 0 means unlimited hyphenations.</translation>
     </message>
     <message>
         <source>Type of the display effect.</source>
-        <translation>Type of the display effect.</translation>
+        <translation type="vanished">Type of the display effect.</translation>
     </message>
     <message>
         <source>Direction of the effect of moving lines for the split and blind effects.</source>
-        <translation>Direction of the effect of moving lines for the split and blind effects.</translation>
+        <translation type="vanished">Direction of the effect of moving lines for the split and blind effects.</translation>
     </message>
     <message>
         <source>Starting position for the box and split effects.</source>
-        <translation>Starting position for the box and split effects.</translation>
+        <translation type="vanished">Starting position for the box and split effects.</translation>
     </message>
     <message>
         <source>Direction of the glitter or wipe effects.</source>
-        <translation>Direction of the glitter or wipe effects.</translation>
+        <translation type="vanished">Direction of the glitter or wipe effects.</translation>
     </message>
     <message>
         <source>Apply the selected effect to all pages.</source>
-        <translation>Apply the selected effect to all pages.</translation>
+        <translation type="vanished">Apply the selected effect to all pages.</translation>
     </message>
     <message>
         <source>Convert all glyphs in the document to outlines.</source>
@@ -16860,11 +16928,11 @@ A value of 0 means unlimited hyphenations.</translation>
     </message>
     <message>
         <source>Hides the Menu Bar for the viewer, the PDF will display in a plain window. </source>
-        <translation>Hides the Menu Bar for the viewer, the PDF will display in a plain window. </translation>
+        <translation type="vanished">Hides the Menu Bar for the viewer, the PDF will display in a plain window. </translation>
     </message>
     <message>
         <source>Fit the document page or pages to the available space in the viewer window.</source>
-        <translation>Fit the document page or pages to the available space in the viewer window.</translation>
+        <translation type="vanished">Fit the document page or pages to the available space in the viewer window.</translation>
     </message>
     <message>
         <source>Mark Length:</source>
@@ -16940,6 +17008,34 @@ A value of 0 means unlimited hyphenations.</translation>
     </message>
     <message>
         <source>Allow modifying of the PDF. If unchecked, modifying the PDF is prevented.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Type of the display effect</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Direction of the effect of moving lines for the split and blind effects</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Starting position for the box and split effects</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Direction of the glitter or wipe effects</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Apply the selected effect to all pages</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hides the Menu Bar for the viewer, the PDF will display in a plain window</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Fit the document page or pages to the available space in the viewer window</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -17340,7 +17436,7 @@ A value of 0 means unlimited hyphenations.</translation>
     <message>
         <source>Sets the PostScript Level.
  Setting to Level 1 or 2 can create huge files</source>
-        <translation>Sets the PostScript Level.
+        <translation type="vanished">Sets the PostScript Level.
  Setting to Level 1 or 2 can create huge files</translation>
     </message>
     <message>
@@ -17370,6 +17466,11 @@ A value of 0 means unlimited hyphenations.</translation>
     <message>
         <source>This enables you to explicitly set the media size of the PostScript file. Not recommended unless requested by your printer.</source>
         <translation>This enables you to explicitly set the media size of the PostScript file. Not recommended unless requested by your printer.</translation>
+    </message>
+    <message>
+        <source>Sets the PostScript Level.
+ Setting to Level 1 or 2 can create huge files.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -17858,7 +17959,7 @@ A value of 0 means unlimited hyphenations.</translation>
     </message>
     <message>
         <source>Select your default language for Scribus to run with. Leave this blank to choose based on environment variables. You can still override this by passing a command line option when starting Scribus</source>
-        <translation>Select your default language for Scribus to run with. Leave this blank to choose based on environment variables. You can still override this by passing a command line option when starting Scribus</translation>
+        <translation type="vanished">Select your default language for Scribus to run with. Leave this blank to choose based on environment variables. You can still override this by passing a command line option when starting Scribus</translation>
     </message>
     <message>
         <source>Choose the default window decoration and looks. Scribus inherits any available KDE or Qt themes, if Qt is configured to search KDE plugins.</source>
@@ -17866,7 +17967,7 @@ A value of 0 means unlimited hyphenations.</translation>
     </message>
     <message>
         <source>Palette windows will use smaller (space savy) widgets. Requires application restart</source>
-        <translation>Palette windows will use smaller (space savy) widgets. Requires application restart</translation>
+        <translation type="vanished">Palette windows will use smaller (space savy) widgets. Requires application restart</translation>
     </message>
     <message>
         <source>Number of recently edited documents to show in the File menu</source>
@@ -17899,6 +18000,14 @@ A value of 0 means unlimited hyphenations.</translation>
     <message>
         <source>Choose the default icon set</source>
         <translation>Choose the default icon set</translation>
+    </message>
+    <message>
+        <source>Select your default language for Scribus to run with. Leave this blank to choose based on environment variables. You can still override this by passing a command line option when starting Scribus.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Palette windows will use smaller (space savy) widgets. Requires application restart.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -18351,11 +18460,11 @@ a range of pages or a single page number</source>
     </message>
     <message>
         <source>Use the frame shape for text flow of text frames below the object.</source>
-        <translation>Use the frame shape for text flow of text frames below the object.</translation>
+        <translation type="vanished">Use the frame shape for text flow of text frames below the object.</translation>
     </message>
     <message>
         <source>Use the bounding box, which is always rectangular, instead of the frame&apos;s shape for text flow of text frames below the object. </source>
-        <translation>Use the bounding box, which is always rectangular, instead of the frame&apos;s shape for text flow of text frames below the object. </translation>
+        <translation type="vanished">Use the bounding box, which is always rectangular, instead of the frame&apos;s shape for text flow of text frames below the object. </translation>
     </message>
     <message>
         <source>When chosen, the contour line can be edited with the Edit Shape Tool on the palette further above. When edited via the shape palette, this becomes a second separate line originally based on the frame&apos;s shape for text flow of text frames below the object.</source>
@@ -18372,6 +18481,14 @@ a range of pages or a single page number</source>
     <message>
         <source>Fill is solid unless a subpath is counterdirectional.</source>
         <translation>Fill is solid unless a subpath is counterdirectional.</translation>
+    </message>
+    <message>
+        <source>Use the frame shape for text flow of text frames below the object</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Use the bounding box, which is always rectangular, instead of the frame&apos;s shape for text flow of text frames below the object</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -24926,7 +25043,11 @@ Caution: this will increase the file size!</translation>
     </message>
     <message>
         <source>Adds the Page itself as background to the SVG.</source>
-        <translation>Adds the Page itself as background to the SVG.</translation>
+        <translation type="vanished">Adds the Page itself as background to the SVG.</translation>
+    </message>
+    <message>
+        <source>Adds the Page itself as background to the SVG</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -25075,7 +25196,7 @@ converting their vector data into Scribus objects.</translation>
     </message>
     <message>
         <source>Edit custom configuration. If you save it, it will be used over system wide configuration</source>
-        <translation>Edit custom configuration. If you save it, it will be used over system wide configuration</translation>
+        <translation type="vanished">Edit custom configuration. If you save it, it will be used over system wide configuration</translation>
     </message>
     <message>
         <source>Short Words</source>
@@ -25100,6 +25221,10 @@ converting their vector data into Scribus objects.</translation>
     <message>
         <source>User configuration exists already. Do you really want to overwrite it?</source>
         <translation>User configuration exists already. Do you really want to overwrite it?</translation>
+    </message>
+    <message>
+        <source>Edit custom configuration. If you save it, it will be used over system wide configuration.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -27177,7 +27302,11 @@ Consider using the Preflight Verifier to correct them</translation>
     </message>
     <message>
         <source>Click here to leave this special edit mode.</source>
-        <translation>Click here to leave this special edit mode.</translation>
+        <translation type="vanished">Click here to leave this special edit mode.</translation>
+    </message>
+    <message>
+        <source>Click here to leave this special edit mode</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -28349,7 +28478,7 @@ Consider using the Preflight Verifier to correct them</translation>
     </message>
     <message>
         <source>Make these settings the default and do not prompt again when importing an OpenOffice.org 1.x document.</source>
-        <translation>Make these settings the default and do not prompt again when importing an OpenOffice.org 1.x document.</translation>
+        <translation type="vanished">Make these settings the default and do not prompt again when importing an OpenOffice.org 1.x document.</translation>
     </message>
     <message>
         <source>Overwrite Paragraph Styles</source>
@@ -28358,6 +28487,10 @@ Consider using the Preflight Verifier to correct them</translation>
     <message>
         <source>Cancel</source>
         <translation>Cancel</translation>
+    </message>
+    <message>
+        <source>Make these settings the default and do not prompt again when importing an OpenOffice.org 1.x document</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -29171,11 +29304,11 @@ when PDF document is opened:</translation>
     </message>
     <message>
         <source>Hides the Menu Bar for the viewer, the PDF will display in a plain window. </source>
-        <translation>Hides the Menu Bar for the viewer, the PDF will display in a plain window. </translation>
+        <translation type="vanished">Hides the Menu Bar for the viewer, the PDF will display in a plain window. </translation>
     </message>
     <message>
         <source>Fit the document page or pages to the available space in the viewer window.</source>
-        <translation>Fit the document page or pages to the available space in the viewer window.</translation>
+        <translation type="vanished">Fit the document page or pages to the available space in the viewer window.</translation>
     </message>
     <message>
         <source>Limits the resolution of your bitmap images to the selected DPI. Images with a lower resolution will be left untouched. Leaving this unchecked will render them at their native resolution. Enabling this will increase memory usage and slow down export.</source>
@@ -29358,11 +29491,19 @@ when PDF document is opened:</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Allow printing of the PDF. If unchecked, printing is prevented. </source>
+        <source>Allow modifying of the PDF. If unchecked, modifying the PDF is prevented.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Allow modifying of the PDF. If unchecked, modifying the PDF is prevented.</source>
+        <source>Hides the Menu Bar for the viewer, the PDF will display in a plain window</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Fit the document page or pages to the available space in the viewer window</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Allow printing of the PDF. If unchecked, printing is prevented.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -31048,7 +31189,7 @@ converting their vector data into Scribus objects.</translation>
     </message>
     <message>
         <source>Prepend the document name to the Style name in Scribus.</source>
-        <translation>Prepend the document name to the Style name in Scribus.</translation>
+        <translation type="vanished">Prepend the document name to the Style name in Scribus.</translation>
     </message>
     <message>
         <source>Do not ask again</source>
@@ -31056,7 +31197,7 @@ converting their vector data into Scribus objects.</translation>
     </message>
     <message>
         <source>Make these settings the default and do not prompt again when importing an XPress Tags document.</source>
-        <translation>Make these settings the default and do not prompt again when importing an XPress Tags document.</translation>
+        <translation type="vanished">Make these settings the default and do not prompt again when importing an XPress Tags document.</translation>
     </message>
     <message>
         <source>OK</source>
@@ -31065,6 +31206,14 @@ converting their vector data into Scribus objects.</translation>
     <message>
         <source>Cancel</source>
         <translation>Cancel</translation>
+    </message>
+    <message>
+        <source>Prepend the document name to the Style name in Scribus</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Make these settings the default and do not prompt again when importing an XPress Tags document</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

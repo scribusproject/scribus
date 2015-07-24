@@ -4958,6 +4958,11 @@ Klavišu „Įterpti“ (Insert) įterpiamas rašmuo į žemiau esantį „Atran
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/checkDocument.cpp" line="121"/>
+        <source>Preflight profile to base the report generation on. Options can be set in Document Setup or Preferences.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../../scribus/ui/checkDocument.cpp" line="133"/>
         <source>The image does not fit the whole space you reserved for it. Maybe this is intended, or maybe this is caused by bad inner placement or scale. The result will either be a cropped image or white space around the image.</source>
         <translation type="unfinished"></translation>
@@ -5033,9 +5038,8 @@ Klavišu „Įterpti“ (Insert) įterpiamas rašmuo į žemiau esantį „Atran
         <translation type="vanished">Anotacijoje naudojamas ne „TrueType“ šriftas</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/checkDocument.cpp" line="121"/>
         <source>Preflight profile to base the report generation on. Options can be set in Document Setup or Preferences</source>
-        <translation>Priešspaustuvinio tikrinimo profilis, kurio pagrindu rengiama ataskaita. Profilio parinktys parenkamos dokumento arba programos nuostatų lange</translation>
+        <translation type="vanished">Priešspaustuvinio tikrinimo profilis, kurio pagrindu rengiama ataskaita. Profilio parinktys parenkamos dokumento arba programos nuostatų lange</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/checkDocument.cpp" line="122"/>
@@ -6493,6 +6497,11 @@ currently %2 x %3 DPI</source>
         <translation>Puslapių lape</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/cupsoptions.cpp" line="225"/>
+        <source>This panel displays various CUPS options when printing. The exact parameters available will depend on your printer driver. You can confirm CUPS support by selecting Help &gt; About. Look for the listings: C-C-T These equate to C=CUPS C=littlecms T=TIFF support. Missing library support is indicated by a *.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../../scribus/ui/cupsoptions.cpp" line="64"/>
         <source>Option</source>
         <translation>Parinktis</translation>
@@ -6503,9 +6512,8 @@ currently %2 x %3 DPI</source>
         <translation>Reikšmė</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/cupsoptions.cpp" line="225"/>
         <source>This panel displays various CUPS options when printing. The exact parameters available will depend on your printer driver. You can confirm CUPS support by selecting Help &gt; About. Look for the listings: C-C-T These equate to C=CUPS C=littlecms T=TIFF support. Missing library support is indicated by a *</source>
-        <translation>Šiame pulte spausdinimo metu rodomos įvairios bendrosios UNIX spausdinimo sistemos (CUPS) parinktys. Tikslūs galimi parametrai priklauso nuo spausdintuvo tvarkyklės. Galite patikrinti, ar naudojama CUPS meniu komanda „Pagalba &gt; Apie“. Ieškokite tokio pavidalo santrumpos: C-C-T; čia C=CUPS, C=littlecms, T=TIFF. Nerastos bibliotekos žymimos „*“</translation>
+        <translation type="vanished">Šiame pulte spausdinimo metu rodomos įvairios bendrosios UNIX spausdinimo sistemos (CUPS) parinktys. Tikslūs galimi parametrai priklauso nuo spausdintuvo tvarkyklės. Galite patikrinti, ar naudojama CUPS meniu komanda „Pagalba &gt; Apie“. Ieškokite tokio pavidalo santrumpos: C-C-T; čia C=CUPS, C=littlecms, T=TIFF. Nerastos bibliotekos žymimos „*“</translation>
     </message>
 </context>
 <context>
@@ -6823,6 +6831,26 @@ currently %2 x %3 DPI</source>
         <translation>Daugiau &amp;informacijos</translation>
     </message>
     <message>
+        <location filename="../../scribus/docinfo.cpp" line="167"/>
+        <source>The person or organisation primarily responsible for making the content of the document. This field can be embedded in the Scribus document for reference, as well as in the metadata of a PDF.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/docinfo.cpp" line="168"/>
+        <source>A name given to the document. This field can be embedded in the Scribus document for reference, as well as in the metadata of a PDF.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/docinfo.cpp" line="169"/>
+        <source>An account of the content of the document. This field is for a brief description or abstract of the document. It is embedded in the PDF on export.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/docinfo.cpp" line="170"/>
+        <source>The topic of the content of the document. This field is for document keywords you wish to embed in a PDF, to assist searches and indexing of PDF files.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../../scribus/docinfo.cpp" line="171"/>
         <source>A person or organisation responsible for making the document available</source>
         <translation>Asmuo ar įstaiga, atsakinga už dokumento prieinamumą</translation>
@@ -6841,6 +6869,11 @@ currently %2 x %3 DPI</source>
         <location filename="../../scribus/docinfo.cpp" line="174"/>
         <source>The nature or genre of the content of the document, eg. categories, functions, genres, etc</source>
         <translation>Dokumento turinio žanras, pavyzdžiui, kategorijos, funkcijos ir kita</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/docinfo.cpp" line="175"/>
+        <source>The physical or digital manifestation of the document. Media type and dimensions would be worth noting. RFC2045,RFC2046 for MIME types are also useful here.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/docinfo.cpp" line="176"/>
@@ -6873,29 +6906,24 @@ currently %2 x %3 DPI</source>
         <translation>Dokumen&amp;tas</translation>
     </message>
     <message>
-        <location filename="../../scribus/docinfo.cpp" line="167"/>
         <source>The person or organisation primarily responsible for making the content of the document. This field can be embedded in the Scribus document for reference, as well as in the metadata of a PDF</source>
-        <translation>Asmuo ar įmonė, atsakinga už dokumento turinį. Šis laukas gali būti įtrauktas į „Scribus“ dokumentą nuorodoms, pavyzdžiui PDF dokumento metaduomenyse</translation>
+        <translation type="vanished">Asmuo ar įmonė, atsakinga už dokumento turinį. Šis laukas gali būti įtrauktas į „Scribus“ dokumentą nuorodoms, pavyzdžiui PDF dokumento metaduomenyse</translation>
     </message>
     <message>
-        <location filename="../../scribus/docinfo.cpp" line="168"/>
         <source>A name given to the document. This field can be embedded in the Scribus document for reference, as well as in the metadata of a PDF</source>
-        <translation>Dokumentui suteiktas pavadinimas. Šis laukas gali būti įtrauktas į „Scribus“ dokumentą nuorodoms, pavyzdžiui PDF dokumento metaduomenyse</translation>
+        <translation type="vanished">Dokumentui suteiktas pavadinimas. Šis laukas gali būti įtrauktas į „Scribus“ dokumentą nuorodoms, pavyzdžiui PDF dokumento metaduomenyse</translation>
     </message>
     <message>
-        <location filename="../../scribus/docinfo.cpp" line="169"/>
         <source>An account of the content of the document. This field is for a brief description or abstract of the document. It is embedded in the PDF on export</source>
-        <translation>Trumpas dokumento turinio aprašas. Jis įtraukiamas į PDF dokumentą eksportavimo metu</translation>
+        <translation type="vanished">Trumpas dokumento turinio aprašas. Jis įtraukiamas į PDF dokumentą eksportavimo metu</translation>
     </message>
     <message>
-        <location filename="../../scribus/docinfo.cpp" line="170"/>
         <source>The topic of the content of the document. This field is for document keywords you wish to embed in a PDF, to assist searches and indexing of PDF files</source>
-        <translation>Dokumento turinio tema. Šis laukas skirtas dokumento raktiniams žodžiams, kurie bus įtraukti i PDF dokumentą ir skirti paieškos sistemoms, indeksuojančioms, PDF failus</translation>
+        <translation type="vanished">Dokumento turinio tema. Šis laukas skirtas dokumento raktiniams žodžiams, kurie bus įtraukti i PDF dokumentą ir skirti paieškos sistemoms, indeksuojančioms, PDF failus</translation>
     </message>
     <message>
-        <location filename="../../scribus/docinfo.cpp" line="175"/>
         <source>The physical or digital manifestation of the document. Media type and dimensions would be worth noting. RFC2045,RFC2046 for MIME types are also useful here</source>
-        <translation>Fizinis ar skaitmeninis dokumento pateikimas. Verta nurodyti laikmenos tipą ir matmenis. MIME tipams taip pat pravers RFC2045 ir RFC2046</translation>
+        <translation type="vanished">Fizinis ar skaitmeninis dokumento pateikimas. Verta nurodyti laikmenos tipą ir matmenis. MIME tipams taip pat pravers RFC2045 ir RFC2046</translation>
     </message>
     <message>
         <location filename="../../scribus/docinfo.cpp" line="178"/>
@@ -8198,8 +8226,18 @@ Document Liberation Project http://www.documentliberation.org</source>
         <translation>Šį keitimą taikyti visuomet</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/fontreplacedialog.cpp" line="83"/>
+        <source>Cancels these font substitutions and stops loading the document</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../../scribus/ui/fontreplacedialog.cpp" line="84"/>
         <source>Enabling this tells Scribus to use these replacements for missing fonts permanently in all future layouts. This can be reverted or changed in File &gt; Preferences &gt; Fonts.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/fontreplacedialog.cpp" line="85"/>
+        <source>If you select OK, then save, these substitutions are made permanent in the document</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -8208,14 +8246,12 @@ Document Liberation Project http://www.documentliberation.org</source>
         <translation>Šiame dokumente vartojami šriftai, kurie neįdiegti jūsų kompiuteryje. Nurodykite, kuriais šriftais juos pakeisti arba atšaukite dokumento atvėrimo komandą.</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/fontreplacedialog.cpp" line="83"/>
         <source>Cancels these font substitutions and stops loading the document.</source>
-        <translation>Neatlikti šriftų keitimo ir stabdyti dokumento atvėrimą.</translation>
+        <translation type="vanished">Neatlikti šriftų keitimo ir stabdyti dokumento atvėrimą.</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/fontreplacedialog.cpp" line="85"/>
         <source>If you select OK, then save, these substitutions are made permanent in the document.</source>
-        <translation>Jei pasirinksite „Gerai“, po to „Įrašyti“, nurodyti šrifto keitimai bus naudojami dokumente.</translation>
+        <translation type="vanished">Jei pasirinksite „Gerai“, po to „Įrašyti“, nurodyti šrifto keitimai bus naudojami dokumente.</translation>
     </message>
 </context>
 <context>
@@ -11911,7 +11947,7 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="../../scribus/ui/markvariabletext.cpp" line="18"/>
-        <source>Edit selected Mark`s label. To create new Mark select &quot;New Mark&quot; in drop list and input new label</source>
+        <source>Edit selected Mark`s label. To create new Mark select &quot;New Mark&quot; in drop list and input new label.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -11928,6 +11964,10 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="../../scribus/ui/markvariabletext.cpp" line="31"/>
+        <source>Edit selected Mark`s label</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../../scribus/ui/markvariabletext.cpp" line="48"/>
         <location filename="../../scribus/ui/markvariabletext.cpp" line="64"/>
         <source>Edit selected Mark`s label.</source>
@@ -13664,8 +13704,17 @@ konvertuoja jų vektorinius objektus į „Scribus“ objektus.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/gettext/odtim/odtdia.cpp" line="72"/>
+        <source>Prepend the document name to the paragraph style name in Scribus</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/plugins/gettext/odtim/odtdia.cpp" line="81"/>
+        <source>Make these settings the default and do not prompt again when importing an OASIS OpenDocument</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Prepend the document name to the paragraph style name in Scribus.</source>
-        <translation>Pridėti dokumento pavadinimą prieš pastraipos stiliaus pavadinimą.</translation>
+        <translation type="vanished">Pridėti dokumento pavadinimą prieš pastraipos stiliaus pavadinimą.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/gettext/odtim/odtdia.cpp" line="79"/>
@@ -13673,9 +13722,8 @@ konvertuoja jų vektorinius objektus į „Scribus“ objektus.</translation>
         <translation>Daugiau nebeklausti</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/gettext/odtim/odtdia.cpp" line="81"/>
         <source>Make these settings the default and do not prompt again when importing an OASIS OpenDocument.</source>
-        <translation>Padaryti šias nuostatas numatytosiomis ir importuojant „OASIS OpenDocument“ nebeklausti.</translation>
+        <translation type="vanished">Padaryti šias nuostatas numatytosiomis ir importuojant „OASIS OpenDocument“ nebeklausti.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/gettext/odtim/odtdia.cpp" line="90"/>
@@ -13930,14 +13978,12 @@ konvertuoja jų vektorinius objektus į „Scribus“ objektus.</translation>
         <translation>Į&amp;rašyti</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/pdfexportdialog.cpp" line="135"/>
         <source>Open the exported PDF with the PDF viewer as set in External Tools preferences, when not exporting to a multi-file export destination.</source>
-        <translation>Atverti eksportuotą PDF dokumentą PDF žiūrykle, numatyta išorinių įrankių nuostatose (jei neeksportuojama į kelis failus vienu metu).</translation>
+        <translation type="vanished">Atverti eksportuotą PDF dokumentą PDF žiūrykle, numatyta išorinių įrankių nuostatose (jei neeksportuojama į kelis failus vienu metu).</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/pdfexportdialog.cpp" line="136"/>
         <source>The save button will be disabled if you are trying to export PDF/X and the info string is missing from the PDF/X tab.</source>
-        <translation>Mygtukas „Įrašyti“ bus uždraustas jei bandoma eksportuoti PDF/X ir nerasta PDF/X kortelės informacinė eilutė.</translation>
+        <translation type="vanished">Mygtukas „Įrašyti“ bus uždraustas jei bandoma eksportuoti PDF/X ir nerasta PDF/X kortelės informacinė eilutė.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pdfexportdialog.cpp" line="218"/>
@@ -13948,6 +13994,16 @@ konvertuoja jų vektorinius objektus į „Scribus“ objektus.</translation>
         <location filename="../../scribus/ui/pdfexportdialog.cpp" line="134"/>
         <source>This enables exporting one individually named PDF file for each page in the document. Page numbers are added automatically. This is most useful for imposing PDF for commercial printing.</source>
         <translation>Tai leidžia eksportuoti kiekvieną dokumento puslapį kaip atskirą PDF dokumentą.Puslapių numeriai failo pavadinimuose bus pridėti automatiškai. Tai labai praverčia spaustuvėse išdėliojant puslapius į spaudos lankus.</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/pdfexportdialog.cpp" line="135"/>
+        <source>Open the exported PDF with the PDF viewer as set in External Tools preferences, when not exporting to a multi-file export destination</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/pdfexportdialog.cpp" line="136"/>
+        <source>The save button will be disabled if you are trying to export PDF/X and the info string is missing from the PDF/X tab</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pdfexportdialog.cpp" line="166"/>
@@ -16151,9 +16207,13 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>PicSearchOptions</name>
     <message>
-        <location filename="../../scribus/ui/picsearchoptions.cpp" line="52"/>
         <source>The filesystem will be searched for case insensitive file names when you check this on. Remember it is not default on most operating systems except MS Windows</source>
-        <translation>Failų sistema atliks failų pavadinimų paiešką nekreipdama dėmesio į didžiąsias ir mažąsias raides. Nepamirškite, kad daugumoje operacinių sistemų tai nėra numatytasis atvejus (išimtis – MS Windows)</translation>
+        <translation type="vanished">Failų sistema atliks failų pavadinimų paiešką nekreipdama dėmesio į didžiąsias ir mažąsias raides. Nepamirškite, kad daugumoje operacinių sistemų tai nėra numatytasis atvejus (išimtis – MS Windows)</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/picsearchoptions.cpp" line="52"/>
+        <source>The filesystem will be searched for case insensitive file names when you check this on. Remember it is not default on most operating systems except MS Windows.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/picsearchoptions.cpp" line="59"/>
@@ -19358,9 +19418,13 @@ Ar naudosite ją?</translation>
         <translation>Atstumas, kuriuo pradedant objektai traukiami prie kreiptinių. Pakeitus šią parinktį, ji galioti pradės tik iš naujo paleidus „Scribus“ programą.</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_guides.cpp" line="88"/>
         <source>Radius of the area where Scribus will allow you to grab an objects handles.After setting this you will need to restart Scribus to set this setting.</source>
-        <translation>Srities, kurioje galima paimti „Scribus“ objektus, spindulys.  Pakeitus šią parinktį, ji galioti pradės tik iš naujo paleidus „Scribus“ programą.</translation>
+        <translation type="vanished">Srities, kurioje galima paimti „Scribus“ objektus, spindulys.  Pakeitus šią parinktį, ji galioti pradės tik iš naujo paleidus „Scribus“ programą.</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/prefs_guides.cpp" line="88"/>
+        <source>Radius of the area where Scribus will allow you to grab an objects handles. After setting this you will need to restart Scribus to set this setting.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_guides.cpp" line="89"/>
@@ -21268,28 +21332,58 @@ Nulis reiškia, kad neribojama.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="655"/>
-        <source>Type of the display effect.</source>
-        <translation>Rodymo efekto tipas.</translation>
+        <source>Type of the display effect</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="656"/>
-        <source>Direction of the effect of moving lines for the split and blind effects.</source>
-        <translation>Slenkančiųjų linijų efektų kryptis perskyrimo ir mirgėjimo efektams.</translation>
+        <source>Direction of the effect of moving lines for the split and blind effects</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="657"/>
-        <source>Starting position for the box and split effects.</source>
-        <translation>Pradžios pozicija stačiakampių ir perskyrimo efektams.</translation>
+        <source>Starting position for the box and split effects</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="658"/>
-        <source>Direction of the glitter or wipe effects.</source>
-        <translation>Mirgesio arba nuvalymo efektų kryptis.</translation>
+        <source>Direction of the glitter or wipe effects</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="659"/>
+        <source>Apply the selected effect to all pages</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="671"/>
+        <source>Hides the Menu Bar for the viewer, the PDF will display in a plain window</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="672"/>
+        <source>Fit the document page or pages to the available space in the viewer window</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Type of the display effect.</source>
+        <translation type="vanished">Rodymo efekto tipas.</translation>
+    </message>
+    <message>
+        <source>Direction of the effect of moving lines for the split and blind effects.</source>
+        <translation type="vanished">Slenkančiųjų linijų efektų kryptis perskyrimo ir mirgėjimo efektams.</translation>
+    </message>
+    <message>
+        <source>Starting position for the box and split effects.</source>
+        <translation type="vanished">Pradžios pozicija stačiakampių ir perskyrimo efektams.</translation>
+    </message>
+    <message>
+        <source>Direction of the glitter or wipe effects.</source>
+        <translation type="vanished">Mirgesio arba nuvalymo efektų kryptis.</translation>
+    </message>
+    <message>
         <source>Apply the selected effect to all pages.</source>
-        <translation>Taikyti parinktus efektus visuose puslapiuose.</translation>
+        <translation type="vanished">Taikyti parinktus efektus visuose puslapiuose.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="660"/>
@@ -21351,14 +21445,12 @@ Nulis reiškia, kad neribojama.</translation>
         <translation>Paslepia priemonių juostą, kurioje yra redagavimo priemonės</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="671"/>
         <source>Hides the Menu Bar for the viewer, the PDF will display in a plain window. </source>
-        <translation>Paslepia žiūryklės meniu juostą, kad būtų galima rodyti visame ekrane.</translation>
+        <translation type="vanished">Paslepia žiūryklės meniu juostą, kad būtų galima rodyti visame ekrane.</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="672"/>
         <source>Fit the document page or pages to the available space in the viewer window.</source>
-        <translation>Pritaikyti dokumento puslapio ar puslapių mastelį prie žiūryklės lango erdvės.</translation>
+        <translation type="vanished">Pritaikyti dokumento puslapio ar puslapių mastelį prie žiūryklės lango erdvės.</translation>
     </message>
 </context>
 <context>
@@ -21860,11 +21952,16 @@ Nulis reiškia, kad neribojama.</translation>
         <translation>Norėdamas panaudoti papildomas spausdinimo parinktis naudokis kita spausdinimo priežiūros programa, pavyzdžiui, „kprinter“ arba „gtklp“</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_printer.cpp" line="33"/>
         <source>Sets the PostScript Level.
  Setting to Level 1 or 2 can create huge files</source>
-        <translation>Nurodo „PostScript“ lygį.
+        <translation type="vanished">Nurodo „PostScript“ lygį.
 Nurodžius „Level 1“ (1 lygis) arba „Level 2“ (2 lygis) gali būti sukuriami dideli failai</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/prefs_printer.cpp" line="33"/>
+        <source>Sets the PostScript Level.
+ Setting to Level 1 or 2 can create huge files.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_printer.cpp" line="34"/>
@@ -22531,9 +22628,8 @@ Nurodžius „Level 1“ (1 lygis) arba „Level 2“ (2 lygis) gali būti sukur
         <translation>Rodyti demonstracinius langus</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_userinterface.cpp" line="53"/>
         <source>Select your default language for Scribus to run with. Leave this blank to choose based on environment variables. You can still override this by passing a command line option when starting Scribus</source>
-        <translation>Parinkite numatytąją „Scribus“ programos kalbą, kuri bus naudojama paleidus programą. Palikite tuščią lauką, jei norite, kad būtų parenkama OS terpės kintamojo reikšmė. Šią parinktį galima pakeisti pateikus komandą komandų eilutėje „Scribus“ paleidimo metu</translation>
+        <translation type="vanished">Parinkite numatytąją „Scribus“ programos kalbą, kuri bus naudojama paleidus programą. Palikite tuščią lauką, jei norite, kad būtų parenkama OS terpės kintamojo reikšmė. Šią parinktį galima pakeisti pateikus komandą komandų eilutėje „Scribus“ paleidimo metu</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_userinterface.cpp" line="54"/>
@@ -22546,9 +22642,18 @@ Nurodžius „Level 1“ (1 lygis) arba „Level 2“ (2 lygis) gali būti sukur
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_userinterface.cpp" line="56"/>
         <source>Palette windows will use smaller (space savy) widgets. Requires application restart</source>
-        <translation>Siekiant taupyti erdvę, palečių langams naudojami mažesni valdikliai. Reikės iš naujo paleisti programą</translation>
+        <translation type="vanished">Siekiant taupyti erdvę, palečių langams naudojami mažesni valdikliai. Reikės iš naujo paleisti programą</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/prefs_userinterface.cpp" line="53"/>
+        <source>Select your default language for Scribus to run with. Leave this blank to choose based on environment variables. You can still override this by passing a command line option when starting Scribus.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/prefs_userinterface.cpp" line="56"/>
+        <source>Palette windows will use smaller (space savy) widgets. Requires application restart.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_userinterface.cpp" line="57"/>
@@ -23143,13 +23248,21 @@ Pastaba: PDF formos nebus eksportuotos.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_group.cpp" line="641"/>
-        <source>Use the frame shape for text flow of text frames below the object.</source>
-        <translation>Objektus, esančius greta teksto rėmelio, apgaubti tekstu pagal objektų figūros formą.</translation>
+        <source>Use the frame shape for text flow of text frames below the object</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_group.cpp" line="642"/>
+        <source>Use the bounding box, which is always rectangular, instead of the frame&apos;s shape for text flow of text frames below the object</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Use the frame shape for text flow of text frames below the object.</source>
+        <translation type="vanished">Objektus, esančius greta teksto rėmelio, apgaubti tekstu pagal objektų figūros formą.</translation>
+    </message>
+    <message>
         <source>Use the bounding box, which is always rectangular, instead of the frame&apos;s shape for text flow of text frames below the object. </source>
-        <translation>Visuomet naudoti stačiakampį (vietoje objektų rėmelių formos).</translation>
+        <translation type="vanished">Visuomet naudoti stačiakampį (vietoje objektų rėmelių formos).</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_group.cpp" line="643"/>
@@ -31485,8 +31598,12 @@ Parspėjimas: tai gerokai padidins SVG failo dydį!</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/export/svgexplugin/svgexplugin.cpp" line="148"/>
+        <source>Adds the Page itself as background to the SVG</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Adds the Page itself as background to the SVG.</source>
-        <translation>Pridėti patį puslapį kaipfoną į SVG failą.</translation>
+        <translation type="vanished">Pridėti patį puslapį kaipfoną į SVG failą.</translation>
     </message>
 </context>
 <context>
@@ -31662,8 +31779,12 @@ konvertuoja jų vektorinius objektus į „Scribus“ objektus.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/short-words/swprefsgui.cpp" line="97"/>
+        <source>Edit custom configuration. If you save it, it will be used over system wide configuration.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Edit custom configuration. If you save it, it will be used over system wide configuration</source>
-        <translation>Taisyti individualią konfigūraciją. Jei įrašysite ją ji bus naudojama kaip bendroji sistemos konfigūracija</translation>
+        <translation type="vanished">Taisyti individualią konfigūraciją. Jei įrašysite ją ji bus naudojama kaip bendroji sistemos konfigūracija</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/short-words/swprefsgui.cpp" line="110"/>
@@ -34313,6 +34434,11 @@ Priešspauspaustuvinis tikrintuvas padės jas ištaisyti</translation>
         <translation>Puslapiai: nuo %1 iki %2</translation>
     </message>
     <message>
+        <location filename="../../scribus/scribusview.cpp" line="262"/>
+        <source>Click here to leave this special edit mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../../scribus/scribusview.cpp" line="317"/>
         <source>Preview Mode</source>
         <translation>Peržiūros veiksena</translation>
@@ -34334,11 +34460,6 @@ Priešspauspaustuvinis tikrintuvas padės jas ištaisyti</translation>
         <location filename="../../scribus/scribusview.cpp" line="232"/>
         <source>End Edit</source>
         <translation type="unfinished">Baigti redaguoti</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/scribusview.cpp" line="262"/>
-        <source>Click here to leave this special edit mode.</source>
-        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -35800,6 +35921,11 @@ Priešspauspaustuvinis tikrintuvas padės jas ištaisyti</translation>
         <translation>Daugiau nebeklausti</translation>
     </message>
     <message>
+        <location filename="../../scribus/plugins/gettext/sxwim/sxwdia.cpp" line="62"/>
+        <source>Make these settings the default and do not prompt again when importing an OpenOffice.org 1.x document</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../../scribus/plugins/gettext/sxwim/sxwdia.cpp" line="71"/>
         <source>OK</source>
         <translation>Gerai</translation>
@@ -35835,9 +35961,8 @@ Priešspauspaustuvinis tikrintuvas padės jas ištaisyti</translation>
         <translation>Pridėti dokumento pavadinimą prieš pastraipos stiliaus pavadinimą.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/gettext/sxwim/sxwdia.cpp" line="62"/>
         <source>Make these settings the default and do not prompt again when importing an OpenOffice.org 1.x document.</source>
-        <translation>Padaryti šias nuostatas numatytosiomis ir imortuojant „OpenOffice.org 1.x“ dokumentus nebeklausti.</translation>
+        <translation type="vanished">Padaryti šias nuostatas numatytosiomis ir imortuojant „OpenOffice.org 1.x“ dokumentus nebeklausti.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/gettext/sxwim/sxwdia.cpp" line="73"/>
@@ -36029,8 +36154,23 @@ Priešspauspaustuvinis tikrintuvas padės jas ištaisyti</translation>
         <translation>Nurodo puslapių įrišimo paraštes PDF dokumente. Jei nežinote, ką keisti, palikite numatytąją (kairiąją).</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/tabpdfoptions.cpp" line="255"/>
+        <source>Hides the Menu Bar for the viewer, the PDF will display in a plain window</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/tabpdfoptions.cpp" line="256"/>
+        <source>Fit the document page or pages to the available space in the viewer window</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="260"/>
         <source>Choose an owner password which enables or disables all the security features in your exported PDF</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/tabpdfoptions.cpp" line="262"/>
+        <source>Allow printing of the PDF. If unchecked, printing is prevented.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -36965,14 +37105,12 @@ atvėrus PDF dokumentą:</translation>
         <translation>Paslepia priemonių juostą, kurioje yra redagavimo priemonės</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/tabpdfoptions.cpp" line="255"/>
         <source>Hides the Menu Bar for the viewer, the PDF will display in a plain window. </source>
-        <translation>Paslepia žiūryklės meniu juostą, kad būtų galima rodyti visame ekrane.</translation>
+        <translation type="vanished">Paslepia žiūryklės meniu juostą, kad būtų galima rodyti visame ekrane.</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/tabpdfoptions.cpp" line="256"/>
         <source>Fit the document page or pages to the available space in the viewer window.</source>
-        <translation>Pritaikyti dokumento puslapio ar puslapių mastelį prie žiūryklės lango erdvės.</translation>
+        <translation type="vanished">Pritaikyti dokumento puslapio ar puslapių mastelį prie žiūryklės lango erdvės.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="226"/>
@@ -37002,11 +37140,6 @@ atvėrus PDF dokumentą:</translation>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="261"/>
         <source>Choose a password for users to be able to read your PDF</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/tabpdfoptions.cpp" line="262"/>
-        <source>Allow printing of the PDF. If unchecked, printing is prevented. </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -39208,8 +39341,17 @@ konvertuoja vektorinius objektus į „Scribus“ objektus.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/gettext/xtgim/xtgdialog.cpp" line="55"/>
+        <source>Prepend the document name to the Style name in Scribus</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/plugins/gettext/xtgim/xtgdialog.cpp" line="64"/>
+        <source>Make these settings the default and do not prompt again when importing an XPress Tags document</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Prepend the document name to the Style name in Scribus.</source>
-        <translation>Importuojamo dokumento pavadinimą įterpti kiekvieno importuojamo į „Scribus“ stiliaus pradžioje.</translation>
+        <translation type="vanished">Importuojamo dokumento pavadinimą įterpti kiekvieno importuojamo į „Scribus“ stiliaus pradžioje.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/gettext/xtgim/xtgdialog.cpp" line="62"/>
@@ -39217,9 +39359,8 @@ konvertuoja vektorinius objektus į „Scribus“ objektus.</translation>
         <translation>Daugiau nebeklausti</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/gettext/xtgim/xtgdialog.cpp" line="64"/>
         <source>Make these settings the default and do not prompt again when importing an XPress Tags document.</source>
-        <translation>Padaryti šias nuostatas numatytosiomis ir importuojant „Quark XPress Tags“ dokumentus nebeklausti.</translation>
+        <translation type="vanished">Padaryti šias nuostatas numatytosiomis ir importuojant „Quark XPress Tags“ dokumentus nebeklausti.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/gettext/xtgim/xtgdialog.cpp" line="73"/>

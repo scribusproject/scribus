@@ -4920,6 +4920,11 @@ Klahviga Insert saab lisada glüüfi allolevasse valikusse, klahviga Delete eema
         <translation>&amp;Ignoreeri vigu</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/checkDocument.cpp" line="121"/>
+        <source>Preflight profile to base the report generation on. Options can be set in Document Setup or Preferences.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../../scribus/ui/checkDocument.cpp" line="126"/>
         <source>Indicates that editorial changes have been made to a PDF are still present or your PDF contains unprintable annotation items. They may cause issues in professional printing. Also helpful reminder if you are wanting to publish a final draft without editorial relics.</source>
         <translation type="unfinished"></translation>
@@ -5131,9 +5136,8 @@ Klahviga Insert saab lisada glüüfi allolevasse valikusse, klahviga Delete eema
         <translation type="vanished">Annotatsioon kasutab muud kui TrueType fonti</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/checkDocument.cpp" line="121"/>
         <source>Preflight profile to base the report generation on. Options can be set in Document Setup or Preferences</source>
-        <translation>Trükieelne profiil, mille põhjal luuakse aruanne. Valikud saab määrata dokumendi või üldistes seadistustes</translation>
+        <translation type="vanished">Trükieelne profiil, mille põhjal luuakse aruanne. Valikud saab määrata dokumendi või üldistes seadistustes</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/checkDocument.cpp" line="122"/>
@@ -6487,6 +6491,11 @@ praegu %2 x %3 DPI-d</translation>
         <translation>lehekülge lehe kohta</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/cupsoptions.cpp" line="225"/>
+        <source>This panel displays various CUPS options when printing. The exact parameters available will depend on your printer driver. You can confirm CUPS support by selecting Help &gt; About. Look for the listings: C-C-T These equate to C=CUPS C=littlecms T=TIFF support. Missing library support is indicated by a *.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../../scribus/ui/cupsoptions.cpp" line="64"/>
         <source>Option</source>
         <translation>Valik</translation>
@@ -6497,9 +6506,8 @@ praegu %2 x %3 DPI-d</translation>
         <translation>Väärtus</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/cupsoptions.cpp" line="225"/>
         <source>This panel displays various CUPS options when printing. The exact parameters available will depend on your printer driver. You can confirm CUPS support by selecting Help &gt; About. Look for the listings: C-C-T These equate to C=CUPS C=littlecms T=TIFF support. Missing library support is indicated by a *</source>
-        <translation>See dialoog näitab trükkimisel kasutatavaid CUPS-i valikuid. Täpsed parameetrid sõltuvad printeri draiverist. CUPS-i toetust saab kontrollida dialoogis Abi -&gt; Info. Seal tuleb otsida kirjet C-C-T, milles C=CUPS, teine C=littlecms ja T=TIFF. Puuduva toetuse korral seisab vastava teegi asemel *</translation>
+        <translation type="vanished">See dialoog näitab trükkimisel kasutatavaid CUPS-i valikuid. Täpsed parameetrid sõltuvad printeri draiverist. CUPS-i toetust saab kontrollida dialoogis Abi -&gt; Info. Seal tuleb otsida kirjet C-C-T, milles C=CUPS, teine C=littlecms ja T=TIFF. Puuduva toetuse korral seisab vastava teegi asemel *</translation>
     </message>
 </context>
 <context>
@@ -6823,23 +6831,44 @@ praegu %2 x %3 DPI-d</translation>
     </message>
     <message>
         <location filename="../../scribus/docinfo.cpp" line="167"/>
-        <source>The person or organisation primarily responsible for making the content of the document. This field can be embedded in the Scribus document for reference, as well as in the metadata of a PDF</source>
-        <translation>Isik või organisatsioon, kes vastutab dokumendi sisu eest tervikuna. Selle välja saab info huvides põimida nii Scribuse dokumenti kui ka PDF-i metaandmetesse</translation>
+        <source>The person or organisation primarily responsible for making the content of the document. This field can be embedded in the Scribus document for reference, as well as in the metadata of a PDF.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/docinfo.cpp" line="168"/>
-        <source>A name given to the document. This field can be embedded in the Scribus document for reference, as well as in the metadata of a PDF</source>
-        <translation>Dokumendi nimi. Selle välja saab info huvides põimida nii Scribuse dokumenti kui ka PDF-i metaandmetesse</translation>
+        <source>A name given to the document. This field can be embedded in the Scribus document for reference, as well as in the metadata of a PDF.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/docinfo.cpp" line="169"/>
-        <source>An account of the content of the document. This field is for a brief description or abstract of the document. It is embedded in the PDF on export</source>
-        <translation>Dokumendi sisu ülevaade. See väli sisaldab dokumendi lühikirjeldust või kokkuvõtet. See põimitakse eksportimisel PDF-i</translation>
+        <source>An account of the content of the document. This field is for a brief description or abstract of the document. It is embedded in the PDF on export.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/docinfo.cpp" line="170"/>
+        <source>The topic of the content of the document. This field is for document keywords you wish to embed in a PDF, to assist searches and indexing of PDF files.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/docinfo.cpp" line="175"/>
+        <source>The physical or digital manifestation of the document. Media type and dimensions would be worth noting. RFC2045,RFC2046 for MIME types are also useful here.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The person or organisation primarily responsible for making the content of the document. This field can be embedded in the Scribus document for reference, as well as in the metadata of a PDF</source>
+        <translation type="vanished">Isik või organisatsioon, kes vastutab dokumendi sisu eest tervikuna. Selle välja saab info huvides põimida nii Scribuse dokumenti kui ka PDF-i metaandmetesse</translation>
+    </message>
+    <message>
+        <source>A name given to the document. This field can be embedded in the Scribus document for reference, as well as in the metadata of a PDF</source>
+        <translation type="vanished">Dokumendi nimi. Selle välja saab info huvides põimida nii Scribuse dokumenti kui ka PDF-i metaandmetesse</translation>
+    </message>
+    <message>
+        <source>An account of the content of the document. This field is for a brief description or abstract of the document. It is embedded in the PDF on export</source>
+        <translation type="vanished">Dokumendi sisu ülevaade. See väli sisaldab dokumendi lühikirjeldust või kokkuvõtet. See põimitakse eksportimisel PDF-i</translation>
+    </message>
+    <message>
         <source>The topic of the content of the document. This field is for document keywords you wish to embed in a PDF, to assist searches and indexing of PDF files</source>
-        <translation>Dokumendi sisu teema. See väli on mõeldud PDF-i põimitavate dokumendi võtmesõnade jaoks, mis aitavad PDF-failides otsida ja neid indekseerida</translation>
+        <translation type="vanished">Dokumendi sisu teema. See väli on mõeldud PDF-i põimitavate dokumendi võtmesõnade jaoks, mis aitavad PDF-failides otsida ja neid indekseerida</translation>
     </message>
     <message>
         <location filename="../../scribus/docinfo.cpp" line="171"/>
@@ -6862,9 +6891,8 @@ praegu %2 x %3 DPI-d</translation>
         <translation>Dokumendi sisu iseloom või žanr, nt. kategooria, funktsioon, žanr vms</translation>
     </message>
     <message>
-        <location filename="../../scribus/docinfo.cpp" line="175"/>
         <source>The physical or digital manifestation of the document. Media type and dimensions would be worth noting. RFC2045,RFC2046 for MIME types are also useful here</source>
-        <translation>Dokumendi füüsiline või digitaalne kuju. Mainida tasuks nii andmekandja tüüpi kui ka mõõtmeid. Siin saab ära kasutada MIME tüüpide jaoks mõeldud RFC2045 ja RFC2046</translation>
+        <translation type="vanished">Dokumendi füüsiline või digitaalne kuju. Mainida tasuks nii andmekandja tüüpi kui ka mõõtmeid. Siin saab ära kasutada MIME tüüpide jaoks mõeldud RFC2045 ja RFC2046</translation>
     </message>
     <message>
         <location filename="../../scribus/docinfo.cpp" line="176"/>
@@ -8194,8 +8222,17 @@ Document Liberation Project http://www.documentliberation.org</source>
     </message>
     <message>
         <location filename="../../scribus/ui/fontreplacedialog.cpp" line="83"/>
+        <source>Cancels these font substitutions and stops loading the document</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/fontreplacedialog.cpp" line="85"/>
+        <source>If you select OK, then save, these substitutions are made permanent in the document</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Cancels these font substitutions and stops loading the document.</source>
-        <translation>Katkestab fontide asendamise ja dokumendi avamise.</translation>
+        <translation type="vanished">Katkestab fontide asendamise ja dokumendi avamise.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/fontreplacedialog.cpp" line="84"/>
@@ -8203,9 +8240,8 @@ Document Liberation Project http://www.documentliberation.org</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/fontreplacedialog.cpp" line="85"/>
         <source>If you select OK, then save, these substitutions are made permanent in the document.</source>
-        <translation>Kui valida OK ja siis salvestada, kehtestatakse asendused dokumendis püsivalt.</translation>
+        <translation type="vanished">Kui valida OK ja siis salvestada, kehtestatakse asendused dokumendis püsivalt.</translation>
     </message>
 </context>
 <context>
@@ -11885,7 +11921,7 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="../../scribus/ui/markvariabletext.cpp" line="18"/>
-        <source>Edit selected Mark`s label. To create new Mark select &quot;New Mark&quot; in drop list and input new label</source>
+        <source>Edit selected Mark`s label. To create new Mark select &quot;New Mark&quot; in drop list and input new label.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -11902,6 +11938,10 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="../../scribus/ui/markvariabletext.cpp" line="31"/>
+        <source>Edit selected Mark`s label</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../../scribus/ui/markvariabletext.cpp" line="48"/>
         <location filename="../../scribus/ui/markvariabletext.cpp" line="64"/>
         <source>Edit selected Mark`s label.</source>
@@ -13637,8 +13677,17 @@ You cannot switch to different notes style before you apply that new one or pres
     </message>
     <message>
         <location filename="../../scribus/plugins/gettext/odtim/odtdia.cpp" line="72"/>
+        <source>Prepend the document name to the paragraph style name in Scribus</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/plugins/gettext/odtim/odtdia.cpp" line="81"/>
+        <source>Make these settings the default and do not prompt again when importing an OASIS OpenDocument</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Prepend the document name to the paragraph style name in Scribus.</source>
-        <translation>Dokumendi nimi lisatakse Scribuses lõigustiilide ette.</translation>
+        <translation type="vanished">Dokumendi nimi lisatakse Scribuses lõigustiilide ette.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/gettext/odtim/odtdia.cpp" line="79"/>
@@ -13646,9 +13695,8 @@ You cannot switch to different notes style before you apply that new one or pres
         <translation>Rohkem ei küsita</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/gettext/odtim/odtdia.cpp" line="81"/>
         <source>Make these settings the default and do not prompt again when importing an OASIS OpenDocument.</source>
-        <translation>Määratud seadistused muudetakse vaikeseadistusteks ning dialoogi OASIS OpenDocument&apos;i importimisel enam ei näidata.</translation>
+        <translation type="vanished">Määratud seadistused muudetakse vaikeseadistusteks ning dialoogi OASIS OpenDocument&apos;i importimisel enam ei näidata.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/gettext/odtim/odtdia.cpp" line="90"/>
@@ -13908,6 +13956,16 @@ You cannot switch to different notes style before you apply that new one or pres
         <translation>Võimaldab iga dokumendi lehekülje eksportida omaette nimega PDF-failina. Leheküljenumbrid lisatakse automaatselt. See on eriti abiks PDF-failide järjestamisel trükikotta saatmiseks.</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/pdfexportdialog.cpp" line="135"/>
+        <source>Open the exported PDF with the PDF viewer as set in External Tools preferences, when not exporting to a multi-file export destination</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/pdfexportdialog.cpp" line="136"/>
+        <source>The save button will be disabled if you are trying to export PDF/X and the info string is missing from the PDF/X tab</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../../scribus/ui/pdfexportdialog.cpp" line="218"/>
         <source>PDF Files (*.pdf);;All Files (*)</source>
         <translation>PDF-failid (*.pdf);;Kõik failid (*)</translation>
@@ -13918,14 +13976,12 @@ You cannot switch to different notes style before you apply that new one or pres
         <translation>%1 puudub, mistõttu see luuakse. Kas jätkata?</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/pdfexportdialog.cpp" line="135"/>
         <source>Open the exported PDF with the PDF viewer as set in External Tools preferences, when not exporting to a multi-file export destination.</source>
-        <translation>PDF-i avamine väliste tööriistade seadistustes määratud PDF-i näitajaga, kui ei ekspordita mitme failiga sihtkohta.</translation>
+        <translation type="vanished">PDF-i avamine väliste tööriistade seadistustes määratud PDF-i näitajaga, kui ei ekspordita mitme failiga sihtkohta.</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/pdfexportdialog.cpp" line="136"/>
         <source>The save button will be disabled if you are trying to export PDF/X and the info string is missing from the PDF/X tab.</source>
-        <translation>Salvestamisnuppu ei saa kasutada, kui püüad eksportida PDF/X-i ja PDF/X-i kaardil on infostring puudu.</translation>
+        <translation type="vanished">Salvestamisnuppu ei saa kasutada, kui püüad eksportida PDF/X-i ja PDF/X-i kaardil on infostring puudu.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pdfexportdialog.cpp" line="185"/>
@@ -16128,9 +16184,8 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>PicSearchOptions</name>
     <message>
-        <location filename="../../scribus/ui/picsearchoptions.cpp" line="52"/>
         <source>The filesystem will be searched for case insensitive file names when you check this on. Remember it is not default on most operating systems except MS Windows</source>
-        <translation>Märkimisel otsitakse failisüsteemist failinimesid suur- ja väiketähtede erinevust arvestamata. Arvesta, et see on vaikevalik ainult vähestes operatsioonisüsteemides, nt. MS Windowsis</translation>
+        <translation type="vanished">Märkimisel otsitakse failisüsteemist failinimesid suur- ja väiketähtede erinevust arvestamata. Arvesta, et see on vaikevalik ainult vähestes operatsioonisüsteemides, nt. MS Windowsis</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/picsearchoptions.cpp" line="59"/>
@@ -16142,6 +16197,11 @@ p, li { white-space: pre-wrap; }
         <location filename="../../scribus/ui/picsearchoptions.cpp" line="68"/>
         <source>Start Search</source>
         <translation>Alusta otsingut</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/picsearchoptions.cpp" line="52"/>
+        <source>The filesystem will be searched for case insensitive file names when you check this on. Remember it is not default on most operating systems except MS Windows.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/picsearchoptions.cpp" line="92"/>
@@ -19331,9 +19391,13 @@ Do you want to use this?</source>
         <translation>Vahemaa, millest väiksema väärtuse korral tõmmatakse objekt juhtjoonele. Määramise järel tuleb Scribus taaskäivitada.</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_guides.cpp" line="88"/>
         <source>Radius of the area where Scribus will allow you to grab an objects handles.After setting this you will need to restart Scribus to set this setting.</source>
-        <translation>Piirkonna raadius, kus Scribus lubab haarata objekti pidemetest. Määramise järel tuleb Scribus taaskäivitada.</translation>
+        <translation type="vanished">Piirkonna raadius, kus Scribus lubab haarata objekti pidemetest. Määramise järel tuleb Scribus taaskäivitada.</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/prefs_guides.cpp" line="88"/>
+        <source>Radius of the area where Scribus will allow you to grab an objects handles. After setting this you will need to restart Scribus to set this setting.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_guides.cpp" line="89"/>
@@ -21241,28 +21305,58 @@ A value of 0 means unlimited hyphenations.</source>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="655"/>
-        <source>Type of the display effect.</source>
-        <translation>Efekti tüüp.</translation>
+        <source>Type of the display effect</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="656"/>
-        <source>Direction of the effect of moving lines for the split and blind effects.</source>
-        <translation>Ridade liigutamise suund segunemise ja lõhkumise efekti korral.</translation>
+        <source>Direction of the effect of moving lines for the split and blind effects</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="657"/>
-        <source>Starting position for the box and split effects.</source>
-        <translation>Alguspositsioon kasti ja lõhkumise efekti korral.</translation>
+        <source>Starting position for the box and split effects</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="658"/>
-        <source>Direction of the glitter or wipe effects.</source>
-        <translation>Sädeluse või pühkimise efekti suund.</translation>
+        <source>Direction of the glitter or wipe effects</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="659"/>
+        <source>Apply the selected effect to all pages</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="671"/>
+        <source>Hides the Menu Bar for the viewer, the PDF will display in a plain window</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="672"/>
+        <source>Fit the document page or pages to the available space in the viewer window</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Type of the display effect.</source>
+        <translation type="vanished">Efekti tüüp.</translation>
+    </message>
+    <message>
+        <source>Direction of the effect of moving lines for the split and blind effects.</source>
+        <translation type="vanished">Ridade liigutamise suund segunemise ja lõhkumise efekti korral.</translation>
+    </message>
+    <message>
+        <source>Starting position for the box and split effects.</source>
+        <translation type="vanished">Alguspositsioon kasti ja lõhkumise efekti korral.</translation>
+    </message>
+    <message>
+        <source>Direction of the glitter or wipe effects.</source>
+        <translation type="vanished">Sädeluse või pühkimise efekti suund.</translation>
+    </message>
+    <message>
         <source>Apply the selected effect to all pages.</source>
-        <translation>Valitud efekti kasutamine kõigil lehekülgedel.</translation>
+        <translation type="vanished">Valitud efekti kasutamine kõigil lehekülgedel.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="660"/>
@@ -21324,14 +21418,12 @@ A value of 0 means unlimited hyphenations.</source>
         <translation>Valimise ja muude muutmisvõimalustega tööriistariba peitmine</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="671"/>
         <source>Hides the Menu Bar for the viewer, the PDF will display in a plain window. </source>
-        <translation>Näitaja menüüriba peitmine, PDF-i kuvatakse paljas aknas. </translation>
+        <translation type="vanished">Näitaja menüüriba peitmine, PDF-i kuvatakse paljas aknas. </translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="672"/>
         <source>Fit the document page or pages to the available space in the viewer window.</source>
-        <translation>Dokumendi lehekülje või lehekülgede mahutamine näitaja aknasse.</translation>
+        <translation type="vanished">Dokumendi lehekülje või lehekülgede mahutamine näitaja aknasse.</translation>
     </message>
 </context>
 <context>
@@ -21833,11 +21925,16 @@ A value of 0 means unlimited hyphenations.</source>
         <translation>Alternatiivse trükkimishalduri (nt. kprinter või gtklp) kasutamine täiendavate trükkimisvalikute huvides</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_printer.cpp" line="33"/>
         <source>Sets the PostScript Level.
  Setting to Level 1 or 2 can create huge files</source>
-        <translation>PostScripti taseme määramine.
+        <translation type="vanished">PostScripti taseme määramine.
 Tase 1 või 2 võib tekitada hiiglaslikud failid</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/prefs_printer.cpp" line="33"/>
+        <source>Sets the PostScript Level.
+ Setting to Level 1 or 2 can create huge files.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_printer.cpp" line="34"/>
@@ -22504,9 +22601,8 @@ Tase 1 või 2 võib tekitada hiiglaslikud failid</translation>
         <translation>Käivitusdialoogi näitamine</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_userinterface.cpp" line="53"/>
         <source>Select your default language for Scribus to run with. Leave this blank to choose based on environment variables. You can still override this by passing a command line option when starting Scribus</source>
-        <translation>Scribuse vaikimisi töökeele valimine. Tühjaksjätmisel kasutatakse keskkonnamuutujatega määratud väärtust. Seda saab siiski tühistada, kui Scribust käsurealt käivitades vastav võti lisada</translation>
+        <translation type="vanished">Scribuse vaikimisi töökeele valimine. Tühjaksjätmisel kasutatakse keskkonnamuutujatega määratud väärtust. Seda saab siiski tühistada, kui Scribust käsurealt käivitades vastav võti lisada</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_userinterface.cpp" line="54"/>
@@ -22519,9 +22615,18 @@ Tase 1 või 2 võib tekitada hiiglaslikud failid</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_userinterface.cpp" line="56"/>
         <source>Palette windows will use smaller (space savy) widgets. Requires application restart</source>
-        <translation>Paletiaknad kasutavad väiksemaid (ruumi kokku hoidvaid) vidinaid. Nõuab rakenduse taaskäivitamist</translation>
+        <translation type="vanished">Paletiaknad kasutavad väiksemaid (ruumi kokku hoidvaid) vidinaid. Nõuab rakenduse taaskäivitamist</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/prefs_userinterface.cpp" line="53"/>
+        <source>Select your default language for Scribus to run with. Leave this blank to choose based on environment variables. You can still override this by passing a command line option when starting Scribus.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/prefs_userinterface.cpp" line="56"/>
+        <source>Palette windows will use smaller (space savy) widgets. Requires application restart.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_userinterface.cpp" line="57"/>
@@ -23116,13 +23221,21 @@ Märkus: PDF-i vorme ei ekspordita.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_group.cpp" line="641"/>
-        <source>Use the frame shape for text flow of text frames below the object.</source>
-        <translation type="unfinished">Kasti kujundi kasutamine objekti all asuvate tekstikastide tekstivoo jaoks.</translation>
+        <source>Use the frame shape for text flow of text frames below the object</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_group.cpp" line="642"/>
+        <source>Use the bounding box, which is always rectangular, instead of the frame&apos;s shape for text flow of text frames below the object</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Use the frame shape for text flow of text frames below the object.</source>
+        <translation type="obsolete">Kasti kujundi kasutamine objekti all asuvate tekstikastide tekstivoo jaoks.</translation>
+    </message>
+    <message>
         <source>Use the bounding box, which is always rectangular, instead of the frame&apos;s shape for text flow of text frames below the object. </source>
-        <translation type="unfinished">Kasti kujundi asemel kasutatakse alati nelinurkset ümbritsevat kasti objekti all asuvate tekstiraamide tekstivoo jaoks. </translation>
+        <translation type="obsolete">Kasti kujundi asemel kasutatakse alati nelinurkset ümbritsevat kasti objekti all asuvate tekstiraamide tekstivoo jaoks. </translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_group.cpp" line="643"/>
@@ -31463,8 +31576,12 @@ Ettevaatust: see suurendab faili suurust!</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/export/svgexplugin/svgexplugin.cpp" line="148"/>
+        <source>Adds the Page itself as background to the SVG</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Adds the Page itself as background to the SVG.</source>
-        <translation>Lehekülje enda lisamine SGV taustana.</translation>
+        <translation type="vanished">Lehekülje enda lisamine SGV taustana.</translation>
     </message>
 </context>
 <context>
@@ -31640,8 +31757,12 @@ muutes nende vektorandmed Scribuse objektideks.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/short-words/swprefsgui.cpp" line="97"/>
+        <source>Edit custom configuration. If you save it, it will be used over system wide configuration.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Edit custom configuration. If you save it, it will be used over system wide configuration</source>
-        <translation>Redigeeri etteantud seadistust. Salvestamisel kirjutab see üle süsteemse seadistuse</translation>
+        <translation type="vanished">Redigeeri etteantud seadistust. Salvestamisel kirjutab see üle süsteemse seadistuse</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/short-words/swprefsgui.cpp" line="110"/>
@@ -34301,6 +34422,11 @@ Kasutatakse endist monitori profiili.</translation>
         <translation>Eelvaatluse režiim</translation>
     </message>
     <message>
+        <location filename="../../scribus/scribusview.cpp" line="262"/>
+        <source>Click here to leave this special edit mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../../scribus/scribusview.cpp" line="318"/>
         <source>CMS is active. Therefore the color display may not match the perception by visually impaired</source>
         <translation>Värvihaldus on sisse lülitatud. Seepärast ei pruugi värvivaade klappida nägemisvaegusega inimeste tajuga</translation>
@@ -34316,11 +34442,6 @@ Kasutatakse endist monitori profiili.</translation>
     <message>
         <location filename="../../scribus/scribusview.cpp" line="232"/>
         <source>End Edit</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/scribusview.cpp" line="262"/>
-        <source>Click here to leave this special edit mode.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -35813,8 +35934,12 @@ Kasutatakse endist monitori profiili.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/gettext/sxwim/sxwdia.cpp" line="62"/>
+        <source>Make these settings the default and do not prompt again when importing an OpenOffice.org 1.x document</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Make these settings the default and do not prompt again when importing an OpenOffice.org 1.x document.</source>
-        <translation>Määratud seadistused muudetakse vaikeseadistusteks ning dialoogi OpenOffice.org 1.x dokumendi importimisel enam ei näidata.</translation>
+        <translation type="vanished">Määratud seadistused muudetakse vaikeseadistusteks ning dialoogi OpenOffice.org 1.x dokumendi importimisel enam ei näidata.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/gettext/sxwim/sxwdia.cpp" line="71"/>
@@ -36858,8 +36983,23 @@ käivitatav JavaScript:</translation>
         <translation>Tihenduse kvaliteet kadudega tihendusviisi korral: minimaalne (25%), väike (50%), keskmine (75%), suur (85%), maksimaalne (95%). Pane tähele, et kvaliteet ei mõjuta otseselt pildi lõplikku suurust: nii suurus kui kaotus kvaliteedis sõltuvad iga taseme korral ikka pildist endast. Isegi maksimaalse valimisel kaotab JPEG teataval määral kvaliteedis.</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/tabpdfoptions.cpp" line="255"/>
+        <source>Hides the Menu Bar for the viewer, the PDF will display in a plain window</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/tabpdfoptions.cpp" line="256"/>
+        <source>Fit the document page or pages to the available space in the viewer window</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="260"/>
         <source>Choose an owner password which enables or disables all the security features in your exported PDF</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/tabpdfoptions.cpp" line="262"/>
+        <source>Allow printing of the PDF. If unchecked, printing is prevented.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -36947,14 +37087,12 @@ käivitatav JavaScript:</translation>
         <translation>Valimise ja muude muutmisvõimalustega tööriistariba peitmine</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/tabpdfoptions.cpp" line="255"/>
         <source>Hides the Menu Bar for the viewer, the PDF will display in a plain window. </source>
-        <translation>Näitaja menüüriba peitmine, PDF-i kuvatakse paljas aknas. </translation>
+        <translation type="vanished">Näitaja menüüriba peitmine, PDF-i kuvatakse paljas aknas. </translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/tabpdfoptions.cpp" line="256"/>
         <source>Fit the document page or pages to the available space in the viewer window.</source>
-        <translation>Dokumendi lehekülje või lehekülgede mahutamine näitaja aknasse.</translation>
+        <translation type="vanished">Dokumendi lehekülje või lehekülgede mahutamine näitaja aknasse.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="226"/>
@@ -36984,11 +37122,6 @@ käivitatav JavaScript:</translation>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="261"/>
         <source>Choose a password for users to be able to read your PDF</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/tabpdfoptions.cpp" line="262"/>
-        <source>Allow printing of the PDF. If unchecked, printing is prevented. </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -39189,8 +39322,17 @@ teisendades nende vektorandmed Scribuse objektideks.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/gettext/xtgim/xtgdialog.cpp" line="55"/>
+        <source>Prepend the document name to the Style name in Scribus</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/plugins/gettext/xtgim/xtgdialog.cpp" line="64"/>
+        <source>Make these settings the default and do not prompt again when importing an XPress Tags document</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Prepend the document name to the Style name in Scribus.</source>
-        <translation>Dokumendi nimi lisatakse Scribuses stiilinime ette.</translation>
+        <translation type="vanished">Dokumendi nimi lisatakse Scribuses stiilinime ette.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/gettext/xtgim/xtgdialog.cpp" line="62"/>
@@ -39198,9 +39340,8 @@ teisendades nende vektorandmed Scribuse objektideks.</translation>
         <translation>Rohkem ei küsita</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/gettext/xtgim/xtgdialog.cpp" line="64"/>
         <source>Make these settings the default and do not prompt again when importing an XPress Tags document.</source>
-        <translation>Määratud seadistused muudetakse vaikeseadistusteks ning dialoogi XPressi siltide dokumendi importimisel enam ei näidata.</translation>
+        <translation type="vanished">Määratud seadistused muudetakse vaikeseadistusteks ning dialoogi XPressi siltide dokumendi importimisel enam ei näidata.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/gettext/xtgim/xtgdialog.cpp" line="73"/>

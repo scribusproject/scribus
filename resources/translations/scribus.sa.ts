@@ -4936,6 +4936,11 @@ The Insert key inserts a Glyph into the Selection below and the Delete key remov
         <translation type="unfinished">पुनः परीक्षस्व</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/checkDocument.cpp" line="121"/>
+        <source>Preflight profile to base the report generation on. Options can be set in Document Setup or Preferences.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../../scribus/ui/checkDocument.cpp" line="126"/>
         <source>Indicates that editorial changes have been made to a PDF are still present or your PDF contains unprintable annotation items. They may cause issues in professional printing. Also helpful reminder if you are wanting to publish a final draft without editorial relics.</source>
         <translation type="unfinished"></translation>
@@ -5067,11 +5072,6 @@ The Insert key inserts a Glyph into the Selection below and the Delete key remov
     <message>
         <location filename="../../scribus/ui/checkDocument.cpp" line="127"/>
         <source>Applied master page has different page destination (left, middle, right side)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/checkDocument.cpp" line="121"/>
-        <source>Preflight profile to base the report generation on. Options can be set in Document Setup or Preferences</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -6451,6 +6451,11 @@ currently %2 x %3 DPI</source>
         <translation type="unfinished">प्रतिशीट् पृष्ठानि</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/cupsoptions.cpp" line="225"/>
+        <source>This panel displays various CUPS options when printing. The exact parameters available will depend on your printer driver. You can confirm CUPS support by selecting Help &gt; About. Look for the listings: C-C-T These equate to C=CUPS C=littlecms T=TIFF support. Missing library support is indicated by a *.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../../scribus/ui/cupsoptions.cpp" line="64"/>
         <source>Option</source>
         <translation type="unfinished">विकल्पः</translation>
@@ -6461,9 +6466,8 @@ currently %2 x %3 DPI</source>
         <translation type="unfinished">मूल्यम्</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/cupsoptions.cpp" line="225"/>
         <source>This panel displays various CUPS options when printing. The exact parameters available will depend on your printer driver. You can confirm CUPS support by selecting Help &gt; About. Look for the listings: C-C-T These equate to C=CUPS C=littlecms T=TIFF support. Missing library support is indicated by a *</source>
-        <translation type="unfinished">मुद्रणसमये इयं कार्यसम्पादिका विविधान् CUPS विकल्पान् प्रदर्शयति। कति पैरामीटर्स् उपलब्धानीत्येतत् तव मुद्रकचालकस्योपरि आधारितं भविष्यति। साहाय्यम् &gt; उद्दिश्य वरणेन त्वं CUPS समर्थनं दृढीकर्तुं शक्नोषि। एताभ्यः सूचीभ्यः अन्वेषय : C-C-T एतासामर्थश्च C=CUPS C=littlecms T=TIFF समर्थनम्। * द्वारा अनुपस्थितं लैब्रेरीसमर्थनं निर्दिष्टम्</translation>
+        <translation type="obsolete">मुद्रणसमये इयं कार्यसम्पादिका विविधान् CUPS विकल्पान् प्रदर्शयति। कति पैरामीटर्स् उपलब्धानीत्येतत् तव मुद्रकचालकस्योपरि आधारितं भविष्यति। साहाय्यम् &gt; उद्दिश्य वरणेन त्वं CUPS समर्थनं दृढीकर्तुं शक्नोषि। एताभ्यः सूचीभ्यः अन्वेषय : C-C-T एतासामर्थश्च C=CUPS C=littlecms T=TIFF समर्थनम्। * द्वारा अनुपस्थितं लैब्रेरीसमर्थनं निर्दिष्टम्</translation>
     </message>
 </context>
 <context>
@@ -6781,23 +6785,44 @@ currently %2 x %3 DPI</source>
     </message>
     <message>
         <location filename="../../scribus/docinfo.cpp" line="167"/>
-        <source>The person or organisation primarily responsible for making the content of the document. This field can be embedded in the Scribus document for reference, as well as in the metadata of a PDF</source>
-        <translation type="unfinished">लेख्यपत्रान्तर्गतवस्तुनः निर्माणाय उत्तरदायकः जनः संस्था वा। पुनरवलोकनाय इदं क्षेत्रं स्क्रैबस् लेख्यपत्रे, तथा, PDF मेटाडाटा मध्ये च, अन्तःस्थापयितुं शक्यते</translation>
+        <source>The person or organisation primarily responsible for making the content of the document. This field can be embedded in the Scribus document for reference, as well as in the metadata of a PDF.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/docinfo.cpp" line="168"/>
-        <source>A name given to the document. This field can be embedded in the Scribus document for reference, as well as in the metadata of a PDF</source>
-        <translation type="unfinished">लेख्यपत्राय दत्तं नाम। पुनरवलोकनाय इदं क्षेत्रं स्क्रैबस् लेख्यपत्रे, तथा, PDF मेटाडाटा मध्ये च, अन्तःस्थापयितुं शक्यते</translation>
+        <source>A name given to the document. This field can be embedded in the Scribus document for reference, as well as in the metadata of a PDF.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/docinfo.cpp" line="169"/>
-        <source>An account of the content of the document. This field is for a brief description or abstract of the document. It is embedded in the PDF on export</source>
-        <translation type="unfinished">लेख्यपत्रान्तर्गतवस्तुनः एकं विवरणम्। इदं क्षेत्रं लेख्यपत्रस्य लघुविवरणाय अथवा सारांशाय अस्ति। निर्याणे कृते सति PDF मध्ये इदं अन्तःस्थापितम्</translation>
+        <source>An account of the content of the document. This field is for a brief description or abstract of the document. It is embedded in the PDF on export.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/docinfo.cpp" line="170"/>
+        <source>The topic of the content of the document. This field is for document keywords you wish to embed in a PDF, to assist searches and indexing of PDF files.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/docinfo.cpp" line="175"/>
+        <source>The physical or digital manifestation of the document. Media type and dimensions would be worth noting. RFC2045,RFC2046 for MIME types are also useful here.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The person or organisation primarily responsible for making the content of the document. This field can be embedded in the Scribus document for reference, as well as in the metadata of a PDF</source>
+        <translation type="obsolete">लेख्यपत्रान्तर्गतवस्तुनः निर्माणाय उत्तरदायकः जनः संस्था वा। पुनरवलोकनाय इदं क्षेत्रं स्क्रैबस् लेख्यपत्रे, तथा, PDF मेटाडाटा मध्ये च, अन्तःस्थापयितुं शक्यते</translation>
+    </message>
+    <message>
+        <source>A name given to the document. This field can be embedded in the Scribus document for reference, as well as in the metadata of a PDF</source>
+        <translation type="obsolete">लेख्यपत्राय दत्तं नाम। पुनरवलोकनाय इदं क्षेत्रं स्क्रैबस् लेख्यपत्रे, तथा, PDF मेटाडाटा मध्ये च, अन्तःस्थापयितुं शक्यते</translation>
+    </message>
+    <message>
+        <source>An account of the content of the document. This field is for a brief description or abstract of the document. It is embedded in the PDF on export</source>
+        <translation type="obsolete">लेख्यपत्रान्तर्गतवस्तुनः एकं विवरणम्। इदं क्षेत्रं लेख्यपत्रस्य लघुविवरणाय अथवा सारांशाय अस्ति। निर्याणे कृते सति PDF मध्ये इदं अन्तःस्थापितम्</translation>
+    </message>
+    <message>
         <source>The topic of the content of the document. This field is for document keywords you wish to embed in a PDF, to assist searches and indexing of PDF files</source>
-        <translation type="unfinished">लेख्यपत्रान्तर्गतवस्तुनः प्रस्तावः। PDF फैल्स् अन्वेषणेषु अनुक्रमणीस्थानि कर्तुं च साहाय्याय, PDF मध्ये यानि अन्तःस्थापितुम् इच्छसि तेभ्यः लेख्यपत्रबीजशब्देभ्यः इदं क्षेत्रम् अस्ति।</translation>
+        <translation type="obsolete">लेख्यपत्रान्तर्गतवस्तुनः प्रस्तावः। PDF फैल्स् अन्वेषणेषु अनुक्रमणीस्थानि कर्तुं च साहाय्याय, PDF मध्ये यानि अन्तःस्थापितुम् इच्छसि तेभ्यः लेख्यपत्रबीजशब्देभ्यः इदं क्षेत्रम् अस्ति।</translation>
     </message>
     <message>
         <location filename="../../scribus/docinfo.cpp" line="171"/>
@@ -6820,9 +6845,8 @@ currently %2 x %3 DPI</source>
         <translation type="unfinished">लेख्यपत्रान्तर्गतवस्तुनः स्वभावः वर्गः वा, उदा. गणाः, कृत्यानि, वर्गाः, इत्यादि</translation>
     </message>
     <message>
-        <location filename="../../scribus/docinfo.cpp" line="175"/>
         <source>The physical or digital manifestation of the document. Media type and dimensions would be worth noting. RFC2045,RFC2046 for MIME types are also useful here</source>
-        <translation type="unfinished">लेख्यपत्रस्य भौतिकः तथा डिजिटल् आविर्भावः। मीडियावर्गपरिमाणानां लेखनम् उपयुज्यम्। MIME वर्गेभ्यः RFC2045,RFC2046 अपि अत्र उपयुज्यानि</translation>
+        <translation type="obsolete">लेख्यपत्रस्य भौतिकः तथा डिजिटल् आविर्भावः। मीडियावर्गपरिमाणानां लेखनम् उपयुज्यम्। MIME वर्गेभ्यः RFC2045,RFC2046 अपि अत्र उपयुज्यानि</translation>
     </message>
     <message>
         <location filename="../../scribus/docinfo.cpp" line="176"/>
@@ -8136,8 +8160,17 @@ Document Liberation Project http://www.documentliberation.org</source>
     </message>
     <message>
         <location filename="../../scribus/ui/fontreplacedialog.cpp" line="83"/>
+        <source>Cancels these font substitutions and stops loading the document</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/fontreplacedialog.cpp" line="85"/>
+        <source>If you select OK, then save, these substitutions are made permanent in the document</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Cancels these font substitutions and stops loading the document.</source>
-        <translation type="unfinished">एतेषां फोण्ट्प्रतिसमाधानानां निरसनं करोति, अपि च, लेख्यपत्रलोड्करणं रुणद्धि।</translation>
+        <translation type="obsolete">एतेषां फोण्ट्प्रतिसमाधानानां निरसनं करोति, अपि च, लेख्यपत्रलोड्करणं रुणद्धि।</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/fontreplacedialog.cpp" line="84"/>
@@ -8145,9 +8178,8 @@ Document Liberation Project http://www.documentliberation.org</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/fontreplacedialog.cpp" line="85"/>
         <source>If you select OK, then save, these substitutions are made permanent in the document.</source>
-        <translation type="unfinished">आमिति वृणोषि चेत्, ततः सञ्चय, लेख्यपत्रे एतानि प्रतिसमाधानानि सातत्यानि क्रियन्ते।</translation>
+        <translation type="obsolete">आमिति वृणोषि चेत्, ततः सञ्चय, लेख्यपत्रे एतानि प्रतिसमाधानानि सातत्यानि क्रियन्ते।</translation>
     </message>
 </context>
 <context>
@@ -11749,7 +11781,7 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="../../scribus/ui/markvariabletext.cpp" line="18"/>
-        <source>Edit selected Mark`s label. To create new Mark select &quot;New Mark&quot; in drop list and input new label</source>
+        <source>Edit selected Mark`s label. To create new Mark select &quot;New Mark&quot; in drop list and input new label.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -11766,6 +11798,10 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="../../scribus/ui/markvariabletext.cpp" line="31"/>
+        <source>Edit selected Mark`s label</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../../scribus/ui/markvariabletext.cpp" line="48"/>
         <location filename="../../scribus/ui/markvariabletext.cpp" line="64"/>
         <source>Edit selected Mark`s label.</source>
@@ -13492,8 +13528,17 @@ You cannot switch to different notes style before you apply that new one or pres
     </message>
     <message>
         <location filename="../../scribus/plugins/gettext/odtim/odtdia.cpp" line="72"/>
+        <source>Prepend the document name to the paragraph style name in Scribus</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/plugins/gettext/odtim/odtdia.cpp" line="81"/>
+        <source>Make these settings the default and do not prompt again when importing an OASIS OpenDocument</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Prepend the document name to the paragraph style name in Scribus.</source>
-        <translation type="unfinished">स्क्रैबस् मध्ये अधिकरणशैलीनाम प्रति लेख्यपत्रनाम पूर्वं लागय।</translation>
+        <translation type="obsolete">स्क्रैबस् मध्ये अधिकरणशैलीनाम प्रति लेख्यपत्रनाम पूर्वं लागय।</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/gettext/odtim/odtdia.cpp" line="79"/>
@@ -13501,9 +13546,8 @@ You cannot switch to different notes style before you apply that new one or pres
         <translation type="unfinished">मां पुनः मा पृच्छ</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/gettext/odtim/odtdia.cpp" line="81"/>
         <source>Make these settings the default and do not prompt again when importing an OASIS OpenDocument.</source>
-        <translation type="unfinished">एतानि निर्धारणानि मूलभूतानीति कुरु, अपि च, OASIS OpenDocument आयानसमये पुनः मा चोदय।</translation>
+        <translation type="obsolete">एतानि निर्धारणानि मूलभूतानीति कुरु, अपि च, OASIS OpenDocument आयानसमये पुनः मा चोदय।</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/gettext/odtim/odtdia.cpp" line="90"/>
@@ -13760,12 +13804,12 @@ You cannot switch to different notes style before you apply that new one or pres
     </message>
     <message>
         <location filename="../../scribus/ui/pdfexportdialog.cpp" line="135"/>
-        <source>Open the exported PDF with the PDF viewer as set in External Tools preferences, when not exporting to a multi-file export destination.</source>
+        <source>Open the exported PDF with the PDF viewer as set in External Tools preferences, when not exporting to a multi-file export destination</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pdfexportdialog.cpp" line="136"/>
-        <source>The save button will be disabled if you are trying to export PDF/X and the info string is missing from the PDF/X tab.</source>
+        <source>The save button will be disabled if you are trying to export PDF/X and the info string is missing from the PDF/X tab</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -15952,9 +15996,8 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>PicSearchOptions</name>
     <message>
-        <location filename="../../scribus/ui/picsearchoptions.cpp" line="52"/>
         <source>The filesystem will be searched for case insensitive file names when you check this on. Remember it is not default on most operating systems except MS Windows</source>
-        <translation type="unfinished">यदा इदं चालितमिति चेक् करोषि तदा स्थित्यसंवेदनफैल्नामभ्यः फैल्सिस्टम् अन्वेषितं भविष्यति। MS विण्डोस् विहाय अधिकतम-ओपरेटिङ् सिस्टम्स् मध्ये एतत् मूलभूतं नास्ति इति स्मर</translation>
+        <translation type="obsolete">यदा इदं चालितमिति चेक् करोषि तदा स्थित्यसंवेदनफैल्नामभ्यः फैल्सिस्टम् अन्वेषितं भविष्यति। MS विण्डोस् विहाय अधिकतम-ओपरेटिङ् सिस्टम्स् मध्ये एतत् मूलभूतं नास्ति इति स्मर</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/picsearchoptions.cpp" line="59"/>
@@ -15966,6 +16009,11 @@ p, li { white-space: pre-wrap; }
         <location filename="../../scribus/ui/picsearchoptions.cpp" line="68"/>
         <source>Start Search</source>
         <translation type="unfinished">अन्वेषणम् आरभस्व</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/picsearchoptions.cpp" line="52"/>
+        <source>The filesystem will be searched for case insensitive file names when you check this on. Remember it is not default on most operating systems except MS Windows.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/picsearchoptions.cpp" line="92"/>
@@ -19016,7 +19064,7 @@ Do you want to use this?</source>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_guides.cpp" line="88"/>
-        <source>Radius of the area where Scribus will allow you to grab an objects handles.After setting this you will need to restart Scribus to set this setting.</source>
+        <source>Radius of the area where Scribus will allow you to grab an objects handles. After setting this you will need to restart Scribus to set this setting.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -20487,28 +20535,58 @@ A value of 0 means unlimited hyphenations.</source>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="655"/>
-        <source>Type of the display effect.</source>
-        <translation type="unfinished">प्रदर्शनप्रभावस्य वर्गः।</translation>
+        <source>Type of the display effect</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="656"/>
-        <source>Direction of the effect of moving lines for the split and blind effects.</source>
-        <translation type="unfinished">छेदस्य तथा अन्धीकरणस्य प्रभावेभ्यः चलन्तीनां रेखाणां प्रभावस्य दिक्।</translation>
+        <source>Direction of the effect of moving lines for the split and blind effects</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="657"/>
-        <source>Starting position for the box and split effects.</source>
-        <translation type="unfinished">पेटिकायाः तथा छेदस्य प्रभावेभ्यः आरम्भस्थानम्।</translation>
+        <source>Starting position for the box and split effects</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="658"/>
-        <source>Direction of the glitter or wipe effects.</source>
-        <translation type="unfinished">प्रकाशस्य अथवा मार्जनस्य प्रभावानां दिक्।</translation>
+        <source>Direction of the glitter or wipe effects</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="659"/>
+        <source>Apply the selected effect to all pages</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="671"/>
+        <source>Hides the Menu Bar for the viewer, the PDF will display in a plain window</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="672"/>
+        <source>Fit the document page or pages to the available space in the viewer window</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Type of the display effect.</source>
+        <translation type="obsolete">प्रदर्शनप्रभावस्य वर्गः।</translation>
+    </message>
+    <message>
+        <source>Direction of the effect of moving lines for the split and blind effects.</source>
+        <translation type="obsolete">छेदस्य तथा अन्धीकरणस्य प्रभावेभ्यः चलन्तीनां रेखाणां प्रभावस्य दिक्।</translation>
+    </message>
+    <message>
+        <source>Starting position for the box and split effects.</source>
+        <translation type="obsolete">पेटिकायाः तथा छेदस्य प्रभावेभ्यः आरम्भस्थानम्।</translation>
+    </message>
+    <message>
+        <source>Direction of the glitter or wipe effects.</source>
+        <translation type="obsolete">प्रकाशस्य अथवा मार्जनस्य प्रभावानां दिक्।</translation>
+    </message>
+    <message>
         <source>Apply the selected effect to all pages.</source>
-        <translation type="unfinished">सर्वपृष्ठानि प्रति वृतप्रभावं प्रयोजय।</translation>
+        <translation type="obsolete">सर्वपृष्ठानि प्रति वृतप्रभावं प्रयोजय।</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="660"/>
@@ -20570,14 +20648,12 @@ A value of 0 means unlimited hyphenations.</source>
         <translation type="unfinished">साधनपट्टं तिरोधत्ते, यस्मिन् वरणं तथा अन्यसम्पादनशक्यताः सन्ति</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="671"/>
         <source>Hides the Menu Bar for the viewer, the PDF will display in a plain window. </source>
-        <translation type="unfinished">दर्शकाय मेनुपट्टं तिरोधत्ते, स्पष्टविण्डो मध्ये PDF प्रदर्शयिष्यति।</translation>
+        <translation type="obsolete">दर्शकाय मेनुपट्टं तिरोधत्ते, स्पष्टविण्डो मध्ये PDF प्रदर्शयिष्यति।</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="672"/>
         <source>Fit the document page or pages to the available space in the viewer window.</source>
-        <translation type="unfinished">दर्शकविण्डो मध्ये उपलब्धम् अन्तरं प्रति लेख्यपत्रपृष्ठं पृष्ठानि वा उचितानि कुरु।</translation>
+        <translation type="obsolete">दर्शकविण्डो मध्ये उपलब्धम् अन्तरं प्रति लेख्यपत्रपृष्ठं पृष्ठानि वा उचितानि कुरु।</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="14"/>
@@ -21438,7 +21514,7 @@ A value of 0 means unlimited hyphenations.</source>
     <message>
         <location filename="../../scribus/ui/prefs_printer.cpp" line="33"/>
         <source>Sets the PostScript Level.
- Setting to Level 1 or 2 can create huge files</source>
+ Setting to Level 1 or 2 can create huge files.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -22146,9 +22222,8 @@ A value of 0 means unlimited hyphenations.</source>
 <context>
     <name>Prefs_UserInterface</name>
     <message>
-        <location filename="../../scribus/ui/prefs_userinterface.cpp" line="53"/>
         <source>Select your default language for Scribus to run with. Leave this blank to choose based on environment variables. You can still override this by passing a command line option when starting Scribus</source>
-        <translation type="unfinished">स्क्रैबस् कृते चालयितुं तव मूलभूतभाषां वृणु। पर्यावरणपरिवर्तनीयानाम् अनुसारेण वृणोतुम् एतत् रिक्तं स्थापय। स्क्रैबस् आरम्भे समये कमाण्ड्रेखाविकल्पेन त्वम् अथापि एतत् अधिलिखितुं शक्नोषि।</translation>
+        <translation type="obsolete">स्क्रैबस् कृते चालयितुं तव मूलभूतभाषां वृणु। पर्यावरणपरिवर्तनीयानाम् अनुसारेण वृणोतुम् एतत् रिक्तं स्थापय। स्क्रैबस् आरम्भे समये कमाण्ड्रेखाविकल्पेन त्वम् अथापि एतत् अधिलिखितुं शक्नोषि।</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_userinterface.cpp" line="54"/>
@@ -22161,9 +22236,18 @@ A value of 0 means unlimited hyphenations.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_userinterface.cpp" line="56"/>
         <source>Palette windows will use smaller (space savy) widgets. Requires application restart</source>
-        <translation type="unfinished">पालेट् विण्डोस् लघुतराणि (अन्तरनिपुणानि) विड्जेट्स् उपयोजयिष्यन्ति। प्रयोगपुनरारम्भः आवश्यकः</translation>
+        <translation type="obsolete">पालेट् विण्डोस् लघुतराणि (अन्तरनिपुणानि) विड्जेट्स् उपयोजयिष्यन्ति। प्रयोगपुनरारम्भः आवश्यकः</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/prefs_userinterface.cpp" line="53"/>
+        <source>Select your default language for Scribus to run with. Leave this blank to choose based on environment variables. You can still override this by passing a command line option when starting Scribus.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/prefs_userinterface.cpp" line="56"/>
+        <source>Palette windows will use smaller (space savy) widgets. Requires application restart.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_userinterface.cpp" line="57"/>
@@ -22864,13 +22948,21 @@ a range of pages or a single page number</source>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_group.cpp" line="641"/>
-        <source>Use the frame shape for text flow of text frames below the object.</source>
-        <translation type="unfinished">वस्तुनः अधः विषयाबन्धानां विषयप्रवाहाय आबन्धरूपम् उपयोजय</translation>
+        <source>Use the frame shape for text flow of text frames below the object</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_group.cpp" line="642"/>
+        <source>Use the bounding box, which is always rectangular, instead of the frame&apos;s shape for text flow of text frames below the object</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Use the frame shape for text flow of text frames below the object.</source>
+        <translation type="obsolete">वस्तुनः अधः विषयाबन्धानां विषयप्रवाहाय आबन्धरूपम् उपयोजय</translation>
+    </message>
+    <message>
         <source>Use the bounding box, which is always rectangular, instead of the frame&apos;s shape for text flow of text frames below the object. </source>
-        <translation type="unfinished">वस्तुनः अधः विषयाबन्धानां विषयप्रवाहाय आबन्धरूपस्य स्थाने बन्धनपेटिकाम् उपयोजय, या सर्वदा दीर्घचतुर्भुजाकारा भवति।</translation>
+        <translation type="obsolete">वस्तुनः अधः विषयाबन्धानां विषयप्रवाहाय आबन्धरूपस्य स्थाने बन्धनपेटिकाम् उपयोजय, या सर्वदा दीर्घचतुर्भुजाकारा भवति।</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_group.cpp" line="643"/>
@@ -31095,7 +31187,7 @@ Caution: this will increase the file size!</source>
     </message>
     <message>
         <location filename="../../scribus/plugins/export/svgexplugin/svgexplugin.cpp" line="148"/>
-        <source>Adds the Page itself as background to the SVG.</source>
+        <source>Adds the Page itself as background to the SVG</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -31271,8 +31363,12 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <location filename="../../scribus/plugins/short-words/swprefsgui.cpp" line="97"/>
+        <source>Edit custom configuration. If you save it, it will be used over system wide configuration.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Edit custom configuration. If you save it, it will be used over system wide configuration</source>
-        <translation type="unfinished">स्वेच्छाविन्यासं सम्पादय। तं सञ्चयसि चेत्, सः सिस्टम् विस्तृते विन्यासे उपयुक्तः भविष्यति</translation>
+        <translation type="obsolete">स्वेच्छाविन्यासं सम्पादय। तं सञ्चयसि चेत्, सः सिस्टम् विस्तृते विन्यासे उपयुक्तः भविष्यति</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/short-words/swprefsgui.cpp" line="110"/>
@@ -33865,11 +33961,6 @@ Consider using the Preflight Verifier to correct them</source>
 <context>
     <name>ScribusView</name>
     <message>
-        <location filename="../../scribus/scribusview.cpp" line="262"/>
-        <source>Click here to leave this special edit mode.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../../scribus/scribusview.cpp" line="1102"/>
         <source>Copy Here</source>
         <translation type="unfinished">अत्र कापी कुरु</translation>
@@ -33922,6 +34013,11 @@ Consider using the Preflight Verifier to correct them</source>
         <location filename="../../scribus/scribusview.cpp" line="317"/>
         <source>Preview Mode</source>
         <translation type="unfinished">पूर्वदृश्यप्रकारः</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/scribusview.cpp" line="262"/>
+        <source>Click here to leave this special edit mode</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/scribusview.cpp" line="318"/>
@@ -35431,8 +35527,12 @@ Consider using the Preflight Verifier to correct them</source>
     </message>
     <message>
         <location filename="../../scribus/plugins/gettext/sxwim/sxwdia.cpp" line="62"/>
+        <source>Make these settings the default and do not prompt again when importing an OpenOffice.org 1.x document</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Make these settings the default and do not prompt again when importing an OpenOffice.org 1.x document.</source>
-        <translation type="unfinished">एतानि निर्धारणानि मूलभूतानीति कुरु, अपि च, OpenOffice.org लेख्यपत्रस्य आयानसमये पुनः मा चोदय।</translation>
+        <translation type="obsolete">एतानि निर्धारणानि मूलभूतानीति कुरु, अपि च, OpenOffice.org लेख्यपत्रस्य आयानसमये पुनः मा चोदय।</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/gettext/sxwim/sxwdia.cpp" line="71"/>
@@ -36475,8 +36575,23 @@ when PDF document is opened:</source>
         <translation type="unfinished">लोस्सी संपीडनरीतिभ्यः गुणस्तराः : न्यूनतमम् (25%), न्यूनम् (50%), मध्यमम् (75%), अधिकम् (85%), अधिकतमम् (95%)। एतदवधारय यत् गुणस्तरः सांसृष्टिकतया फलितचित्रस्य परिमाणं न निश्चिनोति - कस्मिन्नपि दत्तगुणस्तरे चित्रात् चित्रं परिमाणस्य तथा गुणस्य नाशः विकल्पयति। अधिकतमं वृतं चेदपि, jpeg सह सर्वदा कश्चित् गुणनाशः भवति।</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/tabpdfoptions.cpp" line="255"/>
+        <source>Hides the Menu Bar for the viewer, the PDF will display in a plain window</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/tabpdfoptions.cpp" line="256"/>
+        <source>Fit the document page or pages to the available space in the viewer window</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="260"/>
         <source>Choose an owner password which enables or disables all the security features in your exported PDF</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/tabpdfoptions.cpp" line="262"/>
+        <source>Allow printing of the PDF. If unchecked, printing is prevented.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -36560,14 +36675,12 @@ when PDF document is opened:</source>
         <translation type="unfinished">साधनपट्टं तिरोधत्ते, यस्मिन् वरणं तथा अन्यसम्पादनशक्यताः सन्ति</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/tabpdfoptions.cpp" line="255"/>
         <source>Hides the Menu Bar for the viewer, the PDF will display in a plain window. </source>
-        <translation type="unfinished">दर्शकाय मेनुपट्टं तिरोधत्ते, स्पष्टविण्डो मध्ये PDF प्रदर्शयिष्यति।</translation>
+        <translation type="obsolete">दर्शकाय मेनुपट्टं तिरोधत्ते, स्पष्टविण्डो मध्ये PDF प्रदर्शयिष्यति।</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/tabpdfoptions.cpp" line="256"/>
         <source>Fit the document page or pages to the available space in the viewer window.</source>
-        <translation type="unfinished">दर्शकविण्डो मध्ये उपलब्धम् अन्तरं प्रति लेख्यपत्रपृष्ठं पृष्ठानि वा उचितानि कुरु।</translation>
+        <translation type="obsolete">दर्शकविण्डो मध्ये उपलब्धम् अन्तरं प्रति लेख्यपत्रपृष्ठं पृष्ठानि वा उचितानि कुरु।</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="226"/>
@@ -36597,11 +36710,6 @@ when PDF document is opened:</source>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="261"/>
         <source>Choose a password for users to be able to read your PDF</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/tabpdfoptions.cpp" line="262"/>
-        <source>Allow printing of the PDF. If unchecked, printing is prevented. </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -38785,18 +38893,18 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <location filename="../../scribus/plugins/gettext/xtgim/xtgdialog.cpp" line="55"/>
-        <source>Prepend the document name to the Style name in Scribus.</source>
+        <source>Prepend the document name to the Style name in Scribus</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/plugins/gettext/xtgim/xtgdialog.cpp" line="64"/>
+        <source>Make these settings the default and do not prompt again when importing an XPress Tags document</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/gettext/xtgim/xtgdialog.cpp" line="62"/>
         <source>Do not ask again</source>
         <translation type="unfinished">मां पुनः मा पृच्छ</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/plugins/gettext/xtgim/xtgdialog.cpp" line="64"/>
-        <source>Make these settings the default and do not prompt again when importing an XPress Tags document.</source>
-        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/gettext/xtgim/xtgdialog.cpp" line="73"/>

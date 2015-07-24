@@ -3947,7 +3947,7 @@ Innsettingsknappen setter inn en glyff i avsnittet nedenfor, og med Delete-knapp
     </message>
     <message>
         <source>Preflight profile to base the report generation on. Options can be set in Document Setup or Preferences</source>
-        <translation>Forhåndssjekk-profil som grunnlag for å lage rapporter. Oppsettet kan endres i dokumentinnstillingene eller innstillingene.</translation>
+        <translation type="vanished">Forhåndssjekk-profil som grunnlag for å lage rapporter. Oppsettet kan endres i dokumentinnstillingene eller innstillingene.</translation>
     </message>
     <message>
         <source>Ignore found errors and continue to export or print. Be sure to understand the errors you are ignoring before continuing.</source>
@@ -4099,6 +4099,10 @@ Nå %2 x %3 ppt</translation>
     </message>
     <message>
         <source>The image does not fit the whole space you reserved for it. Maybe this is intended, or maybe this is caused by bad inner placement or scale. The result will either be a cropped image or white space around the image.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Preflight profile to base the report generation on. Options can be set in Document Setup or Preferences.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -5160,8 +5164,12 @@ Nå %2 x %3 ppt</translation>
     </message>
     <message>
         <source>This panel displays various CUPS options when printing. The exact parameters available will depend on your printer driver. You can confirm CUPS support by selecting Help &gt; About. Look for the listings: C-C-T These equate to C=CUPS C=littlecms T=TIFF support. Missing library support is indicated by a *</source>
-        <translation>Dette panelet viser diverse CUPS-innstillinger under utskriften.Hvilke parametre som er tilgjengelige avhenger av skriverdriveren.Du kan sjekke om du har CUPS-støtte ved å gå til «Hjelp → Om».Se etter: C-C-T. Disse står henholdsvis for: C=CUPS, C=littlecms, T=Tiff-støtte.
+        <translation type="vanished">Dette panelet viser diverse CUPS-innstillinger under utskriften.Hvilke parametre som er tilgjengelige avhenger av skriverdriveren.Du kan sjekke om du har CUPS-støtte ved å gå til «Hjelp → Om».Se etter: C-C-T. Disse står henholdsvis for: C=CUPS, C=littlecms, T=Tiff-støtte.
 Manglende bibliotekstøtte vises med *</translation>
+    </message>
+    <message>
+        <source>This panel displays various CUPS options when printing. The exact parameters available will depend on your printer driver. You can confirm CUPS support by selecting Help &gt; About. Look for the listings: C-C-T These equate to C=CUPS C=littlecms T=TIFF support. Missing library support is indicated by a *.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -5455,23 +5463,23 @@ Manglende bibliotekstøtte vises med *</translation>
     </message>
     <message>
         <source>The person or organisation primarily responsible for making the content of the document. This field can be embedded in the Scribus document for reference, as well as in the metadata of a PDF</source>
-        <translation>Personen eller organisasjonen som hovedsaklig er ansvarlig for innholdet i dokumentet.Dette feltet kan tas med i scribusdokumentet – og i metadataene til en PDF-fil.</translation>
+        <translation type="vanished">Personen eller organisasjonen som hovedsaklig er ansvarlig for innholdet i dokumentet.Dette feltet kan tas med i scribusdokumentet – og i metadataene til en PDF-fil.</translation>
     </message>
     <message>
         <source>A name given to the document. This field can be embedded in the Scribus document for reference, as well as in the metadata of a PDF</source>
-        <translation>Dokumentnavnet. Dette feltet kan tas med scribusdokumentet, og i metadataene til en PDF-fil</translation>
+        <translation type="vanished">Dokumentnavnet. Dette feltet kan tas med scribusdokumentet, og i metadataene til en PDF-fil</translation>
     </message>
     <message>
         <source>An account of the content of the document. This field is for a brief description or abstract of the document. It is embedded in the PDF on export</source>
-        <translation>En beskrivelse av dokumentets innhold. Dette feltet er til å gi en innholdsbeskrivelse eller sammenfatning av dokumentet. Det blir tatt med i PDF-fila ved eksport</translation>
+        <translation type="vanished">En beskrivelse av dokumentets innhold. Dette feltet er til å gi en innholdsbeskrivelse eller sammenfatning av dokumentet. Det blir tatt med i PDF-fila ved eksport</translation>
     </message>
     <message>
         <source>The topic of the content of the document. This field is for document keywords you wish to embed in a PDF, to assist searches and indexing of PDF files</source>
-        <translation>Tema for dokumentets innhold. Dette feltet er for dokumentnøkkelord som du vil ta med i en PDF-fil, til nytte ved søk og indeksering av PDF-filer</translation>
+        <translation type="vanished">Tema for dokumentets innhold. Dette feltet er for dokumentnøkkelord som du vil ta med i en PDF-fil, til nytte ved søk og indeksering av PDF-filer</translation>
     </message>
     <message>
         <source>The physical or digital manifestation of the document. Media type and dimensions would be worth noting. RFC2045,RFC2046 for MIME types are also useful here</source>
-        <translation>Den fysiske eller digitale manifestasjon av dokumentet. Mediatype og størrelse ville være nyttige å ta med. RFC2045, RFC2046 for MIME-typer er også brukbare her</translation>
+        <translation type="vanished">Den fysiske eller digitale manifestasjon av dokumentet. Mediatype og størrelse ville være nyttige å ta med. RFC2045, RFC2046 for MIME-typer er også brukbare her</translation>
     </message>
     <message>
         <source>The language in which the content of the document is written, usually a ISO-639 language code optionally suffixed with a hypen and an ISO-3166 country code, eg. en-GB, fr-CH</source>
@@ -5480,6 +5488,26 @@ eventuelt fulgt av en bindestrek og en ISO-3166 landskode, f.eks nn-NO, nb-NO, f
     </message>
     <message>
         <source>&amp;Subject:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The person or organisation primarily responsible for making the content of the document. This field can be embedded in the Scribus document for reference, as well as in the metadata of a PDF.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>A name given to the document. This field can be embedded in the Scribus document for reference, as well as in the metadata of a PDF.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>An account of the content of the document. This field is for a brief description or abstract of the document. It is embedded in the PDF on export.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The topic of the content of the document. This field is for document keywords you wish to embed in a PDF, to assist searches and indexing of PDF files.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The physical or digital manifestation of the document. Media type and dimensions would be worth noting. RFC2045,RFC2046 for MIME types are also useful here.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -6445,14 +6473,22 @@ Document Liberation Project http://www.documentliberation.org</source>
     </message>
     <message>
         <source>Cancels these font substitutions and stops loading the document.</source>
-        <translation>Forkast disse skrifterstatningene og stopp innlastingen av dokumentet</translation>
+        <translation type="vanished">Forkast disse skrifterstatningene og stopp innlastingen av dokumentet</translation>
     </message>
     <message>
         <source>If you select OK, then save, these substitutions are made permanent in the document.</source>
-        <translation>Hvis du velger «Greit» og lagrer, så vil disse erstatningene gjøres permanente i dette dokumentet.</translation>
+        <translation type="vanished">Hvis du velger «Greit» og lagrer, så vil disse erstatningene gjøres permanente i dette dokumentet.</translation>
     </message>
     <message>
         <source>Enabling this tells Scribus to use these replacements for missing fonts permanently in all future layouts. This can be reverted or changed in File &gt; Preferences &gt; Fonts.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cancels these font substitutions and stops loading the document</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>If you select OK, then save, these substitutions are made permanent in the document</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -9330,10 +9366,6 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Edit selected Mark`s label. To create new Mark select &quot;New Mark&quot; in drop list and input new label</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Edit variable text</source>
         <translation type="unfinished"></translation>
     </message>
@@ -9343,6 +9375,14 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <source>Edit selected Mark`s label.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Edit selected Mark`s label. To create new Mark select &quot;New Mark&quot; in drop list and input new label.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Edit selected Mark`s label</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -10722,7 +10762,7 @@ You cannot switch to different notes style before you apply that new one or pres
     </message>
     <message>
         <source>Prepend the document name to the paragraph style name in Scribus.</source>
-        <translation>Bruk dokumentnavnet som en del av stilnavnet i Scribus</translation>
+        <translation type="vanished">Bruk dokumentnavnet som en del av stilnavnet i Scribus</translation>
     </message>
     <message>
         <source>Do not ask again</source>
@@ -10730,7 +10770,7 @@ You cannot switch to different notes style before you apply that new one or pres
     </message>
     <message>
         <source>Make these settings the default and do not prompt again when importing an OASIS OpenDocument.</source>
-        <translation>Sett disse innstillingene som standard og ikke spør igjen når et annet OASIS-Open Document-dokument blir importert.</translation>
+        <translation type="vanished">Sett disse innstillingene som standard og ikke spør igjen når et annet OASIS-Open Document-dokument blir importert.</translation>
     </message>
     <message>
         <source>OK</source>
@@ -10739,6 +10779,14 @@ You cannot switch to different notes style before you apply that new one or pres
     <message>
         <source>Cancel</source>
         <translation>Avbryt</translation>
+    </message>
+    <message>
+        <source>Prepend the document name to the paragraph style name in Scribus</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Make these settings the default and do not prompt again when importing an OASIS OpenDocument</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -10959,11 +11007,11 @@ You cannot switch to different notes style before you apply that new one or pres
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Open the exported PDF with the PDF viewer as set in External Tools preferences, when not exporting to a multi-file export destination.</source>
+        <source>Open the exported PDF with the PDF viewer as set in External Tools preferences, when not exporting to a multi-file export destination</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>The save button will be disabled if you are trying to export PDF/X and the info string is missing from the PDF/X tab.</source>
+        <source>The save button will be disabled if you are trying to export PDF/X and the info string is missing from the PDF/X tab</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -12717,7 +12765,7 @@ p, li { white-space: pre-wrap; }
     <name>PicSearchOptions</name>
     <message>
         <source>The filesystem will be searched for case insensitive file names when you check this on. Remember it is not default on most operating systems except MS Windows</source>
-        <translation type="unfinished">
+        <translation type="obsolete">
             </translation>
     </message>
     <message>
@@ -12773,6 +12821,10 @@ p, li { white-space: pre-wrap; }
 Please choose another one.</source>
         <translation type="unfinished">
             </translation>
+    </message>
+    <message>
+        <source>The filesystem will be searched for case insensitive file names when you check this on. Remember it is not default on most operating systems except MS Windows.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -15242,7 +15294,7 @@ Do you want to use this?</source>
     </message>
     <message>
         <source>Radius of the area where Scribus will allow you to grab an objects handles.After setting this you will need to restart Scribus to set this setting.</source>
-        <translation type="unfinished">
+        <translation type="obsolete">
             </translation>
     </message>
     <message>
@@ -15311,6 +15363,10 @@ Do you want to use this?</source>
     </message>
     <message>
         <source>BaselineGrid</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Radius of the area where Scribus will allow you to grab an objects handles. After setting this you will need to restart Scribus to set this setting.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -16675,23 +16731,23 @@ Et kort tidsrom gir en kort effekt, et lengre tidsrom gir en lengre effekt.</tra
     </message>
     <message>
         <source>Type of the display effect.</source>
-        <translation type="unfinished">Visningseffekt.</translation>
+        <translation type="obsolete">Visningseffekt.</translation>
     </message>
     <message>
         <source>Direction of the effect of moving lines for the split and blind effects.</source>
-        <translation type="unfinished">Retning på de bevegelige linjene når du bruker effekten «Del» – eller «Persienne».</translation>
+        <translation type="obsolete">Retning på de bevegelige linjene når du bruker effekten «Del» – eller «Persienne».</translation>
     </message>
     <message>
         <source>Starting position for the box and split effects.</source>
-        <translation type="unfinished">Startposisjonen for bokseffekten og deleffekten.</translation>
+        <translation type="obsolete">Startposisjonen for bokseffekten og deleffekten.</translation>
     </message>
     <message>
         <source>Direction of the glitter or wipe effects.</source>
-        <translation type="unfinished">Retningen på glittereffekten og på visk ut-effektene.</translation>
+        <translation type="obsolete">Retningen på glittereffekten og på visk ut-effektene.</translation>
     </message>
     <message>
         <source>Apply the selected effect to all pages.</source>
-        <translation type="unfinished">Bruk den valgte effekten på alle sidene.</translation>
+        <translation type="obsolete">Bruk den valgte effekten på alle sidene.</translation>
     </message>
     <message>
         <source>Convert all glyphs in the document to outlines.</source>
@@ -16741,12 +16797,12 @@ Et kort tidsrom gir en kort effekt, et lengre tidsrom gir en lengre effekt.</tra
     </message>
     <message>
         <source>Hides the Menu Bar for the viewer, the PDF will display in a plain window. </source>
-        <translation type="unfinished">
+        <translation type="obsolete">
             </translation>
     </message>
     <message>
         <source>Fit the document page or pages to the available space in the viewer window.</source>
-        <translation type="unfinished">Tilpass dokumentsiden(e) så hele siden vises.</translation>
+        <translation type="obsolete">Tilpass dokumentsiden(e) så hele siden vises.</translation>
     </message>
     <message>
         <source>Mark Length:</source>
@@ -16822,6 +16878,34 @@ Et kort tidsrom gir en kort effekt, et lengre tidsrom gir en lengre effekt.</tra
     </message>
     <message>
         <source>Allow modifying of the PDF. If unchecked, modifying the PDF is prevented.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Type of the display effect</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Direction of the effect of moving lines for the split and blind effects</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Starting position for the box and split effects</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Direction of the glitter or wipe effects</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Apply the selected effect to all pages</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hides the Menu Bar for the viewer, the PDF will display in a plain window</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Fit the document page or pages to the available space in the viewer window</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -17223,7 +17307,7 @@ for å få flere utskriftsvalg</translation>
     <message>
         <source>Sets the PostScript Level.
  Setting to Level 1 or 2 can create huge files</source>
-        <translation type="unfinished">Angi postscriptnivået.
+        <translation type="obsolete">Angi postscriptnivået.
 Nivå 1 eller 2 kan gi veldig store filer</translation>
     </message>
     <message>
@@ -17255,6 +17339,11 @@ Nivå 1 eller 2 kan gi veldig store filer</translation>
     </message>
     <message>
         <source>This enables you to explicitly set the media size of the PostScript file. Not recommended unless requested by your printer.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Sets the PostScript Level.
+ Setting to Level 1 or 2 can create huge files.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -17752,7 +17841,7 @@ Nivå 1 eller 2 kan gi veldig store filer</translation>
     </message>
     <message>
         <source>Select your default language for Scribus to run with. Leave this blank to choose based on environment variables. You can still override this by passing a command line option when starting Scribus</source>
-        <translation type="unfinished">
+        <translation type="obsolete">
             </translation>
     </message>
     <message>
@@ -17762,7 +17851,7 @@ Nivå 1 eller 2 kan gi veldig store filer</translation>
     </message>
     <message>
         <source>Palette windows will use smaller (space savy) widgets. Requires application restart</source>
-        <translation type="unfinished">
+        <translation type="obsolete">
             </translation>
     </message>
     <message>
@@ -17791,6 +17880,14 @@ Nivå 1 eller 2 kan gi veldig store filer</translation>
     </message>
     <message>
         <source>Choose the default icon set</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Select your default language for Scribus to run with. Leave this blank to choose based on environment variables. You can still override this by passing a command line option when starting Scribus.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Palette windows will use smaller (space savy) widgets. Requires application restart.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -18255,11 +18352,11 @@ a range of pages or a single page number</source>
     </message>
     <message>
         <source>Use the frame shape for text flow of text frames below the object.</source>
-        <translation type="unfinished">Bruk rammeformen til tekstflyt for tekstrammer på lavere lag.</translation>
+        <translation type="obsolete">Bruk rammeformen til tekstflyt for tekstrammer på lavere lag.</translation>
     </message>
     <message>
         <source>Use the bounding box, which is always rectangular, instead of the frame&apos;s shape for text flow of text frames below the object. </source>
-        <translation type="unfinished">Bruk grenseboksen, som alltid er rektangulær, istedenfor rammeformen til tekstflyt på rammer på et lavere lag enn den valgte.</translation>
+        <translation type="obsolete">Bruk grenseboksen, som alltid er rektangulær, istedenfor rammeformen til tekstflyt på rammer på et lavere lag enn den valgte.</translation>
     </message>
     <message>
         <source>When chosen, the contour line can be edited with the Edit Shape Tool on the palette further above. When edited via the shape palette, this becomes a second separate line originally based on the frame&apos;s shape for text flow of text frames below the object.</source>
@@ -18276,6 +18373,14 @@ a range of pages or a single page number</source>
     </message>
     <message>
         <source>Fill is solid unless a subpath is counterdirectional.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Use the frame shape for text flow of text frames below the object</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Use the bounding box, which is always rectangular, instead of the frame&apos;s shape for text flow of text frames below the object</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -24801,8 +24906,12 @@ Caution: this will increase the file size!</source>
     </message>
     <message>
         <source>Adds the Page itself as background to the SVG.</source>
-        <translation type="unfinished">
+        <translation type="obsolete">
             </translation>
+    </message>
+    <message>
+        <source>Adds the Page itself as background to the SVG</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -24952,7 +25061,7 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Edit custom configuration. If you save it, it will be used over system wide configuration</source>
-        <translation type="unfinished">
+        <translation type="obsolete">
             </translation>
     </message>
     <message>
@@ -24980,6 +25089,10 @@ converting their vector data into Scribus objects.</source>
         <source>User configuration exists already. Do you really want to overwrite it?</source>
         <translation type="unfinished">
             </translation>
+    </message>
+    <message>
+        <source>Edit custom configuration. If you save it, it will be used over system wide configuration.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -27077,7 +27190,7 @@ Former monitor profile will be used.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Click here to leave this special edit mode.</source>
+        <source>Click here to leave this special edit mode</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -28271,12 +28384,16 @@ Former monitor profile will be used.</source>
     </message>
     <message>
         <source>Make these settings the default and do not prompt again when importing an OpenOffice.org 1.x document.</source>
-        <translation type="unfinished">
+        <translation type="obsolete">
             </translation>
     </message>
     <message>
         <source>Cancel</source>
         <translation>Avbryt</translation>
+    </message>
+    <message>
+        <source>Make these settings the default and do not prompt again when importing an OpenOffice.org 1.x document</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -29093,12 +29210,12 @@ når dokumentet åpnes:</translation>
     </message>
     <message>
         <source>Hides the Menu Bar for the viewer, the PDF will display in a plain window. </source>
-        <translation type="unfinished">
+        <translation type="obsolete">
             </translation>
     </message>
     <message>
         <source>Fit the document page or pages to the available space in the viewer window.</source>
-        <translation>Tilpass dokumentsiden(e) så hele siden vises.</translation>
+        <translation type="vanished">Tilpass dokumentsiden(e) så hele siden vises.</translation>
     </message>
     <message>
         <source>Limits the resolution of your bitmap images to the selected DPI. Images with a lower resolution will be left untouched. Leaving this unchecked will render them at their native resolution. Enabling this will increase memory usage and slow down export.</source>
@@ -29299,11 +29416,19 @@ når dokumentet åpnes:</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Allow printing of the PDF. If unchecked, printing is prevented. </source>
+        <source>Allow modifying of the PDF. If unchecked, modifying the PDF is prevented.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Allow modifying of the PDF. If unchecked, modifying the PDF is prevented.</source>
+        <source>Hides the Menu Bar for the viewer, the PDF will display in a plain window</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Fit the document page or pages to the available space in the viewer window</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Allow printing of the PDF. If unchecked, printing is prevented.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -31010,16 +31135,8 @@ converting their vector data into Scribus objects.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Prepend the document name to the Style name in Scribus.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Do not ask again</source>
         <translation type="unfinished">Ikke spør igjen</translation>
-    </message>
-    <message>
-        <source>Make these settings the default and do not prompt again when importing an XPress Tags document.</source>
-        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>OK</source>
@@ -31028,6 +31145,14 @@ converting their vector data into Scribus objects.</source>
     <message>
         <source>Cancel</source>
         <translation type="unfinished">Avbryt</translation>
+    </message>
+    <message>
+        <source>Prepend the document name to the Style name in Scribus</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Make these settings the default and do not prompt again when importing an XPress Tags document</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

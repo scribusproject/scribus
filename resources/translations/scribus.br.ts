@@ -4968,6 +4968,11 @@ Ennlakaat a ra ar stokell Enlakaat un arouezenn en diuzad amañ dindan hag ar st
         <translation>Askañ en-dro</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/checkDocument.cpp" line="121"/>
+        <source>Preflight profile to base the report generation on. Options can be set in Document Setup or Preferences.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../../scribus/ui/checkDocument.cpp" line="126"/>
         <source>Indicates that editorial changes have been made to a PDF are still present or your PDF contains unprintable annotation items. They may cause issues in professional printing. Also helpful reminder if you are wanting to publish a final draft without editorial relics.</source>
         <translation type="unfinished"></translation>
@@ -5116,9 +5121,8 @@ bremañ %2 x %3 PDM</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/checkDocument.cpp" line="121"/>
         <source>Preflight profile to base the report generation on. Options can be set in Document Setup or Preferences</source>
-        <translation>Aelad Preflight da ziazezañ genel an danevell warni. Kefluniet e vez an dibarzhioù e Arventennoù an teul pe er Gwellvezioù</translation>
+        <translation type="vanished">Aelad Preflight da ziazezañ genel an danevell warni. Kefluniet e vez an dibarzhioù e Arventennoù an teul pe er Gwellvezioù</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/checkDocument.cpp" line="122"/>
@@ -6498,6 +6502,11 @@ bremañ %2 x %3 PDM</translation>
         <translation>Pajennoù dre follenn</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/cupsoptions.cpp" line="225"/>
+        <source>This panel displays various CUPS options when printing. The exact parameters available will depend on your printer driver. You can confirm CUPS support by selecting Help &gt; About. Look for the listings: C-C-T These equate to C=CUPS C=littlecms T=TIFF support. Missing library support is indicated by a *.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../../scribus/ui/cupsoptions.cpp" line="64"/>
         <source>Option</source>
         <translation>Dibarzhioù</translation>
@@ -6508,9 +6517,8 @@ bremañ %2 x %3 PDM</translation>
         <translation>Gwerzh</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/cupsoptions.cpp" line="225"/>
         <source>This panel displays various CUPS options when printing. The exact parameters available will depend on your printer driver. You can confirm CUPS support by selecting Help &gt; About. Look for the listings: C-C-T These equate to C=CUPS C=littlecms T=TIFF support. Missing library support is indicated by a *</source>
-        <translation>Skrammañ a ra ar banell-mañ an dibarzhioù CUPS e-pad ar moullañ. Hervez ho sturioù e vo hegerz an arventennoù. Kadarnaat ar skor CUPS a c&apos;hallit dre ziuañ Skoazell &gt; A-zivout Scribus. An argell C-C-T a veneg skor C=CUPS C=littlecms T=skor TIFF, en hennader kempunañ. Gant ur * e vo meneget al levraouegoù a vank</translation>
+        <translation type="vanished">Skrammañ a ra ar banell-mañ an dibarzhioù CUPS e-pad ar moullañ. Hervez ho sturioù e vo hegerz an arventennoù. Kadarnaat ar skor CUPS a c&apos;hallit dre ziuañ Skoazell &gt; A-zivout Scribus. An argell C-C-T a veneg skor C=CUPS C=littlecms T=skor TIFF, en hennader kempunañ. Gant ur * e vo meneget al levraouegoù a vank</translation>
     </message>
 </context>
 <context>
@@ -6830,23 +6838,44 @@ bremañ %2 x %3 PDM</translation>
     </message>
     <message>
         <location filename="../../scribus/docinfo.cpp" line="167"/>
-        <source>The person or organisation primarily responsible for making the content of the document. This field can be embedded in the Scribus document for reference, as well as in the metadata of a PDF</source>
-        <translation>Den pe aozadur atebeg eus endalc&apos;had an teul. Enkorfet e c&apos;hall bezañ ar vaezienn-mañ en teul Scribus evel daveenn, evel e-barzh metaroadennoù ur restr PDF</translation>
+        <source>The person or organisation primarily responsible for making the content of the document. This field can be embedded in the Scribus document for reference, as well as in the metadata of a PDF.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/docinfo.cpp" line="168"/>
-        <source>A name given to the document. This field can be embedded in the Scribus document for reference, as well as in the metadata of a PDF</source>
-        <translation>Anv roet d&apos;an teul. Enkorfet e c&apos;hall bezañ ar vaezienn-mañ en teul Scribus evel daveenn, evel e-barzh metaroadennoù ur restr PDF</translation>
+        <source>A name given to the document. This field can be embedded in the Scribus document for reference, as well as in the metadata of a PDF.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/docinfo.cpp" line="169"/>
-        <source>An account of the content of the document. This field is for a brief description or abstract of the document. It is embedded in the PDF on export</source>
-        <translation>Ur rentañ-kont eus an teul. Arveret eo ar vaezienn-mañ d&apos;ober un deskrivadenn verr eus an teul. Enkorfet eo er restr mod PDF e-pad an ezporzhiañ</translation>
+        <source>An account of the content of the document. This field is for a brief description or abstract of the document. It is embedded in the PDF on export.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/docinfo.cpp" line="170"/>
+        <source>The topic of the content of the document. This field is for document keywords you wish to embed in a PDF, to assist searches and indexing of PDF files.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/docinfo.cpp" line="175"/>
+        <source>The physical or digital manifestation of the document. Media type and dimensions would be worth noting. RFC2045,RFC2046 for MIME types are also useful here.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The person or organisation primarily responsible for making the content of the document. This field can be embedded in the Scribus document for reference, as well as in the metadata of a PDF</source>
+        <translation type="vanished">Den pe aozadur atebeg eus endalc&apos;had an teul. Enkorfet e c&apos;hall bezañ ar vaezienn-mañ en teul Scribus evel daveenn, evel e-barzh metaroadennoù ur restr PDF</translation>
+    </message>
+    <message>
+        <source>A name given to the document. This field can be embedded in the Scribus document for reference, as well as in the metadata of a PDF</source>
+        <translation type="vanished">Anv roet d&apos;an teul. Enkorfet e c&apos;hall bezañ ar vaezienn-mañ en teul Scribus evel daveenn, evel e-barzh metaroadennoù ur restr PDF</translation>
+    </message>
+    <message>
+        <source>An account of the content of the document. This field is for a brief description or abstract of the document. It is embedded in the PDF on export</source>
+        <translation type="vanished">Ur rentañ-kont eus an teul. Arveret eo ar vaezienn-mañ d&apos;ober un deskrivadenn verr eus an teul. Enkorfet eo er restr mod PDF e-pad an ezporzhiañ</translation>
+    </message>
+    <message>
         <source>The topic of the content of the document. This field is for document keywords you wish to embed in a PDF, to assist searches and indexing of PDF files</source>
-        <translation>Danvez endalc&apos;had an teul. Arveret eo ar vaezienn-mañ evit dezspizañ ar gerioù alc&apos;hwezioù da c&apos;hannañ er PDF, a-benn aesaat an enklaskoù hag ibiliadur ar restroù mod PDF</translation>
+        <translation type="vanished">Danvez endalc&apos;had an teul. Arveret eo ar vaezienn-mañ evit dezspizañ ar gerioù alc&apos;hwezioù da c&apos;hannañ er PDF, a-benn aesaat an enklaskoù hag ibiliadur ar restroù mod PDF</translation>
     </message>
     <message>
         <location filename="../../scribus/docinfo.cpp" line="171"/>
@@ -6869,9 +6898,8 @@ bremañ %2 x %3 PDM</translation>
         <translation>Rizh pe zoare endalc&apos;had an teul, d.l.e. rummadoù, arc&apos;hwelioù, h.a</translation>
     </message>
     <message>
-        <location filename="../../scribus/docinfo.cpp" line="175"/>
         <source>The physical or digital manifestation of the document. Media type and dimensions would be worth noting. RFC2045,RFC2046 for MIME types are also useful here</source>
-        <translation>Eztaol niverel pe get eus an teul. Ne dalvezfe netra rizh ar media pe ar mentoù. Talvoudus eo RFC 2045 ha 2046 evit ar rizhoù MIME</translation>
+        <translation type="vanished">Eztaol niverel pe get eus an teul. Ne dalvezfe netra rizh ar media pe ar mentoù. Talvoudus eo RFC 2045 ha 2046 evit ar rizhoù MIME</translation>
     </message>
     <message>
         <location filename="../../scribus/docinfo.cpp" line="176"/>
@@ -8203,8 +8231,17 @@ HE GWRIZIOÙ D&apos;UR VLEUNIENN WENN;</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/fontreplacedialog.cpp" line="83"/>
+        <source>Cancels these font substitutions and stops loading the document</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/fontreplacedialog.cpp" line="85"/>
+        <source>If you select OK, then save, these substitutions are made permanent in the document</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Cancels these font substitutions and stops loading the document.</source>
-        <translation>Nullañ a ra an erlec&apos;hiadurioù nodrezhoù-mañ hag arsaviñ kargadur an teul.</translation>
+        <translation type="vanished">Nullañ a ra an erlec&apos;hiadurioù nodrezhoù-mañ hag arsaviñ kargadur an teul.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/fontreplacedialog.cpp" line="84"/>
@@ -8212,9 +8249,8 @@ HE GWRIZIOÙ D&apos;UR VLEUNIENN WENN;</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/fontreplacedialog.cpp" line="85"/>
         <source>If you select OK, then save, these substitutions are made permanent in the document.</source>
-        <translation>Mar bez diuzet Mat eo, ha gwaredet, e vo padek an erlec&apos;hiadurioù en teul.</translation>
+        <translation type="vanished">Mar bez diuzet Mat eo, ha gwaredet, e vo padek an erlec&apos;hiadurioù en teul.</translation>
     </message>
 </context>
 <context>
@@ -11865,7 +11901,7 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="../../scribus/ui/markvariabletext.cpp" line="18"/>
-        <source>Edit selected Mark`s label. To create new Mark select &quot;New Mark&quot; in drop list and input new label</source>
+        <source>Edit selected Mark`s label. To create new Mark select &quot;New Mark&quot; in drop list and input new label.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -11882,6 +11918,10 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="../../scribus/ui/markvariabletext.cpp" line="31"/>
+        <source>Edit selected Mark`s label</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../../scribus/ui/markvariabletext.cpp" line="48"/>
         <location filename="../../scribus/ui/markvariabletext.cpp" line="64"/>
         <source>Edit selected Mark`s label.</source>
@@ -13617,8 +13657,17 @@ You cannot switch to different notes style before you apply that new one or pres
     </message>
     <message>
         <location filename="../../scribus/plugins/gettext/odtim/odtdia.cpp" line="72"/>
+        <source>Prepend the document name to the paragraph style name in Scribus</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/plugins/gettext/odtim/odtdia.cpp" line="81"/>
+        <source>Make these settings the default and do not prompt again when importing an OASIS OpenDocument</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Prepend the document name to the paragraph style name in Scribus.</source>
-        <translation>Lakaat anv an teul dirak anv ar stil rannbennad.</translation>
+        <translation type="vanished">Lakaat anv an teul dirak anv ar stil rannbennad.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/gettext/odtim/odtdia.cpp" line="79"/>
@@ -13626,9 +13675,8 @@ You cannot switch to different notes style before you apply that new one or pres
         <translation>Arabat goulenn en-dro</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/gettext/odtim/odtdia.cpp" line="81"/>
         <source>Make these settings the default and do not prompt again when importing an OASIS OpenDocument.</source>
-        <translation>Lakaat an arventennoù-mañ da vezañ ar re dre ziouer ha na c&apos;houlenn en-dro pa vo enporzhiet un teul mod OASIS OpenDocument.</translation>
+        <translation type="vanished">Lakaat an arventennoù-mañ da vezañ ar re dre ziouer ha na c&apos;houlenn en-dro pa vo enporzhiet un teul mod OASIS OpenDocument.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/gettext/odtim/odtdia.cpp" line="90"/>
@@ -13889,12 +13937,12 @@ You cannot switch to different notes style before you apply that new one or pres
     </message>
     <message>
         <location filename="../../scribus/ui/pdfexportdialog.cpp" line="135"/>
-        <source>Open the exported PDF with the PDF viewer as set in External Tools preferences, when not exporting to a multi-file export destination.</source>
+        <source>Open the exported PDF with the PDF viewer as set in External Tools preferences, when not exporting to a multi-file export destination</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pdfexportdialog.cpp" line="136"/>
-        <source>The save button will be disabled if you are trying to export PDF/X and the info string is missing from the PDF/X tab.</source>
+        <source>The save button will be disabled if you are trying to export PDF/X and the info string is missing from the PDF/X tab</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -16098,9 +16146,8 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>PicSearchOptions</name>
     <message>
-        <location filename="../../scribus/ui/picsearchoptions.cpp" line="52"/>
         <source>The filesystem will be searched for case insensitive file names when you check this on. Remember it is not default on most operating systems except MS Windows</source>
-        <translation>Klasket e vo ar reizhiad restroù gant an anvioù restroù en ur deurel evezh ouzh an direnneg mar bez kevasket al log. Dalc&apos;hit soñj n&apos;eo ket dre ziouer gant an darn vuiañ eus ar reizhiadoù korvoiñ nemet MS Windows</translation>
+        <translation type="vanished">Klasket e vo ar reizhiad restroù gant an anvioù restroù en ur deurel evezh ouzh an direnneg mar bez kevasket al log. Dalc&apos;hit soñj n&apos;eo ket dre ziouer gant an darn vuiañ eus ar reizhiadoù korvoiñ nemet MS Windows</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/picsearchoptions.cpp" line="59"/>
@@ -16112,6 +16159,11 @@ p, li { white-space: pre-wrap; }
         <location filename="../../scribus/ui/picsearchoptions.cpp" line="68"/>
         <source>Start Search</source>
         <translation>Kregiñ gant ar c&apos;hlask</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/picsearchoptions.cpp" line="52"/>
+        <source>The filesystem will be searched for case insensitive file names when you check this on. Remember it is not default on most operating systems except MS Windows.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/picsearchoptions.cpp" line="92"/>
@@ -19297,9 +19349,13 @@ Do you want to use this?</source>
         <translation type="unfinished">Pellder brasañ ma vo desteudet un ergorenn ouzh ho tealfoù bet lakaet ganeoc&apos;h. Ret e vo deoc&apos;h adloc&apos;hañ Scribus da lakaat an arventenn-mañ da vezañ efedus.</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_guides.cpp" line="88"/>
         <source>Radius of the area where Scribus will allow you to grab an objects handles.After setting this you will need to restart Scribus to set this setting.</source>
-        <translation type="unfinished">Skin ar maez ma viot aotreet da dapout dornelloù an ergorennoù. Ret e vo deoc&apos;h adloc&apos;hañ Scribus da lakaat an arventenn-mañ da vezañ efedus.</translation>
+        <translation type="obsolete">Skin ar maez ma viot aotreet da dapout dornelloù an ergorennoù. Ret e vo deoc&apos;h adloc&apos;hañ Scribus da lakaat an arventenn-mañ da vezañ efedus.</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/prefs_guides.cpp" line="88"/>
+        <source>Radius of the area where Scribus will allow you to grab an objects handles. After setting this you will need to restart Scribus to set this setting.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_guides.cpp" line="89"/>
@@ -21190,28 +21246,58 @@ HE GWRIZIOÙ D&apos;UR VLEUNIENN WENN;</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="655"/>
-        <source>Type of the display effect.</source>
-        <translation type="unfinished">Rizh an efed skrammañ.</translation>
+        <source>Type of the display effect</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="656"/>
-        <source>Direction of the effect of moving lines for the split and blind effects.</source>
-        <translation type="unfinished">Tuadur efed al linennoù hefiñv evit an efedoù regiñ ha masklañ.</translation>
+        <source>Direction of the effect of moving lines for the split and blind effects</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="657"/>
-        <source>Starting position for the box and split effects.</source>
-        <translation type="unfinished">Savlec&apos;h disparti evit an efedoù boest ha regiñ.</translation>
+        <source>Starting position for the box and split effects</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="658"/>
-        <source>Direction of the glitter or wipe effects.</source>
-        <translation type="unfinished">Tuadur evit an efedoù strinkellikat pe zilemel.</translation>
+        <source>Direction of the glitter or wipe effects</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="659"/>
+        <source>Apply the selected effect to all pages</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="671"/>
+        <source>Hides the Menu Bar for the viewer, the PDF will display in a plain window</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="672"/>
+        <source>Fit the document page or pages to the available space in the viewer window</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Type of the display effect.</source>
+        <translation type="obsolete">Rizh an efed skrammañ.</translation>
+    </message>
+    <message>
+        <source>Direction of the effect of moving lines for the split and blind effects.</source>
+        <translation type="obsolete">Tuadur efed al linennoù hefiñv evit an efedoù regiñ ha masklañ.</translation>
+    </message>
+    <message>
+        <source>Starting position for the box and split effects.</source>
+        <translation type="obsolete">Savlec&apos;h disparti evit an efedoù boest ha regiñ.</translation>
+    </message>
+    <message>
+        <source>Direction of the glitter or wipe effects.</source>
+        <translation type="obsolete">Tuadur evit an efedoù strinkellikat pe zilemel.</translation>
+    </message>
+    <message>
         <source>Apply the selected effect to all pages.</source>
-        <translation type="unfinished">Seveniñ an efed diuzet d&apos;an holl bajennadoù.</translation>
+        <translation type="obsolete">Seveniñ an efed diuzet d&apos;an holl bajennadoù.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="660"/>
@@ -21273,14 +21359,12 @@ HE GWRIZIOÙ D&apos;UR VLEUNIENN WENN;</translation>
         <translation type="unfinished">Kuzhat a ra ar varrenn ostilhoù dezhi barregezhioù a-fet embann pe diuzañ</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="671"/>
         <source>Hides the Menu Bar for the viewer, the PDF will display in a plain window. </source>
-        <translation type="unfinished">Kuzhaat a ra barrenn al lañser evit an alberzer, skrammet e vo ar PDF  en ur prenestr a-bezh.</translation>
+        <translation type="obsolete">Kuzhaat a ra barrenn al lañser evit an alberzer, skrammet e vo ar PDF  en ur prenestr a-bezh.</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="672"/>
         <source>Fit the document page or pages to the available space in the viewer window.</source>
-        <translation type="unfinished">Lakaat pajenn pe bajennoù an teul da genglotañ gant ar plas hegerz e prenestr an alberzer.</translation>
+        <translation type="obsolete">Lakaat pajenn pe bajennoù an teul da genglotañ gant ar plas hegerz e prenestr an alberzer.</translation>
     </message>
 </context>
 <context>
@@ -21782,11 +21866,16 @@ HE GWRIZIOÙ D&apos;UR VLEUNIENN WENN;</translation>
         <translation type="unfinished">Arverañ un ardoer moullañ all evel kprinter pe gtklp, a-benn kaout dibarzhioù moullañ ouzhpenn</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_printer.cpp" line="33"/>
         <source>Sets the PostScript Level.
  Setting to Level 1 or 2 can create huge files</source>
-        <translation type="unfinished">Arventennañ a ra live ar Postscript.
+        <translation type="obsolete">Arventennañ a ra live ar Postscript.
 Lakaat war al live 1 pe 2 a c&apos;hall krouiñ restroù ramzel</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/prefs_printer.cpp" line="33"/>
+        <source>Sets the PostScript Level.
+ Setting to Level 1 or 2 can create huge files.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_printer.cpp" line="34"/>
@@ -22453,9 +22542,8 @@ Lakaat war al live 1 pe 2 a c&apos;hall krouiñ restroù ramzel</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_userinterface.cpp" line="53"/>
         <source>Select your default language for Scribus to run with. Leave this blank to choose based on environment variables. You can still override this by passing a command line option when starting Scribus</source>
-        <translation type="unfinished">Diuzañ a ra ar yezh arveret gant Scribus dre ziouer. Laoskit goullo a-benn dibab ar yezh erspizet gant an argemmoù amva. Gallout a reer daskemmañ ar yezh gant dibarzhioù an arc&apos;had pa vez loc&apos;het Scribus</translation>
+        <translation type="obsolete">Diuzañ a ra ar yezh arveret gant Scribus dre ziouer. Laoskit goullo a-benn dibab ar yezh erspizet gant an argemmoù amva. Gallout a reer daskemmañ ar yezh gant dibarzhioù an arc&apos;had pa vez loc&apos;het Scribus</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_userinterface.cpp" line="54"/>
@@ -22468,9 +22556,18 @@ Lakaat war al live 1 pe 2 a c&apos;hall krouiñ restroù ramzel</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_userinterface.cpp" line="56"/>
         <source>Palette windows will use smaller (space savy) widgets. Requires application restart</source>
-        <translation type="unfinished">Arveret e vo widjetoù bihanoc&apos;h (da espern an egor) gant prenestroù al livaoueg. Ret e vo adloc&apos;hañ an arload</translation>
+        <translation type="obsolete">Arveret e vo widjetoù bihanoc&apos;h (da espern an egor) gant prenestroù al livaoueg. Ret e vo adloc&apos;hañ an arload</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/prefs_userinterface.cpp" line="53"/>
+        <source>Select your default language for Scribus to run with. Leave this blank to choose based on environment variables. You can still override this by passing a command line option when starting Scribus.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/prefs_userinterface.cpp" line="56"/>
+        <source>Palette windows will use smaller (space savy) widgets. Requires application restart.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_userinterface.cpp" line="57"/>
@@ -23065,13 +23162,21 @@ a range of pages or a single page number</source>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_group.cpp" line="641"/>
-        <source>Use the frame shape for text flow of text frames below the object.</source>
-        <translation type="unfinished">Arverañ stumm ar stern evit rikladur an destenn eus ar sternadoù testenn dindan an ergorenn.</translation>
+        <source>Use the frame shape for text flow of text frames below the object</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_group.cpp" line="642"/>
+        <source>Use the bounding box, which is always rectangular, instead of the frame&apos;s shape for text flow of text frames below the object</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Use the frame shape for text flow of text frames below the object.</source>
+        <translation type="obsolete">Arverañ stumm ar stern evit rikladur an destenn eus ar sternadoù testenn dindan an ergorenn.</translation>
+    </message>
+    <message>
         <source>Use the bounding box, which is always rectangular, instead of the frame&apos;s shape for text flow of text frames below the object. </source>
-        <translation type="unfinished">Arverañ riblenn ur voest tro-dro dezhi, a vo reizhkornek atav, e-lec&apos;h trolinenn ar stern evit riklañ an destenn dindan an ergorenn.</translation>
+        <translation type="obsolete">Arverañ riblenn ur voest tro-dro dezhi, a vo reizhkornek atav, e-lec&apos;h trolinenn ar stern evit riklañ an destenn dindan an ergorenn.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_group.cpp" line="643"/>
@@ -31374,8 +31479,12 @@ e-barzh ar restr mod SVG. Evezh : kresket e vo ment ar restr !</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/export/svgexplugin/svgexplugin.cpp" line="148"/>
+        <source>Adds the Page itself as background to the SVG</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Adds the Page itself as background to the SVG.</source>
-        <translation>Ouzhpennañ a ra ar bajenn hec&apos;h unan evel un drekleur er restr mod SVG.</translation>
+        <translation type="vanished">Ouzhpennañ a ra ar bajenn hec&apos;h unan evel un drekleur er restr mod SVG.</translation>
     </message>
 </context>
 <context>
@@ -31551,8 +31660,12 @@ oc&apos;h amdreiñ o roadennoù sturiadel da ergorennoù mod Scribus.</translati
     </message>
     <message>
         <location filename="../../scribus/plugins/short-words/swprefsgui.cpp" line="97"/>
+        <source>Edit custom configuration. If you save it, it will be used over system wide configuration.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Edit custom configuration. If you save it, it will be used over system wide configuration</source>
-        <translation>Embann kefluniadur personelaet. Mar bez enrollet, e vo arveret e-lec&apos;h kefluniadur ar reizhiad</translation>
+        <translation type="vanished">Embann kefluniadur personelaet. Mar bez enrollet, e vo arveret e-lec&apos;h kefluniadur ar reizhiad</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/short-words/swprefsgui.cpp" line="110"/>
@@ -34157,6 +34270,11 @@ Former monitor profile will be used.</source>
 <context>
     <name>ScribusView</name>
     <message>
+        <location filename="../../scribus/scribusview.cpp" line="262"/>
+        <source>Click here to leave this special edit mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../../scribus/scribusview.cpp" line="1102"/>
         <source>Copy Here</source>
         <translation>Eilañ amañ</translation>
@@ -34213,11 +34331,6 @@ Former monitor profile will be used.</source>
     <message>
         <location filename="../../scribus/scribusview.cpp" line="232"/>
         <source>End Edit</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/scribusview.cpp" line="262"/>
-        <source>Click here to leave this special edit mode.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -35723,8 +35836,12 @@ Former monitor profile will be used.</source>
     </message>
     <message>
         <location filename="../../scribus/plugins/gettext/sxwim/sxwdia.cpp" line="62"/>
+        <source>Make these settings the default and do not prompt again when importing an OpenOffice.org 1.x document</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Make these settings the default and do not prompt again when importing an OpenOffice.org 1.x document.</source>
-        <translation>Lakaat an arventennoù da vezañ ar re dre ziouer ha na c&apos;houlenn en-dro pa vo enporzhiet un teul mod OpenOffice.org 1.x.</translation>
+        <translation type="vanished">Lakaat an arventennoù da vezañ ar re dre ziouer ha na c&apos;houlenn en-dro pa vo enporzhiet un teul mod OpenOffice.org 1.x.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/gettext/sxwim/sxwdia.cpp" line="71"/>
@@ -36768,8 +36885,23 @@ pa vez digoret un teul mod PDF :</translation>
         <translation>Live perzhded ar c&apos;hoazhañ evit an hentennoù koazhañ gant kolloù : Izek (25%), Izel (50%), Krenn (75 %), Uhel (85%), Uc&apos;hek (95%). Meizit n&apos;eo ket liammet dre ret al live koazhañ ouzh perzhded ar restroù bet savet. Ar vent hag ar c&apos;holl perzhded a gemmo diouzh ur skeudenn d&apos;eben evit forzh pe live perzhded.</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/tabpdfoptions.cpp" line="255"/>
+        <source>Hides the Menu Bar for the viewer, the PDF will display in a plain window</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/tabpdfoptions.cpp" line="256"/>
+        <source>Fit the document page or pages to the available space in the viewer window</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="260"/>
         <source>Choose an owner password which enables or disables all the security features in your exported PDF</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/tabpdfoptions.cpp" line="262"/>
+        <source>Allow printing of the PDF. If unchecked, printing is prevented.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -36857,14 +36989,12 @@ pa vez digoret un teul mod PDF :</translation>
         <translation>Kuzhat a ra ar varrenn ostilhoù dezhi barregezhioù a-fet embann pe diuzañ</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/tabpdfoptions.cpp" line="255"/>
         <source>Hides the Menu Bar for the viewer, the PDF will display in a plain window. </source>
-        <translation>Kuzhaat a ra barrenn al lañser evit an alberzer, skrammet e vo ar PDF  en ur prenestr a-bezh.</translation>
+        <translation type="vanished">Kuzhaat a ra barrenn al lañser evit an alberzer, skrammet e vo ar PDF  en ur prenestr a-bezh.</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/tabpdfoptions.cpp" line="256"/>
         <source>Fit the document page or pages to the available space in the viewer window.</source>
-        <translation>Lakaat pajenn pe bajennoù an teul da genglotañ gant ar plas hegerz e prenestr an alberzer.</translation>
+        <translation type="vanished">Lakaat pajenn pe bajennoù an teul da genglotañ gant ar plas hegerz e prenestr an alberzer.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="226"/>
@@ -36894,11 +37024,6 @@ pa vez digoret un teul mod PDF :</translation>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="261"/>
         <source>Choose a password for users to be able to read your PDF</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/tabpdfoptions.cpp" line="262"/>
-        <source>Allow printing of the PDF. If unchecked, printing is prevented. </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -39100,17 +39225,17 @@ en ur amdreiñ o roadennoù sturiadel da ergorennoù mod Scribus.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/gettext/xtgim/xtgdialog.cpp" line="55"/>
-        <source>Prepend the document name to the Style name in Scribus.</source>
+        <source>Prepend the document name to the Style name in Scribus</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/plugins/gettext/xtgim/xtgdialog.cpp" line="64"/>
+        <source>Make these settings the default and do not prompt again when importing an XPress Tags document</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/gettext/xtgim/xtgdialog.cpp" line="62"/>
         <source>Do not ask again</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/plugins/gettext/xtgim/xtgdialog.cpp" line="64"/>
-        <source>Make these settings the default and do not prompt again when importing an XPress Tags document.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
