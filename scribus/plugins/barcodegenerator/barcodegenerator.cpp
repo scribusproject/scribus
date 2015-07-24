@@ -59,13 +59,13 @@ BarcodeGenerator::BarcodeGenerator(QWidget* parent, const char* name)
 	                                 "[0-9a-zA-Z\\-\\.\\ \\*\\$\\/\\+\\%]*",
 	                                 true, true);
 //    "Code-93"] = "code93"
-	map[tr("Code-128")] = BarcodeType("code128", "^104^102Count^0991234^101!",
-	                                  tr("Variable number of ASCII characters and special function symbols, starting with the appropriate start character for the initial character set. UCC/EAN-128s must have a mandatory FNC 1 symbol immediately following the start character."),
-	                                  "\\^[0-9a-zA-Z\\^\\!]*",
-	                                  true, true);
-	map[tr("UCC/EAN-128")] = BarcodeType("code128", "^104^102Count^0991234^101!",
-	                                     tr("Variable number of ASCII characters and special function symbols, starting with the appropriate start character for the initial character set. UCC/EAN-128s must have a mandatory FNC 1 symbol immediately following the start character."),
-	                                     "\\^[0-9a-zA-Z\\^\\!]*");
+	map[tr("Code-128")] = BarcodeType("code128", "Count1234567!",
+	                                  tr("Any data."),
+	                                  ".*",
+	                                  false, false);
+	map[tr("GS1-128")] = BarcodeType("gs1-128", "(01)95012345678903(3103)000123",
+										 tr("GS1 Application Identifier standard format. FNC1 characters are included automatically."),
+										 ".*",false,false);
 	map[tr("Rationalized Codabar")] = BarcodeType("rationalizedCodabar", "A0123456789D",
 	                                              tr("Variable number of digits and any of the symbols -$:/.+ABCD."),
 	                                              "[0-9A-D\\-\\$\\:\\/\\.\\+]*",
