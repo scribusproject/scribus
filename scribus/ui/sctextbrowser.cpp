@@ -28,7 +28,7 @@ void ScTextBrowser::clear()
 
 void ScTextBrowser::find(const QString& txt, const int& options)
 {
-	find(txt, QTextDocument::FindFlag(options));
+	QTextBrowser::find(txt, QTextDocument::FindFlag(options));
 }
 
 void ScTextBrowser::home()
@@ -39,7 +39,7 @@ void ScTextBrowser::home()
 
 void ScTextBrowser::catchHome(QUrl url)
 {
-	if(homeUrl.isEmpty())
+	if (homeUrl.isEmpty())
 	{
 		homeUrl = url;
 		disconnect(this, SIGNAL(sourceChanged(QUrl)), this, SLOT(catchHome(QUrl)));
