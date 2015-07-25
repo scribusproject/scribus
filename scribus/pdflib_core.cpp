@@ -1930,10 +1930,41 @@ void PDFLibCore::PDF_Begin_WriteUsedFonts(SCFonts &AllFonts, const QMap<QString,
 		PdfFont pdfFont;
 		QByteArray fontName = QByteArray("Fo") + Pdf::toPdf(a);
 		
+		QMap<uint, FPointArray> usedGlyphs = it.value();
+		
+		// Check for control glyphs
+		QList<uint> glyphIDs = usedGlyphs.keys();
+		for (int i = 0; i < glyphIDs.count(); ++i)
+		{
+			uint glyph = glyphIDs.at(i);
+			if (glyph < ScFace::CONTROL_GLYPHS)
+				continue;
+			FPointArray glyphPath = usedGlyphs[glyph];
+
+			uint realGlyph = 0;
+			if (glyph == (ScFace::CONTROL_GLYPHS + SpecialChars::NBSPACE.unicode()) ||
+				glyph == (ScFace::CONTROL_GLYPHS + 32))
+			{
+				realGlyph = face.char2CMap(QChar(' '));
+			}
+			else if (glyph == (ScFace::CONTROL_GLYPHS + SpecialChars::NBHYPHEN.unicode()))
+			{
+				realGlyph = face.char2CMap(QChar('-'));
+			}
+
+			usedGlyphs.remove(glyph);
+			if (realGlyph <= 0 || realGlyph >= ScFace::CONTROL_GLYPHS)
+				continue;
+			usedGlyphs.insert(glyph, glyphPath);
+		}
+
+		if (usedGlyphs.count() <= 0)
+			continue;
+		
 		qDebug() << "pdf font" << it.key();
 		if (Options.OutlineList.contains(it.key()))
 		{
-			pdfFont = PDF_WriteGlyphsAsXForms(fontName, face, it.value());
+			pdfFont = PDF_WriteGlyphsAsXForms(fontName, face, usedGlyphs);
 		}
 		else
 		{
@@ -1943,16 +1974,16 @@ void PDFLibCore::PDF_Begin_WriteUsedFonts(SCFonts &AllFonts, const QMap<QString,
 				{
 					if (face.type() == ScFace::TTF)
 					{
-						pdfFont = PDF_WriteTtfSubsetFont(fontName, face, it.value());
+						pdfFont = PDF_WriteTtfSubsetFont(fontName, face, usedGlyphs);
 					}
 					else
 					{
-						pdfFont = PDF_WriteCffSubsetFont(fontName, face, it.value());
+						pdfFont = PDF_WriteCffSubsetFont(fontName, face, usedGlyphs);
 					}
 				}
 				else
 				{
-					pdfFont = PDF_WriteType3Font(fontName, face, it.value());
+					pdfFont = PDF_WriteType3Font(fontName, face, usedGlyphs);
 				}
 			}
 			else
