@@ -851,14 +851,21 @@ void AppModeHelper::enableActionsForSelection(ScribusMainWindow* scmw, ScribusDo
 		{
 			(*a_scrActions)["itemWeld"]->setEnabled(true);
 			//CB swap it around if currItem is not at 0 index from the lastItem loop at start of havenewsel
-			PageItem* it=doc->m_Selection->itemAt(1);
-			if (currItem==it)
-				it=doc->m_Selection->itemAt(0);
-			if ((currItem->asTextFrame() || it->asTextFrame()) && (it->asPolygon() || it->asPolyLine()))
+			bool canAttachTextToPath = false;
+			PageItem* item1 = doc->m_Selection->itemAt(0);
+			PageItem* item2 = doc->m_Selection->itemAt(1);
+			if (!item1->asTextFrame() || !(item2->asPolygon() || item2->asPolyLine()))
+				std::swap(item1, item2);
+			if (item1->asTextFrame() && (item2->asPolygon() || item2->asPolyLine()))
 			{
-				if ((currItem->nextInChain() == 0) && (currItem->prevInChain() == 0) && (it->nextInChain() == 0) && (it->prevInChain() == 0) && (!currItem->isGroup()) && (!it->isGroup()))
-					(*a_scrActions)["itemAttachTextToPath"]->setEnabled(true);
+				canAttachTextToPath  = true;
+				canAttachTextToPath &= (item1->nextInChain() == 0);
+				canAttachTextToPath &= (item1->prevInChain() == 0);
+				canAttachTextToPath &= (item2->nextInChain() == 0);
+				canAttachTextToPath &= (item2->prevInChain() == 0);
+				canAttachTextToPath &= (!item1->isGroup() && !item2->isGroup());
 			}
+			(*a_scrActions)["itemAttachTextToPath"]->setEnabled(canAttachTextToPath);
 		}
 		else
 			(*a_scrActions)["itemWeld"]->setEnabled(false);
