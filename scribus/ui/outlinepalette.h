@@ -39,6 +39,8 @@ public:
 
 class SCRIBUS_API OutlineWidget : public QTreeWidget
 {
+	Q_OBJECT
+
 public:
 	OutlineWidget(QWidget* parent);
 	~OutlineWidget() {};

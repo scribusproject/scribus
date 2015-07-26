@@ -293,7 +293,7 @@
     <moc Include="..\..\..\scribus\canvasgesture_tableresize.h" />
     <moc Include="..\..\..\scribus\canvasmode.h" />
     <ClInclude Include="..\..\..\scribus\canvasmode_copyproperties.h" />
-    <ClInclude Include="..\..\..\scribus\canvasmode_create.h" />
+    <moc Include="..\..\..\scribus\canvasmode_create.h" />
     <ClInclude Include="..\..\..\scribus\canvasmode_drawbezier.h" />
     <ClInclude Include="..\..\..\scribus\canvasmode_drawcalligraphic.h" />
     <ClInclude Include="..\..\..\scribus\canvasmode_drawfreehand.h" />

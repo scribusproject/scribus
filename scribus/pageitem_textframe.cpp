@@ -5828,7 +5828,7 @@ TextNote* PageItem_TextFrame::selectedNoteMark(bool onlySelection)
 
 NotesInFrameMap PageItem_TextFrame::updateNotesFrames(QMap<int, Mark*> noteMarksPosMap)
 {
-	NotesInFrameMap notesMap; //= m_notesFramesMap;
+	NotesInFrameMap notesMap; // = m_notesFramesMap;
 	QMap<int, Mark*>::Iterator it = noteMarksPosMap.begin();
 	QMap<int, Mark*>::Iterator end = noteMarksPosMap.end();
 	PageItem* lastItem = this;
