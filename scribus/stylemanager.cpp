@@ -147,7 +147,8 @@ void StyleManager::languageChange()
 		m_styleClassesPS[m_items.at(i)->typeNamePlural()] = m_items.at(i)->typeNameSingular();
 		m_styleClassesSP[m_items.at(i)->typeNameSingular()] = m_items.at(i)->typeNamePlural();
 	}
-	popupStrings.sort();
+	//13219, 12193 backport
+	//popupStrings.sort();
 	for (int i = 0; i < popupStrings.count(); ++i)
 		m_newPopup->addAction(popupStrings[i]);
 
