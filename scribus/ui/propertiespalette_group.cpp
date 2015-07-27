@@ -644,7 +644,7 @@ void PropertiesPalette_Group::languageChange()
 	textFlowUsesImageClipping->setToolTip(  "<qt>" + tr("Use the clipping path of the image") + "</qt>" );
 
 	evenOdd->setToolTip( "<qt>" + tr("Any path self-intersections or subpaths create holes in the fill")  + "</qt>");
-	nonZero->setToolTip( "<qt>" + tr("Fill is solid unless a subpath is counterdirectional")  + "</qt>");
+	nonZero->setToolTip( "<qt>" + tr("Fill is solid unless a subpath is counter-directional")  + "</qt>");
 }
 
 void PropertiesPalette_Group::unitChange()
