@@ -3245,9 +3245,8 @@ Didalvoudek eo ar c&apos;hefluniadur</translation>
         <translation>Diuzit unan eus ar rizhoù rinegoù dre varrennoù amañ</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="108"/>
         <source>The numeric representation of the code itself. See the help message below</source>
-        <translation>Erouezadur niverel ar rineg. Sellit ar gemennadenn skoazell amañ dindan</translation>
+        <translation type="vanished">Erouezadur niverel ar rineg. Sellit ar gemennadenn skoazell amañ dindan</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="98"/>
@@ -3378,6 +3377,11 @@ Didalvoudek eo ar c&apos;hefluniadur</translation>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="73"/>
         <source>&amp;Include Text in Barcode</source>
         <translation>&amp;Enlakaat testenn er rineg dre varennoù</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="108"/>
+        <source>The numeric representation of the code itself. See the help message below.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="323"/>
@@ -12342,19 +12346,19 @@ An holl zornelloù a vo adderaouekaet ma ne ziuzit ket unan anezho.</translation
         <translation>Binvioù</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/modetoolbar.cpp" line="81"/>
-        <location filename="../../scribus/ui/modetoolbar.cpp" line="159"/>
+        <location filename="../../scribus/ui/modetoolbar.cpp" line="82"/>
+        <location filename="../../scribus/ui/modetoolbar.cpp" line="161"/>
         <source>Angle:</source>
         <translation type="unfinished">Korn :</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/modetoolbar.cpp" line="86"/>
-        <location filename="../../scribus/ui/modetoolbar.cpp" line="160"/>
+        <location filename="../../scribus/ui/modetoolbar.cpp" line="87"/>
+        <location filename="../../scribus/ui/modetoolbar.cpp" line="162"/>
         <source>Width:</source>
         <translation type="unfinished">Led :</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/modetoolbar.cpp" line="161"/>
+        <location filename="../../scribus/ui/modetoolbar.cpp" line="163"/>
         <source>Properties...</source>
         <translation>Perzhioù...</translation>
     </message>
@@ -13996,37 +14000,37 @@ You cannot switch to different notes style before you apply that new one or pres
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="3070"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="3101"/>
         <source>Page:</source>
         <translation>Pajenn :</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="3080"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="3111"/>
         <source>Date:</source>
         <translation>Deiziad :</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11598"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11629"/>
         <source>Failed to load an image : %1</source>
         <translation>C&apos;hwitadenn war kargañ ar skeudenn : %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11603"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11634"/>
         <source>Failed to write an image : %1</source>
         <translation>C&apos;hwitadenn war skrivañ ar skeudenn : %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11608"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11639"/>
         <source>Failed to load an image mask : %1</source>
         <translation>C&apos;hwitadenn war kargañ maskl ur skeudenn : %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11613"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11644"/>
         <source>Insufficient memory for processing an image</source>
         <translation>N&apos;eus ket memor a-walc&apos;h a-benn keweriañ ur skeudenn</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11593"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11624"/>
         <source>A write error occurred, please check available disk space</source>
         <translation>Degouezhet ez eus bet ur fazi skritur, gwiriit ar plas a chom war ar gantenn</translation>
     </message>
@@ -15652,19 +15656,16 @@ bezañ er-maez eus al liestueg e rank bezañ ar poentoù dibenn</translation>
         <translation>Kevamsañ al lunioù</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/tools/pathfinder/pathfinderbase.ui" line="42"/>
         <source>First source shape.</source>
-        <translation>Lun-tarzh kentañ.</translation>
+        <translation type="vanished">Lun-tarzh kentañ.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/tools/pathfinder/pathfinderbase.ui" line="153"/>
         <source>Second source shape.</source>
-        <translation>Eil lun tarzh.</translation>
+        <translation type="vanished">Eil lun tarzh.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/tools/pathfinder/pathfinderbase.ui" line="261"/>
         <source>The resulting shape.</source>
-        <translation>Al lun bet savet.</translation>
+        <translation type="vanished">Al lun bet savet.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/tools/pathfinder/pathfinderbase.ui" line="313"/>
@@ -15703,10 +15704,25 @@ bezañ er-maez eus al liestueg e rank bezañ ar poentoù dibenn</translation>
         <translation>Mirout un eilad eus an elfenn orin goude ma &apos;z eo bet arloet ar gwezhiadur</translation>
     </message>
     <message>
+        <location filename="../../scribus/plugins/tools/pathfinder/pathfinderbase.ui" line="42"/>
+        <source>First source shape</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../../scribus/plugins/tools/pathfinder/pathfinderbase.ui" line="64"/>
         <location filename="../../scribus/plugins/tools/pathfinder/pathfinderbase.ui" line="175"/>
         <source>Keep</source>
         <translation>Mirout</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/plugins/tools/pathfinder/pathfinderbase.ui" line="153"/>
+        <source>Second source shape</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/plugins/tools/pathfinder/pathfinderbase.ui" line="261"/>
+        <source>The resulting shape</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/tools/pathfinder/pathfinderbase.ui" line="332"/>
@@ -22883,6 +22899,11 @@ Notenn : Ar furmskridoù mod PDF ne vint ket ezporzhiet. </translation>
         <translation>&lt;qt&gt;Gweredekaat a ra ar pikoù liv da vezañ amdroet da livioù kenaoz. Anez ma vefe goulennet moullañ ho leul digant ur mouller a-vicher e vefe gwell leuskel da weredekaet.&lt;/qt&gt;</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/printdialogbase.ui" line="336"/>
+        <source>Sets the PostScript Level. Setting to Level 1 or 2 can create huge files.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../../scribus/ui/printdialogbase.ui" line="429"/>
         <source>Apply Color Profiles</source>
         <translation>Arloañ an aeladoù liv</translation>
@@ -22927,11 +22948,6 @@ a range of pages or a single page number</source>
     <message>
         <location filename="../../scribus/ui/printdialogbase.ui" line="265"/>
         <source>Create a range of pages</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/printdialogbase.ui" line="336"/>
-        <source>Sets the PostScript Level. Setting to Level 1 or 2 can create huge files</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -23171,6 +23187,16 @@ a range of pages or a single page number</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/propertiespalette_group.cpp" line="646"/>
+        <source>Any path self-intersections or subpaths create holes in the fill</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertiespalette_group.cpp" line="647"/>
+        <source>Fill is solid unless a subpath is counterdirectional</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Use the frame shape for text flow of text frames below the object.</source>
         <translation type="obsolete">Arverañ stumm ar stern evit rikladur an destenn eus ar sternadoù testenn dindan an ergorenn.</translation>
     </message>
@@ -23187,16 +23213,6 @@ a range of pages or a single page number</source>
         <location filename="../../scribus/ui/propertiespalette_group.cpp" line="644"/>
         <source>Use the clipping path of the image</source>
         <translation type="unfinished">Arverañ treug dic&apos;hronnañ ar skeudenn</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/propertiespalette_group.cpp" line="646"/>
-        <source>Any path self-intersections or subpaths create holes in the fill.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/propertiespalette_group.cpp" line="647"/>
-        <source>Fill is solid unless a subpath is counterdirectional.</source>
-        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -25673,9 +25689,13 @@ Transparency</source>
         <translation type="unfinished">Liv an destenn bet diuzet. Mar bez gweredekaet kinkladur trolinenn an destenn e vo al liv-mañ ul liv leuniañ. Mar bez gweredekaet an destenn gant disheol bannet e vo al liv-mañ an hini uhelañ.</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_textcolor.cpp" line="500"/>
         <source>Color of text stroke and/or drop shadow, depending which is chosen.If both are chosen, then they share the same color.</source>
-        <translation type="unfinished">Liv tolinenn an destenn ha/pe an disheol bannet hervez an hini bet dibabet. Mar bez diuzet an eil hag egile e vo rannet an hevelep liv etre an daou anezho.</translation>
+        <translation type="obsolete">Liv tolinenn an destenn ha/pe an disheol bannet hervez an hini bet dibabet. Mar bez diuzet an eil hag egile e vo rannet an hevelep liv etre an daou anezho.</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertywidget_textcolor.cpp" line="500"/>
+        <source>Color of text stroke and/or drop shadow, depending which is chosen. If both are chosen, then they share the same color.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_textcolor.cpp" line="501"/>
@@ -35508,6 +35528,11 @@ Former monitor profile will be used.</source>
         <translation>&amp;Nevez</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/stylemanager.ui" line="138"/>
+        <source>Clone copies the style to make similar styles easily</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../../scribus/ui/stylemanager.ui" line="157"/>
         <location filename="../../scribus/ui/stylemanager.cpp" line="129"/>
         <source>&amp;Import</source>
@@ -35650,9 +35675,8 @@ Former monitor profile will be used.</source>
         <translation>Alt+N</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/stylemanager.ui" line="138"/>
         <source>Clone copies the style to make similar styles easily.</source>
-        <translation>Klonañ a sav eiladoù eus ar stil da sevel stiloù damheñvel ent aes.</translation>
+        <translation type="vanished">Klonañ a sav eiladoù eus ar stil da sevel stiloù damheñvel ent aes.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/stylemanager.ui" line="144"/>

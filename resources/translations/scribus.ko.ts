@@ -3235,9 +3235,8 @@ Configuration invalid</source>
         <translation>이 곳에서 이용가능한 바코드 형태의 하나를 선택</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="108"/>
         <source>The numeric representation of the code itself. See the help message below</source>
-        <translation>코드 자체의 수치 표현. 도움말 메세지가 아래에 보입니다</translation>
+        <translation type="vanished">코드 자체의 수치 표현. 도움말 메세지가 아래에 보입니다</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="98"/>
@@ -3368,6 +3367,11 @@ Configuration invalid</source>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="73"/>
         <source>&amp;Include Text in Barcode</source>
         <translation>바코드에서 문자열 포함(&amp;I)</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="108"/>
+        <source>The numeric representation of the code itself. See the help message below.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="323"/>
@@ -12296,19 +12300,19 @@ If no handle is selected all handles will be reset.</source>
         <translation>도구</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/modetoolbar.cpp" line="81"/>
-        <location filename="../../scribus/ui/modetoolbar.cpp" line="159"/>
+        <location filename="../../scribus/ui/modetoolbar.cpp" line="82"/>
+        <location filename="../../scribus/ui/modetoolbar.cpp" line="161"/>
         <source>Angle:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/modetoolbar.cpp" line="86"/>
-        <location filename="../../scribus/ui/modetoolbar.cpp" line="160"/>
+        <location filename="../../scribus/ui/modetoolbar.cpp" line="87"/>
+        <location filename="../../scribus/ui/modetoolbar.cpp" line="162"/>
         <source>Width:</source>
         <translation type="unfinished">너비:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/modetoolbar.cpp" line="161"/>
+        <location filename="../../scribus/ui/modetoolbar.cpp" line="163"/>
         <source>Properties...</source>
         <translation>속성...</translation>
     </message>
@@ -13950,37 +13954,37 @@ You cannot switch to different notes style before you apply that new one or pres
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="3070"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="3101"/>
         <source>Page:</source>
         <translation>페이지:</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="3080"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="3111"/>
         <source>Date:</source>
         <translation>날짜:</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11598"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11629"/>
         <source>Failed to load an image : %1</source>
         <translation>이미지 읽어오는데 실패 : %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11603"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11634"/>
         <source>Failed to write an image : %1</source>
         <translation>이미지 쓰는데 실패 : %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11608"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11639"/>
         <source>Failed to load an image mask : %1</source>
         <translation>이미지 마스크 읽어오는데 실패 : %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11613"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11644"/>
         <source>Insufficient memory for processing an image</source>
         <translation>이미지 작업처리에 불충분한 메모리</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11593"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11624"/>
         <source>A write error occurred, please check available disk space</source>
         <translation>쓰기 오류 발생, 사용가능한 디스크 공간을 검사하세요</translation>
     </message>
@@ -15605,19 +15609,16 @@ both end points must lie outside of the polygon</source>
         <translation>모양 변경</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/tools/pathfinder/pathfinderbase.ui" line="42"/>
         <source>First source shape.</source>
-        <translation>첫번째 소스 모양.</translation>
+        <translation type="vanished">첫번째 소스 모양.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/tools/pathfinder/pathfinderbase.ui" line="153"/>
         <source>Second source shape.</source>
-        <translation>두번째 소스 모양.</translation>
+        <translation type="vanished">두번째 소스 모양.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/tools/pathfinder/pathfinderbase.ui" line="261"/>
         <source>The resulting shape.</source>
-        <translation>결과 모양.</translation>
+        <translation type="vanished">결과 모양.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/tools/pathfinder/pathfinderbase.ui" line="313"/>
@@ -15663,10 +15664,25 @@ The result is a combination of &quot;Intersection&quot; and &quot;Exclusion&quot
         <translation>작업을 적용 후 원본 객체 복사본을 유지합니다</translation>
     </message>
     <message>
+        <location filename="../../scribus/plugins/tools/pathfinder/pathfinderbase.ui" line="42"/>
+        <source>First source shape</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../../scribus/plugins/tools/pathfinder/pathfinderbase.ui" line="64"/>
         <location filename="../../scribus/plugins/tools/pathfinder/pathfinderbase.ui" line="175"/>
         <source>Keep</source>
         <translation>유지</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/plugins/tools/pathfinder/pathfinderbase.ui" line="153"/>
+        <source>Second source shape</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/plugins/tools/pathfinder/pathfinderbase.ui" line="261"/>
+        <source>The resulting shape</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/tools/pathfinder/pathfinderbase.ui" line="332"/>
@@ -22872,7 +22888,7 @@ a range of pages or a single page number</source>
     </message>
     <message>
         <location filename="../../scribus/ui/printdialogbase.ui" line="336"/>
-        <source>Sets the PostScript Level. Setting to Level 1 or 2 can create huge files</source>
+        <source>Sets the PostScript Level. Setting to Level 1 or 2 can create huge files.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -23118,6 +23134,16 @@ Note: PDF Forms will not be exported.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/propertiespalette_group.cpp" line="646"/>
+        <source>Any path self-intersections or subpaths create holes in the fill</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertiespalette_group.cpp" line="647"/>
+        <source>Fill is solid unless a subpath is counterdirectional</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Use the frame shape for text flow of text frames below the object.</source>
         <translation type="obsolete">객체 아래 문자열 프레임의 문자열 흐름을 위한 프레임 모양 사용.</translation>
     </message>
@@ -23134,16 +23160,6 @@ Note: PDF Forms will not be exported.</source>
         <location filename="../../scribus/ui/propertiespalette_group.cpp" line="644"/>
         <source>Use the clipping path of the image</source>
         <translation type="unfinished">이미지 자름 경로 사용</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/propertiespalette_group.cpp" line="646"/>
-        <source>Any path self-intersections or subpaths create holes in the fill.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/propertiespalette_group.cpp" line="647"/>
-        <source>Fill is solid unless a subpath is counterdirectional.</source>
-        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -25620,9 +25636,13 @@ Transparency</source>
         <translation type="unfinished">선택된 문자열 색상.  윤곽선 문자열 효과가 가능하다면, 이 색상은 채움 색상이 됩니다. 물방울 음영 문자열이 가능하다면 이것은 상위의 대부분 색상이 될 것입니다.</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_textcolor.cpp" line="500"/>
         <source>Color of text stroke and/or drop shadow, depending which is chosen.If both are chosen, then they share the same color.</source>
-        <translation type="unfinished">선택된 것에 근거한 문자열 윤곽선 또는 물방울 음영의 색상. 양 쪽이 선택되면 같은 색상을 공유합니다.</translation>
+        <translation type="obsolete">선택된 것에 근거한 문자열 윤곽선 또는 물방울 음영의 색상. 양 쪽이 선택되면 같은 색상을 공유합니다.</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertywidget_textcolor.cpp" line="500"/>
+        <source>Color of text stroke and/or drop shadow, depending which is chosen. If both are chosen, then they share the same color.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_textcolor.cpp" line="501"/>
@@ -35418,6 +35438,11 @@ Consider using the Preflight Verifier to correct them</source>
         <translation>새로(&amp;N)</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/stylemanager.ui" line="138"/>
+        <source>Clone copies the style to make similar styles easily</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../../scribus/ui/stylemanager.ui" line="157"/>
         <location filename="../../scribus/ui/stylemanager.cpp" line="129"/>
         <source>&amp;Import</source>
@@ -35560,9 +35585,8 @@ Consider using the Preflight Verifier to correct them</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/stylemanager.ui" line="138"/>
         <source>Clone copies the style to make similar styles easily.</source>
-        <translation>유사한 스타일을 쉽게 생성하기 위하여 복제는 스타일을 복사.</translation>
+        <translation type="vanished">유사한 스타일을 쉽게 생성하기 위하여 복제는 스타일을 복사.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/stylemanager.ui" line="144"/>

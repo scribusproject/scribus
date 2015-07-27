@@ -3238,9 +3238,8 @@ Configuration invalid</source>
         <translation>在此选择一个可用的条形码类型</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="108"/>
         <source>The numeric representation of the code itself. See the help message below</source>
-        <translation>编码自身的数值表示法。下面有帮助信息可循</translation>
+        <translation type="vanished">编码自身的数值表示法。下面有帮助信息可循</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="98"/>
@@ -3371,6 +3370,11 @@ Configuration invalid</source>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="73"/>
         <source>&amp;Include Text in Barcode</source>
         <translation>条形码包含文字 (&amp;I)</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="108"/>
+        <source>The numeric representation of the code itself. See the help message below.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="323"/>
@@ -12324,19 +12328,19 @@ If no handle is selected all handles will be reset.</source>
         <translation>工具</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/modetoolbar.cpp" line="81"/>
-        <location filename="../../scribus/ui/modetoolbar.cpp" line="159"/>
+        <location filename="../../scribus/ui/modetoolbar.cpp" line="82"/>
+        <location filename="../../scribus/ui/modetoolbar.cpp" line="161"/>
         <source>Angle:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/modetoolbar.cpp" line="86"/>
-        <location filename="../../scribus/ui/modetoolbar.cpp" line="160"/>
+        <location filename="../../scribus/ui/modetoolbar.cpp" line="87"/>
+        <location filename="../../scribus/ui/modetoolbar.cpp" line="162"/>
         <source>Width:</source>
         <translation type="unfinished">宽度 :</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/modetoolbar.cpp" line="161"/>
+        <location filename="../../scribus/ui/modetoolbar.cpp" line="163"/>
         <source>Properties...</source>
         <translation>属性...</translation>
     </message>
@@ -13974,37 +13978,37 @@ You cannot switch to different notes style before you apply that new one or pres
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="3070"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="3101"/>
         <source>Page:</source>
         <translation>页面:</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="3080"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="3111"/>
         <source>Date:</source>
         <translation>日期:</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11598"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11629"/>
         <source>Failed to load an image : %1</source>
         <translation>载入图片: %1 失败</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11603"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11634"/>
         <source>Failed to write an image : %1</source>
         <translation>写入图像失败: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11608"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11639"/>
         <source>Failed to load an image mask : %1</source>
         <translation>读取图像蒙板失败: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11613"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11644"/>
         <source>Insufficient memory for processing an image</source>
         <translation>处理图片时内存不足</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11593"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11624"/>
         <source>A write error occurred, please check available disk space</source>
         <translation>发生一个写入错误，请检查是否有可用的磁盘空间</translation>
     </message>
@@ -15615,19 +15619,16 @@ both end points must lie outside of the polygon</source>
         <translation>中间形状</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/tools/pathfinder/pathfinderbase.ui" line="42"/>
         <source>First source shape.</source>
-        <translation>第一个原始形状。</translation>
+        <translation type="vanished">第一个原始形状。</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/tools/pathfinder/pathfinderbase.ui" line="153"/>
         <source>Second source shape.</source>
-        <translation>第二个原始形状。</translation>
+        <translation type="vanished">第二个原始形状。</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/tools/pathfinder/pathfinderbase.ui" line="261"/>
         <source>The resulting shape.</source>
-        <translation>结果形状。</translation>
+        <translation type="vanished">结果形状。</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/tools/pathfinder/pathfinderbase.ui" line="313"/>
@@ -15673,10 +15674,25 @@ The result is a combination of &quot;Intersection&quot; and &quot;Exclusion&quot
         <translation>应用运算之后保留原始对象的一个拷贝</translation>
     </message>
     <message>
+        <location filename="../../scribus/plugins/tools/pathfinder/pathfinderbase.ui" line="42"/>
+        <source>First source shape</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../../scribus/plugins/tools/pathfinder/pathfinderbase.ui" line="64"/>
         <location filename="../../scribus/plugins/tools/pathfinder/pathfinderbase.ui" line="175"/>
         <source>Keep</source>
         <translation>保持</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/plugins/tools/pathfinder/pathfinderbase.ui" line="153"/>
+        <source>Second source shape</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/plugins/tools/pathfinder/pathfinderbase.ui" line="261"/>
+        <source>The resulting shape</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/tools/pathfinder/pathfinderbase.ui" line="332"/>
@@ -22863,11 +22879,6 @@ a range of pages or a single page number</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/printdialogbase.ui" line="336"/>
-        <source>Sets the PostScript Level. Setting to Level 1 or 2 can create huge files</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/printdialogbase.ui" line="343"/>
         <source>Include PDF Annotations and Links into the output. Note: PDF Forms will not be exported.</source>
         <translation type="unfinished"></translation>
@@ -22976,6 +22987,11 @@ a range of pages or a single page number</source>
         <location filename="../../scribus/ui/printdialogbase.ui" line="346"/>
         <source>Include PDF Annotations and Links</source>
         <translation>包含 PDF 注记和链接</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/printdialogbase.ui" line="336"/>
+        <source>Sets the PostScript Level. Setting to Level 1 or 2 can create huge files.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/printdialogbase.ui" line="380"/>
@@ -23104,6 +23120,16 @@ a range of pages or a single page number</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/propertiespalette_group.cpp" line="646"/>
+        <source>Any path self-intersections or subpaths create holes in the fill</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertiespalette_group.cpp" line="647"/>
+        <source>Fill is solid unless a subpath is counterdirectional</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Use the frame shape for text flow of text frames below the object.</source>
         <translation type="obsolete">对象下文本框的文字流使用框形状。</translation>
     </message>
@@ -23120,16 +23146,6 @@ a range of pages or a single page number</source>
         <location filename="../../scribus/ui/propertiespalette_group.cpp" line="644"/>
         <source>Use the clipping path of the image</source>
         <translation type="unfinished">使用图像的裁剪路径</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/propertiespalette_group.cpp" line="646"/>
-        <source>Any path self-intersections or subpaths create holes in the fill.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/propertiespalette_group.cpp" line="647"/>
-        <source>Fill is solid unless a subpath is counterdirectional.</source>
-        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -25606,9 +25622,13 @@ Transparency</source>
         <translation type="unfinished">已选中文本的颜色。如果大纲正文装饰被启用，那么颜色会被填充。如果有文本阴影，这将会成为上罩颜色。</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_textcolor.cpp" line="500"/>
         <source>Color of text stroke and/or drop shadow, depending which is chosen.If both are chosen, then they share the same color.</source>
-        <translation type="unfinished">文本描边或阴影颜色，依靠自己选择。如果两项都选，那么它们将共用相同的颜色。</translation>
+        <translation type="obsolete">文本描边或阴影颜色，依靠自己选择。如果两项都选，那么它们将共用相同的颜色。</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertywidget_textcolor.cpp" line="500"/>
+        <source>Color of text stroke and/or drop shadow, depending which is chosen. If both are chosen, then they share the same color.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_textcolor.cpp" line="501"/>
@@ -35420,6 +35440,11 @@ Former monitor profile will be used.</source>
         <translation>新建 (&amp;N)</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/stylemanager.ui" line="138"/>
+        <source>Clone copies the style to make similar styles easily</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../../scribus/ui/stylemanager.ui" line="157"/>
         <location filename="../../scribus/ui/stylemanager.cpp" line="129"/>
         <source>&amp;Import</source>
@@ -35562,9 +35587,8 @@ Former monitor profile will be used.</source>
         <translation>Alt+N</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/stylemanager.ui" line="138"/>
         <source>Clone copies the style to make similar styles easily.</source>
-        <translation>克隆复制更容易制作相似的样式。</translation>
+        <translation type="vanished">克隆复制更容易制作相似的样式。</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/stylemanager.ui" line="144"/>

@@ -3244,9 +3244,8 @@ La configuración no es válida</translation>
         <translation>Seleccione alguno de los tipos de códigos de barras disponibles aquí</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="108"/>
         <source>The numeric representation of the code itself. See the help message below</source>
-        <translation>La representación numérica del código mismo. Vea el mensaje de ayuda siguiente</translation>
+        <translation type="vanished">La representación numérica del código mismo. Vea el mensaje de ayuda siguiente</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="98"/>
@@ -3382,6 +3381,11 @@ La configuración no es válida</translation>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="73"/>
         <source>&amp;Include Text in Barcode</source>
         <translation>&amp;Incluir texto en código de barras</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="108"/>
+        <source>The numeric representation of the code itself. See the help message below.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="323"/>
@@ -12411,19 +12415,19 @@ Si no hay ninguno elegido, se aplica a todos.</translation>
         <translation>Herramientas</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/modetoolbar.cpp" line="81"/>
-        <location filename="../../scribus/ui/modetoolbar.cpp" line="159"/>
+        <location filename="../../scribus/ui/modetoolbar.cpp" line="82"/>
+        <location filename="../../scribus/ui/modetoolbar.cpp" line="161"/>
         <source>Angle:</source>
         <translation>Ángulo:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/modetoolbar.cpp" line="86"/>
-        <location filename="../../scribus/ui/modetoolbar.cpp" line="160"/>
+        <location filename="../../scribus/ui/modetoolbar.cpp" line="87"/>
+        <location filename="../../scribus/ui/modetoolbar.cpp" line="162"/>
         <source>Width:</source>
         <translation>Anchura:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/modetoolbar.cpp" line="161"/>
+        <location filename="../../scribus/ui/modetoolbar.cpp" line="163"/>
         <source>Properties...</source>
         <translation>Propiedades...</translation>
     </message>
@@ -14082,37 +14086,37 @@ You cannot switch to different notes style before you apply that new one or pres
         <translation>La compilación de QT no dispone de los códecs de texto &quot;UTF-16&quot; e &quot;ISO-10646-UCS-2&quot;, no es posible exportar PDF</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="3070"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="3101"/>
         <source>Page:</source>
         <translation>Página:</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="3080"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="3111"/>
         <source>Date:</source>
         <translation>Fecha:</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11598"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11629"/>
         <source>Failed to load an image : %1</source>
         <translation>No se pudo cargar una imagen: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11603"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11634"/>
         <source>Failed to write an image : %1</source>
         <translation>No se pudo escribir una imagen: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11608"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11639"/>
         <source>Failed to load an image mask : %1</source>
         <translation>No se pudo cargar una máscara de imagen: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11613"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11644"/>
         <source>Insufficient memory for processing an image</source>
         <translation>Memoria insuficiente para procesar una imagen</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11593"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11624"/>
         <source>A write error occurred, please check available disk space</source>
         <translation>Hay un error de escritura, compruebe el espacio disponible en disco</translation>
     </message>
@@ -15746,19 +15750,16 @@ puntos finales deben estar fuera del mismo</translation>
         <translation>Intercambiar formas</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/tools/pathfinder/pathfinderbase.ui" line="42"/>
         <source>First source shape.</source>
-        <translation>Primera forma fuente.</translation>
+        <translation type="vanished">Primera forma fuente.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/tools/pathfinder/pathfinderbase.ui" line="153"/>
         <source>Second source shape.</source>
-        <translation>Segunda forma fuente.</translation>
+        <translation type="vanished">Segunda forma fuente.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/tools/pathfinder/pathfinderbase.ui" line="261"/>
         <source>The resulting shape.</source>
-        <translation>La forma resultante.</translation>
+        <translation type="vanished">La forma resultante.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/tools/pathfinder/pathfinderbase.ui" line="313"/>
@@ -15804,10 +15805,25 @@ El resultado es una combinación de &quot;intersección&quot; y &quot;exclusión
         <translation>Guardar una copia del elemento original tras la operación</translation>
     </message>
     <message>
+        <location filename="../../scribus/plugins/tools/pathfinder/pathfinderbase.ui" line="42"/>
+        <source>First source shape</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../../scribus/plugins/tools/pathfinder/pathfinderbase.ui" line="64"/>
         <location filename="../../scribus/plugins/tools/pathfinder/pathfinderbase.ui" line="175"/>
         <source>Keep</source>
         <translation>Guardar</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/plugins/tools/pathfinder/pathfinderbase.ui" line="153"/>
+        <source>Second source shape</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/plugins/tools/pathfinder/pathfinderbase.ui" line="261"/>
+        <source>The resulting shape</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/tools/pathfinder/pathfinderbase.ui" line="332"/>
@@ -23003,6 +23019,11 @@ donde un elemento puede ser * para todas las páginas,
         <translation>Un modo de desactivar algo de los tonos de gris compuestos de cian, amarillo y magenta , usando en su lugar el negro. La UCR afecta principalmente a las partes de la imagen de color neutro y/o tonos oscuros próximos al gris. Usar esta opción podría mejorar la impresión de ciertas imágenes pero se necesita experimentar y comprobarlo caso por caso. UCR reduce la posibilidad de sobresaturación con tintas CMY.&lt;/qt&gt;</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/printdialogbase.ui" line="336"/>
+        <source>Sets the PostScript Level. Setting to Level 1 or 2 can create huge files.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../../scribus/ui/printdialogbase.ui" line="416"/>
         <source>&lt;qt&gt;Enables Spot Colors to be converted to composite colors. Unless you are planning to print spot colors at a commercial printer, this is probably best left enabled.&lt;/qt&gt;</source>
         <translation>&lt;qt&gt;Activa la conversión de colores directos a colores compuestos. A menos que tenga previsto imprimir colores directos en un impresor comercial, es probablemente mejor dejarlo activado.&lt;/qt&gt;</translation>
@@ -23052,11 +23073,6 @@ donde un elemento puede ser * para todas las páginas,
         <source>Insert a comma separated list of tokens where
 a token can be * for all the pages, 1-5 for
 a range of pages or a single page number</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/printdialogbase.ui" line="336"/>
-        <source>Sets the PostScript Level. Setting to Level 1 or 2 can create huge files</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -23302,6 +23318,16 @@ Nota: los formularios PDF no se exportarán.</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/propertiespalette_group.cpp" line="646"/>
+        <source>Any path self-intersections or subpaths create holes in the fill</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertiespalette_group.cpp" line="647"/>
+        <source>Fill is solid unless a subpath is counterdirectional</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Use the frame shape for text flow of text frames below the object.</source>
         <translation type="vanished">Usa la forma del marco para el flujo de texto de las capas inferiores alrededor del objeto.</translation>
     </message>
@@ -23318,16 +23344,6 @@ Nota: los formularios PDF no se exportarán.</translation>
         <location filename="../../scribus/ui/propertiespalette_group.cpp" line="644"/>
         <source>Use the clipping path of the image</source>
         <translation>Usa el trazado de recorte de la imagen</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/propertiespalette_group.cpp" line="646"/>
-        <source>Any path self-intersections or subpaths create holes in the fill.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/propertiespalette_group.cpp" line="647"/>
-        <source>Fill is solid unless a subpath is counterdirectional.</source>
-        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -25814,9 +25830,13 @@ Transparency</source>
         <translation>Color del texto elegido. Si está activada la decoración del contorno de texto, este color será el color de relleno. Si está activado el sombreado de texto, este será el color de encima.</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_textcolor.cpp" line="500"/>
         <source>Color of text stroke and/or drop shadow, depending which is chosen.If both are chosen, then they share the same color.</source>
-        <translation>Color del contorno del texto y/o de la sombra, dependiendo de lo elegido. Si ambos están elegidos,ambos comparten el mismo color.</translation>
+        <translation type="vanished">Color del contorno del texto y/o de la sombra, dependiendo de lo elegido. Si ambos están elegidos,ambos comparten el mismo color.</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertywidget_textcolor.cpp" line="500"/>
+        <source>Color of text stroke and/or drop shadow, depending which is chosen. If both are chosen, then they share the same color.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_textcolor.cpp" line="501"/>
@@ -35718,6 +35738,11 @@ Considere utilizar el revisor de diseño para corregirlos</translation>
         <translation>&amp;Nuevo</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/stylemanager.ui" line="138"/>
+        <source>Clone copies the style to make similar styles easily</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../../scribus/ui/stylemanager.ui" line="157"/>
         <location filename="../../scribus/ui/stylemanager.cpp" line="129"/>
         <source>&amp;Import</source>
@@ -35860,9 +35885,8 @@ Considere utilizar el revisor de diseño para corregirlos</translation>
         <translation>Alt+N</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/stylemanager.ui" line="138"/>
         <source>Clone copies the style to make similar styles easily.</source>
-        <translation>Clona las copias del estilo para hacer fácilmente estilos similares.</translation>
+        <translation type="vanished">Clona las copias del estilo para hacer fácilmente estilos similares.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/stylemanager.ui" line="144"/>

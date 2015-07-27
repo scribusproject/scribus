@@ -2587,7 +2587,7 @@ Configuration invalid</source>
     </message>
     <message>
         <source>The numeric representation of the code itself. See the help message below</source>
-        <translation>The numeric representation of the code itself. See the help message below</translation>
+        <translation type="vanished">The numeric representation of the code itself. See the help message below</translation>
     </message>
     <message>
         <source>Reset the barcode samples</source>
@@ -2712,6 +2712,10 @@ Configuration invalid</source>
     <message>
         <source>Minimum error checking; raised opportunistically if size of symbol is not increased</source>
         <translation>Minimum error checking; raised opportunistically if size of symbol is not increased</translation>
+    </message>
+    <message>
+        <source>The numeric representation of the code itself. See the help message below.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -12481,15 +12485,15 @@ both end points must lie outside of the polygon</source>
     </message>
     <message>
         <source>First source shape.</source>
-        <translation>First source shape.</translation>
+        <translation type="vanished">First source shape.</translation>
     </message>
     <message>
         <source>Second source shape.</source>
-        <translation>Second source shape.</translation>
+        <translation type="vanished">Second source shape.</translation>
     </message>
     <message>
         <source>The resulting shape.</source>
-        <translation>The resulting shape.</translation>
+        <translation type="vanished">The resulting shape.</translation>
     </message>
     <message>
         <source>Unites the shapes</source>
@@ -12568,6 +12572,18 @@ The result is a combination of &quot;Intersection&quot; and &quot;Exclusion&quot
     <message>
         <source>Result Takes Color from:</source>
         <translation>Result Takes Colour from:</translation>
+    </message>
+    <message>
+        <source>First source shape</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Second source shape</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The resulting shape</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -18364,11 +18380,11 @@ a range of pages or a single page number</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Sets the PostScript Level. Setting to Level 1 or 2 can create huge files</source>
+        <source>Include PDF Annotations and Links into the output. Note: PDF Forms will not be exported.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Include PDF Annotations and Links into the output. Note: PDF Forms will not be exported.</source>
+        <source>Sets the PostScript Level. Setting to Level 1 or 2 can create huge files.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -18475,11 +18491,11 @@ a range of pages or a single page number</source>
     </message>
     <message>
         <source>Any path self-intersections or subpaths create holes in the fill.</source>
-        <translation>Any path self-intersections or subpaths create holes in the fill.</translation>
+        <translation type="vanished">Any path self-intersections or subpaths create holes in the fill.</translation>
     </message>
     <message>
         <source>Fill is solid unless a subpath is counterdirectional.</source>
-        <translation>Fill is solid unless a subpath is counterdirectional.</translation>
+        <translation type="vanished">Fill is solid unless a subpath is counterdirectional.</translation>
     </message>
     <message>
         <source>Use the frame shape for text flow of text frames below the object</source>
@@ -18487,6 +18503,14 @@ a range of pages or a single page number</source>
     </message>
     <message>
         <source>Use the bounding box, which is always rectangular, instead of the frame&apos;s shape for text flow of text frames below the object</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Any path self-intersections or subpaths create holes in the fill</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Fill is solid unless a subpath is counterdirectional</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -20455,7 +20479,7 @@ Transparency</translation>
     </message>
     <message>
         <source>Color of text stroke and/or drop shadow, depending which is chosen.If both are chosen, then they share the same color.</source>
-        <translation>Colour of text stroke and/or drop shadow, depending which is chosen.If both are chosen, then they share the same colour.</translation>
+        <translation type="vanished">Colour of text stroke and/or drop shadow, depending which is chosen.If both are chosen, then they share the same colour.</translation>
     </message>
     <message>
         <source>Saturation of color of text fill</source>
@@ -20468,6 +20492,10 @@ Transparency</translation>
     <message>
         <source>Right to Left Writing</source>
         <translation>Right to Left Writing</translation>
+    </message>
+    <message>
+        <source>Color of text stroke and/or drop shadow, depending which is chosen. If both are chosen, then they share the same color.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -28332,7 +28360,7 @@ Consider using the Preflight Verifier to correct them</translation>
     </message>
     <message>
         <source>Clone copies the style to make similar styles easily.</source>
-        <translation>Clone copies the style to make similar styles easily.</translation>
+        <translation type="vanished">Clone copies the style to make similar styles easily.</translation>
     </message>
     <message>
         <source>Alt+C</source>
@@ -28361,6 +28389,10 @@ Consider using the Preflight Verifier to correct them</translation>
     <message>
         <source>Style Manager</source>
         <translation>Style Manager</translation>
+    </message>
+    <message>
+        <source>Clone copies the style to make similar styles easily</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

@@ -2565,7 +2565,7 @@ Configuration invalid</source>
     </message>
     <message>
         <source>The numeric representation of the code itself. See the help message below</source>
-        <translation>Tallrepresentasjonen av selve koden. Se hjelpeteksten nedenfor</translation>
+        <translation type="vanished">Tallrepresentasjonen av selve koden. Se hjelpeteksten nedenfor</translation>
     </message>
     <message>
         <source>Reset the barcode samples</source>
@@ -2689,6 +2689,10 @@ Configuration invalid</source>
     </message>
     <message>
         <source>Minimum error checking; raised opportunistically if size of symbol is not increased</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The numeric representation of the code itself. See the help message below.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -12355,15 +12359,15 @@ both end points must lie outside of the polygon</source>
     </message>
     <message>
         <source>First source shape.</source>
-        <translation>Første kildeform.</translation>
+        <translation type="vanished">Første kildeform.</translation>
     </message>
     <message>
         <source>Second source shape.</source>
-        <translation>Andre kildeform.</translation>
+        <translation type="vanished">Andre kildeform.</translation>
     </message>
     <message>
         <source>The resulting shape.</source>
-        <translation type="unfinished">
+        <translation type="obsolete">
             </translation>
     </message>
     <message>
@@ -12448,6 +12452,18 @@ The result is a combination of &quot;Intersection&quot; and &quot;Exclusion&quot
     <message>
         <source>Result Takes Color from:</source>
         <translation>Resultatet henter fargen fra:</translation>
+    </message>
+    <message>
+        <source>First source shape</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Second source shape</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The resulting shape</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -18256,11 +18272,11 @@ a range of pages or a single page number</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Sets the PostScript Level. Setting to Level 1 or 2 can create huge files</source>
+        <source>Include PDF Annotations and Links into the output. Note: PDF Forms will not be exported.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Include PDF Annotations and Links into the output. Note: PDF Forms will not be exported.</source>
+        <source>Sets the PostScript Level. Setting to Level 1 or 2 can create huge files.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -18368,19 +18384,19 @@ a range of pages or a single page number</source>
             </translation>
     </message>
     <message>
-        <source>Any path self-intersections or subpaths create holes in the fill.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Fill is solid unless a subpath is counterdirectional.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Use the frame shape for text flow of text frames below the object</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Use the bounding box, which is always rectangular, instead of the frame&apos;s shape for text flow of text frames below the object</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Any path self-intersections or subpaths create holes in the fill</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Fill is solid unless a subpath is counterdirectional</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -20346,7 +20362,7 @@ Transparency</source>
     </message>
     <message>
         <source>Color of text stroke and/or drop shadow, depending which is chosen.If both are chosen, then they share the same color.</source>
-        <translation type="unfinished">Fargen på tekststreken og/eller tekstskyggen, avhengig av hva du velger. Hvis du velger begge, får de samme farge.</translation>
+        <translation type="obsolete">Fargen på tekststreken og/eller tekstskyggen, avhengig av hva du velger. Hvis du velger begge, får de samme farge.</translation>
     </message>
     <message>
         <source>Saturation of color of text fill</source>
@@ -20359,6 +20375,10 @@ Transparency</source>
     <message>
         <source>Right to Left Writing</source>
         <translation type="unfinished">Skriv fra høyre til venstre</translation>
+    </message>
+    <message>
+        <source>Color of text stroke and/or drop shadow, depending which is chosen. If both are chosen, then they share the same color.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -28221,7 +28241,7 @@ Former monitor profile will be used.</source>
     </message>
     <message>
         <source>Clone copies the style to make similar styles easily.</source>
-        <translation>Kloning lager en eksakt kopi av en stil så det blir lett å lage stiler som ligner</translation>
+        <translation type="vanished">Kloning lager en eksakt kopi av en stil så det blir lett å lage stiler som ligner</translation>
     </message>
     <message>
         <source>Alt+C</source>
@@ -28254,6 +28274,10 @@ Former monitor profile will be used.</source>
     <message>
         <source>Style Manager</source>
         <translation>Stilbehandler</translation>
+    </message>
+    <message>
+        <source>Clone copies the style to make similar styles easily</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
