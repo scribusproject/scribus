@@ -1804,6 +1804,13 @@ void ActionManager::languageChange()
 	//////
 	languageChangeUnicodeActions(scrActions);
 	languageChangeActions();
+
+	//Reset tooltips on actions after the translation process
+	for( QMap<QString, QPointer<ScrAction> >::Iterator it = scrActions->begin(); it!=scrActions->end(); ++it )
+	{
+		if ((*it)!=NULL)
+			(*it)->setToolTipFromTextAndShortcut();
+	}
 }
 
 void ActionManager::languageChangeUnicodeActions(QMap<QString, QPointer<ScrAction> > *actionMap)
