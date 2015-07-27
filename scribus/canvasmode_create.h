@@ -32,6 +32,8 @@ class ScribusView;
 */
 class CreateMode : public CanvasMode
 {
+	Q_OBJECT
+
 public:
 	explicit CreateMode(ScribusView* view);
 	virtual ~CreateMode() {}

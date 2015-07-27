@@ -219,6 +219,7 @@ SET(SCRIBUS_MOC_CLASSES
 	canvasgesture_table.h
 	canvasgesture_tableresize.h
 	canvasmode.h
+	canvasmode_create.h
 	canvasmode_edit.h
 	canvasmode_editarc.h
 	canvasmode_editpolygon.h
