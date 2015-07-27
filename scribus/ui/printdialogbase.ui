@@ -333,7 +333,7 @@ a range of pages or a single page number</string>
        <item row="1" column="1">
         <widget class="QComboBox" name="printEngines">
          <property name="toolTip">
-          <string>Sets the PostScript Level. Setting to Level 1 or 2 can create huge files</string>
+          <string>Sets the PostScript Level. Setting to Level 1 or 2 can create huge files.</string>
          </property>
         </widget>
        </item>

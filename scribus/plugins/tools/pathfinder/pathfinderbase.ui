@@ -39,7 +39,7 @@
           </size>
          </property>
          <property name="toolTip">
-          <string>First source shape.</string>
+          <string>First source shape</string>
          </property>
          <property name="autoFillBackground">
           <bool>true</bool>
@@ -150,7 +150,7 @@
           </size>
          </property>
          <property name="toolTip">
-          <string>Second source shape.</string>
+          <string>Second source shape</string>
          </property>
          <property name="autoFillBackground">
           <bool>true</bool>
@@ -258,7 +258,7 @@
           </size>
          </property>
          <property name="toolTip">
-          <string>The resulting shape.</string>
+          <string>The resulting shape</string>
          </property>
          <property name="autoFillBackground">
           <bool>true</bool>

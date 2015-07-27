@@ -643,8 +643,8 @@ void PropertiesPalette_Group::languageChange()
 	textFlowUsesContourLine->setToolTip(  "<qt>" + tr("When chosen, the contour line can be edited with the Edit Shape Tool on the palette further above. When edited via the shape palette, this becomes a second separate line originally based on the frame's shape for text flow of text frames below the object.") + "</qt>" );
 	textFlowUsesImageClipping->setToolTip(  "<qt>" + tr("Use the clipping path of the image") + "</qt>" );
 
-	evenOdd->setToolTip( "<qt>" + tr("Any path self-intersections or subpaths create holes in the fill.")  + "</qt>");
-	nonZero->setToolTip( "<qt>" + tr("Fill is solid unless a subpath is counterdirectional.")  + "</qt>");
+	evenOdd->setToolTip( "<qt>" + tr("Any path self-intersections or subpaths create holes in the fill")  + "</qt>");
+	nonZero->setToolTip( "<qt>" + tr("Fill is solid unless a subpath is counterdirectional")  + "</qt>");
 }
 
 void PropertiesPalette_Group::unitChange()

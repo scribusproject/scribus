@@ -497,7 +497,7 @@ void PropertyWidget_TextColor::languageChange()
 	textEffects->languageChange();
 
 	fillColor->setToolTip( "<qt>" + tr("Color of selected text. If Outline text decoration is enabled, this color will be the fill color. If Drop Shadow Text is enabled, then this will be the top most color.") + "</qt>" );
-	strokeColor->setToolTip( "<qt>" + tr("Color of text stroke and/or drop shadow, depending which is chosen.If both are chosen, then they share the same color.") + "</qt>" );
+	strokeColor->setToolTip( "<qt>" + tr("Color of text stroke and/or drop shadow, depending which is chosen. If both are chosen, then they share the same color.") + "</qt>" );
 	fillShade->setToolTip( tr("Saturation of color of text fill"));
 	strokeShade->setToolTip( tr("Saturation of color of text stroke"));
 
