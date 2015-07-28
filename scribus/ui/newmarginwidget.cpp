@@ -49,19 +49,19 @@ void NewMarginWidget::setup(const MarginStruct& margs, int layoutType, int unitI
 		presetLayoutLabel->resize(0,0);
 		presetLayoutComboBox->hide();
 		presetLayoutLabel->hide();
-		formLayout->removeWidget(presetLayoutComboBox);
-		formLayout->removeWidget(presetLayoutLabel);
+		gridLayout->removeWidget(presetLayoutComboBox);
+		gridLayout->removeWidget(presetLayoutLabel);
 	}
 	if (!showPrinterMargins)
 	{
 		printerMarginsPushButton->blockSignals(true);
 		printerMarginsPushButton->resize(0,0);
 		printerMarginsPushButton->hide();
-		formLayout->removeWidget(printerMarginsPushButton);
+		gridLayout->removeWidget(printerMarginsPushButton);
 	}
 	setFacingPages(!(layoutType == singlePage));
 
-	formLayout->invalidate();
+	gridLayout->invalidate();
 
 	languageChange();
 
@@ -70,7 +70,7 @@ void NewMarginWidget::setup(const MarginStruct& margs, int layoutType, int unitI
 	connect(leftMarginSpinBox, SIGNAL(valueChanged(double)), this, SLOT(setLeft()));
 	connect(rightMarginSpinBox, SIGNAL(valueChanged(double)), this, SLOT(setRight()));
 	connect(presetLayoutComboBox, SIGNAL(activated(int)), this, SLOT(setPreset()));
-	connect(marginLinkCheckBox, SIGNAL(clicked()), this, SLOT(slotLinkMargins()));
+	connect(marginLinkButton, SIGNAL(clicked()), this, SLOT(slotLinkMargins()));
 	connect(printerMarginsPushButton, SIGNAL(clicked()), this, SLOT(setMarginsToPrinterMargins()));
 }
 
@@ -109,7 +109,7 @@ void NewMarginWidget::setTop()
 {
 	double newVal=topMarginSpinBox->value() / m_unitRatio;
 	bottomMarginSpinBox->setMaximum(qMax(0.0, pageHeight * m_unitRatio - topMarginSpinBox->value()));
-	if (marginLinkCheckBox->isChecked() && savedPresetItem==PresetLayout::none)
+	if (marginLinkButton->isChecked() && savedPresetItem==PresetLayout::none)
 	{
 		marginData.set(newVal, newVal, newVal, newVal);
 		updateMarginSpinValues();
@@ -123,7 +123,7 @@ void NewMarginWidget::setBottom()
 {
 	double newVal = bottomMarginSpinBox->value() / m_unitRatio;
 	topMarginSpinBox->setMaximum(qMax(0.0, pageHeight * m_unitRatio - bottomMarginSpinBox->value()));
-	if (marginLinkCheckBox->isChecked() && savedPresetItem==PresetLayout::none)
+	if (marginLinkButton->isChecked() && savedPresetItem==PresetLayout::none)
 	{
 		marginData.set(newVal, newVal, newVal, newVal);
 		updateMarginSpinValues();
@@ -137,7 +137,7 @@ void NewMarginWidget::setLeft()
 {
 	double newVal = leftMarginSpinBox->value() / m_unitRatio;
 	rightMarginSpinBox->setMaximum(qMax(0.0, pageWidth * m_unitRatio - leftMarginSpinBox->value()));
-	if (marginLinkCheckBox->isChecked() && savedPresetItem==PresetLayout::none)
+	if (marginLinkButton->isChecked() && savedPresetItem==PresetLayout::none)
 	{
 		marginData.set(newVal, newVal, newVal, newVal);
 		updateMarginSpinValues();
@@ -151,7 +151,7 @@ void NewMarginWidget::setRight()
 {
 	double newVal = rightMarginSpinBox->value() / m_unitRatio;
 	leftMarginSpinBox->setMaximum(qMax(0.0, pageWidth * m_unitRatio - rightMarginSpinBox->value()));
-	if (marginLinkCheckBox->isChecked() && savedPresetItem==PresetLayout::none)
+	if (marginLinkButton->isChecked() && savedPresetItem==PresetLayout::none)
 	{
 		marginData.set(newVal, newVal, newVal, newVal);
 		updateMarginSpinValues();
@@ -224,8 +224,8 @@ void NewMarginWidget::setPreset()
 		rightMarginSpinBox->setEnabled(false);
 	leftMarginSpinBox->setEnabled(item != PresetLayout::nineparts);
 	if (item!=PresetLayout::none)
-		marginLinkCheckBox->setChecked(false);
-	marginLinkCheckBox->setEnabled(item==PresetLayout::none || !presetLayoutComboBox->isEnabled());
+		marginLinkButton->setChecked(false);
+	marginLinkButton->setEnabled(item==PresetLayout::none || !presetLayoutComboBox->isEnabled());
 	leftMarginSpinBox->blockSignals(false);
 	rightMarginSpinBox->blockSignals(false);
 	topMarginSpinBox->blockSignals(false);
@@ -264,7 +264,7 @@ void NewMarginWidget::slotLinkMargins()
 	bool topBlocked = topMarginSpinBox->blockSignals(true);
 	bool bottomBlocked = bottomMarginSpinBox->blockSignals(true);
 
-	if (marginLinkCheckBox->isChecked())
+	if (marginLinkButton->isChecked())
 	{
 		bottomMarginSpinBox->setValue(leftMarginSpinBox->value());
 		topMarginSpinBox->setValue(leftMarginSpinBox->value());
@@ -311,8 +311,8 @@ void NewMarginWidget::setMarginPreset(int p)
 		rightMarginSpinBox->setEnabled(false);
 	leftMarginSpinBox->setEnabled(item != PresetLayout::nineparts);
 	if (item!=PresetLayout::none)
-		marginLinkCheckBox->setChecked(false);
-	marginLinkCheckBox->setEnabled(item==PresetLayout::none);
+		marginLinkButton->setChecked(false);
+	marginLinkButton->setEnabled(item==PresetLayout::none);
 	presetLayoutComboBox->blockSignals(false);
 }
 
