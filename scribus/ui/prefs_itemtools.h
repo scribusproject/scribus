@@ -35,6 +35,7 @@ class SCRIBUS_API Prefs_ItemTools : public Prefs_Pane, Ui::Prefs_ItemTools
 		void toggleImagesScalingChain();
 		void imageHorizontalScalingChange();
 		void imageVerticalScalingChange();
+		void imageScalingTypeChange();
 
 	protected:
 		ScribusDoc* m_doc;

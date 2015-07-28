@@ -203,7 +203,7 @@ void Prefs_ItemTools::restoreDefaults(struct ApplicationPrefs *prefsData)
 	arcDisplay->restoreDefaults(&prefsData->itemToolPrefs);
 	// Spiral Tool
 	spiralDisplay->restoreDefaults(&prefsData->itemToolPrefs);
-
+	imageScalingTypeChange();
 	enableSignals(true);
 }
 
@@ -336,13 +336,12 @@ void Prefs_ItemTools::enableSignals(bool on)
 		connect(textFrameFillColorComboBox, SIGNAL(activated(int)), this, SLOT(updateFontPreview()));
 		connect(textFrameFillShadingSpinBox, SIGNAL(valueChanged(int)), this, SLOT(updateFontPreview()));
 		connect(textColorShadingSpinBox, SIGNAL(valueChanged(int)), this, SLOT(updateFontPreview()));
-//		connect(buttonGroup3, SIGNAL(toggled(bool)), this, SLOT(changeImageScalingFree(bool)));
-//		connect(buttonGroup5, SIGNAL(toggled(bool)), this, SLOT(changeImageScalingRatio(bool)));
 		connect(scalingLockToolButton, SIGNAL(clicked()), this, SLOT(toggleImagesScalingChain()));
 		connect(imageHorizontalScalingSpinBox, SIGNAL(valueChanged(int)), this, SLOT(imageHorizontalScalingChange()));
 		connect(imageKeepAspectRatioCheckBox, SIGNAL(toggled(bool)), scalingLockToolButton, SLOT(setChecked(bool)));
 		connect(imageVerticalScalingSpinBox, SIGNAL(valueChanged(int)), this, SLOT(imageVerticalScalingChange()));
-//		connect(tabFillCombo, SIGNAL(activated(int)), this, SLOT(setFillChar(int)));
+		connect(imageFreeScalingRadioButton, SIGNAL(clicked(bool)), this, SLOT(imageScalingTypeChange()));
+		connect(imageFrameScalingRadioButton, SIGNAL(clicked(bool)), this, SLOT(imageScalingTypeChange()));
 	}
 	else
 	{
@@ -352,12 +351,9 @@ void Prefs_ItemTools::enableSignals(bool on)
 		disconnect(textFrameFillColorComboBox, SIGNAL(activated(int)), this, SLOT(updateFontPreview()));
 		disconnect(textFrameFillShadingSpinBox, SIGNAL(valueChanged(int)), this, SLOT(updateFontPreview()));
 		disconnect(textColorShadingSpinBox, SIGNAL(valueChanged(int)), this, SLOT(updateFontPreview()));
-//		disconnect(buttonGroup3, SIGNAL(toggled(bool)), this, SLOT(changeImageScalingFree(bool)));
-//		disconnect(buttonGroup5, SIGNAL(toggled(bool)), this, SLOT(changeImageScalingRatio(bool)));
 		disconnect(scalingLockToolButton, SIGNAL(clicked()), this, SLOT(toggleImagesScalingChain()));
 		disconnect(imageHorizontalScalingSpinBox, SIGNAL(valueChanged(int)), this, SLOT(imageHorizontalScalingChange()));
 		disconnect(imageVerticalScalingSpinBox, SIGNAL(valueChanged(int)), this, SLOT(imageVerticalScalingChange()));
-//		disconnect(tabFillCombo, SIGNAL(activated(int)), this, SLOT(setFillChar(int)));
 	}
 }
 
@@ -428,6 +424,15 @@ void Prefs_ItemTools::imageVerticalScalingChange()
 {
 	if (scalingLockToolButton->isChecked())
 		imageHorizontalScalingSpinBox->setValue(imageVerticalScalingSpinBox->value());
+}
+
+void Prefs_ItemTools::imageScalingTypeChange()
+{
+	bool b=imageFreeScalingRadioButton->isChecked();
+	imageKeepAspectRatioCheckBox->setEnabled(!b);
+	imageHorizontalScalingSpinBox->setEnabled(b);
+	imageVerticalScalingSpinBox->setEnabled(b);
+	scalingLockToolButton->setEnabled(b);
 }
 
 
