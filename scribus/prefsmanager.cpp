@@ -199,6 +199,7 @@ void PrefsManager::initDefaults()
 	appPrefs.guidesPrefs.marginColor = QColor(Qt::blue);
 	appPrefs.guidesPrefs.guideColor = QColor(Qt::darkBlue);
 	appPrefs.guidesPrefs.baselineGridColor = QColor(Qt::lightGray);
+	appPrefs.guidesPrefs.renderStackOrder.clear();
 	appPrefs.guidesPrefs.renderStackOrder << 0 << 1 << 2 << 3 << 4;
 	appPrefs.guidesPrefs.gridType = 0;
 	appPrefs.typoPrefs.valueSuperScript = 33;
