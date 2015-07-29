@@ -55,7 +55,7 @@ void ImportCdrPlugin::languageChange()
 	importAction->setText( tr("Import Corel Draw..."));
 	FileFormat* fmt = getFormatByExt("cdr");
 	fmt->trName = tr("Corel Draw");
-	fmt->filter = tr("Corel Draw (*.cdr *.CDR)");
+	fmt->filter = tr("Corel Draw (*.ccx *.CCX *.cdr *.CDR *.cdt *.CDT *.cmx *.CMX)");
 }
 
 ImportCdrPlugin::~ImportCdrPlugin()
@@ -90,9 +90,9 @@ void ImportCdrPlugin::registerFormats()
 {
 	FileFormat fmt(this);
 	fmt.trName = tr("Corel Draw");
-	fmt.filter = tr("Corel Draw (*.cdr *.CDR)");
+	fmt.filter = tr("Corel Draw (*.ccx *.CCX *.cdr *.CDR *.cdt *.CDT *.cmx *.CMX)");
 	fmt.formatId = 0;
-	fmt.fileExtensions = QStringList() << "cdr";
+	fmt.fileExtensions = QStringList() << "ccx" << "cdr" << "cdt" << "cmx";
 	fmt.load = true;
 	fmt.save = false;
 	fmt.thumb = true;
