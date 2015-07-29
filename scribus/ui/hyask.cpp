@@ -66,12 +66,14 @@ HyAsk::HyAsk ( QWidget* parent, QString HWort ) : QDialog ( parent )
 	vboxLayout1->setMargin(0);
 	OK = new QPushButton(this);
 	OK->setText( tr("Accept"));
+	OK->setToolTip(tr("Accept the proposed hyphenation"));
 	OK->setDefault(true);
 	vboxLayout1->addWidget(OK);
 	hboxLayout1 = new QHBoxLayout();
 	hboxLayout1->setSpacing(0);
 	hboxLayout1->setMargin(0);
 	addToExceptionList = new QCheckBox(this);
+	addToExceptionList->setToolTip(tr("Add edited hyphen to local hyphenation dictionary list"));
 	hboxLayout1->addWidget(addToExceptionList);
 	addToExceptionListText = new QLabel(this);
 	addToExceptionListText->setText( tr("Add to the\nException List"));
@@ -92,6 +94,7 @@ HyAsk::HyAsk ( QWidget* parent, QString HWort ) : QDialog ( parent )
 	hboxLayout2->setSpacing(0);
 	hboxLayout2->setMargin(0);
 	addToIgnoreList = new QCheckBox(this);
+	addToIgnoreList->setToolTip(tr("Add edited word to words that should not be hyphenated"));
 	hboxLayout2->addWidget(addToIgnoreList);
 	addToIgnoreListText = new QLabel(this);
 	addToIgnoreListText->setText( tr("Add to the\nIgnore List"));
@@ -105,6 +108,7 @@ HyAsk::HyAsk ( QWidget* parent, QString HWort ) : QDialog ( parent )
 	vboxLayout3->setMargin(0);
 	Cancel = new QPushButton(this);
 	Cancel->setText( tr("Cancel"));
+	Cancel->setToolTip(tr("Do not apply the proposed hyphenation"));
 	vboxLayout3->addWidget(Cancel);
 	QSpacerItem* spacer = new QSpacerItem(2, 2, QSizePolicy::Minimum, QSizePolicy::Expanding);
 	vboxLayout3->addItem(spacer);
