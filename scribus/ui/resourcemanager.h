@@ -92,7 +92,6 @@ class SCRIBUS_API ResourceManager : public QDialog, Ui::ResourceManagerBase
 		void downloadFilesFinished();
 		void updateProgressBar();
 		void startDownload();
-		void showLicenseArea();
 
 };
 
