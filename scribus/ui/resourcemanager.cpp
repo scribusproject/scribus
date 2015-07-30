@@ -24,6 +24,7 @@ for which a new license (GPL+exception) is in place.
 #include <QDomDocument>
 #include <QFile>
 #include <QFileInfo>
+#include <QPushButton>
 #include <QString>
 #include <QStringList>
 #include <QTableWidget>
@@ -52,6 +53,7 @@ ResourceManager::ResourceManager(QWidget* parent)
 	connect(categoryComboBox, SIGNAL(currentIndexChanged(int)), this, SLOT(categoryChanged()));
 	connect(updateAvailableButton, SIGNAL(clicked()), this, SLOT(updateDownloadLists()));
 	connect(downloadButton, SIGNAL(clicked()), this, SLOT(startDownload()));
+	connect(showLicenseToolButton, SIGNAL(clicked()), this, SLOT(showLicenseArea()));
 }
 
 void ResourceManager::languageChange()
@@ -720,5 +722,18 @@ void ResourceManager::startDownload()
 		connect(ScQApp->dlManager(), SIGNAL(fileFailed(const QString&)), this, SLOT(updateProgressBar()));
 		ScQApp->dlManager()->startDownloads();
 	}
+}
+
+void ResourceManager::showLicenseArea()
+{
+	licenseLabel->setVisible(!licenseLabel->isVisible());
+	licenseTextBrowser->setVisible(licenseLabel->isVisible());
+	if(licenseLabel->isVisible())
+		licenseVerticalSpacer->changeSize(20,36,QSizePolicy::Fixed,QSizePolicy::Fixed);
+	else
+		licenseVerticalSpacer->changeSize(0,0,QSizePolicy::Fixed,QSizePolicy::Fixed);
+	resize(1, 1); // megahack to keep palette small
+	updateGeometry();
+	adjustSize();
 }
 

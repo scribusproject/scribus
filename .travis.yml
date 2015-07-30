@@ -1,0 +1,36 @@
+language: cpp
+
+compiler:
+  - gcc
+  - clang
+
+dist: trusty
+
+before_install:
+  - sudo apt-get update -qq
+  - sudo apt-get install cmake libboost-python-dev libcups2-dev libhunspell-dev
+    libhyphen-dev liblcms2-dev libpodofo-dev libtiff-dev libxml2-dev
+    python-all-dev zlib1g-dev qtbase5-dev qtdeclarative5-dev libqt5opengl5-dev
+    qttools5-dev qttools5-dev-tools libgraphicsmagick++1-dev
+    libopenscenegraph-dev libpoppler-dev libcairo2-dev libwpg-dev libmspub-dev
+    libcdr-dev libvisio-dev
+
+script:
+  - if [[ $CC == gcc ]]; then
+      export NPROC=8;
+    else
+      export NPROC=1;
+    fi
+
+  - cmake .
+  - make -j$NPROC
+
+notifications:
+  email: false
+  irc:
+    channels:
+      - "chat.freenode.net#scribus-dev"
+    template:
+      - "%{repository}/%{branch} (%{commit} - %{author}): %{build_url}: %{message}"  
+    on_success: always
+    on_failure: always
