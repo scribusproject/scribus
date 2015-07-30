@@ -117,7 +117,7 @@
       <ForcedIncludeFiles>scribuspch.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>QtCored4.lib;QtGuid4.lib;QtNetworkd4.lib;QtXmld4.lib;$(FREETYPE_DEBUG_LIB);$(CAIRO_DEBUG_LIB);$(LIBJPEG_DEBUG_LIB);$(LIBTIFF_DEBUG_LIB);$(LCMS_DEBUG_LIB);mscms.lib;$(PODOFO_DEBUG_LIB);WSock32.Lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>$(QT4_LIBS);$(FREETYPE_LIB);$(CAIRO_LIB);$(LIBJPEG_LIB);$(LIBTIFF_LIB);$(LCMS_LIB);mscms.lib;$(PODOFO_LIB);WSock32.Lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(QT4_DIR)\lib;$(LCMS_DIR)\lib\$(Platform);$(FREETYPE_DIR)\lib\$(Platform);$(CAIRO_DIR)\lib\$(Platform);$(LIBJPEG_DIR)\lib\$(Platform);$(LIBTIFF_DIR)\lib\$(Platform);$(PODOFO_DIR)\lib\$(Platform);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AssemblyDebug />
@@ -150,7 +150,7 @@
       <ForcedIncludeFiles>scribuspch.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>QtCored4.lib;QtGuid4.lib;QtNetworkd4.lib;QtXmld4.lib;$(FREETYPE_DEBUG_LIB);$(CAIRO_DEBUG_LIB);$(LIBJPEG_DEBUG_LIB);$(LIBTIFF_DEBUG_LIB);$(LCMS_DEBUG_LIB);mscms.lib;$(PODOFO_DEBUG_LIB);WSock32.Lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>$(QT4_LIBS);$(FREETYPE_LIB);$(CAIRO_LIB);$(LIBJPEG_LIB);$(LIBTIFF_LIB);$(LCMS_LIB);mscms.lib;$(PODOFO_LIB);WSock32.Lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(QT4_DIR)\lib;$(LCMS_DIR)\lib\$(Platform);$(FREETYPE_DIR)\lib\$(Platform);$(CAIRO_DIR)\lib\$(Platform);$(LIBJPEG_DIR)\lib\$(Platform);$(LIBTIFF_DIR)\lib\$(Platform);$(PODOFO_DIR)\lib\$(Platform);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AssemblyDebug>
@@ -184,7 +184,7 @@
       <ForcedIncludeFiles>scribuspch.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>QtCore4.lib;QtGui4.lib;QtNetwork4.lib;QtXml4.lib;qtmain.lib;$(FREETYPE_RELEASE_LIB);$(CAIRO_RELEASE_LIB);$(LIBJPEG_RELEASE_LIB);$(LIBTIFF_RELEASE_LIB);$(LCMS_RELEASE_LIB);mscms.lib;$(PODOFO_RELEASE_LIB);WSock32.Lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>$(QT4_LIBS);qtmain.lib;$(FREETYPE_LIB);$(CAIRO_LIB);$(LIBJPEG_LIB);$(LIBTIFF_LIB);$(LCMS_LIB);mscms.lib;$(PODOFO_LIB);WSock32.Lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(QT4_DIR)\lib;$(LCMS_DIR)\lib\$(Platform);$(FREETYPE_DIR)\lib\$(Platform);$(CAIRO_DIR)\lib\$(Platform);$(LIBJPEG_DIR)\lib\$(Platform);$(LIBTIFF_DIR)\lib\$(Platform);$(PODOFO_DIR)\lib\$(Platform);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
@@ -219,7 +219,7 @@
       <ForcedIncludeFiles>scribuspch.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>QtCore4.lib;QtGui4.lib;QtNetwork4.lib;QtXml4.lib;qtmain.lib;$(FREETYPE_RELEASE_LIB);$(CAIRO_RELEASE_LIB);$(LIBJPEG_RELEASE_LIB);$(LIBTIFF_RELEASE_LIB);$(LCMS_RELEASE_LIB);mscms.lib;$(PODOFO_RELEASE_LIB);WSock32.Lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>$(QT4_LIBS);qtmain.lib;$(FREETYPE_LIB);$(CAIRO_LIB);$(LIBJPEG_LIB);$(LIBTIFF_LIB);$(LCMS_LIB);mscms.lib;$(PODOFO_LIB);WSock32.Lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(QT4_DIR)\lib;$(LCMS_DIR)\lib\$(Platform);$(FREETYPE_DIR)\lib\$(Platform);$(CAIRO_DIR)\lib\$(Platform);$(LIBJPEG_DIR)\lib\$(Platform);$(LIBTIFF_DIR)\lib\$(Platform);$(PODOFO_DIR)\lib\$(Platform);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>

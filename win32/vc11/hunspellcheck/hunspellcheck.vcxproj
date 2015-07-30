@@ -107,7 +107,7 @@
       <DisableSpecificWarnings>4190;4251;4267;4996;%(DisableSpecificWarnings)</DisableSpecificWarnings>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>QtCored4.lib;QtGuid4.lib;QtXmld4.lib;$(FREETYPE_DEBUG_LIB);$(HUNSPELL_DEBUG_LIB);$(LIBJPEG_DEBUG_LIB);$(LIBTIFF_DEBUG_LIB);scribus-api.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>$(QT4_LIBS);$(FREETYPE_LIB);$(HUNSPELL_LIB);$(LIBJPEG_LIB);$(LIBTIFF_LIB);scribus-api.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(LCMS_DIR)\lib\$(Platform);$(FREETYPE_DIR)\lib\$(Platform);$(HUNSPELL_DIR)\lib\$(Platform);$(LIBJPEG_DIR)\lib\$(Platform);$(LIBTIFF_DIR)\lib\$(Platform);$(QT4_DIR)\lib;$(OutDir)..;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
@@ -132,7 +132,7 @@
       <DisableSpecificWarnings>4190;4251;4267;4996;%(DisableSpecificWarnings)</DisableSpecificWarnings>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>QtCored4.lib;QtGuid4.lib;QtXmld4.lib;$(FREETYPE_DEBUG_LIB);$(HUNSPELL_DEBUG_LIB);$(LIBJPEG_DEBUG_LIB);$(LIBTIFF_DEBUG_LIB);scribus-api.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>$(QT4_LIBS);$(FREETYPE_LIB);$(HUNSPELL_LIB);$(LIBJPEG_LIB);$(LIBTIFF_LIB);scribus-api.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(LCMS_DIR)\lib\$(Platform);$(FREETYPE_DIR)\lib\$(Platform);$(HUNSPELL_DIR)\lib\$(Platform);$(LIBJPEG_DIR)\lib\$(Platform);$(LIBTIFF_DIR)\lib\$(Platform);$(QT4_DIR)\lib;$(OutDir)..;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
@@ -159,7 +159,7 @@
       <DisableSpecificWarnings>4190;4251;4267;4996;%(DisableSpecificWarnings)</DisableSpecificWarnings>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>QtCore4.lib;QtGui4.lib;QtXml4.lib;$(FREETYPE_RELEASE_LIB);$(HUNSPELL_RELEASE_LIB);$(LIBJPEG_RELEASE_LIB);$(LIBTIFF_RELEASE_LIB);scribus-api.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>$(QT4_LIBS);$(FREETYPE_LIB);$(HUNSPELL_LIB);$(LIBJPEG_LIB);$(LIBTIFF_LIB);scribus-api.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(LCMS_DIR)\lib\$(Platform);$(FREETYPE_DIR)\lib\$(Platform);$(HUNSPELL_DIR)\lib\$(Platform);$(LIBJPEG_DIR)\lib\$(Platform);$(LIBTIFF_DIR)\lib\$(Platform);$(QT4_DIR)\lib;$(OutDir)..;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
@@ -189,7 +189,7 @@
       <DisableSpecificWarnings>4190;4251;4267;4996;%(DisableSpecificWarnings)</DisableSpecificWarnings>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>QtCore4.lib;QtGui4.lib;QtXml4.lib;$(FREETYPE_RELEASE_LIB);$(HUNSPELL_RELEASE_LIB);$(LIBJPEG_RELEASE_LIB);$(LIBTIFF_RELEASE_LIB);scribus-api.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>$(QT4_LIBS);$(FREETYPE_LIB);$(HUNSPELL_LIB);$(LIBJPEG_LIB);$(LIBTIFF_LIB);scribus-api.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(LCMS_DIR)\lib\$(Platform);$(FREETYPE_DIR)\lib\$(Platform);$(HUNSPELL_DIR)\lib\$(Platform);$(LIBJPEG_DIR)\lib\$(Platform);$(LIBTIFF_DIR)\lib\$(Platform);$(QT4_DIR)\lib;$(OutDir)..;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
