@@ -5,6 +5,7 @@
 TEMPLATE = app
 TARGET = Scribus
 INCLUDEPATH += .
+INCLUDEPATH += ./scribus
 
 # Input
 HEADERS += scribus/actionmanager.h \
