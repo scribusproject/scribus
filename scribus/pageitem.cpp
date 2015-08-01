@@ -6979,7 +6979,7 @@ void PageItem::restoreCornerRadius(SimpleState *state, bool isUndo)
 		m_roundedCorderRadius=state->getDouble("OLD_RADIUS");
 	else
 		m_roundedCorderRadius=state->getDouble("NEW_RADIUS");
-	Selection tmpSelection(doc()->m_Selection);
+	Selection tmpSelection = *(doc()->m_Selection);
 	doc()->m_Selection->clear();
 	doc()->m_Selection->addItem(this);
 	doc()->setFrameRounded();
