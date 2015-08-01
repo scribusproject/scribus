@@ -558,63 +558,63 @@ a range of pages or a single page number</string>
        <string>Bleeds</string>
       </attribute>
       <layout class="QGridLayout">
-       <item row="0" column="0">
+       <item row="1" column="0">
         <widget class="QLabel" name="BleedTxt1">
          <property name="text">
           <string>Top:</string>
          </property>
         </widget>
        </item>
-       <item row="0" column="1">
+       <item row="1" column="1">
         <widget class="ScrSpinBox" name="BleedTop">
          <property name="toolTip">
           <string>Distance for bleed from the top of the physical page</string>
          </property>
         </widget>
        </item>
-       <item row="0" column="2">
+       <item row="1" column="2">
         <widget class="QLabel" name="BleedTxt3">
          <property name="text">
           <string>Left:</string>
          </property>
         </widget>
        </item>
-       <item row="0" column="3">
+       <item row="1" column="3">
         <widget class="ScrSpinBox" name="BleedRight">
          <property name="toolTip">
           <string>Distance for bleed from the right of the physical page</string>
          </property>
         </widget>
        </item>
-       <item row="1" column="0">
+       <item row="2" column="0">
         <widget class="QLabel" name="BleedTxt2">
          <property name="text">
           <string>Bottom:</string>
          </property>
         </widget>
        </item>
-       <item row="1" column="1">
+       <item row="2" column="1">
         <widget class="ScrSpinBox" name="BleedBottom">
          <property name="toolTip">
           <string>Distance for bleed from the bottom of the physical page</string>
          </property>
         </widget>
        </item>
-       <item row="1" column="2">
+       <item row="2" column="2">
         <widget class="QLabel" name="BleedTxt4">
          <property name="text">
           <string>Right:</string>
          </property>
         </widget>
        </item>
-       <item row="1" column="3">
+       <item row="2" column="3">
         <widget class="ScrSpinBox" name="BleedLeft">
          <property name="toolTip">
           <string>Distance for bleed from the left of the physical page</string>
          </property>
         </widget>
        </item>
-       <item row="2" column="0" colspan="4">
+       <item row="0" column="0" colspan="4">
         <widget class="QCheckBox" name="docBleeds">
          <property name="toolTip">
           <string>Use the existing bleed settings from the document preferences</string>
@@ -685,19 +685,19 @@ a range of pages or a single page number</string>
   </customwidget>
  </customwidgets>
  <tabstops>
-  <tabstop>printOptions</tabstop>
-  <tabstop>OtherCom</tabstop>
-  <tabstop>RadioButton1</tabstop>
-  <tabstop>Copies</tabstop>
-  <tabstop>CurrentPage</tabstop>
-  <tabstop>RadioButton2</tabstop>
-  <tabstop>pageNr</tabstop>
-  <tabstop>pageNrButton</tabstop>
   <tabstop>PrintDest</tabstop>
   <tabstop>OptButton</tabstop>
   <tabstop>LineEdit1</tabstop>
   <tabstop>ToolButton1</tabstop>
+  <tabstop>OtherCom</tabstop>
   <tabstop>Command</tabstop>
+  <tabstop>RadioButton1</tabstop>
+  <tabstop>CurrentPage</tabstop>
+  <tabstop>RadioButton2</tabstop>
+  <tabstop>pageNr</tabstop>
+  <tabstop>pageNrButton</tabstop>
+  <tabstop>Copies</tabstop>
+  <tabstop>printOptions</tabstop>
   <tabstop>PrintSep</tabstop>
   <tabstop>colorType</tabstop>
   <tabstop>SepArt</tabstop>
@@ -716,11 +716,11 @@ a range of pages or a single page number</string>
   <tabstop>registrationMarks</tabstop>
   <tabstop>markLength</tabstop>
   <tabstop>markOffset</tabstop>
+  <tabstop>docBleeds</tabstop>
   <tabstop>BleedTop</tabstop>
   <tabstop>BleedRight</tabstop>
   <tabstop>BleedBottom</tabstop>
   <tabstop>BleedLeft</tabstop>
-  <tabstop>docBleeds</tabstop>
   <tabstop>previewButton</tabstop>
   <tabstop>OKButton</tabstop>
   <tabstop>OKButton_2</tabstop>
