@@ -234,6 +234,7 @@ void ScripterCore::slotRunScriptFile(QString fileName, bool inMainInterpreter)
 }
 
 void ScripterCore::slotRunScriptFileArgs(QString fileName, QStringList arguments, bool inMainInterpreter)
+/** run "filename" python script with the additional arguments provided in "arguments" */
 {
 	// Prevent two scripts to be run concurrently or face crash!
 	if (ScCore->primaryMainWindow()->scriptIsRunning())
@@ -260,29 +261,24 @@ void ScripterCore::slotRunScriptFileArgs(QString fileName, QStringList arguments
 		initscribus(ScCore->primaryMainWindow());
 	}
 
-	// handle additional arguments
-	bool argsExtra = !(arguments.isEmpty());	
-	int argsc = 0;
-	if (argsExtra) 
-	{
-		argsc = arguments.size();
-		//std::cout << tr("running script with %1 arguments").arg(argsc).toLocal8Bit().data() << std::endl;
-	}
 	// Make sure sys.argv[0] is the path to the script
-	char* comm[2+argsc];
-	comm[0] = na.data();
+	arguments.prepend(na.data());
 	
 	// and tell the script if it's running in the main intepreter or
 	// a subinterpreter using the second argument, ie sys.argv[1]
 	if (inMainInterpreter)
-		comm[1] = const_cast<char*>("ext");
+		arguments.insert(1,QString("ext"));
 	else
-		comm[1] = const_cast<char*>("sub");
-	for (int j = 0; j < argsc; ++j)
+		arguments.insert(1,QString("sub"));
+
+	//convert arguments (QListString) to char** for Python bridge
+	/* typically arguments == ['path/to/script.py','ext','--argument1','valueforarg1','--flag']*/
+	char *comm[arguments.size()];
+	for (int i = 0; i < arguments.size(); i++)
 	{
-		comm[2+j] = arguments.at(j).toLocal8Bit().data()  ; // TODO fix here: some copy is needed, otherwise all comm[>2] point to same (last) value for j.
+		comm[i] = arguments.at(i).mid(0).toLocal8Bit().data(); // TODO fix here: unexpected border effects. all comm[*] point to same (last) value for i... despite mid() that should create a copy.
 	}
-	PySys_SetArgv(2+argsc, comm);
+	PySys_SetArgv(arguments.size(), comm);
 	
 	// call python script
 	PyObject* m = PyImport_AddModule((char*)"__main__");
