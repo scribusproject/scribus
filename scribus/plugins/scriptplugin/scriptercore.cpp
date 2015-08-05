@@ -276,7 +276,8 @@ void ScripterCore::slotRunScriptFileArgs(QString fileName, QStringList arguments
 	char *comm[arguments.size()];
 	for (int i = 0; i < arguments.size(); i++)
 	{
-		comm[i] = arguments.at(i).mid(0).toLocal8Bit().data(); // TODO fix here: unexpected border effects. all comm[*] point to same (last) value for i... despite mid() that should create a copy.
+		comm[i] = new char[arguments.at(i).toLocal8Bit().size()+1]; //+1 to allow adding '\0'. may be useless, don't know how to check.
+		strcpy(comm[i],arguments.at(i).toLocal8Bit().data()+'\0');
 	}
 	PySys_SetArgv(arguments.size(), comm);
 	
