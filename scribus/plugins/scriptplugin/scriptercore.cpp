@@ -9,6 +9,7 @@ for which a new license (GPL+exception) is in place.
 #include <QGlobalStatic>
 #include <QWidget>
 #include <QString>
+#include <QStringList>
 #include <QApplication>
 #include <QMessageBox>
 #include <QTextCodec>
@@ -37,7 +38,7 @@ for which a new license (GPL+exception) is in place.
 #include "prefscontext.h"
 #include "prefstable.h"
 #include "prefsmanager.h"
-#include "scribusapp.h" // need it to acces ScQApp->pythonScript
+#include "scribusapp.h" // need it to acces ScQApp->pythonScript & ScQApp->pythonScriptArgs
 
 ScripterCore::ScripterCore(QWidget* parent)
 {
@@ -228,6 +229,12 @@ void ScripterCore::RecentScript(QString fn)
 
 void ScripterCore::slotRunScriptFile(QString fileName, bool inMainInterpreter)
 {
+	QStringList arguments = QStringList();
+	slotRunScriptFileArgs(fileName, arguments, inMainInterpreter);
+}
+
+void ScripterCore::slotRunScriptFileArgs(QString fileName, QStringList arguments, bool inMainInterpreter)
+{
 	// Prevent two scripts to be run concurrently or face crash!
 	if (ScCore->primaryMainWindow()->scriptIsRunning())
 		return;
@@ -252,16 +259,31 @@ void ScripterCore::slotRunScriptFile(QString fileName, bool inMainInterpreter)
 		// Init the scripter module in the sub-interpreter
 		initscribus(ScCore->primaryMainWindow());
 	}
+
+	// handle additional arguments
+	bool argsExtra = !(arguments.isEmpty());	
+	int argsc = 0;
+	if (argsExtra) 
+	{
+		argsc = arguments.size();
+		//std::cout << tr("running script with %1 arguments").arg(argsc).toLocal8Bit().data() << std::endl;
+	}
 	// Make sure sys.argv[0] is the path to the script
-	char* comm[2];
+	char* comm[2+argsc];
 	comm[0] = na.data();
+	
 	// and tell the script if it's running in the main intepreter or
 	// a subinterpreter using the second argument, ie sys.argv[1]
 	if (inMainInterpreter)
 		comm[1] = const_cast<char*>("ext");
 	else
 		comm[1] = const_cast<char*>("sub");
-	PySys_SetArgv(2, comm);
+	for (int j = 0; j < argsc; ++j)
+	{
+		comm[2+j] = arguments.at(j).toLocal8Bit().data()  ; // TODO fix here: some copy is needed, otherwise all comm[>2] point to same (last) value for j.
+	}
+	PySys_SetArgv(2+argsc, comm);
+	
 	// call python script
 	PyObject* m = PyImport_AddModule((char*)"__main__");
 	if (m == NULL)
@@ -357,7 +379,7 @@ void ScripterCore::slotRunPythonScript()
 {
 	if (!ScQApp->pythonScript.isNull())
 	{
-		slotRunScriptFile(ScQApp->pythonScript, true);
+		slotRunScriptFileArgs(ScQApp->pythonScript, ScQApp->pythonScriptArgs, true);
 		FinishScriptRun();
 	}
 }

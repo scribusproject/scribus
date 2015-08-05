@@ -32,6 +32,7 @@ for which a new license (GPL+exception) is in place.
 #include <QLibraryInfo>
 #include <QLocale>
 #include <QString>
+#include <QStringList>
 #include <QTextCodec>
 #include <QTextStream>
 #include <QTranslator>
@@ -71,6 +72,8 @@ for which a new license (GPL+exception) is in place.
 #define ARG_UPGRADECHECK "--upgradecheck"
 #define ARG_TESTS "--tests"
 #define ARG_PYTHONSCRIPT "--python-script"
+#define ARG_SCRIPTARG_PREFIX "--python-arg"   // directly followed by <param name> <param value>
+#define ARG_SCRIPTFLAG_PREFIX "--python-flag" // directly followed by <param name>
 
 #define ARG_VERSION_SHORT "-v"
 #define ARG_HELP_SHORT "-h"
@@ -108,6 +111,7 @@ ScribusQApp::ScribusQApp( int & argc, char ** argv ) : QApplication(argc, argv),
 	m_scDLMgr = 0;
 	m_ScCore = NULL;
 	initDLMgr();
+
 }
 
 ScribusQApp::~ScribusQApp()
@@ -213,6 +217,8 @@ void ScribusQApp::parseCommandLine()
 		std::exit(EXIT_SUCCESS);
 	useGUI = true;
 	//We are going to run something other than command line help
+	QString qtARG_SCRIPTARG_PREFIX = QString(ARG_SCRIPTARG_PREFIX);
+	QString qtARG_SCRIPTFLAG_PREFIX = QString(ARG_SCRIPTFLAG_PREFIX);
 	for(int i = 1; i < argsc; i++) {
 		arg = args[i];
 
@@ -267,7 +273,17 @@ void ScribusQApp::parseCommandLine()
 			} else {
 				++i;
 			}
-		} else {
+		} else if (arg.startsWith(qtARG_SCRIPTARG_PREFIX)) {
+	 		QString arg_name = arg.mid(qtARG_SCRIPTARG_PREFIX.size());
+	 		QString arg_value = QFile::decodeName(args[++i].toLocal8Bit());
+	 		//std::cout << tr("got one script argument: %1 with value %2").arg(arg_name).arg(arg_value).toLocal8Bit().data() << std::endl;				
+	 		pythonScriptArgs.append(arg_name);
+	 		pythonScriptArgs.append(arg_value);
+		} else if (arg.startsWith(qtARG_SCRIPTFLAG_PREFIX)) {
+	 		QString arg_name = arg.mid(qtARG_SCRIPTFLAG_PREFIX.size());
+	 		//std::cout << tr("got one script flag: %1 ").arg(arg_name).toLocal8Bit().data() << std::endl;
+	 		pythonScriptArgs.append(arg_name);	 		
+		} else { // (last) positional argument
 			fileName = QFile::decodeName(args[i].toLocal8Bit());
 			if (!QFileInfo(fileName).exists()) {
 				showHeader();
@@ -498,7 +514,9 @@ void ScribusQApp::showUsage()
 	printArgLine(ts, ARG_UPGRADECHECK_SHORT, ARG_UPGRADECHECK, tr("Download a file from the Scribus website and show the latest available version") );
 	printArgLine(ts, ARG_VERSION_SHORT, ARG_VERSION, tr("Output version information and exit") );
 	printArgLine(ts, ARG_PYTHONSCRIPT_SHORT, qPrintable(QString("%1 <%2>").arg(ARG_PYTHONSCRIPT).arg(tr("filename"))), tr("Run filename in Python scripter") );
-	printArgLine(ts, ARG_NOGUI_SHORT, ARG_NOGUI, tr("Do not start GUI") );
+	ts << (QString("     %1<%2> <%3>    ").arg(ARG_SCRIPTARG_PREFIX).arg(tr("argumentname")).arg(tr("value"))) << tr("Argument passed on to python script with its value, no effect without -py"); endl(ts);
+	ts << (QString("     %1<%2>               ").arg(ARG_SCRIPTFLAG_PREFIX).arg(tr("flagname"))) << tr("Argument passed on to python script with no value, no effect without -py"); endl(ts);
+ 	printArgLine(ts, ARG_NOGUI_SHORT, ARG_NOGUI, tr("Do not start GUI") );
 	
 #if defined(_WIN32) && !defined(_CONSOLE)
 	printArgLine(ts, ARG_CONSOLE_SHORT, ARG_CONSOLE, tr("Display a console window") );
