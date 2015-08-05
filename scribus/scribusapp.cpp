@@ -514,8 +514,8 @@ void ScribusQApp::showUsage()
 	printArgLine(ts, ARG_UPGRADECHECK_SHORT, ARG_UPGRADECHECK, tr("Download a file from the Scribus website and show the latest available version") );
 	printArgLine(ts, ARG_VERSION_SHORT, ARG_VERSION, tr("Output version information and exit") );
 	printArgLine(ts, ARG_PYTHONSCRIPT_SHORT, qPrintable(QString("%1 <%2>").arg(ARG_PYTHONSCRIPT).arg(tr("filename"))), tr("Run filename in Python scripter") );
-	ts << (QString("     %1<%2> <%3>    ").arg(ARG_SCRIPTARG_PREFIX).arg(tr("argumentname")).arg(tr("value"))) << tr("Argument passed on to python script with its value, no effect without -py"); endl(ts);
-	ts << (QString("     %1<%2>               ").arg(ARG_SCRIPTFLAG_PREFIX).arg(tr("flagname"))) << tr("Argument passed on to python script with no value, no effect without -py"); endl(ts);
+	ts << (QString("       %1<%2> <%3>   ").arg(ARG_SCRIPTARG_PREFIX).arg(tr("argumentname")).arg(tr("value"))) << tr("Argument passed on to python script with its value, no effect without -py"); endl(ts);
+	ts << (QString("       %1<%2>              ").arg(ARG_SCRIPTFLAG_PREFIX).arg(tr("flagname"))) << tr("Argument passed on to python script with no value, no effect without -py"); endl(ts);
  	printArgLine(ts, ARG_NOGUI_SHORT, ARG_NOGUI, tr("Do not start GUI") );
 	
 #if defined(_WIN32) && !defined(_CONSOLE)
