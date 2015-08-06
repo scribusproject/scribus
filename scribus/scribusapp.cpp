@@ -72,8 +72,8 @@ for which a new license (GPL+exception) is in place.
 #define ARG_UPGRADECHECK "--upgradecheck"
 #define ARG_TESTS "--tests"
 #define ARG_PYTHONSCRIPT "--python-script"
-#define ARG_SCRIPTARG_PREFIX "--python-arg-"   // directly followed by <param name> <param value>
-#define ARG_SCRIPTFLAG_PREFIX "--python-flag-" // directly followed by <param name>
+#define ARG_SCRIPTARG_PREFIX "--python-arg-" // directly followed by <param name> <param value>
+#define CMD_OPTIONS_END "--"   				 // end of command line options
 
 #define ARG_VERSION_SHORT "-v"
 #define ARG_HELP_SHORT "-h"
@@ -218,8 +218,8 @@ void ScribusQApp::parseCommandLine()
 	useGUI = true;
 	//We are going to run something other than command line help
 	QString qtARG_SCRIPTARG_PREFIX = QString(ARG_SCRIPTARG_PREFIX);
-	QString qtARG_SCRIPTFLAG_PREFIX = QString(ARG_SCRIPTFLAG_PREFIX);
-	for(int i = 1; i < argsc; i++) {
+	int i = 1;
+	for( ; i < argsc; i++) { //handle all options (not positional parameters)
 		arg = args[i];
 
 		if ((arg == ARG_LANG || arg == ARG_LANG_SHORT) && (++i < argsc)) {
@@ -247,7 +247,7 @@ void ScribusQApp::parseCommandLine()
 			if (!QFileInfo(prefsUserFile).exists()) {
 				showHeader();
 				if (prefsUserFile.left(1) == "-" || prefsUserFile.left(2) == "--") {
-					std::cout << tr("Invalid argument: ").toLocal8Bit().data() << prefsUserFile.toLocal8Bit().data() << std::endl;
+					std::cout << tr("Invalid option: ").toLocal8Bit().data() << prefsUserFile.toLocal8Bit().data() << std::endl;
 				} else {
 					std::cout << tr("File %1 does not exist, aborting.").arg(prefsUserFile).toLocal8Bit().data() << std::endl;
 				}
@@ -264,7 +264,7 @@ void ScribusQApp::parseCommandLine()
 			if (!QFileInfo(pythonScript).exists()) {
 				showHeader();
 				if (pythonScript.left(1) == "-" || pythonScript.left(2) == "--") {
-					std::cout << tr("Invalid argument: ").toLocal8Bit().data() << pythonScript.toLocal8Bit().data() << std::endl;
+					std::cout << tr("Invalid option: ").toLocal8Bit().data() << pythonScript.toLocal8Bit().data() << std::endl;
 				} else {
 					std::cout << tr("File %1 does not exist, aborting.").arg(pythonScript).toLocal8Bit().data() << std::endl;
 				}
@@ -273,32 +273,32 @@ void ScribusQApp::parseCommandLine()
 			} else {
 				++i;
 			}
+		} else if (arg == CMD_OPTIONS_END) { //double dash, indicates end of command line options, see http://unix.stackexchange.com/questions/11376/what-does-double-dash-mean-also-known-as-bare-double-dash
+			i++;
+			break;
 		} else if (arg.startsWith(qtARG_SCRIPTARG_PREFIX)) {
-	 		QString arg_name = arg.mid(qtARG_SCRIPTARG_PREFIX.size()-1); //-1 to get the dash from prefix
-	 		QString arg_value = QFile::decodeName(args[++i].toLocal8Bit());
-	 		//std::cout << tr("got one script argument: %1 with value %2").arg(arg_name).arg(arg_value).toLocal8Bit().data() << std::endl;				
-	 		pythonScriptArgs.append(arg_name);
-	 		pythonScriptArgs.append(arg_value);
-		} else if (arg.startsWith(qtARG_SCRIPTFLAG_PREFIX)) {
-	 		QString arg_name = arg.mid(qtARG_SCRIPTFLAG_PREFIX.size()-1); //-1 to get the dash from prefix
-	 		//std::cout << tr("got one script flag: %1 ").arg(arg_name).toLocal8Bit().data() << std::endl;
-	 		pythonScriptArgs.append(arg_name);	 		
-		} else { // (last) positional argument
-			fileName = QFile::decodeName(args[i].toLocal8Bit());
-			if (!QFileInfo(fileName).exists()) {
-				showHeader();
-				if (fileName.left(1) == "-" || fileName.left(2) == "--") {
-					std::cout << tr("Invalid argument: %1").arg(fileName).toLocal8Bit().data() << std::endl;
-				} else {
-					std::cout << tr("File %1 does not exist, aborting.").arg(fileName).toLocal8Bit().data() << std::endl;
-				}
-				showUsage();
-				std::exit(EXIT_FAILURE);
+			pythonScriptArgs.append( arg.mid(qtARG_SCRIPTARG_PREFIX.size()-1) ); //-1 to get the dash from prefix
+			if (!args[i+1].startsWith("-")) {
+				pythonScriptArgs.append( QFile::decodeName(args[++i].toLocal8Bit()) );
 			}
-			else
-			{
-				filesToLoad.append(fileName);
+		} else { //argument is not a known option, but either positional parameter or invalid.
+			break;
+		}
+	}
+	//remaining arguments, if any
+	for ( ; i<argsc; i++) {
+		fileName = QFile::decodeName(args[i].toLocal8Bit());
+		if (!QFileInfo(fileName).exists()) {
+			showHeader();
+			if (fileName.left(1) == "-" || fileName.left(2) == "--") {
+				std::cout << tr("Invalid argument: %1").arg(fileName).toLocal8Bit().data() << std::endl;
+			} else {
+				std::cout << tr("File %1 does not exist, aborting.").arg(fileName).toLocal8Bit().data() << std::endl;
 			}
+			showUsage();
+			std::exit(EXIT_FAILURE);
+		} else {
+			filesToLoad.append(fileName);
 		}
 	}
 }
@@ -501,7 +501,7 @@ void ScribusQApp::showUsage()
 	QFile f;
 	f.open(stderr, QIODevice::WriteOnly);
 	QTextStream ts(&f);
-	ts << tr("Usage: scribus [option ... ] [file]") ; endl(ts);
+	ts << tr("Usage: scribus [options] [files]") ; endl(ts); endl(ts);
 	ts << tr("Options:") ; endl(ts);
 	printArgLine(ts, ARG_FONTINFO_SHORT, ARG_FONTINFO, tr("Show information on the console when fonts are being loaded") );
 	printArgLine(ts, ARG_HELP_SHORT, ARG_HELP, tr("Print help (this message) and exit") );
@@ -514,9 +514,10 @@ void ScribusQApp::showUsage()
 	printArgLine(ts, ARG_UPGRADECHECK_SHORT, ARG_UPGRADECHECK, tr("Download a file from the Scribus website and show the latest available version") );
 	printArgLine(ts, ARG_VERSION_SHORT, ARG_VERSION, tr("Output version information and exit") );
 	printArgLine(ts, ARG_PYTHONSCRIPT_SHORT, qPrintable(QString("%1 <%2>").arg(ARG_PYTHONSCRIPT).arg(tr("filename"))), tr("Run filename in Python scripter") );
-	ts << (QString("       %1<%2> <%3>  ").arg(ARG_SCRIPTARG_PREFIX).arg(tr("argumentname")).arg(tr("value"))) << tr("Argument passed on to python script with its value, no effect without -py"); endl(ts);
-	ts << (QString("       %1<%2>             ").arg(ARG_SCRIPTFLAG_PREFIX).arg(tr("flagname"))) << tr("Argument passed on to python script with no value, no effect without -py"); endl(ts);
- 	printArgLine(ts, ARG_NOGUI_SHORT, ARG_NOGUI, tr("Do not start GUI") );
+	ts << (QString("       %1<%2> [%3]  ").arg(ARG_SCRIPTARG_PREFIX).arg(tr("argumentname")).arg(tr("value"))) << tr("Argument passed on to python script, with an optional value, no effect without -py"); endl(ts);
+	printArgLine(ts, ARG_NOGUI_SHORT, ARG_NOGUI, tr("Do not start GUI") );
+	ts << (QString("     %1").arg(CMD_OPTIONS_END,-39)) << tr("Explicit end of command line options"); endl(ts);
+ 	
 	
 #if defined(_WIN32) && !defined(_CONSOLE)
 	printArgLine(ts, ARG_CONSOLE_SHORT, ARG_CONSOLE, tr("Display a console window") );
