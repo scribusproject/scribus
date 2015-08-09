@@ -316,7 +316,9 @@ void Cpalette::setCurrentItem(PageItem* item)
 			setGradientVectorStrokeValues();
 	}
 	editMeshColors->setEnabled(!CGradDia->isVisible());
-	gradEditButton->setEnabled(true);
+	gradEditButton->setEnabled(!editMeshColors->isChecked());
+	gradientType->setEnabled(!(gradEditButton->isChecked() || editMeshColors->isChecked()));
+	fillModeCombo->setEnabled(!(gradEditButton->isChecked() || editMeshColors->isChecked()));
 
 	double patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternSkewX, patternSkewY, patternSpace;
 	bool mirrorX, mirrorY;
@@ -660,6 +662,16 @@ void Cpalette::setColors(ColorList newColorList)
 
 void Cpalette::fillStrokeSelector(int /*index*/)
 {
+	if (gradEditButton->isChecked() || editMeshColors->isChecked())
+	{
+		editStrokeGradient = 0;
+		CGradDia->hide();
+		editMeshColors->setEnabled(true);
+		editMeshColors->setChecked(false);
+		gradEditButton->setEnabled(true);
+		gradEditButton->setChecked(false);
+		emit editGradient(editStrokeGradient);
+	}
 	updateFromItem();
 }
 
@@ -1309,6 +1321,8 @@ void Cpalette::editMeshPointColor()
 		editStrokeGradient = 0;
 		gradEditButton->setEnabled(true);
 	}
+	gradientType->setEnabled(!(gradEditButton->isChecked() || editMeshColors->isChecked()));
+	fillModeCombo->setEnabled(!(gradEditButton->isChecked() || editMeshColors->isChecked()));
 	emit editGradient(editStrokeGradient);
 }
 
@@ -1546,6 +1560,8 @@ void Cpalette::editGradientVector()
 		editStrokeGradient = 9;
 	else
 		editStrokeGradient = 0;
+	gradientType->setEnabled(!(gradEditButton->isChecked() || editMeshColors->isChecked()));
+	fillModeCombo->setEnabled(!(gradEditButton->isChecked() || editMeshColors->isChecked()));
 	emit editGradient(editStrokeGradient);
 }
 
@@ -1561,6 +1577,8 @@ void Cpalette::editGradientVectorStroke()
 		CGradDia->hide();
 	}
 	editStrokeGradient = 1;
+	gradientType->setEnabled(!(gradEditButton->isChecked() || editMeshColors->isChecked()));
+	fillModeCombo->setEnabled(!(gradEditButton->isChecked() || editMeshColors->isChecked()));
 	emit editGradient(editStrokeGradient);
 }
 
