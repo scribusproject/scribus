@@ -63,8 +63,8 @@ void ArcVectorDialog::setValues(double start, double sweep, double height, doubl
 	disconnect(arcWidth,   SIGNAL(valueChanged(double)), this, SLOT(changeVectors()));
 	startAngle->setValue(start);
 	sweepAngle->setValue(sweep);
-	arcHeight->setValue(height);
-	arcWidth->setValue(width);
+	arcHeight->setValue(height * arcHeight->unitRatio());
+	arcWidth->setValue(width * arcWidth->unitRatio());
 	connect(startAngle,   SIGNAL(valueChanged(double)), this, SLOT(changeVectors()));
 	connect(sweepAngle,   SIGNAL(valueChanged(double)), this, SLOT(changeVectors()));
 	connect(arcHeight,   SIGNAL(valueChanged(double)), this, SLOT(changeVectors()));
@@ -73,7 +73,9 @@ void ArcVectorDialog::setValues(double start, double sweep, double height, doubl
 
 void ArcVectorDialog::changeVectors()
 {
-	emit NewVectors(startAngle->value(), sweepAngle->value(), arcHeight->value(), arcWidth->value());
+	double newWidth  = arcWidth->value() / arcWidth->unitRatio();
+	double newHeight = arcHeight->value() / arcHeight->unitRatio();
+	emit NewVectors(startAngle->value(), sweepAngle->value(), newHeight, newWidth);
 }
 
 void ArcVectorDialog::unitChange(int unitIndex)

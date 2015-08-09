@@ -174,12 +174,14 @@ void CanvasMode_EditArc::activate(bool fromGesture)
 	QLineF res = QLineF(centerPoint, startPoint);
 	QLineF swe = QLineF(centerPoint, endPoint);
 	VectorDialog->setValues(res.angle(), swe.angle(), item->arcHeight, item->arcWidth);
+	VectorDialog->unitChange(m_doc->unitIndex());
 	VectorDialog->show();
 	setModeCursor();
 	if (fromGesture)
 	{
 		m_view->update();
 	}
+	connect(m_view, SIGNAL(changeUN(int)), VectorDialog, SLOT(unitChange(int)), Qt::UniqueConnection);
 	connect(VectorDialog, SIGNAL(NewVectors(double, double, double, double)), this, SLOT(applyValues(double, double, double, double)));
 	connect(VectorDialog, SIGNAL(endEdit()), this, SLOT(endEditing()));
 	connect(VectorDialog, SIGNAL(paletteShown(bool)), this, SLOT(endEditing(bool)));
@@ -252,7 +254,7 @@ void CanvasMode_EditArc::applyValues(double start, double end, double height, do
 	pp.arcTo(QRectF(0, 0, width, height), startAngle, nSweep);
 	pp.closeSubpath();
 	currItem->PoLine.fromQPainterPath(pp, true);
-	if(UndoManager::undoEnabled())
+	if (UndoManager::undoEnabled())
 	{
 		ScItemState<QPair<FPointArray, FPointArray> > *ss = new ScItemState<QPair<FPointArray, FPointArray> >(Um::EditArc,"",Um::IPolygon);
 		ss->set("ARC","arc");
