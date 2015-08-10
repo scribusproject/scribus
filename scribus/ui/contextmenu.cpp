@@ -237,7 +237,7 @@ void ContextMenu::createMenuItems_Selection()
 			}
 			if (currItem->itemText.cursorPosition() < currItem->itemText.length())
 			{
-                if (currItem->itemText.hasMark(currItem->itemText.cursorPosition()))
+				if (currItem->itemText.hasMark(currItem->itemText.cursorPosition()))
 					addAction(m_ScMW->scrActions["editMark"]);
 			}
 		}

@@ -359,7 +359,7 @@ void CanvasMode_Edit::mouseDoubleClickEvent(QMouseEvent *m)
 				currItem->itemText.extendSelection(start, stop);
 				currItem->itemText.setCursorPosition(stop);
 			}
-            else if ((currItem->itemText.cursorPosition() < currItem->itemText.length()) && (currItem->itemText.hasMark(currItem->itemText.cursorPosition())))
+			else if ((currItem->itemText.cursorPosition() < currItem->itemText.length()) && (currItem->itemText.hasMark(currItem->itemText.cursorPosition())))
 			{	//invoke edit marker dialog
 				m_ScMW->slotEditMark();
 				return;

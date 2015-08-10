@@ -328,31 +328,31 @@ void PageItem_NoteFrame::updateNotesText()
 	Mark* prevMrk = NULL;
 	while (pos < itemText.length())
 	{
-        if (itemText.hasMark(pos))
+		if (itemText.hasMark(pos))
 		{
-            Mark* mark = itemText.mark(pos);
-            if  (mark->isType(MARKNoteFrameType))
-            {
-                if (prevMrk != NULL)
-                {
-                    note = prevMrk->getNotePtr();
-                    if (note != NULL)
-                    {
-                        int offset = 0;
-                        if (itemText.text(pos-1) == SpecialChars::PARSEP)
-                            ++offset;
-                        int len = pos - startPos -offset;
-                        if (len <= 0)
-                            note->setSaxedText("");
-                        else
-                            note->setSaxedText(getItemTextSaxed(startPos, len));
-                        note->textLen = len;
-                        itemText.deselectAll();
-                    }
-                }
-                prevMrk = mark;
-                startPos = pos +1;
-            }
+			Mark* mark = itemText.mark(pos);
+			if  (mark->isType(MARKNoteFrameType))
+			{
+				if (prevMrk != NULL)
+				{
+					note = prevMrk->getNotePtr();
+					if (note != NULL)
+					{
+						int offset = 0;
+						if (itemText.text(pos-1) == SpecialChars::PARSEP)
+							++offset;
+						int len = pos - startPos -offset;
+						if (len <= 0)
+							note->setSaxedText("");
+						else
+							note->setSaxedText(getItemTextSaxed(startPos, len));
+						note->textLen = len;
+						itemText.deselectAll();
+					}
+				}
+				prevMrk = mark;
+				startPos = pos +1;
+			}
 		}
 		++pos;
 	}
