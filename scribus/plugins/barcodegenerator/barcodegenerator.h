@@ -31,7 +31,7 @@ class BarcodeType
 		\param cmd a Postsript command for given BC type
 		\param exa an example of the contents
 		\param exaop an example of the options */
-	    BarcodeType(const QString &cmd, const QString &exa, const QString &exaop);
+		BarcodeType(const QString &cmd, const QString &exa, const QString &exaop);
 		~BarcodeType(){};
 		//! \brief PostScript encoder
 		QString command;
@@ -92,17 +92,17 @@ class BarcodeGenerator : public QDialog
 		//! \brief Error correction levels of each encoder.
 		QHash<QString, QString> resecls;
 		//! \brief includetext option available for each encoder.
-                QHash<QString, bool> resincludetextAvail;
+		QHash<QString, bool> resincludetextAvail;
 		//! \brief guardwhitespace option available for each encoder.
-                QHash<QString, bool> resguardwhitespaceAvail;
+		QHash<QString, bool> resguardwhitespaceAvail;
 		//! \brief includecheck option available for each encoder.
-                QHash<QString, bool> resincludecheckAvail;
+		QHash<QString, bool> resincludecheckAvail;
 		//! \brief includecheckintext option available for each encoder.
-                QHash<QString, bool> resincludecheckintextAvail;
+		QHash<QString, bool> resincludecheckintextAvail;
 		//! \brief parse option available for each encoder.
-                QHash<QString, bool> resparseAvail;
+		QHash<QString, bool> resparseAvail;
 		//! \brief parsefnc option available for each encoder.
-                QHash<QString, bool> resparsefncAvail;
+		QHash<QString, bool> resparsefncAvail;
 
 		//! \brief Color of the BC lines.
 		ScColor lnColor;
@@ -128,7 +128,7 @@ class BarcodeGenerator : public QDialog
 		\param dpi optional DPI value. Default is 72 for preview.
 		\retval bool true on success.
 		*/
-	    bool paintBarcode(const QString &fileName = QString(), int dpi = 72);
+		bool paintBarcode(const QString &fileName = QString(), int dpi = 72);
 		/*! \brief Create color preview.
 		Used for Color box feedback.
 		\param l A pointer to the sample QLabel
@@ -145,12 +145,12 @@ class BarcodeGenerator : public QDialog
 	protected slots:
 		void bcComboChanged();
 		void bcComboChanged(int);
-		void textCheck_changed();
-		void guardCheck_changed();
-		void includeCheck_stateChanged(int state);
-		void includeCheckInText_stateChanged(int state);
-		void parseCheck_stateChanged(int state);
-		void parsefncCheck_stateChanged(int state);
+		//void textCheck_changed();
+		//void guardCheck_changed();
+		//void includeCheck_stateChanged(int state);
+		//void includeCheckInText_stateChanged(int state);
+		//void parseCheck_stateChanged(int state);
+		//void parsefncCheck_stateChanged(int state);
 		void bgColorButton_pressed();
 		void lnColorButton_pressed();
 		void txtColorButton_pressed();
@@ -160,15 +160,15 @@ class BarcodeGenerator : public QDialog
 		void okButton_pressed();
 		void cancelButton_pressed();
 private slots:
-        void on_includetextCheck_stateChanged(int arg1);
-        void on_includecheckCheck_stateChanged(int arg1);
-        void on_includecheckintextCheck_stateChanged(int arg1);
-        void on_parseCheck_stateChanged(int arg1);
-        void on_parsefncCheck_stateChanged(int arg1);
-        void on_formatCombo_currentIndexChanged(int index);
-        void on_eccCombo_currentIndexChanged(int index);
-        void on_guardwhitespaceCheck_stateChanged(int arg1);
-        void on_optionsEdit_textChanged(const QString &arg1);
+		void on_includetextCheck_stateChanged(int arg1);
+		void on_includecheckCheck_stateChanged(int arg1);
+		void on_includecheckintextCheck_stateChanged(int arg1);
+		void on_parseCheck_stateChanged(int arg1);
+		void on_parsefncCheck_stateChanged(int arg1);
+		void on_formatCombo_currentIndexChanged(int index);
+		void on_eccCombo_currentIndexChanged(int index);
+		void on_guardwhitespaceCheck_stateChanged(int arg1);
+		void on_optionsEdit_textChanged(const QString &arg1);
 };
 
 #endif
