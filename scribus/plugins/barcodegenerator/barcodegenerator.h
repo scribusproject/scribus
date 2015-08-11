@@ -29,23 +29,16 @@ class BarcodeType
 		/*! \brief Setup the Barcode entity.
 		\todo Make better regular expressions for BCDs.
 		\param cmd a Postsript command for given BC type
-		\param exa an example of the BC
-		\param comm a comment/help for current BC type
-		\param checkType how to validate the input */
-	    BarcodeType(const QString &cmd, const QString &exa,
-	                const QString &comm, const QString &regExp,
-	                bool includeCheck=false, bool includeCheckInText=false);
+		\param exa an example of the contents
+		\param exaop an example of the options */
+	    BarcodeType(const QString &cmd, const QString &exa, const QString &exaop);
 		~BarcodeType(){};
-		//! \brief postscript command
+		//! \brief PostScript encoder
 		QString command;
-		//! \brief BC example
-		QString example;
-		//! \brief comment or help for given BC type
-		QString comment;
-		//! \brief Regular expression for valid barcode of this type.
-		QString regularExp;
-		bool includeCheck;
-		bool includeCheckInText;
+		//! \brief BC example contents
+		QString exampleContents;
+		//! \brief BC example options
+		QString exampleOptions;
 };
 
 
@@ -78,6 +71,39 @@ class BarcodeGenerator : public QDialog
 		//! \brief BC/BC type mapping. QMap keys are used as BC names.
 		BarcodeMap map;
 
+		//! \brief List of available barcode encoders.
+		QList<QString> encoderlist;
+		//! \brief Descriptions of each encoder.
+		QHash<QString, QString> resdescs;
+		//! \brief Dependancies of each encoder.
+		QHash<QString, QString> resreqs;
+		//! \brief Example data input for each encoder.
+		QHash<QString, QString> resexams;
+		//! \brief Example options input for each encoder.
+		QHash<QString, QString> resexops;
+		//! \brief Renderers for each encoder.
+		QHash<QString, QString> resrndrs;
+		//! \brief PS body of each encoder.
+		QHash<QString, QString> resbodys;
+		//! \brief Symbol Versions of each encoder.
+		QHash<QString, QString> resvers;
+		//! \brief Label for the versions field.
+		QHash<QString, QString> resvlbl;
+		//! \brief Error correction levels of each encoder.
+		QHash<QString, QString> resecls;
+		//! \brief includetext option available for each encoder.
+                QHash<QString, bool> resincludetextAvail;
+		//! \brief guardwhitespace option available for each encoder.
+                QHash<QString, bool> resguardwhitespaceAvail;
+		//! \brief includecheck option available for each encoder.
+                QHash<QString, bool> resincludecheckAvail;
+		//! \brief includecheckintext option available for each encoder.
+                QHash<QString, bool> resincludecheckintextAvail;
+		//! \brief parse option available for each encoder.
+                QHash<QString, bool> resparseAvail;
+		//! \brief parsefnc option available for each encoder.
+                QHash<QString, bool> resparsefncAvail;
+
 		//! \brief Color of the BC lines.
 		ScColor lnColor;
 		//! \brief Color of the BC font.
@@ -85,8 +111,6 @@ class BarcodeGenerator : public QDialog
 		//! \brief Background color of the BC.
 		ScColor bgColor;
 
-		//! \brief A PS command taken from barcode.ps with scribus related addons.
-		QString psCommand;
 		//! \brief A temporary png pixmap to store the preview image.
 		QString tmpFile;
 		//! \brief A temporary PS file to store commants for Ghostscript.
@@ -113,8 +137,10 @@ class BarcodeGenerator : public QDialog
 		/*! \brief Perform BarcodeCheckType checks here
 		\param s new string */
 		bool codeEdit_check(const QString & s);
-		void qrOptionsEnabled(bool);
-		void initializeQROptions();
+		bool optionsEdit_check(const QString & s);
+		void updateOptions();
+		void updateOptionsTextFromUI();
+		void updateUIFromOptionsText();
 
 	protected slots:
 		void bcComboChanged();
@@ -123,13 +149,26 @@ class BarcodeGenerator : public QDialog
 		void guardCheck_changed();
 		void includeCheck_stateChanged(int state);
 		void includeCheckInText_stateChanged(int state);
+		void parseCheck_stateChanged(int state);
+		void parsefncCheck_stateChanged(int state);
 		void bgColorButton_pressed();
 		void lnColorButton_pressed();
 		void txtColorButton_pressed();
 		void codeEdit_textChanged(const QString& s);
+		void optionsEdit_textChanged(const QString& s);
 		void resetButton_clicked();
 		void okButton_pressed();
 		void cancelButton_pressed();
+private slots:
+        void on_includetextCheck_stateChanged(int arg1);
+        void on_includecheckCheck_stateChanged(int arg1);
+        void on_includecheckintextCheck_stateChanged(int arg1);
+        void on_parseCheck_stateChanged(int arg1);
+        void on_parsefncCheck_stateChanged(int arg1);
+        void on_formatCombo_currentIndexChanged(int index);
+        void on_eccCombo_currentIndexChanged(int index);
+        void on_guardwhitespaceCheck_stateChanged(int arg1);
+        void on_optionsEdit_textChanged(const QString &arg1);
 };
 
 #endif
