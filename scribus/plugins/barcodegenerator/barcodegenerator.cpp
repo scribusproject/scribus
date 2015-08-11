@@ -54,10 +54,10 @@ BarcodeGenerator::BarcodeGenerator(QWidget* parent, const char* name)
 	f.close();
 
 	QRegExp rx(
-		"\\n% --BEGIN (RESOURCE|RENDERER|ENCODER) ([\\w-]+)--\\n"
-		"(.*\\n)?"
-		"(%%BeginResource.*\\n)"
-		"% --END \\1 \\2--\\n");
+		"[\\r\\n]+% --BEGIN (RESOURCE|RENDERER|ENCODER) ([\\w-]+)--[\\r\\n]+"
+		"(.*[\\r\\n]+)?"
+		"(%%BeginResource.*[\\r\\n]+)"
+		"% --END \\1 \\2--[\\r\\n]+");
 	rx.setMinimal(true);
 	int pos = 0;
 	while ( (pos = rx.indexIn(bwipp, pos)) != -1 )
@@ -73,11 +73,11 @@ BarcodeGenerator::BarcodeGenerator(QWidget* parent, const char* name)
 	 	if (restype=="ENCODER")
 		{
 			QRegExp rxhead(
-				"% --REQUIRES (.*)--\\n"
-				"% --DESC:(.*)\\n"
-				"% --EXAM:(.*)\\n"
-				"% --EXOP:(.*)\\n"
-				"% --RNDR:(.*)\\n"
+				"% --REQUIRES (.*)--[\\r\\n]+"
+				"% --DESC:(.*)[\\r\\n]+"
+				"% --EXAM:(.*)[\\r\\n]+"
+				"% --EXOP:(.*)[\\r\\n]+"
+				"% --RNDR:(.*)[\\r\\n]+"
 			);
 			rxhead.indexIn(reshead);
 			resreqs[resname]=rxhead.cap(1).trimmed();
