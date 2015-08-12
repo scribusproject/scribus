@@ -9608,18 +9608,18 @@ void ScribusMainWindow::dragEnterEvent ( QDragEnterEvent* e)
 void ScribusMainWindow::dropEvent ( QDropEvent * e)
 {
 	bool accepted = false;
-	if ( e->mimeData()->hasFormat("text/uri-list"))
+	if (e->mimeData()->hasFormat("text/uri-list"))
 	{
 		QString fileUrl;
 		QList<QUrl> fileUrls = e->mimeData()->urls();
-		for( int i = 0; i < fileUrls.count(); ++i )
+		for (int i = 0; i < fileUrls.count(); ++i )
 		{
 			fileUrl = fileUrls[i].toLocalFile().toLower();
-			if ( fileUrl.endsWith(".sla") || fileUrl.endsWith(".sla.gz") )
+			if (fileUrl.endsWith(".sla") || fileUrl.endsWith(".sla.gz"))
 			{
 				QUrl url( fileUrls[i] );
-				QFileInfo fi(url.path());
-				if ( fi.exists() )
+				QFileInfo fi(url.toLocalFile());
+				if (fi.exists())
 				{
 					accepted = true;
 					loadDoc( fi.absoluteFilePath() );
@@ -9628,13 +9628,13 @@ void ScribusMainWindow::dropEvent ( QDropEvent * e)
 			else
 			{
 				QUrl url( fileUrls[i] );
-				FileLoader *fileLoader = new FileLoader(url.path());
+				FileLoader *fileLoader = new FileLoader(url.toLocalFile());
 				int testResult = fileLoader->testFile();
 				delete fileLoader;
 				if ((testResult != -1) && (testResult >= FORMATID_ODGIMPORT))
 				{
 					QFileInfo fi(url.path());
-					if ( fi.exists() )
+					if (fi.exists())
 					{
 						accepted = true;
 						loadDoc( fi.absoluteFilePath() );
