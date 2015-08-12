@@ -8698,6 +8698,7 @@ void ScribusMainWindow::dropEvent ( QDropEvent * e)
 					slotDocCh(false);
 					doc->regionsChanged()->update(QRectF());
 				}
+				accepted = true;
 			}
 		}
 	}
