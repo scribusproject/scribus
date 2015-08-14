@@ -17992,7 +17992,7 @@ Si vuole migrarli nella nuova versione di Scribus?</translation>
         <location filename="../../scribus/prefsmanager.cpp" line="2689"/>
         <source>Scribus was not able to save its preferences:&lt;br&gt;%1&lt;br&gt;Please check file and directory permissions and available disk space.</source>
         <comment>scribus app error</comment>
-        <translation>Impossibile per Scribus salvare le sue preferenze:&lt;br&gt;%1&lt;br&gt;Si prega di controllare i permessi del file e della cartella nonché lo spazio disponibile sul disco fisso.</translation>
+        <translation>Scribus non è riuscito a salvare le proprie preferenze:&lt;br&gt;%1&lt;br&gt;Si prega di controllare i permessi del file e della cartella nonché lo spazio disponibile sul disco fisso.</translation>
     </message>
     <message>
         <location filename="../../scribus/prefsmanager.cpp" line="2704"/>
@@ -18002,7 +18002,7 @@ Si vuole migrarli nella nuova versione di Scribus?</translation>
     <message>
         <location filename="../../scribus/prefsmanager.cpp" line="2706"/>
         <source>Scribus was not able to load its preferences:&lt;br&gt;%1&lt;br&gt;Default settings will be loaded.</source>
-        <translation>Impossibile per Scribus caricare le sue preferenze:&lt;br&gt;%1&lt;br&gt;Saranno caricate quelle predefinite.</translation>
+        <translation>Scribus non è riuscito a caricare le proprie preferenze:&lt;br&gt;%1&lt;br&gt;Saranno caricate quelle predefinite.</translation>
     </message>
     <message>
         <location filename="../../scribus/prefsmanager.cpp" line="2395"/>
