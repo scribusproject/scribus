@@ -21175,7 +21175,7 @@ Si vuole migrarli nella nuova versione di Scribus?</translation>
         <location filename="../../../scribus/prefsmanager.cpp" line="2453"/>
         <source>Scribus was not able to save its preferences:&lt;br&gt;%1&lt;br&gt;Please check file and directory permissions and available disk space.</source>
         <comment>scribus app error</comment>
-        <translation>Impossibile per Scribus salvare le sue preferenze:&lt;br&gt;%1&lt;br&gt;Si prega di controllare i permessi del file e della cartella nonché lo spazio disponibile sul disco fisso.</translation>
+        <translation>Scribus non è riuscito a salvare le proprie preferenze:&lt;br&gt;%1&lt;br&gt;Si prega di controllare i permessi del file e della cartella nonché lo spazio disponibile sul disco fisso.</translation>
     </message>
     <message>
         <location filename="../../../scribus/prefsmanager.cpp" line="2470"/>
@@ -21185,7 +21185,7 @@ Si vuole migrarli nella nuova versione di Scribus?</translation>
     <message>
         <location filename="../../../scribus/prefsmanager.cpp" line="2472"/>
         <source>Scribus was not able to load its preferences:&lt;br&gt;%1&lt;br&gt;Default settings will be loaded.</source>
-        <translation>Impossibile per Scribus caricare le sue preferenze:&lt;br&gt;%1&lt;br&gt;Saranno caricate quelle predefinite.</translation>
+        <translation>Scribus non è riuscito a caricare le proprie preferenze:&lt;br&gt;%1&lt;br&gt;Saranno caricate le impostazioni predefinite.</translation>
     </message>
     <message>
         <location filename="../../../scribus/prefsmanager.cpp" line="2173"/>
@@ -31599,7 +31599,7 @@ You can choose between normal and several colour blindness forms</translation>
     <message>
         <location filename="../../../scribus/tabgeneral.cpp" line="53"/>
         <source>Select your default language for Scribus to run with. Leave this blank to choose based on environment variables. You can still override this by passing a command line option when starting Scribus</source>
-        <translation>Selezionare la lingua predefinita con cui eseguire Scribus. Lasciare vuoto se si desidera eseguirlo come da variabili locali. Viene ignorata se si esegue Scribus da linea di comando con l&apos;opzione per la lingua</translation>
+        <translation>Seleziona la lingua predefinita con cui eseguire Scribus. Lascialo vuoto per eseguirlo secondo le variabili locali. Viene ignorata se si esegue Scribus da linea di comando con l&apos;opzione per la lingua</translation>
     </message>
     <message>
         <location filename="../../../scribus/tabgeneral.cpp" line="54"/>
