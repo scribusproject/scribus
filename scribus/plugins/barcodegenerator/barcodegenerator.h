@@ -14,6 +14,7 @@ for which a new license (GPL+exception) is in place.
 #include <QDialog>
 #include <QLabel>
 #include <QString>
+#include <QTimer>
 
 #include "sccolor.h"
 
@@ -71,6 +72,8 @@ class BarcodeGenerator : public QDialog
 		//! \brief BC/BC type mapping. QMap keys are used as BC names.
 		BarcodeMap map;
 
+		QTimer *paintBarcodeTimer;
+
 		//! \brief List of available barcode encoders.
 		QList<QString> encoderlist;
 		//! \brief Descriptions of each encoder.
@@ -115,9 +118,6 @@ class BarcodeGenerator : public QDialog
 		QString tmpFile;
 		//! \brief A temporary PS file to store commants for Ghostscript.
 		QString psFile;
-		/*! \brief Flag if user modified the codeEditor.
-		To stop replacing his code with samples. */
-		bool useSamples;
 		QColor guiColor;
 
 		/*! \brief Create bitmap for current BC.
@@ -128,7 +128,7 @@ class BarcodeGenerator : public QDialog
 		\param dpi optional DPI value. Default is 72 for preview.
 		\retval bool true on success.
 		*/
-		bool paintBarcode(const QString &fileName = QString(), int dpi = 72);
+//		bool paintBarcode(const QString &fileName = QString(), int dpi = 72);
 		/*! \brief Create color preview.
 		Used for Color box feedback.
 		\param l A pointer to the sample QLabel
@@ -142,7 +142,11 @@ class BarcodeGenerator : public QDialog
 		void updateOptionsTextFromUI();
 		void updateUIFromOptionsText();
 
+	private:
+		void enqueuePaintBarcode(int);
+
 	protected slots:
+		bool paintBarcode(const QString &fileName = QString(), int dpi = 72);
 		void bcComboChanged();
 		void bcComboChanged(int);
 		//void textCheck_changed();

@@ -20,6 +20,7 @@ for which a new license (GPL+exception) is in place.
 
 #include <QTextStream>
 #include <QStandardItemModel>
+#include <QTimer>
 
 BarcodeType::BarcodeType(const QString &cmd, const QString &exa, const QString &exaop)
 {
@@ -259,7 +260,6 @@ BarcodeGenerator::BarcodeGenerator(QWidget* parent, const char* name)
 	 *
 	 */
 
-//	useSamples = true;
 	guiColor = ui.codeEdit->palette().color(QPalette::Window);
 
 	ui.okButton->setText(CommonStrings::tr_OK);
@@ -293,13 +293,25 @@ BarcodeGenerator::BarcodeGenerator(QWidget* parent, const char* name)
 	tmpFile = QDir::toNativeSeparators(ScPaths::getTempFileDir() + "bcode.png");
 	psFile = QDir::toNativeSeparators(ScPaths::getTempFileDir() + "bcode.ps");
 
+	paintBarcodeTimer=new QTimer(this);
+	paintBarcodeTimer->setSingleShot(true);
+	connect(paintBarcodeTimer, SIGNAL(timeout()), this, SLOT(paintBarcode()));
+
 	bcComboChanged();
+
 }
 
 BarcodeGenerator::~BarcodeGenerator()
 {
 	QFile::remove(psFile);
 	QFile::remove(tmpFile);
+
+	if (paintBarcodeTimer)
+	{
+		delete paintBarcodeTimer;
+		paintBarcodeTimer=NULL;
+	}
+
 }
 
 void BarcodeGenerator::updateOptions()
@@ -385,15 +397,12 @@ void BarcodeGenerator::bcComboChanged()
 	ui.okButton->setEnabled(true);
 
 	QString s = ui.bcCombo->currentText();
-//	if (useSamples)
-//	{
-		ui.codeEdit->blockSignals(true);
-		ui.codeEdit->setText(map[s].exampleContents);
-		ui.codeEdit->blockSignals(false);
-		ui.optionsEdit->blockSignals(true);
-		ui.optionsEdit->setText(map[s].exampleOptions);
-		ui.optionsEdit->blockSignals(false);
-//	}
+	ui.codeEdit->blockSignals(true);
+	ui.codeEdit->setText(map[s].exampleContents);
+	ui.codeEdit->blockSignals(false);
+	ui.optionsEdit->blockSignals(true);
+	ui.optionsEdit->setText(map[s].exampleOptions);
+	ui.optionsEdit->blockSignals(false);
 
 	QString enc=map[s].command;
 	ui.includetextCheck->setEnabled(resincludetextAvail[enc]);
@@ -405,7 +414,14 @@ void BarcodeGenerator::bcComboChanged()
 
 	updateUIFromOptionsText();
 
-	paintBarcode();
+	enqueuePaintBarcode(0);
+}
+
+void BarcodeGenerator::enqueuePaintBarcode(int delay)
+{
+	ui.okButton->setEnabled(false);
+//	paintBarcode();
+	paintBarcodeTimer->start(delay);
 }
 
 void BarcodeGenerator::updateOptionsTextFromUI() {
@@ -460,12 +476,12 @@ void BarcodeGenerator::updateOptionsTextFromUI() {
  	if (ui.formatCombo->currentIndex() != 0)
 	{
 		QString t=ui.formatCombo->currentText();
-		if (!opts.contains(QRegExp("\\b"+vlbl+"=.*\\b"))) 
+		if (!opts.contains(QRegExp("\\b"+QRegExp::escape(vlbl)+"=.*\\b"))) 
 			opts.append(" "+vlbl+"="+t);
 		else
-			opts.replace(QRegExp("\\b"+vlbl+"=\\S*\\b"),vlbl+"="+t);
+			opts.replace(QRegExp("\\b"+QRegExp::escape(vlbl)+"=\\S*\\b"),vlbl+"="+t);
 	} else { 
-		opts.replace(QRegExp("\\b"+vlbl+"=\\S*\\b")," ");
+		opts.replace(QRegExp("\\b"+QRegExp::escape(vlbl)+"=\\S*\\b")," ");
 	}
 
 	if (ui.eccCombo->currentIndex() != 0) {
@@ -538,49 +554,49 @@ void BarcodeGenerator::updateUIFromOptionsText()
 void BarcodeGenerator::on_includetextCheck_stateChanged(int)
 {
 	updateOptionsTextFromUI();
-	paintBarcode();
+	enqueuePaintBarcode(0);
 }
 
 void BarcodeGenerator::on_guardwhitespaceCheck_stateChanged(int)
 {
 	updateOptionsTextFromUI();
-	paintBarcode();
+	enqueuePaintBarcode(0);
 }
 
 void BarcodeGenerator::on_includecheckCheck_stateChanged(int)
 {
 	updateOptionsTextFromUI();
-	paintBarcode();
+	enqueuePaintBarcode(0);
 }
 
 void BarcodeGenerator::on_includecheckintextCheck_stateChanged(int)
 {
 	updateOptionsTextFromUI();
-	paintBarcode();
+	enqueuePaintBarcode(0);
 }
 
 void BarcodeGenerator::on_parseCheck_stateChanged(int)
 {
 	updateOptionsTextFromUI();
-	paintBarcode();
+	enqueuePaintBarcode(0);
 }
 
 void BarcodeGenerator::on_parsefncCheck_stateChanged(int)
 {
 	updateOptionsTextFromUI();
-	paintBarcode();
+	enqueuePaintBarcode(0);
 }
 
 void BarcodeGenerator::on_formatCombo_currentIndexChanged(int)
 {
 	updateOptionsTextFromUI();
-	paintBarcode();
+	enqueuePaintBarcode(0);
 }
 
 void BarcodeGenerator::on_eccCombo_currentIndexChanged(int)
 {
 	updateOptionsTextFromUI();
-	paintBarcode();
+	enqueuePaintBarcode(0);
 }
 
 void BarcodeGenerator::paintColorSample(QLabel *l, const ScColor & c)
@@ -599,8 +615,7 @@ void BarcodeGenerator::bgColorButton_pressed()
 	bgColor = d.selectedColor();
 	ui.bgLabel->setToolTip(d.selectedColorName());
 	paintColorSample(ui.bgLabel, bgColor);
-	updateOptionsTextFromUI();
-	paintBarcode();
+	enqueuePaintBarcode(0);
 }
 
 void BarcodeGenerator::lnColorButton_pressed()
@@ -611,8 +626,7 @@ void BarcodeGenerator::lnColorButton_pressed()
 	lnColor = d.selectedColor();
 	ui.linesLabel->setToolTip(d.selectedColorName());
 	paintColorSample(ui.linesLabel, lnColor);
-	updateOptionsTextFromUI();
-	paintBarcode();
+	enqueuePaintBarcode(0);
 }
 
 void BarcodeGenerator::txtColorButton_pressed()
@@ -623,8 +637,7 @@ void BarcodeGenerator::txtColorButton_pressed()
 	txtColor = d.selectedColor();
 	ui.txtLabel->setToolTip(d.selectedColorName());
 	paintColorSample(ui.txtLabel, txtColor);
-	updateOptionsTextFromUI();
-	paintBarcode();
+	enqueuePaintBarcode(0);
 }
 
 void BarcodeGenerator::okButton_pressed()
@@ -661,20 +674,13 @@ void BarcodeGenerator::cancelButton_pressed()
 
 void BarcodeGenerator::codeEdit_textChanged(const QString& s)
 {
-//	useSamples = false;
-	paintBarcode();
-}
-
-void BarcodeGenerator::optionsEdit_textChanged(const QString& s)
-{
-
+	enqueuePaintBarcode(250);
 }
 
 void BarcodeGenerator::on_optionsEdit_textChanged(const QString &s )
 {
-//    useSamples = false;
 	updateUIFromOptionsText();
-	paintBarcode();
+	enqueuePaintBarcode(250);
 }
 
 bool BarcodeGenerator::paintBarcode(const QString &fileName, int dpi)
@@ -742,13 +748,11 @@ bool BarcodeGenerator::paintBarcode(const QString &fileName, int dpi)
 	{
 // TODO capture gs output and display handled errors 
 		ui.sampleLabel->setText("<qt>" + tr("Barcode incomplete") + "</qt>");
-		ui.okButton->setEnabled(false);
 	}
 	return retval;
 }
 
 void BarcodeGenerator::resetButton_clicked()
 {
-//	useSamples = true;
 	bcComboChanged();
 }
