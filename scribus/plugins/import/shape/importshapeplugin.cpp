@@ -51,7 +51,7 @@ ImportShapePlugin::ImportShapePlugin() : LoadSavePlugin(),
 void ImportShapePlugin::languageChange()
 {
 	importAction->setText( tr("Import Dia Shapes..."));
-	FileFormat* fmt = getFormatByExt("sml");
+	FileFormat* fmt = getFormatByExt("shape");
 	fmt->trName = tr("Dia Shapes");
 	fmt->filter = tr("Dia Shapes (*.shape *.SHAPE)");
 }
