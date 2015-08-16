@@ -2549,6 +2549,7 @@ void ScribusMainWindow::newActWin(QWidget *w)
 		view->requestMode(doc->appMode);
 	}
 	view->setFocus();
+	view->setRulersShown(doc->guidesSettings.rulersShown);
 	wsp->setScrollBarsEnabled(!(w->isMaximized()));
 	scrActions["viewShowMargins"]->setChecked(doc->guidesSettings.marginsShown);
 	scrActions["viewShowBleeds"]->setChecked(doc->guidesSettings.showBleed);
@@ -2641,6 +2642,7 @@ void ScribusMainWindow::docSetup(ReformDoc* dia)
 	scrActions["viewRulerMode"]->setChecked(doc->guidesSettings.rulerMode);
 	scrActions["extrasGenerateTableOfContents"]->setEnabled(doc->hasTOCSetup());
 	view->cmsToolbarButton->setChecked(doc->HasCMS);
+	view->setRulersShown(doc->guidesSettings.rulersShown);
 	//doc emits changed() via this
 	doc->setMasterPageMode(true);
 	view->reformPages();

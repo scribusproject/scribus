@@ -320,7 +320,8 @@ void ReformDoc::updateDocumentSettings()
 	currDoc->guidesSettings.showPic = tabView->checkPictures->isChecked();
 	currDoc->guidesSettings.linkShown = tabView->checkLink->isChecked();
 	currDoc->guidesSettings.showControls = tabView->checkControl->isChecked();
-	currDoc->guidesSettings.rulerMode = tabView->checkRuler->isChecked();
+	currDoc->guidesSettings.rulersShown = tabView->checkRuler->isChecked();
+	currDoc->guidesSettings.rulerMode = tabView->checkRulerMode->isChecked();
 	currDoc->guidesSettings.grabRad = tabGuides->grabDistance->value();
 	currDoc->guidesSettings.guideRad = tabGuides->snapDistance->value();
 	currDoc->guidesSettings.minorGrid = tabGuides->minorSpace->value() / currDoc->unitRatio();

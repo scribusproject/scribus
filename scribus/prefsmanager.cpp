@@ -1272,8 +1272,8 @@ bool PrefsManager::WritePref(QString filename)
 	dc.setAttribute("SHOWLINK", static_cast<int>(appPrefs.guidesSettings.linkShown));
 	dc.setAttribute("SHOWPICT", static_cast<int>(appPrefs.guidesSettings.showPic));
 	dc.setAttribute("SHOWControl", static_cast<int>(appPrefs.guidesSettings.showControls));
-	dc.setAttribute("rulersShown", static_cast<int>(appPrefs.guidesSettings.rulersShown));
 	dc.setAttribute("showBleed", static_cast<int>(appPrefs.guidesSettings.showBleed));
+	dc.setAttribute("rulersShown", static_cast<int>(appPrefs.guidesSettings.rulersShown));
 	dc.setAttribute("rulerMode", static_cast<int>(appPrefs.guidesSettings.rulerMode));
 	dc.setAttribute("ScratchBottom", ScCLocale::toQStringC(appPrefs.scratch.Bottom));
 	dc.setAttribute("ScratchLeft", ScCLocale::toQStringC(appPrefs.scratch.Left));
@@ -1805,8 +1805,8 @@ bool PrefsManager::ReadPref(QString ho)
 			appPrefs.guidesSettings.linkShown = static_cast<bool>(dc.attribute("SHOWLINK", "0").toInt());
 			appPrefs.guidesSettings.showPic = static_cast<bool>(dc.attribute("SHOWPICT", "1").toInt());
 			appPrefs.guidesSettings.showControls = static_cast<bool>(dc.attribute("SHOWControl", "0").toInt());
-			appPrefs.guidesSettings.rulersShown = static_cast<bool>(dc.attribute("rulersShown", "1").toInt());
 			appPrefs.guidesSettings.showBleed = static_cast<bool>(dc.attribute("showBleed", "1").toInt());
+			appPrefs.guidesSettings.rulersShown = static_cast<bool>(dc.attribute("rulersShown", "1").toInt());
 			appPrefs.guidesSettings.rulerMode = static_cast<bool>(dc.attribute("rulerMode", "1").toInt());
 			appPrefs.haveStylePreview = static_cast<bool>(dc.attribute("STYLEPREVIEW", "1").toInt());
 			appPrefs.showStartupDialog = static_cast<bool>(dc.attribute("StartUp", "1").toInt());

@@ -379,7 +379,8 @@ void Preferences::updatePreferences()
 	prefsManager->appPrefs.guidesSettings.framesShown = tabView->checkFrame->isChecked();
 	prefsManager->appPrefs.guidesSettings.showBleed = tabView->checkBleed->isChecked();
 	prefsManager->appPrefs.guidesSettings.layerMarkersShown = tabView->checkLayerM->isChecked();
-	prefsManager->appPrefs.guidesSettings.rulerMode = tabView->checkRuler->isChecked();
+	prefsManager->appPrefs.guidesSettings.rulersShown = tabView->checkRuler->isChecked();
+	prefsManager->appPrefs.guidesSettings.rulerMode = tabView->checkRulerMode->isChecked();
 	prefsManager->appPrefs.guidesSettings.showPic = tabView->checkPictures->isChecked();
 	prefsManager->appPrefs.guidesSettings.linkShown = tabView->checkLink->isChecked();
 	prefsManager->appPrefs.guidesSettings.showControls = tabView->checkControl->isChecked();
