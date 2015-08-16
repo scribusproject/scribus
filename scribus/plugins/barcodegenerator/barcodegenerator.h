@@ -163,7 +163,7 @@ class BarcodeGenerator : public QDialog
 		void lnColorButton_pressed();
 		void txtColorButton_pressed();
 		void codeEdit_textChanged(const QString& s);
-		void optionsEdit_textChanged(const QString& s);
+		//void optionsEdit_textChanged(const QString& s);
 		void resetButton_clicked();
 		void okButton_pressed();
 		void cancelButton_pressed();
