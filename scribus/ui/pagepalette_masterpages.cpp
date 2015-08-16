@@ -499,6 +499,7 @@ void PagePalette_MasterPages::updateMasterPageList(QString masterPageName)
 			mpItem->setFlags(mpItem->flags() &= ~Qt::ItemIsEditable);
 		}
 		mpItem->setData(Qt::UserRole, it.key());
+		mpItem->setForeground(m_doc->MasterPages.at(it.value())->getMarkColor());
 		masterPageListBox->addItem(mpItem);
 	}
 	deleteButton->setEnabled(m_doc->MasterNames.count() == 1 ? false : true);

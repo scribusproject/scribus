@@ -6214,6 +6214,8 @@ void ScribusMainWindow::changePageProperties()
 		double pageHeight = dia->getPageHeight();
 		double pageWidth = dia->getPageWidth();
 		QString pageSizeName = dia->getpPrefsPageSizeName();
+		if (doc->masterPageMode())
+			doc->currentPage()->setMarkColor(dia->markerColor());
 		int lp=0;
 		if (doc->masterPageMode() && doc->pagePositioning() != singlePage)
 			lp = dia->pageOrder();

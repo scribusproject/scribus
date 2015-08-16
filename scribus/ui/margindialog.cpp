@@ -13,6 +13,7 @@ for which a new license (GPL+exception) is in place.
 #include <QGroupBox>
 #include <QComboBox>
 #include <QCheckBox>
+#include <QColorDialog>
 
 #include "commonstrings.h"
 #include "iconmanager.h"
@@ -123,24 +124,39 @@ MarginDialog::MarginDialog( QWidget* parent, ScribusDoc* doc ) : QDialog( parent
 	masterLayout->setSpacing( 5 );
 	masterLayout->setMargin( 10 );
 	masterPageLabel = new QLabel( groupMaster );
-	masterPageLabel->setText( tr( "Master Page:" ) );
 	masterLayout->addWidget( masterPageLabel );
-	masterPageComboBox = new QComboBox( groupMaster );
-	QString Nam = doc->currentPage()->MPageNam;
-	QString na = Nam == CommonStrings::masterPageNormal ? CommonStrings::trMasterPageNormal : Nam, in;
-	int cc = 0;
-	for (QMap<QString,int>::Iterator it = doc->MasterNames.begin(); it != doc->MasterNames.end(); ++it)
+	if (!doc->masterPageMode())
 	{
-		in = it.key() == CommonStrings::masterPageNormal ? CommonStrings::trMasterPageNormal : it.key();
-		masterPageComboBox->addItem(in);
-		if (in == na)
-			masterPageComboBox->setCurrentIndex(cc);
-		++cc;
+		masterPageLabel->setText( tr( "Master Page:" ) );
+		masterPageComboBox = new QComboBox( groupMaster );
+		QString Nam = doc->currentPage()->MPageNam;
+		QString na = Nam == CommonStrings::masterPageNormal ? CommonStrings::trMasterPageNormal : Nam, in;
+		int cc = 0;
+		for (QMap<QString,int>::Iterator it = doc->MasterNames.begin(); it != doc->MasterNames.end(); ++it)
+		{
+			in = it.key() == CommonStrings::masterPageNormal ? CommonStrings::trMasterPageNormal : it.key();
+			masterPageComboBox->addItem(in);
+			if (in == na)
+				masterPageComboBox->setCurrentIndex(cc);
+			++cc;
+		}
+		masterLayout->addWidget( masterPageComboBox );
+		pageFillColor = QColor();
 	}
-	masterLayout->addWidget( masterPageComboBox );
+	else
+	{
+		masterPageComboBox = NULL;
+		masterPageLabel->setText( tr( "Page Marker Color:" ) );
+		QPixmap pm(100, 30);
+		pm.fill(doc->currentPage()->getMarkColor());
+		pageFillColor = doc->currentPage()->getMarkColor();
+		pageFillColorButton = new QPushButton(this);
+		pageFillColorButton->setText( QString::null );
+		pageFillColorButton->setIcon(pm);
+		masterLayout->addWidget( pageFillColorButton );
+		connect(pageFillColorButton, SIGNAL(clicked()), this, SLOT(changeMarkerColor()));
+	}
 	dialogLayout->addWidget( groupMaster );
-	if (doc->masterPageMode())
-		groupMaster->hide();
 
 	okCancelLayout = new QHBoxLayout;
 	okCancelLayout->setSpacing( 5 );
@@ -282,6 +298,18 @@ void MarginDialog::setOrien(int ori)
 	connect(heightSpinBox, SIGNAL(valueChanged(double)), this, SLOT(setPageHeight(double)));
 }
 
+void MarginDialog::changeMarkerColor()
+{
+	QColor newColor(QColorDialog::getColor(pageFillColor, this));
+	if (newColor.isValid())
+	{
+		QPixmap pm(100, 30);
+		pm.fill(newColor);
+		pageFillColor = newColor;
+		pageFillColorButton->setIcon(pm);
+	}
+}
+
 int MarginDialog::pageOrder()
 {
 	int lp=0;
@@ -343,7 +371,14 @@ double MarginDialog::right()
 
 QString MarginDialog::masterPage()
 {
-	return masterPageComboBox->currentText();
+	if (masterPageComboBox != NULL)
+		return masterPageComboBox->currentText();
+	return "";
+}
+
+QColor MarginDialog::markerColor()
+{
+	return pageFillColor;
 }
 
 int MarginDialog::getMarginPreset()

@@ -62,6 +62,7 @@ ScPage::ScPage(const double x, const double y, const double b, const double h) :
 	PresentVals.Dm = 0;
 	PresentVals.M = 0;
 	PresentVals.Di = 0;
+	m_markColor = Qt::blue;
 }
 
 ScPage::~ScPage()
@@ -98,6 +99,11 @@ void ScPage::setPageName(const QString& newName)
 	m_PageName = newName;
 	if (!newName.isEmpty())
 		setUName(QObject::tr("Master Page ") + newName);
+}
+
+void ScPage::setMarkColor(QColor color)
+{
+	m_markColor = color;
 }
 
 void ScPage::restore(UndoState* state, bool isUndo)

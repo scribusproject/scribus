@@ -68,6 +68,8 @@ public:
 	double topMargin() const { return Margins.top(); }
 	double bottomMargin() const { return Margins.bottom(); }
 	double rightMargin() const { return Margins.right(); }
+	void setMarkColor(QColor color);
+	QColor getMarkColor() const { return m_markColor; }
 
 	MarginStruct Margins;
 	MarginStruct initialMargins;
@@ -119,6 +121,7 @@ protected:
 	QString m_PageName;
 	ScribusDoc* m_Doc;	
 	QString m_pageSectionNumber;
+	QColor m_markColor;
 };
 
 Q_DECLARE_METATYPE(ScPage*);
