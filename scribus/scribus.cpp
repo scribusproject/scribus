@@ -2542,6 +2542,7 @@ void ScribusMainWindow::newActWin(QMdiSubWindow *w)
 		view->requestMode(doc->appMode);
 	}
 	view->setFocus();
+	view->setRulersShown(doc->guidesPrefs().rulersShown);
 	scrActions["viewShowMargins"]->setChecked(doc->guidesPrefs().marginsShown);
 	scrActions["viewShowBleeds"]->setChecked(doc->guidesPrefs().showBleed);
 	scrActions["viewShowFrames"]->setChecked(doc->guidesPrefs().framesShown);
