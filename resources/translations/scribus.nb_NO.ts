@@ -198,6 +198,10 @@
         <source>SVN Revision: %1</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Scribus 1.5.1+ Icon Set:</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>AboutPlugins</name>
@@ -2379,7 +2383,7 @@ Configuration invalid</source>
     <name>Barcode</name>
     <message>
         <source>Scribus frontend for Pure PostScript Barcode Writer</source>
-        <translation>Scribusgrensesnitt for å lage strekkoder i ren postscript</translation>
+        <translation type="vanished">Scribusgrensesnitt for å lage strekkoder i ren postscript</translation>
     </message>
     <message>
         <source>Barcode</source>
@@ -2387,6 +2391,10 @@ Configuration invalid</source>
     </message>
     <message>
         <source>Insert a barcode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Scribus frontend for Barcode Writer in Pure PostScript</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2398,31 +2406,31 @@ Configuration invalid</source>
     </message>
     <message>
         <source>12 or 13 digits</source>
-        <translation>12 eller 13 sifre</translation>
+        <translation type="vanished">12 eller 13 sifre</translation>
     </message>
     <message>
         <source>8 digits</source>
-        <translation>8 sifre</translation>
+        <translation type="vanished">8 sifre</translation>
     </message>
     <message>
         <source>11 or 12 digits</source>
-        <translation>11 eller 12 sifre</translation>
+        <translation type="vanished">11 eller 12 sifre</translation>
     </message>
     <message>
         <source>7 or 8 digits</source>
-        <translation>7 eller 8 sifre</translation>
+        <translation type="vanished">7 eller 8 sifre</translation>
     </message>
     <message>
         <source>5 digits</source>
-        <translation>5 sifre</translation>
+        <translation type="vanished">5 sifre</translation>
     </message>
     <message>
         <source>2 digits</source>
-        <translation>2 sifre</translation>
+        <translation type="vanished">2 sifre</translation>
     </message>
     <message>
         <source>Variable number of characters, digits and any of the symbols -. *$/+%.</source>
-        <translation>Variabelt antall tegn, tall og en av symbolene -. *$/+%.</translation>
+        <translation type="vanished">Variabelt antall tegn, tall og en av symbolene -. *$/+%.</translation>
     </message>
     <message>
         <source>Variable number of ASCII characters and special function symbols, starting with the appropriate start character for the initial character set. UCC/EAN-128s must have a mandatory FNC 1 symbol immediately following the start character.</source>
@@ -2430,23 +2438,23 @@ Configuration invalid</source>
     </message>
     <message>
         <source>Variable number of digits and any of the symbols -$:/.+ABCD.</source>
-        <translation>Variabelt antall tall og ett av symbolene -$:/.+ABCD.</translation>
+        <translation type="vanished">Variabelt antall tall og ett av symbolene -$:/.+ABCD.</translation>
     </message>
     <message>
         <source>Variable number of digits. An ITF-14 is 14 characters and does not have a check digit</source>
-        <translation>Variabelt antall tall. ITF-14 er på 14 tegn og har ikke et kontrollsiffer.</translation>
+        <translation type="vanished">Variabelt antall tall. ITF-14 er på 14 tegn og har ikke et kontrollsiffer.</translation>
     </message>
     <message>
         <source>Variable number of digits</source>
-        <translation>Variabelt antall tall</translation>
+        <translation type="vanished">Variabelt antall tall</translation>
     </message>
     <message>
         <source>Variable number of digits and capital letters</source>
-        <translation>Variabelt antall tall og store bokstaver</translation>
+        <translation type="vanished">Variabelt antall tall og store bokstaver</translation>
     </message>
     <message>
         <source>Variable number of hexadecimal characters</source>
-        <translation>Variabelt antall heksadesimale tegn</translation>
+        <translation type="vanished">Variabelt antall heksadesimale tegn</translation>
     </message>
     <message>
         <source>Barcode incomplete</source>
@@ -2454,7 +2462,7 @@ Configuration invalid</source>
     </message>
     <message>
         <source>12 or 13 digits with dashes. The legacy ISBN-10 format accepts 9 or 10 digits with dashes, but this standard was depreciated for public use after 1st January 2007. (Note: To convert an old ISBN-10 to a new ISBN-13, prefix 978- to the first 9 digits, e.g. 1-56592-479-7 -&gt; 978-1-56592-479. The final check-digit will be calculated automatically.)</source>
-        <translation>12 eller 13 tegn med bindestrek. Et standard ISBN-10-format godtar 9 eller 10 tall med bindestreker. Men siden 1. januar 2007 er denne standarden ikke lenger anbefalt. (Merknad: For å endre en ISBN-10-kode til en ny, ISBN-13-kode, legg 978 foran de første 9 tallene. For eksempel fra 1-56592-479-7 til 978-1-56592-479. Det siste kontrollsifferet blir beregnet automatisk.)</translation>
+        <translation type="vanished">12 eller 13 tegn med bindestrek. Et standard ISBN-10-format godtar 9 eller 10 tall med bindestreker. Men siden 1. januar 2007 er denne standarden ikke lenger anbefalt. (Merknad: For å endre en ISBN-10-kode til en ny, ISBN-13-kode, legg 978 foran de første 9 tallene. For eksempel fra 1-56592-479-7 til 978-1-56592-479. Det siste kontrollsifferet blir beregnet automatisk.)</translation>
     </message>
     <message>
         <source>Select Type</source>
@@ -2462,94 +2470,46 @@ Configuration invalid</source>
     </message>
     <message>
         <source>Barcode</source>
-        <translation type="unfinished">Strekkode</translation>
+        <translation type="obsolete">Strekkode</translation>
     </message>
     <message>
-        <source>Variable number of characters, digits and any symbols.</source>
+        <source>Select a barcode format</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>EAN-13</source>
+        <source>Point of Sale</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>EAN-8</source>
+        <source>Supply Chain</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>UPC-A</source>
+        <source>Two-dimensional symbols</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>UPC-E</source>
+        <source>One-dimensional symbols</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>EAN-5</source>
+        <source>GS1 DataBar family</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>EAN-2</source>
+        <source>Postal symbols</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>ISBN</source>
+        <source>Pharmaceutical symbols</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Code-39</source>
+        <source>Less-used symbols</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Code-128</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Rationalized Codabar</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Interleaved 2 of 5</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>ITF-14</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Code 2 of 5</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Postnet</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Royal Mail</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>MSI</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Plessey</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>QR Code</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Any data.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>GS1-128</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>GS1 Application Identifier standard format. FNC1 characters are included automatically.</source>
+        <source>GS1 Composite symbols</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2557,11 +2517,11 @@ Configuration invalid</source>
     <name>BarcodeGeneratorBase</name>
     <message>
         <source>&amp;Type:</source>
-        <translation>&amp;Type:</translation>
+        <translation type="vanished">&amp;Type:</translation>
     </message>
     <message>
         <source>Select one of the available barcode type here</source>
-        <translation>Velg en av strekkodene</translation>
+        <translation type="vanished">Velg en av strekkodene</translation>
     </message>
     <message>
         <source>The numeric representation of the code itself. See the help message below</source>
@@ -2589,7 +2549,7 @@ Configuration invalid</source>
     </message>
     <message>
         <source>Colors</source>
-        <translation>Farger</translation>
+        <translation type="vanished">Farger</translation>
     </message>
     <message>
         <source>&amp;Background</source>
@@ -2629,11 +2589,11 @@ Configuration invalid</source>
     </message>
     <message>
         <source>Hints and help is shown here</source>
-        <translation>Tips og hjelp vises her</translation>
+        <translation type="vanished">Tips og hjelp vises her</translation>
     </message>
     <message>
         <source>Co&amp;de:</source>
-        <translation>&amp;Kode:</translation>
+        <translation type="vanished">&amp;Kode:</translation>
     </message>
     <message>
         <source>Alt+N</source>
@@ -2657,42 +2617,90 @@ Configuration invalid</source>
     </message>
     <message>
         <source>Format</source>
-        <translation>Format</translation>
+        <translation type="vanished">Format</translation>
     </message>
     <message>
         <source>Incl&amp;ude Checksum Digit</source>
-        <translation>&amp;Ta med kontrollsifferet</translation>
+        <translation type="vanished">&amp;Ta med kontrollsifferet</translation>
     </message>
     <message>
         <source>I&amp;nclude Checksum</source>
-        <translation>&amp;Ta med kontrollsifferet</translation>
+        <translation type="vanished">&amp;Ta med kontrollsifferet</translation>
     </message>
     <message>
         <source>&amp;Guard Whitespace</source>
-        <translation>&amp;Beskytt mellomrom</translation>
+        <translation type="vanished">&amp;Beskytt mellomrom</translation>
     </message>
     <message>
         <source>&amp;Include Text in Barcode</source>
-        <translation>&amp;Ta med tekst i strekkoden</translation>
+        <translation type="vanished">&amp;Ta med tekst i strekkoden</translation>
     </message>
     <message>
         <source>Options</source>
-        <translation type="unfinished">Innstillinger</translation>
+        <translation type="obsolete">Innstillinger</translation>
     </message>
     <message>
-        <source>&amp;Format:</source>
+        <source>Display checksum</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Error &amp;checking:</source>
+        <source>Show readable text</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Minimum error checking; raised opportunistically if size of symbol is not increased</source>
+        <source>Parse specials</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>The numeric representation of the code itself. See the help message below.</source>
+        <source>Guard whitespace</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>^NNN as ASCII</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Add checksum</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Advanced options for the barcode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Barcode:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Contents:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Options:</source>
+        <translation type="unfinished">Innstillinger:</translation>
+    </message>
+    <message>
+        <source>The contents encoded in the barcode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Select one of the available barcode types here</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Version:</source>
+        <translation type="unfinished">Versjon:</translation>
+    </message>
+    <message>
+        <source>Version of the symbol.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Error correction level.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Error correction level:</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -7077,6 +7085,22 @@ Ignore List</source>
         <translation>Legg til i 
 lista over ord som skal overses</translation>
     </message>
+    <message>
+        <source>Accept the proposed hyphenation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Add edited hyphen to local hyphenation dictionary list</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Add edited word to words that should not be hyphenated</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Do not apply the proposed hyphenation</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>IdmlPlug</name>
@@ -7241,10 +7265,6 @@ converting their vector data into Scribus objects.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Corel Draw (*.cdr *.CDR)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>All Supported Formats</source>
         <translation type="unfinished">Alle støttede formater</translation>
     </message>
@@ -7257,6 +7277,10 @@ converting their vector data into Scribus objects.</source>
 
 Please submit your file (if possible) to the
 Document Liberation Project http://www.documentliberation.org</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Corel Draw (*.ccx *.CCX *.cdr *.CDR *.cdt *.CDT *.cmx *.CMX)</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -9135,6 +9159,10 @@ p, li { white-space: pre-wrap; }
         <source>Size of the inserted pages, either a standard or custom size</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Page Marker Color:</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>MarginWidget</name>
@@ -10092,7 +10120,7 @@ Hvis du ikke har valgt noe håndtak blir alle håndtakene stilt tilbake.</transl
     </message>
     <message>
         <source>Link</source>
-        <translation type="unfinished">Lenke</translation>
+        <translation type="obsolete">Lenke</translation>
     </message>
     <message>
         <source>Printer Margins...</source>
@@ -15216,10 +15244,6 @@ Do you want to use this?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Placement:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Snap Distance:</source>
         <translation type="unfinished">Festeavstand:</translation>
     </message>
@@ -16865,10 +16889,6 @@ Et kort tidsrom gir en kort effekt, et lengre tidsrom gir en lengre effekt.</tra
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Embed only subset fonts with glyphs used in the document into the PDF.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Insert a comma separated list of tokens where a token can be * for all the pages, 1-5 for a range of pages or a single page number</source>
         <translation type="unfinished"></translation>
     </message>
@@ -16922,6 +16942,10 @@ Et kort tidsrom gir en kort effekt, et lengre tidsrom gir en lengre effekt.</tra
     </message>
     <message>
         <source>Fit the document page or pages to the available space in the viewer window</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Embed only subset fonts with glyphs used in the document into the PDF</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -18396,7 +18420,7 @@ a range of pages or a single page number</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Fill is solid unless a subpath is counterdirectional</source>
+        <source>Fill is solid unless a subpath is counter-directional</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

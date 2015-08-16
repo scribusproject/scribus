@@ -70,5 +70,9 @@
 	<string>1.5.1.svn</string>
 	<key>CFBundleSignature</key>
 	<string>OSCR</string>
+	<key>NSPrincipalClass</key>
+	<string>NSApplication</string>
+	<key>NSHighResolutionCapable</key>
+	<string>True</string>
 </dict>
 </plist>
