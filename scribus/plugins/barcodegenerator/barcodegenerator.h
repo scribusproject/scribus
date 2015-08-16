@@ -118,6 +118,10 @@ class BarcodeGenerator : public QDialog
 		QString tmpFile;
 		//! \brief A temporary PS file to store commants for Ghostscript.
 		QString psFile;
+		//! \brief A temporary file to store stderr from Ghostscript.
+		QString fileStdErr;
+		//! \brief A temporary file to store stdout from Ghostscript.
+		QString fileStdOut;
 		QColor guiColor;
 
 		/*! \brief Create bitmap for current BC.

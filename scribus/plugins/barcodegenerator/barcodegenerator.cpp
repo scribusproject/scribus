@@ -292,6 +292,8 @@ BarcodeGenerator::BarcodeGenerator(QWidget* parent, const char* name)
 
 	tmpFile = QDir::toNativeSeparators(ScPaths::getTempFileDir() + "bcode.png");
 	psFile = QDir::toNativeSeparators(ScPaths::getTempFileDir() + "bcode.ps");
+	fileStdErr = QDir::toNativeSeparators(ScPaths::getTempFileDir() + "bcode.err");
+	fileStdOut = QDir::toNativeSeparators(ScPaths::getTempFileDir() + "bcode.out");
 
 	paintBarcodeTimer=new QTimer(this);
 	paintBarcodeTimer->setSingleShot(true);
@@ -305,6 +307,8 @@ BarcodeGenerator::~BarcodeGenerator()
 {
 	QFile::remove(psFile);
 	QFile::remove(tmpFile);
+	QFile::remove(fileStdErr);
+	QFile::remove(fileStdOut);
 
 	if (paintBarcodeTimer)
 	{
@@ -703,6 +707,23 @@ bool BarcodeGenerator::paintBarcode(const QString &fileName, int dpi)
 	foreach (req, resreqs[enc].split(" ")) 
 		psCommand.append(resbodys[req]);
 	psCommand.append(resbodys[enc]);
+	psCommand.append(
+		"errordict begin\n"
+		"/handleerror {\n"
+		"$error begin\n"
+		"errorname dup length string cvs 0 6 getinterval (bwipp.) eq {\n"
+		"(%stderr) (w) file\n"
+		"dup (\nBWIPP ERROR: ) writestring\n"
+		"dup errorname dup length string cvs writestring\n"
+		"dup ( ) writestring\n"
+		"dup errorinfo dup length string cvs writestring\n"
+		"dup (\n) writestring\n"
+		"dup flushfile end quit\n"
+		"} if\n"
+		"end //handleerror exec\n"
+		"} bind def\n"
+		"end\n"
+	);
 	QString comm("20 10 moveto <%1> <%2> /%3 /uk.co.terryburton.bwipp findresource exec\n");
 	QString bcdata(ui.codeEdit->text().toLatin1().toHex());
 	QString bcopts(opts.toLatin1().toHex());
@@ -732,7 +753,7 @@ bool BarcodeGenerator::paintBarcode(const QString &fileName, int dpi)
 	gargs.append( psFile );
 	qApp->changeOverrideCursor(Qt::WaitCursor);
 	QFile::remove(realFile);
-	int gs = callGS(gargs);
+	int gs = callGS(gargs,NULL,fileStdErr,fileStdOut);
 	bool retval = gs==0 && QFile::exists(realFile);   // GS returns 0 for BWIPP-handled errors
 	qApp->changeOverrideCursor(Qt::ArrowCursor);
 //	qApp->restoreOverrideCursor();
@@ -746,8 +767,21 @@ bool BarcodeGenerator::paintBarcode(const QString &fileName, int dpi)
 	}
 	else
 	{
-// TODO capture gs output and display handled errors 
-		ui.sampleLabel->setText("<qt>" + tr("Barcode incomplete") + "</qt>");
+		QString errorMsg="<qt>" + tr("Barcode incomplete") + "</qt>";
+		if (QFile::exists(fileStdErr))  // Display BWIPP handled error message
+		{
+			QFile f(fileStdErr);
+			f.open(QIODevice::ReadOnly);
+			QTextStream ts(&f);
+			QString err = ts.readAll();
+			f.close();
+			QRegExp rx("[\\r\\n]+BWIPP ERROR: [^\\s]+ (.*)[\\r\\n$]+");
+			rx.setMinimal(true);
+			if (rx.indexIn(err) != -1)
+				errorMsg=rx.cap(1).trimmed();
+
+		}
+		ui.sampleLabel->setText(errorMsg);
 	}
 	return retval;
 }
