@@ -235,6 +235,7 @@ ScAnnot::ScAnnot(QWidget* parent, PageItem *it, int Seite, int b, int h, ColorLi
 	else
 		Pg1 = new Navigator( GroupBoxDestination, 100, qMin(annotation.Ziel(), Seite-1), view);
 	Pg1->setMinimumSize(QSize(Pg1->pmx.width(), Pg1->pmx.height()));
+	GroupBoxDestinationLayout->addWidget(Pg1, 2, 2, 3, 1);
 
 	SpinBox21->setSuffix( tr( " pt" ) );
 	SpinBox21->setMaximum(Width);
