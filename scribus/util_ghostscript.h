@@ -38,7 +38,7 @@ QPixmap SCRIBUS_API LoadPDF(QString fn, int Page, int Size, int *w, int *h);
    * @param args_in Custom arguments to GhostScript
    * @param device GS device to use (defaults to an image device if omitted)
  */
-int     SCRIBUS_API callGS(const QStringList& args_in, const QString device="");
+int     SCRIBUS_API callGS(const QStringList& args_in, const QString device="", const QString fileStdErr = "", const QString fileStdOut = "");
 int     SCRIBUS_API callGS(const QString& args_in, const QString device="");
 int     SCRIBUS_API convertPS2PS(QString in, QString out, const QStringList& opts, int level);
 int     SCRIBUS_API convertPS2PDF(QString in, QString out, const QStringList& opts);

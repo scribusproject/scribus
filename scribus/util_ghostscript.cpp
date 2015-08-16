@@ -59,7 +59,7 @@ for which a new license (GPL+exception) is in place.
 using namespace std;
 
 
-int callGS(const QStringList& args_in, const QString device)
+int callGS(const QStringList& args_in, const QString device, const QString fileStdErr, const QString fileStdOut)
 {
 	QString cmd;
  	QStringList args;
@@ -97,7 +97,7 @@ int callGS(const QStringList& args_in, const QString device)
 	args.append("-c");
 	args.append("showpage");
 //	qDebug(args.join(" ").toLatin1());
-	return System( getShortPathName(prefsManager->ghostscriptExecutable()), args );
+	return System( getShortPathName(prefsManager->ghostscriptExecutable()), args, fileStdErr, fileStdOut );
 }
 
 int callGS(const QString& args_in, const QString device)
