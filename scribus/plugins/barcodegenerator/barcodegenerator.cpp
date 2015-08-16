@@ -753,7 +753,7 @@ bool BarcodeGenerator::paintBarcode(const QString &fileName, int dpi)
 	gargs.append( psFile );
 	qApp->changeOverrideCursor(Qt::WaitCursor);
 	QFile::remove(realFile);
-	int gs = callGS(gargs,NULL,fileStdErr,fileStdOut);
+	int gs = callGS(gargs, QString(), fileStdErr, fileStdOut);
 	bool retval = gs==0 && QFile::exists(realFile);   // GS returns 0 for BWIPP-handled errors
 	qApp->changeOverrideCursor(Qt::ArrowCursor);
 //	qApp->restoreOverrideCursor();
