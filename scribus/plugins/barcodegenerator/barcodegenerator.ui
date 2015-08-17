@@ -432,7 +432,7 @@
          </size>
         </property>
         <property name="toolTip">
-         <string>Version of the symbol.</string>
+         <string>Version of the symbol</string>
         </property>
        </widget>
       </item>
@@ -445,7 +445,7 @@
          </size>
         </property>
         <property name="toolTip">
-         <string>Error correction level.</string>
+         <string>Error correction level</string>
         </property>
        </widget>
       </item>

@@ -68,7 +68,7 @@ Prefs_PDFExport::Prefs_PDFExport(QWidget* parent, ScribusDoc* doc)
 	useEncryptionCheckBox->setToolTip( "<qt>" + tr( "Enable the security features in your exported PDF. If you selected PDF 1.3, the PDF will be protected by 40 bit encryption. If you selected PDF 1.4, the PDF will be protected by 128 bit encryption. Disclaimer: PDF encryption is not as reliable as GPG or PGP encryption and does have some limitations." ) + "</qt>" );
 	passwordOwnerLineEdit->setToolTip( "<qt>" + tr( "Choose an owner password which enables or disables all the security features in your exported PDF" ) + "</qt>" );
 	passwordUserLineEdit->setToolTip( "<qt>" + tr( "Choose a password for users to be able to read your PDF" ) + "</qt>" );
-	allowPrintingCheckBox->setToolTip( "<qt>" + tr( "Allow printing of the PDF. If unchecked, printing is prevented. " ) + "</qt>" );
+	allowPrintingCheckBox->setToolTip( "<qt>" + tr( "Allow printing of the PDF. If unchecked, printing is prevented." ) + "</qt>" );
 	allowChangingCheckBox->setToolTip( "<qt>" + tr( "Allow modifying of the PDF. If unchecked, modifying the PDF is prevented." ) + "</qt>" );
 	allowCopyingCheckBox->setToolTip( "<qt>" + tr( "Allow copying of text or graphics from the PDF. If unchecked, text and graphics cannot be copied." ) + "</qt>" );
 	allowAnnotatingCheckBox->setToolTip( "<qt>" + tr( "Allow adding annotations and fields to the PDF. If unchecked, editing annotations and fields is prevented." ) + "</qt>" );
