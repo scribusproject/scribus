@@ -112,79 +112,52 @@ CMYKChoose::CMYKChoose( QWidget* parent, ScribusDoc* doc, ScColor orig, QString 
 	// We set it in the dialog showEvent().
 	// Swatches->setCurrentComboItem( tr( "HSV Color Map" ));
 
+	slidersLayout->setSpacing(5);
+	slidersLayout->setMargin(0);
+
 	CyanSp->setNewUnit(0);
 	CyanSp->setMinimum(0);
 	CyanSp->setMaximum(100);
 	CyanSp->setSuffix( tr(" %"));
 
-
-	CyanSL = new QSlider(this);
-	CyanSL->setObjectName(QStringLiteral("CyanSL"));
-	CyanSL->setMinimumSize(QSize(16, 255));
 	CyanSL->setAutoFillBackground(true);
+	CyanSL->setMinimumSize(QSize(255, 16));
 	CyanSL->setMinimum(0);
 	CyanSL->setMaximum(100);
-	CyanSL->setOrientation(Qt::Vertical);
 	CyanSL->setPalette(sliderPix(180));
-	cMenu = new QMenu("");
-	QWidgetAction *cAct = new QWidgetAction(this);
-	cAct->setDefaultWidget(CyanSL);
-	cMenu->addAction(cAct);
-	CyanP->setMenu(cMenu);
 
 	MagentaSp->setNewUnit(0);
 	MagentaSp->setMinimum(0);
 	MagentaSp->setMaximum(100);
 	MagentaSp->setSuffix( tr(" %"));
-	MagentaSL = new QSlider(this);
-	MagentaSL->setObjectName(QStringLiteral("MagentaSL"));
-	MagentaSL->setMinimumSize(QSize(16, 255));
+
 	MagentaSL->setAutoFillBackground(true);
+	MagentaSL->setMinimumSize(QSize(255, 16));
 	MagentaSL->setMinimum(0);
 	MagentaSL->setMaximum(100);
-	MagentaSL->setOrientation(Qt::Vertical);
 	MagentaSL->setPalette(sliderPix(300));
-	mMenu = new QMenu("");
-	QWidgetAction *mAct = new QWidgetAction(this);
-	mAct->setDefaultWidget(MagentaSL);
-	mMenu->addAction(mAct);
-	MagentaP->setMenu(mMenu);
 
 	YellowSp->setNewUnit(0);
 	YellowSp->setMinimum(0);
 	YellowSp->setMaximum(100);
 	YellowSp->setSuffix( tr(" %"));
-	YellowSL = new QSlider(this);
-	YellowSL->setObjectName(QStringLiteral("YellowSL"));
-	YellowSL->setMinimumSize(QSize(16, 255));
+
 	YellowSL->setAutoFillBackground(true);
+	YellowSL->setMinimumSize(QSize(255, 16));
 	YellowSL->setMinimum(0);
 	YellowSL->setMaximum(100);
-	YellowSL->setOrientation(Qt::Vertical);
 	YellowSL->setPalette(sliderPix(60));
-	yMenu = new QMenu("");
-	QWidgetAction *yAct = new QWidgetAction(this);
-	yAct->setDefaultWidget(YellowSL);
-	yMenu->addAction(yAct);
-	YellowP->setMenu(yMenu);
 
 	BlackSp->setNewUnit(0);
 	BlackSp->setMinimum(0);
 	BlackSp->setMaximum(100);
 	BlackSp->setSuffix( tr(" %"));
-	BlackSL = new QSlider(this);
-	BlackSL->setObjectName(QStringLiteral("BlackSL"));
-	BlackSL->setMinimumSize(QSize(16, 255));
+
 	BlackSL->setAutoFillBackground(true);
+	BlackSL->setMinimumSize(QSize(255, 16));
 	BlackSL->setMinimum(0);
 	BlackSL->setMaximum(100);
-	BlackSL->setOrientation(Qt::Vertical);
 	BlackSL->setPalette(sliderBlack());
-	kMenu = new QMenu("");
-	QWidgetAction *bAct = new QWidgetAction(this);
-	bAct->setDefaultWidget(BlackSL);
-	kMenu->addAction(bAct);
-	BlackP->setMenu(kMenu);
 
 	if (orig.getColorModel () == colorModelCMYK)
 	{
@@ -277,10 +250,6 @@ bool CMYKChoose::isSpotColor()
 
 void CMYKChoose::setValSLiders(double value)
 {
-	disconnect( CyanSL, SIGNAL( valueChanged(int) ), this, SLOT( setColor() ) );
-	disconnect( MagentaSL, SIGNAL( valueChanged(int) ), this, SLOT( setColor() ) );
-	disconnect( YellowSL, SIGNAL( valueChanged(int) ), this, SLOT( setColor() ) );
-	disconnect( BlackSL, SIGNAL( valueChanged(int) ), this, SLOT( setColor() ) );
 	if (CyanSp == sender())
 		CyanSL->setValue(value * 1000);
 	if (MagentaSp == sender())
@@ -289,10 +258,6 @@ void CMYKChoose::setValSLiders(double value)
 		YellowSL->setValue(value * 1000);
 	if (BlackSp == sender())
 		BlackSL->setValue(value * 1000);
-	connect( CyanSL, SIGNAL( valueChanged(int) ), this, SLOT( setColor() ) );
-	connect( MagentaSL, SIGNAL( valueChanged(int) ), this, SLOT( setColor() ) );
-	connect( YellowSL, SIGNAL( valueChanged(int) ), this, SLOT( setColor() ) );
-	connect( BlackSL, SIGNAL( valueChanged(int) ), this, SLOT( setColor() ) );
 }
 
 void CMYKChoose::slotRightClick()
@@ -343,7 +308,7 @@ QPalette CMYKChoose::sliderPix(int farbe)
 {
 	RGBColor rgb;
 	CMYKColor cmyk;
-	QImage image0 = QImage(10, 255, QImage::Format_ARGB32);
+	QImage image0 = QImage(255, 10, QImage::Format_ARGB32);
 	QPainter p;
 	p.begin(&image0);
 	p.setPen(Qt::NoPen);
@@ -519,17 +484,17 @@ QPalette CMYKChoose::sliderPix(int farbe)
 				p.setBrush(tmp);
 			}
 		}
-		p.drawRect(0, x, 10, 5);
+		p.drawRect(x, 0, 5, 10);
 	}
 	p.end();
 	QPalette pal;
-	pal.setBrush(QPalette::Window, QBrush(image0.mirrored(false, true)));
+	pal.setBrush(QPalette::Window, QBrush(image0));
 	return pal;
 }
 
 QPalette CMYKChoose::sliderBlack()
 {
-	QImage image0 = QImage(10, 255, QImage::Format_ARGB32);
+	QImage image0 = QImage(255, 10, QImage::Format_ARGB32);
 	QPainter p;
 	int val = 255;
 	p.begin(&image0);
@@ -544,12 +509,12 @@ QPalette CMYKChoose::sliderBlack()
 			p.setBrush( ScColorEngine::getDisplayColorGC(ScColor(c, m, y, x), m_doc) );
 		else
 			p.setBrush( ScColorEngine::getDisplayColorGC(ScColor(0, 0, 0, x), m_doc) );
-		p.drawRect(0, x, 10, 5);
+		p.drawRect(x, 0, 5, 10);
 		val -= 5;
 	}
 	p.end();
 	QPalette pal;
-	pal.setBrush(QPalette::Window, QBrush(image0.mirrored(false, true)));
+	pal.setBrush(QPalette::Window, QBrush(image0));
 	return pal;
 }
 
@@ -624,35 +589,49 @@ void CMYKChoose::selModel(const QString& mod)
 	{
 		Wsave = false;
 		CyanSL->setMaximum( 100 * 1000.0);
-		MagentaSL->setMaximum( 100 * 1000.0 );
-		YellowSL->setMaximum( 100 * 1000.0 );
-		BlackSL->setMaximum( 100 * 1000.0);
 		CyanSL->setMinimum( 0 * 1000.0 );
-		CyanSp->setMaximum( 100 );
-		MagentaSp->setMaximum( 100);
-		YellowSp->setMaximum( 100 );
 		CyanSL->setSingleStep(1 * 1000.0);
-		MagentaSL->setSingleStep(1 * 1000.0);
-		YellowSL->setSingleStep(1 * 1000.0);
-		BlackSL->setSingleStep(1 * 1000.0);
 		CyanSL->setPageStep(10 * 1000.0);
+
+		MagentaSL->setMaximum( 100 * 1000.0 );
+		MagentaSL->setMinimum( 0 * 1000.0 );
+		MagentaSL->setSingleStep(1 * 1000.0);
 		MagentaSL->setPageStep(10 * 1000.0);
+
+		YellowSL->setMaximum( 100 * 1000.0 );
+		YellowSL->setMinimum( 0 * 1000.0 );
+		YellowSL->setSingleStep(1 * 1000.0);
 		YellowSL->setPageStep(10 * 1000.0);
+
+		BlackSL->setMaximum( 100 * 1000.0);
+		BlackSL->setMinimum( 0 * 1000.0);
+		BlackSL->setSingleStep(1 * 1000.0);
 		BlackSL->setPageStep(10 * 1000.0);
+
+		CyanSp->setMaximum( 100 );
+		CyanSp->setMinimum( 0 );
 		CyanSp->setDecimals(1);
-		MagentaSp->setDecimals(1);
-		YellowSp->setDecimals(1);
-		BlackSp->setDecimals(1);
 		CyanSp->setSingleStep(1);
-		MagentaSp->setSingleStep(1);
-		YellowSp->setSingleStep(1);
 		CyanSp->setSuffix( tr(" %"));
+
+		MagentaSp->setMaximum( 100);
+		MagentaSp->setMinimum( 0 );
+		MagentaSp->setDecimals(1);
+		MagentaSp->setSingleStep(1);
 		MagentaSp->setSuffix( tr(" %"));
+
+		YellowSp->setMaximum( 100 );
+		YellowSp->setMinimum( 0 );
+		YellowSp->setDecimals(1);
+		YellowSp->setSingleStep(1);
 		YellowSp->setSuffix( tr(" %"));
+
+		BlackSp->setDecimals(1);
+		
 		CyanT->setText( tr("C:"));
 		MagentaT->setText( tr("M:"));
 		YellowT->setText( tr("Y:"));
-		BlackP->show();
+		BlackSL->show();
 		BlackSp->show();
 		BlackT->show();
 		if (Farbe.getColorModel() != colorModelCMYK)
@@ -669,30 +648,41 @@ void CMYKChoose::selModel(const QString& mod)
 		Wsave = false;
 		CyanSL->setMaximum( 255 * 1000.0 );
 		CyanSL->setMinimum( 0 * 1000.0 );
-		MagentaSL->setMaximum( 255 * 1000.0 );
-		YellowSL->setMaximum( 255 * 1000.0 );
 		CyanSL->setSingleStep(1 * 1000.0);
-		MagentaSL->setSingleStep(1 * 1000.0);
-		YellowSL->setSingleStep(1 * 1000.0);
 		CyanSL->setPageStep(1 * 1000.0);
+
+		MagentaSL->setMaximum( 255 * 1000.0 );
+		MagentaSL->setMinimum( 0 * 1000.0 );
+		MagentaSL->setSingleStep(1 * 1000.0);
 		MagentaSL->setPageStep(1 * 1000.0);
+
+		YellowSL->setMaximum( 255 * 1000.0 );
+		YellowSL->setMinimum( 0 * 1000.0 );
+		YellowSL->setSingleStep(1 * 1000.0);
 		YellowSL->setPageStep(1 * 1000.0);
+
 		CyanSp->setSingleStep(1);
-		MagentaSp->setSingleStep(1);
-		YellowSp->setSingleStep(1);
 		CyanSp->setMaximum( 255 );
-		MagentaSp->setMaximum( 255 );
-		YellowSp->setMaximum( 255 );
+		CyanSp->setMinimum( 0 );
 		CyanSp->setDecimals(0);
-		MagentaSp->setDecimals(0);
-		YellowSp->setDecimals(0);
 		CyanSp->setSuffix("");
+
+		MagentaSp->setSingleStep(1);
+		MagentaSp->setMaximum( 255 );
+		MagentaSp->setMinimum( 0 );
+		MagentaSp->setDecimals(0);
 		MagentaSp->setSuffix("");
+
+		YellowSp->setSingleStep(1);
+		YellowSp->setMaximum( 255 );
+		YellowSp->setMinimum( 0 );
+		YellowSp->setDecimals(0);
 		YellowSp->setSuffix("");
+		
 		CyanT->setText( tr("R:"));
 		MagentaT->setText( tr("G:"));
 		YellowT->setText( tr("B:"));
-		BlackP->hide();
+		BlackSL->hide();
 		BlackSp->hide();
 		BlackT->hide();
 		if (mod == tr("Web Safe RGB"))
@@ -753,7 +743,7 @@ void CMYKChoose::selModel(const QString& mod)
 		MagentaT->setText( tr("a:"));
 		YellowT->setText( tr("b:"));
 
-		BlackP->hide();
+		BlackSL->hide();
 		BlackSp->hide();
 		BlackT->hide();
 		if (Farbe.getColorModel() != colorModelLab)
@@ -803,7 +793,7 @@ void CMYKChoose::selModel(const QString& mod)
 		MagentaT->setText( tr("L:"));
 		YellowT->setText( tr("C:"));
 
-		BlackP->hide();
+		BlackSL->hide();
 		BlackSp->hide();
 		BlackT->hide();
 		if (Farbe.getColorModel() != colorModelLab)

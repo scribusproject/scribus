@@ -4008,7 +4008,7 @@ vous avez des photos dans votre composition.</translation>
     <message>
         <location filename="../../scribus/ui/cmykfw.cpp" line="802"/>
         <source>H:</source>
-        <translation type="unfinished">Teinte :</translation>
+        <translation type="unfinished">H :</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/cmykfw.cpp" line="1119"/>

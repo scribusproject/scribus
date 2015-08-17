@@ -573,6 +573,7 @@
     <moc Include="..\..\..\scribus\ui\proptree.h" />
     <moc Include="..\..\..\scribus\ui\viewtoolbar.h" />
     <moc Include="..\..\..\scribus\ui\resourcemanager.h" />
+    <ClInclude Include="..\..\..\scribus\ui\sccolorslider.h" />
     <ClInclude Include="..\..\..\scribus\ui\ui_downloadspalettebase.h" />
     <ClInclude Include="..\..\..\scribus\ui\ui_resourcemanagerbase.h" />
     <ClInclude Include="..\..\..\scribus\undotransaction.h" />
@@ -1314,6 +1315,7 @@
     <ClCompile Include="..\..\..\scribus\sccolor.cpp" />
     <ClCompile Include="..\..\..\scribus\sccolorengine.cpp" />
     <ClCompile Include="..\..\..\scribus\sccolorshade.cpp" />
+    <ClCompile Include="..\..\..\scribus\ui\sccolorslider.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\sccombobox.cpp" />
     <ClCompile Include="..\..\..\scribus\downloadmanager\scdlmgr.cpp" />
     <ClCompile Include="..\..\..\scribus\downloadmanager\scdlthread.cpp" />

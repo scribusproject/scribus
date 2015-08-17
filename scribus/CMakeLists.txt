@@ -595,7 +595,6 @@ SET(SCRIBUS_SOURCES
 	fileloader.cpp
 	filesearch.cpp
 	filewatcher.cpp
-	ui/fontcombo.cpp
 	fontlistmodel.cpp
 	fpoint.cpp
 	fpointarray.cpp
@@ -801,6 +800,7 @@ SET(SCRIBUS_SOURCES
 	ui/effectsdialog.cpp
 	ui/extimageprops.cpp
 	ui/filedialogeventcatcher.cpp
+	ui/fontcombo.cpp
 	ui/fontlistview.cpp
 	ui/fontreplacedialog.cpp
 	ui/gradientaddedit.cpp
@@ -921,6 +921,7 @@ SET(SCRIBUS_SOURCES
 	ui/replaceonecolor.cpp
 	ui/resourcemanager.cpp
 	ui/rulermover.cpp
+	ui/sccolorslider.cpp
 	ui/sccombobox.cpp
 	ui/scdockpalette.cpp
 	ui/scescapecatcher.cpp

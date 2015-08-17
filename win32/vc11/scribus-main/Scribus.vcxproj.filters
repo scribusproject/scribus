@@ -98,9 +98,6 @@
     <ClInclude Include="..\..\..\scribus\canvasmode_copyproperties.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\scribus\canvasmode_create.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\scribus\canvasmode_drawbezier.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -1018,6 +1015,9 @@
     </ClInclude>
     <ClInclude Include="..\..\..\scribus\colormgmt\sccolorspacedata_labdbl.h">
       <Filter>colorMgmt</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\ui\sccolorslider.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -2542,6 +2542,9 @@
     <ClCompile Include="..\..\..\scribus\iconmanager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\sccolorslider.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Scribus.rc">
@@ -4011,6 +4014,9 @@
       <Filter>Header Files</Filter>
     </moc>
     <moc Include="..\..\..\scribus\iconmanager.h">
+      <Filter>Header Files</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\canvasmode_create.h">
       <Filter>Header Files</Filter>
     </moc>
   </ItemGroup>
