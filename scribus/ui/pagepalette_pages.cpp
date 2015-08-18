@@ -205,7 +205,9 @@ void PagePalette_Pages::rebuildMasters()
 		else
 			item = new QListWidgetItem(pageLabel, masterPageList);
 		item->setData(Qt::UserRole, pageName);
-		item->setForeground(currView->Doc->MasterPages.at(it.value())->getMarkColor());
+		QPixmap pm(16, 16);
+		pm.fill(currView->Doc->MasterPages.at(it.value())->getMarkColor());
+		item->setIcon(pm);
 	}
 }
 
