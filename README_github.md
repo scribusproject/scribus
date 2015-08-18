@@ -32,6 +32,6 @@ Leave a message for us in the issue queues.
 
 - [Scribus Mailing List](http://list.scribus.net/)
 
-- IRC [webchat](http://wiki.scribus.net/canvas/Special:WebChat) or (direct link)[irc://irc.freenode.net/scribus]
+- IRC [webchat](http://wiki.scribus.net/canvas/Special:WebChat) or [direct link](irc://irc.freenode.net/scribus)
 
 - [Forums](http://forums.scribus.net/)
