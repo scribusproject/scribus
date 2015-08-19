@@ -218,11 +218,11 @@ void ScribusQApp::parseCommandLine()
 	useGUI = true;
 	//We are going to run something other than command line help
 	QString qtARG_SCRIPTARG_PREFIX = QString(ARG_SCRIPTARG_PREFIX);
-	int i = 1;
-	for( ; i < argsc; i++) { //handle all options (not positional parameters)
-		arg = args[i];
+	int argi = 1;
+	for( ; argi < argsc; argi++) { //handle options (not positional parameters)
+		arg = args[argi];
 
-		if ((arg == ARG_LANG || arg == ARG_LANG_SHORT) && (++i < argsc)) {
+		if ((arg == ARG_LANG || arg == ARG_LANG_SHORT) && (++argi < argsc)) {
 			continue;
 		} else if ( arg == ARG_CONSOLE || arg == ARG_CONSOLE_SHORT ) {
 			continue;
@@ -238,12 +238,12 @@ void ScribusQApp::parseCommandLine()
 			showFontInfo=true;
 		} else if (arg == ARG_PROFILEINFO || arg == ARG_PROFILEINFO_SHORT) {
 			showProfileInfo=true;
-		} else if ((arg == ARG_DISPLAY || arg==ARG_DISPLAY_SHORT || arg==ARG_DISPLAY_QT) && ++i < argsc) {
+		} else if ((arg == ARG_DISPLAY || arg==ARG_DISPLAY_SHORT || arg==ARG_DISPLAY_QT) && ++argi < argsc) {
 			// allow setting of display, QT expect the option -display <display_name> so we discard the
 			// last argument. FIXME: Qt only understands -display not --display and -d , we need to work
 			// around this.
 		} else if (arg == ARG_PREFS || arg == ARG_PREFS_SHORT) {
-			prefsUserFile = QFile::decodeName(args[i + 1].toLocal8Bit());
+			prefsUserFile = QFile::decodeName(args[argi + 1].toLocal8Bit());
 			if (!QFileInfo(prefsUserFile).exists()) {
 				showHeader();
 				if (prefsUserFile.left(1) == "-" || prefsUserFile.left(2) == "--") {
@@ -254,40 +254,40 @@ void ScribusQApp::parseCommandLine()
 				showUsage();
 				std::exit(EXIT_FAILURE);
 			} else {
-				++i;
+				++argi;
 			}
 		} else if (strncmp(arg.toLocal8Bit().data(),"-psn_",4) == 0)
 		{
 			// Andreas Vox: Qt/Mac has -psn_blah flags that must be accepted.
 		} else if (arg == ARG_PYTHONSCRIPT || arg == ARG_PYTHONSCRIPT_SHORT) {
-			pythonScript = QFile::decodeName(args[i + 1].toLocal8Bit());
+			pythonScript = QFile::decodeName(args[argi + 1].toLocal8Bit());
 			if (!QFileInfo(pythonScript).exists()) {
 				showHeader();
 				if (pythonScript.left(1) == "-" || pythonScript.left(2) == "--") {
-					std::cout << tr("Invalid option: ").toLocal8Bit().data() << pythonScript.toLocal8Bit().data() << std::endl;
+					std::cout << tr("Invalid argument: ").toLocal8Bit().data() << pythonScript.toLocal8Bit().data() << std::endl;
 				} else {
 					std::cout << tr("File %1 does not exist, aborting.").arg(pythonScript).toLocal8Bit().data() << std::endl;
 				}
 				showUsage();
 				std::exit(EXIT_FAILURE);
 			} else {
-				++i;
+				++argi;
 			}
 		} else if (arg == CMD_OPTIONS_END) { //double dash, indicates end of command line options, see http://unix.stackexchange.com/questions/11376/what-does-double-dash-mean-also-known-as-bare-double-dash
-			i++;
+			argi++;
 			break;
 		} else if (arg.startsWith(qtARG_SCRIPTARG_PREFIX)) {
 			pythonScriptArgs.append( arg.mid(qtARG_SCRIPTARG_PREFIX.size()-1) ); //-1 to get the dash from prefix
-			if (!args[i+1].startsWith("-")) {
-				pythonScriptArgs.append( QFile::decodeName(args[++i].toLocal8Bit()) );
+			if (!args[argi+1].startsWith("-")) {
+				pythonScriptArgs.append( QFile::decodeName(args[++argi].toLocal8Bit()) );
 			}
 		} else { //argument is not a known option, but either positional parameter or invalid.
 			break;
 		}
 	}
-	//remaining arguments, if any
-	for ( ; i<argsc; i++) {
-		fileName = QFile::decodeName(args[i].toLocal8Bit());
+	//remaining (positional) arguments, if any
+	for ( ; argi<argsc; argi++) {
+		fileName = QFile::decodeName(args[argi].toLocal8Bit());
 		if (!QFileInfo(fileName).exists()) {
 			showHeader();
 			if (fileName.left(1) == "-" || fileName.left(2) == "--") {

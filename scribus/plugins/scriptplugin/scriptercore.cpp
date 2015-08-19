@@ -230,10 +230,10 @@ void ScripterCore::RecentScript(QString fn)
 void ScripterCore::slotRunScriptFile(QString fileName, bool inMainInterpreter)
 {
 	QStringList arguments = QStringList();
-	slotRunScriptFileArgs(fileName, arguments, inMainInterpreter);
+	slotRunScriptFile(fileName, arguments, inMainInterpreter);
 }
 
-void ScripterCore::slotRunScriptFileArgs(QString fileName, QStringList arguments, bool inMainInterpreter)
+void ScripterCore::slotRunScriptFile(QString fileName, QStringList arguments, bool inMainInterpreter)
 /** run "filename" python script with the additional arguments provided in "arguments" */
 {
 	// Prevent two scripts to be run concurrently or face crash!
@@ -376,7 +376,7 @@ void ScripterCore::slotRunPythonScript()
 {
 	if (!ScQApp->pythonScript.isNull())
 	{
-		slotRunScriptFileArgs(ScQApp->pythonScript, ScQApp->pythonScriptArgs, true);
+		slotRunScriptFile(ScQApp->pythonScript, ScQApp->pythonScriptArgs, true);
 		FinishScriptRun();
 	}
 }
