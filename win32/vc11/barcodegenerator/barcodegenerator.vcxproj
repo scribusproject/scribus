@@ -208,10 +208,12 @@
   <ItemGroup>
     <ClCompile Include="..\..\..\scribus\plugins\barcodegenerator\barcode.cpp" />
     <ClCompile Include="..\..\..\scribus\plugins\barcodegenerator\barcodegenerator.cpp" />
+    <ClCompile Include="..\..\..\scribus\plugins\barcodegenerator\barcodegeneratorrenderthread.cpp" />
   </ItemGroup>
   <ItemGroup>
     <moc Include="..\..\..\scribus\plugins\barcodegenerator\barcode.h" />
     <moc Include="..\..\..\scribus\plugins\barcodegenerator\barcodegenerator.h" />
+    <moc Include="..\..\..\scribus\plugins\barcodegenerator\barcodegeneratorrenderthread.h" />
     <ClInclude Include="..\..\..\scribus\plugins\barcodegenerator\ui_barcodegenerator.h" />
   </ItemGroup>
   <ItemGroup>

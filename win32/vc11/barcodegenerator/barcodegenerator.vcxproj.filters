@@ -27,10 +27,16 @@
     <ClCompile Include="..\..\..\scribus\plugins\barcodegenerator\barcodegenerator.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\scribus\plugins\barcodegenerator\barcodegeneratorrenderthread.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\scribus\plugins\barcodegenerator\ui_barcodegenerator.h">
       <Filter>Generated Form Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\plugins\barcodegenerator\barcodegeneratorrenderthread.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
