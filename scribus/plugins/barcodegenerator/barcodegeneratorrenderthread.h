@@ -15,25 +15,25 @@ for which a new license (GPL+exception) is in place.
 
 class BarcodeGeneratorRenderThread : public QThread
 {
-    Q_OBJECT
+	Q_OBJECT
 
 public:
-    BarcodeGeneratorRenderThread(QObject *parent = 0);
-    ~BarcodeGeneratorRenderThread();
-    void render(QString);
+	BarcodeGeneratorRenderThread(QObject *parent = 0);
+	~BarcodeGeneratorRenderThread();
+	void render(QString);
 
 signals:
-    void renderedImage(QString);
+	void renderedImage(QString);
 
 protected:
-    void run();
+	void run();
 
 private:
-    QMutex mutex;
-    QWaitCondition condition;
-    QString psCommand;
-    bool restart;
-    bool abort;
+	QMutex mutex;
+	QWaitCondition condition;
+	QString psCommand;
+	bool restart;
+	bool abort;
 
 };
 
