@@ -9,10 +9,12 @@ for which a new license (GPL+exception) is in place.
 #define BARCODEGENERATOR_H
 
 #include "ui_barcodegenerator.h"
+#include "barcodegeneratorrenderthread.h"
 
 #include <QColor>
 #include <QDialog>
 #include <QLabel>
+#include <QList>
 #include <QString>
 #include <QTimer>
 
@@ -106,6 +108,10 @@ class BarcodeGenerator : public QDialog
 		QHash<QString, bool> resparseAvail;
 		//! \brief parsefnc option available for each encoder.
 		QHash<QString, bool> resparsefncAvail;
+		//! \brief List of barcode families.
+		QList<QString> familyList;
+		//! \brief Family to item hash.
+		QHash<QString, QStringList> familyItems;
 
 		//! \brief Color of the BC lines.
 		ScColor lnColor;
@@ -114,25 +120,8 @@ class BarcodeGenerator : public QDialog
 		//! \brief Background color of the BC.
 		ScColor bgColor;
 
-		//! \brief A temporary png pixmap to store the preview image.
-		QString tmpFile;
-		//! \brief A temporary PS file to store commants for Ghostscript.
-		QString psFile;
-		//! \brief A temporary file to store stderr from Ghostscript.
-		QString fileStdErr;
-		//! \brief A temporary file to store stdout from Ghostscript.
-		QString fileStdOut;
 		QColor guiColor;
 
-		/*! \brief Create bitmap for current BC.
-		When tt's called for preview, the 72dpi, small PNG image is
-		created each time user change GUI. No need to call it for
-		final rendering because we have PS file created from "preview" run.
-		\param fileName a optional file name to store on user's filesyste,
-		\param dpi optional DPI value. Default is 72 for preview.
-		\retval bool true on success.
-		*/
-//		bool paintBarcode(const QString &fileName = QString(), int dpi = 72);
 		/*! \brief Create color preview.
 		Used for Color box feedback.
 		\param l A pointer to the sample QLabel
@@ -148,9 +137,12 @@ class BarcodeGenerator : public QDialog
 
 	private:
 		void enqueuePaintBarcode(int);
+		BarcodeGeneratorRenderThread thread;
 
 	protected slots:
-		bool paintBarcode(const QString &fileName = QString(), int dpi = 72);
+		void paintBarcode();
+		void updatePreview(QString);
+		void bcFamilyComboChanged();
 		void bcComboChanged();
 		void bcComboChanged(int);
 		//void textCheck_changed();
@@ -167,7 +159,7 @@ class BarcodeGenerator : public QDialog
 		void resetButton_clicked();
 		void okButton_pressed();
 		void cancelButton_pressed();
-private slots:
+	private slots:
 		void on_includetextCheck_stateChanged(int arg1);
 		void on_includecheckCheck_stateChanged(int arg1);
 		void on_includecheckintextCheck_stateChanged(int arg1);

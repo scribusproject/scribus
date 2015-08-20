@@ -10,11 +10,13 @@ SET(BARCODEGENERATOR_PLUGIN_UI_SRC
 SET(BARCODEGENERATOR_PLUGIN_MOC_CLASSES
 	barcode.h
 	barcodegenerator.h
+	barcodegeneratorrenderthread.h
 )
 
 SET(BARCODEGENERATOR_PLUGIN_SOURCES
 	barcode.cpp
 	barcodegenerator.cpp
+	barcodegeneratorrenderthread.cpp
 )
 
 SET(SCRIBUS_BARCODEGENERATOR_PLUGIN "barcodegenerator")

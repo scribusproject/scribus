@@ -15,12 +15,12 @@ for which a new license (GPL+exception) is in place.
 #include "scribuscore.h"
 #include "ui/paintmanager.h"
 #include "undomanager.h"
-#include "util_ghostscript.h"
 
 
 #include <QTextStream>
 #include <QStandardItemModel>
 #include <QTimer>
+#include <QThread>
 
 BarcodeType::BarcodeType(const QString &cmd, const QString &exa, const QString &exaop)
 {
@@ -35,6 +35,8 @@ BarcodeGenerator::BarcodeGenerator(QWidget* parent, const char* name)
 	ui.setupUi(this);
 	setObjectName(name);
 	setModal(true);
+
+	connect(&thread, SIGNAL(renderedImage(QString)),this, SLOT(updatePreview(QString)));
 
 	/*
 	 *  We extract the barcode information from the BWIPP metadata which looks like this:
@@ -174,86 +176,85 @@ BarcodeGenerator::BarcodeGenerator(QWidget* parent, const char* name)
 	foreach (enc,parsefncAvail)
 		resparsefncAvail[enc]=true; 
 
+	// Building up the bcFamilyCombo grouping the formats for readablity
+	ui.bcFamilyCombo->addItem(tr("Select a barcode family")); // to prevent 1st gs call
+	ui.bcFamilyCombo->insertSeparator(999);
+
 	// Building up the bcCombo grouping the formats for readablity
 	ui.bcCombo->addItem(tr("Select a barcode format")); // to prevent 1st gs call
 	ui.bcCombo->insertSeparator(999);
 
-	QStringList bcpos;
-	bcpos << "EAN-13" << "EAN-8" << "UPC-A" << "UPC-E" << "ISBN" << "ISMN" << "ISSN";
-	ui.bcCombo->addItem(tr("Point of Sale"));
-	qobject_cast<QStandardItemModel *>(ui.bcCombo->model())->item(ui.bcCombo->findText("Point of Sale"))->setEnabled(false);
-	ui.bcCombo->addItems(bcpos);
-	ui.bcCombo->insertSeparator(999);
+	QString familyName;
+	QStringList bcNames;
+	bcNames << "EAN-13" << "EAN-8" << "UPC-A" << "UPC-E" << "ISBN" << "ISMN" << "ISSN";
+	familyName = tr("Point of Sale");
+	familyList.append(familyName);
+	familyItems.insert(familyName, bcNames);
 
-	QStringList bcsupplychain;
-	bcsupplychain << "GS1-14" << "GS1 Data Matrix" << "GS1 QR Code" << "GS1-128" << "ITF-14" << "SSCC-18";
-	ui.bcCombo->addItem(tr("Supply Chain"));
-	qobject_cast<QStandardItemModel *>(ui.bcCombo->model())->item(ui.bcCombo->findText("Supply Chain"))->setEnabled(false);
-	ui.bcCombo->addItems(bcsupplychain);
-	ui.bcCombo->insertSeparator(999);
+	bcNames.clear();
+	bcNames << "GS1-14" << "GS1 Data Matrix" << "GS1 QR Code" << "GS1-128" << "ITF-14" << "SSCC-18";
+	familyName = tr("Supply Chain");
+	familyList.append(familyName);
+	familyItems.insert(familyName, bcNames);
 
-	QStringList bctwodim;
-	bctwodim << "QR Code" << "Micro QR Code" << "Data Matrix" << "Aztec Code" << "Compact Aztec Code";
-	bctwodim << "Aztec Runes" << "PDF417" << "Compact PDF417" << "MicroPDF417";
-	ui.bcCombo->addItem(tr("Two-dimensional symbols"));
-	qobject_cast<QStandardItemModel *>(ui.bcCombo->model())->item(ui.bcCombo->findText("Two-dimensional symbols"))->setEnabled(false);
-	ui.bcCombo->addItems(bctwodim);
-	ui.bcCombo->insertSeparator(999);
+	bcNames.clear();
+	bcNames << "QR Code" << "Micro QR Code" << "Data Matrix" << "Aztec Code" << "Compact Aztec Code";
+	bcNames << "Aztec Runes" << "PDF417" << "Compact PDF417" << "MicroPDF417";
+	familyName = tr("Two-dimensional symbols");
+	familyList.append(familyName);
+	familyItems.insert(familyName, bcNames);
 
-	QStringList bconedim;
-	bconedim << "Code 128" << "Code 39" << "Code 39 Extended" << "Code 93" << "Code 93 Extended";
-	bconedim << "Interleaved 2 of 5 (ITF)";
-	ui.bcCombo->addItem(tr("One-dimensional symbols"));
-	qobject_cast<QStandardItemModel *>(ui.bcCombo->model())->item(ui.bcCombo->findText("One-dimensional symbols"))->setEnabled(false);
-	ui.bcCombo->addItems(bconedim);
-	ui.bcCombo->insertSeparator(999);
+	bcNames.clear();
+	bcNames << "Code 128" << "Code 39" << "Code 39 Extended" << "Code 93" << "Code 93 Extended";
+	bcNames << "Interleaved 2 of 5 (ITF)";
+	familyName = tr("One-dimensional symbols");
+	familyList.append(familyName);
+	familyItems.insert(familyName, bcNames);
 
-	QStringList bcdatabar;
-	bcdatabar << "GS1 DataBar Omnidirectional" << "GS1 DataBar Stacked Omnidirectional";
-	bcdatabar << "GS1 DataBar Expanded" << "GS1 DataBar Expanded Stacked" << "GS1 DataBar Truncated";
-	bcdatabar << "GS1 DataBar Stacked" << "GS1 DataBar Limited";
-	ui.bcCombo->addItem(tr("GS1 DataBar family"));
-	qobject_cast<QStandardItemModel *>(ui.bcCombo->model())->item(ui.bcCombo->findText("GS1 DataBar family"))->setEnabled(false);
-	ui.bcCombo->addItems(bcdatabar);
-	ui.bcCombo->insertSeparator(999);
+	bcNames.clear();
+	bcNames << "GS1 DataBar Omnidirectional" << "GS1 DataBar Stacked Omnidirectional";
+	bcNames << "GS1 DataBar Expanded" << "GS1 DataBar Expanded Stacked" << "GS1 DataBar Truncated";
+	bcNames << "GS1 DataBar Stacked" << "GS1 DataBar Limited";
+	familyName = tr("GS1 DataBar family");
+	familyList.append(familyName);
+	familyItems.insert(familyName, bcNames);
 
-	QStringList bcpostal;
-	bcpostal << "AusPost 4 State Customer Code" << "Deutsche Post Identcode" << "Deutsche Post Leitcode";
-	bcpostal << "Japan Post 4 State Customer Code" << "Royal Dutch TPG Post KIX";
-	bcpostal << "Royal Mail 4 State Customer Code" << "USPS Intelligent Mail" << "USPS PLANET" << "USPS POSTNET";
-	ui.bcCombo->addItem(tr("Postal symbols"));
-	qobject_cast<QStandardItemModel *>(ui.bcCombo->model())->item(ui.bcCombo->findText("Postal symbols"))->setEnabled(false);
-	ui.bcCombo->addItems(bcpostal);
-	ui.bcCombo->insertSeparator(999);
+	bcNames.clear();
+	bcNames << "AusPost 4 State Customer Code" << "Deutsche Post Identcode" << "Deutsche Post Leitcode";
+	bcNames << "Japan Post 4 State Customer Code" << "Royal Dutch TPG Post KIX";
+	bcNames << "Royal Mail 4 State Customer Code" << "USPS Intelligent Mail" << "USPS PLANET" << "USPS POSTNET";
+	familyName = tr("Postal symbols");
+	familyList.append(familyName);
+	familyItems.insert(familyName, bcNames);
 
-	QStringList bcpharma;
-	bcpharma << "Italian Pharmacode" << "Pharmaceutical Binary Code" << "Two-track Pharmacode";
-	bcpharma << "Pharmazentralnummer (PZN)" << "HIBC Codablock F" << "HIBC Code 128" << "HIBC Code 39";
-	bcpharma << "HIBC Data Matrix" << "HIBC MicroPDF417" << "HIBC PDF417" << "HIBC QR Code";
-	ui.bcCombo->addItem(tr("Pharmaceutical symbols"));
-	qobject_cast<QStandardItemModel *>(ui.bcCombo->model())->item(ui.bcCombo->findText("Pharmaceutical symbols"))->setEnabled(false);
-	ui.bcCombo->addItems(bcpharma);
-	ui.bcCombo->insertSeparator(999);
+	bcNames.clear();
+	bcNames << "Italian Pharmacode" << "Pharmaceutical Binary Code" << "Two-track Pharmacode";
+	bcNames << "Pharmazentralnummer (PZN)" << "HIBC Codablock F" << "HIBC Code 128" << "HIBC Code 39";
+	bcNames << "HIBC Data Matrix" << "HIBC MicroPDF417" << "HIBC PDF417" << "HIBC QR Code";
+	familyName = tr("Pharmaceutical symbols");
+	familyList.append(familyName);
+	familyItems.insert(familyName, bcNames);
 
-	QStringList bclessused;
-	bclessused << "Code 11" << "Codabar" << "Code 25" << "COOP 2 of 5" << "Datalogic 2 of 5" << "IATA 2 of 5";
-	bclessused << "Industrial 2 of 5" << "Matrix 2 of 5" << "MSI Modified Plessey" << "Plessey UK";
-	bclessused << "PosiCode" << "Telepen" << "Telepen Numeric"<< "Code 16K" << "Codablock F" << "Code 49";
-	bclessused << "Code One";
-	ui.bcCombo->addItem(tr("Less-used symbols"));
-	qobject_cast<QStandardItemModel *>(ui.bcCombo->model())->item(ui.bcCombo->findText("Less-used symbols"))->setEnabled(false);
-	ui.bcCombo->addItems(bclessused);
-	ui.bcCombo->insertSeparator(999);
+	bcNames.clear();
+	bcNames << "Code 11" << "Codabar" << "Code 25" << "COOP 2 of 5" << "Datalogic 2 of 5" << "IATA 2 of 5";
+	bcNames << "Industrial 2 of 5" << "Matrix 2 of 5" << "MSI Modified Plessey" << "Plessey UK";
+	bcNames << "PosiCode" << "Telepen" << "Telepen Numeric"<< "Code 16K" << "Codablock F" << "Code 49";
+	bcNames << "Code One";
+	familyName = tr("Less-used symbols");
+	familyList.append(familyName);
+	familyItems.insert(familyName, bcNames);
 
-	QStringList bcgs1comp;
-	bcgs1comp << "EAN-13 Composite" << "EAN-8 Composite" << "UPC-A Composite" << "UPC-E Composite";
-	bcgs1comp << "GS1 DataBar Omnidirectional Composite" << "GS1 DataBar Stacked Omnidirectional Composite";
-	bcgs1comp << "GS1 DataBar Expanded Composite" << "GS1 DataBar Expanded Stacked Composite";
-	bcgs1comp << "GS1 DataBar Truncated Composite" << "GS1 DataBar Stacked Composite";
-	bcgs1comp << "GS1 DataBar Limited Composite" << "GS1-128 Composite";
-	ui.bcCombo->addItem(tr("GS1 Composite symbols"));
-	qobject_cast<QStandardItemModel *>(ui.bcCombo->model())->item(ui.bcCombo->findText("GS1 Composite symbols"))->setEnabled(false);
-	ui.bcCombo->addItems(bcgs1comp);
+	bcNames.clear();
+	bcNames << "EAN-13 Composite" << "EAN-8 Composite" << "UPC-A Composite" << "UPC-E Composite";
+	bcNames << "GS1 DataBar Omnidirectional Composite" << "GS1 DataBar Stacked Omnidirectional Composite";
+	bcNames << "GS1 DataBar Expanded Composite" << "GS1 DataBar Expanded Stacked Composite";
+	bcNames << "GS1 DataBar Truncated Composite" << "GS1 DataBar Stacked Composite";
+	bcNames << "GS1 DataBar Limited Composite" << "GS1-128 Composite";
+	familyName = tr("GS1 Composite symbols");
+	familyList.append(familyName);
+	familyItems.insert(familyName, bcNames);
+
+	ui.bcFamilyCombo->addItems(familyList);
 
 	/*
 	 *  End of the hard-coded data 
@@ -290,32 +291,30 @@ BarcodeGenerator::BarcodeGenerator(QWidget* parent, const char* name)
 	paintColorSample(ui.txtLabel, txtColor);
 	paintColorSample(ui.bgLabel, bgColor);
 
-	tmpFile = QDir::toNativeSeparators(ScPaths::getTempFileDir() + "bcode.png");
-	psFile = QDir::toNativeSeparators(ScPaths::getTempFileDir() + "bcode.ps");
-	fileStdErr = QDir::toNativeSeparators(ScPaths::getTempFileDir() + "bcode.err");
-	fileStdOut = QDir::toNativeSeparators(ScPaths::getTempFileDir() + "bcode.out");
-
 	paintBarcodeTimer=new QTimer(this);
 	paintBarcodeTimer->setSingleShot(true);
 	connect(paintBarcodeTimer, SIGNAL(timeout()), this, SLOT(paintBarcode()));
 
+	connect(ui.bcFamilyCombo, SIGNAL(activated(QString)), this, SLOT(bcFamilyComboChanged()));
+	connect(ui.bcCombo, SIGNAL(activated(QString)), this, SLOT(bcComboChanged()));
+	connect(ui.bgColorButton, SIGNAL(clicked()), this, SLOT(bgColorButton_pressed()));
+	connect(ui.lnColorButton, SIGNAL(clicked()), this, SLOT(lnColorButton_pressed()));
+	connect(ui.txtColorButton, SIGNAL(clicked()), this, SLOT(txtColorButton_pressed()));
+	connect(ui.okButton, SIGNAL(clicked()), this, SLOT(okButton_pressed()));
+	connect(ui.cancelButton, SIGNAL(clicked()), this, SLOT(cancelButton_pressed()));
+	connect(ui.codeEdit, SIGNAL(textChanged(QString)), this, SLOT(codeEdit_textChanged(QString)));
+	connect(ui.resetButton, SIGNAL(clicked()), this, SLOT(resetButton_clicked()));
 	bcComboChanged();
 
 }
 
 BarcodeGenerator::~BarcodeGenerator()
 {
-	QFile::remove(psFile);
-	QFile::remove(tmpFile);
-	QFile::remove(fileStdErr);
-	QFile::remove(fileStdOut);
-
 	if (paintBarcodeTimer)
 	{
 		delete paintBarcodeTimer;
 		paintBarcodeTimer=NULL;
 	}
-
 }
 
 void BarcodeGenerator::updateOptions()
@@ -358,6 +357,18 @@ void BarcodeGenerator::updateOptions()
 	}
 	ui.eccCombo->blockSignals(false);
 
+}
+
+
+void BarcodeGenerator::bcFamilyComboChanged()
+{
+	ui.bcCombo->blockSignals(true);
+	ui.bcCombo->clear();
+	ui.bcCombo->addItem(tr("Select a barcode format")); // to prevent 1st gs call
+	ui.bcCombo->insertSeparator(999);
+	ui.bcCombo->addItems(familyItems[ui.bcFamilyCombo->currentText()]);
+	ui.bcCombo->blockSignals(false);
+	bcComboChanged();
 }
 
 void BarcodeGenerator::bcComboChanged(int i)
@@ -428,49 +439,67 @@ void BarcodeGenerator::enqueuePaintBarcode(int delay)
 	paintBarcodeTimer->start(delay);
 }
 
-void BarcodeGenerator::updateOptionsTextFromUI() {
-
+void BarcodeGenerator::updateOptionsTextFromUI()
+{
 	QString opts=ui.optionsEdit->text();
 
- 	if (ui.includetextCheck->isChecked()) {
+	if (ui.includetextCheck->isChecked())
+	{
 		if (!opts.contains(QRegExp("\\bincludetext\\b")))
 			opts.append(" includetext");
-	} else { 
+	}
+	else
+	{
 		opts.replace(QRegExp("\\bincludetext\\b")," "); 
 	}
 
- 	if (ui.guardwhitespaceCheck->isChecked()) {
+	if (ui.guardwhitespaceCheck->isChecked())
+	{
 		if (!opts.contains(QRegExp("\\bguardwhitespace\\b"))) 
 			opts.append(" guardwhitespace");
-	} else { 
+	}
+	else
+	{
 		opts.replace(QRegExp("\\bguardwhitespace\\b")," "); 
 	}
 
- 	if (ui.includecheckCheck->isChecked()) {
+	if (ui.includecheckCheck->isChecked())
+	{
 		if (!opts.contains(QRegExp("\\bincludecheck\\b")))
 			opts.append(" includecheck");
-	} else { 
+	}
+	else
+	{
 		opts.replace(QRegExp("\\bincludecheck\\b")," ");
 	}
 
- 	if (ui.includecheckintextCheck->isChecked()) {
+	if (ui.includecheckintextCheck->isChecked())
+	{
 		if (!opts.contains(QRegExp("\\bincludecheckintext\\b")))
 			opts.append(" includecheckintext");
-	} else { 
+	}
+	else
+	{
 		opts.replace(QRegExp("\\bincludecheckintext\\b")," ");
 	}
 
- 	if (ui.parseCheck->isChecked()) {
+	if (ui.parseCheck->isChecked())
+	{
 		if (!opts.contains(QRegExp("\\bparse\\b")))
 			opts.append(" parse");
-	} else { 
+	}
+	else
+	{
 		opts.replace(QRegExp("\\bparse\\b")," ");
 	}
 
- 	if (ui.parsefncCheck->isChecked()) {
+	if (ui.parsefncCheck->isChecked())
+	{
 		if (!opts.contains(QRegExp("\\bparsefnc\\b"))) 
 			opts.append(" parsefnc");
-	} else { 
+	}
+	else
+	{
 		opts.replace(QRegExp("\\bparsefnc\\b")," ");
 	}
 
@@ -484,17 +513,22 @@ void BarcodeGenerator::updateOptionsTextFromUI() {
 			opts.append(" "+vlbl+"="+t);
 		else
 			opts.replace(QRegExp("\\b"+QRegExp::escape(vlbl)+"=\\S*\\b"),vlbl+"="+t);
-	} else { 
+	}
+	else
+	{
 		opts.replace(QRegExp("\\b"+QRegExp::escape(vlbl)+"=\\S*\\b")," ");
 	}
 
-	if (ui.eccCombo->currentIndex() != 0) {
+	if (ui.eccCombo->currentIndex() != 0)
+	{
 		QString t=ui.eccCombo->currentText();
 		if (!opts.contains(QRegExp("\\beclevel=.*\\b"))) 
 			opts.append(" eclevel="+t);
 		else
 			opts.replace(QRegExp("\\beclevel=\\S*\\b"),"eclevel="+t);
-	} else {
+	}
+	else
+	{
 		opts.replace(QRegExp("\\beclevel=\\S*\\b")," ");
 	}
 
@@ -530,29 +564,52 @@ void BarcodeGenerator::updateUIFromOptionsText()
 	ui.parsefncCheck->setChecked(ui.optionsEdit->text().contains(QRegExp("\\bparsefnc\\b")));
 	ui.parsefncCheck->blockSignals(false);	
 
-	QRegExp rxf("\\bversion=(\\S*)\\b");
+	QString enc=map[ui.bcCombo->currentText()].command;
+	QString vlbl=resvlbl[enc]!="" ? resvlbl[enc].toLower() : "version";
+
+	QRegExp rxf("\\b"+QRegExp::escape(vlbl)+"=(\\S*)\\b");
 	ui.formatCombo->blockSignals(true);	
-	if (ui.optionsEdit->text().contains(rxf)) {
+	if (ui.optionsEdit->text().contains(rxf))
+	{
 		int idx=ui.formatCombo->findText(rxf.cap(1));
 		if (idx == -1)
 			idx=0;
 		ui.formatCombo->setCurrentIndex(idx);
-	} else {
+	}
+	else
+	{
 		ui.formatCombo->setCurrentIndex(0);
 	}
 	ui.formatCombo->blockSignals(false);	
 
 	QRegExp rxe("\\beclevel=(\\S*)\\b");
 	ui.eccCombo->blockSignals(true);	
-	if (ui.optionsEdit->text().contains(rxe)) {
+	if (ui.optionsEdit->text().contains(rxe))
+	{
 		int idx=ui.eccCombo->findText(rxe.cap(1));
 		if (idx == -1)
 			idx=0;
 		ui.eccCombo->setCurrentIndex(idx);
-	} else {
+	}
+	else
+	{
 		ui.eccCombo->setCurrentIndex(0);
 	}
 	ui.eccCombo->blockSignals(false);
+}
+
+void BarcodeGenerator::updatePreview(QString errorMsg)
+{
+	QString pngFile = QDir::toNativeSeparators(ScPaths::getTempFileDir() + "bcode.png");
+	if (errorMsg=="")
+	{
+		ui.sampleLabel->setPixmap(QPixmap(pngFile));
+		ui.okButton->setEnabled(true);
+	}
+	else
+	{
+		ui.sampleLabel->setText("<qt>"+errorMsg+"</qt>");
+	}
 }
 
 void BarcodeGenerator::on_includetextCheck_stateChanged(int)
@@ -646,7 +703,10 @@ void BarcodeGenerator::txtColorButton_pressed()
 
 void BarcodeGenerator::okButton_pressed()
 {
-	// no need to call paintBarcode(tmpFile, 300); because
+
+	QString psFile = QDir::toNativeSeparators(ScPaths::getTempFileDir() + "bcode.ps");
+
+	// no need to call paintBarcode(pngFile, 300); because
 	// it's created by previous run...
 	hide();
 	const FileFormat * fmt = LoadSavePlugin::getFormatByExt("ps");
@@ -678,20 +738,17 @@ void BarcodeGenerator::cancelButton_pressed()
 
 void BarcodeGenerator::codeEdit_textChanged(const QString& s)
 {
-	enqueuePaintBarcode(250);
+	enqueuePaintBarcode(0);
 }
 
 void BarcodeGenerator::on_optionsEdit_textChanged(const QString &s )
 {
 	updateUIFromOptionsText();
-	enqueuePaintBarcode(250);
+	enqueuePaintBarcode(0);
 }
 
-bool BarcodeGenerator::paintBarcode(const QString &fileName, int dpi)
+void BarcodeGenerator::paintBarcode()
 {
-	QString realFile(fileName);
-	if (fileName.isEmpty())
-	    realFile = tmpFile;
 
 	QString coloropts("barcolor=%1 showbackground backgroundcolor=%2 textcolor=%3");
 	coloropts = coloropts.arg(lnColor.name().replace('#', "")) \
@@ -731,60 +788,9 @@ bool BarcodeGenerator::paintBarcode(const QString &fileName, int dpi)
 	psCommand.append(comm);
 	psCommand.append("showpage\n");
 
-	QFile f(psFile);
-	if (!f.open(QIODevice::WriteOnly))
-	{
-		ui.sampleLabel->setText("<qt>" + tr("Error opening file: %1").arg(psFile) + "</qt>");
-		return false;
-	}
-	QTextStream ts(&f);
-	ts << psCommand;
-	f.close();
-
-	QStringList gargs;
-	// limit the area only for preview. EPS importer bounds the box itself.
-	if (realFile == tmpFile)
-	{
-		gargs.append("-dDEVICEWIDTHPOINTS=440");
-		gargs.append("-dDEVICEHEIGHTPOINTS=150");
-	}
-	gargs.append( QString("-r%1").arg(dpi) );
-	gargs.append( QString("-sOutputFile=%1").arg(realFile) );
-	gargs.append( psFile );
-	qApp->changeOverrideCursor(Qt::WaitCursor);
-	QFile::remove(realFile);
-	int gs = callGS(gargs, QString(), fileStdErr, fileStdOut);
-	bool retval = gs==0 && QFile::exists(realFile);   // GS returns 0 for BWIPP-handled errors
-	qApp->changeOverrideCursor(Qt::ArrowCursor);
-//	qApp->restoreOverrideCursor();
-	// setup only preview
-	if (realFile != tmpFile)
-		return retval;
-	if (retval)
-	{
-		ui.sampleLabel->setPixmap(QPixmap(realFile));
-		ui.okButton->setEnabled(true);
-	}
-	else
-	{
-		QString errorMsg="<qt>" + tr("Barcode incomplete") + "</qt>";
-		if (QFile::exists(fileStdErr))  // Display BWIPP handled error message
-		{
-			QFile f(fileStdErr);
-			f.open(QIODevice::ReadOnly);
-			QTextStream ts(&f);
-			QString err = ts.readAll();
-			f.close();
-			QRegExp rx("[\\r\\n]+BWIPP ERROR: [^\\s]+ (.*)[\\r\\n$]+");
-			rx.setMinimal(true);
-			if (rx.indexIn(err) != -1)
-				errorMsg=rx.cap(1).trimmed();
-
-		}
-		ui.sampleLabel->setText(errorMsg);
-	}
-	return retval;
+	thread.render(psCommand);
 }
+
 
 void BarcodeGenerator::resetButton_clicked()
 {
