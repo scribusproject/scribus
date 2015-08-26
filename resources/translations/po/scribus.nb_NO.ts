@@ -19053,14 +19053,6 @@ Corners:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>This rule determines the &amp;quot;insideness&amp;quot; of a point on the canvas by drawing a ray from that point to infinity in any direction and counting the number of path segments from the given shape that the ray crosses. If this number is odd, the point is inside, if even, the point is outside.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>This rule determines the &amp;quot;insideness&amp;quot; of a point on the canvas by drawing a ray from that point to infinity in any direction and then examining the places where a segment of the shape crosses the ray. Starting with a count of zero, add one each time a path segment crosses the ray from left to right and subtract one each time a path segment crosses the ray from right to left. If the result is zero then the point is outside the path. Otherwise, it is inside.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Use the bounding box, which is always rectangular, instead of the frame&apos;s shape for text flow of text frames below the object.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -19070,6 +19062,14 @@ Corners:</source>
     </message>
     <message>
         <source>Use the clipping path of the image.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Any path self-intersections or subpaths create holes in the fill.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Fill is solid unless a subpath is counterdirectional.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -28034,6 +28034,10 @@ edited to match the one being imported, or left untouched</source>
     <message>
         <source>Show Page Shadow</source>
         <translation>Vis sideskygger</translation>
+    </message>
+    <message>
+        <source>Show Rulers</source>
+        <translation type="unfinished">Vis linjalene</translation>
     </message>
 </context>
 <context>
