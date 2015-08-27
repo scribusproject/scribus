@@ -115,7 +115,7 @@ ScJpegEncodeFilterData::~ScJpegEncodeFilterData()
 	if (cdest)
 		delete cdest;
 	if (row_pointer[0])
-		delete row_pointer[0];
+		delete [] row_pointer[0];
 }
 
 ScJpegEncodeFilter::ScJpegEncodeFilter(QDataStream* stream, unsigned int imgWidth, unsigned int imgHeight, 
