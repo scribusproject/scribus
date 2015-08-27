@@ -44,6 +44,14 @@ ScImgDataLoader_PS::ScImgDataLoader_PS(void) : ScImgDataLoader()
 	initSupportedFormatList();
 }
 
+void ScImgDataLoader_PS::initialize(void)
+{
+	doThumbnail = false;
+	hasThumbnail = false;
+
+	ScImgDataLoader::initialize();
+}
+
 void ScImgDataLoader_PS::initSupportedFormatList(void)
 {
 	m_supportedFormats.clear();
