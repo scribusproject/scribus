@@ -59,6 +59,8 @@ protected:
 public:
 	ScImgDataLoader_PS(void);
 
+	virtual void initialize(void);
+
 //	virtual void preloadAlphaChannel(const QString& fn, int res);
 	virtual bool preloadAlphaChannel(const QString& fn, int page, int res, bool& hasAlpha);
 	virtual void loadEmbeddedProfile(const QString& fn, int page = 0);

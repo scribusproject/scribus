@@ -42,7 +42,18 @@ extern "C"
 
 ScImgDataLoader_PS::ScImgDataLoader_PS(void) : ScImgDataLoader()
 {
+	doThumbnail = false;
+	hasThumbnail = false;
+
 	initSupportedFormatList();
+}
+
+void ScImgDataLoader_PS::initialize(void)
+{
+	doThumbnail = false;
+	hasThumbnail = false;
+
+	ScImgDataLoader::initialize();
 }
 
 void ScImgDataLoader_PS::initSupportedFormatList(void)
