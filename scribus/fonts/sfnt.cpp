@@ -513,16 +513,12 @@ QByteArray extractFace(const QByteArray& coll, int faceIndex)
 	const QByteArray getTable(const QByteArray& ttf, const QByteArray& ttfTag)
 	{
 		uint pos = getTableDirEntry(ttf, ttfTag);
-		if (pos > 0)
-		{
-			uint offset = word(ttf, pos + ttf_TableRecord_offset);
-			uint length = word(ttf, pos + ttf_TableRecord_length);
-			return QByteArray::fromRawData(ttf.constData() + offset, length);
-		}
-		else
-		{
+		if (pos <= 0)
 			return QByteArray();
-		}
+
+		uint offset = word(ttf, pos + ttf_TableRecord_offset);
+		uint length = word(ttf, pos + ttf_TableRecord_length);
+		return QByteArray::fromRawData(ttf.constData() + offset, length);
 	}
 
 	QByteArray createTableDir(const QList<QByteArray>& tags)
