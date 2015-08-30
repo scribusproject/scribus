@@ -144,11 +144,12 @@ pageType(0)
 		BleedBottom->setToolTip( "<qt>" + tr( "Distance for bleed from the bottom of the physical page" ) + "</qt>" );
 		BleedLeft->setToolTip( "<qt>" + tr( "Distance for bleed from the left of the physical page" ) + "</qt>" );
 		BleedRight->setToolTip( "<qt>" + tr( "Distance for bleed from the right of the physical page" )  + "</qt>");
-		connect(linkBleeds, SIGNAL(clicked()), this, SLOT(slotLinkBleeds()));
+		linkBleeds->setToolTip( "<qt>" + tr( "Ensure all bleeds have the same value" )  + "</qt>");
 		connect(BleedLeft, SIGNAL(valueChanged(double)), this, SLOT(changeBleeds()));
 		connect(BleedRight, SIGNAL(valueChanged(double)), this, SLOT(changeBleeds()));
 		connect(BleedTop, SIGNAL(valueChanged(double)), this, SLOT(changeBleeds()));
 		connect(BleedBottom, SIGNAL(valueChanged(double)), this, SLOT(changeBleeds()));
+		connect(linkBleeds, SIGNAL(clicked()), this, SLOT(slotLinkBleeds()));
 		addTab(bleedPage, tr("Bleeds"));
 	}
 
@@ -157,8 +158,9 @@ pageType(0)
 	bottomR->setToolTip( "<qt>" + tr( "Distance between the bottom margin guide and the edge of the page" ) + "</qt>");
 	leftR->setToolTip( "<qt>" + tr( "Distance between the left margin guide and the edge of the page. If a double-sided, 3 or 4-fold layout is selected, this margin space can be used to achieve the correct margins for binding.") + "</qt>");
 	rightR->setToolTip( "<qt>" + tr( "Distance between the right margin guide and the edge of the page. If a double-sided, 3 or 4-fold layout is selected, this margin space can be used to achieve the correct margins for binding.") + "</qt>");
+	linkMargins->setToolTip( "<qt>" + tr( "Ensure all margins have the same value") + "</qt>");
 
-		// signals&slots
+	// signals&slots
 	connect(topR, SIGNAL(valueChanged(double)), this, SLOT(setTop()));
 	connect(bottomR, SIGNAL(valueChanged(double)), this, SLOT(setBottom()));
 	connect(leftR, SIGNAL(valueChanged(double)), this, SLOT(setLeft()));
