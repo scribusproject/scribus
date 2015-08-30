@@ -41,10 +41,10 @@ public:
 	bool isDirty();
 
 private:
-	bool isRoot_;
-	bool isDirty_;
-	QString parentName_;
-	QString rootName_;
+	bool m_isRoot;
+	bool m_isDirty;
+	QString m_parentName;
+	QString m_rootName;
 };
 
 #endif

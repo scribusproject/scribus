@@ -52,8 +52,8 @@ void StyleView::drawRow(QPainter *painter, const QStyleOptionViewItem & option, 
 
 StyleViewItem::StyleViewItem(QTreeWidget *parent, const QString &text)
 	: QTreeWidgetItem(parent),
-	isRoot_(true), isDirty_(false),
-	parentName_(QString::null), rootName_(QString::null)
+	m_isRoot(true), m_isDirty(false),
+	m_parentName(QString::null), m_rootName(QString::null)
 {
 	setFlags(flags() & ~Qt::ItemIsSelectable);
 	setText(0, text);
@@ -61,8 +61,8 @@ StyleViewItem::StyleViewItem(QTreeWidget *parent, const QString &text)
 
 StyleViewItem::StyleViewItem(QTreeWidgetItem *parent, const QString &text, const QString &rootName)
 	: QTreeWidgetItem(parent),
-	isRoot_(false), isDirty_(false),
-	parentName_(parent->text(0)), rootName_(rootName)
+	m_isRoot(false), m_isDirty(false),
+	m_parentName(parent->text(0)), m_rootName(rootName)
 {
 	setText(0, text);
 }
@@ -81,27 +81,27 @@ StyleViewItem::StyleViewItem(QTreeWidgetItem *parent, const QString &text, const
 
 void StyleViewItem::setDirty(bool isDirty)
 {
-	isDirty_ = isDirty;
+	m_isDirty = isDirty;
 }
 
 bool StyleViewItem::isDirty()
 {
-	return isDirty_;
+	return m_isDirty;
 }
 
 bool StyleViewItem::isRoot()
 {
-	return isRoot_;
+	return m_isRoot;
 }
 
 QString StyleViewItem::parentName()
 {
-	return parentName_;
+	return m_parentName;
 }
 
 QString StyleViewItem::rootName()
 {
-	return rootName_;
+	return m_rootName;
 }
 
 // StyleViewItem::~StyleViewItem()
