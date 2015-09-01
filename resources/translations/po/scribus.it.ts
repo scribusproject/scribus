@@ -22713,12 +22713,12 @@ arrotondati:</translation>
     <message>
         <location filename="../../../scribus/propertiespalette.cpp" line="5620"/>
         <source>Any path self-intersections or subpaths create holes in the fill.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ogni intersezione del tracciato con sé stesso crea spazi vuoti nello riempimento.</translation>
     </message>
     <message>
         <location filename="../../../scribus/propertiespalette.cpp" line="5621"/>
         <source>Fill is solid unless a subpath is counterdirectional.</source>
-        <translation type="unfinished"></translation>
+        <translation>Lo riempimento è pieno a meno che un sottotracciato sia definito nella direzione opposta.</translation>
     </message>
     <message>
         <location filename="../../../scribus/propertiespalette.cpp" line="5639"/>
@@ -31029,7 +31029,7 @@ You can choose between normal and several colour blindness forms</translation>
     <message>
         <location filename="../../../scribus/tabdisplay.ui" line="67"/>
         <source>Show Rulers</source>
-        <translation type="unfinished">Mostra righelli</translation>
+        <translation>Mostra righelli</translation>
     </message>
     <message>
         <location filename="../../../scribus/tabdisplay.ui" line="153"/>
