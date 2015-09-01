@@ -1928,13 +1928,13 @@ void Annot::SetValues()
 			case 1:
 				Nfo = tmp.setNum(Decim->value())+", "+tmp2.setNum(FormNum)+", 0, 0, \"";
 				if (UseCurr->isChecked())
-					{
+				{
 					if (!PreCurr->isChecked())
 						Nfo += " ";
 					Nfo += CurSym->text().simplified();
 					if (PreCurr->isChecked())
 						Nfo += " ";
-					}
+				}
 				if (PreCurr->isChecked())
 					Nfo += "\", true)";
 				else
