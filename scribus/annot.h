@@ -41,9 +41,59 @@ class SCRIBUS_API Annot : public QDialog
 public:
 	Annot ( QWidget* parent, PageItem *it, int Seite, int b, int h, ColorList Farben, ScribusView* vie );
 	~Annot();
+
 	void DecodeNum();
 	void DecodeVali();
 	void DecodeCalc();
+
+	PageItem* item;
+	ScribusView* view;
+	int Width;
+	int Height;
+	int OriWidth;
+	int OriHeight;
+	int ScrEdited;
+	int FormNum;
+	QString JavaScr;
+	int MaxSeite;
+	QString OldName;
+
+public slots:
+	void NewName();
+	void IPlace();
+	void RemoveNIcon();
+	void RemovePIcon();
+	void RemoveRIcon();
+	void IconsEin();
+	void GetNIcon();
+	void GetPIcon();
+	void GetRIcon();
+	void SelectFelder();
+	void editKeySc();
+	void editFormatSc();
+	void editValidSc();
+	void editCalcSc();
+	void editJavaSc();
+	void SetFormNum();
+	void SetCurr();
+	void HandleVali();
+	void SetVali();
+	void HandleCalc();
+	void SetCalc();
+	void SetFoScript ( int it );
+	void SetCoords ( double x, double y );
+	void SetPage ( int v );
+	void SetCross();
+	void SetValues();
+	void SetAnnotationType ( int i );
+	void GetFile();
+	void SetActionType ( int it );
+	void SetLimit();
+	void SetActionScript ( int it );
+	void setDateSample ( const QString& ds );
+	void SetExternLink();
+
+protected:
 	QStackedWidget* Fram;
 	QStackedWidget* Fram2;
 	QStackedWidget* FramOp;
@@ -204,54 +254,6 @@ public:
 	QPushButton* PlaceIcon;
 	QPushButton* PushButton1;
 	QPushButton* PushButton2;
-	PageItem* item;
-	ScribusView* view;
-	int Width;
-	int Height;
-	int OriWidth;
-	int OriHeight;
-	int ScrEdited;
-	int FormNum;
-	QString JavaScr;
-	int MaxSeite;
-	QString OldName;
-
-public slots:
-	void NewName();
-	void IPlace();
-	void RemoveNIcon();
-	void RemovePIcon();
-	void RemoveRIcon();
-	void IconsEin();
-	void GetNIcon();
-	void GetPIcon();
-	void GetRIcon();
-	void SelectFelder();
-	void editKeySc();
-	void editFormatSc();
-	void editValidSc();
-	void editCalcSc();
-	void editJavaSc();
-	void SetFormNum();
-	void SetCurr();
-	void HandleVali();
-	void SetVali();
-	void HandleCalc();
-	void SetCalc();
-	void SetFoScript ( int it );
-	void SetCoords ( double x, double y );
-	void SetPage ( int v );
-	void SetCross();
-	void SetValues();
-	void SetAnnotationType ( int i );
-	void GetFile();
-	void SetActionType ( int it );
-	void SetLimit();
-	void SetActionScript ( int it );
-	void setDateSample ( const QString& ds );
-	void SetExternLink();
-
-protected:
 	QVBoxLayout* AnnotLayout;
 	QHBoxLayout* Layout1;
 	QHBoxLayout* Layout1_2;
