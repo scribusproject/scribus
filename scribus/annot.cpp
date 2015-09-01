@@ -1529,10 +1529,10 @@ void Annot::DecodeNum()
 	QStringList pfol;
 	pfol = pfo.split(",", QString::SkipEmptyParts);
 	if (item->annotation().Format() == 1)
-		{
+	{
 		Decim->setValue(pfol[0].toInt());
 		switch (pfol[1].toInt())
-			{
+		{
 			case 0:
 				Format0->setChecked(true);
 				FormNum = 0;
@@ -1549,33 +1549,33 @@ void Annot::DecodeNum()
 				Format3->setChecked(true);
 				FormNum = 3;
 				break;
-			}
+		}
 		if (pfol[5] == " true")
 			PreCurr->setChecked(true);
 		else
 			PreCurr->setChecked(false);
 		if (pfol[4].length() > 2)
-			{
+		{
 			if (PreCurr->isChecked())
 				CurSym->setText(pfol[4].mid(2,pfol[4].length()-4));
 			else
 				CurSym->setText(pfol[4].mid(3,pfol[4].length()-4));
-			}
+		}
 		else
 			CurSym->setText("");
 		if (!CurSym->text().isEmpty())
-			{
+		{
 			CurSym->setEnabled(true);
 			UseCurr->setEnabled(true);
 			UseCurr->setChecked(true);
 			PreCurr->setEnabled(true);
-			}
 		}
+	}
 	if (item->annotation().Format() == 2)
-		{
+	{
 		Decim2->setValue(pfol[0].toInt());
 		switch (pfol[1].toInt())
-			{
+		{
 			case 0:
 				Format0a->setChecked(true);
 				FormNum = 0;
@@ -1592,8 +1592,8 @@ void Annot::DecodeNum()
 				Format3a->setChecked(true);
 				FormNum = 3;
 				break;
-			}
 		}
+	}
 	if (item->annotation().Format() == 3)
 	{
 		setCurrentComboItem(Format0c, pfol[0].remove("\""));
@@ -1602,7 +1602,7 @@ void Annot::DecodeNum()
 	if (item->annotation().Format() == 4)
 	{
 		switch (pfol[0].toInt())
-			{
+		{
 			case 0:
 				Format0b->setChecked(true);
 				FormNum = 0;
@@ -1619,8 +1619,8 @@ void Annot::DecodeNum()
 				Format3b->setChecked(true);
 				FormNum = 3;
 				break;
-			}
 		}
+	}
 }
 
 void Annot::SetFormNum()
