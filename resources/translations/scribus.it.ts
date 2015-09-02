@@ -2927,12 +2927,13 @@
         <location filename="../../scribus/plugins/tools/spellcheck/aspellpluginimpl.cpp" line="106"/>
         <source>Spell Checker Plugin Failed to Initialize.
 Configuration invalid</source>
-        <translation type="unfinished"></translation>
+        <translation>Estensione per il controllo ortografico: inizializzazione non riuscita.
+Configurazione non valida</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/tools/spellcheck/aspellpluginimpl.cpp" line="113"/>
         <source>Spell Checker Plugin Failed to Initialize.</source>
-        <translation type="unfinished"></translation>
+        <translation>Estensione per il controllo ortografico: inizializzazione non riuscita.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/tools/spellcheck/aspellpluginimpl.cpp" line="391"/>
@@ -4039,7 +4040,7 @@ Si raccomanda di abilitarlo se si hanno foto nel documento.</translation>
         <location filename="../../scribus/ui/cmykfw.cpp" line="232"/>
         <location filename="../../scribus/ui/cmykfw.cpp" line="719"/>
         <source>Lab</source>
-        <translation type="unfinished"></translation>
+        <translation>Lab</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/cmykfw.cpp" line="87"/>
@@ -4108,17 +4109,17 @@ Inserire un nome diverso.</translation>
         <location filename="../../scribus/ui/cmykfw.cpp" line="752"/>
         <location filename="../../scribus/ui/cmykfw.cpp" line="803"/>
         <source>L:</source>
-        <translation type="unfinished"></translation>
+        <translation>L:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/cmykfw.cpp" line="753"/>
         <source>a:</source>
-        <translation type="unfinished"></translation>
+        <translation>a:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/cmykfw.cpp" line="754"/>
         <source>b:</source>
-        <translation type="unfinished"></translation>
+        <translation>b:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/cmykfw.cpp" line="802"/>
@@ -4372,7 +4373,7 @@ Si prega di fornire un nome</translation>
     <message>
         <location filename="../../scribus/plugins/colorwheel/cwdialog.ui" line="266"/>
         <source>Sample color scheme</source>
-        <translation type="unfinished"></translation>
+        <translation>Esempio di schema di colore</translation>
     </message>
     <message>
         <source>Sample color scheme.</source>
@@ -6620,7 +6621,7 @@ attualmente %2 x %3 DPI</translation>
     <message>
         <location filename="../../scribus/ui/cupsoptions.cpp" line="225"/>
         <source>This panel displays various CUPS options when printing. The exact parameters available will depend on your printer driver. You can confirm CUPS support by selecting Help &gt; About. Look for the listings: C-C-T These equate to C=CUPS C=littlecms T=TIFF support. Missing library support is indicated by a *.</source>
-        <translation type="unfinished"></translation>
+        <translation>Questo pannello mostra varie opzioni CUPS per la stampa. Gli esatti parametri disponibili dipenderanno dal driver della stampante in uso. Si può verificare il supporto CUPS scegliendo Aiuto &gt; Informazioni. Cerca gli elementi: C-C-T. Questi equivalgono al supporto per C=CUPS C=littlecms T=TIFF. La mancanza del supporto della libreria è segnalato da un *.</translation>
     </message>
     <message>
         <source>This panel displays various CUPS options when printing. The exact parameters available will depend on your printer driver. You can confirm CUPS support by selecting Help &gt; About. Look for the listings: C-C-T These equate to C=CUPS C=littlecms T=TIFF support. Missing library support is indicated by a *</source>
@@ -6945,22 +6946,22 @@ attualmente %2 x %3 DPI</translation>
     <message>
         <location filename="../../scribus/docinfo.cpp" line="167"/>
         <source>The person or organisation primarily responsible for making the content of the document. This field can be embedded in the Scribus document for reference, as well as in the metadata of a PDF.</source>
-        <translation type="unfinished"></translation>
+        <translation>La persona o l&apos;organizzazione principalmente responsabile del contenuto del documento. Questo campo può essere incorporato nel documento di Scribus come informazione, ed anche come metadato di un file PDF.</translation>
     </message>
     <message>
         <location filename="../../scribus/docinfo.cpp" line="168"/>
         <source>A name given to the document. This field can be embedded in the Scribus document for reference, as well as in the metadata of a PDF.</source>
-        <translation type="unfinished"></translation>
+        <translation>Nome dato al documento. Questo campo può essere incorporato nel documento di Scribus come informazione, ed anche come metadato di un file PDF.</translation>
     </message>
     <message>
         <location filename="../../scribus/docinfo.cpp" line="169"/>
         <source>An account of the content of the document. This field is for a brief description or abstract of the document. It is embedded in the PDF on export.</source>
-        <translation type="unfinished"></translation>
+        <translation>Resoconto del contenuto del documento. Questo campo è riservato ad una breve descrizione o a un riassunto del documento. Viene incorporato nel file PDF all&apos;esportazione.</translation>
     </message>
     <message>
         <location filename="../../scribus/docinfo.cpp" line="170"/>
         <source>The topic of the content of the document. This field is for document keywords you wish to embed in a PDF, to assist searches and indexing of PDF files.</source>
-        <translation type="unfinished"></translation>
+        <translation>L&apos;argomento del contenuto del documento. Questo campo è per le parole chiave del documento che si intendono includere in un file PDF, per agevolare le ricerche e l&apos;indicizzazione dei file PDF.</translation>
     </message>
     <message>
         <location filename="../../scribus/docinfo.cpp" line="171"/>
@@ -6985,7 +6986,7 @@ attualmente %2 x %3 DPI</translation>
     <message>
         <location filename="../../scribus/docinfo.cpp" line="175"/>
         <source>The physical or digital manifestation of the document. Media type and dimensions would be worth noting. RFC2045,RFC2046 for MIME types are also useful here.</source>
-        <translation type="unfinished"></translation>
+        <translation>La manifestazione fisica o digitale del documento. Sarebbe opportuno inserire le dimensioni e il tipo dei supporti. Vedi RFC2045, RFC2046 per i tipi MIME.</translation>
     </message>
     <message>
         <location filename="../../scribus/docinfo.cpp" line="176"/>
@@ -7616,7 +7617,10 @@ Il nome del file di esportazione sarà &apos;nomedocumento-numeropagina.tipofile
         <source>Insert a comma separated list of tokens where
 a token can be * for all the pages, 1-5 for
 a range of pages or a single page number</source>
-        <translation type="unfinished"></translation>
+        <translation>Inserisci una lista di simboli separata da virgole
+in cui un simbolo può essere * per tutte le pagine,
+1-5 per un intervallo di pagine
+o un numero di una singola pagina</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/export/pixmapexport/dialog.cpp" line="120"/>
@@ -23498,12 +23502,12 @@ Nota: I formulari PDF non saranno esportati.</translation>
     <message>
         <location filename="../../scribus/ui/propertiespalette_group.cpp" line="646"/>
         <source>Any path self-intersections or subpaths create holes in the fill</source>
-        <translation type="unfinished"></translation>
+        <translation>Ogni intersezione del tracciato con sé stesso crea spazi vuoti nello riempimento</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_group.cpp" line="647"/>
         <source>Fill is solid unless a subpath is counter-directional</source>
-        <translation type="unfinished"></translation>
+        <translation>Lo riempimento è pieno a meno che un sottotracciato sia definito nella direzione opposta</translation>
     </message>
     <message>
         <source>Use the frame shape for text flow of text frames below the object.</source>
@@ -24524,12 +24528,12 @@ dell&apos;oggetto</translation>
     <message>
         <location filename="../../scribus/ui/propertiespalette_shape.cpp" line="560"/>
         <source>Any path self-intersections or subpaths create holes in the fill</source>
-        <translation type="unfinished"></translation>
+        <translation>Ogni intersezione del tracciato con sé stesso crea spazi vuoti nello riempimento</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_shape.cpp" line="561"/>
         <source>Fill is solid unless a subpath is counter-directional</source>
-        <translation type="unfinished"></translation>
+        <translation>Lo riempimento è pieno a meno che un sottotracciato sia definito nella direzione opposta</translation>
     </message>
     <message>
         <source>This rule determines the &amp;quot;insideness&amp;quot; of a point on the canvas by drawing a ray from that point to infinity in any direction and counting the number of path segments from the given shape that the ray crosses. If this number is odd, the point is inside, if even, the point is outside.</source>
@@ -32473,62 +32477,62 @@ convertendo i dati vettoriali in oggetti Scribus.</translation>
     <message>
         <location filename="../../scribus/ui/annot.ui" line="134"/>
         <source>Courier</source>
-        <translation type="unfinished"></translation>
+        <translation>Courier</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/annot.ui" line="139"/>
         <source>Courier Bold</source>
-        <translation type="unfinished"></translation>
+        <translation>Courier Grassetto</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/annot.ui" line="144"/>
         <source>Courier Italic</source>
-        <translation type="unfinished"></translation>
+        <translation>Courier Corsivo</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/annot.ui" line="149"/>
         <source>Courier Bold Italic</source>
-        <translation type="unfinished"></translation>
+        <translation>Courier Grassetto Corsivo</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/annot.ui" line="154"/>
         <source>Helvetica</source>
-        <translation type="unfinished"></translation>
+        <translation>Helvetica</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/annot.ui" line="159"/>
         <source>Helvetica Bold</source>
-        <translation type="unfinished"></translation>
+        <translation>Helvetica Grassetto</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/annot.ui" line="164"/>
         <source>Helvetica Italic</source>
-        <translation type="unfinished"></translation>
+        <translation>Helvetica Corsivo</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/annot.ui" line="169"/>
         <source>Helvetica Bold Italic</source>
-        <translation type="unfinished"></translation>
+        <translation>Helvetica Grassetto Corsivo</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/annot.ui" line="174"/>
         <source>Times</source>
-        <translation type="unfinished"></translation>
+        <translation>Times</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/annot.ui" line="179"/>
         <source>Times Bold</source>
-        <translation type="unfinished"></translation>
+        <translation>Times Grassetto</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/annot.ui" line="184"/>
         <source>Times Italic</source>
-        <translation type="unfinished"></translation>
+        <translation>Times Corsivo</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/annot.ui" line="189"/>
         <source>Times Bold Italic</source>
-        <translation type="unfinished"></translation>
+        <translation>Times Grassetto Corsivo</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/annot.ui" line="194"/>
@@ -33054,25 +33058,25 @@ convertendo i dati vettoriali in oggetti Scribus.</translation>
         <location filename="../../scribus/ui/annot.ui" line="1529"/>
         <location filename="../../scribus/ui/annot.ui" line="1628"/>
         <source>9,999.99</source>
-        <translation type="unfinished">9,999.99</translation>
+        <translation>9,999.99</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/annot.ui" line="1539"/>
         <location filename="../../scribus/ui/annot.ui" line="1638"/>
         <source>9.999,99</source>
-        <translation type="unfinished">9.999,99</translation>
+        <translation>9.999,99</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/annot.ui" line="1546"/>
         <location filename="../../scribus/ui/annot.ui" line="1645"/>
         <source>9999.99</source>
-        <translation type="unfinished">9999.99</translation>
+        <translation>9999.99</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/annot.ui" line="1553"/>
         <location filename="../../scribus/ui/annot.ui" line="1652"/>
         <source>9999,99</source>
-        <translation type="unfinished">9999,99</translation>
+        <translation>9999,99</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/annot.ui" line="1582"/>
@@ -33087,92 +33091,92 @@ convertendo i dati vettoriali in oggetti Scribus.</translation>
     <message>
         <location filename="../../scribus/ui/annot.ui" line="1703"/>
         <source>m/d</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/annot.ui" line="1708"/>
         <source>m/d/yy</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/annot.ui" line="1713"/>
         <source>mm/dd/yy</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/annot.ui" line="1718"/>
         <source>mm/yy</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/annot.ui" line="1723"/>
         <source>d-mmm</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/annot.ui" line="1728"/>
         <source>d-mmm-yy</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/annot.ui" line="1733"/>
         <source>dd-mmm-yy</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/annot.ui" line="1738"/>
         <source>dd/mm/yy</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/annot.ui" line="1743"/>
         <source>dd/mm/yyyy</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/annot.ui" line="1748"/>
         <source>dd.mm.yyyy</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/annot.ui" line="1753"/>
         <source>yy-mm-dd</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/annot.ui" line="1758"/>
         <source>mmm-yy</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/annot.ui" line="1763"/>
         <source>mmmm-yy</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/annot.ui" line="1768"/>
         <source>mmm d, yyyy</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/annot.ui" line="1773"/>
         <source>mmmm d, yyyy</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/annot.ui" line="1778"/>
         <source>m/d/yy h:MM tt</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/annot.ui" line="1783"/>
         <source>m/d/yy HH:MM</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/annot.ui" line="1788"/>
         <source>yyyy-mm-dd</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/annot.ui" line="1850"/>
@@ -33182,22 +33186,22 @@ convertendo i dati vettoriali in oggetti Scribus.</translation>
     <message>
         <location filename="../../scribus/ui/annot.ui" line="1856"/>
         <source>HH:MM</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/annot.ui" line="1866"/>
         <source>h:MM tt</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/annot.ui" line="1873"/>
         <source>HH:MM:ss</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/annot.ui" line="1880"/>
         <source>h:MM:ss tt</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/annot.ui" line="1919"/>
@@ -34584,7 +34588,7 @@ Utilizzare la Verifica Preliminare per correggerli</translation>
     <message>
         <location filename="../../scribus/scribusapp.cpp" line="495"/>
         <source>Stop showing the splashscreen on startup. Writes an empty file called .neversplash in ~/.scribus</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Interrompi la visualizzazione della schermata d&apos;avvio. Crea un file vuoto chiamato .neversplash in ~/.scribus</translation>
     </message>
     <message>
         <location filename="../../scribus/scribusapp.cpp" line="499"/>
@@ -34609,12 +34613,12 @@ Utilizzare la Verifica Preliminare per correggerli</translation>
     <message>
         <location filename="../../scribus/scribusapp.cpp" line="497"/>
         <source>Show location of ICC profile information on console while starting</source>
-        <translation type="unfinished"></translation>
+        <translation>Visualizza le informazioni del profilo ICC sulla console durante l&apos;avvio</translation>
     </message>
     <message>
         <location filename="../../scribus/scribusapp.cpp" line="498"/>
         <source>Download a file from the Scribus website and show the latest available version</source>
-        <translation type="unfinished"></translation>
+        <translation>Scarica un file dal sito web di Scribus e mostra l&apos;ultima versione disponibile</translation>
     </message>
     <message>
         <location filename="../../scribus/scribusapp.cpp" line="500"/>
