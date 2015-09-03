@@ -4196,7 +4196,7 @@ Veuillez choisir un autre nom.</translation>
         <location filename="../../scribus/plugins/colorwheel/cwdialog.ui" line="87"/>
         <location filename="../../scribus/plugins/colorwheel/cwdialog.ui" line="729"/>
         <source>HSV</source>
-        <translation>Modèle de couleurs TSL</translation>
+        <translation>TSL</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/colorwheel/cwdialog.ui" line="106"/>
