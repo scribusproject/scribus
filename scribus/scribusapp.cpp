@@ -253,7 +253,7 @@ void ScribusQApp::parseCommandLine()
 			if (!QFileInfo(prefsUserFile).exists()) {
 				showHeader();
 				if (prefsUserFile.left(1) == "-" || prefsUserFile.left(2) == "--") {
-					std::cout << tr("Invalid option: ").toLocal8Bit().data() << prefsUserFile.toLocal8Bit().data() << std::endl;
+					std::cout << tr("Invalid argument: ").toLocal8Bit().data() << prefsUserFile.toLocal8Bit().data() << std::endl;
 				} else {
 					std::cout << tr("File %1 does not exist, aborting.").arg(prefsUserFile).toLocal8Bit().data() << std::endl;
 				}
