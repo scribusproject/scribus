@@ -229,8 +229,7 @@ void ScripterCore::RecentScript(QString fn)
 
 void ScripterCore::slotRunScriptFile(QString fileName, bool inMainInterpreter)
 {
-	QStringList arguments = QStringList();
-	slotRunScriptFile(fileName, arguments, inMainInterpreter);
+	slotRunScriptFile(fileName, QStringList(), inMainInterpreter);
 }
 
 void ScripterCore::slotRunScriptFile(QString fileName, QStringList arguments, bool inMainInterpreter)

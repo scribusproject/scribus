@@ -72,8 +72,8 @@ for which a new license (GPL+exception) is in place.
 #define ARG_UPGRADECHECK "--upgradecheck"
 #define ARG_TESTS "--tests"
 #define ARG_PYTHONSCRIPT "--python-script"
-#define ARG_SCRIPTARG_PREFIX "--python-arg-" // directly followed by <param name> <param value>
-#define CMD_OPTIONS_END "--"   				 // end of command line options
+#define ARG_SCRIPTARG "--python-arg"
+#define CMD_OPTIONS_END "--"
 
 #define ARG_VERSION_SHORT "-v"
 #define ARG_HELP_SHORT "-h"
@@ -89,6 +89,7 @@ for which a new license (GPL+exception) is in place.
 #define ARG_UPGRADECHECK_SHORT "-u"
 #define ARG_TESTS_SHORT "-T"
 #define ARG_PYTHONSCRIPT_SHORT "-py"
+#define ARG_SCRIPTARG_SHORT "-pa"
 
 // Qt wants -display not --display or -d
 #define ARG_DISPLAY_QT "-display"
@@ -217,12 +218,17 @@ void ScribusQApp::parseCommandLine()
 		std::exit(EXIT_SUCCESS);
 	useGUI = true;
 	//We are going to run something other than command line help
-	QString qtARG_SCRIPTARG_PREFIX = QString(ARG_SCRIPTARG_PREFIX);
 	int argi = 1;
 	for( ; argi < argsc; argi++) { //handle options (not positional parameters)
 		arg = args[argi];
 
-		if ((arg == ARG_LANG || arg == ARG_LANG_SHORT) && (++argi < argsc)) {
+		if (arg == ARG_SCRIPTARG || arg == ARG_SCRIPTARG_SHORT) { //needs to be first to give precedence to script argument name over scribus'
+			pythonScriptArgs.append(args[++argi]); // arg name
+			if (!args[argi+1].startsWith("-")) {   // arg value
+				pythonScriptArgs.append( QFile::decodeName(args[++argi].toLocal8Bit()) );
+			}
+		}
+		else if ((arg == ARG_LANG || arg == ARG_LANG_SHORT) && (++argi < argsc)) {
 			continue;
 		} else if ( arg == ARG_CONSOLE || arg == ARG_CONSOLE_SHORT ) {
 			continue;
@@ -276,11 +282,6 @@ void ScribusQApp::parseCommandLine()
 		} else if (arg == CMD_OPTIONS_END) { //double dash, indicates end of command line options, see http://unix.stackexchange.com/questions/11376/what-does-double-dash-mean-also-known-as-bare-double-dash
 			argi++;
 			break;
-		} else if (arg.startsWith(qtARG_SCRIPTARG_PREFIX)) {
-			pythonScriptArgs.append( arg.mid(qtARG_SCRIPTARG_PREFIX.size()-1) ); //-1 to get the dash from prefix
-			if (!args[argi+1].startsWith("-")) {
-				pythonScriptArgs.append( QFile::decodeName(args[++argi].toLocal8Bit()) );
-			}
 		} else { //argument is not a known option, but either positional parameter or invalid.
 			break;
 		}
@@ -514,7 +515,7 @@ void ScribusQApp::showUsage()
 	printArgLine(ts, ARG_UPGRADECHECK_SHORT, ARG_UPGRADECHECK, tr("Download a file from the Scribus website and show the latest available version") );
 	printArgLine(ts, ARG_VERSION_SHORT, ARG_VERSION, tr("Output version information and exit") );
 	printArgLine(ts, ARG_PYTHONSCRIPT_SHORT, qPrintable(QString("%1 <%2>").arg(ARG_PYTHONSCRIPT).arg(tr("filename"))), tr("Run filename in Python scripter") );
-	ts << (QString("       %1<%2> [%3]  ").arg(ARG_SCRIPTARG_PREFIX).arg(tr("argumentname")).arg(tr("value"))) << tr("Argument passed on to python script, with an optional value, no effect without -py"); endl(ts);
+	printArgLine(ts, ARG_SCRIPTARG_SHORT, qPrintable(QString("%1 <%2> [%3]").arg(ARG_SCRIPTARG).arg(tr("name")).arg(tr("value"))), tr("Argument passed on to python script, with an optional value, no effect without -py") );
 	printArgLine(ts, ARG_NOGUI_SHORT, ARG_NOGUI, tr("Do not start GUI") );
 	ts << (QString("     %1").arg(CMD_OPTIONS_END,-39)) << tr("Explicit end of command line options"); endl(ts);
  	
