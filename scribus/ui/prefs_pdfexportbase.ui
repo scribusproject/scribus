@@ -1212,7 +1212,7 @@
               </font>
              </property>
              <property name="text">
-              <string>PDF/X-3 Output Intent</string>
+              <string>PDF/X Output Intent</string>
              </property>
             </widget>
            </item>
