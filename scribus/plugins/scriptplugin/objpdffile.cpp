@@ -1248,7 +1248,7 @@ static PyGetSetDef PDFfile_getseters [] = {
 	{const_cast<char*>("solidpr"), (getter)PDFfile_getsolidpr, (setter)PDFfile_setsolidpr, const_cast<char*>("Color profile for solid colors"), NULL},
 	{const_cast<char*>("imagepr"), (getter)PDFfile_getimagepr, (setter)PDFfile_setimagepr, const_cast<char*>("Color profile for images"), NULL},
 	{const_cast<char*>("printprofc"), (getter)PDFfile_getprintprofc, (setter)PDFfile_setprintprofc, const_cast<char*>("Output profile for printing. If possible, get some guidance from your printer on profile selection."), NULL},
-	{const_cast<char*>("info"), (getter)PDFfile_getinfo, (setter)PDFfile_setinfo, const_cast<char*>("Mandatory string for PDF/X-3 or the PDF will fail\nPDF/X-3 conformance. We recommend you use the title of the document."), NULL},
+	{const_cast<char*>("info"), (getter)PDFfile_getinfo, (setter)PDFfile_setinfo, const_cast<char*>("Mandatory string for PDF/X or the PDF will fail\nPDF/X conformance. We recommend you use the title of the document."), NULL},
 	{const_cast<char*>("rotateDeg"), (getter)PDFfile_getRotateDeg, (setter)PDFfile_setRotateDeg, const_cast<char*>("Automatically rotate the exported pages\n\tValue must be one of integers: 0, 90, 180 or 270"), NULL},
 	{const_cast<char*>("openAction"), (getter)PDFfile_getopenAction, (setter)PDFfile_setopenAction, const_cast<char*>("Javascript to be executed when PDF document is opened."), NULL},
 	{NULL, NULL, NULL, NULL, NULL}  // sentinel
