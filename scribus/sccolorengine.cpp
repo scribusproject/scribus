@@ -36,7 +36,7 @@ QColor ScColorEngine::getRGBColor(const ScColor& color, const ScribusDoc* doc)
 ScColor ScColorEngine::convertToModel(const ScColor& color, const ScribusDoc* doc, colorModel model)
 {
 	colorModel oldModel = color.getColorModel();
-	if( oldModel == model )
+	if (oldModel == model)
 		return ScColor(color);
 	ScColor newCol;
 	if (model == colorModelRGB)
