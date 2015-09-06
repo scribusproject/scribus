@@ -139,7 +139,7 @@ QColor ScColor::getRawRGBColor() const
 
 void ScColor::getRGB(int *r, int *g, int *b) const
 {
-	if( Model != colorModelRGB )
+	if (Model != colorModelRGB)
 		qDebug("calling getRGB with a cmyk color");
 	*r = CR;
 	*g = MG;
@@ -148,7 +148,7 @@ void ScColor::getRGB(int *r, int *g, int *b) const
 
 void ScColor::getCMYK(int *c, int *m, int *y, int *k) const
 {
-	if( Model != colorModelCMYK )
+	if (Model != colorModelCMYK)
 		qDebug("calling getCMYK with a rgb color");
 	*c = CR;
 	*m = MG;
