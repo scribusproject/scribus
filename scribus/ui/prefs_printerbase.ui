@@ -46,9 +46,9 @@
       <property name="geometry">
        <rect>
         <x>0</x>
-        <y>-334</y>
+        <y>-146</y>
         <width>714</width>
-        <height>958</height>
+        <height>931</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -292,13 +292,6 @@
         </widget>
        </item>
        <item>
-        <widget class="QCheckBox" name="applyICCProfilesCheckBox">
-         <property name="text">
-          <string>Apply ICC Profiles</string>
-         </property>
-        </widget>
-       </item>
-       <item>
         <spacer name="verticalSpacer_2">
          <property name="orientation">
           <enum>Qt::Vertical</enum>
@@ -506,13 +499,13 @@
            <item>
             <widget class="ScrSpinBox" name="markLengthSpinBox">
              <property name="minimum">
-              <number>1</number>
+              <double>1.000000000000000</double>
              </property>
              <property name="maximum">
-              <number>100</number>
+              <double>100.000000000000000</double>
              </property>
              <property name="value">
-              <number>20</number>
+              <double>20.000000000000000</double>
              </property>
             </widget>
            </item>
@@ -621,7 +614,6 @@
   <tabstop>clipToPrinterMarginsCheckBox</tabstop>
   <tabstop>applyUnderColorRemovalCheckBox</tabstop>
   <tabstop>convertSpotsToProcessCheckBox</tabstop>
-  <tabstop>applyICCProfilesCheckBox</tabstop>
   <tabstop>postscriptLevelComboBox</tabstop>
   <tabstop>postscriptPrintToColorComboBox</tabstop>
   <tabstop>cropMarksCheckBox</tabstop>

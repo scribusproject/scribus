@@ -3186,7 +3186,6 @@ bool Scribus150Format::readPrinterOptions(ScribusDoc* doc, ScXmlStreamReader& re
 	doc->Print_Options.useColor = attrs.valueAsBool("useColor");
 	doc->Print_Options.mirrorH  = attrs.valueAsBool("mirrorH");
 	doc->Print_Options.mirrorV  = attrs.valueAsBool("mirrorV");
-	doc->Print_Options.useICC   = attrs.valueAsBool("useICC");
 	doc->Print_Options.doGCR    = attrs.valueAsBool("doGCR");
 	doc->Print_Options.doClip   = attrs.valueAsBool("doClip");
 	doc->Print_Options.setDevParam  = attrs.valueAsBool("setDevParam");

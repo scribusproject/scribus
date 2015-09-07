@@ -102,7 +102,6 @@ PPreview::PPreview( QWidget* parent, ScribusView *vin, ScribusDoc *docu, QString
 	fClip = false;
 	fSpot = true;
 	fGray = false;
-	fICC = false;
 	scaleFactor = 1.0;
 	SMode = 1;
 	getNumericGSVersion(GsMajor, GsMinor);
@@ -282,11 +281,6 @@ PPreview::PPreview( QWidget* parent, ScribusView *vin, ScribusDoc *docu, QString
 	spotColors = new QCheckBox( tr( "Convert Spot Colors" ), jobTitle );
 	Layout1->addWidget( spotColors );
 
-	UseICC = new QCheckBox( tr( "Apply Color Profiles" ), jobTitle );
-	Layout1->addWidget( UseICC );
-	if (!doc->HasCMS)
-		UseICC->setEnabled(false);
-
 	settingsBarLayout->addWidget(jobTitle);
 	QSpacerItem* spacerC = new QSpacerItem( 5, 5, QSizePolicy::Minimum, QSizePolicy::Expanding );
 	settingsBarLayout->addItem( spacerC );
@@ -359,7 +353,6 @@ PPreview::PPreview( QWidget* parent, ScribusView *vin, ScribusDoc *docu, QString
 	EnableGCR->setToolTip( "<qt>" + tr( "A way of switching off some of the gray shades which are composed of cyan, yellow and magenta and using black instead. UCR most affects parts of images which are neutral and/or dark tones which are close to the gray. Use of this may improve printing some images and some experimentation and testing is need on a case by case basis. UCR reduces the possibility of over saturation with CMY inks." ) + "</qt>" );
 	scaleBox->setToolTip( "<qt>" + tr("Resize the scale of the page") + "</qt>");
 	spotColors->setToolTip("<qt>" + tr( "Enables Spot Colors to be converted to composite colors. Unless you are planning to print spot colors at a commercial printer, this is probably best left enabled." ) + "</qt>");
-	UseICC->setToolTip("<qt>" + tr( "Allows you to embed color profiles in the print stream when color management is enabled" ) + "</qt>");
 
 	//signals and slots
 	connect(AntiAlias, SIGNAL(clicked()), this, SLOT(redisplay()));
@@ -371,7 +364,6 @@ PPreview::PPreview( QWidget* parent, ScribusView *vin, ScribusDoc *docu, QString
 	connect(ClipMarg, SIGNAL(clicked()), this, SLOT(redisplay()));
 	connect(spotColors, SIGNAL(clicked()), this, SLOT(redisplay()));
 	connect(useGray, SIGNAL(clicked()), this, SLOT(redisplay()));
-	connect(UseICC, SIGNAL(clicked()), this, SLOT(redisplay()));
 	if (!HaveTiffSep)
 	{
 		connect(EnableCMYK_C, SIGNAL(clicked()), this, SLOT(ToggleCMYK_Colour()));
@@ -400,11 +392,6 @@ void PPreview::setValues()
 		ClipMarg->setChecked(doc->Print_Options.doClip);
 		spotColors->setChecked(!doc->Print_Options.useSpotColors);
 		useGray->setChecked(!doc->Print_Options.useColor);
-		if (doc->HasCMS)
-		{
-			UseICC->setChecked( postscriptPreview ? doc->Print_Options.useICC : false);
-			UseICC->setEnabled( postscriptPreview );
-		}
 	}
 	else
 	{
@@ -419,11 +406,6 @@ void PPreview::setValues()
 			useGray->setChecked(true);
 		else
 			useGray->setChecked(false);
-		if (doc->HasCMS)
-		{
-			UseICC->setChecked( postscriptPreview ? prefs->getBool("ICCinUse", false) : false);
-			UseICC->setEnabled( postscriptPreview );
-		}
 	}
 }
 
@@ -449,7 +431,7 @@ void PPreview::ToggleCMYK()
 	{
 		Table->setEnabled(c);
 		EnableInkCover->setEnabled(c);
-		if(EnableInkCover->isChecked())
+		if (EnableInkCover->isChecked())
 			CoverThresholdValue->setEnabled(c);
 	}
 	else
@@ -548,7 +530,7 @@ int PPreview::RenderPreview(int Seite, int Res)
 	QString cmd1, cmd2, cmd3;
 	QMap<QString,QMap<uint, FPointArray> > ReallyUsed;
 #if defined _WIN32
-	if ( !postscriptPreview )
+	if (!postscriptPreview)
 	{
 		QImage image;
 		ScPage* page;
@@ -566,10 +548,9 @@ int PPreview::RenderPreview(int Seite, int Res)
 		options.separationName = "All";
 		options.toFile = false;
 		options.useColor = !useGray->isChecked();
-		options.useICC = false;
 		options.useSpotColors = false;
 		bool done = winPrint.gdiPrintPreview(doc, page, &image, options, Res / 72.0);
-		if ( done )
+		if (done)
 			image.save( ScPaths::getTempFileDir() + "/sc.png", "PNG" );
 		return (done ? 0 : 1);
 	}
@@ -577,15 +558,10 @@ int PPreview::RenderPreview(int Seite, int Res)
 	// Recreate Postscript-File only when the actual Page has changed
 	if ((Seite != APage)  || (EnableGCR->isChecked() != GMode)  || (useGray->isChecked() != fGray)
 		|| (MirrorHor->isChecked() != mHor) || (MirrorVert->isChecked() != mVer) || (ClipMarg->isChecked() != fClip)
-		|| (UseICC->isChecked() != fICC)    || (spotColors->isChecked() != fSpot))
+		|| (spotColors->isChecked() != fSpot))
 	{
 		ReallyUsed.clear();
 		doc->getUsedFonts(ReallyUsed);
-		bool useIC = UseICC->isChecked();
-		if (!doc->HasCMS)
-			useIC = false;
-		if ((doc->HasCMS) && (GsMinor >= 0) && (GsMajor >= 9))
-			useIC = false;
 		PrintOptions options;
 		options.pageNumbers.push_back(Seite+1);
 		options.outputSeparations = false;
@@ -594,7 +570,6 @@ int PPreview::RenderPreview(int Seite, int Res)
 		options.useColor = !useGray->isChecked();
 		options.mirrorH = MirrorHor->isChecked();
 		options.mirrorV = MirrorVert->isChecked();
-		options.useICC = useIC;
 		options.doGCR = EnableGCR->isChecked();
 		options.setDevParam = false;
 		options.doClip = ClipMarg->isChecked();
@@ -649,10 +624,21 @@ int PPreview::RenderPreview(int Seite, int Res)
 		args.append( "-dTextAlphaBits=4" );
 		args.append( "-dGraphicsAlphaBits=4" );
 	}
-	if ((doc->HasCMS) && (GsMinor >= 0) && (GsMajor >= 9) && UseICC->isChecked())
+	if ((doc->HasCMS) && (GsMinor >= 0) && (GsMajor >= 9))
 	{
-		args.append("-sDefaultCMYKProfile="+doc->DocInputCMYKProf.profilePath());
-		args.append("-sOutputICCProfile="+doc->DocPrinterProf.profilePath());
+		args.append("-sDefaultCMYKProfile=" + QDir::toNativeSeparators(doc->DocPrinterProf.profilePath()));
+		if (EnableCMYK->isChecked() && HaveTiffSep)
+			args.append("-sOutputICCProfile=" + QDir::toNativeSeparators(doc->DocPrinterProf.profilePath()));
+		else
+			args.append("-sOutputICCProfile=" + QDir::toNativeSeparators(doc->DocDisplayProf.profilePath()));
+	}
+	else if (ScCore->haveCMS() && (GsMinor >= 0) && (GsMajor >= 9))
+	{
+		args.append("-sDefaultCMYKProfile=" + QDir::toNativeSeparators(ScCore->defaultCMYKProfile.profilePath()));
+		if (EnableCMYK->isChecked() && HaveTiffSep)
+			args.append("-sOutputICCProfile=" + QDir::toNativeSeparators(ScCore->defaultCMYKProfile.profilePath()));
+		else
+			args.append("-sOutputICCProfile=" + QDir::toNativeSeparators(ScCore->defaultRGBProfile.profilePath()));
 	}
 	// Add any extra font paths being used by Scribus to gs's font search path
 	PrefsContext *pc = prefsManager->prefsFile->getContext("Fonts");
@@ -662,7 +648,7 @@ int PPreview::RenderPreview(int Seite, int Res)
 		cmd1 = QString("-sFONTPATH=%1").arg(QDir::toNativeSeparators(extraFonts->get(0,0)));
 	for (int i = 1; i < extraFonts->getRowCount(); ++i)
 		cmd1 += QString("%1%2").arg(sep).arg(QDir::toNativeSeparators(extraFonts->get(i,0)));
-	if( !cmd1.isEmpty() )
+	if (!cmd1.isEmpty())
 		args.append( cmd1 );
 	// then add any final args and call gs
 	if ((EnableCMYK->isChecked()) && HaveTiffSep)
@@ -687,15 +673,10 @@ int PPreview::RenderPreviewSep(int Seite, int Res)
 	// Recreate Postscript-File only when the actual Page has changed
 	if ((Seite != APage)  || (EnableGCR->isChecked() != GMode) || (useGray->isChecked() != fGray)
 		|| (MirrorHor->isChecked() != mHor) || (MirrorVert->isChecked() != mVer) || (ClipMarg->isChecked() != fClip)
-		|| (UseICC->isChecked() != fICC) || (spotColors->isChecked() != fSpot))
+		|| (spotColors->isChecked() != fSpot))
 	{
 		ReallyUsed.clear();
 		doc->getUsedFonts(ReallyUsed);
-		bool useIC = UseICC->isChecked();
-		if (!doc->HasCMS)
-			useIC = false;
-		if ((doc->HasCMS) && (GsMinor >= 0) && (GsMajor >= 9))
-			useIC = false;
 		PrintOptions options;
 		options.pageNumbers.push_back(Seite+1);
 		options.outputSeparations = false;
@@ -704,7 +685,6 @@ int PPreview::RenderPreviewSep(int Seite, int Res)
 		options.useColor = !useGray->isChecked();
 		options.mirrorH = MirrorHor->isChecked();
 		options.mirrorV = MirrorVert->isChecked();
-		options.useICC = useIC;
 		options.doGCR = EnableGCR->isChecked();
 		options.setDevParam = false;
 		options.doClip = ClipMarg->isChecked();
@@ -742,10 +722,15 @@ int PPreview::RenderPreviewSep(int Seite, int Res)
 		args1.append("-dTextAlphaBits=4");
 		args1.append("-dGraphicsAlphaBits=4");
 	}
-	if ((doc->HasCMS) && (GsMinor >= 0) && (GsMajor >= 9) && UseICC->isChecked())
+	if ((doc->HasCMS) && (GsMinor >= 0) && (GsMajor >= 9))
 	{
-		args1.append("-sDefaultCMYKProfile="+doc->DocInputCMYKProf.profilePath());
-		args1.append("-sOutputICCProfile="+doc->DocPrinterProf.profilePath());
+		args1.append("-sDefaultCMYKProfile=" + doc->DocPrinterProf.profilePath());
+		args1.append("-sOutputICCProfile=" + doc->DocPrinterProf.profilePath());
+	}
+	else if (ScCore->haveCMS() && (GsMinor >= 0) && (GsMajor >= 9))
+	{
+		args.append("-sDefaultCMYKProfile=" + QDir::toNativeSeparators(ScCore->defaultCMYKProfile.profilePath()));
+		args.append("-sOutputICCProfile=" + QDir::toNativeSeparators(ScCore->defaultCMYKProfile.profilePath()));
 	}
 	// Add any extra font paths being used by Scribus to gs's font search path
 	PrefsContext *pc = prefsManager->prefsFile->getContext("Fonts");
@@ -755,8 +740,8 @@ int PPreview::RenderPreviewSep(int Seite, int Res)
 		cmd = QString("-sFONTPATH=%1").arg(QDir::toNativeSeparators(extraFonts->get(0,0)));
 	for (int i = 1; i < extraFonts->getRowCount(); ++i)
 		cmd += QString("%1%2").arg(sep).arg(QDir::toNativeSeparators(extraFonts->get(i,0)));
-	if( !cmd.isEmpty() )
-		args1.append( cmd );
+	if (!cmd.isEmpty())
+		args1.append(cmd);
 	args1.append( QString("-sOutputFile=%1").arg(QDir::toNativeSeparators(ScPaths::getTempFileDir()+"/sc.tif")) );
 
 	args2.append( QDir::toNativeSeparators(ScPaths::getTempFileDir()+"/tmp.ps") );
@@ -929,7 +914,7 @@ QPixmap PPreview::CreatePreview(int Seite, int Res)
 	        || (AntiAlias->isChecked() != GsAl) || (((AliasTr->isChecked() != Trans) || (EnableGCR->isChecked() != GMode))
 			&& (!EnableCMYK->isChecked()))
 			 || (useGray->isChecked() != fGray) || (MirrorHor->isChecked() != mHor) || (MirrorVert->isChecked() != mVer)
-			 || (ClipMarg->isChecked() != fClip) || (UseICC->isChecked() != fICC) || (spotColors->isChecked() != fSpot))
+			 || (ClipMarg->isChecked() != fClip) || (spotColors->isChecked() != fSpot))
 	{
 		if (!EnableCMYK->isChecked() || (!HaveTiffSep))
 		{
@@ -952,7 +937,7 @@ QPixmap PPreview::CreatePreview(int Seite, int Res)
 			if ((Seite != APage) || (EnableCMYK->isChecked() != CMode) || (SMode != scaleBox->currentIndex())
 	       	 || (AntiAlias->isChecked() != GsAl) || (AliasTr->isChecked() != Trans) || (EnableGCR->isChecked() != GMode)
 	       	 || (useGray->isChecked() != fGray)  || (MirrorHor->isChecked() != mHor)|| (MirrorVert->isChecked() != mVer)
-	       	 || (ClipMarg->isChecked() != fClip) || (UseICC->isChecked() != fICC) || (spotColors->isChecked() != fSpot))
+	       	 || (ClipMarg->isChecked() != fClip) || (spotColors->isChecked() != fSpot))
 			{
 				ret = RenderPreviewSep(Seite, Res);
 				if (ret > 0)
@@ -1118,12 +1103,14 @@ QPixmap PPreview::CreatePreview(int Seite, int Res)
 			}
 			else
 			{
-				if (doc->HasCMS)
+				if (doc->HasCMS || ScCore->haveCMS())
 				{
 					QRgb alphaFF = qRgba(0,0,0,255);
 					QRgb alphaOO = qRgba(255,255,255,0);
 					ScColorMgmtEngine engine = doc->colorEngine;
-					ScColorTransform transCMYK = engine.createTransform(doc->DocPrinterProf, Format_YMCK_8, doc->DocDisplayProf, Format_BGRA_8, Intent_Relative_Colorimetric, 0);
+					ScColorProfile cmykProfile = doc->HasCMS ? doc->DocPrinterProf : ScCore->defaultCMYKProfile;
+					ScColorProfile rgbProfile  = doc->HasCMS ? doc->DocDisplayProf : ScCore->defaultRGBProfile;
+					ScColorTransform transCMYK = engine.createTransform(cmykProfile, Format_YMCK_8, rgbProfile, Format_BGRA_8, Intent_Relative_Colorimetric, 0);
 					for( int yi=0; yi < h2; ++yi )
 					{
 						uchar* ptr = image.scanLine( yi );
@@ -1180,12 +1167,14 @@ QPixmap PPreview::CreatePreview(int Seite, int Res)
 			QFile f(ScPaths::getTempFileDir()+"/sc.png");
 			if (f.open(QIODevice::ReadOnly))
 			{
-				if (doc->HasCMS)
+				if (doc->HasCMS || ScCore->haveCMS())
 				{
 					QRgb alphaFF = qRgba(0,0,0,255);
 					QRgb alphaOO = qRgba(255,255,255,0);
 					ScColorMgmtEngine engine = doc->colorEngine;
-					ScColorTransform transCMYK = engine.createTransform(doc->DocPrinterProf, Format_YMCK_8, doc->DocDisplayProf, Format_BGRA_8, Intent_Relative_Colorimetric, 0);
+					ScColorProfile cmykProfile = doc->HasCMS ? doc->DocPrinterProf : ScCore->defaultCMYKProfile;
+					ScColorProfile rgbProfile  = doc->HasCMS ? doc->DocDisplayProf : ScCore->defaultRGBProfile;
+					ScColorTransform transCMYK = engine.createTransform(cmykProfile, Format_YMCK_8, rgbProfile, Format_BGRA_8, Intent_Relative_Colorimetric, 0);
 					for (int y=0; y < h2; ++y )
 					{
 						uchar* ptr = image.scanLine( y );
@@ -1282,7 +1271,7 @@ QPixmap PPreview::CreatePreview(int Seite, int Res)
 				QRgb *s = (QRgb*)(image.scanLine( yi ));
 				for(int xi=0; xi < wi; ++xi )
 				{
-					if((*s) == 0xffffffff)
+					if ((*s) == 0xffffffff)
 						(*s) &= 0x00ffffff;
 					s++;
 				}
@@ -1314,11 +1303,11 @@ QPixmap PPreview::CreatePreview(int Seite, int Res)
 bool PPreview::usePostscriptPreview(QString printerName, PrintEngine engine)
 {
 #ifdef _WIN32
-	if ( printerName == tr("File") )
+	if (printerName == tr("File"))
 		return true;
-	else if( printerName.isEmpty() )
+	else if (printerName.isEmpty())
 		return PrinterUtil::isPostscriptPrinter( ScPrintEngine_GDI::getDefaultPrinter() );
-	else if( engine >= PostScript1 && engine <= PostScript3 )
+	else if (engine >= PostScript1 && engine <= PostScript3)
 		return PrinterUtil::isPostscriptPrinter( printerName );
 	return false;
 #else
@@ -1341,7 +1330,6 @@ void PPreview::getUserSelection(int page)
 	fClip = ClipMarg->isChecked();
 	fSpot = spotColors->isChecked();
 	fGray = useGray->isChecked();
-	fICC = UseICC->isChecked();
 }
 
 void PPreview::imageLoadError(QPixmap &Bild, int page)

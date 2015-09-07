@@ -78,7 +78,7 @@ class SCRIBUS_API PSLib : public QObject
 
 		virtual bool PS_set_file(QString fn);
 		virtual void PS_set_Info(QString art, QString was);
-		virtual bool PS_begin_doc(ScribusDoc *doc, double x, double y, double width, double height, int numpage, bool doDev, bool sep, bool farb, bool ic, bool gcr);
+		virtual bool PS_begin_doc(ScribusDoc *doc, double x, double y, double width, double height, int numpage, bool doDev, bool sep, bool farb);
 		virtual void PS_begin_page(ScPage* pg, MarginStruct* Ma, bool Clipping);
 		virtual void PS_end_page();
 		virtual void PS_curve(double x1, double y1, double x2, double y2, double x3, double y3);
@@ -107,8 +107,8 @@ class SCRIBUS_API PSLib : public QObject
 		virtual void PS_show(double x, double y);
 		virtual void PS_showSub(uint chr, QString font, double size, bool stroke);
 		virtual void PS_show_xyG(QString font, uint gl, double x, double y, QString colorName, double shade);
-		virtual bool PS_image(PageItem *c, double x, double y, QString fn, double scalex, double scaley, QString Prof, bool UseEmbedded, bool UseProf, QString Name = "");
-		virtual bool PS_ImageData(PageItem *c, QString fn, QString Name, QString Prof, bool UseEmbedded, bool UseProf);
+		virtual bool PS_image(PageItem *c, double x, double y, QString fn, double scalex, double scaley, QString Prof, bool UseEmbedded, QString Name = "");
+		virtual bool PS_ImageData(PageItem *c, QString fn, QString Name, QString Prof, bool UseEmbedded);
 		virtual void PS_plate(int nr, QString name = "");
 		virtual void PS_setGray();
 		virtual void PDF_Bookmark(QString text, uint Seite);
@@ -118,29 +118,29 @@ class SCRIBUS_API PSLib : public QObject
 		virtual void PS_TemplateStart(QString Name);
 		virtual void PS_TemplateEnd();
 		virtual void PS_UseTemplate(QString Name);
-		virtual bool ProcessItem(ScribusDoc* Doc, ScPage* a, PageItem* c, uint PNr, bool sep, bool farb, bool ic, bool gcr, bool master, bool embedded = false, bool useTemplate = false);
-		virtual void ProcessPage(ScribusDoc* Doc, ScPage* a, uint PNr, bool sep = false, bool farb = true, bool ic = false, bool gcr = true);
-		virtual bool ProcessMasterPageLayer(ScribusDoc* Doc, ScPage* a, ScLayer& ll, uint PNr, bool sep = false, bool farb = true, bool ic = false, bool gcr = true);
-		virtual bool ProcessPageLayer(ScribusDoc* Doc, ScPage* a, ScLayer& ll, uint PNr, bool sep = false, bool farb = true, bool ic = false, bool gcr = true);
-		virtual void PS_HatchFill(PageItem *currItem, bool gcr);
-		virtual void drawArrow(PageItem *ite, QTransform &arrowTrans, int arrowIndex, bool gcr);
+		virtual bool ProcessItem(ScribusDoc* Doc, ScPage* a, PageItem* c, uint PNr, bool sep, bool farb, bool master, bool embedded = false, bool useTemplate = false);
+		virtual void ProcessPage(ScribusDoc* Doc, ScPage* a, uint PNr, bool sep = false, bool farb = true);
+		virtual bool ProcessMasterPageLayer(ScribusDoc* Doc, ScPage* a, ScLayer& ll, uint PNr, bool sep = false, bool farb = true);
+		virtual bool ProcessPageLayer(ScribusDoc* Doc, ScPage* a, ScLayer& ll, uint PNr, bool sep = false, bool farb = true);
+		virtual void PS_HatchFill(PageItem *currItem);
+		virtual void drawArrow(PageItem *ite, QTransform &arrowTrans, int arrowIndex);
 		virtual void putColor(const QString& color, double shade, bool fill);
-		virtual void putColorNoDraw(const QString& color, double shade, bool gcr);
+		virtual void putColorNoDraw(const QString& color, double shade);
 		virtual void GetBleeds(ScPage* page, double& left, double& right);
 		virtual void GetBleeds(ScPage* page, double& left, double& right, double& bottom, double& top);
 		virtual void SetClipPath(FPointArray *c, bool poly = true);
 		virtual void SetPathAndClip(FPointArray &c, bool clipRule);
-		virtual void HandleBrushPattern(PageItem *c, QPainterPath &path, ScPage* a, uint PNr, bool sep, bool farb, bool ic, bool gcr, bool master);
+		virtual void HandleBrushPattern(PageItem *c, QPainterPath &path, ScPage* a, uint PNr, bool sep, bool farb, bool master);
 		virtual void HandleStrokePattern(PageItem *c);
-		virtual void HandleMeshGradient(PageItem* c, bool gcr);
-		virtual void HandlePatchMeshGradient(PageItem* c, bool gcr);
-		virtual void HandleDiamondGradient(PageItem* c, bool gcr);
-		virtual void HandleTensorGradient(PageItem* c, bool gcr);
-		virtual void HandleGradientFillStroke(PageItem *c, bool gcr, bool stroke = true, bool forArrow = false);
-		virtual void SetColor(const QString& color, double shade, int *h, int *s, int *v, int *k, bool gcr);
-		virtual void SetColor(const ScColor& color, double shade, int *h, int *s, int *v, int *k, bool gcr);
-		virtual void setTextSt(ScribusDoc* Doc, PageItem* ite, bool gcr, uint a, ScPage* pg, bool sep, bool farb, bool ic, bool master);
-		virtual void setTextCh(ScribusDoc* Doc, PageItem* ite, double x, double y, bool gcr, uint a, uint d, QChar chstr, const GlyphLayout* glyphs, const CharStyle& cstyle, const ParagraphStyle& pstyle, ScPage* pg, bool sep, bool farb, bool ic, bool master);
+		virtual void HandleMeshGradient(PageItem* c);
+		virtual void HandlePatchMeshGradient(PageItem* c);
+		virtual void HandleDiamondGradient(PageItem* c);
+		virtual void HandleTensorGradient(PageItem* c);
+		virtual void HandleGradientFillStroke(PageItem *c, bool stroke = true, bool forArrow = false);
+		virtual void SetColor(const QString& color, double shade, int *h, int *s, int *v, int *k);
+		virtual void SetColor(const ScColor& color, double shade, int *h, int *s, int *v, int *k);
+		virtual void setTextSt(ScribusDoc* Doc, PageItem* ite, uint a, ScPage* pg, bool sep, bool farb, bool master);
+		virtual void setTextCh(ScribusDoc* Doc, PageItem* ite, double x, double y, uint a, uint d, QChar chstr, const GlyphLayout* glyphs, const CharStyle& cstyle, const ParagraphStyle& pstyle, ScPage* pg, bool sep, bool farb, bool master);
 		bool psExport;
 
 	private:
@@ -158,7 +158,7 @@ class SCRIBUS_API PSLib : public QObject
 		void WriteASCII85Bytes(const QByteArray& array);
 		void WriteASCII85Bytes(const unsigned char* array, int length);
 
-		void paintBorder(const TableBorder& border, const QPointF& start, const QPointF& end, const QPointF& startOffsetFactors, const QPointF& endOffsetFactors, bool gcr);
+		void paintBorder(const TableBorder& border, const QPointF& start, const QPointF& end, const QPointF& startOffsetFactors, const QPointF& endOffsetFactors);
 
 		Optimization optimization;
 
@@ -195,7 +195,6 @@ class SCRIBUS_API PSLib : public QObject
 		bool DoSep;
 		bool useSpotColors;
 		bool fillRule;
-		bool applyICC;
 		ScColorTransform solidTransform;
 		QString currentSpot;
 		ColorList colorsToUse;

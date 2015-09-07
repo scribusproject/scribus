@@ -84,7 +84,6 @@ public:
 	QCheckBox* ClipMarg;
 	QCheckBox* spotColors;
 	QCheckBox* useGray;
-	QCheckBox* UseICC;
 	QCheckBox* EnableInkCover;
 	ScrSpinBox* CoverThresholdValue;
 	QLabel* ThresLabel;
@@ -116,7 +115,6 @@ public:
 	bool fClip;
 	bool fSpot;
 	bool fGray;
-	bool fICC;
 	bool postscriptPreview;
 	QMap<QString, int> sepsToFileNum;
 	QMap<QString, QCheckBox*> flagsVisible;
