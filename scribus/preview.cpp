@@ -650,6 +650,14 @@ int PPreview::RenderPreview(int Seite, int Res)
 		args.append( "-dTextAlphaBits=4" );
 		args.append( "-dGraphicsAlphaBits=4" );
 	}
+	if ((doc->HasCMS) && (GsMinor >= 0) && (GsMajor >= 9) && UseICC->isChecked())
+	{
+		args.append("-sDefaultCMYKProfile=" + QDir::toNativeSeparators(doc->DocInputCMYKProf.profilePath()));
+		if (EnableCMYK->isChecked() && HaveTiffSep)
+			args.append("-sOutputICCProfile=" + QDir::toNativeSeparators(doc->DocPrinterProf.profilePath()));
+		else
+			args.append("-sOutputICCProfile=" + QDir::toNativeSeparators(doc->DocOutputProf.profilePath()));
+	}
 	// Add any extra font paths being used by Scribus to gs's font search path
 	PrefsContext *pc = prefsManager->prefsFile->getContext("Fonts");
 	PrefsTable *extraFonts = pc->getTable("ExtraFontDirs");
@@ -737,6 +745,11 @@ int PPreview::RenderPreviewSep(int Seite, int Res)
 	{
 		args1.append("-dTextAlphaBits=4");
 		args1.append("-dGraphicsAlphaBits=4");
+	}
+	if ((doc->HasCMS) && (GsMinor >= 0) && (GsMajor >= 9) && UseICC->isChecked())
+	{
+		args1.append("-sDefaultCMYKProfile="+doc->DocInputCMYKProf.profilePath());
+		args1.append("-sOutputICCProfile="+doc->DocPrinterProf.profilePath());
 	}
 	// Add any extra font paths being used by Scribus to gs's font search path
 	PrefsContext *pc = prefsManager->prefsFile->getContext("Fonts");
@@ -1101,11 +1114,13 @@ QPixmap PPreview::CreatePreview(int Seite, int Res)
 			}
 			else
 			{
-				if (doc->HasCMS)
+				if (doc->HasCMS || ScCore->haveCMS())
 				{
 					QRgb alphaFF = qRgba(0,0,0,255);
 					QRgb alphaOO = qRgba(255,255,255,0);
-					ScColorTransform transCMYK = ScColorMgmtEngine::createTransform(doc->DocPrinterProf, Format_YMCK_8, doc->DocOutputProf, Format_BGRA_8, Intent_Relative_Colorimetric, Ctf_LowResPrecalc);
+					ScColorProfile cmykProfile = doc->HasCMS ? doc->DocPrinterProf : ScCore->defaultCMYKProfile;
+					ScColorProfile rgbProfile  = doc->HasCMS ? doc->DocOutputProf : ScCore->defaultRGBProfile;
+					ScColorTransform transCMYK = ScColorMgmtEngine::createTransform(cmykProfile, Format_YMCK_8, rgbProfile, Format_BGRA_8, Intent_Relative_Colorimetric, Ctf_LowResPrecalc);
 					for( int yi=0; yi < h2; ++yi )
 					{
 						uchar* ptr = image.scanLine( yi );
@@ -1162,11 +1177,13 @@ QPixmap PPreview::CreatePreview(int Seite, int Res)
 			QFile f(ScPaths::getTempFileDir()+"/sc.png");
 			if (f.open(QIODevice::ReadOnly))
 			{
-				if (doc->HasCMS)
+				if (doc->HasCMS || ScCore->haveCMS())
 				{
 					QRgb alphaFF = qRgba(0,0,0,255);
 					QRgb alphaOO = qRgba(255,255,255,0);
-					ScColorTransform transCMYK = ScColorMgmtEngine::createTransform(doc->DocPrinterProf, Format_YMCK_8, doc->DocOutputProf, Format_BGRA_8, Intent_Relative_Colorimetric, Ctf_LowResPrecalc);
+					ScColorProfile cmykProfile = doc->HasCMS ? doc->DocPrinterProf : ScCore->defaultCMYKProfile;
+					ScColorProfile rgbProfile  = doc->HasCMS ? doc->DocOutputProf : ScCore->defaultRGBProfile;
+					ScColorTransform transCMYK = ScColorMgmtEngine::createTransform(cmykProfile, Format_YMCK_8, rgbProfile, Format_BGRA_8, Intent_Relative_Colorimetric, Ctf_LowResPrecalc);
 					for (int y=0; y < h2; ++y )
 					{
 						uchar* ptr = image.scanLine( y );
