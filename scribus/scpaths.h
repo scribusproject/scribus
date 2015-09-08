@@ -14,6 +14,8 @@ for which a new license (GPL+exception) is in place.
 class SCRIBUS_API ScPaths
 {
 public:
+	typedef enum {Hyph, Spell} DictType;
+
 	/**
 	 * @brief Get a reference to the ScPaths instance
 	 *        creating it if necessary.
@@ -70,8 +72,8 @@ public:
 	static QStringList getDirsFromEnvVar(const QString envVar, const QString dirToFind);
 	/** @brief Return path to application data dir*/
 	static QString getApplicationDataDir(void);
-	/** @brief Return path to application data dir for downloaded dictionaries*/
-	static QString getUserDictDir(bool createIfNotExists);
+	/** @brief Return path to application data dir for downloaded hyph dictionaries*/
+	static QString getUserDictDir(ScPaths::DictType dictType, bool createIfNotExists);
 	/** @brief Return path to application data dir for downloaded fonts*/
 	static QString getUserFontDir(bool createIfNotExists);
 	/** @brief Return path to image cache dir*/

@@ -375,6 +375,7 @@ struct DownloadItem
 	QString lang;
 	QString version;
 	QString files;
+	QString extractfiles;
 	QString url;
 	QString desc;
 	QString license;

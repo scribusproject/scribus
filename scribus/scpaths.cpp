@@ -249,7 +249,7 @@ QStringList ScPaths::spellDirs() const
 	QString windowsLOPath("LibreOffice 3.5/share/extensions");
 	QDir d;
 	QStringList spellDirs;
-	spellDirs.append(getUserDictDir(false));
+	spellDirs.append(getUserDictDir(ScPaths::Spell, false));
 	spellDirs.append(m_shareDir + "dicts/spelling/");
 #ifdef Q_OS_MAC
 	d.setPath(macPortsPath);
@@ -315,7 +315,7 @@ QStringList ScPaths::hyphDirs() const
 	QString windowsLOPath("LibreOffice 3.5/share/extensions");
 	QDir d;
 	QStringList hyphDirs;
-	hyphDirs.append(getUserDictDir(false));
+	hyphDirs.append(getUserDictDir(ScPaths::Hyph, false));
 	hyphDirs.append(m_shareDir + "dicts/hyph/");
 #ifdef Q_OS_MAC
 	d.setPath(macPortsPath);
@@ -507,9 +507,14 @@ QString ScPaths::getPluginDataDir(void)
 	return getApplicationDataDir() + "plugins/";
 }
 
-QString ScPaths::getUserDictDir(bool createIfNotExists)
+QString ScPaths::getUserDictDir(ScPaths::DictType dictType, bool createIfNotExists)
 {
-	QDir userDictDirectory(getApplicationDataDir() + "dicts/");
+	QString dictSuffix;
+	if (dictType == ScPaths::Hyph)
+		dictSuffix = "hyph/";
+	if (dictType == ScPaths::Spell)
+		dictSuffix = "spell/";
+	QDir userDictDirectory(getApplicationDataDir() + "dicts/" + dictSuffix);
 	if(createIfNotExists)
 	{
 		if (!userDictDirectory.exists())

@@ -80,7 +80,7 @@ void Prefs_Spelling::downloadSpellDicts()
 	downloadProgressBar->setVisible(true);
 	dlLabel->setVisible(true);
 	int i=0;
-	QString userDictDir(ScPaths::getUserDictDir(true));
+	QString userDictDir(ScPaths::getUserDictDir(ScPaths::Spell, true));
 	foreach(DownloadItem d, dictList)
 	{
 		if (dlLangs.contains(d.lang))

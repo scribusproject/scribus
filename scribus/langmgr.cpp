@@ -581,13 +581,18 @@ void LanguageManager::findHyphDictionarySets(QStringList& dictionaryPaths, QMap<
 		// Find the dic and aff files in the location
 		QDir dictLocation(dictionaryPaths.at(i));
 		QStringList dictFilters("hyph*.dic");
+		if (dictionaryPaths.at(i)==ScPaths::getUserDictDir(ScPaths::Hyph, false))
+				dictFilters.append("*.dic");
 		QStringList dictList(dictLocation.entryList(dictFilters, QDir::Files, QDir::Name));
 		dictList.replaceInStrings(".dic","");
-
-		//Ensure we have aff+dic file pairs, remove any hyphenation dictionaries from the list
 		foreach(QString dn, dictList)
 		{
-			QString dictName(dn.section('_',1));
+//			qDebug()<<dn;
+			QString dictName;
+			if (dn.startsWith("hyph_"))
+				dictName=dn.section('_',1);
+			else
+				dictName=dn;
 			if (!dictionaryMap.contains(dictName))
 			{
 				if (dictName.length()<=2)

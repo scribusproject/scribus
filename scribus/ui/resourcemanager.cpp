@@ -118,10 +118,13 @@ void ResourceManager::setTemplatesCategory()
 void ResourceManager::updateInstalledFonts()
 {
 	installedTableWidget->clear();
+	installedTableWidget->setSortingEnabled(false);
 	QStringList headers;
 	headers << tr("Description") << tr("Type") << tr("Installed") << tr("Download");
 	installedTableWidget->setHorizontalHeaderLabels(headers);
 	installedTableWidget->resizeColumnsToContents();
+	installedTableWidget->setSortingEnabled(true);
+	installedTableWidget->sortByColumn(0, Qt::AscendingOrder);
 }
 
 void ResourceManager::updateInstalledHyph()
@@ -135,15 +138,16 @@ void ResourceManager::updateInstalledHyph()
 	installedTableWidget->clear();
 	installedTableWidget->setRowCount(dictionaryMap.count());
 	installedTableWidget->setColumnCount(3);
+	installedTableWidget->setSortingEnabled(false);
 	QMapIterator<QString, QString> i(dictionaryMap);
 	int row=0;
 	while (i.hasNext())
 	{
 		 i.next();
 		 int column=0;
-		 //qDebug()<<i.key()<<i.value()<<LanguageManager::instance()->getLangFromAbbrev(i.key(), false);
+//		 qDebug()<<i.key()<<i.value()<<LanguageManager::instance()->getLangFromAbbrev(i.key(), false);
 		 QTableWidgetItem *newItem1 = new QTableWidgetItem(LanguageManager::instance()->getLangFromAbbrev(i.key()));
-		 newItem1->setFlags(newItem1->flags() & ~Qt::ItemIsEditable);
+		 newItem1->setFlags(newItem1->flags() & ~Qt::ItemIsEditable & ~Qt::ItemIsSelectable);
 		 installedTableWidget->setItem(row, column++, newItem1);
 		 QTableWidgetItem *newItem2 = new QTableWidgetItem(i.key());
 		 newItem2->setFlags(newItem1->flags());
@@ -158,6 +162,8 @@ void ResourceManager::updateInstalledHyph()
 	headers << tr("Language") << tr("Code") << tr("Location");
 	installedTableWidget->setHorizontalHeaderLabels(headers);
 	installedTableWidget->resizeColumnsToContents();
+	installedTableWidget->setSortingEnabled(true);
+	installedTableWidget->sortByColumn(0, Qt::AscendingOrder);
 }
 
 void ResourceManager::updateInstalledSpell()
@@ -171,15 +177,16 @@ void ResourceManager::updateInstalledSpell()
 	installedTableWidget->clear();
 	installedTableWidget->setRowCount(dictionaryMap.count());
 	installedTableWidget->setColumnCount(3);
+	installedTableWidget->setSortingEnabled(false);
 	QMapIterator<QString, QString> i(dictionaryMap);
 	int row=0;
 	while (i.hasNext())
 	{
 		 i.next();
 		 int column=0;
-		 //qDebug()<<i.key()<<i.value()<<LanguageManager::instance()->getLangFromAbbrev(i.key(), false);
+//		 qDebug()<<i.key()<<i.value()<<LanguageManager::instance()->getLangFromAbbrev(i.key(), false);
 		 QTableWidgetItem *newItem1 = new QTableWidgetItem(LanguageManager::instance()->getLangFromAbbrev(i.key()));
-		 newItem1->setFlags(newItem1->flags() & ~Qt::ItemIsEditable);
+		 newItem1->setFlags(newItem1->flags() & ~Qt::ItemIsEditable & ~Qt::ItemIsSelectable);
 		 installedTableWidget->setItem(row, column++, newItem1);
 		 QTableWidgetItem *newItem2 = new QTableWidgetItem(i.key());
 		 newItem2->setFlags(newItem1->flags());
@@ -194,6 +201,8 @@ void ResourceManager::updateInstalledSpell()
 	headers << tr("Language") << tr("Code") << tr("Location");
 	installedTableWidget->setHorizontalHeaderLabels(headers);
 	installedTableWidget->resizeColumnsToContents();
+	installedTableWidget->setSortingEnabled(true);
+	installedTableWidget->sortByColumn(0, Qt::AscendingOrder);
 }
 
 void ResourceManager::updateInstalledTemplates()
@@ -240,6 +249,7 @@ void ResourceManager::updateAvailableFonts()
 					d.desc=e.attribute("description");
 					d.download=false;
 					d.files=e.attribute("files");
+					d.extractfiles=e.attribute("extractfiles");
 					d.url=e.attribute("URL");
 					d.version=e.attribute("version");
 					d.lang=e.attribute("language");
@@ -265,13 +275,14 @@ void ResourceManager::updateAvailableFonts()
 	}
 	availableTableWidget->setRowCount(fontList.count());
 	availableTableWidget->setColumnCount(4);
+	availableTableWidget->setSortingEnabled(false);
 	int row=0;
 	foreach(DownloadItem d, fontList)
 	{
 		int column=0;
-		//qDebug()<<d.version<<d.files<<d.url<<d.desc<<d.license;
+//		qDebug()<<d.version<<d.files<<d.url<<d.desc<<d.license;
 		QTableWidgetItem *newItem1 = new QTableWidgetItem(d.desc);
-		newItem1->setFlags(newItem1->flags() & ~Qt::ItemIsEditable);
+		newItem1->setFlags(newItem1->flags() & ~Qt::ItemIsEditable & ~Qt::ItemIsSelectable);
 		availableTableWidget->setItem(row, column++, newItem1);
 		QTableWidgetItem *newItem2 = new QTableWidgetItem(d.type);
 		newItem2->setFlags(newItem1->flags());
@@ -281,6 +292,7 @@ void ResourceManager::updateAvailableFonts()
 		newItem3->setFlags(newItem1->flags() & ~Qt::ItemIsUserCheckable);
 		availableTableWidget->setItem(row, column++, newItem3);
 		QTableWidgetItem *newItem4 = new QTableWidgetItem();
+		newItem4->setFlags(newItem1->flags());
 		newItem4->setCheckState(d.download ? Qt::Checked : Qt::Unchecked);
 		availableTableWidget->setItem(row, column++, newItem4);
 		++row;
@@ -289,6 +301,8 @@ void ResourceManager::updateAvailableFonts()
 	headers << tr("Description") << tr("Type") << tr("Installed") << tr("Download");
 	availableTableWidget->setHorizontalHeaderLabels(headers);
 	availableTableWidget->resizeColumnsToContents();
+	availableTableWidget->setSortingEnabled(true);
+	availableTableWidget->sortByColumn(0, Qt::AscendingOrder);
 	downloadButton->setEnabled(true);
 }
 
@@ -332,6 +346,7 @@ void ResourceManager::updateAvailableHyph()
 						d.desc=e.attribute("description");
 						d.download=false;
 						d.files=e.attribute("files");
+						d.extractfiles=e.attribute("extractfiles");
 						d.url=e.attribute("URL");
 						d.version=e.attribute("version");
 						d.lang=e.attribute("language");
@@ -357,13 +372,14 @@ void ResourceManager::updateAvailableHyph()
 	}
 	availableTableWidget->setRowCount(dictList.count());
 	availableTableWidget->setColumnCount(4);
+	availableTableWidget->setSortingEnabled(false);
 	int row=0;
 	foreach(DownloadItem d, dictList)
 	{
 		int column=0;
 		//qDebug()<<d.version<<d.files<<d.url<<d.desc<<d.license;
 		QTableWidgetItem *newItem1 = new QTableWidgetItem(d.desc);
-		newItem1->setFlags(newItem1->flags() & ~Qt::ItemIsEditable);
+		newItem1->setFlags(newItem1->flags() & ~Qt::ItemIsEditable & ~Qt::ItemIsSelectable);
 		availableTableWidget->setItem(row, column++, newItem1);
 		QTableWidgetItem *newItem2 = new QTableWidgetItem(d.lang);
 		newItem2->setFlags(newItem1->flags());
@@ -373,6 +389,7 @@ void ResourceManager::updateAvailableHyph()
 		newItem3->setFlags(newItem1->flags() & ~Qt::ItemIsUserCheckable);
 		availableTableWidget->setItem(row, column++, newItem3);
 		QTableWidgetItem *newItem4 = new QTableWidgetItem();
+		newItem4->setFlags(newItem1->flags());
 		newItem4->setCheckState(d.download ? Qt::Checked : Qt::Unchecked);
 		availableTableWidget->setItem(row, column++, newItem4);
 		++row;
@@ -381,6 +398,8 @@ void ResourceManager::updateAvailableHyph()
 	headers << tr("Language") << tr("Code") << tr("Installed") << tr("Download");
 	availableTableWidget->setHorizontalHeaderLabels(headers);
 	availableTableWidget->resizeColumnsToContents();
+	availableTableWidget->setSortingEnabled(true);
+	availableTableWidget->sortByColumn(0, Qt::AscendingOrder);
 	downloadButton->setEnabled(true);
 }
 
@@ -424,6 +443,7 @@ void ResourceManager::updateAvailableSpell()
 						d.desc=e.attribute("description");
 						d.download=false;
 						d.files=e.attribute("files");
+						d.extractfiles=e.attribute("extractfiles");
 						d.url=e.attribute("URL");
 						d.version=e.attribute("version");
 						d.lang=e.attribute("language");
@@ -449,13 +469,14 @@ void ResourceManager::updateAvailableSpell()
 	}
 	availableTableWidget->setRowCount(dictList.count());
 	availableTableWidget->setColumnCount(4);
+	availableTableWidget->setSortingEnabled(false);
 	int row=0;
 	foreach(DownloadItem d, dictList)
 	{
 		int column=0;
 		//qDebug()<<d.version<<d.files<<d.url<<d.desc<<d.license;
 		QTableWidgetItem *newItem1 = new QTableWidgetItem(d.desc);
-		newItem1->setFlags(newItem1->flags() & ~Qt::ItemIsEditable);
+		newItem1->setFlags(newItem1->flags() & ~Qt::ItemIsEditable & ~Qt::ItemIsSelectable);
 		availableTableWidget->setItem(row, column++, newItem1);
 		QTableWidgetItem *newItem2 = new QTableWidgetItem(d.lang);
 		newItem2->setFlags(newItem1->flags());
@@ -465,6 +486,7 @@ void ResourceManager::updateAvailableSpell()
 		newItem3->setFlags(newItem1->flags() & ~Qt::ItemIsUserCheckable);
 		availableTableWidget->setItem(row, column++, newItem3);
 		QTableWidgetItem *newItem4 = new QTableWidgetItem();
+		newItem4->setFlags(newItem1->flags());
 		newItem4->setCheckState(d.download ? Qt::Checked : Qt::Unchecked);
 		availableTableWidget->setItem(row, column++, newItem4);
 		++row;
@@ -473,6 +495,8 @@ void ResourceManager::updateAvailableSpell()
 	headers << tr("Language") << tr("Code") << tr("Installed") << tr("Download");
 	availableTableWidget->setHorizontalHeaderLabels(headers);
 	availableTableWidget->resizeColumnsToContents();
+	availableTableWidget->setSortingEnabled(true);
+	availableTableWidget->sortByColumn(0, Qt::AscendingOrder);
 	downloadButton->setEnabled(true);
 }
 
@@ -577,15 +601,16 @@ void ResourceManager::downloadFilesFinished()
 							qDebug()<<"Zip file doesnt open"<<fn;
 						else
 						{
-							QStringList toExtract(fun->files());
+							QStringList zipFileContents(fun->files());
+							QStringList extractFiles(d.extractfiles.split(";", QString::SkipEmptyParts));
 							QString toDir(ScPaths::getUserFontDir(false)+fi.baseName()+"/");
 							QDir d(ScPaths::getUserFontDir(false));
 							if (!d.exists(fi.baseName()))
 								d.mkdir(fi.baseName());
-							foreach (QString f2e, toExtract)
+							foreach (QString f2e, zipFileContents)
 							{
 								//qDebug()<<"Unzipping"<<f2e<<"to"<<toDir;
-								fun->extract(f2e,toDir);
+								fun->extract(f2e, toDir);
 							}
 						}
 						delete fun;
@@ -597,6 +622,52 @@ void ResourceManager::downloadFilesFinished()
 				}
 			}
 			break;
+		case RM_HYPH:
+		case RM_SPELL:
+			int fileType = category == RM_HYPH ? ScPaths::Hyph : ScPaths::Spell;
+			foreach(DownloadItem d, downloadList)
+			{
+//				qDebug()<<d.desc<<d.download<<d.files<<d.type;
+				if (d.filetype=="zip")
+				{
+					QString fn(ScPaths::getUserDictDir(static_cast<ScPaths::DictType>(fileType), true)+d.files);
+//					qDebug()<<fn;
+					QFile dledFile(fn);
+					QFileInfo fi(dledFile);
+					if (!dledFile.exists())
+						qDebug()<<"File doesnt exist"<<fn;
+					else
+					{
+						ScZipHandler* fun = new ScZipHandler();
+						if (!fun->open(fn))
+							qDebug()<<"Zip file doesnt open"<<fn;
+						else
+						{
+							QStringList zipContents(fun->files());
+							QStringList extractFiles(d.extractfiles.split(";", QString::SkipEmptyParts));
+//							QString toDir(ScPaths::getUserDictDir(false)+fi.baseName()+"/");
+							QString toDir(ScPaths::getUserDictDir(static_cast<ScPaths::DictType>(fileType), false));
+							QDir d(toDir);
+							if (d.exists())
+							{
+								foreach (QString f2e, zipContents)
+								{
+									if (extractFiles.contains(f2e))
+									{
+//										qDebug()<<"Unzipping"<<f2e<<"to"<<toDir;
+										fun->extract(f2e, toDir);
+									}
+								}
+							}
+						}
+						delete fun;
+					}
+				}
+				if (d.filetype=="plain")
+				{
+					//do nothing as the file is alread in place from dl mgr
+				}
+			}
 	}
 
 }
@@ -618,7 +689,7 @@ void ResourceManager::startDownload()
 	}
 	if (filesToDownload.isEmpty())
 		return;
-	//qDebug()<<filesToDownload;
+//	qDebug()<<filesToDownload;
 	downloadButton->setEnabled(false);
 	downloadList.clear();
 	downloadProgressBar->setValue(0);
@@ -635,13 +706,15 @@ void ResourceManager::startDownload()
 			destinationFolder=ScPaths::getUserFontDir(true);
 			break;
 		case RM_HYPH:
-			destinationFolder=ScPaths::getUserDictDir(true);
+			destinationFolder=ScPaths::getUserDictDir(ScPaths::Hyph, true);
 			break;
 		case RM_SPELL:
-			destinationFolder=ScPaths::getUserDictDir(true);
+			destinationFolder=ScPaths::getUserDictDir(ScPaths::Spell, true);
 			break;
 		case RM_TEMPLATES:
-			destinationFolder=ScPaths::getUserDictDir(true);
+			//temporary
+			destinationFolder=ScPaths::getTempFileDir();
+			//TODO!!!! destinationFolder=ScPaths::getUserDictDir(true);
 			break;
 	}
 	switch (category)
@@ -656,7 +729,7 @@ void ResourceManager::startDownload()
 						QStringList plainURLs(d.files.split(";", QString::SkipEmptyParts));
 						foreach (QString s, plainURLs)
 						{
-							//qDebug()<<"Requesting:"<<d.url+"/"+s;
+//							qDebug()<<"Requesting:"<<d.url+"/"+s;
 							ScQApp->dlManager()->addURL(d.url+"/"+s, true, ScPaths::downloadDir(), destinationFolder, d.files);
 							++dlCount;
 						}
@@ -681,10 +754,12 @@ void ResourceManager::startDownload()
 		case RM_SPELL:
 			foreach(DownloadItem d, dictList)
 			{
-				if (filesToDownload.contains(d.lang))
+//				qDebug()<<d.desc;
+				if (filesToDownload.contains(d.desc))
 				{
 					if (d.filetype=="zip")
 					{
+//						qDebug()<<"zip type:"<<d.url<<d.files;
 						QStringList plainURLs(d.files.split(";", QString::SkipEmptyParts));
 						foreach (QString s, plainURLs)
 						{
@@ -696,7 +771,7 @@ void ResourceManager::startDownload()
 					}
 					if (d.filetype=="plain")
 					{
-						//qDebug()<<d.url<<d.files;
+//						qDebug()<<"plain type:"<<d.url<<d.files;
 						QStringList plainURLs(d.files.split(";", QString::SkipEmptyParts));
 						foreach (QString s, plainURLs)
 						{
