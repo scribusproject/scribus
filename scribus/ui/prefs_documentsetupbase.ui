@@ -642,6 +642,30 @@
    <container>1</container>
   </customwidget>
  </customwidgets>
+ <tabstops>
+  <tabstop>tabWidget</tabstop>
+  <tabstop>pageSizeComboBox</tabstop>
+  <tabstop>pageSizeLinkToolButton</tabstop>
+  <tabstop>pageOrientationComboBox</tabstop>
+  <tabstop>pageUnitsComboBox</tabstop>
+  <tabstop>pageWidthSpinBox</tabstop>
+  <tabstop>pageHeightSpinBox</tabstop>
+  <tabstop>applySizesToAllPagesCheckBox</tabstop>
+  <tabstop>applySizesToAllMasterPagesCheckBox</tabstop>
+  <tabstop>singlePageRadioButton</tabstop>
+  <tabstop>doublePageRadioButton</tabstop>
+  <tabstop>threeFoldRadioButton</tabstop>
+  <tabstop>fourFoldRadioButton</tabstop>
+  <tabstop>layoutFirstPageIsComboBox</tabstop>
+  <tabstop>scrollArea</tabstop>
+  <tabstop>applyMarginsToAllPagesCheckBox</tabstop>
+  <tabstop>applyMarginsToAllMasterPagesCheckBox</tabstop>
+  <tabstop>saveCompressedCheckBox</tabstop>
+  <tabstop>autosaveCheckBox</tabstop>
+  <tabstop>autosaveIntervalSpinBox</tabstop>
+  <tabstop>undoCheckBox</tabstop>
+  <tabstop>undoLengthSpinBox</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
  <buttongroups>

@@ -178,6 +178,15 @@
    <header location="global">ui/marginpresetlayout.h</header>
   </customwidget>
  </customwidgets>
+ <tabstops>
+  <tabstop>presetLayoutComboBox</tabstop>
+  <tabstop>leftMarginSpinBox</tabstop>
+  <tabstop>rightMarginSpinBox</tabstop>
+  <tabstop>topMarginSpinBox</tabstop>
+  <tabstop>bottomMarginSpinBox</tabstop>
+  <tabstop>marginLinkButton</tabstop>
+  <tabstop>printerMarginsPushButton</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

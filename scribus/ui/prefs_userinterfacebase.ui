@@ -390,6 +390,24 @@
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>tabWidget</tabstop>
+  <tabstop>languageComboBox</tabstop>
+  <tabstop>themeComboBox</tabstop>
+  <tabstop>iconSetComboBox</tabstop>
+  <tabstop>useSmallWidgetsCheckBox</tabstop>
+  <tabstop>useTabsForDocumentsCheckBox</tabstop>
+  <tabstop>recentDocumentsSpinBox</tabstop>
+  <tabstop>fontSizeMenuSpinBox</tabstop>
+  <tabstop>fontSizePaletteSpinBox</tabstop>
+  <tabstop>storyEditorFontPushButton</tabstop>
+  <tabstop>storyEditorFontColorPushButton</tabstop>
+  <tabstop>storyEditorUseSmartSelectionCheckBox</tabstop>
+  <tabstop>resizeMoveDelaySpinBox</tabstop>
+  <tabstop>wheelJumpSpinBox</tabstop>
+  <tabstop>showSplashCheckBox</tabstop>
+  <tabstop>showStartupDialogCheckBox</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>
