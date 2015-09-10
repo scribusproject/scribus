@@ -32,6 +32,7 @@ for which a new license (GPL+exception) is in place.
 #include <QLibraryInfo>
 #include <QLocale>
 #include <QString>
+#include <QStringList>
 #include <QTextCodec>
 #include <QTextStream>
 #include <QTranslator>
@@ -71,6 +72,8 @@ for which a new license (GPL+exception) is in place.
 #define ARG_UPGRADECHECK "--upgradecheck"
 #define ARG_TESTS "--tests"
 #define ARG_PYTHONSCRIPT "--python-script"
+#define ARG_SCRIPTARG "--python-arg"
+#define CMD_OPTIONS_END "--"
 
 #define ARG_VERSION_SHORT "-v"
 #define ARG_HELP_SHORT "-h"
@@ -86,6 +89,7 @@ for which a new license (GPL+exception) is in place.
 #define ARG_UPGRADECHECK_SHORT "-u"
 #define ARG_TESTS_SHORT "-T"
 #define ARG_PYTHONSCRIPT_SHORT "-py"
+#define ARG_SCRIPTARG_SHORT "-pa"
 
 // Qt wants -display not --display or -d
 #define ARG_DISPLAY_QT "-display"
@@ -108,6 +112,7 @@ ScribusQApp::ScribusQApp( int & argc, char ** argv ) : QApplication(argc, argv),
 	m_scDLMgr = 0;
 	m_ScCore = NULL;
 	initDLMgr();
+
 }
 
 ScribusQApp::~ScribusQApp()
@@ -151,18 +156,30 @@ void ScribusQApp::parseCommandLine()
 	int testargsc;
 #endif
 	showFontInfo=false;
-	showProfileInfo=false;
+	showProfileInfo=false;	
+	bool neversplash = false;
 
-	//Parse for command line information options, and lang
+	//Parse for command line options
 	// Qt5 port: do this in a Qt compatible manner
 	QStringList args = arguments();
 	int argsc = args.count();
-	for(int i = 1; i < argsc; i++)
-	{
-		arg = args[i];
 
-		if ((arg == ARG_LANG || arg == ARG_LANG_SHORT) && (++i < argsc)) {
-			lang = args[i];
+	//Init translations
+	initLang();
+	
+	useGUI = true;
+	int argi = 1;
+	for( ; argi < argsc; argi++) { //handle options (not positional parameters)
+		arg = args[argi];
+
+		if (arg == ARG_SCRIPTARG || arg == ARG_SCRIPTARG_SHORT) { //needs to be first to give precedence to script argument name over scribus' options
+			pythonScriptArgs.append(args[++argi]); // arg name
+			if (!args[argi+1].startsWith("-")) {   // arg value
+				pythonScriptArgs.append( QFile::decodeName(args[++argi].toLocal8Bit()) );
+			}
+		}
+		else if ((arg == ARG_LANG || arg == ARG_LANG_SHORT) && (++argi < argsc)) {
+			lang = args[argi];
 		}
 		else if (arg == ARG_VERSION || arg == ARG_VERSION_SHORT) {
 			header=true;
@@ -175,8 +192,8 @@ void ScribusQApp::parseCommandLine()
 		else if (arg == ARG_TESTS || arg == ARG_TESTS_SHORT) {
 			header=true;
 			runtests=true;
-			testargsc = argc() - i;
-			testargsv = argv() + i;
+			testargsc = argc() - argi;
+			testargsv = argv() + argi;
 			break;
 		}
 #endif
@@ -187,12 +204,70 @@ void ScribusQApp::parseCommandLine()
 			header=true;
 			runUpgradeCheck=true;
 		}
+		else if ((arg == ARG_LANG || arg == ARG_LANG_SHORT) && (++argi < argsc)) {
+			continue;
+		} 
+		else if ( arg == ARG_CONSOLE || arg == ARG_CONSOLE_SHORT ) {
+			continue;
+		} else if (arg == ARG_NOSPLASH || arg == ARG_NOSPLASH_SHORT) {
+			showSplash = false;
+		}
+		else if (arg == ARG_NEVERSPLASH || arg == ARG_NEVERSPLASH_SHORT) {
+			showSplash = false;
+			neversplash = true;
+		} else if (arg == ARG_NOGUI || arg == ARG_NOGUI_SHORT) {
+			useGUI=false;
+		} else if (arg == ARG_FONTINFO || arg == ARG_FONTINFO_SHORT) {
+			showFontInfo=true;
+		} else if (arg == ARG_PROFILEINFO || arg == ARG_PROFILEINFO_SHORT) {
+			showProfileInfo=true;
+		} else if ((arg == ARG_DISPLAY || arg==ARG_DISPLAY_SHORT || arg==ARG_DISPLAY_QT) && ++argi < argsc) {
+			// allow setting of display, QT expect the option -display <display_name> so we discard the
+			// last argument. FIXME: Qt only understands -display not --display and -d , we need to work
+			// around this.
+		} else if (arg == ARG_PREFS || arg == ARG_PREFS_SHORT) {
+			prefsUserFile = QFile::decodeName(args[argi + 1].toLocal8Bit());
+			if (!QFileInfo(prefsUserFile).exists()) {
+				showError(prefsUserFile);
+				std::exit(EXIT_FAILURE);
+			} else {
+				++argi;
+			}
+		} else if (strncmp(arg.toLocal8Bit().data(),"-psn_",4) == 0)
+		{
+			// Andreas Vox: Qt/Mac has -psn_blah flags that must be accepted.
+		} else if (arg == ARG_PYTHONSCRIPT || arg == ARG_PYTHONSCRIPT_SHORT) {
+			pythonScript = QFile::decodeName(args[argi + 1].toLocal8Bit());
+			if (!QFileInfo(pythonScript).exists()) {
+				showError(pythonScript);
+				std::exit(EXIT_FAILURE);
+			} else {
+				++argi;
+			}
+		} else if (arg == CMD_OPTIONS_END) { //double dash, indicates end of command line options, see http://unix.stackexchange.com/questions/11376/what-does-double-dash-mean-also-known-as-bare-double-dash
+			argi++;
+			break;
+		} else { //argument is not a known option, but either positional parameter or invalid.
+			break;
+		}
 	}
-	//Init translations
-	initLang();
-	//Show command line help
-	if (header)
+	// parse for remaining (positional) arguments, if any
+	for ( ; argi<argsc; argi++) {
+		fileName = QFile::decodeName(args[argi].toLocal8Bit());
+		if (!QFileInfo(fileName).exists()) {
+			showError(fileName);
+			std::exit(EXIT_FAILURE);
+		} else {
+			filesToLoad.append(fileName);
+		}
+	}
+
+	
+	//Show command line info
+	if (header) {
+		useGUI = false;
 		showHeader();
+	}
 	if (version)
 		showVersion();
 	if (availlangs)
@@ -209,82 +284,14 @@ void ScribusQApp::parseCommandLine()
 		uc.fetch();
 	}
 	//Dont run the GUI init process called from main.cpp, and return
-	if (header)
+	if (header) {		
 		std::exit(EXIT_SUCCESS);
-	useGUI = true;
-	//We are going to run something other than command line help
-	for(int i = 1; i < argsc; i++) {
-		arg = args[i];
-
-		if ((arg == ARG_LANG || arg == ARG_LANG_SHORT) && (++i < argsc)) {
-			continue;
-		} else if ( arg == ARG_CONSOLE || arg == ARG_CONSOLE_SHORT ) {
-			continue;
-		} else if (arg == ARG_NOSPLASH || arg == ARG_NOSPLASH_SHORT) {
-			showSplash = false;
-		}
-		else if (arg == ARG_NEVERSPLASH || arg == ARG_NEVERSPLASH_SHORT) {
-			showSplash = false;
-			neverSplash(true);
-		} else if (arg == ARG_NOGUI || arg == ARG_NOGUI_SHORT) {
-			useGUI=false;
-		} else if (arg == ARG_FONTINFO || arg == ARG_FONTINFO_SHORT) {
-			showFontInfo=true;
-		} else if (arg == ARG_PROFILEINFO || arg == ARG_PROFILEINFO_SHORT) {
-			showProfileInfo=true;
-		} else if ((arg == ARG_DISPLAY || arg==ARG_DISPLAY_SHORT || arg==ARG_DISPLAY_QT) && ++i < argsc) {
-			// allow setting of display, QT expect the option -display <display_name> so we discard the
-			// last argument. FIXME: Qt only understands -display not --display and -d , we need to work
-			// around this.
-		} else if (arg == ARG_PREFS || arg == ARG_PREFS_SHORT) {
-			prefsUserFile = QFile::decodeName(args[i + 1].toLocal8Bit());
-			if (!QFileInfo(prefsUserFile).exists()) {
-				showHeader();
-				if (prefsUserFile.left(1) == "-" || prefsUserFile.left(2) == "--") {
-					std::cout << tr("Invalid argument: ").toLocal8Bit().data() << prefsUserFile.toLocal8Bit().data() << std::endl;
-				} else {
-					std::cout << tr("File %1 does not exist, aborting.").arg(prefsUserFile).toLocal8Bit().data() << std::endl;
-				}
-				showUsage();
-				std::exit(EXIT_FAILURE);
-			} else {
-				++i;
-			}
-		} else if (strncmp(arg.toLocal8Bit().data(),"-psn_",4) == 0)
-		{
-			// Andreas Vox: Qt/Mac has -psn_blah flags that must be accepted.
-		} else if (arg == ARG_PYTHONSCRIPT || arg == ARG_PYTHONSCRIPT_SHORT) {
-			pythonScript = QFile::decodeName(args[i + 1].toLocal8Bit());
-			if (!QFileInfo(pythonScript).exists()) {
-				showHeader();
-				if (pythonScript.left(1) == "-" || pythonScript.left(2) == "--") {
-					std::cout << tr("Invalid argument: ").toLocal8Bit().data() << pythonScript.toLocal8Bit().data() << std::endl;
-				} else {
-					std::cout << tr("File %1 does not exist, aborting.").arg(pythonScript).toLocal8Bit().data() << std::endl;
-				}
-				showUsage();
-				std::exit(EXIT_FAILURE);
-			} else {
-				++i;
-			}
-		} else {
-			fileName = QFile::decodeName(args[i].toLocal8Bit());
-			if (!QFileInfo(fileName).exists()) {
-				showHeader();
-				if (fileName.left(1) == "-" || fileName.left(2) == "--") {
-					std::cout << tr("Invalid argument: %1").arg(fileName).toLocal8Bit().data() << std::endl;
-				} else {
-					std::cout << tr("File %1 does not exist, aborting.").arg(fileName).toLocal8Bit().data() << std::endl;
-				}
-				showUsage();
-				std::exit(EXIT_FAILURE);
-			}
-			else
-			{
-				filesToLoad.append(fileName);
-			}
-		}
 	}
+	//proceed
+	if(neversplash) {
+		neverSplash(true);
+	}
+	
 }
 
 int ScribusQApp::init()
@@ -485,7 +492,7 @@ void ScribusQApp::showUsage()
 	QFile f;
 	f.open(stderr, QIODevice::WriteOnly);
 	QTextStream ts(&f);
-	ts << tr("Usage: scribus [option ... ] [file]") ; endl(ts);
+	ts << tr("Usage: scribus [options] [files]") ; endl(ts); endl(ts);
 	ts << tr("Options:") ; endl(ts);
 	printArgLine(ts, ARG_FONTINFO_SHORT, ARG_FONTINFO, tr("Show information on the console when fonts are being loaded") );
 	printArgLine(ts, ARG_HELP_SHORT, ARG_HELP, tr("Print help (this message) and exit") );
@@ -498,7 +505,10 @@ void ScribusQApp::showUsage()
 	printArgLine(ts, ARG_UPGRADECHECK_SHORT, ARG_UPGRADECHECK, tr("Download a file from the Scribus website and show the latest available version") );
 	printArgLine(ts, ARG_VERSION_SHORT, ARG_VERSION, tr("Output version information and exit") );
 	printArgLine(ts, ARG_PYTHONSCRIPT_SHORT, qPrintable(QString("%1 <%2>").arg(ARG_PYTHONSCRIPT).arg(tr("filename"))), tr("Run filename in Python scripter") );
+	printArgLine(ts, ARG_SCRIPTARG_SHORT, qPrintable(QString("%1 <%2> [%3]").arg(ARG_SCRIPTARG).arg(tr("name")).arg(tr("value"))), tr("Argument passed on to python script, with an optional value, no effect without -py") );
 	printArgLine(ts, ARG_NOGUI_SHORT, ARG_NOGUI, tr("Do not start GUI") );
+	ts << (QString("     %1").arg(CMD_OPTIONS_END,-39)) << tr("Explicit end of command line options"); endl(ts);
+ 	
 	
 #if defined(_WIN32) && !defined(_CONSOLE)
 	printArgLine(ts, ARG_CONSOLE_SHORT, ARG_CONSOLE, tr("Display a console window") );
@@ -556,6 +566,18 @@ void ScribusQApp::showHeader()
 	ts << QString("%1 %2").arg( tr("Wiki")+":",          descwidth).arg("http://wiki.scribus.net"); endl(ts);
 	ts << QString("%1 %2").arg( tr("Issues")+":",        descwidth).arg("http://bugs.scribus.net"); endl(ts);
 	endl(ts);
+}
+
+void ScribusQApp::showError(QString arg)
+{
+	showHeader();
+	if (arg.left(1) == "-" || arg.left(2) == "--") {
+		std::cout << tr("Invalid argument: %1").arg(arg).toLocal8Bit().data() << std::endl;
+	} else {
+		std::cout << tr("File %1 does not exist, aborting.").arg(arg).toLocal8Bit().data() << std::endl;
+	}
+	showUsage();
+	std::cout << tr("Scribus Version").toLocal8Bit().data() << " " << VERSION << std::endl;
 }
 
 void ScribusQApp::neverSplash(bool splashOff)

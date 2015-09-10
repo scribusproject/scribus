@@ -9,6 +9,7 @@ for which a new license (GPL+exception) is in place.
 #include <QGlobalStatic>
 #include <QWidget>
 #include <QString>
+#include <QStringList>
 #include <QApplication>
 #include <QMessageBox>
 #include <QTextCodec>
@@ -37,7 +38,7 @@ for which a new license (GPL+exception) is in place.
 #include "prefscontext.h"
 #include "prefstable.h"
 #include "prefsmanager.h"
-#include "scribusapp.h" // need it to acces ScQApp->pythonScript
+#include "scribusapp.h" // need it to acces ScQApp->pythonScript & ScQApp->pythonScriptArgs
 
 ScripterCore::ScripterCore(QWidget* parent)
 {
@@ -228,6 +229,12 @@ void ScripterCore::RecentScript(QString fn)
 
 void ScripterCore::slotRunScriptFile(QString fileName, bool inMainInterpreter)
 {
+	slotRunScriptFile(fileName, QStringList(), inMainInterpreter);
+}
+
+void ScripterCore::slotRunScriptFile(QString fileName, QStringList arguments, bool inMainInterpreter)
+/** run "filename" python script with the additional arguments provided in "arguments" */
+{
 	// Prevent two scripts to be run concurrently or face crash!
 	if (ScCore->primaryMainWindow()->scriptIsRunning())
 		return;
@@ -252,16 +259,27 @@ void ScripterCore::slotRunScriptFile(QString fileName, bool inMainInterpreter)
 		// Init the scripter module in the sub-interpreter
 		initscribus(ScCore->primaryMainWindow());
 	}
+
 	// Make sure sys.argv[0] is the path to the script
-	char* comm[2];
-	comm[0] = na.data();
+	arguments.prepend(na.data());
+	
 	// and tell the script if it's running in the main intepreter or
 	// a subinterpreter using the second argument, ie sys.argv[1]
 	if (inMainInterpreter)
-		comm[1] = const_cast<char*>("ext");
+		arguments.insert(1,QString("ext"));
 	else
-		comm[1] = const_cast<char*>("sub");
-	PySys_SetArgv(2, comm);
+		arguments.insert(1,QString("sub"));
+
+	//convert arguments (QListString) to char** for Python bridge
+	/* typically arguments == ['path/to/script.py','ext','--argument1','valueforarg1','--flag']*/
+	char *comm[arguments.size()];
+	for (int i = 0; i < arguments.size(); i++)
+	{
+		comm[i] = new char[arguments.at(i).toLocal8Bit().size()+1]; //+1 to allow adding '\0'. may be useless, don't know how to check.
+		strcpy(comm[i],arguments.at(i).toLocal8Bit().data()+'\0');
+	}
+	PySys_SetArgv(arguments.size(), comm);
+	
 	// call python script
 	PyObject* m = PyImport_AddModule((char*)"__main__");
 	if (m == NULL)
@@ -357,7 +375,7 @@ void ScripterCore::slotRunPythonScript()
 {
 	if (!ScQApp->pythonScript.isNull())
 	{
-		slotRunScriptFile(ScQApp->pythonScript, true);
+		slotRunScriptFile(ScQApp->pythonScript, ScQApp->pythonScriptArgs, true);
 		FinishScriptRun();
 	}
 }
