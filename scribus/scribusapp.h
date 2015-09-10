@@ -23,6 +23,7 @@ for which a new license (GPL+exception) is in place.
 #define SCRIBUSAPP_H
 #include <QApplication>
 #include <QString>
+#include <QStringList>
 
 #include "scribusapi.h"
 
@@ -71,10 +72,12 @@ class SCRIBUS_API ScribusQApp : public QApplication
 		const QString& currGUILanguage() { return GUILang; }
 		ScDLManager* dlManager() { return m_scDLMgr; }
 		QString pythonScript; // script to be run in python from CLI
+		QStringList pythonScriptArgs; // command line arguments and flags for script from CLI
 
 	private:
 		ScribusCore* m_ScCore;
 		void showHeader();
+		void showError(QString arg);
 		void showVersion();
 		/*!
 		\author Franz Schmid
