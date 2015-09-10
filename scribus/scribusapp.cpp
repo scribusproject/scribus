@@ -158,16 +158,27 @@ void ScribusQApp::parseCommandLine()
 	showFontInfo=false;
 	showProfileInfo=false;
 
-	//Parse for command line information options, and lang
+	//Parse for command line options
 	// Qt5 port: do this in a Qt compatible manner
 	QStringList args = arguments();
 	int argsc = args.count();
-	for(int i = 1; i < argsc; i++)
-	{
-		arg = args[i];
 
-		if ((arg == ARG_LANG || arg == ARG_LANG_SHORT) && (++i < argsc)) {
-			lang = args[i];
+	//Init translations
+	initLang();
+	
+	useGUI = true;
+	int argi = 1;
+	for( ; argi < argsc; argi++) { //handle options (not positional parameters)
+		arg = args[argi];
+
+		if (arg == ARG_SCRIPTARG || arg == ARG_SCRIPTARG_SHORT) { //needs to be first to give precedence to script argument name over scribus' options
+			pythonScriptArgs.append(args[++argi]); // arg name
+			if (!args[argi+1].startsWith("-")) {   // arg value
+				pythonScriptArgs.append( QFile::decodeName(args[++argi].toLocal8Bit()) );
+			}
+		}
+		else if ((arg == ARG_LANG || arg == ARG_LANG_SHORT) && (++argi < argsc)) {
+			lang = args[argi];
 		}
 		else if (arg == ARG_VERSION || arg == ARG_VERSION_SHORT) {
 			header=true;
@@ -180,8 +191,8 @@ void ScribusQApp::parseCommandLine()
 		else if (arg == ARG_TESTS || arg == ARG_TESTS_SHORT) {
 			header=true;
 			runtests=true;
-			testargsc = argc() - i;
-			testargsv = argv() + i;
+			testargsc = argc() - argi;
+			testargsv = argv() + argi;
 			break;
 		}
 #endif
@@ -192,45 +203,10 @@ void ScribusQApp::parseCommandLine()
 			header=true;
 			runUpgradeCheck=true;
 		}
-	}
-	//Init translations
-	initLang();
-	//Show command line help
-	if (header)
-		showHeader();
-	if (version)
-		showVersion();
-	if (availlangs)
-		showAvailLangs();
-	if (usage)
-		showUsage();
-#ifdef WITH_TESTS
-	if (runtests)
-		RunTests::runTests(testargsc, testargsv);
-#endif
-	if (runUpgradeCheck)
-	{
-		UpgradeChecker uc;
-		uc.fetch();
-	}
-	//Dont run the GUI init process called from main.cpp, and return
-	if (header)
-		std::exit(EXIT_SUCCESS);
-	useGUI = true;
-	//We are going to run something other than command line help
-	int argi = 1;
-	for( ; argi < argsc; argi++) { //handle options (not positional parameters)
-		arg = args[argi];
-
-		if (arg == ARG_SCRIPTARG || arg == ARG_SCRIPTARG_SHORT) { //needs to be first to give precedence to script argument name over scribus'
-			pythonScriptArgs.append(args[++argi]); // arg name
-			if (!args[argi+1].startsWith("-")) {   // arg value
-				pythonScriptArgs.append( QFile::decodeName(args[++argi].toLocal8Bit()) );
-			}
-		}
 		else if ((arg == ARG_LANG || arg == ARG_LANG_SHORT) && (++argi < argsc)) {
 			continue;
-		} else if ( arg == ARG_CONSOLE || arg == ARG_CONSOLE_SHORT ) {
+		} 
+		else if ( arg == ARG_CONSOLE || arg == ARG_CONSOLE_SHORT ) {
 			continue;
 		} else if (arg == ARG_NOSPLASH || arg == ARG_NOSPLASH_SHORT) {
 			showSplash = false;
@@ -286,7 +262,7 @@ void ScribusQApp::parseCommandLine()
 			break;
 		}
 	}
-	//remaining (positional) arguments, if any
+	// parse for remaining (positional) arguments, if any
 	for ( ; argi<argsc; argi++) {
 		fileName = QFile::decodeName(args[argi].toLocal8Bit());
 		if (!QFileInfo(fileName).exists()) {
@@ -302,6 +278,33 @@ void ScribusQApp::parseCommandLine()
 			filesToLoad.append(fileName);
 		}
 	}
+
+	
+	//Show command line info
+	if (header) {
+		useGUI = false;
+		showHeader();
+	}
+	if (version)
+		showVersion();
+	if (availlangs)
+		showAvailLangs();
+	if (usage)
+		showUsage();
+#ifdef WITH_TESTS
+	if (runtests)
+		RunTests::runTests(testargsc, testargsv);
+#endif
+	if (runUpgradeCheck)
+	{
+		UpgradeChecker uc;
+		uc.fetch();
+	}
+	//Dont run the GUI init process called from main.cpp, and return
+	if (header) {		
+		std::exit(EXIT_SUCCESS);
+	}
+	
 }
 
 int ScribusQApp::init()
