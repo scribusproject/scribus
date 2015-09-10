@@ -156,7 +156,8 @@ void ScribusQApp::parseCommandLine()
 	int testargsc;
 #endif
 	showFontInfo=false;
-	showProfileInfo=false;
+	showProfileInfo=false;	
+	bool neverSplash = false;
 
 	//Parse for command line options
 	// Qt5 port: do this in a Qt compatible manner
@@ -213,7 +214,7 @@ void ScribusQApp::parseCommandLine()
 		}
 		else if (arg == ARG_NEVERSPLASH || arg == ARG_NEVERSPLASH_SHORT) {
 			showSplash = false;
-			neverSplash(true);
+			neverSplash = true;
 		} else if (arg == ARG_NOGUI || arg == ARG_NOGUI_SHORT) {
 			useGUI=false;
 		} else if (arg == ARG_FONTINFO || arg == ARG_FONTINFO_SHORT) {
@@ -227,13 +228,7 @@ void ScribusQApp::parseCommandLine()
 		} else if (arg == ARG_PREFS || arg == ARG_PREFS_SHORT) {
 			prefsUserFile = QFile::decodeName(args[argi + 1].toLocal8Bit());
 			if (!QFileInfo(prefsUserFile).exists()) {
-				showHeader();
-				if (prefsUserFile.left(1) == "-" || prefsUserFile.left(2) == "--") {
-					std::cout << tr("Invalid argument: ").toLocal8Bit().data() << prefsUserFile.toLocal8Bit().data() << std::endl;
-				} else {
-					std::cout << tr("File %1 does not exist, aborting.").arg(prefsUserFile).toLocal8Bit().data() << std::endl;
-				}
-				showUsage();
+				showError(prefsUserFile);
 				std::exit(EXIT_FAILURE);
 			} else {
 				++argi;
@@ -244,13 +239,7 @@ void ScribusQApp::parseCommandLine()
 		} else if (arg == ARG_PYTHONSCRIPT || arg == ARG_PYTHONSCRIPT_SHORT) {
 			pythonScript = QFile::decodeName(args[argi + 1].toLocal8Bit());
 			if (!QFileInfo(pythonScript).exists()) {
-				showHeader();
-				if (pythonScript.left(1) == "-" || pythonScript.left(2) == "--") {
-					std::cout << tr("Invalid argument: ").toLocal8Bit().data() << pythonScript.toLocal8Bit().data() << std::endl;
-				} else {
-					std::cout << tr("File %1 does not exist, aborting.").arg(pythonScript).toLocal8Bit().data() << std::endl;
-				}
-				showUsage();
+				showError(pythonScript);
 				std::exit(EXIT_FAILURE);
 			} else {
 				++argi;
@@ -266,13 +255,7 @@ void ScribusQApp::parseCommandLine()
 	for ( ; argi<argsc; argi++) {
 		fileName = QFile::decodeName(args[argi].toLocal8Bit());
 		if (!QFileInfo(fileName).exists()) {
-			showHeader();
-			if (fileName.left(1) == "-" || fileName.left(2) == "--") {
-				std::cout << tr("Invalid argument: %1").arg(fileName).toLocal8Bit().data() << std::endl;
-			} else {
-				std::cout << tr("File %1 does not exist, aborting.").arg(fileName).toLocal8Bit().data() << std::endl;
-			}
-			showUsage();
+			showError(filename);
 			std::exit(EXIT_FAILURE);
 		} else {
 			filesToLoad.append(fileName);
@@ -303,6 +286,10 @@ void ScribusQApp::parseCommandLine()
 	//Dont run the GUI init process called from main.cpp, and return
 	if (header) {		
 		std::exit(EXIT_SUCCESS);
+	}
+	//proceed
+	if(neverSplash) {
+		neverSplash(true);
 	}
 	
 }
@@ -579,6 +566,18 @@ void ScribusQApp::showHeader()
 	ts << QString("%1 %2").arg( tr("Wiki")+":",          descwidth).arg("http://wiki.scribus.net"); endl(ts);
 	ts << QString("%1 %2").arg( tr("Issues")+":",        descwidth).arg("http://bugs.scribus.net"); endl(ts);
 	endl(ts);
+}
+
+void ScribusQApp::showError(QString arg)
+{
+	showHeader();
+	if (arg.left(1) == "-" || arg.left(2) == "--") {
+		std::cout << tr("Invalid argument: %1").arg(arg).toLocal8Bit().data() << std::endl;
+	} else {
+		std::cout << tr("File %1 does not exist, aborting.").arg(arg).toLocal8Bit().data() << std::endl;
+	}
+	showUsage();
+	std::cout << tr("Scribus Version").toLocal8Bit().data() << " " << VERSION << std::endl;
 }
 
 void ScribusQApp::neverSplash(bool splashOff)
