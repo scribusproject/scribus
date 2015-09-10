@@ -281,7 +281,7 @@ void ScripterCore::slotRunScriptFile(QString fileName, QStringList arguments, bo
 	PySys_SetArgv(arguments.size(), comm);
 
 	for (int i = 0; i < arguments.size(); i++)
-		delete comm[i];
+		delete[] comm[i];
 	delete[] comm;
 	
 	// call python script
