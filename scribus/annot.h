@@ -26,6 +26,8 @@ class QWidget;
 class QRadioButton;
 
 #include "scribusapi.h"
+
+#include "annotation.h"
 #include "sccolor.h"
 
 class PageItem;
@@ -313,7 +315,9 @@ protected:
 	QGridLayout* Layout14;
 	QGridLayout* Layout15;
 	QGridLayout* Layout16;
+
 	PrefsContext* dirs;
+	Annotation m_annotation;
 };
 
 #endif // ANNOT_H
