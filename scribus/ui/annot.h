@@ -10,6 +10,8 @@ for which a new license (GPL+exception) is in place.
 #include <QDialog>
 
 #include "scribusapi.h"
+
+#include "annotation.h"
 #include "sccolor.h"
 
 #include "ui_annot.h"
@@ -83,6 +85,7 @@ public slots:
 
 protected:
 	PrefsContext* dirs;
+	Annotation m_annotation;
 };
 
 #endif // ANNOT_H

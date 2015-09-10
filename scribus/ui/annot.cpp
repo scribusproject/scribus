@@ -57,6 +57,7 @@ ScAnnot::ScAnnot(QWidget* parent, PageItem *it, int Seite, int b, int h, ColorLi
 		: QDialog( parent )
 {
 	ScribusDoc* doc = Farben.document();
+	m_annotation = it->annotation();
 
 	setupUi(this);
 	setModal(true);
@@ -72,7 +73,7 @@ ScAnnot::ScAnnot(QWidget* parent, PageItem *it, int Seite, int b, int h, ColorLi
 	QStringList tl;
 	dirs = PrefsManager::instance()->prefsFile->getContext("dirs");
 
-	Annotation& annotation = item->annotation();
+	Annotation& annotation = m_annotation;
 	if ((annotation.ActionType() == Annotation::Action_GoTo) || (annotation.ActionType() == Annotation::Action_GoToR_FileRel) || (annotation.ActionType() == Annotation::Action_GoToR_FileAbs))
 	{
 		QString tm = annotation.Action();
@@ -526,8 +527,8 @@ void ScAnnot::IPlace()
 				item->setImageXYOffset(0.0, 0.0);
 			}
 		}
-		item->annotation().setIPlace(dia->Place->currentIndex());
-		item->annotation().setScaleW(dia->ScaleW->currentIndex());
+		m_annotation.setIPlace(dia->Place->currentIndex());
+		m_annotation.setScaleW(dia->ScaleW->currentIndex());
 	}
 	delete dia;
 }
@@ -568,7 +569,7 @@ void ScAnnot::IconsEin()
 	IconNR->setEnabled(!item->Pfile.isEmpty() ? true : false);
 	IconPR->setEnabled(!item->Pfile2.isEmpty() ? true : false);
 	IconRR->setEnabled(!item->Pfile3.isEmpty() ? true : false);
-	item->annotation().setUseIcons(UseIcons->isChecked());
+	m_annotation.setUseIcons(UseIcons->isChecked());
 }
 
 void ScAnnot::GetNIcon()
@@ -663,44 +664,44 @@ void ScAnnot::SelectFelder()
 
 void ScAnnot::editKeySc()
 {
-	Editor* dia = new Editor(this, item->annotation().K_act(), view);
+	Editor* dia = new Editor(this, m_annotation.K_act(), view);
 	if (dia->exec())
 	{
-		item->annotation().setK_act(dia->EditTex->toPlainText());
-		KeyScript->setPlainText( item->annotation().K_act() );
+		m_annotation.setK_act(dia->EditTex->toPlainText());
+		KeyScript->setPlainText( m_annotation.K_act() );
 	}
 	delete dia;
 }
 
 void ScAnnot::editFormatSc()
 {
-	Editor* dia = new Editor(this, item->annotation().F_act(), view);
+	Editor* dia = new Editor(this, m_annotation.F_act(), view);
 	if (dia->exec())
 	{
-		item->annotation().setF_act(dia->EditTex->toPlainText());
-		FormatScript->setPlainText( item->annotation().F_act() );
+		m_annotation.setF_act(dia->EditTex->toPlainText());
+		FormatScript->setPlainText( m_annotation.F_act() );
 	}
 	delete dia;
 }
 
 void ScAnnot::editValidSc()
 {
-	Editor* dia = new Editor(this, item->annotation().V_act(), view);
+	Editor* dia = new Editor(this, m_annotation.V_act(), view);
 	if (dia->exec())
 	{
-		item->annotation().setV_act(dia->EditTex->toPlainText());
-		ValidScript->setPlainText( item->annotation().V_act() );
+		m_annotation.setV_act(dia->EditTex->toPlainText());
+		ValidScript->setPlainText( m_annotation.V_act() );
 	}
 	delete dia;
 }
 
 void ScAnnot::editCalcSc()
 {
-	Editor* dia = new Editor(this, item->annotation().C_act(), view);
+	Editor* dia = new Editor(this, m_annotation.C_act(), view);
 	if (dia->exec())
 	{
-		item->annotation().setC_act(dia->EditTex->toPlainText());
-		CalcScript->setPlainText( item->annotation().C_act() );
+		m_annotation.setC_act(dia->EditTex->toPlainText());
+		CalcScript->setPlainText( m_annotation.C_act() );
 	}
 	delete dia;
 }
@@ -758,7 +759,7 @@ void ScAnnot::setDateSample(const QString& ds)
 
 void ScAnnot::DecodeVali()
 {
-	QString pfor = item->annotation().V_act();
+	QString pfor = m_annotation.V_act();
 	int ss = pfor.indexOf("(");
 	QString pfo = pfor.mid(ss+1, pfor.length()-ss-2);
 	QStringList pfol;
@@ -771,7 +772,7 @@ void ScAnnot::DecodeCalc()
 {
 	QString tm = "";
 	QString tm2;
-	QString pfor = item->annotation().C_act();
+	QString pfor = m_annotation.C_act();
 	int ss = pfor.lastIndexOf("(");
 	QString pfo = pfor.mid(ss+1, pfor.length()-ss-3);
 	QStringList pfol;
@@ -802,12 +803,12 @@ void ScAnnot::DecodeCalc()
 
 void ScAnnot::DecodeNum()
 {
-	QString pfor = item->annotation().F_act();
+	QString pfor = m_annotation.F_act();
 	int ss = pfor.indexOf("(");
 	QString pfo = pfor.mid(ss+1, pfor.length()-ss-2);
 	QStringList pfol;
 	pfol = pfo.split(",", QString::SkipEmptyParts);
-	if (item->annotation().Format() == 1)
+	if (m_annotation.Format() == 1)
 	{
 		Decim->setValue(pfol[0].toInt());
 		switch (pfol[1].toInt())
@@ -850,7 +851,7 @@ void ScAnnot::DecodeNum()
 			PreCurr->setEnabled(true);
 		}
 	}
-	if (item->annotation().Format() == 2)
+	if (m_annotation.Format() == 2)
 	{
 		Decim2->setValue(pfol[0].toInt());
 		switch (pfol[1].toInt())
@@ -873,12 +874,12 @@ void ScAnnot::DecodeNum()
 				break;
 		}
 	}
-	if (item->annotation().Format() == 3)
+	if (m_annotation.Format() == 3)
 	{
 		setCurrentComboItem(Format0c, pfol[0].remove("\""));
 		setDateSample(pfol[0]);
 	}
-	if (item->annotation().Format() == 4)
+	if (m_annotation.Format() == 4)
 	{
 		switch (pfol[0].toInt())
 		{
@@ -904,7 +905,7 @@ void ScAnnot::DecodeNum()
 
 void ScAnnot::SetFormNum()
 {
-	switch (item->annotation().Format())
+	switch (m_annotation.Format())
 	{
 	case 1:
 		if (Format0->isChecked())
@@ -955,11 +956,11 @@ void ScAnnot::SetVali()
 	MinValid->setEnabled(false);
 	EditValScript->setEnabled(false);
 	ValidScript->setEnabled(false);
-	if (item->annotation().V_act().isEmpty())
+	if (m_annotation.V_act().isEmpty())
 		NoValid->setChecked(true);
 	else
 	{
-		if (item->annotation().V_act().startsWith("AFRange_Validate"))
+		if (m_annotation.V_act().startsWith("AFRange_Validate"))
 		{
 			MaxValid->setEnabled(true);
 			MinValid->setEnabled(true);
@@ -970,7 +971,7 @@ void ScAnnot::SetVali()
 		{
 			EditValScript->setEnabled(true);
 			CustomValid->setChecked(true);
-			ValidScript->setPlainText(item->annotation().V_act());
+			ValidScript->setPlainText(m_annotation.V_act());
 		}
 	}
 }
@@ -992,11 +993,11 @@ void ScAnnot::SetCalc()
 	CalcArt->setEnabled(false);
 	EditCalc->setEnabled(false);
 	SeField->setEnabled(false);
-	if (item->annotation().C_act().isEmpty())
+	if (m_annotation.C_act().isEmpty())
 		NoCalc->setChecked(true);
 	else
 	{
-		if (item->annotation().C_act().startsWith("AFSimple_Calculate"))
+		if (m_annotation.C_act().startsWith("AFSimple_Calculate"))
 		{
 			CalcFields->setEnabled(true);
 			CalcArt->setEnabled(true);
@@ -1008,7 +1009,7 @@ void ScAnnot::SetCalc()
 		{
 			EditCalc->setEnabled(true);
 			CustomCalc->setChecked(true);
-			CalcScript->setPlainText(item->annotation().C_act());
+			CalcScript->setPlainText(m_annotation.C_act());
 		}
 	}
 }
@@ -1032,10 +1033,10 @@ void ScAnnot::SetFoScript(int it)
 		EditKeystr->setEnabled( true );
 //		KeyScript->setPlainText("");
 //		FormatScript->setPlainText("");
-		KeyScript->setText( item->annotation().K_act() );
-		FormatScript->setText( item->annotation().F_act() );
+		KeyScript->setText(m_annotation.K_act());
+		FormatScript->setText(m_annotation.F_act());
 	}
-	item->annotation().setFormat(it);
+	m_annotation.setFormat(it);
 }
 
 void ScAnnot::SetCoords(double x, double y)
@@ -1047,7 +1048,7 @@ void ScAnnot::SetCoords(double x, double y)
 void ScAnnot::SetPage(int v)
 {
 	disconnect(SpinBox11, SIGNAL(valueChanged(int)), this, SLOT(SetPage(int)));
-	if ((item->annotation().ActionType() == Annotation::Action_GoToR_FileRel) || (item->annotation().ActionType() == 9))
+	if ((m_annotation.ActionType() == Annotation::Action_GoToR_FileRel) || (m_annotation.ActionType() == 9))
 	{
 		if (!Pg1->SetSeite(v, 100, Destfile->text()))
 		{
@@ -1088,6 +1089,8 @@ void ScAnnot::SetValues()
 	QString Nfo("");
 	
 	Annotation& annotation = item->annotation();
+	annotation = m_annotation;
+
 	if (ComboBox1->currentIndex() == 5)
 		annotation.setType(Annotation::RadioButton);
 	else
@@ -1217,13 +1220,13 @@ void ScAnnot::SetValues()
 			case 1:
 				Nfo = tmp.setNum(Decim->value())+", "+tmp2.setNum(FormNum)+", 0, 0, \"";
 				if (UseCurr->isChecked())
-					{
+				{
 					if (!PreCurr->isChecked())
 						Nfo += " ";
 					Nfo += CurSym->text().simplified();
 					if (PreCurr->isChecked())
 						Nfo += " ";
-					}
+				}
 				if (PreCurr->isChecked())
 					Nfo += "\", true)";
 				else
@@ -1350,7 +1353,8 @@ void ScAnnot::SetAnnotationType(int it)
 {
 	disconnect(ActionCombo, SIGNAL(activated(int)), this, SLOT(SetActionType(int)));
 	disconnect(TxFormat, SIGNAL(activated(int)), this, SLOT(SetFoScript(int)));
-	Annotation& annotation = item->annotation();
+
+	Annotation& annotation = m_annotation;
 	int tmpac = annotation.ActionType();
 	if ((tmpac == 7) || (tmpac == 9))
 		tmpac = 2;
@@ -1466,7 +1470,7 @@ void ScAnnot::SetExternLink()
 	bool enable;
 	if (!LExtern->isChecked())
 	{
-		item->annotation().setActionType(Annotation::Action_GoTo);
+		m_annotation.setActionType(Annotation::Action_GoTo);
 		enable = false;
 		//		Destfile->setEnabled(false);
 		//		ChFile->setEnabled(false);
@@ -1475,9 +1479,9 @@ void ScAnnot::SetExternLink()
 	else
 	{
 		if (useAbsolute->isChecked())
-			item->annotation().setActionType(Annotation::Action_GoToR_FileAbs);
+			m_annotation.setActionType(Annotation::Action_GoToR_FileAbs);
 		else
-			item->annotation().setActionType(Annotation::Action_GoToR_FileRel);
+			m_annotation.setActionType(Annotation::Action_GoToR_FileRel);
 		enable = true;
 		//		Destfile->setEnabled(true);
 		//		ChFile->setEnabled(true);
@@ -1486,7 +1490,7 @@ void ScAnnot::SetExternLink()
 			GetFile();
 			if (Destfile->text().isEmpty())
 			{
-				item->annotation().setActionType(Annotation::Action_GoTo);
+				m_annotation.setActionType(Annotation::Action_GoTo);
 				enable = false;
 				//				Destfile->setEnabled(false);
 				//				ChFile->setEnabled(false);
@@ -1508,23 +1512,23 @@ void ScAnnot::SetActionType(int it)
 	case 6:
 	{
 		Fram2->setCurrentIndex(5);
-		int nac = nameActionCombo->findData(item->annotation().Action());
+		int nac = nameActionCombo->findData(m_annotation.Action());
 		if (nac >= 0)
 			nameActionCombo->setCurrentIndex(nac);
 		break;
 	}
 	case 5:
 		Fram2->setCurrentIndex(4);
-		SubURLa->setText(item->annotation().Action());
+		SubURLa->setText(m_annotation.Action());
 		break;
 	case 3:
 		Fram2->setCurrentIndex(3);
-		SubURL->setText(item->annotation().Action());
-		SelAsHtml->setCurrentIndex(item->annotation().HTML());
+		SubURL->setText(m_annotation.Action());
+		SelAsHtml->setCurrentIndex(m_annotation.HTML());
 		break;
 	case 2:
 		Fram2->setCurrentIndex(2);
-		setter = item->annotation().ActionType() != Annotation::Action_GoToR_FileRel ? true : false;
+		setter = (m_annotation.ActionType() != Annotation::Action_GoToR_FileRel);
 		Destfile->setEnabled(setter);
 		ChFile->setEnabled(setter);
 		SetPage(qMin(SpinBox11->value(), MaxSeite));
@@ -1541,7 +1545,7 @@ void ScAnnot::SetActionType(int it)
 
 void ScAnnot::SetActionScript(int it)
 {
-	Annotation& annotation = item->annotation();
+	Annotation& annotation = m_annotation;
 	switch (ScrEdited)
 	{
 	case Annotation::Java_ReleaseButton:
