@@ -272,13 +272,17 @@ void ScripterCore::slotRunScriptFile(QString fileName, QStringList arguments, bo
 
 	//convert arguments (QListString) to char** for Python bridge
 	/* typically arguments == ['path/to/script.py','ext','--argument1','valueforarg1','--flag']*/
-	char *comm[arguments.size()];
+	char **comm = new char*[arguments.size()];
 	for (int i = 0; i < arguments.size(); i++)
 	{
 		comm[i] = new char[arguments.at(i).toLocal8Bit().size()+1]; //+1 to allow adding '\0'. may be useless, don't know how to check.
 		strcpy(comm[i],arguments.at(i).toLocal8Bit().data()+'\0');
 	}
 	PySys_SetArgv(arguments.size(), comm);
+
+	for (int i = 0; i < arguments.size(); i++)
+		delete comm[i];
+	delete[] comm;
 	
 	// call python script
 	PyObject* m = PyImport_AddModule((char*)"__main__");
