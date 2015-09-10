@@ -164,12 +164,12 @@ void Prefs_DocumentSetup::restoreDefaults(struct ApplicationPrefs *prefsData)
 	pageOrientationComboBox->blockSignals(false);
 	pageSizeComboBox->blockSignals(false);
 
-	marginsWidget->setup(prefsData->docSetupPrefs.margins, prefsData->docSetupPrefs.pagePositioning, prefsData->docSetupPrefs.docUnitIndex, true, true);
+	marginsWidget->setup(prefsData->docSetupPrefs.margins, prefsData->docSetupPrefs.pagePositioning, prefsData->docSetupPrefs.docUnitIndex, NewMarginWidget::MarginWidgetFlags);
 	marginsWidget->setPageWidth(prefsData->docSetupPrefs.pageWidth);
 	marginsWidget->setPageHeight(prefsData->docSetupPrefs.pageHeight);
 //	marginsWidget->setPageSize(prefsPageSizeName);
 	marginsWidget->setMarginPreset(prefsData->docSetupPrefs.marginPreset);
-	bleedsWidget->setup(prefsData->docSetupPrefs.bleeds, prefsData->docSetupPrefs.pagePositioning, prefsData->docSetupPrefs.docUnitIndex, false, false);
+	bleedsWidget->setup(prefsData->docSetupPrefs.bleeds, prefsData->docSetupPrefs.pagePositioning, prefsData->docSetupPrefs.docUnitIndex, NewMarginWidget::BleedWidgetFlags);
 	bleedsWidget->setPageWidth(prefsData->docSetupPrefs.pageWidth);
 	bleedsWidget->setPageHeight(prefsData->docSetupPrefs.pageHeight);
 //	bleedsWidget->setPageSize(prefsPageSizeName);

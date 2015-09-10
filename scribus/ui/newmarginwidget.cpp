@@ -15,7 +15,7 @@ NewMarginWidget::NewMarginWidget(QWidget* parent)
 	: QWidget(parent),
 	savedPresetItem(PresetLayout::none),
 	facingPages(false),
-	usingPreset(true)
+	m_flags(MarginWidgetFlags)
 {
 	setupUi(this);
 
@@ -27,11 +27,12 @@ NewMarginWidget::~NewMarginWidget()
 {
 }
 
-void NewMarginWidget::setup(const MarginStruct& margs, int layoutType, int unitIndex, bool showPreset, bool showPrinterMargins)
+void NewMarginWidget::setup(const MarginStruct& margs, int layoutType, int unitIndex, int flags)
 {
 	marginData=savedMarginData=margs;
 	m_unitIndex=unitIndex;
 	m_unitRatio=unitGetRatioFromIndex(unitIndex);
+	m_flags=flags;
 	leftMarginSpinBox->setMaximum(1000);
 	rightMarginSpinBox->setMaximum(1000);
 	topMarginSpinBox->setMaximum(1000);
@@ -41,8 +42,7 @@ void NewMarginWidget::setup(const MarginStruct& margs, int layoutType, int unitI
 	topMarginSpinBox->init(unitIndex);
 	bottomMarginSpinBox->init(unitIndex);
 	updateMarginSpinValues();
-	usingPreset=showPreset;
-	if (!showPreset)
+	if ((m_flags & ShowPreset) == 0)
 	{
 		presetLayoutComboBox->blockSignals(true);
 		presetLayoutComboBox->resize(0,0);
@@ -52,7 +52,7 @@ void NewMarginWidget::setup(const MarginStruct& margs, int layoutType, int unitI
 		gridLayout->removeWidget(presetLayoutComboBox);
 		gridLayout->removeWidget(presetLayoutLabel);
 	}
-	if (!showPrinterMargins)
+	if ((m_flags & ShowPrinterMargins) == 0)
 	{
 		printerMarginsPushButton->blockSignals(true);
 		printerMarginsPushButton->resize(0,0);
@@ -76,10 +76,20 @@ void NewMarginWidget::setup(const MarginStruct& margs, int layoutType, int unitI
 
 void NewMarginWidget::languageChange()
 {
-	topMarginSpinBox->setToolTip( "<qt>" + tr( "Distance between the top margin guide and the edge of the page" ) + "</qt>");
-	bottomMarginSpinBox->setToolTip( "<qt>" + tr( "Distance between the bottom margin guide and the edge of the page" ) + "</qt>");
-	leftMarginSpinBox->setToolTip( "<qt>" + tr( "Distance between the left margin guide and the edge of the page. If a double-sided, 3 or 4-fold layout is selected, this margin space can be used to achieve the correct margins for binding.") + "</qt>");
-	rightMarginSpinBox->setToolTip( "<qt>" + tr( "Distance between the right margin guide and the edge of the page. If a double-sided, 3 or 4-fold layout is selected, this margin space can be used to achieve the correct margins for binding.") + "</qt>");
+	if (m_flags & MarginWidgetFlags)
+	{
+		topMarginSpinBox->setToolTip( "<qt>" + tr( "Distance between the top margin guide and the edge of the page" ) + "</qt>");
+		bottomMarginSpinBox->setToolTip( "<qt>" + tr( "Distance between the bottom margin guide and the edge of the page" ) + "</qt>");
+		leftMarginSpinBox->setToolTip( "<qt>" + tr( "Distance between the left margin guide and the edge of the page. If a double-sided, 3 or 4-fold layout is selected, this margin space can be used to achieve the correct margins for binding.") + "</qt>");
+		rightMarginSpinBox->setToolTip( "<qt>" + tr( "Distance between the right margin guide and the edge of the page. If a double-sided, 3 or 4-fold layout is selected, this margin space can be used to achieve the correct margins for binding.") + "</qt>");
+	}
+	else
+	{
+		topMarginSpinBox->setToolTip( "<qt>" + tr( "Distance for bleed from the top of the physical page" ) + "</qt>" );
+		bottomMarginSpinBox->setToolTip( "<qt>" + tr( "Distance for bleed from the bottom of the physical page" ) + "</qt>" );
+		leftMarginSpinBox->setToolTip( "<qt>" + tr( "Distance for bleed from the left of the physical page" ) + "</qt>" );
+		rightMarginSpinBox->setToolTip( "<qt>" + tr( "Distance for bleed from the right of the physical page" )  + "</qt>");
+	}
 	printerMarginsPushButton->setToolTip( "<qt>" + tr( "Import the margins for the selected page size from the available printers" ) + "</qt>");
 }
 
@@ -183,7 +193,7 @@ void NewMarginWidget::setNewUnit(int newUnitIndex)
 
 void NewMarginWidget::setPreset()
 {
-	if (!usingPreset)
+	if ((m_flags & ShowPreset) == 0)
 		return;
 	leftMarginSpinBox->blockSignals(true);
 	rightMarginSpinBox->blockSignals(true);
@@ -281,7 +291,7 @@ void NewMarginWidget::slotLinkMargins()
 
 void NewMarginWidget::setMarginPreset(int p)
 {
-	if (!usingPreset)
+	if ((m_flags & ShowPreset) == 0)
 		return;
 	presetLayoutComboBox->blockSignals(true);
 	savedPresetItem = p;

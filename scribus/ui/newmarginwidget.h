@@ -20,7 +20,15 @@ class SCRIBUS_API NewMarginWidget : public QWidget, Ui::NewMarginWidget
 		NewMarginWidget(QWidget* parent=0);
 		~NewMarginWidget();
 
-		void setup(const MarginStruct& margs, int layoutType, int unitIndex=0, bool showPreset=true, bool showPrinterMargins=true);
+		enum SetupFlags
+		{
+			ShowPreset         = 1,
+			ShowPrinterMargins = 2,
+			MarginWidgetFlags  = 3,
+			BleedWidgetFlags   = 4,
+		};
+
+		void setup(const MarginStruct& margs, int layoutType, int unitIndex, int flags = MarginWidgetFlags);
 		/*! \brief Setup the labels by facing pages option */
 		void setFacingPages(bool facing, int pagetype = 0);
 		/*! \brief Setup the spinboxes properties (min/max value etc.) by width */
@@ -54,14 +62,13 @@ class SCRIBUS_API NewMarginWidget : public QWidget, Ui::NewMarginWidget
 		MarginStruct savedMarginData;
 		int savedPresetItem;
 		bool facingPages;
+		int m_flags;
 		int m_unitIndex;
 		double m_unitRatio;
 		QString m_pageSize;
 		double pageWidth;
 		double pageHeight;
 		int pageType;
-		bool usingPreset;
-		bool usingPrinterMargins;
 };
 
 #endif // NEWMARGINWIDGET_H

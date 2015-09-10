@@ -87,7 +87,7 @@ void Prefs_Printer::restoreDefaults(struct ApplicationPrefs *prefsData)
 			   prefs->getDouble("BleedLeft", 0.0));
 
 
-	bleedsWidget->setup(bleeds, 0, docUnitIndex, false, false);
+	bleedsWidget->setup(bleeds, 0, docUnitIndex, NewMarginWidget::BleedWidgetFlags);
 	bleedsWidget->setPageWidth(prefsData->docSetupPrefs.pageWidth);
 	bleedsWidget->setPageHeight(prefsData->docSetupPrefs.pageHeight);
 	markLengthSpinBox->setValue(prefs->getDouble("markLength", 20.0) * unitRatio);
