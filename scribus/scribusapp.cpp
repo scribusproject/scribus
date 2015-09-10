@@ -157,7 +157,7 @@ void ScribusQApp::parseCommandLine()
 #endif
 	showFontInfo=false;
 	showProfileInfo=false;	
-	bool neverSplash = false;
+	bool neversplash = false;
 
 	//Parse for command line options
 	// Qt5 port: do this in a Qt compatible manner
@@ -214,7 +214,7 @@ void ScribusQApp::parseCommandLine()
 		}
 		else if (arg == ARG_NEVERSPLASH || arg == ARG_NEVERSPLASH_SHORT) {
 			showSplash = false;
-			neverSplash = true;
+			neversplash = true;
 		} else if (arg == ARG_NOGUI || arg == ARG_NOGUI_SHORT) {
 			useGUI=false;
 		} else if (arg == ARG_FONTINFO || arg == ARG_FONTINFO_SHORT) {
@@ -255,7 +255,7 @@ void ScribusQApp::parseCommandLine()
 	for ( ; argi<argsc; argi++) {
 		fileName = QFile::decodeName(args[argi].toLocal8Bit());
 		if (!QFileInfo(fileName).exists()) {
-			showError(filename);
+			showError(fileName);
 			std::exit(EXIT_FAILURE);
 		} else {
 			filesToLoad.append(fileName);
@@ -288,7 +288,7 @@ void ScribusQApp::parseCommandLine()
 		std::exit(EXIT_SUCCESS);
 	}
 	//proceed
-	if(neverSplash) {
+	if(neversplash) {
 		neverSplash(true);
 	}
 	
