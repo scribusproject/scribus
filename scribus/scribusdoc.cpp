@@ -5872,8 +5872,10 @@ bool ScribusDoc::loadPict(QString fn, PageItem *pageItem, bool reload, bool show
 		{
 			ScCore->fileWatcher->removeFile(pageItem->Pfile);
 			if (pageItem->isTempFile)
+			{
 				QFile::remove(pageItem->Pfile);
-			pageItem->Pfile = "";
+				pageItem->Pfile = QString();
+			}
 			pageItem->isInlineImage = false;
 			pageItem->isTempFile = false;
 		}
