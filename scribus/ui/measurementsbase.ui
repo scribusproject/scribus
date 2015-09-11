@@ -1,173 +1,174 @@
-<ui version="4.0" >
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
  <class>MeasurementsBase</class>
- <widget class="QDialog" name="MeasurementsBase" >
-  <property name="geometry" >
+ <widget class="QDialog" name="MeasurementsBase">
+  <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>142</width>
-    <height>207</height>
+    <width>152</width>
+    <height>236</height>
    </rect>
   </property>
-  <property name="windowTitle" >
-   <string>Distances</string>
+  <property name="windowTitle">
+   <string>Measurements</string>
   </property>
-  <layout class="QGridLayout" name="gridLayout" >
-   <item row="0" column="0" >
-    <widget class="QLabel" name="x1Label" >
-     <property name="text" >
+  <layout class="QGridLayout" name="gridLayout">
+   <item row="0" column="0">
+    <widget class="QLabel" name="x1Label">
+     <property name="text">
       <string>X1:</string>
      </property>
     </widget>
    </item>
-   <item row="0" column="1" >
-    <widget class="QLabel" name="x1Data" >
-     <property name="text" >
+   <item row="0" column="1">
+    <widget class="QLabel" name="x1Data">
+     <property name="text">
       <string>10000.0000</string>
      </property>
-     <property name="alignment" >
+     <property name="alignment">
       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
      </property>
     </widget>
    </item>
-   <item row="1" column="0" >
-    <widget class="QLabel" name="y1Label" >
-     <property name="text" >
+   <item row="1" column="0">
+    <widget class="QLabel" name="y1Label">
+     <property name="text">
       <string>Y1:</string>
      </property>
     </widget>
    </item>
-   <item row="1" column="1" >
-    <widget class="QLabel" name="y1Data" >
-     <property name="text" >
+   <item row="1" column="1">
+    <widget class="QLabel" name="y1Data">
+     <property name="text">
       <string>10000.0000</string>
      </property>
-     <property name="alignment" >
+     <property name="alignment">
       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
      </property>
     </widget>
    </item>
-   <item row="2" column="0" >
-    <widget class="QLabel" name="x2Label" >
-     <property name="text" >
+   <item row="2" column="0">
+    <widget class="QLabel" name="x2Label">
+     <property name="text">
       <string>X2:</string>
      </property>
     </widget>
    </item>
-   <item row="2" column="1" >
-    <widget class="QLabel" name="x2Data" >
-     <property name="text" >
+   <item row="2" column="1">
+    <widget class="QLabel" name="x2Data">
+     <property name="text">
       <string>10000.0000</string>
      </property>
-     <property name="alignment" >
+     <property name="alignment">
       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
      </property>
     </widget>
    </item>
-   <item row="3" column="0" >
-    <widget class="QLabel" name="y2Label" >
-     <property name="text" >
+   <item row="3" column="0">
+    <widget class="QLabel" name="y2Label">
+     <property name="text">
       <string>Y2:</string>
      </property>
     </widget>
    </item>
-   <item row="3" column="1" >
-    <widget class="QLabel" name="y2Data" >
-     <property name="text" >
+   <item row="3" column="1">
+    <widget class="QLabel" name="y2Data">
+     <property name="text">
       <string>10000.0000</string>
      </property>
-     <property name="alignment" >
+     <property name="alignment">
       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
      </property>
     </widget>
    </item>
-   <item row="4" column="0" >
-    <widget class="QLabel" name="lengthLabel" >
-     <property name="text" >
+   <item row="4" column="0">
+    <widget class="QLabel" name="lengthLabel">
+     <property name="text">
       <string>Length:</string>
      </property>
     </widget>
    </item>
-   <item row="4" column="1" >
-    <widget class="QLabel" name="lengthData" >
-     <property name="text" >
+   <item row="4" column="1">
+    <widget class="QLabel" name="lengthData">
+     <property name="text">
       <string>10000.0000</string>
      </property>
-     <property name="alignment" >
+     <property name="alignment">
       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
      </property>
     </widget>
    </item>
-   <item row="5" column="0" >
-    <widget class="QLabel" name="dxLabel" >
-     <property name="text" >
+   <item row="5" column="0">
+    <widget class="QLabel" name="dxLabel">
+     <property name="text">
       <string>DX:</string>
      </property>
     </widget>
    </item>
-   <item row="5" column="1" >
-    <widget class="QLabel" name="dXData" >
-     <property name="text" >
+   <item row="5" column="1">
+    <widget class="QLabel" name="dXData">
+     <property name="text">
       <string>10000.0000</string>
      </property>
-     <property name="alignment" >
+     <property name="alignment">
       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
      </property>
     </widget>
    </item>
-   <item row="6" column="0" >
-    <widget class="QLabel" name="dyLabel" >
-     <property name="text" >
+   <item row="6" column="0">
+    <widget class="QLabel" name="dyLabel">
+     <property name="text">
       <string>DY:</string>
      </property>
     </widget>
    </item>
-   <item row="6" column="1" >
-    <widget class="QLabel" name="dYData" >
-     <property name="text" >
+   <item row="6" column="1">
+    <widget class="QLabel" name="dYData">
+     <property name="text">
       <string>10000.0000</string>
      </property>
-     <property name="alignment" >
+     <property name="alignment">
       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
      </property>
     </widget>
    </item>
-   <item row="7" column="0" >
-    <widget class="QLabel" name="angleLabel" >
-     <property name="text" >
+   <item row="7" column="0">
+    <widget class="QLabel" name="angleLabel">
+     <property name="text">
       <string>Angle:</string>
      </property>
     </widget>
    </item>
-   <item row="7" column="1" >
-    <widget class="QLabel" name="angleData" >
-     <property name="text" >
+   <item row="7" column="1">
+    <widget class="QLabel" name="angleData">
+     <property name="text">
       <string>10000.0000</string>
      </property>
-     <property name="alignment" >
+     <property name="alignment">
       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
      </property>
     </widget>
    </item>
-   <item row="8" column="0" >
-    <widget class="QLabel" name="label" >
-     <property name="text" >
+   <item row="8" column="0">
+    <widget class="QLabel" name="label">
+     <property name="text">
       <string>Unit:</string>
      </property>
     </widget>
    </item>
-   <item row="8" column="1" >
-    <widget class="QComboBox" name="unitSwitch" >
-     <property name="sizePolicy" >
-      <sizepolicy vsizetype="Fixed" hsizetype="Preferred" >
+   <item row="8" column="1">
+    <widget class="QComboBox" name="unitSwitch">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
        <horstretch>0</horstretch>
        <verstretch>0</verstretch>
       </sizepolicy>
      </property>
-     <property name="minimumContentsLength" >
+     <property name="minimumContentsLength">
       <number>3</number>
      </property>
-     <property name="frame" >
+     <property name="frame">
       <bool>true</bool>
      </property>
     </widget>
