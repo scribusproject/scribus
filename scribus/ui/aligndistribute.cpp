@@ -215,6 +215,7 @@ void AlignDistributePalette::init()
 	QSize s(22,22);
 	alignLeftOutToolButton->setMinimumSize(s);
 	alignLeftInToolButton->setMinimumSize(s);
+	alignCenterHorToolButton->setMinimumSize(s);
 	alignRightInToolButton->setMinimumSize(s);
 	alignRightOutToolButton->setMinimumSize(s);
 
@@ -246,6 +247,7 @@ void AlignDistributePalette::init()
 
 	alignLeftOutToolButton->setMaximumSize(s);
 	alignLeftInToolButton->setMaximumSize(s);
+	alignCenterHorToolButton->setMaximumSize(s);
 	alignRightInToolButton->setMaximumSize(s);
 	alignRightOutToolButton->setMaximumSize(s);
 
