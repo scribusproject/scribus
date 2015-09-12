@@ -84,11 +84,9 @@
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="&quot;$(LCMS_DIR)\lib&quot;;&quot;$(FREETYPE_DIR)\lib&quot;;&quot;$(LIBJPEG_DIR)\lib&quot;;&quot;$(LIBTIFF_DIR)\lib&quot;;&quot;$(LIBXML2_DIR)\lib&quot;;&quot;$(QT4_DIR)\lib&quot;;&quot;$(OutDir)\..\..&quot;"
 				GenerateDebugInformation="true"
-				ProgramDatabaseFile="$(OutDir)\gettext-pdbim.pdb"
 				SubSystem="2"
 				RandomizedBaseAddress="1"
 				DataExecutionPrevention="0"
-				ImportLibrary="$(OutDir)\gettext-pdbim.lib"
 				TargetMachine="1"
 			/>
 			<Tool
@@ -181,13 +179,11 @@
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="&quot;$(LCMS_DIR)\lib&quot;;&quot;$(FREETYPE_DIR)\lib&quot;;&quot;$(LIBJPEG_DIR)\lib&quot;;&quot;$(LIBTIFF_DIR)\lib&quot;;&quot;$(LIBXML2_DIR)\lib&quot;;&quot;$(QT4_DIR)\lib&quot;;&quot;$(OutDir)\..\..&quot;"
 				GenerateDebugInformation="true"
-				ProgramDatabaseFile="$(OutDir)\gettext-pdbim.pdb"
 				SubSystem="2"
 				OptimizeReferences="2"
 				EnableCOMDATFolding="2"
 				RandomizedBaseAddress="1"
 				DataExecutionPrevention="0"
-				ImportLibrary="$(OutDir)\gettext-pdbim.lib"
 				TargetMachine="1"
 			/>
 			<Tool

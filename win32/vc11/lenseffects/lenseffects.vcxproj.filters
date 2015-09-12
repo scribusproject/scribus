@@ -51,10 +51,8 @@
     <moc Include="..\..\..\scribus\plugins\tools\lenseffects\lensdialog.h">
       <Filter>Header Files</Filter>
     </moc>
-  </ItemGroup>
-  <ItemGroup>
-    <CustomBuild Include="..\..\..\scribus\plugins\tools\lenseffects\lenseffects.h">
+    <moc Include="..\..\..\scribus\plugins\tools\lenseffects\lenseffects.h">
       <Filter>Header Files</Filter>
-    </CustomBuild>
+    </moc>
   </ItemGroup>
 </Project>
