@@ -80,7 +80,7 @@ class SCRIBUS_API PSLib : public QObject
 
 		virtual bool PS_set_file(QString fn);
 		virtual void PS_set_Info(QString art, QString was);
-		virtual bool PS_begin_doc(ScribusDoc *doc, double x, double y, double breite, double hoehe, int numpage, bool doDev, bool sep, bool farb, bool ic, bool gcr);
+		virtual bool PS_begin_doc(ScribusDoc *doc, double x, double y, double breite, double hoehe, int numpage, bool doDev, bool sep, bool farb);
 		virtual void PS_begin_page(Page* pg, MarginStruct* Ma, bool Clipping);
 		virtual void PS_end_page();
 		virtual void PS_curve(double x1, double y1, double x2, double y2, double x3, double y3);
@@ -111,8 +111,8 @@ class SCRIBUS_API PSLib : public QObject
 		virtual void PS_show(double x, double y);
 		virtual void PS_showSub(uint chr, QString font, double size, bool stroke);
 		virtual void PS_show_xyG(QString font, uint gl, double x, double y, QString colorName, double shade);
-		virtual bool PS_image(PageItem *c, double x, double y, QString fn, double scalex, double scaley, QString Prof, bool UseEmbedded, bool UseProf, QString Name = "");
-		virtual bool PS_ImageData(PageItem *c, QString fn, QString Name, QString Prof, bool UseEmbedded, bool UseProf);
+		virtual bool PS_image(PageItem *c, double x, double y, QString fn, double scalex, double scaley, QString Prof, bool UseEmbedded, QString Name = "");
+		virtual bool PS_ImageData(PageItem *c, QString fn, QString Name, QString Prof, bool UseEmbedded);
 		virtual void PS_plate(int nr, QString name = "");
 		virtual void PS_setGray();
 		virtual void PDF_Bookmark(QString text, uint Seite);
@@ -122,19 +122,19 @@ class SCRIBUS_API PSLib : public QObject
 		virtual void PS_TemplateStart(QString Name);
 		virtual void PS_TemplateEnd();
 		virtual void PS_UseTemplate(QString Name);
-		virtual bool ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool sep, bool farb, bool ic, bool gcr, bool master, bool embedded = false, bool useTemplate = false);
-		virtual void ProcessPage(ScribusDoc* Doc, /*ScribusView* view,*/Page* a, uint PNr, bool sep = false, bool farb = true, bool ic = false, bool gcr = true);
-		virtual void drawArrow(PageItem *ite, QMatrix &arrowTrans, int arrowIndex, bool gcr);
+		virtual bool ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool sep, bool farb, bool master, bool embedded = false, bool useTemplate = false);
+		virtual void ProcessPage(ScribusDoc* Doc, /*ScribusView* view,*/Page* a, uint PNr, bool sep = false, bool farb = true);
+		virtual void drawArrow(PageItem *ite, QMatrix &arrowTrans, int arrowIndex);
 		virtual void putColor(const QString& color, double shade, bool fill);
-		virtual void putColorNoDraw(const QString& color, double shade, bool gcr);
+		virtual void putColorNoDraw(const QString& color, double shade);
 		virtual void GetBleeds(Page* page, double& left, double& right);
 		virtual void GetBleeds(Page* page, double& left, double& right, double& bottom, double& top);
 		virtual void SetClipPath(FPointArray *c, bool poly = true);
-		virtual void HandleGradient(PageItem *c, double w, double h, bool gcr);
-		virtual void SetColor(const QString& color, double shade, int *h, int *s, int *v, int *k, bool gcr);
-		virtual void SetColor(const ScColor& color, double shade, int *h, int *s, int *v, int *k, bool gcr);
-		virtual void setTextSt(ScribusDoc* Doc, PageItem* ite, bool gcr, uint a, Page* pg, bool sep, bool farb, bool ic, bool master);
-		virtual void setTextCh(ScribusDoc* Doc, PageItem* ite, double x, double y, bool gcr, uint a, uint d, ScText *hl, const ParagraphStyle& pstyle, Page* pg, bool sep, bool farb, bool ic, bool master);
+		virtual void HandleGradient(PageItem *c, double w, double h);
+		virtual void SetColor(const QString& color, double shade, int *h, int *s, int *v, int *k);
+		virtual void SetColor(const ScColor& color, double shade, int *h, int *s, int *v, int *k);
+		virtual void setTextSt(ScribusDoc* Doc, PageItem* ite, uint a, Page* pg, bool sep, bool farb, bool master);
+		virtual void setTextCh(ScribusDoc* Doc, PageItem* ite, double x, double y, uint a, uint d, ScText *hl, const ParagraphStyle& pstyle, Page* pg, bool sep, bool farb, bool master);
 		bool psExport;
 
 	private:
