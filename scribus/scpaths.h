@@ -89,6 +89,10 @@ public:
 	/** @brief Return path to Contents OSX subdirectory*/
 	QString bundleDir(void) const;
 
+
+	/** @brief Until we get enough of these, lets have this here for now, gs stuff is in util_ghostscript */
+	static QString defaultImageEditorApp();
+
 protected:
 	/** @brief Constructor. Use ScPaths::instance() instead. */
 	ScPaths();

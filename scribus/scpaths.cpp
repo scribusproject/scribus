@@ -176,6 +176,17 @@ QString ScPaths::bundleDir(void) const
 	return QString::null;
 }
 
+QString ScPaths::defaultImageEditorApp()
+{
+#ifdef Q_OS_MAC
+	QString appName("/Applications/GIMP.app");
+	QFile app(appName);
+	if (app.exists())
+		return appName;
+#endif
+	return "gimp";
+}
+
 const QString&  ScPaths::docDir() const
 {
 	return m_docDir;

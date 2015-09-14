@@ -343,7 +343,7 @@ void PrefsManager::initDefaults()
 	appPrefs.printPreviewPrefs.PrPr_K = true;
 	appPrefs.printPreviewPrefs.PrPr_InkCoverage = false;
 	appPrefs.printPreviewPrefs.PrPr_InkThreshold = 250;
-	appPrefs.extToolPrefs.imageEditorExecutable = "gimp";
+	appPrefs.extToolPrefs.imageEditorExecutable = ScPaths::defaultImageEditorApp();
 	appPrefs.extToolPrefs.extBrowserExecutable = "";
 	appPrefs.extToolPrefs.uniconvExecutable = "uniconv";
 	appPrefs.extToolPrefs.latexConfigs = LatexConfigCache::defaultConfigs();
@@ -2369,7 +2369,7 @@ bool PrefsManager::ReadPref(QString ho)
 			appPrefs.extToolPrefs.latexResolution = dc.attribute("LatexResolution", "72").toInt();
 			appPrefs.extToolPrefs.latexForceDpi = static_cast<bool>(dc.attribute("LatexForceDpi", "1").toInt());
 			appPrefs.extToolPrefs.latexStartWithEmptyFrames = static_cast<bool>(dc.attribute("LatexStartWithEmptyFrames", "0").toInt());
-			setImageEditorExecutable(dc.attribute("ImageEditor", "gimp"));
+			setImageEditorExecutable(dc.attribute("ImageEditor", ScPaths::defaultImageEditorApp()));
 			setExtBrowserExecutable(dc.attribute("WebBrowser", ""));
 			setUniconvExecutable(dc.attribute("Uniconvertor", "uniconv"));
 			setLatexEditorExecutable(dc.attribute("LatexEditor", ""));
