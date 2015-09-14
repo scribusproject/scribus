@@ -173,9 +173,15 @@ void ScribusQApp::parseCommandLine()
 		arg = args[argi];
 
 		if (arg == ARG_SCRIPTARG || arg == ARG_SCRIPTARG_SHORT) { //needs to be first to give precedence to script argument name over scribus' options
-			pythonScriptArgs.append(args[++argi]); // arg name
-			if (!args[argi+1].startsWith("-")) {   // arg value
-				pythonScriptArgs.append( QFile::decodeName(args[++argi].toLocal8Bit()) );
+			if (++argi < argsc && (args[argi] != CMD_OPTIONS_END)) {
+				pythonScriptArgs.append(args[argi]); // script argument
+			} else {
+				std::cout << tr("Invalid argument use: '%1' requires to be followed by <argument> [value]").arg(arg).toLocal8Bit().data() << std::endl;
+				showUsage();
+				std::exit(EXIT_FAILURE);
+			}
+			if (++argi < argsc && !args[argi].startsWith("-")) {   // arg value
+				pythonScriptArgs.append( QFile::decodeName(args[argi].toLocal8Bit()) );
 			}
 		}
 		else if ((arg == ARG_LANG || arg == ARG_LANG_SHORT) && (++argi < argsc)) {
@@ -505,7 +511,7 @@ void ScribusQApp::showUsage()
 	printArgLine(ts, ARG_UPGRADECHECK_SHORT, ARG_UPGRADECHECK, tr("Download a file from the Scribus website and show the latest available version") );
 	printArgLine(ts, ARG_VERSION_SHORT, ARG_VERSION, tr("Output version information and exit") );
 	printArgLine(ts, ARG_PYTHONSCRIPT_SHORT, qPrintable(QString("%1 <%2>").arg(ARG_PYTHONSCRIPT).arg(tr("filename"))), tr("Run filename in Python scripter") );
-	printArgLine(ts, ARG_SCRIPTARG_SHORT, qPrintable(QString("%1 <%2> [%3]").arg(ARG_SCRIPTARG).arg(tr("name")).arg(tr("value"))), tr("Argument passed on to python script, with an optional value, no effect without -py") );
+	printArgLine(ts, ARG_SCRIPTARG_SHORT, qPrintable(QString("%1 <%2> [%3]").arg(ARG_SCRIPTARG).arg(tr("argument")).arg(tr("value"))), tr("Argument passed on to python script, with an optional value, no effect without -py") );
 	printArgLine(ts, ARG_NOGUI_SHORT, ARG_NOGUI, tr("Do not start GUI") );
 	ts << (QString("     %1").arg(CMD_OPTIONS_END,-39)) << tr("Explicit end of command line options"); endl(ts);
  	
