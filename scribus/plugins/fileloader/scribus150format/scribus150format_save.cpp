@@ -1032,7 +1032,7 @@ void Scribus150Format::writePrintOptions(ScXmlStreamWriter & docu)
 	docu.writeAttribute("useColor", static_cast<int>(m_Doc->Print_Options.useColor));
 	docu.writeAttribute("mirrorH", static_cast<int>(m_Doc->Print_Options.mirrorH));
 	docu.writeAttribute("mirrorV", static_cast<int>(m_Doc->Print_Options.mirrorV));
-	docu.writeAttribute("useICC", static_cast<int>(true));
+	docu.writeAttribute("useICC", static_cast<int>(m_Doc->cmsSettings().CMSinUse)); // Not used anymore, only for backward compatibility
 	docu.writeAttribute("doGCR", static_cast<int>(m_Doc->Print_Options.doGCR));
 	docu.writeAttribute("doClip", static_cast<int>(m_Doc->Print_Options.doClip));
 	docu.writeAttribute("setDevParam", static_cast<int>(m_Doc->Print_Options.setDevParam));
