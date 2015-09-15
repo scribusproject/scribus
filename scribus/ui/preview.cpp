@@ -724,8 +724,8 @@ int PPreview::RenderPreviewSep(int Seite, int Res)
 	}
 	if ((doc->HasCMS) && (GsMinor >= 0) && (GsMajor >= 9))
 	{
-		args1.append("-sDefaultCMYKProfile=" + doc->DocPrinterProf.profilePath());
-		args1.append("-sOutputICCProfile=" + doc->DocPrinterProf.profilePath());
+		args1.append("-sDefaultCMYKProfile=" + QDir::toNativeSeparators(doc->DocPrinterProf.profilePath()));
+		args1.append("-sOutputICCProfile=" + QDir::toNativeSeparators(doc->DocPrinterProf.profilePath()));
 	}
 	else if (ScCore->haveCMS() && (GsMinor >= 0) && (GsMajor >= 9))
 	{
@@ -954,10 +954,10 @@ QPixmap PPreview::CreatePreview(int Seite, int Res)
 				std::swap(w, h2);
 			image = QImage(w, h2, QImage::Format_ARGB32);
 			QRgb clean = qRgba(0, 0, 0, 0);
-			for( int yi=0; yi < h2; ++yi )
+			for (int yi=0; yi < h2; ++yi)
 			{
 				QRgb *q = (QRgb*)(image.scanLine( yi ));
-				for(int xi=0; xi < w; ++xi )
+				for (int xi=0; xi < w; ++xi)
 				{
 					*q = clean;
 					q++;
@@ -1069,10 +1069,10 @@ QPixmap PPreview::CreatePreview(int Seite, int Res)
 			if (EnableInkCover->isChecked())
 			{
 				uint limitVal = (CoverThresholdValue->value() * 255) / 100;
-				for( int yi=0; yi < h2; ++yi )
+				for (int yi=0; yi < h2; ++yi)
 				{
 					QRgb *q = (QRgb*)(image.scanLine( yi ));
-					for(int xi=0; xi < w; ++xi )
+					for (int xi=0; xi < w; ++xi)
 					{
 						uint greyVal = *q;
 						if (greyVal != 0)
@@ -1111,7 +1111,7 @@ QPixmap PPreview::CreatePreview(int Seite, int Res)
 					ScColorProfile cmykProfile = doc->HasCMS ? doc->DocPrinterProf : ScCore->defaultCMYKProfile;
 					ScColorProfile rgbProfile  = doc->HasCMS ? doc->DocDisplayProf : ScCore->defaultRGBProfile;
 					ScColorTransform transCMYK = engine.createTransform(cmykProfile, Format_YMCK_8, rgbProfile, Format_BGRA_8, Intent_Relative_Colorimetric, 0);
-					for( int yi=0; yi < h2; ++yi )
+					for (int yi=0; yi < h2; ++yi)
 					{
 						uchar* ptr = image.scanLine( yi );
 						transCMYK.apply(ptr, ptr, image.width());
@@ -1135,10 +1135,10 @@ QPixmap PPreview::CreatePreview(int Seite, int Res)
 				}
 				else
 				{
-					for( int yi=0; yi < h2; ++yi )
+					for (int yi=0; yi < h2; ++yi)
 					{
 						QRgb *q = (QRgb*)(image.scanLine( yi ));
-						for(int xi=0; xi < w; ++xi )
+						for (int xi=0; xi < w; ++xi)
 						{
 							cyan = qRed(*q);
 							magenta = qGreen(*q);
@@ -1266,10 +1266,10 @@ QPixmap PPreview::CreatePreview(int Seite, int Res)
 		{
 			int wi = image.width();
 			int hi = image.height();
-			for( int yi=0; yi < hi; ++yi )
+			for (int yi=0; yi < hi; ++yi)
 			{
 				QRgb *s = (QRgb*)(image.scanLine( yi ));
-				for(int xi=0; xi < wi; ++xi )
+				for (int xi=0; xi < wi; ++xi)
 				{
 					if ((*s) == 0xffffffff)
 						(*s) &= 0x00ffffff;
