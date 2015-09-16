@@ -435,7 +435,7 @@ void PagePalette_MasterPages::selectMasterPage(QString name)
 	if (!m_doc || !m_view)
 		return;
 
-	m_currentPage = QString();
+	m_currentPage.clear();
 	for (int i = 0; i < masterPageListBox->count(); ++i)
 	{
 		QListWidgetItem* item = masterPageListBox->item(i);

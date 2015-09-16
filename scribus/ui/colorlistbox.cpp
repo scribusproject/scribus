@@ -243,14 +243,14 @@ QString ColorListBox::currentColor() const
 void ColorListBox::slotRightClick()
 {
 	blockSignals(true);
-	QString currentSel = QString();
+	QString currentSel;
 	QListWidgetItem* itc = currentItem();
 	if (itc)
 		currentSel = itc->text();
 	QListWidgetItem* it = item(0);
 	if (it)
 	{
-		QString first = QString();
+		QString first;
 		QMenu *pmen = new QMenu();
 		pmen->addAction( tr("Sort by Name"));
 		pmen->addAction( tr("Sort by Color"));

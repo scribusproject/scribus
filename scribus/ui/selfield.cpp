@@ -127,7 +127,7 @@ SelectFields::SelectFields(QWidget* parent, QString Felder, QString Own, Scribus
 
 void SelectFields::SetRetVal()
 {
-	S_Fields = QString();
+	S_Fields.clear();
 	if (FTyp > 1)
 	{
 		if (SelFields->count() > 0)

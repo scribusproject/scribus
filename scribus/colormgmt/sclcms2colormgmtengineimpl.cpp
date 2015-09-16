@@ -263,7 +263,7 @@ ScColorTransform ScLcms2ColorMgmtEngineImpl::createTransform(ScColorMgmtEngine& 
 	ScColorTransformInfo transInfo;
 	transInfo.inputProfile  = inputProfile.productDescription();
 	transInfo.outputProfile = outputProfile.productDescription();
-	transInfo.proofingProfile = QString();
+	transInfo.proofingProfile.clear();
 	transInfo.inputFormat   = inputFormat;
 	transInfo.outputFormat  = outputFormat;
 	transInfo.renderIntent  = renderIntent;
@@ -274,9 +274,9 @@ ScColorTransform ScLcms2ColorMgmtEngineImpl::createTransform(ScColorMgmtEngine& 
 	if (transInfo.inputProfile == transInfo.outputProfile)
 	{
 		// This is a null transform
-		transInfo.inputProfile    = QString();
-		transInfo.outputProfile   = QString();
-		transInfo.proofingProfile = QString();
+		transInfo.inputProfile.clear();
+		transInfo.outputProfile.clear();
+		transInfo.proofingProfile.clear();
 		transInfo.renderIntent    = (eRenderIntent) 0;
 		transInfo.proofingIntent  = (eRenderIntent) 0;
 		transInfo.flags = 0;
@@ -385,9 +385,9 @@ ScColorTransform ScLcms2ColorMgmtEngineImpl::createProofingTransform(ScColorMgmt
 		if (transInfo.inputProfile == transInfo.outputProfile)
 		{
 			lcmsFlags |= cmsFLAGS_NULLTRANSFORM;
-			transInfo.inputProfile    = QString();
-			transInfo.outputProfile   = QString();
-			transInfo.proofingProfile = QString();
+			transInfo.inputProfile.clear();
+			transInfo.outputProfile.clear();
+			transInfo.proofingProfile.clear();
 			transInfo.renderIntent    = (eRenderIntent) 0;
 			transInfo.proofingIntent  = (eRenderIntent) 0;
 			transInfo.flags = 0;

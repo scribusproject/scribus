@@ -5874,7 +5874,7 @@ bool ScribusDoc::loadPict(QString fn, PageItem *pageItem, bool reload, bool show
 			if (pageItem->isTempFile)
 			{
 				QFile::remove(pageItem->Pfile);
-				pageItem->Pfile = QString();
+				pageItem->Pfile.clear();
 			}
 			pageItem->isInlineImage = false;
 			pageItem->isTempFile = false;
@@ -16790,7 +16790,7 @@ QString ScribusDoc::getNumberStr(QString numName, int level, bool reset, Paragra
 	++currNum;
 	setNumerationCounter(numName, level, currNum);
 
-	QString result = QString();
+	QString result;
 	for (int i=0; i <= level; ++i)
 	{
 		Numeration num = numS->m_nums[i];
@@ -16865,7 +16865,7 @@ bool ScribusDoc::updateLocalNums(StoryText& itemText)
 					count++;
 				m_counters.replace(level, count);
 				//m_nums.insert(level, num);
-				QString result = QString();
+				QString result;
 				for (int i=0; i <= level; ++i)
 				{
 					result.append(m_nums.at(i).prefix);
@@ -18306,7 +18306,7 @@ void ScribusDoc::delNoteFrame(PageItem_NoteFrame* nF, bool removeMarks, bool for
 bool ScribusDoc::validateNSet(NotesStyle NS, QString newName)
 {
 	//check if choosen numbering type is avaiable with choosen range, prefix and suffix
-	QString errStr = QString();
+	QString errStr;
 	foreach (NotesStyle* NS2, m_docNotesStylesList)
 	{
 		if (newName.isEmpty())

@@ -357,7 +357,7 @@ class AttributeValue
 			if (val.isEmpty() || (val == ""))
 			{
 				valid = false;
-				value = QString();
+				value.clear();
 			}
 			else
 			{

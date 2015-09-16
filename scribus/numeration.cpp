@@ -19,7 +19,7 @@ QString getAsterixStringFromNum(int num, QString asterix, QChar leadingChar, int
 
 QString getFormatName(int format)
 {
-	QString name = QString();
+	QString name;
 	if (format == Type_1_2_3)
 		name = "1_2_3";
 	else if (format == Type_i_ii_iii)

@@ -79,8 +79,8 @@ void gtParagraphStyle::init()
 	m_numFormat       = 0;
 	m_numLevel        = 0;
 	m_numStart        = 1;
-	m_numPrefix       = QString();
-	m_numSuffix       = QString();
+	m_numPrefix.clear();
+	m_numSuffix.clear();
 	adjToBaseline   = false;
 	autoLineSpacing = false;
 	isVisible       = true;

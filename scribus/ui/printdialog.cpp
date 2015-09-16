@@ -430,7 +430,7 @@ void PrintDialog::storeValues()
 #ifdef HAVE_CUPS
 	m_doc->Print_Options.printerOptions = PrinterOpts;
 #else
-	m_doc->Print_Options.printerOptions = QString();
+	m_doc->Print_Options.printerOptions.clear();
 #endif
 	m_doc->Print_Options.devMode = DevMode;
 }

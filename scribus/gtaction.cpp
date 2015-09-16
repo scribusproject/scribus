@@ -762,7 +762,7 @@ ScFace gtAction::validateFont(gtFont* font)
 
 QString gtAction::findFontName(gtFont* font)
 {
-	QString ret = QString(); 
+	QString ret;
 	for (uint i = 0; i < static_cast<uint>(gtFont::NAMECOUNT); ++i)
 	{
 		QString nname = font->getName(i);
