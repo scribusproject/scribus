@@ -14071,11 +14071,11 @@ UCR reduserer muligheten for overmetning med CMY farger.</translation>
     </message>
     <message>
         <source>Apply Color Profiles</source>
-        <translation>Bruk fargeprofiler</translation>
+        <translation type="obsolete">Bruk fargeprofiler</translation>
     </message>
     <message>
         <source>Allows you to embed color profiles in the print stream when color management is enabled</source>
-        <translation type="unfinished">
+        <translation type="obsolete">
             </translation>
     </message>
     <message>
@@ -17886,7 +17886,7 @@ Reduserer muligheten for overmetning med CMY-farger.&gt;</translation>
     </message>
     <message>
         <source>&lt;qt&gt;Allows you to embed color profiles in the print stream when color management is enabled&lt;/qt&gt;</source>
-        <translation type="unfinished">
+        <translation type="obsolete">
             </translation>
     </message>
     <message>
@@ -17895,7 +17895,7 @@ Reduserer muligheten for overmetning med CMY-farger.&gt;</translation>
     </message>
     <message>
         <source>Apply Color Profiles</source>
-        <translation>Bruk fargeprofiler</translation>
+        <translation type="obsolete">Bruk fargeprofiler</translation>
     </message>
     <message>
         <source>Marks</source>
@@ -30345,7 +30345,7 @@ Nivå 1 eller 2 kan gi store filer</translation>
     </message>
     <message>
         <source>Apply ICC Profiles</source>
-        <translation>Bruk ICC-profiler</translation>
+        <translation type="obsolete">Bruk ICC-profiler</translation>
     </message>
     <message>
         <source>Marks &amp;&amp; Bleeds</source>
@@ -30428,7 +30428,7 @@ Nivå 1 eller 2 kan gi store filer</translation>
     </message>
     <message>
         <source>Allows you to embed color profiles in the print stream when color management is enabled</source>
-        <translation type="unfinished">
+        <translation type="obsolete">
             </translation>
     </message>
     <message>
