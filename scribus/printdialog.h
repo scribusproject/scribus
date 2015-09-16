@@ -42,7 +42,6 @@ public:
 	PrintEngine printEngine();
 	bool doDev();
 	bool doSpot();
-	bool ICCinUse();
 	bool doPrintAll();
 	bool doPrintCurrentPage();
 	QString getPageString();

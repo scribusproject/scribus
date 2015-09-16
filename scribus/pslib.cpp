@@ -1468,7 +1468,7 @@ bool PSLib::PS_ImageData(PageItem *c, QString fn, QString Name, QString Prof, bo
 	image.imgInfo.RequestProps = c->pixm.imgInfo.RequestProps;
 	image.imgInfo.isRequest = c->pixm.imgInfo.isRequest;
 	CMSettings cms(c->doc(), Prof, c->IRender);
-	if (!image.LoadPicture(fn, c->pixm.imgInfo.actualPageNumber, cms, UseEmbedded, applyICC, ScImage::CMYKData, 300, &dummy))
+	if (!image.LoadPicture(fn, c->pixm.imgInfo.actualPageNumber, cms, UseEmbedded, true, ScImage::CMYKData, 300, &dummy))
 	{
 		PS_Error_ImageLoadFailure(fn);
 		return false;
@@ -1561,7 +1561,7 @@ bool PSLib::PS_image(PageItem *c, double x, double y, QString fn, double scalex,
 		else if (c->pixm.imgInfo.type == ImageType7)
 			resolution = 72;
 //		int resolution = (c->pixm.imgInfo.type == ImageType7) ? 72 : 300;
-		if ( !image.LoadPicture(fn, c->pixm.imgInfo.actualPageNumber, cms, UseEmbedded, applyICC, ScImage::CMYKData, resolution, &dummy) )
+		if ( !image.LoadPicture(fn, c->pixm.imgInfo.actualPageNumber, cms, UseEmbedded, true, ScImage::CMYKData, resolution, &dummy) )
 		{
 			PS_Error_ImageLoadFailure(fn);
 			return false;
@@ -1821,7 +1821,6 @@ int PSLib::CreatePS(ScribusDoc* Doc, PrintOptions &options)
 	bool farb = options.useColor;
 	bool Hm = options.mirrorH;
 	bool Vm = options.mirrorV;
-	bool applyICC = options.useICC;
 	bool doDev = options.setDevParam;
 	bool doClip = options.doClip;
 	QStack<PageItem*> groupStack;
@@ -1841,10 +1840,10 @@ int PSLib::CreatePS(ScribusDoc* Doc, PrintOptions &options)
 	PS_set_Info("Title", Doc->documentInfo.getTitle());
 	if (!farb)
 		PS_setGray();
-	if ((Doc->HasCMS) && (ScCore->haveCMS()) && (applyICC))
+	if (Doc->HasCMS && ScCore->haveCMS())
 		solidTransform = ScColorMgmtEngine::createTransform(Doc->DocInputCMYKProf, Format_CMYK_16, Doc->DocPrinterProf, Format_CMYK_16, Doc->IntentColors, 0);
 	else
-		applyICC = false;
+		solidTransform = ScColorTransform();
 	if (usingGUI)
 	{
 		QString title=QObject::tr("Exporting PostScript File");
@@ -3454,7 +3453,7 @@ void PSLib::SetColor(const ScColor& farb, double shade, int *h, int *s, int *v, 
 	if ((Options.doGCR) && (!farb.isRegistrationColor()))
 		ScColorEngine::applyGCR(tmp, m_Doc);
 	tmp.getCMYK(&h1, &s1, &v1, &k1);
-	if ((m_Doc->HasCMS) && (ScCore->haveCMS()) && (applyICC))
+	if ((m_Doc->HasCMS) && (ScCore->haveCMS()) && (solidTransform))
 	{
 		h1 = qRound(h1 * shade / 100.0);
 		s1 = qRound(s1 * shade / 100.0);

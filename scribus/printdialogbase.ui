@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>570</width>
-    <height>520</height>
+    <height>529</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -402,16 +402,6 @@ Note: PDF Forms will not be exported.</string>
            </widget>
           </item>
           <item>
-           <widget class="QCheckBox" name="UseICC">
-            <property name="toolTip">
-             <string>&lt;qt&gt;Allows you to embed color profiles in the print stream when color management is enabled&lt;/qt&gt;</string>
-            </property>
-            <property name="text">
-             <string>Apply Color Profiles</string>
-            </property>
-           </widget>
-          </item>
-          <item>
            <spacer>
             <property name="orientation">
              <enum>Qt::Vertical</enum>
@@ -641,6 +631,45 @@ Note: PDF Forms will not be exported.</string>
    <header location="global">scrspinbox.h</header>
   </customwidget>
  </customwidgets>
+ <tabstops>
+  <tabstop>PrintDest</tabstop>
+  <tabstop>OptButton</tabstop>
+  <tabstop>LineEdit1</tabstop>
+  <tabstop>ToolButton1</tabstop>
+  <tabstop>OtherCom</tabstop>
+  <tabstop>Command</tabstop>
+  <tabstop>RadioButton1</tabstop>
+  <tabstop>CurrentPage</tabstop>
+  <tabstop>RadioButton2</tabstop>
+  <tabstop>pageNr</tabstop>
+  <tabstop>pageNrButton</tabstop>
+  <tabstop>Copies</tabstop>
+  <tabstop>printOptions</tabstop>
+  <tabstop>PrintSep</tabstop>
+  <tabstop>colorType</tabstop>
+  <tabstop>SepArt</tabstop>
+  <tabstop>printEngines</tabstop>
+  <tabstop>usePDFMarks</tabstop>
+  <tabstop>MirrorHor</tabstop>
+  <tabstop>MirrorVert</tabstop>
+  <tabstop>devPar</tabstop>
+  <tabstop>ClipMarg</tabstop>
+  <tabstop>GcR</tabstop>
+  <tabstop>spotColors</tabstop>
+  <tabstop>cropMarks</tabstop>
+  <tabstop>registrationMarks</tabstop>
+  <tabstop>bleedMarks</tabstop>
+  <tabstop>colorMarks</tabstop>
+  <tabstop>markOffset</tabstop>
+  <tabstop>BleedTop</tabstop>
+  <tabstop>BleedRight</tabstop>
+  <tabstop>BleedBottom</tabstop>
+  <tabstop>BleedLeft</tabstop>
+  <tabstop>docBleeds</tabstop>
+  <tabstop>previewButton</tabstop>
+  <tabstop>OKButton</tabstop>
+  <tabstop>OKButton_2</tabstop>
+ </tabstops>
  <resources/>
  <connections>
   <connection>

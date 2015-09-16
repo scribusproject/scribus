@@ -308,7 +308,7 @@ bool ScPrintEngine_GDI::printPage_GDI ( ScribusDoc* doc, Page* page, PrintOption
 	StartPage( printerDC );
 
 #ifdef HAVE_ICM
-	if ( options.useICC && isPostscriptPrinter(printerDC) )
+	if (isPostscriptPrinter(printerDC))
 	{
 		success = false;
 		QString mProf = doc->CMSSettings.DefaultSolidColorRGBProfile;
@@ -400,7 +400,7 @@ bool ScPrintEngine_GDI::printPage_GDI ( ScribusDoc* doc, Page* page, PrintOption
 	 
 	// Create the GDI painter
 	MarksOptions marksOptions(options);
-	ScPageOutput pageOutput(doc, true, 300, options.useICC);
+	ScPageOutput pageOutput(doc, true, 300, true);
 	pageOutput.setMarksOptions(marksOptions);
 	
 	QRect drawRect( 0, 0, physicalWidth, physicalHeight);

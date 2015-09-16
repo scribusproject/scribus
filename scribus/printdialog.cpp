@@ -154,7 +154,6 @@ PrintDialog::PrintDialog( QWidget* parent, ScribusDoc* doc, const PrintOptions& 
 	bool ps3Supported = printEngineMap.contains(CommonStrings::trPostScript3);
 	bool psSupported  = (ps1Supported || ps2Supported || ps3Supported);
 	printEngines->setEnabled(psSupported || outputToFile());
-	UseICC->setEnabled(m_doc->HasCMS && psSupported);
 }
 
 PrintDialog::~PrintDialog()
@@ -283,7 +282,6 @@ void PrintDialog::SelEngine(const QString& eng)
 	if (psSupported)
 	{
 		PrintSep->setEnabled( true );
-		UseICC->setEnabled( m_doc->HasCMS );
 		usePDFMarks->setEnabled(true);
 	}
 	else
@@ -292,8 +290,6 @@ void PrintDialog::SelEngine(const QString& eng)
 		PrintSep->setEnabled( false );
 		setCurrentComboItem(SepArt, tr("All"));
 		SepArt->setEnabled( false );
-		UseICC->setEnabled( false );
-		UseICC->setChecked( false );
 		usePDFMarks->setEnabled(false);
 	}
 }
@@ -343,7 +339,6 @@ void PrintDialog::SelPrinter(const QString& prn)
 	{
 		printEngines->setEnabled( true );
 		PrintSep->setEnabled( true );
-		UseICC->setEnabled( m_doc->HasCMS );
 		usePDFMarks->setEnabled(true);
 	}
 	else
@@ -353,8 +348,6 @@ void PrintDialog::SelPrinter(const QString& prn)
 		PrintSep->setEnabled( false );
 		setCurrentComboItem(SepArt, tr("All"));
 		SepArt->setEnabled( false );
-		UseICC->setEnabled( false );
-		UseICC->setChecked( false );
 		usePDFMarks->setEnabled(false);
 	}
 }
@@ -410,7 +403,6 @@ void PrintDialog::storeValues()
 	m_doc->Print_Options.useColor = color();
 	m_doc->Print_Options.mirrorH  = mirrorHorizontal();
 	m_doc->Print_Options.mirrorV  = mirrorVertical();
-	m_doc->Print_Options.useICC   = ICCinUse();
 	m_doc->Print_Options.doClip   = doClip();
 	m_doc->Print_Options.doGCR    = doGCR();
 	m_doc->Print_Options.prnEngine= printEngine();
@@ -474,7 +466,6 @@ void PrintDialog::getDefaultPrintOptions(PrintOptions& options, bool gcr)
 	options.doGCR   = prefs->getBool("DoGCR", gcr);
 	options.doClip  = prefs->getBool("Clip", false);
 	options.useSpotColors = prefs->getBool("doSpot", true);
-	options.useICC  = m_doc->HasCMS ? prefs->getBool("ICCinUse", false) : false;
 	options.useDocBleeds  = true;
 	options.bleeds.Top    = m_doc->bleeds.Top;
 	options.bleeds.Bottom = m_doc->bleeds.Bottom;
@@ -537,10 +528,7 @@ void PrintDialog::setStoredValues(const QString& fileName, bool gcr)
 	GcR->setChecked(m_doc->Print_Options.doGCR);
 	ClipMarg->setChecked(m_doc->Print_Options.doClip);
 	spotColors->setChecked(!m_doc->Print_Options.useSpotColors);
-	bool iccInUse  = m_doc->HasCMS ? m_doc->Print_Options.useICC : false;
 	bool psPrinter = PrinterUtil::isPostscriptPrinter(PrintDest->currentText()) || outputToFile();
-	UseICC->setChecked( psPrinter ? iccInUse : false );
-	UseICC->setEnabled( psPrinter );
 	docBleeds->setChecked(m_doc->Print_Options.useDocBleeds);
 	if (docBleeds->isChecked())
 	{
@@ -649,11 +637,6 @@ bool PrintDialog::doDev()
 bool PrintDialog::doSpot()
 {
 	return !spotColors->isChecked();
-}
-
-bool PrintDialog::ICCinUse()
-{
-	return (m_doc->HasCMS && UseICC->isChecked());
 }
 
 bool PrintDialog::doPrintAll()

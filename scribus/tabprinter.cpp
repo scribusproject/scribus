@@ -34,7 +34,6 @@ TabPrinter::TabPrinter(QWidget* parent, const char* name)
 	psLevel->setToolTip("<qt>" +  tr( "Sets the PostScript Level.\n Setting to Level 1 or 2 can create huge files" ) + "</qt>" );
 	doGCR->setToolTip( "<qt>" + tr( "A way of switching off some of the gray shades which are composed of cyan, yellow and magenta and using black instead. UCR most affects parts of images which are neutral and/or dark tones which are close to the gray. Use of this may improve printing some images and some experimentation and testing is need on a case by case basis. UCR reduces the possibility of over saturation with CMY inks." ) + "</qt>");
 	convertSpots->setToolTip("<qt>" + tr( "Enables Spot Colors to be converted to composite colors. Unless you are planning to print spot colors at a commercial printer, this is probably best left enabled." ) + "</qt>");
-	useICC->setToolTip("<qt>" + tr( "Allows you to embed color profiles in the print stream when color management is enabled" ) + "</qt>");
 	setMedia->setToolTip( "<qt>" + tr( "This enables you to explicitely set the media size of the PostScript file. Not recommended unless requested by your printer." ) + "</qt>");
 	connect(useAltPrintCommand, SIGNAL(clicked()), this, SLOT(selOtherComm()));
 }
@@ -94,10 +93,6 @@ void TabPrinter::restoreDefaults(struct ApplicationPrefs *prefsData)
 		printerCommand->setEnabled(false);
 	}
 	printerCommand->setText(prefs->get("Command", ""));
-	bool iccInUse = prefs->getBool("ICCinUse", false);
-	bool psPrinter = PrinterUtil::isPostscriptPrinter(defaultPrinter->currentText());
-	useICC->setChecked( psPrinter ? iccInUse : false );
-	useICC->setEnabled( psPrinter );
 	bool seps = static_cast<bool>(prefs->getInt("Separations", 0));
 	buttonNormal->setChecked(!seps);
 	buttonSeparations->setChecked(seps);
@@ -143,7 +138,7 @@ void TabPrinter::storeValues()
 	prefs->set("PSLevel", psLevel->currentIndex() + 1);
 	prefs->set("doDev", setMedia->isChecked());
 	prefs->set("doSpot", !convertSpots->isChecked());
-	prefs->set("ICCinUse", useICC->isChecked());
+	prefs->set("ICCinUse", true);
 	prefs->set("BleedTop", bleedTop->value() / unitRatio);
 	prefs->set("BleedBottom", bleedBottom->value() / unitRatio);
 	prefs->set("BleedRight", bleedRight->value() / unitRatio);

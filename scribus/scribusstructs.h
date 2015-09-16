@@ -338,7 +338,6 @@ struct PrintOptions
 	bool useColor;
 	bool mirrorH;
 	bool mirrorV;
-	bool useICC;
 	bool doGCR;
 	bool doClip;
 	bool setDevParam;

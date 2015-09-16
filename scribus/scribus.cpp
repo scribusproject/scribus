@@ -8006,7 +8006,6 @@ bool ScribusMainWindow::DoSaveAsEps(QString fn, QString& error)
 	options.useColor = true;
 	options.mirrorH = false;
 	options.mirrorV = false;
-	options.useICC = true;
 	options.doGCR = prefsManager->appPrefs.GCRMode;
 	options.setDevParam = false;
 	options.doClip = true;

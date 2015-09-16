@@ -635,7 +635,6 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 				m_Doc->Print_Options.useColor = static_cast<bool>(pg.attribute("useColor").toInt());
 				m_Doc->Print_Options.mirrorH = static_cast<bool>(pg.attribute("mirrorH").toInt());
 				m_Doc->Print_Options.mirrorV = static_cast<bool>(pg.attribute("mirrorV").toInt());
-				m_Doc->Print_Options.useICC = static_cast<bool>(pg.attribute("useICC").toInt());
 				m_Doc->Print_Options.doGCR = static_cast<bool>(pg.attribute("doGCR").toInt());
 				m_Doc->Print_Options.doClip = static_cast<bool>(pg.attribute("doClip").toInt());
 				m_Doc->Print_Options.setDevParam = static_cast<bool>(pg.attribute("setDevParam").toInt());

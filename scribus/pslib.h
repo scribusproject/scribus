@@ -188,7 +188,6 @@ class SCRIBUS_API PSLib : public QObject
 		bool DoSep;
 		bool useSpotColors;
 		bool fillRule;
-		bool applyICC;
 		ScColorTransform solidTransform;
 		QString currentSpot;
 		ColorList colorsToUse;

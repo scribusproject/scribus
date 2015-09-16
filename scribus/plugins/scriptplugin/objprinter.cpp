@@ -424,7 +424,6 @@ static PyObject *Printer_print(Printer *self)
 	options.useColor = self->color;
 	options.mirrorH  = self->mph;
 	options.mirrorV  = self->mpv;
-	options.useICC   = self->useICC;
 	options.doGCR    = self->ucr;
 	options.cropMarks  = false;
 	options.bleedMarks = false;
