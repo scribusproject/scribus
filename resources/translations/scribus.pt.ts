@@ -6772,7 +6772,7 @@ As bibliotecas nao suportadas são indicadas por um *</translation>
     </message>
     <message>
         <location filename="../../scribus/docinfo.cpp" line="167"/>
-        <source>The person or organisation primarily responsible for making the content of the document. This field can be embedded in the Scribus document for reference, as well as in the metadata of a PDF.</source>
+        <source>The person or organization primarily responsible for making the content of the document. This field can be embedded in the Scribus document for reference, as well as in the metadata of a PDF.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -6788,6 +6788,16 @@ As bibliotecas nao suportadas são indicadas por um *</translation>
     <message>
         <location filename="../../scribus/docinfo.cpp" line="170"/>
         <source>The topic of the content of the document. This field is for document keywords you wish to embed in a PDF, to assist searches and indexing of PDF files.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/docinfo.cpp" line="171"/>
+        <source>A person or organization responsible for making the document available</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/docinfo.cpp" line="172"/>
+        <source>A person or organization responsible for making contributions to the content of the document</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -6812,14 +6822,12 @@ As bibliotecas nao suportadas são indicadas por um *</translation>
         <translation type="vanished">O tópico do conteúdo do documento.Esse campo é usado para as palavras-chaves que você deseja incorporar ao PDF, para auxiliar nas buscas e indexações dos ficheiros PDF</translation>
     </message>
     <message>
-        <location filename="../../scribus/docinfo.cpp" line="171"/>
         <source>A person or organisation responsible for making the document available</source>
-        <translation>Uma pessoa ou organização responsável por tornar o documento disponível</translation>
+        <translation type="vanished">Uma pessoa ou organização responsável por tornar o documento disponível</translation>
     </message>
     <message>
-        <location filename="../../scribus/docinfo.cpp" line="172"/>
         <source>A person or organisation responsible for making contributions to the content of the document</source>
-        <translation>Uma pessoa ou organização responsável por fazer contribuições ao conteúdo do documento</translation>
+        <translation type="vanished">Uma pessoa ou organização responsável por fazer contribuições ao conteúdo do documento</translation>
     </message>
     <message>
         <location filename="../../scribus/docinfo.cpp" line="173"/>
@@ -11807,7 +11815,7 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="../../scribus/ui/markvariabletext.cpp" line="18"/>
-        <source>Edit selected Mark`s label. To create new Mark select &quot;New Mark&quot; in drop list and input new label.</source>
+        <source>Edit selected Mark&apos;s label. To create new Mark select &quot;New Mark&quot; in drop list and input new label.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -11824,13 +11832,13 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="../../scribus/ui/markvariabletext.cpp" line="31"/>
-        <source>Edit selected Mark`s label</source>
+        <source>Edit selected Mark&apos;s label</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/markvariabletext.cpp" line="48"/>
         <location filename="../../scribus/ui/markvariabletext.cpp" line="64"/>
-        <source>Edit selected Mark`s label.</source>
+        <source>Edit selected Mark&apos;s label.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

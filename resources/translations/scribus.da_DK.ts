@@ -6950,8 +6950,22 @@ for øjeblikket %2 x %3 DPI</translation>
     </message>
     <message>
         <location filename="../../scribus/docinfo.cpp" line="167"/>
+        <source>The person or organization primarily responsible for making the content of the document. This field can be embedded in the Scribus document for reference, as well as in the metadata of a PDF.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/docinfo.cpp" line="171"/>
+        <source>A person or organization responsible for making the document available</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/docinfo.cpp" line="172"/>
+        <source>A person or organization responsible for making contributions to the content of the document</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>The person or organisation primarily responsible for making the content of the document. This field can be embedded in the Scribus document for reference, as well as in the metadata of a PDF.</source>
-        <translation>Personen eller organisation, der først og fremmest er ansvarlig for indholdet af dokumentet. Dette felt kan indlejres både i Scribus dokumentet for reference og i PDF som metadata.</translation>
+        <translation type="vanished">Personen eller organisation, der først og fremmest er ansvarlig for indholdet af dokumentet. Dette felt kan indlejres både i Scribus dokumentet for reference og i PDF som metadata.</translation>
     </message>
     <message>
         <location filename="../../scribus/docinfo.cpp" line="168"/>
@@ -6969,14 +6983,12 @@ for øjeblikket %2 x %3 DPI</translation>
         <translation>Emnet for indholdet af dokumentet. Dette felt er til dokument nøgleord, du ønsker at integrere i en PDF, for at lette søgning og indeksering af PDF-filer.</translation>
     </message>
     <message>
-        <location filename="../../scribus/docinfo.cpp" line="171"/>
         <source>A person or organisation responsible for making the document available</source>
-        <translation>En person eller organisation som er ansvarlig for at gøre dokumentet tilgængelig</translation>
+        <translation type="vanished">En person eller organisation som er ansvarlig for at gøre dokumentet tilgængelig</translation>
     </message>
     <message>
-        <location filename="../../scribus/docinfo.cpp" line="172"/>
         <source>A person or organisation responsible for making contributions to the content of the document</source>
-        <translation>En person eller organisation som er ansvarlig for at yde bidrag til dokumentets indhold</translation>
+        <translation type="vanished">En person eller organisation som er ansvarlig for at yde bidrag til dokumentets indhold</translation>
     </message>
     <message>
         <location filename="../../scribus/docinfo.cpp" line="173"/>
@@ -12134,9 +12146,13 @@ p, li { white-space: pre-wrap; }
         <translation type="vanished">Rediger etikette for valgte mærke. Hvis du vil oprette nyt mærke vælg &quot;Nyt mærke&quot; i drop liste og indtast ny etikette</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/markvariabletext.cpp" line="18"/>
         <source>Edit selected Mark`s label. To create new Mark select &quot;New Mark&quot; in drop list and input new label.</source>
-        <translation>Rediger etikette for valgte mærke. Hvis du vil oprette nyt mærke vælg &quot;Nyt mærke&quot; i drop liste og indtast ny etikette.</translation>
+        <translation type="vanished">Rediger etikette for valgte mærke. Hvis du vil oprette nyt mærke vælg &quot;Nyt mærke&quot; i drop liste og indtast ny etikette.</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/markvariabletext.cpp" line="18"/>
+        <source>Edit selected Mark&apos;s label. To create new Mark select &quot;New Mark&quot; in drop list and input new label.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/markvariabletext.cpp" line="21"/>
@@ -12152,14 +12168,22 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="../../scribus/ui/markvariabletext.cpp" line="31"/>
-        <source>Edit selected Mark`s label</source>
-        <translation>Rediger etikette for valgte mærke</translation>
+        <source>Edit selected Mark&apos;s label</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/markvariabletext.cpp" line="48"/>
         <location filename="../../scribus/ui/markvariabletext.cpp" line="64"/>
+        <source>Edit selected Mark&apos;s label.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Edit selected Mark`s label</source>
+        <translation type="vanished">Rediger etikette for valgte mærke</translation>
+    </message>
+    <message>
         <source>Edit selected Mark`s label.</source>
-        <translation>Rediger etikette for valgte mærke.</translation>
+        <translation type="vanished">Rediger etikette for valgte mærke.</translation>
     </message>
 </context>
 <context>

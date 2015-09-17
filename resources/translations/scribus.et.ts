@@ -6825,7 +6825,7 @@ praegu %2 x %3 DPI-d</translation>
     </message>
     <message>
         <location filename="../../scribus/docinfo.cpp" line="167"/>
-        <source>The person or organisation primarily responsible for making the content of the document. This field can be embedded in the Scribus document for reference, as well as in the metadata of a PDF.</source>
+        <source>The person or organization primarily responsible for making the content of the document. This field can be embedded in the Scribus document for reference, as well as in the metadata of a PDF.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -6841,6 +6841,16 @@ praegu %2 x %3 DPI-d</translation>
     <message>
         <location filename="../../scribus/docinfo.cpp" line="170"/>
         <source>The topic of the content of the document. This field is for document keywords you wish to embed in a PDF, to assist searches and indexing of PDF files.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/docinfo.cpp" line="171"/>
+        <source>A person or organization responsible for making the document available</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/docinfo.cpp" line="172"/>
+        <source>A person or organization responsible for making contributions to the content of the document</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -6865,14 +6875,12 @@ praegu %2 x %3 DPI-d</translation>
         <translation type="vanished">Dokumendi sisu teema. See väli on mõeldud PDF-i põimitavate dokumendi võtmesõnade jaoks, mis aitavad PDF-failides otsida ja neid indekseerida</translation>
     </message>
     <message>
-        <location filename="../../scribus/docinfo.cpp" line="171"/>
         <source>A person or organisation responsible for making the document available</source>
-        <translation>Isik või organisatsioon, kes vastutab dokumendi avaldamise eest</translation>
+        <translation type="vanished">Isik või organisatsioon, kes vastutab dokumendi avaldamise eest</translation>
     </message>
     <message>
-        <location filename="../../scribus/docinfo.cpp" line="172"/>
         <source>A person or organisation responsible for making contributions to the content of the document</source>
-        <translation>Isik või organisatsioon, kes on andnud panuse dokumendi sisu loomisse</translation>
+        <translation type="vanished">Isik või organisatsioon, kes on andnud panuse dokumendi sisu loomisse</translation>
     </message>
     <message>
         <location filename="../../scribus/docinfo.cpp" line="173"/>
@@ -11945,7 +11953,7 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="../../scribus/ui/markvariabletext.cpp" line="18"/>
-        <source>Edit selected Mark`s label. To create new Mark select &quot;New Mark&quot; in drop list and input new label.</source>
+        <source>Edit selected Mark&apos;s label. To create new Mark select &quot;New Mark&quot; in drop list and input new label.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -11962,13 +11970,13 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="../../scribus/ui/markvariabletext.cpp" line="31"/>
-        <source>Edit selected Mark`s label</source>
+        <source>Edit selected Mark&apos;s label</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/markvariabletext.cpp" line="48"/>
         <location filename="../../scribus/ui/markvariabletext.cpp" line="64"/>
-        <source>Edit selected Mark`s label.</source>
+        <source>Edit selected Mark&apos;s label.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

@@ -6677,23 +6677,16 @@ currently %2 x %3 DPI</source>
         <translation type="vanished">賦予檔案的名稱。這個專案可以被嵌入到 Scribus 檔案以及 PDF 檔案中的元資料中備考</translation>
     </message>
     <message>
-        <location filename="../../scribus/docinfo.cpp" line="172"/>
         <source>A person or organisation responsible for making contributions to the content of the document</source>
-        <translation>負責爲該檔案內容作出貢獻的個人或組織</translation>
+        <translation type="vanished">負責爲該檔案內容作出貢獻的個人或組織</translation>
     </message>
     <message>
-        <location filename="../../scribus/docinfo.cpp" line="171"/>
         <source>A person or organisation responsible for making the document available</source>
-        <translation>負責製作該檔案的個人或組織</translation>
+        <translation type="vanished">負責製作該檔案的個人或組織</translation>
     </message>
     <message>
         <location filename="../../scribus/docinfo.cpp" line="53"/>
         <source>&amp;Subject:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/docinfo.cpp" line="167"/>
-        <source>The person or organisation primarily responsible for making the content of the document. This field can be embedded in the Scribus document for reference, as well as in the metadata of a PDF.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -6709,6 +6702,16 @@ currently %2 x %3 DPI</source>
     <message>
         <location filename="../../scribus/docinfo.cpp" line="170"/>
         <source>The topic of the content of the document. This field is for document keywords you wish to embed in a PDF, to assist searches and indexing of PDF files.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/docinfo.cpp" line="171"/>
+        <source>A person or organization responsible for making the document available</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/docinfo.cpp" line="172"/>
+        <source>A person or organization responsible for making contributions to the content of the document</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -6784,6 +6787,11 @@ currently %2 x %3 DPI</source>
         <location filename="../../scribus/docinfo.cpp" line="118"/>
         <source>Identi&amp;fier:</source>
         <translation>身份標記 (&amp;F):</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/docinfo.cpp" line="167"/>
+        <source>The person or organization primarily responsible for making the content of the document. This field can be embedded in the Scribus document for reference, as well as in the metadata of a PDF.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/docinfo.cpp" line="181"/>
@@ -11786,7 +11794,7 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="../../scribus/ui/markvariabletext.cpp" line="18"/>
-        <source>Edit selected Mark`s label. To create new Mark select &quot;New Mark&quot; in drop list and input new label.</source>
+        <source>Edit selected Mark&apos;s label. To create new Mark select &quot;New Mark&quot; in drop list and input new label.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -11803,13 +11811,13 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="../../scribus/ui/markvariabletext.cpp" line="31"/>
-        <source>Edit selected Mark`s label</source>
+        <source>Edit selected Mark&apos;s label</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/markvariabletext.cpp" line="48"/>
         <location filename="../../scribus/ui/markvariabletext.cpp" line="64"/>
-        <source>Edit selected Mark`s label.</source>
+        <source>Edit selected Mark&apos;s label.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

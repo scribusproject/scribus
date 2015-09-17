@@ -200,7 +200,7 @@
     </message>
     <message>
         <source>Scribus 1.5.1+ Icon Set:</source>
-        <translation type="unfinished"></translation>
+        <translation>Scribus 1.5.1+ Icon Set:</translation>
     </message>
 </context>
 <context>
@@ -1753,7 +1753,7 @@
     </message>
     <message>
         <source>Align and Distribute</source>
-        <translation type="unfinished">Align and Distribute</translation>
+        <translation>Align and Distribute</translation>
     </message>
 </context>
 <context>
@@ -2414,7 +2414,7 @@ Configuration invalid</translation>
     </message>
     <message>
         <source>Scribus frontend for Barcode Writer in Pure PostScript</source>
-        <translation type="unfinished"></translation>
+        <translation>Scribus frontend for Barcode Writer in Pure PostScript</translation>
     </message>
 </context>
 <context>
@@ -2573,47 +2573,47 @@ Configuration invalid</translation>
     </message>
     <message>
         <source>Select a barcode format</source>
-        <translation type="unfinished"></translation>
+        <translation>Select a barcode format</translation>
     </message>
     <message>
         <source>Point of Sale</source>
-        <translation type="unfinished"></translation>
+        <translation>Point of Sale</translation>
     </message>
     <message>
         <source>Supply Chain</source>
-        <translation type="unfinished"></translation>
+        <translation>Supply Chain</translation>
     </message>
     <message>
         <source>Two-dimensional symbols</source>
-        <translation type="unfinished"></translation>
+        <translation>Two-dimensional symbols</translation>
     </message>
     <message>
         <source>One-dimensional symbols</source>
-        <translation type="unfinished"></translation>
+        <translation>One-dimensional symbols</translation>
     </message>
     <message>
         <source>GS1 DataBar family</source>
-        <translation type="unfinished"></translation>
+        <translation>GS1 DataBar family</translation>
     </message>
     <message>
         <source>Postal symbols</source>
-        <translation type="unfinished"></translation>
+        <translation>Postal symbols</translation>
     </message>
     <message>
         <source>Pharmaceutical symbols</source>
-        <translation type="unfinished"></translation>
+        <translation>Pharmaceutical symbols</translation>
     </message>
     <message>
         <source>Less-used symbols</source>
-        <translation type="unfinished"></translation>
+        <translation>Less-used symbols</translation>
     </message>
     <message>
         <source>GS1 Composite symbols</source>
-        <translation type="unfinished"></translation>
+        <translation>GS1 Composite symbols</translation>
     </message>
     <message>
         <source>Select a barcode family</source>
-        <translation type="unfinished"></translation>
+        <translation>Select a barcode family</translation>
     </message>
 </context>
 <context>
@@ -2756,71 +2756,71 @@ Configuration invalid</translation>
     </message>
     <message>
         <source>Display checksum</source>
-        <translation type="unfinished"></translation>
+        <translation>Display checksum</translation>
     </message>
     <message>
         <source>Show readable text</source>
-        <translation type="unfinished"></translation>
+        <translation>Show readable text</translation>
     </message>
     <message>
         <source>Parse specials</source>
-        <translation type="unfinished"></translation>
+        <translation>Parse specials</translation>
     </message>
     <message>
         <source>Guard whitespace</source>
-        <translation type="unfinished"></translation>
+        <translation>Guard whitespace</translation>
     </message>
     <message>
         <source>^NNN as ASCII</source>
-        <translation type="unfinished"></translation>
+        <translation>^NNN as ASCII</translation>
     </message>
     <message>
         <source>Add checksum</source>
-        <translation type="unfinished"></translation>
+        <translation>Add checksum</translation>
     </message>
     <message>
         <source>Advanced options for the barcode</source>
-        <translation type="unfinished"></translation>
+        <translation>Advanced options for the barcode</translation>
     </message>
     <message>
         <source>&amp;Barcode:</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Barcode:</translation>
     </message>
     <message>
         <source>&amp;Contents:</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Contents:</translation>
     </message>
     <message>
         <source>Options:</source>
-        <translation type="unfinished">Options:</translation>
+        <translation>Options:</translation>
     </message>
     <message>
         <source>The contents encoded in the barcode</source>
-        <translation type="unfinished"></translation>
+        <translation>The contents encoded in the barcode</translation>
     </message>
     <message>
         <source>Select one of the available barcode types here</source>
-        <translation type="unfinished"></translation>
+        <translation>Select one of the available barcode types here</translation>
     </message>
     <message>
         <source>Version:</source>
-        <translation type="unfinished">Version:</translation>
+        <translation>Version:</translation>
     </message>
     <message>
         <source>Error correction level:</source>
-        <translation type="unfinished"></translation>
+        <translation>Error correction level:</translation>
     </message>
     <message>
         <source>Barcode Family:</source>
-        <translation type="unfinished"></translation>
+        <translation>Barcode Family:</translation>
     </message>
     <message>
         <source>Version of the symbol</source>
-        <translation type="unfinished"></translation>
+        <translation>Version of the symbol</translation>
     </message>
     <message>
         <source>Error correction level</source>
-        <translation type="unfinished"></translation>
+        <translation>Error correction level</translation>
     </message>
 </context>
 <context>
@@ -3578,11 +3578,11 @@ Please choose another one.</translation>
     </message>
     <message>
         <source>Sample color scheme</source>
-        <translation type="unfinished"></translation>
+        <translation>Sample color scheme</translation>
     </message>
     <message>
         <source>Colors of your chosen color scheme</source>
-        <translation type="unfinished"></translation>
+        <translation>Colors of your chosen color scheme</translation>
     </message>
 </context>
 <context>
@@ -4250,7 +4250,7 @@ currently %2 x %3 DPI</translation>
     </message>
     <message>
         <source>Preflight profile to base the report generation on. Options can be set in Document Setup or Preferences.</source>
-        <translation type="unfinished"></translation>
+        <translation>Preflight profile to base the report generation on. Options can be set in Document Setup or Preferences.</translation>
     </message>
 </context>
 <context>
@@ -5315,7 +5315,7 @@ currently %2 x %3 DPI</translation>
     </message>
     <message>
         <source>This panel displays various CUPS options when printing. The exact parameters available will depend on your printer driver. You can confirm CUPS support by selecting Help &gt; About. Look for the listings: C-C-T These equate to C=CUPS C=littlecms T=TIFF support. Missing library support is indicated by a *.</source>
-        <translation type="unfinished"></translation>
+        <translation>This panel displays various CUPS options when printing. The exact parameters available will depend on your printer driver. You can confirm CUPS support by selecting Help &gt; About. Look for the listings: C-C-T These equate to C=CUPS C=littlecms T=TIFF support. Missing library support is indicated by a *.</translation>
     </message>
 </context>
 <context>
@@ -5577,11 +5577,11 @@ currently %2 x %3 DPI</translation>
     </message>
     <message>
         <source>A person or organisation responsible for making the document available</source>
-        <translation>A person or organisation responsible for making the document available</translation>
+        <translation type="vanished">A person or organisation responsible for making the document available</translation>
     </message>
     <message>
         <source>A person or organisation responsible for making contributions to the content of the document</source>
-        <translation>A person or organisation responsible for making contributions to the content of the document</translation>
+        <translation type="vanished">A person or organisation responsible for making contributions to the content of the document</translation>
     </message>
     <message>
         <source>A date associated with an event in the life cycle of the document, in YYYY-MM-DD format, as per ISO 8601</source>
@@ -5641,23 +5641,35 @@ currently %2 x %3 DPI</translation>
     </message>
     <message>
         <source>The person or organisation primarily responsible for making the content of the document. This field can be embedded in the Scribus document for reference, as well as in the metadata of a PDF.</source>
-        <translation type="unfinished"></translation>
+        <translation type="vanished">The person or organisation primarily responsible for making the content of the document. This field can be embedded in the Scribus document for reference, as well as in the metadata of a PDF.</translation>
     </message>
     <message>
         <source>A name given to the document. This field can be embedded in the Scribus document for reference, as well as in the metadata of a PDF.</source>
-        <translation type="unfinished"></translation>
+        <translation>A name given to the document. This field can be embedded in the Scribus document for reference, as well as in the metadata of a PDF.</translation>
     </message>
     <message>
         <source>An account of the content of the document. This field is for a brief description or abstract of the document. It is embedded in the PDF on export.</source>
-        <translation type="unfinished"></translation>
+        <translation>An account of the content of the document. This field is for a brief description or abstract of the document. It is embedded in the PDF on export.</translation>
     </message>
     <message>
         <source>The topic of the content of the document. This field is for document keywords you wish to embed in a PDF, to assist searches and indexing of PDF files.</source>
-        <translation type="unfinished"></translation>
+        <translation>The topic of the content of the document. This field is for document keywords you wish to embed in a PDF, to assist searches and indexing of PDF files.</translation>
     </message>
     <message>
         <source>The physical or digital manifestation of the document. Media type and dimensions would be worth noting. RFC2045,RFC2046 for MIME types are also useful here.</source>
-        <translation type="unfinished"></translation>
+        <translation>The physical or digital manifestation of the document. Media type and dimensions would be worth noting. RFC2045,RFC2046 for MIME types are also useful here.</translation>
+    </message>
+    <message>
+        <source>The person or organization primarily responsible for making the content of the document. This field can be embedded in the Scribus document for reference, as well as in the metadata of a PDF.</source>
+        <translation>The person or organization primarily responsible for making the content of the document. This field can be embedded in the Scribus document for reference, as well as in the metadata of a PDF.</translation>
+    </message>
+    <message>
+        <source>A person or organization responsible for making the document available</source>
+        <translation>A person or organization responsible for making the document available</translation>
+    </message>
+    <message>
+        <source>A person or organization responsible for making contributions to the content of the document</source>
+        <translation>A person or organization responsible for making contributions to the content of the document</translation>
     </message>
 </context>
 <context>
@@ -6192,7 +6204,9 @@ Use 72 dpi for Images intended for the Screen</translation>
         <source>Insert a comma separated list of tokens where
 a token can be * for all the pages, 1-5 for
 a range of pages or a single page number</source>
-        <translation type="unfinished"></translation>
+        <translation>Insert a comma separated list of tokens where
+a token can be * for all the pages, 1-5 for
+a range of pages or a single page number</translation>
     </message>
 </context>
 <context>
@@ -6637,11 +6651,11 @@ Document Liberation Project http://www.documentliberation.org</translation>
     </message>
     <message>
         <source>Cancels these font substitutions and stops loading the document</source>
-        <translation type="unfinished"></translation>
+        <translation>Cancels these font substitutions and stops loading the document</translation>
     </message>
     <message>
         <source>If you select OK, then save, these substitutions are made permanent in the document</source>
-        <translation type="unfinished"></translation>
+        <translation>If you select OK, then save, these substitutions are made permanent in the document</translation>
     </message>
 </context>
 <context>
@@ -7230,19 +7244,19 @@ Ignore List</translation>
     </message>
     <message>
         <source>Accept the proposed hyphenation</source>
-        <translation type="unfinished"></translation>
+        <translation>Accept the proposed hyphenation</translation>
     </message>
     <message>
         <source>Add edited hyphen to local hyphenation dictionary list</source>
-        <translation type="unfinished"></translation>
+        <translation>Add edited hyphen to local hyphenation dictionary list</translation>
     </message>
     <message>
         <source>Add edited word to words that should not be hyphenated</source>
-        <translation type="unfinished"></translation>
+        <translation>Add edited word to words that should not be hyphenated</translation>
     </message>
     <message>
         <source>Do not apply the proposed hyphenation</source>
-        <translation type="unfinished"></translation>
+        <translation>Do not apply the proposed hyphenation</translation>
     </message>
 </context>
 <context>
@@ -7436,7 +7450,7 @@ Document Liberation Project http://www.documentliberation.org</translation>
     </message>
     <message>
         <source>Corel Draw (*.ccx *.CCX *.cdr *.CDR *.cdt *.CDT *.cmx *.CMX)</source>
-        <translation type="unfinished"></translation>
+        <translation>Corel Draw (*.ccx *.CCX *.cdr *.CDR *.cdt *.CDT *.cmx *.CMX)</translation>
     </message>
 </context>
 <context>
@@ -9088,35 +9102,35 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <source>Color of the Layer Indicator. Each layer has a color assigned to display on the canvas when layer indicators are enabled. You can double click to edit the color.</source>
-        <translation type="unfinished"></translation>
+        <translation>Color of the Layer Indicator. Each layer has a color assigned to display on the canvas when layer indicators are enabled. You can double click to edit the color.</translation>
     </message>
     <message>
         <source>Make Layer Visible. Uncheck to hide the layer from the display.</source>
-        <translation type="unfinished"></translation>
+        <translation>Make Layer Visible. Uncheck to hide the layer from the display.</translation>
     </message>
     <message>
         <source>Print Layer. Uncheck to disable printing.</source>
-        <translation type="unfinished"></translation>
+        <translation>Print Layer. Uncheck to disable printing.</translation>
     </message>
     <message>
         <source>Lock or Unlock Layer. Unchecked is unlocked.</source>
-        <translation type="unfinished"></translation>
+        <translation>Lock or Unlock Layer. Unchecked is unlocked.</translation>
     </message>
     <message>
         <source>Make text in lower layers flow around objects. Enabling this forces text in lower layers to flow around objects of the layer for which this option has been enabled.</source>
-        <translation type="unfinished"></translation>
+        <translation>Make text in lower layers flow around objects. Enabling this forces text in lower layers to flow around objects of the layer for which this option has been enabled.</translation>
     </message>
     <message>
         <source>Outline Mode. Toggles the &apos;wireframe&apos; display of objects to speed the display of very complex objects.</source>
-        <translation type="unfinished"></translation>
+        <translation>Outline Mode. Toggles the &apos;wireframe&apos; display of objects to speed the display of very complex objects.</translation>
     </message>
     <message>
         <source>Select Objects on Layer. Check to enable selecting.</source>
-        <translation type="unfinished"></translation>
+        <translation>Select Objects on Layer. Check to enable selecting.</translation>
     </message>
     <message>
         <source>Name of the Layer. Double click on the name of a layer to edit the name.</source>
-        <translation type="unfinished"></translation>
+        <translation>Name of the Layer. Double click on the name of a layer to edit the name.</translation>
     </message>
 </context>
 <context>
@@ -9381,7 +9395,7 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <source>Size of the inserted pages, either a standard or custom size</source>
-        <translation type="unfinished"></translation>
+        <translation>Size of the inserted pages, either a standard or custom size</translation>
     </message>
 </context>
 <context>
@@ -9508,23 +9522,23 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <source>Import the margins for the selected page size from the available printers</source>
-        <translation type="unfinished"></translation>
+        <translation>Import the margins for the selected page size from the available printers</translation>
     </message>
     <message>
         <source>Distance between the left margin guide and the edge of the page. If a double-sided, 3 or 4-fold layout is selected, this margin space can be used to achieve the correct margins for binding.</source>
-        <translation type="unfinished"></translation>
+        <translation>Distance between the left margin guide and the edge of the page. If a double-sided, 3 or 4-fold layout is selected, this margin space can be used to achieve the correct margins for binding.</translation>
     </message>
     <message>
         <source>Distance between the right margin guide and the edge of the page. If a double-sided, 3 or 4-fold layout is selected, this margin space can be used to achieve the correct margins for binding.</source>
-        <translation type="unfinished"></translation>
+        <translation>Distance between the right margin guide and the edge of the page. If a double-sided, 3 or 4-fold layout is selected, this margin space can be used to achieve the correct margins for binding.</translation>
     </message>
     <message>
         <source>Ensure all bleeds have the same value</source>
-        <translation type="unfinished"></translation>
+        <translation>Ensure all bleeds have the same value</translation>
     </message>
     <message>
         <source>Ensure all margins have the same value</source>
-        <translation type="unfinished">Ensure all margins have the same value</translation>
+        <translation>Ensure all margins have the same value</translation>
     </message>
 </context>
 <context>
@@ -9639,15 +9653,23 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <source>Edit selected Mark`s label.</source>
-        <translation>Edit selected Mark`s label.</translation>
+        <translation type="vanished">Edit selected Mark`s label.</translation>
     </message>
     <message>
         <source>Edit selected Mark`s label. To create new Mark select &quot;New Mark&quot; in drop list and input new label.</source>
-        <translation type="unfinished"></translation>
+        <translation type="vanished">Edit selected Mark`s label. To create new Mark select &quot;New Mark&quot; in drop list and input new label.</translation>
     </message>
     <message>
-        <source>Edit selected Mark`s label</source>
-        <translation type="unfinished"></translation>
+        <source>Edit selected Mark&apos;s label. To create new Mark select &quot;New Mark&quot; in drop list and input new label.</source>
+        <translation>Edit selected Mark&apos;s label. To create new Mark select &quot;New Mark&quot; in drop list and input new label.</translation>
+    </message>
+    <message>
+        <source>Edit selected Mark&apos;s label</source>
+        <translation>Edit selected Mark&apos;s label</translation>
+    </message>
+    <message>
+        <source>Edit selected Mark&apos;s label.</source>
+        <translation>Edit selected Mark&apos;s label.</translation>
     </message>
 </context>
 <context>
@@ -9850,7 +9872,7 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <source>Measurements</source>
-        <translation type="unfinished">Measurements</translation>
+        <translation>Measurements</translation>
     </message>
 </context>
 <context>
@@ -9917,7 +9939,7 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <source>Insert a comma separated list of tokens import where a token can be * for all the pages, 1-5 for a range of pages or a single page number</source>
-        <translation type="unfinished"></translation>
+        <translation>Insert a comma separated list of tokens import where a token can be * for all the pages, 1-5 for a range of pages or a single page number</translation>
     </message>
 </context>
 <context>
@@ -10402,31 +10424,31 @@ If no handle is selected all handles will be reset.</source>
     </message>
     <message>
         <source>Distance between the left margin guide and the edge of the page. If a double-sided, 3 or 4-fold layout is selected, this margin space can be used to achieve the correct margins for binding.</source>
-        <translation type="unfinished"></translation>
+        <translation>Distance between the left margin guide and the edge of the page. If a double-sided, 3 or 4-fold layout is selected, this margin space can be used to achieve the correct margins for binding.</translation>
     </message>
     <message>
         <source>Distance between the right margin guide and the edge of the page. If a double-sided, 3 or 4-fold layout is selected, this margin space can be used to achieve the correct margins for binding.</source>
-        <translation type="unfinished"></translation>
+        <translation>Distance between the right margin guide and the edge of the page. If a double-sided, 3 or 4-fold layout is selected, this margin space can be used to achieve the correct margins for binding.</translation>
     </message>
     <message>
         <source>Import the margins for the selected page size from the available printers</source>
-        <translation type="unfinished"></translation>
+        <translation>Import the margins for the selected page size from the available printers</translation>
     </message>
     <message>
         <source>Distance for bleed from the top of the physical page</source>
-        <translation type="unfinished">Distance for bleed from the top of the physical page</translation>
+        <translation>Distance for bleed from the top of the physical page</translation>
     </message>
     <message>
         <source>Distance for bleed from the bottom of the physical page</source>
-        <translation type="unfinished">Distance for bleed from the bottom of the physical page</translation>
+        <translation>Distance for bleed from the bottom of the physical page</translation>
     </message>
     <message>
         <source>Distance for bleed from the left of the physical page</source>
-        <translation type="unfinished">Distance for bleed from the left of the physical page</translation>
+        <translation>Distance for bleed from the left of the physical page</translation>
     </message>
     <message>
         <source>Distance for bleed from the right of the physical page</source>
-        <translation type="unfinished">Distance for bleed from the right of the physical page</translation>
+        <translation>Distance for bleed from the right of the physical page</translation>
     </message>
 </context>
 <context>
@@ -10609,7 +10631,7 @@ If no handle is selected all handles will be reset.</source>
     </message>
     <message>
         <source>When checked use coordinates relative to the page, otherwise coordinates are relative to the Object</source>
-        <translation type="unfinished"></translation>
+        <translation>When checked use coordinates relative to the page, otherwise coordinates are relative to the Object</translation>
     </message>
 </context>
 <context>
@@ -11065,11 +11087,11 @@ You cannot switch to different notes style before you apply that new one or pres
     </message>
     <message>
         <source>Prepend the document name to the paragraph style name in Scribus</source>
-        <translation type="unfinished"></translation>
+        <translation>Prepend the document name to the paragraph style name in Scribus</translation>
     </message>
     <message>
         <source>Make these settings the default and do not prompt again when importing an OASIS OpenDocument</source>
-        <translation type="unfinished"></translation>
+        <translation>Make these settings the default and do not prompt again when importing an OASIS OpenDocument</translation>
     </message>
 </context>
 <context>
@@ -11188,7 +11210,7 @@ You cannot switch to different notes style before you apply that new one or pres
     </message>
     <message>
         <source>Enter a keyword or regular expression to filter the outline</source>
-        <translation type="unfinished"></translation>
+        <translation>Enter a keyword or regular expression to filter the outline</translation>
     </message>
 </context>
 <context>
@@ -11299,11 +11321,11 @@ You cannot switch to different notes style before you apply that new one or pres
     </message>
     <message>
         <source>Open the exported PDF with the PDF viewer as set in External Tools preferences, when not exporting to a multi-file export destination</source>
-        <translation type="unfinished"></translation>
+        <translation>Open the exported PDF with the PDF viewer as set in External Tools preferences, when not exporting to a multi-file export destination</translation>
     </message>
     <message>
         <source>The save button will be disabled if you are trying to export PDF/X and the info string is missing from the PDF/X tab</source>
-        <translation type="unfinished"></translation>
+        <translation>The save button will be disabled if you are trying to export PDF/X and the info string is missing from the PDF/X tab</translation>
     </message>
 </context>
 <context>
@@ -11548,11 +11570,11 @@ You cannot switch to different notes style before you apply that new one or pres
     </message>
     <message>
         <source>Shows transparency and transparent items in your document. Requires Ghostscript 7.07 or later.</source>
-        <translation type="unfinished"></translation>
+        <translation>Shows transparency and transparent items in your document. Requires Ghostscript 7.07 or later.</translation>
     </message>
     <message>
         <source>Resize the scale of the page</source>
-        <translation type="unfinished"></translation>
+        <translation>Resize the scale of the page</translation>
     </message>
 </context>
 <context>
@@ -11968,7 +11990,7 @@ Often used for allowing items to be placed across page spreads</source>
     </message>
     <message>
         <source>Number of pages to show side-by-side on the canvas. Often used for allowing items to be placed across page spreads.</source>
-        <translation type="unfinished"></translation>
+        <translation>Number of pages to show side-by-side on the canvas. Often used for allowing items to be placed across page spreads.</translation>
     </message>
 </context>
 <context>
@@ -12732,15 +12754,15 @@ The result is a combination of &quot;Intersection&quot; and &quot;Exclusion&quot
     </message>
     <message>
         <source>First source shape</source>
-        <translation type="unfinished"></translation>
+        <translation>First source shape</translation>
     </message>
     <message>
         <source>Second source shape</source>
-        <translation type="unfinished"></translation>
+        <translation>Second source shape</translation>
     </message>
     <message>
         <source>The resulting shape</source>
-        <translation type="unfinished"></translation>
+        <translation>The resulting shape</translation>
     </message>
 </context>
 <context>
@@ -13124,7 +13146,7 @@ Please choose another one.</translation>
     </message>
     <message>
         <source>The filesystem will be searched for case insensitive file names when you check this on. Remember it is not default on most operating systems except MS Windows.</source>
-        <translation type="unfinished"></translation>
+        <translation>The filesystem will be searched for case insensitive file names when you check this on. Remember it is not default on most operating systems except MS Windows.</translation>
     </message>
 </context>
 <context>
@@ -14708,7 +14730,7 @@ Do you want to migrate them to the new Scribus version?</translation>
     </message>
     <message>
         <source>Enable or disable the display of linked frames</source>
-        <translation type="unfinished"></translation>
+        <translation>Enable or disable the display of linked frames</translation>
     </message>
 </context>
 <context>
@@ -15414,23 +15436,23 @@ Do you want to use this?</translation>
     </message>
     <message>
         <source>&lt;qt&gt;File system location for web browser&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;File system location for web browser&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>&lt;qt&gt;File system location for PDF viewer&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;File system location for PDF viewer&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>&lt;qt&gt;File system location for Uniconvertor&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;File system location for Uniconvertor&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>&lt;qt&gt;Path to the editor executable&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Path to the editor executable&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>Always use the configured DPI setting for calculating the size, even if the image file reports something different</source>
-        <translation type="unfinished"></translation>
+        <translation>Always use the configured DPI setting for calculating the size, even if the image file reports something different</translation>
     </message>
 </context>
 <context>
@@ -15668,7 +15690,7 @@ Do you want to use this?</translation>
     </message>
     <message>
         <source>Radius of the area where Scribus will allow you to grab an objects handles. After setting this you will need to restart Scribus to set this setting.</source>
-        <translation type="unfinished"></translation>
+        <translation>Radius of the area where Scribus will allow you to grab an objects handles. After setting this you will need to restart Scribus to set this setting.</translation>
     </message>
 </context>
 <context>
@@ -15757,15 +15779,15 @@ A value of 0 means unlimited hyphenations.</translation>
     </message>
     <message>
         <source>A dialog box showing all possible hyphens for each word will show up when you use the Extras &gt; Hyphenate Text option</source>
-        <translation type="unfinished"></translation>
+        <translation>A dialog box showing all possible hyphens for each word will show up when you use the Extras &gt; Hyphenate Text option</translation>
     </message>
     <message>
         <source>Enables automatic hyphenation of your text while typing</source>
-        <translation type="unfinished"></translation>
+        <translation>Enables automatic hyphenation of your text while typing</translation>
     </message>
     <message>
         <source>Length of the smallest word to be hyphenated</source>
-        <translation type="unfinished"></translation>
+        <translation>Length of the smallest word to be hyphenated</translation>
     </message>
 </context>
 <context>
@@ -15816,11 +15838,11 @@ A value of 0 means unlimited hyphenations.</translation>
     </message>
     <message>
         <source>Limit the total size of all files in the image cache directory to this amount</source>
-        <translation type="unfinished"></translation>
+        <translation>Limit the total size of all files in the image cache directory to this amount</translation>
     </message>
     <message>
         <source>Limit the number of cache entries to this number</source>
-        <translation type="unfinished"></translation>
+        <translation>Limit the number of cache entries to this number</translation>
     </message>
 </context>
 <context>
@@ -17156,67 +17178,67 @@ A value of 0 means unlimited hyphenations.</translation>
     </message>
     <message>
         <source>Insert a comma separated list of tokens where a token can be * for all the pages, 1-5 for a range of pages or a single page number</source>
-        <translation type="unfinished"></translation>
+        <translation>Insert a comma separated list of tokens where a token can be * for all the pages, 1-5 for a range of pages or a single page number</translation>
     </message>
     <message>
         <source>Generate PDF Articles, which is useful for navigating linked articles in a PDF</source>
-        <translation type="unfinished"></translation>
+        <translation>Generate PDF Articles, which is useful for navigating linked articles in a PDF</translation>
     </message>
     <message>
         <source>Layers in your document are exported to the PDF. Only available if PDF 1.5 is chosen.</source>
-        <translation type="unfinished"></translation>
+        <translation>Layers in your document are exported to the PDF. Only available if PDF 1.5 is chosen.</translation>
     </message>
     <message>
         <source>DPI (Dots Per Inch) for image export</source>
-        <translation type="unfinished"></translation>
+        <translation>DPI (Dots Per Inch) for image export</translation>
     </message>
     <message>
         <source>Choose a password for users to be able to read your PDF</source>
-        <translation type="unfinished"></translation>
+        <translation>Choose a password for users to be able to read your PDF</translation>
     </message>
     <message>
         <source>Allow modifying of the PDF. If unchecked, modifying the PDF is prevented.</source>
-        <translation type="unfinished"></translation>
+        <translation>Allow modifying of the PDF. If unchecked, modifying the PDF is prevented.</translation>
     </message>
     <message>
         <source>Type of the display effect</source>
-        <translation type="unfinished"></translation>
+        <translation>Type of the display effect</translation>
     </message>
     <message>
         <source>Direction of the effect of moving lines for the split and blind effects</source>
-        <translation type="unfinished"></translation>
+        <translation>Direction of the effect of moving lines for the split and blind effects</translation>
     </message>
     <message>
         <source>Starting position for the box and split effects</source>
-        <translation type="unfinished"></translation>
+        <translation>Starting position for the box and split effects</translation>
     </message>
     <message>
         <source>Direction of the glitter or wipe effects</source>
-        <translation type="unfinished"></translation>
+        <translation>Direction of the glitter or wipe effects</translation>
     </message>
     <message>
         <source>Apply the selected effect to all pages</source>
-        <translation type="unfinished"></translation>
+        <translation>Apply the selected effect to all pages</translation>
     </message>
     <message>
         <source>Hides the Menu Bar for the viewer, the PDF will display in a plain window</source>
-        <translation type="unfinished"></translation>
+        <translation>Hides the Menu Bar for the viewer, the PDF will display in a plain window</translation>
     </message>
     <message>
         <source>Fit the document page or pages to the available space in the viewer window</source>
-        <translation type="unfinished"></translation>
+        <translation>Fit the document page or pages to the available space in the viewer window</translation>
     </message>
     <message>
         <source>Embed only subset fonts with glyphs used in the document into the PDF</source>
-        <translation type="unfinished"></translation>
+        <translation>Embed only subset fonts with glyphs used in the document into the PDF</translation>
     </message>
     <message>
         <source>PDF/X Output Intent</source>
-        <translation type="unfinished">PDF/X Output Intent</translation>
+        <translation>PDF/X Output Intent</translation>
     </message>
     <message>
         <source>Allow printing of the PDF. If unchecked, printing is prevented.</source>
-        <translation type="unfinished"></translation>
+        <translation>Allow printing of the PDF. If unchecked, printing is prevented.</translation>
     </message>
 </context>
 <context>
@@ -17650,7 +17672,8 @@ A value of 0 means unlimited hyphenations.</translation>
     <message>
         <source>Sets the PostScript Level.
  Setting to Level 1 or 2 can create huge files.</source>
-        <translation type="unfinished"></translation>
+        <translation>Sets the PostScript Level.
+ Setting to Level 1 or 2 can create huge files.</translation>
     </message>
 </context>
 <context>
@@ -17697,7 +17720,7 @@ A value of 0 means unlimited hyphenations.</translation>
     </message>
     <message>
         <source>This enables the scrapbook to be used an extension to the copy/paste buffers. Simply copying an object or grouped object will send this to the Scrapbook automatically.</source>
-        <translation type="unfinished"></translation>
+        <translation>This enables the scrapbook to be used an extension to the copy/paste buffers. Simply copying an object or grouped object will send this to the Scrapbook automatically.</translation>
     </message>
 </context>
 <context>
@@ -18183,11 +18206,11 @@ A value of 0 means unlimited hyphenations.</translation>
     </message>
     <message>
         <source>Select your default language for Scribus to run with. Leave this blank to choose based on environment variables. You can still override this by passing a command line option when starting Scribus.</source>
-        <translation type="unfinished"></translation>
+        <translation>Select your default language for Scribus to run with. Leave this blank to choose based on environment variables. You can still override this by passing a command line option when starting Scribus.</translation>
     </message>
     <message>
         <source>Palette windows will use smaller (space savy) widgets. Requires application restart.</source>
-        <translation type="unfinished"></translation>
+        <translation>Palette windows will use smaller (space savy) widgets. Requires application restart.</translation>
     </message>
 </context>
 <context>
@@ -18542,15 +18565,17 @@ Note: PDF Forms will not be exported.</source>
         <source>Insert a comma separated list of tokens where
 a token can be * for all the pages, 1-5 for
 a range of pages or a single page number</source>
-        <translation type="unfinished"></translation>
+        <translation>Insert a comma separated list of tokens where
+a token can be * for all the pages, 1-5 for
+a range of pages or a single page number</translation>
     </message>
     <message>
         <source>Include PDF Annotations and Links into the output. Note: PDF Forms will not be exported.</source>
-        <translation type="unfinished"></translation>
+        <translation>Include PDF Annotations and Links into the output. Note: PDF Forms will not be exported.</translation>
     </message>
     <message>
         <source>Sets the PostScript Level. Setting to Level 1 or 2 can create huge files.</source>
-        <translation type="unfinished"></translation>
+        <translation>Sets the PostScript Level. Setting to Level 1 or 2 can create huge files.</translation>
     </message>
 </context>
 <context>
@@ -18664,19 +18689,19 @@ a range of pages or a single page number</source>
     </message>
     <message>
         <source>Use the frame shape for text flow of text frames below the object</source>
-        <translation type="unfinished"></translation>
+        <translation>Use the frame shape for text flow of text frames below the object</translation>
     </message>
     <message>
         <source>Use the bounding box, which is always rectangular, instead of the frame&apos;s shape for text flow of text frames below the object</source>
-        <translation type="unfinished"></translation>
+        <translation>Use the bounding box, which is always rectangular, instead of the frame&apos;s shape for text flow of text frames below the object</translation>
     </message>
     <message>
         <source>Any path self-intersections or subpaths create holes in the fill</source>
-        <translation type="unfinished"></translation>
+        <translation>Any path self-intersections or subpaths create holes in the fill</translation>
     </message>
     <message>
         <source>Fill is solid unless a subpath is counter-directional</source>
-        <translation type="unfinished"></translation>
+        <translation>Fill is solid unless a subpath is counter-directional</translation>
     </message>
 </context>
 <context>
@@ -19508,11 +19533,11 @@ Transparency</translation>
     </message>
     <message>
         <source>Any path self-intersections or subpaths create holes in the fill</source>
-        <translation type="unfinished"></translation>
+        <translation>Any path self-intersections or subpaths create holes in the fill</translation>
     </message>
     <message>
         <source>Fill is solid unless a subpath is counter-directional</source>
-        <translation type="unfinished"></translation>
+        <translation>Fill is solid unless a subpath is counter-directional</translation>
     </message>
 </context>
 <context>
@@ -19740,7 +19765,7 @@ Transparency</translation>
     </message>
     <message>
         <source>Select the line spacing mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Select the line spacing mode</translation>
     </message>
 </context>
 <context>
@@ -20660,7 +20685,7 @@ Transparency</translation>
     </message>
     <message>
         <source>Color of text stroke and/or drop shadow, depending which is chosen. If both are chosen, then they share the same color.</source>
-        <translation type="unfinished"></translation>
+        <translation>Color of text stroke and/or drop shadow, depending which is chosen. If both are chosen, then they share the same color.</translation>
     </message>
 </context>
 <context>
@@ -20801,7 +20826,7 @@ Scripter documentation for futher information. </translation>
     </message>
     <message>
         <source>Write your commands here. A selection is processed as script.</source>
-        <translation type="unfinished"></translation>
+        <translation>Write your commands here. A selection is processed as script.</translation>
     </message>
 </context>
 <context>
@@ -25239,7 +25264,7 @@ Caution: this will increase the file size!</translation>
     </message>
     <message>
         <source>Adds the Page itself as background to the SVG</source>
-        <translation type="unfinished"></translation>
+        <translation>Adds the Page itself as background to the SVG</translation>
     </message>
 </context>
 <context>
@@ -25347,17 +25372,17 @@ converting their vector data into Scribus objects.</translation>
     <message>
         <source>Only selected frames processed</source>
         <comment>short words plugin</comment>
-        <translation type="unfinished"></translation>
+        <translation>Only selected frames processed</translation>
     </message>
     <message>
         <source>Only actual page processed</source>
         <comment>short words plugin</comment>
-        <translation type="unfinished"></translation>
+        <translation>Only actual page processed</translation>
     </message>
     <message>
         <source>All items in document processed</source>
         <comment>short words plugin</comment>
-        <translation type="unfinished"></translation>
+        <translation>All items in document processed</translation>
     </message>
 </context>
 <context>
@@ -25416,7 +25441,7 @@ converting their vector data into Scribus objects.</translation>
     </message>
     <message>
         <source>Edit custom configuration. If you save it, it will be used over system wide configuration.</source>
-        <translation type="unfinished"></translation>
+        <translation>Edit custom configuration. If you save it, it will be used over system wide configuration.</translation>
     </message>
 </context>
 <context>
@@ -27431,27 +27456,27 @@ Consider using the Preflight Verifier to correct them</translation>
     </message>
     <message>
         <source>Invalid argument use: &apos;%1&apos; requires to be followed by &lt;argument&gt; [value]</source>
-        <translation type="unfinished"></translation>
+        <translation>Invalid argument use: &apos;%1&apos; requires to be followed by &lt;argument&gt; [value]</translation>
     </message>
     <message>
         <source>Usage: scribus [options] [files]</source>
-        <translation type="unfinished"></translation>
+        <translation>Usage: scribus [options] [files]</translation>
     </message>
     <message>
         <source>argument</source>
-        <translation type="unfinished"></translation>
+        <translation>argument</translation>
     </message>
     <message>
         <source>value</source>
-        <translation type="unfinished"></translation>
+        <translation>value</translation>
     </message>
     <message>
         <source>Argument passed on to python script, with an optional value, no effect without -py</source>
-        <translation type="unfinished"></translation>
+        <translation>Argument passed on to python script, with an optional value, no effect without -py</translation>
     </message>
     <message>
         <source>Explicit end of command line options</source>
-        <translation type="unfinished"></translation>
+        <translation>Explicit end of command line options</translation>
     </message>
 </context>
 <context>
@@ -27522,7 +27547,7 @@ Consider using the Preflight Verifier to correct them</translation>
     </message>
     <message>
         <source>Click here to leave this special edit mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Click here to leave this special edit mode</translation>
     </message>
 </context>
 <context>
@@ -28581,7 +28606,7 @@ Consider using the Preflight Verifier to correct them</translation>
     </message>
     <message>
         <source>Clone copies the style to make similar styles easily</source>
-        <translation type="unfinished"></translation>
+        <translation>Clone copies the style to make similar styles easily</translation>
     </message>
 </context>
 <context>
@@ -28710,7 +28735,7 @@ Consider using the Preflight Verifier to correct them</translation>
     </message>
     <message>
         <source>Make these settings the default and do not prompt again when importing an OpenOffice.org 1.x document</source>
-        <translation type="unfinished"></translation>
+        <translation>Make these settings the default and do not prompt again when importing an OpenOffice.org 1.x document</translation>
     </message>
 </context>
 <context>
@@ -29692,39 +29717,39 @@ when PDF document is opened:</translation>
     </message>
     <message>
         <source>Insert a comma separated list of tokens where a token can be * for all the pages, 1-5 for a range of pages or a single page number</source>
-        <translation type="unfinished"></translation>
+        <translation>Insert a comma separated list of tokens where a token can be * for all the pages, 1-5 for a range of pages or a single page number</translation>
     </message>
     <message>
         <source>Generate PDF Articles, which is useful for navigating linked articles in a PDF</source>
-        <translation type="unfinished"></translation>
+        <translation>Generate PDF Articles, which is useful for navigating linked articles in a PDF</translation>
     </message>
     <message>
         <source>Layers in your document are exported to the PDF. Only available if PDF 1.5 is chosen.</source>
-        <translation type="unfinished"></translation>
+        <translation>Layers in your document are exported to the PDF. Only available if PDF 1.5 is chosen.</translation>
     </message>
     <message>
         <source>DPI (Dots Per Inch) for image export</source>
-        <translation type="unfinished"></translation>
+        <translation>DPI (Dots Per Inch) for image export</translation>
     </message>
     <message>
         <source>Choose a password for users to be able to read your PDF</source>
-        <translation type="unfinished"></translation>
+        <translation>Choose a password for users to be able to read your PDF</translation>
     </message>
     <message>
         <source>Allow modifying of the PDF. If unchecked, modifying the PDF is prevented.</source>
-        <translation type="unfinished"></translation>
+        <translation>Allow modifying of the PDF. If unchecked, modifying the PDF is prevented.</translation>
     </message>
     <message>
         <source>Hides the Menu Bar for the viewer, the PDF will display in a plain window</source>
-        <translation type="unfinished"></translation>
+        <translation>Hides the Menu Bar for the viewer, the PDF will display in a plain window</translation>
     </message>
     <message>
         <source>Fit the document page or pages to the available space in the viewer window</source>
-        <translation type="unfinished"></translation>
+        <translation>Fit the document page or pages to the available space in the viewer window</translation>
     </message>
     <message>
         <source>Allow printing of the PDF. If unchecked, printing is prevented.</source>
-        <translation type="unfinished"></translation>
+        <translation>Allow printing of the PDF. If unchecked, printing is prevented.</translation>
     </message>
 </context>
 <context>
@@ -31227,7 +31252,7 @@ Would you like to start the system&apos;s default browser instead?</translation>
     </message>
     <message>
         <source>Select the visual appearance of the display. You can choose between normal and several color blindness forms.</source>
-        <translation type="unfinished"></translation>
+        <translation>Select the visual appearance of the display. You can choose between normal and several color blindness forms.</translation>
     </message>
 </context>
 <context>
@@ -31429,11 +31454,11 @@ converting their vector data into Scribus objects.</translation>
     </message>
     <message>
         <source>Prepend the document name to the Style name in Scribus</source>
-        <translation type="unfinished"></translation>
+        <translation>Prepend the document name to the Style name in Scribus</translation>
     </message>
     <message>
         <source>Make these settings the default and do not prompt again when importing an XPress Tags document</source>
-        <translation type="unfinished"></translation>
+        <translation>Make these settings the default and do not prompt again when importing an XPress Tags document</translation>
     </message>
 </context>
 <context>

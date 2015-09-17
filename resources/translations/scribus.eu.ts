@@ -6764,7 +6764,17 @@ C=CUPS, C=littlecms, T=TIFF euskarria. Falta diren liburutegiak
     </message>
     <message>
         <location filename="../../scribus/docinfo.cpp" line="167"/>
-        <source>The person or organisation primarily responsible for making the content of the document. This field can be embedded in the Scribus document for reference, as well as in the metadata of a PDF.</source>
+        <source>The person or organization primarily responsible for making the content of the document. This field can be embedded in the Scribus document for reference, as well as in the metadata of a PDF.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/docinfo.cpp" line="171"/>
+        <source>A person or organization responsible for making the document available</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/docinfo.cpp" line="172"/>
+        <source>A person or organization responsible for making contributions to the content of the document</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -6783,14 +6793,12 @@ C=CUPS, C=littlecms, T=TIFF euskarria. Falta diren liburutegiak
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/docinfo.cpp" line="171"/>
         <source>A person or organisation responsible for making the document available</source>
-        <translation>Dokumentua eskuragarri egitearen arduraduna (pertsona edo erakundea)</translation>
+        <translation type="vanished">Dokumentua eskuragarri egitearen arduraduna (pertsona edo erakundea)</translation>
     </message>
     <message>
-        <location filename="../../scribus/docinfo.cpp" line="172"/>
         <source>A person or organisation responsible for making contributions to the content of the document</source>
-        <translation>Dokumentuaren edukian lagundu duten arduradunak (pertsona edo erakundea)</translation>
+        <translation type="vanished">Dokumentuaren edukian lagundu duten arduradunak (pertsona edo erakundea)</translation>
     </message>
     <message>
         <location filename="../../scribus/docinfo.cpp" line="173"/>
@@ -11794,7 +11802,7 @@ distantzia</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/markvariabletext.cpp" line="18"/>
-        <source>Edit selected Mark`s label. To create new Mark select &quot;New Mark&quot; in drop list and input new label.</source>
+        <source>Edit selected Mark&apos;s label. To create new Mark select &quot;New Mark&quot; in drop list and input new label.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -11811,13 +11819,13 @@ distantzia</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/markvariabletext.cpp" line="31"/>
-        <source>Edit selected Mark`s label</source>
+        <source>Edit selected Mark&apos;s label</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/markvariabletext.cpp" line="48"/>
         <location filename="../../scribus/ui/markvariabletext.cpp" line="64"/>
-        <source>Edit selected Mark`s label.</source>
+        <source>Edit selected Mark&apos;s label.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

@@ -5576,11 +5576,11 @@ currently %2 x %3 DPI</translation>
     </message>
     <message>
         <source>A person or organisation responsible for making the document available</source>
-        <translation>A person or organisation responsible for making the document available</translation>
+        <translation type="vanished">A person or organisation responsible for making the document available</translation>
     </message>
     <message>
         <source>A person or organisation responsible for making contributions to the content of the document</source>
-        <translation>A person or organisation responsible for making contributions to the content of the document</translation>
+        <translation type="vanished">A person or organisation responsible for making contributions to the content of the document</translation>
     </message>
     <message>
         <source>A date associated with an event in the life cycle of the document, in YYYY-MM-DD format, as per ISO 8601</source>
@@ -5639,10 +5639,6 @@ currently %2 x %3 DPI</translation>
         <translation>The language in which the content of the document is written, usually a ISO-639 language code optionally suffixed with a hypen and an ISO-3166 country code, eg. en-GB, fr-CH</translation>
     </message>
     <message>
-        <source>The person or organisation primarily responsible for making the content of the document. This field can be embedded in the Scribus document for reference, as well as in the metadata of a PDF.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>A name given to the document. This field can be embedded in the Scribus document for reference, as well as in the metadata of a PDF.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -5656,6 +5652,18 @@ currently %2 x %3 DPI</translation>
     </message>
     <message>
         <source>The physical or digital manifestation of the document. Media type and dimensions would be worth noting. RFC2045,RFC2046 for MIME types are also useful here.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The person or organization primarily responsible for making the content of the document. This field can be embedded in the Scribus document for reference, as well as in the metadata of a PDF.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>A person or organization responsible for making the document available</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>A person or organization responsible for making contributions to the content of the document</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -9638,14 +9646,18 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <source>Edit selected Mark`s label.</source>
-        <translation>Edit selected Mark`s label.</translation>
+        <translation type="vanished">Edit selected Mark`s label.</translation>
     </message>
     <message>
-        <source>Edit selected Mark`s label. To create new Mark select &quot;New Mark&quot; in drop list and input new label.</source>
+        <source>Edit selected Mark&apos;s label. To create new Mark select &quot;New Mark&quot; in drop list and input new label.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Edit selected Mark`s label</source>
+        <source>Edit selected Mark&apos;s label</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Edit selected Mark&apos;s label.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
