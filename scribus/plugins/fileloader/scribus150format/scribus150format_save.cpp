@@ -1519,7 +1519,6 @@ void Scribus150Format::WritePages(ScribusDoc *doc, ScXmlStreamWriter& docu, QPro
 		docu.writeAttribute("Dm", page->PresentVals.Dm);
 		docu.writeAttribute("M", page->PresentVals.M);
 		docu.writeAttribute("Di", page->PresentVals.Di);
-		docu.writeAttribute("markC", page->getMarkColor().name());
 		docu.writeEndElement();
 	}
 }

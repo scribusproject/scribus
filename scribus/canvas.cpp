@@ -990,10 +990,7 @@ void Canvas::drawContents(QPainter *psx, int clipx, int clipy, int clipw, int cl
 	ScPainter *painter=0;
 	QImage img = QImage(clipw, cliph, QImage::Format_ARGB32_Premultiplied);
 	painter = new ScPainter(&img, img.width(), img.height(), 1.0, 0);
-	if (m_doc->masterPageMode())
-		painter->clear(m_doc->currentPage()->getMarkColor());
-	else
-		painter->clear(palette().color(QPalette::Window));
+	painter->clear(palette().color(QPalette::Window));
 	painter->newPath();
 	painter->moveTo(0, 0);
 	painter->lineTo(clipw, 0);

@@ -69,7 +69,6 @@ public:
 	/*! \brief Master Page
 	\retval QString Master Page Name */
 	QString masterPage();
-	QColor markerColor();
 	int getMarginPreset();
 
 public slots:
@@ -89,7 +88,6 @@ public slots:
 	It's called from width spinbox.
 	\param v new height */
 	virtual void setPageHeight(double v);
-	void changeMarkerColor();
 
 private:
 	MarginWidget* GroupRand;
@@ -121,7 +119,6 @@ private:
 	QVBoxLayout* dialogLayout;
 	QHBoxLayout* okCancelLayout;
 	QHBoxLayout* masterLayout;
-	QColor pageFillColor;
 
 
 };

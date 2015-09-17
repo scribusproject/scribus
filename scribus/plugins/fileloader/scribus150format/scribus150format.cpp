@@ -3584,8 +3584,6 @@ bool Scribus150Format::readPage(ScribusDoc* doc, ScXmlStreamReader& reader)
 	ef.M  = attrs.valueAsInt("M", 0);
 	ef.Di = attrs.valueAsInt("Di", 0);
 	newPage->PresentVals = ef;
-	if (attrs.hasAttribute("markC"))
-		newPage->setMarkColor(QColor(attrs.valueAsString("markC")));
 	return true;
 }
 

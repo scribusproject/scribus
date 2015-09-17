@@ -141,22 +141,10 @@ MarginDialog::MarginDialog( QWidget* parent, ScribusDoc* doc ) : QDialog( parent
 			++cc;
 		}
 		masterLayout->addWidget( masterPageComboBox );
-		pageFillColor = QColor();
-	}
-	else
-	{
-		masterPageComboBox = NULL;
-		masterPageLabel->setText( tr( "Page Marker Color:" ) );
-		QPixmap pm(100, 30);
-		pm.fill(doc->currentPage()->getMarkColor());
-		pageFillColor = doc->currentPage()->getMarkColor();
-		pageFillColorButton = new QPushButton(this);
-		pageFillColorButton->setText( QString::null );
-		pageFillColorButton->setIcon(pm);
-		masterLayout->addWidget( pageFillColorButton );
-		connect(pageFillColorButton, SIGNAL(clicked()), this, SLOT(changeMarkerColor()));
 	}
 	dialogLayout->addWidget( groupMaster );
+	if (doc->masterPageMode())
+		groupMaster->hide();
 
 	okCancelLayout = new QHBoxLayout;
 	okCancelLayout->setSpacing( 5 );
@@ -298,18 +286,6 @@ void MarginDialog::setOrien(int ori)
 	connect(heightSpinBox, SIGNAL(valueChanged(double)), this, SLOT(setPageHeight(double)));
 }
 
-void MarginDialog::changeMarkerColor()
-{
-	QColor newColor(QColorDialog::getColor(pageFillColor, this));
-	if (newColor.isValid())
-	{
-		QPixmap pm(100, 30);
-		pm.fill(newColor);
-		pageFillColor = newColor;
-		pageFillColorButton->setIcon(pm);
-	}
-}
-
 int MarginDialog::pageOrder()
 {
 	int lp=0;
@@ -374,11 +350,6 @@ QString MarginDialog::masterPage()
 	if (masterPageComboBox != NULL)
 		return masterPageComboBox->currentText();
 	return "";
-}
-
-QColor MarginDialog::markerColor()
-{
-	return pageFillColor;
 }
 
 int MarginDialog::getMarginPreset()

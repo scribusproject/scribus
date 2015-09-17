@@ -130,7 +130,7 @@ void PagePalette_Pages::pageView_applyMasterPage(QString masterpageName, int pag
 	currView->DrawNew();
 	SeItem* pageItem = pageView->GetPageItem(pageIndex);
 	if (pageItem)
-		pageItem->setIcon(createIcon(pageIndex, masterpageName, pix, currView->Doc->MasterPages.at(currView->Doc->MasterNames[masterpageName])->getMarkColor()));
+		pageItem->setIcon(createIcon(pageIndex, masterpageName, pix));
 }
 
 void PagePalette_Pages::pageView_movePage(int r, int c)
@@ -205,9 +205,6 @@ void PagePalette_Pages::rebuildMasters()
 		else
 			item = new QListWidgetItem(pageLabel, masterPageList);
 		item->setData(Qt::UserRole, pageName);
-		QPixmap pm(16, 16);
-		pm.fill(currView->Doc->MasterPages.at(it.value())->getMarkColor());
-		item->setIcon(pm);
 	}
 }
 
@@ -275,7 +272,7 @@ void PagePalette_Pages::rebuildPages()
 	for (int a = 0; a < currView->Doc->DocPages.count(); ++a)
 	{
 		str = currView->Doc->DocPages.at(a)->MPageNam;
-		SeItem *it = new SeItem(str, a, createIcon(a, str, pix, currView->Doc->MasterPages.at(currView->Doc->MasterNames[str])->getMarkColor()));
+		SeItem *it = new SeItem(str, a, createIcon(a, str, pix));
 		pageList.append(it);
 		pageView->setItem(rowcounter*rowmult+rowadd, counter*colmult+coladd, (QTableWidgetItem *)it);
 		pageView->setColumnWidth(counter*colmult+coladd, pix.width());
@@ -355,7 +352,7 @@ void PagePalette_Pages::selMasterPage()
 	}
 }
 
-QPixmap PagePalette_Pages::createIcon(int nr, QString masterPage, QPixmap pixin, QColor color)
+QPixmap PagePalette_Pages::createIcon(int nr, QString masterPage, QPixmap pixin)
 {
 	QPainter p;
 	// Necessary on windows to ensure the pixmap is drawable
@@ -378,7 +375,7 @@ QPixmap PagePalette_Pages::createIcon(int nr, QString masterPage, QPixmap pixin,
 		if (Exp.indexIn(masterPage) != -1)
 			masterPage = Exp.cap(1);
 		QRect d = QRect(0, 0, ret.width(), ret.height());
-		p.fillRect(d.adjusted(-1, -1, -1, -1), color);
+	//	p.fillRect(d.adjusted(-1, -1, -1, -1), color);
 		p.setFont(QFont("Helvetica", 7, QFont::Normal));
 		p.drawText(d, Qt::AlignCenter, tmp+"\n"+masterPage);
 		p.end();
