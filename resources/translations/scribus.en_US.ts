@@ -2421,7 +2421,7 @@ Configuration invalid</translation>
     <name>BarcodeGenerator</name>
     <message>
         <source>Error opening file: %1</source>
-        <translation>Error opening file: %1</translation>
+        <translation type="vanished">Error opening file: %1</translation>
     </message>
     <message>
         <source>12 or 13 digits</source>
@@ -2481,7 +2481,7 @@ Configuration invalid</translation>
     </message>
     <message>
         <source>Barcode incomplete</source>
-        <translation>Barcode incomplete</translation>
+        <translation type="vanished">Barcode incomplete</translation>
     </message>
     <message>
         <source>12 or 13 digits with dashes. The legacy ISBN-10 format accepts 9 or 10 digits with dashes, but this standard was depreciated for public use after 1st January 2007. (Note: To convert an old ISBN-10 to a new ISBN-13, prefix 978- to the first 9 digits, e.g. 1-56592-479-7 -&gt; 978-1-56592-479. The final check-digit will be calculated automatically.)</source>
@@ -2609,6 +2609,10 @@ Configuration invalid</translation>
     </message>
     <message>
         <source>GS1 Composite symbols</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Select a barcode family</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2803,15 +2807,19 @@ Configuration invalid</translation>
         <translation type="unfinished">Version:</translation>
     </message>
     <message>
-        <source>Version of the symbol.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Error correction level.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Error correction level:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Barcode Family:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Version of the symbol</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Error correction level</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -3367,7 +3375,7 @@ Please choose another one.</translation>
     </message>
     <message>
         <source>...</source>
-        <translation>...</translation>
+        <translation type="vanished">...</translation>
     </message>
     <message>
         <source>M:</source>
@@ -3438,7 +3446,7 @@ Please choose another one.</translation>
     </message>
     <message>
         <source>Colors of your chosen color scheme.</source>
-        <translation>Colors of your chosen color scheme.</translation>
+        <translation type="vanished">Colors of your chosen color scheme.</translation>
     </message>
     <message>
         <source>Color Scheme Method</source>
@@ -3570,6 +3578,10 @@ Please choose another one.</translation>
     </message>
     <message>
         <source>Sample color scheme</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Colors of your chosen color scheme</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -9371,10 +9383,6 @@ p, li { white-space: pre-wrap; }
         <source>Size of the inserted pages, either a standard or custom size</source>
         <translation type="unfinished"></translation>
     </message>
-    <message>
-        <source>Page Marker Color:</source>
-        <translation type="unfinished"></translation>
-    </message>
 </context>
 <context>
     <name>MarginWidget</name>
@@ -9509,6 +9517,14 @@ p, li { white-space: pre-wrap; }
     <message>
         <source>Distance between the right margin guide and the edge of the page. If a double-sided, 3 or 4-fold layout is selected, this margin space can be used to achieve the correct margins for binding.</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ensure all bleeds have the same value</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ensure all margins have the same value</source>
+        <translation type="unfinished">Ensure all margins have the same value</translation>
     </message>
 </context>
 <context>
@@ -9790,7 +9806,7 @@ p, li { white-space: pre-wrap; }
     <name>MeasurementsBase</name>
     <message>
         <source>Distances</source>
-        <translation>Distances</translation>
+        <translation type="vanished">Distances</translation>
     </message>
     <message>
         <source>X1:</source>
@@ -9831,6 +9847,10 @@ p, li { white-space: pre-wrap; }
     <message>
         <source>Unit:</source>
         <translation>Unit:</translation>
+    </message>
+    <message>
+        <source>Measurements</source>
+        <translation type="unfinished">Measurements</translation>
     </message>
 </context>
 <context>
@@ -10391,6 +10411,22 @@ If no handle is selected all handles will be reset.</source>
     <message>
         <source>Import the margins for the selected page size from the available printers</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Distance for bleed from the top of the physical page</source>
+        <translation type="unfinished">Distance for bleed from the top of the physical page</translation>
+    </message>
+    <message>
+        <source>Distance for bleed from the bottom of the physical page</source>
+        <translation type="unfinished">Distance for bleed from the bottom of the physical page</translation>
+    </message>
+    <message>
+        <source>Distance for bleed from the left of the physical page</source>
+        <translation type="unfinished">Distance for bleed from the left of the physical page</translation>
+    </message>
+    <message>
+        <source>Distance for bleed from the right of the physical page</source>
+        <translation type="unfinished">Distance for bleed from the right of the physical page</translation>
     </message>
 </context>
 <context>
@@ -11484,11 +11520,11 @@ You cannot switch to different notes style before you apply that new one or pres
     </message>
     <message>
         <source>Apply Color Profiles</source>
-        <translation>Apply Color Profiles</translation>
+        <translation type="vanished">Apply Color Profiles</translation>
     </message>
     <message>
         <source>Allows you to embed color profiles in the print stream when color management is enabled</source>
-        <translation>Allows you to embed color profiles in the print stream when color management is enabled</translation>
+        <translation type="vanished">Allows you to embed color profiles in the print stream when color management is enabled</translation>
     </message>
     <message>
         <source>Clip to Printer Margins</source>
@@ -16508,7 +16544,7 @@ A value of 0 means unlimited hyphenations.</translation>
     </message>
     <message>
         <source>PDF/X-3 Output Intent</source>
-        <translation>PDF/X-3 Output Intent</translation>
+        <translation type="vanished">PDF/X-3 Output Intent</translation>
     </message>
     <message>
         <source>Output Profile:</source>
@@ -17139,10 +17175,6 @@ A value of 0 means unlimited hyphenations.</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Allow printing of the PDF. If unchecked, printing is prevented. </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Allow modifying of the PDF. If unchecked, modifying the PDF is prevented.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -17176,6 +17208,14 @@ A value of 0 means unlimited hyphenations.</translation>
     </message>
     <message>
         <source>Embed only subset fonts with glyphs used in the document into the PDF</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>PDF/X Output Intent</source>
+        <translation type="unfinished">PDF/X Output Intent</translation>
+    </message>
+    <message>
+        <source>Allow printing of the PDF. If unchecked, printing is prevented.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -17507,7 +17547,7 @@ A value of 0 means unlimited hyphenations.</translation>
     </message>
     <message>
         <source>Apply ICC Profiles</source>
-        <translation>Apply ICC Profiles</translation>
+        <translation type="vanished">Apply ICC Profiles</translation>
     </message>
     <message>
         <source>PostScript</source>
@@ -17589,7 +17629,7 @@ A value of 0 means unlimited hyphenations.</translation>
     </message>
     <message>
         <source>Allows you to embed color profiles in the print stream when color management is enabled</source>
-        <translation>Allows you to embed color profiles in the print stream when color management is enabled</translation>
+        <translation type="vanished">Allows you to embed color profiles in the print stream when color management is enabled</translation>
     </message>
     <message>
         <source>File</source>
@@ -18359,11 +18399,11 @@ a range of pages or a single page number.</translation>
     </message>
     <message>
         <source>Allows you to embed color profiles in the print stream when color management is enabled</source>
-        <translation>Allows you to embed color profiles in the print stream when color management is enabled</translation>
+        <translation type="vanished">Allows you to embed color profiles in the print stream when color management is enabled</translation>
     </message>
     <message>
         <source>Apply Color Profiles</source>
-        <translation>Apply Color Profiles</translation>
+        <translation type="vanished">Apply Color Profiles</translation>
     </message>
     <message>
         <source>Marks</source>
@@ -27259,7 +27299,7 @@ Consider using the Preflight Verifier to correct them</translation>
     <name>ScribusQApp</name>
     <message>
         <source>Invalid argument: </source>
-        <translation>Invalid argument: </translation>
+        <translation type="vanished">Invalid argument: </translation>
     </message>
     <message>
         <source>File %1 does not exist, aborting.</source>
@@ -27267,7 +27307,7 @@ Consider using the Preflight Verifier to correct them</translation>
     </message>
     <message>
         <source>Usage: scribus [option ... ] [file]</source>
-        <translation>Usage: scribus [option ... ] [file]</translation>
+        <translation type="vanished">Usage: scribus [option ... ] [file]</translation>
     </message>
     <message>
         <source>Options:</source>
@@ -27388,6 +27428,30 @@ Consider using the Preflight Verifier to correct them</translation>
     <message>
         <source>Download a file from the Scribus website and show the latest available version</source>
         <translation>Download a file from the Scribus website and show the latest available version</translation>
+    </message>
+    <message>
+        <source>Invalid argument use: &apos;%1&apos; requires to be followed by &lt;argument&gt; [value]</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Usage: scribus [options] [files]</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>argument</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>value</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Argument passed on to python script, with an optional value, no effect without -py</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Explicit end of command line options</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

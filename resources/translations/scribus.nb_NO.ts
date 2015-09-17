@@ -2402,7 +2402,7 @@ Configuration invalid</source>
     <name>BarcodeGenerator</name>
     <message>
         <source>Error opening file: %1</source>
-        <translation>Klarte ikke å åpne fila: %1</translation>
+        <translation type="vanished">Klarte ikke å åpne fila: %1</translation>
     </message>
     <message>
         <source>12 or 13 digits</source>
@@ -2458,7 +2458,7 @@ Configuration invalid</source>
     </message>
     <message>
         <source>Barcode incomplete</source>
-        <translation>Strekkoden er ufullstendig</translation>
+        <translation type="vanished">Strekkoden er ufullstendig</translation>
     </message>
     <message>
         <source>12 or 13 digits with dashes. The legacy ISBN-10 format accepts 9 or 10 digits with dashes, but this standard was depreciated for public use after 1st January 2007. (Note: To convert an old ISBN-10 to a new ISBN-13, prefix 978- to the first 9 digits, e.g. 1-56592-479-7 -&gt; 978-1-56592-479. The final check-digit will be calculated automatically.)</source>
@@ -2510,6 +2510,10 @@ Configuration invalid</source>
     </message>
     <message>
         <source>GS1 Composite symbols</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Select a barcode family</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2692,15 +2696,19 @@ Configuration invalid</source>
         <translation type="unfinished">Versjon:</translation>
     </message>
     <message>
-        <source>Version of the symbol.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Error correction level.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Error correction level:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Barcode Family:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Version of the symbol</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Error correction level</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -3254,7 +3262,7 @@ Please choose another one.</source>
     </message>
     <message>
         <source>...</source>
-        <translation type="unfinished">…</translation>
+        <translation type="obsolete">…</translation>
     </message>
     <message>
         <source>M:</source>
@@ -3325,7 +3333,7 @@ Please choose another one.</source>
     </message>
     <message>
         <source>Colors of your chosen color scheme.</source>
-        <translation>Farger på ditt valgte fargeskjema.</translation>
+        <translation type="vanished">Farger på ditt valgte fargeskjema.</translation>
     </message>
     <message>
         <source>Color Scheme Method</source>
@@ -3457,6 +3465,10 @@ Please choose another one.</source>
     </message>
     <message>
         <source>Sample color scheme</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Colors of your chosen color scheme</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -9159,10 +9171,6 @@ p, li { white-space: pre-wrap; }
         <source>Size of the inserted pages, either a standard or custom size</source>
         <translation type="unfinished"></translation>
     </message>
-    <message>
-        <source>Page Marker Color:</source>
-        <translation type="unfinished"></translation>
-    </message>
 </context>
 <context>
     <name>MarginWidget</name>
@@ -9296,6 +9304,14 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <source>Distance between the right margin guide and the edge of the page. If a double-sided, 3 or 4-fold layout is selected, this margin space can be used to achieve the correct margins for binding.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ensure all bleeds have the same value</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ensure all margins have the same value</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -9574,7 +9590,7 @@ p, li { white-space: pre-wrap; }
     <name>MeasurementsBase</name>
     <message>
         <source>Distances</source>
-        <translation>Avstander</translation>
+        <translation type="vanished">Avstander</translation>
     </message>
     <message>
         <source>X1:</source>
@@ -9615,6 +9631,10 @@ p, li { white-space: pre-wrap; }
     <message>
         <source>Unit:</source>
         <translation>Enhet:</translation>
+    </message>
+    <message>
+        <source>Measurements</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -10177,6 +10197,22 @@ Hvis du ikke har valgt noe håndtak blir alle håndtakene stilt tilbake.</transl
     <message>
         <source>Import the margins for the selected page size from the available printers</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Distance for bleed from the top of the physical page</source>
+        <translation type="unfinished">Avstand for utfallende fra toppen av den fysiske siden</translation>
+    </message>
+    <message>
+        <source>Distance for bleed from the bottom of the physical page</source>
+        <translation type="unfinished">Avstand for utfallende fra bunnen av den fysiske siden</translation>
+    </message>
+    <message>
+        <source>Distance for bleed from the left of the physical page</source>
+        <translation type="unfinished">Avstand for utfallende fra venstresiden av den fysiske siden</translation>
+    </message>
+    <message>
+        <source>Distance for bleed from the right of the physical page</source>
+        <translation type="unfinished">Avstand for utfallende fra høyresiden av den fysiske siden</translation>
     </message>
 </context>
 <context>
@@ -11265,11 +11301,11 @@ You cannot switch to different notes style before you apply that new one or pres
     </message>
     <message>
         <source>Apply Color Profiles</source>
-        <translation>Bruk fargeprofiler</translation>
+        <translation type="vanished">Bruk fargeprofiler</translation>
     </message>
     <message>
         <source>Allows you to embed color profiles in the print stream when color management is enabled</source>
-        <translation type="unfinished">
+        <translation type="obsolete">
             </translation>
     </message>
     <message>
@@ -16271,10 +16307,6 @@ A value of 0 means unlimited hyphenations.</source>
         <translation type="unfinished">Bruk utfallende</translation>
     </message>
     <message>
-        <source>PDF/X-3 Output Intent</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Output Profile:</source>
         <translation type="unfinished"></translation>
     </message>
@@ -16909,10 +16941,6 @@ Et kort tidsrom gir en kort effekt, et lengre tidsrom gir en lengre effekt.</tra
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Allow printing of the PDF. If unchecked, printing is prevented. </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Allow modifying of the PDF. If unchecked, modifying the PDF is prevented.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -16946,6 +16974,14 @@ Et kort tidsrom gir en kort effekt, et lengre tidsrom gir en lengre effekt.</tra
     </message>
     <message>
         <source>Embed only subset fonts with glyphs used in the document into the PDF</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>PDF/X Output Intent</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Allow printing of the PDF. If unchecked, printing is prevented.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -17277,7 +17313,7 @@ Et kort tidsrom gir en kort effekt, et lengre tidsrom gir en lengre effekt.</tra
     </message>
     <message>
         <source>Apply ICC Profiles</source>
-        <translation type="unfinished">Bruk ICC-profiler</translation>
+        <translation type="obsolete">Bruk ICC-profiler</translation>
     </message>
     <message>
         <source>PostScript</source>
@@ -17362,7 +17398,7 @@ Nivå 1 eller 2 kan gi veldig store filer</translation>
     </message>
     <message>
         <source>Allows you to embed color profiles in the print stream when color management is enabled</source>
-        <translation type="unfinished">
+        <translation type="obsolete">
             </translation>
     </message>
     <message>
@@ -18155,7 +18191,7 @@ Reduserer muligheten for overmetning med CMY-farger.&gt;</translation>
     </message>
     <message>
         <source>Apply Color Profiles</source>
-        <translation>Bruk fargeprofiler</translation>
+        <translation type="vanished">Bruk fargeprofiler</translation>
     </message>
     <message>
         <source>Marks</source>
@@ -18278,7 +18314,7 @@ Merk: PDF-skjemaer blir ikke tatt med.</translation>
     </message>
     <message>
         <source>Allows you to embed color profiles in the print stream when color management is enabled</source>
-        <translation type="unfinished">
+        <translation type="obsolete">
             </translation>
     </message>
     <message>
@@ -27034,7 +27070,7 @@ Former monitor profile will be used.</source>
     <name>ScribusQApp</name>
     <message>
         <source>Invalid argument: </source>
-        <translation>Ugyldig argument: </translation>
+        <translation type="vanished">Ugyldig argument: </translation>
     </message>
     <message>
         <source>File %1 does not exist, aborting.</source>
@@ -27042,7 +27078,7 @@ Former monitor profile will be used.</source>
     </message>
     <message>
         <source>Usage: scribus [option ... ] [file]</source>
-        <translation>Bruk: scribus [tilvalg …] [fil]</translation>
+        <translation type="vanished">Bruk: scribus [tilvalg …] [fil]</translation>
     </message>
     <message>
         <source>Options:</source>
@@ -27166,6 +27202,30 @@ Former monitor profile will be used.</source>
     </message>
     <message>
         <source>Download a file from the Scribus website and show the latest available version</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Invalid argument use: &apos;%1&apos; requires to be followed by &lt;argument&gt; [value]</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Usage: scribus [options] [files]</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>argument</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>value</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Argument passed on to python script, with an optional value, no effect without -py</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Explicit end of command line options</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
