@@ -262,16 +262,8 @@ void ScripterCore::slotRunScriptFile(QString fileName, QStringList arguments, bo
 
 	// Make sure sys.argv[0] is the path to the script
 	arguments.prepend(na.data());
-	
-	// and tell the script if it's running in the main intepreter or
-	// a subinterpreter using the second argument, ie sys.argv[1]
-	if (inMainInterpreter)
-		arguments.insert(1,QString("ext"));
-	else
-		arguments.insert(1,QString("sub"));
-
 	//convert arguments (QListString) to char** for Python bridge
-	/* typically arguments == ['path/to/script.py','ext','--argument1','valueforarg1','--flag']*/
+	/* typically arguments == ['path/to/script.py','--argument1','valueforarg1','--flag']*/
 	char **comm = new char*[arguments.size()];
 	for (int i = 0; i < arguments.size(); i++)
 	{
@@ -431,11 +423,7 @@ void ScripterCore::slotRunScript(const QString Script)
 	"In file tools/qgarray.cpp, line 147: Out of memory"
 	Anyway - sys.argv is set above
 	char* comm[1];
-	comm[0] = const_cast<char*>("scribus");
-	// the scripter console runs everything in the main interpreter
-	// tell the code it's running there.
-	comm[1] = const_cast<char*>("ext");
-	PySys_SetArgv(2, comm); */
+	comm[0] = const_cast<char*>("scribus"); */
 	// then run the code
 	PyObject* m = PyImport_AddModule((char*)"__main__");
 	if (m == NULL)
