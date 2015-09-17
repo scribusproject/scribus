@@ -164,12 +164,12 @@ DocInfos::DocInfos( QWidget* parent, DocumentInformation& docInfo ) : QTabWidget
 	//restoreDefaults();
 
 	//tooltips
-	authorEdit->setToolTip( "<qt>" + tr( "The person or organisation primarily responsible for making the content of the document. This field can be embedded in the Scribus document for reference, as well as in the metadata of a PDF." ) );
+	authorEdit->setToolTip( "<qt>" + tr( "The person or organization primarily responsible for making the content of the document. This field can be embedded in the Scribus document for reference, as well as in the metadata of a PDF." ) );
 	titleEdit->setToolTip( "<qt>" + tr( "A name given to the document. This field can be embedded in the Scribus document for reference, as well as in the metadata of a PDF." ) + "</qt>");
 	descriptionEdit->setToolTip( "<qt>" + tr( "An account of the content of the document. This field is for a brief description or abstract of the document. It is embedded in the PDF on export." ) + "</qt>" );
 	keywordsEdit->setToolTip( "<qt>" + tr( "The topic of the content of the document. This field is for document keywords you wish to embed in a PDF, to assist searches and indexing of PDF files." ) + "</qt>" );
-	publisherEdit->setToolTip( "<qt>" + tr( "A person or organisation responsible for making the document available" ) + "</qt>" );
-	contributorsEdit->setToolTip( "<qt>" + tr( "A person or organisation responsible for making contributions to the content of the document" ) + "</qt>" );
+	publisherEdit->setToolTip( "<qt>" + tr( "A person or organization responsible for making the document available" ) + "</qt>" );
+	contributorsEdit->setToolTip( "<qt>" + tr( "A person or organization responsible for making contributions to the content of the document" ) + "</qt>" );
 	dateEdit->setToolTip( "<qt>" + tr( "A date associated with an event in the life cycle of the document, in YYYY-MM-DD format, as per ISO 8601" ) + "</qt>" );
 	typeEdit->setToolTip( "<qt>" + tr( "The nature or genre of the content of the document, eg. categories, functions, genres, etc" )  + "</qt>");
 	formatEdit->setToolTip( "<qt>" + tr( "The physical or digital manifestation of the document. Media type and dimensions would be worth noting. RFC2045,RFC2046 for MIME types are also useful here." ) + "</qt>" );
