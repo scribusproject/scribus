@@ -361,7 +361,7 @@ void StoryText::insert(int pos, const StoryText& other, bool onlySelection)
 void StoryText::insertParSep(int pos)
 {
 	ScText* it = item(pos);
-	if(!it->parstyle) {
+	if (!it->parstyle) {
 		it->parstyle = new ParagraphStyle(paragraphStyle(pos+1));
 		it->parstyle->setContext( & d->pstyleContext);
 		// #7432 : when inserting a paragraph separator, apply/erase the trailing Style
@@ -634,7 +634,7 @@ void StoryText::hyphenateWord(int pos, uint len, char* hyphens)
 	for (int i=pos; i < pos+signed(len); ++i)
 	{
 //		dump += d->at(i)->ch;
-		if(hyphens && hyphens[i-pos] & 1) {
+		if (hyphens && hyphens[i-pos] & 1) {
 			d->at(i)->setEffects(d->at(i)->effects() | ScStyle_HyphenationPossible);
 //			dump += "-";
 		}
@@ -1422,7 +1422,7 @@ int StoryText::nextWord(int pos)
 
 	while (pos < len)
 	{
-		if(text(pos).isLetter())
+		if (text(pos).isLetter())
 			++pos;
 		else
 			break;
@@ -1443,7 +1443,7 @@ int StoryText::endOfWord(int pos) const
 	int len = length();
 	while (pos < len)
 	{
-		if(text(pos).isLetter())
+		if (text(pos).isLetter())
 			++pos;
 		else
 			break;

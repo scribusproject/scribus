@@ -219,7 +219,7 @@ bool Scribus150Format::saveFile(const QString & fileName, const FileFormat & /* 
 	docu.writeAttribute("PAGESIZE"    , m_Doc->pageSize());
 	docu.writeAttribute("FIRSTNUM"    , m_Doc->FirstPnum);
 	docu.writeAttribute("BOOK"        , m_Doc->pagePositioning());
-	if(m_Doc->usesAutomaticTextFrames())
+	if (m_Doc->usesAutomaticTextFrames())
 		docu.writeAttribute("AUTOTEXT", 1);
 	docu.writeAttribute("AUTOSPALTEN" ,m_Doc->PageSp);
 	docu.writeAttribute("ABSTSPALTEN" ,m_Doc->PageSpa);
@@ -1157,7 +1157,7 @@ void Scribus150Format::writePdfOptions(ScXmlStreamWriter & docu)
 void Scribus150Format::writeDocItemAttributes(ScXmlStreamWriter & docu) 
 {
 	docu.writeStartElement("DocItemAttributes");
-	for(ObjAttrVector::Iterator objAttrIt = m_Doc->itemAttributes().begin() ; objAttrIt != m_Doc->itemAttributes().end(); ++objAttrIt )
+	for (ObjAttrVector::Iterator objAttrIt = m_Doc->itemAttributes().begin() ; objAttrIt != m_Doc->itemAttributes().end(); ++objAttrIt )
 	{
 		docu.writeEmptyElement("ItemAttribute");
 		docu.writeAttribute("Name", objAttrIt->name);
@@ -1175,7 +1175,7 @@ void Scribus150Format::writeDocItemAttributes(ScXmlStreamWriter & docu)
 void Scribus150Format::writeTOC(ScXmlStreamWriter & docu) 
 {
 	docu.writeStartElement("TablesOfContents");
-	for(ToCSetupVector::Iterator tocSetupIt = m_Doc->tocSetups().begin() ; tocSetupIt != m_Doc->tocSetups().end(); ++tocSetupIt )
+	for (ToCSetupVector::Iterator tocSetupIt = m_Doc->tocSetups().begin() ; tocSetupIt != m_Doc->tocSetups().end(); ++tocSetupIt )
 	{
 		docu.writeEmptyElement("TableOfContents");
 		docu.writeAttribute("Name", tocSetupIt->name);
@@ -1203,7 +1203,7 @@ void Scribus150Format::writeTOC(ScXmlStreamWriter & docu)
 void Scribus150Format::writeSections(ScXmlStreamWriter & docu) 
 {
 	docu.writeStartElement("Sections");
-	for(DocumentSectionMap::Iterator it = m_Doc->sections().begin() ; it != m_Doc->sections().end(); ++it )
+	for (DocumentSectionMap::Iterator it = m_Doc->sections().begin() ; it != m_Doc->sections().end(); ++it )
 	{
 		docu.writeEmptyElement("Section");
 		docu.writeAttribute("Number", (*it).number);
@@ -1403,7 +1403,7 @@ void Scribus150Format::writePageSets(ScXmlStreamWriter & docu)
 	docu.writeStartElement("PageSets");
 	QList<PageSet>::Iterator itpgset;
 	QList<PageSet> pageSet(m_Doc->pageSets());
-	for(itpgset = pageSet.begin(); itpgset != pageSet.end(); ++itpgset )
+	for (itpgset = pageSet.begin(); itpgset != pageSet.end(); ++itpgset )
 	{
 		docu.writeStartElement("Set");
 		docu.writeAttribute("Name", itpgset->Name);
@@ -1415,7 +1415,7 @@ void Scribus150Format::writePageSets(ScXmlStreamWriter & docu)
 //		docu.writeAttribute("GapBelow", itpgset->GapBelow);
 		QStringList pNames = itpgset->pageNames;
 		QStringList::Iterator itpgsetN;
-		for(itpgsetN = pNames.begin(); itpgsetN != pNames.end(); ++itpgsetN )
+		for (itpgsetN = pNames.begin(); itpgsetN != pNames.end(); ++itpgsetN )
 		{
 			docu.writeEmptyElement("PageNames");
 			docu.writeAttribute("Name", (*itpgsetN));
@@ -1472,7 +1472,7 @@ void Scribus150Format::WritePages(ScribusDoc *doc, ScXmlStreamWriter& docu, QPro
 		pages = doc->MasterPages.count();
 	else
 		pages = doc->DocPages.count();
-	for(uint i = 0; i < pages; ++i)
+	for (uint i = 0; i < pages; ++i)
 	{
 		ObCount++;
 		if (dia2 != 0)
@@ -1566,7 +1566,7 @@ void Scribus150Format::writeITEXTs(ScribusDoc *doc, ScXmlStreamWriter &docu, Pag
 	int iTLen = item->itemText.length();
 	if (item->isNoteFrame())
 		iTLen = 0;  //used for saving empty endnotes frames, as they will be filled automatically
-	for(int k = 0; k < iTLen; ++k)
+	for (int k = 0; k < iTLen; ++k)
 	{
 		const CharStyle& style1(item->itemText.charStyle(k));
 		const QChar ch = item->itemText.text(k);
@@ -1726,7 +1726,7 @@ void Scribus150Format::WriteObjects(ScribusDoc *doc, ScXmlStreamWriter& docu, co
 			assert(false);
 	}
 	objects = items->count();
-	for(uint j = 0; j < objects;++j)
+	for (uint j = 0; j < objects;++j)
 	{
 		ObCount++;
 		if (dia2 != 0)
@@ -2398,7 +2398,7 @@ void Scribus150Format::WriteObjects(ScribusDoc *doc, ScXmlStreamWriter& docu, co
 		if (attributes->count() > 0)
 		{
 			docu.writeStartElement("PageItemAttributes");
-			for(ObjAttrVector::Iterator objAttrIt = attributes->begin() ; objAttrIt != attributes->end(); ++objAttrIt )
+			for (ObjAttrVector::Iterator objAttrIt = attributes->begin() ; objAttrIt != attributes->end(); ++objAttrIt )
 			{
 				docu.writeEmptyElement("ItemAttribute");
 				docu.writeAttribute("Name", objAttrIt->name);
