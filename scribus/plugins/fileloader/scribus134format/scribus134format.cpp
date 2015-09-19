@@ -2379,8 +2379,10 @@ PageItem* Scribus134Format::PasteItem(QDomElement *obj, ScribusDoc *doc, const Q
 		pstyle.charStyle().setStrikethruOffset(qRound(ScCLocale::toDoubleC(obj->attribute("TXTSTP")) * 10));
 	if (obj->hasAttribute("TXTSTW"))
 		pstyle.charStyle().setStrikethruWidth(qRound(ScCLocale::toDoubleC(obj->attribute("TXTSTW")) * 10));
-	if (obj->hasAttribute("TXTSTYLE"))
+	if (obj->hasAttribute("TXTSTYLE")) // Pre 1.4.x attribute, not used in 1.4.x
 		pstyle.charStyle().setFeatures(static_cast<StyleFlag>(obj->attribute("TXTSTYLE").toInt()).featureList());
+	if (obj->hasAttribute("TXTFEATURES")) // Added to fix issue #13355
+		pstyle.charStyle().setFeatures(obj->attribute("TXTFEATURES").split(" ", QString::SkipEmptyParts));
 	if (obj->hasAttribute("TXTKERN"))
 		pstyle.charStyle().setTracking(qRound(ScCLocale::toDoubleC(obj->attribute("TXTKERN"), 0.0) * 10));
 	if (obj->hasAttribute("wordTrack"))
