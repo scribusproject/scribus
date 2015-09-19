@@ -2703,8 +2703,10 @@ PageItem* Scribus134Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 		pstyle.charStyle().setStrikethruOffset(qRound(attrs.valueAsDouble("TXTSTP") * 10));
 	if (attrs.hasAttribute("TXTSTW"))
 		pstyle.charStyle().setStrikethruWidth(qRound(attrs.valueAsDouble("TXTSTW") * 10));
-	if (attrs.hasAttribute("TXTSTYLE"))
+	if (attrs.hasAttribute("TXTSTYLE")) // Pre 1.4.x attribute, not used in 1.4.x
 		pstyle.charStyle().setFeatures(static_cast<StyleFlag>(attrs.valueAsInt("TXTSTYLE")).featureList());
+	if (attrs.hasAttribute("TXTFEATURES")) // Added to fix issue #13355
+		pstyle.charStyle().setFeatures(attrs.valueAsString("TXTFEATURES").split(" ", QString::SkipEmptyParts));
 	if (attrs.hasAttribute("TXTKERN"))
 		pstyle.charStyle().setTracking(qRound(attrs.valueAsDouble("TXTKERN", 0.0) * 10));
 	if (attrs.hasAttribute("wordTrack"))
