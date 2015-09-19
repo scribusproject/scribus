@@ -576,6 +576,16 @@ void CanvasMode::drawOutline(QPainter* p, double scalex, double scaley, double d
 					uint itemCountG = gItem->groupItemList.count();
 					if (itemCountG < m_canvas->moveWithFullOutlinesThreshold)
 					{
+						if (gItem->imageFlippedH())
+						{
+							p->translate(gItem->width(), 0);
+							p->scale(-1, 1);
+						}
+						if (gItem->imageFlippedV())
+						{
+							p->translate(0, gItem->height());
+							p->scale(1, -1);
+						}
 						p->scale(gItem->width() / gItem->groupWidth, gItem->height() / gItem->groupHeight);
 						for (uint cg = 0; cg < itemCountG; cg++)
 						{
