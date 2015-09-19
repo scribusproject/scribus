@@ -25486,7 +25486,7 @@ sono forniti nella documentazione delle funzioni.
         <translation>Pagina</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/fileloader/scribus134format/scribus134format.cpp" line="2898"/>
+        <location filename="../../../scribus/plugins/fileloader/scribus134format/scribus134format.cpp" line="2900"/>
         <location filename="../../../scribus/plugins/fileloader/scribus13format/scribus13format.cpp" line="2145"/>
         <source>Copy #%1 of </source>
         <translation>Copia #%1 di </translation>
@@ -28304,7 +28304,7 @@ Se si salva in questa versione non sarà più possibile aprirlo con versioni pi�
         <translation type="obsolete">Scribus 1.3.4 Document</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/fileloader/scribus134format/scribus134format.cpp" line="3620"/>
+        <location filename="../../../scribus/plugins/fileloader/scribus134format/scribus134format.cpp" line="3622"/>
         <source>Copy #%1 of </source>
         <translation>Copia #%1 di </translation>
     </message>

@@ -18214,7 +18214,7 @@ is not exhaustive due to exceptions from called functions.
         <translation>배경</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/fileloader/scribus134format/scribus134format.cpp" line="2898"/>
+        <location filename="../../../scribus/plugins/fileloader/scribus134format/scribus134format.cpp" line="2900"/>
         <location filename="../../../scribus/plugins/fileloader/scribus13format/scribus13format.cpp" line="2145"/>
         <source>Copy #%1 of </source>
         <translation>#%1 복사</translation>
@@ -20368,7 +20368,7 @@ If you save it in this version, it will no longer be readable by older Scribus v
 <context>
     <name>Scribus134Format</name>
     <message>
-        <location filename="../../../scribus/plugins/fileloader/scribus134format/scribus134format.cpp" line="3620"/>
+        <location filename="../../../scribus/plugins/fileloader/scribus134format/scribus134format.cpp" line="3622"/>
         <source>Copy #%1 of </source>
         <translation>#%1 복사</translation>
     </message>

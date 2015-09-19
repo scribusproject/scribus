@@ -34631,7 +34631,7 @@ fornecidos na documentação da função.
         <translation>Fundo</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/fileloader/scribus134format/scribus134format.cpp" line="2898"/>
+        <location filename="../../../scribus/plugins/fileloader/scribus134format/scribus134format.cpp" line="2900"/>
         <location filename="../../../scribus/plugins/fileloader/scribus13format/scribus13format.cpp" line="2145"/>
         <source>Copy #%1 of </source>
         <translation>Copiar #%1 de </translation>
@@ -37152,7 +37152,7 @@ Se você salvá-lo com esta versão do Scribus, o arquivo não será lido por ve
         <translation type="obsolete">Documento do Scribus 1.3.4</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/fileloader/scribus134format/scribus134format.cpp" line="3620"/>
+        <location filename="../../../scribus/plugins/fileloader/scribus134format/scribus134format.cpp" line="3622"/>
         <source>Copy #%1 of </source>
         <translation>Copiar #%1 de </translation>
     </message>
