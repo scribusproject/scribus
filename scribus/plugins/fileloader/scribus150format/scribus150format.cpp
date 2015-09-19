@@ -3900,6 +3900,8 @@ bool Scribus150Format::readObject(ScribusDoc* doc, ScXmlStreamReader& reader, It
 			ef.effectCode = tAtt.valueAsInt("Code");
 			newItem->effectsInUse.append(ef);
 		}
+		if (tName == "StoryText")
+			readStoryText(doc, reader, newItem);
 		if (tName == "Tabs")
 		{
 			ParagraphStyle::TabRecord tb;
@@ -4918,8 +4920,8 @@ PageItem* Scribus150Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 		pstyle.charStyle().setStrikethruOffset(qRound(attrs.valueAsDouble("TXTSTP") * 10));
 	if (attrs.hasAttribute("TXTSTW"))
 		pstyle.charStyle().setStrikethruWidth(qRound(attrs.valueAsDouble("TXTSTW") * 10));
-	if (attrs.hasAttribute("TXTSTYLE"))
-		pstyle.charStyle().setFeatures(static_cast<StyleFlag>(attrs.valueAsInt("TXTSTYLE")).featureList());
+	if (attrs.hasAttribute("TXTFEATURES"))
+		pstyle.charStyle().setFeatures(attrs.valueAsString("TXTFEATURES").split(" ", QString::SkipEmptyParts));
 	if (attrs.hasAttribute("TXTKERN"))
 		pstyle.charStyle().setTracking(qRound(attrs.valueAsDouble("TXTKERN", 0.0) * 10));
 	if (attrs.hasAttribute("wordTrack"))

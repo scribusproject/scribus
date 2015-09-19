@@ -1954,8 +1954,8 @@ void Scribus150Format::WriteObjects(ScribusDoc *doc, ScXmlStreamWriter& docu, co
 				docu.writeAttribute("BACKITEM", -1);
 				if (item->isNoteFrame())
 					docu.writeAttribute("isNoteFrame", 1);
-				else
-					writeITEXTs(doc, docu, item);
+				else if (item->asTextFrame() || item->asPathText())
+					writeStoryText(doc, docu, item);
 			}
 		}
 
@@ -1999,19 +1999,6 @@ void Scribus150Format::WriteObjects(ScribusDoc *doc, ScXmlStreamWriter& docu, co
 				docu.writeAttribute("useMask", static_cast<int>(it2.value().useMask));
 				docu.writeAttribute("Opacity", it2.value().opacity);
 				docu.writeAttribute("Blend", it2.value().blend);
-			}
-		}
-		if (item->itemText.defaultStyle().tabValues().count() != 0)
-		{
-			for (int a = 0; a < item->itemText.defaultStyle().tabValues().count(); ++a)
-			{
-				docu.writeEmptyElement("Tabs");
-				docu.writeAttribute("Type", (item->itemText.defaultStyle().tabValues().at(a)).tabType);
-				docu.writeAttribute("Pos", (item->itemText.defaultStyle().tabValues().at(a)).tabPosition);
-				QString tabCh = "";
-				if (!(item->itemText.defaultStyle().tabValues().at(a)).tabFillChar.isNull())
-					tabCh = QString((item->itemText.defaultStyle().tabValues().at(a)).tabFillChar);
-				docu.writeAttribute("Fill", tabCh);
 			}
 		}
 		if (((item->GrType > 0) && (item->GrType != 8) && (item->GrType != 9) && (item->GrType != 11) && (item->GrType != 14)) && (item->gradient().isEmpty()))
@@ -2568,107 +2555,6 @@ void Scribus150Format::SetItemProps(ScXmlStreamWriter& docu, PageItem* item, con
 		docu.writeAttribute("PICART", item->imageVisible() ? 1 : 0);
 		docu.writeAttribute("SCALETYPE", item->ScaleType ? 1 : 0);
 		docu.writeAttribute("RATIO", item->AspectRatio ? 1 : 0);
-		const ParagraphStyle& dStyle(item->itemText.defaultStyle());
-		if ( ! dStyle.charStyle().isInhFillColor())
-			docu.writeAttribute("TXTFILL", dStyle.charStyle().fillColor());
-		if ( ! dStyle.charStyle().isInhStrokeColor())
-			docu.writeAttribute("TXTSTROKE", dStyle.charStyle().strokeColor());
-		if ( ! dStyle.charStyle().isInhStrokeShade())
-			docu.writeAttribute("TXTSTRSH", dStyle.charStyle().strokeShade());
-		if ( ! dStyle.charStyle().isInhFillShade())
-			docu.writeAttribute("TXTFILLSH", dStyle.charStyle().fillShade());
-		if ( ! dStyle.charStyle().isInhScaleH())
-			docu.writeAttribute("TXTSCALE", dStyle.charStyle().scaleH() / 10.0);
-		if ( ! dStyle.charStyle().isInhScaleV())
-			docu.writeAttribute("TXTSCALEV", dStyle.charStyle().scaleV() / 10.0);
-		if ( ! dStyle.charStyle().isInhBaselineOffset())
-			docu.writeAttribute("TXTBASE", dStyle.charStyle().baselineOffset() / 10.0);
-		if ( ! dStyle.charStyle().isInhShadowXOffset())
-			docu.writeAttribute("TXTSHX", dStyle.charStyle().shadowXOffset() / 10.0);
-		if ( ! dStyle.charStyle().isInhShadowYOffset())
-			docu.writeAttribute("TXTSHY", dStyle.charStyle().shadowYOffset() / 10.0);
-		if ( ! dStyle.charStyle().isInhOutlineWidth())
-			docu.writeAttribute("TXTOUT", dStyle.charStyle().outlineWidth() / 10.0);
-		if ( ! dStyle.charStyle().isInhUnderlineOffset())
-			docu.writeAttribute("TXTULP", dStyle.charStyle().underlineOffset() / 10.0);
-		if ( ! dStyle.charStyle().isInhUnderlineWidth())
-			docu.writeAttribute("TXTULW", dStyle.charStyle().underlineWidth() / 10.0);
-		if ( ! dStyle.charStyle().isInhStrikethruOffset())
-			docu.writeAttribute("TXTSTP", dStyle.charStyle().strikethruOffset() / 10.0);
-		if ( ! dStyle.charStyle().isInhStrikethruWidth())
-			docu.writeAttribute("TXTSTW", dStyle.charStyle().strikethruWidth() / 10.0);
-		if ( ! dStyle.charStyle().isInhTracking())
-			docu.writeAttribute("TXTKERN", dStyle.charStyle().tracking() / 10.0);
-		if ( ! dStyle.charStyle().isInhWordTracking())
-			docu.writeAttribute("wordTrack", dStyle.charStyle().wordTracking());
-		if ( ! dStyle.isInhMinWordTracking())
-			docu.writeAttribute("MinWordTrack", dStyle.minWordTracking());
-		if ( ! dStyle.isInhMinGlyphExtension())
-			docu.writeAttribute("MinGlyphShrink", dStyle.minGlyphExtension());
-		if ( ! dStyle.isInhMaxGlyphExtension())
-			docu.writeAttribute("MaxGlyphExtend", dStyle.maxGlyphExtension());
-		if ( ! dStyle.isInhOpticalMargins())
-			docu.writeAttribute("OpticalMargins", dStyle.opticalMargins());
-		if ( ! dStyle.isInhHyphenationMode())
-			docu.writeAttribute("HyphenationMode", dStyle.hyphenationMode());
-		if ( ! dStyle.isInhLeftMargin() )
-			docu.writeAttribute("leftMargin", dStyle.leftMargin());
-		if ( ! dStyle.isInhRightMargin())
-			docu.writeAttribute("rightMargin", dStyle.rightMargin());
-		if ( ! dStyle.isInhFirstIndent())
-			docu.writeAttribute("firstIndent", dStyle.firstIndent());
-		if ( ! dStyle.isInhLineSpacing())
-			docu.writeAttribute("LINESP", dStyle.lineSpacing());
-		if ( ! dStyle.isInhLineSpacingMode())
-			docu.writeAttribute("LINESPMode", dStyle.lineSpacingMode());
-		if ( ! dStyle.isInhKeepLinesStart())
-			docu.writeAttribute("KeepLinesStart", dStyle.keepLinesStart());
-		if ( ! dStyle.isInhKeepLinesEnd())
-			docu.writeAttribute("KeepLinesEnd", dStyle.keepLinesEnd());
-		if ( ! dStyle.isInhKeepWithNext())
-			docu.writeAttribute("KeepWithNext", dStyle.keepWithNext());
-		if ( ! dStyle.isInhKeepTogether())
-			docu.writeAttribute("KeepTogether", dStyle.keepTogether());
-		if ( ! dStyle.charStyle().isInhFont())
-			docu.writeAttribute("IFONT", dStyle.charStyle().font().scName());
-		if ( ! dStyle.charStyle().isInhFontSize())
-			docu.writeAttribute("ISIZE", dStyle.charStyle().fontSize() / 10.0 );
-		if ( ! dStyle.charStyle().isInhLanguage())
-			docu.writeAttribute("LANGUAGE", dStyle.charStyle().language());
-		if ( ! dStyle.isInhPeCharStyleName())
-			docu.writeAttribute("ParagraphEffectCharStyle", dStyle.peCharStyleName());
-		if ( ! dStyle.isInhParEffectOffset())
-			docu.writeAttribute("ParagraphEffectOffset", dStyle.parEffectOffset());
-		if ( ! dStyle.isInhParEffectIndent())
-			docu.writeAttribute("ParagraphEffectIndent", static_cast<int>(dStyle.parEffectIndent()));
-		if ( ! dStyle.isInhHasDropCap())
-			docu.writeAttribute("DROP", static_cast<int>(dStyle.hasDropCap()));
-		if ( ! dStyle.isInhDropCapLines())
-			docu.writeAttribute("DROPLIN", dStyle.dropCapLines());
-		if ( ! dStyle.isInhHasBullet())
-			docu.writeAttribute("Bullet", static_cast<int>(dStyle.hasBullet()));
-		if ( ! dStyle.isInhBulletStr())
-			docu.writeAttribute("BulletStr", dStyle.bulletStr());
-		if ( ! dStyle.isInhHasNum())
-			docu.writeAttribute("Numeration", static_cast<int>(dStyle.hasNum()));
-		if ( ! dStyle.isInhNumFormat())
-			docu.writeAttribute("NumerationFormat", dStyle.numFormat());
-		if ( ! dStyle.isInhNumName())
-			docu.writeAttribute("NumerationName", dStyle.numName());
-		if ( ! dStyle.isInhNumLevel())
-			docu.writeAttribute("NumerationLevel", dStyle.numLevel());
-		if ( ! dStyle.isInhNumPrefix())
-			docu.writeAttribute("NumerationPrefix", dStyle.numPrefix());
-		if ( ! dStyle.isInhNumSuffix())
-			docu.writeAttribute("NumerationSuffix", dStyle.numSuffix());
-		if ( ! dStyle.isInhNumStart())
-			docu.writeAttribute("NumerationStart", dStyle.numStart());
-		if ( ! dStyle.isInhNumRestart())
-			docu.writeAttribute("NumerationRestart", dStyle.numRestart());
-		if ( ! dStyle.isInhNumOther())
-			docu.writeAttribute("NumerationOther", static_cast<int>(dStyle.numOther()));
-		if ( ! dStyle.isInhNumHigher())
-			docu.writeAttribute("NumerationHigher", static_cast<int>(dStyle.numHigher()));
 	}
 	if (item->asTextFrame() || item->asPathText())
 	{
