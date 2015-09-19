@@ -1286,49 +1286,52 @@ void Scribus134Format::SetItemProps(ScXmlStreamWriter& docu, PageItem* item, con
 	QString tmp, tmpy;
 	if (newFormat)
 		docu.writeAttribute("OwnPage", item->OwnPage);
-	docu.writeAttribute("PTYPE",item->realItemType());
-	docu.writeAttribute("XPOS",item->xPos());
-	docu.writeAttribute("YPOS",item->yPos());
-	docu.writeAttribute("WIDTH",item->width());
-	docu.writeAttribute("HEIGHT",item->height());
-	docu.writeAttribute("RADRECT",item->cornerRadius());
+	docu.writeAttribute("PTYPE", item->realItemType());
+	docu.writeAttribute("XPOS", item->xPos());
+	docu.writeAttribute("YPOS", item->yPos());
+	docu.writeAttribute("WIDTH", item->width());
+	docu.writeAttribute("HEIGHT", item->height());
+	docu.writeAttribute("RADRECT", item->cornerRadius());
 	docu.writeAttribute("FRTYPE", item->FrameType);
 	docu.writeAttribute("CLIPEDIT", item->ClipEdited ? 1 : 0);
-	docu.writeAttribute("PWIDTH",item->lineWidth());
-	docu.writeAttribute("PCOLOR",item->fillColor());
-	docu.writeAttribute("PCOLOR2",item->lineColor());
+	docu.writeAttribute("PWIDTH", item->lineWidth());
+	docu.writeAttribute("PCOLOR", item->fillColor());
+	docu.writeAttribute("PCOLOR2", item->lineColor());
+
 	if (!item->itemText.defaultStyle().charStyle().isInhFillColor())
-		docu.writeAttribute("TXTFILL",item->itemText.defaultStyle().charStyle().fillColor());
+		docu.writeAttribute("TXTFILL", item->itemText.defaultStyle().charStyle().fillColor());
 	if (!item->itemText.defaultStyle().charStyle().isInhStrokeColor())
-		docu.writeAttribute("TXTSTROKE",item->itemText.defaultStyle().charStyle().strokeColor());
+		docu.writeAttribute("TXTSTROKE", item->itemText.defaultStyle().charStyle().strokeColor());
 	if (!item->itemText.defaultStyle().charStyle().isInhStrokeShade())
-		docu.writeAttribute("TXTSTRSH",item->itemText.defaultStyle().charStyle().strokeShade());
+		docu.writeAttribute("TXTSTRSH", item->itemText.defaultStyle().charStyle().strokeShade());
 	if (!item->itemText.defaultStyle().charStyle().isInhFillShade())
-		docu.writeAttribute("TXTFILLSH",item->itemText.defaultStyle().charStyle().fillShade());
+		docu.writeAttribute("TXTFILLSH", item->itemText.defaultStyle().charStyle().fillShade());
 	if (!item->itemText.defaultStyle().charStyle().isInhScaleH())
-		docu.writeAttribute("TXTSCALE",item->itemText.defaultStyle().charStyle().scaleH() / 10.0);
+		docu.writeAttribute("TXTSCALE", item->itemText.defaultStyle().charStyle().scaleH() / 10.0);
 	if (!item->itemText.defaultStyle().charStyle().isInhScaleV())
-		docu.writeAttribute("TXTSCALEV",item->itemText.defaultStyle().charStyle().scaleV() / 10.0);
+		docu.writeAttribute("TXTSCALEV", item->itemText.defaultStyle().charStyle().scaleV() / 10.0);
 	if (!item->itemText.defaultStyle().charStyle().isInhBaselineOffset())
-		docu.writeAttribute("TXTBASE",item->itemText.defaultStyle().charStyle().baselineOffset() / 10.0);
+		docu.writeAttribute("TXTBASE", item->itemText.defaultStyle().charStyle().baselineOffset() / 10.0);
 	if (!item->itemText.defaultStyle().charStyle().isInhShadowXOffset())
-		docu.writeAttribute("TXTSHX",item->itemText.defaultStyle().charStyle().shadowXOffset() / 10.0);
+		docu.writeAttribute("TXTSHX", item->itemText.defaultStyle().charStyle().shadowXOffset() / 10.0);
 	if (!item->itemText.defaultStyle().charStyle().isInhShadowYOffset())
-		docu.writeAttribute("TXTSHY",item->itemText.defaultStyle().charStyle().shadowYOffset() / 10.0);
+		docu.writeAttribute("TXTSHY", item->itemText.defaultStyle().charStyle().shadowYOffset() / 10.0);
 	if (!item->itemText.defaultStyle().charStyle().isInhOutlineWidth())
-		docu.writeAttribute("TXTOUT",item->itemText.defaultStyle().charStyle().outlineWidth() / 10.0);
+		docu.writeAttribute("TXTOUT", item->itemText.defaultStyle().charStyle().outlineWidth() / 10.0);
 	if (!item->itemText.defaultStyle().charStyle().isInhUnderlineOffset())
-		docu.writeAttribute("TXTULP",item->itemText.defaultStyle().charStyle().underlineOffset() / 10.0);
+		docu.writeAttribute("TXTULP", item->itemText.defaultStyle().charStyle().underlineOffset() / 10.0);
 	if (!item->itemText.defaultStyle().charStyle().isInhUnderlineWidth())
-		docu.writeAttribute("TXTULW",item->itemText.defaultStyle().charStyle().underlineWidth() / 10.0);
+		docu.writeAttribute("TXTULW", item->itemText.defaultStyle().charStyle().underlineWidth() / 10.0);
 	if (!item->itemText.defaultStyle().charStyle().isInhStrikethruOffset())
-		docu.writeAttribute("TXTSTP",item->itemText.defaultStyle().charStyle().strikethruOffset() / 10.0);
+		docu.writeAttribute("TXTSTP", item->itemText.defaultStyle().charStyle().strikethruOffset() / 10.0);
 	if (!item->itemText.defaultStyle().charStyle().isInhStrikethruWidth())
-		docu.writeAttribute("TXTSTW",item->itemText.defaultStyle().charStyle().strikethruWidth() / 10.0);
+		docu.writeAttribute("TXTSTW", item->itemText.defaultStyle().charStyle().strikethruWidth() / 10.0);
+	if (!item->itemText.defaultStyle().charStyle().isInhFeatures())
+		docu.writeAttribute("TXTFEATURES", item->itemText.defaultStyle().charStyle().features().join(" "));
 	if (!item->itemText.defaultStyle().charStyle().isInhTracking())
-		docu.writeAttribute("TXTKERN",item->itemText.defaultStyle().charStyle().tracking() / 10.0);
+		docu.writeAttribute("TXTKERN", item->itemText.defaultStyle().charStyle().tracking() / 10.0);
 	if (!item->itemText.defaultStyle().charStyle().isInhWordTracking())
-		docu.writeAttribute("wordTrack",item->itemText.defaultStyle().charStyle().wordTracking());
+		docu.writeAttribute("wordTrack", item->itemText.defaultStyle().charStyle().wordTracking());
 	if (!item->itemText.defaultStyle().isInhMinWordTracking())
 		docu.writeAttribute("MinWordTrack", item->itemText.defaultStyle().minWordTracking());
 	if (!item->itemText.defaultStyle().isInhMinGlyphExtension())
@@ -1347,22 +1350,22 @@ void Scribus134Format::SetItemProps(ScXmlStreamWriter& docu, PageItem* item, con
 		docu.writeAttribute("firstIndent", item->itemText.defaultStyle().firstIndent());
 	docu.writeAttribute("COLUMNS", item->columns());
 	docu.writeAttribute("COLGAP", item->columnGap());
-	docu.writeAttribute("NAMEDLST",item->NamedLStyle);
-	docu.writeAttribute("SHADE",item->fillShade());
-	docu.writeAttribute("SHADE2",item->lineShade());
-	docu.writeAttribute("GRTYP",item->GrType);
-	docu.writeAttribute("ROT",item->rotation());
-	docu.writeAttribute("PLINEART",item->PLineArt);
+	docu.writeAttribute("NAMEDLST", item->NamedLStyle);
+	docu.writeAttribute("SHADE", item->fillShade());
+	docu.writeAttribute("SHADE2", item->lineShade());
+	docu.writeAttribute("GRTYP", item->GrType);
+	docu.writeAttribute("ROT", item->rotation());
+	docu.writeAttribute("PLINEART", item->PLineArt);
 	docu.writeAttribute("PLINEEND", item->PLineEnd);
 	docu.writeAttribute("PLINEJOIN", item->PLineJoin);
 	if (!item->itemText.defaultStyle().isInhLineSpacing())
-		docu.writeAttribute("LINESP",item->itemText.defaultStyle().lineSpacing());
+		docu.writeAttribute("LINESP", item->itemText.defaultStyle().lineSpacing());
 	if (!item->itemText.defaultStyle().isInhLineSpacingMode())
 		docu.writeAttribute("LINESPMode", item->itemText.defaultStyle().lineSpacingMode());
-	docu.writeAttribute("LOCALSCX",item->imageXScale());
-	docu.writeAttribute("LOCALSCY",item->imageYScale());
-	docu.writeAttribute("LOCALX",item->imageXOffset());
-	docu.writeAttribute("LOCALY",item->imageYOffset());
+	docu.writeAttribute("LOCALSCX", item->imageXScale());
+	docu.writeAttribute("LOCALSCY", item->imageYScale());
+	docu.writeAttribute("LOCALX", item->imageXOffset());
+	docu.writeAttribute("LOCALY", item->imageYOffset());
 	docu.writeAttribute("PICART", item->imageShown() ? 1 : 0);
 	docu.writeAttribute("PLTSHOW", item->PoShow ? 1 : 0);
 	docu.writeAttribute("BASEOF", item->BaseOffs);
@@ -1370,12 +1373,12 @@ void Scribus134Format::SetItemProps(ScXmlStreamWriter& docu, PageItem* item, con
 	docu.writeAttribute("textPathFlipped", static_cast<int>(item->textPathFlipped));
 	docu.writeAttribute("FLIPPEDH", item->imageFlippedH());
 	docu.writeAttribute("FLIPPEDV", item->imageFlippedV());
-/*	docu.writeAttribute("BBOXX",item->BBoxX);
-	docu.writeAttribute("BBOXH",item->BBoxH); */
+/*	docu.writeAttribute("BBOXX", item->BBoxX);
+	docu.writeAttribute("BBOXH", item->BBoxH); */
 	if (!item->itemText.defaultStyle().charStyle().isInhFont())
-		docu.writeAttribute("IFONT",item->itemText.defaultStyle().charStyle().font().scName());
+		docu.writeAttribute("IFONT", item->itemText.defaultStyle().charStyle().font().scName());
 	if (!item->itemText.defaultStyle().charStyle().isInhFontSize())
-		docu.writeAttribute("ISIZE",item->itemText.defaultStyle().charStyle().fontSize() / 10.0 );
+		docu.writeAttribute("ISIZE", item->itemText.defaultStyle().charStyle().fontSize() / 10.0 );
 	docu.writeAttribute("SCALETYPE", item->ScaleType ? 1 : 0);
 	docu.writeAttribute("RATIO", item->AspectRatio ? 1 : 0);
 	docu.writeAttribute("PRINTABLE", item->printEnabled() ? 1 : 0);
@@ -1430,11 +1433,11 @@ void Scribus134Format::SetItemProps(ScXmlStreamWriter& docu, PageItem* item, con
 	docu.writeAttribute("TEXTFLOW2", item->textFlowUsesBoundingBox() ? 1 : 0);
 	docu.writeAttribute("TEXTFLOW3", item->textFlowUsesContourLine() ? 1 : 0);
 	docu.writeAttribute("AUTOTEXT", item->isAutoText ? 1 : 0);
-	docu.writeAttribute("EXTRA",item->textToFrameDistLeft());
-	docu.writeAttribute("TEXTRA",item->textToFrameDistTop());
-	docu.writeAttribute("BEXTRA",item->textToFrameDistBottom());
-	docu.writeAttribute("REXTRA",item->textToFrameDistRight());
-	docu.writeAttribute("FLOP",item->firstLineOffset()); // here I think this FLOP "cher à mon cœur" is legitimate!
+	docu.writeAttribute("EXTRA", item->textToFrameDistLeft());
+	docu.writeAttribute("TEXTRA", item->textToFrameDistTop());
+	docu.writeAttribute("BEXTRA", item->textToFrameDistBottom());
+	docu.writeAttribute("REXTRA", item->textToFrameDistRight());
+	docu.writeAttribute("FLOP", item->firstLineOffset()); // here I think this FLOP "cher à mon cœur" is legitimate!
 	if (((item->asImageFrame() && !item->asLatexFrame()) || (item->asTextFrame())) && (!item->Pfile.isEmpty()))
 	{
 		if (item->isInlineImage)
@@ -1464,9 +1467,9 @@ void Scribus134Format::SetItemProps(ScXmlStreamWriter& docu, PageItem* item, con
 		docu.writeAttribute("PFILE3",Path2Relative(item->Pfile3, baseDir));
 	else
 		docu.writeAttribute("PFILE3","");
-	docu.writeAttribute("PRFILE",item->IProfile);
+	docu.writeAttribute("PRFILE", item->IProfile);
 	docu.writeAttribute("EPROF", item->EmProfile);
-	docu.writeAttribute("IRENDER",item->IRender);
+	docu.writeAttribute("IRENDER", item->IRender);
 	docu.writeAttribute("EMBEDDED", item->UseEmbedded ? 1 : 0);
 	docu.writeAttribute("LOCK", item->locked() ? 1 : 0);
 	docu.writeAttribute("LOCKR", item->sizeLocked() ? 1 : 0);
@@ -1513,7 +1516,7 @@ void Scribus134Format::SetItemProps(ScXmlStreamWriter& docu, PageItem* item, con
 		dlp += tmp.setNum((*dax)) + " ";
 	docu.writeAttribute("DASHS", dlp);
 	docu.writeAttribute("DASHOFF", item->DashOffset);
-	docu.writeAttribute("NUMPO",item->PoLine.size());
+	docu.writeAttribute("NUMPO", item->PoLine.size());
 	QString polp = "";
 	for (uint nxx=0; nxx<item->PoLine.size(); ++nxx)
 	{
@@ -1521,7 +1524,7 @@ void Scribus134Format::SetItemProps(ScXmlStreamWriter& docu, PageItem* item, con
 		polp += tmp.setNum(xf) + " " + tmpy.setNum(yf) + " ";
 	}
 	docu.writeAttribute("POCOOR", polp);
-	docu.writeAttribute("NUMCO",item->ContourLine.size());
+	docu.writeAttribute("NUMCO", item->ContourLine.size());
 	QString colp = "";
 	for (uint nxx=0; nxx<item->ContourLine.size(); ++nxx)
 	{
