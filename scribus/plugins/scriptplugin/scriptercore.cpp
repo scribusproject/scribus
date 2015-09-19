@@ -275,8 +275,10 @@ void ScripterCore::slotRunScriptFile(QString fileName, QStringList arguments, bo
 	char **comm = new char*[arguments.size()];
 	for (int i = 0; i < arguments.size(); i++)
 	{
-		comm[i] = new char[arguments.at(i).toLocal8Bit().size()+1]; //+1 to allow adding '\0'. may be useless, don't know how to check.
-		strcpy(comm[i],arguments.at(i).toLocal8Bit().data()+'\0');
+		QByteArray localStr = arguments.at(i).toLocal8Bit();
+		comm[i] = new char[localStr.size() + 1]; //+1 to allow adding '\0'. may be useless, don't know how to check.
+		comm[i][localStr.size()] = 0;
+		strncpy(comm[i], localStr.data(), localStr.size());
 	}
 	PySys_SetArgv(arguments.size(), comm);
 
