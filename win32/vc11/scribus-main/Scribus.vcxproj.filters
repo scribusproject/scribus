@@ -1019,6 +1019,12 @@
     <ClInclude Include="..\..\..\scribus\ui\sccolorslider.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\scribus\ui\resourcemanagerlicense.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\ui\ui_resourcemanagerlicensebase.h">
+      <Filter>Generated Form Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\scribus\desaxe\digester.cpp">
@@ -2545,6 +2551,9 @@
     <ClCompile Include="..\..\..\scribus\ui\sccolorslider.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\resourcemanagerlicense.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Scribus.rc">
@@ -2906,6 +2915,9 @@
       <Filter>Form Files</Filter>
     </uic>
     <uic Include="..\..\..\scribus\ui\annot.ui">
+      <Filter>Form Files</Filter>
+    </uic>
+    <uic Include="..\..\..\scribus\ui\resourcemanagerlicensebase.ui">
       <Filter>Form Files</Filter>
     </uic>
   </ItemGroup>
