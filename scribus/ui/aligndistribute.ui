@@ -150,12 +150,24 @@
               <property name="text">
                <string>...</string>
               </property>
+              <property name="iconSize">
+               <size>
+                <width>22</width>
+                <height>22</height>
+               </size>
+              </property>
              </widget>
             </item>
             <item row="1" column="1">
              <widget class="QToolButton" name="alignTopInToolButton">
               <property name="text">
                <string>...</string>
+              </property>
+              <property name="iconSize">
+               <size>
+                <width>22</width>
+                <height>22</height>
+               </size>
               </property>
              </widget>
             </item>
@@ -164,12 +176,24 @@
               <property name="text">
                <string>...</string>
               </property>
+              <property name="iconSize">
+               <size>
+                <width>22</width>
+                <height>22</height>
+               </size>
+              </property>
              </widget>
             </item>
             <item row="0" column="3">
              <widget class="QToolButton" name="alignRightInToolButton">
               <property name="text">
                <string>...</string>
+              </property>
+              <property name="iconSize">
+               <size>
+                <width>22</width>
+                <height>22</height>
+               </size>
               </property>
              </widget>
             </item>
@@ -178,12 +202,24 @@
               <property name="text">
                <string>...</string>
               </property>
+              <property name="iconSize">
+               <size>
+                <width>22</width>
+                <height>22</height>
+               </size>
+              </property>
              </widget>
             </item>
             <item row="1" column="0">
              <widget class="QToolButton" name="alignTopOutToolButton">
               <property name="text">
                <string>...</string>
+              </property>
+              <property name="iconSize">
+               <size>
+                <width>22</width>
+                <height>22</height>
+               </size>
               </property>
              </widget>
             </item>
@@ -192,12 +228,24 @@
               <property name="text">
                <string>...</string>
               </property>
+              <property name="iconSize">
+               <size>
+                <width>22</width>
+                <height>22</height>
+               </size>
+              </property>
              </widget>
             </item>
             <item row="0" column="0">
              <widget class="QToolButton" name="alignLeftOutToolButton">
               <property name="text">
                <string>...</string>
+              </property>
+              <property name="iconSize">
+               <size>
+                <width>22</width>
+                <height>22</height>
+               </size>
               </property>
              </widget>
             </item>
@@ -206,12 +254,24 @@
               <property name="text">
                <string>...</string>
               </property>
+              <property name="iconSize">
+               <size>
+                <width>22</width>
+                <height>22</height>
+               </size>
+              </property>
              </widget>
             </item>
             <item row="0" column="2">
              <widget class="QToolButton" name="alignCenterHorToolButton">
               <property name="text">
                <string>...</string>
+              </property>
+              <property name="iconSize">
+               <size>
+                <width>22</width>
+                <height>22</height>
+               </size>
               </property>
              </widget>
             </item>
@@ -283,12 +343,24 @@
               <property name="text">
                <string>...</string>
               </property>
+              <property name="iconSize">
+               <size>
+                <width>22</width>
+                <height>22</height>
+               </size>
+              </property>
              </widget>
             </item>
             <item row="1" column="2">
              <widget class="QToolButton" name="distributeTopToolButton">
               <property name="text">
                <string>...</string>
+              </property>
+              <property name="iconSize">
+               <size>
+                <width>22</width>
+                <height>22</height>
+               </size>
               </property>
              </widget>
             </item>
@@ -297,6 +369,12 @@
               <property name="text">
                <string>...</string>
               </property>
+              <property name="iconSize">
+               <size>
+                <width>22</width>
+                <height>22</height>
+               </size>
+              </property>
              </widget>
             </item>
             <item row="0" column="2">
@@ -304,12 +382,24 @@
               <property name="text">
                <string>...</string>
               </property>
+              <property name="iconSize">
+               <size>
+                <width>22</width>
+                <height>22</height>
+               </size>
+              </property>
              </widget>
             </item>
             <item row="3" column="0">
              <widget class="QToolButton" name="toolButtonDummy1">
               <property name="text">
                <string>...</string>
+              </property>
+              <property name="iconSize">
+               <size>
+                <width>22</width>
+                <height>22</height>
+               </size>
               </property>
              </widget>
             </item>
@@ -321,12 +411,24 @@
               <property name="text">
                <string>...</string>
               </property>
+              <property name="iconSize">
+               <size>
+                <width>22</width>
+                <height>22</height>
+               </size>
+              </property>
              </widget>
             </item>
             <item row="0" column="0">
              <widget class="QToolButton" name="distributeLeftToolButton">
               <property name="text">
                <string>...</string>
+              </property>
+              <property name="iconSize">
+               <size>
+                <width>22</width>
+                <height>22</height>
+               </size>
               </property>
              </widget>
             </item>
@@ -338,12 +440,24 @@
               <property name="text">
                <string>...</string>
               </property>
+              <property name="iconSize">
+               <size>
+                <width>22</width>
+                <height>22</height>
+               </size>
+              </property>
              </widget>
             </item>
             <item row="3" column="1">
              <widget class="QToolButton" name="distributeDistValueHToolButton">
               <property name="text">
                <string>...</string>
+              </property>
+              <property name="iconSize">
+               <size>
+                <width>22</width>
+                <height>22</height>
+               </size>
               </property>
              </widget>
             </item>
@@ -355,6 +469,12 @@
               <property name="text">
                <string>...</string>
               </property>
+              <property name="iconSize">
+               <size>
+                <width>22</width>
+                <height>22</height>
+               </size>
+              </property>
              </widget>
             </item>
             <item row="0" column="1">
@@ -362,12 +482,24 @@
               <property name="text">
                <string>...</string>
               </property>
+              <property name="iconSize">
+               <size>
+                <width>22</width>
+                <height>22</height>
+               </size>
+              </property>
              </widget>
             </item>
             <item row="3" column="3">
              <widget class="QToolButton" name="toolButtonDummy2">
               <property name="text">
                <string>...</string>
+              </property>
+              <property name="iconSize">
+               <size>
+                <width>22</width>
+                <height>22</height>
+               </size>
               </property>
              </widget>
             </item>
@@ -379,12 +511,24 @@
               <property name="text">
                <string>...</string>
               </property>
+              <property name="iconSize">
+               <size>
+                <width>22</width>
+                <height>22</height>
+               </size>
+              </property>
              </widget>
             </item>
             <item row="3" column="2">
              <widget class="QToolButton" name="distributeDistValueVToolButton">
               <property name="text">
                <string>...</string>
+              </property>
+              <property name="iconSize">
+               <size>
+                <width>22</width>
+                <height>22</height>
+               </size>
               </property>
              </widget>
             </item>
@@ -393,12 +537,24 @@
               <property name="text">
                <string>...</string>
               </property>
+              <property name="iconSize">
+               <size>
+                <width>22</width>
+                <height>22</height>
+               </size>
+              </property>
              </widget>
             </item>
             <item row="1" column="0">
              <widget class="QToolButton" name="distributeBottomToolButton">
               <property name="text">
                <string>...</string>
+              </property>
+              <property name="iconSize">
+               <size>
+                <width>22</width>
+                <height>22</height>
+               </size>
               </property>
              </widget>
             </item>
@@ -574,12 +730,24 @@
             <property name="text">
              <string>...</string>
             </property>
+            <property name="iconSize">
+             <size>
+              <width>22</width>
+              <height>22</height>
+             </size>
+            </property>
            </widget>
           </item>
           <item>
            <widget class="QToolButton" name="swapRightToolButton">
             <property name="text">
              <string>...</string>
+            </property>
+            <property name="iconSize">
+             <size>
+              <width>22</width>
+              <height>22</height>
+             </size>
             </property>
            </widget>
           </item>

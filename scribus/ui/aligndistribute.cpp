@@ -212,7 +212,7 @@ void AlignDistributePalette::init()
 	swapLeftToolButton->setIcon(im->loadIcon("22/swap-left.png"));
 	swapRightToolButton->setIcon(im->loadIcon("22/swap-right.png"));
 
-	QSize s(22,22);
+	QSize s(24,24);
 	alignLeftOutToolButton->setMinimumSize(s);
 	alignLeftInToolButton->setMinimumSize(s);
 	alignCenterHorToolButton->setMinimumSize(s);
