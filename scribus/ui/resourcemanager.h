@@ -84,6 +84,7 @@ class SCRIBUS_API ResourceManager : public QDialog, Ui::ResourceManagerBase
 		QList <DownloadItem> downloadList;
 		QString affixFileName(QStringList files);
 		QString dictFileName(QStringList files);
+		QString findDestinationFolder();
 
 	protected slots:
 		void categoryChanged();
@@ -92,6 +93,7 @@ class SCRIBUS_API ResourceManager : public QDialog, Ui::ResourceManagerBase
 		void downloadFilesFinished();
 		void updateProgressBar();
 		void startDownload();
+		void showLicense();
 
 };
 

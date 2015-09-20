@@ -180,6 +180,7 @@ SET(SCRIBUS_UI_SRC
 	ui/replacecolors.ui
 	ui/replaceonecolor.ui
 	ui/resourcemanagerbase.ui
+	ui/resourcemanagerlicensebase.ui
 	ui/selectobjects.ui
 	ui/shortcutwidget.ui
 	ui/smcellstylewidget.ui
@@ -461,6 +462,7 @@ SET(SCRIBUS_MOC_CLASSES
 	ui/replacecolors.h
 	ui/replaceonecolor.h
 	ui/resourcemanager.h
+	ui/resourcemanagerlicense.h
 	ui/rulermover.h
 	ui/scdockpalette.h
 	ui/scescapecatcher.h
@@ -920,6 +922,7 @@ SET(SCRIBUS_SOURCES
 	ui/replacecolors.cpp
 	ui/replaceonecolor.cpp
 	ui/resourcemanager.cpp
+	ui/resourcemanagerlicense.cpp
 	ui/rulermover.cpp
 	ui/sccolorslider.cpp
 	ui/sccombobox.cpp

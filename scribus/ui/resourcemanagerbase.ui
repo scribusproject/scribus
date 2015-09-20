@@ -229,6 +229,16 @@
         </widget>
        </item>
        <item>
+        <widget class="QPushButton" name="showLicenseButton">
+         <property name="text">
+          <string>Show License</string>
+         </property>
+         <property name="autoDefault">
+          <bool>false</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
         <widget class="QPushButton" name="downloadButton">
          <property name="enabled">
           <bool>false</bool>

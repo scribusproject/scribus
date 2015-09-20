@@ -33,6 +33,7 @@ for which a new license (GPL+exception) is in place.
 #include "downloadmanager/scdlmgr.h"
 #include "langmgr.h"
 #include "resourcemanager.h"
+#include "resourcemanagerlicense.h"
 #include "scpaths.h"
 #include "scribusapp.h"
 #include "third_party/zip/scribus_zip.h"
@@ -51,6 +52,7 @@ ResourceManager::ResourceManager(QWidget* parent)
 
 	connect(categoryComboBox, SIGNAL(currentIndexChanged(int)), this, SLOT(categoryChanged()));
 	connect(updateAvailableButton, SIGNAL(clicked()), this, SLOT(updateDownloadLists()));
+	connect(showLicenseButton, SIGNAL(clicked()), this, SLOT(showLicense()));
 	connect(downloadButton, SIGNAL(clicked()), this, SLOT(startDownload()));
 }
 
@@ -137,7 +139,7 @@ void ResourceManager::updateInstalledHyph()
 
 	installedTableWidget->clear();
 	installedTableWidget->setRowCount(dictionaryMap.count());
-	installedTableWidget->setColumnCount(3);
+	installedTableWidget->setColumnCount(4);
 	installedTableWidget->setSortingEnabled(false);
 	QMapIterator<QString, QString> i(dictionaryMap);
 	int row=0;
@@ -156,10 +158,14 @@ void ResourceManager::updateInstalledHyph()
 		 newItem3->setFlags(newItem1->flags());
 		 newItem3->setToolTip(i.value());
 		 installedTableWidget->setItem(row, column++, newItem3);
+		 QTableWidgetItem *newItem4 = new QTableWidgetItem(i.value());
+		 newItem4->setFlags(newItem1->flags());
+		 newItem4->setToolTip(i.value());
+		 installedTableWidget->setItem(row, column++, newItem4);
 		 ++row;
 	}
 	QStringList headers;
-	headers << tr("Language") << tr("Code") << tr("Location");
+	headers << tr("Language") << tr("Code") << tr("Location") << tr("Licence");
 	installedTableWidget->setHorizontalHeaderLabels(headers);
 	installedTableWidget->resizeColumnsToContents();
 	installedTableWidget->setSortingEnabled(true);
@@ -371,7 +377,7 @@ void ResourceManager::updateAvailableHyph()
 		return;
 	}
 	availableTableWidget->setRowCount(dictList.count());
-	availableTableWidget->setColumnCount(4);
+	availableTableWidget->setColumnCount(5);
 	availableTableWidget->setSortingEnabled(false);
 	int row=0;
 	foreach(DownloadItem d, dictList)
@@ -388,14 +394,17 @@ void ResourceManager::updateAvailableHyph()
 		newItem3->setCheckState(dictionaryMap.contains(d.lang) ? Qt::Checked : Qt::Unchecked);
 		newItem3->setFlags(newItem1->flags() & ~Qt::ItemIsUserCheckable);
 		availableTableWidget->setItem(row, column++, newItem3);
-		QTableWidgetItem *newItem4 = new QTableWidgetItem();
-		newItem4->setFlags(newItem1->flags());
-		newItem4->setCheckState(d.download ? Qt::Checked : Qt::Unchecked);
+		QTableWidgetItem *newItem4 = new QTableWidgetItem(d.license);
 		availableTableWidget->setItem(row, column++, newItem4);
+		newItem4->setFlags(newItem4->flags() & ~Qt::ItemIsEditable);
+		QTableWidgetItem *newItem5 = new QTableWidgetItem();
+		newItem5->setFlags(newItem1->flags());
+		newItem5->setCheckState(d.download ? Qt::Checked : Qt::Unchecked);
+		availableTableWidget->setItem(row, column++, newItem5);
 		++row;
 	}
 	QStringList headers;
-	headers << tr("Language") << tr("Code") << tr("Installed") << tr("Download");
+	headers << tr("Language") << tr("Code") << tr("Installed") << tr("License") << tr("Download");
 	availableTableWidget->setHorizontalHeaderLabels(headers);
 	availableTableWidget->resizeColumnsToContents();
 	availableTableWidget->setSortingEnabled(true);
@@ -503,6 +512,30 @@ void ResourceManager::updateAvailableSpell()
 void ResourceManager::updateAvailableTemplates()
 {
 	availableTableWidget->clear();
+}
+
+QString ResourceManager::findDestinationFolder()
+{
+	QString destinationFolder;
+	int category = categoryComboBox->currentData().toInt();
+	switch (category)
+	{
+		case RM_FONTS:
+			destinationFolder=ScPaths::getUserFontDir(true);
+			break;
+		case RM_HYPH:
+			destinationFolder=ScPaths::getUserDictDir(ScPaths::Hyph, true);
+			break;
+		case RM_SPELL:
+			destinationFolder=ScPaths::getUserDictDir(ScPaths::Spell, true);
+			break;
+		case RM_TEMPLATES:
+			//temporary
+			destinationFolder=ScPaths::getTempFileDir();
+			//TODO!!!! destinationFolder=ScPaths::getUserDictDir(true);
+			break;
+	}
+	return destinationFolder;
 }
 
 void ResourceManager::categoryChanged()
@@ -674,7 +707,7 @@ void ResourceManager::downloadFilesFinished()
 
 void ResourceManager::updateProgressBar()
 {
-	downloadProgressBar->setValue(downloadProgressBar->value()+1);
+	downloadProgressBar->setValue(downloadProgressBar->value() + 1);
 }
 
 void ResourceManager::startDownload()
@@ -683,9 +716,9 @@ void ResourceManager::startDownload()
 	QStringList filesToDownload;
 	for (int i=0; i<rows; ++i)
 	{
-		QTableWidgetItem *dlItem=availableTableWidget->item(i,3);
+		QTableWidgetItem *dlItem=availableTableWidget->item(i, 4);
 		if (dlItem->checkState()==Qt::Checked)
-			filesToDownload<<availableTableWidget->item(i,0)->text();
+			filesToDownload<<availableTableWidget->item(i, 0)->text();
 	}
 	if (filesToDownload.isEmpty())
 		return;
@@ -698,25 +731,8 @@ void ResourceManager::startDownload()
 	int dlCount=0;
 
 	//Set up destination
-	QString destinationFolder;
+	QString destinationFolder=findDestinationFolder();
 	int category = categoryComboBox->currentData().toInt();
-	switch (category)
-	{
-		case RM_FONTS:
-			destinationFolder=ScPaths::getUserFontDir(true);
-			break;
-		case RM_HYPH:
-			destinationFolder=ScPaths::getUserDictDir(ScPaths::Hyph, true);
-			break;
-		case RM_SPELL:
-			destinationFolder=ScPaths::getUserDictDir(ScPaths::Spell, true);
-			break;
-		case RM_TEMPLATES:
-			//temporary
-			destinationFolder=ScPaths::getTempFileDir();
-			//TODO!!!! destinationFolder=ScPaths::getUserDictDir(true);
-			break;
-	}
 	switch (category)
 	{
 		case RM_FONTS:
@@ -794,6 +810,79 @@ void ResourceManager::startDownload()
 		connect(ScQApp->dlManager(), SIGNAL(fileReceived(const QString&)), this, SLOT(updateProgressBar()));
 		connect(ScQApp->dlManager(), SIGNAL(fileFailed(const QString&)), this, SLOT(updateProgressBar()));
 		ScQApp->dlManager()->startDownloads();
+	}
+}
+
+void ResourceManager::showLicense()
+{
+	bool localFile=false;
+	int rows=availableTableWidget->rowCount();
+	QString licenceFileName;
+	QString lang;
+	for (int i=0; i<rows; ++i)
+	{
+		QTableWidgetItem *dlItemI=availableTableWidget->item(i, 2);
+		QTableWidgetItem *dlItemL=availableTableWidget->item(i, 3);
+		localFile=dlItemI->checkState();
+		if (dlItemL->isSelected())
+		{
+			licenceFileName = dlItemL->text();
+			lang = availableTableWidget->item(i, 0)->text();
+			break;
+		}
+	}
+	if (!licenceFileName.isEmpty())
+	{
+		bool doDownload=true;
+		QString data;
+		//Set up destination
+		if (localFile)
+		{
+			QString destinationFolder=findDestinationFolder();
+			QFile dataFile(destinationFolder + licenceFileName);
+			QTextStream ts(&dataFile);
+			if (dataFile.exists())
+			{
+				dataFile.open(QIODevice::ReadOnly);
+				data = ts.readAll();
+				dataFile.close();
+				doDownload=false;
+			}
+		}
+		if (doDownload)
+		{
+			QStringList filesToDownload;
+			filesToDownload<<lang;
+			foreach(DownloadItem d, dictList)
+			{
+				if (filesToDownload.contains(d.desc))
+				{
+					if (d.filetype=="plain")
+					{
+						ScQApp->dlManager()->addURL(d.url+"/"+licenceFileName, true, ScPaths::downloadDir(), ScPaths::getTempFileDir());
+						//connect(ScQApp->dlManager(), SIGNAL(finished()), this, SLOT(downloadFilesFinished()));
+						ScQApp->dlManager()->startDownloads();
+					}
+					sleep(10);
+					QFile dataFile(ScPaths::getTempFileDir() + licenceFileName);
+					QTextStream ts(&dataFile);
+					if (dataFile.exists())
+					{
+						dataFile.open(QIODevice::ReadOnly);
+						data = ts.readAll();
+						dataFile.close();
+						doDownload=false;
+					}
+				}
+			}
+		}
+		//temp fake return as data ihas not been downloaded
+		if (doDownload)
+			return;
+		ResourceManagerLicense* rml = new ResourceManagerLicense(parentWidget());
+		rml->setText(data);
+		if (rml->exec())
+			rml->deleteLater();
 	}
 }
 
