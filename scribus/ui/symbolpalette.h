@@ -53,7 +53,7 @@ public:
 	~SymbolView() {};
 
 public slots:
-	void HandleContextMenu(QPoint);
+	void HandleContextMenu(QPoint p);
 	void changeDisplay();
 
 protected:
@@ -87,7 +87,10 @@ public:
 	virtual void changeEvent(QEvent *e);
 
 public slots:
+	void handleContextMenue(QPoint p);
 	void handleDoubleClick(QListWidgetItem *item);
+	void handleEditItem();
+	void handleDeleteItem();
 	void handleUpdateRequest(int);
 	void languageChange();
 	void keyPressEvent(QKeyEvent *e);
@@ -103,6 +106,7 @@ protected:
 	ScribusDoc *m_doc;
 	ScribusMainWindow *m_scMW;
 	QStringList editItemNames;
+	QListWidgetItem *m_item;
 };
 
 #endif

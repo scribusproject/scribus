@@ -48,16 +48,20 @@ SymbolView::SymbolView(QWidget* parent) : QListWidget(parent)
 	connect(this, SIGNAL(customContextMenuRequested (const QPoint &)), this, SLOT(HandleContextMenu(QPoint)));
 }
 
-void SymbolView::HandleContextMenu(QPoint)
+void SymbolView::HandleContextMenu(QPoint p)
 {
-	QMenu *pmenu = new QMenu();
-	QAction* viewAct;
-	viewAct = pmenu->addAction( tr("Display Icons only"));
-	viewAct->setCheckable(true);
-	viewAct->setChecked(delegate->iconOnly());
-	connect(viewAct, SIGNAL(triggered()), this, SLOT(changeDisplay()));
-	pmenu->exec(QCursor::pos());
-	delete pmenu;
+	QListWidgetItem *item = itemAt(p);
+	if (!item)
+	{
+		QMenu *pmenu = new QMenu();
+		QAction* viewAct;
+		viewAct = pmenu->addAction( tr("Display Icons only"));
+		viewAct->setCheckable(true);
+		viewAct->setChecked(delegate->iconOnly());
+		connect(viewAct, SIGNAL(triggered()), this, SLOT(changeDisplay()));
+		pmenu->exec(QCursor::pos());
+		delete pmenu;
+	}
 }
 
 void SymbolView::changeDisplay()
@@ -159,14 +163,57 @@ SymbolPalette::SymbolPalette( QWidget* parent) : ScDockPalette( parent, "Symb", 
 	m_scMW  = NULL;
 	editItemNames.clear();
 	languageChange();
+	m_item = NULL;
 	connect(SymbolViewWidget, SIGNAL(itemDoubleClicked(QListWidgetItem *)), this, SLOT(handleDoubleClick(QListWidgetItem *)));
+	connect(SymbolViewWidget, SIGNAL(customContextMenuRequested(QPoint)), this, SLOT(handleContextMenue(QPoint)));
 	connect(SymbolViewWidget, SIGNAL(objectDropped()), this, SIGNAL(objectDropped()));
+}
+
+void SymbolPalette::handleContextMenue(QPoint p)
+{
+	if (!m_doc)
+		return;
+	QListWidgetItem *item = SymbolViewWidget->itemAt(p);
+	if (item)
+	{
+		m_item = item;
+		QMenu *pmenu = new QMenu();
+		QAction* editAct = pmenu->addAction( tr("Edit Item"));
+		connect(editAct, SIGNAL(triggered()), this, SLOT(handleEditItem()));
+		QAction* delAct = pmenu->addAction( tr("Remove Item"));
+		connect(delAct, SIGNAL(triggered()), this, SLOT(handleDeleteItem()));
+		pmenu->exec(QCursor::pos());
+		delete pmenu;
+	}
 }
 
 void SymbolPalette::handleDoubleClick(QListWidgetItem *item)
 {
 	if (item)
 		emit startEdit(item->text());
+}
+
+void SymbolPalette::handleEditItem()
+{
+	if (m_item != NULL)
+	{
+		emit startEdit(m_item->text());
+		m_item = NULL;
+	}
+}
+
+void SymbolPalette::handleDeleteItem()
+{
+	if (m_item != NULL)
+	{
+		if (m_doc->docPatterns.contains(m_item->text()))
+		{
+			m_doc->removePattern(m_item->text());
+			updateSymbolList();
+			m_doc->regionsChanged()->update(QRect());
+		}
+		m_item = NULL;
+	}
 }
 
 void SymbolPalette::editingStart(QStringList names)
@@ -291,6 +338,7 @@ void SymbolPalette::keyPressEvent(QKeyEvent* e)
 					{
 						m_doc->removePattern(it->text());
 						updateSymbolList();
+						m_doc->regionsChanged()->update(QRect());
 						e->accept();
 					}
 				}
