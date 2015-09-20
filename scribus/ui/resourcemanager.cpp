@@ -42,6 +42,11 @@ for which a new license (GPL+exception) is in place.
 
 extern ScribusQApp* ScQApp;
 
+#ifdef _WIN32
+#include <windows.h>
+#define sleep(t) Sleep(t*1000)
+#endif
+
 ResourceManager::ResourceManager(QWidget* parent)
 {
 	setupUi(this);
