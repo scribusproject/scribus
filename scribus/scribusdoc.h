@@ -688,6 +688,7 @@ public:
 	* @brief Set the patterns for a document
 	*/
 	bool addPattern(QString &name, ScPattern& pattern);
+	void removePattern(QString name);
 	void setPatterns(QHash<QString, ScPattern> &patterns);
 	/*!
 	* @brief Check pattern with specified name and return it if valid

@@ -55,8 +55,9 @@ void PageItem_Symbol::DrawObj_Item(ScPainter *p, QRectF /*e*/)
 {
 	if (m_Doc->RePos)
 		return;
-
-	if ((patternVal.isEmpty()) || (!m_Doc->docPatterns.contains(patternVal)))
+	if (!m_Doc->docPatterns.contains(patternVal))
+		patternVal = "";
+	if (patternVal.isEmpty())
 	{
 		if (m_Doc->guidesPrefs().framesShown)
 		{

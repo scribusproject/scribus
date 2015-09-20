@@ -289,7 +289,7 @@ void SymbolPalette::keyPressEvent(QKeyEvent* e)
 				{
 					if (m_doc->docPatterns.contains(it->text()))
 					{
-						m_doc->docPatterns.remove(it->text());
+						m_doc->removePattern(it->text());
 						updateSymbolList();
 						e->accept();
 					}

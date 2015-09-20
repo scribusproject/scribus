@@ -3902,6 +3902,77 @@ bool ScribusDoc::addPattern(QString &name, ScPattern& pattern)
 	return true;
 }
 
+void ScribusDoc::removePattern(QString name)
+{
+	docPatterns.remove(name);
+	QList<PageItem*> allItems;
+	for (int a = 0; a < DocItems.count(); ++a)
+	{
+		PageItem *currItem = DocItems.at(a);
+		if (currItem->isGroup())
+			allItems = currItem->asGroupFrame()->getItemList();
+		else
+			allItems.append(currItem);
+		for (int ii = 0; ii < allItems.count(); ii++)
+		{
+			currItem = allItems.at(ii);
+			if (currItem->pattern() == name)
+				currItem->setPattern("");
+		}
+		allItems.clear();
+	}
+	for (int a = 0; a < MasterItems.count(); ++a)
+	{
+		PageItem *currItem = MasterItems.at(a);
+		if (currItem->isGroup())
+			allItems = currItem->asGroupFrame()->getItemList();
+		else
+			allItems.append(currItem);
+		for (int ii = 0; ii < allItems.count(); ii++)
+		{
+			currItem = allItems.at(ii);
+			if (currItem->pattern() == name)
+				currItem->setPattern("");
+		}
+		allItems.clear();
+	}
+	for (QHash<int, PageItem*>::iterator itf = FrameItems.begin(); itf != FrameItems.end(); ++itf)
+	{
+		PageItem *currItem = itf.value();
+		if (currItem->isGroup())
+			allItems = currItem->asGroupFrame()->getItemList();
+		else
+			allItems.append(currItem);
+		for (int ii = 0; ii < allItems.count(); ii++)
+		{
+			currItem = allItems.at(ii);
+			if (currItem->pattern() == name)
+				currItem->setPattern("");
+		}
+		allItems.clear();
+	}
+	QStringList patterns = docPatterns.keys();
+	for (int c = 0; c < patterns.count(); ++c)
+	{
+		ScPattern pa = docPatterns[patterns[c]];
+		for (int o = 0; o < pa.items.count(); o++)
+		{
+			PageItem *currItem = pa.items.at(o);
+			if (currItem->isGroup())
+				allItems = currItem->asGroupFrame()->getItemList();
+			else
+				allItems.append(currItem);
+			for (int ii = 0; ii < allItems.count(); ii++)
+			{
+				currItem = allItems.at(ii);
+				if (currItem->pattern() == name)
+					currItem->setPattern("");
+			}
+			allItems.clear();
+		}
+	}
+}
+
 ScPattern* ScribusDoc::checkedPattern(QString &name)
 {
 	if (name.isEmpty() || !docPatterns.contains(name))
@@ -6723,7 +6794,7 @@ void ScribusDoc::setSymbolEditMode(bool mode, QString symbolName)
 		ScPage* addedPage = TempPages.at(0);
 		if (Items->count() == 0)
 		{
-			docPatterns.remove(currentEditedSymbol);
+			removePattern(currentEditedSymbol);
 		}
 		else
 		{
