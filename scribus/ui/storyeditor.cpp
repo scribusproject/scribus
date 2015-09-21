@@ -1668,21 +1668,21 @@ void StoryEditor::initActions()
 	connect( seActions["fileExit"], SIGNAL(triggered()), this, SLOT(Do_leave()) );
 
 	//Edit Menu
-	seActions.insert("editSelectAll", new ScrAction(im->loadPixmap("16/edit-select-all.png"), QPixmap(), "", Qt::CTRL+Qt::Key_A, this));
 	seActions.insert("editCut", new ScrAction(im->loadPixmap("16/edit-cut.png"), QPixmap(), "", Qt::CTRL+Qt::Key_X, this));
 	seActions.insert("editCopy", new ScrAction(im->loadPixmap("16/edit-copy.png"), QPixmap(), "", Qt::CTRL+Qt::Key_C, this));
 	seActions.insert("editPaste", new ScrAction(im->loadPixmap("16/edit-paste.png"), QPixmap(), "", Qt::CTRL+Qt::Key_V, this));
 	seActions.insert("editClear", new ScrAction(im->loadPixmap("16/edit-delete.png"), QPixmap(), "", Qt::Key_Delete, this));
+	seActions.insert("editSelectAll", new ScrAction(im->loadPixmap("16/edit-select-all.png"), QPixmap(), "", Qt::CTRL+Qt::Key_A, this));
 	seActions.insert("editSearchReplace", new ScrAction(im->loadPixmap("16/edit-find-replace.png"), QPixmap(), "", QKeySequence(), this));
 	//seActions.insert("editEditStyle", new ScrAction("", QKeySequence(), this));
 	seActions.insert("editFontPreview", new ScrAction("", QKeySequence(), this));
 	seActions.insert("editUpdateFrame", new ScrAction(im->loadPixmap("compfile16.png"),im->loadPixmap("compfile.png"), "", Qt::CTRL+Qt::Key_U, this));
 
-	connect( seActions["editSelectAll"], SIGNAL(triggered()), this, SLOT(Do_selectAll()) );
 	connect( seActions["editCut"], SIGNAL(triggered()), this, SLOT(Do_cut()) );
 	connect( seActions["editCopy"], SIGNAL(triggered()), this, SLOT(Do_copy()) );
 	connect( seActions["editPaste"], SIGNAL(triggered()), this, SLOT(Do_paste()) );
 	connect( seActions["editClear"], SIGNAL(triggered()), this, SLOT(Do_del()) );
+	connect( seActions["editSelectAll"], SIGNAL(triggered()), this, SLOT(Do_selectAll()) );
 	connect( seActions["editSearchReplace"], SIGNAL(triggered()), this, SLOT(SearchText()) );
 	//connect( seActions["editEditStyle"], SIGNAL(triggered()), this, SLOT(slotEditStyles()) );
 	connect( seActions["editFontPreview"], SIGNAL(triggered()), this, SLOT(Do_fontPrev()) );
@@ -1728,11 +1728,12 @@ void StoryEditor::buildMenus()
 	seMenuMgr->addMenuItemString("fileUpdateAndExit", "File");
 	seMenuMgr->addMenuItemString("fileExit", "File");
 	seMenuMgr->createMenu("Edit", tr("&Edit"));
-	seMenuMgr->addMenuItemString("editSelectAll", "Edit");
 	seMenuMgr->addMenuItemString("editCut", "Edit");
 	seMenuMgr->addMenuItemString("editCopy", "Edit");
 	seMenuMgr->addMenuItemString("editPaste", "Edit");
 	seMenuMgr->addMenuItemString("editClear", "Edit");
+	seMenuMgr->addMenuItemString("SEPARATOR", "Edit");
+	seMenuMgr->addMenuItemString("editSelectAll", "Edit");
 	seMenuMgr->addMenuItemString("SEPARATOR", "Edit");
 	seMenuMgr->addMenuItemString("editSearchReplace", "Edit");
 	seMenuMgr->addMenuItemString("SEPARATOR", "Edit");
@@ -1743,7 +1744,6 @@ void StoryEditor::buildMenus()
 	seMenuMgr->addMenuItemString("settingsSmartTextSelection", "Edit");
 	seMenuMgr->createMenu("Insert", tr("&Insert"));
 	seMenuMgr->addMenuItemString("insertGlyph", "Insert");
-	seMenuMgr->addMenuItemString("insertSampleText", "Insert");
 	seMenuMgr->createMenu("InsertChar", tr("Character"), "Insert");
 	seMenuMgr->addMenuItemString("InsertChar", "Insert");
 	seMenuMgr->addMenuItemString("unicodePageNumber", "InsertChar");
@@ -1809,6 +1809,7 @@ void StoryEditor::buildMenus()
 	seMenuMgr->addMenuItemString("unicodeLigature_ffl", "InsertLigature");
 	seMenuMgr->addMenuItemString("unicodeLigature_ft", "InsertLigature");
 	seMenuMgr->addMenuItemString("unicodeLigature_st", "InsertLigature");
+	seMenuMgr->addMenuItemString("insertSampleText", "Insert");
 
 	seMenuMgr->createMenu("Settings", tr("&Settings"));
 	seMenuMgr->addMenuItemString("settingsBackground", "Settings");
@@ -2006,23 +2007,23 @@ void StoryEditor::languageChange()
 	seActions["fileExit"]->setTexts( tr("&Exit Without Updating Text Frame"));
 	//Edit Menu
 	seMenuMgr->setText("Edit", tr("&Edit"));
-	seActions["editSelectAll"]->setTexts( tr("Select &All"));
 	seActions["editCut"]->setTexts( tr("Cu&t"));
 	seActions["editCopy"]->setTexts( tr("&Copy"));
 	seActions["editPaste"]->setTexts( tr("&Paste"));
 	seActions["editClear"]->setTexts( tr("C&lear"));
+	seActions["editSelectAll"]->setTexts( tr("Select &All"));
 	seActions["editSearchReplace"]->setTexts( tr("&Search/Replace..."));
 //	seActions["editEditStyle"]->setTexts( tr("&Edit Styles..."));
 	seActions["editFontPreview"]->setTexts( tr("&Fonts Preview..."));
 	seActions["editUpdateFrame"]->setTexts( tr("&Update Text Frame"));
 
 	//Insert menu
+	seActions["insertGlyph"]->setTexts( tr("&Glyph..."));
 	seMenuMgr->setText("Insert", tr("&Insert"));
 	seMenuMgr->setText("InsertChar", tr("Character"));
 	seMenuMgr->setText("InsertQuote", tr("Quote"));
 	seMenuMgr->setText("InsertSpace", tr("Space"));
-	seActions["insertGlyph"]->setTexts( tr("&Insert Glyph..."));
-	seActions["insertSampleText"]->setTexts( tr("&Sample Text..."));
+	seActions["insertSampleText"]->setTexts( tr("&Sample Text"));
 
 	//Settings Menu
 	seMenuMgr->setText("Settings", tr("&Settings"));
