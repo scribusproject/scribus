@@ -9100,6 +9100,7 @@ void ScribusMainWindow::ConvertToSymbol()
 	patternName = patternName.trimmed().simplified().replace(" ", "_");
 	Query dia(this, "tt", 1, tr("&Name:"), tr("New Entry"));
 	dia.setEditText(patternName, true);
+	patternsDependingOnThis.clear();
 	dia.setForbiddenList(patternsDependingOnThis);
 	dia.setTestList(doc->docPatterns.keys());
 	dia.setCheckMode(true);
