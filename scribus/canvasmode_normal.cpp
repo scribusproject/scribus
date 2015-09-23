@@ -568,7 +568,7 @@ void CanvasMode_Normal::mouseMoveEvent(QMouseEvent *m)
 							ny = nyo = gy + gh + m_objectDeltaPos.y();
 							m_doc->ApplyGuides(&nx, &ny);
 							m_objectDeltaPos += FPoint(nx-nxo, ny-nyo);
-							if(false)
+							if (false)
 							{
 								nx = nxo = gx + gw/2 + m_objectDeltaPos.x();
 								ny = nyo = gy + gh/2 + m_objectDeltaPos.y();
@@ -582,21 +582,21 @@ void CanvasMode_Normal::mouseMoveEvent(QMouseEvent *m)
 							ySnap = 0;
 							double snapWidth[] = {0,gw,gw/2};
 							double snapHeight[] = {0,gh,gh/2};
-							if(m_objectDeltaPos.x()<0)
+							if (m_objectDeltaPos.x() < 0)
 								std::swap(snapWidth[0],snapWidth[2]);
-							if(m_objectDeltaPos.y()<0)
+							if (m_objectDeltaPos.y() < 0)
 								std::swap(snapHeight[0],snapHeight[2]);
 							double nx,ny,nyo,nxo;
-							for(int i = 0;i<3;i++)
+							for (int i = 0;i<3;i++)
 							{
 								nx = gx + snapWidth[i] + m_objectDeltaPos.x();
 								ny = gy + snapHeight[i] + m_objectDeltaPos.y();
 								nxo = nx, nyo = ny;
 								m_doc->ApplyGuides(&nx, &ny,true);
 								m_objectDeltaPos += FPoint(nx - nxo, ny - nyo);
-								if(ny != nyo)
+								if (ny != nyo)
 									ySnap = ny;
-								if(nx != nxo)
+								if (nx != nxo)
 									xSnap = nx;
 							}
 						}
@@ -655,7 +655,7 @@ void CanvasMode_Normal::mouseMoveEvent(QMouseEvent *m)
 						ny = nyo = gy + gh + m_objectDeltaPos.y();
 						m_doc->ApplyGuides(&nx, &ny);
 						m_objectDeltaPos += FPoint(nx-nxo, ny-nyo);
-						if(false)
+						if (false)
 						{
 							nx = nxo = gx + gw/2 + m_objectDeltaPos.x();
 							ny = nyo = gy + gh/2 + m_objectDeltaPos.y();
@@ -669,21 +669,21 @@ void CanvasMode_Normal::mouseMoveEvent(QMouseEvent *m)
 						ySnap = 0;
 						double snapWidth[] = {0,gw,gw/2};
 						double snapHeight[] = {0,gh,gh/2};
-						if(m_objectDeltaPos.x()<0)
+						if (m_objectDeltaPos.x() <0 )
 							std::swap(snapWidth[0],snapWidth[2]);
-						if(m_objectDeltaPos.y()<0)
+						if (m_objectDeltaPos.y() < 0)
 							std::swap(snapHeight[0],snapHeight[2]);
 						double nx,ny,nyo,nxo;
-						for(int i = 0;i<3;i++)
+						for (int i = 0;i<3;i++)
 						{
 							nx = gx + snapWidth[i] + m_objectDeltaPos.x();
 							ny = gy + snapHeight[i] + m_objectDeltaPos.y();
 							nxo = nx, nyo = ny;
 							m_doc->ApplyGuides(&nx, &ny,true);
 							m_objectDeltaPos += FPoint(nx - nxo, ny - nyo);
-							if(ny != nyo)
+							if (ny != nyo)
 								ySnap = ny;
-							if(nx != nxo)
+							if (nx != nxo)
 								xSnap = nx;
 						}
 					}
@@ -795,9 +795,9 @@ void CanvasMode_Normal::mouseMoveEvent(QMouseEvent *m)
 				int how = m_canvas->frameHitTest(QPointF(mousePointDoc.x(),mousePointDoc.y()), currItem);
 				if (how > 0)
 				{
-					if(currItem->asLine())
+					if (currItem->asLine())
 						m_view->setCursor(QCursor(Qt::SizeAllCursor));
-					else if(!currItem->locked() && !currItem->sizeLocked())
+					else if (!currItem->locked() && !currItem->sizeLocked())
 					{
 						if ((!currItem->sizeHLocked() && !currItem->sizeVLocked()) || (currItem->sizeHLocked() && (how == 5 || how == 8))
 							|| (currItem->sizeVLocked() && (how == 6 || how == 7)))
@@ -1066,7 +1066,7 @@ void CanvasMode_Normal::mouseReleaseEvent(QMouseEvent *m)
 			PageItem* underItem( m_canvas->itemUnderItem(currItem, itemIndex) );
 			while(underItem)
 			{
-				if(underItem->asTextFrame())
+				if (underItem->asTextFrame())
 					underItem->asTextFrame()->invalidateLayout(false);
 				else
 					underItem->invalidateLayout();
@@ -1740,7 +1740,7 @@ bool CanvasMode_Normal::SeleItem(QMouseEvent *m)
 				currItem->isSingleSel = true;
 			}
 		}
-		if(pageChanged)
+		if (pageChanged)
 		{
 			m_canvas->setForcedRedraw(true);
 			m_canvas->update();
@@ -1800,7 +1800,7 @@ bool CanvasMode_Normal::SeleItem(QMouseEvent *m)
 	m_doc->m_Selection->connectItemToGUI();
 	if ( !(m->modifiers() & SELECT_MULTIPLE))
 	{
-		if(m_doc->m_Selection->isEmpty())
+		if (m_doc->m_Selection->isEmpty())
 		{
 			m_canvas->setForcedRedraw(true);
 			m_canvas->update();
@@ -1871,7 +1871,7 @@ void CanvasMode_Normal::importToPage()
 			if ((testResult != -1) && (testResult >= FORMATID_FIRSTUSER))
 			{
 				const FileFormat * fmt = LoadSavePlugin::getFormatById(testResult);
-				if( fmt )
+				if (fmt)
 				{
 					fmt->loadFile(fileName, LoadSavePlugin::lfUseCurrentPage|LoadSavePlugin::lfInteractive|LoadSavePlugin::lfScripted);
 				}
@@ -1919,7 +1919,7 @@ void CanvasMode_Normal::createContextMenu(PageItem* currItem, double mx, double 
 //	qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 	m_view->setObjectUndoMode();
 	m_mouseCurrentPoint.setXY(mx, my);
-	if(currItem!=NULL)
+	if (currItem!=NULL)
 		cmen = new ContextMenu(*(m_doc->m_Selection), m_ScMW, m_doc);
 	else
 		cmen = new ContextMenu(m_ScMW, m_doc, mx, my);
