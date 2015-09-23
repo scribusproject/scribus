@@ -24,6 +24,7 @@ for which a new license (GPL+exception) is in place.
 #include <QDomDocument>
 #include <QFile>
 #include <QFileInfo>
+#include <QMessageBox>
 #include <QString>
 #include <QStringList>
 #include <QTableWidget>
@@ -41,11 +42,6 @@ for which a new license (GPL+exception) is in place.
 #include "util_file.h"
 
 extern ScribusQApp* ScQApp;
-
-#ifdef _WIN32
-#include <windows.h>
-#define sleep(t) Sleep(t*1000)
-#endif
 
 ResourceManager::ResourceManager(QWidget* parent)
 {
@@ -482,7 +478,7 @@ void ResourceManager::updateAvailableSpell()
 		return;
 	}
 	availableTableWidget->setRowCount(dictList.count());
-	availableTableWidget->setColumnCount(4);
+	availableTableWidget->setColumnCount(5);
 	availableTableWidget->setSortingEnabled(false);
 	int row=0;
 	foreach(DownloadItem d, dictList)
@@ -499,14 +495,17 @@ void ResourceManager::updateAvailableSpell()
 		newItem3->setCheckState(dictionaryMap.contains(d.lang) ? Qt::Checked : Qt::Unchecked);
 		newItem3->setFlags(newItem1->flags() & ~Qt::ItemIsUserCheckable);
 		availableTableWidget->setItem(row, column++, newItem3);
-		QTableWidgetItem *newItem4 = new QTableWidgetItem();
-		newItem4->setFlags(newItem1->flags());
-		newItem4->setCheckState(d.download ? Qt::Checked : Qt::Unchecked);
+		QTableWidgetItem *newItem4 = new QTableWidgetItem(d.license);
 		availableTableWidget->setItem(row, column++, newItem4);
+		newItem4->setFlags(newItem4->flags() & ~Qt::ItemIsEditable);
+		QTableWidgetItem *newItem5 = new QTableWidgetItem();
+		newItem5->setFlags(newItem1->flags());
+		newItem5->setCheckState(d.download ? Qt::Checked : Qt::Unchecked);
+		availableTableWidget->setItem(row, column++, newItem5);
 		++row;
 	}
 	QStringList headers;
-	headers << tr("Language") << tr("Code") << tr("Installed") << tr("Download");
+	headers << tr("Language") << tr("Code") << tr("Installed") << tr("License") << tr("Download");
 	availableTableWidget->setHorizontalHeaderLabels(headers);
 	availableTableWidget->resizeColumnsToContents();
 	availableTableWidget->setSortingEnabled(true);
@@ -710,6 +709,39 @@ void ResourceManager::downloadFilesFinished()
 
 }
 
+void ResourceManager::downloadLicenseFinished()
+{
+	disconnect(ScQApp->dlManager(), SIGNAL(finished()), this, SLOT(downloadLicenseFinished()));
+}
+
+void ResourceManager::downloadLicenseFileFinished(const QString &licenceFileName)
+{
+	disconnect(ScQApp->dlManager(), SIGNAL(fileReceived(const QString&)), this, SLOT(downloadLicenseFileFinished(const QString&)));
+	QFile dataFile(licenceFileName);
+	QTextStream ts(&dataFile);
+	QString data;
+	if (dataFile.exists())
+	{
+		dataFile.open(QIODevice::ReadOnly);
+		data = ts.readAll();
+		dataFile.close();
+	}
+	ResourceManagerLicense* rml = new ResourceManagerLicense(parentWidget());
+	rml->setText(data);
+	if (rml->exec())
+		rml->deleteLater();
+	if (dataFile.exists())
+		dataFile.remove();
+}
+
+void ResourceManager::downloadLicenseFileFailed(const QString&)
+{
+	QMessageBox msgBox;
+	msgBox.setText("The license file failed to download");
+	msgBox.setStandardButtons(QMessageBox::Ok);
+	msgBox.exec();
+}
+
 void ResourceManager::updateProgressBar()
 {
 	downloadProgressBar->setValue(downloadProgressBar->value() + 1);
@@ -824,6 +856,7 @@ void ResourceManager::showLicense()
 	int rows=availableTableWidget->rowCount();
 	QString licenceFileName;
 	QString lang;
+	//Find our item we want to show the license for. If downloaded, set localFile true
 	for (int i=0; i<rows; ++i)
 	{
 		QTableWidgetItem *dlItemI=availableTableWidget->item(i, 2);
@@ -840,7 +873,7 @@ void ResourceManager::showLicense()
 	{
 		bool doDownload=true;
 		QString data;
-		//Set up destination
+		//Set up destination and get from local file if it exists
 		if (localFile)
 		{
 			QString destinationFolder=findDestinationFolder();
@@ -854,10 +887,12 @@ void ResourceManager::showLicense()
 				doDownload=false;
 			}
 		}
+		//If we need to download the file
 		if (doDownload)
 		{
 			QStringList filesToDownload;
 			filesToDownload<<lang;
+			//There's only one here... foreach?
 			foreach(DownloadItem d, dictList)
 			{
 				if (filesToDownload.contains(d.desc))
@@ -865,18 +900,10 @@ void ResourceManager::showLicense()
 					if (d.filetype=="plain")
 					{
 						ScQApp->dlManager()->addURL(d.url+"/"+licenceFileName, true, ScPaths::downloadDir(), ScPaths::getTempFileDir());
-						//connect(ScQApp->dlManager(), SIGNAL(finished()), this, SLOT(downloadFilesFinished()));
+						connect(ScQApp->dlManager(), SIGNAL(finished()), this, SLOT(downloadLicenseFinished()));
+						connect(ScQApp->dlManager(), SIGNAL(fileReceived(const QString&)), this, SLOT(downloadLicenseFileFinished(const QString&)));
+						connect(ScQApp->dlManager(), SIGNAL(fileFailed(const QString&)), this, SLOT(downloadLicenseFileFailed(const QString&)));
 						ScQApp->dlManager()->startDownloads();
-					}
-					sleep(10);
-					QFile dataFile(ScPaths::getTempFileDir() + licenceFileName);
-					QTextStream ts(&dataFile);
-					if (dataFile.exists())
-					{
-						dataFile.open(QIODevice::ReadOnly);
-						data = ts.readAll();
-						dataFile.close();
-						doDownload=false;
 					}
 				}
 			}
@@ -884,10 +911,6 @@ void ResourceManager::showLicense()
 		//temp fake return as data ihas not been downloaded
 		if (doDownload)
 			return;
-		ResourceManagerLicense* rml = new ResourceManagerLicense(parentWidget());
-		rml->setText(data);
-		if (rml->exec())
-			rml->deleteLater();
 	}
 }
 

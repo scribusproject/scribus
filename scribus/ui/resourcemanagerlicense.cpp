@@ -32,8 +32,8 @@ ResourceManagerLicense::ResourceManagerLicense(QWidget* parent, Qt::WindowFlags 
 
 void ResourceManagerLicense::setText(const QString& s)
 {
-	td.setPlainText(s);
-	licenseTextEdit->setDocument(&td);
+	textDocument.setPlainText(s);
+	licenseTextEdit->setDocument(&textDocument);
 }
 
 void ResourceManagerLicense::languageChange()

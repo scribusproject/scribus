@@ -46,7 +46,7 @@ class SCRIBUS_API ResourceManagerLicense : public QDialog, Ui::ResourceManagerLi
 		void languageChange();
 
 	protected:
-		QTextDocument td;
+		QTextDocument textDocument;
 
 };
 
