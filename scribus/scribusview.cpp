@@ -2683,155 +2683,156 @@ QImage ScribusView::PageToPixmap(int Nr, int maxGr, bool drawFrame, bool drawBac
 	int clipy = static_cast<int>(Doc->DocPages.at(Nr)->yOffset() * sc);
 	int clipw = qRound(Doc->DocPages.at(Nr)->width() * sc);
 	int cliph = qRound(Doc->DocPages.at(Nr)->height() * sc);
-	if ((clipw > 0) && (cliph > 0))
+	if ((clipw <=0) || (cliph <= 0))
+		return im;
+
+	im = QImage(clipw, cliph, QImage::Format_ARGB32_Premultiplied);
+	if (im.isNull())
+		return im;
+
+	im.fill( qRgba(0, 0, 0, 0) );
+	double oldScale = m_canvas->scale();
+	double cx = Doc->minCanvasCoordinate.x();
+	double cy = Doc->minCanvasCoordinate.y();
+	Doc->minCanvasCoordinate = FPoint(0, 0);
+	bool oldFramesShown  = Doc->guidesPrefs().framesShown;
+	bool oldShowControls = Doc->guidesPrefs().showControls;
+	bool oldDrawAsPreview = Doc->drawAsPreview;
+	Doc->guidesPrefs().framesShown = false;
+	Doc->guidesPrefs().showControls = false;
+	bool cmsCorr = false;
+	if ((Doc->cmsSettings().CMSinUse) && (Doc->cmsSettings().GamutCheck))
 	{
-		im = QImage(clipw, cliph, QImage::Format_ARGB32_Premultiplied);
-		if (!im.isNull())
+		cmsCorr = true;
+		Doc->cmsSettings().GamutCheck = false;
+		Doc->enableCMS(true);
+	}
+	Doc->drawAsPreview = true;
+	m_canvas->setScale(sc);
+	m_canvas->setPreviewMode(true);
+	m_canvas->setForcedRedraw(true);
+	ScPage* act = Doc->currentPage();
+	bool mMode = Doc->masterPageMode();
+	Doc->setMasterPageMode(false);
+	Doc->setLoading(true);
+	Doc->setCurrentPage(Doc->DocPages.at(Nr));
+	ScPainter *painter = new ScPainter(&im, im.width(), im.height(), 1.0, 0);
+	if (drawBackground)
+		painter->clear(Doc->paperColor());
+	painter->translate(-clipx, -clipy);
+	painter->setFillMode(ScPainter::Solid);
+	if (drawFrame)
+	{
+		painter->setPen(Qt::black, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
+		painter->setBrush(Doc->paperColor());
+		painter->drawRect(clipx, clipy, clipw, cliph);
+	}
+	painter->beginLayer(1.0, 0);
+	painter->setZoomFactor(m_canvas->scale());
+
+	QList<QPair<PageItem*, int> > changedList;
+	ScPage* page = Doc->DocPages.at(Nr);
+	PageItem* currItem;
+	if (page->FromMaster.count() != 0)
+	{
+		uint pageFromMasterCount = page->FromMaster.count();
+		for (uint a = 0; a < pageFromMasterCount; ++a)
 		{
-			im.fill( qRgba(0, 0, 0, 0) );
-			double oldScale = m_canvas->scale();
-			double cx = Doc->minCanvasCoordinate.x();
-			double cy = Doc->minCanvasCoordinate.y();
-			Doc->minCanvasCoordinate = FPoint(0, 0);
-			bool oldFramesShown  = Doc->guidesPrefs().framesShown;
-			bool oldShowControls = Doc->guidesPrefs().showControls;
-			bool oldDrawAsPreview = Doc->drawAsPreview;
-			Doc->guidesPrefs().framesShown = false;
-			Doc->guidesPrefs().showControls = false;
-			bool cmsCorr = false;
-			if ((Doc->cmsSettings().CMSinUse) && (Doc->cmsSettings().GamutCheck))
-			{
-				cmsCorr = true;
-				Doc->cmsSettings().GamutCheck = false;
-				Doc->enableCMS(true);
-			}
-			Doc->drawAsPreview = true;
-			m_canvas->setScale(sc);
-			m_canvas->setPreviewMode(true);
-			m_canvas->setForcedRedraw(true);
-			ScPage* act = Doc->currentPage();
-			bool mMode = Doc->masterPageMode();
-			Doc->setMasterPageMode(false);
-			Doc->setLoading(true);
-			Doc->setCurrentPage(Doc->DocPages.at(Nr));
-			ScPainter *painter = new ScPainter(&im, im.width(), im.height(), 1.0, 0);
-			if (drawBackground)
-				painter->clear(Doc->paperColor());
-			painter->translate(-clipx, -clipy);
-			painter->setFillMode(ScPainter::Solid);
-			if (drawFrame)
-			{
-				painter->setPen(Qt::black, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
-				painter->setBrush(Doc->paperColor());
-				painter->drawRect(clipx, clipy, clipw, cliph);
-			}
-			painter->beginLayer(1.0, 0);
-			painter->setZoomFactor(m_canvas->scale());
-
-			QList<QPair<PageItem*, int> > changedList;
-			ScPage* page = Doc->DocPages.at(Nr);
-			PageItem* currItem;
-			if (page->FromMaster.count() != 0)
-			{
-				uint pageFromMasterCount = page->FromMaster.count();
-				for (uint a = 0; a < pageFromMasterCount; ++a)
-				{
-					currItem = page->FromMaster.at(a);
-					if (!currItem->asImageFrame() || !currItem->imageIsAvailable)
-						continue;
-					if (currItem->pixm.imgInfo.lowResType == 0)
-						continue;
-					changedList.append(qMakePair(currItem, currItem->pixm.imgInfo.lowResType));
-					currItem->pixm.imgInfo.lowResType = 0;
-					int fho = currItem->imageFlippedH();
-					int fvo = currItem->imageFlippedV();
-					double imgX = currItem->imageXOffset();
-					double imgY = currItem->imageYOffset();
-					Doc->loadPict(currItem->Pfile, currItem, true);
-					currItem->setImageFlippedH(fho);
-					currItem->setImageFlippedV(fvo);
-					currItem->setImageXOffset(imgX);
-					currItem->setImageYOffset(imgY);
-				}
-			}
-			if (Doc->Items->count() != 0)
-			{
-				FPoint orig = m_canvas->localToCanvas(QPoint(clipx, clipy));
-				QRectF cullingArea = QRectF(orig.x(), orig.y(), qRound(clipw / sc + 0.5), qRound(cliph / sc + 0.5));
-				for (int it = 0; it < Doc->Items->count(); ++it)
-				{
-					currItem = Doc->Items->at(it);
-					if (!cullingArea.intersects(currItem->getBoundingRect().adjusted(0.0, 0.0, 1.0, 1.0)))
-						continue;
-					if (!currItem->asImageFrame() || !currItem->imageIsAvailable)
-						continue;
-					if (currItem->pixm.imgInfo.lowResType == 0)
-						continue;
-					changedList.append(qMakePair(currItem, currItem->pixm.imgInfo.lowResType));
-					currItem->pixm.imgInfo.lowResType = 0;
-					int fho = currItem->imageFlippedH();
-					int fvo = currItem->imageFlippedV();
-					double imgX = currItem->imageXOffset();
-					double imgY = currItem->imageYOffset();
-					Doc->loadPict(currItem->Pfile, currItem, true);
-					currItem->setImageFlippedH(fho);
-					currItem->setImageFlippedV(fvo);
-					currItem->setImageXOffset(imgX);
-					currItem->setImageYOffset(imgY);
-				}
-			}
-
-			ScLayer layer;
-			layer.isViewable = false;
-			int layerCount = Doc->layerCount();
-			for (int layerLevel = 0; layerLevel < layerCount; ++layerLevel)
-			{
-				Doc->Layers.levelToLayer(layer, layerLevel);
-				m_canvas->DrawMasterItems(painter, Doc->DocPages.at(Nr), layer, QRect(clipx, clipy, clipw, cliph));
-				m_canvas->DrawPageItems(painter, layer, QRect(clipx, clipy, clipw, cliph), false);
-				m_canvas->DrawPageItems(painter, layer, QRect(clipx, clipy, clipw, cliph), true);
-			}
-			painter->endLayer();
-			painter->end();
-			delete painter;
-			painter=NULL;
-
-			if (changedList.count() != 0)
-			{
-				QPair<PageItem*, int> itemPair;
-				for (int it = 0; it < changedList.count(); it++)
-				{
-					itemPair = changedList.at(it);
-					currItem = itemPair.first;
-					currItem->pixm.imgInfo.lowResType = itemPair.second;
-					int fho = currItem->imageFlippedH();
-					int fvo = currItem->imageFlippedV();
-					double imgX = currItem->imageXOffset();
-					double imgY = currItem->imageYOffset();
-					Doc->loadPict(currItem->Pfile, currItem, true);
-					currItem->setImageFlippedH(fho);
-					currItem->setImageFlippedV(fvo);
-					currItem->setImageXOffset(imgX);
-					currItem->setImageYOffset(imgY);
-				}
-			}
-			if (cmsCorr)
-			{
-				Doc->cmsSettings().GamutCheck = true;
-				Doc->enableCMS(true);
-			}
-			Doc->drawAsPreview = oldDrawAsPreview;
-			Doc->guidesPrefs().framesShown  = oldFramesShown;
-			Doc->guidesPrefs().showControls = oldShowControls;
-			m_canvas->setScale(oldScale);
-			Doc->setMasterPageMode(mMode);
-			Doc->setCurrentPage(act);
-			Doc->setLoading(false);
-			m_canvas->setPreviewMode(Doc->drawAsPreview);
-			m_canvas->setForcedRedraw(false);
-			Doc->minCanvasCoordinate = FPoint(cx, cy);
+			currItem = page->FromMaster.at(a);
+			if (!currItem->asImageFrame() || !currItem->imageIsAvailable)
+				continue;
+			if (currItem->pixm.imgInfo.lowResType == 0)
+				continue;
+			changedList.append(qMakePair(currItem, currItem->pixm.imgInfo.lowResType));
+			currItem->pixm.imgInfo.lowResType = 0;
+			int fho = currItem->imageFlippedH();
+			int fvo = currItem->imageFlippedV();
+			double imgX = currItem->imageXOffset();
+			double imgY = currItem->imageYOffset();
+			Doc->loadPict(currItem->Pfile, currItem, true);
+			currItem->setImageFlippedH(fho);
+			currItem->setImageFlippedV(fvo);
+			currItem->setImageXOffset(imgX);
+			currItem->setImageYOffset(imgY);
 		}
 	}
+	if (Doc->Items->count() != 0)
+	{
+		FPoint orig = m_canvas->localToCanvas(QPoint(clipx, clipy));
+		QRectF cullingArea = QRectF(orig.x(), orig.y(), qRound(clipw / sc + 0.5), qRound(cliph / sc + 0.5));
+		for (int it = 0; it < Doc->Items->count(); ++it)
+		{
+			currItem = Doc->Items->at(it);
+			if (!cullingArea.intersects(currItem->getBoundingRect().adjusted(0.0, 0.0, 1.0, 1.0)))
+				continue;
+			if (!currItem->asImageFrame() || !currItem->imageIsAvailable)
+				continue;
+			if (currItem->pixm.imgInfo.lowResType == 0)
+				continue;
+			changedList.append(qMakePair(currItem, currItem->pixm.imgInfo.lowResType));
+			currItem->pixm.imgInfo.lowResType = 0;
+			int fho = currItem->imageFlippedH();
+			int fvo = currItem->imageFlippedV();
+			double imgX = currItem->imageXOffset();
+			double imgY = currItem->imageYOffset();
+			Doc->loadPict(currItem->Pfile, currItem, true);
+			currItem->setImageFlippedH(fho);
+			currItem->setImageFlippedV(fvo);
+			currItem->setImageXOffset(imgX);
+			currItem->setImageYOffset(imgY);
+		}
+	}
+
+	ScLayer layer;
+	layer.isViewable = false;
+	int layerCount = Doc->layerCount();
+	for (int layerLevel = 0; layerLevel < layerCount; ++layerLevel)
+	{
+		Doc->Layers.levelToLayer(layer, layerLevel);
+		m_canvas->DrawMasterItems(painter, Doc->DocPages.at(Nr), layer, QRect(clipx, clipy, clipw, cliph));
+		m_canvas->DrawPageItems(painter, layer, QRect(clipx, clipy, clipw, cliph), false);
+		m_canvas->DrawPageItems(painter, layer, QRect(clipx, clipy, clipw, cliph), true);
+	}
+	painter->endLayer();
+	painter->end();
+	delete painter;
+	painter=NULL;
+
+	if (changedList.count() != 0)
+	{
+		QPair<PageItem*, int> itemPair;
+		for (int it = 0; it < changedList.count(); it++)
+		{
+			itemPair = changedList.at(it);
+			currItem = itemPair.first;
+			currItem->pixm.imgInfo.lowResType = itemPair.second;
+			int fho = currItem->imageFlippedH();
+			int fvo = currItem->imageFlippedV();
+			double imgX = currItem->imageXOffset();
+			double imgY = currItem->imageYOffset();
+			Doc->loadPict(currItem->Pfile, currItem, true);
+			currItem->setImageFlippedH(fho);
+			currItem->setImageFlippedV(fvo);
+			currItem->setImageXOffset(imgX);
+			currItem->setImageYOffset(imgY);
+		}
+	}
+	if (cmsCorr)
+	{
+		Doc->cmsSettings().GamutCheck = true;
+		Doc->enableCMS(true);
+	}
+	Doc->drawAsPreview = oldDrawAsPreview;
+	Doc->guidesPrefs().framesShown  = oldFramesShown;
+	Doc->guidesPrefs().showControls = oldShowControls;
+	m_canvas->setScale(oldScale);
+	Doc->setMasterPageMode(mMode);
+	Doc->setCurrentPage(act);
+	Doc->setLoading(false);
+	m_canvas->setPreviewMode(Doc->drawAsPreview);
+	m_canvas->setForcedRedraw(false);
+	Doc->minCanvasCoordinate = FPoint(cx, cy);
+
 	return im;
 }
 #if 0
