@@ -736,6 +736,7 @@ void ResourceManager::downloadLicenseFileFinished(const QString &licenceFileName
 
 void ResourceManager::downloadLicenseFileFailed(const QString&)
 {
+	disconnect(ScQApp->dlManager(), SIGNAL(fileFailed(const QString&)), this, SLOT(downloadLicenseFileFailed(const QString&)));
 	QMessageBox msgBox;
 	msgBox.setText("The license file failed to download");
 	msgBox.setStandardButtons(QMessageBox::Ok);
