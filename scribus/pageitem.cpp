@@ -2338,16 +2338,16 @@ void PageItem::DrawSoftShadow(ScPainter *p)
 		p->beginLayer(1.0 - m_softShadowOpacity, m_softShadowBlendMode);
 	if (!hasFill())
 	{
-		double transF = fillTransparency();
-		double transS = lineTransparency();
-		bool savedShadow = hasSoftShadow();
+		double fillTrans_Old = fillTransparency();
+		double lineTrans_Old = lineTransparency();
+		bool   shadow_Old = hasSoftShadow();
 		double rotation_Old = m_rotation;
-		m_hasSoftShadow = false;
-		m_rotation = 0;
-		isEmbedded = true;
-		invalid = true;
 		fillTransparencyVal = 0.0;
 		lineTransparencyVal = 0.0;
+		m_rotation = 0;
+		m_hasSoftShadow = false;
+		isEmbedded = true;
+		invalid = true;
 		p->save();
 		p->translate(m_softShadowXOffset, m_softShadowYOffset);
 		DrawObj(p, QRectF());
@@ -2364,11 +2364,11 @@ void PageItem::DrawSoftShadow(ScPainter *p)
 			p->endLayer();
 			p->restore();
 		}
-		fillTransparencyVal = transF;
-		lineTransparencyVal = transS;
 		isEmbedded = false;
+		fillTransparencyVal = fillTrans_Old;
+		lineTransparencyVal = lineTrans_Old;
 		m_rotation = rotation_Old;
-		m_hasSoftShadow = savedShadow;
+		m_hasSoftShadow = shadow_Old;
 	}
 	else
 	{
@@ -2964,7 +2964,7 @@ void PageItem::setItemName(const QString& newName)
 	AutoName=false;
 	if (UndoManager::undoEnabled())
 	{
-		SimpleState *ss = new SimpleState(Um::Rename, QString(Um::FromTo).arg(AnName).arg(newName));
+		SimpleState *ss = new SimpleState(Um::Rename, QString(Um::FromTo).arg(oldName).arg(newName));
 		ss->set("OLD_NAME", oldName);
 		ss->set("NEW_NAME", newName);
 		undoManager->action(this, ss);
