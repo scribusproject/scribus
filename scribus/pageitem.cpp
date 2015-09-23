@@ -2302,7 +2302,7 @@ void PageItem::setItemName(const QString& newName)
 	AutoName = false;
 	if (UndoManager::undoEnabled())
 	{
-		SimpleState *ss = new SimpleState(Um::Rename, QString(Um::FromTo).arg(AnName).arg(newName));
+		SimpleState *ss = new SimpleState(Um::Rename, QString(Um::FromTo).arg(oldName).arg(newName));
 		ss->set("OLD_NAME", oldName);
 		ss->set("NEW_NAME", newName);
 		undoManager->action(this, ss);
