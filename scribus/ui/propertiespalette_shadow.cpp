@@ -222,9 +222,20 @@ void PropertiesPalette_Shadow::unitChange()
 		return;
 	m_unitRatio = m_doc->unitRatio();
 	m_unitIndex = m_doc->unitIndex();
+
+	bool sigBlocked1 = softShadowXOffset->blockSignals(true);
+	bool sigBlocked2 = softShadowYOffset->blockSignals(true);
+	bool sigBlocked3 = softShadowBlurRadius->blockSignals(true);
+	bool sigBlocked4 = this->model()->blockSignals(true);
+
 	softShadowXOffset->setUnitValue(m_unitIndex);
 	softShadowYOffset->setUnitValue(m_unitIndex);
 	softShadowBlurRadius->setUnitValue(m_unitIndex);
+
+	softShadowXOffset->blockSignals(sigBlocked1);
+	softShadowYOffset->blockSignals(sigBlocked2);
+	softShadowBlurRadius->blockSignals(sigBlocked3);
+	this->model()->blockSignals(sigBlocked4);
 }
 
 void PropertiesPalette_Shadow::updateColorList()

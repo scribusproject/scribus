@@ -374,9 +374,15 @@ void PropTreeItem::setStringValue(QString value)
 
 void PropTreeItem::setUnitValue(int unit)
 {
+	int oldUnit = m_unit;
 	m_unit = unit;
 	if (m_type == DoubleSpinBox)
-		setData(1, Qt::DisplayRole, QString("%1 %2").arg(data(1, Qt::UserRole).toDouble(), 0, 'f', m_decimals).arg(unitGetSuffixFromIndex(m_unit)));
+	{
+		double oldUnitRatio = unitGetRatioFromIndex(oldUnit);
+		double newUnitRatio = unitGetRatioFromIndex(unit);
+		double oldVal = data(1, Qt::UserRole).toDouble() / oldUnitRatio;
+		setDoubleValue(oldVal * newUnitRatio);
+	}
 	else
 		setData(1, Qt::DisplayRole, QString("%1 %2").arg(data(1, Qt::UserRole).toString()).arg(unitGetSuffixFromIndex(m_unit)));
 }
