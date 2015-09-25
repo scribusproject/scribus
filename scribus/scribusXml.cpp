@@ -2352,6 +2352,8 @@ void ScriXmlDoc::WriteITEXTs(ScXmlStreamWriter &writer, ScribusDoc *doc, PageIte
 
 void ScriXmlDoc::WriteLegacyCStyle (ScXmlStreamWriter& writer, const CharStyle& style)
 {
+	if ( ! style.parent().isEmpty() )
+		writer.writeAttribute("CPARENT", style.parent());
 	if ( ! style.isInhFont())	
 		writer.writeAttribute("CFONT", style.font().scName());
 	if ( ! style.isInhFontSize())
@@ -2504,6 +2506,9 @@ void ScriXmlDoc::WritePStyle (ScXmlStreamWriter& writer, const ParagraphStyle& s
 
 void ScriXmlDoc::ReadLegacyCStyle (const QXmlStreamAttributes& attrs, CharStyle& newStyle, ScribusDoc* doc)
 {
+	if (attrHasValue(attrs, "CPARENT"))
+		newStyle.setParent(attrAsString(attrs, "CPARENT", ""));
+
 	bool hasFont = attrHasValue(attrs, "CFONT");
 	QString tmpf = attrAsString(attrs, "CFONT", doc->toolSettings.defFont);
 	bool unknown = false;
