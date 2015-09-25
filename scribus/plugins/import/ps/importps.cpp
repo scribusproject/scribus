@@ -70,11 +70,11 @@ bool EPSPlug::import(QString fName, const TransactionSettings &trSettings, int f
 	CustColors.clear();
 	QFileInfo fi = QFileInfo(fName);
 	QString ext = fi.suffix().toLower();
-	if ( !ScCore->usingGUI() ) {
+	if (!ScCore->usingGUI()) {
 		interactive = false;
 		showProgress = false;
 	}
-	if ( showProgress ) 
+	if (showProgress) 
 	{
 		ScribusMainWindow* mw=(m_Doc==0) ? ScCore->primaryMainWindow() : m_Doc->scMW();
 		progressDialog = new MultiProgressDialog( tr("Importing: %1").arg(fi.fileName()), CommonStrings::tr_Cancel, mw);
@@ -435,7 +435,7 @@ bool EPSPlug::convert(QString fn, double x, double y, double b, double h)
 	args.append( QString("-sTraceFile=%1").arg(QDir::toNativeSeparators(tmpFile)) );
 	QString exportPath = m_Doc->DocName + "-" + fi.baseName();
 	QFileInfo exportFi(exportPath);
-	if ( !exportFi.isWritable() ) {
+	if (!exportFi.isWritable()) {
 		PrefsContext* docContext = PrefsManager::instance()->prefsFile->getContext("docdirs", false);
 		QString docDir = ".";
 		QString prefsDocDir=PrefsManager::instance()->documentDir();
@@ -810,7 +810,7 @@ void EPSPlug::parseOutput(QString fn, bool eps)
 				ClosedPath = true;
 			}
 			else if (token == "im") {
-				if ( !Image(params) )
+				if (!Image(params))
 					++failedImages;
 			}
 			lasttoken = token;
