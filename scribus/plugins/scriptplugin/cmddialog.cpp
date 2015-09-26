@@ -154,7 +154,7 @@ with header files structure untouched (docstrings are kept near declarations)
 PV */
 void cmddialogdocwarnings()
 {
-    QStringList s;
-    s << scribus_newdocdia__doc__ << scribus_filedia__doc__ << scribus_messdia__doc__;
-    s << scribus_valdialog__doc__ << scribus_newstyledialog__doc__;
+	QStringList s;
+	s << scribus_newdocdia__doc__ << scribus_filedia__doc__ << scribus_messdia__doc__;
+	s << scribus_valdialog__doc__ << scribus_newstyledialog__doc__;
 }

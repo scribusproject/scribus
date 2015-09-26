@@ -1451,7 +1451,7 @@ void XfigPlug::processText(QString data)
 	{
 		switch (font)
 		{
-    		case 1: // Roman
+			case 1: // Roman
 				TFont = "Times";
 				weight = QFont::Normal;
 				break;

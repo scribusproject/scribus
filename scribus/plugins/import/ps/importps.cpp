@@ -792,13 +792,13 @@ bool EPSPlug::Image(QString vals)
 	if (device.startsWith("psd")) {
 		filename = filename.mid(0, filename.length()-3) + "psd";
 	}
-		
+
 	qDebug("%s", QString("import %7 image %1: %2x%3 @ (%4,%5) °%6").arg(filename).arg(w).arg(h).arg(x).arg(y).arg(angle).arg(device).toLocal8Bit().data());
 	QString rawfile = filename.mid(0, filename.length()-3) + "dat";
 	QStringList args;
 	args.append( "-q" );
 	args.append( "-dNOPAUSE" );
-	args.append( QString("-sDEVICE=%1").arg(device) );    
+	args.append( QString("-sDEVICE=%1").arg(device) );
 	args.append( "-dBATCH" );
 	args.append( QString("-g%1x%2").arg(horpix).arg(verpix) );
 	args.append( QString("-sOutputFile=%1").arg(QDir::toNativeSeparators(filename)) );

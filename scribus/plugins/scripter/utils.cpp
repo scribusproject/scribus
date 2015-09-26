@@ -199,12 +199,12 @@ bool ItemExists(QString name)
  */
 bool checkHaveDocument()
 {
-    if (ScCore->primaryMainWindow()->HaveDoc)
-        return true;
-    // Caller is required to check for false return from this function
-    // and return NULL.
-    RAISE("Command does not make sense without an open document");
-    return false;
+	if (ScCore->primaryMainWindow()->HaveDoc)
+		return true;
+	// Caller is required to check for false return from this function
+	// and return NULL.
+	RAISE("Command does not make sense without an open document");
+	return false;
 }
 
 QStringList getSelectedItemsByName()

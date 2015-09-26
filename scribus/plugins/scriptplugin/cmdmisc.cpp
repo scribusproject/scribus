@@ -817,7 +817,7 @@ with header files structure untouched (docstrings are kept near declarations)
 PV */
 void cmdmiscdocwarnings()
 {
-    QStringList s;
+	QStringList s;
 	s << scribus_setredraw__doc__ << scribus_fontnames__doc__ 
 	  << scribus_xfontnames__doc__ << scribus_renderfont__doc__ 
 	  << scribus_getlayers__doc__ << scribus_setactlayer__doc__ 

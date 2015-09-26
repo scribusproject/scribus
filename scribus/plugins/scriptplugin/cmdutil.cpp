@@ -223,12 +223,12 @@ bool ItemExists(QString name)
  */
 bool checkHaveDocument()
 {
-    if (ScCore->primaryMainWindow()->HaveDoc)
-        return true;
-    // Caller is required to check for false return from this function
-    // and return NULL.
-    PyErr_SetString(NoDocOpenError, QString("Command does not make sense without an open document").toLocal8Bit().constData());
-    return false;
+	if (ScCore->primaryMainWindow()->HaveDoc)
+		return true;
+	// Caller is required to check for false return from this function
+	// and return NULL.
+	PyErr_SetString(NoDocOpenError, QString("Command does not make sense without an open document").toLocal8Bit().constData());
+	return false;
 }
 
 QStringList getSelectedItemsByName()

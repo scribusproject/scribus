@@ -5,18 +5,18 @@
 PDFlib::PDFlib(ScribusDoc & docu)
     : impl( new PDFLibCore(docu) )
 {
-    Q_ASSERT(impl);
+	Q_ASSERT(impl);
 }
 
 PDFlib::~PDFlib()
 {
-    delete static_cast<PDFLibCore*>(impl);
+	delete static_cast<PDFLibCore*>(impl);
 }
 
 bool PDFlib::doExport(const QString& fn, const QString& nam, int Components,
 			  const std::vector<int> & pageNs, const QMap<int,QPixmap> & thumbs)
 {
-    return static_cast<PDFLibCore*>(impl)->doExport(fn, nam, Components, pageNs, thumbs);
+	return static_cast<PDFLibCore*>(impl)->doExport(fn, nam, Components, pageNs, thumbs);
 }
 
 const QString& PDFlib::errorMessage(void)

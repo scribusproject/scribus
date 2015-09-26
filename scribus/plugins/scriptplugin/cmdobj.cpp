@@ -761,6 +761,6 @@ with header files structure untouched (docstrings are kept near declarations)
 PV */
 void cmdobjdocwarnings()
 {
-    QStringList s;
+	QStringList s;
 	s << scribus_newrect__doc__ <<scribus_newellipse__doc__ << scribus_newimage__doc__ << scribus_newtext__doc__ << scribus_newtable__doc__ << scribus_newline__doc__ <<scribus_polyline__doc__ << scribus_polygon__doc__ << scribus_bezierline__doc__ <<scribus_pathtext__doc__ <<scribus_deleteobj__doc__ <<scribus_textflow__doc__ <<scribus_objectexists__doc__ <<scribus_setstyle__doc__ <<scribus_getstylenames__doc__ <<scribus_getcharstylenames__doc__ <<scribus_duplicateobject__doc__ <<scribus_copyobject__doc__ <<scribus_pasteobject__doc__;
 }

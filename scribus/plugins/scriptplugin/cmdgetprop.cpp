@@ -332,8 +332,8 @@ with header files structure untouched (docstrings are kept near declarations)
 PV */
 void cmdgetpropdocwarnings()
 {
-    QStringList s;
-    s << scribus_getobjecttype__doc__ << scribus_getfillcolor__doc__ 
+	QStringList s;
+	s << scribus_getobjecttype__doc__ << scribus_getfillcolor__doc__
 	  << scribus_getfilltrans__doc__ << scribus_getfillblend__doc__ 
 	  << scribus_getlinecolor__doc__ << scribus_getlinetrans__doc__ 
 	  << scribus_getlineblend__doc__ << scribus_getlinewidth__doc__ 

@@ -1515,7 +1515,7 @@ void OODPlug::appendPoints(FPointArray *composite, const QDomElement& object, bo
 			composite->addPoint(point);
 			composite->addPoint(point);
 		}
-    }
+	}
 	if (closePath)
 	{
 		composite->addPoint(firstP);

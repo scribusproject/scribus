@@ -21,8 +21,8 @@ PropertyWidget_Flop::PropertyWidget_Flop(QWidget* parent) : QFrame(parent)
 	flopRealHeight->setChecked(true);
 
 	flopGroup->setId(flopRealHeight,  RealHeightID);
-    flopGroup->setId(flopFontAscent,  FontAscentID);
-    flopGroup->setId(flopLineSpacing, LineSpacingID);
+	flopGroup->setId(flopFontAscent,  FontAscentID);
+	flopGroup->setId(flopLineSpacing, LineSpacingID);
 	flopGroup->setId(flopBaselineGrid, BaselineGridID);
 
 	languageChange();

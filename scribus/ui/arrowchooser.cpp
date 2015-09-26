@@ -64,7 +64,7 @@ void ArrowChooser::rebuildList(QList<ArrowDesc> *arrowStyles)
 		delete painter;
 /*		int wi = image.width();
 		int hi = image.height();
-    	for( int yi=0; yi < hi; ++yi )
+		for( int yi=0; yi < hi; ++yi )
 		{
 			QRgb *s = (QRgb*)(image.scanLine( yi ));
 			for(int xi=0; xi < wi; ++xi )
@@ -73,8 +73,8 @@ void ArrowChooser::rebuildList(QList<ArrowDesc> *arrowStyles)
 					(*s) &= 0x00ffffff;
 				s++;
 			}
-    	} */
-    	QPixmap Ico;
+		} */
+		QPixmap Ico;
 		Ico=QPixmap::fromImage(image);
 		addItem(Ico, arrowStyles->at(a).name);
 	}

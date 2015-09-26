@@ -461,7 +461,7 @@ bool TextAPI::traceText()
 	ScCore->primaryMainWindow()->view->Deselect(true);
 	ScCore->primaryMainWindow()->view->SelectItem(item);
 	ScCore->primaryMainWindow()->view->TextToPath();
-    return true;
+	return true;
 }
 
 int TextAPI::textOverFlows(bool checkLinks)

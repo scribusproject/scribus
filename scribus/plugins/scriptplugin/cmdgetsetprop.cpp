@@ -493,7 +493,7 @@ with header files structure untouched (docstrings are kept near declarations)
 PV */
 void cmdgetsetpropdocwarnings()
 {
-    QStringList s;
-    s << scribus_propertyctype__doc__ << scribus_getpropertynames__doc__ << scribus_getproperty__doc__ << scribus_setproperty__doc__;
+	QStringList s;
+	s << scribus_propertyctype__doc__ << scribus_getpropertynames__doc__ << scribus_getproperty__doc__ << scribus_setproperty__doc__;
 	//Qt4 << scribus_getchildren__doc__ << scribus_getchild__doc__;
 }

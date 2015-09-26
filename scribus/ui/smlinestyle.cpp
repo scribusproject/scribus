@@ -693,7 +693,7 @@ void SMLineStyle::updateSList()
 
 void SMLineStyle::updatePreview()
 {
-    if (m_selection.count() < 1)
+	if (m_selection.count() < 1)
 		return;
 	
 	QPixmap pm = QPixmap(200, 37);

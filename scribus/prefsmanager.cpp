@@ -1607,7 +1607,7 @@ bool PrefsManager::WritePref(QString ho)
 		dcVerifierProfile.setAttribute("CheckOverflow", static_cast<int>(itcp.value().checkOverflow));
 		dcVerifierProfile.setAttribute("CheckPictures", static_cast<int>(itcp.value().checkPictures));
 		dcVerifierProfile.setAttribute("CheckResolution", static_cast<int>(itcp.value().checkResolution));
-        dcVerifierProfile.setAttribute("CheckPartFilledImageFrames", static_cast<int>(itcp.value().checkPartFilledImageFrames));
+		dcVerifierProfile.setAttribute("CheckPartFilledImageFrames", static_cast<int>(itcp.value().checkPartFilledImageFrames));
 		dcVerifierProfile.setAttribute("CheckTransparency", static_cast<int>(itcp.value().checkTransparency));
 		dcVerifierProfile.setAttribute("CheckAnnotations", static_cast<int>(itcp.value().checkAnnotations));
 		dcVerifierProfile.setAttribute("CheckRasterPDF", static_cast<int>(itcp.value().checkRasterPDF));

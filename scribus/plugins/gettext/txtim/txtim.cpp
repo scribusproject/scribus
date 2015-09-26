@@ -18,12 +18,12 @@ for which a new license (GPL+exception) is in place.
 
 QString FileFormatName()
 {
-    return QObject::tr("Text Files");
+	return QObject::tr("Text Files");
 }
 
 QStringList FileExtensions()
 {
-    return QStringList("txt");
+	return QStringList("txt");
 }
 
 void GetText(QString filename, QString encoding, bool textOnly, gtWriter *writer)

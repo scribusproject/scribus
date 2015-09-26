@@ -50,7 +50,7 @@ void GuidesDelegate::setModelData(QWidget *editor,
 
 void GuidesDelegate::updateEditorGeometry(QWidget *editor,
 										  const QStyleOptionViewItem &option,
-									      const QModelIndex &/* index */) const
+										  const QModelIndex &/* index */) const
 {
 	editor->setGeometry(option.rect);
 }

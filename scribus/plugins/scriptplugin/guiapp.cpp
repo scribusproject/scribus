@@ -137,8 +137,8 @@ with header files structure untouched (docstrings are kept near declarations)
 PV */
 void guiappdocwarnings()
 {
-    QStringList s;
-    s << scribus_messagebartext__doc__ << scribus_progressreset__doc__
+	QStringList s;
+	s << scribus_messagebartext__doc__ << scribus_progressreset__doc__
 			<< scribus_progresssettotalsteps__doc__ << scribus_progresssetprogress__doc__
 			<< scribus_setcursor__doc__ << scribus_docchanged__doc__
 			<< scribus_zoomdocument__doc__ << scribus_scrolldocument__doc__;

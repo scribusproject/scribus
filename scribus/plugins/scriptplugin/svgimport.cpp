@@ -208,6 +208,6 @@ with header files structure untouched (docstrings are kept near declarations)
 PV */
 void svgimportdocwarnings()
 {
-    QStringList s;
-    s << scribus_placevec__doc__ << scribus_placesvg__doc__ << scribus_placeeps__doc__ << scribus_placesxd__doc__ << scribus_placeodg__doc__;
+	QStringList s;
+	s << scribus_placevec__doc__ << scribus_placesvg__doc__ << scribus_placeeps__doc__ << scribus_placesxd__doc__ << scribus_placeodg__doc__;
 }

@@ -343,37 +343,37 @@ PyObject *scribus_inserttext(PyObject* /* self */, PyObject* args)
 
 PyObject *scribus_inserthtmltext(PyObject* /* self */, PyObject* args)
 {
-    char *name = const_cast<char*>("");
-    char *file;
-    QString data;
+	char *name = const_cast<char*>("");
+	char *file;
+	QString data;
 
-    if (!PyArg_ParseTuple(args, "es|es", "utf-8", &file, "utf-8", &name)) {
-        return NULL;
-    }
+	if (!PyArg_ParseTuple(args, "es|es", "utf-8", &file, "utf-8", &name)) {
+		return NULL;
+	}
 
-    if(!checkHaveDocument()) {
-        return NULL;
-    }
+	if(!checkHaveDocument()) {
+		return NULL;
+	}
 
-    PageItem *it = GetUniqueItem(QString::fromUtf8(name));
-    if (it == NULL) {
-        return NULL;
-    }
+	PageItem *it = GetUniqueItem(QString::fromUtf8(name));
+	if (it == NULL) {
+		return NULL;
+	}
 
-    if (!(it->asTextFrame()) && !(it->asPathText())) {
-        PyErr_SetString(WrongFrameTypeError,
-                QObject::tr("Cannot insert text into non-text frame.",
-                    "python error").toLocal8Bit().constData());
-        return NULL;
-    }
+	if (!(it->asTextFrame()) && !(it->asPathText())) {
+		PyErr_SetString(WrongFrameTypeError,
+				QObject::tr("Cannot insert text into non-text frame.",
+					"python error").toLocal8Bit().constData());
+		return NULL;
+	}
 
 	QString fileName = QString::fromUtf8(file);
 
-    gtGetText gt(ScCore->primaryMainWindow()->doc);
-    gt.launchImporter(-1, fileName, false, QString("utf-8"), false, it);
+	gtGetText gt(ScCore->primaryMainWindow()->doc);
+	gt.launchImporter(-1, fileName, false, QString("utf-8"), false, it);
 
-    // FIXME: PyMem_Free() - are any needed??
-    Py_RETURN_NONE;
+	// FIXME: PyMem_Free() - are any needed??
+	Py_RETURN_NONE;
 }
 
 PyObject *scribus_setalign(PyObject* /* self */, PyObject* args)
@@ -1182,8 +1182,8 @@ with header files structure untouched (docstrings are kept near declarations)
 PV */
 void cmdtextdocwarnings()
 {
-    QStringList s;
-    s << scribus_getfontsize__doc__    << scribus_getfont__doc__
+	QStringList s;
+	s << scribus_getfontsize__doc__    << scribus_getfont__doc__
 	  << scribus_gettextlines__doc__   << scribus_gettextsize__doc__
 	  << scribus_getframetext__doc__   << scribus_gettext__doc__
 	  << scribus_getlinespace__doc__   << scribus_getcolumngap__doc__

@@ -106,14 +106,14 @@ void Speller::Aspell::Suggest::listDicts(std::vector<std::string>& vals)
 	for( std::vector<AspellDictInfo>::const_iterator i = entries.begin();
              i != entries.end();
              ++i )
-        {
+		{
 		std::string jargon( i->jargon );
 		std::ostringstream fmt_entry;
 		fmt_entry << i->name << kDICT_DELIM << i->code << kDICT_DELIM
 			  << (jargon == "" ? kEMPTY : jargon) << kDICT_DELIM
 			  << i->size;
                 vals.push_back( fmt_entry.str() );
-        }
+		}
 }
 //__________________________________________________________________________
 void

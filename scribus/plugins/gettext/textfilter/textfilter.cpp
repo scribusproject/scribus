@@ -23,7 +23,7 @@ for which a new license (GPL+exception) is in place.
 
 QString FileFormatName()
 {
-    return QObject::tr("Text Filters");
+	return QObject::tr("Text Filters");
 }
 
 QStringList FileExtensions()

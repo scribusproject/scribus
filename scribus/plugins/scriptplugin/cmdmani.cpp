@@ -619,7 +619,7 @@ with header files structure untouched (docstrings are kept near declarations)
 PV */
 void cmdmanidocwarnings()
 {
-    QStringList s;
+	QStringList s;
 	s << scribus_moveobjrel__doc__ << scribus_moveobjabs__doc__
 	  << scribus_rotobjrel__doc__ << scribus_rotobjabs__doc__
 	  << scribus_sizeobjabs__doc__ << scribus_getselobjnam__doc__

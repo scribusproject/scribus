@@ -106,8 +106,8 @@ unsigned int WPGXParser::readVariableLengthInteger()
 
 WPGXParser& WPGXParser::operator=(const WPGXParser& parser)
 {
-    m_input = parser.m_input;
-    m_painter = parser.m_painter;
-    m_colorPalette = parser.m_colorPalette;
-    return *this;
+	m_input = parser.m_input;
+	m_painter = parser.m_painter;
+	m_colorPalette = parser.m_colorPalette;
+	return *this;
 }

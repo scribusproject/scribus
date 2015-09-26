@@ -48,7 +48,7 @@ void ShadeButton::setShade(QAction *act)
 	{
 		Query dia(this, "New", 1, tr("&Shade:"), tr("Shade"));
 		if (dia.exec())
-    	{
+		{
 			c = dia.getEditText().toInt(&ok);
 			if (ok)
 				b = qMax(qMin(c, 100),0);

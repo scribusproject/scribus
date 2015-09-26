@@ -173,6 +173,6 @@ with header files structure untouched (docstrings are kept near declarations)
 PV */
 void cmdstyledocwarnings()
 {
-    QStringList s;
-    s << scribus_createparagraphstyle__doc__ << scribus_createcharstyle__doc__;
+	QStringList s;
+	s << scribus_createparagraphstyle__doc__ << scribus_createcharstyle__doc__;
 }

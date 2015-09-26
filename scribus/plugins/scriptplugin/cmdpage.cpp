@@ -507,8 +507,8 @@ with header files structure untouched (docstrings are kept near declarations)
 PV */
 void cmdpagedocwarnings()
 {
-    QStringList s;
-    s << scribus_newpage__doc__        << scribus_pageposition__doc__
+	QStringList s;
+	s << scribus_newpage__doc__        << scribus_pageposition__doc__
 	  << scribus_actualpage__doc__     << scribus_redraw__doc__
 	  << scribus_savepageeps__doc__    << scribus_deletepage__doc__
 	  << scribus_gotopage__doc__       << scribus_pagecount__doc__

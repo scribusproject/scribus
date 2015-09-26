@@ -54,7 +54,7 @@ void SeList::mouseReleaseEvent(QMouseEvent *m)
 	{
 		QMenu *pmen = new QMenu();
 //		qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
-        QAction *px = pmen->addAction( tr("Show Page Previews"), this, SLOT(toggleThumbnail()));
+		QAction *px = pmen->addAction( tr("Show Page Previews"), this, SLOT(toggleThumbnail()));
 		px->setCheckable(true);
 		if (Thumb)
 			px->setChecked(true);
@@ -135,7 +135,7 @@ SeView::SeView(QWidget* parent) : QTableWidget(parent)
 {
 	setDragEnabled(true);
 	setAcceptDrops(true);
-    setDropIndicatorShown(true);
+	setDropIndicatorShown(true);
 //	viewport()->setAcceptDrops(true);
 	setShowGrid(false);
 	setWordWrap(true);
@@ -225,7 +225,7 @@ void SeView::dropEvent(QDropEvent * e)
 	bool lastPage = false;
 	if (e->mimeData()->hasFormat("page/magic"))
 	{
-        e->setDropAction(Qt::MoveAction);
+		e->setDropAction(Qt::MoveAction);
 		e->accept();
 		// HACK to prevent strange Qt4 cursor behaviour after dropping. It's examined by Trolltech now - PV.
 		// It's the one and only reason why to include QApplication here.

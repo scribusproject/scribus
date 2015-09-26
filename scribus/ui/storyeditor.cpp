@@ -2966,7 +2966,7 @@ void StoryEditor::updateTextFrame()
 	// #9180 : force relayout here, it appears that relayout is sometime disabled
 	// to speed up selection, but re layout() cannot be avoided here
 	if (nextItem->asTextFrame())
-        nextItem->asTextFrame()->invalidateLayout(true);
+		nextItem->asTextFrame()->invalidateLayout(true);
 	nextItem->layout();
 #if 0
 	QList<PageItem*> FrameItemsDel;

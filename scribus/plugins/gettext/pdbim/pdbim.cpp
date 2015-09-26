@@ -38,7 +38,7 @@ QString FileFormatName()
 
 QStringList FileExtensions()
 {
-    return QStringList("pdb");
+	return QStringList("pdb");
 }
 
 void GetText(QString filename, QString encoding, bool /* textOnly */, gtWriter *writer)
