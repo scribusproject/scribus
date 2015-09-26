@@ -14,6 +14,7 @@ except ImportError:
 import re
 
 TITLE = "Word count"
+messageBox(TITLE, "running", ICON_INFORMATION)
 
 def wordsplit(text):
     word_pattern = "([A-Za-zäöüÄÖÜß]+)"
@@ -35,8 +36,7 @@ def main():
                 text = getText(getSelectedObject(i))
                 words += len(wordsplit(text))
             except WrongFrameTypeError:
-                if sel_count == 1:
-                    # If there's only one object selected, display a message
+                if sel_count == 1: # If there's only one object selected, display a message
                     messageBox(TITLE, "Can't count words in a non-text frame", ICON_INFORMATION);
                     sys.exit(1)
                 else:
@@ -52,10 +52,9 @@ def main():
                     words += len(wordsplit(text))
                 except WrongFrameTypeError:
                     pass # ignore the error, it just wasn't a frame we can count
-
-    if words == 0: words = "No"
-    messageBox(TITLE, "%s words counted in %s" % (words, source),
-               ICON_INFORMATION)
+    if (words == 0):
+        words = "No"
+        messageBox(TITLE, "%s words counted in %s" % (words, source), ICON_INFORMATION)
 
 
 if __name__ == '__main__':
