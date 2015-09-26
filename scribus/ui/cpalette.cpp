@@ -253,7 +253,6 @@ void Cpalette::setCurrentItem(PageItem* item)
 	if (!currentItem)
 		return;
 
-	updateCList();
 	showOverprint(currentItem->doOverprint ? 1 : 0);
 	showColorValues(currentItem->lineColor(), currentItem->fillColor(), currentItem->lineShade(), currentItem->fillShade());
 	showGradient(currentItem->gradientType());
@@ -377,6 +376,7 @@ void Cpalette::setDocument(ScribusDoc* doc)
 		currentUnit = doc->unitIndex();
 
 		updateColorList();
+		updateCList();
 
 		connect(this, SIGNAL(NewPen(QString))      , doc, SLOT(itemSelection_SetItemPen(QString)));
 		connect(this, SIGNAL(NewBrush(QString))    , doc, SLOT(itemSelection_SetItemBrush(QString)));
