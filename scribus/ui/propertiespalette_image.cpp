@@ -772,26 +772,31 @@ void PropertiesPalette_Image::handleCompressionQuality()
 
 void PropertiesPalette_Image::languageChange()
 {
-	imgDPIXLabel->setText( tr("Actual X-DPI:"));
-	imgDPIYLabel->setText( tr("Actual Y-DPI:"));
+	imagePageNumberLabel->setText( tr("&Page Number:"));
+	imagePageNumber->setSpecialValueText( tr( "Auto" ));
 	xposImgLabel->setText( tr("&X-Pos:"));
 	yposImgLabel->setText( tr("&Y-Pos:"));
-	xscaleLabel->setText( tr("X-Sc&ale:"));
-	yscaleLabel->setText( tr("Y-Scal&e:"));
-	freeScale->setText( tr("&Free Scaling"));
-	frameScale->setText( tr("&To Frame Size"));
-	imagePageNumber->setSpecialValueText( tr( "Auto" ));
-	imagePageNumberLabel->setText( tr("&Page Number:"));
 	imageRotationLabel->setText( tr("Rotation:"));
 
+	scalingGroupBox->setTitle( tr("Scaling"));
+	freeScale->setText( tr("&Free Scaling"));
+	xscaleLabel->setText( tr("X-Sc&ale:"));
+	yscaleLabel->setText( tr("Y-Scal&e:"));
+	imgDPIXLabel->setText( tr("Actual X-DPI:"));
+	imgDPIYLabel->setText( tr("Actual Y-DPI:"));
+	frameScale->setText( tr("&To Frame Size"));
 	cbProportional->setText( tr("P&roportional"));
-	imgEffectsButton->setText( tr("Image Effects"));
-	imgExtProperties->setText( tr("Extended Properties"));
 
+	colorMgmtGroup->setTitle( tr("Color Management"));
 	inputProfLabel->setText( tr("Input Profile:"));
 	renderIntentLabel->setText( tr("Rendering Intent:"));
+
+	pdfCompressionGroup->setTitle( tr("PDF Compression"));
 	compressionMethodLabel->setText( tr("Method:"));
 	compressionQualityLabel->setText( tr("Quality:"));
+
+	imgEffectsButton->setText( tr("Image Effects"));
+	imgExtProperties->setText( tr("Extended Properties"));
 
 	int oldMonitorI=renderIntent->currentIndex();
 	renderIntent->clear();
