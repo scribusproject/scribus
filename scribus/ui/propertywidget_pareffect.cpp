@@ -570,10 +570,11 @@ void PropertyWidget_ParEffect::languageChange()
 	numStartLabel->setText(tr("Start"));
 	numPrefixLabel->setText(tr("Prefix"));
 	numSuffixLabel->setText(tr("Suffix"));
-	peOffsetLabel->setText(tr("Offset"));
+	peGroup->setTitle(tr("Effect Parameters"));
 	peIndent->setText(tr("Auto-Indent"));
+	peOffsetLabel->setText(tr("Offset"));
 	peCharStyleLabel->setText(tr("Char Style"));
-	peCharStyleCombo->setToolTip(tr("Choose chracter style or leave blank for use default paragraph style"));
+	peCharStyleCombo->setToolTip(tr("Choose character style or leave blank for use default paragraph style"));
 }
 
 void PropertyWidget_ParEffect::openEnhanced()

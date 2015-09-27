@@ -629,13 +629,14 @@ void PropertiesPalette_Text::languageChange()
 {
 	paraStyleLabel->setText( tr("Paragraph St&yle:"));
 	charStyleLabel->setText( tr("Character St&yle:"));
-	
+
 	colorWidgetsItem->setText(0, tr("Color && Effects"));
-	advancedWidgetsItem->setText(0, tr("Advanced Settings"));
 	flopItem->setText(0, tr("First Line Offset"));
+	orphanItem->setText(0, tr("Orphans and Widows"));
+	parEffectItem->setText(0, tr("Paragraph Effects"));
 	distanceItem->setText(0, tr("Columns && Text Distances"));
 	optMarginsItem->setText(0, tr("Optical Margins"));
-	orphanItem->setText(0, tr("Orphans and Widows"));
+	advancedWidgetsItem->setText(0, tr("Advanced Settings"));
 	pathTextItem->setText(0, tr("Path Text Properties"));
 
 	int oldLineSpacingMode = lineSpacingModeCombo->currentIndex();
@@ -649,12 +650,12 @@ void PropertiesPalette_Text::languageChange()
 	fontSize->setSuffix(ptSuffix);
 	lineSpacing->setSuffix(ptSuffix);
 
-	advancedWidgets->languageChange();
 	colorWidgets->languageChange();
-	distanceWidgets->languageChange();
 	flopBox->languageChange();
-	optMargins->languageChange();
 	orphanBox->languageChange();
+	distanceWidgets->languageChange();
+	optMargins->languageChange();
+	advancedWidgets->languageChange();
 	pathTextWidgets->languageChange();
 
 	textAlignment->languageChange();
