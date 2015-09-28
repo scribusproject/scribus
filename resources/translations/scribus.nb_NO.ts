@@ -4046,43 +4046,11 @@ Nå %2 x %3 ppt</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>If you have created an image frame, there is the presumption that you planned to put an image in it.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>If you have created a text frame, there is the presumption that you planned to put text in it.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Imported document contains non-embedded fonts</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>When some imported document uses non-embedded fonts, then their rendering will be wrong, unless by chance you have them installed on their system, but that cannot be guaranteed in case you want to share the resulting document.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>This is a user definable setting serving as a caution for high resolution images, which may lead to unnecessarily large files.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>This warning alerts you that you are using a bitmap based graphic format that is typically not used for high resolution images (.gif is one of those). This may result in poor viewing quality (for example: when commercially printed, viewed on a high-resolution screens, etc...). If your PDF will be printed commercially, there are some printing systems that will have difficulty printing these types of images.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>This is a user definable setting serving as a caution for low resolution images, which may lead to poor quality output.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>You have one or more characters which do not have a corresponding glyph in your chosen font.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>The assigned image file cannot be found.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>An object is placed somewhere outside of the page borders, it will not be printed and might be missing somewhere.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -4127,6 +4095,38 @@ Nå %2 x %3 ppt</translation>
     </message>
     <message>
         <source>Preflight profile to base the report generation on. Options can be set in Document Setup or Preferences.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>If you have created an image frame, there is the presumption that you planned to put an image in it</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>If you have created a text frame, there is the presumption that you planned to put text in it</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>When some imported document uses non-embedded fonts, then their rendering will be wrong, unless by chance you have them installed on their system, but that cannot be guaranteed in case you want to share the resulting document</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This is a user definable setting serving as a caution for high resolution images, which may lead to unnecessarily large files</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This is a user definable setting serving as a caution for low resolution images, which may lead to poor quality output</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You have one or more characters which do not have a corresponding glyph in your chosen font</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The assigned image file cannot be found</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>An object is placed somewhere outside of the page borders, it will not be printed and might be missing somewhere</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -18728,6 +18728,18 @@ a range of pages or a single page number</source>
         <source>&amp;To Frame Size</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Scaling</source>
+        <translation type="unfinished">Skalering</translation>
+    </message>
+    <message>
+        <source>Color Management</source>
+        <translation type="unfinished">Fargehåndtering …</translation>
+    </message>
+    <message>
+        <source>PDF Compression</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>PropertiesPalette_ImageBase</name>
@@ -19899,6 +19911,10 @@ Transparency</source>
         <source>Bottom</source>
         <translation type="unfinished">Bunnen</translation>
     </message>
+    <message>
+        <source>Vertical Alignment</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>PropertyWidget_DistanceBase</name>
@@ -20269,15 +20285,19 @@ Transparency</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Choose chracter style or leave blank for use default paragraph style</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>No Paragraph Effects</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Numerated List</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Effect Parameters</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Choose character style or leave blank for use default paragraph style</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -23756,6 +23776,14 @@ Please choose another.</source>
         <source>Location</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Licence</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>License</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ResourceManagerBase</name>
@@ -23801,6 +23829,17 @@ Please choose another.</source>
     </message>
     <message>
         <source>Update Available List</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show License</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>ResourceManagerLicenseBase</name>
+    <message>
+        <source>License</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -28129,7 +28168,7 @@ Former monitor profile will be used.</source>
     </message>
     <message>
         <source>&amp;Insert Glyph...</source>
-        <translation>&amp;Sett inn glyff …</translation>
+        <translation type="vanished">&amp;Sett inn glyff …</translation>
     </message>
     <message>
         <source>Clear All Text</source>
@@ -28174,15 +28213,19 @@ Former monitor profile will be used.</source>
         <translation>Mellomrom</translation>
     </message>
     <message>
-        <source>&amp;Sample Text...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>&amp;Smart Text Selection</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Text Files (*.txt);;All Files (*)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Glyph...</source>
+        <translation type="unfinished">&amp;Glyff …</translation>
+    </message>
+    <message>
+        <source>&amp;Sample Text</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -28516,6 +28559,14 @@ Former monitor profile will be used.</source>
     <name>SymbolPalette</name>
     <message>
         <source>Symbols</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Edit Item</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Remove Item</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
