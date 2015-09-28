@@ -333,8 +333,6 @@ void ScripterCore::slotRunScriptFile(QString fileName, QStringList arguments, bo
 		// other return value (most likely None anyway) and can ignore it.
 		if (result == NULL)
 		{
-			// We've already saved the exception text, so clear the exception
-			PyErr_Clear();
 			PyObject* errorMsgPyStr = PyMapping_GetItemString(globals, (char*)"_errorMsg");
 			if (errorMsgPyStr == NULL)
 			{
@@ -360,6 +358,8 @@ void ScripterCore::slotRunScriptFile(QString fileName, QStringList arguments, bo
 									+ tr("This message is in your clipboard too. Use Ctrl+V to paste it into bug tracker.")
 									+ "</p></qt>");
 			}
+			// We've already processed the exception text, so clear the exception
+			PyErr_Clear();
 		} // end if result == NULL
 		// Because 'result' may be NULL, not a PyObject*, we must call PyXDECREF not Py_DECREF
 		Py_XDECREF(result);
