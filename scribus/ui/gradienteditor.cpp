@@ -171,8 +171,7 @@ void GradientEditor::changeEvent(QEvent *e)
 
 void GradientEditor::languageChange()
 {
-	Desc->setText( tr( "Position:" ) );
-	stopPos->setSuffix( tr(" %") );
+	retranslateUi(this);
 }
 
 bool GradientEditor::event(QEvent * event)

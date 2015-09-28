@@ -649,7 +649,7 @@ void PropertiesPalette_Line::languageChange()
 	lineType->updateList();
 	lineType->addItem( tr("Custom"));
 	lineType->setCurrentIndex(oldLineStyle);
-	int oldLineMode=lineMode->currentIndex();
+	int oldLineMode = lineMode->currentIndex();
 	lineMode->clear();
 	lineMode->addItem( tr("Left Point"));
 	lineMode->addItem( tr("End Points"));

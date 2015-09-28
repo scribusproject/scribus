@@ -58,7 +58,7 @@
     </widget>
    </item>
    <item row="1" column="0">
-    <widget class="QLabel" name="Desc">
+    <widget class="QLabel" name="stopPosLabel">
      <property name="text">
       <string>Position:</string>
      </property>
@@ -75,7 +75,7 @@
     </widget>
    </item>
    <item row="2" column="0">
-    <widget class="QLabel" name="label">
+    <widget class="QLabel" name="stopColorLabel">
      <property name="text">
       <string>Color:</string>
      </property>
@@ -85,7 +85,7 @@
     <widget class="ColorCombo" name="stopColor"/>
    </item>
    <item row="3" column="0">
-    <widget class="QLabel" name="label_2">
+    <widget class="QLabel" name="stopOpacityLabel">
      <property name="text">
       <string>Opacity:</string>
      </property>
@@ -108,7 +108,7 @@
     </widget>
    </item>
    <item row="4" column="0">
-    <widget class="QLabel" name="label_3">
+    <widget class="QLabel" name="stopShadeLabel">
      <property name="text">
       <string>Shade:</string>
      </property>
