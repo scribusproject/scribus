@@ -164,9 +164,6 @@ void ScribusQApp::parseCommandLine()
 	QStringList args = arguments();
 	int argsc = args.count();
 
-	//Init translations
-	initLang();
-	
 	useGUI = true;
 	int argi = 1;
 	for( ; argi < argsc; argi++) { //handle options (not positional parameters)
@@ -267,7 +264,8 @@ void ScribusQApp::parseCommandLine()
 			filesToLoad.append(fileName);
 		}
 	}
-
+	//Init translations
+	initLang();
 	
 	//Show command line info
 	if (header) {
