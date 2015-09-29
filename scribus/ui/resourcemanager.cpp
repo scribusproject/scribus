@@ -909,9 +909,6 @@ void ResourceManager::showLicense()
 				}
 			}
 		}
-		//temp fake return as data ihas not been downloaded
-		if (doDownload)
-			return;
 	}
 }
 
