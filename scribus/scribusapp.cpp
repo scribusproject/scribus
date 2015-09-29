@@ -333,6 +333,21 @@ QStringList ScribusQApp::getLang(QString lang)
 	if (!lang.isEmpty())
 		langs.push_back(lang);
 
+	if (!(lang = ::getenv("LC_ALL")).isEmpty())
+	{
+		if (lang=="C")
+			lang="en";
+		langs.push_back(lang);
+	}
+	if (!(lang = ::getenv("LANG")).isEmpty())
+	{
+		if (lang=="C")
+			lang="en";
+		langs.push_back(lang);
+	}
+	if (!(lang = ::getenv("LC_MESSAGES")).isEmpty())
+		langs.push_back(lang);
+
 	//add in user preferences lang, only overridden by lang command line option
 	QString Pff = QDir::toNativeSeparators(ScPaths::getApplicationDataDir());
 	QFileInfo Pffi = QFileInfo(Pff);
@@ -359,13 +374,6 @@ QStringList ScribusQApp::getLang(QString lang)
 			delete prefsFile;
 		}
 	}
-
-	if (!(lang = ::getenv("LC_ALL")).isEmpty())
-		langs.push_back(lang);
-	if (!(lang = ::getenv("LC_MESSAGES")).isEmpty())
-		langs.push_back(lang);
-	if (!(lang = ::getenv("LANG")).isEmpty())
-		langs.push_back(lang);
 
 #if defined(_WIN32)
 	wchar_t out[256];
@@ -398,7 +406,6 @@ QStringList ScribusQApp::getLang(QString lang)
 		if (langs.count(*it) > 1)
 			it = langs.erase(it);
 	}
-
 	return langs;
 }
 
