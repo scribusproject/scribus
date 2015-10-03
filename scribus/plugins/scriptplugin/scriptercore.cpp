@@ -262,16 +262,8 @@ void ScripterCore::slotRunScriptFile(QString fileName, QStringList arguments, bo
 
 	// Make sure sys.argv[0] is the path to the script
 	arguments.prepend(na.data());
-	
-	// and tell the script if it's running in the main intepreter or
-	// a subinterpreter using the second argument, ie sys.argv[1]
-	if (inMainInterpreter)
-		arguments.insert(1,QString("ext"));
-	else
-		arguments.insert(1,QString("sub"));
-
 	//convert arguments (QListString) to char** for Python bridge
-	/* typically arguments == ['path/to/script.py','ext','--argument1','valueforarg1','--flag']*/
+	/* typically arguments == ['path/to/script.py','--argument1','valueforarg1','--flag']*/
 	char **comm = new char*[arguments.size()];
 	for (int i = 0; i < arguments.size(); i++)
 	{
@@ -309,6 +301,12 @@ void ScripterCore::slotRunScriptFile(QString fileName, QStringList arguments, bo
 		// Replace sys.stdin with a dummy StringIO that always returns
 		// "" for read
 		cm        += QString("sys.stdin = cStringIO.StringIO()\n");
+		// tell the script if it's running in the main intepreter or a subinterpreter
+		cm        += QString("import scribus\n");
+		if (inMainInterpreter)
+			cm+= QString("scribus.mainInterpreter = True\n");
+		else
+			cm+= QString("scribus.mainInterpreter = False\n");
 		cm        += QString("try:\n");
 		cm        += QString("    execfile(\"%1\")\n").arg(escapedFileName);
 		cm        += QString("except SystemExit:\n");
@@ -414,7 +412,8 @@ void ScripterCore::slotRunScript(const QString Script)
 				"    scribus._bu = cStringIO.StringIO()\n"
 				"    sys.stdout = scribus._bu\n"
 				"    sys.stderr = scribus._bu\n"
-				"    sys.argv = ['scribus', 'ext']\n" // this is the PySys_SetArgv replacement
+				"    sys.argv = ['scribus']\n" // this is the PySys_SetArgv replacement
+				"    scribus.mainInterpreter = True\n" // the scripter console runs everything in the main interpreter
 				"    for i in scribus.getval().splitlines():\n"
 				"        scribus._ia.push(i)\n"
 				"    scribus.retval(scribus._bu.getvalue())\n"
@@ -434,10 +433,7 @@ void ScripterCore::slotRunScript(const QString Script)
 	Anyway - sys.argv is set above
 	char* comm[1];
 	comm[0] = const_cast<char*>("scribus");
-	// the scripter console runs everything in the main interpreter
-	// tell the code it's running there.
-	comm[1] = const_cast<char*>("ext");
-	PySys_SetArgv(2, comm); */
+	PySys_SetArgv(1, comm); */
 	// then run the code
 	PyObject* m = PyImport_AddModule((char*)"__main__");
 	if (m == NULL)
