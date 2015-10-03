@@ -1,6 +1,129 @@
 Scribus - 1.5.1.svn (Released 2015-xx-xx)
 ========================================
-
+- 0013386: [General] scribus does not honor "LC_ALL=C" nor "LANG=C" (cbradney) - resolved.
+- 0013376: [Scripter] [Patch] Python error cleared too early (cbradney) - resolved.
+- 0012821: [Language Tools] Hints in hyphen dialog (cbradney) - resolved.
+- 0013203: [Translation] Dummy Placeholder texts in translation files (cbradney) - resolved.
+- 0013311: [Integration] [PATCH] support for command line arguments to be passed on to python script (-py option) (cbradney) - resolved.
+- 0013233: [Import / Export] PDF Import: Wrong colors after Text import (fschmid) - resolved.
+- 0013173: [PDF] Crash with fonts embed/subset config in PDF Export Dialog (jghali) - resolved.
+- 0011013: [PDF] When exporting to PDF the default should be to embed the fonts (jghali) - resolved.
+- 0012920: [PDF] Scribus should ensure fonts are either embeded or outlined (jghali) - resolved.
+- 0013378: [User Interface] Fix non updated strings in "gradienteditor" after language change (FirasH) - closed.
+- 0013380: [OS-MacOSX] [Regression] CLI flag -l <language> doesn't work (cbradney) - closed.
+- 0013374: [User Interface] Fix non updated strings in Properties > Text after language change (FirasH) - closed.
+- 0013375: [User Interface] Fix non updated strings in Properties > Image after language change (FirasH) - closed.
+- 0013371: [User Interface] Part 6: fix inconsistent tooltips (FirasH) - closed.
+- 0012937: [Download Manager] Add pop-up dialogs for licences to the resource manager (cbradney) - closed.
+- 0013217: [PDF] large group incorrectly clipped on PDF output (jghali) - closed.
+- 0013367: [Undo/Redo] Changing document unit records useless Undo actions (jghali) - closed.
+- 0013249: [Build System] [PATCH] fix a couple of warnings when running lupdate (jghali) - closed.
+- 0013361: [User Interface] Keep "Edit" and "Insert" menu consistent in Toolbar and Story Editor (FirasH) - closed.
+- 0013356: [General] It is not possible to name a Symbol like a Symbol previously deleted (fschmid) - closed.
+- 0013179: [General] GNOME: Please provide a bigger icon for Scribus (for HiDPI screen) (cbradney) - closed.
+- 0013228: [OS-MacOSX] correctly set the default path to gimp (cbradney) - closed.
+- 0013291: [User Interface] Add Edit/Remove in right-click menu of Symbols palette (fschmid) - closed.
+- 0013290: [General] Actions applied to "Empty Symbols" are very likely cause of crash (fschmid) - closed.
+- 0013299: [User Interface] Fix currentIndex of Hyphenator tabs in Preferences dialog (FirasH) - closed.
+- 0013332: [Canvas] Flipped items drag preview is not flipped (fschmid) - closed.
+- 0013334: [PDF] Unify PDF/X Headline (jghali) - closed.
+- 0010717: [Import / Export] misplacement of elements on PS import (fschmid) - closed.
+- 0013347: [Undo/Redo] Undo/Redo of "Get Image" leads to empty Image Frame (jghali) - closed.
+- 0013342: [User Interface] Inconsistent naming of Measurements dialog (cbradney) - closed.
+- 0013224: [Build System] Build fails when librevenge not installed and libcdr, libvisio or libmspub installed (cbradney) - closed.
+- 0013210: [Language Tools] [Patch] Add hyphenation for Welsh (cbradney) - closed.
+- 0011351: [User Interface] Icons for some actions are harder to use in 1.5.0svn (cbradney) - closed.
+- 0013189: [PDF] 1.5.1svn does not export vector objects to PDF 1.3 and crashes for other PDF versions (jghali) - closed.
+- 0013077: [PDF] Crash when exporting to pdf with embedded fonts (avox) - closed.
+- 0013320: [User Interface] Wrong tooltips in File > Preferences > "Margins & Bleeds" (jghali) - closed.
+- 0013344: [User Interface] Fix some tabstops in Preferences/Document Setup dialog (FirasH) - closed.
+- 0013343: [Usability] pressing TAB jumps around in color edit window (jghali) - closed.
+- 0013328: [Translation] 1.5.1.svn Italian translation update (jghali) - closed.
+- 0013321: [User Interface] Add tooltip for chain icon in File > New (FirasH) - closed.
+- 0013197: [Usability] in file > new, "chaining" should make all values equal (jghali) - closed.
+- 0013317: [PDF] [patch] Scribus 1.5.1 aborts with an assertion failure on CFF fonts when exporting to PDF (jghali) - closed.
+- 0013303: [Import / Export] If libimportsml.so missing the /usr/lib/scribus-trunk/plugins --> Scribus start == crash (fschmid) - closed.
+- 0013318: [PDF] [patch] Scribus 1.5.1 gets valgrind error "Mismatched free() / delete / delete []" (jghali) - closed.
+- 0013315: [Translation] Updated Danish Translation (jghali) - closed.
+- 0012416: [User Interface] List all Corel file types supported by libcdr and UniConvertor in the file selectors (cbradney) - closed.
+- 0013307: [General] Part 5: fix inconsistent tooltips (cbradney) - closed.
+- 0013266: [User Interface] Image frame scaling options don't disable/enable based on selection (cbradney) - closed.
+- 0013292: [Translation] Can't set language (cbradney) - closed.
+- 0013304: [Build System] build error after 82% (cbradney) - closed.
+- 0013301: [User Interface] [Patch] Better Hi-Res Support on OSX (cbradney) - closed.
+- 0013302: [User Interface] Wrong placement of Navigator in PDF Filed Properties dialog (fschmid) - closed.
+- 0013305: [Translation] 1.5.1.svn Italian translation update (FirasH) - closed.
+- 0013296: [Translation] Translation to Arabic (jghali) - closed.
+- 0013200: [Canvas] New theme --> master page name does not appear (cbradney) - closed.
+- 0013093: [PDF] Crash signal 6 when exporting as PDF (jghali) - closed.
+- 0013288: [User Interface] Fix "Preferences > User Interface > Main Window" Horizontal Line+Vertical Spacer (FirasH) - closed.
+- 0013230: [User Interface] Language of the UI is back to system default after a restart (cbradney) - closed.
+- 0013287: [General] Fix some spacing in Scribus code (Spacing/Tabs) (FirasH) - closed.
+- 0013285: [User Interface] Remove useless colon in Preferences dialog (FirasH) - closed.
+- 0013282: [General] "Edit Arc" dialog can only be used with pt as unit (jghali) - closed.
+- 0013275: [User Interface] Fix inconsistent layout between Table and Cell Style UI (FirasH) - closed.
+- 0013273: [User Interface] Keep "Use Document Bleeds" checkbox position consistent between Print and PDF export dialog (FirasH) - closed.
+- 0013272: [Undo/Redo] Closing "Nodes" dialog crashes Scribus if Undo/Redo and "Rounded Corners" are used while in modeEditClip (jghali) - closed.
+- 0013268: [General] "Defaults" button duplicates Printing Destination in Preferences (cbradney) - closed.
+- 0013269: [General] "Defaults" button duplicates Guides Placement settings in specific condition (cbradney) - closed.
+- 0013236: [Build System] Please Add .travis.yml file (cbradney) - closed.
+- 0013240: [Import / Export] export to pdf crashes with signal 6 (jghali) - closed.
+- 0013227: [Language Tools] Non-switching translations: icon bar (cbradney) - closed.
+- 0013263: [User Interface] Substitute "Link" checkbox with chain link button in Preferences (FirasH) - closed.
+- 0013194: [User Interface] Replace Qt5Webkit with Qt5WebEngineWidgets (cbradney) - closed.
+- 0013165: [Import / Export] SVG Stroke-dasharray zero problem (fschmid) - closed.
+- 0013085: [PDF] 1.5.1. text following path not exported correctly (fschmid) - closed.
+- 0013257: [General] Part 4: fix inconsistent tooltips (cbradney) - closed.
+- 0013176: [General] Open document Icon dropdown button does not work (won't open previously opened doc) (cbradney) - closed.
+- 0013261: [Build System] Failure to load scribus in 20280 (cbradney) - closed.
+- 0013260: [User Interface] Enlarge Polygon QSliders to use available space and improve its precision (FirasH) - closed.
+- 0013172: [PDF] Improve PDF Export dialog pre-press tab UI (jghali) - closed.
+- 0007351: [PDF] PDF export: : fonts cannot be outlined anymore (avox) - closed.
+- 0008945: [Import / Export] Confusing option name (avox) - closed.
+- 0013243: [Story Editor / Text Frames] [Patch] Attach text to path action is not enabled correctly (jghali) - closed.
+- 0013256: [General] Part 3: fix inconsistent tooltips (cbradney) - closed.
+- 0013254: [General] Part 2: fix inconsistent tooltips (cbradney) - closed.
+- 0013251: [General] Part 1: fix inconsistent tooltips (cbradney) - closed.
+- 0013190: [Internal] CLI --la needs formatting (cbradney) - closed.
+- 0013253: [General] Paragraph Effects cause crash changing "Char Syle" back to "No Style" (jghali) - closed.
+- 0013239: [Translation] Typo: Raize should be Raise (cbradney) - closed.
+- 0013241: [PDF] [patch] Scribus 1.5.1 writes invalid PDF hex strings (jghali) - closed.
+- 0013250: [Translation] 1.5.1.svn Italian translation update (jghali) - closed.
+- 0012508: [PDF] Grouped Items might be wrongly exported/cropped to PDF (jghali) - closed.
+- 0013134: [Graphics / Image Frames] 1.5 issue - after scaled multiple polygons - after duplication or copy / pasted skews proportion (fschmid) - closed.
+- 0012687: [Qt5 Port] Inserting a barcode does not work when build against Qt5.3.1 & Qt5.4 (cbradney) - closed.
+- 0013238: [Build System] Warnings generated in recent build (jghali) - closed.
+- 0013231: [Translation] Action History window name not translated (jghali) - closed.
+- 0011988: [User Interface] [Patch] Preselected glyphs hint bubble should also display the unicode name of the glyph and the name of the font (cbradney) - closed.
+- 0013220: [Translation] Uniformity of UI and translations (cbradney) - closed.
+- 0013232: [General] Fix some menu entries not updated after language change (cbradney) - closed.
+- 0013221: [Graphics / Image Frames] EPS image with clipping path - Clipping path is not working correctly. (fschmid) - closed.
+- 0012519: [Import / Export] After VIVA XML import file significant slow down in Scribus response time (fschmid) - closed.
+- 0012192: [User Interface] Hungarian language environment -> text fields is too small. - closed.
+- 0013095: [User Interface] [Patch] CLI --help needs formatting (cbradney) - closed.
+- 0013188: [OS-MacOSX] Changing Localization isn't supported on CLI (cbradney) - closed.
+- 0013109: [Shape Drawing] Pressing 'Esc' in [Polygon Properties|Arc] crashes scribus (cbradney) - closed.
+- 0013177: [Canvas] Changing Polygon Properties doesn't update canvas correctly (jghali) - closed.
+- 0013133: [General] "Has Drop Shadow" checkbox does not apply shadow when checked, but when unchecked (jghali) - closed.
+- 0013164: [General] Remove some useless code related to exit special mode from toolbar (FirasH) - closed.
+- 0013159: [General] New HLC colorpicker causes crash opening File > Preferences... (fschmid) - closed.
+- 0013160: [Build System] Build r20189 fails "AdapterWidget.cpp:72:28: error: no viable conversion from 'QIcon' to 'const QCursor'" (cbradney) - closed.
+- 0013157: [Build System] Build r20188 fails: fatal error: 'util_icon.h' file not found (cbradney) - closed.
+- 0013147: [Import / Export] TTF font subsetting is not reliable using accented characters (avox) - closed.
+- 0013139: [Undo/Redo] Using Drop Shadow continues to record actions in Action History just by scrolling (jghali) - closed.
+- 0013130: [Build System] cmykfwbase.ui: Warning: Z-order assignment: 'verticalSpacer_2' is not a valid widget. (jghali) - closed.
+- 0013106: [Typography] Linux Libertine G font family + Insert Thin Space == Crash (jghali) - closed.
+- 0013101: [Usability] Crash after opening document with preview mode ON (jghali) - closed.
+- 0013102: [Qt5 Port] Missing in of <QObject> in scribus/sclayer.cpp (jghali) - closed.
+- 0013079: [Build System] Builld r20125 fails on OSX 10.9.5 using Homebrew (cbradney) - closed.
+- 0013081: [PDF] Scribus crashes during PDF export with 3D annotation (fschmid) - closed.
+- 0012820: [Story Editor / Text Frames] Crash when deleting inline frame (fschmid) - closed.
+- 0013078: [User Interface] Font preview looks not like it should (jghali) - closed.
+- 0012448: [Canvas] Resizing of a Group + Item is not correct (fschmid) - closed.
+- 0004194: [Story Editor / Text Frames] Opacity of the text shadow (fschmid) - closed.
+- 0012290: [Graphics / Image Frames] Drop shadow for images with transparent areas (fschmid) - closed.
+- 0013070: [General] Compiling error on Linux (fschmid) - closed.
+- 0004564: [Import / Export] PDF Export: Subsetting of OTF fonts (TTF variant) as true TTF subsets in PDF version < 1.6 (avox) - closed.
 
 
 Scribus - 1.5.0 (Released 2015-05-19)
