@@ -333,12 +333,6 @@ QStringList ScribusQApp::getLang(QString lang)
 	if (!lang.isEmpty())
 		langs.push_back(lang);
 
-	if (!(lang = ::getenv("LC_ALL")).isEmpty())
-	{
-		if (lang=="C")
-			lang="en";
-		langs.push_back(lang);
-	}
 	if (!(lang = ::getenv("LANG")).isEmpty())
 	{
 		if (lang=="C")
@@ -346,7 +340,17 @@ QStringList ScribusQApp::getLang(QString lang)
 		langs.push_back(lang);
 	}
 	if (!(lang = ::getenv("LC_MESSAGES")).isEmpty())
+	{
+		if (lang=="C")
+			lang="en";
 		langs.push_back(lang);
+	}
+	if (!(lang = ::getenv("LC_ALL")).isEmpty())
+	{
+		if (lang=="C")
+			lang="en";
+		langs.push_back(lang);
+	}
 
 	//add in user preferences lang, only overridden by lang command line option
 	QString Pff = QDir::toNativeSeparators(ScPaths::getApplicationDataDir());
