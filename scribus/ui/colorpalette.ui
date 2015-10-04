@@ -100,7 +100,7 @@
            <item>
             <layout class="QHBoxLayout" name="horizontalLayout_3">
              <item>
-              <widget class="QLabel" name="label">
+              <widget class="QLabel" name="fillShadeLabel">
                <property name="text">
                 <string>Shade:</string>
                </property>
@@ -222,7 +222,7 @@
                <item>
                 <layout class="QHBoxLayout" name="horizontalLayout_10">
                  <item>
-                  <widget class="QLabel" name="label_14">
+                  <widget class="QLabel" name="gradientExtendLabel">
                    <property name="text">
                     <string>Extend:</string>
                    </property>
@@ -263,21 +263,21 @@
                <item>
                 <layout class="QGridLayout" name="gridLayout_4">
                  <item row="0" column="0">
-                  <widget class="QLabel" name="label_5">
+                  <widget class="QLabel" name="colorPointLabel">
                    <property name="text">
                     <string>Color</string>
                    </property>
                   </widget>
                  </item>
                  <item row="0" column="1">
-                  <widget class="QLabel" name="label_2">
+                  <widget class="QLabel" name="colorShadeLabel">
                    <property name="text">
                     <string>Shade</string>
                    </property>
                   </widget>
                  </item>
                  <item row="0" column="2">
-                  <widget class="QLabel" name="label_9">
+                  <widget class="QLabel" name="colorAlphaLabel">
                    <property name="text">
                     <string>Transparency</string>
                    </property>
@@ -485,7 +485,7 @@
                <item>
                 <layout class="QGridLayout" name="gridLayout_5">
                  <item row="0" column="0">
-                  <widget class="QLabel" name="label_3">
+                  <widget class="QLabel" name="colorMeshPointLabel">
                    <property name="text">
                     <string>Color:</string>
                    </property>
@@ -505,7 +505,7 @@
                   </widget>
                  </item>
                  <item row="1" column="0">
-                  <widget class="QLabel" name="label_4">
+                  <widget class="QLabel" name="shadeMeshPointLabel">
                    <property name="text">
                     <string>Shade:</string>
                    </property>
@@ -534,7 +534,7 @@
                   </widget>
                  </item>
                  <item row="2" column="0">
-                  <widget class="QLabel" name="label_6">
+                  <widget class="QLabel" name="transparencyMeshPointLabel">
                    <property name="text">
                     <string>Opacity:</string>
                    </property>
@@ -612,7 +612,7 @@
            <item>
             <layout class="QGridLayout" name="gridLayout">
              <item row="0" column="0">
-              <widget class="QLabel" name="label_8">
+              <widget class="QLabel" name="hatchDistLabel">
                <property name="text">
                 <string>Distance:</string>
                </property>
@@ -622,7 +622,7 @@
               <widget class="ScrSpinBox" name="hatchDist"/>
              </item>
              <item row="1" column="0">
-              <widget class="QLabel" name="label_10">
+              <widget class="QLabel" name="hatchAngleLabel">
                <property name="text">
                 <string>Angle:</string>
                </property>
@@ -632,7 +632,7 @@
               <widget class="ScrSpinBox" name="hatchAngle"/>
              </item>
              <item row="2" column="0">
-              <widget class="QLabel" name="label_11">
+              <widget class="QLabel" name="hatchTypeLabel">
                <property name="text">
                 <string>Type:</string>
                </property>
@@ -658,7 +658,7 @@
               </widget>
              </item>
              <item row="3" column="0">
-              <widget class="QLabel" name="label_12">
+              <widget class="QLabel" name="hatchLineColorLabel">
                <property name="text">
                 <string>Line Color:</string>
                </property>
@@ -668,9 +668,9 @@
               <widget class="ColorCombo" name="hatchLineColor"/>
              </item>
              <item row="4" column="0">
-              <widget class="QLabel" name="label_13">
+              <widget class="QLabel" name="hatchBackgroundLabel">
                <property name="text">
-                <string>Background</string>
+                <string>Background:</string>
                </property>
               </widget>
              </item>
@@ -835,7 +835,7 @@
            <item>
             <layout class="QHBoxLayout" name="horizontalLayout_7">
              <item>
-              <widget class="QLabel" name="label_7">
+              <widget class="QLabel" name="strokeShadeLabel">
                <property name="text">
                 <string>Shade:</string>
                </property>
@@ -910,7 +910,7 @@
            <item>
             <layout class="QHBoxLayout" name="horizontalLayout_12">
              <item>
-              <widget class="QLabel" name="label_15">
+              <widget class="QLabel" name="GradientExtendSLabel">
                <property name="text">
                 <string>Extend:</string>
                </property>
@@ -1021,7 +1021,7 @@
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout">
      <item>
-      <widget class="QLabel" name="overprintLabel">
+      <widget class="QLabel" name="overPrintLabel">
        <property name="text">
         <string>Overprinting</string>
        </property>

@@ -127,6 +127,7 @@ public slots:
 	void toggleStrokePattern();
 	void changeHatchProps();
 	void unitChange(double, double, int unitIndex);
+	void languageChange();
 signals:
 	void NewPen(QString);
 	void NewBrush(QString);

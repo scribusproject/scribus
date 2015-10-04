@@ -1890,3 +1890,55 @@ void Cpalette::unitChange(double, double, int unitIndex)
 	hatchDist->setNewUnit(unitIndex);
 	currentUnit = unitIndex;
 }
+
+void Cpalette::languageChange()
+{
+	// Needed to avoid issues if an item is selected and patterns are available
+	if (currentItem)
+		disconnectSignals();
+
+	// Save fill tab state
+	int oldFillModeComboIndex = fillModeCombo->currentIndex();
+	int oldGradientTypeIndex = gradientType->currentIndex();
+	int oldGradientExtendIndex = gradientExtend->currentIndex();
+	int oldHatchTypeIndex = hatchType->currentIndex();
+
+	// Save stroke tab state
+	int oldStrokeModeComboIndex = strokeModeCombo->currentIndex();
+	int oldGradientTypeStrokeIndex = gradientTypeStroke->currentIndex();
+	int oldGradientExtendSIndex = GradientExtendS->currentIndex();
+
+	// Save properties outside of tabs
+	int oldOverPrintComboIndex = overPrintCombo->currentIndex();
+
+	// Retranslate UI
+	retranslateUi(this);
+
+	fillModeCombo->clear();
+	fillModeCombo->addItem( tr("Solid"));
+	fillModeCombo->addItem( tr("Gradient"));
+	fillModeCombo->addItem( tr("Hatch"));
+
+	strokeModeCombo->clear();
+	strokeModeCombo->addItem( tr("Solid"));
+	strokeModeCombo->addItem( tr("Gradient"));
+
+	if (currentDoc)
+		enablePatterns(patternList->count() != 0);
+
+	// Restore properties
+	fillModeCombo->setCurrentIndex(oldFillModeComboIndex);
+	gradientType->setCurrentIndex(oldGradientTypeIndex);
+	gradientExtend->setCurrentIndex(oldGradientExtendIndex);
+	hatchType->setCurrentIndex(oldHatchTypeIndex);
+
+	strokeModeCombo->setCurrentIndex(oldStrokeModeComboIndex);
+	gradientTypeStroke->setCurrentIndex(oldGradientTypeStrokeIndex);
+	GradientExtendS->setCurrentIndex(oldGradientExtendSIndex);
+
+	overPrintCombo->setCurrentIndex(oldOverPrintComboIndex);
+
+	// Reconnect signals if necessary
+	if (currentItem)
+		connectSignals();
+}

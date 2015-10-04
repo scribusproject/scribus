@@ -929,6 +929,7 @@ void PropertiesPalette::languageChange()
 	shapePal->languageChange();
 	groupPal->languageChange();
 	imagePal->languageChange();
+	Cpal->languageChange();
 	linePal->languageChange();
 	textPal->languageChange();
 	tablePal->languageChange();
