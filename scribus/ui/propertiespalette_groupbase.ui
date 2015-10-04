@@ -320,6 +320,9 @@
    </item>
    <item>
     <widget class="QCheckBox" name="clipGroups">
+     <property name="toolTip">
+      <string>When the group's bounding frame has been edited, clip the contents of the page items to the edited bounding frame</string>
+     </property>
      <property name="text">
       <string>Group clips Contents</string>
      </property>
