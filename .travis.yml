@@ -1,36 +1,61 @@
-language: cpp
+matrix:
+  include:
+    - os: linux
+      dist: trusty
+      sudo: required
+    - os: osx
 
-compiler:
-  - gcc
-  - clang
-
-dist: trusty
+language: c++
+compiler: clang  
 
 before_install:
-  - sudo apt-get update -qq
-  - sudo apt-get install cmake libboost-python-dev libcups2-dev libhunspell-dev
-    libhyphen-dev liblcms2-dev libpodofo-dev libtiff-dev libxml2-dev
-    python-all-dev zlib1g-dev qtbase5-dev qtdeclarative5-dev libqt5opengl5-dev
-    qttools5-dev qttools5-dev-tools libgraphicsmagick++1-dev
-    libopenscenegraph-dev libpoppler-dev libcairo2-dev libwpg-dev libmspub-dev
-    libcdr-dev libvisio-dev
+#- if [ $TRAVIS_OS_NAME == linux ]; then sudo apt-get update -qq && 
+#    sudo apt-get install cmake libboost-python-dev libcups2-dev libhunspell-dev
+#    libhyphen-dev liblcms2-dev libpodofo-dev libtiff-dev libxml2-dev
+#    python-all-dev zlib1g-dev qtbase5-dev qtdeclarative5-dev libqt5opengl5-dev
+#    qttools5-dev qttools5-dev-tools libgraphicsmagick++1-dev
+#    libopenscenegraph-dev libpoppler-dev libcairo2-dev libwpg-dev libmspub-dev
+#    libcdr-dev libvisio-dev; fi
+- if [ $TRAVIS_OS_NAME == osx ]; then brew update && brew tap luzpaz/scribustravis && brew install --HEAD scribustravis --verbose; fi
+#  - brew update 
+#  - brew outdated xz || brew upgrade xz  
+#  - brew outdated cmake || brew upgrade cmake
+#  - brew outdated little-cms2 || brew upgrade little-cms2
+#  - brew outdated xz || brew upgrade xz
+#  - brew outdated qt5 || brew upgrade qt5
+#  - brew outdated cairo || brew upgrade cairo
+#  - brew outdated jpeg || brew upgrade jpeg
+#  - brew outdated libtiff || brew upgrade libtiff
+#  - brew outdated fontconfig || brew upgrade fontconfig
+#  - brew outdated openssl || brew upgrade openssl
+#  - brew outdated pkg-config || brew upgrade pkg-config
+#  - brew outdated python || brew upgrade python
+#  - brew outdated hunspell || brew upgrade hunspell
+#  - brew outdated homebrew/dupes/zlib || brew upgrade homebrew/dupes/zlib
+#  - brew outdated ghostscript || brew upgrade ghostscript
+#  - brew outdated graphicsmagick || brew upgrade graphicsmagick
+#  - brew outdated boost || brew upgrade boost
+#  - brew outdated poppler || brew upgrade poppler
+#  - brew outdated podofo || brew upgrade podofo
+#  - brew outdated poppler || brew upgrade poppler
+#  - brew outdated freetype || brew upgrade freetype
 
-script:
-  - if [[ $CC == gcc ]]; then
-      export NPROC=8;
-    else
-      export NPROC=1;
-    fi
 
-  - cmake .
-  - make -j$NPROC
+install:
+  args = %W[
+    -DBUILD_OSX_BUNDLE=1
+    -DCMAKE_INSTALL_PREFIX:PATH=#{prefix}/Scribus.app/Contents/
+    -DQT_PREFIX=#{Formula["qt5"].opt_prefix}
+    -DWANT_HUNSPELL=1
+    -DWITH_PODOFO=1
+    -DWANT_GRAPHICSMAGICK=1
+    -DWANT_SVNVERSION=1
+    -DWANT_DEBUG=1
+    ]
+  system "cmake", ".", *args
+  system "make"
+  system "make install"
 
 notifications:
-  email: false
-  irc:
-    channels:
-      - "chat.freenode.net#scribus-dev"
-    template:
-      - "%{repository}/%{branch} (%{commit} - %{author}): %{build_url}: %{message}"  
-    on_success: always
-    on_failure: always
+  email:
+  - kunda@scribus.net
