@@ -425,8 +425,8 @@ private:
 	bool m_blockUpdate;
 	
 	int m_result;
-	int m_currPara;
-	int m_currChar;
+//	int m_currPara;
+//	int m_currChar;
 
 protected slots:
 	void setBackPref();

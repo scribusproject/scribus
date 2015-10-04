@@ -45,6 +45,7 @@ SearchReplace::SearchReplace( QWidget* parent, ScribusDoc *doc, PageItem* ite, b
 	m_doc = doc;
 	m_notFound = false;
 	m_itemMode = mode;
+	m_firstMatchPosition = -1;
 
 	setModal(true);
 	setWindowTitle( tr( "Search/Replace" ) );
@@ -550,7 +551,8 @@ void SearchReplace::slotDoSearch()
 			do
 			{
 				found = storyTextEdit->find(sText, flags);
-				if (!found) break;
+				if (!found)
+					break;
 				QTextCursor cursor = storyTextEdit->textCursor();
 				int selStart = cursor.selectionStart();
 				for (int ap = 0; ap < sText.length(); ++ap)
@@ -639,6 +641,7 @@ void SearchReplace::slotDoSearch()
 				AllReplace->setEnabled(true);
 			}
 			matchesFound++;
+			m_firstMatchPosition = storyTextEdit->textCursor().selectionStart();
 		}
 		else
 		{
@@ -800,6 +803,11 @@ void SearchReplace::slotDoReplace()
 	DoReplace->setEnabled(false);
 	AllReplace->setEnabled(false);
 	slotDoSearch();
+}
+
+int SearchReplace::firstMatchCursorPosition()
+{
+	return m_firstMatchPosition;
 }
 
 void SearchReplace::slotReplaceAll()

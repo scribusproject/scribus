@@ -37,6 +37,7 @@ public:
 	~SearchReplace() {};
 	virtual void slotDoSearch();
 	virtual void slotDoReplace();
+	int firstMatchCursorPosition();
 
 	QLabel* SText1;
 	QLabel* RText1;
@@ -140,6 +141,7 @@ protected:
 
 	/// Number of matches found thus far in a search
 	int matchesFound;
+	int m_firstMatchPosition;
 
 };
 
