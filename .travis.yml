@@ -8,9 +8,10 @@ matrix:
 language: c++
 compiler: clang  
 
-branches:
-  only:
-    - master
+
+# branches:
+#   only:
+#    - master # This won't work with PR requests in github
 
 before_install:
 # Linux
