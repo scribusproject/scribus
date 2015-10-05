@@ -25,7 +25,7 @@ before_install:
 - if [ $TRAVIS_OS_NAME == osx ]; then brew --env && brew config; fi
 - if [ $TRAVIS_OS_NAME == osx ]; then brew list; fi
 - if [ $TRAVIS_OS_NAME == osx ]; then brew outdated cmake --verbose || brew upgrade cmake; fi
-- if [ $TRAVIS_OS_NAME == osx ]; then brew tap homebrew/dupes && brew install homebrew/dupes/zlib; fi
+- if [ $TRAVIS_OS_NAME == osx ]; then brew tap homebrew/dupes && brew install homebrew/dupes/zlib && echo `ls -alR` /usr/local/opt/zlib; fi
 - if [ $TRAVIS_OS_NAME == osx ]; then brew install xz little-cms2 cairo qt5 python hunspell ghostscript graphicsmagick poppler podofo; fi  
 - if [ $TRAVIS_OS_NAME == osx ]; then brew outdated jpeg --verbose || brew upgrade jpeg; fi
 - if [ $TRAVIS_OS_NAME == osx ]; then brew outdated libtiff --verbose || brew upgrade libtiff; fi
@@ -35,7 +35,7 @@ before_install:
 - if [ $TRAVIS_OS_NAME == osx ]; then brew outdated boost || brew upgrade boost; fi
 - if [ $TRAVIS_OS_NAME == osx ]; then brew outdated freetype || brew upgrade freetype; fi
 # Install Librevenge suite + OSG
-- if [ $TRAVIS_OS_NAME == osx ]; then brew install librevenge libwpg libvisio libmspub libcdr libpagemaker libfreehand open-scene-graph; fi
+# - if [ $TRAVIS_OS_NAME == osx ]; then brew install librevenge libwpg libvisio libmspub libcdr libpagemaker libfreehand open-scene-graph; fi
 # - export LDFLAGS+=-L/usr/local/opt/zlib/lib:-L/usr/local/opt/gettext/lib:-L/usr/local/opt/libffi/lib:-L/usr/local/opt/qt5/lib:-L/usr/local/opt/sqlite/lib:-L/usr/local/opt/openssl/lib:-L/usr/local/opt/icu4c/lib
 # - export CXXFLAGS+=-I/usr/local/opt/zlib/include:-I/usr/local/opt/gettext/include:-I/usr/local/opt/qt5/include:-I/usr/local/opt/sqlite/include:-I/usr/local/opt/openssl/include:-I/usr/local/opt/icu4c/include 
 
