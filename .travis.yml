@@ -34,15 +34,15 @@ before_install:
 - if [ $TRAVIS_OS_NAME == osx ]; then brew outdated boost || brew upgrade boost; fi
 - if [ $TRAVIS_OS_NAME == osx ]; then brew outdated freetype || brew upgrade freetype; fi
 # Install Librevenge suite + OSG
-- if [ $TRAVIS_OS_NAME == osx ]; then brew install librevenge libwpg libvisio libmspub libcdr libpagemaker libfreehand open-scene-graph --verbose; fi
+- if [ $TRAVIS_OS_NAME == osx ]; then brew install librevenge libwpg libvisio libmspub libcdr libpagemaker libfreehand open-scene-graph; fi
 
 script: 
 #OSX 
-  - if [[ $TRAVIS_OS_NAME == "osx" ]] ; then 
-      cmake . -DBUILD_OSX_BUNDLE=1 -DCMAKE_INSTALL_PREFIX:PATH=/usr/local/Scribus.app/Contents/ -DQT_PREFIX=/usr/local/opt/qt5 -DWANT_HUNSPELL=1 -DWITH_PODOFO=1 -DWANT_GRAPHICSMAGICK=1 -DWANT_SVNVERSION=1 -DWANT_DEBUG=1
-      make 
-      make install;
-    fi
+#  - if [[ $TRAVIS_OS_NAME == "osx" ]] ; then 
+  cmake . -DBUILD_OSX_BUNDLE=1 -DCMAKE_INSTALL_PREFIX:PATH=/usr/local/Scribus.app/Contents/ -DQT_PREFIX=/usr/local/opt/qt5 -DWANT_HUNSPELL=1 -DWITH_PODOFO=1 -DWANT_GRAPHICSMAGICK=1 -DWANT_SVNVERSION=1 -DWANT_DEBUG=1
+  make 
+  make install
+
 notifications:
   email:
   - kunda@scribus.net
