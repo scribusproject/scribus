@@ -21,13 +21,12 @@ before_install:
 - if [ $TRAVIS_OS_NAME == osx ]; then brew --env && brew config; fi
 - if [ $TRAVIS_OS_NAME == osx ]; then brew list; fi
 - if [ $TRAVIS_OS_NAME == osx ]; then brew outdated cmake --verbose || brew upgrade cmake; fi
-- if [ $TRAVIS_OS_NAME == osx ]; then brew install xz little-cms2 cairo qt5 --verbose ; fi  
+- if [ $TRAVIS_OS_NAME == osx ]; then brew install xz little-cms2 cairo qt5 python --verbose ; fi  
 - if [ $TRAVIS_OS_NAME == osx ]; then brew outdated jpeg --verbose || brew upgrade jpeg; fi
 - if [ $TRAVIS_OS_NAME == osx ]; then brew outdated libtiff --verbose || brew upgrade libtiff; fi
 - if [ $TRAVIS_OS_NAME == osx ]; then brew outdated fontconfig --verbose || brew upgrade fontconfig; fi
 - if [ $TRAVIS_OS_NAME == osx ]; then brew outdated openssl --verbose || brew upgrade openssl; fi
 - if [ $TRAVIS_OS_NAME == osx ]; then brew outdated pkg-config --verbose || brew upgrade pkg-config; fi
-- if [ $TRAVIS_OS_NAME == osx ]; then brew outdated python --verbose || brew upgrade python; fi
 - if [ $TRAVIS_OS_NAME == osx ]; then brew outdated hunspell || brew upgrade hunspell; fi
 - if [ $TRAVIS_OS_NAME == osx ]; then brew outdated homebrew/dupes/zlib || brew upgrade homebrew/dupes/zlib; fi
 - if [ $TRAVIS_OS_NAME == osx ]; then brew outdated ghostscript || brew upgrade ghostscript; fi
