@@ -36,13 +36,14 @@ before_install:
 - if [ $TRAVIS_OS_NAME == osx ]; then brew outdated freetype || brew upgrade freetype; fi
 # Install Librevenge suite + OSG
 - if [ $TRAVIS_OS_NAME == osx ]; then brew install librevenge libwpg libvisio libmspub libcdr libpagemaker libfreehand open-scene-graph; fi
+- export LDFLAGS+=-L/usr/local/opt/zlib/lib;-L/usr/local/opt/gettext/lib;-L/usr/local/opt/libffi/lib;-L/usr/local/opt/qt5/lib;-L/usr/local/opt/sqlite/lib;-L/usr/local/opt/openssl/lib;-L/usr/local/opt/icu4c/lib
+- export CPPFLAGS+=-I/usr/local/opt/zlib/include;-I/usr/local/opt/gettext/include;-I/usr/local/opt/qt5/include;-I/usr/local/opt/sqlite/include;-I/usr/local/opt/openssl/include;-I/usr/local/opt/icu4c/include
 
-script: 
+install: 
 #OSX 
 #  - if [[ $TRAVIS_OS_NAME == "osx" ]] ; then 
-  - export LDFLAGS+=-L/usr/local/opt/zlib/lib
-  - export CPPFLAGS+=-I/usr/local/opt/zlib/include
-  - cmake . -DCMAKE_LIBRARY_PATH=/usr/local -DBUILD_OSX_BUNDLE=1 -DCMAKE_INSTALL_PREFIX=/usr/local/Scribus.app/Contents/ -DQT_PREFIX=/usr/local/opt/qt5 -DWANT_HUNSPELL=1 -DWITH_PODOFO=1 -DWANT_GRAPHICSMAGICK=1 -DWANT_SVNVERSION=1 -DWANT_DEBUG=1
+# is this relevant? -DCMAKE_LIBRARY_PATH=/usr/local
+  - cmake . -DBUILD_OSX_BUNDLE=1 -DCMAKE_INSTALL_PREFIX=/usr/local/Scribus.app/Contents/ -DQT_PREFIX=/usr/local/opt/qt5 -DWANT_HUNSPELL=1 -DWITH_PODOFO=1 -DWANT_GRAPHICSMAGICK=1 -DWANT_SVNVERSION=1 -DWANT_DEBUG=1
   - make 
   - make install
 
