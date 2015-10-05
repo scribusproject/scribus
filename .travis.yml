@@ -1,8 +1,8 @@
 matrix:
   include:
-    - os: linux
-      dist: trusty
-      sudo: required
+#    - os: linux
+#      dist: trusty
+#      sudo: required
     - os: osx
 
 language: c++
@@ -21,16 +21,12 @@ before_install:
 - if [ $TRAVIS_OS_NAME == osx ]; then brew --env && brew config; fi
 - if [ $TRAVIS_OS_NAME == osx ]; then brew list; fi
 - if [ $TRAVIS_OS_NAME == osx ]; then brew outdated cmake --verbose || brew upgrade cmake; fi
-- if [ $TRAVIS_OS_NAME == osx ]; then brew install xz little-cms2 cairo qt5 python --verbose ; fi  
+- if [ $TRAVIS_OS_NAME == osx ]; then brew install xz little-cms2 cairo qt5 python hunspell homebrew/dupes/zlib ghostscript graphicsmagick --verbose ; fi  
 - if [ $TRAVIS_OS_NAME == osx ]; then brew outdated jpeg --verbose || brew upgrade jpeg; fi
 - if [ $TRAVIS_OS_NAME == osx ]; then brew outdated libtiff --verbose || brew upgrade libtiff; fi
 - if [ $TRAVIS_OS_NAME == osx ]; then brew outdated fontconfig --verbose || brew upgrade fontconfig; fi
 - if [ $TRAVIS_OS_NAME == osx ]; then brew outdated openssl --verbose || brew upgrade openssl; fi
 - if [ $TRAVIS_OS_NAME == osx ]; then brew outdated pkg-config --verbose || brew upgrade pkg-config; fi
-- if [ $TRAVIS_OS_NAME == osx ]; then brew outdated hunspell || brew upgrade hunspell; fi
-- if [ $TRAVIS_OS_NAME == osx ]; then brew outdated homebrew/dupes/zlib || brew upgrade homebrew/dupes/zlib; fi
-- if [ $TRAVIS_OS_NAME == osx ]; then brew outdated ghostscript || brew upgrade ghostscript; fi
-- if [ $TRAVIS_OS_NAME == osx ]; then brew outdated graphicsmagick || brew upgrade graphicsmagick; fi
 - if [ $TRAVIS_OS_NAME == osx ]; then brew outdated boost || brew upgrade boost; fi
 - if [ $TRAVIS_OS_NAME == osx ]; then brew outdated poppler || brew upgrade poppler; fi
 - if [ $TRAVIS_OS_NAME == osx ]; then brew outdated podofo || brew upgrade podofo; fi
