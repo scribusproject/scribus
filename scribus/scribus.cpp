@@ -6362,17 +6362,31 @@ void ScribusMainWindow::duplicateItem()
 	doc->SnapGrid  = false;
 	doc->SnapGuides = false;
 	doc->SnapElement = false;
-	slotEditCopy();
-	view->Deselect(true);
+
 	UndoTransaction trans;
 	if (UndoManager::undoEnabled())
 		trans = undoManager->beginTransaction(Um::Selection,Um::IPolygon,Um::Duplicate,"",Um::IMultipleDuplicate);
-	slotEditPaste();
-	for (int i=0; i<doc->m_Selection->count(); ++i)
+
+	ItemMultipleDuplicateData mdData;
+	memset(&mdData, 0, sizeof(mdData));
+	mdData.type = 0;
+	mdData.copyCount = 1;
+	mdData.copyShiftOrGap = 0;
+	mdData.copyShiftGapH = doc->opToolPrefs().dispX * doc->unitRatio();
+	mdData.copyShiftGapV = doc->opToolPrefs().dispY * doc->unitRatio();
+
+	int oldItemCount = doc->Items->count();
+	doc->itemSelection_MultipleDuplicate(mdData);
+
+	doc->m_Selection->blockSignals(true);
+	view->Deselect(true);
+	for (int i = oldItemCount; i < doc->Items->count(); ++i)
 	{
-		doc->m_Selection->itemAt(i)->setLocked(false);
-		doc->MoveItem(doc->opToolPrefs().dispX, doc->opToolPrefs().dispY, doc->m_Selection->itemAt(i));
+		PageItem* item = doc->Items->at(i);
+		doc->m_Selection->addItem(item);
 	}
+	doc->m_Selection->blockSignals(false);
+
 	if (trans)
 		trans.commit();
 	doc->SnapGrid  = savedAlignGrid;

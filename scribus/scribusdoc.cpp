@@ -13862,6 +13862,14 @@ void ScribusDoc::itemSelection_MultipleDuplicate(ItemMultipleDuplicateData& mdDa
 	}
 	DoDrawing = false;
 	view()->updatesOn(false);
+
+	QList<PageItem*> selectedItems = m_Selection->items();
+	qStableSort(selectedItems.begin(), selectedItems.end(), compareItemLevel);
+
+	Selection selection(this, false);
+	for (int i = 0; i < selectedItems.count(); ++i)
+		selection.addItem(selectedItems.at(i));
+
 	if (mdData.type==0) // Copy and offset or set a gap
 	{
 		double dH = mdData.copyShiftGapH / docUnitRatio;
@@ -13873,12 +13881,12 @@ void ScribusDoc::itemSelection_MultipleDuplicate(ItemMultipleDuplicateData& mdDa
 		if (mdData.copyShiftOrGap==1)
 		{
 			if (dH != 0.0)
-				dH2 += m_Selection->width();
+				dH2 += selection.width();
 			if (dV != 0.0)
-				dV2 += m_Selection->height();
+				dV2 += selection.height();
 		}
 		ScriXmlDoc ss;
-		QString BufferS = ss.WriteElem(this, m_Selection);
+		QString BufferS = ss.WriteElem(this, &selection);
 		//FIXME: stop using m_View
 		m_View->Deselect(true);
 		for (int i=0; i<mdData.copyCount; ++i)
@@ -13929,10 +13937,10 @@ void ScribusDoc::itemSelection_MultipleDuplicate(ItemMultipleDuplicateData& mdDa
 	else if (mdData.type==1) // Create a grid of duplicated items
 	{
 		int copyCount = mdData.gridRows * mdData.gridCols;
-		double dX = mdData.gridGapH/docUnitRatio + m_Selection->width();
-		double dY = mdData.gridGapV/docUnitRatio + m_Selection->height();
+		double dX = mdData.gridGapH / docUnitRatio + selection.width();
+		double dY = mdData.gridGapV / docUnitRatio + selection.height();
 		ScriXmlDoc ss;
-		QString BufferS = ss.WriteElem(this, m_Selection);
+		QString BufferS = ss.WriteElem(this, &selection);
 		for (int i = 0; i < mdData.gridRows; ++i) //skip 0, the item is the one we are copying
 		{
 			for (int j = 0; j < mdData.gridCols; ++j) //skip 0, the item is the one we are copying
