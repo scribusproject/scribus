@@ -9,6 +9,7 @@ language: c++
 compiler: clang  
 
 before_install:
+# Linux
 #- if [ $TRAVIS_OS_NAME == linux ]; then sudo apt-get update -qq && 
 #    sudo apt-get install cmake libboost-python-dev libcups2-dev libhunspell-dev
 #    libhyphen-dev liblcms2-dev libpodofo-dev libtiff-dev libxml2-dev
@@ -16,12 +17,15 @@ before_install:
 #    qttools5-dev qttools5-dev-tools libgraphicsmagick++1-dev
 #    libopenscenegraph-dev libpoppler-dev libcairo2-dev libwpg-dev libmspub-dev
 #    libcdr-dev libvisio-dev; fi
+
+# OSX
 # - if [ $TRAVIS_OS_NAME == osx ]; then brew update && brew tap luzpaz/scribustravis && brew install --HEAD scribustravis --verbose; fi
+- echo $TRAVIS_OS_NAME
 - if [ $TRAVIS_OS_NAME == osx ]; then brew update; fi
 - if [ $TRAVIS_OS_NAME == osx ]; then brew --env && brew config; fi
 - if [ $TRAVIS_OS_NAME == osx ]; then brew list; fi
 - if [ $TRAVIS_OS_NAME == osx ]; then brew outdated cmake --verbose || brew upgrade cmake; fi
-- if [ $TRAVIS_OS_NAME == osx ]; then brew install xz little-cms2 cairo qt5 python hunspell homebrew/dupes/zlib ghostscript graphicsmagick poppler podofo --verbose ; fi  
+- if [ $TRAVIS_OS_NAME == osx ]; then brew install xz little-cms2 cairo qt5 python hunspell homebrew/dupes/zlib ghostscript graphicsmagick poppler podofo; fi  
 - if [ $TRAVIS_OS_NAME == osx ]; then brew outdated jpeg --verbose || brew upgrade jpeg; fi
 - if [ $TRAVIS_OS_NAME == osx ]; then brew outdated libtiff --verbose || brew upgrade libtiff; fi
 - if [ $TRAVIS_OS_NAME == osx ]; then brew outdated fontconfig --verbose || brew upgrade fontconfig; fi
@@ -29,23 +33,27 @@ before_install:
 - if [ $TRAVIS_OS_NAME == osx ]; then brew outdated pkg-config --verbose || brew upgrade pkg-config; fi
 - if [ $TRAVIS_OS_NAME == osx ]; then brew outdated boost || brew upgrade boost; fi
 - if [ $TRAVIS_OS_NAME == osx ]; then brew outdated freetype || brew upgrade freetype; fi
+# Install Librevenge suite + OSG
+- if [ $TRAVIS_OS_NAME == osx ]; then brew install librevenge libwpg libvisio libmspub libcdr libpagemaker libfreehand open-scene-graph --verbose; fi
 
+before_script:
+  args =[ DBUILD_OSX_BUNDLE=1
+          DCMAKE_INSTALL_PREFIX:PATH=#{prefix}/Scribus.app/Contents/
+          DQT_PREFIX=#{Formula["qt5"].opt_prefix}
+          DWANT_HUNSPELL=1
+          DWITH_PODOFO=1
+          DWANT_GRAPHICSMAGICK=1
+          DWANT_SVNVERSION=1
+          DWANT_DEBUG=1
+       ];
 
-install:
-  args = %W[
-    -DBUILD_OSX_BUNDLE=1
-    -DCMAKE_INSTALL_PREFIX:PATH=#{prefix}/Scribus.app/Contents/
-    -DQT_PREFIX=#{Formula["qt5"].opt_prefix}
-    -DWANT_HUNSPELL=1
-    -DWITH_PODOFO=1
-    -DWANT_GRAPHICSMAGICK=1
-    -DWANT_SVNVERSION=1
-    -DWANT_DEBUG=1
-    ]
-  system "cmake", ".", *args
-  system "make"
-  system "make install"
-
+script: 
+#OSX 
+  - if [[ $TRAVIS_OS_NAME == "osx" ]] ; then 
+      cmake . $args 
+      make 
+      make install;
+    fi
 notifications:
   email:
   - kunda@scribus.net
