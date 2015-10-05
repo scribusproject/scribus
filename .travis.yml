@@ -9,10 +9,6 @@ language: c++
 compiler: clang  
 
 
-# branches:
-#   only:
-#    - master # This won't work with PR requests in github
-
 before_install:
 # Linux
 #- if [ $TRAVIS_OS_NAME == linux ]; then sudo apt-get update -qq && 
@@ -41,7 +37,7 @@ before_install:
 # Install Librevenge suite + OSG
 - if [ $TRAVIS_OS_NAME == osx ]; then brew install librevenge libwpg libvisio libmspub libcdr libpagemaker libfreehand open-scene-graph --verbose; fi
 
-before_script:
+# before_script:
 #  args =[ -DBUILD_OSX_BUNDLE=1
 #          -DCMAKE_INSTALL_PREFIX:PATH=/usr/local/Scribus.app/Contents/
 #          -DQT_PREFIX=/usr/local/opt/qt5
