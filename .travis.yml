@@ -25,7 +25,7 @@ before_install:
 - if [ $TRAVIS_OS_NAME == osx ]; then brew --env && brew config; fi
 - if [ $TRAVIS_OS_NAME == osx ]; then brew list; fi
 - if [ $TRAVIS_OS_NAME == osx ]; then brew outdated cmake --verbose || brew upgrade cmake; fi
-- if [ $TRAVIS_OS_NAME == osx ]; then brew tap homebrew/dupes && brew install homebrew/dupes/zlib && CPPFLAGS += -I/usr/include/ncursesw; fi
+- if [ $TRAVIS_OS_NAME == osx ]; then brew tap homebrew/dupes && brew install homebrew/dupes/zlib; fi
 - if [ $TRAVIS_OS_NAME == osx ]; then brew install xz little-cms2 cairo qt5 python hunspell ghostscript graphicsmagick poppler podofo; fi  
 - if [ $TRAVIS_OS_NAME == osx ]; then brew outdated jpeg --verbose || brew upgrade jpeg; fi
 - if [ $TRAVIS_OS_NAME == osx ]; then brew outdated libtiff --verbose || brew upgrade libtiff; fi
