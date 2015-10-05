@@ -16,29 +16,27 @@ before_install:
 #    qttools5-dev qttools5-dev-tools libgraphicsmagick++1-dev
 #    libopenscenegraph-dev libpoppler-dev libcairo2-dev libwpg-dev libmspub-dev
 #    libcdr-dev libvisio-dev; fi
-- if [ $TRAVIS_OS_NAME == osx ]; then brew update && brew tap luzpaz/scribustravis && brew install --HEAD scribustravis --verbose; fi
-#  - brew update 
-#  - brew outdated xz || brew upgrade xz  
-#  - brew outdated cmake || brew upgrade cmake
-#  - brew outdated little-cms2 || brew upgrade little-cms2
-#  - brew outdated xz || brew upgrade xz
-#  - brew outdated qt5 || brew upgrade qt5
-#  - brew outdated cairo || brew upgrade cairo
-#  - brew outdated jpeg || brew upgrade jpeg
-#  - brew outdated libtiff || brew upgrade libtiff
-#  - brew outdated fontconfig || brew upgrade fontconfig
-#  - brew outdated openssl || brew upgrade openssl
-#  - brew outdated pkg-config || brew upgrade pkg-config
-#  - brew outdated python || brew upgrade python
-#  - brew outdated hunspell || brew upgrade hunspell
-#  - brew outdated homebrew/dupes/zlib || brew upgrade homebrew/dupes/zlib
-#  - brew outdated ghostscript || brew upgrade ghostscript
-#  - brew outdated graphicsmagick || brew upgrade graphicsmagick
-#  - brew outdated boost || brew upgrade boost
-#  - brew outdated poppler || brew upgrade poppler
-#  - brew outdated podofo || brew upgrade podofo
-#  - brew outdated poppler || brew upgrade poppler
-#  - brew outdated freetype || brew upgrade freetype
+# - if [ $TRAVIS_OS_NAME == osx ]; then brew update && brew tap luzpaz/scribustravis && brew install --HEAD scribustravis --verbose; fi
+- if [ $TRAVIS_OS_NAME == osx ]; then brew update && brew --env && brew config; fi
+- if [ $TRAVIS_OS_NAME == osx ]; then brew outdated xz || brew upgrade xz; fi  
+- if [ $TRAVIS_OS_NAME == osx ]; then brew outdated cmake || brew upgrade cmake; fi
+- if [ $TRAVIS_OS_NAME == osx ]; then brew outdated little-cms2 || brew upgrade little-cms2; fi
+- if [ $TRAVIS_OS_NAME == osx ]; then brew outdated qt5 || brew upgrade qt5; fi
+- if [ $TRAVIS_OS_NAME == osx ]; then brew outdated cairo || brew upgrade cairo; fi
+- if [ $TRAVIS_OS_NAME == osx ]; then brew outdated jpeg || brew upgrade jpeg; fi
+- if [ $TRAVIS_OS_NAME == osx ]; then brew outdated libtiff || brew upgrade libtiff; fi
+- if [ $TRAVIS_OS_NAME == osx ]; then brew outdated fontconfig || brew upgrade fontconfig; fi
+- if [ $TRAVIS_OS_NAME == osx ]; then brew outdated openssl || brew upgrade openssl; fi
+- if [ $TRAVIS_OS_NAME == osx ]; then brew outdated pkg-config || brew upgrade pkg-config; fi
+- if [ $TRAVIS_OS_NAME == osx ]; then brew outdated python || brew upgrade python; fi
+- if [ $TRAVIS_OS_NAME == osx ]; then brew outdated hunspell || brew upgrade hunspell; fi
+- if [ $TRAVIS_OS_NAME == osx ]; then brew outdated homebrew/dupes/zlib || brew upgrade homebrew/dupes/zlib; fi
+- if [ $TRAVIS_OS_NAME == osx ]; then brew outdated ghostscript || brew upgrade ghostscript; fi
+- if [ $TRAVIS_OS_NAME == osx ]; then brew outdated graphicsmagick || brew upgrade graphicsmagick; fi
+- if [ $TRAVIS_OS_NAME == osx ]; then brew outdated boost || brew upgrade boost; fi
+- if [ $TRAVIS_OS_NAME == osx ]; then brew outdated poppler || brew upgrade poppler; fi
+- if [ $TRAVIS_OS_NAME == osx ]; then brew outdated podofo || brew upgrade podofo; fi
+- if [ $TRAVIS_OS_NAME == osx ]; then brew outdated freetype || brew upgrade freetype; fi
 
 
 install:
