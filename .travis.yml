@@ -18,9 +18,10 @@ before_install:
 #    libcdr-dev libvisio-dev; fi
 # - if [ $TRAVIS_OS_NAME == osx ]; then brew update && brew tap luzpaz/scribustravis && brew install --HEAD scribustravis --verbose; fi
 - if [ $TRAVIS_OS_NAME == osx ]; then brew update && brew --env && brew config; fi
-- if [ $TRAVIS_OS_NAME == osx ]; then brew install xz; fi  
-- if [ $TRAVIS_OS_NAME == osx ]; then brew outdated cmake || brew upgrade cmake; fi
-- if [ $TRAVIS_OS_NAME == osx ]; then brew outdated little-cms2 || brew upgrade little-cms2; fi
+- if [ $TRAVIS_OS_NAME == osx ]; then brew list --verbose; fi
+- if [ $TRAVIS_OS_NAME == osx ]; then brew install xz --verbose ; fi  
+- if [ $TRAVIS_OS_NAME == osx ]; then brew install cmake || brew upgrade cmake; fi
+- if [ $TRAVIS_OS_NAME == osx ]; then brew install little-cms2; fi
 - if [ $TRAVIS_OS_NAME == osx ]; then brew outdated qt5 || brew upgrade qt5; fi
 - if [ $TRAVIS_OS_NAME == osx ]; then brew outdated cairo || brew upgrade cairo; fi
 - if [ $TRAVIS_OS_NAME == osx ]; then brew outdated jpeg || brew upgrade jpeg; fi
