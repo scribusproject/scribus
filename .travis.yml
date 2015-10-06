@@ -40,7 +40,7 @@ before_install:
 # - export CXXFLAGS+=-I/usr/local/opt/zlib/include:-I/usr/local/opt/gettext/include:-I/usr/local/opt/qt5/include:-I/usr/local/opt/sqlite/include:-I/usr/local/opt/openssl/include:-I/usr/local/opt/icu4c/include 
 
 
-install: 
+script: 
 #OSX 
 #  - if [[ $TRAVIS_OS_NAME == "osx" ]] ; then 
 # is this relevant? -DCMAKE_LIBRARY_PATH=/usr/local
