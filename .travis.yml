@@ -20,22 +20,22 @@ before_install:
 
 # OSX
 # - if [ $TRAVIS_OS_NAME == osx ]; then brew update && brew tap luzpaz/scribustravis && brew install --HEAD scribustravis --verbose; fi
-- echo $TRAVIS_OS_NAME
+- echo "Building for $TRAVIS_OS_NAME"
 - if [ $TRAVIS_OS_NAME == osx ]; then brew update; fi
-- if [ $TRAVIS_OS_NAME == osx ]; then brew --env && brew config; fi
-- if [ $TRAVIS_OS_NAME == osx ]; then brew list; fi
+# - if [ $TRAVIS_OS_NAME == osx ]; then brew --env && brew config; fi
+# - if [ $TRAVIS_OS_NAME == osx ]; then brew list; fi
 - if [ $TRAVIS_OS_NAME == osx ]; then brew outdated cmake --verbose || brew upgrade cmake; fi
 - if [ $TRAVIS_OS_NAME == osx ]; then brew tap homebrew/dupes && brew install homebrew/dupes/zlib && brew link --force zlib; fi
 - if [ $TRAVIS_OS_NAME == osx ]; then brew install xz little-cms2 cairo qt5 python hunspell ghostscript graphicsmagick poppler podofo; fi  
 - if [ $TRAVIS_OS_NAME == osx ]; then brew outdated jpeg --verbose || brew upgrade jpeg; fi
 - if [ $TRAVIS_OS_NAME == osx ]; then brew outdated libtiff --verbose || brew upgrade libtiff; fi
 - if [ $TRAVIS_OS_NAME == osx ]; then brew outdated fontconfig --verbose || brew upgrade fontconfig; fi
-- if [ $TRAVIS_OS_NAME == osx ]; then brew outdated openssl --verbose || brew upgrade openssl; fi
+- if [ $TRAVIS_OS_NAME == osx ]; then brew install openssl && brew link --force openssl; fi
 - if [ $TRAVIS_OS_NAME == osx ]; then brew outdated pkg-config --verbose || brew upgrade pkg-config; fi
 - if [ $TRAVIS_OS_NAME == osx ]; then brew outdated boost || brew upgrade boost; fi
 - if [ $TRAVIS_OS_NAME == osx ]; then brew outdated freetype || brew upgrade freetype; fi
 # Install Librevenge suite + OSG
-# - if [ $TRAVIS_OS_NAME == osx ]; then brew install librevenge libwpg libvisio libmspub libcdr libpagemaker libfreehand open-scene-graph; fi
+- if [ $TRAVIS_OS_NAME == osx ]; then brew install librevenge libwpg libvisio libmspub libcdr libpagemaker libfreehand open-scene-graph; fi
 # - export LDFLAGS+=-L/usr/local/opt/zlib/lib:-L/usr/local/opt/gettext/lib:-L/usr/local/opt/libffi/lib:-L/usr/local/opt/qt5/lib:-L/usr/local/opt/sqlite/lib:-L/usr/local/opt/openssl/lib:-L/usr/local/opt/icu4c/lib
 # - export CXXFLAGS+=-I/usr/local/opt/zlib/include:-I/usr/local/opt/gettext/include:-I/usr/local/opt/qt5/include:-I/usr/local/opt/sqlite/include:-I/usr/local/opt/openssl/include:-I/usr/local/opt/icu4c/include 
 
