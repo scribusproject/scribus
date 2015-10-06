@@ -296,6 +296,7 @@ void SMParagraphStyle::apply()
 {
 	if (!m_doc)
 		return;
+
 	QMap<QString, QString> replacement;
 	for (int i = 0; i < m_deleted.count(); ++i)
 	{

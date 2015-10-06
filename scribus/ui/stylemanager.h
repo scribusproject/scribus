@@ -106,6 +106,8 @@ private:
 	void setSelection(const QList<QPair<QString, QString> > &selected);
 	void setOkButtonText();
 
+	template<class ItemType> ItemType* item();
+
 private slots:
 	void slotOk();
 	void slotApply();

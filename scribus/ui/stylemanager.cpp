@@ -20,10 +20,12 @@ for which a new license (GPL+exception) is in place.
 #include "scribusview.h"
 #include "selection.h"
 #include "shortcutwidget.h"
+#include "smcellstyle.h"
 #include "smlinestyle.h"
 #include "smlinestylewidget.h"
 #include "smreplacedia.h"
 #include "smstyleimport.h"
+#include "smtablestyle.h"
 #include "smtextstyles.h"
 #include "styleitem.h"
 #include "stylemanager.h"
@@ -180,6 +182,19 @@ void StyleManager::unitChange()
 	}
 }
 
+template<class ItemType> 
+ItemType* StyleManager::item()
+{
+	for (int i = 0; i < m_items.count(); ++i)
+	{
+		StyleItem* item = m_items[i];
+		ItemType*  typedItem = dynamic_cast<ItemType*>(item);
+		if (typedItem)
+			return typedItem;
+	}
+	return 0;
+}
+
 void StyleManager::setOkButtonText()
 {
 	if (!m_isStoryEditMode)
@@ -243,8 +258,29 @@ void StyleManager::slotApply()
 {
 	if (applyButton->isEnabled())
 	{
+		// #13390 : we have to proceed with some order here
+		SMCharacterStyle* charStyleItem = this->item<SMCharacterStyle>();
+		if (charStyleItem)
+			charStyleItem->apply();
+		SMParagraphStyle* paraStyleItem = this->item<SMParagraphStyle>();
+		if (paraStyleItem)
+			paraStyleItem->apply();
+		SMCellStyle* cellStyleItem = this->item<SMCellStyle>();
+		if (cellStyleItem)
+			cellStyleItem->apply();
+		SMTableStyle* tableStyleItem = this->item<SMTableStyle>();
+		if (tableStyleItem)
+			tableStyleItem->apply();
+
 		for (int i = 0; i < m_items.count(); ++i)
+		{
+			StyleItem* item = m_items.at(i);
+			if (item == charStyleItem || item == paraStyleItem)
+				continue;
+			if (item == cellStyleItem || item == tableStyleItem)
+				continue;
 			m_items.at(i)->apply();
+		}
 		if (m_doc)
 			m_doc->view()->DrawNew();
 	}
