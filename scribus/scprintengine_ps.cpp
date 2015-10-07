@@ -53,7 +53,7 @@ bool ScPrintEngine_PS::print(ScribusDoc& doc, PrintOptions& options)
 				opts.append( QString("-dDEVICEWIDTHPOINTS=%1").arg(tmp.setNum(doc.pageWidth())) );
 				opts.append( QString("-dDEVICEHEIGHTPOINTS=%1").arg(tmp.setNum(doc.pageHeight())) );
 				convertPS2PS(filename, filename + ".tmp", opts, options.prnEngine);
-				moveFile( filename + ".tmp", filename );
+				moveFile(filename + ".tmp", filename);
 			}
 			if (!options.toFile)
 			{

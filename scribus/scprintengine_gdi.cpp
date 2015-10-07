@@ -78,7 +78,7 @@ void ScPrintEngine_GDI::resetData(void)
 	//m_forceGDI = false;
 }
 
-bool ScPrintEngine_GDI::print( ScribusDoc& doc, PrintOptions& options )
+bool ScPrintEngine_GDI::print(ScribusDoc& doc, PrintOptions& options)
 {
 	bool toFile;
 	bool success;
@@ -88,15 +88,15 @@ bool ScPrintEngine_GDI::print( ScribusDoc& doc, PrintOptions& options )
 	QByteArray devMode  = options.devMode;
 	QString fileName;
 
-	if( options.toFile )	
+	if (options.toFile)	
 		return false;
 	resetData();
 
-	toFile = printerUseFilePort( options.printer );
-	if ( toFile )
+	toFile = printerUseFilePort(options.printer);
+	if (toFile)
 	{
-		diaSelection = doc.DocName.right( doc.DocName.length() - doc.DocName.lastIndexOf("/") - 1 );
-		diaSelection = diaSelection.left( diaSelection.indexOf(".") );
+		diaSelection = doc.DocName.right(doc.DocName.length() - doc.DocName.lastIndexOf("/") - 1);
+		diaSelection = diaSelection.left(diaSelection.indexOf("."));
 		diaSelection += ".prn";
 		PrefsContext* dirs = PrefsManager::instance()->prefsFile->getContext("dirs");
 		QString prefsDocDir = PrefsManager::instance()->documentDir();
@@ -104,15 +104,15 @@ bool ScPrintEngine_GDI::print( ScribusDoc& doc, PrintOptions& options )
 			docDir = dirs->get("winprn", prefsDocDir);
 		else
 			docDir = ".";
-		CustomFDialog dia( doc.scMW()->view, docDir, QObject::tr("Save As"), "Spool Files (*.prn *.ps);;All Files (*)", fdNone);
-		dia.setSelection( diaSelection );
+		CustomFDialog dia(doc.scMW()->view, docDir, QObject::tr("Save As"), "Spool Files (*.prn *.ps);;All Files (*)", fdNone);
+		dia.setSelection(diaSelection);
 		if (dia.exec() == QDialog::Accepted)
 		{
 			QString selectedFile = dia.selectedFile();
-			if ( overwrite(doc.scMW()->view, selectedFile) )
+			if (overwrite(doc.scMW()->view, selectedFile))
 			{
 				dirs->set("winprn", selectedFile.left(selectedFile.lastIndexOf("/")));
-				fileName = QDir::toNativeSeparators( selectedFile );
+				fileName = QDir::toNativeSeparators(selectedFile);
 			}
 		}
 		else
@@ -120,14 +120,14 @@ bool ScPrintEngine_GDI::print( ScribusDoc& doc, PrintOptions& options )
 	}
 
 	// Set user options in the DEVmode structure
-	setDeviceParams( &doc, options, (DEVMODEW*) devMode.data() );
+	setDeviceParams(&doc, options, (DEVMODEW*) devMode.data());
 		
 	// Create the device context
-	printerDC = CreateDCW( NULL, (LPCWSTR) printerName.utf16(), NULL, (DEVMODEW*) devMode.data() );
-	if( printerDC )
+	printerDC = CreateDCW(NULL, (LPCWSTR) printerName.utf16(), NULL, (DEVMODEW*) devMode.data());
+	if (printerDC)
 	{
-		success = printPages( &doc, options, printerDC, (DEVMODEW*) devMode.data(), fileName);
-		DeleteDC( printerDC );
+		success = printPages(&doc, options, printerDC, (DEVMODEW*) devMode.data(), fileName);
+		DeleteDC(printerDC);
 	}
 	else
 	{
@@ -138,7 +138,7 @@ bool ScPrintEngine_GDI::print( ScribusDoc& doc, PrintOptions& options )
 	return success;
 }
 
-bool ScPrintEngine_GDI::gdiPrintPreview( ScribusDoc* doc, ScPage* page, QImage* image, PrintOptions& options, double scale )
+bool ScPrintEngine_GDI::gdiPrintPreview(ScribusDoc* doc, ScPage* page, QImage* image, PrintOptions& options, double scale)
 {
 	bool success = true;
 	HCOLORSPACE hColorSpace  = NULL;
@@ -146,7 +146,7 @@ bool ScPrintEngine_GDI::gdiPrintPreview( ScribusDoc* doc, ScPage* page, QImage* 
 	double scalex = 1, scaley = 1;
 	bool rotate = false;
 
-	if ( !doc || !page || !image)
+	if (!doc || !page || !image)
 		return false;
 	resetData();
 
@@ -159,7 +159,7 @@ bool ScPrintEngine_GDI::gdiPrintPreview( ScribusDoc* doc, ScPage* page, QImage* 
 	// Setup image
 	imagew = clipw * scale;
 	imageh = cliph * scale;
-	*image = QImage( imagew, imageh, QImage::Format_ARGB32_Premultiplied );
+	*image = QImage(imagew, imageh, QImage::Format_ARGB32_Premultiplied);
 	if (image->width() <= 0 || image->height() <= 0)
 		return false;
 
@@ -168,12 +168,12 @@ bool ScPrintEngine_GDI::gdiPrintPreview( ScribusDoc* doc, ScPage* page, QImage* 
 	scaley = options.mirrorV ? -1.0 : 1.0; 
 	double dx = - clipx * scalex;
 	double dy = - clipy * scaley;
-	if ( options.mirrorH ) dx += clipw;
-	if ( options.mirrorV ) dy += cliph;
+	if (options.mirrorH) dx += clipw;
+	if (options.mirrorV) dy += cliph;
 	 
 	// Create the GDI painters
 	ScPageOutput pageOutput(doc, false);
-	QRect drawRect( 0, 0, imagew, imageh );
+	QRect drawRect(0, 0, imagew, imageh);
 
 	cairo_surface_t* surface = cairo_image_surface_create_for_data(image->bits(), CAIRO_FORMAT_ARGB32, imagew, imageh, imagew*4);
 	if (!surface)
@@ -184,7 +184,7 @@ bool ScPrintEngine_GDI::gdiPrintPreview( ScribusDoc* doc, ScPage* page, QImage* 
 		cairo_surface_destroy(surface);
 		return false;
 	}
-	ScPainterEx_Cairo painter( context, drawRect, doc, !options.useColor );
+	ScPainterEx_Cairo painter(context, drawRect, doc, !options.useColor);
 	
 	scalex *= scale;
 	scaley *= scale;
@@ -192,16 +192,16 @@ bool ScPrintEngine_GDI::gdiPrintPreview( ScribusDoc* doc, ScPage* page, QImage* 
 	dy *= scale;
 	
 	// Set the world transformation matrix
-	QTransform matrix( scalex, 0.0, 0.0, scaley, dx, dy );
-	painter.setWorldMatrix( matrix );
+	QTransform matrix(scalex, 0.0, 0.0, scaley, dx, dy);
+	painter.setWorldMatrix(matrix);
 
-	image->fill( qRgba(255, 255, 255, 255) );
+	image->fill(qRgba(255, 255, 255, 255));
 	pageOutput.drawPage(page, &painter); 
 
 	return success;
 }
 
-bool ScPrintEngine_GDI::printPages( ScribusDoc* doc, PrintOptions& options, HDC printerDC, DEVMODEW* devMode, QString& fileName )
+bool ScPrintEngine_GDI::printPages(ScribusDoc* doc, PrintOptions& options, HDC printerDC, DEVMODEW* devMode, QString& fileName)
 {
 	int  jobId;
 	auto_ptr<MultiProgressDialog> progress;
@@ -213,16 +213,16 @@ bool ScPrintEngine_GDI::printPages( ScribusDoc* doc, PrintOptions& options, HDC 
 
 	// Test printer for PostScript support and
 	// choose appropriate page printing function
-	bool psPrint  = isPostscriptPrinter( printerDC );
+	bool psPrint  = isPostscriptPrinter(printerDC);
 	bool useGDI   = (!psPrint || m_forceGDI || (options.prnEngine == WindowsGDI));
 	printPageFunc = (useGDI) ? &ScPrintEngine_GDI::printPage_GDI : &ScPrintEngine_GDI::printPage_PS;
 
 	// Setup document infos structure
-	wcsncpy  (docName, (const WCHAR*) doc->DocName.utf16(), 511);
-	ZeroMemory( &docInfo, sizeof(docInfo) );
+	wcsncpy (docName, (const WCHAR*) doc->DocName.utf16(), 511);
+	ZeroMemory(&docInfo, sizeof(docInfo));
 	docInfo.cbSize = sizeof(docInfo);
 	docInfo.lpszDocName = docName;
-	docInfo.lpszOutput  = (LPCWSTR) ( fileName.length() > 0 ? fileName.utf16() : NULL );
+	docInfo.lpszOutput  = (LPCWSTR) (fileName.length() > 0 ? fileName.utf16() : NULL);
 	docInfo.lpszDatatype = NULL;
 	docInfo.fwType = 0;
 
@@ -230,63 +230,63 @@ bool ScPrintEngine_GDI::printPages( ScribusDoc* doc, PrintOptions& options, HDC 
 	cairo_t* context            = NULL;
 	if (printPageFunc == &ScPrintEngine_GDI::printPage_GDI)
 	{
-		prnSurface = cairo_win32_printing_surface_create( printerDC );
+		prnSurface = cairo_win32_printing_surface_create(printerDC);
 		if (!prnSurface)
 			return false;
 		context = cairo_create(prnSurface);
 		if (!context)
 		{
-			cairo_surface_destroy( prnSurface );
+			cairo_surface_destroy(prnSurface);
 			return false;
 		}
 	}
 	else if ((printPageFunc == &ScPrintEngine_GDI::printPage_PS) && options.outputSeparations)
 		printPageFunc = &ScPrintEngine_GDI::printPage_PS_Sep;
 
-	jobId = StartDocW( printerDC, &docInfo );
-	if ( jobId <= 0 )
+	jobId = StartDocW(printerDC, &docInfo);
+	if (jobId <= 0)
 	{
-		AbortDoc( printerDC ) ;
+		AbortDoc(printerDC) ;
 		return false;
 	}
 
 	bool usingGui = ScCore->usingGUI();
-	if ( usingGui )
+	if (usingGui)
 	{
-		progress.reset( new MultiProgressDialog( QObject::tr("Printing..."), CommonStrings::tr_Cancel, doc->scMW()) );
-		progress->setOverallTotalSteps( options.pageNumbers.size() );
+		progress.reset(new MultiProgressDialog(QObject::tr("Printing..."), CommonStrings::tr_Cancel, doc->scMW()));
+		progress->setOverallTotalSteps(options.pageNumbers.size());
 		progress->setOverallProgress(0);
 		connect(progress.get(), SIGNAL(canceled()), this, SLOT(cancelRequested()));
 		progress->show();
 	}
 
-	for ( uint index = 0; index < options.pageNumbers.size(); index++ )
+	for (uint index = 0; index < options.pageNumbers.size(); index++)
 	{
-		if( usingGui )
+		if (usingGui)
 			progress->setOverallProgress(index);
-		docPage = doc->Pages->at( options.pageNumbers[index] - 1 );
-		success = (this->*printPageFunc)( doc, docPage, options, printerDC, context );
+		docPage = doc->Pages->at(options.pageNumbers[index] - 1);
+		success = (this->*printPageFunc)(doc, docPage, options, printerDC, context);
 		ScQApp->processEvents();
-		if (!success || m_abort )
+		if (!success || m_abort)
 			break;
-		if ( usingGui )
+		if (usingGui)
 			progress->setOverallProgress(index + 1);
 	}
 
-	if ( usingGui )
+	if (usingGui)
 		progress->close();
 
-	if( m_abort )
-		AbortDoc( printerDC ) ;
-	EndDoc( printerDC );
+	if (m_abort)
+		AbortDoc(printerDC) ;
+	EndDoc(printerDC);
 
-	cairo_destroy( context );
-	cairo_surface_destroy( prnSurface );
+	cairo_destroy(context);
+	cairo_surface_destroy(prnSurface);
 
 	return success;
 }
 
-bool ScPrintEngine_GDI::printPage_GDI ( ScribusDoc* doc, ScPage* page, PrintOptions& options, HDC printerDC, cairo_t* context )
+bool ScPrintEngine_GDI::printPage_GDI(ScribusDoc* doc, ScPage* page, PrintOptions& options, HDC printerDC, cairo_t* context)
 {
 	int logPixelsX;
 	int logPixelsY;
@@ -303,20 +303,20 @@ bool ScPrintEngine_GDI::printPage_GDI ( ScribusDoc* doc, ScPage* page, PrintOpti
 	double scalex = 1, scaley = 1;
 	bool rotate = false;
 
-	StartPage( printerDC );
+	StartPage(printerDC);
 
 #ifdef HAVE_ICM
-	if (isPostscriptPrinter(printerDC) )
+	if (isPostscriptPrinter(printerDC))
 	{
 		success = false;
 		QString mProf = doc->prefsData().colorPrefs.DCMSset.DefaultSolidColorRGBProfile;
 		QString pProf = doc->prefsData().colorPrefs.DCMSset.DefaultPrinterProfile;
-		if ( ScCore->MonitorProfiles.contains(mProf) && ScCore->PrinterProfiles.contains(pProf) )
+		if (ScCore->MonitorProfiles.contains(mProf) && ScCore->PrinterProfiles.contains(pProf))
 		{
 			inputProfile   = QDir::toNativeSeparators(ScCore->InputProfiles[mProf]);
 			printerProfile = QDir::toNativeSeparators(ScCore->PrinterProfiles[pProf]);
 			// Avoid color transform if input and output profile are the same
-			if ( inputProfile != printerProfile )
+			if (inputProfile != printerProfile)
 			{
 				// Setup input color space
 				LOGCOLORSPACEW logColorSpace;
@@ -341,14 +341,14 @@ bool ScPrintEngine_GDI::printPage_GDI ( ScribusDoc* doc, ScPage* page, PrintOpti
 				logColorSpace.lcsGammaGreen = __FXPT16DOT16(0.45);
 				logColorSpace.lcsGammaBlue = __FXPT16DOT16(0.45);
 				// Create the color space handle
-				hColorSpace = CreateColorSpaceW( &logColorSpace );
-				if ( hColorSpace )
+				hColorSpace = CreateColorSpaceW(&logColorSpace);
+				if (hColorSpace)
 				{
 					// Setup the input and output profiles for the device context
-					if ( SetColorSpace(printerDC, hColorSpace) && SetICMProfileW(printerDC, (LPWSTR) printerProfile.utf16()) )
+					if (SetColorSpace(printerDC, hColorSpace) && SetICMProfileW(printerDC, (LPWSTR) printerProfile.utf16()))
 					{
-						int result = SetICMMode( printerDC, ICM_ON );
-						success = ( result != 0 );
+						int result = SetICMMode(printerDC, ICM_ON);
+						success = (result != 0);
 					}
 				}
 			}
@@ -356,11 +356,11 @@ bool ScPrintEngine_GDI::printPage_GDI ( ScribusDoc* doc, ScPage* page, PrintOpti
 				success = true;
 		}
 		// Return if color managament could not be setup
-		if ( !success )
+		if (!success)
 		{
-			EndPage( printerDC );
-			if ( hColorSpace )
-				DeleteColorSpace( hColorSpace );
+			EndPage(printerDC);
+			if (hColorSpace)
+				DeleteColorSpace(hColorSpace);
 			return false;
 		}
 	}
@@ -373,57 +373,57 @@ bool ScPrintEngine_GDI::printPage_GDI ( ScribusDoc* doc, ScPage* page, PrintOpti
 	int cliph = qRound(page->height());
 
 	// Get horizontal and vertical resolution of printer
-	logPixelsX = GetDeviceCaps( printerDC, LOGPIXELSX );
-	logPixelsY = GetDeviceCaps( printerDC, LOGPIXELSY );
+	logPixelsX = GetDeviceCaps(printerDC, LOGPIXELSX);
+	logPixelsY = GetDeviceCaps(printerDC, LOGPIXELSY);
 
-	// Get paper dimensions ( in pixels and points)
-	physicalWidth   = GetDeviceCaps( printerDC, PHYSICALWIDTH );
-	physicalHeight  = GetDeviceCaps( printerDC, PHYSICALHEIGHT );
+	// Get paper dimensions (in pixels and points)
+	physicalWidth   = GetDeviceCaps(printerDC, PHYSICALWIDTH);
+	physicalHeight  = GetDeviceCaps(printerDC, PHYSICALHEIGHT);
 	physicalWidthP  = physicalWidth / (double) logPixelsX * 72.0;
 	physicalHeightP = physicalHeight / (double) logPixelsY * 72.0;
 
 	// Get margins dimensions
-	physicalOffsetX = GetDeviceCaps( printerDC, PHYSICALOFFSETX );
-	physicalOffsetY = GetDeviceCaps( printerDC, PHYSICALOFFSETY );
+	physicalOffsetX = GetDeviceCaps(printerDC, PHYSICALOFFSETX);
+	physicalOffsetY = GetDeviceCaps(printerDC, PHYSICALOFFSETY);
 
 	// Calculate scaling factors and offsets
 	scalex = options.mirrorH ? -1.0 : 1.0;
 	scaley = options.mirrorV ? -1.0 : 1.0; 
-	double dx = ( physicalWidthP - clipw ) / 2.0 - clipx * scalex;
-	double dy = ( physicalHeightP - cliph ) / 2.0 - clipy * scaley;
-	if ( options.mirrorH ) dx += clipw;
-	if ( options.mirrorV ) dy += cliph;
-	dx -= ( physicalOffsetX / (double) logPixelsX * 72.0 );
-	dy -= ( physicalOffsetY / (double) logPixelsY * 72.0 );
+	double dx = (physicalWidthP - clipw) / 2.0 - clipx * scalex;
+	double dy = (physicalHeightP - cliph) / 2.0 - clipy * scaley;
+	if (options.mirrorH) dx += clipw;
+	if (options.mirrorV) dy += cliph;
+	dx -= (physicalOffsetX / (double) logPixelsX * 72.0);
+	dy -= (physicalOffsetY / (double) logPixelsY * 72.0);
 	 
 	// Create the GDI painter
 	MarksOptions marksOptions(options);
 	ScPageOutput pageOutput(doc, true, 300, true);
 	pageOutput.setMarksOptions(marksOptions);
 	
-	QRect drawRect( 0, 0, physicalWidth, physicalHeight);
-	ScPainterEx_Cairo painter(context, drawRect, doc, !options.useColor );
+	QRect drawRect(0, 0, physicalWidth, physicalHeight);
+	ScPainterEx_Cairo painter(context, drawRect, doc, !options.useColor);
 	painter.clear();
 	
-	scalex *= ( logPixelsX / 72.0 );
-	scaley *= ( logPixelsY / 72.0 );
-	dx     *= ( logPixelsX / 72.0 );
-	dy     *= ( logPixelsY / 72.0 );
-	QTransform matrix( scalex, 0.0, 0.0, scaley, dx, dy );
-	painter.setWorldMatrix( matrix );
+	scalex *= (logPixelsX / 72.0);
+	scaley *= (logPixelsY / 72.0);
+	dx     *= (logPixelsX / 72.0);
+	dy     *= (logPixelsY / 72.0);
+	QTransform matrix(scalex, 0.0, 0.0, scaley, dx, dy);
+	painter.setWorldMatrix(matrix);
 
 	pageOutput.drawPage(page, &painter);
 
 	cairo_show_page(context);
-	EndPage( printerDC );
+	EndPage(printerDC);
 
 	if (hColorSpace)
-		DeleteColorSpace( hColorSpace );
+		DeleteColorSpace(hColorSpace);
 
 	return success;
 }
 
-bool ScPrintEngine_GDI::printPage_PS ( ScribusDoc* doc, ScPage* page, PrintOptions& options, HDC printerDC, cairo_t* /*context*/ )
+bool ScPrintEngine_GDI::printPage_PS(ScribusDoc* doc, ScPage* page, PrintOptions& options, HDC printerDC, cairo_t* /*context*/)
 {
 	bool succeed = false;
 	ColorList usedColors;
@@ -435,55 +435,55 @@ bool ScPrintEngine_GDI::printPage_PS ( ScribusDoc* doc, ScPage* page, PrintOptio
 	doc->getUsedFonts(usedFonts);
 	doc->getUsedColors(usedColors);
 	options2.pageNumbers.clear();
-	options2.pageNumbers.push_back(page->pageNr() + 1 );
+	options2.pageNumbers.push_back(page->pageNr() + 1);
 
 	tempFilePath = PrefsManager::instance()->preferencesLocation() + "/tmp.ps";
-	PSLib *dd = new PSLib(options2, false, PrefsManager::instance()->appPrefs.fontPrefs.AvailFonts, usedFonts, usedColors, false, options2.useSpotColors );
-	dd->PS_set_file( tempFilePath );
-	ret = dd->CreatePS( doc, options2);
+	PSLib *dd = new PSLib(options2, false, PrefsManager::instance()->appPrefs.fontPrefs.AvailFonts, usedFonts, usedColors, false, options2.useSpotColors);
+	dd->PS_set_file(tempFilePath);
+	ret = dd->CreatePS(doc, options2);
 	delete dd;
 	if (ret != 0) return false;
 
-	if ( options.prnEngine == PostScript1 || options.prnEngine == PostScript2 )
+	if (options.prnEngine == PostScript1 || options.prnEngine == PostScript2)
 	{
 		QString tmp;
 		QStringList opts;
 		QString tempFilePath2 = PrefsManager::instance()->preferencesLocation() + "/tmp2.ps";
-		opts.append( QString("-dDEVICEWIDTHPOINTS=%1").arg(tmp.setNum(doc->pageWidth())) );
-		opts.append( QString("-dDEVICEHEIGHTPOINTS=%1").arg(tmp.setNum(doc->pageHeight())) );
-		if ( QFile::exists( tempFilePath2 ) )
-			QFile::remove( tempFilePath2 );
+		opts.append( QString("-dDEVICEWIDTHPOINTS=%1").arg(tmp.setNum(doc->pageWidth())));
+		opts.append( QString("-dDEVICEHEIGHTPOINTS=%1").arg(tmp.setNum(doc->pageHeight())));
+		if (QFile::exists(tempFilePath2))
+			QFile::remove(tempFilePath2);
 		ret = convertPS2PS(tempFilePath, tempFilePath2, opts, options.prnEngine);
-		if ( ret == 0 )
+		if (ret == 0)
 		{
-			QFile::remove( tempFilePath );
+			QFile::remove(tempFilePath);
 			tempFilePath = tempFilePath2;
 		}
 		else
 		{
-			QFile::remove( tempFilePath2 );
+			QFile::remove(tempFilePath2);
 		}
 	}
 	
-	if( ret == 0 )
+	if (ret == 0)
 	{
 		double bleedH = options.bleeds.left() + options.bleeds.right();
 		double bleedV = options.bleeds.top()  + options.bleeds.bottom();
-		StartPage( printerDC );
-		succeed = sendPSFile( tempFilePath, printerDC, page->width() + bleedH, page->height() + bleedV, (page->orientation() == 1));
-		EndPage( printerDC );
+		StartPage(printerDC);
+		succeed = sendPSFile(tempFilePath, printerDC, page->width() + bleedH, page->height() + bleedV, (page->orientation() == 1));
+		EndPage(printerDC);
 	}
 	
-	QFile::remove( tempFilePath );
+	QFile::remove(tempFilePath);
 	return succeed;
 }
 
-bool ScPrintEngine_GDI::printPage_PS_Sep( ScribusDoc* doc, ScPage* page, PrintOptions& options, HDC printerDC, cairo_t* context )
+bool ScPrintEngine_GDI::printPage_PS_Sep(ScribusDoc* doc, ScPage* page, PrintOptions& options, HDC printerDC, cairo_t* context)
 {
 	bool succeed = true;
 	QStringList separations;
 	if (options.separationName != QObject::tr("All"))
-		separations.append( options.separationName );
+		separations.append(options.separationName);
 	else
 		separations += options.allSeparations;
 	for (int i = 0; i < separations.count(); ++i)
@@ -496,7 +496,7 @@ bool ScPrintEngine_GDI::printPage_PS_Sep( ScribusDoc* doc, ScPage* page, PrintOp
 	return succeed;
 }
 
-bool ScPrintEngine_GDI::sendPSFile( QString filePath, HDC printerDC, int pageWidth, int pageHeight, bool landscape )
+bool ScPrintEngine_GDI::sendPSFile(QString filePath, HDC printerDC, int pageWidth, int pageHeight, bool landscape)
 {
 	int  escape;
 	int  logPixelsX;
@@ -507,13 +507,13 @@ bool ScPrintEngine_GDI::sendPSFile( QString filePath, HDC printerDC, int pageWid
 	sPSPassthrough sps;
 	double transx, transy;
 	double scalex, scaley;
-	QFile file( filePath );
+	QFile file(filePath);
 	int fileSize = 0;
 	int br, bw;
 
 	if (!printerDC)
 		return false;
-	escape = getPSPassthroughSupport( printerDC );
+	escape = getPSPassthroughSupport(printerDC);
 	if (!escape)
 		return false;
 
@@ -521,16 +521,16 @@ bool ScPrintEngine_GDI::sendPSFile( QString filePath, HDC printerDC, int pageWid
 	logPixelsX = GetDeviceCaps(printerDC, LOGPIXELSX);
 	logPixelsY = GetDeviceCaps(printerDC, LOGPIXELSY);
 
-	// Get paper dimensions ( in point units )
-	physicalWidth  = GetDeviceCaps( printerDC, PHYSICALWIDTH ) / (double) logPixelsX * 72.0;
-	physicalHeight = GetDeviceCaps( printerDC, PHYSICALHEIGHT ) / (double) logPixelsY * 72.0;
+	// Get paper dimensions (in point units)
+	physicalWidth  = GetDeviceCaps(printerDC, PHYSICALWIDTH) / (double) logPixelsX * 72.0;
+	physicalHeight = GetDeviceCaps(printerDC, PHYSICALHEIGHT) / (double) logPixelsY * 72.0;
 
 	// Calculate and set scaling factor
 	scalex = logPixelsX / 72.0;
 	scaley = -logPixelsY / 72.0;
-	sprintf( (char*) sps.data, "%0.3f %0.3f scale\n", scalex, scaley );
-	sps.numBytes = strlen( (char*) sps.data );
-	if( ExtEscape( printerDC, escape, sizeof(sps), (LPCSTR) &sps, 0, NULL) <= 0 )
+	sprintf((char*) sps.data, "%0.3f %0.3f scale\n", scalex, scaley);
+	sps.numBytes = strlen((char*) sps.data);
+	if (ExtEscape(printerDC, escape, sizeof(sps), (LPCSTR) &sps, 0, NULL) <= 0)
 		return false;
 
 	// Set some necessary stuff for embedding ps into ps
@@ -547,78 +547,78 @@ bool ScPrintEngine_GDI::sendPSFile( QString filePath, HDC printerDC, int pageWid
 	eBegin += "1 ne\n";
 	eBegin += "{false setstrokeadjust false setoverprint\n";
 	eBegin += "} if } if\n";
-	sprintf( (char*) sps.data, "%s", eBegin.toLatin1().data() );
-	sps.numBytes = strlen( (char*) sps.data );
-	if( ExtEscape( printerDC, escape, sizeof(sps), (LPCSTR) &sps, 0, NULL) <= 0 )
+	sprintf((char*) sps.data, "%s", eBegin.toLatin1().data());
+	sps.numBytes = strlen((char*) sps.data);
+	if (ExtEscape(printerDC, escape, sizeof(sps), (LPCSTR) &sps, 0, NULL) <= 0)
 		return false;
 
 	// Match Postscript and GDI coordinate system
-	sprintf( (char*) sps.data, "0 %0.3f neg translate\n", (double) physicalHeight );
-	sps.numBytes = strlen( (char*) sps.data );
-	if( ExtEscape( printerDC, escape, sizeof(sps), (LPCSTR) &sps, 0, NULL) <= 0 )
+	sprintf((char*) sps.data, "0 %0.3f neg translate\n", (double) physicalHeight);
+	sps.numBytes = strlen((char*) sps.data);
+	if (ExtEscape(printerDC, escape, sizeof(sps), (LPCSTR) &sps, 0, NULL) <= 0)
 		return false;
 
 	// In case of landscape printing, pslib will rotate the page
 	// we must take that into account
 	/*if (landscape)
 	{
-		sprintf( (char*) sps.data, "-90 rotate %0.3f %0.3f translate\n", (double) -pageHeight, 0.0);
-		sps.numBytes = strlen( (char*) sps.data );
-		if( ExtEscape( printerDC, escape, sizeof(sps), (LPCSTR) &sps, 0, NULL) <= 0 )
+		sprintf((char*) sps.data, "-90 rotate %0.3f %0.3f translate\n", (double) -pageHeight, 0.0);
+		sps.numBytes = strlen((char*) sps.data);
+		if (ExtEscape(printerDC, escape, sizeof(sps), (LPCSTR) &sps, 0, NULL) <= 0)
 			return false;
-		transx = ( physicalHeight - pageHeight ) / -2.0;
-		transy = ( physicalWidth  - pageWidth ) / 2.0;
+		transx = (physicalHeight - pageHeight) / -2.0;
+		transy = (physicalWidth  - pageWidth) / 2.0;
 	}
 	else*/
 	{
-		transx = ( physicalWidth  - pageWidth ) / 2.0;
-		transy = ( physicalHeight - pageHeight ) / 2.0;
+		transx = (physicalWidth  - pageWidth) / 2.0;
+		transy = (physicalHeight - pageHeight) / 2.0;
 	}
 
 	// Center the printed page in paper zone
-	sprintf( (char*) sps.data, "%0.3f %0.3f translate\n", transx, transy );
-	sps.numBytes = strlen( (char*) sps.data );
-	if( ExtEscape( printerDC, escape, sizeof(sps), (LPCSTR) &sps, 0, NULL) <= 0 )
+	sprintf((char*) sps.data, "%0.3f %0.3f translate\n", transx, transy);
+	sps.numBytes = strlen((char*) sps.data);
+	if (ExtEscape(printerDC, escape, sizeof(sps), (LPCSTR) &sps, 0, NULL) <= 0)
 		return false;
 
-	sprintf( (char*) sps.data, "%s: %s\n", "%%BeginDocument", file.fileName().toLocal8Bit().data());
-	sps.numBytes = strlen( (char*) sps.data );
-	if( ExtEscape( printerDC, escape, sizeof(sps), (LPCSTR) &sps, 0, NULL) <= 0 )
+	sprintf((char*) sps.data, "%s: %s\n", "%%BeginDocument", file.fileName().toLocal8Bit().data());
+	sps.numBytes = strlen((char*) sps.data);
+	if (ExtEscape(printerDC, escape, sizeof(sps), (LPCSTR) &sps, 0, NULL) <= 0)
 		return false;
 
-	if ( !file.open( QIODevice::ReadOnly ) )
+	if (!file.open(QIODevice::ReadOnly))
 		return false;
 	fileSize = file.size();
 	bw = 0; // bytes written
-	br = file.read( (char*) sps.data, sizeof( sps.data ) );
-	while( br > 0 )
+	br = file.read((char*) sps.data, sizeof(sps.data));
+	while (br > 0)
 	{
 		sps.numBytes = br;
-		if( ExtEscape( printerDC, escape, sizeof(sps), (LPCSTR) &sps, 0, NULL) <= 0 )
+		if (ExtEscape(printerDC, escape, sizeof(sps), (LPCSTR) &sps, 0, NULL) <= 0)
 			break;
 		bw += br;
-		br = file.read( (char*) sps.data, sizeof( sps.data ) );
+		br = file.read((char*) sps.data, sizeof(sps.data));
 	}
 	file.close();
 
-	sprintf( (char*) sps.data, "%s", "\n%%EndDocument\n");
-	sps.numBytes = strlen( (char*) sps.data );
-	if( ExtEscape( printerDC, escape, sizeof(sps), (LPCSTR) &sps, 0, NULL) <= 0 )
+	sprintf((char*) sps.data, "%s", "\n%%EndDocument\n");
+	sps.numBytes = strlen((char*) sps.data);
+	if (ExtEscape(printerDC, escape, sizeof(sps), (LPCSTR) &sps, 0, NULL) <= 0)
 		return false;
 
 	// Set some necessary stuff for embedding ps into ps
 	QString eEnd = "count op_count sub {pop} repeat\n";
 	eEnd += "countdictstack dict_count sub {end} repeat\n";
 	eEnd += "b4_Inc_state restore\n";
-	sprintf( (char*) sps.data, "%s", eEnd.toLatin1().data() );
-	sps.numBytes = strlen( (char*) sps.data );
-	if( ExtEscape( printerDC, escape, sizeof(sps), (LPCSTR) &sps, 0, NULL) <= 0 )
+	sprintf((char*) sps.data, "%s", eEnd.toLatin1().data());
+	sps.numBytes = strlen((char*) sps.data);
+	if (ExtEscape(printerDC, escape, sizeof(sps), (LPCSTR) &sps, 0, NULL) <= 0)
 		return false;
 
-	return ( (fileSize == bw) && ( br >= 0 ) );
+	return ((fileSize == bw) && (br >= 0));
 }
 
-void ScPrintEngine_GDI::setDeviceParams( ScribusDoc* doc, PrintOptions& options, DEVMODEW* devMode )
+void ScPrintEngine_GDI::setDeviceParams(ScribusDoc* doc, PrintOptions& options, DEVMODEW* devMode)
 {
 	HANDLE handle;
 	QString printer = options.printer;
@@ -629,7 +629,7 @@ void ScPrintEngine_GDI::setDeviceParams( ScribusDoc* doc, PrintOptions& options,
 	devFlags  = devFlags | DM_COPIES;
 
 	bool greyscale = !options.useColor;
-	if( greyscale )
+	if (greyscale)
 	{
 		devMode->dmDitherType = DMDITHER_GRAYSCALE;
 		devFlags = devFlags | DM_DITHERTYPE;
@@ -637,12 +637,12 @@ void ScPrintEngine_GDI::setDeviceParams( ScribusDoc* doc, PrintOptions& options,
 
 	devMode->dmFields = devFlags;
 
-	OpenPrinterW( (LPWSTR) printer.utf16(), &handle, NULL );
-	DocumentPropertiesW( (HWND) doc->scMW()->winId(), handle, (LPWSTR) printer.utf16(), devMode, devMode, DM_IN_BUFFER | DM_OUT_BUFFER);
-	ClosePrinter( handle );
+	OpenPrinterW((LPWSTR) printer.utf16(), &handle, NULL);
+	DocumentPropertiesW((HWND) doc->scMW()->winId(), handle, (LPWSTR) printer.utf16(), devMode, devMode, DM_IN_BUFFER | DM_OUT_BUFFER);
+	ClosePrinter(handle);
 }
 
-QString ScPrintEngine_GDI::getDefaultPrinter( void )
+QString ScPrintEngine_GDI::getDefaultPrinter(void)
 {
 	QString defPrinter;
 	OSVERSIONINFO osvi;
@@ -654,14 +654,14 @@ QString ScPrintEngine_GDI::getDefaultPrinter( void )
 	osvi.dwOSVersionInfoSize = sizeof(OSVERSIONINFO);
 	GetVersionEx(&osvi);
 
-	if ( osvi.dwPlatformId == VER_PLATFORM_WIN32_NT && osvi.dwMajorVersion >= 5 ) // Win2k and later
+	if (osvi.dwPlatformId == VER_PLATFORM_WIN32_NT && osvi.dwMajorVersion >= 5) // Win2k and later
 	{
-		if ( GetDefaultPrinterW(szPrinter, &buffSize) )
+		if (GetDefaultPrinterW(szPrinter, &buffSize))
 			defPrinter = QString::fromUtf16((const ushort*) szPrinter);
 	}
-	else if( osvi.dwPlatformId == VER_PLATFORM_WIN32_NT && osvi.dwMajorVersion < 5 ) // NT4 or earlier
+	else if (osvi.dwPlatformId == VER_PLATFORM_WIN32_NT && osvi.dwMajorVersion < 5) // NT4 or earlier
 	{
-		if ( GetProfileStringW(L"windows",L"device",L"", szPrinter, buffSize) < (buffSize - 1) )
+		if (GetProfileStringW(L"windows",L"device",L"", szPrinter, buffSize) < (buffSize - 1))
 		{
 			p = szPrinter;
 			while (*p != 0 && *p != ',')
@@ -674,21 +674,21 @@ QString ScPrintEngine_GDI::getDefaultPrinter( void )
 	{
 		DWORD numPrinters;
 		PRINTER_INFO_2W* printerInfos = NULL;
-		EnumPrintersW ( PRINTER_ENUM_DEFAULT, NULL, 2, NULL, 0, &buffSize, &numPrinters );
+		EnumPrintersW (PRINTER_ENUM_DEFAULT, NULL, 2, NULL, 0, &buffSize, &numPrinters);
 		printerInfos = (PRINTER_INFO_2W*) malloc(buffSize);
-		if ( EnumPrintersW ( PRINTER_ENUM_LOCAL, NULL, 2, (LPBYTE) printerInfos, buffSize, &buffSize, &returned ) )
+		if (EnumPrintersW (PRINTER_ENUM_LOCAL, NULL, 2, (LPBYTE) printerInfos, buffSize, &buffSize, &returned))
 		{
-			if ( returned > 0 )
+			if (returned > 0)
 			{
 				defPrinter = QString::fromUtf16((const ushort*) printerInfos->pPrinterName);
 			}
 		}
-		if( printerInfos) free(printerInfos);
+		if (printerInfos) free(printerInfos);
 	}
 	return defPrinter;
 }
 
-bool ScPrintEngine_GDI::isPostscriptPrinter( HDC dc )
+bool ScPrintEngine_GDI::isPostscriptPrinter(HDC dc)
 {
 	int	escapeCode;
 	char technology[MAX_PATH] = {0};
@@ -698,29 +698,29 @@ bool ScPrintEngine_GDI::isPostscriptPrinter( HDC dc )
 	
 	// Test printer support for the POSTSCRIPT_PASSTHROUGH escape (available since win2k)
 	escapeCode = POSTSCRIPT_PASSTHROUGH;
-	if ( ExtEscape( dc, QUERYESCSUPPORT, sizeof(int), (LPCSTR)&escapeCode, 0, NULL ) > 0 )
+	if (ExtEscape(dc, QUERYESCSUPPORT, sizeof(int), (LPCSTR) &escapeCode, 0, NULL) > 0)
 		return true;
 	// Test printer support  for the POSTSCRIPT_DATA escape (available since win95)
 	escapeCode = POSTSCRIPT_DATA;
-	if ( ExtEscape( dc, QUERYESCSUPPORT, sizeof(int), (LPCSTR)&escapeCode, 0, NULL ) > 0 )
+	if (ExtEscape(dc, QUERYESCSUPPORT, sizeof(int), (LPCSTR) &escapeCode, 0, NULL) > 0)
 		return true;
 	// Test the printer technology
 	escapeCode = GETTECHNOLOGY;
-	if ( ExtEscape( dc, QUERYESCSUPPORT, sizeof(int), (LPCSTR)&escapeCode, 0, NULL ) > 0 )
+	if (ExtEscape(dc, QUERYESCSUPPORT, sizeof(int), (LPCSTR) &escapeCode, 0, NULL) > 0)
 	{
 		// If GETTECHNOLOGY is supported, then ... get technology
-		if ( ExtEscape( dc, GETTECHNOLOGY, 0, NULL, MAX_PATH, (LPSTR) technology ) > 0 )
+		if (ExtEscape(dc, GETTECHNOLOGY, 0, NULL, MAX_PATH, (LPSTR) technology) > 0)
 		{
 			// Check technology string for postscript word
-			strupr( technology );
-			if ( strstr( technology, "POSTSCRIPT" ) )
+			strupr(technology);
+			if (strstr(technology, "POSTSCRIPT"))
 				return true;
 		}
 	}
 	return false;
 }
 
-int	 ScPrintEngine_GDI::getPSPassthroughSupport( HDC printerDC )
+int	 ScPrintEngine_GDI::getPSPassthroughSupport(HDC printerDC)
 {
 	int	escapeCode;
 	char technology[MAX_PATH] = {0};
@@ -728,50 +728,50 @@ int	 ScPrintEngine_GDI::getPSPassthroughSupport( HDC printerDC )
 		return 0;
 	// Test printer support for the POSTSCRIPT_PASSTHROUGH escape (available since win2k)
 	escapeCode = POSTSCRIPT_PASSTHROUGH;
-	if ( ExtEscape( printerDC, QUERYESCSUPPORT, sizeof(int), (LPCSTR)&escapeCode, 0, NULL ) > 0 )
+	if (ExtEscape(printerDC, QUERYESCSUPPORT, sizeof(int), (LPCSTR) &escapeCode, 0, NULL) > 0)
 		return POSTSCRIPT_PASSTHROUGH;
 	// Test printer support for the POSTSCRIPT_DATA escape (available since win95)
 	escapeCode = POSTSCRIPT_DATA;
-	if ( ExtEscape( printerDC, QUERYESCSUPPORT, sizeof(int), (LPCSTR)&escapeCode, 0, NULL ) > 0 )
+	if (ExtEscape(printerDC, QUERYESCSUPPORT, sizeof(int), (LPCSTR) &escapeCode, 0, NULL) > 0)
 		return POSTSCRIPT_DATA;
 	// Test printer support for the PASSTHROUGH escape
 	escapeCode = PASSTHROUGH;
-	if ( ExtEscape( printerDC, QUERYESCSUPPORT, sizeof(int), (LPCSTR)&escapeCode, 0, NULL ) > 0 )
+	if (ExtEscape(printerDC, QUERYESCSUPPORT, sizeof(int), (LPCSTR) &escapeCode, 0, NULL) > 0)
 		return PASSTHROUGH;
 	return 0;
 }
 
-bool ScPrintEngine_GDI::printerUseFilePort( QString& printerName )
+bool ScPrintEngine_GDI::printerUseFilePort(QString& printerName)
 {
  bool done;
  bool toFile = false;
  HANDLE prnHandle;
  DWORD size = 0;
 
-	done = OpenPrinterW( (LPWSTR) printerName.utf16(), &prnHandle, NULL );
-	if ( !done )
+	done = OpenPrinterW((LPWSTR) printerName.utf16(), &prnHandle, NULL);
+	if (!done)
 		return false;
 	
 	// Get buffer size for the PRINTER_INFO_2 structure
-	GetPrinterW( prnHandle, 2, NULL, 0, &size );
-	if ( size > 0 )
+	GetPrinterW(prnHandle, 2, NULL, 0, &size);
+	if (size > 0)
 	{
 		PRINTER_INFO_2W* pInfos = (PRINTER_INFO_2W*) malloc(size);
-		if( pInfos )
+		if (pInfos)
 		{
 			// Get printer informations
-			done = GetPrinterW( prnHandle, 2, (LPBYTE) pInfos, size, &size );
-			if( done )
+			done = GetPrinterW(prnHandle, 2, (LPBYTE) pInfos, size, &size);
+			if (done)
 			{
 				// Get printer port
 				WCHAR* pPortName = pInfos->pPortName;
-				if( wcsstr(pPortName, L"FILE:") )
+				if (wcsstr(pPortName, L"FILE:"))
 					toFile = true;
 			}
 			free(pInfos);
 		}
 	}
 
-	ClosePrinter( prnHandle );
+	ClosePrinter(prnHandle);
 	return toFile;
 }

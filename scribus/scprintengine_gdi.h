@@ -20,97 +20,8 @@ for which a new license (GPL+exception) is in place.
 
 class SCRIBUS_API ScPrintEngine_GDI : public ScPrintEngine
 {
-protected:
-
-	bool m_forceGDI;
-
-	void resetData(void);
-
-	typedef bool (ScPrintEngine_GDI::*PrintPageFunc) ( ScribusDoc* doc, ScPage* page, PrintOptions& options, HDC printerDC, cairo_t* context );
-
-	/*! \brief Print selected pages to a printer or a file
-	\param doc the document whose pages are to be printer
-	\param options print options
-	\param printerDC an initialized printer device context
-	\param devMode the DEVMODE structure used for creating printerDC
-	\param fileName file name to print into
-	\retval bool true on success 
-	\author Jean Ghali
-	*/
-	bool printPages( ScribusDoc* doc, PrintOptions& options, HDC printerDC, DEVMODEW* devMode, QString& fileName );
-	/*! \brief Print a page to a gdi printer
-	Print a page using GDI drawing code ( works on all printers : PS, PCL, GDI... )
-	\param doc the document whose page is to be printed
-	\param page the page to print
-	\param options print options
-	\param printerDC an initialized printer device context
-	\param context cairo context (not used by this function)
-	\retval bool true on success 
-	\author Jean Ghali
-	*/
-	bool printPage_GDI ( ScribusDoc* doc, ScPage* page, PrintOptions& options, HDC printerDC, cairo_t* context );
-	/*! \brief Print a page to a PostScript printer using passthroughs
-	Print a page using PS drawing code and PS passthroughs ( works on PS printers only )
-	\param doc the document whose page is to be printed
-	\param page the page to print
-	\param options print options
-	\param printerDC an initialized printer device context
-	\param context cairo context (not used by this function)
-	\retval bool true on success 
-	\author Jean Ghali
-	*/
-	bool printPage_PS  ( ScribusDoc* doc, ScPage* page, PrintOptions& options, HDC printerDC, cairo_t* context );
-	/*! \brief Print a page separations to a PostScript printer using passthroughs
-	Print a page using PS drawing code and PS passthroughs ( works on PS printers only )
-	\param doc the document whose page is to be printed
-	\param page the page to print
-	\param options print options
-	\param printerDC an initialized printer device context
-	\param context cairo context (not used by this function)
-	\retval bool true on success 
-	\author Jean Ghali
-	*/
-	bool printPage_PS_Sep  ( ScribusDoc* doc, ScPage* page, PrintOptions& options, HDC printerDC, cairo_t* context );
-	/*! \brief Send a file to printer using PostScript Passthrough
-	Send a postscript file to a printer using ps passthrough ( works on PS printers only )
-	\param filePath the Postscript file path
-	\param printerDC the printer deice context
-	\param pageWidth width
-	\param pageHeight height
-	\parah landscape the page is to be printer in landscape mode
-	\retval bool true on success 
-	\author Jean Ghali
-	*/
-	bool sendPSFile ( QString filePath, HDC printerDC, int pageWidth, int pageHeight, bool landscape );
-	/*! \brief Set device params into DEVMODE structure according to print options
-	Set printing params according to options and DEVMODE structure
-	\param options print options
-	\param devMode pointer to a DEVMODE structure
-	\author Jean Ghali
-	*/
-	void setDeviceParams ( ScribusDoc* doc, PrintOptions& options, DEVMODEW* devMode );
-	/*! \brief Get support for PostScript Passthrough
-	Get ps passthrough support and escape code
-	\param printerDC the printer device context
-	\retval int the postscript passthrough escape code if success, 0 if the function fails
-	\author Jean Ghali
-	*/
-	int getPSPassthroughSupport( HDC printerDC );
-	/*! \brief Check if a specified printer use the FILE: port
-	\param printerName the printer name
-	\retval bool return true if the specified printer print to the FILE: port 
-	\author Jean Ghali
-	*/
-	bool printerUseFilePort ( QString& printerName );
-	/*! \brief Check if PostScript is supported by a printer device context
-	\param dc the printer device context
-	\retval bool return true if PostScript is supported 
-	\author Jean Ghali
-	*/
-	bool isPostscriptPrinter( HDC dc );
 
 public:
-
 	ScPrintEngine_GDI(void);
 
 	/*! \brief Force use of gdi even on ps printers
@@ -143,6 +54,103 @@ public:
 	\author Jean Ghali
 	*/
 	static QString getDefaultPrinter( void );
+
+protected:
+
+	bool m_forceGDI;
+
+	void resetData(void);
+
+	typedef bool (ScPrintEngine_GDI::*PrintPageFunc) (ScribusDoc* doc, ScPage* page, PrintOptions& options, HDC printerDC, cairo_t* context);
+
+	/*! \brief Print selected pages to a printer or a file
+	\param doc the document whose pages are to be printer
+	\param options print options
+	\param printerDC an initialized printer device context
+	\param devMode the DEVMODE structure used for creating printerDC
+	\param fileName file name to print into
+	\retval bool true on success 
+	\author Jean Ghali
+	*/
+	bool printPages(ScribusDoc* doc, PrintOptions& options, HDC printerDC, DEVMODEW* devMode, QString& fileName);
+
+	/*! \brief Print a page to a gdi printer
+	Print a page using GDI drawing code ( works on all printers : PS, PCL, GDI... )
+	\param doc the document whose page is to be printed
+	\param page the page to print
+	\param options print options
+	\param printerDC an initialized printer device context
+	\param context cairo context (not used by this function)
+	\retval bool true on success 
+	\author Jean Ghali
+	*/
+	bool printPage_GDI(ScribusDoc* doc, ScPage* page, PrintOptions& options, HDC printerDC, cairo_t* context);
+
+	/*! \brief Print a page to a PostScript printer using passthroughs
+	Print a page using PS drawing code and PS passthroughs ( works on PS printers only )
+	\param doc the document whose page is to be printed
+	\param page the page to print
+	\param options print options
+	\param printerDC an initialized printer device context
+	\param context cairo context (not used by this function)
+	\retval bool true on success 
+	\author Jean Ghali
+	*/
+	bool printPage_PS (ScribusDoc* doc, ScPage* page, PrintOptions& options, HDC printerDC, cairo_t* context);
+
+	/*! \brief Print a page separations to a PostScript printer using passthroughs
+	Print a page using PS drawing code and PS passthroughs ( works on PS printers only )
+	\param doc the document whose page is to be printed
+	\param page the page to print
+	\param options print options
+	\param printerDC an initialized printer device context
+	\param context cairo context (not used by this function)
+	\retval bool true on success 
+	\author Jean Ghali
+	*/
+	bool printPage_PS_Sep(ScribusDoc* doc, ScPage* page, PrintOptions& options, HDC printerDC, cairo_t* context);
+
+	/*! \brief Send a file to printer using PostScript Passthrough
+	Send a postscript file to a printer using ps passthrough ( works on PS printers only )
+	\param filePath the Postscript file path
+	\param printerDC the printer deice context
+	\param pageWidth width
+	\param pageHeight height
+	\parah landscape the page is to be printer in landscape mode
+	\retval bool true on success 
+	\author Jean Ghali
+	*/
+	bool sendPSFile(QString filePath, HDC printerDC, int pageWidth, int pageHeight, bool landscape);
+
+	/*! \brief Set device params into DEVMODE structure according to print options
+	Set printing params according to options and DEVMODE structure
+	\param options print options
+	\param devMode pointer to a DEVMODE structure
+	\author Jean Ghali
+	*/
+	void setDeviceParams(ScribusDoc* doc, PrintOptions& options, DEVMODEW* devMode);
+
+	/*! \brief Get support for PostScript Passthrough
+	Get ps passthrough support and escape code
+	\param printerDC the printer device context
+	\retval int the postscript passthrough escape code if success, 0 if the function fails
+	\author Jean Ghali
+	*/
+	int getPSPassthroughSupport(HDC printerDC);
+
+	/*! \brief Check if a specified printer use the FILE: port
+	\param printerName the printer name
+	\retval bool return true if the specified printer print to the FILE: port 
+	\author Jean Ghali
+	*/
+	bool printerUseFilePort (QString& printerName);
+
+	/*! \brief Check if PostScript is supported by a printer device context
+	\param dc the printer device context
+	\retval bool return true if PostScript is supported 
+	\author Jean Ghali
+	*/
+	bool isPostscriptPrinter(HDC dc);
 };
 
 #endif
