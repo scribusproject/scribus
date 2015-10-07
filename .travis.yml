@@ -2,8 +2,8 @@ language: cpp
 
 os:
   - linux
-    dist: trusty
-    sudo: required
+      dist: trusty
+      sudo: required
   - osx
   
 compiler:
