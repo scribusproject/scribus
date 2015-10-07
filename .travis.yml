@@ -1,53 +1,75 @@
-matrix:
-  include:
-#    - os: linux
-#      dist: trusty
-#      sudo: required
-    - os: osx
+language: cpp
 
-language: c++
-compiler: clang  
+os:
+  - linux
+    dist: trusty
+    sudo: required
+  - osx
+  
+compiler:
+  - gcc
+  - clang
+
 
 before_install:
-# Linux
-#- if [ $TRAVIS_OS_NAME == linux ]; then sudo apt-get update -qq && 
-#    sudo apt-get install cmake libboost-python-dev libcups2-dev libhunspell-dev
-#    libhyphen-dev liblcms2-dev libpodofo-dev libtiff-dev libxml2-dev
-#    python-all-dev zlib1g-dev qtbase5-dev qtdeclarative5-dev libqt5opengl5-dev
-#    qttools5-dev qttools5-dev-tools libgraphicsmagick++1-dev
-#    libopenscenegraph-dev libpoppler-dev libcairo2-dev libwpg-dev libmspub-dev
-#    libcdr-dev libvisio-dev; fi
+- echo "Building for $TRAVIS_OS_NAME\n";
 
-# OSX
-# - if [ $TRAVIS_OS_NAME == osx ]; then brew update && brew tap luzpaz/scribustravis && brew install --HEAD scribustravis --verbose; fi
-- echo "Building for $TRAVIS_OS_NAME"
-- if [ $TRAVIS_OS_NAME == osx ]; then brew update; fi
+#Linux
+if [ $TRAVIS_OS_NAME == linux ]; then sudo apt-get update -qq; 
+  sudo apt-get install cmake libboost-python-dev libcups2-dev libhunspell-dev
+    libhyphen-dev liblcms2-dev libpodofo-dev libtiff-dev libxml2-dev
+    python-all-dev zlib1g-dev qtbase5-dev qtdeclarative5-dev libqt5opengl5-dev
+    qttools5-dev qttools5-dev-tools libgraphicsmagick++1-dev
+    libopenscenegraph-dev libpoppler-dev libcairo2-dev libwpg-dev libmspub-dev
+    libcdr-dev libvisio-dev;
+fi
+
+#OSX
 # - if [ $TRAVIS_OS_NAME == osx ]; then brew --env && brew config; fi
 # - if [ $TRAVIS_OS_NAME == osx ]; then brew list; fi
-- if [ $TRAVIS_OS_NAME == osx ]; then brew outdated cmake --verbose || brew upgrade cmake; fi
-- if [ $TRAVIS_OS_NAME == osx ]; then brew tap homebrew/dupes && brew install homebrew/dupes/zlib && brew link --force zlib; fi
-- if [ $TRAVIS_OS_NAME == osx ]; then brew install xz little-cms2 cairo qt5 hunspell ghostscript graphicsmagick poppler podofo; fi  
-- if [ $TRAVIS_OS_NAME == osx ]; then brew outdated jpeg --verbose || brew upgrade jpeg; fi
-- if [ $TRAVIS_OS_NAME == osx ]; then brew outdated libtiff --verbose || brew upgrade libtiff; fi
-- if [ $TRAVIS_OS_NAME == osx ]; then brew outdated fontconfig --verbose || brew upgrade fontconfig; fi
-- if [ $TRAVIS_OS_NAME == osx ]; then brew install openssl && brew link --force openssl; fi
-- if [ $TRAVIS_OS_NAME == osx ]; then brew outdated pkg-config --verbose || brew upgrade pkg-config; fi
-- if [ $TRAVIS_OS_NAME == osx ]; then brew outdated boost || brew upgrade boost; fi
-- if [ $TRAVIS_OS_NAME == osx ]; then brew outdated freetype || brew upgrade freetype; fi
+- if [ $TRAVIS_OS_NAME == osx ]; then  brew update; 
+    brew outdated cmake --verbose || brew upgrade cmake; 
+    brew tap homebrew/dupes && brew install homebrew/dupes/zlib && brew link --force zlib
+    brew install xz little-cms2 cairo qt5 hunspell ghostscript graphicsmagick poppler podofo; 
+    brew outdated jpeg --verbose || brew upgrade jpeg;
+    brew outdated libtiff --verbose || brew upgrade libtiff; 
+    brew outdated fontconfig --verbose || brew upgrade fontconfig; 
+    brew install openssl && brew link --force openssl; 
+    brew outdated pkg-config --verbose || brew upgrade pkg-config; 
+    brew outdated boost || brew upgrade boost; 
+    brew outdated freetype || brew upgrade freetype; 
 # Install Librevenge suite + OSG
-- if [ $TRAVIS_OS_NAME == osx ]; then brew install librevenge libwpg libvisio libmspub libcdr libpagemaker libfreehand open-scene-graph; fi
+    brew install librevenge libwpg libvisio libmspub libcdr libpagemaker libfreehand open-scene-graph; 
+  fi
 # - export LDFLAGS+=-L/usr/local/opt/zlib/lib:-L/usr/local/opt/gettext/lib:-L/usr/local/opt/libffi/lib:-L/usr/local/opt/qt5/lib:-L/usr/local/opt/sqlite/lib:-L/usr/local/opt/openssl/lib:-L/usr/local/opt/icu4c/lib
 # - export CXXFLAGS+=-I/usr/local/opt/zlib/include:-I/usr/local/opt/gettext/include:-I/usr/local/opt/qt5/include:-I/usr/local/opt/sqlite/include:-I/usr/local/opt/openssl/include:-I/usr/local/opt/icu4c/include 
 
-
-script: 
-#OSX 
-#  - if [[ $TRAVIS_OS_NAME == "osx" ]] ; then 
-# is this relevant? -DCMAKE_LIBRARY_PATH=/usr/local
-  - cmake . -DCMAKE_PREFIX_PATH=/usr/local/opt/zlib -DBUILD_OSX_BUNDLE=1 -DCMAKE_INSTALL_PREFIX=/usr/local/Scribus.app/Contents/ -DQT_PREFIX=/usr/local/opt/qt5 -DWANT_HUNSPELL=1 -DWITH_PODOFO=1 -DWANT_GRAPHICSMAGICK=1 -DWANT_DEBUG=1 -DWANT_SVNVERSION=0
-  - make 
-  - make install
-
+script:
+  - if [ $TRAVIS_OS_NAME == linux ]; then
+      if [[ $CC == gcc ]]; then
+        export NPROC=8;
+      else
+        export NPROC=1;
+      fi
+    cmake . 
+    make -j$NPROC;
+    make install;
+    fi
+  
+  #fix this
+#  - if [ $TRAVIS_OS_NAME = osx -a $CC = gcc ]; then DON'T BUILD ; fi
+  - if [ $TRAVIS_OS_NAME = osx -a $CC = clang ]; then
+      cmake . -DCMAKE_PREFIX_PATH=/usr/local/opt/zlib -DBUILD_OSX_BUNDLE=1 -DCMAKE_INSTALL_PREFIX=/usr/local/Scribus.app/Contents/ -DQT_PREFIX=/usr/local/opt/qt5 -DWANT_HUNSPELL=1 -DWITH_PODOFO=1 -DWANT_GRAPHICSMAGICK=1 -DWANT_DEBUG=1 -DWANT_SVNVERSION=0
+      make; 
+      make install;
+    fi
+    
 notifications:
-  email:
-  - kunda@scribus.net
+  email: false
+  irc:
+    channels:
+      - "chat.freenode.net#scribus-dev"
+    template:
+      - "%{repository}/%{branch} (%{commit} - %{author}): %{build_url}: %{message}"  
+    on_success: always
+    on_failure: always
