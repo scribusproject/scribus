@@ -12,9 +12,9 @@ compiler:
   - clang
 
 before_install:
-- echo "Building for $TRAVIS_OS_NAME\n";
+  - echo "Building for $TRAVIS_OS_NAME\n";
 
-#Linux
+# Linux
   - if [ $TRAVIS_OS_NAME == linux ]; then sudo apt-get update -qq; 
       sudo apt-get install cmake libboost-python-dev libcups2-dev libhunspell-dev
         libhyphen-dev liblcms2-dev libpodofo-dev libtiff-dev libxml2-dev
@@ -23,7 +23,7 @@ before_install:
         libopenscenegraph-dev libpoppler-dev libcairo2-dev libwpg-dev libmspub-dev
         libcdr-dev libvisio-dev;
     fi
-#OSX
+# OSX
 # - if [ $TRAVIS_OS_NAME == osx ]; then brew --env && brew config && brew list; fi
   - if [ $TRAVIS_OS_NAME == osx ]; then  brew update; 
       brew outdated cmake --verbose || brew upgrade cmake; 
@@ -36,7 +36,7 @@ before_install:
       brew outdated pkg-config --verbose || brew upgrade pkg-config; 
       brew outdated boost || brew upgrade boost; 
       brew outdated freetype || brew upgrade freetype; 
-  # Install Librevenge suite + OSG
+      # Install Librevenge suite + OSG
       brew install librevenge libwpg libvisio libmspub libcdr libpagemaker libfreehand open-scene-graph; 
     fi
   # - export LDFLAGS+=-L/usr/local/opt/zlib/lib:-L/usr/local/opt/gettext/lib:-L/usr/local/opt/libffi/lib:-L/usr/local/opt/qt5/lib:-L/usr/local/opt/sqlite/lib:-L/usr/local/opt/openssl/lib:-L/usr/local/opt/icu4c/lib
@@ -49,7 +49,7 @@ script:
       else
         export NPROC=1;
       fi
-    cmake . 
+    cmake . ;
     make -j$NPROC;
     make install;
     fi
@@ -57,7 +57,7 @@ script:
   #fix this
 #  - if [ $TRAVIS_OS_NAME = osx -a $CC = gcc ]; then DON'T BUILD ; fi
   - if [ $TRAVIS_OS_NAME = osx -a $CC = clang ]; then
-      cmake . -DCMAKE_PREFIX_PATH=/usr/local/opt/zlib -DBUILD_OSX_BUNDLE=1 -DCMAKE_INSTALL_PREFIX=/usr/local/Scribus.app/Contents/ -DQT_PREFIX=/usr/local/opt/qt5 -DWANT_HUNSPELL=1 -DWITH_PODOFO=1 -DWANT_GRAPHICSMAGICK=1 -DWANT_DEBUG=1 -DWANT_SVNVERSION=0
+      cmake . -DCMAKE_PREFIX_PATH=/usr/local/opt/zlib -DBUILD_OSX_BUNDLE=1 -DCMAKE_INSTALL_PREFIX=/usr/local/Scribus.app/Contents/ -DQT_PREFIX=/usr/local/opt/qt5 -DWANT_HUNSPELL=1 -DWITH_PODOFO=1 -DWANT_GRAPHICSMAGICK=1 -DWANT_DEBUG=1 -DWANT_SVNVERSION=0; 
       make; 
       make install;
     fi
