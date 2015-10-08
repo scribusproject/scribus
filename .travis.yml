@@ -12,7 +12,7 @@ compiler:
   - clang
 
 before_install:
-  - echo "Building for $TRAVIS_OS_NAME\n";
+  - echo "Building for $TRAVIS_OS_NAME";
 
 # Linux
   - if [ $TRAVIS_OS_NAME == linux ]; then sudo apt-get update -qq; 
