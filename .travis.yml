@@ -3,7 +3,7 @@ language: cpp
 os:
   - linux
       dist: trusty
-      sudo: required
+      sudo: true
   - osx
   
 compiler:
