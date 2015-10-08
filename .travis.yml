@@ -1,11 +1,12 @@
 language: cpp
 
-os:
-  - linux
+matrix:
+  include:
+    - os: linux
       dist: trusty
-      sudo: true
-  - osx
-  
+      sudo: required
+    - os: osx
+
 compiler:
   - gcc
   - clang
