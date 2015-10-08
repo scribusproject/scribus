@@ -11,11 +11,10 @@ compiler:
   - gcc
   - clang
 
-
 before_install:
-  - echo "Building for $TRAVIS_OS_NAME\n";
+#  - echo "Building for $TRAVIS_OS_NAME\n";
 #Linux
-  - if [ $TRAVIS_OS_NAME == linux ]; then sudo apt-get update -qq; 
+- if [ $TRAVIS_OS_NAME == linux ]; then sudo apt-get update -qq; 
       sudo apt-get install cmake libboost-python-dev libcups2-dev libhunspell-dev
         libhyphen-dev liblcms2-dev libpodofo-dev libtiff-dev libxml2-dev
         python-all-dev zlib1g-dev qtbase5-dev qtdeclarative5-dev libqt5opengl5-dev
