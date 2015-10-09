@@ -14,7 +14,7 @@ matrix:
     - os: osx
       compiler: gcc
     - os: linux
-      dist:precise
+      dist: precise
 
 before_install:
 # Linux
