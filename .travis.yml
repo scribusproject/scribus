@@ -56,7 +56,7 @@ script:
       cmake . -DCMAKE_PREFIX_PATH=/usr/local/opt/zlib -DBUILD_OSX_BUNDLE=1 -DCMAKE_INSTALL_PREFIX=/usr/local/Scribus.app/Contents/ -DQT_PREFIX=/usr/local/opt/qt5 -DWANT_HUNSPELL=1 -DWITH_PODOFO=1 -DWANT_GRAPHICSMAGICK=1 -DWANT_DEBUG=0 -DWANT_SVNVERSION=0; 
       make; 
       make install;
-    else [ $TRAVIS_OS_NAME = osx -a $CC = gcc ]; then
+    else [ $TRAVIS_OS_NAME = osx -a $CC = gcc ] then
       exit;
     fi
     
