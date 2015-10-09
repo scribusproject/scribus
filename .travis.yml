@@ -12,8 +12,6 @@ matrix:
   exclude:
     - os: osx
       compiler: gcc
-    - os: linux
-      dist: precise
 
 
 before_install:
