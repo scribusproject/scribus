@@ -6,12 +6,12 @@ matrix:
       dist: trusty
       sudo: required
       compiler:
-        - clang
+        - gcc
     - os: linux
       dist: trusty
       sudo: required
       compiler:
-        - gcc
+        - clang
     - os: osx
       compiler: clang
   exclude:
