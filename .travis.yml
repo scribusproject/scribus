@@ -48,7 +48,7 @@ script:
         export NPROC=8;
       else
         export NPROC=1;
-      fi
+      fi;
     cmake . -DWANT_HUNSPELL=1 -DWITH_PODOFO=1 -DWANT_GRAPHICSMAGICK=1 -DWANT_DEBUG=0 -DWANT_SVNVERSION=0;
     make -j$NPROC;
     make install;
