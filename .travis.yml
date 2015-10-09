@@ -46,17 +46,18 @@ script:
       else
         export NPROC=1;
       fi
-    cmake . ;
+    cmake . -DWANT_HUNSPELL=1 -DWITH_PODOFO=1 -DWANT_GRAPHICSMAGICK=1 -DWANT_DEBUG=0 -DWANT_SVNVERSION=0;
     make -j$NPROC;
     make install;
     fi
   
-  #fix this
-#  - if [ $TRAVIS_OS_NAME = osx -a $CC = gcc ]; then DON'T BUILD ; fi
+
   - if [ $TRAVIS_OS_NAME = osx -a $CC = clang ]; then
-      cmake . -DCMAKE_PREFIX_PATH=/usr/local/opt/zlib -DBUILD_OSX_BUNDLE=1 -DCMAKE_INSTALL_PREFIX=/usr/local/Scribus.app/Contents/ -DQT_PREFIX=/usr/local/opt/qt5 -DWANT_HUNSPELL=1 -DWITH_PODOFO=1 -DWANT_GRAPHICSMAGICK=1 -DWANT_DEBUG=1 -DWANT_SVNVERSION=0; 
+      cmake . -DCMAKE_PREFIX_PATH=/usr/local/opt/zlib -DBUILD_OSX_BUNDLE=1 -DCMAKE_INSTALL_PREFIX=/usr/local/Scribus.app/Contents/ -DQT_PREFIX=/usr/local/opt/qt5 -DWANT_HUNSPELL=1 -DWITH_PODOFO=1 -DWANT_GRAPHICSMAGICK=1 -DWANT_DEBUG=0 -DWANT_SVNVERSION=0; 
       make; 
       make install;
+    else [ $TRAVIS_OS_NAME = osx -a $CC = gcc ] then
+      exit;
     fi
     
 notifications:
