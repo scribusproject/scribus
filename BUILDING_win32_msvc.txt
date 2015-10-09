@@ -106,30 +106,37 @@ set SCRIBUS_SRC_PATH=.\Scribus
 set SCRIBUS_BUILD_ROOT=.\Scribus-builds
 set SCRIBUS_INSTALL_PATH=.\Scribus-builds\scribus-debug-win32-v110
 
+if not exist %SCRIBUS_INSTALL_PATH%\libs                mkdir %SCRIBUS_INSTALL_PATH%\libs
+if not exist %SCRIBUS_INSTALL_PATH%\share               mkdir %SCRIBUS_INSTALL_PATH%\share
+if not exist %SCRIBUS_INSTALL_PATH%\share\doc           mkdir %SCRIBUS_INSTALL_PATH%\share\doc
+if not exist %SCRIBUS_INSTALL_PATH%\share\plugins       mkdir %SCRIBUS_INSTALL_PATH%\share\plugins
+if not exist %SCRIBUS_INSTALL_PATH%\share\qml           mkdir %SCRIBUS_INSTALL_PATH%\share\qml
+
  copy %SCRIBUS_SRC_PATH%\AUTHORS                        %SCRIBUS_INSTALL_PATH%\share\doc
  copy %SCRIBUS_SRC_PATH%\COPYING                        %SCRIBUS_INSTALL_PATH%\share\doc
  copy %SCRIBUS_SRC_PATH%\LINKS                          %SCRIBUS_INSTALL_PATH%\share\doc
  copy %SCRIBUS_SRC_PATH%\TRANSLATION                    %SCRIBUS_INSTALL_PATH%\share\doc
-xcopy %SCRIBUS_SRC_PATH%\doc                            %SCRIBUS_INSTALL_PATH%\share\doc /s /y /D
-xcopy %SCRIBUS_SRC_PATH%\resources\dicts                %SCRIBUS_INSTALL_PATH%\share\dicts /s /y /D
-xcopy %SCRIBUS_SRC_PATH%\resources\editorconfig         %SCRIBUS_INSTALL_PATH%\share\editorconfig /s /y
-xcopy %SCRIBUS_SRC_PATH%\resources\iconsets\1_5_0       %SCRIBUS_INSTALL_PATH%\share\icons /s /y /D
+xcopy %SCRIBUS_SRC_PATH%\doc                            %SCRIBUS_INSTALL_PATH%\share\doc /s /y /i /D
+xcopy %SCRIBUS_SRC_PATH%\resources\dicts                %SCRIBUS_INSTALL_PATH%\share\dicts /s /y /i /D
+xcopy %SCRIBUS_SRC_PATH%\resources\editorconfig         %SCRIBUS_INSTALL_PATH%\share\editorconfig /s /y /i /D
+xcopy %SCRIBUS_SRC_PATH%\resources\iconsets\1_5_0       %SCRIBUS_INSTALL_PATH%\share\icons /s /y /i /D
  copy %SCRIBUS_SRC_PATH%\resources\iconsets\1_5_0\*.xml %SCRIBUS_INSTALL_PATH%\share\icons /y
-xcopy %SCRIBUS_SRC_PATH%\resources\iconsets\1_5_1       %SCRIBUS_INSTALL_PATH%\share\icons /s /y /D
+xcopy %SCRIBUS_SRC_PATH%\resources\iconsets\1_5_1       %SCRIBUS_INSTALL_PATH%\share\icons /s /y /i /D
  copy %SCRIBUS_SRC_PATH%\resources\iconsets\1_5_1\*.xml %SCRIBUS_INSTALL_PATH%\share\icons /y
-xcopy %SCRIBUS_SRC_PATH%\resources\loremipsum           %SCRIBUS_INSTALL_PATH%\share\loremipsum /s /y
-xcopy %SCRIBUS_SRC_PATH%\resources\profiles             %SCRIBUS_INSTALL_PATH%\share\profiles /s /y
-xcopy %SCRIBUS_SRC_PATH%\resources\swatches             %SCRIBUS_INSTALL_PATH%\share\swatches /s /y
-xcopy %SCRIBUS_SRC_PATH%\resources\templates            %SCRIBUS_INSTALL_PATH%\share\templates /s /y /D
+xcopy %SCRIBUS_SRC_PATH%\resources\loremipsum           %SCRIBUS_INSTALL_PATH%\share\loremipsum /s /y /i /D
+xcopy %SCRIBUS_SRC_PATH%\resources\profiles             %SCRIBUS_INSTALL_PATH%\share\profiles /s /y /i /D
+xcopy %SCRIBUS_SRC_PATH%\resources\swatches             %SCRIBUS_INSTALL_PATH%\share\swatches /s /y /i /D
+xcopy %SCRIBUS_SRC_PATH%\resources\templates            %SCRIBUS_INSTALL_PATH%\share\templates /s /y /i /D
  copy %SCRIBUS_SRC_PATH%\scribus\scribus.css            %SCRIBUS_INSTALL_PATH%\libs\scribus.css /y
  copy %SCRIBUS_SRC_PATH%\scribus\plugins\tools\pathcut\*.png      %SCRIBUS_INSTALL_PATH%\share\icons\ /y
  copy %SCRIBUS_SRC_PATH%\scribus\plugins\tools\pathfinder\*.png   %SCRIBUS_INSTALL_PATH%\share\icons\ /y
-xcopy %SCRIBUS_SRC_PATH%\scribus\plugins\scriptplugin\scripts     %SCRIBUS_INSTALL_PATH%\share\scripts /s /y /D
-xcopy %SCRIBUS_SRC_PATH%\scribus\plugins\scriptplugin\samples     %SCRIBUS_INSTALL_PATH%\share\samples /s /y
+xcopy %SCRIBUS_SRC_PATH%\scribus\plugins\scriptplugin\scripts     %SCRIBUS_INSTALL_PATH%\share\scripts /s /y /i /D
+xcopy %SCRIBUS_SRC_PATH%\scribus\plugins\scriptplugin\samples     %SCRIBUS_INSTALL_PATH%\share\samples /s /y /i /D
 copy  %SCRIBUS_SRC_PATH%\scribus\plugins\import\ps\import.prolog  %SCRIBUS_INSTALL_PATH%\libs\import.prolog
 copy  %SCRIBUS_SRC_PATH%\scribus\plugins\barcodegenerator\barcode.ps %SCRIBUS_INSTALL_PATH%\share\plugins\barcode.ps
 xcopy %SCRIBUS_SRC_PATH%\scribus\ui\qml                           %SCRIBUS_INSTALL_PATH%\share\qml /s /y
 copy  %SCRIBUS_SRC_PATH%\scribus\unicodemap\unicodenameslist.txt  %SCRIBUS_INSTALL_PATH%\share\unicodenameslist.txt
+
 del   %SCRIBUS_BUILD_ROOT%\*CMake* /s
 del   %SCRIBUS_BUILD_ROOT%\*MakeFile* /s
 
