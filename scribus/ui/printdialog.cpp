@@ -77,11 +77,11 @@ PrintDialog::PrintDialog( QWidget* parent, ScribusDoc* doc, const PrintOptions& 
 	QString printerName;
 	QStringList printerNames = PrinterUtil::getPrinterNames();
 	int numPrinters = printerNames.count();
-	for( int i = 0; i < numPrinters; i++)
+	for (int i = 0; i < numPrinters; i++)
 	{
 		printerName = printerNames[i];
 		PrintDest->addItem(printerName);
-		if( printerName == printOptions.printer )
+		if (printerName == printOptions.printer)
 		{
 			PrintDest->setCurrentIndex(PrintDest->count()-1);
 			prefs->set("CurrentPrn", PrintDest->currentText());
@@ -143,7 +143,7 @@ PrintDialog::PrintDialog( QWidget* parent, ScribusDoc* doc, const PrintOptions& 
 	if (!outputToFile())
 	{
 		DevMode = printOptions.devMode;
-		PrinterUtil::initDeviceSettings( PrintDest->currentText(), DevMode );
+		PrinterUtil::initDeviceSettings(PrintDest->currentText(), DevMode);
 	}
 #endif
 
@@ -184,14 +184,14 @@ void PrintDialog::SetOptions()
 	// Retrieve the selected printer
 	QString printerS = PrintDest->currentText(); 
 	// Get a printer handle
-	done = OpenPrinterW( (LPWSTR) printerS.utf16(), &handle, NULL );
-	if(!done)
+	done = OpenPrinterW((LPWSTR) printerS.utf16(), &handle, NULL);
+	if (!done)
 		return;
 	// Merge stored settings, prompt user and return user settings
 	DocumentPropertiesW((HWND) winId(), handle, (LPWSTR) printerS.utf16(), (DEVMODEW*) DevMode.data(), (DEVMODEW*) DevMode.data(), 
 						DM_IN_BUFFER | DM_IN_PROMPT | DM_OUT_BUFFER);
 	// Free the printer handle
-	ClosePrinter( handle );
+	ClosePrinter(handle);
 #endif
 }
 
@@ -282,15 +282,15 @@ void PrintDialog::SelEngine(const QString& eng)
 	psSupported |= (eng == CommonStrings::trPostScript3);
 	if (psSupported)
 	{
-		PrintSep->setEnabled( true );
+		PrintSep->setEnabled(true);
 		usePDFMarks->setEnabled(true);
 	}
 	else
 	{
 		setCurrentComboItem(PrintSep, tr("Print Normal"));
-		PrintSep->setEnabled( false );
+		PrintSep->setEnabled(false);
 		setCurrentComboItem(SepArt, tr("All"));
-		SepArt->setEnabled( false );
+		SepArt->setEnabled(false);
 		usePDFMarks->setEnabled(false);
 	}
 }
@@ -305,7 +305,7 @@ void PrintDialog::SelPrinter(const QString& prn)
 #if defined(_WIN32)
 	if (!toFile)
 	{
-		if( !PrinterUtil::getDefaultSettings(PrintDest->currentText(), DevMode) )
+		if (!PrinterUtil::getDefaultSettings(PrintDest->currentText(), DevMode))
 			qWarning( tr("Failed to retrieve printer settings").toLatin1().data() );
 	}
 #endif
@@ -338,17 +338,17 @@ void PrintDialog::SelPrinter(const QString& prn)
 	bool psSupported  = (ps1Supported || ps2Supported || ps3Supported);
 	if (psSupported || toFile)
 	{
-		printEngines->setEnabled( true );
-		PrintSep->setEnabled( true );
+		printEngines->setEnabled(true);
+		PrintSep->setEnabled(true);
 		usePDFMarks->setEnabled(true);
 	}
 	else
 	{
-		printEngines->setEnabled( false );
+		printEngines->setEnabled(false);
 		setCurrentComboItem(PrintSep, tr("Print Normal"));
-		PrintSep->setEnabled( false );
+		PrintSep->setEnabled(false);
 		setCurrentComboItem(SepArt, tr("All"));
-		SepArt->setEnabled( false );
+		SepArt->setEnabled(false);
 		usePDFMarks->setEnabled(false);
 	}
 }
@@ -361,7 +361,7 @@ void PrintDialog::SelRange(bool e)
 
 void PrintDialog::SelMode(int e)
 {
-	SepArt->setEnabled( (e != 0) );
+	SepArt->setEnabled(e != 0);
 }
 
 void PrintDialog::SelFile()
@@ -711,7 +711,7 @@ void PrintDialog::refreshPrintEngineBox()
 			oldPDLIndex = index;
 		index++;
 	}
-	printEngines->setCurrentIndex( oldPDLIndex );
+	printEngines->setCurrentIndex(oldPDLIndex);
 }
 
 void PrintDialog::setPrintEngine(PrintEngine pdl)
@@ -720,7 +720,7 @@ void PrintDialog::setPrintEngine(PrintEngine pdl)
 	int itemIndex = printEngines->findText(pdlString);
 	if (itemIndex >= 0)
 		printEngines->setCurrentIndex(itemIndex);
-	else if(printEngines->count() > 0)
+	else if (printEngines->count() > 0)
 	{
 		pdlString = printEngineMap.key(PostScript3, "");
 		itemIndex = printEngines->findText(pdlString);
