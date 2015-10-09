@@ -3912,6 +3912,10 @@ void ScribusMainWindow::slotGetContent()
 			styleManager->setDoc(doc);
 			marksManager->setDoc(doc);
 			nsEditor->setDoc(doc);
+			inlinePalette->unsetDoc();
+			inlinePalette->setDoc(doc);
+			if (outlinePalette->isVisible())
+				outlinePalette->BuildTree();
 		}
 	}
 }
