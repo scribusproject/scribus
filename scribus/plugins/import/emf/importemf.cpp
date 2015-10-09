@@ -3046,7 +3046,7 @@ QImage EmfPlug::handleDIB(QDataStream &ds, qint64 filePos, quint32 offBitH, quin
 					for (qint32 xx = 0; xx < hWidth; xx++)
 					{
 						quint8 r, g, b, a;
-						dsB >> a >> b >> g >> r;
+						dsB >> b >> g >> r >> a;
 						*dst = qRgba(r, g, b, 255);
 						dst++;
 					}
