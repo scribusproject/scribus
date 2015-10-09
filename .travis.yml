@@ -56,7 +56,7 @@ script:
         export NPROC=1;
       fi;
     cmake . -DWANT_HUNSPELL=1 -DWITH_PODOFO=1 -DWANT_GRAPHICSMAGICK=1 -DWANT_DEBUG=0 -DWANT_SVNVERSION=0;
-    make -j$NPROC;
+    make -j"$NPROC";
     make install;
     fi
   
