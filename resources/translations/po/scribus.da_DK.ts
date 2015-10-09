@@ -6482,7 +6482,7 @@ hvis indlæsning lykkedes, indeholder markeringen den importerede ODG
     <message>
         <location filename="../../../scribus/about.cpp" line="307"/>
         <source>Haiku Port:</source>
-        <translation type="unfinished"></translation>
+        <translation>Haiku Port:</translation>
     </message>
     <message>
         <location filename="../../../scribus/about.cpp" line="311"/>
@@ -24433,12 +24433,12 @@ Bemærk: PDF-forme vil ikke blive eksporteret.</translation>
     <message>
         <location filename="../../../scribus/propertiespalette.cpp" line="5620"/>
         <source>Any path self-intersections or subpaths create holes in the fill.</source>
-        <translation type="unfinished"></translation>
+        <translation>Enhver kurve der krydser sig selv eller en delkurve skaber huller i udfyldningen.</translation>
     </message>
     <message>
         <location filename="../../../scribus/propertiespalette.cpp" line="5621"/>
         <source>Fill is solid unless a subpath is counterdirectional.</source>
-        <translation type="unfinished"></translation>
+        <translation>Udfyldningen er massiv, medmindre en delkurve angiver noget andet.</translation>
     </message>
     <message>
         <location filename="../../../scribus/propertiespalette.cpp" line="5691"/>
@@ -33569,7 +33569,7 @@ Du kan vælge mellem normal og adskillige former for farveblindhed</translation>
     <message>
         <location filename="../../../scribus/tabdisplay.ui" line="67"/>
         <source>Show Rulers</source>
-        <translation type="unfinished">Vis linealer</translation>
+        <translation>Vis linealer</translation>
     </message>
     <message>
         <location filename="../../../scribus/tabdisplay.ui" line="153"/>
