@@ -339,6 +339,7 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "gettext-rtfim", "gettext-rtfim\gettext-rtfim.vcxproj", "{7960ABE3-443F-413A-89A3-B345EC275E5D}"
 	ProjectSection(ProjectDependencies) = postProject
 		{8E82EC40-9A9F-4545-8811-C257E5229099} = {8E82EC40-9A9F-4545-8811-C257E5229099}
+		{B17FCD80-7978-4544-93C4-2FE1AC6FE9F3} = {B17FCD80-7978-4544-93C4-2FE1AC6FE9F3}
 	EndProjectSection
 EndProject
 Global
