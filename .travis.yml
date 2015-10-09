@@ -5,8 +5,9 @@ matrix:
     - os: linux
       dist: trusty
       sudo: required
-      compiler: gcc
-      compiler: clang
+      compiler
+        - gcc
+        - clang
     - os: osx
       compiler: clang
   exclude:
