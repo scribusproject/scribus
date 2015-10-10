@@ -3824,7 +3824,7 @@ jednostkach. Zobacz stałe  UNIT_&lt;type&gt;  i  getPageSize().</translation>
     <message>
         <location filename="../../../scribus/about.cpp" line="307"/>
         <source>Haiku Port:</source>
-        <translation type="unfinished"></translation>
+        <translation>Wersja dla Haiku:</translation>
     </message>
     <message>
         <location filename="../../../scribus/about.cpp" line="311"/>
@@ -7683,7 +7683,7 @@ Configuration invalid</source>
     <message>
         <location filename="../../../scribus/plugins/tools/spellcheck/aspellpluginimpl.cpp" line="106"/>
         <source>No Aspell dictionaries could be found.</source>
-        <translation type="unfinished"></translation>
+        <translation>Nie znaleziono słowników Aspell</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/tools/spellcheck/aspellpluginimpl.cpp" line="259"/>
@@ -9479,17 +9479,17 @@ Wysokość: %2</translation>
         <location filename="../../../scribus/canvasmode_framelinks.cpp" line="212"/>
         <location filename="../../../scribus/canvasmode_framelinks.cpp" line="219"/>
         <source>Linking Text Frames</source>
-        <translation type="unfinished">Łączenie ramek tekstowych</translation>
+        <translation>Łączenie ramek tekstowych</translation>
     </message>
     <message>
         <location filename="../../../scribus/canvasmode_framelinks.cpp" line="213"/>
         <source>You are trying to link a frame to itself.</source>
-        <translation type="unfinished">Próbujesz połączyć ramkę z nią samą.</translation>
+        <translation>Próbujesz połączyć ramkę z nią samą.</translation>
     </message>
     <message>
         <location filename="../../../scribus/canvasmode_framelinks.cpp" line="220"/>
         <source>You are trying to link a frame which is already linked.</source>
-        <translation type="unfinished">Próbujesz utworzyć połączenie z ramką, która jest już połączona.</translation>
+        <translation>Próbujesz utworzyć połączenie z ramką, która jest już połączona.</translation>
     </message>
 </context>
 <context>
@@ -9736,27 +9736,27 @@ Wysokość: %2</translation>
     <message>
         <location filename="../../../scribus/charselect.ui" line="25"/>
         <source>Show/Hide Enhanced Palette</source>
-        <translation type="unfinished"></translation>
+        <translation>Ukryj/Pokaż paletę rozszerzoną</translation>
     </message>
     <message>
         <location filename="../../../scribus/charselect.ui" line="35"/>
         <source>Unicode Search</source>
-        <translation type="unfinished">Przeszukiwanie w Unicode</translation>
+        <translation>Przeszukiwanie w Unicode</translation>
     </message>
     <message>
         <location filename="../../../scribus/charselect.ui" line="42"/>
         <source>Load a Character Palette</source>
-        <translation type="unfinished"></translation>
+        <translation>Załaduj paletę znaków</translation>
     </message>
     <message>
         <location filename="../../../scribus/charselect.ui" line="52"/>
         <source>Save the Character Palette</source>
-        <translation type="unfinished"></translation>
+        <translation>Zapisz paletę znaków</translation>
     </message>
     <message>
         <location filename="../../../scribus/charselect.ui" line="62"/>
         <source>Empty the Character Palette</source>
-        <translation type="unfinished"></translation>
+        <translation>Opróżnij paletę znaków</translation>
     </message>
     <message>
         <location filename="../../../scribus/charselect.cpp" line="345"/>
@@ -26527,7 +26527,7 @@ Scripter documentation for futher information. </source>
     <message>
         <location filename="../../../scribus/translationdummy.cpp" line="19"/>
         <source>Files of type:</source>
-        <translation type="unfinished"></translation>
+        <translation>Pliki typu:</translation>
     </message>
     <message>
         <location filename="../../../scribus/translationdummy.cpp" line="20"/>
@@ -26582,7 +26582,7 @@ Scripter documentation for futher information. </source>
     <message>
         <location filename="../../../scribus/translationdummy.cpp" line="30"/>
         <source>Look in:</source>
-        <translation type="unfinished"></translation>
+        <translation>Szukaj w:</translation>
     </message>
     <message>
         <location filename="../../../scribus/translationdummy.cpp" line="31"/>
@@ -26592,12 +26592,12 @@ Scripter documentation for futher information. </source>
     <message>
         <location filename="../../../scribus/translationdummy.cpp" line="32"/>
         <source>Forward</source>
-        <translation type="unfinished"></translation>
+        <translation>Naprzód</translation>
     </message>
     <message>
         <location filename="../../../scribus/translationdummy.cpp" line="33"/>
         <source>Parent Directory</source>
-        <translation type="unfinished"></translation>
+        <translation>Katalog wyżej</translation>
     </message>
     <message>
         <location filename="../../../scribus/translationdummy.cpp" line="34"/>
@@ -27099,7 +27099,7 @@ Sprawdź katalog i nazwę pliku.</translation>
     <message>
         <location filename="../../../scribus/nftrcreader.cpp" line="220"/>
         <source>Grids</source>
-        <translation type="unfinished"></translation>
+        <translation>Siatki</translation>
     </message>
     <message>
         <location filename="../../../scribus/nftrcreader.cpp" line="232"/>
@@ -28787,19 +28787,19 @@ is not exhaustive due to exceptions from called functions.
         <location filename="../../../scribus/main_win32.cpp" line="234"/>
         <location filename="../../../scribus/main_win32.cpp" line="259"/>
         <source>Scribus Crash</source>
-        <translation type="unfinished">Scribus zakonczył działanie</translation>
+        <translation>Scribus zakonczył działanie</translation>
     </message>
     <message>
         <location filename="../../../scribus/main_nix.cpp" line="128"/>
         <source>Scribus crashes due to Signal #%1</source>
-        <translation type="unfinished">Scribus przestał działać z powodu sygnału #%1</translation>
+        <translation>Scribus przestał działać z powodu sygnału #%1</translation>
     </message>
     <message>
         <location filename="../../../scribus/main_nix.cpp" line="135"/>
         <location filename="../../../scribus/main_win32.cpp" line="243"/>
         <location filename="../../../scribus/main_win32.cpp" line="261"/>
         <source>&amp;OK</source>
-        <translation type="unfinished">&amp;OK</translation>
+        <translation>&amp;OK</translation>
     </message>
     <message>
         <source>Font %1 is broken and will be discarded</source>
@@ -28939,7 +28939,7 @@ is not exhaustive due to exceptions from called functions.
     <message>
         <location filename="../../../scribus/main_win32.cpp" line="236"/>
         <source>Scribus crashes due to the following exception : %1</source>
-        <translation type="unfinished">Scribus zakończył działanie z powodu następującego błędu: %1</translation>
+        <translation>Scribus zakończył działanie z powodu następującego błędu: %1</translation>
     </message>
     <message>
         <location filename="../../../scribus/scfonts.cpp" line="325"/>
@@ -30078,7 +30078,7 @@ Do you want to replace the current contents?</source>
         <location filename="../../../scribus/query.cpp" line="93"/>
         <source>Name &quot;%1&quot; is not unique.
 Please choose another.</source>
-        <translation type="unfinished">Nazwa  &quot;%1&quot; nie jest jednoznaczna.
+        <translation>Nazwa  &quot;%1&quot; nie jest jednoznaczna.
 Proszę wybrać inną.</translation>
     </message>
 </context>
@@ -33931,7 +33931,7 @@ Przesunięcie w pionie: %3</translation>
     <message>
         <location filename="../../../scribus/scribus.cpp" line="5665"/>
         <source>Text Files (*.txt);;All Files (*)</source>
-        <translation type="unfinished"></translation>
+        <translation>Pliki tekstowe (*.txt);;Wszystkie pliki(*)</translation>
     </message>
     <message>
         <location filename="../../../scribus/scribus.cpp" line="7844"/>
@@ -35439,7 +35439,7 @@ Przesunięcie w pionie: %3</translation>
         <location filename="../../../scribus/storyeditor.cpp" line="3250"/>
         <location filename="../../../scribus/storyeditor.cpp" line="3285"/>
         <source>Text Files (*.txt);;All Files (*)</source>
-        <translation type="unfinished"></translation>
+        <translation>Pliki tekstowe (*.txt);;Wszystkie pliki(*)</translation>
     </message>
     <message>
         <location filename="../../../scribus/storyeditor.cpp" line="1721"/>
@@ -36427,7 +36427,7 @@ połączeń między ramkami.</translation>
     <message>
         <location filename="../../../scribus/tabdisplay.ui" line="67"/>
         <source>Show Rulers</source>
-        <translation type="unfinished">Wyświetlaj linijki</translation>
+        <translation>Wyświetlaj linijki</translation>
     </message>
     <message>
         <location filename="../../../scribus/tabdisplay.ui" line="153"/>
@@ -41695,7 +41695,7 @@ do %2</translation>
     <message>
         <location filename="../../../scribus/undomanager.cpp" line="953"/>
         <source>Duplicate</source>
-        <translation type="unfinished"></translation>
+        <translation>Klonuj</translation>
     </message>
     <message>
         <location filename="../../../scribus/undomanager.cpp" line="969"/>
