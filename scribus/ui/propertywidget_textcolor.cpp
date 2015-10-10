@@ -100,7 +100,7 @@ void PropertyWidget_TextColor::setCurrentItem(PageItem *item)
 
 	if (m_item == NULL)
 		return;
-	if (!m_item->isTable() && !m_item->isTextFrame())
+	if (!m_item->isTable() && !m_item->isTextFrame() && !m_item->asPathText())
 		return;
 
 	PageItem_TextFrame *i2;
