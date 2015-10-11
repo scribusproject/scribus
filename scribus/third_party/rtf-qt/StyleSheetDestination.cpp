@@ -29,6 +29,7 @@ namespace RtfReader
 		m_currentStyleHandleNumber = 0; /* default */
 		m_textStyle.setParent(CommonStrings::DefaultParagraphStyle);
 		m_textStyle.setLineSpacingMode(ParagraphStyle::AutomaticLineSpacing);
+		m_textStyle.charStyle().setFontVariant("");
 		m_textStyle.charStyle().setFontSize(120.0);
 		QList<ParagraphStyle::TabRecord> tbs;
 		tbs.clear();

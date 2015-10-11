@@ -378,6 +378,8 @@ namespace RtfReader
 
 	void SlaDocumentRtfOutput::insertStyleSheetTableEntry(quint32 stylesheetTableIndex, ParagraphStyle stylesheetTableEntry)
 	{
+		QString newName = m_item->itemName() + ":" + stylesheetTableEntry.name();
+		stylesheetTableEntry.setName(newName);
 		m_stylesTable.insert(stylesheetTableIndex, stylesheetTableEntry);
 	}
 
@@ -386,9 +388,12 @@ namespace RtfReader
 		if (m_stylesTable.contains(styleIndex))
 		{
 			ParagraphStyle newStyle = m_stylesTable[styleIndex];
-			int fontInd = newStyle.charStyle().fontVariant().toInt();
-			newStyle.charStyle().setFontVariant("");
-			setFont(fontInd);
+			if (newStyle.charStyle().fontVariant() != "")
+			{
+				int fontInd = newStyle.charStyle().fontVariant().toInt();
+				newStyle.charStyle().setFontVariant("");
+				setFont(fontInd);
+			}
 			StyleSet<ParagraphStyle>tmp;
 			tmp.create(newStyle);
 			m_Doc->redefineStyles(tmp, false);
