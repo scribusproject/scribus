@@ -22,10 +22,9 @@
 #include <QString>
 #include <QVariant>
 #include <QColor>
-#include <QTextImageFormat>
 
 #include "FontTableEntry.h"
-#include "StyleSheetTableEntry.h"
+class ParagraphStyle;
 /**
    Namespace for the public interface for the RtfReader classes
 */
@@ -311,7 +310,8 @@ namespace RtfReader
 	virtual void addTabStop( const int value, const int type ) = 0;
 	virtual void appendToColourTable( const QColor &colour ) = 0;
 	virtual void insertFontTableEntry( FontTableEntry fontTableEntry, quint32 fontTableIndex ) = 0;
-	virtual void insertStyleSheetTableEntry( quint32 stylesheetTableIndex, StyleSheetTableEntry stylesheetTableEntry ) = 0;
+	virtual void insertStyleSheetTableEntry( quint32 stylesheetTableIndex, ParagraphStyle stylesheetTableEntry ) = 0;
+	virtual void useStyleSheetTableEntry(const int styleIndex) = 0;
 
 	virtual void startGroup();
 	virtual void endGroup();

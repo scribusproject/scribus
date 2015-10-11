@@ -376,9 +376,29 @@ namespace RtfReader
 
 	}
 
-	void SlaDocumentRtfOutput::insertStyleSheetTableEntry(quint32 stylesheetTableIndex, StyleSheetTableEntry stylesheetTableEntry)
+	void SlaDocumentRtfOutput::insertStyleSheetTableEntry(quint32 stylesheetTableIndex, ParagraphStyle stylesheetTableEntry)
 	{
-	//	qDebug() << "insertStyleSheetTableEntry";
+		m_stylesTable.insert(stylesheetTableIndex, stylesheetTableEntry);
+	}
+
+	void SlaDocumentRtfOutput::useStyleSheetTableEntry(const int styleIndex)
+	{
+		if (m_stylesTable.contains(styleIndex))
+		{
+			ParagraphStyle newStyle = m_stylesTable[styleIndex];
+			int fontInd = newStyle.charStyle().fontVariant().toInt();
+			newStyle.charStyle().setFontVariant("");
+			setFont(fontInd);
+			StyleSet<ParagraphStyle>tmp;
+			tmp.create(newStyle);
+			m_Doc->redefineStyles(tmp, false);
+			ParagraphStyle newStyle2;
+			newStyle2.setParent(m_stylesTable[styleIndex].name());
+			m_textStyle.pop();
+			m_textStyle.push(newStyle2);
+			m_textCharStyle.pop();
+			m_textCharStyle.push(newStyle2.charStyle());
+		}
 	}
 
 	void SlaDocumentRtfOutput::resetParagraphFormat()

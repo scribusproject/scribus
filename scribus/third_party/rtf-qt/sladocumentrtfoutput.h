@@ -77,7 +77,8 @@ namespace RtfReader
 		virtual void setTextDirectionRightToLeft();
 		virtual void appendToColourTable(const QColor &colour);
 		virtual void insertFontTableEntry(FontTableEntry fontTableEntry, quint32 fontTableIndex);
-		virtual void insertStyleSheetTableEntry(quint32 stylesheetTableIndex, StyleSheetTableEntry stylesheetTableEntry);
+		virtual void insertStyleSheetTableEntry(quint32 stylesheetTableIndex, ParagraphStyle stylesheetTableEntry);
+		virtual void useStyleSheetTableEntry(const int styleIndex);
 		virtual void resetParagraphFormat();
 		virtual void resetCharacterProperties();
 		virtual void setParagraphAlignmentLeft();
@@ -104,6 +105,7 @@ namespace RtfReader
 		QList<QString> m_colourTable;
 		QHash<int, FontTableEntry> m_fontTable;
 		QHash<int, FontTableEntry> m_fontTableReal;
+		QHash<int, ParagraphStyle> m_stylesTable;
 		QList<QByteArray> m_codecList;
 	};
 }

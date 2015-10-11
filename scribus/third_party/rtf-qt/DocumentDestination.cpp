@@ -126,7 +126,7 @@ namespace RtfReader
 		else if ((controlWord == "sb") && hasValue)
 			m_output->setSpaceBefore(value);
 		else if (controlWord == "sb")
-			m_output->setSpaceAfter(0);
+			m_output->setSpaceBefore(0);
 		else if ((controlWord == "sa") && hasValue)
 			m_output->setSpaceAfter(value);
 		else if (controlWord == "sa")
@@ -160,9 +160,9 @@ namespace RtfReader
 			m_charactersToSkip = m_uc_Value; /* TODO: this should be driven by \uc, default to 1 */
 		}
 		else if ((controlWord == "uc") && hasValue)
-		{
 			m_uc_Value = value;
-		}
+		else if ((controlWord == "s") && hasValue)
+			m_output->useStyleSheetTableEntry(value);
 		else if ((controlWord == "\'") && hasValue)
 		{
 	//	qDebug() << "special character value:" << value;
