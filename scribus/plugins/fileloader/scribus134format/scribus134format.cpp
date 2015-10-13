@@ -1556,9 +1556,12 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 		{
 			if (lc.value() >= 0)
 			{
-				PageItem * Its = m_Doc->DocItems.at(lc.key());
-				PageItem * Itn = m_Doc->DocItems.at(lc.value());
-				if (!Its->testLinkCandidate(Itn))
+				PageItem *Its(0), *Itn(0);
+				if (lc.key() < m_Doc->DocItems.count())
+					Its = m_Doc->DocItems.at(lc.key());
+				if (lc.value() < m_Doc->DocItems.count())
+					Itn = m_Doc->DocItems.at(lc.value());
+				if (!Its || !Itn || !Its->testLinkCandidate(Itn))
 				{
 					qDebug() << "scribus134format: corruption in linked textframes detected";
 					continue;
@@ -1575,9 +1578,12 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 		{
 			if (lc.value() >= 0)
 			{
-				PageItem * Its = m_Doc->MasterItems.at(lc.key());
-				PageItem * Itn = m_Doc->MasterItems.at(lc.value());
-				if (!Its->testLinkCandidate(Itn))
+				PageItem *Its(0), *Itn(0);
+				if (lc.key() < m_Doc->MasterItems.count())
+					Its = m_Doc->MasterItems.at(lc.key());
+				if (lc.value() < m_Doc->MasterItems.count())
+					Itn = m_Doc->MasterItems.at(lc.value());
+				if (!Its || !Itn || !Its->testLinkCandidate(Itn))
 				{
 					qDebug() << "scribus134format: corruption in linked textframes detected";
 					continue;
@@ -3232,9 +3238,9 @@ bool Scribus134Format::loadPage(const QString & fileName, int pageNumber, bool M
 					/* not sure if we want that...
 					else if (pg.tagName()=="MASTEROBJECT")
 					{
-						itemRemapM[itemCountM++] = m_Doc->MasterItems->count();
+						itemRemapM[itemCountM++] = m_Doc->MasterItems.count();
 						if (pg.attribute("NEXTITEM").toInt() != -1)
-							itemNextM[m_Doc->MasterItems->count()] = pg.attribute("NEXTITEM").toInt();
+							itemNextM[m_Doc->MasterItems.count()] = pg.attribute("NEXTITEM").toInt();
 					}
 					else if (pg.tagName()=="FRAMEOBJECT")
 					{
@@ -3401,17 +3407,17 @@ bool Scribus134Format::loadPage(const QString & fileName, int pageNumber, bool M
 		{
 			if (itemRemap[lc.value()] >= 0)
 			{
-				if ((lc.key() < m_Doc->Items->count()) && (itemRemap[lc.value()] < m_Doc->Items->count()))
+				PageItem *Its(0), *Itn(0);
+				if (lc.key() < m_Doc->DocItems.count())
+					Its = m_Doc->DocItems.at(lc.key());
+				if (itemRemap[lc.value()] < m_Doc->DocItems.count())
+					Itn = m_Doc->DocItems.at(itemRemap[lc.value()]);
+				if (!Its || !Itn || !Its->testLinkCandidate(Itn))
 				{
-					PageItem * Its = m_Doc->DocItems.at(lc.key());
-					PageItem * Itn = m_Doc->DocItems.at(itemRemap[lc.value()]);
-					if (!Its->testLinkCandidate(Itn))
-					{
-						qDebug() << "scribus134format: corruption in linked textframes detected";
-						continue;
-					}
-					Its->link(Itn);
+					qDebug() << "scribus134format: corruption in linked textframes detected";
+					continue;
 				}
+				Its->link(Itn);
 			}
 		}
 	}
@@ -3422,17 +3428,17 @@ bool Scribus134Format::loadPage(const QString & fileName, int pageNumber, bool M
 		{
 			if (itemRemapM[lc.value()] >= 0)
 			{
-				if ((lc.key() < m_Doc->MasterItems.count()) && (itemRemapM[lc.value()] < m_Doc->MasterItems.count()))
+				PageItem * Its(0), *Itn(0);
+				if (lc.key() < m_Doc->MasterItems.count())
+					Its = m_Doc->MasterItems.at(lc.key());
+				if (itemRemapM[lc.value()] < m_Doc->MasterItems.count())
+					Itn = m_Doc->MasterItems.at(itemRemapM[lc.value()]);
+				if (!Its || !Itn || !Its->testLinkCandidate(Itn))
 				{
-					PageItem * Its = m_Doc->MasterItems.at(lc.key());
-					PageItem * Itn = m_Doc->MasterItems.at(itemRemapM[lc.value()]);
-					if (!Its->testLinkCandidate(Itn))
-					{
-						qDebug() << "scribus134format: corruption in linked textframes detected";
-						continue;
-					}
-					Its->link(Itn);
+					qDebug() << "scribus134format: corruption in linked textframes detected";
+					continue;
 				}
+				Its->link(Itn);
 			}
 		}
 	}
