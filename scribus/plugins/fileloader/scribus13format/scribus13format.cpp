@@ -1097,9 +1097,12 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 		{
 			if (itemRemap[lc.value()] >= 0)
 			{
-				PageItem * Its = m_Doc->Items->at(lc.key());
-				PageItem * Itn = m_Doc->Items->at(itemRemap[lc.value()]);
-				if (!Its->testLinkCandidate(Itn))
+				PageItem *Its(0), *Itn(0);
+				if (lc.key() < m_Doc->Items->count())
+					Its = m_Doc->Items->at(lc.key());
+				if (itemRemap[lc.value()] < m_Doc->Items->count())
+					Itn = m_Doc->Items->at(itemRemap[lc.value()]);
+				if (!Its || !Itn || !Its->testLinkCandidate(Itn))
 				{
 					qDebug("scribus13format: corruption in linked textframes detected");
 					continue;
@@ -2414,17 +2417,17 @@ bool Scribus13Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 		{
 			if (itemRemap[lc.value()] >= 0)
 			{
-				if ((lc.key() < m_Doc->Items->count()) && (itemRemap[lc.value()] < m_Doc->Items->count()))
+				PageItem *Its(0), *Itn(0);
+				if (lc.key() < m_Doc->Items->count())
+					Its = m_Doc->Items->at(lc.key());
+				if (itemRemap[lc.value()] < m_Doc->Items->count())
+					Itn = m_Doc->Items->at(itemRemap[lc.value()]);
+				if (!Its || !Itn || !Its->testLinkCandidate(Itn))
 				{
-					PageItem * Its = m_Doc->Items->at(lc.key());
-					PageItem * Itn = m_Doc->Items->at(itemRemap[lc.value()]);
-					if (!Its->testLinkCandidate(Itn))
-					{
-						qDebug("scribus13format: corruption in linked textframes detected");
-						continue;
-					}
-					Its->link(Itn);
+					qDebug("scribus13format: corruption in linked textframes detected");
+					continue;
 				}
+				Its->link(Itn);
 			}
 		}
 	}	
