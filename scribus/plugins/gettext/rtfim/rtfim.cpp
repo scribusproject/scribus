@@ -43,6 +43,7 @@ void GetText2(QString filename, QString encoding, bool textOnly, PageItem *textI
 		RtfReader::Reader reader;
 		reader.parseFromDeviceTo(&buffer, output);
 		textItem->itemText.trim();
+		textItem->itemText.invalidateLayout();
 		delete output;
 	}
 }

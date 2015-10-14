@@ -17,6 +17,7 @@
 
 #include "StyleSheetDestination.h"
 
+#include <QTextCodec>
 #include "rtfreader.h"
 #include "controlword.h"
 #include "commonstrings.h"
@@ -34,6 +35,7 @@ namespace RtfReader
 		QList<ParagraphStyle::TabRecord> tbs;
 		tbs.clear();
 		m_textStyle.setTabValues(tbs);
+		m_styleName = "";
 	}
 
 	StyleSheetDestination::~StyleSheetDestination()
@@ -183,9 +185,11 @@ namespace RtfReader
 			if (delimiterPosition == (plainText.length() - 1))
 			{
 				// It is at the end, chop it off
-				QString styleName = plainText.left(delimiterPosition);
-				m_textStyle.setName(styleName);
+				QByteArray styleName = plainText.left(delimiterPosition);
+				m_styleName.append(styleName);
+				m_textStyle.setName(m_output->getCurrentCodec()->toUnicode(m_styleName));
 				m_output->insertStyleSheetTableEntry(m_currentStyleHandleNumber, m_textStyle);
+				m_styleName = "";
 			}
 			else
 			{
@@ -194,12 +198,11 @@ namespace RtfReader
 			}
 		}
 		else
-			m_textStyle.setName(plainText);
+			m_styleName.append(plainText);
 	}
 
 	void StyleSheetDestination::aboutToEndDestination()
 	{
-	// TODO
 	}
 
 	double StyleSheetDestination::pixelsFromTwips(const int twips)

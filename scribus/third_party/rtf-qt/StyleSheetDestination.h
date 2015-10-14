@@ -41,6 +41,7 @@ namespace RtfReader
 			double pixelsFromTwips(const int twips);
 			quint32 		m_currentStyleHandleNumber;
 			ParagraphStyle m_textStyle;
+			QByteArray m_styleName;
 	};
 }
 

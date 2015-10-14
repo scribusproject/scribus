@@ -50,6 +50,7 @@ namespace RtfReader
 			m_codec = QTextCodec::codecForName("cp1252");		// Default ANSI codec
 		else
 			m_codec = QTextCodec::codecForLocale();
+		m_keepn = false;
 	}
 
 	SlaDocumentRtfOutput::~SlaDocumentRtfOutput()
@@ -468,6 +469,21 @@ namespace RtfReader
 	void SlaDocumentRtfOutput::setSpaceAfter(const int twips)
 	{
 		m_textStyle.top().setGapAfter(pixelsFromTwips(twips));
+	}
+
+	void SlaDocumentRtfOutput::keepWithNext()
+	{
+		m_keepn = true;
+	}
+
+	void SlaDocumentRtfOutput::setDropCapsLines(const int value)
+	{
+		m_textStyle.top().setDropCapLines(value);
+	}
+
+	void SlaDocumentRtfOutput::setDropCaps()
+	{
+		m_textStyle.top().setHasDropCap(true);
 	}
 
 	void SlaDocumentRtfOutput::addTabStop(const int value, const int type)

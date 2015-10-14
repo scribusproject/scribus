@@ -307,6 +307,9 @@ namespace RtfReader
 	virtual void setPageWidth( const int pageWidth ) = 0;
 	virtual void setSpaceBefore( const int value ) = 0;
 	virtual void setSpaceAfter( const int value ) = 0;
+	virtual void keepWithNext() = 0;
+	virtual void setDropCapsLines(const int value) = 0;
+	virtual void setDropCaps() = 0;
 	virtual void addTabStop( const int value, const int type ) = 0;
 	virtual void appendToColourTable( const QColor &colour ) = 0;
 	virtual void insertFontTableEntry( FontTableEntry fontTableEntry, quint32 fontTableIndex ) = 0;
@@ -315,6 +318,7 @@ namespace RtfReader
 
 	virtual void startGroup();
 	virtual void endGroup();
+	virtual QTextCodec *getCurrentCodec() { return 0; }
 
       private:
 	// The author of the document (from document meta-data, if any)

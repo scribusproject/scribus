@@ -93,9 +93,13 @@ namespace RtfReader
 		virtual void setPageWidth(const int pageWidth);
 		virtual void setSpaceBefore(const int twips);
 		virtual void setSpaceAfter(const int twips);
+		virtual void keepWithNext();
+		virtual void setDropCapsLines(const int value);
+		virtual void setDropCaps();
 		virtual void addTabStop(const int value, const int type);
 		QString getFontName(QString name);
 		double pixelsFromTwips(const int twips);
+		virtual QTextCodec *getCurrentCodec() { return m_codec; }
 	private:
 		PageItem* m_item;
 		ScribusDoc* m_Doc;
@@ -107,6 +111,7 @@ namespace RtfReader
 		QHash<int, FontTableEntry> m_fontTableReal;
 		QHash<int, ParagraphStyle> m_stylesTable;
 		QList<QByteArray> m_codecList;
+		bool m_keepn;
 	};
 }
 #endif // SLADOCUMENTRTFOUTPUT_H

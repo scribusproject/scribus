@@ -163,6 +163,12 @@ namespace RtfReader
 			m_uc_Value = value;
 		else if ((controlWord == "s") && hasValue)
 			m_output->useStyleSheetTableEntry(value);
+	/*	else if ((controlWord == "dropcapli") && hasValue)
+			m_output->setDropCapsLines(value);
+		else if (controlWord == "dropcapt")
+			m_output->setDropCaps();
+		else if (controlWord == "keepn")
+			m_output->keepWithNext(); */
 		else if ((controlWord == "\'") && hasValue)
 		{
 	//	qDebug() << "special character value:" << value;
