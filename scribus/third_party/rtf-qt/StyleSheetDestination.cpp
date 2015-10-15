@@ -36,6 +36,7 @@ namespace RtfReader
 		tbs.clear();
 		m_textStyle.setTabValues(tbs);
 		m_styleName = "";
+		m_currentStyleParent = -1;
 	}
 
 	StyleSheetDestination::~StyleSheetDestination()
@@ -168,6 +169,8 @@ namespace RtfReader
 			m_textStyle.charStyle().setTracking((value * 10000 / 4) / m_textStyle.charStyle().fontSize());
 		else if (controlWord == "expndtw")
 			m_textStyle.charStyle().setTracking((pixelsFromTwips(value) * 10000) / m_textStyle.charStyle().fontSize());
+		else if (controlWord == "sbasedon")
+			m_currentStyleParent = value;
 		else if ((controlWord == "s") && hasValue)
 			m_currentStyleHandleNumber = value;
 	//	else
@@ -177,7 +180,20 @@ namespace RtfReader
 	void StyleSheetDestination::handlePlainText(const QByteArray &plainText)
 	{
 		if (plainText == ";")
+		{
+			m_stylesTable.insert(m_currentStyleHandleNumber, m_currentStyleParent);
 			m_output->insertStyleSheetTableEntry(m_currentStyleHandleNumber, m_textStyle);
+			m_textStyle.erase();
+			m_textStyle.setParent(CommonStrings::DefaultParagraphStyle);
+			m_textStyle.setLineSpacingMode(ParagraphStyle::AutomaticLineSpacing);
+			m_textStyle.charStyle().setFontVariant("");
+			m_textStyle.charStyle().setFontSize(120.0);
+			QList<ParagraphStyle::TabRecord> tbs;
+			tbs.clear();
+			m_textStyle.setTabValues(tbs);
+			m_styleName = "";
+			m_currentStyleParent = -1;
+		}
 		else if (plainText.endsWith(";"))
 		{
 			// probably a style name with a terminating delimiter
@@ -188,8 +204,18 @@ namespace RtfReader
 				QByteArray styleName = plainText.left(delimiterPosition);
 				m_styleName.append(styleName);
 				m_textStyle.setName(m_output->getCurrentCodec()->toUnicode(m_styleName));
+				m_stylesTable.insert(m_currentStyleHandleNumber, m_currentStyleParent);
 				m_output->insertStyleSheetTableEntry(m_currentStyleHandleNumber, m_textStyle);
+				m_textStyle.erase();
+				m_textStyle.setParent(CommonStrings::DefaultParagraphStyle);
+				m_textStyle.setLineSpacingMode(ParagraphStyle::AutomaticLineSpacing);
+				m_textStyle.charStyle().setFontVariant("");
+				m_textStyle.charStyle().setFontSize(120.0);
+				QList<ParagraphStyle::TabRecord> tbs;
+				tbs.clear();
+				m_textStyle.setTabValues(tbs);
 				m_styleName = "";
+				m_currentStyleParent = -1;
 			}
 			else
 			{
@@ -203,6 +229,7 @@ namespace RtfReader
 
 	void StyleSheetDestination::aboutToEndDestination()
 	{
+		m_output->resolveStyleSheetParents(m_stylesTable);
 	}
 
 	double StyleSheetDestination::pixelsFromTwips(const int twips)

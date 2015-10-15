@@ -40,8 +40,10 @@ namespace RtfReader
 		protected:
 			double pixelsFromTwips(const int twips);
 			quint32 		m_currentStyleHandleNumber;
+			int			m_currentStyleParent;
 			ParagraphStyle m_textStyle;
 			QByteArray m_styleName;
+			QHash<quint32, int> m_stylesTable;
 	};
 }
 

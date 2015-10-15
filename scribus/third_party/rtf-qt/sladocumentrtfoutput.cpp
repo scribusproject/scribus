@@ -381,23 +381,45 @@ namespace RtfReader
 	{
 		QString newName = m_item->itemName() + ":" + stylesheetTableEntry.name();
 		stylesheetTableEntry.setName(newName);
+		if (stylesheetTableEntry.charStyle().fontVariant() != "")
+		{
+			int fontInd = stylesheetTableEntry.charStyle().fontVariant().toInt();
+			stylesheetTableEntry.charStyle().setFontVariant("");
+			if (m_fontTable.contains(fontInd))
+			{
+				FontTableEntry fontTableEntry = m_fontTable[fontInd];
+				QString fontName = getFontName(fontTableEntry.fontName());
+				stylesheetTableEntry.charStyle().setFont(PrefsManager::instance()->appPrefs.fontPrefs.AvailFonts[fontName]);
+				fontTableEntry.setFontName(fontName);
+				m_fontTableReal.insert(fontInd, fontTableEntry);
+			}
+		}
+		StyleSet<ParagraphStyle>tmp;
+		tmp.create(stylesheetTableEntry);
+		m_Doc->redefineStyles(tmp, false);
 		m_stylesTable.insert(stylesheetTableIndex, stylesheetTableEntry);
+	}
+
+	void SlaDocumentRtfOutput::resolveStyleSheetParents(QHash<quint32, int> &parentSet)
+	{
+		for (QHash<quint32, int>::iterator it = parentSet.begin(); it != parentSet.end(); ++it)
+		{
+			if (it.value() >= 0)
+			{
+				ParagraphStyle old = m_Doc->paragraphStyle(m_stylesTable[it.key()].name());
+				old.setParent(m_stylesTable[it.value()].name());
+				StyleSet<ParagraphStyle>tmp2;
+				tmp2.create(old);
+				m_Doc->redefineStyles(tmp2, false);
+				m_stylesTable.insert(it.key(), old);
+			}
+		}
 	}
 
 	void SlaDocumentRtfOutput::useStyleSheetTableEntry(const int styleIndex)
 	{
 		if (m_stylesTable.contains(styleIndex))
 		{
-			ParagraphStyle newStyle = m_stylesTable[styleIndex];
-			if (newStyle.charStyle().fontVariant() != "")
-			{
-				int fontInd = newStyle.charStyle().fontVariant().toInt();
-				newStyle.charStyle().setFontVariant("");
-				setFont(fontInd);
-			}
-			StyleSet<ParagraphStyle>tmp;
-			tmp.create(newStyle);
-			m_Doc->redefineStyles(tmp, false);
 			ParagraphStyle newStyle2;
 			newStyle2.setParent(m_stylesTable[styleIndex].name());
 			m_textStyle.pop();
