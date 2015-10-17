@@ -180,17 +180,28 @@ void PrintDialog::SetOptions()
 #elif defined(_WIN32)
 	bool done;
 	Qt::HANDLE handle = NULL;
+	DEVMODEW* devMode = (DEVMODEW*) DevMode.data();
 	// Retrieve the selected printer
 	QString printerS = PrintDest->currentText(); 
 	// Get a printer handle
 	done = OpenPrinterW( (LPWSTR) printerS.utf16(), &handle, NULL );
-	if(!done)
+	if (!done)
 		return;
 	// Merge stored settings, prompt user and return user settings
 	DocumentPropertiesW( winId(), handle, (LPWSTR) printerS.utf16(), (DEVMODEW*) DevMode.data(), (DEVMODEW*) DevMode.data(), 
 						DM_IN_BUFFER | DM_IN_PROMPT | DM_OUT_BUFFER);
 	// Free the printer handle
-	ClosePrinter( handle );
+	ClosePrinter(handle);
+
+	// With some drivers, one can set the number of copies in print option dialog
+	// Set it back to Copies widget in this case
+	devMode->dmCopies = qMax(1, qMin((int) devMode->dmCopies, Copies->maximum()));
+	if (devMode->dmCopies != numCopies())
+	{
+		bool sigBlocked = Copies->blockSignals(true);
+		Copies->setValue(devMode->dmCopies);
+		Copies->blockSignals(false);
+	}
 #endif
 }
 
