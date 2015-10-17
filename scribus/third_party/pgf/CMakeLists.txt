@@ -3,6 +3,8 @@ ${CMAKE_SOURCE_DIR}
 ${CMAKE_SOURCE_DIR}/scribus
 )
 
+SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${CMAKE_CXX_FLAGS_FPIC}")
+
 SET(SCRIBUS_PGF_LIB_SOURCES
         Decoder.cpp
         Encoder.cpp

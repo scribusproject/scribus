@@ -131,6 +131,20 @@ IF (_machine_sparc64)
 	SET(ARCH64BIT 1)
 ENDIF (_machine_sparc64)
 
+STRING(REGEX MATCH "(hppa*)" _machine_hppa "${MACHINE}")
+IF (_machine_hppa)
+	MESSAGE(STATUS "Found target Hppa")
+	SET(ARCH_HPPA 1)
+ENDIF (_machine_hppa)
+
+# We need to pass -fPIC to lib2geom on amd64, mips, mipsel, and hppa. See:
+# http://www.gentoo.org/proj/en/base/amd64/howtos/index.xml?part=1&chap=3 and
+# http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=559133
+
+IF (ARCH_X86_64 EQUAL 1 OR ARCH_HPPA EQUAL 1 OR ARCH_MIPS EQUAL 1 OR ARCH_MIPS_64 EQUAL 1 OR ARCH_PPC_64 EQUAL 1)
+	SET(CMAKE_CXX_FLAGS_FPIC "-fPIC")
+ENDIF (ARCH_X86_64 EQUAL 1 OR ARCH_HPPA EQUAL 1 OR ARCH_MIPS EQUAL 1 OR ARCH_MIPS_64 EQUAL 1 OR ARCH_PPC_64 EQUAL 1)
+
 ## Do our Apple OSX version setup
 IF (APPLE AND CMAKE_SIZEOF_VOID_P EQUAL 8 AND (ARCH_X86 EQUAL 1 OR ARCH_X86_64 EQUAL 1))
 	STRING(REGEX REPLACE ".*-darwin([0-9]+).*" "\\1" _apple_ver "${MACHINE}")

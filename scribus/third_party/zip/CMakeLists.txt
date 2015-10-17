@@ -4,6 +4,8 @@ ${CMAKE_SOURCE_DIR}/scribus
 ${ZLIB_INCLUDE_DIR}
 )
 
+SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${CMAKE_CXX_FLAGS_FPIC}")
+
 SET(SCRIBUS_ZIP_LIB_SOURCES
         unzip.cpp
         zip.cpp
