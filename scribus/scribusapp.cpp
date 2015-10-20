@@ -453,6 +453,13 @@ void ScribusQApp::installTranslators(const QStringList & langs)
 				loadedQt = true;
 			if (trans->load(QString("scribus." + lang), path))
 				loadedScribus = true;
+			if (!loadedScribus)
+			{
+				QString altLang(LanguageManager::instance()->getAlternativeAbbrevfromAbbrev(lang));
+				if (!altLang.isEmpty())
+					if (trans->load(QString("scribus." + altLang), path))
+						loadedScribus = true;
+			}
 		}
 	}
 	if (loadedQt)
