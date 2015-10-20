@@ -29,6 +29,10 @@ for which a new license (GPL+exception) is in place.
 #include <cmath>
 #include <cassert>
 
+#include "scconfig.h"
+
+#include "appmodes.h"
+#include "commonstrings.h"
 #include "filewatcher.h"
 #include "pageitem.h"
 #include "pageitem_imageframe.h"
@@ -37,17 +41,15 @@ for which a new license (GPL+exception) is in place.
 #include "scpage.h"
 #include "scpaths.h"
 #include "scpainter.h"
-
 #include "scribusstructs.h"
 #include "scribuscore.h"
 #include "scribusdoc.h"
-#include "commonstrings.h"
+#include "scribusview.h"
+
 #include "undomanager.h"
 #include "undostate.h"
-#include "scconfig.h"
 #include "util_formats.h"
 #include "util_color.h"
-
 #include "util.h"
 
 
@@ -269,9 +271,18 @@ void PageItem_ImageFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 		moveBy=0.01;
 	else if (!shiftDown && altDown)
 		resizingImage=true;
+
 	double dX=0.0,dY=0.0;
 	int kk = k->key();
-	if (!resizingImage)
+	ScribusView* view = m_Doc->view();
+
+	if (kk == Qt::Key_Delete || kk == Qt::Key_Backspace || (shiftDown && controlDown && kk == Qt::Key_Delete) )	// Delete in edit mode, to empty the frame
+	{
+		clearContents();
+		view->requestMode(modeNormal);
+		update();
+	}
+	else if (!resizingImage)
 	{
 		moveBy/=m_Doc->unitRatio();//Lets allow movement by the current doc ratio, not only points
 		switch (kk)
