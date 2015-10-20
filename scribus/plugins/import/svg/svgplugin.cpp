@@ -565,7 +565,7 @@ void SVGPlug::convert(const TransactionSettings& trSettings, int flags)
 void SVGPlug::addGraphicContext()
 {
 	SvgStyle *gc = new SvgStyle;
-	if ( m_gc.top() )
+	if (m_gc.top())
 	{
 		*gc = *( m_gc.top() );
 		if (m_gc.top()->forGroup)
@@ -575,8 +575,9 @@ void SVGPlug::addGraphicContext()
 			gc->FillOpacity = 1.0;
 			gc->StrokeOpacity = 1.0;
 		}
+		gc->filter.clear(); // filter is not inheritable
 	}
-	m_gc.push( gc );
+	m_gc.push(gc);
 }
 
 void SVGPlug::setupNode( const QDomElement &e )
@@ -829,6 +830,14 @@ void SVGPlug::finishNode( const QDomNode &e, PageItem* item)
 			}
 		}
 	}
+	if (!gc->filter.isEmpty())
+	{
+		if (filters.contains(gc->filter))
+		{
+			filterSpec filter = filters[gc->filter];
+			item->setFillBlendmode(filter.blendMode);
+		}
+	}
 	if (!gc->endMarker.isEmpty())
 	{
 		if (markers.contains(gc->endMarker))
@@ -1044,7 +1053,9 @@ void SVGPlug::parseDefs(const QDomElement &e)
 			parsePattern(b);
 		else if (STag2 == "marker")
 			parseMarker(b);
-		else if ( b.hasAttribute("id") )
+		else if (STag2 == "filter")
+			parseFilter(b);
+		else if (b.hasAttribute("id"))
 		{
 			QString id = b.attribute("id");
 			if (!id.isEmpty())
@@ -1123,6 +1134,28 @@ void SVGPlug::parseClipPathAttr(const QDomElement &e, FPointArray& clipPath)
 			QMap<QString, FPointArray>::iterator it = m_clipPaths.find(key);
 			if (it != m_clipPaths.end())
 				clipPath = it.value().copy();
+		}
+	}
+}
+
+void SVGPlug::parseFilterAttr(const QDomElement &e, PageItem* item)
+{
+	QString filterName;
+	if (e.hasAttribute("filter"))
+	{
+		QString attr = e.attribute("filter");
+		if (attr.startsWith( "url("))
+		{
+			unsigned int start = attr.indexOf("#") + 1;
+			unsigned int end = attr.lastIndexOf(")");
+			filterName = attr.mid(start, end - start);
+			if (filterName.isEmpty())
+				return;
+		}
+		if (filters.contains(filterName))
+		{
+			filterSpec spec = filters[filterName];
+			item->setFillBlendmode(spec.blendMode);
 		}
 	}
 }
@@ -1210,6 +1243,7 @@ QList<PageItem*> SVGPlug::parseGroup(const QDomElement &e)
 			if (gc->clipPath.size() != 0)
 				clipPath = gc->clipPath.copy();
 		}
+		parseFilterAttr(e, neu);
 		if (gElements.count() == 0 || (gElements.count() < 2 && (clipPath.size() == 0) && (gc->Opacity == 1.0)))
 		{
 			// Unfortunately we have to take the long route here, or we risk crash on undo/redo
@@ -1297,7 +1331,7 @@ QList<PageItem*> SVGPlug::parseGroup(const QDomElement &e)
 				m_Doc->itemSelection_DeleteItem(&tmpSelection);
 			}
 		}
-		delete( m_gc.pop() );
+		delete (m_gc.pop());
 	}
 	return GElements;
 }
@@ -2346,15 +2380,15 @@ QString SVGPlug::parseIccColor( const QString &s )
 
 void SVGPlug::parsePA( SvgStyle *obj, const QString &command, const QString &params )
 {
-	if( command == "display" )
+	if (command == "display")
 		obj->Display = (params == "none") ? false : true;
-	else if( command == "stroke-opacity" )
+	else if (command == "stroke-opacity")
 		obj->StrokeOpacity  = fromPercentage(params);
-	else if( command == "fill-opacity" )
+	else if (command == "fill-opacity")
 		obj->FillOpacity = fromPercentage(params);
-	else if( command == "opacity" )
+	else if (command == "opacity")
 		obj->Opacity = fromPercentage(params);
-	else if( command == "fill" )
+	else if (command == "fill")
 	{
 //		if ((obj->InherCol) && (params == "currentColor"))
 		if (params == "currentColor")
@@ -2363,7 +2397,7 @@ void SVGPlug::parsePA( SvgStyle *obj, const QString &command, const QString &par
 		{
 			obj->FillCol = CommonStrings::None;
 		}
-		else if( params.startsWith( "url(" ) )
+		else if (params.startsWith( "url(" ) )
 		{
 			unsigned int start = params.indexOf("#") + 1;
 			unsigned int end = params.lastIndexOf(")");
@@ -2452,22 +2486,22 @@ void SVGPlug::parsePA( SvgStyle *obj, const QString &command, const QString &par
 		else
 			obj->FillCol = parseColor(params);
 	}
-	else if( command == "fill-rule" )
+	else if (command == "fill-rule")
 	{
 		obj->fillRule = params;
 	}
-	else if( command == "color" )
+	else if (command == "color")
 	{
 		if (params == "none")
 			obj->CurCol = CommonStrings::None;
-		else if( params.startsWith( "url(" ) )
+		else if (params.startsWith( "url(" ) )
 			obj->CurCol = CommonStrings::None;
 		else if (params == "currentColor")
 			obj->CurCol = obj->CurCol;
 		else
 			obj->CurCol = parseColor(params);
 	}
-	else if( command == "stroke" )
+	else if (command == "stroke")
 	{
 //		if ((obj->InherCol) && (params == "currentColor"))
 		if (params == "currentColor")
@@ -2476,7 +2510,7 @@ void SVGPlug::parsePA( SvgStyle *obj, const QString &command, const QString &par
 		{
 			obj->StrokeCol = CommonStrings::None;
 		}
-		else if( params.startsWith( "url(" ) )
+		else if (params.startsWith( "url(" ) )
 		{
 			unsigned int start = params.indexOf("#") + 1;
 			unsigned int end = params.lastIndexOf(")");
@@ -2564,9 +2598,9 @@ void SVGPlug::parsePA( SvgStyle *obj, const QString &command, const QString &par
 		}
 		else
 			obj->StrokeCol = parseColor(params);
-		/*		if( params == "none" )
+		/*		if (params == "none")
 					gc->stroke.setType( VStroke::none );
-				else if( params.startsWith( "url(" ) )
+				else if (params.startsWith( "url(" ))
 				{
 					unsigned int start = params.find("#") + 1;
 					unsigned int end = params.lastIndexOf(")");
@@ -2582,29 +2616,29 @@ void SVGPlug::parsePA( SvgStyle *obj, const QString &command, const QString &par
 					gc->stroke.setType( VStroke::solid );
 				} */
 	}
-	else if( command == "stroke-width" )
+	else if (command == "stroke-width")
 		obj->LWidth = parseUnit( params );
-	else if( command == "stroke-linejoin" )
+	else if (command == "stroke-linejoin")
 	{
-		if( params == "miter" )
+		if (params == "miter")
 			obj->PLineJoin = Qt::MiterJoin;
-		else if( params == "round" )
+		else if (params == "round")
 			obj->PLineJoin = Qt::RoundJoin;
-		else if( params == "bevel" )
+		else if (params == "bevel")
 			obj->PLineJoin = Qt::BevelJoin;
 	}
-	else if( command == "stroke-linecap" )
+	else if (command == "stroke-linecap")
 	{
-		if( params == "butt" )
+		if (params == "butt")
 			obj->PLineEnd = Qt::FlatCap;
-		else if( params == "round" )
+		else if (params == "round")
 			obj->PLineEnd = Qt::RoundCap;
-		else if( params == "square" )
+		else if (params == "square")
 			obj->PLineEnd = Qt::SquareCap;
 	}
-	//	else if( command == "stroke-miterlimit" )
+	//	else if (command == "stroke-miterlimit" )
 	//		gc->stroke.setMiterLimit( params.todouble() );
-	else if( command == "stroke-dasharray" )
+	else if (command == "stroke-dasharray")
 	{
 		QVector<double> array;
 		if(params != "none")
@@ -2619,21 +2653,21 @@ void SVGPlug::parsePA( SvgStyle *obj, const QString &command, const QString &par
 		}
 		obj->dashArray = array;
 	}
-	else if( command == "stroke-dashoffset" )
+	else if (command == "stroke-dashoffset")
 		obj->dashOffset = ScCLocale::toDoubleC(params);
-	else if( command == "font-family" )
+	else if (command == "font-family")
 		obj->FontFamily = params;
-	else if( command == "font-style" )
+	else if (command == "font-style")
 		obj->FontStyle = params;
-	else if( command == "font-weight" )
+	else if (command == "font-weight")
 		obj->FontWeight = params;
-	else if( command == "font-stretch" )
+	else if (command == "font-stretch")
 		obj->FontStretch = params;
-	else if( command == "font-size" )
+	else if (command == "font-size")
 		obj->FontSize = parseFontSize(params);
-	else if( command == "text-anchor" )
+	else if (command == "text-anchor")
 		obj->textAnchor = params;
-	else if( command == "text-decoration" )
+	else if (command == "text-decoration")
 		obj->textDecoration = params;
 	else if (command == "clip-path")
 	{
@@ -2645,6 +2679,15 @@ void SVGPlug::parsePA( SvgStyle *obj, const QString &command, const QString &par
 			QMap<QString, FPointArray>::iterator it = m_clipPaths.find(key);
 			if (it != m_clipPaths.end())
 				obj->clipPath = it.value().copy();
+		}
+	}
+	else if (command == "filter")
+	{
+		if (params.startsWith( "url("))
+		{
+			unsigned int start = params.indexOf("#") + 1;
+			unsigned int end = params.lastIndexOf(")");
+			obj->filter = params.mid(start, end - start);
 		}
 	}
 	else if (command == "marker-end")
@@ -2681,57 +2724,59 @@ void SVGPlug::parseStyle( SvgStyle *obj, const QDomElement &e )
 	SvgStyle *gc = m_gc.top();
 	if (!gc)
 		return;
-	if( !e.attribute( "display" ).isEmpty() )
-		parsePA( obj, "display", e.attribute( "display" ) );
-	if( !e.attribute( "color" ).isEmpty() )
+	if (!e.attribute( "display" ).isEmpty())
+		parsePA(obj, "display", e.attribute( "display" ));
+	if (!e.attribute( "color" ).isEmpty())
 	{
 		if (e.attribute( "color" ) == "inherit")
 			gc->InherCol = true;
 		else
-			parsePA( obj, "color", e.attribute( "color" ) );
+			parsePA(obj, "color", e.attribute( "color" ));
 	}
-	if( !e.attribute( "fill" ).isEmpty() )
-		parsePA( obj, "fill", e.attribute( "fill" ) );
-	if( !e.attribute( "stroke" ).isEmpty() )
-		parsePA( obj, "stroke", e.attribute( "stroke" ) );
-	if( !e.attribute( "stroke-width" ).isEmpty() )
-		parsePA( obj, "stroke-width", e.attribute( "stroke-width" ) );
-	if( !e.attribute( "stroke-linejoin" ).isEmpty() )
-		parsePA( obj, "stroke-linejoin", e.attribute( "stroke-linejoin" ) );
-	if( !e.attribute( "stroke-linecap" ).isEmpty() )
-		parsePA( obj, "stroke-linecap", e.attribute( "stroke-linecap" ) );
-	if( !e.attribute( "stroke-dasharray" ).isEmpty() )
-		parsePA( obj, "stroke-dasharray", e.attribute( "stroke-dasharray" ) );
-	if( !e.attribute( "stroke-dashoffset" ).isEmpty() )
-		parsePA( obj, "stroke-dashoffset", e.attribute( "stroke-dashoffset" ) );
-	if( !e.attribute( "stroke-opacity" ).isEmpty() )
-		parsePA( obj, "stroke-opacity", e.attribute( "stroke-opacity" ) );
-	/*	if( !e.attribute( "stroke-miterlimit" ).isEmpty() )
-			parsePA( obj, "stroke-miterlimit", e.attribute( "stroke-miterlimit" ) );   */
-	if( !e.attribute( "fill-rule" ).isEmpty() )
-		parsePA( obj, "fill-rule", e.attribute( "fill-rule" ) );
-	if( !e.attribute( "fill-opacity" ).isEmpty() )
-		parsePA( obj, "fill-opacity", e.attribute( "fill-opacity" ) );
-	if( !e.attribute( "opacity" ).isEmpty() )
-		parsePA( obj, "opacity", e.attribute( "opacity" ) );
-	if( !e.attribute( "font-family" ).isEmpty() )
-		parsePA( obj, "font-family", e.attribute( "font-family" ) );
-	if( !e.attribute( "font-style" ).isEmpty() )
-		parsePA( obj, "font-style", e.attribute( "font-style" ) );
-	if( !e.attribute( "font-weight" ).isEmpty() )
-		parsePA( obj, "font-weight", e.attribute( "font-weight" ) );
-	if( !e.attribute( "font-stretch" ).isEmpty() )
-		parsePA( obj, "font-stretch", e.attribute( "font-stretch" ) );
-	if( !e.attribute( "font-size" ).isEmpty() )
-		parsePA( obj, "font-size", e.attribute( "font-size" ) );
-	if( !e.attribute( "text-anchor" ).isEmpty() )
-		parsePA( obj, "text-anchor", e.attribute( "text-anchor" ) );
-	if( !e.attribute( "text-decoration" ).isEmpty() )
-		parsePA( obj, "text-decoration", e.attribute( "text-decoration" ) );
-	if( !e.attribute( "marker-end" ).isEmpty() )
-		parsePA( obj, "marker-end", e.attribute( "marker-end" ) );
-	if( !e.attribute( "marker-start" ).isEmpty() )
-		parsePA( obj, "marker-start", e.attribute( "marker-start" ) );
+	if (!e.attribute( "fill" ).isEmpty())
+		parsePA(obj, "fill", e.attribute( "fill" ));
+	if (!e.attribute( "stroke" ).isEmpty())
+		parsePA(obj, "stroke", e.attribute( "stroke" ));
+	if (!e.attribute( "stroke-width" ).isEmpty())
+		parsePA(obj, "stroke-width", e.attribute( "stroke-width" ));
+	if (!e.attribute( "stroke-linejoin" ).isEmpty())
+		parsePA(obj, "stroke-linejoin", e.attribute( "stroke-linejoin" ));
+	if (!e.attribute( "stroke-linecap" ).isEmpty())
+		parsePA(obj, "stroke-linecap", e.attribute( "stroke-linecap" ));
+	if (!e.attribute( "stroke-dasharray" ).isEmpty())
+		parsePA(obj, "stroke-dasharray", e.attribute( "stroke-dasharray" ));
+	if (!e.attribute( "stroke-dashoffset" ).isEmpty())
+		parsePA(obj, "stroke-dashoffset", e.attribute( "stroke-dashoffset" ));
+	if (!e.attribute( "stroke-opacity" ).isEmpty())
+		parsePA(obj, "stroke-opacity", e.attribute( "stroke-opacity" ));
+	/*	if (!e.attribute( "stroke-miterlimit" ).isEmpty())
+			parsePA(obj, "stroke-miterlimit", e.attribute( "stroke-miterlimit" ));   */
+	if (!e.attribute( "fill-rule" ).isEmpty())
+		parsePA(obj, "fill-rule", e.attribute( "fill-rule" ));
+	if (!e.attribute( "fill-opacity" ).isEmpty())
+		parsePA(obj, "fill-opacity", e.attribute( "fill-opacity" ));
+	if (!e.attribute( "opacity" ).isEmpty())
+		parsePA(obj, "opacity", e.attribute( "opacity" ));
+	if (!e.attribute( "font-family" ).isEmpty())
+		parsePA(obj, "font-family", e.attribute( "font-family" ));
+	if (!e.attribute( "font-style" ).isEmpty())
+		parsePA(obj, "font-style", e.attribute( "font-style" ));
+	if (!e.attribute( "font-weight" ).isEmpty())
+		parsePA(obj, "font-weight", e.attribute( "font-weight" ));
+	if (!e.attribute( "font-stretch" ).isEmpty())
+		parsePA(obj, "font-stretch", e.attribute( "font-stretch" ));
+	if (!e.attribute( "font-size" ).isEmpty())
+		parsePA(obj, "font-size", e.attribute( "font-size" ));
+	if (!e.attribute( "text-anchor" ).isEmpty())
+		parsePA(obj, "text-anchor", e.attribute( "text-anchor" ));
+	if (!e.attribute( "text-decoration" ).isEmpty())
+		parsePA(obj, "text-decoration", e.attribute( "text-decoration" ));
+	if (!e.attribute( "filter" ).isEmpty())
+		parsePA(obj, "filter", e.attribute( "filter" ));
+	if (!e.attribute( "marker-end" ).isEmpty())
+		parsePA(obj, "marker-end", e.attribute( "marker-end" ));
+	if (!e.attribute( "marker-start" ).isEmpty())
+		parsePA(obj, "marker-start", e.attribute( "marker-start" ));
 	QString style = e.attribute( "style" ).simplified();
 	QStringList substyles = style.split(';', QString::SkipEmptyParts);
 	for( QStringList::Iterator it = substyles.begin(); it != substyles.end(); ++it )
@@ -2741,7 +2786,7 @@ void SVGPlug::parseStyle( SvgStyle *obj, const QDomElement &e )
 		{
 			QString command(substyle.at(0).trimmed());
 			QString params(substyle.at(1).trimmed());
-			parsePA( obj, command, params );
+			parsePA(obj, command, params);
 		}
 	}
 	return;
@@ -2788,9 +2833,9 @@ void SVGPlug::parseColorStops(GradientHelper *gradient, const QDomElement &e)
 					{
 						QString command(substyle.at(0).trimmed());
 						QString params(substyle.at(1).trimmed());
-						if( command == "stop-color" )
+						if (command == "stop-color")
 							Col = parseColor(params);
-						if( command == "stop-opacity" )
+						if (command == "stop-opacity")
 							opa = fromPercentage(params);
 					}
 				}
@@ -2802,6 +2847,40 @@ void SVGPlug::parseColorStops(GradientHelper *gradient, const QDomElement &e)
 	}
 	if (gradient->gradientValid)
 		gradient->gradient.filterStops();
+}
+
+void SVGPlug::parseFilter(const QDomElement &b)
+{
+	QString id = b.attribute("id", "");
+	QString origName = id;
+	if (id.isEmpty())
+		return;
+
+	filterSpec fspec;
+	fspec.blendMode = 0;
+
+	QDomElement child = b.firstChildElement();
+	if (child.isNull() || (child.tagName() != "feBlend"))
+	{
+		filters.insert(id, fspec);
+		m_nodeMap.insert(origName, b);
+		return;
+	}
+
+	QString blendModeStr = child.attribute("mode");
+	if (blendModeStr == "normal")
+		fspec.blendMode = 0;
+	if (blendModeStr == "darken")
+		fspec.blendMode = 1;
+	if (blendModeStr == "lighten")
+		fspec.blendMode = 2;
+	if (blendModeStr == "multiply")
+		fspec.blendMode = 3;
+	if (blendModeStr == "screen")
+		fspec.blendMode = 4;
+
+	filters.insert(id, fspec);
+	m_nodeMap.insert(origName, b);
 }
 
 void SVGPlug::parseMarker(const QDomElement &b)

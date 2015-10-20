@@ -216,6 +216,7 @@ public:
 	QString textDecoration;
 	FPointArray clipPath;
 	bool forGroup;
+	QString filter;
 	QString endMarker;
 	QString startMarker;
 };
@@ -249,6 +250,7 @@ public:
 	void parseDefs(const QDomElement &e);
 	void parseClipPath(const QDomElement &e);
 	void parseClipPathAttr(const QDomElement &e, FPointArray& clipPath);
+	void parseFilterAttr(const QDomElement &e, PageItem* item);
 	QList<PageItem*> parseA(const QDomElement &e);
 	QList<PageItem*> parseGroup(const QDomElement &e);
 	QList<PageItem*> parseDoc(const QDomElement &e);
@@ -282,6 +284,7 @@ public:
 	void parsePA( SvgStyle *obj, const QString &command, const QString &params );
 	void parseStyle( SvgStyle *obj, const QDomElement &e );
 	void parseColorStops(GradientHelper *gradient, const QDomElement &e);
+	void parseFilter(const QDomElement &b);
 	void parseMarker(const QDomElement &b);
 	void parsePattern(const QDomElement &b);
 	void parseGradient( const QDomElement &e );
@@ -317,6 +320,10 @@ public:
 	double inGroupYOrigin;
 	int importerFlags;
 	bool firstLayer;
+	struct filterSpec
+	{
+		int blendMode;
+	};
 	struct markerDesc
 	{
 		double xref;
@@ -324,6 +331,7 @@ public:
 		double wpat;
 		double hpat;
 	};
+	QMap<QString, filterSpec> filters;
 	QMap<QString, markerDesc> markers;
 	QList<PageItem*> Elements;
 };
