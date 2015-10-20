@@ -501,7 +501,10 @@ void SVGPlug::addGraphicContext()
 {
 	SvgStyle *gc = new SvgStyle;
 	if ( m_gc.top() )
+	{
 		*gc = *( m_gc.top() );
+		gc->filter.clear(); // filter is not inheritable
+	}
 	m_gc.push( gc );
 }
 
@@ -673,6 +676,14 @@ void SVGPlug::finishNode( const QDomNode &e, PageItem* item)
 			}
 		}
 	}
+	if (!gc->filter.isEmpty())
+	{
+		if (filters.contains(gc->filter))
+		{
+			filterSpec filter = filters[gc->filter];
+			item->setFillBlendmode(filter.blendMode);
+		}
+	}
 }
 
 bool SVGPlug::isIgnorableNode( const QDomElement &e )
@@ -824,6 +835,8 @@ void SVGPlug::parseDefs(const QDomElement &e)
 			parseClipPath(b);
 		else if (STag2 == "pattern")
 			parsePattern(b);
+		else if (STag2 == "filter")
+			parseFilter(b);
 		else if ( b.hasAttribute("id") )
 		{
 			QString id = b.attribute("id");
@@ -907,6 +920,28 @@ void SVGPlug::parseClipPathAttr(const QDomElement &e, FPointArray& clipPath)
 	}
 }
 
+void SVGPlug::parseFilterAttr(const QDomElement &e, PageItem* item)
+{
+	QString filterName;
+	if (e.hasAttribute("filter"))
+	{
+		QString attr = e.attribute("filter");
+		if (attr.startsWith( "url("))
+		{
+			unsigned int start = attr.indexOf("#") + 1;
+			unsigned int end = attr.lastIndexOf(")");
+			filterName = attr.mid(start, end - start);
+			if (filterName.isEmpty())
+				return;
+		}
+		if (filters.contains(filterName))
+		{
+			filterSpec spec = filters[filterName];
+			item->setFillBlendmode(spec.blendMode);
+		}
+	}
+}
+
 QList<PageItem*> SVGPlug::parseA(const QDomElement &e)
 {
 	QList<PageItem*> aElements;
@@ -957,6 +992,7 @@ QList<PageItem*> SVGPlug::parseGroup(const QDomElement &e)
 		if (gc->clipPath.size() != 0)
 			clipPath = gc->clipPath.copy();
 	}
+	parseFilterAttr(e, neu);
 	if (gElements.count() == 0 || (gElements.count() < 2 && (clipPath.size() == 0) && (gc->Opacity == 1.0)))
 	{
 		// Unfortunately we have to take the long route here, or we risk crash on undo/redo
@@ -2296,6 +2332,15 @@ void SVGPlug::parsePA( SvgStyle *obj, const QString &command, const QString &par
 				obj->clipPath = it.value().copy();
 		}
 	}
+	else if (command == "filter")
+	{
+		if (params.startsWith( "url("))
+		{
+			unsigned int start = params.indexOf("#") + 1;
+			unsigned int end = params.lastIndexOf(")");
+			obj->filter = params.mid(start, end - start);
+		}
+	}
 	else if( !isIgnorableNodeName(command) )
 	{
 		if (!m_unsupportedFeatures.contains(command))
@@ -2359,6 +2404,8 @@ void SVGPlug::parseStyle( SvgStyle *obj, const QDomElement &e )
 		parsePA( obj, "text-anchor", e.attribute( "text-anchor" ) );
 	if( !e.attribute( "text-decoration" ).isEmpty() )
 		parsePA( obj, "text-decoration", e.attribute( "text-decoration" ) );
+	if( !e.attribute( "filter" ).isEmpty() )
+		parsePA( obj, "filter", e.attribute( "filter" ) );
 	QString style = e.attribute( "style" ).simplified();
 	QStringList substyles = style.split(';', QString::SkipEmptyParts);
 	for( QStringList::Iterator it = substyles.begin(); it != substyles.end(); ++it )
@@ -2429,6 +2476,40 @@ void SVGPlug::parseColorStops(GradientHelper *gradient, const QDomElement &e)
 	}
 	if (gradient->gradientValid)
 		gradient->gradient.filterStops();
+}
+
+void SVGPlug::parseFilter(const QDomElement &b)
+{
+	QString id = b.attribute("id", "");
+	QString origName = id;
+	if (id.isEmpty())
+		return;
+
+	filterSpec fspec;
+	fspec.blendMode = 0;
+
+	QDomElement child = b.firstChildElement();
+	if (child.isNull() || (child.tagName() != "feBlend"))
+	{
+		filters.insert(id, fspec);
+		m_nodeMap.insert(origName, b);
+		return;
+	}
+
+	QString blendModeStr = child.attribute("mode");
+	if (blendModeStr == "normal")
+		fspec.blendMode = 0;
+	if (blendModeStr == "darken")
+		fspec.blendMode = 1;
+	if (blendModeStr == "lighten")
+		fspec.blendMode = 2;
+	if (blendModeStr == "multiply")
+		fspec.blendMode = 3;
+	if (blendModeStr == "screen")
+		fspec.blendMode = 4;
+
+	filters.insert(id, fspec);
+	m_nodeMap.insert(origName, b);
 }
 
 void SVGPlug::parsePattern(const QDomElement &b)

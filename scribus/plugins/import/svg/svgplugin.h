@@ -179,6 +179,7 @@ public:
 	QString textAnchor;
 	QString textDecoration;
 	FPointArray clipPath;
+	QString filter;
 };
 
 class SVGPlug : public QObject
@@ -209,6 +210,7 @@ public:
 	void parseDefs(const QDomElement &e);
 	void parseClipPath(const QDomElement &e);
 	void parseClipPathAttr(const QDomElement &e, FPointArray& clipPath);
+	void parseFilterAttr(const QDomElement &e, PageItem* item);
 	QList<PageItem*> parseA(const QDomElement &e);
 	QList<PageItem*> parseGroup(const QDomElement &e);
 	QList<PageItem*> parseElement(const QDomElement &e);
@@ -241,6 +243,7 @@ public:
 	void parsePA( SvgStyle *obj, const QString &command, const QString &params );
 	void parseStyle( SvgStyle *obj, const QDomElement &e );
 	void parseColorStops(GradientHelper *gradient, const QDomElement &e);
+	void parseFilter(const QDomElement &b);
 	void parsePattern(const QDomElement &b);
 	void parseGradient( const QDomElement &e );
 	FPoint GetMaxClipO(FPointArray Clip);
@@ -271,6 +274,11 @@ public:
 	QMap<QString, QString> importedPattTrans;
 	double inGroupXOrigin;
 	double inGroupYOrigin;
+	struct filterSpec
+	{
+		int blendMode;
+	};
+	QMap<QString, filterSpec> filters;
 };
 
 #endif
