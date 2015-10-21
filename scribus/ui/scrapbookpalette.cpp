@@ -1980,4 +1980,18 @@ void Biblio::languageChange()
 	conf_HideImages->setText( tr("Hide Images"));
 	conf_HideVectors->setText( tr("Hide Vector files"));
 	conf_OpenMode->setText( tr("Open Directories in a new tab"));
+
+	int index = Frame3->indexOf(activeBView);
+	if (index >= 0)
+	{
+		Frame3->setItemText(index, tr("Main") );
+		activeBView->visibleName = tr("Main");
+	}
+
+	index = Frame3->indexOf(tempBView);
+	if (index >= 0)
+	{
+		Frame3->setItemText(index, tr("Copied Items"));
+		tempBView->visibleName = tr("Copied Items");
+	}
 }
