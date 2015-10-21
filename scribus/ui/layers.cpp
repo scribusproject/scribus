@@ -662,7 +662,7 @@ void LayerPalette::languageChange()
 
 	textLabel2->setText( tr( "Opacity:" ) );
 	opacitySpinBox->setSuffix( tr(" %"));
-	Table->horizontalHeaderItem(6)->setText( tr("Name"));
+	Table->horizontalHeaderItem(7)->setText( tr("Name"));
 	newLayerButton->setToolTip("");
 	duplicateLayerButton->setToolTip("");
 	deleteLayerButton->setToolTip("");
