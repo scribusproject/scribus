@@ -255,7 +255,8 @@ class ScCalendar:
         if not newDocDialog():
             return 'Create a new document first, please'
         createParagraphStyle(name=self.pStyleDate, alignment=ALIGN_RIGHT)
-        createParagraphStyle(name=self.pStyleWeekday, alignment=ALIGN_RIGHT)
+        createParagraphStyle(name=self.pStyleWeekday, alignment=ALIGN_CENTERED)
+#        createParagraphStyle(name=self.pStyleWeekday, alignment=ALIGN_RIGHT) # original alignment
         createParagraphStyle(name=self.pStyleMonth)
         createParagraphStyle(name=self.pStyleWeekNo, alignment=ALIGN_RIGHT)
         originalUnit = getUnit()
@@ -438,6 +439,7 @@ class ScClassicCalendar(ScVerticalCalendar):
                 cel = createText(self.marginl + colCnt * self.colSize,
                                  self.calHeight + rowCnt * self.rowSize,
                                  self.colSize, self.rowSize)
+		setLineColor("Black", cel)  # comment this out if you do not want border to cells
                 colCnt += 1
                 if day.month == month + 1:
 					setText(str(day.day), cel)
