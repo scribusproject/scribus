@@ -139,10 +139,14 @@ void SMPStyleWidget::languageChange()
 /*      End Tooltips               */
 /***********************************/
 
+	int  oldLineSpacingModeIndex = lineSpacingMode->currentIndex();
+	bool lineSpacingModeBlocked = lineSpacingMode->blockSignals(true);
 	lineSpacingMode->clear();
 	lineSpacingMode->addItem( tr("Fixed Linespacing"));
 	lineSpacingMode->addItem( tr("Automatic Linespacing"));
 	lineSpacingMode->addItem( tr("Align to Baseline Grid"));
+	lineSpacingMode->setCurrentIndex(oldLineSpacingModeIndex);
+	lineSpacingMode->blockSignals(lineSpacingModeBlocked);
 
 //	optMarginCombo->clear();
 //	optMarginCombo->addItem(tr("None"), ParagraphStyle::OM_None);
@@ -160,6 +164,14 @@ void SMPStyleWidget::languageChange()
 	parentLabel->setText( tr("Based On:"));
 	distancesBox->setTitle( tr("Alignment and Distances"));
 
+	textFlowBox->setTitle( tr("Orphans and Widows"));
+	keepLabelStart->setText( tr("Don't separate first"));
+	keepLinesStart->setSuffix( tr(" lines"));
+	keepLabelEnd->setText( tr("Don't separate last"));
+	keepLinesEnd->setSuffix( tr(" lines"));
+	keepTogether->setText( tr("Do not split paragraph"));
+	keepWithNext->setText( tr("Keep with next paragraph"));
+
 	//parEffectsBox->setTitle(tr("Paragraph Effects"));
 	bulletBox->setTitle(           tr("Bullets"));
 	bulletCharLabel->setText(      tr("Bullet Char/String"));
@@ -167,12 +179,20 @@ void SMPStyleWidget::languageChange()
 
 	numBox->setTitle(       tr("Numeration"));
 	numLevelLabel->setText( tr("Level"));
+	numNewLabel->setText( tr("Create New Set:"));
 	numFormatLabel->setText(tr("Numbering Style"));
 	numStartLabel->setText( tr("Start with"));
 	numPrefixLabel->setText(tr("Prefix"));
 	numSuffixLabel->setText(tr("Suffix"));
+	numRestartLabel->setText( tr("Restart"));
 	numRestartOtherBox->setText( tr("Restart after other format"));
 	numRestartHigherBox->setText(tr("Restart after higher level"));
+
+	int  oldNumRestartIndex = numRestartCombo->currentIndex();
+	bool numRestartComboBlocked = numRestartCombo->blockSignals(true);
+	fillNumRestartCombo();
+	numRestartCombo->setCurrentIndex(oldNumRestartIndex);
+	numRestartCombo->blockSignals(numRestartComboBlocked);
 
 	dropCapsBox->setTitle( tr("Drop Caps"));
 	dropCapsLineLabel->setText( tr("Lines:"));

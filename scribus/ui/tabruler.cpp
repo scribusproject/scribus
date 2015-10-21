@@ -664,6 +664,73 @@ Tabruler::Tabruler( QWidget* parent, bool haveFirst, int dEin, QList<ParagraphSt
 	haveF = haveFirst;
 }
 
+void Tabruler::changeEvent(QEvent *e)
+{
+	if (e->type() == QEvent::LanguageChange)
+	{
+		languageChange();
+		return;
+	}
+	QWidget::changeEvent(e);
+}
+
+void Tabruler::languageChange()
+{
+	int  oldTypeComboIndex = typeCombo->currentIndex();
+	bool typeComboBlocked = typeCombo->blockSignals(true);
+	typeCombo->clear();
+	typeCombo->addItem( tr( "Left" ) );
+	typeCombo->addItem( tr( "Right" ) );
+	typeCombo->addItem( tr( "Period" ) );
+	typeCombo->addItem( tr( "Comma" ) );
+	typeCombo->addItem( tr( "Center" ) );
+	typeCombo->setCurrentIndex(oldTypeComboIndex);
+	typeCombo->blockSignals(typeComboBlocked);
+
+	positionLabel->setText( tr("&Position:"));
+
+	int  oldTabFillComboIndex = tabFillCombo->currentIndex();
+	bool tabFillComboBlocked = tabFillCombo->blockSignals(true);
+	tabFillCombo->clear();
+	tabFillCombo->addItem( tr("None", "tab fill"));
+	tabFillCombo->addItem( tr("Dot"));
+	tabFillCombo->addItem( tr("Hyphen"));
+	tabFillCombo->addItem( tr("Underscore"));
+	tabFillCombo->addItem( tr("Custom"));
+	tabFillCombo->setCurrentIndex(oldTabFillComboIndex);
+	tabFillCombo->blockSignals(tabFillComboBlocked);
+
+	tabFillComboT->setText( tr( "Fill Char:" ));
+
+	clearButton->setText( tr( "Delete All" ) );
+	clearOneButton->setText( tr( "Delete Selected" ) );
+
+	tabFillCombo->setToolTip( tr( "Fill Character of Tab" ) );
+	typeCombo->setToolTip( tr( "Type/Orientation of Tab" ) );
+	tabData->setToolTip( tr( "Position of Tab" ) );
+
+	if (haveF)
+	{
+		firstLineData->setToolTip( tr( "Indentation for first line of the paragraph" ) );
+		leftIndentData->setToolTip( tr( "Indentation from the left for the whole paragraph" ) );
+		rightIndentData->setToolTip( tr( "Indentation from the right for the whole paragraph" ) );
+		firstLineLabel->setToolTip(firstLineData->toolTip());
+		leftIndentLabel->setToolTip(leftIndentData->toolTip());
+		rightIndentLabel->setToolTip(rightIndentData->toolTip());
+	}
+	clearButton->setToolTip( tr( "Delete all Tabulators" ) );
+	clearOneButton->setToolTip( tr("Delete selected Tabulator"));
+
+	QString unitSuffix = unitGetSuffixFromIndex(tabData->unitIndex());
+	if (haveF)
+	{
+		firstLineData->setSuffix(unitSuffix);
+		leftIndentData->setSuffix(unitSuffix);
+		rightIndentData->setSuffix(unitSuffix);
+	}
+	tabData->setSuffix(unitSuffix);
+}
+
 void Tabruler::setTabs(QList<ParagraphStyle::TabRecord> Tabs, int dEin)
 {
 	docUnitRatio=unitGetRatioFromIndex(dEin);

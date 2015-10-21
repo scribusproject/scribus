@@ -32,8 +32,10 @@ class SCRIBUS_API RulerT : public QWidget
 public:
 	RulerT(QWidget* parent, int ein, QList<ParagraphStyle::TabRecord> Tabs, bool ind, double wid);
 	~RulerT() {};
+
 	void setTabs(QList<ParagraphStyle::TabRecord> Tabs, int dEin);
 	void updateTabList();
+
 	bool mousePressed;
 	QList<ParagraphStyle::TabRecord> tabValues;
 	bool haveInd;
@@ -92,6 +94,9 @@ public:
 	          double wid = -1);
 	~Tabruler() {};
 
+	virtual void changeEvent(QEvent *e);
+
+	void languageChange();
 	virtual void setTabs(QList<ParagraphStyle::TabRecord> Tabs, int dEin);
 
 	QList<ParagraphStyle::TabRecord> getTabVals();

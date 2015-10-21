@@ -94,6 +94,10 @@ void SMCStyleWidget::languageChange()
 /*        End Tooltips             */
 /***********************************/
 
+	basicGroup->setTitle( tr("Basic Formatting"));
+	advGroup->setTitle( tr("Advanced Formatting"));
+	smColorGroup->setTitle( tr("Colors"));
+
 	parentLabel->setText( tr("Based On:"));
 	languageLabel_->setText( tr("Language:"));
 // 	fontVScale_->setSuffix( tr(" %"));
