@@ -635,6 +635,10 @@ void LayerPalette::languageChange()
 {
 	setWindowTitle( tr( "Layers" ) );
 	textLabel1->setText( tr( "Blend Mode:" ) );
+
+	int  oldBlendMode = blendMode->currentIndex();
+	bool blendModeBlocked = blendMode->blockSignals(true);
+
 	blendMode->clear();
 	blendMode->addItem( tr("Normal"));
 	blendMode->addItem( tr("Darken"));
@@ -652,6 +656,10 @@ void LayerPalette::languageChange()
 	blendMode->addItem( tr("Saturation"));
 	blendMode->addItem( tr("Color"));
 	blendMode->addItem( tr("Luminosity"));
+
+	blendMode->setCurrentIndex(oldBlendMode);
+	blendMode->blockSignals(blendModeBlocked);
+
 	textLabel2->setText( tr( "Opacity:" ) );
 	opacitySpinBox->setSuffix( tr(" %"));
 	Table->horizontalHeaderItem(6)->setText( tr("Name"));
