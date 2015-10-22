@@ -199,6 +199,7 @@ void SMPStyleWidget::languageChange()
 
 	parEffectCharStyleComboLabel->setText(tr("Character Style for Effect:"));
 	distFromTextLabel->setText(tr("Distance from Text:"));
+	parEffectIndentBox->setText(tr("AutoIndent"));
 	parentParEffectsButton->setText(tr("Use Parent`s Values"));
 
 	QFont font1;

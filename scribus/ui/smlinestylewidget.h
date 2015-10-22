@@ -35,6 +35,9 @@ private:
 	multiLine  m_currentStyle;
 	ColorList  m_colors;
 
+	void fillEndCombo();
+	void fillJoinCombo();
+
 	void updateLineList();
 	QColor getColor(const QString &name, int shade);
 

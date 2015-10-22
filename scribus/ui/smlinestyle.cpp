@@ -376,7 +376,10 @@ void SMLineStyle::changeEvent(QEvent *e)
 
 void SMLineStyle::languageChange()
 {
-	
+	if (m_twidget && m_widget)
+	{
+		m_twidget->addTab(m_widget, tr("Properties"));
+	}
 }
 
 void SMLineStyle::unitChange()

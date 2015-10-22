@@ -28,13 +28,8 @@ SMLineStyleWidget::SMLineStyleWidget() : QWidget()
 	lineWidth->setMinimum(0.0);
 	lineWidth->setMaximum(300.0);
 
-	endCombo->addItem(im->loadIcon("ButtCap.png"), tr( "Flat Cap" ) );
-	endCombo->addItem(im->loadIcon("SquareCap.png"), tr( "Square Cap" ) );
-	endCombo->addItem(im->loadIcon("RoundCap.png"), tr( "Round Cap" ) );
-
-	joinCombo->addItem(im->loadIcon("MiterJoin.png"), tr( "Miter Join" ) );
-	joinCombo->addItem(im->loadIcon("BevelJoin.png"), tr( "Bevel Join" ) );
-	joinCombo->addItem(im->loadIcon("RoundJoin.png"), tr( "Round Join" ) );
+	fillEndCombo();
+	fillJoinCombo();
 
 	languageChange();
 }
@@ -49,29 +44,55 @@ void SMLineStyleWidget::changeEvent(QEvent *e)
 
 void SMLineStyleWidget::languageChange()
 {
-/***********************************/
-/*      Begin Tooltips             */
-/***********************************/
-// These are for the line style page
+	int  oldEndComboIndex = endCombo->currentIndex();
+	bool endComboBlocked  = endCombo->blockSignals(true);
 
-	addButton->setToolTip(    tr("Add a new line"));
-	removeButton->setToolTip( tr("Remove a line"));
-	dashCombo->setToolTip(    tr("Line style"));
-	lineWidth->setToolTip(    tr("Line width"));
-	endCombo->setToolTip(     tr("End style"));
-	joinCombo->setToolTip(    tr("Join style"));
-	colorCombo->setToolTip(   tr("Line color"));
-	shadeBox->setToolTip(     tr("Line shade"));
+	int  oldJoinComboIndex = joinCombo->currentIndex();
+	bool joinComboBlocked  = joinCombo->blockSignals(true);
 
-/***********************************/
-/*      End Tooltips               */
-/***********************************/
+	int  oldLineListRow  = lineStyles->currentRow();
+	bool lineListBlocked = lineStyles->blockSignals(true);
+
+	retranslateUi(this);
+	fillEndCombo();
+	fillJoinCombo();
+	updateLineList();
+
+	endCombo->setCurrentIndex(oldEndComboIndex);
+	endCombo->blockSignals(endComboBlocked);
+
+	joinCombo->setCurrentIndex(oldJoinComboIndex);
+	joinCombo->blockSignals(joinComboBlocked);
+
+	if (oldLineListRow >= 0)
+		lineStyles->setCurrentRow(oldLineListRow);
+	lineStyles->blockSignals(lineListBlocked);
 }
 
 
 void SMLineStyleWidget::unitChange(int unitIndex)
 {
 	lineWidth->setNewUnit(unitIndex);
+}
+
+void SMLineStyleWidget::fillEndCombo()
+{
+	IconManager* im  = IconManager::instance();
+
+	endCombo->clear();
+	endCombo->addItem(im->loadIcon("ButtCap.png"), tr( "Flat Cap" ) );
+	endCombo->addItem(im->loadIcon("SquareCap.png"), tr( "Square Cap" ) );
+	endCombo->addItem(im->loadIcon("RoundCap.png"), tr( "Round Cap" ) );
+}
+
+void SMLineStyleWidget::fillJoinCombo()
+{
+	IconManager* im  = IconManager::instance();
+
+	joinCombo->clear();
+	joinCombo->addItem(im->loadIcon("MiterJoin.png"), tr( "Miter Join" ) );
+	joinCombo->addItem(im->loadIcon("BevelJoin.png"), tr( "Bevel Join" ) );
+	joinCombo->addItem(im->loadIcon("RoundJoin.png"), tr( "Round Join" ) );
 }
 
 void SMLineStyleWidget::showStyle(const multiLine &lineStyle, ColorList &colorList, int subLine)
