@@ -155,9 +155,31 @@ void PDFExportDialog::disableSave()
 
 void PDFExportDialog::DoExport()
 {
+	// Check the page ranges
+	bool hasInvalidPageRange = false;
+	QString pageString(this->getPagesString());
+	std::vector<int> pageNumbers;
+
+	parsePagesString(pageString, &pageNumbers, m_doc->DocPages.count());
+	for (size_t i = 0; i < pageNumbers.size(); ++i)
+	{
+		int pageNumber = pageNumbers[i];
+		if (pageNumber < 1 || pageNumber > m_doc->DocPages.count())
+		{
+			hasInvalidPageRange = true;
+			break;
+		}
+	}
+
+	if ((pageNumbers.size() == 0) || hasInvalidPageRange)
+	{
+		ScMessageBox::warning(this, CommonStrings::trWarning, tr("The range of pages to export is invalid.\nPlease check it and try again."));
+		return;
+	}
+
+	// Checking if the path exists
 	bool createPath = false;
 	QString fn = QDir::fromNativeSeparators(fileNameLineEdit->text());
-	// Checking if the path exists
 	QFileInfo fi(fn);
 	QString dirPath = QDir::toNativeSeparators(fi.absolutePath());
 	if (!QFile::exists(fi.absolutePath()))
@@ -192,23 +214,20 @@ void PDFExportDialog::DoExport()
 		doIt = true;
 	else
 		doIt = overwrite(this, fn);
-	if (doIt)
-	{
-		int pageIndex = (Options->Pages->currentRow() >= 0) ? Options->Pages->currentRow() : 0;
-		m_presEffects = Options->EffVal;
-		m_presEffects[pageIndex].pageViewDuration = Options->PageTime->value();
-		m_presEffects[pageIndex].pageEffectDuration = Options->EffectTime->value();
-		m_presEffects[pageIndex].effectType = Options->EffectType->currentIndex();
-		m_presEffects[pageIndex].Dm = Options->EDirection->currentIndex();
-		m_presEffects[pageIndex].M = Options->EDirection_2->currentIndex();
-		m_presEffects[pageIndex].Di = Options->EDirection_2_2->currentIndex();
-		m_opts.LPISettings[Options->SelLPIcolor].Frequency = Options->LPIfreq->value();
-		m_opts.LPISettings[Options->SelLPIcolor].Angle = Options->LPIangle->value();
-		m_opts.LPISettings[Options->SelLPIcolor].SpotFunc = Options->LPIfunc->currentIndex();
-		accept();
-	}
-	else
-		return;
+	if (!doIt) return;
+
+	int pageIndex = (Options->Pages->currentRow() >= 0) ? Options->Pages->currentRow() : 0;
+	m_presEffects = Options->EffVal;
+	m_presEffects[pageIndex].pageViewDuration = Options->PageTime->value();
+	m_presEffects[pageIndex].pageEffectDuration = Options->EffectTime->value();
+	m_presEffects[pageIndex].effectType = Options->EffectType->currentIndex();
+	m_presEffects[pageIndex].Dm = Options->EDirection->currentIndex();
+	m_presEffects[pageIndex].M = Options->EDirection_2->currentIndex();
+	m_presEffects[pageIndex].Di = Options->EDirection_2_2->currentIndex();
+	m_opts.LPISettings[Options->SelLPIcolor].Frequency = Options->LPIfreq->value();
+	m_opts.LPISettings[Options->SelLPIcolor].Angle = Options->LPIangle->value();
+	m_opts.LPISettings[Options->SelLPIcolor].SpotFunc = Options->LPIfunc->currentIndex();
+	accept();
 }
 
 void PDFExportDialog::ChangeFile()
