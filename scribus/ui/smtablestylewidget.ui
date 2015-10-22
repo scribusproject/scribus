@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>378</width>
-    <height>478</height>
+    <height>486</height>
    </rect>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -49,7 +49,7 @@
            </size>
           </property>
           <property name="text">
-           <string>TextLabel</string>
+           <string/>
           </property>
           <property name="buddy">
            <cstring>fillColor</cstring>
@@ -57,17 +57,24 @@
          </widget>
         </item>
         <item>
-         <widget class="SMColorCombo" name="fillColor"/>
+         <widget class="SMColorCombo" name="fillColor">
+          <property name="toolTip">
+           <string>Fill Color</string>
+          </property>
+         </widget>
         </item>
         <item>
          <widget class="QLabel" name="fillShadeLabel">
           <property name="text">
-           <string>Text</string>
+           <string/>
           </property>
          </widget>
         </item>
         <item>
          <widget class="SMShadeButton" name="fillShade">
+          <property name="toolTip">
+           <string>Fill Shade</string>
+          </property>
           <property name="text">
            <string/>
           </property>

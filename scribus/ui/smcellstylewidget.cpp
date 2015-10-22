@@ -17,7 +17,6 @@ SMCellStyleWidget::SMCellStyleWidget(QWidget *parent) : QWidget()
 	fillColorIcon->setPixmap(IconManager::instance()->loadPixmap("16/color-fill.png"));
 	fillColor->addItem(CommonStrings::tr_NoneColor);
 	fillShadeLabel->setPixmap(IconManager::instance()->loadPixmap("shade.png") );
-	fillShade->setToolTip( tr("Fill Shade"));
 }
 
 SMCellStyleWidget::~SMCellStyleWidget()
@@ -133,7 +132,14 @@ void SMCellStyleWidget::showColors(const QList<CellStyle*> &cellStyles)
 
 void SMCellStyleWidget::languageChange()
 {
-	fillColor->setToolTip(tr("Fill Color"));
+	retranslateUi(this);
+
+	if (fillColor->count() > 0)
+	{
+		bool fillColorBlocked = fillColor->blockSignals(true);
+		fillColor->setItemText(0, CommonStrings::tr_NoneColor);
+		fillColor->blockSignals(fillColorBlocked);
+	}
 }
 
 void SMCellStyleWidget::fillFillColorCombo(ColorList &colors)

@@ -59,6 +59,20 @@ void SMCStyleWidget::languageChange()
 	LanguageManager::instance()->fillInstalledHyphStringList(&languageList);
 	fillLangComboFromList(languageList);
 
+	if (fillColor_->count() > 0)
+	{
+		bool sigBlocked = fillColor_->blockSignals(true);
+		fillColor_->setItemText(0, CommonStrings::tr_NoneColor);
+		fillColor_->blockSignals(sigBlocked);
+	}
+
+	if (strokeColor_->count() > 0)
+	{
+		bool sigBlocked = strokeColor_->blockSignals(true);
+		strokeColor_->setItemText(0, CommonStrings::tr_NoneColor);
+		strokeColor_->blockSignals(sigBlocked);
+	}
+
 /***********************************/
 /*      Begin Tooltips             */
 /***********************************/

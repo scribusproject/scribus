@@ -131,8 +131,14 @@ void SMTableStyleWidget::showColors(const QList<TableStyle*> &tableStyles)
 
 void SMTableStyleWidget::languageChange()
 {
-	fillColor->setToolTip( tr("Fill Color"));
-	fillShade->setToolTip( tr("Fill Shade"));
+	retranslateUi(this);
+
+	if (fillColor->count() > 0)
+	{
+		bool fillColorBlocked = fillColor->blockSignals(true);
+		fillColor->setItemText(0, CommonStrings::tr_NoneColor);
+		fillColor->blockSignals(fillColorBlocked);
+	}
 }
 
 void SMTableStyleWidget::fillFillColorCombo(ColorList &colors)

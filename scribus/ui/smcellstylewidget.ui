@@ -63,7 +63,11 @@
          </widget>
         </item>
         <item>
-         <widget class="SMColorCombo" name="fillColor"/>
+         <widget class="SMColorCombo" name="fillColor">
+          <property name="toolTip">
+           <string>Fill Color</string>
+          </property>
+         </widget>
         </item>
         <item>
          <widget class="QLabel" name="fillShadeLabel">
@@ -80,6 +84,9 @@
         </item>
         <item>
          <widget class="SMShadeButton" name="fillShade">
+          <property name="toolTip">
+           <string>Fill Shade</string>
+          </property>
           <property name="text">
            <string/>
           </property>
