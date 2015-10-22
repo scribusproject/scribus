@@ -148,9 +148,31 @@ void PDFExportDialog::disableSave()
 
 void PDFExportDialog::DoExport()
 {
+	// Check the page ranges
+	bool hasInvalidPageRange = false;
+	QString pageString(this->getPagesString());
+	std::vector<int> pageNumbers;
+
+	parsePagesString(pageString, &pageNumbers, doc->DocPages.count());
+	for (size_t i = 0; i < pageNumbers.size(); ++i)
+	{
+		int pageNumber = pageNumbers[i];
+		if (pageNumber < 1 || pageNumber > doc->DocPages.count())
+		{
+			hasInvalidPageRange = true;
+			break;
+		}
+	}
+
+	if ((pageNumbers.size() == 0) || hasInvalidPageRange)
+	{
+		QMessageBox::warning(this, CommonStrings::trWarning, tr("The range of pages to export is invalid.\nPlease check it and try again."));
+		return;
+	}
+
+	// Checking if the path exists
 	bool createPath = false;
 	QString fn = QDir::fromNativeSeparators(fileNameLineEdit->text());
-	// Checking if the path exists
 	QFileInfo fi(fn);
 	QString dirPath = QDir::toNativeSeparators(fi.absolutePath());
 	if (!QFile::exists(fi.absolutePath()))
