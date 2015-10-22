@@ -56,6 +56,7 @@ for which a new license (GPL+exception) is in place.
 #include "scribusstructs.h"
 #include "selection.h"
 #include "ui/guidemanager.h"
+#include "ui/marksmanager.h"
 #include "undomanager.h"
 #include "undostate.h"
 #include "util.h"
@@ -6049,6 +6050,12 @@ int PageItem_TextFrame::removeMarksFromText(bool doUndo)
 			++num;
 		}
 		mrk = selectedMark(true);
+	}
+	if (num > 0)
+	{
+		m_Doc->changed();
+		m_Doc->regionsChanged()->update(QRectF());
+		m_Doc->scMW()->marksManager->updateListView();
 	}
 	return num;
 }
