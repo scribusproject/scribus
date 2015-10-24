@@ -8,7 +8,7 @@ dist: trusty
 
 before_install:
   - sudo apt-get update -qq
-  - sudo apt-get install cmake libboost-python-dev libcups2-dev libhunspell-dev
+  - sudo apt-get install -y cmake libboost-python-dev libcups2-dev libhunspell-dev
     libhyphen-dev liblcms2-dev libpodofo-dev libtiff-dev libxml2-dev
     python-all-dev zlib1g-dev qtbase5-dev qtdeclarative5-dev libqt5opengl5-dev
     qttools5-dev qttools5-dev-tools libgraphicsmagick++1-dev
