@@ -36,7 +36,6 @@ public:
 	LayerPalette(QWidget* parent);
 	~LayerPalette() {};
 	
-	
 	virtual void changeEvent(QEvent *e);
 
 	void setDoc(ScribusDoc* doc);
