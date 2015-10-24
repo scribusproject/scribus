@@ -89,10 +89,8 @@ void AlignDistributePalette::changeEvent(QEvent *e)
 
 void AlignDistributePalette::languageChange()
 {
-	setWindowTitle( tr( "Align and Distribute" ) );
-	tabWidget->setTabText(0, tr( "Align"));
-	tabWidget->setTabText(1, tr( "Distribute"));
-	alignRelativeToLabel->setText( tr( "&Relative to:" ) );
+	retranslateUi(this);
+
 	int alignComboValue=alignRelativeToCombo->currentIndex();
 	alignRelativeToCombo->clear();
 	alignRelativeToCombo->addItem( tr( "First Selected" ) );
@@ -104,70 +102,43 @@ void AlignDistributePalette::languageChange()
 	alignRelativeToCombo->setCurrentIndex(alignComboValue);
 	alignRelativeToCombo->setToolTip( tr( "<qt>Align relative to the:<ul><li>First selected item</li><li>Second Selected Item</li><li>The current page</li><li>The margins of the current page</li><li>A Guide</li><li>The selection</ul></qt>" ) );
 	alignToChanged(alignComboValue);
-	alignMoveOrResizeLabel->setText( tr( "&Align Sides By:" ) );
+
 	int alignMethodValue=alignMoveOrResizeCombo->currentIndex();
 	alignMoveOrResizeCombo->clear();
 	alignMoveOrResizeCombo->addItem( tr("Move") );
 	alignMoveOrResizeCombo->addItem( tr("Resize") );
 	alignMoveOrResizeCombo->setToolTip( tr( "<qt>When aligning one side of an item do one of the following:<ul><li>Always move the other side too (preserve existing width and height)</li><li>Keep the other side fixed (resize the item instead of moving it) whenever possible</li></ul></qt>" ));
 	alignMethodChanged(alignMethodValue);
+
 	alignGuideLineEdit->setToolTip( tr( "The location of the selected guide to align to" ) );
-	alignLeftOutToolButton->setText( QString::null );
 	alignLeftOutToolButton->setToolTip( tr( "Align right sides of items to left side of anchor" ) );
-	alignRightOutToolButton->setText( QString::null );
 	alignRightOutToolButton->setToolTip( tr( "Align left sides of items to right side of anchor" ) );
-	alignBottomInToolButton->setText( QString::null );
 	alignBottomInToolButton->setToolTip( tr( "Align bottoms" ) );
-	alignRightInToolButton->setText( QString::null );
 	alignRightInToolButton->setToolTip( tr( "Align right sides" ) );
-	alignBottomOutToolButton->setText( QString::null );
 	alignBottomOutToolButton->setToolTip( tr( "Align tops of items to bottom of anchor" ) );
-	alignCenterHorToolButton->setText( QString::null );
 	alignCenterHorToolButton->setToolTip( tr( "Center on vertical axis" ) );
-	alignLeftInToolButton->setText( QString::null );
 	alignLeftInToolButton->setToolTip( tr( "Align left sides" ) );
-	alignCenterVerToolButton->setText( QString::null );
 	alignCenterVerToolButton->setToolTip( tr( "Center on horizontal axis" ) );
-	alignTopOutToolButton->setText( QString::null );
 	alignTopOutToolButton->setToolTip( tr( "Align bottoms of items to top of anchor" ) );
-	alignTopInToolButton->setText( QString::null );
 	alignTopInToolButton->setToolTip( tr( "Align tops" ) );
-	
-	alignGuideLabel->setText( tr( "&Selected Guide:" ) );
-	
-	distributeDistHToolButton->setText( QString::null );
+		
 	distributeDistHToolButton->setToolTip( tr( "Make horizontal gaps between items equal" ) );
-	distributeDistValueHToolButton->setText( QString::null );
 	distributeDistValueHToolButton->setToolTip( tr( "Make horizontal gaps between items equal to the value specified" ) );
 	
-	distributeRightToolButton->setText( QString::null );
 	distributeRightToolButton->setToolTip( tr( "Distribute right sides equidistantly" ) );
-	distributeBottomToolButton->setText( QString::null );
 	distributeBottomToolButton->setToolTip( tr( "Distribute bottoms equidistantly" ) );
-	distributeCenterHToolButton->setText( QString::null );
 	distributeCenterHToolButton->setToolTip( tr( "Distribute centers equidistantly horizontally" ) );
-	distributeDistVToolButton->setText( QString::null );
 	distributeDistVToolButton->setToolTip( tr( "Make vertical gaps between items equal" ) );
-	distributeDistValueVToolButton->setText( QString::null );
 	distributeDistValueVToolButton->setToolTip( tr( "Make vertical gaps between items equal to the value specified" ) );
-	distributeLeftToolButton->setText( QString::null );
 	distributeLeftToolButton->setToolTip( tr( "Distribute left sides equidistantly" ) );
-	distributeCenterVToolButton->setText( QString::null );
 	distributeCenterVToolButton->setToolTip( tr( "Distribute centers equidistantly vertically" ) );
-	distributeTopToolButton->setText( QString::null );
 	distributeTopToolButton->setToolTip( tr( "Distribute tops equidistantly" ) );
-	distributeAcrossPageToolButton->setText( QString::null );
 	distributeAcrossPageToolButton->setToolTip( tr( "Make horizontal gaps between items and sides of page equal" ) );
-	distributeDownPageToolButton->setText( QString::null );
 	distributeDownPageToolButton->setToolTip( tr( "Make vertical gaps between items and the top and bottom of page equal" ) );
-	distributeAcrossMarginsToolButton->setText( QString::null );
 	distributeAcrossMarginsToolButton->setToolTip( tr( "Make horizontal gaps between items and sides of page margins equal" ) );
-	distributeDownMarginsToolButton->setText( QString::null );
 	distributeDownMarginsToolButton->setToolTip( tr( "Make vertical gaps between items and the top and bottom of page margins equal" ) );
 
-	distributeDistLabel->setText( tr( "&Distance:" ) );
 	distributeDistSpinBox->setToolTip( tr( "Distribute the items with the distance specified" ) );
-
 	reverseDistributionCheckBox->setToolTip( tr("When distributing by a set distance, reverse the direction of the distribution of items") );
 	
 	guideInfoTextNone = tr("None Selected");

@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>269</width>
-    <height>304</height>
+    <height>308</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -25,18 +25,6 @@
         <string>Align</string>
        </attribute>
        <layout class="QVBoxLayout">
-        <property name="leftMargin">
-         <number>0</number>
-        </property>
-        <property name="topMargin">
-         <number>0</number>
-        </property>
-        <property name="rightMargin">
-         <number>0</number>
-        </property>
-        <property name="bottomMargin">
-         <number>0</number>
-        </property>
         <item>
          <layout class="QHBoxLayout" name="_2">
           <item>
@@ -148,7 +136,7 @@
             <item row="1" column="3">
              <widget class="QToolButton" name="alignBottomInToolButton">
               <property name="text">
-               <string>...</string>
+               <string/>
               </property>
               <property name="iconSize">
                <size>
@@ -161,7 +149,7 @@
             <item row="1" column="1">
              <widget class="QToolButton" name="alignTopInToolButton">
               <property name="text">
-               <string>...</string>
+               <string/>
               </property>
               <property name="iconSize">
                <size>
@@ -174,7 +162,7 @@
             <item row="0" column="1">
              <widget class="QToolButton" name="alignLeftInToolButton">
               <property name="text">
-               <string>...</string>
+               <string/>
               </property>
               <property name="iconSize">
                <size>
@@ -187,7 +175,7 @@
             <item row="0" column="3">
              <widget class="QToolButton" name="alignRightInToolButton">
               <property name="text">
-               <string>...</string>
+               <string/>
               </property>
               <property name="iconSize">
                <size>
@@ -200,7 +188,7 @@
             <item row="1" column="4">
              <widget class="QToolButton" name="alignBottomOutToolButton">
               <property name="text">
-               <string>...</string>
+               <string/>
               </property>
               <property name="iconSize">
                <size>
@@ -213,7 +201,7 @@
             <item row="1" column="0">
              <widget class="QToolButton" name="alignTopOutToolButton">
               <property name="text">
-               <string>...</string>
+               <string/>
               </property>
               <property name="iconSize">
                <size>
@@ -226,7 +214,7 @@
             <item row="1" column="2">
              <widget class="QToolButton" name="alignCenterVerToolButton">
               <property name="text">
-               <string>...</string>
+               <string/>
               </property>
               <property name="iconSize">
                <size>
@@ -239,7 +227,7 @@
             <item row="0" column="0">
              <widget class="QToolButton" name="alignLeftOutToolButton">
               <property name="text">
-               <string>...</string>
+               <string/>
               </property>
               <property name="iconSize">
                <size>
@@ -252,7 +240,7 @@
             <item row="0" column="4">
              <widget class="QToolButton" name="alignRightOutToolButton">
               <property name="text">
-               <string>...</string>
+               <string/>
               </property>
               <property name="iconSize">
                <size>
@@ -265,7 +253,7 @@
             <item row="0" column="2">
              <widget class="QToolButton" name="alignCenterHorToolButton">
               <property name="text">
-               <string>...</string>
+               <string/>
               </property>
               <property name="iconSize">
                <size>
@@ -341,7 +329,7 @@
             <item row="0" column="3">
              <widget class="QToolButton" name="distributeDistHToolButton">
               <property name="text">
-               <string>...</string>
+               <string/>
               </property>
               <property name="iconSize">
                <size>
@@ -354,7 +342,7 @@
             <item row="1" column="2">
              <widget class="QToolButton" name="distributeTopToolButton">
               <property name="text">
-               <string>...</string>
+               <string/>
               </property>
               <property name="iconSize">
                <size>
@@ -367,7 +355,7 @@
             <item row="1" column="1">
              <widget class="QToolButton" name="distributeCenterVToolButton">
               <property name="text">
-               <string>...</string>
+               <string/>
               </property>
               <property name="iconSize">
                <size>
@@ -380,7 +368,7 @@
             <item row="0" column="2">
              <widget class="QToolButton" name="distributeRightToolButton">
               <property name="text">
-               <string>...</string>
+               <string/>
               </property>
               <property name="iconSize">
                <size>
@@ -393,7 +381,7 @@
             <item row="3" column="0">
              <widget class="QToolButton" name="toolButtonDummy1">
               <property name="text">
-               <string>...</string>
+               <string/>
               </property>
               <property name="iconSize">
                <size>
@@ -409,7 +397,7 @@
                <bool>true</bool>
               </property>
               <property name="text">
-               <string>...</string>
+               <string/>
               </property>
               <property name="iconSize">
                <size>
@@ -422,7 +410,7 @@
             <item row="0" column="0">
              <widget class="QToolButton" name="distributeLeftToolButton">
               <property name="text">
-               <string>...</string>
+               <string/>
               </property>
               <property name="iconSize">
                <size>
@@ -438,7 +426,7 @@
                <bool>true</bool>
               </property>
               <property name="text">
-               <string>...</string>
+               <string/>
               </property>
               <property name="iconSize">
                <size>
@@ -451,7 +439,7 @@
             <item row="3" column="1">
              <widget class="QToolButton" name="distributeDistValueHToolButton">
               <property name="text">
-               <string>...</string>
+               <string/>
               </property>
               <property name="iconSize">
                <size>
@@ -467,7 +455,7 @@
                <bool>true</bool>
               </property>
               <property name="text">
-               <string>...</string>
+               <string/>
               </property>
               <property name="iconSize">
                <size>
@@ -480,7 +468,7 @@
             <item row="0" column="1">
              <widget class="QToolButton" name="distributeCenterHToolButton">
               <property name="text">
-               <string>...</string>
+               <string/>
               </property>
               <property name="iconSize">
                <size>
@@ -493,7 +481,7 @@
             <item row="3" column="3">
              <widget class="QToolButton" name="toolButtonDummy2">
               <property name="text">
-               <string>...</string>
+               <string/>
               </property>
               <property name="iconSize">
                <size>
@@ -509,7 +497,7 @@
                <bool>true</bool>
               </property>
               <property name="text">
-               <string>...</string>
+               <string/>
               </property>
               <property name="iconSize">
                <size>
@@ -522,7 +510,7 @@
             <item row="3" column="2">
              <widget class="QToolButton" name="distributeDistValueVToolButton">
               <property name="text">
-               <string>...</string>
+               <string/>
               </property>
               <property name="iconSize">
                <size>
@@ -535,7 +523,7 @@
             <item row="1" column="3">
              <widget class="QToolButton" name="distributeDistVToolButton">
               <property name="text">
-               <string>...</string>
+               <string/>
               </property>
               <property name="iconSize">
                <size>
@@ -548,7 +536,7 @@
             <item row="1" column="0">
              <widget class="QToolButton" name="distributeBottomToolButton">
               <property name="text">
-               <string>...</string>
+               <string/>
               </property>
               <property name="iconSize">
                <size>
@@ -728,7 +716,7 @@
           <item>
            <widget class="QToolButton" name="swapLeftToolButton">
             <property name="text">
-             <string>...</string>
+             <string/>
             </property>
             <property name="iconSize">
              <size>
@@ -741,7 +729,7 @@
           <item>
            <widget class="QToolButton" name="swapRightToolButton">
             <property name="text">
-             <string>...</string>
+             <string/>
             </property>
             <property name="iconSize">
              <size>
