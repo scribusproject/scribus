@@ -96,6 +96,16 @@ void PythonConsole::setFonts()
 	outputEdit->setFont(font);
 }
 
+void PythonConsole::changeEvent(QEvent *e)
+{
+	if (e->type() == QEvent::LanguageChange)
+	{
+		languageChange();
+		return;
+	}
+	QMainWindow::changeEvent(e);
+}
+
 void PythonConsole::closeEvent(QCloseEvent *)
 {
 	emit paletteShown(false);
@@ -117,7 +127,10 @@ void PythonConsole::documentChanged(bool state)
 void PythonConsole::languageChange()
 {
 	Ui::PythonConsole::retranslateUi(this);
-	//setWindowTitle( tr("Script Console"));
+	
+	cursorTemplate = tr("Col: %1 Row: %2/%3");
+	commandEdit_cursorPositionChanged();
+
 	commandEdit->setToolTip( "<qt>" + tr("Write your commands here. A selection is processed as script.") + "</qt>");
 	outputEdit->setToolTip( "<qt>" + tr("Output of your script") + "</qt>");
 }

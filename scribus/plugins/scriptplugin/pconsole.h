@@ -44,6 +44,7 @@ class PythonConsole : public QMainWindow, public Ui::PythonConsole
 		//! \brief Close event for turning the action off
 		void closeEvent(QCloseEvent *);
 
+		virtual void changeEvent(QEvent *e);
 		void updateSyntaxHighlighter();
 
 	public slots:
