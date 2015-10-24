@@ -132,13 +132,22 @@ void MarksManager::setDoc(ScribusDoc *doc)
 	connect(m_Doc->scMW(), SIGNAL(UpdateRequest(int)), this , SLOT(handleUpdateRequest(int)));
 }
 
+void MarksManager::changeEvent(QEvent *e)
+{
+	if (e->type() == QEvent::LanguageChange)
+	{
+		languageChange();
+		return;
+	}
+	ScrPaletteBase::changeEvent(e);
+}
+
 void MarksManager::languageChange()
 {
-	setWindowTitle(tr("Marks Manager"));
+	retranslateUi(this);
+
 	listView->setToolTip(tr("Double click to find mark in text"));
-	UpdateButton->setText(tr("Update All Marks"));
 	UpdateButton->setToolTip(tr("Update all reference texts for all marks"));
-	EditButton->setText(tr("Edit"));
 	EditButton->setToolTip(tr("Edit selected mark"));
 	if (m_Doc != NULL)
 		updateListView();
