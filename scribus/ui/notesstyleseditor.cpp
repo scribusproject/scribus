@@ -53,10 +53,22 @@ NotesStylesEditor::~NotesStylesEditor()
 	storeSize();
 }
 
+void NotesStylesEditor::changeEvent(QEvent *e)
+{
+	if (e->type() == QEvent::LanguageChange)
+	{
+		languageChange();
+		return;
+	}
+	ScrPaletteBase::changeEvent(e);
+}
+
 void NotesStylesEditor::languageChange()
 {
 	bool wasSignalsBlocked = signalsBlocked();
 	setBlockSignals(true);
+
+	retranslateUi(this);
 
 	if (addNewNsMode)
 	{
@@ -70,26 +82,34 @@ void NotesStylesEditor::languageChange()
 		OKButton->setToolTip("");
 		ApplyButton->setText(tr("Apply"));
 	}
-	NewButton->setText(tr("Add New Style"));
-    NewButton->setToolTip(tr("New notes style will be add to document only after pressing Apply button.\nYou cannot switch to different notes style before you apply that new one or press Cancel button and exit from adding mode."));
-	NewNameLabel->setText(tr("New Style Name"));
-	FootRadio->setText(tr("Footnotes"));
-	EndRadio->setText(tr("Endnotes"));
-	NumberingLabel->setText(tr("Numbering"));
-	RangeLabel->setText(tr("Range"));
-	StartLabel->setText(tr("Start Number"));
-	PrefixLabel->setText(tr("Prefix"));
-	SuffixLabel->setText(tr("Suffix"));
-	SuperMasterLabel->setText(tr("Superscript in text"));
-	SuperNoteLabel->setText(tr("Superscript in notes"));
-	charStyleComboLabel->setText(tr("Mark Character Style"));
-	paraStyleComboLabel->setText(tr("Note Paragraph Style"));
-	AutoHLabel->setText(tr("Auto Height"));
-	AutoWLabel->setText(tr("Auto Width"));
-	AutoWeldLabel->setText(tr("Auto Welding"));
-	AutoRemoveLabel->setText(tr("Remove if empty"));
-	DeleteButton->setText(tr("Delete"));
-	setBlockSignals(wasSignalsBlocked);
+
+	bool paraStyleBlocked = paraStyleCombo->blockSignals(true);
+	int  paraStyleIndex = paraStyleCombo->currentIndex();
+	paraStyleCombo->setDoc(m_Doc);
+	if (paraStyleIndex >= 0)
+		paraStyleCombo->setCurrentIndex(paraStyleIndex);
+	paraStyleCombo->blockSignals(paraStyleBlocked);
+
+	bool charStyleBlocked = charStyleCombo->blockSignals(true);
+	int  charStyleIndex = charStyleCombo->currentIndex();
+	charStyleCombo->setDoc(m_Doc);
+	if (charStyleIndex >= 0)
+		charStyleCombo->setCurrentIndex(charStyleIndex);
+	charStyleCombo->blockSignals(charStyleBlocked);
+
+	bool rangeBlocked = RangeBox->blockSignals(true);
+	int  rangeIndex = RangeBox->currentIndex();
+	RangeBox->clear();
+	RangeBox->addItem(tr("Document"));
+	RangeBox->addItem(tr("Section"));
+	RangeBox->addItem(tr("Story"));
+	RangeBox->addItem(tr("Page"));
+	RangeBox->addItem(tr("Frame"));
+	if (rangeIndex >= 0)
+		RangeBox->setCurrentIndex(rangeIndex);
+	RangeBox->blockSignals(rangeBlocked);
+
+    setBlockSignals(wasSignalsBlocked);
 }
 
 void NotesStylesEditor::setDoc(ScribusDoc *doc)
