@@ -4937,6 +4937,10 @@ void PageItem_TextFrame::deleteSelectedTextFromFrame(/*bool findNotes*/)
 	}
 	else //remove marks without undo
 		marksNum = removeMarksFromText(false);
+
+	start = itemText.startOfSelection();
+	stop = itemText.endOfSelection();
+
 	itemText.setCursorPosition(start);
 	//for sure text is still selected
 	itemText.select(start, stop - start - marksNum);
