@@ -31,9 +31,7 @@ for which a new license (GPL+exception) is in place.
 #include "pageitem.h"
 
 #include <QByteArray>
-#include <QList>
 #include <QString>
-#include "textwriter.h"
 
 class StyleManager;
 
@@ -43,15 +41,8 @@ extern "C" PLUGIN_API QStringList FileExtensions();
 
 class XtgIm
 {
-private:
-	QString encoding;
-	QString filename;
-	QString in_Buffer;
-	QByteArray buffer;
-	void loadFiletoArray();
-	QString toUnicode(const QByteArray& rawText);
 public:
-	XtgIm(QString fileName,QString enc,PageItem *textItem,bool textOnly);
+	XtgIm(QString fileName, PageItem *textItem, bool textOnly);
 	~XtgIm();
 };
 #endif			/* XTGIM_H */

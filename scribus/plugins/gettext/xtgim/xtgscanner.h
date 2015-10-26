@@ -28,12 +28,12 @@ for which a new license (GPL+exception) is in place.
 #define XTGSCANNER_H
 
 #include "scconfig.h"
-#include "textwriter.h"
 #include "styles/charstyle.h"
 
-#include "fontselectdialog.h"
+#include "pageitem.h"
 
 #include <QHash>
+#include <QTextCodec>
 /**
 Enum datatype for determining the Scanner mode 
 */
@@ -61,47 +61,30 @@ private:
 	/**
 	 \variable Variables of the importer
 	 */
-	TextWriter* writer;
+	PageItem* m_item;
 	bool importTextOnly;
-	bool usePrefix;
-	QString docname;
-	bool readProperties;
 	/**
 	 \variable Flag variables used in the scanner
 	 */
 	bool newlineFlag;
 	bool xflag;
-	bool isBold;
-	bool isItalic;
+	bool inDef;
 	 /**
 	 \variable Input Buffer to which properly encoded file is loaded
 	 */
-	QString input_Buffer;
+	QByteArray input_Buffer;
 	int top;
 
-	ScFace curFontUsed;
 	ScribusDoc* doc;
 	/**
 	 \variable current Character and paragraph styles
 	 */
 	CharStyle currentCharStyle;
 	ParagraphStyle currentParagraphStyle;
-
-	/** character and paragraph styles for defining a new style into the document */
-	CharStyle defCharStyle;
-	ParagraphStyle defParagraphStyle;
-	int featureIndex;
-
-	/** A QStringList to store the features of current character Style and current paragraph Style */
-	QStringList ccsFeatures;
-
-	/** A QStringList to store the features of defined character Style and defined paragraph Style */
-	QStringList dcsFeatures;
+	StyleFlag styleEffects;
 
 	/** To store unsupported attributes */
-	QStringList unSupported;
-	QStringList definedStyles;
-	QStringList definedCStyles;
+	QSet<QString> unSupported;
 	/** 
 	\brief textToAppend will be the QString used by the function TextWriter::append(QString& )
 	*/ 
@@ -113,7 +96,6 @@ private:
 	QHash<QString,void (XtgScanner::*)(void)> textModeHash;
 	QHash<QString,void (XtgScanner::*)(void)> nameModeHash;
 	QHash<int,QString> languages;
-	QHash<int,QString> encodings;
 
 	/** define variable will take the following values : 
 	 \brief
@@ -122,9 +104,13 @@ private:
 		2	Paragraph Stylesheet Definition
 	 */
 	int define;
+	QTextCodec *m_codec;
+	QList<QByteArray> m_codecList;
+	bool m_isBold;
+	bool m_isItalic;
 	
 public:
-	XtgScanner(QString documentName, TextWriter *wr, QString& buffer, bool textOnly, bool prefix);
+	XtgScanner(QString filename, PageItem* item, bool textOnly);
 	~XtgScanner();
 
 	/**
@@ -142,7 +128,7 @@ public:
 	/**
 	\brief This function will return the character in Buffer to which top is now pointing to 
 	*/
-	QChar lookAhead();
+	QChar lookAhead(int adj = 0);
 
 	/** 
 	\brief A function which returns the next symbol in the input stream as character. This function will increment the top by 1
@@ -171,7 +157,7 @@ public:
 	 \name applyFeature
 	 \brief Function to applyFeature to a character Style
 	 */
-	void applyFeature(const QString &feature);
+	void applyFeature(StyleFlagValue feature);
 	/**
 	 \brief Function which will empty the textToAppend variable by writing into text frame
 	 */
@@ -180,10 +166,8 @@ public:
 	 \brief Function which returns the status of Style whether defined or not
 	 */
 	bool styleStatus(QStringList &name,QString &sfcname);
-	/**
-	 \brief Function which will show a message box if a Style "name" is not defined in the document
-	 */
-	void showWarning(QString &name);
+
+	QString getFontName(QString name);
 
 	/** Set Functions for setting the styles */
 	void setPlain();
@@ -248,6 +232,7 @@ public:
 	void appendSpChar1();
 	void appendSpChar2();
 	void appendSpChar3();
+	void setEncoding();
 	/**
 	 Functions used in textMode Hash
 	 */

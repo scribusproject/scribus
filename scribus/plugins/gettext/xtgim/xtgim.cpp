@@ -26,20 +26,6 @@ for which a new license (GPL+exception) is in place.
 
 #include "xtgim.h"
 #include "xtgscanner.h"
-#include "xtgdialog.h"
-
-#include <QFile>
-#include <QFileInfo>
-#include <QTextCodec>
-
-#include "prefsmanager.h"
-#include "util.h"
-#include "prefsfile.h"
-#include "prefscontext.h"
-#include "prefstable.h"
-#include "styles/paragraphstyle.h"
-#include "styles/charstyle.h"
-
 
 QString FileFormatName()
 {
@@ -53,69 +39,17 @@ QStringList FileExtensions()
 
 void GetText2(QString filename, QString encoding, bool textOnly, PageItem *textItem)
 {
-	XtgIm* xtgim = new XtgIm(filename, encoding, textItem, textOnly);
+	XtgIm* xtgim = new XtgIm(filename, textItem, textOnly);
 	delete xtgim;
 }
 
 /********************************Class XtgIm***********************************/
 
-XtgIm::XtgIm(QString fileName, QString enc, PageItem *textItem, bool textOnly)
+XtgIm::XtgIm(QString fileName, PageItem *textItem, bool textOnly)
 {
-	PrefsContext* prefs = PrefsManager::instance()->prefsFile->getPluginContext("XtgIm");
-	bool prefix = prefs->getBool("prefix", true);
-	bool ask = prefs->getBool("askAgain", true);
-	encoding = enc;
-	qDebug()<<"Encoding = "<<encoding;
-	in_Buffer = "";
-	TextWriter *writer = new TextWriter(textItem->doc());
-	writer->open(textItem);
-	if (!textOnly)
-	{
-		if (ask)
-		{
-			XtgDialog* xtgdia = new XtgDialog(prefix);
-			if (xtgdia->exec()) {
-				prefix = xtgdia->usePrefix();
-				prefs->set("prefix", xtgdia->usePrefix());
-				prefs->set("askAgain", xtgdia->askAgain());
-				delete xtgdia;
-			} 
-			else {
-				delete xtgdia;
-				return;
-			}
-		}
-	}
-	filename = fileName;
-	/**
-	This will load the xtg file into a QByte Array which will be used for 
-	furthur parsing
-	*/
-	loadFiletoArray();
-	in_Buffer = toUnicode(buffer);
-	QString docname = filename.right(filename.length() - filename.lastIndexOf("/") - 1);
-	docname = docname.left(docname.lastIndexOf("."));
-	XtgScanner *scanner = new XtgScanner(docname,writer,in_Buffer,textOnly,prefix);
+	XtgScanner *scanner = new XtgScanner(fileName, textItem, textOnly);
 	scanner->xtgParse();
-	writer->close();
-}
-
-/** \brief Load the file into a buffer of type QByteArray */
-
-void XtgIm::loadFiletoArray()
-{
-	loadRawBytes(filename, buffer);
-}
-
-QString XtgIm::toUnicode(const QByteArray& rawText)
-{
-	QTextCodec *codec;
-	if (encoding.isEmpty())
-		codec = QTextCodec::codecForLocale();
-	else
-		codec = QTextCodec::codecForName(encoding.toLocal8Bit());
-	QString unistr = codec->toUnicode(rawText);
-	return unistr;
+	delete scanner;
 }
 
 XtgIm::~XtgIm()
