@@ -425,18 +425,6 @@ QImage FileLoader::readThumbnail()
 
 bool FileLoader::postLoad(ScribusDoc* currDoc)
 {
-	//CB #3749 We have to set these up in post load as each format will load into the doc itself
-	//settings. As the hyphenator was created in the doc constructor, it needs to be updated.
-	//FIXME: Remove these duplicate settings altogether
-	if (currDoc->docHyphenator!=0)
-	{
-			currDoc->docHyphenator->Automatic=currDoc->hyphAutomatic();
-			currDoc->docHyphenator->AutoCheck=currDoc->hyphAutoCheck();
-			currDoc->docHyphenator->Language=currDoc->hyphLanguage();
-			currDoc->docHyphenator->MinWordLen=currDoc->hyphMinimumWordLength();
-			currDoc->docHyphenator->HyCount=currDoc->hyphConsecutiveLines();
-	}
-	
 	ReplacedFonts = currDoc->AllFonts->getSubstitutions(ReplacedFonts.keys());
 	if (ReplacedFonts.isEmpty())
 		return true;

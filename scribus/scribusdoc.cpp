@@ -883,8 +883,14 @@ void ScribusDoc::setGUI(bool hasgui, ScribusMainWindow* mw, ScribusView* view)
 	m_ScMW = mw;
 	//FIXME: stop using m_View
 	m_View = view;
+}
+
+void ScribusDoc::createHyphenator()
+{
 	if (m_hasGUI)
 	{
+		if (docHyphenator)
+			delete docHyphenator;
 		docHyphenator = new Hyphenator(m_ScMW, this);
 		Q_CHECK_PTR(docHyphenator);
 	}

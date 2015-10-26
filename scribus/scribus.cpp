@@ -2264,6 +2264,7 @@ ScribusDoc *ScribusMainWindow::doFileNew(double width, double height, double top
 	tempDoc->setGUI(requiresGUI, this, tempView);
 	if (requiresGUI)
 	{
+		tempDoc->createHyphenator();
 		tempDoc->docHyphenator->ignoredWords = prefsManager->appPrefs.hyphPrefs.ignoredWords;
 		tempDoc->docHyphenator->specialWords = prefsManager->appPrefs.hyphPrefs.specialWords;
 	}
@@ -3701,6 +3702,7 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 			doc->setName(FName);
 		doc->setMasterPageMode(false);
 		//IL doc->setHyphLanguage(GetLang(doc->hyphLanguage()));
+		doc->createHyphenator();
 		HaveNewDoc();
 //		propertiesPalette->Cpal->showGradient(0);
 //		propertiesPalette->updateCList();

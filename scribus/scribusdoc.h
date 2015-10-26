@@ -115,6 +115,7 @@ public:
 	ScribusView* view() const;
 	ScribusMainWindow* scMW() const {return m_ScMW;}
 	void setGUI(bool hasgui, ScribusMainWindow* mw, ScribusView* view);
+	void createHyphenator();
 
 	/**
 	 * @brief Return the guarded object associated with the document
