@@ -635,7 +635,14 @@ void ScribusDoc::setGUI(bool hasgui, ScribusMainWindow* mw, ScribusView* view)
 	m_ScMW=mw;
 	//FIXME: stop using m_View
 	m_View=view;
-	docHyphenator=new Hyphenator(m_ScMW, this);
+}
+
+
+void ScribusDoc::createHyphenator()
+{
+	if (docHyphenator)
+		delete docHyphenator;
+	docHyphenator = new Hyphenator(m_ScMW, this);
 	Q_CHECK_PTR(docHyphenator);
 }
 

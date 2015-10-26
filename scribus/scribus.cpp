@@ -2322,6 +2322,7 @@ ScribusDoc *ScribusMainWindow::doFileNew(double width, double height, double top
 		view = tempView;
 	tempDoc->setCurrentPage(tempDoc->Pages->at(0));
 	tempDoc->setGUI(requiresGUI, this, tempView);
+	tempDoc->createHyphenator();
 	if (requiresGUI)
 	{
 		tempDoc->docHyphenator->ignoredWords = prefsManager->appPrefs.ignoredWords;
@@ -4166,6 +4167,7 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 			doc->setName(FName);
 		doc->setMasterPageMode(false);
 		doc->Language = GetLang(doc->Language);
+		doc->createHyphenator();
 		HaveNewDoc();
 //		propertiesPalette->Cpal->ChooseGrad(0);
 //		propertiesPalette->updateCList();
