@@ -3008,11 +3008,13 @@ void StoryEditor::SearchText()
 	SearchReplace* dia = new SearchReplace(this, m_doc, m_item, false);
 	dia->exec();
 	int pos = dia->firstMatchCursorPosition();
-	if (pos>=0)
+	if (pos >= 0)
 	{
 		QTextCursor tCursor = Editor->textCursor();
 		tCursor.setPosition(pos);
 		Editor->setTextCursor(tCursor);
+		Editor->SelParaStart = pos; 
+		Editor->SelParaEnd = pos;
 	}
 	delete dia;
 	qApp->processEvents();
