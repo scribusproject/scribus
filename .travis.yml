@@ -1,36 +1,78 @@
-language: cpp
+language: c++
 
-compiler:
-  - gcc
-  - clang
-
-dist: trusty
+matrix:
+  include:
+    - os: linux
+      dist: trusty
+      sudo: required
+      compiler:
+        - gcc
+    - os: linux
+      dist: trusty
+      sudo: required
+      compiler:
+        - clang
+    - os: osx
+      compiler: clang
+  exclude:
+    - os: osx
+      compiler: gcc
+    - os: linux
+      dist: precise
 
 before_install:
-  - sudo apt-get update -qq
-  - sudo apt-get install -y cmake libboost-python-dev libcups2-dev libhunspell-dev
-    libhyphen-dev liblcms2-dev libpodofo-dev libtiff-dev libxml2-dev
-    python-all-dev zlib1g-dev qtbase5-dev qtdeclarative5-dev libqt5opengl5-dev
-    qttools5-dev qttools5-dev-tools libgraphicsmagick++1-dev
-    libopenscenegraph-dev libpoppler-dev libcairo2-dev libwpg-dev libmspub-dev
-    libcdr-dev libvisio-dev
+# Linux
+- if [ $TRAVIS_OS_NAME == linux ]; then sudo apt-get update -qq; 
+      sudo apt-get install -y cmake libboost-python-dev libcups2-dev libhunspell-dev
+      libhyphen-dev liblcms2-dev libpodofo-dev libtiff-dev libxml2-dev
+      python-all-dev zlib1g-dev qtbase5-dev qtdeclarative5-dev libqt5opengl5-dev
+      qttools5-dev qttools5-dev-tools libgraphicsmagick++1-dev
+      libopenscenegraph-dev libpoppler-dev libcairo2-dev libwpg-dev libmspub-dev
+      libcdr-dev libvisio-dev;
+    fi
+# OSX
+# - if [ $TRAVIS_OS_NAME == osx ]; then brew --env && brew config && brew list; fi
+- if [ $TRAVIS_OS_NAME == osx ]; then brew update; 
+      brew outdated cmake --verbose || brew upgrade cmake; 
+      brew tap homebrew/dupes && brew install homebrew/dupes/zlib && brew link --force zlib;
+      brew install xz little-cms2 cairo qt5 hunspell ghostscript graphicsmagick poppler podofo; 
+      brew outdated jpeg --verbose || brew upgrade jpeg;
+      brew outdated libtiff --verbose || brew upgrade libtiff; 
+      brew outdated fontconfig --verbose || brew upgrade fontconfig; 
+      brew install openssl && brew link --force openssl; 
+      brew outdated pkg-config --verbose || brew upgrade pkg-config; 
+      brew outdated boost || brew upgrade boost; 
+      brew outdated freetype || brew upgrade freetype; 
+      brew install librevenge libwpg libvisio libmspub libcdr libpagemaker libfreehand open-scene-graph; 
+    fi
+  # - export LDFLAGS+=-L/usr/local/opt/zlib/lib:-L/usr/local/opt/gettext/lib:-L/usr/local/opt/libffi/lib:-L/usr/local/opt/qt5/lib:-L/usr/local/opt/sqlite/lib:-L/usr/local/opt/openssl/lib:-L/usr/local/opt/icu4c/lib
+  # - export CXXFLAGS+=-I/usr/local/opt/zlib/include:-I/usr/local/opt/gettext/include:-I/usr/local/opt/qt5/include:-I/usr/local/opt/sqlite/include:-I/usr/local/opt/openssl/include:-I/usr/local/opt/icu4c/include 
 
 script:
-  - if [[ $CC == gcc ]]; then
-      export NPROC=8;
-    else
-      export NPROC=1;
+  - if [ $TRAVIS_OS_NAME == linux ]; then
+      if [[ $CC == gcc ]]; then
+        export NPROC=8;
+      else
+        export NPROC=1;
+      fi;
+    cmake . -DWANT_HUNSPELL=1 -DWITH_PODOFO=1 -DWANT_GRAPHICSMAGICK=1 -DWANT_DEBUG=0 -DWANT_SVNVERSION=0 -DWANT_GUI_LANG=en_US;
+    make -j"$NPROC";
     fi
+  
 
-  - cmake .
-  - make -j$NPROC
-
+  - if [ $TRAVIS_OS_NAME = osx -a $CC = clang ]; then
+      cmake . -DCMAKE_PREFIX_PATH=/usr/local/opt/zlib -DBUILD_OSX_BUNDLE=1 -DQT_PREFIX=/usr/local/opt/qt5 -DWANT_HUNSPELL=1 -DWITH_PODOFO=1 -DWANT_GRAPHICSMAGICK=1 -DWANT_DEBUG=0 -DWANT_SVNVERSION=0 -DWANT_GUI_LANG=en_US;
+      make -j8; 
+      make install;
+    fi
+    
 notifications:
-  email: false
-  irc:
-    channels:
-      - "chat.freenode.net#scribus-dev"
-    template:
-      - "%{repository}/%{branch} (%{commit} - %{author}): %{build_url}: %{message}"  
-    on_success: always
-    on_failure: always
+  - email: false
+  - irc:
+    -  channels:
+    - "chat.freenode.net#scribus-dev"
+    -  template:
+    - "%{repository}/%{branch} (%{commit} - %{author}): %{build_url}: %{message}"  
+    -  on_success: always
+    -  on_failure: always
+
