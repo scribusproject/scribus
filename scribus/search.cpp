@@ -41,14 +41,16 @@ SearchReplace::SearchReplace( QWidget* parent, ScribusDoc *doc, PageItem* ite, b
 	: QDialog( parent ),
 	matchesFound(0)
 {
-	setModal(true);
-	setWindowTitle( tr( "Search/Replace" ) );
-	setWindowIcon(QIcon(loadIcon ( "AppIcon.png" )));
-	ColorList::Iterator it;
 	Item = ite;
 	Doc = doc;
 	NotFound = false;
 	SMode = mode;
+	m_firstMatchPosition = -1;
+
+	setModal(true);
+	setWindowTitle( tr( "Search/Replace" ) );
+	setWindowIcon(QIcon(loadIcon ( "AppIcon.png" )));
+	
 	SearchReplaceLayout = new QVBoxLayout( this );
 	SearchReplaceLayout->setMargin(10);
 	SearchReplaceLayout->setSpacing(5);
@@ -638,6 +640,7 @@ void SearchReplace::slotDoSearch()
 				AllReplace->setEnabled(true);
 			}
 			matchesFound++;
+			m_firstMatchPosition = storyTextEdit->textCursor().selectionStart();
 		}
 		else
 		{
@@ -799,6 +802,11 @@ void SearchReplace::slotDoReplace()
 	DoReplace->setEnabled(false);
 	AllReplace->setEnabled(false);
 	slotDoSearch();
+}
+
+int SearchReplace::firstMatchCursorPosition()
+{
+	return m_firstMatchPosition;
 }
 
 void SearchReplace::slotReplaceAll()

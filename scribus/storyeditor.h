@@ -428,8 +428,8 @@ private:
 	bool firstSet;
 
 	bool blockUpdate;
-	int CurrPara;
-	int CurrChar;
+	//int CurrPara;
+	//int CurrChar;
 
 protected slots:
 	void setBackPref();

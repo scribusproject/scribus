@@ -1543,8 +1543,8 @@ StoryEditor::StoryEditor(QWidget* parent) : QMainWindow(parent, Qt::Window), // 
 	textChanged(false),
 	firstSet(false),
 	blockUpdate(false),
-	CurrPara(0),
-	CurrChar(0),
+//	CurrPara(0),
+//	CurrChar(0),
 	charSelect(NULL),
 	charSelectUsed(false)
 {
@@ -2981,6 +2981,13 @@ void StoryEditor::SearchText()
 	EditorBar->setRepaint(false);
 	SearchReplace* dia = new SearchReplace(this, currDoc, currItem, false);
 	dia->exec();
+	int pos = dia->firstMatchCursorPosition();
+	if (pos>=0)
+	{
+		QTextCursor tCursor = Editor->textCursor();
+		tCursor.setPosition(pos);
+		Editor->setTextCursor(tCursor);
+	}
 	delete dia;
 	qApp->processEvents();
 	blockUpdate = false;
