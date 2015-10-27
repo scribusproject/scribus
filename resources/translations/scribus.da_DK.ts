@@ -3042,7 +3042,7 @@ Konfiguration er ugyldig</translation>
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.cpp" line="180"/>
         <source>Select a barcode family</source>
-        <translation type="unfinished"></translation>
+        <translation>Vælg en stregkodefamilie</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.cpp" line="184"/>
@@ -3306,7 +3306,7 @@ Konfiguration er ugyldig</translation>
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="266"/>
         <source>Barcode Family:</source>
-        <translation type="unfinished"></translation>
+        <translation>Stregkodefamilie:</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="346"/>
@@ -3316,12 +3316,12 @@ Konfiguration er ugyldig</translation>
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="476"/>
         <source>Version of the symbol</source>
-        <translation type="unfinished"></translation>
+        <translation>Version af symbolet</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="489"/>
         <source>Error correction level</source>
-        <translation type="unfinished"></translation>
+        <translation>Fejlkorrektionsniveau</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="289"/>
@@ -4389,7 +4389,7 @@ Navnet er reserveret for gennemsigtig farve</translation>
     <message>
         <location filename="../../scribus/plugins/colorwheel/cwdialog.ui" line="173"/>
         <source>Colors of your chosen color scheme</source>
-        <translation type="unfinished"></translation>
+        <translation>Farverne på din valgte farvesammensætning</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/colorwheel/cwdialog.ui" line="394"/>
@@ -5269,22 +5269,22 @@ Insert-tasten indsætter en glyf i feltet for neden og delete-tasten fjerner det
     <message>
         <location filename="../../scribus/ui/checkDocument.cpp" line="129"/>
         <source>If you have created an image frame, there is the presumption that you planned to put an image in it</source>
-        <translation type="unfinished"></translation>
+        <translation>Hvis du har oprettet en billedramme, er der en formodning om, at du har planlagt at indsætte et billede i den</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/checkDocument.cpp" line="130"/>
         <source>If you have created a text frame, there is the presumption that you planned to put text in it</source>
-        <translation type="unfinished"></translation>
+        <translation>Hvis du har oprettet en tekstramme, er der en formodning om, at du har planlagt at indsætte tekst i den</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/checkDocument.cpp" line="131"/>
         <source>When some imported document uses non-embedded fonts, then their rendering will be wrong, unless by chance you have them installed on their system, but that cannot be guaranteed in case you want to share the resulting document</source>
-        <translation type="unfinished"></translation>
+        <translation>Når nogle importerede dokument anvender skrifttyper, som ikke er indlejrede, så vil deres gengivelse være forkert, medmindre du tilfældigvis har dem installeret på deres system, men det kan ikke garanteres, hvis du ønsker at dele det deraf følgende dokument</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/checkDocument.cpp" line="132"/>
         <source>This is a user definable setting serving as a caution for high resolution images, which may lead to unnecessarily large files</source>
-        <translation type="unfinished"></translation>
+        <translation>Dette er en brugerdefinerbar indstilling, der tjener som en advarsel for billeder i høj opløsning, som kan føre til unødigt store filer</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/checkDocument.cpp" line="133"/>
@@ -5294,22 +5294,22 @@ Insert-tasten indsætter en glyf i feltet for neden og delete-tasten fjerner det
     <message>
         <location filename="../../scribus/ui/checkDocument.cpp" line="135"/>
         <source>This is a user definable setting serving as a caution for low resolution images, which may lead to poor quality output</source>
-        <translation type="unfinished"></translation>
+        <translation>Dette er en brugerdefinerbar indstilling, der tjener som en advarsel for billeder i lav opløsning, som kan føre til dårlig kvalitet</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/checkDocument.cpp" line="136"/>
         <source>You have one or more characters which do not have a corresponding glyph in your chosen font</source>
-        <translation type="unfinished"></translation>
+        <translation>Du har en eller flere tegn, som ikke har en tilsvarende glyf i din valgte skrifttype</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/checkDocument.cpp" line="137"/>
         <source>The assigned image file cannot be found</source>
-        <translation type="unfinished"></translation>
+        <translation>Den tilknyttede billedfil blev ikke fundet</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/checkDocument.cpp" line="138"/>
         <source>An object is placed somewhere outside of the page borders, it will not be printed and might be missing somewhere</source>
-        <translation type="unfinished"></translation>
+        <translation>Et objekt er placeret et eller andet sted uden for sidekanterne, det vil ikke blive udskrevet, og mangler måske et eller andet sted</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/checkDocument.cpp" line="416"/>
@@ -6983,17 +6983,17 @@ for øjeblikket %2 x %3 DPI</translation>
     <message>
         <location filename="../../scribus/docinfo.cpp" line="167"/>
         <source>The person or organization primarily responsible for making the content of the document. This field can be embedded in the Scribus document for reference, as well as in the metadata of a PDF.</source>
-        <translation type="unfinished"></translation>
+        <translation>Personen eller organisation, der først og fremmest er ansvarlig for indholdet af dokumentet. Dette felt kan indlejres både i Scribus dokumentet for reference og i PDF som metadata.</translation>
     </message>
     <message>
         <location filename="../../scribus/docinfo.cpp" line="171"/>
         <source>A person or organization responsible for making the document available</source>
-        <translation type="unfinished"></translation>
+        <translation>En person eller organisation som er ansvarlig for at gøre dokumentet tilgængelig</translation>
     </message>
     <message>
         <location filename="../../scribus/docinfo.cpp" line="172"/>
         <source>A person or organization responsible for making contributions to the content of the document</source>
-        <translation type="unfinished"></translation>
+        <translation>En person eller organisation som er ansvarlig for at yde bidrag til dokumentets indhold</translation>
     </message>
     <message>
         <source>The person or organisation primarily responsible for making the content of the document. This field can be embedded in the Scribus document for reference, as well as in the metadata of a PDF.</source>
@@ -11909,7 +11909,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../scribus/ui/marginwidget.cpp" line="147"/>
         <source>Ensure all bleeds have the same value</source>
-        <translation type="unfinished"></translation>
+        <translation>Sikrer, at alle beskæringer har samme værdi</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/marginwidget.cpp" line="157"/>
@@ -11934,7 +11934,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../scribus/ui/marginwidget.cpp" line="161"/>
         <source>Ensure all margins have the same value</source>
-        <translation type="unfinished">Sørg for at alle margener har samme værdi</translation>
+        <translation>Sikrer, at alle margener har samme værdi</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/marginwidget.cpp" line="238"/>
@@ -12184,7 +12184,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../scribus/ui/markvariabletext.cpp" line="18"/>
         <source>Edit selected Mark&apos;s label. To create new Mark select &quot;New Mark&quot; in drop list and input new label.</source>
-        <translation type="unfinished"></translation>
+        <translation>Rediger etikette for valgte mærke. Hvis du vil oprette nyt mærke vælg &quot;Nyt mærke&quot; i drop liste og indtast ny etikette.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/markvariabletext.cpp" line="21"/>
@@ -12201,13 +12201,13 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../scribus/ui/markvariabletext.cpp" line="31"/>
         <source>Edit selected Mark&apos;s label</source>
-        <translation type="unfinished"></translation>
+        <translation>Rediger etikette for valgte mærke</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/markvariabletext.cpp" line="48"/>
         <location filename="../../scribus/ui/markvariabletext.cpp" line="64"/>
         <source>Edit selected Mark&apos;s label.</source>
-        <translation type="unfinished"></translation>
+        <translation>Rediger etikette for valgte mærke.</translation>
     </message>
     <message>
         <source>Edit selected Mark`s label</source>
@@ -12398,7 +12398,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../scribus/ui/measurementsbase.ui" line="14"/>
         <source>Measurements</source>
-        <translation type="unfinished">Målinger</translation>
+        <translation>Mål</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/measurementsbase.ui" line="20"/>
@@ -13084,7 +13084,7 @@ Hvis ingen håndtag er markerede, så nulstilles alle håndtag.</translation>
     <message>
         <location filename="../../scribus/ui/newmarginwidgetbase.ui" line="144"/>
         <source>Ensure all margins have the same value</source>
-        <translation>Sørg for at alle margener har samme værdi</translation>
+        <translation>Sikrer, at alle margener har samme værdi</translation>
     </message>
     <message>
         <source>Link</source>
@@ -13130,22 +13130,22 @@ Hvis ingen håndtag er markerede, så nulstilles alle håndtag.</translation>
     <message>
         <location filename="../../scribus/ui/newmarginwidget.cpp" line="88"/>
         <source>Distance for bleed from the top of the physical page</source>
-        <translation type="unfinished">Afstand for beskæring fra toppen af den fysiske side</translation>
+        <translation>Afstand for beskæring fra toppen af den fysiske side</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/newmarginwidget.cpp" line="89"/>
         <source>Distance for bleed from the bottom of the physical page</source>
-        <translation type="unfinished">Afstand for beskæring fra bunden af den fysiske side</translation>
+        <translation>Afstand for beskæring fra bunden af den fysiske side</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/newmarginwidget.cpp" line="90"/>
         <source>Distance for bleed from the left of the physical page</source>
-        <translation type="unfinished">Afstand for beskæring fra venstre af den fysiske side</translation>
+        <translation>Afstand for beskæring fra venstre af den fysiske side</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/newmarginwidget.cpp" line="91"/>
         <source>Distance for bleed from the right of the physical page</source>
-        <translation type="unfinished">Afstand for beskæring fra højre af den fysiske side</translation>
+        <translation>Afstand for beskæring fra højre af den fysiske side</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/newmarginwidget.cpp" line="93"/>
@@ -20890,7 +20890,7 @@ Værdien 0 betyder ubegrænset antal.</translation>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1215"/>
         <source>PDF/X Output Intent</source>
-        <translation type="unfinished">Hensigt med PDF/X udskrift</translation>
+        <translation>Hensigt med PDF/X udskrift</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1308"/>
@@ -21284,7 +21284,7 @@ Værdien 0 betyder ubegrænset antal.</translation>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="71"/>
         <source>Allow printing of the PDF. If unchecked, printing is prevented.</source>
-        <translation type="unfinished">Tillader udskrivning af PDF-filen. Udskrivning er ikke muligt uden afkryds.</translation>
+        <translation>Tillader udskrivning af PDF-filen. Udskrivning er ikke muligt uden afkryds.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="72"/>
@@ -23748,12 +23748,12 @@ Bemærk: PDF forme vil ikke blive eksporteret.</translation>
     <message>
         <location filename="../../scribus/ui/propertiespalette_image.cpp" line="781"/>
         <source>Scaling</source>
-        <translation type="unfinished">Skalering</translation>
+        <translation>Skalering</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_image.cpp" line="790"/>
         <source>Color Management</source>
-        <translation type="unfinished">Farvestyring</translation>
+        <translation>Farvestyring</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_image.cpp" line="792"/>
@@ -23763,7 +23763,7 @@ Bemærk: PDF forme vil ikke blive eksporteret.</translation>
     <message>
         <location filename="../../scribus/ui/propertiespalette_image.cpp" line="794"/>
         <source>PDF Compression</source>
-        <translation type="unfinished">PDF-komprimering</translation>
+        <translation>PDF-komprimering</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_image.cpp" line="795"/>
@@ -25341,7 +25341,7 @@ gennemsigtighed</translation>
     <message>
         <location filename="../../scribus/ui/propertywidget_distance.cpp" line="437"/>
         <source>Vertical Alignment</source>
-        <translation type="unfinished">Vertikal justering</translation>
+        <translation>Vertikal justering</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_distance.cpp" line="440"/>
@@ -25883,7 +25883,7 @@ gennemsigtighed</translation>
     <message>
         <location filename="../../scribus/ui/propertywidget_pareffect.cpp" line="573"/>
         <source>Effect Parameters</source>
-        <translation type="unfinished">Effekt Parametre</translation>
+        <translation>Effekt Parametre</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_pareffect.cpp" line="575"/>
@@ -25893,7 +25893,7 @@ gennemsigtighed</translation>
     <message>
         <location filename="../../scribus/ui/propertywidget_pareffect.cpp" line="577"/>
         <source>Choose character style or leave blank for use default paragraph style</source>
-        <translation type="unfinished"></translation>
+        <translation>Vælg tegnformat eller udfyld ikke, og brug i stedet standard afsnitstypografi</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_pareffect.cpp" line="574"/>
@@ -30414,13 +30414,13 @@ Vælg venligst et andet.</translation>
     <message>
         <location filename="../../scribus/ui/resourcemanager.cpp" line="169"/>
         <source>Licence</source>
-        <translation type="unfinished"></translation>
+        <translation>Licens</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/resourcemanager.cpp" line="408"/>
         <location filename="../../scribus/ui/resourcemanager.cpp" line="508"/>
         <source>License</source>
-        <translation type="unfinished"></translation>
+        <translation>Licens</translation>
     </message>
 </context>
 <context>
@@ -30487,7 +30487,7 @@ Vælg venligst et andet.</translation>
     <message>
         <location filename="../../scribus/ui/resourcemanagerbase.ui" line="234"/>
         <source>Show License</source>
-        <translation type="unfinished"></translation>
+        <translation>Vis licens</translation>
     </message>
 </context>
 <context>
@@ -30495,7 +30495,7 @@ Vælg venligst et andet.</translation>
     <message>
         <location filename="../../scribus/ui/resourcemanagerlicensebase.ui" line="14"/>
         <source>License</source>
-        <translation type="unfinished"></translation>
+        <translation>Licens</translation>
     </message>
 </context>
 <context>
@@ -34657,12 +34657,12 @@ Overvej at bruge Preflight Efterprøvning for at rette dem</translation>
     <message>
         <location filename="../../scribus/scribusapp.cpp" line="176"/>
         <source>Invalid argument use: &apos;%1&apos; requires to be followed by &lt;argument&gt; [value]</source>
-        <translation type="unfinished"></translation>
+        <translation>Ugyldigt brug af argument: &apos;%1&apos; skal efterfølges af &lt;argument&gt; [værdi]</translation>
     </message>
     <message>
         <location filename="../../scribus/scribusapp.cpp" line="499"/>
         <source>Usage: scribus [options] [files]</source>
-        <translation type="unfinished"></translation>
+        <translation>Brug: scribus [tilvalg] [filer]</translation>
     </message>
     <message>
         <location filename="../../scribus/scribusapp.cpp" line="505"/>
@@ -34712,17 +34712,17 @@ Overvej at bruge Preflight Efterprøvning for at rette dem</translation>
     <message>
         <location filename="../../scribus/scribusapp.cpp" line="512"/>
         <source>argument</source>
-        <translation type="unfinished"></translation>
+        <translation>argument</translation>
     </message>
     <message>
         <location filename="../../scribus/scribusapp.cpp" line="512"/>
         <source>value</source>
-        <translation type="unfinished"></translation>
+        <translation>værdi</translation>
     </message>
     <message>
         <location filename="../../scribus/scribusapp.cpp" line="512"/>
         <source>Argument passed on to python script, with an optional value, no effect without -py</source>
-        <translation type="unfinished"></translation>
+        <translation>Argument videregivet til python script, med en valgfri værdi, ingen effekt uden -py</translation>
     </message>
     <message>
         <location filename="../../scribus/scribusapp.cpp" line="513"/>
@@ -34732,7 +34732,7 @@ Overvej at bruge Preflight Efterprøvning for at rette dem</translation>
     <message>
         <location filename="../../scribus/scribusapp.cpp" line="514"/>
         <source>Explicit end of command line options</source>
-        <translation type="unfinished"></translation>
+        <translation>Direkte afslutning af kommandolinje-tilvalg</translation>
     </message>
     <message>
         <location filename="../../scribus/scribusapp.cpp" line="522"/>
@@ -35945,12 +35945,12 @@ Overvej at bruge Preflight Efterprøvning for at rette dem</translation>
     <message>
         <location filename="../../scribus/ui/storyeditor.cpp" line="2021"/>
         <source>&amp;Glyph...</source>
-        <translation type="unfinished">&amp;Glyf...</translation>
+        <translation>&amp;Glyf...</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/storyeditor.cpp" line="2026"/>
         <source>&amp;Sample Text</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Prøvetekst</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/storyeditor.cpp" line="2032"/>
@@ -36416,12 +36416,12 @@ Overvej at bruge Preflight Efterprøvning for at rette dem</translation>
     <message>
         <location filename="../../scribus/ui/symbolpalette.cpp" line="181"/>
         <source>Edit Item</source>
-        <translation type="unfinished">Rediger element</translation>
+        <translation>Rediger element</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/symbolpalette.cpp" line="183"/>
         <source>Remove Item</source>
-        <translation type="unfinished">Fjern element</translation>
+        <translation>Fjern element</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/symbolpalette.cpp" line="322"/>
