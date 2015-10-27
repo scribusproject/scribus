@@ -1673,7 +1673,7 @@ void StoryEditor::initActions()
 	seActions.insert("editPaste", new ScrAction(im->loadPixmap("16/edit-paste.png"), QPixmap(), "", Qt::CTRL+Qt::Key_V, this));
 	seActions.insert("editClear", new ScrAction(im->loadPixmap("16/edit-delete.png"), QPixmap(), "", Qt::Key_Delete, this));
 	seActions.insert("editSelectAll", new ScrAction(im->loadPixmap("16/edit-select-all.png"), QPixmap(), "", Qt::CTRL+Qt::Key_A, this));
-	seActions.insert("editSearchReplace", new ScrAction(im->loadPixmap("16/edit-find-replace.png"), QPixmap(), "", QKeySequence(), this));
+	seActions.insert("editSearchReplace", new ScrAction(im->loadPixmap("16/edit-find-replace.png"), QPixmap(), "", Qt::CTRL+Qt::Key_F, this));
 	//seActions.insert("editEditStyle", new ScrAction("", QKeySequence(), this));
 	seActions.insert("editFontPreview", new ScrAction("", QKeySequence(), this));
 	seActions.insert("editUpdateFrame", new ScrAction(im->loadPixmap("compfile16.png"),im->loadPixmap("compfile.png"), "", Qt::CTRL+Qt::Key_U, this));
