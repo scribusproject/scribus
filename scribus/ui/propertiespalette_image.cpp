@@ -110,6 +110,8 @@ PropertiesPalette_Image::PropertiesPalette_Image( QWidget* parent) : QWidget(par
 	connect(renderIntent       , SIGNAL(activated(int))      , this, SLOT(handleIntent()));
 	connect(compressionMethod  , SIGNAL(activated(int))      , this, SLOT(handleCompressionMethod()));
 	connect(compressionQuality , SIGNAL(activated(int))      , this, SLOT(handleCompressionQuality()));
+	connect(alignvertical , SIGNAL(currentIndexChanged(int)) , this, SLOT(alignImageVertical(int)));
+	connect(alignhorozintal , SIGNAL(currentIndexChanged(int)), this, SLOT(alignImageHorozintal(int)));
 }
 
 void PropertiesPalette_Image::updateSpinBoxConstants()
@@ -902,4 +904,59 @@ void PropertiesPalette_Image::spinboxFinishUserAction()
 	}
 }
 
+void PropertiesPalette_Image::alignImageVertical(int idx){
+    if (!m_ScMW || m_ScMW->scriptIsRunning())
+	return;
 
+    if ((m_haveDoc) && (m_haveItem) && (m_item->asImageFrame()))
+    {
+	double newY;
+	double imageHeight = m_item->pixm.height() * m_item->imageYScale() * m_item->pixm.imgInfo.lowResScale;
+	double frameHeight= m_item->height();
+
+	switch (idx) 
+	{
+		case 1:
+			newY = 0;
+			break;
+		case 2: 
+			newY = (frameHeight - imageHeight) / 2.0;
+			break;
+		case 3: 
+			newY = frameHeight - imageHeight;
+			break;
+		default:
+			newY = m_item->imageYOffset(); //do nothing
+			break;
+	}
+	m_doc->itemSelection_SetImageOffset(m_item->imageXOffset(), newY / m_item->imageYScale());
+    }
+}
+
+void PropertiesPalette_Image::alignImageHorozintal(int idx) {
+    if (!m_ScMW || m_ScMW->scriptIsRunning())
+	return;
+
+    if ((m_haveDoc) && (m_haveItem) && (m_item->asImageFrame()))
+    {
+	double newX;
+	double imageWidth = m_item->pixm.width() * m_item->imageXScale() * m_item->pixm.imgInfo.lowResScale;
+	double frameWidth = m_item->width();
+	switch (idx)
+	{
+		case 1: 
+			newX = 0;
+			break;
+		case 2:
+			newX = (frameWidth - imageWidth) / 2.0;
+			break;
+		case 3:
+			newX = frameWidth - imageWidth;
+			break;
+		default:
+			newX = m_item->imageXOffset(); // do nothing
+			break;
+	}
+	m_doc->itemSelection_SetImageOffset(newX / m_item->imageXScale(), m_item->imageYOffset());
+    }
+}

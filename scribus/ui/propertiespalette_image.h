@@ -103,6 +103,8 @@ private slots:
 
 	void handleImageEffects();
 	void handleExtImgProperties();
+	void alignImageVertical(int);
+	void alignImageHorozintal(int);
 
 signals:
 	void UpdtGui(int);
