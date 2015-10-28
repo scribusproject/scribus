@@ -925,10 +925,10 @@ void XtgScanner::defAtRate()
 	sfcName = getToken();
 	if (sfcName == "@$:")
 	{
-		if (doc->paragraphStyles().contains(m_item->itemName() + ":Normal"))
+		if (doc->paragraphStyles().contains(m_item->itemName() + "_Normal"))
 		{
 			ParagraphStyle newStyle;
-			newStyle.setParent(m_item->itemName() + ":Normal");
+			newStyle.setParent(m_item->itemName() + "_Normal");
 			currentParagraphStyle = newStyle;
 			currentCharStyle = newStyle.charStyle();
 		}
@@ -954,10 +954,10 @@ void XtgScanner::defAtRate()
 		currentCharStyle.setFeatures(styleEffects.featureList());
 		enterState(textMode);
 	}
-	else if (doc->paragraphStyles().contains(m_item->itemName() + ":" + sfcName))
+	else if (doc->paragraphStyles().contains(m_item->itemName() + "_" + sfcName))
 	{
 		ParagraphStyle newStyle;
-		newStyle.setParent(m_item->itemName() + ":" + sfcName);
+		newStyle.setParent(m_item->itemName() + "_" + sfcName);
 		currentParagraphStyle = newStyle;
 		currentCharStyle = newStyle.charStyle();
 		if (lookAhead() == ':')
@@ -1007,7 +1007,7 @@ void XtgScanner::defEquals()	//Token =
 	if (lookAhead() != '[')
 	{
 		define = 1;
-		currentCharStyle.setName(m_item->itemName() + ":" + sfcName);
+		currentCharStyle.setName(m_item->itemName() + "_" + sfcName);
 		enterState(textMode);
 	}
 	else 
@@ -1030,10 +1030,10 @@ void XtgScanner::defColon()
 		styleEffects = ScStyle_None;
 		currentCharStyle.setFeatures(styleEffects.featureList());
 	}
-	else if (doc->paragraphStyles().contains(m_item->itemName() + ":" + sfcName))
+	else if (doc->paragraphStyles().contains(m_item->itemName() + "_" + sfcName))
 	{
 		ParagraphStyle newStyle;
-		newStyle.setParent(m_item->itemName() + ":" + sfcName);
+		newStyle.setParent(m_item->itemName() + "_" + sfcName);
 		currentParagraphStyle = newStyle;
 		currentCharStyle = newStyle.charStyle();
 	}
@@ -1161,8 +1161,8 @@ void XtgScanner::definePStyles()
 	ParagraphStyle newStyle;
 	if (s1 != "")
 	{
-		if (doc->paragraphStyles().contains(m_item->itemName() + ":" + s1))
-			newStyle.setParent(m_item->itemName() + ":" + s1);
+		if (doc->paragraphStyles().contains(m_item->itemName() + "_" + s1))
+			newStyle.setParent(m_item->itemName() + "_" + s1);
 		else if  (doc->paragraphStyles().contains(s1))
 			newStyle.setParent(s1);
 		else
@@ -1170,12 +1170,12 @@ void XtgScanner::definePStyles()
 	}
 	else
 		newStyle.setParent(pStyle);
-	newStyle.setName(m_item->itemName() + ":" + sfcName);
+	newStyle.setName(m_item->itemName() + "_" + sfcName);
 	newStyle.setLineSpacingMode(ParagraphStyle::AutomaticLineSpacing);
 	if (s3 != "")
 	{
-		if (doc->charStyles().contains(m_item->itemName() + ":" + s3))
-			newStyle.charStyle().setParent(m_item->itemName() + ":" + s3);
+		if (doc->charStyles().contains(m_item->itemName() + "_" + s3))
+			newStyle.charStyle().setParent(m_item->itemName() + "_" + s3);
 		else if  (doc->charStyles().contains(s3))
 			newStyle.charStyle().setParent(s3);
 		else

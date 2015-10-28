@@ -379,7 +379,7 @@ namespace RtfReader
 
 	void SlaDocumentRtfOutput::insertStyleSheetTableEntry(quint32 stylesheetTableIndex, ParagraphStyle stylesheetTableEntry)
 	{
-		QString newName = m_item->itemName() + ":" + stylesheetTableEntry.name();
+		QString newName = m_item->itemName() + "_" + stylesheetTableEntry.name();
 		stylesheetTableEntry.setName(newName);
 		if (stylesheetTableEntry.charStyle().fontVariant() != "")
 		{
