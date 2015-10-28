@@ -112,6 +112,16 @@ PropertiesPalette_Image::PropertiesPalette_Image( QWidget* parent) : QWidget(par
 	connect(compressionQuality , SIGNAL(activated(int))      , this, SLOT(handleCompressionQuality()));
 }
 
+void PropertiesPalette_Image::updateSpinBoxConstants()
+{
+	if (!m_haveDoc)
+		return;
+	if(m_doc->m_Selection->count()==0)
+		return;
+	imageXOffsetSpinBox->setConstants(&m_doc->constants());
+	imageYOffsetSpinBox->setConstants(&m_doc->constants());
+}
+
 void PropertiesPalette_Image::changeEvent(QEvent *e)
 {
 	if (e->type() == QEvent::LanguageChange)
@@ -159,6 +169,7 @@ void PropertiesPalette_Image::setDoc(ScribusDoc *d)
 	imageYScaleSpinBox->setValues( 1, 30000, 2, 1);
 	imgDpiX->setValues( 1, 30000, 2, 1);
 	imgDpiY->setValues( 1, 30000, 2, 1);
+	updateSpinBoxConstants();
 
 	connect(m_doc->m_Selection, SIGNAL(selectionChanged()), this, SLOT(handleSelectionChanged()));
 	connect(m_doc             , SIGNAL(docChanged())      , this, SLOT(handleSelectionChanged()));
@@ -528,6 +539,7 @@ void PropertiesPalette_Image::setCurrentItem(PageItem *item)
 	{
 		setEnabled(false);
 	}
+	updateSpinBoxConstants();
 }
 
 void PropertiesPalette_Image::handleLocalXY()

@@ -77,6 +77,7 @@ public slots:
 protected slots:
 	void spinboxStartUserAction();
 	void spinboxFinishUserAction();
+	void updateSpinBoxConstants();
 
 private slots:
 
