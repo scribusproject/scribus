@@ -294,6 +294,8 @@ namespace RtfReader
 				default:
 					qDebug() << "Unexpected token Type";
 			}
+			if (m_tokenizer->atEnd())
+				break;
 		}
 	}
 }

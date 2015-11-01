@@ -51,6 +51,8 @@ namespace RtfReader
 		else
 			m_codec = QTextCodec::codecForLocale();
 		m_keepn = false;
+		m_isBold = false;
+		m_isItalic = false;
 	}
 
 	SlaDocumentRtfOutput::~SlaDocumentRtfOutput()
@@ -186,28 +188,70 @@ namespace RtfReader
 
 	void SlaDocumentRtfOutput::setFontItalic(const int value)
 	{
-	//	qDebug() << "setFontItalic";
+		m_isItalic = (value != 0);
+		int posC = m_item->itemText.length();
+		m_item->itemText.insertChars(posC, "B");
+		m_item->itemText.applyStyle(posC, m_textStyle.top());
+		m_item->itemText.applyCharStyle(posC, 1, m_textCharStyle.top());
+		QString fam = m_item->itemText.charStyle(posC).font().family();
+		m_item->itemText.removeChars(posC, 1);
+		if (fam.isEmpty())
+			return;
+		QStringList slist = PrefsManager::instance()->appPrefs.fontPrefs.AvailFonts.fontMap[fam];
+		if (m_isItalic)
+		{
+			if (m_isBold)
+			{
+				if (slist.contains("Bold Italic"))
+					m_textCharStyle.top().setFont(PrefsManager::instance()->appPrefs.fontPrefs.AvailFonts[fam + " Bold Italic"]);
+			}
+			else if (slist.contains("Italic"))
+				m_textCharStyle.top().setFont(PrefsManager::instance()->appPrefs.fontPrefs.AvailFonts[fam + " Italic"]);
+		}
+		else
+		{
+			if (m_isBold)
+			{
+				if (slist.contains("Bold"))
+					m_textCharStyle.top().setFont(PrefsManager::instance()->appPrefs.fontPrefs.AvailFonts[fam + " Bold"]);
+			}
+			else if (slist.contains("Regular"))
+				m_textCharStyle.top().setFont(PrefsManager::instance()->appPrefs.fontPrefs.AvailFonts[fam + " Regular"]);
+		}
 	}
 
 	void SlaDocumentRtfOutput::setFontBold(const int value)
 	{
-	/*	QString fontName = m_textCharStyle.top().font().replacementName();
-		QString family = m_textCharStyle.top().font().family();
-		QStringList slist = PrefsManager::instance()->appPrefs.fontPrefs.AvailFonts.fontMap[family];
-		if (value != 0)
+		m_isBold = (value != 0);
+		int posC = m_item->itemText.length();
+		m_item->itemText.insertChars(posC, "B");
+		m_item->itemText.applyStyle(posC, m_textStyle.top());
+		m_item->itemText.applyCharStyle(posC, 1, m_textCharStyle.top());
+		QString fam = m_item->itemText.charStyle(posC).font().family();
+		m_item->itemText.removeChars(posC, 1);
+		if (fam.isEmpty())
+			return;
+		QStringList slist = PrefsManager::instance()->appPrefs.fontPrefs.AvailFonts.fontMap[fam];
+		if (m_isBold)
 		{
-			slist.sort();
-			if (slist.count() > 0)
+			if (m_isItalic)
 			{
-				int reInd = slist.indexOf("Bold");
-				if (reInd < 0)
-					return;
-				else
-					fontName = m_textCharStyle.top().font().family() + " " + slist[reInd];
-				return;
+				if (slist.contains("Bold Italic"))
+					m_textCharStyle.top().setFont(PrefsManager::instance()->appPrefs.fontPrefs.AvailFonts[fam + " Bold Italic"]);
 			}
-		}*/
-	//	qDebug() << "setFontBold";
+			else if (slist.contains("Bold"))
+				m_textCharStyle.top().setFont(PrefsManager::instance()->appPrefs.fontPrefs.AvailFonts[fam + " Bold"]);
+		}
+		else
+		{
+			if (m_isItalic)
+			{
+				if (slist.contains("Italic"))
+					m_textCharStyle.top().setFont(PrefsManager::instance()->appPrefs.fontPrefs.AvailFonts[fam + " Italic"]);
+			}
+			else if (slist.contains("Regular"))
+				m_textCharStyle.top().setFont(PrefsManager::instance()->appPrefs.fontPrefs.AvailFonts[fam + " Regular"]);
+		}
 	}
 
 	void SlaDocumentRtfOutput::setFontUnderline(const int value)

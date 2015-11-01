@@ -31,7 +31,7 @@ namespace RtfReader
 	{
 		public:
 			explicit Tokenizer(QIODevice *inputDevice);
-			void setEncoding(QString enc);
+			bool atEnd();
 			Token fetchToken();
 		private:
 			void pullControl(Token *token);

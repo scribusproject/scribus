@@ -25,6 +25,11 @@ namespace RtfReader
 	{
 	}
 
+	bool Tokenizer::atEnd()
+	{
+		return m_inputDevice->atEnd();
+	}
+
 	void Tokenizer::pullControlWord(Token *token)
 	{
 		char next;

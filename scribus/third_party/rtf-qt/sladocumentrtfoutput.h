@@ -113,6 +113,8 @@ namespace RtfReader
 		QHash<int, ParagraphStyle> m_stylesTable;
 		QList<QByteArray> m_codecList;
 		bool m_keepn;
+		bool m_isBold;
+		bool m_isItalic;
 	};
 }
 #endif // SLADOCUMENTRTFOUTPUT_H

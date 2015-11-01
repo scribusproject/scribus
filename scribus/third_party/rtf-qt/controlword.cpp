@@ -1894,6 +1894,7 @@ namespace RtfReader
 	    ( m_name == "userprops" ) ||
 	    ( m_name == "mmathPr" ) ||
 		 ( m_name == "listtext" ) ||
+		 ( m_name == "footnote" ) ||
 	    ( m_name == "author" ) ) {
 	    return true;
 	}
