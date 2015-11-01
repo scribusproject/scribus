@@ -396,14 +396,14 @@ bool OutlineWidget::viewportEvent(QEvent *event)
 					}
 					tipText +="<br>" + tr("X-Pos:") + " ";
 					if (pgItem->OwnPage != -1)
-						tipText += value2String(pgItem->xPos() - item->PageObject->xOffset(), item->DocObject->unitIndex(), true, true);
+						tipText += value2String(pgItem->xPos() - item->PageObject->xOffset(), pgItem->doc()->unitIndex(), true, true);
 					else
-						tipText += value2String(pgItem->xPos(), item->DocObject->unitIndex(), true, true);
+						tipText += value2String(pgItem->xPos(), pgItem->doc()->unitIndex(), true, true);
 					tipText +="<br>" + tr("Y-Pos:") + " ";
 					if (pgItem->OwnPage != -1)
-						tipText += value2String(pgItem->yPos() - item->PageObject->yOffset(), item->DocObject->unitIndex(), true, true);
+						tipText += value2String(pgItem->yPos() - item->PageObject->yOffset(), pgItem->doc()->unitIndex(), true, true);
 					else
-						tipText += value2String(pgItem->yPos(), item->DocObject->unitIndex(), true, true);
+						tipText += value2String(pgItem->yPos(), pgItem->doc()->unitIndex(), true, true);
 					tipText += "</p>";
 				}
 				QToolTip::showText(helpEvent->globalPos(), tipText, this);
