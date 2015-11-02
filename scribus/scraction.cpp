@@ -164,29 +164,20 @@ QString ScrAction::cleanMenuText()
 
 void ScrAction::setToolTipFromTextAndShortcut()
 {
-	QString sct(shortcut().toString());
+	QString sct(shortcut().toString(QKeySequence::NativeText));
 	if (sct.isEmpty())
 		QAction::setToolTip("<qt>" + cleanMenuText() + "</qt>");
 	else
-	{
-		if (QSysInfo::productType()=="osx")
-			sct.replace("Ctrl","&#8984;");
 		QAction::setToolTip("<qt>" + cleanMenuText() + " (" + sct + ")" + "</qt>");
-	}
 }
 
 void ScrAction::setStatusTextAndShortcut(const QString& statusText)
 {
-	QString sct(shortcut().toString());
-	qDebug()<<sct;
+	QString sct(shortcut().toString(QKeySequence::NativeText));
 	if (sct.isEmpty())
 		QAction::setStatusTip(statusText);
 	else
-	{
-		if (QSysInfo::productType()=="osx")
-			sct.replace("Ctrl","&#8984;");
 		QAction::setStatusTip(statusText + " (" + sct + ")");
-	}
 }
 
 int ScrAction::getMenuIndex() const
