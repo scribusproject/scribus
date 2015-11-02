@@ -1248,7 +1248,7 @@ void AppModeHelper::setMasterPageEditMode(bool b, ScribusDoc* doc)
 	(*a_scrActions)["fileNewFromTemplate"]->setEnabled(b2);
 	(*a_scrActions)["fileOpen"]->setEnabled(b2);
 	(*a_scrActions)["fileClose"]->setEnabled(!b2);
-	(*a_scrActions)["fileSave"]->setEnabled(b2);
+	//#13401: (*a_scrActions)["fileSave"]->setEnabled(b2);
 	(*a_scrActions)["fileExportAsEPS"]->setEnabled(b2);
 	(*a_scrActions)["fileExportAsPDF"]->setEnabled(b2);
 	if (b2)
