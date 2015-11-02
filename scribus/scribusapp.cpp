@@ -171,7 +171,7 @@ void ScribusQApp::parseCommandLine()
 		{
 			if (argi+1 == argsc)
 			{
-				std::cout << tr("Option %1 require an argument.").arg(arg).toLocal8Bit().data() << std::endl;
+				std::cout << tr("Option %1 requires an argument.").arg(arg).toLocal8Bit().data() << std::endl;
 				std::exit(EXIT_FAILURE);
 			}
 			pythonScript = QFile::decodeName(args[argi + 1].toLocal8Bit());
@@ -199,7 +199,7 @@ void ScribusQApp::parseCommandLine()
 				lang = args[argi];
 			else
 			{
-				std::cout << tr("Option %1 require an argument.").arg(arg).toLocal8Bit().data() << std::endl;
+				std::cout << tr("Option %1 requires an argument.").arg(arg).toLocal8Bit().data() << std::endl;
 				std::exit(EXIT_FAILURE);
 			}
 		}
@@ -265,7 +265,7 @@ void ScribusQApp::parseCommandLine()
 		{
 			if (argi+1 == argsc)
 			{
-				std::cout << tr("Option %1 require an argument.").arg(arg).toLocal8Bit().data() << std::endl;
+				std::cout << tr("Option %1 requires an argument.").arg(arg).toLocal8Bit().data() << std::endl;
 				std::exit(EXIT_FAILURE);
 			}
 			prefsUserFile = QFile::decodeName(args[argi + 1].toLocal8Bit());
