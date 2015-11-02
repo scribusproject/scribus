@@ -72,7 +72,6 @@ for which a new license (GPL+exception) is in place.
 #define ARG_UPGRADECHECK "--upgradecheck"
 #define ARG_TESTS "--tests"
 #define ARG_PYTHONSCRIPT "--python-script"
-#define ARG_SCRIPTARG "--python-arg"
 #define CMD_OPTIONS_END "--"
 
 #define ARG_VERSION_SHORT "-v"
@@ -89,7 +88,6 @@ for which a new license (GPL+exception) is in place.
 #define ARG_UPGRADECHECK_SHORT "-u"
 #define ARG_TESTS_SHORT "-T"
 #define ARG_PYTHONSCRIPT_SHORT "-py"
-#define ARG_SCRIPTARG_SHORT "-pa"
 
 // Qt wants -display not --display or -d
 #define ARG_DISPLAY_QT "-display"
@@ -169,20 +167,31 @@ void ScribusQApp::parseCommandLine()
 	for( ; argi < argsc; argi++)
 	{ //handle options (not positional parameters)
 		arg = args[argi];
-		if (arg == ARG_SCRIPTARG || arg == ARG_SCRIPTARG_SHORT)
-		{ //needs to be first to give precedence to script argument name over scribus' options
-			if (++argi < argsc && (args[argi] != CMD_OPTIONS_END))
+		if (arg == ARG_PYTHONSCRIPT || arg == ARG_PYTHONSCRIPT_SHORT)
+		{
+			if (argi+1 == argsc)
 			{
-				pythonScriptArgs.append(args[argi]); // script argument
-			} else {
-				std::cout << tr("Invalid argument use: '%1' requires to be followed by <argument> [value]").arg(arg).toLocal8Bit().data() << std::endl;
-				showUsage();
+				std::cout << tr("Option %1 require an argument.").arg(arg).toLocal8Bit().data() << std::endl;
 				std::exit(EXIT_FAILURE);
 			}
-			if (++argi < argsc && !args[argi].startsWith("-"))
-			{   // arg value
-				pythonScriptArgs.append( QFile::decodeName(args[argi].toLocal8Bit()) );
+			pythonScript = QFile::decodeName(args[argi + 1].toLocal8Bit());
+			if (!QFileInfo(pythonScript).exists())
+			{
+				std::cout << tr("Python script %1 does not exist, aborting.").arg(pythonScript).toLocal8Bit().data() << std::endl;
+				std::exit(EXIT_FAILURE);
 			}
+			++argi;
+
+			while (++argi < argsc && (args[argi] != CMD_OPTIONS_END))
+			{
+				pythonScriptArgs.append(args[argi]); // script argument
+			}
+			// We reached end of all arguments or CMD_OPTIONS_END marker. Stop parsing options
+			if (argi < argsc)
+			{
+				argi++; // skip CMD_OPTIONS_END
+			}
+			break;
 		}
 		else if ((arg == ARG_LANG || arg == ARG_LANG_SHORT))
 		{
@@ -233,21 +242,26 @@ void ScribusQApp::parseCommandLine()
 		{
 			showSplash = false;
 			neversplash = true;
-		} else if (arg == ARG_NOGUI || arg == ARG_NOGUI_SHORT)
+		}
+		else if (arg == ARG_NOGUI || arg == ARG_NOGUI_SHORT)
 		{
 			useGUI=false;
-		} else if (arg == ARG_FONTINFO || arg == ARG_FONTINFO_SHORT)
+		}
+		else if (arg == ARG_FONTINFO || arg == ARG_FONTINFO_SHORT)
 		{
 			showFontInfo=true;
-		} else if (arg == ARG_PROFILEINFO || arg == ARG_PROFILEINFO_SHORT)
+		}
+		else if (arg == ARG_PROFILEINFO || arg == ARG_PROFILEINFO_SHORT)
 		{
 			showProfileInfo=true;
-		} else if ((arg == ARG_DISPLAY || arg==ARG_DISPLAY_SHORT || arg==ARG_DISPLAY_QT) && ++argi < argsc)
+		}
+		else if ((arg == ARG_DISPLAY || arg==ARG_DISPLAY_SHORT || arg==ARG_DISPLAY_QT) && ++argi < argsc)
 		{
 			// allow setting of display, QT expect the option -display <display_name> so we discard the
 			// last argument. FIXME: Qt only understands -display not --display and -d , we need to work
 			// around this.
-		} else if (arg == ARG_PREFS || arg == ARG_PREFS_SHORT)
+		}
+		else if (arg == ARG_PREFS || arg == ARG_PREFS_SHORT)
 		{
 			if (argi+1 == argsc)
 			{
@@ -257,7 +271,7 @@ void ScribusQApp::parseCommandLine()
 			prefsUserFile = QFile::decodeName(args[argi + 1].toLocal8Bit());
 			if (!QFileInfo(prefsUserFile).exists())
 			{
-				std::cout << tr("Preferenes file %1 does not exist, aborting.").arg(prefsUserFile).toLocal8Bit().data() << std::endl;
+				std::cout << tr("Preferences file %1 does not exist, aborting.").arg(prefsUserFile).toLocal8Bit().data() << std::endl;
 				std::exit(EXIT_FAILURE);
 			} else {
 				++argi;
@@ -266,23 +280,6 @@ void ScribusQApp::parseCommandLine()
 		else if (strncmp(arg.toLocal8Bit().data(),"-psn_",4) == 0)
 		{
 			// Andreas Vox: Qt/Mac has -psn_blah flags that must be accepted.
-		} else if (arg == ARG_PYTHONSCRIPT || arg == ARG_PYTHONSCRIPT_SHORT)
-		{
-			if (argi+1 == argsc)
-			{
-				std::cout << tr("Option %1 require an argument.").arg(arg).toLocal8Bit().data() << std::endl;
-				std::exit(EXIT_FAILURE);
-			}
-			pythonScript = QFile::decodeName(args[argi + 1].toLocal8Bit());
-			if (!QFileInfo(pythonScript).exists())
-			{
-				std::cout << tr("Python script %1 does not exist, aborting.").arg(pythonScript).toLocal8Bit().data() << std::endl;
-				std::exit(EXIT_FAILURE);
-			}
-			else
-			{
-				++argi;
-			}
 		}
 		else if (arg == CMD_OPTIONS_END)
 		{ //double dash, indicates end of command line options, see http://unix.stackexchange.com/questions/11376/what-does-double-dash-mean-also-known-as-bare-double-dash
@@ -296,7 +293,16 @@ void ScribusQApp::parseCommandLine()
 				std::cout << tr("Invalid argument: %1").arg(arg).toLocal8Bit().data() << std::endl;
 				std::exit(EXIT_FAILURE);
 			}
-			break;
+			fileName = QFile::decodeName(args[argi].toLocal8Bit());
+			if (!QFileInfo(fileName).exists())
+			{
+				std::cout << tr("File %1 does not exist, aborting.").arg(fileName).toLocal8Bit().data() << std::endl;
+				std::exit(EXIT_FAILURE);
+			}
+			else
+			{
+				filesToLoad.append(fileName);
+			}
 		}
 	}
 	// parse for remaining (positional) arguments, if any
@@ -579,8 +585,7 @@ void ScribusQApp::showUsage()
 	printArgLine(ts, ARG_PROFILEINFO_SHORT, ARG_PROFILEINFO, tr("Show location of ICC profile information on console while starting") );
 	printArgLine(ts, ARG_UPGRADECHECK_SHORT, ARG_UPGRADECHECK, tr("Download a file from the Scribus website and show the latest available version") );
 	printArgLine(ts, ARG_VERSION_SHORT, ARG_VERSION, tr("Output version information and exit") );
-	printArgLine(ts, ARG_PYTHONSCRIPT_SHORT, qPrintable(QString("%1 <%2>").arg(ARG_PYTHONSCRIPT).arg(tr("filename"))), tr("Run filename in Python scripter") );
-	printArgLine(ts, ARG_SCRIPTARG_SHORT, qPrintable(QString("%1 <%2> [%3]").arg(ARG_SCRIPTARG).arg(tr("argument")).arg(tr("value"))), tr("Argument passed on to python script, with an optional value, no effect without -py") );
+	printArgLine(ts, ARG_PYTHONSCRIPT_SHORT, qPrintable(QString("%1 <%2> [%3] ").arg(ARG_PYTHONSCRIPT).arg(tr("script")).arg(tr("arguments ..."))), tr("Run script in Python [with optional arguments]. This option must be last option used") );
 	printArgLine(ts, ARG_NOGUI_SHORT, ARG_NOGUI, tr("Do not start GUI") );
 	ts << (QString("     %1").arg(CMD_OPTIONS_END,-39)) << tr("Explicit end of command line options"); endl(ts);
  	
