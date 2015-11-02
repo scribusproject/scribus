@@ -1150,6 +1150,7 @@ void ScribusMainWindow::initMenuBar()
 	//Help menu
 	scrMenuMgr->createMenu("Help", ActionManager::defaultMenuNameEntryTranslated("Help"));
 	scrMenuMgr->addMenuItemString("helpManual", "Help");
+	scrMenuMgr->addMenuItemString("helpChat", "Help");
 	scrMenuMgr->addMenuItemString("SEPARATOR", "Help");
 	scrMenuMgr->addMenuItemString("helpTooltips", "Help");
 	scrMenuMgr->addMenuItemString("SEPARATOR", "Help");

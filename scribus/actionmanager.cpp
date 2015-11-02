@@ -1001,6 +1001,8 @@ void ActionManager::initHelpMenuActions()
 	scrActions->insert(name, new ScrAction(ScrAction::DataQString, QPixmap(), QPixmap(), "", defaultKey(name), mainWindow, "http://wiki.scribus.net"));
 	name="helpOnlineTutorial1";
 	scrActions->insert(name, new ScrAction(ScrAction::DataQString, QPixmap(), QPixmap(), "", defaultKey(name), mainWindow, ""));
+	name="helpChat";
+	scrActions->insert(name, new ScrAction(ScrAction::DataQString, QPixmap(), QPixmap(), "", defaultKey(name), mainWindow, "http://webchat.freenode.net/?channels=scribus"));
 	name="helpCheckUpdates";
 	scrActions->insert(name, new ScrAction("", defaultKey(name), mainWindow));
 
@@ -1018,6 +1020,7 @@ void ActionManager::initHelpMenuActions()
 	connect( (*scrActions)["helpOnlineDocs"], SIGNAL(triggeredData(QString)), ul, SLOT(launchUrlExt(const QString)) );
 	connect( (*scrActions)["helpOnlineWiki"], SIGNAL(triggeredData(QString)), ul, SLOT(launchUrlExt(const QString)) );
 	connect( (*scrActions)["helpOnlineTutorial1"], SIGNAL(triggeredData(QString)), ul, SLOT(launchUrlExt(const QString)) );
+	connect( (*scrActions)["helpChat"], SIGNAL(triggeredData(QString)), ul, SLOT(launchUrlExt(const QString)) );
 }
 
 void ActionManager::initUnicodeActions(QMap<QString, QPointer<ScrAction> > *actionMap, QWidget *actionParent, QStringList *actionNamesList)
@@ -1744,6 +1747,7 @@ void ActionManager::languageChange()
 	(*scrActions)["helpOnlineWiki"]->setTexts( tr("Scribus Wiki"));
 	(*scrActions)["helpOnlineTutorial1"]->setTexts( tr("Getting Started with Scribus"));
 	(*scrActions)["helpCheckUpdates"]->setTexts( tr("Check for Updates"));
+	(*scrActions)["helpChat"]->setTexts( tr("Chat with the Community"));
 
 	//GUI and specials
 	(*scrActions)["specialToggleAllPalettes"]->setTexts( tr("Toggle Palettes"));
@@ -2360,7 +2364,8 @@ void ActionManager::createDefaultMenus()
 		<< "helpOnlineDocs"
 		<< "helpOnlineWiki"
 		<< "helpOnlineTutorial1"
-		<< "helpCheckUpdates";
+		<< "helpCheckUpdates"
+		<< "helpChat";
 	//Other
 // 	++itmenu;
 // 	itmenu->second << "";
