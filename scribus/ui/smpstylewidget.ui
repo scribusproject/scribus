@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>695</width>
-    <height>522</height>
+    <height>528</height>
    </rect>
   </property>
   <layout class="QVBoxLayout">
@@ -627,7 +627,7 @@
             <item>
              <widget class="QLabel" name="bulletCharLabel">
               <property name="text">
-               <string>Bullet Char/String</string>
+               <string>Bullet Character(s)</string>
               </property>
              </widget>
             </item>
@@ -657,7 +657,7 @@
               </property>
               <property name="sizeHint" stdset="0">
                <size>
-                <width>40</width>
+                <width>20</width>
                 <height>20</height>
                </size>
               </property>
@@ -672,7 +672,7 @@
                </sizepolicy>
               </property>
               <property name="text">
-               <string>Char Table</string>
+               <string>Character Table</string>
               </property>
               <property name="checkable">
                <bool>true</bool>
@@ -686,7 +686,7 @@
               </property>
               <property name="sizeHint" stdset="0">
                <size>
-                <width>40</width>
+                <width>20</width>
                 <height>20</height>
                </size>
               </property>
@@ -706,7 +706,7 @@
           </sizepolicy>
          </property>
          <property name="title">
-          <string>Numeration</string>
+          <string>Numbering</string>
          </property>
          <property name="checkable">
           <bool>true</bool>
@@ -737,7 +737,7 @@
             <item>
              <widget class="QLabel" name="numLevelLabel">
               <property name="text">
-               <string>Level</string>
+               <string>Level:</string>
               </property>
              </widget>
             </item>
@@ -774,7 +774,7 @@
             <item>
              <widget class="QLabel" name="numFormatLabel">
               <property name="text">
-               <string>Nums Format</string>
+               <string>Numbering Style:</string>
               </property>
               <property name="buddy">
                <cstring>numFormatCombo</cstring>
@@ -794,7 +794,7 @@
             <item>
              <widget class="QLabel" name="numStartLabel">
               <property name="text">
-               <string>Start with</string>
+               <string>Start with:</string>
               </property>
              </widget>
             </item>
@@ -809,9 +809,26 @@
              </widget>
             </item>
             <item>
+             <spacer name="horizontalSpacer_8">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>40</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayout_6">
+            <item>
              <widget class="QLabel" name="numPrefixLabel">
               <property name="text">
-               <string>Prefix</string>
+               <string>Prefix:</string>
               </property>
              </widget>
             </item>
@@ -821,12 +838,25 @@
             <item>
              <widget class="QLabel" name="numSuffixLabel">
               <property name="text">
-               <string>Suffix</string>
+               <string>Suffix:</string>
               </property>
              </widget>
             </item>
             <item>
              <widget class="QLineEdit" name="numSuffix"/>
+            </item>
+            <item>
+             <spacer name="horizontalSpacer_9">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>20</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
             </item>
            </layout>
           </item>
@@ -834,6 +864,12 @@
            <layout class="QHBoxLayout" name="horizontalLayout_8">
             <item>
              <widget class="QLabel" name="numRestartLabel">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Maximum" vsizetype="Preferred">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
               <property name="text">
                <string>Restart</string>
               </property>
@@ -849,7 +885,7 @@
               </property>
               <property name="sizeHint" stdset="0">
                <size>
-                <width>40</width>
+                <width>20</width>
                 <height>20</height>
                </size>
               </property>
@@ -861,6 +897,19 @@
                <string>Restart after other format</string>
               </property>
              </widget>
+            </item>
+            <item>
+             <spacer name="horizontalSpacer">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>20</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
             </item>
             <item>
              <widget class="SMCheckBox" name="numRestartHigherBox">
@@ -936,6 +985,12 @@
         <layout class="QHBoxLayout" name="horizontalLayout_12">
          <item>
           <widget class="QLabel" name="parEffectCharStyleComboLabel">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
            <property name="text">
             <string>Character Style for Effect:</string>
            </property>
@@ -951,7 +1006,7 @@
            </property>
            <property name="sizeHint" stdset="0">
             <size>
-             <width>40</width>
+             <width>20</width>
              <height>20</height>
             </size>
            </property>
@@ -959,6 +1014,12 @@
          </item>
          <item>
           <widget class="QLabel" name="distFromTextLabel">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
            <property name="text">
             <string>Distance from Text:</string>
            </property>
@@ -984,7 +1045,7 @@
            </property>
            <property name="sizeHint" stdset="0">
             <size>
-             <width>40</width>
+             <width>20</width>
              <height>20</height>
             </size>
            </property>
@@ -1166,8 +1227,6 @@
   <tabstop>numNewLineEdit</tabstop>
   <tabstop>numFormatCombo</tabstop>
   <tabstop>numStartSpin</tabstop>
-  <tabstop>numPrefix</tabstop>
-  <tabstop>numSuffix</tabstop>
   <tabstop>numRestartCombo</tabstop>
   <tabstop>numRestartOtherBox</tabstop>
   <tabstop>numRestartHigherBox</tabstop>

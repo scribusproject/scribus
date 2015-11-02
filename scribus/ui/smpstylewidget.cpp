@@ -174,17 +174,17 @@ void SMPStyleWidget::languageChange()
 
 	//parEffectsBox->setTitle(tr("Paragraph Effects"));
 	bulletBox->setTitle(           tr("Bullets"));
-	bulletCharLabel->setText(      tr("Bullet Char/String"));
-	bulletCharTableButton->setText(tr("Char Table"));
+	bulletCharLabel->setText(      tr("Bullet Character(s):"));
+	bulletCharTableButton->setText(tr("Character Table"));
 
-	numBox->setTitle(       tr("Numeration"));
-	numLevelLabel->setText( tr("Level"));
+	numBox->setTitle(       tr("Numbering:"));
+	numLevelLabel->setText( tr("Level:"));
 	numNewLabel->setText( tr("Create New Set:"));
-	numFormatLabel->setText(tr("Numbering Style"));
-	numStartLabel->setText( tr("Start with"));
-	numPrefixLabel->setText(tr("Prefix"));
-	numSuffixLabel->setText(tr("Suffix"));
-	numRestartLabel->setText( tr("Restart"));
+	numFormatLabel->setText(tr("Numbering Style:"));
+	numStartLabel->setText( tr("Start with:"));
+	numPrefixLabel->setText(tr("Prefix:"));
+	numSuffixLabel->setText(tr("Suffix:"));
+	numRestartLabel->setText( tr("Restart:"));
 	numRestartOtherBox->setText( tr("Restart after other format"));
 	numRestartHigherBox->setText(tr("Restart after higher level"));
 
@@ -202,6 +202,7 @@ void SMPStyleWidget::languageChange()
 	parEffectIndentBox->setText(tr("AutoIndent"));
 	parentParEffectsButton->setText(tr("Use Parent`s Values"));
 
+/* #13455 stop making the font 2ce as big
 	QFont font1;
 	if (font1.pointSize())
 		font1.setPointSize(font1.pointSize() *2);
@@ -209,7 +210,7 @@ void SMPStyleWidget::languageChange()
 		font1.setPixelSize(font1.pixelSize() *2);
 	((QComboBox*) bulletStrEdit)->setFont(font1);
 	(bulletStrEdit->lineEdit())->setFont(font1);
-
+*/
 	tabsBox->setTitle(tr("Tabulators and Indentation"));
 	tabWidget->setTabText(0, tr("Properties"));
 	tabWidget->setTabText(1, tr("Paragraph Effects"));
