@@ -20,6 +20,7 @@ for which a new license (GPL+exception) is in place.
  ***************************************************************************/
 #include <QMenu>
 #include <QIcon>
+#include <QSysInfo>
 #include <QVector>
 #include "scraction.h"
 #include "scribus.h"
@@ -167,19 +168,25 @@ void ScrAction::setToolTipFromTextAndShortcut()
 	if (sct.isEmpty())
 		QAction::setToolTip("<qt>" + cleanMenuText() + "</qt>");
 	else
+	{
+		if (QSysInfo::productType()=="osx")
+			sct.replace("Ctrl","&#8984;");
 		QAction::setToolTip("<qt>" + cleanMenuText() + " (" + sct + ")" + "</qt>");
+	}
 }
 
 void ScrAction::setStatusTextAndShortcut(const QString& statusText)
 {
 	QString sct(shortcut().toString());
+	qDebug()<<sct;
 	if (sct.isEmpty())
 		QAction::setStatusTip(statusText);
 	else
+	{
+		if (QSysInfo::productType()=="osx")
+			sct.replace("Ctrl","&#8984;");
 		QAction::setStatusTip(statusText + " (" + sct + ")");
-	//	QAction::setStatusTip("<qt>" + statusText + "</qt>");
-	//else
-	//	QAction::setStatusTip("<qt>" + statusText + " (" + sct + ")" + "</qt>");
+	}
 }
 
 int ScrAction::getMenuIndex() const
