@@ -51,11 +51,6 @@ protected:
 	QVector< QPair<QString, QStringList> >* defNonMenuActions;
 	QTreeWidgetItem * selectedLVI;
 	int keyCode;
-	QString Part0;
-	QString Part1;
-	QString Part2;
-	QString Part3;
-	QString Part4;
 
 	void insertActions();
 	void importKeySet(QString);
