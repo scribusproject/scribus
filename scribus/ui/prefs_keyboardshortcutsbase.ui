@@ -45,8 +45,8 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>787</width>
-        <height>501</height>
+        <width>789</width>
+        <height>504</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -185,6 +185,9 @@
            </property>
            <property name="text">
             <string>CTRL+ALT+SHIFT+W</string>
+           </property>
+           <property name="textFormat">
+            <enum>Qt::RichText</enum>
            </property>
            <property name="alignment">
             <set>Qt::AlignCenter</set>
