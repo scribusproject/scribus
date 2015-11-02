@@ -40,8 +40,8 @@ bool isPartFilledImageFrame(PageItem * currItem)
 {
 	double imageRealWidth  = currItem->imageXScale() * currItem->pixm.imgInfo.lowResScale * currItem->pixm.width();
 	double imageRealHeight = currItem->imageYScale() * currItem->pixm.imgInfo.lowResScale * currItem->pixm.height();
-	qDebug() << "X" << currItem->width() << imageRealWidth;
-    qDebug() << "Y" << currItem->height() << imageRealHeight;
+//	qDebug() << "X" << currItem->width() << imageRealWidth;
+//	qDebug() << "Y" << currItem->height() << imageRealHeight;
 	return ((currItem->width() - imageRealWidth) > 0.05 || (currItem->height() - imageRealHeight) > 0.05);
 }
 
