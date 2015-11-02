@@ -229,6 +229,10 @@ void ScribusQApp::parseCommandLine()
 			// last argument. FIXME: Qt only understands -display not --display and -d , we need to work
 			// around this.
 		} else if (arg == ARG_PREFS || arg == ARG_PREFS_SHORT) {
+			if (argi+1 == argsc) {
+				std::cout << tr("Option %1 require an argument.").arg(arg).toLocal8Bit().data() << std::endl;
+				std::exit(EXIT_FAILURE);
+			}
 			prefsUserFile = QFile::decodeName(args[argi + 1].toLocal8Bit());
 			if (!QFileInfo(prefsUserFile).exists()) {
 				showError(prefsUserFile);
@@ -240,6 +244,10 @@ void ScribusQApp::parseCommandLine()
 		{
 			// Andreas Vox: Qt/Mac has -psn_blah flags that must be accepted.
 		} else if (arg == ARG_PYTHONSCRIPT || arg == ARG_PYTHONSCRIPT_SHORT) {
+			if (argi+1 == argsc) {
+				std::cout << tr("Option %1 require an argument.").arg(arg).toLocal8Bit().data() << std::endl;
+				std::exit(EXIT_FAILURE);
+			}
 			pythonScript = QFile::decodeName(args[argi + 1].toLocal8Bit());
 			if (!QFileInfo(pythonScript).exists()) {
 				showError(pythonScript);
