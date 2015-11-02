@@ -235,7 +235,7 @@ void ScribusQApp::parseCommandLine()
 			}
 			prefsUserFile = QFile::decodeName(args[argi + 1].toLocal8Bit());
 			if (!QFileInfo(prefsUserFile).exists()) {
-				showError(prefsUserFile);
+				std::cout << tr("Preferenes file %1 does not exist, aborting.").arg(prefsUserFile).toLocal8Bit().data() << std::endl;
 				std::exit(EXIT_FAILURE);
 			} else {
 				++argi;
@@ -250,7 +250,7 @@ void ScribusQApp::parseCommandLine()
 			}
 			pythonScript = QFile::decodeName(args[argi + 1].toLocal8Bit());
 			if (!QFileInfo(pythonScript).exists()) {
-				showError(pythonScript);
+				std::cout << tr("Python script %1 does not exist, aborting.").arg(pythonScript).toLocal8Bit().data() << std::endl;
 				std::exit(EXIT_FAILURE);
 			} else {
 				++argi;
@@ -259,6 +259,10 @@ void ScribusQApp::parseCommandLine()
 			argi++;
 			break;
 		} else { //argument is not a known option, but either positional parameter or invalid.
+			if (arg.left(1) == "-") {
+				std::cout << tr("Invalid argument: %1").arg(arg).toLocal8Bit().data() << std::endl;
+				std::exit(EXIT_FAILURE);
+			}
 			break;
 		}
 	}
@@ -266,7 +270,7 @@ void ScribusQApp::parseCommandLine()
 	for ( ; argi<argsc; argi++) {
 		fileName = QFile::decodeName(args[argi].toLocal8Bit());
 		if (!QFileInfo(fileName).exists()) {
-			showError(fileName);
+			std::cout << tr("File %1 does not exist, aborting.").arg(fileName).toLocal8Bit().data() << std::endl;
 			std::exit(EXIT_FAILURE);
 		} else {
 			filesToLoad.append(fileName);
@@ -596,18 +600,6 @@ void ScribusQApp::showHeader()
 	ts << QString("%1 %2").arg( tr("Wiki")+":",          descwidth).arg("http://wiki.scribus.net"); endl(ts);
 	ts << QString("%1 %2").arg( tr("Issues")+":",        descwidth).arg("http://bugs.scribus.net"); endl(ts);
 	endl(ts);
-}
-
-void ScribusQApp::showError(QString arg)
-{
-	showHeader();
-	if (arg.left(1) == "-" || arg.left(2) == "--") {
-		std::cout << tr("Invalid argument: %1").arg(arg).toLocal8Bit().data() << std::endl;
-	} else {
-		std::cout << tr("File %1 does not exist, aborting.").arg(arg).toLocal8Bit().data() << std::endl;
-	}
-	showUsage();
-	std::cout << tr("Scribus Version").toLocal8Bit().data() << " " << VERSION << std::endl;
 }
 
 void ScribusQApp::neverSplash(bool splashOff)

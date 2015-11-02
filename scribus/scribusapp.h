@@ -77,7 +77,6 @@ class SCRIBUS_API ScribusQApp : public QApplication
 	private:
 		ScribusCore* m_ScCore;
 		void showHeader();
-		void showError(QString arg);
 		void showVersion();
 		/*!
 		\author Franz Schmid
