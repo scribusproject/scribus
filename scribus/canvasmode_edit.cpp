@@ -140,7 +140,8 @@ void CanvasMode_Edit::keyPressEvent(QKeyEvent *e)
 				break;
 		}
 		blinkTextCursor();
-
+		if (!currItem->isTextFrame() || (currItem->isAutoNoteFrame() && currItem->asNoteFrame()->notesList().isEmpty()))
+			m_ScMW->slotDocCh(false);
 		currItem->handleModeEditKey(e, m_keyRepeat);
 		if (currItem->isAutoNoteFrame() && currItem->asNoteFrame()->notesList().isEmpty())
 		{
@@ -151,8 +152,6 @@ void CanvasMode_Edit::keyPressEvent(QKeyEvent *e)
 			}
 		}
 		m_keyRepeat = oldKeyRepeat;
-		if (!currItem->isTextFrame() || (currItem->isAutoNoteFrame() && currItem->asNoteFrame()->notesList().isEmpty()))
-			m_ScMW->slotDocCh(false);
 		m_doc->regionsChanged()->update(QRectF());
 	}
 	m_keyRepeat = false;
