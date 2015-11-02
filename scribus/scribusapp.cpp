@@ -166,33 +166,46 @@ void ScribusQApp::parseCommandLine()
 
 	useGUI = true;
 	int argi = 1;
-	for( ; argi < argsc; argi++) { //handle options (not positional parameters)
+	for( ; argi < argsc; argi++)
+	{ //handle options (not positional parameters)
 		arg = args[argi];
-
-		if (arg == ARG_SCRIPTARG || arg == ARG_SCRIPTARG_SHORT) { //needs to be first to give precedence to script argument name over scribus' options
-			if (++argi < argsc && (args[argi] != CMD_OPTIONS_END)) {
+		if (arg == ARG_SCRIPTARG || arg == ARG_SCRIPTARG_SHORT)
+		{ //needs to be first to give precedence to script argument name over scribus' options
+			if (++argi < argsc && (args[argi] != CMD_OPTIONS_END))
+			{
 				pythonScriptArgs.append(args[argi]); // script argument
 			} else {
 				std::cout << tr("Invalid argument use: '%1' requires to be followed by <argument> [value]").arg(arg).toLocal8Bit().data() << std::endl;
 				showUsage();
 				std::exit(EXIT_FAILURE);
 			}
-			if (++argi < argsc && !args[argi].startsWith("-")) {   // arg value
+			if (++argi < argsc && !args[argi].startsWith("-"))
+			{   // arg value
 				pythonScriptArgs.append( QFile::decodeName(args[argi].toLocal8Bit()) );
 			}
 		}
-		else if ((arg == ARG_LANG || arg == ARG_LANG_SHORT) && (++argi < argsc)) {
-			lang = args[argi];
+		else if ((arg == ARG_LANG || arg == ARG_LANG_SHORT))
+		{
+			if  (++argi < argsc)
+				lang = args[argi];
+			else
+			{
+				std::cout << tr("Option %1 require an argument.").arg(arg).toLocal8Bit().data() << std::endl;
+				std::exit(EXIT_FAILURE);
+			}
 		}
-		else if (arg == ARG_VERSION || arg == ARG_VERSION_SHORT) {
+		else if (arg == ARG_VERSION || arg == ARG_VERSION_SHORT)
+		{
 			header=true;
 			version=true;
-		} else if (arg == ARG_HELP || arg == ARG_HELP_SHORT) {
+		} else if (arg == ARG_HELP || arg == ARG_HELP_SHORT)
+		{
 			header=true;
 			usage=true;
 		}
 #ifdef WITH_TESTS
-		else if (arg == ARG_TESTS || arg == ARG_TESTS_SHORT) {
+		else if (arg == ARG_TESTS || arg == ARG_TESTS_SHORT)
+		{
 			header=true;
 			runtests=true;
 			testargsc = argc() - argi;
@@ -200,66 +213,86 @@ void ScribusQApp::parseCommandLine()
 			break;
 		}
 #endif
-		else if (arg == ARG_AVAILLANG || arg == ARG_AVAILLANG_SHORT) {
+		else if (arg == ARG_AVAILLANG || arg == ARG_AVAILLANG_SHORT)
+		{
 			header=true;
 			availlangs=true;
-		} else if (arg == ARG_UPGRADECHECK || arg == ARG_UPGRADECHECK_SHORT) {
+		} else if (arg == ARG_UPGRADECHECK || arg == ARG_UPGRADECHECK_SHORT)
+		{
 			header=true;
 			runUpgradeCheck=true;
 		}
-		else if ((arg == ARG_LANG || arg == ARG_LANG_SHORT) && (++argi < argsc)) {
+		else if ( arg == ARG_CONSOLE || arg == ARG_CONSOLE_SHORT )
+		{
 			continue;
-		} 
-		else if ( arg == ARG_CONSOLE || arg == ARG_CONSOLE_SHORT ) {
-			continue;
-		} else if (arg == ARG_NOSPLASH || arg == ARG_NOSPLASH_SHORT) {
+		} else if (arg == ARG_NOSPLASH || arg == ARG_NOSPLASH_SHORT)
+		{
 			showSplash = false;
 		}
-		else if (arg == ARG_NEVERSPLASH || arg == ARG_NEVERSPLASH_SHORT) {
+		else if (arg == ARG_NEVERSPLASH || arg == ARG_NEVERSPLASH_SHORT)
+		{
 			showSplash = false;
 			neversplash = true;
-		} else if (arg == ARG_NOGUI || arg == ARG_NOGUI_SHORT) {
+		} else if (arg == ARG_NOGUI || arg == ARG_NOGUI_SHORT)
+		{
 			useGUI=false;
-		} else if (arg == ARG_FONTINFO || arg == ARG_FONTINFO_SHORT) {
+		} else if (arg == ARG_FONTINFO || arg == ARG_FONTINFO_SHORT)
+		{
 			showFontInfo=true;
-		} else if (arg == ARG_PROFILEINFO || arg == ARG_PROFILEINFO_SHORT) {
+		} else if (arg == ARG_PROFILEINFO || arg == ARG_PROFILEINFO_SHORT)
+		{
 			showProfileInfo=true;
-		} else if ((arg == ARG_DISPLAY || arg==ARG_DISPLAY_SHORT || arg==ARG_DISPLAY_QT) && ++argi < argsc) {
+		} else if ((arg == ARG_DISPLAY || arg==ARG_DISPLAY_SHORT || arg==ARG_DISPLAY_QT) && ++argi < argsc)
+		{
 			// allow setting of display, QT expect the option -display <display_name> so we discard the
 			// last argument. FIXME: Qt only understands -display not --display and -d , we need to work
 			// around this.
-		} else if (arg == ARG_PREFS || arg == ARG_PREFS_SHORT) {
-			if (argi+1 == argsc) {
+		} else if (arg == ARG_PREFS || arg == ARG_PREFS_SHORT)
+		{
+			if (argi+1 == argsc)
+			{
 				std::cout << tr("Option %1 require an argument.").arg(arg).toLocal8Bit().data() << std::endl;
 				std::exit(EXIT_FAILURE);
 			}
 			prefsUserFile = QFile::decodeName(args[argi + 1].toLocal8Bit());
-			if (!QFileInfo(prefsUserFile).exists()) {
+			if (!QFileInfo(prefsUserFile).exists())
+			{
 				std::cout << tr("Preferenes file %1 does not exist, aborting.").arg(prefsUserFile).toLocal8Bit().data() << std::endl;
 				std::exit(EXIT_FAILURE);
 			} else {
 				++argi;
 			}
-		} else if (strncmp(arg.toLocal8Bit().data(),"-psn_",4) == 0)
+		}
+		else if (strncmp(arg.toLocal8Bit().data(),"-psn_",4) == 0)
 		{
 			// Andreas Vox: Qt/Mac has -psn_blah flags that must be accepted.
-		} else if (arg == ARG_PYTHONSCRIPT || arg == ARG_PYTHONSCRIPT_SHORT) {
-			if (argi+1 == argsc) {
+		} else if (arg == ARG_PYTHONSCRIPT || arg == ARG_PYTHONSCRIPT_SHORT)
+		{
+			if (argi+1 == argsc)
+			{
 				std::cout << tr("Option %1 require an argument.").arg(arg).toLocal8Bit().data() << std::endl;
 				std::exit(EXIT_FAILURE);
 			}
 			pythonScript = QFile::decodeName(args[argi + 1].toLocal8Bit());
-			if (!QFileInfo(pythonScript).exists()) {
+			if (!QFileInfo(pythonScript).exists())
+			{
 				std::cout << tr("Python script %1 does not exist, aborting.").arg(pythonScript).toLocal8Bit().data() << std::endl;
 				std::exit(EXIT_FAILURE);
-			} else {
+			}
+			else
+			{
 				++argi;
 			}
-		} else if (arg == CMD_OPTIONS_END) { //double dash, indicates end of command line options, see http://unix.stackexchange.com/questions/11376/what-does-double-dash-mean-also-known-as-bare-double-dash
+		}
+		else if (arg == CMD_OPTIONS_END)
+		{ //double dash, indicates end of command line options, see http://unix.stackexchange.com/questions/11376/what-does-double-dash-mean-also-known-as-bare-double-dash
 			argi++;
 			break;
-		} else { //argument is not a known option, but either positional parameter or invalid.
-			if (arg.left(1) == "-") {
+		}
+		else
+		{ //argument is not a known option, but either positional parameter or invalid.
+			if (arg.left(1) == "-")
+			{
 				std::cout << tr("Invalid argument: %1").arg(arg).toLocal8Bit().data() << std::endl;
 				std::exit(EXIT_FAILURE);
 			}
@@ -267,12 +300,16 @@ void ScribusQApp::parseCommandLine()
 		}
 	}
 	// parse for remaining (positional) arguments, if any
-	for ( ; argi<argsc; argi++) {
+	for ( ; argi<argsc; argi++)
+	{
 		fileName = QFile::decodeName(args[argi].toLocal8Bit());
-		if (!QFileInfo(fileName).exists()) {
+		if (!QFileInfo(fileName).exists())
+		{
 			std::cout << tr("File %1 does not exist, aborting.").arg(fileName).toLocal8Bit().data() << std::endl;
 			std::exit(EXIT_FAILURE);
-		} else {
+		}
+		else
+		{
 			filesToLoad.append(fileName);
 		}
 	}
@@ -280,7 +317,8 @@ void ScribusQApp::parseCommandLine()
 	initLang();
 	
 	//Show command line info
-	if (header) {
+	if (header)
+	{
 		useGUI = false;
 		showHeader();
 	}
@@ -300,13 +338,11 @@ void ScribusQApp::parseCommandLine()
 		uc.fetch();
 	}
 	//Dont run the GUI init process called from main.cpp, and return
-	if (header) {		
+	if (header)
 		std::exit(EXIT_SUCCESS);
-	}
 	//proceed
-	if(neversplash) {
+	if(neversplash)
 		neverSplash(true);
-	}
 	
 }
 
@@ -379,9 +415,11 @@ QStringList ScribusQApp::getLang(QString lang)
 		if (infoPrefsFile.exists())
 		{
 			PrefsFile* prefsFile = new PrefsFile(prefsXMLFile);
-			if (prefsFile) {
+			if (prefsFile)
+			{
 				PrefsContext* userprefsContext = prefsFile->getContext("user_preferences");
-				if (userprefsContext) {
+				if (userprefsContext)
+				{
 					QString prefslang = userprefsContext->get("gui_language","");
 					if (!prefslang.isEmpty())
 						langs.push_back(prefslang);
@@ -486,11 +524,14 @@ void ScribusQApp::installTranslators(const QStringList & langs)
 	/* CB TODO, currently disabled, because its broken broken broken
 	path = ScPaths::instance().pluginDir();
 	QDir dir(path , "*.*", QDir::Name, QDir::Files | QDir::NoSymLinks);
-	if (dir.exists() && (dir.count() != 0)) {
-		for (uint i = 0; i < dir.count(); ++i) {
+	if (dir.exists() && (dir.count() != 0))
+	{
+		for (uint i = 0; i < dir.count(); ++i)
+		{
 			QFileInfo file(path + dir[i]);
 			if ((file.extension(false).toLower() == "qm")
-			&& (file.extension(true).toLower().left(5) == lang)) {
+			&& (file.extension(true).toLower().left(5) == lang))
+			{
 				trans = new QTranslator(0);
 				trans->load(QString(path + dir[i]), ".");
 				installTranslator(trans);
