@@ -89,7 +89,7 @@ private:
 	void fillNumFormatCombo()
 	{
 		numFormatCombo->clear();
-		numFormatCombo->addItems(getFormatList());
+		numFormatCombo->addItems(getFormatListTr());
 	}
 
 	void fillPECombo()

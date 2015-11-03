@@ -45,6 +45,13 @@ QStringList getFormatList()
 	return list;
 }
 
+QStringList getFormatListTr()
+{
+	QStringList list;
+	list << QObject::tr("1, 2, 3, ...") << QObject::tr("i, ii, iii, ...") << QObject::tr("I, II, III, ...") << QObject::tr("a, b, c, ...") << QObject::tr("A, B, C, ...") << QObject::tr("*") << QObject::tr("CJK");
+	return list;
+}
+
 QString Numeration::numString(int num) const
 {
 	if (numFormat == Type_asterix)

@@ -39,7 +39,9 @@ void Prefs_DocumentSections::restoreDefaults(struct ApplicationPrefs *prefsData)
 	localSections=prefsData->docSectionMap;
 	m_maxpageindex=m_doc->DocPages.count()-1;
 	styles.clear();
-	styles << tr("1, 2, 3, ...") << tr("i, ii, iii, ...") << tr("I, II, III, ...") << tr("a, b, c, ...") << tr("A, B, C, ...") << tr("*") << tr("CJK") << CommonStrings::tr_None;
+	styles=getFormatListTr();
+	styles << CommonStrings::tr_None;
+//	styles << tr("1, 2, 3, ...") << tr("i, ii, iii, ...") << tr("I, II, III, ...") << tr("a, b, c, ...") << tr("A, B, C, ...") << tr("*") << tr("CJK") << CommonStrings::tr_None;
 
 	updateTable();
 }

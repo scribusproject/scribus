@@ -60,5 +60,6 @@ QString getAsterixStringFromNum(int num, QString asterix, QChar leadingChar='_',
 //return numeration name from type
 QString getFormatName(int format);
 QStringList getFormatList();
+QStringList getFormatListTr();
 
 #endif // NUMERATION_H
