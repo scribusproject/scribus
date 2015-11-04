@@ -621,6 +621,7 @@ SET(SCRIBUS_SOURCES
 	latexhelpers.cpp
 	loadsaveplugin.cpp
 	localemgr.cpp
+	marks.cpp
 	menumanager.cpp
 	mesh.cpp
 	navigator.cpp

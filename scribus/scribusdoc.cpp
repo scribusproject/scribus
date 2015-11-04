@@ -6414,6 +6414,7 @@ void ScribusDoc::reformPages(bool moveObjects)
 		return;
 	if (!isLoading())
 	{
+		updateMarks(true);
 		FPoint minPoint, maxPoint;
 		canvasMinMax(minPoint, maxPoint);
 		FPoint maxSize(qMax(maxXPos, maxPoint.x()+docPrefsData.displayPrefs.scratch.right()), qMax(maxYPos, maxPoint.y()+docPrefsData.displayPrefs.scratch.bottom()));
@@ -7128,7 +7129,6 @@ int ScribusDoc::getSectionKeyForPageIndex(const uint pageIndex) const
 			break;
 		}
 	}
-
 	return retVal;
 }
 
@@ -7146,7 +7146,7 @@ QString ScribusDoc::getSectionNameForPageIndex(const uint pageIndex) const
 
 const QString ScribusDoc::getSectionPageNumberForPageIndex(const uint pageIndex) const
 {
-	QString retVal(QString::null);
+	QString retVal;
 	int key=getSectionKeyForPageIndex(pageIndex);
 	if (key==-1)
 		return retVal;
@@ -17392,7 +17392,7 @@ bool ScribusDoc::invalidateVariableTextFrames(Mark* mrk, bool forceUpdate)
 }
 
 //update strings (page number) for marks pointed to anchors and items
-//and update marks list in Marka Manager
+//and update marks list in Marks Manager
 bool ScribusDoc::updateMarks(bool updateNotesMarks)
 {
 	if (updateNotesMarks && !notesList().isEmpty())
@@ -17483,15 +17483,11 @@ bool ScribusDoc::updateMarks(bool updateNotesMarks)
 		{
 			if (mrk->getItemPtr() != NULL)
 			{
-				int page = mrk->getItemPtr()->OwnPage +1;
-				if (mrk->getString().toInt() != page)
+				mrk->setString(getSectionPageNumberForPageIndex(mrk->getItemPtr()->OwnPage));
+				if (mItem != NULL)
 				{
-					mrk->setString(QString("%1").arg(page));
-					if (mItem != NULL)
-					{
-						mItem->asTextFrame()->invalidateLayout(false);
-						docWasChanged = true;
-					}
+					mItem->asTextFrame()->invalidateLayout(false);
+					docWasChanged = true;
 				}
 			}
 			else
@@ -17515,15 +17511,11 @@ bool ScribusDoc::updateMarks(bool updateNotesMarks)
 				else
 				{
 					destMark->OwnPage = dItem->OwnPage;
-					int page = destMark->OwnPage +1;
-					if (mrk->getString().toInt() != page)
+					mrk->setString(getSectionPageNumberForPageIndex(destMark->OwnPage));
+					if (mItem != NULL)
 					{
-						mrk->setString(QString("%1").arg(page));
-						if (mItem != NULL)
-						{
-							mItem->asTextFrame()->invalidateLayout(false);
-							docWasChanged = true;
-						}
+						mItem->asTextFrame()->invalidateLayout(false);
+						docWasChanged = true;
 					}
 				}
 			}

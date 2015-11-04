@@ -1,7 +1,7 @@
 #ifndef MARKS_H
 #define MARKS_H
 
-#include "QString"
+#include <QString>
 #include "scribusapi.h"
 #include "desaxe/saxiohelper.h"
 #include "desaxe/simple_actions.h"
@@ -80,8 +80,8 @@ public:
 	void setMark(QString l, MarkType t) { data.destmarkName = l; data.destmarkType = t; }
 	const MarkType getMarkType() { return data.markTyp; }
 	void setMarkType(MarkType t) { data.markTyp = t; }
-	const QString getString() { return data.strtxt; }
-	void setString( const QString str ) { data.strtxt = str; }
+	const QString getString();
+	void setString( const QString str );
 	TextNote* getNotePtr() { return data.notePtr; }
 	void setNotePtr(TextNote *note) { data.notePtr = note; }
 
@@ -107,3 +107,4 @@ public:
 };
 
 #endif // MARKS_H
+

@@ -2152,7 +2152,7 @@ public:
 						if (item == NULL)
 							mrk->setString("0");
 						else
-							mrk->setString(QString::number(item->OwnPage));
+							mrk->setString(doc->getSectionPageNumberForPageIndex(item->OwnPage));
 						mrk->setItemName(Xml_data(iIt));
 					}
 					if (mrk->isType(MARK2MarkType) && (m_lIt != attr.end()) && (m_tIt != attr.end()))
@@ -2162,7 +2162,7 @@ public:
 						if (targetMark == NULL)
 							mrk->setString("0");
 						else
-							mrk->setString(QString::number(targetMark->OwnPage));
+							mrk->setString(doc->getSectionPageNumberForPageIndex(targetMark->OwnPage));
 						mrk->setItemName(Xml_data(m_lIt));
 					}
 					if (mrk->isType(MARKNoteMasterType))

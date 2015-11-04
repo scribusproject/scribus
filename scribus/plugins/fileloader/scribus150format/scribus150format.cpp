@@ -3431,7 +3431,6 @@ bool Scribus150Format::readMarks(ScribusDoc* doc, ScXmlStreamReader& reader)
 				Mark* mark = doc->newMark();
 				mark->label=attrs.valueAsString("label");
 				mark->setType(type);
-
 				if (type == MARKVariableTextType && attrs.hasAttribute("str"))
 					mark->setString(attrs.valueAsString("str"));
 				if (type == MARK2ItemType && attrs.hasAttribute("ItemID"))
@@ -6696,7 +6695,7 @@ void Scribus150Format::updateNames2Ptr() //after document load - items pointers 
 			if (LinkID.contains(ItemID))
 			{
 				mrk->setItemPtr(LinkID[ItemID]);
-				mrk->setString(QString("%1").arg(mrk->getItemPtr()->OwnPage +1));
+				mrk->setString(m_Doc->getSectionPageNumberForPageIndex(mrk->getItemPtr()->OwnPage));
 			}
 			else
 			{
