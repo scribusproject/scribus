@@ -141,7 +141,6 @@ StyleSelect::StyleSelect(QWidget* parent) : QWidget(parent)
 	UnderlinePop->addAction(UnderlineValAct);
 	underlineButton = new QToolButton( this );
 	underlineButton->setText( "" );
-	underlineButton->setMaximumSize( QSize( 22, 22 ) );
 	underlineButton->setIcon(im->loadIcon("Unter.xpm"));
 	underlineButton->setCheckable( true );
 	underlineButton->setMenu(UnderlinePop);
@@ -149,7 +148,6 @@ StyleSelect::StyleSelect(QWidget* parent) : QWidget(parent)
 	ssLayout->addWidget( underlineButton );
 	underlineWordButton = new QToolButton( this );
 	underlineWordButton->setText( "" );
-	underlineWordButton->setMaximumSize( QSize( 22, 22 ) );
 	underlineWordButton->setIcon(im->loadIcon("wordsOnly.png"));
 	underlineWordButton->setCheckable( true );
 	underlineWordButton->setMenu(UnderlinePop);
@@ -158,13 +156,11 @@ StyleSelect::StyleSelect(QWidget* parent) : QWidget(parent)
 
 	subscriptButton = new QToolButton( this );
 	subscriptButton->setText( "" );
-	subscriptButton->setMaximumSize( QSize( 22, 22 ) );
 	subscriptButton->setIcon(im->loadIcon("Tief.xpm"));
 	subscriptButton->setCheckable( true );
 	ssLayout->addWidget( subscriptButton );
 	superscriptButton = new QToolButton( this );
 	superscriptButton->setText( "" );
-	superscriptButton->setMaximumSize( QSize( 22, 22 ) );
 	superscriptButton->setIcon(im->loadIcon("Hoch.xpm"));
 	superscriptButton->setCheckable( true );
 	ssLayout->addWidget( superscriptButton );
@@ -176,7 +172,6 @@ StyleSelect::StyleSelect(QWidget* parent) : QWidget(parent)
 	allcapsButton->setCheckable( true );
 	ssLayout->addWidget( allcapsButton );
 	smallcapsButton = new QToolButton( this );
-	smallcapsButton->setMaximumSize( QSize( 22, 22 ) );
 	smallcapsButton->setText("");
 	smallcapsButton->setIcon(im->loadIcon("Kapital.xpm"));
 	smallcapsButton->setCheckable( true );
@@ -189,7 +184,6 @@ StyleSelect::StyleSelect(QWidget* parent) : QWidget(parent)
 	StrikePop->addAction(StrikeValAct);
 	strikeoutButton = new QToolButton( this );
 	strikeoutButton->setText( "" );
-	strikeoutButton->setMaximumSize( QSize( 22, 22 ) );
 	strikeoutButton->setIcon(im->loadIcon("Strike.xpm"));
 	strikeoutButton->setCheckable( true );
 	strikeoutButton->setMenu(StrikePop);
@@ -203,7 +197,6 @@ StyleSelect::StyleSelect(QWidget* parent) : QWidget(parent)
 	OutlinePop->addAction(OutlineValAct);
 	outlineButton = new QToolButton( this );
 	outlineButton->setText( "" );
-	outlineButton->setMaximumSize( QSize( 22, 22 ) );
 	outlineButton->setIcon(im->loadIcon("outlined.png"));
 	outlineButton->setCheckable( true );
 	outlineButton->setMenu(OutlinePop);
@@ -217,14 +210,36 @@ StyleSelect::StyleSelect(QWidget* parent) : QWidget(parent)
 	ShadowPop->addAction(ShadowValAct);
 	shadowButton = new QToolButton( this );
 	shadowButton->setText( "" );
-	shadowButton->setMaximumSize( QSize( 22, 22 ) );
 	shadowButton->setIcon(im->loadIcon("shadow.png"));
 	shadowButton->setCheckable( true );
 	shadowButton->setMenu(ShadowPop);
 	shadowButton->setPopupMode(QToolButton::DelayedPopup);
 	ssLayout->addWidget( shadowButton );
 	
+	QSize s(24,24);
+	underlineButton->setMinimumSize(s);
+	underlineWordButton->setMinimumSize(s);
+	subscriptButton->setMinimumSize(s);
+	superscriptButton->setMinimumSize(s);
+	smallcapsButton->setMinimumSize(s);
+	allcapsButton->setMinimumSize(s);
+	strikeoutButton->setMinimumSize(s);
+	outlineButton->setMinimumSize(s);
+	shadowButton->setMinimumSize(s);
+	underlineButton->setMaximumSize(s);
+	underlineWordButton->setMaximumSize(s);
+	subscriptButton->setMaximumSize(s);
+	superscriptButton->setMaximumSize(s);
+	smallcapsButton->setMaximumSize(s);
+	allcapsButton->setMaximumSize(s);
+	strikeoutButton->setMaximumSize(s);
+	outlineButton->setMaximumSize(s);
+	shadowButton->setMaximumSize(s);
+
+
 	languageChange();
+
+
 
 	connect(allcapsButton, SIGNAL(clicked()), this, SLOT(setTypeStyle()));
 	connect(smallcapsButton, SIGNAL(clicked()), this, SLOT(setTypeStyle()));
