@@ -903,6 +903,7 @@
     <ClCompile Include="..\..\..\scribus\fonts\cff.cpp" />
     <ClCompile Include="..\..\..\scribus\fonts\sfnt.cpp" />
     <ClCompile Include="..\..\..\scribus\iconmanager.cpp" />
+    <ClCompile Include="..\..\..\scribus\marks.cpp" />
     <ClCompile Include="..\..\..\scribus\nodeeditcontext.cpp" />
     <ClCompile Include="..\..\..\scribus\pdfwriter.cpp" />
     <ClCompile Include="..\..\..\scribus\qtiocompressor.cpp" />
