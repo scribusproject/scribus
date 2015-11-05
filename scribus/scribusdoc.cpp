@@ -890,7 +890,7 @@ void ScribusDoc::createHyphenator()
 	if (m_hasGUI)
 	{
 		if (docHyphenator)
-			delete docHyphenator;
+			return;
 		docHyphenator = new Hyphenator(m_ScMW, this);
 		Q_CHECK_PTR(docHyphenator);
 	}

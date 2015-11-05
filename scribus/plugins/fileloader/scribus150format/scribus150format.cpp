@@ -3508,6 +3508,9 @@ bool Scribus150Format::readSections(ScribusDoc* doc, ScXmlStreamReader& reader)
 
 bool Scribus150Format::readHyphen(ScribusDoc *doc, ScXmlStreamReader& reader)
 {
+	if (!doc->docHyphenator)
+		doc->createHyphenator();
+
 	QStringRef tagName = reader.name();
 	while(!reader.atEnd() && !reader.hasError())
 	{
