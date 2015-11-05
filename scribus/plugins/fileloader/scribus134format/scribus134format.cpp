@@ -863,6 +863,7 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 			}
 			if (pg.tagName()=="HYPHEN")
 			{
+				m_Doc->createHyphenator();
 				QDomNode hyelm = pg.firstChild();
 				while (!hyelm.isNull())
 				{
