@@ -7,10 +7,9 @@
 	<SCRIBUS_COMMON_LIB_ROOT>F:\Scribus Libs\scribus-common-libs</SCRIBUS_COMMON_LIB_ROOT>
 	<SCRIBUS_LIB_ROOT>F:\Scribus Libs\scribus-1.5.x-libs-msvc2012</SCRIBUS_LIB_ROOT>
 	<!-- Qt5 -->
-	<QT5_DIR Condition="'$(Platform)' == 'Win32'">F:\Libraries-vcall\Qt-5.4.2\msvc2012</QT5_DIR>
-	<QT5_DIR Condition="'$(Platform)' == 'Win32' and '$(PlatformToolset)' == 'v100'">F:\Libraries-vcall\Qt\5.4\msvc2010_opengl</QT5_DIR>
-	<QT5_DIR Condition="'$(Platform)' == 'Win32' and '$(PlatformToolset)' == 'v110_xp'">F:\Libraries-vcall\Qt-5.4.2\msvc2012_xp</QT5_DIR>
-	<QT5_DIR Condition="'$(Platform)' == 'x64'">F:\Libraries-vcall\Qt-5.4.2\msvc2012_64</QT5_DIR>
+	<QT5_DIR Condition="'$(Platform)' == 'Win32'">F:\Libraries-vcall\Qt\5.5\msvc2012</QT5_DIR>
+	<QT5_DIR Condition="'$(Platform)' == 'Win32' and '$(PlatformToolset)' == 'v110_xp'">F:\Libraries-vcall\Qt-5.5.1\msvc2012_xp</QT5_DIR>
+	<QT5_DIR Condition="'$(Platform)' == 'x64'">F:\Libraries-vcall\Qt-5.5.1\msvc2012_64</QT5_DIR>
 	<QT5CORE_LIB Condition="'$(Configuration)' == 'Debug'">Qt5Cored.lib</QT5CORE_LIB>
 	<QT5CORE_LIB Condition="'$(Configuration)' == 'Release'">Qt5Core.lib</QT5CORE_LIB>
 	<QT5GUI_LIB Condition="'$(Configuration)' == 'Debug'">Qt5Guid.lib</QT5GUI_LIB>
@@ -30,13 +29,13 @@
 	<!-- Boost -->
 	<BOOST_DIR>$(SCRIBUS_COMMON_LIB_ROOT)\boost-1.58.0</BOOST_DIR>
 	<!-- Cairo -->
-	<CAIRO_DIR>$(SCRIBUS_LIB_ROOT)\cairo-1.12.18</CAIRO_DIR>
+	<CAIRO_DIR>$(SCRIBUS_LIB_ROOT)\cairo-1.14.4</CAIRO_DIR>
 	<CAIRO_INCLUDE_DIR>$(CAIRO_DIR)\include</CAIRO_INCLUDE_DIR>
 	<CAIRO_LIB_DIR>$(CAIRO_DIR)\lib\$(Platform)-$(PlatformToolset)</CAIRO_LIB_DIR>
 	<CAIRO_LIB Condition="'$(Configuration)' == 'Debug'">cairo2d.lib</CAIRO_LIB>
 	<CAIRO_LIB Condition="'$(Configuration)' == 'Release'">cairo2.lib</CAIRO_LIB>
 	<!-- Freetype -->
-	<FREETYPE_DIR>$(SCRIBUS_LIB_ROOT)\freetype-2.5.5</FREETYPE_DIR>
+	<FREETYPE_DIR>$(SCRIBUS_LIB_ROOT)\freetype-2.6.1</FREETYPE_DIR>
 	<FREETYPE_INCLUDE_DIR>$(FREETYPE_DIR)\include</FREETYPE_INCLUDE_DIR>
 	<FREETYPE_LIB_DIR>$(FREETYPE_DIR)\lib\$(Platform)-$(PlatformToolset)</FREETYPE_LIB_DIR>
 	<FREETYPE_LIB Condition="'$(Configuration)' == 'Debug'">freetype_d.lib</FREETYPE_LIB>
@@ -54,8 +53,8 @@
 	<ICONV_LIB Condition="'$(Configuration)' == 'Debug'">iconv_d.lib</ICONV_LIB>
 	<ICONV_LIB Condition="'$(Configuration)' == 'Release'">iconv.lib</ICONV_LIB>
 	<!-- Icu -->
-	<ICU_INCLUDE_DIR>$(SCRIBUS_LIB_ROOT)\icu-53.1\include</ICU_INCLUDE_DIR>
-	<ICU_LIB_DIR>$(SCRIBUS_LIB_ROOT)\icu-53.1\lib\$(Platform)-$(PlatformToolset)</ICU_LIB_DIR>
+	<ICU_INCLUDE_DIR>$(SCRIBUS_LIB_ROOT)\icu-54.1\include</ICU_INCLUDE_DIR>
+	<ICU_LIB_DIR>$(SCRIBUS_LIB_ROOT)\icu-54.1\lib\$(Platform)-$(PlatformToolset)</ICU_LIB_DIR>
 	<ICU_LIB>icudt.lib;icuin.lib;icuuc.lib</ICU_LIB>
 	<!-- Littlecms -->
 	<LCMS_DIR>$(SCRIBUS_LIB_ROOT)\lcms2-2.7</LCMS_DIR>
@@ -104,7 +103,7 @@
 	<LIBREVENGE_STREAM_LIB Condition="'$(Configuration)' == 'Debug'">librevenge-stream-0.0d.lib</LIBREVENGE_STREAM_LIB>
 	<LIBREVENGE_STREAM_LIB Condition="'$(Configuration)' == 'Release'">librevenge-stream-0.0.lib</LIBREVENGE_STREAM_LIB>
 	<!-- Libtiff -->
-	<LIBTIFF_DIR>$(SCRIBUS_LIB_ROOT)\libtiff-4.0.3</LIBTIFF_DIR>
+	<LIBTIFF_DIR>$(SCRIBUS_LIB_ROOT)\libtiff-4.0.6</LIBTIFF_DIR>
 	<LIBTIFF_INCLUDE_DIR>$(LIBTIFF_DIR)\include</LIBTIFF_INCLUDE_DIR>
 	<LIBTIFF_LIB_DIR>$(LIBTIFF_DIR)\lib\$(Platform)-$(PlatformToolset)</LIBTIFF_LIB_DIR>
 	<LIBTIFF_LIB Condition="'$(Configuration)' == 'Debug'">libtiff5_d.lib</LIBTIFF_LIB>
@@ -128,7 +127,7 @@
 	<PODOFO_LIB Condition="'$(Configuration)' == 'Debug'">PoDoFoLibD.lib</PODOFO_LIB>
 	<PODOFO_LIB Condition="'$(Configuration)' == 'Release'">PoDoFoLib.lib</PODOFO_LIB>
 	<!-- Poppler -->
-	<POPPLER_DIR>$(SCRIBUS_LIB_ROOT)\poppler-0.31.0</POPPLER_DIR>
+	<POPPLER_DIR>$(SCRIBUS_LIB_ROOT)\poppler-0.37.0</POPPLER_DIR>
 	<POPPLER_INCLUDE_DIR>$(POPPLER_DIR)\include</POPPLER_INCLUDE_DIR>
 	<POPPLER_LIB_DIR>$(POPPLER_DIR)\lib\$(Platform)-$(PlatformToolset)</POPPLER_LIB_DIR>
 	<POPPLER_LIB Condition="'$(Configuration)' == 'Debug'">poppler_staticD.lib</POPPLER_LIB>
