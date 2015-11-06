@@ -687,29 +687,6 @@ bool Canvas::adjustBuffer()
 			newRect.translate(0, viewport.bottom() - m_bufferRect.bottom());
 //		qDebug() << "adjust buffer: " << m_bufferRect << "outside viewport" << viewport << " new rect:" << newRect;
 		
-/*
-		// enlarge buffer by half a screenwidth:
-		QRect newRect(m_bufferRect);
-		if (m_bufferRect.left() > viewport.left())
-			newRect.setLeft(qMin(newRect.left() - viewport.width()/2, viewport.left()));
-		if (m_bufferRect.right() < viewport.right())
-			newRect.setRight(qMax(newRect.right() + viewport.width()/2, viewport.right()));
-		if (m_bufferRect.top() > viewport.top())
-			newRect.setTop(qMin(newRect.top() - viewport.height()/2, viewport.top()));
-		if (m_bufferRect.bottom() < viewport.bottom())
-			newRect.setBottom(qMax(newRect.bottom() + viewport.height()/2, viewport.bottom()));
-		// if too large, try something smaller:
-		if (newRect.width() > 2*viewport.width())
-		{
-			newRect.setLeft(qMax(viewport.left() - viewport.width()/2, newRect.left()));
-			newRect.setRight(qMin(viewport.right() + viewport.width()/2, newRect.right()));
-		}
-		if (newRect.height() > 2*viewport.height())
-		{
-			newRect.setTop(qMax(viewport.top() - viewport.height()/2, newRect.top()));
-			newRect.setBottom(qMin(viewport.bottom() + viewport.height()/2, newRect.bottom()));
-		}
-*/
 		if (!m_bufferRect.intersects(newRect))
 		{
 //			qDebug() << "adjust buffer: fresh buffer" << m_bufferRect << "-->" << newRect;
@@ -769,25 +746,29 @@ bool Canvas::adjustBuffer()
 //			qDebug() << "adjust buffer old" << m_bufferRect << "@" << xpos << ypos << "--> new" << newRect;
 #endif
 			p.end();
+
+			// #8548, #13470 do not return true in this case, we only partially update buffer content
+			// and the redraw rect from paintEvent may not be included in the updated area if
+			// canvas has just been resized, after an object has been put in scrap area for eg.
 			if (newRect.top() < m_bufferRect.top())
 			{
 				fillBuffer(&newBuffer, newRect.topLeft(), QRect(newRect.left(), newRect.top(), newRect.width(), m_bufferRect.top() - newRect.top() + 2));
-				ret = true;
+				//ret = true;
 			}
 			if (newRect.bottom() > m_bufferRect.bottom())
 			{
 				fillBuffer(&newBuffer, newRect.topLeft(), QRect(newRect.left(), m_bufferRect.bottom() - 1, newRect.width(), newRect.bottom() - m_bufferRect.bottom() + 2));
-				ret = true;
+				//ret = true;
 			}
 			if (newRect.left() < m_bufferRect.left())
 			{
 				fillBuffer(&newBuffer, newRect.topLeft(), QRect(newRect.left(), m_bufferRect.top(), m_bufferRect.left() - newRect.left() + 2, m_bufferRect.height()));
-				ret = true;
+				//ret = true;
 			}
 			if (newRect.right() > m_bufferRect.right())
 			{
 				fillBuffer(&newBuffer, newRect.topLeft(), QRect(m_bufferRect.right() - 1, m_bufferRect.top(), newRect.right() - m_bufferRect.right() + 2, m_bufferRect.height()));
-				ret = true;
+				//ret = true;
 			}
 			m_buffer = newBuffer;
 			m_bufferRect = newRect;
