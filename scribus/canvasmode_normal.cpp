@@ -430,7 +430,7 @@ void CanvasMode_Normal::mouseMoveEvent(QMouseEvent *m)
 				{
 					if (m_canvas->cursorOverTextFrameControl(m->globalPos(), hoveredItem))
 					{
-						QToolTip::showText(m->globalPos() + QPoint(5, 5), tr("Overflow Characters: %1 (%2 White Spaces)").arg(hoveredItem->frameOverflowCount()).arg(hoveredItem->frameOverflowBlankCount()), m_canvas);
+						QToolTip::showText(m->globalPos() + QPoint(5, 5), tr("Overflow Characters: %1 (%2 White Spaces)\nClick to auto-create new linked textbox").arg(hoveredItem->frameOverflowCount()).arg(hoveredItem->frameOverflowBlankCount()), m_canvas);
 					}
 				}
 				else

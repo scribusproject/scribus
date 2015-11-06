@@ -580,6 +580,9 @@ void ScribusView::setCursorBasedOnAppMode(int appMode)
 				Deselect(true);
 			setCursor(QCursor(Qt::CrossCursor));
 			break;
+		case modeLinkFrames:
+			setCursor(im->loadCursor("LinkTextFrame.png", 0, 31));
+			break;
 		case modeMeasurementTool:
 		case modeEditGradientVectors:
 		case modeEditMeshGradient:
