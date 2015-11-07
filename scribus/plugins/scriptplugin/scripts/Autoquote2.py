@@ -338,8 +338,7 @@ scribus.docChanged(1)
 
 if (lang == 'fr'):
     scribus.messageBox("Fini", 'La préparation des quillemets et espaces est faite.\n'+str(nbchange)+' occurences ont été remplacées' + debugmessage, 
-                        icon=0,button1=1)
+                        icon=scribus.ICON_NONE,button1=scribus.BUTTON_OK)
 else:
     scribus.messageBox("Done", 'Successfully ran script\n'+str(nbchange)+' replacements have occurred' + debugmessage, # Change this message to your liking
-                        icon=0,button1=1)
-    
+                        icon=scribus.ICON_NONE,button1=scribus.BUTTON_OK)
