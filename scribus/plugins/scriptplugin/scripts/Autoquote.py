@@ -164,4 +164,4 @@ while c <= (contents -1):
 scribus.setRedraw(1)
 scribus.docChanged(1)
 endmessage = 'Successfully ran script\n Last character read was '+str(char) # Change this message to your liking
-scribus.messageBox("Finished", endmessage,icon=0,button1=1)
+scribus.messageBox("Finished", endmessage, icon=scribus.ICON_NONE, button1=scribus.BUTTON_OK)

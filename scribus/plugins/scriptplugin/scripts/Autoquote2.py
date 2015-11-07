@@ -342,3 +342,4 @@ if (lang == 'fr'):
 else:
     scribus.messageBox("Done", 'Successfully ran script\n'+str(nbchange)+' replacements have occurred' + debugmessage, # Change this message to your liking
                         icon=0,button1=1)
+    
