@@ -143,7 +143,6 @@ void CanvasMode_FrameLinks::mousePressEvent(QMouseEvent *m)
 
 	double Rxp = 0;
 	double Ryp = 0;
-	PageItem *currItem, *bb;
 	m_canvas->PaintSizeRect(QRect());
 	m_canvas->m_viewMode.m_MouseButtonPressed = true;
 	m_canvas->m_viewMode.operItemMoving = false;
@@ -168,6 +167,7 @@ void CanvasMode_FrameLinks::mousePressEvent(QMouseEvent *m)
 			m_view->DrawNew();
 		return;
 	}
+	PageItem *currItem=NULL, *bb=NULL;
 	switch (m_doc->appMode)
 	{
 		case modeLinkFrames:
@@ -226,6 +226,11 @@ void CanvasMode_FrameLinks::mousePressEvent(QMouseEvent *m)
 					if (bb->prevInChain())
 						bb->prevInChain()->unlink();
 					currItem->link(bb);
+
+					/*
+					// #133881: Remove item renumbering on link as 1.5.x has better drawing methods
+					// than 1.3.3.x did at the time (#3488). Leaving in in case we find we need it back
+					//
 					int cid = m_doc->Items->indexOf(currItem);
 					int bid = m_doc->Items->indexOf(bb);
 					// CB We need to do this because we draw in the order of the item list
@@ -235,6 +240,8 @@ void CanvasMode_FrameLinks::mousePressEvent(QMouseEvent *m)
 						m_doc->Items->insert(cid+1, bb);
 						bb = m_doc->Items->takeAt(bid);
 					}
+					*/
+
 					// m_view->updateContents();
 					// link calls PageItem::update	
 					//ECE no, link() not force update
