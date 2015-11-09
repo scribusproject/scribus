@@ -3733,7 +3733,7 @@ QByteArray PDFLibCore::Write_TransparencyGroup(double trans, int blend, QByteArr
 
 QByteArray PDFLibCore::PDF_PutSoftShadow(PageItem* ite, const ScPage *pag)
 {
-	if (Options.Version < PDFOptions::PDFVersion_14 || !ite->hasSoftShadow() || ite->softShadowColor() == CommonStrings::None || !ite->printEnabled())
+	if ((Options.Version < PDFOptions::PDFVersion_14 && Options.Version != PDFOptions::PDFVersion_X4) || !ite->hasSoftShadow() || ite->softShadowColor() == CommonStrings::None || !ite->printEnabled())
 		return "";
 	double maxSize;
 	QByteArray tmp("q\n");
