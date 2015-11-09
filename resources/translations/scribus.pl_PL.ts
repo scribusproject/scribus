@@ -17645,7 +17645,7 @@ wartość dodatnia zmieni jego kształt na wypukły</translation>
     <message>
         <location filename="../../scribus/ui/preferencesdialog.cpp" line="143"/>
         <source>Document Item Attributes</source>
-        <translation type="unfinished"></translation>
+        <translation>Atrybuty obiektów dokumentu</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/preferencesdialog.cpp" line="144"/>
@@ -17695,7 +17695,7 @@ wartość dodatnia zmieni jego kształt na wypukły</translation>
     <message>
         <location filename="../../scribus/ui/preferencesdialog.cpp" line="131"/>
         <source>Image Cache</source>
-        <translation type="unfinished"></translation>
+        <translation>Pamięć podręczna obrazka</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/preferencesdialogbase.ui" line="14"/>
@@ -17711,7 +17711,7 @@ wartość dodatnia zmieni jego kształt na wypukły</translation>
     <message>
         <location filename="../../scribus/ui/preferencesdialogbase.ui" line="66"/>
         <source>Defaults</source>
-        <translation type="unfinished"></translation>
+        <translation>Ustawienia domyślne</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/preferencesdialogbase.ui" line="89"/>
@@ -18372,7 +18372,7 @@ połączeń między ramkami.</translation>
         <location filename="../../scribus/ui/prefs_documentitemattributesbase.ui" line="14"/>
         <location filename="../../scribus/ui/prefs_documentitemattributesbase.ui" line="27"/>
         <source>Document Item Attributes</source>
-        <translation type="unfinished"></translation>
+        <translation>Atrybuty obiektów dokumentu</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_documentitemattributesbase.ui" line="48"/>
@@ -18759,12 +18759,12 @@ połączeń między ramkami.</translation>
     <message>
         <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="457"/>
         <source>Saving &amp;&amp; Undo</source>
-        <translation type="unfinished"></translation>
+        <translation>Zapisywanie i &amp;&amp;cofanie zmian</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="463"/>
         <source>Save in Compressed Format</source>
-        <translation type="unfinished"></translation>
+        <translation>Zapisz w skompresowanym formacie</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="493"/>
@@ -18774,32 +18774,32 @@ połączeń między ramkami.</translation>
     <message>
         <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="507"/>
         <source>Enable Automatic Saving of Documents</source>
-        <translation type="unfinished"></translation>
+        <translation>Włącz automatyczne zapisywanie dokumentów</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="516"/>
         <source>Interval:</source>
-        <translation type="unfinished"></translation>
+        <translation>Interwał:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="523"/>
         <source> min</source>
-        <translation type="unfinished"></translation>
+        <translation> min</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="568"/>
         <source>Undo / Redo</source>
-        <translation type="unfinished"></translation>
+        <translation>Cofanie / Przywracanie</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="582"/>
         <source>Enable Undo/Redo System</source>
-        <translation type="unfinished"></translation>
+        <translation>Włącz system cofania/przywracania</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="591"/>
         <source>Action History Length:</source>
-        <translation type="unfinished"></translation>
+        <translation>Długość historii operacji:</translation>
     </message>
 </context>
 <context>
@@ -18812,7 +18812,7 @@ połączeń między ramkami.</translation>
     <message>
         <location filename="../../scribus/ui/prefs_externaltools.cpp" line="106"/>
         <source>Locate your image editor</source>
-        <translation type="unfinished"></translation>
+        <translation>Wskaż położenie edytora obrazków</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_externaltools.cpp" line="114"/>
@@ -19548,32 +19548,32 @@ Wartość 0 oznacza brak ograniczeń.</translation>
     <message>
         <location filename="../../scribus/ui/prefs_imagecachebase.ui" line="27"/>
         <source>Image Cache</source>
-        <translation type="unfinished"></translation>
+        <translation>Pamięć podręczna obrazów</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_imagecachebase.ui" line="56"/>
         <source>Enable Image Cache</source>
-        <translation type="unfinished"></translation>
+        <translation>Włącz pamięć podręczną obrazków</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_imagecachebase.ui" line="68"/>
         <source>Cache Size Limit:</source>
-        <translation type="unfinished"></translation>
+        <translation>Limit pamięci podręcznej:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_imagecachebase.ui" line="99"/>
         <source> Mb</source>
-        <translation type="unfinished"></translation>
+        <translation> Mb</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_imagecachebase.ui" line="118"/>
         <source>Cache Entry Limit:</source>
-        <translation type="unfinished"></translation>
+        <translation>Limit ilości obrazków w pamięci:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_imagecachebase.ui" line="162"/>
         <source>Compression Level:</source>
-        <translation type="unfinished"></translation>
+        <translation>Stopień kompresji:</translation>
     </message>
 </context>
 <context>
@@ -19630,7 +19630,7 @@ Wartość 0 oznacza brak ograniczeń.</translation>
     <message>
         <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="27"/>
         <source>Item Tools</source>
-        <translation type="unfinished"></translation>
+        <translation>Narzędzia obiektów</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="57"/>
@@ -19646,7 +19646,7 @@ Wartość 0 oznacza brak ograniczeń.</translation>
     <message>
         <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="342"/>
         <source>Column Gap:</source>
-        <translation type="unfinished"></translation>
+        <translation>Odstęp między łamami:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="120"/>
@@ -19765,7 +19765,7 @@ Wartość 0 oznacza brak ograniczeń.</translation>
     <message>
         <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="763"/>
         <source>Use Embedded Clipping Path</source>
-        <translation type="unfinished"></translation>
+        <translation>Zastosuj osadzoną ścieżkę odcięcia</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="792"/>
@@ -22442,7 +22442,7 @@ UCR zmniejsza możliwość wystąpienia przesycenia  tuszami CMY.</translation>
     <message>
         <location filename="../../scribus/ui/prefs_userinterfacebase.ui" line="45"/>
         <source>Main Window</source>
-        <translation type="unfinished"></translation>
+        <translation>Główne okno</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_userinterfacebase.ui" line="58"/>
@@ -22472,7 +22472,7 @@ UCR zmniejsza możliwość wystąpienia przesycenia  tuszami CMY.</translation>
     <message>
         <location filename="../../scribus/ui/prefs_userinterfacebase.ui" line="117"/>
         <source>&amp;Recent Documents:</source>
-        <translation type="unfinished">Otwórz &amp;poprzedni:</translation>
+        <translation>Otwórz &amp;poprzedni:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_userinterfacebase.ui" line="133"/>
@@ -22487,7 +22487,7 @@ UCR zmniejsza możliwość wystąpienia przesycenia  tuszami CMY.</translation>
     <message>
         <location filename="../../scribus/ui/prefs_userinterfacebase.ui" line="181"/>
         <source>&amp;Menus:</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Menu:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_userinterfacebase.ui" line="191"/>
@@ -22518,17 +22518,17 @@ UCR zmniejsza możliwość wystąpienia przesycenia  tuszami CMY.</translation>
     <message>
         <location filename="../../scribus/ui/prefs_userinterfacebase.ui" line="270"/>
         <source>Use Smart Text Selection</source>
-        <translation type="unfinished"></translation>
+        <translation>Użyj sprytnego zaznaczania tekstu</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_userinterfacebase.ui" line="293"/>
         <source>Interactivity</source>
-        <translation type="unfinished"></translation>
+        <translation>Interaktywność</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_userinterfacebase.ui" line="304"/>
         <source>Time before resize or move starts:</source>
-        <translation type="unfinished"></translation>
+        <translation>Czas, po którym rozpocznie się zmiana rozmiaru lub przemieszczenie:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_userinterfacebase.ui" line="314"/>
@@ -22543,7 +22543,7 @@ UCR zmniejsza możliwość wystąpienia przesycenia  tuszami CMY.</translation>
     <message>
         <location filename="../../scribus/ui/prefs_userinterfacebase.ui" line="353"/>
         <source>Start Up</source>
-        <translation type="unfinished"></translation>
+        <translation>Start</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_userinterfacebase.ui" line="368"/>
@@ -28207,7 +28207,7 @@ is not exhaustive due to exceptions from called functions.
     <message>
         <location filename="../../scribus/plugins/import/oodraw/oodrawimp.cpp" line="174"/>
         <source>OpenOffice.org Draw (*.sxd *.SXD);;All Files (*)</source>
-        <translation type="unfinished"></translation>
+        <translation>OpenOffice.org Draw (*.sxd *.SXD);;Wszystkie pliki (*)</translation>
     </message>
     <message>
         <location filename="../../scribus/main_win32.cpp" line="291"/>
@@ -29570,7 +29570,8 @@ Therefore the image may be not correct</source>
     <message>
         <location filename="../../scribus/plugins/export/xpsexport/xpsexplugin.cpp" line="142"/>
         <source>Output Settings:</source>
-        <translation type="unfinished"></translation>
+        <translatorcomment>Ustawienia wyjściowe</translatorcomment>
+        <translation></translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/export/xpsexport/xpsexplugin.cpp" line="145"/>
@@ -29580,7 +29581,7 @@ Therefore the image may be not correct</source>
     <message>
         <location filename="../../scribus/plugins/export/xpsexport/xpsexplugin.cpp" line="146"/>
         <source>Medium Resolution</source>
-        <translation type="unfinished"></translation>
+        <translation>Średnia rozdzielczość</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/export/xpsexport/xpsexplugin.cpp" line="147"/>
@@ -31471,7 +31472,7 @@ converting their vector data into Scribus objects.</source>
         <location filename="../../scribus/plugins/short-words/swdialog.cpp" line="116"/>
         <source>Apply Unbreakable Space To:</source>
         <comment>short words plugin</comment>
-        <translation>Zastosuj zawieszone spójniki do:</translation>
+        <translation>Zastosuj twarde space do:</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/short-words/swdialog.cpp" line="117"/>
@@ -31537,7 +31538,7 @@ converting their vector data into Scribus objects.</source>
     <message>
         <location filename="../../scribus/plugins/short-words/swdialog.ui" line="20"/>
         <source>Apply Unbreakable Space To:</source>
-        <translation>Zastosuj zawieszone spójniki do:</translation>
+        <translation>Zastosuj twarde spacje do:</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/short-words/swdialog.ui" line="26"/>
@@ -33068,7 +33069,7 @@ converting their vector data into Scribus objects.</source>
     <message>
         <location filename="../../scribus/ui/scmwmenumanager.cpp" line="75"/>
         <source>Measurement</source>
-        <translation type="unfinished"></translation>
+        <translation>Pomiary</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/scmwmenumanager.cpp" line="76"/>
@@ -33592,7 +33593,7 @@ Obrót: %4</translation>
     <message>
         <location filename="../../scribus/scribus.cpp" line="1089"/>
         <source>Measurement</source>
-        <translation type="unfinished"></translation>
+        <translation>Pomiary</translation>
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="4020"/>
@@ -33685,7 +33686,7 @@ materiału wejściowego, aby je poprawić</translation>
     <message>
         <location filename="../../scribus/scribus.cpp" line="597"/>
         <source>All Supported Formats (%1);;%2All Files (*)</source>
-        <translation type="unfinished"></translation>
+        <translation>Wszystkie wspierane formaty (%1);;%2Wszystkie pliki (*)</translation>
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="1050"/>
@@ -33999,7 +34000,7 @@ Former monitor profile will be used.</source>
     <message>
         <location filename="../../scribus/scribus.cpp" line="5204"/>
         <source>Text Files (*.txt);;All Files (*)</source>
-        <translation type="unfinished"></translation>
+        <translation>Pliki tekstowe (*.txt);;Wszystkie pliki(*)</translation>
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="7486"/>
