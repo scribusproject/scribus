@@ -1930,7 +1930,7 @@
     <message>
         <location filename="../../../scribus/aligndistribute.cpp" line="139"/>
         <source>Make horizontal gaps between items equal to the value specified</source>
-        <translation>Espace horizontalement les objets de la valeur entrée</translation>
+        <translation>Espace horizontalement les objets de la valeur spécifiée</translation>
     </message>
     <message>
         <location filename="../../../scribus/aligndistribute.cpp" line="148"/>
@@ -1940,7 +1940,7 @@
     <message>
         <location filename="../../../scribus/aligndistribute.cpp" line="150"/>
         <source>Make vertical gaps between items equal to the value specified</source>
-        <translation>Espace verticalement les objets de la valeur entrée</translation>
+        <translation>Espace verticalement les objets de la valeur spécifiée</translation>
     </message>
     <message>
         <location filename="../../../scribus/aligndistribute.cpp" line="158"/>
@@ -1950,7 +1950,7 @@
     <message>
         <location filename="../../../scribus/aligndistribute.cpp" line="164"/>
         <source>Make vertical gaps between items and the top and bottom of page margins equal</source>
-        <translation>Règle l&apos;espace vertical entre les objets et les marges à la valeur entrée</translation>
+        <translation>Règle l&apos;espace vertical entre les objets et les marges à la valeur spécifiée</translation>
     </message>
     <message>
         <location filename="../../../scribus/aligndistribute.cpp" line="162"/>
@@ -1960,7 +1960,7 @@
     <message>
         <location filename="../../../scribus/aligndistribute.cpp" line="160"/>
         <source>Make vertical gaps between items and the top and bottom of page equal</source>
-        <translation>Règle l&apos;espace vertical entre les objets et les bords de la page à la valeur entrée</translation>
+        <translation>Règle l&apos;espace vertical entre les objets et les bords de la page à la valeur spécifiée</translation>
     </message>
     <message>
         <location filename="../../../scribus/aligndistribute.cpp" line="91"/>
@@ -17527,7 +17527,7 @@ Vérifiez le chemin et le nom du fichier.</translation>
         <location filename="../../../scribus/plugins/scriptplugin/cmdpage.cpp" line="140"/>
         <source>Given master page name does not match any existing.</source>
         <comment>python error</comment>
-        <translation>Le nom de gabarit entré ne correspond à aucun gabarit.</translation>
+        <translation>Le nom de gabarit spécifié ne correspond à aucun gabarit existant.</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/scriptplugin/cmdpage.cpp" line="285"/>
@@ -19918,7 +19918,7 @@ convertissant les données vectorielles en objets Scribus.</translation>
     <message>
         <location filename="../../../scribus/plugins/short-words/swdialog.ui" line="20"/>
         <source>Apply Unbreakable Space To:</source>
-        <translation>Appliquer les espaces non sécables</translation>
+        <translation>Appliquer les espaces insécables</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/short-words/swdialog.ui" line="65"/>
