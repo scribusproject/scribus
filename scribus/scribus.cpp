@@ -9776,7 +9776,6 @@ bool ScribusMainWindow::editMarkDlg(Mark *mrk, PageItem_TextFrame* currItem)
 					label = tr("Mark to %1 item").arg(markdata.itemPtr->itemName());
 				if (markdata.itemPtr != mrk->getItemPtr())
 				{
-					qDebug()<<"MarkTester"<<"4";
 					mrk->setItemPtr(markdata.itemPtr);
 					mrk->setString(doc->getSectionPageNumberForPageIndex(markdata.itemPtr->OwnPage));
 					docWasChanged = true;
@@ -9801,7 +9800,6 @@ bool ScribusMainWindow::editMarkDlg(Mark *mrk, PageItem_TextFrame* currItem)
 					if (markdata.destmarkName != destLabel || markdata.destmarkType != destType)
 					{
 						mrk->setMark(mrkPtr);
-						qDebug()<<"MarkTester"<<"5";
 						mrk->setString(doc->getSectionPageNumberForPageIndex(mrkPtr->OwnPage));
 						docWasChanged = true;
 					}
