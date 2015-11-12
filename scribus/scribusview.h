@@ -134,25 +134,17 @@ public:
 	double dragX,dragY,dragW,dragH;
 	double oldW;
 	int RotMode;
-	int DrHY;
-	int DrVX;
 	bool HaveSelRect;
-	//bool GroupSel;
 	bool DraggedGroup;
-	bool DraggedGroupFirst;
 	bool MidButt;
 	bool updateOn;
-	bool FirstPoly;
 	bool Magnify;
 	bool storedFramesShown;
 	bool storedShowControls;
 	int editStrokeGradient;
-	int redrawMode;
-	int redrawCount;
 	bool m_AnnotChanged;
 	bool m_EditModeWasOn;
 	bool m_ChangedState;
-	PageItem *redrawItem;
 	SelectionRubberBand *redrawMarker;
 	FPoint RCenter;
 	FPoint m_mousePointDoc;
@@ -286,9 +278,6 @@ private: // Private attributes
 	bool linkAfterDraw;
 	bool ImageAfterDraw;
 	bool m_oldSnapToElem;
-
-	double oldItemX;
-	double oldItemY;
 
 private slots:
 	void setZoom();

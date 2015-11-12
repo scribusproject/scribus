@@ -1104,16 +1104,6 @@ void Canvas::drawContents(QPainter *psx, int clipx, int clipy, int clipw, int cl
 
 void Canvas::drawControls(QPainter *psx)
 {
-				/*if (redrawMode == 1) // move ruler origin...
-{
-				pp.resetMatrix();
-				pp.setBrush(Qt::NoBrush);
-				pp.setPen(QPen(Qt::black, 1.0, Qt::DotLine, Qt::FlatCap, Qt::MiterJoin));
-				QPoint nXY = redrawPolygon.point(0);
-				pp.drawLine(0, nXY.y(), this->width(), nXY.y());
-				pp.drawLine(nXY.x(), 0, nXY.x(), this->height());
-				redrawPolygon.clear();
-}*/
 	psx->save();
 	if ((m_doc->appMode == modeDrawBezierLine) && (!m_viewMode.redrawPolygon.isEmpty()) && (m_doc->m_Selection->count() != 0))
 	{

@@ -135,7 +135,6 @@ void AppModeHelper::setApplicationMode(ScribusMainWindow* scmw, ScribusDoc* doc,
 				break;
 			}
 			scmw->slotDocCh();
-			doc->view()->FirstPoly = true;
 			setSpecialEditMode(false);
 			break;
 		}
@@ -236,7 +235,6 @@ void AppModeHelper::setApplicationMode(ScribusMainWindow* scmw, ScribusDoc* doc,
 				setSpecialEditMode(true);
 				if ((doc->m_Selection->count() != 0) && (!PrefsManager::instance()->appPrefs.uiPrefs.stickyTools))
 					doc->view()->Deselect(true);
-				doc->view()->FirstPoly = true;
 			}
 			break;
 		case modeDrawCalligraphicLine:
