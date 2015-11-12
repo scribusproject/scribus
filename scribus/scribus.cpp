@@ -1716,23 +1716,6 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 					view->requestMode(modeNormal);
 					break;
 				case modeDrawBezierLine:
-					currItem->PoLine.resize(qMax(0, static_cast<int>(currItem->PoLine.size())-2));
-					if (currItem->PoLine.size() < 4)
-					{
-						view->Deselect(false);
-						doc->Items->removeOne(currItem);
-					}
-					else
-					{
-						doc->SizeItem(currItem->PoLine.WidthHeight().x(), currItem->PoLine.WidthHeight().y(), currItem, false, false);
-						currItem->setPolyClip(qRound(qMax(currItem->lineWidth() / 2.0, 1.0)));
-						doc->AdjustItemSize(currItem);
-						currItem->ContourLine = currItem->PoLine.copy();
-						currItem->ClipEdited = true;
-						currItem->FrameType = 3;
-						slotDocCh();
-					}
-					view->FirstPoly = true;
 					break;
 				default:
 					if (currItem->Sizing)

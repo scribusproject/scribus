@@ -138,6 +138,21 @@ void BezierMode::deactivate(bool flag)
 //	qDebug() << "BezierMode::deactivate" << flag;
 //	m_view->stopDragTimer();
 	PageItem* currItem = m_doc->m_Selection->itemAt(0);
+
+	//When only one node(size=2) was created; it's not a valid line(min valid PoLine size is 6), delete it
+	if (currItem)
+	{
+		currItem->PoLine.resize(qMax(0, static_cast<int>(currItem->PoLine.size())-2));
+		if (currItem->PoLine.size() < 4)
+		{
+			m_view->Deselect(false);
+			Selection tempSelection(m_doc, false);
+			tempSelection.addItem(currItem);
+			m_doc->itemSelection_DeleteItem(&tempSelection, true);
+			currItem = 0;
+		}
+	}
+
 	undoManager->setUndoEnabled(true);
 	if (currItem && UndoManager::undoEnabled())
 	{
@@ -150,7 +165,17 @@ void BezierMode::deactivate(bool flag)
 			target = m_doc->Pages->at(currItem->OwnPage);
 		undoManager->action(target, is);
 	}
+
 	m_view->setRedrawMarkerShown(false);
+	if (!currItem)
+		return;
+
+	m_doc->SizeItem(currItem->PoLine.WidthHeight().x(), currItem->PoLine.WidthHeight().y(), currItem, false, false);
+	currItem->setPolyClip(qRound(qMax(currItem->lineWidth() / 2.0, 1.0)));
+	m_doc->AdjustItemSize(currItem);
+	currItem->ContourLine = currItem->PoLine.copy();
+	currItem->ClipEdited = true;
+	currItem->FrameType = 3;
 }
 
 void BezierMode::mouseDoubleClickEvent(QMouseEvent *m)

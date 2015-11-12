@@ -128,8 +128,17 @@ void AppModeHelper::setApplicationMode(ScribusMainWindow* scmw, ScribusDoc* doc,
 	switch (oldMode)
 	{
 		case modeDrawBezierLine:
+		{
+			//if No nodes were created
+			if (currItem == NULL) {
+				setSpecialEditMode(false);
+				break;
+			}
+			scmw->slotDocCh();
+			doc->view()->FirstPoly = true;
 			setSpecialEditMode(false);
 			break;
+		}
 		case modeEdit:
 			{
 				if (newMode != modeEdit)
