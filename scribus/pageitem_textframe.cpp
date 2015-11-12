@@ -1618,6 +1618,16 @@ void PageItem_TextFrame::layout()
 			}
 			if (current.itemsInLine == 0)
 				opticalMargins = style.opticalMargins();
+			//-->#13490
+			if (isNoteFrame() && !mark)
+			{
+				StyleFlag s(itemText.charStyle(a).effects());
+				s &= ~ScStyle_Superscript;
+				CharStyle haveSuperscript;
+				haveSuperscript.setFeatures(s.featureList());
+				itemText.applyCharStyle(a, 1, haveSuperscript);
+			}
+			//--<#13490
 			CharStyle charStyle = ((itemText.text(a) != SpecialChars::PARSEP) ? itemText.charStyle(a) : style.charStyle());
 			chstr = ExpandToken(a);
 			int chstrLen = chstr.length();
