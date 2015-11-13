@@ -1569,6 +1569,7 @@ StoryEditor::~StoryEditor()
 
 void StoryEditor::showEvent(QShowEvent *)
 {
+	loadPrefs();
 	charSelect = new CharSelect(this);
 	charSelect->userTableModel()->setCharactersAndFonts(ScCore->primaryMainWindow()->charPalette->userTableModel()->characters(), ScCore->primaryMainWindow()->charPalette->userTableModel()->fonts());
 	connect(charSelect, SIGNAL(insertSpecialChar()), this, SLOT(slot_insertSpecialChar()));
@@ -1593,6 +1594,7 @@ void StoryEditor::hideEvent(QHideEvent *)
 		delete charSelect;
 		charSelect = NULL;
 	}
+	savePrefs();
 }
 
 void StoryEditor::savePrefs()
@@ -1645,6 +1647,7 @@ void StoryEditor::loadPrefs()
 		splitted.append(txtarea);
 		EdSplit->setSizes(splitted);
 	}
+	setupEditorGUI();
 }
 
 void StoryEditor::initActions()
@@ -1965,7 +1968,14 @@ void StoryEditor::buildGUI()
 	if (prefsManager==NULL)
 		sDebug(QString("%1").arg("prefsmgr null"));
 
-//	Editor->setPaper(prefsManager->appPrefs.STEcolor);
+	EditorBar->editor = Editor;
+	Editor->installEventFilter(this);
+	languageChange();
+	ActionManager::setActionTooltips(&seActions);
+}
+
+void StoryEditor::setupEditorGUI()
+{
 	QFont fo;
 	fo.fromString(prefsManager->appPrefs.storyEditorPrefs.guiFont);
 	Editor->setFont(fo);
@@ -1977,10 +1987,6 @@ void StoryEditor::buildGUI()
 	Editor->setPalette(pal);
 	EditorBar->setFrameStyle(Editor->frameStyle());
 	EditorBar->setLineWidth(Editor->lineWidth());
-	EditorBar->editor = Editor;
-	Editor->installEventFilter(this);
-	languageChange();
-	ActionManager::setActionTooltips(&seActions);
 }
 
 void StoryEditor::changeEvent(QEvent *e)

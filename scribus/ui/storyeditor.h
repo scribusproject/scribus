@@ -486,6 +486,7 @@ protected:
 	void updateUnicodeActions();
 	void buildMenus();
 	void buildGUI();
+	void setupEditorGUI();
 	void connectSignals();
 	void disconnectSignals();
 	/*! \brief Loading the preferences (position).
