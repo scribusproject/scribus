@@ -455,6 +455,7 @@ public: // Start public functions
 	void unlink(bool createUndo = true);
 	void link(PageItem* nextFrame, bool addPARSEP = true);
 	void dropLinks();
+	bool hasLinks() const;
 	void unlinkWithText(bool);
 	void setSampleItem(bool b) {m_sampleItem=b;}
 	const QVector<double>& dashes() const { return DashValues; }

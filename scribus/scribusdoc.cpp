@@ -11835,7 +11835,7 @@ void ScribusDoc::itemSelection_DeleteItem(Selection* customSelection, bool force
 		}
 		else
 		{
-			if (currItem->asTextFrame())
+			if (currItem->asTextFrame() && !currItem->hasLinks())
 			{
 				currItem->itemText.selectAll();
 				currItem->asTextFrame()->removeMarksFromText(true);

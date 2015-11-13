@@ -1452,6 +1452,11 @@ void PageItem::dropLinks()
 	BackBox = NextBox = NULL;
 }
 
+bool PageItem::hasLinks() const
+{
+	return (BackBox != 0 || NextBox != 0);
+}
+
 //unlink selected frame from text chain
 //but copy or cut its content from itemText
 void PageItem::unlinkWithText(bool cutText)
