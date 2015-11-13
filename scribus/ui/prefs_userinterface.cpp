@@ -61,7 +61,7 @@ void Prefs_UserInterface::languageChange()
 	wheelJumpSpinBox->setToolTip( "<qt>" + tr( "Number of lines Scribus will scroll for each move of the mouse wheel" ) + "</qt>");
 	//showSplashCheckBox->setToolTip( "<qt>" + tr( "" ) + "</qt>");
 	//showStartupDialogCheckBox->setToolTip( "<qt>" + tr( "" ) + "</qt>");
-	storyEditorUseSmartSelectionCheckBox->setToolTip( "<qt>" + tr( "The default behavior when double-clicking on a word is to select the word and the first aftercoming space. Smart selection will select only the word, without the aftercoming space." ) + "</qt>");
+	storyEditorUseSmartSelectionCheckBox->setToolTip( "<qt>" + tr( "The default behavior when double-clicking on a word is to select the word and the first following space. Smart selection will select only the word, without the following space." ) + "</qt>");
 }
 
 void Prefs_UserInterface::restoreDefaults(struct ApplicationPrefs *prefsData)
