@@ -80,6 +80,9 @@ class SCRIBUS_API SEditor : public QTextEdit
 {
 	Q_OBJECT
 
+	friend class StoryEditor;
+	friend class SideBar;
+
 public:
 	SEditor (QWidget* parent, ScribusDoc *docc, StoryEditor* parentSE);
 	~SEditor() {};
@@ -100,6 +103,31 @@ public:
 	void insertChars(const QString& styledText, const QString& editText);
 
 	StoryText StyledText;
+
+protected:
+
+	void insertCharsInternal(const QString& t);
+	void insertCharsInternal(const QString& t, int position);
+
+	void insertStyledText(const StoryText& styledText);
+	void insertStyledText(const StoryText& styledText, int position);
+
+	void insertUpdate(int position, int len);
+
+	void setAlign(QTextCursor& tCursor, int style);
+	void setEffects(QTextCursor& tCursor, int effects);
+
+	int  blockContentsChangeHook;
+	void keyPressEvent(QKeyEvent *k);
+	void inputMethodEvent(QInputMethodEvent *event);
+	void focusOutEvent(QFocusEvent *e);
+	void focusInEvent(QFocusEvent *e);
+	void scrollContentsBy(int dx, int dy);
+	virtual bool canInsertFromMimeData( const QMimeData * source ) const;
+	virtual QMimeData * createMimeDataFromSelection () const;
+	virtual void insertFromMimeData ( const QMimeData * source );
+	StoryEditor* parentStoryEditor;
+
 	QList<PageItem*> FrameItems;
 	ScribusDoc* doc;
 	bool unicodeTextEditMode;
@@ -134,30 +162,6 @@ public:
 	int SelCharStart;
 	int SelCharEnd;
 	int SuspendContentsChange;	// input method
-
-protected:
-
-	void insertCharsInternal(const QString& t);
-	void insertCharsInternal(const QString& t, int position);
-
-	void insertStyledText(const StoryText& styledText);
-	void insertStyledText(const StoryText& styledText, int position);
-
-	void insertUpdate(int position, int len);
-
-	void setAlign(QTextCursor& tCursor, int style);
-	void setEffects(QTextCursor& tCursor, int effects);
-
-	int  blockContentsChangeHook;
-	void keyPressEvent(QKeyEvent *k);
-	void inputMethodEvent(QInputMethodEvent *event);
-	void focusOutEvent(QFocusEvent *e);
-	void focusInEvent(QFocusEvent *e);
-	void scrollContentsBy(int dx, int dy);
-	virtual bool canInsertFromMimeData( const QMimeData * source ) const;
-	virtual QMimeData * createMimeDataFromSelection () const;
-	virtual void insertFromMimeData ( const QMimeData * source );
-	StoryEditor* parentStoryEditor;
 
 protected slots:
 	void handleContentsChange(int position, int charsRemoved, int charsAdded); 
