@@ -622,20 +622,17 @@ void ScPrintEngine_GDI::setDeviceParams(ScribusDoc* doc, PrintOptions& options, 
 {
 	HANDLE handle;
 	QString printer = options.printer;
-	DWORD devFlags = devMode->dmFields;
 
 	short nCopies = options.copies;
-	devMode->dmCopies = nCopies;
-	devFlags  = devFlags | DM_COPIES;
+	devMode->dmCopies  = nCopies;
+	devMode->dmFields |= DM_COPIES;
 
 	bool greyscale = !options.useColor;
 	if (greyscale)
 	{
 		devMode->dmDitherType = DMDITHER_GRAYSCALE;
-		devFlags = devFlags | DM_DITHERTYPE;
+		devMode->dmFields |= DM_DITHERTYPE;
 	}
-
-	devMode->dmFields = devFlags;
 
 	OpenPrinterW((LPWSTR) printer.utf16(), &handle, NULL);
 	DocumentPropertiesW((HWND) doc->scMW()->winId(), handle, (LPWSTR) printer.utf16(), devMode, devMode, DM_IN_BUFFER | DM_OUT_BUFFER);
