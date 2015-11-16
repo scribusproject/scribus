@@ -202,6 +202,7 @@ class SCRIBUS_API StoryText : public QObject, public SaxIO
 	int endOfWord(int pos) const;
 	int nextSentence(int pos);
 	int prevSentence(int pos);
+	int endOfSentence(int pos) const;
 	int nextParagraph(int pos);
 	int prevParagraph(int pos);
 

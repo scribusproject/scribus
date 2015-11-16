@@ -774,9 +774,8 @@ QString StoryText::text(int pos, uint len) const
 QString StoryText::sentence(int pos, int &posn)
 {
 	int sentencePos=qMax(0, prevSentence(pos));
-	sentencePos=qMax(sentencePos, nextWord(sentencePos));
 	posn=sentencePos;
-	int nextSentencePos=qMin(length(), nextSentence(pos+1));
+	int nextSentencePos=qMin(length(), endOfSentence(pos));
 	return text(sentencePos, nextSentencePos-sentencePos);
 }
 
@@ -1376,8 +1375,8 @@ int StoryText::endOfRun(uint index) const
 // positioning. all positioning methods return char positions
 // FIXME: make that methods use correct semantic boundaries
 
-static QString wordBoundaries(" .,:;\"'!?\n\t");
-static QString sentenceBoundaries(".:!?\n\t");
+static QString wordBoundaries(" .,:;\"'!?\r\n\t");
+static QString sentenceBoundaries(".!?\r\n\t");
 
 int StoryText::nextChar(int pos)
 {
@@ -1412,22 +1411,19 @@ int StoryText::firstWord()
 int StoryText::nextWord(int pos)
 {
 	int len = length();
-	if (text(pos).isLetter())
-		pos = qMin(len, pos+1);
+	//move to text
+	pos = qMin(len, pos+1);
+	//while not at the end, and while we don't find a word boundary, move to the next character
+	while (pos < len  && wordBoundaries.indexOf(text(pos)) < 0)
+		++pos;
+	//while not at the end, and while we find a word boundary, move to the next character
+	while (pos < len  && wordBoundaries.indexOf(text(pos)) >= 0)
+		++pos;
+	//if we didn't get to the end, return current position, otherwise return the end.
+	if (pos < len)
+		return pos;
 	else
-		pos = qMin(len, pos);
-
-	//	while (pos < len  && wordBoundaries.indexOf(text(pos)) < 0)
-	//		++pos;
-
-	while (pos < len)
-	{
-		if (text(pos).isLetter())
-			++pos;
-		else
-			break;
-	}
-	return pos < len ? pos + 1 : pos;
+		return len;
 }
 
 int StoryText::prevWord(int pos)
@@ -1451,20 +1447,36 @@ int StoryText::endOfWord(int pos) const
 	return pos;
 }
 
-int StoryText::nextSentence(int pos)
+int StoryText::endOfSentence(int pos) const
 {
 	int len = length();
 	pos = qMin(len, pos+1);
+	//while not on a sentence boundary, keep moving forward
 	while (pos < len && sentenceBoundaries.indexOf(text(pos)) < 0)
 		++pos;
+	//return the sentence boundary too
 	return pos < len ? pos + 1 : pos;
 }
+
+int StoryText::nextSentence(int pos)
+{
+	int len = length();
+	pos = endOfSentence(pos);
+	//while on a sentence boundary, keep moving forward
+	while (pos < len && sentenceBoundaries.indexOf(text(pos)) >= 0)
+		++pos;
+	return pos;
+}
+
 int StoryText::prevSentence(int pos)
 {
-	pos = qMax(0, pos-1);
-	while (pos > 0 && sentenceBoundaries.indexOf(text(pos)) < 0)
+	//we cannot go before the first position so just return it.
+	if (pos == 0)
+		return 0;
+	//while not on a sentence boundary, keep moving backward
+	while (pos > 0 && sentenceBoundaries.indexOf(text(pos-1)) < 0)
 		--pos;
-	return sentenceBoundaries.indexOf(text(pos)) < 0 ? pos + 1 : pos;
+	return pos;
 }
 int StoryText::nextParagraph(int pos)
 {
