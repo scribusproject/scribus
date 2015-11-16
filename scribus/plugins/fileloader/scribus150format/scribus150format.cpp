@@ -4674,6 +4674,8 @@ PageItem* Scribus150Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 	if (isGroupFlag)
 		pt = PageItem::Group;
 	bool isNoteFrameFlag = attrs.valueAsBool("isNoteFrame", 0);
+	if (isNoteFrameFlag && (pt == PageItem::TextFrame))
+		pt = PageItem::NoteFrame;
 	double xf, yf;
 	double x   = attrs.valueAsDouble("XPOS");
 	double y   = attrs.valueAsDouble("YPOS");
@@ -4798,8 +4800,9 @@ PageItem* Scribus150Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 		if (pagenr > -2) 
 			currItem->OwnPage = pagenr;
 		break;
+	case PageItem::NoteFrame:
 	case PageItem::TextFrame:
-		z = doc->itemAdd(PageItem::TextFrame, PageItem::Unspecified, x, y, w, h, pw, CommonStrings::None, Pcolor, true, isNoteFrameFlag);
+		z = doc->itemAdd(pt, PageItem::Unspecified, x, y, w, h, pw, CommonStrings::None, Pcolor, true);
 		currItem = doc->Items->at(z);
 		if (pagenr > -2) 
 			currItem->OwnPage = pagenr;

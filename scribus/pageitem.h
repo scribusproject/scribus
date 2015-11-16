@@ -188,6 +188,7 @@ public:	// Start enumerator definitions
 		Arc				= 14,
 		Spiral			= 15,
 		Table			= 16,
+		NoteFrame       = 17,
 		Multiple		= 99
 	};
 

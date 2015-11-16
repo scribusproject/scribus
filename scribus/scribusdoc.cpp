@@ -5572,7 +5572,7 @@ PageItem* ScribusDoc::createPageItem(const PageItem::ItemType itemType, const Pa
 	return newItem;
 }
 
-int ScribusDoc::itemAdd(const PageItem::ItemType itemType, const PageItem::ItemFrameType frameType, const double x, const double y, const double b, const double h, const double w, const QString& fill, const QString& outline, const bool itemFinalised, const bool noteFrame)
+int ScribusDoc::itemAdd(const PageItem::ItemType itemType, const PageItem::ItemFrameType frameType, const double x, const double y, const double b, const double h, const double w, const QString& fill, const QString& outline, const bool itemFinalised)
 {
 	assert(itemFinalised); // av: caller must wrap transaction around this if wanted
 	
@@ -5583,10 +5583,10 @@ int ScribusDoc::itemAdd(const PageItem::ItemType itemType, const PageItem::ItemF
 	}
 	
 	PageItem* newItem;
-	if (noteFrame)
+	if (itemType == PageItem::NoteFrame)
 	{
 		newItem = new PageItem_NoteFrame(this, x, y, b, h, w, CommonStrings::None, outline);
-		itemAddDetails(itemType, frameType, newItem);
+		itemAddDetails(PageItem::TextFrame, frameType, newItem);
 	}
 	else
 		newItem = createPageItem(itemType, frameType, x, y, b, h, w, fill, outline); 
@@ -5788,6 +5788,7 @@ void ScribusDoc::itemAddDetails(const PageItem::ItemType itemType, const PageIte
 			newItem->setFillShade(docPrefsData.itemToolPrefs.imageFillColorShade);
 			newItem->setLineShade(docPrefsData.itemToolPrefs.imageStrokeColorShade);
 			break;
+		case PageItem::NoteFrame:
 		case PageItem::TextFrame:
 //			newItem->setFontFillShade(itemToolPrefs.textShade);
 //			newItem->setFontStrokeShade(itemToolPrefs.textStrokeShade);
@@ -5825,7 +5826,7 @@ void ScribusDoc::itemAddDetails(const PageItem::ItemType itemType, const PageIte
 			break;
 	}
 
-	if (frameType==PageItem::Rectangle || itemType==PageItem::TextFrame || itemType==PageItem::ImageFrame || itemType==PageItem::LatexFrame || itemType==PageItem::OSGFrame || itemType==PageItem::Symbol || itemType==PageItem::Group || itemType==PageItem::Table)
+	if (frameType==PageItem::Rectangle || itemType==PageItem::TextFrame || itemType==PageItem::ImageFrame || itemType==PageItem::LatexFrame || itemType==PageItem::OSGFrame || itemType==PageItem::Symbol || itemType==PageItem::Group || itemType==PageItem::Table || itemType==PageItem::NoteFrame)
 	{
 		newItem->SetRectFrame();
 		//TODO one day hopefully, if (ScCore->usingGUI())
