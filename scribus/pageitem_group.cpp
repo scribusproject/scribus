@@ -190,7 +190,8 @@ void PageItem_Group::DrawObj_Item(ScPainter *p, QRectF /*e*/)
 	else
 		p->beginLayer(1.0 - fillTransparency(), fillBlendmode());
 	p->setMaskMode(0);
-	p->scale(m_width / groupWidth, m_height / groupHeight);
+	if (((m_width / groupWidth) != 1.0) || ((m_height / groupHeight) != 1.0))
+		p->scale(m_width / groupWidth, m_height / groupHeight);
 	for (int em = 0; em < groupItemList.count(); ++em)
 	{
 		PageItem* embedded = groupItemList.at(em);
