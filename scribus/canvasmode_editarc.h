@@ -70,17 +70,17 @@ private:
 
 	inline bool GetItem(PageItem** pi);
 
-	double Mxp, Myp;
+	double m_Mxp, m_Myp;
 	ScribusMainWindow* m_ScMW;
 	bool m_cursorVisible;
 	bool m_lastPosWasOverGuide;
-	QPointF startPoint;
-	QPointF endPoint;
-	QPointF centerPoint;
-	QPointF widthPoint;
-	QPointF heightPoint;
-	double startAngle;
-	double endAngle;
+	QPointF m_startPoint;
+	QPointF m_endPoint;
+	QPointF m_centerPoint;
+	QPointF m_widthPoint;
+	QPointF m_heightPoint;
+	double m_startAngle;
+	double m_endAngle;
 	eArcPoint m_arcPoint;
 	ArcVectorDialog* VectorDialog;
 
