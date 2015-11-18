@@ -64,12 +64,12 @@
 
 CreateMode::CreateMode(ScribusView* view) : CanvasMode(view) 
 {
-	canvasPressCoord.setXY(-1.0, -1.0);
-	mouseGlobalCoord.setXY(-1.0, -1.0);
-	inItemCreation = false;
-	createObjectMode     = 0;
-	createObjectSubMode  = 0;
-	modifiers            = 0;
+	m_canvasPressCoord.setXY(-1.0, -1.0);
+	m_mouseGlobalCoord.setXY(-1.0, -1.0);
+	m_inItemCreation = false;
+	m_createObjectMode     = 0;
+	m_createObjectSubMode  = 0;
+	m_modifiers            = 0;
 	m_MouseButtonPressed = false;
 	m_createTransaction  = NULL;
 }
@@ -77,17 +77,17 @@ CreateMode::CreateMode(ScribusView* view) : CanvasMode(view)
 
 void CreateMode::drawControls(QPainter* p) 
 {
-	if (!inItemCreation) return;
+	if (!m_inItemCreation) return;
 
-	QPointF topLeft(createObjectPos.x(), createObjectPos.y());
-	QPointF btRight(canvasCurrCoord.x(), canvasCurrCoord.y());
+	QPointF topLeft(m_createObjectPos.x(), m_createObjectPos.y());
+	QPointF btRight(m_canvasCurrCoord.x(), m_canvasCurrCoord.y());
 	QColor  drawColor = qApp->palette().color(QPalette::Active, QPalette::Highlight);
 
-	if (createObjectMode != modeDrawLine)
+	if (m_createObjectMode != modeDrawLine)
 	{
 		QRectF bounds = QRectF(topLeft, btRight).normalized();
 		//Lock Height to Width for Control Modifier for region drawing
-		if (modifiers==Qt::ControlModifier)
+		if (m_modifiers==Qt::ControlModifier)
 		{
 			bounds.setHeight(bounds.width());
 			if (btRight.y()<topLeft.y())
@@ -116,7 +116,7 @@ void CreateMode::drawControls(QPainter* p)
 		{
 			p->drawEllipse(localRect);
 		}
-		else if (createObjectMode == modeDrawArc)
+		else if (m_createObjectMode == modeDrawArc)
 		{
 			QPainterPath path;
 			path.moveTo(localRect.width() / 2.0, localRect.height() / 2.0);
@@ -125,19 +125,19 @@ void CreateMode::drawControls(QPainter* p)
 			p->translate(localRect.left(), localRect.top());
 			p->drawPath(path);
 		}
-		else if (createObjectMode == modeDrawRegularPolygon)
+		else if (m_createObjectMode == modeDrawRegularPolygon)
 		{
 			QPainterPath path = RegularPolygonPath(localRect.width(), localRect.height(), m_doc->itemToolPrefs().polyCorners, m_doc->itemToolPrefs().polyUseFactor, m_doc->itemToolPrefs().polyFactor, m_doc->itemToolPrefs().polyRotation, m_doc->itemToolPrefs().polyCurvature, m_doc->itemToolPrefs().polyInnerRot, m_doc->itemToolPrefs().polyOuterCurvature);
 			p->translate(localRect.left(), localRect.top());
 			p->drawPath(path);
 		}
-		else if (createObjectMode == modeDrawSpiral)
+		else if (m_createObjectMode == modeDrawSpiral)
 		{
 			QPainterPath path = SpiralPath(localRect.width(), localRect.height(), m_doc->itemToolPrefs().spiralStartAngle, m_doc->itemToolPrefs().spiralEndAngle, m_doc->itemToolPrefs().spiralFactor);
 			p->translate(localRect.left(), localRect.top());
 			p->drawPath(path);
 		}
-		else if ((createObjectMode == modeDrawShapes) && (createObjectSubMode > 1))
+		else if ((m_createObjectMode == modeDrawShapes) && (m_createObjectSubMode > 1))
 		{
 			FPointArray poly;
 			int valCount = m_doc->ValCount;
@@ -210,9 +210,9 @@ void CreateMode::activate(bool fromGesture)
 			m_createTransaction.cancel();
 			m_createTransaction.reset();
 		}
-		canvasPressCoord.setXY(-1.0, -1.0);
-		mouseGlobalCoord.setXY(-1.0, -1.0);
-		inItemCreation = false;
+		m_canvasPressCoord.setXY(-1.0, -1.0);
+		m_mouseGlobalCoord.setXY(-1.0, -1.0);
+		m_inItemCreation = false;
 	}		
 	setModeCursor();
 }
@@ -242,7 +242,7 @@ void CreateMode::mouseDoubleClickEvent(QMouseEvent *m)
 void CreateMode::mouseMoveEvent(QMouseEvent *m)
 {
 	const FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPos());
-	modifiers = m->modifiers();
+	m_modifiers = m->modifiers();
 	
 	double newX, newY;
 	PageItem *currItem;
@@ -270,7 +270,7 @@ void CreateMode::mouseMoveEvent(QMouseEvent *m)
 		{
 			newX = mousePointDoc.x();
 			newY = mousePointDoc.y();
-			if (createObjectMode == modeDrawLine)
+			if (m_createObjectMode == modeDrawLine)
 			{
 				if (m_doc->SnapGrid)
 				{
@@ -279,7 +279,7 @@ void CreateMode::mouseMoveEvent(QMouseEvent *m)
 				}
 				if (m->modifiers() & Qt::ControlModifier)
 				{
-					QRectF bounds(QPointF(createObjectPos.x(), createObjectPos.y()), QPointF(newX, newY));
+					QRectF bounds(QPointF(m_createObjectPos.x(), m_createObjectPos.y()), QPointF(newX, newY));
 					double newRot = xy2Deg(bounds.width(), bounds.height());
 					if (newRot < 0.0)
 						newRot += 360;
@@ -308,16 +308,16 @@ void CreateMode::mouseMoveEvent(QMouseEvent *m)
 				newY = /*qRound(*/ny/*)*/;
 			//}
 
-			canvasCurrCoord.setXY(newX, newY);
+			m_canvasCurrCoord.setXY(newX, newY);
 			m_view->HaveSelRect = true;
 
-			double wSize = canvasCurrCoord.x() - createObjectPos.x();
-			double hSize = canvasCurrCoord.y() - createObjectPos.y();
-			QRectF createObjectRect(createObjectPos.x(), createObjectPos.y(), wSize, hSize);
+			double wSize = m_canvasCurrCoord.x() - m_createObjectPos.x();
+			double hSize = m_canvasCurrCoord.y() - m_createObjectPos.y();
+			QRectF createObjectRect(m_createObjectPos.x(), m_createObjectPos.y(), wSize, hSize);
 			createObjectRect = createObjectRect.normalized();
-			if (createObjectMode != modeDrawLine)
+			if (m_createObjectMode != modeDrawLine)
 			{
-				if (modifiers == Qt::ControlModifier)
+				if (m_modifiers == Qt::ControlModifier)
 					hSize = wSize;
 				m_canvas->displaySizeHUD(m->globalPos(), wSize, hSize, false);
 			}
@@ -341,33 +341,33 @@ void CreateMode::mouseMoveEvent(QMouseEvent *m)
 void CreateMode::mousePressEvent(QMouseEvent *m)
 {
 	const FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPos());
-	modifiers = m->modifiers();
+	m_modifiers = m->modifiers();
 	
 	double Rxp = 0, Ryp = 0;
 	m_MouseButtonPressed = true;
 	m_view->HaveSelRect = false;
 	m_doc->DragP = false;
 	m_doc->leaveDrag = false;
-	inItemCreation = false;
+	m_inItemCreation = false;
 //	oldClip = 0;
 	m->accept();
 	m_view->registerMousePress(m->globalPos());
 	QRect mpo(m->x()-m_doc->guidesPrefs().grabRadius, m->y()-m_doc->guidesPrefs().grabRadius, m_doc->guidesPrefs().grabRadius*2, m_doc->guidesPrefs().grabRadius*2);
 //	mpo.moveBy(qRound(m_doc->minCanvasCoordinate.x() * m_canvas->scale()), qRound(m_doc->minCanvasCoordinate.y() * m_canvas->scale()));
-	canvasPressCoord = mousePointDoc;
-	createObjectMode = m_doc->appMode;
-	createObjectSubMode = m_doc->SubMode;
-	createObjectPos  = m_doc->ApplyGridF(canvasPressCoord);
+	m_canvasPressCoord = mousePointDoc;
+	m_createObjectMode = m_doc->appMode;
+	m_createObjectSubMode = m_doc->SubMode;
+	m_createObjectPos  = m_doc->ApplyGridF(m_canvasPressCoord);
 	
-	Rxp  = m_doc->ApplyGridF(canvasPressCoord).x();
-	canvasPressCoord.setX(qRound(Rxp));
-	Ryp  = m_doc->ApplyGridF(canvasPressCoord).y();
-	canvasPressCoord.setXY(qRound(Rxp), qRound(Ryp));
+	Rxp  = m_doc->ApplyGridF(m_canvasPressCoord).x();
+	m_canvasPressCoord.setX(qRound(Rxp));
+	Ryp  = m_doc->ApplyGridF(m_canvasPressCoord).y();
+	m_canvasPressCoord.setXY(qRound(Rxp), qRound(Ryp));
 
-	canvasCurrCoord = canvasPressCoord;
+	m_canvasCurrCoord = m_canvasPressCoord;
 	m_doc->ApplyGuides(&Rxp, &Ryp);
 	m_doc->ApplyGuides(&Rxp, &Ryp,true);
-	createObjectPos.setXY(Rxp, Ryp);
+	m_createObjectPos.setXY(Rxp, Ryp);
 
 	if (m->button() == Qt::MidButton)
 	{
@@ -393,14 +393,14 @@ void CreateMode::mousePressEvent(QMouseEvent *m)
 			break;
 	}
 
-	inItemCreation = true;
+	m_inItemCreation = true;
 }
 
 
 
 void CreateMode::mouseReleaseEvent(QMouseEvent *m)
 {
-	modifiers = m->modifiers();
+	m_modifiers = m->modifiers();
 
 	PageItem *currItem;
 	m_MouseButtonPressed = false;
@@ -439,7 +439,7 @@ void CreateMode::mouseReleaseEvent(QMouseEvent *m)
 		int appMode = m_doc->appMode;
 		m_view->requestMode(appMode);
 	}
-	inItemCreation = false;
+	m_inItemCreation = false;
 }
 
 
@@ -448,14 +448,14 @@ void CreateMode::selectPage(QMouseEvent *m)
 {
 	m_MouseButtonPressed = true;
 	FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPos());
-	canvasPressCoord     = mousePointDoc;
+	m_canvasPressCoord     = mousePointDoc;
 	QRect mpo(m->x()-m_doc->guidesPrefs().grabRadius, m->y()-m_doc->guidesPrefs().grabRadius, m_doc->guidesPrefs().grabRadius*2, m_doc->guidesPrefs().grabRadius*2);
 //	mpo.moveBy(qRound(Doc->minCanvasCoordinate.x() * m_canvas->scale()), qRound(m_doc->minCanvasCoordinate.y() * m_canvas->scale()));
 	m_doc->nodeEdit.deselect();
 	m_view->Deselect(false);
 	if (!m_doc->masterPageMode())
 	{
-		int i = m_doc->OnPage(canvasPressCoord.x(), canvasPressCoord.y());
+		int i = m_doc->OnPage(m_canvasPressCoord.x(), m_canvasPressCoord.y());
 		if (i!=-1)
 		{
 			uint docCurrPageNo=m_doc->currentPageNumber();
@@ -509,10 +509,10 @@ void CreateMode::getFrameItemTypes(int& itemType, int& frameType)
 {
 	itemType  = (int) PageItem::Polygon;
 	frameType = (int) PageItem::Rectangle;
-	switch (createObjectMode)
+	switch (m_createObjectMode)
 	{
 	case modeDrawShapes:
-		switch (createObjectSubMode)
+		switch (m_createObjectSubMode)
 		{
 		case 0:
 			itemType  = (int) PageItem::Polygon;
@@ -585,15 +585,15 @@ PageItem* CreateMode::doCreateNewObject(void)
 	int z = -1;
 	double rot, len;
 
-	double wSize = canvasCurrCoord.x() - createObjectPos.x();
-	double hSize = canvasCurrCoord.y() - createObjectPos.y();
-	bool   skipOneClick = (modifiers == Qt::ShiftModifier);
-	if ((createObjectMode == modeDrawLine) || (createObjectMode == modeDrawTable2) ||
-		(createObjectMode == modeInsertPDFButton) || (createObjectMode == modeInsertPDFTextfield) ||
-		(createObjectMode == modeInsertPDFTextfield) || (createObjectMode == modeInsertPDFCheckbox) ||
-		(createObjectMode == modeInsertPDFCombobox) || (createObjectMode == modeInsertPDFListbox) ||
-		(createObjectMode == modeInsertPDFTextAnnotation) || (createObjectMode == modeInsertPDFLinkAnnotation) ||
-		(createObjectMode == modeInsertPDF3DAnnotation) || (createObjectMode == modeInsertPDFRadioButton))
+	double wSize = m_canvasCurrCoord.x() - m_createObjectPos.x();
+	double hSize = m_canvasCurrCoord.y() - m_createObjectPos.y();
+	bool   skipOneClick = (m_modifiers == Qt::ShiftModifier);
+	if ((m_createObjectMode == modeDrawLine) || (m_createObjectMode == modeDrawTable2) ||
+		(m_createObjectMode == modeInsertPDFButton) || (m_createObjectMode == modeInsertPDFTextfield) ||
+		(m_createObjectMode == modeInsertPDFTextfield) || (m_createObjectMode == modeInsertPDFCheckbox) ||
+		(m_createObjectMode == modeInsertPDFCombobox) || (m_createObjectMode == modeInsertPDFListbox) ||
+		(m_createObjectMode == modeInsertPDFTextAnnotation) || (m_createObjectMode == modeInsertPDFLinkAnnotation) ||
+		(m_createObjectMode == modeInsertPDF3DAnnotation) || (m_createObjectMode == modeInsertPDFRadioButton))
 	{
 		skipOneClick = false;
 	}
@@ -601,36 +601,36 @@ PageItem* CreateMode::doCreateNewObject(void)
 	{
 		if ((!m_view->moveTimerElapsed()) || ((fabs(wSize) < 2.0) && (fabs(hSize) < 2.0)))
 		{
-			if (!doOneClick(createObjectPos, canvasCurrCoord))
+			if (!doOneClick(m_createObjectPos, m_canvasCurrCoord))
 			{
 				return NULL;
 			}
 		}
 	}
 
-	wSize = canvasCurrCoord.x() - createObjectPos.x();
-	hSize = canvasCurrCoord.y() - createObjectPos.y();
+	wSize = m_canvasCurrCoord.x() - m_createObjectPos.x();
+	hSize = m_canvasCurrCoord.y() - m_createObjectPos.y();
 	//Lock Height to Width for Control Modifier for final item creation
-	if (createObjectMode != modeDrawLine)
+	if (m_createObjectMode != modeDrawLine)
 	{
-		if (modifiers == Qt::ControlModifier)
+		if (m_modifiers == Qt::ControlModifier)
 			hSize = wSize;
 	}
 
 	PageItem *newObject = NULL, *currItem = NULL;
 	// FIXME for modeDrawLine
-	QRectF createObjectRect(createObjectPos.x(), createObjectPos.y(), wSize, hSize);
-	if (createObjectMode != modeDrawLine)
+	QRectF createObjectRect(m_createObjectPos.x(), m_createObjectPos.y(), wSize, hSize);
+	if (m_createObjectMode != modeDrawLine)
 	{
 		createObjectRect = createObjectRect.normalized();
-		if (modifiers==Qt::ControlModifier)
+		if (m_modifiers==Qt::ControlModifier)
 		{
 			//bottom right and upper left are ok
 			//upper right
-			if (canvasCurrCoord.y() < createObjectPos.y() && createObjectPos.x()<canvasCurrCoord.x())
+			if (m_canvasCurrCoord.y() < m_createObjectPos.y() && m_createObjectPos.x()<m_canvasCurrCoord.x())
 				createObjectRect.translate(0.0, -createObjectRect.height());
 			//bottom left
-			if (canvasCurrCoord.x()<createObjectPos.x() && canvasCurrCoord.y()>createObjectPos.y())
+			if (m_canvasCurrCoord.x()<m_createObjectPos.x() && m_canvasCurrCoord.y()>m_createObjectPos.y())
 				createObjectRect.translate(0.0, createObjectRect.height());
 		}
 	}
@@ -639,40 +639,40 @@ PageItem* CreateMode::doCreateNewObject(void)
 	double Rxpd = createObjectRect.width();
 	double Rypd = createObjectRect.height();
 
-	switch (createObjectMode)
+	switch (m_createObjectMode)
 	{
 	case modeDrawShapes:
-		switch (createObjectSubMode)
+		switch (m_createObjectSubMode)
 		{
 			case 0:
-				if (modifiers == Qt::ShiftModifier)
+				if (m_modifiers == Qt::ShiftModifier)
 					z = m_doc->itemAddArea(PageItem::Polygon, PageItem::Rectangle, Rxp, Ryp, m_doc->itemToolPrefs().shapeLineWidth, m_doc->itemToolPrefs().shapeFillColor, m_doc->itemToolPrefs().shapeLineColor, true);
 				else
 					z = m_doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, Rxp, Ryp, Rxpd, Rypd, m_doc->itemToolPrefs().shapeLineWidth, m_doc->itemToolPrefs().shapeFillColor, m_doc->itemToolPrefs().shapeLineColor, true);
 				m_doc->Items->at(z)->FrameType = 0;
 				break;
 			case 1:
-				if (modifiers == Qt::ShiftModifier)
+				if (m_modifiers == Qt::ShiftModifier)
 					z = m_doc->itemAddArea(PageItem::Polygon, PageItem::Ellipse, Rxp, Ryp, m_doc->itemToolPrefs().shapeLineWidth, m_doc->itemToolPrefs().shapeFillColor, m_doc->itemToolPrefs().shapeLineColor, true);
 				else
 					z = m_doc->itemAdd(PageItem::Polygon, PageItem::Ellipse, Rxp, Ryp, Rxpd, Rypd, m_doc->itemToolPrefs().shapeLineWidth, m_doc->itemToolPrefs().shapeFillColor, m_doc->itemToolPrefs().shapeLineColor, true);
 				m_doc->Items->at(z)->FrameType = 1;
 				break;
 			default:
-				if (modifiers == Qt::ShiftModifier)
+				if (m_modifiers == Qt::ShiftModifier)
 					z = m_doc->itemAddArea(PageItem::Polygon, PageItem::Unspecified, Rxp, Ryp, m_doc->itemToolPrefs().shapeLineWidth, m_doc->itemToolPrefs().shapeFillColor, m_doc->itemToolPrefs().shapeLineColor, true);
 				else
 					z = m_doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, Rxp, Ryp, Rxpd, Rypd, m_doc->itemToolPrefs().shapeLineWidth, m_doc->itemToolPrefs().shapeFillColor, m_doc->itemToolPrefs().shapeLineColor, true);
 				m_doc->Items->at(z)->SetFrameShape(m_doc->ValCount, m_doc->ShapeValues);
 				m_doc->AdjustItemSize(m_doc->Items->at(z));
 				m_doc->setRedrawBounding(m_doc->Items->at(z));
-				m_doc->Items->at(z)->FrameType = createObjectSubMode + 2;
+				m_doc->Items->at(z)->FrameType = m_createObjectSubMode + 2;
 				break;
 		}
 		break;
 	case modeDrawLine:
-		Rxp = createObjectPos.x();
-		Ryp = createObjectPos.y();
+		Rxp = m_createObjectPos.x();
+		Ryp = m_createObjectPos.y();
 		m_doc->ApplyGuides(&Rxp, &Ryp);
 		m_doc->ApplyGuides(&Rxp, &Ryp,true);
 		rot = xy2Deg(Rxpd, Rypd);
@@ -684,38 +684,38 @@ PageItem* CreateMode::doCreateNewObject(void)
 		m_doc->Items->at(z)->setRedrawBounding();
 		break;
 	case modeDrawLatex:
-		if (modifiers == Qt::ShiftModifier)
+		if (m_modifiers == Qt::ShiftModifier)
 			z = m_doc->itemAddArea(PageItem::LatexFrame, PageItem::Unspecified, Rxp, Ryp, 1, m_doc->itemToolPrefs().imageFillColor, m_doc->itemToolPrefs().imageStrokeColor, true);
 		else
 			z = m_doc->itemAdd(PageItem::LatexFrame, PageItem::Unspecified, Rxp, Ryp, Rxpd, Rypd, m_doc->itemToolPrefs().shapeLineWidth, m_doc->itemToolPrefs().imageFillColor, m_doc->itemToolPrefs().imageStrokeColor, true);
 		break;
 	case modeDrawImage:
-		if (modifiers == Qt::ShiftModifier)
+		if (m_modifiers == Qt::ShiftModifier)
 			z = m_doc->itemAddArea(PageItem::ImageFrame, PageItem::Unspecified, Rxp, Ryp, 1, m_doc->itemToolPrefs().imageFillColor, m_doc->itemToolPrefs().imageStrokeColor, true);
 		else
 			z = m_doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, Rxp, Ryp, Rxpd, Rypd, m_doc->itemToolPrefs().shapeLineWidth, m_doc->itemToolPrefs().imageFillColor, m_doc->itemToolPrefs().imageStrokeColor, true);
 		break;
 	case modeDrawText:
-		if (modifiers == Qt::ShiftModifier)
+		if (m_modifiers == Qt::ShiftModifier)
 			z = m_doc->itemAddArea(PageItem::TextFrame, PageItem::Unspecified, Rxp, Ryp, m_doc->itemToolPrefs().shapeLineWidth, CommonStrings::None, m_doc->itemToolPrefs().textFont, true);
 		else
 			z = m_doc->itemAdd(PageItem::TextFrame, PageItem::Unspecified, Rxp, Ryp, Rxpd, Rypd, m_doc->itemToolPrefs().shapeLineWidth, CommonStrings::None, m_doc->itemToolPrefs().textFont, true);
 		break;
 	case modeDrawRegularPolygon:
-		if (modifiers == Qt::ShiftModifier)
+		if (m_modifiers == Qt::ShiftModifier)
 			z = m_doc->itemAddArea(PageItem::RegularPolygon, PageItem::Unspecified, Rxp, Ryp, m_doc->itemToolPrefs().shapeLineWidth, m_doc->itemToolPrefs().shapeFillColor, m_doc->itemToolPrefs().lineColor, true);
 		else
 			z = m_doc->itemAdd(PageItem::RegularPolygon, PageItem::Unspecified, Rxp, Ryp, Rxpd, Rypd, m_doc->itemToolPrefs().shapeLineWidth, m_doc->itemToolPrefs().shapeFillColor, m_doc->itemToolPrefs().lineColor, true);
 		break;
 	case modeDrawArc:
-		if (modifiers == Qt::ShiftModifier)
+		if (m_modifiers == Qt::ShiftModifier)
 			z = m_doc->itemAddArea(PageItem::Arc, PageItem::Unspecified, Rxp, Ryp, m_doc->itemToolPrefs().shapeLineWidth, m_doc->itemToolPrefs().shapeFillColor, m_doc->itemToolPrefs().lineColor, true);
 		else
 			z = m_doc->itemAdd(PageItem::Arc, PageItem::Unspecified, Rxp, Ryp, Rxpd, Rypd, m_doc->itemToolPrefs().shapeLineWidth, m_doc->itemToolPrefs().shapeFillColor, m_doc->itemToolPrefs().lineColor, true);
 		m_doc->setRedrawBounding(m_doc->Items->at(z));
 		break;
 	case modeDrawSpiral:
-		if (modifiers == Qt::ShiftModifier)
+		if (m_modifiers == Qt::ShiftModifier)
 			z = m_doc->itemAddArea(PageItem::Spiral, PageItem::Unspecified, Rxp, Ryp, m_doc->itemToolPrefs().shapeLineWidth, CommonStrings::None, m_doc->itemToolPrefs().lineColor, true);
 		else
 			z = m_doc->itemAdd(PageItem::Spiral, PageItem::Unspecified, Rxp, Ryp, Rxpd, Rypd, m_doc->itemToolPrefs().shapeLineWidth, CommonStrings::None, m_doc->itemToolPrefs().lineColor, true);
@@ -782,7 +782,7 @@ PageItem* CreateMode::doCreateNewObject(void)
 		{
 			m_view->HaveSelRect = false;
 			// Calculate table rectangle.
-			FRect tableRect = adjustedRect(canvasPressCoord, canvasCurrCoord);
+			FRect tableRect = adjustedRect(m_canvasPressCoord, m_canvasCurrCoord);
 			if (tableRect.width() < 6 || tableRect.height() < 6)
 			{
 				// Ignore tiny tables.
@@ -825,7 +825,7 @@ PageItem* CreateMode::doCreateNewObject(void)
 		}
 		break;
 	case modeInsertPDF3DAnnotation:
-		if (modifiers == Qt::ShiftModifier)
+		if (m_modifiers == Qt::ShiftModifier)
 		{
 			z = m_doc->itemAddArea(PageItem::OSGFrame, PageItem::Unspecified, Rxp, Ryp, 1, m_doc->itemToolPrefs().imageFillColor, m_doc->itemToolPrefs().imageStrokeColor, true);
 		}
@@ -861,7 +861,7 @@ bool CreateMode::doOneClick(FPoint& startPoint, FPoint& endPoint)
 	PrefsContext* sizes = PrefsManager::instance()->prefsFile->getContext("ObjectSize");
 	bool doRemember     = sizes->getBool("Remember", true);
 
-	int lmode = (createObjectMode == modeDrawLine) ? 1 : 0;
+	int lmode = (m_createObjectMode == modeDrawLine) ? 1 : 0;
 	if (lmode == 0)
 	{
 		xSize = sizes->getDouble("defWidth", 100.0);
