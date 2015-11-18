@@ -228,7 +228,7 @@ void ScPainter::rotate( double r )
 void ScPainter::scale( double x, double y )
 {
 	cairo_scale (m_cr, x, y);
-	m_zoomFactor = qMax(x, y);
+	m_zoomFactor *= qMax(x, y);
 }
 
 void ScPainter::moveTo( const double &x, const double &y )
