@@ -51,8 +51,8 @@ private:
 	bool SeleItem(QMouseEvent *m);
 	void createContextMenu(PageItem *currItem, double mx, double my);
 
-	int frameResizeHandle;
-	double Mxp, Myp, Dxp, Dyp;
+	int m_frameResizeHandle;
+	double m_Mxp, m_Myp, m_Dxp, m_Dyp;
 	ScribusMainWindow* m_ScMW;
 };
 
