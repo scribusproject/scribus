@@ -51,9 +51,9 @@ private:
 	void selectPage(QMouseEvent *m);
 
 	bool   m_MouseButtonPressed;
-	double Mxp, Myp, Dxp, Dyp;
-	double SeRx, SeRy;
-	FPointArray RecordP;
+	double m_Mxp, m_Myp, m_Dxp, m_Dyp;
+	double m_SeRx, m_SeRy;
+	FPointArray m_RecordP;
 };
 
 
