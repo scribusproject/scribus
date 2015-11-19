@@ -47,8 +47,8 @@
 
 CalligraphicMode::CalligraphicMode(ScribusView* view) : CanvasMode(view) 
 {
-	Mxp = Myp = -1;
-	Dxp = Dyp = -1;
+	m_Mxp = m_Myp = -1;
+	m_Dxp = m_Dyp = -1;
 	m_MouseButtonPressed = false;
 }
 
@@ -80,8 +80,8 @@ void CalligraphicMode::leaveEvent(QEvent *e)
 
 void CalligraphicMode::activate(bool flag)
 {
-	Mxp = Myp = -1;
-	Dxp = Dyp = -1;
+	m_Mxp = m_Myp = -1;
+	m_Dxp = m_Dyp = -1;
 	m_MouseButtonPressed = false;
 	setModeCursor();
 }
@@ -119,23 +119,23 @@ void CalligraphicMode::mouseMoveEvent(QMouseEvent *m)
 	{
 		double newXF = mousePointDoc.x(); //m_view->translateToDoc(m->x(), m->y()).x();
 		double newYF = mousePointDoc.y(); //m_view->translateToDoc(m->x(), m->y()).y();
-		if (RecordP.size() > 0)
+		if (m_RecordP.size() > 0)
 		{
-			if (FPoint(newXF, newYF) != RecordP.point(RecordP.size()-1))
-				RecordP.addPoint(FPoint(newXF, newYF));
+			if (FPoint(newXF, newYF) != m_RecordP.point(m_RecordP.size()-1))
+				m_RecordP.addPoint(FPoint(newXF, newYF));
 		}
 		else
-			RecordP.addPoint(FPoint(newXF, newYF));
+			m_RecordP.addPoint(FPoint(newXF, newYF));
 		QPolygon& redrawPolygon(m_canvas->newRedrawPolygon());
 		double mx = sin(m_doc->itemToolPrefs().calligraphicPenAngle / 180.0 * M_PI) * (m_doc->itemToolPrefs().calligraphicPenWidth / 2.0);
 		double my = cos(m_doc->itemToolPrefs().calligraphicPenAngle / 180.0 * M_PI) * (m_doc->itemToolPrefs().calligraphicPenWidth / 2.0);
-		for (int px = 0; px < RecordP.size()-1; ++px)
+		for (int px = 0; px < m_RecordP.size()-1; ++px)
 		{
-			FPoint clp = RecordP.point(px);
+			FPoint clp = m_RecordP.point(px);
 			redrawPolygon.append(QPoint(qRound(clp.x() - mx), qRound(clp.y() - my)));
 			redrawPolygon.prepend(QPoint(qRound(clp.x() + mx), qRound(clp.y() + my)));
 		}
-		redrawPolygon.append(QPoint(qRound(RecordP.point(RecordP.size()-1).x() + mx), qRound(RecordP.point(RecordP.size()-1).y() + my)));
+		redrawPolygon.append(QPoint(qRound(m_RecordP.point(m_RecordP.size()-1).x() + mx), qRound(m_RecordP.point(m_RecordP.size()-1).y() + my)));
 //FIXME		
 		m_canvas->m_viewMode.operItemResizing = true;
 		QRect bRect = m_canvas->redrawPolygon().boundingRect();
@@ -173,9 +173,9 @@ void CalligraphicMode::mouseMoveEvent(QMouseEvent *m)
 		{
 			newX = qRound(mousePointDoc.x()); //m_view->translateToDoc(m->x(), m->y()).x());
 			newY = qRound(mousePointDoc.y()); //m_view->translateToDoc(m->x(), m->y()).y());
-			SeRx = newX;
-			SeRy = newY;
-			QPoint startP = m_canvas->canvasToGlobal(m_doc->appMode == modeDrawTable2 ? QPointF(Dxp, Dyp) : QPointF(Mxp, Myp));
+			m_SeRx = newX;
+			m_SeRy = newY;
+			QPoint startP = m_canvas->canvasToGlobal(m_doc->appMode == modeDrawTable2 ? QPointF(m_Dxp, m_Dyp) : QPointF(m_Mxp, m_Myp));
 			m_view->redrawMarker->setGeometry(QRect(m_view->mapFromGlobal(startP), m_view->mapFromGlobal(m->globalPos())).normalized());
 			m_view->setRedrawMarkerShown(true);
 			m_view->HaveSelRect = true;
@@ -198,15 +198,15 @@ void CalligraphicMode::mousePressEvent(QMouseEvent *m)
 	m_doc->leaveDrag = false;
 	m->accept();
 	m_view->registerMousePress(m->globalPos());
-	Mxp = mousePointDoc.x(); //qRound(m->x()/m_canvas->scale() + 0*m_doc->minCanvasCoordinate.x());
-	Myp = mousePointDoc.y(); //qRound(m->y()/m_canvas->scale() + 0*m_doc->minCanvasCoordinate.y());
+	m_Mxp = mousePointDoc.x(); //qRound(m->x()/m_canvas->scale() + 0*m_doc->minCanvasCoordinate.x());
+	m_Myp = mousePointDoc.y(); //qRound(m->y()/m_canvas->scale() + 0*m_doc->minCanvasCoordinate.y());
 	QRect mpo(m->x()-m_doc->guidesPrefs().grabRadius, m->y()-m_doc->guidesPrefs().grabRadius, m_doc->guidesPrefs().grabRadius*2, m_doc->guidesPrefs().grabRadius*2);
-	Rxp = m_doc->ApplyGridF(FPoint(Mxp, Myp)).x();
-	Mxp = qRound(Rxp);
-	Ryp = m_doc->ApplyGridF(FPoint(Mxp, Myp)).y();
-	Myp = qRound(Ryp);
-	SeRx = Mxp;
-	SeRy = Myp;
+	Rxp = m_doc->ApplyGridF(FPoint(m_Mxp, m_Myp)).x();
+	m_Mxp = qRound(Rxp);
+	Ryp = m_doc->ApplyGridF(FPoint(m_Mxp, m_Myp)).y();
+	m_Myp = qRound(Ryp);
+	m_SeRx = m_Mxp;
+	m_SeRy = m_Myp;
 	if (m->button() == Qt::MidButton)
 	{
 		m_view->MidButt = true;
@@ -219,12 +219,12 @@ void CalligraphicMode::mousePressEvent(QMouseEvent *m)
 		m_view->stopGesture();
 		return;
 	}
-	RecordP.resize(0);
+	m_RecordP.resize(0);
 	m_view->Deselect(false);
-	Mxp = mousePointDoc.x(); //qRound(m->x()/m_canvas->scale() + 0*m_doc->minCanvasCoordinate.x());
-	Myp = mousePointDoc.y(); //qRound(m->y()/m_canvas->scale() + 0*m_doc->minCanvasCoordinate.y());
-	SeRx = Mxp;
-	SeRy = Myp;
+	m_Mxp = mousePointDoc.x(); //qRound(m->x()/m_canvas->scale() + 0*m_doc->minCanvasCoordinate.x());
+	m_Myp = mousePointDoc.y(); //qRound(m->y()/m_canvas->scale() + 0*m_doc->minCanvasCoordinate.y());
+	m_SeRx = m_Mxp;
+	m_SeRy = m_Myp;
 	m_canvas->setRenderModeFillBuffer();
 	undoManager->setUndoEnabled(false);
 }
@@ -241,21 +241,21 @@ void CalligraphicMode::mouseReleaseEvent(QMouseEvent *m)
 	
 	if (m_doc->appMode == modeDrawCalligraphicLine)
 	{
-		if (RecordP.size() > 1)
+		if (m_RecordP.size() > 1)
 		{
 			UndoTransaction createTransaction;
 			if (UndoManager::undoEnabled())
 				createTransaction = UndoManager::instance()->beginTransaction();
-			uint z = m_doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, Mxp, Myp, 1, 1, m_doc->itemToolPrefs().calligraphicPenLineWidth, m_doc->itemToolPrefs().calligraphicPenFillColor, m_doc->itemToolPrefs().calligraphicPenLineColor, true);
+			uint z = m_doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, m_Mxp, m_Myp, 1, 1, m_doc->itemToolPrefs().calligraphicPenLineWidth, m_doc->itemToolPrefs().calligraphicPenFillColor, m_doc->itemToolPrefs().calligraphicPenLineColor, true);
 			currItem = m_doc->Items->at(z);
 			currItem->PoLine.resize(0);
 			QList<QPointF> clipU;
 			QList<QPointF> clipL;
 			double mx = sin(m_doc->itemToolPrefs().calligraphicPenAngle / 180.0 * M_PI) * (m_doc->itemToolPrefs().calligraphicPenWidth / 2.0);
 			double my = cos(m_doc->itemToolPrefs().calligraphicPenAngle / 180.0 * M_PI) * (m_doc->itemToolPrefs().calligraphicPenWidth / 2.0);
-			for (int px = 0; px < RecordP.size()-1; ++px)
+			for (int px = 0; px < m_RecordP.size()-1; ++px)
 			{
-				FPoint clp = RecordP.point(px);
+				FPoint clp = m_RecordP.point(px);
 				clipU.append(QPointF(clp.x() - mx, clp.y() - my));
 				clipL.prepend(QPointF(clp.x() + mx, clp.y() + my));
 			}
@@ -335,14 +335,14 @@ void CalligraphicMode::selectPage(QMouseEvent *m)
 {
 	m_MouseButtonPressed = true;
 	FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPos());
-	Mxp = mousePointDoc.x(); //static_cast<int>(m->x()/m_canvas->scale());
-	Myp = mousePointDoc.y(); //static_cast<int>(m->y()/m_canvas->scale());
+	m_Mxp = mousePointDoc.x(); //static_cast<int>(m->x()/m_canvas->scale());
+	m_Myp = mousePointDoc.y(); //static_cast<int>(m->y()/m_canvas->scale());
 	QRect mpo(m->x()-m_doc->guidesPrefs().grabRadius, m->y()-m_doc->guidesPrefs().grabRadius, m_doc->guidesPrefs().grabRadius*2, m_doc->guidesPrefs().grabRadius*2);
 	m_doc->nodeEdit.deselect();
 	m_view->Deselect(false);
 	if (!m_doc->masterPageMode())
 	{
-		int i = m_doc->OnPage(Mxp, Myp);
+		int i = m_doc->OnPage(m_Mxp, m_Myp);
 		if (i!=-1)
 		{
 			uint docCurrPageNo=m_doc->currentPageNumber();

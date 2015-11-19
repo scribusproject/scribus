@@ -65,11 +65,11 @@ private:
 	bool SeleItem(QMouseEvent *m);
 	void createContextMenu(PageItem *currItem, double mx, double my);
 
-	int  Cp, oldCp;
-	int  frameResizeHandle;
-	int  dragConstrainInitPtX, dragConstrainInitPtY;
-	double Mxp, Myp, Dxp, Dyp;
-	double SeRx, SeRy;
+	int  m_Cp, m_oldCp;
+	int  m_frameResizeHandle;
+	int  m_dragConstrainInitPtX, m_dragConstrainInitPtY;
+	double m_Mxp, m_Myp, m_Dxp, m_Dyp;
+	double m_SeRx, m_SeRy;
 	ScribusMainWindow* m_ScMW;
 	bool m_cursorVisible;
 	QTime m_blinkTime;

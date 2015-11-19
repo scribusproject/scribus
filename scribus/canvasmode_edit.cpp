@@ -63,10 +63,10 @@
 
 CanvasMode_Edit::CanvasMode_Edit(ScribusView* view) : CanvasMode(view), m_ScMW(view->m_ScMW) 
 {
-	Mxp = Myp = -1;
-	Dxp = Dyp = -1;
-	oldCp = Cp = -1;
-	frameResizeHandle = -1;
+	m_Mxp = m_Myp = -1;
+	m_Dxp = m_Dyp = -1;
+	m_oldCp = m_Cp = -1;
+	m_frameResizeHandle = -1;
 	m_blinker = new QTimer(view);	
 	connect(m_blinker, SIGNAL(timeout()), this, SLOT(blinkTextCursor()));
 	connect(view->horizRuler, SIGNAL(MarkerMoved(double, double)), this, SLOT(rulerPreview(double, double)));
@@ -274,10 +274,10 @@ void CanvasMode_Edit::activate(bool fromGesture)
 	m_canvas->m_viewMode.operItemMoving = false;
 	m_canvas->m_viewMode.operItemResizing = false;
 	m_view->MidButt = false;
-	Mxp = Myp = -1;
-	Dxp = Dyp = -1;
-	oldCp = Cp = -1;
-	frameResizeHandle = -1;
+	m_Mxp = m_Myp = -1;
+	m_Dxp = m_Dyp = -1;
+	m_oldCp = m_Cp = -1;
+	m_frameResizeHandle = -1;
 	setModeCursor();
 	if (fromGesture)
 	{
@@ -334,7 +334,7 @@ void CanvasMode_Edit::mouseDoubleClickEvent(QMouseEvent *m)
 
 				if (m->modifiers() & Qt::ShiftModifier)
 				{//Double click with Ctrl+Shift in a frame to select few paragraphs
-					uint oldPar = currItem->itemText.nrOfParagraph(oldCp);
+					uint oldPar = currItem->itemText.nrOfParagraph(m_oldCp);
 					uint newPar = currItem->itemText.nrOfParagraph();
 					if (oldPar < newPar)
 					{
@@ -349,8 +349,8 @@ void CanvasMode_Edit::mouseDoubleClickEvent(QMouseEvent *m)
 				}
 				else
 				{//Double click with Ctrl in a frame to select a paragraph
-					oldCp = currItem->itemText.cursorPosition();
-					uint nrPar = currItem->itemText.nrOfParagraph(oldCp);
+					m_oldCp = currItem->itemText.cursorPosition();
+					uint nrPar = currItem->itemText.nrOfParagraph(m_oldCp);
 					start = currItem->itemText.startOfParagraph(nrPar);
 					stop = currItem->itemText.endOfParagraph(nrPar);
 				}
@@ -365,17 +365,17 @@ void CanvasMode_Edit::mouseDoubleClickEvent(QMouseEvent *m)
 			}
 			else
 			{	//Double click in a frame to select a word
-				oldCp = currItem->itemText.cursorPosition();
-				bool validPos = (oldCp >= 0 && oldCp < currItem->itemText.length());
-				if (validPos && currItem->itemText.hasObject(oldCp))
+				m_oldCp = currItem->itemText.cursorPosition();
+				bool validPos = (m_oldCp >= 0 && m_oldCp < currItem->itemText.length());
+				if (validPos && currItem->itemText.hasObject(m_oldCp))
 				{
-					currItem->itemText.select(oldCp, 1, true);
-					PageItem *iItem = currItem->itemText.object(oldCp);
+					currItem->itemText.select(m_oldCp, 1, true);
+					PageItem *iItem = currItem->itemText.object(m_oldCp);
 					m_ScMW->editInlineStart(iItem->inlineCharID);
 				}
 				else
 				{
-					int newPos = currItem->itemText.selectWord(oldCp);
+					int newPos = currItem->itemText.selectWord(m_oldCp);
 					currItem->itemText.setCursorPosition(newPos);
 				}
 			}
@@ -428,13 +428,13 @@ void CanvasMode_Edit::mouseMoveEvent(QMouseEvent *m)
 					m_view->setCursor(IconManager::instance()->loadCursor("HandC.xpm"));
 					QTransform mm1 = currItem->getTransform();
 					QTransform mm2 = mm1.inverted();
-					QPointF rota = mm2.map(QPointF(newX, newY)) - mm2.map(QPointF(Mxp, Myp));
+					QPointF rota = mm2.map(QPointF(newX, newY)) - mm2.map(QPointF(m_Mxp, m_Myp));
 					currItem->moveImageInFrame(rota.x() / currItem->imageXScale(), rota.y() / currItem->imageYScale());
 					m_canvas->displayXYHUD(m->globalPos(), currItem->imageXOffset() * currItem->imageXScale(), currItem->imageYOffset() * currItem->imageYScale());
 				}
 				currItem->update();
-				Mxp = newX;
-				Myp = newY;
+				m_Mxp = newX;
+				m_Myp = newY;
 			}
 			if (currItem->asTextFrame())
 			{
@@ -444,16 +444,16 @@ void CanvasMode_Edit::mouseMoveEvent(QMouseEvent *m)
 				currItem->HasSel = false;
 				m_view->slotSetCurs(m->globalPos().x(), m->globalPos().y());
 				//Make sure we dont go here if the old cursor position was not set
-				if (oldCp!=-1 && currItem->itemText.length() > 0)
+				if (m_oldCp!=-1 && currItem->itemText.length() > 0)
 				{
-					if (currItem->itemText.cursorPosition() < oldCp)
+					if (currItem->itemText.cursorPosition() < m_oldCp)
 					{
-						currItem->itemText.select(currItem->itemText.cursorPosition(), oldCp - currItem->itemText.cursorPosition());
+						currItem->itemText.select(currItem->itemText.cursorPosition(), m_oldCp - currItem->itemText.cursorPosition());
 						currItem->HasSel = true;
 					}
-					if (currItem->itemText.cursorPosition() > oldCp)
+					if (currItem->itemText.cursorPosition() > m_oldCp)
 					{
-						currItem->itemText.select(oldCp, currItem->itemText.cursorPosition() - oldCp);
+						currItem->itemText.select(m_oldCp, currItem->itemText.cursorPosition() - m_oldCp);
 						currItem->HasSel = true;
 					}
 				}
@@ -515,9 +515,9 @@ void CanvasMode_Edit::mouseMoveEvent(QMouseEvent *m)
 		{
 			newX = qRound(mousePointDoc.x()); //m_view->translateToDoc(m->x(), m->y()).x());
 			newY = qRound(mousePointDoc.y()); //m_view->translateToDoc(m->x(), m->y()).y());
-			SeRx = newX;
-			SeRy = newY;
-			QPoint startP = m_canvas->canvasToGlobal(QPointF(Mxp, Myp));
+			m_SeRx = newX;
+			m_SeRy = newY;
+			QPoint startP = m_canvas->canvasToGlobal(QPointF(m_Mxp, m_Myp));
 			m_view->redrawMarker->setGeometry(QRect(m_view->mapFromGlobal(startP), m_view->mapFromGlobal(m->globalPos())).normalized());
 			m_view->setRedrawMarkerShown(true);
 			m_view->HaveSelRect = true;
@@ -559,12 +559,12 @@ void CanvasMode_Edit::mousePressEvent(QMouseEvent *m)
 //	oldClip = 0;
 	m->accept();
 	m_view->registerMousePress(m->globalPos());
-	Mxp = mousePointDoc.x(); //qRound(m->x()/m_canvas->scale() + 0*m_doc->minCanvasCoordinate.x());
-	Myp = mousePointDoc.y(); //qRound(m->y()/m_canvas->scale() + 0*m_doc->minCanvasCoordinate.y());
+	m_Mxp = mousePointDoc.x(); //qRound(m->x()/m_canvas->scale() + 0*m_doc->minCanvasCoordinate.x());
+	m_Myp = mousePointDoc.y(); //qRound(m->y()/m_canvas->scale() + 0*m_doc->minCanvasCoordinate.y());
 // 	QRect mpo(m->x()-m_doc->guidesPrefs().grabRad, m->y()-m_doc->guidesPrefs().grabRad, m_doc->guidesPrefs().grabRad*2, m_doc->guidesPrefs().grabRad*2);
 //	mpo.moveBy(qRound(m_doc->minCanvasCoordinate.x() * m_canvas->scale()), qRound(m_doc->minCanvasCoordinate.y() * m_canvas->scale()));
-	SeRx = Mxp;
-	SeRy = Myp;
+	m_SeRx = m_Mxp;
+	m_SeRy = m_Myp;
 	if (m->button() == Qt::MidButton)
 	{
 		m_view->MidButt = true;
@@ -573,7 +573,7 @@ void CanvasMode_Edit::mousePressEvent(QMouseEvent *m)
 		return;
 	}
 
-	frameResizeHandle = 0;
+	m_frameResizeHandle = 0;
 	int oldP=0;
 	if (GetItem(&currItem))
 	{
@@ -649,12 +649,12 @@ void CanvasMode_Edit::mousePressEvent(QMouseEvent *m)
 							oldP = currItem->itemText.endOfSelection();
 						}
 						currItem->asTextFrame()->itemText.extendSelection(oldP, currItem->itemText.cursorPosition());
-						oldCp = currItem->itemText.cursorPosition();
+						m_oldCp = currItem->itemText.cursorPosition();
 					}
 					else
 					{
 						int dir=1;
-						if (oldCp > currItem->itemText.cursorPosition())
+						if (m_oldCp > currItem->itemText.cursorPosition())
 							dir=-1;
 						if (m->modifiers() & Qt::ControlModifier) //no selection but Ctrl+Shift+click still select paragraphs
 						{
@@ -664,12 +664,12 @@ void CanvasMode_Edit::mousePressEvent(QMouseEvent *m)
 								currItem->itemText.setCursorPosition(currItem->itemText.startOfParagraph());
 						}
 						currItem->asTextFrame()->ExpandSel(dir, oldP);
-						oldCp = oldP;
+						m_oldCp = oldP;
 					}
 				}
 				else //>>CB
 				{
-					oldCp = currItem->itemText.cursorPosition();
+					m_oldCp = currItem->itemText.cursorPosition();
 					currItem->itemText.deselectAll();
 					currItem->HasSel = false;
 				}
@@ -848,7 +848,7 @@ void CanvasMode_Edit::mouseReleaseEvent(QMouseEvent *m)
 	//CB Drag selection performed here
 	if ((m_doc->m_Selection->count() == 0) && (m_view->HaveSelRect) && (!m_view->MidButt))
 	{
-		QRectF Sele = QRectF(Dxp, Dyp, SeRx-Dxp, SeRy-Dyp).normalized();
+		QRectF Sele = QRectF(m_Dxp, m_Dyp, m_SeRx-m_Dxp, m_SeRy-m_Dyp).normalized();
 		if (!m_doc->masterPageMode())
 		{
 			uint docPagesCount=m_doc->Pages->count();
@@ -953,12 +953,12 @@ bool CanvasMode_Edit::SeleItem(QMouseEvent *m)
 	PageItem *currItem;
 	m_canvas->m_viewMode.m_MouseButtonPressed = true;
 	FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPos());
-	Mxp = mousePointDoc.x(); //m->x()/m_canvas->scale());
-	Myp = mousePointDoc.y(); //m->y()/m_canvas->scale());
+	m_Mxp = mousePointDoc.x(); //m->x()/m_canvas->scale());
+	m_Myp = mousePointDoc.y(); //m->y()/m_canvas->scale());
 	double grabRadius = m_doc->guidesPrefs().grabRadius / m_canvas->scale();
 	int MxpS = static_cast<int>(mousePointDoc.x()); //m->x()/m_canvas->scale() + 0*m_doc->minCanvasCoordinate.x());
 	int MypS = static_cast<int>(mousePointDoc.y()); //m->y()/m_canvas->scale() + 0*m_doc->minCanvasCoordinate.y());
-	mpo = QRectF(Mxp-grabRadius, Myp-grabRadius, grabRadius*2, grabRadius*2);
+	mpo = QRectF(m_Mxp-grabRadius, m_Myp-grabRadius, grabRadius*2, grabRadius*2);
 //	mpo.translate(m_doc->minCanvasCoordinate.x() * m_canvas->scale(), m_doc->minCanvasCoordinate.y() * m_canvas->scale());
 	m_doc->nodeEdit.deselect();
 // 	int a;
@@ -1060,8 +1060,8 @@ bool CanvasMode_Edit::SeleItem(QMouseEvent *m)
 		}
 		if (m_doc->m_Selection->count() == 1)
 		{
-			frameResizeHandle = m_canvas->frameHitTest(QPointF(mousePointDoc.x(),mousePointDoc.y()), currItem);
-			if ((frameResizeHandle == Canvas::INSIDE) && (!currItem->locked()))
+			m_frameResizeHandle = m_canvas->frameHitTest(QPointF(mousePointDoc.x(),mousePointDoc.y()), currItem);
+			if ((m_frameResizeHandle == Canvas::INSIDE) && (!currItem->locked()))
 				m_view->setCursor(QCursor(Qt::SizeAllCursor));
 		}
 		else
@@ -1082,8 +1082,8 @@ void CanvasMode_Edit::createContextMenu(PageItem* currItem, double mx, double my
 	ContextMenu* cmen=NULL;
 	m_view->setCursor(QCursor(Qt::ArrowCursor));
 	m_view->setObjectUndoMode();
-	Mxp = mx;
-	Myp = my;
+	m_Mxp = mx;
+	m_Myp = my;
 	if(currItem!=NULL)
 		cmen = new ContextMenu(*(m_doc->m_Selection), m_ScMW, m_doc);
 	else
