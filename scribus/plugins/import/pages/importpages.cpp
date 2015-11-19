@@ -1614,7 +1614,7 @@ PageItem* PagesPlug::parseObjReference(QDomElement &draw)
 			{
 				GElements.at(ep)->moveBy(po[0].x(), po[0].y(), true);
 			}
-			z = m_Doc->itemAdd(PageItem::Group, PageItem::Rectangle, baseX + po[0].x(), baseY + po[0].y(), obState.width, obState.height, 0, CommonStrings::None, CommonStrings::None, true);
+			z = m_Doc->itemAdd(PageItem::Group, PageItem::Rectangle, baseX + po[0].x(), baseY + po[0].y(), obState.width, obState.height, 0, CommonStrings::None, CommonStrings::None);
 			retObj = m_Doc->Items->at(z);
 			retObj->ClipEdited = true;
 			retObj->FrameType = 3;
@@ -1830,7 +1830,7 @@ PageItem* PagesPlug::parseObjReference(QDomElement &draw)
 			QRectF br = po.boundingRect();
 			po.translate(-br.x(), -br.y());
 			po.translate(obState.xPos, obState.yPos);
-			z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Rectangle, baseX + po[0].x(), baseY + po[0].y(), obState.width, obState.height, obState.LineW, obState.CurrColorFill, obState.CurrColorStroke, true);
+			z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Rectangle, baseX + po[0].x(), baseY + po[0].y(), obState.width, obState.height, obState.LineW, obState.CurrColorFill, obState.CurrColorStroke);
 			retObj = m_Doc->Items->at(z);
 			if (!obState.clipPath.isEmpty())
 			{
@@ -1896,11 +1896,11 @@ PageItem* PagesPlug::parseObjReference(QDomElement &draw)
 			po.translate(-br.x(), -br.y());
 			po.translate(obState.xPos, obState.yPos);
 			if (itemText.length() > 0)
-				z = m_Doc->itemAdd(PageItem::TextFrame, PageItem::Rectangle, baseX + po[0].x(), baseY + po[0].y(), obState.width, obState.height, obState.LineW, obState.CurrColorFill, obState.CurrColorStroke, true);
+				z = m_Doc->itemAdd(PageItem::TextFrame, PageItem::Rectangle, baseX + po[0].x(), baseY + po[0].y(), obState.width, obState.height, obState.LineW, obState.CurrColorFill, obState.CurrColorStroke);
 			else if (obState.currentPathClosed)
-				z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX + po[0].x(), baseY + po[0].y(), obState.width, obState.height, obState.LineW, obState.CurrColorFill, obState.CurrColorStroke, true);
+				z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX + po[0].x(), baseY + po[0].y(), obState.width, obState.height, obState.LineW, obState.CurrColorFill, obState.CurrColorStroke);
 			else
-				z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX + po[0].x(), baseY + po[0].y(), obState.width, obState.height, obState.LineW, obState.CurrColorFill, obState.CurrColorStroke, true);
+				z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX + po[0].x(), baseY + po[0].y(), obState.width, obState.height, obState.LineW, obState.CurrColorFill, obState.CurrColorStroke);
 			retObj = m_Doc->Items->at(z);
 			if (!obState.currentPath.isEmpty())
 			{
@@ -1929,7 +1929,7 @@ PageItem* PagesPlug::addClip(PageItem* retObj, ObjState &obState)
 {
 	if (!obState.clipPath.isEmpty())
 	{
-		int z = m_Doc->itemAdd(PageItem::Group, PageItem::Rectangle, baseX, baseY, 10, 10, 0, CommonStrings::None, CommonStrings::None, true);
+		int z = m_Doc->itemAdd(PageItem::Group, PageItem::Rectangle, baseX, baseY, 10, 10, 0, CommonStrings::None, CommonStrings::None);
 		PageItem *itemg = m_Doc->Items->at(z);
 		itemg->PoLine.fromQPainterPath(obState.clipPath);
 		FPoint wh = getMaxClipF(&itemg->PoLine);

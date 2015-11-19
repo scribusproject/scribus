@@ -480,7 +480,7 @@ bool OdgPlug::parseStyleSheetsXML(QDomDocument &designMapDom)
 						{
 							ObjStyle tmpBStyle;
 							resovleStyle(tmpBStyle, backGroundStyle);
-							int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, baseX, baseY, tmpOStyle.page_width, tmpOStyle.page_height, 0, tmpBStyle.CurrColorFill, CommonStrings::None, true);
+							int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, baseX, baseY, tmpOStyle.page_width, tmpOStyle.page_height, 0, tmpBStyle.CurrColorFill, CommonStrings::None);
 							PageItem *retObj = m_Doc->Items->at(z);
 							finishItem(retObj, tmpBStyle);
 						}
@@ -606,7 +606,7 @@ bool OdgPlug::parseDocReferenceXML(QDomDocument &designMapDom)
 						{
 							ObjStyle tmpBStyle;
 							resovleStyle(tmpBStyle, currStyle.page_layout_name.value);
-							int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, baseX, baseY, tmpOStyle.page_width, tmpOStyle.page_height, 0, tmpBStyle.CurrColorFill, CommonStrings::None, true);
+							int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, baseX, baseY, tmpOStyle.page_width, tmpOStyle.page_height, 0, tmpBStyle.CurrColorFill, CommonStrings::None);
 							PageItem *retObj = m_Doc->Items->at(z);
 							finishItem(retObj, tmpBStyle);
 						}
@@ -767,7 +767,7 @@ PageItem* OdgPlug::parseObj(QDomElement &draw)
 			double gy = miny;
 			double gw = maxx - minx;
 			double gh = maxy - miny;
-			int z = m_Doc->itemAdd(PageItem::Group, PageItem::Rectangle, gx, gy, gw, gh, 0, CommonStrings::None, CommonStrings::None, true);
+			int z = m_Doc->itemAdd(PageItem::Group, PageItem::Rectangle, gx, gy, gw, gh, 0, CommonStrings::None, CommonStrings::None);
 			retObj = m_Doc->Items->at(z);
 			retObj->ClipEdited = true;
 			retObj->FrameType = 3;
@@ -841,7 +841,7 @@ PageItem* OdgPlug::parseConnector(QDomElement &e)
 		pArray.parseSVG(e.attribute("svg:d"));
 		if (pArray.size() > 3)
 		{
-			int z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX, baseY, 10, 10, tmpOStyle.LineW, CommonStrings::None, tmpOStyle.CurrColorStroke, true);
+			int z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX, baseY, 10, 10, tmpOStyle.LineW, CommonStrings::None, tmpOStyle.CurrColorStroke);
 			retObj = m_Doc->Items->at(z);
 			retObj->PoLine = pArray.copy();
 			QTransform mat;
@@ -1121,7 +1121,7 @@ PageItem* OdgPlug::parseCustomShape(QDomElement &e)
 						QString strokeC = tmpOStyle.CurrColorStroke;
 						if (!stroked)
 							strokeC = CommonStrings::None;
-						int z = m_Doc->itemAdd(itype, PageItem::Unspecified, baseX + x, baseY + y, w, h, tmpOStyle.LineW, fillC, strokeC, true);
+						int z = m_Doc->itemAdd(itype, PageItem::Unspecified, baseX + x, baseY + y, w, h, tmpOStyle.LineW, fillC, strokeC);
 						retObj = m_Doc->Items->at(z);
 						retObj->PoLine = pArray.copy();
 						retObj->setFillEvenOdd(true);
@@ -1212,7 +1212,7 @@ PageItem* OdgPlug::parseCustomShape(QDomElement &e)
 			tw = texAreaPoints[1].x() - texAreaPoints[0].x();
 			th = texAreaPoints[1].y() - texAreaPoints[0].y();
 		}
-		int z = m_Doc->itemAdd(PageItem::TextFrame, PageItem::Unspecified, baseX+tx, baseY+ty, tw, th, 0, CommonStrings::None, CommonStrings::None, true);
+		int z = m_Doc->itemAdd(PageItem::TextFrame, PageItem::Unspecified, baseX+tx, baseY+ty, tw, th, 0, CommonStrings::None, CommonStrings::None);
 		retObj = m_Doc->Items->at(z);
 		retObj->setTextToFrameDist(0.0, 0.0, 0.0, 0.0);
 		retObj->setTextFlowMode(PageItem::TextFlowDisabled);
@@ -1256,7 +1256,7 @@ PageItem* OdgPlug::parseMeasure(QDomElement &e)
 	normRef.setLength(tmpOStyle.measureDist + tmpOStyle.fontSize * 1.2);
 	if (normRef.length() != 0)
 	{
-		int z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX, baseY, 10, 10, tmpOStyle.LineW, CommonStrings::None, tmpOStyle.CurrColorStroke, true);
+		int z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX, baseY, 10, 10, tmpOStyle.LineW, CommonStrings::None, tmpOStyle.CurrColorStroke);
 		retObj = m_Doc->Items->at(z);
 		retObj->PoLine.resize(4);
 		retObj->PoLine.setPoint(0, FPoint(x1, y1));
@@ -1275,7 +1275,7 @@ PageItem* OdgPlug::parseMeasure(QDomElement &e)
 	normRef2.setLength(tmpOStyle.measureDist + tmpOStyle.fontSize / 2.0);
 	if (normRef2.length() != 0)
 	{
-		int z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX, baseY, 10, 10, tmpOStyle.LineW, CommonStrings::None, tmpOStyle.CurrColorStroke, true);
+		int z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX, baseY, 10, 10, tmpOStyle.LineW, CommonStrings::None, tmpOStyle.CurrColorStroke);
 		retObj = m_Doc->Items->at(z);
 		retObj->PoLine.resize(4);
 		retObj->PoLine.setPoint(0, FPoint(x2, y2));
@@ -1292,7 +1292,7 @@ PageItem* OdgPlug::parseMeasure(QDomElement &e)
 	QLineF textLine = QLineF(normRef.p2(), normRef2.p2());
 	if (textLine.length() != 0)
 	{
-		int z = m_Doc->itemAdd(PageItem::TextFrame, PageItem::Unspecified, baseX+normRef.p2().x(), baseY+normRef.p2().y(), textLine.length(), tmpOStyle.fontSize * 1.2, tmpOStyle.LineW, tmpOStyle.CurrColorFill, tmpOStyle.CurrColorStroke, true);
+		int z = m_Doc->itemAdd(PageItem::TextFrame, PageItem::Unspecified, baseX+normRef.p2().x(), baseY+normRef.p2().y(), textLine.length(), tmpOStyle.fontSize * 1.2, tmpOStyle.LineW, tmpOStyle.CurrColorFill, tmpOStyle.CurrColorStroke);
 		retObj = m_Doc->Items->at(z);
 		retObj->setFillColor(tmpOStyle.CurrColorFill);
 		retObj->setTextToFrameDist(0.0, 0.0, 0.0, 0.0);
@@ -1320,7 +1320,7 @@ PageItem* OdgPlug::parseLine( QDomElement &e)
 	resovleStyle(tmpOStyle, getStyleName(e));
 	if (tmpOStyle.stroke_type == 0)
 		return retObj;
-	int z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX, baseY, 10, 10, tmpOStyle.LineW, CommonStrings::None, tmpOStyle.CurrColorStroke, true);
+	int z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX, baseY, 10, 10, tmpOStyle.LineW, CommonStrings::None, tmpOStyle.CurrColorStroke);
 	retObj = m_Doc->Items->at(z);
 	retObj->PoLine.resize(4);
 	retObj->PoLine.setPoint(0, FPoint(x1, y1));
@@ -1359,7 +1359,7 @@ PageItem* OdgPlug::parseEllipse(QDomElement &e)
 	resovleStyle(tmpOStyle, getStyleName(e));
 	if ((tmpOStyle.fill_type == 0) && (tmpOStyle.stroke_type == 0))
 		return retObj;
-	int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Ellipse, baseX+x, baseY+y, w, h, tmpOStyle.LineW, tmpOStyle.CurrColorFill, tmpOStyle.CurrColorStroke, true);
+	int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Ellipse, baseX+x, baseY+y, w, h, tmpOStyle.LineW, tmpOStyle.CurrColorFill, tmpOStyle.CurrColorStroke);
 	retObj = m_Doc->Items->at(z);
 	if (e.hasAttribute("draw:transform"))
 		parseTransform(&retObj->PoLine, e.attribute("draw:transform"));
@@ -1381,7 +1381,7 @@ PageItem* OdgPlug::parseRect(QDomElement &e)
 	resovleStyle(tmpOStyle, getStyleName(e));
 	if ((tmpOStyle.fill_type == 0) && (tmpOStyle.stroke_type == 0))
 		return retObj;
-	int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, baseX+x, baseY+y, w, h, tmpOStyle.LineW, tmpOStyle.CurrColorFill, tmpOStyle.CurrColorStroke, true);
+	int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, baseX+x, baseY+y, w, h, tmpOStyle.LineW, tmpOStyle.CurrColorFill, tmpOStyle.CurrColorStroke);
 	retObj = m_Doc->Items->at(z);
 	if (corner != 0)
 	{
@@ -1404,7 +1404,7 @@ PageItem* OdgPlug::parsePolygon(QDomElement &e)
 	resovleStyle(tmpOStyle, getStyleName(e));
 	if ((tmpOStyle.fill_type == 0) && (tmpOStyle.stroke_type == 0))
 		return retObj;
-	int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, tmpOStyle.LineW, tmpOStyle.CurrColorFill, tmpOStyle.CurrColorStroke, true);
+	int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, tmpOStyle.LineW, tmpOStyle.CurrColorFill, tmpOStyle.CurrColorStroke);
 	retObj = m_Doc->Items->at(z);
 	retObj->PoLine.resize(0);
 	appendPoints(&retObj->PoLine, e, true);
@@ -1423,7 +1423,7 @@ PageItem* OdgPlug::parsePolyline(QDomElement &e)
 	resovleStyle(tmpOStyle, getStyleName(e));
 	if (tmpOStyle.stroke_type == 0)
 		return retObj;
-	int z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX, baseY, 10, 10, tmpOStyle.LineW, CommonStrings::None, tmpOStyle.CurrColorStroke, true);
+	int z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX, baseY, 10, 10, tmpOStyle.LineW, CommonStrings::None, tmpOStyle.CurrColorStroke);
 	retObj = m_Doc->Items->at(z);
 	retObj->PoLine.resize(0);
 	appendPoints(&retObj->PoLine, e, false);
@@ -1464,7 +1464,7 @@ PageItem* OdgPlug::parsePath(QDomElement &e)
 		double y = parseUnit(e.attribute("svg:y")) ;
 		double w = parseUnit(e.attribute("svg:width"));
 		double h = parseUnit(e.attribute("svg:height"));
-		int z = m_Doc->itemAdd(itype, PageItem::Unspecified, baseX + x, baseY + y, w, h, tmpOStyle.LineW, tmpOStyle.CurrColorFill, tmpOStyle.CurrColorStroke, true);
+		int z = m_Doc->itemAdd(itype, PageItem::Unspecified, baseX + x, baseY + y, w, h, tmpOStyle.LineW, tmpOStyle.CurrColorFill, tmpOStyle.CurrColorStroke);
 		retObj = m_Doc->Items->at(z);
 		retObj->PoLine = pArray.copy();
 		QTransform mat;
@@ -1525,7 +1525,7 @@ PageItem* OdgPlug::parseFrame(QDomElement &e)
 		{
 			if (n.text().isEmpty())
 				return retObj;
-			int z = m_Doc->itemAdd(PageItem::TextFrame, PageItem::Unspecified, baseX+x, baseY+y, w, h, tmpOStyle.LineW, tmpOStyle.CurrColorFill, tmpOStyle.CurrColorStroke, true);
+			int z = m_Doc->itemAdd(PageItem::TextFrame, PageItem::Unspecified, baseX+x, baseY+y, w, h, tmpOStyle.LineW, tmpOStyle.CurrColorFill, tmpOStyle.CurrColorStroke);
 			retObj = m_Doc->Items->at(z);
 			retObj->setFillColor(tmpOStyle.CurrColorFill);
 			retObj->setTextToFrameDist(0.0, 0.0, 0.0, 0.0);
@@ -1550,7 +1550,7 @@ PageItem* OdgPlug::parseFrame(QDomElement &e)
 				QStringList allFormatsV = LoadSavePlugin::getExtensionsForImport(FORMATID_FIRSTUSER);
 				if (formats.contains(ext.toUtf8()))
 				{
-					int z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, baseX+x, baseY+y, w, h, tmpOStyle.LineW, tmpOStyle.CurrColorFill, tmpOStyle.CurrColorStroke, true);
+					int z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, baseX+x, baseY+y, w, h, tmpOStyle.LineW, tmpOStyle.CurrColorFill, tmpOStyle.CurrColorStroke);
 					retObj = m_Doc->Items->at(z);
 					if (e.hasAttribute("draw:transform"))
 						retObj->setRotation(r, true);
@@ -1644,7 +1644,7 @@ PageItem* OdgPlug::parseFrame(QDomElement &e)
 							}
 							else
 							{
-								int z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, baseX+x, baseY+y, w, h, tmpOStyle.LineW, tmpOStyle.CurrColorFill, tmpOStyle.CurrColorStroke, true);
+								int z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, baseX+x, baseY+y, w, h, tmpOStyle.LineW, tmpOStyle.CurrColorFill, tmpOStyle.CurrColorStroke);
 								retObj = m_Doc->Items->at(z);
 								if (e.hasAttribute("draw:transform"))
 									retObj->setRotation(r, true);
@@ -3193,7 +3193,7 @@ PageItem* OdgPlug::groupObjects(QList<PageItem *> &GElements)
 	double gy = miny;
 	double gw = maxx - minx;
 	double gh = maxy - miny;
-	int z = m_Doc->itemAdd(PageItem::Group, PageItem::Rectangle, gx, gy, gw, gh, 0, CommonStrings::None, CommonStrings::None, true);
+	int z = m_Doc->itemAdd(PageItem::Group, PageItem::Rectangle, gx, gy, gw, gh, 0, CommonStrings::None, CommonStrings::None);
 	PageItem* retObj = m_Doc->Items->at(z);
 	retObj->ClipEdited = true;
 	retObj->FrameType = 3;
@@ -3409,7 +3409,7 @@ PageItem* OdgPlug::applyStartArrow(PageItem* ite, ObjStyle &obState)
 					arrowTrans.translate(-m_Doc->currentPage()->xOffset(), -m_Doc->currentPage()->yOffset());
 					arrowTrans.translate(Start.x() + ite->xPos(), Start.y() + ite->yPos());
 					EndArrow.map(arrowTrans);
-					int zS = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, 0, obState.CurrColorStroke, CommonStrings::None, true);
+					int zS = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, 0, obState.CurrColorStroke, CommonStrings::None);
 					iteS = m_Doc->Items->at(zS);
 					iteS->PoLine = EndArrow.copy();
 					iteS->ClipEdited = true;
@@ -3476,7 +3476,7 @@ PageItem* OdgPlug::applyEndArrow(PageItem* ite, ObjStyle &obState)
 					arrowTrans.translate(-m_Doc->currentPage()->xOffset(), -m_Doc->currentPage()->yOffset());
 					arrowTrans.translate(End.x() + ite->xPos(), End.y() + ite->yPos());
 					EndArrow.map(arrowTrans);
-					int zE = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, 0, obState.CurrColorStroke, CommonStrings::None, true);
+					int zE = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, 0, obState.CurrColorStroke, CommonStrings::None);
 					iteS = m_Doc->Items->at(zE);
 					iteS->PoLine = EndArrow.copy();
 					iteS->ClipEdited = true;
@@ -3862,7 +3862,7 @@ void OdgPlug::finishItem(PageItem* item, ObjStyle &obState)
 							tempFile->close();
 							ScPattern pat = ScPattern();
 							pat.setDoc(m_Doc);
-							int z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, 0, 0, 1, 1, 0, CommonStrings::None, CommonStrings::None, true);
+							int z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, 0, 0, 1, 1, 0, CommonStrings::None, CommonStrings::None);
 							PageItem* newItem = m_Doc->Items->at(z);
 							m_Doc->loadPict(fileName, newItem);
 							m_Doc->Items->takeAt(z);
@@ -3958,7 +3958,7 @@ void OdgPlug::finishItem(PageItem* item, ObjStyle &obState)
 							tempFile->close();
 							ScPattern pat = ScPattern();
 							pat.setDoc(m_Doc);
-							int z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, 0, 0, 1, 1, 0, CommonStrings::None, CommonStrings::None, true);
+							int z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, 0, 0, 1, 1, 0, CommonStrings::None, CommonStrings::None);
 							PageItem* newItem = m_Doc->Items->at(z);
 							m_Doc->loadPict(fileName, newItem);
 							m_Doc->Items->takeAt(z);

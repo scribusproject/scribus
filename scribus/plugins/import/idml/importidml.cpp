@@ -2143,7 +2143,7 @@ QList<PageItem*> IdmlPlug::parseItemXML(const QDomElement& itElem, QTransform pT
 					fillColor = CommonStrings::None;
 				if (itElem.tagName() == "TextFrame")
 				{
-					z = m_Doc->itemAdd(PageItem::TextFrame, PageItem::Unspecified, baseX, baseY, 10, 10, lineWidth, fillColor, strokeColor, true);
+					z = m_Doc->itemAdd(PageItem::TextFrame, PageItem::Unspecified, baseX, baseY, 10, 10, lineWidth, fillColor, strokeColor);
 					PageItem* item = m_Doc->Items->at(z);
 					QString story = itElem.attribute("ParentStory");
 					if (!storyMap.contains(story))
@@ -2163,7 +2163,7 @@ QList<PageItem*> IdmlPlug::parseItemXML(const QDomElement& itElem, QTransform pT
 				}
 				else if (isPathText)
 				{
-					z = m_Doc->itemAdd(PageItem::PathText, PageItem::Unspecified, baseX, baseY, 10, 10, lineWidth, CommonStrings::None, strokeColor, true);
+					z = m_Doc->itemAdd(PageItem::PathText, PageItem::Unspecified, baseX, baseY, 10, 10, lineWidth, CommonStrings::None, strokeColor);
 					if (!storyMap.contains(storyForPath))
 						storyMap.insert(storyForPath, m_Doc->Items->at(z));
 					PageItem* item = m_Doc->Items->at(z);
@@ -2172,14 +2172,14 @@ QList<PageItem*> IdmlPlug::parseItemXML(const QDomElement& itElem, QTransform pT
 				}
 				else if (isImage)
 				{
-					z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, baseX, baseY, 10, 10, lineWidth, fillColor, strokeColor, true);
+					z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, baseX, baseY, 10, 10, lineWidth, fillColor, strokeColor);
 				}
 				else
 				{
 					if (isOpen)
-						z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX, baseY, 10, 10, lineWidth, fillColor, strokeColor, true);
+						z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX, baseY, 10, 10, lineWidth, fillColor, strokeColor);
 					else
-						z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, lineWidth, fillColor, strokeColor, true);
+						z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, lineWidth, fillColor, strokeColor);
 				}
 				PageItem* item = m_Doc->Items->at(z);
 				item->PoLine = GCoords.copy();
@@ -2325,7 +2325,7 @@ QList<PageItem*> IdmlPlug::parseItemXML(const QDomElement& itElem, QTransform pT
 				item->ContourLine = item->PoLine.copy();
 				GElements.prepend(m_Doc->Items->takeAt(z));
 			}
-			z = m_Doc->itemAdd(PageItem::Group, PageItem::Rectangle, baseX, baseY, 10, 10, 0, CommonStrings::None, CommonStrings::None, true);
+			z = m_Doc->itemAdd(PageItem::Group, PageItem::Rectangle, baseX, baseY, 10, 10, 0, CommonStrings::None, CommonStrings::None);
 			PageItem *itemg = m_Doc->Items->at(z);
 			double dx = 0;
 			double dy = 0;
@@ -2375,7 +2375,7 @@ QList<PageItem*> IdmlPlug::parseItemXML(const QDomElement& itElem, QTransform pT
 				fillColor = CommonStrings::None;
 			if (itElem.tagName() == "TextFrame")
 			{
-				z = m_Doc->itemAdd(PageItem::TextFrame, PageItem::Unspecified, baseX, baseY, 10, 10, lineWidth, fillColor, strokeColor, true);
+				z = m_Doc->itemAdd(PageItem::TextFrame, PageItem::Unspecified, baseX, baseY, 10, 10, lineWidth, fillColor, strokeColor);
 				PageItem* item = m_Doc->Items->at(z);
 				QString story = itElem.attribute("ParentStory");
 				if (!storyMap.contains(story))
@@ -2395,7 +2395,7 @@ QList<PageItem*> IdmlPlug::parseItemXML(const QDomElement& itElem, QTransform pT
 			}
 			else if (isPathText)
 			{
-				z = m_Doc->itemAdd(PageItem::PathText, PageItem::Unspecified, baseX, baseY, 10, 10, lineWidth, CommonStrings::None, strokeColor, true);
+				z = m_Doc->itemAdd(PageItem::PathText, PageItem::Unspecified, baseX, baseY, 10, 10, lineWidth, CommonStrings::None, strokeColor);
 				if (!storyMap.contains(storyForPath))
 					storyMap.insert(storyForPath, m_Doc->Items->at(z));
 				PageItem* item = m_Doc->Items->at(z);
@@ -2404,14 +2404,14 @@ QList<PageItem*> IdmlPlug::parseItemXML(const QDomElement& itElem, QTransform pT
 			}
 			else if (isImage)
 			{
-				z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, baseX, baseY, 10, 10, lineWidth, fillColor, strokeColor, true);
+				z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, baseX, baseY, 10, 10, lineWidth, fillColor, strokeColor);
 			}
 			else
 			{
 				if (isOpen)
-					z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX, baseY, 10, 10, lineWidth, fillColor, strokeColor, true);
+					z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX, baseY, 10, 10, lineWidth, fillColor, strokeColor);
 				else
-					z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, lineWidth, fillColor, strokeColor, true);
+					z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, lineWidth, fillColor, strokeColor);
 			}
 			PageItem* item = m_Doc->Items->at(z);
 			double dx = 0;
@@ -2677,7 +2677,7 @@ QList<PageItem*> IdmlPlug::parseItemXML(const QDomElement& itElem, QTransform pT
 			double gy = miny;
 			double gw = maxx - minx;
 			double gh = maxy - miny;
-			int z = m_Doc->itemAdd(PageItem::Group, PageItem::Rectangle, gx, gy, gw, gh, 0, CommonStrings::None, CommonStrings::None, true);
+			int z = m_Doc->itemAdd(PageItem::Group, PageItem::Rectangle, gx, gy, gw, gh, 0, CommonStrings::None, CommonStrings::None);
 			PageItem *item = m_Doc->Items->at(z);
 			item->setTextFlowMode(textFlow);
 			m_Doc->AdjustItemSize(item);
@@ -2950,7 +2950,7 @@ void IdmlPlug::parseCharacterStyleRange(QDomElement &stt, PageItem* item, QStrin
 				}
 			}
 			m_Doc->dontResize = true;
-			int z = m_Doc->itemAdd(PageItem::Table, PageItem::Unspecified, 0, 0, qMin(item->width() - 2, twidth), qMin(item->height() - 2, theight), 0.0, CommonStrings::None, CommonStrings::None, true);
+			int z = m_Doc->itemAdd(PageItem::Table, PageItem::Unspecified, 0, 0, qMin(item->width() - 2, twidth), qMin(item->height() - 2, theight), 0.0, CommonStrings::None, CommonStrings::None);
 			PageItem_Table* currItem = m_Doc->Items->takeAt(z)->asTable();
 			currItem->insertRows(0, rowHeights.count()-1);
 			m_Doc->dontResize = true;

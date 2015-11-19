@@ -784,10 +784,10 @@ public:
 	\param outline outline color name
 	\param noteFrame optional (default false) indicates that noteframes should be created, not text frame
 	*/
-	int itemAdd(const PageItem::ItemType itemType, const PageItem::ItemFrameType frameType, const double x, const double y, const double b, const double h, const double w, const QString& fill, const QString& outline, const bool itemFinalised);
+	int itemAdd(const PageItem::ItemType itemType, const PageItem::ItemFrameType frameType, const double x, const double y, const double b, const double h, const double w, const QString& fill, const QString& outline);
 
 	/** Add an item to the page based on the x/y position. Item will be fitted to the closest guides/margins */
-	int itemAddArea(const PageItem::ItemType itemType, const PageItem::ItemFrameType frameType, const double x, const double y, const double w, const QString& fill, const QString& outline, const bool itemFinalised);
+	int itemAddArea(const PageItem::ItemType itemType, const PageItem::ItemFrameType frameType, const double x, const double y, const double w, const QString& fill, const QString& outline);
 	
 	/**
 	 * @brief Allow the user to create a frame easily with some simple placement and sizing options

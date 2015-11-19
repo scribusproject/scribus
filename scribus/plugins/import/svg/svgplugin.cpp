@@ -859,7 +859,7 @@ void SVGPlug::finishNode( const QDomNode &e, PageItem* item)
 					arrowTrans.rotate(r);
 					arrowTrans.translate(-dX, -dY);
 					FPoint ba = FPoint(0.0, 0.0).transformPoint(arrowTrans, false);
-					int z = m_Doc->itemAdd(PageItem::Symbol, PageItem::Unspecified, ba.x(), ba.y(), dX * 2.0, dY * 2.0, 0, CommonStrings::None, CommonStrings::None, true);
+					int z = m_Doc->itemAdd(PageItem::Symbol, PageItem::Unspecified, ba.x(), ba.y(), dX * 2.0, dY * 2.0, 0, CommonStrings::None, CommonStrings::None);
 					PageItem* ite = m_Doc->Items->at(z);
 					ite->setPattern(importedPattTrans[gc->endMarker]);
 					ite->setRotation(r, true);
@@ -890,7 +890,7 @@ void SVGPlug::finishNode( const QDomNode &e, PageItem* item)
 					arrowTrans.rotate(r);
 					arrowTrans.translate(-dX, -dY);
 					FPoint ba = FPoint(0.0, 0.0).transformPoint(arrowTrans, false);
-					int z = m_Doc->itemAdd(PageItem::Symbol, PageItem::Unspecified, ba.x(), ba.y(), dX * 2.0, dY * 2.0, 0, CommonStrings::None, CommonStrings::None, true);
+					int z = m_Doc->itemAdd(PageItem::Symbol, PageItem::Unspecified, ba.x(), ba.y(), dX * 2.0, dY * 2.0, 0, CommonStrings::None, CommonStrings::None);
 					PageItem* ite = m_Doc->Items->at(z);
 					ite->setPattern(importedPattTrans[gc->startMarker]);
 					ite->setRotation(r, true);
@@ -1221,7 +1221,7 @@ QList<PageItem*> SVGPlug::parseGroup(const QDomElement &e)
 		setupNode(e);
 		parseClipPathAttr(e, clipPath);
 		m_gc.top()->forGroup = true;
-		int z = m_Doc->itemAdd(PageItem::Group, PageItem::Rectangle, BaseX, BaseY, 1, 1, 0, CommonStrings::None, CommonStrings::None, true);
+		int z = m_Doc->itemAdd(PageItem::Group, PageItem::Rectangle, BaseX, BaseY, 1, 1, 0, CommonStrings::None, CommonStrings::None);
 		PageItem *neu = m_Doc->Items->at(z);
 		for ( QDomNode n = e.firstChild(); !n.isNull(); n = n.nextSibling() )
 		{
@@ -1504,7 +1504,7 @@ QList<PageItem*> SVGPlug::parseCircle(const QDomElement &e)
 	double y = parseUnit( e.attribute( "cy" ) ) - r;
 	setupNode(e);
 	SvgStyle *gc = m_gc.top();
-	int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Ellipse, BaseX, BaseY, r * 2.0, r * 2.0, gc->LWidth, gc->FillCol, gc->StrokeCol, true);
+	int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Ellipse, BaseX, BaseY, r * 2.0, r * 2.0, gc->LWidth, gc->FillCol, gc->StrokeCol);
 	PageItem* ite = m_Doc->Items->at(z);
 	QTransform mm = QTransform();
 	mm.translate(x, y);
@@ -1528,7 +1528,7 @@ QList<PageItem*> SVGPlug::parseEllipse(const QDomElement &e)
 	double y = parseUnit( e.attribute( "cy" ) ) - ry;
 	setupNode(e);
 	SvgStyle *gc = m_gc.top();
-	int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Ellipse, BaseX, BaseY, rx * 2.0, ry * 2.0, gc->LWidth, gc->FillCol, gc->StrokeCol, true);
+	int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Ellipse, BaseX, BaseY, rx * 2.0, ry * 2.0, gc->LWidth, gc->FillCol, gc->StrokeCol);
 	PageItem* ite = m_Doc->Items->at(z);
 	QTransform mm = QTransform();
 	mm.translate(x, y);
@@ -1554,7 +1554,7 @@ QList<PageItem*> SVGPlug::parseImage(const QDomElement &e)
 	double h = e.attribute( "height" ).isEmpty() ? 1.0 : parseUnit( e.attribute( "height" ) );
 	setupNode(e);
 	parseClipPathAttr(e, clipPath);
-	int z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, x+BaseX, y+BaseY, w, h, 1, m_Doc->itemToolPrefs().imageFillColor, m_Doc->itemToolPrefs().imageStrokeColor, true);
+	int z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, x+BaseX, y+BaseY, w, h, 1, m_Doc->itemToolPrefs().imageFillColor, m_Doc->itemToolPrefs().imageStrokeColor);
 	PageItem* ite = m_Doc->Items->at(z);
 	if (!fname.isEmpty())
 	{
@@ -1604,7 +1604,7 @@ QList<PageItem*> SVGPlug::parseLine(const QDomElement &e)
 	double y2 = e.attribute( "y2" ).isEmpty() ? 0.0 : parseUnit( e.attribute( "y2" ) );
 	setupNode(e);
 	SvgStyle *gc = m_gc.top();
-	int z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, BaseX, BaseY, 10, 10, gc->LWidth, gc->FillCol, gc->StrokeCol, true);
+	int z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, BaseX, BaseY, 10, 10, gc->LWidth, gc->FillCol, gc->StrokeCol);
 	PageItem* ite = m_Doc->Items->at(z);
 	ite->PoLine.resize(4);
 	ite->PoLine.setPoint(0, FPoint(x1, y1));
@@ -1626,7 +1626,7 @@ QList<PageItem*> SVGPlug::parsePath(const QDomElement &e)
 	setupNode(e);
 	SvgStyle *gc = m_gc.top();
 	PageItem::ItemType itype = parseSVG(e.attribute("d"), &pArray) ? PageItem::PolyLine : PageItem::Polygon; 
-	int z = m_Doc->itemAdd(itype, PageItem::Unspecified, BaseX, BaseY, 10, 10, gc->LWidth, gc->FillCol, gc->StrokeCol, true);
+	int z = m_Doc->itemAdd(itype, PageItem::Unspecified, BaseX, BaseY, 10, 10, gc->LWidth, gc->FillCol, gc->StrokeCol);
 	PageItem* ite = m_Doc->Items->at(z);
 	ite->fillRule = (gc->fillRule != "nonzero");
 	ite->PoLine = pArray;
@@ -1662,9 +1662,9 @@ QList<PageItem*> SVGPlug::parsePolyline(const QDomElement &e)
 		points = points.simplified().replace(',', " ");
 		QStringList pointList = points.split( ' ', QString::SkipEmptyParts );
 		if ((STag == "polygon" ) && (pointList.count() > 4))
-			z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, BaseX, BaseY, 10, 10, gc->LWidth, gc->FillCol, gc->StrokeCol, true);
+			z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, BaseX, BaseY, 10, 10, gc->LWidth, gc->FillCol, gc->StrokeCol);
 		else
-			z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, BaseX, BaseY, 10, 10, gc->LWidth, gc->FillCol, gc->StrokeCol, true);
+			z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, BaseX, BaseY, 10, 10, gc->LWidth, gc->FillCol, gc->StrokeCol);
 		PageItem* ite = m_Doc->Items->at(z);
 		ite->fillRule = (gc->fillRule != "nonzero"); 
 		ite->PoLine.resize(0);
@@ -1718,7 +1718,7 @@ QList<PageItem*> SVGPlug::parseRect(const QDomElement &e)
 	double ry = e.attribute( "ry" ).isEmpty() ? 0.0 : parseUnit( e.attribute( "ry" ) );
 	setupNode(e);
 	SvgStyle *gc = m_gc.top();
-	int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, BaseX, BaseY, width, height, gc->LWidth, gc->FillCol, gc->StrokeCol, true);
+	int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, BaseX, BaseY, width, height, gc->LWidth, gc->FillCol, gc->StrokeCol);
 	PageItem* ite = m_Doc->Items->at(z);
 	if ((rx != 0) || (ry != 0))
 	{
@@ -1825,7 +1825,7 @@ QList<PageItem*> SVGPlug::parseTextNode(const QDomText& e, FPoint& currentPos, d
 	if (textPath.size() > 0)
 	{
 //		double  lineWidth = 0.0;
-		int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, BaseX, BaseY, 10, 10, gc->LWidth, textFillColor, textStrokeColor, true);
+		int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, BaseX, BaseY, 10, 10, gc->LWidth, textFillColor, textStrokeColor);
 		PageItem* ite = m_Doc->Items->at(z);
 		ite->PoLine = textPath;
 		finishNode(e, ite);

@@ -1216,7 +1216,7 @@ PageItem* XpsPlug::parseObjectXML(QDomElement &dpg, QString path)
 			double gy = miny;
 			double gw = maxx - minx;
 			double gh = maxy - miny;
-			int z = m_Doc->itemAdd(PageItem::Group, PageItem::Rectangle, gx, gy, gw, gh, 0, CommonStrings::None, CommonStrings::None, true);
+			int z = m_Doc->itemAdd(PageItem::Group, PageItem::Rectangle, gx, gy, gw, gh, 0, CommonStrings::None, CommonStrings::None);
 			if (z >= 0)
 			{
 				retObj = m_Doc->Items->at(z);
@@ -1654,7 +1654,7 @@ PageItem* XpsPlug::addClip(PageItem* retObj, ObjState &obState)
 {
 	if (!obState.clipPath.isEmpty())
 	{
-		int z = m_Doc->itemAdd(PageItem::Group, PageItem::Rectangle, baseX, baseY, 10, 10, 0, CommonStrings::None, CommonStrings::None, true);
+		int z = m_Doc->itemAdd(PageItem::Group, PageItem::Rectangle, baseX, baseY, 10, 10, 0, CommonStrings::None, CommonStrings::None);
 		PageItem *itemg = m_Doc->Items->at(z);
 		itemg->PoLine.fromQPainterPath(obState.clipPath);
 		FPoint wh = getMaxClipF(&itemg->PoLine);
@@ -1688,13 +1688,13 @@ PageItem* XpsPlug::createItem(QDomElement &dpg, ObjState &obState)
 		if (obState.itemType == 0)
 		{
 			if (dpg.hasAttribute("FixedPage.NavigateUri"))
-				z = m_Doc->itemAdd(PageItem::TextFrame, PageItem::Unspecified, baseX, baseY, 10, 10, obState.LineW, obState.CurrColorFill, CommonStrings::None, true);
+				z = m_Doc->itemAdd(PageItem::TextFrame, PageItem::Unspecified, baseX, baseY, 10, 10, obState.LineW, obState.CurrColorFill, CommonStrings::None);
 			else
 			{
 				if (!obState.currentPathClosed)
-					z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, obState.LineW, obState.CurrColorFill, obState.CurrColorStroke, true);
+					z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, obState.LineW, obState.CurrColorFill, obState.CurrColorStroke);
 				else
-					z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX, baseY, 10, 10, obState.LineW, obState.CurrColorFill, obState.CurrColorStroke, true);
+					z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX, baseY, 10, 10, obState.LineW, obState.CurrColorFill, obState.CurrColorStroke);
 			}
 			retObj = m_Doc->Items->at(z);
 			finishItem(retObj, obState);
@@ -1702,7 +1702,7 @@ PageItem* XpsPlug::createItem(QDomElement &dpg, ObjState &obState)
 		}
 		else if (obState.itemType == 1)
 		{
-			z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, baseX, baseY, 10, 10, obState.LineW, obState.CurrColorFill, obState.CurrColorStroke, true);
+			z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, baseX, baseY, 10, 10, obState.LineW, obState.CurrColorFill, obState.CurrColorStroke);
 			retObj = m_Doc->Items->at(z);
 			finishItem(retObj, obState);
 			if (!obState.imagePath.isEmpty())

@@ -937,7 +937,7 @@ PageItem* VivaPlug::parseObjectXML(const QDomElement& obNode)
 				double gy = miny;
 				double gw = maxx - minx;
 				double gh = maxy - miny;
-				int z = m_Doc->itemAdd(PageItem::Group, PageItem::Rectangle, gx, gy, gw, gh, 0, CommonStrings::None, CommonStrings::None, true);
+				int z = m_Doc->itemAdd(PageItem::Group, PageItem::Rectangle, gx, gy, gw, gh, 0, CommonStrings::None, CommonStrings::None);
 				if (z >= 0)
 				{
 					retObj = m_Doc->Items->at(z);
@@ -1437,33 +1437,33 @@ PageItem* VivaPlug::parseObjectDetailsXML(const QDomElement& obNode, int baseTyp
 	if (baseType == 0)
 	{
 		if (ob_type == 0)
-			z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, baseX, baseY, ob_width, ob_height, lineWidth, fillColor, strokeColor, true);
+			z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, baseX, baseY, ob_width, ob_height, lineWidth, fillColor, strokeColor);
 		else if (ob_type == 1)
-			z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Ellipse, baseX, baseY, ob_width, ob_height, lineWidth, fillColor, strokeColor, true);
+			z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Ellipse, baseX, baseY, ob_width, ob_height, lineWidth, fillColor, strokeColor);
 		else if (ob_type == 2)
-			z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, ob_width, ob_height, lineWidth, fillColor, strokeColor, true);
+			z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, ob_width, ob_height, lineWidth, fillColor, strokeColor);
 		else if (ob_type == 3)
-			z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX, baseY, ob_width, ob_height, lineWidth, fillColor, strokeColor, true);
+			z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX, baseY, ob_width, ob_height, lineWidth, fillColor, strokeColor);
 		else if (ob_type == 4)
-			z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX, baseY, ob_width, ob_height, lineWidth, fillColor, strokeColor, true);
+			z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX, baseY, ob_width, ob_height, lineWidth, fillColor, strokeColor);
 	}
 	else if (baseType == 1)
 	{
 		if (ob_type == 0)
-			z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Rectangle, baseX, baseY, ob_width, ob_height, lineWidth, fillColor, strokeColor, true);
+			z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Rectangle, baseX, baseY, ob_width, ob_height, lineWidth, fillColor, strokeColor);
 		else if (ob_type == 1)
-			z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Ellipse, baseX, baseY, ob_width, ob_height, lineWidth, fillColor, strokeColor, true);
+			z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Ellipse, baseX, baseY, ob_width, ob_height, lineWidth, fillColor, strokeColor);
 		else if (ob_type == 2)
-			z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, baseX, baseY, ob_width, ob_height, lineWidth, fillColor, strokeColor, true);
+			z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, baseX, baseY, ob_width, ob_height, lineWidth, fillColor, strokeColor);
 	}
 	else if (baseType == 2)
 	{
 		if (ob_type == 0)
-			z = m_Doc->itemAdd(PageItem::TextFrame, PageItem::Rectangle, baseX, baseY, ob_width, ob_height, lineWidth, fillColor, strokeColor, true);
+			z = m_Doc->itemAdd(PageItem::TextFrame, PageItem::Rectangle, baseX, baseY, ob_width, ob_height, lineWidth, fillColor, strokeColor);
 		else if (ob_type == 1)
-			z = m_Doc->itemAdd(PageItem::TextFrame, PageItem::Ellipse, baseX, baseY, ob_width, ob_height, lineWidth, fillColor, strokeColor, true);
+			z = m_Doc->itemAdd(PageItem::TextFrame, PageItem::Ellipse, baseX, baseY, ob_width, ob_height, lineWidth, fillColor, strokeColor);
 		else if (ob_type == 2)
-			z = m_Doc->itemAdd(PageItem::TextFrame, PageItem::Unspecified, baseX, baseY, ob_width, ob_height, lineWidth, fillColor, strokeColor, true);
+			z = m_Doc->itemAdd(PageItem::TextFrame, PageItem::Unspecified, baseX, baseY, ob_width, ob_height, lineWidth, fillColor, strokeColor);
 	}
 	if (z >= 0)
 	{

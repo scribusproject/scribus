@@ -630,7 +630,7 @@ namespace RtfReader
 				QString fileName = getLongPathName(tempFile->fileName());
 				tempFile->close();
 				int posT = m_item->itemText.length();
-				int z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Rectangle, 0, 0, ww, hh, 0, CommonStrings::None, CommonStrings::None, true);
+				int z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Rectangle, 0, 0, ww, hh, 0, CommonStrings::None, CommonStrings::None);
 				PageItem* item = m_Doc->Items->at(z);
 				item->OldB2 = item->width();
 				item->OldH2 = item->height();

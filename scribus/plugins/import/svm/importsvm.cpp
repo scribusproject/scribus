@@ -1550,7 +1550,7 @@ void SvmPlug::handleEllipse(QDataStream &ds)
 	QPointF p1 = getPoint(ds);
 	QPointF p2 = getPoint(ds);
 	QRectF box = QRectF(p1, p2);
-	int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Ellipse, baseX, baseY, box.width(), box.height(), 0, currentDC.CurrColorFill, CommonStrings::None, true);
+	int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Ellipse, baseX, baseY, box.width(), box.height(), 0, currentDC.CurrColorFill, CommonStrings::None);
 	PageItem* ite = m_Doc->Items->at(z);
 	QTransform mm(1.0, 0.0, 0.0, 1.0, box.x(), box.y());
 	ite->PoLine.map(mm);
@@ -1562,7 +1562,7 @@ void SvmPlug::handleRectangle(QDataStream &ds)
 	QPointF p1 = getPoint(ds);
 	QPointF p2 = getPoint(ds);
 	QRectF box = QRectF(p1, p2);
-	int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, baseX, baseY, box.width(), box.height(), 0, currentDC.CurrColorFill, CommonStrings::None, true);
+	int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, baseX, baseY, box.width(), box.height(), 0, currentDC.CurrColorFill, CommonStrings::None);
 	PageItem* ite = m_Doc->Items->at(z);
 	QTransform mm(1.0, 0.0, 0.0, 1.0, box.x(), box.y());
 	ite->PoLine.map(mm);
@@ -1577,7 +1577,7 @@ void SvmPlug::handleRoundRect(QDataStream &ds)
 	ds >> x1 >> y1;
 	QPointF p3 = convertLogical2Pts(QPointF(x1, y1));
 	QRectF BoxDev = QRectF(p1, p2);
-	int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, baseX, baseY, BoxDev.width(), BoxDev.height(), 0, currentDC.CurrColorFill, CommonStrings::None, true);
+	int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, baseX, baseY, BoxDev.width(), BoxDev.height(), 0, currentDC.CurrColorFill, CommonStrings::None);
 	PageItem* ite = m_Doc->Items->at(z);
 	QTransform mm(1.0, 0.0, 0.0, 1.0, BoxDev.x(), BoxDev.y());
 	ite->PoLine.map(mm);
@@ -1606,7 +1606,7 @@ void SvmPlug::handlePolyline(QDataStream &ds)
 	currentDC.LineW = convertLogical2Pts(lineWidth);
 	if (poly.count() != 0)
 	{
-		int z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX, baseY, 10, 10, currentDC.LineW, CommonStrings::None, currentDC.CurrColorStroke, true);
+		int z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX, baseY, 10, 10, currentDC.LineW, CommonStrings::None, currentDC.CurrColorStroke);
 		PageItem* ite = m_Doc->Items->at(z);
 		ite->PoLine = poly.copy();
 		finishItem(ite, false);
@@ -1630,7 +1630,7 @@ void SvmPlug::handleLine(QDataStream &ds)
 	pointArray.svgInit();
 	pointArray.svgMoveTo(p1.x(), p1.y());
 	pointArray.svgLineTo(p2.x(), p2.y());
-	int z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX, baseY, 10, 10, currentDC.LineW, CommonStrings::None, currentDC.CurrColorStroke, true);
+	int z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX, baseY, 10, 10, currentDC.LineW, CommonStrings::None, currentDC.CurrColorStroke);
 	PageItem* ite = m_Doc->Items->at(z);
 	ite->PoLine = pointArray.copy();
 	finishItem(ite);
@@ -1662,7 +1662,7 @@ void SvmPlug::handleArc(QDataStream &ds)
 		}
 		else
 		{
-			int z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX, baseY, BoxDev.width(), BoxDev.height(), currentDC.LineW, CommonStrings::None, currentDC.CurrColorStroke, true);
+			int z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX, baseY, BoxDev.width(), BoxDev.height(), currentDC.LineW, CommonStrings::None, currentDC.CurrColorStroke);
 			PageItem* ite = m_Doc->Items->at(z);
 			ite->PoLine = pointArray.copy();
 			finishItem(ite, false);
@@ -1711,7 +1711,7 @@ void SvmPlug::handleArcTo(QDataStream &ds)
 		pointArray.fromQPainterPath(painterPath);
 		if (pointArray.count() != 0)
 		{
-			int z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX, baseY, BoxDev.width(), BoxDev.height(), currentDC.LineW, CommonStrings::None, currentDC.CurrColorStroke, true);
+			int z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX, baseY, BoxDev.width(), BoxDev.height(), currentDC.LineW, CommonStrings::None, currentDC.CurrColorStroke);
 			PageItem* ite = m_Doc->Items->at(z);
 			ite->PoLine = pointArray.copy();
 			finishItem(ite, false);
@@ -1755,7 +1755,7 @@ void SvmPlug::handleChord(QDataStream &ds)
 		}
 		else
 		{
-			int z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX, baseY, BoxDev.width(), BoxDev.height(), currentDC.LineW, currentDC.CurrColorFill, currentDC.CurrColorStroke, true);
+			int z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX, baseY, BoxDev.width(), BoxDev.height(), currentDC.LineW, currentDC.CurrColorFill, currentDC.CurrColorStroke);
 			PageItem* ite = m_Doc->Items->at(z);
 			ite->PoLine = pointArray.copy();
 			finishItem(ite);
@@ -1800,7 +1800,7 @@ void SvmPlug::handlePie(QDataStream &ds)
 		}
 		else
 		{
-			int z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX, baseY, BoxDev.width(), BoxDev.height(), currentDC.LineW, currentDC.CurrColorFill, currentDC.CurrColorStroke, true);
+			int z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX, baseY, BoxDev.width(), BoxDev.height(), currentDC.LineW, currentDC.CurrColorFill, currentDC.CurrColorStroke);
 			PageItem* ite = m_Doc->Items->at(z);
 			ite->PoLine = pointArray.copy();
 			finishItem(ite);
@@ -1930,7 +1930,7 @@ void SvmPlug::handleSmallText(QDataStream &ds)
 	textPath.fromQPainterPath(painterPath);
 	if (textPath.size() > 0)
 	{
-		int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, 0, currentDC.CurrColorText, CommonStrings::None, true);
+		int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, 0, currentDC.CurrColorText, CommonStrings::None);
 		PageItem* ite = m_Doc->Items->at(z);
 		ite->PoLine = textPath.copy();
 		finishItem(ite);
@@ -2026,7 +2026,7 @@ void SvmPlug::handleText(QDataStream &ds, quint16 version)
 	textPath.fromQPainterPath(painterPath);
 	if (textPath.size() > 0)
 	{
-		int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, 0, currentDC.CurrColorText, CommonStrings::None, true);
+		int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, 0, currentDC.CurrColorText, CommonStrings::None);
 		PageItem* ite = m_Doc->Items->at(z);
 		ite->PoLine = textPath.copy();
 		finishItem(ite);
@@ -2047,7 +2047,7 @@ void SvmPlug::handleImage(QDataStream &ds, qint64 posi, quint32 totalSize)
 	ds >> w >> h;
 	double width = convertLogical2Pts(w);
 	double height = convertLogical2Pts(h);
-	int z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, baseX + p.x(), baseY + p.y(), width, height, 0, CommonStrings::None, CommonStrings::None, true);
+	int z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, baseX + p.x(), baseY + p.y(), width, height, 0, CommonStrings::None, CommonStrings::None);
 	PageItem* ite = m_Doc->Items->at(z);
 	finishItem(ite);
 	QTemporaryFile *tempFile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_svm_XXXXXX.png");
@@ -2103,7 +2103,7 @@ void SvmPlug::handleImageEX(QDataStream &ds, qint64 posi, quint32 totalSize)
 	ds >> w >> h;
 	double width = convertLogical2Pts(w);
 	double height = convertLogical2Pts(h);
-	int z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, baseX + p.x(), baseY + p.y(), width, height, 0, CommonStrings::None, CommonStrings::None, true);
+	int z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, baseX + p.x(), baseY + p.y(), width, height, 0, CommonStrings::None, CommonStrings::None);
 	PageItem* ite = m_Doc->Items->at(z);
 	finishItem(ite);
 	QTemporaryFile *tempFile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_svm_XXXXXX.png");
@@ -2133,7 +2133,7 @@ void SvmPlug::handlePolygon(QDataStream &ds)
 	FPointArray poly = getPolyPoints(ds, numPoints, false);
 	if (poly.count() != 0)
 	{
-		int z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX, baseY, 10, 10, 0, currentDC.CurrColorFill, CommonStrings::None, true);
+		int z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX, baseY, 10, 10, 0, currentDC.CurrColorFill, CommonStrings::None);
 		PageItem* ite = m_Doc->Items->at(z);
 		ite->PoLine = poly.copy();
 		finishItem(ite, false);
@@ -2145,7 +2145,7 @@ void SvmPlug::handlePolyPolygon(QDataStream &ds, quint16 version)
 	FPointArray pointsPoly = getPolyPolygonPoints(ds, version);
 	if (pointsPoly.count() > 3)
 	{
-		int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, 0, currentDC.CurrColorFill, CommonStrings::None, true);
+		int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, 0, currentDC.CurrColorFill, CommonStrings::None);
 		PageItem* ite = m_Doc->Items->at(z);
 		ite->PoLine = pointsPoly.copy();
 		finishItem(ite);
@@ -2159,7 +2159,7 @@ void SvmPlug::handleTransparent(QDataStream &ds, quint16 version)
 	ds >> trans;
 	if (pointsPoly.count() > 3)
 	{
-		int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, 0, currentDC.CurrColorFill, CommonStrings::None, true);
+		int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, 0, currentDC.CurrColorFill, CommonStrings::None);
 		PageItem* ite = m_Doc->Items->at(z);
 		ite->PoLine = pointsPoly.copy();
 		finishItem(ite);
@@ -2180,7 +2180,7 @@ void SvmPlug::handleHatch(QDataStream &ds, quint16 version)
 	QColor colS = QColor(colsR >> 8, colsG >> 8, colsB >> 8, 255);
 	if (pointsPoly.count() > 3)
 	{
-		int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, 0, currentDC.CurrColorFill, CommonStrings::None, true);
+		int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, 0, currentDC.CurrColorFill, CommonStrings::None);
 		PageItem* ite = m_Doc->Items->at(z);
 		ite->PoLine = pointsPoly.copy();
 		finishItem(ite);
@@ -2195,7 +2195,7 @@ void SvmPlug::handleGradient(QDataStream &ds)
 	QPointF p1 = getPoint(ds);
 	QPointF p2 = getPoint(ds);
 	QRectF box = QRectF(p1, p2);
-	int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, baseX, baseY, box.width(), box.height(), 0, currentDC.CurrColorFill, CommonStrings::None, true);
+	int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, baseX, baseY, box.width(), box.height(), 0, currentDC.CurrColorFill, CommonStrings::None);
 	PageItem* ite = m_Doc->Items->at(z);
 	QTransform mm(1.0, 0.0, 0.0, 1.0, box.x(), box.y());
 	ite->PoLine.map(mm);
@@ -2208,7 +2208,7 @@ void SvmPlug::handleGradientEX(QDataStream &ds, quint16 version)
 	FPointArray pointsPoly = getPolyPolygonPoints(ds, version);
 	if (pointsPoly.count() > 3)
 	{
-		int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, 0, currentDC.CurrColorFill, CommonStrings::None, true);
+		int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, 0, currentDC.CurrColorFill, CommonStrings::None);
 		PageItem* ite = m_Doc->Items->at(z);
 		ite->PoLine = pointsPoly.copy();
 		finishItem(ite);
@@ -3367,7 +3367,7 @@ void SvmPlug::handleEMFPFillClosedCurve(QDataStream &ds, quint8 flagsL)
 	polyline.fromQPainterPath(path);
 	if (polyline.size() > 3)
 	{
-		int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, 0, currentDC.CurrColorFill, CommonStrings::None, true);
+		int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, 0, currentDC.CurrColorFill, CommonStrings::None);
 		PageItem* ite = m_Doc->Items->at(z);
 		ite->PoLine = polyline.copy();
 		finishItem(ite);
@@ -3384,7 +3384,7 @@ void SvmPlug::handleEMFPFillEllipse(QDataStream &ds, quint8 flagsL)
 	QPointF p = getEMFPPoint(ds, compressedRects);
 	double w = getEMFPDistance(ds, compressedRects);
 	double h = getEMFPDistance(ds, compressedRects);
-	int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Ellipse, baseX, baseY, w, h, 0, currentDC.CurrColorFill, CommonStrings::None, true);
+	int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Ellipse, baseX, baseY, w, h, 0, currentDC.CurrColorFill, CommonStrings::None);
 	PageItem* ite = m_Doc->Items->at(z);
 	QTransform mm(1.0, 0.0, 0.0, 1.0, p.x(), p.y());
 	ite->PoLine.map(mm);
@@ -3399,7 +3399,7 @@ void SvmPlug::handleEMFPFillPath(QDataStream &ds, quint8 flagsL, quint8 flagsH)
 	getEMFPBrush(brushID, directBrush);
 	if (emfStyleMapEMP.contains(flagsH))
 	{
-		int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, 0, currentDC.CurrColorFill, CommonStrings::None, true);
+		int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, 0, currentDC.CurrColorFill, CommonStrings::None);
 		PageItem* ite = m_Doc->Items->at(z);
 		ite->PoLine = emfStyleMapEMP[flagsH].Coords.copy();
 		finishItem(ite);
@@ -3426,7 +3426,7 @@ void SvmPlug::handleEMFPFillPie(QDataStream &ds, quint8 flagsL)
 	pointArray.fromQPainterPath(painterPath);
 	if (pointArray.size() > 3)
 	{
-		int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, 0, currentDC.CurrColorFill, CommonStrings::None, true);
+		int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, 0, currentDC.CurrColorFill, CommonStrings::None);
 		PageItem* ite = m_Doc->Items->at(z);
 		ite->PoLine = pointArray.copy();
 		finishItem(ite);
@@ -3460,7 +3460,7 @@ void SvmPlug::handleEMFPFillPolygon(QDataStream &ds, quint8 flagsL)
 		if (polyline.size() > 3)
 		{
 			polyline.svgClosePath();
-			int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, 0, currentDC.CurrColorFill, CommonStrings::None, true);
+			int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, 0, currentDC.CurrColorFill, CommonStrings::None);
 			PageItem* ite = m_Doc->Items->at(z);
 			ite->PoLine = polyline.copy();
 			finishItem(ite);
@@ -3485,7 +3485,7 @@ void SvmPlug::handleEMFPFillRects(QDataStream &ds, quint8 flagsL)
 		polyline.svgLineTo(rect[2].x(), rect[2].y());
 		polyline.svgLineTo(rect[3].x(), rect[3].y());
 		polyline.svgClosePath();
-		int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, 0, currentDC.CurrColorFill, CommonStrings::None, true);
+		int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, 0, currentDC.CurrColorFill, CommonStrings::None);
 		PageItem* ite = m_Doc->Items->at(z);
 		ite->PoLine = polyline.copy();
 		finishItem(ite);
@@ -3500,7 +3500,7 @@ void SvmPlug::handleEMFPFillRegion(QDataStream &ds, quint8 flagsL, quint8 flagsH
 	getEMFPBrush(brushID, directBrush);
 	if (emfStyleMapEMP.contains(flagsH))
 	{
-		int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, 0, currentDC.CurrColorFill, CommonStrings::None, true);
+		int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, 0, currentDC.CurrColorFill, CommonStrings::None);
 		PageItem* ite = m_Doc->Items->at(z);
 		ite->PoLine = emfStyleMapEMP[flagsH].Coords.copy();
 		finishItem(ite);
@@ -3521,7 +3521,7 @@ void SvmPlug::handleEMFPDrawArc(QDataStream &ds, quint8 flagsL, quint8 flagsH)
 	pointArray.fromQPainterPath(painterPath);
 	if (pointArray.size() > 3)
 	{
-		int z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX, baseY, 10, 10, currentDC.LineW, CommonStrings::None, currentDC.CurrColorStroke, true);
+		int z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX, baseY, 10, 10, currentDC.LineW, CommonStrings::None, currentDC.CurrColorStroke);
 		PageItem* ite = m_Doc->Items->at(z);
 		ite->PoLine = pointArray.copy();
 		finishItem(ite, false);
@@ -3553,7 +3553,7 @@ void SvmPlug::handleEMFPDrawBezier(QDataStream &ds, quint8 flagsL, quint8 flagsH
 		{
 			if (closedPolyline)
 				polyline.svgClosePath();
-			int z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX, baseY, 10, 10, currentDC.LineW, CommonStrings::None, currentDC.CurrColorStroke, true);
+			int z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX, baseY, 10, 10, currentDC.LineW, CommonStrings::None, currentDC.CurrColorStroke);
 			PageItem* ite = m_Doc->Items->at(z);
 			ite->PoLine = polyline.copy();
 			finishItem(ite, false);
@@ -3575,7 +3575,7 @@ void SvmPlug::handleEMFPDrawClosedCurve(QDataStream &ds, quint8 flagsL, quint8 f
 	polyline.fromQPainterPath(path);
 	if (polyline.size() > 3)
 	{
-		int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, currentDC.LineW, CommonStrings::None, currentDC.CurrColorStroke, true);
+		int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, currentDC.LineW, CommonStrings::None, currentDC.CurrColorStroke);
 		PageItem* ite = m_Doc->Items->at(z);
 		ite->PoLine = polyline.copy();
 		finishItem(ite, false);
@@ -3596,7 +3596,7 @@ void SvmPlug::handleEMFPDrawCurve(QDataStream &ds, quint8 flagsL, quint8 flagsH)
 	polyline.fromQPainterPath(path);
 	if (polyline.size() > 3)
 	{
-		int z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX, baseY, 10, 10, currentDC.LineW, CommonStrings::None, currentDC.CurrColorStroke, true);
+		int z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX, baseY, 10, 10, currentDC.LineW, CommonStrings::None, currentDC.CurrColorStroke);
 		PageItem* ite = m_Doc->Items->at(z);
 		ite->PoLine = polyline.copy();
 		finishItem(ite, false);
@@ -3610,7 +3610,7 @@ void SvmPlug::handleEMFPDrawEllipse(QDataStream &ds, quint8 flagsL, quint8 flags
 	QPointF p = getEMFPPoint(ds, compressedRects);
 	double w = getEMFPDistance(ds, compressedRects);
 	double h = getEMFPDistance(ds, compressedRects);
-	int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Ellipse, baseX, baseY, w, h, currentDC.LineW, CommonStrings::None, currentDC.CurrColorStroke, true);
+	int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Ellipse, baseX, baseY, w, h, currentDC.LineW, CommonStrings::None, currentDC.CurrColorStroke);
 	PageItem* ite = m_Doc->Items->at(z);
 	QTransform mm(1.0, 0.0, 0.0, 1.0, p.x(), p.y());
 	ite->PoLine.map(mm);
@@ -3685,7 +3685,7 @@ void SvmPlug::handleEMFPDrawLines(QDataStream &ds, quint8 flagsL, quint8 flagsH)
 		{
 			if (closedPolyline)
 				polyline.svgClosePath();
-			int z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX, baseY, 10, 10, currentDC.LineW, CommonStrings::None, currentDC.CurrColorStroke, true);
+			int z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX, baseY, 10, 10, currentDC.LineW, CommonStrings::None, currentDC.CurrColorStroke);
 			PageItem* ite = m_Doc->Items->at(z);
 			ite->PoLine = polyline.copy();
 			finishItem(ite, false);
@@ -3700,7 +3700,7 @@ void SvmPlug::handleEMFPDrawPath(QDataStream &ds, quint8 flagsH)
 	getEMFPPen(penID);
 	if (emfStyleMapEMP.contains(flagsH))
 	{
-		int z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX, baseY, 10, 10, currentDC.LineW, CommonStrings::None, currentDC.CurrColorStroke, true);
+		int z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX, baseY, 10, 10, currentDC.LineW, CommonStrings::None, currentDC.CurrColorStroke);
 		PageItem* ite = m_Doc->Items->at(z);
 		ite->PoLine = emfStyleMapEMP[flagsH].Coords.copy();
 		finishItem(ite, false);
@@ -3724,7 +3724,7 @@ void SvmPlug::handleEMFPDrawPie(QDataStream &ds, quint8 flagsL, quint8 flagsH)
 	pointArray.fromQPainterPath(painterPath);
 	if (pointArray.size() > 3)
 	{
-		int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, currentDC.LineW, CommonStrings::None, currentDC.CurrColorStroke, true);
+		int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, currentDC.LineW, CommonStrings::None, currentDC.CurrColorStroke);
 		PageItem* ite = m_Doc->Items->at(z);
 		ite->PoLine = pointArray.copy();
 		finishItem(ite, false);
@@ -3747,7 +3747,7 @@ void SvmPlug::handleEMFPDrawRects(QDataStream &ds, quint8 flagsL, quint8 flagsH)
 		polyline.svgLineTo(rect[2].x(), rect[2].y());
 		polyline.svgLineTo(rect[3].x(), rect[3].y());
 		polyline.svgClosePath();
-		int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, currentDC.LineW, CommonStrings::None, currentDC.CurrColorStroke, true);
+		int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, currentDC.LineW, CommonStrings::None, currentDC.CurrColorStroke);
 		PageItem* ite = m_Doc->Items->at(z);
 		ite->PoLine = polyline.copy();
 		finishItem(ite, false);
@@ -3834,7 +3834,7 @@ void SvmPlug::handleEMFPDrawDriverString(QDataStream &ds, quint8 flagsL, quint8 
 	textPath.fromQPainterPath(painterPath);
 	if (textPath.size() > 0)
 	{
-		int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, 0, currentDC.CurrColorFill, CommonStrings::None, true);
+		int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, 0, currentDC.CurrColorFill, CommonStrings::None);
 		PageItem* ite = m_Doc->Items->at(z);
 		ite->PoLine = textPath.copy();
 		finishItem(ite);
@@ -3929,7 +3929,7 @@ void SvmPlug::handleEMFPDrawString(QDataStream &ds, quint8 flagsL, quint8 flagsH
 	textPath.fromQPainterPath(painterPath);
 	if (textPath.size() > 0)
 	{
-		int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, 0, currentDC.CurrColorFill, CommonStrings::None, true);
+		int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, 0, currentDC.CurrColorFill, CommonStrings::None);
 		PageItem* ite = m_Doc->Items->at(z);
 		ite->PoLine = textPath.copy();
 		finishItem(ite);
@@ -4195,7 +4195,7 @@ void SvmPlug::getEMFPBrush(quint32 brushID, bool directBrush)
 									img.save(fileName, "PNG");
 									ScPattern pat = ScPattern();
 									pat.setDoc(m_Doc);
-									int z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, 0, 0, 1, 1, 0, CommonStrings::None, CommonStrings::None, true);
+									int z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, 0, 0, 1, 1, 0, CommonStrings::None, CommonStrings::None);
 									PageItem* newItem = m_Doc->Items->at(z);
 									m_Doc->loadPict(fileName, newItem);
 									m_Doc->Items->takeAt(z);
@@ -4584,7 +4584,7 @@ void SvmPlug::handleEMFPDrawImageData(QPointF p1, QPointF p2, QPointF p3, quint8
 				{
 					tempFile->close();
 					img.save(fileName, "PNG");
-					int z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Rectangle, baseX + p1.x(), baseY + p1.y(), QLineF(p1, p2).length(), QLineF(p1, p3).length(), 0, CommonStrings::None, CommonStrings::None, true);
+					int z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Rectangle, baseX + p1.x(), baseY + p1.y(), QLineF(p1, p2).length(), QLineF(p1, p3).length(), 0, CommonStrings::None, CommonStrings::None);
 					PageItem* ite = m_Doc->Items->at(z);
 					finishItem(ite, false);
 					if (QLineF(p1, p2).angle() != 0)

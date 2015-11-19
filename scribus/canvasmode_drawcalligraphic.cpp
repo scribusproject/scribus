@@ -246,7 +246,7 @@ void CalligraphicMode::mouseReleaseEvent(QMouseEvent *m)
 			UndoTransaction createTransaction;
 			if (UndoManager::undoEnabled())
 				createTransaction = UndoManager::instance()->beginTransaction();
-			uint z = m_doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, Mxp, Myp, 1, 1, m_doc->itemToolPrefs().calligraphicPenLineWidth, m_doc->itemToolPrefs().calligraphicPenFillColor, m_doc->itemToolPrefs().calligraphicPenLineColor, true);
+			uint z = m_doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, Mxp, Myp, 1, 1, m_doc->itemToolPrefs().calligraphicPenLineWidth, m_doc->itemToolPrefs().calligraphicPenFillColor, m_doc->itemToolPrefs().calligraphicPenLineColor);
 			currItem = m_doc->Items->at(z);
 			currItem->PoLine.resize(0);
 			QList<QPointF> clipU;

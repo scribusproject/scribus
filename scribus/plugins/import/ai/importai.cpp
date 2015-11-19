@@ -1414,7 +1414,7 @@ void AIPlug::processData(QString data)
 				FPoint wh = currentSpecialPath.WidthHeight();
 				if ((currentSpecialPath.size() > 3) && (wh.x() != 0.0) && (wh.y() != 0.0))
 				{
-					z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, baseX, baseY, 10, 10, 0, CommonStrings::None, CommonStrings::None, true);
+					z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, baseX, baseY, 10, 10, 0, CommonStrings::None, CommonStrings::None);
 					ite = m_Doc->Items->at(z);
 					ite->PoLine = currentSpecialPath.copy();
 					ite->PoLine.translate(m_Doc->currentPage()->xOffset(), m_Doc->currentPage()->yOffset());
@@ -1506,7 +1506,7 @@ void AIPlug::processData(QString data)
 				double yp = pos1.y();
 			//	xp += m_Doc->currentPage()->xOffset();
 			//	yp += m_Doc->currentPage()->yOffset();
-				int z = m_Doc->itemAdd(PageItem::Symbol, PageItem::Unspecified, baseX + xp, baseY + yp, 1, 1, 0, CommonStrings::None, CommonStrings::None, true);
+				int z = m_Doc->itemAdd(PageItem::Symbol, PageItem::Unspecified, baseX + xp, baseY + yp, 1, 1, 0, CommonStrings::None, CommonStrings::None);
 				PageItem *b = m_Doc->Items->at(z);
 				b->LayerID = m_Doc->activeLayer();
 				ScPattern pat = m_Doc->docPatterns[currentSymbolName];
@@ -1597,20 +1597,20 @@ void AIPlug::processData(QString data)
 					if ((command == "B") || (command == "F") || (command == "S"))
 					{
 						if (command == "F")
-							z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX, baseY, 10, 10, LineW, CurrColorFill, CommonStrings::None, true);
+							z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX, baseY, 10, 10, LineW, CurrColorFill, CommonStrings::None);
 						else if (command == "B")
-							z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX, baseY, 10, 10, LineW, CurrColorFill, CurrColorStroke, true);
+							z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX, baseY, 10, 10, LineW, CurrColorFill, CurrColorStroke);
 						else
-							z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX, baseY, 10, 10, LineW, CommonStrings::None, CurrColorStroke, true);
+							z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX, baseY, 10, 10, LineW, CommonStrings::None, CurrColorStroke);
 					}
 					else
 					{
 						if (command == "f")
-							z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, LineW, CurrColorFill, CommonStrings::None, true);
+							z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, LineW, CurrColorFill, CommonStrings::None);
 						else if (command == "b")
-							z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, LineW, CurrColorFill, CurrColorStroke, true);
+							z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, LineW, CurrColorFill, CurrColorStroke);
 						else
-							z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, LineW, CommonStrings::None, CurrColorStroke, true);
+							z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, LineW, CommonStrings::None, CurrColorStroke);
 					}
 					ite = m_Doc->Items->at(z);
 					ite->PoLine = Coords.copy();
@@ -2033,7 +2033,7 @@ void AIPlug::processData(QString data)
 				meshMode = false;
 				if (meshGradientArray.count() != 0)
 				{
-					z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, 0, CommonStrings::None, CommonStrings::None, true);
+					z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, 0, CommonStrings::None, CommonStrings::None);
 					ite = m_Doc->Items->at(z);
 					for (int x = 0; x < meshGradientArray.count(); x++)
 					{
@@ -2541,7 +2541,7 @@ void AIPlug::processData(QString data)
 					QPointF pos = QPointF(textMatrix.dx(), textMatrix.dy());
 					pos += QPointF(m_Doc->currentPage()->xOffset(), -m_Doc->currentPage()->yOffset());
 					pos += QPointF(0.0, textSize / 10.0 + 2.0);
-					z = m_Doc->itemAdd(PageItem::TextFrame, PageItem::Unspecified, pos.x() - docX, docHeight - (pos.y() - docY), 10, 10, 0, CommonStrings::None, CommonStrings::None, true);
+					z = m_Doc->itemAdd(PageItem::TextFrame, PageItem::Unspecified, pos.x() - docX, docHeight - (pos.y() - docY), 10, 10, 0, CommonStrings::None, CommonStrings::None);
 					ite = m_Doc->Items->at(z);
 					ite->setTextToFrameDist(0.0, 0.0, 0.0, 0.0);
 					ite->itemText.append(textData);
@@ -3014,7 +3014,7 @@ void AIPlug::processRaster(QDataStream &ts)
 	QPointF pos = QPointF(imgMatrix.dx(), imgMatrix.dy());
 	pos += QPointF(m_Doc->currentPage()->xOffset(), -m_Doc->currentPage()->yOffset());
 	pos += QPointF(baseX, -baseY);
-	int z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, pos.x() - docX, docHeight - (pos.y() - docY), 10, 10, 0, CurrColorFill, CurrColorStroke, true);
+	int z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, pos.x() - docX, docHeight - (pos.y() - docY), 10, 10, 0, CurrColorFill, CurrColorStroke);
 	PageItem* ite = m_Doc->Items->at(z);
 	ite->setWidthHeight(fabs(w * m1), fabs(h * m4));
 	double rotation = getRotationFromMatrix(imgMatrix, 0.0);

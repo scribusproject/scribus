@@ -614,7 +614,7 @@ QList<PageItem*> OODPlug::parseGroup(const QDomElement &e)
 	storeObjectStyles(e);
 	parseStyle(oostyle, e);
 	QString drawID = e.attribute("draw:name");
-//	int zn = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, BaseX, BaseY, 1, 1, 0, CommonStrings::None, CommonStrings::None, true);
+//	int zn = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, BaseX, BaseY, 1, 1, 0, CommonStrings::None, CommonStrings::None);
 //	PageItem *neu = m_Doc->Items->at(zn);
 	for (QDomNode n = e.firstChild(); !n.isNull(); n = n.nextSibling())
 	{
@@ -693,7 +693,7 @@ QList<PageItem*> OODPlug::parseRect(const QDomElement &e)
 	double corner = parseUnit(e.attribute("draw:corner-radius"));
 	storeObjectStyles(e);
 	parseStyle(style, e);
-	int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, BaseX+x, BaseY+y, w, h, style.strokeWidth, style.fillColor, style.strokeColor, true);
+	int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, BaseX+x, BaseY+y, w, h, style.strokeWidth, style.fillColor, style.strokeColor);
 	PageItem* ite = m_Doc->Items->at(z);
 	if (corner != 0)
 	{
@@ -718,7 +718,7 @@ QList<PageItem*> OODPlug::parseEllipse(const QDomElement &e)
 	double h = parseUnit(e.attribute("svg:height"));
 	storeObjectStyles(e);
 	parseStyle(style, e);
-	int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Ellipse, BaseX+x, BaseY+y, w, h, style.strokeWidth, style.fillColor, style.strokeColor, true);
+	int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Ellipse, BaseX+x, BaseY+y, w, h, style.strokeWidth, style.fillColor, style.strokeColor);
 	PageItem* ite = m_Doc->Items->at(z);
 	ite = finishNodeParsing(e, ite, style);
 	elements.append(ite);
@@ -737,7 +737,7 @@ QList<PageItem*> OODPlug::parseLine(const QDomElement &e)
 	double y2 = e.attribute( "svg:y2" ).isEmpty() ? 0.0 : parseUnit( e.attribute( "svg:y2" ) );
 	storeObjectStyles(e);
 	parseStyle(style, e);
-	int z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, BaseX, BaseY, 10, 10, style.strokeWidth, CommonStrings::None, style.strokeColor, true);
+	int z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, BaseX, BaseY, 10, 10, style.strokeWidth, CommonStrings::None, style.strokeColor);
 	PageItem* ite = m_Doc->Items->at(z);
 	ite->PoLine.resize(4);
 	ite->PoLine.setPoint(0, FPoint(x1, y1));
@@ -766,7 +766,7 @@ QList<PageItem*> OODPlug::parsePolygon(const QDomElement &e)
 	double BaseY = m_Doc->currentPage()->yOffset();
 	storeObjectStyles(e);
 	parseStyle(style, e);
-	int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, BaseX, BaseY, 10, 10, style.strokeWidth, style.fillColor, style.strokeColor, true);
+	int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, BaseX, BaseY, 10, 10, style.strokeWidth, style.fillColor, style.strokeColor);
 	PageItem* ite = m_Doc->Items->at(z);
 	ite->PoLine.resize(0);
 	appendPoints(&ite->PoLine, e, true);
@@ -792,7 +792,7 @@ QList<PageItem*> OODPlug::parsePolyline(const QDomElement &e)
 	double BaseY = m_Doc->currentPage()->yOffset();
 	storeObjectStyles(e);
 	parseStyle(style, e);
-	int z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, BaseX, BaseY, 10, 10, style.strokeWidth, CommonStrings::None, style.strokeColor, true);
+	int z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, BaseX, BaseY, 10, 10, style.strokeWidth, CommonStrings::None, style.strokeColor);
 	PageItem* ite = m_Doc->Items->at(z);
 	ite->PoLine.resize(0);
 	appendPoints(&ite->PoLine, e, false);
@@ -820,7 +820,7 @@ QList<PageItem*> OODPlug::parsePath(const QDomElement &e)
 	storeObjectStyles(e);
 	parseStyle(style, e);
 	PageItem::ItemType itype = parseSVG(e.attribute("svg:d"), &pArray) ? PageItem::PolyLine : PageItem::Polygon;
-	int z = m_Doc->itemAdd(itype, PageItem::Unspecified, BaseX, BaseY, 10, 10, style.strokeWidth, style.fillColor, style.strokeColor, true);
+	int z = m_Doc->itemAdd(itype, PageItem::Unspecified, BaseX, BaseY, 10, 10, style.strokeWidth, style.fillColor, style.strokeColor);
 	PageItem* ite = m_Doc->Items->at(z);
 	ite->PoLine.resize(0);
 	ite->PoLine = pArray;
@@ -875,7 +875,7 @@ QList<PageItem*> OODPlug::parseTextBox(const QDomElement &e)
 	double h = parseUnit(e.attribute("svg:height"));
 	storeObjectStyles(e);
 	parseStyle(style, e);
-	int z = m_Doc->itemAdd(PageItem::TextFrame, PageItem::Unspecified, BaseX+x, BaseY+y, w, h+(h*0.1), style.strokeWidth, CommonStrings::None, style.strokeColor, true);
+	int z = m_Doc->itemAdd(PageItem::TextFrame, PageItem::Unspecified, BaseX+x, BaseY+y, w, h+(h*0.1), style.strokeWidth, CommonStrings::None, style.strokeColor);
 	PageItem* ite = m_Doc->Items->at(z);
 	ite->setFillColor(style.fillColor);
 	ite->setLineColor(style.strokeColor);
@@ -901,7 +901,7 @@ QList<PageItem*> OODPlug::parseFrame(const QDomElement &e)
 	QString STag2 = n.toElement().tagName();
 	if ( STag2 == "draw:text-box" )
 	{
-		int z = m_Doc->itemAdd(PageItem::TextFrame, PageItem::Unspecified, BaseX+x, BaseY+y, w, h+(h*0.1), oostyle.strokeWidth, CommonStrings::None, oostyle.strokeColor, true);
+		int z = m_Doc->itemAdd(PageItem::TextFrame, PageItem::Unspecified, BaseX+x, BaseY+y, w, h+(h*0.1), oostyle.strokeWidth, CommonStrings::None, oostyle.strokeColor);
 		PageItem* ite = m_Doc->Items->at(z);
 		ite->setTextToFrameDist(0.0, 0.0, 0.0, 0.0);
 		ite->setFillTransparency(oostyle.fillTrans);

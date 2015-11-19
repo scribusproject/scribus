@@ -203,11 +203,11 @@ void Scribus12Format::PasteItem(struct CopyPasteBuffer *Buffer, bool drag, bool 
 	{
 	// OBSOLETE CR 2005-02-06
 	case PageItem::ItemType1:
-		z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Ellipse, x, y, w, h, pw, Buffer->Pcolor, Buffer->Pcolor2, true);
+		z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Ellipse, x, y, w, h, pw, Buffer->Pcolor, Buffer->Pcolor2);
 		break;
 	//
 	case PageItem::ImageFrame:
-		z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, x, y, w, h, 1, m_Doc->prefsData().itemToolPrefs.imageFillColor, CommonStrings::None, true);
+		z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, x, y, w, h, 1, m_Doc->prefsData().itemToolPrefs.imageFillColor, CommonStrings::None);
 //		undoManager->setUndoEnabled(false);
 		currItem = m_Doc->Items->at(z);
 		currItem->setImageXYScale(Buffer->LocalScX, Buffer->LocalScY);
@@ -229,15 +229,15 @@ void Scribus12Format::PasteItem(struct CopyPasteBuffer *Buffer, bool drag, bool 
 		break;
 	// OBSOLETE CR 2005-02-06
 	case PageItem::ItemType3:
-		z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, x, y, w, h, pw, Buffer->Pcolor, Buffer->Pcolor2, true);
+		z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, x, y, w, h, pw, Buffer->Pcolor, Buffer->Pcolor2);
 		break;
 	//
 	case PageItem::PathText:
 	case PageItem::TextFrame:
 		if (Buffer->PType == PageItem::PathText)
-			z = m_Doc->itemAdd(PageItem::PathText, PageItem::Unspecified, x, y, w, h, pw, CommonStrings::None, Buffer->Pcolor, true);
+			z = m_Doc->itemAdd(PageItem::PathText, PageItem::Unspecified, x, y, w, h, pw, CommonStrings::None, Buffer->Pcolor);
 		else
-			z = m_Doc->itemAdd(PageItem::TextFrame, PageItem::Unspecified, x, y, w, h, pw, CommonStrings::None, Buffer->Pcolor, true);
+			z = m_Doc->itemAdd(PageItem::TextFrame, PageItem::Unspecified, x, y, w, h, pw, CommonStrings::None, Buffer->Pcolor);
 //		undoManager->setUndoEnabled(false);
 		currItem = m_Doc->Items->at(z);
 		if ((Buffer->m_isAnnotation) && (Buffer->m_annotation.UseIcons()))
@@ -361,20 +361,20 @@ void Scribus12Format::PasteItem(struct CopyPasteBuffer *Buffer, bool drag, bool 
 //		undoManager->setUndoEnabled(true);
 		break;
 	case PageItem::Line:
-		z = m_Doc->itemAdd(PageItem::Line, PageItem::Unspecified, x, y, w ,0, pw, CommonStrings::None, Buffer->Pcolor2, true);
+		z = m_Doc->itemAdd(PageItem::Line, PageItem::Unspecified, x, y, w ,0, pw, CommonStrings::None, Buffer->Pcolor2);
 		break;
 	case PageItem::Polygon:
-		z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, x, y, w, h, pw, Buffer->Pcolor, Buffer->Pcolor2, true);
+		z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, x, y, w, h, pw, Buffer->Pcolor, Buffer->Pcolor2);
 		break;
 	case PageItem::PolyLine:
-		z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, x, y, w, h, pw, Buffer->Pcolor, Buffer->Pcolor2, true);
+		z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, x, y, w, h, pw, Buffer->Pcolor, Buffer->Pcolor2);
 		break;
 	case PageItem::Symbol:
-		z = m_Doc->itemAdd(PageItem::Symbol, PageItem::Unspecified, x, y, w, h, 0, CommonStrings::None, CommonStrings::None, true);
+		z = m_Doc->itemAdd(PageItem::Symbol, PageItem::Unspecified, x, y, w, h, 0, CommonStrings::None, CommonStrings::None);
 		m_Doc->Items->at(z)->setPattern(Buffer->pattern);
 		break;
 	case PageItem::Group:
-		z = m_Doc->itemAdd(PageItem::Group, PageItem::Unspecified, x, y, w, h, 0, CommonStrings::None, CommonStrings::None, true);
+		z = m_Doc->itemAdd(PageItem::Group, PageItem::Unspecified, x, y, w, h, 0, CommonStrings::None, CommonStrings::None);
 		m_Doc->Items->at(z)->groupWidth = Buffer->groupWidth;
 		m_Doc->Items->at(z)->groupHeight = Buffer->groupHeight;
 		break;
@@ -387,7 +387,7 @@ void Scribus12Format::PasteItem(struct CopyPasteBuffer *Buffer, bool drag, bool 
 		break;
 	case PageItem::LatexFrame:
 		{
-		z = m_Doc->itemAdd(PageItem::LatexFrame, PageItem::Unspecified, x, y, w, h, 1, m_Doc->prefsData().itemToolPrefs.imageFillColor, CommonStrings::None, true);
+		z = m_Doc->itemAdd(PageItem::LatexFrame, PageItem::Unspecified, x, y, w, h, 1, m_Doc->prefsData().itemToolPrefs.imageFillColor, CommonStrings::None);
 //		undoManager->setUndoEnabled(false);
 		currItem = m_Doc->Items->at(z);
 		currItem->setImageXYScale(Buffer->LocalScX, Buffer->LocalScY);
@@ -412,7 +412,7 @@ void Scribus12Format::PasteItem(struct CopyPasteBuffer *Buffer, bool drag, bool 
 		}
 	case PageItem::OSGFrame:
 #ifdef HAVE_OSG
-		z = m_Doc->itemAdd(PageItem::OSGFrame, PageItem::Unspecified, x, y, w, h, 1, m_Doc->prefsData().itemToolPrefs.imageFillColor, CommonStrings::None, true);
+		z = m_Doc->itemAdd(PageItem::OSGFrame, PageItem::Unspecified, x, y, w, h, 1, m_Doc->prefsData().itemToolPrefs.imageFillColor, CommonStrings::None);
 //		undoManager->setUndoEnabled(false);
 		currItem = m_Doc->Items->at(z);
 		currItem->setImageXYScale(Buffer->LocalScX, Buffer->LocalScY);

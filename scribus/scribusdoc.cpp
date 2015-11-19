@@ -2989,7 +2989,7 @@ int ScribusDoc::addAutomaticTextFrame(const int pageNumber)
 						addToPage->Margins.left()+addToPage->xOffset(),
 						addToPage->Margins.top()+addToPage->yOffset(), docPrefsData.docSetupPrefs.pageWidth-addToPage->Margins.right()-addToPage->Margins.left(),
 						docPrefsData.docSetupPrefs.pageHeight-addToPage->Margins.bottom()-addToPage->Margins.top(),
-						1, CommonStrings::None, docPrefsData.itemToolPrefs.shapeLineColor, true);
+						1, CommonStrings::None, docPrefsData.itemToolPrefs.shapeLineColor);
 		Items->at(z)->isAutoText = true;
 		Items->at(z)->Cols = qRound(PageSp);
 		Items->at(z)->ColGap = PageSpa;
@@ -5572,10 +5572,8 @@ PageItem* ScribusDoc::createPageItem(const PageItem::ItemType itemType, const Pa
 	return newItem;
 }
 
-int ScribusDoc::itemAdd(const PageItem::ItemType itemType, const PageItem::ItemFrameType frameType, const double x, const double y, const double b, const double h, const double w, const QString& fill, const QString& outline, const bool itemFinalised)
+int ScribusDoc::itemAdd(const PageItem::ItemType itemType, const PageItem::ItemFrameType frameType, const double x, const double y, const double b, const double h, const double w, const QString& fill, const QString& outline)
 {
-	assert(itemFinalised); // av: caller must wrap transaction around this if wanted
-	
 	UndoTransaction activeTransaction;
 	if (UndoManager::undoEnabled()) // && !m_itemCreationTransaction)
 	{
@@ -5618,14 +5616,14 @@ int ScribusDoc::itemAdd(const PageItem::ItemType itemType, const PageItem::ItemF
 }
 
 
-int ScribusDoc::itemAddArea(const PageItem::ItemType itemType, const PageItem::ItemFrameType frameType, const double x, const double y, const double w, const QString& fill, const QString& outline, const bool itemFinalised)
+int ScribusDoc::itemAddArea(const PageItem::ItemType itemType, const PageItem::ItemFrameType frameType, const double x, const double y, const double w, const QString& fill, const QString& outline)
 {
 	double xo = m_currentPage->xOffset();
 	double yo = m_currentPage->yOffset();
 	QPair<double, double> tl = m_currentPage->guides.topLeft(x - xo, y - yo);
 	QPair<double, double> tr = m_currentPage->guides.topRight(x - xo, y - yo);
 	QPair<double, double> bl = m_currentPage->guides.bottomLeft(x - xo, y - yo);
-	return itemAdd(itemType, frameType, tl.first + xo, tl.second + yo, tr.first - tl.first, bl.second - tl.second, w, fill, outline, itemFinalised);
+	return itemAdd(itemType, frameType, tl.first + xo, tl.second + yo, tr.first - tl.first, bl.second - tl.second, w, fill, outline);
 }
 
 
@@ -5704,7 +5702,7 @@ int ScribusDoc::itemAddUserFrame(InsertAFrameData &iafData)
 			w1=iafData.width;
 			h1=iafData.height;
 		}
-		z=itemAdd(iafData.frameType, PageItem::Unspecified, x1, y1, w1, h1, docPrefsData.itemToolPrefs.shapeLineWidth, CommonStrings::None, docPrefsData.itemToolPrefs.textColor, true);
+		z=itemAdd(iafData.frameType, PageItem::Unspecified, x1, y1, w1, h1, docPrefsData.itemToolPrefs.shapeLineWidth, CommonStrings::None, docPrefsData.itemToolPrefs.textColor);
 		if (z!=-1)
 		{
 			PageItem* currItem=Items->at(z);
@@ -6586,7 +6584,7 @@ PageItem* ScribusDoc::convertItemTo(PageItem *currItem, PageItem::ItemType newTy
 			newItem->convertTo(PageItem::TextFrame);
 			if (oldItem->itemType()==PageItem::PathText)
 			{
-				uint newPolyItemNo = itemAdd(PageItem::PolyLine, PageItem::Unspecified, currItem->xPos(), currItem->yPos(), currItem->width(), currItem->height(), currItem->lineWidth(), CommonStrings::None, currItem->lineColor(), true);
+				uint newPolyItemNo = itemAdd(PageItem::PolyLine, PageItem::Unspecified, currItem->xPos(), currItem->yPos(), currItem->width(), currItem->height(), currItem->lineWidth(), CommonStrings::None, currItem->lineColor());
 				PageItem *polyLineItem = Items->at(newPolyItemNo);
 				polyLineItem->PoLine = currItem->PoLine.copy();
 				polyLineItem->ClipEdited = true;
@@ -6813,7 +6811,7 @@ void ScribusDoc::setSymbolEditMode(bool mode, QString symbolName)
 			{
 				if ((!currItem->isGroup()) && (Items->count() > 1))
 				{
-					itemAdd(PageItem::Group, PageItem::Rectangle, addedPage->xOffset(), addedPage->yOffset(), 10, 10, 0, CommonStrings::None, CommonStrings::None, true);
+					itemAdd(PageItem::Group, PageItem::Rectangle, addedPage->xOffset(), addedPage->yOffset(), 10, 10, 0, CommonStrings::None, CommonStrings::None);
 					PageItem *groupItem = Items->takeLast();
 					groupItem->setLayer(firstLayerID());
 					Items->insert(0, groupItem);
@@ -6964,7 +6962,7 @@ void ScribusDoc::setInlineEditMode(bool mode, int id)
 			{
 				if ((!currItem->isGroup()) && (Items->count() > 1))
 				{
-					itemAdd(PageItem::Group, PageItem::Rectangle, addedPage->xOffset(), addedPage->yOffset(), 10, 10, 0, CommonStrings::None, CommonStrings::None, true);
+					itemAdd(PageItem::Group, PageItem::Rectangle, addedPage->xOffset(), addedPage->yOffset(), 10, 10, 0, CommonStrings::None, CommonStrings::None);
 					PageItem *groupItem = Items->takeLast();
 					groupItem->setLayer(firstLayerID());
 					Items->insert(0, groupItem);
@@ -15146,7 +15144,7 @@ PageItem* ScribusDoc::groupObjectsSelection(Selection* customSelection)
 	double gy = miny;
 	double gw = maxx - minx;
 	double gh = maxy - miny;
-	int z = itemAdd(PageItem::Group, PageItem::Rectangle, gx, gy, gw, gh, 0, CommonStrings::None, CommonStrings::None, true);
+	int z = itemAdd(PageItem::Group, PageItem::Rectangle, gx, gy, gw, gh, 0, CommonStrings::None, CommonStrings::None);
 	PageItem *groupItem = Items->takeAt(z);
 	Items->insert(lowestItem, groupItem);
 	groupItem->setItemName( tr("Group%1").arg(GroupCounter));
@@ -15201,7 +15199,7 @@ PageItem* ScribusDoc::groupObjectsList(QList<PageItem*> &itemList)
 	double gy = miny;
 	double gw = maxx - minx;
 	double gh = maxy - miny;
-	int z = itemAdd(PageItem::Group, PageItem::Rectangle, gx, gy, gw, gh, 0, CommonStrings::None, CommonStrings::None, true);
+	int z = itemAdd(PageItem::Group, PageItem::Rectangle, gx, gy, gw, gh, 0, CommonStrings::None, CommonStrings::None);
 	PageItem *groupItem = Items->takeAt(z);
 	Items->insert(lowestItem, groupItem);
 	groupItem->setItemName( tr("Group%1").arg(GroupCounter));
@@ -15336,7 +15334,7 @@ PageItem * ScribusDoc::itemSelection_GroupObjects(bool changeLock, bool lock, Se
 	double gw = maxx - minx;
 	double gh = maxy - miny;
 	undoManager->setUndoEnabled(false);
-	int z = itemAdd(PageItem::Group, PageItem::Rectangle, gx, gy, gw, gh, 0, CommonStrings::None, CommonStrings::None, true);
+	int z = itemAdd(PageItem::Group, PageItem::Rectangle, gx, gy, gw, gh, 0, CommonStrings::None, CommonStrings::None);
 	PageItem *groupItem = Items->takeAt(z);
 	Items->insert(lowestItem, groupItem);
 	groupItem->setItemName( tr("Group%1").arg(GroupCounter));
@@ -16011,7 +16009,7 @@ void ScribusDoc::itemSelection_convertItemsToSymbol(QString& patternName)
 	currItem->gXpos = currItem->xPos() - minx;
 	currItem->gYpos = currItem->yPos() - miny;
 	currItem->setXYPos(currItem->gXpos, currItem->gYpos, true);
-	int z = itemAdd(PageItem::Symbol, PageItem::Rectangle, sx, sy, maxx - minx, maxy - miny, 0, CommonStrings::None, CommonStrings::None, true);
+	int z = itemAdd(PageItem::Symbol, PageItem::Rectangle, sx, sy, maxx - minx, maxy - miny, 0, CommonStrings::None, CommonStrings::None);
 	PageItem* groupItem = Items->takeAt(z);
 	groupItem->setPattern(patternName);
 	groupItem->Parent = currItem->Parent;

@@ -703,7 +703,7 @@ void CanvasMode_NodeEdit::handleNodeEditPress(QMouseEvent* m, QRect)
 					else
 					{
 						cli.putPoints(0, EndInd-StartInd, Clip, StartInd);
-						int z = m_doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, currItem->xPos(), currItem->yPos(), currItem->width(), currItem->height(), currItem->lineWidth(), currItem->fillColor(), currItem->lineColor(), true);
+						int z = m_doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, currItem->xPos(), currItem->yPos(), currItem->width(), currItem->height(), currItem->lineWidth(), currItem->fillColor(), currItem->lineColor());
 						PageItem* bb = m_doc->Items->takeAt(z);
 						if (m_doc->nodeEdit.isContourLine())
 							bb->ContourLine.resize(0);
@@ -752,7 +752,7 @@ void CanvasMode_NodeEdit::handleNodeEditPress(QMouseEvent* m, QRect)
 				{
 					if ((m_doc->nodeEdit.clre() > 1) && (m_doc->nodeEdit.clre() < static_cast<int>(Clip.size()-2)))
 					{
-						int z = m_doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, currItem->xPos(), currItem->yPos(), currItem->width(), currItem->height(), currItem->lineWidth(), currItem->fillColor(), currItem->lineColor(), true);
+						int z = m_doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, currItem->xPos(), currItem->yPos(), currItem->width(), currItem->height(), currItem->lineWidth(), currItem->fillColor(), currItem->lineColor());
 						PageItem* bb = m_doc->Items->at(z);
 						if (m_doc->nodeEdit.isContourLine())
 							bb->ContourLine.putPoints(0, Clip.size()-(m_doc->nodeEdit.clre()+2), Clip, m_doc->nodeEdit.clre()+2);

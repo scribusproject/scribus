@@ -235,7 +235,7 @@ void ScrPainter::setFillRule(FillRule rule)
 
 void ScrPainter::drawRectangle(const libwpg::WPGRect& rect, double rx, double ry)
 {
-	int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, baseX, baseY, rect.width() * 72.0, rect.height() * 72.0, LineW, CurrColorFill, CurrColorStroke, true);
+	int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, baseX, baseY, rect.width() * 72.0, rect.height() * 72.0, LineW, CurrColorFill, CurrColorStroke);
 	PageItem *ite = m_Doc->Items->at(z);
 	if ((rx > 0) && (ry > 0))
 	{
@@ -253,7 +253,7 @@ void ScrPainter::drawRectangle(const libwpg::WPGRect& rect, double rx, double ry
 
 void ScrPainter::drawEllipse(const libwpg::WPGPoint& center, double rx, double ry)
 {
-	int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Ellipse, baseX, baseY, rx * 144.0, ry * 144.0, LineW, CurrColorFill, CurrColorStroke, true);
+	int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Ellipse, baseX, baseY, rx * 144.0, ry * 144.0, LineW, CurrColorFill, CurrColorStroke);
 	PageItem *ite = m_Doc->Items->at(z);
 	QTransform mm = QTransform();
 	mm.translate(72*(center.x - rx), 72*(center.y - ry));
@@ -281,9 +281,9 @@ void ScrPainter::drawPolygon(const libwpg::WPGPointArray& vertices, bool closed)
 	{
 		int z;
 		if (closed)
-			z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, LineW, CurrColorFill, CurrColorStroke, true);
+			z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, LineW, CurrColorFill, CurrColorStroke);
 		else
-			z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX, baseY, 10, 10, LineW, CommonStrings::None, CurrColorStroke, true);
+			z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX, baseY, 10, 10, LineW, CommonStrings::None, CurrColorStroke);
 		ite = m_Doc->Items->at(z);
 		ite->PoLine = Coords.copy();
 		ite->PoLine.translate(m_Doc->currentPage()->xOffset(), m_Doc->currentPage()->yOffset());
@@ -332,10 +332,10 @@ void ScrPainter::drawPath(const libwpg::WPGPath& path)
 		if(path.closed)
 		{
 			Coords.svgClosePath();
-			z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, LineW, CurrColorFill, CurrColorStroke, true);
+			z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, LineW, CurrColorFill, CurrColorStroke);
 		}
 		else
-			z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX, baseY, 10, 10, LineW, CurrColorFill, CurrColorStroke, true);
+			z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX, baseY, 10, 10, LineW, CurrColorFill, CurrColorStroke);
 		ite = m_Doc->Items->at(z);
 		ite->PoLine = Coords.copy();
 		ite->PoLine.translate(m_Doc->currentPage()->xOffset(), m_Doc->currentPage()->yOffset());
@@ -396,7 +396,7 @@ void ScrPainter::drawBitmap(const libwpg::WPGBitmap& bitmap, double hres, double
 	}
 	double w = (bitmap.rect.x2 - bitmap.rect.x1) * 72.0;
 	double h = (bitmap.rect.y2 - bitmap.rect.y1) * 72.0;
-	int z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, bitmap.rect.x1 * 72 + baseX, bitmap.rect.y1 * 72 + baseY, w, h, 1, m_Doc->itemToolPrefs().imageFillColor, m_Doc->itemToolPrefs().imageStrokeColor, true);
+	int z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, bitmap.rect.x1 * 72 + baseX, bitmap.rect.y1 * 72 + baseY, w, h, 1, m_Doc->itemToolPrefs().imageFillColor, m_Doc->itemToolPrefs().imageStrokeColor);
 	PageItem *ite = m_Doc->Items->at(z);
 	QTemporaryFile *tempFile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_wpg_XXXXXX.png");
 	tempFile->setAutoRemove(false);

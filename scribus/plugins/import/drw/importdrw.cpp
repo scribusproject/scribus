@@ -1318,7 +1318,7 @@ void DrwPlug::decodeSymbol(QDataStream &ds, bool last)
 			path.arcTo(bBoxO, rotS, rotE);
 			scaleX = 1;
 			scaleY = 1;
-			z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, posX, posY, bBox.width(), bBox.height(), lineWidth, fillC, lineColor, true);
+			z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, posX, posY, bBox.width(), bBox.height(), lineWidth, fillC, lineColor);
 			currentItem = m_Doc->Items->at(z);
 			currentItem->PoLine.fromQPainterPath(path);
 			bBoxO = path.controlPointRect();
@@ -1338,7 +1338,7 @@ void DrwPlug::decodeSymbol(QDataStream &ds, bool last)
 			getCommonData(ds);
 			nrOfPoints = nPoints;
 			createObjCode = 1;
-			z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, posX, posY, bBox.width(), bBox.height(), lineWidth, fillC, lineColor, true);
+			z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, posX, posY, bBox.width(), bBox.height(), lineWidth, fillC, lineColor);
 			currentItem = m_Doc->Items->at(z);
 			handleLineStyle(currentItem, flags, lineColor);
 			handleGradient(currentItem, patternIndex, fillColor, backColor, bBox);
@@ -1349,7 +1349,7 @@ void DrwPlug::decodeSymbol(QDataStream &ds, bool last)
 			ds >> dummy;
 			if (dummy > 0)
 			{
-				z = m_Doc->itemAdd(PageItem::Group, PageItem::Rectangle, posX, posY, bBox.width(), bBox.height(), 0, fillC, fillC, true);
+				z = m_Doc->itemAdd(PageItem::Group, PageItem::Rectangle, posX, posY, bBox.width(), bBox.height(), 0, fillC, fillC);
 				gList.groupItem = m_Doc->Items->at(z);
 				gList.groupX = groupX + bBox.x();
 				gList.groupY = groupY + bBox.y();
@@ -1388,7 +1388,7 @@ void DrwPlug::decodeSymbol(QDataStream &ds, bool last)
 			cornerRadius = getValue(ds);
 			ds >> appFlags;
 			getCommonData(ds);
-			z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Ellipse, posX, posY, bBox.width(), bBox.height(), lineWidth, fillC, lineColor, true);
+			z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Ellipse, posX, posY, bBox.width(), bBox.height(), lineWidth, fillC, lineColor);
 			currentItem = m_Doc->Items->at(z);
 			finishItem(currentItem);
 			if (currentItem != NULL)
@@ -1405,7 +1405,7 @@ void DrwPlug::decodeSymbol(QDataStream &ds, bool last)
 			ds >> fontSize;
 			fontColor = lineColor;
 			createObjCode = 5;
-			z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, posX, posY, bBox.width(), bBox.height(), 0, lineColor, CommonStrings::None, true);
+			z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, posX, posY, bBox.width(), bBox.height(), 0, lineColor, CommonStrings::None);
 			currentItem = m_Doc->Items->at(z);
 			scaleX = 0;
 			break;
@@ -1421,7 +1421,7 @@ void DrwPlug::decodeSymbol(QDataStream &ds, bool last)
 			path = QPainterPath();
 			path.moveTo(posStart);
 			path.lineTo(posEnd);
-			z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, posX, posY, bBox.width(), bBox.height(), lineWidth, fillC, lineColor, true);
+			z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, posX, posY, bBox.width(), bBox.height(), lineWidth, fillC, lineColor);
 			currentItem = m_Doc->Items->at(z);
 			currentItem->PoLine.fromQPainterPath(path);
 			bBoxO = path.boundingRect();
@@ -1441,7 +1441,7 @@ void DrwPlug::decodeSymbol(QDataStream &ds, bool last)
 			getCommonData(ds);
 			nrOfPoints = nPoints;
 			createObjCode = 3;
-			z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, posX, posY, bBox.width(), bBox.height(), lineWidth, fillC, lineColor, true);
+			z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, posX, posY, bBox.width(), bBox.height(), lineWidth, fillC, lineColor);
 			currentItem = m_Doc->Items->at(z);
 			handleLineStyle(currentItem, flags, lineColor);
 			break;
@@ -1467,7 +1467,7 @@ void DrwPlug::decodeSymbol(QDataStream &ds, bool last)
 			bBoxO = QRectF(QPointF(boundingBoxXO, boundingBoxYO), QPointF(boundingBoxWO, boundingBoxHO));
 			ds >> appFlags;
 			getCommonData(ds);
-			z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, posX, posY, bBox.width(), bBox.height(), lineWidth, fillC, lineColor, true);
+			z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, posX, posY, bBox.width(), bBox.height(), lineWidth, fillC, lineColor);
 			currentItem = m_Doc->Items->at(z);
 			handleLineStyle(currentItem, flags, lineColor);
 			finishItem(currentItem);
@@ -1492,7 +1492,7 @@ void DrwPlug::decodeSymbol(QDataStream &ds, bool last)
 			cornerRadius = getValue(ds);
 			ds >> appFlags;
 			getCommonData(ds);
-			z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Ellipse, posX, posY, bBox.width(), bBox.height(), lineWidth, fillC, lineColor, true);
+			z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Ellipse, posX, posY, bBox.width(), bBox.height(), lineWidth, fillC, lineColor);
 			currentItem = m_Doc->Items->at(z);
 			handleLineStyle(currentItem, flags, lineColor);
 			finishItem(currentItem);
@@ -1527,7 +1527,7 @@ void DrwPlug::decodeSymbol(QDataStream &ds, bool last)
 			path.arcTo(bBoxO, rotS, -rotE);
 			scaleX = 1;
 			scaleY = 1;
-			z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, posX, posY, bBox.width(), bBox.height(), lineWidth, fillC, lineColor, true);
+			z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, posX, posY, bBox.width(), bBox.height(), lineWidth, fillC, lineColor);
 			currentItem = m_Doc->Items->at(z);
 			currentItem->PoLine.fromQPainterPath(path);
 			bBoxO = path.controlPointRect();
@@ -1550,7 +1550,7 @@ void DrwPlug::decodeSymbol(QDataStream &ds, bool last)
 			path = QPainterPath();
 			path.moveTo(posStart);
 			path.cubicTo(posMid, posMid, posEnd);
-			z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, posX, posY, bBox.width(), bBox.height(), lineWidth, fillC, lineColor, true);
+			z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, posX, posY, bBox.width(), bBox.height(), lineWidth, fillC, lineColor);
 			currentItem = m_Doc->Items->at(z);
 			currentItem->PoLine.fromQPainterPath(path);
 			bBoxO = path.controlPointRect();
@@ -1574,7 +1574,7 @@ void DrwPlug::decodeSymbol(QDataStream &ds, bool last)
 			getCommonData(ds);
 			nrOfPoints = nPoints;
 			createObjCode = 4;
-			z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, posX, posY, bBox.width(), bBox.height(), lineWidth, fillC, lineColor, true);
+			z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, posX, posY, bBox.width(), bBox.height(), lineWidth, fillC, lineColor);
 			currentItem = m_Doc->Items->at(z);
 			handleLineStyle(currentItem, flags, lineColor);
 			handleGradient(currentItem, patternIndex, fillColor, backColor, bBox);
@@ -1633,7 +1633,7 @@ void DrwPlug::decodeSymbol(QDataStream &ds, bool last)
 			path = QPainterPath();
 			path.moveTo(posStart);
 			path.cubicTo(posMid, posMid, posEnd);
-			z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, posX, posY, bBox.width(), bBox.height(), lineWidth, fillC, lineColor, true);
+			z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, posX, posY, bBox.width(), bBox.height(), lineWidth, fillC, lineColor);
 			currentItem = m_Doc->Items->at(z);
 			currentItem->PoLine.fromQPainterPath(path);
 			bBoxO = path.controlPointRect();
@@ -1653,7 +1653,7 @@ void DrwPlug::decodeSymbol(QDataStream &ds, bool last)
 			getCommonData(ds);
 			nrOfPoints = nPoints;
 			createObjCode = 4;
-			z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, posX, posY, bBox.width(), bBox.height(), lineWidth, fillC, lineColor, true);
+			z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, posX, posY, bBox.width(), bBox.height(), lineWidth, fillC, lineColor);
 			currentItem = m_Doc->Items->at(z);
 			handleLineStyle(currentItem, flags, lineColor);
 			break;
@@ -1676,7 +1676,7 @@ void DrwPlug::decodeSymbol(QDataStream &ds, bool last)
 			getCommonData(ds);
 			if ((bitsPerPixel == 24) || (bitsPerPixel == 8))
 			{
-				z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Rectangle, posX, posY, bBox.width(), bBox.height(), lineWidth, CommonStrings::None, CommonStrings::None, true);
+				z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Rectangle, posX, posY, bBox.width(), bBox.height(), lineWidth, CommonStrings::None, CommonStrings::None);
 				currentItem = m_Doc->Items->at(z);
 				finishItem(currentItem);
 				scanLinesRead = 0;
@@ -1698,7 +1698,7 @@ void DrwPlug::decodeSymbol(QDataStream &ds, bool last)
 			getCommonData(ds);
 			nrOfPoints = nPoints;
 			createObjCode = 2;
-			z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, posX, posY, bBox.width(), bBox.height(), lineWidth, fillC, lineColor, true);
+			z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, posX, posY, bBox.width(), bBox.height(), lineWidth, fillC, lineColor);
 			currentItem = m_Doc->Items->at(z);
 			handleLineStyle(currentItem, flags, lineColor);
 			break;
@@ -1714,7 +1714,7 @@ void DrwPlug::decodeSymbol(QDataStream &ds, bool last)
 			getCommonData(ds);
 			nrOfPoints = nPoints;
 			createObjCode = 2;
-			z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, posX, posY, bBox.width(), bBox.height(), lineWidth, fillC, lineColor, true);
+			z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, posX, posY, bBox.width(), bBox.height(), lineWidth, fillC, lineColor);
 			currentItem = m_Doc->Items->at(z);
 			handleLineStyle(currentItem, flags, lineColor);
 			handleGradient(currentItem, patternIndex, fillColor, backColor, bBox);
@@ -1724,7 +1724,7 @@ void DrwPlug::decodeSymbol(QDataStream &ds, bool last)
 			fontColor = lineColor;
 			getCommonData(ds);
 			createObjCode = 6;
-			z = m_Doc->itemAdd(PageItem::TextFrame, PageItem::Rectangle, posX, posY, bBox.width(), bBox.height(), 0, CommonStrings::None, CommonStrings::None, true);
+			z = m_Doc->itemAdd(PageItem::TextFrame, PageItem::Rectangle, posX, posY, bBox.width(), bBox.height(), 0, CommonStrings::None, CommonStrings::None);
 			currentItem = m_Doc->Items->at(z);
 			currentItem->setTextToFrameDist(0.0, 0.0, 0.0, 0.0);
 			finishItem(currentItem);

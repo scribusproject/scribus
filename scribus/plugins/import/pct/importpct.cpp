@@ -1011,7 +1011,7 @@ void PctPlug::parsePict(QDataStream &ts)
 						QImage image;
 						image.loadFromData(imageData);
 						image = image.convertToFormat(QImage::Format_ARGB32);
-						int z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, baseX, baseY, image.width() * resX, image.height() * resY, 0, m_Doc->itemToolPrefs().imageFillColor, CommonStrings::None, true);
+						int z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, baseX, baseY, image.width() * resX, image.height() * resY, 0, m_Doc->itemToolPrefs().imageFillColor, CommonStrings::None);
 						PageItem *ite = m_Doc->Items->at(z);
 						QTemporaryFile *tempFile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_pct_XXXXXX.png");
 						tempFile->setAutoRemove(false);
@@ -1224,13 +1224,13 @@ void PctPlug::handlePolygon(QDataStream &ts, quint16 opCode)
 	{
 		int z;
 		if (opCode == 0x0070)
-			z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, LineW, CommonStrings::None, CurrColorStroke, true);
+			z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, LineW, CommonStrings::None, CurrColorStroke);
 		else if (opCode == 0x0071)
-			z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, LineW, CurrColorStroke, CommonStrings::None, true);
+			z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, LineW, CurrColorStroke, CommonStrings::None);
 //		else if (opCode == 0x0072)
-//			z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, LineW, CurrColorFill, CommonStrings::None, true);
+//			z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, LineW, CurrColorFill, CommonStrings::None);
 		else if (opCode == 0x0074)
-			z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, LineW, CurrColorStroke, CommonStrings::None, true);
+			z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, LineW, CurrColorStroke, CommonStrings::None);
 		else
 		{
 //			qDebug() << QString("Not implemented OpCode: 0x%1").arg(opCode, 4, 16, QLatin1Char('0'));
@@ -1258,16 +1258,16 @@ void PctPlug::handleShape(QDataStream &ts, quint16 opCode)
 	double hv = (bounds.height() - 1) * resY;
 	PageItem *ite;
 	if (opCode == 0x0030)
-		z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, xp, yp, wv, hv, LineW, CommonStrings::None, CurrColorStroke, true);
+		z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, xp, yp, wv, hv, LineW, CommonStrings::None, CurrColorStroke);
 	else if (opCode == 0x0031)
-		z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, xp, yp, wv, hv, 0, CurrColorStroke, CommonStrings::None, true);
+		z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, xp, yp, wv, hv, 0, CurrColorStroke, CommonStrings::None);
 //	else if (opCode == 0x0032)
-//		z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, baseX + bounds.x(), baseY + bounds.y(), bounds.width() - 1, bounds.height() - 1, 0, CurrColorFill, CommonStrings::None, true);
+//		z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, baseX + bounds.x(), baseY + bounds.y(), bounds.width() - 1, bounds.height() - 1, 0, CurrColorFill, CommonStrings::None);
 	else if (opCode == 0x0034)
-		z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, xp, yp, wv, hv, 0, CurrColorStroke, CommonStrings::None, true);
+		z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, xp, yp, wv, hv, 0, CurrColorStroke, CommonStrings::None);
 	else if (opCode == 0x0040)
 	{
-		z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, xp, yp, wv, hv, LineW, CommonStrings::None, CurrColorStroke, true);
+		z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, xp, yp, wv, hv, LineW, CommonStrings::None, CurrColorStroke);
 		ite = m_Doc->Items->at(z);
 		ite->setCornerRadius(qMax(ovalSize.x(), ovalSize.y()));
 		ite->SetFrameRound();
@@ -1275,7 +1275,7 @@ void PctPlug::handleShape(QDataStream &ts, quint16 opCode)
 	}
 	else if (opCode == 0x0041)
 	{
-		z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, xp, yp, wv, hv, 0, CurrColorStroke, CommonStrings::None, true);
+		z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, xp, yp, wv, hv, 0, CurrColorStroke, CommonStrings::None);
 		ite = m_Doc->Items->at(z);
 		ite->setCornerRadius(qMax(ovalSize.x(), ovalSize.y()));
 		ite->SetFrameRound();
@@ -1283,7 +1283,7 @@ void PctPlug::handleShape(QDataStream &ts, quint16 opCode)
 	}
 //	else if (opCode == 0x0042)
 //	{
-//		z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, baseX + bounds.x(), baseY + bounds.y(), bounds.width() - 1, bounds.height() - 1, 0, CurrColorFill, CommonStrings::None, true);
+//		z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, baseX + bounds.x(), baseY + bounds.y(), bounds.width() - 1, bounds.height() - 1, 0, CurrColorFill, CommonStrings::None);
 //		ite = m_Doc->Items->at(z);
 //		ite->setCornerRadius(qMax(ovalSize.x(), ovalSize.y()));
 //		ite->SetFrameRound();
@@ -1291,20 +1291,20 @@ void PctPlug::handleShape(QDataStream &ts, quint16 opCode)
 //	}
 	else if (opCode == 0x0044)
 	{
-		z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, xp, yp, wv, hv, 0, CurrColorStroke, CommonStrings::None, true);
+		z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, xp, yp, wv, hv, 0, CurrColorStroke, CommonStrings::None);
 		ite = m_Doc->Items->at(z);
 		ite->setCornerRadius(qMax(ovalSize.x(), ovalSize.y()));
 		ite->SetFrameRound();
 		m_Doc->setRedrawBounding(ite);
 	}
 	else if (opCode == 0x0050)
-		z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Ellipse, xp, yp, wv, hv, LineW, CommonStrings::None, CurrColorStroke, true);
+		z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Ellipse, xp, yp, wv, hv, LineW, CommonStrings::None, CurrColorStroke);
 	else if (opCode == 0x0051)
-		z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Ellipse, xp, yp, wv, hv, 0, CurrColorStroke, CommonStrings::None, true);
+		z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Ellipse, xp, yp, wv, hv, 0, CurrColorStroke, CommonStrings::None);
 //	else if (opCode == 0x0052)
-//		z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Ellipse, baseX + bounds.x(), baseY + bounds.y(), bounds.width() - 1, bounds.height() - 1, 0, CurrColorFill, CommonStrings::None, true);
+//		z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Ellipse, baseX + bounds.x(), baseY + bounds.y(), bounds.width() - 1, bounds.height() - 1, 0, CurrColorFill, CommonStrings::None);
 	else if (opCode == 0x0054)
-		z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Ellipse, xp, yp, wv, hv, 0, CurrColorStroke, CommonStrings::None, true);
+		z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Ellipse, xp, yp, wv, hv, 0, CurrColorStroke, CommonStrings::None);
 	else
 	{
 //		qDebug() << QString("Not implemented OpCode: 0x%1").arg(opCode, 4, 16, QLatin1Char('0'));
@@ -1347,16 +1347,16 @@ void PctPlug::handleSameShape(QDataStream &ts, quint16 opCode)
 	else
 	{
 		if (opCode == 0x0038)
-			z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, baseX + currRect.x(), baseY + currRect.y(), currRect.width() - 1, currRect.height() - 1, LineW, CommonStrings::None, CurrColorStroke, true);
+			z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, baseX + currRect.x(), baseY + currRect.y(), currRect.width() - 1, currRect.height() - 1, LineW, CommonStrings::None, CurrColorStroke);
 		else if (opCode == 0x0039)
-			z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, baseX + currRect.x(), baseY + currRect.y(), currRect.width() - 1, currRect.height() - 1, 0, CurrColorStroke, CommonStrings::None, true);
+			z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, baseX + currRect.x(), baseY + currRect.y(), currRect.width() - 1, currRect.height() - 1, 0, CurrColorStroke, CommonStrings::None);
 //		else if (opCode == 0x003A)
-//			z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, baseX + currRect.x(), baseY + currRect.y(), currRect.width() - 1, currRect.height() - 1, 0, CurrColorFill, CommonStrings::None, true);
+//			z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, baseX + currRect.x(), baseY + currRect.y(), currRect.width() - 1, currRect.height() - 1, 0, CurrColorFill, CommonStrings::None);
 		else if (opCode == 0x003C)
-			z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, baseX + currRect.x(), baseY + currRect.y(), currRect.width() - 1, currRect.height() - 1, 0, CurrColorStroke, CommonStrings::None, true);
+			z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, baseX + currRect.x(), baseY + currRect.y(), currRect.width() - 1, currRect.height() - 1, 0, CurrColorStroke, CommonStrings::None);
 		else if (opCode == 0x0048)
 		{
-			z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, baseX + currRect.x(), baseY + currRect.y(), currRect.width() - 1, currRect.height() - 1, 0, CommonStrings::None, CurrColorStroke, true);
+			z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, baseX + currRect.x(), baseY + currRect.y(), currRect.width() - 1, currRect.height() - 1, 0, CommonStrings::None, CurrColorStroke);
 			ite = m_Doc->Items->at(z);
 			ite->setCornerRadius(qMax(ovalSize.x(), ovalSize.y()));
 			ite->SetFrameRound();
@@ -1364,7 +1364,7 @@ void PctPlug::handleSameShape(QDataStream &ts, quint16 opCode)
 		}
 		else if (opCode == 0x0049)
 		{
-			z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, baseX + currRect.x(), baseY + currRect.y(), currRect.width() - 1, currRect.height() - 1, 0, CurrColorStroke, CommonStrings::None, true);
+			z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, baseX + currRect.x(), baseY + currRect.y(), currRect.width() - 1, currRect.height() - 1, 0, CurrColorStroke, CommonStrings::None);
 			ite = m_Doc->Items->at(z);
 			ite->setCornerRadius(qMax(ovalSize.x(), ovalSize.y()));
 			ite->SetFrameRound();
@@ -1372,7 +1372,7 @@ void PctPlug::handleSameShape(QDataStream &ts, quint16 opCode)
 		}
 //		else if (opCode == 0x004A)
 //		{
-//			z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, baseX + currRect.x(), baseY + currRect.y(), currRect.width() - 1, currRect.height() - 1, 0, CurrColorFill, CommonStrings::None, true);
+//			z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, baseX + currRect.x(), baseY + currRect.y(), currRect.width() - 1, currRect.height() - 1, 0, CurrColorFill, CommonStrings::None);
 //			ite = m_Doc->Items->at(z);
 //			ite->setCornerRadius(qMax(ovalSize.x(), ovalSize.y()));
 //			ite->SetFrameRound();
@@ -1380,20 +1380,20 @@ void PctPlug::handleSameShape(QDataStream &ts, quint16 opCode)
 //		}
 		else if (opCode == 0x004C)
 		{
-			z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, baseX + currRect.x(), baseY + currRect.y(), currRect.width() - 1, currRect.height() - 1, 0, CurrColorStroke, CommonStrings::None, true);
+			z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, baseX + currRect.x(), baseY + currRect.y(), currRect.width() - 1, currRect.height() - 1, 0, CurrColorStroke, CommonStrings::None);
 			ite = m_Doc->Items->at(z);
 			ite->setCornerRadius(qMax(ovalSize.x(), ovalSize.y()));
 			ite->SetFrameRound();
 			m_Doc->setRedrawBounding(ite);
 		}
 		else if (opCode == 0x0058)
-			z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Ellipse, baseX + currRect.x(), baseY + currRect.y(), currRect.width() - 1, currRect.height() - 1, LineW, CommonStrings::None, CurrColorStroke, true);
+			z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Ellipse, baseX + currRect.x(), baseY + currRect.y(), currRect.width() - 1, currRect.height() - 1, LineW, CommonStrings::None, CurrColorStroke);
 		else if (opCode == 0x0059)
-			z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Ellipse, baseX + currRect.x(), baseY + currRect.y(), currRect.width() - 1, currRect.height() - 1, 0, CurrColorStroke, CommonStrings::None, true);
+			z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Ellipse, baseX + currRect.x(), baseY + currRect.y(), currRect.width() - 1, currRect.height() - 1, 0, CurrColorStroke, CommonStrings::None);
 //		else if (opCode == 0x005A)
-//			z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Ellipse, baseX + currRect.x(), baseY + currRect.y(), currRect.width() - 1, currRect.height() - 1, 0, CurrColorFill, CommonStrings::None, true);
+//			z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Ellipse, baseX + currRect.x(), baseY + currRect.y(), currRect.width() - 1, currRect.height() - 1, 0, CurrColorFill, CommonStrings::None);
 		else if (opCode == 0x005C)
-			z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Ellipse, baseX + currRect.x(), baseY + currRect.y(), currRect.width() - 1, currRect.height() - 1, 0, CurrColorStroke, CommonStrings::None, true);
+			z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Ellipse, baseX + currRect.x(), baseY + currRect.y(), currRect.width() - 1, currRect.height() - 1, 0, CurrColorStroke, CommonStrings::None);
 		else
 		{
 //			qDebug() << QString("Not implemented OpCode: 0x%1").arg(opCode, 4, 16, QLatin1Char('0'));
@@ -1569,7 +1569,7 @@ void PctPlug::createTextPath(QByteArray textString)
 	textPath.fromQPainterPath(painterPath);
 	if (textPath.size() > 0)
 	{
-		int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, 0, CurrColorStroke, CommonStrings::None, true);
+		int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, 0, CurrColorStroke, CommonStrings::None);
 		PageItem* ite = m_Doc->Items->at(z);
 		ite->PoLine = textPath;
 		ite->PoLine.translate(baseX, baseY);
@@ -1851,7 +1851,7 @@ void PctPlug::handlePixmap(QDataStream &ts, quint16 opCode)
 		image = image.convertToFormat(QImage::Format_ARGB32);
 		if (!isPixmap)
 			image.invertPixels();
-		int z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, baseX + dstRect.left() * resX, baseY + dstRect.top() * resY, imgCols * resY, imgRows * resY, 0, m_Doc->itemToolPrefs().imageFillColor, m_Doc->itemToolPrefs().imageStrokeColor, true);
+		int z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, baseX + dstRect.left() * resX, baseY + dstRect.top() * resY, imgCols * resY, imgRows * resY, 0, m_Doc->itemToolPrefs().imageFillColor, m_Doc->itemToolPrefs().imageStrokeColor);
 		PageItem *ite = m_Doc->Items->at(z);
 		QTemporaryFile *tempFile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_pct_XXXXXX.png");
 		tempFile->setAutoRemove(false);
@@ -2239,7 +2239,7 @@ void PctPlug::handleLineModeEnd()
 {
 	if ((Coords.size() > 3) && lineMode)
 	{
-		int z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX, baseY, 10, 10, LineW, CommonStrings::None, CurrColorStroke, true);
+		int z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX, baseY, 10, 10, LineW, CommonStrings::None, CurrColorStroke);
 		PageItem *ite = m_Doc->Items->at(z);
 		ite->PoLine = Coords.copy();
 		ite->PoLine.translate(offsetX, offsetY);

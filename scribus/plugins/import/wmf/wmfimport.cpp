@@ -810,7 +810,7 @@ void WMFImport::lineTo( QList<PageItem*>& items, long, short* params )
 		double y2 = params[0];
 		double  lineWidth = m_context.pen().width();
 		QString lineColor = importColor(m_context.pen().color());
-		int z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, BaseX, BaseY, 10, 10, lineWidth, CommonStrings::None, lineColor, true);
+		int z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, BaseX, BaseY, 10, 10, lineWidth, CommonStrings::None, lineColor);
 		PageItem* ite = m_Doc->Items->at(z);
 		ite->PoLine.resize(4);
 		ite->PoLine.setPoint(0, FPoint(x1, y1));
@@ -841,7 +841,7 @@ void WMFImport::ellipse( QList<PageItem*>& items, long, short* params )
 	QString fillColor   = doFill ? importColor( m_context.brush().color() ) : CommonStrings::None;
 	QString strokeColor = doStroke ? importColor( m_context.pen().color() ) : CommonStrings::None;
 	double  lineWidth   = m_context.pen().width();
-	int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Ellipse, BaseX, BaseY, rx * 2.0, ry * 2.0, lineWidth, fillColor, strokeColor, true);
+	int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Ellipse, BaseX, BaseY, rx * 2.0, ry * 2.0, lineWidth, fillColor, strokeColor);
 	PageItem* ite = m_Doc->Items->at(z);
 	QTransform mm(1.0, 0.0, 0.0, 1.0, px, py);
 	ite->PoLine.map(mm);
@@ -865,7 +865,7 @@ void WMFImport::polygon( QList<PageItem*>& items, long, short* params )
 	FPointArray points      = pointsToPolyline( paramPoints, true );
 	if( paramPoints.size() > 0 )
 	{
-		int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, BaseX, BaseY, 10, 10, lineWidth, fillColor, strokeColor, true);
+		int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, BaseX, BaseY, 10, 10, lineWidth, fillColor, strokeColor);
 		PageItem* ite = m_Doc->Items->at(z);
 		ite->PoLine = points;
 		ite->fillRule = !m_context.windingFill();
@@ -905,7 +905,7 @@ void WMFImport::polyPolygon( QList<PageItem*>& items, long num, short* params )
 		lineWidth = 1.0;
 	if( pointsPoly.size() > 0 )
 	{
-		int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, BaseX, BaseY, 10, 10, lineWidth, fillColor, strokeColor, true);
+		int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, BaseX, BaseY, 10, 10, lineWidth, fillColor, strokeColor);
 		PageItem* ite = m_Doc->Items->at(z);
 		ite->PoLine = pointsPoly;
 		ite->fillRule = !m_context.windingFill();
@@ -929,7 +929,7 @@ void WMFImport::polyline( QList<PageItem*>& items, long, short* params )
 	FPointArray points      = pointsToPolyline( paramPoints, false );
 	if( paramPoints.size() > 0 )
 	{
-		int z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, BaseX, BaseY, 10, 10, lineWidth, fillColor, strokeColor, true);
+		int z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, BaseX, BaseY, 10, 10, lineWidth, fillColor, strokeColor);
 		PageItem* ite = m_Doc->Items->at(z);
 		ite->PoLine = points;
 		finishCmdParsing(ite);
@@ -953,7 +953,7 @@ void WMFImport::rectangle( QList<PageItem*>& items, long, short* params )
 	double y = ((params[2] - params[0]) > 0) ? params[0] : params[2];
 	double width  = fabs((double) params[3] - params[1]);
 	double height = fabs((double) params[2] - params[0]);
-	int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, BaseX, BaseY, width, height, lineWidth, fillColor, strokeColor, true);
+	int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, BaseX, BaseY, width, height, lineWidth, fillColor, strokeColor);
 	PageItem* ite = m_Doc->Items->at(z);
 	QTransform mm(1.0, 0.0, 0.0, 1.0, x, y);
 	ite->PoLine.map(mm);
@@ -979,7 +979,7 @@ void WMFImport::roundRect( QList<PageItem*>& items, long, short* params )
 	double height = fabs((double) params[4] - params[2]);
 	double rx     = params[1] / 2.0;
 	double ry     = params[0] / 2.0;
-	int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, BaseX, BaseY, width, height, lineWidth, fillColor, strokeColor, true);
+	int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, BaseX, BaseY, width, height, lineWidth, fillColor, strokeColor);
 	PageItem* ite = m_Doc->Items->at(z);
 	if ((rx != 0.0) || (ry != 0.0))
 	{
@@ -1018,7 +1018,7 @@ void WMFImport::arc( QList<PageItem*>& items, long, short* params )
 	pointArray.fromQPainterPath(painterPath);
 	if( pointArray.size() > 0 )
 	{
-		int z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, BaseX, BaseY, 10, 10, lineWidth, fillColor, strokeColor, true);
+		int z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, BaseX, BaseY, 10, 10, lineWidth, fillColor, strokeColor);
 		PageItem* ite = m_Doc->Items->at(z);
 		ite->PoLine = pointArray;
 		finishCmdParsing(ite);
@@ -1055,7 +1055,7 @@ void WMFImport::chord( QList<PageItem*>& items, long, short* params )
 	pointArray.fromQPainterPath(painterPath);
 	if( pointArray.size() > 0 )
 	{
-		int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, BaseX, BaseY, 10, 10, lineWidth, fillColor, strokeColor, true);
+		int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, BaseX, BaseY, 10, 10, lineWidth, fillColor, strokeColor);
 		PageItem* ite = m_Doc->Items->at(z);
 		ite->PoLine = pointArray;
 		finishCmdParsing(ite);
@@ -1093,7 +1093,7 @@ void WMFImport::pie( QList<PageItem*>& items, long, short* params )
 	pointArray.fromQPainterPath(painterPath);
 	if( pointArray.size() > 0 )
 	{
-		int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, BaseX, BaseY, 10, 10, lineWidth, fillColor, strokeColor, true);
+		int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, BaseX, BaseY, 10, 10, lineWidth, fillColor, strokeColor);
 		PageItem* ite = m_Doc->Items->at(z);
 		ite->PoLine = pointArray;
 		finishCmdParsing(ite);
@@ -1255,7 +1255,7 @@ void WMFImport::extTextOut( QList<PageItem*>& items, long num, short* params )
 			textPath.fromQPainterPath(painterPath);
 			if (textPath.size() > 0)
 			{
-				int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, BaseX, BaseY, 10, 10, lineWidth, textColor, CommonStrings::None, true);
+				int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, BaseX, BaseY, 10, 10, lineWidth, textColor, CommonStrings::None);
 				PageItem* ite = m_Doc->Items->at(z);
 				ite->PoLine = textPath;
 				finishCmdParsing(ite);
@@ -1273,7 +1273,7 @@ void WMFImport::extTextOut( QList<PageItem*>& items, long num, short* params )
 		if (textPath.size() > 0)
 		{
 			double  lineWidth = 0.0;
-			int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, BaseX, BaseY, 10, 10, lineWidth, textColor, CommonStrings::None, true);
+			int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, BaseX, BaseY, 10, 10, lineWidth, textColor, CommonStrings::None);
 			PageItem* ite = m_Doc->Items->at(z);
 			ite->PoLine = textPath;
 			finishCmdParsing(ite);

@@ -506,7 +506,7 @@ bool CgmPlug::convert(QString fn)
 				tmpSel->getVisualGroupRect(&gx, &gy, &gw, &gh);
 				tmpSel->clear();
 				tmpSel->delaySignalsOff();
-				int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, gx, gy, gw, gh, 0, backgroundColor, CommonStrings::None, true);
+				int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, gx, gy, gw, gh, 0, backgroundColor, CommonStrings::None);
 				PageItem *ite = m_Doc->Items->takeAt(z);
 				Elements.prepend(ite);
 				m_Doc->Items->insert(oldDocItemCount, ite);
@@ -1234,7 +1234,7 @@ void CgmPlug::decodeClass4(QDataStream &ts, quint16 elemID, quint16 paramLen)
 					else
 						figurePath.connectPath(Coords.toQPainterPath(false));
 				}
-				int z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX, baseY, 10, 10, lineWidth, CommonStrings::None, lineColor, true);
+				int z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX, baseY, 10, 10, lineWidth, CommonStrings::None, lineColor);
 				PageItem *ite = m_Doc->Items->at(z);
 				ite->PoLine = Coords.copy();
 				finishItem(ite);
@@ -1263,7 +1263,7 @@ void CgmPlug::decodeClass4(QDataStream &ts, quint16 elemID, quint16 paramLen)
 					else
 						figurePath.connectPath(Coords.toQPainterPath(false));
 				}
-				int z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX, baseY, 10, 10, lineWidth, CommonStrings::None, lineColor, true);
+				int z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX, baseY, 10, 10, lineWidth, CommonStrings::None, lineColor);
 				PageItem *ite = m_Doc->Items->at(z);
 				ite->PoLine = Coords.copy();
 				finishItem(ite);
@@ -1298,7 +1298,7 @@ void CgmPlug::decodeClass4(QDataStream &ts, quint16 elemID, quint16 paramLen)
 			if (recordFigure)
 				figurePath.addPath(ell);
 			Coords.fromQPainterPath(ell, true);
-			int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, 0, textColor, CommonStrings::None, true);
+			int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, 0, textColor, CommonStrings::None);
 			PageItem *ite = m_Doc->Items->at(z);
 			ite->PoLine = Coords.copy();
 			finishItem(ite, false);
@@ -1338,7 +1338,7 @@ void CgmPlug::decodeClass4(QDataStream &ts, quint16 elemID, quint16 paramLen)
 			if (recordFigure)
 				figurePath.addPath(ell);
 			Coords.fromQPainterPath(ell, true);
-			int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, 0, textColor, CommonStrings::None, true);
+			int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, 0, textColor, CommonStrings::None);
 			PageItem *ite = m_Doc->Items->at(z);
 			ite->PoLine = Coords.copy();
 			finishItem(ite, false);
@@ -1457,7 +1457,7 @@ void CgmPlug::decodeClass4(QDataStream &ts, quint16 elemID, quint16 paramLen)
 			flipY = true;
 			originY = q.y();
 		}
-		int z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Rectangle, baseX + originX, baseY + originY, pr.length(), rq.length(), edgeWidth, CommonStrings::None, CommonStrings::None, true);
+		int z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Rectangle, baseX + originX, baseY + originY, pr.length(), rq.length(), edgeWidth, CommonStrings::None, CommonStrings::None);
 		PageItem *ite = m_Doc->Items->at(z);
 		ite->PoLine.translate(m_Doc->currentPage()->xOffset(), m_Doc->currentPage()->yOffset());
 		finishItem(ite, false);
@@ -1677,7 +1677,7 @@ void CgmPlug::decodeClass4(QDataStream &ts, quint16 elemID, quint16 paramLen)
 					else
 						figurePath.connectPath(Coords.toQPainterPath(false));
 				}
-				int z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX, baseY, 10, 10, lineWidth, CommonStrings::None, lineColor, true);
+				int z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX, baseY, 10, 10, lineWidth, CommonStrings::None, lineColor);
 				PageItem *ite = m_Doc->Items->at(z);
 				ite->PoLine = Coords.copy();
 				finishItem(ite);
@@ -1782,7 +1782,7 @@ void CgmPlug::decodeClass4(QDataStream &ts, quint16 elemID, quint16 paramLen)
 					figurePath.connectPath(ell);
 			}
 			Coords.fromQPainterPath(ell, false);
-			int z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX, baseY, 10, 10, lineWidth, CommonStrings::None, lineColor, true);
+			int z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX, baseY, 10, 10, lineWidth, CommonStrings::None, lineColor);
 			PageItem *ite = m_Doc->Items->at(z);
 			ite->PoLine = Coords.copy();
 			finishItem(ite);
@@ -1983,7 +1983,7 @@ void CgmPlug::decodeClass4(QDataStream &ts, quint16 elemID, quint16 paramLen)
 				else
 					figurePath.connectPath(ell);
 			}
-			int z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX, baseY, 10, 10, lineWidth, CommonStrings::None, lineColor, true);
+			int z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX, baseY, 10, 10, lineWidth, CommonStrings::None, lineColor);
 			PageItem *ite = m_Doc->Items->at(z);
 			ite->PoLine = Coords.copy();
 			finishItem(ite);
@@ -2143,7 +2143,7 @@ void CgmPlug::decodeClass4(QDataStream &ts, quint16 elemID, quint16 paramLen)
 					else
 						figurePath.connectPath(Coords.toQPainterPath(false));
 				}
-				int z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX, baseY, 10, 10, lineWidth, CommonStrings::None, lineColor, true);
+				int z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX, baseY, 10, 10, lineWidth, CommonStrings::None, lineColor);
 				PageItem *ite = m_Doc->Items->at(z);
 				ite->PoLine = Coords.copy();
 				finishItem(ite);
@@ -2399,7 +2399,7 @@ void CgmPlug::decodeClass5(QDataStream &ts, quint16 elemID, quint16 paramLen)
 				s++;
 			}
 		}
-		int z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Rectangle, 0, 0, tmpImg.width(), tmpImg.height(), 0, CommonStrings::None, CommonStrings::None, true);
+		int z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Rectangle, 0, 0, tmpImg.width(), tmpImg.height(), 0, CommonStrings::None, CommonStrings::None);
 		PageItem* ite = m_Doc->Items->at(z);
 		ite->SetRectFrame();
 		ite->setTextFlowMode(PageItem::TextFlowDisabled);
@@ -3394,12 +3394,12 @@ PageItem* CgmPlug::itemAdd(PageItem::ItemType itemType, PageItem::ItemFrameType 
 	if (lineVisible)
 	{
 		if (fillType == 0)
-			z = m_Doc->itemAdd(itemType, frameType, x, y, b, h, w, CommonStrings::None, stroke, true);
+			z = m_Doc->itemAdd(itemType, frameType, x, y, b, h, w, CommonStrings::None, stroke);
 		else if ((fillType == 1) || (fillType == 3))
-			z = m_Doc->itemAdd(itemType, frameType, x, y, b, h, w, fill, stroke, true);
+			z = m_Doc->itemAdd(itemType, frameType, x, y, b, h, w, fill, stroke);
 		else if (fillType == 2)
 		{
-			z = m_Doc->itemAdd(itemType, frameType, x, y, b, h, w, fill, stroke, true);
+			z = m_Doc->itemAdd(itemType, frameType, x, y, b, h, w, fill, stroke);
 			if (patternTable.contains(patternIndex))
 			{
 				PageItem *ite = m_Doc->Items->at(z);
@@ -3416,19 +3416,19 @@ PageItem* CgmPlug::itemAdd(PageItem::ItemType itemType, PageItem::ItemFrameType 
 			}
 		}
 		else if (fillType == 4)
-			z = m_Doc->itemAdd(itemType, frameType, x, y, b, h, w, CommonStrings::None, stroke, true);
+			z = m_Doc->itemAdd(itemType, frameType, x, y, b, h, w, CommonStrings::None, stroke);
 		else
-			z = m_Doc->itemAdd(itemType, frameType, x, y, b, h, w, fill, stroke, true);
+			z = m_Doc->itemAdd(itemType, frameType, x, y, b, h, w, fill, stroke);
 	}
 	else
 	{
 		if (fillType == 0)
-			z = m_Doc->itemAdd(itemType, frameType, x, y, b, h, w, CommonStrings::None, fill, true);
+			z = m_Doc->itemAdd(itemType, frameType, x, y, b, h, w, CommonStrings::None, fill);
 		else if ((fillType == 1) || (fillType == 3))
-			z = m_Doc->itemAdd(itemType, frameType, x, y, b, h, w, fill, CommonStrings::None, true);
+			z = m_Doc->itemAdd(itemType, frameType, x, y, b, h, w, fill, CommonStrings::None);
 		else if (fillType == 2)
 		{
-			z = m_Doc->itemAdd(itemType, frameType, x, y, b, h, w, fill, CommonStrings::None, true);
+			z = m_Doc->itemAdd(itemType, frameType, x, y, b, h, w, fill, CommonStrings::None);
 			if (patternTable.contains(patternIndex))
 			{
 				PageItem *ite = m_Doc->Items->at(z);
@@ -3445,7 +3445,7 @@ PageItem* CgmPlug::itemAdd(PageItem::ItemType itemType, PageItem::ItemFrameType 
 			}
 		}
 		else
-			z = m_Doc->itemAdd(itemType, frameType, x, y, b, h, w, CommonStrings::None, CommonStrings::None, true);
+			z = m_Doc->itemAdd(itemType, frameType, x, y, b, h, w, CommonStrings::None, CommonStrings::None);
 	}
 	return m_Doc->Items->at(z);
 }

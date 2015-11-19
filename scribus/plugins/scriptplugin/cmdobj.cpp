@@ -35,7 +35,7 @@ PyObject *scribus_newrect(PyObject* /* self */, PyObject* args)
 								pageUnitXToDocX(x), pageUnitYToDocY(y),
 								ValueToPoint(w), ValueToPoint(h),
 								ScCore->primaryMainWindow()->doc->itemToolPrefs().shapeLineWidth,
-								ScCore->primaryMainWindow()->doc->itemToolPrefs().shapeFillColor, ScCore->primaryMainWindow()->doc->itemToolPrefs().shapeLineColor, true);
+								ScCore->primaryMainWindow()->doc->itemToolPrefs().shapeFillColor, ScCore->primaryMainWindow()->doc->itemToolPrefs().shapeLineColor);
 //	ScCore->primaryMainWindow()->doc->setRedrawBounding(ScCore->primaryMainWindow()->doc->Items->at(i));
 	if (Name != EMPTY_STRING)
 	{
@@ -62,8 +62,7 @@ PyObject *scribus_newellipse(PyObject* /* self */, PyObject* args)
 										ValueToPoint(h),
 										ScCore->primaryMainWindow()->doc->itemToolPrefs().shapeLineWidth,
 										ScCore->primaryMainWindow()->doc->itemToolPrefs().shapeFillColor,
-										ScCore->primaryMainWindow()->doc->itemToolPrefs().shapeLineColor,
-										true);
+										ScCore->primaryMainWindow()->doc->itemToolPrefs().shapeLineColor);
 	if (Name != EMPTY_STRING)
 	{
 		QString objName = QString::fromUtf8(Name);
@@ -88,7 +87,7 @@ PyObject *scribus_newimage(PyObject* /* self */, PyObject* args)
 									ValueToPoint(w),
 									ValueToPoint(h),
 									1, ScCore->primaryMainWindow()->doc->itemToolPrefs().imageFillColor,
-									ScCore->primaryMainWindow()->doc->itemToolPrefs().imageStrokeColor, true);
+									ScCore->primaryMainWindow()->doc->itemToolPrefs().imageStrokeColor);
 	if (Name != EMPTY_STRING)
 	{
 		QString objName = QString::fromUtf8(Name);
@@ -113,7 +112,7 @@ PyObject *scribus_newtext(PyObject* /* self */, PyObject* args)
 								ValueToPoint(w),
 								ValueToPoint(h),
 								ScCore->primaryMainWindow()->doc->itemToolPrefs().shapeLineWidth, CommonStrings::None,
-								ScCore->primaryMainWindow()->doc->itemToolPrefs().textColor, true);
+								ScCore->primaryMainWindow()->doc->itemToolPrefs().textColor);
 	if (Name != EMPTY_STRING)
 	{
 		QString objName = QString::fromUtf8(Name);
@@ -144,8 +143,7 @@ PyObject *scribus_newtable(PyObject* /* self */, PyObject* args)
 								ValueToPoint(h),
 								0,                    // Unused.
 								CommonStrings::None,  // Unused.
-								CommonStrings::None,  // Unused.
-								true);
+								CommonStrings::None); // Unused.
 	PageItem_Table *table = ScCore->primaryMainWindow()->doc->Items->at(i)->asTable();
 	table->insertRows(0, numRows - 1);
 	table->insertColumns(0, numColumns - 1);
@@ -183,7 +181,7 @@ PyObject *scribus_newline(PyObject* /* self */, PyObject* args)
 							   x, y, w, h,
 							   ScCore->primaryMainWindow()->doc->itemToolPrefs().shapeLineWidth,
 							   ScCore->primaryMainWindow()->doc->itemToolPrefs().shapeFillColor,
-							   ScCore->primaryMainWindow()->doc->itemToolPrefs().shapeLineColor, true);
+							   ScCore->primaryMainWindow()->doc->itemToolPrefs().shapeLineColor);
 	PageItem *it = ScCore->primaryMainWindow()->doc->Items->at(i);
 	it->setRotation(xy2Deg(w-x, h-y));
 	it->setWidthHeight(sqrt(pow(x-w, 2.0) + pow(y-h, 2.0)), 1.0);
@@ -252,7 +250,7 @@ PyObject *scribus_polyline(PyObject* /* self */, PyObject* args)
 	i++;
 	y = pageUnitYToDocY(static_cast<double>(PyFloat_AsDouble(PyList_GetItem(il, i))));
 	i++;
-	int ic = ScCore->primaryMainWindow()->doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, x, y, 1, 1,	ScCore->primaryMainWindow()->doc->itemToolPrefs().shapeLineWidth, ScCore->primaryMainWindow()->doc->itemToolPrefs().shapeFillColor, ScCore->primaryMainWindow()->doc->itemToolPrefs().shapeLineColor, true);
+	int ic = ScCore->primaryMainWindow()->doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, x, y, 1, 1,	ScCore->primaryMainWindow()->doc->itemToolPrefs().shapeLineWidth, ScCore->primaryMainWindow()->doc->itemToolPrefs().shapeFillColor, ScCore->primaryMainWindow()->doc->itemToolPrefs().shapeLineColor);
 	PageItem *it = ScCore->primaryMainWindow()->doc->Items->at(ic);
 	it->PoLine.resize(2);
 	it->PoLine.setPoint(0, 0, 0);
@@ -329,7 +327,7 @@ PyObject *scribus_polygon(PyObject* /* self */, PyObject* args)
 	i++;
 	y = pageUnitYToDocY(static_cast<double>(PyFloat_AsDouble(PyList_GetItem(il, i))));
 	i++;
-	int ic = ScCore->primaryMainWindow()->doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, x, y, 1, 1,	ScCore->primaryMainWindow()->doc->itemToolPrefs().shapeLineWidth, ScCore->primaryMainWindow()->doc->itemToolPrefs().shapeFillColor, ScCore->primaryMainWindow()->doc->itemToolPrefs().shapeLineColor, true);
+	int ic = ScCore->primaryMainWindow()->doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, x, y, 1, 1,	ScCore->primaryMainWindow()->doc->itemToolPrefs().shapeLineWidth, ScCore->primaryMainWindow()->doc->itemToolPrefs().shapeFillColor, ScCore->primaryMainWindow()->doc->itemToolPrefs().shapeLineColor);
 	PageItem *it = ScCore->primaryMainWindow()->doc->Items->at(ic);
 	it->PoLine.resize(2);
 	it->PoLine.setPoint(0, 0, 0);
@@ -419,7 +417,7 @@ PyObject *scribus_bezierline(PyObject* /* self */, PyObject* args)
 	ky2 = pageUnitYToDocY(static_cast<double>(PyFloat_AsDouble(PyList_GetItem(il, i))));
 	i++;
 	//int ic = ScCore->primaryMainWindow()->view->PaintPolyLine(x, y, 1, 1,	ScCore->primaryMainWindow()->doc->toolSettings.dWidth, ScCore->primaryMainWindow()->doc->toolSettings.dBrush, ScCore->primaryMainWindow()->doc->toolSettings.dPen);
-	int ic = ScCore->primaryMainWindow()->doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, x, y, 1, 1,	ScCore->primaryMainWindow()->doc->itemToolPrefs().shapeLineWidth, ScCore->primaryMainWindow()->doc->itemToolPrefs().shapeFillColor, ScCore->primaryMainWindow()->doc->itemToolPrefs().shapeLineColor, true);
+	int ic = ScCore->primaryMainWindow()->doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, x, y, 1, 1,	ScCore->primaryMainWindow()->doc->itemToolPrefs().shapeLineWidth, ScCore->primaryMainWindow()->doc->itemToolPrefs().shapeFillColor, ScCore->primaryMainWindow()->doc->itemToolPrefs().shapeLineColor);
 	PageItem *it = ScCore->primaryMainWindow()->doc->Items->at(ic);
 	it->PoLine.resize(2);
 	it->PoLine.setPoint(0, 0, 0);

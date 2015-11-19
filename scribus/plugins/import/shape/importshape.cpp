@@ -513,7 +513,7 @@ void ShapePlug::parseGroup(QDomNode &DOC)
 			PoLine.addPoint(x1, y1);
 			PoLine.addPoint(x2, y2);
 			PoLine.addPoint(x2, y2);
-			int z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX, baseY, 10, 10, strokewidth, CommonStrings::None, StrokeCol, true);
+			int z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX, baseY, 10, 10, strokewidth, CommonStrings::None, StrokeCol);
 			m_Doc->Items->at(z)->PoLine = PoLine.copy();
 			finishItem(m_Doc->Items->at(z));
 		}
@@ -523,7 +523,7 @@ void ShapePlug::parseGroup(QDomNode &DOC)
 			y1 = ScCLocale::toDoubleC(pg.attribute("y")) * Conversion;
 			x2 = ScCLocale::toDoubleC(pg.attribute("width")) * Conversion;
 			y2 = ScCLocale::toDoubleC(pg.attribute("height")) * Conversion;
-			int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, baseX + x1, baseY + y1, x2, y2, strokewidth, FillCol, StrokeCol, true);
+			int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, baseX + x1, baseY + y1, x2, y2, strokewidth, FillCol, StrokeCol);
 			m_Doc->Items->at(z)->setLineJoin(LineJoin);
 			m_Doc->Items->at(z)->setLineEnd(LineEnd);
 			finishItem(m_Doc->Items->at(z));
@@ -560,9 +560,9 @@ void ShapePlug::parseGroup(QDomNode &DOC)
 			}
 			int z;
 			if (STag == "svg:polygon")
-				z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, strokewidth, FillCol, StrokeCol, true);
+				z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, strokewidth, FillCol, StrokeCol);
 			else
-				z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX, baseY, 10, 10, strokewidth, CommonStrings::None, StrokeCol, true);
+				z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX, baseY, 10, 10, strokewidth, CommonStrings::None, StrokeCol);
 			m_Doc->Items->at(z)->PoLine = PoLine.copy();
 			finishItem(m_Doc->Items->at(z));
 		}
@@ -574,7 +574,7 @@ void ShapePlug::parseGroup(QDomNode &DOC)
 			y2 = ScCLocale::toDoubleC(pg.attribute("cy")) * Conversion - y1;
 			x1 *= 2.0;
 			y1 *= 2.0;
-			int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Ellipse, baseX + x1, baseY + y1, x2, y2, strokewidth, FillCol, StrokeCol, true);
+			int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Ellipse, baseX + x1, baseY + y1, x2, y2, strokewidth, FillCol, StrokeCol);
 			m_Doc->Items->at(z)->setLineJoin(LineJoin);
 			m_Doc->Items->at(z)->setLineEnd(LineEnd);
 			finishItem(m_Doc->Items->at(z));
@@ -588,13 +588,13 @@ void ShapePlug::parseGroup(QDomNode &DOC)
 				DOC = DOC.nextSibling();
 				continue;
 			}
-			int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, strokewidth, FillCol, StrokeCol, true);
+			int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, strokewidth, FillCol, StrokeCol);
 			m_Doc->Items->at(z)->PoLine = PoLine.copy();
 			finishItem(m_Doc->Items->at(z));
 		}
 		else if (STag == "svg:g")
 		{
-			int z = m_Doc->itemAdd(PageItem::Group, PageItem::Rectangle, baseX, baseX, 1, 1, 0, CommonStrings::None, CommonStrings::None, true);
+			int z = m_Doc->itemAdd(PageItem::Group, PageItem::Rectangle, baseX, baseX, 1, 1, 0, CommonStrings::None, CommonStrings::None);
 			PageItem *neu = m_Doc->Items->at(z);
 			Elements.append(neu);
 			if (groupStack.count() > 0)

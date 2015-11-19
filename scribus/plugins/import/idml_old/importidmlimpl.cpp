@@ -732,7 +732,7 @@ void ImportIdmlImpl::addTextFrame(ScribusDoc* doc, QDomNode node)
 	/** Now we have all the necessary things for defining a textitem in Scribus, here we go!
 	*/
 	
-	int z = doc->itemAdd(PageItem::TextFrame, PageItem::Unspecified, x, y, w, h,0 , FillColor, StrokeColor, true);
+	int z = doc->itemAdd(PageItem::TextFrame, PageItem::Unspecified, x, y, w, h,0 , FillColor, StrokeColor);
 	currItem = doc->Items->at(z);
 	currItem->setLocked(Locked);
 	currItem->setLayer(layerMap.value(ItemLayer));

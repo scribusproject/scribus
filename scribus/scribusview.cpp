@@ -791,7 +791,7 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 		Doc->m_Selection->delaySignalsOff();
 		if (!selectedItemByDrag)
 		{
-			int z = Doc->itemAdd(PageItem::Symbol, PageItem::Unspecified, dropPosDoc.x(), dropPosDoc.y(), 1, 1, 0, CommonStrings::None, CommonStrings::None, true);
+			int z = Doc->itemAdd(PageItem::Symbol, PageItem::Unspecified, dropPosDoc.x(), dropPosDoc.y(), 1, 1, 0, CommonStrings::None, CommonStrings::None);
 			PageItem *b = Doc->Items->at(z);
 			b->LayerID = Doc->activeLayer();
 			ScPattern pat = Doc->docPatterns[patternVal];
@@ -919,7 +919,7 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 		//SeleItemPos is from 1.2.x. Needs reenabling for dragging *TO* a frame
 		if ((fi.exists()) && (img) && !selectedItemByDrag && !vectorFile)// && (!SeleItemPos(e->pos())))
 		{
-			int z = Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, dropPosDoc.x(), dropPosDoc.y(), 1, 1, Doc->itemToolPrefs().shapeLineWidth, Doc->itemToolPrefs().imageFillColor, Doc->itemToolPrefs().imageStrokeColor, true);
+			int z = Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, dropPosDoc.x(), dropPosDoc.y(), 1, 1, Doc->itemToolPrefs().shapeLineWidth, Doc->itemToolPrefs().imageFillColor, Doc->itemToolPrefs().imageStrokeColor);
 			PageItem *b = Doc->Items->at(z);
 			b->LayerID = Doc->activeLayer();
 			Doc->loadPict(url.toLocalFile(), b);
@@ -3170,7 +3170,7 @@ void ScribusView::TextToPath()
 						}
 						if (charStyle.baselineOffset() != 0)
 							Upos += (charStyle.fontSize() / 10.0) * (charStyle.baselineOffset() / 1000.0);
-						uint z = Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, currItem->xPos(), currItem->yPos(), currItem->width(), currItem->height(), currItem->lineWidth(), currItem->lineColor(), currItem->fillColor(), true);
+						uint z = Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, currItem->xPos(), currItem->yPos(), currItem->width(), currItem->height(), currItem->lineWidth(), currItem->lineColor(), currItem->fillColor());
 						bb = Doc->Items->at(z);
 						undoManager->setUndoEnabled(false);
 						bb->setTextFlowMode(currItem->textFlowMode());
@@ -3214,7 +3214,7 @@ void ScribusView::TextToPath()
 						{
 							double glxTr = charStyle.fontSize() * charStyle.shadowXOffset() / 10000.0;
 							double glyTr = -charStyle.fontSize() * charStyle.shadowYOffset() / 10000.0;
-							uint z = Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, currItem->xPos(), currItem->yPos(), currItem->width(), currItem->height(), currItem->lineWidth(), currItem->lineColor(), currItem->fillColor(), true);
+							uint z = Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, currItem->xPos(), currItem->yPos(), currItem->width(), currItem->height(), currItem->lineWidth(), currItem->lineColor(), currItem->fillColor());
 							bb = Doc->Items->at(z);
 							undoManager->setUndoEnabled(false);
 							bb->setTextFlowMode(currItem->textFlowMode());
@@ -3250,7 +3250,7 @@ void ScribusView::TextToPath()
 							newGroupedItems.append(Doc->Items->takeAt(z));
 						}
 						pts.map(finalMat);
-						uint z = Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, currItem->xPos(), currItem->yPos(), currItem->width(), currItem->height(), currItem->lineWidth(), currItem->lineColor(), currItem->fillColor(), true);
+						uint z = Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, currItem->xPos(), currItem->yPos(), currItem->width(), currItem->height(), currItem->lineWidth(), currItem->lineColor(), currItem->fillColor());
 						bb = Doc->Items->at(z);
 						//bb->setTextFlowsAroundFrame(currItem->textFlowsAroundFrame());
 						//bb->setTextFlowUsesBoundingBox(currItem->textFlowUsesBoundingBox());
@@ -3319,7 +3319,7 @@ void ScribusView::TextToPath()
 						}
 						if (charStyle.baselineOffset() != 0)
 							Upos += (charStyle.fontSize() / 10.0) * (charStyle.baselineOffset() / 1000.0);
-						uint z = Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, currItem->xPos(), currItem->yPos(), currItem->width(), currItem->height(), currItem->lineWidth(), currItem->lineColor(), currItem->fillColor(), true);
+						uint z = Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, currItem->xPos(), currItem->yPos(), currItem->width(), currItem->height(), currItem->lineWidth(), currItem->lineColor(), currItem->fillColor());
 						bb = Doc->Items->at(z);
 						undoManager->setUndoEnabled(false);
 						bb->setTextFlowMode(currItem->textFlowMode());
@@ -3445,7 +3445,7 @@ void ScribusView::TextToPath()
 								}
 								if (charStyle.baselineOffset() != 0)
 									st += (charStyle.fontSize() / 10.0) * glyphs->scaleV * (charStyle.baselineOffset() / 1000.0);
-								uint z = Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, currItem->xPos(), currItem->yPos(), currItem->width(), currItem->height(), currItem->lineWidth(), currItem->lineColor(), currItem->fillColor(), true);
+								uint z = Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, currItem->xPos(), currItem->yPos(), currItem->width(), currItem->height(), currItem->lineWidth(), currItem->lineColor(), currItem->fillColor());
 								bb = Doc->Items->at(z);
 								undoManager->setUndoEnabled(false);
 								bb->setTextFlowMode(currItem->textFlowMode());
@@ -3507,7 +3507,7 @@ void ScribusView::TextToPath()
 								{
 									double glxTr = charStyle.fontSize() * charStyle.shadowXOffset() / 10000.0;
 									double glyTr = -charStyle.fontSize() * charStyle.shadowYOffset() / 10000.0;
-									uint z = Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, currItem->xPos() + glxTr, currItem->yPos() + glyTr, currItem->width(), currItem->height(), currItem->lineWidth(), currItem->lineColor(), currItem->fillColor(), true);
+									uint z = Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, currItem->xPos() + glxTr, currItem->yPos() + glyTr, currItem->width(), currItem->height(), currItem->lineWidth(), currItem->lineColor(), currItem->fillColor());
 									bb = Doc->Items->at(z);
 									undoManager->setUndoEnabled(false);
 									bb->setTextFlowMode(currItem->textFlowMode());
@@ -3553,7 +3553,7 @@ void ScribusView::TextToPath()
 									undoManager->setUndoEnabled(true);
 									newGroupedItems.append(Doc->Items->takeAt(z));
 								}
-								uint z = Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, currItem->xPos(), currItem->yPos(), currItem->width(), currItem->height(), currItem->lineWidth(), currItem->lineColor(), currItem->fillColor(), true);
+								uint z = Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, currItem->xPos(), currItem->yPos(), currItem->width(), currItem->height(), currItem->lineWidth(), currItem->lineColor(), currItem->fillColor());
 								bb = Doc->Items->at(z);
 								//bb->setTextFlowsAroundFrame(currItem->textFlowsAroundFrame());
 								//bb->setTextFlowUsesBoundingBox(currItem->textFlowUsesBoundingBox());
@@ -3629,7 +3629,7 @@ void ScribusView::TextToPath()
 								}
 								if (charStyle.baselineOffset() != 0)
 									st += (charStyle.fontSize() / 10.0) * glyphs->scaleV * (charStyle.baselineOffset() / 1000.0);
-								uint z = Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, currItem->xPos(), currItem->yPos(), currItem->width(), currItem->height(), currItem->lineWidth(), currItem->lineColor(), currItem->fillColor(), true);
+								uint z = Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, currItem->xPos(), currItem->yPos(), currItem->width(), currItem->height(), currItem->lineWidth(), currItem->lineColor(), currItem->fillColor());
 								bb = Doc->Items->at(z);
 								undoManager->setUndoEnabled(false);
 								bb->setTextFlowMode(currItem->textFlowMode());
@@ -3677,7 +3677,7 @@ void ScribusView::TextToPath()
 			}
 			if ((currItem->asPathText()) && (currItem->PoShow))
 			{
-				uint z = Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, currItem->xPos(), currItem->yPos(), currItem->width(), currItem->height(), currItem->lineWidth(), CommonStrings::None, currItem->lineColor(), true);
+				uint z = Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, currItem->xPos(), currItem->yPos(), currItem->width(), currItem->height(), currItem->lineWidth(), CommonStrings::None, currItem->lineColor());
 				PageItem *bb = Doc->Items->at(z);
 				undoManager->setUndoEnabled(false);
 				bb->PoLine = currItem->PoLine.copy();
@@ -3732,7 +3732,7 @@ void ScribusView::TextToPath()
 			double gy = miny;
 			double gw = maxx - minx;
 			double gh = maxy - miny;
-			int z = Doc->itemAdd(PageItem::Group, PageItem::Rectangle, gx, gy, gw, gh, 0, CommonStrings::None, CommonStrings::None, true);
+			int z = Doc->itemAdd(PageItem::Group, PageItem::Rectangle, gx, gy, gw, gh, 0, CommonStrings::None, CommonStrings::None);
 			PageItem *gItem = Doc->Items->takeAt(z);
 			Doc->groupObjectsToItem(gItem, newGroupedItems);
 			gItem->Parent = currItem->Parent;

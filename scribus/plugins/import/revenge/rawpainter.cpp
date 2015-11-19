@@ -869,7 +869,7 @@ void RawPainter::drawRectangle(const librevenge::RVNGPropertyList &propList)
 		double y = valueAsPoint(propList["svg:y"]);
 		double w = valueAsPoint(propList["svg:width"]);
 		double h = valueAsPoint(propList["svg:height"]);
-		int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, baseX + x, baseY + y, w, h, LineW, CurrColorFill, CurrColorStroke, true);
+		int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, baseX + x, baseY + y, w, h, LineW, CurrColorFill, CurrColorStroke);
 		PageItem *ite = m_Doc->Items->at(z);
 		finishItem(ite);
 		applyFill(ite);
@@ -890,7 +890,7 @@ void RawPainter::drawEllipse(const librevenge::RVNGPropertyList &propList)
 		double y = valueAsPoint(propList["svg:y"]);
 		double w = valueAsPoint(propList["svg:width"]);
 		double h = valueAsPoint(propList["svg:height"]);
-		int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Ellipse, baseX + x, baseY + y, w, h, LineW, CurrColorFill, CurrColorStroke, true);
+		int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Ellipse, baseX + x, baseY + y, w, h, LineW, CurrColorFill, CurrColorStroke);
 		PageItem *ite = m_Doc->Items->at(z);
 		finishItem(ite);
 		applyFill(ite);
@@ -918,7 +918,7 @@ void RawPainter::drawPolyline(const librevenge::RVNGPropertyList &propList)
 	}
 	if (Coords.size() > 0)
 	{
-		int z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX, baseY, 10, 10, LineW, CommonStrings::None, CurrColorStroke, true);
+		int z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX, baseY, 10, 10, LineW, CommonStrings::None, CurrColorStroke);
 		ite = m_Doc->Items->at(z);
 		ite->PoLine = Coords.copy();
 		finishItem(ite);
@@ -966,7 +966,7 @@ void RawPainter::drawPolygon(const librevenge::RVNGPropertyList &propList)
 				  imgExt = "tif";
 			  if (!imgExt.isEmpty())
 			  {
-				  z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, baseX, baseY, 10, 10, LineW, CurrColorFill, CurrColorStroke, true);
+				  z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, baseX, baseY, 10, 10, LineW, CurrColorFill, CurrColorStroke);
 				  ite = m_Doc->Items->at(z);
 				  ite->PoLine = Coords.copy();
 				  finishItem(ite);
@@ -1051,7 +1051,7 @@ void RawPainter::drawPolygon(const librevenge::RVNGPropertyList &propList)
 		}
 		else
 		{
-			z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, LineW, CurrColorFill, CurrColorStroke, true);
+			z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, LineW, CurrColorFill, CurrColorStroke);
 			ite = m_Doc->Items->at(z);
 			ite->PoLine = Coords.copy();
 			finishItem(ite);
@@ -1117,7 +1117,7 @@ void RawPainter::drawPath(const librevenge::RVNGPropertyList &propList)
 				  imgExt = "tif";
 			  if (!imgExt.isEmpty())
 			  {
-				  z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, baseX, baseY, 10, 10, LineW, CurrColorFill, CurrColorStroke, true);
+				  z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, baseX, baseY, 10, 10, LineW, CurrColorFill, CurrColorStroke);
 				  ite = m_Doc->Items->at(z);
 				  ite->PoLine = Coords.copy();
 				  finishItem(ite);
@@ -1202,7 +1202,7 @@ void RawPainter::drawPath(const librevenge::RVNGPropertyList &propList)
 		}
 		else
 		{
-			z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, LineW, CurrColorFill, CurrColorStroke, true);
+			z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, LineW, CurrColorFill, CurrColorStroke);
 			ite = m_Doc->Items->at(z);
 			ite->PoLine = Coords.copy();
 			finishItem(ite);
@@ -1214,7 +1214,7 @@ void RawPainter::drawPath(const librevenge::RVNGPropertyList &propList)
 	}
 	else
 	{
-		z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX, baseY, 10, 10, LineW, CommonStrings::None, CurrColorStroke, true);
+		z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX, baseY, 10, 10, LineW, CommonStrings::None, CurrColorStroke);
 		ite = m_Doc->Items->at(z);
 		ite->PoLine = Coords.copy();
 		finishItem(ite);
@@ -1254,7 +1254,7 @@ void RawPainter::drawGraphicObject(const librevenge::RVNGPropertyList &propList)
 			imgExt = "tif";
 		if (!imgExt.isEmpty())
 		{
-			int z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Rectangle, baseX + x, baseY + y, w, h, 0, CurrColorFill, CurrColorStroke, true);
+			int z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Rectangle, baseX + x, baseY + y, w, h, 0, CurrColorFill, CurrColorStroke);
 			ite = m_Doc->Items->at(z);
 			finishItem(ite);
 			insertImage(ite, imgExt, imageData);
@@ -1367,7 +1367,7 @@ void RawPainter::startTextObject(const librevenge::RVNGPropertyList &propList)
 		double rot = 0;
 		if (propList["librevenge:rotate"])
 			rot = propList["librevenge:rotate"]->getDouble();
-		int z = m_Doc->itemAdd(PageItem::TextFrame, PageItem::Rectangle, baseX + x, baseY + y, w, qMax(h, 2.0), 0, CurrColorFill, CurrColorStroke, true);
+		int z = m_Doc->itemAdd(PageItem::TextFrame, PageItem::Rectangle, baseX + x, baseY + y, w, qMax(h, 2.0), 0, CurrColorFill, CurrColorStroke);
 		PageItem *ite = m_Doc->Items->at(z);
 		finishItem(ite);
 		applyShadow(ite);
@@ -2088,7 +2088,7 @@ void RawPainter::applyFill(PageItem* ite)
 				tempFile->close();
 				ScPattern pat = ScPattern();
 				pat.setDoc(m_Doc);
-				int z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, 0, 0, 1, 1, 0, CommonStrings::None, CommonStrings::None, true);
+				int z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, 0, 0, 1, 1, 0, CommonStrings::None, CommonStrings::None);
 				PageItem* newItem = m_Doc->Items->at(z);
 				if (m_style["draw:red"] && m_style["draw:green"] && m_style["draw:blue"])
 				{
@@ -2492,7 +2492,7 @@ void RawPainter::drawRectangle(const ::WPXPropertyList &propList)
 		double y = valueAsPoint(propList["svg:y"]);
 		double w = valueAsPoint(propList["svg:width"]);
 		double h = valueAsPoint(propList["svg:height"]);
-		int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, baseX + x, baseY + y, w, h, LineW, CurrColorFill, CurrColorStroke, true);
+		int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, baseX + x, baseY + y, w, h, LineW, CurrColorFill, CurrColorStroke);
 		PageItem *ite = m_Doc->Items->at(z);
 		finishItem(ite);
 		applyFill(ite);
@@ -2513,7 +2513,7 @@ void RawPainter::drawEllipse(const ::WPXPropertyList &propList)
 		double y = valueAsPoint(propList["svg:y"]);
 		double w = valueAsPoint(propList["svg:width"]);
 		double h = valueAsPoint(propList["svg:height"]);
-		int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Ellipse, baseX + x, baseY + y, w, h, LineW, CurrColorFill, CurrColorStroke, true);
+		int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Ellipse, baseX + x, baseY + y, w, h, LineW, CurrColorFill, CurrColorStroke);
 		PageItem *ite = m_Doc->Items->at(z);
 		finishItem(ite);
 		applyFill(ite);
@@ -2538,7 +2538,7 @@ void RawPainter::drawPolyline(const ::WPXPropertyListVector &vertices)
 	}
 	if (Coords.size() > 0)
 	{
-		int z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX, baseY, 10, 10, LineW, CommonStrings::None, CurrColorStroke, true);
+		int z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX, baseY, 10, 10, LineW, CommonStrings::None, CurrColorStroke);
 		ite = m_Doc->Items->at(z);
 		ite->PoLine = Coords.copy();
 		finishItem(ite);
@@ -2583,7 +2583,7 @@ void RawPainter::drawPolygon(const ::WPXPropertyListVector &vertices)
 			  imgExt = "tif";
 		  if (!imgExt.isEmpty())
 		  {
-			  z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, baseX, baseY, 10, 10, LineW, CurrColorFill, CurrColorStroke, true);
+			  z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, baseX, baseY, 10, 10, LineW, CurrColorFill, CurrColorStroke);
 			  ite = m_Doc->Items->at(z);
 			  ite->PoLine = Coords.copy();
 			  finishItem(ite);
@@ -2668,7 +2668,7 @@ void RawPainter::drawPolygon(const ::WPXPropertyListVector &vertices)
 	}
 	else
 	{
-		z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, LineW, CurrColorFill, CurrColorStroke, true);
+		z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, LineW, CurrColorFill, CurrColorStroke);
 		ite = m_Doc->Items->at(z);
 		ite->PoLine = Coords.copy();
 		finishItem(ite);
@@ -2731,7 +2731,7 @@ void RawPainter::drawPath(const ::WPXPropertyListVector &path)
 				  imgExt = "tif";
 			  if (!imgExt.isEmpty())
 			  {
-				  z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, baseX, baseY, 10, 10, LineW, CurrColorFill, CurrColorStroke, true);
+				  z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, baseX, baseY, 10, 10, LineW, CurrColorFill, CurrColorStroke);
 				  ite = m_Doc->Items->at(z);
 				  ite->PoLine = Coords.copy();
 				  finishItem(ite);
@@ -2816,7 +2816,7 @@ void RawPainter::drawPath(const ::WPXPropertyListVector &path)
 		}
 		else
 		{
-			z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, LineW, CurrColorFill, CurrColorStroke, true);
+			z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, LineW, CurrColorFill, CurrColorStroke);
 			ite = m_Doc->Items->at(z);
 			ite->PoLine = Coords.copy();
 			finishItem(ite);
@@ -2828,7 +2828,7 @@ void RawPainter::drawPath(const ::WPXPropertyListVector &path)
 	}
 	else
 	{
-		z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX, baseY, 10, 10, LineW, CommonStrings::None, CurrColorStroke, true);
+		z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX, baseY, 10, 10, LineW, CommonStrings::None, CurrColorStroke);
 		ite = m_Doc->Items->at(z);
 		ite->PoLine = Coords.copy();
 		finishItem(ite);
@@ -2865,7 +2865,7 @@ void RawPainter::drawGraphicObject(const ::WPXPropertyList &propList, const ::WP
 			imgExt = "tif";
 		if (!imgExt.isEmpty())
 		{
-			int z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Rectangle, baseX + x, baseY + y, w, h, 0, CurrColorFill, CurrColorStroke, true);
+			int z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Rectangle, baseX + x, baseY + y, w, h, 0, CurrColorFill, CurrColorStroke);
 			ite = m_Doc->Items->at(z);
 			finishItem(ite);
 			insertImage(ite, imgExt, imageData);
@@ -2972,7 +2972,7 @@ void RawPainter::startTextObject(const ::WPXPropertyList &propList, const ::WPXP
 		double rot = 0;
 		if (propList["libwpg:rotate"])
 			rot = propList["libwpg:rotate"]->getDouble();
-		int z = m_Doc->itemAdd(PageItem::TextFrame, PageItem::Rectangle, baseX + x, baseY + y, w, h, 0, CurrColorFill, CurrColorStroke, true);
+		int z = m_Doc->itemAdd(PageItem::TextFrame, PageItem::Rectangle, baseX + x, baseY + y, w, h, 0, CurrColorFill, CurrColorStroke);
 		PageItem *ite = m_Doc->Items->at(z);
 		finishItem(ite);
 		applyShadow(ite);
@@ -3319,7 +3319,7 @@ void RawPainter::applyFill(PageItem* ite)
 				tempFile->close();
 				ScPattern pat = ScPattern();
 				pat.setDoc(m_Doc);
-				int z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, 0, 0, 1, 1, 0, CommonStrings::None, CommonStrings::None, true);
+				int z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, 0, 0, 1, 1, 0, CommonStrings::None, CommonStrings::None);
 				PageItem* newItem = m_Doc->Items->at(z);
 				if (m_style["draw:red"] && m_style["draw:green"] && m_style["draw:blue"])
 				{
@@ -3677,7 +3677,7 @@ void RawPainter::applyArrows(PageItem* ite)
 					arrowTrans.translate(-m_Doc->currentPage()->xOffset(), -m_Doc->currentPage()->yOffset());
 					arrowTrans.translate(End.x() + ite->xPos(), End.y() + ite->yPos());
 					EndArrow.map(arrowTrans);
-					int zE = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, 0, CurrColorStroke, CommonStrings::None, true);
+					int zE = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, 0, CurrColorStroke, CommonStrings::None);
 					PageItem *iteE = m_Doc->Items->at(zE);
 					iteE->PoLine = EndArrow.copy();
 					finishItem(iteE);
@@ -3728,7 +3728,7 @@ void RawPainter::applyArrows(PageItem* ite)
 					arrowTrans.translate(-m_Doc->currentPage()->xOffset(), -m_Doc->currentPage()->yOffset());
 					arrowTrans.translate(Start.x() + ite->xPos(), Start.y() + ite->yPos());
 					EndArrow.map(arrowTrans);
-					int zS = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, 0, CurrColorStroke, CommonStrings::None, true);
+					int zS = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, 0, CurrColorStroke, CommonStrings::None);
 					PageItem *iteS = m_Doc->Items->at(zS);
 					iteS->PoLine = EndArrow.copy();
 					finishItem(iteS);

@@ -451,7 +451,7 @@ void CvgPlug::getObjects(QDataStream &ts, bool color, quint32 lenData)
 	if (Coords.size() > 0)
 	{
 		Coords.svgClosePath();
-		z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX + obX / 72.0, baseY + obY / 72.0 * scPg, 10, 10, lineWidth / 72.0, CurrColorFill, CurrColorStroke, true);
+		z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX + obX / 72.0, baseY + obY / 72.0 * scPg, 10, 10, lineWidth / 72.0, CurrColorFill, CurrColorStroke);
 		ite = m_Doc->Items->at(z);
 		ite->PoLine = Coords.copy();
 		ite->PoLine.translate(m_Doc->currentPage()->xOffset(), m_Doc->currentPage()->yOffset());

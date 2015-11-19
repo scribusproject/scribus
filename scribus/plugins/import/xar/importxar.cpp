@@ -677,7 +677,7 @@ void XarPlug::handleTags(quint32 tag, quint32 dataLen, QDataStream &ts)
 		data.resize(dataLen);
 		ts.readRawData(data.data(), dataLen);
 		image.loadFromData(data);
-		int z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, baseX, baseY, image.width(), image.height(), 0, m_Doc->itemToolPrefs().imageFillColor, CommonStrings::None, true);
+		int z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, baseX, baseY, image.width(), image.height(), 0, m_Doc->itemToolPrefs().imageFillColor, CommonStrings::None);
 		PageItem *ite = m_Doc->Items->at(z);
 		ite->tempImageFile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_xar_XXXXXX.png");
 		ite->tempImageFile->open();
@@ -1330,7 +1330,7 @@ void XarPlug::endTextLine()
 						Coords.translate(np.x(), np.y());
 						if (Coords.size() > 0)
 						{
-							int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, 0, txDat.FillCol, CommonStrings::None, true);
+							int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, 0, txDat.FillCol, CommonStrings::None);
 							PageItem *item = m_Doc->Items->at(z);
 							item->PoLine = Coords.copy();
 							item->PoLine.translate(m_Doc->currentPage()->xOffset(), m_Doc->currentPage()->yOffset());
@@ -1437,7 +1437,7 @@ void XarPlug::endTextLine()
 				}
 				if (Coords.size() > 0)
 				{
-					int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, 0, gc->FillCol, CommonStrings::None, true);
+					int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, 0, gc->FillCol, CommonStrings::None);
 					PageItem *item = m_Doc->Items->at(z);
 					item->PoLine = Coords.copy();
 					item->PoLine.translate(m_Doc->currentPage()->xOffset(), m_Doc->currentPage()->yOffset());
@@ -1687,7 +1687,7 @@ void XarPlug::handleQuickShapeSimple(QDataStream &ts, quint32 dataLen)
 //	qDebug() << "Flags" << flags;
 //	qDebug() << "Bytes read" << bytesRead << "of" << dataLen;
 	ts.skipRawData(dataLen - bytesRead);
-	int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, gc->LWidth, gc->FillCol, gc->StrokeCol, true);
+	int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, gc->LWidth, gc->FillCol, gc->StrokeCol);
 	double w = distance(minorAxisX, minorAxisY);
 	double h = distance(majorAxisX, majorAxisY);
 	Coords.resize(0);
@@ -2804,7 +2804,7 @@ void XarPlug::handleBitmap(QDataStream &ts)
 	Coords.svgLineTo(tlx, docHeight - tly);
 	Coords.svgLineTo(trix, docHeight - triy);
 	Coords.svgClosePath();
-	int z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, baseX, baseY, 10, 10, gc->LWidth, gc->FillCol, gc->StrokeCol, true);
+	int z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, baseX, baseY, 10, 10, gc->LWidth, gc->FillCol, gc->StrokeCol);
 	finishItem(z);
 	PageItem *ite = m_Doc->Items->at(z);
 	if (patternRef.contains(bref))
@@ -2981,7 +2981,7 @@ void XarPlug::createRectangleItem(QDataStream &ts, bool ellipse)
 	double centerX, centerY, majorAxis, minorAxis;
 	readCoords(ts, centerX, centerY);
 	readCoords(ts, majorAxis, minorAxis);
-	int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, gc->LWidth, gc->FillCol, gc->StrokeCol, true);
+	int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, gc->LWidth, gc->FillCol, gc->StrokeCol);
 	Coords.resize(0);
 	Coords.svgInit();
 	QPainterPath path;
@@ -3015,11 +3015,11 @@ void XarPlug::createSimilarItem(QDataStream &ts)
 		int z = -1;
 		PageItem* ite = pathMap[val];
 		if (ite->realItemType() == PageItem::ImageFrame)
-			z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, baseX, baseY, 10, 10, gc->LWidth, gc->FillCol, gc->StrokeCol, true);
+			z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, baseX, baseY, 10, 10, gc->LWidth, gc->FillCol, gc->StrokeCol);
 		else if (ite->realItemType() == PageItem::Polygon)
-			z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, gc->LWidth, gc->FillCol, gc->StrokeCol, true);
+			z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, gc->LWidth, gc->FillCol, gc->StrokeCol);
 		else
-			z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX, baseY, 10, 10, gc->LWidth, gc->FillCol, gc->StrokeCol, true);
+			z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX, baseY, 10, 10, gc->LWidth, gc->FillCol, gc->StrokeCol);
 		if (z > -1)
 		{
 			newItem = m_Doc->Items->at(z);
@@ -3052,11 +3052,11 @@ void XarPlug::createPolygonItem(int type)
 	int z = -1;
 	XarStyle *gc = m_gc.top();
 	if (type == 0)
-		z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, gc->LWidth, CommonStrings::None, gc->StrokeCol, true);
+		z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, gc->LWidth, CommonStrings::None, gc->StrokeCol);
 	else if (type == 1)
-		z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, gc->LWidth, gc->FillCol, CommonStrings::None, true);
+		z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, gc->LWidth, gc->FillCol, CommonStrings::None);
 	else if (type == 2)
-		z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, gc->LWidth, gc->FillCol, gc->StrokeCol, true);
+		z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, gc->LWidth, gc->FillCol, gc->StrokeCol);
 	else
 		return;
 	finishItem(z);
@@ -3067,11 +3067,11 @@ void XarPlug::createPolylineItem(int type)
 	int z = -1;
 	XarStyle *gc = m_gc.top();
 	if (type == 0)
-		z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX, baseY, 10, 10, gc->LWidth, CommonStrings::None, gc->StrokeCol, true);
+		z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX, baseY, 10, 10, gc->LWidth, CommonStrings::None, gc->StrokeCol);
 	else if (type == 1)
-		z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX, baseY, 10, 10, gc->LWidth, gc->FillCol, CommonStrings::None, true);
+		z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX, baseY, 10, 10, gc->LWidth, gc->FillCol, CommonStrings::None);
 	else if (type == 2)
-		z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX, baseY, 10, 10, gc->LWidth, gc->FillCol, gc->StrokeCol, true);
+		z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX, baseY, 10, 10, gc->LWidth, gc->FillCol, gc->StrokeCol);
 	else
 		return;
 	finishItem(z);
@@ -3115,7 +3115,7 @@ void XarPlug::createBrushItem(QDataStream &ts)
 	gg.clipping = false;
 	gg.idNr = idNr;
 	gg.isBrush = true;
-	int z = m_Doc->itemAdd(PageItem::Group, PageItem::Rectangle, baseX, baseY, 10, 10, 0, CommonStrings::None, CommonStrings::None, true);
+	int z = m_Doc->itemAdd(PageItem::Group, PageItem::Rectangle, baseX, baseY, 10, 10, 0, CommonStrings::None, CommonStrings::None);
 	PageItem *neu = m_Doc->Items->at(z);
 	gg.groupItem = neu;
 	Elements.append(neu);
@@ -3132,7 +3132,7 @@ void XarPlug::createGroupItem()
 	gg.clipping = false;
 	gg.idNr = 0;
 	gg.isBrush = false;
-	int z = m_Doc->itemAdd(PageItem::Group, PageItem::Rectangle, baseX, baseY, 10, 10, 0, CommonStrings::None, CommonStrings::None, true);
+	int z = m_Doc->itemAdd(PageItem::Group, PageItem::Rectangle, baseX, baseY, 10, 10, 0, CommonStrings::None, CommonStrings::None);
 	PageItem *neu = m_Doc->Items->at(z);
 	gg.groupItem = neu;
 	Elements.append(neu);
@@ -3149,7 +3149,7 @@ void XarPlug::createClipItem()
 	gg.clipping = true;
 	gg.idNr = 0;
 	gg.isBrush = false;
-	int z = m_Doc->itemAdd(PageItem::Group, PageItem::Rectangle, baseX, baseY, 10, 10, 0, CommonStrings::None, CommonStrings::None, true);
+	int z = m_Doc->itemAdd(PageItem::Group, PageItem::Rectangle, baseX, baseY, 10, 10, 0, CommonStrings::None, CommonStrings::None);
 	PageItem *neu = m_Doc->Items->at(z);
 	gg.groupItem = neu;
 	Elements.append(neu);

@@ -689,7 +689,7 @@ void XfigPlug::processArrows(int forward_arrow, QString fArrowData, int backward
 		}
 		else
 			iteType = PageItem::Polygon;
-		z = m_Doc->itemAdd(iteType, PageItem::Unspecified, ite->xPos(), ite->yPos(), 10, 10, arrow_thicknessAF, fillC, CurrColorStroke, true);
+		z = m_Doc->itemAdd(iteType, PageItem::Unspecified, ite->xPos(), ite->yPos(), 10, 10, arrow_thicknessAF, fillC, CurrColorStroke);
 		if (z >= 0)
 		{
 			PageItem *item = m_Doc->Items->at(z);
@@ -749,7 +749,7 @@ void XfigPlug::processArrows(int forward_arrow, QString fArrowData, int backward
 		}
 		else
 			iteType = PageItem::Polygon;
-		z = m_Doc->itemAdd(iteType, PageItem::Unspecified, ite->xPos(), ite->yPos(), 10, 10, arrow_thicknessAB, fillC, CurrColorStroke, true);
+		z = m_Doc->itemAdd(iteType, PageItem::Unspecified, ite->xPos(), ite->yPos(), 10, 10, arrow_thicknessAB, fillC, CurrColorStroke);
 		if (z >= 0)
 		{
 			PageItem *item = m_Doc->Items->at(z);
@@ -841,15 +841,15 @@ void XfigPlug::processPolyline(QDataStream &ts, QString data)
 	int z = -1;
 	PageItem *ite;
 	if (subtype == 1)
-		z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX, baseY, 10, 10, LineW, CurrColorFill, CurrColorStroke, true);
+		z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX, baseY, 10, 10, LineW, CurrColorFill, CurrColorStroke);
 	else if ((subtype == 2) || (subtype == 3) || (subtype == 4))
 	{
-		z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, LineW, CurrColorFill, CurrColorStroke, true);
+		z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, LineW, CurrColorFill, CurrColorStroke);
 		Coords.svgClosePath();
 	}
 	else if (subtype == 5)
 	{
-		z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, baseX, baseY, 10, 10, LineW, CurrColorFill, CurrColorStroke, true);
+		z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, baseX, baseY, 10, 10, LineW, CurrColorFill, CurrColorStroke);
 		Coords.svgClosePath();
 	}
 	else
@@ -986,10 +986,10 @@ void XfigPlug::processSpline(QDataStream &ts, QString data)
 	int z = -1;
 	PageItem *ite;
 	if ((subtype == 0) || (subtype == 2) || (subtype == 4))
-		z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX, baseY, 10, 10, LineW, CurrColorFill, CurrColorStroke, true);
+		z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX, baseY, 10, 10, LineW, CurrColorFill, CurrColorStroke);
 	else if ((subtype == 1) || (subtype == 3) || (subtype == 5))
 	{
-		z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, LineW, CurrColorFill, CurrColorStroke, true);
+		z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, LineW, CurrColorFill, CurrColorStroke);
 		Coords.svgClosePath();
 	}
 	if (z >= 0)
@@ -1061,9 +1061,9 @@ void XfigPlug::processArc(QDataStream &ts, QString data)
 	int z = -1;
 	PageItem *ite;
 	if (subtype == 1)
-		z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX, baseY, 10, 10, LineW, CurrColorFill, CurrColorStroke, true);
+		z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX, baseY, 10, 10, LineW, CurrColorFill, CurrColorStroke);
 	else if (subtype == 2)
-		z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, LineW, CurrColorFill, CurrColorStroke, true);
+		z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, LineW, CurrColorFill, CurrColorStroke);
 	else
 		z = -1;
 	center_x = fig2Pts(center_x) - docX;
@@ -1188,7 +1188,7 @@ void XfigPlug::processEllipse(QString data)
 	y += m_Doc->currentPage()->yOffset();
 	int z = -1;
 	PageItem *ite;
-	z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Ellipse, baseX + x, baseY + y, w, h, LineW, CurrColorFill, CurrColorStroke, true);
+	z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Ellipse, baseX + x, baseY + y, w, h, LineW, CurrColorFill, CurrColorStroke);
 	if (z >= 0)
 	{
 		ite = m_Doc->Items->at(z);
@@ -1500,7 +1500,7 @@ void XfigPlug::processText(QString data)
 	useColor(color, 0, false);
 	int z = -1;
 	PageItem *ite;
-	z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX + x, baseY + y, w, h, 0, CurrColorStroke, CommonStrings::None, true);
+	z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX + x, baseY + y, w, h, 0, CurrColorStroke, CommonStrings::None);
 	if (z >= 0)
 	{
 		ite = m_Doc->Items->at(z);
