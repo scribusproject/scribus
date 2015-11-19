@@ -5572,7 +5572,7 @@ PageItem* ScribusDoc::createPageItem(const PageItem::ItemType itemType, const Pa
 	return newItem;
 }
 
-int ScribusDoc::itemAdd(const PageItem::ItemType itemType, const PageItem::ItemFrameType frameType, const double x, const double y, const double b, const double h, const double w, const QString& fill, const QString& outline)
+int ScribusDoc::itemAdd(const PageItem::ItemType itemType, const PageItem::ItemFrameType frameType, const double x, const double y, const double b, const double h, const double w, const QString& fill, const QString& outline, PageItem::ItemKind itemKind)
 {
 	UndoTransaction activeTransaction;
 	if (UndoManager::undoEnabled()) // && !m_itemCreationTransaction)
@@ -5592,6 +5592,12 @@ int ScribusDoc::itemAdd(const PageItem::ItemType itemType, const PageItem::ItemF
 	Q_CHECK_PTR(newItem);
 	if (newItem==NULL)
 		return -1;
+
+	if (itemKind == PageItem::InlineItem || itemKind == PageItem::PatternItem)
+	{
+		newItem->OnMasterPage.clear();
+		newItem->OwnPage = -1;
+	}
 	
 	Items->append(newItem);
 	if (UndoManager::undoEnabled())
@@ -5616,14 +5622,14 @@ int ScribusDoc::itemAdd(const PageItem::ItemType itemType, const PageItem::ItemF
 }
 
 
-int ScribusDoc::itemAddArea(const PageItem::ItemType itemType, const PageItem::ItemFrameType frameType, const double x, const double y, const double w, const QString& fill, const QString& outline)
+int ScribusDoc::itemAddArea(const PageItem::ItemType itemType, const PageItem::ItemFrameType frameType, const double x, const double y, const double w, const QString& fill, const QString& outline, PageItem::ItemKind itemKind)
 {
 	double xo = m_currentPage->xOffset();
 	double yo = m_currentPage->yOffset();
 	QPair<double, double> tl = m_currentPage->guides.topLeft(x - xo, y - yo);
 	QPair<double, double> tr = m_currentPage->guides.topRight(x - xo, y - yo);
 	QPair<double, double> bl = m_currentPage->guides.bottomLeft(x - xo, y - yo);
-	return itemAdd(itemType, frameType, tl.first + xo, tl.second + yo, tr.first - tl.first, bl.second - tl.second, w, fill, outline);
+	return itemAdd(itemType, frameType, tl.first + xo, tl.second + yo, tr.first - tl.first, bl.second - tl.second, w, fill, outline, itemKind);
 }
 
 

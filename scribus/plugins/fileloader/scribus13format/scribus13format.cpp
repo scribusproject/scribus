@@ -877,7 +877,10 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 						itemNext[m_Doc->Items->count()] = pg.attribute("NEXTITEM").toInt();
 					}
 				}
-				Neu = PasteItem(&pg, m_Doc, fileDir, pagenr);
+				PageItem::ItemKind itemKind = PageItem::StandardItem;
+				if (pg.tagName() == "FRAMEOBJECT")
+					itemKind = PageItem::InlineItem;
+				Neu = PasteItem(&pg, m_Doc, fileDir, itemKind, pagenr);
 				Neu->setRedrawBounding();
 				if (pg.tagName()=="MASTEROBJECT")
 					Neu->OwnPage = m_Doc->OnPage(Neu);
@@ -1473,7 +1476,7 @@ void Scribus13Format::readParagraphStyle(ParagraphStyle& vg, const QDomElement& 
 	}
 }
 
-PageItem* Scribus13Format::PasteItem(QDomElement *obj, ScribusDoc *doc, const QString& baseDir, int pagenr)
+PageItem* Scribus13Format::PasteItem(QDomElement *obj, ScribusDoc *doc, const QString& baseDir, PageItem::ItemKind itemKind, int pagenr)
 {
 	struct ImageLoadRequest loadingInfo;
 	int z = 0;
@@ -1508,14 +1511,14 @@ PageItem* Scribus13Format::PasteItem(QDomElement *obj, ScribusDoc *doc, const QS
 	{
 	// OBSOLETE CR 2005-02-06
 	case PageItem::ItemType1:
-		z = doc->itemAdd(PageItem::Polygon, PageItem::Ellipse, x, y, w, h, pw, Pcolor, Pcolor2);
+		z = doc->itemAdd(PageItem::Polygon, PageItem::Ellipse, x, y, w, h, pw, Pcolor, Pcolor2, itemKind);
 		currItem = doc->Items->at(z);
 		if (pagenr > -2) 
 			currItem->OwnPage = pagenr;
 		break;
 	//
 	case PageItem::ImageFrame:
-		z = doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, x, y, w, h, 1, doc->itemToolPrefs().imageFillColor, CommonStrings::None);
+		z = doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, x, y, w, h, 1, doc->itemToolPrefs().imageFillColor, CommonStrings::None, itemKind);
 		currItem = doc->Items->at(z);
 		if (pagenr > -2) 
 			currItem->OwnPage = pagenr;
@@ -1593,38 +1596,38 @@ PageItem* Scribus13Format::PasteItem(QDomElement *obj, ScribusDoc *doc, const QS
 		break;
 	// OBSOLETE CR 2005-02-06
 	case PageItem::ItemType3:
-		z = doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, x, y, w, h, pw, Pcolor, Pcolor2);
+		z = doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, x, y, w, h, pw, Pcolor, Pcolor2, itemKind);
 		currItem = doc->Items->at(z);
 		if (pagenr > -2) 
 			currItem->OwnPage = pagenr;
 		break;
 	//
 	case PageItem::PathText:
-		z = doc->itemAdd(PageItem::PathText, PageItem::Unspecified, x, y, w, h, pw, CommonStrings::None, Pcolor);
+		z = doc->itemAdd(PageItem::PathText, PageItem::Unspecified, x, y, w, h, pw, CommonStrings::None, Pcolor, itemKind);
 		currItem = doc->Items->at(z);
 		if (pagenr > -2) 
 			currItem->OwnPage = pagenr;
 		break;
 	case PageItem::TextFrame:
-		z = doc->itemAdd(PageItem::TextFrame, PageItem::Unspecified, x, y, w, h, pw, CommonStrings::None, Pcolor);
+		z = doc->itemAdd(PageItem::TextFrame, PageItem::Unspecified, x, y, w, h, pw, CommonStrings::None, Pcolor, itemKind);
 		currItem = doc->Items->at(z);
 		if (pagenr > -2) 
 			currItem->OwnPage = pagenr;
 		break;
 	case PageItem::Line:
-		z = doc->itemAdd(PageItem::Line, PageItem::Unspecified, x, y, w, h, pw, CommonStrings::None, Pcolor2);
+		z = doc->itemAdd(PageItem::Line, PageItem::Unspecified, x, y, w, h, pw, CommonStrings::None, Pcolor2, itemKind);
 		currItem = doc->Items->at(z);
 		if (pagenr > -2) 
 			currItem->OwnPage = pagenr;
 		break;
 	case PageItem::Polygon:
-		z = doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, x, y, w, h, pw, Pcolor, Pcolor2);
+		z = doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, x, y, w, h, pw, Pcolor, Pcolor2, itemKind);
 		currItem = doc->Items->at(z);
 		if (pagenr > -2) 
 			currItem->OwnPage = pagenr;
 		break;
 	case PageItem::PolyLine:
-		z = doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, x, y, w, h, pw, Pcolor, Pcolor2);
+		z = doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, x, y, w, h, pw, Pcolor, Pcolor2, itemKind);
 		currItem = doc->Items->at(z);
 		if (pagenr > -2) 
 			currItem->OwnPage = pagenr;
@@ -2272,9 +2275,12 @@ bool Scribus13Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 							itemNext[m_Doc->Items->count()] = pg.attribute("NEXTITEM").toInt();
 						}
 					}
+					PageItem::ItemKind itemKind = PageItem::StandardItem;
+					if (pg.tagName() == "FRAMEOBJECT")
+						itemKind = PageItem::InlineItem;
 					/*int docGc = m_Doc->GroupCounter;
 					m_Doc->GroupCounter = 0;*/
-					Neu = PasteItem(&pg, m_Doc, fileDir);
+					Neu = PasteItem(&pg, m_Doc, fileDir, itemKind);
 					Neu->moveBy(-pageX + Apage->xOffset(), - pageY + Apage->yOffset());
 					Neu->setRedrawBounding();
 					//CB Must run onpage as we cant use pagetoload if the page has been renamed. 

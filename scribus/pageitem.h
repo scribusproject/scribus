@@ -192,6 +192,17 @@ public:	// Start enumerator definitions
 		Multiple		= 99
 	};
 
+	/**
+	 * @brief Item kind
+	 *
+	 * Describe in which kind of list the item is placed.
+	 */
+	enum ItemKind {
+		StandardItem = 0,
+		InlineItem   = 1,
+		PatternItem  = 2
+	};
+
 	/** @brief Text flow mode
 	 *
 	 * Describe if and how text flow around object

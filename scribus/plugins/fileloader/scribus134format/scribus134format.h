@@ -115,7 +115,7 @@ class PLUGIN_API Scribus134Format : public LoadSavePlugin
 		bool readSections(ScribusDoc* doc, ScXmlStreamReader& reader);
 		bool readTableOfContents(ScribusDoc* doc, ScXmlStreamReader& reader);
 
-		PageItem* pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& attrs, const QString& baseDir, int pagenr = -2 /* currentPage*/);
+		PageItem* pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& attrs, const QString& baseDir, PageItem::ItemKind itemKind, int pagenr = -2 /* currentPage*/);
 
 		QMap<QString, QString> parStyleMap;
 		QMap<uint, QString> legacyStyleMap;

@@ -3616,6 +3616,13 @@ bool Scribus150Format::readObject(ScribusDoc* doc, ScXmlStreamReader& reader, It
 		else
 			doc->setMasterPageMode(true);
 	}
+
+	PageItem::ItemKind itemKind = PageItem::StandardItem;
+	if (tagName =="FRAMEOBJECT")
+		itemKind = PageItem::InlineItem;
+	else if (tagName =="PatternItem")
+		itemKind = PageItem::PatternItem;
+
 	int pagenr = -1;
 	if ((!attrs.value("OnMasterPage").isEmpty()) && (tagName == "MASTEROBJECT"))
 	{
@@ -3624,7 +3631,7 @@ bool Scribus150Format::readObject(ScribusDoc* doc, ScXmlStreamReader& reader, It
 	}
 	layerFound = false;
 	clipPath = "";
-	PageItem* newItem = pasteItem(doc, attrs, baseDir, pagenr);
+	PageItem* newItem = pasteItem(doc, attrs, baseDir, itemKind, pagenr);
 	newItem->setRedrawBounding();
 	if (tagName == "MASTEROBJECT")
 		newItem->OwnPage = doc->OnPage(newItem);
@@ -4136,6 +4143,7 @@ bool Scribus150Format::readPattern(ScribusDoc* doc, ScXmlStreamReader& reader, c
 	bool savedAlignGrid = m_Doc->SnapGrid;
 	bool savedAlignGuides = m_Doc->SnapGuides;
 	bool savedAlignElement = m_Doc->SnapElement;
+	bool savedMasterPageMode = m_Doc->masterPageMode();
 	m_Doc->SnapGrid  = false;
 	m_Doc->SnapGuides = false;
 	m_Doc->SnapElement = false;
@@ -4206,6 +4214,7 @@ bool Scribus150Format::readPattern(ScribusDoc* doc, ScXmlStreamReader& reader, c
 	doc->SnapElement = savedAlignElement;
 	if (!success)
 	{
+		doc->setMasterPageMode(savedMasterPageMode);
 		return false;
 	}
 	if (isNewFormat)
@@ -4356,6 +4365,7 @@ bool Scribus150Format::readPattern(ScribusDoc* doc, ScXmlStreamReader& reader, c
 	}
 	doc->docPatterns.insert(patternName, pat);
 
+	doc->setMasterPageMode(savedMasterPageMode);
 	return success;
 }
 
@@ -4665,7 +4675,7 @@ bool Scribus150Format::readPageItemAttributes(PageItem* item, ScXmlStreamReader&
 	return !reader.hasError();
 }
 
-PageItem* Scribus150Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& attrs, const QString& baseDir, int pagenr)
+PageItem* Scribus150Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& attrs, const QString& baseDir, PageItem::ItemKind itemKind, int pagenr)
 {
 	int z = 0;
 	struct ImageLoadRequest loadingInfo;
@@ -4699,7 +4709,7 @@ PageItem* Scribus150Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 	{
 	// OBSOLETE CR 2005-02-06
 	case PageItem::ItemType1:
-		z = doc->itemAdd(PageItem::Polygon, PageItem::Ellipse, x, y, w, h, pw, Pcolor, Pcolor2);
+		z = doc->itemAdd(PageItem::Polygon, PageItem::Ellipse, x, y, w, h, pw, Pcolor, Pcolor2, itemKind);
 		currItem = doc->Items->at(z);
 		if (pagenr > -2) 
 			currItem->OwnPage = pagenr;
@@ -4708,7 +4718,7 @@ PageItem* Scribus150Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 	case PageItem::ImageFrame:
 	case PageItem::OSGFrame:
 	case PageItem::LatexFrame: /*Everything that is valid for image frames is also valid for latex frames*/
-		z = doc->itemAdd(pt, PageItem::Unspecified, x, y, w, h, 1, doc->itemToolPrefs().imageFillColor, doc->itemToolPrefs().imageStrokeColor);
+		z = doc->itemAdd(pt, PageItem::Unspecified, x, y, w, h, 1, doc->itemToolPrefs().imageFillColor, doc->itemToolPrefs().imageStrokeColor, itemKind);
 		currItem = doc->Items->at(z);
 		if (pagenr > -2) 
 			currItem->OwnPage = pagenr;
@@ -4788,52 +4798,52 @@ PageItem* Scribus150Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 		break;
 	// OBSOLETE CR 2005-02-06
 	case PageItem::ItemType3:
-		z = doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, x, y, w, h, pw, Pcolor, Pcolor2);
+		z = doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, x, y, w, h, pw, Pcolor, Pcolor2, itemKind);
 		currItem = doc->Items->at(z);
 		if (pagenr > -2) 
 			currItem->OwnPage = pagenr;
 		break;
 	//
 	case PageItem::PathText:
-		z = doc->itemAdd(PageItem::PathText, PageItem::Unspecified, x, y, w, h, pw, CommonStrings::None, Pcolor);
+		z = doc->itemAdd(PageItem::PathText, PageItem::Unspecified, x, y, w, h, pw, CommonStrings::None, Pcolor, itemKind);
 		currItem = doc->Items->at(z);
 		if (pagenr > -2) 
 			currItem->OwnPage = pagenr;
 		break;
 	case PageItem::NoteFrame:
 	case PageItem::TextFrame:
-		z = doc->itemAdd(pt, PageItem::Unspecified, x, y, w, h, pw, CommonStrings::None, Pcolor);
+		z = doc->itemAdd(pt, PageItem::Unspecified, x, y, w, h, pw, CommonStrings::None, Pcolor, itemKind);
 		currItem = doc->Items->at(z);
 		if (pagenr > -2) 
 			currItem->OwnPage = pagenr;
 		break;
 	case PageItem::Line:
-		z = doc->itemAdd(PageItem::Line, PageItem::Unspecified, x, y, w, h, pw, CommonStrings::None, Pcolor2);
+		z = doc->itemAdd(PageItem::Line, PageItem::Unspecified, x, y, w, h, pw, CommonStrings::None, Pcolor2, itemKind);
 		currItem = doc->Items->at(z);
 		if (pagenr > -2) 
 			currItem->OwnPage = pagenr;
 		break;
 	case PageItem::Polygon:
-		z = doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, x, y, w, h, pw, Pcolor, Pcolor2);
+		z = doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, x, y, w, h, pw, Pcolor, Pcolor2, itemKind);
 		currItem = doc->Items->at(z);
 		if (pagenr > -2) 
 			currItem->OwnPage = pagenr;
 		break;
 	case PageItem::PolyLine:
-		z = doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, x, y, w, h, pw, Pcolor, Pcolor2);
+		z = doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, x, y, w, h, pw, Pcolor, Pcolor2, itemKind);
 		currItem = doc->Items->at(z);
 		if (pagenr > -2) 
 			currItem->OwnPage = pagenr;
 		break;
 	case PageItem::Symbol:
-		z = doc->itemAdd(PageItem::Symbol, PageItem::Unspecified, x, y, w, h, 0, CommonStrings::None, CommonStrings::None);
+		z = doc->itemAdd(PageItem::Symbol, PageItem::Unspecified, x, y, w, h, 0, CommonStrings::None, CommonStrings::None, itemKind);
 		currItem = doc->Items->at(z);
 		if (pagenr > -2) 
 			currItem->OwnPage = pagenr;
 		currItem->setPattern( attrs.valueAsString("pattern", "") );
 		break;
 	case PageItem::Group:
-		z = doc->itemAdd(PageItem::Group, PageItem::Unspecified, x, y, w, h, 0, CommonStrings::None, CommonStrings::None);
+		z = doc->itemAdd(PageItem::Group, PageItem::Unspecified, x, y, w, h, 0, CommonStrings::None, CommonStrings::None, itemKind);
 		currItem = doc->Items->at(z);
 		if (pagenr > -2) 
 			currItem->OwnPage = pagenr;
@@ -4842,25 +4852,25 @@ PageItem* Scribus150Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 		doc->GroupCounter++;
 		break;
 	case PageItem::RegularPolygon:
-		z = doc->itemAdd(PageItem::RegularPolygon, PageItem::Unspecified, x, y, w, h, pw, Pcolor, Pcolor2);
+		z = doc->itemAdd(PageItem::RegularPolygon, PageItem::Unspecified, x, y, w, h, pw, Pcolor, Pcolor2, itemKind);
 		currItem = doc->Items->at(z);
 		if (pagenr > -2) 
 			currItem->OwnPage = pagenr;
 		break;
 	case PageItem::Arc:
-		z = doc->itemAdd(PageItem::Arc, PageItem::Unspecified, x, y, w, h, pw, Pcolor, Pcolor2);
+		z = doc->itemAdd(PageItem::Arc, PageItem::Unspecified, x, y, w, h, pw, Pcolor, Pcolor2, itemKind);
 		currItem = doc->Items->at(z);
 		if (pagenr > -2) 
 			currItem->OwnPage = pagenr;
 		break;
 	case PageItem::Spiral:
-		z = doc->itemAdd(PageItem::Spiral, PageItem::Unspecified, x, y, w, h, pw, Pcolor, Pcolor2);
+		z = doc->itemAdd(PageItem::Spiral, PageItem::Unspecified, x, y, w, h, pw, Pcolor, Pcolor2, itemKind);
 		currItem = doc->Items->at(z);
 		if (pagenr > -2) 
 			currItem->OwnPage = pagenr;
 		break;
 	case PageItem::Table:
-		z = doc->itemAdd(PageItem::Table, PageItem::Unspecified, x, y, w, h, 0.0, CommonStrings::None, CommonStrings::None);
+		z = doc->itemAdd(PageItem::Table, PageItem::Unspecified, x, y, w, h, 0.0, CommonStrings::None, CommonStrings::None, itemKind);
 		currItem = doc->Items->at(z);
 		if (pagenr > -2)
 			currItem->OwnPage = pagenr;
