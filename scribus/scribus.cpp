@@ -3902,6 +3902,9 @@ void ScribusMainWindow::slotGetContent()
 			inlinePalette->setDoc(doc);
 			if (outlinePalette->isVisible())
 				outlinePalette->BuildTree();
+			propertiesPalette->updateColorList();
+			emit UpdateRequest(reqArrowStylesUpdate | reqLineStylesUpdate | reqStyleComboDocUpdate | reqInlinePalUpdate);
+			symbolPalette->updateSymbolList();
 		}
 	}
 }
