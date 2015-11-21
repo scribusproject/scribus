@@ -1669,7 +1669,7 @@ PdfFont PDFLibCore::PDF_EncodeSimpleFont(const QByteArray& fontName, ScFace& fac
 	//					PutDoc("/TrueType\n");
 	PutDoc("/Name " + formFont.name+ "\n");
 	pageData.FObjects[formFont.name] = fontObjectForm;
-	UsedFontsF.insert(fontName, formFont);
+	UsedFontsF.insert(face.replacementName(), formFont);
 	/*				}
 	 else
 	 {
@@ -9866,7 +9866,7 @@ PdfId PDFLibCore::writeActions(const Annotation&	annot, PdfId annotationObj)
 			}
 		}
 		PutDoc(">>");
-		writer.endObj(annotationObj);
+		writer.endObj(result);
 		return result;
 	}
 	return 0;
