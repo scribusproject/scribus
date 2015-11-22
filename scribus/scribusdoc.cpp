@@ -11799,7 +11799,7 @@ void ScribusDoc::itemSelection_DeleteItem(Selection* customSelection, bool force
 
 	UndoTransaction activeTransaction;
 	if (UndoManager::undoEnabled()) //always create transaction or check if item is reference for any mark or contains any mark or is welded etc
-		activeTransaction = undoManager->beginTransaction(Um::Group + "/" + Um::Selection, Um::IGroup,
+		activeTransaction = undoManager->beginTransaction(Um::SelectionGroup, Um::IGroup,
 														  Um::Delete, tooltip, Um::IDelete);
 	
 	selectedItemCount = delItems.count();
