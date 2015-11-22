@@ -177,7 +177,7 @@ void SMPStyleWidget::languageChange()
 	bulletCharLabel->setText(      tr("Bullet Character(s):"));
 	bulletCharTableButton->setText(tr("Character Table"));
 
-	numBox->setTitle(       tr("Numbering:"));
+	numBox->setTitle(       tr("Numbering"));
 	numLevelLabel->setText( tr("Level:"));
 	numNewLabel->setText( tr("Create New Set:"));
 	numFormatLabel->setText(tr("Numbering Style:"));
