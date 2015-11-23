@@ -115,6 +115,8 @@ public slots:
 	virtual void enableFillSReplace();
 	virtual void enableStrokeReplace();
 	virtual void enableStrokeSReplace();
+	virtual void updateReplaceButtonsState();
+	virtual void updateSearchButtonState();
 	virtual void writePrefs();
 	virtual void clear();
 
@@ -137,6 +139,7 @@ protected:
 	QGridLayout* ReplaceLayout;
 	QHBoxLayout* OptsLayout;
 	QHBoxLayout* ButtonsLayout;
+
 	virtual void readPrefs();
 
 	/// Number of matches found thus far in a search

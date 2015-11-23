@@ -288,6 +288,7 @@ SearchReplace::SearchReplace( QWidget* parent, ScribusDoc *doc, PageItem* ite, b
 	connect( DoSearch, SIGNAL( clicked() ), this, SLOT( slotSearch() ) );
 	connect( DoReplace, SIGNAL( clicked() ), this, SLOT( slotReplace() ) );
 	connect( AllReplace, SIGNAL( clicked() ), this, SLOT( slotReplaceAll() ) );
+	connect( STextVal, SIGNAL( textChanged(QString) ), this, SLOT( updateSearchButtonState() ) );
 	connect( SText, SIGNAL( clicked() ), this, SLOT( enableTxSearch() ) );
 	connect( SStyle, SIGNAL( clicked() ), this, SLOT( enableStyleSearch() ) );
 	connect( SAlign, SIGNAL( clicked() ), this, SLOT( enableAlignSearch() ) );
@@ -391,12 +392,17 @@ void SearchReplace::slotDoSearch()
 	int sEff = 0;
 	int sFillSh = 100;
 	int sStrokeSh = 100;
+	bool searchForReplace = false;
 	bool rep = false;
 	bool found = true;
 	if ((RFill->isChecked()) || (RStroke->isChecked()) || (RStyle->isChecked()) || (RFont->isChecked())
 		|| (RStrokeS->isChecked()) || (RFillS->isChecked()) || (RSize->isChecked()) || (RText->isChecked())
-		|| (REffect->isChecked()))
+		|| (REffect->isChecked())  || (RAlign->isChecked()))
 		rep = true;
+	if ((SFill->isChecked()) || (SStroke->isChecked()) || (SStyle->isChecked()) || (SFont->isChecked())
+			|| (SStrokeS->isChecked()) || (SFillS->isChecked()) || (SSize->isChecked()) || (SText->isChecked())
+			|| (SEffect->isChecked())  || (SAlign->isChecked()))
+		searchForReplace = true;
 	if (SText->isChecked())
 		sText = STextVal->text();
 	if (CaseIgnore->isChecked())
@@ -496,7 +502,7 @@ void SearchReplace::slotDoSearch()
 				if (m_item->itemText.charStyle(a).fillColor() != fCol)
 					found = false;
 			}
-			if (found)
+			if (found && searchForReplace)
 			{
 				m_item->itemText.select(a, sText.length());
 				m_item->HasSel = true;
@@ -632,7 +638,7 @@ void SearchReplace::slotDoSearch()
 				storyTextEdit->setTextCursor(cursor);
 			}
 		}
-		if (found)
+		if (found && searchForReplace)
 		{
 			// m_doc->scMW()->CurrStED->updateProps(); FIXME
 			if (rep)
@@ -839,51 +845,61 @@ void SearchReplace::enableTxSearch()
 	CaseIgnore->setEnabled(setter);
 	if (setter)
 		STextVal->setFocus();
+	updateSearchButtonState();
 }
 
 void SearchReplace::enableStyleSearch()
 {
 	SStyleVal->setEnabled(SStyleVal->count() ? SStyle->isChecked() : false);
+	updateSearchButtonState();
 }
 
 void SearchReplace::enableAlignSearch()
 {
 	SAlignVal->setEnabled(SAlign->isChecked());
+	updateSearchButtonState();
 }
 
 void SearchReplace::enableFontSearch()
 {
 	SFontVal->setEnabled(SFont->isChecked());
+	updateSearchButtonState();
 }
 
 void SearchReplace::enableSizeSearch()
 {
 	SSizeVal->setEnabled(SSize->isChecked());
+	updateSearchButtonState();
 }
 
 void SearchReplace::enableEffSearch()
 {
 	SEffVal->setEnabled(SEffect->isChecked());
+	updateSearchButtonState();
 }
 
 void SearchReplace::enableFillSearch()
 {
 	SFillVal->setEnabled(SFill->isChecked());
+	updateSearchButtonState();
 }
 
 void SearchReplace::enableFillSSearch()
 {
 	SFillSVal->setEnabled(SFillS->isChecked());
+	updateSearchButtonState();
 }
 
 void SearchReplace::enableStrokeSearch()
 {
 	SStrokeVal->setEnabled(SStroke->isChecked());
+	updateSearchButtonState();
 }
 
 void SearchReplace::enableStrokeSSearch()
 {
 	SStrokeSVal->setEnabled(SStrokeS->isChecked());
+	updateSearchButtonState();
 }
 
 void SearchReplace::enableTxReplace()
@@ -891,51 +907,61 @@ void SearchReplace::enableTxReplace()
 	RTextVal->setEnabled(RText->isChecked());
 	if (RText->isChecked())
 		RTextVal->setFocus();
+	updateReplaceButtonsState();
 }
 
 void SearchReplace::enableStyleReplace()
 {
 	RStyleVal->setEnabled(RStyle->isChecked());
+	updateReplaceButtonsState();
 }
 
 void SearchReplace::enableAlignReplace()
 {
 	RAlignVal->setEnabled(RAlign->isChecked());
+	updateReplaceButtonsState();
 }
 
 void SearchReplace::enableFontReplace()
 {
 	RFontVal->setEnabled(RFont->isChecked());
+	updateReplaceButtonsState();
 }
 
 void SearchReplace::enableSizeReplace()
 {
 	RSizeVal->setEnabled(RSize->isChecked());
+	updateReplaceButtonsState();
 }
 
 void SearchReplace::enableEffReplace()
 {
 	REffVal->setEnabled(REffect->isChecked());
+	updateReplaceButtonsState();
 }
 
 void SearchReplace::enableFillReplace()
 {
 	RFillVal->setEnabled(RFill->isChecked());
+	updateReplaceButtonsState();
 }
 
 void SearchReplace::enableFillSReplace()
 {
 	RFillSVal->setEnabled(RFillS->isChecked());
+	updateReplaceButtonsState();
 }
 
 void SearchReplace::enableStrokeReplace()
 {
 	RStrokeVal->setEnabled(RStroke->isChecked());
+	updateReplaceButtonsState();
 }
 
 void SearchReplace::enableStrokeSReplace()
 {
 	RStrokeSVal->setEnabled(RStrokeS->isChecked());
+	updateReplaceButtonsState();
 }
 
 void SearchReplace::clear()
@@ -994,6 +1020,40 @@ void SearchReplace::clear()
 	enableFillSReplace();
 	enableStrokeReplace();
 	enableStrokeSReplace();
+}
+
+void SearchReplace::updateReplaceButtonsState()
+{
+	bool replaceEnabled = false;
+	if (RFill->isChecked() || RStroke->isChecked() || RStyle->isChecked() || RFont->isChecked()  ||
+		RStrokeS->isChecked() || RFillS->isChecked() || RSize->isChecked() || REffect->isChecked() ||
+		RAlign->isChecked())
+	{
+		replaceEnabled = true;
+	}
+	replaceEnabled |= RText->isChecked();
+	if (m_itemMode)
+		replaceEnabled &= (m_item->itemText.lengthOfSelection() > 0);
+	else if (m_doc->scMW()->CurrStED != NULL)
+		replaceEnabled &= m_doc->scMW()->CurrStED->Editor->textCursor().hasSelection();
+	else
+		replaceEnabled = false;
+	replaceEnabled &= m_notFound;
+	DoReplace->setEnabled(replaceEnabled);
+	AllReplace->setEnabled(replaceEnabled);
+}
+
+void SearchReplace::updateSearchButtonState()
+{
+	bool searchEnabled = false;
+	if (SFill->isChecked() || SStroke->isChecked() || SStyle->isChecked() || SFont->isChecked() ||
+		SStrokeS->isChecked() || SFillS->isChecked() || SSize->isChecked() || SEffect->isChecked() ||
+		SAlign->isChecked())
+	{
+		searchEnabled = true;
+	}
+	searchEnabled |= (SText->isChecked() && !STextVal->text().isEmpty());
+	DoSearch->setEnabled(searchEnabled);
 }
 
 void SearchReplace::readPrefs()
