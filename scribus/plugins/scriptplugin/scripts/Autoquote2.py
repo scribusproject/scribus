@@ -109,8 +109,8 @@ elif (lang == 'uk'):
 elif (lang == 'es'):
     ouvrant_double = u"\u00ab"
     fermant_double = u"\u00bb"
-    fermant_double = u"\u201d"
     lead_single = u"\u2018"
+    follow_double = u"\u2019"
 elif ((lang == 'lt') or (lang == 'is') or (lang == 'sk') or (lang == 'sl') or (lang == 'cs') or (lang == 'et')):
     ouvrant_double = u"\u201e"
     fermant_double = u"\u201c"
