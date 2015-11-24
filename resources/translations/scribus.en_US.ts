@@ -4254,35 +4254,35 @@ currently %2 x %3 DPI</translation>
     </message>
     <message>
         <source>If you have created an image frame, there is the presumption that you planned to put an image in it</source>
-        <translation type="unfinished"></translation>
+        <translation>If you have created an image frame, there is the presumption that you planned to put an image in it</translation>
     </message>
     <message>
         <source>If you have created a text frame, there is the presumption that you planned to put text in it</source>
-        <translation type="unfinished"></translation>
+        <translation>If you have created a text frame, there is the presumption that you planned to put text in it</translation>
     </message>
     <message>
         <source>When some imported document uses non-embedded fonts, then their rendering will be wrong, unless by chance you have them installed on their system, but that cannot be guaranteed in case you want to share the resulting document</source>
-        <translation type="unfinished"></translation>
+        <translation>When some imported document uses non-embedded fonts, then their rendering will be wrong, unless by chance you have them installed on their system, but that cannot be guaranteed in case you want to share the resulting document</translation>
     </message>
     <message>
         <source>This is a user definable setting serving as a caution for high resolution images, which may lead to unnecessarily large files</source>
-        <translation type="unfinished"></translation>
+        <translation>This is a user definable setting serving as a caution for high resolution images, which may lead to unnecessarily large files</translation>
     </message>
     <message>
         <source>This is a user definable setting serving as a caution for low resolution images, which may lead to poor quality output</source>
-        <translation type="unfinished"></translation>
+        <translation>This is a user definable setting serving as a caution for low resolution images, which may lead to poor quality output</translation>
     </message>
     <message>
         <source>You have one or more characters which do not have a corresponding glyph in your chosen font</source>
-        <translation type="unfinished"></translation>
+        <translation>You have one or more characters which do not have a corresponding glyph in your chosen font</translation>
     </message>
     <message>
         <source>The assigned image file cannot be found</source>
-        <translation type="unfinished"></translation>
+        <translation>The assigned image file cannot be found</translation>
     </message>
     <message>
         <source>An object is placed somewhere outside of the page borders, it will not be printed and might be missing somewhere</source>
-        <translation type="unfinished"></translation>
+        <translation>An object is placed somewhere outside of the page borders, it will not be printed and might be missing somewhere</translation>
     </message>
 </context>
 <context>
@@ -18995,15 +18995,15 @@ a range of pages or a single page number</translation>
     </message>
     <message>
         <source>Scaling</source>
-        <translation type="unfinished">Scaling</translation>
+        <translation>Scaling</translation>
     </message>
     <message>
         <source>Color Management</source>
-        <translation type="unfinished">Color Management</translation>
+        <translation>Color Management</translation>
     </message>
     <message>
         <source>PDF Compression</source>
-        <translation type="unfinished">PDF Compression</translation>
+        <translation>PDF Compression</translation>
     </message>
 </context>
 <context>
@@ -20191,7 +20191,7 @@ Transparency</translation>
     </message>
     <message>
         <source>Vertical Alignment</source>
-        <translation type="unfinished">Vertical Alignment</translation>
+        <translation>Vertical Alignment</translation>
     </message>
 </context>
 <context>
@@ -20569,11 +20569,11 @@ Transparency</translation>
     </message>
     <message>
         <source>Effect Parameters</source>
-        <translation type="unfinished">Effect Parameters</translation>
+        <translation>Effect Parameters</translation>
     </message>
     <message>
         <source>Choose character style or leave blank for use default paragraph style</source>
-        <translation type="unfinished">Choose character style or leave blank for use default paragraph style</translation>
+        <translation>Choose character style or leave blank for use default paragraph style</translation>
     </message>
 </context>
 <context>
@@ -24082,11 +24082,11 @@ Please choose another.</translation>
     </message>
     <message>
         <source>Licence</source>
-        <translation type="unfinished"></translation>
+        <translation>Licence</translation>
     </message>
     <message>
         <source>License</source>
-        <translation type="unfinished"></translation>
+        <translation>License</translation>
     </message>
 </context>
 <context>
@@ -24137,14 +24137,14 @@ Please choose another.</translation>
     </message>
     <message>
         <source>Show License</source>
-        <translation type="unfinished"></translation>
+        <translation>Show License</translation>
     </message>
 </context>
 <context>
     <name>ResourceManagerLicenseBase</name>
     <message>
         <source>License</source>
-        <translation type="unfinished"></translation>
+        <translation>License</translation>
     </message>
 </context>
 <context>
@@ -28499,11 +28499,11 @@ Consider using the Preflight Verifier to correct them</translation>
     </message>
     <message>
         <source>&amp;Glyph...</source>
-        <translation type="unfinished">&amp;Glyph...</translation>
+        <translation>&amp;Glyph...</translation>
     </message>
     <message>
         <source>&amp;Sample Text</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Sample Text</translation>
     </message>
 </context>
 <context>
@@ -28829,11 +28829,11 @@ Consider using the Preflight Verifier to correct them</translation>
     </message>
     <message>
         <source>Edit Item</source>
-        <translation type="unfinished">Edit Item</translation>
+        <translation>Edit Item</translation>
     </message>
     <message>
         <source>Remove Item</source>
-        <translation type="unfinished">Remove Item</translation>
+        <translation>Remove Item</translation>
     </message>
 </context>
 <context>
