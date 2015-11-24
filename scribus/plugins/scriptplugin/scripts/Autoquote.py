@@ -68,8 +68,8 @@ if scribus.haveDoc() > 0:
     elif (lang == 'es'):
         lead_double = u"\u00ab"
         follow_double = u"\u00bb"
-	follow_double = u"\u201d"
         lead_single = u"\u2018"
+	follow_single = u"\u2019"
     elif ((lang == 'lt') or (lang == 'is') or (lang == 'sk') or (lang == 'sl') or (lang == 'cs') or (lang == 'et')):
         lead_double = u"\u201e"
         follow_double = u"\u201c"
