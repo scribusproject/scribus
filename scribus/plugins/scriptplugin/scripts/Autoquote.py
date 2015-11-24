@@ -70,11 +70,16 @@ if scribus.haveDoc() > 0:
         follow_double = u"\u00bb"
 	follow_double = u"\u201d"
         lead_single = u"\u2018"
-    elif ((lang == 'lt') or (lang == 'mk') or (lang == 'is') or (lang == 'sk') or (lang == 'sl') or (lang == 'cs') or (lang == 'et')):
+    elif ((lang == 'lt') or (lang == 'is') or (lang == 'sk') or (lang == 'sl') or (lang == 'cs') or (lang == 'et')):
+        lead_double = u"\u201e"
+        follow_double = u"\u201c"
+        lead_single = u"\u201a"
+        follow_single = u"\u2018"
+    elif (lang == 'mk'):
         lead_double = u"\u201e"
         follow_double = u"\u201c"
         lead_single = u"\u2019"
-        follow_single = u"\u201a"
+        follow_single = u"\u2018"
     elif ((lang == 'hu') or (lang == 'nl')):
 	lead_double = u"\u201e"
 	follow_double = u"\u201d"
