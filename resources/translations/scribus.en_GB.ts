@@ -1701,6 +1701,10 @@
         <source>&amp;Resources</source>
         <translation>&amp;Resources</translation>
     </message>
+    <message>
+        <source>Chat with the Community</source>
+        <translation>Chat with the Community</translation>
+    </message>
 </context>
 <context>
     <name>AdjustCmsDialog</name>
@@ -1729,7 +1733,7 @@
     </message>
     <message>
         <source>...</source>
-        <translation>...</translation>
+        <translation type="vanished">...</translation>
     </message>
     <message>
         <source>Distribute</source>
@@ -1760,11 +1764,11 @@
     <name>AlignDistributePalette</name>
     <message>
         <source>Align and Distribute</source>
-        <translation>Align and Distribute</translation>
+        <translation type="vanished">Align and Distribute</translation>
     </message>
     <message>
         <source>&amp;Relative to:</source>
-        <translation>&amp;Relative to:</translation>
+        <translation type="vanished">&amp;Relative to:</translation>
     </message>
     <message>
         <source>First Selected</source>
@@ -1788,7 +1792,7 @@
     </message>
     <message>
         <source>&amp;Align Sides By:</source>
-        <translation>&amp;Align Sides By:</translation>
+        <translation type="vanished">&amp;Align Sides By:</translation>
     </message>
     <message>
         <source>Align bottoms</source>
@@ -1844,11 +1848,11 @@
     </message>
     <message>
         <source>&amp;Selected Guide:</source>
-        <translation>&amp;Selected Guide:</translation>
+        <translation type="vanished">&amp;Selected Guide:</translation>
     </message>
     <message>
         <source>&amp;Distance:</source>
-        <translation>&amp;Distance:</translation>
+        <translation type="vanished">&amp;Distance:</translation>
     </message>
     <message>
         <source>Distribute the items with the distance specified</source>
@@ -1928,11 +1932,11 @@
     </message>
     <message>
         <source>Align</source>
-        <translation>Align</translation>
+        <translation type="vanished">Align</translation>
     </message>
     <message>
         <source>Distribute</source>
-        <translation>Distribute</translation>
+        <translation type="vanished">Distribute</translation>
     </message>
     <message>
         <source>&lt;qt&gt;Align relative to the:&lt;ul&gt;&lt;li&gt;First selected item&lt;/li&gt;&lt;li&gt;Second Selected Item&lt;/li&gt;&lt;li&gt;The current page&lt;/li&gt;&lt;li&gt;The margins of the current page&lt;/li&gt;&lt;li&gt;A Guide&lt;/li&gt;&lt;li&gt;The selection&lt;/ul&gt;&lt;/qt&gt;</source>
@@ -3706,7 +3710,13 @@ Page: %2</translation>
     </message>
     <message>
         <source>Overflow Characters: %1 (%2 White Spaces)</source>
-        <translation>Overflow Characters: %1 (%2 White Spaces)</translation>
+        <translation type="vanished">Overflow Characters: %1 (%2 White Spaces)</translation>
+    </message>
+    <message>
+        <source>Overflow Characters: %1 (%2 White Spaces)
+Click to link to existing text frame or auto-create new linked text frame</source>
+        <translation>Overflow Characters: %1 (%2 White Spaces)
+Click to link to existing text frame or auto-create new linked text frame</translation>
     </message>
 </context>
 <context>
@@ -4254,35 +4264,35 @@ currently %2 x %3 DPI</translation>
     </message>
     <message>
         <source>If you have created an image frame, there is the presumption that you planned to put an image in it</source>
-        <translation type="unfinished"></translation>
+        <translation>If you have created an image frame, there is the presumption that you planned to put an image in it</translation>
     </message>
     <message>
         <source>If you have created a text frame, there is the presumption that you planned to put text in it</source>
-        <translation type="unfinished"></translation>
+        <translation>If you have created a text frame, there is the presumption that you planned to put text in it</translation>
     </message>
     <message>
         <source>When some imported document uses non-embedded fonts, then their rendering will be wrong, unless by chance you have them installed on their system, but that cannot be guaranteed in case you want to share the resulting document</source>
-        <translation type="unfinished"></translation>
+        <translation>When some imported document uses non-embedded fonts, then their rendering will be wrong, unless by chance you have them installed on their system, but that cannot be guaranteed in case you want to share the resulting document</translation>
     </message>
     <message>
         <source>This is a user definable setting serving as a caution for high resolution images, which may lead to unnecessarily large files</source>
-        <translation type="unfinished"></translation>
+        <translation>This is a user definable setting serving as a caution for high resolution images, which may lead to unnecessarily large files</translation>
     </message>
     <message>
         <source>This is a user definable setting serving as a caution for low resolution images, which may lead to poor quality output</source>
-        <translation type="unfinished"></translation>
+        <translation>This is a user definable setting serving as a caution for low resolution images, which may lead to poor quality output</translation>
     </message>
     <message>
         <source>You have one or more characters which do not have a corresponding glyph in your chosen font</source>
-        <translation type="unfinished"></translation>
+        <translation>You have one or more characters which do not have a corresponding glyph in your chosen font</translation>
     </message>
     <message>
         <source>The assigned image file cannot be found</source>
-        <translation type="unfinished"></translation>
+        <translation>The assigned image file cannot be found</translation>
     </message>
     <message>
         <source>An object is placed somewhere outside of the page borders, it will not be printed and might be missing somewhere</source>
-        <translation type="unfinished"></translation>
+        <translation>An object is placed somewhere outside of the page borders, it will not be printed and might be missing somewhere</translation>
     </message>
 </context>
 <context>
@@ -6701,11 +6711,11 @@ Document Liberation Project http://www.documentliberation.org</translation>
     <name>GradientEditor</name>
     <message>
         <source>Position:</source>
-        <translation>Position:</translation>
+        <translation type="vanished">Position:</translation>
     </message>
     <message>
         <source> %</source>
-        <translation> %</translation>
+        <translation type="vanished"> %</translation>
     </message>
     <message>
         <source>Add, change or remove color stops here</source>
@@ -9715,7 +9725,7 @@ p, li { white-space: pre-wrap; }
     <name>MarksManager</name>
     <message>
         <source>Dialog</source>
-        <translation>Dialog</translation>
+        <translation type="vanished">Dialog</translation>
     </message>
     <message>
         <source>Update All Marks</source>
@@ -10803,7 +10813,7 @@ If no handle is selected all handles will be reset.</source>
     <message>
         <source>New notes style will be add to document only after pressing Apply button.
 You cannot switch to different notes style before you apply that new one or press Cancel button and exit from adding mode.</source>
-        <translation>New notes style will be add to document only after pressing Apply button.
+        <translation type="vanished">New notes style will be add to document only after pressing Apply button.
 You cannot switch to different notes style before you apply that new one or press Cancel button and exit from adding mode.</translation>
     </message>
 </context>
@@ -11350,6 +11360,12 @@ You cannot switch to different notes style before you apply that new one or pres
     <message>
         <source>The save button will be disabled if you are trying to export PDF/X and the info string is missing from the PDF/X tab</source>
         <translation>The save button will be disabled if you are trying to export PDF/X and the info string is missing from the PDF/X tab</translation>
+    </message>
+    <message>
+        <source>The range of pages to export is invalid.
+Please check it and try again.</source>
+        <translation>The range of pages to export is invalid.
+Please check it and try again.</translation>
     </message>
 </context>
 <context>
@@ -14962,23 +14978,23 @@ Do you want to migrate them to the new Scribus version?</translation>
     <name>Prefs_DocumentSections</name>
     <message>
         <source>1, 2, 3, ...</source>
-        <translation>1, 2, 3, ...</translation>
+        <translation type="vanished">1, 2, 3, ...</translation>
     </message>
     <message>
         <source>i, ii, iii, ...</source>
-        <translation>i, ii, iii, ...</translation>
+        <translation type="vanished">i, ii, iii, ...</translation>
     </message>
     <message>
         <source>I, II, III, ...</source>
-        <translation>I, II, III, ...</translation>
+        <translation type="vanished">I, II, III, ...</translation>
     </message>
     <message>
         <source>a, b, c, ...</source>
-        <translation>a, b, c, ...</translation>
+        <translation type="vanished">a, b, c, ...</translation>
     </message>
     <message>
         <source>A, B, C, ...</source>
-        <translation>A, B, C, ...</translation>
+        <translation type="vanished">A, B, C, ...</translation>
     </message>
     <message>
         <source>Page Number Out Of Bounds</source>
@@ -15046,11 +15062,11 @@ Do you want to migrate them to the new Scribus version?</translation>
     </message>
     <message>
         <source>*</source>
-        <translation>*</translation>
+        <translation type="vanished">*</translation>
     </message>
     <message>
         <source>CJK</source>
-        <translation>CJK</translation>
+        <translation type="vanished">CJK</translation>
     </message>
 </context>
 <context>
@@ -18236,6 +18252,10 @@ A value of 0 means unlimited hyphenations.</translation>
         <source>Palette windows will use smaller (space savy) widgets. Requires application restart.</source>
         <translation>Palette windows will use smaller (space savy) widgets. Requires application restart.</translation>
     </message>
+    <message>
+        <source>The default behavior when double-clicking on a word is to select the word and the first following space. Smart selection will select only the word, without the following space.</source>
+        <translation>The default behavior when double-clicking on a word is to select the word and the first following space. Smart selection will select only the word, without the following space.</translation>
+    </message>
 </context>
 <context>
     <name>PresetLayout</name>
@@ -18790,6 +18810,10 @@ a range of pages or a single page number</translation>
         <source>Group clips Contents</source>
         <translation></translation>
     </message>
+    <message>
+        <source>When the group&apos;s bounding frame has been edited, clip the contents of the page items to the edited bounding frame</source>
+        <translation>When the group&apos;s bounding frame has been edited, clip the contents of the page items to the edited bounding frame</translation>
+    </message>
 </context>
 <context>
     <name>PropertiesPalette_Image</name>
@@ -18987,15 +19011,15 @@ a range of pages or a single page number</translation>
     </message>
     <message>
         <source>Scaling</source>
-        <translation type="unfinished">Scaling</translation>
+        <translation>Scaling</translation>
     </message>
     <message>
         <source>Color Management</source>
-        <translation type="unfinished">Colour Management</translation>
+        <translation>Colour Management</translation>
     </message>
     <message>
         <source>PDF Compression</source>
-        <translation type="unfinished">PDF Compression</translation>
+        <translation>PDF Compression</translation>
     </message>
 </context>
 <context>
@@ -20183,7 +20207,7 @@ Transparency</translation>
     </message>
     <message>
         <source>Vertical Alignment</source>
-        <translation type="unfinished">Vertical Alignment</translation>
+        <translation>Vertical Alignment</translation>
     </message>
 </context>
 <context>
@@ -20561,11 +20585,11 @@ Transparency</translation>
     </message>
     <message>
         <source>Effect Parameters</source>
-        <translation type="unfinished">Effect Parameters</translation>
+        <translation>Effect Parameters</translation>
     </message>
     <message>
         <source>Choose character style or leave blank for use default paragraph style</source>
-        <translation type="unfinished">Choose character style or leave blank for use default paragraph style</translation>
+        <translation>Choose character style or leave blank for use default paragraph style</translation>
     </message>
 </context>
 <context>
@@ -23904,6 +23928,38 @@ Therefore the image may be not correct</source>
         <source>Freehand Importer</source>
         <translation>Freehand Importer</translation>
     </message>
+    <message>
+        <source>1, 2, 3, ...</source>
+        <translation>1, 2, 3, ...</translation>
+    </message>
+    <message>
+        <source>i, ii, iii, ...</source>
+        <translation>i, ii, iii, ...</translation>
+    </message>
+    <message>
+        <source>I, II, III, ...</source>
+        <translation>I, II, III, ...</translation>
+    </message>
+    <message>
+        <source>a, b, c, ...</source>
+        <translation>a, b, c, ...</translation>
+    </message>
+    <message>
+        <source>A, B, C, ...</source>
+        <translation>A, B, C, ...</translation>
+    </message>
+    <message>
+        <source>*</source>
+        <translation>*</translation>
+    </message>
+    <message>
+        <source>CJK</source>
+        <translation>CJK</translation>
+    </message>
+    <message>
+        <source>RTF Document</source>
+        <translation>RTF Document</translation>
+    </message>
 </context>
 <context>
     <name>QTextEdit</name>
@@ -24074,11 +24130,11 @@ Please choose another.</translation>
     </message>
     <message>
         <source>Licence</source>
-        <translation type="unfinished"></translation>
+        <translation>Licence</translation>
     </message>
     <message>
         <source>License</source>
-        <translation type="unfinished"></translation>
+        <translation>Licence</translation>
     </message>
 </context>
 <context>
@@ -24129,14 +24185,14 @@ Please choose another.</translation>
     </message>
     <message>
         <source>Show License</source>
-        <translation type="unfinished"></translation>
+        <translation>Show Licence</translation>
     </message>
 </context>
 <context>
     <name>ResourceManagerLicenseBase</name>
     <message>
         <source>License</source>
-        <translation type="unfinished"></translation>
+        <translation>Licence</translation>
     </message>
 </context>
 <context>
@@ -24597,35 +24653,35 @@ Please choose another.</translation>
     </message>
     <message>
         <source>Add a new line</source>
-        <translation>Add a new line</translation>
+        <translation type="vanished">Add a new line</translation>
     </message>
     <message>
         <source>Remove a line</source>
-        <translation>Remove a line</translation>
+        <translation type="vanished">Remove a line</translation>
     </message>
     <message>
         <source>Line style</source>
-        <translation>Line style</translation>
+        <translation type="vanished">Line style</translation>
     </message>
     <message>
         <source>Line width</source>
-        <translation>Line width</translation>
+        <translation type="vanished">Line width</translation>
     </message>
     <message>
         <source>End style</source>
-        <translation>End style</translation>
+        <translation type="vanished">End style</translation>
     </message>
     <message>
         <source>Join style</source>
-        <translation>Join style</translation>
+        <translation type="vanished">Join style</translation>
     </message>
     <message>
         <source>Line color</source>
-        <translation>Line colour</translation>
+        <translation type="vanished">Line colour</translation>
     </message>
     <message>
         <source>Line shade</source>
-        <translation>Line shade</translation>
+        <translation type="vanished">Line shade</translation>
     </message>
     <message>
         <source>%</source>
@@ -24870,15 +24926,15 @@ Expressed as a percentage of the current white space value.</translation>
     </message>
     <message>
         <source>Bullet Char/String</source>
-        <translation>Bullet Char/String</translation>
+        <translation type="vanished">Bullet Char/String</translation>
     </message>
     <message>
         <source>Char Table</source>
-        <translation>Char Table</translation>
+        <translation type="vanished">Char Table</translation>
     </message>
     <message>
         <source>Numeration</source>
-        <translation>Numeration</translation>
+        <translation type="vanished">Numeration</translation>
     </message>
     <message>
         <source>Set:</source>
@@ -24886,7 +24942,7 @@ Expressed as a percentage of the current white space value.</translation>
     </message>
     <message>
         <source>Level</source>
-        <translation>Level</translation>
+        <translation type="vanished">Level</translation>
     </message>
     <message>
         <source>Create New Set:</source>
@@ -24894,19 +24950,19 @@ Expressed as a percentage of the current white space value.</translation>
     </message>
     <message>
         <source>Nums Format</source>
-        <translation>Nums Format</translation>
+        <translation type="vanished">Nums Format</translation>
     </message>
     <message>
         <source>Start with</source>
-        <translation>Start with</translation>
+        <translation type="vanished">Start with</translation>
     </message>
     <message>
         <source>Prefix</source>
-        <translation>Prefix</translation>
+        <translation type="vanished">Prefix</translation>
     </message>
     <message>
         <source>Suffix</source>
-        <translation>Suffix</translation>
+        <translation type="vanished">Suffix</translation>
     </message>
     <message>
         <source>Restart</source>
@@ -24934,7 +24990,7 @@ Expressed as a percentage of the current white space value.</translation>
     </message>
     <message>
         <source>Numbering Style</source>
-        <translation>Numbering Style</translation>
+        <translation type="vanished">Numbering Style</translation>
     </message>
     <message>
         <source>Document</source>
@@ -25015,6 +25071,46 @@ Expressed as a percentage of the current white space value.</translation>
         <source>Right Only</source>
         <comment>Optical Margins</comment>
         <translation>Right Only</translation>
+    </message>
+    <message>
+        <source>Bullet Character(s)</source>
+        <translation>Bullet Character(s)</translation>
+    </message>
+    <message>
+        <source>Character Table</source>
+        <translation>Character Table</translation>
+    </message>
+    <message>
+        <source>Numbering</source>
+        <translation>Numbering</translation>
+    </message>
+    <message>
+        <source>Level:</source>
+        <translation>Level:</translation>
+    </message>
+    <message>
+        <source>Numbering Style:</source>
+        <translation>Numbering Style:</translation>
+    </message>
+    <message>
+        <source>Start with:</source>
+        <translation>Start with:</translation>
+    </message>
+    <message>
+        <source>Prefix:</source>
+        <translation>Prefix:</translation>
+    </message>
+    <message>
+        <source>Suffix:</source>
+        <translation>Suffix:</translation>
+    </message>
+    <message>
+        <source>Bullet Character(s):</source>
+        <translation>Bullet Character(s):</translation>
+    </message>
+    <message>
+        <source>Restart:</source>
+        <translation>Restart:</translation>
     </message>
 </context>
 <context>
@@ -25184,7 +25280,7 @@ Expressed as a percentage of the current white space value.</translation>
     </message>
     <message>
         <source>TextLabel</source>
-        <translation>TextLabel</translation>
+        <translation type="vanished">TextLabel</translation>
     </message>
     <message>
         <source>Fill Color</source>
@@ -25196,7 +25292,7 @@ Expressed as a percentage of the current white space value.</translation>
     </message>
     <message>
         <source>Text</source>
-        <translation>Text</translation>
+        <translation type="vanished">Text</translation>
     </message>
     <message>
         <source>A default style cannot be assigned a parent style</source>
@@ -27503,7 +27599,7 @@ Consider using the Preflight Verifier to correct them</translation>
     </message>
     <message>
         <source>Run filename in Python scripter</source>
-        <translation>Run filename in Python scripter</translation>
+        <translation type="vanished">Run filename in Python scripter</translation>
     </message>
     <message>
         <source>Do not start GUI</source>
@@ -27523,7 +27619,7 @@ Consider using the Preflight Verifier to correct them</translation>
     </message>
     <message>
         <source>Invalid argument use: &apos;%1&apos; requires to be followed by &lt;argument&gt; [value]</source>
-        <translation>Invalid argument use: &apos;%1&apos; requires to be followed by &lt;argument&gt; [value]</translation>
+        <translation type="vanished">Invalid argument use: &apos;%1&apos; requires to be followed by &lt;argument&gt; [value]</translation>
     </message>
     <message>
         <source>Usage: scribus [options] [files]</source>
@@ -27531,19 +27627,43 @@ Consider using the Preflight Verifier to correct them</translation>
     </message>
     <message>
         <source>argument</source>
-        <translation>argument</translation>
+        <translation type="vanished">argument</translation>
     </message>
     <message>
         <source>value</source>
-        <translation>value</translation>
+        <translation type="vanished">value</translation>
     </message>
     <message>
         <source>Argument passed on to python script, with an optional value, no effect without -py</source>
-        <translation>Argument passed on to python script, with an optional value, no effect without -py</translation>
+        <translation type="vanished">Argument passed on to python script, with an optional value, no effect without -py</translation>
     </message>
     <message>
         <source>Explicit end of command line options</source>
         <translation>Explicit end of command line options</translation>
+    </message>
+    <message>
+        <source>Option %1 requires an argument.</source>
+        <translation>Option %1 requires an argument.</translation>
+    </message>
+    <message>
+        <source>Python script %1 does not exist, aborting.</source>
+        <translation>Python script %1 does not exist, aborting.</translation>
+    </message>
+    <message>
+        <source>Preferences file %1 does not exist, aborting.</source>
+        <translation>Preferences file %1 does not exist, aborting.</translation>
+    </message>
+    <message>
+        <source>script</source>
+        <translation>script</translation>
+    </message>
+    <message>
+        <source>arguments ...</source>
+        <translation>arguments ...</translation>
+    </message>
+    <message>
+        <source>Run script in Python [with optional arguments]. This option must be last option used</source>
+        <translation>Run script in Python [with optional arguments]. This option must be last option used</translation>
     </message>
 </context>
 <context>
@@ -28491,11 +28611,11 @@ Consider using the Preflight Verifier to correct them</translation>
     </message>
     <message>
         <source>&amp;Glyph...</source>
-        <translation type="unfinished">&amp;Glyph...</translation>
+        <translation>&amp;Glyph...</translation>
     </message>
     <message>
         <source>&amp;Sample Text</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Sample Text</translation>
     </message>
 </context>
 <context>
@@ -28821,11 +28941,11 @@ Consider using the Preflight Verifier to correct them</translation>
     </message>
     <message>
         <source>Edit Item</source>
-        <translation type="unfinished">Edit Item</translation>
+        <translation>Edit Item</translation>
     </message>
     <message>
         <source>Remove Item</source>
-        <translation type="unfinished">Remove Item</translation>
+        <translation>Remove Item</translation>
     </message>
 </context>
 <context>
@@ -31727,7 +31847,7 @@ converting their vector data into Scribus objects.</translation>
     </message>
     <message>
         <source>Background</source>
-        <translation>Background</translation>
+        <translation type="vanished">Background</translation>
     </message>
     <message>
         <source>Extend:</source>
@@ -31744,6 +31864,10 @@ converting their vector data into Scribus objects.</translation>
     <message>
         <source>Opacity:</source>
         <translation>Opacity:</translation>
+    </message>
+    <message>
+        <source>Background:</source>
+        <translation>Background:</translation>
     </message>
 </context>
 <context>

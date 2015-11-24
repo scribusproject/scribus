@@ -1697,6 +1697,10 @@
         <source>&amp;Resources</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Chat with the Community</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>AdjustCmsDialog</name>
@@ -1725,7 +1729,7 @@
     </message>
     <message>
         <source>...</source>
-        <translation>…</translation>
+        <translation type="vanished">…</translation>
     </message>
     <message>
         <source>Distribute</source>
@@ -1752,15 +1756,15 @@
     <name>AlignDistributePalette</name>
     <message>
         <source>Align and Distribute</source>
-        <translation>Juster og fordel</translation>
+        <translation type="vanished">Juster og fordel</translation>
     </message>
     <message>
         <source>Align</source>
-        <translation>Juster</translation>
+        <translation type="vanished">Juster</translation>
     </message>
     <message>
         <source>&amp;Relative to:</source>
-        <translation>&amp;I forhold til:</translation>
+        <translation type="vanished">&amp;I forhold til:</translation>
     </message>
     <message>
         <source>First Selected</source>
@@ -1788,7 +1792,7 @@
     </message>
     <message>
         <source>&amp;Align Sides By:</source>
-        <translation>&amp;Juster sidene med:</translation>
+        <translation type="vanished">&amp;Juster sidene med:</translation>
     </message>
     <message>
         <source>Align bottoms</source>
@@ -1816,11 +1820,11 @@
     </message>
     <message>
         <source>&amp;Selected Guide:</source>
-        <translation>&amp;Valg hjelpelinje:</translation>
+        <translation type="vanished">&amp;Valg hjelpelinje:</translation>
     </message>
     <message>
         <source>Distribute</source>
-        <translation>Fordel</translation>
+        <translation type="vanished">Fordel</translation>
     </message>
     <message>
         <source>Distribute right sides equidistantly</source>
@@ -1848,7 +1852,7 @@
     </message>
     <message>
         <source>&amp;Distance:</source>
-        <translation>&amp;Avstand:</translation>
+        <translation type="vanished">&amp;Avstand:</translation>
     </message>
     <message>
         <source>Distribute the items with the distance specified</source>
@@ -3589,7 +3593,8 @@ Page: %2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Overflow Characters: %1 (%2 White Spaces)</source>
+        <source>Overflow Characters: %1 (%2 White Spaces)
+Click to link to existing text frame or auto-create new linked text frame</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -6539,11 +6544,11 @@ Document Liberation Project http://www.documentliberation.org</source>
     <name>GradientEditor</name>
     <message>
         <source>Position:</source>
-        <translation>Plassering:</translation>
+        <translation type="vanished">Plassering:</translation>
     </message>
     <message>
         <source> %</source>
-        <translation> %</translation>
+        <translation type="vanished"> %</translation>
     </message>
     <message>
         <source>Add, change or remove color stops here</source>
@@ -9460,10 +9465,6 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>MarksManager</name>
     <message>
-        <source>Dialog</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Update All Marks</source>
         <translation type="unfinished"></translation>
     </message>
@@ -10548,11 +10549,6 @@ Hvis du ikke har valgt noe håndtak blir alle håndtakene stilt tilbake.</transl
         <source>Notes Styles Editor is in adding new notes style mode. After pressing Cancel button Notes Styles Editor switch into normal notes styles edit mode.</source>
         <translation type="unfinished"></translation>
     </message>
-    <message>
-        <source>New notes style will be add to document only after pressing Apply button.
-You cannot switch to different notes style before you apply that new one or press Cancel button and exit from adding mode.</source>
-        <translation type="unfinished"></translation>
-    </message>
 </context>
 <context>
     <name>OODPlug</name>
@@ -11088,6 +11084,11 @@ You cannot switch to different notes style before you apply that new one or pres
     </message>
     <message>
         <source>The save button will be disabled if you are trying to export PDF/X and the info string is missing from the PDF/X tab</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The range of pages to export is invalid.
+Please check it and try again.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -14758,23 +14759,23 @@ Vil du overføre dem til denne nye scribusversjonen? {1.3.5 ?}</translation>
     </message>
     <message>
         <source>1, 2, 3, ...</source>
-        <translation type="unfinished">1, 2, 3, …</translation>
+        <translation type="obsolete">1, 2, 3, …</translation>
     </message>
     <message>
         <source>i, ii, iii, ...</source>
-        <translation type="unfinished">i, ii, iii, …</translation>
+        <translation type="obsolete">i, ii, iii, …</translation>
     </message>
     <message>
         <source>I, II, III, ...</source>
-        <translation type="unfinished">I, II, III, …</translation>
+        <translation type="obsolete">I, II, III, …</translation>
     </message>
     <message>
         <source>a, b, c, ...</source>
-        <translation type="unfinished">a, b, c, …</translation>
+        <translation type="obsolete">a, b, c, …</translation>
     </message>
     <message>
         <source>A, B, C, ...</source>
-        <translation type="unfinished">A, B, C, …</translation>
+        <translation type="obsolete">A, B, C, …</translation>
     </message>
     <message>
         <source>Page Number Out Of Bounds</source>
@@ -14786,14 +14787,6 @@ Vil du overføre dem til denne nye scribusversjonen? {1.3.5 ?}</translation>
     </message>
     <message>
         <source>Reversed</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>*</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>CJK</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -17974,6 +17967,10 @@ Nivå 1 eller 2 kan gi veldig store filer</translation>
         <source>Palette windows will use smaller (space savy) widgets. Requires application restart.</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>The default behavior when double-clicking on a word is to select the word and the first following space. Smart selection will select only the word, without the following space.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>PresetLayout</name>
@@ -18529,6 +18526,10 @@ a range of pages or a single page number</source>
     </message>
     <message>
         <source>Group clips Contents</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>When the group&apos;s bounding frame has been edited, clip the contents of the page items to the edited bounding frame</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -23610,6 +23611,38 @@ is not exhaustive due to exceptions from called functions.
         <source>Freehand Importer</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>1, 2, 3, ...</source>
+        <translation type="unfinished">1, 2, 3, …</translation>
+    </message>
+    <message>
+        <source>i, ii, iii, ...</source>
+        <translation type="unfinished">i, ii, iii, …</translation>
+    </message>
+    <message>
+        <source>I, II, III, ...</source>
+        <translation type="unfinished">I, II, III, …</translation>
+    </message>
+    <message>
+        <source>a, b, c, ...</source>
+        <translation type="unfinished">a, b, c, …</translation>
+    </message>
+    <message>
+        <source>A, B, C, ...</source>
+        <translation type="unfinished">A, B, C, …</translation>
+    </message>
+    <message>
+        <source>*</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>CJK</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>RTF Document</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>QTextEdit</name>
@@ -24302,35 +24335,35 @@ Please choose another.</source>
     </message>
     <message>
         <source>Add a new line</source>
-        <translation>Legg til en ny linje</translation>
+        <translation type="vanished">Legg til en ny linje</translation>
     </message>
     <message>
         <source>Remove a line</source>
-        <translation>Fjern en linje</translation>
+        <translation type="vanished">Fjern en linje</translation>
     </message>
     <message>
         <source>Line style</source>
-        <translation>Linjestil</translation>
+        <translation type="vanished">Linjestil</translation>
     </message>
     <message>
         <source>Line width</source>
-        <translation>Linjebredde</translation>
+        <translation type="vanished">Linjebredde</translation>
     </message>
     <message>
         <source>End style</source>
-        <translation>Sluttstil</translation>
+        <translation type="vanished">Sluttstil</translation>
     </message>
     <message>
         <source>Join style</source>
-        <translation>Sammenføyningsstil</translation>
+        <translation type="vanished">Sammenføyningsstil</translation>
     </message>
     <message>
         <source>Line color</source>
-        <translation>Linjefarge</translation>
+        <translation type="vanished">Linjefarge</translation>
     </message>
     <message>
         <source>Line shade</source>
-        <translation>Linjeskygge</translation>
+        <translation type="vanished">Linjeskygge</translation>
     </message>
     <message>
         <source>%</source>
@@ -24580,43 +24613,15 @@ Expressed as a percentage of the current white space value.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Bullet Char/String</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Char Table</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Numeration</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Set:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Level</source>
-        <translation type="unfinished">Lag</translation>
+        <translation type="obsolete">Lag</translation>
     </message>
     <message>
         <source>Create New Set:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Nums Format</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Start with</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Prefix</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Suffix</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -24641,10 +24646,6 @@ Expressed as a percentage of the current white space value.</source>
     </message>
     <message>
         <source>Hang Paragraph Effect before paragraph indent</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Numbering Style</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -24716,6 +24717,46 @@ Expressed as a percentage of the current white space value.</source>
         <source>Right Only</source>
         <comment>Optical Margins</comment>
         <translation type="unfinished">Bare til høyre</translation>
+    </message>
+    <message>
+        <source>Bullet Character(s)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Character Table</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Numbering</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Level:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Numbering Style:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Start with:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Prefix:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Suffix:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Bullet Character(s):</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Restart:</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -24886,10 +24927,6 @@ Expressed as a percentage of the current white space value.</source>
         <translation type="unfinished">Farger</translation>
     </message>
     <message>
-        <source>TextLabel</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Fill Color</source>
         <translation type="unfinished">Fyllfarge</translation>
     </message>
@@ -24899,7 +24936,7 @@ Expressed as a percentage of the current white space value.</source>
     </message>
     <message>
         <source>Text</source>
-        <translation type="unfinished">Tekst</translation>
+        <translation type="obsolete">Tekst</translation>
     </message>
     <message>
         <source>A default style cannot be assigned a parent style</source>
@@ -27232,10 +27269,6 @@ Former monitor profile will be used.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Run filename in Python scripter</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Do not start GUI</source>
         <translation type="unfinished"></translation>
     </message>
@@ -27252,27 +27285,35 @@ Former monitor profile will be used.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Invalid argument use: &apos;%1&apos; requires to be followed by &lt;argument&gt; [value]</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Usage: scribus [options] [files]</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>argument</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>value</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Argument passed on to python script, with an optional value, no effect without -py</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Explicit end of command line options</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Option %1 requires an argument.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Python script %1 does not exist, aborting.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Preferences file %1 does not exist, aborting.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>script</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>arguments ...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Run script in Python [with optional arguments]. This option must be last option used</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -31508,7 +31549,7 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Background</source>
-        <translation type="unfinished">Bakgrunn</translation>
+        <translation type="obsolete">Bakgrunn</translation>
     </message>
     <message>
         <source>Extend:</source>
@@ -31525,6 +31566,10 @@ converting their vector data into Scribus objects.</source>
     <message>
         <source>Opacity:</source>
         <translation type="unfinished">Ugjennomsiktighet:</translation>
+    </message>
+    <message>
+        <source>Background:</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

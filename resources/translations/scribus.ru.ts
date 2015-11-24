@@ -1,4 +1,6 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS language="ru" version="2.1">
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE TS>
+<TS version="2.1" language="ru">
 <context>
     <name>AIPlug</name>
     <message>
@@ -196,6 +198,10 @@
         <source>SVN Revision: %1</source>
         <translation>Редакция SVN: %1</translation>
     </message>
+    <message>
+        <source>Scribus 1.5.1+ Icon Set:</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>AboutPlugins</name>
@@ -206,10 +212,6 @@
     <message>
         <source>Version:</source>
         <translation>Версия:</translation>
-    </message>
-    <message>
-        <source>Enabled:</source>
-        <translation type="unfinished"/>
     </message>
     <message>
         <source>Release Date:</source>
@@ -443,16 +445,8 @@
         <translation>&amp;Вниз</translation>
     </message>
     <message>
-        <source>Raize to &amp;Top</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
         <source>&amp;Lower</source>
         <translation>&amp;Опустить</translation>
-    </message>
-    <message>
-        <source>&amp;Raize</source>
-        <translation type="unfinished"/>
     </message>
     <message>
         <source>&amp;Attributes...</source>
@@ -1321,11 +1315,11 @@
     </message>
     <message>
         <source>Unlink Text Frame with Text Copy</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Unlink Text Frame with Text Cut</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Adjust Frame Height to Text</source>
@@ -1405,7 +1399,7 @@
     </message>
     <message>
         <source>Test Qt Quick</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Copy</source>
@@ -1421,159 +1415,155 @@
     </message>
     <message>
         <source>Redo</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Undo</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Close the current document</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Export the document to PDF</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Create a new document</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Open an existing document</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Print the document</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Save the current document</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Copy item properties</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Edit contents of a frame</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Edit text in the Story Editor</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Eye Dropper</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Insert an arc</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Insert a bezier curve</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Insert a calligraphic line</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Insert a freehand line</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Insert an image frame</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Insert a line</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Insert a polygon</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Insert a render frame</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Insert a shape</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Insert a spiral</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Insert a table</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Insert a text frame</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Link text frames</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Measurements</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Insert link annotation</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Insert text annotation</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Insert PDF check box</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Insert PDF combo box</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Insert PDF list box</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Insert PDF push button</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Insert PDF radio button</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Insert PDF text field</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Analyse the document for issues prior to exporting to PDF</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Rotate an item</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Select an item</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Unlink text frames</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Insert 3D annotation</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Unweld Items</source>
@@ -1585,7 +1575,7 @@
     </message>
     <message>
         <source>T&amp;runcate</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Edit in Preview Mode</source>
@@ -1637,7 +1627,7 @@
     </message>
     <message>
         <source>PDF Radio Button</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>PDF Text Field</source>
@@ -1661,7 +1651,7 @@
     </message>
     <message>
         <source>Link Annotation</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>3D Annotation</source>
@@ -1695,6 +1685,18 @@
         <source>&amp;Resources</source>
         <translation>&amp;Ресурсы</translation>
     </message>
+    <message>
+        <source>Raise to &amp;Top</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Raise</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Chat with the Community</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>AdjustCmsDialog</name>
@@ -1723,7 +1725,7 @@
     </message>
     <message>
         <source>...</source>
-        <translation>...</translation>
+        <translation type="vanished">...</translation>
     </message>
     <message>
         <source>Distribute</source>
@@ -1743,18 +1745,22 @@
     </message>
     <message>
         <source>DockWidget</source>
-        <translation>DockWidget</translation>
+        <translation type="vanished">DockWidget</translation>
+    </message>
+    <message>
+        <source>Align and Distribute</source>
+        <translation type="unfinished">Выравнивание и распределение</translation>
     </message>
 </context>
 <context>
     <name>AlignDistributePalette</name>
     <message>
         <source>Align and Distribute</source>
-        <translation>Выравнивание и распределение</translation>
+        <translation type="vanished">Выравнивание и распределение</translation>
     </message>
     <message>
         <source>&amp;Relative to:</source>
-        <translation>&amp;Ориентир:</translation>
+        <translation type="vanished">&amp;Ориентир:</translation>
     </message>
     <message>
         <source>First Selected</source>
@@ -1778,7 +1784,7 @@
     </message>
     <message>
         <source>&amp;Align Sides By:</source>
-        <translation>&amp;Выровнять стороны:</translation>
+        <translation type="vanished">&amp;Выровнять стороны:</translation>
     </message>
     <message>
         <source>Align bottoms</source>
@@ -1834,11 +1840,11 @@
     </message>
     <message>
         <source>&amp;Selected Guide:</source>
-        <translation>&amp;Направляющая:</translation>
+        <translation type="vanished">&amp;Направляющая:</translation>
     </message>
     <message>
         <source>&amp;Distance:</source>
-        <translation>&amp;Расстояние:</translation>
+        <translation type="vanished">&amp;Расстояние:</translation>
     </message>
     <message>
         <source>Distribute the items with the distance specified</source>
@@ -1918,11 +1924,11 @@
     </message>
     <message>
         <source>Align</source>
-        <translation>Выравнивание</translation>
+        <translation type="vanished">Выравнивание</translation>
     </message>
     <message>
         <source>Distribute</source>
-        <translation>Распределение</translation>
+        <translation type="vanished">Распределение</translation>
     </message>
     <message>
         <source>&lt;qt&gt;Align relative to the:&lt;ul&gt;&lt;li&gt;First selected item&lt;/li&gt;&lt;li&gt;Second Selected Item&lt;/li&gt;&lt;li&gt;The current page&lt;/li&gt;&lt;li&gt;The margins of the current page&lt;/li&gt;&lt;li&gt;A Guide&lt;/li&gt;&lt;li&gt;The selection&lt;/ul&gt;&lt;/qt&gt;</source>
@@ -1942,7 +1948,7 @@
     </message>
     <message>
         <source>&lt;qt&gt;When aligning one side of an item do one of the following:&lt;ul&gt;&lt;li&gt;Always move the other side too (preserve existing width and height)&lt;/li&gt;&lt;li&gt;Keep the other side fixed (resize the item instead of moving it) whenever possible&lt;/li&gt;&lt;/ul&gt;&lt;/qt&gt;</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -2036,19 +2042,19 @@
     </message>
     <message>
         <source>Icon:</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Note</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Comment</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Key</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Help</source>
@@ -2056,11 +2062,11 @@
     </message>
     <message>
         <source>NewParagraph</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Paragraph</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Insert</source>
@@ -2076,7 +2082,7 @@
     </message>
     <message>
         <source>Annotation is Open</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -2216,7 +2222,7 @@
     </message>
     <message>
         <source>Adds support for spell-checking via Aspell. Languages can be chosen from among the installed Aspell dictionaries, and spell-checking can be done on the fly, or on selected text.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Aspell Plugin Error</source>
@@ -2235,7 +2241,7 @@
     </message>
     <message>
         <source>The currently active dictionary. Scribus uses Aspell for dictionary support.&lt;br /&gt;If you require updated or more dictionaries, you should install them via your system&apos;s installation system or package manager.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>&amp;Add Word</source>
@@ -2326,7 +2332,7 @@
     </message>
     <message>
         <source> Aspell dictionary.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Spell Checker</source>
@@ -2343,15 +2349,15 @@
     <message>
         <source>Spell Checker Plugin Failed to Initialize.
 Configuration invalid</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Spell Checker Plugin Failed to Initialize.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>No Aspell dictionaries could be found.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -2381,7 +2387,7 @@ Configuration invalid</source>
     <name>Barcode</name>
     <message>
         <source>Scribus frontend for Pure PostScript Barcode Writer</source>
-        <translation>Интерфейс Scribus к Pure Postscript Barcode Writer</translation>
+        <translation type="vanished">Интерфейс Scribus к Pure Postscript Barcode Writer</translation>
     </message>
     <message>
         <source>Barcode</source>
@@ -2391,175 +2397,143 @@ Configuration invalid</source>
         <source>Insert a barcode</source>
         <translation>Вставить штрих-код</translation>
     </message>
+    <message>
+        <source>Scribus frontend for Barcode Writer in Pure PostScript</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>BarcodeGenerator</name>
     <message>
         <source>Error opening file: %1</source>
-        <translation>Ошибка при открытии файла: %1</translation>
+        <translation type="vanished">Ошибка при открытии файла: %1</translation>
     </message>
     <message>
         <source>12 or 13 digits</source>
-        <translation>12 или 13 цифр</translation>
+        <translation type="vanished">12 или 13 цифр</translation>
     </message>
     <message>
         <source>8 digits</source>
-        <translation>8 цифр</translation>
+        <translation type="vanished">8 цифр</translation>
     </message>
     <message>
         <source>11 or 12 digits</source>
-        <translation>11 или 12 цифр</translation>
+        <translation type="vanished">11 или 12 цифр</translation>
     </message>
     <message>
         <source>7 or 8 digits</source>
-        <translation>7 или 8 цифр</translation>
+        <translation type="vanished">7 или 8 цифр</translation>
     </message>
     <message>
         <source>5 digits</source>
-        <translation>5 цифр</translation>
+        <translation type="vanished">5 цифр</translation>
     </message>
     <message>
         <source>2 digits</source>
-        <translation>2 цифры</translation>
+        <translation type="vanished">2 цифры</translation>
     </message>
     <message>
         <source>Variable number of characters, digits and any of the symbols -. *$/+%.</source>
-        <translation>Разное количество букв, цифр и любой из символов -. *$/+%.</translation>
+        <translation type="vanished">Разное количество букв, цифр и любой из символов -. *$/+%.</translation>
     </message>
     <message>
         <source>Variable number of ASCII characters and special function symbols, starting with the appropriate start character for the initial character set. UCC/EAN-128s must have a mandatory FNC 1 symbol immediately following the start character.</source>
-        <translation>Разное количество символов из набора ASCII и специальных функций, начиная с первого символа каждого набора. В случае с UCC/EAN-128s вслед за первым символом сразу должен идти обязательный символ FNC 1. -. *$/+%.</translation>
+        <translation type="vanished">Разное количество символов из набора ASCII и специальных функций, начиная с первого символа каждого набора. В случае с UCC/EAN-128s вслед за первым символом сразу должен идти обязательный символ FNC 1. -. *$/+%.</translation>
     </message>
     <message>
         <source>Variable number of digits and any of the symbols -$:/.+ABCD.</source>
-        <translation>Разное количество цифр и любой из символов -. *$/+%.</translation>
+        <translation type="vanished">Разное количество цифр и любой из символов -. *$/+%.</translation>
     </message>
     <message>
         <source>Variable number of digits. An ITF-14 is 14 characters and does not have a check digit</source>
-        <translation>Разное количество цифр. Код ITF-14 состоит из 14 символов и не содержит цифры контрольной суммы</translation>
+        <translation type="vanished">Разное количество цифр. Код ITF-14 состоит из 14 символов и не содержит цифры контрольной суммы</translation>
     </message>
     <message>
         <source>Variable number of digits</source>
-        <translation>Разное количество цифр</translation>
+        <translation type="vanished">Разное количество цифр</translation>
     </message>
     <message>
         <source>Variable number of digits and capital letters</source>
-        <translation>Разное количество цифр и заглавных букв</translation>
+        <translation type="vanished">Разное количество цифр и заглавных букв</translation>
     </message>
     <message>
         <source>Variable number of hexadecimal characters</source>
-        <translation>Разное количество цифр и шестнадцатеричных символов</translation>
+        <translation type="vanished">Разное количество цифр и шестнадцатеричных символов</translation>
     </message>
     <message>
         <source>Barcode</source>
-        <translation>Штрих-код</translation>
+        <translation type="vanished">Штрих-код</translation>
     </message>
     <message>
         <source>Barcode incomplete</source>
-        <translation>Штрих-код не завершён</translation>
+        <translation type="vanished">Штрих-код не завершён</translation>
     </message>
     <message>
         <source>12 or 13 digits with dashes. The legacy ISBN-10 format accepts 9 or 10 digits with dashes, but this standard was depreciated for public use after 1st January 2007. (Note: To convert an old ISBN-10 to a new ISBN-13, prefix 978- to the first 9 digits, e.g. 1-56592-479-7 -&gt; 978-1-56592-479. The final check-digit will be calculated automatically.)</source>
-        <translation>12 или 13 цифр, разделённых тире. Устаревший формат ISBN-10 означает 9 или 10 цифр, разделённых тире, но с 1 января 2007 года этот стандарт является устаревшим. (Примечание: для преобразования старого ISBN-10 в новый ISBN-13 введите префикс 978- к первым 9 цифрам, например, 1-56592-479-7 -&gt; 978-1-56592-479. Контрольная цифра будет рассчитана автоматически.)</translation>
+        <translation type="vanished">12 или 13 цифр, разделённых тире. Устаревший формат ISBN-10 означает 9 или 10 цифр, разделённых тире, но с 1 января 2007 года этот стандарт является устаревшим. (Примечание: для преобразования старого ISBN-10 в новый ISBN-13 введите префикс 978- к первым 9 цифрам, например, 1-56592-479-7 -&gt; 978-1-56592-479. Контрольная цифра будет рассчитана автоматически.)</translation>
     </message>
     <message>
         <source>Select Type</source>
         <translation>Выберите тип</translation>
     </message>
     <message>
-        <source>Variable number of characters, digits and any symbols.</source>
-        <translation type="unfinished"/>
+        <source>Select a barcode family</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>EAN-13</source>
-        <translation type="unfinished"/>
+        <source>Select a barcode format</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>EAN-8</source>
-        <translation type="unfinished"/>
+        <source>Point of Sale</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>UPC-A</source>
-        <translation type="unfinished"/>
+        <source>Supply Chain</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>UPC-E</source>
-        <translation type="unfinished"/>
+        <source>Two-dimensional symbols</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>EAN-5</source>
-        <translation type="unfinished"/>
+        <source>One-dimensional symbols</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>EAN-2</source>
-        <translation type="unfinished"/>
+        <source>GS1 DataBar family</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>ISBN</source>
-        <translation type="unfinished"/>
+        <source>Postal symbols</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Code-39</source>
-        <translation type="unfinished"/>
+        <source>Pharmaceutical symbols</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Code-128</source>
-        <translation type="unfinished"/>
+        <source>Less-used symbols</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>UCC/EAN-128</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Rationalized Codabar</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Interleaved 2 of 5</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>ITF-14</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Code 2 of 5</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Postnet</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Royal Mail</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>MSI</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Plessey</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>QR Code</source>
-        <translation type="unfinished"/>
+        <source>GS1 Composite symbols</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>BarcodeGeneratorBase</name>
     <message>
         <source>&amp;Type:</source>
-        <translation>&amp;Тип:</translation>
+        <translation type="vanished">&amp;Тип:</translation>
     </message>
     <message>
         <source>Select one of the available barcode type here</source>
-        <translation>Выберите один из вариантов штрих-кода</translation>
+        <translation type="vanished">Выберите один из вариантов штрих-кода</translation>
     </message>
     <message>
         <source>The numeric representation of the code itself. See the help message below</source>
-        <translation>Числовое представление кода. См. справку ниже</translation>
+        <translation type="vanished">Числовое представление кода. См. справку ниже</translation>
     </message>
     <message>
         <source>Reset the barcode samples</source>
@@ -2583,7 +2557,7 @@ Configuration invalid</source>
     </message>
     <message>
         <source>Colors</source>
-        <translation>Цвета</translation>
+        <translation type="vanished">Цвета</translation>
     </message>
     <message>
         <source>&amp;Background</source>
@@ -2623,11 +2597,11 @@ Configuration invalid</source>
     </message>
     <message>
         <source>Hints and help is shown here</source>
-        <translation>Здесь отображаются подсказки и справка</translation>
+        <translation type="vanished">Здесь отображаются подсказки и справка</translation>
     </message>
     <message>
         <source>Co&amp;de:</source>
-        <translation>&amp;Код:</translation>
+        <translation type="vanished">&amp;Код:</translation>
     </message>
     <message>
         <source>Alt+N</source>
@@ -2651,39 +2625,95 @@ Configuration invalid</source>
     </message>
     <message>
         <source>Format</source>
-        <translation>Формат</translation>
+        <translation type="vanished">Формат</translation>
     </message>
     <message>
         <source>Incl&amp;ude Checksum Digit</source>
-        <translation>Добавить &amp;цифру контрольной суммы</translation>
+        <translation type="vanished">Добавить &amp;цифру контрольной суммы</translation>
     </message>
     <message>
         <source>I&amp;nclude Checksum</source>
-        <translation>До&amp;бавить контрольную сумму</translation>
+        <translation type="vanished">До&amp;бавить контрольную сумму</translation>
     </message>
     <message>
         <source>&amp;Guard Whitespace</source>
-        <translation>О&amp;беспечить интервал</translation>
+        <translation type="vanished">О&amp;беспечить интервал</translation>
     </message>
     <message>
         <source>&amp;Include Text in Barcode</source>
-        <translation>&amp;Добавить текст в штрих-код</translation>
+        <translation type="vanished">&amp;Добавить текст в штрих-код</translation>
     </message>
     <message>
         <source>Options</source>
-        <translation>Параметры</translation>
+        <translation type="vanished">Параметры</translation>
     </message>
     <message>
-        <source>&amp;Format:</source>
-        <translation type="unfinished"/>
+        <source>Display checksum</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Error &amp;checking:</source>
-        <translation type="unfinished"/>
+        <source>Show readable text</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Minimum error checking; raized opportunistically if size of symbol is not increased</source>
-        <translation type="unfinished"/>
+        <source>Parse specials</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Guard whitespace</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>^NNN as ASCII</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Add checksum</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Barcode Family:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Barcode:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Select one of the available barcode types here</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Contents:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Advanced options for the barcode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The contents encoded in the barcode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Options:</source>
+        <translation type="unfinished">Параметры:</translation>
+    </message>
+    <message>
+        <source>Version:</source>
+        <translation type="unfinished">Версия:</translation>
+    </message>
+    <message>
+        <source>Version of the symbol</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Error correction level</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Error correction level:</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -3017,7 +3047,7 @@ Relative Colorimetric or Perceptual should be chosen.</source>
 колориметрическую или воспринимаемую.</translation>
     </message>
     <message>
-        <source>Enable 'soft proofing' of how your document colors will print,
+        <source>Enable &apos;soft proofing&apos; of how your document colors will print,
 based on the chosen printer profile.</source>
         <translation>Включить режим программной цветопробы вашего 
 документа на основе выбранного профиля принтера.</translation>
@@ -3243,10 +3273,6 @@ Please choose another one.</source>
         <translation> %</translation>
     </message>
     <message>
-        <source>...</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
         <source>M:</source>
         <translation>M:</translation>
     </message>
@@ -3315,7 +3341,7 @@ Please choose another one.</source>
     </message>
     <message>
         <source>Colors of your chosen color scheme.</source>
-        <translation>Цвета выбранной цветовой схемы.</translation>
+        <translation type="vanished">Цвета выбранной цветовой схемы.</translation>
     </message>
     <message>
         <source>Color Scheme Method</source>
@@ -3375,7 +3401,7 @@ Please choose another one.</source>
     </message>
     <message>
         <source>Sample color scheme.</source>
-        <translation>Пример цветовой схемы.</translation>
+        <translation type="vanished">Пример цветовой схемы.</translation>
     </message>
     <message>
         <source>Simulate common vision defects here. Select type of the defect.</source>
@@ -3445,6 +3471,14 @@ Please choose another one.</source>
         <source>Document</source>
         <translation>Документ</translation>
     </message>
+    <message>
+        <source>Colors of your chosen color scheme</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Sample color scheme</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>Canvas</name>
@@ -3510,7 +3544,7 @@ Height: %2</source>
     </message>
     <message>
         <source>You are trying to insert a frame into an existing text chain, where would you like to insert it?</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>You are trying to link a frame to itself.</source>
@@ -3518,7 +3552,7 @@ Height: %2</source>
     </message>
     <message>
         <source>You are trying to link a non-empty frame to frame which is already linked.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -3533,24 +3567,24 @@ Height: %2</source>
     </message>
     <message>
         <source>Go to Page %1</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Go to URL %1</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Go to Page %1 in File %2</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Page %1 does not exist!</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Link Target is Web URL.
 URL: %1</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Information</source>
@@ -3560,11 +3594,12 @@ URL: %1</source>
         <source>Link Target is external File.
 File: %1
 Page: %2</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Overflow Characters: %1 (%2 White Spaces)</source>
-        <translation type="unfinished"/>
+        <source>Overflow Characters: %1 (%2 White Spaces)
+Click to link to existing text frame or auto-create new linked text frame</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -3582,7 +3617,7 @@ Page: %2</source>
 
 Please submit your file (if possible) to the
 Document Liberation Project http://www.documentliberation.org</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -3642,16 +3677,12 @@ Document Liberation Project http://www.documentliberation.org</source>
         <translation>Все символы будут удалены из палитры. Вы уверены?</translation>
     </message>
     <message>
-        <source>Hide/Show Enhanced Palette</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
         <source>Save Quick Character Palette</source>
         <translation>Сохранить быструю палитру символов</translation>
     </message>
     <message>
         <source>Show/Hide Enhanced Palette</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Unicode Search</source>
@@ -3659,15 +3690,19 @@ Document Liberation Project http://www.documentliberation.org</source>
     </message>
     <message>
         <source>Load a Character Palette</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Save the Character Palette</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Empty the Character Palette</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Font: %2</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -3937,12 +3972,8 @@ The Insert key inserts a Glyph into the Selection below and the Delete key remov
         <translation>Слой &quot;%1&quot;</translation>
     </message>
     <message>
-        <source>Annotation uses a non TrueType font</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
         <source>Preflight profile to base the report generation on. Options can be set in Document Setup or Preferences</source>
-        <translation>Профиль проверки, на основе которого составляется отчет. Параметры профиля настраиваются в диалоге параметров документа или программы.</translation>
+        <translation type="vanished">Профиль проверки, на основе которого составляется отчет. Параметры профиля настраиваются в диалоге параметров документа или программы.</translation>
     </message>
     <message>
         <source>Ignore found errors and continue to export or print. Be sure to understand the errors you are ignoring before continuing.</source>
@@ -3959,10 +3990,6 @@ The Insert key inserts a Glyph into the Selection below and the Delete key remov
     <message>
         <source>Layers</source>
         <translation>Слои</translation>
-    </message>
-    <message>
-        <source>Print/Visible Mismatch</source>
-        <translation type="unfinished"/>
     </message>
     <message>
         <source>Master Pages</source>
@@ -3986,119 +4013,119 @@ currently %2 x %3 DPI</source>
     </message>
     <message>
         <source>Image dimension is smaller than its frame</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>After Marks update document was changed</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Issues: %1</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Object colorspace is not CMYK or spot</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Applied master page has different page destination (left, middle, right side)</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Empty Text Frame</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Indicates that editorial changes have been made to a PDF are still present or your PDF contains unprintable annotation items. They may cause issues in professional printing. Also helpful reminder if you are wanting to publish a final draft without editorial relics.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Have you applied the correct Master Page?</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>If you have created an image frame, there is the presumption that you planned to put an image in it.</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>If you have created a text frame, there is the presumption that you planned to put text in it.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Imported document contains non-embedded fonts</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>When some imported document uses non-embedded fonts, then their rendering will be wrong, unless by chance you have them installed on their system, but that cannot be guaranteed in case you want to share the resulting document.</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>This is a user definable setting serving as a caution for high resolution images, which may lead to unnecessarily large files.</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>mage doesnt fit the whole space you reserved for it. Maybe this is intended, or maybe this is caused by bad inner placement or scale. The result will either be a cropped image or white space around the image.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>This warning alerts you that you are using a bitmap based graphic format that is typically not used for high resolution images (.gif is one of those). This may result in poor viewing quality (for example: when commercially printed, viewed on a high-resolution screens, etc...). If your PDF will be printed commercially, there are some printing systems that will have difficulty printing these types of images.</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>This is a user definable setting serving as a caution for low resolution images, which may lead to poor quality output.</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>You have one or more characters which do not have a corresponding glyph in your chosen font.</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>The assigned image file cannot be found.</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>An object is placed somewhere outside of the page borders, it will not be printed and might be missing somewhere.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>PDF supports many different ways to represent the color of any object including RGB, CMYK and Spot (aka Separation) colors. Some of the PDF standards, such as PDF/X-1a, require the only CMYK and Spot colors be used.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>The warning is verifying for you that there is a PDF loaded into an Image Frame, where it will be rasterized or converted to a bitmap. Its resolution may be less than ideal. See PDF Export to learn how to minimize this problem.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>There is more text than can show in the frame as sized. Nonvisible excess characters like spaces and carriage returns may trigger this if nothing appears to be missing.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>This warning indicates that your document contains images that have a transparent layer. This is really only an issue if using older printing profiles or PostScript. It is safe to ignore this when exporting to PDF version greater than 1.4.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Annotation uses a non-TrueType font</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Annotations support only a standard set of fonts. Choose another one.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>This layer uses transparency, only an issue if using older printing profiles. You may safely ignore this when using modern printing methods, or exporting to PDF version greater than 1.4.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>This layer uses blendmodes which relies on transparency, only an issue if using older printing profiles. You may safely ignore this when using modern printing methods, or exporting to PDF version greater than 1.4.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Print/Visible mismatch</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>The image does not fit the whole space you reserved for it. Maybe this is intended, or maybe this is caused by bad inner placement or scale. The result will either be a cropped image or white space around the image.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Preflight profile to base the report generation on. Options can be set in Document Setup or Preferences.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>If you have created an image frame, there is the presumption that you planned to put an image in it</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>If you have created a text frame, there is the presumption that you planned to put text in it</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>When some imported document uses non-embedded fonts, then their rendering will be wrong, unless by chance you have them installed on their system, but that cannot be guaranteed in case you want to share the resulting document</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This is a user definable setting serving as a caution for high resolution images, which may lead to unnecessarily large files</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This is a user definable setting serving as a caution for low resolution images, which may lead to poor quality output</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You have one or more characters which do not have a corresponding glyph in your chosen font</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The assigned image file cannot be found</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>An object is placed somewhere outside of the page borders, it will not be printed and might be missing somewhere</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -4219,55 +4246,55 @@ currently %2 x %3 DPI</source>
     </message>
     <message>
         <source>Monochromatic Light</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Monochromatic Dark</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>1st. Analogous</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>2nd. Analogous</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>1st. Split</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>2nd. Split</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>3rd. Split</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>4th. Split</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>1st. Triadic</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>2nd. Triadic</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>1st. Tetradic (base opposite)</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>2nd. Tetradic (angle)</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>3rd. Tetradic (angle opposite)</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -4733,7 +4760,7 @@ currently %2 x %3 DPI</source>
     </message>
     <message>
         <source>PDF Radio Button</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Button</source>
@@ -4741,27 +4768,27 @@ currently %2 x %3 DPI</source>
     </message>
     <message>
         <source>RadioButton</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Textfield</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Checkbox</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Combobox</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Listbox</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>TextAnnot</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Link</source>
@@ -4770,7 +4797,7 @@ currently %2 x %3 DPI</source>
     <message>
         <source>Monochrome</source>
         <comment>Colorspace</comment>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Alt</source>
@@ -4830,10 +4857,6 @@ currently %2 x %3 DPI</source>
     <message>
         <source>Disabled</source>
         <translation>Выключено</translation>
-    </message>
-    <message>
-        <source>Contents</source>
-        <translation type="unfinished"/>
     </message>
     <message>
         <source>Edit 3D Annotation...</source>
@@ -4945,7 +4968,7 @@ currently %2 x %3 DPI</source>
     <name>CreateMode</name>
     <message>
         <source>3DAnnot</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -4960,7 +4983,7 @@ currently %2 x %3 DPI</source>
     </message>
     <message>
         <source>Doc Page Range</source>
-        <translation>Диапазон страниц документа</translation>
+        <translation type="vanished">Диапазон страниц документа</translation>
     </message>
     <message>
         <source>Basic Range Selection</source>
@@ -5036,7 +5059,7 @@ currently %2 x %3 DPI</source>
     </message>
     <message>
         <source>Page Order</source>
-        <translation>Порядок страниц</translation>
+        <translation type="vanished">Порядок страниц</translation>
     </message>
     <message>
         <source>Sample Page Order:</source>
@@ -5159,7 +5182,11 @@ currently %2 x %3 DPI</source>
     </message>
     <message>
         <source>This panel displays various CUPS options when printing. The exact parameters available will depend on your printer driver. You can confirm CUPS support by selecting Help &gt; About. Look for the listings: C-C-T These equate to C=CUPS C=littlecms T=TIFF support. Missing library support is indicated by a *</source>
-        <translation>Здесь отображаются различные параметры CUPS для печати. Состав параметров зависит от используемой модели принтера. наличие поддержки можно проверить в диалоге «О Scribus», вызываемом через меню «Справка». Найдите сокращение вида &quot;C-C-T&quot;, которое расшифровывается так: C=CUPS C=littlecms T=TIFF. Отсутствующая библиотека помечается символом *</translation>
+        <translation type="vanished">Здесь отображаются различные параметры CUPS для печати. Состав параметров зависит от используемой модели принтера. наличие поддержки можно проверить в диалоге «О Scribus», вызываемом через меню «Справка». Найдите сокращение вида &quot;C-C-T&quot;, которое расшифровывается так: C=CUPS C=littlecms T=TIFF. Отсутствующая библиотека помечается символом *</translation>
+    </message>
+    <message>
+        <source>This panel displays various CUPS options when printing. The exact parameters available will depend on your printer driver. You can confirm CUPS support by selecting Help &gt; About. Look for the listings: C-C-T These equate to C=CUPS C=littlecms T=TIFF support. Missing library support is indicated by a *.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -5204,7 +5231,7 @@ currently %2 x %3 DPI</source>
     </message>
     <message>
         <source>Curve Files (*.scu *.SCU);;All Files (*)</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -5247,19 +5274,19 @@ currently %2 x %3 DPI</source>
     </message>
     <message>
         <source>Import Option:</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Keep original size</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Downscale to page size</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Upscale to page size</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -5329,7 +5356,7 @@ currently %2 x %3 DPI</source>
     <name>DialogsAPI</name>
     <message>
         <source>Alert - Scribus</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -5421,11 +5448,11 @@ currently %2 x %3 DPI</source>
     </message>
     <message>
         <source>A person or organisation responsible for making the document available</source>
-        <translation>Человек или организация, ответственные за выпуск этого документа</translation>
+        <translation type="vanished">Человек или организация, ответственные за выпуск этого документа</translation>
     </message>
     <message>
         <source>A person or organisation responsible for making contributions to the content of the document</source>
-        <translation>Человек или организация, внёсшие вклад в содержимое этого документа</translation>
+        <translation type="vanished">Человек или организация, внёсшие вклад в содержимое этого документа</translation>
     </message>
     <message>
         <source>A date associated with an event in the life cycle of the document, in YYYY-MM-DD format, as per ISO 8601</source>
@@ -5461,27 +5488,55 @@ currently %2 x %3 DPI</source>
     </message>
     <message>
         <source>The person or organisation primarily responsible for making the content of the document. This field can be embedded in the Scribus document for reference, as well as in the metadata of a PDF</source>
-        <translation>Название организации, в первую очередь ответственной за создание этого документа. Это поле может быть встроено как в документ Scribus для ссылок на него, так и в метаданные PDF</translation>
+        <translation type="vanished">Название организации, в первую очередь ответственной за создание этого документа. Это поле может быть встроено как в документ Scribus для ссылок на него, так и в метаданные PDF</translation>
     </message>
     <message>
         <source>A name given to the document. This field can be embedded in the Scribus document for reference, as well as in the metadata of a PDF</source>
-        <translation>Имя, данное документу. Это поле может быть встроено как в документ Scribus для ссылок на него, так и в метаданные PDF</translation>
+        <translation type="vanished">Имя, данное документу. Это поле может быть встроено как в документ Scribus для ссылок на него, так и в метаданные PDF</translation>
     </message>
     <message>
         <source>An account of the content of the document. This field is for a brief description or abstract of the document. It is embedded in the PDF on export</source>
-        <translation>Краткое описание содержимого документа. Это поле для краткого описания или аннотации к документу, встраиваемое в экспортируемый файл PDF</translation>
+        <translation type="vanished">Краткое описание содержимого документа. Это поле для краткого описания или аннотации к документу, встраиваемое в экспортируемый файл PDF</translation>
     </message>
     <message>
         <source>The topic of the content of the document. This field is for document keywords you wish to embed in a PDF, to assist searches and indexing of PDF files</source>
-        <translation>Тема этого документа. Это поле содержит ключевые слова документа для встраивания в файл PDF для упрощения поиска и индексирования таких файлов</translation>
+        <translation type="vanished">Тема этого документа. Это поле содержит ключевые слова документа для встраивания в файл PDF для упрощения поиска и индексирования таких файлов</translation>
     </message>
     <message>
         <source>The physical or digital manifestation of the document. Media type and dimensions would be worth noting. RFC2045,RFC2046 for MIME types are also useful here</source>
-        <translation>Физическое или цифровое представление этого документа. Стоит указать тип носителя и его размеры. Также полезны RFC2045 и RFC2046 для типов MIME</translation>
+        <translation type="vanished">Физическое или цифровое представление этого документа. Стоит указать тип носителя и его размеры. Также полезны RFC2045 и RFC2046 для типов MIME</translation>
     </message>
     <message>
         <source>The language in which the content of the document is written, usually a ISO-639 language code optionally suffixed with a hypen and an ISO-3166 country code, eg. en-GB, fr-CH</source>
         <translation>Язык, на котором написан документ, обычно обозначенный кодом ISO-639, по выбору с суффиксом в виде дефиса и кодом страны по ISO-3166, например: en-GB, fr-CH</translation>
+    </message>
+    <message>
+        <source>The person or organization primarily responsible for making the content of the document. This field can be embedded in the Scribus document for reference, as well as in the metadata of a PDF.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>A name given to the document. This field can be embedded in the Scribus document for reference, as well as in the metadata of a PDF.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>An account of the content of the document. This field is for a brief description or abstract of the document. It is embedded in the PDF on export.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The topic of the content of the document. This field is for document keywords you wish to embed in a PDF, to assist searches and indexing of PDF files.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>A person or organization responsible for making the document available</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>A person or organization responsible for making contributions to the content of the document</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The physical or digital manifestation of the document. Media type and dimensions would be worth noting. RFC2045,RFC2046 for MIME types are also useful here.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -5832,7 +5887,7 @@ failed!</source>
     </message>
     <message>
         <source>An exception occured while running the script.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>&amp;Close</source>
@@ -5840,7 +5895,7 @@ failed!</source>
     </message>
     <message>
         <source>Exception</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>&amp;Details &gt;&gt;</source>
@@ -5954,7 +6009,7 @@ Name of the export file will be &apos;documentname-pagenumber.filetype&apos;</so
         <source>Insert a comma separated list of tokens where
 a token can be * for all the pages, 1-5 for
 a range of pages or a single page number.</source>
-        <translation>Вставить сюда разделённый запятыми список 
+        <translation type="vanished">Вставить сюда разделённый запятыми список 
 маркёров, где каждый маркёр может быть * для 
 всех страниц, 1-5 для диапазона страниц или 
 номером одиночной страницы.</translation>
@@ -5984,7 +6039,7 @@ Use 72 dpi for Images intended for the Screen</source>
     </message>
     <message>
         <source>TextLabel</source>
-        <translation>TextLabel</translation>
+        <translation type="vanished">TextLabel</translation>
     </message>
     <message>
         <source>The compression ratio of your images - 100% is no compression, 0% highest compression. If in doubt, use &apos;Automatic&apos;</source>
@@ -5996,23 +6051,29 @@ Use 72 dpi for Images intended for the Screen</source>
     </message>
     <message>
         <source>Naming of exported files:</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Prefix:</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>No Background</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Don&apos;t export Page Background</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Create a range of pages</source>
         <translation>Создать диапазон страниц</translation>
+    </message>
+    <message>
+        <source>Insert a comma separated list of tokens where
+a token can be * for all the pages, 1-5 for
+a range of pages or a single page number</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -6123,15 +6184,15 @@ Use 72 dpi for Images intended for the Screen</source>
     </message>
     <message>
         <source>Plus</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Destination In</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Destination Out</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -6181,18 +6242,18 @@ Use 72 dpi for Images intended for the Screen</source>
     <name>FhPlug</name>
     <message>
         <source>Importing: %1</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Analyzing File:</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished">Анализируется файл:</translation>
     </message>
     <message>
         <source>Parsing failed!
 
 Please submit your file (if possible) to the
 Document Liberation Project http://www.documentliberation.org</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -6217,7 +6278,7 @@ Document Liberation Project http://www.documentliberation.org</source>
     <name>FlattenPathPlugin</name>
     <message>
         <source>Flatten Path</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Path Tools</source>
@@ -6225,11 +6286,11 @@ Document Liberation Project http://www.documentliberation.org</source>
     </message>
     <message>
         <source>Flattens a Path</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Converts a Bezier Path to a Path made of line segments.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -6327,7 +6388,7 @@ Document Liberation Project http://www.documentliberation.org</source>
     </message>
     <message>
         <source>Outline</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished">Схема документа</translation>
     </message>
 </context>
 <context>
@@ -6442,15 +6503,23 @@ Document Liberation Project http://www.documentliberation.org</source>
     </message>
     <message>
         <source>Cancels these font substitutions and stops loading the document.</source>
-        <translation>Отмену замену шрифтов и прекратить загрузку документа.</translation>
+        <translation type="vanished">Отмену замену шрифтов и прекратить загрузку документа.</translation>
     </message>
     <message>
         <source>If you select OK, then save, these substitutions are made permanent in the document.</source>
-        <translation>Если нажать ОК, а затем сохранить, то эта замена станет постоянной для сохранённого документа.</translation>
+        <translation type="vanished">Если нажать ОК, а затем сохранить, то эта замена станет постоянной для сохранённого документа.</translation>
     </message>
     <message>
         <source>Enabling this tells Scribus to use these replacements for missing fonts permanently in all future layouts. This can be reverted or changed in File &gt; Preferences &gt; Fonts.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cancels these font substitutions and stops loading the document</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>If you select OK, then save, these substitutions are made permanent in the document</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -6468,11 +6537,11 @@ Document Liberation Project http://www.documentliberation.org</source>
     <name>GradientEditor</name>
     <message>
         <source>Position:</source>
-        <translation>Положение:</translation>
+        <translation type="vanished">Положение:</translation>
     </message>
     <message>
         <source> %</source>
-        <translation>%</translation>
+        <translation type="vanished">%</translation>
     </message>
     <message>
         <source>Add, change or remove color stops here</source>
@@ -6549,23 +6618,23 @@ Document Liberation Project http://www.documentliberation.org</source>
     </message>
     <message>
         <source>1. Point:</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>2. Point:</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>3. Point:</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>4. Point:</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>5. Point:</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Edit Grid Points</source>
@@ -6577,11 +6646,11 @@ Document Liberation Project http://www.documentliberation.org</source>
     </message>
     <message>
         <source>Reset selected Control Point</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Reset all Control Points</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>New Mesh...</source>
@@ -6597,15 +6666,15 @@ Document Liberation Project http://www.documentliberation.org</source>
     </message>
     <message>
         <source>Snap to other Mesh Points</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Add Patch</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Remove Patch</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -7037,6 +7106,22 @@ Ignore List</source>
         <translation>Добавить в список 
 игнорируемых слов</translation>
     </message>
+    <message>
+        <source>Accept the proposed hyphenation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Add edited hyphen to local hyphenation dictionary list</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Add edited word to words that should not be hyphenated</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Do not apply the proposed hyphenation</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>IdmlPlug</name>
@@ -7162,51 +7247,47 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Choose which one should be imported</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Use the pdf part</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Use the ai part</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>The PDF Import plugin could not be found</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>The EPS Import plugin could not be found</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>ImportCdrPlugin</name>
     <message>
         <source>Import Corel Draw...</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Corel Draw</source>
         <translation>Corel DRAW</translation>
     </message>
     <message>
-        <source>Corel Draw CDR (*.cdr *.CDR)</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
         <source>Imports Corel Draw Files</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Imports most Corel Draw files into the current document,
 converting their vector data into Scribus objects.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Corel Draw (*.cdr *.CDR)</source>
-        <translation>Corel DRAW (*.cdr *.CDR)</translation>
+        <translation type="vanished">Corel DRAW (*.cdr *.CDR)</translation>
     </message>
     <message>
         <source>All Supported Formats</source>
@@ -7214,22 +7295,22 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>The Uniconverter Import plugin could not be found</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Parsing failed!
 
 Please submit your file (if possible) to the
 Document Liberation Project http://www.documentliberation.org</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Corel Draw (*.ccx *.CCX *.cdr *.CDR *.cdt *.CDT *.cmx *.CMX)</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>ImportCgmPlugin</name>
-    <message>
-        <source>Import Cgm...</source>
-        <translation type="unfinished"/>
-    </message>
     <message>
         <source>CGM File</source>
         <translation>Файл CGM</translation>
@@ -7254,56 +7335,39 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Import Computer Graphics Metafile...</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Computer Graphics Metafile</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Computer Graphics Metafile (*.cgm *.CGM)</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>ImportCvgPlugin</name>
-    <message>
-        <source>Import Cvg...</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Imports Cvg Files</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Imports most Cvg files into the current document,
-converting their vector data into Scribus objects.</source>
-        <translation type="unfinished"/>
-    </message>
     <message>
         <source>All Supported Formats</source>
         <translation>Все поддерживаемые форматы</translation>
     </message>
     <message>
         <source>Import Calamus Vector Graphics...</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Imports Calamus Vector Graphics Files</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Imports most Calamus Vector Graphics files into the current document,
 converting their vector data into Scribus objects.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>ImportDrwPlugin</name>
-    <message>
-        <source>Import DRW...</source>
-        <translation type="unfinished"/>
-    </message>
     <message>
         <source>Micrografx DRW File</source>
         <translation>Файл Micrografx DRW</translation>
@@ -7327,48 +7391,36 @@ converting their vector data into Scribus objects.</source>
         <translation>Все поддерживаемые форматы</translation>
     </message>
     <message>
-        <source>Micrografx DRW</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Micrografx DRW (*.drw *.DRW)</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
         <source>Import Micrografx Draw...</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Micrografx Draw</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Micrografx Draw (*.drw *.DRW)</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>ImportEmfPlugin</name>
     <message>
-        <source>Import EMF...</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
         <source>EMF</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>EMF (*.emf *.EMF)</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Imports EMF Files</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Imports most EMF files into the current document,
 converting their vector data into Scribus objects.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>All Supported Formats</source>
@@ -7376,43 +7428,43 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Import Enhanced Metafile...</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Enhanced Metafile</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Enhanced Metafile (*.emf *.EMF)</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>ImportFhPlugin</name>
     <message>
         <source>Import Freehand...</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Freehand</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Freehand (*.fh* *.FH*)</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Imports Freehand Files</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Imports most Freehand files into the current document,
 converting their vector data into Scribus objects.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>All Supported Formats</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished">Все поддерживаемые форматы</translation>
     </message>
 </context>
 <context>
@@ -7422,9 +7474,9 @@ converting their vector data into Scribus objects.</source>
         <translation>Импорт файлов Adobe IDML</translation>
     </message>
     <message>
-        <source>Imports Adobe Indesign's idml packages into Scribus
+        <source>Imports Adobe Indesign&apos;s idml packages into Scribus
  converting Indesign objects into scribus pageitems; not all are supported in Scribus, but all those supported are being imported here</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>GPL</source>
@@ -7447,7 +7499,7 @@ converting their vector data into Scribus objects.</source>
     <name>ImportIdmlPlugin</name>
     <message>
         <source>Import Idml...</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Adobe Indesign IDML</source>
@@ -7459,20 +7511,20 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Imports IDML Files</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Imports most IDML files into the current document,
 converting their vector data into Scribus objects.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Adobe Indesign IDMS</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Adobe Indesign IDMS (*.idms *.IDMS)</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>All Supported Formats</source>
@@ -7483,34 +7535,34 @@ converting their vector data into Scribus objects.</source>
     <name>ImportOdgPlugin</name>
     <message>
         <source>Import ODF Document...</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>ODF Drawing</source>
         <comment>Import/export format name</comment>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>ODF Drawing (*.odg *.ODG *.fodg *.FODG)</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>ODF Presentation</source>
         <comment>Import/export format name</comment>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>ODF Presentation (*.odp *.ODP *.fodp *.FODP)</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Imports ODF Drawing Files</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Imports most ODF Drawing files into the current document,
 converting their vector data into Scribus objects.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>All Supported Formats</source>
@@ -7537,24 +7589,24 @@ converting their vector data into Scribus objects.</source>
     <name>ImportPagesPlugin</name>
     <message>
         <source>Import iWorks Pages...</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>iWorks Pages</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>iWorks Pages (*.pages *.PAGES)</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Imports iWorks Pages Files</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Imports most iWorks Pages files into the current document,
 converting their vector data into Scribus objects.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>All Supported Formats</source>
@@ -7564,50 +7616,37 @@ converting their vector data into Scribus objects.</source>
 <context>
     <name>ImportPctPlugin</name>
     <message>
-        <source>Import Pict...</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Imports Pict Files</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Imports most Mac Pict files into the current document,
-converting their vector data into Scribus objects.</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
         <source>All Supported Formats</source>
         <translation>Все поддерживаемые форматы</translation>
     </message>
     <message>
         <source>Import Macintosh Pict...</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Imports Macintosh Pict Files</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Imports most Macintosh Pict files into the current document,
 converting their vector data into Scribus objects.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>ImportPdfPlugin</name>
     <message>
         <source>Import PDF...</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Imports PDF Files</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Imports most PDF files into the current document,
 converting their vector data into Scribus objects.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>All Supported Formats</source>
@@ -7615,31 +7654,31 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>The Import plugin cannot handle Postscript files</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>ImportPmPlugin</name>
     <message>
         <source>Import Pagemaker...</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Pagemaker</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Pagemaker (*.pmd *.PMD *.pm *.PM *.pm3 *.PM3 *.pm4 *.PM4 *.pm5 *.PM5 *.pm6 *.PM6 *.p65 *.P65)</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Imports Pagemaker Files</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Imports most Pagemaker files into the current document,
 converting their vector data into Scribus objects.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>All Supported Formats</source>
@@ -7650,24 +7689,24 @@ converting their vector data into Scribus objects.</source>
     <name>ImportPubPlugin</name>
     <message>
         <source>Import PUB...</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>MS Publisher</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>MS Publisher (*.pub *.PUB)</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Imports PUB Files</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Imports most MS Publisher files into the current document,
 converting their vector data into Scribus objects.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>All Supported Formats</source>
@@ -7678,28 +7717,16 @@ converting their vector data into Scribus objects.</source>
     <name>ImportShapePlugin</name>
     <message>
         <source>Import Dia Shapes...</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Dia Shapes &quot;*.shape&quot; File</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Dia Shapes &quot;*.shape&quot; File (*.shape *.SHAPE)</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Imports Dia shape Files</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Imports most Dia shapes into the current document,
 converting their vector data into Scribus objects.</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Dia shapes &quot;*.shape&quot; File (*.shape *.SHAPE)</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>All Supported Formats</source>
@@ -7707,39 +7734,39 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Dia Shapes</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Dia Shapes (*.shape *.SHAPE)</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Dia shapes (*.shape *.SHAPE)</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>ImportSmlPlugin</name>
     <message>
         <source>Import Sml...</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Kivio Stencils &quot;*.sml&quot; File</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Kivio Stencils &quot;*.sml&quot; File (*.sml *.SML)</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Imports Sml Files</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Imports most Kivio stencils into the current document,
 converting their vector data into Scribus objects.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>All Supported Formats</source>
@@ -7747,35 +7774,35 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Kivio Stencils</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Kivio Stencils (*.sml *.SML)</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>ImportSvmPlugin</name>
     <message>
         <source>Import SVM...</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>SVM</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>SVM (*.svm *.svm)</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Imports SVM Files</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Imports most SVM files into the current document,
 converting their vector data into Scribus objects.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>All Supported Formats</source>
@@ -7786,24 +7813,24 @@ converting their vector data into Scribus objects.</source>
     <name>ImportVivaPlugin</name>
     <message>
         <source>Import Viva...</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Viva Designer XML</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Viva Designer XML (*.xml *.XML)</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Imports Viva Files</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Imports most Viva files into the current document,
 converting their vector data into Scribus objects.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>All Supported Formats</source>
@@ -7814,24 +7841,24 @@ converting their vector data into Scribus objects.</source>
     <name>ImportVsdPlugin</name>
     <message>
         <source>Import Visio...</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>MS Visio</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>MS Visio (*.vsd *.VSD *.vdx *.VDX *.vsdx *.VSDX)</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Imports MS Visio Files</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Imports most MS Visio files into the current document,
 converting their vector data into Scribus objects.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>All Supported Formats</source>
@@ -7841,41 +7868,28 @@ converting their vector data into Scribus objects.</source>
 <context>
     <name>ImportWpgPlugin</name>
     <message>
-        <source>Import WPG...</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Imports WPG Files</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Imports most WPG files into the current document,
-converting their vector data into Scribus objects.</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
         <source>All Supported Formats</source>
         <translation>Все поддерживаемые форматы</translation>
     </message>
     <message>
         <source>Import WordPerfect Graphics...</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Imports WordPerfect Graphics Files</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Imports most WordPerfect Graphics files into the current document,
 converting their vector data into Scribus objects.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>ImportXarPlugin</name>
     <message>
         <source>Import Xara...</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>XARA &quot;*.xar&quot; File</source>
@@ -7901,11 +7915,11 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>XARA</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>XARA (*.xar *.XAR)</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -7933,32 +7947,32 @@ converting their vector data into Scribus objects.</source>
     <name>ImportXpsPlugin</name>
     <message>
         <source>Import Xps...</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Microsoft XPS</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Microsoft XPS (*.xps *.XPS)</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Open XML Paper</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Open XML Paper (*.oxps *.OXPS)</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Imports XPS and Open XML Paper Files</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Imports most XPS and Open XML Paper files into the current document,
 converting their vector data into Scribus objects.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>All Supported Formats</source>
@@ -8033,7 +8047,7 @@ converting their vector data into Scribus objects.</source>
     <message>
         <source>&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Sans Serif'; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Separate pages with a comma, ranges with a hyphen, e.g. 1,4,9-11 to get pages 1,4,9,10,11.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
@@ -8120,15 +8134,15 @@ p, li { white-space: pre-wrap; }
     <name>InlinePalette</name>
     <message>
         <source>Paste to Item</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Edit Item</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Remove Item</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Inline Items</source>
@@ -8796,23 +8810,23 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <source>Color of the Layer Indicator - Each layer has a color assigned to display on the canvas when layer indicators are enabled. You can double click to edit the color. </source>
-        <translation>Цвет индикатора слоя — каждому слою назначается цвет, используемый объектами слоя на листе. Изменить цвет можно двойным щелчком по нему. </translation>
+        <translation type="vanished">Цвет индикатора слоя — каждому слою назначается цвет, используемый объектами слоя на листе. Изменить цвет можно двойным щелчком по нему. </translation>
     </message>
     <message>
         <source>Make Layer Visible - Uncheck to hide the layer from the display </source>
-        <translation>Сделать слой видимым или невидимым — уберите галку, чтобы скрыть слой </translation>
+        <translation type="vanished">Сделать слой видимым или невидимым — уберите галку, чтобы скрыть слой </translation>
     </message>
     <message>
         <source>Print Layer - Uncheck to disable printing. </source>
-        <translation>Печать слоя — снимите галку для отключения печати. </translation>
+        <translation type="vanished">Печать слоя — снимите галку для отключения печати. </translation>
     </message>
     <message>
         <source>Lock or Unlock Layer - Unchecked is unlocked </source>
-        <translation>Запереть или отпереть слой — снятая галка означает отпертость</translation>
+        <translation type="vanished">Запереть или отпереть слой — снятая галка означает отпертость</translation>
     </message>
     <message>
         <source>Outline Mode - Toggles the &apos;wireframe&apos; display of objects to speed the display of very complex objects.</source>
-        <translation>Каркасный режим — переключиться на каркасное отображение для ускорения отрисовки сложных объектов.</translation>
+        <translation type="vanished">Каркасный режим — переключиться на каркасное отображение для ускорения отрисовки сложных объектов.</translation>
     </message>
     <message>
         <source>Selects the Blendmode, works only in PDF 1.4</source>
@@ -8840,15 +8854,43 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <source>Make text in lower layers flow around objects - Enabling this forces text in lower layers to flow around objects of the layer for which this option has been enabled</source>
-        <translation>Обтекание объектов текстом на более низких слоях — если включить, текст на всех слоях ниже будет обтекать объекты этого слоя</translation>
+        <translation type="vanished">Обтекание объектов текстом на более низких слоях — если включить, текст на всех слоях ниже будет обтекать объекты этого слоя</translation>
     </message>
     <message>
         <source>Name of the Layer - Double click on the name of a layer to edit the name</source>
-        <translation>Имя слоя — дважды щёлкните по имени слоя, чтобы изменить его</translation>
+        <translation type="vanished">Имя слоя — дважды щёлкните по имени слоя, чтобы изменить его</translation>
     </message>
     <message>
-        <source>Select Objects on Layer - Check to enable selecting. </source>
-        <translation type="unfinished"/>
+        <source>Color of the Layer Indicator. Each layer has a color assigned to display on the canvas when layer indicators are enabled. You can double click to edit the color.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Make Layer Visible. Uncheck to hide the layer from the display.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Print Layer. Uncheck to disable printing.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Lock or Unlock Layer. Unchecked is unlocked.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Make text in lower layers flow around objects. Enabling this forces text in lower layers to flow around objects of the layer for which this option has been enabled.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Outline Mode. Toggles the &apos;wireframe&apos; display of objects to speed the display of very complex objects.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Select Objects on Layer. Check to enable selecting.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Name of the Layer. Double click on the name of a layer to edit the name.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -9034,7 +9076,7 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <source>Append to existing text</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -9093,7 +9135,7 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <source>Size of the inserted pages, either a standard or custom size.</source>
-        <translation>Размер вставленных страниц, стандартный или заданный пользователем.</translation>
+        <translation type="vanished">Размер вставленных страниц, стандартный или заданный пользователем.</translation>
     </message>
     <message>
         <source>Orientation of the page(s) to be inserted</source>
@@ -9110,6 +9152,10 @@ p, li { white-space: pre-wrap; }
     <message>
         <source>When inserting a new page between others, move objects with their current pages. This is the default action.</source>
         <translation>При вставке новой страницы между существующими перемещать объекты вместе со страницами. Это действие по умолчанию.</translation>
+    </message>
+    <message>
+        <source>Size of the inserted pages, either a standard or custom size</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -9160,7 +9206,7 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <source>Import the margins for the selected page size from the available printers.</source>
-        <translation>Импортировать параметры полей из настроенных принтеров.</translation>
+        <translation type="vanished">Импортировать параметры полей из настроенных принтеров.</translation>
     </message>
     <message>
         <source>Apply settings to:</source>
@@ -9228,11 +9274,31 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <source>Distance between the left margin guide and the edge of the page. If a double-sided, 3 or 4-fold layout is selected, this margin space can be used to achieve the correct margins for binding</source>
-        <translation>Расстояние между направляющей левого поля и краем страницы. Если страницы указаны как парные (разворот), либо с двумя или тремя фальцовками, пространство поля используется для получения правильных полей при брошюровке</translation>
+        <translation type="vanished">Расстояние между направляющей левого поля и краем страницы. Если страницы указаны как парные (разворот), либо с двумя или тремя фальцовками, пространство поля используется для получения правильных полей при брошюровке</translation>
     </message>
     <message>
         <source>Distance between the right margin guide and the edge of the page. If a double-sided, 3 or 4-fold layout is selected, this margin space can be used to achieve the correct margins for binding</source>
-        <translation>Расстояние между направляющей правого поля и краем страницы. Если страницы указаны как парные (разворот), либо с двумя или тремя фальцовками, пространство поля используется для получения правильных полей при брошюровке</translation>
+        <translation type="vanished">Расстояние между направляющей правого поля и краем страницы. Если страницы указаны как парные (разворот), либо с двумя или тремя фальцовками, пространство поля используется для получения правильных полей при брошюровке</translation>
+    </message>
+    <message>
+        <source>Import the margins for the selected page size from the available printers</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ensure all bleeds have the same value</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Distance between the left margin guide and the edge of the page. If a double-sided, 3 or 4-fold layout is selected, this margin space can be used to achieve the correct margins for binding.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Distance between the right margin guide and the edge of the page. If a double-sided, 3 or 4-fold layout is selected, this margin space can be used to achieve the correct margins for binding.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ensure all margins have the same value</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -9334,20 +9400,24 @@ p, li { white-space: pre-wrap; }
         <translation>Новая метка</translation>
     </message>
     <message>
-        <source>Edit selected Mark`s label. To create new Mark select &quot;New Mark&quot; in drop list and input new label</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
         <source>Edit variable text</source>
         <translation>Изменить меняющийся текст</translation>
     </message>
     <message>
         <source>Mark with Variable Text</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Edit selected Mark`s label.</source>
-        <translation type="unfinished"/>
+        <source>Edit selected Mark&apos;s label. To create new Mark select &quot;New Mark&quot; in drop list and input new label.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Edit selected Mark&apos;s label</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Edit selected Mark&apos;s label.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -9369,7 +9439,7 @@ p, li { white-space: pre-wrap; }
     <name>MarksManager</name>
     <message>
         <source>Dialog</source>
-        <translation>Метки</translation>
+        <translation type="vanished">Метки</translation>
     </message>
     <message>
         <source>Update All Marks</source>
@@ -9409,90 +9479,22 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <source>Double click to find mark in text</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Edit selected mark</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Update all reference texts for all marks</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>MasterPagesPalette</name>
     <message>
-        <source>Edit Master Pages</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
         <source>&amp;Name:</source>
         <translation type="vanished">&amp;Название:</translation>
-    </message>
-    <message>
-        <source>New Master Page</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Name:</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>New MasterPage</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Copy #%1 of </source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Duplicate the selected master page</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Delete the selected master page</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Add a new master page</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Import master pages from another document</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>New Master Page %1</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Unable to Rename Master Page</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>The Normal page is not allowed to be renamed.</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Rename Master Page</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>New Name:</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Copy #%1 of %2</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>This master page is used at least once in the document.</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Do you really want to delete master page &quot;%1&quot;?</source>
-        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -9506,7 +9508,7 @@ p, li { white-space: pre-wrap; }
     <name>MeasurementsBase</name>
     <message>
         <source>Distances</source>
-        <translation>Расстояния</translation>
+        <translation type="vanished">Расстояния</translation>
     </message>
     <message>
         <source>X1:</source>
@@ -9547,6 +9549,10 @@ p, li { white-space: pre-wrap; }
     <message>
         <source>Unit:</source>
         <translation>Единица:</translation>
+    </message>
+    <message>
+        <source>Measurements</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -9605,11 +9611,15 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <source>Insert a comma separated list of tokens import where a token can be * for all the pages, 1-5 for a range of pages or a single page number.</source>
-        <translation>Вставить сюда разделённый запятыми список шаблонов, где каждый шаблон может быть * для всех страниц, 1-5 для диапазона страниц или номером одиночной страницы.</translation>
+        <translation type="vanished">Вставить сюда разделённый запятыми список шаблонов, где каждый шаблон может быть * для всех страниц, 1-5 для диапазона страниц или номером одиночной страницы.</translation>
     </message>
     <message>
         <source>&amp;Select...</source>
         <translation>&amp;Выбрать...</translation>
+    </message>
+    <message>
+        <source>Insert a comma separated list of tokens import where a token can be * for all the pages, 1-5 for a range of pages or a single page number</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -10052,7 +10062,7 @@ If no handle is selected all handles will be reset.</source>
     </message>
     <message>
         <source>Link</source>
-        <translation>Ссылка внутри документа</translation>
+        <translation type="vanished">Ссылка внутри документа</translation>
     </message>
     <message>
         <source>Printer Margins...</source>
@@ -10068,11 +10078,11 @@ If no handle is selected all handles will be reset.</source>
     </message>
     <message>
         <source>Distance between the left margin guide and the edge of the page. If a double-sided, 3 or 4-fold layout is selected, this margin space can be used to achieve the correct margins for binding</source>
-        <translation>Расстояние между направляющей левого поля и краем страницы. Если страницы указаны как парные (разворот), либо с двумя или тремя фальцовками, пространство поля используется для получения правильных полей при брошюровке</translation>
+        <translation type="vanished">Расстояние между направляющей левого поля и краем страницы. Если страницы указаны как парные (разворот), либо с двумя или тремя фальцовками, пространство поля используется для получения правильных полей при брошюровке</translation>
     </message>
     <message>
         <source>Distance between the right margin guide and the edge of the page. If a double-sided, 3 or 4-fold layout is selected, this margin space can be used to achieve the correct margins for binding</source>
-        <translation>Расстояние между направляющей правого поля и краем страницы. Если страницы указаны как парные (разворот), либо с двумя или тремя фальцовками, пространство поля используется для получения правильных полей при брошюровке</translation>
+        <translation type="vanished">Расстояние между направляющей правого поля и краем страницы. Если страницы указаны как парные (разворот), либо с двумя или тремя фальцовками, пространство поля используется для получения правильных полей при брошюровке</translation>
     </message>
     <message>
         <source>&amp;Inside:</source>
@@ -10092,11 +10102,39 @@ If no handle is selected all handles will be reset.</source>
     </message>
     <message>
         <source>Ensure all margins have the same value</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Import the margins for the selected page size from the available printers.</source>
-        <translation>Импортировать параметры полей из настроенных принтеров.</translation>
+        <translation type="vanished">Импортировать параметры полей из настроенных принтеров.</translation>
+    </message>
+    <message>
+        <source>Distance between the left margin guide and the edge of the page. If a double-sided, 3 or 4-fold layout is selected, this margin space can be used to achieve the correct margins for binding.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Distance between the right margin guide and the edge of the page. If a double-sided, 3 or 4-fold layout is selected, this margin space can be used to achieve the correct margins for binding.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Distance for bleed from the top of the physical page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Distance for bleed from the bottom of the physical page</source>
+        <translation type="unfinished">Расстояние от линии обреза до низа физической страницы</translation>
+    </message>
+    <message>
+        <source>Distance for bleed from the left of the physical page</source>
+        <translation type="unfinished">Расстояние от линии обреза до левого края физической страницы</translation>
+    </message>
+    <message>
+        <source>Distance for bleed from the right of the physical page</source>
+        <translation type="unfinished">Расстояние от линии обреза до правого края физической страницы</translation>
+    </message>
+    <message>
+        <source>Import the margins for the selected page size from the available printers</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -10228,7 +10266,7 @@ If no handle is selected all handles will be reset.</source>
     </message>
     <message>
         <source>When checked use coordinates relative to the page, otherwise coordinates are relative to the Object.</source>
-        <translation>Если включено, координаты отсчитываются относительно страницы, в противном случае — относительно объекта.</translation>
+        <translation type="vanished">Если включено, координаты отсчитываются относительно страницы, в противном случае — относительно объекта.</translation>
     </message>
     <message>
         <source>Shrink the Size of the Path by shown %</source>
@@ -10285,6 +10323,10 @@ If no handle is selected all handles will be reset.</source>
     <message>
         <source>Reset all edits</source>
         <translation>Отказать от изменений</translation>
+    </message>
+    <message>
+        <source>When checked use coordinates relative to the page, otherwise coordinates are relative to the Object</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -10399,7 +10441,7 @@ If no handle is selected all handles will be reset.</source>
     </message>
     <message>
         <source>Dialog is in adding new notes style mode. After pressing Cancel button dialog will be switched into normal notes styles edit mode.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Add Style</source>
@@ -10407,7 +10449,7 @@ If no handle is selected all handles will be reset.</source>
     </message>
     <message>
         <source>default</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>No Style</source>
@@ -10415,11 +10457,11 @@ If no handle is selected all handles will be reset.</source>
     </message>
     <message>
         <source>Warning! Deleting Notes Style</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>You are going to delete notes style %1. All notes and marks using that style are also going to be deleted.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Cancel Adding</source>
@@ -10427,12 +10469,7 @@ If no handle is selected all handles will be reset.</source>
     </message>
     <message>
         <source>Notes Styles Editor is in adding new notes style mode. After pressing Cancel button Notes Styles Editor switch into normal notes styles edit mode.</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>New notes style will be add to document only after pressing Apply button.
-You cannot switch to different notes style before you apply that new one or press Cancel button and exit from adding mode.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -10475,7 +10512,7 @@ You cannot switch to different notes style before you apply that new one or pres
     </message>
     <message>
         <source>OpenOffice.org 1.x Draw (*.sxd *.SXD)</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -10510,47 +10547,47 @@ You cannot switch to different notes style before you apply that new one or pres
     </message>
     <message>
         <source>Solid Wireframe</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Transparent</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Transparent Wireframe</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Wireframe</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Shaded Wireframe</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Hidden Wireframe</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Vertices</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Shaded Vertices</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Illustration</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Solid Outline</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Shaded Illustration</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Line Color:</source>
@@ -10574,15 +10611,15 @@ You cannot switch to different notes style before you apply that new one or pres
     </message>
     <message>
         <source>Bounding Box</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Transparent Bounding Box</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Transparent Bounding Box Outline</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Lighting:</source>
@@ -10594,11 +10631,11 @@ You cannot switch to different notes style before you apply that new one or pres
     </message>
     <message>
         <source>Headlamp</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>White</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Day</source>
@@ -10610,23 +10647,23 @@ You cannot switch to different notes style before you apply that new one or pres
     </message>
     <message>
         <source>Hard</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Primary</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Blue</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Red</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Cube</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>CAD</source>
@@ -10634,7 +10671,7 @@ You cannot switch to different notes style before you apply that new one or pres
     </message>
     <message>
         <source>Artwork</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Field of Vision</source>
@@ -10719,11 +10756,11 @@ You cannot switch to different notes style before you apply that new one or pres
     </message>
     <message>
         <source>Prepend the document name to the paragraph style name in Scribus.</source>
-        <translation>Добавить имя документа в начало имени стиля в Scribus.</translation>
+        <translation type="vanished">Добавить имя документа в начало имени стиля в Scribus.</translation>
     </message>
     <message>
         <source>Make these settings the default and do not prompt again when importing an OASIS OpenDocument.</source>
-        <translation>Сделать эти параметры исходными или больше не задавать вопросов при импорте OASIS OpenDocument.</translation>
+        <translation type="vanished">Сделать эти параметры исходными или больше не задавать вопросов при импорте OASIS OpenDocument.</translation>
     </message>
     <message>
         <source>Overwrite Paragraph Styles</source>
@@ -10736,6 +10773,14 @@ You cannot switch to different notes style before you apply that new one or pres
     <message>
         <source>Cancel</source>
         <translation>Отменить</translation>
+    </message>
+    <message>
+        <source>Prepend the document name to the paragraph style name in Scribus</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Make these settings the default and do not prompt again when importing an OASIS OpenDocument</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -10822,7 +10867,7 @@ You cannot switch to different notes style before you apply that new one or pres
     </message>
     <message>
         <source>Enter a keyword or regular expression to filter the outline.</source>
-        <translation>Введите ключевое слово или регулярное выражение для поиска среди объектов.</translation>
+        <translation type="vanished">Введите ключевое слово или регулярное выражение для поиска среди объектов.</translation>
     </message>
     <message>
         <source>Filter:</source>
@@ -10830,7 +10875,7 @@ You cannot switch to different notes style before you apply that new one or pres
     </message>
     <message>
         <source>Active</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Visible</source>
@@ -10846,11 +10891,15 @@ You cannot switch to different notes style before you apply that new one or pres
     </message>
     <message>
         <source>Layer: &quot;</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Inline Frame</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enter a keyword or regular expression to filter the outline</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -10868,31 +10917,31 @@ You cannot switch to different notes style before you apply that new one or pres
     <name>OutlineWidget</name>
     <message>
         <source>Layer is:</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>active</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>visible</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>invisible</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>printing</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>non printing</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>locked</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>X-Pos:</source>
@@ -10923,19 +10972,15 @@ You cannot switch to different notes style before you apply that new one or pres
     </message>
     <message>
         <source>Open PDF after Export</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>&amp;Save</source>
         <translation>&amp;Сохранить</translation>
     </message>
     <message>
-        <source>Open the exported PDF with the PDF viewer as set in External Tools preferences, when not exporting to a multi-file export destination.</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
         <source>The save button will be disabled if you are trying to export PDF/X and the info string is missing from the PDF/X tab.</source>
-        <translation>Кнопка «Сохранить» станет недоступной при попытке экспортировать в PDF/X-3 с отсутствующей инфострокой.</translation>
+        <translation type="vanished">Кнопка «Сохранить» станет недоступной при попытке экспортировать в PDF/X-3 с отсутствующей инфострокой.</translation>
     </message>
     <message>
         <source>PDF Files (*.pdf);;All Files (*)</source>
@@ -10958,6 +11003,19 @@ You cannot switch to different notes style before you apply that new one or pres
     <message>
         <source>Save As</source>
         <translation>Сохранить как</translation>
+    </message>
+    <message>
+        <source>Open the exported PDF with the PDF viewer as set in External Tools preferences, when not exporting to a multi-file export destination</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The save button will be disabled if you are trying to export PDF/X and the info string is missing from the PDF/X tab</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The range of pages to export is invalid.
+Please check it and try again.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -11030,7 +11088,7 @@ You cannot switch to different notes style before you apply that new one or pres
     </message>
     <message>
         <source>Shows transparency and transparent items in your document. Requires Ghostscript 7.07 or later</source>
-        <translation>Включить отображение полупрозрачных объектов. Требует Ghostscript как минимум версии 7.07</translation>
+        <translation type="vanished">Включить отображение полупрозрачных объектов. Требует Ghostscript как минимум версии 7.07</translation>
     </message>
     <message>
         <source>Gives a print preview using simulations of generic CMYK inks, instead of RGB colors</source>
@@ -11118,7 +11176,7 @@ You cannot switch to different notes style before you apply that new one or pres
     </message>
     <message>
         <source>Resize the scale of the page.</source>
-        <translation>Меняет масштаб отображения страницы.</translation>
+        <translation type="vanished">Меняет масштаб отображения страницы.</translation>
     </message>
     <message>
         <source>Close</source>
@@ -11174,11 +11232,11 @@ You cannot switch to different notes style before you apply that new one or pres
     </message>
     <message>
         <source>Apply Color Profiles</source>
-        <translation>Применить профили ICC</translation>
+        <translation type="vanished">Применить профили ICC</translation>
     </message>
     <message>
         <source>Allows you to embed color profiles in the print stream when color management is enabled</source>
-        <translation>Встраивать профили ICC в печатный поток при включённом управлении цветом</translation>
+        <translation type="vanished">Встраивать профили ICC в печатный поток при включённом управлении цветом</translation>
     </message>
     <message>
         <source>Clip to Printer Margins</source>
@@ -11199,6 +11257,14 @@ You cannot switch to different notes style before you apply that new one or pres
     <message>
         <source>None</source>
         <translation>Нет</translation>
+    </message>
+    <message>
+        <source>Shows transparency and transparent items in your document. Requires Ghostscript 7.07 or later.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Resize the scale of the page</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -11268,7 +11334,7 @@ You cannot switch to different notes style before you apply that new one or pres
     </message>
     <message>
         <source>RegularPolygon</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Arc</source>
@@ -11517,11 +11583,11 @@ You cannot switch to different notes style before you apply that new one or pres
     <name>PageItem_NoteFrame</name>
     <message>
         <source>Endnote frame </source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Footnote frame </source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>No Style</source>
@@ -11606,12 +11672,16 @@ You cannot switch to different notes style before you apply that new one or pres
     <message>
         <source>Number of pages to show side-by-side on the canvas
 Often used for allowing items to be placed across page spreads</source>
-        <translation>Количество страниц, показываемых рядом на холсте.
+        <translation type="vanished">Количество страниц, показываемых рядом на холсте.
 Часто используется для расположения объектов на развороте.</translation>
     </message>
     <message>
         <source>Location on the canvas where the first page of the document is placed</source>
         <translation>Место на холсте, где размещается первая страница документа</translation>
+    </message>
+    <message>
+        <source>Number of pages to show side-by-side on the canvas. Often used for allowing items to be placed across page spreads.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -11800,7 +11870,7 @@ Often used for allowing items to be placed across page spreads</source>
 
 Please submit your file (if possible) to the
 Document Liberation Project http://www.documentliberation.org</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -11809,12 +11879,12 @@ Document Liberation Project http://www.documentliberation.org</source>
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Sans Serif'; font-size:10pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:10pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;table border=&quot;0&quot; style=&quot;-qt-table-type: root; margin-top:4px; margin-bottom:4px; margin-left:4px; margin-right:4px;&quot;&gt;
 &lt;tr&gt;
 &lt;td style=&quot;border: none;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;If color management is enabled, a triangle warning indicator is a warning that the color maybe outside of the color gamut of the current printer profile selected. What this means is the color may not print exactly as indicated on screen. Spot colors are indicated by a red circle. More hints about gamut warnings are in the online help under Color Management. Registration colors will have a registration mark next to the color. Use Registration only for printers marks and crop marks.&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>1</source>
@@ -12277,15 +12347,15 @@ both end points must lie outside of the polygon</source>
     </message>
     <message>
         <source>First source shape.</source>
-        <translation>Первая исходная фигура</translation>
+        <translation type="vanished">Первая исходная фигура</translation>
     </message>
     <message>
         <source>Second source shape.</source>
-        <translation>Вторая исходная фигура</translation>
+        <translation type="vanished">Вторая исходная фигура</translation>
     </message>
     <message>
         <source>The resulting shape.</source>
-        <translation>Конечная фигура</translation>
+        <translation type="vanished">Конечная фигура</translation>
     </message>
     <message>
         <source>Unites the shapes</source>
@@ -12363,6 +12433,18 @@ The result is a combination of &quot;Intersection&quot; and &quot;Exclusion&quot
     <message>
         <source>Result Takes Color from:</source>
         <translation>Итоговая фигура использует цвет:</translation>
+    </message>
+    <message>
+        <source>First source shape</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Second source shape</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The resulting shape</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -12512,7 +12594,7 @@ The result is a combination of &quot;Intersection&quot; and &quot;Exclusion&quot
     </message>
     <message>
         <source>TextLabel</source>
-        <translation>TextLabel</translation>
+        <translation type="vanished">TextLabel</translation>
     </message>
     <message>
         <source>Page Range</source>
@@ -12582,37 +12664,37 @@ The result is a combination of &quot;Intersection&quot; and &quot;Exclusion&quot
     <name>PermitDialog</name>
     <message>
         <source>Confirm to run unsafe script</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>scriptname.py</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Sans Serif'; font-size:8pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:8pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Attention:&lt;/span&gt; This script file contains code which &lt;span style=&quot; font-style:italic;&quot;&gt;might harm &lt;/span&gt;your system.&lt;/p&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;You should only permit execution of this script if you are sure that it comes from a trustworthy source. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>De&amp;tails &gt;&gt;</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'DejaVu Sans'; font-size:8pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;DejaVu Sans&apos;; font-size:8pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:&apos;Sans Serif&apos;;&quot;&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>&amp;Remember preference for this file</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>&amp;Allow</source>
@@ -12678,7 +12760,7 @@ p, li { white-space: pre-wrap; }
     <name>PicSearchOptions</name>
     <message>
         <source>The filesystem will be searched for case insensitive file names when you check this on. Remember it is not default on most operating systems except MS Windows</source>
-        <translation>Поиск по файловой системе будет выполнен без учета регистра букв в именах файлов. По умолчанию этот параметр отключен везде кроме MS Windows.</translation>
+        <translation type="vanished">Поиск по файловой системе будет выполнен без учета регистра букв в именах файлов. По умолчанию этот параметр отключен везде кроме MS Windows.</translation>
     </message>
     <message>
         <source>Cancel Search</source>
@@ -12733,6 +12815,10 @@ p, li { white-space: pre-wrap; }
 Please choose another one.</source>
         <translation>Исходный каталог для поиска не существует.
 Выберите другой.</translation>
+    </message>
+    <message>
+        <source>The filesystem will be searched for case insensitive file names when you check this on. Remember it is not default on most operating systems except MS Windows.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -12855,7 +12941,7 @@ Please choose another one.</source>
     </message>
     <message>
         <source>Set format specific properties of certain image types, like clipping paths</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Image Visible</source>
@@ -12985,10 +13071,6 @@ Please choose another one.</source>
 <context>
     <name>PictureBrowser</name>
     <message>
-        <source>Scribus Picture Browser</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
         <source>Folder Browser</source>
         <translation>Просмотр каталогов</translation>
     </message>
@@ -13067,10 +13149,6 @@ Please choose another one.</source>
     <message>
         <source>Sort by Type</source>
         <translation>Сортировать по типу</translation>
-    </message>
-    <message>
-        <source>Change sortorder</source>
-        <translation type="unfinished"/>
     </message>
     <message>
         <source>Zoom in</source>
@@ -13466,15 +13544,15 @@ Please choose another one.</source>
     </message>
     <message>
         <source>Move the document view to the selected page</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Show/Hide advanced tools</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Always keep Picture Browser on top of other windows</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Change sort order</source>
@@ -13486,11 +13564,11 @@ Please choose another one.</source>
     </message>
     <message>
         <source>Enable Picture Browser autosave settings</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Reset Picture Browser to default settings</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Select a directory</source>
@@ -13526,15 +13604,15 @@ Please choose another one.</source>
     </message>
     <message>
         <source>Select the page(s) where to insert the image(s)</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Select which frame(s) to use</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Set the position of the image frame(s) to insert</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Horizontal position</source>
@@ -13546,7 +13624,7 @@ Please choose another one.</source>
     </message>
     <message>
         <source>Set the size of the image frame(s) to insert</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Width</source>
@@ -13710,7 +13788,7 @@ Please choose another one.</source>
 
 Please submit your file (if possible) to the
 Document Liberation Project http://www.documentliberation.org</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -13776,15 +13854,15 @@ Document Liberation Project http://www.documentliberation.org</source>
     </message>
     <message>
         <source>Inner Rotation:</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Inner C&amp;urvature:</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Outer Curvature:</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -14250,7 +14328,7 @@ Do you want to migrate them to the new Scribus version?</source>
     </message>
     <message>
         <source>Color for paper (onscreen)</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Mask the area outside the margins in the margin color</source>
@@ -14258,7 +14336,7 @@ Do you want to migrate them to the new Scribus version?</source>
     </message>
     <message>
         <source>Enable or disable  the display of linked frames.</source>
-        <translation>Показывать ли связь текстовых блоков.</translation>
+        <translation type="vanished">Показывать ли связь текстовых блоков.</translation>
     </message>
     <message>
         <source>Display non-printing characters such as paragraph markers in text frames</source>
@@ -14311,6 +14389,10 @@ Do you want to migrate them to the new Scribus version?</source>
     <message>
         <source>Show Autosave Countdown Clock on the Canvas</source>
         <translation>Показывать на странице отсчёт времени до автосохранения</translation>
+    </message>
+    <message>
+        <source>Enable or disable the display of linked frames</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -14518,23 +14600,23 @@ Do you want to migrate them to the new Scribus version?</source>
     <name>Prefs_DocumentSections</name>
     <message>
         <source>1, 2, 3, ...</source>
-        <translation>1, 2, 3, ...</translation>
+        <translation type="vanished">1, 2, 3, ...</translation>
     </message>
     <message>
         <source>i, ii, iii, ...</source>
-        <translation>i, ii, iii, ...</translation>
+        <translation type="vanished">i, ii, iii, ...</translation>
     </message>
     <message>
         <source>I, II, III, ...</source>
-        <translation>I, II, III, ...</translation>
+        <translation type="vanished">I, II, III, ...</translation>
     </message>
     <message>
         <source>a, b, c, ...</source>
-        <translation>a, b, c, ...</translation>
+        <translation type="vanished">a, b, c, ...</translation>
     </message>
     <message>
         <source>A, B, C, ...</source>
-        <translation>A, B, C, ...</translation>
+        <translation type="vanished">A, B, C, ...</translation>
     </message>
     <message>
         <source>Page Number Out Of Bounds</source>
@@ -14590,23 +14672,23 @@ Do you want to migrate them to the new Scribus version?</source>
     </message>
     <message>
         <source>Field Width</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Fill Character</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Reversed</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>*</source>
-        <translation>*</translation>
+        <translation type="vanished">*</translation>
     </message>
     <message>
         <source>CJK</source>
-        <translation>CJK</translation>
+        <translation type="vanished">CJK</translation>
     </message>
 </context>
 <context>
@@ -14759,11 +14841,11 @@ Do you want to migrate them to the new Scribus version?</source>
     </message>
     <message>
         <source>Default page size, either a standard size or a custom size. More page sizes can be made visible by activating them in Preferences.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Enable or disable more page sizes by jumping to Page Size preferences</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Default orientation of document pages</source>
@@ -14874,7 +14956,7 @@ Do you want to migrate them to the new Scribus version?</source>
     </message>
     <message>
         <source>PDF Viewer</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Uniconvertor</source>
@@ -14914,7 +14996,7 @@ Do you want to migrate them to the new Scribus version?</source>
     </message>
     <message>
         <source>&lt;qt&gt;Path to the editor executable.&lt;/qt&gt;</source>
-        <translation>&lt;qt&gt;Путь к исполняемому файлу редактора.&lt;/qt&gt;</translation>
+        <translation type="vanished">&lt;qt&gt;Путь к исполняемому файлу редактора.&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>Start with empty frame</source>
@@ -14926,7 +15008,7 @@ Do you want to migrate them to the new Scribus version?</source>
     </message>
     <message>
         <source>Always use the configured DPI setting for calculating the size, even if the image file reports something different.</source>
-        <translation>Всегда использовать это значение dpi для вычисления размера, даже если в файле изображения оно другое.</translation>
+        <translation type="vanished">Всегда использовать это значение dpi для вычисления размера, даже если в файле изображения оно другое.</translation>
     </message>
     <message>
         <source>Force DPI</source>
@@ -14958,7 +15040,7 @@ Do you want to migrate them to the new Scribus version?</source>
     </message>
     <message>
         <source>Locate your PDF viewer</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Locate the uniconvertor executable</source>
@@ -14994,25 +15076,33 @@ Do you want to migrate them to the new Scribus version?</source>
     </message>
     <message>
         <source>LaTeX Command</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Scribus has found the following pdflatex command:
 %1
 Do you want to use this?</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>&lt;qt&gt;File system location for web browser.&lt;/qt&gt;</source>
-        <translation type="unfinished"/>
+        <source>&lt;qt&gt;File system location for web browser&lt;/qt&gt;</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>&lt;qt&gt;File system location for PDF viewer.&lt;/qt&gt;</source>
-        <translation type="unfinished"/>
+        <source>&lt;qt&gt;File system location for PDF viewer&lt;/qt&gt;</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>&lt;qt&gt;File system location for Uniconvertor.&lt;/qt&gt;</source>
-        <translation type="unfinished"/>
+        <source>&lt;qt&gt;File system location for Uniconvertor&lt;/qt&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;qt&gt;Path to the editor executable&lt;/qt&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Always use the configured DPI setting for calculating the size, even if the image file reports something different</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -15086,7 +15176,7 @@ Do you want to use this?</source>
     </message>
     <message>
         <source>Placement:</source>
-        <translation>Размещение:</translation>
+        <translation type="vanished">Размещение:</translation>
     </message>
     <message>
         <source>Snap Distance:</source>
@@ -15162,7 +15252,7 @@ Do you want to use this?</source>
     </message>
     <message>
         <source>Place guides in front of or behind objects on the page</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Distance between the minor grid lines</source>
@@ -15178,7 +15268,7 @@ Do you want to use this?</source>
     </message>
     <message>
         <source>Radius of the area where Scribus will allow you to grab an objects handles.After setting this you will need to restart Scribus to set this setting.</source>
-        <translation>Радиус области, внутри которой можно захватывать ручки объекта. Изменение этого значения будет учтено при повторном запуске Scribus.</translation>
+        <translation type="vanished">Радиус области, внутри которой можно захватывать ручки объекта. Изменение этого значения будет учтено при повторном запуске Scribus.</translation>
     </message>
     <message>
         <source>Color of the minor grid lines</source>
@@ -15248,6 +15338,10 @@ Do you want to use this?</source>
         <source>BaselineGrid</source>
         <translation>Линии шрифта</translation>
     </message>
+    <message>
+        <source>Radius of the area where Scribus will allow you to grab an objects handles. After setting this you will need to restart Scribus to set this setting.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>Prefs_Hyphenator</name>
@@ -15261,7 +15355,7 @@ Do you want to use this?</source>
     </message>
     <message>
         <source>A dialog box showing all possible hyphens for each word will show up when you use the Extras, Hyphenate Text option.</source>
-        <translation>Диалоговое окно с вариантами каждого переноса будет появляться после вызова функции вставки переносов.</translation>
+        <translation type="vanished">Диалоговое окно с вариантами каждого переноса будет появляться после вызова функции вставки переносов.</translation>
     </message>
     <message>
         <source>&amp;Hyphenation Suggestions</source>
@@ -15269,7 +15363,7 @@ Do you want to use this?</source>
     </message>
     <message>
         <source>Enables automatic hyphenation of your text while typing.</source>
-        <translation>Вставлять переносы по мере набора текста.</translation>
+        <translation type="vanished">Вставлять переносы по мере набора текста.</translation>
     </message>
     <message>
         <source>Hyphenate Text Automatically &amp;During Typing</source>
@@ -15289,7 +15383,7 @@ Do you want to use this?</source>
     </message>
     <message>
         <source>Length of the smallest word to be hyphenated.</source>
-        <translation>Размер наименьшего переносимого слова.</translation>
+        <translation type="vanished">Размер наименьшего переносимого слова.</translation>
     </message>
     <message>
         <source>Characters</source>
@@ -15333,24 +15427,28 @@ A value of 0 means unlimited hyphenations.</source>
         <source>Exception List</source>
         <translation>Список исключений</translation>
     </message>
+    <message>
+        <source>A dialog box showing all possible hyphens for each word will show up when you use the Extras &gt; Hyphenate Text option</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enables automatic hyphenation of your text while typing</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Length of the smallest word to be hyphenated</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>Prefs_ImageCache</name>
     <message>
         <source>Enabling the image cache will significantly speed up the loading of images. Enable the cache if you are often working on large documents with lots of images and if you have plenty of disk space in your application data directory.</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Limit the total size of all files in the image cache directory to this amount.</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Limit the number of cache entries to this number.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Set the level of compression for images in the cache. Higher values result in smaller cache files but also make writes to the cache slower.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Form</source>
@@ -15379,6 +15477,14 @@ A value of 0 means unlimited hyphenations.</source>
     <message>
         <source>Compression Level:</source>
         <translation>Уровень сжатия:</translation>
+    </message>
+    <message>
+        <source>Limit the total size of all files in the image cache directory to this amount</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Limit the number of cache entries to this number</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -15485,7 +15591,7 @@ A value of 0 means unlimited hyphenations.</source>
     </message>
     <message>
         <source>scalingButtonGroup</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Horizontal Scaling:</source>
@@ -15493,7 +15599,7 @@ A value of 0 means unlimited hyphenations.</source>
     </message>
     <message>
         <source>Vertical Scaling:</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>...</source>
@@ -15517,7 +15623,7 @@ A value of 0 means unlimited hyphenations.</source>
     </message>
     <message>
         <source>previewButtonGroup</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Normal Resolution</source>
@@ -15586,15 +15692,15 @@ A value of 0 means unlimited hyphenations.</source>
     </message>
     <message>
         <source>Calligraphic Pen</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Pen Angle:</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Pen Width:</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Keep horizontal and vertical scaling the same</source>
@@ -15737,7 +15843,7 @@ A value of 0 means unlimited hyphenations.</source>
     </message>
     <message>
         <source>The %1 key sequence is already in use by &quot;%2&quot;</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -15867,10 +15973,6 @@ A value of 0 means unlimited hyphenations.</source>
     <message>
         <source>All Pages</source>
         <translation>Все страницы</translation>
-    </message>
-    <message>
-        <source>rangeButtonGroup</source>
-        <translation type="unfinished"/>
     </message>
     <message>
         <source>Choose Pages</source>
@@ -16038,11 +16140,11 @@ A value of 0 means unlimited hyphenations.</source>
     </message>
     <message>
         <source>Custom Rendering</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Use Custom Rendering</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Color:</source>
@@ -16102,7 +16204,7 @@ A value of 0 means unlimited hyphenations.</source>
     </message>
     <message>
         <source>PDF/X-3 Output Intent</source>
-        <translation>Вывод в PDF/X-3</translation>
+        <translation type="vanished">Вывод в PDF/X-3</translation>
     </message>
     <message>
         <source>Output Profile:</source>
@@ -16117,24 +16219,12 @@ A value of 0 means unlimited hyphenations.</source>
         <translation>Шрифт</translation>
     </message>
     <message>
-        <source>Available Fonts</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
         <source>Embed All</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Outline All</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Fonts to Embed</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Fonts to Outline</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Extras</source>
@@ -16142,31 +16232,31 @@ A value of 0 means unlimited hyphenations.</source>
     </message>
     <message>
         <source>Enable Presentation Effects</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Display Duration:</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Effect Duration:</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Effect Type:</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Moving Lines:</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>From the:</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Direction:</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source> s</source>
@@ -16174,7 +16264,7 @@ A value of 0 means unlimited hyphenations.</source>
     </message>
     <message>
         <source>Apply Effect to All Pages</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Show Page Previews</source>
@@ -16194,7 +16284,7 @@ A value of 0 means unlimited hyphenations.</source>
     </message>
     <message>
         <source>Continuous Pages</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Double Page Left</source>
@@ -16210,7 +16300,7 @@ A value of 0 means unlimited hyphenations.</source>
     </message>
     <message>
         <source>Use Viewer&apos;s Default</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Use Full Screen Mode</source>
@@ -16230,11 +16320,11 @@ A value of 0 means unlimited hyphenations.</source>
     </message>
     <message>
         <source>Hide Viewer&apos;s Menu Bar</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Hide Viewer&apos;s Tool Bar</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Zoom Pages to fit Viewer Window</source>
@@ -16246,7 +16336,7 @@ A value of 0 means unlimited hyphenations.</source>
     </message>
     <message>
         <source>Javascript to be executed when PDF document is opened:</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Automatically rotate the exported pages</source>
@@ -16262,11 +16352,11 @@ A value of 0 means unlimited hyphenations.</source>
     </message>
     <message>
         <source>Insert a comma separated list of tokens where a token can be * for all the pages, 1-5 for a range of pages or a single page number.</source>
-        <translation>Вставить сюда разделённый запятыми список маркёров, где каждый маркёр может быть * для всех страниц, 1-5 для диапазона страниц или номером одиночной страницы.</translation>
+        <translation type="vanished">Вставить сюда разделённый запятыми список маркёров, где каждый маркёр может быть * для всех страниц, 1-5 для диапазона страниц или номером одиночной страницы.</translation>
     </message>
     <message>
         <source>Determines the PDF compatibility.&lt;br/&gt;The default is &lt;b&gt;PDF 1.3&lt;/b&gt; which gives the widest compatibility.&lt;br/&gt;Choose &lt;b&gt;PDF 1.4&lt;/b&gt; if your file uses features such as transparency or you require 128 bit encryption.&lt;br/&gt;&lt;b&gt;PDF 1.5&lt;/b&gt; is necessary when you wish to preserve objects in separate layers within the PDF.&lt;br/&gt;&lt;b&gt;PDF/X-3&lt;/b&gt; is for exporting the PDF when you want color managed RGB for commercial printing and is selectable when you have activated color management. Use only when advised by your printer or in some cases printing to a 4 color digital color laser printer.&lt;br/&gt;&lt;b&gt;PDF/X-1a&lt;/b&gt; is for blind exchange with colors strictly specified in CMYK or spot colors.&lt;br/&gt;&lt;b&gt;PDF/X-4&lt;/b&gt; is an extension of PDF/X-3 to support transparancy and layering.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Determines the binding of pages in the PDF. Unless you know you need to change it leave the default choice - Left.</source>
@@ -16278,12 +16368,12 @@ A value of 0 means unlimited hyphenations.</source>
     </message>
     <message>
         <source>Generate PDF Articles, which is useful for navigating linked articles in a PDF.</source>
-        <translation>Если параметр включён, Scribus создаст PDF-Articles, 
+        <translation type="vanished">Если параметр включён, Scribus создаст PDF-Articles, 
 что полезно для навигации по связанным статьям в PDF.</translation>
     </message>
     <message>
         <source>Layers in your document are exported to the PDF Only available if PDF 1.5 is chosen.</source>
-        <translation>Слои в вашем документе экспортируются в PDF только если выбран формат PDF 1.5.</translation>
+        <translation type="vanished">Слои в вашем документе экспортируются в PDF только если выбран формат PDF 1.5.</translation>
     </message>
     <message>
         <source>Embed the bookmarks you created in your document. These are useful for navigating long PDF documents.</source>
@@ -16315,7 +16405,7 @@ A value of 0 means unlimited hyphenations.</source>
     </message>
     <message>
         <source>DPI (Dots Per Inch) for image export.</source>
-        <translation>DPI (кол-во точек на дюйм) при экспорте изображений.</translation>
+        <translation type="vanished">DPI (кол-во точек на дюйм) при экспорте изображений.</translation>
     </message>
     <message>
         <source>Enable the security features in your exported PDF. If you selected PDF 1.3, the PDF will be protected by 40 bit encryption. If you selected PDF 1.4, the PDF will be protected by 128 bit encryption. Disclaimer: PDF encryption is not as reliable as GPG or PGP encryption and does have some limitations.</source>
@@ -16323,17 +16413,17 @@ A value of 0 means unlimited hyphenations.</source>
     </message>
     <message>
         <source>Choose a password for users to be able to read your PDF.</source>
-        <translation>Выберите пароль для доступа на чтение PDF-документа.</translation>
+        <translation type="vanished">Выберите пароль для доступа на чтение PDF-документа.</translation>
     </message>
     <message>
         <source>Allow printing of the PDF. If un-checked, printing is prevented. </source>
-        <translation>Разрешить печать документа.
+        <translation type="vanished">Разрешить печать документа.
 При невыставленном флажке печатать 
 файл PDF будет невозможно.</translation>
     </message>
     <message>
         <source>Allow modifying of the PDF. If un-checked, modifying the PDF is prevented.</source>
-        <translation>Разрешить изменения в документе. 
+        <translation type="vanished">Разрешить изменения в документе. 
 При невыставленном флажке изменять 
 файл PDF будет невозможно.</translation>
     </message>
@@ -16603,27 +16693,23 @@ A value of 0 means unlimited hyphenations.</source>
     </message>
     <message>
         <source>Type of the display effect.</source>
-        <translation>Тип отображаемого эффекта.</translation>
+        <translation type="vanished">Тип отображаемого эффекта.</translation>
     </message>
     <message>
         <source>Direction of the effect of moving lines for the split and blind effects.</source>
-        <translation>Направление движения линий в эффектах split и blind.</translation>
+        <translation type="vanished">Направление движения линий в эффектах split и blind.</translation>
     </message>
     <message>
         <source>Starting position for the box and split effects.</source>
-        <translation>Стартовая позиция эффектов box и split.</translation>
+        <translation type="vanished">Стартовая позиция эффектов box и split.</translation>
     </message>
     <message>
         <source>Direction of the glitter or wipe effects.</source>
-        <translation>Направление эффектов glitter и wipe.</translation>
+        <translation type="vanished">Направление эффектов glitter и wipe.</translation>
     </message>
     <message>
         <source>Apply the selected effect to all pages.</source>
-        <translation>Применить выбранный эффект ко всем страницам.</translation>
-    </message>
-    <message>
-        <source>Convert all glyphs in the document to outlines.</source>
-        <translation type="unfinished"/>
+        <translation type="vanished">Применить выбранный эффект ко всем страницам.</translation>
     </message>
     <message>
         <source>Show the document in single page mode</source>
@@ -16667,27 +16753,27 @@ A value of 0 means unlimited hyphenations.</source>
     </message>
     <message>
         <source>Hides the Menu Bar for the viewer, the PDF will display in a plain window. </source>
-        <translation>Скрывать строку меню в просмотрщике. PDF будет отображен в простом окне.</translation>
+        <translation type="vanished">Скрывать строку меню в просмотрщике. PDF будет отображен в простом окне.</translation>
     </message>
     <message>
         <source>Fit the document page or pages to the available space in the viewer window.</source>
-        <translation>Уместить страницу или страницы документа в окне программы для просмотра</translation>
+        <translation type="vanished">Уместить страницу или страницы документа в окне программы для просмотра</translation>
     </message>
     <message>
         <source>Mark Length:</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Mark Offset:</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Length of crop marks</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Choose an owner password which enables or disables all the security features in your exported PDF</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Create a range of pages</source>
@@ -16695,31 +16781,91 @@ A value of 0 means unlimited hyphenations.</source>
     </message>
     <message>
         <source>Embedding mode:</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Embed or Subset</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Outline All Fonts</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Do Not Embed</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Fonts to Subset</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Subset All</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Embed only subset fonts with glyphs used in the document into the PDF.</source>
-        <translation type="unfinished"/>
+        <source>PDF/X Output Intent</source>
+        <translation type="unfinished">Вывод в PDF/X</translation>
+    </message>
+    <message>
+        <source>Insert a comma separated list of tokens where a token can be * for all the pages, 1-5 for a range of pages or a single page number</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Generate PDF Articles, which is useful for navigating linked articles in a PDF</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Layers in your document are exported to the PDF. Only available if PDF 1.5 is chosen.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>DPI (Dots Per Inch) for image export</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Choose a password for users to be able to read your PDF</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Allow printing of the PDF. If unchecked, printing is prevented.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Allow modifying of the PDF. If unchecked, modifying the PDF is prevented.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Type of the display effect</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Direction of the effect of moving lines for the split and blind effects</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Starting position for the box and split effects</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Direction of the glitter or wipe effects</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Apply the selected effect to all pages</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Embed only subset fonts with glyphs used in the document into the PDF</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hides the Menu Bar for the viewer, the PDF will display in a plain window</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Fit the document page or pages to the available space in the viewer window</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -16753,7 +16899,7 @@ A value of 0 means unlimited hyphenations.</source>
     </message>
     <message>
         <source>Documents:</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>&amp;Change...</source>
@@ -16963,15 +17109,15 @@ A value of 0 means unlimited hyphenations.</source>
     </message>
     <message>
         <source>Check for part filled image frames</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Check for empty text frames</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Check if applied master page location is the same as each page&apos;s location</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -17050,7 +17196,7 @@ A value of 0 means unlimited hyphenations.</source>
     </message>
     <message>
         <source>Apply ICC Profiles</source>
-        <translation>Применить профили ICC</translation>
+        <translation type="vanished">Применить профили ICC</translation>
     </message>
     <message>
         <source>PostScript</source>
@@ -17119,7 +17265,7 @@ A value of 0 means unlimited hyphenations.</source>
     <message>
         <source>Sets the PostScript Level.
  Setting to Level 1 or 2 can create huge files</source>
-        <translation>Указывает уровень PostScript.
+        <translation type="vanished">Указывает уровень PostScript.
 Выбор Level 1 или 2 может привести к 
 созданию огромных файлов</translation>
     </message>
@@ -17133,15 +17279,11 @@ A value of 0 means unlimited hyphenations.</source>
     </message>
     <message>
         <source>Allows you to embed color profiles in the print stream when color management is enabled</source>
-        <translation>Встраивать ли профили ICC в печатный поток при включённом управлении цветом</translation>
+        <translation type="vanished">Встраивать ли профили ICC в печатный поток при включённом управлении цветом</translation>
     </message>
     <message>
         <source>File</source>
         <translation>Файл</translation>
-    </message>
-    <message>
-        <source>All</source>
-        <translation type="unfinished"/>
     </message>
     <message>
         <source>Length:</source>
@@ -17150,6 +17292,11 @@ A value of 0 means unlimited hyphenations.</source>
     <message>
         <source>This enables you to explicitly set the media size of the PostScript file. Not recommended unless requested by your printer.</source>
         <translation>Напрямую указать размер бумаги в файле PostScript. Использовать только по требованию типографии.</translation>
+    </message>
+    <message>
+        <source>Sets the PostScript Level.
+ Setting to Level 1 or 2 can create huge files.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -17180,19 +17327,23 @@ A value of 0 means unlimited hyphenations.</source>
     </message>
     <message>
         <source>This enables the scrapbook to be used an extension to the copy/paste buffers. Simply copying an object or grouped object will send this to the Scrapbook automatically</source>
-        <translation>Альбом превратится в дополнение к буферу обмена: простое копирование объекта или группы объектов автоматически поместит их на активную страницу альбома</translation>
+        <translation type="vanished">Альбом превратится в дополнение к буферу обмена: простое копирование объекта или группы объектов автоматически поместит их на активную страницу альбома</translation>
     </message>
     <message>
         <source>This enables copied items to be kept permanently in the scrapbook</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Save generated scrapbook previews in the scrapbook directory</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>The minimum number is 1; the maximum is 100</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This enables the scrapbook to be used an extension to the copy/paste buffers. Simply copying an object or grouped object will send this to the Scrapbook automatically.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -17634,7 +17785,7 @@ A value of 0 means unlimited hyphenations.</source>
     </message>
     <message>
         <source>Select your default language for Scribus to run with. Leave this blank to choose based on environment variables. You can still override this by passing a command line option when starting Scribus</source>
-        <translation>Здесь определяется язык, используемый Scribus по умолчанию. Оставьте поле пустым, чтобы параметры брались из системного языкового окружения. Системные параметры можно также «обойти» специальным аргументом командной строки (см. вывод команды scribus --help)</translation>
+        <translation type="vanished">Здесь определяется язык, используемый Scribus по умолчанию. Оставьте поле пустым, чтобы параметры брались из системного языкового окружения. Системные параметры можно также «обойти» специальным аргументом командной строки (см. вывод команды scribus --help)</translation>
     </message>
     <message>
         <source>Choose the default window decoration and looks. Scribus inherits any available KDE or Qt themes, if Qt is configured to search KDE plugins.</source>
@@ -17642,7 +17793,7 @@ A value of 0 means unlimited hyphenations.</source>
     </message>
     <message>
         <source>Palette windows will use smaller (space savy) widgets. Requires application restart</source>
-        <translation>Лкна палитр используют экономные элементы интерфейса. Необходим перезапуск приложения</translation>
+        <translation type="vanished">Лкна палитр используют экономные элементы интерфейса. Необходим перезапуск приложения</translation>
     </message>
     <message>
         <source>Number of recently edited documents to show in the File menu</source>
@@ -17661,8 +17812,8 @@ A value of 0 means unlimited hyphenations.</source>
         <translation>Количество строк, прокручиваемых за один раз при помощи колеса мыши</translation>
     </message>
     <message>
-        <source/>
-        <translation type="unfinished"/>
+        <source></source>
+        <translation></translation>
     </message>
     <message>
         <source>Background Color:</source>
@@ -17674,7 +17825,19 @@ A value of 0 means unlimited hyphenations.</source>
     </message>
     <message>
         <source>Choose the default icon set</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Select your default language for Scribus to run with. Leave this blank to choose based on environment variables. You can still override this by passing a command line option when starting Scribus.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Palette windows will use smaller (space savy) widgets. Requires application restart.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The default behavior when double-clicking on a word is to select the word and the first following space. Smart selection will select only the word, without the following space.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -17822,7 +17985,7 @@ A value of 0 means unlimited hyphenations.</source>
         <source>Insert a comma separated list of tokens where
 a token can be * for all the pages, 1-5 for
 a range of pages or a single page number.</source>
-        <translation>Вставить сюда разделённый запятыми список 
+        <translation type="vanished">Вставить сюда разделённый запятыми список 
 маркёров, где каждый маркёр может быть * для 
 всех страниц, 1-5 для диапазона страниц или 
 номером одиночной страницы.</translation>
@@ -17850,7 +18013,7 @@ a range of pages or a single page number.</source>
     <message>
         <source>Sets the PostScript Level.
  Setting to Level 1 or 2 can create huge files</source>
-        <translation>Указывает уровень PostScript.
+        <translation type="vanished">Указывает уровень PostScript.
 Выбор Level 1 или 2 может привести к 
 созданию огромных файлов</translation>
     </message>
@@ -17888,11 +18051,11 @@ a range of pages or a single page number.</source>
     </message>
     <message>
         <source>Allows you to embed color profiles in the print stream when color management is enabled</source>
-        <translation>Встраивать профили ICC в печатный поток при включённом управлении цветом</translation>
+        <translation type="vanished">Встраивать профили ICC в печатный поток при включённом управлении цветом</translation>
     </message>
     <message>
         <source>Apply Color Profiles</source>
-        <translation>Применить цветовые профили</translation>
+        <translation type="vanished">Применить цветовые профили</translation>
     </message>
     <message>
         <source>Marks</source>
@@ -17997,7 +18160,7 @@ a range of pages or a single page number.</source>
     <message>
         <source>Include PDF Annotations and Links into the output.
 Note: PDF Forms will not be exported.</source>
-        <translation>Включить аннотации и ссылки PDF в вывод.
+        <translation type="vanished">Включить аннотации и ссылки PDF в вывод.
 Примечание: формуляры PDF не будут экспортированы.</translation>
     </message>
     <message>
@@ -18027,6 +18190,20 @@ Note: PDF Forms will not be exported.</source>
     <message>
         <source>Create a range of pages</source>
         <translation>Создать диапазон страниц</translation>
+    </message>
+    <message>
+        <source>Insert a comma separated list of tokens where
+a token can be * for all the pages, 1-5 for
+a range of pages or a single page number</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Sets the PostScript Level. Setting to Level 1 or 2 can create huge files.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Include PDF Annotations and Links into the output. Note: PDF Forms will not be exported.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -18116,27 +18293,35 @@ Note: PDF Forms will not be exported.</source>
     </message>
     <message>
         <source>Use the frame shape for text flow of text frames below the object.</source>
-        <translation>Использовать очертания объекта для обтекания текстом под объектом.</translation>
+        <translation type="vanished">Использовать очертания объекта для обтекания текстом под объектом.</translation>
     </message>
     <message>
         <source>Use the bounding box, which is always rectangular, instead of the frame&apos;s shape for text flow of text frames below the object. </source>
-        <translation>Использовать площадку, которая всегда прямоугольна. </translation>
+        <translation type="vanished">Использовать площадку, которая всегда прямоугольна. </translation>
     </message>
     <message>
         <source>When chosen, the contour line can be edited with the Edit Shape Tool on the palette further above. When edited via the shape palette, this becomes a second separate line originally based on the frame&apos;s shape for text flow of text frames below the object.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Use the clipping path of the image</source>
         <translation>Использовать встроенный в изображение обтравочный контур</translation>
     </message>
     <message>
-        <source>Any path self-intersections or subpaths create holes in the fill.</source>
-        <translation type="unfinished"/>
+        <source>Use the frame shape for text flow of text frames below the object</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Fill is solid unless a subpath is counterdirectional.</source>
-        <translation type="unfinished"/>
+        <source>Use the bounding box, which is always rectangular, instead of the frame&apos;s shape for text flow of text frames below the object</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Any path self-intersections or subpaths create holes in the fill</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Fill is solid unless a subpath is counter-directional</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -18200,6 +18385,10 @@ Note: PDF Forms will not be exported.</source>
     <message>
         <source>Group clips Contents</source>
         <translation>Группа обрезает содержимое</translation>
+    </message>
+    <message>
+        <source>When the group&apos;s bounding frame has been edited, clip the contents of the page items to the edited bounding frame</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -18386,15 +18575,27 @@ Note: PDF Forms will not be exported.</source>
     </message>
     <message>
         <source>Compression method used in PDF export for the image</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Compression quality used in PDF export for the image</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>&amp;To Frame Size</source>
         <translation>&amp;До размера блока</translation>
+    </message>
+    <message>
+        <source>Scaling</source>
+        <translation type="unfinished">Масштабирование</translation>
+    </message>
+    <message>
+        <source>Color Management</source>
+        <translation type="unfinished">Управление цветом</translation>
+    </message>
+    <message>
+        <source>PDF Compression</source>
+        <translation type="unfinished">Сжатие PDF</translation>
     </message>
 </context>
 <context>
@@ -18612,11 +18813,11 @@ Note: PDF Forms will not be exported.</source>
     </message>
     <message>
         <source>Arrow head scale for start of line</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Arrow head scale for end of line</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -18767,12 +18968,12 @@ Note: PDF Forms will not be exported.</source>
     <message>
         <source>Content covers
 Drop Shadow</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Inherit Object
 Transparency</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -18889,10 +19090,6 @@ Transparency</source>
 <context>
     <name>PropertiesPalette_Shape</name>
     <message>
-        <source> pt</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
         <source>Shape:</source>
         <translation>Фигура:</translation>
     </message>
@@ -18949,20 +19146,12 @@ Transparency</source>
         <translation>По обтравочному контуру</translation>
     </message>
     <message>
-        <source>This rule determines the &amp;quot;insideness&amp;quot; of a point on the canvas by drawing a ray from that point to infinity in any direction and counting the number of path segments from the given shape that the ray crosses. If this number is odd, the point is inside, if even, the point is outside.</source>
-        <translation type="unfinished"/>
+        <source>Any path self-intersections or subpaths create holes in the fill</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>This rule determines the &amp;quot;insideness&amp;quot; of a point on the canvas by drawing a ray from that point to infinity in any direction and then examining the places where a segment of the shape crosses the ray. Starting with a count of zero, add one each time a path segment crosses the ray from left to right and subtract one each time a path segment crosses the ray from right to left. If the result is zero then the point is outside the path. Otherwise, it is inside.</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Any path self-intersections or subpaths create holes in the fill.</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Fill is solid unless a subpath is counterdirectional.</source>
-        <translation type="unfinished"/>
+        <source>Fill is solid unless a subpath is counter-directional</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -19032,19 +19221,19 @@ Transparency</source>
     <name>PropertiesPalette_Table</name>
     <message>
         <source>Cell style of currently selected cell</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Table style of currently selected table</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Remove Direct Cell Formatting</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Remove Direct Table Formatting</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -19154,7 +19343,7 @@ Transparency</source>
     </message>
     <message>
         <source>Select the line spacing mode.</source>
-        <translation>Выберите способ установки интерлиньяжа</translation>
+        <translation type="vanished">Выберите способ установки интерлиньяжа</translation>
     </message>
     <message>
         <source>Paragraph style of currently selected text or paragraph</source>
@@ -19187,6 +19376,10 @@ Transparency</source>
     <message>
         <source>Paragraph Effects</source>
         <translation>Абзацные эффекты</translation>
+    </message>
+    <message>
+        <source>Select the line spacing mode</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -19566,6 +19759,10 @@ Transparency</source>
         <source>Bottom</source>
         <translation>По низу</translation>
     </message>
+    <message>
+        <source>Vertical Alignment</source>
+        <translation type="unfinished">Выравнивание по вертикали</translation>
+    </message>
 </context>
 <context>
     <name>PropertyWidget_DistanceBase</name>
@@ -19638,11 +19835,11 @@ Transparency</source>
     </message>
     <message>
         <source>Drop Cap use character style...</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Choose character style or leave blank for use default paragraph style</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -19673,7 +19870,7 @@ Transparency</source>
     </message>
     <message>
         <source>Number of lines used by the drop cap</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -19708,7 +19905,7 @@ Transparency</source>
     </message>
     <message>
         <source>Set the base line of the first line of the text frame to the base line grid</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -19723,7 +19920,7 @@ Transparency</source>
     </message>
     <message>
         <source>flopGroup</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Font Ascent</source>
@@ -19816,19 +20013,19 @@ Transparency</source>
     </message>
     <message>
         <source>Ensure that first lines of a paragraph won&apos;t end up separated from the rest (known as widow/orphan control)</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Ensure that last lines of a paragraph won&apos;t end up separated from the rest (known as widow/orphan control)</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>If checked, ensures that the paragraph won&apos;t be split across multiple pages or columns</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>If checked, automatically moves the paragraph to the next column or page if the next paragraph isn&apos;t on the same page or column</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -19839,7 +20036,7 @@ Transparency</source>
     </message>
     <message>
         <source>Ensure that first lines of a paragraph won&apos;t end up separated from the rest (known as widow/orphan control)</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Don&apos;t separate first</source>
@@ -19929,16 +20126,20 @@ Transparency</source>
         <translation>Стиль символа</translation>
     </message>
     <message>
-        <source>Choose chracter style or leave blank for use default paragraph style</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
         <source>No Paragraph Effects</source>
         <translation>Без эффектов</translation>
     </message>
     <message>
         <source>Numerated List</source>
         <translation>Нумерованный список</translation>
+    </message>
+    <message>
+        <source>Effect Parameters</source>
+        <translation type="unfinished">Параметры</translation>
+    </message>
+    <message>
+        <source>Choose character style or leave blank for use default paragraph style</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -19969,7 +20170,7 @@ Transparency</source>
     </message>
     <message>
         <source>Number of lines used by the drop cap</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Lines</source>
@@ -20090,7 +20291,7 @@ Transparency</source>
     </message>
     <message>
         <source>Color of text stroke and/or drop shadow, depending which is chosen.If both are chosen, then they share the same color.</source>
-        <translation>Цвет обводки текста и/или отбрасываемой тени, смотря что выбрано. Если выбраны оба, то их цвет будет одинаковым.</translation>
+        <translation type="vanished">Цвет обводки текста и/или отбрасываемой тени, смотря что выбрано. Если выбраны оба, то их цвет будет одинаковым.</translation>
     </message>
     <message>
         <source>Saturation of color of text fill</source>
@@ -20103,6 +20304,10 @@ Transparency</source>
     <message>
         <source>Right to Left Writing</source>
         <translation>Написание справа налево</translation>
+    </message>
+    <message>
+        <source>Color of text stroke and/or drop shadow, depending which is chosen. If both are chosen, then they share the same color.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -20127,7 +20332,7 @@ Transparency</source>
 
 Please submit your file (if possible) to the
 Document Liberation Project http://www.documentliberation.org</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -20162,7 +20367,7 @@ Document Liberation Project http://www.documentliberation.org</source>
     </message>
     <message>
         <source>Write your commands here. A selection is processed as script</source>
-        <translation>Напишите здесь свою команду. Выделенное обрабатывается как сценарий</translation>
+        <translation type="vanished">Напишите здесь свою команду. Выделенное обрабатывается как сценарий</translation>
     </message>
     <message>
         <source>Output of your script</source>
@@ -20236,6 +20441,10 @@ Scripter documentation for futher information. </source>
         <translation>
 &gt;&gt;&gt; Один сценарий уже выполняется...</translation>
     </message>
+    <message>
+        <source>Write your commands here. A selection is processed as script.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>QColorDialog</name>
@@ -20292,16 +20501,12 @@ Scripter documentation for futher information. </source>
         <translation>До&amp;бавить в пользовательские цвета</translation>
     </message>
     <message>
-        <source>Select color</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
         <source>Pick Screen Color</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Select Color</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -20416,7 +20621,7 @@ Scripter documentation for futher information. </source>
     </message>
     <message>
         <source>Symlink to Special</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>File</source>
@@ -20428,7 +20633,7 @@ Scripter documentation for futher information. </source>
     </message>
     <message>
         <source>Special</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Open</source>
@@ -20552,23 +20757,23 @@ Check path and filename.</source>
     </message>
     <message>
         <source>Files of type:</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Look in:</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Forward</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Parent Directory</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Recent Places</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Delete</source>
@@ -20576,11 +20781,11 @@ Check path and filename.</source>
     </message>
     <message>
         <source>Are you sure you want to delete &apos;%1&apos;?</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>&amp;New Folder</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -20754,7 +20959,7 @@ Check path and filename.</source>
     <name>QObject</name>
     <message>
         <source>Spell check (Aspell)</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Initializing...</source>
@@ -21088,17 +21293,17 @@ External Links
     <message>
         <source>Alignment out of range. Use one of the scribus.ALIGN* constants.</source>
         <comment>python error</comment>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Selection index out of bounds</source>
         <comment>python error</comment>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Unit out of range. Use one of the scribus.UNIT_* constants.</source>
         <comment>python error</comment>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Target is not an image frame.</source>
@@ -21184,22 +21389,22 @@ External Links
     <message>
         <source>The filename must be a string.</source>
         <comment>python error</comment>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Cannot delete image type settings.</source>
         <comment>python error</comment>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>The image type must be a string.</source>
         <comment>python error</comment>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>&apos;allTypes&apos; attribute is READ-ONLY</source>
         <comment>python error</comment>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Failed to export image</source>
@@ -21224,12 +21429,12 @@ External Links
     <message>
         <source>Cannot scale by 0%.</source>
         <comment>python error</comment>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Specified item not an image frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Font not found.</source>
@@ -21239,12 +21444,12 @@ External Links
     <message>
         <source>Cannot render an empty sample.</source>
         <comment>python error</comment>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Cannot have an empty layer name.</source>
         <comment>python error</comment>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Layer not found.</source>
@@ -21254,142 +21459,142 @@ External Links
     <message>
         <source>Cannot remove the last layer.</source>
         <comment>python error</comment>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Cannot create layer without a name.</source>
         <comment>python error</comment>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Insert index out of bounds.</source>
         <comment>python error</comment>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Cannot set text alignment on a non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Font size out of bounds - must be 1 &lt;= size &lt;= 512.</source>
         <comment>python error</comment>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Cannot set font size on a non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Cannot set font on a non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Line space out of bounds, must be &gt;= 0.1.</source>
         <comment>python error</comment>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Cannot set line spacing on a non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Line space mode invalid, must be 0, 1 or 2</source>
         <comment>python error</comment>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Cannot set line spacing mode on a non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Column gap out of bounds, must be positive.</source>
         <comment>python error</comment>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Cannot set column gap on a non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Column count out of bounds, must be &gt; 1.</source>
         <comment>python error</comment>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Cannot set number of columns on a non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Cannot select text in a non-text frame</source>
         <comment>python error</comment>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Cannot delete text from a non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Cannot set text fill on a non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Cannot set text stroke on a non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Cannot set text shade on a non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Can only link text frames.</source>
         <comment>python error</comment>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Target frame links to another frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Target frame is linked to by another frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Source and target are the same object.</source>
         <comment>python error</comment>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Cannot unlink a non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Cannot convert a non-text frame to outlines.</source>
         <comment>python error</comment>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Can&apos;t set bookmark on a non-text frame</source>
         <comment>python error</comment>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Can&apos;t get info from a non-text frame</source>
         <comment>python error</comment>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>OpenDocument Text Documents</source>
@@ -21440,10 +21645,6 @@ External Links
         <translation>Проверка параметров не удалась: %1</translation>
     </message>
     <message>
-        <source>Unable to read settings XML:</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
         <source>%1 (line %2 col %3)</source>
         <comment>Load PDF settings</comment>
         <translation>%1 (строка %2 столбец %3)</translation>
@@ -21455,7 +21656,7 @@ External Links
     <message>
         <source>null root node</source>
         <comment>Load PDF settings</comment>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>&lt;pdfVersion&gt; invalid</source>
@@ -21468,29 +21669,24 @@ External Links
         <translation>Найдено %1 &lt;%2&gt; узлов, а нужен только один.</translation>
     </message>
     <message>
-        <source>unexpected null &lt;%2&gt; node</source>
-        <comment>Load PDF settings</comment>
-        <translation type="unfinished"/>
-    </message>
-    <message>
         <source>node &lt;%1&gt; not an element</source>
         <comment>Load PDF settings</comment>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>element &lt;%1&gt; lacks `value&apos; attribute</source>
         <comment>Load PDF settings</comment>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>element &lt;%1&gt; value must be `true&apos; or `false&apos;</source>
         <comment>Load PDF settings</comment>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>element &lt;lpiSettingsEntry&gt; lacks `name&apos; attribute</source>
         <comment>Load PDF settings</comment>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Scribus Development Version</source>
@@ -21549,18 +21745,13 @@ External Links
         <translation>Шаблон документа: </translation>
     </message>
     <message>
-        <source>Failed to open document.</source>
-        <comment>python error</comment>
-        <translation type="unfinished"/>
-    </message>
-    <message>
         <source>Failed to save document.</source>
         <comment>python error</comment>
         <translation>Не удалось сохранить документ.</translation>
     </message>
     <message>
         <source>Argument must be page item name, or PyCObject instance</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Property not found</source>
@@ -21572,19 +21763,19 @@ External Links
     </message>
     <message>
         <source>Couldn&apos;t convert result type &apos;%1&apos;.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Property type &apos;%1&apos; not supported</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Couldn&apos;t convert &apos;%1&apos; to property type &apos;%2&apos;</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Types matched, but setting property failed.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Unable to save pixmap</source>
@@ -21594,27 +21785,27 @@ External Links
     <message>
         <source>Point list must contain at least two points (four values).</source>
         <comment>python error</comment>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Point list must contain an even number of values.</source>
         <comment>python error</comment>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Point list must contain at least three points (six values).</source>
         <comment>python error</comment>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Point list must contain at least four points (eight values).</source>
         <comment>python error</comment>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Point list must have a multiple of six values.</source>
         <comment>python error</comment>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Object not found.</source>
@@ -21629,7 +21820,7 @@ External Links
     <message>
         <source>Cannot set style on a non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Failed to save EPS.</source>
@@ -21639,37 +21830,37 @@ External Links
     <message>
         <source>Page number out of range.</source>
         <comment>python error</comment>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>argument is not list: must be list of float values.</source>
         <comment>python error</comment>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>argument contains non-numeric values: must be list of float values.</source>
         <comment>python error</comment>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>argument contains no-numeric values: must be list of float values.</source>
         <comment>python error</comment>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Line width out of bounds, must be 0 &lt;= line_width &lt;= 300.</source>
         <comment>python error</comment>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Line shade out of bounds, must be 0 &lt;= shade &lt;= 100.</source>
         <comment>python error</comment>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Fill shade out of bounds, must be 0 &lt;= shade &lt;= 100.</source>
         <comment>python error</comment>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Line style not found.</source>
@@ -21679,12 +21870,12 @@ External Links
     <message>
         <source>Object is not a linked text frame, can&apos;t unlink.</source>
         <comment>python error</comment>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Only text frames can be checked for overflowing</source>
         <comment>python error</comment>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>&amp;Execute Script...</source>
@@ -21732,21 +21923,21 @@ not currently documented in the docstring for each function.
 without a document to operate on.
 - If you do not pass a frame name to a function that requires one,
 the function will use the currently selected frame, if any, or
-raise a NoValidObjectError if it can't find anything to operate
+raise a NoValidObjectError if it can&apos;t find anything to operate
 on.
 - Many functions will raise WrongFrameTypeError if you try to use them
 on a frame type that they do not make sense with. For example, setting
-the text color on a graphics frame doesn't make sense, and will result
+the text color on a graphics frame doesn&apos;t make sense, and will result
 in this exception being raised.
 - Errors resulting from calls to the underlying Python API will be
 passed through unaltered. As such, the list of exceptions thrown by
 any function as provided here and in its docstring is incomplete.
 
 Details of what exceptions each function may throw are provided on the
-function's documentation, though as with most Python code this list
+function&apos;s documentation, though as with most Python code this list
 is not exhaustive due to exceptions from called functions.
 </source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Could not open output file %1</source>
@@ -21794,40 +21985,20 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>extracting face %1 from font %2 (offset=%3, nTables=%4)</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>memcpy header: %1 %2 %3</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>table &apos;%1&apos;</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>memcpy table: %1 %2 %3</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>memcpy offset: %1 %2 %3</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Scribus Crash</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Scribus crashes due to Signal #%1</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>&amp;OK</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Need selection or argument list of items to group</source>
         <comment>python error</comment>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Cannot group less than two items</source>
@@ -21914,7 +22085,7 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>Scribus crashes due to the following exception : %1</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Creating Font Cache</source>
@@ -21968,14 +22139,6 @@ is not exhaustive due to exceptions from called functions.
     <message>
         <source>Printing File</source>
         <translation>Идёт печать в файл</translation>
-    </message>
-    <message>
-        <source>C&amp;reate</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>&amp;Import</source>
-        <translation type="unfinished"/>
     </message>
     <message>
         <source>Thai</source>
@@ -22043,55 +22206,55 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>+style </source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>+color </source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>+underline </source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>-underline </source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>+strikeout </source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>-strikeout </source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>+shadow </source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>-shadow </source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>+outline </source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>-outline </source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>-tracking </source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>+stretch </source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>parent= %1</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Font %1 is broken (no Face), discarding it</source>
@@ -22208,12 +22371,12 @@ is not exhaustive due to exceptions from called functions.
     <message>
         <source>Transparency out of bounds, must be 0 &lt;= transparency &lt;= 1.</source>
         <comment>python error</comment>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Blendmode out of bounds, must be 0 &lt;= blendmode &lt;= 15.</source>
         <comment>python error</comment>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Scribus 1.2.x Support</source>
@@ -22227,15 +22390,15 @@ is not exhaustive due to exceptions from called functions.
     <message>
         <source>Cannot get number of lines of non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>+tracking %1 </source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>+baseline %1 </source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Breton</source>
@@ -22325,10 +22488,6 @@ is not exhaustive due to exceptions from called functions.
 %1 ?</translation>
     </message>
     <message>
-        <source>Encapsulated PostScript &quot;*.eps&quot;</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
         <source>GIF</source>
         <translation>GIF</translation>
     </message>
@@ -22349,38 +22508,6 @@ is not exhaustive due to exceptions from called functions.
         <translation>PNG</translation>
     </message>
     <message>
-        <source>PostScript &quot;*.ps&quot;</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Adobe Photoshop &quot;*.psd&quot;</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Windows Meta File &quot;*.wmf&quot;</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Scalable Vector Graphics &quot;*.svg&quot;</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Adobe Illustrator &quot;*.ai&quot;</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>GraphicsMagick File</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>UniConvertor File</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Macintosh Pict File</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
         <source>TIFF</source>
         <translation>TIFF</translation>
     </message>
@@ -22390,11 +22517,11 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>Valid metrics were found for font %1, using metrics in file %2</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>No metrics found for font %1, ignoring font</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Error</source>
@@ -22407,37 +22534,37 @@ is not exhaustive due to exceptions from called functions.
     <message>
         <source>second argument is not tuple: must be tuple of int values.</source>
         <comment>python error</comment>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>second argument contains non-numeric values: must be list of int values.</source>
         <comment>python error</comment>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Cannot have an empty paragraph style name.</source>
         <comment>python error</comment>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>hasdropcap has to be 0 or 1.</source>
         <comment>python error</comment>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Cannot have an empty char style name.</source>
         <comment>python error</comment>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Can only hyphenate text frame</source>
         <comment>python error</comment>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Can only dehyphenate text frame</source>
         <comment>python error</comment>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Lens Effects</source>
@@ -22474,7 +22601,7 @@ is not exhaustive due to exceptions from called functions.
     <message>
         <source>Parsing the configfile %1 failed! Depending on the type of the error render frames might not work correctly!
 %2</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>MeshDistortion</source>
@@ -22487,17 +22614,17 @@ is not exhaustive due to exceptions from called functions.
     <message>
         <source>Cannot get text distances of non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Text distances out of bounds, must be positive.</source>
         <comment>python error</comment>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Cannot set text distances on a non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Bengali</source>
@@ -22537,40 +22664,36 @@ Therefore the image may be not correct</source>
     <message>
         <source>Color name cannot be an empty string.</source>
         <comment>python error</comment>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Stop shade out of bounds, must be 0 &lt;= shade &lt;= 100.</source>
         <comment>python error</comment>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Ramp point out of bounds, must be 0 &lt;= rampPoint &lt;= 1.</source>
         <comment>python error</comment>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Opacity out of bounds, must be 0 &lt;= transparency &lt;= 1.</source>
         <comment>python error</comment>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Character scaling out of bounds, must be &gt;= 10</source>
         <comment>python error</comment>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Cannot set character scaling on a non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Opening the configfile %1 failed! %2</source>
         <translation>Не удалось открыть файл конфигурации %1! %2</translation>
-    </message>
-    <message>
-        <source>Cvg Importer</source>
-        <translation type="unfinished"/>
     </message>
     <message>
         <source>Pict Importer</source>
@@ -22606,7 +22729,7 @@ Therefore the image may be not correct</source>
     </message>
     <message>
         <source> (mp items)</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Quark XPress Tags Document</source>
@@ -22622,27 +22745,19 @@ Therefore the image may be not correct</source>
     </message>
     <message>
         <source>DRW Importer</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Scripter Plugin</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Highlighter error: Invalid index returned by Qt&apos;s QString.indexOf(). This is a incompatibility between different Qt versions and it can only be fixed by recompiling Scribus with the same Qt version that is running on this system. Syntax highlighting is disabled now, but render frames should continue to work without problems.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>PGF</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Calamus CVG File</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Word Perfect WPG File</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>BMP</source>
@@ -22650,23 +22765,23 @@ Therefore the image may be not correct</source>
     </message>
     <message>
         <source>Scribus 1.5.0+ Support</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished">Поддержка Scribus 1.3.4+ {1.5.0+?}</translation>
     </message>
     <message>
         <source>Shape Importer</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Sml Importer</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>FlattenPath</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>SmoothPath</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Grids</source>
@@ -22674,271 +22789,271 @@ Therefore the image may be not correct</source>
     </message>
     <message>
         <source>PDF Importer</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Cannot set cell text on a non-table item.</source>
         <comment>python error</comment>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>The cell %1,%2 does not exist in table</source>
         <comment>python error</comment>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Cannot get cell style on a non-table item.</source>
         <comment>python error</comment>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Cannot set cell style on a non-table item.</source>
         <comment>python error</comment>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Cannot get cell row span from non-table item.</source>
         <comment>python error</comment>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Cannot get cell column span from non-table item.</source>
         <comment>python error</comment>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Cannot get cell fill color on a non-table item.</source>
         <comment>python error</comment>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Cannot set cell fill color on a non-table item.</source>
         <comment>python error</comment>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Cannot set cell left border on a non-table item.</source>
         <comment>python error</comment>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Cannot set cell right border on a non-table item.</source>
         <comment>python error</comment>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Cannot set cell top border on a non-table item.</source>
         <comment>python error</comment>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Cannot set cell bottom border on a non-table item.</source>
         <comment>python error</comment>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Cannot set cell left padding on a non-table item.</source>
         <comment>python error</comment>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Cell padding must be &gt;= 0.0</source>
         <comment>python error</comment>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Cannot set cell right padding on a non-table item.</source>
         <comment>python error</comment>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Cannot set cell top padding on a non-table item.</source>
         <comment>python error</comment>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Cannot set cell bottom padding on a non-table item.</source>
         <comment>python error</comment>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Both numRows and numColumns must be greater than 0.</source>
         <comment>python error</comment>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Cannot get table row count of non-table item.</source>
         <comment>python error</comment>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Cannot get table column count of non-table item.</source>
         <comment>python error</comment>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Cannot insert rows on a non-table item.</source>
         <comment>python error</comment>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Table row index out of bounds, must be &gt;= 0 and &lt; %1</source>
         <comment>python error</comment>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Table row count out of bounds, must be &gt;= 1</source>
         <comment>python error</comment>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Cannot remove rows from a non-table item.</source>
         <comment>python error</comment>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Table row count out of bounds, must be &gt;= 1 and &lt; %1</source>
         <comment>python error</comment>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Row deletion range out of bounds, index + numRows must be &lt;= %1</source>
         <comment>python error</comment>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Cannot get row height from non-table item.</source>
         <comment>python error</comment>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Cannot resize row on a non-table item.</source>
         <comment>python error</comment>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Table row height must be &gt; 0.0</source>
         <comment>python error</comment>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Cannot insert columns on a non-table item.</source>
         <comment>python error</comment>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Table column index out of bounds, must be &gt;= 0 and &lt; %1</source>
         <comment>python error</comment>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Table column count out of bounds, must be &gt;= 1</source>
         <comment>python error</comment>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Cannot remove columns from a non-table item.</source>
         <comment>python error</comment>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Table column count out of bounds, must be &gt;= 1 and &lt; %1</source>
         <comment>python error</comment>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Column deletion range out of bounds, index + numColumns must be &lt;= %1</source>
         <comment>python error</comment>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Cannot get column width from non-table item.</source>
         <comment>python error</comment>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Cannot resize column on a non-table item.</source>
         <comment>python error</comment>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Table column width must be &gt; 0.0</source>
         <comment>python error</comment>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Cannot merge cells on a non-table item.</source>
         <comment>python error</comment>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Number of rows and columns must both be &gt; 0.</source>
         <comment>python error</comment>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>The area %1,%2 %3x%4 is not inside the table.</source>
         <comment>python error</comment>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Cannot get table style on a non-table item.</source>
         <comment>python error</comment>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Cannot set table style on a non-table item.</source>
         <comment>python error</comment>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Cannot get table fill color on a non-table item.</source>
         <comment>python error</comment>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Cannot set table fill color on a non-table item.</source>
         <comment>python error</comment>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Cannot set table left border on a non-table item.</source>
         <comment>python error</comment>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Cannot set table right border on a non-table item.</source>
         <comment>python error</comment>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Cannot set table top border on a non-table item.</source>
         <comment>python error</comment>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Cannot set table bottom border on a non-table item.</source>
         <comment>python error</comment>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Expected a list of border lines</source>
         <comment>python error</comment>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Border line width must be &gt; 0.0</source>
         <comment>python error</comment>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Idml Importer</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Border lines are specified as (width,style,color,shade) tuples</source>
         <comment>python error</comment>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Aragonese</source>
@@ -23006,63 +23121,63 @@ Therefore the image may be not correct</source>
     </message>
     <message>
         <source>PUB Importer</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>&lt;p&gt;You are trying to import more pages than there are available in the current document counting from the active page.&lt;/p&gt;Choose one of the following:&lt;ul&gt;&lt;li&gt;&lt;b&gt;Create&lt;/b&gt; missing pages&lt;/li&gt;&lt;li&gt;&lt;b&gt;Import&lt;/b&gt; pages until the last page&lt;/li&gt;&lt;li&gt;&lt;b&gt;Cancel&lt;/b&gt;&lt;/li&gt;&lt;/ul&gt;</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Unacceptable settings for note style</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Compact Disc</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Letter Half</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>US Letter</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>US Legal</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>11x17</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished">2A17 {11x?}</translation>
     </message>
     <message>
         <source>Pages Importer</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Viva Importer</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>MS Visio Importer</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Xps Importer</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>XPS Export</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Microsoft XPS (*.xps *.XPS);;All Files (*)</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Output Settings:</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Low Resolution</source>
@@ -23070,50 +23185,46 @@ Therefore the image may be not correct</source>
     </message>
     <message>
         <source>Medium Resolution</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>High Resolution</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Anii</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Open Document Importer</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>OpenOffice.org Draw (*.sxd *.SXD);;All Files (*)</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Corel Draw Importer</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Open Raster Files</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>unexpected null &lt;%1&gt; node</source>
         <comment>Load PDF settings</comment>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>element &lt;%1&gt; value must be an integer</source>
         <comment>Load PDF settings</comment>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>element &lt;%1&gt; value must be a double</source>
         <comment>Load PDF settings</comment>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Pagemaker Importer</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Failed to open document: %1</source>
@@ -23123,17 +23234,17 @@ Therefore the image may be not correct</source>
     <message>
         <source>Master page does not exist: &apos;%1&apos;</source>
         <comment>python error</comment>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Page number out of range: %1.</source>
         <comment>python error</comment>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Failed to apply masterpage &apos;%1&apos; on page: %2</source>
         <comment>python error</comment>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Bosnian</source>
@@ -23149,23 +23260,15 @@ Therefore the image may be not correct</source>
     </message>
     <message>
         <source>EMF Importer</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>SVM Importer</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Qt supported File</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Custom Shapes</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>CustomShapes</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Encapsulated PostScript</source>
@@ -23192,53 +23295,77 @@ Therefore the image may be not correct</source>
         <translation>Adobe Illustrator</translation>
     </message>
     <message>
-        <source>Calamus CVG</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Word Perfect WPG</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
         <source>Open Raster</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>GraphicsMagick</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>UniConvertor</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Macintosh Pict</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>&lt;fontEmbedding&gt; invalid</source>
         <comment>Load PDF settings</comment>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Calamus Vector Graphics Importer</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Calamus Vector Graphics</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>WordPerfect Graphics</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Qt Supported File</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Freehand Importer</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>1, 2, 3, ...</source>
+        <translation type="unfinished">1, 2, 3, ...</translation>
+    </message>
+    <message>
+        <source>i, ii, iii, ...</source>
+        <translation type="unfinished">i, ii, iii, ...</translation>
+    </message>
+    <message>
+        <source>I, II, III, ...</source>
+        <translation type="unfinished">I, II, III, ...</translation>
+    </message>
+    <message>
+        <source>a, b, c, ...</source>
+        <translation type="unfinished">a, b, c, ...</translation>
+    </message>
+    <message>
+        <source>A, B, C, ...</source>
+        <translation type="unfinished">A, B, C, ...</translation>
+    </message>
+    <message>
+        <source>*</source>
+        <translation type="unfinished">*</translation>
+    </message>
+    <message>
+        <source>CJK</source>
+        <translation type="unfinished">CJK</translation>
+    </message>
+    <message>
+        <source>RTF Document</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -23307,34 +23434,34 @@ Therefore the image may be not correct</source>
     <name>QtIOCompressor</name>
     <message>
         <source>Internal zlib error when compressing: </source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Error writing to underlying device: </source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Error opening underlying device: </source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Error reading data from underlying device: </source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Internal zlib error when decompressing: </source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>QtIOCompressor::open</name>
     <message>
         <source>The gzip format not supported in this version of zlib.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Internal zlib error: </source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -23342,7 +23469,7 @@ Therefore the image may be not correct</source>
     <message>
         <source>Name &quot;%1&quot; already exists.
 Do you want to replace the current contents?</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Name &quot;%1&quot; is not unique.
@@ -23353,7 +23480,7 @@ Please choose another.</source>
     <message>
         <source>Name &quot;%1&quot; is not allowed.
 Please choose another.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -23406,6 +23533,14 @@ Please choose another.</source>
         <source>Location</source>
         <translation>Расположение</translation>
     </message>
+    <message>
+        <source>Licence</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>License</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ResourceManagerBase</name>
@@ -23453,6 +23588,17 @@ Please choose another.</source>
         <source>Update Available List</source>
         <translation>Обновить список доступных</translation>
     </message>
+    <message>
+        <source>Show License</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>ResourceManagerLicenseBase</name>
+    <message>
+        <source>License</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>RotationWidget</name>
@@ -23466,7 +23612,7 @@ Please choose another.</source>
     </message>
     <message>
         <source>+90</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -23573,11 +23719,11 @@ Please choose another.</source>
     </message>
     <message>
         <source>Name of the document template</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Show more details to describe the document template</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>&amp;More Details</source>
@@ -23589,7 +23735,7 @@ Please choose another.</source>
     </message>
     <message>
         <source>Category of the document template</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Page Size:</source>
@@ -23597,7 +23743,7 @@ Please choose another.</source>
     </message>
     <message>
         <source>Page size of the document template</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Colors:</source>
@@ -23613,7 +23759,7 @@ Please choose another.</source>
     </message>
     <message>
         <source>Description of the document template</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Usage:</source>
@@ -23621,7 +23767,7 @@ Please choose another.</source>
     </message>
     <message>
         <source>Planned usage of the document template</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Author:</source>
@@ -23629,7 +23775,7 @@ Please choose another.</source>
     </message>
     <message>
         <source>Author of the document template</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Email:</source>
@@ -23637,7 +23783,7 @@ Please choose another.</source>
     </message>
     <message>
         <source>Email address of the author of the document template</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -23688,7 +23834,7 @@ Please choose another.</source>
     </message>
     <message>
         <source>TextLabel</source>
-        <translation>TextLabel</translation>
+        <translation type="vanished">TextLabel</translation>
     </message>
     <message>
         <source>Colors</source>
@@ -23783,7 +23929,7 @@ Please choose another.</source>
     </message>
     <message>
         <source>TextLabel</source>
-        <translation>TextLabel</translation>
+        <translation type="vanished">TextLabel</translation>
     </message>
     <message>
         <source>Fill Color</source>
@@ -23795,7 +23941,7 @@ Please choose another.</source>
     </message>
     <message>
         <source>Text</source>
-        <translation>Текст</translation>
+        <translation type="vanished">Текст</translation>
     </message>
     <message>
         <source>Fill Shade</source>
@@ -23912,35 +24058,35 @@ Please choose another.</source>
     </message>
     <message>
         <source>Add a new line</source>
-        <translation>Добавить новую линию</translation>
+        <translation type="vanished">Добавить новую линию</translation>
     </message>
     <message>
         <source>Remove a line</source>
-        <translation>Удалить линию</translation>
+        <translation type="vanished">Удалить линию</translation>
     </message>
     <message>
         <source>Line style</source>
-        <translation>Стиль линии</translation>
+        <translation type="vanished">Стиль линии</translation>
     </message>
     <message>
         <source>Line width</source>
-        <translation>Толщина линии</translation>
+        <translation type="vanished">Толщина линии</translation>
     </message>
     <message>
         <source>End style</source>
-        <translation>Стиль концов линии</translation>
+        <translation type="vanished">Стиль концов линии</translation>
     </message>
     <message>
         <source>Join style</source>
-        <translation>Стиль соединения</translation>
+        <translation type="vanished">Стиль соединения</translation>
     </message>
     <message>
         <source>Line color</source>
-        <translation>Цвет линии</translation>
+        <translation type="vanished">Цвет линии</translation>
     </message>
     <message>
         <source>Line shade</source>
-        <translation>Оттенение линии</translation>
+        <translation type="vanished">Оттенение линии</translation>
     </message>
     <message>
         <source>%</source>
@@ -24101,7 +24247,7 @@ Expressed as a percentage of the current white space value.</source>
     </message>
     <message>
         <source>Ensure that first lines of a paragraph won&apos;t end up separated from the rest (known as widow/orphan control)</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Don&apos;t separate first</source>
@@ -24125,15 +24271,15 @@ Expressed as a percentage of the current white space value.</source>
     </message>
     <message>
         <source>Ensure that last lines of a paragraph won&apos;t end up separated from the rest (known as widow/orphan control)</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>If checked, ensures that the paragraph won&apos;t be split across multiple pages or columns</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>If checked, automatically moves the paragraph to the next column or page if the next paragraph isn&apos;t on the same page or column</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>No Style</source>
@@ -24142,26 +24288,6 @@ Expressed as a percentage of the current white space value.</source>
     <message>
         <source>Lines:</source>
         <translation>Количество строк:</translation>
-    </message>
-    <message>
-        <source>None</source>
-        <comment>optical margins</comment>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Both Sides</source>
-        <comment>optical margins</comment>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Left Only</source>
-        <comment>optical margins</comment>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Right Only</source>
-        <comment>optical margins</comment>
-        <translation type="unfinished"/>
     </message>
     <message>
         <source>Paragraph Effects</source>
@@ -24185,15 +24311,15 @@ Expressed as a percentage of the current white space value.</source>
     </message>
     <message>
         <source>Bullet Char/String</source>
-        <translation>Символ буллита</translation>
+        <translation type="vanished">Символ буллита</translation>
     </message>
     <message>
         <source>Char Table</source>
-        <translation>Таблица символов</translation>
+        <translation type="vanished">Таблица символов</translation>
     </message>
     <message>
         <source>Numeration</source>
-        <translation>Нумерация</translation>
+        <translation type="vanished">Нумерация</translation>
     </message>
     <message>
         <source>Set:</source>
@@ -24201,7 +24327,7 @@ Expressed as a percentage of the current white space value.</source>
     </message>
     <message>
         <source>Level</source>
-        <translation>Уровень</translation>
+        <translation type="vanished">Уровень</translation>
     </message>
     <message>
         <source>Create New Set:</source>
@@ -24209,19 +24335,19 @@ Expressed as a percentage of the current white space value.</source>
     </message>
     <message>
         <source>Nums Format</source>
-        <translation>Формат номеров</translation>
+        <translation type="vanished">Формат номеров</translation>
     </message>
     <message>
         <source>Start with</source>
-        <translation>Начать с</translation>
+        <translation type="vanished">Начать с</translation>
     </message>
     <message>
         <source>Prefix</source>
-        <translation>Префикс</translation>
+        <translation type="vanished">Префикс</translation>
     </message>
     <message>
         <source>Suffix</source>
-        <translation>Суффикс</translation>
+        <translation type="vanished">Суффикс</translation>
     </message>
     <message>
         <source>Restart</source>
@@ -24237,19 +24363,15 @@ Expressed as a percentage of the current white space value.</source>
     </message>
     <message>
         <source>Enhanced Char Table for inserting customs chars as bullets</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Paragraph Effects Chars Offset</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Hang Paragraph Effect before paragraph indent</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Numbering Style</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Document</source>
@@ -24277,25 +24399,15 @@ Expressed as a percentage of the current white space value.</source>
     </message>
     <message>
         <source>Use Parent&apos;s Values</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Glyph Extension </source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Minimum:</source>
-        <comment>Glyph Extension</comment>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Maximum:</source>
-        <comment>Glyph Extension</comment>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Choose character style or leave blank for use default paragraph style</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Min. Space Width:</source>
@@ -24330,6 +24442,46 @@ Expressed as a percentage of the current white space value.</source>
         <source>Right Only</source>
         <comment>Optical Margins</comment>
         <translation>Только справа</translation>
+    </message>
+    <message>
+        <source>Bullet Character(s)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Character Table</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Numbering</source>
+        <translation type="unfinished">Нумерация</translation>
+    </message>
+    <message>
+        <source>Level:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Numbering Style:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Start with:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Prefix:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Suffix:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Bullet Character(s):</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Restart:</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -24499,7 +24651,7 @@ Expressed as a percentage of the current white space value.</source>
     </message>
     <message>
         <source>TextLabel</source>
-        <translation>TextLabel</translation>
+        <translation type="vanished">TextLabel</translation>
     </message>
     <message>
         <source>Fill Color</source>
@@ -24511,7 +24663,7 @@ Expressed as a percentage of the current white space value.</source>
     </message>
     <message>
         <source>Text</source>
-        <translation>Текст</translation>
+        <translation type="vanished">Текст</translation>
     </message>
     <message>
         <source>A default style cannot be assigned a parent style</source>
@@ -24642,7 +24794,11 @@ Caution: this will increase the file size!</source>
     </message>
     <message>
         <source>Adds the Page itself as background to the SVG.</source>
-        <translation>Добавить всю страницу как фон в SVG</translation>
+        <translation type="vanished">Добавить всю страницу как фон в SVG</translation>
+    </message>
+    <message>
+        <source>Adds the Page itself as background to the SVG</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -24683,17 +24839,17 @@ converting their vector data into Scribus objects.</source>
     <message>
         <source>Only selected frames processed.</source>
         <comment>short words plugin</comment>
-        <translation>Обрабатываются только выбранные блоки.</translation>
+        <translation type="vanished">Обрабатываются только выбранные блоки.</translation>
     </message>
     <message>
         <source>Only actual page processed.</source>
         <comment>short words plugin</comment>
-        <translation>Обрабатывается только текущая страница</translation>
+        <translation type="vanished">Обрабатывается только текущая страница</translation>
     </message>
     <message>
         <source>All items in document processed.</source>
         <comment>short words plugin</comment>
-        <translation>Обрабатывается весь документ</translation>
+        <translation type="vanished">Обрабатывается весь документ</translation>
     </message>
     <message>
         <source>Short Words</source>
@@ -24747,6 +24903,21 @@ converting their vector data into Scribus objects.</source>
         <comment>short words plugin</comment>
         <translation>По всему &amp;документу</translation>
     </message>
+    <message>
+        <source>Only selected frames processed</source>
+        <comment>short words plugin</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Only actual page processed</source>
+        <comment>short words plugin</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>All items in document processed</source>
+        <comment>short words plugin</comment>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>SWPrefsGui</name>
@@ -24776,7 +24947,7 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Edit custom configuration. If you save it, it will be used over system wide configuration</source>
-        <translation>Изменить пользовательские параметры. Если их сохранить, они будут использоваться вместо общесистемных</translation>
+        <translation type="vanished">Изменить пользовательские параметры. Если их сохранить, они будут использоваться вместо общесистемных</translation>
     </message>
     <message>
         <source>Short Words</source>
@@ -24801,6 +24972,10 @@ converting their vector data into Scribus objects.</source>
     <message>
         <source>User configuration exists already. Do you really want to overwrite it?</source>
         <translation>Пользовательские параметры уже существуют. Действительно перезаписать их?</translation>
+    </message>
+    <message>
+        <source>Edit custom configuration. If you save it, it will be used over system wide configuration.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -25390,71 +25565,71 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Radio Button</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Named</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Action Name</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>First Page</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Previous Page</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Next Page</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Last Page</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Go Back</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Go Forward</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Go Back Doc</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Go Forward Doc</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Go To Page</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Actual Size</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Fit Page</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Fit Width</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Fit Height</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Fit Visible</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Single Page</source>
@@ -25462,23 +25637,23 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Two Pages</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>One Column</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Two Columns</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Zoom View In</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Zoom View Out</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Zoom To</source>
@@ -25486,7 +25661,7 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Print</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Close</source>
@@ -25494,11 +25669,11 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Quit</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>General Prefs</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>General Info</source>
@@ -25506,271 +25681,271 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Page Setup</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Full Screen</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Show/Hide Bookmarks</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Show/Hide Thumbnails</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Show/Hide Toolbar Editing</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Show/Hide Toolbar Commenting</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Show/Hide Toolbar Edit</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Show/Hide Toolbar File</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Show/Hide Toolbar Find</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Show/Hide Toolbar Forms</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Show/Hide Toolbar Measuring</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Show/Hide Toolbar Data</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Show/Hide Toolbar Page Display</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Show/Hide Toolbar Navigation</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Show/Hide Toolbar Print Production</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Show/Hide Toolbar Redaction</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Show/Hide Toolbar Basic Tools</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Show/Hide Toolbar Tasks</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Show/Hide Toolbar Typewriter</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Show/Hide Articles</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Show/Hide File Attachment</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Show/Hide Annot Manager</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Show/Hide Fields</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Show/Hide Optional Content</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Show/Hide Model Tree</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Show/Hide Signatures</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Courier</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Courier Bold</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Courier Italic</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Courier Bold Italic</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Helvetica</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Helvetica Bold</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Helvetica Italic</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Helvetica Bold Italic</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Times</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Times Bold</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Times Italic</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Times Bold Italic</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Zapf Dingbats</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Symbols</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished">Клоны</translation>
     </message>
     <message>
         <source>Plain Text</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>9,999.99</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished">9,999.99</translation>
     </message>
     <message>
         <source>9.999,99</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished">9.999,99</translation>
     </message>
     <message>
         <source>9999.99</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished">9999.99</translation>
     </message>
     <message>
         <source>9999,99</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished">9999,99</translation>
     </message>
     <message>
         <source>m/d</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>m/d/yy</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>mm/dd/yy</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>mm/yy</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>d-mmm</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>d-mmm-yy</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>dd-mmm-yy</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>dd/mm/yy</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>dd/mm/yyyy</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>dd.mm.yyyy</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>yy-mm-dd</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>mmm-yy</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>mmmm-yy</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>mmm d, yyyy</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>mmmm d, yyyy</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>m/d/yy h:MM tt</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>m/d/yy HH:MM</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>yyyy-mm-dd</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>HH:MM</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>h:MM tt</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>HH:MM:ss</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>h:MM:ss tt</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -25846,10 +26021,6 @@ converting their vector data into Scribus objects.</source>
         <translation>Пара&amp;метры PDF</translation>
     </message>
     <message>
-        <source>C&amp;onvert To</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
         <source>Character</source>
         <translation>Символ</translation>
     </message>
@@ -25879,71 +26050,71 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Duplicate/Transform</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished">Продублировать/Трансформировать</translation>
     </message>
     <message>
         <source>Grouping</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished">Группировка</translation>
     </message>
     <message>
         <source>Locking</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished">Блокировка</translation>
     </message>
     <message>
         <source>Send to</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished">Отправить в</translation>
     </message>
     <message>
         <source>Scrapbook</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished">Альбом</translation>
     </message>
     <message>
         <source>Adjust</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished">Скорректировать</translation>
     </message>
     <message>
         <source>Image</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished">Изображение</translation>
     </message>
     <message>
         <source>Text Frame Links</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished">Связи текстовых блоков</translation>
     </message>
     <message>
         <source>Welding</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished">Объединение</translation>
     </message>
     <message>
         <source>Marks</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished">Метки</translation>
     </message>
     <message>
         <source>Zoom</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Preview</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Measurement</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Text Frames</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished">Текстовые блоки</translation>
     </message>
     <message>
         <source>Image Frames</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished">Блоки изображений</translation>
     </message>
     <message>
         <source>Document</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished">Документ</translation>
     </message>
     <message>
         <source>Grids and Guides</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished">Сетки и направляющие</translation>
     </message>
 </context>
 <context>
@@ -26188,11 +26359,11 @@ Rotation: %4</source>
     </message>
     <message>
         <source>%1 note style has document as range and provide same numbering style as set %2</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Do you really want to clear the content of all selected frames?</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -26236,10 +26407,6 @@ Rotation: %4</source>
     <message>
         <source>&amp;PDF Options</source>
         <translation>Пара&amp;метры PDF</translation>
-    </message>
-    <message>
-        <source>C&amp;onvert To</source>
-        <translation type="unfinished"/>
     </message>
     <message>
         <source>Ready</source>
@@ -26289,7 +26456,7 @@ Rotation: %4</source>
     </message>
     <message>
         <source>Filename and Path for Image</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>All Files (*)</source>
@@ -26350,14 +26517,6 @@ Rotation: %4</source>
         <translation>Размер</translation>
     </message>
     <message>
-        <source>&amp;Shade:</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Shade</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
         <source>An error occurred while opening monitor profile.
 Former monitor profile will be used.</source>
         <translation>Произошла ошибка при открытии профиля монитора.
@@ -26393,7 +26552,7 @@ Consider using the Preflight Verifier to correct them</source>
     </message>
     <message>
         <source>Locate your PDF viewer</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>&amp;Unlock All</source>
@@ -26515,7 +26674,7 @@ Consider using the Preflight Verifier to correct them</source>
     </message>
     <message>
         <source>%1 Objects selected, Selection Size = %2 x %3</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Initializing Languages</source>
@@ -26531,27 +26690,27 @@ Consider using the Preflight Verifier to correct them</source>
     </message>
     <message>
         <source>Insert new </source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Anchor mark</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Mark with &lt;%1&gt; variable text</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Mark to %1 item</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Mark to %1 mark</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Edit </source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Duplicate/Transform</source>
@@ -26639,7 +26798,7 @@ Consider using the Preflight Verifier to correct them</source>
     </message>
     <message>
         <source>Editing Inline Item</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Current zoom level</source>
@@ -26679,14 +26838,14 @@ Consider using the Preflight Verifier to correct them</source>
     </message>
     <message>
         <source>Measurement</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>ScribusQApp</name>
     <message>
         <source>Invalid argument: </source>
-        <translation>Некорректный аргумент: </translation>
+        <translation type="vanished">Некорректный аргумент: </translation>
     </message>
     <message>
         <source>File %1 does not exist, aborting.</source>
@@ -26694,7 +26853,7 @@ Consider using the Preflight Verifier to correct them</source>
     </message>
     <message>
         <source>Usage: scribus [option ... ] [file]</source>
-        <translation>Использование: scribus [ключ ... ] [файл]</translation>
+        <translation type="vanished">Использование: scribus [ключ ... ] [файл]</translation>
     </message>
     <message>
         <source>Options:</source>
@@ -26723,10 +26882,6 @@ Consider using the Preflight Verifier to correct them</source>
     <message>
         <source>Output version information and exit</source>
         <translation>Показать информацию о версии и выйти</translation>
-    </message>
-    <message>
-        <source>Use right to left dialog button ordering (eg. Cancel/No/Yes instead of Yes/No/Cancel)</source>
-        <translation type="unfinished"/>
     </message>
     <message>
         <source>filename</source>
@@ -26794,11 +26949,7 @@ Consider using the Preflight Verifier to correct them</source>
     </message>
     <message>
         <source>Run unit tests and exit</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Run filename in Python scripter</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Do not start GUI</source>
@@ -26806,15 +26957,47 @@ Consider using the Preflight Verifier to correct them</source>
     </message>
     <message>
         <source>Stop showing the splashscreen on startup. Writes an empty file called .neversplash in ~/.scribus</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Show location of ICC profile information on console while starting</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Download a file from the Scribus website and show the latest available version</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Option %1 requires an argument.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Python script %1 does not exist, aborting.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Preferences file %1 does not exist, aborting.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Usage: scribus [options] [files]</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>script</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>arguments ...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Run script in Python [with optional arguments]. This option must be last option used</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Explicit end of command line options</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -26844,10 +27027,6 @@ Consider using the Preflight Verifier to correct them</source>
         <translation>Выключено</translation>
     </message>
     <message>
-        <source>Linking Text Frames</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
         <source>Cannot Convert In-Use Item</source>
         <translation>Невозможно преобразовать используемый объект</translation>
     </message>
@@ -26868,20 +27047,12 @@ Consider using the Preflight Verifier to correct them</source>
         <translation>Управление цветом активно., поэтому восприятие цветов дальтониками может быть неверным.</translation>
     </message>
     <message>
-        <source>Enter Object Size</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>You are trying to link a frame to itself.</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
         <source>End Edit</source>
         <translation>Завершить</translation>
     </message>
     <message>
-        <source>Click here to leave this special edit mode.</source>
-        <translation type="unfinished"/>
+        <source>Click here to leave this special edit mode</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -27062,11 +27233,11 @@ Consider using the Preflight Verifier to correct them</source>
     </message>
     <message>
         <source>Scribus - Scripter Plugin</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>If you see this box, Scripter probably works :)</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -27346,23 +27517,23 @@ Consider using the Preflight Verifier to correct them</source>
     <name>ShapePalette</name>
     <message>
         <source>Choose a shape file to import</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Photoshop Custom Shape (*.csh *.CSH)</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Custom Shapes</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Load Photoshop Custom Shapes</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Close current Tab</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -27388,26 +27559,26 @@ Consider using the Preflight Verifier to correct them</source>
     <name>ShapePlugin</name>
     <message>
         <source>Palette for Photoshop Custom Shapes.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>ShapeView</name>
     <message>
         <source>Delete selected Shape</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Delete all Shapes</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Display Icons only</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Do you really want to clear all your shapes in this tab?</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -27511,7 +27682,7 @@ Consider using the Preflight Verifier to correct them</source>
     <name>SmoothPathPlugin</name>
     <message>
         <source>Smooth Path</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Path Tools</source>
@@ -27519,18 +27690,18 @@ Consider using the Preflight Verifier to correct them</source>
     </message>
     <message>
         <source>Smoothes a Path</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Converts a Polyline made of straight Lines to a smoothed Bezier Curve.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>SpiralVectorBase</name>
     <message>
         <source>Edit Spiral</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Start Angle:</source>
@@ -27542,7 +27713,7 @@ Consider using the Preflight Verifier to correct them</source>
     </message>
     <message>
         <source>Factor:</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source> %</source>
@@ -27569,7 +27740,7 @@ Consider using the Preflight Verifier to correct them</source>
     </message>
     <message>
         <source>Factor:</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source> %</source>
@@ -27588,7 +27759,7 @@ Consider using the Preflight Verifier to correct them</source>
     </message>
     <message>
         <source>&amp;Sample Text...</source>
-        <translation>&amp;Шаблонный текст...</translation>
+        <translation type="vanished">&amp;Шаблонный текст...</translation>
     </message>
     <message>
         <source>&amp;Smart Text Selection</source>
@@ -27617,10 +27788,6 @@ Consider using the Preflight Verifier to correct them</source>
     <message>
         <source>Open</source>
         <translation>Открыть</translation>
-    </message>
-    <message>
-        <source>Text Files (*.txt);;All Files(*)</source>
-        <translation type="unfinished"/>
     </message>
     <message>
         <source>Save as</source>
@@ -27712,7 +27879,7 @@ Consider using the Preflight Verifier to correct them</source>
     </message>
     <message>
         <source>&amp;Insert Glyph...</source>
-        <translation>В&amp;ставить символ...</translation>
+        <translation type="vanished">В&amp;ставить символ...</translation>
     </message>
     <message>
         <source>Clear All Text</source>
@@ -27757,6 +27924,14 @@ Consider using the Preflight Verifier to correct them</source>
     <message>
         <source>Text Files (*.txt);;All Files (*)</source>
         <translation>Текстовые файлы (*.txt);;Все файлы (*)</translation>
+    </message>
+    <message>
+        <source>&amp;Glyph...</source>
+        <translation type="unfinished">&amp;Символ...</translation>
+    </message>
+    <message>
+        <source>&amp;Sample Text</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -27910,7 +28085,7 @@ Consider using the Preflight Verifier to correct them</source>
     </message>
     <message>
         <source>Clone copies the style to make similar styles easily.</source>
-        <translation>Клон копирует стиль, чтобы упростить создание схожих стилей.</translation>
+        <translation type="vanished">Клон копирует стиль, чтобы упростить создание схожих стилей.</translation>
     </message>
     <message>
         <source>Alt+C</source>
@@ -27939,6 +28114,10 @@ Consider using the Preflight Verifier to correct them</source>
     <message>
         <source>Style Manager</source>
         <translation>Cтили</translation>
+    </message>
+    <message>
+        <source>Clone copies the style to make similar styles easily</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -28001,7 +28180,7 @@ Consider using the Preflight Verifier to correct them</source>
     </message>
     <message>
         <source>Subdivide a path by inserting new Nodes.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -28055,7 +28234,7 @@ Consider using the Preflight Verifier to correct them</source>
     </message>
     <message>
         <source>Make these settings the default and do not prompt again when importing an OpenOffice.org 1.x document.</source>
-        <translation>Сделать эти параметры исходными или больше не задавать вопросов при импорте документа OpenOffice.org 1.x.</translation>
+        <translation type="vanished">Сделать эти параметры исходными или больше не задавать вопросов при импорте документа OpenOffice.org 1.x.</translation>
     </message>
     <message>
         <source>Overwrite Paragraph Styles</source>
@@ -28065,6 +28244,10 @@ Consider using the Preflight Verifier to correct them</source>
         <source>Cancel</source>
         <translation>Отменить</translation>
     </message>
+    <message>
+        <source>Make these settings the default and do not prompt again when importing an OpenOffice.org 1.x document</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>SymbolPalette</name>
@@ -28072,12 +28255,20 @@ Consider using the Preflight Verifier to correct them</source>
         <source>Symbols</source>
         <translation>Клоны</translation>
     </message>
+    <message>
+        <source>Edit Item</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Remove Item</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>SymbolView</name>
     <message>
         <source>Display Icons only</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -28186,10 +28377,6 @@ Consider using the Preflight Verifier to correct them</source>
         <translation>Внедрение</translation>
     </message>
     <message>
-        <source>Available Fonts:</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
         <source>Fonts to embed:</source>
         <translation>Внедряемые шрифты:</translation>
     </message>
@@ -28207,7 +28394,7 @@ Consider using the Preflight Verifier to correct them</source>
     </message>
     <message>
         <source>Determines the PDF compatibility.&lt;br/&gt;The default is &lt;b&gt;PDF 1.3&lt;/b&gt; which gives the widest compatibility.&lt;br/&gt;Choose &lt;b&gt;PDF 1.4&lt;/b&gt; if your file uses features such as transparency or you require 128 bit encryption.&lt;br/&gt;&lt;b&gt;PDF 1.5&lt;/b&gt; is necessary when you wish to preserve objects in separate layers within the PDF.&lt;br/&gt;&lt;b&gt;PDF/X-3&lt;/b&gt; is for exporting the PDF when you want color managed RGB for commercial printing and is selectable when you have activated color management. Use only when advised by your printer or in some cases printing to a 4 color digital color laser printer.&lt;br/&gt;&lt;b&gt;PDF/X-1a&lt;/b&gt; is for blind exchange with colors strictly specified in CMYK or spot colors.&lt;br/&gt;&lt;b&gt;PDF/X-4&lt;/b&gt; is an extension of PDF/X-3 to support transparancy and layering.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Mandatory string for PDF/X or the PDF will fail PDF/X conformance. We recommend you use the title of the document.</source>
@@ -28494,26 +28681,26 @@ Consider using the Preflight Verifier to correct them</source>
     </message>
     <message>
         <source>Generate PDF Articles, which is useful for navigating linked articles in a PDF.</source>
-        <translation>Если параметр включён, Scribus создаст PDF-Articles, 
+        <translation type="vanished">Если параметр включён, Scribus создаст PDF-Articles, 
 что полезно для навигации по связанным статьям в PDF.</translation>
     </message>
     <message>
         <source>DPI (Dots Per Inch) for image export.</source>
-        <translation>DPI (кол-во точек на дюйм) при экспорте изображений.</translation>
+        <translation type="vanished">DPI (кол-во точек на дюйм) при экспорте изображений.</translation>
     </message>
     <message>
         <source>Choose a password for users to be able to read your PDF.</source>
-        <translation>Выберите пароль для доступа на чтение PDF-документа.</translation>
+        <translation type="vanished">Выберите пароль для доступа на чтение PDF-документа.</translation>
     </message>
     <message>
         <source>Allow printing of the PDF. If un-checked, printing is prevented. </source>
-        <translation>Разрешить печать документа.
+        <translation type="vanished">Разрешить печать документа.
 При невыставленном флажке печатать 
 файл PDF будет невозможно.</translation>
     </message>
     <message>
         <source>Allow modifying of the PDF. If un-checked, modifying the PDF is prevented.</source>
-        <translation>Разрешить изменения в документе. 
+        <translation type="vanished">Разрешить изменения в документе. 
 При невыставленном флажке изменять 
 файл PDF будет невозможно.</translation>
     </message>
@@ -28614,7 +28801,7 @@ Consider using the Preflight Verifier to correct them</source>
     </message>
     <message>
         <source>Insert a comma separated list of tokens where a token can be * for all the pages, 1-5 for a range of pages or a single page number.</source>
-        <translation>Вставить сюда разделённый запятыми список маркёров, где каждый маркёр может быть * для всех страниц, 1-5 для диапазона страниц или номером одиночной страницы.</translation>
+        <translation type="vanished">Вставить сюда разделённый запятыми список маркёров, где каждый маркёр может быть * для всех страниц, 1-5 для диапазона страниц или номером одиночной страницы.</translation>
     </message>
     <message>
         <source>Determines the binding of pages in the PDF. Unless you know you need to change it leave the default choice - Left.</source>
@@ -28639,10 +28826,6 @@ Consider using the Preflight Verifier to correct them</source>
     <message>
         <source>Enable the security features in your exported PDF. If you selected PDF 1.3, the PDF will be protected by 40 bit encryption. If you selected PDF 1.4, the PDF will be protected by 128 bit encryption. Disclaimer: PDF encryption is not as reliable as GPG or PGP encryption and does have some limitations.</source>
         <translation>Включить функции безопасности в экспортируемом файле PDF. Если выбран PDF 1.3, файл будет зашифрован 40-битным ключом. Если выбран PDF 1.4, файл будет зашифрован 128-битным ключом. Помните, что шифрование в PDF менее мощное и более ограниченное в сравнении с GPG и PGP.</translation>
-    </message>
-    <message>
-        <source>This is an advanced setting which is not enabled by default. This should only be enabled when specifically requested by your printer and they have given you the exact details needed. Otherwize, your exported PDF may not print properly and is truly not portable across systems.</source>
-        <translation type="unfinished"/>
     </message>
     <message>
         <source>Display Settings</source>
@@ -28731,7 +28914,7 @@ when PDF document is opened:</source>
     </message>
     <message>
         <source>Layers in your document are exported to the PDF Only available if PDF 1.5 is chosen.</source>
-        <translation>Слои в вашем документе экспортируются в PDF только если выбран формат PDF 1.5.</translation>
+        <translation type="vanished">Слои в вашем документе экспортируются в PDF только если выбран формат PDF 1.5.</translation>
     </message>
     <message>
         <source>Color model for the output of your PDF. Choose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets. Choose Printer when printing to a true 4 color CMYK printer. Choose Grayscale when you want a grey scale PDF.</source>
@@ -28810,10 +28993,6 @@ when PDF document is opened:</source>
         <translation>Качество после сжатия: «Наихудшее» (25%), «Низкое» (50%), «Среднее» (75%), «Высокое» (85%), «Максимальное» (95%). Помните, что степень сжатия не напрямую определяет размер конечного файла — размер и качество всегда в первую очередь зависят от характеристик исходных изображений. Даже если выбрано «Максимальное», потери всё равно будут.</translation>
     </message>
     <message>
-        <source>InfoString</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
         <source>Inside:</source>
         <translation>Изнутри:</translation>
     </message>
@@ -28824,18 +29003,6 @@ when PDF document is opened:</source>
     <message>
         <source>&amp;Embed all</source>
         <translation>Встроить вс&amp;е</translation>
-    </message>
-    <message>
-        <source>Fonts to outline:</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>&amp;Outline all</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Convert all glyphs in the document to outlines.</source>
-        <translation type="unfinished"/>
     </message>
     <message>
         <source>Document Layout</source>
@@ -28887,11 +29054,11 @@ when PDF document is opened:</source>
     </message>
     <message>
         <source>Hides the Menu Bar for the viewer, the PDF will display in a plain window. </source>
-        <translation>Скрывать строку меню в просмотрщике. PDF будет отображен в простом окне.</translation>
+        <translation type="vanished">Скрывать строку меню в просмотрщике. PDF будет отображен в простом окне.</translation>
     </message>
     <message>
         <source>Fit the document page or pages to the available space in the viewer window.</source>
-        <translation>Уместить страницу или страницы документа в окне программы для просмотра</translation>
+        <translation type="vanished">Уместить страницу или страницы документа в окне программы для просмотра</translation>
     </message>
     <message>
         <source>Limits the resolution of your bitmap images to the selected DPI. Images with a lower resolution will be left untouched. Leaving this unchecked will render them at their native resolution. Enabling this will increase memory usage and slow down export.</source>
@@ -28979,7 +29146,7 @@ when PDF document is opened:</source>
     </message>
     <message>
         <source>Indicate the size of crops&apos;marks</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Image Quality Settings</source>
@@ -28987,7 +29154,7 @@ when PDF document is opened:</source>
     </message>
     <message>
         <source>Choose an owner password which enables or disables all the security features in your exported PDF</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Create a range of pages</source>
@@ -28995,7 +29162,7 @@ when PDF document is opened:</source>
     </message>
     <message>
         <source>TabWidget</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>...</source>
@@ -29023,31 +29190,71 @@ when PDF document is opened:</source>
     </message>
     <message>
         <source>Embedding Mode:</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Embed or Subset</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Outline All Fonts</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Do Not Embed</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Fonts to subset:</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>&amp;Subset all</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Embed only subset fonts with glyphs used in the document into the PDF.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Insert a comma separated list of tokens where a token can be * for all the pages, 1-5 for a range of pages or a single page number</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Generate PDF Articles, which is useful for navigating linked articles in a PDF</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Layers in your document are exported to the PDF. Only available if PDF 1.5 is chosen.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>DPI (Dots Per Inch) for image export</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hides the Menu Bar for the viewer, the PDF will display in a plain window</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Fit the document page or pages to the available space in the viewer window</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Choose a password for users to be able to read your PDF</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Allow printing of the PDF. If unchecked, printing is prevented.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Allow modifying of the PDF. If unchecked, modifying the PDF is prevented.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This is an advanced setting which is not enabled by default. This should only be enabled when specifically requested by your printer and they have given you the exact details needed. Otherwise, your exported PDF may not print properly and is truly not portable across systems.</source>
+        <translation type="unfinished">Это отключенные по умолчанию расширенные параметры. Включить их нужно лишь в том случае, если этого требует принтер или если они точно обеспечивают желаемый уровень детализации. В противном случае полученный файл PDF может некорректно напечататься и не будет полностью переносимым между системами.</translation>
     </message>
 </context>
 <context>
@@ -29288,71 +29495,71 @@ when PDF document is opened:</source>
     <name>UnZip</name>
     <message>
         <source>ZIP operation completed successfully.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Failed to initialize or load zlib library.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>zlib library error.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Unable to create or open file.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Partially corrupted archive. Some files might be extracted.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Corrupted archive.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Wrong password.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>No archive has been created yet.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>File or directory does not exist.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>File read error.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>File write error.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>File seek error.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Unable to create a directory.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Invalid device.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Invalid or incompatible zip archive.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Inconsistent headers. Archive might be corrupted.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Unknown error.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -29780,10 +29987,6 @@ to %2</source>
         <translation>Переименование слоя</translation>
     </message>
     <message>
-        <source>Raize layer</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
         <source>Lower layer</source>
         <translation>Опускание слоя</translation>
     </message>
@@ -29875,7 +30078,7 @@ X: %4, Y: %5</translation>
     </message>
     <message>
         <source>No object frame</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Reset control point</source>
@@ -30019,99 +30222,99 @@ X: %4, Y: %5</translation>
     </message>
     <message>
         <source>Connect path</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Change overprint</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Change blend mode</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Change action PDF</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Add master page</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Del master page</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Import master page</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Duplicate master page</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Combine Polygons</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Split Polygons</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Level up</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Level down</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Send to front</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Send to bottom</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Change image resolution</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Set mask gradient type</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Change round corner</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Set start arrow scale</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Set end arrow scale</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Change fill gradient type</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Change fill gradient values</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Change stroke gradient values</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Change gradient color</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Change stroke gradient type</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Layer</source>
@@ -30119,131 +30322,131 @@ X: %4, Y: %5</translation>
     </message>
     <message>
         <source>Edit polygon</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Edit arc</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Edit spiral</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Change columns</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Change columns gap</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Change text to frame distance</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Show image</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Create mesh gradient</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Change mesh gradient</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Change Mode</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Replace text</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Change First Line Offset</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Delete text</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Insert text</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Append text</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Import text</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Clear text</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Add Lorem Ipsum</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Insert mark</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Insert note</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Edit mark</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Delete mark</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Delete note</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Add note style</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Edit note style</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Delete note style</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Change gradient position</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Duplicate</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Remove mesh patch</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Remove text style</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Import page</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Change Page Attributes</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Transform</source>
@@ -30259,7 +30462,7 @@ X: %4, Y: %5</translation>
     </message>
     <message>
         <source>Truncate text</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Drop Shadow</source>
@@ -30267,39 +30470,43 @@ X: %4, Y: %5</translation>
     </message>
     <message>
         <source>Drop Shadow Color</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Drop Shadow Shade</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Drop Shadow Blur Radius</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Drop Shadow X Offset</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Drop Shadow Y Offset</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Drop Shadow Opacity</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Drop Shadow Blend Mode</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Swap page</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Unweld Items</source>
         <translation>Разъединить объекты</translation>
+    </message>
+    <message>
+        <source>Raise layer</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -30365,11 +30572,11 @@ X: %4, Y: %5</translation>
     <name>UniconvImportPlugin</name>
     <message>
         <source>Imports Vector Files with UniConvertor</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Converts many vector formats to SVG and then loads the resulting SVG.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Uniconvertor Import</source>
@@ -30377,15 +30584,15 @@ X: %4, Y: %5</translation>
     </message>
     <message>
         <source>Starting Uniconvertor failed! The executable name in File-&gt;Preferences-&gt;External Tools may be incorrect or the software has been uninstalled since preferences were set. (%1)</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Uniconvertor did not exit correctly: %1</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Uniconvertor failed to convert the file: %1</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>The SVG Import plugin could not be found</source>
@@ -30537,15 +30744,19 @@ Would you like to start the system&apos;s default browser instead?</source>
     </message>
     <message>
         <source>Select the visual appearance of the display. You can choose between normal and several color blindness forms</source>
-        <translation>Выберите режим показа документа. Вы можете выбрать обычный режим или имитацию одной из форм цветонеразличения.</translation>
+        <translation type="vanished">Выберите режим показа документа. Вы можете выбрать обычный режим или имитацию одной из форм цветонеразличения.</translation>
     </message>
     <message>
         <source>Select image preview quality</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Select display visual appearance</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Select the visual appearance of the display. You can choose between normal and several color blindness forms.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -30578,7 +30789,7 @@ Would you like to start the system&apos;s default browser instead?</source>
 
 Please submit your file (if possible) to the
 Document Liberation Project http://www.documentliberation.org</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -30620,15 +30831,15 @@ converting their vector data into Scribus objects.</source>
     <name>XPSExportPlugin</name>
     <message>
         <source>Save as XPS...</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Exports XPS Files</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Exports the current document into an XPS file.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -30669,7 +30880,7 @@ converting their vector data into Scribus objects.</source>
     <name>XpsImportOptions</name>
     <message>
         <source>XPS Import</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Importing File:</source>
@@ -30677,7 +30888,7 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>TextLabel</source>
-        <translation>TextLabel</translation>
+        <translation type="vanished">TextLabel</translation>
     </message>
     <message>
         <source>Page Range</source>
@@ -30723,7 +30934,7 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Prepend the document name to the Style name in Scribus.</source>
-        <translation>Вставить название импортируемого документа в начало имени каждого импортируемого стиля</translation>
+        <translation type="vanished">Вставить название импортируемого документа в начало имени каждого импортируемого стиля</translation>
     </message>
     <message>
         <source>Do not ask again</source>
@@ -30731,7 +30942,7 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Make these settings the default and do not prompt again when importing an XPress Tags document.</source>
-        <translation>Всегда использовать указанные сейчас параметры и больше никогда о них не спрашивать</translation>
+        <translation type="vanished">Всегда использовать указанные сейчас параметры и больше никогда о них не спрашивать</translation>
     </message>
     <message>
         <source>OK</source>
@@ -30741,48 +30952,56 @@ converting their vector data into Scribus objects.</source>
         <source>Cancel</source>
         <translation>Отменить</translation>
     </message>
+    <message>
+        <source>Prepend the document name to the Style name in Scribus</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Make these settings the default and do not prompt again when importing an XPress Tags document</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>Zip</name>
     <message>
         <source>ZIP operation completed successfully.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Failed to initialize or load zlib library.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>zlib library error.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Unable to create or open file.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>No archive has been created yet.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>File or directory does not exist.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>File read error.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>File write error.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>File seek error.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Unknown error.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -30846,10 +31065,6 @@ converting their vector data into Scribus objects.</source>
     <message>
         <source>Color:</source>
         <translation>Цвет:</translation>
-    </message>
-    <message>
-        <source>Transparency:</source>
-        <translation type="unfinished"/>
     </message>
     <message>
         <source>Edit Colors</source>
@@ -30917,11 +31132,11 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Double</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Triple</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Line Color:</source>
@@ -30929,7 +31144,7 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Background</source>
-        <translation>Фон</translation>
+        <translation type="vanished">Фон</translation>
     </message>
     <message>
         <source>Extend:</source>
@@ -30941,11 +31156,15 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Pad</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Opacity:</source>
         <translation>Непрозрачность:</translation>
+    </message>
+    <message>
+        <source>Background:</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -31052,7 +31271,7 @@ please choose another one.</source>
     </message>
     <message>
         <source>Set zoom to 100%</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -31689,14 +31908,6 @@ please choose another one.</source>
 </context>
 <context>
     <name>weldEditBase</name>
-    <message>
-        <source>Form</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Move weld Point</source>
-        <translation type="unfinished"/>
-    </message>
     <message>
         <source>Move Object</source>
         <translation>Переместить объект</translation>
