@@ -62,7 +62,7 @@
 
 CanvasMode_EditArc::CanvasMode_EditArc(ScribusView* view) : CanvasMode(view), m_ScMW(view->m_ScMW) 
 {
-	Mxp = Myp = -1;
+	m_Mxp = m_Myp = -1;
 	m_blockUpdateFromItem = 0;
 	m_arcPoint = noPointDefined;
 }
@@ -103,39 +103,39 @@ void CanvasMode_EditArc::drawControlsArc(QPainter* psx, PageItem* currItem)
 	QPainterPath pp;
 	PageItem_Arc* item = currItem->asArc();
 	QPointF mPoint = item->PoLine.pointQF(0);
-	double nWidth = mPoint.x() - widthPoint.x();
-	double nHeight = mPoint.y() - heightPoint.y();
-	double nSweep = endAngle - startAngle;
+	double nWidth = mPoint.x() - m_widthPoint.x();
+	double nHeight = mPoint.y() - m_heightPoint.y();
+	double nSweep = m_endAngle - m_startAngle;
 	if (nSweep < 0)
 		nSweep += 360;
 	pp.moveTo(mPoint);
-	pp.arcTo(QRectF(mPoint.x() - nWidth, mPoint.y() - nHeight, nWidth * 2, nHeight * 2), startAngle, nSweep);
+	pp.arcTo(QRectF(mPoint.x() - nWidth, mPoint.y() - nHeight, nWidth * 2, nHeight * 2), m_startAngle, nSweep);
 	pp.closeSubpath();
 	psx->drawPath(pp);
 	psx->setPen(p1bd);
-	psx->drawLine(mPoint, widthPoint);
-	psx->drawLine(mPoint, heightPoint);
+	psx->drawLine(mPoint, m_widthPoint);
+	psx->drawLine(mPoint, m_heightPoint);
 	psx->setPen(p8b);
 	if (m_arcPoint == useControlStart)
 		psx->setPen(p8r);
 	else
 		psx->setPen(p8b);
-	psx->drawPoint(startPoint);
+	psx->drawPoint(m_startPoint);
 	if (m_arcPoint == useControlSweep)
 		psx->setPen(p8r);
 	else
 		psx->setPen(p8b);
-	psx->drawPoint(endPoint);
+	psx->drawPoint(m_endPoint);
 	if (m_arcPoint == useControlWidth)
 		psx->setPen(p8r);
 	else
 		psx->setPen(p8b);
-	psx->drawPoint(widthPoint);
+	psx->drawPoint(m_widthPoint);
 	if (m_arcPoint == useControlHeight)
 		psx->setPen(p8r);
 	else
 		psx->setPen(p8b);
-	psx->drawPoint(heightPoint);
+	psx->drawPoint(m_heightPoint);
 }
 
 void CanvasMode_EditArc::enterEvent(QEvent *)
@@ -161,18 +161,18 @@ void CanvasMode_EditArc::activate(bool fromGesture)
 	m_canvas->m_viewMode.operItemMoving = false;
 	m_canvas->m_viewMode.operItemResizing = false;
 	m_view->MidButt = false;
-	Mxp = Myp = -1;
+	m_Mxp = m_Myp = -1;
 	PageItem *currItem = m_doc->m_Selection->itemAt(0);
 	PageItem_Arc* item = currItem->asArc();
-	centerPoint = currItem->PoLine.pointQF(0);
-	startPoint = currItem->PoLine.pointQF(3);
-	endPoint = currItem->PoLine.pointQF(currItem->PoLine.size() - 4);
-	widthPoint = QPointF(centerPoint.x() - item->arcWidth / 2.0, centerPoint.y());
-	heightPoint = QPointF(centerPoint.x(), centerPoint.y() - item->arcHeight / 2.0);
-	startAngle = item->arcStartAngle;
-	endAngle = startAngle + item->arcSweepAngle;
-	QLineF res = QLineF(centerPoint, startPoint);
-	QLineF swe = QLineF(centerPoint, endPoint);
+	m_centerPoint = currItem->PoLine.pointQF(0);
+	m_startPoint = currItem->PoLine.pointQF(3);
+	m_endPoint = currItem->PoLine.pointQF(currItem->PoLine.size() - 4);
+	m_widthPoint = QPointF(m_centerPoint.x() - item->arcWidth / 2.0, m_centerPoint.y());
+	m_heightPoint = QPointF(m_centerPoint.x(), m_centerPoint.y() - item->arcHeight / 2.0);
+	m_startAngle = item->arcStartAngle;
+	m_endAngle = m_startAngle + item->arcSweepAngle;
+	QLineF res = QLineF(m_centerPoint, m_startPoint);
+	QLineF swe = QLineF(m_centerPoint, m_endPoint);
 	VectorDialog->setValues(res.angle(), swe.angle(), item->arcHeight, item->arcWidth);
 	VectorDialog->unitChange(m_doc->unitIndex());
 	VectorDialog->show();
@@ -194,15 +194,15 @@ void CanvasMode_EditArc::updateFromItem()
 		return;
 	PageItem *currItem = m_doc->m_Selection->itemAt(0);
 	PageItem_Arc* item = currItem->asArc();
-	centerPoint = currItem->PoLine.pointQF(0);
-	startPoint = currItem->PoLine.pointQF(3);
-	endPoint = currItem->PoLine.pointQF(currItem->PoLine.size() - 4);
-	widthPoint = QPointF(centerPoint.x() - item->arcWidth / 2.0, centerPoint.y());
-	heightPoint = QPointF(centerPoint.x(), centerPoint.y() - item->arcHeight / 2.0);
-	startAngle = item->arcStartAngle;
-	endAngle = startAngle + item->arcSweepAngle;
-	QLineF res = QLineF(centerPoint, startPoint);
-	QLineF swe = QLineF(centerPoint, endPoint);
+	m_centerPoint = currItem->PoLine.pointQF(0);
+	m_startPoint = currItem->PoLine.pointQF(3);
+	m_endPoint = currItem->PoLine.pointQF(currItem->PoLine.size() - 4);
+	m_widthPoint = QPointF(m_centerPoint.x() - item->arcWidth / 2.0, m_centerPoint.y());
+	m_heightPoint = QPointF(m_centerPoint.x(), m_centerPoint.y() - item->arcHeight / 2.0);
+	m_startAngle = item->arcStartAngle;
+	m_endAngle = m_startAngle + item->arcSweepAngle;
+	QLineF res = QLineF(m_centerPoint, m_startPoint);
+	QLineF swe = QLineF(m_centerPoint, m_endPoint);
 	VectorDialog->setValues(res.angle(), swe.angle(), item->arcHeight, item->arcWidth);
 	m_view->update();
 }
@@ -229,19 +229,19 @@ void CanvasMode_EditArc::applyValues(double start, double end, double height, do
 	QLineF res = bb.map(inp);
 	inp.setAngle(end);
 	QLineF ena = bb.map(inp);
-	startAngle = res.angle();
-	endAngle = ena.angle();
-	double nSweep = endAngle - startAngle;
+	m_startAngle = res.angle();
+	m_endAngle = ena.angle();
+	double nSweep = m_endAngle - m_startAngle;
 	if (nSweep < 0)
 		nSweep += 360;
 	double oldX = currItem->xPos();
 	double oldY = currItem->yPos();
 	FPointArray old = item->PoLine;
 	QPainterPath ppr;
-	ppr.moveTo(centerPoint.x() - width / 2.0, centerPoint.y() - height / 2.0);
-	ppr.lineTo(centerPoint.x() + width / 2.0, centerPoint.y() - height / 2.0);
-	ppr.lineTo(centerPoint.x() + width / 2.0, centerPoint.y() + height / 2.0);
-	ppr.lineTo(centerPoint.x() - width / 2.0, centerPoint.y() + height / 2.0);
+	ppr.moveTo(m_centerPoint.x() - width / 2.0, m_centerPoint.y() - height / 2.0);
+	ppr.lineTo(m_centerPoint.x() + width / 2.0, m_centerPoint.y() - height / 2.0);
+	ppr.lineTo(m_centerPoint.x() + width / 2.0, m_centerPoint.y() + height / 2.0);
+	ppr.lineTo(m_centerPoint.x() - width / 2.0, m_centerPoint.y() + height / 2.0);
 	ppr.closeSubpath();
 	currItem->PoLine.fromQPainterPath(ppr, true);
 	FPoint wh = getMaxClipF(&currItem->PoLine);
@@ -251,7 +251,7 @@ void CanvasMode_EditArc::applyValues(double start, double end, double height, do
 	currItem->OldH2 = currItem->height();
 	QPainterPath pp;
 	pp.moveTo(width / 2.0, height / 2.0);
-	pp.arcTo(QRectF(0, 0, width, height), startAngle, nSweep);
+	pp.arcTo(QRectF(0, 0, width, height), m_startAngle, nSweep);
 	pp.closeSubpath();
 	currItem->PoLine.fromQPainterPath(pp, true);
 	if (UndoManager::undoEnabled())
@@ -265,7 +265,7 @@ void CanvasMode_EditArc::applyValues(double start, double end, double height, do
 		ss->set("OLD_HEIGHT",item->arcHeight);
 		ss->set("NEW_HEIGHT",height);
 		ss->set("OLD_START",item->arcStartAngle);
-		ss->set("NEW_START",startAngle);
+		ss->set("NEW_START",m_startAngle);
 		ss->set("OLD_SWEEP",item->arcSweepAngle);
 		ss->set("NEW_SWEEP",nSweep);
 		ss->setItem(qMakePair(old,item->PoLine));
@@ -273,15 +273,15 @@ void CanvasMode_EditArc::applyValues(double start, double end, double height, do
 		ss->set("NEW_YPOS",item->yPos());
 		undoManager->action(currItem,ss);
 	}
-	item->arcStartAngle = startAngle;
+	item->arcStartAngle = m_startAngle;
 	item->arcSweepAngle = nSweep;
 	item->arcWidth = width;
 	item->arcHeight = height;
-	startPoint = currItem->PoLine.pointQF(2);
-	endPoint = currItem->PoLine.pointQF(currItem->PoLine.size() - 4);
-	centerPoint = currItem->PoLine.pointQF(0);
-	widthPoint = QPointF(centerPoint.x() - item->arcWidth / 2.0, centerPoint.y());
-	heightPoint = QPointF(centerPoint.x(), centerPoint.y() - item->arcHeight / 2.0);
+	m_startPoint = currItem->PoLine.pointQF(2);
+	m_endPoint = currItem->PoLine.pointQF(currItem->PoLine.size() - 4);
+	m_centerPoint = currItem->PoLine.pointQF(0);
+	m_widthPoint = QPointF(m_centerPoint.x() - item->arcWidth / 2.0, m_centerPoint.y());
+	m_heightPoint = QPointF(m_centerPoint.x(), m_centerPoint.y() - item->arcHeight / 2.0);
 	QTransform itemMatrix = currItem->getTransform();
 	m_doc->regionsChanged()->update(itemMatrix.mapRect(QRectF(0, 0, currItem->width(), currItem->height())).adjusted(-currItem->width() / 2.0, -currItem->height() / 2.0, currItem->width(), currItem->height()));
 }
@@ -317,44 +317,44 @@ void CanvasMode_EditArc::mouseMoveEvent(QMouseEvent *m)
 		QTransform itemMatrix = currItem->getTransform();
 		QPointF sPoint = currItem->PoLine.pointQF(0);
 		QPointF smPoint = itemMatrix.map(sPoint);
-		QLineF stLinA = QLineF(smPoint, QPointF(Mxp, Myp));
+		QLineF stLinA = QLineF(smPoint, QPointF(m_Mxp, m_Myp));
 		QLineF stLinM = QLineF(smPoint, QPointF(newX, newY));
 		double deltaAngle = stLinM.angle() - stLinA.angle();
 		QPainterPath pp;
 		if (m_arcPoint == useControlStart)
-			startAngle += deltaAngle;
+			m_startAngle += deltaAngle;
 		else if (m_arcPoint == useControlSweep)
-			endAngle += deltaAngle;
+			m_endAngle += deltaAngle;
 		else if (m_arcPoint == useControlHeight)
-			heightPoint = QPointF(heightPoint.x(), heightPoint.y() + (newY - Myp));
+			m_heightPoint = QPointF(m_heightPoint.x(), m_heightPoint.y() + (newY - m_Myp));
 		else if (m_arcPoint == useControlWidth)
-			widthPoint = QPointF(widthPoint.x() + (newX - Mxp), widthPoint.y());
-		double nSweep = endAngle - startAngle;
+			m_widthPoint = QPointF(m_widthPoint.x() + (newX - m_Mxp), m_widthPoint.y());
+		double nSweep = m_endAngle - m_startAngle;
 		if (nSweep < 0)
 			nSweep += 360;
-		double nWidth = sPoint.x() - widthPoint.x();
-		double nHeight = sPoint.y() - heightPoint.y();
+		double nWidth = sPoint.x() - m_widthPoint.x();
+		double nHeight = sPoint.y() - m_heightPoint.y();
 		if ((nWidth > 0) && (nHeight > 0))
 		{
 			pp.moveTo(sPoint);
-			pp.arcTo(QRectF(sPoint.x() - nWidth, sPoint.y() - nHeight, nWidth * 2, nHeight * 2), startAngle, nSweep);
+			pp.arcTo(QRectF(sPoint.x() - nWidth, sPoint.y() - nHeight, nWidth * 2, nHeight * 2), m_startAngle, nSweep);
 			pp.closeSubpath();
 			FPointArray ar;
 			ar.fromQPainterPath(pp);
 			if (m_arcPoint == useControlStart)
 			{
-				startPoint = ar.pointQF(2);
-				QLineF stLinA = QLineF(smPoint, itemMatrix.map(startPoint));
+				m_startPoint = ar.pointQF(2);
+				QLineF stLinA = QLineF(smPoint, itemMatrix.map(m_startPoint));
 				m_canvas->displayRotHUD(m->globalPos(), 360.0 - stLinA.angle());
 			}
 			else if (m_arcPoint == useControlSweep)
 			{
-				endPoint = ar.pointQF(ar.size() - 4);
-				QLineF stLinA = QLineF(smPoint, itemMatrix.map(endPoint));
+				m_endPoint = ar.pointQF(ar.size() - 4);
+				QLineF stLinA = QLineF(smPoint, itemMatrix.map(m_endPoint));
 				m_canvas->displayRotHUD(m->globalPos(), 360.0 - stLinA.angle());
 			}
-			QLineF res = QLineF(centerPoint, startPoint);
-			QLineF swe = QLineF(centerPoint, endPoint);
+			QLineF res = QLineF(m_centerPoint, m_startPoint);
+			QLineF swe = QLineF(m_centerPoint, m_endPoint);
 			VectorDialog->setValues(res.angle(), swe.angle(), nHeight * 2, nWidth * 2);
 			blockUpdateFromItem(true);
 			currItem->update();
@@ -362,8 +362,8 @@ void CanvasMode_EditArc::mouseMoveEvent(QMouseEvent *m)
 			m_doc->regionsChanged()->update(itemMatrix.mapRect(QRectF(0, 0, currItem->width(), currItem->height())).adjusted(-currItem->width() / 2.0, -currItem->height() / 2.0, currItem->width(), currItem->height()));
 		}
 	}
-	Mxp = newX;
-	Myp = newY;
+	m_Mxp = newX;
+	m_Myp = newY;
 }
 
 void CanvasMode_EditArc::mousePressEvent(QMouseEvent *m)
@@ -378,8 +378,8 @@ void CanvasMode_EditArc::mousePressEvent(QMouseEvent *m)
 	m_doc->leaveDrag = false;
 	m->accept();
 	m_view->registerMousePress(m->globalPos());
-	Mxp = mousePointDoc.x(); //m->x();
-	Myp = mousePointDoc.y(); //m->y();
+	m_Mxp = mousePointDoc.x(); //m->x();
+	m_Myp = mousePointDoc.y(); //m->y();
 	if (m->button() == Qt::MidButton)
 	{
 		m_view->MidButt = true;
@@ -389,13 +389,13 @@ void CanvasMode_EditArc::mousePressEvent(QMouseEvent *m)
 	}
 	PageItem *currItem = m_doc->m_Selection->itemAt(0);
 	QTransform itemMatrix = currItem->getTransform();
-	QPointF stPoint = startPoint;
+	QPointF stPoint = m_startPoint;
 	stPoint = itemMatrix.map(stPoint);
-	QPointF swPoint = endPoint;
+	QPointF swPoint = m_endPoint;
 	swPoint = itemMatrix.map(swPoint);
-	QPointF shPoint = heightPoint;
+	QPointF shPoint = m_heightPoint;
 	shPoint = itemMatrix.map(shPoint);
-	QPointF sPoint = widthPoint;
+	QPointF sPoint = m_widthPoint;
 	sPoint = itemMatrix.map(sPoint);
 	if (m_canvas->hitsCanvasPoint(m->globalPos(), stPoint))
 		m_arcPoint = useControlStart;
@@ -425,11 +425,11 @@ void CanvasMode_EditArc::mouseReleaseEvent(QMouseEvent *m)
 		QTransform bb;
 		bb.scale(item->arcHeight / item->arcWidth, 1.0);
 		QLineF inp = QLineF(QPointF(item->arcWidth / 2.0, item->arcHeight / 2.0), QPointF(item->arcWidth, item->arcHeight / 2.0));
-		double start = inp.angleTo(QLineF(QPointF(item->arcWidth / 2.0, item->arcHeight / 2.0),startPoint));
+		double start = inp.angleTo(QLineF(QPointF(item->arcWidth / 2.0, item->arcHeight / 2.0),m_startPoint));
 		inp.setAngle(start);
-		double end = inp.angleTo(QLineF(QPointF(item->arcWidth / 2.0, item->arcHeight / 2.0),endPoint));
-		double nWidth = mPoint.x() - widthPoint.x();
-		double nHeight = mPoint.y() - heightPoint.y();
+		double end = inp.angleTo(QLineF(QPointF(item->arcWidth / 2.0, item->arcHeight / 2.0),m_endPoint));
+		double nWidth = mPoint.x() - m_widthPoint.x();
+		double nHeight = mPoint.y() - m_heightPoint.y();
 		applyValues(start,end + start, 2.0 * nHeight, 2.0 * nWidth);
 	}
 	QTransform itemMatrix = currItem->getTransform();
