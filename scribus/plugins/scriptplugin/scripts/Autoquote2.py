@@ -111,11 +111,16 @@ elif (lang == 'es'):
     fermant_double = u"\u00bb"
     fermant_double = u"\u201d"
     lead_single = u"\u2018"
-elif ((lang == 'lt') or (lang == 'mk') or (lang == 'is') or (lang == 'sk') or (lang == 'sl') or (lang == 'cs') or (lang == 'et')):
+elif ((lang == 'lt') or (lang == 'is') or (lang == 'sk') or (lang == 'sl') or (lang == 'cs') or (lang == 'et')):
+    ouvrant_double = u"\u201e"
+    fermant_double = u"\u201c"
+    lead_single = u"\u201a"
+    follow_single = u"\u2018"
+elif (lang == 'mk'):
     ouvrant_double = u"\u201e"
     fermant_double = u"\u201c"
     lead_single = u"\u2019"
-    follow_single = u"\u201a"
+    follow_single = u"\u2018"
 elif ((lang == 'hu') or (lang == 'nl')):
     ouvrant_double = u"\u201e"
     fermant_double = u"\u201d"
