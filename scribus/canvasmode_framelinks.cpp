@@ -54,9 +54,9 @@
 
 CanvasMode_FrameLinks::CanvasMode_FrameLinks(ScribusView* view) : CanvasMode(view), m_ScMW(view->m_ScMW) 
 {
-	Mxp = Myp = -1;
-	Dxp = Dyp = -1;
-	frameResizeHandle = -1;
+	m_Mxp = m_Myp = -1;
+	m_Dxp = m_Dyp = -1;
+	m_frameResizeHandle = -1;
 }
 
 inline bool CanvasMode_FrameLinks::GetItem(PageItem** pi)
@@ -93,9 +93,9 @@ void CanvasMode_FrameLinks::activate(bool fromGesture)
 	m_canvas->m_viewMode.operItemMoving = false;
 	m_canvas->m_viewMode.operItemResizing = false;
 	m_view->MidButt = false;
-	Mxp = Myp = -1;
-	Dxp = Dyp = -1;
-	frameResizeHandle = -1;
+	m_Mxp = m_Myp = -1;
+	m_Dxp = m_Dyp = -1;
+	m_frameResizeHandle = -1;
 	setModeCursor();
 	if (fromGesture)
 	{
@@ -127,9 +127,9 @@ void CanvasMode_FrameLinks::mouseMoveEvent(QMouseEvent *m)
 		return;
 	if ((m_canvas->m_viewMode.m_MouseButtonPressed) && (m->buttons() & Qt::LeftButton))
 	{
-		SeRx = qRound(mousePointDoc.x()); //m_view->translateToDoc(m->x(), m->y()).x());
-		SeRy = qRound(mousePointDoc.y()); //m_view->translateToDoc(m->x(), m->y()).y());
-		QPoint startP = m_canvas->canvasToGlobal(m_doc->appMode == modeDrawTable2 ? QPointF(Dxp, Dyp) : QPointF(Mxp, Myp));
+		m_SeRx = qRound(mousePointDoc.x()); //m_view->translateToDoc(m->x(), m->y()).x());
+		m_SeRy = qRound(mousePointDoc.y()); //m_view->translateToDoc(m->x(), m->y()).y());
+		QPoint startP = m_canvas->canvasToGlobal(m_doc->appMode == modeDrawTable2 ? QPointF(m_Dxp, m_Dyp) : QPointF(m_Mxp, m_Myp));
 		m_view->redrawMarker->setGeometry(QRect(m_view->mapFromGlobal(startP), m_view->mapFromGlobal(m->globalPos())).normalized());
 		m_view->setRedrawMarkerShown(true);
 		m_view->HaveSelRect = true;
@@ -152,14 +152,14 @@ void CanvasMode_FrameLinks::mousePressEvent(QMouseEvent *m)
 //	oldClip = 0;
 	m->accept();
 	m_view->registerMousePress(m->globalPos());
-	Mxp = mousePointDoc.x(); //qRound(m->x()/m_canvas->scale() + 0*m_doc->minCanvasCoordinate.x());
-	Myp = mousePointDoc.y(); //qRound(m->y()/m_canvas->scale() + 0*m_doc->minCanvasCoordinate.y());
-	Rxp = m_doc->ApplyGridF(FPoint(Mxp, Myp)).x();
-	Mxp = qRound(Rxp);
-	Ryp = m_doc->ApplyGridF(FPoint(Mxp, Myp)).y();
-	Myp = qRound(Ryp);
-	SeRx = Mxp;
-	SeRy = Myp;
+	m_Mxp = mousePointDoc.x(); //qRound(m->x()/m_canvas->scale() + 0*m_doc->minCanvasCoordinate.x());
+	m_Myp = mousePointDoc.y(); //qRound(m->y()/m_canvas->scale() + 0*m_doc->minCanvasCoordinate.y());
+	Rxp = m_doc->ApplyGridF(FPoint(m_Mxp, m_Myp)).x();
+	m_Mxp = qRound(Rxp);
+	Ryp = m_doc->ApplyGridF(FPoint(m_Mxp, m_Myp)).y();
+	m_Myp = qRound(Ryp);
+	m_SeRx = m_Mxp;
+	m_SeRy = m_Myp;
 	if (m->button() == Qt::MidButton)
 	{
 		m_view->MidButt = true;
@@ -326,13 +326,13 @@ void CanvasMode_FrameLinks::selectPage(QMouseEvent *m)
 {
 	m_canvas->m_viewMode.m_MouseButtonPressed = true;
 	FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPos());
-	Mxp = mousePointDoc.x(); //static_cast<int>(m->x()/m_canvas->scale());
-	Myp = mousePointDoc.y(); //static_cast<int>(m->y()/m_canvas->scale());
+	m_Mxp = mousePointDoc.x(); //static_cast<int>(m->x()/m_canvas->scale());
+	m_Myp = mousePointDoc.y(); //static_cast<int>(m->y()/m_canvas->scale());
 	m_doc->nodeEdit.deselect();
 	m_view->Deselect(false);
 	if (!m_doc->masterPageMode())
 	{
-		int i = m_doc->OnPage(Mxp, Myp);
+		int i = m_doc->OnPage(m_Mxp, m_Myp);
 		if (i!=-1)
 		{
 			uint docCurrPageNo=m_doc->currentPageNumber();
@@ -358,8 +358,8 @@ bool CanvasMode_FrameLinks::SeleItem(QMouseEvent *m)
 	PageItem *currItem;
 	m_canvas->m_viewMode.m_MouseButtonPressed = true;
 	FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPos());
-	Mxp = mousePointDoc.x(); //m->x()/m_canvas->scale());
-	Myp = mousePointDoc.y(); //m->y()/m_canvas->scale());
+	m_Mxp = mousePointDoc.x(); //m->x()/m_canvas->scale());
+	m_Myp = mousePointDoc.y(); //m->y()/m_canvas->scale());
 	int MxpS = static_cast<int>(mousePointDoc.x()); //m->x()/m_canvas->scale() + 0*m_doc->minCanvasCoordinate.x());
 	int MypS = static_cast<int>(mousePointDoc.y()); //m->y()/m_canvas->scale() + 0*m_doc->minCanvasCoordinate.y());
 	m_doc->nodeEdit.deselect();
@@ -466,8 +466,8 @@ bool CanvasMode_FrameLinks::SeleItem(QMouseEvent *m)
 		}
 		if (m_doc->m_Selection->count() == 1)
 		{
-			frameResizeHandle = m_canvas->frameHitTest(QPointF(mousePointDoc.x(),mousePointDoc.y()), currItem);
-			if ((frameResizeHandle == Canvas::INSIDE) && (!currItem->locked()))
+			m_frameResizeHandle = m_canvas->frameHitTest(QPointF(mousePointDoc.x(),mousePointDoc.y()), currItem);
+			if ((m_frameResizeHandle == Canvas::INSIDE) && (!currItem->locked()))
 				m_view->setCursor(QCursor(Qt::SizeAllCursor));
 		}
 		else
@@ -487,8 +487,8 @@ void CanvasMode_FrameLinks::createContextMenu(PageItem* currItem, double mx, dou
 {
 	ContextMenu* cmen=NULL;
 	m_view->setObjectUndoMode();
-	Mxp = mx;
-	Myp = my;
+	m_Mxp = mx;
+	m_Myp = my;
 	if(currItem!=NULL)
 	{
 		cmen = new ContextMenu(*(m_doc->m_Selection), m_ScMW, m_doc);
