@@ -57,7 +57,7 @@ public:
 	virtual void keyPressEvent(QKeyEvent *e);
 	virtual bool handleKeyEvents() { return true; }
 	virtual void drawControls(QPainter* p);
-	void drawControlsWeldPoint(QPainter* pp, PageItem* currItem);
+	void drawControlsWeldPoint(QPainter* pp, PageItem* m_currItem);
 
 private:
 	void snapToEdgePoints(double &x, double &y);
@@ -65,14 +65,14 @@ private:
 
 	inline bool GetItem(PageItem** pi);
 
-	double Mxp, Myp;
-	int selectedPoint;
+	double m_Mxp, m_Myp;
+	int m_selectedPoint;
 	ScribusMainWindow* m_ScMW;
 	bool m_keyRepeat;
-	PageItem *currItem;
-	QList<PageItem*> weldToList;
-	WeldEditDialog* ModeDialog;
-	bool editWeldMode;
+	PageItem *m_currItem;
+	QList<PageItem*> m_weldToList;
+	WeldEditDialog* m_ModeDialog;
+	bool m_editWeldMode;
 private slots:
 	void endEditing(bool active);
 	void endEditing();

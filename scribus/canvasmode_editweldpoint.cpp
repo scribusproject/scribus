@@ -65,9 +65,9 @@
 
 CanvasMode_EditWeldPoint::CanvasMode_EditWeldPoint(ScribusView* view) : CanvasMode(view), m_ScMW(view->m_ScMW)
 {
-	Mxp = Myp = -1;
-	selectedPoint = -1;
-	editWeldMode = true;
+	m_Mxp = m_Myp = -1;
+	m_selectedPoint = -1;
+	m_editWeldMode = true;
 }
 
 inline bool CanvasMode_EditWeldPoint::GetItem(PageItem** pi)
@@ -102,7 +102,7 @@ void CanvasMode_EditWeldPoint::drawControlsWeldPoint(QPainter* psx, PageItem* cu
 	for (int i = 0 ; i <  currItem->weldList.count(); i++)
 	{
 		PageItem::WeldingInfo wInf =  currItem->weldList.at(i);
-		if (i == selectedPoint)
+		if (i == m_selectedPoint)
 			psx->setPen(QPen(Qt::red, 8.0 / m_canvas->scale(), Qt::SolidLine, Qt::RoundCap, Qt::MiterJoin));
 		else
 			psx->setPen(QPen(Qt::yellow, 8.0 / m_canvas->scale(), Qt::SolidLine, Qt::RoundCap, Qt::MiterJoin));
@@ -133,32 +133,32 @@ void CanvasMode_EditWeldPoint::activate(bool fromGesture)
 	m_canvas->m_viewMode.operItemResizing = false;
 	m_view->MidButt = false;
 	m_keyRepeat = false;
-	currItem = m_doc->m_Selection->itemAt(0);
-	weldToList = currItem->itemsWeldedTo();
-	weldToList.append(currItem);
-	Mxp = Myp = -1;
-	selectedPoint = -1;
+	m_currItem = m_doc->m_Selection->itemAt(0);
+	m_weldToList = m_currItem->itemsWeldedTo();
+	m_weldToList.append(m_currItem);
+	m_Mxp = m_Myp = -1;
+	m_selectedPoint = -1;
 	setModeCursor();
 	if (fromGesture)
 	{
 		m_view->update();
 	}
-	ModeDialog = new WeldEditDialog(m_ScMW);
-	ModeDialog->show();
-	connect(ModeDialog, SIGNAL(endEdit()), this, SLOT(endEditing()));
-	connect(ModeDialog, SIGNAL(paletteShown(bool)), this, SLOT(endEditing(bool)));
-	connect(ModeDialog, SIGNAL(modeMoveWeld()), this, SLOT(setWeldMode()));
-	connect(ModeDialog, SIGNAL(modeMoveObject()), this, SLOT(setObjectMode()));
+	m_ModeDialog = new WeldEditDialog(m_ScMW);
+	m_ModeDialog->show();
+	connect(m_ModeDialog, SIGNAL(endEdit()), this, SLOT(endEditing()));
+	connect(m_ModeDialog, SIGNAL(paletteShown(bool)), this, SLOT(endEditing(bool)));
+	connect(m_ModeDialog, SIGNAL(modeMoveWeld()), this, SLOT(setWeldMode()));
+	connect(m_ModeDialog, SIGNAL(modeMoveObject()), this, SLOT(setObjectMode()));
 }
 
 void CanvasMode_EditWeldPoint::deactivate(bool forGesture)
 {
 	m_view->setRedrawMarkerShown(false);
-	selectedPoint = -1;
-	weldToList.clear();
-	disconnect(ModeDialog, SIGNAL(paletteShown(bool)), this, SLOT(endEditing(bool)));
-	ModeDialog->close();
-	delete ModeDialog;
+	m_selectedPoint = -1;
+	m_weldToList.clear();
+	disconnect(m_ModeDialog, SIGNAL(paletteShown(bool)), this, SLOT(endEditing(bool)));
+	m_ModeDialog->close();
+	delete m_ModeDialog;
 }
 
 void CanvasMode_EditWeldPoint::endEditing(bool active)
@@ -174,17 +174,17 @@ void CanvasMode_EditWeldPoint::endEditing()
 
 void CanvasMode_EditWeldPoint::setWeldMode()
 {
-	editWeldMode = true;
+	m_editWeldMode = true;
 }
 
 void CanvasMode_EditWeldPoint::setObjectMode()
 {
-	editWeldMode = false;
+	m_editWeldMode = false;
 }
 
 void CanvasMode_EditWeldPoint::keyPressEvent(QKeyEvent *e)
 {
-	if (selectedPoint < 0)
+	if (m_selectedPoint < 0)
 		return;
 	int kk = e->key();
 	if (m_keyRepeat)
@@ -283,9 +283,9 @@ void CanvasMode_EditWeldPoint::keyPressEvent(QKeyEvent *e)
 			}
 			if (isMoving)
 			{
-				if (editWeldMode)
+				if (m_editWeldMode)
 				{
-					currItem->weldList[selectedPoint].weldPoint += FPoint(moveX, moveY);
+					currItem->weldList[m_selectedPoint].weldPoint += FPoint(moveX, moveY);
 				}
 				else
 				{
@@ -313,7 +313,7 @@ void CanvasMode_EditWeldPoint::mouseDoubleClickEvent(QMouseEvent *m)
 	{
 		if ((m_doc->m_Selection->isMultipleSelection()) && (m_doc->appMode == modeNormal))
 		{
-			if (GetItem(&currItem))
+			if (GetItem(&m_currItem))
 			{
 				/* CB: old code, removing this as shift-alt select on an unselected table selects a cell now.
 				//#6789 is closed by sorting this.
@@ -332,7 +332,7 @@ void CanvasMode_EditWeldPoint::mouseDoubleClickEvent(QMouseEvent *m)
 		}
 		else
 		{
-			if (!(GetItem(&currItem) && (m_doc->appMode == modeEdit) && currItem->asTextFrame()))
+			if (!(GetItem(&m_currItem) && (m_doc->appMode == modeEdit) && m_currItem->asTextFrame()))
 			{
 				mousePressEvent(m);
 				return;
@@ -352,36 +352,36 @@ void CanvasMode_EditWeldPoint::mouseMoveEvent(QMouseEvent *m)
 		npfN = m_doc->ApplyGridF(FPoint(nx, ny));
 	else
 		npfN = FPoint(nx, ny);
-	currItem = m_doc->m_Selection->itemAt(0);
-	FPoint npf = FPoint(npfN.x(), npfN.y(), currItem->xPos(), currItem->yPos(), currItem->rotation(), 1, 1, true);
-	FPoint npx(Mxp - npfN.x(), Myp - npfN.y(), 0, 0, currItem->rotation(), 1, 1, true);
+	m_currItem = m_doc->m_Selection->itemAt(0);
+	FPoint npf = FPoint(npfN.x(), npfN.y(), m_currItem->xPos(), m_currItem->yPos(), m_currItem->rotation(), 1, 1, true);
+	FPoint npx(m_Mxp - npfN.x(), m_Myp - npfN.y(), 0, 0, m_currItem->rotation(), 1, 1, true);
 	m_canvas->displayXYHUD(m->globalPos(), npf.x(), npf.y());
 	if (m_canvas->m_viewMode.m_MouseButtonPressed && m_view->moveTimerElapsed())
 	{
-		if (editWeldMode)
+		if (m_editWeldMode)
 		{
-			if (selectedPoint != -1)
+			if (m_selectedPoint != -1)
 			{
 				m_canvas->displayXYHUD(m->globalPos(), npf.x(), npf.y());
 				FPoint mp, mp_orig;
-				mp_orig = currItem->weldList[selectedPoint].weldPoint;
+				mp_orig = m_currItem->weldList[m_selectedPoint].weldPoint;
 				mp = mp_orig - npx;
 				double xx = mp.x();
 				double yy = mp.y();
 				snapToEdgePoints(xx, yy);
-				currItem->weldList[selectedPoint].weldPoint = FPoint(xx, yy);
+				m_currItem->weldList[m_selectedPoint].weldPoint = FPoint(xx, yy);
 			}
 		}
 		else
 		{
-			currItem->setXYPos(currItem->xPos() - npx.x(), currItem->yPos() - npx.y(), true);
-			currItem->setRedrawBounding();
-			currItem->OwnPage = m_doc->OnPage(currItem);
+			m_currItem->setXYPos(m_currItem->xPos() - npx.x(), m_currItem->yPos() - npx.y(), true);
+			m_currItem->setRedrawBounding();
+			m_currItem->OwnPage = m_doc->OnPage(m_currItem);
 		}
 		m_doc->regionsChanged()->update(getUpdateRect());
 	}
-	Mxp = npfN.x();
-	Myp = npfN.y();
+	m_Mxp = npfN.x();
+	m_Myp = npfN.y();
 }
 
 void CanvasMode_EditWeldPoint::mousePressEvent(QMouseEvent *m)
@@ -396,8 +396,8 @@ void CanvasMode_EditWeldPoint::mousePressEvent(QMouseEvent *m)
 	m_doc->leaveDrag = false;
 	m->accept();
 	m_view->registerMousePress(m->globalPos());
-	Mxp = mousePointDoc.x(); //m->x();
-	Myp = mousePointDoc.y(); //m->y();
+	m_Mxp = mousePointDoc.x(); //m->x();
+	m_Myp = mousePointDoc.y(); //m->y();
 	if (m->button() == Qt::MidButton)
 	{
 		m_view->MidButt = true;
@@ -406,16 +406,16 @@ void CanvasMode_EditWeldPoint::mousePressEvent(QMouseEvent *m)
 		return;
 	}
 	QTransform itemMatrix;
-	currItem = m_doc->m_Selection->itemAt(0);
-	itemMatrix.translate(currItem->xPos(), currItem->yPos());
-	itemMatrix.rotate(currItem->rotation());
-	selectedPoint = -1;
-	for (int i = 0 ; i <  currItem->weldList.count(); i++)
+	m_currItem = m_doc->m_Selection->itemAt(0);
+	itemMatrix.translate(m_currItem->xPos(), m_currItem->yPos());
+	itemMatrix.rotate(m_currItem->rotation());
+	m_selectedPoint = -1;
+	for (int i = 0 ; i <  m_currItem->weldList.count(); i++)
 	{
-		PageItem::WeldingInfo wInf = currItem->weldList.at(i);
+		PageItem::WeldingInfo wInf = m_currItem->weldList.at(i);
 		if (m_canvas->hitsCanvasPoint(mousePointDoc, itemMatrix.map(QPointF(wInf.weldPoint.x(), wInf.weldPoint.y()))))
 		{
-			selectedPoint = i;
+			m_selectedPoint = i;
 			break;
 		}
 	}
@@ -429,8 +429,8 @@ void CanvasMode_EditWeldPoint::mouseReleaseEvent(QMouseEvent *m)
 	m_canvas->m_viewMode.m_MouseButtonPressed = false;
 	m_canvas->resetRenderMode();
 	m->accept();
-	currItem = m_doc->m_Selection->itemAt(0);
-	currItem->update();
+	m_currItem = m_doc->m_Selection->itemAt(0);
+	m_currItem->update();
 	m_doc->regionsChanged()->update(getUpdateRect());
 }
 
@@ -443,52 +443,52 @@ void CanvasMode_EditWeldPoint::snapToEdgePoints(double &x, double &y)
 		y = 0.0;
 		return;
 	}
-	else if ((qAbs((currItem->width() / 2.0) - x) < radius) && (qAbs(0.0 - y) < radius))
+	else if ((qAbs((m_currItem->width() / 2.0) - x) < radius) && (qAbs(0.0 - y) < radius))
 	{
-		x = currItem->width() / 2.0;
+		x = m_currItem->width() / 2.0;
 		y = 0.0;
 		return;
 	}
-	else if ((qAbs(currItem->width() - x) < radius) && (qAbs(0.0 - y) < radius))
+	else if ((qAbs(m_currItem->width() - x) < radius) && (qAbs(0.0 - y) < radius))
 	{
-		x = currItem->width();
+		x = m_currItem->width();
 		y = 0.0;
 		return;
 	}
-	else if ((qAbs(0.0 - x) < radius) && (qAbs((currItem->height() / 2.0) - y) < radius))
+	else if ((qAbs(0.0 - x) < radius) && (qAbs((m_currItem->height() / 2.0) - y) < radius))
 	{
 		x = 0.0;
-		y = currItem->height() / 2.0;
+		y = m_currItem->height() / 2.0;
 		return;
 	}
-	else if ((qAbs((currItem->width() / 2.0) - x) < radius) && (qAbs((currItem->height() / 2.0) - y) < radius))
+	else if ((qAbs((m_currItem->width() / 2.0) - x) < radius) && (qAbs((m_currItem->height() / 2.0) - y) < radius))
 	{
-		x = currItem->width() / 2.0;
-		y = currItem->height() / 2.0;
+		x = m_currItem->width() / 2.0;
+		y = m_currItem->height() / 2.0;
 		return;
 	}
-	else if ((qAbs(currItem->width() - x) < radius) && (qAbs((currItem->height() / 2.0) - y) < radius))
+	else if ((qAbs(m_currItem->width() - x) < radius) && (qAbs((m_currItem->height() / 2.0) - y) < radius))
 	{
-		x = currItem->width();
-		y = currItem->height() / 2.0;
+		x = m_currItem->width();
+		y = m_currItem->height() / 2.0;
 		return;
 	}
-	else if ((qAbs(0.0 - x) < radius) && (qAbs(currItem->height() - y) < radius))
+	else if ((qAbs(0.0 - x) < radius) && (qAbs(m_currItem->height() - y) < radius))
 	{
 		x = 0.0;
-		y = currItem->height();
+		y = m_currItem->height();
 		return;
 	}
-	else if ((qAbs((currItem->width() / 2.0) - x) < radius) && (qAbs(currItem->height() - y) < radius))
+	else if ((qAbs((m_currItem->width() / 2.0) - x) < radius) && (qAbs(m_currItem->height() - y) < radius))
 	{
-		x = currItem->width() / 2.0;
-		y = currItem->height();
+		x = m_currItem->width() / 2.0;
+		y = m_currItem->height();
 		return;
 	}
-	else if ((qAbs(currItem->width() - x) < radius) && (qAbs(currItem->height() - y) < radius))
+	else if ((qAbs(m_currItem->width() - x) < radius) && (qAbs(m_currItem->height() - y) < radius))
 	{
-		x = currItem->width();
-		y = currItem->height();
+		x = m_currItem->width();
+		y = m_currItem->height();
 		return;
 	}
 }
@@ -496,7 +496,7 @@ void CanvasMode_EditWeldPoint::snapToEdgePoints(double &x, double &y)
 QRectF CanvasMode_EditWeldPoint::getUpdateRect()
 {
 	PageItem *item;
-	uint selectedItemCount = weldToList.count();
+	uint selectedItemCount = m_weldToList.count();
 	if (selectedItemCount == 0)
 		return QRectF();
 	double vminx =  std::numeric_limits<double>::max();
@@ -506,7 +506,7 @@ QRectF CanvasMode_EditWeldPoint::getUpdateRect()
 
 	for (uint gc = 0; gc < selectedItemCount; ++gc)
 	{
-		item = weldToList.at(gc);
+		item = m_weldToList.at(gc);
 		if (item->rotation() != 0)
 		{
 			QRectF itRect(item->getVisualBoundingRect());
