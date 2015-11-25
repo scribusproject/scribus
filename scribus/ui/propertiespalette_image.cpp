@@ -684,7 +684,9 @@ void PropertiesPalette_Image::handleImageDPIRatio()
 	imgDpiY->blockSignals(true);
 	if (keepImageDPIRatioButton->isChecked())
 	{
-		imgDpiY->setValue(imgDpiX->value());
+		double minXY = qMin(imgDpiX->value(), imgDpiY->value());
+		imgDpiX->setValue(minXY);
+		imgDpiY->setValue(minXY);
 		handleLocalDpi();
 		keepImageWHRatioButton->setChecked(true);
 		cbProportional->setChecked(true);
@@ -706,7 +708,9 @@ void PropertiesPalette_Image::handleImageWHRatio()
 	imageYScaleSpinBox->blockSignals(true);
 	if (keepImageWHRatioButton->isChecked())
 	{
-		imageYScaleSpinBox->setValue(imageXScaleSpinBox->value());
+		double maxXY = qMax(imageXScaleSpinBox->value(), imageYScaleSpinBox->value());
+		imageXScaleSpinBox->setValue(maxXY);
+		imageYScaleSpinBox->setValue(maxXY);
 		handleLocalScale();
 		keepImageDPIRatioButton->setChecked(true);
 		cbProportional->setChecked(true);
