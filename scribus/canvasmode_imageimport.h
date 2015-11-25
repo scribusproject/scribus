@@ -54,10 +54,10 @@ public:
 
 private:
 	bool m_keyRepeat;
-	QString tipText;
-	QStringList imageList;
+	QString m_tipText;
+	QStringList m_imageList;
 	ScribusMainWindow *m_ScMW;
-	double Mx, My;
+	double m_Mx, m_My;
 	void newToolTip(QString name);
 };
 
