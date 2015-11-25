@@ -624,7 +624,6 @@ void ScribusView::contentsDragEnterEvent(QDragEnterEvent *e)
 	QString text;
 	bool /* dataFound = false, */ fromFile = false;
 	const ScElemMimeData* elemData = dynamic_cast<const ScElemMimeData*>(e->mimeData());
-	e->accept();
 	if (elemData)
 		text = elemData->scribusElem();
 	else if (e->mimeData()->hasUrls())
@@ -637,27 +636,40 @@ void ScribusView::contentsDragEnterEvent(QDragEnterEvent *e)
 			text = url.toLocalFile();
 		}
 	}
-	if (!text.isEmpty())
+
+	bool hasSupportedFormat = !text.isEmpty();
+	hasSupportedFormat |= e->mimeData()->hasFormat("text/inline");
+	hasSupportedFormat |= e->mimeData()->hasFormat("text/symbol");
+	hasSupportedFormat |= e->mimeData()->hasUrls();
+	if (!hasSupportedFormat)
 	{
-		e->acceptProposedAction();
-		double gx, gy, gw, gh;
-		ScriXmlDoc ss;
-		if(ss.ReadElemHeader(text, fromFile, &gx, &gy, &gw, &gh))
-		{
-			FPoint dragPosDoc = m_canvas->globalToCanvas(widget()->mapToGlobal(e->pos()));
-			dragX = dragPosDoc.x(); //e->pos().x() / m_canvas->scale();
-			dragY = dragPosDoc.y(); //e->pos().y() / m_canvas->scale();
-			dragW = gw;
-			dragH = gh;
-			DraggedGroup = true;
-			getDragRectScreen(&gx, &gy, &gw, &gh);
-//			QPoint evP = viewport()->mapToGlobal(e->pos());
-//			evP -= QPoint(contentsX(), contentsY());
-//			redrawMarker->setGeometry(QRect(evP.x() + 1, evP.y() + 1, qRound(gw), qRound(gh)).normalized());
-//			if (!redrawMarker->isVisible())
-//				redrawMarker->show();
-			emit ItemGeom();
-		}
+		e->ignore();
+		return;
+	}
+
+	e->accept();
+	e->acceptProposedAction();
+
+	if (text.isEmpty())
+		return;
+
+	double gx, gy, gw, gh;
+	ScriXmlDoc ss;
+	if (ss.ReadElemHeader(text, fromFile, &gx, &gy, &gw, &gh))
+	{
+		FPoint dragPosDoc = m_canvas->globalToCanvas(widget()->mapToGlobal(e->pos()));
+		dragX = dragPosDoc.x(); //e->pos().x() / m_canvas->scale();
+		dragY = dragPosDoc.y(); //e->pos().y() / m_canvas->scale();
+		dragW = gw;
+		dragH = gh;
+		DraggedGroup = true;
+		getDragRectScreen(&gx, &gy, &gw, &gh);
+//		QPoint evP = viewport()->mapToGlobal(e->pos());
+//		evP -= QPoint(contentsX(), contentsY());
+//		redrawMarker->setGeometry(QRect(evP.x() + 1, evP.y() + 1, qRound(gw), qRound(gh)).normalized());
+//		if (!redrawMarker->isVisible())
+//			redrawMarker->show();
+		emit ItemGeom();
 	}
 }
 
@@ -842,349 +854,394 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 			}
 		}
 	}
+
 //	qDebug() << "ScribusView::contentsDropEvent" << e->mimeData()->formats() << url;
-	if (!url.isEmpty())
+	if (url.isEmpty())
 	{
-		e->acceptProposedAction();
-		//<<#3524
-		activateWindow();
-		if (!m_ScMW->scriptIsRunning())
-			raise();
-		m_ScMW->newActWin(((ScribusWin*)(Doc->WinHan))->getSubWin());
-		updateContents();
-		//>>
-		QFileInfo fi;
-		QString ext = "";
-		if (!e->mimeData()->formats().contains("application/x-scribus-elem"))
-		{
-			fi.setFile(url.toLocalFile());
-			ext = fi.suffix().toUpper();
-		}
+		e->ignore();
+		return;
+	}
+
+	e->acceptProposedAction();
+	//<<#3524
+	activateWindow();
+	if (!m_ScMW->scriptIsRunning())
+		raise();
+	m_ScMW->newActWin(((ScribusWin*)(Doc->WinHan))->getSubWin());
+	updateContents();
+	//>>
+	QFileInfo fi;
+	QString ext = "";
+	if (!e->mimeData()->formats().contains("application/x-scribus-elem"))
+	{
+		fi.setFile(url.toLocalFile());
+		ext = fi.suffix().toUpper();
+	}
 //		QFileInfo fi(url.toLocalFile());
 //		QString ext = fi.suffix().toUpper();
-		QStringList imfo;
-		QList<QByteArray> imgs = QImageReader::supportedImageFormats();
-		for (int i = 0; i < imgs.count(); ++i )
-		{
-			imfo.append(QString(imgs.at(i)).toUpper());
-		}
-		if (ext == "JPG")
-			ext = "JPEG";
-		QString formatD(FormatsManager::instance()->extensionListForFormat(FormatsManager::IMAGESIMGFRAME, 1).toUpper());
-		imfo += formatD.split("|");
-		img = imfo.contains(ext);
-		//CB Need to handle this ugly file extension list elsewhere... some capabilities class perhaps
-	//	img = ((imfo.contains(ext)) || extensionIndicatesPDF(ext) || extensionIndicatesEPSorPS(ext) || extensionIndicatesTIFF(ext) || extensionIndicatesJPEG(ext) || extensionIndicatesPSD(ext));
+	QStringList imfo;
+	QList<QByteArray> imgs = QImageReader::supportedImageFormats();
+	for (int i = 0; i < imgs.count(); ++i )
+	{
+		imfo.append(QString(imgs.at(i)).toUpper());
+	}
+	if (ext == "JPG")
+		ext = "JPEG";
+	QString formatD(FormatsManager::instance()->extensionListForFormat(FormatsManager::IMAGESIMGFRAME, 1).toUpper());
+	imfo += formatD.split("|");
+	img = imfo.contains(ext);
+	//CB Need to handle this ugly file extension list elsewhere... some capabilities class perhaps
+//	img = ((imfo.contains(ext)) || extensionIndicatesPDF(ext) || extensionIndicatesEPSorPS(ext) || extensionIndicatesTIFF(ext) || extensionIndicatesJPEG(ext) || extensionIndicatesPSD(ext));
 //		int pscx=qRound(e->pos().x()/m_canvas->scale()), pscy=qRound(e->pos().y()/m_canvas->scale());
-		//Loop through all items and see which one(s) were under the drop point on the current layer
-		//Should make a nice function for this.
-		//#9051 :  loop in reverse order so that items in front of others are prioritized
-		Doc->m_Selection->delaySignalsOn();
-		for (int i = Doc->Items->count() - 1; i >= 0 ; --i)
+	//Loop through all items and see which one(s) were under the drop point on the current layer
+	//Should make a nice function for this.
+	//#9051 :  loop in reverse order so that items in front of others are prioritized
+	Doc->m_Selection->delaySignalsOn();
+	for (int i = Doc->Items->count() - 1; i >= 0 ; --i)
+	{
+		if (Doc->Items->at(i)->LayerID==Doc->activeLayer())
 		{
-			if (Doc->Items->at(i)->LayerID==Doc->activeLayer())
+			if (m_canvas->frameHitTest(dropPosDocQ, Doc->Items->at(i)) >= Canvas::INSIDE)
 			{
-				if (m_canvas->frameHitTest(dropPosDocQ, Doc->Items->at(i)) >= Canvas::INSIDE)
-				{
-					Deselect(false);
-					Doc->m_Selection->addItem(Doc->Items->at(i));
+				Deselect(false);
+				Doc->m_Selection->addItem(Doc->Items->at(i));
 //					SelectItem(Doc->Items->at(i));
-					selectedItemByDrag=true;
-					break;
-				}
+				selectedItemByDrag=true;
+				break;
 			}
 		}
-		Doc->m_Selection->delaySignalsOff();
-		bool vectorFile = false;
-		if (fi.exists())
-		{
-			if (fi.suffix().toLower() == "sce")
-				vectorFile = true;
-			else
-			{
-				FileLoader *fileLoader = new FileLoader(url.toLocalFile());
-				int testResult = fileLoader->testFile();
-				delete fileLoader;
-				if ((testResult != -1) && (testResult >= FORMATID_FIRSTUSER))
-					vectorFile = true;
-			}
-		}
+	}
+	Doc->m_Selection->delaySignalsOff();
+	bool vectorFile = false;
+	if (fi.exists())
+	{
+		if (fi.suffix().toLower() == "sce")
+			vectorFile = true;
 		else
 		{
-			if ((text.startsWith("<SCRIBUSELEM")) || (text.startsWith("SCRIBUSFRAGMENT")))
+			FileLoader *fileLoader = new FileLoader(url.toLocalFile());
+			int testResult = fileLoader->testFile();
+			delete fileLoader;
+			if ((testResult != -1) && (testResult >= FORMATID_FIRSTUSER))
 				vectorFile = true;
 		}
+	}
+	else
+	{
+		if ((text.startsWith("<SCRIBUSELEM")) || (text.startsWith("SCRIBUSFRAGMENT")))
+			vectorFile = true;
+	}
 //		qDebug() << "drop - img:" << img << "file:" << fi.exists() << "suffix:" << fi.suffix() << "select by drag:" << selectedItemByDrag;
-		//CB When we drag an image to a page from outside
-		//SeleItemPos is from 1.2.x. Needs reenabling for dragging *TO* a frame
-		if ((fi.exists()) && (img) && !selectedItemByDrag && !vectorFile)// && (!SeleItemPos(e->pos())))
-		{
-			int z = Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, dropPosDoc.x(), dropPosDoc.y(), 1, 1, Doc->itemToolPrefs().shapeLineWidth, Doc->itemToolPrefs().imageFillColor, Doc->itemToolPrefs().imageStrokeColor);
-			PageItem *b = Doc->Items->at(z);
-			b->LayerID = Doc->activeLayer();
-			Doc->loadPict(url.toLocalFile(), b);
+	//CB When we drag an image to a page from outside
+	//SeleItemPos is from 1.2.x. Needs reenabling for dragging *TO* a frame
+	if ((fi.exists()) && (img) && !selectedItemByDrag && !vectorFile)// && (!SeleItemPos(e->pos())))
+	{
+		int z = Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, dropPosDoc.x(), dropPosDoc.y(), 1, 1, Doc->itemToolPrefs().shapeLineWidth, Doc->itemToolPrefs().imageFillColor, Doc->itemToolPrefs().imageStrokeColor);
+		PageItem *b = Doc->Items->at(z);
+		b->LayerID = Doc->activeLayer();
+		Doc->loadPict(url.toLocalFile(), b);
 
-			double iw = static_cast<double>(b->OrigW * 72.0 / b->pixm.imgInfo.xres);
-			double ih = static_cast<double>(b->OrigH * 72.0 / b->pixm.imgInfo.yres);
-			if (iw > ih)
-			{
-				double pw = Doc->currentPage()->width();
-				if (iw > pw)
-				{
-					ih = pw * (ih / iw);
-					iw = pw;
-				}
-			}
-			else
-			{
-				double ph = Doc->currentPage()->height();
-				if (ih > ph)
-				{
-					iw = ph * (iw / ih);
-					ih = ph;
-				}
-			}
-
-			b->setWidth(iw);
-			b->setHeight(ih);
-			b->OldB2 = b->width();
-			b->OldH2 = b->height();
-			b->updateClip();
-			b->AdjustPictScale();
-			b->update();
-			emit DocChanged();
-			update();
-			return;
-		}
-		//if ((SeleItemPos(e->pos())) && (!text.startsWith("<SCRIBUSELEM")))
-//		if (Doc->m_Selection->count()>0 && (m_canvas->frameHitTest(dropPosDocQ, Doc->m_Selection->itemAt(0)) >= Canvas::INSIDE) && !vectorFile) // && (img))
-		if (selectedItemByDrag && (m_canvas->frameHitTest(dropPosDocQ, Doc->m_Selection->itemAt(0)) >= Canvas::INSIDE) && ((!vectorFile) || (img)))
+		double iw = static_cast<double>(b->OrigW * 72.0 / b->pixm.imgInfo.xres);
+		double ih = static_cast<double>(b->OrigH * 72.0 / b->pixm.imgInfo.yres);
+		if (iw > ih)
 		{
-			PageItem *b = Doc->m_Selection->itemAt(0);
-			if (b->itemType() == PageItem::ImageFrame)
+			double pw = Doc->currentPage()->width();
+			if (iw > pw)
 			{
-				if ((fi.exists()) && (img))
-					Doc->loadPict(url.toLocalFile(), b);
+				ih = pw * (ih / iw);
+				iw = pw;
 			}
-			else if (b->itemType() == PageItem::TextFrame)
-			{
-				if ((fi.exists()) && (!img))
-				{
-					QByteArray file;
-					QTextCodec *codec = QTextCodec::codecForLocale();
-					// TODO create a Dialog for selecting the codec
-					if (loadRawText(url.toLocalFile(), file))
-					{
-						QString txt = codec->toUnicode( file.data() );
-						txt.replace(QRegExp("\r"), QChar(13));
-						txt.replace(QRegExp("\n"), QChar(13));
-						txt.replace(QRegExp("\t"), QChar(9));
-						b->itemText.insertChars(txt, true);
-						if (Doc->docHyphenator->AutoCheck)
-							Doc->docHyphenator->slotHyphenate(b);
-						b->invalidateLayout();
-						b->update();
-					}
-				}
-			}
-			emit DocChanged();
-			update();
 		}
 		else
 		{
-			Deselect(true);
-			uint oldDocItemCount = Doc->Items->count();
-			if (((!img) || (vectorFile)) && (Doc->DraggedElem == 0))
+			double ph = Doc->currentPage()->height();
+			if (ih > ph)
 			{
-				activeTransaction = undoManager->beginTransaction(Um::SelectionGroup, Um::IGroup, Um::Create, "", Um::ICreate);
-				if (fi.exists())
+				iw = ph * (iw / ih);
+				ih = ph;
+			}
+		}
+
+		b->setWidth(iw);
+		b->setHeight(ih);
+		b->OldB2 = b->width();
+		b->OldH2 = b->height();
+		b->updateClip();
+		b->AdjustPictScale();
+		b->update();
+		emit DocChanged();
+		update();
+		return;
+	}
+	//if ((SeleItemPos(e->pos())) && (!text.startsWith("<SCRIBUSELEM")))
+//		if (Doc->m_Selection->count()>0 && (m_canvas->frameHitTest(dropPosDocQ, Doc->m_Selection->itemAt(0)) >= Canvas::INSIDE) && !vectorFile) // && (img))
+	if (selectedItemByDrag && (m_canvas->frameHitTest(dropPosDocQ, Doc->m_Selection->itemAt(0)) >= Canvas::INSIDE) && ((!vectorFile) || (img)))
+	{
+		PageItem *b = Doc->m_Selection->itemAt(0);
+		if (b->itemType() == PageItem::ImageFrame)
+		{
+			if ((fi.exists()) && (img))
+				Doc->loadPict(url.toLocalFile(), b);
+		}
+		else if (b->itemType() == PageItem::TextFrame)
+		{
+			if ((fi.exists()) && (!img))
+			{
+				QByteArray file;
+				QTextCodec *codec = QTextCodec::codecForLocale();
+				// TODO create a Dialog for selecting the codec
+				if (loadRawText(url.toLocalFile(), file))
 				{
-					if (fi.suffix().toLower() == "sce")
-					{
-						emit LoadElem(url.toLocalFile(), dropPosDoc.x(), dropPosDoc.y(), true, false, Doc, this);
-					}
-					else
-					{
-						FileLoader *fileLoader = new FileLoader(url.toLocalFile());
-						int testResult = fileLoader->testFile();
-						delete fileLoader;
-						if ((testResult != -1) && (testResult >= FORMATID_FIRSTUSER))
-						{
-							const FileFormat * fmt = LoadSavePlugin::getFormatById(testResult);
-							if( fmt )
-							{
-								// We disable undo here as we are only interested by the item creation undo actions
-								// We create them manually after import
-								undoManager->setUndoEnabled(false);
-								Doc->dontResize = true;
-								fmt->loadFile(url.toLocalFile(), LoadSavePlugin::lfUseCurrentPage|LoadSavePlugin::lfInteractive|LoadSavePlugin::lfScripted);
-								undoManager->setUndoEnabled(true);
-								if (Doc->m_Selection->count() > 0)
-								{
-									if (UndoManager::undoEnabled())
-									{
-										// Create undo actions for created items
-										for (int i = 0; i < Doc->m_Selection->count(); ++i)
-										{
-											PageItem* newItem = Doc->m_Selection->itemAt(i);
-											ScItemState<PageItem*> *is = new ScItemState<PageItem*>("Create PageItem");
-											is->set("CREATE_ITEM", "create_item");
-											is->setItem(newItem);
-											//Undo target rests with the Page for object specific undo
-											int pindex = (newItem->OwnPage > -1) ? newItem->OwnPage : 0;
-											UndoObject *target = Doc->Pages->at(pindex);
-											undoManager->action(target, is);
-										}
-									}
-									double x2, y2, w, h;
-									// We disable undo temporarily as move actions are not necessary
-									// to perform undo correctly here
-									undoManager->setUndoEnabled(false);
-									Doc->m_Selection->getGroupRect(&x2, &y2, &w, &h);
-									Doc->moveGroup(dropPosDoc.x() - x2, dropPosDoc.y() - y2);
-									m_ScMW->requestUpdate(reqColorsUpdate | reqSymbolsUpdate | reqTextStylesUpdate | reqLineStylesUpdate);
-									undoManager->setUndoEnabled(true);
-								}
-								Doc->dontResize = false;
-							}
-						}
-					}
+					QString txt = codec->toUnicode( file.data() );
+					txt.replace(QRegExp("\r"), QChar(13));
+					txt.replace(QRegExp("\n"), QChar(13));
+					txt.replace(QRegExp("\t"), QChar(9));
+					b->itemText.insertChars(txt, true);
+					if (Doc->docHyphenator->AutoCheck)
+						Doc->docHyphenator->slotHyphenate(b);
+					b->invalidateLayout();
+					b->update();
+				}
+			}
+		}
+		emit DocChanged();
+		update();
+	}
+	else
+	{
+		Deselect(true);
+		uint oldDocItemCount = Doc->Items->count();
+		if (((!img) || (vectorFile)) && (Doc->DraggedElem == 0))
+		{
+			activeTransaction = undoManager->beginTransaction(Um::SelectionGroup, Um::IGroup, Um::Create, "", Um::ICreate);
+			if (fi.exists())
+			{
+				if (fi.suffix().toLower() == "sce")
+				{
+					emit LoadElem(url.toLocalFile(), dropPosDoc.x(), dropPosDoc.y(), true, false, Doc, this);
 				}
 				else
 				{
-					emit LoadElem(QString(text), dropPosDoc.x(), dropPosDoc.y(), false, false, Doc, this);
-				}
-				Selection tmpSelection(this, false);
-				tmpSelection.copy(*Doc->m_Selection, true);
-				for (int as = oldDocItemCount; as < Doc->Items->count(); ++as)
-				{
-					currItem = Doc->Items->at(as);
-					Doc->setRedrawBounding(currItem);
-					tmpSelection.addItem(currItem, true);
-					if (currItem->isBookmark)
-						emit AddBM(currItem);
-				}
-				Doc->m_Selection->copy(tmpSelection, false);
-				if (Doc->m_Selection->count() == 1)
-				{
-					PageItem *newItem = Doc->m_Selection->itemAt(0);
-					if ((newItem->width() > Doc->currentPage()->width()) || (newItem->height() > Doc->currentPage()->height()))
+					FileLoader *fileLoader = new FileLoader(url.toLocalFile());
+					int testResult = fileLoader->testFile();
+					delete fileLoader;
+					if ((testResult != -1) && (testResult >= FORMATID_FIRSTUSER))
 					{
-					//	QMenu *pmen = new QMenu();
-					//	pmen->addAction( tr("Keep original Size"));
-					//	pmen->addAction( tr("Scale to Page Size"));
-					//	re = pmen->actions().indexOf(pmen->exec(QCursor::pos()));
-					//	delete pmen;
-					//	if (re == 1)
-					//	{
-							Doc->rescaleGroup(newItem, qMin(qMin(Doc->currentPage()->width() / newItem->width(), Doc->currentPage()->height() / newItem->height()), 1.0));
-							newItem->update();
-					//	}
+						const FileFormat * fmt = LoadSavePlugin::getFormatById(testResult);
+						if( fmt )
+						{
+							// We disable undo here as we are only interested by the item creation undo actions
+							// We create them manually after import
+							undoManager->setUndoEnabled(false);
+							Doc->dontResize = true;
+							fmt->loadFile(url.toLocalFile(), LoadSavePlugin::lfUseCurrentPage|LoadSavePlugin::lfInteractive|LoadSavePlugin::lfScripted);
+							undoManager->setUndoEnabled(true);
+							if (Doc->m_Selection->count() > 0)
+							{
+								if (UndoManager::undoEnabled())
+								{
+									// Create undo actions for created items
+									for (int i = 0; i < Doc->m_Selection->count(); ++i)
+									{
+										PageItem* newItem = Doc->m_Selection->itemAt(i);
+										ScItemState<PageItem*> *is = new ScItemState<PageItem*>("Create PageItem");
+										is->set("CREATE_ITEM", "create_item");
+										is->setItem(newItem);
+										//Undo target rests with the Page for object specific undo
+										int pindex = (newItem->OwnPage > -1) ? newItem->OwnPage : 0;
+										UndoObject *target = Doc->Pages->at(pindex);
+										undoManager->action(target, is);
+									}
+								}
+								double x2, y2, w, h;
+								// We disable undo temporarily as move actions are not necessary
+								// to perform undo correctly here
+								undoManager->setUndoEnabled(false);
+								Doc->m_Selection->getGroupRect(&x2, &y2, &w, &h);
+								Doc->moveGroup(dropPosDoc.x() - x2, dropPosDoc.y() - y2);
+								m_ScMW->requestUpdate(reqColorsUpdate | reqSymbolsUpdate | reqTextStylesUpdate | reqLineStylesUpdate);
+								undoManager->setUndoEnabled(true);
+							}
+							Doc->dontResize = false;
+						}
 					}
 				}
-				activeTransaction.commit();
-				activeTransaction.reset();
 			}
 			else
 			{
-				if (Doc->DraggedElem != 0)
-				{
-					if (!Doc->leaveDrag)
-					{
-						QMenu *pmen = new QMenu();
-						pmen->addAction( tr("Copy Here"));
-						QAction* mov = pmen->addAction( tr("Move Here"));
-						pmen->addAction( tr("Cancel"));
-						for (int dre=0; dre<Doc->DragElements.count(); ++dre)
-						{
-							if (Doc->DragElements[dre]->locked())
-							{
-								mov->setEnabled(false);
-								break;
-							}
-						}
-						re = pmen->actions().indexOf(pmen->exec(QCursor::pos()));
-						delete pmen;
-						pmen=NULL;
-					}
-					else
-						re = 1;
-					if ((re == 2) || (re == -1))
-					{
-						updateContents();
-						return;
-					}
-					if ((re == 1) || (Doc->leaveDrag))
-					{
-						QList<PageItem*> pasted;
-						emit LoadElem(QString(text), dropPosDoc.x(), dropPosDoc.y(), false, false, Doc, this);
-						for (int as = oldDocItemCount; as < Doc->Items->count(); ++as)
-						{
-							pasted.append(Doc->Items->at(as));
-						}
-						Selection tmpSelection(this, false);
-						tmpSelection.copy(*Doc->m_Selection, true);
-						for (int dre=0; dre<Doc->DragElements.count(); ++dre)
-						{
-							tmpSelection.addItem(Doc->DragElements[dre], true);
-						}
-						Doc->m_Selection->copy(tmpSelection, false);
-						PageItem* bb;
-						int fin;
-						for (int dre=0; dre<Doc->DragElements.count(); ++dre)
-						{
-							bb = pasted.at(dre);
-							currItem = Doc->m_Selection->itemAt(dre);
-							if ((currItem->asTextFrame()) && ((currItem->nextInChain() != 0) || (currItem->prevInChain() != 0)))
-							{
-								PageItem* before = currItem->prevInChain();
-								PageItem* after = currItem->nextInChain();
-								currItem->unlink();
-								if (before != 0)
-								{
-									fin = Doc->m_Selection->findItem(before);
-									if (fin != -1)
-										before = pasted.at(fin);
-									before->unlink();
-									before->link(bb);
-								}
-								if (after != 0)
-								{
-									fin = Doc->m_Selection->findItem(after);
-									if (fin != -1)
-										after = pasted.at(fin);
-									bb->link(after);
-								}
-							}
-						}
-						pasted.clear();
-						Doc->itemSelection_DeleteItem();
-					}
-				}
-				if ((!img) && ((re == 0)))
-					emit LoadElem(QString(text), dropPosDoc.x(), dropPosDoc.y(), false, false, Doc, this);
-				Doc->DraggedElem = 0;
-				Doc->DragElements.clear();
-				Selection tmpSelection(this, false);
-				tmpSelection.copy(*Doc->m_Selection, true);
-				for (int as = oldDocItemCount; as < Doc->Items->count(); ++as)
-				{
-					currItem = Doc->Items->at(as);
-					Doc->setRedrawBounding(currItem);
-					tmpSelection.addItem(currItem, true);
-					if (currItem->isBookmark)
-						emit AddBM(currItem);
-				}
-				Doc->m_Selection->copy(tmpSelection, false);
+				emit LoadElem(QString(text), dropPosDoc.x(), dropPosDoc.y(), false, false, Doc, this);
 			}
-			if (Doc->m_Selection->count() > 1)
+			Selection tmpSelection(this, false);
+			tmpSelection.copy(*Doc->m_Selection, true);
+			for (int as = oldDocItemCount; as < Doc->Items->count(); ++as)
 			{
-				Doc->m_Selection->connectItemToGUI();
-				Doc->m_Selection->setGroupRect();
-				double gx, gy, gh, gw;
-				Doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
-				double nx = gx;
-				double ny = gy;
+				currItem = Doc->Items->at(as);
+				Doc->setRedrawBounding(currItem);
+				tmpSelection.addItem(currItem, true);
+				if (currItem->isBookmark)
+					emit AddBM(currItem);
+			}
+			Doc->m_Selection->copy(tmpSelection, false);
+			if (Doc->m_Selection->count() == 1)
+			{
+				PageItem *newItem = Doc->m_Selection->itemAt(0);
+				if ((newItem->width() > Doc->currentPage()->width()) || (newItem->height() > Doc->currentPage()->height()))
+				{
+				//	QMenu *pmen = new QMenu();
+				//	pmen->addAction( tr("Keep original Size"));
+				//	pmen->addAction( tr("Scale to Page Size"));
+				//	re = pmen->actions().indexOf(pmen->exec(QCursor::pos()));
+				//	delete pmen;
+				//	if (re == 1)
+				//	{
+						Doc->rescaleGroup(newItem, qMin(qMin(Doc->currentPage()->width() / newItem->width(), Doc->currentPage()->height() / newItem->height()), 1.0));
+						newItem->update();
+				//	}
+				}
+			}
+			activeTransaction.commit();
+			activeTransaction.reset();
+		}
+		else
+		{
+			if (Doc->DraggedElem != 0)
+			{
+				if (!Doc->leaveDrag)
+				{
+					QMenu *pmen = new QMenu();
+					pmen->addAction( tr("Copy Here"));
+					QAction* mov = pmen->addAction( tr("Move Here"));
+					pmen->addAction( tr("Cancel"));
+					for (int dre=0; dre<Doc->DragElements.count(); ++dre)
+					{
+						if (Doc->DragElements[dre]->locked())
+						{
+							mov->setEnabled(false);
+							break;
+						}
+					}
+					re = pmen->actions().indexOf(pmen->exec(QCursor::pos()));
+					delete pmen;
+					pmen=NULL;
+				}
+				else
+					re = 1;
+				if ((re == 2) || (re == -1))
+				{
+					updateContents();
+					return;
+				}
+				if ((re == 1) || (Doc->leaveDrag))
+				{
+					QList<PageItem*> pasted;
+					emit LoadElem(QString(text), dropPosDoc.x(), dropPosDoc.y(), false, false, Doc, this);
+					for (int as = oldDocItemCount; as < Doc->Items->count(); ++as)
+					{
+						pasted.append(Doc->Items->at(as));
+					}
+					Selection tmpSelection(this, false);
+					tmpSelection.copy(*Doc->m_Selection, true);
+					for (int dre=0; dre<Doc->DragElements.count(); ++dre)
+					{
+						tmpSelection.addItem(Doc->DragElements[dre], true);
+					}
+					Doc->m_Selection->copy(tmpSelection, false);
+					PageItem* bb;
+					int fin;
+					for (int dre=0; dre<Doc->DragElements.count(); ++dre)
+					{
+						bb = pasted.at(dre);
+						currItem = Doc->m_Selection->itemAt(dre);
+						if ((currItem->asTextFrame()) && ((currItem->nextInChain() != 0) || (currItem->prevInChain() != 0)))
+						{
+							PageItem* before = currItem->prevInChain();
+							PageItem* after = currItem->nextInChain();
+							currItem->unlink();
+							if (before != 0)
+							{
+								fin = Doc->m_Selection->findItem(before);
+								if (fin != -1)
+									before = pasted.at(fin);
+								before->unlink();
+								before->link(bb);
+							}
+							if (after != 0)
+							{
+								fin = Doc->m_Selection->findItem(after);
+								if (fin != -1)
+									after = pasted.at(fin);
+								bb->link(after);
+							}
+						}
+					}
+					pasted.clear();
+					Doc->itemSelection_DeleteItem();
+				}
+			}
+			if ((!img) && ((re == 0)))
+				emit LoadElem(QString(text), dropPosDoc.x(), dropPosDoc.y(), false, false, Doc, this);
+			Doc->DraggedElem = 0;
+			Doc->DragElements.clear();
+			Selection tmpSelection(this, false);
+			tmpSelection.copy(*Doc->m_Selection, true);
+			for (int as = oldDocItemCount; as < Doc->Items->count(); ++as)
+			{
+				currItem = Doc->Items->at(as);
+				Doc->setRedrawBounding(currItem);
+				tmpSelection.addItem(currItem, true);
+				if (currItem->isBookmark)
+					emit AddBM(currItem);
+			}
+			Doc->m_Selection->copy(tmpSelection, false);
+		}
+		if (Doc->m_Selection->count() > 1)
+		{
+			Doc->m_Selection->connectItemToGUI();
+			Doc->m_Selection->setGroupRect();
+			double gx, gy, gh, gw;
+			Doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
+			double nx = gx;
+			double ny = gy;
+			if (!Doc->ApplyGuides(&nx, &ny) && !Doc->ApplyGuides(&nx, &ny,true))
+			{
+				FPoint npx;
+				npx = Doc->ApplyGridF(FPoint(nx, ny));
+				nx = npx.x();
+				ny = npx.y();
+			}
+			activeTransaction = undoManager->beginTransaction(Um::SelectionGroup, Um::IGroup, Um::Move, "", Um::IMove);
+			Doc->moveGroup(nx-gx, ny-gy);
+			Doc->m_Selection->setGroupRect();
+			Doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
+			nx = gx+gw;
+			ny = gy+gh;
+			Doc->ApplyGuides(&nx, &ny);
+			Doc->ApplyGuides(&nx, &ny,true);
+			Doc->moveGroup(nx-(gx+gw), ny-(gy+gh));
+			Doc->m_Selection->setGroupRect();
+			Doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
+			for (int a = 0; a < Doc->m_Selection->count(); ++a)
+			{
+				PageItem *currItem = Doc->m_Selection->itemAt(a);
+				currItem->LayerID = Doc->activeLayer();
+				currItem->gXpos = currItem->xPos() - gx;
+				currItem->gYpos = currItem->yPos() - gy;
+				currItem->gWidth = gw;
+				currItem->gHeight = gh;
+			}
+			activeTransaction.commit();
+			activeTransaction.reset();
+			emit ItemGeom();
+		}
+		else if (Doc->m_Selection->count() == 1)
+		{
+			Doc->m_Selection->connectItemToGUI();
+			currItem = Doc->m_Selection->itemAt(0);
+			currItem->LayerID = Doc->activeLayer();
+			if (Doc->SnapGrid)
+			{
+				double nx = currItem->xPos();
+				double ny = currItem->yPos();
 				if (!Doc->ApplyGuides(&nx, &ny) && !Doc->ApplyGuides(&nx, &ny,true))
 				{
 					FPoint npx;
@@ -1192,76 +1249,35 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 					nx = npx.x();
 					ny = npx.y();
 				}
-				activeTransaction = undoManager->beginTransaction(Um::SelectionGroup, Um::IGroup, Um::Move, "", Um::IMove);
-				Doc->moveGroup(nx-gx, ny-gy);
-				Doc->m_Selection->setGroupRect();
-				Doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
-				nx = gx+gw;
-				ny = gy+gh;
-				Doc->ApplyGuides(&nx, &ny);
-				Doc->ApplyGuides(&nx, &ny,true);
-				Doc->moveGroup(nx-(gx+gw), ny-(gy+gh));
-				Doc->m_Selection->setGroupRect();
-				Doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
-				for (int a = 0; a < Doc->m_Selection->count(); ++a)
-				{
-					PageItem *currItem = Doc->m_Selection->itemAt(a);
-					currItem->LayerID = Doc->activeLayer();
-					currItem->gXpos = currItem->xPos() - gx;
-					currItem->gYpos = currItem->yPos() - gy;
-					currItem->gWidth = gw;
-					currItem->gHeight = gh;
-				}
-				activeTransaction.commit();
-				activeTransaction.reset();
-				emit ItemGeom();
+				Doc->MoveItem(nx-currItem->xPos(), ny-currItem->yPos(), currItem);
 			}
-			else if (Doc->m_Selection->count() == 1)
-			{
-				Doc->m_Selection->connectItemToGUI();
-				currItem = Doc->m_Selection->itemAt(0);
-				currItem->LayerID = Doc->activeLayer();
-				if (Doc->SnapGrid)
-				{
-					double nx = currItem->xPos();
-					double ny = currItem->yPos();
-					if (!Doc->ApplyGuides(&nx, &ny) && !Doc->ApplyGuides(&nx, &ny,true))
-					{
-						FPoint npx;
-						npx = Doc->ApplyGridF(FPoint(nx, ny));
-						nx = npx.x();
-						ny = npx.y();
-					}
-					Doc->MoveItem(nx-currItem->xPos(), ny-currItem->yPos(), currItem);
-				}
-			}
-			if ((Doc->m_Selection->count() > 0) && (Doc->appMode != modeNormal))
-				this->requestMode(modeNormal);
-			updateContents();
 		}
-		if (!Doc->masterPageMode())
+		if ((Doc->m_Selection->count() > 0) && (Doc->appMode != modeNormal))
+			this->requestMode(modeNormal);
+		updateContents();
+	}
+	if (!Doc->masterPageMode())
+	{
+		uint docPagesCount=Doc->Pages->count();
+		uint docCurrPageNo=Doc->currentPageNumber();
+		for (uint i = 0; i < docPagesCount; ++i)
 		{
-			uint docPagesCount=Doc->Pages->count();
-			uint docCurrPageNo=Doc->currentPageNumber();
-			for (uint i = 0; i < docPagesCount; ++i)
+			double x = Doc->Pages->at(i)->xOffset();
+			double y = Doc->Pages->at(i)->yOffset();
+			double w = Doc->Pages->at(i)->width();
+			double h = Doc->Pages->at(i)->height();
+			if (QRectF(x, y, w, h).contains(dropPosDocQ))
 			{
-				double x = Doc->Pages->at(i)->xOffset();
-				double y = Doc->Pages->at(i)->yOffset();
-				double w = Doc->Pages->at(i)->width();
-				double h = Doc->Pages->at(i)->height();
-				if (QRectF(x, y, w, h).contains(dropPosDocQ))
+				if (docCurrPageNo != i)
 				{
-					if (docCurrPageNo != i)
-					{
-						Doc->setCurrentPage(Doc->Pages->at(i));
-						m_ScMW->slotSetCurrentPage(i);
-						DrawNew();
-					}
-					break;
+					Doc->setCurrentPage(Doc->Pages->at(i));
+					m_ScMW->slotSetCurrentPage(i);
+					DrawNew();
 				}
+				break;
 			}
-			setRulerPos(contentsX(), contentsY());
 		}
+		setRulerPos(contentsX(), contentsY());
 	}
 }
 
