@@ -47,7 +47,7 @@
 CanvasMode_ObjImport::CanvasMode_ObjImport(ScribusView* view) :
 	CanvasMode(view)
 {
-	Mxp = Myp = -1;
+	m_Mxp = m_Myp = -1;
 	m_mimeData = NULL;
 	m_trSettings = NULL;
 }
@@ -104,7 +104,7 @@ void CanvasMode_ObjImport::activate(bool fromGesture)
 	m_canvas->m_viewMode.operItemMoving = false;
 	m_canvas->m_viewMode.operItemResizing = false;
 	m_view->MidButt = false;
-	Mxp = Myp = -1;
+	m_Mxp = m_Myp = -1;
 	setModeCursor();
 	if (fromGesture)
 	{
@@ -152,12 +152,12 @@ void CanvasMode_ObjImport::mousePressEvent(QMouseEvent *m)
 //	oldClip = 0;
 	m->accept();
 	m_view->registerMousePress(m->globalPos());
-	Mxp = mousePointDoc.x();
-	Myp = mousePointDoc.y();
-	Rxp = m_doc->ApplyGridF(FPoint(Mxp, Myp)).x();
-	Mxp = qRound(Rxp);
-	Ryp = m_doc->ApplyGridF(FPoint(Mxp, Myp)).y();
-	Myp = qRound(Ryp);
+	m_Mxp = mousePointDoc.x();
+	m_Myp = mousePointDoc.y();
+	Rxp = m_doc->ApplyGridF(FPoint(m_Mxp, m_Myp)).x();
+	m_Mxp = qRound(Rxp);
+	Ryp = m_doc->ApplyGridF(FPoint(m_Mxp, m_Myp)).y();
+	m_Myp = qRound(Ryp);
 	if (m->button() == Qt::MidButton)
 	{
 		m_view->MidButt = true;

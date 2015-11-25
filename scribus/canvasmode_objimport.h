@@ -58,7 +58,7 @@ public:
 private:
 	QMimeData*          m_mimeData;
 	TransactionSettings* m_trSettings;
-	double     Mxp, Myp;
+	double     m_Mxp, m_Myp;
 };
 
 
