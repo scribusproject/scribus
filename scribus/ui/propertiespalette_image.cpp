@@ -706,7 +706,9 @@ void PropertiesPalette_Image::handleImageWHRatio()
 	imageYScaleSpinBox->blockSignals(true);
 	if (keepImageWHRatioButton->isChecked())
 	{
-		imageYScaleSpinBox->setValue(imageXScaleSpinBox->value());
+		double maxXY = qMax(imageXScaleSpinBox->value(), imageYScaleSpinBox->value());
+		imageXScaleSpinBox->setValue(maxXY);
+		imageYScaleSpinBox->setValue(maxXY);
 		handleLocalScale();
 		keepImageDPIRatioButton->setChecked(true);
 		cbProportional->setChecked(true);
