@@ -658,14 +658,6 @@ void PropertiesPalette::handleNewShape(int frameType)
 	{
 		if ((m_item->itemType() == PageItem::PolyLine) || (m_item->itemType() == PageItem::PathText))
 			return;
-
-		if ((m_item->itemType() == PageItem::ImageFrame) || (m_item->itemType() == PageItem::TextFrame))
-		{
-			shapePal->setRoundRectEnabled(frameType == 0);
-			return;
-		}
-//		m_item->convertTo(PageItem::Polygon);
-//		newSelection(6);
 		shapePal->setRoundRectEnabled(frameType == 0);
 	}
 }
@@ -986,9 +978,7 @@ void PropertiesPalette::handleShapeEdit()
 	if (!m_ScMW || m_ScMW->scriptIsRunning())
 		return;
 	if ((m_haveDoc) && (m_haveItem))
-	{
 		shapePal->setRoundRectEnabled(false);
-	}
 }
 
 void PropertiesPalette::handleGradientChanged()
