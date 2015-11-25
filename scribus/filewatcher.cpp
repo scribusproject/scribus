@@ -25,21 +25,21 @@ FileWatcher::FileWatcher( QObject* parent) : QObject(parent)
 {
 	m_stateFlags = 0;
 	m_timeOut = 10000;
-	watchedFiles.clear();
-	watchTimer = new QTimer(this);
-	watchTimer->setSingleShot(true);
-	connect(watchTimer, SIGNAL(timeout()), this, SLOT(checkFiles()));
-	watchTimer->start(m_timeOut);
+	m_watchedFiles.clear();
+	m_watchTimer = new QTimer(this);
+	m_watchTimer->setSingleShot(true);
+	connect(m_watchTimer, SIGNAL(timeout()), this, SLOT(checkFiles()));
+	m_watchTimer->start(m_timeOut);
 }
 
 FileWatcher::~FileWatcher()
 {
 	m_stateFlags |= Dying;
 	this->stop();
-	disconnect(watchTimer, SIGNAL(timeout()), this, SLOT(checkFiles()));
+	disconnect(m_watchTimer, SIGNAL(timeout()), this, SLOT(checkFiles()));
 	if (!(m_stateFlags & AddRemoveBlocked))
-		watchedFiles.clear();
-	delete watchTimer;
+		m_watchedFiles.clear();
+	delete m_watchTimer;
 }
 
 void FileWatcher::setTimeOut(const int newTimeOut, const bool restartTimer)
@@ -61,8 +61,8 @@ void FileWatcher::addFile(QString fileName, bool fast, ScribusDoc* doc)
 		qDebug()<<"Attempt to add empty filename to filewatcher";
 		return;
 	}
-	watchTimer->stop();
-	if (!watchedFiles.contains(fileName))
+	m_watchTimer->stop();
+	if (!m_watchedFiles.contains(fileName))
 	{
 		struct fileMod fi;
 		fi.info = QFileInfo(fileName);
@@ -73,25 +73,25 @@ void FileWatcher::addFile(QString fileName, bool fast, ScribusDoc* doc)
 		fi.isDir = fi.info.isDir();
 		fi.fast = fast;
 		fi.doc = doc;
-		watchedFiles.insert(fileName, fi);
+		m_watchedFiles.insert(fileName, fi);
 	}
 	else
-		watchedFiles[fileName].refCount++;
+		m_watchedFiles[fileName].refCount++;
 	if (!(m_stateFlags & TimerStopped))
-		watchTimer->start(m_timeOut);
+		m_watchTimer->start(m_timeOut);
 }
 
 void FileWatcher::removeFile(QString fileName)
 {
-	watchTimer->stop();
-	if (watchedFiles.contains(fileName))
+	m_watchTimer->stop();
+	if (m_watchedFiles.contains(fileName))
 	{
-		watchedFiles[fileName].refCount--;
-		if (watchedFiles[fileName].refCount == 0)
-			watchedFiles.remove(fileName);
+		m_watchedFiles[fileName].refCount--;
+		if (m_watchedFiles[fileName].refCount == 0)
+			m_watchedFiles.remove(fileName);
 	}
 	if (!(m_stateFlags & TimerStopped))
-		watchTimer->start(m_timeOut);
+		m_watchTimer->start(m_timeOut);
 }
 
 void FileWatcher::addDir(QString fileName, bool fast)
@@ -106,14 +106,14 @@ void FileWatcher::removeDir(QString fileName)
 
 void FileWatcher::start()
 {
-	watchTimer->stop();
+	m_watchTimer->stop();
 	m_stateFlags &= ~TimerStopped;
-	watchTimer->start(m_timeOut);
+	m_watchTimer->start(m_timeOut);
 }
 
 void FileWatcher::stop()
 {
-	watchTimer->stop();
+	m_watchTimer->stop();
 	m_stateFlags |= StopRequested;
 	while ((m_stateFlags & FileCheckRunning))
 		usleep(100);
@@ -133,21 +133,21 @@ bool FileWatcher::isActive()
 
 QList<QString> FileWatcher::files()
 {
-	return watchedFiles.keys();
+	return m_watchedFiles.keys();
 }
 
 void FileWatcher::checkFiles()
 {
 	m_stateFlags |= AddRemoveBlocked;
 	m_stateFlags |= FileCheckRunning;
-	watchTimer->stop();
+	m_watchTimer->stop();
 	m_stateFlags |= TimerStopped;
 	QDateTime time;
 	QStringList toRemove;
 	
 	QMap<QString, fileMod>::Iterator it;
 //	qDebug()<<files();
-	for ( it = watchedFiles.begin(); !(m_stateFlags & FileCheckMustStop) && it != watchedFiles.end(); ++it )
+	for ( it = m_watchedFiles.begin(); !(m_stateFlags & FileCheckMustStop) && it != m_watchedFiles.end(); ++it )
 	{
 		it.value().info.refresh();
 		if (!it.value().info.exists())
@@ -238,14 +238,14 @@ void FileWatcher::checkFiles()
 		}
 	}
 	if (m_stateFlags & Dying)
-		watchedFiles.clear();
+		m_watchedFiles.clear();
 	else
 	{
 		for( int i=0; i<toRemove.count(); ++i)
-			watchedFiles.remove(toRemove[i]);
+			m_watchedFiles.remove(toRemove[i]);
 		m_stateFlags &= ~AddRemoveBlocked;
 		m_stateFlags &= ~TimerStopped;
-		watchTimer->start(m_timeOut);
+		m_watchTimer->start(m_timeOut);
 	}
 	m_stateFlags &= ~FileCheckRunning;
 }

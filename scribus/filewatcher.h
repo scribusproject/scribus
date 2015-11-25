@@ -73,8 +73,8 @@ private:
 		FileCheckMustStop = 20 //StopRequested + Dying
 	} StateFlags;
 
-	QMap<QString, fileMod> watchedFiles;
-	QTimer* watchTimer;
+	QMap<QString, fileMod> m_watchedFiles;
+	QTimer* m_watchTimer;
 	int  m_stateFlags;
 	int  m_timeOut; // milliseconds
 
