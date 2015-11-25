@@ -1946,7 +1946,7 @@ void ScribusView::resizeEvent ( QResizeEvent * event )
 }
 
 
-/** Waagrechter Scrollbalken */
+/** Horizontal Scrollbar */
 void ScribusView::setHBarGeometry(QScrollBar &bar, int x, int y, int w, int h)
 {
 	bar.setGeometry(x, y, w, h);
@@ -1954,7 +1954,7 @@ void ScribusView::setHBarGeometry(QScrollBar &bar, int x, int y, int w, int h)
 		horizRuler->setGeometry(m_vhRulerHW, 1, w-m_vhRulerHW-1, m_vhRulerHW);
 }
 
-/** Senkrechter Scrollbalken */
+/** Vertical Scrollbar */
 void ScribusView::setVBarGeometry(QScrollBar &bar, int x, int y, int w, int h)
 {
 	bar.setGeometry(x, y, w, h);
