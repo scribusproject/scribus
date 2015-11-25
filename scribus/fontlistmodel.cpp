@@ -18,10 +18,10 @@ FontListModel::FontListModel(QObject * parent, ScribusDoc * doc)
 	m_doc(doc),
 	m_fonts(PrefsManager::instance()->appPrefs.fontPrefs.AvailFonts)
 {
-	ttfFont = IconManager::instance()->loadPixmap("font_truetype16.png");
-	otfFont = IconManager::instance()->loadPixmap("font_otf16.png");
-	psFont = IconManager::instance()->loadPixmap("font_type1_16.png");
-	substFont = IconManager::instance()->loadPixmap("font_subst16.png");
+	m_ttfFont = IconManager::instance()->loadPixmap("font_truetype16.png");
+	m_otfFont = IconManager::instance()->loadPixmap("font_otf16.png");
+	m_psFont = IconManager::instance()->loadPixmap("font_type1_16.png");
+	m_substFont = IconManager::instance()->loadPixmap("font_subst16.png");
 	m_font_values = m_fonts.values();
 	m_font_names = m_fonts.keys();
 }
@@ -120,11 +120,11 @@ QVariant FontListModel::data(const QModelIndex & index,
 			case ScFace::TYPE0:
 			case ScFace::TYPE1:
 			case ScFace::TYPE3:
-				return QVariant(psFont);
+				return QVariant(m_psFont);
 			case ScFace::TTF:
-				return QVariant(ttfFont);
+				return QVariant(m_ttfFont);
 			case ScFace::OTF:
-				return QVariant(otfFont);
+				return QVariant(m_otfFont);
 			default:
 				return QVariant();
 		};

@@ -101,10 +101,10 @@ class SCRIBUS_API FontListModel : public QAbstractTableModel
         QList<EmbedMethod> m_embedMethod;
     
 		//! Display icons by the Qt::DecorationRole
-		QPixmap ttfFont;
-		QPixmap otfFont;
-		QPixmap psFont;
-		QPixmap substFont;
+		QPixmap m_ttfFont;
+		QPixmap m_otfFont;
+		QPixmap m_psFont;
+		QPixmap m_substFont;
 
 		//! Prepare strings for table headers.
 		QVariant headerData(int section,
