@@ -104,24 +104,24 @@ public:
 
 private:
 	/*! \brief Convert matrix */
-	double rgb2lms[9];
+	double m_rgb2lms[9];
 	/*! \brief Convert matrix */
-	double lms2rgb[9];
+	double m_lms2rgb[9];
 	/*! \brief Gamma matrix */
-	double gammaRGB[3];
+	double m_gammaRGB[3];
 
 	/*! \brief cross products with transform matrixes for actual defect */
-	double a1, b1, c1;
+	double m_a1, m_b1, m_c1;
 	/*! \brief cross products with transform matrixes for actual defect */
-	double a2, b2, c2;
+	double m_a2, m_b2, m_c2;
 	/*! \brief Inflection border line */
-	double inflection;
+	double m_inflection;
 
 	/*! \brief Internal RGB color parts */
-	double red, green, blue;
+	double m_red, m_green, m_blue;
 
 	/*! \brief original color */
-	QColor originalColor;
+	QColor m_originalColor;
 
 	/*! \brief Initialization of the internal values. rgb2lms, lms2rgb etc.
 	For most modern Cathode-Ray Tube monitors (CRTs), the following
