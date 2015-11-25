@@ -74,11 +74,11 @@
 
 CanvasMode_Normal::CanvasMode_Normal(ScribusView* view) : CanvasMode(view), m_ScMW(view->m_ScMW) 
 {
-	frameResizeHandle = -1;
-	shiftSelItems = false;
-	resizeGesture = NULL;
-	lineMoveGesture  = NULL;
-	guideMoveGesture = NULL;
+	m_frameResizeHandle = -1;
+	m_shiftSelItems = false;
+	m_resizeGesture = NULL;
+	m_lineMoveGesture  = NULL;
+	m_guideMoveGesture = NULL;
 	m_mousePressPoint.setXY(0, 0);
 	m_mouseCurrentPoint.setXY(0, 0);
 	m_mouseSavedPoint.setXY(0, 0);
@@ -130,8 +130,8 @@ void CanvasMode_Normal::activate(bool fromGesture)
 	m_mouseCurrentPoint.setXY(0, 0);
 	m_mouseSavedPoint.setXY(0, 0);
 	m_objectDeltaPos.setXY(0,0 );
-	frameResizeHandle = -1;
-	shiftSelItems = false;
+	m_frameResizeHandle = -1;
+	m_shiftSelItems = false;
 	m_hoveredItem = NULL;
 	setModeCursor();
 	if (fromGesture)
@@ -330,15 +330,15 @@ void CanvasMode_Normal::mouseMoveEvent(QMouseEvent *m)
 		enableGuideGesture |= ((m_doc->guidesPrefs().renderStackOrder.indexOf(3) > m_doc->guidesPrefs().renderStackOrder.indexOf(4)) && (frameResizeHandle == Canvas::INSIDE));
 		if (enableGuideGesture)
 		{
-			if (!guideMoveGesture)
+			if (!m_guideMoveGesture)
 			{
-				guideMoveGesture = new RulerGesture(m_view, RulerGesture::HORIZONTAL);
-				connect(guideMoveGesture,SIGNAL(guideInfo(int, qreal)), m_ScMW->alignDistributePalette,SLOT(setGuide(int, qreal)));
+				m_guideMoveGesture = new RulerGesture(m_view, RulerGesture::HORIZONTAL);
+				connect(m_guideMoveGesture,SIGNAL(guideInfo(int, qreal)), m_ScMW->alignDistributePalette,SLOT(setGuide(int, qreal)));
 			}
-			if (guideMoveGesture->mouseHitsGuide(mousePointDoc))
+			if (m_guideMoveGesture->mouseHitsGuide(mousePointDoc))
 			{
 				m_lastPosWasOverGuide = true;
-				switch (guideMoveGesture->getMode())
+				switch (m_guideMoveGesture->getMode())
 				{
 					case RulerGesture::HORIZONTAL:
 						m_view->setCursor(QCursor(Qt::SplitVCursor));
@@ -454,7 +454,7 @@ void CanvasMode_Normal::mouseMoveEvent(QMouseEvent *m)
 	if (m_doc->drawAsPreview)
 		return;
 	m_mouseCurrentPoint = mousePointDoc;
-	if ((GetItem(&currItem)) && (!shiftSelItems))
+	if ((GetItem(&currItem)) && (!m_shiftSelItems))
 	{
 		newX = qRound(mousePointDoc.x()); //m_view->translateToDoc(m->x(), m->y()).x());
 		newY = qRound(mousePointDoc.y()); //m_view->translateToDoc(m->x(), m->y()).y());
@@ -538,8 +538,8 @@ void CanvasMode_Normal::mouseMoveEvent(QMouseEvent *m)
 							if (abs(dY) > abs(dX))
 								dX=0;
 							erf=false;
-							dX+=qRound(dragConstrainInitPtX-currItem->xPos());
-							dY+=qRound(dragConstrainInitPtY-currItem->yPos());
+							dX+=qRound(m_dragConstrainInitPtX-currItem->xPos());
+							dY+=qRound(m_dragConstrainInitPtY-currItem->yPos());
 						}
 						double gx, gy, gh, gw;
 						m_objectDeltaPos.setXY(dX, dY);
@@ -640,8 +640,8 @@ void CanvasMode_Normal::mouseMoveEvent(QMouseEvent *m)
 						if (abs(dY)>abs(dX))
 							dX=0;
 						erf=false;
-						dX+=dragConstrainInitPtX-qRound(gx);
-						dY+=dragConstrainInitPtY-qRound(gy);
+						dX+=m_dragConstrainInitPtX-qRound(gx);
+						dY+=m_dragConstrainInitPtY-qRound(gy);
 					}
 					m_objectDeltaPos.setXY(dX, dY);
 					if (m_doc->SnapGuides)
@@ -864,13 +864,13 @@ void CanvasMode_Normal::mousePressEvent(QMouseEvent *m)
 	{
 		if ((currItem->asLine()) && (!m_doc->m_Selection->isMultipleSelection()) && (!m_doc->drawAsPreview))
 		{
-			if (!lineMoveGesture)
-				lineMoveGesture = new LineMove(this);
+			if (!m_lineMoveGesture)
+				m_lineMoveGesture = new LineMove(this);
 			
-			lineMoveGesture->mousePressEvent(m);
-			if (lineMoveGesture->haveLineItem())
+			m_lineMoveGesture->mousePressEvent(m);
+			if (m_lineMoveGesture->haveLineItem())
 			{
-				m_view->startGesture(lineMoveGesture);
+				m_view->startGesture(m_lineMoveGesture);
 				return;
 			}
 		}
@@ -879,13 +879,13 @@ void CanvasMode_Normal::mousePressEvent(QMouseEvent *m)
 			bool isMS=m_doc->m_Selection->isMultipleSelection();
 			if ((isMS || (!isMS && (!currItem->locked() && !currItem->sizeLocked()))) && (!m_doc->drawAsPreview))
 			{
-				if (!resizeGesture)
-					resizeGesture = new ResizeGesture(this);
+				if (!m_resizeGesture)
+					m_resizeGesture = new ResizeGesture(this);
 
-				resizeGesture->mousePressEvent(m);
-				if (resizeGesture->frameHandle() > 0)
+				m_resizeGesture->mousePressEvent(m);
+				if (m_resizeGesture->frameHandle() > 0)
 				{
-					m_view->startGesture(resizeGesture);
+					m_view->startGesture(m_resizeGesture);
 					return;
 				}
 			}
@@ -903,13 +903,13 @@ void CanvasMode_Normal::mousePressEvent(QMouseEvent *m)
 			double gx, gy, gh, gw;
 			bool shiftSel = true;
 			m_doc->m_Selection->getVisualGroupRect(&gx, &gy, &gw, &gh);
-			dragConstrainInitPtX = qRound(gx);
-			dragConstrainInitPtY = qRound(gy);
-			frameResizeHandle = m_canvas->frameHitTest(QPointF(mousePointDoc.x(),mousePointDoc.y()), QRectF(gx, gy, gw, gh));
-			if (frameResizeHandle == Canvas::OUTSIDE ||
-				(frameResizeHandle == Canvas::INSIDE && m->modifiers() != Qt::NoModifier))
+			m_dragConstrainInitPtX = qRound(gx);
+			m_dragConstrainInitPtY = qRound(gy);
+			m_frameResizeHandle = m_canvas->frameHitTest(QPointF(mousePointDoc.x(),mousePointDoc.y()), QRectF(gx, gy, gw, gh));
+			if (m_frameResizeHandle == Canvas::OUTSIDE ||
+				(m_frameResizeHandle == Canvas::INSIDE && m->modifiers() != Qt::NoModifier))
 			{
-				frameResizeHandle = 0;
+				m_frameResizeHandle = 0;
 				m_doc->m_Selection->delaySignalsOn();
 				m_view->updatesOn(false);
 				shiftSel = SeleItem(m);
@@ -918,34 +918,34 @@ void CanvasMode_Normal::mousePressEvent(QMouseEvent *m)
 			}
 			if (((m_doc->m_Selection->count() == 0) || (!shiftSel)) && (m->modifiers() == Qt::ShiftModifier))
 			{
-				shiftSelItems = true;
+				m_shiftSelItems = true;
 				m_mouseCurrentPoint = m_mousePressPoint = m_mouseSavedPoint = mousePointDoc;
 			}
 			else
-				shiftSelItems = false;
+				m_shiftSelItems = false;
 			m_canvas->setRenderModeFillBuffer();
 		}
 		else // not multiple selection
 		{
-			dragConstrainInitPtX = qRound(currItem->xPos());
-			dragConstrainInitPtY = qRound(currItem->yPos());
+			m_dragConstrainInitPtX = qRound(currItem->xPos());
+			m_dragConstrainInitPtY = qRound(currItem->yPos());
 			
 			// dont call SeleItem() without need here:
-			frameResizeHandle = m_canvas->frameHitTest(QPointF(mousePointDoc.x(),mousePointDoc.y()), currItem);
+			m_frameResizeHandle = m_canvas->frameHitTest(QPointF(mousePointDoc.x(),mousePointDoc.y()), currItem);
 			//#6797
-			if (frameResizeHandle <= 0 || m->modifiers() != Qt::NoModifier)
+			if (m_frameResizeHandle <= 0 || m->modifiers() != Qt::NoModifier)
 			{
 				m_doc->m_Selection->delaySignalsOn();
 				m_view->updatesOn(false);
 				SeleItem(m); //Where we send the mouse press event to select an item
 				if (GetItem(&currItem) && (!m_doc->drawAsPreview))
-					frameResizeHandle = m_canvas->frameHitTest(QPointF(mousePointDoc.x(),mousePointDoc.y()), currItem);
+					m_frameResizeHandle = m_canvas->frameHitTest(QPointF(mousePointDoc.x(),mousePointDoc.y()), currItem);
 				else
-					frameResizeHandle = 0;
+					m_frameResizeHandle = 0;
 				m_view->updatesOn(true);
 				m_doc->m_Selection->delaySignalsOff();
 			}
-			if ((currItem && !currItem->locked() && frameResizeHandle > 0) == false && (!m_doc->drawAsPreview))
+			if ((currItem && !currItem->locked() && m_frameResizeHandle > 0) == false && (!m_doc->drawAsPreview))
 			{
 				m_mouseCurrentPoint = m_mousePressPoint = m_mouseSavedPoint = mousePointDoc;
 			}
@@ -1171,7 +1171,7 @@ void CanvasMode_Normal::mouseReleaseEvent(QMouseEvent *m)
 		}
 	}
 	//CB Drag selection performed here
-	if (((m_doc->m_Selection->count() == 0) && (m_view->HaveSelRect) && (!m_view->MidButt)) || ((shiftSelItems) && (m_view->HaveSelRect) && (!m_view->MidButt)))
+	if (((m_doc->m_Selection->count() == 0) && (m_view->HaveSelRect) && (!m_view->MidButt)) || ((m_shiftSelItems) && (m_view->HaveSelRect) && (!m_view->MidButt)))
 	{
 		double dx = m_mouseSavedPoint.x() - m_mousePressPoint.x();
 		double dy = m_mouseSavedPoint.y() - m_mousePressPoint.y();
@@ -1223,7 +1223,7 @@ void CanvasMode_Normal::mouseReleaseEvent(QMouseEvent *m)
 			}
 		}
 		m_view->HaveSelRect = false;
-		shiftSelItems = false;
+		m_shiftSelItems = false;
 //		m_view->redrawMarker->hide();
 		m_view->updateContents();
 	}
@@ -1264,7 +1264,7 @@ void CanvasMode_Normal::mouseReleaseEvent(QMouseEvent *m)
 	m_canvas->m_viewMode.operItemMoving = false;
 	m_canvas->m_viewMode.operItemResizing = false;
 	m_view->MidButt = false;
-	shiftSelItems = false;
+	m_shiftSelItems = false;
 	if (m_view->groupTransactionStarted())
 	{
 		for (int i = 0; i < m_doc->m_Selection->count(); ++i)
@@ -1627,15 +1627,15 @@ bool CanvasMode_Normal::SeleItem(QMouseEvent *m)
 			}
 			if (enableGuideGesture)
 			{
-				if (!guideMoveGesture)
+				if (!m_guideMoveGesture)
 				{
-					guideMoveGesture = new RulerGesture(m_view, RulerGesture::HORIZONTAL);
-					connect(guideMoveGesture,SIGNAL(guideInfo(int, qreal)), m_ScMW->alignDistributePalette,SLOT(setGuide(int, qreal)));
+					m_guideMoveGesture = new RulerGesture(m_view, RulerGesture::HORIZONTAL);
+					connect(m_guideMoveGesture,SIGNAL(guideInfo(int, qreal)), m_ScMW->alignDistributePalette,SLOT(setGuide(int, qreal)));
 				}
-				if ( (!m_doc->GuideLock) && (guideMoveGesture->mouseHitsGuide(mousePointDoc)) )
+				if ( (!m_doc->GuideLock) && (m_guideMoveGesture->mouseHitsGuide(mousePointDoc)) )
 				{
-					m_view->startGesture(guideMoveGesture);
-					guideMoveGesture->mouseMoveEvent(m);
+					m_view->startGesture(m_guideMoveGesture);
+					m_guideMoveGesture->mouseMoveEvent(m);
 					m_doc->m_Selection->connectItemToGUI();
 				//	qDebug()<<"Out Of SeleItem"<<__LINE__;
 					return true;
@@ -1645,7 +1645,7 @@ bool CanvasMode_Normal::SeleItem(QMouseEvent *m)
 				// If we call startGesture now, a new guide is created each time.
 				// ### could be a weakness to avoid calling it tho.
 	 			//	m_view->startGesture(guideMoveGesture);
-					guideMoveGesture->mouseSelectGuide(m);
+					m_guideMoveGesture->mouseSelectGuide(m);
 				}
 			}
 		}
@@ -1777,15 +1777,15 @@ bool CanvasMode_Normal::SeleItem(QMouseEvent *m)
 	}
 	if ((m_doc->guidesPrefs().guidesShown) /*&& (!m_doc->GuideLock)*/ && (m_doc->OnPage(MxpS, MypS) != -1))
 	{
-		if (!guideMoveGesture)
+		if (!m_guideMoveGesture)
 		{
-			guideMoveGesture = new RulerGesture(m_view, RulerGesture::HORIZONTAL);
-			connect(guideMoveGesture,SIGNAL(guideInfo(int, qreal)), m_ScMW->alignDistributePalette,SLOT(setGuide(int, qreal)));
+			m_guideMoveGesture = new RulerGesture(m_view, RulerGesture::HORIZONTAL);
+			connect(m_guideMoveGesture,SIGNAL(guideInfo(int, qreal)), m_ScMW->alignDistributePalette,SLOT(setGuide(int, qreal)));
 		}
-		if ( (!m_doc->GuideLock) && (guideMoveGesture->mouseHitsGuide(mousePointDoc)) )
+		if ( (!m_doc->GuideLock) && (m_guideMoveGesture->mouseHitsGuide(mousePointDoc)) )
 		{
-			m_view->startGesture(guideMoveGesture);
-			guideMoveGesture->mouseMoveEvent(m);
+			m_view->startGesture(m_guideMoveGesture);
+			m_guideMoveGesture->mouseMoveEvent(m);
 			m_doc->m_Selection->connectItemToGUI();
 			return true;
 		}
@@ -1794,7 +1794,7 @@ bool CanvasMode_Normal::SeleItem(QMouseEvent *m)
 			// If we call startGesture now, a new guide is created each time.
 			// ### could be a weakness to avoid calling it tho.
 // 			m_view->startGesture(guideMoveGesture);
-			guideMoveGesture->mouseSelectGuide(m);
+			m_guideMoveGesture->mouseSelectGuide(m);
 		}
 	}
 	m_doc->m_Selection->connectItemToGUI();

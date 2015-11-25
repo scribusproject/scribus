@@ -81,13 +81,13 @@ private:
 	FPoint m_mouseSavedPoint;
 	FPoint m_objectDeltaPos;
 
-	bool shiftSelItems;
-	int  frameResizeHandle;
-	int  dragConstrainInitPtX, dragConstrainInitPtY;
+	bool m_shiftSelItems;
+	int  m_frameResizeHandle;
+	int  m_dragConstrainInitPtX, m_dragConstrainInitPtY;
 	ScribusMainWindow* m_ScMW;
-	ResizeGesture* resizeGesture;
-	LineMove* lineMoveGesture;
-	RulerGesture* guideMoveGesture;
+	ResizeGesture* m_resizeGesture;
+	LineMove* m_lineMoveGesture;
+	RulerGesture* m_guideMoveGesture;
 	bool m_lastPosWasOverGuide;
 	PageItem* m_hoveredItem;
 
