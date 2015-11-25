@@ -70,14 +70,14 @@ private:
 	QPointF getSegment(double angle);
 	double computeRealAngle(double angle, bool fromDia);
 
-	double Mxp, Myp;
+	double m_Mxp, m_Myp;
 	ScribusMainWindow* m_ScMW;
-	QPointF startPoint;
-	QPointF endPoint;
-	double startAngle;
-	double endAngle;
+	QPointF m_startPoint;
+	QPointF m_endPoint;
+	double m_startAngle;
+	double m_endAngle;
 	eSpiralPoint m_arcPoint;
-	SpiralVectorDialog* VectorDialog;
+	SpiralVectorDialog* m_VectorDialog;
 	UndoTransaction m_transaction;
 
 	int    m_blockUpdateFromItem;
