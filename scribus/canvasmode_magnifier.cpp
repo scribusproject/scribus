@@ -53,8 +53,8 @@
 
 CanvasMode_Magnifier::CanvasMode_Magnifier(ScribusView* view) : CanvasMode(view)
 {
-	Mxp = Myp = -1;
-	Dxp = Dyp = -1;
+	m_Mxp = m_Myp = -1;
+	m_Dxp = m_Dyp = -1;
 }
 
 void CanvasMode_Magnifier::drawControls(QPainter* p)
@@ -86,8 +86,8 @@ void CanvasMode_Magnifier::activate(bool fromGesture)
 	m_canvas->m_viewMode.operItemMoving = false;
 	m_canvas->m_viewMode.operItemResizing = false;
 	m_view->MidButt = false;
-	Mxp = Myp = -1;
-	Dxp = Dyp = -1;
+	m_Mxp = m_Myp = -1;
+	m_Dxp = m_Dyp = -1;
 	setModeCursor();
 	if (fromGesture)
 	{
@@ -122,10 +122,10 @@ void CanvasMode_Magnifier::mouseMoveEvent(QMouseEvent *m)
 	if ((m_canvas->m_viewMode.m_MouseButtonPressed) && (m->buttons() & Qt::LeftButton))
 	{
 		newX = qRound(mousePointDoc.x()); //m_view->translateToDoc(m->x(), m->y()).x());
-		newY = qRound(Myp + ((SeRx - Mxp) * m_view->visibleHeight()) / m_view->visibleWidth());
-		SeRx = newX;
-		SeRy = newY;
-		QPoint startP = m_canvas->canvasToGlobal(m_doc->appMode == modeDrawTable2 ? QPointF(Dxp, Dyp) : QPointF(Mxp, Myp));
+		newY = qRound(m_Myp + ((m_SeRx - m_Mxp) * m_view->visibleHeight()) / m_view->visibleWidth());
+		m_SeRx = newX;
+		m_SeRy = newY;
+		QPoint startP = m_canvas->canvasToGlobal(m_doc->appMode == modeDrawTable2 ? QPointF(m_Dxp, m_Dyp) : QPointF(m_Mxp, m_Myp));
 		m_view->redrawMarker->setGeometry(QRect(m_view->mapFromGlobal(startP), m_view->mapFromGlobal(m->globalPos())).normalized());
 		m_view->setRedrawMarkerShown(true);
 		m_view->HaveSelRect = true;
@@ -145,14 +145,14 @@ void CanvasMode_Magnifier::mousePressEvent(QMouseEvent *m)
 	m_doc->leaveDrag = false;
 	m->accept();
 	m_view->registerMousePress(m->globalPos());
-	Mxp = mousePointDoc.x(); //qRound(m->x()/m_canvas->scale() + 0*m_doc->minCanvasCoordinate.x());
-	Myp = mousePointDoc.y(); //qRound(m->y()/m_canvas->scale() + 0*m_doc->minCanvasCoordinate.y());
-	Rxp = m_doc->ApplyGridF(FPoint(Mxp, Myp)).x();
-	Mxp = qRound(Rxp);
-	Ryp = m_doc->ApplyGridF(FPoint(Mxp, Myp)).y();
-	Myp = qRound(Ryp);
-	SeRx = Mxp;
-	SeRy = Myp;
+	m_Mxp = mousePointDoc.x(); //qRound(m->x()/m_canvas->scale() + 0*m_doc->minCanvasCoordinate.x());
+	m_Myp = mousePointDoc.y(); //qRound(m->y()/m_canvas->scale() + 0*m_doc->minCanvasCoordinate.y());
+	Rxp = m_doc->ApplyGridF(FPoint(m_Mxp, m_Myp)).x();
+	m_Mxp = qRound(Rxp);
+	Ryp = m_doc->ApplyGridF(FPoint(m_Mxp, m_Myp)).y();
+	m_Myp = qRound(Ryp);
+	m_SeRx = m_Mxp;
+	m_SeRy = m_Myp;
 	if (m->button() == Qt::MidButton)
 	{
 		m_view->MidButt = true;
@@ -171,10 +171,10 @@ void CanvasMode_Magnifier::mousePressEvent(QMouseEvent *m)
 		m_view->Magnify = true;
 		m_view->setCursor(IconManager::instance()->loadCursor("LupeZ.xpm"));
 	}
-	Mxp = mousePointDoc.x(); //m->globalPos().x();
-	Myp = mousePointDoc.y(); //m->globalPos().y();
-	SeRx = Mxp;
-	SeRy = Myp;
+	m_Mxp = mousePointDoc.x(); //m->globalPos().x();
+	m_Myp = mousePointDoc.y(); //m->globalPos().y();
+	m_SeRx = m_Mxp;
+	m_SeRy = m_Myp;
 	m_view->redrawMarker->setGeometry(m->globalPos().x(), m->globalPos().y(), 1, 1);
 }
 
