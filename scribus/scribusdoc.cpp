@@ -10082,6 +10082,7 @@ void ScribusDoc::setFrameRounded()
 		}
 		currItem->SetFrameRound();
 		setRedrawBounding(currItem);
+		qDebug()<<"boo";
 		regionsChanged()->update(currItem->getRedrawBounding(1.0));
 	}
 }
@@ -11597,7 +11598,12 @@ void ScribusDoc::item_setFrameShape(PageItem* item, int frameType, int count, do
 {
 	if ((item->itemType() == PageItem::PolyLine) || (item->itemType() == PageItem::PathText))
 			return;
+	UndoTransaction activeTransaction;
+	if (undoManager->undoEnabled())
+		activeTransaction = undoManager->beginTransaction(Um::Selection,Um::IImageFrame,Um::ChangeShapeType,"",Um::IBorder);
 
+	if (frameType!=0)
+		item->setCornerRadius(0);
 	if (UndoManager::undoEnabled())
 	{
 		// Store shape info in this form:
@@ -11659,6 +11665,8 @@ void ScribusDoc::item_setFrameShape(PageItem* item, int frameType, int count, do
 	}
 	item->update();
 	changed();
+	if (activeTransaction)
+		activeTransaction.commit();
 }
 
 void ScribusDoc::itemSelection_ClearItem(Selection* customSelection, bool useWarning)

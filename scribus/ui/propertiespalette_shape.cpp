@@ -11,6 +11,7 @@ for which a new license (GPL+exception) is in place.
 #define _USE_MATH_DEFINES
 #endif
 #include <cmath>
+#include <QSignalBlocker>
 
 #include "appmodes.h"
 #include "autoform.h"
@@ -481,6 +482,7 @@ void PropertiesPalette_Shape::handleCornerRadius()
 	m_doc->changed();
 	//called from setFrameRounded already!
 	m_doc->regionsChanged()->update(QRect());
+	m_item->update();
 }
 
 void PropertiesPalette_Shape::handleFillRule()
@@ -499,21 +501,13 @@ void PropertiesPalette_Shape::handleNewShape(int f, int c, qreal *vals)
 	{
 		if ((m_item->itemType() == PageItem::PolyLine) || (m_item->itemType() == PageItem::PathText))
 			return;
-
+		bool b = roundRect->blockSignals(true);
 		m_doc->item_setFrameShape(m_item, f, c, vals);
-
-		//ScribusDoc::changed() is called in item_setFrameShape()
-		//Hope this is enough
-		//emit DocChanged();
-
-		if ((m_item->itemType() == PageItem::ImageFrame) || (m_item->itemType() == PageItem::TextFrame))
-		{
-			roundRect->setEnabled(f == 0);
-			return;
-		}
-//		m_item->convertTo(PageItem::Polygon);
-//		newSelection(6);
+		roundRect->setValue(m_item->cornerRadius()*m_unitRatio);
 		roundRect->setEnabled(f == 0);
+		roundRect->blockSignals(b);
+		if ((m_item->itemType() == PageItem::ImageFrame) || (m_item->itemType() == PageItem::TextFrame))
+			return;
 		m_doc->invalidateAll();
 		m_doc->regionsChanged()->update(QRect());
 	}
