@@ -71,11 +71,11 @@ private:
 
 	inline bool GetItem(PageItem** pi);
 
-	meshPoint *old_mesh;
-	double Mxp, Myp;
+	meshPoint *m_old_mesh;
+	double m_Mxp, m_Myp;
 	ScribusMainWindow* m_ScMW;
 	eMGradientPoint m_gradientPoint;
-	QList<QPair<int, int> > selectedMeshPoints;
+	QList<QPair<int, int> > m_selectedMeshPoints;
 	bool m_keyRepeat;
 };
 

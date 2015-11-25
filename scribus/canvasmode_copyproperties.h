@@ -1,4 +1,4 @@
-/*
+﻿/*
  For general Scribus (>=1.3.2) copyright and licensing information please refer
  to the COPYING file provided with the program. Following this notice may exist
  a copyright and/or license notice that predates the release of Scribus 1.3.2
@@ -51,8 +51,8 @@ private:
 	bool SeleItem(QMouseEvent *m);
 	void createContextMenu(PageItem *currItem, double mx, double my);
 
-	int m_frameResizeHandle;
-	double m_Mxp, m_Myp, m_Dxp, m_Dyp;
+	int frameResizeHandle;
+	double Mxp, Myp, Dxp, Dyp;
 	ScribusMainWindow* m_ScMW;
 };
 
