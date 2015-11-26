@@ -15008,20 +15008,28 @@ void ScribusDoc::scaleGroup(double scx, double scy, bool scaleText, Selection* c
 			}
 			else
 				AdjustItemSize(bb, true, false);
-			QTransform ma3;
-			ma3.translate(gx, gy);
-			ma3.scale(scx, scy);
-			FPoint n(gx-oldPos.x(), gy-oldPos.y());
-		//	x = ma3.m11() * n.x() + ma3.m21() * n.y() + ma3.dx();
-		//	y = ma3.m22() * n.y() + ma3.m12() * n.x() + ma3.dy();
-		//	MoveItem(gx-x, gy-y, bb);
-			bb->setXYPos(b1.x()+gx, b1.y()+gy);
+			if (bb->isArc() || bb->isSpiral() || bb->isRegularPolygon())
+				bb->setXYPos(b1.x() + gx, b1.y() + gy);
+			else
+			{
+				QTransform ma3;
+				ma3.translate(gx, gy);
+				ma3.scale(scx, scy);
+				FPoint n(gx-oldPos.x(), gy-oldPos.y());
+				double x = ma3.m11() * n.x() + ma3.m21() * n.y() + ma3.dx();
+				double y = ma3.m22() * n.y() + ma3.m12() * n.x() + ma3.dy();
+				//MoveItem(gx-x, gy-y, bb);
+				bb->moveBy(gx - x, gy - y);
+			}
 			if (oldRot != 0)
 			{
 				bb->setRotation(atan2(t1.y()-b1.y(),t1.x()-b1.x())*(180.0/M_PI));
-				QTransform ma;
-				ma.rotate(-bb->rotation());
-				bb->PoLine.map(ma);
+				if (!bb->isArc() && !bb->isSpiral() && !bb->isRegularPolygon())
+				{
+					QTransform ma;
+					ma.rotate(-bb->rotation());
+					bb->PoLine.map(ma);
+				}
 				if (bb->isGroup() || bb->isSymbol())
 				{
 					double oldGW = bb->groupWidth;
