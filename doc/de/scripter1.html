@@ -1,29 +1,31 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-	<title>Scripting in Scribus mit Python</title>
+	<title>Scripting Scribus with Python</title>
 </head>
+<style>
+@import "manual.css";
+</style>
 <body>
-<h2>Scripting in Scribus mit Python</h2>
+<h2>Scripting Scribus with Python</h2>
 
-<h3>&Uuml;bersicht</h3>
-<p>Mit Hilfe des Scripters k&ouml;nnen Sie die m&auml;chtige Programmiersprache Python als Scriptsprache in Scribus verwenden, etwa um sich wiederholende Aufgaben zu automatisieren oder neue Funktionen zu hinzuzuf&uuml;gen.</p>
+<h3>Overview</h3>
+<p>This is the description how to use the scripting plug-in for Scribus. The Scripter allows you to use the powerful Python programming language as a scripting language in Scribus. This can help you to automate otherwise repetitive tasks or add new features.</p>
 
-<p>Beachten Sie, da&szlig; der Scripter h&auml;ufig erweitert wird, so da&szlig; die hier verf&uuml;gbare Dokumentation teilweise unvollst&auml;ndig sein k&ouml;nnte.</p>
+<p>Note that additions to the Scripter are being made frequently, which means that the available documentation may be incomplete.</p>
 
 
-<h3>Nutzung des Plug-ins</h3>
-<p>Scribus wird mit einigen &raquo;festverdrahteten&laquo; Scripten ausgeliefert, die Sie im Men&uuml; <i>Script&nbsp;&gt; Scripte f&uuml;r Scribus</i> finden:</p>
+<h3>Using the Plug-in</h3>
+<p>Scribus is being shipped with some &ldquo;hard-wired&rdquo; scripts, which are available via <i>Scripter&nbsp;&gt; Scribus Scripts</i>:</p>
 
 <table width="100%"><tr><td align="center"><img src="images/Scripter.png" align="center" alt="Running a script" title="Running a script" /></td></tr></table>
 
-<p>Ein paar einfache Beispielscripte finden Sie im Unterverzeichnis <code>samples</code>. Wo sich dieses im einzelnen befindet, h&auml;ngt vom verwendeten Betriebssystem ab, z.B. <code>/usr/local/share/scribus</code> oder <code>/usr/share/scribus</code> unter Linux. Wenn Sie ein Script geschrieben haben, von dem Sie glauben, da&szlig; es f&uuml;r andere n&uuml;tzlich sein k&ouml;nnte, z&ouml;gern Sie nicht, es zum <a href="http://wiki.scribus.net/">Wiki</a> hinzuzuf&uuml;gen oder es an eine der <a href="mailing_lists.html">Mailinglisten</a> zu senden.</p>
+<p>There are some simple example scripts in the subdirectory &ldquo;samples.&rdquo; Its location depends on the operating system you use, e.g. <code>/usr/local/share/scribus</code> or <code>/usr/share/scribus</code> on Linux. If you have created a script which you think could be useful for others, please feel free to add it to the <a href="http://wiki.scribus.net/">Scribus Wiki</a> or paste it into an email and send it to the <a href="http://lists.scribus.info/mailman/listinfo/scribus/">Scribus mailing list</a>.</p>
 
-<p>Um ein externes Python-Script auszuf&uuml;hren, verwenden Sie <i>Script&nbsp;&gt; Script ausf&uuml;hren</i>. Scribus &ouml;ffnet dann einen Auswahldialog, in dem Sie das Script (Datei-Endung: *.py) ausw&auml;hlen k&ouml;nnen. <i>Script&nbsp;&gt; Zuletzt verwendete Scripte</i> zeigt eine Liste der zuletzt ausgef&uuml;hrten Scripte an.</p> 
+<p>To execute an external Python script, you have to use <i>Script&nbsp;&gt; Execute Script</i>. Scribus will open a file dialog, which allows you to select a Python script (file extension: *.py). <i>Script&nbsp;&gt; Recent Scripts</i> shows a list of recently executed scripts.</p> 
 
-<p>Mit dem Scripter-Plug-in k&ouml;nnen Sie zahlreiche Python-Module verwenden. Die einzigen Ausnahmen sind solche, die die Eingabe von Parametern auf der Kommandozeile erwarten. Sie werden nicht funktionieren, weil das Plug-in dem Python-Interpreter eine leere Kommandozeile pr&auml;sentiert.</p>
+<p>You can use many Python modules with this plug-in, the only exception being scripts that expect parameters from the command Line. These won&rsquo;t work because the plug-in gives the Python interpreter an empty command line.</p>
 
-<p>Der Men&uuml;punkt <i>Script&nbsp;&gt; Konsole zeigen</i> startet eine interaktive Python-Konsole, in der Sie Befehle direkt ausf&uuml;hren k&ouml;nnen. Es ist nicht notwendig <code>from scribus import *</code> zu benutzen, weil dies schon automatisch geschehen ist. Sie k&ouml;nnen alle Befehle, die auf den folgenden Seiten beschrieben sind, ohne Pr&auml;fix verwenden.</p>
-<br>
+<p>The menu entry <i>Script&nbsp;&gt; Show Console</i> will launch an interactive Python console, where you can execute commands directly. There is no need to use &ldquo;<code>from scribus import *</code>&rdquo;, as this has already been done. You can use all the commands listed in the following pages of the Scripter API documentation directly without any prefix.</p>
 </body>
 </html>
