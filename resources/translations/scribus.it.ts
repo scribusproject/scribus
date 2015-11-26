@@ -13433,7 +13433,7 @@ Se nessuna maniglia è selezionata, saranno tutte riportate alla posizione inizi
     <message>
         <location filename="../../scribus/ui/notesstyleseditor.ui" line="154"/>
         <source>Suffix</source>
-        <translation>Suffiso</translation>
+        <translation>Suffisso</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/notesstyleseditor.ui" line="171"/>
@@ -31274,7 +31274,7 @@ Si prega di sceglierne un altro.</translation>
         <location filename="../../scribus/ui/smpstylewidget.ui" line="841"/>
         <location filename="../../scribus/ui/smpstylewidget.cpp" line="186"/>
         <source>Suffix:</source>
-        <translation>Suffiso:</translation>
+        <translation>Suffisso:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.ui" line="995"/>
