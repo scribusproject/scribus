@@ -69,7 +69,7 @@ PyObject *scribus_getfontsize(PyObject* /* self */, PyObject* args)
 		return NULL;
 	}
 	else
-		return PyFloat_FromDouble(static_cast<long>(it->currentCharStyle().fontSize() / 10.0));
+		return PyFloat_FromDouble(static_cast<double>(it->currentCharStyle().fontSize() / 10.0));
 }
 
 PyObject *scribus_getfont(PyObject* /* self */, PyObject* args)
