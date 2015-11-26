@@ -9331,8 +9331,8 @@ void ScribusDoc::itemSelection_EraseParagraphStyle(Selection* customSelection)
 		int currItemTextCount = currItem->itemText.length();
 		if ((currItemTextCount > 0) && ((appMode == modeEdit) || (appMode == modeEditTable)))
 		{
-            int start = currItem->firstInFrame();
-            int stop = currItem->lastInFrame()+1;
+			int start = currItem->firstInFrame();
+			int stop = currItem->lastInFrame()+1;
 			if ((appMode == modeEdit) || (appMode == modeEditTable))
 			{
 				start = currItem->itemText.startOfSelection();
@@ -15049,12 +15049,12 @@ void ScribusDoc::scaleGroup(double scx, double scy, bool scaleText, Selection* c
 			{
 //				bb->setLineSpacing(((bb->fontSize() / 10.0) * static_cast<double>(Doc->typographicSettings.autoLineSpacing) / 100));
 				for (aa = 0; aa < bb->itemText.length(); ++aa)
-                {
-                    CharStyle fsStyle;
-                    fsStyle.setFontSize(qMax(qRound(bb->itemText.charStyle(aa).fontSize()*((scx+scy)/2)), 1));
-                    bb->itemText.applyCharStyle(aa, 1, fsStyle);
-                }
-                if (bb->asPathText())
+				{
+					CharStyle fsStyle;
+					fsStyle.setFontSize(qMax(qRound(bb->itemText.charStyle(aa).fontSize()*((scx+scy)/2)), 1));
+					bb->itemText.applyCharStyle(aa, 1, fsStyle);
+				}
+				if (bb->asPathText())
 					bb->updatePolyClip();
 			}
 		}
