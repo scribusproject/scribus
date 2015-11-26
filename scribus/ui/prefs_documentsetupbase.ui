@@ -40,13 +40,13 @@
      <property name="currentIndex">
       <number>0</number>
      </property>
-     <widget class="QWidget" name="tab">
+     <widget class="QWidget" name="sizeTab">
       <attribute name="title">
        <string>Size</string>
       </attribute>
       <layout class="QVBoxLayout" name="verticalLayout_4">
        <item>
-        <widget class="QLabel" name="label_2">
+        <widget class="QLabel" name="pageSizeTitleLabel">
          <property name="font">
           <font>
            <pointsize>13</pointsize>
@@ -79,7 +79,7 @@
           </widget>
          </item>
          <item row="0" column="1">
-          <layout class="QHBoxLayout" name="horizontalLayout_3">
+          <layout class="QHBoxLayout" name="pageSizeLayout">
            <item>
             <widget class="QComboBox" name="pageSizeComboBox"/>
            </item>
@@ -178,13 +178,13 @@
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="tab_4">
+     <widget class="QWidget" name="layoutTab">
       <attribute name="title">
        <string>Layout</string>
       </attribute>
       <layout class="QVBoxLayout" name="verticalLayout_6">
        <item>
-        <widget class="QLabel" name="label_7">
+        <widget class="QLabel" name="pageLayoutTitleLabel">
          <property name="font">
           <font>
            <pointsize>13</pointsize>
@@ -205,7 +205,7 @@
         </widget>
        </item>
        <item>
-        <layout class="QFormLayout" name="formLayout_2">
+        <layout class="QFormLayout" name="pageLayoutLayout">
          <item row="4" column="0">
           <widget class="QLabel" name="layoutFirstPageIsLabel">
            <property name="text">
@@ -283,7 +283,7 @@
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="tab_2">
+     <widget class="QWidget" name="marginsTab">
       <attribute name="title">
        <string>Margins &amp;&amp; Bleeds</string>
       </attribute>
@@ -316,7 +316,7 @@
             <number>0</number>
            </property>
            <item>
-            <widget class="QLabel" name="label_8">
+            <widget class="QLabel" name="marginsTitleLabel">
              <property name="font">
               <font>
                <pointsize>13</pointsize>
@@ -390,7 +390,7 @@
             </spacer>
            </item>
            <item>
-            <widget class="QLabel" name="label_10">
+            <widget class="QLabel" name="bleedsTitleLabel">
              <property name="font">
               <font>
                <pointsize>13</pointsize>
@@ -452,7 +452,7 @@
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="tab_3">
+     <widget class="QWidget" name="saveTab">
       <attribute name="title">
        <string>Saving &amp;&amp; Undo</string>
       </attribute>
@@ -481,7 +481,7 @@
         </spacer>
        </item>
        <item>
-        <widget class="QLabel" name="label_4">
+        <widget class="QLabel" name="autosaveTitleLable">
          <property name="font">
           <font>
            <pointsize>13</pointsize>
@@ -556,7 +556,7 @@
         </spacer>
        </item>
        <item>
-        <widget class="QLabel" name="label_5">
+        <widget class="QLabel" name="undoRedoTitleLabel">
          <property name="font">
           <font>
            <pointsize>13</pointsize>
@@ -586,7 +586,7 @@
        <item>
         <layout class="QHBoxLayout" name="horizontalLayout_2">
          <item>
-          <widget class="QLabel" name="label_3">
+          <widget class="QLabel" name="undoLengthLabel">
            <property name="text">
             <string>Action History Length:</string>
            </property>
