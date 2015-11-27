@@ -396,7 +396,7 @@ void ScPageOutput::drawItem_Post( PageItem* item, ScPainterExBase* painter )
 		painter->setMaskMode(0);
 		if (item->isGroup() || item->isLine() || item->isPathText() || item->isPolyLine() || item->isSpiral() || item->isSymbol() || item->isTable() )
 			doStroke = false;
-		if ((doStroke))
+		if (doStroke)
 		{
 			painter->setBlendModeStroke(item->lineBlendmode());
 			painter->setPenOpacity(1.0 - item->lineTransparency());
