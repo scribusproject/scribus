@@ -10082,7 +10082,6 @@ void ScribusDoc::setFrameRounded()
 		}
 		currItem->SetFrameRound();
 		setRedrawBounding(currItem);
-		qDebug()<<"boo";
 		regionsChanged()->update(currItem->getRedrawBounding(1.0));
 	}
 }
