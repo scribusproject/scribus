@@ -506,6 +506,8 @@ void PropertiesPalette_Shape::handleNewShape(int f, int c, qreal *vals)
 		roundRect->setValue(m_item->cornerRadius()*m_unitRatio);
 		roundRect->setEnabled(f == 0);
 		roundRect->blockSignals(b);
+		if (f == 0)
+			m_doc->setFrameRounded();
 		if ((m_item->itemType() == PageItem::ImageFrame) || (m_item->itemType() == PageItem::TextFrame))
 			return;
 		m_doc->invalidateAll();
