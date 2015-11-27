@@ -68,7 +68,7 @@ private:
 
 	inline bool GetItem(PageItem** pi);
 
-	double Mxp, Myp;
+	double m_Mxp, m_Myp;
 	ScribusMainWindow* m_ScMW;
 	eGradientPoint m_gradientPoint;
 

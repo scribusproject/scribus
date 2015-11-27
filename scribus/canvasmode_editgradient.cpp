@@ -56,7 +56,7 @@
 
 CanvasMode_EditGradient::CanvasMode_EditGradient(ScribusView* view) : CanvasMode(view), m_ScMW(view->m_ScMW) 
 {
-	Mxp = Myp = -1;
+	m_Mxp = m_Myp = -1;
 	m_gradientPoint = noPointDefined;
 }
 
@@ -252,7 +252,7 @@ void CanvasMode_EditGradient::activate(bool fromGesture)
 	m_canvas->m_viewMode.operItemMoving = false;
 	m_canvas->m_viewMode.operItemResizing = false;
 	m_view->MidButt = false;
-	Mxp = Myp = -1;
+	m_Mxp = m_Myp = -1;
 	setModeCursor();
 	if (fromGesture)
 	{
@@ -318,7 +318,7 @@ void CanvasMode_EditGradient::mouseMoveEvent(QMouseEvent *m)
 		PageItem *currItem = m_doc->m_Selection->itemAt(0);
 		double newX = mousePointDoc.x(); //m->x();
 		double newY = mousePointDoc.y(); //m->y();
-		FPoint npx(Mxp - newX, Myp - newY, 0, 0, currItem->rotation(), 1, 1, true);
+		FPoint npx(m_Mxp - newX, m_Myp - newY, 0, 0, currItem->rotation(), 1, 1, true);
 		QPointF np = QPointF(npx.x(), npx.y());
 		if (m_view->editStrokeGradient == 1)
 		{
@@ -636,8 +636,8 @@ void CanvasMode_EditGradient::mouseMoveEvent(QMouseEvent *m)
 			else if (m_gradientPoint == useControl5)
 				currItem->GrControl5 -= npx;
 		}
-		Mxp = newX;
-		Myp = newY;
+		m_Mxp = newX;
+		m_Myp = newY;
 //		m_view->RefreshGradient(currItem, dx * m_canvas->scale(), dy * m_canvas->scale());
 		m_ScMW->propertiesPalette->updateColorSpecialGradient();
 		currItem->update();
@@ -718,8 +718,8 @@ void CanvasMode_EditGradient::mousePressEvent(QMouseEvent *m)
 	m->accept();
 	m_view->registerMousePress(m->globalPos());
 	m_gradientPoint = noPointDefined;
-	Mxp = mousePointDoc.x(); //m->x();
-	Myp = mousePointDoc.y(); //m->y();
+	m_Mxp = mousePointDoc.x(); //m->x();
+	m_Myp = mousePointDoc.y(); //m->y();
 	if (m->button() == Qt::MidButton)
 	{
 		m_view->MidButt = true;

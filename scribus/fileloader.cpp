@@ -64,7 +64,7 @@ FileLoader::FileLoader(const QString & fileName) :
 	formatSLA13x(LoadSavePlugin::getFormatById(FORMATID_SLA13XIMPORT)),
 	formatSLA134(LoadSavePlugin::getFormatById(FORMATID_SLA134IMPORT)),
 	formatSLA150(LoadSavePlugin::getFormatById(FORMATID_SLA150IMPORT)),
-	prefsManager(PrefsManager::instance()),
+	m_prefsManager(PrefsManager::instance()),
 	m_fileName(fileName),
 	m_fileType(-1)
 {
@@ -180,21 +180,21 @@ bool FileLoader::loadPage(ScribusDoc* currDoc, int PageToLoad, bool Mpage, QStri
 {
 	bool ret = false;
 // 	newReplacement = false;
-	ReplacedFonts = currDoc->AllFonts->getSubstitutions();
+	m_ReplacedFonts = currDoc->AllFonts->getSubstitutions();
 // 	dummyScFaces.clear();
 	QList<FileFormat>::const_iterator it;
 	if (findFormat(m_fileType, it))
 	{
 		if (m_fileType == FORMATID_SLA12XIMPORT)
 		{
-			it->plug->setupTargets(currDoc, currDoc->view(), currDoc->scMW(), currDoc->scMW()->mainWindowProgressBar, &(prefsManager->appPrefs.fontPrefs.AvailFonts));
+			it->plug->setupTargets(currDoc, currDoc->view(), currDoc->scMW(), currDoc->scMW()->mainWindowProgressBar, &(m_prefsManager->appPrefs.fontPrefs.AvailFonts));
 			ret = it->plug->loadPage(m_fileName, PageToLoad, Mpage, renamedPageName);
 // 			if (ret)
 // 				it->plug->getReplacedFontData(newReplacement, ReplacedFonts, dummyScFaces);
 		}
 		if (m_fileType == FORMATID_SLA13XIMPORT || m_fileType == FORMATID_SLA134IMPORT || m_fileType == FORMATID_SLA150IMPORT)
 		{
-			it->plug->setupTargets(currDoc, 0, currDoc->scMW(), currDoc->scMW()->mainWindowProgressBar, &(prefsManager->appPrefs.fontPrefs.AvailFonts));
+			it->plug->setupTargets(currDoc, 0, currDoc->scMW(), currDoc->scMW()->mainWindowProgressBar, &(m_prefsManager->appPrefs.fontPrefs.AvailFonts));
 			ret = it->plug->loadPage(m_fileName, PageToLoad, Mpage, renamedPageName);
 // 			if (ret)
 // 				it->plug->getReplacedFontData(newReplacement, ReplacedFonts, dummyScFaces);
@@ -216,25 +216,25 @@ bool FileLoader::loadPage(ScribusDoc* currDoc, int PageToLoad, bool Mpage, QStri
  */
 bool FileLoader::loadFile(ScribusDoc* currDoc)
 {
-	newReplacement = false;
-	currDoc->guidesPrefs().marginsShown = prefsManager->appPrefs.guidesPrefs.marginsShown;
-	currDoc->guidesPrefs().framesShown = prefsManager->appPrefs.guidesPrefs.framesShown;
-	currDoc->guidesPrefs().layerMarkersShown = prefsManager->appPrefs.guidesPrefs.layerMarkersShown;
-	currDoc->guidesPrefs().gridShown = prefsManager->appPrefs.guidesPrefs.gridShown;
-	currDoc->guidesPrefs().guidesShown = prefsManager->appPrefs.guidesPrefs.guidesShown;
-	currDoc->guidesPrefs().colBordersShown = prefsManager->appPrefs.guidesPrefs.colBordersShown;
-	currDoc->guidesPrefs().baselineGridShown = prefsManager->appPrefs.guidesPrefs.baselineGridShown;
-	currDoc->guidesPrefs().linkShown = prefsManager->appPrefs.guidesPrefs.linkShown;
-	currDoc->itemToolPrefs().polyCorners = prefsManager->appPrefs.itemToolPrefs.polyCorners;
-	currDoc->itemToolPrefs().polyFactor = prefsManager->appPrefs.itemToolPrefs.polyFactor;
-	currDoc->itemToolPrefs().polyRotation = prefsManager->appPrefs.itemToolPrefs.polyRotation;
-	currDoc->itemToolPrefs().polyCurvature = prefsManager->appPrefs.itemToolPrefs.polyCurvature;
-	currDoc->itemToolPrefs().polyOuterCurvature = prefsManager->appPrefs.itemToolPrefs.polyOuterCurvature;
-	currDoc->itemToolPrefs().polyInnerRot = prefsManager->appPrefs.itemToolPrefs.polyInnerRot;
-	currDoc->itemToolPrefs().polyUseFactor = prefsManager->appPrefs.itemToolPrefs.polyUseFactor;
-	currDoc->setAutoSave(prefsManager->appPrefs.docSetupPrefs.AutoSave);
-	currDoc->setAutoSaveTime(prefsManager->appPrefs.docSetupPrefs.AutoSaveTime);
-	ReplacedFonts = currDoc->AllFonts->getSubstitutions();
+	m_newReplacement = false;
+	currDoc->guidesPrefs().marginsShown = m_prefsManager->appPrefs.guidesPrefs.marginsShown;
+	currDoc->guidesPrefs().framesShown = m_prefsManager->appPrefs.guidesPrefs.framesShown;
+	currDoc->guidesPrefs().layerMarkersShown = m_prefsManager->appPrefs.guidesPrefs.layerMarkersShown;
+	currDoc->guidesPrefs().gridShown = m_prefsManager->appPrefs.guidesPrefs.gridShown;
+	currDoc->guidesPrefs().guidesShown = m_prefsManager->appPrefs.guidesPrefs.guidesShown;
+	currDoc->guidesPrefs().colBordersShown = m_prefsManager->appPrefs.guidesPrefs.colBordersShown;
+	currDoc->guidesPrefs().baselineGridShown = m_prefsManager->appPrefs.guidesPrefs.baselineGridShown;
+	currDoc->guidesPrefs().linkShown = m_prefsManager->appPrefs.guidesPrefs.linkShown;
+	currDoc->itemToolPrefs().polyCorners = m_prefsManager->appPrefs.itemToolPrefs.polyCorners;
+	currDoc->itemToolPrefs().polyFactor = m_prefsManager->appPrefs.itemToolPrefs.polyFactor;
+	currDoc->itemToolPrefs().polyRotation = m_prefsManager->appPrefs.itemToolPrefs.polyRotation;
+	currDoc->itemToolPrefs().polyCurvature = m_prefsManager->appPrefs.itemToolPrefs.polyCurvature;
+	currDoc->itemToolPrefs().polyOuterCurvature = m_prefsManager->appPrefs.itemToolPrefs.polyOuterCurvature;
+	currDoc->itemToolPrefs().polyInnerRot = m_prefsManager->appPrefs.itemToolPrefs.polyInnerRot;
+	currDoc->itemToolPrefs().polyUseFactor = m_prefsManager->appPrefs.itemToolPrefs.polyUseFactor;
+	currDoc->setAutoSave(m_prefsManager->appPrefs.docSetupPrefs.AutoSave);
+	currDoc->setAutoSaveTime(m_prefsManager->appPrefs.docSetupPrefs.AutoSaveTime);
+	m_ReplacedFonts = currDoc->AllFonts->getSubstitutions();
 	//dummyScFaces.clear();
 	bool ret = false;
 	QList<FileFormat>::const_iterator it;
@@ -245,7 +245,7 @@ bool FileLoader::loadFile(ScribusDoc* currDoc)
 		{
 			case FORMATID_SLA12XIMPORT:
 				{
-					it->setupTargets(currDoc, currDoc->view(), currDoc->scMW(), currDoc->scMW()->mainWindowProgressBar, &(prefsManager->appPrefs.fontPrefs.AvailFonts));
+					it->setupTargets(currDoc, currDoc->view(), currDoc->scMW(), currDoc->scMW()->mainWindowProgressBar, &(m_prefsManager->appPrefs.fontPrefs.AvailFonts));
 					ret=it->loadFile(m_fileName, LoadSavePlugin::lfCreateDoc);
 // 					if (ret)
 // 						it->getReplacedFontData(newReplacement, ReplacedFonts, dummyScFaces);
@@ -255,14 +255,14 @@ bool FileLoader::loadFile(ScribusDoc* currDoc)
 			case FORMATID_SLA134IMPORT:
 			case FORMATID_SLA150IMPORT:
 				{
-					it->setupTargets(currDoc, 0, currDoc->scMW(), currDoc->scMW()->mainWindowProgressBar, &(prefsManager->appPrefs.fontPrefs.AvailFonts));
+					it->setupTargets(currDoc, 0, currDoc->scMW(), currDoc->scMW()->mainWindowProgressBar, &(m_prefsManager->appPrefs.fontPrefs.AvailFonts));
 					ret=it->loadFile(m_fileName, LoadSavePlugin::lfCreateDoc);
 // 					if (ret)
 // 						it->getReplacedFontData(newReplacement, ReplacedFonts, dummyScFaces);
 				}
 				break;
 			default:
-				it->setupTargets(currDoc, currDoc->view(), currDoc->scMW(), currDoc->scMW()->mainWindowProgressBar, &(prefsManager->appPrefs.fontPrefs.AvailFonts));
+				it->setupTargets(currDoc, currDoc->view(), currDoc->scMW(), currDoc->scMW()->mainWindowProgressBar, &(m_prefsManager->appPrefs.fontPrefs.AvailFonts));
 				ret = it->loadFile(m_fileName, LoadSavePlugin::lfCreateDoc);
 				break;
 		}
@@ -276,7 +276,7 @@ bool FileLoader::saveFile(const QString& fileName, ScribusDoc *doc, QString *sav
 	QList<FileFormat>::const_iterator it;
 	if (findFormat(FORMATID_SLA150EXPORT, it))
 	{
-		it->setupTargets(doc, doc->view(), doc->scMW(), doc->scMW()->mainWindowProgressBar, &(prefsManager->appPrefs.fontPrefs.AvailFonts));
+		it->setupTargets(doc, doc->view(), doc->scMW(), doc->scMW()->mainWindowProgressBar, &(m_prefsManager->appPrefs.fontPrefs.AvailFonts));
 		ret = it->saveFile(fileName);
 		if (savedFile)
 			*savedFile = it->lastSavedFile();
@@ -288,7 +288,7 @@ bool FileLoader::readStyles(ScribusDoc* doc, StyleSet<ParagraphStyle> &docParagr
 {
 	QList<FileFormat>::const_iterator it;
 	if (findFormat(m_fileType, it)) {
-		it->plug->setupTargets(doc, 0, doc->scMW(), doc->scMW()->mainWindowProgressBar, &(prefsManager->appPrefs.fontPrefs.AvailFonts));
+		it->plug->setupTargets(doc, 0, doc->scMW(), doc->scMW()->mainWindowProgressBar, &(m_prefsManager->appPrefs.fontPrefs.AvailFonts));
 		return it->readStyles(m_fileName, doc, docParagraphStyles);
 	}
 	return false;
@@ -298,7 +298,7 @@ bool FileLoader::readCharStyles(ScribusDoc* doc, StyleSet<CharStyle> &docCharSty
 {
 	QList<FileFormat>::const_iterator it;
 	if (findFormat(m_fileType, it)) {
-		it->plug->setupTargets(doc, 0, doc->scMW(), doc->scMW()->mainWindowProgressBar, &(prefsManager->appPrefs.fontPrefs.AvailFonts));
+		it->plug->setupTargets(doc, 0, doc->scMW(), doc->scMW()->mainWindowProgressBar, &(m_prefsManager->appPrefs.fontPrefs.AvailFonts));
 		return it->readCharStyles(m_fileName, doc, docCharStyles);
 	}
 	return false;
@@ -425,26 +425,26 @@ QImage FileLoader::readThumbnail()
 
 bool FileLoader::postLoad(ScribusDoc* currDoc)
 {
-	ReplacedFonts = currDoc->AllFonts->getSubstitutions(ReplacedFonts.keys());
-	if (ReplacedFonts.isEmpty())
+	m_ReplacedFonts = currDoc->AllFonts->getSubstitutions(m_ReplacedFonts.keys());
+	if (m_ReplacedFonts.isEmpty())
 		return true;
 
-	if ((prefsManager->appPrefs.fontPrefs.askBeforeSubstitute))
+	if ((m_prefsManager->appPrefs.fontPrefs.askBeforeSubstitute))
 	{
 		qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
-		FontReplaceDialog dia(0, &ReplacedFonts);
+		FontReplaceDialog dia(0, &m_ReplacedFonts);
 		if (dia.exec())
 		{
 			QMap<QString,QString>::Iterator itfsu;
-			for (itfsu = ReplacedFonts.begin(); itfsu != ReplacedFonts.end(); ++itfsu)
+			for (itfsu = m_ReplacedFonts.begin(); itfsu != m_ReplacedFonts.end(); ++itfsu)
 			{
 				if (dia.stickyReplacements->isChecked())
-					prefsManager->appPrefs.fontPrefs.GFontSub[itfsu.key()] = itfsu.value();
+					m_prefsManager->appPrefs.fontPrefs.GFontSub[itfsu.key()] = itfsu.value();
 			}
-			currDoc->AllFonts->setSubstitutions(ReplacedFonts, currDoc);
+			currDoc->AllFonts->setSubstitutions(m_ReplacedFonts, currDoc);
 			ResourceCollection repl;
 			repl.availableFonts = currDoc->AllFonts;
-			repl.mapFonts(ReplacedFonts);
+			repl.mapFonts(m_ReplacedFonts);
 			currDoc->replaceNamedResources(repl);
 			return true;
 		}
@@ -459,12 +459,12 @@ bool FileLoader::postLoad(ScribusDoc* currDoc)
 
 void FileLoader::informReplacementFonts()
 {
-	if (ReplacedFonts.count() != 0)
+	if (m_ReplacedFonts.count() != 0)
 	{
 		qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 		QString mess = tr("Some fonts used by this document have been substituted:")+"\n\n";
 		QMap<QString,QString>::Iterator it;
-		for (it = ReplacedFonts.begin(); it != ReplacedFonts.end(); ++it)
+		for (it = m_ReplacedFonts.begin(); it != m_ReplacedFonts.end(); ++it)
 		{
 			mess += it.key() + tr(" was replaced by: ")+ it.value() +"\n";
 		}

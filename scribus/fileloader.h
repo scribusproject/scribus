@@ -56,11 +56,11 @@ public:
 
 	static const QString getLoadFilterString();
 private:
-	QMap<QString, QString> ReplacedFonts;
-	bool newReplacement;
+	QMap<QString, QString> m_ReplacedFonts;
+	bool m_newReplacement;
 	void readParagraphStyle(ParagraphStyle& vg, const QDomElement& pg, SCFonts &avail, ScribusDoc *doc);
 	bool findFormat(uint formatId, QList<FileFormat>::const_iterator &it);
-	PrefsManager* prefsManager;
+	PrefsManager* m_prefsManager;
 
 	QString m_fileName;
 	int     m_fileType;

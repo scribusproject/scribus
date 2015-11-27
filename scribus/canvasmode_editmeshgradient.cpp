@@ -63,16 +63,16 @@
 
 CanvasMode_EditMeshGradient::CanvasMode_EditMeshGradient(ScribusView* view) : CanvasMode(view), m_ScMW(view->m_ScMW) 
 {
-	Mxp = Myp = -1;
-	selectedMeshPoints.clear();
+	m_Mxp = m_Myp = -1;
+	m_selectedMeshPoints.clear();
 	m_gradientPoint = noPointDefined;
-	old_mesh = new meshPoint();
+	m_old_mesh = new meshPoint();
 }
 
 CanvasMode_EditMeshGradient::~CanvasMode_EditMeshGradient()
 {
-	delete old_mesh;
-	old_mesh = NULL;
+	delete m_old_mesh;
+	m_old_mesh = NULL;
 }
 
 inline bool CanvasMode_EditMeshGradient::GetItem(PageItem** pi)
@@ -134,9 +134,9 @@ void CanvasMode_EditMeshGradient::drawControlsMeshGradient(QPainter* psx, PageIt
 		for (int gcol = 0; gcol < currItem->meshGradientArray[grow].count(); gcol++)
 		{
 			bool isSelected = false;
-			for (int se = 0; se < selectedMeshPoints.count(); se++)
+			for (int se = 0; se < m_selectedMeshPoints.count(); se++)
 			{
-				if ((grow == selectedMeshPoints[se].first) && (gcol == selectedMeshPoints[se].second))
+				if ((grow == m_selectedMeshPoints[se].first) && (gcol == m_selectedMeshPoints[se].second))
 				{
 					isSelected = true;
 					break;
@@ -173,10 +173,10 @@ void CanvasMode_EditMeshGradient::drawControlsMeshGradient(QPainter* psx, PageIt
 			}
 		}
 	}
-	if ((selectedMeshPoints.count() > 0) && (m_view->editStrokeGradient == 7))
+	if ((m_selectedMeshPoints.count() > 0) && (m_view->editStrokeGradient == 7))
 	{
-		int grow = selectedMeshPoints[0].first;
-		int gcol = selectedMeshPoints[0].second;
+		int grow = m_selectedMeshPoints[0].first;
+		int gcol = m_selectedMeshPoints[0].second;
 		meshPoint mp1 = currItem->meshGradientArray[grow][gcol];
 		psx->setPen(p8m);
 		if (grow == 0)
@@ -367,9 +367,9 @@ void CanvasMode_EditMeshGradient::activate(bool fromGesture)
 	m_canvas->m_viewMode.operItemMoving = false;
 	m_canvas->m_viewMode.operItemResizing = false;
 	m_view->MidButt = false;
-	selectedMeshPoints.clear();
+	m_selectedMeshPoints.clear();
 	m_keyRepeat = false;
-	Mxp = Myp = -1;
+	m_Mxp = m_Myp = -1;
 	setModeCursor();
 	if (fromGesture)
 	{
@@ -380,14 +380,14 @@ void CanvasMode_EditMeshGradient::activate(bool fromGesture)
 void CanvasMode_EditMeshGradient::deactivate(bool forGesture)
 {
 	m_view->setRedrawMarkerShown(false);
-	selectedMeshPoints.clear();
+	m_selectedMeshPoints.clear();
 	m_gradientPoint = noPointDefined;
 	m_ScMW->propertiesPalette->updateColorSpecialGradient();
 }
 
 void CanvasMode_EditMeshGradient::keyPressEvent(QKeyEvent *e)
 {
-	if (selectedMeshPoints.count() == 0)
+	if (m_selectedMeshPoints.count() == 0)
 		return;
 	int kk = e->key();
 	if (m_keyRepeat)
@@ -466,13 +466,13 @@ void CanvasMode_EditMeshGradient::keyPressEvent(QKeyEvent *e)
 				case Qt::Key_5:
 					if (m_view->editStrokeGradient == 6)
 					{
-						QPair<int, int> selP = selectedMeshPoints[0];
+						QPair<int, int> selP = m_selectedMeshPoints[0];
 						currItem->meshGradientArray[selP.first][selP.second].controlColor = currItem->meshGradientArray[selP.first][selP.second].gridPoint;
 						doUpdate = true;
 					}
 					else if (m_view->editStrokeGradient == 7)
 					{
-						QPair<int, int> selP = selectedMeshPoints[0];
+						QPair<int, int> selP = m_selectedMeshPoints[0];
 						if (m_gradientPoint == useControlT)
 							currItem->meshGradientArray[selP.first][selP.second].controlTop = currItem->meshGradientArray[selP.first][selP.second].gridPoint;
 						else if (m_gradientPoint == useControlB)
@@ -489,20 +489,20 @@ void CanvasMode_EditMeshGradient::keyPressEvent(QKeyEvent *e)
 			{
 				if (m_view->editStrokeGradient == 5)
 				{
-					for (int mo = 0; mo < selectedMeshPoints.count(); mo++)
+					for (int mo = 0; mo < m_selectedMeshPoints.count(); mo++)
 					{
-						QPair<int, int> selP = selectedMeshPoints[mo];
+						QPair<int, int> selP = m_selectedMeshPoints[mo];
 						currItem->meshGradientArray[selP.first][selP.second].moveRel(moveX, moveY);
 					}
 				}
 				else if (m_view->editStrokeGradient == 6)
 				{
-					QPair<int, int> selP = selectedMeshPoints[0];
+					QPair<int, int> selP = m_selectedMeshPoints[0];
 					currItem->meshGradientArray[selP.first][selP.second].controlColor += FPoint(moveX, moveY);
 				}
 				else if (m_view->editStrokeGradient == 7)
 				{
-					QPair<int, int> selP = selectedMeshPoints[0];
+					QPair<int, int> selP = m_selectedMeshPoints[0];
 					if (m_gradientPoint == useControlT)
 						currItem->meshGradientArray[selP.first][selP.second].controlTop += FPoint(moveX, moveY);
 					else if (m_gradientPoint == useControlB)
@@ -568,7 +568,7 @@ void CanvasMode_EditMeshGradient::mouseMoveEvent(QMouseEvent *m)
 {
 	const FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPos());
 	m->accept();
-	if (selectedMeshPoints.count() == 0)
+	if (m_selectedMeshPoints.count() == 0)
 		return;
 	if (m_canvas->m_viewMode.m_MouseButtonPressed && m_view->moveTimerElapsed())
 	{
@@ -584,9 +584,9 @@ void CanvasMode_EditMeshGradient::mouseMoveEvent(QMouseEvent *m)
 		FPoint npf = npfN.transformPoint(pp, true);
 		if (m_view->editStrokeGradient == 6)
 		{
-			if (selectedMeshPoints.count() > 0)
+			if (m_selectedMeshPoints.count() > 0)
 			{
-				QPair<int, int> selP = selectedMeshPoints[0];
+				QPair<int, int> selP = m_selectedMeshPoints[0];
 				FPoint cP = currItem->meshGradientArray[selP.first][selP.second].controlColor;
 				FPoint gP = currItem->meshGradientArray[selP.first][selP.second].gridPoint;
 				m_canvas->displayXYHUD(m->globalPos(), cP.x() - gP.x(), cP.y() - gP.y());
@@ -594,25 +594,25 @@ void CanvasMode_EditMeshGradient::mouseMoveEvent(QMouseEvent *m)
 		}
 		else
 			m_canvas->displayXYHUD(m->globalPos(), npf.x(), npf.y());
-		FPoint npx(Mxp - npfN.x(), Myp - npfN.y(), 0, 0, currItem->rotation(), 1, 1, true);
-		if (selectedMeshPoints.count() > 0)
+		FPoint npx(m_Mxp - npfN.x(), m_Myp - npfN.y(), 0, 0, currItem->rotation(), 1, 1, true);
+		if (m_selectedMeshPoints.count() > 0)
 		{
 			if (m_view->editStrokeGradient == 5)
 			{
-				for (int mo = 0; mo < selectedMeshPoints.count(); mo++)
+				for (int mo = 0; mo < m_selectedMeshPoints.count(); mo++)
 				{
-					QPair<int, int> selP = selectedMeshPoints[mo];
+					QPair<int, int> selP = m_selectedMeshPoints[mo];
 					currItem->meshGradientArray[selP.first][selP.second].moveRel(-npx.x(), -npx.y());
 				}
 			}
 			else if (m_view->editStrokeGradient == 6)
 			{
-				QPair<int, int> selP = selectedMeshPoints[0];
+				QPair<int, int> selP = m_selectedMeshPoints[0];
 				currItem->meshGradientArray[selP.first][selP.second].controlColor -= npx;
 			}
 			else if (m_view->editStrokeGradient == 7)
 			{
-				QPair<int, int> selP = selectedMeshPoints[0];
+				QPair<int, int> selP = m_selectedMeshPoints[0];
 				if (m_gradientPoint == useControlT)
 					currItem->meshGradientArray[selP.first][selP.second].controlTop -= npx;
 				else if (m_gradientPoint == useControlB)
@@ -626,8 +626,8 @@ void CanvasMode_EditMeshGradient::mouseMoveEvent(QMouseEvent *m)
 			QTransform itemMatrix = currItem->getTransform();
 			m_doc->regionsChanged()->update(itemMatrix.mapRect(QRectF(0, 0, currItem->width(), currItem->height())).adjusted(-currItem->width() / 2.0, -currItem->height() / 2.0, currItem->width(), currItem->height()));
 		}
-		Mxp = npfN.x();
-		Myp = npfN.y();
+		m_Mxp = npfN.x();
+		m_Myp = npfN.y();
 	}
 }
 
@@ -643,8 +643,8 @@ void CanvasMode_EditMeshGradient::mousePressEvent(QMouseEvent *m)
 	m_doc->leaveDrag = false;
 	m->accept();
 	m_view->registerMousePress(m->globalPos());
-	Mxp = mousePointDoc.x(); //m->x();
-	Myp = mousePointDoc.y(); //m->y();
+	m_Mxp = mousePointDoc.x(); //m->x();
+	m_Myp = mousePointDoc.y(); //m->y();
 	if (m->button() == Qt::MidButton)
 	{
 		m_view->MidButt = true;
@@ -671,7 +671,7 @@ void CanvasMode_EditMeshGradient::mousePressEvent(QMouseEvent *m)
 					selPoint.first = grow;
 					selPoint.second = gcol;
 					found = true;
-					*old_mesh = mp;
+					*m_old_mesh = mp;
 					break;
 				}
 			}
@@ -682,7 +682,7 @@ void CanvasMode_EditMeshGradient::mousePressEvent(QMouseEvent *m)
 	else if (m_view->editStrokeGradient == 6)
 	{
 		m_gradientPoint = noPointDefined;
-		selectedMeshPoints.clear();
+		m_selectedMeshPoints.clear();
 		for (int grow = 0; grow < currItem->meshGradientArray.count(); grow++)
 		{
 			for (int gcol = 0; gcol < currItem->meshGradientArray[grow].count(); gcol++)
@@ -698,7 +698,7 @@ void CanvasMode_EditMeshGradient::mousePressEvent(QMouseEvent *m)
 					selPoint.second = gcol;
 					currItem->selectedMeshPointX = grow;
 					currItem->selectedMeshPointY = gcol;
-					*old_mesh = mp;
+					*m_old_mesh = mp;
 					found = true;
 					break;
 				}
@@ -899,7 +899,7 @@ void CanvasMode_EditMeshGradient::mousePressEvent(QMouseEvent *m)
 				{
 					selPoint.first = grow;
 					selPoint.second = gcol;
-					*old_mesh = mp1;
+					*m_old_mesh = mp1;
 					break;
 				}
 			}
@@ -934,7 +934,7 @@ void CanvasMode_EditMeshGradient::mousePressEvent(QMouseEvent *m)
 		if (!(m->modifiers() & Qt::ShiftModifier))
 		{
 			m_gradientPoint = noPointDefined;
-			selectedMeshPoints.clear();
+			m_selectedMeshPoints.clear();
 			currItem->selectedMeshPointX = -1;
 			currItem->selectedMeshPointY = -1;
 			currItem->selectedMeshControlPoint = static_cast<int>(m_gradientPoint);
@@ -943,20 +943,20 @@ void CanvasMode_EditMeshGradient::mousePressEvent(QMouseEvent *m)
 	else
 	{
 		bool isSelected = false;
-		for (int se = 0; se < selectedMeshPoints.count(); se++)
+		for (int se = 0; se < m_selectedMeshPoints.count(); se++)
 		{
-			if ((selPoint.first == selectedMeshPoints[se].first) && (selPoint.second == selectedMeshPoints[se].second))
+			if ((selPoint.first == m_selectedMeshPoints[se].first) && (selPoint.second == m_selectedMeshPoints[se].second))
 			{
 				isSelected = true;
 				break;
 			}
 		}
 		if ((!(m->modifiers() & Qt::ShiftModifier)) && (!isSelected))
-			selectedMeshPoints.clear();
+			m_selectedMeshPoints.clear();
 		if (!isSelected)
-			selectedMeshPoints.append(selPoint);
-		currItem->selectedMeshPointX = selectedMeshPoints[0].first;
-		currItem->selectedMeshPointY = selectedMeshPoints[0].second;
+			m_selectedMeshPoints.append(selPoint);
+		currItem->selectedMeshPointX = m_selectedMeshPoints[0].first;
+		currItem->selectedMeshPointY = m_selectedMeshPoints[0].second;
 		currItem->selectedMeshControlPoint = static_cast<int>(m_gradientPoint);
 	}
 	m_canvas->m_viewMode.m_MouseButtonPressed = true;
@@ -978,13 +978,13 @@ void CanvasMode_EditMeshGradient::mouseReleaseEvent(QMouseEvent *m)
 		ss->set("ARRAY",true);
 		ss->set("X",currItem->selectedMeshPointX);
 		ss->set("Y",currItem->selectedMeshPointY);
-		if((*old_mesh) == currItem->meshGradientArray[currItem->selectedMeshPointX][currItem->selectedMeshPointY])
+		if((*m_old_mesh) == currItem->meshGradientArray[currItem->selectedMeshPointX][currItem->selectedMeshPointY])
 		{
 			delete ss;
 			ss=NULL;
 		}
 		else
-			ss->setItem(qMakePair(*old_mesh,currItem->meshGradientArray[currItem->selectedMeshPointX][currItem->selectedMeshPointY]));
+			ss->setItem(qMakePair(*m_old_mesh,currItem->meshGradientArray[currItem->selectedMeshPointX][currItem->selectedMeshPointY]));
 		if(ss)
 			undoManager->action(currItem,ss);
 	}

@@ -83,8 +83,8 @@ private:
 
 	inline bool GetItem(PageItem** pi);
 
-	meshPoint* old_mesh;
-	double Mxp, Myp;
+	meshPoint* m_old_mesh;
+	double m_Mxp, m_Myp;
 	ScribusMainWindow* m_ScMW;
 	eMPatchPoint m_patchPoint;
 	eMGradientPoint m_gradientPoint;
@@ -92,7 +92,7 @@ private:
 	int m_click_count;
 	QPolygonF m_clickPointPolygon;
 	QPointF m_currentPoint;
-	PageItem *currItem;
+	PageItem *m_currItem;
 };
 
 #endif

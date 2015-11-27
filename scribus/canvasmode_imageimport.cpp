@@ -40,13 +40,13 @@
 
 CanvasMode_ImageImport::CanvasMode_ImageImport(ScribusView *view) : CanvasMode(view), m_ScMW(view->m_ScMW)
 {
-	Mx=0;
-	My=0;
+	m_Mx=0;
+	m_My=0;
 }
 
 void CanvasMode_ImageImport::setImageList(QStringList l)
 {
-	imageList = l;
+	m_imageList = l;
 	if(l.size()==1)
 	{
 		while(!(m_doc->m_Selection->itemAt(0)->isImageFrame()))
@@ -80,11 +80,11 @@ void CanvasMode_ImageImport::newToolTip(QString name)
 		pm.save(&buffer, "PNG");
 		QByteArray ba = buffer.buffer().toBase64();
 		buffer.close();
-		tipText = "<p align=\"center\"><img src=\"data:image/png;base64," + QString(ba) + "\"></p>";
+		m_tipText = "<p align=\"center\"><img src=\"data:image/png;base64," + QString(ba) + "\"></p>";
 	}
 	else
-		tipText = "<p align=\"center\">" + name.right(name.lastIndexOf("/")) + "</p>";
-	QToolTip::showText(QPoint(Mx,My), tipText, qApp->activeWindow());
+		m_tipText = "<p align=\"center\">" + name.right(name.lastIndexOf("/")) + "</p>";
+	QToolTip::showText(QPoint(m_Mx,m_My), m_tipText, qApp->activeWindow());
 	p.end();
 }
 
@@ -109,16 +109,16 @@ void CanvasMode_ImageImport::keyPressEvent(QKeyEvent *e)
 	switch (kk)
 	{
 		case Qt::Key_Tab:
-			imageList.prepend(imageList.takeLast());
+			m_imageList.prepend(m_imageList.takeLast());
 			break;
 		case Qt::Key_Backtab:
-			imageList.append(imageList.takeFirst());
+			m_imageList.append(m_imageList.takeFirst());
 			break;
 		case Qt::Key_Backspace:
-			imageList.removeFirst();
+			m_imageList.removeFirst();
 			break;
 		case Qt::Key_Escape:
-			imageList.clear();
+			m_imageList.clear();
 			break;
 	}
 	updateList();
@@ -159,10 +159,10 @@ void CanvasMode_ImageImport::mouseDoubleClickEvent(QMouseEvent *m)
 
 void CanvasMode_ImageImport::mouseMoveEvent(QMouseEvent *m)
 {
-	Mx = m->globalPos().x();
-	My = m->globalPos().y();
-	QToolTip::showText(m->globalPos(), tipText, qApp->activeWindow());
-	QToolTip::showText(m->globalPos(), tipText + "<b></b>", qApp->activeWindow());
+	m_Mx = m->globalPos().x();
+	m_My = m->globalPos().y();
+	QToolTip::showText(m->globalPos(), m_tipText, qApp->activeWindow());
+	QToolTip::showText(m->globalPos(), m_tipText + "<b></b>", qApp->activeWindow());
 	m->accept();
 	PageItem *item;
 	if((item = m_canvas->itemUnderCursor(m->globalPos())) != NULL)
@@ -190,7 +190,7 @@ void CanvasMode_ImageImport::mousePressEvent(QMouseEvent *m)
 	m->accept();
 	m_view->registerMousePress(m->globalPos());
 	PageItem *item;
-	if(imageList.size()>0)
+	if(m_imageList.size()>0)
 	{
 		if((item = m_canvas->itemUnderCursor(m->globalPos())) != NULL)
 		{
@@ -227,7 +227,7 @@ void CanvasMode_ImageImport::mouseReleaseEvent(QMouseEvent *m)
 
 void CanvasMode_ImageImport::setImage(PageItem *currItem)
 {
-	QString fileName = imageList.takeFirst();
+	QString fileName = m_imageList.takeFirst();
 	currItem->EmProfile = "";
 	currItem->pixm.imgInfo.isRequest = false;
 	currItem->UseEmbedded = true;
@@ -244,11 +244,11 @@ void CanvasMode_ImageImport::setImage(PageItem *currItem)
 
 void CanvasMode_ImageImport::updateList()
 {
-	if(imageList.isEmpty())
+	if(m_imageList.isEmpty())
 	{
 		m_view->requestMode(submodePaintingDone);
 		QToolTip::hideText();
 	}
 	else
-		newToolTip(imageList.first());
+		newToolTip(m_imageList.first());
 }
