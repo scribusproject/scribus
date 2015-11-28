@@ -27,19 +27,19 @@ for which a new license (GPL+exception) is in place.
 
 //Create transformed point
 FPoint::FPoint(const double x, const double y, const double dx, const double dy, const double rot, const double sx, const double sy, const bool invert)
-	: xp(x), yp(y)
+	: m_xp(x), m_yp(y)
 {
 	transform(dx,dy,rot,sx,sy,invert);
 }
 
 bool FPoint::operator==(const FPoint &rhs) const 
 {
-	return qAbs(xp-rhs.xp) < 1E-10 && qAbs(yp-rhs.yp) < 1E-10;
+	return qAbs(m_xp-rhs.m_xp) < 1E-10 && qAbs(m_yp-rhs.m_yp) < 1E-10;
 }
 
 bool FPoint::operator!=(const FPoint &rhs) const
 {
-	return qAbs(xp-rhs.xp) > 1E-10 || qAbs(yp-rhs.yp) > 1E-10;
+	return qAbs(m_xp-rhs.m_xp) > 1E-10 || qAbs(m_yp-rhs.m_yp) > 1E-10;
 }
 
 void FPoint::transform(const double dx, const double dy, const double rot, const double sx, const double sy, const bool invert)
@@ -51,9 +51,9 @@ void FPoint::transform(const double dx, const double dy, const double rot, const
 	if (invert)
 		ma = ma.inverted();
 	//save new value as old one is used on next line
-	double newxp = ma.m11() * xp + ma.m21() * yp + ma.dx();
-	yp = ma.m22() * yp + ma.m12() * xp + ma.dy();
-	xp = newxp;
+	double newxp = ma.m11() * m_xp + ma.m21() * m_yp + ma.dx();
+	m_yp = ma.m22() * m_yp + ma.m12() * m_xp + ma.dy();
+	m_xp = newxp;
 }
 
 FPoint FPoint::transformPoint(const QTransform& m, const bool invert) const
@@ -63,7 +63,7 @@ FPoint FPoint::transformPoint(const QTransform& m, const bool invert) const
 		ma = m.inverted();
 	else
 		ma = m;
-	QPointF p(xp, yp);
+	QPointF p(m_xp, m_yp);
 	p = ma.map(p);
 	return FPoint(p.x(), p.y());
 }
@@ -77,14 +77,14 @@ FPoint FPoint::transformPoint(const double dx, const double dy, const double rot
 	ma.rotate(rot);
 	if (invert)
 		ma = ma.inverted();
-	double x = ma.m11() * xp + ma.m21() * yp + ma.dx();
-	double y = ma.m22() * yp + ma.m12() * xp + ma.dy();
+	double x = ma.m11() * m_xp + ma.m21() * m_yp + ma.dx();
+	double y = ma.m22() * m_yp + ma.m12() * m_xp + ma.dy();
 	return FPoint(x, y);
 }
 
 bool FPoint::isNull() const
 {
-	if (xp == 0.0 && yp == 0.0)
+	if (m_xp == 0.0 && m_yp == 0.0)
 		return true;
 	return false;
 }

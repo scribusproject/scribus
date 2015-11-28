@@ -159,22 +159,22 @@ void FPointArray::point(int i, double *x, double *y) const
 {
 	const FPoint& p = QVector<FPoint>::at(i);
 	if (x)
-		*x = p.xp;
+		*x = p.m_xp;
 	if (y)
-		*y = p.yp;
+		*y = p.m_yp;
 }
 
 
 QPoint FPointArray::pointQ(int i) const
 {
 	const FPoint& p = QVector<FPoint>::at(i);
-	return QPoint(qRound(p.xp), qRound(p.yp));
+	return QPoint(qRound(p.m_xp), qRound(p.m_yp));
 }
 
 QPointF FPointArray::pointQF(int i) const
 {
 	const FPoint& p = QVector<FPoint>::at(i);
-	QPointF r(p.xp, p.yp);
+	QPointF r(p.m_xp, p.m_yp);
 	return r;
 }
 
@@ -216,24 +216,24 @@ FPoint FPointArray::WidthHeight() const
 	ConstIterator pend = begin();
 	pend += QVector<FPoint>::count();
 	double minx, maxx, miny, maxy;
-	minx = maxx = pd->xp;
-	miny = maxy = pd->yp;
+	minx = maxx = pd->m_xp;
+	miny = maxy = pd->m_yp;
 	for ( ++pd; pd != pend; ++pd )
 	{	// find min+max x and y
 		if (isMarkerI(pd))
 		{
 			continue;
 		}
-		if ( pd->xp < minx )
-			minx = pd->xp;
+		if ( pd->m_xp < minx )
+			minx = pd->m_xp;
 		else
-			if ( pd->xp > maxx )
-		    	maxx = pd->xp;
+			if ( pd->m_xp > maxx )
+		    	maxx = pd->m_xp;
 		if ( pd->y() < miny )
-			miny = pd->yp;
+			miny = pd->m_yp;
 		else
-			if ( pd->yp > maxy )
-	    		maxy = pd->yp;
+			if ( pd->m_yp > maxy )
+	    		maxy = pd->m_yp;
     }
 	return FPoint(maxx - minx,maxy - miny);
 }
@@ -251,18 +251,18 @@ void FPointArray::map( QTransform m )
 	pend += QVector<FPoint>::count();
 	for (Iterator p = begin(); p != pend; p++)
 	{
-		if (isMarkerD(p->xp, p->yp))
+		if (isMarkerD(p->m_xp, p->m_yp))
 		{
-			mx = p->xp;
-			my = p->yp;
+			mx = p->m_xp;
+			my = p->m_yp;
 		}
 		else
 		{
-			mx = m11 * p->xp + m21 * p->yp + dx;
-			my = m22 * p->yp + m12 * p->xp + dy;
+			mx = m11 * p->m_xp + m21 * p->m_yp + dx;
+			my = m22 * p->m_yp + m12 * p->m_xp + dy;
 		}
-		p->xp = mx;
-		p->yp = my;
+		p->m_xp = mx;
+		p->m_yp = my;
 	}
 }
 
@@ -282,7 +282,7 @@ bool FPointArray::isMarker(int pos) const
 bool FPointArray::isMarkerI(ConstIterator p) const
 {
 	double maxVal = std::numeric_limits<double>::max() / 3.0;
-	return ((p->xp >= maxVal) && (p->yp >= maxVal));
+	return ((p->m_xp >= maxVal) && (p->m_yp >= maxVal));
 }
 
 bool FPointArray::isMarkerD(double x, double y) const
@@ -309,16 +309,16 @@ bool FPointArray::hasLastQuadPoint(double x1, double y1, double x2, double y2, d
 		return false;
 	ConstIterator p = begin();
 	p += i;
-	if (p->xp != x1 || p->yp != y1)
+	if (p->m_xp != x1 || p->m_yp != y1)
 		return false;
 	++p; 
-	if (p->xp != x2 || p->yp != y2)
+	if (p->m_xp != x2 || p->m_yp != y2)
 		return false;
 	++p; 
-	if (p->xp != x3 || p->yp != y3)
+	if (p->m_xp != x3 || p->m_yp != y3)
 		return false;
 	++p; 
-	if (p->xp != x4 || p->yp != y4)
+	if (p->m_xp != x4 || p->m_yp != y4)
 		return false;
 	
 	return true;
