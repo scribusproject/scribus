@@ -46,7 +46,7 @@
         <x>0</x>
         <y>0</y>
         <width>739</width>
-        <height>752</height>
+        <height>761</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_3">
@@ -436,6 +436,13 @@
          </property>
          <property name="text">
           <string>Uniconvertor</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="Line" name="line_7">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
          </property>
         </widget>
        </item>
