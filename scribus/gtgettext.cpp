@@ -63,33 +63,33 @@ void gtGetText::launchImporter(int importer, const QString& filename, bool textO
 		QString fend = filename.right(filename.length() - filename.lastIndexOf(".") - 1);
 		QString fendL(fend.toLower());
 		// Look for that extension in the importer QMap. 
-		if (importerMap.find(fend) != importerMap.end())
+		if (m_importerMap.find(fend) != m_importerMap.end())
 			// If the map is found, assign ida to the corresponding struct in the map.
-			ida = *importerMap[fend];
+			ida = *m_importerMap[fend];
 		// Otherwise, test for the lowercase version
 		else
-		if (importerMap.find(fendL) != importerMap.end())
+		if (m_importerMap.find(fendL) != m_importerMap.end())
 			// If the map is found, assign ida to the corresponding struct in the map.
-			ida = *importerMap[fendL];
+			ida = *m_importerMap[fendL];
 		// Otherwise, try and ask the user.
 		else
 		{
 			// Create a new dialog
-			dias = new gtDialogs();
+			m_dias = new gtDialogs();
 			// Pop up the dialog asking the user to select the type from our list (ilist) of 
 			// importable file types. If one is not selected, set callImporter to false.
-			callImporter = dias->runImporterDialog(ilist);
+			callImporter = m_dias->runImporterDialog(m_ilist);
 			// If we're gonna call an importer, we need to copy it's struct to ida.
 			if (callImporter)
-				ida = importers[dias->getImporter()];
+				ida = m_importers[m_dias->getImporter()];
 			// Destroy the diag
-			delete dias;
+			delete m_dias;
 		} // else - if (importerMap.find(fend) != importerMap.end())
 	}
 	else // If we know which importer to use
 	{
 		// Copy the importer's struct to ida.
-		ida = importers[importer];
+		ida = m_importers[importer];
 	}	// else - if (importer == -1)
 	
 	// Create a target text frame for the imported text and assign it to the parameter "target"
@@ -142,7 +142,7 @@ void gtGetText::loadImporterPlugins()
 				if (ida.soFilePath.left(1) != "/")
 					ida.soFilePath = "/" + ida.soFilePath;
 				// Add the plugin data to the end of the importer's vector.
-				importers.push_back(ida);
+				m_importers.push_back(ida);
 			}	// if (DLLName(d[dc], &ida.fileFormatName, &ida.fileEndings))
 		}  // for (uint dc = 0; dc < d.count(); ++dc)
 	}  // if ((d.exists()) && (d.count() != 0))
@@ -159,19 +159,19 @@ ImportSetup gtGetText::run()
 	// the importers vector and add all of the file extensions supported.
 	QString allSupported = QObject::tr("All Supported Formats") + " (";
 	// Loop through the importers vector.
-	for (uint i = 0; i < importers.size(); ++i)
+	for (uint i = 0; i < m_importers.size(); ++i)
 	{
 		// If there are any file extnsions declared by the importer
-		if (importers[i].fileEndings.count() != 0)
+		if (m_importers[i].fileEndings.count() != 0)
 		{
 			// Add the importer name to the filters list
-			filters += importers[i].fileFormatName + " (";
+			filters += m_importers[i].fileFormatName + " (";
 			// Loop though the extensions supported by the importer
-			for (int j = 0; j < importers[i].fileEndings.count(); ++j)
+			for (int j = 0; j < m_importers[i].fileEndings.count(); ++j)
 			{
 				// Add the extension to both the filter and allSupported strings
-				filters += "*." + importers[i].fileEndings[j] + " ";
-				allSupported += "*." + importers[i].fileEndings[j] + " ";
+				filters += "*." + m_importers[i].fileEndings[j] + " ";
+				allSupported += "*." + m_importers[i].fileEndings[j] + " ";
 			}  // for (int j = 0; j < importers[i].fileEndings.count(); ++j)
 			// Trim the Qstring
 			filters = filters.trimmed();
@@ -187,29 +187,29 @@ ImportSetup gtGetText::run()
 	// Add an "all files" entry to the end of the filters QString
 	filters += QObject::tr("All Files (*)");
 	// Populate ilist with the file importer names.
-	for (uint i = 0;  i < importers.size(); ++i)
-		ilist.append(importers[i].fileFormatName);
+	for (uint i = 0;  i < m_importers.size(); ++i)
+		m_ilist.append(m_importers[i].fileFormatName);
 	// Create a new dialog.
-	dias = new gtDialogs();
+	m_dias = new gtDialogs();
 	// Create a new ImportSetup struct
 	ImportSetup impsetup;
 	// INitialize runDialog to false
 	impsetup.runDialog=false;
 	// If we get a true back from the File selection Dialog ( which we send our filters and extensions lists )
-	if (dias->runFileDialog(filters, ilist))
+	if (m_dias->runFileDialog(filters, m_ilist))
 	{
 		// Set the runDialog to true
 		impsetup.runDialog=true;
 		// Copy the other values for the struct from the dialog results
-		impsetup.encoding=dias->getEncoding();
-		impsetup.filename=dias->getFileName();
-		impsetup.importer=dias->getImporter();
-		impsetup.textOnly=dias->importTextOnly();
+		impsetup.encoding=m_dias->getEncoding();
+		impsetup.filename=m_dias->getFileName();
+		impsetup.importer=m_dias->getImporter();
+		impsetup.textOnly=m_dias->importTextOnly();
 // 		launchImporter(dias->getImporter(), dias->getFileName(),
 // 		               dias->importTextOnly(), dias->getEncoding(), append);
 	}  // if (dias->runFileDialog(filters, ilist))
 	// Destroy the dialog.
-	delete dias;
+	delete m_dias;
 	// Return the ImportSetup struct.
 	return impsetup;
 }  // ImportSetup gtGetText::run()
@@ -330,12 +330,12 @@ bool gtGetText::DLLName(QString name, QString *ffName, QStringList *fEndings)
 void gtGetText::createMap()
 {
 	// Loop through the importers Vector
-	for (uint i = 0; i < importers.size(); ++i)
+	for (uint i = 0; i < m_importers.size(); ++i)
 	{
 		// Loop through each file extension the importer uses/importers and create an individual 
 		// Qmap entry for it.
-		for (int j = 0; j < importers[i].fileEndings.count(); ++j)
-				importerMap.insert(importers[i].fileEndings[j], &importers[i]);
+		for (int j = 0; j < m_importers[i].fileEndings.count(); ++j)
+				m_importerMap.insert(m_importers[i].fileEndings[j], &m_importers[i]);
 	}  // for (uint i = 0; i < importers.size(); ++i)
 }  // void gtGetText::createMap()
 

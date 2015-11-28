@@ -66,8 +66,8 @@ struct ImportSetup {
 class SCRIBUS_API gtGetText
 {
 private:
-	std::vector<ImporterData> importers;		// Vector of the loaded importers
-	QMap<QString, ImporterData*> importerMap; 	// QMap of the supported extensions to their relevant importers entry for easy access
+	std::vector<ImporterData> m_importers;		// Vector of the loaded importers
+	QMap<QString, ImporterData*> m_importerMap; 	// QMap of the supported extensions to their relevant importers entry for easy access
 	void loadImporterPlugins();					// Find the available plugins based on the environment, validate they load, and 
 												// create quick lookup mappings.
 	void CallDLL(const ImporterData& idata, const QString& filePath,
@@ -77,8 +77,8 @@ private:
 												// Loads the "DLL", validates the importer is good, populates the passed parameters with 
 												// the plugin information.
 	void createMap();							// Create the importer Qmap.
-	gtDialogs* dias;							// File Selection Dialog pointer.
-	QStringList ilist;							// List of supported importers, used with dialogs
+	gtDialogs* m_dias;							// File Selection Dialog pointer.
+	QStringList m_ilist;							// List of supported importers, used with dialogs
 	ScribusDoc* m_Doc;							// Which document are we working with.
 public:
 	gtGetText(ScribusDoc* doc);					// Constructor
