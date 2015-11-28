@@ -68,7 +68,7 @@ public:
 private:
 	static LanguageManager* m_instance;
 
-	QList <LangDef> langTable;
+	QList <LangDef> m_langTable;
 
 	void generateLangList();
 	void generateInstalledGUILangList();
