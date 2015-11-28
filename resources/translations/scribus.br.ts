@@ -23063,57 +23063,57 @@ a range of pages or a single page number</source>
 <context>
     <name>PropertiesPalette</name>
     <message>
-        <location filename="../../scribus/ui/propertiespalette.cpp" line="914"/>
+        <location filename="../../scribus/ui/propertiespalette.cpp" line="906"/>
         <source>Properties</source>
         <translation>Perzhioù</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette.cpp" line="916"/>
+        <location filename="../../scribus/ui/propertiespalette.cpp" line="908"/>
         <source>X, Y, &amp;Z</source>
         <translation>X, Y, &amp;Z</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette.cpp" line="917"/>
+        <location filename="../../scribus/ui/propertiespalette.cpp" line="909"/>
         <source>&amp;Text</source>
         <translation>&amp;Testenn</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette.cpp" line="918"/>
+        <location filename="../../scribus/ui/propertiespalette.cpp" line="910"/>
         <source>&amp;Image</source>
         <translation>&amp;Skeudenn</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette.cpp" line="919"/>
+        <location filename="../../scribus/ui/propertiespalette.cpp" line="911"/>
         <source>Drop Shadow</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette.cpp" line="920"/>
+        <location filename="../../scribus/ui/propertiespalette.cpp" line="912"/>
         <source>&amp;Shape</source>
         <translation>&amp;Lun</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette.cpp" line="921"/>
+        <location filename="../../scribus/ui/propertiespalette.cpp" line="913"/>
         <source>&amp;Line</source>
         <translation>&amp;Linenn</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette.cpp" line="922"/>
+        <location filename="../../scribus/ui/propertiespalette.cpp" line="914"/>
         <source>&amp;Colors</source>
         <translation>&amp;Livioù</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette.cpp" line="923"/>
+        <location filename="../../scribus/ui/propertiespalette.cpp" line="915"/>
         <source>&amp;Group</source>
         <translation>&amp;Kevrediñ</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette.cpp" line="924"/>
+        <location filename="../../scribus/ui/propertiespalette.cpp" line="916"/>
         <source>&amp;Transparency</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette.cpp" line="925"/>
+        <location filename="../../scribus/ui/propertiespalette.cpp" line="917"/>
         <source>T&amp;able</source>
         <translation type="unfinished"></translation>
     </message>
@@ -23291,259 +23291,259 @@ a range of pages or a single page number</source>
     <name>PropertiesPalette_Image</name>
     <message>
         <location filename="../../scribus/ui/propertiespalette_image.cpp" line="47"/>
-        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="788"/>
+        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="792"/>
         <source>Auto</source>
         <translation type="unfinished">Emgefreek</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_image.cpp" line="86"/>
-        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="799"/>
+        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="803"/>
         <source>&amp;To Frame Size</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="797"/>
+        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="801"/>
         <source>Actual X-DPI:</source>
         <translation type="unfinished">Diarunusted vremanel a-blaen :</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="798"/>
+        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="802"/>
         <source>Actual Y-DPI:</source>
         <translation type="unfinished">Diarunusted vremanel a-serzh :</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="789"/>
+        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="793"/>
         <source>&amp;X-Pos:</source>
         <translation type="unfinished">Lec&apos;h-&amp;X :</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="790"/>
+        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="794"/>
         <source>&amp;Y-Pos:</source>
         <translation type="unfinished">Lec&apos;h-&amp;Y :</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="795"/>
+        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="799"/>
         <source>X-Sc&amp;ale:</source>
         <translation type="unfinished">Skeuliad a-&amp;blaen :</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="796"/>
+        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="800"/>
         <source>Y-Scal&amp;e:</source>
         <translation type="unfinished">Skeuliad a-s&amp;erzh :</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="794"/>
+        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="798"/>
         <source>&amp;Free Scaling</source>
         <translation type="unfinished">Skeulaat &amp;dieub</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="787"/>
+        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="791"/>
         <source>&amp;Page Number:</source>
         <translation type="unfinished">Ni&amp;verenn ar bajenn :</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="791"/>
+        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="795"/>
         <source>Rotation:</source>
         <translation type="unfinished">C&apos;hwelañ :</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="800"/>
+        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="804"/>
         <source>P&amp;roportional</source>
         <translation type="unfinished">Kenfeu&amp;rel</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="810"/>
+        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="814"/>
         <source>Image Effects</source>
         <translation type="unfinished">Efedoù war skeudennoù</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="811"/>
+        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="815"/>
         <source>Extended Properties</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="803"/>
+        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="807"/>
         <source>Input Profile:</source>
         <translation type="unfinished">Aelad enankañ :</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="793"/>
+        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="797"/>
         <source>Scaling</source>
         <translation type="unfinished">Skeuladur</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="802"/>
+        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="806"/>
         <source>Color Management</source>
         <translation type="unfinished">Ardeiñ al livioù</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="804"/>
+        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="808"/>
         <source>Rendering Intent:</source>
         <translation type="unfinished">Pal an deouez :</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="806"/>
+        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="810"/>
         <source>PDF Compression</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="807"/>
+        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="811"/>
         <source>Method:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="808"/>
+        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="812"/>
         <source>Quality:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="815"/>
+        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="819"/>
         <source>Perceptual</source>
         <translation type="unfinished">Merzhadel</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="816"/>
+        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="820"/>
         <source>Relative Colorimetric</source>
         <translation type="unfinished">Livventerezh daveel</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="817"/>
+        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="821"/>
         <source>Saturation</source>
         <translation type="unfinished">Peurvec&apos;hiañ</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="818"/>
+        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="822"/>
         <source>Absolute Colorimetric</source>
         <translation type="unfinished">Livventerezh dizave</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="823"/>
-        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="832"/>
+        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="827"/>
+        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="836"/>
         <source>Global</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="824"/>
+        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="828"/>
         <source>Automatic</source>
         <translation type="unfinished">Emgefreek</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="825"/>
+        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="829"/>
         <source>Lossy - JPEG</source>
         <translation type="unfinished">Gant koll - JPEG</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="826"/>
+        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="830"/>
         <source>Lossless - Zip</source>
         <translation type="unfinished">Hep koll - Zip</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="827"/>
+        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="831"/>
         <source>None</source>
         <translation type="unfinished">Hini ebet</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="833"/>
+        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="837"/>
         <source>Maximum</source>
         <translation type="unfinished">Uc&apos;hek</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="834"/>
+        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="838"/>
         <source>High</source>
         <translation type="unfinished">Uhel</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="835"/>
+        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="839"/>
         <source>Medium</source>
         <translation type="unfinished">Krenn</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="836"/>
+        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="840"/>
         <source>Low</source>
         <translation type="unfinished">Izel</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="837"/>
+        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="841"/>
         <source>Minimum</source>
         <translation type="unfinished">Izek</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="840"/>
+        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="844"/>
         <source> %</source>
         <translation type="unfinished"> %</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="844"/>
+        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="848"/>
         <source> pt</source>
         <translation type="unfinished"> pt</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="850"/>
+        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="854"/>
         <source>Horizontal offset of image within frame</source>
         <translation type="unfinished">Linkadur a-blaen ar skeudenn e-barzh ar sterniad</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="851"/>
+        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="855"/>
         <source>Vertical offset of image within frame</source>
         <translation type="unfinished">Linkadur a-serzh ar skeudenn e-barzh ar sterniad</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="852"/>
+        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="856"/>
         <source>Resize the image horizontally</source>
         <translation type="unfinished">Adventañ a-blaen ar skeudenn </translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="853"/>
+        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="857"/>
         <source>Resize the image vertically</source>
         <translation type="unfinished">Adventañ a-serzh ar skeudenn</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="854"/>
+        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="858"/>
         <source>Keep the X and Y scaling the same</source>
         <translation type="unfinished">Mirout heñvel ar skeulaat evit X ha Y</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="855"/>
+        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="859"/>
         <source>Allow the image to be a different size to the frame</source>
         <translation type="unfinished">Reiñ tu d&apos;ar skeudenn da vezañ gant mentoù disheñvel diouzh ar sterniad</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="856"/>
+        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="860"/>
         <source>Make the image fit within the size of the frame</source>
         <translation type="unfinished">Lakaat ar skeudenn da genglotañ ouzh ment ar stern</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="857"/>
+        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="861"/>
         <source>Effective horizontal DPI of the image after scaling</source>
         <translation type="unfinished">PDM a-blaen gwerc&apos;hek ar skeudenn goude ar skeulaat</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="858"/>
+        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="862"/>
         <source>Effective vertical DPI of the image after scaling</source>
         <translation type="unfinished">PDM a-serzh gwerc&apos;hek ar skeudenn goude ar skeulaat</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="859"/>
+        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="863"/>
         <source>Use image proportions rather than those of the frame</source>
         <translation type="unfinished">Arverañ kenfeurioù ar skeudenn kentoc&apos;h eget re ar stern</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="860"/>
+        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="864"/>
         <source>Source profile of the image</source>
         <translation type="unfinished">Aelad-tarzh ar skeudenn</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="861"/>
+        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="865"/>
         <source>Rendering intent for the image</source>
         <translation type="unfinished">Pal an deouez evit ar skeudenn</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="862"/>
+        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="866"/>
         <source>Compression method used in PDF export for the image</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="863"/>
+        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="867"/>
         <source>Compression quality used in PDF export for the image</source>
         <translation type="unfinished"></translation>
     </message>
@@ -24180,82 +24180,82 @@ Transparency</source>
         <translation type="obsolete"> pt</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_shape.cpp" line="551"/>
+        <location filename="../../scribus/ui/propertiespalette_shape.cpp" line="547"/>
         <source>Shape:</source>
         <translation type="unfinished">Stumm :</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_shape.cpp" line="552"/>
+        <location filename="../../scribus/ui/propertiespalette_shape.cpp" line="548"/>
         <source>Choose the shape of frame...</source>
         <translation type="unfinished">Dibabit stumm ar stern...</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_shape.cpp" line="553"/>
+        <location filename="../../scribus/ui/propertiespalette_shape.cpp" line="549"/>
         <source>&amp;Edit...</source>
         <translation type="unfinished">&amp;Embann...</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_shape.cpp" line="554"/>
+        <location filename="../../scribus/ui/propertiespalette_shape.cpp" line="550"/>
         <source>Set radius of corner rounding</source>
         <translation type="unfinished">Kefluniañ skin rontaat ar c&apos;horn</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_shape.cpp" line="555"/>
+        <location filename="../../scribus/ui/propertiespalette_shape.cpp" line="551"/>
         <source>R&amp;ound Corners:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_shape.cpp" line="556"/>
+        <location filename="../../scribus/ui/propertiespalette_shape.cpp" line="552"/>
         <source>Fill Rule</source>
         <translation type="unfinished">Reolenn leuniañ</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_shape.cpp" line="557"/>
+        <location filename="../../scribus/ui/propertiespalette_shape.cpp" line="553"/>
         <source>Even-Odd</source>
         <translation type="unfinished">Hebar-Ampar</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_shape.cpp" line="558"/>
+        <location filename="../../scribus/ui/propertiespalette_shape.cpp" line="554"/>
         <source>Non Zero</source>
         <translation type="unfinished">Ket mann</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_shape.cpp" line="560"/>
+        <location filename="../../scribus/ui/propertiespalette_shape.cpp" line="556"/>
         <source>Any path self-intersections or subpaths create holes in the fill</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_shape.cpp" line="561"/>
+        <location filename="../../scribus/ui/propertiespalette_shape.cpp" line="557"/>
         <source>Fill is solid unless a subpath is counter-directional</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_shape.cpp" line="563"/>
+        <location filename="../../scribus/ui/propertiespalette_shape.cpp" line="559"/>
         <source>Text &amp;Flow Around Frame</source>
         <translation type="unfinished">Testenn tro-&amp;dro d&apos;ar sterniad</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_shape.cpp" line="564"/>
+        <location filename="../../scribus/ui/propertiespalette_shape.cpp" line="560"/>
         <source>Disabled</source>
         <translation type="unfinished">Diweredekaet</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_shape.cpp" line="565"/>
+        <location filename="../../scribus/ui/propertiespalette_shape.cpp" line="561"/>
         <source>Use Frame &amp;Shape</source>
         <translation type="unfinished">Arverañ &amp;stumm ar sterniad</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_shape.cpp" line="566"/>
+        <location filename="../../scribus/ui/propertiespalette_shape.cpp" line="562"/>
         <source>Use &amp;Bounding Box</source>
         <translation type="unfinished">Arverañ an &amp;amsternioù</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_shape.cpp" line="567"/>
+        <location filename="../../scribus/ui/propertiespalette_shape.cpp" line="563"/>
         <source>&amp;Use Contour Line</source>
         <translation type="unfinished">Arverañ an am&amp;linenn</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_shape.cpp" line="568"/>
+        <location filename="../../scribus/ui/propertiespalette_shape.cpp" line="564"/>
         <source>Use Image Clip Path</source>
         <translation type="unfinished">Arverañ treug dic&apos;hronnañ ar skeudenn</translation>
     </message>
@@ -29706,7 +29706,7 @@ Neuze ne vo ket dereat ar skeudenn marteze</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="18410"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="18425"/>
         <source>Unacceptable settings for note style</source>
         <translation type="unfinished"></translation>
     </message>
@@ -29784,6 +29784,11 @@ Neuze ne vo ket dereat ar skeudenn marteze</translation>
     <message>
         <location filename="../../scribus/plugins/gettext/rtfim/rtfim.cpp" line="25"/>
         <source>RTF Document</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/plugins/gettext/docxim/docxim.cpp" line="29"/>
+        <source>DOCX Document</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -33502,27 +33507,27 @@ gant an handelv-mañ n&apos;hallo ket bezañ lennet gant un handelv koshoc&apos;
     </message>
     <message>
         <location filename="../../scribus/scribusdoc.cpp" line="1087"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="16389"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="16404"/>
         <source>Adjusting Colors</source>
         <translation>Kengeidadur al livioù</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="11771"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="11778"/>
         <source>Cannot Delete In-Use Item</source>
         <translation>N&apos;haller ket diverkañ un ergorenn war arver</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="11771"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="11778"/>
         <source>The item %1 is currently being edited by Story Editor. The delete operation will be cancelled</source>
         <translation>Emañ an ergorenn %1 o vezañ embannet gant an embanner diabarzh. Freuzet e vo ar gwezhiadur dilemel</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="12410"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="12417"/>
         <source>Some objects are locked.</source>
         <translation>Prennet ez eus ergorennoù zo.</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="13948"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="13955"/>
         <source>Number of copies: %1
 Horizontal shift: %2
 Vertical shift: %3
@@ -33533,7 +33538,7 @@ Linkañ a-serzh : %3
 C&apos;hwelañ : %4</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="13980"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="13987"/>
         <source>Number of copies: %1
 Horizontal gap: %2
 Vertical gap: %3</source>
@@ -33542,23 +33547,23 @@ Esaouiñ a-blaen : %2
 Esaouiñ a-serzh : %3</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="18048"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="18086"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="18063"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="18101"/>
         <source>No Style</source>
         <translation type="unfinished">Stil ebet</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="18404"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="18419"/>
         <source>%1 note style has document as range and provide same numbering style as set %2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="12406"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="12413"/>
         <source>&amp;Unlock All</source>
         <translation>&amp;Dibrennañ pep tra</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="12407"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="12414"/>
         <source>&amp;Skip locked objects</source>
         <translation>Lammat drei&amp;st an ergorenn prennet</translation>
     </message>
@@ -33573,14 +33578,14 @@ Esaouiñ a-serzh : %3</translation>
         <translation>dilemel mentrezhañ eeun an arouezennoù</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="11674"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="11681"/>
         <source>Do you really want to clear the content of all selected frames?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="15156"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="15211"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="15346"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="15171"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="15226"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="15361"/>
         <source>Group%1</source>
         <translation>Kevrediñ%1</translation>
     </message>
@@ -34424,17 +34429,17 @@ Former monitor profile will be used.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusview.cpp" line="1095"/>
+        <location filename="../../scribus/scribusview.cpp" line="1112"/>
         <source>Copy Here</source>
         <translation>Eilañ amañ</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusview.cpp" line="1096"/>
+        <location filename="../../scribus/scribusview.cpp" line="1113"/>
         <source>Move Here</source>
         <translation>Dilec&apos;hiañ amañ</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusview.cpp" line="1097"/>
+        <location filename="../../scribus/scribusview.cpp" line="1114"/>
         <source>Cancel</source>
         <translation>Nullañ</translation>
     </message>
@@ -34458,17 +34463,17 @@ Former monitor profile will be used.</source>
         <translation type="vanished">Ereadur ar sterniadoù testenn</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusview.cpp" line="2097"/>
+        <location filename="../../scribus/scribusview.cpp" line="2110"/>
         <source>Page %1 to %2</source>
         <translation>Pajenn %1 da %2</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusview.cpp" line="3033"/>
+        <location filename="../../scribus/scribusview.cpp" line="3046"/>
         <source>Cannot Convert In-Use Item</source>
         <translation>N&apos;haller ket amdreiñ un ergorenn war arver</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusview.cpp" line="3033"/>
+        <location filename="../../scribus/scribusview.cpp" line="3046"/>
         <source>The item %1 is currently being edited by Story Editor. The convert to outlines operation for this item will be skipped</source>
         <translation>Emañ an ergorenn %1 war embann en embanner diabarzh. Nullet e vo ar gwezh amdreiñ da drolinenn</translation>
     </message>
@@ -34838,8 +34843,8 @@ Former monitor profile will be used.</source>
     <name>SearchReplace</name>
     <message>
         <location filename="../../scribus/ui/search.cpp" line="51"/>
-        <location filename="../../scribus/ui/search.cpp" line="532"/>
-        <location filename="../../scribus/ui/search.cpp" line="648"/>
+        <location filename="../../scribus/ui/search.cpp" line="538"/>
+        <location filename="../../scribus/ui/search.cpp" line="654"/>
         <source>Search/Replace</source>
         <translation>Klask/Amsaviñ</translation>
     </message>
@@ -34968,12 +34973,12 @@ Former monitor profile will be used.</source>
         <translation>&amp;Serriñ</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/search.cpp" line="532"/>
+        <location filename="../../scribus/ui/search.cpp" line="538"/>
         <source>Search finished</source>
         <translation>Echu eo ar c&apos;hlask</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/search.cpp" line="649"/>
+        <location filename="../../scribus/ui/search.cpp" line="655"/>
         <source>Search finished, found %1 matches</source>
         <translation>Echu eo ar c&apos;hlask, %1 a genglotadenn bet kavet</translation>
     </message>
@@ -34984,27 +34989,27 @@ Former monitor profile will be used.</source>
         <translation>Desteudadur</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/search.cpp" line="314"/>
+        <location filename="../../scribus/ui/search.cpp" line="315"/>
         <source>Search for text or formatting in the current text</source>
         <translation>Klask testenn pe ventrezhadur en destenn vremanel</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/search.cpp" line="315"/>
+        <location filename="../../scribus/ui/search.cpp" line="316"/>
         <source>Replace the searched for formatting with the replacement values</source>
         <translation>Amsaviñ an dra klasket evit ar mentrezhañ gant ar gwerzhioù amsaviñ</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/search.cpp" line="316"/>
+        <location filename="../../scribus/ui/search.cpp" line="317"/>
         <source>Replace all found instances</source>
         <translation>Amsaviñ an holl skouerioù bet kavet</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/search.cpp" line="317"/>
+        <location filename="../../scribus/ui/search.cpp" line="318"/>
         <source>Clear all search and replace options</source>
         <translation>Skarzhañ an holl zibarzhioù klask hag amsaviñ</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/search.cpp" line="318"/>
+        <location filename="../../scribus/ui/search.cpp" line="319"/>
         <source>Close search and replace</source>
         <translation>Serriñ klask hag amsaviñ</translation>
     </message>
