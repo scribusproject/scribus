@@ -91,32 +91,32 @@ enum FontWidth {
 class SCRIBUS_API gtFont
 {
 private:
-	int     setflags;
-	QString name;
-	QString family;
-	QString weight;
-	QString slant;
-	QString width;
-	QString append;
-	int     size;
-	bool    fontEffects[FontEffectMAX];
-	QString color;
-	int     shade;
-	QString strokeColor;
-	int     strokeShade;
+	int     m_setflags;
+	QString m_name;
+	QString m_family;
+	QString m_weight;
+	QString m_slant;
+	QString m_width;
+	QString m_append;
+	int     m_size;
+	bool    m_fontEffects[FontEffectMAX];
+	QString m_color;
+	int     m_shade;
+	QString m_strokeColor;
+	int     m_strokeShade;
 	/* Width of a character in percentages to it's "real width" */
-	int     hscale;
-	int  kerning;
-	bool useFullName;
-	int  weightIndex;
-	int  slantIndex;
-	int  widthIndex;
-	int smallestIndex;
-	int biggestIndex;
-	int index;
-	int tmpWeightIndex;
-	int tmpSlantIndex;
-	int tmpWidthIndex;
+	int     m_hscale;
+	int  m_kerning;
+	bool m_useFullName;
+	int  m_weightIndex;
+	int  m_slantIndex;
+	int  m_widthIndex;
+	int m_smallestIndex;
+	int m_biggestIndex;
+	int m_index;
+	int m_tmpWeightIndex;
+	int m_tmpSlantIndex;
+	int m_tmpWidthIndex;
 	void initArrays();
 	void parseName();
 	void parseWeight();
