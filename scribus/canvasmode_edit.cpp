@@ -457,12 +457,12 @@ void CanvasMode_Edit::mouseMoveEvent(QMouseEvent *m)
 						currItem->HasSel = true;
 					}
 				}
-				if(currItem->HasSel)
+				if (currItem->HasSel)
 				{
 					m_ScMW->EnableTxEdit();
 					m_canvas->m_viewMode.operTextSelecting = true;
-					if((refStartSel != currItem->asTextFrame()->itemText.startOfSelection())
-						|| (refEndSel != currItem->asTextFrame()->itemText.endOfSelection()))
+					if ((refStartSel != currItem->asTextFrame()->itemText.startOfSelection()) ||
+						(refEndSel   != currItem->asTextFrame()->itemText.endOfSelection()))
 					{
 						QRectF br(currItem->getBoundingRect());
 						m_canvas->update(QRectF(m_canvas->canvasToLocal(br.topLeft()), br.size() * m_canvas->scale()).toRect());
@@ -470,7 +470,6 @@ void CanvasMode_Edit::mouseMoveEvent(QMouseEvent *m)
 				}
 				else
 					m_ScMW->DisableTxEdit();
-
 			}
 		}
 		if (!m_canvas->m_viewMode.m_MouseButtonPressed)
@@ -939,6 +938,13 @@ void CanvasMode_Edit::mouseReleaseEvent(QMouseEvent *m)
 	{
 		currItem = m_doc->m_Selection->itemAt(0);
 		m_doc->nodeEdit.finishTransaction(currItem);
+	}
+	if (GetItem(&currItem) && currItem->asTextFrame())
+	{
+		if (currItem->itemText.lengthOfSelection() > 0)
+			m_ScMW->EnableTxEdit();
+		else
+			m_ScMW->DisableTxEdit();
 	}
 }
 
