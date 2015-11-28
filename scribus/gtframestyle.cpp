@@ -34,10 +34,10 @@ gtFrameStyle::gtFrameStyle(QString name) : gtParagraphStyle(name)
 
 gtFrameStyle::gtFrameStyle(const gtFrameStyle& f) : gtParagraphStyle(f)
 {
-	columns    = f.columns;
-	columnsGap = f.columnsGap;
-	bgColor    = f.bgColor;
-	bgShade    = f.bgShade;
+	m_columns    = f.m_columns;
+	m_columnsGap = f.m_columnsGap;
+	m_bgColor    = f.m_bgColor;
+	m_bgShade    = f.m_bgShade;
 }
 
 gtFrameStyle::gtFrameStyle(const gtParagraphStyle& p) : gtParagraphStyle(p)
@@ -52,50 +52,50 @@ gtFrameStyle::gtFrameStyle(const gtStyle& s) : gtParagraphStyle(s)
 
 void gtFrameStyle::init()
 {
-	columns    = 1;
-	columnsGap = 0;
-	bgColor    = "White";
-	bgShade    = 100;
+	m_columns    = 1;
+	m_columnsGap = 0;
+	m_bgColor    = "White";
+	m_bgShade    = 100;
 }
 
 int gtFrameStyle::getColumns()
 {
-	return columns;
+	return m_columns;
 }
 
 void gtFrameStyle::setColumns(int newColumns)
 {
-	columns = newColumns;
+	m_columns = newColumns;
 }
 
 double gtFrameStyle::getColumnsGap()
 {
-	return columnsGap;
+	return m_columnsGap;
 }
 
 void gtFrameStyle::setColumnsGap(double newColumnsGap)
 {
-	columnsGap = newColumnsGap;
+	m_columnsGap = newColumnsGap;
 }
 
 QString gtFrameStyle::getBgColor()
 {
-	return bgColor;
+	return m_bgColor;
 }
 
 void gtFrameStyle::setBgColor(QString newBgColor)
 {
-	bgColor = newBgColor;
+	m_bgColor = newBgColor;
 }
 
 int gtFrameStyle::getBgShade()
 {
-	return bgShade;
+	return m_bgShade;
 }
 
 void gtFrameStyle::setBgShade(int newBgShade)
 {
-	bgShade = newBgShade;
+	m_bgShade = newBgShade;
 }
 
 QString gtFrameStyle::target()
