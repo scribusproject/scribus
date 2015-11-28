@@ -73,21 +73,21 @@ for which a new license (GPL+exception) is in place.
 
 gtAction::gtAction(bool append, PageItem* pageitem)
 {
-	prefsManager=PrefsManager::instance();
-	textFrame = pageitem;
-	m_ScMW=textFrame->doc()->scMW();
-	it = textFrame;
-	lastParagraphStyle = -1;
-	inPara = false;
-	isFirstWrite = true;
-	lastCharWasLineChange = false;
-	currentFrameStyle = "";
-	doAppend = append;
-	updateParagraphStyles = false;
-	overridePStyleFont = true;
-	undoManager = UndoManager::instance();
-	noteStory = NULL;
-	note = NULL;
+	m_prefsManager=PrefsManager::instance();
+	m_textFrame = pageitem;
+	m_ScMW=m_textFrame->doc()->scMW();
+	m_it = m_textFrame;
+	m_lastParagraphStyle = -1;
+	m_inPara = false;
+	m_isFirstWrite = true;
+	m_lastCharWasLineChange = false;
+	m_currentFrameStyle = "";
+	m_doAppend = append;
+	m_updateParagraphStyles = false;
+	m_overridePStyleFont = true;
+	m_undoManager = UndoManager::instance();
+	m_noteStory = NULL;
+	m_note = NULL;
 }
 
 void gtAction::setProgressInfo()
@@ -111,21 +111,21 @@ void gtAction::setInfo(QString infoText)
 
 void gtAction::clearFrame()
 {
-	textFrame->itemText.clear();
+	m_textFrame->itemText.clear();
 }
 
 void gtAction::writeUnstyled(const QString& text, bool isNote)
 {
 	UndoTransaction activeTransaction;
-	if (isFirstWrite && it->itemText.length() > 0)
+	if (m_isFirstWrite && m_it->itemText.length() > 0)
 	{
-		if (!doAppend)
+		if (!m_doAppend)
 		{
 			if (UndoManager::undoEnabled())
-				activeTransaction = undoManager->beginTransaction(Um::Selection, Um::IGroup, Um::ImportText, "", Um::IDelete);
-			if (it->nextInChain() != 0)
+				activeTransaction = m_undoManager->beginTransaction(Um::Selection, Um::IGroup, Um::ImportText, "", Um::IDelete);
+			if (m_it->nextInChain() != 0)
 			{
-				PageItem *nextItem = it->nextInChain();
+				PageItem *nextItem = m_it->nextInChain();
 				while (nextItem != 0)
 				{
 					nextItem->itemText.selectAll();
@@ -133,8 +133,8 @@ void gtAction::writeUnstyled(const QString& text, bool isNote)
 					nextItem = nextItem->nextInChain();
 				}
 			}
-			it->itemText.selectAll();
-			it->asTextFrame()->deleteSelectedTextFromFrame();
+			m_it->itemText.selectAll();
+			m_it->asTextFrame()->deleteSelectedTextFromFrame();
 		}
 	}
 
@@ -148,39 +148,39 @@ void gtAction::writeUnstyled(const QString& text, bool isNote)
 	textStr.replace(QString(0x2029),SpecialChars::PARSEP);
 	if (isNote)
 	{
-		if (note == NULL)
+		if (m_note == NULL)
 		{
-			note = it->m_Doc->newNote(it->m_Doc->m_docNotesStylesList.at(0));
-			Q_ASSERT(noteStory == NULL);
-			noteStory = new StoryText(it->m_Doc);
+			m_note = m_it->m_Doc->newNote(m_it->m_Doc->m_docNotesStylesList.at(0));
+			Q_ASSERT(m_noteStory == NULL);
+			m_noteStory = new StoryText(m_it->m_Doc);
 		}
 		if (textStr == SpecialChars::OBJECT)
 		{
-			NotesStyle* nStyle = note->notesStyle();
+			NotesStyle* nStyle = m_note->notesStyle();
 			QString label = "NoteMark_" + nStyle->name();
 			if (nStyle->range() == NSRsection)
-				label += " in section " + it->m_Doc->getSectionNameForPageIndex(it->OwnPage) + " page " + QString::number(it->OwnPage +1);
+				label += " in section " + m_it->m_Doc->getSectionNameForPageIndex(m_it->OwnPage) + " page " + QString::number(m_it->OwnPage +1);
 			else if (nStyle->range() == NSRpage)
-				label += " on page " + QString::number(it->OwnPage +1);
+				label += " on page " + QString::number(m_it->OwnPage +1);
 			else if (nStyle->range() == NSRstory)
-				label += " in " + it->firstInChain()->itemName();
+				label += " in " + m_it->firstInChain()->itemName();
 			else if (nStyle->range() == NSRframe)
-				label += " in frame" + it->itemName();
-			if (it->m_Doc->getMark(label + "_1", MARKNoteMasterType) != NULL)
-				getUniqueName(label,it->m_Doc->marksLabelsList(MARKNoteMasterType), "_"); //FIX ME here user should be warned that inserted mark`s label was changed
+				label += " in frame" + m_it->itemName();
+			if (m_it->m_Doc->getMark(label + "_1", MARKNoteMasterType) != NULL)
+				getUniqueName(label,m_it->m_Doc->marksLabelsList(MARKNoteMasterType), "_"); //FIX ME here user should be warned that inserted mark`s label was changed
 			else
 				label = label + "_1";
-			Mark* mrk = it->m_Doc->newMark();
+			Mark* mrk = m_it->m_Doc->newMark();
 			mrk->label = label;
 			mrk->setType(MARKNoteMasterType);
-			mrk->setNotePtr(note);
-			note->setMasterMark(mrk);
-			if (noteStory->text(noteStory->length() -1) == SpecialChars::PARSEP)
-				noteStory->removeChars(noteStory->length() -1, 1);
-			note->setSaxedText(saxedText(noteStory));
+			mrk->setNotePtr(m_note);
+			m_note->setMasterMark(mrk);
+			if (m_noteStory->text(m_noteStory->length() -1) == SpecialChars::PARSEP)
+				m_noteStory->removeChars(m_noteStory->length() -1, 1);
+			m_note->setSaxedText(saxedText(m_noteStory));
 			mrk->setString("");
-			mrk->OwnPage = it->OwnPage;
-			it->itemText.insertMark(mrk);
+			mrk->OwnPage = m_it->OwnPage;
+			m_it->itemText.insertMark(mrk);
 			if (UndoManager::undoEnabled())
 			{
 				ScItemsState* is = new ScItemsState(UndoManager::InsertNote);
@@ -190,31 +190,31 @@ void gtAction::writeUnstyled(const QString& text, bool isNote)
 				is->set("type", (int) MARKNoteMasterType);
 				is->set("strtxt", QString(""));
 				is->set("nStyle", nStyle->name());
-				is->set("at", it->itemText.cursorPosition() -1);
-				is->insertItem("inItem", it);
-				undoManager->action(it->m_Doc, is);
+				is->set("at", m_it->itemText.cursorPosition() -1);
+				is->insertItem("inItem", m_it);
+				m_undoManager->action(m_it->m_Doc, is);
 			}
-			note = NULL;
-			delete noteStory;
+			m_note = NULL;
+			delete m_noteStory;
 		}
 		else
-			noteStory->insertChars(noteStory->length(), textStr);
+			m_noteStory->insertChars(m_noteStory->length(), textStr);
 	}
 	else
 	{
-		int pos = it->itemText.length();
+		int pos = m_it->itemText.length();
 		if (UndoManager::undoEnabled())
 		{
 			SimpleState *ss = new SimpleState(Um::AppendText,"",Um::ICreate);
 			ss->set("INSERT_FRAMETEXT", "insert_frametext");
 			ss->set("TEXT_STR",textStr);
 			ss->set("START", pos);
-			undoManager->action(it, ss);
+			m_undoManager->action(m_it, ss);
 		}
-		it->itemText.insertChars(pos, textStr);
+		m_it->itemText.insertChars(pos, textStr);
 	}
-	lastCharWasLineChange = text.right(1) == "\n";
-	isFirstWrite = false;
+	m_lastCharWasLineChange = text.right(1) == "\n";
+	m_isFirstWrite = false;
 	if (activeTransaction)
 	{
 		activeTransaction.commit();
@@ -223,20 +223,20 @@ void gtAction::writeUnstyled(const QString& text, bool isNote)
 
 void gtAction::write(const QString& text, gtStyle *style, bool isNote)
 {
-	if (isFirstWrite)
+	if (m_isFirstWrite)
 	{
-		if (!doAppend)
+		if (!m_doAppend)
 		{
-			if (it->nextInChain() != 0)
+			if (m_it->nextInChain() != 0)
 			{
-				PageItem *nextItem = it->nextInChain();
+				PageItem *nextItem = m_it->nextInChain();
 				while (nextItem != 0)
 				{
 					nextItem->itemText.clear();
 					nextItem = nextItem->nextInChain();
 				}
 			}
-			it->itemText.clear();
+			m_it->itemText.clear();
 		}
 	}
 	int paragraphStyle = -1;
@@ -245,8 +245,8 @@ void gtAction::write(const QString& text, gtStyle *style, bool isNote)
 		gtParagraphStyle* pstyle = dynamic_cast<gtParagraphStyle*>(style);
 		assert(pstyle != NULL);
 		paragraphStyle = applyParagraphStyle(pstyle);
-		if (isFirstWrite)
-			inPara = true;
+		if (m_isFirstWrite)
+			m_inPara = true;
 	}
 	else if (style->target() == "frame")
 	{
@@ -255,27 +255,27 @@ void gtAction::write(const QString& text, gtStyle *style, bool isNote)
 		applyFrameStyle(fstyle);
 	}
 
-	if ((inPara) && (!lastCharWasLineChange) && (text.left(1) != "\n") && (lastParagraphStyle != -1))
-		paragraphStyle = lastParagraphStyle;
+	if ((m_inPara) && (!m_lastCharWasLineChange) && (text.left(1) != "\n") && (m_lastParagraphStyle != -1))
+		paragraphStyle = m_lastParagraphStyle;
 
 	if (paragraphStyle == -1)
 		paragraphStyle = 0; //::findParagraphStyle(textFrame->doc(), textFrame->doc()->currentStyle);
 
-	const ParagraphStyle& paraStyle = textFrame->doc()->paragraphStyles()[paragraphStyle];
+	const ParagraphStyle& paraStyle = m_textFrame->doc()->paragraphStyles()[paragraphStyle];
 
 	gtFont* font = style->getFont();
 	QString fontName = validateFont(font).scName();
 	CharStyle lastStyle, newStyle;
 	int lastStyleStart = 0;
 	
-	if ((inPara) && (!overridePStyleFont))
+	if ((m_inPara) && (!m_overridePStyleFont))
 	{
 		if (paraStyle.charStyle().font().isNone())
 		{
 			gtFont font2(*font);
 			font2.setName(paraStyle.charStyle().font().scName());
 			QString fontName2 = validateFont(&font2).scName();
-			newStyle.setFont((*textFrame->doc()->AllFonts)[fontName2]);
+			newStyle.setFont((*m_textFrame->doc()->AllFonts)[fontName2]);
 		}
 	}
 	else
@@ -285,19 +285,19 @@ void gtAction::write(const QString& text, gtStyle *style, bool isNote)
 	/*newStyle.eraseCharStyle(paraStyle.charStyle());*/
 
 	lastStyle = newStyle;
-	lastStyleStart = it->itemText.length();
+	lastStyleStart = m_it->itemText.length();
 	StoryText* story = NULL;
 	if (isNote)
 	{
-		if (noteStory == NULL)
+		if (m_noteStory == NULL)
 		{
-			note = it->m_Doc->newNote(it->m_Doc->m_docNotesStylesList.at(0));
-			noteStory = new StoryText(it->m_Doc);
+			m_note = m_it->m_Doc->newNote(m_it->m_Doc->m_docNotesStylesList.at(0));
+			m_noteStory = new StoryText(m_it->m_Doc);
 		}
-		story = noteStory;
+		story = m_noteStory;
 	}
 	else
-		story = &it->itemText;
+		story = &m_it->itemText;
 
 	QChar ch0(0), ch5(5), ch10(10), ch13(13); 
 	for (int a = 0; a < text.length(); ++a)
@@ -311,28 +311,28 @@ void gtAction::write(const QString& text, gtStyle *style, bool isNote)
 		int pos = story->length();
 		if (isNote && ch == SpecialChars::OBJECT)
 		{
-			NotesStyle* nStyle = note->notesStyle();
+			NotesStyle* nStyle = m_note->notesStyle();
 			QString label = "NoteMark_" + nStyle->name();
 			if (nStyle->range() == NSRsection)
-				label += " in section " + it->m_Doc->getSectionNameForPageIndex(it->OwnPage) + " page " + QString::number(it->OwnPage +1);
+				label += " in section " + m_it->m_Doc->getSectionNameForPageIndex(m_it->OwnPage) + " page " + QString::number(m_it->OwnPage +1);
 			else if (nStyle->range() == NSRpage)
-				label += " on page " + QString::number(it->OwnPage +1);
+				label += " on page " + QString::number(m_it->OwnPage +1);
 			else if (nStyle->range() == NSRstory)
-				label += " in " + it->firstInChain()->itemName();
+				label += " in " + m_it->firstInChain()->itemName();
 			else if (nStyle->range() == NSRframe)
-				label += " in frame" + it->itemName();
-			if (it->m_Doc->getMark(label + "_1", MARKNoteMasterType) != NULL)
-				getUniqueName(label,it->m_Doc->marksLabelsList(MARKNoteMasterType), "_"); //FIX ME here user should be warned that inserted mark`s label was changed
+				label += " in frame" + m_it->itemName();
+			if (m_it->m_Doc->getMark(label + "_1", MARKNoteMasterType) != NULL)
+				getUniqueName(label,m_it->m_Doc->marksLabelsList(MARKNoteMasterType), "_"); //FIX ME here user should be warned that inserted mark`s label was changed
 			else
 				label = label + "_1";
-			Mark* mrk = it->m_Doc->newMark();
+			Mark* mrk = m_it->m_Doc->newMark();
 			mrk->label = label;
 			mrk->setType(MARKNoteMasterType);
-			mrk->setNotePtr(note);
-			note->setMasterMark(mrk);
+			mrk->setNotePtr(m_note);
+			m_note->setMasterMark(mrk);
 			mrk->setString("");
-			mrk->OwnPage = it->OwnPage;
-			it->itemText.insertMark(mrk);
+			mrk->OwnPage = m_it->OwnPage;
+			m_it->itemText.insertMark(mrk);
 			story->applyCharStyle(lastStyleStart, story->length()-lastStyleStart, lastStyle);
 			if (paraStyle.hasName())
 			{
@@ -343,17 +343,17 @@ void gtAction::write(const QString& text, gtStyle *style, bool isNote)
 			else
 				story->applyStyle(qMax(0,story->length()-1), paraStyle);
 			
-			lastCharWasLineChange = text.right(1) == "\n";
-			inPara = style->target() == "paragraph";
-			lastParagraphStyle = paragraphStyle;
-			if (isFirstWrite)
-				isFirstWrite = false;
+			m_lastCharWasLineChange = text.right(1) == "\n";
+			m_inPara = style->target() == "paragraph";
+			m_lastParagraphStyle = paragraphStyle;
+			if (m_isFirstWrite)
+				m_isFirstWrite = false;
 			if (story->text(pos -1) == SpecialChars::PARSEP)
 				story->removeChars(pos-1, 1);
-			note->setSaxedText(saxedText(story));
-			note = NULL;
-			delete noteStory;
-			noteStory = NULL;
+			m_note->setSaxedText(saxedText(story));
+			m_note = NULL;
+			delete m_noteStory;
+			m_noteStory = NULL;
 			return;
 		}
 		else
@@ -380,11 +380,11 @@ void gtAction::write(const QString& text, gtStyle *style, bool isNote)
 	else
 		story->applyStyle(qMax(0,story->length()-1), paraStyle);
 	
-	lastCharWasLineChange = text.right(1) == "\n";
-	inPara = style->target() == "paragraph";
-	lastParagraphStyle = paragraphStyle;
-	if (isFirstWrite)
-		isFirstWrite = false;
+	m_lastCharWasLineChange = text.right(1) == "\n";
+	m_inPara = style->target() == "paragraph";
+	m_lastParagraphStyle = paragraphStyle;
+	if (m_isFirstWrite)
+		m_isFirstWrite = false;
 }
 
 int gtAction::findParagraphStyle(gtParagraphStyle* pstyle)
@@ -395,9 +395,9 @@ int gtAction::findParagraphStyle(gtParagraphStyle* pstyle)
 int gtAction::findParagraphStyle(const QString& name)
 {
 	int pstyleIndex = -1;
-	for (int i = 0; i < textFrame->doc()->paragraphStyles().count(); ++i)
+	for (int i = 0; i < m_textFrame->doc()->paragraphStyles().count(); ++i)
 	{
-		if (textFrame->doc()->paragraphStyles()[i].name() == name)
+		if (m_textFrame->doc()->paragraphStyles()[i].name() == name)
 		{
 			pstyleIndex = i;
 			break;
@@ -412,9 +412,9 @@ int gtAction::applyParagraphStyle(gtParagraphStyle* pstyle)
 	if (pstyleIndex == -1)
 	{
 		createParagraphStyle(pstyle);
-		pstyleIndex = textFrame->doc()->paragraphStyles().count() - 1;
+		pstyleIndex = m_textFrame->doc()->paragraphStyles().count() - 1;
 	}
-	else if (updateParagraphStyles)
+	else if (m_updateParagraphStyles)
 	{
 		updateParagraphStyle(pstyleIndex, pstyle);
 	}
@@ -423,13 +423,13 @@ int gtAction::applyParagraphStyle(gtParagraphStyle* pstyle)
 
 void gtAction::applyFrameStyle(gtFrameStyle* fstyle)
 {
-	textFrame->setColumns(fstyle->getColumns());
-	textFrame->setColumnGap(fstyle->getColumnsGap());
-	textFrame->setFillColor(parseColor(fstyle->getBgColor()));
-	textFrame->setFillShade(fstyle->getBgShade());
-	ParagraphStyle newTabs(textFrame->itemText.defaultStyle());
+	m_textFrame->setColumns(fstyle->getColumns());
+	m_textFrame->setColumnGap(fstyle->getColumnsGap());
+	m_textFrame->setFillColor(parseColor(fstyle->getBgColor()));
+	m_textFrame->setFillShade(fstyle->getBgShade());
+	ParagraphStyle newTabs(m_textFrame->itemText.defaultStyle());
 	newTabs.setTabValues(QList<ParagraphStyle::TabRecord>(*(fstyle->getTabValues())));
-	textFrame->itemText.setDefaultStyle(newTabs);
+	m_textFrame->itemText.setDefaultStyle(newTabs);
 
 // 	gtParagraphStyle* pstyle = new gtParagraphStyle(*fstyle);
 // 	int pstyleIndex = findParagraphStyle(pstyle);
@@ -469,7 +469,7 @@ void gtAction::applyFrameStyle(gtFrameStyle* fstyle)
 
 void gtAction::getFrameFont(gtFont *font)
 {
-	const CharStyle& style(textFrame->itemText.defaultStyle().charStyle());
+	const CharStyle& style(m_textFrame->itemText.defaultStyle().charStyle());
 	
 	if (!style.isInhFont())
 		font->setName(style.font().scName());
@@ -490,12 +490,12 @@ void gtAction::getFrameFont(gtFont *font)
 
 void gtAction::getFrameStyle(gtFrameStyle *fstyle)
 {
-	fstyle->setColumns(textFrame->Cols);
-	fstyle->setColumnsGap(textFrame->ColGap);
-	fstyle->setBgColor(textFrame->fillColor());
-	fstyle->setBgShade(qRound(textFrame->fillShade()));
+	fstyle->setColumns(m_textFrame->Cols);
+	fstyle->setColumnsGap(m_textFrame->ColGap);
+	fstyle->setBgColor(m_textFrame->fillColor());
+	fstyle->setBgShade(qRound(m_textFrame->fillShade()));
 
-	const ParagraphStyle& vg(textFrame->itemText.defaultStyle());
+	const ParagraphStyle& vg(m_textFrame->itemText.defaultStyle());
 	fstyle->setName(vg.name());
 	fstyle->setLineSpacing(vg.lineSpacing());
 	fstyle->setAdjToBaseline(vg.lineSpacingMode() == ParagraphStyle::BaselineGridLineSpacing);
@@ -527,7 +527,7 @@ void gtAction::getFrameStyle(gtFrameStyle *fstyle)
 
 void gtAction::createParagraphStyle(gtParagraphStyle* pstyle)
 {
-	ScribusDoc* currDoc=textFrame->doc();
+	ScribusDoc* currDoc=m_textFrame->doc();
 	for (int i = 0; i < currDoc->paragraphStyles().count(); ++i)
 	{
 		if (currDoc->paragraphStyles()[i].name() == pstyle->getName())
@@ -554,7 +554,7 @@ void gtAction::createParagraphStyle(gtParagraphStyle* pstyle)
 
 	StyleSet<ParagraphStyle> tmp;
 	tmp.create(vg);
-	textFrame->doc()->redefineStyles(tmp, false);
+	m_textFrame->doc()->redefineStyles(tmp, false);
 	
 	m_ScMW->propertiesPalette->textPal->updateParagraphStyles();
 }
@@ -645,8 +645,8 @@ void gtAction::removeParagraphStyle(const QString& name)
 void gtAction::removeParagraphStyle(int index)
 {
 	QMap<QString, QString> map;
-	map[textFrame->doc()->paragraphStyles()[index].name()] = "";
-	textFrame->doc()->replaceStyles(map);
+	map[m_textFrame->doc()->paragraphStyles()[index].name()] = "";
+	m_textFrame->doc()->replaceStyles(map);
 }
 
 void gtAction::updateParagraphStyle(const QString&, gtParagraphStyle* pstyle)
@@ -679,12 +679,12 @@ void gtAction::updateParagraphStyle(int pstyleIndex, gtParagraphStyle* pstyle)
 
 	StyleSet<ParagraphStyle> tmp;
 	tmp.create(vg);
-	textFrame->doc()->redefineStyles(tmp, false);
-	if (vg.name() != textFrame->doc()->paragraphStyles()[pstyleIndex].name())
+	m_textFrame->doc()->redefineStyles(tmp, false);
+	if (vg.name() != m_textFrame->doc()->paragraphStyles()[pstyleIndex].name())
 	{
 		QMap<QString, QString> map;
-		map[textFrame->doc()->paragraphStyles()[pstyleIndex].name()] = vg.name();
-		textFrame->doc()->replaceStyles(map);
+		map[m_textFrame->doc()->paragraphStyles()[pstyleIndex].name()] = vg.name();
+		m_textFrame->doc()->replaceStyles(map);
 	}
 }
 
@@ -700,8 +700,8 @@ ScFace gtAction::validateFont(gtFont* font)
 
 	QString useFont = font->getName();
 	if ((useFont.isNull()) || (useFont.isEmpty()))
-		useFont = textFrame->itemText.defaultStyle().charStyle().font().scName();
-	else if (prefsManager->appPrefs.fontPrefs.AvailFonts[font->getName()].isNone())
+		useFont = m_textFrame->itemText.defaultStyle().charStyle().font().scName();
+	else if (m_prefsManager->appPrefs.fontPrefs.AvailFonts[font->getName()].isNone())
 	{
 		bool found = false;
 		// Do not empty otherwise user may be asked to replace an empty font 
@@ -741,23 +741,23 @@ ScFace gtAction::validateFont(gtFont* font)
 			}
 			if (!found)
 			{
-				if (!prefsManager->appPrefs.fontPrefs.GFontSub.contains(font->getName()))
+				if (!m_prefsManager->appPrefs.fontPrefs.GFontSub.contains(font->getName()))
 				{
-					MissingFont *dia = new MissingFont(0, useFont, textFrame->doc());
+					MissingFont *dia = new MissingFont(0, useFont, m_textFrame->doc());
 					dia->exec();
 					useFont = dia->getReplacementFont();
-					prefsManager->appPrefs.fontPrefs.GFontSub[font->getName()] = useFont;
+					m_prefsManager->appPrefs.fontPrefs.GFontSub[font->getName()] = useFont;
 					delete dia;
 				}
 				else
-					useFont = prefsManager->appPrefs.fontPrefs.GFontSub[font->getName()];
+					useFont = m_prefsManager->appPrefs.fontPrefs.GFontSub[font->getName()];
 			}
 		}
 	}
 
-	if(!textFrame->doc()->UsedFonts.contains(useFont))
-		textFrame->doc()->AddFont(useFont);
-	return prefsManager->appPrefs.fontPrefs.AvailFonts[useFont];
+	if(!m_textFrame->doc()->UsedFonts.contains(useFont))
+		m_textFrame->doc()->AddFont(useFont);
+	return m_prefsManager->appPrefs.fontPrefs.AvailFonts[useFont];
 }
 
 QString gtAction::findFontName(gtFont* font)
@@ -766,7 +766,7 @@ QString gtAction::findFontName(gtFont* font)
 	for (uint i = 0; i < static_cast<uint>(gtFont::NAMECOUNT); ++i)
 	{
 		QString nname = font->getName(i);
-		if (! prefsManager->appPrefs.fontPrefs.AvailFonts[nname].isNone())
+		if (! m_prefsManager->appPrefs.fontPrefs.AvailFonts[nname].isNone())
 		{
 			ret = nname;
 			break;
@@ -777,36 +777,36 @@ QString gtAction::findFontName(gtFont* font)
 
 double gtAction::getLineSpacing(int fontSize)
 {
-	return ((fontSize / 10.0) * (static_cast<double>(textFrame->doc()->typographicPrefs().autoLineSpacing) / 100));
+	return ((fontSize / 10.0) * (static_cast<double>(m_textFrame->doc()->typographicPrefs().autoLineSpacing) / 100));
 }
 
 double gtAction::getFrameWidth()
 {
-	return textFrame->width();
+	return m_textFrame->width();
 }
 
 QString gtAction::getFrameName()
 {
-	return QString(textFrame->itemName());
+	return QString(m_textFrame->itemName());
 }
 
 bool gtAction::getUpdateParagraphStyles()
 {
-	return updateParagraphStyles;
+	return m_updateParagraphStyles;
 }
 
 void gtAction::setUpdateParagraphStyles(bool newUPS)
 {
-	updateParagraphStyles = newUPS;
+	m_updateParagraphStyles = newUPS;
 }
 
 bool gtAction::getOverridePStyleFont()
 {
-	return overridePStyleFont;
+	return m_overridePStyleFont;
 }
 void gtAction::setOverridePStyleFont(bool newOPSF)
 {
-	overridePStyleFont = newOPSF;
+	m_overridePStyleFont = newOPSF;
 }
 
 QString gtAction::parseColor(const QString &s)
@@ -816,7 +816,7 @@ QString gtAction::parseColor(const QString &s)
 		return ret; // don't want None to become Black or any color
 	bool found = false;
 	ColorList::Iterator it;
-	for (it = textFrame->doc()->PageColors.begin(); it != textFrame->doc()->PageColors.end(); ++it)
+	for (it = m_textFrame->doc()->PageColors.begin(); it != m_textFrame->doc()->PageColors.end(); ++it)
 	{
 		if (it.key() == s)
 		{
@@ -860,9 +860,9 @@ QString gtAction::parseColor(const QString &s)
 				c = parseColorN( rgbColor );
 		}
 		found = false;
-		for (it = textFrame->doc()->PageColors.begin(); it != textFrame->doc()->PageColors.end(); ++it)
+		for (it = m_textFrame->doc()->PageColors.begin(); it != m_textFrame->doc()->PageColors.end(); ++it)
 		{
-			if (c == ScColorEngine::getRGBColor(it.value(), textFrame->doc()))
+			if (c == ScColorEngine::getRGBColor(it.value(), m_textFrame->doc()))
 			{
 				ret = it.key();
 				found = true;
@@ -872,7 +872,7 @@ QString gtAction::parseColor(const QString &s)
 		{
 			ScColor tmp;
 			tmp.fromQColor(c);
-			textFrame->doc()->PageColors.insert("FromGetText"+c.name(), tmp);
+			m_textFrame->doc()->PageColors.insert("FromGetText"+c.name(), tmp);
 			m_ScMW->propertiesPalette->updateColorList();
 			ret = "FromGetText"+c.name();
 		}
@@ -889,10 +889,10 @@ QColor gtAction::parseColorN(const QString &rgbColor)
 
 void gtAction::finalize()
 {
-	if (textFrame->doc()->docHyphenator->AutoCheck)
-		textFrame->doc()->docHyphenator->slotHyphenate(textFrame);
-	textFrame->doc()->regionsChanged()->update(QRectF());
-	textFrame->doc()->changed();
+	if (m_textFrame->doc()->docHyphenator->AutoCheck)
+		m_textFrame->doc()->docHyphenator->slotHyphenate(m_textFrame);
+	m_textFrame->doc()->regionsChanged()->update(QRectF());
+	m_textFrame->doc()->changed();
 }
 
 gtAction::~gtAction()
