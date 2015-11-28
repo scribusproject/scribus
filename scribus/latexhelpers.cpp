@@ -35,7 +35,7 @@ copyright            : Scribus Team
 LatexHighlighter::LatexHighlighter(QTextDocument *document)
 	: QSyntaxHighlighter(document)
 {
-	rules = 0;
+	m_rules = 0;
 }
 
 void LatexHighlighter::highlightBlock(const QString &text)
@@ -44,8 +44,8 @@ void LatexHighlighter::highlightBlock(const QString &text)
 	static bool disable_highlighting = false;
 	if (disable_highlighting) return;
 
-	if (!rules) return;
-	foreach (LatexHighlighterRule *rule, *rules)
+	if (!m_rules) return;
+	foreach (LatexHighlighterRule *rule, *m_rules)
 	{
 		int index = text.indexOf(rule->regex);
 		while (index >= 0) {
@@ -394,29 +394,29 @@ QString I18nXmlStreamReader::readI18nText(bool unindent)
 	return result;
 }
 
-LatexConfigCache* LatexConfigCache::_instance = 0;
+LatexConfigCache* LatexConfigCache::m_instance = 0;
 
 LatexConfigCache* LatexConfigCache::instance()
 {
-	if (!_instance)
-		_instance = new LatexConfigCache();
-	return _instance;
+	if (!m_instance)
+		m_instance = new LatexConfigCache();
+	return m_instance;
 }
 
 LatexConfigParser* LatexConfigCache::parser(QString filename, bool warnOnError)
 {
-	if (parsers.contains(filename))
+	if (m_parsers.contains(filename))
 	{
-		if (warnOnError && error[filename])
+		if (warnOnError && m_error[filename])
 		{
 			//Recreate element as error might have been fixed.
-			delete parsers[filename];
+			delete m_parsers[filename];
 			createParser(filename, warnOnError);
 		}
 	}
 	else
 		createParser(filename, warnOnError);
-	return parsers[filename];
+	return m_parsers[filename];
 }
 
 
@@ -424,8 +424,8 @@ void LatexConfigCache::createParser(QString filename, bool warnOnError)
 {
 	LatexConfigParser *parser = new LatexConfigParser();
 	bool hasError = !parser->parseConfigFile(filename);
-	parsers[filename] = parser;
-	error[filename] = hasError;
+	m_parsers[filename] = parser;
+	m_error[filename] = hasError;
 	if (hasError)
 	{
 		ScMessageBox::critical(0, QObject::tr("Error"), "<qt>" + 
@@ -438,9 +438,9 @@ void LatexConfigCache::createParser(QString filename, bool warnOnError)
 
 bool LatexConfigCache::hasError(QString filename)
 {
-	if (!error.contains(filename))
+	if (!m_error.contains(filename))
 		return true;
-	return error[filename];
+	return m_error[filename];
 }
 
 QStringList LatexConfigCache::defaultConfigs()
