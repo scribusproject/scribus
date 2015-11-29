@@ -46,7 +46,7 @@
     <PODOFO_LIB Condition="'$(Configuration)' == 'Debug-cairo'">PoDoFoLibD.lib</PODOFO_LIB>
     <PODOFO_LIB Condition="'$(Configuration)' == 'Release-cairo'">PoDoFoLib.lib</PODOFO_LIB>
 	<!-- Libxml2 -->
-    <LIBXML2_DIR>$(SCRIBUS_LIB_ROOT)\libxml2-2.9.1</LIBXML2_DIR>
+    <LIBXML2_DIR>$(SCRIBUS_LIB_ROOT)\libxml2-2.9.3</LIBXML2_DIR>
     <LIBXML2_LIB Condition="'$(Configuration)' == 'Debug-cairo'">libxml2_d.lib</LIBXML2_LIB>
     <LIBXML2_LIB Condition="'$(Configuration)' == 'Release-cairo'">libxml2.lib</LIBXML2_LIB>
 	<!-- Python -->
