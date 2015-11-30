@@ -82,6 +82,7 @@ void NewMarginWidget::languageChange()
 		bottomMarginSpinBox->setToolTip( "<qt>" + tr( "Distance between the bottom margin guide and the edge of the page" ) + "</qt>");
 		leftMarginSpinBox->setToolTip( "<qt>" + tr( "Distance between the left margin guide and the edge of the page. If a double-sided, 3 or 4-fold layout is selected, this margin space can be used to achieve the correct margins for binding.") + "</qt>");
 		rightMarginSpinBox->setToolTip( "<qt>" + tr( "Distance between the right margin guide and the edge of the page. If a double-sided, 3 or 4-fold layout is selected, this margin space can be used to achieve the correct margins for binding.") + "</qt>");
+		marginLinkButton->setToolTip( "<qt>" + tr( "Ensure all margins have the same value" ) + "</qt>");
 	}
 	else
 	{
@@ -89,6 +90,7 @@ void NewMarginWidget::languageChange()
 		bottomMarginSpinBox->setToolTip( "<qt>" + tr( "Distance for bleed from the bottom of the physical page" ) + "</qt>" );
 		leftMarginSpinBox->setToolTip( "<qt>" + tr( "Distance for bleed from the left of the physical page" ) + "</qt>" );
 		rightMarginSpinBox->setToolTip( "<qt>" + tr( "Distance for bleed from the right of the physical page" )  + "</qt>");
+		marginLinkButton->setToolTip( "<qt>" + tr( "Ensure all bleeds have the same value" ) + "</qt>");
 	}
 	printerMarginsPushButton->setToolTip( "<qt>" + tr( "Import the margins for the selected page size from the available printers" ) + "</qt>");
 }

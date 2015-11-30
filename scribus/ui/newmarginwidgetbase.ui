@@ -140,9 +140,6 @@
          <height>0</height>
         </size>
        </property>
-       <property name="toolTip">
-        <string>Ensure all margins have the same value</string>
-       </property>
        <property name="text">
         <string/>
        </property>
