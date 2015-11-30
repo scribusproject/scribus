@@ -51,7 +51,7 @@ FPointArray FPointArray::copy() const
 FPointArray & FPointArray::operator=( const FPointArray &a )
 { 
 	QVector<FPoint>::operator=(a);
-	svgState = NULL;
+	m_svgState = NULL;
 	QVector<FPoint>::squeeze();
 	return *this; 
 }
@@ -593,9 +593,9 @@ void FPointArray::fromQPainterPath(QPainterPath &path, bool close)
 		switch (elm.type)
 		{
 			case QPainterPath::MoveToElement:
-				if (svgState->WasM)
+				if (m_svgState->WasM)
 					svgClosePath();
-				svgState->WasM = true;
+				m_svgState->WasM = true;
 				svgMoveTo(elm.x, elm.y);
 				break;
 			case QPainterPath::LineToElement:
@@ -614,107 +614,107 @@ void FPointArray::fromQPainterPath(QPainterPath &path, bool close)
 
 FPointArray::~FPointArray()
 {
-	if (svgState)
-		delete svgState;
+	if (m_svgState)
+		delete m_svgState;
 }
 
 
 void FPointArray::svgInit()
 {
-	if (!svgState)
-		svgState = new SVGState;
-	svgState->reset(0,0);
-	svgState->FirstM = true;
-	svgState->WasM = false;
+	if (!m_svgState)
+		m_svgState = new SVGState;
+	m_svgState->reset(0,0);
+	m_svgState->FirstM = true;
+	m_svgState->WasM = false;
 }
 
 
 void FPointArray::svgMoveTo(double x, double y)
 {
-	if (!svgState)
+	if (!m_svgState)
 		return;
-	svgState->reset(x, y);
-	svgState->WasM = true;
+	m_svgState->reset(x, y);
+	m_svgState->WasM = true;
 }
 
 
 void FPointArray::svgLineTo(double x1, double y1)
 {
-	if (!svgState)
+	if (!m_svgState)
 		return;
-	if (svgState->needsMarker())
+	if (m_svgState->needsMarker())
 		setMarker();
-	svgState->FirstM = false;
-	svgState->WasM = false;
+	m_svgState->FirstM = false;
+	m_svgState->WasM = false;
 	if (size() > 3)
 	{
 		FPoint b1 = point(size()-4);
 		FPoint b2 = point(size()-3);
 		FPoint b3 = point(size()-2);
 		FPoint b4 = point(size()-1);
-		FPoint n1 = FPoint(svgState->CurrX, svgState->CurrY);
+		FPoint n1 = FPoint(m_svgState->CurrX, m_svgState->CurrY);
 		FPoint n2 = FPoint(x1, y1);
 		if ((b1 == n1) && (b2 == n1) && (b3 == n2) && (b4 == n2))
 			return;
 	}
-	addPoint(FPoint(svgState->CurrX, svgState->CurrY));
-	addPoint(FPoint(svgState->CurrX, svgState->CurrY));
+	addPoint(FPoint(m_svgState->CurrX, m_svgState->CurrY));
+	addPoint(FPoint(m_svgState->CurrX, m_svgState->CurrY));
 	addPoint(FPoint(x1, y1));
 	addPoint(FPoint(x1, y1));
-	svgState->move(x1, y1, 4);
+	m_svgState->move(x1, y1, 4);
 }
 
 
 void FPointArray::svgCurveToCubic(double x1, double y1, double x2, double y2, double x3, double y3)
 {
-	if (!svgState)
+	if (!m_svgState)
 		return;
-	if (svgState->needsMarker())
+	if (m_svgState->needsMarker())
 		setMarker();
-	svgState->FirstM = false;
-	svgState->WasM = false;
-	if (svgState->PathLen > 3)
+	m_svgState->FirstM = false;
+	m_svgState->WasM = false;
+	if (m_svgState->PathLen > 3)
 	{
 		FPoint b1 = point(size()-4);
 		FPoint b2 = point(size()-3);
 		FPoint b3 = point(size()-2);
 		FPoint b4 = point(size()-1);
-		FPoint n1 = FPoint(svgState->CurrX, svgState->CurrY);
+		FPoint n1 = FPoint(m_svgState->CurrX, m_svgState->CurrY);
 		FPoint n2 = FPoint(x1, y1);
 		FPoint n3 = FPoint(x3, y3);
 		FPoint n4 = FPoint(x2, y2);
 		if ((b1 == n1) && (b2 == n2) && (b3 == n3) && (b4 == n4))
 			return;
 	}
-	addPoint(FPoint(svgState->CurrX, svgState->CurrY));
+	addPoint(FPoint(m_svgState->CurrX, m_svgState->CurrY));
 	addPoint(FPoint(x1, y1));
 	addPoint(FPoint(x3, y3));
 	addPoint(FPoint(x2, y2));
-	svgState->move(x3, y3, 4);
+	m_svgState->move(x3, y3, 4);
 }
 
 
 void FPointArray::svgClosePath()
 {
-	if (!svgState)
+	if (!m_svgState)
 		return;
-	if (svgState->PathLen > 2)
+	if (m_svgState->PathLen > 2)
 	{
-		if ((svgState->PathLen == 4) || (point(size()-2).x() != svgState->StartX) || (point(size()-2).y() != svgState->StartY))
+		if ((m_svgState->PathLen == 4) || (point(size()-2).x() != m_svgState->StartX) || (point(size()-2).y() != m_svgState->StartY))
 		{
 			addPoint(point(size()-2));
 			addPoint(point(size()-3));
-			addPoint(FPoint(svgState->StartX, svgState->StartY));
-			addPoint(FPoint(svgState->StartX, svgState->StartY));
+			addPoint(FPoint(m_svgState->StartX, m_svgState->StartY));
+			addPoint(FPoint(m_svgState->StartX, m_svgState->StartY));
 		}
 	}
 }
 
 void FPointArray::svgArcTo(double r1, double r2, double angle, bool largeArcFlag, bool sweepFlag, double x1, double y1)
 {
-	if (!svgState)
+	if (!m_svgState)
 		return;
-	calculateArc(false, svgState->CurrX, svgState->CurrY, angle, x1, y1, r1, r2, largeArcFlag, sweepFlag);
+	calculateArc(false, m_svgState->CurrX, m_svgState->CurrY, angle, x1, y1, r1, r2, largeArcFlag, sweepFlag);
 }
 
 void FPointArray::calculateArc(bool relative, double &curx, double &cury, double angle, 
@@ -928,7 +928,7 @@ bool FPointArray::parseSVG(const QString& svgPath)
 				{
 					ptr = getCoord( ptr, tox );
 					ptr = getCoord( ptr, toy );
-					svgState->WasM = true;
+					m_svgState->WasM = true;
 					subpathx = curx = relative ? curx + tox : tox;
 					subpathy = cury = relative ? cury + toy : toy;
 					svgMoveTo(curx, cury );

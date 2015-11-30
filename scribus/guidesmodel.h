@@ -64,7 +64,7 @@ class GuidesModel : public QAbstractTableModel
 		Guides m_values;
 		int m_docUnitIndex;
 		int m_docUnitDecimals;
-		double rule;
+		double m_rule;
 };
 
 #endif

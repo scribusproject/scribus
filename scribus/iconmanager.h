@@ -72,7 +72,7 @@ class SCRIBUS_API IconManager : public QObject
 		* IconManager is singleton and the instance can be queried with the method
 		* instance().
 		*/
-		static IconManager* _instance;
+		static IconManager* m_instance;
 		QMap<QString, ScIconSetData> m_iconSets;
 		ScPixmapCache<QString> m_pxCache;
 		QString m_activeSetBasename;

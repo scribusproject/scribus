@@ -109,12 +109,12 @@ public:
 
 
 private:
-	UndoManager * const undoManager;
+	UndoManager * const m_undoManager;
 	ScPage* m_page;
-	Guides horizontalStdG;
-	Guides verticalStdG;
-	Guides horizontalAutoG;
-	Guides verticalAutoG;
+	Guides m_horizontalStdG;
+	Guides m_verticalStdG;
+	Guides m_horizontalAutoG;
+	Guides m_verticalAutoG;
 
 	double m_horizontalAutoGap;
 	double m_verticalAutoGap;

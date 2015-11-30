@@ -44,11 +44,11 @@ class LatexHighlighter : public QSyntaxHighlighter
 
 	public:
 		LatexHighlighter(QTextDocument *document);
-		void setConfig(QList<LatexHighlighterRule *> *config) { rules = config; rehighlight();}
+		void setConfig(QList<LatexHighlighterRule *> *config) { m_rules = config; rehighlight();}
 	protected:
 		void highlightBlock(const QString &text);
 	private:
-		QList<LatexHighlighterRule *> *rules;
+		QList<LatexHighlighterRule *> *m_rules;
 };
 
 class I18nXmlStreamReader : public QXmlStreamReader
@@ -103,9 +103,9 @@ class LatexConfigCache {
 	protected:
 		void createParser(QString filename, bool warnOnError);
 	private:
-		QMap<QString, LatexConfigParser*> parsers;
-		QMap<QString, bool> error;
-		static LatexConfigCache *_instance;
+		QMap<QString, LatexConfigParser*> m_parsers;
+		QMap<QString, bool> m_error;
+		static LatexConfigCache *m_instance;
 };
 
 

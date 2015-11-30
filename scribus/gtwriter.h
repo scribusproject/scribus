@@ -64,9 +64,9 @@ public:
 	bool inNoteBody;
 
 private:
-	gtAction *action;
-	gtFrameStyle* defaultStyle;
-	gtStyle* currentStyle;
+	gtAction *m_action;
+	gtFrameStyle* m_defaultStyle;
+	gtStyle* m_currentStyle;
 
 /* 
    Frame style is the default style for text. Styles will be used in order so
@@ -74,10 +74,10 @@ private:
    style if no paragraph style is found frame style will be used. Last set 
    frame style will be left to the default style for the text frame.
 */
-	gtFrameStyle* frameStyle;
-	gtStyle* paragraphStyle;
-	gtStyle* characterStyle;
-	bool errorSet;
+	gtFrameStyle* m_frameStyle;
+	gtStyle* m_paragraphStyle;
+	gtStyle* m_characterStyle;
+	bool m_errorSet;
 	void setDefaultStyle();
 };
 

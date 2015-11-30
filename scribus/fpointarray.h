@@ -42,9 +42,9 @@ struct SVGState;
 class SCRIBUS_API FPointArray : public QVector<FPoint>
 {
 public: 
-	FPointArray() : svgState(NULL) {};
-	FPointArray(int size) : QVector<FPoint>(size), svgState(NULL) {};
-	FPointArray(const FPointArray &a) : QVector<FPoint>(a), svgState(NULL) {};
+	FPointArray() : m_svgState(NULL) {};
+	FPointArray(int size) : QVector<FPoint>(size), m_svgState(NULL) {};
+	FPointArray(const FPointArray &a) : QVector<FPoint>(a), m_svgState(NULL) {};
 	int  size() const { return QVector<FPoint>::count(); }
 	bool resize(int newCount);
 	void reverse();
@@ -91,7 +91,7 @@ public:
 	QPainterPath toQPainterPath(bool closed);
 	void fromQPainterPath(QPainterPath &path, bool close = false);
 private:
-	SVGState * svgState;
+	SVGState * m_svgState;
 };
 
 #endif

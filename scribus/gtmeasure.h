@@ -36,7 +36,7 @@ class SCRIBUS_API gtMeasure
 {
 private:
 	gtMeasure();
-	static double ratio;
+	static double m_ratio;
 	static void   init(scUnit u);
 	static double convert(double value);
 	static double convert(int value);

@@ -24,7 +24,7 @@ for which a new license (GPL+exception) is in place.
 
 GuideManagerCore::GuideManagerCore():
 	gx(0), gy(0), gw(0), gh(0),
-	undoManager(UndoManager::instance()),
+	m_undoManager(UndoManager::instance()),
 	m_page(0),
 	m_horizontalAutoGap(0.0),
 	m_verticalAutoGap(0.0),
@@ -33,15 +33,15 @@ GuideManagerCore::GuideManagerCore():
 	m_horizontalAutoRefer(0),
 	m_verticalAutoRefer(0)
 {
-	verticalStdG.clear();
-	verticalAutoG.clear();
-	horizontalStdG.clear();
-	horizontalAutoG.clear();
+	m_verticalStdG.clear();
+	m_verticalAutoG.clear();
+	m_horizontalStdG.clear();
+	m_horizontalAutoG.clear();
 }
 
 GuideManagerCore::GuideManagerCore(ScPage *parentPage):
 	gx(0), gy(0), gw(0), gh(0),
-	undoManager(UndoManager::instance()),
+	m_undoManager(UndoManager::instance()),
 	m_page(parentPage),
 	m_horizontalAutoGap(0.0),
 	m_verticalAutoGap(0.0),
@@ -50,10 +50,10 @@ GuideManagerCore::GuideManagerCore(ScPage *parentPage):
 	m_horizontalAutoRefer(0),
 	m_verticalAutoRefer(0)
 {
-	verticalStdG.clear();
-	verticalAutoG.clear();
-	horizontalStdG.clear();
-	horizontalAutoG.clear();
+	m_verticalStdG.clear();
+	m_verticalAutoG.clear();
+	m_horizontalStdG.clear();
+	m_horizontalAutoG.clear();
 }
 
 GuideManagerCore::~GuideManagerCore()
@@ -70,14 +70,14 @@ void GuideManagerCore::addHorizontal(double value, GuideType type)
 	switch (type)
 	{
 		case Standard:
-			if (!horizontalStdG.contains(value))
+			if (!m_horizontalStdG.contains(value))
 			{
-				horizontalStdG.append(value);
+				m_horizontalStdG.append(value);
 				if (UndoManager::undoEnabled())
 				{
 					SimpleState* ss = new SimpleState(Um::AddHGuide, 0, Um::IGuides);
 					ss->set("ADD_H", value);
-					undoManager->action(m_page, ss);
+					m_undoManager->action(m_page, ss);
 				}
 			}
 			break;
@@ -94,14 +94,14 @@ void GuideManagerCore::addHorizontals(Guides values, GuideType type)
 		case Standard:
 			for (it = values.begin(); it != values.end(); ++it)
 			{
-				if (!horizontalStdG.contains((*it)))
-					horizontalStdG.append((*it));
+				if (!m_horizontalStdG.contains((*it)))
+					m_horizontalStdG.append((*it));
 			}
 			break;
 		case Auto:
-			horizontalAutoG.clear();
+			m_horizontalAutoG.clear();
 			for (it = values.begin(); it != values.end(); ++it)
-				horizontalAutoG.append((*it));
+				m_horizontalAutoG.append((*it));
 			break;
 	}
 }
@@ -111,14 +111,14 @@ void GuideManagerCore::addVertical(double value, GuideType type)
 	switch (type)
 	{
 		case Standard:
-			if (!verticalStdG.contains(value))
+			if (!m_verticalStdG.contains(value))
 			{
-				verticalStdG.append(value);
+				m_verticalStdG.append(value);
 				if (UndoManager::undoEnabled())
 				{
 					SimpleState* ss = new SimpleState(Um::AddVGuide, 0, Um::IGuides);
 					ss->set("ADD_V", value);
-					undoManager->action(m_page, ss);
+					m_undoManager->action(m_page, ss);
 				}
 			}
 			break;
@@ -135,14 +135,14 @@ void GuideManagerCore::addVerticals(Guides values, GuideType type)
 		case Standard:
 			for (it = values.begin(); it != values.end(); ++it)
 			{
-				if (!verticalStdG.contains((*it)))
-					verticalStdG.append((*it));
+				if (!m_verticalStdG.contains((*it)))
+					m_verticalStdG.append((*it));
 			}
 			break;
 		case Auto:
-			verticalAutoG.clear();
+			m_verticalAutoG.clear();
 			for (it = values.begin(); it != values.end(); ++it)
-				verticalAutoG.append((*it));
+				m_verticalAutoG.append((*it));
 			break;
 	}
 }
@@ -152,12 +152,12 @@ void GuideManagerCore::deleteHorizontal(double value, GuideType type)
 	switch (type)
 	{
 		case Standard:
-			horizontalStdG.removeAt(horizontalStdG.indexOf(value));
+			m_horizontalStdG.removeAt(m_horizontalStdG.indexOf(value));
 			if (UndoManager::undoEnabled())
 			{
 				SimpleState* ss = new SimpleState(Um::DelHGuide, 0, Um::IGuides);
 				ss->set("REMOVE_H", value);
-				undoManager->action(m_page, ss);
+				m_undoManager->action(m_page, ss);
 			}
 			break;
 		case Auto:
@@ -170,12 +170,12 @@ void GuideManagerCore::deleteVertical(double value, GuideType type)
 	switch (type)
 	{
 		case Standard:
-			verticalStdG.removeAt(verticalStdG.indexOf(value));
+			m_verticalStdG.removeAt(m_verticalStdG.indexOf(value));
 			if (UndoManager::undoEnabled())
 			{
 				SimpleState* ss = new SimpleState(Um::DelVGuide, 0, Um::IGuides);
 				ss->set("REMOVE_V", value);
-				undoManager->action(m_page, ss);
+				m_undoManager->action(m_page, ss);
 			}
 			break;
 		case Auto:
@@ -188,14 +188,14 @@ Guides GuideManagerCore::horizontals(GuideType type)
 	switch (type)
 	{
 		case Standard:
-			return horizontalStdG;
+			return m_horizontalStdG;
 			break;
 		case Auto:
-			return horizontalAutoG;
+			return m_horizontalAutoG;
 			break;
 	}
 	// just to prevent the compiler warnings
-	return horizontalStdG;
+	return m_horizontalStdG;
 }
 
 Guides GuideManagerCore::verticals(GuideType type)
@@ -203,13 +203,13 @@ Guides GuideManagerCore::verticals(GuideType type)
 	switch (type)
 	{
 		case Standard:
-			return verticalStdG;
+			return m_verticalStdG;
 			break;
 		case Auto:
-			return verticalAutoG;
+			return m_verticalAutoG;
 			break;
 	}
-	return verticalStdG;
+	return m_verticalStdG;
 }
 
 double GuideManagerCore::horizontal(uint ix, GuideType type)
@@ -217,7 +217,7 @@ double GuideManagerCore::horizontal(uint ix, GuideType type)
 	switch (type)
 	{
 		case Standard:
-			return horizontalStdG[ix];
+			return m_horizontalStdG[ix];
 			break;
 		case Auto:
 			break;
@@ -230,7 +230,7 @@ double GuideManagerCore::vertical(uint ix, GuideType type)
 	switch (type)
 	{
 		case Standard:
-			return verticalStdG[ix];
+			return m_verticalStdG[ix];
 			break;
 		case Auto:
 			break;
@@ -343,31 +343,31 @@ void GuideManagerCore::clearHorizontals(GuideType type)
 	switch (type)
 	{
 		case Standard:
-			if (undoManager->undoEnabled())
+			if (m_undoManager->undoEnabled())
 			{
-				for (int i = 0; i < horizontalStdG.count(); ++i)
+				for (int i = 0; i < m_horizontalStdG.count(); ++i)
 				{
 					SimpleState* ss = new SimpleState(Um::DelHGuide, 0, Um::IGuides);
-					ss->set("REMOVE_H", horizontalStdG[i]);
-					undoManager->action(m_page, ss);
+					ss->set("REMOVE_H", m_horizontalStdG[i]);
+					m_undoManager->action(m_page, ss);
 				}
 			}
-			horizontalStdG.clear();
+			m_horizontalStdG.clear();
 			break;
 		case Auto:
-			if (undoManager->undoEnabled())
+			if (m_undoManager->undoEnabled())
 			{
 				SimpleState * ss = new SimpleState(Um::DelHAGuide, 0, Um::IGuides);
 				ss->set("REMOVE_HA_GAP", m_horizontalAutoGap);
 				ss->set("REMOVE_HA_COUNT", m_horizontalAutoCount);
 				ss->set("REMOVE_HA_REFER", m_horizontalAutoRefer);
-				undoManager->action(m_page, ss);
+				m_undoManager->action(m_page, ss);
 			}
 
 			m_horizontalAutoGap = 0.0;
 			m_horizontalAutoCount= 0;
 			m_horizontalAutoRefer = 0;
-			horizontalAutoG.clear();
+			m_horizontalAutoG.clear();
 			break;
 	}
 }
@@ -377,31 +377,31 @@ void GuideManagerCore::clearVerticals(GuideType type)
 	switch (type)
 	{
 		case Standard:
-			if (undoManager->undoEnabled())
+			if (m_undoManager->undoEnabled())
 			{
-				for (int i = 0; i < verticalStdG.count(); ++i)
+				for (int i = 0; i < m_verticalStdG.count(); ++i)
 				{
 					SimpleState* ss = new SimpleState(Um::DelVGuide, 0, Um::IGuides);
-					ss->set("REMOVE_V", verticalStdG[i]);
-					undoManager->action(m_page, ss);
+					ss->set("REMOVE_V", m_verticalStdG[i]);
+					m_undoManager->action(m_page, ss);
 				}
 			}
-			verticalStdG.clear();
+			m_verticalStdG.clear();
 			break;
 		case Auto:
-			if (undoManager->undoEnabled())
+			if (m_undoManager->undoEnabled())
 			{
 				SimpleState * ss = new SimpleState(Um::DelVAGuide, 0, Um::IGuides);
 				ss->set("REMOVE_VA_GAP", m_verticalAutoGap);
 				ss->set("REMOVE_VA_COUNT", m_verticalAutoCount);
 				ss->set("REMOVE_VA_REFER", m_verticalAutoRefer);
-				undoManager->action(m_page, ss);
+				m_undoManager->action(m_page, ss);
 			}
 
 			m_verticalAutoGap = 0.0;
 			m_verticalAutoCount = 0;
 			m_verticalAutoRefer = 0;
-			verticalAutoG.clear();
+			m_verticalAutoG.clear();
 			break;
 	}
 }
@@ -410,14 +410,14 @@ void GuideManagerCore::moveHorizontal(double from, double to, GuideType type)
 	switch (type)
 	{
 		case Standard:
-			horizontalStdG.removeAt(horizontalStdG.indexOf(from));
-			horizontalStdG.append(to);
+			m_horizontalStdG.removeAt(m_horizontalStdG.indexOf(from));
+			m_horizontalStdG.append(to);
 			if (UndoManager::undoEnabled())
 			{
 				SimpleState* ss = new SimpleState(Um::MoveHGuide, 0, Um::IGuides);
 				ss->set("MOVE_H_FROM", from);
 				ss->set("MOVE_H_TO", to);
-				undoManager->action(m_page, ss);
+				m_undoManager->action(m_page, ss);
 			}
 			break;
 		case Auto:
@@ -430,14 +430,14 @@ void GuideManagerCore::moveVertical(double from, double to, GuideType type)
 	switch (type)
 	{
 		case Standard:
-			verticalStdG.removeAt(verticalStdG.indexOf(from));
-			verticalStdG.append(to);
+			m_verticalStdG.removeAt(m_verticalStdG.indexOf(from));
+			m_verticalStdG.append(to);
 			if (UndoManager::undoEnabled())
 			{
 				SimpleState* ss = new SimpleState(Um::MoveVGuide, 0, Um::IGuides);
 				ss->set("MOVE_V_FROM", from);
 				ss->set("MOVE_V_TO", to);
-				undoManager->action(m_page, ss);
+				m_undoManager->action(m_page, ss);
 			}
 			break;
 		case Auto:
@@ -456,8 +456,8 @@ void GuideManagerCore::copy(GuideManagerCore *target, GuideType type)
 	switch (type)
 	{
 		case Standard:
-			target->addHorizontals(horizontalStdG, Standard);
-			target->addVerticals(verticalStdG, Standard);
+			target->addHorizontals(m_horizontalStdG, Standard);
+			target->addVerticals(m_verticalStdG, Standard);
 			break;
 		case Auto:
 			target->setHorizontalAutoCount(m_horizontalAutoCount);
@@ -466,8 +466,8 @@ void GuideManagerCore::copy(GuideManagerCore *target, GuideType type)
 			target->setVerticalAutoGap(m_verticalAutoGap);
 			target->setHorizontalAutoRefer(m_horizontalAutoRefer);
 			target->setVerticalAutoRefer(m_verticalAutoRefer);
-			target->addHorizontals(horizontalAutoG, Auto);
-			target->addVerticals(verticalAutoG, Auto);
+			target->addHorizontals(m_horizontalAutoG, Auto);
+			target->addVerticals(m_verticalAutoG, Auto);
 			target->gx = gx;
 			target->gy = gy;
 			target->gw = gw;
@@ -492,11 +492,11 @@ void GuideManagerCore::drawPage(ScPainter *p, ScribusDoc *doc, double lineWidth)
 
 	// all standard
 	p->setPen(color, lineWidth, Qt::DashDotLine, Qt::FlatCap, Qt::MiterJoin);
-	for (it = verticalStdG.begin(); it != verticalStdG.end(); ++it)
+	for (it = m_verticalStdG.begin(); it != m_verticalStdG.end(); ++it)
 // 		if ((*it) >= 0 && (*it) <= m_page->width())
 // 			p->drawLine(FPoint((*it), 0), FPoint((*it), m_page->height()));
 		p->drawLine(FPoint((*it), verticalFrom), FPoint((*it), verticalTo));
-	for (it = horizontalStdG.begin(); it != horizontalStdG.end(); ++it)
+	for (it = m_horizontalStdG.begin(); it != m_horizontalStdG.end(); ++it)
 // 		if ((*it) >= 0 && (*it) <= m_page->height())
 // 			p->drawLine(FPoint(0, (*it)), FPoint(m_page->width(), (*it)));
 		p->drawLine(FPoint(horizontalFrom, (*it)), FPoint(horizontalTo, (*it)));
@@ -523,11 +523,11 @@ void GuideManagerCore::drawPage(ScPainter *p, ScribusDoc *doc, double lineWidth)
 		color = doc->guidesPrefs().guideColor;
 	p->setPen(color, lineWidth, Qt::DashDotLine, Qt::FlatCap, Qt::MiterJoin);
 
-	for (it = verticalAutoG.begin(); it != verticalAutoG.end(); ++it)
+	for (it = m_verticalAutoG.begin(); it != m_verticalAutoG.end(); ++it)
 // 		if ((*it) >= 0 && (*it) <= m_page->width())
 // 			p->drawLine(FPoint((*it), 0), FPoint((*it), m_page->height()));
 		p->drawLine(FPoint((*it), verticalFrom), FPoint((*it), verticalTo));
-	for (it = horizontalAutoG.begin(); it != horizontalAutoG.end(); ++it)
+	for (it = m_horizontalAutoG.begin(); it != m_horizontalAutoG.end(); ++it)
 // 		if ((*it) >= 0 && (*it) <= m_page->height())
 // 			p->drawLine(FPoint(0, (*it)), FPoint(m_page->width(), (*it)));
 		p->drawLine(FPoint(horizontalFrom, (*it)), FPoint(horizontalTo, (*it)));
@@ -541,10 +541,10 @@ int GuideManagerCore::isMouseOnHorizontal(double low, double high, GuideType typ
 	switch (type)
 	{
 		case Standard:
-			tmp = horizontalStdG;
+			tmp = m_horizontalStdG;
 			break;
 		case Auto:
-			tmp = horizontalAutoG;
+			tmp = m_horizontalAutoG;
 			break;
 	}
 	for (it = tmp.begin(); it != tmp.end(); ++it)
@@ -564,10 +564,10 @@ int GuideManagerCore::isMouseOnVertical(double low, double high, GuideType type)
 	switch (type)
 	{
 		case Standard:
-			tmp = verticalStdG;
+			tmp = m_verticalStdG;
 			break;
 		case Auto:
-			tmp = horizontalAutoG;
+			tmp = m_horizontalAutoG;
 			break;
 	}
 	for (it = tmp.begin(); it != tmp.end(); ++it)
@@ -602,16 +602,16 @@ QPair<double, double> GuideManagerCore::bottomRight(double x, double y)// const
 double GuideManagerCore::closestHorAbove(double y)// const
 {
 	double closest = 0.0;
-	for (int i = 0; i < horizontalStdG.size(); ++i)
+	for (int i = 0; i < m_horizontalStdG.size(); ++i)
 	{
-		if (horizontalStdG[i] < y && horizontalStdG[i] > closest)
-			closest = horizontalStdG[i];
+		if (m_horizontalStdG[i] < y && m_horizontalStdG[i] > closest)
+			closest = m_horizontalStdG[i];
 	}
 
-	for (int i = 0; i < horizontalAutoG.size(); ++i)
+	for (int i = 0; i < m_horizontalAutoG.size(); ++i)
 	{
-		if (horizontalAutoG[i] < y && horizontalAutoG[i] > closest)
-			closest = horizontalAutoG[i];
+		if (m_horizontalAutoG[i] < y && m_horizontalAutoG[i] > closest)
+			closest = m_horizontalAutoG[i];
 	}
 
 	if (m_page->Margins.top() < y && m_page->Margins.top() > closest)
@@ -625,16 +625,16 @@ double GuideManagerCore::closestHorAbove(double y)// const
 double GuideManagerCore::closestHorBelow(double y)// const
 {
 	double closest = m_page->height();
-	for (int i = 0; i < horizontalStdG.size(); ++i)
+	for (int i = 0; i < m_horizontalStdG.size(); ++i)
 	{
-		if (horizontalStdG[i] > y && horizontalStdG[i] < closest)
-			closest = horizontalStdG[i];
+		if (m_horizontalStdG[i] > y && m_horizontalStdG[i] < closest)
+			closest = m_horizontalStdG[i];
 	}
 
-	for (int i = 0; i < horizontalAutoG.size(); ++i)
+	for (int i = 0; i < m_horizontalAutoG.size(); ++i)
 	{
-		if (horizontalAutoG[i] > y && horizontalAutoG[i] < closest)
-			closest = horizontalAutoG[i];
+		if (m_horizontalAutoG[i] > y && m_horizontalAutoG[i] < closest)
+			closest = m_horizontalAutoG[i];
 	}
 
 	if (m_page->Margins.top() > y && m_page->Margins.top() < closest)
@@ -648,16 +648,16 @@ double GuideManagerCore::closestHorBelow(double y)// const
 double GuideManagerCore::closestVertLeft(double x)// const
 {
 	double closest = 0.0;
-	for (int i = 0; i < verticalStdG.size(); ++i)
+	for (int i = 0; i < m_verticalStdG.size(); ++i)
 	{
-		if (verticalStdG[i] < x && verticalStdG[i] > closest)
-			closest = verticalStdG[i];
+		if (m_verticalStdG[i] < x && m_verticalStdG[i] > closest)
+			closest = m_verticalStdG[i];
 	}
 
-	for (int i = 0; i < verticalAutoG.size(); ++i)
+	for (int i = 0; i < m_verticalAutoG.size(); ++i)
 	{
-		if (verticalAutoG[i] < x && verticalAutoG[i] > closest)
-			closest = verticalAutoG[i];
+		if (m_verticalAutoG[i] < x && m_verticalAutoG[i] > closest)
+			closest = m_verticalAutoG[i];
 	}
 
 	if (m_page->Margins.left() < x && m_page->Margins.left() > closest)
@@ -671,16 +671,16 @@ double GuideManagerCore::closestVertLeft(double x)// const
 double GuideManagerCore::closestVertRight(double x)// const
 {
 	double closest = m_page->width();
-	for (int i = 0; i < verticalStdG.size(); ++i)
+	for (int i = 0; i < m_verticalStdG.size(); ++i)
 	{
-		if (verticalStdG[i] > x && verticalStdG[i] < closest)
-			closest = verticalStdG[i];
+		if (m_verticalStdG[i] > x && m_verticalStdG[i] < closest)
+			closest = m_verticalStdG[i];
 	}
 
-	for (int i = 0; i < verticalAutoG.size(); ++i)
+	for (int i = 0; i < m_verticalAutoG.size(); ++i)
 	{
-		if (verticalAutoG[i] > x && verticalAutoG[i] < closest)
-			closest = verticalAutoG[i];
+		if (m_verticalAutoG[i] > x && m_verticalAutoG[i] < closest)
+			closest = m_verticalAutoG[i];
 	}
 
 	if (m_page->Margins.left() > x  && m_page->Margins.left() < closest)

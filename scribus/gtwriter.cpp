@@ -46,9 +46,9 @@ for which a new license (GPL+exception) is in place.
 
 gtWriter::gtWriter(bool append, PageItem *pageitem)
 {
-	action = new gtAction(append, pageitem);
-	errorSet = false;
-	action->setProgressInfo();
+	m_action = new gtAction(append, pageitem);
+	m_errorSet = false;
+	m_action->setProgressInfo();
 	setDefaultStyle();
 	unsetCharacterStyle();
 	unsetParagraphStyle();
@@ -58,44 +58,44 @@ gtWriter::gtWriter(bool append, PageItem *pageitem)
 
 gtFrameStyle* gtWriter::getDefaultStyle()
 {
-	return frameStyle;
+	return m_frameStyle;
 }
 
 void gtWriter::setFrameStyle(gtFrameStyle *fStyle)
 {
-	frameStyle = fStyle;
-	action->applyFrameStyle(fStyle);
+	m_frameStyle = fStyle;
+	m_action->applyFrameStyle(fStyle);
 }
 
 void gtWriter::setParagraphStyle(gtParagraphStyle *pStyle)
 {
 	// @todo Start a new paragraph and add the style to the Paragraph Styles
-	paragraphStyle = pStyle;
+	m_paragraphStyle = pStyle;
 }
 
 void gtWriter::setCharacterStyle(gtStyle *cStyle)
 {
-	characterStyle = cStyle;
+	m_characterStyle = cStyle;
 }
 
 void gtWriter::unsetFrameStyle()
 {
-	frameStyle = defaultStyle;
+	m_frameStyle = m_defaultStyle;
 }
 
 void gtWriter::unsetParagraphStyle()
 {
-	paragraphStyle = NULL;
+	m_paragraphStyle = NULL;
 }
 
 void gtWriter::unsetCharacterStyle()
 {
-	characterStyle = NULL;
+	m_characterStyle = NULL;
 }
 
 double gtWriter::getPreferredLineSpacing(int fontSize)
 {
-	return action->getLineSpacing(fontSize);
+	return m_action->getLineSpacing(fontSize);
 }
 
 double gtWriter::getPreferredLineSpacing(double fontSize)
@@ -111,17 +111,17 @@ void gtWriter::append(const QString& text)
 		return;
 	if (inNote && !inNoteBody)
 		return;
-	if (characterStyle != NULL)
+	if (m_characterStyle != NULL)
 	{
-		action->write(text, characterStyle, inNote);
+		m_action->write(text, m_characterStyle, inNote);
 	}
-	else if (paragraphStyle != NULL)
+	else if (m_paragraphStyle != NULL)
 	{
-		action->write(text, paragraphStyle, inNote);
+		m_action->write(text, m_paragraphStyle, inNote);
 	}
 	else
 	{
-		action->write(text, frameStyle, inNote);
+		m_action->write(text, m_frameStyle, inNote);
 	}
 }
 
@@ -133,17 +133,17 @@ void gtWriter::appendUnstyled(const QString& text)
 		return;
 	if (inNote && !inNoteBody)
 		return;
-	action->writeUnstyled(text, inNote);
+	m_action->writeUnstyled(text, inNote);
 }
 
 double gtWriter::getFrameWidth()
 {
-	return action->getFrameWidth();
+	return m_action->getFrameWidth();
 }
 
 QString gtWriter::getFrameName()
 {
-	return action->getFrameName();
+	return m_action->getFrameName();
 }
 
 void gtWriter::append(const QString& text, gtStyle *style)
@@ -156,51 +156,51 @@ void gtWriter::append(const QString& text, gtStyle *style)
 		return;
 	}
 
-	currentStyle = style;
-	action->write(text, style, inNote);
-	currentStyle = NULL;
+	m_currentStyle = style;
+	m_action->write(text, style, inNote);
+	m_currentStyle = NULL;
 }
 
 void gtWriter::append(const QString& text, gtStyle *style, bool updatePStyle)
 {
-	bool ups = action->getUpdateParagraphStyles();
-	action->setUpdateParagraphStyles(updatePStyle);
+	bool ups = m_action->getUpdateParagraphStyles();
+	m_action->setUpdateParagraphStyles(updatePStyle);
 	append(text, style);
-	action->setUpdateParagraphStyles(ups);
+	m_action->setUpdateParagraphStyles(ups);
 }
 
 void gtWriter::setDefaultStyle()
 {
 	// @todo Get the style of the text frame we are appending to.
-	defaultStyle = new gtFrameStyle("Default style");
-	action->getFrameStyle(defaultStyle);
-	frameStyle = defaultStyle;
+	m_defaultStyle = new gtFrameStyle("Default style");
+	m_action->getFrameStyle(m_defaultStyle);
+	m_frameStyle = m_defaultStyle;
 }
 
 bool gtWriter::getUpdateParagraphStyles()
 {
-	return action->getUpdateParagraphStyles();
+	return m_action->getUpdateParagraphStyles();
 }
 
 void gtWriter::setUpdateParagraphStyles(bool newUPS)
 {
-	action->setUpdateParagraphStyles(newUPS);
+	m_action->setUpdateParagraphStyles(newUPS);
 }
 
 bool gtWriter::getOverridePStyleFont()
 {
-	return action->getOverridePStyleFont();
+	return m_action->getOverridePStyleFont();
 }
 
 void gtWriter::setOverridePStyleFont(bool newOPSF)
 {
-	action->setOverridePStyleFont(newOPSF);
+	m_action->setOverridePStyleFont(newOPSF);
 }
 
 gtWriter::~gtWriter()
 {
-	if (!errorSet)
-		action->setProgressInfoDone();
-	delete action;
-	delete defaultStyle;
+	if (!m_errorSet)
+		m_action->setProgressInfoDone();
+	delete m_action;
+	delete m_defaultStyle;
 }

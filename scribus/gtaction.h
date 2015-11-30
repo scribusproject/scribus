@@ -56,22 +56,22 @@ typedef QMap<QString, QString> FontFamilyMap;
 class SCRIBUS_API gtAction
 {
 private:
-	UndoManager* undoManager;
+	UndoManager* m_undoManager;
 	ScribusMainWindow* m_ScMW;
-	PageItem *textFrame;
-	PageItem *it;
-	int lastParagraphStyle;
-	bool inPara;
-	bool isFirstWrite;
-	bool doAppend;
-	bool lastCharWasLineChange;
-	bool updateParagraphStyles;
+	PageItem *m_textFrame;
+	PageItem *m_it;
+	int m_lastParagraphStyle;
+	bool m_inPara;
+	bool m_isFirstWrite;
+	bool m_doAppend;
+	bool m_lastCharWasLineChange;
+	bool m_updateParagraphStyles;
 	/* If paragraph style is used should the font style of the gtpstyle be used 
 	   or should writer respect the font set in the real paragraph style
 	*/
-	bool overridePStyleFont;
-	QString currentFrameStyle;
-	FontFamilyMap families;
+	bool m_overridePStyleFont;
+	QString m_currentFrameStyle;
+	FontFamilyMap m_families;
 
 	int findParagraphStyle(const QString& name);
 	int findParagraphStyle(gtParagraphStyle* pstyle);
@@ -83,9 +83,9 @@ private:
 	QString parseColor(const QString &s);
 	QColor  parseColorN(const QString &rgbColor);
 	void finalize();
-	PrefsManager *prefsManager;
-	StoryText* noteStory;
-	TextNote* note;
+	PrefsManager *m_prefsManager;
+	StoryText* m_noteStory;
+	TextNote* m_note;
 public:
 //	gtAction(bool append);
 	gtAction(bool append, PageItem *pageitem);
