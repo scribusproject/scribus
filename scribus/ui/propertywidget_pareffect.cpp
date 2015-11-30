@@ -557,23 +557,23 @@ void PropertyWidget_ParEffect::handleChanges(PageItem *item, ParagraphStyle &new
 void PropertyWidget_ParEffect::languageChange()
 {
 	fillPECombo();
-	dropCapLinesLabel->setText(tr("Lines"));
+	dropCapLinesLabel->setText(tr("Lines:"));
 	dropCapsGroup->setTitle(tr("Drop Caps"));
 	bullGroup->setTitle(tr("Bulleted List"));
-	bulletCharLabel->setText(tr("Bullet Char(s)"));
+	bulletCharLabel->setText(tr("Bullet Char(s):"));
 	bulletCharTableButton->setToolTip(tr("Enhanced char table to choose bullet chars"));
 	bulletCharTableButton->setText(tr("Char Table"));
 	numGroup->setTitle(tr("Numbered List"));
-	numLevelLabel->setText(tr("Level"));
-	numComboLabel->setText(tr("Set"));
-	numFormatLabel->setText(tr("Format"));
-	numStartLabel->setText(tr("Start"));
-	numPrefixLabel->setText(tr("Prefix"));
-	numSuffixLabel->setText(tr("Suffix"));
+	numLevelLabel->setText(tr("Level:"));
+	numComboLabel->setText(tr("Set:"));
+	numFormatLabel->setText(tr("Format:"));
+	numStartLabel->setText(tr("Start:"));
+	numPrefixLabel->setText(tr("Prefix:"));
+	numSuffixLabel->setText(tr("Suffix:"));
 	peGroup->setTitle(tr("Effect Parameters"));
 	peIndent->setText(tr("Auto-Indent"));
-	peOffsetLabel->setText(tr("Offset"));
-	peCharStyleLabel->setText(tr("Char Style"));
+	peOffsetLabel->setText(tr("Offset:"));
+	peCharStyleLabel->setText(tr("Char Style:"));
 	peCharStyleCombo->setToolTip(tr("Choose character style or leave blank for use default paragraph style"));
 }
 

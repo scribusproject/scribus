@@ -434,7 +434,7 @@ void PropertyWidget_Distance::languageChange()
 {
 	columnsLabel->setText( tr("Colu&mns:"));
 
-	verticalAlignLabel->setText( tr("Vertical Alignment"));
+	verticalAlignLabel->setText( tr("Vertical Alignment:"));
 	int oldAliLabel = verticalAlign->currentIndex();
 	verticalAlign->clear();
 	verticalAlign->addItem( tr("Top"));

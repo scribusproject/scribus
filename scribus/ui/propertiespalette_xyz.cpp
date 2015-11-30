@@ -216,7 +216,7 @@ void PropertiesPalette_XYZ::unsetDoc()
 	flipH->setEnabled(false);
 	flipV->setEnabled(false);
 	xposLabel->setText( tr( "&X-Pos:" ) );
-	widthLabel->setText( tr( "&Width" ) );
+	widthLabel->setText( tr( "&Width:" ) );
 	yposLabel->setText( tr( "&Y-Pos:" ) );
 	heightLabel->setText( tr( "&Height:" ) );
 	xposSpin->showValue(0);
@@ -239,7 +239,7 @@ void PropertiesPalette_XYZ::setLineMode(int lineMode)
 	if (lineMode == 0)
 	{
 		xposLabel->setText( tr( "&X-Pos:" ) );
-		widthLabel->setText( tr( "&Width" ) );
+		widthLabel->setText( tr( "&Width:" ) );
 		yposLabel->setText( tr( "&Y-Pos:" ) );
 		heightLabel->setText( tr( "&Height:" ) );
 		rotationSpin->setEnabled(true);
@@ -367,7 +367,7 @@ void PropertiesPalette_XYZ::setCurrentItem(PageItem *i)
 	else
 	{
 		xposLabel->setText( tr( "&X-Pos:" ) );
-		widthLabel->setText( tr( "&Width" ) );
+		widthLabel->setText( tr( "&Width:" ) );
 		yposLabel->setText( tr( "&Y-Pos:" ) );
 		heightLabel->setText( tr( "&Height:" ) );
 		rotationSpin->setEnabled(true);
