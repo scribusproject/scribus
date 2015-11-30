@@ -18947,8 +18947,8 @@ Voulez-vous migrer les paramètres vers la nouvelle version ?</translation>
         <location filename="../../scribus/ui/prefs_externaltoolsbase.ui" line="270"/>
         <location filename="../../scribus/ui/prefs_externaltoolsbase.ui" line="340"/>
         <location filename="../../scribus/ui/prefs_externaltoolsbase.ui" line="407"/>
-        <location filename="../../scribus/ui/prefs_externaltoolsbase.ui" line="467"/>
-        <location filename="../../scribus/ui/prefs_externaltoolsbase.ui" line="593"/>
+        <location filename="../../scribus/ui/prefs_externaltoolsbase.ui" line="474"/>
+        <location filename="../../scribus/ui/prefs_externaltoolsbase.ui" line="600"/>
         <source>&amp;Change...</source>
         <translation>&amp;Parcourir...</translation>
     </message>
@@ -18956,8 +18956,8 @@ Voulez-vous migrer les paramètres vers la nouvelle version ?</translation>
         <location filename="../../scribus/ui/prefs_externaltoolsbase.ui" line="101"/>
         <location filename="../../scribus/ui/prefs_externaltoolsbase.ui" line="273"/>
         <location filename="../../scribus/ui/prefs_externaltoolsbase.ui" line="343"/>
-        <location filename="../../scribus/ui/prefs_externaltoolsbase.ui" line="470"/>
-        <location filename="../../scribus/ui/prefs_externaltoolsbase.ui" line="596"/>
+        <location filename="../../scribus/ui/prefs_externaltoolsbase.ui" line="477"/>
+        <location filename="../../scribus/ui/prefs_externaltoolsbase.ui" line="603"/>
         <source>Alt+C</source>
         <translation>Alt+C</translation>
     </message>
@@ -18993,13 +18993,13 @@ Voulez-vous migrer les paramètres vers la nouvelle version ?</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_externaltoolsbase.ui" line="170"/>
-        <location filename="../../scribus/ui/prefs_externaltoolsbase.ui" line="683"/>
+        <location filename="../../scribus/ui/prefs_externaltoolsbase.ui" line="690"/>
         <source>Resolution:</source>
         <translation>Résolution :</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_externaltoolsbase.ui" line="183"/>
-        <location filename="../../scribus/ui/prefs_externaltoolsbase.ui" line="696"/>
+        <location filename="../../scribus/ui/prefs_externaltoolsbase.ui" line="703"/>
         <source> dpi</source>
         <translation> ppp</translation>
     </message>
@@ -19012,7 +19012,7 @@ Voulez-vous migrer les paramètres vers la nouvelle version ?</translation>
         <location filename="../../scribus/ui/prefs_externaltoolsbase.ui" line="250"/>
         <location filename="../../scribus/ui/prefs_externaltoolsbase.ui" line="320"/>
         <location filename="../../scribus/ui/prefs_externaltoolsbase.ui" line="390"/>
-        <location filename="../../scribus/ui/prefs_externaltoolsbase.ui" line="447"/>
+        <location filename="../../scribus/ui/prefs_externaltoolsbase.ui" line="454"/>
         <source>Name of &amp;Executable:</source>
         <translation>Nom de l&apos;&amp;exécutable :</translation>
     </message>
@@ -19037,17 +19037,17 @@ Voulez-vous migrer les paramètres vers la nouvelle version ?</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_externaltoolsbase.ui" line="460"/>
+        <location filename="../../scribus/ui/prefs_externaltoolsbase.ui" line="467"/>
         <source>&lt;qt&gt;File system location for Uniconvertor&lt;/qt&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_externaltoolsbase.ui" line="586"/>
+        <location filename="../../scribus/ui/prefs_externaltoolsbase.ui" line="593"/>
         <source>&lt;qt&gt;Path to the editor executable&lt;/qt&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_externaltoolsbase.ui" line="657"/>
+        <location filename="../../scribus/ui/prefs_externaltoolsbase.ui" line="664"/>
         <source>Always use the configured DPI setting for calculating the size, even if the image file reports something different</source>
         <translation type="unfinished"></translation>
     </message>
@@ -24304,54 +24304,36 @@ Transparency</source>
         <translation type="vanished"> pt</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_shape.cpp" line="547"/>
         <source>Shape:</source>
-        <translation>Forme :</translation>
+        <translation type="vanished">Forme :</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_shape.cpp" line="548"/>
         <source>Choose the shape of frame...</source>
-        <translation>Choisir la forme du cadre...</translation>
+        <translation type="vanished">Choisir la forme du cadre...</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_shape.cpp" line="549"/>
         <source>&amp;Edit...</source>
-        <translation>&amp;Modifier...</translation>
+        <translation type="vanished">&amp;Modifier...</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_shape.cpp" line="550"/>
         <source>Set radius of corner rounding</source>
-        <translation>Définir le rayon de l&apos;arrondi</translation>
+        <translation type="vanished">Définir le rayon de l&apos;arrondi</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_shape.cpp" line="551"/>
         <source>R&amp;ound Corners:</source>
-        <translation>Angles arr&amp;ondis :</translation>
+        <translation type="vanished">Angles arr&amp;ondis :</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_shape.cpp" line="552"/>
         <source>Fill Rule</source>
-        <translation>Règle de remplissage</translation>
+        <translation type="vanished">Règle de remplissage</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_shape.cpp" line="553"/>
         <source>Even-Odd</source>
-        <translation>Pair-Impair</translation>
+        <translation type="vanished">Pair-Impair</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_shape.cpp" line="554"/>
         <source>Non Zero</source>
-        <translation>Non nulle</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/propertiespalette_shape.cpp" line="556"/>
-        <source>Any path self-intersections or subpaths create holes in the fill</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/propertiespalette_shape.cpp" line="557"/>
-        <source>Fill is solid unless a subpath is counter-directional</source>
-        <translation type="unfinished"></translation>
+        <translation type="vanished">Non nulle</translation>
     </message>
     <message>
         <source>This rule determines the &amp;quot;insideness&amp;quot; of a point on the canvas by drawing a ray from that point to infinity in any direction and counting the number of path segments from the given shape that the ray crosses. If this number is odd, the point is inside, if even, the point is outside.</source>
@@ -24362,34 +24344,28 @@ Transparency</source>
         <translation type="vanished">Cette règle détermine l&apos;intériorité d&apos;un point par rapport à un tracé en lançant un rayon vers l&apos;infini une direction quelconque  et en examinant les endroits où le tracé intersecte le rayon. En démarrant le compte à zéro, ajoutez un chaque fois que le tracé croise le rayon de gauche à droite, soustrayez un chaque fois que le tracé croise le rayon de droite à gauche. Si le résultat est nul, le point est en dehors du tracé. Sinon le point est à l&apos;intérieur.</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_shape.cpp" line="559"/>
         <source>Text &amp;Flow Around Frame</source>
-        <translation>&amp;Habillage du cadre</translation>
+        <translation type="vanished">&amp;Habillage du cadre</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_shape.cpp" line="560"/>
         <source>Disabled</source>
-        <translation>Désactivé</translation>
+        <translation type="vanished">Désactivé</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_shape.cpp" line="561"/>
         <source>Use Frame &amp;Shape</source>
-        <translation>Utili&amp;ser la forme du cadre</translation>
+        <translation type="vanished">Utili&amp;ser la forme du cadre</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_shape.cpp" line="562"/>
         <source>Use &amp;Bounding Box</source>
-        <translation>Utilise&amp;r le rectangle englobant</translation>
+        <translation type="vanished">Utilise&amp;r le rectangle englobant</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_shape.cpp" line="563"/>
         <source>&amp;Use Contour Line</source>
-        <translation>&amp;Utiliser le contour</translation>
+        <translation type="vanished">&amp;Utiliser le contour</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_shape.cpp" line="564"/>
         <source>Use Image Clip Path</source>
-        <translation>Utiliser le tracé de découpe de l&apos;image</translation>
+        <translation type="vanished">Utiliser le tracé de découpe de l&apos;image</translation>
     </message>
 </context>
 <context>
@@ -24406,70 +24382,93 @@ Transparency</source>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="56"/>
+        <source>Choose the shape of frame...</source>
+        <translation type="unfinished">Choisir la forme du cadre...</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="59"/>
         <source>...</source>
         <translation>...</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="63"/>
+        <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="66"/>
         <source>&amp;Edit...</source>
         <translation>&amp;Modifier...</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="74"/>
         <source>Round Corners</source>
-        <translation>Coins arrondis</translation>
+        <translation type="vanished">Coins arrondis</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="96"/>
         <source>Text Flow Around Frame</source>
-        <translation>Habillage du cadre</translation>
+        <translation type="vanished">Habillage du cadre</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="117"/>
+        <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="126"/>
         <source>Disabled</source>
         <translation>Désactivé</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="129"/>
-        <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="154"/>
-        <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="179"/>
-        <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="204"/>
-        <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="229"/>
-        <source>textFlowBtnGroup</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="142"/>
         <source>Use &amp;Frame Shape</source>
-        <translation>Utili&amp;ser la forme du cadre</translation>
+        <translation type="vanished">Utili&amp;ser la forme du cadre</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="167"/>
+        <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="77"/>
+        <source>R&amp;ound Corners:</source>
+        <translation type="unfinished">Angles arr&amp;ondis :</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="93"/>
+        <source>Set radius of corner rounding</source>
+        <translation type="unfinished">Définir le rayon de l&apos;arrondi</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="105"/>
+        <source>Text &amp;Flow Around Frame</source>
+        <translation type="unfinished">&amp;Habillage du cadre</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="151"/>
+        <source>Use Frame &amp;Shape</source>
+        <translation type="unfinished">Utili&amp;ser la forme du cadre</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="176"/>
         <source>Use &amp;Bounding Box</source>
         <translation>Utilise&amp;r le rectangle englobant</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="192"/>
+        <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="201"/>
         <source>&amp;Use Contour Line</source>
         <translation>&amp;Utiliser le contour</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="217"/>
+        <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="226"/>
         <source>Use Image Clip Path</source>
         <translation>Utiliser le tracé de découpe de l&apos;image</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="247"/>
+        <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="256"/>
         <source>Fill Rule</source>
         <translation>Règle de remplissage</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="281"/>
+        <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="290"/>
+        <source>&lt;qt&gt;Any path self-intersections or subpaths create holes in the fill&lt;/qt&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="293"/>
         <source>Even-Odd</source>
         <translation>Pair-Impair</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="294"/>
+        <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="306"/>
+        <source>&lt;qt&gt;Fill is solid unless a subpath is counter-directional&lt;/qt&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="309"/>
         <source>Non Zero</source>
         <translation>Non nulle</translation>
     </message>
