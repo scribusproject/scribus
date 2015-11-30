@@ -51,8 +51,6 @@ PropertiesPalette_Shape::PropertiesPalette_Shape( QWidget* parent) : QWidget(par
 	setupUi(this);
 	setSizePolicy( QSizePolicy(QSizePolicy::Maximum, QSizePolicy::Maximum));
 
-	roundRectLabel->setBuddy(roundRect);
-
 	textFlowDisabled->setIcon(IconManager::instance()->loadIcon("flow-none.png"));
 	textFlowUsesFrameShape->setIcon(IconManager::instance()->loadIcon("flow-frame.png"));
 	textFlowUsesBoundingBox->setIcon(IconManager::instance()->loadIcon("flow-bounding.png"));
@@ -544,24 +542,7 @@ void PropertiesPalette_Shape::languageChange()
 	QString suffix   = m_doc ? unitGetSuffixFromIndex(m_doc->unitIndex()) : ptSuffix;
 	roundRect->setSuffix(suffix);
 
-	shapeGroup->setTitle( tr("Shape:"));
-	customShape->setToolTip( tr("Choose the shape of frame..."));
-	editShape->setText( tr("&Edit..."));
-	roundRect->setToolTip( tr("Set radius of corner rounding"));
-	roundRectLabel->setText( tr("R&ound Corners:"));
-	fillRuleGroup->setTitle( tr("Fill Rule"));
-	evenOdd->setText( tr("Even-Odd"));
-	nonZero->setText( tr("Non Zero"));
-
-	evenOdd->setToolTip( "<qt>" + tr("Any path self-intersections or subpaths create holes in the fill")  + "</qt>");
-	nonZero->setToolTip( "<qt>" + tr("Fill is solid unless a subpath is counter-directional")  + "</qt>");
-
-	textFlowGroup->setTitle( tr("Text &Flow Around Frame"));
-	textFlowDisabled->setText( tr("Disabled"));
-	textFlowUsesFrameShape->setText( tr("Use Frame &Shape"));
-	textFlowUsesBoundingBox->setText( tr("Use &Bounding Box"));
-	textFlowUsesContourLine->setText( tr("&Use Contour Line"));
-	textFlowUsesImageClipping->setText( tr("Use Image Clip Path"));
+	retranslateUi(this);
 }
 
 void PropertiesPalette_Shape::unitChange()

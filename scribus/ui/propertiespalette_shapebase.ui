@@ -52,6 +52,9 @@
         </item>
         <item>
          <widget class="Autoforms" name="customShape">
+          <property name="toolTip">
+           <string>Choose the shape of frame...</string>
+          </property>
           <property name="text">
            <string>...</string>
           </property>
@@ -71,7 +74,10 @@
         <item>
          <widget class="QLabel" name="roundRectLabel">
           <property name="text">
-           <string>Round Corners</string>
+           <string>R&amp;ound Corners:</string>
+          </property>
+          <property name="buddy">
+           <cstring>roundRect</cstring>
           </property>
          </widget>
         </item>
@@ -83,6 +89,9 @@
             <verstretch>0</verstretch>
            </sizepolicy>
           </property>
+          <property name="toolTip">
+           <string>Set radius of corner rounding</string>
+          </property>
          </widget>
         </item>
        </layout>
@@ -93,7 +102,7 @@
    <item>
     <widget class="QGroupBox" name="textFlowGroup">
      <property name="title">
-      <string>Text Flow Around Frame</string>
+      <string>Text &amp;Flow Around Frame</string>
      </property>
      <property name="flat">
       <bool>true</bool>
@@ -126,7 +135,7 @@
          <enum>Qt::ToolButtonTextBesideIcon</enum>
         </property>
         <attribute name="buttonGroup">
-         <string>textFlowBtnGroup</string>
+         <string notr="true">textFlowBtnGroup</string>
         </attribute>
        </widget>
       </item>
@@ -139,7 +148,7 @@
          </sizepolicy>
         </property>
         <property name="text">
-         <string>Use &amp;Frame Shape</string>
+         <string>Use Frame &amp;Shape</string>
         </property>
         <property name="checkable">
          <bool>true</bool>
@@ -151,7 +160,7 @@
          <enum>Qt::ToolButtonTextBesideIcon</enum>
         </property>
         <attribute name="buttonGroup">
-         <string>textFlowBtnGroup</string>
+         <string notr="true">textFlowBtnGroup</string>
         </attribute>
        </widget>
       </item>
@@ -176,7 +185,7 @@
          <enum>Qt::ToolButtonTextBesideIcon</enum>
         </property>
         <attribute name="buttonGroup">
-         <string>textFlowBtnGroup</string>
+         <string notr="true">textFlowBtnGroup</string>
         </attribute>
        </widget>
       </item>
@@ -201,7 +210,7 @@
          <enum>Qt::ToolButtonTextBesideIcon</enum>
         </property>
         <attribute name="buttonGroup">
-         <string>textFlowBtnGroup</string>
+         <string notr="true">textFlowBtnGroup</string>
         </attribute>
        </widget>
       </item>
@@ -226,7 +235,7 @@
          <enum>Qt::ToolButtonTextBesideIcon</enum>
         </property>
         <attribute name="buttonGroup">
-         <string>textFlowBtnGroup</string>
+         <string notr="true">textFlowBtnGroup</string>
         </attribute>
        </widget>
       </item>
@@ -277,6 +286,9 @@
               <verstretch>0</verstretch>
              </sizepolicy>
             </property>
+            <property name="toolTip">
+             <string>&lt;qt&gt;Any path self-intersections or subpaths create holes in the fill&lt;/qt&gt;</string>
+            </property>
             <property name="text">
              <string>Even-Odd</string>
             </property>
@@ -289,6 +301,9 @@
               <horstretch>0</horstretch>
               <verstretch>0</verstretch>
              </sizepolicy>
+            </property>
+            <property name="toolTip">
+             <string>&lt;qt&gt;Fill is solid unless a subpath is counter-directional&lt;/qt&gt;</string>
             </property>
             <property name="text">
              <string>Non Zero</string>
