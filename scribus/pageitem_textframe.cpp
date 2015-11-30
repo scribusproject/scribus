@@ -59,6 +59,7 @@ for which a new license (GPL+exception) is in place.
 #include "ui/marksmanager.h"
 #include "undomanager.h"
 #include "undostate.h"
+#include "units.h"
 #include "util.h"
 #include "util_math.h"
 
@@ -6100,7 +6101,56 @@ void PageItem_TextFrame::setTextFrameHeight()
 	//ugly hack increasing min frame`s haeight against strange glyph painting if it is too close of bottom
 	double hackValue = 0.5;
 
-	setHeight(ceil(maxY) + m_textDistanceMargins.bottom() + hackValue);
+	if (textLayout.lines() <= 0)
+		return;
+	const LineSpec& firstLine = textLayout.line(0);
+	const LineSpec& lastLine  = textLayout.line(textLayout.lines() -1);
+
+	double y1 = firstLine.y /*- firstLine.ascent*/;
+	double y2 = lastLine.y  + lastLine.descent;
+
+	const ParagraphStyle& firstLineStyle = itemText.paragraphStyle(firstLine.firstItem);
+	if (firstLineStyle.lineSpacingMode() == ParagraphStyle::BaselineGridLineSpacing)
+		y1 -= firstLineStyle.lineSpacing();
+	else if (firstLineOffset() == FLOPRealGlyphHeight || firstLineOffset() == FLOPFontAscent)
+		y1 -= firstLine.ascent;
+	else
+		y1 -= firstLineStyle.lineSpacing();
+
+	double newHeight = ceil(y2) + m_textDistanceMargins.bottom() + hackValue;
+	if (NextBox == 0) // Vertical alignment is not used inside a text chain
+	{
+		if (verticalAlign == 1)
+			newHeight -= floor(y1);
+		else if (verticalAlign == 2)
+			newHeight = m_height - floor(y1);
+	}
+
+	UndoTransaction undoTransaction;
+	if (UndoManager::undoEnabled() && (verticalAlign != 0))
+	{
+		QString unitSuffix = unitGetStrFromIndex(m_Doc->unitIndex());
+		int unitPrecision  = unitGetPrecisionFromIndex(m_Doc->unitIndex());
+		double unitRatio   = m_Doc->unitRatio();
+		QString owString  = QString::number(oldWidth * unitRatio, 'f', unitPrecision) + " " + unitSuffix;
+		QString ohString  = QString::number(oldHeight * unitRatio, 'f', unitPrecision) + " " + unitSuffix;
+		QString nwString  = QString::number(m_width * unitRatio, 'f', unitPrecision) + " " + unitSuffix;
+		QString nhString  = QString::number(m_height * unitRatio, 'f', unitPrecision) + " " + unitSuffix;
+		QString tooltip   = QString(Um::ResizeFromTo).arg(owString).arg(ohString).arg(nwString).arg(nhString);
+		undoTransaction = undoManager->beginTransaction(Um::Selection, Um::ITextFrame, Um::Resize, tooltip, Um::IResize);
+	}
+
+	if (verticalAlign != 0)
+	{
+		double newX = m_xPos + floor(y1) * cos(-m_rotation * M_PI / 180 - M_PI / 2);
+		double newY = m_yPos - floor(y1) * sin(-m_rotation * M_PI / 180 - M_PI / 2);
+		setXYPos(newX, newY);
+	}
+	setHeight(newHeight);
+
+	if (undoTransaction)
+		undoTransaction.commit();
+
 	updateClip();
 	invalid = true;
 	m_Doc->changed();
