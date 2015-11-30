@@ -299,8 +299,7 @@ void DocXIm::parseStyledText(PageItem *textItem)
 									currentParagraphStyle.charStyle() = newStyle.charStyle();
 								}
 							}
-							else
-								parseParaProps(spr, currentParagraphStyle);
+							parseParaProps(spr, currentParagraphStyle);
 						}
 						else if (spr.tagName() == "w:r")
 						{
