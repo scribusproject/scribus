@@ -65,7 +65,7 @@ public:
 
 private:
     /// A pointer to the real implementation of pdflib .
-    void* impl;
+	void* m_impl;
 };
 
 #endif
