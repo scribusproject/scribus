@@ -35,9 +35,9 @@ PageSize::PageSize(const QString sizeName)
 	bool valuesSet=false;
 	generateSizeList();
 	//Build based on untranslated key value
-	if (pageSizeList.contains(sizeName))
+	if (m_pageSizeList.contains(sizeName))
 	{
-		PageSizeInfoMap::Iterator it = pageSizeList.find(sizeName);
+		PageSizeInfoMap::Iterator it = m_pageSizeList.find(sizeName);
 		m_pageSizeName=it.key();
 		m_width=it.value().width;
 		m_height=it.value().height;
@@ -48,7 +48,7 @@ PageSize::PageSize(const QString sizeName)
 	else //build based on translated value.
 	{
 		PageSizeInfoMap::Iterator it;
-		for (it=pageSizeList.begin();it!=pageSizeList.end() && valuesSet!=true;++it)
+		for (it=m_pageSizeList.begin();it!=m_pageSizeList.end() && valuesSet!=true;++it)
 		{
 			if (sizeName==it.value().trSizeName)
 			{
@@ -85,7 +85,7 @@ QStringList PageSize::sizeList(void) const
 	QStringList pageSizes;
 	pageSizes.clear();
 	PageSizeInfoMap::ConstIterator it;
-	for (it=pageSizeList.begin();it!=pageSizeList.end();++it)
+	for (it=m_pageSizeList.begin();it!=m_pageSizeList.end();++it)
 		pageSizes.append(it.key());
 	return QStringList(pageSizes);
 }
@@ -95,7 +95,7 @@ QStringList PageSize::sizeTRList(void) const
 	QStringList pageSizes;
 	pageSizes.clear();
 	PageSizeInfoMap::ConstIterator it;
-	for (it=pageSizeList.begin();it!=pageSizeList.end();++it)
+	for (it=m_pageSizeList.begin();it!=m_pageSizeList.end();++it)
 		pageSizes.append(it.value().trSizeName);
 	return QStringList(pageSizes);
 }
@@ -172,13 +172,13 @@ void PageSize::generateSizeList()
 	info.height = mm2pts(2378.0);
 	info.pageUnitIndex = SC_MM;
 	info.trSizeName = QObject::tr("4A0");
-	pageSizeList.insert("4A0", info); 
+	m_pageSizeList.insert("4A0", info); 
 	//2A0
 	info.width = mm2pts(1189.0);
 	info.height = mm2pts(1682.0);
 	info.pageUnitIndex = SC_MM;
 	info.trSizeName = QObject::tr("2A0");
-	pageSizeList.insert("2A0", info); 
+	m_pageSizeList.insert("2A0", info); 
 	//Continue with rest of A series
 	// do not use the formula below, as it is correct in theory,
 	// but due to rounding errors it gives incorrect results.
@@ -206,7 +206,7 @@ void PageSize::generateSizeList()
 		info.pageUnitIndex = SC_MM;
 		name = QString("A%1").arg(format);
 		info.trSizeName = name;
-		pageSizeList.insert(name, info);
+		m_pageSizeList.insert(name, info);
 	}
 	
 	/* B series */
@@ -221,7 +221,7 @@ void PageSize::generateSizeList()
 		info.pageUnitIndex=SC_MM;
 		name = QString("B%1").arg(format);
 		info.trSizeName = name;
-		pageSizeList.insert(name, info);
+		m_pageSizeList.insert(name, info);
 	}
 	/* C series */
 	Awidths.clear();
@@ -235,7 +235,7 @@ void PageSize::generateSizeList()
 		info.pageUnitIndex=SC_MM;
 		name = QString("C%1").arg(format);
 		info.trSizeName = name;
-		pageSizeList.insert(name, info);
+		m_pageSizeList.insert(name, info);
 	}
 /*
 	width  = 1000.0;
@@ -280,7 +280,7 @@ void PageSize::generateSizeList()
 		info.pageUnitIndex=SC_MM;
 		name=QString("PA%1").arg(format);
 		info.trSizeName=name;
-		pageSizeList.insert(name, info);
+		m_pageSizeList.insert(name, info);
 		tmp = height;
 		height = width;
 		width = floor(tmp / 2.0);
@@ -306,51 +306,51 @@ void PageSize::generateSizeList()
 		info.height=in2pts(impHeights[i]);
 		info.pageUnitIndex=SC_IN;
 		info.trSizeName=impTrNames[i];
-		pageSizeList.insert(impNames[i], info);
+		m_pageSizeList.insert(impNames[i], info);
 	}
 	//Comm10E
 	info.width=in2pts(4.125);
 	info.height=in2pts(9.5);
 	info.pageUnitIndex=SC_IN;
 	info.trSizeName=QObject::tr("Comm10E");
-	pageSizeList.insert("Comm10E", info); 
+	m_pageSizeList.insert("Comm10E", info); 
 	//DLE
 	info.width=mm2pts(110);
 	info.height=mm2pts(220);
 	info.pageUnitIndex=SC_MM;
 	info.trSizeName=QObject::tr("DLE");
-	pageSizeList.insert("DLE", info); 
+	m_pageSizeList.insert("DLE", info); 
 	// additional page sizes used by Viva Designer
 	//Compact Disc
 	info.width=mm2pts(119.9);
 	info.height=mm2pts(120.7);
 	info.pageUnitIndex=SC_MM;
 	info.trSizeName=QObject::tr("Compact Disc");
-	pageSizeList.insert("Compact Disc", info);
+	m_pageSizeList.insert("Compact Disc", info);
 	//Letter Half
 	info.width=mm2pts(139.7);
 	info.height=mm2pts(215.9);
 	info.pageUnitIndex=SC_MM;
 	info.trSizeName=QObject::tr("Letter Half");
-	pageSizeList.insert("Letter Half", info);
+	m_pageSizeList.insert("Letter Half", info);
 	//US Letter
 	info.width=mm2pts(215.9);
 	info.height=mm2pts(279.4);
 	info.pageUnitIndex=SC_MM;
 	info.trSizeName=QObject::tr("US Letter");
-	pageSizeList.insert("US Letter", info);
+	m_pageSizeList.insert("US Letter", info);
 	//US Legal
 	info.width=mm2pts(215.9);
 	info.height=mm2pts(355.6);
 	info.pageUnitIndex=SC_MM;
 	info.trSizeName=QObject::tr("US Legal");
-	pageSizeList.insert("US Legal", info);
+	m_pageSizeList.insert("US Legal", info);
 	//11x17
 	info.width=in2pts(11);
 	info.height=in2pts(17);
 	info.pageUnitIndex=SC_IN;
 	info.trSizeName=QObject::tr("11x17");
-	pageSizeList.insert("11x17", info);
+	m_pageSizeList.insert("11x17", info);
 	//Executive
 	//Folio
 	//Ledger
@@ -362,7 +362,7 @@ void PageSize::generateSizeList()
 void PageSize::printSizeList()
 {
 	PageSizeInfoMap::Iterator it;
-	for (it=pageSizeList.begin();it!=pageSizeList.end();++it)
+	for (it=m_pageSizeList.begin();it!=m_pageSizeList.end();++it)
 		std::cout << it.key().leftJustified(6).toStdString() << ": " << it.value().width << " x " << it.value().height << ",  " << it.value().width*unitGetRatioFromIndex(it.value().pageUnitIndex) << " x " << it.value().height*unitGetRatioFromIndex(it.value().pageUnitIndex) << ",  " << it.value().trSizeName.toStdString() << std::endl;
 }
 
