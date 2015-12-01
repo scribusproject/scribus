@@ -33,11 +33,11 @@ public:
 	void setSourceFile(QString sourceFile);
 
 private:
-	QString currentDir;
-	QString currentFile;
+	QString m_currentDir;
+	QString m_currentFile;
 
-	std::vector<nfttemplate*> *templates;
-	QMap<QString, QString> cats;
+	std::vector<nfttemplate*> *m_templates;
+	QMap<QString, QString> m_cats;
 
 	bool parseTemplate(QXmlStreamReader& reader, nfttemplate* nftTemplate);
 
