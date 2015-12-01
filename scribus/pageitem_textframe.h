@@ -116,8 +116,8 @@ private:
 	QList<int> incompletePositions;
 
 	void setShadow();
-	QString currentShadow;
-	QMap<QString,StoryText> shadows;
+	QString m_currentShadow;
+	QMap<QString,StoryText> m_shadows;
 	bool checkKeyIsShortcut(QKeyEvent *k);
 	QRectF m_origAnnotPos;
 	
