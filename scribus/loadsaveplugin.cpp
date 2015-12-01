@@ -13,7 +13,7 @@ for which a new license (GPL+exception) is in place.
 #include <QList>
 #include <QMessageBox>
 
-QList<FileFormat> LoadSavePlugin::formats;
+QList<FileFormat> LoadSavePlugin::m_formats;
 
 LoadSavePlugin::LoadSavePlugin()
 	: ScPlugin(),
@@ -22,7 +22,7 @@ LoadSavePlugin::LoadSavePlugin()
 	m_ScMW(0),
 	m_mwProgressBar(0),
 	m_AvailableFonts(0),
-	undoManager(UndoManager::instance())
+	m_undoManager(UndoManager::instance())
 {
 }
 
@@ -33,13 +33,13 @@ LoadSavePlugin::~LoadSavePlugin()
 // STATIC method - return a list of all existing formats
 const QList<FileFormat> & LoadSavePlugin::supportedFormats()
 {
-	return formats;
+	return m_formats;
 }
 
 const FileFormat * LoadSavePlugin::getFormatById(const int id)
 {
 	QList<FileFormat>::iterator it(findFormat(id));
-	if (it == formats.end())
+	if (it == m_formats.end())
 		return 0;
 	else
 		return &(*it);
@@ -48,7 +48,7 @@ const FileFormat * LoadSavePlugin::getFormatById(const int id)
 FileFormat * LoadSavePlugin::getFormatByID(int id)
 {
 	QList<FileFormat>::iterator it(findFormat(id));
-	if (it == formats.end())
+	if (it == m_formats.end())
 		return 0;
 	else
 		return &(*it);
@@ -57,7 +57,7 @@ FileFormat * LoadSavePlugin::getFormatByID(int id)
 FileFormat* LoadSavePlugin::getFormatByExt(const QString ext)
 {
 	QList<FileFormat>::iterator it(findFormat(ext));
-	if (it == formats.end())
+	if (it == m_formats.end())
 		return 0;
 	else
 		return &(*it);
@@ -76,7 +76,7 @@ const QStringList LoadSavePlugin::fileDialogSaveFilter()
 const QStringList LoadSavePlugin::getExtensionsForColors(const int id)
 {
 	QList<FileFormat>::const_iterator it(findFormat(id));
-	QList<FileFormat>::const_iterator itEnd(formats.constEnd());
+	QList<FileFormat>::const_iterator itEnd(m_formats.constEnd());
 	QStringList filterList;
 	// We know the list is sorted by id, then priority, so we can just take the
 	// highest priority entry for each ID, and we can start with the first entry
@@ -112,7 +112,7 @@ const QStringList LoadSavePlugin::getExtensionsForColors(const int id)
 const QStringList LoadSavePlugin::getExtensionsForImport(const int id)
 {
 	QList<FileFormat>::const_iterator it(findFormat(id));
-	QList<FileFormat>::const_iterator itEnd(formats.constEnd());
+	QList<FileFormat>::const_iterator itEnd(m_formats.constEnd());
 	QStringList filterList;
 	// We know the list is sorted by id, then priority, so we can just take the
 	// highest priority entry for each ID, and we can start with the first entry
@@ -148,7 +148,7 @@ const QStringList LoadSavePlugin::getExtensionsForImport(const int id)
 const QStringList LoadSavePlugin::getExtensionsForPreview(const int id)
 {
 	QList<FileFormat>::const_iterator it(findFormat(id));
-	QList<FileFormat>::const_iterator itEnd(formats.constEnd());
+	QList<FileFormat>::const_iterator itEnd(m_formats.constEnd());
 	QStringList filterList;
 	// We know the list is sorted by id, then priority, so we can just take the
 	// highest priority entry for each ID, and we can start with the first entry
@@ -183,8 +183,8 @@ const QStringList LoadSavePlugin::getExtensionsForPreview(const int id)
 
 const QStringList LoadSavePlugin::getDialogFilter(bool forLoad)
 {
-	QList<FileFormat>::const_iterator it(formats.constBegin());
-	QList<FileFormat>::const_iterator itEnd(formats.constEnd());
+	QList<FileFormat>::const_iterator it(m_formats.constBegin());
+	QList<FileFormat>::const_iterator itEnd(m_formats.constEnd());
 	QStringList filterList;
 	// We know the list is sorted by id, then priority, so we can just take the
 	// highest priority entry for each ID, and we can start with the first entry
@@ -290,12 +290,12 @@ void LoadSavePlugin::registerFormat(FileFormat & fmt)
 	if (fmt.formatId == 0) // only for custom plugins
 	{
 		uint id;
-		if (formats.isEmpty())
+		if (m_formats.isEmpty())
 			id = FORMATID_FIRSTUSER;
 		else
 		{
-			QList<FileFormat>::iterator it(formats.begin());
-			QList<FileFormat>::iterator itEnd(formats.end());
+			QList<FileFormat>::iterator it(m_formats.begin());
+			QList<FileFormat>::iterator itEnd(m_formats.end());
 			id = FORMATID_FIRSTUSER - 1;
 			while (it != itEnd)
 			{
@@ -308,12 +308,12 @@ void LoadSavePlugin::registerFormat(FileFormat & fmt)
 //			id++;
 		}
 		fmt.formatId = id;
-		formats.insert(id, fmt);
+		m_formats.insert(id, fmt);
 	}
 	else
 	{
-		QList<FileFormat>::iterator it(formats.begin());
-		QList<FileFormat>::iterator itEnd(formats.end());
+		QList<FileFormat>::iterator it(m_formats.begin());
+		QList<FileFormat>::iterator itEnd(m_formats.end());
 		while (it != itEnd)
 		{
 			if ( ( ((*it).formatId == fmt.formatId) && ((*it).priority <= fmt.priority) ) ||
@@ -321,7 +321,7 @@ void LoadSavePlugin::registerFormat(FileFormat & fmt)
 					break;
 			++it;
 		}
-		formats.insert(it, fmt);
+		m_formats.insert(it, fmt);
 	}
 	//qDebug("Format: Id: %3u, Prio: %3hu, Name: %s", fmt.formatId, fmt.priority, fmt.trName.toLocal8Bit().data() );
 	//printFormatList(); // DEBUG
@@ -331,8 +331,8 @@ void LoadSavePlugin::registerFormat(FileFormat & fmt)
 void LoadSavePlugin::printFormatList()
 {
 	qDebug("Current format list:");
-	QList<FileFormat>::const_iterator it(formats.constBegin());
-	QList<FileFormat>::const_iterator itEnd(formats.constEnd());
+	QList<FileFormat>::const_iterator it(m_formats.constBegin());
+	QList<FileFormat>::const_iterator itEnd(m_formats.constEnd());
 	for ( ; it != itEnd ; ++it )
 	{
 		qDebug("    Format: Id: %3u, Prio: %3hu, Name: %s",  (*it).formatId, (*it).priority, (*it).trName.toLocal8Bit().data() );
@@ -343,17 +343,17 @@ void LoadSavePlugin::printFormatList()
 void LoadSavePlugin::unregisterFormat(unsigned int id)
 {
 	QList<FileFormat>::iterator it(findFormat(id, this));
-	Q_ASSERT(it != formats.end());
-	formats.erase(it);
+	Q_ASSERT(it != m_formats.end());
+	m_formats.erase(it);
 }
 
 void LoadSavePlugin::unregisterAll()
 {
-	QList<FileFormat>::iterator it(formats.begin());
-	while (it != formats.end())
+	QList<FileFormat>::iterator it(m_formats.begin());
+	while (it != m_formats.end())
 	{
 		if ((*it).plug == this)
-			it = formats.erase(it);
+			it = m_formats.erase(it);
 		else
 			++it;
 	}
@@ -362,7 +362,7 @@ void LoadSavePlugin::unregisterAll()
 QList<FileFormat>::iterator
 LoadSavePlugin::findFormat(unsigned int id, LoadSavePlugin* plug, QList<FileFormat>::iterator it)
 {
-	QList<FileFormat>::iterator itEnd(formats.end());
+	QList<FileFormat>::iterator itEnd(m_formats.end());
 	for ( ; it != itEnd ; ++it )
 	{
 		if (((*it).formatId == id) && ((plug == 0) || (plug == (*it).plug)))
@@ -374,7 +374,7 @@ LoadSavePlugin::findFormat(unsigned int id, LoadSavePlugin* plug, QList<FileForm
 QList<FileFormat>::iterator
 LoadSavePlugin::findFormat(const QString& extension, LoadSavePlugin* plug, QList<FileFormat>::iterator it)
 {
-	QList<FileFormat>::iterator itEnd(formats.end());
+	QList<FileFormat>::iterator itEnd(m_formats.end());
 	for ( ; it != itEnd ; ++it )
 	{
 		if (((*it).fileExtensions.contains(extension.toLower())) && ((plug == 0) || (plug == (*it).plug)) )

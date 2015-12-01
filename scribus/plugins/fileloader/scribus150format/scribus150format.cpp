@@ -6090,7 +6090,7 @@ bool Scribus150Format::loadPage(const QString & fileName, int pageNumber, bool M
 				ss->set("VERTICAL_AUTOCOUNT", newPage->guides.verticalAutoCount());
 				ss->set("HORIZONTAL_AUTOREFER", newPage->guides.horizontalAutoRefer());
 				ss->set("VERTICAL_AUTOREFER", newPage->guides.verticalAutoRefer());
-				undoManager->action(newPage, ss);
+				m_undoManager->action(newPage, ss);
 			}
 		}
 		if ((tagName == "PAGEOBJECT") || (tagName == "MASTEROBJECT") || (tagName == "FRAMEOBJECT"))

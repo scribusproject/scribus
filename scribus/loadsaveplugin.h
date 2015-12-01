@@ -142,14 +142,14 @@ class SCRIBUS_API LoadSavePlugin : public ScPlugin
 		QProgressBar*      m_mwProgressBar;
 		SCFonts*           m_AvailableFonts;
 		QString            m_lastSavedFile;
-		UndoManager * const undoManager;
+		UndoManager * const m_undoManager;
 
 	private:
 		// A list of all supported formats. This is maintained by plugins
 		// using the protected `registerFormat(...)', `unregisterFormat(...)'
 		// and `unregisterAll(...)' methods. This is sorted in a very specific
 		// order - ascending ID, then descending priority.
-		static QList<FileFormat> formats;
+		static QList<FileFormat> m_formats;
 
 		// Return an iterator referencing the first format structure named `name'.
 		// If specified, only return formats implmented by `plug'.
@@ -162,11 +162,11 @@ class SCRIBUS_API LoadSavePlugin : public ScPlugin
 		// return the next lowest priority format.
 		static QList<FileFormat>::iterator findFormat(unsigned int id,
 				LoadSavePlugin* plug = 0,
-				QList<FileFormat>::iterator it = formats.begin());
+				QList<FileFormat>::iterator it = m_formats.begin());
 				
 		static QList<FileFormat>::iterator findFormat(const QString& extension,
 				LoadSavePlugin* plug = 0,
-				QList<FileFormat>::iterator it = formats.begin());
+				QList<FileFormat>::iterator it = m_formats.begin());
 
 		// Print out a format list for debugging purposes
 		static void printFormatList();
