@@ -12,13 +12,13 @@ void NotesStyle::setEndNotes(bool setendnotes)
 
 bool NotesStyle::operator!=(const NotesStyle& n2)
 {
-	return ((nameStr != n2.nameStr) || (startNum != n2.startNum) || (m_endNotesStyle != n2.m_endNotesStyle) ||
-			(getType() != static_cast<NotesStyle>(n2).getType()) || (numRange != n2.numRange) ||
-			(prefixStr != n2.prefixStr) || (suffixStr != n2.suffixStr) ||
-			(autoNotesHeight != n2.autoNotesHeight) || (autoNotesWidth != n2.autoNotesWidth) ||
-			(autoRemoveEmptyNotesFrames != n2.autoRemoveEmptyNotesFrames) || (autoWeldNotesFrames != n2.autoWeldNotesFrames) ||
-			(superscriptInMaster != n2.superscriptInMaster) || (superscriptInNote != n2.superscriptInNote) ||
-			(marksCharStyle != n2.marksCharStyle) || (notesParaStyle != n2.notesParaStyle)
+	return ((m_nameStr != n2.m_nameStr) || (m_startNum != n2.m_startNum) || (m_endNotesStyle != n2.m_endNotesStyle) ||
+			(getType() != static_cast<NotesStyle>(n2).getType()) || (m_numRange != n2.m_numRange) ||
+			(m_prefixStr != n2.m_prefixStr) || (m_suffixStr != n2.m_suffixStr) ||
+			(m_autoNotesHeight != n2.m_autoNotesHeight) || (m_autoNotesWidth != n2.m_autoNotesWidth) ||
+			(m_autoRemoveEmptyNotesFrames != n2.m_autoRemoveEmptyNotesFrames) || (m_autoWeldNotesFrames != n2.m_autoWeldNotesFrames) ||
+			(m_superscriptInMaster != n2.m_superscriptInMaster) || (m_superscriptInNote != n2.m_superscriptInNote) ||
+			(m_marksCharStyle != n2.m_marksCharStyle) || (m_notesParaStyle != n2.m_notesParaStyle)
 			);
 }
 
