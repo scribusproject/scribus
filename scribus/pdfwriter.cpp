@@ -452,14 +452,14 @@ namespace Pdf
 		MetaDataObj = 0;
 		ResourcesObj = 0;
 		
-		CurrentObj = 0;
+		m_CurrentObj = 0;
 		
-		KeyLen = 5;
-		KeyGen.resize(32);
-		OwnerKey.resize(32);
-		UserKey.resize(32);
-		FileID.resize(16);
-		EncryKey.resize(5);
+		m_KeyLen = 5;
+		m_KeyGen.resize(32);
+		m_OwnerKey.resize(32);
+		m_UserKey.resize(32);
+		m_FileID.resize(16);
+		m_EncryKey.resize(5);
 		
 		int kg_array[] = {
 		    0x28, 0xbf, 0x4e, 0x5e, 0x4e, 0x75, 0x8a, 0x41,
@@ -467,18 +467,18 @@ namespace Pdf
 		    0x2e, 0x2e, 0x00, 0xb6, 0xd0, 0x68, 0x3e, 0x80,
 		    0x2f, 0x0c, 0xa9, 0xfe, 0x64, 0x53, 0x69, 0x7a };
 		for (int a = 0; a < 32; ++a)
-			KeyGen[a] = kg_array[a];
+			m_KeyGen[a] = kg_array[a];
 
 	}
 	
 	
 	bool Writer::open(const QString& fn)
 	{
-		Spool.setFileName(fn);
-		if (!Spool.open(QIODevice::WriteOnly))
+		m_Spool.setFileName(fn);
+		if (!m_Spool.open(QIODevice::WriteOnly))
 			return false;
-		outStream.setDevice(&Spool);
-		ObjCounter = 9;
+		m_outStream.setDevice(&m_Spool);
+		m_ObjCounter = 9;
 		return true;
 	}
 	
@@ -487,25 +487,25 @@ namespace Pdf
 	{
 		if (encrypted)
 		{
-			QByteArray step1 = ComputeRC4Key(ObjCounter);
-			return new ScRC4EncodeFilter(&outStream, step1.data(), qMin(KeyLen+5, 16));
+			QByteArray step1 = ComputeRC4Key(m_ObjCounter);
+			return new ScRC4EncodeFilter(&m_outStream, step1.data(), qMin(m_KeyLen+5, 16));
 		}
 		else
 		{
-			return new ScNullEncodeFilter(&outStream);
+			return new ScNullEncodeFilter(&m_outStream);
 		}
 	}
 	
 	
 	bool Writer::close(bool abortExport)
 	{
-		bool result = (Spool.error() == QFile::NoError);
+		bool result = (m_Spool.error() == QFile::NoError);
 
-		Spool.close();
+		m_Spool.close();
 		if (abortExport || !result)
 		{
-			if (Spool.exists())
-				Spool.remove();
+			if (m_Spool.exists())
+				m_Spool.remove();
 		}
 		return result;
 	}
@@ -513,7 +513,7 @@ namespace Pdf
 	
 	void Writer::setFileId(const QByteArray& id)
 	{
-		FileID = QCryptographicHash::hash(id, QCryptographicHash::Md5);
+		m_FileID = QCryptographicHash::hash(id, QCryptographicHash::Md5);
 	}
 	
 	
@@ -523,24 +523,24 @@ namespace Pdf
 		QByteArray uk = "";
 		
 		if (keyLen16)
-			KeyLen = 16;
+			m_KeyLen = 16;
 		else
-			KeyLen = 5;
+			m_KeyLen = 5;
 		CalcOwnerKey(PassOwner, PassUser);
 		CalcUserKey(PassUser, Permissions);
 		for (uint cl2 = 0; cl2 < 32; ++cl2)
-			ok += (OwnerKey[cl2]);
+			ok += (m_OwnerKey[cl2]);
 		if (keyLen16)
 		{
 			for (uint cl3 = 0; cl3 < 16; ++cl3)
-				uk += (UserKey[cl3]);
+				uk += (m_UserKey[cl3]);
 			for (uint cl3r = 0; cl3r < 16; ++cl3r)
-				uk += (KeyGen[cl3r]);
+				uk += (m_KeyGen[cl3r]);
 		}
 		else
 		{
 			for (uint cl = 0; cl < 32; ++cl)
-				uk += (UserKey[cl]);
+				uk += (m_UserKey[cl]);
 		}
 
 		EncryptObj = newObject();
@@ -562,7 +562,7 @@ namespace Pdf
 		if (in.length() > 0)
 		{
 			QByteArray step1 = ComputeRC4Key(ObjNum);
-			rc4_init(&rc4, reinterpret_cast<uchar*>(step1.data()), qMin(KeyLen+5, 16));
+			rc4_init(&rc4, reinterpret_cast<uchar*>(step1.data()), qMin(m_KeyLen+5, 16));
 			rc4_encrypt(&rc4, reinterpret_cast<const uchar*>(in.data()), reinterpret_cast<uchar*>(result.data()), in.length());
 		}
 		return result;
@@ -572,11 +572,11 @@ namespace Pdf
 	{
 		int dlen = 0;
 		QByteArray data(10, ' ');
-		if (KeyLen > 5)
+		if (m_KeyLen > 5)
 			data.resize(21);
-		for (int cd = 0; cd < KeyLen; ++cd)
+		for (int cd = 0; cd < m_KeyLen; ++cd)
 		{
-			data[cd] = EncryKey[cd];
+			data[cd] = m_EncryKey[cd];
 			dlen++;
 		}
 		data[dlen++] = ObjNum;
@@ -586,7 +586,7 @@ namespace Pdf
 		data[dlen++] = 0;
 		QByteArray rc4Key(16, ' ');
 		rc4Key = QCryptographicHash::hash(data, QCryptographicHash::Md5);
-		rc4Key.resize(qMin(KeyLen+5, 16));
+		rc4Key.resize(qMin(m_KeyLen+5, 16));
 		return rc4Key;
 	}
 	
@@ -598,7 +598,7 @@ namespace Pdf
 		{
 			uint l = pw.length();
 			for (uint a = 0; a < 32 - l; ++a)
-				pw += (KeyGen[a]);
+				pw += (m_KeyGen[a]);
 		}
 		else
 			pw = pw.left(32);
@@ -612,24 +612,24 @@ namespace Pdf
 		QByteArray pw2(FitKey(Owner.isEmpty() ? User : Owner));
 		QByteArray step1(16, ' ');
 		step1 = QCryptographicHash::hash(pw2, QCryptographicHash::Md5);
-		if (KeyLen > 5)
+		if (m_KeyLen > 5)
 		{
 			for (int kl = 0; kl < 50; ++kl)
 				step1 = QCryptographicHash::hash(step1, QCryptographicHash::Md5);
 		}
 		QByteArray us(32, ' ');
 		QByteArray enk(16, ' ');
-		if (KeyLen > 5)
+		if (m_KeyLen > 5)
 		{
 			for (uint a2 = 0; a2 < 32; ++a2)
-				OwnerKey[a2] = QChar(pw.at(a2)).cell();
+				m_OwnerKey[a2] = QChar(pw.at(a2)).cell();
 			for (int rl = 0; rl < 20; rl++)
 			{
 				for (int j = 0; j < 16; j ++)
 					enk[j] = step1[j] ^ rl;
 				rc4_init(&rc4, reinterpret_cast<uchar*>(enk.data()), 16);
-				rc4_encrypt(&rc4, reinterpret_cast<uchar*>(OwnerKey.data()),
-							reinterpret_cast<uchar*>(OwnerKey.data()), 32);
+				rc4_encrypt(&rc4, reinterpret_cast<uchar*>(m_OwnerKey.data()),
+							reinterpret_cast<uchar*>(m_OwnerKey.data()), 32);
 			}
 		}
 		else
@@ -638,7 +638,7 @@ namespace Pdf
 				us[a] = static_cast<uchar>(QChar(pw.at(a)).cell());
 			rc4_init(&rc4, reinterpret_cast<uchar*>(step1.data()), 5);
 			rc4_encrypt(&rc4, reinterpret_cast<uchar*>(us.data()),
-						reinterpret_cast<uchar*>(OwnerKey.data()), 32);
+						reinterpret_cast<uchar*>(m_OwnerKey.data()), 32);
 		}
 	}
 	
@@ -654,43 +654,43 @@ namespace Pdf
 		perm[2] = perm_value >> 16;
 		perm[3] = perm_value >> 24;
 		for (uint a = 0; a < 32; ++a)
-			pw += (OwnerKey[a]);
+			pw += (m_OwnerKey[a]);
 		for (uint a1 = 0; a1 < 4; ++a1)
 			pw += (perm[a1]);
 		for (uint a3 = 0; a3 < 16; ++a3)
-			pw += (FileID[a3]);
+			pw += (m_FileID[a3]);
 		step1 = QCryptographicHash::hash(pw, QCryptographicHash::Md5);
-		if (KeyLen > 5)
+		if (m_KeyLen > 5)
 		{
 			for (int kl = 0; kl < 50; ++kl)
 				step1 = QCryptographicHash::hash(step1, QCryptographicHash::Md5);
-			EncryKey.resize(16);
+			m_EncryKey.resize(16);
 		}
-		for (int a2 = 0; a2 < KeyLen; ++a2)
-			EncryKey[a2] = step1[a2];
-		if (KeyLen > 5)
+		for (int a2 = 0; a2 < m_KeyLen; ++a2)
+			m_EncryKey[a2] = step1[a2];
+		if (m_KeyLen > 5)
 		{
 			QByteArray pr2("");
 			for (int kl3 = 0; kl3 < 32; ++kl3)
-				pr2 += (KeyGen[kl3]);
+				pr2 += (m_KeyGen[kl3]);
 			for (uint a4 = 0; a4 < 16; ++a4)
-				pr2 += (FileID[a4]);
+				pr2 += (m_FileID[a4]);
 			step1 = QCryptographicHash::hash(pr2, QCryptographicHash::Md5);
 			QByteArray enk(16, ' ');
 			for (uint a3 = 0; a3 < 16; ++a3)
-				UserKey[a3] = step1[a3];
+				m_UserKey[a3] = step1[a3];
 			for (int rl = 0; rl < 20; rl++)
 			{
 				for (int j = 0; j < 16; j ++)
-					enk[j] = EncryKey[j] ^ rl;
+					enk[j] = m_EncryKey[j] ^ rl;
 				rc4_init(&rc4, reinterpret_cast<uchar*>(enk.data()), 16);
-				rc4_encrypt(&rc4, reinterpret_cast<uchar*>(UserKey.data()), reinterpret_cast<uchar*>(UserKey.data()), 16);
+				rc4_encrypt(&rc4, reinterpret_cast<uchar*>(m_UserKey.data()), reinterpret_cast<uchar*>(m_UserKey.data()), 16);
 			}
 		}
 		else
 		{
 			rc4_init(&rc4, reinterpret_cast<uchar*>(step1.data()), 5);
-			rc4_encrypt(&rc4, reinterpret_cast<uchar*>(KeyGen.data()), reinterpret_cast<uchar*>(UserKey.data()), 32);
+			rc4_encrypt(&rc4, reinterpret_cast<uchar*>(m_KeyGen.data()), reinterpret_cast<uchar*>(m_UserKey.data()), 32);
 		}
 	}
 	
@@ -729,13 +729,13 @@ namespace Pdf
 		QByteArray tmp;
 		uint StX = bytesWritten();
 		write("xref\n");
-		write("0 "+Pdf::toPdf(ObjCounter)+"\n");
+		write("0 "+Pdf::toPdf(m_ObjCounter)+"\n");
 		//write("0000000000 65535 f \n");
-		for (int a = 0; a < XRef.count(); ++a)
+		for (int a = 0; a < m_XRef.count(); ++a)
 		{
-			if (XRef[a] > 0)
+			if (m_XRef[a] > 0)
 			{
-				tmp.setNum(XRef[a]);
+				tmp.setNum(m_XRef[a]);
 				while (tmp.length()< 10)
 				{
 					tmp.prepend('0');
@@ -749,10 +749,10 @@ namespace Pdf
 				write("0000000000 65535 f \n");
 			}
 		}
-		write("trailer\n<<\n/Size "+Pdf::toPdf(XRef.count())+"\n");
+		write("trailer\n<<\n/Size "+Pdf::toPdf(m_XRef.count())+"\n");
 		QByteArray IDs ="";
 		for (uint cl = 0; cl < 16; ++cl)
-			IDs += (FileID[cl]);
+			IDs += (m_FileID[cl]);
 		QByteArray IDbytes = Pdf::toHexString(IDs);
 		write("/Root 1 0 R\n/Info 2 0 R\n/ID ["+IDbytes+IDbytes+"]\n");
 		if (EncryptObj > 0)
@@ -764,7 +764,7 @@ namespace Pdf
 	
 	void Writer::write(const QByteArray& bytes)
 	{
-		outStream.writeRawData(bytes, bytes.size());
+		m_outStream.writeRawData(bytes, bytes.size());
 	}
 	
 	void Writer::write(const ResourceDictionary& dict)
@@ -834,32 +834,32 @@ namespace Pdf
 	PdfId Writer::reserveObjects(unsigned int n)
 	{
 		assert( n < (1<<30) ); // should only be triggered by reserveObjects(-1) or similar
-		PdfId result = ObjCounter;
-		ObjCounter += n;
+		PdfId result = m_ObjCounter;
+		m_ObjCounter += n;
 		return result;
 	}
 
 	void Writer::startObj(PdfId id)
 	{
-		assert( CurrentObj == 0);
-		CurrentObj = id;
-		while (static_cast<uint>(XRef.length()) <= id)
-			XRef.append(0);
-		XRef[id] = bytesWritten();
+		assert( m_CurrentObj == 0);
+		m_CurrentObj = id;
+		while (static_cast<uint>(m_XRef.length()) <= id)
+			m_XRef.append(0);
+		m_XRef[id] = bytesWritten();
 		write(toPdf(id));
 		write(" 0 obj\n");
 	}
 	
 	void Writer::endObj(PdfId id)
 	{
-		assert( CurrentObj == id);
-		CurrentObj = 0;
+		assert( m_CurrentObj == id);
+		m_CurrentObj = 0;
 		write("\nendobj\n");
 	}
 	
 	void Writer::endObjectWithStream(bool encrypted, PdfId id, const QByteArray& streamContent)
 	{
-		assert( CurrentObj == id);
+		assert( m_CurrentObj == id);
 		write("\nstream\n");
 		write(encrypted? encryptBytes(streamContent, id): streamContent);
 		write("\nendstream");
