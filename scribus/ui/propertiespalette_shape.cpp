@@ -11,7 +11,6 @@ for which a new license (GPL+exception) is in place.
 #define _USE_MATH_DEFINES
 #endif
 #include <cmath>
-#include <QSignalBlocker>
 
 #include "appmodes.h"
 #include "autoform.h"
