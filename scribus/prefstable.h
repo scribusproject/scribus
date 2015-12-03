@@ -40,10 +40,10 @@ typedef std::vector<QStringList> Table;
 class SCRIBUS_API PrefsTable
 {
 private:
- QString name;
- Table table;
- int rowCount;
- int colCount;
+ QString m_name;
+ Table m_table;
+ int m_rowCount;
+ int m_colCount;
  void checkSize(int rowIndex, int colIndex, QString defValue = "");
  void checkHeight(int rowIndex);
  void checkWidth(int rowIndex, int colIndex, QString defValue = "");
