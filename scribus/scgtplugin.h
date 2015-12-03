@@ -94,9 +94,9 @@ public:
 	void run();
 
 private:
-	static ScGTPluginManager *instance_;
+	static ScGTPluginManager *m_instance_;
 
-	QList<ScGTPlugin*> plugins_;
+	QList<ScGTPlugin*> m_plugins_;
 
 	ScGTPluginManager();
 	~ScGTPluginManager();
@@ -122,9 +122,9 @@ public:
 	bool append() const;
 
 private:
-	QWidget   *diaExtension_;
-	QCheckBox *showOptionsBox_;
-	QCheckBox *appendBox_;
+	QWidget   *m_diaExtension_;
+	QCheckBox *m_showOptionsBox_;
+	QCheckBox *m_appendBox_;
 	void customize();
 };
 

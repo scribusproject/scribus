@@ -20,7 +20,7 @@ for which a new license (GPL+exception) is in place.
 /***************************************************************************************/
 /***************************************************************************************/
 
-ScGTPluginManager* ScGTPluginManager::instance_ = 0; // init static variables
+ScGTPluginManager* ScGTPluginManager::m_instance_ = 0; // init static variables
 
 ScGTPluginManager::ScGTPluginManager()
 {
@@ -28,27 +28,27 @@ ScGTPluginManager::ScGTPluginManager()
 
 ScGTPluginManager* ScGTPluginManager::instance()
 {
-	if (!ScGTPluginManager::instance_)
-		instance_ = new ScGTPluginManager();
+	if (!ScGTPluginManager::m_instance_)
+		m_instance_ = new ScGTPluginManager();
 	
-	return instance_;
+	return m_instance_;
 }
 
 void ScGTPluginManager::deleteInstance()
 {
-	delete instance_;
-	instance_ = 0;
+	delete m_instance_;
+	m_instance_ = 0;
 }
 
 void ScGTPluginManager::registerGTPlugin(ScGTPlugin *plugin)
 {
 	if (plugin)
-		plugins_.append(plugin);
+		m_plugins_.append(plugin);
 }
 
 void ScGTPluginManager::unRegisterGTPlugin(ScGTPlugin *plugin)
 {
-	plugins_.removeAll(plugin);
+	m_plugins_.removeAll(plugin);
 }
 
 void ScGTPluginManager::run()
@@ -66,12 +66,12 @@ QString ScGTPluginManager::fileFilter()
 {
 	QString filters = "";
 	QString allSupported = QObject::tr("All Supported Formats") + " (";
-	for (int i = 0; i < plugins_.count(); ++i)
+	for (int i = 0; i < m_plugins_.count(); ++i)
 	{
-		if (plugins_.at(i)->fileExtensions().count() != 0)
+		if (m_plugins_.at(i)->fileExtensions().count() != 0)
 		{
-			filters += plugins_.at(i)->fileFormatName() + " (";
-			QStringList fileExtensions = plugins_.at(i)->fileExtensions();
+			filters += m_plugins_.at(i)->fileFormatName() + " (";
+			QStringList fileExtensions = m_plugins_.at(i)->fileExtensions();
 			for (int j = 0; j < fileExtensions.count(); ++j)
 			{
 				filters += "*." + fileExtensions[j] + " ";
@@ -112,39 +112,39 @@ ScGTFileDialog::ScGTFileDialog(const QString & dirName,
 
 bool ScGTFileDialog::showOptions() const
 {
-	return showOptionsBox_->isChecked();
+	return m_showOptionsBox_->isChecked();
 }
 
 bool ScGTFileDialog::append() const
 {
-	return appendBox_->isChecked();
+	return m_appendBox_->isChecked();
 }
 
 void ScGTFileDialog::customize()
 {
-	diaExtension_ = new QWidget(this);
-	diaExtension_->setObjectName("diaExtension_");
+	m_diaExtension_ = new QWidget(this);
+	m_diaExtension_->setObjectName("diaExtension_");
 
-	appendBox_      = new QCheckBox( tr("Append"), diaExtension_);
-	appendBox_->setObjectName("appendBox_"); 
-	showOptionsBox_ = new QCheckBox( tr("Show options"), diaExtension_);
-	showOptionsBox_->setObjectName("showOptionsBox_"); 
+	m_appendBox_      = new QCheckBox( tr("Append"), m_diaExtension_);
+	m_appendBox_->setObjectName("appendBox_"); 
+	m_showOptionsBox_ = new QCheckBox( tr("Show options"), m_diaExtension_);
+	m_showOptionsBox_->setObjectName("showOptionsBox_"); 
 
 	QHBoxLayout *layout = new QHBoxLayout;
 	layout->setSpacing(5);
-	layout->addWidget(appendBox_);
-	layout->addWidget(showOptionsBox_);
+	layout->addWidget(m_appendBox_);
+	layout->addWidget(m_showOptionsBox_);
 
-	diaExtension_->setLayout(layout);
+	m_diaExtension_->setLayout(layout);
 
-	addWidgets(diaExtension_);
+	addWidgets(m_diaExtension_);
 }
 
 ScGTFileDialog::~ScGTFileDialog()
 {
-	delete showOptionsBox_;
-	delete appendBox_;
-	delete diaExtension_;
+	delete m_showOptionsBox_;
+	delete m_appendBox_;
+	delete m_diaExtension_;
 }
 
 /***************************************************************************************/
