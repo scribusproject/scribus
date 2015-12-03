@@ -64,61 +64,61 @@ using namespace TableUtils;
 
 PSLib::PSLib(PrintOptions &options, bool psart, SCFonts &AllFonts, QMap<QString, QMap<uint, FPointArray> > DocFonts, ColorList DocColors, bool pdf, bool spot)
 {
-	Options = options;
-	optimization = OptimizeCompat;
-	usingGUI=ScCore->usingGUI();
-	abortExport=false;
+	m_Options = options;
+	m_optimization = OptimizeCompat;
+	m_usingGUI=ScCore->usingGUI();
+	m_abortExport=false;
 	QString tmp, tmp2, tmp3, tmp4, CHset;
 	QStringList wt;
-	Seiten = 0;
-	User = "";
-	Creator = "Scribus" + QString(VERSION);
-	Titel = "";
-	FillColor = "0.0 0.0 0.0 0.0";
-	StrokeColor = "0.0 0.0 0.0 0.0";
-	Header = psart ? "%!PS-Adobe-3.0\n" : "%!PS-Adobe-3.0 EPSF-3.0\n";
-	BBox = "";
-	BBoxH = "";
+	m_Seiten = 0;
+	m_User = "";
+	m_Creator = "Scribus" + QString(VERSION);
+	m_Titel = "";
+	m_FillColor = "0.0 0.0 0.0 0.0";
+	m_StrokeColor = "0.0 0.0 0.0 0.0";
+	m_Header = psart ? "%!PS-Adobe-3.0\n" : "%!PS-Adobe-3.0 EPSF-3.0\n";
+	m_BBox = "";
+	m_BBoxH = "";
 	psExport = psart;
-	isPDF = pdf;
-	UsedFonts.clear();
-	Fonts = "";
-	FontDesc = "";
-	GraySc = false;
-	DoSep = false;
-	abortExport = false;
-	useSpotColors = spot;
-	GrayCalc =  "/setcmykcolor {exch 0.11 mul add exch 0.59 mul add exch 0.3 mul add\n";
-	GrayCalc += "               dup 1 gt {pop 1} if 1 exch sub oldsetgray} bind def\n";
-	GrayCalc += "/setrgbcolor {0.11 mul exch 0.59 mul add exch 0.3 mul add\n";
-	GrayCalc += "              oldsetgray} bind def\n";
-	Farben = "";
-	FNamen = "";
+	m_isPDF = pdf;
+	m_UsedFonts.clear();
+	m_Fonts = "";
+	m_FontDesc = "";
+	m_GraySc = false;
+	m_DoSep = false;
+	m_abortExport = false;
+	m_useSpotColors = spot;
+	m_GrayCalc =  "/setcmykcolor {exch 0.11 mul add exch 0.59 mul add exch 0.3 mul add\n";
+	m_GrayCalc += "               dup 1 gt {pop 1} if 1 exch sub oldsetgray} bind def\n";
+	m_GrayCalc += "/setrgbcolor {0.11 mul exch 0.59 mul add exch 0.3 mul add\n";
+	m_GrayCalc += "              oldsetgray} bind def\n";
+	m_Farben = "";
+	m_FNamen = "";
 	CMYKColor cmykValues;
 	ColorList::Iterator itf;
 	int c, m, y, k;
 	int spotCount = 1;
 	bool erst = true;
-	colorsToUse = DocColors;
-	spotMap.clear();
-	colorDesc = "";
+	m_colorsToUse = DocColors;
+	m_spotMap.clear();
+	m_colorDesc = "";
 	for (itf = DocColors.begin(); itf != DocColors.end(); ++itf)
 	{
-		if (((itf->isSpotColor()) || (itf->isRegistrationColor())) && (useSpotColors))
+		if (((itf->isSpotColor()) || (itf->isRegistrationColor())) && (m_useSpotColors))
 		{
 			ScColorEngine::getCMYKValues(*itf, DocColors.document(), cmykValues);
 			cmykValues.getValues(c, m, y, k);
-			colorDesc += "/Spot"+QString::number(spotCount)+" { [ /Separation (";
+			m_colorDesc += "/Spot"+QString::number(spotCount)+" { [ /Separation (";
 			if (DocColors[itf.key()].isRegistrationColor())
-				colorDesc += "All";
+				m_colorDesc += "All";
 			else
-				colorDesc += itf.key();
-			colorDesc += ")\n";
-			colorDesc += "/DeviceCMYK\n{\ndup "+ToStr(static_cast<double>(c) / 255)+"\nmul exch dup ";
-			colorDesc += ToStr(static_cast<double>(m) / 255)+"\nmul exch dup ";
-			colorDesc += ToStr(static_cast<double>(y) / 255)+"\nmul exch ";
-			colorDesc += ToStr(static_cast<double>(k) / 255)+" mul }] setcolorspace setcolor} bind def\n";
-			spotMap.insert(itf.key(), "Spot"+QString::number(spotCount));
+				m_colorDesc += itf.key();
+			m_colorDesc += ")\n";
+			m_colorDesc += "/DeviceCMYK\n{\ndup "+ToStr(static_cast<double>(c) / 255)+"\nmul exch dup ";
+			m_colorDesc += ToStr(static_cast<double>(m) / 255)+"\nmul exch dup ";
+			m_colorDesc += ToStr(static_cast<double>(y) / 255)+"\nmul exch ";
+			m_colorDesc += ToStr(static_cast<double>(k) / 255)+" mul }] setcolorspace setcolor} bind def\n";
+			m_spotMap.insert(itf.key(), "Spot"+QString::number(spotCount));
 			++spotCount;
 		}
 		if ((itf.key() != "Cyan") && (itf.key() != "Magenta") && (itf.key() != "Yellow") && (itf.key() != "Black") && DocColors[itf.key()].isSpotColor())
@@ -127,12 +127,12 @@ PSLib::PSLib(PrintOptions &options, bool psart, SCFonts &AllFonts, QMap<QString,
 			cmykValues.getValues(c, m, y, k);
 			if (!erst)
 			{
-				Farben += "%%+ ";
-				FNamen += "%%+ ";
+				m_Farben += "%%+ ";
+				m_FNamen += "%%+ ";
 			}
-			Farben += ToStr(static_cast<double>(c) / 255) + " " + ToStr(static_cast<double>(m) / 255) + " ";
-			Farben += ToStr(static_cast<double>(y) / 255) + " " + ToStr(static_cast<double>(k) / 255) + " (" + itf.key() + ")\n";
-			FNamen += "(" + itf.key() + ")\n";
+			m_Farben += ToStr(static_cast<double>(c) / 255) + " " + ToStr(static_cast<double>(m) / 255) + " ";
+			m_Farben += ToStr(static_cast<double>(y) / 255) + " " + ToStr(static_cast<double>(k) / 255) + " (" + itf.key() + ")\n";
+			m_FNamen += "(" + itf.key() + ")\n";
 			erst = false;
 		}
 	}
@@ -158,12 +158,12 @@ PSLib::PSLib(PrintOptions &options, bool psart, SCFonts &AllFonts, QMap<QString,
 				encodedName = QString("%1-%2").arg(initialName).arg(psNameIndex);
 				++psNameIndex;
 			}
-			FontDesc += "/" + encodedName + " " + IToStr(RealGlyphs.count()+1) + " dict def\n";
-			FontDesc += encodedName + " begin\n";
+			m_FontDesc += "/" + encodedName + " " + IToStr(RealGlyphs.count()+1) + " dict def\n";
+			m_FontDesc += encodedName + " begin\n";
 			QMap<uint,FPointArray>::Iterator ig;
 			for (ig = RealGlyphs.begin(); ig != RealGlyphs.end(); ++ig)
 			{
-				FontDesc += "/G"+IToStr(ig.key())+" { newpath\n";
+				m_FontDesc += "/G"+IToStr(ig.key())+" { newpath\n";
 				FPoint np, np1, np2;
 				bool nPath = true;
 				if (ig.value().size() > 3)
@@ -172,104 +172,104 @@ PSLib::PSLib(PrintOptions &options, bool psart, SCFonts &AllFonts, QMap<QString,
 					{
 						if (ig.value().isMarker(poi))
 						{
-							FontDesc += "cl\n";
+							m_FontDesc += "cl\n";
 							nPath = true;
 							continue;
 						}
 						if (nPath)
 						{
 							np = ig.value().point(poi);
-							FontDesc += ToStr(np.x()) + " " + ToStr(-np.y()) + " m\n";
+							m_FontDesc += ToStr(np.x()) + " " + ToStr(-np.y()) + " m\n";
 							nPath = false;
 						}
 						np = ig.value().point(poi+1);
 						np1 = ig.value().point(poi+3);
 						np2 = ig.value().point(poi+2);
-						FontDesc += ToStr(np.x()) + " " + ToStr(-np.y()) + " " +
+						m_FontDesc += ToStr(np.x()) + " " + ToStr(-np.y()) + " " +
 								ToStr(np1.x()) + " " + ToStr(-np1.y()) + " " +
 								ToStr(np2.x()) + " " + ToStr(-np2.y()) + " cu\n";
 					}
 				}
-				FontDesc += "cl\n} bind def\n";
+				m_FontDesc += "cl\n} bind def\n";
 			}
-			FontDesc += "end\n";
-			FontSubsetMap.insert(face.scName(), encodedName);
+			m_FontDesc += "end\n";
+			m_FontSubsetMap.insert(face.scName(), encodedName);
 		}
 		else
 		{
-			UsedFonts.insert(it.key(), "/Fo"+IToStr(a));
-			Fonts += "/Fo" + IToStr(a) + " /" + encodedName + " findfont definefont pop\n";
+			m_UsedFonts.insert(it.key(), "/Fo"+IToStr(a));
+			m_Fonts += "/Fo" + IToStr(a) + " /" + encodedName + " findfont definefont pop\n";
 			if (AllFonts[it.key()].embedPs())
 			{
 				QByteArray tmp;
 				if(face.EmbedFont(tmp))
 				{
-					FontDesc += "%%BeginFont: " + encodedName + "\n";
-					FontDesc += tmp + "\n%%EndFont\n";
+					m_FontDesc += "%%BeginFont: " + encodedName + "\n";
+					m_FontDesc += tmp + "\n%%EndFont\n";
 				}
 			}
             ScFace::FaceEncoding gl;
 			face.glyphNames(gl);
-			GlyphsOfFont.insert(it.key(), gl);
+			m_GlyphsOfFont.insert(it.key(), gl);
 			a++;
 		}
 		psNameMap.insert(encodedName, face.scName());
 	}
-	Prolog = "%%BeginProlog\n";
-	Prolog += "/Scribusdict 100 dict def\n";
-	Prolog += "Scribusdict begin\n";
-	Prolog += "/sp {showpage} bind def\n";
-	Prolog += "/oldsetgray /setgray load def\n";
-	Prolog += "/cmyk {setcmykcolor} def\n";
-	Prolog += "/m {moveto} bind def\n";
-	Prolog += "/l {lineto} bind def\n";
-	Prolog += "/li {lineto} bind def\n";
-	Prolog += "/cu {curveto} bind def\n";
-	Prolog += "/cl {closepath} bind def\n";
-	Prolog += "/gs {gsave} bind def\n";
-	Prolog += "/gr {grestore} bind def\n";
-	Prolog += "/tr {translate} bind def\n";
-	Prolog += "/ro {rotate} bind def\n";
-	Prolog += "/sh {show} bind def\n";
-	Prolog += "/shg {setcmykcolor moveto glyphshow} def\n";
-	Prolog += "/shgsp {moveto glyphshow} def\n";
-	Prolog += "/sc {scale} bind def\n";
-	Prolog += "/se {selectfont} bind def\n";
-	Prolog += "/sf {setfont} bind def\n";
-	Prolog += "/sw {setlinewidth} bind def\n";
-	Prolog += "/f  {findfont} bind def\n";
-	Prolog += "/fi {fill} bind def\n";
-	Prolog += "/st {stroke} bind def\n";
-	Prolog += "/shgf {gs dup scale begin cvx exec fill end gr} bind def\n";
-	Prolog += "/shgs {gs dup 1 exch div currentlinewidth mul sw dup scale\n";
-	Prolog += "       begin cvx exec st end gr} bind def\n";
-	Prolog += "/bEPS {\n";
-	Prolog += "    /b4_Inc_state save def\n";
-	Prolog += "    /dict_count countdictstack def\n";
-	Prolog += "    /op_count count 1 sub def\n";
-	Prolog += "    userdict begin\n";
-	Prolog += "    /showpage { } def\n";
-	Prolog += "    0 setgray 0 setlinecap\n";
-	Prolog += "    1 setlinewidth 0 setlinejoin\n";
-	Prolog += "    10 setmiterlimit [ ] 0 setdash newpath\n";
-	Prolog += "    /languagelevel where\n";
-	Prolog += "    {pop languagelevel\n";
-	Prolog += "    1 ne\n";
-	Prolog += "    {false setstrokeadjust false setoverprint\n";
-	Prolog += "    } if } if } bind def\n";
-	Prolog += "/eEPS { count op_count sub {pop} repeat\n";
-	Prolog += "    countdictstack dict_count sub {end} repeat\n";
-	Prolog += "    b4_Inc_state restore } bind def\n";
-	Prolog += "    end\n";
-	if ((Options.cropMarks) || (Options.bleedMarks) || (Options.registrationMarks) || (Options.colorMarks))
-		Prolog += "/rb { [ /Separation (All)\n/DeviceCMYK { dup 0 mul exch dup 0 mul exch dup 0 mul exch 1 mul }\n] setcolorspace setcolor} bind def\n";
-	Prolog += "%%EndProlog\n";
+	m_Prolog = "%%BeginProlog\n";
+	m_Prolog += "/Scribusdict 100 dict def\n";
+	m_Prolog += "Scribusdict begin\n";
+	m_Prolog += "/sp {showpage} bind def\n";
+	m_Prolog += "/oldsetgray /setgray load def\n";
+	m_Prolog += "/cmyk {setcmykcolor} def\n";
+	m_Prolog += "/m {moveto} bind def\n";
+	m_Prolog += "/l {lineto} bind def\n";
+	m_Prolog += "/li {lineto} bind def\n";
+	m_Prolog += "/cu {curveto} bind def\n";
+	m_Prolog += "/cl {closepath} bind def\n";
+	m_Prolog += "/gs {gsave} bind def\n";
+	m_Prolog += "/gr {grestore} bind def\n";
+	m_Prolog += "/tr {translate} bind def\n";
+	m_Prolog += "/ro {rotate} bind def\n";
+	m_Prolog += "/sh {show} bind def\n";
+	m_Prolog += "/shg {setcmykcolor moveto glyphshow} def\n";
+	m_Prolog += "/shgsp {moveto glyphshow} def\n";
+	m_Prolog += "/sc {scale} bind def\n";
+	m_Prolog += "/se {selectfont} bind def\n";
+	m_Prolog += "/sf {setfont} bind def\n";
+	m_Prolog += "/sw {setlinewidth} bind def\n";
+	m_Prolog += "/f  {findfont} bind def\n";
+	m_Prolog += "/fi {fill} bind def\n";
+	m_Prolog += "/st {stroke} bind def\n";
+	m_Prolog += "/shgf {gs dup scale begin cvx exec fill end gr} bind def\n";
+	m_Prolog += "/shgs {gs dup 1 exch div currentlinewidth mul sw dup scale\n";
+	m_Prolog += "       begin cvx exec st end gr} bind def\n";
+	m_Prolog += "/bEPS {\n";
+	m_Prolog += "    /b4_Inc_state save def\n";
+	m_Prolog += "    /dict_count countdictstack def\n";
+	m_Prolog += "    /op_count count 1 sub def\n";
+	m_Prolog += "    userdict begin\n";
+	m_Prolog += "    /showpage { } def\n";
+	m_Prolog += "    0 setgray 0 setlinecap\n";
+	m_Prolog += "    1 setlinewidth 0 setlinejoin\n";
+	m_Prolog += "    10 setmiterlimit [ ] 0 setdash newpath\n";
+	m_Prolog += "    /languagelevel where\n";
+	m_Prolog += "    {pop languagelevel\n";
+	m_Prolog += "    1 ne\n";
+	m_Prolog += "    {false setstrokeadjust false setoverprint\n";
+	m_Prolog += "    } if } if } bind def\n";
+	m_Prolog += "/eEPS { count op_count sub {pop} repeat\n";
+	m_Prolog += "    countdictstack dict_count sub {end} repeat\n";
+	m_Prolog += "    b4_Inc_state restore } bind def\n";
+	m_Prolog += "    end\n";
+	if ((m_Options.cropMarks) || (m_Options.bleedMarks) || (m_Options.registrationMarks) || (m_Options.colorMarks))
+		m_Prolog += "/rb { [ /Separation (All)\n/DeviceCMYK { dup 0 mul exch dup 0 mul exch dup 0 mul exch 1 mul }\n] setcolorspace setcolor} bind def\n";
+	m_Prolog += "%%EndProlog\n";
 }
 
 void PSLib::PutStream(const QString& c)
 {
 	QByteArray utf8Array = c.toUtf8();
-	spoolStream.writeRawData(utf8Array.data(), utf8Array.length());
+	m_spoolStream.writeRawData(utf8Array.data(), utf8Array.length());
 }
 
 void PSLib::PutStream(const QByteArray& array, bool hexEnc)
@@ -277,7 +277,7 @@ void PSLib::PutStream(const QByteArray& array, bool hexEnc)
 	if(hexEnc)
 		WriteASCII85Bytes(array);
 	else
-		spoolStream.writeRawData(array.data(), array.size());
+		m_spoolStream.writeRawData(array.data(), array.size());
 }
 
 void PSLib::PutStream(const char* array, int length, bool hexEnc)
@@ -285,13 +285,13 @@ void PSLib::PutStream(const char* array, int length, bool hexEnc)
 	if(hexEnc)
 		WriteASCII85Bytes((const unsigned char*) array, length);
 	else
-		spoolStream.writeRawData(array, length);
+		m_spoolStream.writeRawData(array, length);
 }
 
 bool PSLib::PutImageToStream(ScImage& image, int plate)
 {
 	bool writeSucceed = false;
-	ScASCII85EncodeFilter asciiEncode(&spoolStream);
+	ScASCII85EncodeFilter asciiEncode(&m_spoolStream);
 	ScFlateEncodeFilter   flateEncode(&asciiEncode);
 	if (flateEncode.openFilter())
 	{
@@ -304,7 +304,7 @@ bool PSLib::PutImageToStream(ScImage& image, int plate)
 bool PSLib::PutImageToStream(ScImage& image, const QByteArray& mask, int plate)
 {
 	bool writeSucceed = false;
-	ScASCII85EncodeFilter asciiEncode(&spoolStream);
+	ScASCII85EncodeFilter asciiEncode(&m_spoolStream);
 	ScFlateEncodeFilter   flateEncode(&asciiEncode);
 	if (flateEncode.openFilter())
 	{
@@ -317,7 +317,7 @@ bool PSLib::PutImageToStream(ScImage& image, const QByteArray& mask, int plate)
 bool PSLib::PutImageDataToStream(const QByteArray& image)
 {
 	bool writeSucceed = false;
-	ScASCII85EncodeFilter asciiEncode(&spoolStream);
+	ScASCII85EncodeFilter asciiEncode(&m_spoolStream);
 	ScFlateEncodeFilter   flateEncode(&asciiEncode);
 	if (flateEncode.openFilter())
 	{
@@ -340,7 +340,7 @@ bool PSLib::PutInterleavedImageMaskToStream(const QByteArray& image, const QByte
 	assert((image.size() % channels) == 0);
 	assert( mask.size() >= pixels );
 
-	ScASCII85EncodeFilter asciiEncode(&spoolStream);
+	ScASCII85EncodeFilter asciiEncode(&m_spoolStream);
 	ScFlateEncodeFilter   flateEncode(&asciiEncode);
 	if (!flateEncode.openFilter()) 
 		return false;
@@ -375,7 +375,7 @@ void PSLib::WriteASCII85Bytes(const QByteArray& array)
 
 void PSLib::WriteASCII85Bytes(const unsigned char* array, int length)
 {
-	ScASCII85EncodeFilter filter(&spoolStream);
+	ScASCII85EncodeFilter filter(&m_spoolStream);
 	filter.openFilter();
 	filter.writeData((const char*) array, length);
 	filter.closeFilter();
@@ -402,67 +402,67 @@ QString PSLib::MatrixToStr(double m11, double m12, double m21, double m22, doubl
 void PSLib::PS_set_Info(QString art, QString was)
 {
 	if (art == "Author")
-		User = was;
+		m_User = was;
 	if (art == "Creator")
-		Creator = was;
+		m_Creator = was;
 	if (art == "Title")
-		Titel = was;
+		m_Titel = was;
 }
 
 bool PSLib::PS_set_file(QString fn)
 {
-	Spool.setFileName(fn);
-	if (Spool.exists())
-		Spool.remove();
-	bool ret = Spool.open(QIODevice::WriteOnly);
-	spoolStream.setDevice(&Spool);
+	m_Spool.setFileName(fn);
+	if (m_Spool.exists())
+		m_Spool.remove();
+	bool ret = m_Spool.open(QIODevice::WriteOnly);
+	m_spoolStream.setDevice(&m_Spool);
 	return ret;
 }
 
 bool PSLib::PS_begin_doc(ScribusDoc *doc, double x, double y, double width, double height, int numpage, bool doDev, bool sep, bool farb)
 {
 	m_Doc = doc;
-	PutStream(Header);
-	PutStream("%%For: " + User + "\n");
-	PutStream("%%Title: " + Titel + "\n");
-	PutStream("%%Creator: " + Creator + "\n");
+	PutStream(m_Header);
+	PutStream("%%For: " + m_User + "\n");
+	PutStream("%%Title: " + m_Titel + "\n");
+	PutStream("%%Creator: " + m_Creator + "\n");
 	PutStream("%%Pages: " + IToStr(numpage) + "\n");
 	if (width < height || !psExport)
 	{
-		BBox = "%%BoundingBox: " + IToStr(qRound(x)) + " " + IToStr(qRound(y)) + " " + IToStr(qRound(width)) + " " + IToStr(qRound(height)) + "\n";
-		BBoxH = "%%HiResBoundingBox: " + ToStr(x) + " " + ToStr(y) + " " + ToStr(width) + " " + ToStr(height) + "\n";
+		m_BBox = "%%BoundingBox: " + IToStr(qRound(x)) + " " + IToStr(qRound(y)) + " " + IToStr(qRound(width)) + " " + IToStr(qRound(height)) + "\n";
+		m_BBoxH = "%%HiResBoundingBox: " + ToStr(x) + " " + ToStr(y) + " " + ToStr(width) + " " + ToStr(height) + "\n";
 	}
 	else
 	{
 		
-		BBox = "%%BoundingBox: " + IToStr(qRound(x)) + " " + IToStr(qRound(y)) + " " + IToStr(qRound(height)) + " " + IToStr(qRound(width)) + "\n";
-		BBoxH = "%%HiResBoundingBox: " + ToStr(x) + " " + ToStr(y) + " " + ToStr(height) + " " + ToStr(width) + "\n";
+		m_BBox = "%%BoundingBox: " + IToStr(qRound(x)) + " " + IToStr(qRound(y)) + " " + IToStr(qRound(height)) + " " + IToStr(qRound(width)) + "\n";
+		m_BBoxH = "%%HiResBoundingBox: " + ToStr(x) + " " + ToStr(y) + " " + ToStr(height) + " " + ToStr(width) + "\n";
 	}
  // 	if (!Art)
 //	{
-		PutStream(BBox);
-		PutStream(BBoxH);
+		PutStream(m_BBox);
+		PutStream(m_BBoxH);
 //	}
-	if (!FNamen.isEmpty())
-		PutStream("%%DocumentCustomColors: "+FNamen);
-	if (!Farben.isEmpty())
-		PutStream("%%CMYKCustomColor: "+Farben);
+	if (!m_FNamen.isEmpty())
+		PutStream("%%DocumentCustomColors: "+m_FNamen);
+	if (!m_Farben.isEmpty())
+		PutStream("%%CMYKCustomColor: "+m_Farben);
 	PutStream("%%LanguageLevel: 3\n");
 	PutStream("%%EndComments\n");
-	PutStream(Prolog);
+	PutStream(m_Prolog);
 	PutStream("%%BeginSetup\n");
-	if (isPDF)
+	if (m_isPDF)
 		PutStream("/pdfmark where {pop} {userdict /pdfmark /cleartomark load put} ifelse\n");
-	if (!FontDesc.isEmpty())
-		PutStream(FontDesc);
-	if ((!colorDesc.isEmpty()) && (!sep))
-		PutStream(colorDesc);
+	if (!m_FontDesc.isEmpty())
+		PutStream(m_FontDesc);
+	if ((!m_colorDesc.isEmpty()) && (!sep))
+		PutStream(m_colorDesc);
 //	PutStream("Scribusdict begin\n");
-	PutStream(Fonts);
-	if (GraySc)
-		PutStream(GrayCalc);
-	Optimization optim = optimization;
-	optimization = OptimizeSize;
+	PutStream(m_Fonts);
+	if (m_GraySc)
+		PutStream(m_GrayCalc);
+	Optimization optim = m_optimization;
+	m_optimization = OptimizeSize;
 	QStringList patterns = m_Doc->getPatternDependencyList(m_Doc->getUsedPatterns());
 	for (int c = 0; c < patterns.count(); ++c)
 	{
@@ -486,12 +486,12 @@ bool PSLib::PS_begin_doc(ScribusDoc *doc, double x, double y, double width, doub
 		PutStream("/XStep "+ToStr(pa.width)+" def\n");
 		PutStream("/YStep "+ToStr(pa.height)+" def\n");
 		PutStream("/PaintProc {\n");
-		QIODevice *spStream = spoolStream.device();
+		QIODevice *spStream = m_spoolStream.device();
 		QByteArray buf;
 		// Qt4 QBuffer b(buf);
 		QBuffer b(&buf);
 		b.open( QIODevice::WriteOnly );
-		spoolStream.setDevice(&b);
+		m_spoolStream.setDevice(&b);
 //		PS_translate(pa.items.at(0)->gXpos, -pa.items.at(0)->gYpos);
 		for (int em = 0; em < pa.items.count(); ++em)
 		{
@@ -503,16 +503,16 @@ bool PSLib::PS_begin_doc(ScribusDoc *doc, double x, double y, double width, doub
 			PS_restore();
 			PutStream("} exec\n");
 		}
-		spoolStream.setDevice(spStream);
+		m_spoolStream.setDevice(spStream);
 		PutStream(buf);
 		PutStream("} def\n");
 		PutStream("end\n");
 	}
-	optimization = optim;
+	m_optimization = optim;
 //	PutStream("end\n");
 //	PutStream("%%EndSetup\n");
-	Prolog = "";
-	FontDesc = "";
+	m_Prolog = "";
+	m_FontDesc = "";
 	return true;
 }
 
@@ -544,15 +544,15 @@ void PSLib::PS_begin_page(ScPage* pg, MarginStruct* Ma, bool Clipping)
 	double bleedRight = 0.0;
 	double bleedLeft = 0.0;
 	double markOffs = 0.0;
-	if ((Options.cropMarks) || (Options.bleedMarks) || (Options.registrationMarks) || (Options.colorMarks))
-		markOffs = Options.markLength + Options.markOffset;
-	if ((Options.registrationMarks) || (Options.colorMarks))
-		markOffs = qMax(markOffs, Options.markOffset + 20.0);
+	if ((m_Options.cropMarks) || (m_Options.bleedMarks) || (m_Options.registrationMarks) || (m_Options.colorMarks))
+		markOffs = m_Options.markLength + m_Options.markOffset;
+	if ((m_Options.registrationMarks) || (m_Options.colorMarks))
+		markOffs = qMax(markOffs, m_Options.markOffset + 20.0);
 	GetBleeds(pg, bleedLeft, bleedRight);
 	double maxBoxX = pg->width()+bleedLeft+bleedRight+markOffs*2.0;
-	double maxBoxY = pg->height()+Options.bleeds.bottom()+Options.bleeds.top()+markOffs*2.0;
-	Seiten++;
-	PutStream("%%Page: " + IToStr(Seiten) + " " + IToStr(Seiten) + "\n");
+	double maxBoxY = pg->height()+m_Options.bleeds.bottom()+m_Options.bleeds.top()+markOffs*2.0;
+	m_Seiten++;
+	PutStream("%%Page: " + IToStr(m_Seiten) + " " + IToStr(m_Seiten) + "\n");
 	PutStream("%%PageOrientation: ");
 // when creating EPS files determine the orientation from the bounding box
   	if (!psExport)
@@ -568,17 +568,17 @@ void PSLib::PS_begin_page(ScPage* pg, MarginStruct* Ma, bool Clipping)
 		{
 			PutStream("Portrait\n");
 			PutStream("%%PageBoundingBox: 0 0 "+IToStr(qRound(maxBoxX))+" "+IToStr(qRound(maxBoxY))+"\n");
-			PutStream("%%PageCropBox: "+ToStr(bleedLeft+markOffs)+" "+ToStr(Options.bleeds.bottom()+markOffs)+" "+ToStr(maxBoxX-bleedRight-markOffs*2.0)+" "+ToStr(maxBoxY-Options.bleeds.top()-markOffs*2.0)+"\n");
+			PutStream("%%PageCropBox: "+ToStr(bleedLeft+markOffs)+" "+ToStr(m_Options.bleeds.bottom()+markOffs)+" "+ToStr(maxBoxX-bleedRight-markOffs*2.0)+" "+ToStr(maxBoxY-m_Options.bleeds.top()-markOffs*2.0)+"\n");
 		}
 		else
 		{
 			PutStream("Landscape\n");
 			PutStream("%%PageBoundingBox: 0 0 "+IToStr(qRound(maxBoxY))+" "+IToStr(qRound(maxBoxX))+"\n");
-			PutStream("%%PageCropBox: "+ToStr(bleedLeft+markOffs)+" "+ToStr(Options.bleeds.bottom()+markOffs)+" "+ToStr(maxBoxY-Options.bleeds.top()-markOffs*2.0)+" "+ToStr(maxBoxX-bleedRight-markOffs*2.0)+"\n");
+			PutStream("%%PageCropBox: "+ToStr(bleedLeft+markOffs)+" "+ToStr(m_Options.bleeds.bottom()+markOffs)+" "+ToStr(maxBoxY-m_Options.bleeds.top()-markOffs*2.0)+" "+ToStr(maxBoxX-bleedRight-markOffs*2.0)+"\n");
 		}
 	}
 	PutStream("Scribusdict begin\n");
-	if ((psExport) && (Options.setDevParam))
+	if ((psExport) && (m_Options.setDevParam))
   	{
 		PutStream("<< /PageSize [ "+ToStr(maxBoxX)+" "+ToStr(maxBoxY)+" ]\n");
 		PutStream(">> setpagedevice\n");
@@ -587,15 +587,15 @@ void PSLib::PS_begin_page(ScPage* pg, MarginStruct* Ma, bool Clipping)
 	if (pg->orientation() == 1 && psExport)
 		PutStream("90 rotate 0 "+IToStr(qRound(maxBoxY))+" neg translate\n");
   	PutStream("/DeviceCMYK setcolorspace\n");
-	PutStream(ToStr(bleedLeft+markOffs)+" "+ToStr(Options.bleeds.bottom()+markOffs)+" tr\n");
-	ActPage = pg;
+	PutStream(ToStr(bleedLeft+markOffs)+" "+ToStr(m_Options.bleeds.bottom()+markOffs)+" tr\n");
+	m_ActPage = pg;
 	if (Clipping)
 	{
-		PDev = ToStr(Ma->left()) + " " + ToStr(Ma->bottom()) + " m\n";
-		PDev += ToStr(pg->width() - Ma->right()) + " " + ToStr(Ma->bottom()) + " li\n";
-		PDev += ToStr(pg->width() - Ma->right()) + " " + ToStr(pg->height() - Ma->top()) + " li\n";
-		PDev += ToStr(Ma->left()) + " " + ToStr(pg->height() - Ma->top()) + " li cl clip newpath\n";
-		PutStream(PDev);
+		m_PDev = ToStr(Ma->left()) + " " + ToStr(Ma->bottom()) + " m\n";
+		m_PDev += ToStr(pg->width() - Ma->right()) + " " + ToStr(Ma->bottom()) + " li\n";
+		m_PDev += ToStr(pg->width() - Ma->right()) + " " + ToStr(pg->height() - Ma->top()) + " li\n";
+		m_PDev += ToStr(Ma->left()) + " " + ToStr(pg->height() - Ma->top()) + " li cl clip newpath\n";
+		PutStream(m_PDev);
 	}
 }
 
@@ -603,19 +603,19 @@ void PSLib::PS_end_page()
 {
 	PutStream("%%PageTrailer\nrestore\n");
 	double markOffs = 0.0;
-	if ((Options.cropMarks) || (Options.bleedMarks) || (Options.registrationMarks) || (Options.colorMarks))
-		markOffs = Options.markLength + Options.markOffset;
-	if ((Options.registrationMarks) || (Options.colorMarks))
-		markOffs = qMax(markOffs, Options.markOffset + 20.0);
-	double markDelta = markOffs - (Options.markLength + Options.markOffset);
+	if ((m_Options.cropMarks) || (m_Options.bleedMarks) || (m_Options.registrationMarks) || (m_Options.colorMarks))
+		markOffs = m_Options.markLength + m_Options.markOffset;
+	if ((m_Options.registrationMarks) || (m_Options.colorMarks))
+		markOffs = qMax(markOffs, m_Options.markOffset + 20.0);
+	double markDelta = markOffs - (m_Options.markLength + m_Options.markOffset);
 	double bleedRight, bleedLeft;
-	GetBleeds(ActPage, bleedLeft, bleedRight);
-	double maxBoxX = ActPage->width()+bleedLeft+bleedRight+markOffs*2.0;
-	double maxBoxY = ActPage->height()+Options.bleeds.bottom()+Options.bleeds.top()+markOffs*2.0;
+	GetBleeds(m_ActPage, bleedLeft, bleedRight);
+	double maxBoxX = m_ActPage->width()+bleedLeft+bleedRight+markOffs*2.0;
+	double maxBoxY = m_ActPage->height()+m_Options.bleeds.bottom()+m_Options.bleeds.top()+markOffs*2.0;
 	PutStream("gs\n");
-	if(ActPage->orientation() == 1 && psExport)
+	if(m_ActPage->orientation() == 1 && psExport)
 		PutStream("90 rotate 0 "+IToStr(qRound(maxBoxY))+" neg translate\n");
-	if ((Options.cropMarks) || (Options.bleedMarks) || (Options.registrationMarks) || (Options.colorMarks))
+	if ((m_Options.cropMarks) || (m_Options.bleedMarks) || (m_Options.registrationMarks) || (m_Options.colorMarks))
 	{
 		PutStream("gs\n");
 		PS_setlinewidth(0.5);
@@ -623,74 +623,74 @@ void PSLib::PS_end_page()
 		PutStream("0 setlinecap\n");
 		PutStream("0 setlinejoin\n");
 		PutStream("1 rb\n");
-		if (Options.cropMarks)
+		if (m_Options.cropMarks)
 		{
 		// Bottom Left
-			PutStream(ToStr(markDelta)+" "+ToStr(markOffs+Options.bleeds.bottom())+" m\n");
-			PutStream(ToStr(markDelta+Options.markLength)+" "+ToStr(markOffs+Options.bleeds.bottom())+" li\n");
+			PutStream(ToStr(markDelta)+" "+ToStr(markOffs+m_Options.bleeds.bottom())+" m\n");
+			PutStream(ToStr(markDelta+m_Options.markLength)+" "+ToStr(markOffs+m_Options.bleeds.bottom())+" li\n");
 			PutStream("st\n");
 			PutStream(ToStr(markOffs+bleedLeft)+" "+ToStr(markDelta)+" m\n");
-			PutStream(ToStr(markOffs+bleedLeft)+" "+ToStr(markDelta+Options.markLength)+" li\n");
+			PutStream(ToStr(markOffs+bleedLeft)+" "+ToStr(markDelta+m_Options.markLength)+" li\n");
 			PutStream("st\n");
 		// Top Left
-			PutStream(ToStr(markDelta)+" "+ToStr(maxBoxY-Options.bleeds.top()-markOffs)+" m\n");
-			PutStream(ToStr(markDelta+Options.markLength)+" "+ToStr(maxBoxY-Options.bleeds.top()-markOffs)+" li\n");
+			PutStream(ToStr(markDelta)+" "+ToStr(maxBoxY-m_Options.bleeds.top()-markOffs)+" m\n");
+			PutStream(ToStr(markDelta+m_Options.markLength)+" "+ToStr(maxBoxY-m_Options.bleeds.top()-markOffs)+" li\n");
 			PutStream("st\n");
 			PutStream(ToStr(markOffs+bleedLeft)+" "+ToStr(maxBoxY-markDelta)+" m\n");
-			PutStream(ToStr(markOffs+bleedLeft)+" "+ToStr(maxBoxY-markDelta-Options.markLength) +" li\n");
+			PutStream(ToStr(markOffs+bleedLeft)+" "+ToStr(maxBoxY-markDelta-m_Options.markLength) +" li\n");
 			PutStream("st\n");
 		// Bottom Right
-			PutStream(ToStr(maxBoxX-markDelta)+" "+ToStr(markOffs+Options.bleeds.bottom())+" m\n");
-			PutStream(ToStr(maxBoxX-markDelta-Options.markLength)+" "+ToStr(markOffs+Options.bleeds.bottom())+" li\n");
+			PutStream(ToStr(maxBoxX-markDelta)+" "+ToStr(markOffs+m_Options.bleeds.bottom())+" m\n");
+			PutStream(ToStr(maxBoxX-markDelta-m_Options.markLength)+" "+ToStr(markOffs+m_Options.bleeds.bottom())+" li\n");
 			PutStream("st\n");
 			PutStream(ToStr(maxBoxX-bleedRight-markOffs)+" "+ ToStr(markDelta)+" m\n");
-			PutStream(ToStr(maxBoxX-bleedRight-markOffs)+" "+ ToStr(markDelta+Options.markLength) +" li\n");
+			PutStream(ToStr(maxBoxX-bleedRight-markOffs)+" "+ ToStr(markDelta+m_Options.markLength) +" li\n");
 			PutStream("st\n");
 		// Top Right
-			PutStream(ToStr(maxBoxX-markDelta)+" "+ToStr(maxBoxY-Options.bleeds.top()-markOffs)+" m\n");
-			PutStream(ToStr(maxBoxX-markDelta-Options.markLength)+" "+ToStr(maxBoxY-Options.bleeds.top()-markOffs)+" li\n");
+			PutStream(ToStr(maxBoxX-markDelta)+" "+ToStr(maxBoxY-m_Options.bleeds.top()-markOffs)+" m\n");
+			PutStream(ToStr(maxBoxX-markDelta-m_Options.markLength)+" "+ToStr(maxBoxY-m_Options.bleeds.top()-markOffs)+" li\n");
 			PutStream("st\n");
  			PutStream(ToStr(maxBoxX-bleedRight-markOffs)+" "+ ToStr(maxBoxY-markDelta)+" m\n");
-			PutStream(ToStr(maxBoxX-bleedRight-markOffs)+" "+ ToStr(maxBoxY-markDelta-Options.markLength) +" li\n");
+			PutStream(ToStr(maxBoxX-bleedRight-markOffs)+" "+ ToStr(maxBoxY-markDelta-m_Options.markLength) +" li\n");
 			PutStream("st\n");
 		}
-		if (Options.bleedMarks)
+		if (m_Options.bleedMarks)
 		{
 			PutStream("gs\n");
 			PutStream("[3 1 1 1] 0 setdash\n");
 		// Bottom Left
 			PutStream(ToStr(markDelta)+" "+ToStr(markOffs)+" m\n");
-			PutStream(ToStr(markDelta+Options.markLength)+" "+ToStr(markOffs)+" li\n");
+			PutStream(ToStr(markDelta+m_Options.markLength)+" "+ToStr(markOffs)+" li\n");
 			PutStream("st\n");
 			PutStream(ToStr(markOffs)+" "+ToStr(markDelta)+" m\n");
-			PutStream(ToStr(markOffs)+" "+ToStr(markDelta+Options.markLength)+" li\n");
+			PutStream(ToStr(markOffs)+" "+ToStr(markDelta+m_Options.markLength)+" li\n");
 			PutStream("st\n");
 		// Top Left
 			PutStream(ToStr(markDelta)+" "+ToStr(maxBoxY-markOffs)+" m\n");
-			PutStream(ToStr(markDelta+Options.markLength)+" "+ToStr(maxBoxY-markOffs)+" li\n");
+			PutStream(ToStr(markDelta+m_Options.markLength)+" "+ToStr(maxBoxY-markOffs)+" li\n");
 			PutStream("st\n");
 			PutStream(ToStr(markOffs)+" "+ToStr(maxBoxY-markDelta)+" m\n");
-			PutStream(ToStr(markOffs)+" "+ToStr(maxBoxY-markDelta-Options.markLength)+" li\n");
+			PutStream(ToStr(markOffs)+" "+ToStr(maxBoxY-markDelta-m_Options.markLength)+" li\n");
 			PutStream("st\n");
 		// Bottom Right
 			PutStream(ToStr(maxBoxX-markDelta)+" "+ToStr(markOffs)+" m\n");
-			PutStream(ToStr(maxBoxX-markDelta-Options.markLength)+" "+ToStr(markOffs)+" li\n");
+			PutStream(ToStr(maxBoxX-markDelta-m_Options.markLength)+" "+ToStr(markOffs)+" li\n");
 			PutStream("st\n");
 			PutStream(ToStr(maxBoxX-markOffs)+" "+ToStr(markDelta)+" m\n");
-			PutStream(ToStr(maxBoxX-markOffs)+" "+ToStr(markDelta+Options.markLength)+" li\n");
+			PutStream(ToStr(maxBoxX-markOffs)+" "+ToStr(markDelta+m_Options.markLength)+" li\n");
 			PutStream("st\n");
 		// Top Right
 			PutStream(ToStr(maxBoxX-markDelta)+" "+ToStr(maxBoxY-markOffs)+" m\n");
-			PutStream(ToStr(maxBoxX-markDelta-Options.markLength)+" "+ToStr(maxBoxY-markOffs)+" li\n");
+			PutStream(ToStr(maxBoxX-markDelta-m_Options.markLength)+" "+ToStr(maxBoxY-markOffs)+" li\n");
 			PutStream("st\n");
 			PutStream(ToStr(maxBoxX-markOffs)+" "+ToStr(maxBoxY-markDelta)+" m\n");
-			PutStream(ToStr(maxBoxX-markOffs)+" "+ToStr(maxBoxY-markDelta-Options.markLength)+" li\n");
+			PutStream(ToStr(maxBoxX-markOffs)+" "+ToStr(maxBoxY-markDelta-m_Options.markLength)+" li\n");
 			PutStream("st\n");
 			PutStream("gr\n");
 		}
-		if (Options.registrationMarks)
+		if (m_Options.registrationMarks)
 		{
-			double regDelta  = markOffs - Options.markOffset;
+			double regDelta  = markOffs - m_Options.markOffset;
 			QString regCross = "0 7 m\n14 7 li\n7 0 m\n7 14 li\n13 7 m\n13 10.31383 10.31383 13 7 13 cu\n3.68629 13 1 10.31383 1 7 cu\n1 3.68629 3.68629 1 7 1 cu\n";
 			regCross += "10.31383 1 13 3.68629 13 7 cu\ncl\n10.5 7 m\n10.5 8.93307 8.93307 10.5 7 10.5 cu\n5.067 10.5 3.5 8.93307 3.5 7 cu\n";
 			regCross += "3.5 5.067 5.067 3.5 7 3.5 cu\n8.93307 3.5 10.5 5.067 10.5 7 cu\ncl\nst\n";
@@ -711,10 +711,10 @@ void PSLib::PS_end_page()
 			PutStream(regCross);
 			PutStream("gr\n");
 		}
-		if (Options.colorMarks)
+		if (m_Options.colorMarks)
 		{
 			double startX = markOffs+bleedLeft+6.0;
-			double startY = maxBoxY - markOffs + Options.markOffset + 2.0;
+			double startY = maxBoxY - markOffs + m_Options.markOffset + 2.0;
 			PutStream("0 0 0 1 cmyk\n");
 			double col = 1.0;
 			for (int bl = 0; bl < 11; bl++)
@@ -840,7 +840,7 @@ void PSLib::PS_restore()
 
 void PSLib::PS_setcmykcolor_fill(double c, double m, double y, double k)
 {
-	FillColor = ToStr(c) + " " + ToStr(m) + " " + ToStr(y) + " " + ToStr(k);
+	m_FillColor = ToStr(c) + " " + ToStr(m) + " " + ToStr(y) + " " + ToStr(k);
 }
 
 void PSLib::PS_setcmykcolor_dummy()
@@ -850,13 +850,13 @@ void PSLib::PS_setcmykcolor_dummy()
 
 void PSLib::PS_setcmykcolor_stroke(double c, double m, double y, double k)
 {
-	StrokeColor = ToStr(c) + " " + ToStr(m) + " " + ToStr(y) + " " + ToStr(k);
+	m_StrokeColor = ToStr(c) + " " + ToStr(m) + " " + ToStr(y) + " " + ToStr(k);
 }
 
 void PSLib::PS_setlinewidth(double w)
 {
 	PutStream(ToStr(w) + " sw\n");
-	LineW = w;
+	m_LineW = w;
 }
 
 void PSLib::PS_setdash(Qt::PenStyle st, double offset, QVector<double> dash)
@@ -872,7 +872,7 @@ void PSLib::PS_setdash(Qt::PenStyle st, double offset, QVector<double> dash)
 		PutStream("] "+ToStr(offset)+" setdash\n");
 	}
 	else
-		PutStream("["+getDashString(st, LineW)+"] 0 setdash\n");
+		PutStream("["+getDashString(st, m_LineW)+"] 0 setdash\n");
 }
 
 void PSLib::PS_setcapjoin(Qt::PenCapStyle ca, Qt::PenJoinStyle jo)
@@ -911,33 +911,33 @@ void PSLib::PS_setcapjoin(Qt::PenCapStyle ca, Qt::PenJoinStyle jo)
 
 void PSLib::PS_selectfont(QString f, double s)
 {
-	PutStream(UsedFonts[f] + " " + ToStr(s) + " se\n");
+	PutStream(m_UsedFonts[f] + " " + ToStr(s) + " se\n");
 }
 
 void PSLib::PS_fill()
 {
-	if (fillRule)
-		PutStream(FillColor + " cmyk eofill\n");
+	if (m_fillRule)
+		PutStream(m_FillColor + " cmyk eofill\n");
 	else
-		PutStream(FillColor + " cmyk fill\n");
+		PutStream(m_FillColor + " cmyk fill\n");
 }
 
 void PSLib::PS_fillspot(QString color, double shade)
 {
-	if (fillRule)
-		PutStream(ToStr(shade / 100.0)+" "+spotMap[color]+" eofill\n");
+	if (m_fillRule)
+		PutStream(ToStr(shade / 100.0)+" "+m_spotMap[color]+" eofill\n");
 	else
-		PutStream(ToStr(shade / 100.0)+" "+spotMap[color]+" fill\n");
+		PutStream(ToStr(shade / 100.0)+" "+m_spotMap[color]+" fill\n");
 }
 
 void PSLib::PS_strokespot(QString color, double shade)
 {
-	PutStream(ToStr(shade / 100.0)+" "+spotMap[color]+" st\n");
+	PutStream(ToStr(shade / 100.0)+" "+m_spotMap[color]+" st\n");
 }
 
 void PSLib::PS_stroke()
 {
-	PutStream(StrokeColor + " cmyk st\n");
+	PutStream(m_StrokeColor + " cmyk st\n");
 }
 
 void PSLib::PS_fill_stroke()
@@ -956,19 +956,19 @@ void PSLib::PS_newpath()
 void PSLib::PS_show_xyG(QString font, uint glyph, double x, double y, QString colorName, double shade)
 {
 	QString glyphName;
-	glyphName = GlyphsOfFont[font].contains(glyph) ? GlyphsOfFont[font][glyph].second : QString(".notdef");
+	glyphName = m_GlyphsOfFont[font].contains(glyph) ? m_GlyphsOfFont[font][glyph].second : QString(".notdef");
 
 	QString colorString;
-	ScColor& color(colorsToUse[colorName]);
+	ScColor& color(m_colorsToUse[colorName]);
 	bool spot = false;
-	if (((color.isSpotColor()) || (color.isRegistrationColor())) && (useSpotColors))
+	if (((color.isSpotColor()) || (color.isRegistrationColor())) && (m_useSpotColors))
 	{
-		if (!DoSep)
+		if (!m_DoSep)
 		{
-			colorString = ToStr(shade / 100.0)+" "+spotMap[colorName];
+			colorString = ToStr(shade / 100.0)+" "+m_spotMap[colorName];
 			spot = true;
 		}
-		else if ((colorName == currentSpot) || (color.isRegistrationColor()))
+		else if ((colorName == m_currentSpot) || (color.isRegistrationColor()))
 			colorString = "0 0 0 "+ToStr(shade / 100.0);
 		else
 			colorString = "0 0 0 0";
@@ -977,7 +977,7 @@ void PSLib::PS_show_xyG(QString font, uint glyph, double x, double y, QString co
 	{
 		int c, m, y, k;
 		SetColor(color, shade, &c, &m, &y, &k);
-		if (!DoSep || (Plate == 0 || Plate == 1 || Plate == 2 || Plate == 3))
+		if (!m_DoSep || (m_Plate == 0 || m_Plate == 1 || m_Plate == 2 || m_Plate == 3))
 			colorString = ToStr(c / 255.0) + " " + ToStr(m / 255.0) + " " + ToStr(y / 255.0) + " " + ToStr(k / 255.0);
 		else
 			colorString = "0 0 0 0";
@@ -1049,7 +1049,7 @@ bool PSLib::PS_ImageData(PageItem *c, QString fn, QString Name, QString Prof, bo
 		PS_Error_ImageLoadFailure(fn);
 		return false;
 	}
-	image.applyEffect(c->effectsInUse, colorsToUse, true);
+	image.applyEffect(c->effectsInUse, m_colorsToUse, true);
 	QByteArray maskArray;
 	if (c->pixm.imgInfo.type != ImageType7)
 	{
@@ -1151,7 +1151,7 @@ bool PSLib::PS_image(PageItem *c, double x, double y, QString fn, double scalex,
 			PS_Error_ImageLoadFailure(fn);
 			return false;
 		}
-		image.applyEffect(c->effectsInUse, colorsToUse, true);
+		image.applyEffect(c->effectsInUse, m_colorsToUse, true);
 		int w = image.width();
 		int h = image.height();
 		PutStream(ToStr(x*scalex) + " " + ToStr(y*scaley) + " tr\n");
@@ -1165,7 +1165,7 @@ bool PSLib::PS_image(PageItem *c, double x, double y, QString fn, double scalex,
 		}
 //		PutStream(ToStr(x*scalex) + " " + ToStr(y*scaley) + " tr\n");
 		PutStream(ToStr(qRound(scalex*w)) + " " + ToStr(qRound(scaley*h)) + " sc\n");
-		PutStream(((!DoSep) && (!GraySc)) ? "/DeviceCMYK setcolorspace\n" : "/DeviceGray setcolorspace\n");
+		PutStream(((!m_DoSep) && (!m_GraySc)) ? "/DeviceCMYK setcolorspace\n" : "/DeviceGray setcolorspace\n");
 		QByteArray maskArray;
 		ScImage img2;
 		img2.imgInfo.clipPath = "";
@@ -1184,7 +1184,7 @@ bool PSLib::PS_image(PageItem *c, double x, double y, QString fn, double scalex,
 		}
  		if ((maskArray.size() > 0) && (c->pixm.imgInfo.type != ImageType7))
  		{
-			int plate = DoSep ? Plate : (GraySc ? -2 : -1);
+			int plate = m_DoSep ? m_Plate : (m_GraySc ? -2 : -1);
 			// JG - Experimental code using Type3 image instead of patterns
 			PutStream("<< /ImageType 3\n");
 			PutStream("   /DataDict <<\n");
@@ -1192,7 +1192,7 @@ bool PSLib::PS_image(PageItem *c, double x, double y, QString fn, double scalex,
 			PutStream("      /Width  " + IToStr(w) + "\n");
 			PutStream("      /Height " + IToStr(h) + "\n");
 			PutStream("      /BitsPerComponent 8\n");
-			PutStream( (GraySc || DoSep) ? "      /Decode [1 0]\n" : "      /Decode [0 1 0 1 0 1 0 1]\n");
+			PutStream( (m_GraySc || m_DoSep) ? "      /Decode [1 0]\n" : "      /Decode [0 1 0 1 0 1 0 1]\n");
 			PutStream("      /ImageMatrix [" + IToStr(w) + " 0 0 " + IToStr(-h) + " 0 " + IToStr(h) + "]\n");
 			if (Name.length() > 0)
 				PutStream("      /DataSource "+PSEncode(Name)+"Bild\n");
@@ -1230,10 +1230,10 @@ bool PSLib::PS_image(PageItem *c, double x, double y, QString fn, double scalex,
 			PutStream("   /Width " + IToStr(w) + "\n");
 			PutStream("   /Height " + IToStr(h) + "\n");
 			PutStream("   /BitsPerComponent 8\n");
-			if (DoSep)
+			if (m_DoSep)
 				PutStream("   /Decode [1 0]\n");
 			else
-				PutStream( GraySc ? "   /Decode [1 0]\n" : "   /Decode [0 1 0 1 0 1 0 1]\n");
+				PutStream( m_GraySc ? "   /Decode [1 0]\n" : "   /Decode [0 1 0 1 0 1 0 1]\n");
 			PutStream("   /ImageMatrix [" + IToStr(w) + " 0 0 " + IToStr(-h) + " 0 " + IToStr(h) + "]\n");
 			if (!Name.isEmpty())
 			{
@@ -1243,7 +1243,7 @@ bool PSLib::PS_image(PageItem *c, double x, double y, QString fn, double scalex,
 			}
 			else
 			{
-				int plate = DoSep ? Plate : (GraySc ? -2 : -1);
+				int plate = m_DoSep ? m_Plate : (m_GraySc ? -2 : -1);
 				PutStream("   /DataSource currentfile /ASCII85Decode filter /FlateDecode filter >>\n");
 				PutStream("image\n");
 				if (!PutImageToStream(image, plate))
@@ -1288,14 +1288,14 @@ void PSLib::PS_plate(int nr, QString name)
 			PutStream("/setrgbcolor {0.11 mul exch 0.59 mul add exch 0.3 mul add oldsetgray} bind def\n");
 			break;
 	}
-	Plate = nr;
-	currentSpot = name;
-	DoSep = true;
+	m_Plate = nr;
+	m_currentSpot = name;
+	m_DoSep = true;
 }
 
 void PSLib::PS_setGray()
 {
-	GraySc = true;
+	m_GraySc = true;
 }
 
 void PSLib::PDF_Bookmark(QString text, uint Seite)
@@ -1324,7 +1324,7 @@ void PSLib::PDF_Annotation(PageItem *item, QString text, double x, double y, dou
 			}
 			if (item->annotation().ActionType() == Annotation::Action_GoToR_FileRel)
 			{
-				QFileInfo fiBase(Spool.fileName());
+				QFileInfo fiBase(m_Spool.fileName());
 				QString baseDir = fiBase.absolutePath();
 				PutStream("/Action /GoToR\n");
 				PutStream("/File (" + Path2Relative(item->annotation().Extern(), baseDir) + ")\n");
@@ -1363,7 +1363,7 @@ void PSLib::PS_close()
 	PutStream("%%Trailer\n");
 //	PutStream("end\n");
 	PutStream("%%EOF\n");
-	Spool.close();
+	m_Spool.close();
 }
 
 void PSLib::PS_insert(QString i)
@@ -1373,7 +1373,7 @@ void PSLib::PS_insert(QString i)
 
 void PSLib::PS_Error(const QString& message)
 {
-	ErrorMessage = message;
+	m_ErrorMessage = message;
 	if (!ScCore->usingGUI())
 		qDebug("%s", message.toLocal8Bit().data());
 }
@@ -1401,7 +1401,7 @@ void PSLib::PS_Error_InsufficientMemory(void)
 int PSLib::CreatePS(ScribusDoc* Doc, PrintOptions &options)
 {
 	bool errorOccured = false;
-	Options = options;
+	m_Options = options;
 	std::vector<int> &pageNs = options.pageNumbers;
 	bool sep = options.outputSeparations;
 	QString SepNam = options.separationName;
@@ -1428,17 +1428,17 @@ int PSLib::CreatePS(ScribusDoc* Doc, PrintOptions &options)
 	if (!farb)
 		PS_setGray();
 	if ((Doc->HasCMS) && (ScCore->haveCMS()))
-		solidTransform = Doc->colorEngine.createTransform(Doc->DocInputCMYKProf, Format_CMYK_16, Doc->DocPrinterProf, Format_CMYK_16, Doc->IntentColors, 0);
+		m_solidTransform = Doc->colorEngine.createTransform(Doc->DocInputCMYKProf, Format_CMYK_16, Doc->DocPrinterProf, Format_CMYK_16, Doc->IntentColors, 0);
 	else
-		solidTransform = ScColorTransform();
-	if (usingGUI)
+		m_solidTransform = ScColorTransform();
+	if (m_usingGUI)
 	{
 		QString title=QObject::tr("Exporting PostScript File");
 		if (psExport)
 			title=QObject::tr("Printing File");
-		progressDialog=new MultiProgressDialog(title, CommonStrings::tr_Cancel, Doc->scMW());
-		if (progressDialog==0)
-			usingGUI=false;
+		m_progressDialog=new MultiProgressDialog(title, CommonStrings::tr_Cancel, Doc->scMW());
+		if (m_progressDialog==0)
+			m_usingGUI=false;
 		else
 		{
 			QStringList barNames, barTexts;
@@ -1446,15 +1446,15 @@ int PSLib::CreatePS(ScribusDoc* Doc, PrintOptions &options)
 			barTexts << tr("Processing Master Page:") << tr("Exporting Page:");
 			QList<bool> barsNumeric;
 			barsNumeric << true << true;
-			progressDialog->addExtraProgressBars(barNames, barTexts, barsNumeric);
-			progressDialog->setOverallTotalSteps(pageNs.size()+Doc->MasterPages.count());
-			progressDialog->setTotalSteps("EMP", Doc->MasterPages.count());
-			progressDialog->setTotalSteps("EP", pageNs.size());
-			progressDialog->setOverallProgress(0);
-			progressDialog->setProgress("EMP", 0);
-			progressDialog->setProgress("EP", 0);
-			progressDialog->show();
-			connect(progressDialog, SIGNAL(canceled()), this, SLOT(cancelRequested()));
+			m_progressDialog->addExtraProgressBars(barNames, barTexts, barsNumeric);
+			m_progressDialog->setOverallTotalSteps(pageNs.size()+Doc->MasterPages.count());
+			m_progressDialog->setTotalSteps("EMP", Doc->MasterPages.count());
+			m_progressDialog->setTotalSteps("EP", pageNs.size());
+			m_progressDialog->setOverallProgress(0);
+			m_progressDialog->setProgress("EMP", 0);
+			m_progressDialog->setProgress("EP", 0);
+			m_progressDialog->show();
+			connect(m_progressDialog, SIGNAL(canceled()), this, SLOT(cancelRequested()));
 			ScQApp->processEvents();
 		}
 	}
@@ -1516,10 +1516,10 @@ int PSLib::CreatePS(ScribusDoc* Doc, PrintOptions &options)
 		errorOccured = !PS_begin_doc(Doc, 0.0, 0.0, maxWidth, maxHeight, pageNs.size()*pagemult, doDev, sep, farb);
 	}
 	int ap=0;
-	for (; ap < Doc->MasterPages.count() && !abortExport && !errorOccured; ++ap)
+	for (; ap < Doc->MasterPages.count() && !m_abortExport && !errorOccured; ++ap)
 	{
-		progressDialog->setOverallProgress(ap);
-		progressDialog->setProgress("EMP", ap);
+		m_progressDialog->setOverallProgress(ap);
+		m_progressDialog->setProgress("EMP", ap);
 		ScQApp->processEvents();
 		if (Doc->MasterItems.count() != 0)
 		{
@@ -1527,16 +1527,16 @@ int PSLib::CreatePS(ScribusDoc* Doc, PrintOptions &options)
 			ScLayer ll;
 			ll.isPrintable = false;
 			ll.ID = 0;
-			for (int lam = 0; lam < Doc->Layers.count() && !abortExport && !errorOccured; ++lam)
+			for (int lam = 0; lam < Doc->Layers.count() && !m_abortExport && !errorOccured; ++lam)
 			{
 				Doc->Layers.levelToLayer(ll, Lnr);
 				if (ll.isPrintable)
 				{
-					for (int api = 0; api < Doc->MasterItems.count() && !abortExport; ++api)
+					for (int api = 0; api < Doc->MasterItems.count() && !m_abortExport; ++api)
 					{
 						QString tmps;
 						PageItem *it = Doc->MasterItems.at(api);
-						if (usingGUI)
+						if (m_usingGUI)
 							ScQApp->processEvents();
 						if ((it->LayerID != ll.ID) || (!it->printEnabled()))
 							continue;
@@ -1555,7 +1555,7 @@ int PSLib::CreatePS(ScribusDoc* Doc, PrintOptions &options)
 							continue;
 						if ((it->OwnPage != static_cast<int>(Doc->MasterPages.at(ap)->pageNr())) && (it->OwnPage != -1))
 							continue;
-						if ((optimization == OptimizeSize) && it->asImageFrame() && it->imageIsAvailable && (!it->Pfile.isEmpty()) && it->printEnabled() && (!sep) && farb)
+						if ((m_optimization == OptimizeSize) && it->asImageFrame() && it->imageIsAvailable && (!it->Pfile.isEmpty()) && it->printEnabled() && (!sep) && farb)
 						{
 							errorOccured = !PS_ImageData(it, it->Pfile, it->itemName(), it->IProfile, it->UseEmbedded);
 							if (errorOccured) break;
@@ -1575,11 +1575,11 @@ int PSLib::CreatePS(ScribusDoc* Doc, PrintOptions &options)
 	uint aa = 0;
 	uint a;	
 	PutStream("%%EndSetup\n");
-	while (aa < pageNs.size() && !abortExport && !errorOccured)
+	while (aa < pageNs.size() && !m_abortExport && !errorOccured)
 	{
-		progressDialog->setProgress("EP", aa);
-		progressDialog->setOverallProgress(ap+aa);
-		if (usingGUI)
+		m_progressDialog->setProgress("EP", aa);
+		m_progressDialog->setOverallProgress(ap+aa);
+		if (m_usingGUI)
 			ScQApp->processEvents();
 		a = pageNs[aa]-1;
 		ScPage* page = Doc->Pages->at(a);
@@ -1621,21 +1621,21 @@ int PSLib::CreatePS(ScribusDoc* Doc, PrintOptions &options)
 		}
 		ScLayer ll;
 		ll.isPrintable = false;
-		for (int lam = 0; lam < Doc->Layers.count() && !abortExport && !errorOccured; ++lam)
+		for (int lam = 0; lam < Doc->Layers.count() && !m_abortExport && !errorOccured; ++lam)
 		{
 			Doc->Layers.levelToLayer(ll, lam);
 			if (!ll.isPrintable)
 				continue;
-			if (!page->MPageNam.isEmpty() && !abortExport && !errorOccured)
+			if (!page->MPageNam.isEmpty() && !m_abortExport && !errorOccured)
 			{
 				errorOccured |= !ProcessMasterPageLayer(Doc, page, ll, a, sep, farb);
 			}
-			if (!abortExport && !errorOccured)
+			if (!m_abortExport && !errorOccured)
 			{
 				errorOccured |= !ProcessPageLayer(Doc, page, ll, a+1, sep, farb);
 			}
 		}
-		if (!abortExport && !errorOccured)
+		if (!m_abortExport && !errorOccured)
 			PS_end_page();
 		if (sep)
 		{
@@ -1656,10 +1656,10 @@ int PSLib::CreatePS(ScribusDoc* Doc, PrintOptions &options)
 			aa++;
 	}
 	PS_close();
-	if (usingGUI) progressDialog->close();
+	if (m_usingGUI) m_progressDialog->close();
 	if (errorOccured)
 		return 1;
-	else if (abortExport)
+	else if (m_abortExport)
 		return 2; //CB Lets leave 1 for general error condition
 	return 0; 
 }
@@ -1676,7 +1676,7 @@ bool PSLib::ProcessItem(ScribusDoc* Doc, ScPage* a, PageItem* c, uint PNr, bool 
 	QString tmps;
 	if (c->printEnabled())
 	{
-		fillRule = true;
+		m_fillRule = true;
 		PS_save();
 		if (c->doOverprint)
 		{
@@ -1738,7 +1738,7 @@ bool PSLib::ProcessItem(ScribusDoc* Doc, ScPage* a, PageItem* c, uint PNr, bool 
 			{
 				bool imageOk = false;
 				PS_translate(0, -c->BBoxH*c->imageYScale());
-				if ((optimization == OptimizeSize) && (((!a->pageName().isEmpty()) && !sep && farb) || useTemplate))
+				if ((m_optimization == OptimizeSize) && (((!a->pageName().isEmpty()) && !sep && farb) || useTemplate))
 					imageOk = PS_image(c, c->imageXOffset(), -c->imageYOffset(), c->Pfile, c->imageXScale(), c->imageYScale(), c->IProfile, c->UseEmbedded, c->itemName());
 				else
 					imageOk = PS_image(c, c->imageXOffset(), -c->imageYOffset(), c->Pfile, c->imageXScale(), c->imageYScale(), c->IProfile, c->UseEmbedded);
@@ -1796,7 +1796,7 @@ bool PSLib::ProcessItem(ScribusDoc* Doc, ScPage* a, PageItem* c, uint PNr, bool 
 		case PageItem::TextFrame:
 			if (master)
 				break;
-			if ((c->isBookmark || c->isAnnotation()) && (!isPDF))
+			if ((c->isBookmark || c->isAnnotation()) && (!m_isPDF))
 				break;
 			if (c->isBookmark)
 			{
@@ -1972,7 +1972,7 @@ bool PSLib::ProcessItem(ScribusDoc* Doc, ScPage* a, PageItem* c, uint PNr, bool 
 			{
 				SetClipPath(&c->PoLine);
 				PS_closepath();
-				fillRule = c->fillRule;
+				m_fillRule = c->fillRule;
 				if (c->GrType == 14)
 					PS_HatchFill(c);
 				else if (c->GrType != 0)
@@ -2027,7 +2027,7 @@ bool PSLib::ProcessItem(ScribusDoc* Doc, ScPage* a, PageItem* c, uint PNr, bool 
 			{
 				SetClipPath(&c->PoLine);
 				PS_closepath();
-				fillRule = c->fillRule;
+				m_fillRule = c->fillRule;
 				if (c->GrType == 14)
 					PS_HatchFill(c);
 				else if (c->GrType != 0)
@@ -2258,7 +2258,7 @@ bool PSLib::ProcessItem(ScribusDoc* Doc, ScPage* a, PageItem* c, uint PNr, bool 
 					continue;
 				}
 				/* Subset all TTF Fonts until the bug in the TTF-Embedding Code is fixed */
-				if (FontSubsetMap.contains(style.font().scName()))
+				if (m_FontSubsetMap.contains(style.font().scName()))
 				{
 //					uint chr = chstr.unicode();
 					uint chr = style.font().char2CMap(chstr);
@@ -2350,11 +2350,11 @@ bool PSLib::ProcessItem(ScribusDoc* Doc, ScPage* a, PageItem* c, uint PNr, bool 
 									PS_save();
 									PS_translate(style.fontSize() * style.shadowXOffset() / 10000.0, style.fontSize() * style.shadowYOffset() / 10000.0);
 									putColorNoDraw(style.strokeColor(), style.strokeShade());
-									PS_showSub(chr, FontSubsetMap[style.font().scName()], tsz / 10.0, false);
+									PS_showSub(chr, m_FontSubsetMap[style.font().scName()], tsz / 10.0, false);
 									PS_restore();
 								}
 								putColorNoDraw(style.fillColor(), style.fillShade());
-								PS_showSub(chr, FontSubsetMap[style.font().scName()], tsz / 10.0, false);
+								PS_showSub(chr, m_FontSubsetMap[style.font().scName()], tsz / 10.0, false);
 								if ((style.effects() & ScStyle_Outline))
 								{
 									if ((style.strokeColor() != CommonStrings::None) && ((tsz * style.outlineWidth() / 10000.0) != 0))
@@ -2362,7 +2362,7 @@ bool PSLib::ProcessItem(ScribusDoc* Doc, ScPage* a, PageItem* c, uint PNr, bool 
 										PS_save();
 										PS_setlinewidth(tsz * style.outlineWidth() / 10000.0);
 										putColorNoDraw(style.strokeColor(), style.strokeShade());
-										PS_showSub(chr, FontSubsetMap[style.font().scName()], tsz / 10.0, true);
+										PS_showSub(chr, m_FontSubsetMap[style.font().scName()], tsz / 10.0, true);
 										PS_restore();
 									}
 								}
@@ -2861,12 +2861,12 @@ void PSLib::ProcessPage(ScribusDoc* Doc, ScPage* a, uint PNr, bool sep, bool far
 	for (int la = 0; la < Doc->Layers.count(); ++la)
 	{
 		Doc->Layers.levelToLayer(ll, Lnr);
-		if (ll.isPrintable && !abortExport)
+		if (ll.isPrintable && !m_abortExport)
 		{
-			for (b = 0; b < PItems.count() && !abortExport; ++b)
+			for (b = 0; b < PItems.count() && !m_abortExport; ++b)
 			{
 				c = PItems.at(b);
-				if (usingGUI)
+				if (m_usingGUI)
 					ScQApp->processEvents();
 				if (c->LayerID != ll.ID)
 					continue;
@@ -2913,11 +2913,11 @@ bool PSLib::ProcessMasterPageLayer(ScribusDoc* Doc, ScPage* page, ScLayer& layer
 	ScPage* mPage = Doc->MasterPages.at(Doc->MasterNames[page->MPageNam]);
 	if (layer.isPrintable)
 	{
-		for (int am = 0; am < page->FromMaster.count() && !abortExport; ++am)
+		for (int am = 0; am < page->FromMaster.count() && !m_abortExport; ++am)
 		{
 			QString tmps;
 			PageItem *ite = page->FromMaster.at(am);
-			if (usingGUI)
+			if (m_usingGUI)
 				ScQApp->processEvents();
 			if ((ite->LayerID != layer.ID) || (!ite->printEnabled()))
 				continue;
@@ -3371,7 +3371,7 @@ bool PSLib::ProcessMasterPageLayer(ScribusDoc* Doc, ScPage* page, ScLayer& layer
 						continue;
 					}
 					/* Subset all TTF Fonts until the bug in the TTF-Embedding Code is fixed */
-					if (FontSubsetMap.contains(style.font().scName()))
+					if (m_FontSubsetMap.contains(style.font().scName()))
 					{
 	//					uint chr = chstr.unicode();
 						uint chr = style.font().char2CMap(chstr);
@@ -3463,11 +3463,11 @@ bool PSLib::ProcessMasterPageLayer(ScribusDoc* Doc, ScPage* page, ScLayer& layer
 										PS_save();
 										PS_translate(style.fontSize() * style.shadowXOffset() / 10000.0, style.fontSize() * style.shadowYOffset() / 10000.0);
 										putColorNoDraw(style.strokeColor(), style.strokeShade());
-										PS_showSub(chr, FontSubsetMap[style.font().scName()], tsz / 10.0, false);
+										PS_showSub(chr, m_FontSubsetMap[style.font().scName()], tsz / 10.0, false);
 										PS_restore();
 									}
 									putColorNoDraw(style.fillColor(), style.fillShade());
-									PS_showSub(chr, FontSubsetMap[style.font().scName()], tsz / 10.0, false);
+									PS_showSub(chr, m_FontSubsetMap[style.font().scName()], tsz / 10.0, false);
 									if ((style.effects() & ScStyle_Outline))
 									{
 										if ((style.strokeColor() != CommonStrings::None) && ((tsz * style.outlineWidth() / 10000.0) != 0))
@@ -3475,7 +3475,7 @@ bool PSLib::ProcessMasterPageLayer(ScribusDoc* Doc, ScPage* page, ScLayer& layer
 											PS_save();
 											PS_setlinewidth(tsz * style.outlineWidth() / 10000.0);
 											putColorNoDraw(style.strokeColor(), style.strokeShade());
-											PS_showSub(chr, FontSubsetMap[style.font().scName()], tsz / 10.0, true);
+											PS_showSub(chr, m_FontSubsetMap[style.font().scName()], tsz / 10.0, true);
 											PS_restore();
 										}
 									}
@@ -3681,12 +3681,12 @@ bool PSLib::ProcessPageLayer(ScribusDoc* Doc, ScPage* page, ScLayer& layer, uint
 //	int h, s, v, k;
 	QList<PageItem*> items;
 	items = (page->pageName().isEmpty()) ? Doc->DocItems : Doc->MasterItems;
-	if (layer.isPrintable && !abortExport)
+	if (layer.isPrintable && !m_abortExport)
 	{
-		for (b = 0; b < items.count() && !abortExport; ++b)
+		for (b = 0; b < items.count() && !m_abortExport; ++b)
 		{
 			PageItem *item = items.at(b);
-			if (usingGUI)
+			if (m_usingGUI)
 				ScQApp->processEvents();
 			if (item->LayerID != layer.ID)
 				continue;
@@ -3828,7 +3828,7 @@ void PSLib::HandleMeshGradient(PageItem* c)
 				}
 			}
 			colsSh.append(mp1.shade);
-			if (spotMap.contains(mp1.colorName))
+			if (m_spotMap.contains(mp1.colorName))
 			{
 				if (!spotColorSet.contains(mp1.colorName))
 					spotColorSet.append(mp1.colorName);
@@ -3838,7 +3838,7 @@ void PSLib::HandleMeshGradient(PageItem* c)
 	for (int ac = 0; ac < cols.count(); ac++)
 	{
 		QString colorVal = "";
-		if ((useSpotColors) && ((spotColorSet.count() > 0) && (spotColorSet.count() < 28)) && (!GraySc))
+		if ((m_useSpotColors) && ((spotColorSet.count() > 0) && (spotColorSet.count() < 28)) && (!m_GraySc))
 		{
 			if (spotColorSet.contains(cols.at(ac)))
 			{
@@ -3865,13 +3865,13 @@ void PSLib::HandleMeshGradient(PageItem* c)
 		else
 		{
 			SetColor(cols.at(ac), colsSh.at(ac), &ch, &cs, &cv, &ck);
-			if (GraySc)
+			if (m_GraySc)
 				colorVal += hs.setNum((255.0 - qMin(0.3 * ch + 0.59 * cs + 0.11 * cv + ck, 255.0))  / 255.0);
 			else
 				colorVal += hs.setNum(ch / 255.0)+" "+ss.setNum(cs / 255.0)+" "+vs.setNum(cv / 255.0)+" "+ks.setNum(ck / 255.0);
-			if (DoSep)
+			if (m_DoSep)
 			{
-				int pla = Plate - 1 < 0 ? 3 : Plate - 1;
+				int pla = m_Plate - 1 < 0 ? 3 : m_Plate - 1;
 				QStringList cols2 = colorVal.split(" ", QString::SkipEmptyParts);
 				colorVal = ToStr(1 - ScCLocale::toDoubleC(cols2[pla]));
 			}
@@ -3886,11 +3886,11 @@ void PSLib::HandleMeshGradient(PageItem* c)
 		PutStream("/Shading\n");
 		PutStream("<<\n");
 		PutStream("/ShadingType 7\n");
-		if ((DoSep) || (GraySc))
+		if ((m_DoSep) || (m_GraySc))
 		{
 			PutStream("/ColorSpace /DeviceGray\n");
 		}
-		else if ((useSpotColors) && ((spotColorSet.count() > 0) && (spotColorSet.count() < 28)))
+		else if ((m_useSpotColors) && ((spotColorSet.count() > 0) && (spotColorSet.count() < 28)))
 		{
 			PutStream("/ColorSpace [ /DeviceN [/Cyan /Magenta /Yellow /Black");
 			for (int sc = 0; sc < spotColorSet.count(); sc++)
@@ -3959,7 +3959,7 @@ void PSLib::HandleMeshGradient(PageItem* c)
 		PutStream(">>\n");
 		PutStream("[1 0 0 1 0 0] makepattern\n");
 		PutStream("setpattern\n");
-		if (fillRule)
+		if (m_fillRule)
 			PutStream("eofill\n");
 		else
 			PutStream("fill\n");
@@ -3990,7 +3990,7 @@ void PSLib::HandlePatchMeshGradient(PageItem* c)
 		meshPoint mp1 = patch.TL;
 		cols.append(mp1.colorName);
 		colsSh.append(mp1.shade);
-		if (spotMap.contains(mp1.colorName))
+		if (m_spotMap.contains(mp1.colorName))
 		{
 			if (!spotColorSet.contains(mp1.colorName))
 				spotColorSet.append(mp1.colorName);
@@ -3998,7 +3998,7 @@ void PSLib::HandlePatchMeshGradient(PageItem* c)
 		meshPoint mp2 = patch.TR;
 		cols.append(mp2.colorName);
 		colsSh.append(mp2.shade);
-		if (spotMap.contains(mp2.colorName))
+		if (m_spotMap.contains(mp2.colorName))
 		{
 			if (!spotColorSet.contains(mp2.colorName))
 				spotColorSet.append(mp2.colorName);
@@ -4006,7 +4006,7 @@ void PSLib::HandlePatchMeshGradient(PageItem* c)
 		meshPoint mp3 = patch.BR;
 		cols.append(mp3.colorName);
 		colsSh.append(mp3.shade);
-		if (spotMap.contains(mp3.colorName))
+		if (m_spotMap.contains(mp3.colorName))
 		{
 			if (!spotColorSet.contains(mp3.colorName))
 				spotColorSet.append(mp3.colorName);
@@ -4014,7 +4014,7 @@ void PSLib::HandlePatchMeshGradient(PageItem* c)
 		meshPoint mp4 = patch.BL;
 		cols.append(mp4.colorName);
 		colsSh.append(mp4.shade);
-		if (spotMap.contains(mp4.colorName))
+		if (m_spotMap.contains(mp4.colorName))
 		{
 			if (!spotColorSet.contains(mp4.colorName))
 				spotColorSet.append(mp4.colorName);
@@ -4023,7 +4023,7 @@ void PSLib::HandlePatchMeshGradient(PageItem* c)
 	for (int ac = 0; ac < cols.count(); ac++)
 	{
 		QString colorVal = "";
-		if ((useSpotColors) && ((spotColorSet.count() > 0) && (spotColorSet.count() < 28)) && (!GraySc))
+		if ((m_useSpotColors) && ((spotColorSet.count() > 0) && (spotColorSet.count() < 28)) && (!m_GraySc))
 		{
 			if (spotColorSet.contains(cols.at(ac)))
 			{
@@ -4050,13 +4050,13 @@ void PSLib::HandlePatchMeshGradient(PageItem* c)
 		else
 		{
 			SetColor(cols.at(ac), colsSh.at(ac), &ch, &cs, &cv, &ck);
-			if (GraySc)
+			if (m_GraySc)
 				colorVal += hs.setNum((255.0 - qMin(0.3 * ch + 0.59 * cs + 0.11 * cv + ck, 255.0))  / 255.0);
 			else
 				colorVal += hs.setNum(ch / 255.0)+" "+ss.setNum(cs / 255.0)+" "+vs.setNum(cv / 255.0)+" "+ks.setNum(ck / 255.0);
-			if (DoSep)
+			if (m_DoSep)
 			{
-				int pla = Plate - 1 < 0 ? 3 : Plate - 1;
+				int pla = m_Plate - 1 < 0 ? 3 : m_Plate - 1;
 				QStringList cols2 = colorVal.split(" ", QString::SkipEmptyParts);
 				colorVal = ToStr(1 - ScCLocale::toDoubleC(cols2[pla]));
 			}
@@ -4071,11 +4071,11 @@ void PSLib::HandlePatchMeshGradient(PageItem* c)
 		PutStream("/Shading\n");
 		PutStream("<<\n");
 		PutStream("/ShadingType 7\n");
-		if ((DoSep) || (GraySc))
+		if ((m_DoSep) || (m_GraySc))
 		{
 			PutStream("/ColorSpace /DeviceGray\n");
 		}
-		else if ((useSpotColors) && ((spotColorSet.count() > 0) && (spotColorSet.count() < 28)))
+		else if ((m_useSpotColors) && ((spotColorSet.count() > 0) && (spotColorSet.count() < 28)))
 		{
 			PutStream("/ColorSpace [ /DeviceN [/Cyan /Magenta /Yellow /Black");
 			for (int sc = 0; sc < spotColorSet.count(); sc++)
@@ -4150,7 +4150,7 @@ void PSLib::HandlePatchMeshGradient(PageItem* c)
 		PutStream(">>\n");
 		PutStream("[1 0 0 1 0 0] makepattern\n");
 		PutStream("setpattern\n");
-		if (fillRule)
+		if (m_fillRule)
 			PutStream("eofill\n");
 		else
 			PutStream("fill\n");
@@ -4180,7 +4180,7 @@ void PSLib::HandleDiamondGradient(PageItem* c)
 	{
 		cols.append(colorStops.at(cst)->name);
 		colsSh.append(colorStops.at(cst)->shade);
-		if (spotMap.contains(colorStops.at(cst)->name))
+		if (m_spotMap.contains(colorStops.at(cst)->name))
 		{
 			if (!spotColorSet.contains(colorStops.at(cst)->name))
 				spotColorSet.append(colorStops.at(cst)->name);
@@ -4189,7 +4189,7 @@ void PSLib::HandleDiamondGradient(PageItem* c)
 	for (int ac = 0; ac < cols.count(); ac++)
 	{
 		QString colorVal = "";
-		if ((useSpotColors) && ((spotColorSet.count() > 0) && (spotColorSet.count() < 28)) && (!GraySc))
+		if ((m_useSpotColors) && ((spotColorSet.count() > 0) && (spotColorSet.count() < 28)) && (!m_GraySc))
 		{
 			if (spotColorSet.contains(cols.at(ac)))
 			{
@@ -4216,13 +4216,13 @@ void PSLib::HandleDiamondGradient(PageItem* c)
 		else
 		{
 			SetColor(cols.at(ac), colsSh.at(ac), &ch, &cs, &cv, &ck);
-			if (GraySc)
+			if (m_GraySc)
 				colorVal += hs.setNum((255.0 - qMin(0.3 * ch + 0.59 * cs + 0.11 * cv + ck, 255.0))  / 255.0);
 			else
 				colorVal += hs.setNum(ch / 255.0)+" "+ss.setNum(cs / 255.0)+" "+vs.setNum(cv / 255.0)+" "+ks.setNum(ck / 255.0);
-			if (DoSep)
+			if (m_DoSep)
 			{
-				int pla = Plate - 1 < 0 ? 3 : Plate - 1;
+				int pla = m_Plate - 1 < 0 ? 3 : m_Plate - 1;
 				QStringList cols2 = colorVal.split(" ", QString::SkipEmptyParts);
 				colorVal = ToStr(1 - ScCLocale::toDoubleC(cols2[pla]));
 			}
@@ -4234,9 +4234,9 @@ void PSLib::HandleDiamondGradient(PageItem* c)
 	PutStream("/Shading\n");
 	PutStream("<<\n");
 	PutStream("/ShadingType 6\n");
-	if ((DoSep) || (GraySc))
+	if ((m_DoSep) || (m_GraySc))
 		PutStream("/ColorSpace /DeviceGray\n");
-	else if ((useSpotColors) && ((spotColorSet.count() > 0) && (spotColorSet.count() < 28)))
+	else if ((m_useSpotColors) && ((spotColorSet.count() > 0) && (spotColorSet.count() < 28)))
 	{
 		PutStream("/ColorSpace [ /DeviceN [/Cyan /Magenta /Yellow /Black");
 		for (int sc = 0; sc < spotColorSet.count(); sc++)
@@ -4356,7 +4356,7 @@ void PSLib::HandleDiamondGradient(PageItem* c)
 	PutStream(">>\n");
 	PutStream(">>\n");
 	PutStream("[1 0 0 1 0 0] makepattern setpattern\n");
-	if (fillRule)
+	if (m_fillRule)
 		PutStream("eofill\n");
 	else
 		PutStream("fill\n");
@@ -4375,7 +4375,7 @@ void PSLib::HandleTensorGradient(PageItem* c)
 	colsSh << c->GrCol4Shade << c->GrCol1Shade << c->GrCol2Shade << c->GrCol3Shade;
 	for (int cst = 0; cst < cols.count(); ++cst)
 	{
-		if (spotMap.contains(cols.at(cst)))
+		if (m_spotMap.contains(cols.at(cst)))
 		{
 			if (!spotColorSet.contains(cols.at(cst)))
 				spotColorSet.append(cols.at(cst));
@@ -4386,9 +4386,9 @@ void PSLib::HandleTensorGradient(PageItem* c)
 	PutStream("/Shading\n");
 	PutStream("<<\n");
 	PutStream("/ShadingType 7\n");
-	if ((DoSep) || (GraySc))
+	if ((m_DoSep) || (m_GraySc))
 		PutStream("/ColorSpace /DeviceGray\n");
-	else if ((useSpotColors) && ((spotColorSet.count() > 0) && (spotColorSet.count() < 28)))
+	else if ((m_useSpotColors) && ((spotColorSet.count() > 0) && (spotColorSet.count() < 28)))
 	{
 		PutStream("/ColorSpace [ /DeviceN [/Cyan /Magenta /Yellow /Black");
 		for (int sc = 0; sc < spotColorSet.count(); sc++)
@@ -4434,7 +4434,7 @@ void PSLib::HandleTensorGradient(PageItem* c)
 	PutStream(ToStr(c->GrControl2.x())+" "+ToStr(-c->GrControl2.y())+"\n");
 	for (int ac = 0; ac < cols.count(); ac++)
 	{
-		if ((useSpotColors) && ((spotColorSet.count() > 0) && (spotColorSet.count() < 28)) && (!GraySc))
+		if ((m_useSpotColors) && ((spotColorSet.count() > 0) && (spotColorSet.count() < 28)) && (!m_GraySc))
 		{
 			if (spotColorSet.contains(cols.at(ac)))
 			{
@@ -4462,13 +4462,13 @@ void PSLib::HandleTensorGradient(PageItem* c)
 		else
 		{
 			SetColor(cols.at(ac), colsSh.at(ac), &ch, &cs, &cv, &ck);
-			if (GraySc)
+			if (m_GraySc)
 				GCol = hs.setNum((255.0 - qMin(0.3 * ch + 0.59 * cs + 0.11 * cv + ck, 255.0))  / 255.0);
 			else
 				GCol = hs.setNum(ch / 255.0)+" "+ss.setNum(cs / 255.0)+" "+vs.setNum(cv / 255.0)+" "+ks.setNum(ck / 255.0);
-			if (DoSep)
+			if (m_DoSep)
 			{
-				int pla = Plate - 1 < 0 ? 3 : Plate - 1;
+				int pla = m_Plate - 1 < 0 ? 3 : m_Plate - 1;
 				QStringList cols2 = GCol.split(" ", QString::SkipEmptyParts);
 				PutStream(ToStr(1 - ScCLocale::toDoubleC(cols2[pla]))+"\n");
 			}
@@ -4480,7 +4480,7 @@ void PSLib::HandleTensorGradient(PageItem* c)
 	PutStream(">>\n");
 	PutStream(">>\n");
 	PutStream("[1 0 0 1 0 0] makepattern setpattern\n");
-	if (fillRule)
+	if (m_fillRule)
 		PutStream("eofill\n");
 	else
 		PutStream("fill\n");
@@ -4548,7 +4548,7 @@ void PSLib::HandleGradientFillStroke(PageItem *c, bool stroke, bool forArrow)
 			if (mirrorY)
 				patternMatrix.scale(1, -1);
 			PutStream("Pattern"+QString::number(patHash)+" ["+ToStr(patternMatrix.m11())+" "+ToStr(patternMatrix.m12())+" "+ToStr(patternMatrix.m21())+" "+ToStr(patternMatrix.m22())+" "+ToStr(patternMatrix.dx())+" "+ToStr(patternMatrix.dy())+"] makepattern setpattern\n");
-			if (fillRule)
+			if (m_fillRule)
 				PutStream("eofill\n");
 			else
 				PutStream("fill\n");
@@ -4592,7 +4592,7 @@ void PSLib::HandleGradientFillStroke(PageItem *c, bool stroke, bool forArrow)
 		StopVec.append(actualStop);
 		colorNames.append(cstops.at(cst)->name);
 		colorShades.append(cstops.at(cst)->shade);
-		if (spotMap.contains(cstops.at(cst)->name))
+		if (m_spotMap.contains(cstops.at(cst)->name))
 		{
 			if (!spotColorSet.contains(cstops.at(cst)->name))
 				spotColorSet.append(cstops.at(cst)->name);
@@ -4608,9 +4608,9 @@ void PSLib::HandleGradientFillStroke(PageItem *c, bool stroke, bool forArrow)
 		PutStream("/ShadingType 2\n");
 	else
 		PutStream("/ShadingType 3\n");
-	if ((DoSep) || (GraySc))
+	if ((m_DoSep) || (m_GraySc))
 		PutStream("/ColorSpace /DeviceGray\n");
-	else if ((useSpotColors) && ((spotColorSet.count() > 0) && (spotColorSet.count() < 28)))
+	else if ((m_useSpotColors) && ((spotColorSet.count() > 0) && (spotColorSet.count() < 28)))
 	{
 		PutStream("/ColorSpace [ /DeviceN [/Cyan /Magenta /Yellow /Black");
 		for (int sc = 0; sc < spotColorSet.count(); sc++)
@@ -4682,7 +4682,7 @@ void PSLib::HandleGradientFillStroke(PageItem *c, bool stroke, bool forArrow)
 		PutStream("<<\n");
 		PutStream("/FunctionType 2\n");
 		PutStream("/Domain [0 1]\n");
-		if ((useSpotColors) && ((spotColorSet.count() > 0) && (spotColorSet.count() < 28)) && (!GraySc))
+		if ((m_useSpotColors) && ((spotColorSet.count() > 0) && (spotColorSet.count() < 28)) && (!m_GraySc))
 		{
 			if (spotColorSet.contains(colorNames.at(cc)))
 			{
@@ -4732,18 +4732,18 @@ void PSLib::HandleGradientFillStroke(PageItem *c, bool stroke, bool forArrow)
 		else
 		{
 			SetColor(colorNames.at(cc), colorShades.at(cc), &ch, &cs, &cv, &ck);
-			if (GraySc)
+			if (m_GraySc)
 				GCol = hs.setNum((255.0 - qMin(0.3 * ch + 0.59 * cs + 0.11 * cv + ck, 255.0))  / 255.0);
 			else
 				GCol = hs.setNum(ch / 255.0)+" "+ss.setNum(cs / 255.0)+" "+vs.setNum(cv / 255.0)+" "+ks.setNum(ck / 255.0);
 			SetColor(colorNames.at(cc+1), colorShades.at(cc+1), &ch, &cs, &cv, &ck);
-			if (GraySc)
+			if (m_GraySc)
 				GCol2 = hs.setNum((255.0 - qMin(0.3 * ch + 0.59 * cs + 0.11 * cv + ck, 255.0))  / 255.0);
 			else
 				GCol2 = hs.setNum(ch / 255.0)+" "+ss.setNum(cs / 255.0)+" "+vs.setNum(cv / 255.0)+" "+ks.setNum(ck / 255.0);
-			if (DoSep)
+			if (m_DoSep)
 			{
-				int pla = Plate - 1 < 0 ? 3 : Plate - 1;
+				int pla = m_Plate - 1 < 0 ? 3 : m_Plate - 1;
 				QStringList cols1 = GCol.split(" ", QString::SkipEmptyParts);
 				QStringList cols2 = GCol2.split(" ", QString::SkipEmptyParts);
 				PutStream("/C1 ["+ToStr(1 - ScCLocale::toDoubleC(cols1[pla]))+"]\n");
@@ -4794,7 +4794,7 @@ void PSLib::HandleGradientFillStroke(PageItem *c, bool stroke, bool forArrow)
 //	PutStream("[1 0 0 1 0 0] makepattern setpattern\n");
 	if (forArrow)
 	{
-		if (fillRule)
+		if (m_fillRule)
 			PutStream("eofill\n");
 		else
 			PutStream("fill\n");
@@ -4805,7 +4805,7 @@ void PSLib::HandleGradientFillStroke(PageItem *c, bool stroke, bool forArrow)
 			PutStream("stroke\n");
 		else
 		{
-			if (fillRule)
+			if (m_fillRule)
 				PutStream("eofill\n");
 			else
 				PutStream("fill\n");
@@ -4943,7 +4943,7 @@ void PSLib::drawArrow(PageItem *ite, QTransform &arrowTrans, int arrowIndex)
 			if (mirrorY)
 				patternMatrix.scale(1, -1);
 			PutStream("Pattern"+QString::number(patHash)+" ["+ToStr(patternMatrix.m11())+" "+ToStr(patternMatrix.m12())+" "+ToStr(patternMatrix.m21())+" "+ToStr(patternMatrix.m22())+" "+ToStr(patternMatrix.dx())+" "+ToStr(patternMatrix.dy())+"] makepattern setpattern\n");
-			if (fillRule)
+			if (m_fillRule)
 				PutStream("eofill\n");
 			else
 				PutStream("fill\n");
@@ -5014,10 +5014,10 @@ void PSLib::SetColor(const ScColor& farb, double shade, int *h, int *s, int *v, 
 	ScColor tmp(farb);
 	if (farb.getColorModel() != colorModelCMYK)
 		tmp = ScColorEngine::convertToModel(farb, m_Doc, colorModelCMYK);
-	if ((Options.doGCR) && (!farb.isRegistrationColor()))
+	if ((m_Options.doGCR) && (!farb.isRegistrationColor()))
 		ScColorEngine::applyGCR(tmp, m_Doc);
 	tmp.getCMYK(&h1, &s1, &v1, &k1);
-	if ((m_Doc->HasCMS) && (ScCore->haveCMS()) && (solidTransform))
+	if ((m_Doc->HasCMS) && (ScCore->haveCMS()) && (m_solidTransform))
 	{
 		h1 = qRound(h1 * shade / 100.0);
 		s1 = qRound(s1 * shade / 100.0);
@@ -5029,7 +5029,7 @@ void PSLib::SetColor(const ScColor& farb, double shade, int *h, int *s, int *v, 
 		inC[1] = s1 * 257;
 		inC[2] = v1 * 257;
 		inC[3] = k1 * 257;
-		solidTransform.apply(inC, outC, 1);
+		m_solidTransform.apply(inC, outC, 1);
 		*h= outC[0] / 257;
 		*s = outC[1] / 257;
 		*v = outC[2] / 257;
@@ -5305,7 +5305,7 @@ void PSLib::setTextCh(ScribusDoc* Doc, PageItem* ite, double x, double y, uint a
 			putColor(cstyle.fillColor(), cstyle.fillShade(), false);
 		}
 		/* Subset all TTF Fonts until the bug in the TTF-Embedding Code is fixed */
-		if (FontSubsetMap.contains(cstyle.font().scName()))
+		if (m_FontSubsetMap.contains(cstyle.font().scName()))
 		{
 			if (glyph != 0 && glyph != cstyle.font().char2CMap(QChar(' ')) && (!SpecialChars::isBreak(chstr)))
 			{
@@ -5330,7 +5330,7 @@ void PSLib::setTextCh(ScribusDoc* Doc, PageItem* ite, double x, double y, uint a
 				if (cstyle.fillColor() != CommonStrings::None)
 				{
 					putColorNoDraw(cstyle.fillColor(), cstyle.fillShade());
-					PS_showSub(glyph, FontSubsetMap[cstyle.font().scName()], tsz / 10.0, false);
+					PS_showSub(glyph, m_FontSubsetMap[cstyle.font().scName()], tsz / 10.0, false);
 				}
 				PS_restore();
 			}
@@ -5466,25 +5466,25 @@ void PSLib::setTextCh(ScribusDoc* Doc, PageItem* ite, double x, double y, uint a
 
 void PSLib::putColor(const QString& colorName, double shade, bool fill)
 {
-	ScColor& color(colorsToUse[colorName]);
+	ScColor& color(m_colorsToUse[colorName]);
 	if (fill)
 	{
-		if (((color.isSpotColor()) || (color.isRegistrationColor())) && (useSpotColors))
+		if (((color.isSpotColor()) || (color.isRegistrationColor())) && (m_useSpotColors))
 		{
-			if (!DoSep)
+			if (!m_DoSep)
 				PS_fillspot(colorName, shade);
 			else
 			{
-				if ((colorName == currentSpot) || (color.isRegistrationColor()))
+				if ((colorName == m_currentSpot) || (color.isRegistrationColor()))
 				{
-					if (fillRule)
+					if (m_fillRule)
 						PutStream("0 0 0 "+ToStr(shade / 100.0)+" cmyk eofill\n");
 					else
 						PutStream("0 0 0 "+ToStr(shade / 100.0)+" cmyk fill\n");
 				}
 				else
 				{
-					if (fillRule)
+					if (m_fillRule)
 						PutStream("0 0 0 0 cmyk eofill\n");
 					else
 						PutStream("0 0 0 0 cmyk fill\n");
@@ -5493,9 +5493,9 @@ void PSLib::putColor(const QString& colorName, double shade, bool fill)
 		}
 		else
 		{
-			if (!DoSep || (Plate == 0) || (Plate == 1) || (Plate == 2) || (Plate == 3))
+			if (!m_DoSep || (m_Plate == 0) || (m_Plate == 1) || (m_Plate == 2) || (m_Plate == 3))
 				PS_fill();
-			else if (fillRule)
+			else if (m_fillRule)
 				PutStream("0 0 0 0 cmyk eofill\n");
 			else
 				PutStream("0 0 0 0 cmyk fill\n");
@@ -5503,19 +5503,19 @@ void PSLib::putColor(const QString& colorName, double shade, bool fill)
 	}
 	else
 	{
-		if (((color.isSpotColor()) || (color.isRegistrationColor())) && (useSpotColors))
+		if (((color.isSpotColor()) || (color.isRegistrationColor())) && (m_useSpotColors))
 		{
-			if (!DoSep)
+			if (!m_DoSep)
 				PS_strokespot(colorName, shade);
 			else
 			{
-				if ((colorName == currentSpot) || (color.isRegistrationColor()))
+				if ((colorName == m_currentSpot) || (color.isRegistrationColor()))
 					PutStream("0 0 0 "+ToStr(shade / 100.0)+" cmyk st\n");
 			}
 		}
 		else
 		{
-			if (!DoSep || (Plate == 0) || (Plate == 1) || (Plate == 2) || (Plate == 3))
+			if (!m_DoSep || (m_Plate == 0) || (m_Plate == 1) || (m_Plate == 2) || (m_Plate == 3))
 				PS_stroke();
 			else
 				PutStream("0 0 0 0 cmyk st\n");
@@ -5525,12 +5525,12 @@ void PSLib::putColor(const QString& colorName, double shade, bool fill)
 
 void PSLib::putColorNoDraw(const QString& colorName, double shade)
 {
-	ScColor& color(colorsToUse[colorName]);
-	if (((color.isSpotColor()) || (color.isRegistrationColor())) && (useSpotColors))
+	ScColor& color(m_colorsToUse[colorName]);
+	if (((color.isSpotColor()) || (color.isRegistrationColor())) && (m_useSpotColors))
 	{
-		if (!DoSep)
-			PutStream(ToStr(shade / 100.0)+" "+spotMap[colorName] + "\n");
-		else if ((colorName == currentSpot) || (color.isRegistrationColor()))
+		if (!m_DoSep)
+			PutStream(ToStr(shade / 100.0)+" "+m_spotMap[colorName] + "\n");
+		else if ((colorName == m_currentSpot) || (color.isRegistrationColor()))
 			PutStream("0 0 0 "+ToStr(shade / 100.0)+" cmyk\n");
 		else
 			PutStream("0 0 0 0 cmyk\n");
@@ -5539,7 +5539,7 @@ void PSLib::putColorNoDraw(const QString& colorName, double shade)
 	{
 		int c=0, m=0, y=0, k=0;
 		SetColor(color, shade, &c, &m, &y, &k);
-		if (!DoSep || (Plate == 0 || Plate == 1 || Plate == 2 || Plate == 3))
+		if (!m_DoSep || (m_Plate == 0 || m_Plate == 1 || m_Plate == 2 || m_Plate == 3))
 			PutStream(ToStr(c / 255.0) + " " + ToStr(m / 255.0) + " " + ToStr(y / 255.0) + " " + ToStr(k / 255.0) + " cmyk\n");
 		else
 			PutStream("0 0 0 0 cmyk\n");
@@ -5549,7 +5549,7 @@ void PSLib::putColorNoDraw(const QString& colorName, double shade)
 void PSLib::GetBleeds(ScPage* page, double& left, double& right)
 {
 	MarginStruct values;
-	m_Doc->getBleeds(page, Options.bleeds, values);
+	m_Doc->getBleeds(page, m_Options.bleeds, values);
 	left   = values.left();
 	right  = values.right();
 }
@@ -5557,7 +5557,7 @@ void PSLib::GetBleeds(ScPage* page, double& left, double& right)
 void PSLib::GetBleeds(ScPage* page, double& left, double& right, double& bottom, double& top)
 {
 	MarginStruct values;
-	m_Doc->getBleeds(page, Options.bleeds, values);
+	m_Doc->getBleeds(page, m_Options.bleeds, values);
 	left   = values.left();
 	right  = values.right();
 	bottom = values.bottom();
@@ -5614,10 +5614,10 @@ void PSLib::SetPathAndClip(FPointArray &path, bool clipRule)
 
 const QString& PSLib::errorMessage(void)
 {
-	return ErrorMessage;
+	return m_ErrorMessage;
 }
 
 void PSLib::cancelRequested()
 {
-	abortExport=true;
+	m_abortExport=true;
 }

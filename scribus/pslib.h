@@ -65,7 +65,7 @@ class SCRIBUS_API PSLib : public QObject
 		PSLib(PrintOptions &options, bool psart, SCFonts &AllFonts, QMap<QString, QMap<uint, FPointArray> > DocFonts, ColorList DocColors, bool pdf = false, bool spot = true);
 		virtual ~PSLib() {};
 
-		void setOptimization (Optimization opt) { optimization = opt; }
+		void setOptimization (Optimization opt) { m_optimization = opt; }
 
 		virtual int   CreatePS(ScribusDoc* Doc, PrintOptions &options);
 		virtual const QString& errorMessage(void);
@@ -160,52 +160,52 @@ class SCRIBUS_API PSLib : public QObject
 
 		void paintBorder(const TableBorder& border, const QPointF& start, const QPointF& end, const QPointF& startOffsetFactors, const QPointF& endOffsetFactors);
 
-		Optimization optimization;
+		Optimization m_optimization;
 
 		QString ToStr(double c);
 		QString IToStr(int c);
 		QString MatrixToStr(double m11, double m12, double m21, double m22, double x, double y);
 		QString PSEncode(QString in);
-		QString ErrorMessage;
-		QString Prolog;
-		QString Header;
-		QString Creator;
-		QString User;
-		QString Titel;
-		QString BBox;
-		QString BBoxH;
-		QString Farben;
-		QString FNamen;
-		QString PDev;
-		QString GrayCalc;
-		bool GraySc;
-		int Seiten;
-		QString FillColor;
-		QString StrokeColor;
-		double LineW;
-		QString Fonts;
-		QString FontDesc;
-		QMap<QString, QString> UsedFonts;
-		QMap<QString, QString> FontSubsetMap;
-    QMap<QString, ScFace::FaceEncoding> GlyphsOfFont;
-		bool isPDF;
-		QFile Spool;
-		QDataStream spoolStream;
-		int  Plate;
-		bool DoSep;
-		bool useSpotColors;
-		bool fillRule;
-		ScColorTransform solidTransform;
-		QString currentSpot;
-		ColorList colorsToUse;
-		QString colorDesc;
+		QString m_ErrorMessage;
+		QString m_Prolog;
+		QString m_Header;
+		QString m_Creator;
+		QString m_User;
+		QString m_Titel;
+		QString m_BBox;
+		QString m_BBoxH;
+		QString m_Farben;
+		QString m_FNamen;
+		QString m_PDev;
+		QString m_GrayCalc;
+		bool m_GraySc;
+		int m_Seiten;
+		QString m_FillColor;
+		QString m_StrokeColor;
+		double m_LineW;
+		QString m_Fonts;
+		QString m_FontDesc;
+		QMap<QString, QString> m_UsedFonts;
+		QMap<QString, QString> m_FontSubsetMap;
+	QMap<QString, ScFace::FaceEncoding> m_GlyphsOfFont;
+		bool m_isPDF;
+		QFile m_Spool;
+		QDataStream m_spoolStream;
+		int  m_Plate;
+		bool m_DoSep;
+		bool m_useSpotColors;
+		bool m_fillRule;
+		ScColorTransform m_solidTransform;
+		QString m_currentSpot;
+		ColorList m_colorsToUse;
+		QString m_colorDesc;
 		ScribusDoc *m_Doc;
-		QMap<QString, QString> spotMap;
-		MultiProgressDialog* progressDialog;
-		bool usingGUI;
-		bool abortExport;
-		PrintOptions Options;
-		ScPage* ActPage;
+		QMap<QString, QString> m_spotMap;
+		MultiProgressDialog* m_progressDialog;
+		bool m_usingGUI;
+		bool m_abortExport;
+		PrintOptions m_Options;
+		ScPage* m_ActPage;
 
 	protected slots:
 		void cancelRequested();
