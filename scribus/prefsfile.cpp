@@ -34,49 +34,49 @@ for which a new license (GPL+exception) is in place.
 
 PrefsFile::PrefsFile()
 {
-	prefsFilePath = "";
-	ioEnabled = false;
+	m_prefsFilePath = "";
+	m_ioEnabled = false;
 }
 
 PrefsFile::PrefsFile(const QString& pFilePath, bool write)
 {
-	prefsFilePath = pFilePath;
-	ioEnabled = write;
-	if (ioEnabled)
+	m_prefsFilePath = pFilePath;
+	m_ioEnabled = write;
+	if (m_ioEnabled)
 		canWrite();
 	load();
 }
 
 bool PrefsFile::hasContext(const QString& contextName) const
 {
-	return contexts.contains(contextName);
+	return m_contexts.contains(contextName);
 }
 
 PrefsContext* PrefsFile::getContext(const QString& contextName, bool persistent)
 {
-	if (!contexts.contains(contextName))
-		contexts[contextName] = new PrefsContext(contextName, persistent);
-	return contexts[contextName];
+	if (!m_contexts.contains(contextName))
+		m_contexts[contextName] = new PrefsContext(contextName, persistent);
+	return m_contexts[contextName];
 }
 
 PrefsContext* PrefsFile::getPluginContext(const QString& contextName, bool persistent)
 {
-	if (!pluginContexts.contains(contextName))
-		pluginContexts[contextName] = new PrefsContext(contextName, persistent);
-	return pluginContexts[contextName];
+	if (!m_pluginContexts.contains(contextName))
+		m_pluginContexts[contextName] = new PrefsContext(contextName, persistent);
+	return m_pluginContexts[contextName];
 }
 
 PrefsContext* PrefsFile::getUserPrefsContext(const QString& contextName, bool persistent)
 {
-	if (!userprefsContexts.contains(contextName))
-		userprefsContexts[contextName] = new PrefsContext(contextName, persistent);
-	return userprefsContexts[contextName];
+	if (!m_userprefsContexts.contains(contextName))
+		m_userprefsContexts[contextName] = new PrefsContext(contextName, persistent);
+	return m_userprefsContexts[contextName];
 }
 
 void PrefsFile::load()
 {
-	PrefsReader handler(&contexts, &pluginContexts);
-	QFile rc(prefsFilePath);
+	PrefsReader handler(&m_contexts, &m_pluginContexts);
+	QFile rc(m_prefsFilePath);
 	QXmlInputSource  source(&rc);
 	QXmlSimpleReader reader;
 	reader.setContentHandler(&handler);
@@ -85,31 +85,31 @@ void PrefsFile::load()
 
 void PrefsFile::write()
 {
-	if ((!ioEnabled) || ((contexts.size() == 0) && (pluginContexts.size() == 0)))
+	if ((!m_ioEnabled) || ((m_contexts.size() == 0) && (m_pluginContexts.size() == 0)))
 		return; // No prefs file path set -> can't write or no prefs to write
-	QFile* prefsXML = new QFile(prefsFilePath);
+	QFile* prefsXML = new QFile(m_prefsFilePath);
 	if (prefsXML->open(QIODevice::WriteOnly))
 	{
 		QTextStream stream(prefsXML);
 		stream.setCodec("UTF-8");
 		stream << "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
 		stream << "<preferences>\n";
-		if (contexts.size() > 0)
+		if (m_contexts.size() > 0)
 		{
 			stream << "\t<level name=\"application\">\n";
-			writeContexts(&contexts, stream);
+			writeContexts(&m_contexts, stream);
 			stream << "\t</level>\n";
 		}
-		if (userprefsContexts.size() > 0)
+		if (m_userprefsContexts.size() > 0)
 		{
 			stream << "\t<level name=\"plugin\">\n";
-			writeContexts(&userprefsContexts, stream);
+			writeContexts(&m_userprefsContexts, stream);
 			stream << "\t</level>\n";
 		}
-		if (pluginContexts.size() > 0)
+		if (m_pluginContexts.size() > 0)
 		{
 			stream << "\t<level name=\"plugin\">\n";
-			writeContexts(&pluginContexts, stream);
+			writeContexts(&m_pluginContexts, stream);
 			stream << "\t</level>\n";
 		}
 		stream << "</preferences>\n";
@@ -169,17 +169,17 @@ QString PrefsFile::replaceIllegalChars(const QString& text)
 
 void PrefsFile::canWrite()
 {
-	if (ioEnabled)
+	if (m_ioEnabled)
 	{
-		QFile f(prefsFilePath);
+		QFile f(m_prefsFilePath);
 		QFileInfo fi(f);
 		if (fi.exists())
-			ioEnabled = fi.isWritable();
+			m_ioEnabled = fi.isWritable();
 		else
 		{
-			QFile f2(prefsFilePath.left(prefsFilePath.lastIndexOf("/")));
+			QFile f2(m_prefsFilePath.left(m_prefsFilePath.lastIndexOf("/")));
 			QFileInfo fi2(f2);
-			ioEnabled = fi2.isWritable();
+			m_ioEnabled = fi2.isWritable();
 		}
 	}
 }
@@ -187,8 +187,8 @@ void PrefsFile::canWrite()
 PrefsFile::~PrefsFile()
 {
 	ContextMap::Iterator it;
-	for (it = contexts.begin(); it != contexts.end(); ++it)
+	for (it = m_contexts.begin(); it != m_contexts.end(); ++it)
 		delete it.value();
-	for (it = pluginContexts.begin(); it != pluginContexts.end(); ++it)
+	for (it = m_pluginContexts.begin(); it != m_pluginContexts.end(); ++it)
 		delete it.value();
 }
