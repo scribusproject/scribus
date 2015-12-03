@@ -68,7 +68,7 @@ PrefsManager* PrefsManager::_instance = 0;
 
 PrefsManager::PrefsManager(QObject *parent)
  : QObject(parent),
- firstTimeIgnoreOldPrefs(false)
+ m_firstTimeIgnoreOldPrefs(false)
 {
 }
 
@@ -111,7 +111,7 @@ PrefsFile* PrefsManager::applicationPrefsFile()
 
 bool PrefsManager::importingFrom12x()
 {
-	return importingFrom12;
+	return m_importingFrom12;
 }
 
 
@@ -119,9 +119,9 @@ void PrefsManager::setup()
 {
 	setupPreferencesLocation();
 
-	importingFrom12=copyOldPreferences();
-	prefsFile = new PrefsFile( prefsLocation + "/prefs150.xml" );
-	if (importingFrom12)
+	m_importingFrom12=copyOldPreferences();
+	prefsFile = new PrefsFile( m_prefsLocation + "/prefs150.xml" );
+	if (m_importingFrom12)
 		convert12Preferences();
 	//<<CB TODO Reset keyboard shortcuts of all 1.3 users as too many
 	//	 have conflicts if they dont nuke their settings.
@@ -768,7 +768,7 @@ QString PrefsManager::setupPreferencesLocation()
 		QDir scrapDirectoryT = QDir();
 		scrapDirectoryT.mkdir(QDir::toNativeSeparators(scB+"/tmp"));
 	}
-	prefsLocation=PrefsPfad;
+	m_prefsLocation=PrefsPfad;
 	QFileInfo scSwatch = QFileInfo(ScPaths::getApplicationDataDir()+"swatches");
 	if (!scSwatch.exists())
 	{
@@ -781,7 +781,7 @@ QString PrefsManager::setupPreferencesLocation()
 
 const QString PrefsManager::preferencesLocation()
 {
-	return prefsLocation;
+	return m_prefsLocation;
 }
 
 bool PrefsManager::copyOldPreferences()
@@ -789,18 +789,18 @@ bool PrefsManager::copyOldPreferences()
 	//Now make copies for 1.3 use and leave the old ones alone for <1.3.0 usage
 	QString prefs135[4], prefs140[4], prefs150[4];
 
-	prefs135[0]=QDir::toNativeSeparators(prefsLocation+"/scribus135.rc");
-	prefs135[1]=QDir::toNativeSeparators(prefsLocation+"/scrap135.scs");
-	prefs135[2]=QDir::toNativeSeparators(prefsLocation+"/prefs135.xml");
-	prefs135[3]=QDir::toNativeSeparators(prefsLocation+"/scripter135.rc");
-	prefs140[0]=QDir::toNativeSeparators(prefsLocation+"/scribus140.rc");
-	prefs140[1]=QDir::toNativeSeparators(prefsLocation+"/scrap140.scs");
-	prefs140[2]=QDir::toNativeSeparators(prefsLocation+"/prefs140.xml");
-	prefs140[3]=QDir::toNativeSeparators(prefsLocation+"/scripter140.rc");
-	prefs150[0]=QDir::toNativeSeparators(prefsLocation+"/scribus150.rc");
-	prefs150[1]=QDir::toNativeSeparators(prefsLocation+"/scrap150.scs");
-	prefs150[2]=QDir::toNativeSeparators(prefsLocation+"/prefs150.xml");
-	prefs150[3]=QDir::toNativeSeparators(prefsLocation+"/scripter150.rc");
+	prefs135[0]=QDir::toNativeSeparators(m_prefsLocation+"/scribus135.rc");
+	prefs135[1]=QDir::toNativeSeparators(m_prefsLocation+"/scrap135.scs");
+	prefs135[2]=QDir::toNativeSeparators(m_prefsLocation+"/prefs135.xml");
+	prefs135[3]=QDir::toNativeSeparators(m_prefsLocation+"/scripter135.rc");
+	prefs140[0]=QDir::toNativeSeparators(m_prefsLocation+"/scribus140.rc");
+	prefs140[1]=QDir::toNativeSeparators(m_prefsLocation+"/scrap140.scs");
+	prefs140[2]=QDir::toNativeSeparators(m_prefsLocation+"/prefs140.xml");
+	prefs140[3]=QDir::toNativeSeparators(m_prefsLocation+"/scripter140.rc");
+	prefs150[0]=QDir::toNativeSeparators(m_prefsLocation+"/scribus150.rc");
+	prefs150[1]=QDir::toNativeSeparators(m_prefsLocation+"/scrap150.scs");
+	prefs150[2]=QDir::toNativeSeparators(m_prefsLocation+"/prefs150.xml");
+	prefs150[3]=QDir::toNativeSeparators(m_prefsLocation+"/scripter150.rc");
 
 	bool existsPrefs135[4], existsPrefs140[4], existsPrefs150[4];
 	for (uint i=0;i<4;++i)
@@ -863,7 +863,7 @@ bool PrefsManager::copyOldPreferences()
 void PrefsManager::convert12Preferences()
 {
 	// Import 1.2 font search path prefs
-	QFile fontPrefsFile12(QDir::toNativeSeparators(prefsLocation+"/scribusfont.rc"));
+	QFile fontPrefsFile12(QDir::toNativeSeparators(m_prefsLocation+"/scribusfont.rc"));
 	if (fontPrefsFile12.open(QIODevice::ReadOnly))
 	{
 		PrefsContext *pc = prefsFile->getContext("Fonts");
@@ -881,7 +881,7 @@ void PrefsManager::ReadPrefs(const QString & fname)
 {
 	QString realFile;
 	if (fname.isEmpty())
-		realFile = prefsLocation + "/scribus150.rc";
+		realFile = m_prefsLocation + "/scribus150.rc";
 	else
 		realFile = fname;
 
@@ -915,7 +915,7 @@ void PrefsManager::setupMainWindow(ScribusMainWindow* mw)
 	if (appPrefs.uiPrefs.mainWinSettings.maximized)
 		mw->setWindowState((ScCore->primaryMainWindow()->windowState() & ~Qt::WindowMinimized) | Qt::WindowMaximized);
 	//For 1.3.5, we dump prefs first time around.
-	if (!firstTimeIgnoreOldPrefs)
+	if (!m_firstTimeIgnoreOldPrefs)
 		ReadPrefsXML();
 	if (appPrefs.verifierPrefs.checkerPrefsList.count() == 0)
 	{
@@ -974,7 +974,7 @@ void PrefsManager::SavePrefs(const QString & fname)
 	SavePrefsXML();
 	QString realFile;
 	if (fname.isNull())
-		realFile = prefsLocation+"/scribus150.rc";
+		realFile = m_prefsLocation+"/scribus150.rc";
 	else
 		realFile = fname;
 	if (!WritePref(realFile))
@@ -1070,7 +1070,7 @@ int PrefsManager::mouseWheelJump() const
 //Changed to return false when we have no fonts
 bool PrefsManager::GetAllFonts(bool showFontInfo)
 {
-	appPrefs.fontPrefs.AvailFonts.GetFonts(prefsLocation, showFontInfo);
+	appPrefs.fontPrefs.AvailFonts.GetFonts(m_prefsLocation, showFontInfo);
 	return !appPrefs.fontPrefs.AvailFonts.isEmpty();
 }
 
@@ -1888,7 +1888,7 @@ bool PrefsManager::ReadPref(QString ho)
 		if (elem.attribute("VERSION") == "1.5.0")
 			prefs150FileFound=true;
 	}
-	firstTimeIgnoreOldPrefs=!prefs150FileFound;
+	m_firstTimeIgnoreOldPrefs=!prefs150FileFound;
 	if (!prefs150FileFound)
 		return false;
 	appPrefs.colorPrefs.DColors.clear();
@@ -2284,7 +2284,7 @@ bool PrefsManager::ReadPref(QString ho)
 			appPrefs.colorPrefs.DCMSset.DefaultIntentColors = (eRenderIntent) dc.attribute("DefaultIntentColors", "1").toInt();
 			appPrefs.colorPrefs.DCMSset.DefaultIntentImages = (eRenderIntent) dc.attribute("DefaultIntentImages", "0").toInt();
 		}
-		if (!importingFrom12 && dc.tagName()=="Shortcut")
+		if (!m_importingFrom12 && dc.tagName()=="Shortcut")
 		{
 			appPrefs.keyShortcutPrefs.KeyActions[dc.attribute("Action")].actionName = dc.attribute("Action");
 			QKeySequence newKeySequence = QKeySequence(dc.attribute("KeySequence"));
