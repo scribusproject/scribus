@@ -130,26 +130,26 @@ public:
 private:
 
 	/** \brief Cyan or Red Component of Color (depends of color model)*/
-	int CR;
+	int m_CR;
 	/** \brief Magenta or Green Component of Color (depends of color model)*/
-	int MG;
+	int m_MG;
 	/** \brief Yellow or Blue Component of Color (depends of color model)*/
-	int YB;
+	int m_YB;
 	/** \brief Black-Component of Color */
-	int K;
+	int m_K;
 	/** \brief L component of Color */
-	double L_val;
+	double m_L_val;
 	/** \brief a component of Color */
-	double a_val;
+	double m_a_val;
 	/** \brief b component of Color */
-	double b_val;
+	double m_b_val;
 
 	/** \brief Flag, true if the Color is a Spotcolor */
-	bool Spot;
+	bool m_Spot;
 	/** \brief Flag, true if the Color is a Registration color */
-	bool Regist;
+	bool m_Regist;
 	/** \brief Color model of the current color */
-	colorModel Model;
+	colorModel m_Model;
 };
 
 class SCRIBUS_API ColorList : public QMap<QString,ScColor>
