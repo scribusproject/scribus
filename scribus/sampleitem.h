@@ -98,14 +98,14 @@ class SCRIBUS_API SampleItem : QObject
 
 	private:
 		//! \brief Text to be rendered
-		QString text;
+		QString m_text;
 		//! \brief Internal temporary paragraph style
-		ParagraphStyle tmpStyle;
+		ParagraphStyle m_tmpStyle;
 		/*! \brief Reference to a document.
 		Existing or created one */
 		ScribusDoc *m_Doc;
 		//! \brief Is the doc created used only? true = used
-		int bgShade;
+		int m_bgShade;
 };
 
 #endif

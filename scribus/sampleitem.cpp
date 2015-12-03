@@ -32,40 +32,40 @@ SampleItem::SampleItem() : QObject()
 	m_Doc->PageColors.insert("__blackforpreview__", ScColor(0, 0, 0, 255));
 	m_Doc->PageColors.insert("__whiteforpreview__", ScColor(0, 0, 0, 0));
 	m_Doc->PageColors.insert("__whiteforpreviewbg__", ScColor(0, 0, 0, 0));
-	bgShade = 100;
-	tmpStyle.setName("(preview temporary)");
-	tmpStyle.setLineSpacingMode(ParagraphStyle::FixedLineSpacing);
-	tmpStyle.setLineSpacing((m_Doc->itemToolPrefs().textSize / 10.0) * (static_cast<double>(m_Doc->typographicPrefs().autoLineSpacing) / 100));
-	tmpStyle.setAlignment(ParagraphStyle::Leftaligned);
-	tmpStyle.setLeftMargin(0);
-	tmpStyle.setFirstIndent(0);
-	tmpStyle.setRightMargin(0);
-	tmpStyle.setGapBefore(0);
-	tmpStyle.setGapAfter(0);
-	tmpStyle.charStyle().setFont(PrefsManager::instance()->appPrefs.fontPrefs.AvailFonts[m_Doc->itemToolPrefs().textFont]);
-	tmpStyle.charStyle().setFontSize(m_Doc->itemToolPrefs().textSize);
+	m_bgShade = 100;
+	m_tmpStyle.setName("(preview temporary)");
+	m_tmpStyle.setLineSpacingMode(ParagraphStyle::FixedLineSpacing);
+	m_tmpStyle.setLineSpacing((m_Doc->itemToolPrefs().textSize / 10.0) * (static_cast<double>(m_Doc->typographicPrefs().autoLineSpacing) / 100));
+	m_tmpStyle.setAlignment(ParagraphStyle::Leftaligned);
+	m_tmpStyle.setLeftMargin(0);
+	m_tmpStyle.setFirstIndent(0);
+	m_tmpStyle.setRightMargin(0);
+	m_tmpStyle.setGapBefore(0);
+	m_tmpStyle.setGapAfter(0);
+	m_tmpStyle.charStyle().setFont(PrefsManager::instance()->appPrefs.fontPrefs.AvailFonts[m_Doc->itemToolPrefs().textFont]);
+	m_tmpStyle.charStyle().setFontSize(m_Doc->itemToolPrefs().textSize);
 //	tmpStyle.tabValues().clear();
-	tmpStyle.setHasDropCap(false);
-	tmpStyle.setHasBullet(false);
-	tmpStyle.setHasNum(false);
-	tmpStyle.setDropCapLines(0);//2;
-	tmpStyle.setParEffectOffset(0);
-	tmpStyle.charStyle().setFeatures(QStringList(CharStyle::INHERIT));
-	tmpStyle.charStyle().setFillColor("__blackforpreview__");
-	tmpStyle.charStyle().setFillShade(100); //m_Doc->toolSettings.dShade;
-	tmpStyle.charStyle().setStrokeColor("__whiteforpreview__");
-	tmpStyle.charStyle().setStrokeShade(100); //m_Doc->toolSettings.dShade2;
-	tmpStyle.charStyle().setShadowXOffset(50);
-	tmpStyle.charStyle().setShadowYOffset(-50);
-	tmpStyle.charStyle().setOutlineWidth(10);
-	tmpStyle.charStyle().setUnderlineOffset(0); //m_Doc->typographicSettings.valueUnderlinePos;
-	tmpStyle.charStyle().setUnderlineWidth(0); //m_Doc->typographicSettings.valueUnderlineWidth;
-	tmpStyle.charStyle().setStrikethruOffset(0); //m_Doc->typographicSettings.valueStrikeThruPos;
-	tmpStyle.charStyle().setStrikethruWidth(0); //m_Doc->typographicSettings.valueStrikeThruPos;
-	tmpStyle.charStyle().setScaleH(1000);
-	tmpStyle.charStyle().setScaleV(1000);
-	tmpStyle.charStyle().setBaselineOffset(0);
-	tmpStyle.charStyle().setTracking(0);
+	m_tmpStyle.setHasDropCap(false);
+	m_tmpStyle.setHasBullet(false);
+	m_tmpStyle.setHasNum(false);
+	m_tmpStyle.setDropCapLines(0);//2;
+	m_tmpStyle.setParEffectOffset(0);
+	m_tmpStyle.charStyle().setFeatures(QStringList(CharStyle::INHERIT));
+	m_tmpStyle.charStyle().setFillColor("__blackforpreview__");
+	m_tmpStyle.charStyle().setFillShade(100); //m_Doc->toolSettings.dShade;
+	m_tmpStyle.charStyle().setStrokeColor("__whiteforpreview__");
+	m_tmpStyle.charStyle().setStrokeShade(100); //m_Doc->toolSettings.dShade2;
+	m_tmpStyle.charStyle().setShadowXOffset(50);
+	m_tmpStyle.charStyle().setShadowYOffset(-50);
+	m_tmpStyle.charStyle().setOutlineWidth(10);
+	m_tmpStyle.charStyle().setUnderlineOffset(0); //m_Doc->typographicSettings.valueUnderlinePos;
+	m_tmpStyle.charStyle().setUnderlineWidth(0); //m_Doc->typographicSettings.valueUnderlineWidth;
+	m_tmpStyle.charStyle().setStrikethruOffset(0); //m_Doc->typographicSettings.valueStrikeThruPos;
+	m_tmpStyle.charStyle().setStrikethruWidth(0); //m_Doc->typographicSettings.valueStrikeThruPos;
+	m_tmpStyle.charStyle().setScaleH(1000);
+	m_tmpStyle.charStyle().setScaleV(1000);
+	m_tmpStyle.charStyle().setBaselineOffset(0);
+	m_tmpStyle.charStyle().setTracking(0);
 }
 
 SampleItem::~SampleItem()
@@ -75,13 +75,13 @@ SampleItem::~SampleItem()
 
 void SampleItem::setText(QString aText)
 {
-	text = aText;
+	m_text = aText;
 }
 
 void SampleItem::setLoremIpsum(int para)
 {
 	LoremParser *m = new LoremParser("loremipsum.xml");
-	text = m->createLorem(para);
+	m_text = m->createLorem(para);
 // really needed ??
 //	text = QString::fromUtf8(text);
 	delete m;
@@ -89,7 +89,7 @@ void SampleItem::setLoremIpsum(int para)
 
 void SampleItem::setStyle(const ParagraphStyle& aStyle)
 {
-	tmpStyle = aStyle;
+	m_tmpStyle = aStyle;
 }
 
 void SampleItem::setBgColor(QColor c)
@@ -99,7 +99,7 @@ void SampleItem::setBgColor(QColor c)
 
 void SampleItem::setBgShade(int c)
 {
-	bgShade = c;
+	m_bgShade = c;
 }
 
 void SampleItem::setBgColorMgmt(bool enable)
@@ -114,54 +114,54 @@ void SampleItem::setTxColor(QColor c)
 
 void SampleItem::setTxShade(int c)
 {
-	tmpStyle.charStyle().setFillShade(c);
+	m_tmpStyle.charStyle().setFillShade(c);
 }
 
 void SampleItem::setLineSpaMode(int lineSpaMode)
 {
-	tmpStyle.setLineSpacingMode(static_cast<ParagraphStyle::LineSpacingMode>(lineSpaMode));
+	m_tmpStyle.setLineSpacingMode(static_cast<ParagraphStyle::LineSpacingMode>(lineSpaMode));
 }
 
 void SampleItem::setLineSpa(double lineSpa)
 {
-	tmpStyle.setLineSpacing(lineSpa);
+	m_tmpStyle.setLineSpacing(lineSpa);
 }
 
 void SampleItem::setTextAlignment(int textAlignment)
 {
-	tmpStyle.setAlignment(static_cast<ParagraphStyle::AlignmentType>(textAlignment));
+	m_tmpStyle.setAlignment(static_cast<ParagraphStyle::AlignmentType>(textAlignment));
 }
 
 void SampleItem::setIndent(double indent)
 {
-	tmpStyle.setLeftMargin(indent);
+	m_tmpStyle.setLeftMargin(indent);
 }
 
 void SampleItem::setFirst(double first)
 {
-	tmpStyle.setFirstIndent(first);
+	m_tmpStyle.setFirstIndent(first);
 }
 
 void SampleItem::setGapBefore(double gapBefore)
 {
-	tmpStyle.setGapBefore(gapBefore);
+	m_tmpStyle.setGapBefore(gapBefore);
 }
 
 void SampleItem::setGapAfter(double gapAfter)
 {
-	tmpStyle.setGapAfter(gapAfter);
+	m_tmpStyle.setGapAfter(gapAfter);
 }
 
 void SampleItem::setFont(QString font)
 {
-	tmpStyle.charStyle().setFont(PrefsManager::instance()->appPrefs.fontPrefs.AvailFonts[font]);
+	m_tmpStyle.charStyle().setFont(PrefsManager::instance()->appPrefs.fontPrefs.AvailFonts[font]);
 }
 
 void SampleItem::setFontSize(int fontSize, bool autoLineSpa)
 {
-	tmpStyle.charStyle().setFontSize(fontSize);
+	m_tmpStyle.charStyle().setFontSize(fontSize);
 	if (autoLineSpa)
-		tmpStyle.setLineSpacing((fontSize / 10)  * (m_Doc->typographicPrefs().autoLineSpacing / 100.0));
+		m_tmpStyle.setLineSpacing((fontSize / 10)  * (m_Doc->typographicPrefs().autoLineSpacing / 100.0));
 }
 
 /*void SampleItem::setTabValues(QValueList<PageItem::TabRecord> tabValues)
@@ -171,112 +171,112 @@ void SampleItem::setFontSize(int fontSize, bool autoLineSpa)
 
 void SampleItem::setDrop(bool drop)
 {
-	tmpStyle.setHasDropCap(drop);
+	m_tmpStyle.setHasDropCap(drop);
 }
 
 void SampleItem::setDropLin(int dropLin)
 {
-	tmpStyle.setDropCapLines(dropLin);
+	m_tmpStyle.setDropCapLines(dropLin);
 }
 
 void SampleItem::setParEffectDist(double dist)
 {
-	tmpStyle.setParEffectOffset(dist);
+	m_tmpStyle.setParEffectOffset(dist);
 }
 
 void SampleItem::setBullet(bool bul)
 {
-	tmpStyle.setHasBullet(bul);
+	m_tmpStyle.setHasBullet(bul);
 }
 
 void SampleItem::setNum(bool num)
 {
-	tmpStyle.setHasNum(num);
+	m_tmpStyle.setHasNum(num);
 }
 
 void SampleItem::setFontEffect(int fontEffect)
 {
-	tmpStyle.charStyle().setFeatures(static_cast<StyleFlag>(fontEffect).featureList());
+	m_tmpStyle.charStyle().setFeatures(static_cast<StyleFlag>(fontEffect).featureList());
 }
 
 void SampleItem::setFColor(QString fColor)
 {
-	tmpStyle.charStyle().setFillColor(fColor);
+	m_tmpStyle.charStyle().setFillColor(fColor);
 }
 
 void SampleItem::setFShade(int fShade)
 {
-	tmpStyle.charStyle().setFillShade(fShade);
+	m_tmpStyle.charStyle().setFillShade(fShade);
 }
 
 void SampleItem::setSColor(QString sColor)
 {
-	tmpStyle.charStyle().setStrokeColor(sColor);
+	m_tmpStyle.charStyle().setStrokeColor(sColor);
 }
 
 void SampleItem::setSShade(int sShade)
 {
-	tmpStyle.charStyle().setStrokeShade(sShade);
+	m_tmpStyle.charStyle().setStrokeShade(sShade);
 }
 
 void SampleItem::setBaseAdj(bool baseAdj)
 {
-	tmpStyle.setLineSpacingMode(baseAdj ? ParagraphStyle::BaselineGridLineSpacing : ParagraphStyle::FixedLineSpacing);
+	m_tmpStyle.setLineSpacingMode(baseAdj ? ParagraphStyle::BaselineGridLineSpacing : ParagraphStyle::FixedLineSpacing);
 }
 
 void SampleItem::setTxtShadowX(int txtShadowX)
 {
-	tmpStyle.charStyle().setShadowXOffset(txtShadowX);
+	m_tmpStyle.charStyle().setShadowXOffset(txtShadowX);
 }
 
 void SampleItem::setTxtShadowY(int txtShadowY)
 {
-	tmpStyle.charStyle().setShadowYOffset(txtShadowY);
+	m_tmpStyle.charStyle().setShadowYOffset(txtShadowY);
 }
 
 void SampleItem::setTxtOutline(int txtOutline)
 {
-	tmpStyle.charStyle().setOutlineWidth(txtOutline);
+	m_tmpStyle.charStyle().setOutlineWidth(txtOutline);
 }
 
 void SampleItem::setTxtUnderPos(int txtUnderPos)
 {
-	tmpStyle.charStyle().setUnderlineOffset(txtUnderPos);
+	m_tmpStyle.charStyle().setUnderlineOffset(txtUnderPos);
 }
 
 void SampleItem::setTxtUnderWidth(int txtUnderWidth)
 {
-	tmpStyle.charStyle().setUnderlineWidth(txtUnderWidth);
+	m_tmpStyle.charStyle().setUnderlineWidth(txtUnderWidth);
 }
 
 void SampleItem::setTxtStrikePos(int txtStrikePos)
 {
-	tmpStyle.charStyle().setStrikethruOffset(txtStrikePos);
+	m_tmpStyle.charStyle().setStrikethruOffset(txtStrikePos);
 }
 
 void SampleItem::setTxtStrikeWidth(int txtStrikeWidth)
 {
-	tmpStyle.charStyle().setStrikethruWidth(txtStrikeWidth);
+	m_tmpStyle.charStyle().setStrikethruWidth(txtStrikeWidth);
 }
 
 void SampleItem::setScaleH(int scaleH)
 {
-	tmpStyle.charStyle().setScaleH(scaleH);
+	m_tmpStyle.charStyle().setScaleH(scaleH);
 }
 
 void SampleItem::setScaleV(int scaleV)
 {
-	tmpStyle.charStyle().setScaleV(scaleV);
+	m_tmpStyle.charStyle().setScaleV(scaleV);
 }
 
 void SampleItem::setBaseOff(int baseOff)
 {
-	tmpStyle.charStyle().setBaselineOffset(baseOff);
+	m_tmpStyle.charStyle().setBaselineOffset(baseOff);
 }
 
 void SampleItem::setKernVal(int kernVal)
 {
-	tmpStyle.charStyle().setTracking(kernVal);
+	m_tmpStyle.charStyle().setTracking(kernVal);
 }
 
 QPixmap SampleItem::getSample(int width, int height)
@@ -285,7 +285,7 @@ QPixmap SampleItem::getSample(int width, int height)
 	// after sample creating
 	bool previouslyUsedFont = false;
 
-	if (tmpStyle.charStyle().font().isNone())
+	if (m_tmpStyle.charStyle().font().isNone())
 		return QPixmap();
 
 	UndoManager::instance()->setUndoEnabled(false); // disable undo
@@ -295,20 +295,20 @@ QPixmap SampleItem::getSample(int width, int height)
 	ScPainter *painter = new ScPainter(&pm, width, height, 1.0, 0);
 	painter->setZoomFactor(PrefsManager::instance()->appPrefs.displayPrefs.displayScale);
 
-	if (m_Doc->UsedFonts.contains(tmpStyle.charStyle().font().scName()))
+	if (m_Doc->UsedFonts.contains(m_tmpStyle.charStyle().font().scName()))
 		previouslyUsedFont = true;
 
-	m_Doc->AddFont(tmpStyle.charStyle().font().scName(), qRound(m_Doc->itemToolPrefs().textSize / 10.0));
+	m_Doc->AddFont(m_tmpStyle.charStyle().font().scName(), qRound(m_Doc->itemToolPrefs().textSize / 10.0));
 
 	previewItem->FrameType = PageItem::TextFrame;
 	previewItem->itemText.clear();
 //	previewItem->setFont(tmpStyle.charStyle().font()->scName());
 	previewItem->Cols = 1;
-	text.replace(QChar(10),QChar(13)).replace(QChar(5),QChar(13));
-	previewItem->itemText.insertChars(0, text);
-	previewItem->itemText.setDefaultStyle(tmpStyle);
+	m_text.replace(QChar(10),QChar(13)).replace(QChar(5),QChar(13));
+	previewItem->itemText.insertChars(0, m_text);
+	previewItem->itemText.setDefaultStyle(m_tmpStyle);
 	previewItem->setFillColor("__whiteforpreviewbg__");
-	previewItem->setFillShade(bgShade);
+	previewItem->setFillShade(m_bgShade);
 	previewItem->SetRectFrame();
 	previewItem->setSampleItem(true);
 	previewItem->DrawObj(painter, QRect(0, 0, width, height));
@@ -319,7 +319,7 @@ QPixmap SampleItem::getSample(int width, int height)
 	// cleanups and resets
 	if (!previouslyUsedFont)
 	{
-		QString fontName = tmpStyle.charStyle().font().scName();
+		QString fontName = m_tmpStyle.charStyle().font().scName();
 		(*m_Doc->AllFonts)[fontName].decreaseUsage(); // was increased by AddFont()
 		m_Doc->UsedFonts.remove(fontName);
 	}
