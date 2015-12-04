@@ -19390,7 +19390,7 @@ Voulez-vous utiliser celle-ci?</translation>
         <location filename="../../scribus/ui/prefs_guidesbase.ui" line="406"/>
         <location filename="../../scribus/ui/prefs_guides.cpp" line="65"/>
         <source>Baseline Grid</source>
-        <translation>Grile d&apos;interlignage</translation>
+        <translation>Grille d&apos;interlignage</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_guidesbase.ui" line="427"/>
@@ -25341,7 +25341,7 @@ Transparency</source>
     <message>
         <location filename="../../scribus/ui/propertywidget_flop.cpp" line="57"/>
         <source>Baseline Grid</source>
-        <translation>Grile d&apos;interlignage</translation>
+        <translation>Grille d&apos;interlignage</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_flop.cpp" line="59"/>
@@ -25397,7 +25397,7 @@ Transparency</source>
     <message>
         <location filename="../../scribus/ui/propertywidget_flopbase.ui" line="56"/>
         <source>Baseline Grid</source>
-        <translation>Grile d&apos;interlignage</translation>
+        <translation>Grille d&apos;interlignage</translation>
     </message>
 </context>
 <context>
