@@ -119,9 +119,8 @@ if not exist %SCRIBUS_INSTALL_PATH%\share\qml           mkdir %SCRIBUS_INSTALL_P
 xcopy %SCRIBUS_SRC_PATH%\doc                            %SCRIBUS_INSTALL_PATH%\share\doc /s /y /i /D
 xcopy %SCRIBUS_SRC_PATH%\resources\dicts                %SCRIBUS_INSTALL_PATH%\share\dicts /s /y /i /D
 xcopy %SCRIBUS_SRC_PATH%\resources\editorconfig         %SCRIBUS_INSTALL_PATH%\share\editorconfig /s /y /i /D
-xcopy %SCRIBUS_SRC_PATH%\resources\iconsets\1_5_0       %SCRIBUS_INSTALL_PATH%\share\icons /s /y /i /D
+xcopy %SCRIBUS_SRC_PATH%\resources\iconsets             %SCRIBUS_INSTALL_PATH%\share\icons /s /y /i /D
  copy %SCRIBUS_SRC_PATH%\resources\iconsets\1_5_0\*.xml %SCRIBUS_INSTALL_PATH%\share\icons /y
-xcopy %SCRIBUS_SRC_PATH%\resources\iconsets\1_5_1       %SCRIBUS_INSTALL_PATH%\share\icons /s /y /i /D
  copy %SCRIBUS_SRC_PATH%\resources\iconsets\1_5_1\*.xml %SCRIBUS_INSTALL_PATH%\share\icons /y
 xcopy %SCRIBUS_SRC_PATH%\resources\loremipsum           %SCRIBUS_INSTALL_PATH%\share\loremipsum /s /y /i /D
 xcopy %SCRIBUS_SRC_PATH%\resources\profiles             %SCRIBUS_INSTALL_PATH%\share\profiles /s /y /i /D
