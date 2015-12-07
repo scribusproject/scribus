@@ -334,27 +334,27 @@ private:
 	void addGraphicContext();
 	void popGraphicContext();
 	
-	int importerFlags;
-	int recordCounter;
-	int currentLayer;
-	int pathTextType;
-	int pathGcStackIndex;
-	double baseX, baseY;
-	double docWidth;
-	double docHeight;
-	int pagecount;
-	double TextX;
-	double TextY;
-	double textRotation;
-	double textSkew;
-	bool firstLayer;
-	bool interactive;
-	bool cancel;
-	bool inTextLine;
-	bool inTextBlock;
-	bool isPathText;
-	bool recordPath;
-	QTransform textMatrix;
+	int m_importerFlags;
+	int m_recordCounter;
+	int m_currentLayer;
+	int m_pathTextType;
+	int m_pathGcStackIndex;
+	double m_baseX, m_baseY;
+	double m_docWidth;
+	double m_docHeight;
+	int m_pagecount;
+	double m_TextX;
+	double m_TextY;
+	double m_textRotation;
+	double m_textSkew;
+	bool m_firstLayer;
+	bool m_interactive;
+	bool m_cancel;
+	bool m_inTextLine;
+	bool m_inTextBlock;
+	bool m_isPathText;
+	bool m_recordPath;
+	QTransform m_textMatrix;
 	struct XarColor
 	{
 		quint32 colorType;
@@ -456,32 +456,32 @@ private:
 		QList<XarText> textData;
 	};
 
-	QByteArray imageData;
-	QList<PageItem*> Elements;
-	QList<quint32> atomicTags;
-	QList<quint32> ignoreableTags;
-	QList<XarText> textData;
-	QList<XarTextLine> textLines;
-	QMap<qint32, XarColor> XarColorMap;
-	QMap<qint32, PageItem*> pathMap;
-	QMap<quint32, QString> brushRef;
-	QMap<QString, QString> patternMap;
-	QMap<quint32, QString> patternRef;
-	QMap<quint32, QString> fontRef;
-	QStack<XarGroup> groupStack;
+	QByteArray m_imageData;
+	QList<PageItem*> m_Elements;
+	QList<quint32> m_atomicTags;
+	QList<quint32> m_ignoreableTags;
+	QList<XarText> m_textData;
+	QList<XarTextLine> m_textLines;
+	QMap<qint32, XarColor> m_XarColorMap;
+	QMap<qint32, PageItem*> m_pathMap;
+	QMap<quint32, QString> m_brushRef;
+	QMap<QString, QString> m_patternMap;
+	QMap<quint32, QString> m_patternRef;
+	QMap<quint32, QString> m_fontRef;
+	QStack<XarGroup> m_groupStack;
 	QStack<XarStyle*>	m_gc;
-	QString activeLayer;
-	QStringList importedColors;
-	QStringList importedPatterns;
-	FPointArray clipCoords;
-	FPointArray Coords;
-	FPointArray textPath;
-	MultiProgressDialog * progressDialog;
+	QString m_activeLayer;
+	QStringList m_importedColors;
+	QStringList m_importedPatterns;
+	FPointArray m_clipCoords;
+	FPointArray m_Coords;
+	FPointArray m_textPath;
+	MultiProgressDialog * m_progressDialog;
 	ScribusDoc* m_Doc;
-	Selection* tmpSel;
+	Selection* m_tmpSel;
 
 public slots:
-	void cancelRequested() { cancel = true; }
+	void cancelRequested() { m_cancel = true; }
 };
 
 #endif
