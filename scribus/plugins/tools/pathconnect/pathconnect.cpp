@@ -114,17 +114,17 @@ void PathConnectPlugin::deleteAboutData(const AboutData* about) const
 bool PathConnectPlugin::run(ScribusDoc* doc, QString)
 {
 	m_doc = doc;
-	firstUpdate = true;
+	m_firstUpdate = true;
 	if (m_doc == 0)
 		m_doc = ScCore->primaryMainWindow()->doc;
 	if (m_doc->m_Selection->count() > 1)
 	{
 		m_item1 = m_doc->m_Selection->itemAt(0);
 		m_item2 = m_doc->m_Selection->itemAt(1);
-		originalPath1 = m_item1->PoLine.copy();
-		originalPath2 = m_item2->PoLine.copy();
-		originalXPos = m_item1->xPos();
-		originalYPos = m_item1->yPos();
+		m_originalPath1 = m_item1->PoLine.copy();
+		m_originalPath2 = m_item2->PoLine.copy();
+		m_originalXPos = m_item1->xPos();
+		m_originalYPos = m_item1->yPos();
 		PathConnectDialog *dia = new PathConnectDialog(m_doc->scMW());
 		connect(dia, SIGNAL(updateValues(int, int, int, int)), this, SLOT(updateEffect(int, int, int, int)));
 		if (dia->exec())
@@ -136,7 +136,7 @@ bool PathConnectPlugin::run(ScribusDoc* doc, QString)
 			if (UndoManager::undoEnabled())
 				trans = UndoManager::instance()->beginTransaction(Um::BezierCurve,Um::ILine,Um::ConnectPath,"",Um::ILine);
 
-			m_item1->PoLine = computePath(pointOne, pointTwo, mode, originalPath1, originalPath2);
+			m_item1->PoLine = computePath(pointOne, pointTwo, mode, m_originalPath1, m_originalPath2);
 			m_item1->ClipEdited = true;
 			m_item1->FrameType = 3;
 			m_doc->AdjustItemSize(m_item1);
@@ -146,11 +146,11 @@ bool PathConnectPlugin::run(ScribusDoc* doc, QString)
 			{
 				ScItemState<QPair<FPointArray,FPointArray> > *is = new ScItemState<QPair<FPointArray,FPointArray> >(Um::ConnectPath);
 				is->set("CONNECT_PATH","connect_path");
-				is->set("OLDX", originalXPos);
-				is->set("OLDY", originalYPos);
+				is->set("OLDX", m_originalXPos);
+				is->set("OLDY", m_originalYPos);
 				is->set("NEWX", m_item1->xPos());
 				is->set("NEWY", m_item1->yPos());
-				is->setItem(qMakePair(originalPath1, m_item1->PoLine));
+				is->setItem(qMakePair(m_originalPath1, m_item1->PoLine));
 				UndoManager::instance()->action(m_item1, is);
 			}
 			m_item1->updateClip();
@@ -163,10 +163,10 @@ bool PathConnectPlugin::run(ScribusDoc* doc, QString)
 		}
 		else
 		{
-			m_item1->PoLine = originalPath1.copy();
+			m_item1->PoLine = m_originalPath1.copy();
 			m_item1->ClipEdited = true;
 			m_item1->FrameType = 3;
-			m_item1->setXYPos(originalXPos, originalYPos);
+			m_item1->setXYPos(m_originalXPos, m_originalYPos);
 			m_doc->AdjustItemSize(m_item1);
 			m_item1->OldB2 = m_item1->width();
 			m_item1->OldH2 = m_item1->height();
@@ -185,16 +185,16 @@ void PathConnectPlugin::updateEffect(int effectType, int pointOne, int pointTwo,
 	UndoManager::instance()->setUndoEnabled(false);
 	if (effectType == -1)
 	{
-		m_item1->PoLine = originalPath1.copy();
+		m_item1->PoLine = m_originalPath1.copy();
 		m_item1->ClipEdited = true;
 		m_item1->FrameType = 3;
-		m_item1->setXYPos(originalXPos, originalYPos);
-		firstUpdate = true;
+		m_item1->setXYPos(m_originalXPos, m_originalYPos);
+		m_firstUpdate = true;
 	}
 	else
 	{
-		m_item1->setXYPos(originalXPos, originalYPos);
-		m_item1->PoLine = computePath(pointOne, pointTwo, mode, originalPath1, originalPath2);
+		m_item1->setXYPos(m_originalXPos, m_originalYPos);
+		m_item1->PoLine = computePath(pointOne, pointTwo, mode, m_originalPath1, m_originalPath2);
 		m_item1->ClipEdited = true;
 		m_item1->FrameType = 3;
 	}
@@ -202,7 +202,7 @@ void PathConnectPlugin::updateEffect(int effectType, int pointOne, int pointTwo,
 	m_item1->OldB2 = m_item1->width();
 	m_item1->OldH2 = m_item1->height();
 	m_item1->updateClip();
-	if (firstUpdate)
+	if (m_firstUpdate)
 		m_doc->view()->DrawNew();
 	else
 	{
@@ -211,7 +211,7 @@ void PathConnectPlugin::updateEffect(int effectType, int pointOne, int pointTwo,
 		m_doc->regionsChanged()->update(newR.united(oldR));
 	}
 	if (effectType != -1)
-		firstUpdate = false;
+		m_firstUpdate = false;
 	UndoManager::instance()->setUndoEnabled(true);
 }
 
@@ -225,7 +225,7 @@ FPointArray PathConnectPlugin::computePath(int pointOne, int pointTwo, int mode,
 	ma.rotate(m_item2->rotation());
 	path2.map(ma);
 	QTransform ma2;
-	ma2.translate(originalXPos, originalYPos);
+	ma2.translate(m_originalXPos, m_originalYPos);
 	ma2.rotate(m_item1->rotation());
 	ma2 = ma2.inverted();
 	path2.map(ma2);

@@ -62,12 +62,12 @@ class PLUGIN_API PathConnectPlugin : public ScActionPlugin
 		PageItem* m_item2;
 		ScribusDoc* m_doc;
 
-		FPointArray originalPath1;
-		FPointArray originalPath2;
-		double originalXPos;
-		double originalYPos;
+		FPointArray m_originalPath1;
+		FPointArray m_originalPath2;
+		double m_originalXPos;
+		double m_originalYPos;
 		
-		bool firstUpdate;
+		bool m_firstUpdate;
 	private slots:
 		void updateEffect(int effectType, int pointOne, int pointTwo, int mode);
 };
