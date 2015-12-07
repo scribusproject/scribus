@@ -429,17 +429,17 @@ extern SCRIBUS_API ScribusQApp * ScQApp;
 
 EmfPlug::EmfPlug(ScribusDoc* doc, int flags)
 {
-	tmpSel=new Selection(this, false);
+	m_tmpSel=new Selection(this, false);
 	m_Doc=doc;
-	importerFlags = flags;
-	interactive = (flags & LoadSavePlugin::lfInteractive);
-	progressDialog = NULL;
+	m_importerFlags = flags;
+	m_interactive = (flags & LoadSavePlugin::lfInteractive);
+	m_progressDialog = NULL;
 }
 
 QImage EmfPlug::readThumbnail(QString fName)
 {
 	QFileInfo fi = QFileInfo(fName);
-	baseFile = QDir::cleanPath(QDir::toNativeSeparators(fi.absolutePath()+"/"));
+	m_baseFile = QDir::cleanPath(QDir::toNativeSeparators(fi.absolutePath()+"/"));
 	double b = 0;
 	double h = 0;
 	double x = 0;
@@ -449,21 +449,21 @@ QImage EmfPlug::readThumbnail(QString fName)
 		b = PrefsManager::instance()->appPrefs.docSetupPrefs.pageWidth;
 	if (h == 0.0)
 		h = PrefsManager::instance()->appPrefs.docSetupPrefs.pageHeight;
-	docWidth = b;
-	docHeight = h;
-	docX = x;
-	docY = y;
-	baseX = 0;
-	baseY = 0;
-	progressDialog = NULL;
+	m_docWidth = b;
+	m_docHeight = h;
+	m_docX = x;
+	m_docY = y;
+	m_baseX = 0;
+	m_baseY = 0;
+	m_progressDialog = NULL;
 	m_Doc = new ScribusDoc();
 	m_Doc->setup(0, 1, 1, 1, 1, "Custom", "Custom");
-	m_Doc->setPage(docWidth, docHeight, 0, 0, 0, 0, 0, 0, false, false);
+	m_Doc->setPage(m_docWidth, m_docHeight, 0, 0, 0, 0, 0, 0, false, false);
 	m_Doc->addPage(0);
 	m_Doc->setGUI(false, ScCore->primaryMainWindow(), 0);
-	baseX = m_Doc->currentPage()->xOffset();
-	baseY = m_Doc->currentPage()->yOffset();
-	Elements.clear();
+	m_baseX = m_Doc->currentPage()->xOffset();
+	m_baseY = m_Doc->currentPage()->yOffset();
+	m_Elements.clear();
 	m_Doc->setLoading(true);
 	m_Doc->DoDrawing = false;
 	m_Doc->scMW()->setScriptRunning(true);
@@ -471,20 +471,20 @@ QImage EmfPlug::readThumbnail(QString fName)
 	QDir::setCurrent(fi.path());
 	if (convert(fName))
 	{
-		tmpSel->clear();
+		m_tmpSel->clear();
 		QDir::setCurrent(CurDirP);
-		if (Elements.count() > 0)
+		if (m_Elements.count() > 0)
 		{
 			m_Doc->m_Selection->delaySignalsOn();
 			m_Doc->m_Selection->clear();
-			for (int dre=0; dre<Elements.count(); ++dre)
+			for (int dre=0; dre<m_Elements.count(); ++dre)
 			{
-				m_Doc->m_Selection->addItem(Elements.at(dre), true);
+				m_Doc->m_Selection->addItem(m_Elements.at(dre), true);
 			}
 			m_Doc->m_Selection->setGroupRect();
 			double gx, gy, gh, gw;
 			m_Doc->m_Selection->getVisualGroupRect(&gx, &gy, &gw, &gh);
-			m_Doc->moveGroup(baseX - gx, baseY - gy);
+			m_Doc->moveGroup(m_baseX - gx, m_baseY - gy);
 			m_Doc->m_Selection->clear();
 			m_Doc->m_Selection->delaySignalsOff();
 			m_Doc->currentPage()->setInitialHeight(gh);
@@ -497,26 +497,26 @@ QImage EmfPlug::readThumbnail(QString fName)
 			m_Doc->currentPage()->m_pageSize = "Custom";
 			m_Doc->reformPages(true);
 		}
-		if (Elements.count() > 1)
+		if (m_Elements.count() > 1)
 		{
-			PageItem* grItem = m_Doc->groupObjectsList(Elements);
-			grItem->setXYPos(baseX, baseY, true);
+			PageItem* grItem = m_Doc->groupObjectsList(m_Elements);
+			grItem->setXYPos(m_baseX, m_baseY, true);
 		}
-		else if (Elements.count() == 1)
-			Elements.at(0)->setXYPos(baseX, baseY, true);
+		else if (m_Elements.count() == 1)
+			m_Elements.at(0)->setXYPos(m_baseX, m_baseY, true);
 		m_Doc->DoDrawing = true;
 		m_Doc->m_Selection->delaySignalsOn();
 		QImage tmpImage;
-		if (Elements.count() > 0)
+		if (m_Elements.count() > 0)
 		{
-			for (int dre=0; dre<Elements.count(); ++dre)
+			for (int dre=0; dre<m_Elements.count(); ++dre)
 			{
-				tmpSel->addItem(Elements.at(dre), true);
+				m_tmpSel->addItem(m_Elements.at(dre), true);
 			}
-			tmpSel->setGroupRect();
-			double xs = tmpSel->width();
-			double ys = tmpSel->height();
-			tmpImage = Elements.at(0)->DrawObj_toImage(500);
+			m_tmpSel->setGroupRect();
+			double xs = m_tmpSel->width();
+			double ys = m_tmpSel->height();
+			tmpImage = m_Elements.at(0)->DrawObj_toImage(500);
 			tmpImage.setText("XSize", QString("%1").arg(xs));
 			tmpImage.setText("YSize", QString("%1").arg(ys));
 		}
@@ -540,45 +540,45 @@ bool EmfPlug::import(QString fNameIn, const TransactionSettings& trSettings, int
 {
 	QString fName = fNameIn;
 	bool success = false;
-	interactive = (flags & LoadSavePlugin::lfInteractive);
-	importerFlags = flags;
-	cancel = false;
+	m_interactive = (flags & LoadSavePlugin::lfInteractive);
+	m_importerFlags = flags;
+	m_cancel = false;
 	double x, y, b, h;
 	bool ret = false;
 	QFileInfo fi = QFileInfo(fName);
 	if ( !ScCore->usingGUI() )
 	{
-		interactive = false;
+		m_interactive = false;
 		showProgress = false;
 	}
-	baseFile = QDir::cleanPath(QDir::toNativeSeparators(fi.absolutePath()+"/"));
+	m_baseFile = QDir::cleanPath(QDir::toNativeSeparators(fi.absolutePath()+"/"));
 	if ( showProgress )
 	{
 		ScribusMainWindow* mw=(m_Doc==0) ? ScCore->primaryMainWindow() : m_Doc->scMW();
-		progressDialog = new MultiProgressDialog( tr("Importing: %1").arg(fi.fileName()), CommonStrings::tr_Cancel, mw );
+		m_progressDialog = new MultiProgressDialog( tr("Importing: %1").arg(fi.fileName()), CommonStrings::tr_Cancel, mw );
 		QStringList barNames, barTexts;
 		barNames << "GI";
 		barTexts << tr("Analyzing File:");
 		QList<bool> barsNumeric;
 		barsNumeric << false;
-		progressDialog->addExtraProgressBars(barNames, barTexts, barsNumeric);
-		progressDialog->setOverallTotalSteps(3);
-		progressDialog->setOverallProgress(0);
-		progressDialog->setProgress("GI", 0);
-		progressDialog->show();
-		connect(progressDialog, SIGNAL(canceled()), this, SLOT(cancelRequested()));
+		m_progressDialog->addExtraProgressBars(barNames, barTexts, barsNumeric);
+		m_progressDialog->setOverallTotalSteps(3);
+		m_progressDialog->setOverallProgress(0);
+		m_progressDialog->setProgress("GI", 0);
+		m_progressDialog->show();
+		connect(m_progressDialog, SIGNAL(canceled()), this, SLOT(cancelRequested()));
 		qApp->processEvents();
 	}
 	else
-		progressDialog = NULL;
+		m_progressDialog = NULL;
 /* Set default Page to size defined in Preferences */
 	x = 0.0;
 	y = 0.0;
 	b = 0.0;
 	h = 0.0;
-	if (progressDialog)
+	if (m_progressDialog)
 	{
-		progressDialog->setOverallProgress(1);
+		m_progressDialog->setOverallProgress(1);
 		qApp->processEvents();
 	}
 	parseHeader(fName, x, y, b, h);
@@ -586,52 +586,52 @@ bool EmfPlug::import(QString fNameIn, const TransactionSettings& trSettings, int
 		b = PrefsManager::instance()->appPrefs.docSetupPrefs.pageWidth;
 	if (h == 0.0)
 		h = PrefsManager::instance()->appPrefs.docSetupPrefs.pageHeight;
-	docWidth = b;
-	docHeight = h;
-	docX = x;
-	docY = y;
-	baseX = 0;
-	baseY = 0;
-	if (!interactive || (flags & LoadSavePlugin::lfInsertPage))
+	m_docWidth = b;
+	m_docHeight = h;
+	m_docX = x;
+	m_docY = y;
+	m_baseX = 0;
+	m_baseY = 0;
+	if (!m_interactive || (flags & LoadSavePlugin::lfInsertPage))
 	{
-		m_Doc->setPage(docWidth, docHeight, 0, 0, 0, 0, 0, 0, false, false);
+		m_Doc->setPage(m_docWidth, m_docHeight, 0, 0, 0, 0, 0, 0, false, false);
 		m_Doc->addPage(0);
 		m_Doc->view()->addPage(0, true);
-		m_Doc->currentPage()->setInitialWidth(docWidth);
-		m_Doc->currentPage()->setInitialHeight(docHeight);
-		m_Doc->currentPage()->setWidth(docWidth);
-		m_Doc->currentPage()->setHeight(docHeight);
+		m_Doc->currentPage()->setInitialWidth(m_docWidth);
+		m_Doc->currentPage()->setInitialHeight(m_docHeight);
+		m_Doc->currentPage()->setWidth(m_docWidth);
+		m_Doc->currentPage()->setHeight(m_docHeight);
 		m_Doc->currentPage()->MPageNam = CommonStrings::trMasterPageNormal;
 		m_Doc->currentPage()->m_pageSize = "Custom";
 		m_Doc->reformPages(true);
-		baseX = m_Doc->currentPage()->xOffset();
-		baseY = m_Doc->currentPage()->yOffset();
+		m_baseX = m_Doc->currentPage()->xOffset();
+		m_baseY = m_Doc->currentPage()->yOffset();
 	}
 	else
 	{
 		if (!m_Doc || (flags & LoadSavePlugin::lfCreateDoc))
 		{
-			m_Doc = ScCore->primaryMainWindow()->doFileNew(docWidth, docHeight, 0, 0, 0, 0, 0, 0, false, false, 0, false, 0, 1, "Custom", true);
+			m_Doc = ScCore->primaryMainWindow()->doFileNew(m_docWidth, m_docHeight, 0, 0, 0, 0, 0, 0, false, false, 0, false, 0, 1, "Custom", true);
 			ScCore->primaryMainWindow()->HaveNewDoc();
-			m_Doc->setPageHeight(docHeight);
-			m_Doc->setPageWidth(docWidth);
-			m_Doc->currentPage()->setInitialWidth(docWidth);
-			m_Doc->currentPage()->setInitialHeight(docHeight);
-			m_Doc->currentPage()->setWidth(docWidth);
-			m_Doc->currentPage()->setHeight(docHeight);
+			m_Doc->setPageHeight(m_docHeight);
+			m_Doc->setPageWidth(m_docWidth);
+			m_Doc->currentPage()->setInitialWidth(m_docWidth);
+			m_Doc->currentPage()->setInitialHeight(m_docHeight);
+			m_Doc->currentPage()->setWidth(m_docWidth);
+			m_Doc->currentPage()->setHeight(m_docHeight);
 			ret = true;
-			baseX = m_Doc->currentPage()->xOffset();
-			baseY = m_Doc->currentPage()->yOffset();
+			m_baseX = m_Doc->currentPage()->xOffset();
+			m_baseY = m_Doc->currentPage()->yOffset();
 		}
 	}
-	if ((!ret) && (interactive))
+	if ((!ret) && (m_interactive))
 	{
-		baseX = m_Doc->currentPage()->xOffset();
-		baseY = m_Doc->currentPage()->yOffset();
+		m_baseX = m_Doc->currentPage()->xOffset();
+		m_baseY = m_Doc->currentPage()->yOffset();
 	}
-	if ((ret) || (!interactive))
+	if ((ret) || (!m_interactive))
 	{
-		if (docWidth > docHeight)
+		if (m_docWidth > m_docHeight)
 			m_Doc->setPageOrientation(1);
 		else
 			m_Doc->setPageOrientation(0);
@@ -639,7 +639,7 @@ bool EmfPlug::import(QString fNameIn, const TransactionSettings& trSettings, int
 	}
 	if ((!(flags & LoadSavePlugin::lfLoadAsPattern)) && (m_Doc->view() != NULL))
 		m_Doc->view()->Deselect();
-	Elements.clear();
+	m_Elements.clear();
 	m_Doc->setLoading(true);
 	m_Doc->DoDrawing = false;
 	if ((!(flags & LoadSavePlugin::lfLoadAsPattern)) && (m_Doc->view() != NULL))
@@ -650,23 +650,23 @@ bool EmfPlug::import(QString fNameIn, const TransactionSettings& trSettings, int
 	QDir::setCurrent(fi.path());
 	if (convert(fName))
 	{
-		tmpSel->clear();
+		m_tmpSel->clear();
 		QDir::setCurrent(CurDirP);
-		if (Elements.count() > 0)
+		if (m_Elements.count() > 0)
 		{
 			m_Doc->m_Selection->delaySignalsOn();
 			m_Doc->m_Selection->clear();
-			for (int dre=0; dre<Elements.count(); ++dre)
+			for (int dre=0; dre<m_Elements.count(); ++dre)
 			{
-				m_Doc->m_Selection->addItem(Elements.at(dre), true);
+				m_Doc->m_Selection->addItem(m_Elements.at(dre), true);
 			}
 			m_Doc->m_Selection->setGroupRect();
 			double gx, gy, gh, gw;
 			m_Doc->m_Selection->getVisualGroupRect(&gx, &gy, &gw, &gh);
-			m_Doc->moveGroup(baseX - gx, baseY - gy);
+			m_Doc->moveGroup(m_baseX - gx, m_baseY - gy);
 			m_Doc->m_Selection->clear();
 			m_Doc->m_Selection->delaySignalsOff();
-			if (importerFlags & LoadSavePlugin::lfCreateDoc)
+			if (m_importerFlags & LoadSavePlugin::lfCreateDoc)
 			{
 				m_Doc->currentPage()->setInitialHeight(gh);
 				m_Doc->currentPage()->setInitialWidth(gw);
@@ -679,13 +679,13 @@ bool EmfPlug::import(QString fNameIn, const TransactionSettings& trSettings, int
 				m_Doc->reformPages(true);
 			}
 		}
-		if ((Elements.count() > 1) && (!(importerFlags & LoadSavePlugin::lfCreateDoc)))
-			m_Doc->groupObjectsList(Elements);
+		if ((m_Elements.count() > 1) && (!(m_importerFlags & LoadSavePlugin::lfCreateDoc)))
+			m_Doc->groupObjectsList(m_Elements);
 		m_Doc->DoDrawing = true;
 		m_Doc->scMW()->setScriptRunning(false);
 		m_Doc->setLoading(false);
 		qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
-		if ((Elements.count() > 0) && (!ret) && (interactive))
+		if ((m_Elements.count() > 0) && (!ret) && (m_interactive))
 		{
 			if (flags & LoadSavePlugin::lfScripted)
 			{
@@ -696,9 +696,9 @@ bool EmfPlug::import(QString fNameIn, const TransactionSettings& trSettings, int
 				if (!(flags & LoadSavePlugin::lfLoadAsPattern))
 				{
 					m_Doc->m_Selection->delaySignalsOn();
-					for (int dre=0; dre<Elements.count(); ++dre)
+					for (int dre=0; dre<m_Elements.count(); ++dre)
 					{
-						m_Doc->m_Selection->addItem(Elements.at(dre), true);
+						m_Doc->m_Selection->addItem(m_Elements.at(dre), true);
 					}
 					m_Doc->m_Selection->delaySignalsOff();
 					m_Doc->m_Selection->setGroupRect();
@@ -712,26 +712,26 @@ bool EmfPlug::import(QString fNameIn, const TransactionSettings& trSettings, int
 				m_Doc->DraggedElem = 0;
 				m_Doc->DragElements.clear();
 				m_Doc->m_Selection->delaySignalsOn();
-				for (int dre=0; dre<Elements.count(); ++dre)
+				for (int dre=0; dre<m_Elements.count(); ++dre)
 				{
-					tmpSel->addItem(Elements.at(dre), true);
+					m_tmpSel->addItem(m_Elements.at(dre), true);
 				}
-				tmpSel->setGroupRect();
-				ScElemMimeData* md = ScriXmlDoc::WriteToMimeData(m_Doc, tmpSel);
-				m_Doc->itemSelection_DeleteItem(tmpSel);
+				m_tmpSel->setGroupRect();
+				ScElemMimeData* md = ScriXmlDoc::WriteToMimeData(m_Doc, m_tmpSel);
+				m_Doc->itemSelection_DeleteItem(m_tmpSel);
 				m_Doc->view()->updatesOn(true);
-				if (importedColors.count() != 0)
+				if (m_importedColors.count() != 0)
 				{
-					for (int cd = 0; cd < importedColors.count(); cd++)
+					for (int cd = 0; cd < m_importedColors.count(); cd++)
 					{
-						m_Doc->PageColors.remove(importedColors[cd]);
+						m_Doc->PageColors.remove(m_importedColors[cd]);
 					}
 				}
-				if (importedPatterns.count() != 0)
+				if (m_importedPatterns.count() != 0)
 				{
-					for (int cd = 0; cd < importedPatterns.count(); cd++)
+					for (int cd = 0; cd < m_importedPatterns.count(); cd++)
 					{
-						m_Doc->docPatterns.remove(importedPatterns[cd]);
+						m_Doc->docPatterns.remove(m_importedPatterns[cd]);
 					}
 				}
 				m_Doc->m_Selection->delaySignalsOff();
@@ -762,12 +762,12 @@ bool EmfPlug::import(QString fNameIn, const TransactionSettings& trSettings, int
 			m_Doc->view()->updatesOn(true);
 		qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 	}
-	if (interactive)
+	if (m_interactive)
 		m_Doc->setLoading(false);
 	//CB If we have a gui we must refresh it if we have used the progressbar
 	if (!(flags & LoadSavePlugin::lfLoadAsPattern))
 	{
-		if ((showProgress) && (!interactive))
+		if ((showProgress) && (!m_interactive))
 			m_Doc->view()->DrawNew();
 	}
 	qApp->restoreOverrideCursor();
@@ -776,15 +776,15 @@ bool EmfPlug::import(QString fNameIn, const TransactionSettings& trSettings, int
 
 EmfPlug::~EmfPlug()
 {
-	if (progressDialog)
-		delete progressDialog;
-	delete tmpSel;
+	if (m_progressDialog)
+		delete m_progressDialog;
+	delete m_tmpSel;
 }
 
 void EmfPlug::parseHeader(QString fName, double &x, double &y, double &b, double &h)
 {
-	inEMFPlus = false;
-	emfMixed = false;
+	m_inEMFPlus = false;
+	m_emfMixed = false;
 	bool hasEMF = false;
 	bool hasEMFPlus = false;
 	QFile f(fName);
@@ -798,7 +798,7 @@ void EmfPlug::parseHeader(QString fName, double &x, double &y, double &b, double
 			ds >> id >> size;
 			size -= 8;        // Subtract id and size entry to get real data size
 			qint64 posi = ds.device()->pos();
-			if (inEMFPlus)
+			if (m_inEMFPlus)
 			{
 				switch (id)
 				{
@@ -811,7 +811,7 @@ void EmfPlug::parseHeader(QString fName, double &x, double &y, double &b, double
 						ds >> commTyp;
 						if (commTyp == 0x2B464D45)
 						{
-							inEMFPlus = true;
+							m_inEMFPlus = true;
 							hasEMFPlus = true;
 							quint16 id2, flagsHL;
 							quint32 size2;
@@ -832,14 +832,14 @@ void EmfPlug::parseHeader(QString fName, double &x, double &y, double &b, double
 								switch (id2)
 								{
 									case U_PMR_HEADER:
-										emfPlusDual = (flagsHL & 1);
+										m_emfPlusDual = (flagsHL & 1);
 										break;
 									case U_PMR_ENDOFFILE:
-										inEMFPlus = false;
+										m_inEMFPlus = false;
 										break;
 									case U_PMR_GETDC:
-										if (emfPlusDual)
-											inEMFPlus = false;
+										if (m_emfPlusDual)
+											m_inEMFPlus = false;
 										break;
 									default:
 										break;
@@ -862,16 +862,16 @@ void EmfPlug::parseHeader(QString fName, double &x, double &y, double &b, double
 							ds >> pLeft >> pTop >> pRight >> pBottom;
 							quint32 sign, vers, bytes;
 							ds >> sign >> vers >> bytes >> m_records;
-							bBoxDev = QRectF(QPointF(bLeft, bTop), QPointF(bRight, bBottom)).normalized();
-							bBoxMM = QRectF(QPointF(pLeft, pTop), QPointF(pRight, pBottom)).normalized();
+							m_bBoxDev = QRectF(QPointF(bLeft, bTop), QPointF(bRight, bBottom)).normalized();
+							m_bBoxMM = QRectF(QPointF(pLeft, pTop), QPointF(pRight, pBottom)).normalized();
 						//	dpiX = bBoxDev.width() / (bBoxMM.width() / 100.0) * 25.4;
 						//	dpiY = bBoxDev.height() / (bBoxMM.height() / 100.0) * 25.4;
-							dpiX = bRight / (pRight / 100.0) * 25.4;
-							dpiY = bBottom / (pBottom / 100.0) * 25.4;
-							b = bBoxMM.width() / 1000.0 / 2.54 * 72.0;
-							h = bBoxMM.height() / 1000.0 / 2.54 * 72.0;
-							x = bBoxMM.x() / 1000.0 / 2.54 * 72.0;
-							y = bBoxMM.y() / 1000.0 / 2.54 * 72.0;
+							m_dpiX = bRight / (pRight / 100.0) * 25.4;
+							m_dpiY = bBottom / (pBottom / 100.0) * 25.4;
+							b = m_bBoxMM.width() / 1000.0 / 2.54 * 72.0;
+							h = m_bBoxMM.height() / 1000.0 / 2.54 * 72.0;
+							x = m_bBoxMM.x() / 1000.0 / 2.54 * 72.0;
+							y = m_bBoxMM.y() / 1000.0 / 2.54 * 72.0;
 						}
 						break;
 					case U_EMR_EOF:
@@ -883,7 +883,7 @@ void EmfPlug::parseHeader(QString fName, double &x, double &y, double &b, double
 							ds >> commTyp;
 							if (commTyp == 0x2B464D45)
 							{
-								inEMFPlus = true;
+								m_inEMFPlus = true;
 								hasEMFPlus = true;
 								quint16 id2, flagsHL;
 								quint32 size2;
@@ -904,14 +904,14 @@ void EmfPlug::parseHeader(QString fName, double &x, double &y, double &b, double
 									switch (id2)
 									{
 										case U_PMR_HEADER:
-											emfPlusDual = (flagsHL & 1);
+											m_emfPlusDual = (flagsHL & 1);
 											break;
 										case U_PMR_ENDOFFILE:
-											inEMFPlus = false;
+											m_inEMFPlus = false;
 											break;
 										case U_PMR_GETDC:
-											if (emfPlusDual)
-												inEMFPlus = false;
+											if (m_emfPlusDual)
+												m_inEMFPlus = false;
 											break;
 										default:
 											break;
@@ -930,55 +930,55 @@ void EmfPlug::parseHeader(QString fName, double &x, double &y, double &b, double
 		}
 		f.close();
 	}
-	inEMFPlus = false;
+	m_inEMFPlus = false;
 	if (hasEMF && hasEMFPlus)
-		emfMixed = true;
+		m_emfMixed = true;
 }
 
 bool EmfPlug::convert(QString fn)
 {
-	importedColors.clear();
-	importedPatterns.clear();
-	currentDC.CurrColorFill = "White";
-	currentDC.CurrFillTrans = 0.0;
-	currentDC.CurrColorStroke = "Black";
-	currentDC.CurrStrokeTrans = 0.0;
-	currentDC.CurrColorText = "Black";
-	currentDC.backColor = CommonStrings::None;
-	currentDC.LineW = 1.0;
-	currentDC.penStyle = Qt::SolidLine;
-	currentDC.penCap = Qt::RoundCap;
-	currentDC.penJoin = Qt::RoundJoin;
-	currentDC.m_mapMode = 1;
-	currentDC.backgroundMode = false;
-	currentDC.arcDirection = true;
-	currentDC.alphaOn = true;
-	currentDC.fillRule = true;
-	currentDC.textAlignment = 0;
-	currentDC.brushStyle = U_BT_SolidColor;
-	currentDC.hatchStyle = 0;
-	currentDC.m_WorldMap = QTransform();
-	currentDC.m_WorldMapEMFP = QTransform();
-	currentDC.Coords.resize(0);
-	currentDC.Coords.svgInit();
-	currentDC.clipPath.resize(0);
-	currentDC.clipPath.svgInit();
-	currentDC.clipValid = false;
-	currentDC.fontSize = 12;
-	currentDC.fontName = "Arial";
-	currentDC.fontRotation = 0;
-	currentDC.viewOrigin = QPointF(0, 0);
-	currentDC.winOrigin = QPointF(0, 0);
-	currentDC.currentPoint = QPointF();
-	currentDC.originEMFP = QPointF(0, 0);
-	currentDC.patternName = "";
-	currentDC.emfPlusUnit = 2;
-	inPath = false;
-	inEMFPlus = false;
-	emfPlusDual = false;
-	SerializableObject_Valid = false;
+	m_importedColors.clear();
+	m_importedPatterns.clear();
+	m_currentDC.CurrColorFill = "White";
+	m_currentDC.CurrFillTrans = 0.0;
+	m_currentDC.CurrColorStroke = "Black";
+	m_currentDC.CurrStrokeTrans = 0.0;
+	m_currentDC.CurrColorText = "Black";
+	m_currentDC.backColor = CommonStrings::None;
+	m_currentDC.LineW = 1.0;
+	m_currentDC.penStyle = Qt::SolidLine;
+	m_currentDC.penCap = Qt::RoundCap;
+	m_currentDC.penJoin = Qt::RoundJoin;
+	m_currentDC.m_mapMode = 1;
+	m_currentDC.backgroundMode = false;
+	m_currentDC.arcDirection = true;
+	m_currentDC.alphaOn = true;
+	m_currentDC.fillRule = true;
+	m_currentDC.textAlignment = 0;
+	m_currentDC.brushStyle = U_BT_SolidColor;
+	m_currentDC.hatchStyle = 0;
+	m_currentDC.m_WorldMap = QTransform();
+	m_currentDC.m_WorldMapEMFP = QTransform();
+	m_currentDC.Coords.resize(0);
+	m_currentDC.Coords.svgInit();
+	m_currentDC.clipPath.resize(0);
+	m_currentDC.clipPath.svgInit();
+	m_currentDC.clipValid = false;
+	m_currentDC.fontSize = 12;
+	m_currentDC.fontName = "Arial";
+	m_currentDC.fontRotation = 0;
+	m_currentDC.viewOrigin = QPointF(0, 0);
+	m_currentDC.winOrigin = QPointF(0, 0);
+	m_currentDC.currentPoint = QPointF();
+	m_currentDC.originEMFP = QPointF(0, 0);
+	m_currentDC.patternName = "";
+	m_currentDC.emfPlusUnit = 2;
+	m_inPath = false;
+	m_inEMFPlus = false;
+	m_emfPlusDual = false;
+	m_SerializableObject_Valid = false;
 	m_Effects.clear();
-	emfPlusScale = 1.0;
+	m_emfPlusScale = 1.0;
 	m_ObjSize = 0;
 	m_currObjSize = 0;
 	QColor col;
@@ -986,86 +986,86 @@ bool EmfPlug::convert(QString fn)
 	// WHITE_BRUSH
 	sty.styType = U_OT_Brush;
 	sty.brushColor = "White";
-	emfStyleMap.insert(U_WHITE_BRUSH, sty);
+	m_emfStyleMap.insert(U_WHITE_BRUSH, sty);
 	// LTGRAY_BRUSH
 	col = QColor(Qt::lightGray);
 	sty.brushColor = handleColor(col);
-	emfStyleMap.insert(U_LTGRAY_BRUSH, sty);
+	m_emfStyleMap.insert(U_LTGRAY_BRUSH, sty);
 	// GRAY_BRUSH
 	col = QColor(Qt::gray);
 	sty.brushColor = handleColor(col);
-	emfStyleMap.insert(U_GRAY_BRUSH, sty);
+	m_emfStyleMap.insert(U_GRAY_BRUSH, sty);
 	// DKGRAY_BRUSH
 	col = QColor(Qt::darkGray);
 	sty.brushColor = handleColor(col);
-	emfStyleMap.insert(U_DKGRAY_BRUSH, sty);
+	m_emfStyleMap.insert(U_DKGRAY_BRUSH, sty);
 	// BLACK_BRUSH
 	sty.brushColor = "Black";
-	emfStyleMap.insert(U_BLACK_BRUSH, sty);
+	m_emfStyleMap.insert(U_BLACK_BRUSH, sty);
 	// NULL_BRUSH
 	sty.brushColor = CommonStrings::None;
-	emfStyleMap.insert(U_NULL_BRUSH, sty);
+	m_emfStyleMap.insert(U_NULL_BRUSH, sty);
 	// WHITE_PEN
 	sty.styType = U_OT_Pen;
 	sty.brushColor = CommonStrings::None;
 	sty.penColor = "White";
-	emfStyleMap.insert(U_WHITE_PEN, sty);
+	m_emfStyleMap.insert(U_WHITE_PEN, sty);
 	// BLACK_PEN
 	sty.penColor = "Black";
-	emfStyleMap.insert(U_BLACK_PEN, sty);
+	m_emfStyleMap.insert(U_BLACK_PEN, sty);
 	// NULL_PEN
 	sty.penColor = CommonStrings::None;
-	emfStyleMap.insert(U_NULL_PEN, sty);
+	m_emfStyleMap.insert(U_NULL_PEN, sty);
 	sty.styType = U_OT_Font;
 	// OEM_FIXED_FONT
-	emfStyleMap.insert(U_OEM_FIXED_FONT, sty);
+	m_emfStyleMap.insert(U_OEM_FIXED_FONT, sty);
 	// ANSI_FIXED_FONT
-	emfStyleMap.insert(U_ANSI_FIXED_FONT, sty);
+	m_emfStyleMap.insert(U_ANSI_FIXED_FONT, sty);
 	// ANSI_VAR_FONT
-	emfStyleMap.insert(U_ANSI_VAR_FONT, sty);
+	m_emfStyleMap.insert(U_ANSI_VAR_FONT, sty);
 	// SYSTEM_FONT
-	emfStyleMap.insert(U_SYSTEM_FONT, sty);
+	m_emfStyleMap.insert(U_SYSTEM_FONT, sty);
 	// DEVICE_DEFAULT_FONT
-	emfStyleMap.insert(U_DEVICE_DEFAULT_FONT, sty);
+	m_emfStyleMap.insert(U_DEVICE_DEFAULT_FONT, sty);
 	// DEFAULT_PALETTE
-	emfStyleMap.insert(U_DEFAULT_PALETTE, sty);
+	m_emfStyleMap.insert(U_DEFAULT_PALETTE, sty);
 	// SYSTEM_FIXED_FONT
-	emfStyleMap.insert(U_SYSTEM_FIXED_FONT, sty);
+	m_emfStyleMap.insert(U_SYSTEM_FIXED_FONT, sty);
 	// DEFAULT_GUI_FONT
-	emfStyleMap.insert(U_DEFAULT_GUI_FONT, sty);
+	m_emfStyleMap.insert(U_DEFAULT_GUI_FONT, sty);
 	// DC_BRUSH
 	sty.styType = U_OT_Brush;
-	emfStyleMap.insert(U_DC_BRUSH, sty);
+	m_emfStyleMap.insert(U_DC_BRUSH, sty);
 	// DC_PEN
 	sty.styType = U_OT_Pen;
-	emfStyleMap.insert(U_DC_PEN, sty);
-	emfStyleMapEMP.clear();
-	clipGroup = NULL;
-	if(progressDialog)
+	m_emfStyleMap.insert(U_DC_PEN, sty);
+	m_emfStyleMapEMP.clear();
+	m_clipGroup = NULL;
+	if(m_progressDialog)
 	{
-		progressDialog->setOverallProgress(2);
-		progressDialog->setLabel("GI", tr("Generating Items"));
+		m_progressDialog->setOverallProgress(2);
+		m_progressDialog->setLabel("GI", tr("Generating Items"));
 		qApp->processEvents();
 	}
 	QFile f(fn);
 	if (f.open(QIODevice::ReadOnly))
 	{
-		if (progressDialog)
+		if (m_progressDialog)
 		{
-			progressDialog->setTotalSteps("GI", m_records);
+			m_progressDialog->setTotalSteps("GI", m_records);
 			qApp->processEvents();
 		}
 		QDataStream ds(&f);
 		ds.setByteOrder(QDataStream::LittleEndian);
 		ds.setFloatingPointPrecision(QDataStream::SinglePrecision);
 		quint32 id, size;
-		recordCount = 0;
+		m_recordCount = 0;
 		while (!ds.atEnd())
 		{
 			qint64 posi = ds.device()->pos();
 			ds >> id >> size;
-			recordCount++;
-			if (inEMFPlus)
+			m_recordCount++;
+			if (m_inEMFPlus)
 			{
 				if (id == U_EMR_EOF)
 					break;
@@ -1088,8 +1088,8 @@ bool EmfPlug::convert(QString fn)
 							ds >> sxDev >> syDev;
 							quint32 sxMM, syMM;
 							ds >> sxMM >> syMM;
-							viewPextendX = bBoxDev.width();
-							viewPextendY = bBoxDev.height();
+							m_viewPextendX = m_bBoxDev.width();
+							m_viewPextendY = m_bBoxDev.height();
 						}
 						break;
 					case U_EMR_POLYBEZIER:
@@ -1114,64 +1114,64 @@ bool EmfPlug::convert(QString fn)
 						handlePolyPolygon(ds, true, true);
 						break;
 					case U_EMR_SETWINDOWEXTEX:
-						ds >> winPextendX >> winPextendY;
-						currentDC.winOrigin = convertLogical2Pts(QPointF(winOrigX, winOrigY));
+						ds >> m_winPextendX >> m_winPextendY;
+						m_currentDC.winOrigin = convertLogical2Pts(QPointF(m_winOrigX, m_winOrigY));
 						break;
 					case U_EMR_SETWINDOWORGEX:
-						ds >> winOrigX >> winOrigY;
-						if ((viewPextendX != 0) && (viewPextendY != 0))
-							currentDC.winOrigin = convertLogical2Pts(QPointF(winOrigX, winOrigY));
+						ds >> m_winOrigX >> m_winOrigY;
+						if ((m_viewPextendX != 0) && (m_viewPextendY != 0))
+							m_currentDC.winOrigin = convertLogical2Pts(QPointF(m_winOrigX, m_winOrigY));
 						break;
 					case U_EMR_SETVIEWPORTEXTEX:
-						ds >> viewPextendX >> viewPextendY;
+						ds >> m_viewPextendX >> m_viewPextendY;
 						break;
 					case U_EMR_SETVIEWPORTORGEX:
 						{
 							qint32 w, h;
 							ds >> w >> h;
-							currentDC.viewOrigin = convertDevice2Pts(QPointF(w, h));
+							m_currentDC.viewOrigin = convertDevice2Pts(QPointF(w, h));
 						}
 						break;
 					case U_EMR_SETMAPMODE:
-						ds >> currentDC.m_mapMode;
+						ds >> m_currentDC.m_mapMode;
 						break;
 					case U_EMR_SETBKMODE:
 						{
 							quint32 fm;
 							ds >> fm;
-							currentDC.backgroundMode = (fm == 2);
+							m_currentDC.backgroundMode = (fm == 2);
 						}
 						break;
 					case U_EMR_SETPOLYFILLMODE:
 						{
 							quint32 fm;
 							ds >> fm;
-							currentDC.fillRule = (fm == 1);
+							m_currentDC.fillRule = (fm == 1);
 						}
 						break;
 					case U_EMR_SETTEXTALIGN:
-						ds >> currentDC.textAlignment;
+						ds >> m_currentDC.textAlignment;
 						break;
 					case U_EMR_SETTEXTCOLOR:
 						{
 							quint32 brColor = getColor(ds);
 							QColor col((QRgb)brColor);
-							currentDC.CurrColorText = handleColor(col);
+							m_currentDC.CurrColorText = handleColor(col);
 						}
 						break;
 					case U_EMR_SETBKCOLOR:
 						{
 							quint32 brColor = getColor(ds);
 							QColor col((QRgb)brColor);
-							currentDC.backColor = handleColor(col);
+							m_currentDC.backColor = handleColor(col);
 						}
 						break;
 					case U_EMR_MOVETOEX:
-						currentDC.currentPoint = getPoint(ds, true);
-						currentDC.Coords.svgMoveTo(currentDC.currentPoint.x(), currentDC.currentPoint.y());
+						m_currentDC.currentPoint = getPoint(ds, true);
+						m_currentDC.Coords.svgMoveTo(m_currentDC.currentPoint.x(), m_currentDC.currentPoint.y());
 						break;
 					case U_EMR_SAVEDC:
-						dcStack.push(currentDC);
+						m_dcStack.push(m_currentDC);
 						break;
 					case U_EMR_RESTOREDC:
 						{
@@ -1179,20 +1179,20 @@ bool EmfPlug::convert(QString fn)
 							qint32 drop;
 							ds >> drop;
 							drop = qAbs(drop);
-							if (dcStack.count() >= drop)
+							if (m_dcStack.count() >= drop)
 							{
 								for (qint32 a = 0; a < drop; a++)
 								{
-									currentDC = dcStack.pop();
-									if (dcStack.count() == 0)
+									m_currentDC = m_dcStack.pop();
+									if (m_dcStack.count() == 0)
 										break;
 								}
 							}
-							if (currentDC.clipPath.count() != 0)
+							if (m_currentDC.clipPath.count() != 0)
 							{
-								if (checkClip(currentDC.clipPath))
+								if (checkClip(m_currentDC.clipPath))
 								{
-									currentDC.clipValid = true;
+									m_currentDC.clipValid = true;
 									createClipGroup();
 								}
 							}
@@ -1218,31 +1218,31 @@ bool EmfPlug::convert(QString fn)
 						{
 							quint32 numObj;
 							ds >> numObj;
-							if (emfStyleMap.contains(numObj))
+							if (m_emfStyleMap.contains(numObj))
 							{
-								emfStyle sty = emfStyleMap[numObj];
+								emfStyle sty = m_emfStyleMap[numObj];
 								if (sty.styType == U_OT_Pen)
 								{
-									currentDC.CurrColorStroke = sty.penColor;
-									currentDC.CurrStrokeTrans = sty.penTrans;
-									currentDC.penCap = sty.penCap;
-									currentDC.penJoin = sty.penJoin;
-									currentDC.penStyle = sty.penStyle;
-									currentDC.LineW = sty.penWidth;
+									m_currentDC.CurrColorStroke = sty.penColor;
+									m_currentDC.CurrStrokeTrans = sty.penTrans;
+									m_currentDC.penCap = sty.penCap;
+									m_currentDC.penJoin = sty.penJoin;
+									m_currentDC.penStyle = sty.penStyle;
+									m_currentDC.LineW = sty.penWidth;
 								}
 								else if (sty.styType == U_OT_Brush)
 								{
-									currentDC.CurrColorFill = sty.brushColor;
-									currentDC.brushStyle = sty.brushStyle;
-									currentDC.hatchStyle = sty.hatchStyle;
-									currentDC.patternName = sty.patternName;
-									currentDC.CurrFillTrans = sty.fillTrans;
+									m_currentDC.CurrColorFill = sty.brushColor;
+									m_currentDC.brushStyle = sty.brushStyle;
+									m_currentDC.hatchStyle = sty.hatchStyle;
+									m_currentDC.patternName = sty.patternName;
+									m_currentDC.CurrFillTrans = sty.fillTrans;
 								}
 								else if (sty.styType == U_OT_Font)
 								{
-									currentDC.fontName = sty.fontName;
-									currentDC.fontSize = sty.fontSize;
-									currentDC.fontRotation = sty.fontRotation;
+									m_currentDC.fontName = sty.fontName;
+									m_currentDC.fontSize = sty.fontSize;
+									m_currentDC.fontRotation = sty.fontRotation;
 								}
 							}
 							else
@@ -1273,7 +1273,7 @@ bool EmfPlug::convert(QString fn)
 							sty.brushStyle = brStyle;
 							sty.hatchStyle = brHatch;
 							sty.fillTrans = 0;
-							emfStyleMap.insert(brID, sty);
+							m_emfStyleMap.insert(brID, sty);
 						}
 						break;
 					case U_EMR_DELETEOBJECT:
@@ -1281,7 +1281,7 @@ bool EmfPlug::convert(QString fn)
 							quint32 numObj;
 							ds >> numObj;
 							if (numObj < U_STOCK_OBJECT)
-								emfStyleMap.remove(numObj);
+								m_emfStyleMap.remove(numObj);
 						}
 						break;
 					case U_EMR_ELLIPSE:
@@ -1312,41 +1312,41 @@ bool EmfPlug::convert(QString fn)
 						{
 							quint32 fm;
 							ds >> fm;
-							currentDC.arcDirection = (fm == 1);
+							m_currentDC.arcDirection = (fm == 1);
 						}
 						break;
 					case U_EMR_BEGINPATH:
-						inPath = true;
-						currentDC.Coords.resize(0);
-						currentDC.Coords.svgInit();
+						m_inPath = true;
+						m_currentDC.Coords.resize(0);
+						m_currentDC.Coords.svgInit();
 						break;
 					case U_EMR_ENDPATH:
-						inPath = false;
+						m_inPath = false;
 						break;
 					case U_EMR_CLOSEFIGURE:
-						currentDC.Coords.svgClosePath();
+						m_currentDC.Coords.svgClosePath();
 						break;
 					case U_EMR_FILLPATH:
 						{
-							int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, 0, currentDC.CurrColorFill, CommonStrings::None, true);
+							int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, m_baseX, m_baseY, 10, 10, 0, m_currentDC.CurrColorFill, CommonStrings::None, true);
 							PageItem* ite = m_Doc->Items->at(z);
-							ite->PoLine = currentDC.Coords.copy();
+							ite->PoLine = m_currentDC.Coords.copy();
 							finishItem(ite);
 						}
 						break;
 					case U_EMR_STROKEANDFILLPATH:
 						{
-							int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, currentDC.LineW, currentDC.CurrColorFill, currentDC.CurrColorStroke, true);
+							int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, m_baseX, m_baseY, 10, 10, m_currentDC.LineW, m_currentDC.CurrColorFill, m_currentDC.CurrColorStroke, true);
 							PageItem* ite = m_Doc->Items->at(z);
-							ite->PoLine = currentDC.Coords.copy();
+							ite->PoLine = m_currentDC.Coords.copy();
 							finishItem(ite);
 						}
 						break;
 					case U_EMR_STROKEPATH:
 						{
-							int z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX, baseY, 10, 10, currentDC.LineW, CommonStrings::None, currentDC.CurrColorStroke, true);
+							int z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, m_baseX, m_baseY, 10, 10, m_currentDC.LineW, CommonStrings::None, m_currentDC.CurrColorStroke, true);
 							PageItem* ite = m_Doc->Items->at(z);
-							ite->PoLine = currentDC.Coords.copy();
+							ite->PoLine = m_currentDC.Coords.copy();
 							finishItem(ite, false);
 						}
 						break;
@@ -1355,12 +1355,12 @@ bool EmfPlug::convert(QString fn)
 							invalidateClipGroup();
 							quint32 mode;
 							ds >> mode;
-							if (currentDC.Coords.count() != 0)
+							if (m_currentDC.Coords.count() != 0)
 							{
-								if (checkClip(currentDC.Coords))
+								if (checkClip(m_currentDC.Coords))
 								{
-									currentDC.clipValid = true;
-									currentDC.clipPath = currentDC.Coords.copy();
+									m_currentDC.clipValid = true;
+									m_currentDC.clipPath = m_currentDC.Coords.copy();
 									createClipGroup();
 								}
 							}
@@ -1379,19 +1379,19 @@ bool EmfPlug::convert(QString fn)
 							clipPath.svgLineTo(p2.x(), p2.y());
 							clipPath.svgLineTo(p1.x(), p2.y());
 							clipPath.svgClosePath();
-							if (currentDC.clipPath.isEmpty())
+							if (m_currentDC.clipPath.isEmpty())
 							{
 								if (checkClip(clipPath))
 								{
-									currentDC.clipPath = clipPath.copy();
-									currentDC.clipValid = true;
+									m_currentDC.clipPath = clipPath.copy();
+									m_currentDC.clipValid = true;
 									createClipGroup();
 								}
 							}
 							else
 							{
 								QPainterPath pathN = clipPath.toQPainterPath(true);
-								QPainterPath pathA = currentDC.clipPath.toQPainterPath(true);
+								QPainterPath pathA = m_currentDC.clipPath.toQPainterPath(true);
 								QPainterPath resultPath = pathA.subtracted(pathN);
 								if (!resultPath.isEmpty())
 								{
@@ -1401,13 +1401,13 @@ bool EmfPlug::convert(QString fn)
 									polyline.svgClosePath();
 									if (checkClip(polyline))
 									{
-										currentDC.clipPath = polyline.copy();
-										currentDC.clipValid = true;
+										m_currentDC.clipPath = polyline.copy();
+										m_currentDC.clipValid = true;
 										createClipGroup();
 									}
 								}
 								else
-									currentDC.clipValid = false;
+									m_currentDC.clipValid = false;
 							}
 						}
 						break;
@@ -1424,19 +1424,19 @@ bool EmfPlug::convert(QString fn)
 							clipPath.svgLineTo(p2.x(), p2.y());
 							clipPath.svgLineTo(p1.x(), p2.y());
 							clipPath.svgClosePath();
-							if (currentDC.clipPath.isEmpty())
+							if (m_currentDC.clipPath.isEmpty())
 							{
 								if (checkClip(clipPath))
 								{
-									currentDC.clipPath = clipPath.copy();
-									currentDC.clipValid = true;
+									m_currentDC.clipPath = clipPath.copy();
+									m_currentDC.clipValid = true;
 									createClipGroup();
 								}
 							}
 							else
 							{
 								QPainterPath pathN = clipPath.toQPainterPath(true);
-								QPainterPath pathA = currentDC.clipPath.toQPainterPath(true);
+								QPainterPath pathA = m_currentDC.clipPath.toQPainterPath(true);
 								QPainterPath resultPath = pathA.intersected(pathN);
 								if (!resultPath.isEmpty())
 								{
@@ -1446,20 +1446,20 @@ bool EmfPlug::convert(QString fn)
 									polyline.svgClosePath();
 									if (checkClip(polyline))
 									{
-										currentDC.clipPath = polyline.copy();
-										currentDC.clipValid = true;
+										m_currentDC.clipPath = polyline.copy();
+										m_currentDC.clipValid = true;
 										createClipGroup();
 									}
 								}
 								else
-									currentDC.clipValid = false;
+									m_currentDC.clipValid = false;
 							}
 						}
 						break;
 					case U_EMR_ABORTPATH:
-						inPath = false;
-						currentDC.Coords.resize(0);
-						currentDC.Coords.svgInit();
+						m_inPath = false;
+						m_currentDC.Coords.resize(0);
+						m_currentDC.Coords.svgInit();
 						break;
 					case U_EMR_COMMENT:
 						handleComment(ds);
@@ -1547,7 +1547,7 @@ bool EmfPlug::convert(QString fn)
 							sty.fontRotation = foOri / 10.0;
 							sty.fontSize = qAbs(convertLogical2Pts(static_cast<double>(foHeight)));
 							sty.fontName = fontName;
-							emfStyleMap.insert(foID, sty);
+							m_emfStyleMap.insert(foID, sty);
 						}
 						break;
 					case U_EMR_EXTTEXTOUTA:
@@ -1675,34 +1675,34 @@ bool EmfPlug::convert(QString fn)
 					break;
 			}
 			ds.device()->seek(posi + size);
-			if (progressDialog)
+			if (m_progressDialog)
 			{
-				progressDialog->setProgress("GI", recordCount);
+				m_progressDialog->setProgress("GI", m_recordCount);
 				qApp->processEvents();
 			}
 		}
 		invalidateClipGroup();
-		if (Elements.count() == 0)
+		if (m_Elements.count() == 0)
 		{
-			if (importedColors.count() != 0)
+			if (m_importedColors.count() != 0)
 			{
-				for (int cd = 0; cd < importedColors.count(); cd++)
+				for (int cd = 0; cd < m_importedColors.count(); cd++)
 				{
-					m_Doc->PageColors.remove(importedColors[cd]);
+					m_Doc->PageColors.remove(m_importedColors[cd]);
 				}
 			}
-			if (importedPatterns.count() != 0)
+			if (m_importedPatterns.count() != 0)
 			{
-				for (int cd = 0; cd < importedPatterns.count(); cd++)
+				for (int cd = 0; cd < m_importedPatterns.count(); cd++)
 				{
-					m_Doc->docPatterns.remove(importedPatterns[cd]);
+					m_Doc->docPatterns.remove(m_importedPatterns[cd]);
 				}
 			}
 		}
 		f.close();
 	}
-	if (progressDialog)
-		progressDialog->close();
+	if (m_progressDialog)
+		m_progressDialog->close();
 	return true;
 }
 
@@ -1710,13 +1710,13 @@ bool EmfPlug::checkClip(FPointArray &clip)
 {
 	bool ret = true;
 	QRectF clipRect = clip.toQPainterPath(false).boundingRect();
-	if (clipRect.x() < docX)
+	if (clipRect.x() < m_docX)
 		ret = false;
-	if (clipRect.y() < docY)
+	if (clipRect.y() < m_docY)
 		ret = false;
-	if (clipRect.right() > docX + docWidth)
+	if (clipRect.right() > m_docX + m_docWidth)
 		ret = false;
-	if (clipRect.bottom() > docY + docHeight)
+	if (clipRect.bottom() > m_docY + m_docHeight)
 		ret = false;
 	return ret;
 }
@@ -1745,8 +1745,8 @@ QPointF EmfPlug::convertDevice2Pts(QPointF in)
 //	double scaleY = (bBoxMM.height() / 1000.0 / 2.54 * 72.0) / bBoxDev.height(); // Device -> Pts
 //	out.setX(in.x() * scaleX);
 //	out.setY(in.y() * scaleY);
-	out.setX(in.x() / dpiX * 72.0);
-	out.setY(in.y() / dpiY * 72.0);
+	out.setX(in.x() / m_dpiX * 72.0);
+	out.setY(in.y() / m_dpiY * 72.0);
 	return out;
 }
 
@@ -1763,49 +1763,49 @@ QPointF EmfPlug::convertLogical2Pts(QPointF in)
 	QPointF out;
 //	double scaleX = qAbs((bBoxMM.width() / 1000.0 / 2.54 * 72.0) / bBoxDev.width()); // Device -> Pts
 //	double scaleY = qAbs((bBoxMM.height() / 1000.0 / 2.54 * 72.0) / bBoxDev.height()); // Device -> Pts
-	if (currentDC.m_mapMode == 1)
+	if (m_currentDC.m_mapMode == 1)
 	{
 	//	out.setX(in.x() * scaleX);
 	//	out.setY(in.y() * scaleY);
-		out.setX(in.x() / dpiX * 72.0);
-		out.setY(in.y() / dpiY * 72.0);
+		out.setX(in.x() / m_dpiX * 72.0);
+		out.setY(in.y() / m_dpiY * 72.0);
 	}
-	else if (currentDC.m_mapMode == 2)
+	else if (m_currentDC.m_mapMode == 2)
 	{
 		out.setX(in.x() / 100.0 / 2.54 * 72.0);
 		out.setY(in.y() / 100.0 / 2.54 * 72.0);
 	}
-	else if (currentDC.m_mapMode == 3)
+	else if (m_currentDC.m_mapMode == 3)
 	{
 		out.setX(in.x() / 1000.0 / 2.54 * 72.0);
 		out.setY(in.y() / 1000.0 / 2.54 * 72.0);
 	}
-	else if (currentDC.m_mapMode == 4)
+	else if (m_currentDC.m_mapMode == 4)
 	{
 		out.setX(in.x() / 1000.0 * 72.0);
 		out.setY(in.y() / 1000.0 * 72.0);
 	}
-	else if (currentDC.m_mapMode == 5)
+	else if (m_currentDC.m_mapMode == 5)
 	{
 		out.setX(in.x() / 10000.0 * 72.0);
 		out.setY(in.y() / 10000.0 * 72.0);
 	}
-	else if (currentDC.m_mapMode == 6)
+	else if (m_currentDC.m_mapMode == 6)
 	{
 		out.setX(in.x() / 1440.0 * 72.0);
 		out.setY(in.y() / 1440.0 * 72.0);
 	}
-	else if ((currentDC.m_mapMode == 0x07) || (currentDC.m_mapMode == 0x08))
+	else if ((m_currentDC.m_mapMode == 0x07) || (m_currentDC.m_mapMode == 0x08))
 	{
-		double ratioX = viewPextendX / static_cast<double>(winPextendX); // Logical --> Device
-		double ratioY = viewPextendY / static_cast<double>(winPextendY); // Logical --> Device
+		double ratioX = m_viewPextendX / static_cast<double>(m_winPextendX); // Logical --> Device
+		double ratioY = m_viewPextendY / static_cast<double>(m_winPextendY); // Logical --> Device
 		// logic --> device --> pts
 	//	out.setX(in.x() * ratioX * scaleX);
 	//	out.setY(in.y() * ratioY * scaleY);
 		out.setX(in.x() * ratioX);
 		out.setY(in.y() * ratioY);
-		out.setX(out.x() / dpiX * 72.0);
-		out.setY(out.y() / dpiY * 72.0);
+		out.setX(out.x() / m_dpiX * 72.0);
+		out.setY(out.y() / m_dpiY * 72.0);
 	}
 	return out;
 }
@@ -1851,8 +1851,8 @@ void EmfPlug::createPatternFromDIB(QImage img, quint32 brID)
 				sty.brushStyle = U_BT_TextureFill;
 				sty.patternName = patternName;
 				sty.fillTrans = 0;
-				emfStyleMap.insert(brID, sty);
-				importedPatterns.append(patternName);
+				m_emfStyleMap.insert(brID, sty);
+				m_importedPatterns.append(patternName);
 			}
 		}
 	}
@@ -1874,15 +1874,15 @@ FPointArray EmfPlug::getPolyPoints(QDataStream &ds, quint32 count, bool length, 
 	for (quint32 a = 0; a < count; a++)
 	{
 		QPointF p = getPoint(ds, length);
-		if (inPath)
+		if (m_inPath)
 		{
 			if (bFirst)
 			{
-				currentDC.Coords.svgMoveTo(p.x(), p.y());
+				m_currentDC.Coords.svgMoveTo(p.x(), p.y());
 				bFirst = false;
 			}
 			else
-				currentDC.Coords.svgLineTo(p.x(), p.y());
+				m_currentDC.Coords.svgLineTo(p.x(), p.y());
 		}
 		else
 		{
@@ -1895,10 +1895,10 @@ FPointArray EmfPlug::getPolyPoints(QDataStream &ds, quint32 count, bool length, 
 				polyline.svgLineTo(p.x(), p.y());
 		}
 	}
-	if (inPath)
+	if (m_inPath)
 	{
-		if ((currentDC.Coords.size() > 4) && (closed))
-			currentDC.Coords.svgClosePath();
+		if ((m_currentDC.Coords.size() > 4) && (closed))
+			m_currentDC.Coords.svgClosePath();
 	}
 	else
 	{
@@ -1915,17 +1915,17 @@ QPointF EmfPlug::getPoint(QDataStream &ds, bool size)
 	{
 		qint32 x1, y1;
 		ds >> x1 >> y1;
-		p = currentDC.m_WorldMap.map(QPointF(x1, y1));
+		p = m_currentDC.m_WorldMap.map(QPointF(x1, y1));
 		p = convertLogical2Pts(p);
 	}
 	else
 	{
 		qint16 x1, y1;
 		ds >> x1 >> y1;
-		p = currentDC.m_WorldMap.map(QPointF(x1, y1));
+		p = m_currentDC.m_WorldMap.map(QPointF(x1, y1));
 		p = convertLogical2Pts(p);
 	}
-	p += currentDC.viewOrigin;
+	p += m_currentDC.viewOrigin;
 	return p;
 }
 
@@ -1939,13 +1939,13 @@ quint32 EmfPlug::getColor(QDataStream &ds)
 void EmfPlug::setWTransform(QTransform mm, quint32 how)
 {
 	if (how == 1)
-		currentDC.m_WorldMap = QTransform();
+		m_currentDC.m_WorldMap = QTransform();
 	else if (how == 2)
-		currentDC.m_WorldMap = mm * currentDC.m_WorldMap;
+		m_currentDC.m_WorldMap = mm * m_currentDC.m_WorldMap;
 	else if (how == 3)
-		currentDC.m_WorldMap = currentDC.m_WorldMap * mm;
+		m_currentDC.m_WorldMap = m_currentDC.m_WorldMap * mm;
 	else if (how == 4)
-		currentDC.m_WorldMap = mm;
+		m_currentDC.m_WorldMap = mm;
 }
 
 QPointF EmfPlug::intersectBoundingRect(PageItem *item, QLineF gradientVector)
@@ -1965,99 +1965,99 @@ QPointF EmfPlug::intersectBoundingRect(PageItem *item, QLineF gradientVector)
 
 void EmfPlug::finishItem(PageItem* ite, bool fill)
 {
-	ite->fillRule = currentDC.fillRule;
+	ite->fillRule = m_currentDC.fillRule;
 	ite->ClipEdited = true;
 	ite->FrameType = 3;
 	ite->setFillShade(100.0);
 	ite->setLineShade(100.0);
-	ite->setLineJoin(currentDC.penJoin);
-	ite->setLineEnd(currentDC.penCap);
-	ite->setLineStyle(currentDC.penStyle);
-	if (!currentDC.dashArray.isEmpty())
+	ite->setLineJoin(m_currentDC.penJoin);
+	ite->setLineEnd(m_currentDC.penCap);
+	ite->setLineStyle(m_currentDC.penStyle);
+	if (!m_currentDC.dashArray.isEmpty())
 	{
 		ite->DashValues.clear();
-		for (int a = 0; a < currentDC.dashArray.count(); a++)
+		for (int a = 0; a < m_currentDC.dashArray.count(); a++)
 		{
-			ite->DashValues.append(currentDC.dashArray[a] * ite->lineWidth());
+			ite->DashValues.append(m_currentDC.dashArray[a] * ite->lineWidth());
 		}
 	}
-	ite->DashOffset = currentDC.dashOffset;
-	if (inEMFPlus && currentDC.alphaOn)
+	ite->DashOffset = m_currentDC.dashOffset;
+	if (m_inEMFPlus && m_currentDC.alphaOn)
 	{
-		ite->setFillTransparency(currentDC.CurrFillTrans);
-		ite->setLineTransparency(currentDC.CurrStrokeTrans);
+		ite->setFillTransparency(m_currentDC.CurrFillTrans);
+		ite->setLineTransparency(m_currentDC.CurrStrokeTrans);
 	}
 	FPoint oldPos = getMinClipF(&ite->PoLine);
 	FPoint wh = getMaxClipF(&ite->PoLine);
 	ite->setWidthHeight(wh.x(),wh.y());
 	ite->setTextFlowMode(PageItem::TextFlowDisabled);
 	m_Doc->AdjustItemSize(ite);
-	ite->moveBy(-docX, -docY, true);
-	ite->moveBy(-currentDC.winOrigin.x(), -currentDC.winOrigin.y());
+	ite->moveBy(-m_docX, -m_docY, true);
+	ite->moveBy(-m_currentDC.winOrigin.x(), -m_currentDC.winOrigin.y());
 	ite->OldB2 = ite->width();
 	ite->OldH2 = ite->height();
 	ite->updateClip();
 	if (fill)
 	{
-		if (inEMFPlus)
+		if (m_inEMFPlus)
 		{
-			if (currentDC.brushStyle == U_BT_HatchFill)
+			if (m_currentDC.brushStyle == U_BT_HatchFill)
 			{
-				switch (currentDC.hatchStyle)
+				switch (m_currentDC.hatchStyle)
 				{
 					case U_HSP_Horizontal:
-						ite->setHatchParameters(0, 5, 0, currentDC.backgroundMode, currentDC.backColor, currentDC.CurrColorFill);
+						ite->setHatchParameters(0, 5, 0, m_currentDC.backgroundMode, m_currentDC.backColor, m_currentDC.CurrColorFill);
 						ite->GrType = 14;
 						break;
 					case U_HSP_Vertical:
-						ite->setHatchParameters(0, 5, 90, currentDC.backgroundMode, currentDC.backColor, currentDC.CurrColorFill);
+						ite->setHatchParameters(0, 5, 90, m_currentDC.backgroundMode, m_currentDC.backColor, m_currentDC.CurrColorFill);
 						ite->GrType = 14;
 						break;
 					case U_HSP_ForwardDiagonal:
-						ite->setHatchParameters(0, 5, -45, currentDC.backgroundMode, currentDC.backColor, currentDC.CurrColorFill);
+						ite->setHatchParameters(0, 5, -45, m_currentDC.backgroundMode, m_currentDC.backColor, m_currentDC.CurrColorFill);
 						ite->GrType = 14;
 						break;
 					case U_HSP_BackwardDiagonal:
-						ite->setHatchParameters(0, 5, 45, currentDC.backgroundMode, currentDC.backColor, currentDC.CurrColorFill);
+						ite->setHatchParameters(0, 5, 45, m_currentDC.backgroundMode, m_currentDC.backColor, m_currentDC.CurrColorFill);
 						ite->GrType = 14;
 						break;
 					case U_HSP_LargeGrid:
-						ite->setHatchParameters(1, 5, 0, currentDC.backgroundMode, currentDC.backColor, currentDC.CurrColorFill);
+						ite->setHatchParameters(1, 5, 0, m_currentDC.backgroundMode, m_currentDC.backColor, m_currentDC.CurrColorFill);
 						ite->GrType = 14;
 						break;
 					case U_HSP_DiagonalCross:
-						ite->setHatchParameters(1, 5, 45, currentDC.backgroundMode, currentDC.backColor, currentDC.CurrColorFill);
+						ite->setHatchParameters(1, 5, 45, m_currentDC.backgroundMode, m_currentDC.backColor, m_currentDC.CurrColorFill);
 						ite->GrType = 14;
 						break;
 					default:
-						ite->setHatchParameters(1, 5, 45, currentDC.backgroundMode, currentDC.backColor, currentDC.CurrColorFill);
+						ite->setHatchParameters(1, 5, 45, m_currentDC.backgroundMode, m_currentDC.backColor, m_currentDC.CurrColorFill);
 						ite->GrType = 14;
 						break;
 				}
 			}
-			else if (currentDC.brushStyle == U_BT_LinearGradient)
+			else if (m_currentDC.brushStyle == U_BT_LinearGradient)
 			{
-				ite->fill_gradient = currentDC.gradient;
+				ite->fill_gradient = m_currentDC.gradient;
 				QLineF gradientVectorE;
 				gradientVectorE.setP1(QPointF(ite->width() / 2.0, ite->height() / 2.0));
-				gradientVectorE.setAngle(currentDC.gradientAngle);
+				gradientVectorE.setAngle(m_currentDC.gradientAngle);
 				gradientVectorE.setLength(sqrt(ite->width() * ite->width() + ite->height() * ite->height()) / 2.0 + 1.0);
 				QPointF gradEnd = intersectBoundingRect(ite, gradientVectorE);
 				QLineF gradientVectorS;
 				gradientVectorS.setP1(QPointF(ite->width() / 2.0, ite->height() / 2.0));
-				gradientVectorS.setAngle(currentDC.gradientAngle + 180);
+				gradientVectorS.setAngle(m_currentDC.gradientAngle + 180);
 				gradientVectorS.setLength(sqrt(ite->width() * ite->width() + ite->height() * ite->height()) / 2.0 + 1.0);
 				QPointF gradStart = intersectBoundingRect(ite, gradientVectorS);
 				ite->setGradientVector(gradStart.x(), gradStart.y(), gradEnd.x(), gradEnd.y(), gradStart.x(), gradStart.y(), 1, 0);
 				ite->setGradientType(6);
 			}
-			else if (currentDC.brushStyle == U_BT_PathGradient)
+			else if (m_currentDC.brushStyle == U_BT_PathGradient)
 			{
 				FPoint newPos = getMinClipF(&ite->PoLine);
 				double dx = newPos.x() - oldPos.x();
 				double dy = newPos.y() - oldPos.y();
-				QPointF cx = currentDC.gradientStart + QPointF(dx, dy);
-				FPointArray gpath = currentDC.gradientPath.copy();
+				QPointF cx = m_currentDC.gradientStart + QPointF(dx, dy);
+				FPointArray gpath = m_currentDC.gradientPath.copy();
 				gpath.translate(dx, dy);
 				for (int sub = 0; sub < 2; sub++)
 				{
@@ -2107,7 +2107,7 @@ void EmfPlug::finishItem(PageItem* ite, bool fill)
 				}
 				ite->meshGradientPatches.clear();
 				FPoint center = FPoint(cx.x(), cx.y());
-				QList<VColorStop*> colorStops = currentDC.gradient.colorStops();
+				QList<VColorStop*> colorStops = m_currentDC.gradient.colorStops();
 				if (colorStops.count() == 2)
 				{
 					int endC = colorStops.count() - 1;
@@ -2234,21 +2234,21 @@ void EmfPlug::finishItem(PageItem* ite, bool fill)
 				}
 				ite->GrType = 12;
 			}
-			else if (currentDC.brushStyle == U_BT_TextureFill)
+			else if (m_currentDC.brushStyle == U_BT_TextureFill)
 			{
-				if (m_Doc->docPatterns.contains(currentDC.patternName))
+				if (m_Doc->docPatterns.contains(m_currentDC.patternName))
 				{
-					ite->setPattern(currentDC.patternName);
-					ScPattern pat = m_Doc->docPatterns[currentDC.patternName];
+					ite->setPattern(m_currentDC.patternName);
+					ScPattern pat = m_Doc->docPatterns[m_currentDC.patternName];
 					if ((pat.height < ite->height()) || (pat.width < ite->width()))
 					{
-						if (currentDC.patternMode == 1)
+						if (m_currentDC.patternMode == 1)
 							ite->setPatternFlip(true, false);
-						else if (currentDC.patternMode == 2)
+						else if (m_currentDC.patternMode == 2)
 							ite->setPatternFlip(false, true);
-						else if (currentDC.patternMode == 3)
+						else if (m_currentDC.patternMode == 3)
 							ite->setPatternFlip(true, true);
-						else if (currentDC.patternMode == 4)
+						else if (m_currentDC.patternMode == 4)
 						{
 							double sx = ite->width() / pat.width * 100;
 							double sy = ite->height() / pat.height * 100;
@@ -2267,88 +2267,88 @@ void EmfPlug::finishItem(PageItem* ite, bool fill)
 		}
 		else
 		{
-			if (currentDC.brushStyle == U_BT_HatchFill)
+			if (m_currentDC.brushStyle == U_BT_HatchFill)
 			{
-				switch (currentDC.hatchStyle)
+				switch (m_currentDC.hatchStyle)
 				{
 					case U_HSP_Horizontal:
-						ite->setHatchParameters(0, 5, 0, currentDC.backgroundMode, currentDC.backColor, currentDC.CurrColorFill);
+						ite->setHatchParameters(0, 5, 0, m_currentDC.backgroundMode, m_currentDC.backColor, m_currentDC.CurrColorFill);
 						ite->GrType = 14;
 						break;
 					case U_HSP_Vertical:
-						ite->setHatchParameters(0, 5, 90, currentDC.backgroundMode, currentDC.backColor, currentDC.CurrColorFill);
+						ite->setHatchParameters(0, 5, 90, m_currentDC.backgroundMode, m_currentDC.backColor, m_currentDC.CurrColorFill);
 						ite->GrType = 14;
 						break;
 					case U_HSP_ForwardDiagonal:
-						ite->setHatchParameters(0, 5, -45, currentDC.backgroundMode, currentDC.backColor, currentDC.CurrColorFill);
+						ite->setHatchParameters(0, 5, -45, m_currentDC.backgroundMode, m_currentDC.backColor, m_currentDC.CurrColorFill);
 						ite->GrType = 14;
 						break;
 					case U_HSP_BackwardDiagonal:
-						ite->setHatchParameters(0, 5, 45, currentDC.backgroundMode, currentDC.backColor, currentDC.CurrColorFill);
+						ite->setHatchParameters(0, 5, 45, m_currentDC.backgroundMode, m_currentDC.backColor, m_currentDC.CurrColorFill);
 						ite->GrType = 14;
 						break;
 					case U_HSP_LargeGrid:
-						ite->setHatchParameters(1, 5, 0, currentDC.backgroundMode, currentDC.backColor, currentDC.CurrColorFill);
+						ite->setHatchParameters(1, 5, 0, m_currentDC.backgroundMode, m_currentDC.backColor, m_currentDC.CurrColorFill);
 						ite->GrType = 14;
 						break;
 					case U_HSP_DiagonalCross:
-						ite->setHatchParameters(1, 5, 45, currentDC.backgroundMode, currentDC.backColor, currentDC.CurrColorFill);
+						ite->setHatchParameters(1, 5, 45, m_currentDC.backgroundMode, m_currentDC.backColor, m_currentDC.CurrColorFill);
 						ite->GrType = 14;
 						break;
 					case 6:
 					case 7:
-						ite->setFillColor(currentDC.CurrColorFill);
+						ite->setFillColor(m_currentDC.CurrColorFill);
 						break;
 					case 8:
 					case 9:
-						ite->setFillColor(currentDC.CurrColorText);
+						ite->setFillColor(m_currentDC.CurrColorText);
 						break;
 					case 10:
 					case 11:
-						ite->setFillColor(currentDC.backColor);
+						ite->setFillColor(m_currentDC.backColor);
 						break;
 					default:
 						break;
 				}
 			}
-			else if (currentDC.brushStyle == U_BT_TextureFill)
+			else if (m_currentDC.brushStyle == U_BT_TextureFill)
 			{
-				ite->setPattern(currentDC.patternName);
+				ite->setPattern(m_currentDC.patternName);
 				ite->GrType = 8;
 			}
 		}
 	}
-	if (clipGroup != NULL)
+	if (m_clipGroup != NULL)
 	{
 		QList<PageItem*> itemList;
 		itemList.append(ite);
-		m_Doc->groupObjectsToItem(clipGroup, itemList);
+		m_Doc->groupObjectsToItem(m_clipGroup, itemList);
 	}
 	else
-		Elements.append(ite);
+		m_Elements.append(ite);
 }
 
 void EmfPlug::invalidateClipGroup()
 {
-	if (clipGroup != NULL)
+	if (m_clipGroup != NULL)
 	{
-		if (clipGroup->asGroupFrame()->groupItemList.count() == 0)
+		if (m_clipGroup->asGroupFrame()->groupItemList.count() == 0)
 		{
-			Elements.removeAll(clipGroup);
-			m_Doc->Items->removeAll(clipGroup);
-			delete clipGroup;
+			m_Elements.removeAll(m_clipGroup);
+			m_Doc->Items->removeAll(m_clipGroup);
+			delete m_clipGroup;
 		}
 	}
-	clipGroup = NULL;
+	m_clipGroup = NULL;
 }
 
 void EmfPlug::createClipGroup()
 {
-	if (currentDC.clipValid)
+	if (m_currentDC.clipValid)
 	{
-		int z = m_Doc->itemAdd(PageItem::Group, PageItem::Unspecified, baseX, baseY, 10, 10, 0, CommonStrings::None, CommonStrings::None, true);
+		int z = m_Doc->itemAdd(PageItem::Group, PageItem::Unspecified, m_baseX, m_baseY, 10, 10, 0, CommonStrings::None, CommonStrings::None, true);
 		PageItem* ite = m_Doc->Items->at(z);
-		ite->PoLine = currentDC.clipPath.copy();
+		ite->PoLine = m_currentDC.clipPath.copy();
 		ite->setFillEvenOdd(false);
 		ite->ClipEdited = true;
 		ite->FrameType = 3;
@@ -2356,15 +2356,15 @@ void EmfPlug::createClipGroup()
 		ite->setWidthHeight(wh.x(),wh.y());
 		ite->setTextFlowMode(PageItem::TextFlowDisabled);
 		m_Doc->AdjustItemSize(ite, true);
-		ite->moveBy(-docX, -docY, true);
-		ite->moveBy(-currentDC.winOrigin.x(), -currentDC.winOrigin.y());
+		ite->moveBy(-m_docX, -m_docY, true);
+		ite->moveBy(-m_currentDC.winOrigin.x(), -m_currentDC.winOrigin.y());
 		ite->OldB2 = ite->width();
 		ite->OldH2 = ite->height();
 		ite->updateClip();
 		ite->OwnPage = m_Doc->OnPage(ite);
 		m_Doc->GroupOnPage(ite);
-		clipGroup = ite;
-		Elements.append(ite);
+		m_clipGroup = ite;
+		m_Elements.append(ite);
 	}
 }
 
@@ -2382,18 +2382,18 @@ void EmfPlug::handleEllipse(QDataStream &ds)
 	QPointF p1 = getPoint(ds, true);
 	QPointF p2 = getPoint(ds, true);
 	QRectF BoxDev = QRectF(p1, p2);
-	if (inPath)
+	if (m_inPath)
 	{
 		QPainterPath painterPath;
 		painterPath.addEllipse(BoxDev);
 		FPointArray  pointArray;
 		pointArray.fromQPainterPath(painterPath);
-		currentDC.Coords.setMarker();
-		currentDC.Coords += pointArray;
+		m_currentDC.Coords.setMarker();
+		m_currentDC.Coords += pointArray;
 	}
 	else
 	{
-		int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Ellipse, baseX, baseY, BoxDev.width(), BoxDev.height(), currentDC.LineW, currentDC.CurrColorFill, currentDC.CurrColorStroke, true);
+		int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Ellipse, m_baseX, m_baseY, BoxDev.width(), BoxDev.height(), m_currentDC.LineW, m_currentDC.CurrColorFill, m_currentDC.CurrColorStroke, true);
 		PageItem* ite = m_Doc->Items->at(z);
 		QTransform mm(1.0, 0.0, 0.0, 1.0, BoxDev.x(), BoxDev.y());
 		ite->PoLine.map(mm);
@@ -2406,18 +2406,18 @@ void EmfPlug::handleRectangle(QDataStream &ds)
 	QPointF p1 = getPoint(ds, true);
 	QPointF p2 = getPoint(ds, true);
 	QRectF BoxDev = QRectF(p1, p2);
-	if (inPath)
+	if (m_inPath)
 	{
 		QPainterPath painterPath;
 		painterPath.addRect(BoxDev);
 		FPointArray  pointArray;
 		pointArray.fromQPainterPath(painterPath);
-		currentDC.Coords.setMarker();
-		currentDC.Coords += pointArray;
+		m_currentDC.Coords.setMarker();
+		m_currentDC.Coords += pointArray;
 	}
 	else
 	{
-		int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, baseX, baseY, BoxDev.width(), BoxDev.height(), currentDC.LineW, currentDC.CurrColorFill, currentDC.CurrColorStroke, true);
+		int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, m_baseX, m_baseY, BoxDev.width(), BoxDev.height(), m_currentDC.LineW, m_currentDC.CurrColorFill, m_currentDC.CurrColorStroke, true);
 		PageItem* ite = m_Doc->Items->at(z);
 		QTransform mm(1.0, 0.0, 0.0, 1.0, BoxDev.x(), BoxDev.y());
 		ite->PoLine.map(mm);
@@ -2433,18 +2433,18 @@ void EmfPlug::handleRoundRect(QDataStream &ds)
 	ds >> x1 >> y1;
 	QPointF p3 = convertLogical2Pts(QPointF(x1, y1));
 	QRectF BoxDev = QRectF(p1, p2);
-	if (inPath)
+	if (m_inPath)
 	{
 		QPainterPath painterPath;
 		painterPath.addRoundedRect(BoxDev, p3.x(), p3.y());
 		FPointArray  pointArray;
 		pointArray.fromQPainterPath(painterPath);
-		currentDC.Coords.setMarker();
-		currentDC.Coords += pointArray;
+		m_currentDC.Coords.setMarker();
+		m_currentDC.Coords += pointArray;
 	}
 	else
 	{
-		int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, baseX, baseY, BoxDev.width(), BoxDev.height(), currentDC.LineW, currentDC.CurrColorFill, currentDC.CurrColorStroke, true);
+		int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, m_baseX, m_baseY, BoxDev.width(), BoxDev.height(), m_currentDC.LineW, m_currentDC.CurrColorFill, m_currentDC.CurrColorStroke, true);
 		PageItem* ite = m_Doc->Items->at(z);
 		QTransform mm(1.0, 0.0, 0.0, 1.0, BoxDev.x(), BoxDev.y());
 		ite->PoLine.map(mm);
@@ -2468,21 +2468,21 @@ void EmfPlug::handlePolyBezierTo(QDataStream &ds, bool size)
 		QPointF p1 = getPoint(ds, size);
 		QPointF p2 = getPoint(ds, size);
 		QPointF p3 = getPoint(ds, size);
-		if (currentDC.Coords.count() == 0)
-			currentDC.Coords.svgMoveTo(currentDC.currentPoint.x(), currentDC.currentPoint.y());
-		currentDC.Coords.svgCurveToCubic(p1.x(), p1.y(), p2.x(), p2.y(), p3.x(), p3.y());
-		currentDC.currentPoint = p3;
+		if (m_currentDC.Coords.count() == 0)
+			m_currentDC.Coords.svgMoveTo(m_currentDC.currentPoint.x(), m_currentDC.currentPoint.y());
+		m_currentDC.Coords.svgCurveToCubic(p1.x(), p1.y(), p2.x(), p2.y(), p3.x(), p3.y());
+		m_currentDC.currentPoint = p3;
 	}
-	if (!inPath)
+	if (!m_inPath)
 	{
-		if (currentDC.Coords.count() != 0)
+		if (m_currentDC.Coords.count() != 0)
 		{
-			int z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX, baseY, 10, 10, currentDC.LineW, CommonStrings::None, currentDC.CurrColorStroke, true);
+			int z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, m_baseX, m_baseY, 10, 10, m_currentDC.LineW, CommonStrings::None, m_currentDC.CurrColorStroke, true);
 			PageItem* ite = m_Doc->Items->at(z);
-			ite->PoLine = currentDC.Coords.copy();
+			ite->PoLine = m_currentDC.Coords.copy();
 			finishItem(ite, false);
-			currentDC.Coords.resize(0);
-			currentDC.Coords.svgInit();
+			m_currentDC.Coords.resize(0);
+			m_currentDC.Coords.svgInit();
 		}
 	}
 }
@@ -2495,21 +2495,21 @@ void EmfPlug::handlePolylineTo(QDataStream &ds, bool size)
 	for (quint32 a = 0; a < countP; a++)
 	{
 		QPointF p1 = getPoint(ds, size);
-		if (currentDC.Coords.count() == 0)
-			currentDC.Coords.svgMoveTo(currentDC.currentPoint.x(), currentDC.currentPoint.y());
-		currentDC.Coords.svgLineTo(p1.x(), p1.y());
-		currentDC.currentPoint = p1;
+		if (m_currentDC.Coords.count() == 0)
+			m_currentDC.Coords.svgMoveTo(m_currentDC.currentPoint.x(), m_currentDC.currentPoint.y());
+		m_currentDC.Coords.svgLineTo(p1.x(), p1.y());
+		m_currentDC.currentPoint = p1;
 	}
-	if (!inPath)
+	if (!m_inPath)
 	{
-		if (currentDC.Coords.count() != 0)
+		if (m_currentDC.Coords.count() != 0)
 		{
-			int z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX, baseY, 10, 10, currentDC.LineW, CommonStrings::None, currentDC.CurrColorStroke, true);
+			int z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, m_baseX, m_baseY, 10, 10, m_currentDC.LineW, CommonStrings::None, m_currentDC.CurrColorStroke, true);
 			PageItem* ite = m_Doc->Items->at(z);
-			ite->PoLine = currentDC.Coords.copy();
+			ite->PoLine = m_currentDC.Coords.copy();
 			finishItem(ite, false);
-			currentDC.Coords.resize(0);
-			currentDC.Coords.svgInit();
+			m_currentDC.Coords.resize(0);
+			m_currentDC.Coords.svgInit();
 		}
 	}
 }
@@ -2517,23 +2517,23 @@ void EmfPlug::handlePolylineTo(QDataStream &ds, bool size)
 void EmfPlug::handleLineTo(QDataStream &ds)
 {
 	QPointF p1 = getPoint(ds, true);
-	if (currentDC.Coords.count() == 0)
+	if (m_currentDC.Coords.count() == 0)
 	{
-		currentDC.Coords.svgInit();
-		currentDC.Coords.svgMoveTo(currentDC.currentPoint.x(), currentDC.currentPoint.y());
+		m_currentDC.Coords.svgInit();
+		m_currentDC.Coords.svgMoveTo(m_currentDC.currentPoint.x(), m_currentDC.currentPoint.y());
 	}
-	currentDC.Coords.svgLineTo(p1.x(), p1.y());
-	currentDC.currentPoint = p1;
-	if (!inPath)
+	m_currentDC.Coords.svgLineTo(p1.x(), p1.y());
+	m_currentDC.currentPoint = p1;
+	if (!m_inPath)
 	{
-		if (currentDC.Coords.count() != 0)
+		if (m_currentDC.Coords.count() != 0)
 		{
-			int z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX, baseY, 10, 10, currentDC.LineW, CommonStrings::None, currentDC.CurrColorStroke, true);
+			int z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, m_baseX, m_baseY, 10, 10, m_currentDC.LineW, CommonStrings::None, m_currentDC.CurrColorStroke, true);
 			PageItem* ite = m_Doc->Items->at(z);
-			ite->PoLine = currentDC.Coords.copy();
+			ite->PoLine = m_currentDC.Coords.copy();
 			finishItem(ite, false);
-			currentDC.Coords.resize(0);
-			currentDC.Coords.svgInit();
+			m_currentDC.Coords.resize(0);
+			m_currentDC.Coords.svgInit();
 		}
 	}
 }
@@ -2550,21 +2550,21 @@ void EmfPlug::handleArc(QDataStream &ds)
 	FPointArray  pointArray;
 	QPainterPath painterPath;
 	painterPath.arcMoveTo(BoxDev, stlin.angle());
-	if (currentDC.arcDirection)
+	if (m_currentDC.arcDirection)
 		painterPath.arcTo(BoxDev, stlin.angle(), enlin.angle() - stlin.angle());
 	else
 		painterPath.arcTo(BoxDev, stlin.angle(), stlin.angle() - enlin.angle());
 	pointArray.fromQPainterPath(painterPath);
 	if (pointArray.count() != 0)
 	{
-		if (inPath)
+		if (m_inPath)
 		{
-			currentDC.Coords += pointArray;
-			currentDC.currentPoint = en;
+			m_currentDC.Coords += pointArray;
+			m_currentDC.currentPoint = en;
 		}
 		else
 		{
-			int z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX, baseY, BoxDev.width(), BoxDev.height(), currentDC.LineW, CommonStrings::None, currentDC.CurrColorStroke, true);
+			int z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, m_baseX, m_baseY, BoxDev.width(), BoxDev.height(), m_currentDC.LineW, CommonStrings::None, m_currentDC.CurrColorStroke, true);
 			PageItem* ite = m_Doc->Items->at(z);
 			ite->PoLine = pointArray.copy();
 			finishItem(ite, false);
@@ -2581,26 +2581,26 @@ void EmfPlug::handleArcTo(QDataStream &ds)
 	QPointF en = getPoint(ds, true);
 	QLineF stlin = QLineF(BoxDev.center(), st);
 	QLineF enlin = QLineF(BoxDev.center(), en);
-	if (inPath)
+	if (m_inPath)
 	{
 		if (enlin.angleTo(stlin) > 180)
 		{
 		//	currentDC.Coords.svgMoveTo(st.x(), st.y());
-			currentDC.Coords.svgArcTo(BoxDev.width() / 2.0, BoxDev.height() / 2.0, 0, enlin.angleTo(stlin) < 180 ? 1 : 0, stlin.angleTo(enlin) > 180 ? 1 : 0, en.x(), en.y());
+			m_currentDC.Coords.svgArcTo(BoxDev.width() / 2.0, BoxDev.height() / 2.0, 0, enlin.angleTo(stlin) < 180 ? 1 : 0, stlin.angleTo(enlin) > 180 ? 1 : 0, en.x(), en.y());
 		}
 		else
 		{
 		//	currentDC.Coords.svgMoveTo(st.x(), st.y());
-			currentDC.Coords.svgArcTo(BoxDev.width() / 2.0, BoxDev.height() / 2.0, 0, enlin.angleTo(stlin) > 180 ? 1 : 0, stlin.angleTo(enlin) > 180 ? 1 : 0, en.x(), en.y());
+			m_currentDC.Coords.svgArcTo(BoxDev.width() / 2.0, BoxDev.height() / 2.0, 0, enlin.angleTo(stlin) > 180 ? 1 : 0, stlin.angleTo(enlin) > 180 ? 1 : 0, en.x(), en.y());
 		}
-		currentDC.currentPoint = en;
+		m_currentDC.currentPoint = en;
 	}
 	else
 	{
 		FPointArray  pointArray;
 		QPainterPath painterPath;
 		double ang1 = stlin.angleTo(enlin);
-		if (currentDC.arcDirection)
+		if (m_currentDC.arcDirection)
 		{
 			painterPath.arcMoveTo(BoxDev, stlin.angle());
 			painterPath.arcTo(BoxDev, stlin.angle(), ang1);
@@ -2613,7 +2613,7 @@ void EmfPlug::handleArcTo(QDataStream &ds)
 		pointArray.fromQPainterPath(painterPath);
 		if (pointArray.count() != 0)
 		{
-			int z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX, baseY, BoxDev.width(), BoxDev.height(), currentDC.LineW, CommonStrings::None, currentDC.CurrColorStroke, true);
+			int z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, m_baseX, m_baseY, BoxDev.width(), BoxDev.height(), m_currentDC.LineW, CommonStrings::None, m_currentDC.CurrColorStroke, true);
 			PageItem* ite = m_Doc->Items->at(z);
 			ite->PoLine = pointArray.copy();
 			finishItem(ite, false);
@@ -2634,7 +2634,7 @@ void EmfPlug::handleChord(QDataStream &ds)
 	QPainterPath painterPath;
 	QPointF firstPoint;
 	double ang1 = stlin.angleTo(enlin);
-	if (currentDC.arcDirection)
+	if (m_currentDC.arcDirection)
 	{
 		painterPath.arcMoveTo(BoxDev, stlin.angle());
 		firstPoint = painterPath.currentPosition();
@@ -2650,14 +2650,14 @@ void EmfPlug::handleChord(QDataStream &ds)
 	pointArray.fromQPainterPath(painterPath);
 	if (pointArray.count() != 0)
 	{
-		if (inPath)
+		if (m_inPath)
 		{
-			currentDC.Coords += pointArray;
-			currentDC.currentPoint = firstPoint;
+			m_currentDC.Coords += pointArray;
+			m_currentDC.currentPoint = firstPoint;
 		}
 		else
 		{
-			int z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX, baseY, BoxDev.width(), BoxDev.height(), currentDC.LineW, currentDC.CurrColorFill, currentDC.CurrColorStroke, true);
+			int z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, m_baseX, m_baseY, BoxDev.width(), BoxDev.height(), m_currentDC.LineW, m_currentDC.CurrColorFill, m_currentDC.CurrColorStroke, true);
 			PageItem* ite = m_Doc->Items->at(z);
 			ite->PoLine = pointArray.copy();
 			finishItem(ite);
@@ -2678,7 +2678,7 @@ void EmfPlug::handlePie(QDataStream &ds)
 	QPainterPath painterPath;
 	QPointF firstPoint;
 	double ang1 = stlin.angleTo(enlin);
-	if (currentDC.arcDirection)
+	if (m_currentDC.arcDirection)
 	{
 		painterPath.arcMoveTo(BoxDev, stlin.angle());
 		firstPoint = painterPath.currentPosition();
@@ -2695,14 +2695,14 @@ void EmfPlug::handlePie(QDataStream &ds)
 	pointArray.fromQPainterPath(painterPath);
 	if (pointArray.count() != 0)
 	{
-		if (inPath)
+		if (m_inPath)
 		{
-			currentDC.Coords += pointArray;
-			currentDC.currentPoint = firstPoint;
+			m_currentDC.Coords += pointArray;
+			m_currentDC.currentPoint = firstPoint;
 		}
 		else
 		{
-			int z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX, baseY, BoxDev.width(), BoxDev.height(), currentDC.LineW, currentDC.CurrColorFill, currentDC.CurrColorStroke, true);
+			int z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, m_baseX, m_baseY, BoxDev.width(), BoxDev.height(), m_currentDC.LineW, m_currentDC.CurrColorFill, m_currentDC.CurrColorStroke, true);
 			PageItem* ite = m_Doc->Items->at(z);
 			ite->PoLine = pointArray.copy();
 			finishItem(ite);
@@ -2716,8 +2716,8 @@ void EmfPlug::handleSmallText(QDataStream &ds)
 	quint32 grMode, numChar, txOpts;
 	float sx, sy;
 	QPointF p1 = getPoint(ds, true);
-	if (currentDC.textAlignment &0x0001)
-		p1 = currentDC.currentPoint;
+	if (m_currentDC.textAlignment &0x0001)
+		p1 = m_currentDC.currentPoint;
 	ds >> numChar >> txOpts >> grMode;
 	ds >> sx >> sy;
 	if (!(txOpts & 0x00000100))
@@ -2742,36 +2742,36 @@ void EmfPlug::handleSmallText(QDataStream &ds)
 		return;
 	FPointArray textPath;
 	QPainterPath painterPath;
-	QFont font = QFont(currentDC.fontName, currentDC.fontSize);
-	font.setPixelSize(currentDC.fontSize);
+	QFont font = QFont(m_currentDC.fontName, m_currentDC.fontSize);
+	font.setPixelSize(m_currentDC.fontSize);
 	painterPath.addText(p1.x(), p1.y(), font, aTxt);
 	QFontMetricsF fm(font);
-	if (currentDC.textAlignment == 0)
+	if (m_currentDC.textAlignment == 0)
 		painterPath.translate(0, fm.ascent());
-	if (currentDC.textAlignment & 0x0002)
+	if (m_currentDC.textAlignment & 0x0002)
 		painterPath.translate(-fm.width(aTxt), 0);
-	else if (currentDC.textAlignment & 0x0006)
+	else if (m_currentDC.textAlignment & 0x0006)
 		painterPath.translate(-fm.width(aTxt) / 2.0, 0);
-	if (currentDC.textAlignment & 0x0008)
+	if (m_currentDC.textAlignment & 0x0008)
 		painterPath.translate(0, fm.descent());
 	textPath.fromQPainterPath(painterPath);
 	if (textPath.size() > 0)
 	{
-		int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, 0, currentDC.CurrColorText, CommonStrings::None, true);
+		int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, m_baseX, m_baseY, 10, 10, 0, m_currentDC.CurrColorText, CommonStrings::None, true);
 		PageItem* ite = m_Doc->Items->at(z);
 		ite->PoLine = textPath.copy();
 		finishItem(ite);
-		if (currentDC.fontRotation != 0)
-			ite->setRotation(-currentDC.fontRotation, true);
+		if (m_currentDC.fontRotation != 0)
+			ite->setRotation(-m_currentDC.fontRotation, true);
 	}
-	if (currentDC.textAlignment & 0x0001)
+	if (m_currentDC.textAlignment & 0x0001)
 	{
-		if (currentDC.textAlignment & 0x0002)
-			currentDC.currentPoint = p1;
-		else if (currentDC.textAlignment & 0x0006)
-			currentDC.currentPoint = QPointF(p1.x() + (fm.width(aTxt) / 2.0), p1.y());
+		if (m_currentDC.textAlignment & 0x0002)
+			m_currentDC.currentPoint = p1;
+		else if (m_currentDC.textAlignment & 0x0006)
+			m_currentDC.currentPoint = QPointF(p1.x() + (fm.width(aTxt) / 2.0), p1.y());
 		else
-			currentDC.currentPoint = QPointF(p1.x() + fm.width(aTxt), p1.y());
+			m_currentDC.currentPoint = QPointF(p1.x() + fm.width(aTxt), p1.y());
 	}
 }
 
@@ -2786,14 +2786,14 @@ void EmfPlug::handleText(QDataStream &ds, qint64 posi, bool size)
 	ds >> grMode;
 	ds >> sx >> sy;
 	QPointF p1 = getPoint(ds, true);
-	if (currentDC.textAlignment &0x0001)
-		p1 = currentDC.currentPoint;
+	if (m_currentDC.textAlignment &0x0001)
+		p1 = m_currentDC.currentPoint;
 	ds >> numChar >> offTxt >> txOpts;
 	ds >> oLeft >> oTop >> oRight >> oBottom;
 	ds >> offDx;
 	ds.device()->seek(posi + offTxt);
-	QFont font = QFont(currentDC.fontName, currentDC.fontSize);
-	font.setPixelSize(currentDC.fontSize);
+	QFont font = QFont(m_currentDC.fontName, m_currentDC.fontSize);
+	font.setPixelSize(m_currentDC.fontSize);
 	QFontMetricsF fm(font);
 	double aTextWidth = 0;
 	if (txOpts & 0x00000010)
@@ -2873,49 +2873,49 @@ void EmfPlug::handleText(QDataStream &ds, qint64 posi, bool size)
 			painterPath.addText(p1.x(), p1.y(), font, aTxt);
 		aTextWidth = fm.width(aTxt);
 	}
-	if (currentDC.textAlignment == 0)
+	if (m_currentDC.textAlignment == 0)
 		painterPath.translate(0, fm.ascent());
-	if (currentDC.textAlignment & 0x0002)
+	if (m_currentDC.textAlignment & 0x0002)
 		painterPath.translate(-aTextWidth, 0);
-	else if (currentDC.textAlignment & 0x0006)
+	else if (m_currentDC.textAlignment & 0x0006)
 		painterPath.translate(-aTextWidth / 2.0, 0);
-	if (currentDC.textAlignment & 0x0008)
+	if (m_currentDC.textAlignment & 0x0008)
 		painterPath.translate(0, fm.descent());
-	QTransform bm = currentDC.m_WorldMap;
+	QTransform bm = m_currentDC.m_WorldMap;
 	bm = QTransform(bm.m11(), bm.m12(), bm.m21(), bm.m22(), 0, 0);
 	painterPath = bm.map(painterPath);
 	FPointArray textPath;
 	textPath.fromQPainterPath(painterPath);
 	if (textPath.size() > 0)
 	{
-		int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, 0, currentDC.CurrColorText, CommonStrings::None, true);
+		int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, m_baseX, m_baseY, 10, 10, 0, m_currentDC.CurrColorText, CommonStrings::None, true);
 		PageItem* ite = m_Doc->Items->at(z);
 		ite->PoLine = textPath.copy();
 		finishItem(ite);
-		if (currentDC.fontRotation != 0)
-			ite->setRotation(-currentDC.fontRotation, true);
+		if (m_currentDC.fontRotation != 0)
+			ite->setRotation(-m_currentDC.fontRotation, true);
 	}
-	if (currentDC.textAlignment & 0x0001)
+	if (m_currentDC.textAlignment & 0x0001)
 	{
-		if (currentDC.textAlignment & 0x0002)
-			currentDC.currentPoint = p1;
-		else if (currentDC.textAlignment & 0x0006)
-			currentDC.currentPoint = QPointF(p1.x() + (aTextWidth / 2.0), p1.y());
+		if (m_currentDC.textAlignment & 0x0002)
+			m_currentDC.currentPoint = p1;
+		else if (m_currentDC.textAlignment & 0x0006)
+			m_currentDC.currentPoint = QPointF(p1.x() + (aTextWidth / 2.0), p1.y());
 		else
-			currentDC.currentPoint = QPointF(p1.x() + aTextWidth, p1.y());
+			m_currentDC.currentPoint = QPointF(p1.x() + aTextWidth, p1.y());
 	}
 }
 
 void EmfPlug::handleImage(qint32 dstX, qint32 dstY, qint32 dstW, qint32 dstH, QImage img)
 {
-	QTransform bm = currentDC.m_WorldMap;
-	if ((currentDC.m_mapMode == 0x07) || (currentDC.m_mapMode == 0x08))
+	QTransform bm = m_currentDC.m_WorldMap;
+	if ((m_currentDC.m_mapMode == 0x07) || (m_currentDC.m_mapMode == 0x08))
 	{
-		double ratioX = viewPextendX / static_cast<double>(winPextendX); // Logical --> Device
-		double ratioY = viewPextendY / static_cast<double>(winPextendY); // Logical --> Device
+		double ratioX = m_viewPextendX / static_cast<double>(m_winPextendX); // Logical --> Device
+		double ratioY = m_viewPextendY / static_cast<double>(m_winPextendY); // Logical --> Device
 		bm = QTransform(bm.m11() * ratioX, bm.m12() * ratioY, bm.m21() * ratioX, bm.m22() * ratioY, bm.dx() * ratioX, bm.dy() * ratioY);
 	}
-	QPointF p = currentDC.m_WorldMap.map(QPointF(dstX, dstY));
+	QPointF p = m_currentDC.m_WorldMap.map(QPointF(dstX, dstY));
 	p = convertLogical2Pts(p);
 	QPointF p2 = QPointF(qAbs(dstW), qAbs(dstH));
 	QLineF wl = QLineF(0, 0, p2.x(), 0);
@@ -2923,7 +2923,7 @@ void EmfPlug::handleImage(qint32 dstX, qint32 dstY, qint32 dstW, qint32 dstH, QI
 	QLineF hl = QLineF(0, 0, p2.y(), 0);
 	hl = bm.map(hl);
 	p2 = convertDevice2Pts(QPointF(wl.length(), hl.length()));
-	int z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, baseX + p.x(), baseY + p.y(), p2.x(), p2.y(), 0, CommonStrings::None, CommonStrings::None, true);
+	int z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, m_baseX + p.x(), m_baseY + p.y(), p2.x(), p2.y(), 0, CommonStrings::None, CommonStrings::None, true);
 	PageItem* ite = m_Doc->Items->at(z);
 	finishItem(ite, false);
 	QTemporaryFile *tempFile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_emf_XXXXXX.png");
@@ -2939,11 +2939,11 @@ void EmfPlug::handleImage(qint32 dstX, qint32 dstY, qint32 dstW, qint32 dstH, QI
 			ite->isTempFile = true;
 			ite->AspectRatio = false;
 			ite->ScaleType   = false;
-			if (currentDC.clipValid)
+			if (m_currentDC.clipValid)
 			{
-				FPointArray cp = currentDC.clipPath.copy();
-				cp.translate(baseX, baseY);
-				cp.translate(-docX, -docY);
+				FPointArray cp = m_currentDC.clipPath.copy();
+				cp.translate(m_baseX, m_baseY);
+				cp.translate(-m_docX, -m_docY);
 				cp.translate(-ite->xPos(), -ite->yPos());
 				ite->PoLine = cp.copy();
 				FPoint wh = getMaxClipF(&ite->PoLine);
@@ -2963,16 +2963,16 @@ void EmfPlug::handleImage(qint32 dstX, qint32 dstY, qint32 dstW, qint32 dstH, QI
 
 void EmfPlug::handlePatternFill(qint32 dstX, qint32 dstY, qint32 dstW, qint32 dstH)
 {
-	if (currentDC.brushStyle == U_BT_TextureFill)
+	if (m_currentDC.brushStyle == U_BT_TextureFill)
 	{
-		QTransform bm = currentDC.m_WorldMap;
-		if ((currentDC.m_mapMode == 0x07) || (currentDC.m_mapMode == 0x08))
+		QTransform bm = m_currentDC.m_WorldMap;
+		if ((m_currentDC.m_mapMode == 0x07) || (m_currentDC.m_mapMode == 0x08))
 		{
-			double ratioX = viewPextendX / static_cast<double>(winPextendX); // Logical --> Device
-			double ratioY = viewPextendY / static_cast<double>(winPextendY); // Logical --> Device
+			double ratioX = m_viewPextendX / static_cast<double>(m_winPextendX); // Logical --> Device
+			double ratioY = m_viewPextendY / static_cast<double>(m_winPextendY); // Logical --> Device
 			bm = QTransform(bm.m11() * ratioX, bm.m12() * ratioX, bm.m21() * ratioY, bm.m22() * ratioY, bm.dx() * ratioX, bm.dy() * ratioY);
 		}
-		QPointF p = currentDC.m_WorldMap.map(QPointF(dstX, dstY));
+		QPointF p = m_currentDC.m_WorldMap.map(QPointF(dstX, dstY));
 		p = convertLogical2Pts(p);
 		QPointF p2 = QPointF(qAbs(dstW), qAbs(dstH));
 		QLineF wl = QLineF(0, 0, p2.x(), 0);
@@ -2980,7 +2980,7 @@ void EmfPlug::handlePatternFill(qint32 dstX, qint32 dstY, qint32 dstW, qint32 ds
 		QLineF hl = QLineF(0, 0, p2.y(), 0);
 		hl = bm.map(hl);
 		p2 = convertDevice2Pts(QPointF(wl.length(), hl.length()));
-		int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, baseX + p.x(), baseY + p.y(), p2.x(), p2.y(), 0, CommonStrings::None, CommonStrings::None, true);
+		int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, m_baseX + p.x(), m_baseY + p.y(), p2.x(), p2.y(), 0, CommonStrings::None, CommonStrings::None, true);
 		PageItem* ite = m_Doc->Items->at(z);
 		finishItem(ite);
 	}
@@ -3192,8 +3192,8 @@ void EmfPlug::handleBezier(QDataStream &ds, bool size)
 	FPointArray pointsPoly;
 	pointsPoly.svgInit();
 	QPointF p = getPoint(ds, size);
-	if (inPath)
-		currentDC.Coords.svgMoveTo(p.x(), p.y());
+	if (m_inPath)
+		m_currentDC.Coords.svgMoveTo(p.x(), p.y());
 	else
 		pointsPoly.svgMoveTo(p.x(), p.y());
 	for (quint32 a = 1; a < countP; a += 3)
@@ -3201,14 +3201,14 @@ void EmfPlug::handleBezier(QDataStream &ds, bool size)
 		QPointF p1 = getPoint(ds, size);
 		QPointF p2 = getPoint(ds, size);
 		QPointF p3 = getPoint(ds, size);
-		if (inPath)
-			currentDC.Coords.svgCurveToCubic(p1.x(), p1.y(), p2.x(), p2.y(), p3.x(), p3.y());
+		if (m_inPath)
+			m_currentDC.Coords.svgCurveToCubic(p1.x(), p1.y(), p2.x(), p2.y(), p3.x(), p3.y());
 		else
 			pointsPoly.svgCurveToCubic(p1.x(), p1.y(), p2.x(), p2.y(), p3.x(), p3.y());
 	}
-	if (!inPath)
+	if (!m_inPath)
 	{
-		int z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX, baseY, 10, 10, currentDC.LineW, CommonStrings::None, currentDC.CurrColorStroke, true);
+		int z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, m_baseX, m_baseY, 10, 10, m_currentDC.LineW, CommonStrings::None, m_currentDC.CurrColorStroke, true);
 		PageItem* ite = m_Doc->Items->at(z);
 		ite->PoLine = pointsPoly.copy();
 		finishItem(ite, false);
@@ -3217,13 +3217,13 @@ void EmfPlug::handleBezier(QDataStream &ds, bool size)
 
 void EmfPlug::handlePolygon(QDataStream &ds, bool size, bool fill)
 {
-	if (inPath)
+	if (m_inPath)
 	{
 		QRectF BoxDev;
 		quint32 countP;
 		getPolyInfo(ds, BoxDev, countP);
 		FPointArray points = getPolyPoints(ds, countP, size, fill);
-		currentDC.Coords += points;
+		m_currentDC.Coords += points;
 	}
 	else
 	{
@@ -3233,9 +3233,9 @@ void EmfPlug::handlePolygon(QDataStream &ds, bool size, bool fill)
 		getPolyInfo(ds, BoxDev, countP);
 		FPointArray pointsPoly = getPolyPoints(ds, countP, size, fill);
 		if (fill)
-			z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, currentDC.LineW, currentDC.CurrColorFill, currentDC.CurrColorStroke, true);
+			z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, m_baseX, m_baseY, 10, 10, m_currentDC.LineW, m_currentDC.CurrColorFill, m_currentDC.CurrColorStroke, true);
 		else
-			z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX, baseY, 10, 10, currentDC.LineW, CommonStrings::None, currentDC.CurrColorStroke, true);
+			z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, m_baseX, m_baseY, 10, 10, m_currentDC.LineW, CommonStrings::None, m_currentDC.CurrColorStroke, true);
 		PageItem* ite = m_Doc->Items->at(z);
 		ite->PoLine = pointsPoly.copy();
 		finishItem(ite, fill);
@@ -3244,7 +3244,7 @@ void EmfPlug::handlePolygon(QDataStream &ds, bool size, bool fill)
 
 void EmfPlug::handlePolyPolygon(QDataStream &ds, bool size, bool fill)
 {
-	if (inPath)
+	if (m_inPath)
 	{
 		QRectF BoxDev;
 		quint32 countP, dummy;
@@ -3259,9 +3259,9 @@ void EmfPlug::handlePolyPolygon(QDataStream &ds, bool size, bool fill)
 		for (quint32 a = 0; a < countP; a++)
 		{
 			FPointArray points = getPolyPoints(ds, polyCounts[a], size, fill);
-			currentDC.Coords += points;
+			m_currentDC.Coords += points;
 			if (countP > 1)
-				currentDC.Coords.setMarker();
+				m_currentDC.Coords.setMarker();
 		}
 	}
 	else
@@ -3286,9 +3286,9 @@ void EmfPlug::handlePolyPolygon(QDataStream &ds, bool size, bool fill)
 				pointsPoly.setMarker();
 		}
 		if (fill)
-			z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, currentDC.LineW, currentDC.CurrColorFill, currentDC.CurrColorStroke, true);
+			z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, m_baseX, m_baseY, 10, 10, m_currentDC.LineW, m_currentDC.CurrColorFill, m_currentDC.CurrColorStroke, true);
 		else
-			z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX, baseY, 10, 10, currentDC.LineW, CommonStrings::None, currentDC.CurrColorStroke, true);
+			z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, m_baseX, m_baseY, 10, 10, m_currentDC.LineW, CommonStrings::None, m_currentDC.CurrColorStroke, true);
 		PageItem* ite = m_Doc->Items->at(z);
 		ite->PoLine = pointsPoly.copy();
 		finishItem(ite, fill);
@@ -3333,9 +3333,9 @@ void EmfPlug::handlePenDef(quint32 penID, quint32 penStyle, quint32 penWidth, qu
 	else
 		sty.penWidth = convertDevice2Pts(static_cast<double>(penWidth));
 	QLineF p = QLineF(0, 0, sty.penWidth, 0);
-	p = currentDC.m_WorldMap.map(p);
+	p = m_currentDC.m_WorldMap.map(p);
 	sty.penWidth = p.length();
-	emfStyleMap.insert(penID, sty);
+	m_emfStyleMap.insert(penID, sty);
 }
 
 QString EmfPlug::handleColor(QColor col)
@@ -3347,7 +3347,7 @@ QString EmfPlug::handleColor(QColor col)
 	QString tmpName = "FromEMF"+col.name().toUpper();
 	QString fNam = m_Doc->PageColors.tryAddColor(tmpName, tmp);
 	if (fNam == tmpName)
-		importedColors.append(tmpName);
+		m_importedColors.append(tmpName);
 	return fNam;
 }
 
@@ -3356,13 +3356,13 @@ void EmfPlug::handleFillRegion(QDataStream &ds)
 	quint32 dummy, numObj, countRects;
 	ds >> dummy >> dummy >> dummy >> dummy >> dummy;
 	ds >> numObj;
-	if (emfStyleMap.contains(numObj))
+	if (m_emfStyleMap.contains(numObj))
 	{
-		emfStyle sty = emfStyleMap[numObj];
+		emfStyle sty = m_emfStyleMap[numObj];
 		if (sty.styType == U_OT_Brush)
 		{
-			currentDC.CurrColorFill = sty.brushColor;
-			currentDC.CurrFillTrans = sty.fillTrans;
+			m_currentDC.CurrColorFill = sty.brushColor;
+			m_currentDC.CurrFillTrans = sty.fillTrans;
 			ds >> dummy >> dummy >> countRects;
 			ds >> dummy >> dummy >> dummy >> dummy >> dummy;
 			QPainterPath pathN;
@@ -3376,7 +3376,7 @@ void EmfPlug::handleFillRegion(QDataStream &ds)
 			}
 			FPointArray polyline;
 			polyline.fromQPainterPath(pathN, true);
-			int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, 0, currentDC.CurrColorFill, CommonStrings::None, true);
+			int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, m_baseX, m_baseY, 10, 10, 0, m_currentDC.CurrColorFill, CommonStrings::None, true);
 			PageItem* ite = m_Doc->Items->at(z);
 			ite->PoLine = polyline.copy();
 			finishItem(ite);
@@ -3389,17 +3389,17 @@ void EmfPlug::handleFrameRegion(QDataStream &ds)
 	quint32 dummy, numObj, countRects;
 	ds >> dummy >> dummy >> dummy >> dummy >> dummy;
 	ds >> numObj >> dummy >> dummy;
-	if (emfStyleMap.contains(numObj))
+	if (m_emfStyleMap.contains(numObj))
 	{
-		emfStyle sty = emfStyleMap[numObj];
+		emfStyle sty = m_emfStyleMap[numObj];
 		if (sty.styType == U_OT_Pen)
 		{
-			currentDC.CurrColorStroke = sty.penColor;
-			currentDC.CurrStrokeTrans = sty.penTrans;
-			currentDC.penCap = sty.penCap;
-			currentDC.penJoin = sty.penJoin;
-			currentDC.penStyle = sty.penStyle;
-			currentDC.LineW = sty.penWidth;
+			m_currentDC.CurrColorStroke = sty.penColor;
+			m_currentDC.CurrStrokeTrans = sty.penTrans;
+			m_currentDC.penCap = sty.penCap;
+			m_currentDC.penJoin = sty.penJoin;
+			m_currentDC.penStyle = sty.penStyle;
+			m_currentDC.LineW = sty.penWidth;
 			ds >> dummy >> dummy >> countRects;
 			ds >> dummy >> dummy >> dummy >> dummy >> dummy;
 			QPainterPath pathN;
@@ -3413,7 +3413,7 @@ void EmfPlug::handleFrameRegion(QDataStream &ds)
 			}
 			FPointArray polyline;
 			polyline.fromQPainterPath(pathN, true);
-			int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, currentDC.LineW, CommonStrings::None, currentDC.CurrColorStroke, true);
+			int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, m_baseX, m_baseY, 10, 10, m_currentDC.LineW, CommonStrings::None, m_currentDC.CurrColorStroke, true);
 			PageItem* ite = m_Doc->Items->at(z);
 			ite->PoLine = polyline.copy();
 			finishItem(ite);
@@ -3474,7 +3474,7 @@ void EmfPlug::handleSetClipRegion(QDataStream &ds)
 
 void EmfPlug::handleEMFPlus(QDataStream &ds, quint32 dtaSize)
 {
-	inEMFPlus = true;
+	m_inEMFPlus = true;
 	quint16 id2, flagsHL;
 	quint8 flagsH, flagsL;
 	quint32 size2;
@@ -3502,18 +3502,18 @@ void EmfPlug::handleEMFPlus(QDataStream &ds, quint32 dtaSize)
 		switch (id2)
 		{
 			case U_PMR_HEADER:
-				emfPlusDual = (flagsH == 1);
+				m_emfPlusDual = (flagsH == 1);
 				dsEmf >> dummy >> dummy;
-				dsEmf >> EmfPdpiX >> EmfPdpiY;
+				dsEmf >> m_EmfPdpiX >> m_EmfPdpiY;
 			//	dpiX = EmfPdpiX;
 			//	dpiY = EmfPdpiY;
 				break;
 			case U_PMR_ENDOFFILE:
-				inEMFPlus = false;
+				m_inEMFPlus = false;
 				break;
 			case U_PMR_GETDC:
-				if (emfPlusDual)
-					inEMFPlus = false;
+				if (m_emfPlusDual)
+					m_inEMFPlus = false;
 				break;
 			case U_PMR_OBJECT:
 				handleEMPObject(dsEmf, flagsH, flagsL, dataSize);
@@ -3577,88 +3577,88 @@ void EmfPlug::handleEMFPlus(QDataStream &ds, quint32 dtaSize)
 				break;
 			case U_PMR_SETRENDERINGORIGIN:
 				dsEmf >> xorg >> yorg;
-				currentDC.originEMFP = convertDevice2Pts(QPointF(xorg, yorg));
+				m_currentDC.originEMFP = convertDevice2Pts(QPointF(xorg, yorg));
 				break;
 			case U_PMR_SETCOMPOSITINGMODE:
-				currentDC.alphaOn = (flagsH == 0);
+				m_currentDC.alphaOn = (flagsH == 0);
 				break;
 			case U_PMR_SAVE:
 				dsEmf >> dummy;
-				dcStackEMP.insert(dummy, currentDC);
+				m_dcStackEMP.insert(dummy, m_currentDC);
 				break;
 			case U_PMR_RESTORE:
 				invalidateClipGroup();
 				dsEmf >> dummy;
-				if (dcStackEMP.contains(dummy))
-					currentDC = dcStackEMP[dummy];
-				if (currentDC.clipPath.count() != 0)
+				if (m_dcStackEMP.contains(dummy))
+					m_currentDC = m_dcStackEMP[dummy];
+				if (m_currentDC.clipPath.count() != 0)
 				{
-					if (checkClip(currentDC.clipPath))
+					if (checkClip(m_currentDC.clipPath))
 					{
-						currentDC.clipValid = true;
+						m_currentDC.clipValid = true;
 						createClipGroup();
 					}
 				}
 				break;
 			case U_PMR_SETWORLDTRANSFORM:
 				dsEmf >> m11 >> m12 >> m21 >> m22 >> dx >> dy;
-				currentDC.m_WorldMapEMFP = QTransform(m11, m12, m21, m22, dx, dy);
+				m_currentDC.m_WorldMapEMFP = QTransform(m11, m12, m21, m22, dx, dy);
 				break;
 			case U_PMR_RESETWORLDTRANSFORM:
-				currentDC.m_WorldMapEMFP = QTransform();
+				m_currentDC.m_WorldMapEMFP = QTransform();
 				break;
 			case U_PMR_MULTIPLYWORLDTRANSFORM:
 				dsEmf >> m11 >> m12 >> m21 >> m22 >> dx >> dy;
 				if (flagsL & 0x20)
-					currentDC.m_WorldMapEMFP = currentDC.m_WorldMapEMFP * QTransform(m11, m12, m21, m22, dx, dy);
+					m_currentDC.m_WorldMapEMFP = m_currentDC.m_WorldMapEMFP * QTransform(m11, m12, m21, m22, dx, dy);
 				else
-					currentDC.m_WorldMapEMFP = QTransform(m11, m12, m21, m22, dx, dy) * currentDC.m_WorldMapEMFP;
+					m_currentDC.m_WorldMapEMFP = QTransform(m11, m12, m21, m22, dx, dy) * m_currentDC.m_WorldMapEMFP;
 				break;
 			case U_PMR_TRANSLATEWORLDTRANSFORM:
 				dsEmf >> dx >> dy;
 				mm = QTransform();
 				mm.translate(dx, dy);
 				if (flagsL & 0x20)
-					currentDC.m_WorldMapEMFP = currentDC.m_WorldMapEMFP * mm;
+					m_currentDC.m_WorldMapEMFP = m_currentDC.m_WorldMapEMFP * mm;
 				else
-					currentDC.m_WorldMapEMFP = mm * currentDC.m_WorldMapEMFP;
+					m_currentDC.m_WorldMapEMFP = mm * m_currentDC.m_WorldMapEMFP;
 				break;
 			case U_PMR_SCALEWORLDTRANSFORM:
 				dsEmf >> m11 >> m12;
 				mm = QTransform();
 				mm.scale(m11, m12);
 				if (flagsL & 0x20)
-					currentDC.m_WorldMapEMFP = currentDC.m_WorldMapEMFP * mm;
+					m_currentDC.m_WorldMapEMFP = m_currentDC.m_WorldMapEMFP * mm;
 				else
-					currentDC.m_WorldMapEMFP = mm * currentDC.m_WorldMapEMFP;
+					m_currentDC.m_WorldMapEMFP = mm * m_currentDC.m_WorldMapEMFP;
 				break;
 			case U_PMR_ROTATEWORLDTRANSFORM:
 				dsEmf >> m11;
 				mm = QTransform();
 				mm.rotate(m11);
 				if (flagsL & 0x20)
-					currentDC.m_WorldMapEMFP = currentDC.m_WorldMapEMFP * mm;
+					m_currentDC.m_WorldMapEMFP = m_currentDC.m_WorldMapEMFP * mm;
 				else
-					currentDC.m_WorldMapEMFP = mm * currentDC.m_WorldMapEMFP;
+					m_currentDC.m_WorldMapEMFP = mm * m_currentDC.m_WorldMapEMFP;
 				break;
 			case U_PMR_SETPAGETRANSFORM:
-				currentDC.emfPlusUnit = flagsH;
-				dsEmf >> emfPlusScale;
+				m_currentDC.emfPlusUnit = flagsH;
+				dsEmf >> m_emfPlusScale;
 				break;
 			case U_PMR_OFFSETCLIP:
-				if (currentDC.clipValid)
+				if (m_currentDC.clipValid)
 				{
 					double dx = getEMFPDistance(dsEmf, false);
 					double dy = getEMFPDistance(dsEmf, false);
-					currentDC.clipPath.translate(dx, dy);
+					m_currentDC.clipPath.translate(dx, dy);
 					invalidateClipGroup();
 					createClipGroup();
 				}
 				break;
 			case U_PMR_RESETCLIP:
-				currentDC.clipPath.resize(0);
-				currentDC.clipPath.svgInit();
-				currentDC.clipValid = false;
+				m_currentDC.clipPath.resize(0);
+				m_currentDC.clipPath.svgInit();
+				m_currentDC.clipValid = false;
 				invalidateClipGroup();
 				break;
 			case U_PMR_SETCLIPRECT:
@@ -4015,7 +4015,7 @@ quint32 EmfPlug::handleEMPBrush(QDataStream &ds, quint16 id, bool first, bool co
 		}
 	}
 	sty.styType = U_OT_Brush;
-	emfStyleMapEMP.insert(id, sty);
+	m_emfStyleMapEMP.insert(id, sty);
 	return retVal;
 }
 
@@ -4172,10 +4172,10 @@ void EmfPlug::handleEMPPen(QDataStream &ds, quint16 id)
 	sty.styType = U_OT_Pen;
 	sty.brushColor = CommonStrings::None;
 	if ((penUnit == U_UT_World) || (penUnit == U_UT_Display))
-		sty.penWidth = convertEMFPLogical2Pts(penWidth, currentDC.emfPlusUnit);
+		sty.penWidth = convertEMFPLogical2Pts(penWidth, m_currentDC.emfPlusUnit);
 	else
 		sty.penWidth = convertEMFPLogical2Pts(penWidth, penUnit);
-	emfStyleMapEMP.insert(id, sty);
+	m_emfStyleMapEMP.insert(id, sty);
 }
 
 void EmfPlug::handleEMPPath(QDataStream &ds, quint16 id)
@@ -4186,7 +4186,7 @@ void EmfPlug::handleEMPPath(QDataStream &ds, quint16 id)
 		emfStyle sty;
 		sty.styType = U_OT_Path;
 		sty.Coords = polyline.copy();
-		emfStyleMapEMP.insert(id, sty);
+		m_emfStyleMapEMP.insert(id, sty);
 	}
 }
 
@@ -4250,7 +4250,7 @@ void EmfPlug::handleEMPRegion(QDataStream &ds, quint16 id)
 			polyline.fromQPainterPath(resultPath, true);
 			polyline.svgClosePath();
 			sty.Coords = polyline.copy();
-			emfStyleMapEMP.insert(id, sty);
+			m_emfStyleMapEMP.insert(id, sty);
 		}
 	}
 	else
@@ -4267,7 +4267,7 @@ void EmfPlug::handleEMPRegion(QDataStream &ds, quint16 id)
 			polyline.svgLineTo(rect[3].x(), rect[3].y());
 			polyline.svgClosePath();
 			sty.Coords = polyline.copy();
-			emfStyleMapEMP.insert(id, sty);
+			m_emfStyleMapEMP.insert(id, sty);
 		}
 		else if (rgnType == U_RNDT_Path)
 		{
@@ -4277,7 +4277,7 @@ void EmfPlug::handleEMPRegion(QDataStream &ds, quint16 id)
 			FPointArray polyline = getEMPPathData(ds);
 			ds.device()->seek(ppos + rLen);
 			sty.Coords = polyline.copy();
-			emfStyleMapEMP.insert(id, sty);
+			m_emfStyleMapEMP.insert(id, sty);
 		}
 	}
 }
@@ -4288,7 +4288,7 @@ quint32 EmfPlug::handleEMPImage(QDataStream &ds, quint16 id, bool first, bool co
 	sty.styType = U_OT_Image;
 	quint32 retVal = getImageData(ds, id, first, cont, dataSize, sty);
 	if (first)
-		emfStyleMapEMP.insert(id, sty);
+		m_emfStyleMapEMP.insert(id, sty);
 	return retVal;
 }
 
@@ -4342,12 +4342,12 @@ quint32 EmfPlug::getImageData(QDataStream &ds, quint16 id, bool first, bool cont
 	}
 	else
 	{
-		if (emfStyleMapEMP.contains(id))
+		if (m_emfStyleMapEMP.contains(id))
 		{
 			QByteArray hea;
 			hea.resize(dataSize);
 			retVal = ds.readRawData(hea.data(), dataSize);
-			emfStyleMapEMP[id].imageData += hea;
+			m_emfStyleMapEMP[id].imageData += hea;
 		}
 	}
 	return retVal;
@@ -4372,7 +4372,7 @@ void EmfPlug::handleEMPFont(QDataStream &ds, quint16 id)
 	sty.fontSize = emSize;
 	sty.fontName = fontName;
 	sty.fontUnit = unit;
-	emfStyleMapEMP.insert(id, sty);
+	m_emfStyleMapEMP.insert(id, sty);
 }
 
 void EmfPlug::handleEMPSFormat(QDataStream &ds, quint16 id)
@@ -4384,7 +4384,7 @@ void EmfPlug::handleEMPSFormat(QDataStream &ds, quint16 id)
 	sty.hAlign = hAlign;
 	sty.vAlign = vAlign;
 	sty.verticalText = (flags & 0x00000002);
-	emfStyleMapEMP.insert(id, sty);
+	m_emfStyleMapEMP.insert(id, sty);
 }
 
 void EmfPlug::handleEMPLineCap(QDataStream &ds, quint16 id)
@@ -4400,7 +4400,7 @@ void EmfPlug::handleEMFPFillClosedCurve(QDataStream &ds, quint8 flagsL)
 	ds >> tension;
 	ds >> count;
 	bool directBrush = (flagsL & 0x80);
-	currentDC.fillRule = !(flagsL & 0x20);
+	m_currentDC.fillRule = !(flagsL & 0x20);
 	getEMFPBrush(brushID, directBrush);
 	QPolygonF points = getEMFPCurvePoints(ds, flagsL, count);
 	QPainterPath path;
@@ -4409,7 +4409,7 @@ void EmfPlug::handleEMFPFillClosedCurve(QDataStream &ds, quint8 flagsL)
 	polyline.fromQPainterPath(path);
 	if (polyline.size() > 3)
 	{
-		int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, 0, currentDC.CurrColorFill, CommonStrings::None, true);
+		int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, m_baseX, m_baseY, 10, 10, 0, m_currentDC.CurrColorFill, CommonStrings::None, true);
 		PageItem* ite = m_Doc->Items->at(z);
 		ite->PoLine = polyline.copy();
 		finishItem(ite);
@@ -4426,7 +4426,7 @@ void EmfPlug::handleEMFPFillEllipse(QDataStream &ds, quint8 flagsL)
 	QPointF p = getEMFPPoint(ds, compressedRects);
 	double w = getEMFPDistance(ds, compressedRects);
 	double h = getEMFPDistance(ds, compressedRects);
-	int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Ellipse, baseX, baseY, w, h, 0, currentDC.CurrColorFill, CommonStrings::None, true);
+	int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Ellipse, m_baseX, m_baseY, w, h, 0, m_currentDC.CurrColorFill, CommonStrings::None, true);
 	PageItem* ite = m_Doc->Items->at(z);
 	QTransform mm(1.0, 0.0, 0.0, 1.0, p.x(), p.y());
 	ite->PoLine.map(mm);
@@ -4439,11 +4439,11 @@ void EmfPlug::handleEMFPFillPath(QDataStream &ds, quint8 flagsL, quint8 flagsH)
 	ds >> brushID;
 	bool directBrush = (flagsL & 0x80);
 	getEMFPBrush(brushID, directBrush);
-	if (emfStyleMapEMP.contains(flagsH))
+	if (m_emfStyleMapEMP.contains(flagsH))
 	{
-		int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, 0, currentDC.CurrColorFill, CommonStrings::None, true);
+		int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, m_baseX, m_baseY, 10, 10, 0, m_currentDC.CurrColorFill, CommonStrings::None, true);
 		PageItem* ite = m_Doc->Items->at(z);
-		ite->PoLine = emfStyleMapEMP[flagsH].Coords.copy();
+		ite->PoLine = m_emfStyleMapEMP[flagsH].Coords.copy();
 		finishItem(ite);
 	}
 }
@@ -4468,7 +4468,7 @@ void EmfPlug::handleEMFPFillPie(QDataStream &ds, quint8 flagsL)
 	pointArray.fromQPainterPath(painterPath);
 	if (pointArray.size() > 3)
 	{
-		int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, 0, currentDC.CurrColorFill, CommonStrings::None, true);
+		int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, m_baseX, m_baseY, 10, 10, 0, m_currentDC.CurrColorFill, CommonStrings::None, true);
 		PageItem* ite = m_Doc->Items->at(z);
 		ite->PoLine = pointArray.copy();
 		finishItem(ite);
@@ -4502,7 +4502,7 @@ void EmfPlug::handleEMFPFillPolygon(QDataStream &ds, quint8 flagsL)
 		if (polyline.size() > 3)
 		{
 			polyline.svgClosePath();
-			int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, 0, currentDC.CurrColorFill, CommonStrings::None, true);
+			int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, m_baseX, m_baseY, 10, 10, 0, m_currentDC.CurrColorFill, CommonStrings::None, true);
 			PageItem* ite = m_Doc->Items->at(z);
 			ite->PoLine = polyline.copy();
 			finishItem(ite);
@@ -4527,7 +4527,7 @@ void EmfPlug::handleEMFPFillRects(QDataStream &ds, quint8 flagsL)
 		polyline.svgLineTo(rect[2].x(), rect[2].y());
 		polyline.svgLineTo(rect[3].x(), rect[3].y());
 		polyline.svgClosePath();
-		int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, 0, currentDC.CurrColorFill, CommonStrings::None, true);
+		int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, m_baseX, m_baseY, 10, 10, 0, m_currentDC.CurrColorFill, CommonStrings::None, true);
 		PageItem* ite = m_Doc->Items->at(z);
 		ite->PoLine = polyline.copy();
 		finishItem(ite);
@@ -4540,11 +4540,11 @@ void EmfPlug::handleEMFPFillRegion(QDataStream &ds, quint8 flagsL, quint8 flagsH
 	ds >> brushID;
 	bool directBrush = (flagsL & 0x80);
 	getEMFPBrush(brushID, directBrush);
-	if (emfStyleMapEMP.contains(flagsH))
+	if (m_emfStyleMapEMP.contains(flagsH))
 	{
-		int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, 0, currentDC.CurrColorFill, CommonStrings::None, true);
+		int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, m_baseX, m_baseY, 10, 10, 0, m_currentDC.CurrColorFill, CommonStrings::None, true);
 		PageItem* ite = m_Doc->Items->at(z);
-		ite->PoLine = emfStyleMapEMP[flagsH].Coords.copy();
+		ite->PoLine = m_emfStyleMapEMP[flagsH].Coords.copy();
 		finishItem(ite);
 	}
 }
@@ -4563,7 +4563,7 @@ void EmfPlug::handleEMFPDrawArc(QDataStream &ds, quint8 flagsL, quint8 flagsH)
 	pointArray.fromQPainterPath(painterPath);
 	if (pointArray.size() > 3)
 	{
-		int z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX, baseY, 10, 10, currentDC.LineW, CommonStrings::None, currentDC.CurrColorStroke, true);
+		int z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, m_baseX, m_baseY, 10, 10, m_currentDC.LineW, CommonStrings::None, m_currentDC.CurrColorStroke, true);
 		PageItem* ite = m_Doc->Items->at(z);
 		ite->PoLine = pointArray.copy();
 		finishItem(ite, false);
@@ -4595,7 +4595,7 @@ void EmfPlug::handleEMFPDrawBezier(QDataStream &ds, quint8 flagsL, quint8 flagsH
 		{
 			if (closedPolyline)
 				polyline.svgClosePath();
-			int z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX, baseY, 10, 10, currentDC.LineW, CommonStrings::None, currentDC.CurrColorStroke, true);
+			int z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, m_baseX, m_baseY, 10, 10, m_currentDC.LineW, CommonStrings::None, m_currentDC.CurrColorStroke, true);
 			PageItem* ite = m_Doc->Items->at(z);
 			ite->PoLine = polyline.copy();
 			finishItem(ite, false);
@@ -4617,7 +4617,7 @@ void EmfPlug::handleEMFPDrawClosedCurve(QDataStream &ds, quint8 flagsL, quint8 f
 	polyline.fromQPainterPath(path);
 	if (polyline.size() > 3)
 	{
-		int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, currentDC.LineW, CommonStrings::None, currentDC.CurrColorStroke, true);
+		int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, m_baseX, m_baseY, 10, 10, m_currentDC.LineW, CommonStrings::None, m_currentDC.CurrColorStroke, true);
 		PageItem* ite = m_Doc->Items->at(z);
 		ite->PoLine = polyline.copy();
 		finishItem(ite, false);
@@ -4638,7 +4638,7 @@ void EmfPlug::handleEMFPDrawCurve(QDataStream &ds, quint8 flagsL, quint8 flagsH)
 	polyline.fromQPainterPath(path);
 	if (polyline.size() > 3)
 	{
-		int z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX, baseY, 10, 10, currentDC.LineW, CommonStrings::None, currentDC.CurrColorStroke, true);
+		int z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, m_baseX, m_baseY, 10, 10, m_currentDC.LineW, CommonStrings::None, m_currentDC.CurrColorStroke, true);
 		PageItem* ite = m_Doc->Items->at(z);
 		ite->PoLine = polyline.copy();
 		finishItem(ite, false);
@@ -4652,7 +4652,7 @@ void EmfPlug::handleEMFPDrawEllipse(QDataStream &ds, quint8 flagsL, quint8 flags
 	QPointF p = getEMFPPoint(ds, compressedRects);
 	double w = getEMFPDistance(ds, compressedRects);
 	double h = getEMFPDistance(ds, compressedRects);
-	int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Ellipse, baseX, baseY, w, h, currentDC.LineW, CommonStrings::None, currentDC.CurrColorStroke, true);
+	int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Ellipse, m_baseX, m_baseY, w, h, m_currentDC.LineW, CommonStrings::None, m_currentDC.CurrColorStroke, true);
 	PageItem* ite = m_Doc->Items->at(z);
 	QTransform mm(1.0, 0.0, 0.0, 1.0, p.x(), p.y());
 	ite->PoLine.map(mm);
@@ -4661,13 +4661,13 @@ void EmfPlug::handleEMFPDrawEllipse(QDataStream &ds, quint8 flagsL, quint8 flags
 
 void EmfPlug::handleEMFPDrawImage(QDataStream &ds, quint8 flagsL, quint8 flagsH)
 {
-	if (!emfStyleMapEMP.contains(flagsH))
+	if (!m_emfStyleMapEMP.contains(flagsH))
 		return;
 	quint32 imgAttrs, dummy;
 	ds >> imgAttrs;
 	bool compressedPoints    = (flagsL & 0x40);
 	bool relativeCoordinates = (flagsL & 0x08);
-	currentDC.CurrFillTrans = 0.0;
+	m_currentDC.CurrFillTrans = 0.0;
 	if (!relativeCoordinates)
 	{
 		ds >> dummy >> dummy >> dummy >> dummy >> dummy;
@@ -4681,13 +4681,13 @@ void EmfPlug::handleEMFPDrawImage(QDataStream &ds, quint8 flagsL, quint8 flagsH)
 
 void EmfPlug::handleEMFPDrawImagePoints(QDataStream &ds, quint8 flagsL, quint8 flagsH)
 {
-	if (!emfStyleMapEMP.contains(flagsH))
+	if (!m_emfStyleMapEMP.contains(flagsH))
 		return;
 	quint32 imgAttrs, dummy, count;
 	ds >> imgAttrs;
 	bool compressedPoints    = (flagsL & 0x40);
 	bool relativeCoordinates = (flagsL & 0x08);
-	currentDC.CurrFillTrans = 0.0;
+	m_currentDC.CurrFillTrans = 0.0;
 	if (!relativeCoordinates)
 	{
 		ds >> dummy >> dummy >> dummy >> dummy >> dummy;
@@ -4727,7 +4727,7 @@ void EmfPlug::handleEMFPDrawLines(QDataStream &ds, quint8 flagsL, quint8 flagsH)
 		{
 			if (closedPolyline)
 				polyline.svgClosePath();
-			int z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX, baseY, 10, 10, currentDC.LineW, CommonStrings::None, currentDC.CurrColorStroke, true);
+			int z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, m_baseX, m_baseY, 10, 10, m_currentDC.LineW, CommonStrings::None, m_currentDC.CurrColorStroke, true);
 			PageItem* ite = m_Doc->Items->at(z);
 			ite->PoLine = polyline.copy();
 			finishItem(ite, false);
@@ -4740,11 +4740,11 @@ void EmfPlug::handleEMFPDrawPath(QDataStream &ds, quint8 flagsH)
 	quint32 penID;
 	ds >> penID;
 	getEMFPPen(penID);
-	if (emfStyleMapEMP.contains(flagsH))
+	if (m_emfStyleMapEMP.contains(flagsH))
 	{
-		int z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX, baseY, 10, 10, currentDC.LineW, CommonStrings::None, currentDC.CurrColorStroke, true);
+		int z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, m_baseX, m_baseY, 10, 10, m_currentDC.LineW, CommonStrings::None, m_currentDC.CurrColorStroke, true);
 		PageItem* ite = m_Doc->Items->at(z);
-		ite->PoLine = emfStyleMapEMP[flagsH].Coords.copy();
+		ite->PoLine = m_emfStyleMapEMP[flagsH].Coords.copy();
 		finishItem(ite, false);
 	}
 }
@@ -4766,7 +4766,7 @@ void EmfPlug::handleEMFPDrawPie(QDataStream &ds, quint8 flagsL, quint8 flagsH)
 	pointArray.fromQPainterPath(painterPath);
 	if (pointArray.size() > 3)
 	{
-		int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, currentDC.LineW, CommonStrings::None, currentDC.CurrColorStroke, true);
+		int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, m_baseX, m_baseY, 10, 10, m_currentDC.LineW, CommonStrings::None, m_currentDC.CurrColorStroke, true);
 		PageItem* ite = m_Doc->Items->at(z);
 		ite->PoLine = pointArray.copy();
 		finishItem(ite, false);
@@ -4789,7 +4789,7 @@ void EmfPlug::handleEMFPDrawRects(QDataStream &ds, quint8 flagsL, quint8 flagsH)
 		polyline.svgLineTo(rect[2].x(), rect[2].y());
 		polyline.svgLineTo(rect[3].x(), rect[3].y());
 		polyline.svgClosePath();
-		int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, currentDC.LineW, CommonStrings::None, currentDC.CurrColorStroke, true);
+		int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, m_baseX, m_baseY, 10, 10, m_currentDC.LineW, CommonStrings::None, m_currentDC.CurrColorStroke, true);
 		PageItem* ite = m_Doc->Items->at(z);
 		ite->PoLine = polyline.copy();
 		finishItem(ite, false);
@@ -4803,12 +4803,12 @@ void EmfPlug::handleEMFPDrawDriverString(QDataStream &ds, quint8 flagsL, quint8 
 	bool directBrush = (flagsL & 0x80);
 	getEMFPBrush(brushID, directBrush);
 	getEMFPFont(flagsH);
-	quint32 unit = currentDC.fontUnit;
+	quint32 unit = m_currentDC.fontUnit;
 	if ((unit == U_UT_World) || (unit == U_UT_Display))
 		unit = U_UT_Pixel;
-	double fSize = convertEMFPLogical2Pts(currentDC.fontSize, unit);
+	double fSize = convertEMFPLogical2Pts(m_currentDC.fontSize, unit);
 	fSize *= 10.0;
-	QFont font = QFont(currentDC.fontName, fSize);
+	QFont font = QFont(m_currentDC.fontName, fSize);
 	font.setPixelSize(fSize);
 	QList<QChar> stringData;
 	QList<quint32> glyphs;
@@ -4876,7 +4876,7 @@ void EmfPlug::handleEMFPDrawDriverString(QDataStream &ds, quint8 flagsL, quint8 
 	textPath.fromQPainterPath(painterPath);
 	if (textPath.size() > 0)
 	{
-		int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, 0, currentDC.CurrColorFill, CommonStrings::None, true);
+		int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, m_baseX, m_baseY, 10, 10, 0, m_currentDC.CurrColorFill, CommonStrings::None, true);
 		PageItem* ite = m_Doc->Items->at(z);
 		ite->PoLine = textPath.copy();
 		finishItem(ite);
@@ -4901,13 +4901,13 @@ void EmfPlug::handleEMFPDrawString(QDataStream &ds, quint8 flagsL, quint8 flagsH
 	getEMFPBrush(brushID, directBrush);
 	getEMFPFont(flagsH);
 	getEMFPStringFormat(formatID);
-	quint32 unit = currentDC.fontUnit;
+	quint32 unit = m_currentDC.fontUnit;
 	if ((unit == U_UT_World) || (unit == U_UT_Display))
 		unit = U_UT_Pixel;
-	double fSize = convertEMFPLogical2Pts(currentDC.fontSize, unit);
+	double fSize = convertEMFPLogical2Pts(m_currentDC.fontSize, unit);
 	if (fSize < 5)
 	{
-		QFont font = QFont(currentDC.fontName, fSize * 10);
+		QFont font = QFont(m_currentDC.fontName, fSize * 10);
 		font.setPixelSize(fSize * 10);
 		painterPath.addText(0, 0, font, stringData);
 		QTransform mm;
@@ -4916,12 +4916,12 @@ void EmfPlug::handleEMFPDrawString(QDataStream &ds, quint8 flagsL, quint8 flagsH
 	}
 	else
 	{
-		QFont font = QFont(currentDC.fontName, fSize);
+		QFont font = QFont(m_currentDC.fontName, fSize);
 		font.setPixelSize(fSize);
 		painterPath.addText(0, 0, font, stringData);
 	}
 	painterPath.translate(0, -painterPath.boundingRect().y());
-	if (currentDC.verticalText)
+	if (m_currentDC.verticalText)
 	{
 		QTransform vm;
 		vm.rotate(90);
@@ -4930,20 +4930,20 @@ void EmfPlug::handleEMFPDrawString(QDataStream &ds, quint8 flagsL, quint8 flagsH
 	}
 	double sh = rect.boundingRect().height();
 	double sw = rect.boundingRect().width();
-	if (currentDC.verticalText)
+	if (m_currentDC.verticalText)
 	{
 		if (sh > 0)
 		{
-			if (currentDC.hAlign == U_SA_Center)
+			if (m_currentDC.hAlign == U_SA_Center)
 				painterPath.translate(0, (sh - painterPath.boundingRect().height()) / 2.0);
-			else if (currentDC.hAlign == U_SA_Far)
+			else if (m_currentDC.hAlign == U_SA_Far)
 				painterPath.translate(0, sh - painterPath.boundingRect().height());
 		}
 		if (sw > 0)
 		{
-			if (currentDC.vAlign == U_SA_Center)
+			if (m_currentDC.vAlign == U_SA_Center)
 				painterPath.translate((sw - painterPath.boundingRect().width()) / 2.0, 0);
-			else if (currentDC.vAlign == U_SA_Far)
+			else if (m_currentDC.vAlign == U_SA_Far)
 				painterPath.translate(sw - painterPath.boundingRect().width(), 0);
 		}
 	}
@@ -4951,27 +4951,27 @@ void EmfPlug::handleEMFPDrawString(QDataStream &ds, quint8 flagsL, quint8 flagsH
 	{
 		if (sw > 0)
 		{
-			if (currentDC.hAlign == U_SA_Center)
+			if (m_currentDC.hAlign == U_SA_Center)
 				painterPath.translate((sw - painterPath.boundingRect().width()) / 2.0, 0);
-			else if (currentDC.hAlign == U_SA_Far)
+			else if (m_currentDC.hAlign == U_SA_Far)
 				painterPath.translate(sw - painterPath.boundingRect().width(), 0);
 		}
 		if (sh > 0)
 		{
-			if (currentDC.vAlign == U_SA_Center)
+			if (m_currentDC.vAlign == U_SA_Center)
 				painterPath.translate(0, (sh - painterPath.boundingRect().height()) / 2.0);
-			else if (currentDC.vAlign == U_SA_Far)
+			else if (m_currentDC.vAlign == U_SA_Far)
 				painterPath.translate(0, sh - painterPath.boundingRect().height());
 		}
 	}
-	QTransform bm = currentDC.m_WorldMapEMFP;
+	QTransform bm = m_currentDC.m_WorldMapEMFP;
 	bm = QTransform(bm.m11(), bm.m12(), bm.m21(), bm.m22(), 0, 0);
 	painterPath = bm.map(painterPath);
 	painterPath.translate(rect[0].x(), rect[0].y());
 	textPath.fromQPainterPath(painterPath);
 	if (textPath.size() > 0)
 	{
-		int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, 0, currentDC.CurrColorFill, CommonStrings::None, true);
+		int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, m_baseX, m_baseY, 10, 10, 0, m_currentDC.CurrColorFill, CommonStrings::None, true);
 		PageItem* ite = m_Doc->Items->at(z);
 		ite->PoLine = textPath.copy();
 		finishItem(ite);
@@ -4991,19 +4991,19 @@ void EmfPlug::handleEMFPSetClipRect(QDataStream &ds, quint8 flagsL)
 	clipPath.svgLineTo(rect[2].x(), rect[2].y());
 	clipPath.svgLineTo(rect[3].x(), rect[3].y());
 	clipPath.svgClosePath();
-	if ((mode == 0) || (!currentDC.clipValid))
+	if ((mode == 0) || (!m_currentDC.clipValid))
 	{
 		if (checkClip(clipPath))
 		{
-			currentDC.clipPath = clipPath.copy();
-			currentDC.clipValid = true;
+			m_currentDC.clipPath = clipPath.copy();
+			m_currentDC.clipValid = true;
 			createClipGroup();
 		}
 	}
 	else
 	{
 		QPainterPath pathN = clipPath.toQPainterPath(true);
-		QPainterPath pathA = currentDC.clipPath.toQPainterPath(true);
+		QPainterPath pathA = m_currentDC.clipPath.toQPainterPath(true);
 		QPainterPath resultPath;
 		if (mode == 1)
 			resultPath = pathA.intersected(pathN);
@@ -5024,43 +5024,43 @@ void EmfPlug::handleEMFPSetClipRect(QDataStream &ds, quint8 flagsL)
 			polyline.svgClosePath();
 			if (checkClip(polyline))
 			{
-				currentDC.clipPath = polyline.copy();
-				currentDC.clipValid = true;
+				m_currentDC.clipPath = polyline.copy();
+				m_currentDC.clipValid = true;
 				createClipGroup();
 			}
 		}
 		else
-			currentDC.clipValid = false;
+			m_currentDC.clipValid = false;
 	}
 }
 
 void EmfPlug::handleEMFPSetClipRegion(QDataStream &ds, quint8 flagsL, quint8 flagsH)
 {
 	invalidateClipGroup();
-	if (emfStyleMapEMP.contains(flagsH))
+	if (m_emfStyleMapEMP.contains(flagsH))
 	{
-		if (emfStyleMapEMP[flagsH].Coords.isEmpty())
+		if (m_emfStyleMapEMP[flagsH].Coords.isEmpty())
 		{
-			currentDC.clipPath.resize(0);
-			currentDC.clipPath.svgInit();
-			currentDC.clipValid = false;
+			m_currentDC.clipPath.resize(0);
+			m_currentDC.clipPath.svgInit();
+			m_currentDC.clipValid = false;
 			return;
 		}
 		quint8 mode = flagsL & 0x0F;
-		if ((mode == 0) || (!currentDC.clipValid))
+		if ((mode == 0) || (!m_currentDC.clipValid))
 		{
-			if (checkClip(emfStyleMapEMP[flagsH].Coords))
+			if (checkClip(m_emfStyleMapEMP[flagsH].Coords))
 			{
-				currentDC.clipPath = emfStyleMapEMP[flagsH].Coords.copy();
-				currentDC.clipValid = true;
+				m_currentDC.clipPath = m_emfStyleMapEMP[flagsH].Coords.copy();
+				m_currentDC.clipValid = true;
 				createClipGroup();
 			}
 		}
 		else
 		{
-			FPointArray clipPath = emfStyleMapEMP[flagsH].Coords.copy();
+			FPointArray clipPath = m_emfStyleMapEMP[flagsH].Coords.copy();
 			QPainterPath pathN = clipPath.toQPainterPath(true);
-			QPainterPath pathA = currentDC.clipPath.toQPainterPath(true);
+			QPainterPath pathA = m_currentDC.clipPath.toQPainterPath(true);
 			QPainterPath resultPath;
 			if (mode == 1)
 				resultPath = pathA.intersected(pathN);
@@ -5081,43 +5081,43 @@ void EmfPlug::handleEMFPSetClipRegion(QDataStream &ds, quint8 flagsL, quint8 fla
 				polyline.svgClosePath();
 				if (checkClip(polyline))
 				{
-					currentDC.clipPath = polyline.copy();
-					currentDC.clipValid = true;
+					m_currentDC.clipPath = polyline.copy();
+					m_currentDC.clipValid = true;
 					createClipGroup();
 				}
 			}
 			else
-				currentDC.clipValid = false;
+				m_currentDC.clipValid = false;
 		}
 	}
 	else
 	{
-		currentDC.clipPath.resize(0);
-		currentDC.clipPath.svgInit();
-		currentDC.clipValid = false;
+		m_currentDC.clipPath.resize(0);
+		m_currentDC.clipPath.svgInit();
+		m_currentDC.clipValid = false;
 	}
 }
 
 void EmfPlug::handleEMFPSetClipPath(QDataStream &ds, quint8 flagsL, quint8 flagsH)
 {
 	invalidateClipGroup();
-	if (emfStyleMapEMP.contains(flagsH))
+	if (m_emfStyleMapEMP.contains(flagsH))
 	{
 		quint8 mode = flagsL & 0x0F;
-		if ((mode == 0) || (!currentDC.clipValid))
+		if ((mode == 0) || (!m_currentDC.clipValid))
 		{
-			if (checkClip(emfStyleMapEMP[flagsH].Coords))
+			if (checkClip(m_emfStyleMapEMP[flagsH].Coords))
 			{
-				currentDC.clipPath = emfStyleMapEMP[flagsH].Coords.copy();
-				currentDC.clipValid = true;
+				m_currentDC.clipPath = m_emfStyleMapEMP[flagsH].Coords.copy();
+				m_currentDC.clipValid = true;
 				createClipGroup();
 			}
 		}
 		else
 		{
-			FPointArray clipPath = emfStyleMapEMP[flagsH].Coords.copy();
+			FPointArray clipPath = m_emfStyleMapEMP[flagsH].Coords.copy();
 			QPainterPath pathN = clipPath.toQPainterPath(true);
-			QPainterPath pathA = currentDC.clipPath.toQPainterPath(true);
+			QPainterPath pathA = m_currentDC.clipPath.toQPainterPath(true);
 			QPainterPath resultPath;
 			if (mode == 1)
 				resultPath = pathA.intersected(pathN);
@@ -5138,13 +5138,13 @@ void EmfPlug::handleEMFPSetClipPath(QDataStream &ds, quint8 flagsL, quint8 flags
 				polyline.svgClosePath();
 				if (checkClip(polyline))
 				{
-					currentDC.clipPath = polyline.copy();
-					currentDC.clipValid = true;
+					m_currentDC.clipPath = polyline.copy();
+					m_currentDC.clipValid = true;
 					createClipGroup();
 				}
 			}
 			else
-				currentDC.clipValid = false;
+				m_currentDC.clipValid = false;
 		}
 	}
 }
@@ -5159,10 +5159,10 @@ void EmfPlug::handleEMFPSerializableObject(QDataStream &ds)
 	ds >> b1 >> b2 >> b3 >> b4 >> b5 >> b6 >> b7 >> b8;
 	QString effID = QUuid(l, w1, w2, b1, b2, b3, b4, b5, b6, b7, b8).toString().toUpper();
 	m_Effects.clear();
-	SerializableObject_Valid = false;
+	m_SerializableObject_Valid = false;
 	if (effID == U_IE_BlurEffectGuid)
 	{
-		SerializableObject_Valid = true;
+		m_SerializableObject_Valid = true;
 		float edge;
 		ds >> edge;
 		ImageEffect ef;
@@ -5172,7 +5172,7 @@ void EmfPlug::handleEMFPSerializableObject(QDataStream &ds)
 	}
 	else if (effID == U_IE_BrightnessContrastEffectGuid)
 	{
-		SerializableObject_Valid = true;
+		m_SerializableObject_Valid = true;
 		qint32 brightness, contrast;
 		ds >> brightness >> contrast;
 		if (brightness != 0)
@@ -5206,7 +5206,7 @@ void EmfPlug::handleEMFPSerializableObject(QDataStream &ds)
 		qDebug() << "ImageEffect\tRedEye";
 	else if (effID == U_IE_SharpenEffectGuid)
 	{
-		SerializableObject_Valid = true;
+		m_SerializableObject_Valid = true;
 		float radius, amount;
 		ds >> radius >> amount;
 		double amo = amount;
@@ -5219,7 +5219,7 @@ void EmfPlug::handleEMFPSerializableObject(QDataStream &ds)
 	else if (effID == U_IE_TintEffectGuid)
 		qDebug() << "ImageEffect\tTint";
 	else
-		SerializableObject_Valid = false;
+		m_SerializableObject_Valid = false;
 }
 
 void EmfPlug::getEMFPBrush(quint32 brushID, bool directBrush)
@@ -5231,44 +5231,44 @@ void EmfPlug::getEMFPBrush(quint32 brushID, bool directBrush)
 		quint8 b = (brushID >> 16) & 0xFF;
 		quint8 a = (brushID >> 24) & 0xFF;
 		QColor col(b, g, r, a);
-		currentDC.CurrColorFill = handleColor(col);
-		currentDC.CurrFillTrans = 1.0 - col.alphaF();
-		currentDC.brushStyle = U_BT_SolidColor;
+		m_currentDC.CurrColorFill = handleColor(col);
+		m_currentDC.CurrFillTrans = 1.0 - col.alphaF();
+		m_currentDC.brushStyle = U_BT_SolidColor;
 	}
 	else
 	{
-		if (emfStyleMapEMP.contains(brushID))
+		if (m_emfStyleMapEMP.contains(brushID))
 		{
-			emfStyle sty = emfStyleMapEMP[brushID];
-			currentDC.CurrColorFill = sty.brushColor;
-			currentDC.brushStyle = sty.brushStyle;
-			currentDC.hatchStyle = sty.hatchStyle;
-			currentDC.CurrFillTrans = sty.fillTrans;
+			emfStyle sty = m_emfStyleMapEMP[brushID];
+			m_currentDC.CurrColorFill = sty.brushColor;
+			m_currentDC.brushStyle = sty.brushStyle;
+			m_currentDC.hatchStyle = sty.hatchStyle;
+			m_currentDC.CurrFillTrans = sty.fillTrans;
 			if (sty.brushStyle == U_BT_HatchFill)
 			{
-				currentDC.backColor = sty.penColor;
-				currentDC.backgroundMode = true;
+				m_currentDC.backColor = sty.penColor;
+				m_currentDC.backgroundMode = true;
 			}
 			else if (sty.brushStyle == U_BT_LinearGradient)
 			{
-				currentDC.gradientStart = sty.gradientStart;
-				currentDC.gradientEnd = sty.gradientEnd;
-				currentDC.gradientAngle = sty.gradientAngle;
-				currentDC.gradient = sty.gradient;
+				m_currentDC.gradientStart = sty.gradientStart;
+				m_currentDC.gradientEnd = sty.gradientEnd;
+				m_currentDC.gradientAngle = sty.gradientAngle;
+				m_currentDC.gradient = sty.gradient;
 			}
 			else if (sty.brushStyle == U_BT_PathGradient)
 			{
-				currentDC.gradientStart = sty.gradientStart;
-				currentDC.gradientAngle = sty.gradientAngle;
-				currentDC.gradient = sty.gradient;
-				currentDC.gradientPath = sty.gradientPath.copy();
+				m_currentDC.gradientStart = sty.gradientStart;
+				m_currentDC.gradientAngle = sty.gradientAngle;
+				m_currentDC.gradient = sty.gradient;
+				m_currentDC.gradientPath = sty.gradientPath.copy();
 			}
 			else if (sty.brushStyle == U_BT_TextureFill)
 			{
-				currentDC.patternMode = sty.patternMode;
+				m_currentDC.patternMode = sty.patternMode;
 				if (sty.patternName.isEmpty())
 				{
-					if (!emfStyleMapEMP[brushID].MetaFile)
+					if (!m_emfStyleMapEMP[brushID].MetaFile)
 					{
 						QImage img = getImageDataFromStyle(brushID);
 						if (!img.isNull())
@@ -5305,16 +5305,16 @@ void EmfPlug::getEMFPBrush(quint32 brushID, bool directBrush)
 									pat.items.append(newItem);
 									QString patternName = "Pattern_"+newItem->itemName();
 									m_Doc->addPattern(patternName, pat);
-									emfStyleMapEMP[brushID].patternName = patternName;
-									importedPatterns.append(patternName);
-									currentDC.patternName = patternName;
+									m_emfStyleMapEMP[brushID].patternName = patternName;
+									m_importedPatterns.append(patternName);
+									m_currentDC.patternName = patternName;
 								}
 							}
 						}
 					}
 				}
 				else
-					currentDC.patternName = sty.patternName;
+					m_currentDC.patternName = sty.patternName;
 			}
 		}
 	}
@@ -5322,39 +5322,39 @@ void EmfPlug::getEMFPBrush(quint32 brushID, bool directBrush)
 
 void EmfPlug::getEMFPPen(quint32 penID)
 {
-	if (emfStyleMapEMP.contains(penID))
+	if (m_emfStyleMapEMP.contains(penID))
 	{
-		emfStyle sty = emfStyleMapEMP[penID];
-		currentDC.CurrColorStroke = sty.penColor;
-		currentDC.CurrStrokeTrans = sty.penTrans;
-		currentDC.LineW = sty.penWidth;
-		currentDC.penCap = sty.penCap;
-		currentDC.penJoin = sty.penJoin;
-		currentDC.penStyle = sty.penStyle;
-		currentDC.dashArray = sty.dashArray;
-		currentDC.dashOffset = sty.dashOffset;
+		emfStyle sty = m_emfStyleMapEMP[penID];
+		m_currentDC.CurrColorStroke = sty.penColor;
+		m_currentDC.CurrStrokeTrans = sty.penTrans;
+		m_currentDC.LineW = sty.penWidth;
+		m_currentDC.penCap = sty.penCap;
+		m_currentDC.penJoin = sty.penJoin;
+		m_currentDC.penStyle = sty.penStyle;
+		m_currentDC.dashArray = sty.dashArray;
+		m_currentDC.dashOffset = sty.dashOffset;
 	}
 }
 
 void EmfPlug::getEMFPFont(quint32 fontID)
 {
-	if (emfStyleMapEMP.contains(fontID))
+	if (m_emfStyleMapEMP.contains(fontID))
 	{
-		emfStyle sty = emfStyleMapEMP[fontID];
-		currentDC.fontName = sty.fontName;
-		currentDC.fontSize = sty.fontSize;
-		currentDC.fontUnit = sty.fontUnit;
+		emfStyle sty = m_emfStyleMapEMP[fontID];
+		m_currentDC.fontName = sty.fontName;
+		m_currentDC.fontSize = sty.fontSize;
+		m_currentDC.fontUnit = sty.fontUnit;
 	}
 }
 
 void EmfPlug::getEMFPStringFormat(quint32 fontID)
 {
-	if (emfStyleMapEMP.contains(fontID))
+	if (m_emfStyleMapEMP.contains(fontID))
 	{
-		emfStyle sty = emfStyleMapEMP[fontID];
-		currentDC.hAlign = sty.hAlign;
-		currentDC.vAlign = sty.vAlign;
-		currentDC.verticalText = sty.verticalText;
+		emfStyle sty = m_emfStyleMapEMP[fontID];
+		m_currentDC.hAlign = sty.hAlign;
+		m_currentDC.vAlign = sty.vAlign;
+		m_currentDC.verticalText = sty.verticalText;
 	}
 }
 
@@ -5461,12 +5461,12 @@ QPolygonF EmfPlug::getEMFPRect(QDataStream &ds, bool size)
 		p3 = QPointF(p1.x() + w, p1.y() + h);
 		p4 = QPointF(p1.x(), p1.y() + h);
 	}
-	result.append(convertEMFPLogical2Pts(p1, currentDC.emfPlusUnit));
-	result.append(convertEMFPLogical2Pts(p2, currentDC.emfPlusUnit));
-	result.append(convertEMFPLogical2Pts(p3, currentDC.emfPlusUnit));
-	result.append(convertEMFPLogical2Pts(p4, currentDC.emfPlusUnit));
+	result.append(convertEMFPLogical2Pts(p1, m_currentDC.emfPlusUnit));
+	result.append(convertEMFPLogical2Pts(p2, m_currentDC.emfPlusUnit));
+	result.append(convertEMFPLogical2Pts(p3, m_currentDC.emfPlusUnit));
+	result.append(convertEMFPLogical2Pts(p4, m_currentDC.emfPlusUnit));
 //	result.translate(-currentDC.originEMFP);
-	result.translate(currentDC.viewOrigin);
+	result.translate(m_currentDC.viewOrigin);
 	return result;
 }
 
@@ -5485,9 +5485,9 @@ QPointF EmfPlug::getEMFPPoint(QDataStream &ds, bool size)
 		ds >> x1 >> y1;
 		p = QPointF(x1, y1);
 	}
-	p = convertEMFPLogical2Pts(p, currentDC.emfPlusUnit);
+	p = convertEMFPLogical2Pts(p, m_currentDC.emfPlusUnit);
 //	p -= currentDC.originEMFP;
-	p += currentDC.viewOrigin;
+	p += m_currentDC.viewOrigin;
 	return p;
 }
 
@@ -5506,28 +5506,28 @@ double EmfPlug::getEMFPDistance(QDataStream &ds, bool size)
 		ds >> x1;
 		p = x1;
 	}
-	p = convertEMFPLogical2Pts(p, currentDC.emfPlusUnit);
+	p = convertEMFPLogical2Pts(p, m_currentDC.emfPlusUnit);
 	return p;
 }
 
 QPointF EmfPlug::convertEMFPLogical2Pts(QPointF in, quint16 unit)
 {
-	QPointF out = currentDC.m_WorldMapEMFP.map(in);
+	QPointF out = m_currentDC.m_WorldMapEMFP.map(in);
 	switch (unit)
 	{
 		case U_UT_World:
 		case U_UT_Display:
 			break;
 		case U_UT_Pixel:
-			if (emfPlusDual && emfMixed)
+			if (m_emfPlusDual && m_emfMixed)
 			{
-				out.setX(out.x() / dpiX * 72.0);
-				out.setY(out.y() / dpiY * 72.0);
+				out.setX(out.x() / m_dpiX * 72.0);
+				out.setY(out.y() / m_dpiY * 72.0);
 			}
 			else
 			{
-				out.setX(out.x() / static_cast<double>(EmfPdpiX) * 72.0);
-				out.setY(out.y() / static_cast<double>(EmfPdpiY) * 72.0);
+				out.setX(out.x() / static_cast<double>(m_EmfPdpiX) * 72.0);
+				out.setY(out.y() / static_cast<double>(m_EmfPdpiY) * 72.0);
 			}
 			break;
 		case U_UT_Point:
@@ -5553,7 +5553,7 @@ QPointF EmfPlug::convertEMFPLogical2Pts(QPointF in, quint16 unit)
 double EmfPlug::convertEMFPLogical2Pts(double in, quint16 unit)
 {
 	QLineF dist = QLineF(0, 0, in, 0);
-	dist = currentDC.m_WorldMapEMFP.map(dist);
+	dist = m_currentDC.m_WorldMapEMFP.map(dist);
 	double out = dist.length();
 	switch (unit)
 	{
@@ -5561,10 +5561,10 @@ double EmfPlug::convertEMFPLogical2Pts(double in, quint16 unit)
 		case U_UT_Display:
 			break;
 		case U_UT_Pixel:
-			if (emfPlusDual && emfMixed)
-				out = out / dpiX * 72.0;
+			if (m_emfPlusDual && m_emfMixed)
+				out = out / m_dpiX * 72.0;
 			else
-				out = out / static_cast<double>(EmfPdpiX) * 72.0;
+				out = out / static_cast<double>(m_EmfPdpiX) * 72.0;
 			break;
 		case U_UT_Point:
 			break;
@@ -5658,12 +5658,12 @@ void EmfPlug::GdipAddPathClosedCurve(QPainterPath &path, QPolygonF &points, floa
 
 void EmfPlug::handleEMFPDrawImageData(QPointF p1, QPointF p2, QPointF p3, quint8 flagsH)
 {
-	if (emfStyleMapEMP[flagsH].MetaFile)
+	if (m_emfStyleMapEMP[flagsH].MetaFile)
 	{
 		QString ext = "emf";
-		if (emfStyleMapEMP[flagsH].imageType < U_MDT_Emf)
+		if (m_emfStyleMapEMP[flagsH].imageType < U_MDT_Emf)
 			ext = "wmf";
-		PageItem* ite = getVectorFileFromData(m_Doc, emfStyleMapEMP[flagsH].imageData, ext, baseX + p1.x(), baseY + p1.y(), QLineF(p1, p2).length(), QLineF(p1, p3).length());
+		PageItem* ite = getVectorFileFromData(m_Doc, m_emfStyleMapEMP[flagsH].imageData, ext, m_baseX + p1.x(), m_baseY + p1.y(), QLineF(p1, p2).length(), QLineF(p1, p3).length());
 		if (ite != NULL)
 		{
 			if (QLineF(p1, p2).angle() != 0)
@@ -5685,27 +5685,27 @@ void EmfPlug::handleEMFPDrawImageData(QPointF p1, QPointF p2, QPointF p3, quint8
 				{
 					tempFile->close();
 					img.save(fileName, "PNG");
-					int z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Rectangle, baseX + p1.x(), baseY + p1.y(), QLineF(p1, p2).length(), QLineF(p1, p3).length(), 0, CommonStrings::None, CommonStrings::None, true);
+					int z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Rectangle, m_baseX + p1.x(), m_baseY + p1.y(), QLineF(p1, p2).length(), QLineF(p1, p3).length(), 0, CommonStrings::None, CommonStrings::None, true);
 					PageItem* ite = m_Doc->Items->at(z);
 					finishItem(ite, false);
 					if (QLineF(p1, p2).angle() != 0)
 						ite->setRotation(-QLineF(p1, p2).angle(), true);
 					ite->isInlineImage = true;
 					ite->isTempFile = true;
-					if (SerializableObject_Valid)
+					if (m_SerializableObject_Valid)
 					{
 						ite->effectsInUse = m_Effects;
-						SerializableObject_Valid = false;
+						m_SerializableObject_Valid = false;
 						m_Effects.clear();
 					}
 					m_Doc->loadPict(fileName, ite);
 					ite->setImageScalingMode(false, false);
 					ite->updateClip();
-					if (currentDC.clipValid)
+					if (m_currentDC.clipValid)
 					{
-						FPointArray cp = currentDC.clipPath.copy();
-						cp.translate(baseX, baseY);
-						cp.translate(-docX, -docY);
+						FPointArray cp = m_currentDC.clipPath.copy();
+						cp.translate(m_baseX, m_baseY);
+						cp.translate(-m_docX, -m_docY);
 						cp.translate(-ite->xPos(), -ite->yPos());
 						ite->PoLine = cp.copy();
 						FPoint wh = getMaxClipF(&ite->PoLine);
@@ -5726,17 +5726,17 @@ void EmfPlug::handleEMFPDrawImageData(QPointF p1, QPointF p2, QPointF p3, quint8
 QImage EmfPlug::getImageDataFromStyle(quint8 flagsH)
 {
 	QImage img;
-	if (emfStyleMapEMP[flagsH].imageType == 1)
-		img.loadFromData(emfStyleMapEMP[flagsH].imageData);
+	if (m_emfStyleMapEMP[flagsH].imageType == 1)
+		img.loadFromData(m_emfStyleMapEMP[flagsH].imageData);
 	else
 	{
-		int hWidth = qAbs(emfStyleMapEMP[flagsH].imageWidth);
-		int hHeight = qAbs(emfStyleMapEMP[flagsH].imageHeight);
-		QDataStream dsB(emfStyleMapEMP[flagsH].imageData);
+		int hWidth = qAbs(m_emfStyleMapEMP[flagsH].imageWidth);
+		int hHeight = qAbs(m_emfStyleMapEMP[flagsH].imageHeight);
+		QDataStream dsB(m_emfStyleMapEMP[flagsH].imageData);
 		dsB.setByteOrder(QDataStream::LittleEndian);
 		img = QImage(hWidth, hHeight, QImage::Format_ARGB32);
 		img.fill(0);
-		if (emfStyleMapEMP[flagsH].imagePixelFormat == U_PF_32bppARGB)
+		if (m_emfStyleMapEMP[flagsH].imagePixelFormat == U_PF_32bppARGB)
 		{
 			for (qint32 yy = 0; yy < hHeight; yy++)
 			{
@@ -5750,7 +5750,7 @@ QImage EmfPlug::getImageDataFromStyle(quint8 flagsH)
 				}
 			}
 		}
-		else if (emfStyleMapEMP[flagsH].imagePixelFormat == U_PF_32bppRGB)
+		else if (m_emfStyleMapEMP[flagsH].imagePixelFormat == U_PF_32bppRGB)
 		{
 			for (qint32 yy = 0; yy < hHeight; yy++)
 			{
@@ -5764,7 +5764,7 @@ QImage EmfPlug::getImageDataFromStyle(quint8 flagsH)
 				}
 			}
 		}
-		else if (emfStyleMapEMP[flagsH].imagePixelFormat == U_PF_24bppRGB)
+		else if (m_emfStyleMapEMP[flagsH].imagePixelFormat == U_PF_24bppRGB)
 		{
 			for (qint32 yy = 0; yy < hHeight; yy++)
 			{
@@ -5779,7 +5779,7 @@ QImage EmfPlug::getImageDataFromStyle(quint8 flagsH)
 				aligntoQuadWord(dsB);
 			}
 		}
-		else if (emfStyleMapEMP[flagsH].imagePixelFormat == U_PF_16bppRGB555)
+		else if (m_emfStyleMapEMP[flagsH].imagePixelFormat == U_PF_16bppRGB555)
 		{
 			for (qint32 yy = 0; yy < hHeight; yy++)
 			{
@@ -5798,7 +5798,7 @@ QImage EmfPlug::getImageDataFromStyle(quint8 flagsH)
 				aligntoQuadWord(dsB);
 			}
 		}
-		else if (emfStyleMapEMP[flagsH].imagePixelFormat == U_PF_16bppGrayScale)
+		else if (m_emfStyleMapEMP[flagsH].imagePixelFormat == U_PF_16bppGrayScale)
 		{
 			for (qint32 yy = 0; yy < hHeight; yy++)
 			{
@@ -5814,7 +5814,7 @@ QImage EmfPlug::getImageDataFromStyle(quint8 flagsH)
 				aligntoQuadWord(dsB);
 			}
 		}
-		else if (emfStyleMapEMP[flagsH].imagePixelFormat == U_PF_8bppIndexed)
+		else if (m_emfStyleMapEMP[flagsH].imagePixelFormat == U_PF_8bppIndexed)
 		{
 			QVector<QRgb> colorTbl;
 			quint32 palFlags, colorsUsed;
@@ -5843,7 +5843,7 @@ QImage EmfPlug::getImageDataFromStyle(quint8 flagsH)
 			}
 			img = img.convertToFormat(QImage::Format_ARGB32);
 		}
-		else if (emfStyleMapEMP[flagsH].imagePixelFormat == U_PF_4bppIndexed)
+		else if (m_emfStyleMapEMP[flagsH].imagePixelFormat == U_PF_4bppIndexed)
 		{
 			QVector<QRgb> colorTbl;
 			quint32 palFlags, colorsUsed;
@@ -5882,7 +5882,7 @@ QImage EmfPlug::getImageDataFromStyle(quint8 flagsH)
 				aligntoQuadWord(dsB);
 			}
 		}
-		else if (emfStyleMapEMP[flagsH].imagePixelFormat == U_PF_1bppIndexed)
+		else if (m_emfStyleMapEMP[flagsH].imagePixelFormat == U_PF_1bppIndexed)
 		{
 			QVector<QRgb> colorTbl;
 			quint32 palFlags, colorsUsed;
@@ -5913,7 +5913,7 @@ QImage EmfPlug::getImageDataFromStyle(quint8 flagsH)
 		}
 		else
 		{
-			qDebug() << QString("Format 0x%1").arg(emfStyleMapEMP[flagsH].imagePixelFormat, 8, 16, QChar('0'));
+			qDebug() << QString("Format 0x%1").arg(m_emfStyleMapEMP[flagsH].imagePixelFormat, 8, 16, QChar('0'));
 			return img;
 		}
 	}
