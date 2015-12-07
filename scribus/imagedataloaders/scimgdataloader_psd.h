@@ -39,9 +39,9 @@ public:
 
 protected:
 
-	QList<unsigned int> colorTable;
-	QList<ScColor> colorTableSc;
-	int random_table[4096];
+	QList<unsigned int> m_colorTable;
+	QList<ScColor> m_colorTableSc;
+	int m_random_table[4096];
 
 	void initSupportedFormatList();
 
@@ -57,11 +57,11 @@ protected:
 	bool parseLayer( QDataStream & s, const PSDHeader & header);
 	QString getLayerString(QDataStream & s);
 	void putDuotone(uchar *ptr, uchar cbyte);
-	int maxChannels;
-	QVector<int> curveTable1;
-	QVector<int> curveTable2;
-	QVector<int> curveTable3;
-	QVector<int> curveTable4;
+	int m_maxChannels;
+	QVector<int> m_curveTable1;
+	QVector<int> m_curveTable2;
+	QVector<int> m_curveTable3;
+	QVector<int> m_curveTable4;
 };
 
 #endif
