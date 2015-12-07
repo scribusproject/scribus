@@ -156,22 +156,22 @@ public:
 
 private:
 	RuleState* 
-		state;
+		m_state;
 
 	std::vector<PRIVATE::VarPtr> 
-		objects;
+		m_objects;
 
 	std::map<Xml_string, PRIVATE::VarPtr> 
-		storage;
+		m_storage;
 
 	std::map<Xml_string, PRIVATE::Patch*>
-		patches;
+		m_patches;
 
 	PRIVATE::VarPtr 
-		result_;
+		m_result_;
 
 	std::vector<Xml_string> 
-		errors;
+		m_errors;
 };
 
 
@@ -183,14 +183,14 @@ ObjType*  Digester::top(unsigned int offset)
 #ifdef DESAXE_DEBUG
 	std::cerr << "top(" << offset << ") of " << objects.size() << "\n";
 #endif
-	unsigned int count = objects.size();
+	unsigned int count = m_objects.size();
 	assert (offset < count); 
-	PRIVATE::chkcell<ObjType>(objects[count - offset - 1], &objects);
+	PRIVATE::chkcell<ObjType>(m_objects[count - offset - 1], &m_objects);
 #ifdef DESAXE_DEBUG
 	std::cerr << "stack-> " << static_cast<ObjType*>(objects[count - offset - 1].ptr) << "\n";
 #endif
 	
-	return static_cast<ObjType*>(objects[count - offset - 1].ptr);
+	return static_cast<ObjType*>(m_objects[count - offset - 1].ptr);
 }
 
 
@@ -202,9 +202,9 @@ ObjType*  Digester::bottom(unsigned int offset)
 	std::cerr << "bottom(" << offset << ") of " << objects.size() << "\n";
 #endif
 	//unsigned int count = objects.size();
-	assert (offset < objects.size());
-	PRIVATE::chkcell<ObjType> (objects[offset]);
-	return static_cast<ObjType*>(objects[offset].ptr);
+	assert (offset < m_objects.size());
+	PRIVATE::chkcell<ObjType> (m_objects[offset]);
+	return static_cast<ObjType*>(m_objects[offset].ptr);
 }
 
 
@@ -213,12 +213,12 @@ inline
 ObjType*  Digester::result() 
 { 
 	ObjType* dummy = NULL;
-	if (result_.type != typeid(dummy).name())
+	if (m_result_.type != typeid(dummy).name())
 		return NULL;
 #ifdef DESAXE_DEBUG
 	std::cerr << "result-> " << static_cast<ObjType*>(result_.ptr) << "\n";
 #endif
-	return static_cast<ObjType*>(result_.ptr);
+	return static_cast<ObjType*>(m_result_.ptr);
 }
 
 
@@ -229,23 +229,23 @@ void Digester::setResult(ObjType* res)
 #ifdef DESAXE_DEBUG
 	std::cerr << res << " ->result\n";
 #endif
-	result_ = PRIVATE::mkcell(res);
+	m_result_ = PRIVATE::mkcell(res);
 }
 
 
 inline
 void Digester::pop()
 {
-	assert (1 <= (unsigned int) objects.size());
-	objects.pop_back();
+	assert (1 <= (unsigned int) m_objects.size());
+	m_objects.pop_back();
 }
 
 inline
 void Digester::popn(unsigned int number)
 {
-	unsigned int count = (unsigned int) objects.size();
+	unsigned int count = (unsigned int) m_objects.size();
 	assert (number <= count);
-	objects.resize(count - number);
+	m_objects.resize(count - number);
 }
 
 
@@ -256,7 +256,7 @@ void Digester::push(ObjType* obj)
 #ifdef DESAXE_DEBUG
 	std::cerr << "stack<- " << obj << "\n";
 #endif
-	objects.push_back(PRIVATE::mkcell(obj));
+	m_objects.push_back(PRIVATE::mkcell(obj));
 }
 
 
@@ -338,8 +338,8 @@ ObjType*  Digester::lookup(const Xml_string& idref)
 { 
 	using namespace PRIVATE;
 
-	std::map<Xml_string, VarPtr>::iterator cell = storage.find(idref);
-	if (cell == storage.end())
+	std::map<Xml_string, VarPtr>::iterator cell = m_storage.find(idref);
+	if (cell == m_storage.end())
 	{
 #ifdef DESAXE_DEBUG
 		std::cerr << "lookup[" << idref << "]-> NULL\n";
@@ -366,8 +366,8 @@ void Digester::store(const Xml_string& idref, ObjType* obj)
 #ifdef DESAXE_DEBUG
 	std::cerr << "store[" << idref << "] <- " << obj << "\n";
 #endif
-	storage[idref] = mkcell(obj);
-	runPatches(patches[idref], storage[idref]);
+	m_storage[idref] = mkcell(obj);
+	runPatches(m_patches[idref], m_storage[idref]);
 }
 
 
@@ -377,10 +377,10 @@ void Digester::patchCall(const Xml_string& idref, void (*fun)(LinkType*) )
 {
 	using namespace PRIVATE;
 
-	std::map<Xml_string, VarPtr>::iterator cell = storage.find(idref);
-	if (cell == storage.end())
+	std::map<Xml_string, VarPtr>::iterator cell = m_storage.find(idref);
+	if (cell == m_storage.end())
 	{
-		patches[idref] = new Patch1<LinkType>(fun, patches[idref] );
+		m_patches[idref] = new Patch1<LinkType>(fun, m_patches[idref] );
 	}
 	else
 	{
@@ -394,10 +394,10 @@ void Digester::patchInvoke(const Xml_string& idref, ObjType* obj, void (ObjType:
 {
 	using namespace PRIVATE;
 
-	std::map<Xml_string, VarPtr>::iterator cell = storage.find(idref);
-	if (cell == storage.end())
+	std::map<Xml_string, VarPtr>::iterator cell = m_storage.find(idref);
+	if (cell == m_storage.end())
 	{
-		patches[idref] = new Patch2<ObjType,LinkType>(obj, fun, patches[idref] );
+		m_patches[idref] = new Patch2<ObjType,LinkType>(obj, fun, m_patches[idref] );
 	}
 	else
 	{
