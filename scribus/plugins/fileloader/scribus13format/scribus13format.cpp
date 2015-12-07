@@ -162,8 +162,8 @@ QString Scribus13Format::readSLA(const QString & fileName)
 
 void Scribus13Format::getReplacedFontData(bool & getNewReplacement, QMap<QString,QString> &getReplacedFonts, QList<ScFace> &getDummyScFaces)
 {
-	getNewReplacement=newReplacement;
-	getReplacedFonts=ReplacedFonts;
+	getNewReplacement=m_newReplacement;
+	getReplacedFonts=m_ReplacedFonts;
 }
 
 bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* fmt */, int /* flags */, int /* index */)
@@ -173,8 +173,8 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 		Q_ASSERT(m_Doc==0 || m_AvailableFonts==0);
 		return false;
 	}
-	ReplacedFonts.clear();
-	newReplacement = false;
+	m_ReplacedFonts.clear();
+	m_newReplacement = false;
 	ParagraphStyle vg;
 	struct ScribusDoc::BookMa bok;
 	int counter;//, Pgc;
@@ -189,17 +189,17 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 	int a;
 	PageItem *Neu;
 	ScPage* Apage;
-	FrameItems.clear();
-	itemRemap.clear();
-	itemNext.clear();
-	itemCount = 0;
-	DoVorl.clear();
-	DoVorl[0] = "";
-	DoVorl[1] = "";
-	DoVorl[2] = "";
-	DoVorl[3] = "";
-	DoVorl[4] = "";
-	VorlC = 5;
+	m_FrameItems.clear();
+	m_itemRemap.clear();
+	m_itemNext.clear();
+	m_itemCount = 0;
+	m_DoVorl.clear();
+	m_DoVorl[0] = "";
+	m_DoVorl[1] = "";
+	m_DoVorl[2] = "";
+	m_DoVorl[3] = "";
+	m_DoVorl[4] = "";
+	m_VorlC = 5;
 	QDomDocument docu("scridoc");
 	QString f(readSLA(fileName));
 	if (f.isEmpty())
@@ -538,8 +538,8 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 				StyleSet<ParagraphStyle> temp;
 				temp.create(vg);
 				m_Doc->redefineStyles(temp, false);
-				DoVorl[VorlC] = vg.name();
-				++VorlC;
+				m_DoVorl[m_VorlC] = vg.name();
+				++m_VorlC;
 			}
 			if(pg.tagName()=="JAVA")
 				m_Doc->JavaScripts[pg.attribute("NAME")] = pg.attribute("SCRIPT");
@@ -705,7 +705,7 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 						ef.Dm = pdfF.attribute("Dm").toInt();
 						ef.M = pdfF.attribute("M").toInt();
 						ef.Di = pdfF.attribute("Di").toInt();
-						EffVal.append(ef);
+						m_EffVal.append(ef);
 					}
 					PFO = PFO.nextSibling();
 				}
@@ -870,11 +870,11 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 
 				if (pg.tagName()=="PAGEOBJECT")
 				{
-					itemRemap[itemCount++] = m_Doc->Items->count();
+					m_itemRemap[m_itemCount++] = m_Doc->Items->count();
 					// member of linked chain?
 					if ((pg.attribute("NEXTITEM").toInt() != -1) )
 					{
-						itemNext[m_Doc->Items->count()] = pg.attribute("NEXTITEM").toInt();
+						m_itemNext[m_Doc->Items->count()] = pg.attribute("NEXTITEM").toInt();
 					}
 				}
 				Neu = PasteItem(&pg, m_Doc, fileDir, pagenr);
@@ -946,7 +946,7 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 					m_Doc->LastAuto = Neu;
 				if (pg.tagName()=="FRAMEOBJECT")
 				{
-					FrameItems.append(m_Doc->Items->takeAt(m_Doc->Items->indexOf(Neu)));
+					m_FrameItems.append(m_Doc->Items->takeAt(m_Doc->Items->indexOf(Neu)));
 					Neu->LayerID = m_Doc->firstLayerID();
 				}
 				if (Neu->isTableItem)
@@ -959,7 +959,7 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 					else if (pg.tagName()=="FRAMEOBJECT")
 					{
 						TableItemsF.append(Neu);
-						TableIDF.insert(pg.attribute("OwnLINK", "0").toInt(), FrameItems.indexOf(Neu));
+						TableIDF.insert(pg.attribute("OwnLINK", "0").toInt(), m_FrameItems.indexOf(Neu));
 					}
 					else
 					{
@@ -1004,19 +1004,19 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 		{
 			PageItem* ta = TableItemsF.at(ttc);
 			if (ta->TopLinkID != -1)
-				ta->TopLink = FrameItems.at(TableIDF[ta->TopLinkID]);
+				ta->TopLink = m_FrameItems.at(TableIDF[ta->TopLinkID]);
 			else
 				ta->TopLink = 0;
 			if (ta->LeftLinkID != -1)
-				ta->LeftLink = FrameItems.at(TableIDF[ta->LeftLinkID]);
+				ta->LeftLink = m_FrameItems.at(TableIDF[ta->LeftLinkID]);
 			else
 				ta->LeftLink = 0;
 			if (ta->RightLinkID != -1)
-				ta->RightLink = FrameItems.at(TableIDF[ta->RightLinkID]);
+				ta->RightLink = m_FrameItems.at(TableIDF[ta->RightLinkID]);
 			else
 				ta->RightLink = 0;
 			if (ta->BottomLinkID != -1)
-				ta->BottomLink = FrameItems.at(TableIDF[ta->BottomLinkID]);
+				ta->BottomLink = m_FrameItems.at(TableIDF[ta->BottomLinkID]);
 			else
 				ta->BottomLink = 0;
 		}
@@ -1080,28 +1080,28 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 		layerToSetActive = nl->ID;
 	}
 	m_Doc->setActiveLayer(layerToSetActive);
-	if (!EffVal.isEmpty())
+	if (!m_EffVal.isEmpty())
 	{
-		for (int pdoE = 0; pdoE < EffVal.count(); ++pdoE)
+		for (int pdoE = 0; pdoE < m_EffVal.count(); ++pdoE)
 		{
 			if (pdoE < m_Doc->Pages->count())
-				m_Doc->Pages->at(pdoE)->PresentVals = EffVal[pdoE];
+				m_Doc->Pages->at(pdoE)->PresentVals = m_EffVal[pdoE];
 		}
 	}
 
 	// reestablish textframe links
-	if (itemNext.count() != 0)
+	if (m_itemNext.count() != 0)
 	{
 		QMap<int,int>::Iterator lc;
-		for (lc = itemNext.begin(); lc != itemNext.end(); ++lc)
+		for (lc = m_itemNext.begin(); lc != m_itemNext.end(); ++lc)
 		{
-			if (itemRemap[lc.value()] >= 0)
+			if (m_itemRemap[lc.value()] >= 0)
 			{
 				PageItem *Its(0), *Itn(0);
 				if (lc.key() < m_Doc->Items->count())
 					Its = m_Doc->Items->at(lc.key());
-				if (itemRemap[lc.value()] < m_Doc->Items->count())
-					Itn = m_Doc->Items->at(itemRemap[lc.value()]);
+				if (m_itemRemap[lc.value()] < m_Doc->Items->count())
+					Itn = m_Doc->Items->at(m_itemRemap[lc.value()]);
 				if (!Its || !Itn || !Its->testLinkCandidate(Itn))
 				{
 					qDebug("scribus13format: corruption in linked textframes detected");
@@ -1270,7 +1270,7 @@ void Scribus13Format::GetItemText(QDomElement *it, ScribusDoc *doc, PageItem* ob
 
 	int ab = it->attribute("CAB", "-1").toInt();
 	if (ab >= 5) {
-		pstylename = DoVorl[ab];
+		pstylename = m_DoVorl[ab];
 		calign = -1;
 	}
 	else if (ab >= 0) {
@@ -1333,7 +1333,7 @@ void Scribus13Format::GetItemText(QDomElement *it, ScribusDoc *doc, PageItem* ob
 		}
 		
 		if (impo && ab >= 0 && VorLFound)
-			last->ParaStyle = DoVorl[ab];
+			last->ParaStyle = m_DoVorl[ab];
 		else
 			last->ParaStyle = pstylename;
 
@@ -1342,9 +1342,9 @@ void Scribus13Format::GetItemText(QDomElement *it, ScribusDoc *doc, PageItem* ob
 		{
 			if (iobj >= 0)
 			{
-				if (iobj < FrameItems.count())
+				if (iobj < m_FrameItems.count())
 				{
-					int fIndex = doc->addToInlineFrames(FrameItems.at(iobj));
+					int fIndex = doc->addToInlineFrames(m_FrameItems.at(iobj));
 					obj->itemText.insertObject(pos, fIndex);
 				}
 				else
@@ -1673,7 +1673,7 @@ PageItem* Scribus13Format::PasteItem(QDomElement *obj, ScribusDoc *doc, const QS
 	pstyle.setLineSpacingMode(static_cast<ParagraphStyle::LineSpacingMode>(obj->attribute("LINESPMode", "0").toInt()));
 	int align = obj->attribute("ALIGN", "-1").toInt();
 	if (align >= 5)
-		pstyle.setParent(DoVorl[align-5]);
+		pstyle.setParent(m_DoVorl[align-5]);
 	else if (align >= 0)
 		pstyle.setAlignment(static_cast<ParagraphStyle::AlignmentType>(align));
 	pstyle.charStyle().setFont(m_AvailableFonts->findFont(obj->attribute("IFONT", m_Doc->itemToolPrefs().textFont), m_Doc));
@@ -2032,14 +2032,14 @@ bool Scribus13Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 	struct ScribusDoc::BookMa bok;
 	PageItem *Neu;
 	ScPage* Apage = NULL;
-	FrameItems.clear();
-	itemRemap.clear();
-	itemNext.clear();
-	itemCount = 0;
+	m_FrameItems.clear();
+	m_itemRemap.clear();
+	m_itemNext.clear();
+	m_itemCount = 0;
 	QString tmV, tmp, tmpf, tmp2, tmp3, tmp4, PgNam, Defont, tmf;
 	QFont fo;
-	ReplacedFonts.clear();
-	newReplacement = false;
+	m_ReplacedFonts.clear();
+	m_newReplacement = false;
 	QMap<int,int> TableID;
 	QList<PageItem*> TableItems;
 	int a, counter;
@@ -2055,13 +2055,13 @@ bool Scribus13Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 		maxLayer = qMax(m_Doc->Layers[la2].ID, maxLayer);
 		maxLevel = qMax(m_Doc->Layers[la2].Level, maxLevel);
 	}
-	DoVorl.clear();
-	DoVorl[0] = "";
-	DoVorl[1] = "";
-	DoVorl[2] = "";
-	DoVorl[3] = "";
-	DoVorl[4] = "";
-	VorlC = 5;
+	m_DoVorl.clear();
+	m_DoVorl[0] = "";
+	m_DoVorl[1] = "";
+	m_DoVorl[2] = "";
+	m_DoVorl[3] = "";
+	m_DoVorl[4] = "";
+	m_VorlC = 5;
 	QDomDocument docu("scridoc");
  	QString f(readSLA(fileName));
 	if (f.isEmpty())
@@ -2259,17 +2259,17 @@ bool Scribus13Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 				if (pg.attribute("OwnPage").toInt() != pageNumber)
 				{			
 					if (pg.tagName()=="PAGEOBJECT")
-						itemRemap[itemCount++] = -1;
+						m_itemRemap[m_itemCount++] = -1;
 				}
 				else
 				{
 					// first of linked chain?
 					if (pg.tagName()=="PAGEOBJECT")
 					{
-						itemRemap[itemCount++] = m_Doc->Items->count();
+						m_itemRemap[m_itemCount++] = m_Doc->Items->count();
 						if (pg.attribute("NEXTITEM").toInt() != -1)
 						{
-							itemNext[m_Doc->Items->count()] = pg.attribute("NEXTITEM").toInt();
+							m_itemNext[m_Doc->Items->count()] = pg.attribute("NEXTITEM").toInt();
 						}
 					}
 					/*int docGc = m_Doc->GroupCounter;
@@ -2352,7 +2352,7 @@ bool Scribus13Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 					}
 					if (pg.tagName()=="FRAMEOBJECT")
 					{
-						FrameItems.append(m_Doc->Items->takeAt(m_Doc->Items->indexOf(Neu)));
+						m_FrameItems.append(m_Doc->Items->takeAt(m_Doc->Items->indexOf(Neu)));
 						Neu->LayerID = m_Doc->firstLayerID();
 					}
 				}
@@ -2410,18 +2410,18 @@ bool Scribus13Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 		}
 	}
 	// reestablish textframe links
-	if (itemNext.count() != 0)
+	if (m_itemNext.count() != 0)
 	{
 		QMap<int,int>::Iterator lc;
-		for (lc = itemNext.begin(); lc != itemNext.end(); ++lc)
+		for (lc = m_itemNext.begin(); lc != m_itemNext.end(); ++lc)
 		{
-			if (itemRemap[lc.value()] >= 0)
+			if (m_itemRemap[lc.value()] >= 0)
 			{
 				PageItem *Its(0), *Itn(0);
 				if (lc.key() < m_Doc->Items->count())
 					Its = m_Doc->Items->at(lc.key());
-				if (itemRemap[lc.value()] < m_Doc->Items->count())
-					Itn = m_Doc->Items->at(itemRemap[lc.value()]);
+				if (m_itemRemap[lc.value()] < m_Doc->Items->count())
+					Itn = m_Doc->Items->at(m_itemRemap[lc.value()]);
 				if (!Its || !Itn || !Its->testLinkCandidate(Itn))
 				{
 					qDebug("scribus13format: corruption in linked textframes detected");
@@ -2522,8 +2522,8 @@ void Scribus13Format::GetStyle(QDomElement *pg, ParagraphStyle *vg, StyleSet<Par
 			{
 				if (fl)
 				{
-					DoVorl[VorlC] = vg->name();
-					++VorlC;
+					m_DoVorl[m_VorlC] = vg->name();
+					++m_VorlC;
 				}
 				fou = true;
 			}
@@ -2545,8 +2545,8 @@ void Scribus13Format::GetStyle(QDomElement *pg, ParagraphStyle *vg, StyleSet<Par
 				fou = true;
 				if (fl)
 				{
-					DoVorl[VorlC] = vg->name();
-					++VorlC;
+					m_DoVorl[m_VorlC] = vg->name();
+					++m_VorlC;
 				}
 				break;
 			}
@@ -2563,8 +2563,8 @@ void Scribus13Format::GetStyle(QDomElement *pg, ParagraphStyle *vg, StyleSet<Par
 		}
 		if (fl)
 		{
-			DoVorl[VorlC] = vg->name();
-			++VorlC;
+			m_DoVorl[m_VorlC] = vg->name();
+			++m_VorlC;
 		}
 	}
 }
@@ -2588,7 +2588,7 @@ QString Scribus13Format::AskForFont(QString fStr, ScribusDoc *doc)
 		}
 		else
 			tmpf = prefsManager->appPrefs.fontPrefs.GFontSub[tmpf];
-		ReplacedFonts[fStr] = tmpf;
+		m_ReplacedFonts[fStr] = tmpf;
 	}
 	if (!doc->UsedFonts.contains(tmpf))
 	{

@@ -57,15 +57,15 @@ class PLUGIN_API Scribus13Format : public LoadSavePlugin
 		QString AskForFont(QString fStr, ScribusDoc *doc);
 		const ScFace& findFont(ScribusDoc *doc, const QString& fontname);
 		
-		QMap<int, int> itemRemap;
-		QMap<int, int> itemNext;
-		QList<PageItem*> FrameItems;
-		int  itemCount;
-		bool newReplacement;
-		QMap<QString,QString> ReplacedFonts;
-		QMap<uint,QString> DoVorl;
-		uint VorlC;
-		QList<PDFPresentationData> EffVal;
+		QMap<int, int> m_itemRemap;
+		QMap<int, int> m_itemNext;
+		QList<PageItem*> m_FrameItems;
+		int  m_itemCount;
+		bool m_newReplacement;
+		QMap<QString,QString> m_ReplacedFonts;
+		QMap<uint,QString> m_DoVorl;
+		uint m_VorlC;
+		QList<PDFPresentationData> m_EffVal;
 };
 
 extern "C" PLUGIN_API int scribus13format_getPluginAPIVersion();
