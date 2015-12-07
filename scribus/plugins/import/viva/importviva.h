@@ -135,41 +135,41 @@ private:
 	QString constructFontName(QString fontBaseName, QString fontStyle);
 	QPointF intersectBoundingRect(PageItem *item, QLineF gradientVector);
 
-	QList<PageItem*> Elements;
-	double baseX, baseY;
-	double docWidth;
-	double docHeight;
-	bool facingPages;
-	bool hasLayers;
-	bool firstLayer;
-	bool firstPage;
-	int pagecount;
-	int mpagecount;
-	QMap<QString, int> mspreadTypes;
-	FPointArray Coords;
-	bool interactive;
-	MultiProgressDialog * progressDialog;
-	bool cancel;
+	QList<PageItem*> m_Elements;
+	double m_baseX, m_baseY;
+	double m_docWidth;
+	double m_docHeight;
+	bool m_facingPages;
+	bool m_hasLayers;
+	bool m_firstLayer;
+	bool m_firstPage;
+	int m_pagecount;
+	int m_mpagecount;
+	QMap<QString, int> m_mspreadTypes;
+	FPointArray m_Coords;
+	bool m_interactive;
+	MultiProgressDialog * m_progressDialog;
+	bool m_cancel;
 	ScribusDoc* m_Doc;
-	Selection* tmpSel;
-	int importerFlags;
-	QString baseFile;
-	QDomDocument designMapDom;
-	QStringList importedColors;
-	double topMargin;
-	double leftMargin;
-	double rightMargin;
-	double bottomMargin;
-	QString papersize;
-	QHash<QString, AttributeSet> AttributeSets;
-	QHash<QString, QString> colorTranslate;
-	QStringList importedGradients;
-	QMap<QString, QString> gradientTranslate;
-	QMap<QString, int> gradientTypeMap;
-	QMap<QString, PageItem*> storyMap;
+	Selection* m_tmpSel;
+	int m_importerFlags;
+	QString m_baseFile;
+	QDomDocument m_designMapDom;
+	QStringList m_importedColors;
+	double m_topMargin;
+	double m_leftMargin;
+	double m_rightMargin;
+	double m_bottomMargin;
+	QString m_papersize;
+	QHash<QString, AttributeSet> m_AttributeSets;
+	QHash<QString, QString> m_colorTranslate;
+	QStringList m_importedGradients;
+	QMap<QString, QString> m_gradientTranslate;
+	QMap<QString, int> m_gradientTypeMap;
+	QMap<QString, PageItem*> m_storyMap;
 
 public slots:
-	void cancelRequested() { cancel = true; }
+	void cancelRequested() { m_cancel = true; }
 };
 
 #endif
