@@ -58,7 +58,7 @@ void wmfimplugin_freePlugin(ScPlugin* plugin)
 }
 
 WMFImportPlugin::WMFImportPlugin() : LoadSavePlugin(),
-	importAction(new ScrAction(ScrAction::DLL, "", QKeySequence(), this))
+	m_importAction(new ScrAction(ScrAction::DLL, "", QKeySequence(), this))
 {
 	// Set action info in languageChange, so we only have to do
 	// it in one place. This includes registering file format
@@ -74,7 +74,7 @@ WMFImportPlugin::~WMFImportPlugin()
 
 void WMFImportPlugin::languageChange()
 {
-	importAction->setText( tr("Import &WMF..."));
+	m_importAction->setText( tr("Import &WMF..."));
 	FileFormat* fmt = getFormatByExt("wmf");
 	fmt->trName = FormatsManager::instance()->nameOfFormat(FormatsManager::WMF);
 	fmt->filter = FormatsManager::instance()->extensionsForFormat(FormatsManager::WMF);

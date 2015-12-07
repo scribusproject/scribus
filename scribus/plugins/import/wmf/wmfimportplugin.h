@@ -45,7 +45,7 @@ class PLUGIN_API WMFImportPlugin : public LoadSavePlugin
 
 	private:
 		void registerFormats();
-		ScrAction* importAction;
+		ScrAction* m_importAction;
 
 };
 
