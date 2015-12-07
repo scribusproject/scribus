@@ -108,7 +108,7 @@ private:
 	QString m_name;
 	uint m_currentLevel;
 	uint m_count;
-	ListLevel* levels[11];
+	ListLevel* m_levels[11];
 };
 
 typedef QMap<QString, gtStyle*> StyleMap;
@@ -119,25 +119,25 @@ typedef QMap<QString, ListStyle*> ListMap;
 class StyleReader
 {
 private:
-	static StyleReader *sreader;
-	gtWriter *writer;
-	bool importTextOnly;
-	bool usePrefix;
-	bool packStyles;
-	bool readProperties;
-	QString docname;
-	StyleMap styles;
-	StyleMap listParents;
-	StyleMap attrsStyles;
-	CounterMap pstyleCounts;
-	FontMap fonts;
-	ListMap lists;
-	gtStyle* currentStyle;
-	gtStyle* parentStyle;
-	bool inList;
-	QString currentList;
-	ListStyle *currentListStyle;
-	bool defaultStyleCreated;
+	static StyleReader *m_sreader;
+	gtWriter *m_writer;
+	bool m_importTextOnly;
+	bool m_usePrefix;
+	bool m_packStyles;
+	bool m_readProperties;
+	QString m_docname;
+	StyleMap m_styles;
+	StyleMap m_listParents;
+	StyleMap m_attrsStyles;
+	CounterMap m_pstyleCounts;
+	FontMap m_fonts;
+	ListMap m_lists;
+	gtStyle* m_currentStyle;
+	gtStyle* m_parentStyle;
+	bool m_inList;
+	QString m_currentList;
+	ListStyle *m_currentListStyle;
+	bool m_defaultStyleCreated;
 	double getSize(QString s, double parentSize = -1);
 	void styleProperties(const QXmlAttributes& attrs);
 	void defaultStyle(const QXmlAttributes& attrs);
