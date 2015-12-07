@@ -221,49 +221,49 @@ class PictureBrowser : public QDialog, Ui::PictureBrowser
 		ScribusMainWindow* m_ScMW;
 
 		//the dirmodel for the folderbrowser
-		QDirModel folderModel;
+		QDirModel m_folderModel;
 		//model for QListView containing the previewimages
-		PreviewImagesModel *pModel;
+		PreviewImagesModel *m_pModel;
 		//contains the currently selected index in folderModel
-		QModelIndex tmpindex;
+		QModelIndex m_tmpindex;
 		//tells if thread searches dirs recursively
-		bool folderBrowserIncludeSubdirs;
+		bool m_folderBrowserIncludeSubdirs;
 		//index of the previewicon currently selected
-		int previewIconIndex;
+		int m_previewIconIndex;
 		//a list containing the items in the documentbrowser treewidget
-		QList<QTreeWidgetItem *> documentItems;
+		QList<QTreeWidgetItem *> m_documentItems;
 		//contain the icons needed
-		QIcon *iconArrowUp, *iconArrowDown, *iconFolderBrowser, *iconCollectionsBrowser, *iconDocumentBrowser, *iconDocument, *iconCollection, *iconZoomPlus, *iconZoomMinus, *iconOk, *iconClose, *iconNew, *iconNew2, *iconEdit, *iconRemove, *iconLoad, *iconSave, *iconPlus, *iconMinus, *iconPen;
+		QIcon *m_iconArrowUp, *m_iconArrowDown, *m_iconFolderBrowser, *m_iconCollectionsBrowser, *m_iconDocumentBrowser, *m_iconDocument, *m_iconCollection, *m_iconZoomPlus, *m_iconZoomMinus, *m_iconOk, *m_iconClose, *m_iconNew, *m_iconNew2, *m_iconEdit, *m_iconRemove, *m_iconLoad, *m_iconSave, *m_iconPlus, *m_iconMinus, *m_iconPen;
 		//thread for searching dirs
-		findImagesThread *fit;
+		findImagesThread *m_fit;
 		//the current set of previewimages
-		previewImages *pImages;
+		previewImages *m_pImages;
 		//the path currently selected in folderbrowser
-		QString currPath;
+		QString m_currPath;
 		//a thread for loading images
-		loadImagesThread *lit;
+		loadImagesThread *m_lit;
 		//a thread for reading a collectionsfile
-		collectionReaderThread *crt;
-		QList<collectionReaderThread *> crtList;
+		collectionReaderThread *m_crt;
+		QList<collectionReaderThread *> m_crtList;
 		//the collection currently selected
-		QString currCollectionFile;
-		imageCollection *currCollection;
+		QString m_currCollectionFile;
+		imageCollection *m_currCollection;
 		//a list of threads for saving a collection
-		QList<collectionWriterThread *> cwtList;
-		collectionListReaderThread *clrt;
-		collectionsWriterThread *cdbwt;
+		QList<collectionWriterThread *> m_cwtList;
+		collectionListReaderThread *m_clrt;
+		collectionsWriterThread *m_cdbwt;
 		//custom position for inserting image enabled/disabled
-		bool insertCustomPosition;
-		bool insertCustomSize;
-		QStringList nameFilters;
-		imageFilters *filters;
-		QString cdbFile;
-		QList<int> selectedIndexes;
+		bool m_insertCustomPosition;
+		bool m_insertCustomSize;
+		QStringList m_nameFilters;
+		imageFilters *m_filters;
+		QString m_cdbFile;
+		QList<int> m_selectedIndexes;
 
 		//contains the hierarchy for the collectionsbrowser treewidget
-		QList<collections *> collectionsDb;
+		QList<collections *> m_collectionsDb;
 
-		bool documentChanged;
+		bool m_documentChanged;
 };
 
 
