@@ -20,27 +20,27 @@ for which a new license (GPL+exception) is in place.
 ColorWheel::ColorWheel(QWidget * parent, const char * name) : QLabel(parent)
 {
 	setObjectName(name);
-	pointList.clear();
+	m_pointList.clear();
 	currentDoc = NULL;
 	currentColorSpace = colorModelRGB;
 	baseAngle = 0;
-	angleShift = 270;
-	widthH = heightH = 150;
+	m_angleShift = 270;
+	m_widthH = m_heightH = 150;
 	// create color map
-	colorMap.clear();
+	m_colorMap.clear();
 	// fit the colorMap 1st value with matrix beginning
-	int mapIndex = angleShift;
+	int mapIndex = m_angleShift;
 	for (int i = 0; i < 360; ++i)
 	{
 		QColor c;
 		c.setHsv(i, 255, 255);
 		ScColor col;
 		col.fromQColor(c);
-		colorMap[mapIndex++] = col;
+		m_colorMap[mapIndex++] = col;
 		if (mapIndex > 359)
 			mapIndex = 0;
 	}
-	actualColor = colorMap[0];
+	actualColor = m_colorMap[0];
 	trBaseColor = tr("Base Color");
 }
 
@@ -57,7 +57,7 @@ void ColorWheel::mouseMoveEvent(QMouseEvent *e)
 void ColorWheel::mouseReleaseEvent(QMouseEvent *e)
 {
 	baseAngle = valueFromPoint(e->pos());
-	actualColor = colorMap[baseAngle];
+	actualColor = m_colorMap[baseAngle];
 	actualColor = ScColorEngine::convertToModel(actualColor, currentDoc, currentColorSpace);
 	emit clicked(e->button(), e->pos());
 	update();
@@ -72,7 +72,7 @@ void ColorWheel::paintEvent(QPaintEvent *)
 	for (int i = 0; i < 360; ++i)
 		drawBorderPoint(i, false, true);
 	QList<PaintPoint>::const_iterator it;
-	for (it = pointList.constBegin(); it != pointList.constEnd(); ++it)
+	for (it = m_pointList.constBegin(); it != m_pointList.constEnd(); ++it)
 		drawBorderPoint((*it).angle, (*it).base);
 }
 
@@ -98,7 +98,7 @@ void ColorWheel::paintCenterSample()
 	p.begin(this);
 	p.setPen(QPen(Qt::black, 2));
 	p.setBrush(ScColorEngine::getDisplayColor(actualColor, currentDoc ));
-	p.drawEllipse(widthH - 20, heightH - 20, 40, 40);
+	p.drawEllipse(m_widthH - 20, m_heightH - 20, 40, 40);
 	p.end();
 }
 
@@ -116,12 +116,12 @@ void ColorWheel::paintWheel()
 	p.setPen(Qt::black);
 	p.drawRect(0, 0, width, height);
 	// Half sizes
-	heightH = height / 2;
-	widthH = width / 2;
+	m_heightH = height / 2;
+	m_widthH = width / 2;
 	for (int i = 0; i < 360; ++i)
 	{
 		QTransform matrix;
-		matrix.translate(widthH, heightH);
+		matrix.translate(m_widthH, m_heightH);
 		matrix.rotate((float)i);
 		p.setWorldTransform(matrix);
 		QColor c;
@@ -152,7 +152,7 @@ ScColor ColorWheel::colorByAngle(int angle)
 		angle -= 359;
 	while (angle < 0)
 		angle += 359;
-	return colorSpaceColor(colorMap[angle]);
+	return colorSpaceColor(m_colorMap[angle]);
 }
 
 ScColor ColorWheel::sampleByAngle(int angle)
@@ -165,8 +165,8 @@ ScColor ColorWheel::sampleByAngle(int angle)
 	PaintPoint p;
 	p.angle = angle;
 	p.base = false;
-	pointList.append(p);
-	return colorSpaceColor(colorMap[angle]);
+	m_pointList.append(p);
+	return colorSpaceColor(m_colorMap[angle]);
 }
 
 ScColor ColorWheel::colorSpaceColor(ScColor col)
@@ -185,12 +185,12 @@ ScColor ColorWheel::colorSpaceColor(ScColor col)
 void ColorWheel::baseColor()
 {
 	//clearBorder();
-	pointList.clear();
+	m_pointList.clear();
 	//drawBorderPoint(baseAngle, true);
 	PaintPoint p;
 	p.angle = baseAngle;
 	p.base = true;
-	pointList.append(p);
+	m_pointList.append(p);
 	//paintCenterSample();
 	colorList.clear();
 	colorList[trBaseColor] = colorSpaceColor(actualColor);
@@ -261,10 +261,10 @@ void ColorWheel::makeTetradic()
 void ColorWheel::drawBorderPoint(int angle, bool base, bool clear)
 {
 	double r = 137.0;
-	angle -= angleShift;
+	angle -= m_angleShift;
 	double radang = M_PI * (double)angle/180.0;
-	int x = (int)(r * cos(radang)) + widthH;
-	int y = (int)(r * sin(radang)) + heightH;
+	int x = (int)(r * cos(radang)) + m_widthH;
+	int y = (int)(r * sin(radang)) + m_heightH;
 	// draw border mark
 	QPainter p;
 	p.begin(this);
@@ -287,8 +287,8 @@ void ColorWheel::drawBorderPoint(int angle, bool base, bool clear)
 
 int ColorWheel::valueFromPoint(const QPoint & p) const
 {
-	double yy = (double)heightH - (double)p.y();
-	double xx = (double)p.x() - (double)widthH;
+	double yy = (double)m_heightH - (double)p.y();
+	double xx = (double)p.x() - (double)m_widthH;
 	double a = (xx || yy) ? atan2(yy, xx) : 0.0;
 
 	if ( a < M_PI/-2 )
@@ -311,13 +311,13 @@ bool ColorWheel::recomputeColor(ScColor col)
 	QColor act(ScColorEngine::getRGBColor(actualColor, currentDoc));
 
 	c.getHsv(&origh, &origs, &origv);
-	angle = origh + angleShift;
+	angle = origh + m_angleShift;
 	if (angle > 359)
 		angle -= 360;
-	if (colorMap.contains(angle))
+	if (m_colorMap.contains(angle))
 	{
 		int tmph, tmps, tmpv;
-		QColor col(ScColorEngine::getRGBColor(colorMap[angle], currentDoc));
+		QColor col(ScColorEngine::getRGBColor(m_colorMap[angle], currentDoc));
 		col.getHsv(&tmph, &tmps, &tmpv);
 		act.setHsv(tmph , origs, origv);
 		actualColor.fromQColor(act);

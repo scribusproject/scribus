@@ -102,17 +102,17 @@ class ColorWheel : public QLabel
 		/*! \brief Internal color mapping.
 		It provides angle-color dictionary.
 		*/
-		ColorMap colorMap;
+		ColorMap m_colorMap;
 
 		/** \brief Angle diff between colorMap and painted wheel itself.
 		QTransform wheel and colorMap have different start points.
 		It's taken from Qt. */
-		int angleShift;
+		int m_angleShift;
 
 		/*! \brief Half of the widget sizes.
 		To prevent all width()/2 divisions. */
-		int widthH;
-		int heightH;
+		int m_widthH;
+		int m_heightH;
 
 		/** \brief An event for mouse actions handling.
 		See \see clicked() for more info.
@@ -204,7 +204,7 @@ class ColorWheel : public QLabel
 			int angle;
 			bool base;
 		} PaintPoint;
-		QList<PaintPoint> pointList;
+		QList<PaintPoint> m_pointList;
 };
 
 #endif
