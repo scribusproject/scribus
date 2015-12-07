@@ -19,7 +19,7 @@ for which a new license (GPL+exception) is in place.
 #include "fonts/scfontmetrics.h"
 
 // static:
-FT_Library FtFace::library = NULL;
+FT_Library FtFace::m_library = NULL;
 
 /*****
    ScFace lifecycle:  unchecked -> loaded -> glyphs checked
@@ -50,8 +50,8 @@ FtFace::FtFace(QString fam, QString sty, QString vari, QString scname,
 	psName = psname;
 	fontFile = path;
 	faceIndex = face;
-	if (!library) {
-		if (FT_Init_FreeType( &library ))
+	if (!m_library) {
+		if (FT_Init_FreeType( &m_library ))
 			sDebug(QObject::tr("Freetype2 library not available"));
 	}
 }
@@ -64,7 +64,7 @@ FtFace::~FtFace() {
 
 FT_Face FtFace::ftFace() const {
 	if (!m_face) {
-		if (FT_New_Face( library, QFile::encodeName(fontFile), faceIndex, & m_face )) {
+		if (FT_New_Face( m_library, QFile::encodeName(fontFile), faceIndex, & m_face )) {
 			status = ScFace::BROKEN;
 			m_face = NULL;
 			sDebug(QObject::tr("Font %1(%2) is broken").arg(fontFile).arg(faceIndex));
@@ -81,7 +81,7 @@ void FtFace::load() const
 	ScFaceData::load();
 
 	if (!m_face) {
-		if (FT_New_Face( library, QFile::encodeName(fontFile), faceIndex, & m_face )) {
+		if (FT_New_Face( m_library, QFile::encodeName(fontFile), faceIndex, & m_face )) {
 			status = ScFace::BROKEN;
 			m_face = NULL;
 			sDebug(QObject::tr("Font %1(%2) is broken").arg(fontFile).arg(faceIndex));
