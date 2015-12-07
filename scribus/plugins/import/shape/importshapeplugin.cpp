@@ -40,7 +40,7 @@ void importshape_freePlugin(ScPlugin* plugin)
 }
 
 ImportShapePlugin::ImportShapePlugin() : LoadSavePlugin(),
-	importAction(new ScrAction(ScrAction::DLL, QPixmap(), QPixmap(), "", QKeySequence(), this))
+	m_importAction(new ScrAction(ScrAction::DLL, QPixmap(), QPixmap(), "", QKeySequence(), this))
 {
 	// Set action info in languageChange, so we only have to do it in one
 	// place. This includes registering file format support.
@@ -50,7 +50,7 @@ ImportShapePlugin::ImportShapePlugin() : LoadSavePlugin(),
 
 void ImportShapePlugin::languageChange()
 {
-	importAction->setText( tr("Import Dia Shapes..."));
+	m_importAction->setText( tr("Import Dia Shapes..."));
 	FileFormat* fmt = getFormatByExt("shape");
 	fmt->trName = tr("Dia Shapes");
 	fmt->filter = tr("Dia Shapes (*.shape *.SHAPE)");
