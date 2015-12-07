@@ -42,16 +42,16 @@ extern "C"
 
 ScImgDataLoader_PS::ScImgDataLoader_PS(void) : ScImgDataLoader()
 {
-	doThumbnail = false;
-	hasThumbnail = false;
+	m_doThumbnail = false;
+	m_hasThumbnail = false;
 
 	initSupportedFormatList();
 }
 
 void ScImgDataLoader_PS::initialize(void)
 {
-	doThumbnail = false;
-	hasThumbnail = false;
+	m_doThumbnail = false;
+	m_hasThumbnail = false;
 
 	ScImgDataLoader::initialize();
 }
@@ -130,7 +130,7 @@ void ScImgDataLoader_PS::scanForFonts(QString fn)
 				ScTextStream ts2(&tmp, QIODevice::ReadOnly);
 				QString tmp2;
 				ts2 >> tmp2;
-				FontListe.removeAll(tmp2);
+				m_FontListe.removeAll(tmp2);
 			}
 		}
 	}
@@ -143,18 +143,18 @@ bool ScImgDataLoader_PS::parseData(QString fn)
 	ScColor cc;
 	double x, y, b, h, c, m, k;
 	bool found = false;
-	isDCS1 = false;
-	isDCS2 = false;
-	isDCS2multi = false;
-	isPhotoshop = false;
-	hasPhotoshopImageData = false;
-	hasThumbnail = false;
-	inTrailer = false;
-	BBoxInTrailer = false;
-	isRotated = false;
+	m_isDCS1 = false;
+	m_isDCS2 = false;
+	m_isDCS2multi = false;
+	m_isPhotoshop = false;
+	m_hasPhotoshopImageData = false;
+	m_hasThumbnail = false;
+	m_inTrailer = false;
+	m_BBoxInTrailer = false;
+	m_isRotated = false;
 	int plateCount = 0;
 	uint startPos = 0;
-	FontListe.clear();
+	m_FontListe.clear();
 	QFile f(fn);
 	if (f.open(QIODevice::ReadOnly))
 	{
@@ -163,7 +163,7 @@ bool ScImgDataLoader_PS::parseData(QString fn)
 		if (getDouble(tempBuf.mid(0, 4), true) == 0xC5D0D3C6)
 		{
 			startPos = getDouble(tempBuf.mid(4, 4), false);
-			if (doThumbnail)
+			if (m_doThumbnail)
 			{
 				f.seek(0);
 				QByteArray tmp2buf(29, ' ');
@@ -199,7 +199,7 @@ bool ScImgDataLoader_PS::parseData(QString fn)
 						m_imageInfoRecord.exifInfo.thumbnail = thum.qImage().copy();
 					}
 					QFile::remove(tmpFile);
-					hasThumbnail = true;
+					m_hasThumbnail = true;
 				}
 			}
 		}
@@ -211,7 +211,7 @@ bool ScImgDataLoader_PS::parseData(QString fn)
 		{
 			tmp = readLinefromDataStream(ts);
 			if (tmp.startsWith("%%Creator: "))
-				Creator = tmp.remove("%%Creator: ");
+				m_Creator = tmp.remove("%%Creator: ");
 			if (tmp.startsWith("%%Pages: "))
 			{
 				tmp = tmp.remove("%%Pages: ");
@@ -221,48 +221,48 @@ bool ScImgDataLoader_PS::parseData(QString fn)
 					m_imageInfoRecord.numberOfPages = pages; 
 			}
 			if (tmp.startsWith("%%Trailer"))
-				inTrailer = true;
+				m_inTrailer = true;
 			if (tmp.startsWith("%%BoundingBox:"))
 			{
 				found = true;
-				if (inTrailer)
-					BBoxInTrailer = true;
-				BBox = tmp.remove("%%BoundingBox:");
+				if (m_inTrailer)
+					m_BBoxInTrailer = true;
+				m_BBox = tmp.remove("%%BoundingBox:");
 			}
 			if (!found)
 			{
 				if (tmp.startsWith("%%BoundingBox"))
 				{
 					found = true;
-					if (inTrailer)
-						BBoxInTrailer = true;
-					BBox = tmp.remove("%%BoundingBox");
+					if (m_inTrailer)
+						m_BBoxInTrailer = true;
+					m_BBox = tmp.remove("%%BoundingBox");
 				}
 			}
 			if (tmp.startsWith("%%Orientation:"))
 			{
 				if (tmp.contains("Landscape"))
-					isRotated = true;
+					m_isRotated = true;
 			}
 			if (tmp.startsWith("%%CyanPlate:"))
 			{
-				colorPlates.insert("Cyan", tmp.remove("%%CyanPlate: "));
-				isDCS1 = true;
+				m_colorPlates.insert("Cyan", tmp.remove("%%CyanPlate: "));
+				m_isDCS1 = true;
 			}
 			if (tmp.startsWith("%%MagentaPlate:"))
 			{
-				colorPlates.insert("Magenta", tmp.remove("%%MagentaPlate: "));
-				isDCS1 = true;
+				m_colorPlates.insert("Magenta", tmp.remove("%%MagentaPlate: "));
+				m_isDCS1 = true;
 			}
 			if (tmp.startsWith("%%YellowPlate:"))
 			{
-				colorPlates.insert("Yellow", tmp.remove("%%YellowPlate: "));
-				isDCS1 = true;
+				m_colorPlates.insert("Yellow", tmp.remove("%%YellowPlate: "));
+				m_isDCS1 = true;
 			}
 			if (tmp.startsWith("%%BlackPlate:"))
 			{
-				colorPlates.insert("Black", tmp.remove("%%BlackPlate: "));
-				isDCS1 = true;
+				m_colorPlates.insert("Black", tmp.remove("%%BlackPlate: "));
+				m_isDCS1 = true;
 			}
 			if (tmp.startsWith("%%PlateFile: ("))
 			{
@@ -281,22 +281,22 @@ bool ScImgDataLoader_PS::parseData(QString fn)
 						uint pos = posStr.toUInt();
 						uint len = lenStr.toUInt();
 						struct plateOffsets offs;
-						if (Creator.contains("Photoshop Version 9"))	// This is very strange, it seems that there is a bug in PS 9 which writes weired entries
+						if (m_Creator.contains("Photoshop Version 9"))	// This is very strange, it seems that there is a bug in PS 9 which writes weired entries
 						{
 							pos -= (191 + plateCount * 83);
 							len -= 83;
 						}
 						offs.pos = pos;
 						offs.len = len;
-						colorPlates2.insert(plateNam, offs);
-						isDCS2 = true;
+						m_colorPlates2.insert(plateNam, offs);
+						m_isDCS2 = true;
 						plateCount++;
 					}
 					else
 					{
-						colorPlates.insert(plateNam, lenStr);
-						isDCS2 = true;
-						isDCS2multi = true;
+						m_colorPlates.insert(plateNam, lenStr);
+						m_isDCS2 = true;
+						m_isDCS2multi = true;
 					}
 				}
 			}
@@ -309,7 +309,7 @@ bool ScImgDataLoader_PS::parseData(QString fn)
 				if (!tmp2.contains("(atend)"))
 				{
 					if (!tmp2.isEmpty())
-						FontListe.append(tmp2);
+						m_FontListe.append(tmp2);
 					while (!ts.atEnd())
 					{
 						uint oldPos = ts.device()->pos();
@@ -324,7 +324,7 @@ bool ScImgDataLoader_PS::parseData(QString fn)
 						QString tmp2;
 						ts2 >> tmp2;
 						if (!tmp2.isEmpty())
-							FontListe.append(tmp2);
+							m_FontListe.append(tmp2);
 					}
 				}
 				else
@@ -341,7 +341,7 @@ bool ScImgDataLoader_PS::parseData(QString fn)
 				FarNam = FarNam.remove(FarNam.length()-1,1);
 				cc = ScColor(static_cast<int>(255 * c), static_cast<int>(255 * m), static_cast<int>(255 * y), static_cast<int>(255 * k));
 				cc.setSpotColor(true);
-				CustColors.insert(FarNam, cc);
+				m_CustColors.insert(FarNam, cc);
 				while (!ts.atEnd())
 				{
 					uint oldPos = ts.device()->pos();
@@ -360,7 +360,7 @@ bool ScImgDataLoader_PS::parseData(QString fn)
 					FarNam = FarNam.remove(FarNam.length()-1,1);
 					cc = ScColor(static_cast<int>(255 * c), static_cast<int>(255 * m), static_cast<int>(255 * y), static_cast<int>(255 * k));
 					cc.setSpotColor(true);
-					CustColors.insert(FarNam, cc);
+					m_CustColors.insert(FarNam, cc);
 				}
 			}
 			if (tmp.startsWith("%%EndComments"))
@@ -375,12 +375,12 @@ bool ScImgDataLoader_PS::parseData(QString fn)
 					}
 					if (tmp.startsWith("%ImageData: "))
 					{
-						hasPhotoshopImageData = true;
+						m_hasPhotoshopImageData = true;
 						tmp.remove("%ImageData: ");
 						ScTextStream ts2(&tmp, QIODevice::ReadOnly);
-						ts2 >> psXSize >> psYSize >> psDepth >> psMode >> psChannel >> psBlock >> psDataType >> psCommand;
-						psCommand = psCommand.remove(0,1);
-						psCommand = psCommand.remove(psCommand.length()-1,1);
+						ts2 >> m_psXSize >> m_psYSize >> m_psDepth >> m_psMode >> m_psChannel >> m_psBlock >> m_psDataType >> m_psCommand;
+						m_psCommand = m_psCommand.remove(0,1);
+						m_psCommand = m_psCommand.remove(m_psCommand.length()-1,1);
 					}
 					if (tmp.startsWith("%BeginPhotoshop"))
 					{
@@ -393,7 +393,7 @@ bool ScImgDataLoader_PS::parseData(QString fn)
 								QDataStream strPhot( &psdata, QIODevice::ReadOnly);
 								strPhot.setByteOrder( QDataStream::BigEndian );
 								PSDHeader fakeHeader;
-								ScTextStream ts2(&BBox, QIODevice::ReadOnly);
+								ScTextStream ts2(&m_BBox, QIODevice::ReadOnly);
 								ts2 >> x >> y >> b >> h;
 								fakeHeader.width = qRound(b);
 								fakeHeader.height = qRound(h);
@@ -409,7 +409,7 @@ bool ScImgDataLoader_PS::parseData(QString fn)
 										it.value().map(mm);
 									}
 								}
-								isPhotoshop = true;
+								m_isPhotoshop = true;
 								break;
 							}
 							for (int a = 2; a < tmp.length(); a += 2)
@@ -420,7 +420,7 @@ bool ScImgDataLoader_PS::parseData(QString fn)
 								psdata[psdata.size()-1] = data;
 							}
 						}
-						if ((doThumbnail) && ((hasThumbnail) || (!m_imageInfoRecord.exifInfo.thumbnail.isNull())))
+						if ((m_doThumbnail) && ((m_hasThumbnail) || (!m_imageInfoRecord.exifInfo.thumbnail.isNull())))
 							return true;
 					}
 					if (tmp.startsWith("%%BeginICCProfile:"))
@@ -490,28 +490,28 @@ bool ScImgDataLoader_PS::loadPicture(const QString& fn, int page, int gsRes, boo
 	m_imageInfoRecord.type = ImageTypeEPS;
 	m_imageInfoRecord.exifDataValid = false;
 	m_imageInfoRecord.numberOfPages = 1; // will be overwritten by parse()
-	doThumbnail = thumbnail;
-	colorPlates2.clear();
-	colorPlates.clear();
-	CustColors.clear();
-	CustColors.insert("Cyan", ScColor(255, 0, 0, 0));
-	CustColors.insert("Magenta", ScColor(0, 255, 0, 0));
-	CustColors.insert("Yellow", ScColor(0, 0, 255, 0));
-	CustColors.insert("Black", ScColor(0, 0, 0, 255));
+	m_doThumbnail = thumbnail;
+	m_colorPlates2.clear();
+	m_colorPlates.clear();
+	m_CustColors.clear();
+	m_CustColors.insert("Cyan", ScColor(255, 0, 0, 0));
+	m_CustColors.insert("Magenta", ScColor(0, 255, 0, 0));
+	m_CustColors.insert("Yellow", ScColor(0, 0, 255, 0));
+	m_CustColors.insert("Black", ScColor(0, 0, 0, 255));
 	found = parseData(fn);
-	if (FontListe.count() != 0)
+	if (m_FontListe.count() != 0)
 	{
 		scanForFonts(fn);
-		if (FontListe.count() != 0)
+		if (m_FontListe.count() != 0)
 		{
 			bool missing = false;
 			QString missingF = "";
-			for (int fo = 0; fo < FontListe.count(); fo++)
+			for (int fo = 0; fo < m_FontListe.count(); fo++)
 			{
-				if (!PrefsManager::instance()->appPrefs.fontPrefs.AvailFonts.contains(FontListe[fo]))
+				if (!PrefsManager::instance()->appPrefs.fontPrefs.AvailFonts.contains(m_FontListe[fo]))
 				{
 					missing = true;
-					missingF += FontListe[fo]+"\n";
+					missingF += m_FontListe[fo]+"\n";
 				}
 			}
 			if (missing)
@@ -523,17 +523,17 @@ bool ScImgDataLoader_PS::loadPicture(const QString& fn, int page, int gsRes, boo
 	}
 	if ((thumbnail) && (m_imageInfoRecord.exifDataValid) && (!m_imageInfoRecord.exifInfo.thumbnail.isNull()))
 	{
-		ScTextStream ts2(&BBox, QIODevice::ReadOnly);
+		ScTextStream ts2(&m_BBox, QIODevice::ReadOnly);
 		ts2 >> x >> y >> b >> h;
 		m_imageInfoRecord.exifInfo.width = qRound(b);
 		m_imageInfoRecord.exifInfo.height = qRound(h);
 		m_image = m_imageInfoRecord.exifInfo.thumbnail;
-		if ((isPhotoshop) && (hasPhotoshopImageData))
+		if ((m_isPhotoshop) && (m_hasPhotoshopImageData))
 		{
-			m_imageInfoRecord.exifInfo.width = psXSize;
-			m_imageInfoRecord.exifInfo.height = psYSize;
+			m_imageInfoRecord.exifInfo.width = m_psXSize;
+			m_imageInfoRecord.exifInfo.height = m_psYSize;
 			m_imageInfoRecord.type = ImageType7;
-			if (psMode == 4)
+			if (m_psMode == 4)
 			{
 				m_imageInfoRecord.colorspace = ColorSpaceCMYK;
 				QRgb *s;
@@ -563,22 +563,22 @@ bool ScImgDataLoader_PS::loadPicture(const QString& fn, int page, int gsRes, boo
 	}
 	if (found)
 	{
-		if (isDCS1)
+		if (m_isDCS1)
 			loadDCS1(fn, gsRes);
-		else if (isDCS2)
+		else if (m_isDCS2)
 			loadDCS2(fn, gsRes);
-		else if ((isPhotoshop) && (hasPhotoshopImageData))
+		else if ((m_isPhotoshop) && (m_hasPhotoshopImageData))
 			loadPhotoshop(fn, gsRes);
 		else if ((!m_imageInfoRecord.isEmbedded) || ((m_imageInfoRecord.isEmbedded) && (m_profileComponents == 3)))
 		{
-			ScTextStream ts2(&BBox, QIODevice::ReadOnly);
+			ScTextStream ts2(&m_BBox, QIODevice::ReadOnly);
 			ts2 >> x >> y >> b >> h;
 			QStringList args;
 			xres = gsRes;
 			yres = gsRes;
 			if (extensionIndicatesEPS(ext))
 			{
-				if (!BBoxInTrailer)
+				if (!m_BBoxInTrailer)
 					args.append("-dEPSCrop");
 			}
 			args.append("-r"+QString::number(gsRes));
@@ -589,7 +589,7 @@ bool ScImgDataLoader_PS::loadPicture(const QString& fn, int page, int gsRes, boo
 			if (retg == 0)
 			{
 				m_image.load(tmpFile);
-				if ((extensionIndicatesEPS(ext) && BBoxInTrailer) || (isRotated))
+				if ((extensionIndicatesEPS(ext) && m_BBoxInTrailer) || (m_isRotated))
 				{
 					int ex = qRound(x * gsRes / 72.0);
 					int ey = qRound(m_image.height() - h);
@@ -597,7 +597,7 @@ bool ScImgDataLoader_PS::loadPicture(const QString& fn, int page, int gsRes, boo
 					int eh = qRound(h - y * gsRes / 72.0);
 					m_image = m_image.copy(ex, ey, ew, eh);
 				}
-				if ((!ScCore->havePNGAlpha()) || (isRotated))
+				if ((!ScCore->havePNGAlpha()) || (m_isRotated))
 				{
 					int wi = m_image.width();
 					int hi = m_image.height();
@@ -643,7 +643,7 @@ bool ScImgDataLoader_PS::loadPicture(const QString& fn, int page, int gsRes, boo
 		}
 		else
 		{
-			ScTextStream ts2(&BBox, QIODevice::ReadOnly);
+			ScTextStream ts2(&m_BBox, QIODevice::ReadOnly);
 			ts2 >> x >> y >> b >> h;
 			h = h * gsRes / 72.0;
 			QStringList args;
@@ -732,7 +732,7 @@ bool ScImgDataLoader_PS::loadPicture(const QString& fn, int page, int gsRes, boo
 
 void ScImgDataLoader_PS::loadPhotoshop(QString fn, int gsRes)
 {
-	if ((psDataType >= 1) && (psDataType <= 6) && ((psMode == 3) || (psMode == 4)))
+	if ((m_psDataType >= 1) && (m_psDataType <= 6) && ((m_psMode == 3) || (m_psMode == 4)))
 	{
 		loadPhotoshopBinary(fn);
 		return;
@@ -746,25 +746,25 @@ void ScImgDataLoader_PS::loadPhotoshop(QString fn, int gsRes)
 	int GsMajor;
 	int GsMinor;
 	getNumericGSVersion(GsMajor, GsMinor);
-	ScTextStream ts2(&BBox, QIODevice::ReadOnly);
+	ScTextStream ts2(&m_BBox, QIODevice::ReadOnly);
 	ts2 >> x >> y >> b >> h;
 	h = h * gsRes / 72.0;
 	if (extensionIndicatesEPS(ext))
 		args.append("-dEPSCrop");
-	if (psMode == 4)
+	if (m_psMode == 4)
 		args.append("-dGrayValues=256");
 	if ((GsMajor >= 8) && (GsMinor >= 53))
 		args.append("-dNOPSICC");		// prevent GS from applying an embedded ICC profile as it will be applied later on in ScImage.
 	args.append("-r"+QString::number(gsRes));
 	args.append("-sOutputFile=" + tmpFile);
 	args.append(QDir::toNativeSeparators(fn));
-	if (psMode == 4)
+	if (m_psMode == 4)
 		retg = callGS(args, "bitcmyk");
 	else
 		retg = callGS(args);
 	if (retg == 0)
 	{
-		if (psMode == 4)
+		if (m_psMode == 4)
 		{
 			m_image = QImage( qRound(b * gsRes / 72.0), qRound(h * gsRes / 72.0), QImage::Format_ARGB32 );
 			m_image.fill(qRgba(0, 0, 0, 0));
@@ -1158,23 +1158,23 @@ bool ScImgDataLoader_PS::loadPSjpeg(QString fn, QImage &tmpImg)
 void ScImgDataLoader_PS::loadPhotoshopBinary(QString fn)
 {
 	double x, y, b, h;
-	ScTextStream ts2(&BBox, QIODevice::ReadOnly);
+	ScTextStream ts2(&m_BBox, QIODevice::ReadOnly);
 	ts2 >> x >> y >> b >> h;
 	QFileInfo fi = QFileInfo(fn);
 	QString ext = fi.suffix().toLower();
 	QString tmpFile = QDir::toNativeSeparators(ScPaths::getTempFileDir() + "sc1.jpg");
 	QFile f2(tmpFile);
 	QString tmp;
-	m_image = QImage(psXSize, psYSize, QImage::Format_ARGB32);
+	m_image = QImage(m_psXSize, m_psYSize, QImage::Format_ARGB32);
 	m_image.fill(qRgba(0, 0, 0, 0));
-	m_imageInfoRecord.xres = qRound(psXSize / b * 72.0);
-	m_imageInfoRecord.yres = qRound(psYSize / h * 72.0);
+	m_imageInfoRecord.xres = qRound(m_psXSize / b * 72.0);
+	m_imageInfoRecord.yres = qRound(m_psYSize / h * 72.0);
 	QByteArray psdata;
 	QFile f(fn);
 	int yCount = 0;
 	if (f.open(QIODevice::ReadOnly))
 	{
-		if (psDataType > 2)
+		if (m_psDataType > 2)
 		{
 			f2.open(QIODevice::WriteOnly);
 		}
@@ -1182,27 +1182,27 @@ void ScImgDataLoader_PS::loadPhotoshopBinary(QString fn)
 		while (!ts.atEnd())
 		{
 			tmp = readLinefromDataStream(ts);
-			if (tmp == psCommand)
+			if (tmp == m_psCommand)
 			{
-				if (psDataType == 1)
+				if (m_psDataType == 1)
 				{
 					QRgb *p;
 					uchar cc, cm, cy, ck;
 					for (int yh = 0; yh < m_image.height(); ++yh )
 					{
-						if (psMode == 4)
-							psdata.resize(psXSize * (4 + psChannel));
+						if (m_psMode == 4)
+							psdata.resize(m_psXSize * (4 + m_psChannel));
 						else
-							psdata.resize(psXSize * (3 + psChannel));
+							psdata.resize(m_psXSize * (3 + m_psChannel));
 						f.read(psdata.data(), psdata.size());
 						p = (QRgb *)m_image.scanLine( yh );
 						for (int xh = 0; xh < m_image.width(); ++xh )
 						{
 							cc = psdata[xh];
-							cm = psdata[psXSize+xh];
-							cy = psdata[psXSize*2+xh];
-							ck = psdata[psXSize*3+xh];
-							if (psMode == 4)
+							cm = psdata[m_psXSize+xh];
+							cy = psdata[m_psXSize*2+xh];
+							ck = psdata[m_psXSize*3+xh];
+							if (m_psMode == 4)
 								*p = qRgba(cc, cm, cy, ck);
 							else
 								*p = qRgba(cc, cm, cy, 255);
@@ -1210,14 +1210,14 @@ void ScImgDataLoader_PS::loadPhotoshopBinary(QString fn)
 						}
 					}
 				}
-				else if (psDataType > 1)
+				else if (m_psDataType > 1)
 				{
 					while (!ts.atEnd())
 					{
 						tmp = readLinefromDataStream(ts);
 						if ((tmp.isEmpty()) || (tmp.startsWith("%%EndBinary")))
 							break;
-						if (psDataType == 2)
+						if (m_psDataType == 2)
 						{
 							for (int a = 0; a < tmp.length(); a += 2)
 							{
@@ -1234,7 +1234,7 @@ void ScImgDataLoader_PS::loadPhotoshopBinary(QString fn)
 							psdata.resize(0);
 						}
 					}
-					if (psDataType > 2)
+					if (m_psDataType > 2)
 					{
 						f2.close();
 						loadPSjpeg(tmpFile);
@@ -1250,25 +1250,25 @@ void ScImgDataLoader_PS::loadPhotoshopBinary(QString fn)
 							for (int xh = 0; xh < m_image.width(); ++xh )
 							{
 								cc = psdata[yCount+xh];
-								cm = psdata[yCount+psXSize+xh];
-								cy = psdata[yCount+psXSize*2+xh];
-								if (psMode == 4)
+								cm = psdata[yCount+m_psXSize+xh];
+								cy = psdata[yCount+m_psXSize*2+xh];
+								if (m_psMode == 4)
 								{
-									ck = psdata[yCount+psXSize*3+xh];
+									ck = psdata[yCount+m_psXSize*3+xh];
 									*p = qRgba(cc, cm, cy, ck);
 								}
 								else
 									*p = qRgba(cc, cm, cy, 255);
 								p++;
 							}
-							if (psMode == 4)
-								yCount += psXSize * (4 + psChannel);
+							if (m_psMode == 4)
+								yCount += m_psXSize * (4 + m_psChannel);
 							else
-								yCount += psXSize * (3 + psChannel);
+								yCount += m_psXSize * (3 + m_psChannel);
 						}
 					}
 				}
-				if (psMode == 4)
+				if (m_psMode == 4)
 				{
 					m_imageInfoRecord.colorspace = ColorSpaceCMYK;
 					m_pixelFormat = Format_YMCK_8;
@@ -1294,21 +1294,21 @@ void ScImgDataLoader_PS::loadPhotoshopBinary(QString fn)
 void ScImgDataLoader_PS::loadPhotoshopBinary(QString fn, QImage &tmpImg)
 {
 	double x, y, b, h;
-	ScTextStream ts2(&BBox, QIODevice::ReadOnly);
+	ScTextStream ts2(&m_BBox, QIODevice::ReadOnly);
 	ts2 >> x >> y >> b >> h;
 	QFileInfo fi = QFileInfo(fn);
 	QString ext = fi.suffix().toLower();
 	QString tmpFile = QDir::toNativeSeparators(ScPaths::getTempFileDir() + "sc1.jpg");
 	QFile f2(tmpFile);
 	QString tmp;
-	tmpImg = QImage(psXSize, psYSize, QImage::Format_ARGB32);
+	tmpImg = QImage(m_psXSize, m_psYSize, QImage::Format_ARGB32);
 	tmpImg.fill(qRgba(0, 0, 0, 0));
 	QByteArray psdata;
 	QFile f(fn);
 	int yCount = 0;
 	if (f.open(QIODevice::ReadOnly))
 	{
-		if (psDataType > 2)
+		if (m_psDataType > 2)
 		{
 			f2.open(QIODevice::WriteOnly);
 		}
@@ -1316,28 +1316,28 @@ void ScImgDataLoader_PS::loadPhotoshopBinary(QString fn, QImage &tmpImg)
 		while (!ts.atEnd())
 		{
 			tmp = readLinefromDataStream(ts);
-			if (tmp == psCommand)
+			if (tmp == m_psCommand)
 			{
-				if (psDataType == 1)
+				if (m_psDataType == 1)
 				{
 					QRgb *p;
 					uchar cc, cm, cy, ck;
 					for (int yh = 0; yh < tmpImg.height(); ++yh )
 					{
-						if (psMode == 4)
-							psdata.resize(psXSize * (4 + psChannel));
+						if (m_psMode == 4)
+							psdata.resize(m_psXSize * (4 + m_psChannel));
 						else
-							psdata.resize(psXSize * (3 + psChannel));
+							psdata.resize(m_psXSize * (3 + m_psChannel));
 						f.read(psdata.data(), psdata.size());
 						p = (QRgb *)tmpImg.scanLine( yh );
 						for (int xh = 0; xh < tmpImg.width(); ++xh )
 						{
 							cc = psdata[xh];
-							cm = psdata[psXSize+xh];
-							cy = psdata[psXSize*2+xh];
-							if (psMode == 4)
+							cm = psdata[m_psXSize+xh];
+							cy = psdata[m_psXSize*2+xh];
+							if (m_psMode == 4)
 							{
-								ck = psdata[psXSize*3+xh];
+								ck = psdata[m_psXSize*3+xh];
 								*p = qRgba(cc, cm, cy, ck);
 							}
 							else
@@ -1346,14 +1346,14 @@ void ScImgDataLoader_PS::loadPhotoshopBinary(QString fn, QImage &tmpImg)
 						}
 					}
 				}
-				else if (psDataType > 1)
+				else if (m_psDataType > 1)
 				{
 					while (!ts.atEnd())
 					{
 						tmp = readLinefromDataStream(ts);
 						if ((tmp.isEmpty()) || (tmp.startsWith("%%EndBinary")))
 							break;
-						if (psDataType == 2)
+						if (m_psDataType == 2)
 						{
 							for (int a = 0; a < tmp.length(); a += 2)
 							{
@@ -1370,7 +1370,7 @@ void ScImgDataLoader_PS::loadPhotoshopBinary(QString fn, QImage &tmpImg)
 							psdata.resize(0);
 						}
 					}
-					if (psDataType > 2)
+					if (m_psDataType > 2)
 					{
 						f2.close();
 						loadPSjpeg(tmpFile, tmpImg);
@@ -1386,21 +1386,21 @@ void ScImgDataLoader_PS::loadPhotoshopBinary(QString fn, QImage &tmpImg)
 							for (int xh = 0; xh < tmpImg.width(); ++xh )
 							{
 								cc = psdata[yCount+xh];
-								cm = psdata[yCount+psXSize+xh];
-								cy = psdata[yCount+psXSize*2+xh];
-								if (psMode == 4)
+								cm = psdata[yCount+m_psXSize+xh];
+								cy = psdata[yCount+m_psXSize*2+xh];
+								if (m_psMode == 4)
 								{
-									ck = psdata[yCount+psXSize*3+xh];
+									ck = psdata[yCount+m_psXSize*3+xh];
 									*p = qRgba(cc, cm, cy, ck);
 								}
 								else
 									*p = qRgba(cc, cm, cy, 255);
 								p++;
 							}
-							if (psMode == 4)
-								yCount += psXSize * (4 + psChannel);
+							if (m_psMode == 4)
+								yCount += m_psXSize * (4 + m_psChannel);
 							else
-								yCount += psXSize * (3 + psChannel);
+								yCount += m_psXSize * (3 + m_psChannel);
 						}
 					}
 				}
@@ -1424,22 +1424,22 @@ void ScImgDataLoader_PS::loadDCS2(QString fn, int gsRes)
 	QString picFile = QDir::toNativeSeparators(fn);
 	float xres = gsRes;
 	float yres = gsRes;
-	ScTextStream ts2(&BBox, QIODevice::ReadOnly);
+	ScTextStream ts2(&m_BBox, QIODevice::ReadOnly);
 	ts2 >> x >> y >> b >> h;
 	xres = gsRes;
 	yres = gsRes;
-	if ((isPhotoshop) && (hasPhotoshopImageData))
+	if ((m_isPhotoshop) && (m_hasPhotoshopImageData))
 	{
-		m_image = QImage(psXSize, psYSize, QImage::Format_ARGB32);
-		xres = psXSize / b * 72.0;
-		yres = psYSize / h * 72.0;
+		m_image = QImage(m_psXSize, m_psYSize, QImage::Format_ARGB32);
+		xres = m_psXSize / b * 72.0;
+		yres = m_psYSize / h * 72.0;
 	}
 	else
 		m_image = QImage( qRound(b * gsRes / 72.0), qRound(h * gsRes / 72.0), QImage::Format_ARGB32 );
 	m_image.fill(qRgba(0, 0, 0, 0));
-	if (!isDCS2multi)
+	if (!m_isDCS2multi)
 	{
-		for (QMap<QString, plateOffsets>::Iterator it = colorPlates2.begin(); it != colorPlates2.end(); ++it)
+		for (QMap<QString, plateOffsets>::Iterator it = m_colorPlates2.begin(); it != m_colorPlates2.end(); ++it)
 		{
 			QByteArray imgc(it.value().len, ' ');
 			QFile f(picFile);
@@ -1454,11 +1454,11 @@ void ScImgDataLoader_PS::loadDCS2(QString fn, int gsRes)
 				f2.write(imgc.data(), it.value().len);
 			f2.close();
 			imgc.resize(0);
-			if ((isPhotoshop) && (hasPhotoshopImageData))
+			if ((m_isPhotoshop) && (m_hasPhotoshopImageData))
 			{
 				QImage tmpImg;
 				loadPhotoshopBinary(tmpFile2, tmpImg);
-				blendImages(tmpImg, CustColors[it.key()]);
+				blendImages(tmpImg, m_CustColors[it.key()]);
 			}
 			else
 			{
@@ -1471,7 +1471,7 @@ void ScImgDataLoader_PS::loadDCS2(QString fn, int gsRes)
 				{
 					QImage tmpImg;
 					tmpImg.load(tmpFile);
-					blendImages(tmpImg, CustColors[it.key()]);
+					blendImages(tmpImg, m_CustColors[it.key()]);
 					QFile::remove(tmpFile);
 				}
 			}
@@ -1480,14 +1480,14 @@ void ScImgDataLoader_PS::loadDCS2(QString fn, int gsRes)
 	}
 	else
 	{
-		for (QMap<QString, QString>::Iterator it = colorPlates.begin(); it != colorPlates.end(); ++it)
+		for (QMap<QString, QString>::Iterator it = m_colorPlates.begin(); it != m_colorPlates.end(); ++it)
 		{
 			tmpFile2 = QDir::toNativeSeparators(baseFile+"/"+it.value());
-			if ((isPhotoshop) && (hasPhotoshopImageData))
+			if ((m_isPhotoshop) && (m_hasPhotoshopImageData))
 			{
 				QImage tmpImg;
 				loadPhotoshopBinary(tmpFile2, tmpImg);
-				blendImages(tmpImg, CustColors[it.key()]);
+				blendImages(tmpImg, m_CustColors[it.key()]);
 			}
 			else
 			{
@@ -1500,7 +1500,7 @@ void ScImgDataLoader_PS::loadDCS2(QString fn, int gsRes)
 				{
 					QImage tmpImg;
 					tmpImg.load(tmpFile);
-					blendImages(tmpImg, CustColors[it.key()]);
+					blendImages(tmpImg, m_CustColors[it.key()]);
 					QFile::remove(tmpFile);
 				}
 				args.clear();
@@ -1537,7 +1537,7 @@ void ScImgDataLoader_PS::loadDCS1(QString fn, int gsRes)
 	QString picFile;
 	float xres = gsRes;
 	float yres = gsRes;
-	ScTextStream ts2(&BBox, QIODevice::ReadOnly);
+	ScTextStream ts2(&m_BBox, QIODevice::ReadOnly);
 	ts2 >> x >> y >> b >> h;
 	xres = gsRes;
 	yres = gsRes;
@@ -1548,7 +1548,7 @@ void ScImgDataLoader_PS::loadDCS1(QString fn, int gsRes)
 		args.append("-dEPSCrop");
 	args.append("-r"+QString::number(gsRes));
 	args.append("-sOutputFile="+tmpFile);
-	picFile = QDir::toNativeSeparators(baseFile+"/"+colorPlates["Cyan"]);
+	picFile = QDir::toNativeSeparators(baseFile+"/"+m_colorPlates["Cyan"]);
 	args.append(picFile);
 	int retg = callGS(args);
 	if (retg == 0)
@@ -1564,7 +1564,7 @@ void ScImgDataLoader_PS::loadDCS1(QString fn, int gsRes)
 		args.append("-dEPSCrop");
 	args.append("-r"+QString::number(gsRes));
 	args.append("-sOutputFile="+tmpFile);
-	picFile = QDir::toNativeSeparators(baseFile+"/"+colorPlates["Magenta"]);
+	picFile = QDir::toNativeSeparators(baseFile+"/"+m_colorPlates["Magenta"]);
 	args.append(picFile);
 	retg = callGS(args);
 	if (retg == 0)
@@ -1580,7 +1580,7 @@ void ScImgDataLoader_PS::loadDCS1(QString fn, int gsRes)
 		args.append("-dEPSCrop");
 	args.append("-r"+QString::number(gsRes));
 	args.append("-sOutputFile="+tmpFile);
-	picFile = QDir::toNativeSeparators(baseFile+"/"+colorPlates["Yellow"]);
+	picFile = QDir::toNativeSeparators(baseFile+"/"+m_colorPlates["Yellow"]);
 	args.append(picFile);
 	retg = callGS(args);
 	if (retg == 0)
@@ -1596,7 +1596,7 @@ void ScImgDataLoader_PS::loadDCS1(QString fn, int gsRes)
 		args.append("-dEPSCrop");
 	args.append("-r"+QString::number(gsRes));
 	args.append("-sOutputFile="+tmpFile);
-	picFile = QDir::toNativeSeparators(baseFile+"/"+colorPlates["Black"]);
+	picFile = QDir::toNativeSeparators(baseFile+"/"+m_colorPlates["Black"]);
 	args.append(picFile);
 	retg = callGS(args);
 	if (retg == 0)
@@ -1675,7 +1675,7 @@ bool ScImgDataLoader_PS::preloadAlphaChannel(const QString& fn, int page, int gs
 	found = parseData(fn);
 	if (found)
 	{
-		ScTextStream ts2(&BBox, QIODevice::ReadOnly);
+		ScTextStream ts2(&m_BBox, QIODevice::ReadOnly);
 		ts2 >> x >> y >> b >> h;
 		h = h * gsRes / 72.0;
 		QStringList args;
@@ -1683,7 +1683,7 @@ bool ScImgDataLoader_PS::preloadAlphaChannel(const QString& fn, int page, int gs
 		yres = gsRes;
 		if (extensionIndicatesEPS(ext))
 		{
-			if (!BBoxInTrailer)
+			if (!m_BBoxInTrailer)
 				args.append("-dEPSCrop");
 		}
 		args.append("-r"+QString::number(gsRes));
@@ -1694,7 +1694,7 @@ bool ScImgDataLoader_PS::preloadAlphaChannel(const QString& fn, int page, int gs
 		if (retg == 0)
 		{
 			m_image.load(tmpFile);
-			if ((extensionIndicatesEPS(ext) && BBoxInTrailer) || (isRotated))
+			if ((extensionIndicatesEPS(ext) && m_BBoxInTrailer) || (m_isRotated))
 			{
 				int ex = qRound(x * gsRes / 72.0);
 				int ey = qRound(m_image.height() - h);
@@ -1702,7 +1702,7 @@ bool ScImgDataLoader_PS::preloadAlphaChannel(const QString& fn, int page, int gs
 				int eh = qRound(h - y * gsRes / 72.0);
 				m_image = m_image.copy(ex, ey, ew, eh);
 			}
-			if ((!ScCore->havePNGAlpha()) || (isRotated))
+			if ((!ScCore->havePNGAlpha()) || (m_isRotated))
 			{
 				int wi = m_image.width();
 				int hi = m_image.height();
