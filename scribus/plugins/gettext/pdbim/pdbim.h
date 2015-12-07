@@ -127,15 +127,15 @@ private:
 	//! \brief Binary buffer for extraction tasks
 	buffer *m_buf;
 	//! \brief Store the extracted text here
-	QString data;
+	QString m_data;
 	//! \brief Name of the codec/encoding to recode
-	QString encoding;
+	QString m_encoding;
 	//! \brief Imp plugin handler
-	gtWriter *writer;
+	gtWriter *m_writer;
 	//! \brief A "bit order" flag. True on little endian systems.
 	bool m_littlendian;
 	//! \brief A "document uses that strange compress algorithm" flag.
-	bool bCompressed;
+	bool m_bCompressed;
 	
 	/*! \brief Parse the PDB file.
 	\param fname a filename to open */

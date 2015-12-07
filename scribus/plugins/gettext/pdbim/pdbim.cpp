@@ -61,8 +61,8 @@ PdbIm::PdbIm(const QString& fname, const QString& enc, gtWriter *w)
 	_zero_fill(m_buf->buf, BUFFER_SIZE);
 	m_buf->len = BUFFER_SIZE;
 	m_buf->position = 0;
-	writer = w;
-	encoding = enc;
+	m_writer = w;
+	m_encoding = enc;
 	selectSwap();
 	loadFile(fname);
 }
@@ -70,17 +70,17 @@ PdbIm::PdbIm(const QString& fname, const QString& enc, gtWriter *w)
 void PdbIm::write()
 {
 	QTextCodec *codec;
-	if (encoding.isEmpty())
+	if (m_encoding.isEmpty())
 		codec = QTextCodec::codecForLocale();
 	else
-		codec = QTextCodec::codecForName(encoding.toLocal8Bit());
-	data = codec->toUnicode(data.toLocal8Bit());
+		codec = QTextCodec::codecForName(m_encoding.toLocal8Bit());
+	m_data = codec->toUnicode(m_data.toLocal8Bit());
 	// Applying default style is of very limited use with 135svn style system
 	/*gtParagraphStyle *pstyle = new gtParagraphStyle(*(writer->getDefaultStyle()));
 	pstyle->setName(writer->getFrameName() + "-" + QObject::tr("PDB_data", "PDB Importer"));
 	writer->append(data, pstyle);
 	delete pstyle;*/
-	writer->appendUnstyled(data);
+	m_writer->appendUnstyled(m_data);
 }
 
 void PdbIm::loadFile(QString fname)
@@ -116,7 +116,7 @@ void PdbIm::loadFile(QString fname)
 	fread(&m_rec0, sizeof(m_rec0), 1, m_pdfp);
 
 	if (swap_Word( m_rec0.version ) == 2 )
-		bCompressed = true;
+		m_bCompressed = true;
 
 	fseek( m_pdfp, 0, SEEK_END );
 	file_size = ftell( m_pdfp );
@@ -139,7 +139,7 @@ void PdbIm::loadFile(QString fname)
 		_zero_fill (m_buf->buf, BUFFER_SIZE);
 		m_buf->position = fread( m_buf->buf, 1, next_offset - offset, m_pdfp );
 
-		if ( bCompressed )
+		if ( m_bCompressed )
 			uncompress( m_buf );
 
 		m_buf->position = 0;
@@ -150,7 +150,7 @@ void PdbIm::loadFile(QString fname)
 				++m_buf->position;
 				continue;
 			}
-			data += m_buf->buf[m_buf->position];
+			m_data += m_buf->buf[m_buf->position];
 			++m_buf->position;
 		} 
 	}
