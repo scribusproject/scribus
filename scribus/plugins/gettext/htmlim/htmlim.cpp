@@ -60,21 +60,21 @@ void GetText(QString filename, QString encoding, bool textOnly, gtWriter *writer
 
 HTMLIm::HTMLIm(QString fname, QString coding, gtWriter *w, bool textOnly)
 {
-	filename = fname;
-	encoding = coding;
-	writer = w;
-	gtFrameStyle *fstyle = writer->getDefaultStyle();
-	pstyle = new gtParagraphStyle(*fstyle);
-	pstyle->setName("HTML_default");
+	m_filename = fname;
+	m_encoding = coding;
+	m_writer = w;
+	gtFrameStyle *fstyle = m_writer->getDefaultStyle();
+	m_pstyle = new gtParagraphStyle(*fstyle);
+	m_pstyle->setName("HTML_default");
 // 	defaultFontSize = pstyle->getFont()->getSize();
 	importText(textOnly);
-	delete pstyle;
+	delete m_pstyle;
 }
 
 void HTMLIm::importText(bool textOnly)
 {
-	HTMLReader* handler = new HTMLReader(pstyle, writer, textOnly);
-	handler->parse(filename);
+	HTMLReader* handler = new HTMLReader(m_pstyle, m_writer, textOnly);
+	handler->parse(m_filename);
 	delete handler;
 }
 

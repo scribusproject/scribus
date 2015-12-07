@@ -43,13 +43,13 @@ extern "C" PLUGIN_API QStringList FileExtensions();
 class HTMLIm 
 {
 public:
-	HTMLIm(QString fname, QString encoding, gtWriter *w, bool textOnly);
+	HTMLIm(QString fname, QString m_encoding, gtWriter *w, bool textOnly);
 	~HTMLIm();
 private:
-	QString encoding;
-	QString filename;
-	gtWriter *writer;
-	gtParagraphStyle *pstyle;
+	QString m_encoding;
+	QString m_filename;
+	gtWriter *m_writer;
+	gtParagraphStyle *m_pstyle;
 // 	int defaultFontSize;
 	void importText(bool textOnly);
 };
