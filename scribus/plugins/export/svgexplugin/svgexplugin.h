@@ -136,16 +136,16 @@ private:
 	\retval QString Stroke settings
 	*/
 	QString GetMultiStroke(struct SingleLine *sl, PageItem *Item);
-	int GradCount;
-	int ClipCount;
-	int PattCount;
-	int MaskCount;
-	int FilterCount;
-	QString baseDir;
-	QDomDocument docu;
-	QDomElement docElement;
-	QDomElement globalDefs;
-	QList<QString> glyphNames;
+	int m_GradCount;
+	int m_ClipCount;
+	int m_PattCount;
+	int m_MaskCount;
+	int m_FilterCount;
+	QString m_baseDir;
+	QDomDocument m_docu;
+	QDomElement m_docElement;
+	QDomElement m_globalDefs;
+	QList<QString> m_glyphNames;
 };
 
 #endif
