@@ -173,15 +173,15 @@ class SCRIBUS_API Selection : public QObject
 		PageItem *itemAt_(int index=0);
 		SelectionList m_SelList;
 		bool m_isGUISelection;
-		double groupX;
-		double groupY;
-		double groupW;
-		double groupH;
+		double m_groupX;
+		double m_groupY;
+		double m_groupW;
+		double m_groupH;
 		
-		double visualGX;
-		double visualGY;
-		double visualGW;
-		double visualGH;
+		double m_visualGX;
+		double m_visualGY;
+		double m_visualGW;
+		double m_visualGH;
 
 		int  m_delaySignals;
 		bool m_sigSelectionChanged;

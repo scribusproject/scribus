@@ -30,8 +30,8 @@ Selection::Selection(QObject* parent)
 	m_sigSelectionChanged(false),
 	m_sigSelectionIsMultiple(false)
 {
-	groupX   = groupY   = groupW   = groupH   = 0;
-	visualGX = visualGY = visualGW = visualGH = 0;
+	m_groupX   = m_groupY   = m_groupW   = m_groupH   = 0;
+	m_visualGX = m_visualGY = m_visualGW = m_visualGH = 0;
 }
 
 Selection::Selection(QObject* parent, bool guiSelection) 
@@ -41,8 +41,8 @@ Selection::Selection(QObject* parent, bool guiSelection)
 	m_sigSelectionChanged(false),
 	m_sigSelectionIsMultiple(false)
 {
-	groupX   = groupY   = groupW   = groupH   = 0;
-	visualGX = visualGY = visualGW = visualGH = 0;
+	m_groupX   = m_groupY   = m_groupW   = m_groupH   = 0;
+	m_visualGX = m_visualGY = m_visualGW = m_visualGH = 0;
 }
 
 Selection::Selection(const Selection& other) :
@@ -65,14 +65,14 @@ Selection::Selection(const Selection& other) :
 		m_SelList[0]->setSelected(true);
 		emit selectionIsMultiple(m_SelList.count() > 1);
 	}
-	groupX = other.groupX;
-	groupY = other.groupY;
-	groupW = other.groupW;
-	groupH = other.groupH;
-	visualGX = other.visualGX;
-	visualGY = other.visualGY;
-	visualGW = other.visualGW;
-	visualGH = other.visualGH;
+	m_groupX = other.m_groupX;
+	m_groupY = other.m_groupY;
+	m_groupW = other.m_groupW;
+	m_groupH = other.m_groupH;
+	m_visualGX = other.m_visualGX;
+	m_visualGY = other.m_visualGY;
+	m_visualGW = other.m_visualGW;
+	m_visualGH = other.m_visualGH;
 }
 
 Selection& Selection::operator=( const Selection &other )
@@ -379,8 +379,8 @@ void Selection::setGroupRect()
 	uint selectedItemCount = count();
 	if (selectedItemCount == 0)
 	{
-		groupX   = groupY   = groupW   = groupH   = 0;
-		visualGX = visualGY = visualGW = visualGH = 0;
+		m_groupX   = m_groupY   = m_groupW   = m_groupH   = 0;
+		m_visualGX = m_visualGY = m_visualGW = m_visualGH = 0;
 		return;
 	}
 	double minx  =  std::numeric_limits<double>::max();
@@ -437,24 +437,24 @@ void Selection::setGroupRect()
 			vmaxy = qMax(vmaxy, currItem->visualYPos() + currItem->visualHeight());
 		}
 	}
-	groupX = minx;
-	groupY = miny;
-	groupW = maxx - minx;
-	groupH = maxy - miny;
+	m_groupX = minx;
+	m_groupY = miny;
+	m_groupW = maxx - minx;
+	m_groupH = maxy - miny;
 	
-	visualGX = vminx;
-	visualGY = vminy;
-	visualGW = vmaxx - vminx;
-	visualGH = vmaxy - vminy;
+	m_visualGX = vminx;
+	m_visualGY = vminy;
+	m_visualGW = vmaxx - vminx;
+	m_visualGH = vmaxy - vminy;
 }
 
 void Selection::getGroupRect(double *x, double *y, double *w, double *h)
 {
 	setGroupRect();
-	*x = groupX;
-	*y = groupY;
-	*w = groupW;
-	*h = groupH;
+	*x = m_groupX;
+	*y = m_groupY;
+	*w = m_groupW;
+	*h = m_groupH;
 }
 
 QRectF Selection::getGroupRect()
@@ -467,10 +467,10 @@ QRectF Selection::getGroupRect()
 void Selection::getVisualGroupRect(double * x, double * y, double * w, double * h)
 {
 	setGroupRect();
-	*x = visualGX;
-	*y = visualGY;
-	*w = visualGW;
-	*h = visualGH;
+	*x = m_visualGX;
+	*y = m_visualGY;
+	*w = m_visualGW;
+	*h = m_visualGH;
 }
 
 QRectF Selection::getVisualGroupRect()
