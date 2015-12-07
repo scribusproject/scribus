@@ -49,7 +49,7 @@ public:
 	QString nameFor(uint glyphId) const;
 	void readFrom(FT_Face face);
 private:
-	QList<QString> names;
+	QList<QString> m_names;
 };
 
 } //namespace
@@ -88,12 +88,12 @@ public:
 	
 private:
 	bool m_valid;
-	QByteArray GPOSTableRaw;
-	QMap<quint16,QList<quint16> > coverages;
-	mutable QMap<quint16, QMap<quint16, double> > pairs;
-	QMap< quint16, QMap<quint16, ClassDefTable> > classGlyphFirst; // < subtable offset, map<offset, class definition table> > for first glyph
-	QMap< quint16, QMap<quint16, ClassDefTable> > classGlyphSecond; // < subtable offset, map<offset, class definition table> > for second glyph
-	QMap< quint16, QMap<int, QMap<int, double> > > classValue; // < subtable offset, map<class1, map<class2, value> > >
+	QByteArray m_GPOSTableRaw;
+	QMap<quint16,QList<quint16> > m_coverages;
+	mutable QMap<quint16, QMap<quint16, double> > m_pairs;
+	QMap< quint16, QMap<quint16, ClassDefTable> > m_classGlyphFirst; // < subtable offset, map<offset, class definition table> > for first glyph
+	QMap< quint16, QMap<quint16, ClassDefTable> > m_classGlyphSecond; // < subtable offset, map<offset, class definition table> > for second glyph
+	QMap< quint16, QMap<int, QMap<int, double> > > m_classValue; // < subtable offset, map<class1, map<class2, value> > >
 	
 	void makeCoverage();
 	void makePairs ( quint16 subtableOffset );
@@ -102,7 +102,7 @@ private:
 	inline quint16 toUint16 ( quint16 index );
 	inline qint16 toInt16 ( quint16 index );
 	
-	QString FontName;// for debugging purpose
+	QString m_FontName;// for debugging purpose
 };
 
 
