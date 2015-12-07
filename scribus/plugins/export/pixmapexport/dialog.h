@@ -28,7 +28,7 @@ public slots:
 	virtual void computeSize();
 
 protected:
-	PrefsContext* prefs;
+	PrefsContext* m_prefs;
 	ScribusDoc*  m_doc;
 	int m_PageCount;
 

@@ -28,13 +28,13 @@ ExportForm::ExportForm(QWidget* parent, ScribusDoc* doc, int size, int quality, 
 {
 	setupUi(this);
 	setModal(true);
-	prefs = PrefsManager::instance()->prefsFile->getPluginContext("pixmapexport");
+	m_prefs = PrefsManager::instance()->prefsFile->getPluginContext("pixmapexport");
 
 	QDirModel * dirModel = new QDirModel(this);
 	dirModel->setFilter(QDir::AllDirs);
 	outputDirectory->setCompleter(new QCompleter(dirModel, this));
 
-	outputDirectory->setText( QDir::toNativeSeparators(prefs->get("wdir", QDir::currentPath())) );
+	outputDirectory->setText( QDir::toNativeSeparators(m_prefs->get("wdir", QDir::currentPath())) );
 	QList<QByteArray> imgs = QImageWriter::supportedImageFormats();
 	for (int i = 0; i < imgs.count(); i++)
 		bitmapType->addItem(imgs[i]);
@@ -75,13 +75,13 @@ void ExportForm::computeSize()
 
 void ExportForm::OutputDirectoryButton_pressed()
 {
-	QString lastDir = prefs->get("wdir", ".");
+	QString lastDir = m_prefs->get("wdir", ".");
 	QString dirName = QFileDialog::getExistingDirectory(this, tr("Choose a Export Directory"), lastDir);
 	if (dirName.length()>0)
 	{
 		dirName = QDir::toNativeSeparators(dirName);
 		outputDirectory->setText(dirName);
-		prefs->set("wdir", dirName);
+		m_prefs->set("wdir", dirName);
 	}
 }
 
@@ -131,10 +131,10 @@ void ExportForm::languageChange()
 
 void ExportForm::readConfig()
 {
-	DPIBox->setValue(prefs->getUInt("DPIBox", 72));
-	enlargementBox->setValue(prefs->getInt("EnlargementBox", 100));
-	qualityBox->setValue(prefs->getUInt("QualityBox", -1));
-	int exportPageValue = prefs->getUInt("ButtonGroup1", 0);
+	DPIBox->setValue(m_prefs->getUInt("DPIBox", 72));
+	enlargementBox->setValue(m_prefs->getInt("EnlargementBox", 100));
+	qualityBox->setValue(m_prefs->getUInt("QualityBox", -1));
+	int exportPageValue = m_prefs->getUInt("ButtonGroup1", 0);
 	switch (exportPageValue)
 	{
 		case 0: onePageRadio->setChecked(true);
@@ -147,14 +147,14 @@ void ExportForm::readConfig()
 	rangeVal->setEnabled(exportPageValue==2);
 	pageNrButton->setEnabled(exportPageValue==2);
 	bitmapType->setCurrentText("png");
-	rangeVal->setText(prefs->get("RangeVal", ""));
+	rangeVal->setText(m_prefs->get("RangeVal", ""));
 }
 
 void ExportForm::writeConfig()
 {
-	prefs->set("DPIBox", DPIBox->value());
-	prefs->set("EnlargementBox", enlargementBox->value());
-	prefs->set("QualityBox", qualityBox->value());
+	m_prefs->set("DPIBox", DPIBox->value());
+	m_prefs->set("EnlargementBox", enlargementBox->value());
+	m_prefs->set("QualityBox", qualityBox->value());
 	int exportPageValue;
 	if (onePageRadio->isChecked())
 		exportPageValue = 0;
@@ -162,9 +162,9 @@ void ExportForm::writeConfig()
 		exportPageValue = 1;
 	else
 		exportPageValue = 2;
-	prefs->set("ButtonGroup1", exportPageValue);
-	prefs->set("BitmapType", bitmapType->currentIndex());
-	prefs->set("RangeVal", rangeVal->text());
+	m_prefs->set("ButtonGroup1", exportPageValue);
+	m_prefs->set("BitmapType", bitmapType->currentIndex());
+	m_prefs->set("RangeVal", rangeVal->text());
 }
 
 void ExportForm::createPageNumberRange( )
