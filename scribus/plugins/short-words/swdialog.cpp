@@ -40,9 +40,9 @@ SWDialog::SWDialog(QWidget* parent) : QDialog(parent)
 {
 	setupUi(this);
 
-	cfg = new SWConfig();
+	m_cfg = new SWConfig();
 
-	QStringList langCodes = cfg->getAvailableLanguagesList();
+	QStringList langCodes = m_cfg->getAvailableLanguagesList();
 	for (int i = 0; i< langCodes.count(); ++i)
 	{
 		QString code = langCodes.at(i);
@@ -61,10 +61,10 @@ SWDialog::SWDialog(QWidget* parent) : QDialog(parent)
 	connect(styleCheckBox, SIGNAL(toggled(bool)),
 			 languageComboBox, SLOT(setDisabled(bool)));
 
-	selectAction(cfg->action);
-	styleCheckBox->setChecked(cfg->useStyle);
+	selectAction(m_cfg->action);
+	styleCheckBox->setChecked(m_cfg->useStyle);
 
-	int langIndex = languageComboBox->findData(cfg->currentLanguage);
+	int langIndex = languageComboBox->findData(m_cfg->currentLanguage);
 	if (langIndex >= 0)
 		languageComboBox->setCurrentIndex(langIndex);
 }
@@ -100,10 +100,10 @@ QString SWDialog::lang()
 
 void SWDialog::savePrefs()
 {
-	cfg->action = actionSelected();
-	cfg->useStyle = styleCheckBox->isChecked();
-	cfg->currentLanguage = languageComboBox->currentData().toString();
-	cfg->saveConfig();
+	m_cfg->action = actionSelected();
+	m_cfg->useStyle = styleCheckBox->isChecked();
+	m_cfg->currentLanguage = languageComboBox->currentData().toString();
+	m_cfg->saveConfig();
 }
 
 /*

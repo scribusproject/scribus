@@ -52,7 +52,7 @@ class SWDialog : public QDialog, public Ui::SWDialog
 
 	private:
 		//! reference on the config structure
-		SWConfig *cfg;
+		SWConfig *m_cfg;
 
 		/*! \brief  from config file */
 		void selectAction(int aAction);
