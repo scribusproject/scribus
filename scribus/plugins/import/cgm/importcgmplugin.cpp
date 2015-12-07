@@ -47,7 +47,7 @@ void importcgm_freePlugin(ScPlugin* plugin)
 }
 
 ImportCgmPlugin::ImportCgmPlugin() : LoadSavePlugin(),
-	importAction(new ScrAction(ScrAction::DLL, QPixmap(), QPixmap(), "", QKeySequence(), this))
+	m_importAction(new ScrAction(ScrAction::DLL, QPixmap(), QPixmap(), "", QKeySequence(), this))
 {
 	// Set action info in languageChange, so we only have to do it in one
 	// place. This includes registering file format support.
@@ -57,7 +57,7 @@ ImportCgmPlugin::ImportCgmPlugin() : LoadSavePlugin(),
 
 void ImportCgmPlugin::languageChange()
 {
-	importAction->setText( tr("Import Computer Graphics Metafile..."));
+	m_importAction->setText( tr("Import Computer Graphics Metafile..."));
 	FileFormat* fmt = getFormatByExt("cgm");
 	fmt->trName = tr("Computer Graphics Metafile");
 	fmt->filter = tr("Computer Graphics Metafile (*.cgm *.CGM)");

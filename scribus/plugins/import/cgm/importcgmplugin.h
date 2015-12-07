@@ -55,7 +55,7 @@ class PLUGIN_API ImportCgmPlugin : public LoadSavePlugin
 
 	private:
 		void registerFormats();
-		ScrAction* importAction;
+		ScrAction* m_importAction;
 };
 
 extern "C" PLUGIN_API int importcgm_getPluginAPIVersion();
