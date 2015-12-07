@@ -39,27 +39,27 @@ public:
 
 protected:
 	/** \brief Pixmaps for each font type */
-	QPixmap ttfFont;
-	QPixmap otfFont;
-	QPixmap psFont;
-	QPixmap okIcon;
+	QPixmap m_ttfFont;
+	QPixmap m_otfFont;
+	QPixmap m_psFont;
+	QPixmap m_okIcon;
 	//! \brief Default "blue quartz" text
-	QString defaultStr;
+	QString m_defaultStr;
 	/** \brief Configuration structure */
-	PrefsContext* prefs;
+	PrefsContext* m_prefs;
 	/*! \brief window size */
-	uint xsize;
-	uint ysize;
+	uint m_xsize;
+	uint m_ysize;
 
 	//! \brief Sample text frame to render the preview
-	SampleItem *sampleItem;
+	SampleItem *m_sampleItem;
 
 	//! \brief Store fonts in the Qt4 MVC model part.
-	FontListModel * fontModel;
+	FontListModel * m_fontModel;
 
 	/*! \brief A model for searching in the font set.
 	see searchEdit_textChanged() for more. */
-	QSortFilterProxyModel * proxyModel;
+	QSortFilterProxyModel * m_proxyModel;
 
 	/*! \brief Create a pixmap sample with font preview.
 	With GUI oprions. */
