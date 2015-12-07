@@ -69,29 +69,29 @@ private:
 	void svgLineTo(FPointArray *i, double x1, double y1);
 	void svgCurveToCubic(FPointArray *i, double x1, double y1, double x2, double y2, double x3, double y3);
 	
-	QList<PageItem*> Elements;
-	QStack<QList<PageItem*> > groupStack;
-	double baseX, baseY;
-	double docWidth;
-	double docHeight;
-	QStringList importedColors;
-	bool first;
-	int count;
-	bool FirstM, WasM, PathClosed;
-	double CurrX, CurrY, StartX, StartY, Conversion;
-	int PathLen;
+	QList<PageItem*> m_Elements;
+	QStack<QList<PageItem*> > m_groupStack;
+	double m_baseX, m_baseY;
+	double m_docWidth;
+	double m_docHeight;
+	QStringList m_importedColors;
+	bool m_first;
+	int m_count;
+	bool m_FirstM, m_WasM, m_PathClosed;
+	double m_CurrX, m_CurrY, m_StartX, m_StartY, m_Conversion;
+	int m_PathLen;
 
-	bool interactive;
-	MultiProgressDialog * progressDialog;
-	bool cancel;
+	bool m_interactive;
+	MultiProgressDialog * m_progressDialog;
+	bool m_cancel;
 	ScribusDoc* m_Doc;
-	Selection* tmpSel;
-	int importerFlags;
-	int oldDocItemCount;
-	QString baseFile;
+	Selection* m_tmpSel;
+	int m_importerFlags;
+	int m_oldDocItemCount;
+	QString m_baseFile;
 
 public slots:
-	void cancelRequested() { cancel = true; }
+	void cancelRequested() { m_cancel = true; }
 };
 
 #endif
