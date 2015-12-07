@@ -64,21 +64,21 @@ extern SCRIBUS_API ScribusQApp * ScQApp;
 
 AIPlug::AIPlug(ScribusDoc* doc, int flags)
 {
-	tmpSel=new Selection(this, false);
+	m_tmpSel=new Selection(this, false);
 	m_Doc=doc;
-	importerFlags = flags;
-	interactive = (flags & LoadSavePlugin::lfInteractive);
-	progressDialog = NULL;
+	m_importerFlags = flags;
+	m_interactive = (flags & LoadSavePlugin::lfInteractive);
+	m_progressDialog = NULL;
 }
 
 QImage AIPlug::readThumbnail(QString fNameIn)
 {
 	QString fName = fNameIn;
 	double x, y, b, h;
-	CustColors.clear();
-	importedColors.clear();
-	importedGradients.clear();
-	importedPatterns.clear();
+	m_CustColors.clear();
+	m_importedColors.clear();
+	m_importedGradients.clear();
+	m_importedPatterns.clear();
 	QFileInfo fi = QFileInfo(fName);
 /* Check if the file is an old style AI or one of the newer PDF wrapped ones */
 	QFile fT(fName);
@@ -126,7 +126,7 @@ QImage AIPlug::readThumbnail(QString fNameIn)
 		if (tempBuf.startsWith("%AI12_CompressedData"))
 			decompressAIData(fName);
 	}
-	progressDialog = NULL;
+	m_progressDialog = NULL;
 /* Set default Page to size defined in Preferences */
 	x = 0.0;
 	y = 0.0;
@@ -137,29 +137,29 @@ QImage AIPlug::readThumbnail(QString fNameIn)
 		b = PrefsManager::instance()->appPrefs.docSetupPrefs.pageWidth;
 	if (h == 0)
 		h = PrefsManager::instance()->appPrefs.docSetupPrefs.pageHeight;
-	docX = x;
-	docY = y;
-	docWidth = b - x;
-	docHeight = h - y;
-	baseX = 0;
-	baseY = 0;
+	m_docX = x;
+	m_docY = y;
+	m_docWidth = b - x;
+	m_docHeight = h - y;
+	m_baseX = 0;
+	m_baseY = 0;
 	m_Doc = new ScribusDoc();
 	m_Doc->setup(0, 1, 1, 1, 1, "Custom", "Custom");
-	m_Doc->setPage(docWidth, docHeight, 0, 0, 0, 0, 0, 0, false, false);
+	m_Doc->setPage(m_docWidth, m_docHeight, 0, 0, 0, 0, 0, 0, false, false);
 	m_Doc->addPage(0);
 	m_Doc->setGUI(false, ScCore->primaryMainWindow(), 0);
-	baseX = m_Doc->currentPage()->xOffset();
-	baseY = m_Doc->currentPage()->yOffset();
+	m_baseX = m_Doc->currentPage()->xOffset();
+	m_baseY = m_Doc->currentPage()->yOffset();
 	ColorList::Iterator it;
-	for (it = CustColors.begin(); it != CustColors.end(); ++it)
+	for (it = m_CustColors.begin(); it != m_CustColors.end(); ++it)
 	{
 		if (!m_Doc->PageColors.contains(it.key()))
 		{
 			m_Doc->PageColors.insert(it.key(), it.value());
-			importedColors.append(it.key());
+			m_importedColors.append(it.key());
 		}
 	}
-	Elements.clear();
+	m_Elements.clear();
 	m_Doc->setLoading(true);
 	m_Doc->DoDrawing = false;
 	m_Doc->scMW()->setScriptRunning(true);
@@ -168,21 +168,21 @@ QImage AIPlug::readThumbnail(QString fNameIn)
 	QImage tmpImage;
 	if (convert(fName))
 	{
-		tmpSel->clear();
+		m_tmpSel->clear();
 		QDir::setCurrent(CurDirP);
-		if (Elements.count() > 1)
-			m_Doc->groupObjectsList(Elements);
+		if (m_Elements.count() > 1)
+			m_Doc->groupObjectsList(m_Elements);
 		m_Doc->DoDrawing = true;
 		m_Doc->m_Selection->delaySignalsOn();
-		for (int dre=0; dre<Elements.count(); ++dre)
+		for (int dre=0; dre<m_Elements.count(); ++dre)
 		{
-			tmpSel->addItem(Elements.at(dre), true);
+			m_tmpSel->addItem(m_Elements.at(dre), true);
 		}
-		tmpSel->setGroupRect();
-		double xs = tmpSel->width();
-		double ys = tmpSel->height();
-		if (Elements.count() > 0)
-			tmpImage = Elements.at(0)->DrawObj_toImage(500);
+		m_tmpSel->setGroupRect();
+		double xs = m_tmpSel->width();
+		double ys = m_tmpSel->height();
+		if (m_Elements.count() > 0)
+			tmpImage = m_Elements.at(0)->DrawObj_toImage(500);
 		tmpImage.setText("XSize", QString("%1").arg(xs));
 		tmpImage.setText("YSize", QString("%1").arg(ys));
 		m_Doc->m_Selection->delaySignalsOff();
@@ -200,13 +200,13 @@ bool AIPlug::readColors(const QString& fNameIn, ColorList & colors)
 {
 	QString fName = fNameIn;
 	bool success = false;
-	cancel = false;
+	m_cancel = false;
 	double x, y, b, h;
-	convertedPDF = false;
-	CustColors.clear();
-	importedColors.clear();
-	importedGradients.clear();
-	importedPatterns.clear();
+	m_convertedPDF = false;
+	m_CustColors.clear();
+	m_importedColors.clear();
+	m_importedGradients.clear();
+	m_importedPatterns.clear();
 	QFileInfo fi = QFileInfo(fName);
 /* Check if the file is an old style AI or one of the newer PDF wrapped ones */
 	QFile fT(fName);
@@ -221,7 +221,7 @@ bool AIPlug::readColors(const QString& fNameIn, ColorList & colors)
 			QString tmpFile = ScPaths::getTempFileDir()+ "/"+bF2.baseName()+"_tmp.ai";
 			if (!extractFromPDF(fName, tmpFile))
 				return false;
-			convertedPDF = true;
+			m_convertedPDF = true;
 			fName = tmpFile;
 		}
 	}
@@ -237,41 +237,41 @@ bool AIPlug::readColors(const QString& fNameIn, ColorList & colors)
 		if (tempBuf.startsWith("%AI12_CompressedData"))
 			decompressAIData(fName);
 	}
-	progressDialog = NULL;
+	m_progressDialog = NULL;
 /* Set default Page to size defined in Preferences */
 	x = 0.0;
 	y = 0.0;
 	b = PrefsManager::instance()->appPrefs.docSetupPrefs.pageWidth;
 	h = PrefsManager::instance()->appPrefs.docSetupPrefs.pageHeight;
 	parseHeader(fName, x, y, b, h);
-	docX = x;
-	docY = y;
-	docWidth = b - x;
-	docHeight = h - y;
+	m_docX = x;
+	m_docY = y;
+	m_docWidth = b - x;
+	m_docHeight = h - y;
 	m_Doc = new ScribusDoc();
 	m_Doc->setup(0, 1, 1, 1, 1, "Custom", "Custom");
-	m_Doc->setPage(docWidth, docHeight, 0, 0, 0, 0, 0, 0, false, false);
+	m_Doc->setPage(m_docWidth, m_docHeight, 0, 0, 0, 0, 0, 0, false, false);
 	m_Doc->addPage(0);
 	m_Doc->setGUI(false, ScCore->primaryMainWindow(), 0);
-	baseX = m_Doc->currentPage()->xOffset();
-	baseY = m_Doc->currentPage()->yOffset();
+	m_baseX = m_Doc->currentPage()->xOffset();
+	m_baseY = m_Doc->currentPage()->yOffset();
 	ColorList::Iterator it;
-	for (it = CustColors.begin(); it != CustColors.end(); ++it)
+	for (it = m_CustColors.begin(); it != m_CustColors.end(); ++it)
 	{
 		if (!m_Doc->PageColors.contains(it.key()))
 		{
 			m_Doc->PageColors.insert(it.key(), it.value());
-			importedColors.append(it.key());
+			m_importedColors.append(it.key());
 		}
 	}
-	Elements.clear();
+	m_Elements.clear();
 	m_Doc->setLoading(true);
 	m_Doc->DoDrawing = false;
 	m_Doc->scMW()->setScriptRunning(true);
 	QString CurDirP = QDir::currentPath();
 	QDir::setCurrent(fi.path());
 	convert(fName);
-	if (importedColors.count() != 0)
+	if (m_importedColors.count() != 0)
 	{
 		colors = m_Doc->PageColors;
 		success = true;
@@ -280,7 +280,7 @@ bool AIPlug::readColors(const QString& fNameIn, ColorList & colors)
 	m_Doc->setLoading(false);
 	delete m_Doc;
 	QDir::setCurrent(CurDirP);
-	if (convertedPDF)
+	if (m_convertedPDF)
 		QFile::remove(fName);
 	return success;
 }
@@ -289,21 +289,21 @@ bool AIPlug::import(QString fNameIn, const TransactionSettings& trSettings, int 
 {
 	QString fName = fNameIn;
 	bool success = false;
-	interactive = (flags & LoadSavePlugin::lfInteractive);
-	importerFlags = flags;
-	cancel = false;
+	m_interactive = (flags & LoadSavePlugin::lfInteractive);
+	m_importerFlags = flags;
+	m_cancel = false;
 	double x, y, b, h;
 	bool ret = false;
-	convertedPDF = false;
-	CustColors.clear();
-	importedColors.clear();
-	importedGradients.clear();
-	importedPatterns.clear();
+	m_convertedPDF = false;
+	m_CustColors.clear();
+	m_importedColors.clear();
+	m_importedGradients.clear();
+	m_importedPatterns.clear();
 	QFileInfo fi = QFileInfo(fName);
 //	QString ext = fi.suffix().toLower();
 	if ( !ScCore->usingGUI() )
 	{
-		interactive = false;
+		m_interactive = false;
 		showProgress = false;
 	}
 	
@@ -320,7 +320,7 @@ bool AIPlug::import(QString fNameIn, const TransactionSettings& trSettings, int 
 			QString tmpFile = ScPaths::getTempFileDir()+ "/"+bF2.baseName()+"_tmp.ai";
 			if (!extractFromPDF(fName, tmpFile))
 				return false;
-			convertedPDF = true;
+			m_convertedPDF = true;
 			fName = tmpFile;
 		}
 	}
@@ -339,30 +339,30 @@ bool AIPlug::import(QString fNameIn, const TransactionSettings& trSettings, int 
 	if ( showProgress )
 	{
 		ScribusMainWindow* mw=(m_Doc==0) ? ScCore->primaryMainWindow() : m_Doc->scMW();
-		progressDialog = new MultiProgressDialog( tr("Importing: %1").arg(fi.fileName()), CommonStrings::tr_Cancel, mw );
+		m_progressDialog = new MultiProgressDialog( tr("Importing: %1").arg(fi.fileName()), CommonStrings::tr_Cancel, mw );
 		QStringList barNames, barTexts;
 		barNames << "GI";
 		barTexts << tr("Analyzing File:");
 		QList<bool> barsNumeric;
 		barsNumeric << false;
-		progressDialog->addExtraProgressBars(barNames, barTexts, barsNumeric);
-		progressDialog->setOverallTotalSteps(3);
-		progressDialog->setOverallProgress(0);
-		progressDialog->setProgress("GI", 0);
-		progressDialog->show();
-		connect(progressDialog, SIGNAL(canceled()), this, SLOT(cancelRequested()));
+		m_progressDialog->addExtraProgressBars(barNames, barTexts, barsNumeric);
+		m_progressDialog->setOverallTotalSteps(3);
+		m_progressDialog->setOverallProgress(0);
+		m_progressDialog->setProgress("GI", 0);
+		m_progressDialog->show();
+		connect(m_progressDialog, SIGNAL(canceled()), this, SLOT(cancelRequested()));
 		qApp->processEvents();
 	}
 	else
-		progressDialog = NULL;
+		m_progressDialog = NULL;
 /* Set default Page to size defined in Preferences */
 	x = 0.0;
 	y = 0.0;
 	b = PrefsManager::instance()->appPrefs.docSetupPrefs.pageWidth;
 	h = PrefsManager::instance()->appPrefs.docSetupPrefs.pageHeight;
-	if (progressDialog)
+	if (m_progressDialog)
 	{
-		progressDialog->setOverallProgress(1);
+		m_progressDialog->setOverallProgress(1);
 		qApp->processEvents();
 	}
 	parseHeader(fName, x, y, b, h);
@@ -370,19 +370,19 @@ bool AIPlug::import(QString fNameIn, const TransactionSettings& trSettings, int 
 		b = PrefsManager::instance()->appPrefs.docSetupPrefs.pageWidth;
 	if (h == 0)
 		h = PrefsManager::instance()->appPrefs.docSetupPrefs.pageHeight;
-	docX = x;
-	docY = y;
-	docWidth = b - x;
-	docHeight = h - y;
-	baseX = 0;
-	baseY = 0;
-	if (!interactive || (flags & LoadSavePlugin::lfInsertPage))
+	m_docX = x;
+	m_docY = y;
+	m_docWidth = b - x;
+	m_docHeight = h - y;
+	m_baseX = 0;
+	m_baseY = 0;
+	if (!m_interactive || (flags & LoadSavePlugin::lfInsertPage))
 	{
 		m_Doc->setPage(b-x, h-y, 0, 0, 0, 0, 0, 0, false, false);
 		m_Doc->addPage(0);
 		m_Doc->view()->addPage(0, true);
-		baseX = 0;
-		baseY = 0;
+		m_baseX = 0;
+		m_baseY = 0;
 	}
 	else
 	{
@@ -391,23 +391,23 @@ bool AIPlug::import(QString fNameIn, const TransactionSettings& trSettings, int 
 			m_Doc=ScCore->primaryMainWindow()->doFileNew(b-x, h-y, 0, 0, 0, 0, 0, 0, false, false, 0, false, 0, 1, "Custom", true);
 			ScCore->primaryMainWindow()->HaveNewDoc();
 			ret = true;
-			baseX = 0;
-			baseY = 0;
+			m_baseX = 0;
+			m_baseY = 0;
 		}
 	}
 	if (flags & LoadSavePlugin::lfCreateDoc)
 	{
-		m_Doc->documentInfo().setAuthor(docCreator);
-		m_Doc->documentInfo().setPublisher(docOrganisation);
-		m_Doc->documentInfo().setTitle(docTitle);
-		m_Doc->documentInfo().setDate(docDate+" "+docTime);
+		m_Doc->documentInfo().setAuthor(m_docCreator);
+		m_Doc->documentInfo().setPublisher(m_docOrganisation);
+		m_Doc->documentInfo().setTitle(m_docTitle);
+		m_Doc->documentInfo().setDate(m_docDate+" "+m_docTime);
 	}
-	if ((!ret) && (interactive))
+	if ((!ret) && (m_interactive))
 	{
-		baseX = m_Doc->currentPage()->xOffset();
-		baseY = m_Doc->currentPage()->yOffset();
+		m_baseX = m_Doc->currentPage()->xOffset();
+		m_baseY = m_Doc->currentPage()->yOffset();
 	}
-	if ((ret) || (!interactive))
+	if ((ret) || (!m_interactive))
 	{
 		if (b-x > h-y)
 			m_Doc->setPageOrientation(1);
@@ -416,17 +416,17 @@ bool AIPlug::import(QString fNameIn, const TransactionSettings& trSettings, int 
 		m_Doc->setPageSize("Custom");
 	}
 	ColorList::Iterator it;
-	for (it = CustColors.begin(); it != CustColors.end(); ++it)
+	for (it = m_CustColors.begin(); it != m_CustColors.end(); ++it)
 	{
 		if (!m_Doc->PageColors.contains(it.key()))
 		{
 			m_Doc->PageColors.insert(it.key(), it.value());
-			importedColors.append(it.key());
+			m_importedColors.append(it.key());
 		}
 	}
 	if ((!(flags & LoadSavePlugin::lfLoadAsPattern)) && (m_Doc->view() != NULL))
 		m_Doc->view()->Deselect();
-	Elements.clear();
+	m_Elements.clear();
 	m_Doc->setLoading(true);
 	m_Doc->DoDrawing = false;
 	if ((!(flags & LoadSavePlugin::lfLoadAsPattern)) && (m_Doc->view() != NULL))
@@ -437,39 +437,39 @@ bool AIPlug::import(QString fNameIn, const TransactionSettings& trSettings, int 
 	QDir::setCurrent(fi.path());
 	if (convert(fName))
 	{
-		if (Elements.count() == 0)
+		if (m_Elements.count() == 0)
 		{
-			if ((importedColors.count() != 0) && (!((flags & LoadSavePlugin::lfKeepGradients) || (flags & LoadSavePlugin::lfKeepColors) || (flags & LoadSavePlugin::lfKeepPatterns))))
+			if ((m_importedColors.count() != 0) && (!((flags & LoadSavePlugin::lfKeepGradients) || (flags & LoadSavePlugin::lfKeepColors) || (flags & LoadSavePlugin::lfKeepPatterns))))
 			{
-				for (int cd = 0; cd < importedColors.count(); cd++)
+				for (int cd = 0; cd < m_importedColors.count(); cd++)
 				{
-					m_Doc->PageColors.remove(importedColors[cd]);
+					m_Doc->PageColors.remove(m_importedColors[cd]);
 				}
 			}
-			if ((importedGradients.count() != 0) && (!((flags & LoadSavePlugin::lfKeepGradients || (flags & LoadSavePlugin::lfKeepPatterns)))))
+			if ((m_importedGradients.count() != 0) && (!((flags & LoadSavePlugin::lfKeepGradients || (flags & LoadSavePlugin::lfKeepPatterns)))))
 			{
-				for (int cd = 0; cd < importedGradients.count(); cd++)
+				for (int cd = 0; cd < m_importedGradients.count(); cd++)
 				{
-					m_Doc->docGradients.remove(importedGradients[cd]);
+					m_Doc->docGradients.remove(m_importedGradients[cd]);
 				}
 			}
-			if ((importedPatterns.count() != 0) && (!(flags & LoadSavePlugin::lfKeepPatterns)))
+			if ((m_importedPatterns.count() != 0) && (!(flags & LoadSavePlugin::lfKeepPatterns)))
 			{
-				for (int cd = 0; cd < importedPatterns.count(); cd++)
+				for (int cd = 0; cd < m_importedPatterns.count(); cd++)
 				{
-					m_Doc->docPatterns.remove(importedPatterns[cd]);
+					m_Doc->docPatterns.remove(m_importedPatterns[cd]);
 				}
 			}
 		}
-		tmpSel->clear();
+		m_tmpSel->clear();
 		QDir::setCurrent(CurDirP);
-		if ((Elements.count() > 1) && (!(importerFlags & LoadSavePlugin::lfCreateDoc)))
-			m_Doc->groupObjectsList(Elements);
+		if ((m_Elements.count() > 1) && (!(m_importerFlags & LoadSavePlugin::lfCreateDoc)))
+			m_Doc->groupObjectsList(m_Elements);
 		m_Doc->DoDrawing = true;
 		m_Doc->scMW()->setScriptRunning(false);
 		m_Doc->setLoading(false);
 		qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
-		if ((Elements.count() > 0) && (!ret) && (interactive))
+		if ((m_Elements.count() > 0) && (!ret) && (m_interactive))
 		{
 			if (flags & LoadSavePlugin::lfScripted)
 			{
@@ -480,9 +480,9 @@ bool AIPlug::import(QString fNameIn, const TransactionSettings& trSettings, int 
 				if (!(flags & LoadSavePlugin::lfLoadAsPattern))
 				{
 					m_Doc->m_Selection->delaySignalsOn();
-					for (int dre=0; dre<Elements.count(); ++dre)
+					for (int dre=0; dre<m_Elements.count(); ++dre)
 					{
-						m_Doc->m_Selection->addItem(Elements.at(dre), true);
+						m_Doc->m_Selection->addItem(m_Elements.at(dre), true);
 					}
 					m_Doc->m_Selection->delaySignalsOff();
 					m_Doc->m_Selection->setGroupRect();
@@ -496,33 +496,33 @@ bool AIPlug::import(QString fNameIn, const TransactionSettings& trSettings, int 
 				m_Doc->DraggedElem = 0;
 				m_Doc->DragElements.clear();
 				m_Doc->m_Selection->delaySignalsOn();
-				for (int dre=0; dre<Elements.count(); ++dre)
+				for (int dre=0; dre<m_Elements.count(); ++dre)
 				{
-					tmpSel->addItem(Elements.at(dre), true);
+					m_tmpSel->addItem(m_Elements.at(dre), true);
 				}
-				tmpSel->setGroupRect();
-				ScElemMimeData* md = ScriXmlDoc::WriteToMimeData(m_Doc, tmpSel);
-				m_Doc->itemSelection_DeleteItem(tmpSel);
+				m_tmpSel->setGroupRect();
+				ScElemMimeData* md = ScriXmlDoc::WriteToMimeData(m_Doc, m_tmpSel);
+				m_Doc->itemSelection_DeleteItem(m_tmpSel);
 				m_Doc->view()->updatesOn(true);
-				if ((importedColors.count() != 0) && (!((flags & LoadSavePlugin::lfKeepGradients) || (flags & LoadSavePlugin::lfKeepColors) || (flags & LoadSavePlugin::lfKeepPatterns))))
+				if ((m_importedColors.count() != 0) && (!((flags & LoadSavePlugin::lfKeepGradients) || (flags & LoadSavePlugin::lfKeepColors) || (flags & LoadSavePlugin::lfKeepPatterns))))
 				{
-					for (int cd = 0; cd < importedColors.count(); cd++)
+					for (int cd = 0; cd < m_importedColors.count(); cd++)
 					{
-						m_Doc->PageColors.remove(importedColors[cd]);
+						m_Doc->PageColors.remove(m_importedColors[cd]);
 					}
 				}
-				if ((importedGradients.count() != 0) && (!((flags & LoadSavePlugin::lfKeepGradients || (flags & LoadSavePlugin::lfKeepPatterns)))))
+				if ((m_importedGradients.count() != 0) && (!((flags & LoadSavePlugin::lfKeepGradients || (flags & LoadSavePlugin::lfKeepPatterns)))))
 				{
-					for (int cd = 0; cd < importedGradients.count(); cd++)
+					for (int cd = 0; cd < m_importedGradients.count(); cd++)
 					{
-						m_Doc->docGradients.remove(importedGradients[cd]);
+						m_Doc->docGradients.remove(m_importedGradients[cd]);
 					}
 				}
-				if ((importedPatterns.count() != 0) && (!(flags & LoadSavePlugin::lfKeepPatterns)))
+				if ((m_importedPatterns.count() != 0) && (!(flags & LoadSavePlugin::lfKeepPatterns)))
 				{
-					for (int cd = 0; cd < importedPatterns.count(); cd++)
+					for (int cd = 0; cd < m_importedPatterns.count(); cd++)
 					{
-						m_Doc->docPatterns.remove(importedPatterns[cd]);
+						m_Doc->docPatterns.remove(m_importedPatterns[cd]);
 					}
 				}
 				m_Doc->m_Selection->delaySignalsOff();
@@ -552,15 +552,15 @@ bool AIPlug::import(QString fNameIn, const TransactionSettings& trSettings, int 
 		m_Doc->view()->updatesOn(true);
 		qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 	}
-	if (interactive)
+	if (m_interactive)
 		m_Doc->setLoading(false);
 	//CB If we have a gui we must refresh it if we have used the progressbar
 	if (!(flags & LoadSavePlugin::lfLoadAsPattern))
 	{
-		if ((showProgress) && (!interactive))
+		if ((showProgress) && (!m_interactive))
 			m_Doc->view()->DrawNew();
 	}
-	if (convertedPDF)
+	if (m_convertedPDF)
 		QFile::remove(fName);
 	qApp->restoreOverrideCursor();
 	return success;
@@ -568,9 +568,9 @@ bool AIPlug::import(QString fNameIn, const TransactionSettings& trSettings, int 
 
 AIPlug::~AIPlug()
 {
-	if (progressDialog)
-		delete progressDialog;
-	delete tmpSel;
+	if (m_progressDialog)
+		delete m_progressDialog;
+	delete m_tmpSel;
 }
 
 bool AIPlug::extractFromPDF(QString infile, QString outfile)
@@ -737,13 +737,13 @@ bool AIPlug::decompressAIData(QString &fName)
 	(void)inflateEnd(&strm);
 	fclose(source);
 	fclose(dest);
-	if (!convertedPDF)
+	if (!m_convertedPDF)
 	{
 		QFileInfo bF2(fName);
 		QString tmpFile = ScPaths::getTempFileDir()+ "/"+bF2.baseName()+"_tmp.ai";
 		moveFile(f2, tmpFile);
 		fName = tmpFile;
-		convertedPDF = true;
+		m_convertedPDF = true;
 	}
 	else
 	{
@@ -796,8 +796,8 @@ bool AIPlug::parseHeader(QString fName, double &x, double &y, double &b, double 
 				QStringList res = getStrings(tmp);
 				if (res.count() > 1)
 				{
-					docCreator = res[0];
-					docOrganisation = res[1];
+					m_docCreator = res[0];
+					m_docOrganisation = res[1];
 				}
 			}
 			if (tmp.startsWith("%%CreationDate:"))
@@ -805,20 +805,20 @@ bool AIPlug::parseHeader(QString fName, double &x, double &y, double &b, double 
 				QStringList res = getStrings(tmp);
 				if (res.count() > 1)
 				{
-					docDate = res[0];
-					docTime = res[1];
+					m_docDate = res[0];
+					m_docTime = res[1];
 				}
 				else
 				{
-					docDate = tmp.remove("%%CreationDate: ");
-					docTime = "";
+					m_docDate = tmp.remove("%%CreationDate: ");
+					m_docTime = "";
 				}
 			}
 			if (tmp.startsWith("%%Title"))
 			{
 				QStringList res = getStrings(tmp);
 				if (res.count() > 0)
-					docTitle = res[0];
+					m_docTitle = res[0];
 			}
 			if ((tmp.startsWith("%%CMYKCustomColor")) || (tmp.startsWith("%%CMYKProcessColor")))
 			{
@@ -850,7 +850,7 @@ bool AIPlug::parseHeader(QString fName, double &x, double &y, double &b, double 
 					cc = ScColor(qRound(255 * c), qRound(255 * m), qRound(255 * yc), qRound(255 * k));
 					cc.setSpotColor(true);
 					if (!FarNam.isEmpty())
-						CustColors.tryAddColor(FarNam, cc);
+						m_CustColors.tryAddColor(FarNam, cc);
 					while (!ts.atEnd())
 					{
 						quint64 oldPos = ts.device()->pos();
@@ -881,7 +881,7 @@ bool AIPlug::parseHeader(QString fName, double &x, double &y, double &b, double 
 						cc = ScColor(qRound(255 * c), qRound(255 * m), qRound(255 * yc), qRound(255 * k));
 						cc.setSpotColor(true);
 						if (!FarNam.isEmpty())
-							CustColors.tryAddColor(FarNam, cc);
+							m_CustColors.tryAddColor(FarNam, cc);
 					}
 				}
 			}
@@ -914,7 +914,7 @@ bool AIPlug::parseHeader(QString fName, double &x, double &y, double &b, double 
 					FarNam = QString::fromUtf8(farN.constData());
 					cc = ScColor(qRound(255 * c), qRound(255 * m), qRound(255 * yc));
 					if (!FarNam.isEmpty())
-						CustColors.tryAddColor(FarNam, cc);
+						m_CustColors.tryAddColor(FarNam, cc);
 					while (!ts.atEnd())
 					{
 						quint64 oldPos = ts.device()->pos();
@@ -944,7 +944,7 @@ bool AIPlug::parseHeader(QString fName, double &x, double &y, double &b, double 
 						FarNam = QString::fromUtf8(farN.constData());
 						cc = ScColor(qRound(255 * c), qRound(255 * m), qRound(255 * yc));
 						if (!FarNam.isEmpty())
-							CustColors.tryAddColor(FarNam, cc);
+							m_CustColors.tryAddColor(FarNam, cc);
 					}
 				}
 			}
@@ -999,7 +999,7 @@ bool AIPlug::parseHeader(QString fName, double &x, double &y, double &b, double 
 							}
 							cc = ScColor(qRound(255 * c), qRound(255 * m), qRound(255 * yc), qRound(255 * k));
 							cc.setSpotColor(true);
-							CustColors.tryAddColor(FarNam, cc);
+							m_CustColors.tryAddColor(FarNam, cc);
 						}
 					}
 				}
@@ -1058,9 +1058,9 @@ QString AIPlug::parseColor(QString data)
 	QString namPrefix = "FromAI";
 	QString fNam = m_Doc->PageColors.tryAddColor(namPrefix+tmp.name(), tmp);
 	if (fNam == namPrefix+tmp.name())
-		importedColors.append(fNam);
+		m_importedColors.append(fNam);
 	ret = fNam;
-	meshColorMode = 0;
+	m_meshColorMode = 0;
 	return ret;
 }
 
@@ -1081,9 +1081,9 @@ QString AIPlug::parseColorGray(QString data)
 	QString namPrefix = "FromAI";
 	QString fNam = m_Doc->PageColors.tryAddColor(namPrefix+tmp.name(), tmp);
 	if (fNam == namPrefix+tmp.name())
-		importedColors.append(fNam);
+		m_importedColors.append(fNam);
 	ret = fNam;
-	meshColorMode = 2;
+	m_meshColorMode = 2;
 	return ret;
 }
 
@@ -1107,9 +1107,9 @@ QString AIPlug::parseColorRGB(QString data)
 	QString namPrefix = "FromAI";
 	QString fNam = m_Doc->PageColors.tryAddColor(namPrefix+tmp.name(), tmp);
 	if (fNam == namPrefix+tmp.name())
-		importedColors.append(fNam);
+		m_importedColors.append(fNam);
 	ret = fNam;
-	meshColorMode = 1;
+	m_meshColorMode = 1;
 	return ret;
 }
 
@@ -1143,9 +1143,9 @@ QString AIPlug::parseCustomColor(QString data, double &shade)
 	tmp.setRegistrationColor(false);
 	QString fNam = m_Doc->PageColors.tryAddColor(FarNam, tmp);
 	if (fNam == FarNam)
-		importedColors.append(FarNam);
+		m_importedColors.append(FarNam);
 	ret = fNam;
-	meshColorMode = 0;
+	m_meshColorMode = 0;
 	return ret;
 }
 
@@ -1166,7 +1166,7 @@ QString AIPlug::parseCustomColorX(QString data, double &shade, QString type)
 		int Gc = qRound(g * 255);
 		int Bc = qRound(b * 255);
 		tmp.setColorRGB(Rc, Gc, Bc);
-		meshColorMode = 1;
+		m_meshColorMode = 1;
 	}
 	else
 	{
@@ -1179,7 +1179,7 @@ QString AIPlug::parseCustomColorX(QString data, double &shade, QString type)
 		int Yc = qRound(y * 255);
 		int Kc = qRound(k * 255);
 		tmp.setColor(Cc, Mc, Yc, Kc);
-		meshColorMode = 0;
+		m_meshColorMode = 0;
 	}
 	QString tmpS = data;
 	int an = data.indexOf("(");
@@ -1195,7 +1195,7 @@ QString AIPlug::parseCustomColorX(QString data, double &shade, QString type)
 	tmp.setRegistrationColor(false);
 	QString fNam = m_Doc->PageColors.tryAddColor(FarNam, tmp);
 	if (fNam == FarNam)
-		importedColors.append(FarNam);
+		m_importedColors.append(FarNam);
 	ret = fNam;
 	return ret;
 }
@@ -1316,7 +1316,7 @@ void AIPlug::getCommands(QString data, QStringList &commands)
 			if (tmp == " ")
 			{
 				tmp3 += " " + tmp2;
-				if (commandList.contains(tmp2))
+				if (m_commandList.contains(tmp2))
 				{
 					commands.append(tmp3);
 					tmp3 = "";
@@ -1400,35 +1400,35 @@ void AIPlug::processData(QString data)
 	QString command = "";
 	QString Cdata = "";
 	QStringList da;
-	if (dataMode && fObjectMode)
+	if (m_dataMode && m_fObjectMode)
 	{
 		if (data.contains("~>"))
 		{
-			dataString += data.mid(1);
-			dataMode = false;
+			m_dataString += data.mid(1);
+			m_dataMode = false;
 			QByteArray fData;
-			decodeA85(fData, dataString);
-			dataString = "";
-			if (fObjectMode)
+			decodeA85(fData, m_dataString);
+			m_dataString = "";
+			if (m_fObjectMode)
 			{
-				FPoint wh = currentSpecialPath.WidthHeight();
-				if ((currentSpecialPath.size() > 3) && (wh.x() != 0.0) && (wh.y() != 0.0))
+				FPoint wh = m_currentSpecialPath.WidthHeight();
+				if ((m_currentSpecialPath.size() > 3) && (wh.x() != 0.0) && (wh.y() != 0.0))
 				{
-					z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, baseX, baseY, 10, 10, 0, CommonStrings::None, CommonStrings::None, true);
+					z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, m_baseX, m_baseY, 10, 10, 0, CommonStrings::None, CommonStrings::None, true);
 					ite = m_Doc->Items->at(z);
-					ite->PoLine = currentSpecialPath.copy();
+					ite->PoLine = m_currentSpecialPath.copy();
 					ite->PoLine.translate(m_Doc->currentPage()->xOffset(), m_Doc->currentPage()->yOffset());
 					ite->ClipEdited = true;
 					ite->FrameType = 3;
-					ite->setFillShade(CurrFillShade);
-					ite->setLineShade(CurrStrokeShade);
-					ite->setFillEvenOdd(fillRule);
-					ite->setFillTransparency(1.0 - Opacity);
-					ite->setLineTransparency(1.0 - Opacity);
-					ite->setFillBlendmode(blendMode);
-					ite->setLineBlendmode(blendMode);
-					ite->setLineEnd(CapStyle);
-					ite->setLineJoin(JoinStyle);
+					ite->setFillShade(m_CurrFillShade);
+					ite->setLineShade(m_CurrStrokeShade);
+					ite->setFillEvenOdd(m_fillRule);
+					ite->setFillTransparency(1.0 - m_Opacity);
+					ite->setLineTransparency(1.0 - m_Opacity);
+					ite->setFillBlendmode(m_blendMode);
+					ite->setLineBlendmode(m_blendMode);
+					ite->setLineEnd(m_CapStyle);
+					ite->setLineJoin(m_JoinStyle);
 					wh = getMaxClipF(&ite->PoLine);
 					ite->setWidthHeight(wh.x(),wh.y());
 					ite->setTextFlowMode(PageItem::TextFlowDisabled);
@@ -1448,23 +1448,23 @@ void AIPlug::processData(QString data)
 					ite->setImageFlippedV(true);
 					ite->Clip = FlattenPath(ite->PoLine, ite->Segments);
 					ite->setRedrawBounding();
-					if (importerFlags & LoadSavePlugin::lfCreateDoc)
-						ite->setLocked(itemLocked);
-					if (patternMode)
-						PatternElements.append(ite);
+					if (m_importerFlags & LoadSavePlugin::lfCreateDoc)
+						ite->setLocked(m_itemLocked);
+					if (m_patternMode)
+						m_PatternElements.append(ite);
 					else
-						Elements.append(ite);
-					if (groupStack.count() != 0)
-						groupStack.top().append(ite);
+						m_Elements.append(ite);
+					if (m_groupStack.count() != 0)
+						m_groupStack.top().append(ite);
 				}
 			}
-			fObjectMode = false;
-			currentSpecialPath.resize(0);
-			currentSpecialPath.svgInit();
+			m_fObjectMode = false;
+			m_currentSpecialPath.resize(0);
+			m_currentSpecialPath.svgInit();
 		}
 		else
 		{
-			dataString += data.mid(1);
+			m_dataString += data.mid(1);
 		}
 		return;
 	}
@@ -1472,14 +1472,14 @@ void AIPlug::processData(QString data)
 	for (int a = 0; a < da.count(); a++)
 	{
 		Cdata = da[a];
-		if (((Cdata.startsWith("%")) || (Cdata.startsWith(" %"))) && (!meshMode))
+		if (((Cdata.startsWith("%")) || (Cdata.startsWith(" %"))) && (!m_meshMode))
 			continue;
 		if (Cdata.contains("SymbolInstance"))
 		{
-			symbolMode = true;
+			m_symbolMode = true;
 			return;
 		}
-		if (symbolMode)
+		if (m_symbolMode)
 		{
 			if (Cdata.contains("SymbolRef"))
 			{
@@ -1487,9 +1487,9 @@ void AIPlug::processData(QString data)
 				int en = Cdata.lastIndexOf(")");
 				if ((an != -1) && (en != -1))
 				{
-					currentSymbolName = Cdata.mid(an+1, en-an-1);
-					currentSymbolName.remove("\\");
-					currentSymbolName = "S_"+currentSymbolName.trimmed().simplified().replace(" ", "_");
+					m_currentSymbolName = Cdata.mid(an+1, en-an-1);
+					m_currentSymbolName.remove("\\");
+					m_currentSymbolName = "S_"+m_currentSymbolName.trimmed().simplified().replace(" ", "_");
 				}
 			}
 			else if (Cdata.contains("TransformMatrix"))
@@ -1500,21 +1500,21 @@ void AIPlug::processData(QString data)
 				double rotation = getRotationFromMatrix(symTrans, 0.0);
 				QTransform symT;
 				symT.translate(x2, y2);
-				QPointF pos1 = importedSymbols[currentSymbolName];
+				QPointF pos1 = m_importedSymbols[m_currentSymbolName];
 				pos1 = symT.map(pos1);
 				double xp = pos1.x();
 				double yp = pos1.y();
 			//	xp += m_Doc->currentPage()->xOffset();
 			//	yp += m_Doc->currentPage()->yOffset();
-				int z = m_Doc->itemAdd(PageItem::Symbol, PageItem::Unspecified, baseX + xp, baseY + yp, 1, 1, 0, CommonStrings::None, CommonStrings::None, true);
+				int z = m_Doc->itemAdd(PageItem::Symbol, PageItem::Unspecified, m_baseX + xp, m_baseY + yp, 1, 1, 0, CommonStrings::None, CommonStrings::None, true);
 				PageItem *b = m_Doc->Items->at(z);
 				b->LayerID = m_Doc->activeLayer();
-				ScPattern pat = m_Doc->docPatterns[currentSymbolName];
+				ScPattern pat = m_Doc->docPatterns[m_currentSymbolName];
 				b->setWidth(pat.width * symTrans.m11());
 				b->setHeight(pat.height * symTrans.m22());
 				b->OldB2 = b->width();
 				b->OldH2 = b->height();
-				b->setPattern(currentSymbolName);
+				b->setPattern(m_currentSymbolName);
 				double xoffset = 0.0, yoffset = 0.0;
 			//	if (rotation != 0.0)
 			//	{
@@ -1529,18 +1529,18 @@ void AIPlug::processData(QString data)
 				m_Doc->RotMode(0);
 //				b->setRotation(rotation * 180 / M_PI);
 				b->setTextFlowMode(PageItem::TextFlowDisabled);
-				b->setFillTransparency(1.0 - Opacity);
-				b->setLineTransparency(1.0 - Opacity);
-				b->setFillBlendmode(blendMode);
-				b->setLineBlendmode(blendMode);
+				b->setFillTransparency(1.0 - m_Opacity);
+				b->setLineTransparency(1.0 - m_Opacity);
+				b->setFillBlendmode(m_blendMode);
+				b->setLineBlendmode(m_blendMode);
 				b->updateClip();
-				if (patternMode)
-					PatternElements.append(b);
+				if (m_patternMode)
+					m_PatternElements.append(b);
 				else
-					Elements.append(b);
-				if (groupStack.count() != 0)
-					groupStack.top().append(b);
-				symbolMode = false;
+					m_Elements.append(b);
+				if (m_groupStack.count() != 0)
+					m_groupStack.top().append(b);
+				m_symbolMode = false;
 			}
 		}
 		QStringList da2 = Cdata.split(" ", QString::SkipEmptyParts);
@@ -1552,135 +1552,135 @@ void AIPlug::processData(QString data)
 		{
 			ScTextStream ts2(&Cdata, QIODevice::ReadOnly);
 			ts2 >> x >> y;
-			Coords.svgMoveTo(x - docX, docHeight - (y - docY));
-			currentPoint = FPoint(x - docX, docHeight - (y - docY));
+			m_Coords.svgMoveTo(x - m_docX, m_docHeight - (y - m_docY));
+			m_currentPoint = FPoint(x - m_docX, m_docHeight - (y - m_docY));
 		}
 		else if ((command == "L") || (command == "l"))
 		{
 			ScTextStream ts2(&Cdata, QIODevice::ReadOnly);
 			ts2 >> x >> y;
-			Coords.svgLineTo(x - docX, docHeight - (y - docY));
-			currentPoint = FPoint(x - docX, docHeight - (y - docY));
+			m_Coords.svgLineTo(x - m_docX, m_docHeight - (y - m_docY));
+			m_currentPoint = FPoint(x - m_docX, m_docHeight - (y - m_docY));
 		}
 		else if ((command == "C") || (command == "c"))
 		{
 			ScTextStream ts2(&Cdata, QIODevice::ReadOnly);
 			ts2 >> x >> y >> x1 >> y1 >> x2 >> y2;
-			Coords.svgCurveToCubic(x - docX, docHeight - (y - docY),
-								   x1 - docX, docHeight - (y1 - docY),
-								   x2 - docX, docHeight - (y2 - docY));
-			currentPoint = FPoint(x2 - docX, docHeight - (y2 - docY));
+			m_Coords.svgCurveToCubic(x - m_docX, m_docHeight - (y - m_docY),
+								   x1 - m_docX, m_docHeight - (y1 - m_docY),
+								   x2 - m_docX, m_docHeight - (y2 - m_docY));
+			m_currentPoint = FPoint(x2 - m_docX, m_docHeight - (y2 - m_docY));
 		}
 		else if ((command == "Y") || (command == "y"))
 		{
 			ScTextStream ts2(&Cdata, QIODevice::ReadOnly);
 			ts2 >> x1 >> y1 >> x2 >> y2;
-			Coords.svgCurveToCubic(x1 - docX, docHeight - (y1 - docY), x2 - docX, docHeight - (y2 - docY), x2 - docX, docHeight - (y2 - docY));
-			currentPoint = FPoint(x2 - docX, docHeight - (y2 - docY));
+			m_Coords.svgCurveToCubic(x1 - m_docX, m_docHeight - (y1 - m_docY), x2 - m_docX, m_docHeight - (y2 - m_docY), x2 - m_docX, m_docHeight - (y2 - m_docY));
+			m_currentPoint = FPoint(x2 - m_docX, m_docHeight - (y2 - m_docY));
 		}
 		else if ((command == "V") || (command == "v"))
 		{
 			ScTextStream ts2(&Cdata, QIODevice::ReadOnly);
 			ts2 >> x >> y >> x2 >> y2;
-			Coords.svgCurveToCubic(currentPoint.x(), currentPoint.y(), x - docX, docHeight - (y - docY), x2 - docX, docHeight - (y2 - docY));
-			currentPoint = FPoint(x2 - docX, docHeight - (y2 - docY));
+			m_Coords.svgCurveToCubic(m_currentPoint.x(), m_currentPoint.y(), x - m_docX, m_docHeight - (y - m_docY), x2 - m_docX, m_docHeight - (y2 - m_docY));
+			m_currentPoint = FPoint(x2 - m_docX, m_docHeight - (y2 - m_docY));
 		}
 /* End Path construction commands */
 /* Start Object creation commands */
 		else if ((command == "b") || (command == "B") || (command == "f") || (command == "F") || (command == "s") || (command == "S"))
 		{
-			FPoint wh = Coords.WidthHeight();
-			if ((Coords.size() > 3) && (wh.x() != 0.0) && (wh.y() != 0.0))
+			FPoint wh = m_Coords.WidthHeight();
+			if ((m_Coords.size() > 3) && (wh.x() != 0.0) && (wh.y() != 0.0))
 			{
-				if ((!WasU) || ((WasU) && (FirstU)))
+				if ((!m_WasU) || ((m_WasU) && (m_FirstU)))
 				{
 					if ((command == "B") || (command == "F") || (command == "S"))
 					{
 						if (command == "F")
-							z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX, baseY, 10, 10, LineW, CurrColorFill, CommonStrings::None, true);
+							z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, m_baseX, m_baseY, 10, 10, m_LineW, m_CurrColorFill, CommonStrings::None, true);
 						else if (command == "B")
-							z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX, baseY, 10, 10, LineW, CurrColorFill, CurrColorStroke, true);
+							z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, m_baseX, m_baseY, 10, 10, m_LineW, m_CurrColorFill, m_CurrColorStroke, true);
 						else
-							z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX, baseY, 10, 10, LineW, CommonStrings::None, CurrColorStroke, true);
+							z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, m_baseX, m_baseY, 10, 10, m_LineW, CommonStrings::None, m_CurrColorStroke, true);
 					}
 					else
 					{
 						if (command == "f")
-							z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, LineW, CurrColorFill, CommonStrings::None, true);
+							z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, m_baseX, m_baseY, 10, 10, m_LineW, m_CurrColorFill, CommonStrings::None, true);
 						else if (command == "b")
-							z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, LineW, CurrColorFill, CurrColorStroke, true);
+							z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, m_baseX, m_baseY, 10, 10, m_LineW, m_CurrColorFill, m_CurrColorStroke, true);
 						else
-							z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, LineW, CommonStrings::None, CurrColorStroke, true);
+							z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, m_baseX, m_baseY, 10, 10, m_LineW, CommonStrings::None, m_CurrColorStroke, true);
 					}
 					ite = m_Doc->Items->at(z);
-					ite->PoLine = Coords.copy();
+					ite->PoLine = m_Coords.copy();
 					ite->PoLine.translate(m_Doc->currentPage()->xOffset(), m_Doc->currentPage()->yOffset());
 					ite->ClipEdited = true;
 					ite->FrameType = 3;
-					ite->setFillShade(CurrFillShade);
-					ite->setLineShade(CurrStrokeShade);
-					ite->setFillEvenOdd(fillRule);
-					ite->setFillTransparency(1.0 - Opacity);
-					ite->setLineTransparency(1.0 - Opacity);
-					ite->setFillBlendmode(blendMode);
-					ite->setLineBlendmode(blendMode);
-					if (!currentPatternName.isEmpty())
+					ite->setFillShade(m_CurrFillShade);
+					ite->setLineShade(m_CurrStrokeShade);
+					ite->setFillEvenOdd(m_fillRule);
+					ite->setFillTransparency(1.0 - m_Opacity);
+					ite->setLineTransparency(1.0 - m_Opacity);
+					ite->setFillBlendmode(m_blendMode);
+					ite->setLineBlendmode(m_blendMode);
+					if (!m_currentPatternName.isEmpty())
 					{
-						ite->setPattern(currentPatternName);
-						ite->setPatternTransform(currentPatternXScale * 100, currentPatternYScale * 100, currentPatternX, currentPatternY, currentPatternRotation, 0.0, 0.0);
+						ite->setPattern(m_currentPatternName);
+						ite->setPatternTransform(m_currentPatternXScale * 100, m_currentPatternYScale * 100, m_currentPatternX, m_currentPatternY, m_currentPatternRotation, 0.0, 0.0);
 						ite->GrType = 8;
-						currentPatternName = "";
+						m_currentPatternName = "";
 					}
-					if (!currentStrokePatternName.isEmpty())
+					if (!m_currentStrokePatternName.isEmpty())
 					{
-						ite->setStrokePattern(currentStrokePatternName);
-						ite->setStrokePatternTransform(currentStrokePatternXScale * 100, currentStrokePatternYScale * 100, currentStrokePatternX, currentStrokePatternY, currentStrokePatternRotation, 0.0, 0.0, 1.0);
-						currentStrokePatternName = "";
+						ite->setStrokePattern(m_currentStrokePatternName);
+						ite->setStrokePatternTransform(m_currentStrokePatternXScale * 100, m_currentStrokePatternYScale * 100, m_currentStrokePatternX, m_currentStrokePatternY, m_currentStrokePatternRotation, 0.0, 0.0, 1.0);
+						m_currentStrokePatternName = "";
 					}
-					ite->setLineEnd(CapStyle);
-					ite->setLineJoin(JoinStyle);
-					if (!WasU)
+					ite->setLineEnd(m_CapStyle);
+					ite->setLineJoin(m_JoinStyle);
+					if (!m_WasU)
 					{
 						FPoint wh = getMaxClipF(&ite->PoLine);
 						ite->setWidthHeight(wh.x(),wh.y());
 						ite->setTextFlowMode(PageItem::TextFlowDisabled);
 						m_Doc->AdjustItemSize(ite);
 					}
-					if (patternMode)
-						PatternElements.append(ite);
+					if (m_patternMode)
+						m_PatternElements.append(ite);
 					else
-						Elements.append(ite);
-					if (groupStack.count() != 0)
-						groupStack.top().append(ite);
-					if (importerFlags & LoadSavePlugin::lfCreateDoc)
-						ite->setLocked(itemLocked);
+						m_Elements.append(ite);
+					if (m_groupStack.count() != 0)
+						m_groupStack.top().append(ite);
+					if (m_importerFlags & LoadSavePlugin::lfCreateDoc)
+						ite->setLocked(m_itemLocked);
 					
 				}
 				else
 				{
 					ite = m_Doc->Items->last();
 					ite->PoLine.setMarker();
-					Coords.translate(m_Doc->currentPage()->xOffset(), m_Doc->currentPage()->yOffset());
-					ite->PoLine.putPoints(ite->PoLine.size(), Coords.size(), Coords);
+					m_Coords.translate(m_Doc->currentPage()->xOffset(), m_Doc->currentPage()->yOffset());
+					ite->PoLine.putPoints(ite->PoLine.size(), m_Coords.size(), m_Coords);
 				}
-				FirstU = false;
-				itemRendered = true;
-				CurrFillShade = 100.0;
-				CurrStrokeShade = 100.0;
+				m_FirstU = false;
+				m_itemRendered = true;
+				m_CurrFillShade = 100.0;
+				m_CurrStrokeShade = 100.0;
 			}
-			Coords.resize(0);
-			Coords.svgInit();
+			m_Coords.resize(0);
+			m_Coords.svgInit();
 		}
 		else if (command == "*u")
 		{
-			FirstU = true;
-			WasU = true;
+			m_FirstU = true;
+			m_WasU = true;
 		}
 		else if (command == "*U")
 		{
 			if (m_Doc->Items->count() > 0)
 			{
-				WasU = false;
+				m_WasU = false;
 				ite = m_Doc->Items->last();
 				FPoint wh = getMaxClipF(&ite->PoLine);
 				ite->setWidthHeight(wh.x(),wh.y());
@@ -1690,76 +1690,76 @@ void AIPlug::processData(QString data)
 		else if ((command == "u") || (command == "q"))
 		{
 			QList<PageItem*> gElements;
-			groupStack.push(gElements);
-			clipStack.push(clipCoords);
+			m_groupStack.push(gElements);
+			m_clipStack.push(m_clipCoords);
 		}
 		else if ((command == "U") || (command == "Q"))
 		{
-			if (groupStack.count() != 0)
+			if (m_groupStack.count() != 0)
 			{
-				QList<PageItem*> gElements = groupStack.pop();
-				clipCoords = clipStack.pop();
-				tmpSel->clear();
+				QList<PageItem*> gElements = m_groupStack.pop();
+				m_clipCoords = m_clipStack.pop();
+				m_tmpSel->clear();
 				if (gElements.count() > 0)
 				{
 					for (int dre = 0; dre < gElements.count(); ++dre)
 					{
-						tmpSel->addItem(gElements.at(dre), true);
-						if (patternMode)
-							PatternElements.removeAll(gElements.at(dre));
+						m_tmpSel->addItem(gElements.at(dre), true);
+						if (m_patternMode)
+							m_PatternElements.removeAll(gElements.at(dre));
 						else
-							Elements.removeAll(gElements.at(dre));
+							m_Elements.removeAll(gElements.at(dre));
 					}
-					ite = m_Doc->groupObjectsSelection(tmpSel);
-					if ((clipCoords.size() > 4) && (command == "Q"))
+					ite = m_Doc->groupObjectsSelection(m_tmpSel);
+					if ((m_clipCoords.size() > 4) && (command == "Q"))
 					{
-						clipCoords.translate(m_Doc->currentPage()->xOffset()-ite->xPos(), m_Doc->currentPage()->yOffset()-ite->yPos());
-						ite->PoLine = clipCoords.copy();
-						ite->PoLine.translate(baseX, baseY);
+						m_clipCoords.translate(m_Doc->currentPage()->xOffset()-ite->xPos(), m_Doc->currentPage()->yOffset()-ite->yPos());
+						ite->PoLine = m_clipCoords.copy();
+						ite->PoLine.translate(m_baseX, m_baseY);
 					}
-					for (int as = 0; as < tmpSel->count(); ++as)
+					for (int as = 0; as < m_tmpSel->count(); ++as)
 					{
-						if (patternMode)
-							PatternElements.append(tmpSel->itemAt(as));
+						if (m_patternMode)
+							m_PatternElements.append(m_tmpSel->itemAt(as));
 						else
-							Elements.append(tmpSel->itemAt(as));
+							m_Elements.append(m_tmpSel->itemAt(as));
 					}
 				}
-				if (groupStack.count() != 0)
+				if (m_groupStack.count() != 0)
 				{
-					for (int as = 0; as < tmpSel->count(); ++as)
+					for (int as = 0; as < m_tmpSel->count(); ++as)
 					{
-						groupStack.top().append(tmpSel->itemAt(as));
+						m_groupStack.top().append(m_tmpSel->itemAt(as));
 					}
 				}
-				tmpSel->clear();
+				m_tmpSel->clear();
 			}
 			if (command == "Q")
 			{
-				clipCoords.resize(0);
-				clipCoords.svgInit();
+				m_clipCoords.resize(0);
+				m_clipCoords.svgInit();
 			}
 		}
 		else if (command == "W")
 		{
-			if (clipStack.count() != 0)
+			if (m_clipStack.count() != 0)
 			{
-				if (clipStack.top().size() > 3)
+				if (m_clipStack.top().size() > 3)
 				{
-					clipStack.top().setMarker();
-					clipStack.top().putPoints(clipStack.top().size(), Coords.size(), Coords);
+					m_clipStack.top().setMarker();
+					m_clipStack.top().putPoints(m_clipStack.top().size(), m_Coords.size(), m_Coords);
 				}
 				else
-					clipStack.top() = Coords.copy();
+					m_clipStack.top() = m_Coords.copy();
 			}
 		}
 		else if ((command == "N") || (command == "n"))
 		{
 			if (command == "n")
-				Coords.svgClosePath();
-			currentSpecialPath = Coords.copy();
-			Coords.resize(0);
-			Coords.svgInit();
+				m_Coords.svgClosePath();
+			m_currentSpecialPath = m_Coords.copy();
+			m_Coords.resize(0);
+			m_Coords.svgInit();
 		}
 /* End Object construction commands */
 /* Start Graphics state commands */
@@ -1768,36 +1768,36 @@ void AIPlug::processData(QString data)
 			ScTextStream ts2(&Cdata, QIODevice::ReadOnly);
 			ts2 >> tmpInt;
 			if (tmpInt == 1)
-				itemLocked = true;
+				m_itemLocked = true;
 			else
-				itemLocked = false;
+				m_itemLocked = false;
 		}
 		else if (command == "w")
 		{
 			ScTextStream ts2(&Cdata, QIODevice::ReadOnly);
-			ts2 >> LineW;
+			ts2 >> m_LineW;
 		}
 		else if (command == "j")
 		{
 			ScTextStream ts2(&Cdata, QIODevice::ReadOnly);
 			ts2 >> tmpInt;
 			if (tmpInt == 0)
-				JoinStyle = Qt::MiterJoin;
+				m_JoinStyle = Qt::MiterJoin;
 			else if (tmpInt == 1)
-				JoinStyle = Qt::RoundJoin;
+				m_JoinStyle = Qt::RoundJoin;
 			else if (tmpInt == 1)
-				JoinStyle = Qt::BevelJoin;
+				m_JoinStyle = Qt::BevelJoin;
 		}
 		else if (command == "J")
 		{
 			ScTextStream ts2(&Cdata, QIODevice::ReadOnly);
 			ts2 >> tmpInt;
 			if (tmpInt == 0)
-				CapStyle = Qt::FlatCap;
+				m_CapStyle = Qt::FlatCap;
 			else if (tmpInt == 1)
-				CapStyle = Qt::RoundCap;
+				m_CapStyle = Qt::RoundCap;
 			else if (tmpInt == 1)
-				CapStyle = Qt::SquareCap;
+				m_CapStyle = Qt::SquareCap;
 		}
 		/* undocumented Command Xy
 			- has up to 5 Parameters
@@ -1808,58 +1808,58 @@ void AIPlug::processData(QString data)
 		{
 			ScTextStream ts2(&Cdata, QIODevice::ReadOnly);
 			int mode = 0;
-			ts2 >> mode >> Opacity;
+			ts2 >> mode >> m_Opacity;
 			// Adjusting blendmodes, taken from the PDF importer
 			switch (mode)
 			{
 				default:
 				case 0:
-					blendMode = 0;
+					m_blendMode = 0;
 					break;
 				case 4:
-					blendMode = 1;
+					m_blendMode = 1;
 					break;
 				case 5:
-					blendMode = 2;
+					m_blendMode = 2;
 					break;
 				case 1:
-					blendMode = 3;
+					m_blendMode = 3;
 					break;
 				case 2:
-					blendMode = 4;
+					m_blendMode = 4;
 					break;
 				case 3:
-					blendMode = 5;
+					m_blendMode = 5;
 					break;
 				case 8:
-					blendMode = 6;
+					m_blendMode = 6;
 					break;
 				case 9:
-					blendMode = 7;
+					m_blendMode = 7;
 					break;
 				case 10:
-					blendMode = 8;
+					m_blendMode = 8;
 					break;
 				case 11:
-					blendMode = 9;
+					m_blendMode = 9;
 					break;
 				case 6:
-					blendMode = 10;
+					m_blendMode = 10;
 					break;
 				case 7:
-					blendMode = 11;
+					m_blendMode = 11;
 					break;
 				case 12:
-					blendMode = 12;
+					m_blendMode = 12;
 					break;
 				case 13:
-					blendMode = 13;
+					m_blendMode = 13;
 					break;
 				case 14:
-					blendMode = 14;
+					m_blendMode = 14;
 					break;
 				case 15:
-					blendMode = 15;
+					m_blendMode = 15;
 					break;
 			}
 		}
@@ -1868,181 +1868,181 @@ void AIPlug::processData(QString data)
 			ScTextStream ts2(&Cdata, QIODevice::ReadOnly);
 			ts2 >> tmpInt;
 			if (tmpInt == 1)
-				fillRule = true;
+				m_fillRule = true;
 			else
-				fillRule = false;
+				m_fillRule = false;
 		}
 		else if (command == "Bb")
 		{
-			gradientMode = true;
-			wasBC = false;
-			itemRendered = false;
-			startMatrix = QTransform();
-			endMatrix = QTransform();
+			m_gradientMode = true;
+			m_wasBC = false;
+			m_itemRendered = false;
+			m_startMatrix = QTransform();
+			m_endMatrix = QTransform();
 		}
 		else if (command == "Xm")
 		{
 			ScTextStream gVals(&Cdata, QIODevice::ReadOnly);
 			double m1, m2, m3, m4, m5, m6;
 			gVals >> m1 >> m2 >> m3 >> m4 >> m5 >> m6;
-			startMatrix.translate(m5, -m6);
-			endMatrix.scale(m1, m4);
-			wasBC = true;
+			m_startMatrix.translate(m5, -m6);
+			m_endMatrix.scale(m1, m4);
+			m_wasBC = true;
 		}
 		else if (command == "Bm")
 		{
-			if (m_gradients[currentGradientName].type() == 1)
+			if (m_gradients[m_currentGradientName].type() == 1)
 			{
 				ScTextStream gVals(&Cdata, QIODevice::ReadOnly);
 				double m1, m2, m3, m4, m5, m6;
 				gVals >> m1 >> m2 >> m3 >> m4 >> m5 >> m6;
-				startMatrix.translate(m5, -m6);
+				m_startMatrix.translate(m5, -m6);
 //				endMatrix.scale(m1, m4);
-				endMatrix *= QTransform(m1, m2, m3, m4, 0, 0);
+				m_endMatrix *= QTransform(m1, m2, m3, m4, 0, 0);
 //				endMatrix = QTransform(m1, m2, m3, m4, m5, m6);
-				wasBC = true;
+				m_wasBC = true;
 			}
 		}
 		else if (command == "BB")
 		{
-			if (itemRendered)
+			if (m_itemRendered)
 			{
-				gradientMode = false;
+				m_gradientMode = false;
 				ite = m_Doc->Items->last();
-				ite->fill_gradient = m_gradients[currentGradientName];
-				ite->setGradient(currentGradientName);
+				ite->fill_gradient = m_gradients[m_currentGradientName];
+				ite->setGradient(m_currentGradientName);
 				if (ite->fill_gradient.type() == 0)
 					ite->GrType = 6;
 				else
 					ite->GrType = 7;
 				QTransform m1;
-				m1.translate(currentGradientOrigin.x() - ite->xPos(), currentGradientOrigin.y() - ite->yPos());
+				m1.translate(m_currentGradientOrigin.x() - ite->xPos(), m_currentGradientOrigin.y() - ite->yPos());
 				m1.translate(m_Doc->currentPage()->xOffset(), m_Doc->currentPage()->yOffset());
-				m1.rotate(-currentGradientAngle);
-				ite->GrStartX = currentGradientOrigin.x() - ite->xPos() + m_Doc->currentPage()->xOffset();
-				ite->GrStartY = currentGradientOrigin.y() - ite->yPos() + m_Doc->currentPage()->yOffset();
-				QPointF target = m1.map(QPointF(currentGradientLenght, 0.0));
+				m1.rotate(-m_currentGradientAngle);
+				ite->GrStartX = m_currentGradientOrigin.x() - ite->xPos() + m_Doc->currentPage()->xOffset();
+				ite->GrStartY = m_currentGradientOrigin.y() - ite->yPos() + m_Doc->currentPage()->yOffset();
+				QPointF target = m1.map(QPointF(m_currentGradientLenght, 0.0));
 				ite->GrEndX = target.x();
 				ite->GrEndY = target.y();
-				if (wasBC)
+				if (m_wasBC)
 				{
-					QPointF newS = startMatrix.map(QPointF(ite->GrStartX, ite->GrStartY));
+					QPointF newS = m_startMatrix.map(QPointF(ite->GrStartX, ite->GrStartY));
 					ite->GrStartX = newS.x();
 					ite->GrStartY = newS.y();
 					QTransform m2;
-					m2.rotate(-currentGradientAngle);
-					m2 *= endMatrix;
-					QPointF target = m2.map(QPointF(currentGradientLenght, 0.0));
+					m2.rotate(-m_currentGradientAngle);
+					m2 *= m_endMatrix;
+					QPointF target = m2.map(QPointF(m_currentGradientLenght, 0.0));
 					ite->GrEndX = target.x();
 					ite->GrEndY = target.y();
 				}
 			}
-			wasBC = false;
-			currentGradientMatrix = QTransform();
-			currentGradientOrigin = QPointF(0.0, 0.0);
-			currentGradientAngle = 0.0;
-			currentGradientLenght = 1.0;
-			itemRendered = false;
+			m_wasBC = false;
+			m_currentGradientMatrix = QTransform();
+			m_currentGradientOrigin = QPointF(0.0, 0.0);
+			m_currentGradientAngle = 0.0;
+			m_currentGradientLenght = 1.0;
+			m_itemRendered = false;
 		}
 		else if (command == "Bg")
 		{
 			int an = Cdata.indexOf("(");
 			int en = Cdata.lastIndexOf(")");
-			currentGradientName = Cdata.mid(an+1, en-an-1);
-			currentGradientName.remove("\\");
+			m_currentGradientName = Cdata.mid(an+1, en-an-1);
+			m_currentGradientName.remove("\\");
 			QString tmpS = Cdata.mid(en+1, Cdata.size() - en);
 			ScTextStream gVals(&tmpS, QIODevice::ReadOnly);
 			double xOrig, yOrig, m1, m2, m3, m4, m5, m6;
-			gVals >> xOrig >> yOrig >> currentGradientAngle >> currentGradientLenght >> m1 >> m2 >> m3 >> m4 >> m5 >> m6;
-			currentGradientOrigin = QPointF(xOrig - docX, docHeight - (yOrig - docY));
-			currentGradientMatrix = QTransform(m1, m2, m3, m4, m5, m6);
+			gVals >> xOrig >> yOrig >> m_currentGradientAngle >> m_currentGradientLenght >> m1 >> m2 >> m3 >> m4 >> m5 >> m6;
+			m_currentGradientOrigin = QPointF(xOrig - m_docX, m_docHeight - (yOrig - m_docY));
+			m_currentGradientMatrix = QTransform(m1, m2, m3, m4, m5, m6);
 		}
 /* End Graphics state commands */
 /* Start Color commands */
 		else if ((command == "G") || (command == "g"))
 		{
 			if (command == "G")
-				CurrColorStroke = parseColorGray(Cdata);
+				m_CurrColorStroke = parseColorGray(Cdata);
 			else
-				CurrColorFill = parseColorGray(Cdata);
-			meshColorMode = 2;
+				m_CurrColorFill = parseColorGray(Cdata);
+			m_meshColorMode = 2;
 		}
 		else if ((command == "K") || (command == "k"))
 		{
 			if (command == "K")
-				CurrColorStroke = parseColor(Cdata);
+				m_CurrColorStroke = parseColor(Cdata);
 			else
-				CurrColorFill = parseColor(Cdata);
+				m_CurrColorFill = parseColor(Cdata);
 		}
 		else if ((command == "XA") || (command == "Xa"))
 		{
 			QString Xdata = da2[da2.count()-4] + " " + da2[da2.count()-3] + " " + da2[da2.count()-2];
 			if (command == "XA")
-				CurrColorStroke = parseColorRGB(Xdata);
+				m_CurrColorStroke = parseColorRGB(Xdata);
 			else
-				CurrColorFill = parseColorRGB(Xdata);
-			meshColorMode = 1;
+				m_CurrColorFill = parseColorRGB(Xdata);
+			m_meshColorMode = 1;
 		}
 		else if ((command == "XX") || (command == "Xx") || (command == "Xk"))
 		{
 			if (command == "XX")
-				CurrColorStroke = parseCustomColorX(Cdata, CurrStrokeShade, da2[da2.count()-2]);
+				m_CurrColorStroke = parseCustomColorX(Cdata, m_CurrStrokeShade, da2[da2.count()-2]);
 			else
-				CurrColorFill = parseCustomColorX(Cdata, CurrFillShade, da2[da2.count()-2]);
+				m_CurrColorFill = parseCustomColorX(Cdata, m_CurrFillShade, da2[da2.count()-2]);
 		}
 		else if ((command == "X") || (command == "x"))
 		{
 			if (command == "X")
-				CurrColorStroke = parseCustomColor(Cdata, CurrStrokeShade);
+				m_CurrColorStroke = parseCustomColor(Cdata, m_CurrStrokeShade);
 			else
-				CurrColorFill = parseCustomColor(Cdata, CurrFillShade);
+				m_CurrColorFill = parseCustomColor(Cdata, m_CurrFillShade);
 		}
 		else if (command == "p")
 		{
 			int an = Cdata.indexOf("(");
 			int en = Cdata.lastIndexOf(")");
-			currentPatternName = Cdata.mid(an+1, en-an-1);
-			currentPatternName.remove("\\");
-			currentPatternName = currentPatternName.trimmed().simplified().replace(" ", "_");
+			m_currentPatternName = Cdata.mid(an+1, en-an-1);
+			m_currentPatternName.remove("\\");
+			m_currentPatternName = m_currentPatternName.trimmed().simplified().replace(" ", "_");
 			QString tmpS = Cdata.mid(en+1, Cdata.size() - en);
 			ScTextStream gVals(&tmpS, QIODevice::ReadOnly);
-			gVals >> currentPatternX >> currentPatternY >> currentPatternXScale >> currentPatternYScale >> currentPatternRotation;
+			gVals >> m_currentPatternX >> m_currentPatternY >> m_currentPatternXScale >> m_currentPatternYScale >> m_currentPatternRotation;
 		}
 		else if (command == "P")
 		{
 			int an = Cdata.indexOf("(");
 			int en = Cdata.lastIndexOf(")");
-			currentStrokePatternName = Cdata.mid(an+1, en-an-1);
-			currentStrokePatternName.remove("\\");
-			currentStrokePatternName = currentPatternName.trimmed().simplified().replace(" ", "_");
+			m_currentStrokePatternName = Cdata.mid(an+1, en-an-1);
+			m_currentStrokePatternName.remove("\\");
+			m_currentStrokePatternName = m_currentPatternName.trimmed().simplified().replace(" ", "_");
 			QString tmpS = Cdata.mid(en+1, Cdata.size() - en);
 			ScTextStream gVals(&tmpS, QIODevice::ReadOnly);
-			gVals >> currentStrokePatternX >> currentStrokePatternY >> currentStrokePatternXScale >> currentStrokePatternYScale >> currentStrokePatternRotation;
+			gVals >> m_currentStrokePatternX >> m_currentStrokePatternY >> m_currentStrokePatternXScale >> m_currentStrokePatternYScale >> m_currentStrokePatternRotation;
 		}
 		else if (command == "X!")
 		{
 			if (Cdata.contains("/Mesh"))
 			{
-				meshMode = true;
-				meshNodeCounter = 0;
+				m_meshMode = true;
+				m_meshNodeCounter = 0;
 //				meshColorMode = 0;
-				meshGradientArray.clear();
+				m_meshGradientArray.clear();
 			}
 			if (Cdata.contains("/End"))
 			{
-				meshMode = false;
-				if (meshGradientArray.count() != 0)
+				m_meshMode = false;
+				if (m_meshGradientArray.count() != 0)
 				{
-					z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, 0, CommonStrings::None, CommonStrings::None, true);
+					z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, m_baseX, m_baseY, 10, 10, 0, CommonStrings::None, CommonStrings::None, true);
 					ite = m_Doc->Items->at(z);
-					for (int x = 0; x < meshGradientArray.count(); x++)
+					for (int x = 0; x < m_meshGradientArray.count(); x++)
 					{
-						for (int y = 0; y < meshGradientArray[x].count(); y++)
+						for (int y = 0; y < m_meshGradientArray[x].count(); y++)
 						{
-							meshGradientArray[x][y].moveRel(m_Doc->currentPage()->xOffset(), m_Doc->currentPage()->yOffset());
+							m_meshGradientArray[x][y].moveRel(m_Doc->currentPage()->xOffset(), m_Doc->currentPage()->yOffset());
 						}
 					}
-					ite->meshGradientArray = meshGradientArray;
+					ite->meshGradientArray = m_meshGradientArray;
 					ite->GrType = 11;
 					ite->meshToShape();
 					for (int grow = 0; grow < ite->meshGradientArray.count(); grow++)
@@ -2053,23 +2053,23 @@ void AIPlug::processData(QString data)
 							ite->setMeshPointColor(grow, gcol, mp.colorName, mp.shade, mp.transparency);
 						}
 					}
-					ite->setFillShade(CurrFillShade);
-					ite->setLineShade(CurrFillShade);
-					ite->setFillEvenOdd(fillRule);
-					ite->setFillTransparency(1.0 - Opacity);
-					ite->setLineTransparency(1.0 - Opacity);
-					ite->setFillBlendmode(blendMode);
-					ite->setLineBlendmode(blendMode);
-					ite->setLineEnd(CapStyle);
-					ite->setLineJoin(JoinStyle);
-					if (importerFlags & LoadSavePlugin::lfCreateDoc)
-						ite->setLocked(itemLocked);
-					if (patternMode)
-						PatternElements.append(ite);
+					ite->setFillShade(m_CurrFillShade);
+					ite->setLineShade(m_CurrFillShade);
+					ite->setFillEvenOdd(m_fillRule);
+					ite->setFillTransparency(1.0 - m_Opacity);
+					ite->setLineTransparency(1.0 - m_Opacity);
+					ite->setFillBlendmode(m_blendMode);
+					ite->setLineBlendmode(m_blendMode);
+					ite->setLineEnd(m_CapStyle);
+					ite->setLineJoin(m_JoinStyle);
+					if (m_importerFlags & LoadSavePlugin::lfCreateDoc)
+						ite->setLocked(m_itemLocked);
+					if (m_patternMode)
+						m_PatternElements.append(ite);
 					else
-						Elements.append(ite);
-					if (groupStack.count() != 0)
-						groupStack.top().append(ite);
+						m_Elements.append(ite);
+					if (m_groupStack.count() != 0)
+						m_groupStack.top().append(ite);
 				}
 			}
 		}
@@ -2084,21 +2084,21 @@ void AIPlug::processData(QString data)
 			mVals >> mKey;
 			if (mKey == "Size")
 			{
-				meshGradientArray.clear();
+				m_meshGradientArray.clear();
 				int ans = cmdLine.indexOf("[");
 				int ens = cmdLine.lastIndexOf("]");
 				QString sizeVals = cmdLine.mid(ans+1, ens-ans-1);
 				ScTextStream mVals2(&sizeVals, QIODevice::ReadOnly);
-				mVals2 >> meshXSize >> meshYSize;
-				for (int mgr = 0; mgr < meshYSize+1; mgr++)
+				mVals2 >> m_meshXSize >> m_meshYSize;
+				for (int mgr = 0; mgr < m_meshYSize+1; mgr++)
 				{
 					QList<meshPoint> ml;
-					for (int mgc = 0; mgc < meshXSize+1; mgc++)
+					for (int mgc = 0; mgc < m_meshXSize+1; mgc++)
 					{
 						meshPoint mp;
 						ml.append(mp);
 					}
-					meshGradientArray.append(ml);
+					m_meshGradientArray.append(ml);
 				}
 			}
 			if (mKey == "P")
@@ -2107,52 +2107,52 @@ void AIPlug::processData(QString data)
 				int ens = cmdLine.lastIndexOf("]");
 				QString posVals = cmdLine.mid(ans+1, ens-ans-1);
 				ScTextStream mVals3(&posVals, QIODevice::ReadOnly);
-				mVals3 >> currentMeshXPos >> currentMeshYPos;
+				mVals3 >> m_currentMeshXPos >> m_currentMeshYPos;
 			}
 			if (mKey == "CS")
 			{
 				if (Cdata.contains("CMYK"))
-					meshColorMode = 0;
+					m_meshColorMode = 0;
 				else if (Cdata.contains("RGB"))
-					meshColorMode = 1;
+					m_meshColorMode = 1;
 				else if (Cdata.contains("Gray"))
-					meshColorMode = 2;
+					m_meshColorMode = 2;
 			}
 			if (mKey == "E")
 			{
-				int indY = meshYSize - currentMeshYPos - 1;
-				int indX = currentMeshXPos;
-				meshGradientArray[indY+1][indX+1].gridPoint   = FPoint(meshNode2PointX, meshNode2PointY);
-				meshGradientArray[indY+1][indX+1].controlTop  = FPoint(meshNode2Control2X, meshNode2Control2Y);
-				meshGradientArray[indY+1][indX+1].controlLeft = FPoint(meshNode2Control1X, meshNode2Control1Y);
-				meshGradientArray[indY+1][indX+1].colorName = meshColor2;
-				meshGradientArray[indY+1][indX+1].shade = 100;
-				meshGradientArray[indY+1][indX+1].transparency = 1.0;
-				meshGradientArray[indY+1][indX].gridPoint    = FPoint(meshNode1PointX, meshNode1PointY);
-				meshGradientArray[indY+1][indX].controlRight = FPoint(meshNode1Control2X, meshNode1Control2Y);
-				meshGradientArray[indY+1][indX].controlTop   = FPoint(meshNode1Control1X, meshNode1Control1Y);
-				meshGradientArray[indY+1][indX].colorName = meshColor1;
-				meshGradientArray[indY+1][indX].shade = 100;
-				meshGradientArray[indY+1][indX].transparency = 1.0;
-				meshGradientArray[indY][indX].gridPoint     = FPoint(meshNode4PointX, meshNode4PointY);
-				meshGradientArray[indY][indX].controlBottom = FPoint(meshNode4Control2X, meshNode4Control2Y);
-				meshGradientArray[indY][indX].controlRight  = FPoint(meshNode4Control1X, meshNode4Control1Y);
-				meshGradientArray[indY][indX].colorName = meshColor4;
-				meshGradientArray[indY][indX].shade = 100;
-				meshGradientArray[indY][indX].transparency = 1.0;
-				meshGradientArray[indY][indX+1].gridPoint     = FPoint(meshNode3PointX, meshNode3PointY);
-				meshGradientArray[indY][indX+1].controlLeft   = FPoint(meshNode3Control2X, meshNode3Control2Y);
-				meshGradientArray[indY][indX+1].controlBottom = FPoint(meshNode3Control1X, meshNode3Control1Y);
-				meshGradientArray[indY][indX+1].colorName = meshColor3;
-				meshGradientArray[indY][indX+1].shade = 100;
-				meshGradientArray[indY][indX+1].transparency = 1.0;
-				meshNodeCounter = 0;
+				int indY = m_meshYSize - m_currentMeshYPos - 1;
+				int indX = m_currentMeshXPos;
+				m_meshGradientArray[indY+1][indX+1].gridPoint   = FPoint(m_meshNode2PointX, m_meshNode2PointY);
+				m_meshGradientArray[indY+1][indX+1].controlTop  = FPoint(m_meshNode2Control2X, m_meshNode2Control2Y);
+				m_meshGradientArray[indY+1][indX+1].controlLeft = FPoint(m_meshNode2Control1X, m_meshNode2Control1Y);
+				m_meshGradientArray[indY+1][indX+1].colorName = m_meshColor2;
+				m_meshGradientArray[indY+1][indX+1].shade = 100;
+				m_meshGradientArray[indY+1][indX+1].transparency = 1.0;
+				m_meshGradientArray[indY+1][indX].gridPoint    = FPoint(m_meshNode1PointX, m_meshNode1PointY);
+				m_meshGradientArray[indY+1][indX].controlRight = FPoint(m_meshNode1Control2X, m_meshNode1Control2Y);
+				m_meshGradientArray[indY+1][indX].controlTop   = FPoint(m_meshNode1Control1X, m_meshNode1Control1Y);
+				m_meshGradientArray[indY+1][indX].colorName = m_meshColor1;
+				m_meshGradientArray[indY+1][indX].shade = 100;
+				m_meshGradientArray[indY+1][indX].transparency = 1.0;
+				m_meshGradientArray[indY][indX].gridPoint     = FPoint(m_meshNode4PointX, m_meshNode4PointY);
+				m_meshGradientArray[indY][indX].controlBottom = FPoint(m_meshNode4Control2X, m_meshNode4Control2Y);
+				m_meshGradientArray[indY][indX].controlRight  = FPoint(m_meshNode4Control1X, m_meshNode4Control1Y);
+				m_meshGradientArray[indY][indX].colorName = m_meshColor4;
+				m_meshGradientArray[indY][indX].shade = 100;
+				m_meshGradientArray[indY][indX].transparency = 1.0;
+				m_meshGradientArray[indY][indX+1].gridPoint     = FPoint(m_meshNode3PointX, m_meshNode3PointY);
+				m_meshGradientArray[indY][indX+1].controlLeft   = FPoint(m_meshNode3Control2X, m_meshNode3Control2Y);
+				m_meshGradientArray[indY][indX+1].controlBottom = FPoint(m_meshNode3Control1X, m_meshNode3Control1Y);
+				m_meshGradientArray[indY][indX+1].colorName = m_meshColor3;
+				m_meshGradientArray[indY][indX+1].shade = 100;
+				m_meshGradientArray[indY][indX+1].transparency = 1.0;
+				m_meshNodeCounter = 0;
 			}
 			if (mKey == "N")
 			{
 				double cVal, mVal, yVal, kVal, coorX1, coorY1, coorX2, coorY2, coorX3, coorY3;
 				int dummy;
-				meshNodeCounter++;
+				m_meshNodeCounter++;
 				int ans = cmdLine.indexOf("[");
 				int ens = cmdLine.lastIndexOf("]");
 				QString nodeVals = cmdLine.mid(ans+1, ens-ans-1);
@@ -2161,11 +2161,11 @@ void AIPlug::processData(QString data)
 				mVal = 0.0;
 				yVal = 0.0;
 				kVal = 0.0;
-				if (meshColorMode == 0)
+				if (m_meshColorMode == 0)
 					mVals4 >> cVal >> mVal >> yVal >> kVal >> coorX1 >> coorY1 >> coorX2 >> coorY2 >> dummy >> coorX3 >> coorY3;
-				else if (meshColorMode == 1)
+				else if (m_meshColorMode == 1)
 					mVals4 >> cVal >> mVal >> yVal >> coorX1 >> coorY1 >> coorX2 >> coorY2 >> dummy >> coorX3 >> coorY3;
-				else if (meshColorMode == 2)
+				else if (m_meshColorMode == 2)
 					mVals4 >> cVal >> coorX1 >> coorY1 >> coorX2 >> coorY2 >> dummy >> coorX3 >> coorY3;
 				QString nodeColor;
 				ScColor tmpColor;
@@ -2176,7 +2176,7 @@ void AIPlug::processData(QString data)
 				int Kc = qRound(kVal * 255);
 				int hC, hM, hY, hK;
 				bool found = false;
-				if (meshColorMode == 0)
+				if (m_meshColorMode == 0)
 				{
 					tmpColor.setColor(Cc, Mc, Yc, Kc);
 					for (it = m_Doc->PageColors.begin(); it != m_Doc->PageColors.end(); ++it)
@@ -2193,7 +2193,7 @@ void AIPlug::processData(QString data)
 						}
 					}
 				}
-				else if (meshColorMode == 1)
+				else if (m_meshColorMode == 1)
 				{
 					tmpColor.setColorRGB(Cc, Mc, Yc);
 					for (it = m_Doc->PageColors.begin(); it != m_Doc->PageColors.end(); ++it)
@@ -2210,7 +2210,7 @@ void AIPlug::processData(QString data)
 						}
 					}
 				}
-				else if (meshColorMode == 2)
+				else if (m_meshColorMode == 2)
 				{
 					tmpColor.setColor(0, 0, 0, Cc);
 					for (it = m_Doc->PageColors.begin(); it != m_Doc->PageColors.end(); ++it)
@@ -2235,45 +2235,45 @@ void AIPlug::processData(QString data)
 					m_Doc->PageColors.insert(namPrefix+tmpColor.name(), tmpColor);
 					nodeColor = namPrefix+tmpColor.name();
 				}
-				if (meshNodeCounter == 1)
+				if (m_meshNodeCounter == 1)
 				{
-					meshNode1PointX = coorX1 - docX;
-					meshNode1PointY = docHeight - (coorY1 - docY);
-					meshNode1Control2X = coorX2 - docX;
-					meshNode1Control2Y = docHeight - (coorY2 - docY);
-					meshNode1Control1X = coorX3 - docX;
-					meshNode1Control1Y = docHeight - (coorY3 - docY);
-					meshColor1 = nodeColor;
+					m_meshNode1PointX = coorX1 - m_docX;
+					m_meshNode1PointY = m_docHeight - (coorY1 - m_docY);
+					m_meshNode1Control2X = coorX2 - m_docX;
+					m_meshNode1Control2Y = m_docHeight - (coorY2 - m_docY);
+					m_meshNode1Control1X = coorX3 - m_docX;
+					m_meshNode1Control1Y = m_docHeight - (coorY3 - m_docY);
+					m_meshColor1 = nodeColor;
 				}
-				if (meshNodeCounter == 2)
+				if (m_meshNodeCounter == 2)
 				{
-					meshNode2PointX = coorX1 - docX;
-					meshNode2PointY = docHeight - (coorY1 - docY);
-					meshNode2Control2X = coorX2 - docX;
-					meshNode2Control2Y = docHeight - (coorY2 - docY);
-					meshNode2Control1X = coorX3 - docX;
-					meshNode2Control1Y = docHeight - (coorY3 - docY);
-					meshColor2 = nodeColor;
+					m_meshNode2PointX = coorX1 - m_docX;
+					m_meshNode2PointY = m_docHeight - (coorY1 - m_docY);
+					m_meshNode2Control2X = coorX2 - m_docX;
+					m_meshNode2Control2Y = m_docHeight - (coorY2 - m_docY);
+					m_meshNode2Control1X = coorX3 - m_docX;
+					m_meshNode2Control1Y = m_docHeight - (coorY3 - m_docY);
+					m_meshColor2 = nodeColor;
 				}
-				if (meshNodeCounter == 3)
+				if (m_meshNodeCounter == 3)
 				{
-					meshNode3PointX = coorX1 - docX;
-					meshNode3PointY = docHeight - (coorY1 - docY);
-					meshNode3Control2X = coorX2 - docX;
-					meshNode3Control2Y = docHeight - (coorY2 - docY);
-					meshNode3Control1X = coorX3 - docX;
-					meshNode3Control1Y = docHeight - (coorY3 - docY);
-					meshColor3 = nodeColor;
+					m_meshNode3PointX = coorX1 - m_docX;
+					m_meshNode3PointY = m_docHeight - (coorY1 - m_docY);
+					m_meshNode3Control2X = coorX2 - m_docX;
+					m_meshNode3Control2Y = m_docHeight - (coorY2 - m_docY);
+					m_meshNode3Control1X = coorX3 - m_docX;
+					m_meshNode3Control1Y = m_docHeight - (coorY3 - m_docY);
+					m_meshColor3 = nodeColor;
 				}
-				if (meshNodeCounter == 4)
+				if (m_meshNodeCounter == 4)
 				{
-					meshNode4PointX = coorX1 - docX;
-					meshNode4PointY = docHeight - (coorY1 - docY);
-					meshNode4Control2X = coorX2 - docX;
-					meshNode4Control2Y = docHeight - (coorY2 - docY);
-					meshNode4Control1X = coorX3 - docX;
-					meshNode4Control1Y = docHeight - (coorY3 - docY);
-					meshColor4 = nodeColor;
+					m_meshNode4PointX = coorX1 - m_docX;
+					m_meshNode4PointY = m_docHeight - (coorY1 - m_docY);
+					m_meshNode4Control2X = coorX2 - m_docX;
+					m_meshNode4Control2Y = m_docHeight - (coorY2 - m_docY);
+					m_meshNode4Control1X = coorX3 - m_docX;
+					m_meshNode4Control1Y = m_docHeight - (coorY3 - m_docY);
+					m_meshColor4 = nodeColor;
 				}
 			}
 		}
@@ -2281,84 +2281,84 @@ void AIPlug::processData(QString data)
 /* Start Layer commands */
 		else if (command == "Lb")
 		{
-			if (importerFlags & LoadSavePlugin::lfCreateDoc)
+			if (m_importerFlags & LoadSavePlugin::lfCreateDoc)
 			{
 				int visible, preview, enabled, printing, dummy, rc, gc, bc;
 				ScTextStream ts2(&Cdata, QIODevice::ReadOnly);
 				ts2 >> visible >> preview >> enabled >> printing >> dummy >> dummy >> dummy >> rc >> gc >> bc;
-				if (!firstLayer)
-					currentLayer = m_Doc->addLayer("Layer", true);
-				m_Doc->setLayerVisible(currentLayer, static_cast<bool>(visible));
-				m_Doc->setLayerOutline(currentLayer, static_cast<bool>(!preview));
-				m_Doc->setLayerLocked(currentLayer, static_cast<bool>(!enabled));
-				m_Doc->setLayerPrintable(currentLayer, static_cast<bool>(printing));
-				m_Doc->setLayerMarker(currentLayer, QColor(rc, gc, bc));
+				if (!m_firstLayer)
+					m_currentLayer = m_Doc->addLayer("Layer", true);
+				m_Doc->setLayerVisible(m_currentLayer, static_cast<bool>(visible));
+				m_Doc->setLayerOutline(m_currentLayer, static_cast<bool>(!preview));
+				m_Doc->setLayerLocked(m_currentLayer, static_cast<bool>(!enabled));
+				m_Doc->setLayerPrintable(m_currentLayer, static_cast<bool>(printing));
+				m_Doc->setLayerMarker(m_currentLayer, QColor(rc, gc, bc));
 				QList<PageItem*> gElements;
-				groupStack.push(gElements);
-				clipStack.push(clipCoords);
-				firstLayer = false;
+				m_groupStack.push(gElements);
+				m_clipStack.push(m_clipCoords);
+				m_firstLayer = false;
 			}
-			Coords.resize(0);
-			Coords.svgInit();
+			m_Coords.resize(0);
+			m_Coords.svgInit();
 		}
 		else if (command == "LB")
 		{
-			if (importerFlags & LoadSavePlugin::lfCreateDoc)
+			if (m_importerFlags & LoadSavePlugin::lfCreateDoc)
 			{
-				if (groupStack.count() != 0)
+				if (m_groupStack.count() != 0)
 				{
-					QList<PageItem*> gElements = groupStack.pop();
-					clipStack.pop();
-					tmpSel->clear();
+					QList<PageItem*> gElements = m_groupStack.pop();
+					m_clipStack.pop();
+					m_tmpSel->clear();
 					if (gElements.count() > 0)
 					{
 						for (int dre = 0; dre < gElements.count(); ++dre)
 						{
-							tmpSel->addItem(gElements.at(dre), true);
-							if (patternMode)
-								PatternElements.removeAll(gElements.at(dre));
+							m_tmpSel->addItem(gElements.at(dre), true);
+							if (m_patternMode)
+								m_PatternElements.removeAll(gElements.at(dre));
 							else
-								Elements.removeAll(gElements.at(dre));
+								m_Elements.removeAll(gElements.at(dre));
 						}
-						m_Doc->groupObjectsSelection(tmpSel);
-						ite = tmpSel->itemAt(0);
-						if (Coords.size() > 3)
+						m_Doc->groupObjectsSelection(m_tmpSel);
+						ite = m_tmpSel->itemAt(0);
+						if (m_Coords.size() > 3)
 						{
-							Coords.translate(m_Doc->currentPage()->xOffset()-ite->xPos(), m_Doc->currentPage()->yOffset()-ite->yPos());
-							ite->PoLine = Coords.copy();
-							ite->PoLine.translate(baseX, baseY);
+							m_Coords.translate(m_Doc->currentPage()->xOffset()-ite->xPos(), m_Doc->currentPage()->yOffset()-ite->yPos());
+							ite->PoLine = m_Coords.copy();
+							ite->PoLine.translate(m_baseX, m_baseY);
 						}
-						for (int as = 0; as < tmpSel->count(); ++as)
+						for (int as = 0; as < m_tmpSel->count(); ++as)
 						{
-							if (patternMode)
-								PatternElements.append(tmpSel->itemAt(as));
+							if (m_patternMode)
+								m_PatternElements.append(m_tmpSel->itemAt(as));
 							else
-								Elements.append(tmpSel->itemAt(as));
+								m_Elements.append(m_tmpSel->itemAt(as));
 						}
-						ite->setItemName( tr("Group%1").arg(m_Doc->layerName(currentLayer)));
+						ite->setItemName( tr("Group%1").arg(m_Doc->layerName(m_currentLayer)));
 					}
-					if (groupStack.count() != 0)
+					if (m_groupStack.count() != 0)
 					{
-						for (int as = 0; as < tmpSel->count(); ++as)
+						for (int as = 0; as < m_tmpSel->count(); ++as)
 						{
-							groupStack.top().append(tmpSel->itemAt(as));
+							m_groupStack.top().append(m_tmpSel->itemAt(as));
 						}
 					}
-					tmpSel->clear();
+					m_tmpSel->clear();
 				}
 			}
-			Coords.resize(0);
-			Coords.svgInit();
+			m_Coords.resize(0);
+			m_Coords.svgInit();
 		}
 		else if (command == "Ln")
 		{
-			if (importerFlags & LoadSavePlugin::lfCreateDoc)
+			if (m_importerFlags & LoadSavePlugin::lfCreateDoc)
 			{
 				int an = Cdata.indexOf("(");
 				int en = Cdata.lastIndexOf(")");
 				QString LayerNam = Cdata.mid(an+1, en-an-1);
 				LayerNam.remove("\\");
-				m_Doc->changeLayerName(currentLayer, LayerNam);
+				m_Doc->changeLayerName(m_currentLayer, LayerNam);
 			}
 		}
 /* End Layer commands */
@@ -2366,24 +2366,24 @@ void AIPlug::processData(QString data)
 		else if (command == "To")
 		{
 			ScTextStream ts2(&Cdata, QIODevice::ReadOnly);
-			ts2 >> textMode;
-			textData.clear();
-			textMatrix = QTransform();
-			maxWidth = 0;
-			tempW = 0;
-			maxHeight = 0;
-			textKern = 0;
-			startCurrentTextRange = 0;
-			endCurrentTextRange = 0;
-			textScaleH = 1000;
-			textScaleV = 1000;
+			ts2 >> m_textMode;
+			m_textData.clear();
+			m_textMatrix = QTransform();
+			m_maxWidth = 0;
+			m_tempW = 0;
+			m_maxHeight = 0;
+			m_textKern = 0;
+			m_startCurrentTextRange = 0;
+			m_endCurrentTextRange = 0;
+			m_textScaleH = 1000;
+			m_textScaleV = 1000;
 		}
 		else if (command == "Tp")
 		{
 			ScTextStream gVals(&Cdata, QIODevice::ReadOnly);
 			double m1, m2, m3, m4, m5, m6;
 			gVals >> m1 >> m2 >> m3 >> m4 >> m5 >> m6;
-			textMatrix = QTransform(m1, m2, m3, m4, m5, m6);
+			m_textMatrix = QTransform(m1, m2, m3, m4, m5, m6);
 		}
 		else if (command == "Tx") // || (command == "TX"))
 		{
@@ -2392,20 +2392,20 @@ void AIPlug::processData(QString data)
 			{
 				QString tex = res[0];
 				double tempH = 0;
-				startCurrentTextRange = textData.length();
+				m_startCurrentTextRange = m_textData.length();
 				for (int tt = 0; tt < tex.length(); ++tt)
 				{
 					CharStyle nstyle;
 					QString ch = tex.mid(tt,1);
-					nstyle.setFont((*m_Doc->AllFonts)[textFont]);
-					nstyle.setFontSize(textSize);
-					nstyle.setFillColor(CurrColorFill);
-					nstyle.setTracking(textKern);
+					nstyle.setFont((*m_Doc->AllFonts)[m_textFont]);
+					nstyle.setFontSize(m_textSize);
+					nstyle.setFillColor(m_CurrColorFill);
+					nstyle.setTracking(m_textKern);
 					nstyle.setFillShade(100);
-					nstyle.setStrokeColor(CurrColorStroke);
+					nstyle.setStrokeColor(m_CurrColorStroke);
 					nstyle.setStrokeShade(100);
-					nstyle.setScaleH(textScaleH);
-					nstyle.setScaleV(textScaleV);
+					nstyle.setScaleH(m_textScaleH);
+					nstyle.setScaleV(m_textScaleV);
 					nstyle.setBaselineOffset(0);
 					nstyle.setShadowXOffset(50);
 					nstyle.setShadowYOffset(-50);
@@ -2415,19 +2415,19 @@ void AIPlug::processData(QString data)
 					nstyle.setStrikethruOffset(-1);
 					nstyle.setStrikethruWidth(-1);
 					nstyle.setFeatures(StyleFlag(ScStyle_Default).featureList());
-					int pot = textData.length();
-					textData.insertChars(pot, ch);
-					textData.applyCharStyle(pot, 1, nstyle);
-					tempW += nstyle.font().realCharWidth(ch[0], nstyle.fontSize() / 10.0)+1;
+					int pot = m_textData.length();
+					m_textData.insertChars(pot, ch);
+					m_textData.applyCharStyle(pot, 1, nstyle);
+					m_tempW += nstyle.font().realCharWidth(ch[0], nstyle.fontSize() / 10.0)+1;
 					tempH  = qMax(tempH, nstyle.font().height(nstyle.fontSize() / 10.0) + 2.0);
-					maxWidth  = qMax(tempW, maxWidth);
-					maxHeight = qMax(tempH, maxHeight);
+					m_maxWidth  = qMax(m_tempW, m_maxWidth);
+					m_maxHeight = qMax(tempH, m_maxHeight);
 					if ((ch == SpecialChars::PARSEP) || (ch == SpecialChars::LINEBREAK))
 					{
-						maxHeight += nstyle.font().height(nstyle.fontSize() / 10.0);
-						tempW = 0;
+						m_maxHeight += nstyle.font().height(nstyle.fontSize() / 10.0);
+						m_tempW = 0;
 					}
-					endCurrentTextRange = pot;
+					m_endCurrentTextRange = pot;
 				}
 			}
 		}
@@ -2439,37 +2439,37 @@ void AIPlug::processData(QString data)
 			gVals >> flag >> val;
 			if (flag == 1)
 				val = 0;
-			double oldval = textData.charStyle(startCurrentTextRange).tracking();
-			CharStyle nstyle = textData.charStyle(startCurrentTextRange);
+			double oldval = m_textData.charStyle(m_startCurrentTextRange).tracking();
+			CharStyle nstyle = m_textData.charStyle(m_startCurrentTextRange);
 			nstyle.setTracking(oldval + val);
-			textData.applyCharStyle(startCurrentTextRange, 1, nstyle);
+			m_textData.applyCharStyle(m_startCurrentTextRange, 1, nstyle);
 		}
 		else if (command == "Tc")
 		{
 			ScTextStream gVals(&Cdata, QIODevice::ReadOnly);
-			gVals >> textKern;
-			textKern *= 100.0;
+			gVals >> m_textKern;
+			m_textKern *= 100.0;
 		}
 		else if (command == "Tz")
 		{
 			ScTextStream gVals(&Cdata, QIODevice::ReadOnly);
-			gVals >> textScaleH >> textScaleV;
-			textScaleH *= 10.0;
-			textScaleV *= 10.0;
+			gVals >> m_textScaleH >> m_textScaleV;
+			m_textScaleH *= 10.0;
+			m_textScaleV *= 10.0;
 		}
 		else if (command == "T*")
 		{
 			CharStyle nstyle;
 			QString ch = SpecialChars::LINEBREAK;
-			nstyle.setFont((*m_Doc->AllFonts)[textFont]);
-			nstyle.setFontSize(textSize);
-			nstyle.setFillColor(CurrColorFill);
-			nstyle.setTracking(textKern);
+			nstyle.setFont((*m_Doc->AllFonts)[m_textFont]);
+			nstyle.setFontSize(m_textSize);
+			nstyle.setFillColor(m_CurrColorFill);
+			nstyle.setTracking(m_textKern);
 			nstyle.setFillShade(100);
-			nstyle.setStrokeColor(CurrColorStroke);
+			nstyle.setStrokeColor(m_CurrColorStroke);
 			nstyle.setStrokeShade(100);
-			nstyle.setScaleH(textScaleH);
-			nstyle.setScaleV(textScaleV);
+			nstyle.setScaleH(m_textScaleH);
+			nstyle.setScaleV(m_textScaleV);
 			nstyle.setBaselineOffset(0);
 			nstyle.setShadowXOffset(50);
 			nstyle.setShadowYOffset(-50);
@@ -2479,21 +2479,21 @@ void AIPlug::processData(QString data)
 			nstyle.setStrikethruOffset(-1);
 			nstyle.setStrikethruWidth(-1);
 			nstyle.setFeatures(StyleFlag(ScStyle_Default).featureList());
-			int pot = textData.length();
-			textData.insertChars(pot, ch);
-			textData.applyCharStyle(pot, 1, nstyle);
-			maxHeight += nstyle.font().height(nstyle.fontSize() / 10.0) + 2.0;
-			tempW = 0;
+			int pot = m_textData.length();
+			m_textData.insertChars(pot, ch);
+			m_textData.applyCharStyle(pot, 1, nstyle);
+			m_maxHeight += nstyle.font().height(nstyle.fontSize() / 10.0) + 2.0;
+			m_tempW = 0;
 		}
 		else if (command == "Tf")
 		{
 			ScTextStream gVals(&Cdata, QIODevice::ReadOnly);
-			gVals >> textFont >> textSize;
-			textFont.remove(0, 2);
-			QString family = textFont;
+			gVals >> m_textFont >> m_textSize;
+			m_textFont.remove(0, 2);
+			QString family = m_textFont;
 			QString ret = "";
 			family.replace( QRegExp( "'" ) , QChar( ' ' ) );
-			textFont = m_Doc->itemToolPrefs().textFont;
+			m_textFont = m_Doc->itemToolPrefs().textFont;
 			bool found = false;
 			SCFontsIterator it(PrefsManager::instance()->appPrefs.fontPrefs.AvailFonts);
 			for ( ; it.hasNext(); it.next())
@@ -2509,11 +2509,11 @@ void AIPlug::processData(QString data)
 				}
 			}
 			if (found)
-				textFont = family;
+				m_textFont = family;
 			else
 			{
-				if (importerFlags & LoadSavePlugin::lfCreateThumbnail)
-					textFont = PrefsManager::instance()->appPrefs.itemToolPrefs.textFont;
+				if (m_importerFlags & LoadSavePlugin::lfCreateThumbnail)
+					m_textFont = PrefsManager::instance()->appPrefs.itemToolPrefs.textFont;
 				else
 				{
 					if (!PrefsManager::instance()->appPrefs.fontPrefs.GFontSub.contains(family))
@@ -2527,33 +2527,33 @@ void AIPlug::processData(QString data)
 						PrefsManager::instance()->appPrefs.fontPrefs.GFontSub[family] = tmpf;
 					}
 					else
-						textFont = PrefsManager::instance()->appPrefs.fontPrefs.GFontSub[family];
+						m_textFont = PrefsManager::instance()->appPrefs.fontPrefs.GFontSub[family];
 				}
 			}
-			textSize *= 10.0;
+			m_textSize *= 10.0;
 		}
 		else if (command == "TO")
 		{
-			if (textData.length() > 0)
+			if (m_textData.length() > 0)
 			{
-				if (!((textData.length() == 1) && (textData.text(0) == SpecialChars::PARSEP)))
+				if (!((m_textData.length() == 1) && (m_textData.text(0) == SpecialChars::PARSEP)))
 				{
-					QPointF pos = QPointF(textMatrix.dx(), textMatrix.dy());
+					QPointF pos = QPointF(m_textMatrix.dx(), m_textMatrix.dy());
 					pos += QPointF(m_Doc->currentPage()->xOffset(), -m_Doc->currentPage()->yOffset());
-					pos += QPointF(0.0, textSize / 10.0 + 2.0);
-					z = m_Doc->itemAdd(PageItem::TextFrame, PageItem::Unspecified, pos.x() - docX, docHeight - (pos.y() - docY), 10, 10, 0, CommonStrings::None, CommonStrings::None, true);
+					pos += QPointF(0.0, m_textSize / 10.0 + 2.0);
+					z = m_Doc->itemAdd(PageItem::TextFrame, PageItem::Unspecified, pos.x() - m_docX, m_docHeight - (pos.y() - m_docY), 10, 10, 0, CommonStrings::None, CommonStrings::None, true);
 					ite = m_Doc->Items->at(z);
 					ite->setTextToFrameDist(0.0, 0.0, 0.0, 0.0);
-					ite->itemText.append(textData);
+					ite->itemText.append(m_textData);
 					ite->itemText.trim();
 					double xpos = ite->xPos();
 					double ypos = ite->yPos();
-					ite->setWidthHeight(qMax(ite->width(), maxWidth), qMax(ite->height(), maxHeight));
+					ite->setWidthHeight(qMax(ite->width(), m_maxWidth), qMax(ite->height(), m_maxHeight));
 					double xoffset = 0.0, yoffset = 0.0;
-					double rotation = getRotationFromMatrix(textMatrix, 0.0);
+					double rotation = getRotationFromMatrix(m_textMatrix, 0.0);
 					if (rotation != 0.0)
 					{
-						double temp = textSize / 10.0 + 2.0;
+						double temp = m_textSize / 10.0 + 2.0;
 						xoffset = sin(rotation) * temp;
 						yoffset = cos(rotation) * temp;
 					}
@@ -2564,21 +2564,21 @@ void AIPlug::processData(QString data)
 					m_Doc->setRedrawBounding(ite);
 					ite->Clip = FlattenPath(ite->PoLine, ite->Segments);
 					ite->setTextFlowMode(PageItem::TextFlowDisabled);
-					ite->setFillShade(CurrFillShade);
-					ite->setLineShade(CurrStrokeShade);
-					ite->setFillEvenOdd(fillRule);
-					ite->setFillTransparency(1.0 - Opacity);
-					ite->setLineTransparency(1.0 - Opacity);
-					ite->setLineEnd(CapStyle);
-					ite->setLineJoin(JoinStyle);
-					if (importerFlags & LoadSavePlugin::lfCreateDoc)
-						ite->setLocked(itemLocked);
-					if (patternMode)
-						PatternElements.append(ite);
+					ite->setFillShade(m_CurrFillShade);
+					ite->setLineShade(m_CurrStrokeShade);
+					ite->setFillEvenOdd(m_fillRule);
+					ite->setFillTransparency(1.0 - m_Opacity);
+					ite->setLineTransparency(1.0 - m_Opacity);
+					ite->setLineEnd(m_CapStyle);
+					ite->setLineJoin(m_JoinStyle);
+					if (m_importerFlags & LoadSavePlugin::lfCreateDoc)
+						ite->setLocked(m_itemLocked);
+					if (m_patternMode)
+						m_PatternElements.append(ite);
 					else
-						Elements.append(ite);
-					if (groupStack.count() != 0)
-						groupStack.top().append(ite);
+						m_Elements.append(ite);
+					if (m_groupStack.count() != 0)
+						m_groupStack.top().append(ite);
 				}
 			}
 		}
@@ -2586,37 +2586,37 @@ void AIPlug::processData(QString data)
 /* Start special Commands */
 		else if (command == "*")
 		{
-			Coords.resize(0);
-			Coords.svgInit();
+			m_Coords.resize(0);
+			m_Coords.svgInit();
 		}
 		else if (command == "[")
 		{
-			Coords.resize(0);
-			Coords.svgInit();
+			m_Coords.resize(0);
+			m_Coords.svgInit();
 			int an = Cdata.indexOf("(");
 			int en = Cdata.lastIndexOf(")");
 			if ((an != -1) && (en != -1))
 			{
-				patternMode = true;
-				currentPatternDefName = Cdata.mid(an+1, en-an-1);
-				currentPatternDefName.remove("\\");
-				currentPatternDefName = currentPatternDefName.trimmed().simplified().replace(" ", "_");
+				m_patternMode = true;
+				m_currentPatternDefName = Cdata.mid(an+1, en-an-1);
+				m_currentPatternDefName.remove("\\");
+				m_currentPatternDefName = m_currentPatternDefName.trimmed().simplified().replace(" ", "_");
 				QString tmpS = Cdata.mid(en+1, Cdata.size() - en);
 				ScTextStream gVals(&tmpS, QIODevice::ReadOnly);
-				gVals >> patternX1 >> patternY1 >> patternX2 >> patternY2;
+				gVals >> m_patternX1 >> m_patternY1 >> m_patternX2 >> m_patternY2;
 			}
 		}
 		else if (command == ",")
 		{
 			if (Cdata.contains("/Data"))
 			{
-				dataMode = true;
-				dataString = "";
+				m_dataMode = true;
+				m_dataString = "";
 			}
 		}
 		else if (command == ":")
 		{
-			fObjectMode = true;
+			m_fObjectMode = true;
 		}
 /* End special Commands */
 /* Skip everything else */
@@ -2641,13 +2641,13 @@ void AIPlug::processGradientData(QString data)
 			QString tmpS = Cdata;
 			int an = Cdata.indexOf("(");
 			int en = Cdata.lastIndexOf(")");
-			currentGradientName = Cdata.mid(an+1, en-an-1);
-			currentGradientName.remove("\\");
+			m_currentGradientName = Cdata.mid(an+1, en-an-1);
+			m_currentGradientName.remove("\\");
 			if (da2[da2.count()-3] == "0")
-				currentGradient = VGradient(VGradient::linear);
+				m_currentGradient = VGradient(VGradient::linear);
 			else
-				currentGradient = VGradient(VGradient::radial);
-			currentGradient.clearStops();
+				m_currentGradient = VGradient(VGradient::radial);
+			m_currentGradient.clearStops();
 		}
 		else if ((command == "%_Bs") || (command == "%_BS"))
 		{
@@ -2659,50 +2659,50 @@ void AIPlug::processGradientData(QString data)
 			{
 				stopName = parseColorGray(Cdata);
 				const ScColor& gradC = m_Doc->PageColors[stopName];
-				currentGradient.addStop( ScColorEngine::getRGBColor(gradC, m_Doc), stop, 0.5, 1.0, stopName, 100 );
+				m_currentGradient.addStop( ScColorEngine::getRGBColor(gradC, m_Doc), stop, 0.5, 1.0, stopName, 100 );
 			}
 			else if (colortype == 1)
 			{
 				stopName = parseColor(Cdata);
 				const ScColor& gradC = m_Doc->PageColors[stopName];
-				currentGradient.addStop( ScColorEngine::getRGBColor(gradC, m_Doc), stop, 0.5, 1.0, stopName, 100 );
+				m_currentGradient.addStop( ScColorEngine::getRGBColor(gradC, m_Doc), stop, 0.5, 1.0, stopName, 100 );
 			}
 			else if (colortype == 2)
 			{
 				stopName = parseColor(Cdata);
 				const ScColor& gradC = m_Doc->PageColors[stopName];
-				currentGradient.addStop( ScColorEngine::getRGBColor(gradC, m_Doc), stop, 0.5, 1.0, stopName, 100 );
+				m_currentGradient.addStop( ScColorEngine::getRGBColor(gradC, m_Doc), stop, 0.5, 1.0, stopName, 100 );
 			}
 			else if (colortype == 3)
 			{
 				stopName = parseCustomColor(Cdata, colorShade);
 				int stopShade = qRound(colorShade);
 				const ScColor& gradC = m_Doc->PageColors[stopName];
-				currentGradient.addStop( ScColorEngine::getShadeColor(gradC, m_Doc, stopShade), stop, 0.5, 1.0, stopName, stopShade);
+				m_currentGradient.addStop( ScColorEngine::getShadeColor(gradC, m_Doc, stopShade), stop, 0.5, 1.0, stopName, stopShade);
 			}
 			else if (colortype == 4)
 			{
 				stopName = parseCustomColorX(Cdata, colorShade, "0");
 				int stopShade = qRound(colorShade);
 				const ScColor& gradC = m_Doc->PageColors[stopName];
-				currentGradient.addStop( ScColorEngine::getShadeColor(gradC, m_Doc, stopShade), stop, 0.5, 1.0, stopName, stopShade);
+				m_currentGradient.addStop( ScColorEngine::getShadeColor(gradC, m_Doc, stopShade), stop, 0.5, 1.0, stopName, stopShade);
 			}
 			else if (colortype == 6)
 			{
 				stopName = parseColor(Cdata);
 				const ScColor& gradC = m_Doc->PageColors[stopName];
-				currentGradient.addStop( ScColorEngine::getRGBColor(gradC, m_Doc), stop, 0.5, 1.0, stopName, 100 );
+				m_currentGradient.addStop( ScColorEngine::getRGBColor(gradC, m_Doc), stop, 0.5, 1.0, stopName, 100 );
 			}
 		}
 		else if (command == "BD")
 		{
-			m_gradients.insert(currentGradientName, currentGradient);
-			if (m_Doc->addGradient(currentGradientName, currentGradient))
-				importedGradients.append(currentGradientName);
-			currentGradient = VGradient(VGradient::linear);
-			currentGradient.clearStops();
-			currentGradient.setRepeatMethod( VGradient::none );
-			currentGradientName = "";
+			m_gradients.insert(m_currentGradientName, m_currentGradient);
+			if (m_Doc->addGradient(m_currentGradientName, m_currentGradient))
+				m_importedGradients.append(m_currentGradientName);
+			m_currentGradient = VGradient(VGradient::linear);
+			m_currentGradient.clearStops();
+			m_currentGradient.setRepeatMethod( VGradient::none );
+			m_currentGradientName = "";
 		}
 	}
 }
@@ -2714,67 +2714,67 @@ void AIPlug::processPattern(QDataStream &ts)
 	while (!ts.atEnd())
 	{
 		tmp = removeAIPrefix(readLinefromDataStream(ts));
-		if (importerFlags & LoadSavePlugin::lfKeepPatterns)
+		if (m_importerFlags & LoadSavePlugin::lfKeepPatterns)
 		{
 			if (tmp.startsWith("%_"))
 				tmp.remove(0, 2);
 		}
-		if (patternMode)
+		if (m_patternMode)
 		{
 			if (tmp == "EndPattern")
 			{
-				tmpSel->clear();
-				if (PatternElements.count() > 0)
+				m_tmpSel->clear();
+				if (m_PatternElements.count() > 0)
 				{
-					for (int dre = 0; dre < PatternElements.count(); ++dre)
+					for (int dre = 0; dre < m_PatternElements.count(); ++dre)
 					{
-						tmpSel->addItem(PatternElements.at(dre), true);
-						if (groupStack.count() != 0)
-							groupStack.top().removeAll(PatternElements.at(dre));
+						m_tmpSel->addItem(m_PatternElements.at(dre), true);
+						if (m_groupStack.count() != 0)
+							m_groupStack.top().removeAll(m_PatternElements.at(dre));
 					}
-					if (PatternElements.count() > 1)
-						m_Doc->itemSelection_GroupObjects(false, false, tmpSel);
-					if ((tmpSel->width() > 1) && (tmpSel->height() > 1))
+					if (m_PatternElements.count() > 1)
+						m_Doc->itemSelection_GroupObjects(false, false, m_tmpSel);
+					if ((m_tmpSel->width() > 1) && (m_tmpSel->height() > 1))
 					{
 						ScPattern pat = ScPattern();
 						pat.setDoc(m_Doc);
-						PageItem* currItem = tmpSel->itemAt(0);
-						currItem->setItemName(currentPatternDefName);
+						PageItem* currItem = m_tmpSel->itemAt(0);
+						currItem->setItemName(m_currentPatternDefName);
 						m_Doc->DoDrawing = true;
-						QImage tmpImg = currItem->DrawObj_toImage(qMin(qMax(qRound(patternX2 - patternX1), qRound(patternY2 - patternY1)), 500));
+						QImage tmpImg = currItem->DrawObj_toImage(qMin(qMax(qRound(m_patternX2 - m_patternX1), qRound(m_patternY2 - m_patternY1)), 500));
 						if (!tmpImg.isNull())
 						{
-							QImage retImg = QImage(qRound(patternX2 - patternX1), qRound(patternY2 - patternY1), QImage::Format_ARGB32_Premultiplied);
+							QImage retImg = QImage(qRound(m_patternX2 - m_patternX1), qRound(m_patternY2 - m_patternY1), QImage::Format_ARGB32_Premultiplied);
 							retImg.fill( qRgba(255, 255, 255, 0) );
 							QPainter p;
 							p.begin(&retImg);
-							if (PatternElements.count() > 1)
-								p.drawImage(qRound(-patternX1), qRound(-patternY1), tmpImg);
+							if (m_PatternElements.count() > 1)
+								p.drawImage(qRound(-m_patternX1), qRound(-m_patternY1), tmpImg);
 							else
 								p.drawImage(0, 0, tmpImg);
 							p.end();
 							pat.pattern = retImg;
 							m_Doc->DoDrawing = false;
-							pat.width = patternX2 - patternX1;
-							pat.height = patternY2 - patternY1;
-							pat.xoffset = -patternX1;
-							pat.yoffset = -patternY1;
-							for (int as = 0; as < tmpSel->count(); ++as)
+							pat.width = m_patternX2 - m_patternX1;
+							pat.height = m_patternY2 - m_patternY1;
+							pat.xoffset = -m_patternX1;
+							pat.yoffset = -m_patternY1;
+							for (int as = 0; as < m_tmpSel->count(); ++as)
 							{
-								PageItem* Neu = tmpSel->itemAt(as);
-								Neu->moveBy(-patternX1, -patternY1, true);
-								Neu->gXpos -= patternX1;
-								Neu->gYpos -= patternY1;
+								PageItem* Neu = m_tmpSel->itemAt(as);
+								Neu->moveBy(-m_patternX1, -m_patternY1, true);
+								Neu->gXpos -= m_patternX1;
+								Neu->gYpos -= m_patternY1;
 								pat.items.append(Neu);
 							}
-							m_Doc->addPattern(currentPatternDefName, pat);
-							importedPatterns.append(currentPatternDefName);
+							m_Doc->addPattern(m_currentPatternDefName, pat);
+							m_importedPatterns.append(m_currentPatternDefName);
 						}
 					}
-					m_Doc->itemSelection_DeleteItem(tmpSel);
+					m_Doc->itemSelection_DeleteItem(m_tmpSel);
 				}
-				PatternElements.clear();
-				currentPatternDefName = "";
+				m_PatternElements.clear();
+				m_currentPatternDefName = "";
 				break;
 			}
 			else if (tmp.startsWith("Tile"))
@@ -2804,8 +2804,8 @@ void AIPlug::processPattern(QDataStream &ts)
 		}
 		else if (tmp == "EndPattern")
 		{
-			PatternElements.clear();
-			currentPatternDefName = "";
+			m_PatternElements.clear();
+			m_currentPatternDefName = "";
 			break;
 		}
 		else if (tmp.contains("BeginRaster") && (tmp.startsWith("%")))
@@ -2815,33 +2815,33 @@ void AIPlug::processPattern(QDataStream &ts)
 				tmp = readLinefromDataStream(ts);
 				if (tmp.contains("EndRaster"))
 					break;
-				if(progressDialog)
+				if(m_progressDialog)
 				{
-					progressDialog->setProgress("GI", ts.device()->pos());
+					m_progressDialog->setProgress("GI", ts.device()->pos());
 					qApp->processEvents();
 				}
 			}
 		}
 		else
 		{
-			Coords.resize(0);
-			Coords.svgInit();
+			m_Coords.resize(0);
+			m_Coords.svgInit();
 			int an = tmp.indexOf("(");
 			int en = tmp.lastIndexOf(")");
 			if ((an != -1) && (en != -1))
 			{
-				patternMode = true;
-				currentPatternDefName = tmp.mid(an+1, en-an-1);
-				currentPatternDefName.remove("\\");
-				currentPatternDefName = currentPatternDefName.trimmed().simplified().replace(" ", "_");
+				m_patternMode = true;
+				m_currentPatternDefName = tmp.mid(an+1, en-an-1);
+				m_currentPatternDefName.remove("\\");
+				m_currentPatternDefName = m_currentPatternDefName.trimmed().simplified().replace(" ", "_");
 				QString tmpS = tmp.mid(en+1, tmp.size() - en);
 				ScTextStream gVals(&tmpS, QIODevice::ReadOnly);
-				gVals >> patternX1 >> patternY1 >> patternX2 >> patternY2;
+				gVals >> m_patternX1 >> m_patternY1 >> m_patternX2 >> m_patternY2;
 			}
 		}
 	//		processData(tmp);
 	}
-	patternMode = false;
+	m_patternMode = false;
 }
 
 void AIPlug::processSymbol(QDataStream &ts, bool sym)
@@ -2851,60 +2851,60 @@ void AIPlug::processSymbol(QDataStream &ts, bool sym)
 	while (!ts.atEnd())
 	{
 		tmp = removeAIPrefix(readLinefromDataStream(ts));
-		if (!patternMode)
+		if (!m_patternMode)
 		{
 			int an = tmp.indexOf("(");
 			int en = tmp.lastIndexOf(")");
 			if ((an != -1) && (en != -1))
 			{
-				patternMode = true;
-				currentPatternDefName = tmp.mid(an+1, en-an-1);
-				currentPatternDefName.remove("\\");
+				m_patternMode = true;
+				m_currentPatternDefName = tmp.mid(an+1, en-an-1);
+				m_currentPatternDefName.remove("\\");
 				if (sym)
-					currentPatternDefName = "S_"+currentPatternDefName.trimmed().simplified().replace(" ", "_");
+					m_currentPatternDefName = "S_"+m_currentPatternDefName.trimmed().simplified().replace(" ", "_");
 				else
-					currentPatternDefName = currentPatternDefName.trimmed().simplified().replace(" ", "_");
+					m_currentPatternDefName = m_currentPatternDefName.trimmed().simplified().replace(" ", "_");
 			}
 		}
 		else if ((tmp == "EndSymbol") || (tmp == "EndBrushPattern"))
 		{
-			tmpSel->clear();
-			if (PatternElements.count() > 0)
+			m_tmpSel->clear();
+			if (m_PatternElements.count() > 0)
 			{
-				for (int dre = 0; dre < PatternElements.count(); ++dre)
+				for (int dre = 0; dre < m_PatternElements.count(); ++dre)
 				{
-					tmpSel->addItem(PatternElements.at(dre), true);
-					groupStack.top().removeAll(PatternElements.at(dre));
+					m_tmpSel->addItem(m_PatternElements.at(dre), true);
+					m_groupStack.top().removeAll(m_PatternElements.at(dre));
 				}
-				if (PatternElements.count() > 1)
-					m_Doc->itemSelection_GroupObjects(false, false, tmpSel);
-				if ((tmpSel->width() > 1) && (tmpSel->height() > 1))
+				if (m_PatternElements.count() > 1)
+					m_Doc->itemSelection_GroupObjects(false, false, m_tmpSel);
+				if ((m_tmpSel->width() > 1) && (m_tmpSel->height() > 1))
 				{
 					ScPattern pat = ScPattern();
 					pat.setDoc(m_Doc);
-					PageItem* currItem = tmpSel->itemAt(0);
-					currItem->setItemName(currentPatternDefName);
+					PageItem* currItem = m_tmpSel->itemAt(0);
+					currItem->setItemName(m_currentPatternDefName);
 					m_Doc->DoDrawing = true;
-					pat.pattern = currItem->DrawObj_toImage(qMin(qMax(tmpSel->width(), tmpSel->height()), 500.0));
+					pat.pattern = currItem->DrawObj_toImage(qMin(qMax(m_tmpSel->width(), m_tmpSel->height()), 500.0));
 					if (!pat.pattern.isNull())
 					{
-						pat.width = tmpSel->width();
-						pat.height = tmpSel->height();
+						pat.width = m_tmpSel->width();
+						pat.height = m_tmpSel->height();
 						m_Doc->DoDrawing = false;
-						for (int as = 0; as < tmpSel->count(); ++as)
+						for (int as = 0; as < m_tmpSel->count(); ++as)
 						{
-							PageItem* Neu = tmpSel->itemAt(as);
+							PageItem* Neu = m_tmpSel->itemAt(as);
 							pat.items.append(Neu);
 						}
-						importedPatterns.append(currentPatternDefName);
-						importedSymbols.insert(currentPatternDefName, QPointF(currItem->xPos(), currItem->yPos()));
-						m_Doc->addPattern(currentPatternDefName, pat);
+						m_importedPatterns.append(m_currentPatternDefName);
+						m_importedSymbols.insert(m_currentPatternDefName, QPointF(currItem->xPos(), currItem->yPos()));
+						m_Doc->addPattern(m_currentPatternDefName, pat);
 					}
 				}
-				m_Doc->itemSelection_DeleteItem(tmpSel);
+				m_Doc->itemSelection_DeleteItem(m_tmpSel);
 			}
-			PatternElements.clear();
-			currentPatternDefName = "";
+			m_PatternElements.clear();
+			m_currentPatternDefName = "";
 			break;
 		}
 		else if (tmp.contains("BeginRaster") && (tmp.startsWith("%")))
@@ -2914,9 +2914,9 @@ void AIPlug::processSymbol(QDataStream &ts, bool sym)
 				tmp = readLinefromDataStream(ts);
 				if (tmp.contains("EndRaster"))
 					break;
-				if(progressDialog)
+				if(m_progressDialog)
 				{
-					progressDialog->setProgress("GI", ts.device()->pos());
+					m_progressDialog->setProgress("GI", ts.device()->pos());
 					qApp->processEvents();
 				}
 			}
@@ -2926,7 +2926,7 @@ void AIPlug::processSymbol(QDataStream &ts, bool sym)
 			processData(tmp);
 		}
 	}
-	patternMode = false;
+	m_patternMode = false;
 }
 
 void AIPlug::processRaster(QDataStream &ts)
@@ -3013,8 +3013,8 @@ void AIPlug::processRaster(QDataStream &ts)
 	QTransform imgMatrix = QTransform(m1, m2, m3, m4, m5, m6);
 	QPointF pos = QPointF(imgMatrix.dx(), imgMatrix.dy());
 	pos += QPointF(m_Doc->currentPage()->xOffset(), -m_Doc->currentPage()->yOffset());
-	pos += QPointF(baseX, -baseY);
-	int z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, pos.x() - docX, docHeight - (pos.y() - docY), 10, 10, 0, CurrColorFill, CurrColorStroke, true);
+	pos += QPointF(m_baseX, -m_baseY);
+	int z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, pos.x() - m_docX, m_docHeight - (pos.y() - m_docY), 10, 10, 0, m_CurrColorFill, m_CurrColorStroke, true);
 	PageItem* ite = m_Doc->Items->at(z);
 	ite->setWidthHeight(fabs(w * m1), fabs(h * m4));
 	double rotation = getRotationFromMatrix(imgMatrix, 0.0);
@@ -3023,15 +3023,15 @@ void AIPlug::processRaster(QDataStream &ts)
 	m_Doc->setRedrawBounding(ite);
 	ite->Clip = FlattenPath(ite->PoLine, ite->Segments);
 	ite->setTextFlowMode(PageItem::TextFlowDisabled);
-	ite->setFillShade(CurrFillShade);
-	ite->setLineShade(CurrStrokeShade);
-	ite->setFillEvenOdd(fillRule);
-	ite->setFillTransparency(1.0 - Opacity);
-	ite->setLineTransparency(1.0 - Opacity);
-	ite->setFillBlendmode(blendMode);
-	ite->setLineBlendmode(blendMode);
-	ite->setLineEnd(CapStyle);
-	ite->setLineJoin(JoinStyle);
+	ite->setFillShade(m_CurrFillShade);
+	ite->setLineShade(m_CurrStrokeShade);
+	ite->setFillEvenOdd(m_fillRule);
+	ite->setFillTransparency(1.0 - m_Opacity);
+	ite->setLineTransparency(1.0 - m_Opacity);
+	ite->setFillBlendmode(m_blendMode);
+	ite->setLineBlendmode(m_blendMode);
+	ite->setLineEnd(m_CapStyle);
+	ite->setLineJoin(m_JoinStyle);
 	uchar *p;
 	uint yCount = 0;
 	quint16 eTag = EXTRASAMPLE_UNASSALPHA;
@@ -3092,14 +3092,14 @@ void AIPlug::processRaster(QDataStream &ts)
 	m_Doc->loadPict(imgName, ite);
 	if (ite->imageIsAvailable)
 		ite->setImageXYScale(ite->width() / ite->pixm.width(), ite->height() / ite->pixm.height());
-	if (importerFlags & LoadSavePlugin::lfCreateDoc)
-		ite->setLocked(itemLocked);
-	if (patternMode)
-		PatternElements.append(ite);
+	if (m_importerFlags & LoadSavePlugin::lfCreateDoc)
+		ite->setLocked(m_itemLocked);
+	if (m_patternMode)
+		m_PatternElements.append(ite);
 	else
-		Elements.append(ite);
-	if (groupStack.count() != 0)
-		groupStack.top().append(ite);
+		m_Elements.append(ite);
+	if (m_groupStack.count() != 0)
+		m_groupStack.top().append(ite);
 }
 
 void AIPlug::processComment(QDataStream &ts, QString comment)
@@ -3129,9 +3129,9 @@ void AIPlug::processComment(QDataStream &ts, QString comment)
 				processSymbol(ts, false);
 			if (tmp.startsWith("End_NonPrinting"))
 				break;
-			if(progressDialog)
+			if(m_progressDialog)
 			{
-				progressDialog->setProgress("GI", ts.device()->pos());
+				m_progressDialog->setProgress("GI", ts.device()->pos());
 				qApp->processEvents();
 			}
 		}
@@ -3147,9 +3147,9 @@ void AIPlug::processComment(QDataStream &ts, QString comment)
 				break;
 			else
 				processGradientData(tmp);
-			if(progressDialog)
+			if(m_progressDialog)
 			{
-				progressDialog->setProgress("GI", ts.device()->pos());
+				m_progressDialog->setProgress("GI", ts.device()->pos());
 				qApp->processEvents();
 			}
 		}
@@ -3161,9 +3161,9 @@ void AIPlug::processComment(QDataStream &ts, QString comment)
 			tmp = removeAIPrefix(readLinefromDataStream(ts));
 			if (tmp.startsWith("EndPalette"))
 				break;
-			if(progressDialog)
+			if(m_progressDialog)
 			{
-				progressDialog->setProgress("GI", ts.device()->pos());
+				m_progressDialog->setProgress("GI", ts.device()->pos());
 				qApp->processEvents();
 			}
 		}
@@ -3193,9 +3193,9 @@ void AIPlug::processComment(QDataStream &ts, QString comment)
 			tmp = removeAIPrefix(readLinefromDataStream(ts));
 			if (tmp.startsWith("EndDocumentData"))
 				break;
-			if(progressDialog)
+			if(m_progressDialog)
 			{
-				progressDialog->setProgress("GI", ts.device()->pos());
+				m_progressDialog->setProgress("GI", ts.device()->pos());
 				qApp->processEvents();
 			}
 		}
@@ -3215,9 +3215,9 @@ void AIPlug::processComment(QDataStream &ts, QString comment)
 			}
 		//	else
 		//		dataStringT += tmp.mid(1);
-			if(progressDialog)
+			if(m_progressDialog)
 			{
-				progressDialog->setProgress("GI", ts.device()->pos());
+				m_progressDialog->setProgress("GI", ts.device()->pos());
 				qApp->processEvents();
 			}
 		}
@@ -3229,9 +3229,9 @@ void AIPlug::processComment(QDataStream &ts, QString comment)
 			tmp = removeAIPrefix(readLinefromDataStream(ts));
 			if (tmp.startsWith("%%EndProlog"))
 				break;
-			if(progressDialog)
+			if(m_progressDialog)
 			{
-				progressDialog->setProgress("GI", ts.device()->pos());
+				m_progressDialog->setProgress("GI", ts.device()->pos());
 				qApp->processEvents();
 			}
 		}
@@ -3243,9 +3243,9 @@ void AIPlug::processComment(QDataStream &ts, QString comment)
 			tmp = removeAIPrefix(readLinefromDataStream(ts));
 			if (tmp.startsWith("%%EndData"))
 				break;
-			if(progressDialog)
+			if(m_progressDialog)
 			{
-				progressDialog->setProgress("GI", ts.device()->pos());
+				m_progressDialog->setProgress("GI", ts.device()->pos());
 				qApp->processEvents();
 			}
 		}
@@ -3257,9 +3257,9 @@ void AIPlug::processComment(QDataStream &ts, QString comment)
 			tmp = removeAIPrefix(readLinefromDataStream(ts));
 			if (tmp.startsWith("%%EndCrops"))
 				break;
-			if(progressDialog)
+			if(m_progressDialog)
 			{
-				progressDialog->setProgress("GI", ts.device()->pos());
+				m_progressDialog->setProgress("GI", ts.device()->pos());
 				qApp->processEvents();
 			}
 		}
@@ -3267,9 +3267,9 @@ void AIPlug::processComment(QDataStream &ts, QString comment)
 	else if (tmp.startsWith("BeginRaster"))
 	{
 		processRaster(ts);
-		if(progressDialog)
+		if(m_progressDialog)
 		{
-			progressDialog->setProgress("GI", ts.device()->pos());
+			m_progressDialog->setProgress("GI", ts.device()->pos());
 			qApp->processEvents();
 		}
 	}
@@ -3280,9 +3280,9 @@ void AIPlug::processComment(QDataStream &ts, QString comment)
 			tmp = readLinefromDataStream(ts);
 			if (tmp.contains("EndRaster"))
 				break;
-			if(progressDialog)
+			if(m_progressDialog)
 			{
-				progressDialog->setProgress("GI", ts.device()->pos());
+				m_progressDialog->setProgress("GI", ts.device()->pos());
 				qApp->processEvents();
 			}
 		}
@@ -3294,9 +3294,9 @@ void AIPlug::processComment(QDataStream &ts, QString comment)
 			tmp = removeAIPrefix(readLinefromDataStream(ts));
 			if (tmp.startsWith("EndSVGFilter"))
 				break;
-			if(progressDialog)
+			if(m_progressDialog)
 			{
-				progressDialog->setProgress("GI", ts.device()->pos());
+				m_progressDialog->setProgress("GI", ts.device()->pos());
 				qApp->processEvents();
 			}
 		}
@@ -3308,9 +3308,9 @@ void AIPlug::processComment(QDataStream &ts, QString comment)
 			tmp = removeAIPrefix(readLinefromDataStream(ts));
 			if (tmp.startsWith("EndArtStyles"))
 				break;
-			if(progressDialog)
+			if(m_progressDialog)
 			{
-				progressDialog->setProgress("GI", ts.device()->pos());
+				m_progressDialog->setProgress("GI", ts.device()->pos());
 				qApp->processEvents();
 			}
 		}
@@ -3322,9 +3322,9 @@ void AIPlug::processComment(QDataStream &ts, QString comment)
 			tmp = removeAIPrefix(readLinefromDataStream(ts));
 			if (tmp.startsWith("EndPluginObject"))
 				break;
-			if(progressDialog)
+			if(m_progressDialog)
 			{
-				progressDialog->setProgress("GI", ts.device()->pos());
+				m_progressDialog->setProgress("GI", ts.device()->pos());
 				qApp->processEvents();
 			}
 		}
@@ -3344,9 +3344,9 @@ void AIPlug::processComment(QDataStream &ts, QString comment)
 				break;
 			else
 				processData(rl);
-			if(progressDialog)
+			if(m_progressDialog)
 			{
-				progressDialog->setProgress("GI", ts.device()->pos());
+				m_progressDialog->setProgress("GI", ts.device()->pos());
 				qApp->processEvents();
 			}
 		}
@@ -3356,94 +3356,94 @@ void AIPlug::processComment(QDataStream &ts, QString comment)
 bool AIPlug::convert(QString fn)
 {
 	QString tmp;
-	LineW = 1.0;
-	Opacity = 1.0;
-	blendMode = 0;
-	CurrColorFill = "White";
-	CurrFillShade = 100.0;
-	CurrColorStroke = "Black";
-	CurrStrokeShade = 100.0;
-	JoinStyle = Qt::MiterJoin;
-	CapStyle = Qt::FlatCap;
-	DashPattern.clear();
-	DashOffset = 0.0;
-	fillRule = false;
-	FirstU = false;
-	WasU = false;
-	firstLayer = true;
-	patternMode = false;
-	symbolMode = false;
-	meshMode = false;
-	dataMode = false;
-	fObjectMode = false;
-	dataString = "";
-	itemLocked = false;
-	patternX1 = 0.0;
-	patternY1 = 0.0;
-	patternX2 = 0.0;
-	patternY2 = 0.0;
-	Coords.resize(0);
-	Coords.svgInit();
-	clipCoords.resize(0);
-	clipCoords.svgInit();
-	currentSpecialPath.resize(0);
-	currentSpecialPath.svgInit();
-	currentPoint = FPoint(0.0, 0.0);
-	currentLayer = 0;
-	currentGradient = VGradient(VGradient::linear);
-	currentGradient.clearStops();
-	currentGradient.setRepeatMethod( VGradient::none );
-	currentGradientName = "";
-	currentGradientMatrix = QTransform();
-	currentGradientOrigin = QPointF(0.0, 0.0);
-	currentGradientAngle = 0.0;
-	currentGradientLenght = 1.0;
-	currentPatternName = "";
-	currentPatternX = 0.0;
-	currentPatternY = 0.0;
-	currentPatternXScale = 1.0;
-	currentPatternYScale = 1.0;
-	currentPatternRotation = 0.0;
-	currentStrokePatternName = "";
-	currentStrokePatternX = 0.0;
-	currentStrokePatternY = 0.0;
-	currentStrokePatternXScale = 1.0;
-	currentStrokePatternYScale = 1.0;
-	currentStrokePatternRotation = 0.0;
+	m_LineW = 1.0;
+	m_Opacity = 1.0;
+	m_blendMode = 0;
+	m_CurrColorFill = "White";
+	m_CurrFillShade = 100.0;
+	m_CurrColorStroke = "Black";
+	m_CurrStrokeShade = 100.0;
+	m_JoinStyle = Qt::MiterJoin;
+	m_CapStyle = Qt::FlatCap;
+	m_DashPattern.clear();
+	m_DashOffset = 0.0;
+	m_fillRule = false;
+	m_FirstU = false;
+	m_WasU = false;
+	m_firstLayer = true;
+	m_patternMode = false;
+	m_symbolMode = false;
+	m_meshMode = false;
+	m_dataMode = false;
+	m_fObjectMode = false;
+	m_dataString = "";
+	m_itemLocked = false;
+	m_patternX1 = 0.0;
+	m_patternY1 = 0.0;
+	m_patternX2 = 0.0;
+	m_patternY2 = 0.0;
+	m_Coords.resize(0);
+	m_Coords.svgInit();
+	m_clipCoords.resize(0);
+	m_clipCoords.svgInit();
+	m_currentSpecialPath.resize(0);
+	m_currentSpecialPath.svgInit();
+	m_currentPoint = FPoint(0.0, 0.0);
+	m_currentLayer = 0;
+	m_currentGradient = VGradient(VGradient::linear);
+	m_currentGradient.clearStops();
+	m_currentGradient.setRepeatMethod( VGradient::none );
+	m_currentGradientName = "";
+	m_currentGradientMatrix = QTransform();
+	m_currentGradientOrigin = QPointF(0.0, 0.0);
+	m_currentGradientAngle = 0.0;
+	m_currentGradientLenght = 1.0;
+	m_currentPatternName = "";
+	m_currentPatternX = 0.0;
+	m_currentPatternY = 0.0;
+	m_currentPatternXScale = 1.0;
+	m_currentPatternYScale = 1.0;
+	m_currentPatternRotation = 0.0;
+	m_currentStrokePatternName = "";
+	m_currentStrokePatternX = 0.0;
+	m_currentStrokePatternY = 0.0;
+	m_currentStrokePatternXScale = 1.0;
+	m_currentStrokePatternYScale = 1.0;
+	m_currentStrokePatternRotation = 0.0;
 	QList<PageItem*> gElements;
-	groupStack.push(gElements);
-	clipStack.push(clipCoords);
-	commandList << "m" << "l" << "L" << "c" << "C" << "v" << "V" << "y" << "Y";		// Path construction
-	commandList << "b" << "B" << "f" << "F" << "s" << "S" << "*u" << "*U";			// Object creation
-	commandList << "u" << "U" << "W" << "q" << "Q";									// Object creation
-	commandList << "A" << "w" << "j" << "J" << "Xy" << "XR";						// Graphic state
-	commandList << "k" << "K" << "Xa" << "XA" << "x" << "X" << "XX" << "Xx";		// Color commands
-	commandList << "Xk" << "g" << "G" << "p" << "P";								// Color commands
-	commandList << "Ln" << "Lb" << "LB";											// Layer commands
-	commandList << "Bd" << "BD" << "%_Bs" << "Bg" << "Bb" << "BB" << "Bm" << "Xm";	// Gradient commands
-	commandList << "To" << "TO" << "Tf" << "Tp" << "Tx" << "TX" << "T*" << "Tk";	// Text commands
-	commandList << "Tc" << "Tz";													// Text commands
-	commandList << "XI" << "XG" << "Xh";											// Image commands
-	commandList << "n" << "N" << "*" << "[";										// Special commands
-	commandList << "X!" << "X#";													// Mesh commands
-	commandList << "M" << "d" << "D" << "E";										// unimplemented
-	commandList << "h" << "H" << "i" << "I" << "Np" << "O";							// unimplemented
-	commandList << "P" << "R";														// unimplemented
-	commandList << "XI" << "XF" << "XG" << "XT" << "Z" << "`" << "~" << "_" << "@";	// unimplemented
-	commandList << "&" << "*w" << "*W" << "Ap" << "Ar";								// unimplemented
-	if(progressDialog)
+	m_groupStack.push(gElements);
+	m_clipStack.push(m_clipCoords);
+	m_commandList << "m" << "l" << "L" << "c" << "C" << "v" << "V" << "y" << "Y";		// Path construction
+	m_commandList << "b" << "B" << "f" << "F" << "s" << "S" << "*u" << "*U";			// Object creation
+	m_commandList << "u" << "U" << "W" << "q" << "Q";									// Object creation
+	m_commandList << "A" << "w" << "j" << "J" << "Xy" << "XR";						// Graphic state
+	m_commandList << "k" << "K" << "Xa" << "XA" << "x" << "X" << "XX" << "Xx";		// Color commands
+	m_commandList << "Xk" << "g" << "G" << "p" << "P";								// Color commands
+	m_commandList << "Ln" << "Lb" << "LB";											// Layer commands
+	m_commandList << "Bd" << "BD" << "%_Bs" << "Bg" << "Bb" << "BB" << "Bm" << "Xm";	// Gradient commands
+	m_commandList << "To" << "TO" << "Tf" << "Tp" << "Tx" << "TX" << "T*" << "Tk";	// Text commands
+	m_commandList << "Tc" << "Tz";													// Text commands
+	m_commandList << "XI" << "XG" << "Xh";											// Image commands
+	m_commandList << "n" << "N" << "*" << "[";										// Special commands
+	m_commandList << "X!" << "X#";													// Mesh commands
+	m_commandList << "M" << "d" << "D" << "E";										// unimplemented
+	m_commandList << "h" << "H" << "i" << "I" << "Np" << "O";							// unimplemented
+	m_commandList << "P" << "R";														// unimplemented
+	m_commandList << "XI" << "XF" << "XG" << "XT" << "Z" << "`" << "~" << "_" << "@";	// unimplemented
+	m_commandList << "&" << "*w" << "*W" << "Ap" << "Ar";								// unimplemented
+	if(m_progressDialog)
 	{
-		progressDialog->setOverallProgress(2);
-		progressDialog->setLabel("GI", tr("Generating Items"));
+		m_progressDialog->setOverallProgress(2);
+		m_progressDialog->setLabel("GI", tr("Generating Items"));
 		qApp->processEvents();
 	}
 	QFile f(fn);
 	if (f.open(QIODevice::ReadOnly))
 	{
 		int fSize = (int) f.size();
-		if (progressDialog)
+		if (m_progressDialog)
 		{
-			progressDialog->setTotalSteps("GI", fSize);
+			m_progressDialog->setTotalSteps("GI", fSize);
 			qApp->processEvents();
 		}
 		QDataStream ts(&f);
@@ -3454,15 +3454,15 @@ bool AIPlug::convert(QString fn)
 				processComment(ts, tmp);
 			else
 				processData(tmp);
-			if(progressDialog)
+			if(m_progressDialog)
 			{
-				progressDialog->setProgress("GI", ts.device()->pos());
+				m_progressDialog->setProgress("GI", ts.device()->pos());
 				qApp->processEvents();
 			}
 		}
 		f.close();
 	}
-	if (progressDialog)
-		progressDialog->close();
+	if (m_progressDialog)
+		m_progressDialog->close();
 	return true;
 }
