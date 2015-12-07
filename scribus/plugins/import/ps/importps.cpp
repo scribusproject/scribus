@@ -56,10 +56,10 @@ extern SCRIBUS_API ScribusQApp * ScQApp;
 
 EPSPlug::EPSPlug(ScribusDoc* doc, int flags)
 {
-	tmpSel = new Selection(this, false);
+	m_tmpSel = new Selection(this, false);
 	m_Doc  = doc;
-	progressDialog = NULL;
-	interactive = (flags & LoadSavePlugin::lfInteractive);
+	m_progressDialog = NULL;
+	m_interactive = (flags & LoadSavePlugin::lfInteractive);
 }
 
 bool EPSPlug::import(QString fName, const TransactionSettings &trSettings, int flags, bool showProgress)
@@ -71,37 +71,37 @@ bool EPSPlug::import(QString fName, const TransactionSettings &trSettings, int f
 #endif
 
 	bool success = false;
-	interactive = (flags & LoadSavePlugin::lfInteractive);
-	cancel = false;
+	m_interactive = (flags & LoadSavePlugin::lfInteractive);
+	m_cancel = false;
 	double x, y, b, h;
 	bool ret = false;
 	bool found = false;
-	CustColors.clear();
+	m_CustColors.clear();
 	QFileInfo fi = QFileInfo(fName);
 	QString ext = fi.suffix().toLower();
 	if ( !ScCore->usingGUI() ) {
-		interactive = false;
+		m_interactive = false;
 		showProgress = false;
 	}
 	if ( showProgress ) 
 	{
 		ScribusMainWindow* mw=(m_Doc==0) ? ScCore->primaryMainWindow() : m_Doc->scMW();
-		progressDialog = new MultiProgressDialog( tr("Importing: %1").arg(fi.fileName()), CommonStrings::tr_Cancel, mw);
+		m_progressDialog = new MultiProgressDialog( tr("Importing: %1").arg(fi.fileName()), CommonStrings::tr_Cancel, mw);
 		QStringList barNames, barTexts;
 		barNames << "GI";
 		barTexts << tr("Analyzing PostScript:");
 		QList<bool> barsNumeric;
 		barsNumeric << false;
-		progressDialog->addExtraProgressBars(barNames, barTexts, barsNumeric);
-		progressDialog->setOverallTotalSteps(3);
-		progressDialog->setOverallProgress(0);
-		progressDialog->setProgress("GI", 0);
-		progressDialog->show();
-		connect(progressDialog, SIGNAL(canceled()), this, SLOT(cancelRequested()));
+		m_progressDialog->addExtraProgressBars(barNames, barTexts, barsNumeric);
+		m_progressDialog->setOverallTotalSteps(3);
+		m_progressDialog->setOverallProgress(0);
+		m_progressDialog->setProgress("GI", 0);
+		m_progressDialog->show();
+		connect(m_progressDialog, SIGNAL(canceled()), this, SLOT(cancelRequested()));
 		qApp->processEvents();
 	}
 	else {
-		progressDialog = NULL;
+		m_progressDialog = NULL;
 	}
 	
 /* Set default Page to size defined in Preferences */
@@ -150,7 +150,7 @@ bool EPSPlug::import(QString fName, const TransactionSettings &trSettings, int f
 				}
 			}
 		}
-		importColorsFromFile(fName, CustColors);
+		importColorsFromFile(fName, m_CustColors);
 	}
 #ifdef HAVE_PODOFO
 	else if (extensionIndicatesPDF(ext))
@@ -181,15 +181,15 @@ bool EPSPlug::import(QString fName, const TransactionSettings &trSettings, int f
 		}
 	}
 #endif
-	baseX = 0;
-	baseY = 0;
-	if (!interactive || (flags & LoadSavePlugin::lfInsertPage))
+	m_baseX = 0;
+	m_baseY = 0;
+	if (!m_interactive || (flags & LoadSavePlugin::lfInsertPage))
 	{
 		m_Doc->setPage(b-x, h-y, 0, 0, 0, 0, 0, 0, false, false);
 		m_Doc->addPage(0);
 		m_Doc->view()->addPage(0, true);
-		baseX = 0;
-		baseY = 0;
+		m_baseX = 0;
+		m_baseY = 0;
 	}
 	else
 	{
@@ -198,16 +198,16 @@ bool EPSPlug::import(QString fName, const TransactionSettings &trSettings, int f
 			m_Doc=ScCore->primaryMainWindow()->doFileNew(b-x, h-y, 0, 0, 0, 0, 0, 0, false, false, 0, false, 0, 1, "Custom", true);
 			ScCore->primaryMainWindow()->HaveNewDoc();
 			ret = true;
-			baseX = 0;
-			baseY = 0;
+			m_baseX = 0;
+			m_baseY = 0;
 		}
 	}
-	if ((!ret) && (interactive))
+	if ((!ret) && (m_interactive))
 	{
-		baseX = m_Doc->currentPage()->xOffset();
-		baseY = m_Doc->currentPage()->yOffset();
+		m_baseX = m_Doc->currentPage()->xOffset();
+		m_baseY = m_Doc->currentPage()->yOffset();
 	}
-	if ((ret) || (!interactive))
+	if ((ret) || (!m_interactive))
 	{
 		if (b-x > h-y)
 			m_Doc->setPageOrientation(1);
@@ -216,13 +216,13 @@ bool EPSPlug::import(QString fName, const TransactionSettings &trSettings, int f
 		m_Doc->setPageSize("Custom");
 	}
 	ColorList::Iterator it;
-	for (it = CustColors.begin(); it != CustColors.end(); ++it)
+	for (it = m_CustColors.begin(); it != m_CustColors.end(); ++it)
 	{
 		if (!m_Doc->PageColors.contains(it.key()))
 			m_Doc->PageColors.insert(it.key(), it.value());
 	}
-	boundingBoxRect.addRect(0, 0, b-x, h-y);
-	Elements.clear();
+	m_boundingBoxRect.addRect(0, 0, b-x, h-y);
+	m_Elements.clear();
 	m_Doc->setLoading(true);
 	m_Doc->DoDrawing = false;
 	if (!(flags & LoadSavePlugin::lfLoadAsPattern))
@@ -234,16 +234,16 @@ bool EPSPlug::import(QString fName, const TransactionSettings &trSettings, int f
 	if (convert(fName, x, y, b, h))
 	{
 // 		m_Doc->m_Selection->clear();
-		tmpSel->clear();
+		m_tmpSel->clear();
 		QDir::setCurrent(CurDirP);
 //		if ((Elements.count() > 1) && (interactive))
-		if (Elements.count() > 1)
-			m_Doc->groupObjectsList(Elements);
+		if (m_Elements.count() > 1)
+			m_Doc->groupObjectsList(m_Elements);
 		m_Doc->DoDrawing = true;
 		m_Doc->scMW()->setScriptRunning(false);
 		m_Doc->setLoading(false);
 		qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
-		if ((Elements.count() > 0) && (!ret) && (interactive))
+		if ((m_Elements.count() > 0) && (!ret) && (m_interactive))
 		{
 			if (flags & LoadSavePlugin::lfScripted)
 			{
@@ -254,9 +254,9 @@ bool EPSPlug::import(QString fName, const TransactionSettings &trSettings, int f
 				if (!(flags & LoadSavePlugin::lfLoadAsPattern))
 				{
 					m_Doc->m_Selection->delaySignalsOn();
-					for (int dre=0; dre<Elements.count(); ++dre)
+					for (int dre=0; dre<m_Elements.count(); ++dre)
 					{
-						m_Doc->m_Selection->addItem(Elements.at(dre), true);
+						m_Doc->m_Selection->addItem(m_Elements.at(dre), true);
 					}
 					m_Doc->m_Selection->delaySignalsOff();
 					m_Doc->m_Selection->setGroupRect();
@@ -269,18 +269,18 @@ bool EPSPlug::import(QString fName, const TransactionSettings &trSettings, int f
 				m_Doc->DraggedElem = 0;
 				m_Doc->DragElements.clear();
 				m_Doc->m_Selection->delaySignalsOn();
-				for (int dre=0; dre<Elements.count(); ++dre)
+				for (int dre=0; dre<m_Elements.count(); ++dre)
 				{
-					tmpSel->addItem(Elements.at(dre), true);
+					m_tmpSel->addItem(m_Elements.at(dre), true);
 				}
-				tmpSel->setGroupRect();
+				m_tmpSel->setGroupRect();
 				ScriXmlDoc *ss = new ScriXmlDoc();
 				ScElemMimeData* md = new ScElemMimeData();
-				md->setScribusElem(ss->WriteElem(m_Doc, tmpSel));
+				md->setScribusElem(ss->WriteElem(m_Doc, m_tmpSel));
 				delete ss;
 /*#ifndef Q_WS_MAC*/
 // see #2196
-				m_Doc->itemSelection_DeleteItem(tmpSel);
+				m_Doc->itemSelection_DeleteItem(m_tmpSel);
 /*#else
 				qDebug() << "psimport: leaving items on page";
 #endif*/
@@ -312,12 +312,12 @@ bool EPSPlug::import(QString fName, const TransactionSettings &trSettings, int f
 		m_Doc->view()->updatesOn(true);
 		qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 	}
-	if (interactive)
+	if (m_interactive)
 		m_Doc->setLoading(false);
 	//CB If we have a gui we must refresh it if we have used the progressbar
 	if (!(flags & LoadSavePlugin::lfLoadAsPattern))
 	{
-		if ((showProgress) && (!interactive))
+		if ((showProgress) && (!m_interactive))
 			m_Doc->view()->DrawNew();
 	}
 	return success;
@@ -325,9 +325,9 @@ bool EPSPlug::import(QString fName, const TransactionSettings &trSettings, int f
 
 EPSPlug::~EPSPlug()
 {
-	if (progressDialog)
-		delete progressDialog;
-	delete tmpSel;
+	if (m_progressDialog)
+		delete m_progressDialog;
+	delete m_tmpSel;
 }
 	
 
@@ -344,8 +344,8 @@ bool EPSPlug::convert(QString fn, double x, double y, double b, double h)
 	QFileInfo fi = QFileInfo(fn);
 	QString ext = fi.suffix().toLower();
 	
-	if (progressDialog) {
-		progressDialog->setOverallProgress(1);
+	if (m_progressDialog) {
+		m_progressDialog->setOverallProgress(1);
 		qApp->processEvents();
 	}
 /*
@@ -412,8 +412,8 @@ bool EPSPlug::convert(QString fn, double x, double y, double b, double h)
 	args.append( "closefile" );
 	args.append( "quit" );
 	QByteArray finalCmd = args.join(" ").toLocal8Bit();
-	int ret = System(getShortPathName(PrefsManager::instance()->ghostscriptExecutable()), args, errFile, errFile, &cancel);
-	if (ret != 0 && !cancel)
+	int ret = System(getShortPathName(PrefsManager::instance()->ghostscriptExecutable()), args, errFile, errFile, &m_cancel);
+	if (ret != 0 && !m_cancel)
 	{
 		qDebug("PostScript import failed when calling gs as: \n%s\n", finalCmd.data());
 		qDebug("%s", "Ghostscript diagnostics:\n");
@@ -428,24 +428,24 @@ bool EPSPlug::convert(QString fn, double x, double y, double b, double h)
 		else {
 			qDebug("%s", "-- no output --");
 		}
-		if (progressDialog)
-			progressDialog->close();
+		if (m_progressDialog)
+			m_progressDialog->close();
 		QString mess = tr("Importing File:\n%1\nfailed!").arg(fn);
 		ScMessageBox::critical(0, tr("Fatal Error"), mess);
 		return false;
 	}
-	if(progressDialog && !cancel) {
-		progressDialog->setOverallProgress(2);
-		progressDialog->setLabel("GI", tr("Generating Items"));
+	if(m_progressDialog && !m_cancel) {
+		m_progressDialog->setOverallProgress(2);
+		m_progressDialog->setLabel("GI", tr("Generating Items"));
 		qApp->processEvents();
 	}
-	if (!cancel) {
+	if (!m_cancel) {
 		parseOutput(tmpFile, extensionIndicatesEPSorPS(ext));
 	}
 	QFile::remove(tmpFile);
 //	QFile::remove(cleanFile);
-	if (progressDialog)
-		progressDialog->close();
+	if (m_progressDialog)
+		m_progressDialog->close();
 	return true;
 }
 
@@ -468,30 +468,30 @@ void EPSPlug::parseOutput(QString fn, bool eps)
 	{
 		int fProgress = 0;
 		int fSize = (int) f.size();
-		if (progressDialog) {
-			progressDialog->setTotalSteps("GI", fSize);
+		if (m_progressDialog) {
+			m_progressDialog->setTotalSteps("GI", fSize);
 			qApp->processEvents();
 		}
 		lastPath = "";
 		currPath = "";
-		LineW = 0;
-		Opacity = 1;
-		CurrColor = CommonStrings::None;
-		JoinStyle = Qt::MiterJoin;
-		CapStyle = Qt::FlatCap;
-		DashPattern.clear();
+		m_LineW = 0;
+		m_Opacity = 1;
+		m_CurrColor = CommonStrings::None;
+		m_JoinStyle = Qt::MiterJoin;
+		m_CapStyle = Qt::FlatCap;
+		m_DashPattern.clear();
 		ScTextStream ts(&f);
 		int line_cnt = 0;
-		while (!ts.atEnd() && !cancel)
+		while (!ts.atEnd() && !m_cancel)
 		{
 			tmp = "";
 			tmp = ts.readLine();
-			if (progressDialog && (++line_cnt % 100 == 0)) {
+			if (m_progressDialog && (++line_cnt % 100 == 0)) {
 				int fPos = f.pos();
 				int progress = static_cast<int>(ceil(fPos / (double) fSize * 100));
 				if (progress > fProgress)
 				{
-					progressDialog->setProgress("GI", fPos);
+					m_progressDialog->setProgress("GI", fPos);
 					qApp->processEvents();
 					fProgress = progress;
 				}
@@ -506,21 +506,21 @@ void EPSPlug::parseOutput(QString fn, bool eps)
 			}
 			if (token == "n")
 			{
-				Coords.resize(0);
-				FirstM = true;
-				WasM = false;
-				ClosedPath = false;
+				m_Coords.resize(0);
+				m_FirstM = true;
+				m_WasM = false;
+				m_ClosedPath = false;
 			}
 			else if (token == "m")
-				WasM = true;
+				m_WasM = true;
 			else if (token == "c")
 			{
-				Curve(&Coords, params);
+				Curve(&m_Coords, params);
 				currPath += params;
 			}
 			else if (token == "l")
 			{
-				LineTo(&Coords, params);
+				LineTo(&m_Coords, params);
 				currPath += params;
 			}
 			else if (token == "fill-winding")
@@ -534,23 +534,23 @@ void EPSPlug::parseOutput(QString fn, bool eps)
 			else if (token == "f")
 			{
 				//TODO: pattern -> Imageframe + Clip
-				if (Coords.size() != 0)
+				if (m_Coords.size() != 0)
 				{
-					if ((Elements.count() != 0) && (lastPath == currPath))
+					if ((m_Elements.count() != 0) && (lastPath == currPath))
 					{
-						ite = Elements.last();
-						ite->setFillColor(CurrColor);
-						ite->setFillTransparency(1.0 - Opacity);
+						ite = m_Elements.last();
+						ite->setFillColor(m_CurrColor);
+						ite->setFillTransparency(1.0 - m_Opacity);
 						lastPath = "";
 					}
 					else
 					{
-						if (ClosedPath)
-							z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, LineW, CurrColor, CommonStrings::None, true);
+						if (m_ClosedPath)
+							z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, m_baseX, m_baseY, 10, 10, m_LineW, m_CurrColor, CommonStrings::None, true);
 						else
-							z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX, baseY, 10, 10, LineW, CurrColor, CommonStrings::None, true);
+							z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, m_baseX, m_baseY, 10, 10, m_LineW, m_CurrColor, CommonStrings::None, true);
 						ite = m_Doc->Items->at(z);
-						ite->PoLine = Coords.copy();  //FIXME: try to avoid copy if FPointArray when properly shared
+						ite->PoLine = m_Coords.copy();  //FIXME: try to avoid copy if FPointArray when properly shared
 						ite->PoLine.translate(m_Doc->currentPage()->xOffset(), m_Doc->currentPage()->yOffset());
 						ite->ClipEdited = true;
 						ite->FrameType = 3;
@@ -558,14 +558,14 @@ void EPSPlug::parseOutput(QString fn, bool eps)
 						FPoint wh = getMaxClipF(&ite->PoLine);
 						ite->setWidthHeight(wh.x(),wh.y());
 						ite->Clip = FlattenPath(ite->PoLine, ite->Segments);
-						ite->setFillTransparency(1.0 - Opacity);
+						ite->setFillTransparency(1.0 - m_Opacity);
 						ite->setTextFlowMode(PageItem::TextFlowDisabled);
 						m_Doc->AdjustItemSize(ite);
 						if (ite->itemType() == PageItem::Polygon)
 							ite->ContourLine = ite->PoLine.copy();
 						if ((groupStack.count() != 0) && (groupStackP.count() != 0))
 							groupStackP.top().append(ite);
-						Elements.append(ite);
+						m_Elements.append(ite);
 						lastPath = currPath;
 					}
 					currPath = "";
@@ -573,68 +573,68 @@ void EPSPlug::parseOutput(QString fn, bool eps)
 			}
 			else if (token == "s")
 			{
-				if (Coords.size() != 0)
+				if (m_Coords.size() != 0)
 				{
 				//	LineW = qMax(LineW, 0.01); // Set Linewidth to be a least 0.01 pts, a Stroke without a Linewidth makes no sense
-					if ((Elements.count() != 0) && (lastPath == currPath))
+					if ((m_Elements.count() != 0) && (lastPath == currPath))
 					{
-						ite = Elements.last();
-						ite->setLineColor(CurrColor);
-						ite->setLineWidth(LineW);
-						ite->PLineEnd = CapStyle;
-						ite->PLineJoin = JoinStyle;
-						ite->setLineTransparency(1.0 - Opacity);
-						ite->DashOffset = DashOffset;
-						ite->DashValues = DashPattern;
+						ite = m_Elements.last();
+						ite->setLineColor(m_CurrColor);
+						ite->setLineWidth(m_LineW);
+						ite->PLineEnd = m_CapStyle;
+						ite->PLineJoin = m_JoinStyle;
+						ite->setLineTransparency(1.0 - m_Opacity);
+						ite->DashOffset = m_DashOffset;
+						ite->DashValues = m_DashPattern;
 					}
 					else
 					{
-						if (ClosedPath)
-							z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, LineW, CommonStrings::None, CurrColor, true);
+						if (m_ClosedPath)
+							z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, m_baseX, m_baseY, 10, 10, m_LineW, CommonStrings::None, m_CurrColor, true);
 						else
-							z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX, baseY, 10, 10, LineW, CommonStrings::None, CurrColor, true);
+							z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, m_baseX, m_baseY, 10, 10, m_LineW, CommonStrings::None, m_CurrColor, true);
 						ite = m_Doc->Items->at(z);
-						ite->PoLine = Coords.copy(); //FIXME: try to avoid copy when FPointArray is properly shared
+						ite->PoLine = m_Coords.copy(); //FIXME: try to avoid copy when FPointArray is properly shared
 						ite->PoLine.translate(m_Doc->currentPage()->xOffset(), m_Doc->currentPage()->yOffset());
 						ite->ClipEdited = true;
 						ite->FrameType = 3;
-						ite->PLineEnd = CapStyle;
-						ite->PLineJoin = JoinStyle;
-						ite->DashOffset = DashOffset;
-						ite->DashValues = DashPattern;
+						ite->PLineEnd = m_CapStyle;
+						ite->PLineJoin = m_JoinStyle;
+						ite->DashOffset = m_DashOffset;
+						ite->DashValues = m_DashPattern;
 						FPoint wh = getMaxClipF(&ite->PoLine);
 						ite->setWidthHeight(wh.x(), wh.y());
 						ite->Clip = FlattenPath(ite->PoLine, ite->Segments);
-						ite->setLineTransparency(1.0 - Opacity);
+						ite->setLineTransparency(1.0 - m_Opacity);
 						m_Doc->AdjustItemSize(ite);
 						if (ite->itemType() == PageItem::Polygon)
 							ite->ContourLine = ite->PoLine.copy();
-						ite->setLineWidth(LineW);
+						ite->setLineWidth(m_LineW);
 						ite->setTextFlowMode(PageItem::TextFlowDisabled);
 						if ((groupStack.count() != 0) && (groupStackP.count() != 0))
 							groupStackP.top().append(ite);
-						Elements.append(ite);
+						m_Elements.append(ite);
 					}
 					lastPath = "";
 					currPath = "";
 				}
 			}
 			else if (token == "co")
-				CurrColor = parseColor(params, eps);
+				m_CurrColor = parseColor(params, eps);
 			else if (token == "corgb")
-				CurrColor = parseColor(params, eps, colorModelRGB);
+				m_CurrColor = parseColor(params, eps, colorModelRGB);
 			else if (token == "ci")
 			{
-				if (Coords.size() != 0)
+				if (m_Coords.size() != 0)
 				{
-					QPainterPath tmpPath = Coords.toQPainterPath(true);
-					tmpPath = boundingBoxRect.intersected(tmpPath);
+					QPainterPath tmpPath = m_Coords.toQPainterPath(true);
+					tmpPath = m_boundingBoxRect.intersected(tmpPath);
 					if ((tmpPath.boundingRect().width() != 0) && (tmpPath.boundingRect().height() != 0))
 					{
-						clipCoords.fromQPainterPath(tmpPath);
-						z = m_Doc->itemAdd(PageItem::Group, PageItem::Rectangle, baseX, baseY, 10, 10, 0, CommonStrings::None, CommonStrings::None, true);
+						m_clipCoords.fromQPainterPath(tmpPath);
+						z = m_Doc->itemAdd(PageItem::Group, PageItem::Rectangle, m_baseX, m_baseY, 10, 10, 0, CommonStrings::None, CommonStrings::None, true);
 						ite = m_Doc->Items->at(z);
-						ite->PoLine = clipCoords.copy();  //FIXME: try to avoid copy if FPointArray when properly shared
+						ite->PoLine = m_clipCoords.copy();  //FIXME: try to avoid copy if FPointArray when properly shared
 						ite->PoLine.translate(m_Doc->currentPage()->xOffset(), m_Doc->currentPage()->yOffset());
 						ite->ClipEdited = true;
 						ite->FrameType = 3;
@@ -645,7 +645,7 @@ void EPSPlug::parseOutput(QString fn, bool eps)
 						ite->ContourLine = ite->PoLine.copy();
 						ite->setItemName( tr("Group%1").arg(m_Doc->GroupCounter));
 						ite->setTextFlowMode(PageItem::TextFlowDisabled);
-						Elements.append(ite);
+						m_Elements.append(ite);
 						if ((groupStack.count() != 0) && (groupStackP.count() != 0))
 							groupStackP.top().append(ite);
 						groupStack.push(ite);
@@ -655,7 +655,7 @@ void EPSPlug::parseOutput(QString fn, bool eps)
 						m_Doc->GroupCounter++;
 					}
 				}
-				Coords   = FPointArray(0);
+				m_Coords   = FPointArray(0);
 				lastPath = "";
 				currPath = "";
 			}
@@ -676,7 +676,7 @@ void EPSPlug::parseOutput(QString fn, bool eps)
 						QList<PageItem*> gList = groupStackP.pop();
 						for (int d = 0; d < gList.count(); d++)
 						{
-							Elements.removeAll(gList.at(d));
+							m_Elements.removeAll(gList.at(d));
 						}
 						m_Doc->groupObjectsToItem(ite, gList);
 						gsStackMarks.pop();
@@ -686,20 +686,20 @@ void EPSPlug::parseOutput(QString fn, bool eps)
 			else if (token == "w")
 			{
 				ScTextStream Lw(&params, QIODevice::ReadOnly);
-				Lw >> LineW;
+				Lw >> m_LineW;
 			}
 			else if (token == "ld")
 			{
 				ScTextStream Lw(&params, QIODevice::ReadOnly);
 				Lw >> dc;
-				Lw >> DashOffset;
-				DashPattern.clear();
+				Lw >> m_DashOffset;
+				m_DashPattern.clear();
 				if (dc != 0)
 				{
 					for (int dcc = 0; dcc < dc; ++dcc)
 					{
 						Lw >> dcp;
-						DashPattern.append(dcp);
+						m_DashPattern.append(dcp);
 					}
 				}
 			}
@@ -710,16 +710,16 @@ void EPSPlug::parseOutput(QString fn, bool eps)
 				switch (lcap)
 				{
 					case 0:
-						CapStyle = Qt::FlatCap;
+						m_CapStyle = Qt::FlatCap;
 						break;
 					case 1:
-						CapStyle = Qt::RoundCap;
+						m_CapStyle = Qt::RoundCap;
 						break;
 					case 2:
-						CapStyle = Qt::SquareCap;
+						m_CapStyle = Qt::SquareCap;
 						break;
 					default:
-						CapStyle = Qt::FlatCap;
+						m_CapStyle = Qt::FlatCap;
 						break;
 				}
 			}
@@ -730,21 +730,21 @@ void EPSPlug::parseOutput(QString fn, bool eps)
 				switch (ljoin)
 				{
 					case 0:
-						JoinStyle = Qt::MiterJoin;
+						m_JoinStyle = Qt::MiterJoin;
 						break;
 					case 1:
-						JoinStyle = Qt::RoundJoin;
+						m_JoinStyle = Qt::RoundJoin;
 						break;
 					case 2:
-						JoinStyle = Qt::BevelJoin;
+						m_JoinStyle = Qt::BevelJoin;
 						break;
 					default:
-						JoinStyle = Qt::MiterJoin;
+						m_JoinStyle = Qt::MiterJoin;
 						break;
 				}
 			}
 			else if (token == "cp") {
-				ClosedPath = true;
+				m_ClosedPath = true;
 			}
 			else if (token == "im") {
 				if ( !Image(params) )
@@ -761,7 +761,7 @@ void EPSPlug::parseOutput(QString fn, bool eps)
 				QList<PageItem*> gList = groupStackP.pop();
 				for (int d = 0; d < gList.count(); d++)
 				{
-					Elements.removeAll(gList.at(d));
+					m_Elements.removeAll(gList.at(d));
 				}
 				m_Doc->groupObjectsToItem(ite, gList);
 			}
@@ -846,7 +846,7 @@ bool EPSPlug::Image(QString vals)
 		}
 	}
 	QFile::remove(rawfile);
-	int z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, m_Doc->currentPage()->xOffset(), m_Doc->currentPage()->yOffset(), w, h, LineW, CommonStrings::None, CurrColor, true);
+	int z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, m_Doc->currentPage()->xOffset(), m_Doc->currentPage()->yOffset(), w, h, m_LineW, CommonStrings::None, m_CurrColor, true);
 	PageItem * ite = m_Doc->Items->at(z);
 	ite->setXYPos(m_Doc->currentPage()->xOffset() + x, m_Doc->currentPage()->yOffset() + y);
 	ite->setWidthHeight(w, h);
@@ -868,7 +868,7 @@ bool EPSPlug::Image(QString vals)
 	ite->setRotation(angle);
 	ite->setImageScalingMode(false, true); // fit to frame, keep ratio
 //	m_Doc->view()->AdjustItemSize(ite);
-	Elements.append(ite);
+	m_Elements.append(ite);
 	return ret == 0;
 }
 
@@ -882,10 +882,10 @@ void EPSPlug::LineTo(FPointArray *i, QString vals)
 	y1 = ScCLocale::toDoubleC(vals.section(' ', 1, 1, QString::SectionSkipEmpty));
 	x2 = ScCLocale::toDoubleC(vals.section(' ', 2, 2, QString::SectionSkipEmpty));
 	y2 = ScCLocale::toDoubleC(vals.section(' ', 3, 3, QString::SectionSkipEmpty));
-	if ((!FirstM) && (WasM))
+	if ((!m_FirstM) && (m_WasM))
 		i->setMarker();
-	FirstM = false;
-	WasM = false;
+	m_FirstM = false;
+	m_WasM = false;
 	i->addPoint(FPoint(x1, y1));
 	i->addPoint(FPoint(x1, y1));
 	i->addPoint(FPoint(x2, y2));
@@ -905,10 +905,10 @@ void EPSPlug::Curve(FPointArray *i, QString vals)
 	y3 = ScCLocale::toDoubleC(vals.section(' ', 5, 5, QString::SectionSkipEmpty));
 	x4 = ScCLocale::toDoubleC(vals.section(' ', 6, 6, QString::SectionSkipEmpty));
 	y4 = ScCLocale::toDoubleC(vals.section(' ', 7, 7, QString::SectionSkipEmpty));
-	if ((!FirstM) && (WasM))
+	if ((!m_FirstM) && (m_WasM))
 		i->setMarker();
-	FirstM = false;
-	WasM = false;
+	m_FirstM = false;
+	m_WasM = false;
 	i->addPoint(FPoint(x1, y1));
 	i->addPoint(FPoint(x2, y2));
 	i->addPoint(FPoint(x4, y4));
@@ -928,7 +928,7 @@ QString EPSPlug::parseColor(QString vals, bool eps, colorModel model)
 		Code >> r;
 		Code >> g;
 		Code >> b;
-		Code >> Opacity;
+		Code >> m_Opacity;
 // Why adding 0.5 here color values range from 0 to 255 not 1 to 256 ??
 /*		int Rc = static_cast<int>(r * 255 + 0.5);
 		int Gc = static_cast<int>(g * 255 + 0.5);
@@ -944,7 +944,7 @@ QString EPSPlug::parseColor(QString vals, bool eps, colorModel model)
 		Code >> m;
 		Code >> y;
 		Code >> k;
-		Code >> Opacity;
+		Code >> m_Opacity;
 		int Cc = qRound(c * 255);
 		int Mc = qRound(m * 255);
 		int Yc = qRound(y * 255);

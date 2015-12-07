@@ -95,25 +95,25 @@ private:
 	QString parseColor(QString vals, bool eps, colorModel model = colorModelCMYK);
 	bool Image(QString vals);
 	
-	QList<PageItem*> Elements;
-	ColorList CustColors;
-	double LineW, Opacity, DashOffset, baseX, baseY;
-	QVector<double> DashPattern;
-	QString CurrColor;
-	FPointArray Coords;
-	FPointArray clipCoords;
-	bool FirstM, WasM, ClosedPath;
-	Qt::PenCapStyle CapStyle;
-	Qt::PenJoinStyle JoinStyle;
-	bool interactive;
-	MultiProgressDialog * progressDialog;
-	bool cancel;
+	QList<PageItem*> m_Elements;
+	ColorList m_CustColors;
+	double m_LineW, m_Opacity, m_DashOffset, m_baseX, m_baseY;
+	QVector<double> m_DashPattern;
+	QString m_CurrColor;
+	FPointArray m_Coords;
+	FPointArray m_clipCoords;
+	bool m_FirstM, m_WasM, m_ClosedPath;
+	Qt::PenCapStyle m_CapStyle;
+	Qt::PenJoinStyle m_JoinStyle;
+	bool m_interactive;
+	MultiProgressDialog * m_progressDialog;
+	bool m_cancel;
 	ScribusDoc* m_Doc;
-	Selection* tmpSel;
-	QPainterPath boundingBoxRect;
+	Selection* m_tmpSel;
+	QPainterPath m_boundingBoxRect;
 
 public slots:
-	void cancelRequested() { cancel = true; }
+	void cancelRequested() { m_cancel = true; }
 };
 
 #endif
