@@ -41,12 +41,12 @@ HunspellPluginImpl::HunspellPluginImpl() : QObject(0)
 
 HunspellPluginImpl::~HunspellPluginImpl()
 {
-	foreach (HunspellDict* h, hspellerMap)
+	foreach (HunspellDict* h, m_hspellerMap)
 	{
 		delete h;
 		h = NULL;
 	}
-	hspellerMap.clear();
+	m_hspellerMap.clear();
 //	numDicts = 0;
 }
 
@@ -66,24 +66,24 @@ bool HunspellPluginImpl::run(const QString & target, ScribusDoc* doc)
 
 bool HunspellPluginImpl::initHunspell()
 {
-	bool dictPathFound=LanguageManager::instance()->findSpellingDictionaries(dictionaryPaths);
+	bool dictPathFound=LanguageManager::instance()->findSpellingDictionaries(m_dictionaryPaths);
 	if (!dictPathFound)
 	{
 		qDebug()<<"No preinstalled dictonary paths found";
 		return false;
 	}
-	dictionaryMap.clear();
-	LanguageManager::instance()->findSpellingDictionarySets(dictionaryPaths, dictionaryMap);
+	m_dictionaryMap.clear();
+	LanguageManager::instance()->findSpellingDictionarySets(m_dictionaryPaths, m_dictionaryMap);
 //	numDicts=dictionaryMap.count();
-	if (dictionaryMap.count()==0)
+	if (m_dictionaryMap.count()==0)
 		return false;
 
 	//Initialise one hunspeller for each dictionary found
-	QMap<QString, QString>::iterator it = dictionaryMap.begin();
-	while (it != dictionaryMap.end())
+	QMap<QString, QString>::iterator it = m_dictionaryMap.begin();
+	while (it != m_dictionaryMap.end())
 	{
 		//qDebug()<<"hunspell init:"<<it.key()<<it.value();
-		hspellerMap.insert(it.key(), new HunspellDict(it.value()+".aff", it.value()+".dic"));
+		m_hspellerMap.insert(it.key(), new HunspellDict(it.value()+".aff", it.value()+".dic"));
 		++it;
 	}
 	return true;
@@ -142,7 +142,7 @@ bool HunspellPluginImpl::parseTextFrame(StoryText *iText)
 			wordLang="en_GB";
 	//	int spellerIndex=0;
 		//qDebug()<<"Word:"<<word<<wordLang;
-		if (!dictionaryMap.contains(wordLang))
+		if (!m_dictionaryMap.contains(wordLang))
 		{
 			//qDebug()<<"Spelling language to match style language NOT installed ("<<wordLang<<")";
 			QString altLang=LanguageManager::instance()->getAlternativeAbbrevfromAbbrev(wordLang);
@@ -156,8 +156,8 @@ bool HunspellPluginImpl::parseTextFrame(StoryText *iText)
 		{
 			//qDebug()<<"Spelling language to match style language IS installed ("<<wordLang<<")";
 			int i = 0;
-			QMap<QString, QString>::iterator it = dictionaryMap.begin();
-			while (it != dictionaryMap.end())
+			QMap<QString, QString>::iterator it = m_dictionaryMap.begin();
+			while (it != m_dictionaryMap.end())
 			{
 				if (it.key()==wordLang)
 					break;
@@ -167,7 +167,7 @@ bool HunspellPluginImpl::parseTextFrame(StoryText *iText)
 		//	spellerIndex = i;
 		}
 
-		if (hspellerMap.contains(wordLang) && hspellerMap[wordLang]->spell(word)==0)
+		if (m_hspellerMap.contains(wordLang) && m_hspellerMap[wordLang]->spell(word)==0)
 		{
 			//qDebug()<<"hspellerMap.contains(wordLang)"<<hspellerMap.contains(wordLang)<< "hspellerMap[wordLang]->spell(word)"<<hspellerMap[wordLang]->spell(word);
 			struct WordsFound wf;
@@ -178,7 +178,7 @@ bool HunspellPluginImpl::parseTextFrame(StoryText *iText)
 			wf.ignore=false;
 			wf.changeOffset=0;
 			wf.lang = wordLang;
-			wf.replacements = hspellerMap[wordLang]->suggest(word);
+			wf.replacements = m_hspellerMap[wordLang]->suggest(word);
 			wordsToCorrect.append(wf);
 		}
 		currPos = iText->nextWord(wordStart);
@@ -189,7 +189,7 @@ bool HunspellPluginImpl::parseTextFrame(StoryText *iText)
 bool HunspellPluginImpl::openGUIForTextFrame(StoryText *iText)
 {
 	HunspellDialog hsDialog(m_doc->scMW(), m_doc, iText);
-	hsDialog.set(&dictionaryMap, &hspellerMap, &wordsToCorrect);
+	hsDialog.set(&m_dictionaryMap, &m_hspellerMap, &wordsToCorrect);
 	hsDialog.exec();
 	if (hsDialog.docChanged())
 		m_doc->changed();
@@ -200,7 +200,7 @@ bool HunspellPluginImpl::openGUIForStoryEditor(StoryText *iText)
 {
 	m_SE->setSpellActive(true);
 	HunspellDialog hsDialog(m_SE, m_doc, iText);
-	hsDialog.set(&dictionaryMap, &hspellerMap, &wordsToCorrect);
+	hsDialog.set(&m_dictionaryMap, &m_hspellerMap, &wordsToCorrect);
 	hsDialog.exec();
 	m_SE->setSpellActive(false);
 	return true;

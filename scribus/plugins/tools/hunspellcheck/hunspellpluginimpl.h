@@ -40,10 +40,10 @@ class HunspellPluginImpl : public QObject
 		QList<WordsFound> wordsToCorrect;
 
 	protected:
-		QMap<QString, QString> dictionaryMap;
-		QStringList dictionaryPaths;
+		QMap<QString, QString> m_dictionaryMap;
+		QStringList m_dictionaryPaths;
 		//int numDicts, numAFFs;
-		QMap<QString, HunspellDict*> hspellerMap;
+		QMap<QString, HunspellDict*> m_hspellerMap;
 		ScribusDoc* m_doc;
 		bool m_runningForSE;
 		StoryEditor* m_SE;
