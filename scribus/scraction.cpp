@@ -42,9 +42,9 @@ ScrAction::ScrAction(ActionType aType, const QString & menuText, QKeySequence ac
 	setShortcut(accel);
 	initScrAction();
 	setData(d);
-	_actionType=aType;
+	m_actionType=aType;
 
-	if (_actionType!=Normal)
+	if (m_actionType!=Normal)
 		connect (this, SIGNAL(triggered()), this, SLOT(triggeredToTriggeredData()));
 }
 
@@ -54,9 +54,9 @@ ScrAction::ScrAction(ActionType aType, const QPixmap & icon16, const QPixmap & i
 	initScrAction();
 	icon().addPixmap(icon22, QIcon::Normal, QIcon::On);
 
-	_actionType=aType;
+	m_actionType=aType;
 	setData(d);
-	if (_actionType!=Normal)
+	if (m_actionType!=Normal)
 		connect (this, SIGNAL(triggered()), this, SLOT(triggeredToTriggeredData()));
 }
 
@@ -75,7 +75,7 @@ ScrAction::ScrAction(QKeySequence accel, QObject * parent, QVariant d)
 	setShortcut(accel);
 	initScrAction();
 	icon().addPixmap(QPixmap(), QIcon::Normal, QIcon::On);
-	_actionType=UnicodeChar;
+	m_actionType=UnicodeChar;
 	setData(d);
 	connect (this, SIGNAL(triggered()), this, SLOT(triggeredToTriggeredData()));
 }
@@ -83,11 +83,11 @@ ScrAction::ScrAction(QKeySequence accel, QObject * parent, QVariant d)
 
 void ScrAction::initScrAction()
 {
-	_actionType=ScrAction::Normal;
-	menuIndex=-1;
-	savedKeySequence=QKeySequence("");
-	shortcutSaved=false;
-	fakeToggle=false;
+	m_actionType=ScrAction::Normal;
+	m_menuIndex=-1;
+	m_savedKeySequence=QKeySequence("");
+	m_shortcutSaved=false;
+	m_fakeToggle=false;
 }
 
 ScrAction::~ScrAction()
@@ -96,28 +96,28 @@ ScrAction::~ScrAction()
 
 void ScrAction::triggeredToTriggeredData()
 {
-	if (_actionType==ScrAction::DataInt)
+	if (m_actionType==ScrAction::DataInt)
 		emit triggeredData(data().toInt());
-	if (_actionType==ScrAction::DataDouble)
+	if (m_actionType==ScrAction::DataDouble)
 		emit triggeredData(data().toDouble());
-	if (_actionType==ScrAction::DataQString)
+	if (m_actionType==ScrAction::DataQString)
 		emit triggeredData(data().toString());
-	if (_actionType==ScrAction::DLL)
+	if (m_actionType==ScrAction::DLL)
 		qDebug()<<"if (_actionType==ScrAction::DLL): please fix in ScrAction::triggeredToTriggeredData()";
 //		emit triggeredData(pluginID);
-	if (_actionType==ScrAction::Window)
+	if (m_actionType==ScrAction::Window)
 		emit triggeredData(data().toInt());
-	if (_actionType==ScrAction::RecentFile)
+	if (m_actionType==ScrAction::RecentFile)
 		emit triggeredData(data().toString());
-	if (_actionType==ScrAction::RecentPaste)
+	if (m_actionType==ScrAction::RecentPaste)
 		emit triggeredData(data().toString());
-	if (_actionType==ScrAction::RecentScript)
+	if (m_actionType==ScrAction::RecentScript)
 		emit triggeredData(data().toString());
-	if (_actionType==ScrAction::UnicodeChar)
+	if (m_actionType==ScrAction::UnicodeChar)
 		emit triggeredUnicodeShortcut(data().toInt());
-	if (_actionType==ScrAction::Layer)
+	if (m_actionType==ScrAction::Layer)
 		emit triggeredData(data().toInt());
-	if (_actionType==ScrAction::ActionDLL)
+	if (m_actionType==ScrAction::ActionDLL)
 		emit triggeredData(((ScribusMainWindow*)parent())->doc);
 }
 
@@ -125,24 +125,24 @@ void ScrAction::toggledToToggledData(bool ison)
 {
 	if (isCheckable())
 	{
-		if (_actionType==ScrAction::DataInt)
+		if (m_actionType==ScrAction::DataInt)
 			emit toggledData(ison, data().toInt());
-		if (_actionType==ScrAction::DataDouble)
+		if (m_actionType==ScrAction::DataDouble)
 			emit toggledData(ison, data().toDouble());
-		if (_actionType==ScrAction::DataQString)
+		if (m_actionType==ScrAction::DataQString)
 			emit toggledData(ison, data().toString());
-		if (_actionType==ScrAction::DLL)
+		if (m_actionType==ScrAction::DLL)
 			qDebug()<<"if (_actionType==ScrAction::DLL): please fix in ScrAction::toggledToToggledData(bool ison)";
 //			emit toggledData(ison, pluginID);
-		if (_actionType==ScrAction::Window)
+		if (m_actionType==ScrAction::Window)
 			emit toggledData(ison, data().toInt());
-		if (_actionType==ScrAction::RecentFile)
+		if (m_actionType==ScrAction::RecentFile)
 			emit toggledData(ison, data().toString());
-		if (_actionType==ScrAction::RecentPaste)
+		if (m_actionType==ScrAction::RecentPaste)
 			emit toggledData(ison, data().toString());
-		if (_actionType==ScrAction::RecentScript)
+		if (m_actionType==ScrAction::RecentScript)
 			emit toggledData(ison, text());
-		if (_actionType==ScrAction::Layer)
+		if (m_actionType==ScrAction::Layer)
 			emit toggledData(ison, data().toInt());
 		// no toggle for UnicodeChar
 	}
@@ -150,10 +150,10 @@ void ScrAction::toggledToToggledData(bool ison)
 
 void ScrAction::addedTo ( int index, QMenu * menu )
 {
-	if (menuIndex==-1) // Add the first time, not for secondary popups.
+	if (m_menuIndex==-1) // Add the first time, not for secondary popups.
 	{
-		menuIndex=index;
-		popupMenuAddedTo=menu;
+		m_menuIndex=index;
+		m_popupMenuAddedTo=menu;
 	}
 }
 
@@ -182,24 +182,24 @@ void ScrAction::setStatusTextAndShortcut(const QString& statusText)
 
 int ScrAction::getMenuIndex() const
 {
-	return menuIndex;
+	return m_menuIndex;
 }
 
 bool ScrAction::isDLLAction() const
 {
-	return _actionType==ScrAction::DLL;
+	return m_actionType==ScrAction::DLL;
 }
 
 int ScrAction::dllID() const
 {
-	if (_actionType==ScrAction::DLL)
+	if (m_actionType==ScrAction::DLL)
 		return data().toInt();
 	return -1;
 }
 
 void ScrAction::setToggleAction(bool isToggle, bool isFakeToggle)
 {
-	if (_actionType!=Normal)
+	if (m_actionType!=Normal)
 	{
 		if (isToggle)
 			connect(this, SIGNAL(toggled(bool)), this, SLOT(toggledToToggledData(bool)));
@@ -208,34 +208,34 @@ void ScrAction::setToggleAction(bool isToggle, bool isFakeToggle)
 	}
 	QAction::setCheckable(isToggle);
 	setChecked(isToggle); // set default state of the action's checkbox - PV
-	fakeToggle=isFakeToggle;
+	m_fakeToggle=isFakeToggle;
 	//if (fakeToggle)
 		//connect(this, toggled(bool), this, triggered());
 }
 
 void ScrAction::saveShortcut()
 {
-	if(!shortcutSaved)
+	if(!m_shortcutSaved)
 	{
-		savedKeySequence=shortcut();
+		m_savedKeySequence=shortcut();
 		setShortcut(QKeySequence(""));
-		shortcutSaved=true;
+		m_shortcutSaved=true;
 	}
 }
 
 void ScrAction::restoreShortcut()
 {
-	if (shortcutSaved)
+	if (m_shortcutSaved)
 	{
-		setShortcut(savedKeySequence);
-		savedKeySequence=QKeySequence("");
-		shortcutSaved=false;
+		setShortcut(m_savedKeySequence);
+		m_savedKeySequence=QKeySequence("");
+		m_shortcutSaved=false;
 	}
 }
 
 ScrAction::ActionType ScrAction::actionType()
 {
-	return _actionType;
+	return m_actionType;
 }
 
 int ScrAction::actionInt() const
@@ -263,7 +263,7 @@ void ScrAction::setTexts(const QString &newText)//#9114, qt3-qt4 change of behav
 void ScrAction::toggle()
 {
 	QAction::toggle();
-	if (fakeToggle)
+	if (m_fakeToggle)
 		emit triggered();
 }
 
