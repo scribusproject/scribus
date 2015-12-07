@@ -62,7 +62,7 @@ protected:
 	void hoverEnterEvent(QGraphicsSceneHoverEvent *event);
 	void hoverMoveEvent(QGraphicsSceneHoverEvent *event);
 	void hoverLeaveEvent(QGraphicsSceneHoverEvent *);
-	LensDialog *dialog;
+	LensDialog *m_dialog;
 };
 
 class PLUGIN_API LensDialog : public QDialog, Ui::LensDialogBase

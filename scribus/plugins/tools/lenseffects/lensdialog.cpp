@@ -36,7 +36,7 @@ for which a new license (GPL+exception) is in place.
 
 LensItem::LensItem(QRectF geom, LensDialog *parent) : QGraphicsRectItem(geom)
 {
-	dialog = parent;
+	m_dialog = parent;
 	strength = -100.0;
 	scaling = 1.0,
 	handle = -1;
@@ -133,7 +133,7 @@ void LensItem::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 	else
 		QGraphicsItem::mouseMoveEvent(event);
 	mousePoint = event->screenPos();
-	dialog->lensSelected(this);
+	m_dialog->lensSelected(this);
 }
 
 void LensItem::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
@@ -196,10 +196,10 @@ QVariant LensItem::itemChange(GraphicsItemChange change, const QVariant &value)
 	switch (change)
 	{
 		case ItemSelectedChange:
-			dialog->lensSelected(this);
+			m_dialog->lensSelected(this);
 			break;
 		case ItemPositionHasChanged:
-			dialog->setLensPositionValues(mapToScene(rect().center()));
+			m_dialog->setLensPositionValues(mapToScene(rect().center()));
 			updateEffect();
 			break;
 		default:
@@ -211,14 +211,14 @@ QVariant LensItem::itemChange(GraphicsItemChange change, const QVariant &value)
 void LensItem::updateEffect()
 {
 	LensItem *item;
-	for (int a = 0; a < dialog->origPathItem.count(); a++)
+	for (int a = 0; a < m_dialog->origPathItem.count(); a++)
 	{
-		QGraphicsPathItem* pItem = dialog->origPathItem[a];
-		QPainterPath path = dialog->origPath[a];
+		QGraphicsPathItem* pItem = m_dialog->origPathItem[a];
+		QPainterPath path = m_dialog->origPath[a];
 		path = pItem->mapToScene(path);
-		for (int b = 0; b < dialog->lensList.count(); b++)
+		for (int b = 0; b < m_dialog->lensList.count(); b++)
 		{
-			item = dialog->lensList[b];
+			item = m_dialog->lensList[b];
 			path = lensDeform(path, item->mapToScene(item->rect().center()), item->rect().width() / 2.0, item->strength / 100.0);
 		}
 		path = pItem->mapFromScene(path);
