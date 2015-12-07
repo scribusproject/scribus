@@ -20,13 +20,13 @@
  */
 class UniqueID : public SaxFilter {
 public:
-	UniqueID(SaxHandler* delegate) : SaxFilter(delegate), seenIDs(), level(0)  {}
+	UniqueID(SaxHandler* delegate) : SaxFilter(delegate), m_seenIDs(), m_level(0)  {}
 	virtual void begin(const Xml_string& tag, Xml_attr attr);
 	virtual void end(const Xml_string& tag);
 	virtual void chars(const Xml_string& text);
 private:
-	std::set<Xml_string> seenIDs;
-	int level;
+	std::set<Xml_string> m_seenIDs;
+	int m_level;
 };
 
 #endif
