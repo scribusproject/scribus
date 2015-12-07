@@ -28,7 +28,7 @@ public slots:
 	void createPageNumberRange();
 
 private:
-	Ui::XpsImportOptions *ui;
+	Ui::XpsImportOptions *m_ui;
 	int m_maxPage;
 };
 

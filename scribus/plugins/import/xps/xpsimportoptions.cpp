@@ -10,56 +10,56 @@ for which a new license (GPL+exception) is in place.
 #include "usertaskstructs.h"
 #include "iconmanager.h"
 
-XpsImportOptions::XpsImportOptions(QWidget *parent) : QDialog(parent), ui(new Ui::XpsImportOptions)
+XpsImportOptions::XpsImportOptions(QWidget *parent) : QDialog(parent), m_ui(new Ui::XpsImportOptions)
 {
-	ui->setupUi(this);
-	ui->pageSelectButton->setIcon(IconManager::instance()->loadIcon("ellipsis.png"));
+	m_ui->setupUi(this);
+	m_ui->pageSelectButton->setIcon(IconManager::instance()->loadIcon("ellipsis.png"));
 	m_maxPage = 0;
 }
 
 XpsImportOptions::~XpsImportOptions()
 {
-	delete ui;
+	delete m_ui;
 }
 
 QString XpsImportOptions::getPagesString()
 {
-	if (ui->allPages->isChecked())
+	if (m_ui->allPages->isChecked())
 		return "*";
-	if (ui->singlePage->isChecked())
-		return QString("%1").arg(ui->spinBox->value());
-	return ui->pageRangeString->text();
+	if (m_ui->singlePage->isChecked())
+		return QString("%1").arg(m_ui->spinBox->value());
+	return m_ui->pageRangeString->text();
 }
 
 void XpsImportOptions::setUpOptions(QString fileName, int actPage, int numPages, bool interact)
 {
-	ui->fileLabel->setText(fileName);
-	ui->spinBox->setMaximum(numPages);
-	ui->spinBox->setMinimum(actPage);
-	ui->spinBox->setValue(actPage);
+	m_ui->fileLabel->setText(fileName);
+	m_ui->spinBox->setMaximum(numPages);
+	m_ui->spinBox->setMinimum(actPage);
+	m_ui->spinBox->setValue(actPage);
 	if (interact)
 	{
-		ui->allPages->setChecked(false);
-		ui->selectedPages->setChecked(false);
-		ui->allPages->setEnabled(false);
-		ui->selectedPages->setEnabled(false);
-		ui->singlePage->setChecked(true);
-		ui->spinBox->setEnabled(true);
+		m_ui->allPages->setChecked(false);
+		m_ui->selectedPages->setChecked(false);
+		m_ui->allPages->setEnabled(false);
+		m_ui->selectedPages->setEnabled(false);
+		m_ui->singlePage->setChecked(true);
+		m_ui->spinBox->setEnabled(true);
 	}
 	else
-		ui->allPages->setChecked(true);
-	ui->pageRangeString->setText("");
+		m_ui->allPages->setChecked(true);
+	m_ui->pageRangeString->setText("");
 	m_maxPage = numPages;
-	connect(ui->pageSelectButton, SIGNAL(clicked()), this, SLOT(createPageNumberRange()));
+	connect(m_ui->pageSelectButton, SIGNAL(clicked()), this, SLOT(createPageNumberRange()));
 }
 
 void XpsImportOptions::createPageNumberRange()
 {
-	CreateRange cr(ui->pageRangeString->text(), m_maxPage, this);
+	CreateRange cr(m_ui->pageRangeString->text(), m_maxPage, this);
 	if (cr.exec())
 	{
 		CreateRangeData crData;
 		cr.getCreateRangeData(crData);
-		ui->pageRangeString->setText(crData.pageRange);
+		m_ui->pageRangeString->setText(crData.pageRange);
 	}
 }
