@@ -65,34 +65,34 @@ private:
 	QByteArray decodeRLE(QByteArray &in, quint16 bytesPerLine, int twoByte);
 	QBrush setFillPattern();
 
-	int baseX, baseY;
-	int docWidth;
-	int docHeight;
-	double resX, resY;
+	int m_baseX, m_baseY;
+	int m_docWidth;
+	int m_docHeight;
+	double m_resX, m_resY;
 
-	double LineW;
-	QColor backColor;
-	QColor foreColor;
-	bool patternMode;
-	QByteArray patternData;
-	QRect currRect;
-	QBrush currPatternBrush;
-	QRect lastImageRect;
-	QPoint ovalSize;
-	QMap<int, QString> fontMap;
-	int currentTextSize;
-	int currentFontID;
-	int currentFontStyle;
-	QByteArray imageData;
+	double m_LineW;
+	QColor m_backColor;
+	QColor m_foreColor;
+	bool m_patternMode;
+	QByteArray m_patternData;
+	QRect m_currRect;
+	QBrush m_currPatternBrush;
+	QRect m_lastImageRect;
+	QPoint m_ovalSize;
+	QMap<int, QString> m_fontMap;
+	int m_currentTextSize;
+	int m_currentFontID;
+	int m_currentFontStyle;
+	QByteArray m_imageData;
 
-	QPainterPath Coords;
-	QPoint currentPoint;
-	QPoint currentPointT;
-	QPainter imagePainter;
-	bool postscriptMode;
-	bool textIsPostScript;
-	int pctVersion;
-	bool skipOpcode;
+	QPainterPath m_Coords;
+	QPoint m_currentPoint;
+	QPoint m_currentPointT;
+	QPainter m_imagePainter;
+	bool m_postscriptMode;
+	bool m_textIsPostScript;
+	int m_pctVersion;
+	bool m_skipOpcode;
 };
 
 #endif
