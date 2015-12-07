@@ -53,34 +53,34 @@ extern SCRIBUS_API ScribusQApp * ScQApp;
 
 SmlPlug::SmlPlug(ScribusDoc* doc, int flags)
 {
-	tmpSel=new Selection(this, false);
+	m_tmpSel=new Selection(this, false);
 	m_Doc=doc;
-	importerFlags = flags;
-	interactive = (flags & LoadSavePlugin::lfInteractive);
-	progressDialog = NULL;
+	m_importerFlags = flags;
+	m_interactive = (flags & LoadSavePlugin::lfInteractive);
+	m_progressDialog = NULL;
 }
 
 QImage SmlPlug::readThumbnail(QString fName)
 {
 	QFileInfo fi = QFileInfo(fName);
-	baseFile = QDir::cleanPath(QDir::toNativeSeparators(fi.absolutePath()+"/"));
+	m_baseFile = QDir::cleanPath(QDir::toNativeSeparators(fi.absolutePath()+"/"));
 	double b, h;
 	parseHeader(fName, b, h);
 	if (b == 0.0)
 		b = PrefsManager::instance()->appPrefs.docSetupPrefs.pageWidth;
 	if (h == 0.0)
 		h = PrefsManager::instance()->appPrefs.docSetupPrefs.pageHeight;
-	docWidth = b;
-	docHeight = h;
-	progressDialog = NULL;
+	m_docWidth = b;
+	m_docHeight = h;
+	m_progressDialog = NULL;
 	m_Doc = new ScribusDoc();
 	m_Doc->setup(0, 1, 1, 1, 1, "Custom", "Custom");
-	m_Doc->setPage(docWidth, docHeight, 0, 0, 0, 0, 0, 0, false, false);
+	m_Doc->setPage(m_docWidth, m_docHeight, 0, 0, 0, 0, 0, 0, false, false);
 	m_Doc->addPage(0);
 	m_Doc->setGUI(false, ScCore->primaryMainWindow(), 0);
-	baseX = m_Doc->currentPage()->xOffset();
-	baseY = m_Doc->currentPage()->yOffset();
-	Elements.clear();
+	m_baseX = m_Doc->currentPage()->xOffset();
+	m_baseY = m_Doc->currentPage()->yOffset();
+	m_Elements.clear();
 	m_Doc->setLoading(true);
 	m_Doc->DoDrawing = false;
 	m_Doc->scMW()->setScriptRunning(true);
@@ -88,23 +88,23 @@ QImage SmlPlug::readThumbnail(QString fName)
 	QDir::setCurrent(fi.path());
 	if (convert(fName))
 	{
-		tmpSel->clear();
+		m_tmpSel->clear();
 		QDir::setCurrent(CurDirP);
-		if (Elements.count() > 1)
-			m_Doc->groupObjectsList(Elements);
+		if (m_Elements.count() > 1)
+			m_Doc->groupObjectsList(m_Elements);
 		m_Doc->DoDrawing = true;
 		m_Doc->m_Selection->delaySignalsOn();
 		QImage tmpImage;
-		if (Elements.count() > 0)
+		if (m_Elements.count() > 0)
 		{
-			for (int dre=0; dre<Elements.count(); ++dre)
+			for (int dre=0; dre<m_Elements.count(); ++dre)
 			{
-				tmpSel->addItem(Elements.at(dre), true);
+				m_tmpSel->addItem(m_Elements.at(dre), true);
 			}
-			tmpSel->setGroupRect();
-			double xs = tmpSel->width();
-			double ys = tmpSel->height();
-			tmpImage = Elements.at(0)->DrawObj_toImage(500);
+			m_tmpSel->setGroupRect();
+			double xs = m_tmpSel->width();
+			double ys = m_tmpSel->height();
+			tmpImage = m_Elements.at(0)->DrawObj_toImage(500);
 			tmpImage.setText("XSize", QString("%1").arg(xs));
 			tmpImage.setText("YSize", QString("%1").arg(ys));
 		}
@@ -128,43 +128,43 @@ bool SmlPlug::import(QString fNameIn, const TransactionSettings& trSettings, int
 {
 	QString fName = fNameIn;
 	bool success = false;
-	interactive = (flags & LoadSavePlugin::lfInteractive);
-	importerFlags = flags;
-	cancel = false;
+	m_interactive = (flags & LoadSavePlugin::lfInteractive);
+	m_importerFlags = flags;
+	m_cancel = false;
 	double b, h;
 	bool ret = false;
 	QFileInfo fi = QFileInfo(fName);
 	if ( !ScCore->usingGUI() )
 	{
-		interactive = false;
+		m_interactive = false;
 		showProgress = false;
 	}
-	baseFile = QDir::cleanPath(QDir::toNativeSeparators(fi.absolutePath()+"/"));
+	m_baseFile = QDir::cleanPath(QDir::toNativeSeparators(fi.absolutePath()+"/"));
 	if ( showProgress )
 	{
 		ScribusMainWindow* mw=(m_Doc==0) ? ScCore->primaryMainWindow() : m_Doc->scMW();
-		progressDialog = new MultiProgressDialog( tr("Importing: %1").arg(fi.fileName()), CommonStrings::tr_Cancel, mw );
+		m_progressDialog = new MultiProgressDialog( tr("Importing: %1").arg(fi.fileName()), CommonStrings::tr_Cancel, mw );
 		QStringList barNames, barTexts;
 		barNames << "GI";
 		barTexts << tr("Analyzing File:");
 		QList<bool> barsNumeric;
 		barsNumeric << false;
-		progressDialog->addExtraProgressBars(barNames, barTexts, barsNumeric);
-		progressDialog->setOverallTotalSteps(3);
-		progressDialog->setOverallProgress(0);
-		progressDialog->setProgress("GI", 0);
-		progressDialog->show();
-		connect(progressDialog, SIGNAL(canceled()), this, SLOT(cancelRequested()));
+		m_progressDialog->addExtraProgressBars(barNames, barTexts, barsNumeric);
+		m_progressDialog->setOverallTotalSteps(3);
+		m_progressDialog->setOverallProgress(0);
+		m_progressDialog->setProgress("GI", 0);
+		m_progressDialog->show();
+		connect(m_progressDialog, SIGNAL(canceled()), this, SLOT(cancelRequested()));
 		qApp->processEvents();
 	}
 	else
-		progressDialog = NULL;
+		m_progressDialog = NULL;
 /* Set default Page to size defined in Preferences */
 	b = 0.0;
 	h = 0.0;
-	if (progressDialog)
+	if (m_progressDialog)
 	{
-		progressDialog->setOverallProgress(1);
+		m_progressDialog->setOverallProgress(1);
 		qApp->processEvents();
 	}
 	parseHeader(fName, b, h);
@@ -172,39 +172,39 @@ bool SmlPlug::import(QString fNameIn, const TransactionSettings& trSettings, int
 		b = PrefsManager::instance()->appPrefs.docSetupPrefs.pageWidth;
 	if (h == 0.0)
 		h = PrefsManager::instance()->appPrefs.docSetupPrefs.pageHeight;
-	docWidth = b;
-	docHeight = h;
-	baseX = 0;
-	baseY = 0;
-	if (!interactive || (flags & LoadSavePlugin::lfInsertPage))
+	m_docWidth = b;
+	m_docHeight = h;
+	m_baseX = 0;
+	m_baseY = 0;
+	if (!m_interactive || (flags & LoadSavePlugin::lfInsertPage))
 	{
-		m_Doc->setPage(docWidth, docHeight, 0, 0, 0, 0, 0, 0, false, false);
+		m_Doc->setPage(m_docWidth, m_docHeight, 0, 0, 0, 0, 0, 0, false, false);
 		m_Doc->addPage(0);
 		m_Doc->view()->addPage(0, true);
-		baseX = 0;
-		baseY = 0;
+		m_baseX = 0;
+		m_baseY = 0;
 	}
 	else
 	{
 		if (!m_Doc || (flags & LoadSavePlugin::lfCreateDoc))
 		{
-			m_Doc=ScCore->primaryMainWindow()->doFileNew(docWidth, docHeight, 0, 0, 0, 0, 0, 0, false, false, 0, false, 0, 1, "Custom", true);
+			m_Doc=ScCore->primaryMainWindow()->doFileNew(m_docWidth, m_docHeight, 0, 0, 0, 0, 0, 0, false, false, 0, false, 0, 1, "Custom", true);
 			ScCore->primaryMainWindow()->HaveNewDoc();
 			ret = true;
-			baseX = 0;
-			baseY = 0;
-			baseX = m_Doc->currentPage()->xOffset();
-			baseY = m_Doc->currentPage()->yOffset();
+			m_baseX = 0;
+			m_baseY = 0;
+			m_baseX = m_Doc->currentPage()->xOffset();
+			m_baseY = m_Doc->currentPage()->yOffset();
 		}
 	}
-	if ((!ret) && (interactive))
+	if ((!ret) && (m_interactive))
 	{
-		baseX = m_Doc->currentPage()->xOffset();
-		baseY = m_Doc->currentPage()->yOffset();
+		m_baseX = m_Doc->currentPage()->xOffset();
+		m_baseY = m_Doc->currentPage()->yOffset();
 	}
-	if ((ret) || (!interactive))
+	if ((ret) || (!m_interactive))
 	{
-		if (docWidth > docHeight)
+		if (m_docWidth > m_docHeight)
 			m_Doc->setPageOrientation(1);
 		else
 			m_Doc->setPageOrientation(0);
@@ -212,7 +212,7 @@ bool SmlPlug::import(QString fNameIn, const TransactionSettings& trSettings, int
 	}
 	if ((!(flags & LoadSavePlugin::lfLoadAsPattern)) && (m_Doc->view() != NULL))
 		m_Doc->view()->Deselect();
-	Elements.clear();
+	m_Elements.clear();
 	m_Doc->setLoading(true);
 	m_Doc->DoDrawing = false;
 	if ((!(flags & LoadSavePlugin::lfLoadAsPattern)) && (m_Doc->view() != NULL))
@@ -223,15 +223,15 @@ bool SmlPlug::import(QString fNameIn, const TransactionSettings& trSettings, int
 	QDir::setCurrent(fi.path());
 	if (convert(fName))
 	{
-		tmpSel->clear();
+		m_tmpSel->clear();
 		QDir::setCurrent(CurDirP);
-		if ((Elements.count() > 1) && (!(importerFlags & LoadSavePlugin::lfCreateDoc)))
-			m_Doc->groupObjectsList(Elements);
+		if ((m_Elements.count() > 1) && (!(m_importerFlags & LoadSavePlugin::lfCreateDoc)))
+			m_Doc->groupObjectsList(m_Elements);
 		m_Doc->DoDrawing = true;
 		m_Doc->scMW()->setScriptRunning(false);
 		m_Doc->setLoading(false);
 		qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
-		if ((Elements.count() > 0) && (!ret) && (interactive))
+		if ((m_Elements.count() > 0) && (!ret) && (m_interactive))
 		{
 			if (flags & LoadSavePlugin::lfScripted)
 			{
@@ -242,9 +242,9 @@ bool SmlPlug::import(QString fNameIn, const TransactionSettings& trSettings, int
 				if (!(flags & LoadSavePlugin::lfLoadAsPattern))
 				{
 					m_Doc->m_Selection->delaySignalsOn();
-					for (int dre=0; dre<Elements.count(); ++dre)
+					for (int dre=0; dre<m_Elements.count(); ++dre)
 					{
-						m_Doc->m_Selection->addItem(Elements.at(dre), true);
+						m_Doc->m_Selection->addItem(m_Elements.at(dre), true);
 					}
 					m_Doc->m_Selection->delaySignalsOff();
 					m_Doc->m_Selection->setGroupRect();
@@ -258,13 +258,13 @@ bool SmlPlug::import(QString fNameIn, const TransactionSettings& trSettings, int
 				m_Doc->DraggedElem = 0;
 				m_Doc->DragElements.clear();
 				m_Doc->m_Selection->delaySignalsOn();
-				for (int dre=0; dre<Elements.count(); ++dre)
+				for (int dre=0; dre<m_Elements.count(); ++dre)
 				{
-					tmpSel->addItem(Elements.at(dre), true);
+					m_tmpSel->addItem(m_Elements.at(dre), true);
 				}
-				tmpSel->setGroupRect();
-				ScElemMimeData* md = ScriXmlDoc::WriteToMimeData(m_Doc, tmpSel);
-				m_Doc->itemSelection_DeleteItem(tmpSel);
+				m_tmpSel->setGroupRect();
+				ScElemMimeData* md = ScriXmlDoc::WriteToMimeData(m_Doc, m_tmpSel);
+				m_Doc->itemSelection_DeleteItem(m_tmpSel);
 				m_Doc->view()->updatesOn(true);
 				m_Doc->m_Selection->delaySignalsOff();
 				// We must copy the TransationSettings object as it is owned
@@ -294,12 +294,12 @@ bool SmlPlug::import(QString fNameIn, const TransactionSettings& trSettings, int
 			m_Doc->view()->updatesOn(true);
 		qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 	}
-	if (interactive)
+	if (m_interactive)
 		m_Doc->setLoading(false);
 	//CB If we have a gui we must refresh it if we have used the progressbar
 	if (!(flags & LoadSavePlugin::lfLoadAsPattern))
 	{
-		if ((showProgress) && (!interactive))
+		if ((showProgress) && (!m_interactive))
 			m_Doc->view()->DrawNew();
 	}
 	qApp->restoreOverrideCursor();
@@ -308,9 +308,9 @@ bool SmlPlug::import(QString fNameIn, const TransactionSettings& trSettings, int
 
 SmlPlug::~SmlPlug()
 {
-	if (progressDialog)
-		delete progressDialog;
-	delete tmpSel;
+	if (m_progressDialog)
+		delete m_progressDialog;
+	delete m_tmpSel;
 }
 
 void SmlPlug::parseHeader(QString fName, double &b, double &h)
@@ -340,25 +340,25 @@ void SmlPlug::parseHeader(QString fName, double &b, double &h)
 bool SmlPlug::convert(QString fn)
 {
 	QString tmp;
-	CurrColorFill = "White";
-	CurrFillShade = 100.0;
-	CurrColorStroke = "Black";
-	CurrStrokeShade = 100.0;
-	LineW = 1.0;
-	Dash = Qt::SolidLine;
-	LineEnd = Qt::FlatCap;
-	LineJoin = Qt::MiterJoin;
-	fillStyle = 1;
-	Coords.resize(0);
-	Coords.svgInit();
-	importedColors.clear();
+	m_CurrColorFill = "White";
+	m_CurrFillShade = 100.0;
+	m_CurrColorStroke = "Black";
+	m_CurrStrokeShade = 100.0;
+	m_LineW = 1.0;
+	m_Dash = Qt::SolidLine;
+	m_LineEnd = Qt::FlatCap;
+	m_LineJoin = Qt::MiterJoin;
+	m_fillStyle = 1;
+	m_Coords.resize(0);
+	m_Coords.svgInit();
+	m_importedColors.clear();
 	QList<PageItem*> gElements;
-	groupStack.push(gElements);
-	currentItemNr = 0;
-	if(progressDialog)
+	m_groupStack.push(gElements);
+	m_currentItemNr = 0;
+	if(m_progressDialog)
 	{
-		progressDialog->setOverallProgress(2);
-		progressDialog->setLabel("GI", tr("Generating Items"));
+		m_progressDialog->setOverallProgress(2);
+		m_progressDialog->setLabel("GI", tr("Generating Items"));
 		qApp->processEvents();
 	}
 	QFile f(fn);
@@ -377,20 +377,20 @@ bool SmlPlug::convert(QString fn)
 				processShapeNode(pg);
 			node = node.nextSibling();
 		}
-		if (Elements.count() == 0)
+		if (m_Elements.count() == 0)
 		{
-			if (importedColors.count() != 0)
+			if (m_importedColors.count() != 0)
 			{
-				for (int cd = 0; cd < importedColors.count(); cd++)
+				for (int cd = 0; cd < m_importedColors.count(); cd++)
 				{
-					m_Doc->PageColors.remove(importedColors[cd]);
+					m_Doc->PageColors.remove(m_importedColors[cd]);
 				}
 			}
 		}
 		f.close();
 	}
-	if (progressDialog)
-		progressDialog->close();
+	if (m_progressDialog)
+		m_progressDialog->close();
 	return true;
 }
 
@@ -398,10 +398,10 @@ void SmlPlug::finishItem(QDomElement &e, PageItem* ite)
 {
 	ite->ClipEdited = true;
 	ite->FrameType = 3;
-	ite->setFillShade(CurrFillShade);
-	ite->setLineShade(CurrStrokeShade);
-	ite->setLineJoin(LineJoin);
-	ite->setLineEnd(LineEnd);
+	ite->setFillShade(m_CurrFillShade);
+	ite->setLineShade(m_CurrStrokeShade);
+	ite->setLineJoin(m_LineJoin);
+	ite->setLineEnd(m_LineEnd);
 	ite->setTextFlowMode(PageItem::TextFlowDisabled);
 	ite->PoLine.translate(m_Doc->currentPage()->xOffset(), m_Doc->currentPage()->yOffset());
 	m_Doc->AdjustItemSize(ite);
@@ -410,21 +410,21 @@ void SmlPlug::finishItem(QDomElement &e, PageItem* ite)
 	ite->updateClip();
 	ite->setItemName(e.attribute("name"));
 	ite->AutoName = false;
-	Elements.append(ite);
-	Coords.resize(0);
-	Coords.svgInit();
+	m_Elements.append(ite);
+	m_Coords.resize(0);
+	m_Coords.svgInit();
 }
 
 void SmlPlug::processShapeNode(QDomElement &elem)
 {
-	Coords.resize(0);
-	Coords.svgInit();
-	currx = 0.0;
-	curry = 0.0;
-	startx = 0.0;
-	starty = 0.0;
-	count = 0;
-	first = true;
+	m_Coords.resize(0);
+	m_Coords.svgInit();
+	m_currx = 0.0;
+	m_curry = 0.0;
+	m_startx = 0.0;
+	m_starty = 0.0;
+	m_count = 0;
+	m_first = true;
 	if (elem.hasChildNodes())
 	{
 		QDomNode node = elem.firstChild();
@@ -449,7 +449,7 @@ void SmlPlug::processShapeNode(QDomElement &elem)
 		double y = ScCLocale::toDoubleC(elem.attribute("y"));
 		double w = ScCLocale::toDoubleC(elem.attribute("w"));
 		double h = ScCLocale::toDoubleC(elem.attribute("h"));
-		int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, baseX + x, baseY + y, w, h, LineW, CurrColorFill, CurrColorStroke, true);
+		int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, m_baseX + x, m_baseY + y, w, h, m_LineW, m_CurrColorFill, m_CurrColorStroke, true);
 		finishItem(elem, m_Doc->Items->at(z));
 	}
 	else if (typ == "RoundRectangle")
@@ -458,7 +458,7 @@ void SmlPlug::processShapeNode(QDomElement &elem)
 		double y = ScCLocale::toDoubleC(elem.attribute("y"));
 		double w = ScCLocale::toDoubleC(elem.attribute("w"));
 		double h = ScCLocale::toDoubleC(elem.attribute("h"));
-		int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, baseX + x, baseY + y, w, h, LineW, CurrColorFill, CurrColorStroke, true);
+		int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, m_baseX + x, m_baseY + y, w, h, m_LineW, m_CurrColorFill, m_CurrColorStroke, true);
 		m_Doc->Items->at(z)->setCornerRadius(qMax(ScCLocale::toDoubleC(elem.attribute("r1")), ScCLocale::toDoubleC(elem.attribute("r2"))));
 		m_Doc->Items->at(z)->SetFrameRound();
 		finishItem(elem, m_Doc->Items->at(z));
@@ -469,25 +469,25 @@ void SmlPlug::processShapeNode(QDomElement &elem)
 		double y = ScCLocale::toDoubleC(elem.attribute("y"));
 		double w = ScCLocale::toDoubleC(elem.attribute("w"));
 		double h = ScCLocale::toDoubleC(elem.attribute("h"));
-		int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Ellipse, baseX + x, baseY + y, w, h, LineW, CurrColorFill, CurrColorStroke, true);
+		int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Ellipse, m_baseX + x, m_baseY + y, w, h, m_LineW, m_CurrColorFill, m_CurrColorStroke, true);
 		finishItem(elem, m_Doc->Items->at(z));
 	}
 	else if ((typ == "Polygon") || (typ == "ClosedPath"))
 	{
 		int z;
-		FPoint s = Coords.point(0);
-		FPoint e = Coords.point(Coords.count() - 1);
+		FPoint s = m_Coords.point(0);
+		FPoint e = m_Coords.point(m_Coords.count() - 1);
 		if (s == e)
-			z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, LineW, CurrColorFill, CurrColorStroke, true);
+			z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, m_baseX, m_baseY, 10, 10, m_LineW, m_CurrColorFill, m_CurrColorStroke, true);
 		else
-			z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX, baseY, 10, 10, LineW, CurrColorFill, CurrColorStroke, true);
-		m_Doc->Items->at(z)->PoLine = Coords.copy();
+			z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, m_baseX, m_baseY, 10, 10, m_LineW, m_CurrColorFill, m_CurrColorStroke, true);
+		m_Doc->Items->at(z)->PoLine = m_Coords.copy();
 		finishItem(elem, m_Doc->Items->at(z));
 	}
 	else if ((typ == "Bezier") || (typ == "OpenPath") || (typ == "LineArray") || (typ == "Polyline"))
 	{
-		int	z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX, baseY, 10, 10, LineW, CurrColorFill, CurrColorStroke, true);
-		m_Doc->Items->at(z)->PoLine = Coords.copy();
+		int	z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, m_baseX, m_baseY, 10, 10, m_LineW, m_CurrColorFill, m_CurrColorStroke, true);
+		m_Doc->Items->at(z)->PoLine = m_Coords.copy();
 		finishItem(elem, m_Doc->Items->at(z));
 	}
 	if (typ == "TextBox")
@@ -496,7 +496,7 @@ void SmlPlug::processShapeNode(QDomElement &elem)
 		double y = ScCLocale::toDoubleC(elem.attribute("y"));
 		double w = ScCLocale::toDoubleC(elem.attribute("w"));
 		double h = ScCLocale::toDoubleC(elem.attribute("h"));
-		int z = m_Doc->itemAdd(PageItem::TextFrame, PageItem::Rectangle, baseX + x, baseY + y, w, h, 0, CommonStrings::None, CommonStrings::None, true);
+		int z = m_Doc->itemAdd(PageItem::TextFrame, PageItem::Rectangle, m_baseX + x, m_baseY + y, w, h, 0, CommonStrings::None, CommonStrings::None, true);
 		finishItem(elem, m_Doc->Items->at(z));
 	}
 	else if (typ == "Line")
@@ -505,12 +505,12 @@ void SmlPlug::processShapeNode(QDomElement &elem)
 		double y = ScCLocale::toDoubleC(elem.attribute("y1"));
 		double x1 = ScCLocale::toDoubleC(elem.attribute("x2"));
 		double y1 = ScCLocale::toDoubleC(elem.attribute("y2"));
-		Coords.addPoint(x, y);
-		Coords.addPoint(x, y);
-		Coords.addPoint(x1, y1);
-		Coords.addPoint(x1, y1);
-		int z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX, baseY, 10, 10, LineW, CommonStrings::None, CurrColorStroke, true);
-		m_Doc->Items->at(z)->PoLine = Coords.copy();
+		m_Coords.addPoint(x, y);
+		m_Coords.addPoint(x, y);
+		m_Coords.addPoint(x1, y1);
+		m_Coords.addPoint(x1, y1);
+		int z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, m_baseX, m_baseY, 10, 10, m_LineW, CommonStrings::None, m_CurrColorStroke, true);
+		m_Doc->Items->at(z)->PoLine = m_Coords.copy();
 		finishItem(elem, m_Doc->Items->at(z));
 	}
 }
@@ -527,26 +527,26 @@ QString SmlPlug::processColor(QDomElement &elem)
 	QString newColorName = "FromSML"+tmp.name();
 	QString fNam = m_Doc->PageColors.tryAddColor(newColorName, tmp);
 	if (fNam == newColorName)
-		importedColors.append(newColorName);
+		m_importedColors.append(newColorName);
 	return fNam;
 }
 
 void SmlPlug::processStrokeNode(QDomElement &elem)
 {
-	CurrColorStroke = processColor(elem);
-	LineW = ScCLocale::toDoubleC(elem.attribute("width"), 1.0);
-	LineJoin = Qt::PenJoinStyle(elem.attribute("joinStyle", "0").toInt());
-	Dash = Qt::PenStyle(elem.attribute("pattern", "1").toInt());
-	LineEnd = Qt::PenCapStyle(elem.attribute("capStyle", "0").toInt());
+	m_CurrColorStroke = processColor(elem);
+	m_LineW = ScCLocale::toDoubleC(elem.attribute("width"), 1.0);
+	m_LineJoin = Qt::PenJoinStyle(elem.attribute("joinStyle", "0").toInt());
+	m_Dash = Qt::PenStyle(elem.attribute("pattern", "1").toInt());
+	m_LineEnd = Qt::PenCapStyle(elem.attribute("capStyle", "0").toInt());
 }
 
 void SmlPlug::processFillNode(QDomElement &elem)
 {
-	fillStyle = elem.attribute("colorStyle","1").toInt();
-	if (fillStyle == 0)
-		CurrColorFill = CommonStrings::None;
+	m_fillStyle = elem.attribute("colorStyle","1").toInt();
+	if (m_fillStyle == 0)
+		m_CurrColorFill = CommonStrings::None;
 	else
-		CurrColorFill = processColor(elem);
+		m_CurrColorFill = processColor(elem);
 }
 
 void SmlPlug::processLineNode(QDomElement &elem)
@@ -555,76 +555,76 @@ void SmlPlug::processLineNode(QDomElement &elem)
 	double y = ScCLocale::toDoubleC(elem.attribute("y1"));
 	double x1 = ScCLocale::toDoubleC(elem.attribute("x2"));
 	double y1 = ScCLocale::toDoubleC(elem.attribute("y2"));
-	if (!first)
-		Coords.setMarker();
-	Coords.addPoint(x, y);
-	Coords.addPoint(x, y);
-	Coords.addPoint(x1, y1);
-	Coords.addPoint(x1, y1);
-	first = false;
+	if (!m_first)
+		m_Coords.setMarker();
+	m_Coords.addPoint(x, y);
+	m_Coords.addPoint(x, y);
+	m_Coords.addPoint(x1, y1);
+	m_Coords.addPoint(x1, y1);
+	m_first = false;
 }
 
 void SmlPlug::processPointNode(QDomElement &elem)
 {
 	double x = ScCLocale::toDoubleC(elem.attribute("x"));
 	double y = ScCLocale::toDoubleC(elem.attribute("y"));
-	if (first)
+	if (m_first)
 	{
-		currx = x;
-		curry = y;
-		startx = x;
-		starty = y;
-		first = false;
+		m_currx = x;
+		m_curry = y;
+		m_startx = x;
+		m_starty = y;
+		m_first = false;
 		if (elem.attribute("type") == "bezier")
-			count = 0;
+			m_count = 0;
 		else
-			count = -1;
+			m_count = -1;
 	}
 	else
 	{
 		if (elem.attribute("type") != "bezier")
 		{
-			Coords.addPoint(currx, curry);
-			Coords.addPoint(currx, curry);
-			Coords.addPoint(x, y);
-			Coords.addPoint(x, y);
-			currx = x;
-			curry = y;
+			m_Coords.addPoint(m_currx, m_curry);
+			m_Coords.addPoint(m_currx, m_curry);
+			m_Coords.addPoint(x, y);
+			m_Coords.addPoint(x, y);
+			m_currx = x;
+			m_curry = y;
 		}
 		else
 		{
-			if (count == -1)
+			if (m_count == -1)
 			{
-				if (FPoint(currx, curry) != FPoint(x, y))
+				if (FPoint(m_currx, m_curry) != FPoint(x, y))
 				{
-					Coords.addPoint(currx, curry);
-					Coords.addPoint(currx, curry);
-					Coords.addPoint(x, y);
-					Coords.addPoint(x, y);
+					m_Coords.addPoint(m_currx, m_curry);
+					m_Coords.addPoint(m_currx, m_curry);
+					m_Coords.addPoint(x, y);
+					m_Coords.addPoint(x, y);
 				}
-				currx = x;
-				curry = y;
-				count++;
+				m_currx = x;
+				m_curry = y;
+				m_count++;
 			}
-			else if (count == 0)
+			else if (m_count == 0)
 			{
-				Coords.addPoint(currx, curry);
-				Coords.addPoint(x, y);
-				count++;
+				m_Coords.addPoint(m_currx, m_curry);
+				m_Coords.addPoint(x, y);
+				m_count++;
 			}
-			else if (count == 1)
+			else if (m_count == 1)
 			{
-				currx = x;
-				curry = y;
-				count++;
+				m_currx = x;
+				m_curry = y;
+				m_count++;
 			}
-			else if (count == 2)
+			else if (m_count == 2)
 			{
-				Coords.addPoint(x, y);
-				Coords.addPoint(currx, curry);
-				currx = x;
-				curry = y;
-				count = -1;
+				m_Coords.addPoint(x, y);
+				m_Coords.addPoint(m_currx, m_curry);
+				m_currx = x;
+				m_curry = y;
+				m_count = -1;
 			}
 		}
 	}

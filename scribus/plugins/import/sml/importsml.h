@@ -66,39 +66,39 @@ private:
 	void processLineNode(QDomElement &elem);
 	void processPointNode(QDomElement &elem);
 	
-	QList<PageItem*> Elements;
-	int currentItemNr;
-	QStack<QList<PageItem*> > groupStack;
-	double baseX, baseY;
-	double docWidth;
-	double docHeight;
+	QList<PageItem*> m_Elements;
+	int m_currentItemNr;
+	QStack<QList<PageItem*> > m_groupStack;
+	double m_baseX, m_baseY;
+	double m_docWidth;
+	double m_docHeight;
 
-	double LineW;
-	QString CurrColorFill;
-	QString CurrColorStroke;
-	double CurrStrokeShade;
-	double CurrFillShade;
-	Qt::PenStyle Dash;
-	Qt::PenCapStyle LineEnd;
-	Qt::PenJoinStyle LineJoin;
-	int fillStyle;
-	QStringList importedColors;
-	double currx, curry, startx, starty;
-	bool first;
-	int count;
+	double m_LineW;
+	QString m_CurrColorFill;
+	QString m_CurrColorStroke;
+	double m_CurrStrokeShade;
+	double m_CurrFillShade;
+	Qt::PenStyle m_Dash;
+	Qt::PenCapStyle m_LineEnd;
+	Qt::PenJoinStyle m_LineJoin;
+	int m_fillStyle;
+	QStringList m_importedColors;
+	double m_currx, m_curry, m_startx, m_starty;
+	bool m_first;
+	int m_count;
 
-	FPointArray Coords;
-	bool interactive;
-	MultiProgressDialog * progressDialog;
-	bool cancel;
+	FPointArray m_Coords;
+	bool m_interactive;
+	MultiProgressDialog * m_progressDialog;
+	bool m_cancel;
 	ScribusDoc* m_Doc;
-	Selection* tmpSel;
-	int importerFlags;
-	int oldDocItemCount;
-	QString baseFile;
+	Selection* m_tmpSel;
+	int m_importerFlags;
+	int m_oldDocItemCount;
+	QString m_baseFile;
 
 public slots:
-	void cancelRequested() { cancel = true; }
+	void cancelRequested() { m_cancel = true; }
 };
 
 #endif
