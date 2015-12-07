@@ -46,7 +46,7 @@ void importpages_freePlugin(ScPlugin* plugin)
 }
 
 ImportPagesPlugin::ImportPagesPlugin() : LoadSavePlugin(),
-	importAction(new ScrAction(ScrAction::DLL, "", QKeySequence(), this))
+	m_importAction(new ScrAction(ScrAction::DLL, "", QKeySequence(), this))
 {
 	// Set action info in languageChange, so we only have to do it in one
 	// place. This includes registering file format support.
@@ -56,7 +56,7 @@ ImportPagesPlugin::ImportPagesPlugin() : LoadSavePlugin(),
 
 void ImportPagesPlugin::languageChange()
 {
-	importAction->setText( tr("Import iWorks Pages..."));
+	m_importAction->setText( tr("Import iWorks Pages..."));
 	FileFormat* fmt = getFormatByExt("pages");
 	fmt->trName = tr("iWorks Pages");
 	fmt->filter = tr("iWorks Pages (*.pages *.PAGES)");

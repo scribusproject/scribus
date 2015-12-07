@@ -61,7 +61,7 @@ class PLUGIN_API ImportPagesPlugin : public LoadSavePlugin
 
 	private:
 		void registerFormats();
-		ScrAction* importAction;
+		ScrAction* m_importAction;
 };
 
 extern "C" PLUGIN_API int importpages_getPluginAPIVersion();
