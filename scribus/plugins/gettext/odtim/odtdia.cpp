@@ -49,72 +49,72 @@ OdtDialog::OdtDialog(bool update, bool prefix, bool pack) : QDialog(0)
 	QBoxLayout* hlayout = new QHBoxLayout;
 	hlayout->setMargin(5);
 	hlayout->setSpacing(5);
-	updateCheck = new QCheckBox( tr("Overwrite Paragraph Styles"), this);
-	updateCheck->setChecked(update);
-	updateCheck->setToolTip( "<qt>" + tr("Enabling this will overwrite existing styles in the current Scribus document") + "</qt>");
-	hlayout->addWidget(updateCheck);
+	m_updateCheck = new QCheckBox( tr("Overwrite Paragraph Styles"), this);
+	m_updateCheck->setChecked(update);
+	m_updateCheck->setToolTip( "<qt>" + tr("Enabling this will overwrite existing styles in the current Scribus document") + "</qt>");
+	hlayout->addWidget(m_updateCheck);
 	layout->addLayout(hlayout);
 
 	QBoxLayout* palayout = new QHBoxLayout;
 	palayout->setMargin(5);
 	palayout->setSpacing(5);
-	packCheck = new QCheckBox( tr("Merge Paragraph Styles"), this);
-	packCheck->setChecked(pack);
-	packCheck->setToolTip( "<qt>" + tr("Merge paragraph styles by attributes. This will result in fewer similar paragraph styles, will retain style attributes, even if the original document's styles are named differently.") +"</qt>");
-	palayout->addWidget(packCheck);
+	m_packCheck = new QCheckBox( tr("Merge Paragraph Styles"), this);
+	m_packCheck->setChecked(pack);
+	m_packCheck->setToolTip( "<qt>" + tr("Merge paragraph styles by attributes. This will result in fewer similar paragraph styles, will retain style attributes, even if the original document's styles are named differently.") +"</qt>");
+	palayout->addWidget(m_packCheck);
 	layout->addLayout(palayout);
 
 	QBoxLayout* playout = new QHBoxLayout;
 	playout->setMargin(5);
 	playout->setSpacing(5);
-	prefixCheck = new QCheckBox( tr("Use document name as a prefix for paragraph styles"), this);
-	prefixCheck->setChecked(prefix);
-	prefixCheck->setToolTip( "<qt>" + tr("Prepend the document name to the paragraph style name in Scribus") +"</qt>");
-	playout->addWidget(prefixCheck);
+	m_prefixCheck = new QCheckBox( tr("Use document name as a prefix for paragraph styles"), this);
+	m_prefixCheck->setChecked(prefix);
+	m_prefixCheck->setToolTip( "<qt>" + tr("Prepend the document name to the paragraph style name in Scribus") +"</qt>");
+	playout->addWidget(m_prefixCheck);
 	layout->addLayout(playout);
 
 	QBoxLayout* dlayout = new QHBoxLayout;
 	dlayout->setMargin(5);
 	dlayout->setSpacing(5);
-	doNotAskCheck = new QCheckBox( tr("Do not ask again"), this);
-	doNotAskCheck->setChecked(false);
-	doNotAskCheck->setToolTip( "<qt>" + tr("Make these settings the default and do not prompt again when importing an OASIS OpenDocument") +"</qt>");
+	m_doNotAskCheck = new QCheckBox( tr("Do not ask again"), this);
+	m_doNotAskCheck->setChecked(false);
+	m_doNotAskCheck->setToolTip( "<qt>" + tr("Make these settings the default and do not prompt again when importing an OASIS OpenDocument") +"</qt>");
 	//dlayout->addStretch(10);
-	dlayout->addWidget(doNotAskCheck);
+	dlayout->addWidget(m_doNotAskCheck);
 	layout->addLayout(dlayout);
 
 	QBoxLayout* blayout = new QHBoxLayout;
 	blayout->setMargin(5);
 	blayout->setSpacing(5);
 	blayout->addStretch(10);
-	okButton = new QPushButton( tr("OK"), this);
-	blayout->addWidget(okButton);
-	cancelButton = new QPushButton( tr("Cancel"), this);
-	blayout->addWidget(cancelButton);
+	m_okButton = new QPushButton( tr("OK"), this);
+	blayout->addWidget(m_okButton);
+	m_cancelButton = new QPushButton( tr("Cancel"), this);
+	blayout->addWidget(m_cancelButton);
 	layout->addLayout(blayout);
 
-	connect(okButton, SIGNAL(clicked()), this, SLOT(accept()));
-	connect(cancelButton, SIGNAL(clicked()), this, SLOT(reject()));
+	connect(m_okButton, SIGNAL(clicked()), this, SLOT(accept()));
+	connect(m_cancelButton, SIGNAL(clicked()), this, SLOT(reject()));
 }
 
 bool OdtDialog::shouldUpdate()
 {
-	return updateCheck->isChecked();
+	return m_updateCheck->isChecked();
 }
 
 bool OdtDialog::usePrefix()
 {
-	return prefixCheck->isChecked();
+	return m_prefixCheck->isChecked();
 }
 
 bool OdtDialog::askAgain()
 {
-	return !(doNotAskCheck->isChecked());
+	return !(m_doNotAskCheck->isChecked());
 }
 
 bool OdtDialog::packStyles()
 {
-	return packCheck->isChecked();
+	return m_packCheck->isChecked();
 }
 
 OdtDialog::~OdtDialog()
