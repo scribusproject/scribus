@@ -40,7 +40,7 @@ void importwpg_freePlugin(ScPlugin* plugin)
 }
 
 ImportWpgPlugin::ImportWpgPlugin() : LoadSavePlugin(),
-	importAction(new ScrAction(ScrAction::DLL, QPixmap(), QPixmap(), "", QKeySequence(), this))
+	m_importAction(new ScrAction(ScrAction::DLL, QPixmap(), QPixmap(), "", QKeySequence(), this))
 {
 	// Set action info in languageChange, so we only have to do it in one
 	// place. This includes registering file format support.
@@ -50,7 +50,7 @@ ImportWpgPlugin::ImportWpgPlugin() : LoadSavePlugin(),
 
 void ImportWpgPlugin::languageChange()
 {
-	importAction->setText( tr("Import WordPerfect Graphics..."));
+	m_importAction->setText( tr("Import WordPerfect Graphics..."));
 	FileFormat* fmt = getFormatByExt("wpg");
 	fmt->trName = FormatsManager::instance()->nameOfFormat(FormatsManager::WPG);
 	fmt->filter = FormatsManager::instance()->extensionsForFormat(FormatsManager::WPG);
