@@ -40,7 +40,7 @@ void importpct_freePlugin(ScPlugin* plugin)
 }
 
 ImportPctPlugin::ImportPctPlugin() : LoadSavePlugin(),
-	importAction(new ScrAction(ScrAction::DLL, "", QKeySequence(), this))
+	m_importAction(new ScrAction(ScrAction::DLL, "", QKeySequence(), this))
 {
 	// Set action info in languageChange, so we only have to do it in one
 	// place. This includes registering file format support.
@@ -50,7 +50,7 @@ ImportPctPlugin::ImportPctPlugin() : LoadSavePlugin(),
 
 void ImportPctPlugin::languageChange()
 {
-	importAction->setText( tr("Import Macintosh Pict..."));
+	m_importAction->setText( tr("Import Macintosh Pict..."));
 	FileFormat* fmt = getFormatByExt("pct");
 	fmt->trName = FormatsManager::instance()->nameOfFormat(FormatsManager::PCT); // Human readable name
 	fmt->filter = FormatsManager::instance()->extensionsForFormat(FormatsManager::PCT); // QFileDialog filter
