@@ -49,10 +49,10 @@ class SWPrefsGui : public PrefsPanel
 		\param filename string with full path and name.*/
 		bool loadCfgFile(QString filename);
 
-		QGridLayout* SWPrefsGuiLayout;
-		QVBoxLayout* editLayout;
-		QHBoxLayout* buttonLayout;
-		QSpacerItem* buttonSpacer;
+		QGridLayout* m_SWPrefsGuiLayout;
+		QVBoxLayout* m_editLayout;
+		QHBoxLayout* m_buttonLayout;
+		QSpacerItem* m_buttonSpacer;
 
 	protected slots:
 		virtual void languageChange();

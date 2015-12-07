@@ -26,33 +26,33 @@ for which a new license (GPL+exception) is in place.
 
 SWPrefsGui::SWPrefsGui(QWidget* parent ) : PrefsPanel(parent)
 {
-	SWPrefsGuiLayout = new QGridLayout(this);
-	SWPrefsGuiLayout->setMargin(10);
-	SWPrefsGuiLayout->setSpacing(5);
+	m_SWPrefsGuiLayout = new QGridLayout(this);
+	m_SWPrefsGuiLayout->setMargin(10);
+	m_SWPrefsGuiLayout->setSpacing(5);
 
-	editLayout = new QVBoxLayout;
-	editLayout->setMargin(0);
-	editLayout->setSpacing(5);
+	m_editLayout = new QVBoxLayout;
+	m_editLayout->setMargin(0);
+	m_editLayout->setSpacing(5);
 
 	titleLabel = new QLabel(this);
-	editLayout->addWidget(titleLabel);
+	m_editLayout->addWidget(titleLabel);
 	cfgEdit = new QTextEdit(this);
-	editLayout->addWidget(cfgEdit);
+	m_editLayout->addWidget(cfgEdit);
 
-	buttonLayout = new QHBoxLayout;
-	buttonLayout->setMargin(0);
-	buttonLayout->setSpacing(5);
-	buttonSpacer = new QSpacerItem(4, 2, QSizePolicy::Expanding, QSizePolicy::Minimum);
-	buttonLayout->addItem(buttonSpacer);
+	m_buttonLayout = new QHBoxLayout;
+	m_buttonLayout->setMargin(0);
+	m_buttonLayout->setSpacing(5);
+	m_buttonSpacer = new QSpacerItem(4, 2, QSizePolicy::Expanding, QSizePolicy::Minimum);
+	m_buttonLayout->addItem(m_buttonSpacer);
 
 	okButton = new QPushButton(this);
-	buttonLayout->addWidget(okButton);
+	m_buttonLayout->addWidget(okButton);
 
 	resetButton = new QPushButton(this);
-	buttonLayout->addWidget(resetButton);
-	editLayout->addLayout(buttonLayout);
+	m_buttonLayout->addWidget(resetButton);
+	m_editLayout->addLayout(m_buttonLayout);
 
-	SWPrefsGuiLayout->addLayout(editLayout, 0, 0);
+	m_SWPrefsGuiLayout->addLayout(m_editLayout, 0, 0);
 	languageChange();
 	resize(QSize(362, 359).expandedTo(minimumSizeHint()));
 
