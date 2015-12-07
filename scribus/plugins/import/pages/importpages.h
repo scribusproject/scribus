@@ -238,40 +238,40 @@ private:
 	void applyParagraphAttrs(ParagraphStyle &newStyle, CharStyle &tmpCStyle, QString pAttrs);
 	void applyCharAttrs(CharStyle &tmpCStyle, QString pAttrs);
 	void finishItem(PageItem* item, ObjState &obState);
-	QList<PageItem*> Elements;
-	double baseX, baseY;
-	double docWidth;
-	double docHeight;
-	bool interactive;
+	QList<PageItem*> m_Elements;
+	double m_baseX, m_baseY;
+	double m_docWidth;
+	double m_docHeight;
+	bool m_interactive;
 	ScribusDoc* m_Doc;
-	Selection* tmpSel;
-	int importerFlags;
-	MultiProgressDialog * progressDialog;
-	bool cancel;
-	QStringList importedColors;
-	QStringList importedPatterns;
-	bool firstPage;
-	int pagecount;
-	int mpagecount;
-	double topMargin;
-	double leftMargin;
-	double rightMargin;
-	double bottomMargin;
-	double pgCols;
-	double pgGap;
-	QString papersize;
-	QHash<int, QString> imageResources;
+	Selection* m_tmpSel;
+	int m_importerFlags;
+	MultiProgressDialog * m_progressDialog;
+	bool m_cancel;
+	QStringList m_importedColors;
+	QStringList m_importedPatterns;
+	bool m_firstPage;
+	int m_pagecount;
+	int m_mpagecount;
+	double m_topMargin;
+	double m_leftMargin;
+	double m_rightMargin;
+	double m_bottomMargin;
+	double m_pgCols;
+	double m_pgGap;
+	QString m_papersize;
+	QHash<int, QString> m_imageResources;
 	QHash<QString, StyleSheet> m_StyleSheets;
 	QString m_currentStyleSheet;
 
 	PageItem* addClip(PageItem* retObj, ObjState &obState);
 
-	FPointArray Coords;
-	QHash<QString, QPainterPath> pathResources;
-	ScZipHandler *uz;
+	FPointArray m_Coords;
+	QHash<QString, QPainterPath> m_pathResources;
+	ScZipHandler *m_uz;
 
 public slots:
-	void cancelRequested() { cancel = true; }
+	void cancelRequested() { m_cancel = true; }
 };
 #endif
 #endif
