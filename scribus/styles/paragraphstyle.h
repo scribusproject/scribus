@@ -91,10 +91,10 @@ public:
 	void setStyle(const ParagraphStyle& other);
 	void erase() { eraseStyle(*this); }
 
-	StyleContext* charStyleContext() { return & cstyleContext; }
-	const StyleContext* charStyleContext() const { return & cstyleContext; }
-	CharStyle & charStyle() { return cstyle; }
-	const CharStyle& charStyle() const { return cstyle; }
+	StyleContext* charStyleContext() { return & m_cstyleContext; }
+	const StyleContext* charStyleContext() const { return & m_cstyleContext; }
+	CharStyle & charStyle() { return m_cstyle; }
+	const CharStyle& charStyle() const { return m_cstyle; }
 	/** Normally the context for charStyle() is parentStyle()->charStyleContext()
 		Use this method to break that relation and set charStyle()'s context manually
 	*/
@@ -149,9 +149,9 @@ public:
 private:
 		
 	// member declarations:
-	StyleContextProxy cstyleContext;
-	bool cstyleContextIsInh;
-	CharStyle cstyle;
+	StyleContextProxy m_cstyleContext;
+	bool m_cstyleContextIsInh;
+	CharStyle m_cstyle;
 	
 #define ATTRDEF(attr_TYPE, attr_GETTER, attr_NAME, attr_DEFAULT) \
 		attr_TYPE m_##attr_NAME; \
