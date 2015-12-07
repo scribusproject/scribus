@@ -33,25 +33,25 @@ for which a new license (GPL+exception) is in place.
  #include <gtfont.h>
 #include <QByteArray>
  
- StyleReader* StyleReader::sreader = NULL;
+ StyleReader* StyleReader::m_sreader = NULL;
  
  extern xmlSAXHandlerPtr sSAXHandler;
  
 StyleReader::StyleReader(QString documentName, gtWriter *w,
                          bool textOnly, bool prefix, bool combineStyles)
 {
- 	sreader      = this;
- 	docname      = documentName;
- 	readProperties = false;
- 	writer       = w;
- 	importTextOnly = textOnly;
- 	usePrefix    = prefix;
-	packStyles   = combineStyles;
- 	currentStyle = NULL;
- 	parentStyle  = NULL;
- 	inList       = false;
- 	currentList  = "";
-	defaultStyleCreated = false;
+ 	m_sreader      = this;
+ 	m_docname      = documentName;
+ 	m_readProperties = false;
+ 	m_writer       = w;
+ 	m_importTextOnly = textOnly;
+ 	m_usePrefix    = prefix;
+	m_packStyles   = combineStyles;
+ 	m_currentStyle = NULL;
+ 	m_parentStyle  = NULL;
+ 	m_inList       = false;
+ 	m_currentList  = "";
+	m_defaultStyleCreated = false;
 }
  
  bool StyleReader::startElement(const QString&, const QString&, const QString &name, const QXmlAttributes &attrs) 
@@ -78,12 +78,12 @@ StyleReader::StyleReader(QString documentName, gtWriter *w,
  	{
  		for (int i = 0; i < attrs.count(); ++i)
  			if (attrs.localName(i) == "style:name")
- 				currentList = attrs.value(i);
- 		inList = true;
+ 				m_currentList = attrs.value(i);
+ 		m_inList = true;
  	}
  	else if (((name == "text:list-level-style-bullet") || 
  	          (name == "text:list-level-style-number") ||
- 	          (name == "text:list-level-style-image")) && (inList))
+ 	          (name == "text:list-level-style-image")) && (m_inList))
  	{
  		QString level = "";
  		for (int i = 0; i < attrs.count(); ++i)
@@ -93,38 +93,38 @@ StyleReader::StyleReader(QString documentName, gtWriter *w,
  				gtStyle *plist;
  				if (attrs.value(i) == "1")
  				{
- 					plist = listParents[currentList];
+ 					plist = m_listParents[m_currentList];
  				}
  				else
  				{
  					int level = (attrs.value(i)).toInt();
  					--level;
- 					plist = styles[QString(currentList + "_%1").arg(level)]; 
+ 					plist = m_styles[QString(m_currentList + "_%1").arg(level)]; 
  				}
  				gtParagraphStyle *pstyle;
  				if (plist == NULL)
- 					plist = new gtStyle(*(styles["default-style"]));
+ 					plist = new gtStyle(*(m_styles["default-style"]));
  
  				if (plist->target() == "paragraph")
  				{
  					pstyle = dynamic_cast<gtParagraphStyle*>(plist);
 					assert(pstyle != NULL);
  					gtParagraphStyle* tmp = new gtParagraphStyle(*pstyle);
- 					currentStyle = tmp;
+ 					m_currentStyle = tmp;
  				}
  				else
  				{
  					gtParagraphStyle* tmp = new gtParagraphStyle(*plist);
- 					currentStyle = tmp;
+ 					m_currentStyle = tmp;
  				}
- 				currentStyle->setName(currentList + "_" + attrs.value(i));
+ 				m_currentStyle->setName(m_currentList + "_" + attrs.value(i));
  			}
  		}
- 		readProperties = true;
+ 		m_readProperties = true;
  	}
- 	else if ((name == "style:drop-cap") && (readProperties))
+ 	else if ((name == "style:drop-cap") && (m_readProperties))
  	{
- 		if (currentStyle->target() == "paragraph")
+ 		if (m_currentStyle->target() == "paragraph")
  		{
  			for (int i = 0; i < attrs.count(); ++i)
  			{
@@ -135,7 +135,7 @@ StyleReader::StyleReader(QString documentName, gtWriter *w,
  					int dh = sd.toInt(&ok);
  					if (ok)
  					{
- 						gtParagraphStyle* s = dynamic_cast<gtParagraphStyle*>(currentStyle);
+ 						gtParagraphStyle* s = dynamic_cast<gtParagraphStyle*>(m_currentStyle);
 						assert(s != NULL);
  						s->setDropCapHeight(dh);
  						s->setDropCap(true);
@@ -163,34 +163,34 @@ StyleReader::StyleReader(QString documentName, gtWriter *w,
  		}
  		QString name = family + " " + style;
 		name = name.simplified();
- 		fonts[key] = name;
+ 		m_fonts[key] = name;
  	}
  	return true;
  }
  
  void StyleReader::defaultStyle(const QXmlAttributes& attrs)
  {
- 	currentStyle = NULL;
+ 	m_currentStyle = NULL;
  	for (int i = 0; i < attrs.count(); ++i)
  		if (attrs.localName(i) == "style:family")
  			if (attrs.value(i) == "paragraph")
  			{
- 				gtParagraphStyle* pstyle = new gtParagraphStyle(*(writer->getDefaultStyle()));
+ 				gtParagraphStyle* pstyle = new gtParagraphStyle(*(m_writer->getDefaultStyle()));
 				pstyle->setDefaultStyle(true);
-				currentStyle = dynamic_cast<gtStyle*>(pstyle);
-				currentStyle->setName("default-style");
- 				readProperties = true;
-				defaultStyleCreated = true;
+				m_currentStyle = dynamic_cast<gtStyle*>(pstyle);
+				m_currentStyle->setName("default-style");
+ 				m_readProperties = true;
+				m_defaultStyleCreated = true;
  			}
  }
  
  void StyleReader::styleProperties(const QXmlAttributes& attrs)
  {
- 	if ((currentStyle == NULL) || (!readProperties))
+ 	if ((m_currentStyle == NULL) || (!m_readProperties))
  		return;
  	gtParagraphStyle* pstyle = NULL;
- 	if (currentStyle->target() == "paragraph")
- 		pstyle = dynamic_cast<gtParagraphStyle*>(currentStyle);
+ 	if (m_currentStyle->target() == "paragraph")
+ 		pstyle = dynamic_cast<gtParagraphStyle*>(m_currentStyle);
  	else
  		pstyle = NULL;
  	QString align = NULL;
@@ -198,86 +198,86 @@ StyleReader::StyleReader(QString documentName, gtWriter *w,
  	bool hasColorTag = false;
  	for (int i = 0; i < attrs.count(); ++i)
  	{
- 		if ((attrs.localName(i) == "style:font-name") && (!inList))
- 			currentStyle->getFont()->setName(getFont(attrs.value(i)));
+ 		if ((attrs.localName(i) == "style:font-name") && (!m_inList))
+ 			m_currentStyle->getFont()->setName(getFont(attrs.value(i)));
  		else if (attrs.localName(i) == "fo:font-size")
  		{
  			double size = 0;
  			double psize = 0;
- 			if (parentStyle != NULL)
- 				psize = static_cast<double>(parentStyle->getFont()->getSize());
- 			else if (styles.contains("default-style"))
- 				psize = static_cast<double>(styles["default-style"]->getFont()->getSize());
+ 			if (m_parentStyle != NULL)
+ 				psize = static_cast<double>(m_parentStyle->getFont()->getSize());
+ 			else if (m_styles.contains("default-style"))
+ 				psize = static_cast<double>(m_styles["default-style"]->getFont()->getSize());
  
  			psize = psize / 10;
  			size = getSize(attrs.value(i), psize);
  			int nsize = static_cast<int>(size * 10);
- 			currentStyle->getFont()->setSize(nsize);
+ 			m_currentStyle->getFont()->setSize(nsize);
  			if (pstyle)
- 				pstyle->setLineSpacing(writer->getPreferredLineSpacing(nsize));
+ 				pstyle->setLineSpacing(m_writer->getPreferredLineSpacing(nsize));
  		}
- 		else if ((attrs.localName(i) == "fo:line-height") && (parentStyle != NULL))
+ 		else if ((attrs.localName(i) == "fo:line-height") && (m_parentStyle != NULL))
  		{
  			gtParagraphStyle* ppstyle;
- 			if (parentStyle->target() == "paragraph")
+ 			if (m_parentStyle->target() == "paragraph")
  			{
- 				ppstyle = dynamic_cast<gtParagraphStyle*>(parentStyle);
+ 				ppstyle = dynamic_cast<gtParagraphStyle*>(m_parentStyle);
 				assert(ppstyle != NULL);
- 				ppstyle->setLineSpacing(getSize(attrs.value(i), writer->getPreferredLineSpacing(currentStyle->getFont()->getSize())));
+ 				ppstyle->setLineSpacing(getSize(attrs.value(i), m_writer->getPreferredLineSpacing(m_currentStyle->getFont()->getSize())));
  			}
  		}
  		else if (attrs.localName(i) == "fo:color")
  		{
- 			currentStyle->getFont()->setColor(attrs.value(i));
+ 			m_currentStyle->getFont()->setColor(attrs.value(i));
  			hasColorTag = true;
  		}
  		else if ((attrs.localName(i) == "style:use-window-font-color") && (attrs.value(i) == "true"))
  		{
- 			currentStyle->getFont()->setColor("Black");
+ 			m_currentStyle->getFont()->setColor("Black");
  			hasColorTag = true;
  		}
  		else if ((attrs.localName(i) == "fo:font-weight") && (attrs.value(i) == "bold"))
- 			currentStyle->getFont()->setWeight(BOLD);
+ 			m_currentStyle->getFont()->setWeight(BOLD);
  		else if ((attrs.localName(i) == "fo:font-style") && (attrs.value(i) == "italic"))
- 			currentStyle->getFont()->setSlant(ITALIC);
+ 			m_currentStyle->getFont()->setSlant(ITALIC);
  		else if ((attrs.localName(i) == "style:text-underline") && (attrs.value(i) != "none"))
- 			currentStyle->getFont()->toggleEffect(UNDERLINE);
+ 			m_currentStyle->getFont()->toggleEffect(UNDERLINE);
  		else if ((attrs.localName(i) == "style:text-crossing-out") && (attrs.value(i) != "none"))
- 			currentStyle->getFont()->toggleEffect(STRIKETHROUGH);
+ 			m_currentStyle->getFont()->toggleEffect(STRIKETHROUGH);
  		else if ((attrs.localName(i) == "fo:font-variant") && (attrs.value(i) == "small-caps"))
- 			currentStyle->getFont()->toggleEffect(SMALL_CAPS);
+ 			m_currentStyle->getFont()->toggleEffect(SMALL_CAPS);
  		else if ((attrs.localName(i) == "style:text-outline") && (attrs.value(i) == "true"))
  		{
- 			currentStyle->getFont()->toggleEffect(OUTLINE);
- 			currentStyle->getFont()->setStrokeColor("Black");
- 			currentStyle->getFont()->setColor("White");
+ 			m_currentStyle->getFont()->toggleEffect(OUTLINE);
+ 			m_currentStyle->getFont()->setStrokeColor("Black");
+ 			m_currentStyle->getFont()->setColor("White");
  		}
  		else if (attrs.localName(i) == "fo:letter-spacing")
- 			currentStyle->getFont()->setKerning(static_cast<int>(getSize(attrs.value(i), -1.0)));
+ 			m_currentStyle->getFont()->setKerning(static_cast<int>(getSize(attrs.value(i), -1.0)));
  		else if (attrs.localName(i) == "style:text-scale")
- 			currentStyle->getFont()->setHscale(static_cast<int>(getSize(attrs.value(i), -1.0)));
+ 			m_currentStyle->getFont()->setHscale(static_cast<int>(getSize(attrs.value(i), -1.0)));
  		else if ((attrs.localName(i) == "style:text-position") && 
  		        (((attrs.value(i)).indexOf("sub") != -1) || 
  				(((attrs.value(i)).left(1) == "-") && ((attrs.value(i)).left(1) != "0"))))
- 			currentStyle->getFont()->toggleEffect(SUBSCRIPT);
+ 			m_currentStyle->getFont()->toggleEffect(SUBSCRIPT);
  		else if ((attrs.localName(i) == "style:text-position") && 
  		        (((attrs.value(i)).indexOf("super") != -1) || 
  				(((attrs.value(i)).left(1) != "-") && ((attrs.value(i)).left(1) != "0"))))
- 			currentStyle->getFont()->toggleEffect(SUPERSCRIPT);
+ 			m_currentStyle->getFont()->toggleEffect(SUPERSCRIPT);
  		else if ((attrs.localName(i) == "fo:margin-top") && (pstyle != NULL))
  			pstyle->setSpaceAbove(getSize(attrs.value(i)));
  		else if ((attrs.localName(i) == "fo:margin-bottom") && (pstyle != NULL))
  			pstyle->setSpaceBelow(getSize(attrs.value(i)));
  		else if ((attrs.localName(i) == "fo:margin-left") && (pstyle != NULL))
  		{
- 			if (inList)
+ 			if (m_inList)
  				pstyle->setIndent(pstyle->getIndent() + getSize(attrs.value(i)));
  			else
  				pstyle->setIndent(getSize(attrs.value(i)));	
  		}
  		else if ((attrs.localName(i) == "text:space-before") && (pstyle != NULL))
  		{
- 			if (inList)
+ 			if (m_inList)
  				pstyle->setIndent(pstyle->getIndent() + getSize(attrs.value(i)));
  			else
  				pstyle->setIndent(getSize(attrs.value(i)));
@@ -305,7 +305,7 @@ StyleReader::StyleReader(QString documentName, gtWriter *w,
  		}
  	}
 	if (!hasColorTag)
-		currentStyle->getFont()->setColor("Black");
+		m_currentStyle->getFont()->setColor("Black");
  }
  
  void StyleReader::styleStyle(const QXmlAttributes& attrs)
@@ -316,15 +316,15 @@ StyleReader::StyleReader(QString documentName, gtWriter *w,
  	bool isParaStyle = false;
  	bool create = true;
 
-	if (!defaultStyleCreated)
+	if (!m_defaultStyleCreated)
 	{
-		gtParagraphStyle* pstyle = new gtParagraphStyle(*(writer->getDefaultStyle()));
+		gtParagraphStyle* pstyle = new gtParagraphStyle(*(m_writer->getDefaultStyle()));
 		pstyle->setDefaultStyle(true);
-		currentStyle = dynamic_cast<gtStyle*>(pstyle);
-		currentStyle->setName("default-style");
+		m_currentStyle = dynamic_cast<gtStyle*>(pstyle);
+		m_currentStyle->setName("default-style");
 		setDefaultStyle     = true;
-		defaultStyleCreated = true;
-		parentStyle  = currentStyle;
+		m_defaultStyleCreated = true;
+		m_parentStyle  = m_currentStyle;
 	}
 
  	for (int i = 0; i < attrs.count(); ++i)
@@ -334,16 +334,16 @@ StyleReader::StyleReader(QString documentName, gtWriter *w,
  			if (attrs.value(i) == "paragraph")
  			{
  				isParaStyle = true;
- 				readProperties = true;
+ 				m_readProperties = true;
  			}
  			else if (attrs.value(i) == "text")
  			{
  				isParaStyle = false;
- 				readProperties = true;
+ 				m_readProperties = true;
  			}
  			else
  			{
- 				readProperties = false;
+ 				m_readProperties = false;
  				return;
  			}
  		}
@@ -351,65 +351,65 @@ StyleReader::StyleReader(QString documentName, gtWriter *w,
  			name = attrs.value(i);
  		else if (attrs.localName(i) == "style:parent-style-name")
  		{
- 			if (styles.contains(attrs.value(i)))
- 				parentStyle = styles[attrs.value(i)];
+ 			if (m_styles.contains(attrs.value(i)))
+ 				m_parentStyle = m_styles[attrs.value(i)];
  			else
- 				parentStyle = NULL;
+ 				m_parentStyle = NULL;
  		}
  		else if (attrs.localName(i) == "style:list-style-name")
  			listName = attrs.value(i);
  	}
- 	if ((parentStyle == NULL) && (styles.contains("default-style")))
- 		parentStyle = styles["default-style"];
+ 	if ((m_parentStyle == NULL) && (m_styles.contains("default-style")))
+ 		m_parentStyle = m_styles["default-style"];
  
  	if (create)
  	{
- 		if (parentStyle == NULL)
+ 		if (m_parentStyle == NULL)
  		{
- 			parentStyle = new gtStyle("tmp-parent");
+ 			m_parentStyle = new gtStyle("tmp-parent");
  		}
  		if (isParaStyle)
  		{
  			gtParagraphStyle *tmpP;
- 			if (parentStyle->target() == "paragraph")
+ 			if (m_parentStyle->target() == "paragraph")
  			{
- 				tmpP = dynamic_cast<gtParagraphStyle*>(parentStyle);
+ 				tmpP = dynamic_cast<gtParagraphStyle*>(m_parentStyle);
 				assert(tmpP != NULL);
  				gtParagraphStyle* tmp = new gtParagraphStyle(*tmpP);
  // 				tmp->setAutoLineSpacing(true);
- 				currentStyle = tmp;
+ 				m_currentStyle = tmp;
  			}
  			else
  			{
- 				gtParagraphStyle* tmp = new gtParagraphStyle(*parentStyle);
+ 				gtParagraphStyle* tmp = new gtParagraphStyle(*m_parentStyle);
  // 				tmp->setAutoLineSpacing(true);
- 				currentStyle = tmp;
+ 				m_currentStyle = tmp;
  			}
  			if (!listName.isNull())
  			{
- 				listParents[listName] = currentStyle;
+ 				m_listParents[listName] = m_currentStyle;
  			}
  		}
  		else
- 			currentStyle = new gtStyle(*parentStyle);
+ 			m_currentStyle = new gtStyle(*m_parentStyle);
  
- 		currentStyle->setName(name);
+ 		m_currentStyle->setName(name);
 		if (setDefaultStyle)
 		{
-			gtParagraphStyle* tmp = dynamic_cast<gtParagraphStyle*>(currentStyle);
+			gtParagraphStyle* tmp = dynamic_cast<gtParagraphStyle*>(m_currentStyle);
 			if (tmp)
 				tmp->setDefaultStyle(true);
 		}
  	}
  	else
- 		currentStyle = NULL;
+ 		m_currentStyle = NULL;
  }
  
  void StyleReader::tabStop(const QXmlAttributes& attrs)
  {
- 	if (currentStyle->target() == "paragraph")
+ 	if (m_currentStyle->target() == "paragraph")
  	{
- 		gtParagraphStyle* pstyle = dynamic_cast<gtParagraphStyle*>(currentStyle);
+ 		gtParagraphStyle* pstyle = dynamic_cast<gtParagraphStyle*>(m_currentStyle);
 		assert(pstyle != NULL);
  		QString pos = NULL;
  		QString type = NULL;
@@ -440,26 +440,26 @@ StyleReader::StyleReader(QString documentName, gtWriter *w,
  
  bool StyleReader::endElement(const QString&, const QString&, const QString &name)
  {
- 	if ((name == "style:default-style") && (currentStyle != NULL) && (readProperties))
+ 	if ((name == "style:default-style") && (m_currentStyle != NULL) && (m_readProperties))
  	{
- 		setStyle(currentStyle->getName(), currentStyle);
- 		currentStyle = NULL;
- 		parentStyle = NULL;
- 		readProperties = false;
+ 		setStyle(m_currentStyle->getName(), m_currentStyle);
+ 		m_currentStyle = NULL;
+ 		m_parentStyle = NULL;
+ 		m_readProperties = false;
  	}
  	else if (((name == "style:style") || 
  	          (name == "text:list-level-style-bullet") || 
  			  (name == "text:list-level-style-number") ||
-			  (name == "text:list-level-style-image")) && (currentStyle != NULL))
+			  (name == "text:list-level-style-image")) && (m_currentStyle != NULL))
  	{
- 		setStyle(currentStyle->getName(), currentStyle);
- 		currentStyle = NULL;
- 		parentStyle = NULL;
- 		readProperties = false;
+ 		setStyle(m_currentStyle->getName(), m_currentStyle);
+ 		m_currentStyle = NULL;
+ 		m_parentStyle = NULL;
+ 		m_readProperties = false;
  	}
  	else if (name == "text:list-style")
  	{
- 		inList = false;
+ 		m_inList = false;
  	}
 
  	return true;
@@ -478,9 +478,9 @@ StyleReader::StyleReader(QString documentName, gtWriter *w,
 
  gtStyle* StyleReader::getDefaultStyle(void)
  {
-	 gtStyle* defStyle = writer->getDefaultStyle();
-	 StyleMap::Iterator it, itEnd = styles.end();
-	 for (it = styles.begin(); it != itEnd; ++it)
+	 gtStyle* defStyle = m_writer->getDefaultStyle();
+	 StyleMap::Iterator it, itEnd = m_styles.end();
+	 for (it = m_styles.begin(); it != itEnd; ++it)
 	 {
 		 gtParagraphStyle *pStyle = dynamic_cast<gtParagraphStyle*> (it.value());
 		 if (pStyle && pStyle->isDefaultStyle())
@@ -494,12 +494,12 @@ StyleReader::StyleReader(QString documentName, gtWriter *w,
  
  gtStyle* StyleReader::getStyle(const QString& name)
  {
- 	if (styles.contains(name))
+ 	if (m_styles.contains(name))
  	{
- 		gtStyle* tmp = styles[name];
+ 		gtStyle* tmp = m_styles[name];
  		QString tname = tmp->getName();
- 		if ((tname.indexOf(docname) == -1) && (usePrefix))
- 			tmp->setName(docname + "_" + tname);
+ 		if ((tname.indexOf(m_docname) == -1) && (m_usePrefix))
+ 			tmp->setName(m_docname + "_" + tname);
  
  		return tmp;
  	}
@@ -511,7 +511,7 @@ StyleReader::StyleReader(QString documentName, gtWriter *w,
  {
  	gtParagraphStyle *s;
  	QString tname = style->getName();
- 	if ((style->target() == "paragraph") && (packStyles))
+ 	if ((style->target() == "paragraph") && (m_packStyles))
  	{
  		s = dynamic_cast<gtParagraphStyle*>(style);
 		assert(s != NULL);
@@ -531,37 +531,37 @@ StyleReader::StyleReader(QString documentName, gtWriter *w,
  			double td = (*tmp)[i];
  			nameByAttrs += QString("%1-").arg(td);
  		} */
- 		if (attrsStyles.contains(nameByAttrs))
+ 		if (m_attrsStyles.contains(nameByAttrs))
  		{
- 			tname = attrsStyles[nameByAttrs]->getName();
- 			++pstyleCounts[nameByAttrs];
+ 			tname = m_attrsStyles[nameByAttrs]->getName();
+ 			++m_pstyleCounts[nameByAttrs];
  			style->setName(tname);
  		}
  		else
  		{
- 			attrsStyles[nameByAttrs] = style;
- 			pstyleCounts[nameByAttrs] = 1;
+ 			m_attrsStyles[nameByAttrs] = style;
+ 			m_pstyleCounts[nameByAttrs] = 1;
  			tname = style->getName();
  		}
  	}
- 	else if (!packStyles)
+ 	else if (!m_packStyles)
  	{
- 		attrsStyles[name] = style;
- 		pstyleCounts[name] = 1;
+ 		m_attrsStyles[name] = style;
+ 		m_pstyleCounts[name] = 1;
  		tname = style->getName();
  	}
- 	if (!styles.contains(name))
+ 	if (!m_styles.contains(name))
  	{
- 		if ((tname.indexOf(docname) == -1) && (usePrefix))
- 			style->setName(docname + "_" + tname);
- 		styles[name] = style;
+ 		if ((tname.indexOf(m_docname) == -1) && (m_usePrefix))
+ 			style->setName(m_docname + "_" + tname);
+ 		m_styles[name] = style;
  	}
  }
  
  QString StyleReader::getFont(const QString& key)
  {
- 	if (fonts.contains(key))
- 		return fonts[key];
+ 	if (m_fonts.contains(key))
+ 		return m_fonts[key];
  	else
  		return key;
  }
@@ -571,7 +571,7 @@ StyleReader::StyleReader(QString documentName, gtWriter *w,
  	QString fstyleName = "";
  	int count = 0;
  	CounterMap::Iterator it;
- 	for (it = pstyleCounts.begin(); it != pstyleCounts.end(); ++it)
+ 	for (it = m_pstyleCounts.begin(); it != m_pstyleCounts.end(); ++it)
  	{
  		if (it.value() > count)
  		{
@@ -580,11 +580,11 @@ StyleReader::StyleReader(QString documentName, gtWriter *w,
  		}
  	}
  	gtFrameStyle* fstyle;
- 	gtParagraphStyle* pstyle = dynamic_cast<gtParagraphStyle*>(attrsStyles[fstyleName]);
+ 	gtParagraphStyle* pstyle = dynamic_cast<gtParagraphStyle*>(m_attrsStyles[fstyleName]);
  	fstyle = new gtFrameStyle(*pstyle);
  
- 	if (!importTextOnly)
- 		writer->setFrameStyle(fstyle);
+ 	if (!m_importTextOnly)
+ 		m_writer->setFrameStyle(fstyle);
  	delete fstyle;
  }
  
@@ -606,14 +606,14 @@ StyleReader::StyleReader(QString documentName, gtWriter *w,
  		double psize = 0;
  		if (parent2Style != NULL)
  			psize = static_cast<double>(parent2Style->getFont()->getSize());
- 		else if (styles.contains("default-style"))
- 			psize = static_cast<double>(styles["default-style"]->getFont()->getSize());
+ 		else if (m_styles.contains("default-style"))
+ 			psize = static_cast<double>(m_styles["default-style"]->getFont()->getSize());
  			psize = psize / 10;
  		size = getSize(value, psize);
  		int nsize = static_cast<int>(size * 10);
  		style->getFont()->setSize(nsize);
  		if (pstyle)
- 			pstyle->setLineSpacing(writer->getPreferredLineSpacing(nsize));
+ 			pstyle->setLineSpacing(m_writer->getPreferredLineSpacing(nsize));
  	}
  	else if ((key == "fo:line-height") && (parent2Style != NULL))
  	{
@@ -622,7 +622,7 @@ StyleReader::StyleReader(QString documentName, gtWriter *w,
  		{
  			ppstyle = dynamic_cast<gtParagraphStyle*>(parent2Style);
 			assert(ppstyle != NULL);
- 			ppstyle->setLineSpacing(getSize(value, writer->getPreferredLineSpacing(style->getFont()->getSize())));
+ 			ppstyle->setLineSpacing(getSize(value, m_writer->getPreferredLineSpacing(style->getFont()->getSize())));
  		}
  	}
  	else if (key == "fo:color")
@@ -663,14 +663,14 @@ StyleReader::StyleReader(QString documentName, gtWriter *w,
  		pstyle->setSpaceBelow(getSize(value));
  	else if ((key == "fo:margin-left") && (pstyle != NULL))
  	{
- 		if (inList)
+ 		if (m_inList)
  			pstyle->setIndent(pstyle->getIndent() + getSize(value));
  		else
  			pstyle->setIndent(getSize(value));	
  	}
  	else if ((key == "text:space-before") && (pstyle != NULL))
  	{
- 		if (inList)
+ 		if (m_inList)
  			pstyle->setIndent(pstyle->getIndent() + getSize(value));
  		else
  			pstyle->setIndent(getSize(value));	
@@ -756,9 +756,9 @@ StyleReader::StyleReader(QString documentName, gtWriter *w,
  
  StyleReader::~StyleReader()
  {
- 	sreader = NULL;
+ 	m_sreader = NULL;
  	StyleMap::Iterator it;
- 	for (it = styles.begin(); it != styles.end(); ++it)
+ 	for (it = m_styles.begin(); it != m_styles.end(); ++it)
  	{
  		if (it.value())
  		{
@@ -818,13 +818,13 @@ StyleReader::StyleReader(QString documentName, gtWriter *w,
  		for(const xmlChar** cur = atts; cur && *cur; cur += 2)
  			attrs->append(QString((char*)*cur), NULL, QString((char*)*cur), QString((char*)*(cur + 1)));
  	}
- 	sreader->startElement(NULL, NULL, *name, *attrs);
+ 	m_sreader->startElement(NULL, NULL, *name, *attrs);
  }
  
  void StyleReader::endElement(void*, const xmlChar * name)
  {
  	QString *nname = new QString((const char*) name);
  	nname = new QString(nname->toLower());
- 	sreader->endElement(NULL, NULL, *nname);
+ 	m_sreader->endElement(NULL, NULL, *nname);
  }
  
