@@ -26,7 +26,7 @@ ScFace::ScFaceData::ScFaceData() :
 	isFixedPitch(false),
 	hasGlyphNames(false),
 	maxGlyph(0),
-	cachedStatus(ScFace::UNKNOWN)
+	m_cachedStatus(ScFace::UNKNOWN)
 {
 }
 
@@ -134,47 +134,47 @@ FPoint ScFace::ScFaceData::glyphOrigin(gid_type gl, qreal sz) const
    unicode emulate: spaces, hyphen, ligatures?, diacritics?
  *****/
 
-ScFace::ScFace() :  m(new ScFaceData())
+ScFace::ScFace() :  m_m(new ScFaceData())
 {
-	m->refs = 1;
-	m->usage = 0;
+	m_m->refs = 1;
+	m_m->usage = 0;
 }
 
 
-ScFace::ScFace(ScFaceData* data) : m(data)
+ScFace::ScFace(ScFaceData* data) : m_m(data)
 {
-	++(m->refs);
-	m->cachedStatus = ScFace::UNKNOWN;
+	++(m_m->refs);
+	m_m->m_cachedStatus = ScFace::UNKNOWN;
 }
 
-ScFace::ScFace(const ScFace& other) : m(other.m), replacedName(other.replacedName), replacedInDoc(other.replacedInDoc)
+ScFace::ScFace(const ScFace& other) : m_m(other.m_m), m_replacedName(other.m_replacedName), m_replacedInDoc(other.m_replacedInDoc)
 {
-	++(m->refs);
+	++(m_m->refs);
 }
 
 ScFace::~ScFace()
 {
-	if ( m && --(m->refs) == 0 ) {
-		m->unload();
-		delete m;
-		m = 0;
+	if ( m_m && --(m_m->refs) == 0 ) {
+		m_m->unload();
+		delete m_m;
+		m_m = 0;
 	}
 }
 
 
 ScFace& ScFace::operator=(const ScFace& other)
 {
-	if (m != other.m)
+	if (m_m != other.m_m)
 	{
-		if (other.m)
-			++(other.m->refs);
-		if ( m && --(m->refs) == 0 ) {
-			m->unload();
-			delete m;
+		if (other.m_m)
+			++(other.m_m->refs);
+		if ( m_m && --(m_m->refs) == 0 ) {
+			m_m->unload();
+			delete m_m;
 		}
-		m = other.m;
+		m_m = other.m_m;
 	}
-	replacedName = other.replacedName;
+	m_replacedName = other.m_replacedName;
 	return *this;
 }
 
@@ -184,14 +184,14 @@ agree on family, style, variant and fontpath
 */
 bool ScFace::operator==(const ScFace& other) const
 {
-	return replacedName == other.replacedName && 
+	return m_replacedName == other.m_replacedName && 
 		( (isNone() && other.isNone() )
-			 || (m == other.m)
-			 || (m->family == other.m->family
-				 && m->style == other.m->style
-				 && m->variant == other.m->variant
-				 && m->fontFile == other.m->fontFile
-				 && m-> faceIndex == other.m->faceIndex) );
+			 || (m_m == other.m_m)
+			 || (m_m->family == other.m_m->family
+				 && m_m->style == other.m_m->style
+				 && m_m->variant == other.m_m->variant
+				 && m_m->fontFile == other.m_m->fontFile
+				 && m_m-> faceIndex == other.m_m->faceIndex) );
 }
 
 
@@ -203,146 +203,146 @@ const ScFace& ScFace::none()
 
 bool ScFace::isSymbolic() const
 {
-	if (m->status == ScFace::UNKNOWN) {
-		m->load();
+	if (m_m->status == ScFace::UNKNOWN) {
+		m_m->load();
 	}
-	return m->isSymbolic();
+	return m_m->isSymbolic();
 }
 
 QString ScFace::pdfAscentAsString() const
 {
-	if (m->status == ScFace::UNKNOWN) {
-		m->load();
+	if (m_m->status == ScFace::UNKNOWN) {
+		m_m->load();
 	}
-	return m->pdfAscentAsString();
+	return m_m->pdfAscentAsString();
 }
 
 QString ScFace::pdfDescentAsString() const
 {
-	if (m->status == ScFace::UNKNOWN) {
-		m->load();
+	if (m_m->status == ScFace::UNKNOWN) {
+		m_m->load();
 	}
-	return m->pdfDescentAsString();
+	return m_m->pdfDescentAsString();
 }
 QString ScFace::pdfCapHeightAsString() const
 {
-	if (m->status == ScFace::UNKNOWN) {
-		m->load();
+	if (m_m->status == ScFace::UNKNOWN) {
+		m_m->load();
 	}
-	return m->pdfCapHeightAsString();
+	return m_m->pdfCapHeightAsString();
 }
 
 QString ScFace::pdfFontBBoxAsString() const
 {
-	if (m->status == ScFace::UNKNOWN) {
-		m->load();
+	if (m_m->status == ScFace::UNKNOWN) {
+		m_m->load();
 	}
-	return m->pdfFontBBoxAsString();
+	return m_m->pdfFontBBoxAsString();
 }
 
 QString ScFace::italicAngleAsString() const
 {
-	if (m->status == ScFace::UNKNOWN) {
-		m->load();
+	if (m_m->status == ScFace::UNKNOWN) {
+		m_m->load();
 	}
-	return m->italicAngleAsString();
+	return m_m->italicAngleAsString();
 }
 
 qreal ScFace::ascent(qreal sz) const 
 {
-	if (m->status == ScFace::UNKNOWN) {
-		m->load();
+	if (m_m->status == ScFace::UNKNOWN) {
+		m_m->load();
 	}
-	return m->ascent(sz); 
+	return m_m->ascent(sz); 
 }
 
 qreal ScFace::descent(qreal sz) const 
 {
-	if (m->status == ScFace::UNKNOWN) {
-		m->load();
+	if (m_m->status == ScFace::UNKNOWN) {
+		m_m->load();
 	}
-	return m->descent(sz); 
+	return m_m->descent(sz); 
 }
 qreal ScFace::xHeight(qreal sz) const 
 {
-	if (m->status == ScFace::UNKNOWN) {
-		m->load();
+	if (m_m->status == ScFace::UNKNOWN) {
+		m_m->load();
 	}
-	return m->xHeight(sz); 
+	return m_m->xHeight(sz); 
 }
 
 qreal ScFace::capHeight(qreal sz) const 
 {
-	if (m->status == ScFace::UNKNOWN) {
-		m->load();
+	if (m_m->status == ScFace::UNKNOWN) {
+		m_m->load();
 	}
-	return m->capHeight(sz); 
+	return m_m->capHeight(sz); 
 }
 
 qreal ScFace::height(qreal sz) const 
 {
-	if (m->status == ScFace::UNKNOWN) {
-		m->load();
+	if (m_m->status == ScFace::UNKNOWN) {
+		m_m->load();
 	}
-	return m->height(sz); 
+	return m_m->height(sz); 
 }
 
 qreal ScFace::strikeoutPos(qreal sz) const 
 {
-	if (m->status == ScFace::UNKNOWN) {
-		m->load();
+	if (m_m->status == ScFace::UNKNOWN) {
+		m_m->load();
 	}
-	return m->strikeoutPos(sz); 
+	return m_m->strikeoutPos(sz); 
 }
 
 qreal ScFace::underlinePos(qreal sz) const 
 {
-	if (m->status == ScFace::UNKNOWN) {
-		m->load();
+	if (m_m->status == ScFace::UNKNOWN) {
+		m_m->load();
 	}
-	return m->underlinePos(sz); 
+	return m_m->underlinePos(sz); 
 }
 
 qreal ScFace::strokeWidth(qreal sz) const 
 {
-	if (m->status == ScFace::UNKNOWN) {
-		m->load();
+	if (m_m->status == ScFace::UNKNOWN) {
+		m_m->load();
 	}
-	return m->strokeWidth(sz); 
+	return m_m->strokeWidth(sz); 
 }
 
 qreal ScFace::maxAdvanceWidth(qreal sz) const 
 {
-	if (m->status == ScFace::UNKNOWN) {
-		m->load();
+	if (m_m->status == ScFace::UNKNOWN) {
+		m_m->load();
 	}
-	return m->maxAdvanceWidth(sz); 
+	return m_m->maxAdvanceWidth(sz); 
 }
 
 void ScFace::increaseUsage() const
 {
-	m->usage++;
+	m_m->usage++;
 }
 
 
 void ScFace::decreaseUsage() const
 {
-	if (m->usage == 1) 
+	if (m_m->usage == 1) 
 		unload();
-	m->usage--;
+	m_m->usage--;
 }
 
 
 void ScFace::unload() const
 {
-	if (m->status >= ScFace::LOADED && usable()) {
-		m->unload();
+	if (m_m->status >= ScFace::LOADED && usable()) {
+		m_m->unload();
 	}
 	// clear caches
-	m->m_glyphWidth.clear();
-	m->m_glyphOutline.clear();
+	m_m->m_glyphWidth.clear();
+	m_m->m_glyphOutline.clear();
 	//m->m_cMap.clear();
-	m->status = ScFace::UNKNOWN;
+	m_m->status = ScFace::UNKNOWN;
 }
 
 
@@ -354,9 +354,9 @@ ScFace::gid_type ScFace::emulateGlyph(QChar ch) const
 		 || ch == SpecialChars::ZWSPACE || ch == SpecialChars::ZWNBSPACE || ch==SpecialChars::OBJECT)
 		return CONTROL_GLYPHS + ch.unicode();
 	else if (ch == SpecialChars::NBSPACE)
-		return  m->char2CMap(QChar(' '));
+		return  m_m->char2CMap(QChar(' '));
 	else if(ch == SpecialChars::NBHYPHEN)
-		return  m->char2CMap(QChar('-'));
+		return  m_m->char2CMap(QChar('-'));
 	else
 		return 0;
 }
@@ -364,14 +364,14 @@ ScFace::gid_type ScFace::emulateGlyph(QChar ch) const
 
 ScFace::gid_type ScFace::char2CMap(QChar ch) const
 {
-	if (m->status == ScFace::UNKNOWN) {
-		m->load();
+	if (m_m->status == ScFace::UNKNOWN) {
+		m_m->load();
 	}
 	
 	if (ch == SpecialChars::SHYPHEN)
 		return emulateGlyph(ch);
 
-	gid_type gl = m->char2CMap(ch);
+	gid_type gl = m_m->char2CMap(ch);
 
 	if (gl == 0)
 		return emulateGlyph(ch);
@@ -389,8 +389,8 @@ bool ScFace::canRender(QChar ch) const
 		if (gl >= CONTROL_GLYPHS)   //  those are always empty
 			return true;
 		else if (gl != 0) {
-			m->loadGlyph(gl);
-			return ! m->m_glyphOutline[gl].broken; 
+			m_m->loadGlyph(gl);
+			return ! m_m->m_glyphOutline[gl].broken; 
 		}
 		else  {
 			return false;
@@ -419,43 +419,43 @@ qreal ScFace::charWidth(QChar ch, qreal size, QChar ch2) const
 
 bool ScFace::EmbedFont(QByteArray &str)
 {
-	if (m->status == ScFace::UNKNOWN) {
-		m->load();
+	if (m_m->status == ScFace::UNKNOWN) {
+		m_m->load();
 	}
-	return m->EmbedFont(str);
+	return m_m->EmbedFont(str);
 }
 
 
 bool ScFace::glyphNames(FaceEncoding& gList)
 {
-	if (m->status == ScFace::UNKNOWN) {
-		m->load();
+	if (m_m->status == ScFace::UNKNOWN) {
+		m_m->load();
 	}
-	return m->glyphNames(gList);
+	return m_m->glyphNames(gList);
 }
 
 
 void ScFace::RawData(QByteArray & bb)
 {
-	if (m->status == ScFace::UNKNOWN) {
-		m->load();
+	if (m_m->status == ScFace::UNKNOWN) {
+		m_m->load();
 	}
-	m->RawData(bb);
+	m_m->RawData(bb);
 }
 
 void ScFace::checkAllGlyphs()
 {
-	if (m->status == ScFace::UNKNOWN) {
-		m->load();
+	if (m_m->status == ScFace::UNKNOWN) {
+		m_m->load();
 	}
-	if (m->status != ScFace::LOADED) {
+	if (m_m->status != ScFace::LOADED) {
 		return;
 	}
-	for (gid_type gl=0; gl <= m->maxGlyph; ++gl) {
-		if (! m->m_glyphWidth.contains(gl)) {
-			m->loadGlyph(gl);
-			m->m_glyphWidth.remove(gl);
-			m->m_glyphOutline.remove(gl);
+	for (gid_type gl=0; gl <= m_m->maxGlyph; ++gl) {
+		if (! m_m->m_glyphWidth.contains(gl)) {
+			m_m->loadGlyph(gl);
+			m_m->m_glyphWidth.remove(gl);
+			m_m->m_glyphOutline.remove(gl);
 		}
 	}
 }
