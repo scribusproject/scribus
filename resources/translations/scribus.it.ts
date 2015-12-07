@@ -22970,7 +22970,7 @@ Un valore uguale a 0 significa sillabazioni illimitate.</translation>
     <message>
         <location filename="../../scribus/ui/prefs_userinterface.cpp" line="61"/>
         <source>Number of lines Scribus will scroll for each &quot;notch&quot; of the mouse wheel</source>
-        <translation type="unfinished"></translation>
+        <translation>Numero di righe che Scribus scorrerà per ogni scatto della rotellina</translation>
     </message>
     <message>
         <source>Number of lines Scribus will scroll for each move of the mouse wheel</source>
@@ -24658,7 +24658,7 @@ dell&apos;oggetto</translation>
     <message>
         <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="56"/>
         <source>Choose the shape of frame...</source>
-        <translation type="unfinished">Scegli la forma della cornice...</translation>
+        <translation>Scegli la forma della cornice...</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="59"/>
@@ -24690,22 +24690,22 @@ dell&apos;oggetto</translation>
     <message>
         <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="77"/>
         <source>R&amp;ound Corners:</source>
-        <translation type="unfinished">An&amp;goli arrotondati:</translation>
+        <translation>An&amp;goli arrotondati:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="93"/>
         <source>Set radius of corner rounding</source>
-        <translation type="unfinished">Imposta il raggio dell&apos;arrotondamento dell&apos;angolo</translation>
+        <translation>Imposta il raggio dell&apos;arrotondamento dell&apos;angolo</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="105"/>
         <source>Text &amp;Flow Around Frame</source>
-        <translation type="unfinished">Scorrimento del testo intorno &amp;alla cornice</translation>
+        <translation>Scorrimento del testo intorno &amp;alla cornice</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="151"/>
         <source>Use Frame &amp;Shape</source>
-        <translation type="unfinished">Intorno alla forma &amp;cornice</translation>
+        <translation>Intorno alla forma &amp;cornice</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="176"/>
@@ -24730,7 +24730,7 @@ dell&apos;oggetto</translation>
     <message>
         <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="290"/>
         <source>&lt;qt&gt;Any path self-intersections or subpaths create holes in the fill&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Ogni intersezione del tracciato con sé stesso crea spazi vuoti nello riempimento&lt;/qt&gt;</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="293"/>
@@ -24740,7 +24740,7 @@ dell&apos;oggetto</translation>
     <message>
         <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="306"/>
         <source>&lt;qt&gt;Fill is solid unless a subpath is counter-directional&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Lo riempimento è pieno a meno che un sottotracciato sia definito nella direzione opposta&lt;/qt&gt;</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="309"/>
@@ -25439,7 +25439,7 @@ dell&apos;oggetto</translation>
     <message>
         <location filename="../../scribus/ui/propertywidget_distance.cpp" line="437"/>
         <source>Vertical Alignment:</source>
-        <translation type="unfinished"></translation>
+        <translation>Allineamento verticale:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_distance.cpp" line="471"/>
@@ -25858,12 +25858,12 @@ dell&apos;oggetto</translation>
     <message>
         <location filename="../../scribus/ui/propertywidget_pareffect.cpp" line="560"/>
         <source>Lines:</source>
-        <translation type="unfinished">Righe:</translation>
+        <translation>Righe:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_pareffect.cpp" line="563"/>
         <source>Bullet Char(s):</source>
-        <translation type="unfinished"></translation>
+        <translation>Punto(i):</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_pareffect.cpp" line="564"/>
@@ -25883,42 +25883,42 @@ dell&apos;oggetto</translation>
     <message>
         <location filename="../../scribus/ui/propertywidget_pareffect.cpp" line="567"/>
         <source>Level:</source>
-        <translation type="unfinished">Livello:</translation>
+        <translation>Livello:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_pareffect.cpp" line="568"/>
         <source>Set:</source>
-        <translation type="unfinished">Set:</translation>
+        <translation>Set:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_pareffect.cpp" line="569"/>
         <source>Format:</source>
-        <translation type="unfinished">Formato:</translation>
+        <translation>Formato:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_pareffect.cpp" line="570"/>
         <source>Start:</source>
-        <translation type="unfinished">Inizio:</translation>
+        <translation>Inizio:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_pareffect.cpp" line="571"/>
         <source>Prefix:</source>
-        <translation type="unfinished">Prefisso:</translation>
+        <translation>Prefisso:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_pareffect.cpp" line="572"/>
         <source>Suffix:</source>
-        <translation type="unfinished">Suffisso:</translation>
+        <translation>Suffisso:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_pareffect.cpp" line="575"/>
         <source>Offset:</source>
-        <translation type="unfinished">Spostamento:</translation>
+        <translation>Spostamento:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_pareffect.cpp" line="576"/>
         <source>Char Style:</source>
-        <translation type="unfinished"></translation>
+        <translation>Stile carattere:</translation>
     </message>
     <message>
         <source>Level</source>
@@ -25947,7 +25947,7 @@ dell&apos;oggetto</translation>
     <message>
         <location filename="../../scribus/ui/propertywidget_pareffect.cpp" line="573"/>
         <source>Effect Parameters</source>
-        <translation type="unfinished">Parametri effetto</translation>
+        <translation>Parametri effetto</translation>
     </message>
     <message>
         <source>Offset</source>
@@ -31320,7 +31320,7 @@ Si prega di sceglierne un altro.</translation>
         <location filename="../../scribus/ui/smpstylewidget.ui" line="740"/>
         <location filename="../../scribus/ui/smpstylewidget.cpp" line="181"/>
         <source>Level:</source>
-        <translation type="unfinished">Livello:</translation>
+        <translation>Livello:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.ui" line="777"/>
@@ -34844,7 +34844,7 @@ Utilizzare la Verifica Preliminare per correggerli</translation>
     <message>
         <location filename="../../scribus/scribusapp.cpp" line="576"/>
         <source>Usage: scribus [options] [files]</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Uso: scribus [opzioni] [file]</translation>
     </message>
     <message>
         <location filename="../../scribus/scribusapp.cpp" line="582"/>
@@ -34904,7 +34904,7 @@ Utilizzare la Verifica Preliminare per correggerli</translation>
     <message>
         <location filename="../../scribus/scribusapp.cpp" line="274"/>
         <source>Preferences file %1 does not exist, aborting.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Il file delle preferenze %1 non esiste, annullato.</translation>
     </message>
     <message>
         <location filename="../../scribus/scribusapp.cpp" line="588"/>
@@ -36114,7 +36114,7 @@ Utilizzare la Verifica Preliminare per correggerli</translation>
     <message>
         <location filename="../../scribus/ui/storyeditor.cpp" line="2032"/>
         <source>&amp;Sample Text</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Testo di esempio</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/storyeditor.cpp" line="2043"/>
