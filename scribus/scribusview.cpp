@@ -151,14 +151,14 @@ ScribusView::ScribusView(QWidget* win, ScribusMainWindow* mw, ScribusDoc *doc) :
 	updateOn(true),
 	Magnify(false),
 	RCenter(-1,-1),
-	Ready(false),
-	oldX(0), oldY(0),
+	m_Ready(false),
+	m_oldX(0), m_oldY(0),
 	m_groupTransactions(0),
 	m_oldCanvasHeight(0), m_oldCanvasWidth(0),
 	m_groupTransaction(),
-	_isGlobalMode(true),
-	linkAfterDraw(false),
-	ImageAfterDraw(false),
+	m_isGlobalMode(true),
+	m_linkAfterDraw(false),
+	m_ImageAfterDraw(false),
 	m_vhRulerHW(17)
 {
 	setObjectName("s");
@@ -191,7 +191,7 @@ ScribusView::ScribusView(QWidget* win, ScribusMainWindow* mw, ScribusDoc *doc) :
 	horizRuler->setGeometry(m_vhRulerHW, 1, width()-m_vhRulerHW-1, m_vhRulerHW);
 	vertRuler->setGeometry(1, m_vhRulerHW, m_vhRulerHW, height()-m_vhRulerHW-1);
 	rulerMover->setGeometry(1, 1, m_vhRulerHW, m_vhRulerHW);
-	Ready = true;
+	m_Ready = true;
 	m_canvas->setMouseTracking(true);
 	setAcceptDrops(true);
 	m_canvas->setAcceptDrops(true);
@@ -1950,7 +1950,7 @@ void ScribusView::resizeEvent ( QResizeEvent * event )
 void ScribusView::setHBarGeometry(QScrollBar &bar, int x, int y, int w, int h)
 {
 	bar.setGeometry(x, y, w, h);
-	if (Ready)
+	if (m_Ready)
 		horizRuler->setGeometry(m_vhRulerHW, 1, w-m_vhRulerHW-1, m_vhRulerHW);
 }
 
@@ -1958,7 +1958,7 @@ void ScribusView::setHBarGeometry(QScrollBar &bar, int x, int y, int w, int h)
 void ScribusView::setVBarGeometry(QScrollBar &bar, int x, int y, int w, int h)
 {
 	bar.setGeometry(x, y, w, h);
-	if (Ready)
+	if (m_Ready)
 	{
 		vertRuler->setGeometry(1, m_vhRulerHW, m_vhRulerHW, h-m_vhRulerHW-1);
 		rulerMover->setGeometry(1, 1, m_vhRulerHW, m_vhRulerHW);
@@ -2051,8 +2051,8 @@ void ScribusView::cancelGroupTransaction()
 //CB find a new name
 void ScribusView::rememberOldZoomLocation(int mx, int my)
 {
-	oldX = mx;
-	oldY = my;
+	m_oldX = mx;
+	m_oldY = my;
 }
 
 void ScribusView::setRulerPos(int x, int y)
@@ -2308,7 +2308,7 @@ void ScribusView::setZoom()
 	int w = qRound(qMin(visibleWidth() / m_canvas->scale(), Doc->currentPage()->width()));
 	int h = qRound(qMin(visibleHeight() / m_canvas->scale(), Doc->currentPage()->height()));
 	rememberOldZoomLocation(w / 2 + x,h / 2 + y);
-	zoom(oldX, oldY, m_ScMW->zoomSpinBox->value() / 100.0 * Prefs->displayPrefs.displayScale, false);
+	zoom(m_oldX, m_oldY, m_ScMW->zoomSpinBox->value() / 100.0 * Prefs->displayPrefs.displayScale, false);
 	setFocus();
 }
 
@@ -2319,7 +2319,7 @@ void ScribusView::slotZoom100()
 	int w = qRound(qMin(visibleWidth() / m_canvas->scale(), Doc->maxCanvasCoordinate.x() - Doc->minCanvasCoordinate.x()));
 	int h = qRound(qMin(visibleHeight() / m_canvas->scale(), Doc->maxCanvasCoordinate.y() - Doc->minCanvasCoordinate.y()));
 	rememberOldZoomLocation(w / 2 + x,h / 2 + y);
-	zoom(oldX, oldY, Prefs->displayPrefs.displayScale, false);
+	zoom(m_oldX, m_oldY, Prefs->displayPrefs.displayScale, false);
 }
 
 void ScribusView::slotZoomIn(int mx,int my)
@@ -2346,7 +2346,7 @@ void ScribusView::slotZoomIn(int mx,int my)
 		zoom( qRound(zPointX), qRound(zPointY), newScale, false);
 	}
 	else
-		zoom(oldX, oldY, newScale, true);
+		zoom(m_oldX, m_oldY, newScale, true);
 }
 
 /** Verkleinert die Ansicht */
@@ -2376,7 +2376,7 @@ void ScribusView::slotZoomOut(int mx,int my)
 		zoom( qRound(zPointX), qRound(zPointY), newScale, false);
 	}
 	else
-		zoom(oldX, oldY, newScale, true);
+		zoom(m_oldX, m_oldY, newScale, true);
 }
 
 #if 0
@@ -2506,8 +2506,8 @@ void ScribusView::showMasterPage(int nr)
 	m_ScMW->pageSelector->setEnabled(false);
 	updateOn = false;
 	zoom();
-	oldX = qRound(Doc->currentPage()->xOffset()- 10);
-	oldY = qRound(Doc->currentPage()->yOffset()- 10);
+	m_oldX = qRound(Doc->currentPage()->xOffset()- 10);
+	m_oldY = qRound(Doc->currentPage()->yOffset()- 10);
 	SetCPo(Doc->currentPage()->xOffset() - 10, Doc->currentPage()->yOffset() - 10);
 	updateOn = true;
 	endEditButton->setVisible(true);
@@ -2537,8 +2537,8 @@ void ScribusView::showSymbolPage(QString symbolName)
 	m_ScMW->layerMenu->setEnabled(false);
 	updateOn = false;
 	zoom();
-	oldX = qRound(Doc->currentPage()->xOffset()- 10);
-	oldY = qRound(Doc->currentPage()->yOffset()- 10);
+	m_oldX = qRound(Doc->currentPage()->xOffset()- 10);
+	m_oldY = qRound(Doc->currentPage()->yOffset()- 10);
 	SetCPo(Doc->currentPage()->xOffset() - 10, Doc->currentPage()->yOffset() - 10);
 	updateOn = true;
 	endEditButton->setVisible(true);
@@ -2572,8 +2572,8 @@ void ScribusView::showInlinePage(int id)
 	m_ScMW->layerMenu->setEnabled(false);
 	updateOn = false;
 	zoom();
-	oldX = qRound(Doc->currentPage()->xOffset()- 10);
-	oldY = qRound(Doc->currentPage()->yOffset()- 10);
+	m_oldX = qRound(Doc->currentPage()->xOffset()- 10);
+	m_oldY = qRound(Doc->currentPage()->yOffset()- 10);
 	SetCPo(Doc->currentPage()->xOffset() - 10, Doc->currentPage()->yOffset() - 10);
 	updateOn = true;
 	endEditButton->setVisible(true);
@@ -3819,7 +3819,7 @@ void ScribusView::wheelEvent(QWheelEvent *w)
 
 void ScribusView::setObjectUndoMode()
 {
-	_isGlobalMode = undoManager->isGlobalMode();
+	m_isGlobalMode = undoManager->isGlobalMode();
 	if (m_ScMW->HaveDoc)
 	{
 		//qDebug(QString("%1 %2").arg((int)m_ScMW).arg(m_ScMW->scrActions.contains("editActionMode")));
@@ -3838,8 +3838,8 @@ void ScribusView::setGlobalUndoMode()
 {
 	if (m_ScMW->HaveDoc)
 	{
-		m_ScMW->scrActions["editActionMode"]->setChecked(!_isGlobalMode);
-		if (_isGlobalMode)
+		m_ScMW->scrActions["editActionMode"]->setChecked(!m_isGlobalMode);
+		if (m_isGlobalMode)
 			undoManager->showObject(Um::GLOBAL_UNDO_MODE);
 		else
 		{
@@ -3919,18 +3919,18 @@ bool ScribusView::eventFilter(QObject *obj, QEvent *event)
 		QMouseEvent* m = static_cast<QMouseEvent*> (event);
 		m_canvasMode->mouseReleaseEvent(m);
 		m_canvas->m_viewMode.m_MouseButtonPressed = false;
-		if (linkAfterDraw)
+		if (m_linkAfterDraw)
 		{
 			//user creates new frame using linking tool
 			PageItem * secondFrame = Doc->m_Selection->itemAt(0);
-			if (secondFrame && firstFrame)
+			if (secondFrame && m_firstFrame)
 			{
-				firstFrame->link(secondFrame);
-				firstFrame = NULL;
+				m_firstFrame->link(secondFrame);
+				m_firstFrame = NULL;
 			}
-			linkAfterDraw = false;
+			m_linkAfterDraw = false;
 		}
-		if (ImageAfterDraw)
+		if (m_ImageAfterDraw)
 		{
 			//user creates new frame using linking tool
 			PageItem * frame = Doc->m_Selection->itemAt(0);
@@ -3940,7 +3940,7 @@ bool ScribusView::eventFilter(QObject *obj, QEvent *event)
 				dynamic_cast<CanvasMode_ImageImport*>(canvasMode())->setImage(frame);
 				dynamic_cast<CanvasMode_ImageImport*>(canvasMode())->updateList();
 			}
-			ImageAfterDraw = false;
+			m_ImageAfterDraw = false;
 		}
 		return true;
 	}
@@ -3948,20 +3948,20 @@ bool ScribusView::eventFilter(QObject *obj, QEvent *event)
 	{
 		QMouseEvent* m = static_cast<QMouseEvent*> (event);
 		bool linkmode = (Doc->appMode == modeLinkFrames);
-		firstFrame = Doc->m_Selection->itemAt(0);
+		m_firstFrame = Doc->m_Selection->itemAt(0);
 		m_canvasMode->mousePressEvent(m);
 		//if user dont click any frame he want to draw new frame and link it
 		bool requestDrawMode = (Doc->ElemToLink == NULL);
 		if (linkmode && requestDrawMode)
 		{
 			//switch to drawing new text frame
-			linkAfterDraw = true;
+			m_linkAfterDraw = true;
 			requestMode(modeDrawText);
 			m_canvasMode->mousePressEvent(m);
 		}
 		else
-			firstFrame = NULL;
-		if(Doc->appMode == modeImportImage && ImageAfterDraw)
+			m_firstFrame = NULL;
+		if(Doc->appMode == modeImportImage && m_ImageAfterDraw)
 		{
 			//switch to drawing new text frame
 			requestMode(modeDrawImage);
@@ -4121,7 +4121,7 @@ void ScribusView::scrollBy(int x, int y) // deprecated
 
 void ScribusView::zoom(double scale)
 {
-	double zPointX = oldX, zPointY = oldY;
+	double zPointX = m_oldX, zPointY = m_oldY;
 	if (scale <= 0.0)
 		scale = m_canvas->scale();
 	if (Doc->m_Selection->count() != 0)

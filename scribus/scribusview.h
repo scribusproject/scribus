@@ -257,26 +257,26 @@ public slots: // Public slots
 
 //for linking frame after draw new frame
 private:
-	PageItem * firstFrame;
+	PageItem * m_firstFrame;
 
 private: // Private attributes
 	int m_previousMode;
-	QMenu *pmen3;
-	QMenu *pmenResolution;
+	QMenu *m_pmen3;
+	QMenu *m_pmenResolution;
 	QPoint m_pressLocation;
 	QTime m_moveTimer;
 	QTimer *m_dragTimer;
 	bool m_dragTimerFired;
-	bool Ready;
-	int  oldX;
-	int  oldY;
+	bool m_Ready;
+	int  m_oldX;
+	int  m_oldY;
 	int  m_groupTransactions;
 	int m_oldCanvasHeight;
 	int m_oldCanvasWidth;
 	UndoTransaction m_groupTransaction;
-	bool _isGlobalMode;
-	bool linkAfterDraw;
-	bool ImageAfterDraw;
+	bool m_isGlobalMode;
+	bool m_linkAfterDraw;
+	bool m_ImageAfterDraw;
 	bool m_oldSnapToElem;
 
 private slots:
