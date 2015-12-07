@@ -46,7 +46,7 @@ void importxps_freePlugin(ScPlugin* plugin)
 }
 
 ImportXpsPlugin::ImportXpsPlugin() : LoadSavePlugin(),
-	importAction(new ScrAction(ScrAction::DLL, "", QKeySequence(), this))
+	m_importAction(new ScrAction(ScrAction::DLL, "", QKeySequence(), this))
 {
 	// Set action info in languageChange, so we only have to do it in one
 	// place. This includes registering file format support.
@@ -56,7 +56,7 @@ ImportXpsPlugin::ImportXpsPlugin() : LoadSavePlugin(),
 
 void ImportXpsPlugin::languageChange()
 {
-	importAction->setText( tr("Import Xps..."));
+	m_importAction->setText( tr("Import Xps..."));
 	FileFormat* fmt = getFormatByExt("xps");
 	fmt->trName = tr("Microsoft XPS");
 	fmt->filter = tr("Microsoft XPS (*.xps *.XPS)");
