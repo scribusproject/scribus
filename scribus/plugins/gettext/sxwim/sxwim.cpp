@@ -66,7 +66,7 @@ SxwIm::SxwIm(QString fileName, QString enc, gtWriter* w, bool textOnly)
 	bool prefix = prefs->getBool("prefix", true);
 	bool ask = prefs->getBool("askAgain", true);
 	bool pack = prefs->getBool("pack", true);
-	encoding = enc;
+	m_encoding = enc;
 	if (!textOnly)
 	{
 		if (ask)
@@ -87,9 +87,9 @@ SxwIm::SxwIm(QString fileName, QString enc, gtWriter* w, bool textOnly)
 			}
 		}
 	}
-	filename = fileName;
-	writer = w;
-	writer->setUpdateParagraphStyles(update);
+	m_filename = fileName;
+	m_writer = w;
+	m_writer->setUpdateParagraphStyles(update);
 	ScZipHandler* fun = new ScZipHandler();
 	if (fun->open(fileName))
 	{
@@ -97,16 +97,16 @@ SxwIm::SxwIm(QString fileName, QString enc, gtWriter* w, bool textOnly)
 		QString baseDir = dir->path();
 		fun->extract(STYLE, baseDir);
 		fun->extract(CONTENT, baseDir);
-		stylePath   = baseDir + "/" + STYLE;
-		contentPath = baseDir + "/" + CONTENT;
-		if ((!stylePath.isNull()) && (!contentPath.isNull()))
+		m_stylePath   = baseDir + "/" + STYLE;
+		m_contentPath = baseDir + "/" + CONTENT;
+		if ((!m_stylePath.isNull()) && (!m_contentPath.isNull()))
 		{
-			QString docname = filename.right(filename.length() - filename.lastIndexOf("/") - 1);
+			QString docname = m_filename.right(m_filename.length() - m_filename.lastIndexOf("/") - 1);
 			docname = docname.left(docname.lastIndexOf("."));
-			StyleReader *sreader = new StyleReader(docname, writer, textOnly, prefix, pack);
-			sreader->parse(stylePath);
-			ContentReader *creader = new ContentReader(docname, sreader, writer, textOnly);
-			creader->parse(contentPath);
+			StyleReader *sreader = new StyleReader(docname, m_writer, textOnly, prefix, pack);
+			sreader->parse(m_stylePath);
+			ContentReader *creader = new ContentReader(docname, sreader, m_writer, textOnly);
+			creader->parse(m_contentPath);
 			delete sreader;
 			delete creader;
 		}

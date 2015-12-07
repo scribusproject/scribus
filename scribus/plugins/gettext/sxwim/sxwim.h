@@ -44,14 +44,14 @@ const QString CONTENT = "content.xml";
 class SxwIm
 {
 private:
-	gtWriter* writer;
-	QString encoding;
-	QString filename;
-	QString stylePath;
-	QString contentPath;
+	gtWriter* m_writer;
+	QString m_encoding;
+	QString m_filename;
+	QString m_stylePath;
+	QString m_contentPath;
 	bool decompress();
 public:
-	SxwIm(QString fileName, QString encoding, gtWriter* w, bool textOnly);
+	SxwIm(QString fileName, QString m_encoding, gtWriter* w, bool textOnly);
 	~SxwIm();
 };
 
