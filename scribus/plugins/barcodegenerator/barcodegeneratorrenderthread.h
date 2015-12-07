@@ -29,11 +29,11 @@ protected:
 	void run();
 
 private:
-	QMutex mutex;
-	QWaitCondition condition;
-	QString psCommand;
-	bool restart;
-	bool abort;
+	QMutex m_mutex;
+	QWaitCondition m_condition;
+	QString m_psCommand;
+	bool m_restart;
+	bool m_abort;
 
 };
 

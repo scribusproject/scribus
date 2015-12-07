@@ -18,30 +18,30 @@ for which a new license (GPL+exception) is in place.
 
 BarcodeGeneratorRenderThread::BarcodeGeneratorRenderThread(QObject *parent) : QThread(parent)
 {
-	restart = false;
-	abort = false;
+	m_restart = false;
+	m_abort = false;
 }
 
 BarcodeGeneratorRenderThread::~BarcodeGeneratorRenderThread()
 {
-	mutex.lock();
-	abort = true;
-	condition.wakeOne();
-	mutex.unlock();
+	m_mutex.lock();
+	m_abort = true;
+	m_condition.wakeOne();
+	m_mutex.unlock();
 	wait();
 }
 
 void BarcodeGeneratorRenderThread::render(QString psCommand)
 {
-	QMutexLocker locker(&mutex);
+	QMutexLocker locker(&m_mutex);
 
-	this->psCommand = psCommand;
+	this->m_psCommand = psCommand;
 
 	if (!isRunning()) {
 		start(LowPriority);
 	} else {
-		restart = true;
-		condition.wakeOne();
+		m_restart = true;
+		m_condition.wakeOne();
 	}
 }
 
@@ -55,9 +55,9 @@ void BarcodeGeneratorRenderThread::run()
 	int dpi=72;
 
 	forever {
-		mutex.lock();
-		QString psCommand = this->psCommand;
-		mutex.unlock();
+		m_mutex.lock();
+		QString psCommand = this->m_psCommand;
+		m_mutex.unlock();
 
 		QFile f(psFile);
 		f.open(QIODevice::WriteOnly);
@@ -93,18 +93,18 @@ void BarcodeGeneratorRenderThread::run()
 			}
 		}
 
-		if (abort)
+		if (m_abort)
 			return;
 
-		if (!restart)
+		if (!m_restart)
 			emit renderedImage(errorMsg);
 
 		// Go to sleep unless restarting
-		mutex.lock();
-		if (!restart)
-			condition.wait(&mutex);
-		restart = false;
-		mutex.unlock();
+		m_mutex.lock();
+		if (!m_restart)
+			m_condition.wait(&m_mutex);
+		m_restart = false;
+		m_mutex.unlock();
 	}
 
 }
