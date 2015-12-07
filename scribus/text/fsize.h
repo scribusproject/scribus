@@ -96,8 +96,8 @@ public:
 private:
     static void warningDivByZero();
 
-    qreal wd;
-    qreal ht;
+	qreal m_wd;
+	qreal m_ht;
 };
 
 
@@ -114,73 +114,73 @@ private:
  *****************************************************************************/
 
 inline FSize::FSize()
-{ wd = ht = -1; }
+{ m_wd = m_ht = -1; }
 
 inline FSize::FSize( qreal w, qreal h )
-{ wd=(qreal)w; ht=(qreal)h; }
+{ m_wd=(qreal)w; m_ht=(qreal)h; }
 
 inline bool FSize::isNull() const
-{ return wd==0 && ht==0; }
+{ return m_wd==0 && m_ht==0; }
 
 inline bool FSize::isEmpty() const
-{ return wd<1 || ht<1; }
+{ return m_wd<1 || m_ht<1; }
 
 inline bool FSize::isValid() const
-{ return wd>=0 && ht>=0; }
+{ return m_wd>=0 && m_ht>=0; }
 
 inline qreal FSize::width() const
-{ return wd; }
+{ return m_wd; }
 
 inline qreal FSize::height() const
-{ return ht; }
+{ return m_ht; }
 
 inline void FSize::setWidth( qreal w )
-{ wd=(qreal)w; }
+{ m_wd=(qreal)w; }
 
 inline void FSize::setHeight( qreal h )
-{ ht=(qreal)h; }
+{ m_ht=(qreal)h; }
 
 inline qreal &FSize::rwidth()
-{ return wd; }
+{ return m_wd; }
 
 inline qreal &FSize::rheight()
-{ return ht; }
+{ return m_ht; }
 
 inline FSize &FSize::operator+=( const FSize &s )
-{ wd+=s.wd; ht+=s.ht; return *this; }
+{ m_wd+=s.m_wd; m_ht+=s.m_ht; return *this; }
 
 inline FSize &FSize::operator-=( const FSize &s )
-{ wd-=s.wd; ht-=s.ht; return *this; }
+{ m_wd-=s.m_wd; m_ht-=s.m_ht; return *this; }
 
 inline FSize &FSize::operator*=( int c )
-{ wd*=(qreal)c; ht*=(qreal)c; return *this; }
+{ m_wd*=(qreal)c; m_ht*=(qreal)c; return *this; }
 
 inline FSize &FSize::operator*=( qreal c )
-{ wd=(qreal)(wd*c); ht=(qreal)(ht*c); return *this; }
+{ m_wd=(qreal)(m_wd*c); m_ht=(qreal)(m_ht*c); return *this; }
 
 inline bool operator==( const FSize &s1, const FSize &s2 )
-{ return s1.wd == s2.wd && s1.ht == s2.ht; }
+{ return s1.m_wd == s2.m_wd && s1.m_ht == s2.m_ht; }
 
 inline bool operator!=( const FSize &s1, const FSize &s2 )
-{ return s1.wd != s2.wd || s1.ht != s2.ht; }
+{ return s1.m_wd != s2.m_wd || s1.m_ht != s2.m_ht; }
 
 inline const FSize operator+( const FSize & s1, const FSize & s2 )
-{ return FSize(s1.wd+s2.wd, s1.ht+s2.ht); }
+{ return FSize(s1.m_wd+s2.m_wd, s1.m_ht+s2.m_ht); }
 
 inline const FSize operator-( const FSize &s1, const FSize &s2 )
-{ return FSize(s1.wd-s2.wd, s1.ht-s2.ht); }
+{ return FSize(s1.m_wd-s2.m_wd, s1.m_ht-s2.m_ht); }
 
 inline const FSize operator*( const FSize &s, int c )
-{ return FSize(s.wd*c, s.ht*c); }
+{ return FSize(s.m_wd*c, s.m_ht*c); }
 
 inline const FSize operator*( int c, const FSize &s )
-{  return FSize(s.wd*c, s.ht*c); }
+{  return FSize(s.m_wd*c, s.m_ht*c); }
 
 inline const FSize operator*( const FSize &s, qreal c )
-{ return FSize((qreal)(s.wd*c), (qreal)(s.ht*c)); }
+{ return FSize((qreal)(s.m_wd*c), (qreal)(s.m_ht*c)); }
 
 inline const FSize operator*( qreal c, const FSize &s )
-{ return FSize((qreal)(s.wd*c), (qreal)(s.ht*c)); }
+{ return FSize((qreal)(s.m_wd*c), (qreal)(s.m_ht*c)); }
 
 inline FSize &FSize::operator/=( int c )
 {
@@ -188,7 +188,7 @@ inline FSize &FSize::operator/=( int c )
     if ( c == 0 )
 	warningDivByZero();
 #endif
-    wd/=(qreal)c; ht/=(qreal)c;
+	m_wd/=(qreal)c; m_ht/=(qreal)c;
     return *this;
 }
 
@@ -198,7 +198,7 @@ inline FSize &FSize::operator/=( qreal c )
     if ( c == 0.0 )
 	warningDivByZero();
 #endif
-    wd=(qreal)(wd/c); ht=(qreal)(ht/c);
+	m_wd=(qreal)(m_wd/c); m_ht=(qreal)(m_ht/c);
     return *this;
 }
 
@@ -208,7 +208,7 @@ inline const FSize operator/( const FSize &s, int c )
     if ( c == 0 )
 	FSize::warningDivByZero();
 #endif
-    return FSize(s.wd/c, s.ht/c);
+	return FSize(s.m_wd/c, s.m_ht/c);
 }
 
 inline const FSize operator/( const FSize &s, qreal c )
@@ -217,17 +217,17 @@ inline const FSize operator/( const FSize &s, qreal c )
     if ( c == 0.0 )
 	FSize::warningDivByZero();
 #endif
-    return FSize((qreal)(s.wd/c), (qreal)(s.ht/c));
+	return FSize((qreal)(s.m_wd/c), (qreal)(s.m_ht/c));
 }
 
 inline FSize FSize::expandedTo( const FSize & otherSize ) const
 {
-    return FSize( qMax(wd,otherSize.wd), qMax(ht,otherSize.ht) );
+	return FSize( qMax(m_wd,otherSize.m_wd), qMax(m_ht,otherSize.m_ht) );
 }
 
 inline FSize FSize::boundedTo( const FSize & otherSize ) const
 {
-    return FSize( qMin(wd,otherSize.wd), qMin(ht,otherSize.ht) );
+	return FSize( qMin(m_wd,otherSize.m_wd), qMin(m_ht,otherSize.m_ht) );
 }
 
 
