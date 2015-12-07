@@ -69,12 +69,12 @@ extern SCRIBUS_API ScribusQApp * ScQApp;
 
 XpsPlug::XpsPlug(ScribusDoc* doc, int flags)
 {
-	tmpSel = new Selection(this, false);
+	m_tmpSel = new Selection(this, false);
 	m_Doc = doc;
-	importerFlags = flags;
-	interactive = (flags & LoadSavePlugin::lfInteractive);
-	progressDialog = NULL;
-	uz = NULL;
+	m_importerFlags = flags;
+	m_interactive = (flags & LoadSavePlugin::lfInteractive);
+	m_progressDialog = NULL;
+	m_uz = NULL;
 }
 
 QImage XpsPlug::readThumbnail(QString fName)
@@ -82,21 +82,21 @@ QImage XpsPlug::readThumbnail(QString fName)
 	QImage tmp;
 	if (!QFile::exists(fName))
 		return QImage();
-	progressDialog = NULL;
-	uz = new ScZipHandler();
-	if (!uz->open(fName))
+	m_progressDialog = NULL;
+	m_uz = new ScZipHandler();
+	if (!m_uz->open(fName))
 	{
-		delete uz;
-		if (progressDialog)
-			progressDialog->close();
+		delete m_uz;
+		if (m_progressDialog)
+			m_progressDialog->close();
 		return QImage();
 	}
 	bool found = false;
-	if (uz->contains("_rels/.rels"))
+	if (m_uz->contains("_rels/.rels"))
 	{
 		QByteArray f;
 		QDomDocument designMapDom;
-		if (!uz->read("_rels/.rels", f))
+		if (!m_uz->read("_rels/.rels", f))
 			return QImage();
 		if(designMapDom.setContent(f))
 		{
@@ -113,7 +113,7 @@ QImage XpsPlug::readThumbnail(QString fName)
 				if (thumbRef.startsWith("/"))
 					thumbRef = thumbRef.mid(1);
 				QByteArray im;
-				if (uz->read(thumbRef, im))
+				if (m_uz->read(thumbRef, im))
 				{
 					tmp = QImage::fromData(im);
 					found = true;
@@ -125,50 +125,50 @@ QImage XpsPlug::readThumbnail(QString fName)
 	if (!found)
 	{
 		QFileInfo fi = QFileInfo(fName);
-		baseFile = QDir::cleanPath(QDir::toNativeSeparators(fi.absolutePath()+"/"));
-		docWidth = PrefsManager::instance()->appPrefs.docSetupPrefs.pageWidth;
-		docHeight = PrefsManager::instance()->appPrefs.docSetupPrefs.pageHeight;
+		m_baseFile = QDir::cleanPath(QDir::toNativeSeparators(fi.absolutePath()+"/"));
+		m_docWidth = PrefsManager::instance()->appPrefs.docSetupPrefs.pageWidth;
+		m_docHeight = PrefsManager::instance()->appPrefs.docSetupPrefs.pageHeight;
 		m_Doc = new ScribusDoc();
 		m_Doc->setup(0, 1, 1, 1, 1, "Custom", "Custom");
-		m_Doc->setPage(docWidth, docHeight, 0, 0, 0, 0, 0, 0, false, false);
+		m_Doc->setPage(m_docWidth, m_docHeight, 0, 0, 0, 0, 0, 0, false, false);
 		m_Doc->addPage(0);
 		m_Doc->setGUI(false, ScCore->primaryMainWindow(), 0);
-		baseX = m_Doc->currentPage()->xOffset();
-		baseY = m_Doc->currentPage()->yOffset() + m_Doc->currentPage()->height() / 2.0;
-		Elements.clear();
+		m_baseX = m_Doc->currentPage()->xOffset();
+		m_baseY = m_Doc->currentPage()->yOffset() + m_Doc->currentPage()->height() / 2.0;
+		m_Elements.clear();
 		m_Doc->setLoading(true);
 		m_Doc->DoDrawing = false;
 		m_Doc->scMW()->setScriptRunning(true);
 		QString CurDirP = QDir::currentPath();
 		QDir::setCurrent(fi.path());
-		importedColors.clear();
-		importedPatterns.clear();
-		conversionFactor = 72.0 / 96.0;
-		loadedFonts.clear();
-		linkTargets.clear();
-		linkSources.clear();
-		if (uz->contains("FixedDocSeq.fdseq"))
+		m_importedColors.clear();
+		m_importedPatterns.clear();
+		m_conversionFactor = 72.0 / 96.0;
+		m_loadedFonts.clear();
+		m_linkTargets.clear();
+		m_linkSources.clear();
+		if (m_uz->contains("FixedDocSeq.fdseq"))
 			parseDocSequence("FixedDocSeq.fdseq");
-		else if (uz->contains("FixedDocumentSequence.fdseq"))
+		else if (m_uz->contains("FixedDocumentSequence.fdseq"))
 			parseDocSequence("FixedDocumentSequence.fdseq");
-		if (Elements.count() > 0)
+		if (m_Elements.count() > 0)
 		{
-			tmpSel->clear();
+			m_tmpSel->clear();
 			QDir::setCurrent(CurDirP);
-			if (Elements.count() > 1)
-				m_Doc->groupObjectsList(Elements);
+			if (m_Elements.count() > 1)
+				m_Doc->groupObjectsList(m_Elements);
 			m_Doc->DoDrawing = true;
 			m_Doc->m_Selection->delaySignalsOn();
-			if (Elements.count() > 0)
+			if (m_Elements.count() > 0)
 			{
-				for (int dre=0; dre<Elements.count(); ++dre)
+				for (int dre=0; dre<m_Elements.count(); ++dre)
 				{
-					tmpSel->addItem(Elements.at(dre), true);
+					m_tmpSel->addItem(m_Elements.at(dre), true);
 				}
-				tmpSel->setGroupRect();
-				double xs = tmpSel->width();
-				double ys = tmpSel->height();
-				tmp = Elements.at(0)->DrawObj_toImage(500);
+				m_tmpSel->setGroupRect();
+				double xs = m_tmpSel->width();
+				double ys = m_tmpSel->height();
+				tmp = m_Elements.at(0)->DrawObj_toImage(500);
 				tmp.setText("XSize", QString("%1").arg(xs));
 				tmp.setText("YSize", QString("%1").arg(ys));
 			}
@@ -185,8 +185,8 @@ QImage XpsPlug::readThumbnail(QString fName)
 			delete m_Doc;
 		}
 	}
-	uz->close();
-	delete uz;
+	m_uz->close();
+	delete m_uz;
 	return tmp;
 }
 
@@ -194,78 +194,78 @@ bool XpsPlug::import(QString fNameIn, const TransactionSettings& trSettings, int
 {
 	QString fName = fNameIn;
 	bool success = false;
-	interactive = (flags & LoadSavePlugin::lfInteractive);
-	importerFlags = flags;
-	cancel = false;
+	m_interactive = (flags & LoadSavePlugin::lfInteractive);
+	m_importerFlags = flags;
+	m_cancel = false;
 	bool ret = false;
-	firstPage = true;
-	pagecount = 1;
+	m_firstPage = true;
+	m_pagecount = 1;
 	QFileInfo fi = QFileInfo(fName);
 	m_FileName = fi.fileName();
 	if ( !ScCore->usingGUI() )
 	{
-		interactive = false;
+		m_interactive = false;
 		showProgress = false;
 	}
-	baseFile = QDir::cleanPath(QDir::toNativeSeparators(fi.absolutePath()+"/"));
+	m_baseFile = QDir::cleanPath(QDir::toNativeSeparators(fi.absolutePath()+"/"));
 	if ( showProgress )
 	{
 		ScribusMainWindow* mw=(m_Doc==0) ? ScCore->primaryMainWindow() : m_Doc->scMW();
-		progressDialog = new MultiProgressDialog( tr("Importing: %1").arg(fi.fileName()), CommonStrings::tr_Cancel, mw );
+		m_progressDialog = new MultiProgressDialog( tr("Importing: %1").arg(fi.fileName()), CommonStrings::tr_Cancel, mw );
 		QStringList barNames, barTexts;
 		barNames << "GI";
 		barTexts << tr("Analyzing File:");
 		QList<bool> barsNumeric;
 		barsNumeric << false;
-		progressDialog->addExtraProgressBars(barNames, barTexts, barsNumeric);
-		progressDialog->setOverallTotalSteps(3);
-		progressDialog->setOverallProgress(0);
-		progressDialog->setProgress("GI", 0);
-		progressDialog->show();
-		connect(progressDialog, SIGNAL(canceled()), this, SLOT(cancelRequested()));
+		m_progressDialog->addExtraProgressBars(barNames, barTexts, barsNumeric);
+		m_progressDialog->setOverallTotalSteps(3);
+		m_progressDialog->setOverallProgress(0);
+		m_progressDialog->setProgress("GI", 0);
+		m_progressDialog->show();
+		connect(m_progressDialog, SIGNAL(canceled()), this, SLOT(cancelRequested()));
 		qApp->processEvents();
 	}
 	else
-		progressDialog = NULL;
-	if (progressDialog)
+		m_progressDialog = NULL;
+	if (m_progressDialog)
 	{
-		progressDialog->setOverallProgress(1);
+		m_progressDialog->setOverallProgress(1);
 		qApp->processEvents();
 	}
 	/* Set default Page to size defined in Preferences */
-	docWidth = PrefsManager::instance()->appPrefs.docSetupPrefs.pageWidth;
-	docHeight = PrefsManager::instance()->appPrefs.docSetupPrefs.pageHeight;
-	baseX = 0;
-	baseY = 0;
-	if (!interactive || (flags & LoadSavePlugin::lfInsertPage))
+	m_docWidth = PrefsManager::instance()->appPrefs.docSetupPrefs.pageWidth;
+	m_docHeight = PrefsManager::instance()->appPrefs.docSetupPrefs.pageHeight;
+	m_baseX = 0;
+	m_baseY = 0;
+	if (!m_interactive || (flags & LoadSavePlugin::lfInsertPage))
 	{
-		m_Doc->setPage(docWidth, docHeight, 0, 0, 0, 0, 0, 0, false, false);
+		m_Doc->setPage(m_docWidth, m_docHeight, 0, 0, 0, 0, 0, 0, false, false);
 		m_Doc->addPage(0);
 		m_Doc->view()->addPage(0, true);
-		baseX = 0;
-		baseY = 0;
+		m_baseX = 0;
+		m_baseY = 0;
 	}
 	else
 	{
 		if (!m_Doc || (flags & LoadSavePlugin::lfCreateDoc))
 		{
-			m_Doc=ScCore->primaryMainWindow()->doFileNew(docWidth, docHeight, 0, 0, 0, 0, 0, 0, false, false, 0, false, 0, 1, "Custom", true);
+			m_Doc=ScCore->primaryMainWindow()->doFileNew(m_docWidth, m_docHeight, 0, 0, 0, 0, 0, 0, false, false, 0, false, 0, 1, "Custom", true);
 			ScCore->primaryMainWindow()->HaveNewDoc();
 			ret = true;
-			baseX = 0;
-			baseY = 0;
-			baseX = m_Doc->currentPage()->xOffset();
-			baseY = m_Doc->currentPage()->yOffset() + m_Doc->currentPage()->height() / 2.0;
+			m_baseX = 0;
+			m_baseY = 0;
+			m_baseX = m_Doc->currentPage()->xOffset();
+			m_baseY = m_Doc->currentPage()->yOffset() + m_Doc->currentPage()->height() / 2.0;
 		}
 	}
-	if ((!ret) && (interactive))
+	if ((!ret) && (m_interactive))
 	{
-		baseX = m_Doc->currentPage()->xOffset();
-		baseY = m_Doc->currentPage()->yOffset() + m_Doc->currentPage()->height() / 2.0;
+		m_baseX = m_Doc->currentPage()->xOffset();
+		m_baseY = m_Doc->currentPage()->yOffset() + m_Doc->currentPage()->height() / 2.0;
 	}
-	if ((ret) || (!interactive))
+	if ((ret) || (!m_interactive))
 	{
-		if (docWidth > docHeight)
+		if (m_docWidth > m_docHeight)
 			m_Doc->setPageOrientation(1);
 		else
 			m_Doc->setPageOrientation(0);
@@ -273,7 +273,7 @@ bool XpsPlug::import(QString fNameIn, const TransactionSettings& trSettings, int
 	}
 	if ((!(flags & LoadSavePlugin::lfLoadAsPattern)) && (m_Doc->view() != NULL))
 		m_Doc->view()->Deselect();
-	Elements.clear();
+	m_Elements.clear();
 	m_Doc->setLoading(true);
 	m_Doc->DoDrawing = false;
 	if ((!(flags & LoadSavePlugin::lfLoadAsPattern)) && (m_Doc->view() != NULL))
@@ -284,15 +284,15 @@ bool XpsPlug::import(QString fNameIn, const TransactionSettings& trSettings, int
 	QDir::setCurrent(fi.path());
 	if (convert(fName))
 	{
-		tmpSel->clear();
+		m_tmpSel->clear();
 		QDir::setCurrent(CurDirP);
-		if ((Elements.count() > 1) && (!(importerFlags & LoadSavePlugin::lfCreateDoc)))
-			m_Doc->groupObjectsList(Elements);
+		if ((m_Elements.count() > 1) && (!(m_importerFlags & LoadSavePlugin::lfCreateDoc)))
+			m_Doc->groupObjectsList(m_Elements);
 		m_Doc->DoDrawing = true;
 		m_Doc->scMW()->setScriptRunning(false);
 		m_Doc->setLoading(false);
 		qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
-		if ((Elements.count() > 0) && (!ret) && (interactive))
+		if ((m_Elements.count() > 0) && (!ret) && (m_interactive))
 		{
 			if (flags & LoadSavePlugin::lfScripted)
 			{
@@ -303,9 +303,9 @@ bool XpsPlug::import(QString fNameIn, const TransactionSettings& trSettings, int
 				if (!(flags & LoadSavePlugin::lfLoadAsPattern))
 				{
 					m_Doc->m_Selection->delaySignalsOn();
-					for (int dre=0; dre<Elements.count(); ++dre)
+					for (int dre=0; dre<m_Elements.count(); ++dre)
 					{
-						m_Doc->m_Selection->addItem(Elements.at(dre), true);
+						m_Doc->m_Selection->addItem(m_Elements.at(dre), true);
 					}
 					m_Doc->m_Selection->delaySignalsOff();
 					m_Doc->m_Selection->setGroupRect();
@@ -319,26 +319,26 @@ bool XpsPlug::import(QString fNameIn, const TransactionSettings& trSettings, int
 				m_Doc->DraggedElem = 0;
 				m_Doc->DragElements.clear();
 				m_Doc->m_Selection->delaySignalsOn();
-				for (int dre=0; dre<Elements.count(); ++dre)
+				for (int dre=0; dre<m_Elements.count(); ++dre)
 				{
-					tmpSel->addItem(Elements.at(dre), true);
+					m_tmpSel->addItem(m_Elements.at(dre), true);
 				}
-				tmpSel->setGroupRect();
-				ScElemMimeData* md = ScriXmlDoc::WriteToMimeData(m_Doc, tmpSel);
-				m_Doc->itemSelection_DeleteItem(tmpSel);
+				m_tmpSel->setGroupRect();
+				ScElemMimeData* md = ScriXmlDoc::WriteToMimeData(m_Doc, m_tmpSel);
+				m_Doc->itemSelection_DeleteItem(m_tmpSel);
 				m_Doc->view()->updatesOn(true);
-				if ((importedColors.count() != 0) && (!((flags & LoadSavePlugin::lfKeepGradients) || (flags & LoadSavePlugin::lfKeepColors) || (flags & LoadSavePlugin::lfKeepPatterns))))
+				if ((m_importedColors.count() != 0) && (!((flags & LoadSavePlugin::lfKeepGradients) || (flags & LoadSavePlugin::lfKeepColors) || (flags & LoadSavePlugin::lfKeepPatterns))))
 				{
-					for (int cd = 0; cd < importedColors.count(); cd++)
+					for (int cd = 0; cd < m_importedColors.count(); cd++)
 					{
-						m_Doc->PageColors.remove(importedColors[cd]);
+						m_Doc->PageColors.remove(m_importedColors[cd]);
 					}
 				}
-				if ((importedPatterns.count() != 0) && (!(flags & LoadSavePlugin::lfKeepPatterns)))
+				if ((m_importedPatterns.count() != 0) && (!(flags & LoadSavePlugin::lfKeepPatterns)))
 				{
-					for (int cd = 0; cd < importedPatterns.count(); cd++)
+					for (int cd = 0; cd < m_importedPatterns.count(); cd++)
 					{
-						m_Doc->docPatterns.remove(importedPatterns[cd]);
+						m_Doc->docPatterns.remove(m_importedPatterns[cd]);
 					}
 				}
 				m_Doc->m_Selection->delaySignalsOff();
@@ -370,12 +370,12 @@ bool XpsPlug::import(QString fNameIn, const TransactionSettings& trSettings, int
 		qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 		success = false;
 	}
-	if (interactive)
+	if (m_interactive)
 		m_Doc->setLoading(false);
 	//CB If we have a gui we must refresh it if we have used the progressbar
 	if (!(flags & LoadSavePlugin::lfLoadAsPattern))
 	{
-		if ((showProgress) && (!interactive))
+		if ((showProgress) && (!m_interactive))
 			m_Doc->view()->DrawNew();
 	}
 	qApp->restoreOverrideCursor();
@@ -384,53 +384,53 @@ bool XpsPlug::import(QString fNameIn, const TransactionSettings& trSettings, int
 
 XpsPlug::~XpsPlug()
 {
-	if (progressDialog)
-		delete progressDialog;
-	delete tmpSel;
-	for (int a = 0; a < tempFontFiles.count(); a++)
+	if (m_progressDialog)
+		delete m_progressDialog;
+	delete m_tmpSel;
+	for (int a = 0; a < m_tempFontFiles.count(); a++)
 	{
-		QFile::remove(tempFontFiles[a]);
+		QFile::remove(m_tempFontFiles[a]);
 	}
 }
 
 bool XpsPlug::convert(QString fn)
 {
 	bool retVal = true;
-	importedColors.clear();
-	importedPatterns.clear();
-	conversionFactor = 72.0 / 96.0;
-	loadedFonts.clear();
-	linkTargets.clear();
-	linkSources.clear();
-	pathResources.clear();
-	if(progressDialog)
+	m_importedColors.clear();
+	m_importedPatterns.clear();
+	m_conversionFactor = 72.0 / 96.0;
+	m_loadedFonts.clear();
+	m_linkTargets.clear();
+	m_linkSources.clear();
+	m_pathResources.clear();
+	if(m_progressDialog)
 	{
-		progressDialog->setOverallProgress(2);
-		progressDialog->setLabel("GI", tr("Generating Items"));
+		m_progressDialog->setOverallProgress(2);
+		m_progressDialog->setLabel("GI", tr("Generating Items"));
 		qApp->processEvents();
 	}
 
-	uz = new ScZipHandler();
-	if (!uz->open(fn))
+	m_uz = new ScZipHandler();
+	if (!m_uz->open(fn))
 	{
-		delete uz;
-		if (progressDialog)
-			progressDialog->close();
+		delete m_uz;
+		if (m_progressDialog)
+			m_progressDialog->close();
 		return false;
 	}
 
 	retVal = false;
-	if (uz->contains("FixedDocSeq.fdseq"))
+	if (m_uz->contains("FixedDocSeq.fdseq"))
 		retVal = parseDocSequence("FixedDocSeq.fdseq");
-	else if (uz->contains("FixedDocumentSequence.fdseq"))
+	else if (m_uz->contains("FixedDocumentSequence.fdseq"))
 		retVal = parseDocSequence("FixedDocumentSequence.fdseq");
 	if (retVal)
 		resolveLinks();
 
-	uz->close();
-	delete uz;
-	if (progressDialog)
-		progressDialog->close();
+	m_uz->close();
+	delete m_uz;
+	if (m_progressDialog)
+		m_progressDialog->close();
 	return retVal;
 }
 
@@ -438,7 +438,7 @@ bool XpsPlug::parseDocSequence(QString designMap)
 {
 	QByteArray f;
 	QDomDocument designMapDom;
-	if (!uz->read(designMap, f))
+	if (!m_uz->read(designMap, f))
 		return false;
 	if (!designMapDom.setContent(f))
 		return false;
@@ -469,7 +469,7 @@ bool XpsPlug::parseDocReference(QString designMap)
 	QByteArray f;
 	QFileInfo fi(designMap);
 	QString path = fi.path();
-	if (!uz->read(designMap, f))
+	if (!m_uz->read(designMap, f))
 		return false;
 
 	QDomDocument designMapDom;
@@ -478,7 +478,7 @@ bool XpsPlug::parseDocReference(QString designMap)
 
 	QString PageReference = "";
 	QDomElement docElem = designMapDom.documentElement();
-	if (importerFlags & LoadSavePlugin::lfCreateThumbnail)
+	if (m_importerFlags & LoadSavePlugin::lfCreateThumbnail)
 	{
 		QDomNodeList pgList = docElem.childNodes();
 		QDomNode drawPag = pgList.item(0);
@@ -511,28 +511,28 @@ bool XpsPlug::parseDocReference(QString designMap)
 		QString pageString = "*";
 		int pgCount = 0;
 		int maxPages = docElem.childNodes().count();
-		if (((interactive) || (importerFlags & LoadSavePlugin::lfCreateDoc)) && (maxPages > 1))
+		if (((m_interactive) || (m_importerFlags & LoadSavePlugin::lfCreateDoc)) && (maxPages > 1))
 		{
-			if (progressDialog)
-				progressDialog->hide();
+			if (m_progressDialog)
+				m_progressDialog->hide();
 			qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 			XpsImportOptions optImp(ScCore->primaryMainWindow());
-			optImp.setUpOptions(m_FileName, 1, maxPages, interactive);
+			optImp.setUpOptions(m_FileName, 1, maxPages, m_interactive);
 			if (optImp.exec() != QDialog::Accepted)
 				return false;
 			pageString = optImp.getPagesString();
 			qApp->changeOverrideCursor(QCursor(Qt::WaitCursor));
-			if (progressDialog)
-				progressDialog->show();
+			if (m_progressDialog)
+				m_progressDialog->show();
 			qApp->processEvents();
 		}
 		parsePagesString(pageString, &pageNs, maxPages);
 		if (pageString != "*")
 			maxPages = pageNs.size();
-		if (progressDialog)
+		if (m_progressDialog)
 		{
-			progressDialog->setTotalSteps("GI", maxPages);
-			progressDialog->setProgress("GI", pgCount);
+			m_progressDialog->setTotalSteps("GI", maxPages);
+			m_progressDialog->setProgress("GI", pgCount);
 			qApp->processEvents();
 		}
 		QDomNodeList pgList = docElem.childNodes();
@@ -562,9 +562,9 @@ bool XpsPlug::parseDocReference(QString designMap)
 				}
 			}
 			pgCount++;
-			if (progressDialog)
+			if (m_progressDialog)
 			{
-				progressDialog->setProgress("GI", pgCount);
+				m_progressDialog->setProgress("GI", pgCount);
 				qApp->processEvents();
 			}
 		}
@@ -577,57 +577,57 @@ void XpsPlug::parsePageReference(QString designMap)
 	QByteArray f;
 	QFileInfo fi(designMap);
 	QString path = fi.path();
-	if (uz->read(designMap, f))
+	if (m_uz->read(designMap, f))
 	{
 		QDomDocument designMapDom;
 		if(designMapDom.setContent(f))
 		{
 			QDomElement docElem = designMapDom.documentElement();
-			docWidth = docElem.attribute("Width", QString("%1").arg(PrefsManager::instance()->appPrefs.docSetupPrefs.pageWidth)).toDouble() * conversionFactor;
-			docHeight = docElem.attribute("Height", QString("%1").arg(PrefsManager::instance()->appPrefs.docSetupPrefs.pageHeight)).toDouble() * conversionFactor;
-			if (importerFlags & LoadSavePlugin::lfCreateDoc)
+			m_docWidth = docElem.attribute("Width", QString("%1").arg(PrefsManager::instance()->appPrefs.docSetupPrefs.pageWidth)).toDouble() * m_conversionFactor;
+			m_docHeight = docElem.attribute("Height", QString("%1").arg(PrefsManager::instance()->appPrefs.docSetupPrefs.pageHeight)).toDouble() * m_conversionFactor;
+			if (m_importerFlags & LoadSavePlugin::lfCreateDoc)
 			{
-				if (firstPage)
+				if (m_firstPage)
 				{
-					topMargin = m_Doc->marginsVal().top();
-					leftMargin = m_Doc->marginsVal().left();
-					rightMargin = m_Doc->marginsVal().right();
-					bottomMargin = m_Doc->marginsVal().bottom();
+					m_topMargin = m_Doc->marginsVal().top();
+					m_leftMargin = m_Doc->marginsVal().left();
+					m_rightMargin = m_Doc->marginsVal().right();
+					m_bottomMargin = m_Doc->marginsVal().bottom();
 					double pgCols = m_Doc->PageSp;
 					double pgGap = m_Doc->PageSpa;
-					m_Doc->setPage(docWidth, docHeight, topMargin, leftMargin, rightMargin, bottomMargin, pgCols, pgGap, false, false);
+					m_Doc->setPage(m_docWidth, m_docHeight, m_topMargin, m_leftMargin, m_rightMargin, m_bottomMargin, pgCols, pgGap, false, false);
 					m_Doc->setPageSize("Custom");
 					m_Doc->currentPage()->m_pageSize = "Custom";
-					m_Doc->currentPage()->setInitialHeight(docHeight);
-					m_Doc->currentPage()->setInitialWidth(docWidth);
-					m_Doc->currentPage()->setHeight(docHeight);
-					m_Doc->currentPage()->setWidth(docWidth);
-					m_Doc->currentPage()->initialMargins.setTop(topMargin);
-					m_Doc->currentPage()->initialMargins.setBottom(bottomMargin);
-					m_Doc->currentPage()->initialMargins.setLeft(leftMargin);
-					m_Doc->currentPage()->initialMargins.setRight(rightMargin);
+					m_Doc->currentPage()->setInitialHeight(m_docHeight);
+					m_Doc->currentPage()->setInitialWidth(m_docWidth);
+					m_Doc->currentPage()->setHeight(m_docHeight);
+					m_Doc->currentPage()->setWidth(m_docWidth);
+					m_Doc->currentPage()->initialMargins.setTop(m_topMargin);
+					m_Doc->currentPage()->initialMargins.setBottom(m_bottomMargin);
+					m_Doc->currentPage()->initialMargins.setLeft(m_leftMargin);
+					m_Doc->currentPage()->initialMargins.setRight(m_rightMargin);
 					m_Doc->reformPages(true);
 				}
 				else
 				{
-					m_Doc->addPage(pagecount);
+					m_Doc->addPage(m_pagecount);
 					m_Doc->currentPage()->m_pageSize = "Custom";
-					m_Doc->currentPage()->setInitialHeight(docHeight);
-					m_Doc->currentPage()->setInitialWidth(docWidth);
-					m_Doc->currentPage()->setHeight(docHeight);
-					m_Doc->currentPage()->setWidth(docWidth);
-					m_Doc->currentPage()->initialMargins.setTop(topMargin);
-					m_Doc->currentPage()->initialMargins.setBottom(bottomMargin);
-					m_Doc->currentPage()->initialMargins.setLeft(leftMargin);
-					m_Doc->currentPage()->initialMargins.setRight(rightMargin);
+					m_Doc->currentPage()->setInitialHeight(m_docHeight);
+					m_Doc->currentPage()->setInitialWidth(m_docWidth);
+					m_Doc->currentPage()->setHeight(m_docHeight);
+					m_Doc->currentPage()->setWidth(m_docWidth);
+					m_Doc->currentPage()->initialMargins.setTop(m_topMargin);
+					m_Doc->currentPage()->initialMargins.setBottom(m_bottomMargin);
+					m_Doc->currentPage()->initialMargins.setLeft(m_leftMargin);
+					m_Doc->currentPage()->initialMargins.setRight(m_rightMargin);
 					m_Doc->currentPage()->MPageNam = CommonStrings::trMasterPageNormal;
-					m_Doc->view()->addPage(pagecount, true);
-					pagecount++;
+					m_Doc->view()->addPage(m_pagecount, true);
+					m_pagecount++;
 				}
 			}
-			firstPage = false;
-			baseX = m_Doc->currentPage()->xOffset();
-			baseY = m_Doc->currentPage()->yOffset();
+			m_firstPage = false;
+			m_baseX = m_Doc->currentPage()->xOffset();
+			m_baseY = m_Doc->currentPage()->yOffset();
 			for(QDomNode drawPag = docElem.firstChild(); !drawPag.isNull(); drawPag = drawPag.nextSibling() )
 			{
 				QDomElement dpg = drawPag.toElement();
@@ -637,7 +637,7 @@ void XpsPlug::parsePageReference(QString designMap)
 					if (item != NULL)
 					{
 						m_Doc->Items->append(item);
-						Elements.append(item);
+						m_Elements.append(item);
 					}
 				}
 				else if (dpg.tagName() == "FixedPage.Resources")
@@ -671,8 +671,8 @@ void XpsPlug::parsePageReference(QString designMap)
 								{
 									if (dpgp.tagName() == "PathGeometry")
 									{
-										Coords.resize(0);
-										Coords.svgInit();
+										m_Coords.resize(0);
+										m_Coords.svgInit();
 										QString pdata = "";
 										QString key = dpg.attribute("x:Key");
 										if (dpg.hasAttribute("Figures"))
@@ -681,12 +681,12 @@ void XpsPlug::parsePageReference(QString designMap)
 											pdata = parsePathGeometryXML(dpg);
 										if (!pdata.isEmpty())
 										{
-											bool currentPathClosed = Coords.parseSVG(pdata);
-											Coords.scale(conversionFactor, conversionFactor);
-											QPainterPath path = Coords.toQPainterPath(!currentPathClosed);
+											bool currentPathClosed = m_Coords.parseSVG(pdata);
+											m_Coords.scale(m_conversionFactor, m_conversionFactor);
+											QPainterPath path = m_Coords.toQPainterPath(!currentPathClosed);
 											if (dpg.attribute("FillRule") == "NonZero")
 												path.setFillRule(Qt::WindingFill);
-											pathResources.insert(key, path);
+											m_pathResources.insert(key, path);
 										}
 									}
 								}
@@ -741,7 +741,7 @@ PageItem* XpsPlug::parseObjectXML(QDomElement &dpg, QString path)
 		ScTextStream list(&trans, QIODevice::ReadOnly);
 		double a, b, c, d, e, f;
 		list >> a >> b >> c >> d >> e >> f;
-		obState.transform = QTransform(a, b, c, d, e * conversionFactor, f * conversionFactor);
+		obState.transform = QTransform(a, b, c, d, e * m_conversionFactor, f * m_conversionFactor);
 	}
 	if (dpg.hasAttribute("Fill"))
 		obState.CurrColorFill = handleColor(dpg.attribute("Fill", "#FF000000"), obState.fillOpacity);
@@ -754,7 +754,7 @@ PageItem* XpsPlug::parseObjectXML(QDomElement &dpg, QString path)
 		obState.strokeOpacity = 1.0 - ((1.0 - obState.strokeOpacity) * opacity);
 	}
 	if (dpg.hasAttribute("StrokeThickness"))
-		obState.LineW = dpg.attribute("StrokeThickness", "1.0").toDouble() * conversionFactor;
+		obState.LineW = dpg.attribute("StrokeThickness", "1.0").toDouble() * m_conversionFactor;
 	if (dpg.hasAttribute("StrokeDashCap"))
 	{
 		if (dpg.attribute("StrokeDashCap") == "Flat")
@@ -798,11 +798,11 @@ PageItem* XpsPlug::parseObjectXML(QDomElement &dpg, QString path)
 		QString cdata = dpg.attribute("Clip");
 		if (!cdata.startsWith("{"))
 		{
-			Coords.resize(0);
-			Coords.svgInit();
-			Coords.parseSVG(cdata);
-			Coords.scale(conversionFactor, conversionFactor);
-			obState.clipPath = Coords.toQPainterPath(true);
+			m_Coords.resize(0);
+			m_Coords.svgInit();
+			m_Coords.parseSVG(cdata);
+			m_Coords.scale(m_conversionFactor, m_conversionFactor);
+			obState.clipPath = m_Coords.toQPainterPath(true);
 			obState.clipPath = obState.transform.map(obState.clipPath);
 		}
 		else
@@ -810,8 +810,8 @@ PageItem* XpsPlug::parseObjectXML(QDomElement &dpg, QString path)
 			cdata.remove("{StaticResource ");
 			cdata.remove("}");
 			cdata = cdata.trimmed();
-			if (pathResources.contains(cdata))
-				obState.clipPath = obState.transform.map(pathResources[cdata]);
+			if (m_pathResources.contains(cdata))
+				obState.clipPath = obState.transform.map(m_pathResources[cdata]);
 		}
 	}
 	if (dpg.tagName() == "Glyphs")
@@ -852,7 +852,7 @@ PageItem* XpsPlug::parseObjectXML(QDomElement &dpg, QString path)
 		ScFace iteFont = loadFontByName(fontUrl);
 		if (iteFont.usable())
 		{
-			double fontSize = dpg.attribute("FontRenderingEmSize", "0").toDouble() * conversionFactor;
+			double fontSize = dpg.attribute("FontRenderingEmSize", "0").toDouble() * m_conversionFactor;
 			bool bold = false;
 			bool italic = false;
 			if (dpg.hasAttribute("StyleSimulations"))
@@ -868,8 +868,8 @@ PageItem* XpsPlug::parseObjectXML(QDomElement &dpg, QString path)
 			double fontSizeEM = fontSize;
 			if (fontSize > 1)
 			{
-				double xPos = dpg.attribute("OriginX", "0").toDouble() * conversionFactor;
-				double yPos = dpg.attribute("OriginY", "0").toDouble() * conversionFactor;
+				double xPos = dpg.attribute("OriginX", "0").toDouble() * m_conversionFactor;
+				double yPos = dpg.attribute("OriginY", "0").toDouble() * m_conversionFactor;
 				QPointF origin(xPos, yPos);
 				QStringList glIndices = Indices.split(";");
 				double asc = iteFont.ascent() - iteFont.descent();
@@ -1065,7 +1065,7 @@ PageItem* XpsPlug::parseObjectXML(QDomElement &dpg, QString path)
 							ScTextStream list(&trans, QIODevice::ReadOnly);
 							double a, b, c, d, e, f;
 							list >> a >> b >> c >> d >> e >> f;
-							obState.transform = QTransform(a, b, c, d, e * conversionFactor, f * conversionFactor);
+							obState.transform = QTransform(a, b, c, d, e * m_conversionFactor, f * m_conversionFactor);
 						}
 					}
 				}
@@ -1083,11 +1083,11 @@ PageItem* XpsPlug::parseObjectXML(QDomElement &dpg, QString path)
 			QString pdata = dpg.attribute("Data");
 			if (!pdata.startsWith("{"))
 			{
-				Coords.resize(0);
-				Coords.svgInit();
-				obState.currentPathClosed = Coords.parseSVG(pdata);
-				Coords.scale(conversionFactor, conversionFactor);
-				obState.currentPath = Coords.toQPainterPath(!obState.currentPathClosed);
+				m_Coords.resize(0);
+				m_Coords.svgInit();
+				obState.currentPathClosed = m_Coords.parseSVG(pdata);
+				m_Coords.scale(m_conversionFactor, m_conversionFactor);
+				obState.currentPath = m_Coords.toQPainterPath(!obState.currentPathClosed);
 				if (obState.currentPath.isEmpty())
 					return retObj;
 				obState.currentPath = obState.transform.map(obState.currentPath);
@@ -1097,8 +1097,8 @@ PageItem* XpsPlug::parseObjectXML(QDomElement &dpg, QString path)
 				pdata.remove("{StaticResource ");
 				pdata.remove("}");
 				pdata = pdata.trimmed();
-				if (pathResources.contains(pdata))
-					obState.currentPath = obState.transform.map(pathResources[pdata]);
+				if (m_pathResources.contains(pdata))
+					obState.currentPath = obState.transform.map(m_pathResources[pdata]);
 				if (obState.currentPath.isEmpty())
 					return retObj;
 			}
@@ -1127,7 +1127,7 @@ PageItem* XpsPlug::parseObjectXML(QDomElement &dpg, QString path)
 						ScTextStream list(&trans, QIODevice::ReadOnly);
 						double a, b, c, d, e, f;
 						list >> a >> b >> c >> d >> e >> f;
-						obState.transform = QTransform(a, b, c, d, e * conversionFactor, f * conversionFactor);
+						obState.transform = QTransform(a, b, c, d, e * m_conversionFactor, f * m_conversionFactor);
 					}
 				}
 			}
@@ -1170,8 +1170,8 @@ PageItem* XpsPlug::parseObjectXML(QDomElement &dpg, QString path)
 							{
 								if (dpgp.tagName() == "PathGeometry")
 								{
-									Coords.resize(0);
-									Coords.svgInit();
+									m_Coords.resize(0);
+									m_Coords.svgInit();
 									QString pdata = "";
 									QString key = dpg.attribute("x:Key");
 									if (dpg.hasAttribute("Figures"))
@@ -1180,12 +1180,12 @@ PageItem* XpsPlug::parseObjectXML(QDomElement &dpg, QString path)
 										pdata = parsePathGeometryXML(dpg);
 									if (!pdata.isEmpty())
 									{
-										bool currentPathClosed = Coords.parseSVG(pdata);
-										Coords.scale(conversionFactor, conversionFactor);
-										QPainterPath path = Coords.toQPainterPath(!currentPathClosed);
+										bool currentPathClosed = m_Coords.parseSVG(pdata);
+										m_Coords.scale(m_conversionFactor, m_conversionFactor);
+										QPainterPath path = m_Coords.toQPainterPath(!currentPathClosed);
 										if (dpg.attribute("FillRule") == "NonZero")
 											path.setFillRule(Qt::WindingFill);
-										pathResources.insert(key, path);
+										m_pathResources.insert(key, path);
 									}
 								}
 							}
@@ -1265,12 +1265,12 @@ PageItem* XpsPlug::parseObjectXML(QDomElement &dpg, QString path)
 	{
 		if (!itemName.isEmpty())
 		{
-			linkTargets.insert(itemName, retObj);
+			m_linkTargets.insert(itemName, retObj);
 			retObj->setItemName(itemName);
 		}
 		if ((!itemTarget.isEmpty()) && (dpg.tagName() != "Canvas"))
 		{
-			linkSources.insert(retObj, itemTarget);
+			m_linkSources.insert(retObj, itemTarget);
 			retObj->setIsAnnotation(true);
 			retObj->annotation().setType(Annotation::Link);
 			retObj->annotation().setZiel(m_Doc->currentPage()->pageNr());
@@ -1391,14 +1391,14 @@ void XpsPlug::parseFillXML(QDomElement &spe, QString path, ObjState &obState)
 			ScTextStream list(&vectS, QIODevice::ReadOnly);
 			double x, y;
 			list >> x >> y;
-			obState.gradientStart = QPointF(x * conversionFactor, y * conversionFactor);
+			obState.gradientStart = QPointF(x * m_conversionFactor, y * m_conversionFactor);
 			obState.gradientFocus = obState.gradientStart;
 			QString vectE = eog.attribute("EndPoint", "0,0");
 			vectE.replace(",", " ");
 			ScTextStream listE(&vectE, QIODevice::ReadOnly);
 			double x2, y2;
 			listE >> x2 >> y2;
-			obState.gradientEnd = QPointF(x2 * conversionFactor, y2 * conversionFactor);
+			obState.gradientEnd = QPointF(x2 * m_conversionFactor, y2 * m_conversionFactor);
 			obState.gradientScale = 1.0;
 			obState.fillGradientTyp = 6;
 		}
@@ -1431,15 +1431,15 @@ void XpsPlug::parseFillXML(QDomElement &spe, QString path, ObjState &obState)
 			ScTextStream list(&vectS, QIODevice::ReadOnly);
 			double x, y;
 			list >> x >> y;
-			obState.gradientStart = QPointF(x * conversionFactor, y * conversionFactor);
+			obState.gradientStart = QPointF(x * m_conversionFactor, y * m_conversionFactor);
 			QString vectE = eog.attribute("GradientOrigin", "0,0");
 			vectE.replace(",", " ");
 			ScTextStream listE(&vectE, QIODevice::ReadOnly);
 			double x2, y2;
 			listE >> x2 >> y2;
-			obState.gradientFocus = QPointF(x2 * conversionFactor, y2 * conversionFactor);
-			double rx = eog.attribute("RadiusX", "1").toDouble() * conversionFactor;
-			double ry = eog.attribute("RadiusY", "1").toDouble() * conversionFactor;
+			obState.gradientFocus = QPointF(x2 * m_conversionFactor, y2 * m_conversionFactor);
+			double rx = eog.attribute("RadiusX", "1").toDouble() * m_conversionFactor;
+			double ry = eog.attribute("RadiusY", "1").toDouble() * m_conversionFactor;
 			obState.gradientEnd = QPointF(obState.gradientStart.x() + rx, obState.gradientStart.y());
 			obState.gradientScale = rx / ry;
 			obState.fillGradientTyp = 7;
@@ -1456,8 +1456,8 @@ void XpsPlug::parseFillXML(QDomElement &spe, QString path, ObjState &obState)
 			ScTextStream listE(&vectE, QIODevice::ReadOnly);
 			double Viewport_x1, Viewport_y1, Viewport_x2, Viewport_y2;
 			listE >> Viewport_x1 >> Viewport_y1 >> Viewport_x2 >> Viewport_y2;
-			double vw = (Viewport_x2 * conversionFactor) / (Viewbox_x2 - Viewbox_x1);
-			double vh = (Viewport_y2 * conversionFactor) / (Viewbox_y2 - Viewbox_y1);
+			double vw = (Viewport_x2 * m_conversionFactor) / (Viewbox_x2 - Viewbox_x1);
+			double vh = (Viewport_y2 * m_conversionFactor) / (Viewbox_y2 - Viewbox_y1);
 			for(QDomElement grs = eog.firstChildElement(); !grs.isNull(); grs = grs.nextSiblingElement())
 			{
 				if (grs.tagName() == "VisualBrush.Visual")
@@ -1469,14 +1469,14 @@ void XpsPlug::parseFillXML(QDomElement &spe, QString path, ObjState &obState)
 							PageItem* item = parseObjectXML(eo, path);
 							if (item != NULL)
 							{
-								m_Doc->SizeItem((item->width() / conversionFactor) * vw, (item->height() / conversionFactor) * vh, item, false, true, false);
+								m_Doc->SizeItem((item->width() / m_conversionFactor) * vw, (item->height() / m_conversionFactor) * vh, item, false, true, false);
 								ScPattern pat = ScPattern();
 								pat.setDoc(m_Doc);
 								m_Doc->DoDrawing = true;
 								QImage tmpImg = item->DrawObj_toImage(qMin(qMax(item->width(), item->height()), 500.0));
 								if (!tmpImg.isNull())
 								{
-									QImage retImg = QImage(qRound(Viewport_x2 * conversionFactor), qRound(Viewport_y2 * conversionFactor), QImage::Format_ARGB32_Premultiplied);
+									QImage retImg = QImage(qRound(Viewport_x2 * m_conversionFactor), qRound(Viewport_y2 * m_conversionFactor), QImage::Format_ARGB32_Premultiplied);
 									retImg.fill( qRgba(0, 0, 0, 0) );
 									QPainter p;
 									p.begin(&retImg);
@@ -1486,15 +1486,15 @@ void XpsPlug::parseFillXML(QDomElement &spe, QString path, ObjState &obState)
 									pat.xoffset = 0;
 									pat.yoffset = 0;
 									m_Doc->DoDrawing = false;
-									pat.width = Viewport_x2 * conversionFactor;
-									pat.height = Viewport_y2 * conversionFactor;
+									pat.width = Viewport_x2 * m_conversionFactor;
+									pat.height = Viewport_y2 * m_conversionFactor;
 									item->gXpos = 0;
 									item->gYpos = 0;
 									item->setXYPos(item->gXpos, item->gYpos, true);
 									pat.items.append(item);
 									obState.patternName = QString("Pattern_from_XPS_%1").arg(m_Doc->docPatterns.count() + 1);
 									m_Doc->addPattern(obState.patternName, pat);
-									importedPatterns.append(obState.patternName);
+									m_importedPatterns.append(obState.patternName);
 								}
 							}
 						}
@@ -1507,8 +1507,8 @@ void XpsPlug::parseFillXML(QDomElement &spe, QString path, ObjState &obState)
 
 void XpsPlug::parsePathDataXML(QDomElement &spe, ObjState &obState, bool forClip)
 {
-	Coords.resize(0);
-	Coords.svgInit();
+	m_Coords.resize(0);
+	m_Coords.svgInit();
 	QString svgString = "";
 	bool windFill = false;
 	for(QDomElement dpgp = spe.firstChildElement(); !dpgp.isNull(); dpgp = dpgp.nextSiblingElement() )
@@ -1518,18 +1518,18 @@ void XpsPlug::parsePathDataXML(QDomElement &spe, ObjState &obState, bool forClip
 		if (dpgp.attribute("FillRule") == "NonZero")
 			windFill = true;
 	}
-	bool currentPathClosed = Coords.parseSVG(svgString);
-	Coords.scale(conversionFactor, conversionFactor);
+	bool currentPathClosed = m_Coords.parseSVG(svgString);
+	m_Coords.scale(m_conversionFactor, m_conversionFactor);
 	if (forClip)
 	{
-		obState.clipPath = Coords.toQPainterPath(!currentPathClosed);
+		obState.clipPath = m_Coords.toQPainterPath(!currentPathClosed);
 		if (windFill)
 			obState.clipPath.setFillRule(Qt::WindingFill);
 	}
 	else
 	{
 		obState.currentPathClosed = currentPathClosed;
-		obState.currentPath = Coords.toQPainterPath(!obState.currentPathClosed);
+		obState.currentPath = m_Coords.toQPainterPath(!obState.currentPathClosed);
 		if (windFill)
 			obState.currentPath.setFillRule(Qt::WindingFill);
 	}
@@ -1586,7 +1586,7 @@ QString XpsPlug::parsePathGeometryXML(QDomElement &spe)
 void XpsPlug::parseResourceFile(QString resFile)
 {
 	QByteArray f;
-	if (uz->read(resFile, f))
+	if (m_uz->read(resFile, f))
 	{
 		QDomDocument designMapDom;
 		if(designMapDom.setContent(f))
@@ -1597,8 +1597,8 @@ void XpsPlug::parseResourceFile(QString resFile)
 				QDomElement dpg = drawPag.toElement();
 				if (dpg.tagName() == "PathGeometry")
 				{
-					Coords.resize(0);
-					Coords.svgInit();
+					m_Coords.resize(0);
+					m_Coords.svgInit();
 					QString pdata = "";
 					QString key = dpg.attribute("x:Key");
 					if (dpg.hasAttribute("Figures"))
@@ -1607,12 +1607,12 @@ void XpsPlug::parseResourceFile(QString resFile)
 						pdata = parsePathGeometryXML(dpg);
 					if (!pdata.isEmpty())
 					{
-						bool currentPathClosed = Coords.parseSVG(pdata);
-						Coords.scale(conversionFactor, conversionFactor);
-						QPainterPath path = Coords.toQPainterPath(!currentPathClosed);
+						bool currentPathClosed = m_Coords.parseSVG(pdata);
+						m_Coords.scale(m_conversionFactor, m_conversionFactor);
+						QPainterPath path = m_Coords.toQPainterPath(!currentPathClosed);
 						if (dpg.attribute("FillRule") == "NonZero")
 							path.setFillRule(Qt::WindingFill);
-						pathResources.insert(key, path);
+						m_pathResources.insert(key, path);
 					}
 				}
 			}
@@ -1622,16 +1622,16 @@ void XpsPlug::parseResourceFile(QString resFile)
 
 void XpsPlug::resolveLinks()
 {
-	if (!linkSources.isEmpty())
+	if (!m_linkSources.isEmpty())
 	{
 		QHash<PageItem*, QString>::iterator it;
-		for (it = linkSources.begin(); it != linkSources.end(); ++it)
+		for (it = m_linkSources.begin(); it != m_linkSources.end(); ++it)
 		{
 			PageItem* linkS = it.key();
 			QString target = it.value();
-			if (linkTargets.contains(target))
+			if (m_linkTargets.contains(target))
 			{
-				PageItem* linkT = linkTargets[target];
+				PageItem* linkT = m_linkTargets[target];
 				if (linkT != NULL)
 				{
 					int op = linkT->OwnPage;
@@ -1654,7 +1654,7 @@ PageItem* XpsPlug::addClip(PageItem* retObj, ObjState &obState)
 {
 	if (!obState.clipPath.isEmpty())
 	{
-		int z = m_Doc->itemAdd(PageItem::Group, PageItem::Rectangle, baseX, baseY, 10, 10, 0, CommonStrings::None, CommonStrings::None, true);
+		int z = m_Doc->itemAdd(PageItem::Group, PageItem::Rectangle, m_baseX, m_baseY, 10, 10, 0, CommonStrings::None, CommonStrings::None, true);
 		PageItem *itemg = m_Doc->Items->at(z);
 		itemg->PoLine.fromQPainterPath(obState.clipPath);
 		FPoint wh = getMaxClipF(&itemg->PoLine);
@@ -1688,13 +1688,13 @@ PageItem* XpsPlug::createItem(QDomElement &dpg, ObjState &obState)
 		if (obState.itemType == 0)
 		{
 			if (dpg.hasAttribute("FixedPage.NavigateUri"))
-				z = m_Doc->itemAdd(PageItem::TextFrame, PageItem::Unspecified, baseX, baseY, 10, 10, obState.LineW, obState.CurrColorFill, CommonStrings::None, true);
+				z = m_Doc->itemAdd(PageItem::TextFrame, PageItem::Unspecified, m_baseX, m_baseY, 10, 10, obState.LineW, obState.CurrColorFill, CommonStrings::None, true);
 			else
 			{
 				if (!obState.currentPathClosed)
-					z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, obState.LineW, obState.CurrColorFill, obState.CurrColorStroke, true);
+					z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, m_baseX, m_baseY, 10, 10, obState.LineW, obState.CurrColorFill, obState.CurrColorStroke, true);
 				else
-					z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX, baseY, 10, 10, obState.LineW, obState.CurrColorFill, obState.CurrColorStroke, true);
+					z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, m_baseX, m_baseY, 10, 10, obState.LineW, obState.CurrColorFill, obState.CurrColorStroke, true);
 			}
 			retObj = m_Doc->Items->at(z);
 			finishItem(retObj, obState);
@@ -1702,13 +1702,13 @@ PageItem* XpsPlug::createItem(QDomElement &dpg, ObjState &obState)
 		}
 		else if (obState.itemType == 1)
 		{
-			z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, baseX, baseY, 10, 10, obState.LineW, obState.CurrColorFill, obState.CurrColorStroke, true);
+			z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, m_baseX, m_baseY, 10, 10, obState.LineW, obState.CurrColorFill, obState.CurrColorStroke, true);
 			retObj = m_Doc->Items->at(z);
 			finishItem(retObj, obState);
 			if (!obState.imagePath.isEmpty())
 			{
 				QByteArray f;
-				if (uz->read(obState.imagePath, f))
+				if (m_uz->read(obState.imagePath, f))
 				{
 					QFileInfo fi(obState.imagePath);
 					QTemporaryFile *tempFile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_xps_XXXXXX." + fi.suffix());
@@ -1842,7 +1842,7 @@ QString XpsPlug::handleColor(QString rgbColor, double &opacity)
 		QString newColorName = "FromXPS"+c.name();
 		fNam = m_Doc->PageColors.tryAddColor(newColorName, tmp);
 		if (fNam == newColorName)
-			importedColors.append(newColorName);
+			m_importedColors.append(newColorName);
 	}
 	else if (rgbColor.startsWith( "#" ))
 	{
@@ -1865,7 +1865,7 @@ QString XpsPlug::handleColor(QString rgbColor, double &opacity)
 		QString newColorName = "FromXPS"+c.name();
 		fNam = m_Doc->PageColors.tryAddColor(newColorName, tmp);
 		if (fNam == newColorName)
-			importedColors.append(newColorName);
+			m_importedColors.append(newColorName);
 	}
 	return fNam;
 }
@@ -1906,10 +1906,10 @@ bool XpsPlug::parseGUID( const QString &guidString, unsigned short guid[16])
 ScFace XpsPlug::loadFontByName(const QString &fileName)
 {
 	ScFace t;
-	if (loadedFonts.contains(fileName))
-		return loadedFonts[fileName];
+	if (m_loadedFonts.contains(fileName))
+		return m_loadedFonts[fileName];
 	QByteArray fontData;
-	if (!uz->read(fileName, fontData))
+	if (!m_uz->read(fileName, fontData))
 		return t;
 	QTemporaryFile *tempImageFile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_zip_XXXXXX.dat");
 	if (tempImageFile == NULL)
@@ -1919,7 +1919,7 @@ ScFace XpsPlug::loadFontByName(const QString &fileName)
 	QString fname = getLongPathName(tempImageFile->fileName());
 	tempImageFile->close();
 	delete tempImageFile;
-	tempFontFiles.append(fname);
+	m_tempFontFiles.append(fname);
 	QFileInfo fi(fileName);
 	QString ext = fi.suffix().toLower();
 	if (ext.startsWith("od"))
@@ -1953,7 +1953,7 @@ ScFace XpsPlug::loadFontByName(const QString &fileName)
 		ft.write(fontData);
 		ft.close();
 		t = PrefsManager::instance()->appPrefs.fontPrefs.AvailFonts.LoadScalableFont(fname);
-		loadedFonts.insert(fileName, t);
+		m_loadedFonts.insert(fileName, t);
 		return t;
 	}
 	return t;

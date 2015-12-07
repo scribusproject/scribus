@@ -122,38 +122,38 @@ private:
 	int hex2int(char hex);
 	bool parseGUID( const QString &guidString, unsigned short guid[16]);
 	ScFace loadFontByName(const QString &fileName);
-	QList<PageItem*> Elements;
-	double baseX, baseY;
-	double docWidth;
-	double docHeight;
+	QList<PageItem*> m_Elements;
+	double m_baseX, m_baseY;
+	double m_docWidth;
+	double m_docHeight;
 
-	FPointArray Coords;
-	bool interactive;
-	MultiProgressDialog * progressDialog;
-	bool cancel;
+	FPointArray m_Coords;
+	bool m_interactive;
+	MultiProgressDialog * m_progressDialog;
+	bool m_cancel;
 	ScribusDoc* m_Doc;
-	Selection* tmpSel;
-	int importerFlags;
-	QString baseFile;
+	Selection* m_tmpSel;
+	int m_importerFlags;
+	QString m_baseFile;
 	QString m_FileName;
-	QStringList importedColors;
-	QStringList importedPatterns;
-	bool firstPage;
-	int pagecount;
-	double topMargin;
-	double leftMargin;
-	double rightMargin;
-	double bottomMargin;
-	double conversionFactor;
-	QHash<QString, QPainterPath> pathResources;
-	QHash<QString, PageItem*> linkTargets;
-	QHash<PageItem*, QString> linkSources;
-	QHash<QString, ScFace> loadedFonts;
-	ScZipHandler *uz;
-	QStringList tempFontFiles;
+	QStringList m_importedColors;
+	QStringList m_importedPatterns;
+	bool m_firstPage;
+	int m_pagecount;
+	double m_topMargin;
+	double m_leftMargin;
+	double m_rightMargin;
+	double m_bottomMargin;
+	double m_conversionFactor;
+	QHash<QString, QPainterPath> m_pathResources;
+	QHash<QString, PageItem*> m_linkTargets;
+	QHash<PageItem*, QString> m_linkSources;
+	QHash<QString, ScFace> m_loadedFonts;
+	ScZipHandler *m_uz;
+	QStringList m_tempFontFiles;
 
 public slots:
-	void cancelRequested() { cancel = true; }
+	void cancelRequested() { m_cancel = true; }
 };
 
 #endif
