@@ -62,7 +62,7 @@ class PLUGIN_API ImportVivaPlugin : public LoadSavePlugin
 
 	private:
 		void registerFormats();
-		ScrAction* importAction;
+		ScrAction* m_importAction;
 };
 
 extern "C" PLUGIN_API int importviva_getPluginAPIVersion();

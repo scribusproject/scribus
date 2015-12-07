@@ -46,7 +46,7 @@ void importviva_freePlugin(ScPlugin* plugin)
 }
 
 ImportVivaPlugin::ImportVivaPlugin() : LoadSavePlugin(),
-	importAction(new ScrAction(ScrAction::DLL, "", QKeySequence(), this))
+	m_importAction(new ScrAction(ScrAction::DLL, "", QKeySequence(), this))
 {
 	// Set action info in languageChange, so we only have to do it in one
 	// place. This includes registering file format support.
@@ -56,7 +56,7 @@ ImportVivaPlugin::ImportVivaPlugin() : LoadSavePlugin(),
 
 void ImportVivaPlugin::languageChange()
 {
-	importAction->setText( tr("Import Viva..."));
+	m_importAction->setText( tr("Import Viva..."));
 	FileFormat* fmt = getFormatByExt("xml");
 	fmt->trName = tr("Viva Designer XML");
 	fmt->filter = tr("Viva Designer XML (*.xml *.XML)");
