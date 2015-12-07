@@ -47,7 +47,7 @@ void importdrw_freePlugin(ScPlugin* plugin)
 }
 
 ImportDrwPlugin::ImportDrwPlugin() : LoadSavePlugin(),
-	importAction(new ScrAction(ScrAction::DLL, QPixmap(), QPixmap(), "", QKeySequence(), this))
+	m_importAction(new ScrAction(ScrAction::DLL, QPixmap(), QPixmap(), "", QKeySequence(), this))
 {
 	// Set action info in languageChange, so we only have to do it in one
 	// place. This includes registering file format support.
@@ -57,7 +57,7 @@ ImportDrwPlugin::ImportDrwPlugin() : LoadSavePlugin(),
 
 void ImportDrwPlugin::languageChange()
 {
-	importAction->setText( tr("Import Micrografx Draw..."));
+	m_importAction->setText( tr("Import Micrografx Draw..."));
 	FileFormat* fmt = getFormatByExt("drw");
 	fmt->trName = tr("Micrografx Draw");
 	fmt->filter = tr("Micrografx Draw (*.drw *.DRW)");
