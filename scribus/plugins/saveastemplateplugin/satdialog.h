@@ -27,10 +27,10 @@ private slots:
 	void detailClicked(int);
 
 private:
-	PrefsContext* prefs;
-	QString author;
-	QString email;
-	bool isFullDetail;
+	PrefsContext* m_prefs;
+	QString m_author;
+	QString m_email;
+	bool m_isFullDetail;
 
 	QString findTemplateXml(QString dir);
 	void    readPrefs();

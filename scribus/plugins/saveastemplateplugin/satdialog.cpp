@@ -47,8 +47,8 @@ SATDialog::SATDialog(QWidget* parent, QString tmplName, int pageW, int pageH) : 
 	nameEdit->setText(tmplName);
 	setupCategories();
 	setupPageSize(pageW, pageH);
-	authorEdit->setText(author);
-	emailEdit->setText(email);
+	authorEdit->setText(m_author);
+	emailEdit->setText(m_email);
 
 	// Slots and signals connections
 	connect(detailButton, SIGNAL(stateChanged(int)), this, SLOT(detailClicked(int)));
@@ -56,39 +56,39 @@ SATDialog::SATDialog(QWidget* parent, QString tmplName, int pageW, int pageH) : 
 
 void SATDialog::detailClicked(int state)
 {
-	isFullDetail = state == Qt::Checked;
+	m_isFullDetail = state == Qt::Checked;
 
-	psizeLabel->setVisible(isFullDetail);
-	catsLabel->setVisible(isFullDetail);
-	colorsLabel->setVisible(isFullDetail);
-	descrLabel->setVisible(isFullDetail);
-	usageLabel->setVisible(isFullDetail);
-	authorLabel->setVisible(isFullDetail);
-	emailLabel->setVisible(isFullDetail);
-	psizeEdit->setVisible(isFullDetail);
-	catsCombo->setVisible(isFullDetail);
-	colorsEdit->setVisible(isFullDetail);
-	descrEdit->setVisible(isFullDetail);
-	usageEdit->setVisible(isFullDetail);
-	authorEdit->setVisible(isFullDetail);
-	emailEdit->setVisible(isFullDetail);
+	psizeLabel->setVisible(m_isFullDetail);
+	catsLabel->setVisible(m_isFullDetail);
+	colorsLabel->setVisible(m_isFullDetail);
+	descrLabel->setVisible(m_isFullDetail);
+	usageLabel->setVisible(m_isFullDetail);
+	authorLabel->setVisible(m_isFullDetail);
+	emailLabel->setVisible(m_isFullDetail);
+	psizeEdit->setVisible(m_isFullDetail);
+	catsCombo->setVisible(m_isFullDetail);
+	colorsEdit->setVisible(m_isFullDetail);
+	descrEdit->setVisible(m_isFullDetail);
+	usageEdit->setVisible(m_isFullDetail);
+	authorEdit->setVisible(m_isFullDetail);
+	emailEdit->setVisible(m_isFullDetail);
 }
 
 void SATDialog::readPrefs()
 {
-	prefs = PrefsManager::instance()->prefsFile->getPluginContext("satemplate");
-	author = prefs->get("author", "");
-	email = prefs->get("email", "");
-	isFullDetail = prefs->getBool("isFullDetail", false);
-	detailClicked(isFullDetail ? Qt::Checked : Qt::Unchecked);
-	detailButton->setCheckState(isFullDetail ? Qt::Checked : Qt::Unchecked);
+	m_prefs = PrefsManager::instance()->prefsFile->getPluginContext("satemplate");
+	m_author = m_prefs->get("author", "");
+	m_email = m_prefs->get("email", "");
+	m_isFullDetail = m_prefs->getBool("isFullDetail", false);
+	detailClicked(m_isFullDetail ? Qt::Checked : Qt::Unchecked);
+	detailButton->setCheckState(m_isFullDetail ? Qt::Checked : Qt::Unchecked);
 }
 
 void SATDialog::writePrefs()
 {
-	prefs->set("author", authorEdit->text());
-	prefs->set("email", emailEdit->text());
-	prefs->set("isFullDetail", isFullDetail);
+	m_prefs->set("author", authorEdit->text());
+	m_prefs->set("email", emailEdit->text());
+	m_prefs->set("isFullDetail", m_isFullDetail);
 }
 
 QString SATDialog::findTemplateXml(QString dir)
