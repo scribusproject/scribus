@@ -45,7 +45,7 @@ void importemf_freePlugin(ScPlugin* plugin)
 	delete plug;
 }
 
-ImportEmfPlugin::ImportEmfPlugin() : LoadSavePlugin(), importAction(new ScrAction(ScrAction::DLL, "", QKeySequence(), this))
+ImportEmfPlugin::ImportEmfPlugin() : LoadSavePlugin(), m_importAction(new ScrAction(ScrAction::DLL, "", QKeySequence(), this))
 {
 	// Set action info in languageChange, so we only have to do it in one
 	// place. This includes registering file format support.
@@ -55,7 +55,7 @@ ImportEmfPlugin::ImportEmfPlugin() : LoadSavePlugin(), importAction(new ScrActio
 
 void ImportEmfPlugin::languageChange()
 {
-	importAction->setText( tr("Import Enhanced Metafile..."));
+	m_importAction->setText( tr("Import Enhanced Metafile..."));
 	FileFormat* fmt = getFormatByExt("emf");
 	fmt->trName = tr("Enhanced Metafile");
 	fmt->filter = tr("Enhanced Metafile (*.emf *.EMF)");
