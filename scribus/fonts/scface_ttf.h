@@ -37,8 +37,8 @@ public:
 	virtual bool isSymbolic() const;
 
 private:
-	mutable KernFeature * kernFeature;
-    mutable sfnt::PostTable checkPost;
+	mutable KernFeature * m_kernFeature;
+	mutable sfnt::PostTable m_checkPost;
 
 };
 
