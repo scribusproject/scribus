@@ -52,34 +52,34 @@ extern SCRIBUS_API ScribusQApp * ScQApp;
 
 CvgPlug::CvgPlug(ScribusDoc* doc, int flags)
 {
-	tmpSel=new Selection(this, false);
+	m_tmpSel=new Selection(this, false);
 	m_Doc=doc;
-	importerFlags = flags;
-	interactive = (flags & LoadSavePlugin::lfInteractive);
-	progressDialog = NULL;
+	m_importerFlags = flags;
+	m_interactive = (flags & LoadSavePlugin::lfInteractive);
+	m_progressDialog = NULL;
 }
 
 QImage CvgPlug::readThumbnail(QString fName)
 {
 	QFileInfo fi = QFileInfo(fName);
-	baseFile = QDir::cleanPath(QDir::toNativeSeparators(fi.absolutePath()+"/"));
+	m_baseFile = QDir::cleanPath(QDir::toNativeSeparators(fi.absolutePath()+"/"));
 	double b, h;
 	parseHeader(fName, b, h);
 	if (b == 0.0)
 		b = PrefsManager::instance()->appPrefs.docSetupPrefs.pageWidth;
 	if (h == 0.0)
 		h = PrefsManager::instance()->appPrefs.docSetupPrefs.pageHeight;
-	docWidth = b;
-	docHeight = h;
-	progressDialog = NULL;
+	m_docWidth = b;
+	m_docHeight = h;
+	m_progressDialog = NULL;
 	m_Doc = new ScribusDoc();
 	m_Doc->setup(0, 1, 1, 1, 1, "Custom", "Custom");
-	m_Doc->setPage(docWidth, docHeight, 0, 0, 0, 0, 0, 0, false, false);
+	m_Doc->setPage(m_docWidth, m_docHeight, 0, 0, 0, 0, 0, 0, false, false);
 	m_Doc->addPage(0);
 	m_Doc->setGUI(false, ScCore->primaryMainWindow(), 0);
-	baseX = m_Doc->currentPage()->xOffset();
-	baseY = m_Doc->currentPage()->yOffset();
-	Elements.clear();
+	m_baseX = m_Doc->currentPage()->xOffset();
+	m_baseY = m_Doc->currentPage()->yOffset();
+	m_Elements.clear();
 	m_Doc->setLoading(true);
 	m_Doc->DoDrawing = false;
 	m_Doc->scMW()->setScriptRunning(true);
@@ -87,23 +87,23 @@ QImage CvgPlug::readThumbnail(QString fName)
 	QDir::setCurrent(fi.path());
 	if (convert(fName))
 	{
-		tmpSel->clear();
+		m_tmpSel->clear();
 		QDir::setCurrent(CurDirP);
-		if (Elements.count() > 1)
-			m_Doc->groupObjectsList(Elements);
+		if (m_Elements.count() > 1)
+			m_Doc->groupObjectsList(m_Elements);
 		m_Doc->DoDrawing = true;
 		m_Doc->m_Selection->delaySignalsOn();
 		QImage tmpImage;
-		if (Elements.count() > 0)
+		if (m_Elements.count() > 0)
 		{
-			for (int dre=0; dre<Elements.count(); ++dre)
+			for (int dre=0; dre<m_Elements.count(); ++dre)
 			{
-				tmpSel->addItem(Elements.at(dre), true);
+				m_tmpSel->addItem(m_Elements.at(dre), true);
 			}
-			tmpSel->setGroupRect();
-			double xs = tmpSel->width();
-			double ys = tmpSel->height();
-			tmpImage = Elements.at(0)->DrawObj_toImage(500);
+			m_tmpSel->setGroupRect();
+			double xs = m_tmpSel->width();
+			double ys = m_tmpSel->height();
+			tmpImage = m_Elements.at(0)->DrawObj_toImage(500);
 			tmpImage.setText("XSize", QString("%1").arg(xs));
 			tmpImage.setText("YSize", QString("%1").arg(ys));
 		}
@@ -127,44 +127,44 @@ bool CvgPlug::import(QString fNameIn, const TransactionSettings& trSettings, int
 {
 	QString fName = fNameIn;
 	bool success = false;
-	interactive = (flags & LoadSavePlugin::lfInteractive);
-	importerFlags = flags;
-	cancel = false;
+	m_interactive = (flags & LoadSavePlugin::lfInteractive);
+	m_importerFlags = flags;
+	m_cancel = false;
 	double b, h;
 	bool ret = false;
-	CustColors.clear();
+	m_CustColors.clear();
 	QFileInfo fi = QFileInfo(fName);
 	if ( !ScCore->usingGUI() )
 	{
-		interactive = false;
+		m_interactive = false;
 		showProgress = false;
 	}
-	baseFile = QDir::cleanPath(QDir::toNativeSeparators(fi.absolutePath()+"/"));
+	m_baseFile = QDir::cleanPath(QDir::toNativeSeparators(fi.absolutePath()+"/"));
 	if ( showProgress )
 	{
 		ScribusMainWindow* mw=(m_Doc==0) ? ScCore->primaryMainWindow() : m_Doc->scMW();
-		progressDialog = new MultiProgressDialog( tr("Importing: %1").arg(fi.fileName()), CommonStrings::tr_Cancel, mw );
+		m_progressDialog = new MultiProgressDialog( tr("Importing: %1").arg(fi.fileName()), CommonStrings::tr_Cancel, mw );
 		QStringList barNames, barTexts;
 		barNames << "GI";
 		barTexts << tr("Analyzing File:");
 		QList<bool> barsNumeric;
 		barsNumeric << false;
-		progressDialog->addExtraProgressBars(barNames, barTexts, barsNumeric);
-		progressDialog->setOverallTotalSteps(3);
-		progressDialog->setOverallProgress(0);
-		progressDialog->setProgress("GI", 0);
-		progressDialog->show();
-		connect(progressDialog, SIGNAL(canceled()), this, SLOT(cancelRequested()));
+		m_progressDialog->addExtraProgressBars(barNames, barTexts, barsNumeric);
+		m_progressDialog->setOverallTotalSteps(3);
+		m_progressDialog->setOverallProgress(0);
+		m_progressDialog->setProgress("GI", 0);
+		m_progressDialog->show();
+		connect(m_progressDialog, SIGNAL(canceled()), this, SLOT(cancelRequested()));
 		qApp->processEvents();
 	}
 	else
-		progressDialog = NULL;
+		m_progressDialog = NULL;
 /* Set default Page to size defined in Preferences */
 	b = 0.0;
 	h = 0.0;
-	if (progressDialog)
+	if (m_progressDialog)
 	{
-		progressDialog->setOverallProgress(1);
+		m_progressDialog->setOverallProgress(1);
 		qApp->processEvents();
 	}
 	parseHeader(fName, b, h);
@@ -172,39 +172,39 @@ bool CvgPlug::import(QString fNameIn, const TransactionSettings& trSettings, int
 		b = PrefsManager::instance()->appPrefs.docSetupPrefs.pageWidth;
 	if (h == 0.0)
 		h = PrefsManager::instance()->appPrefs.docSetupPrefs.pageHeight;
-	docWidth = b;
-	docHeight = h;
-	baseX = 0;
-	baseY = 0;
-	if (!interactive || (flags & LoadSavePlugin::lfInsertPage))
+	m_docWidth = b;
+	m_docHeight = h;
+	m_baseX = 0;
+	m_baseY = 0;
+	if (!m_interactive || (flags & LoadSavePlugin::lfInsertPage))
 	{
-		m_Doc->setPage(docWidth, docHeight, 0, 0, 0, 0, 0, 0, false, false);
+		m_Doc->setPage(m_docWidth, m_docHeight, 0, 0, 0, 0, 0, 0, false, false);
 		m_Doc->addPage(0);
 		m_Doc->view()->addPage(0, true);
-		baseX = 0;
-		baseY = 0;
+		m_baseX = 0;
+		m_baseY = 0;
 	}
 	else
 	{
 		if (!m_Doc || (flags & LoadSavePlugin::lfCreateDoc))
 		{
-			m_Doc=ScCore->primaryMainWindow()->doFileNew(docWidth, docHeight, 0, 0, 0, 0, 0, 0, false, false, 0, false, 0, 1, "Custom", true);
+			m_Doc=ScCore->primaryMainWindow()->doFileNew(m_docWidth, m_docHeight, 0, 0, 0, 0, 0, 0, false, false, 0, false, 0, 1, "Custom", true);
 			ScCore->primaryMainWindow()->HaveNewDoc();
 			ret = true;
-			baseX = 0;
-			baseY = 0;
-			baseX = m_Doc->currentPage()->xOffset();
-			baseY = m_Doc->currentPage()->yOffset();
+			m_baseX = 0;
+			m_baseY = 0;
+			m_baseX = m_Doc->currentPage()->xOffset();
+			m_baseY = m_Doc->currentPage()->yOffset();
 		}
 	}
-	if ((!ret) && (interactive))
+	if ((!ret) && (m_interactive))
 	{
-		baseX = m_Doc->currentPage()->xOffset();
-		baseY = m_Doc->currentPage()->yOffset();
+		m_baseX = m_Doc->currentPage()->xOffset();
+		m_baseY = m_Doc->currentPage()->yOffset();
 	}
-	if ((ret) || (!interactive))
+	if ((ret) || (!m_interactive))
 	{
-		if (docWidth > docHeight)
+		if (m_docWidth > m_docHeight)
 			m_Doc->setPageOrientation(1);
 		else
 			m_Doc->setPageOrientation(0);
@@ -212,7 +212,7 @@ bool CvgPlug::import(QString fNameIn, const TransactionSettings& trSettings, int
 	}
 	if ((!(flags & LoadSavePlugin::lfLoadAsPattern)) && (m_Doc->view() != NULL))
 		m_Doc->view()->Deselect();
-	Elements.clear();
+	m_Elements.clear();
 	m_Doc->setLoading(true);
 	m_Doc->DoDrawing = false;
 	if ((!(flags & LoadSavePlugin::lfLoadAsPattern)) && (m_Doc->view() != NULL))
@@ -223,15 +223,15 @@ bool CvgPlug::import(QString fNameIn, const TransactionSettings& trSettings, int
 	QDir::setCurrent(fi.path());
 	if (convert(fName))
 	{
-		tmpSel->clear();
+		m_tmpSel->clear();
 		QDir::setCurrent(CurDirP);
-		if ((Elements.count() > 1) && (!(importerFlags & LoadSavePlugin::lfCreateDoc)))
-			m_Doc->groupObjectsList(Elements);
+		if ((m_Elements.count() > 1) && (!(m_importerFlags & LoadSavePlugin::lfCreateDoc)))
+			m_Doc->groupObjectsList(m_Elements);
 		m_Doc->DoDrawing = true;
 		m_Doc->scMW()->setScriptRunning(false);
 		m_Doc->setLoading(false);
 		qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
-		if ((Elements.count() > 0) && (!ret) && (interactive))
+		if ((m_Elements.count() > 0) && (!ret) && (m_interactive))
 		{
 			if (flags & LoadSavePlugin::lfScripted)
 			{
@@ -242,9 +242,9 @@ bool CvgPlug::import(QString fNameIn, const TransactionSettings& trSettings, int
 				if (!(flags & LoadSavePlugin::lfLoadAsPattern))
 				{
 					m_Doc->m_Selection->delaySignalsOn();
-					for (int dre=0; dre<Elements.count(); ++dre)
+					for (int dre=0; dre<m_Elements.count(); ++dre)
 					{
-						m_Doc->m_Selection->addItem(Elements.at(dre), true);
+						m_Doc->m_Selection->addItem(m_Elements.at(dre), true);
 					}
 					m_Doc->m_Selection->delaySignalsOff();
 					m_Doc->m_Selection->setGroupRect();
@@ -258,13 +258,13 @@ bool CvgPlug::import(QString fNameIn, const TransactionSettings& trSettings, int
 				m_Doc->DraggedElem = 0;
 				m_Doc->DragElements.clear();
 				m_Doc->m_Selection->delaySignalsOn();
-				for (int dre=0; dre<Elements.count(); ++dre)
+				for (int dre=0; dre<m_Elements.count(); ++dre)
 				{
-					tmpSel->addItem(Elements.at(dre), true);
+					m_tmpSel->addItem(m_Elements.at(dre), true);
 				}
-				tmpSel->setGroupRect();
-				ScElemMimeData* md = ScriXmlDoc::WriteToMimeData(m_Doc, tmpSel);
-				m_Doc->itemSelection_DeleteItem(tmpSel);
+				m_tmpSel->setGroupRect();
+				ScElemMimeData* md = ScriXmlDoc::WriteToMimeData(m_Doc, m_tmpSel);
+				m_Doc->itemSelection_DeleteItem(m_tmpSel);
 				m_Doc->view()->updatesOn(true);
 				m_Doc->m_Selection->delaySignalsOff();
 				// We must copy the TransationSettings object as it is owned
@@ -294,12 +294,12 @@ bool CvgPlug::import(QString fNameIn, const TransactionSettings& trSettings, int
 			m_Doc->view()->updatesOn(true);
 		qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 	}
-	if (interactive)
+	if (m_interactive)
 		m_Doc->setLoading(false);
 	//CB If we have a gui we must refresh it if we have used the progressbar
 	if (!(flags & LoadSavePlugin::lfLoadAsPattern))
 	{
-		if ((showProgress) && (!interactive))
+		if ((showProgress) && (!m_interactive))
 			m_Doc->view()->DrawNew();
 	}
 	qApp->restoreOverrideCursor();
@@ -308,9 +308,9 @@ bool CvgPlug::import(QString fNameIn, const TransactionSettings& trSettings, int
 
 CvgPlug::~CvgPlug()
 {
-	if (progressDialog)
-		delete progressDialog;
-	delete tmpSel;
+	if (m_progressDialog)
+		delete m_progressDialog;
+	delete m_tmpSel;
 }
 
 void CvgPlug::parseHeader(QString fName, double &b, double &h)
@@ -324,9 +324,9 @@ void CvgPlug::parseHeader(QString fName, double &b, double &h)
 		ts >> pgY >> pgW >> pgH;
 		b = pgW / 72.0;
 		h = pgH / 72.0;
-		scPg = h / b;
+		m_scPg = h / b;
 		b = pgY / 72.0;
-		h = pgY / 72.0 * scPg;
+		h = pgY / 72.0 * m_scPg;
 		f.close();
 	}
 }
@@ -334,30 +334,30 @@ void CvgPlug::parseHeader(QString fName, double &b, double &h)
 bool CvgPlug::convert(QString fn)
 {
 	QString tmp;
-	CurrColorFill = "Black";
-	CurrFillShade = 100.0;
-	CurrColorStroke = "Black";
-	CurrStrokeShade = 100.0;
-	Coords.resize(0);
-	Coords.svgInit();
-	importedColors.clear();
+	m_CurrColorFill = "Black";
+	m_CurrFillShade = 100.0;
+	m_CurrColorStroke = "Black";
+	m_CurrStrokeShade = 100.0;
+	m_Coords.resize(0);
+	m_Coords.svgInit();
+	m_importedColors.clear();
 	QList<PageItem*> gElements;
-	groupStack.push(gElements);
-	currentItemNr = 0;
-	if(progressDialog)
+	m_groupStack.push(gElements);
+	m_currentItemNr = 0;
+	if(m_progressDialog)
 	{
-		progressDialog->setOverallProgress(2);
-		progressDialog->setLabel("GI", tr("Generating Items"));
+		m_progressDialog->setOverallProgress(2);
+		m_progressDialog->setLabel("GI", tr("Generating Items"));
 		qApp->processEvents();
 	}
 	QFile f(fn);
 	if (f.open(QIODevice::ReadOnly))
 	{
-		oldDocItemCount = m_Doc->Items->count();
+		m_oldDocItemCount = m_Doc->Items->count();
 		int fSize = (int) f.size();
-		if (progressDialog)
+		if (m_progressDialog)
 		{
-			progressDialog->setTotalSteps("GI", fSize);
+			m_progressDialog->setTotalSteps("GI", fSize);
 			qApp->processEvents();
 		}
 		QDataStream ts(&f);
@@ -383,26 +383,26 @@ bool CvgPlug::convert(QString fn)
 				getObjects(ts, colorFlag, lenData - 26);
 			}
 			ts.device()->seek(currentFilePos + lenData - 6);
-			if (progressDialog)
+			if (m_progressDialog)
 			{
-				progressDialog->setProgress("GI", ts.device()->pos());
+				m_progressDialog->setProgress("GI", ts.device()->pos());
 				qApp->processEvents();
 			}
 		}
-		if (Elements.count() == 0)
+		if (m_Elements.count() == 0)
 		{
-			if (importedColors.count() != 0)
+			if (m_importedColors.count() != 0)
 			{
-				for (int cd = 0; cd < importedColors.count(); cd++)
+				for (int cd = 0; cd < m_importedColors.count(); cd++)
 				{
-					m_Doc->PageColors.remove(importedColors[cd]);
+					m_Doc->PageColors.remove(m_importedColors[cd]);
 				}
 			}
 		}
 		f.close();
 	}
-	if (progressDialog)
-		progressDialog->close();
+	if (m_progressDialog)
+		m_progressDialog->close();
 	return true;
 }
 
@@ -413,8 +413,8 @@ void CvgPlug::getObjects(QDataStream &ts, bool color, quint32 lenData)
 	quint32 colorFill, colorLine;
 	int z;
 	PageItem *ite;
-	Coords.resize(0);
-	Coords.svgInit();
+	m_Coords.resize(0);
+	m_Coords.svgInit();
 	ts >> obX >> obY >> obW >> obH;
 	ts >> colorFill >> colorLine;
 	ts >> fillFlag >> lineWidth;
@@ -431,34 +431,34 @@ void CvgPlug::getObjects(QDataStream &ts, bool color, quint32 lenData)
 		{
 			ts >> x1 >> y1;
 			counter += 4;
-			Coords.svgMoveTo(x1 / 72.0 * scX, y1 / 72.0 * scY * scPg);
+			m_Coords.svgMoveTo(x1 / 72.0 * scX, y1 / 72.0 * scY * m_scPg);
 		}
 		else if (opCode == 0x0001)	// lineTo
 		{
 			ts >> x1 >> y1;
 			counter += 4;
-			Coords.svgLineTo(x1 / 72.0 * scX, y1 / 72.0 * scY * scPg);
+			m_Coords.svgLineTo(x1 / 72.0 * scX, y1 / 72.0 * scY * m_scPg);
 		}
 		else if (opCode == 0x0002)	// curveTo
 		{
 			ts >> cx1 >> cy1 >> cx2 >> cy2 >> x1 >> y1;
 			counter += 12;
-			Coords.svgCurveToCubic(cx1 / 72.0 * scX, cy1 / 72.0 * scY * scPg, cx2 / 72.0 * scX, cy2 / 72.0 * scY * scPg, x1 / 72.0 * scX, y1 / 72.0 * scY * scPg);
+			m_Coords.svgCurveToCubic(cx1 / 72.0 * scX, cy1 / 72.0 * scY * m_scPg, cx2 / 72.0 * scX, cy2 / 72.0 * scY * m_scPg, x1 / 72.0 * scX, y1 / 72.0 * scY * m_scPg);
 		}
 		else if (opCode == 0x000f)
 			break;
 	}
-	if (Coords.size() > 0)
+	if (m_Coords.size() > 0)
 	{
-		Coords.svgClosePath();
-		z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX + obX / 72.0, baseY + obY / 72.0 * scPg, 10, 10, lineWidth / 72.0, CurrColorFill, CurrColorStroke, true);
+		m_Coords.svgClosePath();
+		z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, m_baseX + obX / 72.0, m_baseY + obY / 72.0 * m_scPg, 10, 10, lineWidth / 72.0, m_CurrColorFill, m_CurrColorStroke, true);
 		ite = m_Doc->Items->at(z);
-		ite->PoLine = Coords.copy();
+		ite->PoLine = m_Coords.copy();
 		ite->PoLine.translate(m_Doc->currentPage()->xOffset(), m_Doc->currentPage()->yOffset());
 		ite->ClipEdited = true;
 		ite->FrameType = 3;
-		ite->setFillShade(CurrFillShade);
-		ite->setLineShade(CurrStrokeShade);
+		ite->setFillShade(m_CurrFillShade);
+		ite->setLineShade(m_CurrStrokeShade);
 		FPoint wh = getMaxClipF(&ite->PoLine);
 		ite->setWidthHeight(wh.x(),wh.y());
 		ite->setTextFlowMode(PageItem::TextFlowDisabled);
@@ -466,19 +466,19 @@ void CvgPlug::getObjects(QDataStream &ts, bool color, quint32 lenData)
 		ite->OldB2 = ite->width();
 		ite->OldH2 = ite->height();
 		ite->updateClip();
-		Elements.append(ite);
-		if (groupStack.count() != 0)
-			groupStack.top().append(ite);
+		m_Elements.append(ite);
+		if (m_groupStack.count() != 0)
+			m_groupStack.top().append(ite);
 	}
 }
 
 void CvgPlug::parseColor(quint32 dataF, quint32 dataS, bool color, quint16 flag)
 {
 	ScColor tmp;
-	CurrColorFill = CommonStrings::None;
-	CurrFillShade = 100.0;
-	CurrColorStroke = CommonStrings::None;
-	CurrStrokeShade = 100.0;
+	m_CurrColorFill = CommonStrings::None;
+	m_CurrFillShade = 100.0;
+	m_CurrColorStroke = CommonStrings::None;
+	m_CurrStrokeShade = 100.0;
 	QColor c;
 	if (color)
 	{
@@ -491,8 +491,8 @@ void CvgPlug::parseColor(quint32 dataF, quint32 dataS, bool color, quint16 flag)
 			QString newColorName = "FromCVG"+c.name();
 			QString fNam = m_Doc->PageColors.tryAddColor(newColorName, tmp);
 			if (fNam == newColorName)
-				importedColors.append(fNam);
-			CurrColorFill = fNam;
+				m_importedColors.append(fNam);
+			m_CurrColorFill = fNam;
 		}
 		if ((flag == 0x0080) || (flag == 0x0100))
 		{
@@ -503,32 +503,32 @@ void CvgPlug::parseColor(quint32 dataF, quint32 dataS, bool color, quint16 flag)
 			QString newColorName = "FromCVG"+c.name();
 			QString fNam = m_Doc->PageColors.tryAddColor(newColorName, tmp);
 			if (fNam == newColorName)
-				importedColors.append(fNam);
-			CurrColorStroke = fNam;
+				m_importedColors.append(fNam);
+			m_CurrColorStroke = fNam;
 		}
 	}
 	else
 	{
 		if (flag == 0x0080)
 		{
-			CurrColorFill = "Black";
-			CurrFillShade = dataF & 0x000000FF;
-			CurrColorStroke = "Black";
-			CurrStrokeShade = dataS & 0x000000FF;
+			m_CurrColorFill = "Black";
+			m_CurrFillShade = dataF & 0x000000FF;
+			m_CurrColorStroke = "Black";
+			m_CurrStrokeShade = dataS & 0x000000FF;
 		}
 		else if (flag == 0x0100)
 		{
-			CurrColorFill = CommonStrings::None;
-			CurrFillShade = dataF & 0x000000FF;
-			CurrColorStroke = "Black";
-			CurrStrokeShade = dataS & 0x000000FF;
+			m_CurrColorFill = CommonStrings::None;
+			m_CurrFillShade = dataF & 0x000000FF;
+			m_CurrColorStroke = "Black";
+			m_CurrStrokeShade = dataS & 0x000000FF;
 		}
 		else
 		{
-			CurrColorFill = "Black";
-			CurrFillShade = dataF & 0x000000FF;
-			CurrColorStroke = CommonStrings::None;
-			CurrStrokeShade = dataS & 0x000000FF;
+			m_CurrColorFill = "Black";
+			m_CurrFillShade = dataF & 0x000000FF;
+			m_CurrColorStroke = CommonStrings::None;
+			m_CurrStrokeShade = dataS & 0x000000FF;
 		}
 	}
 }

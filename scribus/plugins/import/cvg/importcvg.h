@@ -60,34 +60,34 @@ private:
 	void getObjects(QDataStream &ts, bool colorFlag, quint32 lenData);
 	void parseColor(quint32 dataF, quint32 dataS, bool color, quint16 flag);
 	
-	QList<PageItem*> Elements;
-	int currentItemNr;
-	QStack<QList<PageItem*> > groupStack;
-	ColorList CustColors;
-	double baseX, baseY;
-	double docWidth;
-	double docHeight;
-	qreal scPg;
+	QList<PageItem*> m_Elements;
+	int m_currentItemNr;
+	QStack<QList<PageItem*> > m_groupStack;
+	ColorList m_CustColors;
+	double m_baseX, m_baseY;
+	double m_docWidth;
+	double m_docHeight;
+	qreal m_scPg;
 
-	double LineW;
-	QString CurrColorFill;
-	QString CurrColorStroke;
-	double CurrStrokeShade;
-	double CurrFillShade;
-	QStringList importedColors;
+	double m_LineW;
+	QString m_CurrColorFill;
+	QString m_CurrColorStroke;
+	double m_CurrStrokeShade;
+	double m_CurrFillShade;
+	QStringList m_importedColors;
 
-	FPointArray Coords;
-	bool interactive;
-	MultiProgressDialog * progressDialog;
-	bool cancel;
+	FPointArray m_Coords;
+	bool m_interactive;
+	MultiProgressDialog * m_progressDialog;
+	bool m_cancel;
 	ScribusDoc* m_Doc;
-	Selection* tmpSel;
-	int importerFlags;
-	int oldDocItemCount;
-	QString baseFile;
+	Selection* m_tmpSel;
+	int m_importerFlags;
+	int m_oldDocItemCount;
+	QString m_baseFile;
 
 public slots:
-	void cancelRequested() { cancel = true; }
+	void cancelRequested() { m_cancel = true; }
 };
 
 #endif
