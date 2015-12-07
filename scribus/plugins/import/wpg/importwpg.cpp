@@ -60,27 +60,27 @@ ScrPainter::ScrPainter(): libwpg::WPGPaintInterface()
 
 void ScrPainter::startGraphics(double width, double height)
 {
-	CurrColorFill = "Black";
-	CurrFillShade = 100.0;
-	CurrColorStroke = "Black";
-	CurrStrokeShade = 100.0;
-	CurrStrokeTrans = 0.0;
-	CurrFillTrans = 0.0;
-	Coords.resize(0);
-	Coords.svgInit();
-	LineW = 1.0;
-	lineJoin = Qt::MiterJoin;
-	lineEnd = Qt::FlatCap;
-	fillrule = true;
-	gradientAngle = 0.0;
-	isGradient = false;
-	fillSet = false;
-	strokeSet = false;
-	currentGradient = VGradient(VGradient::linear);
-	currentGradient.clearStops();
-	currentGradient.setRepeatMethod( VGradient::none );
-	dashArray.clear();
-	if (flags & LoadSavePlugin::lfCreateDoc)
+	m_CurrColorFill = "Black";
+	m_CurrFillShade = 100.0;
+	m_CurrColorStroke = "Black";
+	m_CurrStrokeShade = 100.0;
+	m_CurrStrokeTrans = 0.0;
+	m_CurrFillTrans = 0.0;
+	m_Coords.resize(0);
+	m_Coords.svgInit();
+	m_LineW = 1.0;
+	m_lineJoin = Qt::MiterJoin;
+	m_lineEnd = Qt::FlatCap;
+	m_fillrule = true;
+	m_gradientAngle = 0.0;
+	m_isGradient = false;
+	m_fillSet = false;
+	m_strokeSet = false;
+	m_currentGradient = VGradient(VGradient::linear);
+	m_currentGradient.clearStops();
+	m_currentGradient.setRepeatMethod( VGradient::none );
+	m_dashArray.clear();
+	if (m_flags & LoadSavePlugin::lfCreateDoc)
 	{
 		m_Doc->setPage(72 * width, 72 * height, 0, 0, 0, 0, 0, 0, false, false);
 		if (width > height)
@@ -90,7 +90,7 @@ void ScrPainter::startGraphics(double width, double height)
 		m_Doc->setPageSize("Custom");
 		m_Doc->changePageProperties(0, 0, 0, 0, 72 * height, 72 * width, 72 * height, 72 * width, m_Doc->pageOrientation(), m_Doc->pageSize(), m_Doc->currentPage()->pageNr(), 0);
 	}
-	firstLayer = true;
+	m_firstLayer = true;
 }
 
 void ScrPainter::endGraphics()
@@ -99,11 +99,11 @@ void ScrPainter::endGraphics()
 
 void ScrPainter::startLayer(unsigned int id)
 {
-	if (flags & LoadSavePlugin::lfCreateDoc)
+	if (m_flags & LoadSavePlugin::lfCreateDoc)
 	{
-		if (!firstLayer)
+		if (!m_firstLayer)
 			m_Doc->addLayer(QString("Layer %1").arg(id), true);
-		firstLayer = false;
+		m_firstLayer = false;
 	}
 }
 
@@ -113,11 +113,11 @@ void ScrPainter::endLayer(unsigned int id)
 
 void ScrPainter::setPen(const libwpg::WPGPen& pen)
 {
-	LineW = 72 * pen.width;
+	m_LineW = 72 * pen.width;
 	ScColor tmp;
 	ColorList::Iterator it;
-	CurrColorStroke = "Black";
-	CurrStrokeShade = 100.0;
+	m_CurrColorStroke = "Black";
+	m_CurrStrokeShade = 100.0;
 	int Rc, Gc, Bc;
 	Rc = pen.foreColor.red;
 	Gc = pen.foreColor.green;
@@ -128,56 +128,56 @@ void ScrPainter::setPen(const libwpg::WPGPen& pen)
 	QString newColorName = "FromWPG"+tmp.name();
 	QString fNam = m_Doc->PageColors.tryAddColor(newColorName, tmp);
 	if (fNam == newColorName)
-		importedColors.append(newColorName);
-	CurrColorStroke = fNam;
-	CurrStrokeTrans = pen.foreColor.alpha / 255.0;
+		m_importedColors.append(newColorName);
+	m_CurrColorStroke = fNam;
+	m_CurrStrokeTrans = pen.foreColor.alpha / 255.0;
 	if(!pen.solid)
 	{
-		dashArray.clear();
+		m_dashArray.clear();
 		for(unsigned i = 0; i < pen.dashArray.count(); i++)
 		{
-			dashArray.append(pen.dashArray.at(i)*LineW);
+			m_dashArray.append(pen.dashArray.at(i)*m_LineW);
 		}
 	}
 	switch (pen.joinstyle)
 	{
 		case 1:
-			lineJoin = Qt::BevelJoin;
+			m_lineJoin = Qt::BevelJoin;
 			break;
 		case 2:
-			lineJoin = Qt::MiterJoin;
+			m_lineJoin = Qt::MiterJoin;
 			break;
 		case 3:
-			lineJoin = Qt::RoundJoin;
+			m_lineJoin = Qt::RoundJoin;
 			break;
 		default:
-			lineJoin = Qt::MiterJoin;
+			m_lineJoin = Qt::MiterJoin;
 			break;
 	}
 	switch (pen.capstyle)
 	{
 		case 0:
-			lineEnd = Qt::FlatCap;
+			m_lineEnd = Qt::FlatCap;
 			break;
 		case 1:
-			lineEnd = Qt::RoundCap;
+			m_lineEnd = Qt::RoundCap;
 			break;
 		case 2:
-			lineEnd = Qt::SquareCap;
+			m_lineEnd = Qt::SquareCap;
 			break;
 		default:
-			lineEnd = Qt::FlatCap;
+			m_lineEnd = Qt::FlatCap;
 			break;
 	}
-	strokeSet = true;
+	m_strokeSet = true;
 }
 
 void ScrPainter::setBrush(const libwpg::WPGBrush& brush)
 {
 	ScColor tmp;
 	ColorList::Iterator it;
-	CurrColorFill = "Black";
-	CurrFillShade = 100.0;
+	m_CurrColorFill = "Black";
+	m_CurrFillShade = 100.0;
 	int Rc, Gc, Bc;
 	if(brush.style == libwpg::WPGBrush::Solid)
 	{
@@ -190,16 +190,16 @@ void ScrPainter::setBrush(const libwpg::WPGBrush& brush)
 		QString newColorName = "FromWPG"+tmp.name();
 		QString fNam = m_Doc->PageColors.tryAddColor(newColorName, tmp);
 		if (fNam == newColorName)
-			importedColors.append(newColorName);
-		CurrColorFill = fNam;
-		CurrFillTrans = brush.foreColor.alpha / 255.0;
+			m_importedColors.append(newColorName);
+		m_CurrColorFill = fNam;
+		m_CurrFillTrans = brush.foreColor.alpha / 255.0;
 	}
 	else if (brush.style == libwpg::WPGBrush::Gradient)
 	{
-		gradientAngle = brush.gradient.angle();
-		isGradient = true;
-		currentGradient = VGradient(VGradient::linear);
-		currentGradient.clearStops();
+		m_gradientAngle = brush.gradient.angle();
+		m_isGradient = true;
+		m_currentGradient = VGradient(VGradient::linear);
+		m_currentGradient.clearStops();
 		for(unsigned c = 0; c < brush.gradient.count(); c++)
 		{
 			QString currStopColor = CommonStrings::None;
@@ -212,30 +212,30 @@ void ScrPainter::setBrush(const libwpg::WPGBrush& brush)
 			QString newColorName = "FromWPG"+tmp.name();
 			QString fNam = m_Doc->PageColors.tryAddColor(newColorName, tmp);
 			if (fNam == newColorName)
-				importedColors.append(newColorName);
+				m_importedColors.append(newColorName);
 			currStopColor = fNam;
 			const ScColor& gradC = m_Doc->PageColors[currStopColor];
 			double pos = qBound(0.0, fabs(brush.gradient.stopOffset(c)), 1.0);
-			currentGradient.addStop( ScColorEngine::getRGBColor(gradC, m_Doc), pos, 0.5, 1.0, currStopColor, 100 );
+			m_currentGradient.addStop( ScColorEngine::getRGBColor(gradC, m_Doc), pos, 0.5, 1.0, currStopColor, 100 );
 		}
 	}
 	else if (brush.style == libwpg::WPGBrush::NoBrush)
-		CurrColorFill = CommonStrings::None;
-	fillSet = true;
+		m_CurrColorFill = CommonStrings::None;
+	m_fillSet = true;
 }
 
 void ScrPainter::setFillRule(FillRule rule)
 {
 	if(rule == libwpg::WPGPaintInterface::WindingFill)
-		fillrule = false;
+		m_fillrule = false;
 	else
-		fillrule = true;
+		m_fillrule = true;
 //	qDebug() << "Fill Rule " << fillrule;
 }
 
 void ScrPainter::drawRectangle(const libwpg::WPGRect& rect, double rx, double ry)
 {
-	int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, baseX, baseY, rect.width() * 72.0, rect.height() * 72.0, LineW, CurrColorFill, CurrColorStroke, true);
+	int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, m_baseX, m_baseY, rect.width() * 72.0, rect.height() * 72.0, m_LineW, m_CurrColorFill, m_CurrColorStroke, true);
 	PageItem *ite = m_Doc->Items->at(z);
 	if ((rx > 0) && (ry > 0))
 	{
@@ -253,7 +253,7 @@ void ScrPainter::drawRectangle(const libwpg::WPGRect& rect, double rx, double ry
 
 void ScrPainter::drawEllipse(const libwpg::WPGPoint& center, double rx, double ry)
 {
-	int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Ellipse, baseX, baseY, rx * 144.0, ry * 144.0, LineW, CurrColorFill, CurrColorStroke, true);
+	int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Ellipse, m_baseX, m_baseY, rx * 144.0, ry * 144.0, m_LineW, m_CurrColorFill, m_CurrColorStroke, true);
 	PageItem *ite = m_Doc->Items->at(z);
 	QTransform mm = QTransform();
 	mm.translate(72*(center.x - rx), 72*(center.y - ry));
@@ -267,25 +267,25 @@ void ScrPainter::drawPolygon(const libwpg::WPGPointArray& vertices, bool closed)
 {
 	if(vertices.count() < 2)
 		return;
-	Coords.resize(0);
-	Coords.svgInit();
+	m_Coords.resize(0);
+	m_Coords.svgInit();
 	PageItem *ite;
-	Coords.svgMoveTo(72 * vertices[0].x, 72 * vertices[0].y);
+	m_Coords.svgMoveTo(72 * vertices[0].x, 72 * vertices[0].y);
 	for(unsigned i = 1; i < vertices.count(); i++)
 	{
-		Coords.svgLineTo(72 * vertices[i].x, 72 * vertices[i].y);
+		m_Coords.svgLineTo(72 * vertices[i].x, 72 * vertices[i].y);
 	}
 	if (closed)
-		Coords.svgClosePath();
-	if (Coords.size() > 0)
+		m_Coords.svgClosePath();
+	if (m_Coords.size() > 0)
 	{
 		int z;
 		if (closed)
-			z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, LineW, CurrColorFill, CurrColorStroke, true);
+			z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, m_baseX, m_baseY, 10, 10, m_LineW, m_CurrColorFill, m_CurrColorStroke, true);
 		else
-			z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX, baseY, 10, 10, LineW, CommonStrings::None, CurrColorStroke, true);
+			z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, m_baseX, m_baseY, 10, 10, m_LineW, CommonStrings::None, m_CurrColorStroke, true);
 		ite = m_Doc->Items->at(z);
-		ite->PoLine = Coords.copy();
+		ite->PoLine = m_Coords.copy();
 		ite->PoLine.translate(m_Doc->currentPage()->xOffset(), m_Doc->currentPage()->yOffset());
 		finishItem(ite);
 	}
@@ -294,8 +294,8 @@ void ScrPainter::drawPolygon(const libwpg::WPGPointArray& vertices, bool closed)
 
 void ScrPainter::drawPath(const libwpg::WPGPath& path)
 {
-	Coords.resize(0);
-	Coords.svgInit();
+	m_Coords.resize(0);
+	m_Coords.svgInit();
 	PageItem *ite;
 	for(unsigned i = 0; i < path.count(); i++)
 	{
@@ -304,40 +304,40 @@ void ScrPainter::drawPath(const libwpg::WPGPath& path)
 		switch(element.type)
 		{
 			case libwpg::WPGPathElement::MoveToElement:
-				Coords.svgMoveTo(72 * point.x, 72 * point.y);
+				m_Coords.svgMoveTo(72 * point.x, 72 * point.y);
 				break;
 			case libwpg::WPGPathElement::LineToElement:
-				Coords.svgLineTo(72 * point.x, 72 * point.y);
+				m_Coords.svgLineTo(72 * point.x, 72 * point.y);
 				break;
 			case libwpg::WPGPathElement::CurveToElement:
-				Coords.svgCurveToCubic(72*element.extra1.x, 72*element.extra1.y, 72*element.extra2.x, 72*element.extra2.y, 72 * point.x, 72 * point.y);
+				m_Coords.svgCurveToCubic(72*element.extra1.x, 72*element.extra1.y, 72*element.extra2.x, 72*element.extra2.y, 72 * point.x, 72 * point.y);
 				break;
 			default:
 				break;
 		}
 	}
-	if (Coords.size() > 0)
+	if (m_Coords.size() > 0)
 	{
 		int z;
-		if (fillSet)
+		if (m_fillSet)
 		{
 			if (!path.filled)
-				CurrColorFill = CommonStrings::None;
+				m_CurrColorFill = CommonStrings::None;
 		}
-		if (strokeSet)
+		if (m_strokeSet)
 		{
 			if (!path.framed)
-				CurrColorStroke = CommonStrings::None;
+				m_CurrColorStroke = CommonStrings::None;
 		}
 		if(path.closed)
 		{
-			Coords.svgClosePath();
-			z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, LineW, CurrColorFill, CurrColorStroke, true);
+			m_Coords.svgClosePath();
+			z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, m_baseX, m_baseY, 10, 10, m_LineW, m_CurrColorFill, m_CurrColorStroke, true);
 		}
 		else
-			z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX, baseY, 10, 10, LineW, CurrColorFill, CurrColorStroke, true);
+			z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, m_baseX, m_baseY, 10, 10, m_LineW, m_CurrColorFill, m_CurrColorStroke, true);
 		ite = m_Doc->Items->at(z);
-		ite->PoLine = Coords.copy();
+		ite->PoLine = m_Coords.copy();
 		ite->PoLine.translate(m_Doc->currentPage()->xOffset(), m_Doc->currentPage()->yOffset());
 		finishItem(ite);
 	}
@@ -348,24 +348,24 @@ void ScrPainter::finishItem(PageItem* ite)
 {
 	ite->ClipEdited = true;
 	ite->FrameType = 3;
-	ite->setFillShade(CurrFillShade);
-	ite->setFillEvenOdd(fillrule);
-	ite->setLineShade(CurrStrokeShade);
-	ite->setLineJoin(lineJoin);
-	ite->setLineEnd(lineEnd);
-	ite->DashValues = dashArray;
+	ite->setFillShade(m_CurrFillShade);
+	ite->setFillEvenOdd(m_fillrule);
+	ite->setLineShade(m_CurrStrokeShade);
+	ite->setLineJoin(m_lineJoin);
+	ite->setLineEnd(m_lineEnd);
+	ite->DashValues = m_dashArray;
 	FPoint wh = getMaxClipF(&ite->PoLine);
 	ite->setWidthHeight(wh.x(),wh.y());
 	ite->setTextFlowMode(PageItem::TextFlowDisabled);
 	m_Doc->AdjustItemSize(ite);
 	ite->OldB2 = ite->width();
 	ite->OldH2 = ite->height();
-	if (isGradient)
+	if (m_isGradient)
 	{
-		ite->fill_gradient = currentGradient;
+		ite->fill_gradient = m_currentGradient;
 		ite->GrType = 6;
 		QTransform m1;
-		m1.rotate(-gradientAngle);
+		m1.rotate(-m_gradientAngle);
 		ite->GrStartX = 0;
 		ite->GrStartY = 0;
 		QPointF target = m1.map(QPointF(0.0, ite->height()));
@@ -374,13 +374,13 @@ void ScrPainter::finishItem(PageItem* ite)
 	}
 	else
 	{
-		ite->setFillTransparency(CurrFillTrans);
-		ite->setLineTransparency(CurrStrokeTrans);
+		ite->setFillTransparency(m_CurrFillTrans);
+		ite->setLineTransparency(m_CurrStrokeTrans);
 	}
 	ite->updateClip();
-	Elements.append(ite);
-	Coords.resize(0);
-	Coords.svgInit();
+	m_Elements.append(ite);
+	m_Coords.resize(0);
+	m_Coords.svgInit();
 }
 
 void ScrPainter::drawBitmap(const libwpg::WPGBitmap& bitmap, double hres, double vres)
@@ -396,7 +396,7 @@ void ScrPainter::drawBitmap(const libwpg::WPGBitmap& bitmap, double hres, double
 	}
 	double w = (bitmap.rect.x2 - bitmap.rect.x1) * 72.0;
 	double h = (bitmap.rect.y2 - bitmap.rect.y1) * 72.0;
-	int z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, bitmap.rect.x1 * 72 + baseX, bitmap.rect.y1 * 72 + baseY, w, h, 1, m_Doc->itemToolPrefs().imageFillColor, m_Doc->itemToolPrefs().imageStrokeColor, true);
+	int z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, bitmap.rect.x1 * 72 + m_baseX, bitmap.rect.y1 * 72 + m_baseY, w, h, 1, m_Doc->itemToolPrefs().imageFillColor, m_Doc->itemToolPrefs().imageStrokeColor, true);
 	PageItem *ite = m_Doc->Items->at(z);
 	QTemporaryFile *tempFile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_wpg_XXXXXX.png");
 	tempFile->setAutoRemove(false);
@@ -704,12 +704,12 @@ bool WpgPlug::convert(QString fn)
 	}
 	ScrPainter painter;
 	painter.m_Doc = m_Doc;
-	painter.baseX = baseX;
-	painter.baseY = baseY;
-	painter.flags = importerFlags;
+	painter.m_baseX = baseX;
+	painter.m_baseY = baseY;
+	painter.m_flags = importerFlags;
 	libwpg::WPGraphics::parse(&input, &painter);
-	Elements = painter.Elements;
-	importedColors = painter.importedColors;
+	Elements = painter.m_Elements;
+	importedColors = painter.m_importedColors;
 	if (Elements.count() == 0)
 	{
 		if (importedColors.count() != 0)
