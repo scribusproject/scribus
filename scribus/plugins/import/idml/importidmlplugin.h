@@ -62,7 +62,7 @@ class PLUGIN_API ImportIdmlPlugin : public LoadSavePlugin
 
 	private:
 		void registerFormats();
-		ScrAction* importAction;
+		ScrAction* m_importAction;
 };
 
 extern "C" PLUGIN_API int importidml_getPluginAPIVersion();

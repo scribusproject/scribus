@@ -46,7 +46,7 @@ void importidml_freePlugin(ScPlugin* plugin)
 }
 
 ImportIdmlPlugin::ImportIdmlPlugin() : LoadSavePlugin(),
-	importAction(new ScrAction(ScrAction::DLL, "", QKeySequence(), this))
+	m_importAction(new ScrAction(ScrAction::DLL, "", QKeySequence(), this))
 {
 	// Set action info in languageChange, so we only have to do it in one
 	// place. This includes registering file format support.
@@ -56,7 +56,7 @@ ImportIdmlPlugin::ImportIdmlPlugin() : LoadSavePlugin(),
 
 void ImportIdmlPlugin::languageChange()
 {
-	importAction->setText( tr("Import Idml..."));
+	m_importAction->setText( tr("Import Idml..."));
 	FileFormat* fmt = getFormatByExt("idml");
 	fmt->trName = tr("Adobe Indesign IDML");
 	fmt->filter = tr("Adobe Indesign IDML (*.idml *.IDML)");
