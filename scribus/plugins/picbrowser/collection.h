@@ -108,7 +108,7 @@ class collectionReaderThread : public QXmlStreamReader, public QThread
 		void readUnknownElement();
 
 		//tells how many categories the collectionsdb contained
-		int categoriesCount;
+		int m_categoriesCount;
 };
 
 
@@ -137,7 +137,7 @@ class collectionListReaderThread : public QThread
 		void collectionReaderThreadFinished();
 
 	private:
-		collectionReaderThread *clrt;
+		collectionReaderThread *m_clrt;
 };
 
 
@@ -169,9 +169,9 @@ class collectionsWriterThread : public QXmlStreamWriter, public QThread
 		void writeCollection ( const QString &collectionName, const QString &collectionFile );
 
 		//contains the path to the output file
-		QString xmlFile;
+		QString m_xmlFile;
 		//the collection to write into a collectionfile
-		QList<collections *> saveCollections;
+		QList<collections *> m_saveCollections;
 };
 
 

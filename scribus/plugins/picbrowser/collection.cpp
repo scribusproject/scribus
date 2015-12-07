@@ -35,7 +35,7 @@ collections::collections ( QString collectionsName )
 
 collectionReaderThread::collectionReaderThread ( QString &xmlFile2, bool importCollection )
 {
-	categoriesCount = 0;
+	m_categoriesCount = 0;
 	type = 0;
 	restartThread = false;
 
@@ -116,7 +116,7 @@ void collectionReaderThread::readCollectionsDb()
 
 				readCategory();
 
-				categoriesCount++;
+				m_categoriesCount++;
 			}
 			else
 			{
@@ -184,7 +184,7 @@ void collectionReaderThread::readCategory()
 
 void collectionReaderThread::readCollection()
 {
-	collections *tmpCollections = collectionsSet.at ( categoriesCount );
+	collections *tmpCollections = collectionsSet.at ( m_categoriesCount );
 
 	tmpCollections->collectionFiles.append ( attributes().value ( "file" ).toString() );
 	tmpCollections->collectionNames.append ( readElementText() );
@@ -269,9 +269,9 @@ void collectionListReaderThread::run()
 	}
 
 	xmlFile = xmlFiles.takeAt ( 0 );
-	clrt = new collectionReaderThread ( xmlFile, false );
-	connect ( clrt, SIGNAL ( finished() ), this, SLOT ( collectionReaderThreadFinished() ) );
-	clrt->start();
+	m_clrt = new collectionReaderThread ( xmlFile, false );
+	connect ( m_clrt, SIGNAL ( finished() ), this, SLOT ( collectionReaderThreadFinished() ) );
+	m_clrt->start();
 
 	exec();
 }
@@ -285,8 +285,8 @@ void collectionListReaderThread::restart()
 
 void collectionListReaderThread::collectionReaderThreadFinished()
 {
-	readCollections.append ( clrt->collection );
-	delete clrt;
+	readCollections.append ( m_clrt->collection );
+	delete m_clrt;
 
 	if ( xmlFiles.isEmpty() || restartThread )
 	{
@@ -295,24 +295,24 @@ void collectionListReaderThread::collectionReaderThreadFinished()
 	else
 	{
 		xmlFile = xmlFiles.takeAt ( 0 );
-		clrt = new collectionReaderThread ( xmlFile, false );
-		connect ( clrt, SIGNAL ( finished() ), this, SLOT ( collectionReaderThreadFinished() ) );
-		clrt->start();
+		m_clrt = new collectionReaderThread ( xmlFile, false );
+		connect ( m_clrt, SIGNAL ( finished() ), this, SLOT ( collectionReaderThreadFinished() ) );
+		m_clrt->start();
 	}
 }
 
 
 collectionsWriterThread::collectionsWriterThread ( QString &xmlFile2, QList<collections *> saveCollections2 )
 {
-	xmlFile = xmlFile2;
-	saveCollections = saveCollections2;
+	m_xmlFile = xmlFile2;
+	m_saveCollections = saveCollections2;
 	restartThread = false;
 }
 
 
 void collectionsWriterThread::writeFile()
 {
-	QFile outputFile ( xmlFile );
+	QFile outputFile ( m_xmlFile );
 
 	if ( !outputFile.open ( QFile::WriteOnly | QFile::Text ) )
 	{
@@ -330,9 +330,9 @@ void collectionsWriterThread::writeFile()
 
 	writeCharacters ( "\n" );
 
-	for ( int i = 0 ; i < saveCollections.size() && !restartThread ; ++i )
+	for ( int i = 0 ; i < m_saveCollections.size() && !restartThread ; ++i )
 	{
-		writeCategory ( saveCollections.at ( i ) );
+		writeCategory ( m_saveCollections.at ( i ) );
 	}
 
 	writeEndDocument();
