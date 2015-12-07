@@ -35,32 +35,32 @@ void GetText(QString filename, QString encoding, bool textOnly, gtWriter *writer
 
 TxtIm::TxtIm(const QString& fname, const QString& enc, bool textO, gtWriter *w)
 {
-	filename = fname;
-	encoding = enc;
-	writer = w;
-	textOnly = textO;
+	m_filename = fname;
+	m_encoding = enc;
+	m_writer = w;
+	m_textOnly = textO;
 	loadText();
 }
 
 void TxtIm::write()
 {
-	writer->appendUnstyled(text);
+	m_writer->appendUnstyled(m_text);
 }
 
 void TxtIm::loadText()
 {
 	QByteArray rawText;
-	if (loadRawText(filename, rawText))
-		text = toUnicode(rawText);
+	if (loadRawText(m_filename, rawText))
+		m_text = toUnicode(rawText);
 }
 
 QString TxtIm::toUnicode(const QByteArray& rawText)
 {
 	QTextCodec *codec;
-	if (encoding.isEmpty())
+	if (m_encoding.isEmpty())
 		codec = QTextCodec::codecForLocale();
 	else
-		codec = QTextCodec::codecForName(encoding.toLocal8Bit());
+		codec = QTextCodec::codecForName(m_encoding.toLocal8Bit());
 	QString unistr = codec->toUnicode(rawText);
 	return unistr;
 }

@@ -21,15 +21,15 @@ class QByteArray;
 class TxtIm 
 {
 public:
-	TxtIm(const QString& fname, const QString& enc, bool textOnly, gtWriter *w);
+	TxtIm(const QString& fname, const QString& enc, bool m_textOnly, gtWriter *w);
 	~TxtIm();
 	void write();
 private:
-	QString filename;
-	QString encoding;
-	QString text;
-	gtWriter *writer;
-	bool textOnly;
+	QString m_filename;
+	QString m_encoding;
+	QString m_text;
+	gtWriter *m_writer;
+	bool m_textOnly;
 	void loadText();
 	QString toUnicode(const QByteArray& rawText);
 };
