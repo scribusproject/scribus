@@ -66,12 +66,12 @@ extern SCRIBUS_API ScribusQApp * ScQApp;
 
 IdmlPlug::IdmlPlug(ScribusDoc* doc, int flags)
 {
-	tmpSel = new Selection(this, false);
+	m_tmpSel = new Selection(this, false);
 	m_Doc = doc;
-	importerFlags = flags;
-	interactive = (flags & LoadSavePlugin::lfInteractive);
-	progressDialog = NULL;
-	fun = NULL;
+	m_importerFlags = flags;
+	m_interactive = (flags & LoadSavePlugin::lfInteractive);
+	m_progressDialog = NULL;
+	m_fun = NULL;
 }
 
 QString IdmlPlug::getNodeValue(QDomNode &baseNode, QString path)
@@ -111,15 +111,15 @@ QImage IdmlPlug::readThumbnail(QString fName)
 	QString ext = fi.suffix().toLower();
 	if (ext == "idml")
 	{
-		fun = new ScZipHandler();
-		if (!fun->open(fName))
+		m_fun = new ScZipHandler();
+		if (!m_fun->open(fName))
 		{
-			delete fun;
+			delete m_fun;
 			return QImage();
 		}
-		if (fun->contains("designmap.xml"))
-			fun->read("designmap.xml", f);
-		delete fun;
+		if (m_fun->contains("designmap.xml"))
+			m_fun->read("designmap.xml", f);
+		delete m_fun;
 	}
 	else if (ext == "idms")
 	{
@@ -127,10 +127,10 @@ QImage IdmlPlug::readThumbnail(QString fName)
 	}
 	if (!f.isEmpty())
 	{
-		if(!designMapDom.setContent(f))
+		if(!m_designMapDom.setContent(f))
 			return QImage();
 		bool found = false;
-		QDomElement docElem = designMapDom.documentElement();
+		QDomElement docElem = m_designMapDom.documentElement();
 		QString metaD = getNodeValue(docElem, "MetadataPacketPreference/Properties/Contents");
 		QDomDocument rdfD;
 		rdfD.setContent(metaD);
@@ -155,19 +155,19 @@ QImage IdmlPlug::readThumbnail(QString fName)
 		}
 		if (!found)
 		{
-			progressDialog = NULL;
+			m_progressDialog = NULL;
 			QFileInfo fi = QFileInfo(fName);
-			baseFile = QDir::cleanPath(QDir::toNativeSeparators(fi.absolutePath()+"/"));
-			docWidth = PrefsManager::instance()->appPrefs.docSetupPrefs.pageWidth;
-			docHeight = PrefsManager::instance()->appPrefs.docSetupPrefs.pageHeight;
+			m_baseFile = QDir::cleanPath(QDir::toNativeSeparators(fi.absolutePath()+"/"));
+			m_docWidth = PrefsManager::instance()->appPrefs.docSetupPrefs.pageWidth;
+			m_docHeight = PrefsManager::instance()->appPrefs.docSetupPrefs.pageHeight;
 			m_Doc = new ScribusDoc();
 			m_Doc->setup(0, 1, 1, 1, 1, "Custom", "Custom");
-			m_Doc->setPage(docWidth, docHeight, 0, 0, 0, 0, 0, 0, false, false);
+			m_Doc->setPage(m_docWidth, m_docHeight, 0, 0, 0, 0, 0, 0, false, false);
 			m_Doc->addPage(0);
 			m_Doc->setGUI(false, ScCore->primaryMainWindow(), 0);
-			baseX = m_Doc->currentPage()->xOffset();
-			baseY = m_Doc->currentPage()->yOffset() + m_Doc->currentPage()->height() / 2.0;
-			Elements.clear();
+			m_baseX = m_Doc->currentPage()->xOffset();
+			m_baseY = m_Doc->currentPage()->yOffset() + m_Doc->currentPage()->height() / 2.0;
+			m_Elements.clear();
 			m_Doc->setLoading(true);
 			m_Doc->DoDrawing = false;
 			m_Doc->scMW()->setScriptRunning(true);
@@ -175,23 +175,23 @@ QImage IdmlPlug::readThumbnail(QString fName)
 			QDir::setCurrent(fi.path());
 			if (convert(fName))
 			{
-				tmpSel->clear();
+				m_tmpSel->clear();
 				QDir::setCurrent(CurDirP);
-				if (Elements.count() > 1)
-					m_Doc->groupObjectsList(Elements);
+				if (m_Elements.count() > 1)
+					m_Doc->groupObjectsList(m_Elements);
 				m_Doc->DoDrawing = true;
 				m_Doc->m_Selection->delaySignalsOn();
 				QImage tmpImage;
-				if (Elements.count() > 0)
+				if (m_Elements.count() > 0)
 				{
-					for (int dre=0; dre<Elements.count(); ++dre)
+					for (int dre=0; dre<m_Elements.count(); ++dre)
 					{
-						tmpSel->addItem(Elements.at(dre), true);
+						m_tmpSel->addItem(m_Elements.at(dre), true);
 					}
-					tmpSel->setGroupRect();
-					double xs = tmpSel->width();
-					double ys = tmpSel->height();
-					tmpImage = Elements.at(0)->DrawObj_toImage(500);
+					m_tmpSel->setGroupRect();
+					double xs = m_tmpSel->width();
+					double ys = m_tmpSel->height();
+					tmpImage = m_Elements.at(0)->DrawObj_toImage(500);
 					tmpImage.setText("XSize", QString("%1").arg(xs));
 					tmpImage.setText("YSize", QString("%1").arg(ys));
 				}
@@ -216,7 +216,7 @@ QImage IdmlPlug::readThumbnail(QString fName)
 bool IdmlPlug::readColors(const QString& fNameIn, ColorList & colors)
 {
 	bool success = false;
-	importedColors.clear();
+	m_importedColors.clear();
 	m_Doc = new ScribusDoc();
 	m_Doc->setup(0, 1, 1, 1, 1, "Custom", "Custom");
 	m_Doc->setPage(1, 1, 0, 0, 0, 0, 0, 0, false, false);
@@ -227,14 +227,14 @@ bool IdmlPlug::readColors(const QString& fNameIn, ColorList & colors)
 	QString ext = fi.suffix().toLower();
 	if (ext == "idml")
 	{
-		fun = new ScZipHandler();
-		if (!fun->open(fNameIn))
+		m_fun = new ScZipHandler();
+		if (!m_fun->open(fNameIn))
 		{
-			delete fun;
+			delete m_fun;
 			return false;
 		}
-		if (fun->contains("designmap.xml"))
-			fun->read("designmap.xml", f);
+		if (m_fun->contains("designmap.xml"))
+			m_fun->read("designmap.xml", f);
 	}
 	else if (ext == "idms")
 	{
@@ -242,9 +242,9 @@ bool IdmlPlug::readColors(const QString& fNameIn, ColorList & colors)
 	}
 	if (!f.isEmpty())
 	{
-		if(designMapDom.setContent(f))
+		if(m_designMapDom.setContent(f))
 		{
-			QDomElement docElem = designMapDom.documentElement();
+			QDomElement docElem = m_designMapDom.documentElement();
 			if (ext == "idms")
 			{
 				parseGraphicsXMLNode(docElem);
@@ -258,7 +258,7 @@ bool IdmlPlug::readColors(const QString& fNameIn, ColorList & colors)
 					{
 						if (!parseGraphicsXML(dpg))
 						{
-							delete fun;
+							delete m_fun;
 							return false;
 						}
 					}
@@ -266,8 +266,8 @@ bool IdmlPlug::readColors(const QString& fNameIn, ColorList & colors)
 			}
 		}
 	}
-	delete fun;
-	if (importedColors.count() != 0)
+	delete m_fun;
+	if (m_importedColors.count() != 0)
 	{
 		colors = m_Doc->PageColors;
 		success = true;
@@ -280,79 +280,79 @@ bool IdmlPlug::import(QString fNameIn, const TransactionSettings& trSettings, in
 {
 	QString fName = fNameIn;
 	bool success = false;
-	interactive = (flags & LoadSavePlugin::lfInteractive);
-	importerFlags = flags;
-	cancel = false;
+	m_interactive = (flags & LoadSavePlugin::lfInteractive);
+	m_importerFlags = flags;
+	m_cancel = false;
 	bool ret = false;
-	firstLayer = true;
-	firstPage = true;
-	pagecount = 1;
-	mpagecount = 0;
+	m_firstLayer = true;
+	m_firstPage = true;
+	m_pagecount = 1;
+	m_mpagecount = 0;
 	QFileInfo fi = QFileInfo(fName);
 	if ( !ScCore->usingGUI() )
 	{
-		interactive = false;
+		m_interactive = false;
 		showProgress = false;
 	}
-	baseFile = QDir::cleanPath(QDir::toNativeSeparators(fi.absolutePath()+"/"));
+	m_baseFile = QDir::cleanPath(QDir::toNativeSeparators(fi.absolutePath()+"/"));
 	if ( showProgress )
 	{
 		ScribusMainWindow* mw=(m_Doc==0) ? ScCore->primaryMainWindow() : m_Doc->scMW();
-		progressDialog = new MultiProgressDialog( tr("Importing: %1").arg(fi.fileName()), CommonStrings::tr_Cancel, mw );
+		m_progressDialog = new MultiProgressDialog( tr("Importing: %1").arg(fi.fileName()), CommonStrings::tr_Cancel, mw );
 		QStringList barNames, barTexts;
 		barNames << "GI";
 		barTexts << tr("Analyzing File:");
 		QList<bool> barsNumeric;
 		barsNumeric << false;
-		progressDialog->addExtraProgressBars(barNames, barTexts, barsNumeric);
-		progressDialog->setOverallTotalSteps(3);
-		progressDialog->setOverallProgress(0);
-		progressDialog->setProgress("GI", 0);
-		progressDialog->show();
-		connect(progressDialog, SIGNAL(canceled()), this, SLOT(cancelRequested()));
+		m_progressDialog->addExtraProgressBars(barNames, barTexts, barsNumeric);
+		m_progressDialog->setOverallTotalSteps(3);
+		m_progressDialog->setOverallProgress(0);
+		m_progressDialog->setProgress("GI", 0);
+		m_progressDialog->show();
+		connect(m_progressDialog, SIGNAL(canceled()), this, SLOT(cancelRequested()));
 		qApp->processEvents();
 	}
 	else
-		progressDialog = NULL;
-	if (progressDialog)
+		m_progressDialog = NULL;
+	if (m_progressDialog)
 	{
-		progressDialog->setOverallProgress(1);
+		m_progressDialog->setOverallProgress(1);
 		qApp->processEvents();
 	}
 	/* Set default Page to size defined in Preferences */
-	docWidth = PrefsManager::instance()->appPrefs.docSetupPrefs.pageWidth;
-	docHeight = PrefsManager::instance()->appPrefs.docSetupPrefs.pageHeight;
-	baseX = 0;
-	baseY = 0;
-	if (!interactive || (flags & LoadSavePlugin::lfInsertPage))
+	m_docWidth = PrefsManager::instance()->appPrefs.docSetupPrefs.pageWidth;
+	m_docHeight = PrefsManager::instance()->appPrefs.docSetupPrefs.pageHeight;
+	m_baseX = 0;
+	m_baseY = 0;
+	if (!m_interactive || (flags & LoadSavePlugin::lfInsertPage))
 	{
-		m_Doc->setPage(docWidth, docHeight, 0, 0, 0, 0, 0, 0, false, false);
+		m_Doc->setPage(m_docWidth, m_docHeight, 0, 0, 0, 0, 0, 0, false, false);
 		m_Doc->addPage(0);
 		m_Doc->view()->addPage(0, true);
-		baseX = 0;
-		baseY = 0;
+		m_baseX = 0;
+		m_baseY = 0;
 	}
 	else
 	{
 		if (!m_Doc || (flags & LoadSavePlugin::lfCreateDoc))
 		{
-			m_Doc=ScCore->primaryMainWindow()->doFileNew(docWidth, docHeight, 0, 0, 0, 0, 0, 0, false, false, 0, false, 0, 1, "Custom", true);
+			m_Doc=ScCore->primaryMainWindow()->doFileNew(m_docWidth, m_docHeight, 0, 0, 0, 0, 0, 0, false, false, 0, false, 0, 1, "Custom", true);
 			ScCore->primaryMainWindow()->HaveNewDoc();
 			ret = true;
-			baseX = 0;
-			baseY = 0;
-			baseX = m_Doc->currentPage()->xOffset();
-			baseY = m_Doc->currentPage()->yOffset() + m_Doc->currentPage()->height() / 2.0;
+			m_baseX = 0;
+			m_baseY = 0;
+			m_baseX = m_Doc->currentPage()->xOffset();
+			m_baseY = m_Doc->currentPage()->yOffset() + m_Doc->currentPage()->height() / 2.0;
 		}
 	}
-	if ((!ret) && (interactive))
+	if ((!ret) && (m_interactive))
 	{
-		baseX = m_Doc->currentPage()->xOffset();
-		baseY = m_Doc->currentPage()->yOffset() + m_Doc->currentPage()->height() / 2.0;
+		m_baseX = m_Doc->currentPage()->xOffset();
+		m_baseY = m_Doc->currentPage()->yOffset() + m_Doc->currentPage()->height() / 2.0;
 	}
-	if ((ret) || (!interactive))
+	if ((ret) || (!m_interactive))
 	{
-		if (docWidth > docHeight)
+		if (m_docWidth > m_docHeight)
 			m_Doc->setPageOrientation(1);
 		else
 			m_Doc->setPageOrientation(0);
@@ -360,7 +360,7 @@ bool IdmlPlug::import(QString fNameIn, const TransactionSettings& trSettings, in
 	}
 	if ((!(flags & LoadSavePlugin::lfLoadAsPattern)) && (m_Doc->view() != NULL))
 		m_Doc->view()->Deselect();
-	Elements.clear();
+	m_Elements.clear();
 	m_Doc->setLoading(true);
 	m_Doc->DoDrawing = false;
 	if ((!(flags & LoadSavePlugin::lfLoadAsPattern)) && (m_Doc->view() != NULL))
@@ -371,15 +371,15 @@ bool IdmlPlug::import(QString fNameIn, const TransactionSettings& trSettings, in
 	QDir::setCurrent(fi.path());
 	if (convert(fName))
 	{
-		tmpSel->clear();
+		m_tmpSel->clear();
 		QDir::setCurrent(CurDirP);
-		if ((Elements.count() > 1) && (!(importerFlags & LoadSavePlugin::lfCreateDoc)))
-			m_Doc->groupObjectsList(Elements);
+		if ((m_Elements.count() > 1) && (!(m_importerFlags & LoadSavePlugin::lfCreateDoc)))
+			m_Doc->groupObjectsList(m_Elements);
 		m_Doc->DoDrawing = true;
 		m_Doc->scMW()->setScriptRunning(false);
 		m_Doc->setLoading(false);
 		qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
-		if ((Elements.count() > 0) && (!ret) && (interactive))
+		if ((m_Elements.count() > 0) && (!ret) && (m_interactive))
 		{
 			if (flags & LoadSavePlugin::lfScripted)
 			{
@@ -390,9 +390,9 @@ bool IdmlPlug::import(QString fNameIn, const TransactionSettings& trSettings, in
 				if (!(flags & LoadSavePlugin::lfLoadAsPattern))
 				{
 					m_Doc->m_Selection->delaySignalsOn();
-					for (int dre=0; dre<Elements.count(); ++dre)
+					for (int dre=0; dre<m_Elements.count(); ++dre)
 					{
-						m_Doc->m_Selection->addItem(Elements.at(dre), true);
+						m_Doc->m_Selection->addItem(m_Elements.at(dre), true);
 					}
 					m_Doc->m_Selection->delaySignalsOff();
 					m_Doc->m_Selection->setGroupRect();
@@ -406,13 +406,13 @@ bool IdmlPlug::import(QString fNameIn, const TransactionSettings& trSettings, in
 				m_Doc->DraggedElem = 0;
 				m_Doc->DragElements.clear();
 				m_Doc->m_Selection->delaySignalsOn();
-				for (int dre=0; dre<Elements.count(); ++dre)
+				for (int dre=0; dre<m_Elements.count(); ++dre)
 				{
-					tmpSel->addItem(Elements.at(dre), true);
+					m_tmpSel->addItem(m_Elements.at(dre), true);
 				}
-				tmpSel->setGroupRect();
-				ScElemMimeData* md = ScriXmlDoc::WriteToMimeData(m_Doc, tmpSel);
-				m_Doc->itemSelection_DeleteItem(tmpSel);
+				m_tmpSel->setGroupRect();
+				ScElemMimeData* md = ScriXmlDoc::WriteToMimeData(m_Doc, m_tmpSel);
+				m_Doc->itemSelection_DeleteItem(m_tmpSel);
 				m_Doc->view()->updatesOn(true);
 				m_Doc->m_Selection->delaySignalsOff();
 				// We must copy the TransationSettings object as it is owned
@@ -442,12 +442,12 @@ bool IdmlPlug::import(QString fNameIn, const TransactionSettings& trSettings, in
 			m_Doc->view()->updatesOn(true);
 		qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 	}
-	if (interactive)
+	if (m_interactive)
 		m_Doc->setLoading(false);
 	//CB If we have a gui we must refresh it if we have used the progressbar
 	if (!(flags & LoadSavePlugin::lfLoadAsPattern))
 	{
-		if ((showProgress) && (!interactive))
+		if ((showProgress) && (!m_interactive))
 			m_Doc->view()->DrawNew();
 	}
 	qApp->restoreOverrideCursor();
@@ -456,66 +456,66 @@ bool IdmlPlug::import(QString fNameIn, const TransactionSettings& trSettings, in
 
 IdmlPlug::~IdmlPlug()
 {
-	if (progressDialog)
-		delete progressDialog;
-	delete tmpSel;
+	if (m_progressDialog)
+		delete m_progressDialog;
+	delete m_tmpSel;
 }
 
 bool IdmlPlug::convert(QString fn)
 {
-	Coords.resize(0);
-	Coords.svgInit();
-	importedColors.clear();
-	def_fillColor = CommonStrings::None;
-	def_strokeColor = CommonStrings::None;
-	def_fillGradient = "";
-	def_strokeGradient = "";
-	def_Blendmode = 0;
-	def_fillBlendmode = 0;
-	def_strokeBlendmode = 0;
-	def_fillTint = 100;
-	def_strokeTint = 100;
-	def_lineWidth = 0;
-	def_Opacity = 0.0;
-	def_fillOpacity = 0.0;
-	def_strokeOpacity = 0.0;
-	def_gradientAngle = 0.0;
-	def_gradientLen = 0.0;
-	def_gradientX = 0.0;
-	def_gradientY = 0.0;
-	def_gradientStrokeStartX = 0;
-	def_gradientStrokeStartY = 0;
-	def_gradientStrokeLength = 0;
-	def_gradientStrokeAngle = 0;
-	def_Extra = 0;
-	def_TExtra = 0;
-	def_BExtra = 0;
-	def_RExtra = 0;
-	def_TextFlow = PageItem::TextFlowDisabled;
-	def_TextColumnCount = 1;
-	def_TextColumnGutter = 0;
-	def_TextColumnFixedWidth = 0;
-	def_LeftLineEnd = "None";
-	def_RightLineEnd = "None";
-	frameLinks.clear();
-	frameTargets.clear();
-	importedColors.clear();
-	colorTranslate.clear();
-	importedGradients.clear();
-	gradientTranslate.clear();
-	gradientTypeMap.clear();
-	layerTranslate.clear();
-	storyMap.clear();
-	styleTranslate.clear();
-	charStyleTranslate.clear();
-	ObjectStyles.clear();
-	if(progressDialog)
+	m_Coords.resize(0);
+	m_Coords.svgInit();
+	m_importedColors.clear();
+	m_def_fillColor = CommonStrings::None;
+	m_def_strokeColor = CommonStrings::None;
+	m_def_fillGradient = "";
+	m_def_strokeGradient = "";
+	m_def_Blendmode = 0;
+	m_def_fillBlendmode = 0;
+	m_def_strokeBlendmode = 0;
+	m_def_fillTint = 100;
+	m_def_strokeTint = 100;
+	m_def_lineWidth = 0;
+	m_def_Opacity = 0.0;
+	m_def_fillOpacity = 0.0;
+	m_def_strokeOpacity = 0.0;
+	m_def_gradientAngle = 0.0;
+	m_def_gradientLen = 0.0;
+	m_def_gradientX = 0.0;
+	m_def_gradientY = 0.0;
+	m_def_gradientStrokeStartX = 0;
+	m_def_gradientStrokeStartY = 0;
+	m_def_gradientStrokeLength = 0;
+	m_def_gradientStrokeAngle = 0;
+	m_def_Extra = 0;
+	m_def_TExtra = 0;
+	m_def_BExtra = 0;
+	m_def_RExtra = 0;
+	m_def_TextFlow = PageItem::TextFlowDisabled;
+	m_def_TextColumnCount = 1;
+	m_def_TextColumnGutter = 0;
+	m_def_TextColumnFixedWidth = 0;
+	m_def_LeftLineEnd = "None";
+	m_def_RightLineEnd = "None";
+	m_frameLinks.clear();
+	m_frameTargets.clear();
+	m_importedColors.clear();
+	m_colorTranslate.clear();
+	m_importedGradients.clear();
+	m_gradientTranslate.clear();
+	m_gradientTypeMap.clear();
+	m_layerTranslate.clear();
+	m_storyMap.clear();
+	m_styleTranslate.clear();
+	m_charStyleTranslate.clear();
+	m_ObjectStyles.clear();
+	if(m_progressDialog)
 	{
-		progressDialog->setOverallProgress(2);
-		progressDialog->setLabel("GI", tr("Generating Items"));
+		m_progressDialog->setOverallProgress(2);
+		m_progressDialog->setLabel("GI", tr("Generating Items"));
 		qApp->processEvents();
 	}
-	colorTranslate.insert("Swatch/None", CommonStrings::None);
+	m_colorTranslate.insert("Swatch/None", CommonStrings::None);
 	bool retVal = true;
 	bool firstSpread = true;
 	QByteArray f;
@@ -523,14 +523,14 @@ bool IdmlPlug::convert(QString fn)
 	QString ext = fi.suffix().toLower();
 	if (ext == "idml")
 	{
-		fun = new ScZipHandler();
-		if (!fun->open(fn))
+		m_fun = new ScZipHandler();
+		if (!m_fun->open(fn))
 		{
-			delete fun;
+			delete m_fun;
 			return false;
 		}
-		if (fun->contains("designmap.xml"))
-			fun->read("designmap.xml", f);
+		if (m_fun->contains("designmap.xml"))
+			m_fun->read("designmap.xml", f);
 	}
 	else if (ext == "idms")
 	{
@@ -538,9 +538,9 @@ bool IdmlPlug::convert(QString fn)
 	}
 	if (!f.isEmpty())
 	{
-		if(designMapDom.setContent(f))
+		if(m_designMapDom.setContent(f))
 		{
-			QDomElement docElem = designMapDom.documentElement();
+			QDomElement docElem = m_designMapDom.documentElement();
 			QString activeLayer = docElem.attribute("ActiveLayer");
 			if (ext == "idms")
 			{
@@ -551,10 +551,10 @@ bool IdmlPlug::convert(QString fn)
 					{
 						QString layerSelf = dpg.attribute("Self");
 						QString layerName = dpg.attribute("Name");
-						if (importerFlags & LoadSavePlugin::lfCreateDoc)
+						if (m_importerFlags & LoadSavePlugin::lfCreateDoc)
 						{
 							int currentLayer = 0;
-							if (!firstLayer)
+							if (!m_firstLayer)
 								currentLayer = m_Doc->addLayer(layerName);
 							else
 								m_Doc->changeLayerName(currentLayer, layerName);
@@ -563,8 +563,8 @@ bool IdmlPlug::convert(QString fn)
 							m_Doc->setLayerPrintable(currentLayer, (dpg.attribute("Printable") == "true"));
 							m_Doc->setLayerFlow(currentLayer, (dpg.attribute("IgnoreWrap","") == "true"));
 						}
-						layerTranslate.insert(layerSelf, layerName);
-						firstLayer = false;
+						m_layerTranslate.insert(layerSelf, layerName);
+						m_firstLayer = false;
 					}
 				}
 				parseFontsXMLNode(docElem);
@@ -583,10 +583,10 @@ bool IdmlPlug::convert(QString fn)
 					{
 						QString layerSelf = dpg.attribute("Self");
 						QString layerName = dpg.attribute("Name");
-						if (importerFlags & LoadSavePlugin::lfCreateDoc)
+						if (m_importerFlags & LoadSavePlugin::lfCreateDoc)
 						{
 							int currentLayer = 0;
-							if (!firstLayer)
+							if (!m_firstLayer)
 								currentLayer = m_Doc->addLayer(layerName);
 							else
 								m_Doc->changeLayerName(currentLayer, layerName);
@@ -595,8 +595,8 @@ bool IdmlPlug::convert(QString fn)
 							m_Doc->setLayerPrintable(currentLayer, (dpg.attribute("Printable") == "true"));
 							m_Doc->setLayerFlow(currentLayer, (dpg.attribute("IgnoreWrap","") == "true"));
 						}
-						layerTranslate.insert(layerSelf, layerName);
-						firstLayer = false;
+						m_layerTranslate.insert(layerSelf, layerName);
+						m_firstLayer = false;
 					}
 					if (dpg.tagName() == "idPkg:Fonts")
 					{
@@ -632,7 +632,7 @@ bool IdmlPlug::convert(QString fn)
 					}
 					if (dpg.tagName() == "idPkg:MasterSpread")
 					{
-						if (importerFlags & LoadSavePlugin::lfCreateDoc)
+						if (m_importerFlags & LoadSavePlugin::lfCreateDoc)
 						{
 							if (!parseSpreadXML(dpg))
 							{
@@ -643,7 +643,7 @@ bool IdmlPlug::convert(QString fn)
 					}
 					if (dpg.tagName() == "idPkg:Spread")
 					{
-						if (!(importerFlags & LoadSavePlugin::lfCreateDoc))
+						if (!(m_importerFlags & LoadSavePlugin::lfCreateDoc))
 						{
 							if (firstSpread)
 							{
@@ -667,31 +667,31 @@ bool IdmlPlug::convert(QString fn)
 					}
 				}
 			}
-			if (!frameLinks.isEmpty())
+			if (!m_frameLinks.isEmpty())
 			{
 				QMap<PageItem*, QString>::Iterator lc;
-				for (lc = frameLinks.begin(); lc != frameLinks.end(); ++lc)
+				for (lc = m_frameLinks.begin(); lc != m_frameLinks.end(); ++lc)
 				{
 					PageItem *Its = lc.key();
-					PageItem *Itn = frameTargets[lc.value()];
+					PageItem *Itn = m_frameTargets[lc.value()];
 					if (Its->testLinkCandidate(Itn))
 						Its->link(Itn);
 				}
 			}
-			if (importerFlags & LoadSavePlugin::lfCreateDoc)
+			if (m_importerFlags & LoadSavePlugin::lfCreateDoc)
 			{
-				if (layerTranslate.contains(activeLayer))
-					activeLayer = layerTranslate[activeLayer];
+				if (m_layerTranslate.contains(activeLayer))
+					activeLayer = m_layerTranslate[activeLayer];
 				else
 					activeLayer = m_Doc->layerName(0);
 				m_Doc->setActiveLayer(activeLayer);
 			}
 		}
 	}
-	if (fun != NULL)
-		delete fun;
-	if (progressDialog)
-		progressDialog->close();
+	if (m_fun != NULL)
+		delete m_fun;
+	if (m_progressDialog)
+		m_progressDialog->close();
 	return retVal;
 }
 
@@ -702,7 +702,7 @@ bool IdmlPlug::parseFontsXML(const QDomElement& grElem)
 	if (grElem.hasAttribute("src"))
 	{
 		QByteArray f2;
-		fun->read(grElem.attribute("src"), f2);
+		m_fun->read(grElem.attribute("src"), f2);
 		if(grMapDom.setContent(f2))
 			grNode = grMapDom.documentElement();
 		else
@@ -738,7 +738,7 @@ void IdmlPlug::parseFontsXMLNode(const QDomElement& grNode)
 					styleMap.insert(styleName, postName);
 				}
 			}
-			fontTranslateMap.insert(family, styleMap);
+			m_fontTranslateMap.insert(family, styleMap);
 		}
 	}
 }
@@ -750,7 +750,7 @@ bool IdmlPlug::parseGraphicsXML(const QDomElement& grElem)
 	if (grElem.hasAttribute("src"))
 	{
 		QByteArray f2;
-		fun->read(grElem.attribute("src"), f2);
+		m_fun->read(grElem.attribute("src"), f2);
 		if(grMapDom.setContent(f2))
 			grNode = grMapDom.documentElement();
 		else
@@ -790,8 +790,8 @@ void IdmlPlug::parseGraphicsXMLNode(const QDomElement& grNode)
 				tmp.setRegistrationColor(colorModel == "Registration");
 				QString fNam = m_Doc->PageColors.tryAddColor(colorName, tmp);
 				if (fNam == colorName)
-					importedColors.append(fNam);
-				colorTranslate.insert(colorSelf, fNam);
+					m_importedColors.append(fNam);
+				m_colorTranslate.insert(colorSelf, fNam);
 			}
 			else if (colorSpace == "RGB")
 			{
@@ -804,8 +804,8 @@ void IdmlPlug::parseGraphicsXMLNode(const QDomElement& grNode)
 				tmp.setRegistrationColor(false);
 				QString fNam = m_Doc->PageColors.tryAddColor(colorName, tmp);
 				if (fNam == colorName)
-					importedColors.append(fNam);
-				colorTranslate.insert(colorSelf, fNam);
+					m_importedColors.append(fNam);
+				m_colorTranslate.insert(colorSelf, fNam);
 			}
 		}
 		else if (e.tagName() == "Gradient")
@@ -822,8 +822,8 @@ void IdmlPlug::parseGraphicsXMLNode(const QDomElement& grNode)
 				{
 					QString stopName = grs.attribute("StopColor");
 					double stop = grs.attribute("Location", "0.0").toDouble();
-					if (colorTranslate.contains(stopName))
-						stopName = colorTranslate[stopName];
+					if (m_colorTranslate.contains(stopName))
+						stopName = m_colorTranslate[stopName];
 					else
 						stopName = "Black";
 					const ScColor& gradC = m_Doc->PageColors[stopName];
@@ -831,9 +831,9 @@ void IdmlPlug::parseGraphicsXMLNode(const QDomElement& grNode)
 				}
 			}
 			if (m_Doc->addGradient(grName, currentGradient))
-				importedGradients.append(grName);
-			gradientTranslate.insert(grSelf, grName);
-			gradientTypeMap.insert(grSelf, grTyp);
+				m_importedGradients.append(grName);
+			m_gradientTranslate.insert(grSelf, grName);
+			m_gradientTypeMap.insert(grSelf, grTyp);
 		}
 		else if (e.tagName() == "Tint")
 		{
@@ -841,9 +841,9 @@ void IdmlPlug::parseGraphicsXMLNode(const QDomElement& grNode)
 			QString colorName = e.attribute("Self").remove(0, 5);
 			QString baseName = e.attribute("BaseColor", "Black");
 			double tint = e.attribute("TintValue", "100").toDouble() / 100.0;
-			if (colorTranslate.contains(baseName))
+			if (m_colorTranslate.contains(baseName))
 			{
-				ScColor tmp = m_Doc->PageColors[colorTranslate[baseName]];
+				ScColor tmp = m_Doc->PageColors[m_colorTranslate[baseName]];
 				ScColor res;
 				if (tmp.getColorModel() == colorModelCMYK)
 				{
@@ -861,8 +861,8 @@ void IdmlPlug::parseGraphicsXMLNode(const QDomElement& grNode)
 				res.setRegistrationColor(false);
 				QString fNam = m_Doc->PageColors.tryAddColor(colorName, res);
 				if (fNam == colorName)
-					importedColors.append(fNam);
-				colorTranslate.insert(colorSelf, fNam);
+					m_importedColors.append(fNam);
+				m_colorTranslate.insert(colorSelf, fNam);
 			}
 		}
 	}
@@ -876,7 +876,7 @@ bool IdmlPlug::parseStylesXML(const QDomElement& sElem)
 	if (sElem.hasAttribute("src"))
 	{
 		QByteArray f2;
-		fun->read(sElem.attribute("src"), f2);
+		m_fun->read(sElem.attribute("src"), f2);
 		if(sMapDom.setContent(f2))
 			sNode = sMapDom.documentElement();
 		else
@@ -959,31 +959,31 @@ void IdmlPlug::parseStylesXMLNode(const QDomElement& sNode)
 void IdmlPlug::parseObjectStyle(const QDomElement& styleElem)
 {
 	ObjectStyle nstyle;
-	nstyle.fillColor = def_fillColor;
-	nstyle.strokeColor = def_strokeColor;
+	nstyle.fillColor = m_def_fillColor;
+	nstyle.strokeColor = m_def_strokeColor;
 	nstyle.fillGradient = "";
-	nstyle.gradientFillStart = QPointF(def_gradientX, def_gradientY);
-	nstyle.gradientFillLength = def_gradientLen;
-	nstyle.gradientFillAngle = def_gradientAngle;
+	nstyle.gradientFillStart = QPointF(m_def_gradientX, m_def_gradientY);
+	nstyle.gradientFillLength = m_def_gradientLen;
+	nstyle.gradientFillAngle = m_def_gradientAngle;
 	nstyle.strokeGradient = "";
-	nstyle.gradientStrokeStart = QPointF(def_gradientStrokeStartX, def_gradientStrokeStartY);
-	nstyle.gradientStrokeLength = def_gradientStrokeLength;
-	nstyle.gradientStrokeAngle = def_gradientStrokeAngle;
-	nstyle.lineWidth = def_lineWidth;
-	nstyle.fillTint = def_fillTint;
-	nstyle.strokeTint = def_strokeTint;
-	nstyle.Opacity = def_Opacity;
-	nstyle.blendMode = def_Blendmode;
+	nstyle.gradientStrokeStart = QPointF(m_def_gradientStrokeStartX, m_def_gradientStrokeStartY);
+	nstyle.gradientStrokeLength = m_def_gradientStrokeLength;
+	nstyle.gradientStrokeAngle = m_def_gradientStrokeAngle;
+	nstyle.lineWidth = m_def_lineWidth;
+	nstyle.fillTint = m_def_fillTint;
+	nstyle.strokeTint = m_def_strokeTint;
+	nstyle.Opacity = m_def_Opacity;
+	nstyle.blendMode = m_def_Blendmode;
 	nstyle.parentStyle = "";
-	nstyle.Extra = def_Extra;
-	nstyle.TExtra = def_TExtra;
-	nstyle.BExtra = def_BExtra;
-	nstyle.RExtra = def_RExtra;
-	nstyle.TextColumnCount = def_TextColumnCount;
-	nstyle.TextColumnGutter = def_TextColumnGutter;
-	nstyle.TextFlow = def_TextFlow;
-	nstyle.LeftLineEnd = def_LeftLineEnd;
-	nstyle.RightLineEnd = def_RightLineEnd;
+	nstyle.Extra = m_def_Extra;
+	nstyle.TExtra = m_def_TExtra;
+	nstyle.BExtra = m_def_BExtra;
+	nstyle.RExtra = m_def_RExtra;
+	nstyle.TextColumnCount = m_def_TextColumnCount;
+	nstyle.TextColumnGutter = m_def_TextColumnGutter;
+	nstyle.TextFlow = m_def_TextFlow;
+	nstyle.LeftLineEnd = m_def_LeftLineEnd;
+	nstyle.RightLineEnd = m_def_RightLineEnd;
 	for(QDomNode itp = styleElem.firstChild(); !itp.isNull(); itp = itp.nextSibling() )
 	{
 		QDomElement itpr = itp.toElement();
@@ -1062,23 +1062,23 @@ void IdmlPlug::parseObjectStyle(const QDomElement& styleElem)
 	if (styleElem.hasAttribute("StrokeColor"))
 	{
 		QString strokeColor = styleElem.attribute("StrokeColor");
-		if (colorTranslate.contains(strokeColor))
-			nstyle.strokeColor = colorTranslate[strokeColor];
+		if (m_colorTranslate.contains(strokeColor))
+			nstyle.strokeColor = m_colorTranslate[strokeColor];
 		else
 		{
-			if (gradientTranslate.contains(strokeColor))
-				nstyle.strokeGradient = gradientTranslate[strokeColor];
+			if (m_gradientTranslate.contains(strokeColor))
+				nstyle.strokeGradient = m_gradientTranslate[strokeColor];
 		}
 	}
 	if (styleElem.hasAttribute("FillColor"))
 	{
 		QString fillColor = styleElem.attribute("FillColor");
-		if (colorTranslate.contains(fillColor))
-			nstyle.fillColor = colorTranslate[fillColor];
+		if (m_colorTranslate.contains(fillColor))
+			nstyle.fillColor = m_colorTranslate[fillColor];
 		else
 		{
-			if (gradientTranslate.contains(fillColor))
-				nstyle.fillGradient = gradientTranslate[fillColor];
+			if (m_gradientTranslate.contains(fillColor))
+				nstyle.fillGradient = m_gradientTranslate[fillColor];
 		}
 	}
 	if (styleElem.hasAttribute("FillTint"))
@@ -1124,7 +1124,7 @@ void IdmlPlug::parseObjectStyle(const QDomElement& styleElem)
 	if (styleElem.hasAttribute("LeftLineEnd"))
 		nstyle.LeftLineEnd = styleElem.attribute("LeftLineEnd");
 	QString itemName = styleElem.attribute("Self");
-	ObjectStyles.insert(itemName, nstyle);
+	m_ObjectStyles.insert(itemName, nstyle);
 }
 
 void IdmlPlug::parseCharacterStyle(const QDomElement& styleElem)
@@ -1149,8 +1149,8 @@ void IdmlPlug::parseCharacterStyle(const QDomElement& styleElem)
 				else if (i.tagName() == "BasedOn")
 				{
 					QString parentStyle = i.text().remove("$ID/");
-					if (charStyleTranslate.contains(parentStyle))
-						parentStyle = charStyleTranslate[parentStyle];
+					if (m_charStyleTranslate.contains(parentStyle))
+						parentStyle = m_charStyleTranslate[parentStyle];
 					if (m_Doc->styleExists(parentStyle))
 						newStyle.setParent(parentStyle);
 				}
@@ -1164,7 +1164,7 @@ void IdmlPlug::parseCharacterStyle(const QDomElement& styleElem)
 	StyleSet<CharStyle> temp;
 	temp.create(newStyle);
 	m_Doc->redefineCharStyles(temp, false);
-	charStyleTranslate.insert(styleElem.attribute("Self").remove("$ID/"), styleElem.attribute("Name").remove("$ID/"));
+	m_charStyleTranslate.insert(styleElem.attribute("Self").remove("$ID/"), styleElem.attribute("Name").remove("$ID/"));
 }
 
 void IdmlPlug::parseParagraphStyle(const QDomElement& styleElem)
@@ -1191,15 +1191,15 @@ void IdmlPlug::parseParagraphStyle(const QDomElement& styleElem)
 				else if (i.tagName() == "BasedOn")
 				{
 					QString parentStyle = i.text().remove("$ID/");
-					if (styleTranslate.contains(parentStyle))
-						parentStyle = styleTranslate[parentStyle];
+					if (m_styleTranslate.contains(parentStyle))
+						parentStyle = m_styleTranslate[parentStyle];
 					else
 					{
 						QString pSty = parentStyle.remove("ParagraphStyle/");
-						if (styleParents.contains(pSty))
-							styleParents[pSty].append(newStyle.name());
+						if (m_styleParents.contains(pSty))
+							m_styleParents[pSty].append(newStyle.name());
 						else
-							styleParents.insert(pSty, QStringList() << newStyle.name());
+							m_styleParents.insert(pSty, QStringList() << newStyle.name());
 					}
 					if (m_Doc->styleExists(parentStyle))
 						newStyle.setParent(parentStyle);
@@ -1277,10 +1277,10 @@ void IdmlPlug::parseParagraphStyle(const QDomElement& styleElem)
 	StyleSet<ParagraphStyle>tmp;
 	tmp.create(newStyle);
 	m_Doc->redefineStyles(tmp, false);
-	styleTranslate.insert(styleElem.attribute("Self").remove("$ID/"), styleElem.attribute("Name").remove("$ID/"));
-	if (styleParents.contains(newStyle.name()))
+	m_styleTranslate.insert(styleElem.attribute("Self").remove("$ID/"), styleElem.attribute("Name").remove("$ID/"));
+	if (m_styleParents.contains(newStyle.name()))
 	{
-		QStringList desList = styleParents[newStyle.name()];
+		QStringList desList = m_styleParents[newStyle.name()];
 		for (int a = 0; a < desList.count(); a++)
 		{
 			ParagraphStyle old = m_Doc->paragraphStyle(desList[a]);
@@ -1299,7 +1299,7 @@ bool IdmlPlug::parsePreferencesXML(const QDomElement& prElem)
 	if (prElem.hasAttribute("src"))
 	{
 		QByteArray f2;
-		fun->read(prElem.attribute("src"), f2);
+		m_fun->read(prElem.attribute("src"), f2);
 		if(prMapDom.setContent(f2))
 			prNode = prMapDom.documentElement();
 		else
@@ -1328,21 +1328,21 @@ void IdmlPlug::parsePreferencesXMLNode(const QDomElement& prNode)
 	double bleedLeft = m_Doc->bleeds()->left();
 	double bleedRight = m_Doc->bleeds()->right();
 	double bleedBottom = m_Doc->bleeds()->bottom();
-	facingPages = false;
+	m_facingPages = false;
 	for (QDomNode n = prNode.firstChild(); !n.isNull(); n = n.nextSibling() )
 	{
 		QDomElement e = n.toElement();
 		if (e.tagName() == "DocumentPreference")
 		{
-			if (importerFlags & LoadSavePlugin::lfCreateDoc)
+			if (m_importerFlags & LoadSavePlugin::lfCreateDoc)
 			{
-				docWidth = e.attribute("PageWidth").toDouble();
-				docHeight = e.attribute("PageHeight").toDouble();
+				m_docWidth = e.attribute("PageWidth").toDouble();
+				m_docHeight = e.attribute("PageHeight").toDouble();
 				bleedTop = e.attribute("DocumentBleedTopOffset").toDouble();
 				bleedLeft = e.attribute("DocumentBleedInsideOrLeftOffset").toDouble();
 				bleedRight = e.attribute("DocumentBleedOutsideOrRightOffset").toDouble();
 				bleedBottom = e.attribute("DocumentBleedBottomOffset").toDouble();
-				facingPages = (e.attribute("FacingPages","") == "true") ? 1 : 0;
+				m_facingPages = (e.attribute("FacingPages","") == "true") ? 1 : 0;
 			}
 		}
 		if (e.tagName() == "MarginPreference")
@@ -1364,18 +1364,18 @@ void IdmlPlug::parsePreferencesXMLNode(const QDomElement& prNode)
 					QDomElement itpr = itp.toElement();
 					if (itpr.tagName() == "TransparencySetting")
 					{
-						def_Opacity = 1.0 - (itpr.attribute("Opacity", "100").toDouble() / 100.0);
-						def_Blendmode = convertBlendMode(itpr.attribute("BlendMode", "Normal"));
+						m_def_Opacity = 1.0 - (itpr.attribute("Opacity", "100").toDouble() / 100.0);
+						m_def_Blendmode = convertBlendMode(itpr.attribute("BlendMode", "Normal"));
 					}
 					if (itpr.tagName() == "StrokeTransparencySetting")
 					{
-						def_strokeOpacity = 1.0 - (itpr.attribute("Opacity", "100").toDouble() / 100.0);
-						def_strokeBlendmode = convertBlendMode(itpr.attribute("BlendMode", "Normal"));
+						m_def_strokeOpacity = 1.0 - (itpr.attribute("Opacity", "100").toDouble() / 100.0);
+						m_def_strokeBlendmode = convertBlendMode(itpr.attribute("BlendMode", "Normal"));
 					}
 					if (itpr.tagName() == "FillTransparencySetting")
 					{
-						def_fillOpacity = 1.0 - (itpr.attribute("Opacity", "100").toDouble() / 100.0);
-						def_fillBlendmode = convertBlendMode(itpr.attribute("BlendMode", "Normal"));
+						m_def_fillOpacity = 1.0 - (itpr.attribute("Opacity", "100").toDouble() / 100.0);
+						m_def_fillBlendmode = convertBlendMode(itpr.attribute("BlendMode", "Normal"));
 					}
 				}
 			}
@@ -1383,68 +1383,68 @@ void IdmlPlug::parsePreferencesXMLNode(const QDomElement& prNode)
 		if (e.tagName() == "PageItemDefault")
 		{
 			QString strokeColor = e.attribute("StrokeColor");
-			if (colorTranslate.contains(strokeColor))
-				def_strokeColor = colorTranslate[strokeColor];
+			if (m_colorTranslate.contains(strokeColor))
+				m_def_strokeColor = m_colorTranslate[strokeColor];
 			else
 			{
-				if (gradientTranslate.contains(strokeColor))
+				if (m_gradientTranslate.contains(strokeColor))
 				{
-					def_strokeGradient = gradientTranslate[strokeColor];
+					m_def_strokeGradient = m_gradientTranslate[strokeColor];
 				}
 			}
 			QString strokeGStart = e.attribute("GradientStrokeStart", "0 0");
 			ScTextStream Code2(&strokeGStart, QIODevice::ReadOnly);
-			Code2 >> def_gradientStrokeStartX >> def_gradientStrokeStartY;
-			def_gradientStrokeLength = e.attribute("GradientStrokeLength", "0").toDouble();
-			def_gradientStrokeAngle = e.attribute("GradientStrokeAngle", "0").toDouble();
+			Code2 >> m_def_gradientStrokeStartX >> m_def_gradientStrokeStartY;
+			m_def_gradientStrokeLength = e.attribute("GradientStrokeLength", "0").toDouble();
+			m_def_gradientStrokeAngle = e.attribute("GradientStrokeAngle", "0").toDouble();
 			int strokeShade = e.attribute("StrokeTint", "100").toInt();
 			if (strokeShade != -1)
-				def_strokeTint = strokeShade;
+				m_def_strokeTint = strokeShade;
 			else
-				def_strokeTint = 100;
+				m_def_strokeTint = 100;
 			QString fillColor = e.attribute("FillColor");
-			if (colorTranslate.contains(fillColor))
-				def_fillColor = colorTranslate[fillColor];
+			if (m_colorTranslate.contains(fillColor))
+				m_def_fillColor = m_colorTranslate[fillColor];
 			else
 			{
-				if (gradientTranslate.contains(fillColor))
+				if (m_gradientTranslate.contains(fillColor))
 				{
-					def_fillGradient = gradientTranslate[fillColor];
+					m_def_fillGradient = m_gradientTranslate[fillColor];
 				}
 			}
 			QString fillGStart = e.attribute("GradientFillStart", "0 0");
 			ScTextStream Code(&fillGStart, QIODevice::ReadOnly);
-			Code >> def_gradientX >> def_gradientY;
-			def_gradientLen = e.attribute("GradientFillLength", "0").toDouble();
-			def_gradientAngle = e.attribute("GradientFillAngle", "0").toDouble();
+			Code >> m_def_gradientX >> m_def_gradientY;
+			m_def_gradientLen = e.attribute("GradientFillLength", "0").toDouble();
+			m_def_gradientAngle = e.attribute("GradientFillAngle", "0").toDouble();
 			int fillShade = e.attribute("FillTint", "100").toInt();
 			if (fillShade != -1)
-				def_fillTint = fillShade;
+				m_def_fillTint = fillShade;
 			else
-				def_fillTint = 100;
-			def_lineWidth = e.attribute("StrokeWeight", "0").toDouble();
+				m_def_fillTint = 100;
+			m_def_lineWidth = e.attribute("StrokeWeight", "0").toDouble();
 			if (e.hasAttribute("RightLineEnd"))
-				def_RightLineEnd = e.attribute("RightLineEnd");
+				m_def_RightLineEnd = e.attribute("RightLineEnd");
 			if (e.hasAttribute("LeftLineEnd"))
-				def_LeftLineEnd = e.attribute("LeftLineEnd");
+				m_def_LeftLineEnd = e.attribute("LeftLineEnd");
 		}
 		if (e.tagName() == "TextWrapPreference")
 		{
 			if (e.attribute("TextWrapMode") == "None")
-				def_TextFlow = PageItem::TextFlowDisabled;
+				m_def_TextFlow = PageItem::TextFlowDisabled;
 			else if (e.attribute("TextWrapMode") == "BoundingBoxTextWrap")
-				def_TextFlow = PageItem::TextFlowUsesBoundingBox;
+				m_def_TextFlow = PageItem::TextFlowUsesBoundingBox;
 			else if (e.attribute("TextWrapMode") == "Contour")
-				def_TextFlow = PageItem::TextFlowUsesFrameShape;
+				m_def_TextFlow = PageItem::TextFlowUsesFrameShape;
 		}
 		if (e.tagName() == "TextFramePreference")
 		{
 			if (e.hasAttribute("TextColumnCount"))
-				def_TextColumnCount = e.attribute("TextColumnCount").toInt();
+				m_def_TextColumnCount = e.attribute("TextColumnCount").toInt();
 			if (e.hasAttribute("TextColumnGutter"))
-				def_TextColumnGutter = e.attribute("TextColumnGutter").toDouble();
+				m_def_TextColumnGutter = e.attribute("TextColumnGutter").toDouble();
 			if (e.hasAttribute("TextColumnFixedWidth"))
-				def_TextColumnFixedWidth = e.attribute("TextColumnFixedWidth").toDouble();
+				m_def_TextColumnFixedWidth = e.attribute("TextColumnFixedWidth").toDouble();
 			for(QDomNode itpp = e.firstChild(); !itpp.isNull(); itpp = itpp.nextSibling() )
 			{
 				QDomElement i = itpp.toElement();
@@ -1456,7 +1456,7 @@ void IdmlPlug::parsePreferencesXMLNode(const QDomElement& prNode)
 						if (itx.tagName() == "InsetSpacing")
 						{
 							if (itx.attribute("type") == "unit")
-								def_Extra = def_TExtra = def_BExtra = def_RExtra = itx.text().toDouble();
+								m_def_Extra = m_def_TExtra = m_def_BExtra = m_def_RExtra = itx.text().toDouble();
 							else if (itx.attribute("type") == "list")
 							{
 								int cc = 0;
@@ -1467,13 +1467,13 @@ void IdmlPlug::parsePreferencesXMLNode(const QDomElement& prNode)
 									{
 										double val = itxx.text().toDouble();
 										if (cc == 0)
-											def_Extra = val;
+											m_def_Extra = val;
 										else if (cc == 1)
-											def_TExtra = val;
+											m_def_TExtra = val;
 										else if (cc == 2)
-											def_RExtra = val;
+											m_def_RExtra = val;
 										else if (cc == 3)
-											def_BExtra = val;
+											m_def_BExtra = val;
 										cc++;
 									}
 								}
@@ -1484,23 +1484,23 @@ void IdmlPlug::parsePreferencesXMLNode(const QDomElement& prNode)
 			}
 		}
 	}
-	if (importerFlags & LoadSavePlugin::lfCreateDoc)
+	if (m_importerFlags & LoadSavePlugin::lfCreateDoc)
 	{
-		m_Doc->setPage(docWidth, docHeight, topMargin, leftMargin, rightMargin, bottomMargin, pgCols, pgGap, false, facingPages);
+		m_Doc->setPage(m_docWidth, m_docHeight, topMargin, leftMargin, rightMargin, bottomMargin, pgCols, pgGap, false, m_facingPages);
 		m_Doc->setPageSize("Custom");
 		m_Doc->bleeds()->set(bleedTop, bleedLeft, bleedBottom, bleedRight);
 		m_Doc->currentPage()->m_pageSize = "Custom";
-		m_Doc->currentPage()->setInitialHeight(docHeight);
-		m_Doc->currentPage()->setInitialWidth(docWidth);
-		m_Doc->currentPage()->setHeight(docHeight);
-		m_Doc->currentPage()->setWidth(docWidth);
+		m_Doc->currentPage()->setInitialHeight(m_docHeight);
+		m_Doc->currentPage()->setInitialWidth(m_docWidth);
+		m_Doc->currentPage()->setHeight(m_docHeight);
+		m_Doc->currentPage()->setWidth(m_docWidth);
 		m_Doc->currentPage()->initialMargins.setTop(topMargin);
 		m_Doc->currentPage()->initialMargins.setBottom(bottomMargin);
 		m_Doc->currentPage()->initialMargins.setLeft(leftMargin);
 		m_Doc->currentPage()->initialMargins.setRight(rightMargin);
 		m_Doc->reformPages(true);
-		baseX = m_Doc->currentPage()->xOffset();
-		baseY = m_Doc->currentPage()->yOffset() + m_Doc->currentPage()->height() / 2.0;
+		m_baseX = m_Doc->currentPage()->xOffset();
+		m_baseY = m_Doc->currentPage()->yOffset() + m_Doc->currentPage()->height() / 2.0;
 	}
 	return;
 }
@@ -1512,7 +1512,7 @@ bool IdmlPlug::parseSpreadXML(const QDomElement& spElem)
 	if (spElem.hasAttribute("src"))
 	{
 		QByteArray f2;
-		fun->read(spElem.attribute("src"), f2);
+		m_fun->read(spElem.attribute("src"), f2);
 		if(spMapDom.setContent(f2))
 			spNode = spMapDom.documentElement();
 		else
@@ -1541,53 +1541,53 @@ void IdmlPlug::parseSpreadXMLNode(const QDomElement& spNode)
 				QDomElement spe = sp.toElement();
 				if (spe.tagName() == "Page")
 				{
-					if ((importerFlags & LoadSavePlugin::lfCreateDoc) && (!firstPage))
+					if ((m_importerFlags & LoadSavePlugin::lfCreateDoc) && (!m_firstPage))
 					{
-						m_Doc->addPage(pagecount);
+						m_Doc->addPage(m_pagecount);
 						m_Doc->currentPage()->MPageNam = CommonStrings::trMasterPageNormal;
 						m_Doc->currentPage()->m_pageSize = "Custom";
-						m_Doc->currentPage()->setInitialHeight(docHeight);
-						m_Doc->currentPage()->setInitialWidth(docWidth);
-						m_Doc->currentPage()->setHeight(docHeight);
-						m_Doc->currentPage()->setWidth(docWidth);
-						m_Doc->view()->addPage(pagecount, true);
-						pagecount++;
+						m_Doc->currentPage()->setInitialHeight(m_docHeight);
+						m_Doc->currentPage()->setInitialWidth(m_docWidth);
+						m_Doc->currentPage()->setHeight(m_docHeight);
+						m_Doc->currentPage()->setWidth(m_docWidth);
+						m_Doc->view()->addPage(m_pagecount, true);
+						m_pagecount++;
 					}
-					baseX = m_Doc->currentPage()->xOffset();
-					baseY = m_Doc->currentPage()->yOffset() + m_Doc->currentPage()->height() / 2.0;
-					firstPage = false;
-					if ((importerFlags & LoadSavePlugin::lfCreateDoc) && spe.hasAttribute("AppliedMaster"))
+					m_baseX = m_Doc->currentPage()->xOffset();
+					m_baseY = m_Doc->currentPage()->yOffset() + m_Doc->currentPage()->height() / 2.0;
+					m_firstPage = false;
+					if ((m_importerFlags & LoadSavePlugin::lfCreateDoc) && spe.hasAttribute("AppliedMaster"))
 					{
 						QString mSpr = spe.attribute("AppliedMaster");
-						if (masterSpreads.contains(mSpr))
+						if (m_masterSpreads.contains(mSpr))
 						{
 							QString mp = CommonStrings::trMasterPageNormal;
-							if (facingPages)
+							if (m_facingPages)
 							{
-								if ((pagecount % 2 == 0) && (masterSpreads[mSpr].count() > 0))
-									mp = mSpr + "_" + masterSpreads[mSpr][0];
-								if ((pagecount % 2 == 1) && (masterSpreads[mSpr].count() > 1))
-									mp = mSpr + "_" + masterSpreads[mSpr][1];
+								if ((m_pagecount % 2 == 0) && (m_masterSpreads[mSpr].count() > 0))
+									mp = mSpr + "_" + m_masterSpreads[mSpr][0];
+								if ((m_pagecount % 2 == 1) && (m_masterSpreads[mSpr].count() > 1))
+									mp = mSpr + "_" + m_masterSpreads[mSpr][1];
 							}
 							else
 							{
-								if ((masterSpreads[mSpr].count() > 0))
-									mp = mSpr + "_" + masterSpreads[mSpr][0];
+								if ((m_masterSpreads[mSpr].count() > 0))
+									mp = mSpr + "_" + m_masterSpreads[mSpr][0];
 							}
 							m_Doc->applyMasterPage(mp, m_Doc->currentPageNumber());
 						}
 					}
 				}
 			}
-			if ((facingPages) && (pagecount % 2 == 0))
+			if ((m_facingPages) && (m_pagecount % 2 == 0))
 			{
-				baseX = m_Doc->currentPage()->xOffset() + m_Doc->currentPage()->width();
-				baseY = m_Doc->currentPage()->yOffset() + m_Doc->currentPage()->height() / 2.0;
+				m_baseX = m_Doc->currentPage()->xOffset() + m_Doc->currentPage()->width();
+				m_baseY = m_Doc->currentPage()->yOffset() + m_Doc->currentPage()->height() / 2.0;
 			}
-			if (!facingPages)
+			if (!m_facingPages)
 			{
-				baseX = m_Doc->currentPage()->xOffset() + m_Doc->currentPage()->width() / 2.0;
-				baseY = m_Doc->currentPage()->yOffset() + m_Doc->currentPage()->height() / 2.0;
+				m_baseX = m_Doc->currentPage()->xOffset() + m_Doc->currentPage()->width() / 2.0;
+				m_baseY = m_Doc->currentPage()->yOffset() + m_Doc->currentPage()->height() / 2.0;
 			}
 			for(QDomNode sp = e.firstChild(); !sp.isNull(); sp = sp.nextSibling() )
 			{
@@ -1598,7 +1598,7 @@ void IdmlPlug::parseSpreadXMLNode(const QDomElement& spNode)
 					for (int ec = 0; ec < el.count(); ++ec)
 					{
 						m_Doc->Items->append(el.at(ec));
-						Elements.append(el.at(ec));
+						m_Elements.append(el.at(ec));
 					}
 				}
 			}
@@ -1620,17 +1620,17 @@ void IdmlPlug::parseSpreadXMLNode(const QDomElement& spNode)
 					list >> a >> b >> c >> d >> e1 >> f;
 					/* Adding the values directly */
 					QTransform transformation(a, b, c, d, e1, f);
-					ScPage *addedPage = m_Doc->addMasterPage(mpagecount, pageNam + "_" + spe.attribute("Self"));
+					ScPage *addedPage = m_Doc->addMasterPage(m_mpagecount, pageNam + "_" + spe.attribute("Self"));
 					m_Doc->setCurrentPage(addedPage);
 					pages.append(spe.attribute("Self"));
 					addedPage->MPageNam = "";
-					m_Doc->view()->addPage(mpagecount, true);
-					baseX = addedPage->xOffset();
-					baseY = addedPage->yOffset() + addedPage->height() / 2.0;
-					if (!facingPages)
-						baseX = addedPage->xOffset() + addedPage->width() / 2.0;
+					m_Doc->view()->addPage(m_mpagecount, true);
+					m_baseX = addedPage->xOffset();
+					m_baseY = addedPage->yOffset() + addedPage->height() / 2.0;
+					if (!m_facingPages)
+						m_baseX = addedPage->xOffset() + addedPage->width() / 2.0;
 					else
-						baseX = addedPage->xOffset() - transformation.dx();
+						m_baseX = addedPage->xOffset() - transformation.dx();
 					for(QDomNode spp = e.firstChild(); !spp.isNull(); spp = spp.nextSibling() )
 					{
 						QDomElement spe = spp.toElement();
@@ -1644,15 +1644,15 @@ void IdmlPlug::parseSpreadXMLNode(const QDomElement& spNode)
 								if (pgi != -1)
 								{
 									m_Doc->Items->append(ite);
-									Elements.append(ite);
+									m_Elements.append(ite);
 								}
 							}
 						}
 					}
-					mpagecount++;
+					m_mpagecount++;
 				}
 			}
-			masterSpreads.insert(pageNam, pages);
+			m_masterSpreads.insert(pageNam, pages);
 			m_Doc->setCurrentPage(oldCur);
 			m_Doc->setMasterPageMode(false);
 		}
@@ -1673,72 +1673,72 @@ QList<PageItem*> IdmlPlug::parseItemXML(const QDomElement& itElem, QTransform pT
 	/* Adding the values directly */
 	QTransform transformation(a, b, c, d, e, f);
 	QString itemName = itElem.attribute("Self");
-	QString fillColor = def_fillColor;
+	QString fillColor = m_def_fillColor;
 	QString fillGradient = "";
-	double gstX = def_gradientX;
-	double gstY = def_gradientY;
-	double gLen = def_gradientLen;
-	double gAngle = def_gradientAngle;
+	double gstX = m_def_gradientX;
+	double gstY = m_def_gradientY;
+	double gLen = m_def_gradientLen;
+	double gAngle = m_def_gradientAngle;
 	int fillGradientTyp = 6;
-	QString strokeColor = def_strokeColor;
+	QString strokeColor = m_def_strokeColor;
 	QString strokeGradient = "";
-	double gstSX = def_gradientStrokeStartX;
-	double gstSY = def_gradientStrokeStartY;
-	double gSLen = def_gradientStrokeLength;
-	double gSAngle = def_gradientStrokeAngle;
+	double gstSX = m_def_gradientStrokeStartX;
+	double gstSY = m_def_gradientStrokeStartY;
+	double gSLen = m_def_gradientStrokeLength;
+	double gSAngle = m_def_gradientStrokeAngle;
 	int strokeGradientTyp = 6;
-	double lineWidth = def_lineWidth;
-	int fillShade = def_fillTint;
-	int strokeShade = def_strokeTint;
-	double Opacity = def_Opacity;
-	int blendMode = def_Blendmode;
-	double Extra = def_Extra;
-	double TExtra = def_TExtra;
-	double BExtra = def_BExtra;
-	double RExtra = def_RExtra;
-	int TextColumnCount = def_TextColumnCount;
-	double TextColumnGutter = def_TextColumnGutter;
+	double lineWidth = m_def_lineWidth;
+	int fillShade = m_def_fillTint;
+	int strokeShade = m_def_strokeTint;
+	double Opacity = m_def_Opacity;
+	int blendMode = m_def_Blendmode;
+	double Extra = m_def_Extra;
+	double TExtra = m_def_TExtra;
+	double BExtra = m_def_BExtra;
+	double RExtra = m_def_RExtra;
+	int TextColumnCount = m_def_TextColumnCount;
+	double TextColumnGutter = m_def_TextColumnGutter;
 	//double TextColumnFixedWidth = def_TextColumnFixedWidth;
-	QString LeftLineEnd = def_LeftLineEnd;
-	QString RightLineEnd = def_RightLineEnd;
+	QString LeftLineEnd = m_def_LeftLineEnd;
+	QString RightLineEnd = m_def_RightLineEnd;
 	QString imageFit = "None";
-	PageItem::TextFlowMode textFlow = def_TextFlow;
+	PageItem::TextFlowMode textFlow = m_def_TextFlow;
 	if (itElem.hasAttribute("AppliedObjectStyle"))
 	{
 		QString os = itElem.attribute("AppliedObjectStyle");
 		if (os != "n")
 		{
 			ObjectStyle nstyle;
-			nstyle.fillColor = def_fillColor;
-			nstyle.strokeColor = def_strokeColor;
+			nstyle.fillColor = m_def_fillColor;
+			nstyle.strokeColor = m_def_strokeColor;
 			nstyle.fillGradient = "";
-			nstyle.gradientFillStart = QPointF(def_gradientX, def_gradientY);
-			nstyle.gradientFillLength = def_gradientLen;
-			nstyle.gradientFillAngle = def_gradientAngle;
+			nstyle.gradientFillStart = QPointF(m_def_gradientX, m_def_gradientY);
+			nstyle.gradientFillLength = m_def_gradientLen;
+			nstyle.gradientFillAngle = m_def_gradientAngle;
 			nstyle.strokeGradient = "";
-			nstyle.gradientStrokeStart = QPointF(def_gradientStrokeStartX, def_gradientStrokeStartY);
-			nstyle.gradientStrokeAngle = def_gradientStrokeAngle;
-			nstyle.gradientStrokeLength = def_gradientStrokeLength;
-			nstyle.lineWidth = def_lineWidth;
-			nstyle.fillTint = def_fillTint;
-			nstyle.strokeTint = def_strokeTint;
-			nstyle.Opacity = def_Opacity;
-			nstyle.blendMode = def_Blendmode;
-			nstyle.Extra = def_Extra;
-			nstyle.TExtra = def_TExtra;
-			nstyle.BExtra = def_BExtra;
-			nstyle.RExtra = def_RExtra;
-			nstyle.TextColumnCount = def_TextColumnCount;
-			nstyle.TextColumnGutter = def_TextColumnGutter;
-			nstyle.TextColumnFixedWidth = def_TextColumnFixedWidth;
-			nstyle.TextFlow = def_TextFlow;
+			nstyle.gradientStrokeStart = QPointF(m_def_gradientStrokeStartX, m_def_gradientStrokeStartY);
+			nstyle.gradientStrokeAngle = m_def_gradientStrokeAngle;
+			nstyle.gradientStrokeLength = m_def_gradientStrokeLength;
+			nstyle.lineWidth = m_def_lineWidth;
+			nstyle.fillTint = m_def_fillTint;
+			nstyle.strokeTint = m_def_strokeTint;
+			nstyle.Opacity = m_def_Opacity;
+			nstyle.blendMode = m_def_Blendmode;
+			nstyle.Extra = m_def_Extra;
+			nstyle.TExtra = m_def_TExtra;
+			nstyle.BExtra = m_def_BExtra;
+			nstyle.RExtra = m_def_RExtra;
+			nstyle.TextColumnCount = m_def_TextColumnCount;
+			nstyle.TextColumnGutter = m_def_TextColumnGutter;
+			nstyle.TextColumnFixedWidth = m_def_TextColumnFixedWidth;
+			nstyle.TextFlow = m_def_TextFlow;
 			nstyle.parentStyle = "";
 			resolveObjectStyle(nstyle, os);
 			fillColor = nstyle.fillColor;
 			if (!nstyle.fillGradient.isEmpty())
 			{
 				fillGradient = nstyle.fillGradient;
-				fillGradientTyp = gradientTypeMap[fillColor];
+				fillGradientTyp = m_gradientTypeMap[fillColor];
 			}
 			gstX = nstyle.gradientFillStart.x();
 			gstY = nstyle.gradientFillStart.y();
@@ -1748,7 +1748,7 @@ QList<PageItem*> IdmlPlug::parseItemXML(const QDomElement& itElem, QTransform pT
 			if (!nstyle.strokeGradient.isEmpty())
 			{
 				strokeGradient = nstyle.strokeGradient;
-				strokeGradientTyp = gradientTypeMap[strokeColor];
+				strokeGradientTyp = m_gradientTypeMap[strokeColor];
 			}
 			gstSX = nstyle.gradientStrokeStart.x();
 			gstSY = nstyle.gradientStrokeStart.y();
@@ -1774,14 +1774,14 @@ QList<PageItem*> IdmlPlug::parseItemXML(const QDomElement& itElem, QTransform pT
 	if (itElem.hasAttribute("FillColor"))
 	{
 		fillColor = itElem.attribute("FillColor");
-		if (colorTranslate.contains(fillColor))
-			fillColor = colorTranslate[fillColor];
+		if (m_colorTranslate.contains(fillColor))
+			fillColor = m_colorTranslate[fillColor];
 		else
 		{
-			if (gradientTranslate.contains(fillColor))
+			if (m_gradientTranslate.contains(fillColor))
 			{
-				fillGradientTyp = gradientTypeMap[fillColor];
-				fillGradient = gradientTranslate[fillColor];
+				fillGradientTyp = m_gradientTypeMap[fillColor];
+				fillGradient = m_gradientTranslate[fillColor];
 			}
 		}
 	}
@@ -1796,14 +1796,14 @@ QList<PageItem*> IdmlPlug::parseItemXML(const QDomElement& itElem, QTransform pT
 	if (itElem.hasAttribute("StrokeColor"))
 	{
 		strokeColor = itElem.attribute("StrokeColor");
-		if (colorTranslate.contains(strokeColor))
-			strokeColor = colorTranslate[strokeColor];
+		if (m_colorTranslate.contains(strokeColor))
+			strokeColor = m_colorTranslate[strokeColor];
 		else
 		{
-			if (gradientTranslate.contains(strokeColor))
+			if (m_gradientTranslate.contains(strokeColor))
 			{
-				strokeGradientTyp = gradientTypeMap[strokeColor];
-				strokeGradient = gradientTranslate[strokeColor];
+				strokeGradientTyp = m_gradientTypeMap[strokeColor];
+				strokeGradient = m_gradientTranslate[strokeColor];
 			}
 		}
 	}
@@ -1836,8 +1836,8 @@ QList<PageItem*> IdmlPlug::parseItemXML(const QDomElement& itElem, QTransform pT
 	if (itElem.hasAttribute("LeftLineEnd"))
 		LeftLineEnd = itElem.attribute("LeftLineEnd");
 	QString forLayer = itElem.attribute("ItemLayer");
-	if (layerTranslate.contains(forLayer))
-		forLayer = layerTranslate[forLayer];
+	if (m_layerTranslate.contains(forLayer))
+		forLayer = m_layerTranslate[forLayer];
 	else
 		forLayer = m_Doc->layerName(0);
 	int layerNum = 0;
@@ -2143,17 +2143,17 @@ QList<PageItem*> IdmlPlug::parseItemXML(const QDomElement& itElem, QTransform pT
 					fillColor = CommonStrings::None;
 				if (itElem.tagName() == "TextFrame")
 				{
-					z = m_Doc->itemAdd(PageItem::TextFrame, PageItem::Unspecified, baseX, baseY, 10, 10, lineWidth, fillColor, strokeColor, true);
+					z = m_Doc->itemAdd(PageItem::TextFrame, PageItem::Unspecified, m_baseX, m_baseY, 10, 10, lineWidth, fillColor, strokeColor, true);
 					PageItem* item = m_Doc->Items->at(z);
 					QString story = itElem.attribute("ParentStory");
-					if (!storyMap.contains(story))
-						storyMap.insert(story, item);
+					if (!m_storyMap.contains(story))
+						m_storyMap.insert(story, item);
 					if (itElem.hasAttribute("NextTextFrame"))
 					{
 						if (itElem.attribute("NextTextFrame") != "n")
-							frameLinks.insert(item, itElem.attribute("NextTextFrame"));
+							m_frameLinks.insert(item, itElem.attribute("NextTextFrame"));
 					}
-					frameTargets.insert(itemName, item);
+					m_frameTargets.insert(itemName, item);
 					item->setTextToFrameDistLeft(Extra);
 					item->setTextToFrameDistTop(TExtra);
 					item->setTextToFrameDistRight(RExtra);
@@ -2163,23 +2163,23 @@ QList<PageItem*> IdmlPlug::parseItemXML(const QDomElement& itElem, QTransform pT
 				}
 				else if (isPathText)
 				{
-					z = m_Doc->itemAdd(PageItem::PathText, PageItem::Unspecified, baseX, baseY, 10, 10, lineWidth, CommonStrings::None, strokeColor, true);
-					if (!storyMap.contains(storyForPath))
-						storyMap.insert(storyForPath, m_Doc->Items->at(z));
+					z = m_Doc->itemAdd(PageItem::PathText, PageItem::Unspecified, m_baseX, m_baseY, 10, 10, lineWidth, CommonStrings::None, strokeColor, true);
+					if (!m_storyMap.contains(storyForPath))
+						m_storyMap.insert(storyForPath, m_Doc->Items->at(z));
 					PageItem* item = m_Doc->Items->at(z);
 					item->setPathTextType(pathTextType);
 					item->setTextToFrameDistLeft(pathTextStart);
 				}
 				else if (isImage)
 				{
-					z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, baseX, baseY, 10, 10, lineWidth, fillColor, strokeColor, true);
+					z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, m_baseX, m_baseY, 10, 10, lineWidth, fillColor, strokeColor, true);
 				}
 				else
 				{
 					if (isOpen)
-						z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX, baseY, 10, 10, lineWidth, fillColor, strokeColor, true);
+						z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, m_baseX, m_baseY, 10, 10, lineWidth, fillColor, strokeColor, true);
 					else
-						z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, lineWidth, fillColor, strokeColor, true);
+						z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, m_baseX, m_baseY, 10, 10, lineWidth, fillColor, strokeColor, true);
 				}
 				PageItem* item = m_Doc->Items->at(z);
 				item->PoLine = GCoords.copy();
@@ -2312,7 +2312,7 @@ QList<PageItem*> IdmlPlug::parseItemXML(const QDomElement& itElem, QTransform pT
 				}
 				item->updateClip();
 				item->setItemName(itemName);
-				if (importerFlags & LoadSavePlugin::lfCreateDoc)
+				if (m_importerFlags & LoadSavePlugin::lfCreateDoc)
 					item->setLayer(layerNum);
 				if ((itElem.tagName() == "Rectangle") && (itElem.attribute("CornerOption") == "RoundedCorner"))
 				{
@@ -2325,7 +2325,7 @@ QList<PageItem*> IdmlPlug::parseItemXML(const QDomElement& itElem, QTransform pT
 				item->ContourLine = item->PoLine.copy();
 				GElements.prepend(m_Doc->Items->takeAt(z));
 			}
-			z = m_Doc->itemAdd(PageItem::Group, PageItem::Rectangle, baseX, baseY, 10, 10, 0, CommonStrings::None, CommonStrings::None, true);
+			z = m_Doc->itemAdd(PageItem::Group, PageItem::Rectangle, m_baseX, m_baseY, 10, 10, 0, CommonStrings::None, CommonStrings::None, true);
 			PageItem *itemg = m_Doc->Items->at(z);
 			double dx = 0;
 			double dy = 0;
@@ -2361,7 +2361,7 @@ QList<PageItem*> IdmlPlug::parseItemXML(const QDomElement& itElem, QTransform pT
 			itemg->setLineBlendmode(blendMode);
 			itemg->setFillBlendmode(blendMode);
 			itemg->setFillEvenOdd(false);
-			if (importerFlags & LoadSavePlugin::lfCreateDoc)
+			if (m_importerFlags & LoadSavePlugin::lfCreateDoc)
 				itemg->setLayer(layerNum);
 			itemg->OwnPage = m_Doc->OnPage(itemg);
 			itemg->ContourLine = itemg->PoLine.copy();
@@ -2375,17 +2375,17 @@ QList<PageItem*> IdmlPlug::parseItemXML(const QDomElement& itElem, QTransform pT
 				fillColor = CommonStrings::None;
 			if (itElem.tagName() == "TextFrame")
 			{
-				z = m_Doc->itemAdd(PageItem::TextFrame, PageItem::Unspecified, baseX, baseY, 10, 10, lineWidth, fillColor, strokeColor, true);
+				z = m_Doc->itemAdd(PageItem::TextFrame, PageItem::Unspecified, m_baseX, m_baseY, 10, 10, lineWidth, fillColor, strokeColor, true);
 				PageItem* item = m_Doc->Items->at(z);
 				QString story = itElem.attribute("ParentStory");
-				if (!storyMap.contains(story))
-					storyMap.insert(story, item);
+				if (!m_storyMap.contains(story))
+					m_storyMap.insert(story, item);
 				if (itElem.hasAttribute("NextTextFrame"))
 				{
 					if (itElem.attribute("NextTextFrame") != "n")
-						frameLinks.insert(item, itElem.attribute("NextTextFrame"));
+						m_frameLinks.insert(item, itElem.attribute("NextTextFrame"));
 				}
-				frameTargets.insert(itemName, item);
+				m_frameTargets.insert(itemName, item);
 				item->setTextToFrameDistLeft(Extra);
 				item->setTextToFrameDistTop(TExtra);
 				item->setTextToFrameDistRight(RExtra);
@@ -2395,23 +2395,23 @@ QList<PageItem*> IdmlPlug::parseItemXML(const QDomElement& itElem, QTransform pT
 			}
 			else if (isPathText)
 			{
-				z = m_Doc->itemAdd(PageItem::PathText, PageItem::Unspecified, baseX, baseY, 10, 10, lineWidth, CommonStrings::None, strokeColor, true);
-				if (!storyMap.contains(storyForPath))
-					storyMap.insert(storyForPath, m_Doc->Items->at(z));
+				z = m_Doc->itemAdd(PageItem::PathText, PageItem::Unspecified, m_baseX, m_baseY, 10, 10, lineWidth, CommonStrings::None, strokeColor, true);
+				if (!m_storyMap.contains(storyForPath))
+					m_storyMap.insert(storyForPath, m_Doc->Items->at(z));
 				PageItem* item = m_Doc->Items->at(z);
 				item->setPathTextType(pathTextType);
 				item->setTextToFrameDistLeft(pathTextStart);
 			}
 			else if (isImage)
 			{
-				z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, baseX, baseY, 10, 10, lineWidth, fillColor, strokeColor, true);
+				z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, m_baseX, m_baseY, 10, 10, lineWidth, fillColor, strokeColor, true);
 			}
 			else
 			{
 				if (isOpen)
-					z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX, baseY, 10, 10, lineWidth, fillColor, strokeColor, true);
+					z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, m_baseX, m_baseY, 10, 10, lineWidth, fillColor, strokeColor, true);
 				else
-					z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, lineWidth, fillColor, strokeColor, true);
+					z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, m_baseX, m_baseY, 10, 10, lineWidth, fillColor, strokeColor, true);
 			}
 			PageItem* item = m_Doc->Items->at(z);
 			double dx = 0;
@@ -2555,7 +2555,7 @@ QList<PageItem*> IdmlPlug::parseItemXML(const QDomElement& itElem, QTransform pT
 			item->setItemName(itemName);
 			item->OwnPage = m_Doc->OnPage(item);
 			item->ContourLine = item->PoLine.copy();
-			if (importerFlags & LoadSavePlugin::lfCreateDoc)
+			if (m_importerFlags & LoadSavePlugin::lfCreateDoc)
 				item->setLayer(layerNum);
 			if ((itElem.tagName() == "Rectangle") && (itElem.attribute("CornerOption") == "RoundedCorner"))
 			{
@@ -2690,7 +2690,7 @@ QList<PageItem*> IdmlPlug::parseItemXML(const QDomElement& itElem, QTransform pT
 			item->setLineBlendmode(blendMode);
 			item->setFillBlendmode(blendMode);
 			item->setFillEvenOdd(false);
-			if (importerFlags & LoadSavePlugin::lfCreateDoc)
+			if (m_importerFlags & LoadSavePlugin::lfCreateDoc)
 				item->setLayer(layerNum);
 			item->OwnPage = m_Doc->OnPage(item);
 			m_Doc->Items->takeAt(z);
@@ -2708,7 +2708,7 @@ bool IdmlPlug::parseStoryXML(const QDomElement& stElem)
 	if (stElem.hasAttribute("src"))
 	{
 		QByteArray f2;
-		fun->read(stElem.attribute("src"), f2);
+		m_fun->read(stElem.attribute("src"), f2);
 		if(stMapDom.setContent(f2))
 			stNode = stMapDom.documentElement();
 		else
@@ -2734,9 +2734,9 @@ void IdmlPlug::parseStoryXMLNode(const QDomElement& stNode)
 		{
 			QString storyName = e.attribute("Self");
 			PageItem *item = NULL;
-			if (!storyMap.contains(storyName))
+			if (!m_storyMap.contains(storyName))
 				return;
-			item = storyMap[storyName];
+			item = m_storyMap[storyName];
 			for(QDomNode st = e.firstChild(); !st.isNull(); st = st.nextSibling() )
 			{
 				QDomElement ste = st.toElement();
@@ -2764,8 +2764,8 @@ void IdmlPlug::parseParagraphStyleRange(QDomElement &ste, PageItem* item)
 	if (ste.hasAttribute("AppliedParagraphStyle"))
 	{
 		pStyle = ste.attribute("AppliedParagraphStyle").remove("$ID/");
-		if (styleTranslate.contains(pStyle))
-			pStyle = styleTranslate[pStyle];
+		if (m_styleTranslate.contains(pStyle))
+			pStyle = m_styleTranslate[pStyle];
 		else
 			pStyle = CommonStrings::DefaultParagraphStyle;
 	}
@@ -2854,10 +2854,10 @@ void IdmlPlug::parseCharacterStyleRange(QDomElement &stt, PageItem* item, QStrin
 		QString cStyle = stt.attribute("AppliedCharacterStyle").remove("$ID/");
 		if (cStyle != "CharacterStyle/[No character style]")
 		{
-			if (charStyleTranslate.contains(cStyle))
+			if (m_charStyleTranslate.contains(cStyle))
 			{
 				QString pst = nstyle.name();
-				cStyle = charStyleTranslate[cStyle];
+				cStyle = m_charStyleTranslate[cStyle];
 				nstyle = m_Doc->charStyle(cStyle);
 				nstyle.setParent(pst);
 			}
@@ -3071,8 +3071,8 @@ void IdmlPlug::readCharStyleAttributes(CharStyle &newStyle, const QDomElement &s
 	if (styleElem.hasAttribute("FillColor"))
 	{
 		QString fillColor = styleElem.attribute("FillColor");
-		if (colorTranslate.contains(fillColor))
-			newStyle.setFillColor(colorTranslate[fillColor]);
+		if (m_colorTranslate.contains(fillColor))
+			newStyle.setFillColor(m_colorTranslate[fillColor]);
 	}
 	if (styleElem.hasAttribute("FillTint"))
 	{
@@ -3190,64 +3190,64 @@ void IdmlPlug::resolveObjectStyle(ObjectStyle &nstyle, QString baseStyleName)
 {
 	QStringList styles;
 	styles.prepend(baseStyleName);
-	ObjectStyle style = ObjectStyles[baseStyleName];
+	ObjectStyle style = m_ObjectStyles[baseStyleName];
 	while (!style.parentStyle.isEmpty())
 	{
 		styles.prepend(style.parentStyle);
-		style = ObjectStyles[style.parentStyle];
+		style = m_ObjectStyles[style.parentStyle];
 	}
 	for (int a = 0; a < styles.count(); ++a)
 	{
-		style = ObjectStyles[styles[a]];
-		if (style.fillColor != def_fillColor)
+		style = m_ObjectStyles[styles[a]];
+		if (style.fillColor != m_def_fillColor)
 			nstyle.fillColor = style.fillColor;
-		if (style.strokeColor != def_strokeColor)
+		if (style.strokeColor != m_def_strokeColor)
 			nstyle.strokeColor = style.strokeColor;
 		if (style.fillGradient != "")
 			nstyle.fillGradient = style.fillGradient;
-		if (style.gradientFillStart != QPointF(def_gradientX, def_gradientY))
+		if (style.gradientFillStart != QPointF(m_def_gradientX, m_def_gradientY))
 			nstyle.gradientFillStart = style.gradientFillStart;
-		if (style.gradientFillLength != def_gradientLen)
+		if (style.gradientFillLength != m_def_gradientLen)
 			nstyle.gradientFillLength = style.gradientFillLength;
-		if (style.gradientFillAngle != def_gradientAngle)
+		if (style.gradientFillAngle != m_def_gradientAngle)
 			nstyle.gradientFillAngle = style.gradientFillAngle;
 		if (style.strokeGradient != "")
 			nstyle.strokeGradient = style.strokeGradient;
-		if (style.gradientStrokeStart != QPointF(def_gradientStrokeStartX, def_gradientStrokeStartY))
+		if (style.gradientStrokeStart != QPointF(m_def_gradientStrokeStartX, m_def_gradientStrokeStartY))
 			nstyle.gradientStrokeStart = style.gradientStrokeStart;
-		if (style.gradientStrokeLength != def_gradientStrokeLength)
+		if (style.gradientStrokeLength != m_def_gradientStrokeLength)
 			nstyle.gradientStrokeLength = style.gradientStrokeLength;
-		if (style.gradientStrokeAngle != def_gradientStrokeAngle)
+		if (style.gradientStrokeAngle != m_def_gradientStrokeAngle)
 			nstyle.gradientStrokeAngle = style.gradientStrokeAngle;
-		if (style.lineWidth != def_lineWidth)
+		if (style.lineWidth != m_def_lineWidth)
 			nstyle.lineWidth = style.lineWidth;
-		if (style.fillTint != def_fillTint)
+		if (style.fillTint != m_def_fillTint)
 			nstyle.fillTint = style.fillTint;
-		if (style.strokeTint != def_strokeTint)
+		if (style.strokeTint != m_def_strokeTint)
 			nstyle.strokeTint = style.strokeTint;
-		if (style.Opacity != def_Opacity)
+		if (style.Opacity != m_def_Opacity)
 			nstyle.Opacity = style.Opacity;
-		if (style.blendMode != def_Blendmode)
+		if (style.blendMode != m_def_Blendmode)
 			nstyle.blendMode = style.blendMode;
-		if (style.Extra != def_Extra)
+		if (style.Extra != m_def_Extra)
 			nstyle.Extra = style.Extra;
-		if (style.TExtra != def_TExtra)
+		if (style.TExtra != m_def_TExtra)
 			nstyle.TExtra = style.TExtra;
-		if (style.BExtra != def_BExtra)
+		if (style.BExtra != m_def_BExtra)
 			nstyle.BExtra = style.BExtra;
-		if (style.RExtra != def_RExtra)
+		if (style.RExtra != m_def_RExtra)
 			nstyle.RExtra = style.RExtra;
-		if (style.TextColumnCount != def_TextColumnCount)
+		if (style.TextColumnCount != m_def_TextColumnCount)
 			nstyle.TextColumnCount = style.TextColumnCount;
-		if (style.TextColumnGutter != def_TextColumnGutter)
+		if (style.TextColumnGutter != m_def_TextColumnGutter)
 			nstyle.TextColumnGutter = style.TextColumnGutter;
-		if (style.TextColumnFixedWidth != def_TextColumnFixedWidth)
+		if (style.TextColumnFixedWidth != m_def_TextColumnFixedWidth)
 			nstyle.TextColumnFixedWidth = style.TextColumnFixedWidth;
-		if (style.TextFlow != def_TextFlow)
+		if (style.TextFlow != m_def_TextFlow)
 			nstyle.TextFlow = style.TextFlow;
-		if (style.LeftLineEnd != def_LeftLineEnd)
+		if (style.LeftLineEnd != m_def_LeftLineEnd)
 			nstyle.LeftLineEnd = style.LeftLineEnd;
-		if (style.RightLineEnd != def_RightLineEnd)
+		if (style.RightLineEnd != m_def_RightLineEnd)
 			nstyle.RightLineEnd = style.RightLineEnd;
 	}
 }
@@ -3255,9 +3255,9 @@ void IdmlPlug::resolveObjectStyle(ObjectStyle &nstyle, QString baseStyleName)
 QString IdmlPlug::constructFontName(QString fontBaseName, QString fontStyle)
 {
 	QString fontName = PrefsManager::instance()->appPrefs.itemToolPrefs.textFont;
-	if (fontTranslateMap.contains(fontBaseName))
+	if (m_fontTranslateMap.contains(fontBaseName))
 	{
-		QMap<QString, QString> styleMap = fontTranslateMap[fontBaseName];
+		QMap<QString, QString> styleMap = m_fontTranslateMap[fontBaseName];
 		if (styleMap.contains(fontStyle))
 		{
 			QString postName = styleMap[fontStyle];
@@ -3274,7 +3274,7 @@ QString IdmlPlug::constructFontName(QString fontBaseName, QString fontStyle)
 			}
 			if (!found)
 			{
-				if (importerFlags & LoadSavePlugin::lfCreateThumbnail)
+				if (m_importerFlags & LoadSavePlugin::lfCreateThumbnail)
 					fontName = PrefsManager::instance()->appPrefs.itemToolPrefs.textFont;
 				else
 				{
