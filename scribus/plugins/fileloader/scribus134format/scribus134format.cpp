@@ -151,8 +151,8 @@ QIODevice* Scribus134Format::slaReader(const QString & fileName)
 	QIODevice* ioDevice = 0;
 	if (fileName.right(2) == "gz")
 	{
-		aFile.setFileName(fileName);
-		QtIOCompressor *compressor = new QtIOCompressor(&aFile);
+		m_aFile.setFileName(fileName);
+		QtIOCompressor *compressor = new QtIOCompressor(&m_aFile);
 		compressor->setStreamFormat(QtIOCompressor::GzipFormat);
 		if (!compressor->open(QIODevice::ReadOnly))
 		{
@@ -224,15 +224,15 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 	if (m_Doc->autoSaveTimer->isActive())
 		m_Doc->autoSaveTimer->stop();
 	
-	groupRemap.clear();
-	itemRemap.clear();
-	itemNext.clear();
-	itemCount = 0;
-	itemRemapM.clear();
-	itemNextM.clear();
-	itemCountM = 0;
+	m_groupRemap.clear();
+	m_itemRemap.clear();
+	m_itemNext.clear();
+	m_itemCount = 0;
+	m_itemRemapM.clear();
+	m_itemNextM.clear();
+	m_itemCountM = 0;
 
-	FrameItems.clear();
+	m_FrameItems.clear();
 	TableItems.clear();
 	TableID.clear();
 	TableItemsM.clear();
@@ -412,12 +412,12 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 			if (tagName == "PAGEOBJECT")
 			{
 				if (itemInfo.nextItem != -1)
-					itemNext[itemInfo.ownNr] = itemInfo.nextItem;
+					m_itemNext[itemInfo.ownNr] = itemInfo.nextItem;
 			}
 			else if (tagName == "MASTEROBJECT")
 			{
 				if (itemInfo.nextItem != -1)
-					itemNextM[itemInfo.ownNr] = itemInfo.nextItem;
+					m_itemNextM[itemInfo.ownNr] = itemInfo.nextItem;
 			}
 			/* not sure if we want that...
 			else if (tagName == "FRAMEOBJECT")
@@ -584,20 +584,20 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 		layerToSetActive = nl->ID;
 	}
 	m_Doc->setActiveLayer(layerToSetActive);
-	if (!EffVal.isEmpty())
+	if (!m_EffVal.isEmpty())
 	{
-		for (int pdoE = 0; pdoE < EffVal.count(); ++pdoE)
+		for (int pdoE = 0; pdoE < m_EffVal.count(); ++pdoE)
 		{
 			if (pdoE < m_Doc->Pages->count())
-				m_Doc->Pages->at(pdoE)->PresentVals = EffVal[pdoE];
+				m_Doc->Pages->at(pdoE)->PresentVals = m_EffVal[pdoE];
 		}
 	}
 
 	// reestablish textframe links
-	if (itemNext.count() != 0)
+	if (m_itemNext.count() != 0)
 	{
 		QMap<int,int>::Iterator lc;
-		for (lc = itemNext.begin(); lc != itemNext.end(); ++lc)
+		for (lc = m_itemNext.begin(); lc != m_itemNext.end(); ++lc)
 		{
 			if (lc.value() >= 0)
 			{
@@ -616,10 +616,10 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 		}
 	}
 	
-	if (itemNextM.count() != 0)
+	if (m_itemNextM.count() != 0)
 	{
 		QMap<int,int>::Iterator lc;
-		for (lc = itemNextM.begin(); lc != itemNextM.end(); ++lc)
+		for (lc = m_itemNextM.begin(); lc != m_itemNextM.end(); ++lc)
 		{
 			if (lc.value() >= 0)
 			{
@@ -1307,8 +1307,8 @@ void Scribus134Format::readParagraphStyle(ScribusDoc *doc, ScXmlStreamReader& re
 	{
 		if (m_Doc->styleExists(parentStyle))
 			newStyle.setParent(parentStyle);
-		else if (parStyleMap.contains(parentStyle))
-			newStyle.setParent(parStyleMap.value(parentStyle));
+		else if (m_parStyleMap.contains(parentStyle))
+			newStyle.setParent(m_parStyleMap.value(parentStyle));
 		else
 			newStyle.setParent(CommonStrings::DefaultParagraphStyle);
 	}
@@ -1619,7 +1619,7 @@ bool Scribus134Format::readPDFOptions(ScribusDoc* doc, ScXmlStreamReader& reader
 			ef.Dm = attrs.valueAsInt("Dm");
 			ef.M  = attrs.valueAsInt("M");
 			ef.Di = attrs.valueAsInt("Di");
-			EffVal.append(ef);
+			m_EffVal.append(ef);
 		}
 	}
 	return !reader.hasError();
@@ -1902,7 +1902,7 @@ bool Scribus134Format::readObject(ScribusDoc* doc, ScXmlStreamReader& reader, It
 
 	if (tagName == "FRAMEOBJECT")
 	{
-		FrameItems.append(doc->Items->takeAt(doc->Items->indexOf(newItem)));
+		m_FrameItems.append(doc->Items->takeAt(doc->Items->indexOf(newItem)));
 		newItem->LayerID = doc->firstLayerID();
 	}
 
@@ -2351,7 +2351,7 @@ bool Scribus134Format::readItemText(PageItem *obj, ScXmlStreamAttributes& attrs,
 	fixLegacyCharStyle(newStyle);
 	
 	if (ab >= 0)
-		last->ParaStyle = legacyStyleMap[ab];
+		last->ParaStyle = m_legacyStyleMap[ab];
 	else
 		last->ParaStyle = pstylename;
 	// end of legacy stuff
@@ -2373,9 +2373,9 @@ bool Scribus134Format::readItemText(PageItem *obj, ScXmlStreamAttributes& attrs,
 		{
 			if (iobj >= 0)
 			{
-				if (iobj < FrameItems.count())
+				if (iobj < m_FrameItems.count())
 				{
-					int fIndex = doc->addToInlineFrames(FrameItems.at(iobj));
+					int fIndex = doc->addToInlineFrames(m_FrameItems.at(iobj));
 					obj->itemText.insertObject(pos, fIndex);
 				}
 				else
@@ -3120,23 +3120,23 @@ bool Scribus134Format::loadPage(const QString & fileName, int pageNumber, bool M
 		maxLevel = qMax(m_Doc->Layers[la2].Level, maxLevel);
 	}
 
-	FrameItems.clear();
-	groupRemap.clear();
-	itemRemap.clear();
-	itemNext.clear();
-	itemCount = 0;
-	itemRemapM.clear();
-	itemNextM.clear();
-	itemCountM = 0;
+	m_FrameItems.clear();
+	m_groupRemap.clear();
+	m_itemRemap.clear();
+	m_itemNext.clear();
+	m_itemCount = 0;
+	m_itemRemapM.clear();
+	m_itemNextM.clear();
+	m_itemCountM = 0;
 
-	parStyleMap.clear();
-	legacyStyleMap.clear();
-	legacyStyleMap[0] = "0";
-	legacyStyleMap[1] = "1";
-	legacyStyleMap[2] = "2";
-	legacyStyleMap[3] = "3";
-	legacyStyleMap[4] = "4";
-	legacyStyleCount = 5;
+	m_parStyleMap.clear();
+	m_legacyStyleMap.clear();
+	m_legacyStyleMap[0] = "0";
+	m_legacyStyleMap[1] = "1";
+	m_legacyStyleMap[2] = "2";
+	m_legacyStyleMap[3] = "3";
+	m_legacyStyleMap[4] = "4";
+	m_legacyStyleCount = 5;
 
  	QScopedPointer<QIODevice> ioDevice(slaReader(fileName));
 	if (ioDevice.isNull())
@@ -3305,9 +3305,9 @@ bool Scribus134Format::loadPage(const QString & fileName, int pageNumber, bool M
 			if (attrs.valueAsInt("OwnPage") != pageNumber)
 			{			
 				if (tagName == "PAGEOBJECT")
-					itemRemap[itemCount++] = -1;
+					m_itemRemap[m_itemCount++] = -1;
 				else if (tagName == "MASTEROBJECT")
-					itemRemapM[itemCountM++] = -1;
+					m_itemRemapM[m_itemCountM++] = -1;
 				reader.readToElementEnd();
 			}
 			else
@@ -3315,15 +3315,15 @@ bool Scribus134Format::loadPage(const QString & fileName, int pageNumber, bool M
 				// first of linked chain?
 				if (tagName == "PAGEOBJECT")
 				{
-					itemRemap[itemCount++] = m_Doc->DocItems.count();
+					m_itemRemap[m_itemCount++] = m_Doc->DocItems.count();
 					if (attrs.valueAsInt("NEXTITEM") != -1)
-						itemNext[m_Doc->DocItems.count()] = attrs.valueAsInt("NEXTITEM");
+						m_itemNext[m_Doc->DocItems.count()] = attrs.valueAsInt("NEXTITEM");
 				}
 				else if (tagName == "MASTEROBJECT")
 				{
-					itemRemapM[itemCountM++] = m_Doc->MasterItems.count();
+					m_itemRemapM[m_itemCountM++] = m_Doc->MasterItems.count();
 					if (attrs.valueAsInt("NEXTITEM") != -1)
-						itemNextM[m_Doc->MasterItems.count()] = attrs.valueAsInt("NEXTITEM");
+						m_itemNextM[m_Doc->MasterItems.count()] = attrs.valueAsInt("NEXTITEM");
 				}
 
 				ItemInfo itemInfo;
@@ -3389,18 +3389,18 @@ bool Scribus134Format::loadPage(const QString & fileName, int pageNumber, bool M
 	}
 
 	// reestablish textframe links
-	if (itemNext.count() != 0 && !Mpage)
+	if (m_itemNext.count() != 0 && !Mpage)
 	{
 		QMap<int,int>::Iterator lc;
-		for (lc = itemNext.begin(); lc != itemNext.end(); ++lc)
+		for (lc = m_itemNext.begin(); lc != m_itemNext.end(); ++lc)
 		{
-			if (itemRemap[lc.value()] >= 0)
+			if (m_itemRemap[lc.value()] >= 0)
 			{
 				PageItem *Its(0), *Itn(0);
 				if (lc.key() < m_Doc->DocItems.count())
 					Its = m_Doc->DocItems.at(lc.key());
-				if (itemRemap[lc.value()] < m_Doc->DocItems.count())
-					Itn = m_Doc->DocItems.at(itemRemap[lc.value()]);
+				if (m_itemRemap[lc.value()] < m_Doc->DocItems.count())
+					Itn = m_Doc->DocItems.at(m_itemRemap[lc.value()]);
 				if (!Its || !Itn || !Its->testLinkCandidate(Itn))
 				{
 					qDebug() << "scribus134format: corruption in linked textframes detected";
@@ -3410,18 +3410,18 @@ bool Scribus134Format::loadPage(const QString & fileName, int pageNumber, bool M
 			}
 		}
 	}
-	else if (itemNextM.count() != 0 && Mpage)
+	else if (m_itemNextM.count() != 0 && Mpage)
 	{
 		QMap<int,int>::Iterator lc;
-		for (lc = itemNextM.begin(); lc != itemNextM.end(); ++lc)
+		for (lc = m_itemNextM.begin(); lc != m_itemNextM.end(); ++lc)
 		{
-			if (itemRemapM[lc.value()] >= 0)
+			if (m_itemRemapM[lc.value()] >= 0)
 			{
 				PageItem *Its(0), *Itn(0);
 				if (lc.key() < m_Doc->MasterItems.count())
 					Its = m_Doc->MasterItems.at(lc.key());
-				if (itemRemapM[lc.value()] < m_Doc->MasterItems.count())
-					Itn = m_Doc->MasterItems.at(itemRemapM[lc.value()]);
+				if (m_itemRemapM[lc.value()] < m_Doc->MasterItems.count())
+					Itn = m_Doc->MasterItems.at(m_itemRemapM[lc.value()]);
 				if (!Its || !Itn || !Its->testLinkCandidate(Itn))
 				{
 					qDebug() << "scribus134format: corruption in linked textframes detected";
@@ -3458,8 +3458,8 @@ void Scribus134Format::getStyle(ParagraphStyle& style, ScXmlStreamReader& reader
 			{
 				if (fl)
 				{
-					legacyStyleMap[legacyStyleCount] = style.name();
-					legacyStyleCount++;
+					m_legacyStyleMap[m_legacyStyleCount] = style.name();
+					m_legacyStyleCount++;
 				}
 				found = true;
 			}
@@ -3477,10 +3477,10 @@ void Scribus134Format::getStyle(ParagraphStyle& style, ScXmlStreamReader& reader
 		{
 			if (style.equiv((*docParagraphStyles)[xx]))
 			{
-				parStyleMap[style.name()] = (*docParagraphStyles)[xx].name();
+				m_parStyleMap[style.name()] = (*docParagraphStyles)[xx].name();
 				style.setName((*docParagraphStyles)[xx].name());
-				legacyStyleMap[legacyStyleCount] = style.name();
-				legacyStyleCount++;
+				m_legacyStyleMap[m_legacyStyleCount] = style.name();
+				m_legacyStyleCount++;
 				found = true;
 				break;
 			}
@@ -3498,8 +3498,8 @@ void Scribus134Format::getStyle(ParagraphStyle& style, ScXmlStreamReader& reader
 		}
 		if (fl)
 		{
-			legacyStyleMap[legacyStyleCount] = style.name();
-			legacyStyleCount++;
+			m_legacyStyleMap[m_legacyStyleCount] = style.name();
+			m_legacyStyleCount++;
 		}
 	}
 }

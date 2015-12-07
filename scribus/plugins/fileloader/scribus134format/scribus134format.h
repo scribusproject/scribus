@@ -117,21 +117,21 @@ class PLUGIN_API Scribus134Format : public LoadSavePlugin
 
 		PageItem* pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& attrs, const QString& baseDir, int pagenr = -2 /* currentPage*/);
 
-		QMap<QString, QString> parStyleMap;
-		QMap<uint, QString> legacyStyleMap;
-		uint legacyStyleCount;
+		QMap<QString, QString> m_parStyleMap;
+		QMap<uint, QString> m_legacyStyleMap;
+		uint m_legacyStyleCount;
 
-		QMap<int, int> groupRemap;
-		QMap<int, int> itemRemap;
-		QMap<int, int> itemNext;
-		QMap<int, int> itemRemapM;
-		QMap<int, int> itemNextM;
-		QList<PageItem*> FrameItems;
-		QList<PDFPresentationData> EffVal;
+		QMap<int, int> m_groupRemap;
+		QMap<int, int> m_itemRemap;
+		QMap<int, int> m_itemNext;
+		QMap<int, int> m_itemRemapM;
+		QMap<int, int> m_itemNextM;
+		QList<PageItem*> m_FrameItems;
+		QList<PDFPresentationData> m_EffVal;
 
-		int itemCount;
-		int itemCountM;
-		QFile aFile;
+		int m_itemCount;
+		int m_itemCountM;
+		QFile m_aFile;
 };
 
 extern "C" PLUGIN_API int scribus134format_getPluginAPIVersion();
