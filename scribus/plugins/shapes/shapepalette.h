@@ -81,7 +81,7 @@ protected:
 
 
 private:
-	ScListWidgetDelegate* delegate;
+	ScListWidgetDelegate* m_delegate;
 };
 
 class PLUGIN_API ShapePalette : public ScDockPalette
@@ -107,13 +107,13 @@ public slots:
 	void languageChange();
 
 protected:
-	ShapeView *ShapeViewWidget;
-	QToolBox* Frame3;
-	QWidget* containerWidget;
-	QVBoxLayout* vLayout;
-	QHBoxLayout* buttonLayout;
-	QToolButton* importButton;
-	QToolButton* closeButton;
+	ShapeView *m_ShapeViewWidget;
+	QToolBox* m_Frame3;
+	QWidget* m_containerWidget;
+	QVBoxLayout* m_vLayout;
+	QHBoxLayout* m_buttonLayout;
+	QToolButton* m_importButton;
+	QToolButton* m_closeButton;
 	ScribusDoc *m_doc;
 };
 

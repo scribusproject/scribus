@@ -57,9 +57,9 @@ ShapeView::ShapeView(QWidget* parent) : QListWidget(parent)
 	setDragDropMode(QAbstractItemView::DragDrop);
 	setSelectionMode(QAbstractItemView::SingleSelection);
 	setContextMenuPolicy(Qt::CustomContextMenu);
-	delegate = new ScListWidgetDelegate(this, this);
-	delegate->setIconOnly(false);
-	setItemDelegate(delegate);
+	m_delegate = new ScListWidgetDelegate(this, this);
+	m_delegate->setIconOnly(false);
+	setItemDelegate(m_delegate);
 	setIconSize(QSize(48, 48));
 	m_Shapes.clear();
 	connect(this, SIGNAL(customContextMenuRequested (const QPoint &)), this, SLOT(HandleContextMenu(QPoint)));
@@ -82,7 +82,7 @@ void ShapeView::HandleContextMenu(QPoint)
 	}
 	QAction* viewAct = pmenu->addAction( tr("Display Icons only"));
 	viewAct->setCheckable(true);
-	viewAct->setChecked(delegate->iconOnly());
+	viewAct->setChecked(m_delegate->iconOnly());
 	connect(viewAct, SIGNAL(triggered()), this, SLOT(changeDisplay()));
 	pmenu->exec(QCursor::pos());
 	delete pmenu;
@@ -114,7 +114,7 @@ void ShapeView::delOne()
 void ShapeView::changeDisplay()
 {
 	reset();
-	delegate->setIconOnly(!delegate->iconOnly());
+	m_delegate->setIconOnly(!m_delegate->iconOnly());
 	repaint();
 }
 
@@ -279,35 +279,35 @@ ShapePalette::ShapePalette( QWidget* parent) : ScDockPalette( parent, "Shap", 0)
 	setMinimumSize( QSize( 220, 240 ) );
 	setObjectName(QString::fromLocal8Bit("Shap"));
 	setSizePolicy( QSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum));
-	containerWidget = new QWidget(this);
-	vLayout = new QVBoxLayout( containerWidget );
-	vLayout->setSpacing( 0 );
-	vLayout->setMargin( 0 );
-	buttonLayout = new QHBoxLayout;
-	buttonLayout->setSpacing( 5 );
-	buttonLayout->setMargin( 0 );
-	importButton = new QToolButton(this);
-	importButton->setSizePolicy(QSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed));
-	importButton->setIcon(IconManager::instance()->loadIcon("16/document-open.png"));
-	importButton->setIconSize(QSize(16, 16));
-	buttonLayout->addWidget( importButton );
+	m_containerWidget = new QWidget(this);
+	m_vLayout = new QVBoxLayout( m_containerWidget );
+	m_vLayout->setSpacing( 0 );
+	m_vLayout->setMargin( 0 );
+	m_buttonLayout = new QHBoxLayout;
+	m_buttonLayout->setSpacing( 5 );
+	m_buttonLayout->setMargin( 0 );
+	m_importButton = new QToolButton(this);
+	m_importButton->setSizePolicy(QSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed));
+	m_importButton->setIcon(IconManager::instance()->loadIcon("16/document-open.png"));
+	m_importButton->setIconSize(QSize(16, 16));
+	m_buttonLayout->addWidget( m_importButton );
 	QSpacerItem* spacer = new QSpacerItem( 1, 1, QSizePolicy::Expanding, QSizePolicy::Minimum );
-	buttonLayout->addItem( spacer );
-	closeButton = new QToolButton(this);
-	closeButton->setSizePolicy(QSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed));
-	closeButton->setIcon(IconManager::instance()->loadIcon("16/close.png"));
-	closeButton->setIconSize(QSize(16, 16));
-	buttonLayout->addWidget( closeButton );
-	vLayout->addLayout( buttonLayout );
-	Frame3 = new QToolBox( this );
-	vLayout->addWidget(Frame3);
-	setWidget(containerWidget);
+	m_buttonLayout->addItem( spacer );
+	m_closeButton = new QToolButton(this);
+	m_closeButton->setSizePolicy(QSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed));
+	m_closeButton->setIcon(IconManager::instance()->loadIcon("16/close.png"));
+	m_closeButton->setIconSize(QSize(16, 16));
+	m_buttonLayout->addWidget( m_closeButton );
+	m_vLayout->addLayout( m_buttonLayout );
+	m_Frame3 = new QToolBox( this );
+	m_vLayout->addWidget(m_Frame3);
+	setWidget(m_containerWidget);
 
 	unsetDoc();
 	m_scMW  = NULL;
 	languageChange();
-	connect(importButton, SIGNAL(clicked()), this, SLOT(Import()));
-	connect(closeButton, SIGNAL(clicked()), this, SLOT(closeTab()));
+	connect(m_importButton, SIGNAL(clicked()), this, SLOT(Import()));
+	connect(m_closeButton, SIGNAL(clicked()), this, SLOT(closeTab()));
 }
 
 void ShapePalette::writeToPrefs()
@@ -321,12 +321,12 @@ void ShapePalette::writeToPrefs()
 	QString st = "<ScribusShape></ScribusShape>";
 	docu.setContent(st);
 	QDomElement docElement = docu.documentElement();
-	for (int a = 0; a < Frame3->count(); a++)
+	for (int a = 0; a < m_Frame3->count(); a++)
 	{
-		ShapeViewWidget = (ShapeView*)Frame3->widget(a);
+		m_ShapeViewWidget = (ShapeView*)m_Frame3->widget(a);
 		QDomElement fil = docu.createElement("file");
-		fil.setAttribute("name", Frame3->itemText(a));
-		for (QHash<QString, shapeData>::Iterator it = ShapeViewWidget->m_Shapes.begin(); it != ShapeViewWidget->m_Shapes.end(); ++it)
+		fil.setAttribute("name", m_Frame3->itemText(a));
+		for (QHash<QString, shapeData>::Iterator it = m_ShapeViewWidget->m_Shapes.begin(); it != m_ShapeViewWidget->m_Shapes.end(); ++it)
 		{
 			QDomElement shp = docu.createElement("shape");
 			shp.setAttribute("width", it.value().width);
@@ -363,9 +363,9 @@ void ShapePalette::readFromPrefs()
 		{
 			if (drawPag.tagName() == "file")
 			{
-				ShapeViewWidget = new ShapeView(this);
-				ShapeViewWidget->m_scMW = m_scMW;
-				Frame3->addItem(ShapeViewWidget, drawPag.attribute("name"));
+				m_ShapeViewWidget = new ShapeView(this);
+				m_ShapeViewWidget->m_scMW = m_scMW;
+				m_Frame3->addItem(m_ShapeViewWidget, drawPag.attribute("name"));
 				for(QDomElement dpg = drawPag.firstChildElement(); !dpg.isNull(); dpg = dpg.nextSiblingElement() )
 				{
 					if (dpg.tagName() == "shape")
@@ -375,23 +375,23 @@ void ShapePalette::readFromPrefs()
 						shData.width = dpg.attribute("width", "1").toInt();
 						shData.path.parseSVG(dpg.attribute("path"));
 						shData.name = dpg.attribute("name");
-						ShapeViewWidget->m_Shapes.insert(dpg.attribute("uuid"), shData);
+						m_ShapeViewWidget->m_Shapes.insert(dpg.attribute("uuid"), shData);
 					}
 				}
-				ShapeViewWidget->updateShapeList();
+				m_ShapeViewWidget->updateShapeList();
 			}
 		}
-		if (Frame3->count() > 0)
-			Frame3->setCurrentIndex(0);
+		if (m_Frame3->count() > 0)
+			m_Frame3->setCurrentIndex(0);
 	}
 }
 
 void ShapePalette::closeTab()
 {
-	int index = Frame3->currentIndex();
-	ShapeViewWidget = (ShapeView*)Frame3->widget(index);
-	Frame3->removeItem(index);
-	delete ShapeViewWidget;
+	int index = m_Frame3->currentIndex();
+	m_ShapeViewWidget = (ShapeView*)m_Frame3->widget(index);
+	m_Frame3->removeItem(index);
+	delete m_ShapeViewWidget;
 }
 
 double ShapePalette::decodePSDfloat(uint data)
@@ -418,8 +418,8 @@ void ShapePalette::Import()
 	if (!s.isEmpty())
 	{
 		QFileInfo fi(s);
-		ShapeViewWidget = new ShapeView(this);
-		int nIndex = Frame3->addItem(ShapeViewWidget, fi.baseName());
+		m_ShapeViewWidget = new ShapeView(this);
+		int nIndex = m_Frame3->addItem(m_ShapeViewWidget, fi.baseName());
 		dirs->set("shape_load", s.left(s.lastIndexOf(QDir::toNativeSeparators("/"))));
 		QFile file(s);
 		if (!file.open(QFile::ReadOnly))
@@ -534,14 +534,14 @@ void ShapePalette::Import()
 			shData.width = bounds.width();
 			shData.path = clip2.copy();
 			shData.name = string;
-			ShapeViewWidget->m_Shapes.insert(QString(uuid), shData);
+			m_ShapeViewWidget->m_Shapes.insert(QString(uuid), shData);
 			ds.device()->seek(posi + shpLen);
 			shpCounter++;
 		}
 		file.close();
-		Frame3->setCurrentIndex(nIndex);
-		ShapeViewWidget->updateShapeList();
-		ShapeViewWidget->m_scMW = m_scMW;
+		m_Frame3->setCurrentIndex(nIndex);
+		m_ShapeViewWidget->updateShapeList();
+		m_ShapeViewWidget->m_scMW = m_scMW;
 		QApplication::restoreOverrideCursor();
 	}
 }
@@ -549,10 +549,10 @@ void ShapePalette::Import()
 void ShapePalette::setMainWindow(ScribusMainWindow *mw)
 {
 	m_scMW = mw;
-	for (int a = 0; a < Frame3->count(); a++)
+	for (int a = 0; a < m_Frame3->count(); a++)
 	{
-		ShapeViewWidget = (ShapeView*)Frame3->widget(a);
-		ShapeViewWidget->m_scMW = mw;
+		m_ShapeViewWidget = (ShapeView*)m_Frame3->widget(a);
+		m_ShapeViewWidget->m_scMW = mw;
 	}
 }
 
@@ -587,6 +587,6 @@ void ShapePalette::changeEvent(QEvent *e)
 void ShapePalette::languageChange()
 {
 	setWindowTitle( tr( "Custom Shapes" ) );
-	importButton->setToolTip( tr("Load Photoshop Custom Shapes"));
-	closeButton->setToolTip( tr("Close current Tab"));
+	m_importButton->setToolTip( tr("Load Photoshop Custom Shapes"));
+	m_closeButton->setToolTip( tr("Close current Tab"));
 }
