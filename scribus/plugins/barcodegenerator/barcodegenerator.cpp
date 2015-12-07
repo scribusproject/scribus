@@ -32,11 +32,11 @@ BarcodeType::BarcodeType(const QString &cmd, const QString &exa, const QString &
 BarcodeGenerator::BarcodeGenerator(QWidget* parent, const char* name)
 	: QDialog(parent)
 {
-	ui.setupUi(this);
+	m_ui.setupUi(this);
 	setObjectName(name);
 	setModal(true);
 
-	connect(&thread, SIGNAL(renderedImage(QString)),this, SLOT(updatePreview(QString)));
+	connect(&m_thread, SIGNAL(renderedImage(QString)),this, SLOT(updatePreview(QString)));
 
 	/*
 	 *  We extract the barcode information from the BWIPP metadata which looks like this:
@@ -71,7 +71,7 @@ BarcodeGenerator::BarcodeGenerator(QWidget* parent, const char* name)
 	 	QString reshead=rx.cap(3);
 	 	QString resbody=rx.cap(4);
 
-	 	resbodys[resname]=resbody;
+	 	m_resbodys[resname]=resbody;
 
 	 	if (restype=="ENCODER")
 		{
@@ -83,18 +83,18 @@ BarcodeGenerator::BarcodeGenerator(QWidget* parent, const char* name)
 				"% --RNDR:(.*)[\\r\\n]+"
 			);
 			rxhead.indexIn(reshead);
-			resreqs[resname]=rxhead.cap(1).trimmed();
-			resdescs[resname]=rxhead.cap(2).trimmed();
-			resexams[resname]=rxhead.cap(3).trimmed();
-			resexops[resname]=rxhead.cap(4).trimmed();
-			resrndrs[resname]=rxhead.cap(5).trimmed();
-			encoderlist.append(resname);
+			m_resreqs[resname]=rxhead.cap(1).trimmed();
+			m_resdescs[resname]=rxhead.cap(2).trimmed();
+			m_resexams[resname]=rxhead.cap(3).trimmed();
+			m_resexops[resname]=rxhead.cap(4).trimmed();
+			m_resrndrs[resname]=rxhead.cap(5).trimmed();
+			m_encoderlist.append(resname);
 	 	}
 		pos+=len;
 	}
 
 	QString enc;
-	foreach (enc, encoderlist) map[resdescs[enc]] = BarcodeType(enc, resexams[enc], resexops[enc]);
+	foreach (enc, m_encoderlist) m_map[m_resdescs[enc]] = BarcodeType(enc, m_resexams[enc], m_resexops[enc]);
 
 	/*
 	 *  Ultimately all of this static data about the capabilities of each barcode
@@ -104,136 +104,136 @@ BarcodeGenerator::BarcodeGenerator(QWidget* parent, const char* name)
 	 */ 
 
 	// Content for the version and ecc combos
-	resvers["qrcode"]="1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40";
-	resecls["qrcode"]="L,Q,M,H";
-	resvers["gs1qrcode"]=resvers["qrcode"];
-	resecls["gs1qrcode"]=resecls["qrcode"];
-	resvers["hibcqrcode"]=resvers["qrcode"];
-	resecls["hibcqrcode"]=resecls["qrcode"];
-	resvers["microqrcode"]="M1,M2,M3,M4";
-	resecls["microqrcode"]="L,Q,M,H";
-	resvers["datamatrix"]="10x10,12x12,14x14,16x16,18x18,20x20,22x22,24x24,26x26,32x32,36x36,40x40,44x44,48x48,52x52,64x64,72x72,80x80,88x88,96x96,104x104,120x120,132x132,144x144,8x18,8x32,12x26,12x36,16x36,16x48";
-	resecls["datamatrix"]="";
-	resvers["gs1datamatrix"]=resvers["datamatrix"];
-	resecls["gs1datamatrix"]=resvers["datamatrix"];
-	resvers["hibcdatamatrix"]=resvers["datamatrix"];
-	resecls["hibcdatamatrix"]=resecls["datamatrix"];
-	resvers["azteccode"]="1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32";
-	resvlbl["azteccode"]="Layers";
-	resecls["azteccode"]="5,10,15,20,25,30,35,40,45,50,55,60,65,70,75,80,85,90,95";
-	resvers["azteccodecompact"]="1,2,3,4";
-	resvlbl["azteccodecompact"]=resvlbl["azteccode"];
-	resecls["azteccodecompact"]=resecls["azteccode"];
-	resvers["pdf417"]="1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30";
-	resvlbl["pdf417"]="Columns";
-	resecls["pdf417"]="1,2,3,4,5";
-	resvers["pdf417compact"]=resvers["pdf417"];
-	resvlbl["pdf417compact"]=resvlbl["pdf417"];
-	resecls["pdf417compact"]=resecls["pdf417"];
-	resvers["hibcpdf417"]=resvers["pdf417"];
-	resvlbl["hibcpdf417"]=resvlbl["pdf417"];
-	resecls["hibcpdf417"]=resecls["pdf417"];
-	resvers["micropdf417"]="1x11,1x14,1x17,1x20,1x24,1x28,2x8,2x11,2x14,2x17,2x20,2x23,2x26,3x6,3x8,3x10,3x12,3x15,3x20,3x26,3x32,3x38,3x44,4x4,4x6,4x8,4x10,4x12,4x15,4x20,4x26,4x32,4x38,4x44";
-	resecls["micropdf417"]="";
-	resvers["hibcmicropdf417"]=resvers["micropdf417"];
-	resecls["hibcmicropdf417"]=resecls["micropdf417"];
+	m_resvers["qrcode"]="1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40";
+	m_resecls["qrcode"]="L,Q,M,H";
+	m_resvers["gs1qrcode"]=m_resvers["qrcode"];
+	m_resecls["gs1qrcode"]=m_resecls["qrcode"];
+	m_resvers["hibcqrcode"]=m_resvers["qrcode"];
+	m_resecls["hibcqrcode"]=m_resecls["qrcode"];
+	m_resvers["microqrcode"]="M1,M2,M3,M4";
+	m_resecls["microqrcode"]="L,Q,M,H";
+	m_resvers["datamatrix"]="10x10,12x12,14x14,16x16,18x18,20x20,22x22,24x24,26x26,32x32,36x36,40x40,44x44,48x48,52x52,64x64,72x72,80x80,88x88,96x96,104x104,120x120,132x132,144x144,8x18,8x32,12x26,12x36,16x36,16x48";
+	m_resecls["datamatrix"]="";
+	m_resvers["gs1datamatrix"]=m_resvers["datamatrix"];
+	m_resecls["gs1datamatrix"]=m_resvers["datamatrix"];
+	m_resvers["hibcdatamatrix"]=m_resvers["datamatrix"];
+	m_resecls["hibcdatamatrix"]=m_resecls["datamatrix"];
+	m_resvers["azteccode"]="1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32";
+	m_resvlbl["azteccode"]="Layers";
+	m_resecls["azteccode"]="5,10,15,20,25,30,35,40,45,50,55,60,65,70,75,80,85,90,95";
+	m_resvers["azteccodecompact"]="1,2,3,4";
+	m_resvlbl["azteccodecompact"]=m_resvlbl["azteccode"];
+	m_resecls["azteccodecompact"]=m_resecls["azteccode"];
+	m_resvers["pdf417"]="1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30";
+	m_resvlbl["pdf417"]="Columns";
+	m_resecls["pdf417"]="1,2,3,4,5";
+	m_resvers["pdf417compact"]=m_resvers["pdf417"];
+	m_resvlbl["pdf417compact"]=m_resvlbl["pdf417"];
+	m_resecls["pdf417compact"]=m_resecls["pdf417"];
+	m_resvers["hibcpdf417"]=m_resvers["pdf417"];
+	m_resvlbl["hibcpdf417"]=m_resvlbl["pdf417"];
+	m_resecls["hibcpdf417"]=m_resecls["pdf417"];
+	m_resvers["micropdf417"]="1x11,1x14,1x17,1x20,1x24,1x28,2x8,2x11,2x14,2x17,2x20,2x23,2x26,3x6,3x8,3x10,3x12,3x15,3x20,3x26,3x32,3x38,3x44,4x4,4x6,4x8,4x10,4x12,4x15,4x20,4x26,4x32,4x38,4x44";
+	m_resecls["micropdf417"]="";
+	m_resvers["hibcmicropdf417"]=m_resvers["micropdf417"];
+	m_resecls["hibcmicropdf417"]=m_resecls["micropdf417"];
 
 	// Which options checkboxes are enabled for each encoder
-	QStringList includetextAvail=encoderlist;
+	QStringList includetextAvail=m_encoderlist;
 	foreach (enc,includetextAvail)
-		resincludetextAvail[enc]=true; 
+		m_resincludetextAvail[enc]=true; 
 
 	QStringList guardwhitespaceAvail;
 	guardwhitespaceAvail << "ean13" << "ean8" << "isbn" << "ismn" << "issn" << "ean13composite";
 	guardwhitespaceAvail << "ean8composite";
 	foreach (enc,guardwhitespaceAvail)
-		resguardwhitespaceAvail[enc]=true; 
+		m_resguardwhitespaceAvail[enc]=true; 
 
 	QStringList includecheckAvail;
 	includecheckAvail << "bc412" << "channelcode" << "code11" << "code2of5" << "coop2of5" << "datalogic2of5";
 	includecheckAvail << "iata2of5" << "industrial2of5" << "matrix2of5" << "code39" << "code39ext";
 	includecheckAvail << "code93" << "code93ext" << "interleaved2of5" << "msi" << "rationalizedCodabar"; 
 	foreach (enc,includecheckAvail)
-		resincludecheckAvail[enc]=true; 
+		m_resincludecheckAvail[enc]=true; 
 
 	QStringList includecheckintextAvail;
 	includecheckintextAvail << "bc412" << "code11" << "code2of5" << "coop2of5" << "datalogic2of5" << "iata2of5";
 	includecheckintextAvail << "industrial2of5" << "matrix2of5" << "code39" << "code39ext" << "interleaved2of5";
 	includecheckintextAvail << "japanpost" << "msi" << "planet" << "plessey" << "postnet" << "rationalizedCodabar" << "royalmail";
 	foreach (enc,includecheckintextAvail)
-		resincludecheckintextAvail[enc]=true; 
+		m_resincludecheckintextAvail[enc]=true; 
 
 	QStringList parseAvail;
 	parseAvail << "azteccode" << "azteccodecompact" << "codablockf" << "hibccodablockf" << "code128" << "hibccode128" << "code16k" << "code39ext" << "code49";
 	parseAvail << "code93ext" << "codeone" << "datamatrix" << "hibcdatamatrix" << "maxicode" << "micropdf417" << "hibcmicropdf417" << "pdf417" << "hibcpdf417" << "pdf417compact";
 	parseAvail << "posicode" << "qrcode" << "hibcqrcode" << "microqrcode" << "telepen";
 	foreach (enc,parseAvail)
-		resparseAvail[enc]=true; 
+		m_resparseAvail[enc]=true; 
 
 	QStringList parsefncAvail;
 	parsefncAvail << "codablockf" << "code128" << "code16k" << "code49" << "code93" << "codeone";
 	parsefncAvail << "datamatrix" << "posicode" << "qrcode" << "microqrcode";
 	foreach (enc,parsefncAvail)
-		resparsefncAvail[enc]=true; 
+		m_resparsefncAvail[enc]=true; 
 
 	// Building up the bcFamilyCombo grouping the formats for readablity
-	ui.bcFamilyCombo->addItem(tr("Select a barcode family")); // to prevent 1st gs call
-	ui.bcFamilyCombo->insertSeparator(999);
+	m_ui.bcFamilyCombo->addItem(tr("Select a barcode family")); // to prevent 1st gs call
+	m_ui.bcFamilyCombo->insertSeparator(999);
 
 	// Building up the bcCombo grouping the formats for readablity
-	ui.bcCombo->addItem(tr("Select a barcode format")); // to prevent 1st gs call
-	ui.bcCombo->insertSeparator(999);
+	m_ui.bcCombo->addItem(tr("Select a barcode format")); // to prevent 1st gs call
+	m_ui.bcCombo->insertSeparator(999);
 
 	QString familyName;
 	QStringList bcNames;
 	bcNames << "EAN-13" << "EAN-8" << "UPC-A" << "UPC-E" << "ISBN" << "ISMN" << "ISSN";
 	familyName = tr("Point of Sale");
-	familyList.append(familyName);
-	familyItems.insert(familyName, bcNames);
+	m_familyList.append(familyName);
+	m_familyItems.insert(familyName, bcNames);
 
 	bcNames.clear();
 	bcNames << "GS1-14" << "GS1 Data Matrix" << "GS1 QR Code" << "GS1-128" << "ITF-14" << "SSCC-18";
 	familyName = tr("Supply Chain");
-	familyList.append(familyName);
-	familyItems.insert(familyName, bcNames);
+	m_familyList.append(familyName);
+	m_familyItems.insert(familyName, bcNames);
 
 	bcNames.clear();
 	bcNames << "QR Code" << "Micro QR Code" << "Data Matrix" << "Aztec Code" << "Compact Aztec Code";
 	bcNames << "Aztec Runes" << "PDF417" << "Compact PDF417" << "MicroPDF417";
 	familyName = tr("Two-dimensional symbols");
-	familyList.append(familyName);
-	familyItems.insert(familyName, bcNames);
+	m_familyList.append(familyName);
+	m_familyItems.insert(familyName, bcNames);
 
 	bcNames.clear();
 	bcNames << "Code 128" << "Code 39" << "Code 39 Extended" << "Code 93" << "Code 93 Extended";
 	bcNames << "Interleaved 2 of 5 (ITF)";
 	familyName = tr("One-dimensional symbols");
-	familyList.append(familyName);
-	familyItems.insert(familyName, bcNames);
+	m_familyList.append(familyName);
+	m_familyItems.insert(familyName, bcNames);
 
 	bcNames.clear();
 	bcNames << "GS1 DataBar Omnidirectional" << "GS1 DataBar Stacked Omnidirectional";
 	bcNames << "GS1 DataBar Expanded" << "GS1 DataBar Expanded Stacked" << "GS1 DataBar Truncated";
 	bcNames << "GS1 DataBar Stacked" << "GS1 DataBar Limited";
 	familyName = tr("GS1 DataBar family");
-	familyList.append(familyName);
-	familyItems.insert(familyName, bcNames);
+	m_familyList.append(familyName);
+	m_familyItems.insert(familyName, bcNames);
 
 	bcNames.clear();
 	bcNames << "AusPost 4 State Customer Code" << "Deutsche Post Identcode" << "Deutsche Post Leitcode";
 	bcNames << "Japan Post 4 State Customer Code" << "Royal Dutch TPG Post KIX";
 	bcNames << "Royal Mail 4 State Customer Code" << "USPS Intelligent Mail" << "USPS PLANET" << "USPS POSTNET";
 	familyName = tr("Postal symbols");
-	familyList.append(familyName);
-	familyItems.insert(familyName, bcNames);
+	m_familyList.append(familyName);
+	m_familyItems.insert(familyName, bcNames);
 
 	bcNames.clear();
 	bcNames << "Italian Pharmacode" << "Pharmaceutical Binary Code" << "Two-track Pharmacode";
 	bcNames << "Pharmazentralnummer (PZN)" << "HIBC Codablock F" << "HIBC Code 128" << "HIBC Code 39";
 	bcNames << "HIBC Data Matrix" << "HIBC MicroPDF417" << "HIBC PDF417" << "HIBC QR Code";
 	familyName = tr("Pharmaceutical symbols");
-	familyList.append(familyName);
-	familyItems.insert(familyName, bcNames);
+	m_familyList.append(familyName);
+	m_familyItems.insert(familyName, bcNames);
 
 	bcNames.clear();
 	bcNames << "Code 11" << "Codabar" << "Code 25" << "COOP 2 of 5" << "Datalogic 2 of 5" << "IATA 2 of 5";
@@ -241,8 +241,8 @@ BarcodeGenerator::BarcodeGenerator(QWidget* parent, const char* name)
 	bcNames << "PosiCode" << "Telepen" << "Telepen Numeric"<< "Code 16K" << "Codablock F" << "Code 49";
 	bcNames << "Code One";
 	familyName = tr("Less-used symbols");
-	familyList.append(familyName);
-	familyItems.insert(familyName, bcNames);
+	m_familyList.append(familyName);
+	m_familyItems.insert(familyName, bcNames);
 
 	bcNames.clear();
 	bcNames << "EAN-13 Composite" << "EAN-8 Composite" << "UPC-A Composite" << "UPC-E Composite";
@@ -251,123 +251,123 @@ BarcodeGenerator::BarcodeGenerator(QWidget* parent, const char* name)
 	bcNames << "GS1 DataBar Truncated Composite" << "GS1 DataBar Stacked Composite";
 	bcNames << "GS1 DataBar Limited Composite" << "GS1-128 Composite";
 	familyName = tr("GS1 Composite symbols");
-	familyList.append(familyName);
-	familyItems.insert(familyName, bcNames);
+	m_familyList.append(familyName);
+	m_familyItems.insert(familyName, bcNames);
 
-	ui.bcFamilyCombo->addItems(familyList);
+	m_ui.bcFamilyCombo->addItems(m_familyList);
 
 	/*
 	 *  End of the hard-coded data 
 	 *
 	 */
 
-	guiColor = ui.codeEdit->palette().color(QPalette::Window);
+	m_guiColor = m_ui.codeEdit->palette().color(QPalette::Window);
 
-	ui.okButton->setText(CommonStrings::tr_OK);
-	ui.cancelButton->setText(CommonStrings::tr_Cancel);
-	ui.resetButton->setIcon(IconManager::instance()->loadIcon("u_undo16.png"));
+	m_ui.okButton->setText(CommonStrings::tr_OK);
+	m_ui.cancelButton->setText(CommonStrings::tr_Cancel);
+	m_ui.resetButton->setIcon(IconManager::instance()->loadIcon("u_undo16.png"));
 
 	if (ScCore->primaryMainWindow()->doc->PageColors.contains("Black"))
 	{
-		lnColor = ScCore->primaryMainWindow()->doc->PageColors["Black"];
-		txtColor = ScCore->primaryMainWindow()->doc->PageColors["Black"];
-		ui.linesLabel->setToolTip("Black");
-		ui.txtLabel->setToolTip("Black");
+		m_lnColor = ScCore->primaryMainWindow()->doc->PageColors["Black"];
+		m_txtColor = ScCore->primaryMainWindow()->doc->PageColors["Black"];
+		m_ui.linesLabel->setToolTip("Black");
+		m_ui.txtLabel->setToolTip("Black");
 	}
 	else
 	{
-		ui.linesLabel->setToolTip("n.a.");
-		ui.txtLabel->setToolTip("n.a.");
+		m_ui.linesLabel->setToolTip("n.a.");
+		m_ui.txtLabel->setToolTip("n.a.");
 	}
 	if (ScCore->primaryMainWindow()->doc->PageColors.contains("White"))
 	{
-		bgColor = ScCore->primaryMainWindow()->doc->PageColors["White"];
-		ui.bgLabel->setToolTip("White");
+		m_bgColor = ScCore->primaryMainWindow()->doc->PageColors["White"];
+		m_ui.bgLabel->setToolTip("White");
 	}
 	else
-		ui.bgLabel->setToolTip("n.a.");
+		m_ui.bgLabel->setToolTip("n.a.");
 
-	paintColorSample(ui.linesLabel, lnColor);
-	paintColorSample(ui.txtLabel, txtColor);
-	paintColorSample(ui.bgLabel, bgColor);
+	paintColorSample(m_ui.linesLabel, m_lnColor);
+	paintColorSample(m_ui.txtLabel, m_txtColor);
+	paintColorSample(m_ui.bgLabel, m_bgColor);
 
-	paintBarcodeTimer=new QTimer(this);
-	paintBarcodeTimer->setSingleShot(true);
-	connect(paintBarcodeTimer, SIGNAL(timeout()), this, SLOT(paintBarcode()));
+	m_paintBarcodeTimer=new QTimer(this);
+	m_paintBarcodeTimer->setSingleShot(true);
+	connect(m_paintBarcodeTimer, SIGNAL(timeout()), this, SLOT(paintBarcode()));
 
-	connect(ui.bcFamilyCombo, SIGNAL(activated(QString)), this, SLOT(bcFamilyComboChanged()));
-	connect(ui.bcCombo, SIGNAL(activated(QString)), this, SLOT(bcComboChanged()));
-	connect(ui.bgColorButton, SIGNAL(clicked()), this, SLOT(bgColorButton_pressed()));
-	connect(ui.lnColorButton, SIGNAL(clicked()), this, SLOT(lnColorButton_pressed()));
-	connect(ui.txtColorButton, SIGNAL(clicked()), this, SLOT(txtColorButton_pressed()));
-	connect(ui.okButton, SIGNAL(clicked()), this, SLOT(okButton_pressed()));
-	connect(ui.cancelButton, SIGNAL(clicked()), this, SLOT(cancelButton_pressed()));
-	connect(ui.codeEdit, SIGNAL(textChanged(QString)), this, SLOT(codeEdit_textChanged(QString)));
-	connect(ui.resetButton, SIGNAL(clicked()), this, SLOT(resetButton_clicked()));
+	connect(m_ui.bcFamilyCombo, SIGNAL(activated(QString)), this, SLOT(bcFamilyComboChanged()));
+	connect(m_ui.bcCombo, SIGNAL(activated(QString)), this, SLOT(bcComboChanged()));
+	connect(m_ui.bgColorButton, SIGNAL(clicked()), this, SLOT(bgColorButton_pressed()));
+	connect(m_ui.lnColorButton, SIGNAL(clicked()), this, SLOT(lnColorButton_pressed()));
+	connect(m_ui.txtColorButton, SIGNAL(clicked()), this, SLOT(txtColorButton_pressed()));
+	connect(m_ui.okButton, SIGNAL(clicked()), this, SLOT(okButton_pressed()));
+	connect(m_ui.cancelButton, SIGNAL(clicked()), this, SLOT(cancelButton_pressed()));
+	connect(m_ui.codeEdit, SIGNAL(textChanged(QString)), this, SLOT(codeEdit_textChanged(QString)));
+	connect(m_ui.resetButton, SIGNAL(clicked()), this, SLOT(resetButton_clicked()));
 	bcComboChanged();
 
 }
 
 BarcodeGenerator::~BarcodeGenerator()
 {
-	if (paintBarcodeTimer)
+	if (m_paintBarcodeTimer)
 	{
-		delete paintBarcodeTimer;
-		paintBarcodeTimer=NULL;
+		delete m_paintBarcodeTimer;
+		m_paintBarcodeTimer=NULL;
 	}
 }
 
 void BarcodeGenerator::updateOptions()
 {
 
-	QString enc=map[ui.bcCombo->currentText()].command;
+	QString enc=m_map[m_ui.bcCombo->currentText()].command;
 
-	ui.formatLabel->setText(resvlbl[enc]!="" ? resvlbl[enc]+":" : "Version:");
-	ui.formatCombo->blockSignals(true);
-	ui.formatCombo->clear();
-	ui.formatCombo->addItem("Auto");
-	if (resvers[enc]!="")
+	m_ui.formatLabel->setText(m_resvlbl[enc]!="" ? m_resvlbl[enc]+":" : "Version:");
+	m_ui.formatCombo->blockSignals(true);
+	m_ui.formatCombo->clear();
+	m_ui.formatCombo->addItem("Auto");
+	if (m_resvers[enc]!="")
 	{
-		ui.formatCombo->insertSeparator(999);
-		ui.formatCombo->addItems(resvers[enc].split(","));
-		ui.formatLabel->setEnabled(true);
-		ui.formatCombo->setEnabled(true);
+		m_ui.formatCombo->insertSeparator(999);
+		m_ui.formatCombo->addItems(m_resvers[enc].split(","));
+		m_ui.formatLabel->setEnabled(true);
+		m_ui.formatCombo->setEnabled(true);
 	}
 	else
 	{
-		ui.formatLabel->setEnabled(false);
-		ui.formatCombo->setEnabled(false);
+		m_ui.formatLabel->setEnabled(false);
+		m_ui.formatCombo->setEnabled(false);
 	}
-	ui.formatCombo->blockSignals(false);
+	m_ui.formatCombo->blockSignals(false);
 
-	ui.eccCombo->blockSignals(true);
-	ui.eccCombo->clear();
-	ui.eccCombo->addItem("Auto");
-	if (resecls[enc]!="")
+	m_ui.eccCombo->blockSignals(true);
+	m_ui.eccCombo->clear();
+	m_ui.eccCombo->addItem("Auto");
+	if (m_resecls[enc]!="")
 	{
-		ui.eccCombo->insertSeparator(999);
-		ui.eccCombo->addItems(resecls[enc].split(","));
-		ui.eccLabel->setEnabled(true);
-		ui.eccCombo->setEnabled(true);
+		m_ui.eccCombo->insertSeparator(999);
+		m_ui.eccCombo->addItems(m_resecls[enc].split(","));
+		m_ui.eccLabel->setEnabled(true);
+		m_ui.eccCombo->setEnabled(true);
 	}
 	else
 	{
-		ui.eccLabel->setEnabled(false);
-		ui.eccCombo->setEnabled(false);
+		m_ui.eccLabel->setEnabled(false);
+		m_ui.eccCombo->setEnabled(false);
 	}
-	ui.eccCombo->blockSignals(false);
+	m_ui.eccCombo->blockSignals(false);
 
 }
 
 
 void BarcodeGenerator::bcFamilyComboChanged()
 {
-	ui.bcCombo->blockSignals(true);
-	ui.bcCombo->clear();
-	ui.bcCombo->addItem(tr("Select a barcode format")); // to prevent 1st gs call
-	ui.bcCombo->insertSeparator(999);
-	ui.bcCombo->addItems(familyItems[ui.bcFamilyCombo->currentText()]);
-	ui.bcCombo->blockSignals(false);
+	m_ui.bcCombo->blockSignals(true);
+	m_ui.bcCombo->clear();
+	m_ui.bcCombo->addItem(tr("Select a barcode format")); // to prevent 1st gs call
+	m_ui.bcCombo->insertSeparator(999);
+	m_ui.bcCombo->addItems(m_familyItems[m_ui.bcFamilyCombo->currentText()]);
+	m_ui.bcCombo->blockSignals(false);
 	bcComboChanged();
 }
 
@@ -380,52 +380,52 @@ void BarcodeGenerator::bcComboChanged()
 {
 	updateOptions();
 
-	if (ui.bcCombo->currentIndex() == 0)
+	if (m_ui.bcCombo->currentIndex() == 0)
 	{
-		ui.okButton->setEnabled(false);
-		ui.sampleLabel->setText(tr("Select Type"));
-		ui.codeEdit->clear();
-		ui.codeEdit->setEnabled(false);
-		ui.optionsEdit->clear();
-		ui.optionsEdit->setEnabled(false);
-		ui.includetextCheck->setEnabled(false);
-		ui.guardwhitespaceCheck->setEnabled(false);
-		ui.includecheckCheck->setEnabled(false);
-		ui.includecheckintextCheck->setEnabled(false);
-		ui.parseCheck->setEnabled(false);
-		ui.parsefncCheck->setEnabled(false);
-		ui.formatLabel->setEnabled(false);
-		ui.formatCombo->setEnabled(false);
-		ui.eccLabel->setEnabled(false);
-		ui.eccCombo->setEnabled(false);
-		ui.bgColorButton->setEnabled(false);
-		ui.lnColorButton->setEnabled(false);
-		ui.txtColorButton->setEnabled(false);
+		m_ui.okButton->setEnabled(false);
+		m_ui.sampleLabel->setText(tr("Select Type"));
+		m_ui.codeEdit->clear();
+		m_ui.codeEdit->setEnabled(false);
+		m_ui.optionsEdit->clear();
+		m_ui.optionsEdit->setEnabled(false);
+		m_ui.includetextCheck->setEnabled(false);
+		m_ui.guardwhitespaceCheck->setEnabled(false);
+		m_ui.includecheckCheck->setEnabled(false);
+		m_ui.includecheckintextCheck->setEnabled(false);
+		m_ui.parseCheck->setEnabled(false);
+		m_ui.parsefncCheck->setEnabled(false);
+		m_ui.formatLabel->setEnabled(false);
+		m_ui.formatCombo->setEnabled(false);
+		m_ui.eccLabel->setEnabled(false);
+		m_ui.eccCombo->setEnabled(false);
+		m_ui.bgColorButton->setEnabled(false);
+		m_ui.lnColorButton->setEnabled(false);
+		m_ui.txtColorButton->setEnabled(false);
 		return;
 	}
 	
-	ui.codeEdit->setEnabled(true);
-	ui.optionsEdit->setEnabled(true);
-	ui.bgColorButton->setEnabled(true);
-	ui.lnColorButton->setEnabled(true);
-	ui.txtColorButton->setEnabled(true);
-	ui.okButton->setEnabled(true);
+	m_ui.codeEdit->setEnabled(true);
+	m_ui.optionsEdit->setEnabled(true);
+	m_ui.bgColorButton->setEnabled(true);
+	m_ui.lnColorButton->setEnabled(true);
+	m_ui.txtColorButton->setEnabled(true);
+	m_ui.okButton->setEnabled(true);
 
-	QString s = ui.bcCombo->currentText();
-	ui.codeEdit->blockSignals(true);
-	ui.codeEdit->setText(map[s].exampleContents);
-	ui.codeEdit->blockSignals(false);
-	ui.optionsEdit->blockSignals(true);
-	ui.optionsEdit->setText(map[s].exampleOptions);
-	ui.optionsEdit->blockSignals(false);
+	QString s = m_ui.bcCombo->currentText();
+	m_ui.codeEdit->blockSignals(true);
+	m_ui.codeEdit->setText(m_map[s].exampleContents);
+	m_ui.codeEdit->blockSignals(false);
+	m_ui.optionsEdit->blockSignals(true);
+	m_ui.optionsEdit->setText(m_map[s].exampleOptions);
+	m_ui.optionsEdit->blockSignals(false);
 
-	QString enc=map[s].command;
-	ui.includetextCheck->setEnabled(resincludetextAvail[enc]);
-	ui.guardwhitespaceCheck->setEnabled(resguardwhitespaceAvail[enc]);
-	ui.includecheckCheck->setEnabled(resincludecheckAvail[enc]);
-	ui.includecheckintextCheck->setEnabled(resincludetextAvail[enc] && resincludecheckintextAvail[enc]);
-	ui.parseCheck->setEnabled(resparseAvail[enc]);
-	ui.parsefncCheck->setEnabled(resparsefncAvail[enc]);
+	QString enc=m_map[s].command;
+	m_ui.includetextCheck->setEnabled(m_resincludetextAvail[enc]);
+	m_ui.guardwhitespaceCheck->setEnabled(m_resguardwhitespaceAvail[enc]);
+	m_ui.includecheckCheck->setEnabled(m_resincludecheckAvail[enc]);
+	m_ui.includecheckintextCheck->setEnabled(m_resincludetextAvail[enc] && m_resincludecheckintextAvail[enc]);
+	m_ui.parseCheck->setEnabled(m_resparseAvail[enc]);
+	m_ui.parsefncCheck->setEnabled(m_resparsefncAvail[enc]);
 
 	updateUIFromOptionsText();
 
@@ -434,16 +434,16 @@ void BarcodeGenerator::bcComboChanged()
 
 void BarcodeGenerator::enqueuePaintBarcode(int delay)
 {
-	ui.okButton->setEnabled(false);
+	m_ui.okButton->setEnabled(false);
 //	paintBarcode();
-	paintBarcodeTimer->start(delay);
+	m_paintBarcodeTimer->start(delay);
 }
 
 void BarcodeGenerator::updateOptionsTextFromUI()
 {
-	QString opts=ui.optionsEdit->text();
+	QString opts=m_ui.optionsEdit->text();
 
-	if (ui.includetextCheck->isChecked())
+	if (m_ui.includetextCheck->isChecked())
 	{
 		if (!opts.contains(QRegExp("\\bincludetext\\b")))
 			opts.append(" includetext");
@@ -453,7 +453,7 @@ void BarcodeGenerator::updateOptionsTextFromUI()
 		opts.replace(QRegExp("\\bincludetext\\b")," "); 
 	}
 
-	if (ui.guardwhitespaceCheck->isChecked())
+	if (m_ui.guardwhitespaceCheck->isChecked())
 	{
 		if (!opts.contains(QRegExp("\\bguardwhitespace\\b"))) 
 			opts.append(" guardwhitespace");
@@ -463,7 +463,7 @@ void BarcodeGenerator::updateOptionsTextFromUI()
 		opts.replace(QRegExp("\\bguardwhitespace\\b")," "); 
 	}
 
-	if (ui.includecheckCheck->isChecked())
+	if (m_ui.includecheckCheck->isChecked())
 	{
 		if (!opts.contains(QRegExp("\\bincludecheck\\b")))
 			opts.append(" includecheck");
@@ -473,7 +473,7 @@ void BarcodeGenerator::updateOptionsTextFromUI()
 		opts.replace(QRegExp("\\bincludecheck\\b")," ");
 	}
 
-	if (ui.includecheckintextCheck->isChecked())
+	if (m_ui.includecheckintextCheck->isChecked())
 	{
 		if (!opts.contains(QRegExp("\\bincludecheckintext\\b")))
 			opts.append(" includecheckintext");
@@ -483,7 +483,7 @@ void BarcodeGenerator::updateOptionsTextFromUI()
 		opts.replace(QRegExp("\\bincludecheckintext\\b")," ");
 	}
 
-	if (ui.parseCheck->isChecked())
+	if (m_ui.parseCheck->isChecked())
 	{
 		if (!opts.contains(QRegExp("\\bparse\\b")))
 			opts.append(" parse");
@@ -493,7 +493,7 @@ void BarcodeGenerator::updateOptionsTextFromUI()
 		opts.replace(QRegExp("\\bparse\\b")," ");
 	}
 
-	if (ui.parsefncCheck->isChecked())
+	if (m_ui.parsefncCheck->isChecked())
 	{
 		if (!opts.contains(QRegExp("\\bparsefnc\\b"))) 
 			opts.append(" parsefnc");
@@ -503,12 +503,12 @@ void BarcodeGenerator::updateOptionsTextFromUI()
 		opts.replace(QRegExp("\\bparsefnc\\b")," ");
 	}
 
-	QString enc=map[ui.bcCombo->currentText()].command;
-	QString vlbl=resvlbl[enc]!="" ? resvlbl[enc].toLower() : "version";
+	QString enc=m_map[m_ui.bcCombo->currentText()].command;
+	QString vlbl=m_resvlbl[enc]!="" ? m_resvlbl[enc].toLower() : "version";
 
- 	if (ui.formatCombo->currentIndex() != 0)
+ 	if (m_ui.formatCombo->currentIndex() != 0)
 	{
-		QString t=ui.formatCombo->currentText();
+		QString t=m_ui.formatCombo->currentText();
 		if (!opts.contains(QRegExp("\\b"+QRegExp::escape(vlbl)+"=.*\\b"))) 
 			opts.append(" "+vlbl+"="+t);
 		else
@@ -519,9 +519,9 @@ void BarcodeGenerator::updateOptionsTextFromUI()
 		opts.replace(QRegExp("\\b"+QRegExp::escape(vlbl)+"=\\S*\\b")," ");
 	}
 
-	if (ui.eccCombo->currentIndex() != 0)
+	if (m_ui.eccCombo->currentIndex() != 0)
 	{
-		QString t=ui.eccCombo->currentText();
+		QString t=m_ui.eccCombo->currentText();
 		if (!opts.contains(QRegExp("\\beclevel=.*\\b"))) 
 			opts.append(" eclevel="+t);
 		else
@@ -532,70 +532,70 @@ void BarcodeGenerator::updateOptionsTextFromUI()
 		opts.replace(QRegExp("\\beclevel=\\S*\\b")," ");
 	}
 
-	ui.optionsEdit->blockSignals(true);
-	ui.optionsEdit->setText(opts.simplified());
-	ui.optionsEdit->blockSignals(false);
+	m_ui.optionsEdit->blockSignals(true);
+	m_ui.optionsEdit->setText(opts.simplified());
+	m_ui.optionsEdit->blockSignals(false);
 
 }
 
 void BarcodeGenerator::updateUIFromOptionsText()
 {
-	ui.includetextCheck->blockSignals(true);	
-	ui.includetextCheck->setChecked(ui.optionsEdit->text().contains(QRegExp("\\bincludetext\\b")));
-	ui.includetextCheck->blockSignals(false);	
+	m_ui.includetextCheck->blockSignals(true);	
+	m_ui.includetextCheck->setChecked(m_ui.optionsEdit->text().contains(QRegExp("\\bincludetext\\b")));
+	m_ui.includetextCheck->blockSignals(false);	
 
-	ui.guardwhitespaceCheck->blockSignals(true);	
-	ui.guardwhitespaceCheck->setChecked(ui.optionsEdit->text().contains(QRegExp("\\bguardwhitespace\\b")));
-	ui.guardwhitespaceCheck->blockSignals(false);	
+	m_ui.guardwhitespaceCheck->blockSignals(true);	
+	m_ui.guardwhitespaceCheck->setChecked(m_ui.optionsEdit->text().contains(QRegExp("\\bguardwhitespace\\b")));
+	m_ui.guardwhitespaceCheck->blockSignals(false);	
 
-	ui.includecheckCheck->blockSignals(true);	
-	ui.includecheckCheck->setChecked(ui.optionsEdit->text().contains(QRegExp("\\bincludecheck\\b")));
-	ui.includecheckCheck->blockSignals(false);	
+	m_ui.includecheckCheck->blockSignals(true);	
+	m_ui.includecheckCheck->setChecked(m_ui.optionsEdit->text().contains(QRegExp("\\bincludecheck\\b")));
+	m_ui.includecheckCheck->blockSignals(false);	
 
-	ui.includecheckintextCheck->blockSignals(true);	
-	ui.includecheckintextCheck->setChecked(ui.optionsEdit->text().contains(QRegExp("\\bincludecheckintext\\b")));
-	ui.includecheckintextCheck->blockSignals(false);	
+	m_ui.includecheckintextCheck->blockSignals(true);	
+	m_ui.includecheckintextCheck->setChecked(m_ui.optionsEdit->text().contains(QRegExp("\\bincludecheckintext\\b")));
+	m_ui.includecheckintextCheck->blockSignals(false);	
 
-	ui.parseCheck->blockSignals(true);	
-	ui.parseCheck->setChecked(ui.optionsEdit->text().contains(QRegExp("\\bparse\\b")));
-	ui.parseCheck->blockSignals(false);	
+	m_ui.parseCheck->blockSignals(true);	
+	m_ui.parseCheck->setChecked(m_ui.optionsEdit->text().contains(QRegExp("\\bparse\\b")));
+	m_ui.parseCheck->blockSignals(false);	
 
-	ui.parsefncCheck->blockSignals(true);	
-	ui.parsefncCheck->setChecked(ui.optionsEdit->text().contains(QRegExp("\\bparsefnc\\b")));
-	ui.parsefncCheck->blockSignals(false);	
+	m_ui.parsefncCheck->blockSignals(true);	
+	m_ui.parsefncCheck->setChecked(m_ui.optionsEdit->text().contains(QRegExp("\\bparsefnc\\b")));
+	m_ui.parsefncCheck->blockSignals(false);	
 
-	QString enc=map[ui.bcCombo->currentText()].command;
-	QString vlbl=resvlbl[enc]!="" ? resvlbl[enc].toLower() : "version";
+	QString enc=m_map[m_ui.bcCombo->currentText()].command;
+	QString vlbl=m_resvlbl[enc]!="" ? m_resvlbl[enc].toLower() : "version";
 
 	QRegExp rxf("\\b"+QRegExp::escape(vlbl)+"=(\\S*)\\b");
-	ui.formatCombo->blockSignals(true);	
-	if (ui.optionsEdit->text().contains(rxf))
+	m_ui.formatCombo->blockSignals(true);	
+	if (m_ui.optionsEdit->text().contains(rxf))
 	{
-		int idx=ui.formatCombo->findText(rxf.cap(1));
+		int idx=m_ui.formatCombo->findText(rxf.cap(1));
 		if (idx == -1)
 			idx=0;
-		ui.formatCombo->setCurrentIndex(idx);
+		m_ui.formatCombo->setCurrentIndex(idx);
 	}
 	else
 	{
-		ui.formatCombo->setCurrentIndex(0);
+		m_ui.formatCombo->setCurrentIndex(0);
 	}
-	ui.formatCombo->blockSignals(false);	
+	m_ui.formatCombo->blockSignals(false);	
 
 	QRegExp rxe("\\beclevel=(\\S*)\\b");
-	ui.eccCombo->blockSignals(true);	
-	if (ui.optionsEdit->text().contains(rxe))
+	m_ui.eccCombo->blockSignals(true);	
+	if (m_ui.optionsEdit->text().contains(rxe))
 	{
-		int idx=ui.eccCombo->findText(rxe.cap(1));
+		int idx=m_ui.eccCombo->findText(rxe.cap(1));
 		if (idx == -1)
 			idx=0;
-		ui.eccCombo->setCurrentIndex(idx);
+		m_ui.eccCombo->setCurrentIndex(idx);
 	}
 	else
 	{
-		ui.eccCombo->setCurrentIndex(0);
+		m_ui.eccCombo->setCurrentIndex(0);
 	}
-	ui.eccCombo->blockSignals(false);
+	m_ui.eccCombo->blockSignals(false);
 }
 
 void BarcodeGenerator::updatePreview(QString errorMsg)
@@ -603,12 +603,12 @@ void BarcodeGenerator::updatePreview(QString errorMsg)
 	QString pngFile = QDir::toNativeSeparators(ScPaths::getTempFileDir() + "bcode.png");
 	if (errorMsg=="")
 	{
-		ui.sampleLabel->setPixmap(QPixmap(pngFile));
-		ui.okButton->setEnabled(true);
+		m_ui.sampleLabel->setPixmap(QPixmap(pngFile));
+		m_ui.okButton->setEnabled(true);
 	}
 	else
 	{
-		ui.sampleLabel->setText("<qt>"+errorMsg+"</qt>");
+		m_ui.sampleLabel->setText("<qt>"+errorMsg+"</qt>");
 	}
 }
 
@@ -673,9 +673,9 @@ void BarcodeGenerator::bgColorButton_pressed()
 	PaintManagerDialog d(this, &ScCore->primaryMainWindow()->doc->docGradients, ScCore->primaryMainWindow()->doc->PageColors, "", &ScCore->primaryMainWindow()->doc->docPatterns, ScCore->primaryMainWindow()->doc, ScCore->primaryMainWindow());
 	if (!d.exec())
 		return;
-	bgColor = d.selectedColor();
-	ui.bgLabel->setToolTip(d.selectedColorName());
-	paintColorSample(ui.bgLabel, bgColor);
+	m_bgColor = d.selectedColor();
+	m_ui.bgLabel->setToolTip(d.selectedColorName());
+	paintColorSample(m_ui.bgLabel, m_bgColor);
 	enqueuePaintBarcode(0);
 }
 
@@ -684,9 +684,9 @@ void BarcodeGenerator::lnColorButton_pressed()
 	PaintManagerDialog d(this, &ScCore->primaryMainWindow()->doc->docGradients, ScCore->primaryMainWindow()->doc->PageColors, "", &ScCore->primaryMainWindow()->doc->docPatterns, ScCore->primaryMainWindow()->doc, ScCore->primaryMainWindow());
 	if (!d.exec())
 		return;
-	lnColor = d.selectedColor();
-	ui.linesLabel->setToolTip(d.selectedColorName());
-	paintColorSample(ui.linesLabel, lnColor);
+	m_lnColor = d.selectedColor();
+	m_ui.linesLabel->setToolTip(d.selectedColorName());
+	paintColorSample(m_ui.linesLabel, m_lnColor);
 	enqueuePaintBarcode(0);
 }
 
@@ -695,9 +695,9 @@ void BarcodeGenerator::txtColorButton_pressed()
 	PaintManagerDialog d(this, &ScCore->primaryMainWindow()->doc->docGradients, ScCore->primaryMainWindow()->doc->PageColors, "", &ScCore->primaryMainWindow()->doc->docPatterns, ScCore->primaryMainWindow()->doc, ScCore->primaryMainWindow());
 	if (!d.exec())
 		return;
-	txtColor = d.selectedColor();
-	ui.txtLabel->setToolTip(d.selectedColorName());
-	paintColorSample(ui.txtLabel, txtColor);
+	m_txtColor = d.selectedColor();
+	m_ui.txtLabel->setToolTip(d.selectedColorName());
+	paintColorSample(m_ui.txtLabel, m_txtColor);
 	enqueuePaintBarcode(0);
 }
 
@@ -718,7 +718,7 @@ void BarcodeGenerator::okButton_pressed()
 							ScCore->primaryMainWindow()->doc->currentPage()->getUName(),
 							Um::IImageFrame,
 							Um::ImportBarcode,
-							ui.bcCombo->currentText() + " (" + ui.codeEdit->text() + ")",
+							m_ui.bcCombo->currentText() + " (" + m_ui.codeEdit->text() + ")",
 							Um::IEPS);
 	}
 
@@ -751,19 +751,19 @@ void BarcodeGenerator::paintBarcode()
 {
 
 	QString coloropts("barcolor=%1 showbackground backgroundcolor=%2 textcolor=%3");
-	coloropts = coloropts.arg(lnColor.name().replace('#', "")) \
-			.arg(bgColor.name().replace('#', "")) \
-			.arg(txtColor.name().replace('#', ""));
+	coloropts = coloropts.arg(m_lnColor.name().replace('#', "")) \
+			.arg(m_bgColor.name().replace('#', "")) \
+			.arg(m_txtColor.name().replace('#', ""));
 
-	QString opts=ui.optionsEdit->text()+" "+coloropts;
+	QString opts=m_ui.optionsEdit->text()+" "+coloropts;
 
 	// Assemble PS from encoder and requirement bodies
 	QString psCommand="%!PS-Adobe-2.0 EPSF-2.0\n";
 	QString req;
-	QString enc=map[ui.bcCombo->currentText()].command;
-	foreach (req, resreqs[enc].split(" ")) 
-		psCommand.append(resbodys[req]);
-	psCommand.append(resbodys[enc]);
+	QString enc=m_map[m_ui.bcCombo->currentText()].command;
+	foreach (req, m_resreqs[enc].split(" ")) 
+		psCommand.append(m_resbodys[req]);
+	psCommand.append(m_resbodys[enc]);
 	psCommand.append(
 		"errordict begin\n"
 		"/handleerror {\n"
@@ -782,13 +782,13 @@ void BarcodeGenerator::paintBarcode()
 		"end\n"
 	);
 	QString comm("20 10 moveto <%1> <%2> /%3 /uk.co.terryburton.bwipp findresource exec\n");
-	QString bcdata(ui.codeEdit->text().toLatin1().toHex());
+	QString bcdata(m_ui.codeEdit->text().toLatin1().toHex());
 	QString bcopts(opts.toLatin1().toHex());
-	comm = comm.arg(bcdata).arg(bcopts).arg(map[ui.bcCombo->currentText()].command);
+	comm = comm.arg(bcdata).arg(bcopts).arg(m_map[m_ui.bcCombo->currentText()].command);
 	psCommand.append(comm);
 	psCommand.append("showpage\n");
 
-	thread.render(psCommand);
+	m_thread.render(psCommand);
 }
 
 

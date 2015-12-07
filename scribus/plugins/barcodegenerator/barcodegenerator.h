@@ -69,58 +69,58 @@ class BarcodeGenerator : public QDialog
 
 	protected:
 		//! GUI namespace content. See designer.
-		Ui::BarcodeGeneratorBase ui;
+		Ui::BarcodeGeneratorBase m_ui;
 
 		//! \brief BC/BC type mapping. QMap keys are used as BC names.
-		BarcodeMap map;
+		BarcodeMap m_map;
 
-		QTimer *paintBarcodeTimer;
+		QTimer *m_paintBarcodeTimer;
 
 		//! \brief List of available barcode encoders.
-		QList<QString> encoderlist;
+		QList<QString> m_encoderlist;
 		//! \brief Descriptions of each encoder.
-		QHash<QString, QString> resdescs;
+		QHash<QString, QString> m_resdescs;
 		//! \brief Dependancies of each encoder.
-		QHash<QString, QString> resreqs;
+		QHash<QString, QString> m_resreqs;
 		//! \brief Example data input for each encoder.
-		QHash<QString, QString> resexams;
+		QHash<QString, QString> m_resexams;
 		//! \brief Example options input for each encoder.
-		QHash<QString, QString> resexops;
+		QHash<QString, QString> m_resexops;
 		//! \brief Renderers for each encoder.
-		QHash<QString, QString> resrndrs;
+		QHash<QString, QString> m_resrndrs;
 		//! \brief PS body of each encoder.
-		QHash<QString, QString> resbodys;
+		QHash<QString, QString> m_resbodys;
 		//! \brief Symbol Versions of each encoder.
-		QHash<QString, QString> resvers;
+		QHash<QString, QString> m_resvers;
 		//! \brief Label for the versions field.
-		QHash<QString, QString> resvlbl;
+		QHash<QString, QString> m_resvlbl;
 		//! \brief Error correction levels of each encoder.
-		QHash<QString, QString> resecls;
+		QHash<QString, QString> m_resecls;
 		//! \brief includetext option available for each encoder.
-		QHash<QString, bool> resincludetextAvail;
+		QHash<QString, bool> m_resincludetextAvail;
 		//! \brief guardwhitespace option available for each encoder.
-		QHash<QString, bool> resguardwhitespaceAvail;
+		QHash<QString, bool> m_resguardwhitespaceAvail;
 		//! \brief includecheck option available for each encoder.
-		QHash<QString, bool> resincludecheckAvail;
+		QHash<QString, bool> m_resincludecheckAvail;
 		//! \brief includecheckintext option available for each encoder.
-		QHash<QString, bool> resincludecheckintextAvail;
+		QHash<QString, bool> m_resincludecheckintextAvail;
 		//! \brief parse option available for each encoder.
-		QHash<QString, bool> resparseAvail;
+		QHash<QString, bool> m_resparseAvail;
 		//! \brief parsefnc option available for each encoder.
-		QHash<QString, bool> resparsefncAvail;
+		QHash<QString, bool> m_resparsefncAvail;
 		//! \brief List of barcode families.
-		QList<QString> familyList;
+		QList<QString> m_familyList;
 		//! \brief Family to item hash.
-		QHash<QString, QStringList> familyItems;
+		QHash<QString, QStringList> m_familyItems;
 
 		//! \brief Color of the BC lines.
-		ScColor lnColor;
+		ScColor m_lnColor;
 		//! \brief Color of the BC font.
-		ScColor txtColor;
+		ScColor m_txtColor;
 		//! \brief Background color of the BC.
-		ScColor bgColor;
+		ScColor m_bgColor;
 
-		QColor guiColor;
+		QColor m_guiColor;
 
 		/*! \brief Create color preview.
 		Used for Color box feedback.
@@ -137,7 +137,7 @@ class BarcodeGenerator : public QDialog
 
 	private:
 		void enqueuePaintBarcode(int);
-		BarcodeGeneratorRenderThread thread;
+		BarcodeGeneratorRenderThread m_thread;
 
 	protected slots:
 		void paintBarcode();
