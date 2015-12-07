@@ -74,7 +74,7 @@ protected:
 	void hoverEnterEvent(QGraphicsSceneHoverEvent *event);
 	void hoverMoveEvent(QGraphicsSceneHoverEvent *event);
 	void hoverLeaveEvent(QGraphicsSceneHoverEvent *);
-	MeshDistortionDialog *dialog;
+	MeshDistortionDialog *m_dialog;
 };
 
 class PLUGIN_API MeshDistortionDialog : public QDialog, Ui::MeshDistortionDialog

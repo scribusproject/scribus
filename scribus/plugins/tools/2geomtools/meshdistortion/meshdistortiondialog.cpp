@@ -41,7 +41,7 @@ for which a new license (GPL+exception) is in place.
 
 NodeItem::NodeItem(QRectF geom, uint num, MeshDistortionDialog *parent) : QGraphicsEllipseItem(geom)
 {
-	dialog = parent;
+	m_dialog = parent;
 	handle = num;
 	setBrush(Qt::NoBrush);
 	setPen(QPen(Qt::red, 2.0));
@@ -79,14 +79,14 @@ void NodeItem::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 {
 	mouseMoving = true;
 	if ((mouseMoving) && (mousePressed))
-		dialog->updateMesh(true);
+		m_dialog->updateMesh(true);
 	QGraphicsItem::mouseMoveEvent(event);
 }
 
 void NodeItem::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 {
 	if ((mouseMoving) && (mousePressed))
-		dialog->updateMesh(false);
+		m_dialog->updateMesh(false);
 	mouseMoving = false;
 	mousePressed = false;
 	QGraphicsItem::mouseReleaseEvent(event);
