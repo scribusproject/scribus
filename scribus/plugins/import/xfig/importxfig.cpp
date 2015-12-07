@@ -54,99 +54,99 @@ extern SCRIBUS_API ScribusQApp * ScQApp;
 
 XfigPlug::XfigPlug(ScribusDoc* doc, int flags)
 {
-	tmpSel=new Selection(this, false);
+	m_tmpSel=new Selection(this, false);
 	m_Doc=doc;
-	importerFlags = flags;
-	interactive = (flags & LoadSavePlugin::lfInteractive);
-	progressDialog = NULL;
+	m_importerFlags = flags;
+	m_interactive = (flags & LoadSavePlugin::lfInteractive);
+	m_progressDialog = NULL;
 }
 
 QImage XfigPlug::readThumbnail(QString fName)
 {
 	QFileInfo fi = QFileInfo(fName);
-	baseFile = QDir::cleanPath(QDir::toNativeSeparators(fi.absolutePath()+"/"));
+	m_baseFile = QDir::cleanPath(QDir::toNativeSeparators(fi.absolutePath()+"/"));
 	double w=0.0, h=0.0, x=0.0, y=0.0;
 	parseHeader(fName, x, y, w, h);
-	docX = x;
-	docY = y;
+	m_docX = x;
+	m_docY = y;
 	if (w == 0.0)
 		w = PrefsManager::instance()->appPrefs.docSetupPrefs.pageWidth;
 	if (h == 0.0)
 		h = PrefsManager::instance()->appPrefs.docSetupPrefs.pageHeight;
-	docWidth = w - x;
-	docHeight = h - y;
-	progressDialog = NULL;
+	m_docWidth = w - x;
+	m_docHeight = h - y;
+	m_progressDialog = NULL;
 	m_Doc = new ScribusDoc();
 	m_Doc->setup(0, 1, 1, 1, 1, "Custom", "Custom");
-	m_Doc->setPage(docWidth, docHeight, 0, 0, 0, 0, 0, 0, false, false);
+	m_Doc->setPage(m_docWidth, m_docHeight, 0, 0, 0, 0, 0, 0, false, false);
 	m_Doc->addPage(0);
 	m_Doc->setGUI(false, ScCore->primaryMainWindow(), 0);
-	baseX = m_Doc->currentPage()->xOffset();
+	m_baseX = m_Doc->currentPage()->xOffset();
 	baseY = m_Doc->currentPage()->yOffset();
-	Elements.clear();
-	CustColors.clear();
-	importedColors.insert(0, "Black");
-	importedColors.insert(1, "Blue");
-	importedColors.insert(2, "Green");
-	importedColors.insert(3, "Cyan");
-	importedColors.insert(4, "Red");
-	importedColors.insert(5, "Magenta");
-	importedColors.insert(6, "Yellow");
-	importedColors.insert(7, "White");
-	importedColors.insert(8, "Blue4");
-	importedColors.insert(9, "Blue3");
-	importedColors.insert(10, "Blue2");
-	importedColors.insert(11, "LtBlue");
-	importedColors.insert(12, "Green4");
-	importedColors.insert(13, "Green3");
-	importedColors.insert(14, "Green2");
-	importedColors.insert(15, "Cyan4");
-	importedColors.insert(16, "Cyan3");
-	importedColors.insert(17, "Cyan2");
-	importedColors.insert(18, "Red4");
-	importedColors.insert(19, "Red3");
-	importedColors.insert(20, "Red2");
-	importedColors.insert(21, "Magenta4");
-	importedColors.insert(22, "Magenta3");
-	importedColors.insert(23, "Magenta2");
-	importedColors.insert(24, "Brown4");
-	importedColors.insert(25, "Brown3");
-	importedColors.insert(26, "Brown2");
-	importedColors.insert(27, "Pink4");
-	importedColors.insert(28, "Pink3");
-	importedColors.insert(29, "Pink2");
-	importedColors.insert(30, "Pink");
-	importedColors.insert(31, "Gold");
-	CustColors.insert("Blue", ScColor(0, 0, 255));
-	CustColors.insert("Blue4", ScColor(0, 0, 144));
-	CustColors.insert("Blue3", ScColor(0, 0, 176));
-	CustColors.insert("Blue2", ScColor(0, 0, 208));
-	CustColors.insert("LtBlue", ScColor(135, 206, 255));
-	CustColors.insert("Cyan", ScColor(255, 0, 0, 0));
-	CustColors.insert("Cyan4", ScColor(0, 144, 144));
-	CustColors.insert("Cyan3", ScColor(0, 176, 176));
-	CustColors.insert("Cyan2", ScColor(0, 208, 208));
-	CustColors.insert("Green", ScColor(255, 0, 255, 0));
-	CustColors.insert("Green4", ScColor(0, 144, 0));
-	CustColors.insert("Green3", ScColor(0, 176, 0));
-	CustColors.insert("Green2", ScColor(0, 208, 0));
-	CustColors.insert("Red", ScColor(0, 255, 255, 0));
-	CustColors.insert("Red4", ScColor(144, 0, 0));
-	CustColors.insert("Red3", ScColor(176, 0, 0));
-	CustColors.insert("Red2", ScColor(208, 0, 0));
-	CustColors.insert("Yellow", ScColor(0, 0, 255, 0));
-	CustColors.insert("Magenta", ScColor(0, 255, 0, 0));
-	CustColors.insert("Magenta4", ScColor(144, 0, 144));
-	CustColors.insert("Magenta3", ScColor(176, 0, 176));
-	CustColors.insert("Magenta2", ScColor(208, 0, 208));
-	CustColors.insert("Brown4", ScColor(128, 48, 0));
-	CustColors.insert("Brown3", ScColor(160, 64, 0));
-	CustColors.insert("Brown2", ScColor(192, 96, 0));
-	CustColors.insert("Pink4", ScColor(255, 128, 128));
-	CustColors.insert("Pink3", ScColor(255, 160, 160));
-	CustColors.insert("Pink2", ScColor(255, 192, 192));
-	CustColors.insert("Pink", ScColor(255, 224, 224));
-	CustColors.insert("Gold", ScColor(255, 215, 0));
+	m_Elements.clear();
+	m_CustColors.clear();
+	m_importedColors.insert(0, "Black");
+	m_importedColors.insert(1, "Blue");
+	m_importedColors.insert(2, "Green");
+	m_importedColors.insert(3, "Cyan");
+	m_importedColors.insert(4, "Red");
+	m_importedColors.insert(5, "Magenta");
+	m_importedColors.insert(6, "Yellow");
+	m_importedColors.insert(7, "White");
+	m_importedColors.insert(8, "Blue4");
+	m_importedColors.insert(9, "Blue3");
+	m_importedColors.insert(10, "Blue2");
+	m_importedColors.insert(11, "LtBlue");
+	m_importedColors.insert(12, "Green4");
+	m_importedColors.insert(13, "Green3");
+	m_importedColors.insert(14, "Green2");
+	m_importedColors.insert(15, "Cyan4");
+	m_importedColors.insert(16, "Cyan3");
+	m_importedColors.insert(17, "Cyan2");
+	m_importedColors.insert(18, "Red4");
+	m_importedColors.insert(19, "Red3");
+	m_importedColors.insert(20, "Red2");
+	m_importedColors.insert(21, "Magenta4");
+	m_importedColors.insert(22, "Magenta3");
+	m_importedColors.insert(23, "Magenta2");
+	m_importedColors.insert(24, "Brown4");
+	m_importedColors.insert(25, "Brown3");
+	m_importedColors.insert(26, "Brown2");
+	m_importedColors.insert(27, "Pink4");
+	m_importedColors.insert(28, "Pink3");
+	m_importedColors.insert(29, "Pink2");
+	m_importedColors.insert(30, "Pink");
+	m_importedColors.insert(31, "Gold");
+	m_CustColors.insert("Blue", ScColor(0, 0, 255));
+	m_CustColors.insert("Blue4", ScColor(0, 0, 144));
+	m_CustColors.insert("Blue3", ScColor(0, 0, 176));
+	m_CustColors.insert("Blue2", ScColor(0, 0, 208));
+	m_CustColors.insert("LtBlue", ScColor(135, 206, 255));
+	m_CustColors.insert("Cyan", ScColor(255, 0, 0, 0));
+	m_CustColors.insert("Cyan4", ScColor(0, 144, 144));
+	m_CustColors.insert("Cyan3", ScColor(0, 176, 176));
+	m_CustColors.insert("Cyan2", ScColor(0, 208, 208));
+	m_CustColors.insert("Green", ScColor(255, 0, 255, 0));
+	m_CustColors.insert("Green4", ScColor(0, 144, 0));
+	m_CustColors.insert("Green3", ScColor(0, 176, 0));
+	m_CustColors.insert("Green2", ScColor(0, 208, 0));
+	m_CustColors.insert("Red", ScColor(0, 255, 255, 0));
+	m_CustColors.insert("Red4", ScColor(144, 0, 0));
+	m_CustColors.insert("Red3", ScColor(176, 0, 0));
+	m_CustColors.insert("Red2", ScColor(208, 0, 0));
+	m_CustColors.insert("Yellow", ScColor(0, 0, 255, 0));
+	m_CustColors.insert("Magenta", ScColor(0, 255, 0, 0));
+	m_CustColors.insert("Magenta4", ScColor(144, 0, 144));
+	m_CustColors.insert("Magenta3", ScColor(176, 0, 176));
+	m_CustColors.insert("Magenta2", ScColor(208, 0, 208));
+	m_CustColors.insert("Brown4", ScColor(128, 48, 0));
+	m_CustColors.insert("Brown3", ScColor(160, 64, 0));
+	m_CustColors.insert("Brown2", ScColor(192, 96, 0));
+	m_CustColors.insert("Pink4", ScColor(255, 128, 128));
+	m_CustColors.insert("Pink3", ScColor(255, 160, 160));
+	m_CustColors.insert("Pink2", ScColor(255, 192, 192));
+	m_CustColors.insert("Pink", ScColor(255, 224, 224));
+	m_CustColors.insert("Gold", ScColor(255, 215, 0));
 	m_Doc->setLoading(true);
 	m_Doc->DoDrawing = false;
 	m_Doc->scMW()->setScriptRunning(true);
@@ -154,23 +154,23 @@ QImage XfigPlug::readThumbnail(QString fName)
 	QDir::setCurrent(fi.path());
 	if (convert(fName))
 	{
-		tmpSel->clear();
+		m_tmpSel->clear();
 		QDir::setCurrent(CurDirP);
-		if (Elements.count() > 1)
-			m_Doc->groupObjectsList(Elements);
+		if (m_Elements.count() > 1)
+			m_Doc->groupObjectsList(m_Elements);
 		m_Doc->DoDrawing = true;
 		m_Doc->m_Selection->delaySignalsOn();
 		QImage tmpImage;
-		if (Elements.count() > 0)
+		if (m_Elements.count() > 0)
 		{
-			for (int dre=0; dre<Elements.count(); ++dre)
+			for (int dre=0; dre<m_Elements.count(); ++dre)
 			{
-				tmpSel->addItem(Elements.at(dre), true);
+				m_tmpSel->addItem(m_Elements.at(dre), true);
 			}
-			tmpSel->setGroupRect();
-			double xs = tmpSel->width();
-			double ys = tmpSel->height();
-			tmpImage = Elements.at(0)->DrawObj_toImage(500);
+			m_tmpSel->setGroupRect();
+			double xs = m_tmpSel->width();
+			double ys = m_tmpSel->height();
+			tmpImage = m_Elements.at(0)->DrawObj_toImage(500);
 			tmpImage.setText("XSize", QString("%1").arg(xs));
 			tmpImage.setText("YSize", QString("%1").arg(ys));
 		}
@@ -194,127 +194,127 @@ bool XfigPlug::import(QString fNameIn, const TransactionSettings& trSettings, in
 {
 	QString fName = fNameIn;
 	bool success = false;
-	interactive = (flags & LoadSavePlugin::lfInteractive);
-	importerFlags = flags;
-	cancel = false;
+	m_interactive = (flags & LoadSavePlugin::lfInteractive);
+	m_importerFlags = flags;
+	m_cancel = false;
 	double x, y, b, h;
 	bool ret = false;
-	CustColors.clear();
-	importedColors.insert(0, "Black");
-	importedColors.insert(1, "Blue");
-	importedColors.insert(2, "Green");
-	importedColors.insert(3, "Cyan");
-	importedColors.insert(4, "Red");
-	importedColors.insert(5, "Magenta");
-	importedColors.insert(6, "Yellow");
-	importedColors.insert(7, "White");
-	importedColors.insert(8, "Blue4");
-	importedColors.insert(9, "Blue3");
-	importedColors.insert(10, "Blue2");
-	importedColors.insert(11, "LtBlue");
-	importedColors.insert(12, "Green4");
-	importedColors.insert(13, "Green3");
-	importedColors.insert(14, "Green2");
-	importedColors.insert(15, "Cyan4");
-	importedColors.insert(16, "Cyan3");
-	importedColors.insert(17, "Cyan2");
-	importedColors.insert(18, "Red4");
-	importedColors.insert(19, "Red3");
-	importedColors.insert(20, "Red2");
-	importedColors.insert(21, "Magenta4");
-	importedColors.insert(22, "Magenta3");
-	importedColors.insert(23, "Magenta2");
-	importedColors.insert(24, "Brown4");
-	importedColors.insert(25, "Brown3");
-	importedColors.insert(26, "Brown2");
-	importedColors.insert(27, "Pink4");
-	importedColors.insert(28, "Pink3");
-	importedColors.insert(29, "Pink2");
-	importedColors.insert(30, "Pink");
-	importedColors.insert(31, "Gold");
-	CustColors.insert("Blue", ScColor(0, 0, 255));
-	CustColors.insert("Blue4", ScColor(0, 0, 144));
-	CustColors.insert("Blue3", ScColor(0, 0, 176));
-	CustColors.insert("Blue2", ScColor(0, 0, 208));
-	CustColors.insert("LtBlue", ScColor(135, 206, 255));
-	CustColors.insert("Cyan", ScColor(255, 0, 0, 0));
-	CustColors.insert("Cyan4", ScColor(0, 144, 144));
-	CustColors.insert("Cyan3", ScColor(0, 176, 176));
-	CustColors.insert("Cyan2", ScColor(0, 208, 208));
-	CustColors.insert("Green", ScColor(255, 0, 255, 0));
-	CustColors.insert("Green4", ScColor(0, 144, 0));
-	CustColors.insert("Green3", ScColor(0, 176, 0));
-	CustColors.insert("Green2", ScColor(0, 208, 0));
-	CustColors.insert("Red", ScColor(0, 255, 255, 0));
-	CustColors.insert("Red4", ScColor(144, 0, 0));
-	CustColors.insert("Red3", ScColor(176, 0, 0));
-	CustColors.insert("Red2", ScColor(208, 0, 0));
-	CustColors.insert("Yellow", ScColor(0, 0, 255, 0));
-	CustColors.insert("Magenta", ScColor(0, 255, 0, 0));
-	CustColors.insert("Magenta4", ScColor(144, 0, 144));
-	CustColors.insert("Magenta3", ScColor(176, 0, 176));
-	CustColors.insert("Magenta2", ScColor(208, 0, 208));
-	CustColors.insert("Brown4", ScColor(128, 48, 0));
-	CustColors.insert("Brown3", ScColor(160, 64, 0));
-	CustColors.insert("Brown2", ScColor(192, 96, 0));
-	CustColors.insert("Pink4", ScColor(255, 128, 128));
-	CustColors.insert("Pink3", ScColor(255, 160, 160));
-	CustColors.insert("Pink2", ScColor(255, 192, 192));
-	CustColors.insert("Pink", ScColor(255, 224, 224));
-	CustColors.insert("Gold", ScColor(255, 215, 0));
+	m_CustColors.clear();
+	m_importedColors.insert(0, "Black");
+	m_importedColors.insert(1, "Blue");
+	m_importedColors.insert(2, "Green");
+	m_importedColors.insert(3, "Cyan");
+	m_importedColors.insert(4, "Red");
+	m_importedColors.insert(5, "Magenta");
+	m_importedColors.insert(6, "Yellow");
+	m_importedColors.insert(7, "White");
+	m_importedColors.insert(8, "Blue4");
+	m_importedColors.insert(9, "Blue3");
+	m_importedColors.insert(10, "Blue2");
+	m_importedColors.insert(11, "LtBlue");
+	m_importedColors.insert(12, "Green4");
+	m_importedColors.insert(13, "Green3");
+	m_importedColors.insert(14, "Green2");
+	m_importedColors.insert(15, "Cyan4");
+	m_importedColors.insert(16, "Cyan3");
+	m_importedColors.insert(17, "Cyan2");
+	m_importedColors.insert(18, "Red4");
+	m_importedColors.insert(19, "Red3");
+	m_importedColors.insert(20, "Red2");
+	m_importedColors.insert(21, "Magenta4");
+	m_importedColors.insert(22, "Magenta3");
+	m_importedColors.insert(23, "Magenta2");
+	m_importedColors.insert(24, "Brown4");
+	m_importedColors.insert(25, "Brown3");
+	m_importedColors.insert(26, "Brown2");
+	m_importedColors.insert(27, "Pink4");
+	m_importedColors.insert(28, "Pink3");
+	m_importedColors.insert(29, "Pink2");
+	m_importedColors.insert(30, "Pink");
+	m_importedColors.insert(31, "Gold");
+	m_CustColors.insert("Blue", ScColor(0, 0, 255));
+	m_CustColors.insert("Blue4", ScColor(0, 0, 144));
+	m_CustColors.insert("Blue3", ScColor(0, 0, 176));
+	m_CustColors.insert("Blue2", ScColor(0, 0, 208));
+	m_CustColors.insert("LtBlue", ScColor(135, 206, 255));
+	m_CustColors.insert("Cyan", ScColor(255, 0, 0, 0));
+	m_CustColors.insert("Cyan4", ScColor(0, 144, 144));
+	m_CustColors.insert("Cyan3", ScColor(0, 176, 176));
+	m_CustColors.insert("Cyan2", ScColor(0, 208, 208));
+	m_CustColors.insert("Green", ScColor(255, 0, 255, 0));
+	m_CustColors.insert("Green4", ScColor(0, 144, 0));
+	m_CustColors.insert("Green3", ScColor(0, 176, 0));
+	m_CustColors.insert("Green2", ScColor(0, 208, 0));
+	m_CustColors.insert("Red", ScColor(0, 255, 255, 0));
+	m_CustColors.insert("Red4", ScColor(144, 0, 0));
+	m_CustColors.insert("Red3", ScColor(176, 0, 0));
+	m_CustColors.insert("Red2", ScColor(208, 0, 0));
+	m_CustColors.insert("Yellow", ScColor(0, 0, 255, 0));
+	m_CustColors.insert("Magenta", ScColor(0, 255, 0, 0));
+	m_CustColors.insert("Magenta4", ScColor(144, 0, 144));
+	m_CustColors.insert("Magenta3", ScColor(176, 0, 176));
+	m_CustColors.insert("Magenta2", ScColor(208, 0, 208));
+	m_CustColors.insert("Brown4", ScColor(128, 48, 0));
+	m_CustColors.insert("Brown3", ScColor(160, 64, 0));
+	m_CustColors.insert("Brown2", ScColor(192, 96, 0));
+	m_CustColors.insert("Pink4", ScColor(255, 128, 128));
+	m_CustColors.insert("Pink3", ScColor(255, 160, 160));
+	m_CustColors.insert("Pink2", ScColor(255, 192, 192));
+	m_CustColors.insert("Pink", ScColor(255, 224, 224));
+	m_CustColors.insert("Gold", ScColor(255, 215, 0));
 	QFileInfo fi = QFileInfo(fName);
 	if ( !ScCore->usingGUI() )
 	{
-		interactive = false;
+		m_interactive = false;
 		showProgress = false;
 	}
-	baseFile = QDir::cleanPath(QDir::toNativeSeparators(fi.absolutePath()+"/"));
+	m_baseFile = QDir::cleanPath(QDir::toNativeSeparators(fi.absolutePath()+"/"));
 	if ( showProgress )
 	{
 		ScribusMainWindow* mw=(m_Doc==0) ? ScCore->primaryMainWindow() : m_Doc->scMW();
-		progressDialog = new MultiProgressDialog( tr("Importing: %1").arg(fi.fileName()), CommonStrings::tr_Cancel, mw );
+		m_progressDialog = new MultiProgressDialog( tr("Importing: %1").arg(fi.fileName()), CommonStrings::tr_Cancel, mw );
 		QStringList barNames, barTexts;
 		barNames << "GI";
 		barTexts << tr("Analyzing File:");
 		QList<bool> barsNumeric;
 		barsNumeric << false;
-		progressDialog->addExtraProgressBars(barNames, barTexts, barsNumeric);
-		progressDialog->setOverallTotalSteps(3);
-		progressDialog->setOverallProgress(0);
-		progressDialog->setProgress("GI", 0);
-		progressDialog->show();
-		connect(progressDialog, SIGNAL(canceled()), this, SLOT(cancelRequested()));
+		m_progressDialog->addExtraProgressBars(barNames, barTexts, barsNumeric);
+		m_progressDialog->setOverallTotalSteps(3);
+		m_progressDialog->setOverallProgress(0);
+		m_progressDialog->setProgress("GI", 0);
+		m_progressDialog->show();
+		connect(m_progressDialog, SIGNAL(canceled()), this, SLOT(cancelRequested()));
 		qApp->processEvents();
 	}
 	else
-		progressDialog = NULL;
+		m_progressDialog = NULL;
 /* Set default Page to size defined in Preferences */
 	x = 0.0;
 	y = 0.0;
 	b = 0.0;
 	h = 0.0;
-	if (progressDialog)
+	if (m_progressDialog)
 	{
-		progressDialog->setOverallProgress(1);
+		m_progressDialog->setOverallProgress(1);
 		qApp->processEvents();
 	}
 	parseHeader(fName, x, y, b, h);
-	docX = x;
-	docY = y;
+	m_docX = x;
+	m_docY = y;
 	if (b == 0.0)
 		b = PrefsManager::instance()->appPrefs.docSetupPrefs.pageWidth;
 	if (h == 0.0)
 		h = PrefsManager::instance()->appPrefs.docSetupPrefs.pageHeight;
-	docWidth = b - x;
-	docHeight = h - y;
-	baseX = 0;
+	m_docWidth = b - x;
+	m_docHeight = h - y;
+	m_baseX = 0;
 	baseY = 0;
-	if (!interactive || (flags & LoadSavePlugin::lfInsertPage))
+	if (!m_interactive || (flags & LoadSavePlugin::lfInsertPage))
 	{
 		m_Doc->setPage(b-x, h-y, 0, 0, 0, 0, 0, 0, false, false);
 		m_Doc->addPage(0);
 		m_Doc->view()->addPage(0, true);
-		baseX = 0;
+		m_baseX = 0;
 		baseY = 0;
 	}
 	else
@@ -324,23 +324,23 @@ bool XfigPlug::import(QString fNameIn, const TransactionSettings& trSettings, in
 			m_Doc=ScCore->primaryMainWindow()->doFileNew(b-x, h-y, 0, 0, 0, 0, 0, 0, false, false, 0, false, 0, 1, "Custom", true);
 			ScCore->primaryMainWindow()->HaveNewDoc();
 			ret = true;
-			baseX = 0;
+			m_baseX = 0;
 			baseY = 0;
 		}
 	}
 	if (flags & LoadSavePlugin::lfCreateDoc)
 	{
-		m_Doc->documentInfo().setAuthor(docCreator);
-		m_Doc->documentInfo().setPublisher(docOrganisation);
-		m_Doc->documentInfo().setTitle(docTitle);
-		m_Doc->documentInfo().setDate(docDate+" "+docTime);
+		m_Doc->documentInfo().setAuthor(m_docCreator);
+		m_Doc->documentInfo().setPublisher(m_docOrganisation);
+		m_Doc->documentInfo().setTitle(m_docTitle);
+		m_Doc->documentInfo().setDate(m_docDate+" "+m_docTime);
 	}
-	if ((!ret) && (interactive))
+	if ((!ret) && (m_interactive))
 	{
-		baseX = m_Doc->currentPage()->xOffset();
+		m_baseX = m_Doc->currentPage()->xOffset();
 		baseY = m_Doc->currentPage()->yOffset();
 	}
-	if ((ret) || (!interactive))
+	if ((ret) || (!m_interactive))
 	{
 		if (b-x > h-y)
 			m_Doc->setPageOrientation(1);
@@ -350,7 +350,7 @@ bool XfigPlug::import(QString fNameIn, const TransactionSettings& trSettings, in
 	}
 	if ((!(flags & LoadSavePlugin::lfLoadAsPattern)) && (m_Doc->view() != NULL))
 		m_Doc->view()->Deselect();
-	Elements.clear();
+	m_Elements.clear();
 	m_Doc->setLoading(true);
 	m_Doc->DoDrawing = false;
 	if ((!(flags & LoadSavePlugin::lfLoadAsPattern)) && (m_Doc->view() != NULL))
@@ -361,15 +361,15 @@ bool XfigPlug::import(QString fNameIn, const TransactionSettings& trSettings, in
 	QDir::setCurrent(fi.path());
 	if (convert(fName))
 	{
-		tmpSel->clear();
+		m_tmpSel->clear();
 		QDir::setCurrent(CurDirP);
-		if ((Elements.count() > 1) && (!(importerFlags & LoadSavePlugin::lfCreateDoc)))
-			m_Doc->groupObjectsList(Elements);
+		if ((m_Elements.count() > 1) && (!(m_importerFlags & LoadSavePlugin::lfCreateDoc)))
+			m_Doc->groupObjectsList(m_Elements);
 		m_Doc->DoDrawing = true;
 		m_Doc->scMW()->setScriptRunning(false);
 		m_Doc->setLoading(false);
 		qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
-		if ((Elements.count() > 0) && (!ret) && (interactive))
+		if ((m_Elements.count() > 0) && (!ret) && (m_interactive))
 		{
 			if (flags & LoadSavePlugin::lfScripted)
 			{
@@ -380,9 +380,9 @@ bool XfigPlug::import(QString fNameIn, const TransactionSettings& trSettings, in
 				if (!(flags & LoadSavePlugin::lfLoadAsPattern))
 				{
 					m_Doc->m_Selection->delaySignalsOn();
-					for (int dre=0; dre<Elements.count(); ++dre)
+					for (int dre=0; dre<m_Elements.count(); ++dre)
 					{
-						m_Doc->m_Selection->addItem(Elements.at(dre), true);
+						m_Doc->m_Selection->addItem(m_Elements.at(dre), true);
 					}
 					m_Doc->m_Selection->delaySignalsOff();
 					m_Doc->m_Selection->setGroupRect();
@@ -396,13 +396,13 @@ bool XfigPlug::import(QString fNameIn, const TransactionSettings& trSettings, in
 				m_Doc->DraggedElem = 0;
 				m_Doc->DragElements.clear();
 				m_Doc->m_Selection->delaySignalsOn();
-				for (int dre=0; dre<Elements.count(); ++dre)
+				for (int dre=0; dre<m_Elements.count(); ++dre)
 				{
-					tmpSel->addItem(Elements.at(dre), true);
+					m_tmpSel->addItem(m_Elements.at(dre), true);
 				}
-				tmpSel->setGroupRect();
-				ScElemMimeData* md = ScriXmlDoc::WriteToMimeData(m_Doc, tmpSel);
-				m_Doc->itemSelection_DeleteItem(tmpSel);
+				m_tmpSel->setGroupRect();
+				ScElemMimeData* md = ScriXmlDoc::WriteToMimeData(m_Doc, m_tmpSel);
+				m_Doc->itemSelection_DeleteItem(m_tmpSel);
 				m_Doc->view()->updatesOn(true);
 				m_Doc->m_Selection->delaySignalsOff();
 				// We must copy the TransationSettings object as it is owned
@@ -431,12 +431,12 @@ bool XfigPlug::import(QString fNameIn, const TransactionSettings& trSettings, in
 		m_Doc->view()->updatesOn(true);
 		qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 	}
-	if (interactive)
+	if (m_interactive)
 		m_Doc->setLoading(false);
 	//CB If we have a gui we must refresh it if we have used the progressbar
 	if (!(flags & LoadSavePlugin::lfLoadAsPattern))
 	{
-		if ((showProgress) && (!interactive))
+		if ((showProgress) && (!m_interactive))
 			m_Doc->view()->DrawNew();
 	}
 	qApp->restoreOverrideCursor();
@@ -445,9 +445,9 @@ bool XfigPlug::import(QString fNameIn, const TransactionSettings& trSettings, in
 
 XfigPlug::~XfigPlug()
 {
-	if (progressDialog)
-		delete progressDialog;
-	delete tmpSel;
+	if (m_progressDialog)
+		delete m_progressDialog;
+	delete m_tmpSel;
 }
 
 bool XfigPlug::parseHeader(QString fName, double &x, double &y, double &b, double &h)
@@ -499,8 +499,8 @@ void XfigPlug::parseColor(QString data)
 	tmp.setSpotColor(false);
 	tmp.setRegistrationColor(false);
 	QString namPrefix = "FromXfig%1-"+colorValues;
-	CustColors.insert(namPrefix.arg(colorNum), tmp);
-	importedColors.insert(colorNum, namPrefix.arg(colorNum));
+	m_CustColors.insert(namPrefix.arg(colorNum), tmp);
+	m_importedColors.insert(colorNum, namPrefix.arg(colorNum));
 }
 
 void XfigPlug::useColor(int colorNum, int area_fill, bool forFill)
@@ -551,11 +551,11 @@ void XfigPlug::useColor(int colorNum, int area_fill, bool forFill)
 			}
 			else
 			{
-				if (importedColors.contains(colorNum))
+				if (m_importedColors.contains(colorNum))
 				{
-					color = importedColors[colorNum];
+					color = m_importedColors[colorNum];
 					if (!m_Doc->PageColors.contains(color))
-						m_Doc->PageColors.insert(color, CustColors[color]);
+						m_Doc->PageColors.insert(color, m_CustColors[color]);
 					int sat = area_fill - 20;
 					if ((sat > 0) && (sat < 20))
 						shade = qRound(100.0 / 19.0 * sat);
@@ -564,27 +564,27 @@ void XfigPlug::useColor(int colorNum, int area_fill, bool forFill)
 					color = CommonStrings::None;
 			}
 		}
-		CurrColorFill = color;
-		CurrFillShade = shade;
+		m_CurrColorFill = color;
+		m_CurrFillShade = shade;
 	}
 	else
 	{
 		if (area_fill == -1)
-			CurrColorStroke = CommonStrings::None;
+			m_CurrColorStroke = CommonStrings::None;
 		else
 		{
 			if ((colorNum == -1) || (colorNum == 0))
-				CurrColorStroke = "Black";
+				m_CurrColorStroke = "Black";
 			else
 			{
-				if (importedColors.contains(colorNum))
+				if (m_importedColors.contains(colorNum))
 				{
-					CurrColorStroke = importedColors[colorNum];
-					if (!m_Doc->PageColors.contains(CurrColorStroke))
-						m_Doc->PageColors.insert(CurrColorStroke, CustColors[CurrColorStroke]);
+					m_CurrColorStroke = m_importedColors[colorNum];
+					if (!m_Doc->PageColors.contains(m_CurrColorStroke))
+						m_Doc->PageColors.insert(m_CurrColorStroke, m_CustColors[m_CurrColorStroke]);
 				}
 				else
-					CurrColorStroke = CommonStrings::None;
+					m_CurrColorStroke = CommonStrings::None;
 			}
 		}
 	}
@@ -681,7 +681,7 @@ void XfigPlug::processArrows(int forward_arrow, QString fArrowData, int backward
 		}
 		QString fillC = "White";
 		if (arrow_styleAF == 1)
-			fillC = CurrColorStroke;
+			fillC = m_CurrColorStroke;
 		if (arrow_typeAF == 0)
 		{
 			fillC = CommonStrings::None;
@@ -689,22 +689,22 @@ void XfigPlug::processArrows(int forward_arrow, QString fArrowData, int backward
 		}
 		else
 			iteType = PageItem::Polygon;
-		z = m_Doc->itemAdd(iteType, PageItem::Unspecified, ite->xPos(), ite->yPos(), 10, 10, arrow_thicknessAF, fillC, CurrColorStroke, true);
+		z = m_Doc->itemAdd(iteType, PageItem::Unspecified, ite->xPos(), ite->yPos(), 10, 10, arrow_thicknessAF, fillC, m_CurrColorStroke, true);
 		if (z >= 0)
 		{
 			PageItem *item = m_Doc->Items->at(z);
 			item->PoLine = arrow.copy();
 			item->ClipEdited = true;
 			item->FrameType = 3;
-			item->setFillShade(CurrFillShade);
-			item->setLineShade(CurrStrokeShade);
+			item->setFillShade(m_CurrFillShade);
+			item->setLineShade(m_CurrStrokeShade);
 			FPoint wh = getMaxClipF(&item->PoLine);
 			item->setWidthHeight(wh.x(),wh.y());
 			item->setTextFlowMode(PageItem::TextFlowDisabled);
 			m_Doc->AdjustItemSize(item);
 			item->setWidthHeight(qMax(item->width(), 1.0), qMax(item->height(), 1.0));
-			depthMap.insert(999 - depth, currentItemNr);
-			currentItemNr++;
+			m_depthMap.insert(999 - depth, m_currentItemNr);
+			m_currentItemNr++;
 		}
 	}
 	if (backward_arrow == 1)
@@ -741,7 +741,7 @@ void XfigPlug::processArrows(int forward_arrow, QString fArrowData, int backward
 		}
 		QString fillC = "White";
 		if (arrow_styleAB == 1)
-			fillC = CurrColorStroke;
+			fillC = m_CurrColorStroke;
 		if (arrow_typeAB == 0)
 		{
 			fillC = CommonStrings::None;
@@ -749,22 +749,22 @@ void XfigPlug::processArrows(int forward_arrow, QString fArrowData, int backward
 		}
 		else
 			iteType = PageItem::Polygon;
-		z = m_Doc->itemAdd(iteType, PageItem::Unspecified, ite->xPos(), ite->yPos(), 10, 10, arrow_thicknessAB, fillC, CurrColorStroke, true);
+		z = m_Doc->itemAdd(iteType, PageItem::Unspecified, ite->xPos(), ite->yPos(), 10, 10, arrow_thicknessAB, fillC, m_CurrColorStroke, true);
 		if (z >= 0)
 		{
 			PageItem *item = m_Doc->Items->at(z);
 			item->PoLine = arrow.copy();
 			item->ClipEdited = true;
 			item->FrameType = 3;
-			item->setFillShade(CurrFillShade);
-			item->setLineShade(CurrStrokeShade);
+			item->setFillShade(m_CurrFillShade);
+			item->setLineShade(m_CurrStrokeShade);
 			FPoint wh = getMaxClipF(&item->PoLine);
 			item->setWidthHeight(wh.x(),wh.y());
 			item->setTextFlowMode(PageItem::TextFlowDisabled);
 			m_Doc->AdjustItemSize(item);
 			item->setWidthHeight(qMax(item->width(), 1.0), qMax(item->height(), 1.0));
-			depthMap.insert(999 - depth, currentItemNr);
-			currentItemNr++;
+			m_depthMap.insert(999 - depth, m_currentItemNr);
+			m_currentItemNr++;
 		}
 	}
 }
@@ -794,8 +794,8 @@ void XfigPlug::processPolyline(QDataStream &ts, QString data)
 	int imgFlipped;
 	QString imgFile;
 	double x, y;
-	Coords.resize(0);
-	Coords.svgInit();
+	m_Coords.resize(0);
+	m_Coords.svgInit();
 	bool first = true;
 	ScTextStream Code(&tmp, QIODevice::ReadOnly);
 	Code >> command >> subtype >> line_style >> thickness >> pen_color >> fill_color >> depth >> pen_style;
@@ -817,54 +817,54 @@ void XfigPlug::processPolyline(QDataStream &ts, QString data)
 		while (!pts.atEnd())
 		{
 			pts >> x >> y;
-			x = fig2Pts(x) - docX;
-			y = fig2Pts(y) - docY;
+			x = fig2Pts(x) - m_docX;
+			y = fig2Pts(y) - m_docY;
 			if (first)
 			{
-				Coords.svgMoveTo(x, y);
+				m_Coords.svgMoveTo(x, y);
 				first = false;
 			}
 			else
-				Coords.svgLineTo(x, y);
+				m_Coords.svgLineTo(x, y);
 			pointsRead++;
 		}
 		if (pointsRead == npoints)
 		{
 			if (npoints == 1)
-				Coords.svgLineTo(x, y);
+				m_Coords.svgLineTo(x, y);
 			break;
 		}
 	}
 	useColor(pen_color, 0, false);
 	useColor(fill_color, area_fill, true);
-	LineW = thickness / 80.0 * 72.0;
+	m_LineW = thickness / 80.0 * 72.0;
 	int z = -1;
 	PageItem *ite;
 	if (subtype == 1)
-		z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX, baseY, 10, 10, LineW, CurrColorFill, CurrColorStroke, true);
+		z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, m_baseX, baseY, 10, 10, m_LineW, m_CurrColorFill, m_CurrColorStroke, true);
 	else if ((subtype == 2) || (subtype == 3) || (subtype == 4))
 	{
-		z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, LineW, CurrColorFill, CurrColorStroke, true);
-		Coords.svgClosePath();
+		z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, m_baseX, baseY, 10, 10, m_LineW, m_CurrColorFill, m_CurrColorStroke, true);
+		m_Coords.svgClosePath();
 	}
 	else if (subtype == 5)
 	{
-		z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, baseX, baseY, 10, 10, LineW, CurrColorFill, CurrColorStroke, true);
-		Coords.svgClosePath();
+		z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, m_baseX, baseY, 10, 10, m_LineW, m_CurrColorFill, m_CurrColorStroke, true);
+		m_Coords.svgClosePath();
 	}
 	else
 		z = -1;
 	if (z >= 0)
 	{
 		ite = m_Doc->Items->at(z);
-		ite->PoLine = Coords.copy();
+		ite->PoLine = m_Coords.copy();
 		ite->PoLine.translate(m_Doc->currentPage()->xOffset(), m_Doc->currentPage()->yOffset());
 		ite->ClipEdited = true;
 		ite->FrameType = 3;
-		ite->setFillShade(CurrFillShade);
-		ite->setLineShade(CurrStrokeShade);
+		ite->setFillShade(m_CurrFillShade);
+		ite->setLineShade(m_CurrStrokeShade);
 		if (line_style > 0)
-			ite->setDashes(getDashValues(LineW, line_style));
+			ite->setDashes(getDashValues(m_LineW, line_style));
 		if (subtype == 1)
 		{
 			if (join_style == 0)
@@ -894,13 +894,13 @@ void XfigPlug::processPolyline(QDataStream &ts, QString data)
 		}
 		if (subtype == 5)
 		{
-			ite->Pfile = baseFile + "/" + imgFile;
+			ite->Pfile = m_baseFile + "/" + imgFile;
 			m_Doc->loadPict(ite->Pfile, ite, false);
 			ite->setImageXYScale(72.0 / 80.0, 72.0 / 80.0);
 			ite->setImageXYOffset(0, 0);
 		}
-		depthMap.insert(999 - depth, currentItemNr);
-		currentItemNr++;
+		m_depthMap.insert(999 - depth, m_currentItemNr);
+		m_currentItemNr++;
 		if ((ite->itemType() == PageItem::PolyLine) && ((forward_arrow == 1) || (backward_arrow == 1)))
 			processArrows(forward_arrow, fArrowData, backward_arrow, bArrowData, depth, ite);
 	}
@@ -932,8 +932,8 @@ void XfigPlug::processSpline(QDataStream &ts, QString data)
 	int		npoints;				// (number of points in line)
 	int pointsRead = 0;
 	double x, y;
-	Coords.resize(0);
-	Coords.svgInit();
+	m_Coords.resize(0);
+	m_Coords.svgInit();
 	bool first = true;
 	ScTextStream Code(&tmp, QIODevice::ReadOnly);
 	Code >> command >> subtype >> line_style >> thickness >> pen_color >> fill_color >> depth >> pen_style;
@@ -949,21 +949,21 @@ void XfigPlug::processSpline(QDataStream &ts, QString data)
 		while (!pts.atEnd())
 		{
 			pts >> x >> y;
-			x = fig2Pts(x) - docX;
-			y = fig2Pts(y) - docY;
+			x = fig2Pts(x) - m_docX;
+			y = fig2Pts(y) - m_docY;
 			if (first)
 			{
-				Coords.svgMoveTo(x, y);
+				m_Coords.svgMoveTo(x, y);
 				first = false;
 			}
 			else
-				Coords.svgLineTo(x, y);
+				m_Coords.svgLineTo(x, y);
 			pointsRead++;
 		}
 		if (pointsRead == npoints)
 		{
 			if (npoints == 1)
-				Coords.svgLineTo(x, y);
+				m_Coords.svgLineTo(x, y);
 			break;
 		}
 	}
@@ -982,27 +982,27 @@ void XfigPlug::processSpline(QDataStream &ts, QString data)
 	}
 	useColor(pen_color, 0, false);
 	useColor(fill_color, area_fill, true);
-	LineW = thickness / 80.0 * 72.0;
+	m_LineW = thickness / 80.0 * 72.0;
 	int z = -1;
 	PageItem *ite;
 	if ((subtype == 0) || (subtype == 2) || (subtype == 4))
-		z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX, baseY, 10, 10, LineW, CurrColorFill, CurrColorStroke, true);
+		z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, m_baseX, baseY, 10, 10, m_LineW, m_CurrColorFill, m_CurrColorStroke, true);
 	else if ((subtype == 1) || (subtype == 3) || (subtype == 5))
 	{
-		z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, LineW, CurrColorFill, CurrColorStroke, true);
-		Coords.svgClosePath();
+		z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, m_baseX, baseY, 10, 10, m_LineW, m_CurrColorFill, m_CurrColorStroke, true);
+		m_Coords.svgClosePath();
 	}
 	if (z >= 0)
 	{
 		ite = m_Doc->Items->at(z);
-		ite->PoLine = Coords.copy();
+		ite->PoLine = m_Coords.copy();
 		ite->PoLine.translate(m_Doc->currentPage()->xOffset(), m_Doc->currentPage()->yOffset());
 		ite->ClipEdited = true;
 		ite->FrameType = 3;
-		ite->setFillShade(CurrFillShade);
-		ite->setLineShade(CurrStrokeShade);
+		ite->setFillShade(m_CurrFillShade);
+		ite->setLineShade(m_CurrStrokeShade);
 		if (line_style > 0)
-			ite->setDashes(getDashValues(LineW, line_style));
+			ite->setDashes(getDashValues(m_LineW, line_style));
 		if ((subtype == 0) || (subtype == 2) || (subtype == 4))
 		{
 			if (cap_style == 0)
@@ -1017,8 +1017,8 @@ void XfigPlug::processSpline(QDataStream &ts, QString data)
 		ite->setTextFlowMode(PageItem::TextFlowDisabled);
 		m_Doc->AdjustItemSize(ite);
 		ite->setWidthHeight(qMax(ite->width(), 1.0), qMax(ite->height(), 1.0));
-		depthMap.insert(999 - depth, currentItemNr);
-		currentItemNr++;
+		m_depthMap.insert(999 - depth, m_currentItemNr);
+		m_currentItemNr++;
 		if ((ite->itemType() == PageItem::PolyLine) && ((forward_arrow == 1) || (backward_arrow == 1)))
 			processArrows(forward_arrow, fArrowData, backward_arrow, bArrowData, depth, ite);
 	}
@@ -1057,21 +1057,21 @@ void XfigPlug::processArc(QDataStream &ts, QString data)
 		bArrowData = readLinefromDataStream(ts);
 	useColor(pen_color, 0, false);
 	useColor(fill_color, area_fill, true);
-	LineW = thickness / 80.0 * 72.0;
+	m_LineW = thickness / 80.0 * 72.0;
 	int z = -1;
 	PageItem *ite;
 	if (subtype == 1)
-		z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX, baseY, 10, 10, LineW, CurrColorFill, CurrColorStroke, true);
+		z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, m_baseX, baseY, 10, 10, m_LineW, m_CurrColorFill, m_CurrColorStroke, true);
 	else if (subtype == 2)
-		z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, LineW, CurrColorFill, CurrColorStroke, true);
+		z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, m_baseX, baseY, 10, 10, m_LineW, m_CurrColorFill, m_CurrColorStroke, true);
 	else
 		z = -1;
-	center_x = fig2Pts(center_x) - docX;
-	center_y = fig2Pts(center_y) - docY;
-	double x1R = fig2Pts(x1) - docX;
-	double y1R = fig2Pts(y1) - docY;
-	double x3R = fig2Pts(x3) - docX;
-	double y3R = fig2Pts(y3) - docY;
+	center_x = fig2Pts(center_x) - m_docX;
+	center_y = fig2Pts(center_y) - m_docY;
+	double x1R = fig2Pts(x1) - m_docX;
+	double y1R = fig2Pts(y1) - m_docY;
+	double x3R = fig2Pts(x3) - m_docX;
+	double y3R = fig2Pts(y3) - m_docY;
 	double r1 = distance(x1R - center_x, y1R - center_y);
 	double x0 = center_x - r1;
 	double y0 = center_y - r1;
@@ -1116,10 +1116,10 @@ void XfigPlug::processArc(QDataStream &ts, QString data)
 		ite->PoLine.translate(m_Doc->currentPage()->xOffset(), m_Doc->currentPage()->yOffset());
 		ite->ClipEdited = true;
 		ite->FrameType = 3;
-		ite->setFillShade(CurrFillShade);
-		ite->setLineShade(CurrStrokeShade);
+		ite->setFillShade(m_CurrFillShade);
+		ite->setLineShade(m_CurrStrokeShade);
 		if (line_style > 0)
-			ite->setDashes(getDashValues(LineW, line_style));
+			ite->setDashes(getDashValues(m_LineW, line_style));
 		if (subtype == 1)
 		{
 			if (cap_style == 0)
@@ -1134,8 +1134,8 @@ void XfigPlug::processArc(QDataStream &ts, QString data)
 		ite->setTextFlowMode(PageItem::TextFlowDisabled);
 		m_Doc->AdjustItemSize(ite);
 		ite->setWidthHeight(qMax(ite->width(), 1.0), qMax(ite->height(), 1.0));
-		depthMap.insert(999 - depth, currentItemNr);
-		currentItemNr++;
+		m_depthMap.insert(999 - depth, m_currentItemNr);
+		m_currentItemNr++;
 		if ((ite->itemType() == PageItem::PolyLine) && ((forward_arrow == 1) || (backward_arrow == 1)))
 		{
 			if (direction == 1)
@@ -1175,34 +1175,34 @@ void XfigPlug::processEllipse(QString data)
 	Code >> start_x >> start_y >> end_x >> end_y;
 	useColor(pen_color, 0, false);
 	useColor(fill_color, area_fill, true);
-	LineW = thickness / 80.0 * 72.0;
+	m_LineW = thickness / 80.0 * 72.0;
 	w = fig2Pts(radius_x);
 	h = fig2Pts(radius_y);
 	x = fig2Pts(center_x) - w;
 	y = fig2Pts(center_y) - h;
 	w *= 2.0;
 	h *= 2.0;
-	x -= docX;
+	x -= m_docX;
 	x += m_Doc->currentPage()->xOffset();
-	y -= docY;
+	y -= m_docY;
 	y += m_Doc->currentPage()->yOffset();
 	int z = -1;
 	PageItem *ite;
-	z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Ellipse, baseX + x, baseY + y, w, h, LineW, CurrColorFill, CurrColorStroke, true);
+	z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Ellipse, m_baseX + x, baseY + y, w, h, m_LineW, m_CurrColorFill, m_CurrColorStroke, true);
 	if (z >= 0)
 	{
 		ite = m_Doc->Items->at(z);
-		ite->setFillShade(CurrFillShade);
-		ite->setLineShade(CurrStrokeShade);
+		ite->setFillShade(m_CurrFillShade);
+		ite->setLineShade(m_CurrStrokeShade);
 		if (line_style > 0)
-			ite->setDashes(getDashValues(LineW, line_style));
+			ite->setDashes(getDashValues(m_LineW, line_style));
 		ite->setTextFlowMode(PageItem::TextFlowDisabled);
 		int rot = m_Doc->RotMode();
 		m_Doc->RotMode ( 2);
 		m_Doc->RotateItem(-angle * 180.0 / M_PI, ite);
 		m_Doc->RotMode( rot);
-		depthMap.insert(999 - depth, currentItemNr);
-		currentItemNr++;
+		m_depthMap.insert(999 - depth, m_currentItemNr);
+		m_currentItemNr++;
 	}
 }
 
@@ -1482,9 +1482,9 @@ void XfigPlug::processText(QString data)
 	h = fig2Pts(height);
 	x = fig2Pts(xT);
 	y = fig2Pts(yT);
-	x -= docX;
+	x -= m_docX;
 	x += m_Doc->currentPage()->xOffset();
-	y -= docY;
+	y -= m_docY;
 	y += m_Doc->currentPage()->yOffset();
 	QFont tf = QFont(TFont, 10, weight, isItalic);
 	tf.setPointSizeF(font_size / 80.0 * 72.0);
@@ -1500,7 +1500,7 @@ void XfigPlug::processText(QString data)
 	useColor(color, 0, false);
 	int z = -1;
 	PageItem *ite;
-	z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX + x, baseY + y, w, h, 0, CurrColorStroke, CommonStrings::None, true);
+	z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, m_baseX + x, baseY + y, w, h, 0, m_CurrColorStroke, CommonStrings::None, true);
 	if (z >= 0)
 	{
 		ite = m_Doc->Items->at(z);
@@ -1517,8 +1517,8 @@ void XfigPlug::processText(QString data)
 			m_Doc->MoveRotated(ite, FPoint(-br.width() / 2.0, 0.0));
 		else if (subtype == 2)
 			m_Doc->MoveRotated(ite, FPoint(-br.width(), 0.0));
-		depthMap.insert(999 - depth, currentItemNr);
-		currentItemNr++;
+		m_depthMap.insert(999 - depth, m_currentItemNr);
+		m_currentItemNr++;
 	}
 }
 
@@ -1561,26 +1561,26 @@ void XfigPlug::resortItems()
 {
 	int ac = m_Doc->Items->count();
 	QList<PageItem*> itemList;
-	for (int as = oldDocItemCount; as < ac; ++as)
+	for (int as = m_oldDocItemCount; as < ac; ++as)
 	{
-		itemList.append(m_Doc->Items->takeAt(oldDocItemCount));
+		itemList.append(m_Doc->Items->takeAt(m_oldDocItemCount));
 	}
-	QList<int> keylist = depthMap.uniqueKeys();
+	QList<int> keylist = m_depthMap.uniqueKeys();
 	int keysCount = keylist.count();
 	int currentLayer = 0;
 	for (int it = 0; it < keysCount; ++it)
 	{
-		if ((importerFlags & LoadSavePlugin::lfCreateDoc) && (it > 0))
+		if ((m_importerFlags & LoadSavePlugin::lfCreateDoc) && (it > 0))
 			currentLayer = m_Doc->addLayer(QString("Layer %1").arg(it), true);
-		QList<int> elems = depthMap.values(keylist.at(it));
+		QList<int> elems = m_depthMap.values(keylist.at(it));
 		qSort(elems);
 		int itemsCount = elems.count();
 		for (int i = 0; i < itemsCount; ++i)
 		{
 			PageItem* ite = itemList.at(elems.at(i));
-			Elements.append(ite);
+			m_Elements.append(ite);
 			m_Doc->Items->append(ite);
-			if ((importerFlags & LoadSavePlugin::lfCreateDoc) && (it > 0))
+			if ((m_importerFlags & LoadSavePlugin::lfCreateDoc) && (it > 0))
 				ite->LayerID = currentLayer;
 		}
 	}
@@ -1595,42 +1595,42 @@ double XfigPlug::fig2Pts(double in)
 bool XfigPlug::convert(QString fn)
 {
 	QString tmp;
-	CurrColorFill = "White";
-	CurrFillShade = 100.0;
-	CurrColorStroke = "Black";
-	CurrStrokeShade = 100.0;
-	patternMode = false;
-	patternX1 = 0.0;
-	patternY1 = 0.0;
-	patternX2 = 0.0;
-	patternY2 = 0.0;
-	Coords.resize(0);
-	Coords.svgInit();
-	clipCoords.resize(0);
-	clipCoords.svgInit();
-	currentPatternName = "";
-	currentPatternX = 0.0;
-	currentPatternY = 0.0;
-	currentPatternXScale = 1.0;
-	currentPatternYScale = 1.0;
-	currentPatternRotation = 0.0;
+	m_CurrColorFill = "White";
+	m_CurrFillShade = 100.0;
+	m_CurrColorStroke = "Black";
+	m_CurrStrokeShade = 100.0;
+	m_patternMode = false;
+	m_patternX1 = 0.0;
+	m_patternY1 = 0.0;
+	m_patternX2 = 0.0;
+	m_patternY2 = 0.0;
+	m_Coords.resize(0);
+	m_Coords.svgInit();
+	m_clipCoords.resize(0);
+	m_clipCoords.svgInit();
+	m_currentPatternName = "";
+	m_currentPatternX = 0.0;
+	m_currentPatternY = 0.0;
+	m_currentPatternXScale = 1.0;
+	m_currentPatternYScale = 1.0;
+	m_currentPatternRotation = 0.0;
 	QList<PageItem*> gElements;
-	groupStack.push(gElements);
-	currentItemNr = 0;
-	if(progressDialog)
+	m_groupStack.push(gElements);
+	m_currentItemNr = 0;
+	if(m_progressDialog)
 	{
-		progressDialog->setOverallProgress(2);
-		progressDialog->setLabel("GI", tr("Generating Items"));
+		m_progressDialog->setOverallProgress(2);
+		m_progressDialog->setLabel("GI", tr("Generating Items"));
 		qApp->processEvents();
 	}
 	QFile f(fn);
 	if (f.open(QIODevice::ReadOnly))
 	{
-		oldDocItemCount = m_Doc->Items->count();
+		m_oldDocItemCount = m_Doc->Items->count();
 		int fSize = (int) f.size();
-		if (progressDialog)
+		if (m_progressDialog)
 		{
-			progressDialog->setTotalSteps("GI", fSize);
+			m_progressDialog->setTotalSteps("GI", fSize);
 			qApp->processEvents();
 		}
 		QDataStream ts(&f);
@@ -1652,15 +1652,15 @@ bool XfigPlug::convert(QString fn)
 			if (tmp.startsWith("#"))
 				continue;
 			processData(ts, tmp);
-			if (progressDialog)
+			if (m_progressDialog)
 			{
-				progressDialog->setProgress("GI", ts.device()->pos());
+				m_progressDialog->setProgress("GI", ts.device()->pos());
 				qApp->processEvents();
 			}
 		}
 		resortItems();
 	}
-	if (progressDialog)
-		progressDialog->close();
+	if (m_progressDialog)
+		m_progressDialog->close();
 	return true;
 }

@@ -84,55 +84,55 @@ private:
 	void resortItems();
 	bool convert(QString fn);
 	
-	QList<PageItem*> Elements;
-	QList<PageItem*> PatternElements;
-	QMultiMap<int, int> depthMap;
-	int currentItemNr;
-	QStack<QList<PageItem*> > groupStack;
-	ColorList CustColors;
-	double baseX, baseY;
-	double docX;
-	double docY;
-	double docWidth;
-	double docHeight;
+	QList<PageItem*> m_Elements;
+	QList<PageItem*> m_PatternElements;
+	QMultiMap<int, int> m_depthMap;
+	int m_currentItemNr;
+	QStack<QList<PageItem*> > m_groupStack;
+	ColorList m_CustColors;
+	double m_baseX, baseY;
+	double m_docX;
+	double m_docY;
+	double m_docWidth;
+	double m_docHeight;
 
-	double LineW;
-	QString CurrColorFill;
-	QString CurrColorStroke;
-	double CurrStrokeShade;
-	double CurrFillShade;
+	double m_LineW;
+	QString m_CurrColorFill;
+	QString m_CurrColorStroke;
+	double m_CurrStrokeShade;
+	double m_CurrFillShade;
 
-	FPointArray Coords;
-	FPointArray clipCoords;
-	bool interactive;
-	MultiProgressDialog * progressDialog;
-	bool cancel;
+	FPointArray m_Coords;
+	FPointArray m_clipCoords;
+	bool m_interactive;
+	MultiProgressDialog * m_progressDialog;
+	bool m_cancel;
 	ScribusDoc* m_Doc;
-	Selection* tmpSel;
-	QMap<int, QString> importedColors;
-	int importerFlags;
-	bool patternMode;
-	QString currentPatternDefName;
-	QString currentPatternName;
-	double patternX1;
-	double patternY1;
-	double patternX2;
-	double patternY2;
-	double currentPatternX;
-	double currentPatternY;
-	double currentPatternXScale;
-	double currentPatternYScale;
-	double currentPatternRotation;
-	QString docCreator;
-	QString docDate;
-	QString docTime;
-	QString docOrganisation;
-	QString docTitle;
-	int oldDocItemCount;
-	QString baseFile;
+	Selection* m_tmpSel;
+	QMap<int, QString> m_importedColors;
+	int m_importerFlags;
+	bool m_patternMode;
+	QString m_currentPatternDefName;
+	QString m_currentPatternName;
+	double m_patternX1;
+	double m_patternY1;
+	double m_patternX2;
+	double m_patternY2;
+	double m_currentPatternX;
+	double m_currentPatternY;
+	double m_currentPatternXScale;
+	double m_currentPatternYScale;
+	double m_currentPatternRotation;
+	QString m_docCreator;
+	QString m_docDate;
+	QString m_docTime;
+	QString m_docOrganisation;
+	QString m_docTitle;
+	int m_oldDocItemCount;
+	QString m_baseFile;
 
 public slots:
-	void cancelRequested() { cancel = true; }
+	void cancelRequested() { m_cancel = true; }
 };
 
 #endif
