@@ -42,7 +42,7 @@ class PLUGIN_API OODrawImportPlugin : public LoadSavePlugin
 
 	private:
 		void registerFormats();
-		ScrAction* importAction;
+		ScrAction* m_importAction;
 };
 
 extern "C" PLUGIN_API int oodrawimp_getPluginAPIVersion();
@@ -141,19 +141,19 @@ protected:
 	void svgLineTo(FPointArray *i, double x1, double y1);
 	void svgCurveToCubic(FPointArray *i, double x1, double y1, double x2, double y2, double x3, double y3);
 
-	QDomDocument inpContents;
-	QDomDocument inpStyles;
-	QDomDocument inpMeta;
+	QDomDocument m_inpContents;
+	QDomDocument m_inpStyles;
+	QDomDocument m_inpMeta;
 	QHash<QString,QDomElement*> m_styles, m_draws;
 	StyleStack m_styleStack;
-	double CurrX, CurrY, StartX, StartY;
-	int PathLen;
-	bool FirstM, WasM, PathClosed, HaveMeta;
+	double m_CurrX, m_CurrY, m_StartX, m_StartY;
+	int m_PathLen;
+	bool m_FirstM, m_WasM, m_PathClosed, m_HaveMeta;
 
-	bool interactive;
+	bool m_interactive;
 	ScribusDoc* m_Doc;
-	Selection* tmpSel;
-	QStringList importedColors;
+	Selection* m_tmpSel;
+	QStringList m_importedColors;
 };
 
 #endif

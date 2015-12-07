@@ -74,7 +74,7 @@ void oodrawimp_freePlugin(ScPlugin* plugin)
 
 OODrawImportPlugin::OODrawImportPlugin() :
 	LoadSavePlugin(),
-	importAction(new ScrAction(ScrAction::DLL, "", QKeySequence(), this))
+	m_importAction(new ScrAction(ScrAction::DLL, "", QKeySequence(), this))
 {
 	// Set action info in languageChange, so we only have to do
 	// it in one place. This includes registering file formats.
@@ -90,7 +90,7 @@ OODrawImportPlugin::~OODrawImportPlugin()
 
 void OODrawImportPlugin::languageChange()
 {
-	importAction->setText( tr("Import &OpenOffice.org Draw..."));
+	m_importAction->setText( tr("Import &OpenOffice.org Draw..."));
 //	FileFormat* fmt = getFormatByExt("odg");
 //	fmt->trName = tr("OpenDocument 1.0 Draw", "Import/export format name");
 //	fmt->filter = tr("OpenDocument 1.0 Draw (*.odg *.ODG)");
@@ -228,11 +228,11 @@ OODPlug::OODPlug(ScribusDoc* doc)
 {
 	m_Doc=doc;
 	unsupported = false;
-	interactive = false;
+	m_interactive = false;
 	importFailed = false;
 	importCanceled = true;
-	importedColors.clear();
-	tmpSel=new Selection(this, false);
+	m_importedColors.clear();
+	m_tmpSel=new Selection(this, false);
 }
 
 QImage OODPlug::readThumbnail(QString fileName )
@@ -253,16 +253,16 @@ QImage OODPlug::readThumbnail(QString fileName )
 	if (fun->contains("meta.xml"))
 		fun->read("meta.xml", f3);
 	delete fun;
-	HaveMeta = inpMeta.setContent(f3);
+	m_HaveMeta = m_inpMeta.setContent(f3);
 	QString docname = fileName.right(fileName.length() - fileName.lastIndexOf("/") - 1);
 	docname = docname.left(docname.lastIndexOf("."));
 	if (f.isEmpty())
 		return QImage();
 	if (f2.isEmpty())
 		return QImage();
-	if(!inpStyles.setContent(f))
+	if(!m_inpStyles.setContent(f))
 		return QImage();
-	if(!inpContents.setContent(f2))
+	if(!m_inpContents.setContent(f2))
 		return QImage();
 	QString CurDirP = QDir::currentPath();
 	QFileInfo efp(fileName);
@@ -270,8 +270,8 @@ QImage OODPlug::readThumbnail(QString fileName )
 	bool isOODraw2 = false;
 	QDomNode drawPagePNode;
 	QList<PageItem*> Elements;
-	createStyleMap( inpStyles );
-	QDomElement docElem = inpContents.documentElement();
+	createStyleMap( m_inpStyles );
+	QDomElement docElem = m_inpContents.documentElement();
 	QDomNode automaticStyles = docElem.namedItem( "office:automatic-styles" );
 	if( !automaticStyles.isNull() )
 		insertStyles( automaticStyles.toElement() );
@@ -329,7 +329,7 @@ QImage OODPlug::readThumbnail(QString fileName )
 	QList<PageItem*> el = parseGroup( dpg );
 	for (int ec = 0; ec < el.count(); ++ec)
 		Elements.append(el.at(ec));
-	tmpSel->clear();
+	m_tmpSel->clear();
 	QImage tmpImage = QImage();
 	if (Elements.count() > 0)
 	{
@@ -339,11 +339,11 @@ QImage OODPlug::readThumbnail(QString fileName )
 		m_Doc->m_Selection->delaySignalsOn();
 		for (int dre=0; dre<Elements.count(); ++dre)
 		{
-			tmpSel->addItem(Elements.at(dre), true);
+			m_tmpSel->addItem(Elements.at(dre), true);
 		}
-		tmpSel->setGroupRect();
-		double xs = tmpSel->width();
-		double ys = tmpSel->height();
+		m_tmpSel->setGroupRect();
+		double xs = m_tmpSel->width();
+		double ys = m_tmpSel->height();
 		tmpImage = Elements.at(0)->DrawObj_toImage(500);
 		tmpImage.setText("XSize", QString("%1").arg(xs));
 		tmpImage.setText("YSize", QString("%1").arg(ys));
@@ -359,7 +359,7 @@ QImage OODPlug::readThumbnail(QString fileName )
 bool OODPlug::import(QString fileName, const TransactionSettings& trSettings, int flags )
 {
 	bool importDone = false;
-	interactive = (flags & LoadSavePlugin::lfInteractive);
+	m_interactive = (flags & LoadSavePlugin::lfInteractive);
 	QByteArray f, f2, f3;
 	if ( !QFile::exists(fileName) )
 		return false;
@@ -376,16 +376,16 @@ bool OODPlug::import(QString fileName, const TransactionSettings& trSettings, in
 	if (fun->contains("meta.xml"))
 		fun->read("meta.xml", f3);
 	delete fun;
-	HaveMeta = inpMeta.setContent(f3);
+	m_HaveMeta = m_inpMeta.setContent(f3);
 	QString docname = fileName.right(fileName.length() - fileName.lastIndexOf("/") - 1);
 	docname = docname.left(docname.lastIndexOf("."));
 	if (f.isEmpty())
 		return false;
 	if (f2.isEmpty())
 		return false;
-	if(!inpStyles.setContent(f))
+	if(!m_inpStyles.setContent(f))
 		return false;
-	if(!inpContents.setContent(f2))
+	if(!m_inpContents.setContent(f2))
 		return false;
 	QString CurDirP = QDir::currentPath();
 	QFileInfo efp(fileName);
@@ -402,8 +402,8 @@ bool OODPlug::convert(const TransactionSettings& trSettings, int flags)
 	QDomNode drawPagePNode;
 	int PageCounter = 0;
 	QList<PageItem*> Elements;
-	createStyleMap( inpStyles );
-	QDomElement docElem = inpContents.documentElement();
+	createStyleMap( m_inpStyles );
+	QDomElement docElem = m_inpContents.documentElement();
 	QDomNode automaticStyles = docElem.namedItem( "office:automatic-styles" );
 	if( !automaticStyles.isNull() )
 		insertStyles( automaticStyles.toElement() );
@@ -446,7 +446,7 @@ bool OODPlug::convert(const TransactionSettings& trSettings, int flags)
 	}
 	double width = !properties.attribute( "fo:page-width" ).isEmpty() ? parseUnit(properties.attribute( "fo:page-width" ) ) : 550.0;
 	double height = !properties.attribute( "fo:page-height" ).isEmpty() ? parseUnit(properties.attribute( "fo:page-height" ) ) : 841.0;
-	if (!interactive || (flags & LoadSavePlugin::lfInsertPage))
+	if (!m_interactive || (flags & LoadSavePlugin::lfInsertPage))
 		m_Doc->setPage(width, height, 0, 0, 0, 0, 0, 0, false, false);
 	else
 	{
@@ -457,7 +457,7 @@ bool OODPlug::convert(const TransactionSettings& trSettings, int flags)
 			ret = true;
 		}
 	}
-	if ((ret) || (!interactive))
+	if ((ret) || (!m_interactive))
 	{
 		if (width > height)
 			m_Doc->setPageOrientation(1);
@@ -465,7 +465,7 @@ bool OODPlug::convert(const TransactionSettings& trSettings, int flags)
 			m_Doc->setPageOrientation(0);
 		m_Doc->setPageSize("Custom");
 		QDomNode mpg;
-		QDomElement metaElem = inpMeta.documentElement();
+		QDomElement metaElem = m_inpMeta.documentElement();
 		QDomElement mp = metaElem.namedItem( "office:meta" ).toElement();
 		mpg = mp.namedItem( "dc:title" );
 		if (!mpg.isNull())
@@ -511,7 +511,7 @@ bool OODPlug::convert(const TransactionSettings& trSettings, int flags)
 	for( QDomNode drawPag = drawPagePNode.firstChild(); !drawPag.isNull(); drawPag = drawPag.nextSibling() )
 	{
 		QDomElement dpg = drawPag.toElement();
-		if (!interactive)
+		if (!m_interactive)
 		{
 			m_Doc->addPage(PageCounter);
 			m_Doc->view()->addPage(PageCounter);
@@ -522,19 +522,19 @@ bool OODPlug::convert(const TransactionSettings& trSettings, int flags)
 		QList<PageItem*> el = parseGroup( dpg );
 		for (int ec = 0; ec < el.count(); ++ec)
 			Elements.append(el.at(ec));
-		if ((interactive) && (PageCounter == 1))
+		if ((m_interactive) && (PageCounter == 1))
 			break;
 	}
-	tmpSel->clear();
+	m_tmpSel->clear();
 //	if ((Elements.count() > 1) && (interactive))
 	if (Elements.count() == 0)
 	{
 		importFailed = true;
-		if (importedColors.count() != 0)
+		if (m_importedColors.count() != 0)
 		{
-			for (int cd = 0; cd < importedColors.count(); cd++)
+			for (int cd = 0; cd < m_importedColors.count(); cd++)
 			{
-				m_Doc->PageColors.remove(importedColors[cd]);
+				m_Doc->PageColors.remove(m_importedColors[cd]);
 			}
 		}
 	}
@@ -542,10 +542,10 @@ bool OODPlug::convert(const TransactionSettings& trSettings, int flags)
 		m_Doc->groupObjectsList(Elements);
 	m_Doc->DoDrawing = true;
 	m_Doc->scMW()->setScriptRunning(false);
-	if (interactive)
+	if (m_interactive)
 		m_Doc->setLoading(false);
 	qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
-	if ((Elements.count() > 0) && (!ret) && (interactive))
+	if ((Elements.count() > 0) && (!ret) && (m_interactive))
 	{
 		if (flags & LoadSavePlugin::lfScripted)
 		{
@@ -574,11 +574,11 @@ bool OODPlug::convert(const TransactionSettings& trSettings, int flags)
 			m_Doc->m_Selection->delaySignalsOn();
 			for (int dre=0; dre<Elements.count(); ++dre)
 			{
-				tmpSel->addItem(Elements.at(dre), true);
+				m_tmpSel->addItem(Elements.at(dre), true);
 			}
-			tmpSel->setGroupRect();
-			ScElemMimeData* md = ScriXmlDoc::WriteToMimeData(m_Doc, tmpSel);
-			m_Doc->itemSelection_DeleteItem(tmpSel);
+			m_tmpSel->setGroupRect();
+			ScElemMimeData* md = ScriXmlDoc::WriteToMimeData(m_Doc, m_tmpSel);
+			m_Doc->itemSelection_DeleteItem(m_tmpSel);
 			m_Doc->view()->updatesOn(true);
 			m_Doc->m_Selection->delaySignalsOff();
 			// We must copy the TransationSettings object as it is owned
@@ -827,9 +827,9 @@ QList<PageItem*> OODPlug::parsePath(const QDomElement &e)
 	if (ite->PoLine.size() < 4)
 	{
 // 		m_Doc->m_Selection->addItem(ite);
-		tmpSel->addItem(ite);
+		m_tmpSel->addItem(ite);
 // 		m_Doc->itemSelection_DeleteItem();
-		m_Doc->itemSelection_DeleteItem(tmpSel);
+		m_Doc->itemSelection_DeleteItem(m_tmpSel);
 	}
 	else
 	{
@@ -1411,7 +1411,7 @@ QString OODPlug::parseColor( const QString &s )
 	tmp.setRegistrationColor(false);
 	QString fNam = m_Doc->PageColors.tryAddColor("FromOODraw"+c.name(), tmp);
 	if (fNam == "FromOODraw"+c.name())
-		importedColors.append(fNam);
+		m_importedColors.append(fNam);
 	ret = fNam;
 	return ret;
 }
@@ -1604,7 +1604,7 @@ bool OODPlug::parseSVG( const QString &s, FPointArray *ite )
 		double contrlx, contrly, curx, cury, tox, toy, x1, y1, x2, y2, xc, yc;
 		double px1, py1, px2, py2, px3, py3;
 		bool relative;
-		FirstM = true;
+		m_FirstM = true;
 		char command = *(ptr++), lastCommand = ' ';
 		curx = cury = contrlx = contrly = 0.0;
 		while( ptr < end )
@@ -1620,7 +1620,7 @@ bool OODPlug::parseSVG( const QString &s, FPointArray *ite )
 				{
 					ptr = getCoord( ptr, tox );
 					ptr = getCoord( ptr, toy );
-					WasM = true;
+					m_WasM = true;
 					curx = relative ? curx + tox : tox;
 					cury = relative ? cury + toy : toy;
 					svgMoveTo(curx, cury );
@@ -1910,90 +1910,90 @@ void OODPlug::calculateArc(FPointArray *ite, bool relative, double &curx, double
 
 void OODPlug::svgMoveTo(double x1, double y1)
 {
-	CurrX = x1;
-	CurrY = y1;
-	StartX = x1;
-	StartY = y1;
-	PathLen = 0;
+	m_CurrX = x1;
+	m_CurrY = y1;
+	m_StartX = x1;
+	m_StartY = y1;
+	m_PathLen = 0;
 }
 
 void OODPlug::svgLineTo(FPointArray *i, double x1, double y1)
 {
-	if ((!FirstM) && (WasM))
+	if ((!m_FirstM) && (m_WasM))
 	{
 		i->setMarker();
-		PathLen += 4;
+		m_PathLen += 4;
 	}
-	FirstM = false;
-	WasM = false;
+	m_FirstM = false;
+	m_WasM = false;
 	if (i->size() > 3)
 	{
 		FPoint b1 = i->point(i->size()-4);
 		FPoint b2 = i->point(i->size()-3);
 		FPoint b3 = i->point(i->size()-2);
 		FPoint b4 = i->point(i->size()-1);
-		FPoint n1 = FPoint(CurrX, CurrY);
+		FPoint n1 = FPoint(m_CurrX, m_CurrY);
 		FPoint n2 = FPoint(x1, y1);
 		if ((b1 == n1) && (b2 == n1) && (b3 == n2) && (b4 == n2))
 			return;
 	}
-	i->addPoint(FPoint(CurrX, CurrY));
-	i->addPoint(FPoint(CurrX, CurrY));
+	i->addPoint(FPoint(m_CurrX, m_CurrY));
+	i->addPoint(FPoint(m_CurrX, m_CurrY));
 	i->addPoint(FPoint(x1, y1));
 	i->addPoint(FPoint(x1, y1));
-	CurrX = x1;
-	CurrY = y1;
-	PathLen += 4;
+	m_CurrX = x1;
+	m_CurrY = y1;
+	m_PathLen += 4;
 }
 
 void OODPlug::svgCurveToCubic(FPointArray *i, double x1, double y1, double x2, double y2, double x3, double y3)
 {
-	if ((!FirstM) && (WasM))
+	if ((!m_FirstM) && (m_WasM))
 	{
 		i->setMarker();
-		PathLen += 4;
+		m_PathLen += 4;
 	}
-	FirstM = false;
-	WasM = false;
-	if (PathLen > 3)
+	m_FirstM = false;
+	m_WasM = false;
+	if (m_PathLen > 3)
 	{
 		FPoint b1 = i->point(i->size()-4);
 		FPoint b2 = i->point(i->size()-3);
 		FPoint b3 = i->point(i->size()-2);
 		FPoint b4 = i->point(i->size()-1);
-		FPoint n1 = FPoint(CurrX, CurrY);
+		FPoint n1 = FPoint(m_CurrX, m_CurrY);
 		FPoint n2 = FPoint(x1, y1);
 		FPoint n3 = FPoint(x3, y3);
 		FPoint n4 = FPoint(x2, y2);
 		if ((b1 == n1) && (b2 == n2) && (b3 == n3) && (b4 == n4))
 			return;
 	}
-	i->addPoint(FPoint(CurrX, CurrY));
+	i->addPoint(FPoint(m_CurrX, m_CurrY));
 	i->addPoint(FPoint(x1, y1));
 	i->addPoint(FPoint(x3, y3));
 	i->addPoint(FPoint(x2, y2));
-	CurrX = x3;
-	CurrY = y3;
-	PathLen += 4;
+	m_CurrX = x3;
+	m_CurrY = y3;
+	m_PathLen += 4;
 }
 
 void OODPlug::svgClosePath(FPointArray *i)
 {
-	if (PathLen > 2)
+	if (m_PathLen > 2)
 	{
-		if ((PathLen == 4) || (i->point(i->size()-2).x() != StartX) || (i->point(i->size()-2).y() != StartY))
+		if ((m_PathLen == 4) || (i->point(i->size()-2).x() != m_StartX) || (i->point(i->size()-2).y() != m_StartY))
 		{
 			i->addPoint(i->point(i->size()-2));
 			i->addPoint(i->point(i->size()-3));
-			i->addPoint(FPoint(StartX, StartY));
-			i->addPoint(FPoint(StartX, StartY));
+			i->addPoint(FPoint(m_StartX, m_StartY));
+			i->addPoint(FPoint(m_StartX, m_StartY));
 		}
 	}
 }
 
 OODPlug::~OODPlug()
 {
-	delete tmpSel;
+	delete m_tmpSel;
 	// it's probably needed as QHash() dos not support autocleaning
 	m_styles.clear();
 	m_draws.clear();
