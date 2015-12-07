@@ -56,14 +56,14 @@ class sat
 {
 private:
 	ScribusDoc* m_Doc;
-	SATDialog* dia;
-	QString file;
-	QString dir;
-	QString tmplXmlFile;
-	QString lang;
+	SATDialog* m_dia;
+	QString m_file;
+	QString m_dir;
+	QString m_tmplXmlFile;
+	QString m_lang;
 	void appendTmplXml();
 	QString getTemplateTag();
-	QString findTemplateXml(QString dir);
+	QString findTemplateXml(QString m_dir);
 	void replaceIllegalChars(QString& s);
 public:
 	void createTmplXml();

@@ -174,19 +174,19 @@ void MenuSAT::RunSATPlug(ScribusDoc* doc)
 
 sat::sat(ScribusDoc* doc, SATDialog* satdia, QString fileName, QString tmplDir)
 {
-	lang = ScCore->getGuiLanguage();
+	m_lang = ScCore->getGuiLanguage();
 	m_Doc = doc;
-	dia = satdia;
-	dir = tmplDir;
-	if (dir.right(1) == "/")
-		dir = tmplDir.left(tmplDir.length() - 1);
-	file = fileName;
-	tmplXmlFile = findTemplateXml(dir);
+	m_dia = satdia;
+	m_dir = tmplDir;
+	if (m_dir.right(1) == "/")
+		m_dir = tmplDir.left(tmplDir.length() - 1);
+	m_file = fileName;
+	m_tmplXmlFile = findTemplateXml(m_dir);
 }
 
 void sat::createTmplXml()
 {
-	QFile tmplXml(tmplXmlFile);
+	QFile tmplXml(m_tmplXmlFile);
 	if (tmplXml.exists())
 	{
 		appendTmplXml();
@@ -207,8 +207,8 @@ void sat::createTmplXml()
 
 void sat::createImages()
 {
-	QString tnsmallName = dia->nameEdit->text() + "tn.png";
-	QString tnlargeName = dia->nameEdit->text() + ".png";
+	QString tnsmallName = m_dia->nameEdit->text() + "tn.png";
+	QString tnlargeName = m_dia->nameEdit->text() + ".png";
 	double pageh = m_Doc->pageHeight();
 	double pagew = m_Doc->pageWidth();
 	int pageSizeSmall = 0;
@@ -225,13 +225,13 @@ void sat::createImages()
 	}
 	QImage tnsmall = m_Doc->view()->PageToPixmap(0,pageSizeSmall);
 	QImage tnlarge = m_Doc->view()->PageToPixmap(0,pageSizeLarge);
-	tnsmall.save(dir+"/"+tnsmallName,"PNG",70);
-	tnlarge.save(dir+"/"+tnlargeName, "PNG", 70);
+	tnsmall.save(m_dir+"/"+tnsmallName,"PNG",70);
+	tnlarge.save(m_dir+"/"+tnlargeName, "PNG", 70);
 }
 
 void sat::appendTmplXml()
 {
-	QFile tmplXml(tmplXmlFile);
+	QFile tmplXml(m_tmplXmlFile);
 	if (tmplXml.open(QIODevice::ReadOnly))
 	{
 		QTextStream stream(&tmplXml);
@@ -257,31 +257,31 @@ void sat::appendTmplXml()
 
 QString sat::getTemplateTag()
 {
-	QString category = dia->catsCombo->currentText();
+	QString category = m_dia->catsCombo->currentText();
 	if (category.isEmpty())
 		category = QObject::tr("Own Templates");
 	else
-		category = dia->cats.key(category, category);
+		category = m_dia->cats.key(category, category);
 	QDate now = QDate::currentDate();
 	QString cat = QString(category);
 	replaceIllegalChars(cat);
 	QString tag = "\t<template category=\""+cat+"\">\n";
-	QString name = QString(dia->nameEdit->text());
+	QString name = QString(m_dia->nameEdit->text());
 	replaceIllegalChars(name);
 	tag += "\t\t<name>"+name+"</name>\n";
-	tag += "\t\t<file>"+file+"</file>\n";
+	tag += "\t\t<file>"+m_file+"</file>\n";
 	tag += "\t\t<tnail>"+name+"tn.png"+"</tnail>\n";
 	tag += "\t\t<img>"+name+".png"+"</img>\n";
-	QString psize = QString(dia->psizeEdit->text());
+	QString psize = QString(m_dia->psizeEdit->text());
 	replaceIllegalChars(psize);
 	tag += "\t\t<psize>"+psize+"</psize>\n";
-	QString colors = QString(dia->colorsEdit->text());
+	QString colors = QString(m_dia->colorsEdit->text());
 	replaceIllegalChars(colors);
 	tag += "\t\t<color>"+colors+"</color>\n";
-	QString descr = QString(dia->descrEdit->toPlainText());
+	QString descr = QString(m_dia->descrEdit->toPlainText());
 	replaceIllegalChars(descr);
 	tag += "\t\t<descr>"+descr+"</descr>\n";
-	QString usage = QString(dia->usageEdit->toPlainText());
+	QString usage = QString(m_dia->usageEdit->toPlainText());
 	replaceIllegalChars(usage);
 	tag += "\t\t<usage>"+usage+"</usage>\n";
 	QString scribus_version = QString(VERSION);
@@ -290,10 +290,10 @@ QString sat::getTemplateTag()
 	QString date = QString(now.toString(Qt::ISODate));
 	replaceIllegalChars(date);
 	tag += "\t\t<date>" + date + "</date>\n";
-	QString author = QString(dia->authorEdit->text());
+	QString author = QString(m_dia->authorEdit->text());
 	replaceIllegalChars(author);
 	tag += "\t\t<author>"+author+"</author>\n";
-	QString email = QString(dia->emailEdit->text());
+	QString email = QString(m_dia->emailEdit->text());
 	replaceIllegalChars(email);
 	tag += "\t\t<email>"+email+"</email>\n";
 	tag += "\t</template>\n";
@@ -317,13 +317,13 @@ void sat::replaceIllegalChars(QString& s)
 
 QString sat::findTemplateXml(QString dir)
 {
-	QString tmp = dir + "/template." + lang + ".xml";
+	QString tmp = dir + "/template." + m_lang + ".xml";
 	if (QFile(tmp).exists())
 		return tmp;
 
-	if (lang.length() > 2)
+	if (m_lang.length() > 2)
 	{
-		tmp = dir + "/template." + lang.left(2) + ".xml";
+		tmp = dir + "/template." + m_lang.left(2) + ".xml";
 		if (QFile(tmp).exists())
 			return tmp;
 	}
