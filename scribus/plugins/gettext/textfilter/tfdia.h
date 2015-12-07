@@ -25,19 +25,19 @@ class tfDia : public QDialog
 {
 	Q_OBJECT
 private:
-	PrefsContext* prefs;
-	QBoxLayout* layout;
-	QBoxLayout* alayout;
-	QComboBox* filtersCombo;
-	QLineEdit* saveEdit;
-	QPushButton* clearButton;
-	QPushButton* deleteButton;
-	QPushButton* okButton;
-	QPushButton* cancelButton;
-	QString currentFilter;
-	QScrollArea* qsv;
-	QFrame* vbox;
-	int currentIndex;
+	PrefsContext* m_prefs;
+	QBoxLayout* m_layout;
+	QBoxLayout* m_alayout;
+	QComboBox* m_filtersCombo;
+	QLineEdit* m_saveEdit;
+	QPushButton* m_clearButton;
+	QPushButton* m_deleteButton;
+	QPushButton* m_okButton;
+	QPushButton* m_cancelButton;
+	QString m_currentFilter;
+	QScrollArea* m_qsv;
+	QFrame* m_vbox;
+	int m_currentIndex;
 	void clear();
 	void createLayout();
 	void createFilter(PrefsTable* table);
