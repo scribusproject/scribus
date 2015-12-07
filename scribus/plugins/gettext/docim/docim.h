@@ -30,19 +30,19 @@ class DocIm : public QObject
 {
 	Q_OBJECT
 public:
-	DocIm(const QString& fname, const QString& enc, bool textOnly, gtWriter *w);
+	DocIm(const QString& fname, const QString& enc, bool m_textOnly, gtWriter *w);
 	~DocIm();
 	void write();
 	bool isRunning();
 private:
-	QString filename;
-	QString encoding;
-	QBuffer textBuffer;
-	QBuffer errorBuffer;
-	gtWriter *writer;
-	QProcess *proc;
-	bool failed;
-	bool textOnly;
+	QString m_filename;
+	QString m_encoding;
+	QBuffer m_textBuffer;
+	QBuffer m_errorBuffer;
+	gtWriter *m_writer;
+	QProcess *m_proc;
+	bool m_failed;
+	bool m_textOnly;
 };
 
 #endif // DOCIM_H

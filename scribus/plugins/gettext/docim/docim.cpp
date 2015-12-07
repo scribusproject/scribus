@@ -76,18 +76,18 @@ void GetText(QString filename, QString encoding, bool textOnly, gtWriter *writer
 	delete dim;
 }
 
-DocIm::DocIm(const QString& fname, const QString& enc, bool textO, gtWriter *w) : QObject(), textBuffer(this), errorBuffer(this)
+DocIm::DocIm(const QString& fname, const QString& enc, bool textO, gtWriter *w) : QObject(), m_textBuffer(this), m_errorBuffer(this)
 {
-	filename = fname;
-	encoding = enc;
-	writer = w;
-	textOnly = textO;
-	failed = false;
+	m_filename = fname;
+	m_encoding = enc;
+	m_writer = w;
+	m_textOnly = textO;
+	m_failed = false;
 
-	textBuffer.open(QIODevice::WriteOnly);
-	errorBuffer.open(QIODevice::WriteOnly);
+	m_textBuffer.open(QIODevice::WriteOnly);
+	m_errorBuffer.open(QIODevice::WriteOnly);
 
-	proc = new QProcess();
+	m_proc = new QProcess();
 	QString exename("antiword");
 #if defined(Q_OS_WIN32)
 	exename = ScPaths::instance().libDir() + "tools/antiword/antiword.exe";
@@ -103,38 +103,38 @@ DocIm::DocIm(const QString& fname, const QString& enc, bool textO, gtWriter *w) 
 	if (QFile::exists(ScPaths::instance().libDir() + "tools/antiword/UTF-8.txt"))
 		args << "-m" << "UTF-8.txt";
 #endif
-	args  << QDir::toNativeSeparators(filename);
+	args  << QDir::toNativeSeparators(m_filename);
 
 	//connect(proc, SIGNAL(readyReadStdout()), this, SLOT(slotReadOutput()));
 	//connect(proc, SIGNAL(readyReadStderr()), this, SLOT(slotReadErr()));
-	proc->start(exename, args);
-	if (!proc->waitForStarted())
+	m_proc->start(exename, args);
+	if (!m_proc->waitForStarted())
 	{
-		failed = true;
+		m_failed = true;
 		return;
 	}
-	while (proc->waitForReadyRead())
+	while (m_proc->waitForReadyRead())
 	{
 		usleep(5000);
 	}
 
-	while(!proc->atEnd() || proc->state()==QProcess::Running)
+	while(!m_proc->atEnd() || m_proc->state()==QProcess::Running)
 	{
-		proc->setReadChannel(QProcess::StandardOutput);
-		if ( proc->canReadLine() )
+		m_proc->setReadChannel(QProcess::StandardOutput);
+		if ( m_proc->canReadLine() )
 		{
-			QByteArray bo = proc->readAllStandardOutput();
+			QByteArray bo = m_proc->readAllStandardOutput();
 			if (bo.size() > 0)
-				textBuffer.write(bo);
+				m_textBuffer.write(bo);
 		}
 		else
 		{
-			proc->setReadChannel(QProcess::StandardError);
-			if ( proc->canReadLine() )
+			m_proc->setReadChannel(QProcess::StandardError);
+			if ( m_proc->canReadLine() )
 			{
-				QByteArray be = proc->readAllStandardError();
+				QByteArray be = m_proc->readAllStandardError();
 				if (be.size() > 0)
-					errorBuffer.write(be);
+					m_errorBuffer.write(be);
 			}
 			else
 			{
@@ -143,12 +143,12 @@ DocIm::DocIm(const QString& fname, const QString& enc, bool textO, gtWriter *w) 
 		}
 	}
 
-	errorBuffer.close();
-	textBuffer.close();
+	m_errorBuffer.close();
+	m_textBuffer.close();
 
-	if (proc->exitStatus() != QProcess::NormalExit)
+	if (m_proc->exitStatus() != QProcess::NormalExit)
 	{
-		failed = true;
+		m_failed = true;
 		return;
 	}
 
@@ -157,7 +157,7 @@ DocIm::DocIm(const QString& fname, const QString& enc, bool textO, gtWriter *w) 
 
 bool DocIm::isRunning()
 {
-	return proc->state() == QProcess::Running;
+	return m_proc->state() == QProcess::Running;
 }
 
 void DocIm::write()
@@ -170,27 +170,27 @@ void DocIm::write()
 		codec = QTextCodec::codecForName("UTF-8");
 #endif
 
-	if (encoding.isEmpty() && !codec)
+	if (m_encoding.isEmpty() && !codec)
 		codec = QTextCodec::codecForLocale();
 	else if (!codec)
-		codec = QTextCodec::codecForName(encoding.toLocal8Bit());
+		codec = QTextCodec::codecForName(m_encoding.toLocal8Bit());
 
-	if (failed)
+	if (m_failed)
 	{
-		QString error = codec->toUnicode( errorBuffer.data() ); 
+		QString error = codec->toUnicode( m_errorBuffer.data() ); 
 		ScMessageBox::information(0, tr("Importing failed"),
 		                         tr("Importing Word document failed \n%1").arg(error),
 		                         QMessageBox::Ok);
 		return;
 	}
 
-	QString text = codec->toUnicode( textBuffer.data() );
-	writer->appendUnstyled(text);
+	QString text = codec->toUnicode( m_textBuffer.data() );
+	m_writer->appendUnstyled(text);
 }
 
 DocIm::~DocIm()
 {
-	delete proc;
+	delete m_proc;
 }
 
 
