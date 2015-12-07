@@ -42,7 +42,7 @@ class SCRIBUS_API ScribusQApp : public QApplication
 		void initLang();
 		void initDLMgr();
 		void parseCommandLine();
-		void changeGUILanguage(const QString & lang);
+		void changeGUILanguage(const QString & m_lang);
 		/*!
 		\author Franz Schmid
 		\author Alessandro Rimoldi
@@ -55,7 +55,7 @@ class SCRIBUS_API ScribusQApp : public QApplication
 		\param lang QString a two letter string describing the lang environement
 		\retval QStringList A string describing the language environement
 		*/
-		QStringList getLang(QString lang);
+		QStringList getLang(QString m_lang);
 		/*!
 		\author Franz Schmid
 		\author Alessandro Rimoldi
@@ -69,7 +69,7 @@ class SCRIBUS_API ScribusQApp : public QApplication
 		static bool useGUI;
 		void neverSplash(bool splashOff);
 		bool neverSplashExists();
-		const QString& currGUILanguage() { return GUILang; }
+		const QString& currGUILanguage() { return m_GUILang; }
 		ScDLManager* dlManager() { return m_scDLMgr; }
 		QString pythonScript; // script to be run in python from CLI
 		QStringList pythonScriptArgs; // command line arguments and flags for script from CLI
@@ -92,15 +92,15 @@ class SCRIBUS_API ScribusQApp : public QApplication
 		*/
 		void showAvailLangs();
 
-		QString lang;
-		QString GUILang;
-		bool showSplash;
-		bool showFontInfo;
-		bool showProfileInfo;
+		QString m_lang;
+		QString m_GUILang;
+		bool m_showSplash;
+		bool m_showFontInfo;
+		bool m_showProfileInfo;
 		//! \brief If is there user given prefs file...
-		QString prefsUserFile;
-		QList<QString> filesToLoad;
-		QString fileName;
+		QString m_prefsUserFile;
+		QList<QString> m_filesToLoad;
+		QString m_fileName;
 		ScDLManager *m_scDLMgr;
 
 	protected:

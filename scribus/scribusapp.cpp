@@ -102,8 +102,8 @@ extern ScribusCore* ScCore;
 bool ScribusQApp::useGUI=false;
 
 ScribusQApp::ScribusQApp( int & argc, char ** argv ) : QApplication(argc, argv),
-	lang(""),
-	GUILang("")
+	m_lang(""),
+	m_GUILang("")
 {
 	ScQApp = this;
 	ScCore = 0;
@@ -127,7 +127,7 @@ ScribusQApp::~ScribusQApp()
 
 void ScribusQApp::initLang()
 {
-	QStringList langs = getLang(QString(lang));
+	QStringList langs = getLang(QString(m_lang));
 
 	if (!langs.isEmpty())
 		installTranslators(langs);
@@ -141,7 +141,7 @@ void ScribusQApp::initDLMgr()
 
 void ScribusQApp::parseCommandLine()
 {
-	showSplash=!neverSplashExists();
+	m_showSplash=!neverSplashExists();
 	QString arg("");
 	bool usage=false;
 	bool header=false;
@@ -153,8 +153,8 @@ void ScribusQApp::parseCommandLine()
 	char** testargsv;
 	int testargsc;
 #endif
-	showFontInfo=false;
-	showProfileInfo=false;	
+	m_showFontInfo=false;
+	m_showProfileInfo=false;	
 	bool neversplash = false;
 
 	//Parse for command line options
@@ -196,7 +196,7 @@ void ScribusQApp::parseCommandLine()
 		else if ((arg == ARG_LANG || arg == ARG_LANG_SHORT))
 		{
 			if  (++argi < argsc)
-				lang = args[argi];
+				m_lang = args[argi];
 			else
 			{
 				std::cout << tr("Option %1 requires an argument.").arg(arg).toLocal8Bit().data() << std::endl;
@@ -236,11 +236,11 @@ void ScribusQApp::parseCommandLine()
 			continue;
 		} else if (arg == ARG_NOSPLASH || arg == ARG_NOSPLASH_SHORT)
 		{
-			showSplash = false;
+			m_showSplash = false;
 		}
 		else if (arg == ARG_NEVERSPLASH || arg == ARG_NEVERSPLASH_SHORT)
 		{
-			showSplash = false;
+			m_showSplash = false;
 			neversplash = true;
 		}
 		else if (arg == ARG_NOGUI || arg == ARG_NOGUI_SHORT)
@@ -249,11 +249,11 @@ void ScribusQApp::parseCommandLine()
 		}
 		else if (arg == ARG_FONTINFO || arg == ARG_FONTINFO_SHORT)
 		{
-			showFontInfo=true;
+			m_showFontInfo=true;
 		}
 		else if (arg == ARG_PROFILEINFO || arg == ARG_PROFILEINFO_SHORT)
 		{
-			showProfileInfo=true;
+			m_showProfileInfo=true;
 		}
 		else if ((arg == ARG_DISPLAY || arg==ARG_DISPLAY_SHORT || arg==ARG_DISPLAY_QT) && ++argi < argsc)
 		{
@@ -268,10 +268,10 @@ void ScribusQApp::parseCommandLine()
 				std::cout << tr("Option %1 requires an argument.").arg(arg).toLocal8Bit().data() << std::endl;
 				std::exit(EXIT_FAILURE);
 			}
-			prefsUserFile = QFile::decodeName(args[argi + 1].toLocal8Bit());
-			if (!QFileInfo(prefsUserFile).exists())
+			m_prefsUserFile = QFile::decodeName(args[argi + 1].toLocal8Bit());
+			if (!QFileInfo(m_prefsUserFile).exists())
 			{
-				std::cout << tr("Preferences file %1 does not exist, aborting.").arg(prefsUserFile).toLocal8Bit().data() << std::endl;
+				std::cout << tr("Preferences file %1 does not exist, aborting.").arg(m_prefsUserFile).toLocal8Bit().data() << std::endl;
 				std::exit(EXIT_FAILURE);
 			} else {
 				++argi;
@@ -293,30 +293,30 @@ void ScribusQApp::parseCommandLine()
 				std::cout << tr("Invalid argument: %1").arg(arg).toLocal8Bit().data() << std::endl;
 				std::exit(EXIT_FAILURE);
 			}
-			fileName = QFile::decodeName(args[argi].toLocal8Bit());
-			if (!QFileInfo(fileName).exists())
+			m_fileName = QFile::decodeName(args[argi].toLocal8Bit());
+			if (!QFileInfo(m_fileName).exists())
 			{
-				std::cout << tr("File %1 does not exist, aborting.").arg(fileName).toLocal8Bit().data() << std::endl;
+				std::cout << tr("File %1 does not exist, aborting.").arg(m_fileName).toLocal8Bit().data() << std::endl;
 				std::exit(EXIT_FAILURE);
 			}
 			else
 			{
-				filesToLoad.append(fileName);
+				m_filesToLoad.append(m_fileName);
 			}
 		}
 	}
 	// parse for remaining (positional) arguments, if any
 	for ( ; argi<argsc; argi++)
 	{
-		fileName = QFile::decodeName(args[argi].toLocal8Bit());
-		if (!QFileInfo(fileName).exists())
+		m_fileName = QFile::decodeName(args[argi].toLocal8Bit());
+		if (!QFileInfo(m_fileName).exists())
 		{
-			std::cout << tr("File %1 does not exist, aborting.").arg(fileName).toLocal8Bit().data() << std::endl;
+			std::cout << tr("File %1 does not exist, aborting.").arg(m_fileName).toLocal8Bit().data() << std::endl;
 			std::exit(EXIT_FAILURE);
 		}
 		else
 		{
-			filesToLoad.append(fileName);
+			m_filesToLoad.append(m_fileName);
 		}
 	}
 	//Init translations
@@ -360,7 +360,7 @@ int ScribusQApp::init()
 		return EXIT_FAILURE;
 	ScCore=m_ScCore;
 	processEvents();
-	ScCore->init(useGUI, filesToLoad);
+	ScCore->init(useGUI, m_filesToLoad);
 	int retVal=EXIT_SUCCESS;
 	/* TODO:
 	 * When Scribus is truly able to run without GUI
@@ -369,7 +369,7 @@ int ScribusQApp::init()
 	 */
 	// if (useGUI)
 	if (true)
-		retVal=ScCore->startGUI(showSplash, showFontInfo, showProfileInfo, lang, prefsUserFile);
+		retVal=ScCore->startGUI(m_showSplash, m_showFontInfo, m_showProfileInfo, m_lang, m_prefsUserFile);
 
 	// A hook for plugins and scripts to trigger on. Some plugins and scripts
 	// require the app to be fully set up (in particular, the main window to be
@@ -499,7 +499,7 @@ void ScribusQApp::installTranslators(const QStringList & langs)
 		lang=(*it);
 		if (lang == "en")
 		{
-			GUILang=lang;
+			m_GUILang=lang;
 			break;
 		}
 		else
@@ -523,10 +523,10 @@ void ScribusQApp::installTranslators(const QStringList & langs)
 	if (loadedScribus)
 	{
 		installTranslator(trans);
-		GUILang=lang;
+		m_GUILang=lang;
 	}
 	else if (lang == "en")
-		GUILang=lang;
+		m_GUILang=lang;
 	/* CB TODO, currently disabled, because its broken broken broken
 	path = ScPaths::instance().pluginDir();
 	QDir dir(path , "*.*", QDir::Name, QDir::Files | QDir::NoSymLinks);
@@ -556,7 +556,7 @@ void ScribusQApp::changeGUILanguage(const QString & newGUILang)
 	}
 	else
 		newLangs.append(newGUILang);
-	if (newLangs[0] != GUILang)
+	if (newLangs[0] != m_GUILang)
 		installTranslators(newLangs);
 }
 
@@ -694,7 +694,7 @@ bool ScribusQApp::event(QEvent *event)
 			}
 			else
 			{
-				filesToLoad.append(filename);
+				m_filesToLoad.append(filename);
 			}
 			return true;
 		}
