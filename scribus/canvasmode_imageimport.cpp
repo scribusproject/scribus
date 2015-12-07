@@ -199,7 +199,7 @@ void CanvasMode_ImageImport::mousePressEvent(QMouseEvent *m)
 				setImage(currItem);
 		}
 		else
-			view()->ImageAfterDraw = true;
+			view()->m_ImageAfterDraw = true;
 	}
 	if (m->button() == Qt::MidButton)
 	{
