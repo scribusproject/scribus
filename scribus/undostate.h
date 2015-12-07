@@ -122,13 +122,13 @@ public:
 
 private:
 	/** @brief Name of the state (operation) (f.e. Move object) */
-	QString actionName_;
+	QString m_actionName_;
 	/** @brief Detailed description of the state (operation). */
-	QString actionDescription_;
+	QString m_actionDescription_;
 	/** @brief Icon related to the state (operation) */
-	QPixmap *actionPixmap_;
+	QPixmap *m_actionPixmap_;
 	/** @brief UndoObject this state belongs to */
-	UndoObjectPtr undoObject_;
+	UndoObjectPtr m_undoObject_;
 };
 
 /*** SimpleState **************************************************************************/
@@ -294,10 +294,10 @@ public:
 	ScItemState(const QString& name, const QString& description = 0, QPixmap* pixmap = 0)
 	: SimpleState(name, description, pixmap) {}
 	~ScItemState() {}
-	void setItem(const C &c) { item_ = c; }
-	C getItem() const { return item_; }
+	void setItem(const C &c) { m_item_ = c; }
+	C getItem() const { return m_item_; }
 private:
-	C item_;
+	C m_item_;
 };
 
 /**** ItemsState for list of pointers to items *****/
@@ -308,11 +308,11 @@ public:
 	ScItemsState(const QString& name, const QString& description = 0, QPixmap* pixmap = 0)
 	: SimpleState(name, description, pixmap) {}
 	~ScItemsState() {}
-	void insertItem(QString itemname, void * item) { pointerMap.insert(itemname, item); }
-	void* getItem(QString itemname) const { if (pointerMap.contains(itemname)) return pointerMap.value(itemname); else return NULL;}
+	void insertItem(QString itemname, void * item) { m_pointerMap.insert(itemname, item); }
+	void* getItem(QString itemname) const { if (m_pointerMap.contains(itemname)) return m_pointerMap.value(itemname); else return NULL;}
 	QList< QPair<void*, int> > insertItemPos;
 private:
-	QMap<QString,void*> pointerMap;
+	QMap<QString,void*> m_pointerMap;
 };
 
 /*** TransactionState ********************************************************************/
@@ -392,9 +392,9 @@ public:
 	void redo();
 private:
 	/** @brief Number of undo states stored in this transaction */
-	uint size_;
+	uint m_size_;
 	/** @brief vector to keep the states in */
-	std::vector<UndoState*> states_;
+	std::vector<UndoState*> m_states_;
 };
 
 #endif

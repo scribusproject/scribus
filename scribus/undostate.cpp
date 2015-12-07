@@ -29,64 +29,64 @@ for which a new license (GPL+exception) is in place.
 
 UndoState::UndoState(const QString& name, const QString& description, QPixmap* pixmap) :
 transactionCode(0),
-actionName_(name),
-actionDescription_(description),
-actionPixmap_(pixmap),
-undoObject_(0)
+m_actionName_(name),
+m_actionDescription_(description),
+m_actionPixmap_(pixmap),
+m_undoObject_(0)
 {
 
 }
 
 QString UndoState::getName()
 {
-	return actionName_;
+	return m_actionName_;
 }
 
 void UndoState::setName(const QString &newName)
 {
-	actionName_ = newName;
+	m_actionName_ = newName;
 }
 
 QString UndoState::getDescription()
 {
-	return actionDescription_;
+	return m_actionDescription_;
 }
 
 void UndoState::setDescription(const QString &newDescription)
 {
-	actionDescription_ = newDescription;
+	m_actionDescription_ = newDescription;
 }
 
 QPixmap* UndoState::getPixmap()
 {
-	return actionPixmap_;
+	return m_actionPixmap_;
 }
 
 void UndoState::setPixmap(QPixmap *pixmap)
 {
-	actionPixmap_ = pixmap;
+	m_actionPixmap_ = pixmap;
 }
 
 void UndoState::undo()
 {
-	if (undoObject_) // if !undoObject_ there's an error, hmmm
-		undoObject_->restore(this, true);
+	if (m_undoObject_) // if !undoObject_ there's an error, hmmm
+		m_undoObject_->restore(this, true);
 }
 
 void UndoState::redo()
 {
-	if (undoObject_)
-		undoObject_->restore(this, false);
+	if (m_undoObject_)
+		m_undoObject_->restore(this, false);
 }
 
 void UndoState::setUndoObject(UndoObject *object)
 {
-	undoObject_ = object->undoObjectPtr();
+	m_undoObject_ = object->undoObjectPtr();
 }
 
 UndoObject* UndoState::undoObject()
 {
-	return undoObject_;
+	return m_undoObject_;
 }
 
 UndoState::~UndoState()
@@ -202,29 +202,29 @@ SimpleState::~SimpleState()
 
 TransactionState::TransactionState() : UndoState("")
 {
-	size_ = 0;
+	m_size_ = 0;
 }
 
 UndoState* TransactionState::at(int index) const
 {
 	if (index >= 0 && static_cast<uint>(index) < sizet())
-		return states_[index];
+		return m_states_[index];
 	else
 		return 0;
 }
 
 UndoState* TransactionState::last() const
 {
-	if (states_.size() > 0)
-		return states_.at(size_ - 1);
+	if (m_states_.size() > 0)
+		return m_states_.at(m_size_ - 1);
 	return 0;
 }
 
 bool TransactionState::contains(int uid) const
 {
-	for (uint i = 0; i < states_.size(); ++i)
+	for (uint i = 0; i < m_states_.size(); ++i)
 	{
-		UndoObject* undoObject = states_[i]->undoObject();
+		UndoObject* undoObject = m_states_[i]->undoObject();
 		if (undoObject && undoObject->getUId() == static_cast<uint>(uid))
 			return true;
 	}
@@ -233,9 +233,9 @@ bool TransactionState::contains(int uid) const
 
 bool TransactionState::containsOnly(int uid) const
 {
-	for (uint i = 0; i < states_.size(); ++i)
+	for (uint i = 0; i < m_states_.size(); ++i)
 	{
-		UndoObject* undoObject = states_[i]->undoObject();
+		UndoObject* undoObject = m_states_[i]->undoObject();
 		if (undoObject && undoObject->getUId() != static_cast<uint>(uid))
 			return false;
 	}
@@ -247,34 +247,34 @@ void TransactionState::pushBack(UndoObject *target, UndoState *state)
 	if (target && state)
 	{
 		state->setUndoObject(target);
-		states_.push_back(state);
-		++size_;
+		m_states_.push_back(state);
+		++m_size_;
 	}
 }
 
 uint TransactionState::sizet() const
 {
-	return size_;
+	return m_size_;
 }
 
 void TransactionState::useActionName()
 {
-	if (size_ > 0)
-		setName(states_[size_ - 1]->getName());
+	if (m_size_ > 0)
+		setName(m_states_[m_size_ - 1]->getName());
 }
 
 UndoObject* TransactionState::replace(ulong uid, UndoObject *newUndoObject)
 {
 	UndoObject *tmp = 0;
-	for (uint i = 0; i < states_.size(); ++i)
+	for (uint i = 0; i < m_states_.size(); ++i)
 	{
-		TransactionState *ts = dynamic_cast<TransactionState*>(states_[i]);
+		TransactionState *ts = dynamic_cast<TransactionState*>(m_states_[i]);
 		if (ts) // are we having a transaction_inside a transaction
 			ts->replace(uid, newUndoObject);
-		else if (states_[i]->undoObject() && states_[i]->undoObject()->getUId() == uid)
+		else if (m_states_[i]->undoObject() && m_states_[i]->undoObject()->getUId() == uid)
 		{
-			tmp = states_[i]->undoObject();
-			states_[i]->setUndoObject(newUndoObject);
+			tmp = m_states_[i]->undoObject();
+			m_states_[i]->setUndoObject(newUndoObject);
 		}
 	}
 	return tmp;
@@ -324,12 +324,12 @@ void TransactionState::redo() // redo all attached states
 
 TransactionState::~TransactionState()
 {
-	for (uint i = 0; i < states_.size(); ++i)
+	for (uint i = 0; i < m_states_.size(); ++i)
 	{
-		if (states_[i])
+		if (m_states_[i])
 		{
-			delete states_[i];
-			states_[i] = 0;
+			delete m_states_[i];
+			m_states_[i] = 0;
 		}
 	}
 }
