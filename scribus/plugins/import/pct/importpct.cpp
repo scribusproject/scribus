@@ -55,34 +55,34 @@ extern SCRIBUS_API ScribusQApp * ScQApp;
 
 PctPlug::PctPlug(ScribusDoc* doc, int flags)
 {
-	tmpSel=new Selection(this, false);
+	m_tmpSel=new Selection(this, false);
 	m_Doc=doc;
-	importerFlags = flags;
-	interactive = (flags & LoadSavePlugin::lfInteractive);
-	progressDialog = NULL;
+	m_importerFlags = flags;
+	m_interactive = (flags & LoadSavePlugin::lfInteractive);
+	m_progressDialog = NULL;
 }
 
 QImage PctPlug::readThumbnail(QString fName)
 {
 	QFileInfo fi = QFileInfo(fName);
-	baseFile = QDir::cleanPath(QDir::toNativeSeparators(fi.absolutePath()+"/"));
+	m_baseFile = QDir::cleanPath(QDir::toNativeSeparators(fi.absolutePath()+"/"));
 	double b, h, x, y;
 	parseHeader(fName, x, y, b, h);
 	if (b == 0.0)
 		b = PrefsManager::instance()->appPrefs.docSetupPrefs.pageWidth;
 	if (h == 0.0)
 		h = PrefsManager::instance()->appPrefs.docSetupPrefs.pageHeight;
-	docWidth = b;
-	docHeight = h;
-	progressDialog = NULL;
+	m_docWidth = b;
+	m_docHeight = h;
+	m_progressDialog = NULL;
 	m_Doc = new ScribusDoc();
 	m_Doc->setup(0, 1, 1, 1, 1, "Custom", "Custom");
-	m_Doc->setPage(docWidth, docHeight, 0, 0, 0, 0, 0, 0, false, false);
+	m_Doc->setPage(m_docWidth, m_docHeight, 0, 0, 0, 0, 0, 0, false, false);
 	m_Doc->addPage(0);
 	m_Doc->setGUI(false, ScCore->primaryMainWindow(), 0);
-	baseX = m_Doc->currentPage()->xOffset() - x;
-	baseY = m_Doc->currentPage()->yOffset() - y;
-	Elements.clear();
+	m_baseX = m_Doc->currentPage()->xOffset() - x;
+	m_baseY = m_Doc->currentPage()->yOffset() - y;
+	m_Elements.clear();
 	m_Doc->setLoading(true);
 	m_Doc->DoDrawing = false;
 	m_Doc->scMW()->setScriptRunning(true);
@@ -90,23 +90,23 @@ QImage PctPlug::readThumbnail(QString fName)
 	QDir::setCurrent(fi.path());
 	if (convert(fName))
 	{
-		tmpSel->clear();
+		m_tmpSel->clear();
 		QDir::setCurrent(CurDirP);
-		if (Elements.count() > 1)
-			m_Doc->groupObjectsList(Elements);
+		if (m_Elements.count() > 1)
+			m_Doc->groupObjectsList(m_Elements);
 		m_Doc->DoDrawing = true;
 		m_Doc->m_Selection->delaySignalsOn();
 		QImage tmpImage;
-		if (Elements.count() > 0)
+		if (m_Elements.count() > 0)
 		{
-			for (int dre=0; dre<Elements.count(); ++dre)
+			for (int dre=0; dre<m_Elements.count(); ++dre)
 			{
-				tmpSel->addItem(Elements.at(dre), true);
+				m_tmpSel->addItem(m_Elements.at(dre), true);
 			}
-			tmpSel->setGroupRect();
-			double xs = tmpSel->width();
-			double ys = tmpSel->height();
-			tmpImage = Elements.at(0)->DrawObj_toImage(500);
+			m_tmpSel->setGroupRect();
+			double xs = m_tmpSel->width();
+			double ys = m_tmpSel->height();
+			tmpImage = m_Elements.at(0)->DrawObj_toImage(500);
 			tmpImage.setText("XSize", QString("%1").arg(xs));
 			tmpImage.setText("YSize", QString("%1").arg(ys));
 		}
@@ -130,46 +130,46 @@ bool PctPlug::import(QString fNameIn, const TransactionSettings& trSettings, int
 {
 	QString fName = fNameIn;
 	bool success = false;
-	interactive = (flags & LoadSavePlugin::lfInteractive);
-	importerFlags = flags;
-	cancel = false;
+	m_interactive = (flags & LoadSavePlugin::lfInteractive);
+	m_importerFlags = flags;
+	m_cancel = false;
 	double x, y, b, h;
 	bool ret = false;
-	CustColors.clear();
+	m_CustColors.clear();
 	QFileInfo fi = QFileInfo(fName);
 	if ( !ScCore->usingGUI() )
 	{
-		interactive = false;
+		m_interactive = false;
 		showProgress = false;
 	}
-	baseFile = QDir::cleanPath(QDir::toNativeSeparators(fi.absolutePath()+"/"));
+	m_baseFile = QDir::cleanPath(QDir::toNativeSeparators(fi.absolutePath()+"/"));
 	if ( showProgress )
 	{
 		ScribusMainWindow* mw=(m_Doc==0) ? ScCore->primaryMainWindow() : m_Doc->scMW();
-		progressDialog = new MultiProgressDialog( tr("Importing: %1").arg(fi.fileName()), CommonStrings::tr_Cancel, mw );
+		m_progressDialog = new MultiProgressDialog( tr("Importing: %1").arg(fi.fileName()), CommonStrings::tr_Cancel, mw );
 		QStringList barNames, barTexts;
 		barNames << "GI";
 		barTexts << tr("Analyzing File:");
 		QList<bool> barsNumeric;
 		barsNumeric << false;
-		progressDialog->addExtraProgressBars(barNames, barTexts, barsNumeric);
-		progressDialog->setOverallTotalSteps(3);
-		progressDialog->setOverallProgress(0);
-		progressDialog->setProgress("GI", 0);
-		progressDialog->show();
-		connect(progressDialog, SIGNAL(canceled()), this, SLOT(cancelRequested()));
+		m_progressDialog->addExtraProgressBars(barNames, barTexts, barsNumeric);
+		m_progressDialog->setOverallTotalSteps(3);
+		m_progressDialog->setOverallProgress(0);
+		m_progressDialog->setProgress("GI", 0);
+		m_progressDialog->show();
+		connect(m_progressDialog, SIGNAL(canceled()), this, SLOT(cancelRequested()));
 		qApp->processEvents();
 	}
 	else
-		progressDialog = NULL;
+		m_progressDialog = NULL;
 /* Set default Page to size defined in Preferences */
 	x = 0.0;
 	y = 0.0;
 	b = 0.0;
 	h = 0.0;
-	if (progressDialog)
+	if (m_progressDialog)
 	{
-		progressDialog->setOverallProgress(1);
+		m_progressDialog->setOverallProgress(1);
 		qApp->processEvents();
 	}
 	parseHeader(fName, x, y, b, h);
@@ -177,54 +177,54 @@ bool PctPlug::import(QString fNameIn, const TransactionSettings& trSettings, int
 		b = PrefsManager::instance()->appPrefs.docSetupPrefs.pageWidth;
 	if (h == 0.0)
 		h = PrefsManager::instance()->appPrefs.docSetupPrefs.pageHeight;
-	docWidth = b;
-	docHeight = h;
-	baseX = 0;
-	baseY = 0;
-	if (!interactive || (flags & LoadSavePlugin::lfInsertPage))
+	m_docWidth = b;
+	m_docHeight = h;
+	m_baseX = 0;
+	m_baseY = 0;
+	if (!m_interactive || (flags & LoadSavePlugin::lfInsertPage))
 	{
-		m_Doc->setPage(docWidth, docHeight, 0, 0, 0, 0, 0, 0, false, false);
+		m_Doc->setPage(m_docWidth, m_docHeight, 0, 0, 0, 0, 0, 0, false, false);
 		m_Doc->addPage(0);
 		m_Doc->view()->addPage(0, true);
-		m_Doc->currentPage()->setInitialWidth(docWidth);
-		m_Doc->currentPage()->setInitialHeight(docHeight);
-		m_Doc->currentPage()->setWidth(docWidth);
-		m_Doc->currentPage()->setHeight(docHeight);
+		m_Doc->currentPage()->setInitialWidth(m_docWidth);
+		m_Doc->currentPage()->setInitialHeight(m_docHeight);
+		m_Doc->currentPage()->setWidth(m_docWidth);
+		m_Doc->currentPage()->setHeight(m_docHeight);
 		m_Doc->currentPage()->MPageNam = CommonStrings::trMasterPageNormal;
 		m_Doc->currentPage()->m_pageSize = "Custom";
 		m_Doc->reformPages(true);
-		baseX = m_Doc->currentPage()->xOffset();
-		baseY = m_Doc->currentPage()->yOffset();
+		m_baseX = m_Doc->currentPage()->xOffset();
+		m_baseY = m_Doc->currentPage()->yOffset();
 	}
 	else
 	{
 		if (!m_Doc || (flags & LoadSavePlugin::lfCreateDoc))
 		{
-			m_Doc = ScCore->primaryMainWindow()->doFileNew(docWidth, docHeight, 0, 0, 0, 0, 0, 0, false, false, 0, false, 0, 1, "Custom", true);
+			m_Doc = ScCore->primaryMainWindow()->doFileNew(m_docWidth, m_docHeight, 0, 0, 0, 0, 0, 0, false, false, 0, false, 0, 1, "Custom", true);
 			ScCore->primaryMainWindow()->HaveNewDoc();
-			m_Doc->setPageHeight(docHeight);
-			m_Doc->setPageWidth(docWidth);
-			m_Doc->currentPage()->setInitialWidth(docWidth);
-			m_Doc->currentPage()->setInitialHeight(docHeight);
-			m_Doc->currentPage()->setWidth(docWidth);
-			m_Doc->currentPage()->setHeight(docHeight);
+			m_Doc->setPageHeight(m_docHeight);
+			m_Doc->setPageWidth(m_docWidth);
+			m_Doc->currentPage()->setInitialWidth(m_docWidth);
+			m_Doc->currentPage()->setInitialHeight(m_docHeight);
+			m_Doc->currentPage()->setWidth(m_docWidth);
+			m_Doc->currentPage()->setHeight(m_docHeight);
 			ret = true;
-			baseX = m_Doc->currentPage()->xOffset();
-			baseY = m_Doc->currentPage()->yOffset();
+			m_baseX = m_Doc->currentPage()->xOffset();
+			m_baseY = m_Doc->currentPage()->yOffset();
 		}
 	}
-	offsetX += m_Doc->currentPage()->xOffset();
-	offsetY += m_Doc->currentPage()->yOffset();
-	offsetX *= -1;
-	offsetY *= -1;
-	if ((!ret) && (interactive))
+	m_offsetX += m_Doc->currentPage()->xOffset();
+	m_offsetY += m_Doc->currentPage()->yOffset();
+	m_offsetX *= -1;
+	m_offsetY *= -1;
+	if ((!ret) && (m_interactive))
 	{
-		baseX = m_Doc->currentPage()->xOffset();
-		baseY = m_Doc->currentPage()->yOffset();
+		m_baseX = m_Doc->currentPage()->xOffset();
+		m_baseY = m_Doc->currentPage()->yOffset();
 	}
-	if ((ret) || (!interactive))
+	if ((ret) || (!m_interactive))
 	{
-		if (docWidth > docHeight)
+		if (m_docWidth > m_docHeight)
 			m_Doc->setPageOrientation(1);
 		else
 			m_Doc->setPageOrientation(0);
@@ -232,7 +232,7 @@ bool PctPlug::import(QString fNameIn, const TransactionSettings& trSettings, int
 	}
 	if ((!(flags & LoadSavePlugin::lfLoadAsPattern)) && (m_Doc->view() != NULL))
 		m_Doc->view()->Deselect();
-	Elements.clear();
+	m_Elements.clear();
 	m_Doc->setLoading(true);
 	m_Doc->DoDrawing = false;
 	if ((!(flags & LoadSavePlugin::lfLoadAsPattern)) && (m_Doc->view() != NULL))
@@ -243,15 +243,15 @@ bool PctPlug::import(QString fNameIn, const TransactionSettings& trSettings, int
 	QDir::setCurrent(fi.path());
 	if (convert(fName))
 	{
-		tmpSel->clear();
+		m_tmpSel->clear();
 		QDir::setCurrent(CurDirP);
-		if ((Elements.count() > 1) && (!(importerFlags & LoadSavePlugin::lfCreateDoc)))
-			m_Doc->groupObjectsList(Elements);
+		if ((m_Elements.count() > 1) && (!(m_importerFlags & LoadSavePlugin::lfCreateDoc)))
+			m_Doc->groupObjectsList(m_Elements);
 		m_Doc->DoDrawing = true;
 		m_Doc->scMW()->setScriptRunning(false);
 		m_Doc->setLoading(false);
 		qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
-		if ((Elements.count() > 0) && (!ret) && (interactive))
+		if ((m_Elements.count() > 0) && (!ret) && (m_interactive))
 		{
 			if (flags & LoadSavePlugin::lfScripted)
 			{
@@ -262,9 +262,9 @@ bool PctPlug::import(QString fNameIn, const TransactionSettings& trSettings, int
 				if (!(flags & LoadSavePlugin::lfLoadAsPattern))
 				{
 					m_Doc->m_Selection->delaySignalsOn();
-					for (int dre=0; dre<Elements.count(); ++dre)
+					for (int dre=0; dre<m_Elements.count(); ++dre)
 					{
-						m_Doc->m_Selection->addItem(Elements.at(dre), true);
+						m_Doc->m_Selection->addItem(m_Elements.at(dre), true);
 					}
 					m_Doc->m_Selection->delaySignalsOff();
 					m_Doc->m_Selection->setGroupRect();
@@ -278,26 +278,26 @@ bool PctPlug::import(QString fNameIn, const TransactionSettings& trSettings, int
 				m_Doc->DraggedElem = 0;
 				m_Doc->DragElements.clear();
 				m_Doc->m_Selection->delaySignalsOn();
-				for (int dre=0; dre<Elements.count(); ++dre)
+				for (int dre=0; dre<m_Elements.count(); ++dre)
 				{
-					tmpSel->addItem(Elements.at(dre), true);
+					m_tmpSel->addItem(m_Elements.at(dre), true);
 				}
-				tmpSel->setGroupRect();
-				ScElemMimeData* md = ScriXmlDoc::WriteToMimeData(m_Doc, tmpSel);
-				m_Doc->itemSelection_DeleteItem(tmpSel);
+				m_tmpSel->setGroupRect();
+				ScElemMimeData* md = ScriXmlDoc::WriteToMimeData(m_Doc, m_tmpSel);
+				m_Doc->itemSelection_DeleteItem(m_tmpSel);
 				m_Doc->view()->updatesOn(true);
-				if (importedColors.count() != 0)
+				if (m_importedColors.count() != 0)
 				{
-					for (int cd = 0; cd < importedColors.count(); cd++)
+					for (int cd = 0; cd < m_importedColors.count(); cd++)
 					{
-						m_Doc->PageColors.remove(importedColors[cd]);
+						m_Doc->PageColors.remove(m_importedColors[cd]);
 					}
 				}
-				if (importedPatterns.count() != 0)
+				if (m_importedPatterns.count() != 0)
 				{
-					for (int cd = 0; cd < importedPatterns.count(); cd++)
+					for (int cd = 0; cd < m_importedPatterns.count(); cd++)
 					{
-						m_Doc->docPatterns.remove(importedPatterns[cd]);
+						m_Doc->docPatterns.remove(m_importedPatterns[cd]);
 					}
 				}
 				m_Doc->m_Selection->delaySignalsOff();
@@ -327,12 +327,12 @@ bool PctPlug::import(QString fNameIn, const TransactionSettings& trSettings, int
 		m_Doc->view()->updatesOn(true);
 		qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 	}
-	if (interactive)
+	if (m_interactive)
 		m_Doc->setLoading(false);
 	//CB If we have a gui we must refresh it if we have used the progressbar
 	if (!(flags & LoadSavePlugin::lfLoadAsPattern))
 	{
-		if ((showProgress) && (!interactive))
+		if ((showProgress) && (!m_interactive))
 			m_Doc->view()->DrawNew();
 	}
 	qApp->restoreOverrideCursor();
@@ -341,9 +341,9 @@ bool PctPlug::import(QString fNameIn, const TransactionSettings& trSettings, int
 
 PctPlug::~PctPlug()
 {
-	if (progressDialog)
-		delete progressDialog;
-	delete tmpSel;
+	if (m_progressDialog)
+		delete m_progressDialog;
+	delete m_tmpSel;
 }
 
 void PctPlug::parseHeader(QString fName, double &x, double &y, double &b, double &h)
@@ -360,22 +360,22 @@ void PctPlug::parseHeader(QString fName, double &x, double &y, double &b, double
 		ts >> vers;
 		if (vers == 0x1101)
 		{
-			pctVersion = 1;
+			m_pctVersion = 1;
 			h = pgW - pgX;
 			b = pgH - pgY;
 			x = pgY;
 			y = pgX;
-			offsetX = x;
-			offsetY = y;
-			resX = 1.0;
-			resY = 1.0;
+			m_offsetX = x;
+			m_offsetY = y;
+			m_resX = 1.0;
+			m_resY = 1.0;
 		}
 		else if (vers == 0x0011)
 		{
 			ts >> vers2 >> vers3;
 			if ((vers2 == 0x02FF) && (vers3 == 0x0C00))
 			{
-				pctVersion = 2;
+				m_pctVersion = 2;
 				qint16 vExt;
 				ts >> vExt;
 				if (vExt == -1)
@@ -384,8 +384,8 @@ void PctPlug::parseHeader(QString fName, double &x, double &y, double &b, double
 				//	quint32 xres, yres;
 				//	xres = 72;
 				//	yres = 72;
-					resX = 1.0;
-					resY = 1.0;
+					m_resX = 1.0;
+					m_resY = 1.0;
 					qint32 pgX2, pgY2, pgW2, pgH2;
 					ts >> pgX2 >> pgY2 >> pgW2 >> pgH2;
 					ts >> dummy;
@@ -394,8 +394,8 @@ void PctPlug::parseHeader(QString fName, double &x, double &y, double &b, double
 					b = pgH - pgY;
 					x = pgY;
 					y = pgX;
-					offsetX = x;
-					offsetY = y;
+					m_offsetX = x;
+					m_offsetY = y;
 				}
 				else if (vExt == -2)
 				{
@@ -404,14 +404,14 @@ void PctPlug::parseHeader(QString fName, double &x, double &y, double &b, double
 					ts >> xres >> dummy >> yres >> dummy;
 					ts >> pgX >> pgY >> pgW >> pgH;
 					ts >> dummy;
-					resX = 72.0 / static_cast<double>(xres);
-					resY = 72.0 / static_cast<double>(yres);
-					h = (pgW - pgX) * resX;
-					b = (pgH - pgY) * resY;
-					x = pgY * resX;
-					y = pgX * resY;
-					offsetX = x;
-					offsetY = y;
+					m_resX = 72.0 / static_cast<double>(xres);
+					m_resY = 72.0 / static_cast<double>(yres);
+					h = (pgW - pgX) * m_resX;
+					b = (pgH - pgY) * m_resY;
+					x = pgY * m_resX;
+					y = pgX * m_resY;
+					m_offsetX = x;
+					m_offsetY = y;
 				}
 			}
 		}
@@ -423,48 +423,48 @@ void PctPlug::parseHeader(QString fName, double &x, double &y, double &b, double
 bool PctPlug::convert(QString fn)
 {
 	QString tmp;
-	CurrColorFill = "White";
-	CurrFillShade = 100.0;
-	CurrColorStroke = "Black";
-	CurrStrokeShade = 100.0;
-	patternMode = false;
-	patternData.resize(0);
-	backColor = Qt::white;
-	foreColor = Qt::black;
-	Coords.resize(0);
-	Coords.svgInit();
-	LineW = 1.0;
-	currentPoint = QPoint(0, 0);
-	currentPointT = QPoint(0, 0);
-	ovalSize = QPoint(0, 0);
-	fontMap.clear();
-	currentTextSize = 12;
-	currentFontID = 0;
-	currentFontStyle = 0;
-	imageData.resize(0);
-	lineMode = false;
-	skipOpcode = false;
-	postscriptMode = false;
-	textIsPostScript = false;
-	importedColors.clear();
-	importedPatterns.clear();
+	m_CurrColorFill = "White";
+	m_CurrFillShade = 100.0;
+	m_CurrColorStroke = "Black";
+	m_CurrStrokeShade = 100.0;
+	m_patternMode = false;
+	m_patternData.resize(0);
+	m_backColor = Qt::white;
+	m_foreColor = Qt::black;
+	m_Coords.resize(0);
+	m_Coords.svgInit();
+	m_LineW = 1.0;
+	m_currentPoint = QPoint(0, 0);
+	m_currentPointT = QPoint(0, 0);
+	m_ovalSize = QPoint(0, 0);
+	m_fontMap.clear();
+	m_currentTextSize = 12;
+	m_currentFontID = 0;
+	m_currentFontStyle = 0;
+	m_imageData.resize(0);
+	m_lineMode = false;
+	m_skipOpcode = false;
+	m_postscriptMode = false;
+	m_textIsPostScript = false;
+	m_importedColors.clear();
+	m_importedPatterns.clear();
 	QList<PageItem*> gElements;
-	groupStack.push(gElements);
-	currentItemNr = 0;
-	if(progressDialog)
+	m_groupStack.push(gElements);
+	m_currentItemNr = 0;
+	if(m_progressDialog)
 	{
-		progressDialog->setOverallProgress(2);
-		progressDialog->setLabel("GI", tr("Generating Items"));
+		m_progressDialog->setOverallProgress(2);
+		m_progressDialog->setLabel("GI", tr("Generating Items"));
 		qApp->processEvents();
 	}
 	QFile f(fn);
 	if (f.open(QIODevice::ReadOnly))
 	{
-		oldDocItemCount = m_Doc->Items->count();
+		m_oldDocItemCount = m_Doc->Items->count();
 		int fSize = (int) f.size();
-		if (progressDialog)
+		if (m_progressDialog)
 		{
-			progressDialog->setTotalSteps("GI", fSize);
+			m_progressDialog->setTotalSteps("GI", fSize);
 			qApp->processEvents();
 		}
 		QDataStream ts(&f);
@@ -477,15 +477,15 @@ bool PctPlug::convert(QString fn)
 			ts >> vers;
 			if (vers == 0x00FF)
 			{
-				if (progressDialog)
-					progressDialog->close();
+				if (m_progressDialog)
+					m_progressDialog->close();
 				f.close();
 				return false;
 			}
 		}
 		if (vers == 0x1101)
 		{
-			pctVersion = 1;		// Pict Version 1
+			m_pctVersion = 1;		// Pict Version 1
 			parsePict(ts);
 		}
 		else
@@ -493,7 +493,7 @@ bool PctPlug::convert(QString fn)
 			ts.skipRawData(4);	// skip the next 4 Bytes
 			ts >> vers;		// read the version info
 //			if (vers == 0x0FFFE)
-				pctVersion = 2;	// Pict Extended Version 2
+				m_pctVersion = 2;	// Pict Extended Version 2
 //			else if (vers == 0x0FFFF)
 //				pctVersion = 3;	// Pict Version 2
 //			else
@@ -506,27 +506,27 @@ bool PctPlug::convert(QString fn)
 			ts.skipRawData(22);
 			parsePict(ts);
 		}
-		if (Elements.count() == 0)
+		if (m_Elements.count() == 0)
 		{
-			if (importedColors.count() != 0)
+			if (m_importedColors.count() != 0)
 			{
-				for (int cd = 0; cd < importedColors.count(); cd++)
+				for (int cd = 0; cd < m_importedColors.count(); cd++)
 				{
-					m_Doc->PageColors.remove(importedColors[cd]);
+					m_Doc->PageColors.remove(m_importedColors[cd]);
 				}
 			}
-			if (importedPatterns.count() != 0)
+			if (m_importedPatterns.count() != 0)
 			{
-				for (int cd = 0; cd < importedPatterns.count(); cd++)
+				for (int cd = 0; cd < m_importedPatterns.count(); cd++)
 				{
-					m_Doc->docPatterns.remove(importedPatterns[cd]);
+					m_Doc->docPatterns.remove(m_importedPatterns[cd]);
 				}
 			}
 		}
 		f.close();
 	}
-	if (progressDialog)
-		progressDialog->close();
+	if (m_progressDialog)
+		m_progressDialog->close();
 	return true;
 }
 
@@ -537,7 +537,7 @@ void PctPlug::parsePict(QDataStream &ts)
 		quint16 opCode, dataLen;
 		quint8 dataLenByte;
 		quint32 dataLenLong;
-		if (pctVersion == 1)
+		if (m_pctVersion == 1)
 		{
 			ts >> dataLenByte;
 			opCode = dataLenByte;
@@ -1006,12 +1006,12 @@ void PctPlug::parsePict(QDataStream &ts)
 					break;
 				case 0x00FF:		// End of Pict
 					handleLineModeEnd();
-					if (imageData.size() > 0)
+					if (m_imageData.size() > 0)
 					{
 						QImage image;
-						image.loadFromData(imageData);
+						image.loadFromData(m_imageData);
 						image = image.convertToFormat(QImage::Format_ARGB32);
-						int z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, baseX, baseY, image.width() * resX, image.height() * resY, 0, m_Doc->itemToolPrefs().imageFillColor, CommonStrings::None, true);
+						int z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, m_baseX, m_baseY, image.width() * m_resX, image.height() * m_resY, 0, m_Doc->itemToolPrefs().imageFillColor, CommonStrings::None, true);
 						PageItem *ite = m_Doc->Items->at(z);
 						QTemporaryFile *tempFile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_pct_XXXXXX.png");
 						tempFile->setAutoRemove(false);
@@ -1022,7 +1022,7 @@ void PctPlug::parsePict(QDataStream &ts)
 						ite->isTempFile = true;
 						image.save(fileName, "PNG");
 						ite->moveBy(m_Doc->currentPage()->xOffset(), m_Doc->currentPage()->yOffset());
-						ite->moveBy(offsetX, offsetY);
+						ite->moveBy(m_offsetX, m_offsetY);
 						finishItem(ite);
 						m_Doc->loadPict(fileName, ite);
 						ite->setImageScalingMode(false, false);
@@ -1050,9 +1050,9 @@ void PctPlug::parsePict(QDataStream &ts)
 					break;
 			}
 		}
-		if (progressDialog)
+		if (m_progressDialog)
 		{
-			progressDialog->setProgress("GI", ts.device()->pos());
+			m_progressDialog->setProgress("GI", ts.device()->pos());
 			qApp->processEvents();
 		}
 	}
@@ -1061,7 +1061,7 @@ void PctPlug::parsePict(QDataStream &ts)
 void PctPlug::alignStreamToWord(QDataStream &ts, uint len)
 {
 	ts.skipRawData(len);
-	if (pctVersion == 1)
+	if (m_pctVersion == 1)
 		return;
 	uint adj = ts.device()->pos() % 2;
 	if (adj != 0)
@@ -1137,17 +1137,17 @@ void PctPlug::handleColor(QDataStream &ts, bool back)
 	tmpName = "FromPict"+c.name();
 	QString fNam = m_Doc->PageColors.tryAddColor(tmpName, tmp);
 	if (fNam == tmpName)
-		importedColors.append(tmpName);
+		m_importedColors.append(tmpName);
 	tmpName = fNam;
 	if (back)
 	{
-		CurrColorFill = tmpName;
-		backColor = c;
+		m_CurrColorFill = tmpName;
+		m_backColor = c;
 	}
 	else
 	{
-		CurrColorStroke = tmpName;
-		foreColor = c;
+		m_CurrColorStroke = tmpName;
+		m_foreColor = c;
 	}
 }
 
@@ -1170,32 +1170,32 @@ void PctPlug::handleColorRGB(QDataStream &ts, bool back)
 	tmpName = "FromPict"+c.name();
 	QString fNam = m_Doc->PageColors.tryAddColor(tmpName, tmp);
 	if (fNam == tmpName)
-		importedColors.append(tmpName);
+		m_importedColors.append(tmpName);
 	tmpName = fNam;
 	if (back)
 	{
-		CurrColorFill = tmpName;
-		backColor = c;
+		m_CurrColorFill = tmpName;
+		m_backColor = c;
 	}
 	else
 	{
-		CurrColorStroke = tmpName;
-		foreColor = c;
+		m_CurrColorStroke = tmpName;
+		m_foreColor = c;
 	}
 }
 
 void PctPlug::handlePenPattern(QDataStream &ts)
 {
 	handleLineModeEnd();
-	patternData.resize(8);
-	ts.readRawData(patternData.data(), 8);
-	patternMode = false;
-	for (int a = 0; a < patternData.size(); a++)
+	m_patternData.resize(8);
+	ts.readRawData(m_patternData.data(), 8);
+	m_patternMode = false;
+	for (int a = 0; a < m_patternData.size(); a++)
 	{
-		uchar d = patternData[a];
+		uchar d = m_patternData[a];
 		if ((d != 0x00) && (d != 0xFF))
 		{
-			patternMode = true;
+			m_patternMode = true;
 			break;
 		}
 	}
@@ -1211,37 +1211,37 @@ void PctPlug::handlePolygon(QDataStream &ts, quint16 opCode)
 	polySize -= 14;				// subtract size count, bounding rect and first point from size
 	qint16 x, y;
 	ts >> y >> x;
-	Coords.resize(0);
-	Coords.svgInit();
+	m_Coords.resize(0);
+	m_Coords.svgInit();
 	PageItem *ite;
-	Coords.svgMoveTo(x * resX, y * resY);
+	m_Coords.svgMoveTo(x * m_resX, y * m_resY);
 	for(unsigned i = 0; i < polySize; i += 4)
 	{
 		ts >> y >> x;
-		Coords.svgLineTo(x * resX, y * resX);
+		m_Coords.svgLineTo(x * m_resX, y * m_resX);
 	}
-	if (Coords.size() > 0)
+	if (m_Coords.size() > 0)
 	{
 		int z;
 		if (opCode == 0x0070)
-			z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, LineW, CommonStrings::None, CurrColorStroke, true);
+			z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, m_baseX, m_baseY, 10, 10, m_LineW, CommonStrings::None, m_CurrColorStroke, true);
 		else if (opCode == 0x0071)
-			z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, LineW, CurrColorStroke, CommonStrings::None, true);
+			z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, m_baseX, m_baseY, 10, 10, m_LineW, m_CurrColorStroke, CommonStrings::None, true);
 //		else if (opCode == 0x0072)
 //			z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, LineW, CurrColorFill, CommonStrings::None, true);
 		else if (opCode == 0x0074)
-			z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, LineW, CurrColorStroke, CommonStrings::None, true);
+			z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, m_baseX, m_baseY, 10, 10, m_LineW, m_CurrColorStroke, CommonStrings::None, true);
 		else
 		{
 //			qDebug() << QString("Not implemented OpCode: 0x%1").arg(opCode, 4, 16, QLatin1Char('0'));
 			return;
 		}
 		ite = m_Doc->Items->at(z);
-		ite->PoLine = Coords.copy();
-		ite->PoLine.translate(baseX, baseY);
-		ite->PoLine.translate(offsetX, offsetY);
+		ite->PoLine = m_Coords.copy();
+		ite->PoLine.translate(m_baseX, m_baseY);
+		ite->PoLine.translate(m_offsetX, m_offsetY);
 		finishItem(ite);
-		if ((patternMode) && (opCode != 0x0070))
+		if ((m_patternMode) && (opCode != 0x0070))
 			setFillPattern(ite);
 	}
 }
@@ -1252,32 +1252,32 @@ void PctPlug::handleShape(QDataStream &ts, quint16 opCode)
 	QRect bounds = readRect(ts);
 //	qDebug() << QString("Handle Rect/Oval 0x%1").arg(opCode, 4, 16, QLatin1Char('0'));
 	int z;
-	double xp = baseX + (bounds.x() * resX);
-	double yp = baseX + (bounds.y() * resY);
-	double wv = (bounds.width() - 1) * resX;
-	double hv = (bounds.height() - 1) * resY;
+	double xp = m_baseX + (bounds.x() * m_resX);
+	double yp = m_baseX + (bounds.y() * m_resY);
+	double wv = (bounds.width() - 1) * m_resX;
+	double hv = (bounds.height() - 1) * m_resY;
 	PageItem *ite;
 	if (opCode == 0x0030)
-		z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, xp, yp, wv, hv, LineW, CommonStrings::None, CurrColorStroke, true);
+		z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, xp, yp, wv, hv, m_LineW, CommonStrings::None, m_CurrColorStroke, true);
 	else if (opCode == 0x0031)
-		z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, xp, yp, wv, hv, 0, CurrColorStroke, CommonStrings::None, true);
+		z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, xp, yp, wv, hv, 0, m_CurrColorStroke, CommonStrings::None, true);
 //	else if (opCode == 0x0032)
 //		z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, baseX + bounds.x(), baseY + bounds.y(), bounds.width() - 1, bounds.height() - 1, 0, CurrColorFill, CommonStrings::None, true);
 	else if (opCode == 0x0034)
-		z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, xp, yp, wv, hv, 0, CurrColorStroke, CommonStrings::None, true);
+		z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, xp, yp, wv, hv, 0, m_CurrColorStroke, CommonStrings::None, true);
 	else if (opCode == 0x0040)
 	{
-		z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, xp, yp, wv, hv, LineW, CommonStrings::None, CurrColorStroke, true);
+		z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, xp, yp, wv, hv, m_LineW, CommonStrings::None, m_CurrColorStroke, true);
 		ite = m_Doc->Items->at(z);
-		ite->setCornerRadius(qMax(ovalSize.x(), ovalSize.y()));
+		ite->setCornerRadius(qMax(m_ovalSize.x(), m_ovalSize.y()));
 		ite->SetFrameRound();
 		m_Doc->setRedrawBounding(ite);
 	}
 	else if (opCode == 0x0041)
 	{
-		z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, xp, yp, wv, hv, 0, CurrColorStroke, CommonStrings::None, true);
+		z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, xp, yp, wv, hv, 0, m_CurrColorStroke, CommonStrings::None, true);
 		ite = m_Doc->Items->at(z);
-		ite->setCornerRadius(qMax(ovalSize.x(), ovalSize.y()));
+		ite->setCornerRadius(qMax(m_ovalSize.x(), m_ovalSize.y()));
 		ite->SetFrameRound();
 		m_Doc->setRedrawBounding(ite);
 	}
@@ -1291,34 +1291,34 @@ void PctPlug::handleShape(QDataStream &ts, quint16 opCode)
 //	}
 	else if (opCode == 0x0044)
 	{
-		z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, xp, yp, wv, hv, 0, CurrColorStroke, CommonStrings::None, true);
+		z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, xp, yp, wv, hv, 0, m_CurrColorStroke, CommonStrings::None, true);
 		ite = m_Doc->Items->at(z);
-		ite->setCornerRadius(qMax(ovalSize.x(), ovalSize.y()));
+		ite->setCornerRadius(qMax(m_ovalSize.x(), m_ovalSize.y()));
 		ite->SetFrameRound();
 		m_Doc->setRedrawBounding(ite);
 	}
 	else if (opCode == 0x0050)
-		z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Ellipse, xp, yp, wv, hv, LineW, CommonStrings::None, CurrColorStroke, true);
+		z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Ellipse, xp, yp, wv, hv, m_LineW, CommonStrings::None, m_CurrColorStroke, true);
 	else if (opCode == 0x0051)
-		z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Ellipse, xp, yp, wv, hv, 0, CurrColorStroke, CommonStrings::None, true);
+		z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Ellipse, xp, yp, wv, hv, 0, m_CurrColorStroke, CommonStrings::None, true);
 //	else if (opCode == 0x0052)
 //		z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Ellipse, baseX + bounds.x(), baseY + bounds.y(), bounds.width() - 1, bounds.height() - 1, 0, CurrColorFill, CommonStrings::None, true);
 	else if (opCode == 0x0054)
-		z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Ellipse, xp, yp, wv, hv, 0, CurrColorStroke, CommonStrings::None, true);
+		z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Ellipse, xp, yp, wv, hv, 0, m_CurrColorStroke, CommonStrings::None, true);
 	else
 	{
 //		qDebug() << QString("Not implemented OpCode: 0x%1").arg(opCode, 4, 16, QLatin1Char('0'));
 		return;
 	}
 	ite = m_Doc->Items->at(z);
-	ite->PoLine.translate(offsetX, offsetY);
-	currRect = QRect(bounds.x() * resX, bounds.y() * resY, bounds.width() * resX, bounds.height() * resY);
-	currRectItemNr = z;
-	currRectType = 0;
+	ite->PoLine.translate(m_offsetX, m_offsetY);
+	m_currRect = QRect(bounds.x() * m_resX, bounds.y() * m_resY, bounds.width() * m_resX, bounds.height() * m_resY);
+	m_currRectItemNr = z;
+	m_currRectType = 0;
 	if (opCode > 0x0044)
-		currRectType = 1;
+		m_currRectType = 1;
 	finishItem(ite);
-	if ((patternMode) && (opCode != 0x0030) && (opCode != 0x0040) && (opCode != 0x0050))
+	if ((m_patternMode) && (opCode != 0x0030) && (opCode != 0x0040) && (opCode != 0x0050))
 		setFillPattern(ite);
 }
 
@@ -1331,42 +1331,42 @@ void PctPlug::handleSameShape(QDataStream &ts, quint16 opCode)
 	handleLineModeEnd();
 	int z;
 	PageItem *ite;
-	if (currRectType == rectType)
+	if (m_currRectType == rectType)
 	{
-		ite = m_Doc->Items->at(currRectItemNr);
+		ite = m_Doc->Items->at(m_currRectItemNr);
 		if ((opCode == 0x0038) || (opCode == 0x0048) || (opCode == 0x0058))
 		{
-			ite->setLineColor(CurrColorStroke);
-			ite->setLineWidth(LineW);
+			ite->setLineColor(m_CurrColorStroke);
+			ite->setLineWidth(m_LineW);
 		}
 //		else if ((opCode == 0x003A) || (opCode == 0x004A) || (opCode == 0x005A))
 //			ite->setFillColor(CurrColorFill);
 		else
-			ite->setFillColor(CurrColorStroke);
+			ite->setFillColor(m_CurrColorStroke);
 	}
 	else
 	{
 		if (opCode == 0x0038)
-			z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, baseX + currRect.x(), baseY + currRect.y(), currRect.width() - 1, currRect.height() - 1, LineW, CommonStrings::None, CurrColorStroke, true);
+			z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, m_baseX + m_currRect.x(), m_baseY + m_currRect.y(), m_currRect.width() - 1, m_currRect.height() - 1, m_LineW, CommonStrings::None, m_CurrColorStroke, true);
 		else if (opCode == 0x0039)
-			z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, baseX + currRect.x(), baseY + currRect.y(), currRect.width() - 1, currRect.height() - 1, 0, CurrColorStroke, CommonStrings::None, true);
+			z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, m_baseX + m_currRect.x(), m_baseY + m_currRect.y(), m_currRect.width() - 1, m_currRect.height() - 1, 0, m_CurrColorStroke, CommonStrings::None, true);
 //		else if (opCode == 0x003A)
 //			z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, baseX + currRect.x(), baseY + currRect.y(), currRect.width() - 1, currRect.height() - 1, 0, CurrColorFill, CommonStrings::None, true);
 		else if (opCode == 0x003C)
-			z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, baseX + currRect.x(), baseY + currRect.y(), currRect.width() - 1, currRect.height() - 1, 0, CurrColorStroke, CommonStrings::None, true);
+			z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, m_baseX + m_currRect.x(), m_baseY + m_currRect.y(), m_currRect.width() - 1, m_currRect.height() - 1, 0, m_CurrColorStroke, CommonStrings::None, true);
 		else if (opCode == 0x0048)
 		{
-			z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, baseX + currRect.x(), baseY + currRect.y(), currRect.width() - 1, currRect.height() - 1, 0, CommonStrings::None, CurrColorStroke, true);
+			z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, m_baseX + m_currRect.x(), m_baseY + m_currRect.y(), m_currRect.width() - 1, m_currRect.height() - 1, 0, CommonStrings::None, m_CurrColorStroke, true);
 			ite = m_Doc->Items->at(z);
-			ite->setCornerRadius(qMax(ovalSize.x(), ovalSize.y()));
+			ite->setCornerRadius(qMax(m_ovalSize.x(), m_ovalSize.y()));
 			ite->SetFrameRound();
 			m_Doc->setRedrawBounding(ite);
 		}
 		else if (opCode == 0x0049)
 		{
-			z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, baseX + currRect.x(), baseY + currRect.y(), currRect.width() - 1, currRect.height() - 1, 0, CurrColorStroke, CommonStrings::None, true);
+			z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, m_baseX + m_currRect.x(), m_baseY + m_currRect.y(), m_currRect.width() - 1, m_currRect.height() - 1, 0, m_CurrColorStroke, CommonStrings::None, true);
 			ite = m_Doc->Items->at(z);
-			ite->setCornerRadius(qMax(ovalSize.x(), ovalSize.y()));
+			ite->setCornerRadius(qMax(m_ovalSize.x(), m_ovalSize.y()));
 			ite->SetFrameRound();
 			m_Doc->setRedrawBounding(ite);
 		}
@@ -1380,30 +1380,30 @@ void PctPlug::handleSameShape(QDataStream &ts, quint16 opCode)
 //		}
 		else if (opCode == 0x004C)
 		{
-			z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, baseX + currRect.x(), baseY + currRect.y(), currRect.width() - 1, currRect.height() - 1, 0, CurrColorStroke, CommonStrings::None, true);
+			z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, m_baseX + m_currRect.x(), m_baseY + m_currRect.y(), m_currRect.width() - 1, m_currRect.height() - 1, 0, m_CurrColorStroke, CommonStrings::None, true);
 			ite = m_Doc->Items->at(z);
-			ite->setCornerRadius(qMax(ovalSize.x(), ovalSize.y()));
+			ite->setCornerRadius(qMax(m_ovalSize.x(), m_ovalSize.y()));
 			ite->SetFrameRound();
 			m_Doc->setRedrawBounding(ite);
 		}
 		else if (opCode == 0x0058)
-			z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Ellipse, baseX + currRect.x(), baseY + currRect.y(), currRect.width() - 1, currRect.height() - 1, LineW, CommonStrings::None, CurrColorStroke, true);
+			z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Ellipse, m_baseX + m_currRect.x(), m_baseY + m_currRect.y(), m_currRect.width() - 1, m_currRect.height() - 1, m_LineW, CommonStrings::None, m_CurrColorStroke, true);
 		else if (opCode == 0x0059)
-			z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Ellipse, baseX + currRect.x(), baseY + currRect.y(), currRect.width() - 1, currRect.height() - 1, 0, CurrColorStroke, CommonStrings::None, true);
+			z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Ellipse, m_baseX + m_currRect.x(), m_baseY + m_currRect.y(), m_currRect.width() - 1, m_currRect.height() - 1, 0, m_CurrColorStroke, CommonStrings::None, true);
 //		else if (opCode == 0x005A)
 //			z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Ellipse, baseX + currRect.x(), baseY + currRect.y(), currRect.width() - 1, currRect.height() - 1, 0, CurrColorFill, CommonStrings::None, true);
 		else if (opCode == 0x005C)
-			z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Ellipse, baseX + currRect.x(), baseY + currRect.y(), currRect.width() - 1, currRect.height() - 1, 0, CurrColorStroke, CommonStrings::None, true);
+			z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Ellipse, m_baseX + m_currRect.x(), m_baseY + m_currRect.y(), m_currRect.width() - 1, m_currRect.height() - 1, 0, m_CurrColorStroke, CommonStrings::None, true);
 		else
 		{
 //			qDebug() << QString("Not implemented OpCode: 0x%1").arg(opCode, 4, 16, QLatin1Char('0'));
 			return;
 		}
 		ite = m_Doc->Items->at(z);
-		ite->PoLine.translate(offsetX, offsetY);
+		ite->PoLine.translate(m_offsetX, m_offsetY);
 		finishItem(ite);
 	}
-	if ((patternMode) && (opCode != 0x0038) && (opCode != 0x0048) && (opCode != 0x0058))
+	if ((m_patternMode) && (opCode != 0x0038) && (opCode != 0x0048) && (opCode != 0x0058))
 		setFillPattern(ite);
 }
 
@@ -1430,7 +1430,7 @@ void PctPlug::handleFontName(QDataStream &ts)
 			break;
 		}
 	}
-	fontMap.insert(fontID, fontName);
+	m_fontMap.insert(fontID, fontName);
 	alignStreamToWord(ts, 0);
 //	qDebug() << "Handle FontName" << fontName << "ID" << fontID;
 }
@@ -1440,7 +1440,7 @@ void PctPlug::handleTextSize(QDataStream &ts)
 	handleLineModeEnd();
 	quint16 fontSize;
 	ts >> fontSize;
-	currentTextSize = fontSize * resY;
+	m_currentTextSize = fontSize * m_resY;
 //	qDebug() << "Handle Text Size" << fontSize;
 }
 
@@ -1449,7 +1449,7 @@ void PctPlug::handleTextFont(QDataStream &ts)
 	handleLineModeEnd();
 	quint16 fontID;
 	ts >> fontID;
-	currentFontID = fontID;
+	m_currentFontID = fontID;
 //	qDebug() << "Handle Text Font" << fontID;
 }
 
@@ -1459,7 +1459,7 @@ void PctPlug::handleTextStyle(QDataStream &ts)
 	quint8 style;
 	ts >> style;
 	alignStreamToWord(ts, 0);
-	currentFontStyle = style;
+	m_currentFontStyle = style;
 //	qDebug() << "Text Style" << style;
 }
 
@@ -1473,9 +1473,9 @@ void PctPlug::handleLongText(QDataStream &ts)
 	QByteArray text;
 	text.resize(textLen);
 	ts.readRawData(text.data(), textLen);
-	if (!textIsPostScript)
+	if (!m_textIsPostScript)
 	{
-		currentPointT = QPoint(x * resX, y * resY);
+		m_currentPointT = QPoint(x * m_resX, y * m_resY);
 		createTextPath(text);
 //		qDebug() << "Handle Long Text at" << x << y << text;
 	}
@@ -1490,10 +1490,10 @@ void PctPlug::handleDHText(QDataStream &ts)
 	QByteArray text;
 	text.resize(textLen);
 	ts.readRawData(text.data(), textLen);
-	if (!textIsPostScript)
+	if (!m_textIsPostScript)
 	{
-		QPoint s = currentPointT;
-		currentPointT = QPoint(s.x()+dh * resX, s.y());
+		QPoint s = m_currentPointT;
+		m_currentPointT = QPoint(s.x()+dh * m_resX, s.y());
 		createTextPath(text);
 //		qDebug() << "Handle DH Text at" << currentPointT << text;
 	}
@@ -1508,10 +1508,10 @@ void PctPlug::handleDVText(QDataStream &ts)
 	QByteArray text;
 	text.resize(textLen);
 	ts.readRawData(text.data(), textLen);
-	if (!textIsPostScript)
+	if (!m_textIsPostScript)
 	{
-		QPoint s = currentPointT;
-		currentPointT = QPoint(s.x(), s.y()+dv * resY);
+		QPoint s = m_currentPointT;
+		m_currentPointT = QPoint(s.x(), s.y()+dv * m_resY);
 		createTextPath(text);
 //		qDebug() << "Handle DV Text at" << currentPointT << text;
 	}
@@ -1526,10 +1526,10 @@ void PctPlug::handleDHVText(QDataStream &ts)
 	QByteArray text;
 	text.resize(textLen);
 	ts.readRawData(text.data(), textLen);
-	if (!textIsPostScript)
+	if (!m_textIsPostScript)
 	{
-		QPoint s = currentPointT;
-		currentPointT = QPoint(s.x()+dh * resX, s.y()+dv * resY);
+		QPoint s = m_currentPointT;
+		m_currentPointT = QPoint(s.x()+dh * m_resX, s.y()+dv * m_resY);
 		createTextPath(text);
 //		qDebug() << "Handle DHV Text" << dh << dv << "->" << currentPointT << text;
 	}
@@ -1547,35 +1547,35 @@ void PctPlug::createTextPath(QByteArray textString)
 	}
 	QString string = codec->toUnicode(textString);
 	QFont textFont;
-	if (!fontMap.contains(currentFontID))
+	if (!m_fontMap.contains(m_currentFontID))
 		textFont = QFont();
 	else
 	{
-		QString fontName = fontMap[currentFontID];
-		textFont = QFont(fontName, currentTextSize);
+		QString fontName = m_fontMap[m_currentFontID];
+		textFont = QFont(fontName, m_currentTextSize);
 		QFontInfo inf(textFont);
 //		qDebug() << "Using Font" << inf.family() << "for" << fontName;
 	}
-	textFont.setPixelSize(currentTextSize);
-	if (currentFontStyle & 1)
+	textFont.setPixelSize(m_currentTextSize);
+	if (m_currentFontStyle & 1)
 		textFont.setBold(true);
-	if (currentFontStyle & 2)
+	if (m_currentFontStyle & 2)
 		textFont.setItalic(true);
-	if (currentFontStyle & 4)
+	if (m_currentFontStyle & 4)
 		textFont.setUnderline(true);
 	FPointArray textPath;
 	QPainterPath painterPath;
-	painterPath.addText( currentPointT.x(), currentPointT.y(), textFont, string);
+	painterPath.addText( m_currentPointT.x(), m_currentPointT.y(), textFont, string);
 	textPath.fromQPainterPath(painterPath);
 	if (textPath.size() > 0)
 	{
-		int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, 0, CurrColorStroke, CommonStrings::None, true);
+		int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, m_baseX, m_baseY, 10, 10, 0, m_CurrColorStroke, CommonStrings::None, true);
 		PageItem* ite = m_Doc->Items->at(z);
 		ite->PoLine = textPath;
-		ite->PoLine.translate(baseX, baseY);
-		ite->PoLine.translate(offsetX, offsetY);
+		ite->PoLine.translate(m_baseX, m_baseY);
+		ite->PoLine.translate(m_offsetX, m_offsetY);
 		finishItem(ite);
-		if (patternMode)
+		if (m_patternMode)
 			setFillPattern(ite);
 	}
 }
@@ -1586,7 +1586,7 @@ void PctPlug::handlePenSize(QDataStream &ts)
 	handleLineModeEnd();
 	quint16 x, y;
 	ts >> y >> x;
-	LineW = qMax(x, y) * resX;
+	m_LineW = qMax(x, y) * m_resX;
 }
 
 void PctPlug::handleOvalSize(QDataStream &ts)
@@ -1595,7 +1595,7 @@ void PctPlug::handleOvalSize(QDataStream &ts)
 	handleLineModeEnd();
 	quint16 x, y;
 	ts >> y >> x;
-	ovalSize = QPoint(x * resX, y * resY);
+	m_ovalSize = QPoint(x * m_resX, y * m_resY);
 }
 
 void PctPlug::handleShortLine(QDataStream &ts)
@@ -1607,19 +1607,19 @@ void PctPlug::handleShortLine(QDataStream &ts)
 	if ((dh == 0) && (dv == 0))
 	{
 		handleLineModeEnd();
-		Coords.svgMoveTo(x * resX, y * resY);
-		currentPoint = QPoint(x * resX, y * resY);
+		m_Coords.svgMoveTo(x * m_resX, y * m_resY);
+		m_currentPoint = QPoint(x * m_resX, y * m_resY);
 		return;
 	}
-	QPoint s = QPoint(x * resX, y * resY);
-	if (currentPoint != s)
+	QPoint s = QPoint(x * m_resX, y * m_resY);
+	if (m_currentPoint != s)
 	{
 		handleLineModeEnd();
-		Coords.svgMoveTo(x * resX, y * resY);
+		m_Coords.svgMoveTo(x * m_resX, y * m_resY);
 	}
-	Coords.svgLineTo((x+dh) * resX, (y+dv) * resY);
-	currentPoint = QPoint((x+dh) * resX, (y+dv) * resY);
-	lineMode = true;
+	m_Coords.svgLineTo((x+dh) * m_resX, (y+dv) * m_resY);
+	m_currentPoint = QPoint((x+dh) * m_resX, (y+dv) * m_resY);
+	m_lineMode = true;
 //	qDebug() << "Handle Short Line" << x << y << "+" << dh << dv << "->" << currentPoint;
 }
 
@@ -1629,12 +1629,12 @@ void PctPlug::handleShortLineFrom(QDataStream &ts)
 	ts >> dh >> dv;
 	if ((dh == 0) && (dv == 0))
 		return;
-	QPoint s = currentPoint;
-	if (Coords.size() == 0)
-		Coords.svgMoveTo(s.x(), s.y());
-	Coords.svgLineTo(s.x()+dh * resX, s.y()+dv * resY);
-	currentPoint = QPoint(s.x()+dh * resX, s.y()+dv * resY);
-	lineMode = true;
+	QPoint s = m_currentPoint;
+	if (m_Coords.size() == 0)
+		m_Coords.svgMoveTo(s.x(), s.y());
+	m_Coords.svgLineTo(s.x()+dh * m_resX, s.y()+dv * m_resY);
+	m_currentPoint = QPoint(s.x()+dh * m_resX, s.y()+dv * m_resY);
+	m_lineMode = true;
 //	qDebug() << "Handle Short Line from" << dh << dv << "->" << currentPoint;
 }
 
@@ -1643,15 +1643,15 @@ void PctPlug::handleLine(QDataStream &ts)
 	qint16 x1, x2, y1, y2;
 	ts >> y1 >> x1;
 	ts >> y2 >> x2;
-	QPoint s = QPoint(x1 * resX, y1 * resY);
-	if (currentPoint != s)
+	QPoint s = QPoint(x1 * m_resX, y1 * m_resY);
+	if (m_currentPoint != s)
 	{
 		handleLineModeEnd();
-		Coords.svgMoveTo(x1 * resX, y1 * resY);
+		m_Coords.svgMoveTo(x1 * m_resX, y1 * m_resY);
 	}
-	Coords.svgLineTo(x2 * resX, y2 * resY);
-	currentPoint = QPoint(x2 * resX, y2 * resY);
-	lineMode = true;
+	m_Coords.svgLineTo(x2 * m_resX, y2 * m_resY);
+	m_currentPoint = QPoint(x2 * m_resX, y2 * m_resY);
+	m_lineMode = true;
 //	qDebug() << "Handle Line" << x1 << y1 << "->" << currentPoint;
 }
 
@@ -1661,12 +1661,12 @@ void PctPlug::handleLineFrom(QDataStream &ts)
 	ts >> y >> x;
 	if ((x == 0) && (y == 0))
 		return;
-	QPoint s = currentPoint;
-	if (Coords.size() == 0)
-		Coords.svgMoveTo(s.x(), s.y());
-	Coords.svgLineTo(x * resX, y * resY);
-	currentPoint = QPoint(x * resX, y * resY);
-	lineMode = true;
+	QPoint s = m_currentPoint;
+	if (m_Coords.size() == 0)
+		m_Coords.svgMoveTo(s.x(), s.y());
+	m_Coords.svgLineTo(x * m_resX, y * m_resY);
+	m_currentPoint = QPoint(x * m_resX, y * m_resY);
+	m_lineMode = true;
 //	qDebug() << "Handle Line from" << s << "->" << currentPoint;
 }
 
@@ -1756,7 +1756,7 @@ void PctPlug::handlePixmap(QDataStream &ts, quint16 opCode)
 		}
 		else
 			ts >> pixByteCount;
-		if (!skipOpcode)
+		if (!m_skipOpcode)
 		{
 			QByteArray data;
 			data.resize(pixByteCount);
@@ -1840,18 +1840,18 @@ void PctPlug::handlePixmap(QDataStream &ts, quint16 opCode)
 			ts.skipRawData(pixByteCount);
 		}
 	}
-	if (skipOpcode)
+	if (m_skipOpcode)
 	{
-		image.loadFromData(imageData);
+		image.loadFromData(m_imageData);
 		isPixmap = true;
-		imageData.resize(0);
+		m_imageData.resize(0);
 	}
-	if ((component_size == 24) || (component_size == 8) || (component_size == 1) || (component_size == 5) || (component_size == 4) || (!isPixmap) || (skipOpcode))
+	if ((component_size == 24) || (component_size == 8) || (component_size == 1) || (component_size == 5) || (component_size == 4) || (!isPixmap) || (m_skipOpcode))
 	{
 		image = image.convertToFormat(QImage::Format_ARGB32);
 		if (!isPixmap)
 			image.invertPixels();
-		int z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, baseX + dstRect.left() * resX, baseY + dstRect.top() * resY, imgCols * resY, imgRows * resY, 0, m_Doc->itemToolPrefs().imageFillColor, m_Doc->itemToolPrefs().imageStrokeColor, true);
+		int z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, m_baseX + dstRect.left() * m_resX, m_baseY + dstRect.top() * m_resY, imgCols * m_resY, imgRows * m_resY, 0, m_Doc->itemToolPrefs().imageFillColor, m_Doc->itemToolPrefs().imageStrokeColor, true);
 		PageItem *ite = m_Doc->Items->at(z);
 		QTemporaryFile *tempFile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_pct_XXXXXX.png");
 		tempFile->setAutoRemove(false);
@@ -1862,12 +1862,12 @@ void PctPlug::handlePixmap(QDataStream &ts, quint16 opCode)
 		ite->isInlineImage = true;
 		ite->isTempFile = true;
 		image.save(fileName, "PNG");
-		ite->moveBy(baseX, baseY);
-		ite->moveBy(offsetX, offsetY);
+		ite->moveBy(m_baseX, m_baseY);
+		ite->moveBy(m_offsetX, m_offsetY);
 		finishItem(ite);
 		m_Doc->loadPict(fileName, ite);
 		ite->setImageScalingMode(false, false);
-		skipOpcode = false;
+		m_skipOpcode = false;
 	}
 	alignStreamToWord(ts, 0);
 }
@@ -1921,9 +1921,9 @@ void PctPlug::handleQuickTime(QDataStream &ts, quint16 opCode)
 			ts >> dummyLong;
 			ts >> imgDataSize;
 			alignStreamToWord(ts, 38);
-			imageData.resize(imgDataSize);
-			ts.readRawData(imageData.data(), imgDataSize);
-			skipOpcode = true;
+			m_imageData.resize(imgDataSize);
+			ts.readRawData(m_imageData.data(), imgDataSize);
+			m_skipOpcode = true;
 		}
 	}
 	else
@@ -1936,7 +1936,7 @@ void PctPlug::handleQuickTime(QDataStream &ts, quint16 opCode)
 		}
 		ts >> mode;
 		handlePixmap(ts, mode);
-		skipOpcode = true;
+		m_skipOpcode = true;
 	}
 	ts.device()->seek(pos + dataLenLong);
 //	qDebug() << "File Pos" << ts.device()->pos();
@@ -2031,12 +2031,12 @@ void PctPlug::handleComment(QDataStream &ts, bool longComment)
 //			qDebug() << "Comment type: SetLineWidth";
 			break;
 		case 190:			// PostScriptBegin
-			postscriptMode = true;
+			m_postscriptMode = true;
 //			qDebug() << "Comment type: PostScriptBegin";
 			break;
 		case 191:			// PostScriptEnd
-			postscriptMode = false;
-			textIsPostScript = false;
+			m_postscriptMode = false;
+			m_textIsPostScript = false;
 //			qDebug() << "Comment type: PostScriptEnd";
 			break;
 		case 192:			// PostScriptHandle
@@ -2046,7 +2046,7 @@ void PctPlug::handleComment(QDataStream &ts, bool longComment)
 //			qDebug() << "Comment type: PostScriptFile";
 			break;
 		case 194:			// TextIsPostScript
-			textIsPostScript = true;
+			m_textIsPostScript = true;
 //			qDebug() << "Comment type: TextIsPostScript";
 			break;
 		case 195:			// ResourcePS
@@ -2175,20 +2175,20 @@ void PctPlug::setFillPattern(PageItem* ite)
 	uint oldNum = m_Doc->TotalItems;
 	QString patternName;
 	quint32 patDat1, patDat2;
-	QDataStream bu(&patternData, QIODevice::ReadOnly);
+	QDataStream bu(&m_patternData, QIODevice::ReadOnly);
 	bu >> patDat1 >> patDat2;
-	QString patNa = QString("%1%2%3%4").arg(backColor.name()).arg(foreColor.name()).arg(patDat1, 8, 16, QLatin1Char('0')).arg(patDat2, 8, 16, QLatin1Char('0'));
-	if (!patternMap.contains(patNa))
+	QString patNa = QString("%1%2%3%4").arg(m_backColor.name()).arg(m_foreColor.name()).arg(patDat1, 8, 16, QLatin1Char('0')).arg(patDat2, 8, 16, QLatin1Char('0'));
+	if (!m_patternMap.contains(patNa))
 	{
 		QImage image = QImage(8, 8, QImage::Format_Mono);
 		QVector<QRgb> colors;
-		colors.append(backColor.rgb());
-		colors.append(foreColor.rgb());
+		colors.append(m_backColor.rgb());
+		colors.append(m_foreColor.rgb());
 		image.setColorTable(colors);
 		for (int rr = 0; rr < 8; rr++)
 		{
 			uchar *q = (uchar*)(image.scanLine(rr));
-			*q = patternData[rr];
+			*q = m_patternData[rr];
 		}
 		image = image.convertToFormat(QImage::Format_ARGB32);
 		ScPattern pat = ScPattern();
@@ -2224,11 +2224,11 @@ void PctPlug::setFillPattern(PageItem* ite)
 		patternName = "Pattern_"+newItem->itemName();
 		patternName = patternName.trimmed().simplified().replace(" ", "_");
 		m_Doc->addPattern(patternName, pat);
-		importedPatterns.append(patternName);
-		patternMap.insert(patNa, patternName);
+		m_importedPatterns.append(patternName);
+		m_patternMap.insert(patNa, patternName);
 	}
 	else
-		patternName = patternMap[patNa];
+		patternName = m_patternMap[patNa];
 	ite->setPattern(patternName);
 	ite->GrType = 8;
 	m_Doc->TotalItems = oldNum;
@@ -2237,25 +2237,25 @@ void PctPlug::setFillPattern(PageItem* ite)
 
 void PctPlug::handleLineModeEnd()
 {
-	if ((Coords.size() > 3) && lineMode)
+	if ((m_Coords.size() > 3) && m_lineMode)
 	{
-		int z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX, baseY, 10, 10, LineW, CommonStrings::None, CurrColorStroke, true);
+		int z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, m_baseX, m_baseY, 10, 10, m_LineW, CommonStrings::None, m_CurrColorStroke, true);
 		PageItem *ite = m_Doc->Items->at(z);
-		ite->PoLine = Coords.copy();
-		ite->PoLine.translate(offsetX, offsetY);
+		ite->PoLine = m_Coords.copy();
+		ite->PoLine.translate(m_offsetX, m_offsetY);
 		finishItem(ite);
 	}
-	Coords.resize(0);
-	Coords.svgInit();
-	lineMode = false;
+	m_Coords.resize(0);
+	m_Coords.svgInit();
+	m_lineMode = false;
 }
 
 void PctPlug::finishItem(PageItem* ite)
 {
 	ite->ClipEdited = true;
 	ite->FrameType = 3;
-	ite->setFillShade(CurrFillShade);
-	ite->setLineShade(CurrStrokeShade);
+	ite->setFillShade(m_CurrFillShade);
+	ite->setLineShade(m_CurrStrokeShade);
 	FPoint wh = getMaxClipF(&ite->PoLine);
 	ite->setWidthHeight(wh.x(),wh.y());
 	ite->setTextFlowMode(PageItem::TextFlowDisabled);
@@ -2263,8 +2263,8 @@ void PctPlug::finishItem(PageItem* ite)
 	ite->OldB2 = ite->width();
 	ite->OldH2 = ite->height();
 	ite->updateClip();
-	Elements.append(ite);
-	lastCoords = Coords;
-	Coords.resize(0);
-	Coords.svgInit();
+	m_Elements.append(ite);
+	m_lastCoords = m_Coords;
+	m_Coords.resize(0);
+	m_Coords.svgInit();
 }

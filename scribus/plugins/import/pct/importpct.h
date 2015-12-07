@@ -91,59 +91,59 @@ private:
 	void handleLineModeEnd();
 	void finishItem(PageItem* ite);
 	
-	QList<PageItem*> Elements;
-	int currentItemNr;
-	QStack<QList<PageItem*> > groupStack;
-	ColorList CustColors;
-	double baseX, baseY;
-	double offsetX, offsetY;
-	double docWidth;
-	double docHeight;
-	double resX, resY;
+	QList<PageItem*> m_Elements;
+	int m_currentItemNr;
+	QStack<QList<PageItem*> > m_groupStack;
+	ColorList m_CustColors;
+	double m_baseX, m_baseY;
+	double m_offsetX, m_offsetY;
+	double m_docWidth;
+	double m_docHeight;
+	double m_resX, m_resY;
 
-	double LineW;
-	QString CurrColorFill;
-	QColor backColor;
-	QString CurrColorStroke;
-	QColor foreColor;
-	double CurrStrokeShade;
-	double CurrFillShade;
-	bool patternMode;
-	QByteArray patternData;
-	QMap<QString, QString> patternMap;
-	QRect currRect;
-	int currRectItemNr;
-	int currRectType;
-	QRect lastImageRect;
-	QStringList importedColors;
-	QStringList importedPatterns;
-	QPoint ovalSize;
-	QMap<int, QString> fontMap;
-	int currentTextSize;
-	int currentFontID;
-	int currentFontStyle;
-	FPointArray lastCoords;
-	QByteArray imageData;
+	double m_LineW;
+	QString m_CurrColorFill;
+	QColor m_backColor;
+	QString m_CurrColorStroke;
+	QColor m_foreColor;
+	double m_CurrStrokeShade;
+	double m_CurrFillShade;
+	bool m_patternMode;
+	QByteArray m_patternData;
+	QMap<QString, QString> m_patternMap;
+	QRect m_currRect;
+	int m_currRectItemNr;
+	int m_currRectType;
+	QRect m_lastImageRect;
+	QStringList m_importedColors;
+	QStringList m_importedPatterns;
+	QPoint m_ovalSize;
+	QMap<int, QString> m_fontMap;
+	int m_currentTextSize;
+	int m_currentFontID;
+	int m_currentFontStyle;
+	FPointArray m_lastCoords;
+	QByteArray m_imageData;
 
-	FPointArray Coords;
-	QPoint currentPoint;
-	QPoint currentPointT;
-	bool lineMode;
-	bool postscriptMode;
-	bool textIsPostScript;
-	bool interactive;
-	MultiProgressDialog * progressDialog;
-	bool cancel;
+	FPointArray m_Coords;
+	QPoint m_currentPoint;
+	QPoint m_currentPointT;
+	bool m_lineMode;
+	bool m_postscriptMode;
+	bool m_textIsPostScript;
+	bool m_interactive;
+	MultiProgressDialog * m_progressDialog;
+	bool m_cancel;
 	ScribusDoc* m_Doc;
-	Selection* tmpSel;
-	int importerFlags;
-	int oldDocItemCount;
-	QString baseFile;
-	int pctVersion;
-	bool skipOpcode;
+	Selection* m_tmpSel;
+	int m_importerFlags;
+	int m_oldDocItemCount;
+	QString m_baseFile;
+	int m_pctVersion;
+	bool m_skipOpcode;
 
 public slots:
-	void cancelRequested() { cancel = true; }
+	void cancelRequested() { m_cancel = true; }
 };
 
 #endif
