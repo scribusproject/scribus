@@ -47,7 +47,7 @@ class PLUGIN_API ImportPSPlugin : public LoadSavePlugin
 
 	private:
 		void registerFormats();
-		ScrAction* importAction;
+		ScrAction* m_importAction;
 };
 
 extern "C" PLUGIN_API int importps_getPluginAPIVersion();

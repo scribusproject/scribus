@@ -42,7 +42,7 @@ void importps_freePlugin(ScPlugin* plugin)
 }
 
 ImportPSPlugin::ImportPSPlugin() : LoadSavePlugin(),
-	importAction(new ScrAction(ScrAction::DLL, "", QKeySequence(), this))
+	m_importAction(new ScrAction(ScrAction::DLL, "", QKeySequence(), this))
 {
 	// Set action info in languageChange, so we only have to do it in one
 	// place. This includes registering file format support.
@@ -59,7 +59,7 @@ void ImportPSPlugin::addToMainWindowMenu(ScribusMainWindow *mw)
 */
 void ImportPSPlugin::languageChange()
 {
-	importAction->setText( tr("Import PostScript..."));
+	m_importAction->setText( tr("Import PostScript..."));
 	// (Re)register file format support
 	//unregisterAll();
 	//registerFormats();
