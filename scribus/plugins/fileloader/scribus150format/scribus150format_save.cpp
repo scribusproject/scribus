@@ -184,8 +184,8 @@ bool Scribus150Format::saveFile(const QString & fileName, const FileFormat & /* 
 	std::auto_ptr<QIODevice> outputFile;
 	if (fileName.toLower().right(2) == "gz")
 	{
-		aFile.setFileName(tmpFileName);
-		QtIOCompressor *compressor = new QtIOCompressor(&aFile);
+		m_aFile.setFileName(tmpFileName);
+		QtIOCompressor *compressor = new QtIOCompressor(&m_aFile);
 		compressor->setStreamFormat(QtIOCompressor::GzipFormat);
 		outputFile.reset(compressor);
 	}

@@ -192,29 +192,29 @@ class PLUGIN_API Scribus150Format : public LoadSavePlugin
 		void WriteObjects(ScribusDoc *doc, ScXmlStreamWriter& docu, const QString& baseDir, QProgressBar *dia2, uint maxC, ItemSelection master, QList<PageItem*> *items = 0);
 		void SetItemProps(ScXmlStreamWriter& docu, PageItem* item, const QString& baseDir);
 
-		QMap<QString, QString> parStyleMap;
+		QMap<QString, QString> m_parStyleMap;
 		
-		QMap<int, int> itemRemap;
-		QMap<int, int> itemNext;
-		QMap<int, int> itemRemapF;
-		QMap<int, int> itemNextF;
-		QMap<int, int> itemRemapM;
-		QMap<int, int> itemNextM;
-		QMap<int,PageItem*> LinkID;
-		QList<PageItem*> FrameItems;
-		QMap<PageItem*, QString> itemsWeld;  //item* and master name
+		QMap<int, int> m_itemRemap;
+		QMap<int, int> m_itemNext;
+		QMap<int, int> m_itemRemapF;
+		QMap<int, int> m_itemNextF;
+		QMap<int, int> m_itemRemapM;
+		QMap<int, int> m_itemNextM;
+		QMap<int,PageItem*> m_LinkID;
+		QList<PageItem*> m_FrameItems;
+		QMap<PageItem*, QString> m_itemsWeld;  //item* and master name
 
-		int itemCount;
-		int itemCountM;
-		bool layerFound;
-		int LayerToPaste;
-		double Xp;
-		double GrX;
-		double Yp;
-		double GrY;
-		QString clipPath;
-		bool isNewFormat;
-		QFile aFile;
+		int m_itemCount;
+		int m_itemCountM;
+		bool m_layerFound;
+		int m_LayerToPaste;
+		double m_Xp;
+		double m_GrX;
+		double m_Yp;
+		double m_GrY;
+		QString m_clipPath;
+		bool m_isNewFormat;
+		QFile m_aFile;
 };
 
 extern "C" PLUGIN_API int scribus150format_getPluginAPIVersion();
