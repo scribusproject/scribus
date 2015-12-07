@@ -46,7 +46,7 @@ void importodg_freePlugin(ScPlugin* plugin)
 }
 
 ImportOdgPlugin::ImportOdgPlugin() : LoadSavePlugin(),
-	importAction(new ScrAction(ScrAction::DLL, "", QKeySequence(), this))
+	m_importAction(new ScrAction(ScrAction::DLL, "", QKeySequence(), this))
 {
 	// Set action info in languageChange, so we only have to do it in one
 	// place. This includes registering file format support.
@@ -56,7 +56,7 @@ ImportOdgPlugin::ImportOdgPlugin() : LoadSavePlugin(),
 
 void ImportOdgPlugin::languageChange()
 {
-	importAction->setText( tr("Import ODF Document..."));
+	m_importAction->setText( tr("Import ODF Document..."));
 	FileFormat* fmt = getFormatByExt("odg");
 	fmt->trName = tr("ODF Drawing", "Import/export format name");
 	fmt->filter = tr("ODF Drawing (*.odg *.ODG *.fodg *.FODG)");
