@@ -16,7 +16,7 @@ PictureBrowserPlugin::PictureBrowserPlugin() : ScActionPlugin()
 	// Set action info in languageChange, so we only have to do
 	// it in one place.
 	languageChange();
-	pictureBrowser = 0;
+	m_pictureBrowser = 0;
 }
 
 PictureBrowserPlugin::~PictureBrowserPlugin()
@@ -69,44 +69,44 @@ void PictureBrowserPlugin::deleteAboutData ( const AboutData* about ) const
 bool PictureBrowserPlugin::run ( ScribusDoc* doc, QString target )
 {
 	//picturebrowser isn't running yet, so create it
-	if ( !pictureBrowser )
+	if ( !m_pictureBrowser )
 	{
-		pictureBrowser = new PictureBrowser ( doc, 0 );
+		m_pictureBrowser = new PictureBrowser ( doc, 0 );
 
-		if ( !pictureBrowser )
+		if ( !m_pictureBrowser )
 		{
 			return false;
 		}
 
-		connect ( pictureBrowser, SIGNAL ( destroyed() ), this, SLOT ( pictureBrowserClosed() ) );
+		connect ( m_pictureBrowser, SIGNAL ( destroyed() ), this, SLOT ( pictureBrowserClosed() ) );
 	}
 	//picturebrowser exists, just bring it to the top
 	else
 	{
-		pictureBrowser->hide();
+		m_pictureBrowser->hide();
 	}
 
-	Q_CHECK_PTR ( pictureBrowser );
+	Q_CHECK_PTR ( m_pictureBrowser );
 
-	pictureBrowser->setAttribute ( Qt::WA_DeleteOnClose );
+	m_pictureBrowser->setAttribute ( Qt::WA_DeleteOnClose );
 	//show, get on top and activate window
-	pictureBrowser->show();
-	pictureBrowser->raise();
-	pictureBrowser->activateWindow();
+	m_pictureBrowser->show();
+	m_pictureBrowser->raise();
+	m_pictureBrowser->activateWindow();
 
 	return true;
 }
 
 void PictureBrowserPlugin::setDoc ( ScribusDoc* doc )
 {
-	if ( pictureBrowser )
-		pictureBrowser->changedDocument ( doc );
+	if ( m_pictureBrowser )
+		m_pictureBrowser->changedDocument ( doc );
 }
 
 void PictureBrowserPlugin::unsetDoc()
 {
-	if ( pictureBrowser )
-		pictureBrowser->closedDocument();
+	if ( m_pictureBrowser )
+		m_pictureBrowser->closedDocument();
 }
 
 void PictureBrowserPlugin::changedDoc ( ScribusDoc* doc )
@@ -117,18 +117,18 @@ void PictureBrowserPlugin::changedDoc ( ScribusDoc* doc )
 
 void PictureBrowserPlugin::closePictureBrowser()
 {
-	if (pictureBrowser)
+	if (m_pictureBrowser)
 	{
-		if (pictureBrowser->isVisible())
-			pictureBrowser->close();
-		delete pictureBrowser;
-		pictureBrowser = NULL;
+		if (m_pictureBrowser->isVisible())
+			m_pictureBrowser->close();
+		delete m_pictureBrowser;
+		m_pictureBrowser = NULL;
 	}
 }
 
 void PictureBrowserPlugin::pictureBrowserClosed()
 {
-	pictureBrowser = NULL;
+	m_pictureBrowser = NULL;
 }
 
 // Low level plugin API
