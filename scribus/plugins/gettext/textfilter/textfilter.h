@@ -22,16 +22,16 @@ extern "C" PLUGIN_API QStringList FileExtensions();
 class TextFilter
 {
 private:
-	PrefsContext* prefs;
-	QString text;
-	QString encoding;
-	QString filename;
-	gtWriter* writer;
-	std::vector<tfFilter*> *filters;
+	PrefsContext* m_prefs;
+	QString m_text;
+	QString m_encoding;
+	QString m_filename;
+	gtWriter* m_writer;
+	std::vector<tfFilter*> *m_filters;
 	void loadText();
 	void write();
-	void replace(QString* text);
-	void replaceHex(QString* text);
+	void replace(QString* m_text);
+	void replaceHex(QString* m_text);
 public:
 	TextFilter(const QString& fname, const QString& enc, gtWriter* w);
 	~TextFilter();
