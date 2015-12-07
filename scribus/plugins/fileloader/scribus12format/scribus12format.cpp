@@ -705,13 +705,13 @@ bool Scribus12Format::loadFile(const QString & fileName, const FileFormat & /* f
 // 	ReplacedFonts.clear();
 // 	newReplacement = false;
 // 	dummyScFaces.clear();
-	DoVorl.clear();
-	DoVorl[0] = "";
-	DoVorl[1] = "";
-	DoVorl[2] = "";
-	DoVorl[3] = "";
-	DoVorl[4] = "";
-	VorlC = 5;
+	m_DoVorl.clear();
+	m_DoVorl[0] = "";
+	m_DoVorl[1] = "";
+	m_DoVorl[2] = "";
+	m_DoVorl[3] = "";
+	m_DoVorl[4] = "";
+	m_VorlC = 5;
 	
 //start old ReadDoc
 	//Scribus 1.2 docs, see fileloader.cpp for 1.3 docs
@@ -726,9 +726,9 @@ bool Scribus12Format::loadFile(const QString & fileName, const FileFormat & /* f
 	int x, a;
 //	double xf, xf2;
 	PageItem *Neu;
-	groupRemap.clear();
-	itemRemap.clear();
-	itemNext.clear();
+	m_groupRemap.clear();
+	m_itemRemap.clear();
+	m_itemNext.clear();
 	QDomDocument docu("scridoc");
 	QFile fi(fileName);
 	// Load the document text
@@ -1003,13 +1003,13 @@ bool Scribus12Format::loadFile(const QString & fileName, const FileFormat & /* f
 					{
 						const long long itemID = scribus12itemID(pageItem++, pageNo);
 //						qDebug() << QString("1.2 remap: %1 -> %2 [%3 on page %4]").arg(itemID).arg(m_Doc->Items->count()).arg(pageItem-1).arg(pageNo);
-						itemRemap[itemID] = m_Doc->Items->count();
+						m_itemRemap[itemID] = m_Doc->Items->count();
 						if (obj.tagName()=="PAGEOBJECT")
 						{
 							// member of linked chain?
 							if (obj.attribute("NEXTITEM").toInt() != -1)
 							{
-								itemNext[m_Doc->Items->count()] = scribus12itemID(obj.attribute("NEXTITEM").toInt(), obj.attribute("NEXTPAGE").toInt());
+								m_itemNext[m_Doc->Items->count()] = scribus12itemID(obj.attribute("NEXTITEM").toInt(), obj.attribute("NEXTPAGE").toInt());
 							}
 						}
 					}
@@ -1041,13 +1041,13 @@ bool Scribus12Format::loadFile(const QString & fileName, const FileFormat & /* f
 						for (int cx = 0; cx < obj.attribute("NUMGROUP", "0").toInt(); ++cx)
 						{
 							fg >> x;
-							gIt = groupRemap.find(x);
-							if (gIt != groupRemap.end())
+							gIt = m_groupRemap.find(x);
+							if (gIt != m_groupRemap.end())
 								OB.Groups.push(gIt.value());
 							else
 							{
 								OB.Groups.push(groupMax); 
-								groupRemap.insert(x, groupMax);
+								m_groupRemap.insert(x, groupMax);
 								++groupMax;
 							}
 						}
@@ -1238,7 +1238,7 @@ bool Scribus12Format::loadFile(const QString & fileName, const FileFormat & /* f
 						ef.Dm = pdfF.attribute("Dm").toInt();
 						ef.M = pdfF.attribute("M").toInt();
 						ef.Di = pdfF.attribute("Di").toInt();
-						EffVal.append(ef);
+						m_EffVal.append(ef);
 					}
 					PFO = PFO.nextSibling();
 				}
@@ -1252,12 +1252,12 @@ bool Scribus12Format::loadFile(const QString & fileName, const FileFormat & /* f
 	//m_Doc->Items = m_Doc->DocItems;
 	m_Doc->setMasterPageMode(false);
 	m_View->reformPages();
-	if (!EffVal.isEmpty())
+	if (!m_EffVal.isEmpty())
 	{
-		for (int pdoE = 0; pdoE < EffVal.count(); ++pdoE)
+		for (int pdoE = 0; pdoE < m_EffVal.count(); ++pdoE)
 		{
 			if (pdoE < m_Doc->Pages->count())
-				m_Doc->Pages->at(pdoE)->PresentVals = EffVal[pdoE];
+				m_Doc->Pages->at(pdoE)->PresentVals = m_EffVal[pdoE];
 		}
 	}
 
@@ -1271,14 +1271,14 @@ bool Scribus12Format::loadFile(const QString & fileName, const FileFormat & /* f
 	m_Doc->setActiveLayer(activeLayer);
 	
 	// reestablish textframe links
-	if (itemNext.count() != 0)
+	if (m_itemNext.count() != 0)
 	{
 		QMap<int,long long>::Iterator lc;
-		for (lc = itemNext.begin(); lc != itemNext.end(); ++lc)
+		for (lc = m_itemNext.begin(); lc != m_itemNext.end(); ++lc)
 		{
 //			qDebug() << QString("1.2 textframe links: %1->%2[%3]").arg(lc.key()).arg(itemRemap[lc.data()]).arg(lc.data());
 			PageItem *Its = m_Doc->Items->at(lc.key());
-			PageItem *Itn = m_Doc->Items->at(itemRemap[lc.value()]);
+			PageItem *Itn = m_Doc->Items->at(m_itemRemap[lc.value()]);
 			assert(Its && Its->asTextFrame());
 			assert(Itn && Itn->asTextFrame());
 			if (!Its->testLinkCandidate(Itn))
@@ -1800,7 +1800,7 @@ void Scribus12Format::GetItemText(QDomElement *it, ScribusDoc *doc, bool VorLFou
 				pstyle.setAlignment(static_cast<ParagraphStyle::AlignmentType>(ab));
 			}
 			else if (VorLFound) {
-				pstyle.setParent( DoVorl[ab] );
+				pstyle.setParent( m_DoVorl[ab] );
 			}
 			obj->itemText.applyStyle(pos, pstyle); 
 		}
@@ -1821,9 +1821,9 @@ bool Scribus12Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 	ParagraphStyle vg;
 	struct ScribusDoc::BookMa bok;
 	PageItem *Neu;
-	groupRemap.clear();
-	itemRemap.clear();
-	itemNext.clear();
+	m_groupRemap.clear();
+	m_itemRemap.clear();
+	m_itemNext.clear();
 	QString tmV, tmp, tmpf, tmp2, tmp3, tmp4, PgNam, Defont, tmf;
 	QMap<int,int> TableID;
 	QList<PageItem*> TableItems;
@@ -1840,13 +1840,13 @@ bool Scribus12Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 		maxLayer = qMax(m_Doc->Layers[la2].ID, maxLayer);
 		maxLevel = qMax(m_Doc->Layers[la2].Level, maxLevel);
 	}
-	DoVorl.clear();
-	DoVorl[0] = "";
-	DoVorl[1] = "";
-	DoVorl[2] = "";
-	DoVorl[3] = "";
-	DoVorl[4] = "";
-	VorlC = 5;
+	m_DoVorl.clear();
+	m_DoVorl[0] = "";
+	m_DoVorl[1] = "";
+	m_DoVorl[2] = "";
+	m_DoVorl[3] = "";
+	m_DoVorl[4] = "";
+	m_VorlC = 5;
 	QDomDocument docu("scridoc");
 	QString f(readSLA(fileName));
 	if (f.isEmpty())
@@ -2004,13 +2004,13 @@ bool Scribus12Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 				/*
 				* Attribute von OBJECT auslesen
 				*/
-					itemRemap[scribus12itemID(pageItem++, pageNumber)] = m_Doc->Items->count();
+					m_itemRemap[scribus12itemID(pageItem++, pageNumber)] = m_Doc->Items->count();
 					if (obj.tagName()=="PAGEOBJECT")
 					{
 						// member of linked chain?
 						if ((obj.attribute("NEXTITEM").toInt() != -1) && (obj.attribute("NEXTPAGE").toInt() == pageNumber))
 						{
-							itemNext[m_Doc->Items->count()] = scribus12itemID(obj.attribute("NEXTITEM").toInt(), pageNumber);
+							m_itemNext[m_Doc->Items->count()] = scribus12itemID(obj.attribute("NEXTITEM").toInt(), pageNumber);
 						}
 					}
 					GetItemProps(&obj, &OB, fileDir, newVersion);
@@ -2045,13 +2045,13 @@ bool Scribus12Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 						for (int cx = 0; cx < obj.attribute("NUMGROUP", "0").toInt(); ++cx)
 						{
 							fg >> x;
-							gIt = groupRemap.find(x);
-							if (gIt != groupRemap.end())
+							gIt = m_groupRemap.find(x);
+							if (gIt != m_groupRemap.end())
 								OB.Groups.push(gIt.value());
 							else
 							{
 								OB.Groups.push(groupMax); 
-								groupRemap.insert(x, groupMax);
+								m_groupRemap.insert(x, groupMax);
 								++groupMax;
 							}
 						}
@@ -2130,13 +2130,13 @@ bool Scribus12Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 					}
 				}
 				// reestablish textframe links
-				if (itemNext.count() != 0)
+				if (m_itemNext.count() != 0)
 				{
 					QMap<int,long long>::Iterator lc;
-					for (lc = itemNext.begin(); lc != itemNext.end(); ++lc)
+					for (lc = m_itemNext.begin(); lc != m_itemNext.end(); ++lc)
 					{
 						PageItem *Its = m_Doc->Items->at(lc.key());
-						PageItem *Itn = m_Doc->Items->at(itemRemap[lc.value()]);
+						PageItem *Itn = m_Doc->Items->at(m_itemRemap[lc.value()]);
 						assert(Its && Its->asTextFrame());
 						assert(Itn && Itn->asTextFrame());
 						if (!Its->testLinkCandidate(Itn))
@@ -2348,8 +2348,8 @@ void Scribus12Format::GetStyle(QDomElement *pg, ParagraphStyle *vg, StyleSet<Par
 			{
 				if (fl)
 				{
-					DoVorl[VorlC] = docParagraphStyles[xx].name();
-					VorlC++;
+					m_DoVorl[m_VorlC] = docParagraphStyles[xx].name();
+					m_VorlC++;
 				}
 				fou = true;
 			}
@@ -2371,8 +2371,8 @@ void Scribus12Format::GetStyle(QDomElement *pg, ParagraphStyle *vg, StyleSet<Par
 				fou = true;
 				if (fl)
 				{
-					DoVorl[VorlC] = docParagraphStyles[xx].name();
-					VorlC++;
+					m_DoVorl[m_VorlC] = docParagraphStyles[xx].name();
+					m_VorlC++;
 				}
 				break;
 			}
@@ -2389,8 +2389,8 @@ void Scribus12Format::GetStyle(QDomElement *pg, ParagraphStyle *vg, StyleSet<Par
 		}
 		if (fl)
 		{
-			DoVorl[VorlC] = vg->name();
-			VorlC++;
+			m_DoVorl[m_VorlC] = vg->name();
+			m_VorlC++;
 		}
 	}
 }

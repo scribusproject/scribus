@@ -62,12 +62,12 @@ class PLUGIN_API Scribus12Format : public LoadSavePlugin
 		 * unnecessary part from the view for now which is overloaded with non ScrollView code.
 		 */
 		//TODO: void PasteItem(struct CopyPasteBuffer *Buffer, bool loading, bool drag = false);
-		QMap<int,int> groupRemap;
-		QMap<long long,int> itemRemap;
-		QMap<int,long long> itemNext;
-		QMap<uint,QString> DoVorl;
-		QList<PDFPresentationData> EffVal;
-		uint VorlC;
+		QMap<int,int> m_groupRemap;
+		QMap<long long,int> m_itemRemap;
+		QMap<int,long long> m_itemNext;
+		QMap<uint,QString> m_DoVorl;
+		QList<PDFPresentationData> m_EffVal;
+		uint m_VorlC;
 		struct CopyPasteBuffer
 		{
 			PageItem::ItemType PType;
