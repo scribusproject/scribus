@@ -56,15 +56,15 @@ TreeModel::TreeModel(const QString &data, QObject *parent)
 {
     QList<QVariant> rootData;
     rootData << "Title" << "Summary";
-    rootItem = new TreeItem(rootData);
-    setupModelData(data.split(QString("\n")), rootItem);
+    m_rootItem = new TreeItem(rootData);
+    setupModelData(data.split(QString("\n")), m_rootItem);
 }
 //! [0]
 
 //! [1]
 TreeModel::~TreeModel()
 {
-    delete rootItem;
+    delete m_rootItem;
 }
 //! [1]
 
@@ -74,7 +74,7 @@ int TreeModel::columnCount(const QModelIndex &parent) const
     if (parent.isValid())
         return static_cast<TreeItem*>(parent.internalPointer())->columnCount();
     else
-        return rootItem->columnCount();
+        return m_rootItem->columnCount();
 }
 //! [2]
 
@@ -108,7 +108,7 @@ QVariant TreeModel::headerData(int section, Qt::Orientation orientation,
                                int role) const
 {
     if (orientation == Qt::Horizontal && role == Qt::DisplayRole)
-        return rootItem->data(section);
+        return m_rootItem->data(section);
 
     return QVariant();
 }
@@ -124,7 +124,7 @@ QModelIndex TreeModel::index(int row, int column, const QModelIndex &parent)
     TreeItem *parentItem;
 
     if (!parent.isValid())
-        parentItem = rootItem;
+        parentItem = m_rootItem;
     else
         parentItem = static_cast<TreeItem*>(parent.internalPointer());
 
@@ -145,7 +145,7 @@ QModelIndex TreeModel::parent(const QModelIndex &index) const
     TreeItem *childItem = static_cast<TreeItem*>(index.internalPointer());
     TreeItem *parentItem = childItem->parent();
 
-    if (parentItem == rootItem)
+    if (parentItem == m_rootItem)
         return QModelIndex();
 
     return createIndex(parentItem->row(), 0, parentItem);
@@ -160,7 +160,7 @@ int TreeModel::rowCount(const QModelIndex &parent) const
         return 0;
 
     if (!parent.isValid())
-        parentItem = rootItem;
+        parentItem = m_rootItem;
     else
         parentItem = static_cast<TreeItem*>(parent.internalPointer());
 

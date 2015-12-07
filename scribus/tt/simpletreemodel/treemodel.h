@@ -72,7 +72,7 @@ public:
 protected:
     void setupModelData(const QStringList &lines, TreeItem *parent);
 
-    TreeItem *rootItem;
+	TreeItem *m_rootItem;
 };
 //! [0]
 
