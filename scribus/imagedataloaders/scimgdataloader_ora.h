@@ -26,8 +26,8 @@ protected:
 	void parseStackXML(QDomElement &elem, ScPainter *painter, ScZipHandler *uz);
 	int blendModeToInt(QString compositeOp);
 	QString blendModeToString(QString compositeOp);
-	int inSubLayer;
-	int layerCount;
+	int m_inSubLayer;
+	int m_layerCount;
 };
 
 #endif
