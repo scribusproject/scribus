@@ -42,7 +42,7 @@ void importcdr_freePlugin(ScPlugin* plugin)
 }
 
 ImportCdrPlugin::ImportCdrPlugin() : LoadSavePlugin(),
-	importAction(new ScrAction(ScrAction::DLL, QPixmap(), QPixmap(), "", QKeySequence(), this))
+	m_importAction(new ScrAction(ScrAction::DLL, QPixmap(), QPixmap(), "", QKeySequence(), this))
 {
 	// Set action info in languageChange, so we only have to do it in one
 	// place. This includes registering file format support.
@@ -52,7 +52,7 @@ ImportCdrPlugin::ImportCdrPlugin() : LoadSavePlugin(),
 
 void ImportCdrPlugin::languageChange()
 {
-	importAction->setText( tr("Import Corel Draw..."));
+	m_importAction->setText( tr("Import Corel Draw..."));
 	FileFormat* fmt = getFormatByExt("cdr");
 	fmt->trName = tr("Corel Draw");
 	fmt->filter = tr("Corel Draw (*.ccx *.CCX *.cdr *.CDR *.cdt *.CDT *.cmx *.CMX)");
