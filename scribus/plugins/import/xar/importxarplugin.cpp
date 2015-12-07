@@ -40,7 +40,7 @@ void importxar_freePlugin(ScPlugin* plugin)
 }
 
 ImportXarPlugin::ImportXarPlugin() : LoadSavePlugin(),
-	importAction(new ScrAction(ScrAction::DLL, QPixmap(), QPixmap(), "", QKeySequence(), this))
+	m_importAction(new ScrAction(ScrAction::DLL, QPixmap(), QPixmap(), "", QKeySequence(), this))
 {
 	// Set action info in languageChange, so we only have to do it in one
 	// place. This includes registering file format support.
@@ -50,7 +50,7 @@ ImportXarPlugin::ImportXarPlugin() : LoadSavePlugin(),
 
 void ImportXarPlugin::languageChange()
 {
-	importAction->setText( tr("Import Xara..."));
+	m_importAction->setText( tr("Import Xara..."));
 	FileFormat* fmt = getFormatByExt("xar");
 	fmt->trName = tr("XARA");
 	fmt->filter = tr("XARA (*.xar *.XAR)");

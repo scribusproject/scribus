@@ -49,7 +49,7 @@ class PLUGIN_API ImportXarPlugin : public LoadSavePlugin
 
 	private:
 		void registerFormats();
-		ScrAction* importAction;
+		ScrAction* m_importAction;
 };
 
 extern "C" PLUGIN_API int importxar_getPluginAPIVersion();
