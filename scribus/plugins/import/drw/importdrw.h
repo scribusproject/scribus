@@ -46,7 +46,7 @@ public:
 	\param showProgress if progress must be displayed
 	\retval EPSPlug plugin
 	*/
-	DrwPlug( ScribusDoc* doc, int flags );
+	DrwPlug( ScribusDoc* doc, int m_flags );
 	~DrwPlug();
 
 	/*!
@@ -59,7 +59,7 @@ public:
 	\param showProgress if progress must be displayed
 	\retval bool true if import was ok
 	 */
-	bool import(QString fn, const TransactionSettings& trSettings, int flags, bool showProgress = true);
+	bool import(QString fn, const TransactionSettings& trSettings, int m_flags, bool showProgress = true);
 	QImage readThumbnail(QString fn);
 
 private:
@@ -67,8 +67,8 @@ private:
 	void decodeCmdData(QDataStream &ts, uint dataLen, quint8 cmd);
 	void decodeCmd(quint8 cmd, int pos);
 	void decodeSymbol(QDataStream &ds, bool last = false);
-	void handleLineStyle(PageItem* currentItem, quint8 flags, QString lineColor);
-	void handleGradient(PageItem* currentItem, quint8 patternIndex, QString fillColor, QString backColor, QRectF bBox);
+	void handleLineStyle(PageItem* m_currentItem, quint8 m_flags, QString m_lineColor);
+	void handleGradient(PageItem* m_currentItem, quint8 m_patternIndex, QString m_fillColor, QString m_backColor, QRectF m_bBox);
 	void handlePreviewBitmap(QDataStream &ds);
 	QString handleColor(ScColor &color, QString proposedName);
 	void getCommonData(QDataStream &ds);
@@ -100,7 +100,7 @@ private:
 		QPointF posPivot;
 		QList<PageItem*> GElements;
 	};
-	QStack<DRWGroup> groupStack;
+	QStack<DRWGroup> m_groupStack;
 	struct DRWObjectList
 	{
 		double groupX;
@@ -117,7 +117,7 @@ private:
 		PageItem* groupItem;
 		QList<PageItem*> GElements;
 	};
-	QStack<DRWObjectList> listStack;
+	QStack<DRWObjectList> m_listStack;
 	struct DRWGradient
 	{
 		int type;
@@ -125,77 +125,77 @@ private:
 		double yOffset;
 		double angle;
 	};
-	QMap<int, DRWGradient> gradientMap;
-	QMap<int, QByteArray> patternDataMap;
-	QMap<QString, QString> patternMap;
-	double baseX, baseY;
-	double docWidth;
-	double docHeight;
-	QStringList importedColors;
-	QStringList importedPatterns;
-	QString lineColor;
-	QString fillColor;
-	QString backColor;
-	double lineWidth;
-	int createObjCode;
-	int nrOfPoints;
-	PageItem *currentItem;
-	quint8 flags;
-	quint8 patternIndex;
-	QRectF bBox;
+	QMap<int, DRWGradient> m_gradientMap;
+	QMap<int, QByteArray> m_patternDataMap;
+	QMap<QString, QString> m_patternMap;
+	double m_baseX, m_baseY;
+	double m_docWidth;
+	double m_docHeight;
+	QStringList m_importedColors;
+	QStringList m_importedPatterns;
+	QString m_lineColor;
+	QString m_fillColor;
+	QString m_backColor;
+	double m_lineWidth;
+	int m_createObjCode;
+	int m_nrOfPoints;
+	PageItem *m_currentItem;
+	quint8 m_flags;
+	quint8 m_patternIndex;
+	QRectF m_bBox;
 
-	QImage tmpImage;
-	QImage tmpImage2;
-	quint16 bitsPerPixel;
-	quint16 bytesScanline;
-	quint16 planes;
-	quint16 imageHeight;
-	quint16 imageWidth;
-	quint16 scanLinesRead;
-	quint8 rTrans;
-	quint8 gTrans;
-	quint8 bTrans;
-	bool imageValid;
+	QImage m_tmpImage;
+	QImage m_tmpImage2;
+	quint16 m_bitsPerPixel;
+	quint16 m_bytesScanline;
+	quint16 m_planes;
+	quint16 m_imageHeight;
+	quint16 m_imageWidth;
+	quint16 m_scanLinesRead;
+	quint8 m_rTrans;
+	quint8 m_gTrans;
+	quint8 m_bTrans;
+	bool m_imageValid;
 
-	quint8 fontID;
-	quint8 fontStyle;
-	quint16 nrOfChars;
-	quint16 fontSize;
-	quint16 fontWidth;
-	quint16 nrOfParagraphs;
-	quint16 paragraphCounter;
-	QString fontName;
-	QString fontColor;
+	quint8 m_fontID;
+	quint8 m_fontStyle;
+	quint16 m_nrOfChars;
+	quint16 m_fontSize;
+	quint16 m_fontWidth;
+	quint16 m_nrOfParagraphs;
+	quint16 m_paragraphCounter;
+	QString m_fontName;
+	QString m_fontColor;
 	struct DRWParagraph
 	{
 		quint8 paragraphAlignment;
 		quint16 paragraphLen;
 	};
-	QList<DRWParagraph> paragraphList;
-	QMap<quint8, QString> fontMap;
+	QList<DRWParagraph> m_paragraphList;
+	QMap<quint8, QString> m_fontMap;
 
-	int symbolCount;
-	int recordCount;
+	int m_symbolCount;
+	int m_recordCount;
 
-	FPointArray Coords;
-	QByteArray cmdData;
-	double scaleFactor;
-	double scaleX;
-	double scaleY;
-	double rotationAngle;
-	QPointF posPivot;
-	bool interactive;
-	MultiProgressDialog * progressDialog;
-	bool cancel;
+	FPointArray m_Coords;
+	QByteArray m_cmdData;
+	double m_scaleFactor;
+	double m_scaleX;
+	double m_scaleY;
+	double m_rotationAngle;
+	QPointF m_posPivot;
+	bool m_interactive;
+	MultiProgressDialog * m_progressDialog;
+	bool m_cancel;
 	ScribusDoc* m_Doc;
-	Selection* tmpSel;
-	int importerFlags;
-	QString baseFile;
-	QImage thumbnailImage;
-	bool thumbRead;
+	Selection* m_tmpSel;
+	int m_importerFlags;
+	QString m_baseFile;
+	QImage m_thumbnailImage;
+	bool m_thumbRead;
 
 public slots:
-	void cancelRequested() { cancel = true; }
+	void cancelRequested() { m_cancel = true; }
 };
 
 #endif
