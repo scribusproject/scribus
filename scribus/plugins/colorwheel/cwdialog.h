@@ -36,7 +36,7 @@ class CWDialog : public QDialog, Ui::CWDialog
 		~CWDialog();
 	private:
 		/** \brief Configuration structure */
-		PrefsContext* prefs;
+		PrefsContext* m_prefs;
 		//! \brief a parent doc reference
 		ScribusDoc* m_Doc;
 

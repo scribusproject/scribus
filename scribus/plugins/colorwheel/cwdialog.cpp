@@ -50,18 +50,18 @@ CWDialog::CWDialog(QWidget* parent, ScribusDoc* doc, const char* name, bool moda
 	// document colors
 	documentColorList->updateBox(m_Doc->PageColors, ColorListBox::fancyPixmap);
 	// preferences
-	prefs = PrefsManager::instance()->prefsFile->getPluginContext("colorwheel");
-	typeCombo->setCurrentIndex(prefs->getInt("cw_type", 0));
-	angleSpin->setValue(prefs->getInt("cw_angle", 15));
+	m_prefs = PrefsManager::instance()->prefsFile->getPluginContext("colorwheel");
+	typeCombo->setCurrentIndex(m_prefs->getInt("cw_type", 0));
+	angleSpin->setValue(m_prefs->getInt("cw_angle", 15));
 	colorWheel->currentDoc = m_Doc;
 	colorWheel->angle = angleSpin->value();
-	colorWheel->baseAngle = prefs->getInt("cw_baseangle", 0);
-	colorspaceTab->setCurrentIndex(prefs->getInt("cw_space", 0));
-	color.setNamedColor(prefs->get("cw_color", "#00000000"));
+	colorWheel->baseAngle = m_prefs->getInt("cw_baseangle", 0);
+	colorspaceTab->setCurrentIndex(m_prefs->getInt("cw_space", 0));
+	color.setNamedColor(m_prefs->get("cw_color", "#00000000"));
 	// Handle color previously selected in the document tab
 	if (colorspaceTab->currentWidget() == tabDocument)
 	{
-		colorName = prefs->get("cw_colorname", "");
+		colorName = m_prefs->get("cw_colorname", "");
 		if (!colorName.isEmpty() && m_Doc->PageColors.contains(colorName))
 			color = m_Doc->PageColors[colorName];
 		else
@@ -87,9 +87,9 @@ CWDialog::CWDialog(QWidget* parent, ScribusDoc* doc, const char* name, bool moda
 	else
 		colorWheel->actualColor = color;
 
-	resize(QSize(prefs->getInt("cw_width", 640),
-		   prefs->getInt("cw_height", 480)).expandedTo(minimumSizeHint()));
-	previewLabel->resize(prefs->getInt("cw_samplex", 300), prefs->getInt("cw_sampley", 100));
+	resize(QSize(m_prefs->getInt("cw_width", 640),
+		   m_prefs->getInt("cw_height", 480)).expandedTo(minimumSizeHint()));
+	previewLabel->resize(m_prefs->getInt("cw_samplex", 300), m_prefs->getInt("cw_sampley", 100));
 		
 	// setup
 	currentColorTable->horizontalHeader()->hide();
@@ -119,17 +119,17 @@ CWDialog::~CWDialog()
 {
 	// preferences
 	QString colorName = (colorspaceTab->currentWidget() == tabDocument) ? documentColorList->currentColor() : "";
-	prefs->set("cw_type", typeCombo->currentIndex());
-	prefs->set("cw_angle", angleSpin->value());
-	prefs->set("cw_baseangle", colorWheel->baseAngle);
-	prefs->set("cw_color", colorWheel->actualColor.name());
-	prefs->set("cw_colorname", colorName);
-	prefs->set("cw_space", colorspaceTab->currentIndex());
+	m_prefs->set("cw_type", typeCombo->currentIndex());
+	m_prefs->set("cw_angle", angleSpin->value());
+	m_prefs->set("cw_baseangle", colorWheel->baseAngle);
+	m_prefs->set("cw_color", colorWheel->actualColor.name());
+	m_prefs->set("cw_colorname", colorName);
+	m_prefs->set("cw_space", colorspaceTab->currentIndex());
 	// GUI settings
-	prefs->set("cw_width", width());
-	prefs->set("cw_height", height());
-	prefs->set("cw_samplex", previewLabel->width());
-	prefs->set("cw_sampley", previewLabel->height());
+	m_prefs->set("cw_width", width());
+	m_prefs->set("cw_height", height());
+	m_prefs->set("cw_samplex", previewLabel->width());
+	m_prefs->set("cw_sampley", previewLabel->height());
 }
 
 void CWDialog::connectSlots(bool conn)
