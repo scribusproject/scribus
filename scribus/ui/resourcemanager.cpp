@@ -750,12 +750,13 @@ void ResourceManager::updateProgressBar()
 
 void ResourceManager::startDownload()
 {
-	int rows=availableTableWidget->rowCount();
+	int rows = availableTableWidget->rowCount();
+	int columns = availableTableWidget->columnCount();
 	QStringList filesToDownload;
-	for (int i=0; i<rows; ++i)
+	for (int i=0; i < rows; ++i)
 	{
-		QTableWidgetItem *dlItem=availableTableWidget->item(i, 4);
-		if (dlItem->checkState()==Qt::Checked)
+		QTableWidgetItem *dlItem = availableTableWidget->item(i, columns - 1);
+		if (dlItem->checkState() == Qt::Checked)
 			filesToDownload<<availableTableWidget->item(i, 0)->text();
 	}
 	if (filesToDownload.isEmpty())
