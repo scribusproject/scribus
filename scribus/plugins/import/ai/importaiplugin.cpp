@@ -46,7 +46,7 @@ void importai_freePlugin(ScPlugin* plugin)
 }
 
 ImportAIPlugin::ImportAIPlugin() : LoadSavePlugin(),
-	importAction(new ScrAction(ScrAction::DLL, "", QKeySequence(), this))
+	m_importAction(new ScrAction(ScrAction::DLL, "", QKeySequence(), this))
 {
 	// Set action info in languageChange, so we only have to do it in one
 	// place. This includes registering file format support.
@@ -56,7 +56,7 @@ ImportAIPlugin::ImportAIPlugin() : LoadSavePlugin(),
 
 void ImportAIPlugin::languageChange()
 {
-	importAction->setText( tr("Import AI..."));
+	m_importAction->setText( tr("Import AI..."));
 	FileFormat* fmt = getFormatByExt("ai");
 	fmt->trName = FormatsManager::instance()->nameOfFormat(FormatsManager::AI); // Human readable name
 	fmt->filter = FormatsManager::instance()->extensionsForFormat(FormatsManager::AI); // QFileDialog filter
