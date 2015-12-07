@@ -34,21 +34,21 @@ or documentation
 
 SWConfig::SWConfig()
 {
-	prefs = PrefsManager::instance()->prefsFile->getPluginContext("short-words");
-	action = prefs->getUInt("action", 0);
+	m_prefs = PrefsManager::instance()->prefsFile->getPluginContext("short-words");
+	action = m_prefs->getUInt("action", 0);
 	//userConfig = prefs->getUInt("userConfig", 0);
 	//editor = prefs->get("editor", "");
-	useStyle = prefs->getBool("useStyle", true);
-	currentLanguage = prefs->get("currentLanguage", "en");
+	useStyle = m_prefs->getBool("useStyle", true);
+	currentLanguage = m_prefs->get("currentLanguage", "en");
 }
 
 void SWConfig::saveConfig()
 {
-	prefs->set("action", action);
+	m_prefs->set("action", action);
 	//prefs->set("userConfig", userConfig);
 	//prefs->set("editor", editor);
-	prefs->set("useStyle", useStyle);
-	prefs->set("currentLanguage", currentLanguage);
+	m_prefs->set("useStyle", useStyle);
+	m_prefs->set("currentLanguage", currentLanguage);
 }
 
 QStringList SWConfig::getShortWordsFromFile(QString lang, QString filename)

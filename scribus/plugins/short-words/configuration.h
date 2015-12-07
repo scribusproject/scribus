@@ -51,7 +51,7 @@ public:
 
 private:
 	/*! \brief Configuration structure */
-	PrefsContext* prefs;
+	PrefsContext* m_prefs;
 	/*! \brief getShortWords use this one. for each case from GUI select the right config file (or both).
 	\param lang language
 	\param filename configuration file.
