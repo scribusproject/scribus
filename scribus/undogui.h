@@ -261,15 +261,15 @@ class SCRIBUS_API UndoPalette : public UndoGui
 	Q_OBJECT
 
 private:
-	QWidget* container;
-	int currentSelection;
-	int redoItems;
-	QListWidget* undoList;
-	QCheckBox* objectBox;
-	QPushButton* undoButton;
-	QPushButton* redoButton;
-	QKeySequence initialUndoKS;
-	QKeySequence initialRedoKS;
+	QWidget* m_container;
+	int m_currentSelection;
+	int m_redoItems;
+	QListWidget* m_undoList;
+	QCheckBox* m_objectBox;
+	QPushButton* m_undoButton;
+	QPushButton* m_redoButton;
+	QKeySequence m_initialUndoKS;
+	QKeySequence m_initialRedoKS;
 	void updateList();
 	void removeRedoItems();
 	
@@ -280,17 +280,17 @@ private:
 	{
 	private:
 		/** @brief An icon for the undo target */
-		QPixmap *targetpixmap;
+		QPixmap *m_targetpixmap;
 		/** @brief An icon for the undo state (action) */
-		QPixmap *actionpixmap;
+		QPixmap *m_actionpixmap;
 		/** @brief Name of the target of the state (action) */
-		QString target;
+		QString m_target;
 		/** @brief Undo action's name */
-		QString action;
+		QString m_action;
 		/** @brief Description of the action */
-		QString description;
+		QString m_description;
 		/** @brief Does this item describe an undo action if false it's a redo action */
-		bool isUndoAction_;
+		bool m_isUndoAction_;
 	public:
 		/** @brief Create an empty UndoItem object */
 		UndoItem();

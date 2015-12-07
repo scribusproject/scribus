@@ -237,71 +237,71 @@ UndoPalette::UndoPalette(QWidget* parent, const char* name) : UndoGui(parent, na
 	setObjectName(QString::fromLocal8Bit(name));
 	setSizePolicy( QSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum));
 
-	container = new QWidget(this);
-	currentSelection = 0;
-	redoItems = 0;
-	QVBoxLayout* layout = new QVBoxLayout(container);
+	m_container = new QWidget(this);
+	m_currentSelection = 0;
+	m_redoItems = 0;
+	QVBoxLayout* layout = new QVBoxLayout(m_container);
 	layout->setMargin(5);
 	layout->setSpacing(5);
-	objectBox = new QCheckBox(this);
-	layout->addWidget(objectBox);
+	m_objectBox = new QCheckBox(this);
+	layout->addWidget(m_objectBox);
 // 	objectBox->setEnabled(false);
 
-	undoList = new QListWidget(this);
+	m_undoList = new QListWidget(this);
 // 	undoList->setMultiSelection(false);
 // 	undoList->setSelectionMode(QListWidget::Single);
-	undoList->setSelectionMode(QAbstractItemView::SingleSelection);
-	undoList->setVerticalScrollMode(QAbstractItemView::ScrollPerPixel);
-	layout->addWidget(undoList);
+	m_undoList->setSelectionMode(QAbstractItemView::SingleSelection);
+	m_undoList->setVerticalScrollMode(QAbstractItemView::ScrollPerPixel);
+	layout->addWidget(m_undoList);
 
 	QHBoxLayout* buttonLayout = new QHBoxLayout;
 	buttonLayout->setMargin(0);
 	buttonLayout->setSpacing(5);
-	undoButton = new QPushButton(IconManager::instance()->loadPixmap("16/edit-undo.png"), "", this);
-	buttonLayout->addWidget(undoButton);
-	redoButton = new QPushButton(IconManager::instance()->loadPixmap("16/edit-redo.png"), "", this);
-	buttonLayout->addWidget(redoButton);
+	m_undoButton = new QPushButton(IconManager::instance()->loadPixmap("16/edit-undo.png"), "", this);
+	buttonLayout->addWidget(m_undoButton);
+	m_redoButton = new QPushButton(IconManager::instance()->loadPixmap("16/edit-redo.png"), "", this);
+	buttonLayout->addWidget(m_redoButton);
 	//Save the translated key sequence - hopefully we get the translated one here!
-	initialUndoKS = undoButton->shortcut();
-	initialRedoKS = redoButton->shortcut();
+	m_initialUndoKS = m_undoButton->shortcut();
+	m_initialRedoKS = m_redoButton->shortcut();
 	layout->addLayout(buttonLayout);
-	setWidget(container);
+	setWidget(m_container);
 
 	updateFromPrefs();
 	languageChange();
 	connect(PrefsManager::instance(), SIGNAL(prefsChanged()), this, SLOT(updateFromPrefs()));
-	connect(undoButton, SIGNAL(clicked()), this, SLOT(undoClicked()));
-	connect(redoButton, SIGNAL(clicked()), this, SLOT(redoClicked()));
+	connect(m_undoButton, SIGNAL(clicked()), this, SLOT(undoClicked()));
+	connect(m_redoButton, SIGNAL(clicked()), this, SLOT(redoClicked()));
 // 	connect(undoList, SIGNAL(highlighted(int)), this, SLOT(undoListClicked(int)));
-	connect(undoList, SIGNAL(currentRowChanged(int)), this, SLOT(undoListClicked(int)));
+	connect(m_undoList, SIGNAL(currentRowChanged(int)), this, SLOT(undoListClicked(int)));
 // 	connect(undoList, SIGNAL(onItem(Q3ListBoxItem*)), this, SLOT(showToolTip(Q3ListBoxItem*)));
-	connect(undoList, SIGNAL(itemEntered(QListWidgetItem*)), this, SLOT(showToolTip(QListWidgetItem*)));
+	connect(m_undoList, SIGNAL(itemEntered(QListWidgetItem*)), this, SLOT(showToolTip(QListWidgetItem*)));
 // 	connect(undoList, SIGNAL(onViewport()), this, SLOT(removeToolTip()));
-	connect(undoList, SIGNAL(viewportEntered()), this, SLOT(removeToolTip()));
-	connect(objectBox, SIGNAL(toggled(bool)), this, SLOT(objectCheckBoxClicked(bool)));
+	connect(m_undoList, SIGNAL(viewportEntered()), this, SLOT(removeToolTip()));
+	connect(m_objectBox, SIGNAL(toggled(bool)), this, SLOT(objectCheckBoxClicked(bool)));
 	connect(ScCore->primaryMainWindow()->scrActions["editActionMode"], SIGNAL(toggled(bool)),
-	        objectBox, SLOT(setChecked(bool)));
-	connect(objectBox, SIGNAL(toggled(bool)),
+	        m_objectBox, SLOT(setChecked(bool)));
+	connect(m_objectBox, SIGNAL(toggled(bool)),
 			ScCore->primaryMainWindow()->scrActions["editActionMode"], SLOT(setChecked(bool)));
 }
 
 void UndoPalette::clear()
 {
 // 	qDebug() << "UndoPalette::clear start";
-	disconnect(undoList, SIGNAL(currentRowChanged(int)), this, SLOT(undoListClicked(int)));
-	undoList->clear();
-	undoList->addItem( tr("Initial State"));
-	undoButton->setEnabled(false);
-	redoButton->setEnabled(false);
-	connect(undoList, SIGNAL(currentRowChanged(int)), this, SLOT(undoListClicked(int)));
+	disconnect(m_undoList, SIGNAL(currentRowChanged(int)), this, SLOT(undoListClicked(int)));
+	m_undoList->clear();
+	m_undoList->addItem( tr("Initial State"));
+	m_undoButton->setEnabled(false);
+	m_redoButton->setEnabled(false);
+	connect(m_undoList, SIGNAL(currentRowChanged(int)), this, SLOT(undoListClicked(int)));
 // 	qDebug() << "UndoPalette::clear end";
 }
 
 void UndoPalette::updateFromPrefs()
 {
 // 	qDebug() << "UndoPalette::updateFromPrefs start";
-	undoButton->setShortcut(ScCore->primaryMainWindow()->scrActions["editUndoAction"]->shortcut());
-	redoButton->setShortcut(ScCore->primaryMainWindow()->scrActions["editRedoAction"]->shortcut());
+	m_undoButton->setShortcut(ScCore->primaryMainWindow()->scrActions["editUndoAction"]->shortcut());
+	m_redoButton->setShortcut(ScCore->primaryMainWindow()->scrActions["editRedoAction"]->shortcut());
 // 	qDebug() << "UndoPalette::updateFromPrefs end";
 }
 
@@ -319,23 +319,23 @@ void UndoPalette::languageChange()
 {
 	UndoGui::languageChange();
 
-	objectBox->setText( tr("Show Selected Object Only"));
-	undoButton->setText( tr("&Undo"));
-	redoButton->setText( tr("&Redo"));
+	m_objectBox->setText( tr("Show Selected Object Only"));
+	m_undoButton->setText( tr("&Undo"));
+	m_redoButton->setText( tr("&Redo"));
 	
-	objectBox->setToolTip( "<qt>" + tr( "Show the action history for the selected item only. This changes the effect of the undo/redo buttons to act on the object or document." ) + "</qt>" );
-	undoButton->setToolTip( "<qt>" + tr( "Undo the last action for either the current object or the document" ) + "</qt>");
-	redoButton->setToolTip( "<qt>" + tr( "Redo the last action for either the current object or the document" ) + "</qt>");
+	m_objectBox->setToolTip( "<qt>" + tr( "Show the action history for the selected item only. This changes the effect of the undo/redo buttons to act on the object or document." ) + "</qt>" );
+	m_undoButton->setToolTip( "<qt>" + tr( "Undo the last action for either the current object or the document" ) + "</qt>");
+	m_redoButton->setToolTip( "<qt>" + tr( "Redo the last action for either the current object or the document" ) + "</qt>");
 }
 
 void UndoPalette::insertUndoItem(UndoObject* target, UndoState* state)
 {
 // 	qDebug() << "UndoPalette::insertUndoItem start";
 	clearRedo();
-	undoList->addItem(new UndoItem(target->getUName(), state->getName(),
+	m_undoList->addItem(new UndoItem(target->getUName(), state->getName(),
                          state->getDescription(), target->getUPixmap(),
                          state->getPixmap(), true));
-	currentSelection = undoList->count() - 1;
+	m_currentSelection = m_undoList->count() - 1;
 	updateList();
 // 	qDebug() << "UndoPalette::insertUndoItem end";
 }
@@ -343,14 +343,14 @@ void UndoPalette::insertUndoItem(UndoObject* target, UndoState* state)
 void UndoPalette::insertRedoItem(UndoObject* target, UndoState* state)
 {
 // 	qDebug() << "UndoPalette::insertRedoItem start";
-	if (undoList->count() == 1)
+	if (m_undoList->count() == 1)
 	{
 // 		qDebug() << "UndoPalette::insertRedoItem undoList->count == 1";
 // 		undoList->setSelected(0, true);
-		undoList->setCurrentItem(undoList->item(0));
-		currentSelection = 0;
+		m_undoList->setCurrentItem(m_undoList->item(0));
+		m_currentSelection = 0;
 	}
-	undoList->addItem(new UndoItem(target->getUName(), state->getName(),
+	m_undoList->addItem(new UndoItem(target->getUName(), state->getName(),
                          state->getDescription(), target->getUPixmap(),
                          state->getPixmap(), false));
 	updateList();
@@ -360,9 +360,9 @@ void UndoPalette::insertRedoItem(UndoObject* target, UndoState* state)
 void UndoPalette::updateUndo(int steps)
 {
 // 	qDebug() << "UndoPalette::updateUndo start";
-	if (undoList->row(undoList->currentItem()) == currentSelection)
+	if (m_undoList->row(m_undoList->currentItem()) == m_currentSelection)
 	{
-		currentSelection -= steps;
+		m_currentSelection -= steps;
 		updateList();
 	}
 // 	qDebug() << "UndoPalette::updateUndo end";
@@ -371,9 +371,9 @@ void UndoPalette::updateUndo(int steps)
 void UndoPalette::updateRedo(int steps)
 {
 // 	qDebug() << "UndoPalette::updateRedo start";
-	if (undoList->row(undoList->currentItem()) == currentSelection)
+	if (m_undoList->row(m_undoList->currentItem()) == m_currentSelection)
 	{
-		currentSelection += steps;
+		m_currentSelection += steps;
 		updateList();
 	}
 // 	qDebug() << "UndoPalette::updateRedo end";
@@ -382,11 +382,11 @@ void UndoPalette::updateRedo(int steps)
 void UndoPalette::popBack()
 {
 // 	qDebug() << "UndoPalette::popBack start";
-	if (undoList->count() > 1)
+	if (m_undoList->count() > 1)
 	{
 // 		undoList->removeItem(0);
-		delete undoList->takeItem(0);
-		currentSelection = undoList->count() - 1;
+		delete m_undoList->takeItem(0);
+		m_currentSelection = m_undoList->count() - 1;
 	}
 // 	qDebug() << "UndoPalette::popBack end";
 }
@@ -395,20 +395,20 @@ void UndoPalette::updateList()
 {
 // 	qDebug() << "UndoPalette::updateList start";
 // 	undoList->setCurrentItem(currentSelection);
-	undoList->setCurrentRow(currentSelection);
+	m_undoList->setCurrentRow(m_currentSelection);
 // 	undoList->setSelected(currentSelection, true);
-	redoButton->setEnabled(currentSelection < undoList->count() - 1);
-	undoButton->setEnabled(currentSelection > 0);
+	m_redoButton->setEnabled(m_currentSelection < m_undoList->count() - 1);
+	m_undoButton->setEnabled(m_currentSelection > 0);
 // 	if (!undoList->item(currentSelection)->isVisible()) //itemVisible(currentSelection))
 // 		undoList->setBottomItem(currentSelection);
-	undoList->scrollToItem(undoList->item(currentSelection));
-	for (int i = 0; i < undoList->count(); ++i)
+	m_undoList->scrollToItem(m_undoList->item(m_currentSelection));
+	for (int i = 0; i < m_undoList->count(); ++i)
 	{
-		UndoItem *item = dynamic_cast<UndoItem*>(undoList->item(i));
+		UndoItem *item = dynamic_cast<UndoItem*>(m_undoList->item(i));
 		if (!item)
 			continue;
 
-		item->setUndoAction(currentSelection >= i);
+		item->setUndoAction(m_currentSelection >= i);
 	}
 // 	qDebug() << "UndoPalette::updateList end";
 }
@@ -422,9 +422,9 @@ void UndoPalette::updateUndoActions()
 void UndoPalette::clearRedo()
 {
 // 	qDebug() << "UndoPalette::clearRedo start";
-	for (int i = (undoList->count() - 1); i > currentSelection; --i)
+	for (int i = (m_undoList->count() - 1); i > m_currentSelection; --i)
 // 		undoList->removeItem(i);
-		delete undoList->takeItem(i);
+		delete m_undoList->takeItem(i);
 // 	qDebug() << "UndoPalette::clearRedo end";
 }
 
@@ -443,13 +443,13 @@ void UndoPalette::redoClicked()
 void UndoPalette::undoListClicked(int i)
 {
 // 	qDebug() << "UndoPalette::undoListClicked start";
-	if (i == currentSelection || (i == 0 && undoList->count() == 1))
+	if (i == m_currentSelection || (i == 0 && m_undoList->count() == 1))
 		return;
-	if (i > currentSelection)
-		emit redo(i - currentSelection);
-	else if (i < currentSelection)
-		emit undo(currentSelection - i);
-	currentSelection = i;
+	if (i > m_currentSelection)
+		emit redo(i - m_currentSelection);
+	else if (i < m_currentSelection)
+		emit undo(m_currentSelection - i);
+	m_currentSelection = i;
 	updateList();
 // 	qDebug() << "UndoPalette::undoListClicked end";
 }
@@ -469,7 +469,7 @@ void UndoPalette::showToolTip(QListWidgetItem *i)
 	{
 		QString tip = item->getDescription();
 		if (!tip.isNull()) /*TODO: Doesn't make sense! */
-		  undoList->setToolTip(tip);
+		  m_undoList->setToolTip(tip);
 	}
 	else
 		removeToolTip();
@@ -479,7 +479,7 @@ void UndoPalette::showToolTip(QListWidgetItem *i)
 void UndoPalette::removeToolTip()
 {
 // 	qDebug() << "UndoPalette::removeToolTip start";
-	undoList->setToolTip("");
+	m_undoList->setToolTip("");
 // 	qDebug() << "UndoPalette::removeToolTip end";
 }
 
@@ -492,22 +492,22 @@ UndoPalette::~UndoPalette()
 
 UndoPalette::UndoItem::UndoItem() : QListWidgetItem()
 {
-	target = "";
-	action = "";
-	description = "";
-	targetpixmap = NULL;
-	actionpixmap = NULL;
-	isUndoAction_ = true;
+	m_target = "";
+	m_action = "";
+	m_description = "";
+	m_targetpixmap = NULL;
+	m_actionpixmap = NULL;
+	m_isUndoAction_ = true;
 }
 
 UndoPalette::UndoItem::UndoItem(const UndoItem &another) : QListWidgetItem()
 {
-	target = another.target;
-	action = another.action;
-	description = another.description;
-	targetpixmap = another.targetpixmap;
-	actionpixmap = another.actionpixmap;
-	isUndoAction_ = another.isUndoAction_;
+	m_target = another.m_target;
+	m_action = another.m_action;
+	m_description = another.m_description;
+	m_targetpixmap = another.m_targetpixmap;
+	m_actionpixmap = another.m_actionpixmap;
+	m_isUndoAction_ = another.m_isUndoAction_;
 }
 
 UndoPalette::UndoItem::UndoItem(const QString &targetName,
@@ -519,12 +519,12 @@ UndoPalette::UndoItem::UndoItem(const QString &targetName,
                                 QListWidget * parent
 							   )
 	: QListWidgetItem(parent),
-	targetpixmap(targetPixmap),
-	actionpixmap(actionPixmap),
-	target(targetName),
-	action(actionName),
-	description(actionDescription),
-	isUndoAction_(isUndoAction)
+	m_targetpixmap(targetPixmap),
+	m_actionpixmap(actionPixmap),
+	m_target(targetName),
+	m_action(actionName),
+	m_description(actionDescription),
+	m_isUndoAction_(isUndoAction)
 {
 	/*TODO: 16x16 is hardcoded, because images automatically scaled by QIcon are no longer recognizable 
 	would be better to have the icons designed for 16x16*/
@@ -602,19 +602,19 @@ int UndoPalette::UndoItem::width(const QListWidget *lb) const
 
 QString UndoPalette::UndoItem::getDescription()
 {
-  return description;
+  return m_description;
 }
 
 bool UndoPalette::UndoItem::isUndoAction()
 {
-	return isUndoAction_;
+	return m_isUndoAction_;
 }
 
 void UndoPalette::UndoItem::setUndoAction(bool isUndo)
 {
-	isUndoAction_ = isUndo;
+	m_isUndoAction_ = isUndo;
 	QFont f = font();
-	f.setItalic(!isUndoAction_);
+	f.setItalic(!m_isUndoAction_);
 	setFont(f);
 }
 
