@@ -31,107 +31,107 @@ for which a new license (GPL+exception) is in place.
 #include "scribusstructs.h"
 #include "gtmeasure.h"
 
-HTMLReader* HTMLReader::hreader = NULL;
-bool HTMLReader::elemJustStarted = false;
-bool HTMLReader::elemJustFinished = false;
+HTMLReader* HTMLReader::m_hreader = NULL;
+bool HTMLReader::m_elemJustStarted = false;
+bool HTMLReader::m_elemJustFinished = false;
 
 extern htmlSAXHandlerPtr mySAXHandler;
 
 HTMLReader::HTMLReader(gtParagraphStyle *ps, gtWriter *w, bool textOnly)
 {
-	pstyle = ps;
-	defaultColor = ps->getFont()->getColor();
-	defaultWeight = ps->getFont()->getWeight();
-	defaultSlant = ps->getFont()->getSlant();
+	m_pstyle = ps;
+	m_defaultColor = ps->getFont()->getColor();
+	m_defaultWeight = ps->getFont()->getWeight();
+	m_defaultSlant = ps->getFont()->getSlant();
 	initPStyles();
-	inH1 = false;
-	inH2 = false;
-	inH3 = false;
-	inH4 = false;
-	inH5 = false;
-	inH6 = false;
-	inA = false;
-	inCode = false;
-	inBody = false;
-	inPre = false;
-	inP = false;
-	inCenter = false;
-	writer = w;
-	href = "";
-	extLinks = "";
-	extIndex = 1;
-	listLevel = -1;
-	inOL = false;
-	wasInOL = false;
-	inUL = false;
-	wasInUL = false;
-	inLI = false;
-	addedLI = false;
-	lastCharWasSpace = false;
-	noFormatting = textOnly;
-	hreader = this;
+	m_inH1 = false;
+	m_inH2 = false;
+	m_inH3 = false;
+	m_inH4 = false;
+	m_inH5 = false;
+	m_inH6 = false;
+	m_inA = false;
+	m_inCode = false;
+	m_inBody = false;
+	m_inPre = false;
+	m_inP = false;
+	m_inCenter = false;
+	m_writer = w;
+	m_href = "";
+	m_extLinks = "";
+	m_extIndex = 1;
+	m_listLevel = -1;
+	m_inOL = false;
+	m_wasInOL = false;
+	m_inUL = false;
+	m_wasInUL = false;
+	m_inLI = false;
+	m_addedLI = false;
+	m_lastCharWasSpace = false;
+	m_noFormatting = textOnly;
+	m_hreader = this;
 }
 
 void HTMLReader::initPStyles()
 {
-	pstylec = new gtParagraphStyle(*pstyle);
-	pstylec->setAlignment(CENTER);
-	pstylec->setName("HTML_center");
-	gtParagraphStyle* pstyleli = new gtParagraphStyle(*pstyle);
+	m_pstylec = new gtParagraphStyle(*m_pstyle);
+	m_pstylec->setAlignment(CENTER);
+	m_pstylec->setName("HTML_center");
+	gtParagraphStyle* pstyleli = new gtParagraphStyle(*m_pstyle);
 	pstyleli->setIndent(pstyleli->getIndent()+50.0);
 	pstyleli->setName("HTML_li_level-0");
-	listStyles.push_back(pstyleli);
-	nextItemNumbers.push_back(1);
-	pstyleh6 = new gtParagraphStyle(*pstyle);
-	pstyleh6->getFont()->setSize(pstyle->getFont()->getSize() + 2.5);
-	pstyleh6->getFont()->setWeight(BOLD);
-	pstyleh6->setSpaceAbove(2.5);
-	pstyleh6->setSpaceBelow(1.25);
-	pstyleh6->setName("HTML_h6");
-	pstyleh5 = new gtParagraphStyle(*pstyle);
-	pstyleh5->getFont()->setSize(pstyle->getFont()->getSize() + 5);
-	pstyleh5->getFont()->setWeight(BOLD);
-	pstyleh5->setSpaceAbove(5.0);
-	pstyleh5->setSpaceBelow(2.5);
-	pstyleh5->setName("HTML_h5");
-	pstyleh4 = new gtParagraphStyle(*pstyle);
-	pstyleh4->getFont()->setSize(pstyle->getFont()->getSize() + 10);
-	pstyleh4->getFont()->setWeight(BOLD);
-	pstyleh4->setSpaceAbove(10.0);
-	pstyleh4->setSpaceBelow(5.0);
-	pstyleh4->setName("HTML_h4");
-	pstyleh3 = new gtParagraphStyle(*pstyle);
-	pstyleh3->getFont()->setSize(pstyle->getFont()->getSize() + 20);
-	pstyleh3->getFont()->setWeight(BOLD);
-	pstyleh3->setSpaceAbove(20.0);
-	pstyleh3->setSpaceBelow(10.0);
-	pstyleh3->setName("HTML_h3");
-	pstyleh2 = new gtParagraphStyle(*pstyle);
-	pstyleh2->getFont()->setSize(pstyle->getFont()->getSize() + 40);
-	pstyleh2->getFont()->setWeight(BOLD);
-	pstyleh2->setSpaceAbove(30.0);
-	pstyleh2->setSpaceBelow(20.0);
-	pstyleh2->setName("HTML_h2");
-	pstyleh1 = new gtParagraphStyle(*pstyle);
-	pstyleh1->getFont()->setSize(pstyle->getFont()->getSize() + 60);
-	pstyleh1->getFont()->setWeight(BOLD);
-	pstyleh1->setSpaceAbove(40.0);
-	pstyleh1->setSpaceBelow(30.0);
-	pstyleh1->setName("HTML_h1");
-	pstylecode = new gtParagraphStyle(*pstyle);
-	pstylecode->getFont()->setName("Courier Regular");
-	pstylecode->setName("HTML_code");
-	pstylep = new gtParagraphStyle(*pstyle);
-	pstylep->setSpaceBelow(gtMeasure::i2d(5, SC_MM));
-	pstylep->setName("HTML_p");
-	pstylepre = new gtParagraphStyle(*pstyle);
-	pstylepre->setName("HTML_pre");
+	m_listStyles.push_back(pstyleli);
+	m_nextItemNumbers.push_back(1);
+	m_pstyleh6 = new gtParagraphStyle(*m_pstyle);
+	m_pstyleh6->getFont()->setSize(m_pstyle->getFont()->getSize() + 2.5);
+	m_pstyleh6->getFont()->setWeight(BOLD);
+	m_pstyleh6->setSpaceAbove(2.5);
+	m_pstyleh6->setSpaceBelow(1.25);
+	m_pstyleh6->setName("HTML_h6");
+	m_pstyleh5 = new gtParagraphStyle(*m_pstyle);
+	m_pstyleh5->getFont()->setSize(m_pstyle->getFont()->getSize() + 5);
+	m_pstyleh5->getFont()->setWeight(BOLD);
+	m_pstyleh5->setSpaceAbove(5.0);
+	m_pstyleh5->setSpaceBelow(2.5);
+	m_pstyleh5->setName("HTML_h5");
+	m_pstyleh4 = new gtParagraphStyle(*m_pstyle);
+	m_pstyleh4->getFont()->setSize(m_pstyle->getFont()->getSize() + 10);
+	m_pstyleh4->getFont()->setWeight(BOLD);
+	m_pstyleh4->setSpaceAbove(10.0);
+	m_pstyleh4->setSpaceBelow(5.0);
+	m_pstyleh4->setName("HTML_h4");
+	m_pstyleh3 = new gtParagraphStyle(*m_pstyle);
+	m_pstyleh3->getFont()->setSize(m_pstyle->getFont()->getSize() + 20);
+	m_pstyleh3->getFont()->setWeight(BOLD);
+	m_pstyleh3->setSpaceAbove(20.0);
+	m_pstyleh3->setSpaceBelow(10.0);
+	m_pstyleh3->setName("HTML_h3");
+	m_pstyleh2 = new gtParagraphStyle(*m_pstyle);
+	m_pstyleh2->getFont()->setSize(m_pstyle->getFont()->getSize() + 40);
+	m_pstyleh2->getFont()->setWeight(BOLD);
+	m_pstyleh2->setSpaceAbove(30.0);
+	m_pstyleh2->setSpaceBelow(20.0);
+	m_pstyleh2->setName("HTML_h2");
+	m_pstyleh1 = new gtParagraphStyle(*m_pstyle);
+	m_pstyleh1->getFont()->setSize(m_pstyle->getFont()->getSize() + 60);
+	m_pstyleh1->getFont()->setWeight(BOLD);
+	m_pstyleh1->setSpaceAbove(40.0);
+	m_pstyleh1->setSpaceBelow(30.0);
+	m_pstyleh1->setName("HTML_h1");
+	m_pstylecode = new gtParagraphStyle(*m_pstyle);
+	m_pstylecode->getFont()->setName("Courier Regular");
+	m_pstylecode->setName("HTML_code");
+	m_pstylep = new gtParagraphStyle(*m_pstyle);
+	m_pstylep->setSpaceBelow(gtMeasure::i2d(5, SC_MM));
+	m_pstylep->setName("HTML_p");
+	m_pstylepre = new gtParagraphStyle(*m_pstyle);
+	m_pstylepre->setName("HTML_pre");
 }
 
 void HTMLReader::startElement(void*, const xmlChar * fullname, const xmlChar ** atts)
 {
-	elemJustStarted = true;
-	elemJustFinished = false;
+	m_elemJustStarted = true;
+	m_elemJustFinished = false;
 	QString name(QString((const char*) fullname).toLower());
 	QXmlAttributes attrs;
 	if (atts)
@@ -139,17 +139,17 @@ void HTMLReader::startElement(void*, const xmlChar * fullname, const xmlChar ** 
 		for(const xmlChar** cur = atts; cur && *cur; cur += 2)
 			attrs.append(QString((char*)*cur), NULL, QString((char*)*cur), QString((char*)*(cur + 1)));
 	}
-	hreader->startElement(NULL, NULL, name, attrs);
+	m_hreader->startElement(NULL, NULL, name, attrs);
 }
 
 bool HTMLReader::startElement(const QString&, const QString&, const QString &name, const QXmlAttributes &attrs) 
 {
 	if (name == "p")
-		inP = true;
+		m_inP = true;
 	else if (name == "center")
-		inCenter = true;
+		m_inCenter = true;
 	else if (name == "br")
-		writer->append("\n", pstyle);
+		m_writer->append("\n", m_pstyle);
 	else if (name == "a")
 	{
 		toggleEffect(UNDERLINE);
@@ -158,59 +158,59 @@ bool HTMLReader::startElement(const QString&, const QString&, const QString &nam
 		{
 			if (attrs.localName(i) == "href")
 			{
-				href = attrs.value(i);
+				m_href = attrs.value(i);
 			}
-			inA = true;
+			m_inA = true;
 		}
 	} 
 	else if (name == "ul")
 	{
-		++listLevel;
-		if (static_cast<int>(listStyles.size()) < (listLevel + 1))
+		++m_listLevel;
+		if (static_cast<int>(m_listStyles.size()) < (m_listLevel + 1))
 			createListStyle();
-		inUL = true;
-		if (inOL)
+		m_inUL = true;
+		if (m_inOL)
 		{
-			inOL = false;
-			wasInOL = true;
+			m_inOL = false;
+			m_wasInOL = true;
 		}
 	}
 	else if (name == "ol")
 	{
-		++listLevel;
-		if (static_cast<int>(listStyles.size()) < (listLevel + 1))
+		++m_listLevel;
+		if (static_cast<int>(m_listStyles.size()) < (m_listLevel + 1))
 			createListStyle();
-		inOL = true;
-		if (inUL)
+		m_inOL = true;
+		if (m_inUL)
 		{
-			inUL = false;
-			wasInUL = true;
+			m_inUL = false;
+			m_wasInUL = true;
 		}
 	}
 	else if (name == "li")
-		inLI = true;
+		m_inLI = true;
 	else if (name == "h1")
-		inH1 = true;
+		m_inH1 = true;
 	else if (name == "h2")
-		inH2 = true;
+		m_inH2 = true;
 	else if (name == "h3")
-		inH3 = true;
+		m_inH3 = true;
 	else if (name == "h4")
-		inH4 = true;
+		m_inH4 = true;
 	else if (name == "h5")
-		inH5 = true;
+		m_inH5 = true;
 	else if (name == "h6")
-		inH6 = true;
+		m_inH6 = true;
 	else if ((name == "b") || (name == "strong"))
 		setBoldFont();
 	else if ((name == "i") || (name == "em"))
 		setItalicFont();
 	else if (name == "code")
-		inCode = true;
+		m_inCode = true;
 	else if (name == "body")
-		inBody = true;
+		m_inBody = true;
 	else if (name == "pre")
-		inPre = true;
+		m_inPre = true;
 	else if (name == "img")
 	{
 		QString imgline("(img,");
@@ -235,7 +235,7 @@ bool HTMLReader::startElement(const QString&, const QString&, const QString &nam
 			}
 		}
 		imgline += ")\n\n";
-		writer->append(imgline, pstyle);
+		m_writer->append(imgline, m_pstyle);
 	}
 	else if (name == "sub")
 		toggleEffect(SUBSCRIPT);
@@ -243,35 +243,35 @@ bool HTMLReader::startElement(const QString&, const QString&, const QString &nam
 		toggleEffect(SUPERSCRIPT);
 	else if (name == "del")
 		toggleEffect(STRIKETHROUGH);
-	else if ((name == "ins" || name == "u") && (!inA))
+	else if ((name == "ins" || name == "u") && (!m_inA))
 		toggleEffect(UNDERLINE);
 	return true;
 }
 void HTMLReader::characters(void*, const xmlChar * ch, int len)
 {
 	QString chars = QString::fromUtf8((const char*) ch, len);
-	hreader->characters(chars);
+	m_hreader->characters(chars);
 }
 
 bool HTMLReader::characters(const QString &ch) 
 {
-	if (inBody)
+	if (m_inBody)
 	{
 		QString tmp = ch;
 		// FIXME : According to html spec, new lines placed just after or just before an element
 		// must be ignored, not exactly that, but better than nothing
-		if (elemJustStarted  || elemJustFinished)
+		if (m_elemJustStarted  || m_elemJustFinished)
 		{
 			while( !tmp.isEmpty() && (tmp[0] == '\r' || tmp[0] == '\n') )
 				tmp = tmp.right(tmp.length() - 1);
-			elemJustStarted = elemJustFinished = false;
+			m_elemJustStarted = m_elemJustFinished = false;
 			if (tmp.isEmpty())
 				return true;
 		}
 		QString chl = tmp.left(1), chr = tmp.right(1);
 		bool fcis = (chl.length() > 0 && chl[0].isSpace());
 		bool lcis = (chr.length() > 0 && chr[0].isSpace());
-		if (inPre)
+		if (m_inPre)
 		{
 			if (tmp.left(1) == "\n")
 				tmp = tmp.right(tmp.length() - 2);
@@ -279,322 +279,322 @@ bool HTMLReader::characters(const QString &ch)
 		else
 			tmp = tmp.simplified();
 
-		if (!lastCharWasSpace)
+		if (!m_lastCharWasSpace)
 			if (fcis)
 				tmp = " " + tmp;
 
 		if (lcis && !(fcis && tmp.length() <= 1))
 			tmp = tmp + " ";
-		lastCharWasSpace = lcis;
-		if ((inLI) && (!addedLI))
+		m_lastCharWasSpace = lcis;
+		if ((m_inLI) && (!m_addedLI))
 		{
-			if (inUL)
+			if (m_inUL)
 				tmp = "- " + tmp;
-			else if (inOL)
+			else if (m_inOL)
 			{
-				tmp = QString("%1. ").arg(nextItemNumbers[listLevel]) + tmp;
-				++nextItemNumbers[listLevel];
+				tmp = QString("%1. ").arg(m_nextItemNumbers[m_listLevel]) + tmp;
+				++m_nextItemNumbers[m_listLevel];
 			}
-			addedLI = true;
+			m_addedLI = true;
 		}
 
-		if (noFormatting)
-			writer->appendUnstyled(tmp);
-		else if (inP)
-			writer->append(tmp, pstylep);
-		else if (inLI)
+		if (m_noFormatting)
+			m_writer->appendUnstyled(tmp);
+		else if (m_inP)
+			m_writer->append(tmp, m_pstylep);
+		else if (m_inLI)
 		{
-			writer->append(tmp, listStyles[listLevel]);
+			m_writer->append(tmp, m_listStyles[m_listLevel]);
 		}
-		else if (inH1)
-			writer->append(tmp, pstyleh1);
-		else if (inH2)
-			writer->append(tmp, pstyleh2);
-		else if (inH3)
-			writer->append(tmp, pstyleh3);
-		else if (inH4)
-			writer->append(tmp, pstyleh4);
-		else if (inH5)
-			writer->append(tmp, pstyleh5);
-		else if (inH6)
-			writer->append(tmp, pstyleh6);
-		else if (inCenter)
-			writer->append(tmp, pstylec);
-		else if (inCode)
-			writer->append(tmp, pstylecode);
-		else if (inPre)
-			writer->append(tmp, pstylepre);
+		else if (m_inH1)
+			m_writer->append(tmp, m_pstyleh1);
+		else if (m_inH2)
+			m_writer->append(tmp, m_pstyleh2);
+		else if (m_inH3)
+			m_writer->append(tmp, m_pstyleh3);
+		else if (m_inH4)
+			m_writer->append(tmp, m_pstyleh4);
+		else if (m_inH5)
+			m_writer->append(tmp, m_pstyleh5);
+		else if (m_inH6)
+			m_writer->append(tmp, m_pstyleh6);
+		else if (m_inCenter)
+			m_writer->append(tmp, m_pstylec);
+		else if (m_inCode)
+			m_writer->append(tmp, m_pstylecode);
+		else if (m_inPre)
+			m_writer->append(tmp, m_pstylepre);
 		else
-			writer->append(tmp, pstyle);
+			m_writer->append(tmp, m_pstyle);
 	}
 	return true;
 }
 
 void HTMLReader::endElement(void*, const xmlChar * name)
 {
-	elemJustStarted = false;
-	elemJustFinished = true;
+	m_elemJustStarted = false;
+	m_elemJustFinished = true;
 	QString nname(QString((const char*) name).toLower());
-	hreader->endElement(NULL, NULL, nname);
+	m_hreader->endElement(NULL, NULL, nname);
 }
 
 bool HTMLReader::endElement(const QString&, const QString&, const QString &name)
 {
 	if (name == "center")
 	{
-		inCenter = false;
-		writer->append("\n");
+		m_inCenter = false;
+		m_writer->append("\n");
 	}
 	else if (name == "p")
 	{
-		writer->append("\n");
-		inP = false;
+		m_writer->append("\n");
+		m_inP = false;
 	}
 	else if (name == "a")
 	{
 		toggleEffect(UNDERLINE);
-		if ((!href.isEmpty()) && ((href.indexOf("//") != -1) ||
-		    (href.indexOf("mailto:") != -1) || (href.indexOf("www") != -1)))
+		if ((!m_href.isEmpty()) && ((m_href.indexOf("//") != -1) ||
+		    (m_href.indexOf("mailto:") != -1) || (m_href.indexOf("www") != -1)))
 		{
-			href = href.remove("mailto:");
-			writer->append(QString(" [%1]").arg(extIndex), pstyle);
-			extLinks += QString("[%1] ").arg(extIndex) + href + "\n";
-			++extIndex;
+			m_href = m_href.remove("mailto:");
+			m_writer->append(QString(" [%1]").arg(m_extIndex), m_pstyle);
+			m_extLinks += QString("[%1] ").arg(m_extIndex) + m_href + "\n";
+			++m_extIndex;
 		}
-		href = "";
+		m_href = "";
 		setDefaultColor();
-		inA = false;
+		m_inA = false;
 	}
 	else if (name == "ul")
 	{
-		if (listLevel == 0)
+		if (m_listLevel == 0)
 		{
-			inUL = false;
-			inOL = false;
-			wasInUL = false;
-			wasInOL = false;
-			listLevel = -1;
+			m_inUL = false;
+			m_inOL = false;
+			m_wasInUL = false;
+			m_wasInOL = false;
+			m_listLevel = -1;
 		}
-		else if (wasInOL)
+		else if (m_wasInOL)
 		{
-			inUL = false;
-			inOL = true;
-			wasInOL = false;
-			--listLevel;
+			m_inUL = false;
+			m_inOL = true;
+			m_wasInOL = false;
+			--m_listLevel;
 		}
-		else if (wasInUL)
+		else if (m_wasInUL)
 		{
-			inUL = true;
-			inOL = false;
-			wasInUL = false;
-			--listLevel;
+			m_inUL = true;
+			m_inOL = false;
+			m_wasInUL = false;
+			--m_listLevel;
 		}
 		else
-			--listLevel;
-		if (listLevel == -1)
-			writer->append("\n");
+			--m_listLevel;
+		if (m_listLevel == -1)
+			m_writer->append("\n");
 	}
 	else if (name == "ol")
 	{
-		if (listLevel == 0)
+		if (m_listLevel == 0)
 		{
-			inUL = false;
-			inOL = false;
-			wasInUL = false;
-			wasInOL = false;
-			listLevel = -1;
+			m_inUL = false;
+			m_inOL = false;
+			m_wasInUL = false;
+			m_wasInOL = false;
+			m_listLevel = -1;
 		}
-		else if (wasInUL)
+		else if (m_wasInUL)
 		{
-			inOL = false;
-			inUL = true;
-			wasInUL = false;
-			nextItemNumbers[listLevel] = 1;
-			--listLevel;
+			m_inOL = false;
+			m_inUL = true;
+			m_wasInUL = false;
+			m_nextItemNumbers[m_listLevel] = 1;
+			--m_listLevel;
 		}
-		else if (wasInOL)
+		else if (m_wasInOL)
 		{
-			inOL = true;
-			inUL = false;
-			wasInOL = false;
-			nextItemNumbers[listLevel] = 1;
-			--listLevel;
+			m_inOL = true;
+			m_inUL = false;
+			m_wasInOL = false;
+			m_nextItemNumbers[m_listLevel] = 1;
+			--m_listLevel;
 		}
 		else
 		{
-			nextItemNumbers[listLevel] = 1;
-			--listLevel;
+			m_nextItemNumbers[m_listLevel] = 1;
+			--m_listLevel;
 		}
-		if (listLevel == -1)
-			writer->append("\n");
+		if (m_listLevel == -1)
+			m_writer->append("\n");
 	}
 	else if (name == "li")
 	{
-		inLI = false;
-		addedLI = false;
-		writer->append("\n");
+		m_inLI = false;
+		m_addedLI = false;
+		m_writer->append("\n");
 	}
 	else if (name == "h1")
 	{
-		inH1 = false;
-		writer->append("\n", pstyleh1);
+		m_inH1 = false;
+		m_writer->append("\n", m_pstyleh1);
 	}
 	else if (name == "h2")
 	{
-		inH2 = false;
-		writer->append("\n", pstyleh2);
+		m_inH2 = false;
+		m_writer->append("\n", m_pstyleh2);
 	}
 	else if (name == "h3")
 	{
-		inH3 = false;
-		writer->append("\n", pstyleh3);
+		m_inH3 = false;
+		m_writer->append("\n", m_pstyleh3);
 	}
 	else if (name == "h4")
 	{
-		inH4 = false;
-		writer->append("\n", pstyleh4);
+		m_inH4 = false;
+		m_writer->append("\n", m_pstyleh4);
 	}
 	else if (name == "h5")
 	{
-		inH5 = false;
-		writer->append("\n", pstyleh5);
+		m_inH5 = false;
+		m_writer->append("\n", m_pstyleh5);
 	}
 	else if (name == "h6")
 	{
-		inH6 = false;
-		writer->append("\n", pstyleh6);
+		m_inH6 = false;
+		m_writer->append("\n", m_pstyleh6);
 	}
 	else if ((name == "b") || (name == "strong"))
 		unSetBoldFont();
 	else if ((name == "i") || (name == "em"))
 		unsetItalicFont();
 	else if (name == "code")
-		inCode = false;
+		m_inCode = false;
 	else if (name == "body")
-		inBody = false;
+		m_inBody = false;
 	else if (name == "pre")
 	{
-		inPre = false;
-		writer->append("\n");
+		m_inPre = false;
+		m_writer->append("\n");
 	}
 	else if (name == "div")
-		writer->append("\n");
+		m_writer->append("\n");
 	else if (name == "sub")
 		toggleEffect(SUBSCRIPT);
 	else if (name == "sup")
 		toggleEffect(SUPERSCRIPT);
 	else if (name == "del")
 		toggleEffect(STRIKETHROUGH);
-	else if ((name == "ins" || name == "u") && (!inA))
+	else if ((name == "ins" || name == "u") && (!m_inA))
 		toggleEffect(UNDERLINE);
 	return true;
 }
 
 void HTMLReader::toggleEffect(FontEffect e)
 {
-	pstyle->getFont()->toggleEffect(e);
-	pstylec->getFont()->toggleEffect(e);
-	for (uint i = 0; i < listStyles.size(); ++i)
-		listStyles[i]->getFont()->toggleEffect(e);
-	pstyleh1->getFont()->toggleEffect(e);
-	pstyleh2->getFont()->toggleEffect(e);
-	pstyleh3->getFont()->toggleEffect(e);
-	pstyleh4->getFont()->toggleEffect(e);
-	pstyleh5->getFont()->toggleEffect(e);
-	pstyleh6->getFont()->toggleEffect(e);
-	pstylecode->getFont()->toggleEffect(e);
-	pstylep->getFont()->toggleEffect(e);
-	pstylepre->getFont()->toggleEffect(e);
+	m_pstyle->getFont()->toggleEffect(e);
+	m_pstylec->getFont()->toggleEffect(e);
+	for (uint i = 0; i < m_listStyles.size(); ++i)
+		m_listStyles[i]->getFont()->toggleEffect(e);
+	m_pstyleh1->getFont()->toggleEffect(e);
+	m_pstyleh2->getFont()->toggleEffect(e);
+	m_pstyleh3->getFont()->toggleEffect(e);
+	m_pstyleh4->getFont()->toggleEffect(e);
+	m_pstyleh5->getFont()->toggleEffect(e);
+	m_pstyleh6->getFont()->toggleEffect(e);
+	m_pstylecode->getFont()->toggleEffect(e);
+	m_pstylep->getFont()->toggleEffect(e);
+	m_pstylepre->getFont()->toggleEffect(e);
 }
 
 void HTMLReader::setItalicFont()
 {
-	pstyle->getFont()->setSlant(ITALIC);
-	pstylec->getFont()->setSlant(ITALIC);
-	for (uint i = 0; i < listStyles.size(); ++i)
-		listStyles[i]->getFont()->setSlant(ITALIC);
-	pstyleh1->getFont()->setSlant(ITALIC);
-	pstyleh2->getFont()->setSlant(ITALIC);
-	pstyleh3->getFont()->setSlant(ITALIC);
-	pstyleh4->getFont()->setSlant(ITALIC);
-	pstyleh5->getFont()->setSlant(ITALIC);
-	pstyleh6->getFont()->setSlant(ITALIC);
-	pstylecode->getFont()->setSlant(ITALIC);
-	pstylep->getFont()->setSlant(ITALIC);
-	pstylepre->getFont()->setSlant(ITALIC);
+	m_pstyle->getFont()->setSlant(ITALIC);
+	m_pstylec->getFont()->setSlant(ITALIC);
+	for (uint i = 0; i < m_listStyles.size(); ++i)
+		m_listStyles[i]->getFont()->setSlant(ITALIC);
+	m_pstyleh1->getFont()->setSlant(ITALIC);
+	m_pstyleh2->getFont()->setSlant(ITALIC);
+	m_pstyleh3->getFont()->setSlant(ITALIC);
+	m_pstyleh4->getFont()->setSlant(ITALIC);
+	m_pstyleh5->getFont()->setSlant(ITALIC);
+	m_pstyleh6->getFont()->setSlant(ITALIC);
+	m_pstylecode->getFont()->setSlant(ITALIC);
+	m_pstylep->getFont()->setSlant(ITALIC);
+	m_pstylepre->getFont()->setSlant(ITALIC);
 }
 
 void HTMLReader::unsetItalicFont()
 {
-	pstyle->getFont()->setSlant(defaultSlant);
-	pstylec->getFont()->setSlant(defaultSlant);
-	for (uint i = 0; i < listStyles.size(); ++i)
-		listStyles[i]->getFont()->setSlant(defaultSlant);
-	pstyleh1->getFont()->setSlant(defaultSlant);
-	pstyleh2->getFont()->setSlant(defaultSlant);
-	pstyleh3->getFont()->setSlant(defaultSlant);
-	pstyleh4->getFont()->setSlant(defaultSlant);
-	pstyleh5->getFont()->setSlant(defaultSlant);
-	pstyleh6->getFont()->setSlant(defaultSlant);
-	pstylecode->getFont()->setSlant(defaultSlant);
-	pstylep->getFont()->setSlant(defaultSlant);
-	pstylepre->getFont()->setSlant(defaultSlant);
+	m_pstyle->getFont()->setSlant(m_defaultSlant);
+	m_pstylec->getFont()->setSlant(m_defaultSlant);
+	for (uint i = 0; i < m_listStyles.size(); ++i)
+		m_listStyles[i]->getFont()->setSlant(m_defaultSlant);
+	m_pstyleh1->getFont()->setSlant(m_defaultSlant);
+	m_pstyleh2->getFont()->setSlant(m_defaultSlant);
+	m_pstyleh3->getFont()->setSlant(m_defaultSlant);
+	m_pstyleh4->getFont()->setSlant(m_defaultSlant);
+	m_pstyleh5->getFont()->setSlant(m_defaultSlant);
+	m_pstyleh6->getFont()->setSlant(m_defaultSlant);
+	m_pstylecode->getFont()->setSlant(m_defaultSlant);
+	m_pstylep->getFont()->setSlant(m_defaultSlant);
+	m_pstylepre->getFont()->setSlant(m_defaultSlant);
 }
 
 void HTMLReader::setBlueFont()
 {
-	pstyle->getFont()->setColor("Blue");
-	pstylec->getFont()->setColor("Blue");
-	for (uint i = 0; i < listStyles.size(); ++i)
-		listStyles[i]->getFont()->setColor("Blue");
-	pstyleh1->getFont()->setColor("Blue");
-	pstyleh2->getFont()->setColor("Blue");
-	pstyleh3->getFont()->setColor("Blue");
-	pstyleh4->getFont()->setColor("Blue");
-	pstyleh5->getFont()->setColor("Blue");
-	pstyleh6->getFont()->setColor("Blue");
-	pstylecode->getFont()->setColor("Blue");
-	pstylep->getFont()->setColor("Blue");
-	pstylepre->getFont()->setColor("Blue");
+	m_pstyle->getFont()->setColor("Blue");
+	m_pstylec->getFont()->setColor("Blue");
+	for (uint i = 0; i < m_listStyles.size(); ++i)
+		m_listStyles[i]->getFont()->setColor("Blue");
+	m_pstyleh1->getFont()->setColor("Blue");
+	m_pstyleh2->getFont()->setColor("Blue");
+	m_pstyleh3->getFont()->setColor("Blue");
+	m_pstyleh4->getFont()->setColor("Blue");
+	m_pstyleh5->getFont()->setColor("Blue");
+	m_pstyleh6->getFont()->setColor("Blue");
+	m_pstylecode->getFont()->setColor("Blue");
+	m_pstylep->getFont()->setColor("Blue");
+	m_pstylepre->getFont()->setColor("Blue");
 }
 
 void HTMLReader::setDefaultColor()
 {
-	pstyle->getFont()->setColor(defaultColor);
-	pstylec->getFont()->setColor(defaultColor);
-	for (uint i = 0; i < listStyles.size(); ++i)
-		listStyles[i]->getFont()->setColor(defaultColor);
-	pstyleh1->getFont()->setColor(defaultColor);
-	pstyleh2->getFont()->setColor(defaultColor);
-	pstyleh3->getFont()->setColor(defaultColor);
-	pstyleh4->getFont()->setColor(defaultColor);
-	pstyleh5->getFont()->setColor(defaultColor);
-	pstyleh6->getFont()->setColor(defaultColor);
-	pstylecode->getFont()->setColor(defaultColor);
-	pstylep->getFont()->setColor(defaultColor);
-	pstylepre->getFont()->setColor(defaultColor);
+	m_pstyle->getFont()->setColor(m_defaultColor);
+	m_pstylec->getFont()->setColor(m_defaultColor);
+	for (uint i = 0; i < m_listStyles.size(); ++i)
+		m_listStyles[i]->getFont()->setColor(m_defaultColor);
+	m_pstyleh1->getFont()->setColor(m_defaultColor);
+	m_pstyleh2->getFont()->setColor(m_defaultColor);
+	m_pstyleh3->getFont()->setColor(m_defaultColor);
+	m_pstyleh4->getFont()->setColor(m_defaultColor);
+	m_pstyleh5->getFont()->setColor(m_defaultColor);
+	m_pstyleh6->getFont()->setColor(m_defaultColor);
+	m_pstylecode->getFont()->setColor(m_defaultColor);
+	m_pstylep->getFont()->setColor(m_defaultColor);
+	m_pstylepre->getFont()->setColor(m_defaultColor);
 }
 
 void HTMLReader::setBoldFont()
 {
-	pstyle->getFont()->setWeight(BOLD);
-	pstylec->getFont()->setWeight(BOLD);
-	for (uint i = 0; i < listStyles.size(); ++i)
-		listStyles[i]->getFont()->setWeight(BOLD);
-	pstylecode->getFont()->setWeight(BOLD);
-	pstylep->getFont()->setWeight(BOLD);
-	pstylepre->getFont()->setWeight(BOLD);
+	m_pstyle->getFont()->setWeight(BOLD);
+	m_pstylec->getFont()->setWeight(BOLD);
+	for (uint i = 0; i < m_listStyles.size(); ++i)
+		m_listStyles[i]->getFont()->setWeight(BOLD);
+	m_pstylecode->getFont()->setWeight(BOLD);
+	m_pstylep->getFont()->setWeight(BOLD);
+	m_pstylepre->getFont()->setWeight(BOLD);
 }
 
 void HTMLReader::unSetBoldFont()
 {
-	pstyle->getFont()->setWeight(defaultWeight);
-	pstylec->getFont()->setWeight(defaultWeight);
-	for (uint i = 0; i < listStyles.size(); ++i)
-		listStyles[i]->getFont()->setWeight(defaultWeight);
-	pstylecode->getFont()->setWeight(REGULAR);
-	pstylep->getFont()->setWeight(defaultWeight);
-	pstylepre->getFont()->setWeight(defaultWeight);
+	m_pstyle->getFont()->setWeight(m_defaultWeight);
+	m_pstylec->getFont()->setWeight(m_defaultWeight);
+	for (uint i = 0; i < m_listStyles.size(); ++i)
+		m_listStyles[i]->getFont()->setWeight(m_defaultWeight);
+	m_pstylecode->getFont()->setWeight(REGULAR);
+	m_pstylep->getFont()->setWeight(m_defaultWeight);
+	m_pstylepre->getFont()->setWeight(m_defaultWeight);
 }
 
 void HTMLReader::parse(QString filename)
@@ -605,19 +605,19 @@ void HTMLReader::parse(QString filename)
 #else
 	QByteArray fn(filename.toLocal8Bit());
 #endif
-	elemJustStarted = elemJustFinished = false;
+	m_elemJustStarted = m_elemJustFinished = false;
 	htmlSAXParseFile(fn.data(), NULL, mySAXHandler, NULL);
 }
 
 void HTMLReader::createListStyle()
 {
-	gtParagraphStyle* tmpStyle = new gtParagraphStyle(*listStyles[0]);
-	tmpStyle->setName(QString("HTML_li_level-%1").arg(listLevel + 1));
-	double indent = listStyles[0]->getIndent();
-	indent += 25 * (listLevel + 1);
+	gtParagraphStyle* tmpStyle = new gtParagraphStyle(*m_listStyles[0]);
+	tmpStyle->setName(QString("HTML_li_level-%1").arg(m_listLevel + 1));
+	double indent = m_listStyles[0]->getIndent();
+	indent += 25 * (m_listLevel + 1);
 	tmpStyle->setIndent(indent);
-	listStyles.push_back(tmpStyle);
-	nextItemNumbers.push_back(1);
+	m_listStyles.push_back(tmpStyle);
+	m_nextItemNumbers.push_back(1);
 }
 
 htmlSAXHandler mySAXHandlerStruct = {
@@ -662,23 +662,23 @@ htmlSAXHandlerPtr mySAXHandler = &mySAXHandlerStruct;
 
 HTMLReader::~HTMLReader()
 {
-	if (!extLinks.isEmpty())
+	if (!m_extLinks.isEmpty())
 	{
-		writer->append(QObject::tr("\nExternal Links\n"), pstyleh4);
-		writer->append(extLinks, pstyle);
+		m_writer->append(QObject::tr("\nExternal Links\n"), m_pstyleh4);
+		m_writer->append(m_extLinks, m_pstyle);
 	}
-	for (uint i = 0; i < listStyles.size(); ++i)
-		delete listStyles[i];
-	delete pstylec;
-	delete pstyleh1;
-	delete pstyleh2;
-	delete pstyleh3;
-	delete pstyleh4;
-	delete pstyleh5;
-	delete pstyleh6;
-	delete pstylecode;
-	delete pstylep;
-	delete pstylepre;
-	hreader = NULL;
+	for (uint i = 0; i < m_listStyles.size(); ++i)
+		delete m_listStyles[i];
+	delete m_pstylec;
+	delete m_pstyleh1;
+	delete m_pstyleh2;
+	delete m_pstyleh3;
+	delete m_pstyleh4;
+	delete m_pstyleh5;
+	delete m_pstyleh6;
+	delete m_pstylecode;
+	delete m_pstylep;
+	delete m_pstylepre;
+	m_hreader = NULL;
 }
 
