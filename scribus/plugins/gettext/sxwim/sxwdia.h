@@ -25,12 +25,12 @@ public:
 	bool askAgain();
 	bool packStyles();
 private:
-	QCheckBox* updateCheck;
-	QCheckBox* prefixCheck;
+	QCheckBox* m_updateCheck;
+	QCheckBox* m_prefixCheck;
 	QCheckBox* doNotAskCheck;
-	QCheckBox* packCheck;
-	QPushButton* okButton;
-	QPushButton* cancelButton;
+	QCheckBox* m_packCheck;
+	QPushButton* m_okButton;
+	QPushButton* m_cancelButton;
 };
 
 #endif // CSVDIA_H
