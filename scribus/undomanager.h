@@ -272,10 +272,10 @@ private:
 	 * UndoManager is singleton and the instance can be queried with the method
 	 * instance().
 	 */
-	static UndoManager* instance_;
+	static UndoManager* m_instance_;
 
 	/** @brief Should undo states be stored or ignored */
-	static bool undoEnabled_;
+	static bool m_undoEnabled_;
 
 	/**
 	 * @brief Tracks the state of _undoEnabled.
@@ -286,24 +286,24 @@ private:
 	 * calls this way guarantees that undo is not enabled accidentally calling
 	 * setUndoEnabled(true) even it has been set false before this false-true pair touched it.
 	 */
-	static int undoEnabledCounter_;
+	static int m_undoEnabledCounter_;
 
-	PrefsContext *prefs_;
+	PrefsContext *m_prefs_;
 
 	/** @brief Doc to which the currently active stack belongs */
-	QString currentDoc_;
+	QString m_currentDoc_;
 
 	/**
 	 * @brief Id number of the object for what the object specific undo is shown
 	 * @brief or -1 if global undo is used.
 	 */
-	int currentUndoObjectId_;
+	int m_currentUndoObjectId_;
 
 	/**
 	 * @brief Stores the transactions which are currently started but not
 	 * @brief canceled or commited.
 	 */
-	std::vector<TransactionData*> transactions_;
+	std::vector<TransactionData*> m_transactions_;
 
 	/**
 	 * @brief UndoGuis attached to this UndoManager
@@ -311,14 +311,14 @@ private:
 	 * @sa UndoWidget
 	 * @sa UndoPalette
 	 */
-	std::vector<UndoGui*> undoGuis_;
+	std::vector<UndoGui*> m_undoGuis_;
 
 	/**
 	 * @brief Undo stacks for all open document
 	 *
 	 * Whenever current stack is used it's referred with <code>stacks_[currentDoc_]</code>
 	 */
-	StackMap stacks_;
+	StackMap m_stacks_;
 
 	/**
 	 * @brief Initializes the UndoGui.
