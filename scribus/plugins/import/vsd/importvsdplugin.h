@@ -48,7 +48,7 @@ class PLUGIN_API ImportVsdPlugin : public LoadSavePlugin
 
 	private:
 		void registerFormats();
-		ScrAction* importAction;
+		ScrAction* m_importAction;
 };
 
 extern "C" PLUGIN_API int importvsd_getPluginAPIVersion();

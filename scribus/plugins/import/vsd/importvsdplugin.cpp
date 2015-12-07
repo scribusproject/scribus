@@ -40,7 +40,7 @@ void importvsd_freePlugin(ScPlugin* plugin)
 }
 
 ImportVsdPlugin::ImportVsdPlugin() : LoadSavePlugin(),
-	importAction(new ScrAction(ScrAction::DLL, QPixmap(), QPixmap(), "", QKeySequence(), this))
+	m_importAction(new ScrAction(ScrAction::DLL, QPixmap(), QPixmap(), "", QKeySequence(), this))
 {
 	// Set action info in languageChange, so we only have to do it in one
 	// place. This includes registering file format support.
@@ -50,7 +50,7 @@ ImportVsdPlugin::ImportVsdPlugin() : LoadSavePlugin(),
 
 void ImportVsdPlugin::languageChange()
 {
-	importAction->setText( tr("Import Visio..."));
+	m_importAction->setText( tr("Import Visio..."));
 	FileFormat* fmt = getFormatByExt("vsd");
 	fmt->trName = tr("MS Visio");
 	fmt->filter = tr("MS Visio (*.vsd *.VSD *.vdx *.VDX *.vsdx *.VSDX)");
