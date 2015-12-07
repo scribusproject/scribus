@@ -40,7 +40,7 @@ void importpub_freePlugin(ScPlugin* plugin)
 }
 
 ImportPubPlugin::ImportPubPlugin() : LoadSavePlugin(),
-	importAction(new ScrAction(ScrAction::DLL, QPixmap(), QPixmap(), "", QKeySequence(), this))
+	m_importAction(new ScrAction(ScrAction::DLL, QPixmap(), QPixmap(), "", QKeySequence(), this))
 {
 	// Set action info in languageChange, so we only have to do it in one
 	// place. This includes registering file format support.
@@ -50,7 +50,7 @@ ImportPubPlugin::ImportPubPlugin() : LoadSavePlugin(),
 
 void ImportPubPlugin::languageChange()
 {
-	importAction->setText( tr("Import PUB..."));
+	m_importAction->setText( tr("Import PUB..."));
 	FileFormat* fmt = getFormatByExt("pub");
 	fmt->trName = tr("MS Publisher");
 	fmt->filter = tr("MS Publisher (*.pub *.PUB)");
