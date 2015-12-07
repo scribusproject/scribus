@@ -181,11 +181,11 @@ class PreviewImagesModel : public QAbstractListModel
 
 	private:
 		//pointer to the picturebrowser class
-		PictureBrowser *pictureBrowser;
+		PictureBrowser *m_pictureBrowser;
 		//default icon
-		QPixmap defaultIcon;
+		QPixmap m_defaultIcon;
 		//icon size of defaultIcon
-		int defaultIconSize;
+		int m_defaultIconSize;
 	
 };
 

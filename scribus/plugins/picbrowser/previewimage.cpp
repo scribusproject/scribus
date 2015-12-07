@@ -390,10 +390,10 @@ PreviewImagesModel::PreviewImagesModel ( QObject *parent ) : QAbstractListModel 
 
 PreviewImagesModel::PreviewImagesModel ( PictureBrowser *parent ) : QAbstractListModel ( parent )
 {
-	pictureBrowser = parent;
+	m_pictureBrowser = parent;
 	pId = 0;
 
-	createDefaultIcon ( pictureBrowser->pbSettings.previewIconSize );
+	createDefaultIcon ( m_pictureBrowser->pbSettings.previewIconSize );
 }
 
 
@@ -401,11 +401,11 @@ void PreviewImagesModel::createDefaultIcon ( int size )
 {
 	QPainter p;
 
-	defaultIcon = QPixmap ( size, size );
+	m_defaultIcon = QPixmap ( size, size );
 
 	QBrush b ( QColor ( 205,205,205 ), IconManager::instance()->loadPixmap( "testfill.png" ) );
 
-	p.begin ( &defaultIcon );
+	p.begin ( &m_defaultIcon );
 
 	p.setPen ( QPen ( Qt::black, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin ) );
 	p.setBrush ( b );
@@ -413,7 +413,7 @@ void PreviewImagesModel::createDefaultIcon ( int size )
 
 	p.end();
 
-	defaultIconSize = size;
+	m_defaultIconSize = size;
 }
 
 
@@ -428,8 +428,8 @@ void PreviewImagesModel::setModelItemsList ( const QList<previewImage *> &previe
 		clearModelItemsList();
 	}
 
-	pictureBrowser->imagesDisplayed = 0;
-	pictureBrowser->imagesFiltered = 0;
+	m_pictureBrowser->imagesDisplayed = 0;
+	m_pictureBrowser->imagesFiltered = 0;
 
 	beginInsertRows ( QModelIndex(), 0, previewImagesList.size() );
 
@@ -437,7 +437,7 @@ void PreviewImagesModel::setModelItemsList ( const QList<previewImage *> &previe
 
 	for ( int i = 0 ; i < previewImagesList.size() ; ++i )
 	{
-		if ( ! ( pictureBrowser->pbSettings.sortOrder ) )
+		if ( ! ( m_pictureBrowser->pbSettings.sortOrder ) )
 		{
 			tmpPreviewImage = previewImagesList.at ( i );
 		}
@@ -449,11 +449,11 @@ void PreviewImagesModel::setModelItemsList ( const QList<previewImage *> &previe
 		if ( ! ( tmpPreviewImage->filtered ) )
 		{
 			modelItemsList.append ( tmpPreviewImage );
-			pictureBrowser->imagesDisplayed++;
+			m_pictureBrowser->imagesDisplayed++;
 		}
 		else
 		{
-			pictureBrowser->imagesFiltered++;
+			m_pictureBrowser->imagesFiltered++;
 		}
 	}
 
@@ -483,7 +483,7 @@ QVariant PreviewImagesModel::data ( const QModelIndex &index, int role ) const
 
 	if ( role == Qt::DecorationRole )
 	{
-		pictureBrowser->currentRow = row;
+		m_pictureBrowser->currentRow = row;
 /*
 		//preload icons before and after current icon
 		if ( ( row - pictureBrowser->previewIconsVisible ) >= 0 )
@@ -513,10 +513,10 @@ QVariant PreviewImagesModel::data ( const QModelIndex &index, int role ) const
 			if ( !tmpImage->previewImageLoading )
 			{
 				tmpImage->previewImageLoading = true;
-				pictureBrowser->callLoadImageThread ( row, pId );
+				m_pictureBrowser->callLoadImageThread ( row, pId );
 			}
 
-			return QIcon ( defaultIcon );
+			return QIcon ( m_defaultIcon );
 		}
 		else
 		{
@@ -527,7 +527,7 @@ QVariant PreviewImagesModel::data ( const QModelIndex &index, int role ) const
 	}
 	else if ( role == Qt::DisplayRole )
 	{
-		if ( pictureBrowser->pbSettings.previewMode == 1 )
+		if ( m_pictureBrowser->pbSettings.previewMode == 1 )
 		{
 			return tmpImage->fileInformation.fileName();
 		}
@@ -612,7 +612,7 @@ void PreviewImagesModel::processLoadedImage ( int row, const QImage image, Image
 
 	previewImage *loadedImage = modelItemsList.at ( row );
 	loadedImage->previewImageLoading = false;
-	loadedImage->createPreviewIcon ( image, pictureBrowser->pbSettings.previewIconSize );
+	loadedImage->createPreviewIcon ( image, m_pictureBrowser->pbSettings.previewIconSize );
 
 	loadedImage->imgInfo = imgInfo;
 
