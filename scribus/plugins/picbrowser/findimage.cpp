@@ -23,16 +23,16 @@ findImagesThread::findImagesThread ( const QString& path2, const QStringList& na
 {
 	restartThread = false;
 
-	startPath = path2;
-	nameFilters = nameFilters2;
-	sort = sort2;
-	searchSubfolders = searchSubfolders2;
+	m_startPath = path2;
+	m_nameFilters = nameFilters2;
+	m_sort = sort2;
+	m_searchSubfolders = searchSubfolders2;
 }
 
 
 void findImagesThread::run()
 {
-	findFiles ( startPath );
+	findFiles ( m_startPath );
 }
 
 
@@ -50,8 +50,8 @@ void findImagesThread::findFiles ( const QString& path )
 	{
 		QFileInfoList list;
 		dir.setFilter ( QDir::AllDirs|QDir::Drives|QDir::Files|QDir::NoDotAndDotDot|QDir::NoSymLinks|QDir::Hidden );
-		dir.setNameFilters ( nameFilters );
-		dir.setSorting ( sort );
+		dir.setNameFilters ( m_nameFilters );
+		dir.setSorting ( m_sort );
 
 		list = dir.entryInfoList();
 
@@ -61,7 +61,7 @@ void findImagesThread::findFiles ( const QString& path )
 
 			if ( fileInfo.isDir() )
 			{
-				if ( searchSubfolders )
+				if ( m_searchSubfolders )
 				{
 					findFiles ( fileInfo.canonicalFilePath() );
 				}

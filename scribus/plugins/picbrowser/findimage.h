@@ -51,13 +51,13 @@ class findImagesThread : public QThread
 
 	private:
 		//path to start searching
-		QString startPath;
+		QString m_startPath;
 		//namefilters for search
-		QStringList nameFilters;
+		QStringList m_nameFilters;
 		//sortflags for search
-		QDir::SortFlags sort;
+		QDir::SortFlags m_sort;
 		//tells wether to search subfolders
-		bool searchSubfolders;
+		bool m_searchSubfolders;
 };
 
 
