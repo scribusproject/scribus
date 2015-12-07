@@ -41,11 +41,11 @@ class IView: public QGraphicsView
 		void resizeEvent ( QResizeEvent * event );
 
 	private:
-		QGraphicsPixmapItem * curImage;
+		QGraphicsPixmapItem * m_curImage;
 
-		QPointF mouseStartPoint;
-		QRect theRect;
-		bool isPanning;
+		QPointF m_mouseStartPoint;
+		QRect m_theRect;
+		bool m_isPanning;
 
 		bool m_keepFitted;
 

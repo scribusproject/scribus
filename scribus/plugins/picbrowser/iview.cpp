@@ -21,10 +21,10 @@
 IView::IView ( QWidget * parent )
 		:QGraphicsView ( parent )
 {
-	curImage = 0;
+	m_curImage = 0;
 	setScene ( new QGraphicsScene );
 	setInteractive ( true );
-	isPanning = false;
+	m_isPanning = false;
 	m_keepFitted = false;
 	setAlignment ( Qt::AlignTop | Qt::AlignLeft );
 	setTransformationAnchor ( QGraphicsView::NoAnchor );
@@ -41,14 +41,14 @@ IView::~ IView()
 void IView::mouseMoveEvent ( QMouseEvent * e )
 {
 	////qDebug()<<"IView::mouseMoveEvent";
-	if ( isPanning )
+	if ( m_isPanning )
 	{
 		QPointF pos ( e->pos() );
-		int vDelta ( qRound ( mouseStartPoint.y() - pos.y() ) );
-		int hDelta ( qRound ( mouseStartPoint.x() - pos.x() ) );
+		int vDelta ( qRound ( m_mouseStartPoint.y() - pos.y() ) );
+		int hDelta ( qRound ( m_mouseStartPoint.x() - pos.x() ) );
 		verticalScrollBar()->setValue ( verticalScrollBar()->value() + vDelta );
 		horizontalScrollBar()->setValue ( horizontalScrollBar()->value() + hDelta );
-		mouseStartPoint = pos;
+		m_mouseStartPoint = pos;
 		return;
 	}
 }
@@ -61,8 +61,8 @@ void IView::mousePressEvent ( QMouseEvent * e )
 
 // 	if ( e->button() == Qt::MidButton )
 	{
-		mouseStartPoint =  e->pos() ;
-		isPanning = true;
+		m_mouseStartPoint =  e->pos() ;
+		m_isPanning = true;
 		QApplication::setOverrideCursor ( QCursor ( Qt::ClosedHandCursor ) );
 	}
 }
@@ -70,9 +70,9 @@ void IView::mousePressEvent ( QMouseEvent * e )
 void IView::mouseReleaseEvent ( QMouseEvent * e )
 {
 	//qDebug()<<"IView::mouseReleaseEvent";
-	if ( isPanning )
+	if ( m_isPanning )
 	{
-		isPanning = false;
+		m_isPanning = false;
 		QApplication::restoreOverrideCursor();
 		return;
 	}
@@ -82,21 +82,21 @@ void IView::mouseReleaseEvent ( QMouseEvent * e )
 void IView::setImage(const QPixmap & pixmap)
 {
 	//qDebug()<<"IView::setImage";
-	if ( curImage )
+	if ( m_curImage )
 	{
-		delete curImage;
-		curImage = 0;
+		delete m_curImage;
+		m_curImage = 0;
 	}
 	
-	curImage = scene()->addPixmap ( pixmap );
+	m_curImage = scene()->addPixmap ( pixmap );
 }
 
 QPixmap IView::getPixmap()
 {
 	//qDebug()<<"IView::getPixmap";
-	if ( curImage )
+	if ( m_curImage )
 	{
-		return  curImage->pixmap();
+		return  m_curImage->pixmap();
 	}
 	return QPixmap();
 }
@@ -106,11 +106,11 @@ QPixmap IView::getPixmap()
 void IView::fitImage()
 {
 	//qDebug()<<"IView::fitImage";
-	if(!curImage)
+	if(!m_curImage)
 		return;
 	
-	double wR = width() /curImage->boundingRect().width()  ;
-	double hR =  height()/ curImage->boundingRect().height();
+	double wR = width() /m_curImage->boundingRect().width()  ;
+	double hR =  height()/ m_curImage->boundingRect().height();
 	
 	double R = (wR > hR) ? hR : wR;
 	QTransform T;
