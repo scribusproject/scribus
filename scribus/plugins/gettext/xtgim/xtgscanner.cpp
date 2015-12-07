@@ -42,27 +42,27 @@ for which a new license (GPL+exception) is in place.
 XtgScanner::XtgScanner (QString filename, PageItem *item, bool textOnly)
 {
 	m_item = item;
-	importTextOnly = textOnly;
-	loadRawBytes(filename, input_Buffer);
-	top = 0;
-	if ((input_Buffer[0] == '\xFF') && (input_Buffer[1] == '\xFE'))
+	m_importTextOnly = textOnly;
+	loadRawBytes(filename, m_input_Buffer);
+	m_top = 0;
+	if ((m_input_Buffer[0] == '\xFF') && (m_input_Buffer[1] == '\xFE'))
 	{
 		QByteArray tmpBuf;
-		for (int a = 2; a < input_Buffer.count(); a += 2)
+		for (int a = 2; a < m_input_Buffer.count(); a += 2)
 		{
-			tmpBuf.append(input_Buffer[a]);
+			tmpBuf.append(m_input_Buffer[a]);
 		}
-		input_Buffer = tmpBuf;
+		m_input_Buffer = tmpBuf;
 	}
-	doc = item->doc();
+	m_doc = item->doc();
 	initTagMode();
 	initTextMode();
 	initNameMode();
 	initLanguages();
-	prevMode = textMode;
-	textToAppend = "";
-	define = 0;
-	styleEffects = ScStyle_None;
+	m_prevMode = textMode;
+	m_textToAppend = "";
+	m_define = 0;
+	m_styleEffects = ScStyle_None;
 	m_codecList = QTextCodec::availableCodecs();
 	if (m_codecList.contains("cp1252"))
 		m_codec = QTextCodec::codecForName("cp1252");		// Default ANSI codec
@@ -70,7 +70,7 @@ XtgScanner::XtgScanner (QString filename, PageItem *item, bool textOnly)
 		m_codec = QTextCodec::codecForLocale();
 	m_isBold = false;
 	m_isItalic = false;
-	inDef = false;
+	m_inDef = false;
 }
 
 /** Initialise a QHash which maps the values of n## to corresponding language strings
@@ -79,38 +79,38 @@ XtgScanner::XtgScanner (QString filename, PageItem *item, bool textOnly)
 void XtgScanner::initLanguages()
 {
 	/* For more info, look at langmgr.cpp */
-	languages.insert(72,"Bulgarian");
-	languages.insert(73,"Catalan");
-	languages.insert(52,"Chinese");
-	languages.insert(53,"Chinese");
-	languages.insert(68,"Croatian");
-	languages.insert(56,"Czech");
-	languages.insert(9,"Danish");
-	languages.insert(5,"Dutch");
-	languages.insert(2,"English");
-	languages.insert(0,"English");
-	languages.insert(17,"Finnish");
-	languages.insert(1,"French");
-	languages.insert(3,"German");
-	languages.insert(70,"German");
-	languages.insert(19,"German");
-	languages.insert(20,"Greek");
-	languages.insert(43,"Hungarian");
-	languages.insert(21,"Icelandic");
-	languages.insert(4,"Italian");
-	languages.insert(14,"Japanese");
-	languages.insert(41,"Lithuanian");
-	languages.insert(12,"Norwegian (Bokmål)");
-	languages.insert(80,"Norwegian (Bokmål)");
-	languages.insert(42,"Polish");
-	languages.insert(71,"Portuguese (BR)");
-	languages.insert(10,"Portuguese");
-	languages.insert(39,"Romanian");
-	languages.insert(57,"Slovak");
-	languages.insert(66,"Slovenian");
-	languages.insert(8,"Spanish");
-	languages.insert(7,"Swedish");
-	languages.insert(62,"Ukranian");
+	m_languages.insert(72,"Bulgarian");
+	m_languages.insert(73,"Catalan");
+	m_languages.insert(52,"Chinese");
+	m_languages.insert(53,"Chinese");
+	m_languages.insert(68,"Croatian");
+	m_languages.insert(56,"Czech");
+	m_languages.insert(9,"Danish");
+	m_languages.insert(5,"Dutch");
+	m_languages.insert(2,"English");
+	m_languages.insert(0,"English");
+	m_languages.insert(17,"Finnish");
+	m_languages.insert(1,"French");
+	m_languages.insert(3,"German");
+	m_languages.insert(70,"German");
+	m_languages.insert(19,"German");
+	m_languages.insert(20,"Greek");
+	m_languages.insert(43,"Hungarian");
+	m_languages.insert(21,"Icelandic");
+	m_languages.insert(4,"Italian");
+	m_languages.insert(14,"Japanese");
+	m_languages.insert(41,"Lithuanian");
+	m_languages.insert(12,"Norwegian (Bokmål)");
+	m_languages.insert(80,"Norwegian (Bokmål)");
+	m_languages.insert(42,"Polish");
+	m_languages.insert(71,"Portuguese (BR)");
+	m_languages.insert(10,"Portuguese");
+	m_languages.insert(39,"Romanian");
+	m_languages.insert(57,"Slovak");
+	m_languages.insert(66,"Slovenian");
+	m_languages.insert(8,"Spanish");
+	m_languages.insert(7,"Swedish");
+	m_languages.insert(62,"Ukranian");
 
 }
 
@@ -118,94 +118,94 @@ void XtgScanner::initLanguages()
 
 void XtgScanner::initTagMode()
 {
-	tagModeHash.insert("P",&XtgScanner::setPlain);
-	tagModeHash.insert("B",&XtgScanner::setBold);
-	tagModeHash.insert("I",&XtgScanner::setItalics);
-	tagModeHash.insert("O",&XtgScanner::setOutline);
-	tagModeHash.insert("S",&XtgScanner::setShadow);
-	tagModeHash.insert("U",&XtgScanner::setUnderline);
-	tagModeHash.insert("W",&XtgScanner::setWordUnder);
-	tagModeHash.insert("/",&XtgScanner::setStrikethrough);
-	tagModeHash.insert("R",&XtgScanner::setDoubleStrike);
-	tagModeHash.insert("K",&XtgScanner::setAllCaps);
-	tagModeHash.insert("H",&XtgScanner::setSmallCaps);
-	tagModeHash.insert("+",&XtgScanner::setSuperscript);
-	tagModeHash.insert("-",&XtgScanner::setSubscript);
-	tagModeHash.insert("V",&XtgScanner::setSuperior);
-	tagModeHash.insert("f",&XtgScanner::setFont);
-	tagModeHash.insert("z",&XtgScanner::setFontSize);
-	tagModeHash.insert("c",&XtgScanner::setColor);
-	tagModeHash.insert("s",&XtgScanner::setShade);
-	tagModeHash.insert("h",&XtgScanner::setHorizontalScale);
-	tagModeHash.insert("k",&XtgScanner::setKern);
-	tagModeHash.insert("t",&XtgScanner::setTrack);
-	tagModeHash.insert("b",&XtgScanner::setBaseLineShift);
-	tagModeHash.insert("y",&XtgScanner::setVerticalScale);
-	tagModeHash.insert("G",&XtgScanner::setLigatures);
-	tagModeHash.insert("p",&XtgScanner::csetOpacity);
-	tagModeHash.insert("o",&XtgScanner::setOpenType);
-	tagModeHash.insert("*A",&XtgScanner::setCharAlignment);
-	tagModeHash.insert("L",&XtgScanner::setVertStories);
-	tagModeHash.insert("M",&XtgScanner::setEmphasisMarks);
-	tagModeHash.insert("Y",&XtgScanner::setAsncjk);//Apply sending to non-CJK characters.
-	tagModeHash.insert("n",&XtgScanner::setLanguages);
-	tagModeHash.insert("A(",&XtgScanner::setXPresOwn); //Apply features like Rubi text, group characters & hyperlink
-	tagModeHash.insert("*L",&XtgScanner::setAlignLeft);
-	tagModeHash.insert("*C",&XtgScanner::setAlignCenter);
-	tagModeHash.insert("*R",&XtgScanner::setAlignRight);
-	tagModeHash.insert("*J",&XtgScanner::setAlignJustify);
-	tagModeHash.insert("*F",&XtgScanner::setAlignFJustify);
-	tagModeHash.insert("*t",&XtgScanner::setTabStops);
-	tagModeHash.insert("*p",&XtgScanner::setPAttributes);
-	tagModeHash.insert("*h",&XtgScanner::setHyphenation);
-	tagModeHash.insert("*ra",&XtgScanner::setPRuleAbove);
-	tagModeHash.insert("*rb",&XtgScanner::setPRuleBelow);
-	tagModeHash.insert("*d",&XtgScanner::setDropCap);
-	tagModeHash.insert("*kn",&XtgScanner::setKeepNextPar);
-	tagModeHash.insert("*kt",&XtgScanner::setKeepTogether);
-	tagModeHash.insert("*s",&XtgScanner::setHangingCSet);
-	tagModeHash.insert("DoO",&XtgScanner::setGlyph);
-	tagModeHash.insert("EX",&XtgScanner::setTranscodeSeq);
-	tagModeHash.insert("DO",&XtgScanner::setUnencodedGlyph);
+	m_tagModeHash.insert("P",&XtgScanner::setPlain);
+	m_tagModeHash.insert("B",&XtgScanner::setBold);
+	m_tagModeHash.insert("I",&XtgScanner::setItalics);
+	m_tagModeHash.insert("O",&XtgScanner::setOutline);
+	m_tagModeHash.insert("S",&XtgScanner::setShadow);
+	m_tagModeHash.insert("U",&XtgScanner::setUnderline);
+	m_tagModeHash.insert("W",&XtgScanner::setWordUnder);
+	m_tagModeHash.insert("/",&XtgScanner::setStrikethrough);
+	m_tagModeHash.insert("R",&XtgScanner::setDoubleStrike);
+	m_tagModeHash.insert("K",&XtgScanner::setAllCaps);
+	m_tagModeHash.insert("H",&XtgScanner::setSmallCaps);
+	m_tagModeHash.insert("+",&XtgScanner::setSuperscript);
+	m_tagModeHash.insert("-",&XtgScanner::setSubscript);
+	m_tagModeHash.insert("V",&XtgScanner::setSuperior);
+	m_tagModeHash.insert("f",&XtgScanner::setFont);
+	m_tagModeHash.insert("z",&XtgScanner::setFontSize);
+	m_tagModeHash.insert("c",&XtgScanner::setColor);
+	m_tagModeHash.insert("s",&XtgScanner::setShade);
+	m_tagModeHash.insert("h",&XtgScanner::setHorizontalScale);
+	m_tagModeHash.insert("k",&XtgScanner::setKern);
+	m_tagModeHash.insert("t",&XtgScanner::setTrack);
+	m_tagModeHash.insert("b",&XtgScanner::setBaseLineShift);
+	m_tagModeHash.insert("y",&XtgScanner::setVerticalScale);
+	m_tagModeHash.insert("G",&XtgScanner::setLigatures);
+	m_tagModeHash.insert("p",&XtgScanner::csetOpacity);
+	m_tagModeHash.insert("o",&XtgScanner::setOpenType);
+	m_tagModeHash.insert("*A",&XtgScanner::setCharAlignment);
+	m_tagModeHash.insert("L",&XtgScanner::setVertStories);
+	m_tagModeHash.insert("M",&XtgScanner::setEmphasisMarks);
+	m_tagModeHash.insert("Y",&XtgScanner::setAsncjk);//Apply sending to non-CJK characters.
+	m_tagModeHash.insert("n",&XtgScanner::setLanguages);
+	m_tagModeHash.insert("A(",&XtgScanner::setXPresOwn); //Apply features like Rubi text, group characters & hyperlink
+	m_tagModeHash.insert("*L",&XtgScanner::setAlignLeft);
+	m_tagModeHash.insert("*C",&XtgScanner::setAlignCenter);
+	m_tagModeHash.insert("*R",&XtgScanner::setAlignRight);
+	m_tagModeHash.insert("*J",&XtgScanner::setAlignJustify);
+	m_tagModeHash.insert("*F",&XtgScanner::setAlignFJustify);
+	m_tagModeHash.insert("*t",&XtgScanner::setTabStops);
+	m_tagModeHash.insert("*p",&XtgScanner::setPAttributes);
+	m_tagModeHash.insert("*h",&XtgScanner::setHyphenation);
+	m_tagModeHash.insert("*ra",&XtgScanner::setPRuleAbove);
+	m_tagModeHash.insert("*rb",&XtgScanner::setPRuleBelow);
+	m_tagModeHash.insert("*d",&XtgScanner::setDropCap);
+	m_tagModeHash.insert("*kn",&XtgScanner::setKeepNextPar);
+	m_tagModeHash.insert("*kt",&XtgScanner::setKeepTogether);
+	m_tagModeHash.insert("*s",&XtgScanner::setHangingCSet);
+	m_tagModeHash.insert("DoO",&XtgScanner::setGlyph);
+	m_tagModeHash.insert("EX",&XtgScanner::setTranscodeSeq);
+	m_tagModeHash.insert("DO",&XtgScanner::setUnencodedGlyph);
 
-	tagModeHash.insert("@>",&XtgScanner::applyCStyle1);
-	tagModeHash.insert("@$",&XtgScanner::applyCStyle2);
-	tagModeHash.insert("@$p",&XtgScanner::applyCStyle3);
-	tagModeHash.insert("$$",&XtgScanner::applyCStyle4);
-	tagModeHash.insert("a$",&XtgScanner::applyCStyle5);
-	tagModeHash.insert("a$$",&XtgScanner::applyCStyle6);
+	m_tagModeHash.insert("@>",&XtgScanner::applyCStyle1);
+	m_tagModeHash.insert("@$",&XtgScanner::applyCStyle2);
+	m_tagModeHash.insert("@$p",&XtgScanner::applyCStyle3);
+	m_tagModeHash.insert("$$",&XtgScanner::applyCStyle4);
+	m_tagModeHash.insert("a$",&XtgScanner::applyCStyle5);
+	m_tagModeHash.insert("a$$",&XtgScanner::applyCStyle6);
 
-	tagModeHash.insert("$",&XtgScanner::setTypeStyle);
+	m_tagModeHash.insert("$",&XtgScanner::setTypeStyle);
 
-	tagModeHash.insert("\\@",&XtgScanner::appendSpChar1);
-	tagModeHash.insert("x",&XtgScanner::xFlag);
-	tagModeHash.insert("\\<",&XtgScanner::appendSpChar2);
-	tagModeHash.insert("\\",&XtgScanner::appendSpChar3);
-	tagModeHash.insert(">",&XtgScanner::defClose);
-	tagModeHash.insert("e",&XtgScanner::setEncoding);
+	m_tagModeHash.insert("\\@",&XtgScanner::appendSpChar1);
+	m_tagModeHash.insert("x",&XtgScanner::xFlag);
+	m_tagModeHash.insert("\\<",&XtgScanner::appendSpChar2);
+	m_tagModeHash.insert("\\",&XtgScanner::appendSpChar3);
+	m_tagModeHash.insert(">",&XtgScanner::defClose);
+	m_tagModeHash.insert("e",&XtgScanner::setEncoding);
 }
 
 /** Initialise the textModeHash with tokens returned in textMode and its corresponding function pointers */
 
 void XtgScanner::initTextMode()
 {
-	textModeHash.insert("\n",&XtgScanner::defNewLine);
-	textModeHash.insert("<",&XtgScanner::defOpen);
-	textModeHash.insert("@",&XtgScanner::defAtRate);
-	textModeHash.insert("\r",&XtgScanner::defHardReturn);
+	m_textModeHash.insert("\n",&XtgScanner::defNewLine);
+	m_textModeHash.insert("<",&XtgScanner::defOpen);
+	m_textModeHash.insert("@",&XtgScanner::defAtRate);
+	m_textModeHash.insert("\r",&XtgScanner::defHardReturn);
 }
 
 /** Initialise the nameModeHash with tokens returned in nameMode and its corresponding function pointers */
 
 void XtgScanner::initNameMode()
 {
-	nameModeHash.insert("[F]",&XtgScanner::defFontSet);
-	nameModeHash.insert("[C]",&XtgScanner::defColor);
-	nameModeHash.insert("[S\"",&XtgScanner::definePStyles);
-	nameModeHash.insert("[Sp",&XtgScanner::definePStyles);
-	nameModeHash.insert("[St",&XtgScanner::defineCStyle);
-	nameModeHash.insert("=",&XtgScanner::defEquals);
-	nameModeHash.insert(":",&XtgScanner::defColon);
+	m_nameModeHash.insert("[F]",&XtgScanner::defFontSet);
+	m_nameModeHash.insert("[C]",&XtgScanner::defColor);
+	m_nameModeHash.insert("[S\"",&XtgScanner::definePStyles);
+	m_nameModeHash.insert("[Sp",&XtgScanner::definePStyles);
+	m_nameModeHash.insert("[St",&XtgScanner::defineCStyle);
+	m_nameModeHash.insert("=",&XtgScanner::defEquals);
+	m_nameModeHash.insert(":",&XtgScanner::defColon);
 }
 
 /** Function for each tokens in tagMode. Each token is hashed with corresponding function pointers
@@ -213,8 +213,8 @@ void XtgScanner::initNameMode()
 
 void XtgScanner::setPlain()
 {
-	styleEffects = ScStyle_None;
-	currentCharStyle.setFeatures(styleEffects.featureList());
+	m_styleEffects = ScStyle_None;
+	m_currentCharStyle.setFeatures(m_styleEffects.featureList());
 	m_isBold = true;
 	m_isItalic = false;
 	setBold();
@@ -227,8 +227,8 @@ void XtgScanner::setBold()
 //	QString fam = currentCharStyle.font().family();
 	int posC = m_item->itemText.length();
 	m_item->itemText.insertChars(posC, "B");
-	m_item->itemText.applyStyle(posC, currentParagraphStyle);
-	m_item->itemText.applyCharStyle(posC, 1, currentCharStyle);
+	m_item->itemText.applyStyle(posC, m_currentParagraphStyle);
+	m_item->itemText.applyCharStyle(posC, 1, m_currentCharStyle);
 	QString fam = m_item->itemText.charStyle(posC).font().family();
 	m_item->itemText.removeChars(posC, 1);
 	if (fam.isEmpty())
@@ -239,20 +239,20 @@ void XtgScanner::setBold()
 		if (m_isItalic)
 		{
 			if (slist.contains("Bold Italic"))
-				currentCharStyle.setFont(PrefsManager::instance()->appPrefs.fontPrefs.AvailFonts[fam + " Bold Italic"]);
+				m_currentCharStyle.setFont(PrefsManager::instance()->appPrefs.fontPrefs.AvailFonts[fam + " Bold Italic"]);
 		}
 		else if (slist.contains("Bold"))
-			currentCharStyle.setFont(PrefsManager::instance()->appPrefs.fontPrefs.AvailFonts[fam + " Bold"]);
+			m_currentCharStyle.setFont(PrefsManager::instance()->appPrefs.fontPrefs.AvailFonts[fam + " Bold"]);
 	}
 	else
 	{
 		if (m_isItalic)
 		{
 			if (slist.contains("Italic"))
-				currentCharStyle.setFont(PrefsManager::instance()->appPrefs.fontPrefs.AvailFonts[fam + " Italic"]);
+				m_currentCharStyle.setFont(PrefsManager::instance()->appPrefs.fontPrefs.AvailFonts[fam + " Italic"]);
 		}
 		else if (slist.contains("Regular"))
-			currentCharStyle.setFont(PrefsManager::instance()->appPrefs.fontPrefs.AvailFonts[fam + " Regular"]);
+			m_currentCharStyle.setFont(PrefsManager::instance()->appPrefs.fontPrefs.AvailFonts[fam + " Regular"]);
 	}
 }
 
@@ -261,8 +261,8 @@ void XtgScanner::setItalics()
 	m_isItalic = !m_isItalic;
 	int posC = m_item->itemText.length();
 	m_item->itemText.insertChars(posC, "B");
-	m_item->itemText.applyStyle(posC, currentParagraphStyle);
-	m_item->itemText.applyCharStyle(posC, 1, currentCharStyle);
+	m_item->itemText.applyStyle(posC, m_currentParagraphStyle);
+	m_item->itemText.applyCharStyle(posC, 1, m_currentCharStyle);
 	QString fam = m_item->itemText.charStyle(posC).font().family();
 	m_item->itemText.removeChars(posC, 1);
 //	QString fam = currentCharStyle.font().family();
@@ -274,20 +274,20 @@ void XtgScanner::setItalics()
 		if (m_isBold)
 		{
 			if (slist.contains("Bold Italic"))
-				currentCharStyle.setFont(PrefsManager::instance()->appPrefs.fontPrefs.AvailFonts[fam + " Bold Italic"]);
+				m_currentCharStyle.setFont(PrefsManager::instance()->appPrefs.fontPrefs.AvailFonts[fam + " Bold Italic"]);
 		}
 		else if (slist.contains("Italic"))
-			currentCharStyle.setFont(PrefsManager::instance()->appPrefs.fontPrefs.AvailFonts[fam + " Italic"]);
+			m_currentCharStyle.setFont(PrefsManager::instance()->appPrefs.fontPrefs.AvailFonts[fam + " Italic"]);
 	}
 	else
 	{
 		if (m_isBold)
 		{
 			if (slist.contains("Bold"))
-				currentCharStyle.setFont(PrefsManager::instance()->appPrefs.fontPrefs.AvailFonts[fam + " Bold"]);
+				m_currentCharStyle.setFont(PrefsManager::instance()->appPrefs.fontPrefs.AvailFonts[fam + " Bold"]);
 		}
 		else if (slist.contains("Regular"))
-			currentCharStyle.setFont(PrefsManager::instance()->appPrefs.fontPrefs.AvailFonts[fam + " Regular"]);
+			m_currentCharStyle.setFont(PrefsManager::instance()->appPrefs.fontPrefs.AvailFonts[fam + " Regular"]);
 	}
 }
 
@@ -303,13 +303,13 @@ void XtgScanner::setOutline()
 
 void XtgScanner::setUnderline()
 {
-	styleEffects &= ~ScStyle_UnderlineWords;
+	m_styleEffects &= ~ScStyle_UnderlineWords;
 	applyFeature(ScStyle_Underline);
 }
 
 void XtgScanner::setWordUnder()
 {
-	styleEffects &= ~ScStyle_Underline;
+	m_styleEffects &= ~ScStyle_Underline;
 	applyFeature(ScStyle_UnderlineWords);
 }
 
@@ -320,38 +320,38 @@ void XtgScanner::setStrikethrough()
 
 void XtgScanner::setDoubleStrike()
 {
-	styleEffects &= ~ScStyle_Strikethrough;
-	currentCharStyle.setFeatures(styleEffects.featureList());
-	unSupported.insert(token);
+	m_styleEffects &= ~ScStyle_Strikethrough;
+	m_currentCharStyle.setFeatures(m_styleEffects.featureList());
+	m_unSupported.insert(m_token);
 }
 
 void XtgScanner::setAllCaps()
 {
-	styleEffects &= ~ScStyle_SmallCaps;
+	m_styleEffects &= ~ScStyle_SmallCaps;
 	applyFeature(ScStyle_AllCaps);
 }
 
 void XtgScanner::setSmallCaps()
 {
-	styleEffects &= ~ScStyle_AllCaps;
+	m_styleEffects &= ~ScStyle_AllCaps;
 	applyFeature(ScStyle_SmallCaps);
 }
 
 void XtgScanner::setSuperscript()
 {
-	styleEffects &= ~ScStyle_Subscript;
+	m_styleEffects &= ~ScStyle_Subscript;
 	applyFeature(ScStyle_Superscript);
 }
 
 void XtgScanner::setSubscript()
 {
-	styleEffects &= ~ScStyle_Superscript;
+	m_styleEffects &= ~ScStyle_Superscript;
 	applyFeature(ScStyle_Subscript);
 }
 
 void XtgScanner::setSuperior()
 {
-	styleEffects &= ~ScStyle_Subscript;
+	m_styleEffects &= ~ScStyle_Subscript;
 	applyFeature(ScStyle_Superscript);
 }
 
@@ -359,13 +359,13 @@ void XtgScanner::setFont()
 {
 	/** define/apply font */
 	flushText();
-	token = getToken();
+	m_token = getToken();
 	QString font = PrefsManager::instance()->appPrefs.itemToolPrefs.textFont;
-	if (token != "$")
-		font = getFontName(token);
-	currentCharStyle.setFont(PrefsManager::instance()->appPrefs.fontPrefs.AvailFonts[font]);
-	if(!doc->UsedFonts.contains(font))
-		doc->AddFont(font);
+	if (m_token != "$")
+		font = getFontName(m_token);
+	m_currentCharStyle.setFont(PrefsManager::instance()->appPrefs.fontPrefs.AvailFonts[font]);
+	if(!m_doc->UsedFonts.contains(font))
+		m_doc->AddFont(font);
 }
 
 QString XtgScanner::getFontName(QString name)
@@ -404,7 +404,7 @@ QString XtgScanner::getFontName(QString name)
 		if (!PrefsManager::instance()->appPrefs.fontPrefs.GFontSub.contains(fontName))
 		{
 			qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
-			MissingFont *dia = new MissingFont(0, fontName, doc);
+			MissingFont *dia = new MissingFont(0, fontName, m_doc);
 			dia->exec();
 			QString fontNameR = dia->getReplacementFont();
 			delete dia;
@@ -421,16 +421,16 @@ QString XtgScanner::getFontName(QString name)
 void XtgScanner::setFontSize()
 {
 	flushText();
-	token = getToken();
-	if (token == "$")
-		token = "12";
-	currentCharStyle.setFontSize( token.toDouble() * 10 );
+	m_token = getToken();
+	if (m_token == "$")
+		m_token = "12";
+	m_currentCharStyle.setFontSize( m_token.toDouble() * 10 );
 }
 
 void XtgScanner::setColor()
 {
 	flushText();
-	token = getToken();	
+	m_token = getToken();	
 
 	QHash<QString,QString> color;
 	color.insert("cC","Cyan");
@@ -438,82 +438,82 @@ void XtgScanner::setColor()
 	color.insert("cY","Yellow");
 	color.insert("cK","Black");
 
-	if (token == "C" || token == "M" || token == "Y" || token == "K")
+	if (m_token == "C" || m_token == "M" || m_token == "Y" || m_token == "K")
 	{
-		token = "c" + token; 
-		token = color.value(token);
+		m_token = "c" + m_token; 
+		m_token = color.value(m_token);
 	}
-	else if (!doc->PageColors.contains(token))
-		token = "Black";
-	if (doc->PageColors.contains(token))
-		currentCharStyle.setFillColor(token);
+	else if (!m_doc->PageColors.contains(m_token))
+		m_token = "Black";
+	if (m_doc->PageColors.contains(m_token))
+		m_currentCharStyle.setFillColor(m_token);
 }
 
 void XtgScanner::setShade()
 {
 	flushText();
-	token = getToken();
-	if (token == "$")
-		token = "100";
-	currentCharStyle.setFillShade(token.toDouble());
+	m_token = getToken();
+	if (m_token == "$")
+		m_token = "100";
+	m_currentCharStyle.setFillShade(m_token.toDouble());
 
 }
 
 void XtgScanner::setHorizontalScale()
 {
 	flushText();
-	token = getToken();
-	if (token == "$")
-		token = "100";
-	currentCharStyle.setScaleH(token.toDouble() * 10.0);
+	m_token = getToken();
+	if (m_token == "$")
+		m_token = "100";
+	m_currentCharStyle.setScaleH(m_token.toDouble() * 10.0);
 }
 
 void XtgScanner::setKern()
 {
 	flushText();
-	token = getToken();
-	if (token == "$")
-		token = "0";
+	m_token = getToken();
+	if (m_token == "$")
+		m_token = "0";
 //	currentCharStyle.setWordTracking((token.toDouble() * (currentCharStyle.fontSize() / 200.0)) / currentCharStyle.fontSize() * 10);
 }
 
 void XtgScanner::setTrack()
 {
 	flushText();
-	token = getToken();
-	if (token == "$")
-		token = "0";
+	m_token = getToken();
+	if (m_token == "$")
+		m_token = "0";
 //	currentCharStyle.setTracking((token.toDouble() * (currentCharStyle.fontSize() / 200.0)) / currentCharStyle.fontSize() * 10);
 }
 
 void XtgScanner::setBaseLineShift()
 {
 	flushText();
-	token = getToken();
-	if (token == "$")
-		token = "0";
-	currentCharStyle.setBaselineOffset((token.toDouble() * 10000) / currentCharStyle.fontSize());
+	m_token = getToken();
+	if (m_token == "$")
+		m_token = "0";
+	m_currentCharStyle.setBaselineOffset((m_token.toDouble() * 10000) / m_currentCharStyle.fontSize());
 }
 
 void XtgScanner::setVerticalScale()
 {
 	flushText();
-	token = getToken();
-	if (token == "$")
-		token = "100";
+	m_token = getToken();
+	if (m_token == "$")
+		m_token = "100";
 //	currentCharStyle.setScaleV(token.toDouble() * 10.0);
 }
 
 void XtgScanner::setLigatures()
 {
-	token = getToken();
-	unSupported.insert("G"+token);
+	m_token = getToken();
+	m_unSupported.insert("G"+m_token);
 }
 
 void XtgScanner::csetOpacity()
 {
-	token = getToken();
-	unSupported.insert("p"+token);
+	m_token = getToken();
+	m_unSupported.insert("p"+m_token);
 }
 
 void XtgScanner::setOpenType()
@@ -523,33 +523,33 @@ void XtgScanner::setOpenType()
 
 void XtgScanner::setCharAlignment()
 {
-	token.append( nextSymbol() );
-	unSupported.insert(token);
+	m_token.append( nextSymbol() );
+	m_unSupported.insert(m_token);
 }
 
 void XtgScanner::setVertStories()
 {
-	token.append( nextSymbol() );
-	unSupported.insert(token);
+	m_token.append( nextSymbol() );
+	m_unSupported.insert(m_token);
 }
 
 void XtgScanner::setEmphasisMarks()
 {
-	token.append( nextSymbol() );
-	unSupported.insert(token);
+	m_token.append( nextSymbol() );
+	m_unSupported.insert(m_token);
 }
 
 void XtgScanner::setAsncjk()
 {
 	//Apply sending to non-CJK characters.
-	token.append( nextSymbol() );
-	unSupported.insert(token);
+	m_token.append( nextSymbol() );
+	m_unSupported.insert(m_token);
 }
 
 void XtgScanner::setLanguages()
 {
 	flushText();
-	token = getToken();
+	m_token = getToken();
 /*	if (define == 0)
 	{
 		flushText();
@@ -566,59 +566,59 @@ void XtgScanner::setLanguages()
 void XtgScanner::setXPresOwn()
 {
 
-	unSupported.insert(token+')');
+	m_unSupported.insert(m_token+')');
 	//All these tags are unsupported in Scribus, so just ignoring them till we find close paranthesis
 	while (lookAhead() != ')')
-		top=top+1;
-	top=top+1;//Ignore )
+		m_top=m_top+1;
+	m_top=m_top+1;//Ignore )
 }
 
 void XtgScanner::setAlignLeft()
 {
 	flushText();
-	currentParagraphStyle.setAlignment(ParagraphStyle::Leftaligned);
+	m_currentParagraphStyle.setAlignment(ParagraphStyle::Leftaligned);
 }
 
 void XtgScanner::setAlignCenter()
 {
 	flushText();
-	currentParagraphStyle.setAlignment(ParagraphStyle::Centered);
+	m_currentParagraphStyle.setAlignment(ParagraphStyle::Centered);
 }
 
 void XtgScanner::setAlignRight()
 {
 	flushText();
-	currentParagraphStyle.setAlignment(ParagraphStyle::Rightaligned);
+	m_currentParagraphStyle.setAlignment(ParagraphStyle::Rightaligned);
 }
 
 void XtgScanner::setAlignJustify()
 {
 	flushText();
-	currentParagraphStyle.setAlignment(ParagraphStyle::Justified);
+	m_currentParagraphStyle.setAlignment(ParagraphStyle::Justified);
 }
 
 void XtgScanner::setAlignFJustify()
 {
 	flushText();
-	currentParagraphStyle.setAlignment(ParagraphStyle::Extended);
+	m_currentParagraphStyle.setAlignment(ParagraphStyle::Extended);
 }
 
 void XtgScanner::setTabStops()
 {
-	QList<ParagraphStyle::TabRecord> tbs = currentParagraphStyle.tabValues();
+	QList<ParagraphStyle::TabRecord> tbs = m_currentParagraphStyle.tabValues();
 	tbs.clear();
 	if (lookAhead() == '0')
 	{
-		currentParagraphStyle.setTabValues(tbs);
+		m_currentParagraphStyle.setTabValues(tbs);
 		return;
 	}
 	while (lookAhead() != ')')
 	{
-		token = getToken();
-		double pos = token.toDouble();
-		token = getToken();
-		int typ = token.toInt();
-		token = getToken();
+		m_token = getToken();
+		double pos = m_token.toDouble();
+		m_token = getToken();
+		int typ = m_token.toInt();
+		m_token = getToken();
 		ParagraphStyle::TabRecord tb;
 		if (typ == 0)
 			tb.tabType = 0;
@@ -633,7 +633,7 @@ void XtgScanner::setTabStops()
 		tb.tabFillChar = QChar();
 		tbs.append(tb);
 	}
-	currentParagraphStyle.setTabValues(tbs);
+	m_currentParagraphStyle.setTabValues(tbs);
 	
 }
 
@@ -645,56 +645,56 @@ void XtgScanner::setPAttributes()
 	double leading = getToken().toDouble();
 	double gapBefore = getToken().toDouble();
 	double gapAfter = getToken().toDouble();
-	top++;
-	token="";
-	token.append( nextSymbol() );
-	if ((token == "g") || (token == "G"))
+	m_top++;
+	m_token="";
+	m_token.append( nextSymbol() );
+	if ((m_token == "g") || (m_token == "G"))
 	{
 		// We have to discard (P,S)) since it is not yet supported in Scribus
 
 		while (lookAhead() != ')' )
-			top++;
+			m_top++;
 	}
-	currentParagraphStyle.setLeftMargin(leftIndent);
-	currentParagraphStyle.setRightMargin(rightIndent);
-	currentParagraphStyle.setFirstIndent(firstlineIndent);
-	currentParagraphStyle.setLineSpacing(leading);
-	currentParagraphStyle.setGapBefore(gapBefore);
-	currentParagraphStyle.setGapAfter(gapAfter);
-	if (token == "G")
-		currentParagraphStyle.setUseBaselineGrid(true);
-	if (token == "g")
-		currentParagraphStyle.setUseBaselineGrid(false);
+	m_currentParagraphStyle.setLeftMargin(leftIndent);
+	m_currentParagraphStyle.setRightMargin(rightIndent);
+	m_currentParagraphStyle.setFirstIndent(firstlineIndent);
+	m_currentParagraphStyle.setLineSpacing(leading);
+	m_currentParagraphStyle.setGapBefore(gapBefore);
+	m_currentParagraphStyle.setGapAfter(gapAfter);
+	if (m_token == "G")
+		m_currentParagraphStyle.setUseBaselineGrid(true);
+	if (m_token == "g")
+		m_currentParagraphStyle.setUseBaselineGrid(false);
 }
 
 void XtgScanner::setHyphenation()
 {
-	unSupported.insert(token);
-	token=getToken();
+	m_unSupported.insert(m_token);
+	m_token=getToken();
 }
 
 void XtgScanner::setPRuleAbove()
 {
-	unSupported.insert(token);
+	m_unSupported.insert(m_token);
 	if (lookAhead() == '0')
 	{
-		top++;
+		m_top++;
 		return;
 	}
 	while (lookAhead() != ')')
-		top++;
+		m_top++;
 }
 
 void XtgScanner::setPRuleBelow()
 {
-	unSupported.insert(token);
+	m_unSupported.insert(m_token);
 	if (lookAhead() == '0')
 	{
-		top++;
+		m_top++;
 		return;
 	}
 	while (lookAhead() != ')')
-		top++;
+		m_top++;
 }
 
 void XtgScanner::setDropCap()
@@ -703,20 +703,20 @@ void XtgScanner::setDropCap()
 	int charCount = getToken().toInt();
 	if (charCount == 0) //Specify No rule
 	{
-		currentParagraphStyle.setHasDropCap(false);
+		m_currentParagraphStyle.setHasDropCap(false);
 	}
 	else
 	{
 		int lineCount = getToken().toInt();
-		currentParagraphStyle.setHasDropCap(true);
-		currentParagraphStyle.setDropCapLines(lineCount);
+		m_currentParagraphStyle.setHasDropCap(true);
+		m_currentParagraphStyle.setDropCapLines(lineCount);
 	}
 }
 
 void XtgScanner::setKeepNextPar()
 {
-	token.append(nextSymbol());
-	unSupported.insert(token);
+	m_token.append(nextSymbol());
+	m_unSupported.insert(m_token);
 }
 
 void XtgScanner::setKeepTogether()
@@ -725,17 +725,17 @@ void XtgScanner::setKeepTogether()
 	{
 		while (lookAhead() != ')')
 		{
-			token.append( nextSymbol() );
+			m_token.append( nextSymbol() );
 		}
 	}
-	token.append(nextSymbol());
-	unSupported.insert(token);
+	m_token.append(nextSymbol());
+	m_unSupported.insert(m_token);
 }
 
 void XtgScanner::setHangingCSet()
 {
-	token.append( getToken() );
-	unSupported.insert(token);
+	m_token.append( getToken() );
+	m_unSupported.insert(m_token);
 }
 
 void XtgScanner::setGlyph()
@@ -752,67 +752,67 @@ void XtgScanner::setUnencodedGlyph()
 
 void XtgScanner::appendSpChar1()
 {
-	textToAppend.append("@");
+	m_textToAppend.append("@");
 }
 
 void XtgScanner::appendSpChar2()
 {
-	textToAppend.append("<");
+	m_textToAppend.append("<");
 }
 
 void XtgScanner::appendSpChar3()
 {
-	textToAppend.append("\\");
+	m_textToAppend.append("\\");
 }
 
 void XtgScanner::xFlag()
 {
-	xflag = true;
+	m_xflag = true;
 }
 
 void XtgScanner::applyCStyle1()
 {
 	//apply nostyle character sheet <@>
-	define = 0;
+	m_define = 0;
 	flushText();
 	QString pStyle = CommonStrings::DefaultParagraphStyle;
 	ParagraphStyle newStyle;
 	newStyle.setParent(pStyle);
 	newStyle.setLineSpacingMode(ParagraphStyle::AutomaticLineSpacing);
-	currentCharStyle = newStyle.charStyle();
-	currentCharStyle.setFontSize(120.0);
-	styleEffects = ScStyle_None;
-	currentCharStyle.setFeatures(styleEffects.featureList());
+	m_currentCharStyle = newStyle.charStyle();
+	m_currentCharStyle.setFontSize(120.0);
+	m_styleEffects = ScStyle_None;
+	m_currentCharStyle.setFeatures(m_styleEffects.featureList());
 }
 
 void XtgScanner::applyCStyle2()
 {
 	//apply normal character style sheet <@$>
-	define = 0;
+	m_define = 0;
 	flushText();
 	QString pStyle = CommonStrings::DefaultParagraphStyle;
 	ParagraphStyle newStyle;
 	newStyle.setParent(pStyle);
 	newStyle.setLineSpacingMode(ParagraphStyle::AutomaticLineSpacing);
-	currentCharStyle = newStyle.charStyle();
-	currentCharStyle.setFontSize(120.0);
-	styleEffects = ScStyle_None;
-	currentCharStyle.setFeatures(styleEffects.featureList());
+	m_currentCharStyle = newStyle.charStyle();
+	m_currentCharStyle.setFontSize(120.0);
+	m_styleEffects = ScStyle_None;
+	m_currentCharStyle.setFeatures(m_styleEffects.featureList());
 }
 
 void XtgScanner::applyCStyle3()
 {
 	//apply paragraph's character stylesheet <@$p>
-	define = 0;
+	m_define = 0;
 	flushText();
 	QString pStyle = CommonStrings::DefaultParagraphStyle;
 	ParagraphStyle newStyle;
 	newStyle.setParent(pStyle);
 	newStyle.setLineSpacingMode(ParagraphStyle::AutomaticLineSpacing);
-	currentCharStyle = newStyle.charStyle();
-	currentCharStyle.setFontSize(120.0);
-	styleEffects = ScStyle_None;
-	currentCharStyle.setFeatures(styleEffects.featureList());
+	m_currentCharStyle = newStyle.charStyle();
+	m_currentCharStyle.setFontSize(120.0);
+	m_styleEffects = ScStyle_None;
+	m_currentCharStyle.setFeatures(m_styleEffects.featureList());
 //	currentCharStyle = currentParagraphStyle.charStyle();
 //	writer->setCharStyle(currentCharStyle);
 //	currentCharStyle = writer->getCurrentCharStyle();
@@ -837,16 +837,16 @@ void XtgScanner::setTypeStyle()
 {
 	//tag = $
 	flushText();
-	currentCharStyle = currentParagraphStyle.charStyle();
-	currentCharStyle.setFontSize(120.0);
-	styleEffects = ScStyle_None;
-	currentCharStyle.setFeatures(styleEffects.featureList());
+	m_currentCharStyle = m_currentParagraphStyle.charStyle();
+	m_currentCharStyle.setFontSize(120.0);
+	m_styleEffects = ScStyle_None;
+	m_currentCharStyle.setFeatures(m_styleEffects.featureList());
 }
 
 void XtgScanner::setEncoding()
 {
-	token = getToken();
-	int enc = token.toInt();
+	m_token = getToken();
+	int enc = m_token.toInt();
 	QByteArray encTest = "cp1252";
 	if (enc == 0)
 		encTest = "macroman";
@@ -880,17 +880,17 @@ void XtgScanner::setEncoding()
 void XtgScanner::defNewLine()
 {
 	flushText();
-	if (inDef)
-		newlineFlag = true;
+	if (m_inDef)
+		m_newlineFlag = true;
 	else
 	{
 		int posT = m_item->itemText.length();
 		if (posT > 0)
 		{
 			m_item->itemText.insertChars(posT, SpecialChars::PARSEP);
-			m_item->itemText.applyStyle(posT, currentParagraphStyle);
+			m_item->itemText.applyStyle(posT, m_currentParagraphStyle);
 		}
-		inDef = false;
+		m_inDef = false;
 	}
 }
 
@@ -900,16 +900,16 @@ void XtgScanner::defHardReturn()
 		new line flag to true */
 	flushText();
 	if (lookAhead() == '\n')
-		newlineFlag = true;
+		m_newlineFlag = true;
 	else
 	{
 		int posT = m_item->itemText.length();
 		if (posT > 0)
 		{
 			m_item->itemText.insertChars(posT, SpecialChars::PARSEP);
-			m_item->itemText.applyStyle(posT, currentParagraphStyle);
+			m_item->itemText.applyStyle(posT, m_currentParagraphStyle);
 		}
-		inDef = false;
+		m_inDef = false;
 	}
 }
 
@@ -922,56 +922,56 @@ void XtgScanner::defOpen()
 void XtgScanner::defAtRate()
 {
 	enterState(nameMode);
-	sfcName = getToken();
-	if (sfcName == "@$:")
+	m_sfcName = getToken();
+	if (m_sfcName == "@$:")
 	{
-		if (doc->paragraphStyles().contains(m_item->itemName() + "_Normal"))
+		if (m_doc->paragraphStyles().contains(m_item->itemName() + "_Normal"))
 		{
 			ParagraphStyle newStyle;
 			newStyle.setParent(m_item->itemName() + "_Normal");
-			currentParagraphStyle = newStyle;
-			currentCharStyle = newStyle.charStyle();
+			m_currentParagraphStyle = newStyle;
+			m_currentCharStyle = newStyle.charStyle();
 		}
-		else if (doc->paragraphStyles().contains("Normal"))
+		else if (m_doc->paragraphStyles().contains("Normal"))
 		{
 			ParagraphStyle newStyle;
 			newStyle.setParent("Normal");
-			currentParagraphStyle = newStyle;
-			currentCharStyle = newStyle.charStyle();
+			m_currentParagraphStyle = newStyle;
+			m_currentCharStyle = newStyle.charStyle();
 		}
 		enterState(previousState());
 	}
-	else if (sfcName == "@:")
+	else if (m_sfcName == "@:")
 	{
 		QString pStyle = CommonStrings::DefaultParagraphStyle;
 		ParagraphStyle newStyle;
 		newStyle.setParent(pStyle);
 		newStyle.setLineSpacingMode(ParagraphStyle::AutomaticLineSpacing);
-		currentParagraphStyle = newStyle;
-		currentCharStyle = newStyle.charStyle();
-		currentCharStyle.setFontSize(120.0);
-		styleEffects = ScStyle_None;
-		currentCharStyle.setFeatures(styleEffects.featureList());
+		m_currentParagraphStyle = newStyle;
+		m_currentCharStyle = newStyle.charStyle();
+		m_currentCharStyle.setFontSize(120.0);
+		m_styleEffects = ScStyle_None;
+		m_currentCharStyle.setFeatures(m_styleEffects.featureList());
 		enterState(textMode);
 	}
-	else if (doc->paragraphStyles().contains(m_item->itemName() + "_" + sfcName))
+	else if (m_doc->paragraphStyles().contains(m_item->itemName() + "_" + m_sfcName))
 	{
 		ParagraphStyle newStyle;
-		newStyle.setParent(m_item->itemName() + "_" + sfcName);
-		currentParagraphStyle = newStyle;
-		currentCharStyle = newStyle.charStyle();
+		newStyle.setParent(m_item->itemName() + "_" + m_sfcName);
+		m_currentParagraphStyle = newStyle;
+		m_currentCharStyle = newStyle.charStyle();
 		if (lookAhead() == ':')
-			top++;
+			m_top++;
 		enterState(textMode);
 	}
-	else if (doc->paragraphStyles().contains(sfcName))
+	else if (m_doc->paragraphStyles().contains(m_sfcName))
 	{
 		ParagraphStyle newStyle;
-		newStyle.setParent(sfcName);
-		currentParagraphStyle = newStyle;
-		currentCharStyle = newStyle.charStyle();
+		newStyle.setParent(m_sfcName);
+		m_currentParagraphStyle = newStyle;
+		m_currentCharStyle = newStyle.charStyle();
 		if (lookAhead() == ':')
-			top++;
+			m_top++;
 		enterState(textMode);
 	}
 }
@@ -981,68 +981,68 @@ void XtgScanner::defAtRate()
 
 void XtgScanner::defClose()	//Token >
 {
-	if (define == 1)
+	if (m_define == 1)
 	{
 		StyleSet<CharStyle>tmp;
-		tmp.create(currentCharStyle);
-		doc->redefineCharStyles(tmp, false);
-		inDef = false;
+		tmp.create(m_currentCharStyle);
+		m_doc->redefineCharStyles(tmp, false);
+		m_inDef = false;
 	}
-	else if (define == 2)
+	else if (m_define == 2)
 	{
 		StyleSet<ParagraphStyle>tmp;
-		tmp.create(currentParagraphStyle);
-		doc->redefineStyles(tmp, false);
-		inDef = false;
+		tmp.create(m_currentParagraphStyle);
+		m_doc->redefineStyles(tmp, false);
+		m_inDef = false;
 	}
-	if (define != 0)
-		define = 0;
+	if (m_define != 0)
+		m_define = 0;
 	enterState(textMode);	
 }
 
 void XtgScanner::defEquals()	//Token =
 {
 	//define a character stylesheet with the name in sfcName if the next character is not [
-	newlineFlag = false;
+	m_newlineFlag = false;
 	if (lookAhead() != '[')
 	{
-		define = 1;
-		currentCharStyle.setName(m_item->itemName() + "_" + sfcName);
+		m_define = 1;
+		m_currentCharStyle.setName(m_item->itemName() + "_" + m_sfcName);
 		enterState(textMode);
 	}
 	else 
-		define = 2;
-	inDef = true;
+		m_define = 2;
+	m_inDef = true;
 }
 
 void XtgScanner::defColon()
 {
 	flushText();
-	if ((sfcName == "@") || (sfcName == "@$:") || (sfcName == "@:"))
+	if ((m_sfcName == "@") || (m_sfcName == "@$:") || (m_sfcName == "@:"))
 	{
 		QString pStyle = CommonStrings::DefaultParagraphStyle;
 		ParagraphStyle newStyle;
 		newStyle.setParent(pStyle);
 		newStyle.setLineSpacingMode(ParagraphStyle::AutomaticLineSpacing);
-		currentParagraphStyle = newStyle;
-		currentCharStyle = newStyle.charStyle();
-		currentCharStyle.setFontSize(120.0);
-		styleEffects = ScStyle_None;
-		currentCharStyle.setFeatures(styleEffects.featureList());
+		m_currentParagraphStyle = newStyle;
+		m_currentCharStyle = newStyle.charStyle();
+		m_currentCharStyle.setFontSize(120.0);
+		m_styleEffects = ScStyle_None;
+		m_currentCharStyle.setFeatures(m_styleEffects.featureList());
 	}
-	else if (doc->paragraphStyles().contains(m_item->itemName() + "_" + sfcName))
+	else if (m_doc->paragraphStyles().contains(m_item->itemName() + "_" + m_sfcName))
 	{
 		ParagraphStyle newStyle;
-		newStyle.setParent(m_item->itemName() + "_" + sfcName);
-		currentParagraphStyle = newStyle;
-		currentCharStyle = newStyle.charStyle();
+		newStyle.setParent(m_item->itemName() + "_" + m_sfcName);
+		m_currentParagraphStyle = newStyle;
+		m_currentCharStyle = newStyle.charStyle();
 	}
-	else if (doc->paragraphStyles().contains(sfcName))
+	else if (m_doc->paragraphStyles().contains(m_sfcName))
 	{
 		ParagraphStyle newStyle;
-		newStyle.setParent(sfcName);
-		currentParagraphStyle = newStyle;
-		currentCharStyle = newStyle.charStyle();
+		newStyle.setParent(m_sfcName);
+		m_currentParagraphStyle = newStyle;
+		m_currentCharStyle = newStyle.charStyle();
 	}
 	else
 	{
@@ -1050,34 +1050,34 @@ void XtgScanner::defColon()
 		ParagraphStyle newStyle;
 		newStyle.setParent(pStyle);
 		newStyle.setLineSpacingMode(ParagraphStyle::AutomaticLineSpacing);
-		currentParagraphStyle = newStyle;
-		currentCharStyle = newStyle.charStyle();
-		currentCharStyle.setFontSize(120.0);
-		styleEffects = ScStyle_None;
-		currentCharStyle.setFeatures(styleEffects.featureList());
+		m_currentParagraphStyle = newStyle;
+		m_currentCharStyle = newStyle.charStyle();
+		m_currentCharStyle.setFontSize(120.0);
+		m_styleEffects = ScStyle_None;
+		m_currentCharStyle.setFeatures(m_styleEffects.featureList());
 	}
-	if (newlineFlag)
+	if (m_newlineFlag)
 	{
 		int posT = m_item->itemText.length();
 		if (posT > 0)
 		{
 			m_item->itemText.insertChars(posT, SpecialChars::PARSEP);
-			m_item->itemText.applyStyle(posT, currentParagraphStyle);
+			m_item->itemText.applyStyle(posT, m_currentParagraphStyle);
 		}
 	}
-	newlineFlag = false;
+	m_newlineFlag = false;
 	enterState(textMode);
-	define = 0;
+	m_define = 0;
 	if (!((lookAhead() == '\r') || (lookAhead() == '\n')))
-		inDef = false;
+		m_inDef = false;
 }
 
 void XtgScanner::defFontSet()
 {
-	unSupported.insert("[F]");
+	m_unSupported.insert("[F]");
 	while (lookAhead() != '>' )
-		top = top+1;
-	top = top-1;
+		m_top = m_top+1;
+	m_top = m_top-1;
 }
 
 void XtgScanner::defColor()
@@ -1085,17 +1085,17 @@ void XtgScanner::defColor()
 	bool isSpot = false;
 	ScColor tmp;
 	enterState(stringMode);
-	token = getToken();
+	m_token = getToken();
 	while (lookAhead() != '>' )
 	{
-		token = getToken();
-		if ((token == "CMJN") || (token == "CMYK"))
+		m_token = getToken();
+		if ((m_token == "CMJN") || (m_token == "CMYK"))
 		{
 			enterState(tagMode);
-			token = getToken();
-			if (token == "S")
+			m_token = getToken();
+			if (m_token == "S")
 			{
-				token = getToken();
+				m_token = getToken();
 				isSpot = true;
 			}
 			double c = getToken().toDouble();
@@ -1105,15 +1105,15 @@ void XtgScanner::defColor()
 			tmp.setColor(qRound(c * 2.55), qRound(m * 255), qRound(y * 255), qRound(k * 255));
 			tmp.setSpotColor(isSpot);
 			tmp.setRegistrationColor(false);
-			doc->PageColors.tryAddColor(sfcName, tmp);
+			m_doc->PageColors.tryAddColor(m_sfcName, tmp);
 		}
-		else if (token == "RGB")
+		else if (m_token == "RGB")
 		{
 			enterState(tagMode);
-			token = getToken();
-			if (token == "S")
+			m_token = getToken();
+			if (m_token == "S")
 			{
-				token = getToken();
+				m_token = getToken();
 				isSpot = true;
 			}
 			double r = getToken().toDouble();
@@ -1122,10 +1122,10 @@ void XtgScanner::defColor()
 			tmp.setColorRGB(qRound(r * 2.55), qRound(g * 255), qRound(b * 255));
 			tmp.setSpotColor(isSpot);
 			tmp.setRegistrationColor(false);
-			doc->PageColors.tryAddColor(sfcName, tmp);
+			m_doc->PageColors.tryAddColor(m_sfcName, tmp);
 		}
 	}
-	top++;
+	m_top++;
 	enterState(textMode);
 }
 
@@ -1133,50 +1133,50 @@ void XtgScanner::definePStyles()
 {
 	QString s1,s2,s3;
 	enterState(stringMode);
-	define = 2;
-	if (token == "[S\"")
+	m_define = 2;
+	if (m_token == "[S\"")
 		s1 = getToken();
 	else
 	{
 		while (lookAhead() != '\"')
-			top++;					//skip the inch
-		top++;
+			m_top++;					//skip the inch
+		m_top++;
 		s1 = getToken();			//will contain the string 1
 	}
 //	top = top + 2;				//we have to skip comma and next inch character
 	while (lookAhead() != '\"')
-		top++;
-	top++;
+		m_top++;
+	m_top++;
 	s2 = getToken();
 	if (lookAhead() != ']' )
 	{
 		while (lookAhead() != '\"')
-			top++;
-		top++;
+			m_top++;
+		m_top++;
 	//	top = top + 2;
 		s3 = getToken();
 	}
-	top++; // to ensure that ] is avoided
+	m_top++; // to ensure that ] is avoided
 	QString pStyle = CommonStrings::DefaultParagraphStyle;
 	ParagraphStyle newStyle;
 	if (s1 != "")
 	{
-		if (doc->paragraphStyles().contains(m_item->itemName() + "_" + s1))
+		if (m_doc->paragraphStyles().contains(m_item->itemName() + "_" + s1))
 			newStyle.setParent(m_item->itemName() + "_" + s1);
-		else if  (doc->paragraphStyles().contains(s1))
+		else if  (m_doc->paragraphStyles().contains(s1))
 			newStyle.setParent(s1);
 		else
 			newStyle.setParent(pStyle);
 	}
 	else
 		newStyle.setParent(pStyle);
-	newStyle.setName(m_item->itemName() + "_" + sfcName);
+	newStyle.setName(m_item->itemName() + "_" + m_sfcName);
 	newStyle.setLineSpacingMode(ParagraphStyle::AutomaticLineSpacing);
 	if (s3 != "")
 	{
-		if (doc->charStyles().contains(m_item->itemName() + "_" + s3))
+		if (m_doc->charStyles().contains(m_item->itemName() + "_" + s3))
 			newStyle.charStyle().setParent(m_item->itemName() + "_" + s3);
-		else if  (doc->charStyles().contains(s3))
+		else if  (m_doc->charStyles().contains(s3))
 			newStyle.charStyle().setParent(s3);
 		else
 			newStyle.charStyle().setParent(CommonStrings::DefaultCharacterStyle);
@@ -1185,11 +1185,11 @@ void XtgScanner::definePStyles()
 	{
 		newStyle.charStyle().setParent(CommonStrings::DefaultCharacterStyle);
 		newStyle.charStyle().setFontSize(120.0);
-		styleEffects = ScStyle_None;
-		newStyle.charStyle().setFeatures(styleEffects.featureList());
+		m_styleEffects = ScStyle_None;
+		newStyle.charStyle().setFeatures(m_styleEffects.featureList());
 	}
-	currentParagraphStyle = newStyle;
-	currentCharStyle = newStyle.charStyle();
+	m_currentParagraphStyle = newStyle;
+	m_currentCharStyle = newStyle.charStyle();
 	enterState(textMode);
 }
 
@@ -1197,7 +1197,7 @@ void XtgScanner::defineCStyle()
 {
 	//token [St
 	QString s4;
-	top = top+10;
+	m_top = m_top+10;
 	s4 = getToken();
 /*	if (styleStatus(definedCStyles,s4))
 		defCharStyle.setParent(s4);
@@ -1210,22 +1210,22 @@ void XtgScanner::defineCStyle()
 
 void XtgScanner::enterState ( scannerMode mode )
 {
-	prevMode = Mode;
-	Mode = mode;
+	m_prevMode = m_mode;
+	m_mode = mode;
 }
 
 QString XtgScanner::sliceString()
 {
 	QString name;
-	if (Mode == stringMode)
+	if (m_mode == stringMode)
 	{
 		while (lookAhead() != '\"')
 		{
 			name.append( nextSymbol() );
 		}
-		top = top+1;
+		m_top = m_top+1;
 	}
-	if (Mode == nameMode)
+	if (m_mode == nameMode)
 	{
 		while (lookAhead() != '=' || lookAhead() != ':')
 		{
@@ -1254,11 +1254,11 @@ QString XtgScanner::getToken()
 			the next character in buffer to the text. This will automatically
 			deal the occurrance of '\@' or '\:' or any other relevant escapes
 			*/
-			top = top+1;
-			textToAppend.append( nextSymbol() );
+			m_top = m_top+1;
+			m_textToAppend.append( nextSymbol() );
 		}
 		else
-			textToAppend.append( nextSymbol() );
+			m_textToAppend.append( nextSymbol() );
 	}
 	
 	if (currentState() == tagMode)
@@ -1305,7 +1305,7 @@ QString XtgScanner::getToken()
 			/**If inch character is found, the scanner should enter the string mode and enter the corresponding string as the token
 			*/
 			enterState(stringMode);
-			top = top+1;
+			m_top = m_top+1;
 			token = getToken();
 			enterState( previousState() );
 		} 
@@ -1339,12 +1339,12 @@ QString XtgScanner::getToken()
 			token.append( nextSymbol() );
 		else if (temp == '(')
 		{
-			top = top+1;
+			m_top = m_top+1;
 			token = getToken();
 		}
 		else if (temp == ',')
 		{
-			top = top+1;
+			m_top = m_top+1;
 			token=getToken();
 		}
 		else 
@@ -1368,12 +1368,12 @@ QString XtgScanner::getToken()
 		if (temp == '\"' )
 		{
 			enterState(stringMode);
-			top = top+1;
+			m_top = m_top+1;
 			token = getToken();
 			enterState( previousState() );
 		}
 		else if (temp == ',' )
-			top = top+1;
+			m_top = m_top+1;
 		else if (temp == '[' )
 		{
 			//return [F] or [C] or [Sp or [St
@@ -1399,7 +1399,7 @@ QString XtgScanner::getToken()
 				temp = lookAhead();
 				if (temp == ':' || temp == '=' )
 					break;
-				if (top >= input_Buffer.length())
+				if (m_top >= m_input_Buffer.length())
 					break;
 				token.append(nextSymbol());
 			}
@@ -1416,19 +1416,19 @@ QString XtgScanner::getToken()
 }
 scannerMode XtgScanner::currentState()
 {
-	return Mode;
+	return m_mode;
 }
 scannerMode XtgScanner::previousState()
 {
-	return prevMode;
+	return m_prevMode;
 }
 
 QChar XtgScanner::lookAhead(int adj)
 {
 	char ch = 0;
-	if (top < input_Buffer.length())
+	if (m_top < m_input_Buffer.length())
 	{
-		ch = input_Buffer.at(top + adj);
+		ch = m_input_Buffer.at(m_top + adj);
 		QByteArray ba;
 		ba.append(ch);
 		QString m_txt = m_codec->toUnicode(ba);
@@ -1443,9 +1443,9 @@ QChar XtgScanner::lookAhead(int adj)
 QChar XtgScanner::nextSymbol()
 {
 	char ch = 0;
-	if (top < input_Buffer.length())
+	if (m_top < m_input_Buffer.length())
 	{
-		ch = input_Buffer.at(top++);
+		ch = m_input_Buffer.at(m_top++);
 		QByteArray ba;
 		ba.append(ch);
 		QString m_txt = m_codec->toUnicode(ba);
@@ -1459,17 +1459,17 @@ QChar XtgScanner::nextSymbol()
 
 void XtgScanner::flushText()
 {
-	if (!textToAppend.isEmpty())
+	if (!m_textToAppend.isEmpty())
 	{
-		textToAppend.replace(QChar(10), SpecialChars::LINEBREAK);
-		textToAppend.replace(QChar(12), SpecialChars::FRAMEBREAK);
-		textToAppend.replace(QChar(30), SpecialChars::NBHYPHEN);
-		textToAppend.replace(QChar(160), SpecialChars::NBSPACE);
+		m_textToAppend.replace(QChar(10), SpecialChars::LINEBREAK);
+		m_textToAppend.replace(QChar(12), SpecialChars::FRAMEBREAK);
+		m_textToAppend.replace(QChar(30), SpecialChars::NBHYPHEN);
+		m_textToAppend.replace(QChar(160), SpecialChars::NBSPACE);
 		int posC = m_item->itemText.length();
-		m_item->itemText.insertChars(posC, textToAppend);
-		m_item->itemText.applyStyle(posC, currentParagraphStyle);
-		m_item->itemText.applyCharStyle(posC, textToAppend.length(), currentCharStyle);
-		textToAppend="";
+		m_item->itemText.insertChars(posC, m_textToAppend);
+		m_item->itemText.applyStyle(posC, m_currentParagraphStyle);
+		m_item->itemText.applyCharStyle(posC, m_textToAppend.length(), m_currentCharStyle);
+		m_textToAppend="";
 	}
 }
 
@@ -1489,34 +1489,34 @@ bool XtgScanner::styleStatus(QStringList &name,QString &sfcname)
 void XtgScanner::applyFeature(StyleFlagValue feature)
 {
 	flushText();
-	if (styleEffects & feature)
-		styleEffects &= ~feature;
+	if (m_styleEffects & feature)
+		m_styleEffects &= ~feature;
 	else
-		styleEffects |= feature;
-	currentCharStyle.setFeatures(styleEffects.featureList());
+		m_styleEffects |= feature;
+	m_currentCharStyle.setFeatures(m_styleEffects.featureList());
 }
 
 void XtgScanner::xtgParse()
 {
 	/* Enter the default mode as textMode */
 	enterState(textMode);
-	currentParagraphStyle.setParent(CommonStrings::DefaultParagraphStyle);
-	currentParagraphStyle.charStyle().setParent(CommonStrings::DefaultCharacterStyle);
-	currentParagraphStyle.setLineSpacingMode(ParagraphStyle::AutomaticLineSpacing);
-	currentCharStyle = currentParagraphStyle.charStyle();
+	m_currentParagraphStyle.setParent(CommonStrings::DefaultParagraphStyle);
+	m_currentParagraphStyle.charStyle().setParent(CommonStrings::DefaultCharacterStyle);
+	m_currentParagraphStyle.setLineSpacingMode(ParagraphStyle::AutomaticLineSpacing);
+	m_currentCharStyle = m_currentParagraphStyle.charStyle();
 	while (lookAhead() != '\0')
 	{
-		token = getToken();
+		m_token = getToken();
 		QHash<QString,void (XtgScanner::*)(void)> *temp = NULL;
-		if (Mode == tagMode)
-			temp = &tagModeHash;
-		else if (Mode == nameMode)
-			temp = &nameModeHash;
-		else if (Mode == textMode)
-			temp = &textModeHash;
-		if (temp->contains(token) )
+		if (m_mode == tagMode)
+			temp = &m_tagModeHash;
+		else if (m_mode == nameMode)
+			temp = &m_nameModeHash;
+		else if (m_mode == textMode)
+			temp = &m_textModeHash;
+		if (temp->contains(m_token) )
 		{
-			funPointer = temp->value(token);
+			funPointer = temp->value(m_token);
 			(this->*funPointer)();
 		}
 
@@ -1525,14 +1525,14 @@ void XtgScanner::xtgParse()
 				is not constant
 				*/
 
-		else if ( (currentState() == tagMode ) && token.startsWith('@') && token.endsWith('>') )
+		else if ( (currentState() == tagMode ) && m_token.startsWith('@') && m_token.endsWith('>') )
 		{
 			/*here we receive a token @stylesheetname>, hence we have to slice of token to 
 				get the name of character stylesheet to be applied
 			*/
-			define = 0;
-			sfcName = token.remove(0,1);
-			sfcName = sfcName.remove(sfcName.size()-1,1);
+			m_define = 0;
+			m_sfcName = m_token.remove(0,1);
+			m_sfcName = m_sfcName.remove(m_sfcName.size()-1,1);
 			flushText();
 		//	if (styleStatus(definedCStyles,sfcName))
 		//		writer->setCharStyle(sfcName);
@@ -1543,21 +1543,21 @@ void XtgScanner::xtgParse()
 		//	}
 		//	currentCharStyle = writer->getCurrentCharStyle();
 		}
-		if (top >= input_Buffer.length())
+		if (m_top >= m_input_Buffer.length())
 			break;
 	}
-	if (!textToAppend.isEmpty())
+	if (!m_textToAppend.isEmpty())
 	{
-		textToAppend.replace(QChar(10), SpecialChars::LINEBREAK);
-		textToAppend.replace(QChar(12), SpecialChars::FRAMEBREAK);
-		textToAppend.replace(QChar(30), SpecialChars::NBHYPHEN);
-		textToAppend.replace(QChar(160), SpecialChars::NBSPACE);
+		m_textToAppend.replace(QChar(10), SpecialChars::LINEBREAK);
+		m_textToAppend.replace(QChar(12), SpecialChars::FRAMEBREAK);
+		m_textToAppend.replace(QChar(30), SpecialChars::NBHYPHEN);
+		m_textToAppend.replace(QChar(160), SpecialChars::NBSPACE);
 		ParagraphStyle newStyle;
-		newStyle.setParent(currentParagraphStyle.name());
+		newStyle.setParent(m_currentParagraphStyle.name());
 		int posC = m_item->itemText.length();
-		m_item->itemText.insertChars(posC, textToAppend);
+		m_item->itemText.insertChars(posC, m_textToAppend);
 		m_item->itemText.applyStyle(posC, newStyle);
-		m_item->itemText.applyCharStyle(posC, textToAppend.length(), currentCharStyle);
+		m_item->itemText.applyCharStyle(posC, m_textToAppend.length(), m_currentCharStyle);
 	}
 //	qDebug()<<"Unsupported : "<<unSupported;
 }

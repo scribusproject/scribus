@@ -56,46 +56,46 @@ private:
 	/**
 	 \variable Variables based on which scanner works in different modes
 	 */
-	scannerMode Mode;
-	scannerMode prevMode;
+	scannerMode m_mode;
+	scannerMode m_prevMode;
 	/**
 	 \variable Variables of the importer
 	 */
 	PageItem* m_item;
-	bool importTextOnly;
+	bool m_importTextOnly;
 	/**
 	 \variable Flag variables used in the scanner
 	 */
-	bool newlineFlag;
-	bool xflag;
-	bool inDef;
+	bool m_newlineFlag;
+	bool m_xflag;
+	bool m_inDef;
 	 /**
 	 \variable Input Buffer to which properly encoded file is loaded
 	 */
-	QByteArray input_Buffer;
-	int top;
+	QByteArray m_input_Buffer;
+	int m_top;
 
-	ScribusDoc* doc;
+	ScribusDoc* m_doc;
 	/**
 	 \variable current Character and paragraph styles
 	 */
-	CharStyle currentCharStyle;
-	ParagraphStyle currentParagraphStyle;
-	StyleFlag styleEffects;
+	CharStyle m_currentCharStyle;
+	ParagraphStyle m_currentParagraphStyle;
+	StyleFlag m_styleEffects;
 
 	/** To store unsupported attributes */
-	QSet<QString> unSupported;
+	QSet<QString> m_unSupported;
 	/** 
 	\brief textToAppend will be the QString used by the function TextWriter::append(QString& )
 	*/ 
-	QString textToAppend;
-	QString token;
-	QString sfcName; // Name of Style/Fontset/Color to be defined, hence named sfcName
+	QString m_textToAppend;
+	QString m_token;
+	QString m_sfcName; // Name of Style/Fontset/Color to be defined, hence named sfcName
 
-	QHash<QString,void (XtgScanner::*)(void)> tagModeHash;
-	QHash<QString,void (XtgScanner::*)(void)> textModeHash;
-	QHash<QString,void (XtgScanner::*)(void)> nameModeHash;
-	QHash<int,QString> languages;
+	QHash<QString,void (XtgScanner::*)(void)> m_tagModeHash;
+	QHash<QString,void (XtgScanner::*)(void)> m_textModeHash;
+	QHash<QString,void (XtgScanner::*)(void)> m_nameModeHash;
+	QHash<int,QString> m_languages;
 
 	/** define variable will take the following values : 
 	 \brief
@@ -103,7 +103,7 @@ private:
 		1	Character Stylesheet Definition
 		2	Paragraph Stylesheet Definition
 	 */
-	int define;
+	int m_define;
 	QTextCodec *m_codec;
 	QList<QByteArray> m_codecList;
 	bool m_isBold;
@@ -143,7 +143,7 @@ public:
 	/**
 	\brief This function will switch the state of Scanner into textMode or tagMode or styleMode.
 	*/
-	void enterState(scannerMode Mode);
+	void enterState(scannerMode m_mode);
 
 	/**
 	\brief This function will return a token which is to be evaluated in parser. Each token will be available in the class member token as a QString.
