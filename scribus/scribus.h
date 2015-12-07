@@ -140,8 +140,8 @@ public:
 	void setDefaultPrinter(const QString&, const QString&, const QString&);
 	void getDefaultPrinter(QString& name, QString& file, QString& command);
 
-	inline bool scriptIsRunning(void) const { return (ScriptRunning > 0); }
-	inline void setScriptRunning(bool value) { ScriptRunning += (value ? 1 : -1); }
+	inline bool scriptIsRunning(void) const { return (m_ScriptRunning > 0); }
+	inline void setScriptRunning(bool value) { m_ScriptRunning += (value ? 1 : -1); }
 
 	ScribusDoc *doFileNew(double width, double height, double topMargin, double leftMargin, double rightMargin, double bottomMargin, double columnDistance, double columnCount, bool autoTextFrames, int pageArrangement, int unitIndex, int firstPageLocation, int orientation, int firstPageNumber, const QString& defaultPageSize, bool requiresGUI, int pageCount=1, bool showView=true, int marginPreset=0);
 	ScribusDoc *newDoc(double width, double height, double topMargin, double leftMargin, double rightMargin, double bottomMargin, double columnDistance, double columnCount, bool autoTextFrames, int pageArrangement, int unitIndex, int firstPageLocation, int orientation, int firstPageNumber, const QString& defaultPageSize, bool requiresGUI, int pageCount=1, bool showView=true, int marginPreset=0);
@@ -541,7 +541,7 @@ public slots:
 	//! \brief manages paints
 	void managePaints();
 	//! \brief allow SE to get the SM for edit stlyes
-	StyleManager *styleMgr() const {return styleManager;};
+	StyleManager *styleMgr() const {return m_styleManager;};
 	//! \brief drawnew, call palettes to update for new page layout
 	void updateGUIAfterPagesChanged();
 	/**
@@ -609,55 +609,55 @@ private:
 
 	void updateColorMenu(QProgressBar* progressBar=NULL);
 
-	int ScriptRunning;
+	int m_ScriptRunning;
 
-	QLabel* mainWindowStatusLabel;
-	QString statusLabelText;
+	QLabel* m_mainWindowStatusLabel;
+	QString m_statusLabelText;
 	//QPixmap noIcon;
 
-	int toolbarMenuTools;
-	int toolbarMenuPDFTools;
-	int viewToolbars;
-	int viewPropertiesPalette;
-	int viewOutlinePalette;
-	int viewNodePalette;
-	int viewBpal;
-	int viewLayerPalette;
-	int viewPagePalette;
-	int viewBopal;
-	int viewUndoPalette;
+	int m_toolbarMenuTools;
+	int m_toolbarMenuPDFTools;
+	int m_viewToolbars;
+	int m_viewPropertiesPalette;
+	int m_viewOutlinePalette;
+	int m_viewNodePalette;
+	int m_viewBpal;
+	int m_viewLayerPalette;
+	int m_viewPagePalette;
+	int m_viewBopal;
+	int m_viewUndoPalette;
 
-	bool palettesStatus[11];
-	bool guidesStatus[13];
+	bool m_palettesStatus[11];
+	bool m_guidesStatus[13];
 
-	bool keyrep;
+	bool m_keyrep;
 	/** @brief Tells if an arrow key is pressed down */
-	bool _arrowKeyDown;
+	bool m__arrowKeyDown;
 	/** @brief tells the undo mode */
-	bool objectSpecificUndo;
+	bool m_objectSpecificUndo;
 
 	//CB: #8212: add overrideMasterPageSizing, however default to true for compatibility with other calls.. for now
 	void addNewPages(int wo, int where, int numPages, double height, double width, int orient, QString siz, bool mov, QStringList* basedOn = 0, bool overrideMasterPageSizing=true);
 
-	int DocNr;
-	bool PrinterUsed;
+	int m_DocNr;
+	bool m_PrinterUsed;
 	struct PDe {
 					QString Pname;
 					QString Dname;
 					QString Command;
 				} PDef ;
-	TOCGenerator *tocGenerator;
-	int storedPageNum;
-	int storedViewXCoor;
-	int storedViewYCoor;
-	double storedViewScale;
-	StyleManager *styleManager;
-	UndoManager *undoManager;
-	PrefsManager *prefsManager;
-	FormatsManager *formatsManager;
+	TOCGenerator *m_tocGenerator;
+	int m_storedPageNum;
+	int m_storedViewXCoor;
+	int m_storedViewYCoor;
+	double m_storedViewScale;
+	StyleManager *m_styleManager;
+	UndoManager *m_undoManager;
+	PrefsManager *m_prefsManager;
+	FormatsManager *m_formatsManager;
 
-	QPointer<HelpBrowser> helpBrowser;
-	QString osgFilterString;
+	QPointer<HelpBrowser> m_helpBrowser;
+	QString m_osgFilterString;
 
 	void insertMark(MarkType);
 	bool insertMarkDialog(PageItem_TextFrame* item, MarkType mT, ScItemsState* &is);
@@ -665,7 +665,7 @@ private:
 	bool m_WasAutoSave;
 	bool m_pagePalVisible;
 
-	QQuickView *qqview;
+	QQuickView *m_qqview;
 };
 
 #endif
