@@ -29,7 +29,7 @@ multiView::multiView ( QWidget* parent ) : QListView ( parent )
 
 multiView::multiView ( multiCombobox* parent ) : QListView ( parent )
 {
-	parentMcb = parent;
+	m_parentMcb = parent;
 }
 
 
@@ -46,7 +46,7 @@ bool multiView::eventFilter ( QObject* object, QEvent* event )
 
 			for ( int i = 0 ; i < selectedList.size() ; ++i )
 			{
-				parentMcb->switchCheckstate ( selectedList.at ( i ).row() );
+				m_parentMcb->switchCheckstate ( selectedList.at ( i ).row() );
 			}
 			return true;
 		}
@@ -61,7 +61,7 @@ bool multiView::eventFilter ( QObject* object, QEvent* event )
 
 			for ( int i = 0 ; i < selectedList.size() ; ++i )
 			{
-				parentMcb->switchCheckstate ( selectedList.at ( i ).row() );
+				m_parentMcb->switchCheckstate ( selectedList.at ( i ).row() );
 			}
 
 			return true;
@@ -75,14 +75,14 @@ bool multiView::eventFilter ( QObject* object, QEvent* event )
 
 multiCombobox::multiCombobox ( QWidget *parent ) : QComboBox ( parent )
 {
-	mcbModel = new multiComboboxModel ( this );
-	mcbView = new multiView ( this );
+	m_mcbModel = new multiComboboxModel ( this );
+	m_mcbView = new multiView ( this );
 
-	setModel ( mcbModel );
-	setView ( mcbView );
+	setModel ( m_mcbModel );
+	setView ( m_mcbView );
 
-	mcbView->installEventFilter ( mcbView );
-	mcbView->viewport()->installEventFilter ( mcbView );
+	m_mcbView->installEventFilter ( m_mcbView );
+	m_mcbView->viewport()->installEventFilter ( m_mcbView );
 
 //setEditable(true);
 //lineEdit()->setReadOnly(true);

@@ -30,7 +30,7 @@ class multiView : public QListView
 		bool eventFilter ( QObject* object, QEvent* event );
 
 	private:
-		multiCombobox *parentMcb;
+		multiCombobox *m_parentMcb;
 };
 
 
@@ -48,8 +48,8 @@ class multiCombobox : public QComboBox
 		int addItem ( QString text, int checked=0 );
 
 	private:
-		multiComboboxModel *mcbModel;
-		multiView *mcbView;
+		multiComboboxModel *m_mcbModel;
+		multiView *m_mcbView;
 
 	signals:
 		void checkstateChanged ( int );
