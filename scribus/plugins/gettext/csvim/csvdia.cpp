@@ -37,14 +37,14 @@ CsvDialog::CsvDialog() : QDialog(0)
 	QLabel* fdlabel = new QLabel( tr("Field delimiter:"), this);
 	fdlabel->setMinimumWidth(120);
 	flayout->addWidget(fdlabel,1);
-	fdelimCombo = new QComboBox(this);
-	fdelimCombo->setEditable(false);
+	m_fdelimCombo = new QComboBox(this);
+	m_fdelimCombo->setEditable(false);
 	QStringList fdList(",");
 	fdList << ";";
 	fdList << tr("(TAB)");
-	fdelimCombo->addItems(fdList);
-	fdelimCombo->setMinimumWidth(120);
-	flayout->addWidget(fdelimCombo,5);
+	m_fdelimCombo->addItems(fdList);
+	m_fdelimCombo->setMinimumWidth(120);
+	flayout->addWidget(m_fdelimCombo,5);
 	layout->addLayout(flayout);
 
 	QBoxLayout* vlayout = new QHBoxLayout;
@@ -53,57 +53,57 @@ CsvDialog::CsvDialog() : QDialog(0)
 	QLabel* vdlabel = new QLabel( tr("Value delimiter:"), this);
 	vdlabel->setMinimumWidth(120);
 	vlayout->addWidget(vdlabel,1);
-	vdelimCombo = new QComboBox(this);
-	vdelimCombo->setEditable(false);
+	m_vdelimCombo = new QComboBox(this);
+	m_vdelimCombo->setEditable(false);
 	QStringList vdList("\"");
 	vdList << "'" << tr("None", "delimiter");
-	vdelimCombo->addItems(vdList);
-	vdelimCombo->setMinimumWidth(120);
-	vlayout->addWidget(vdelimCombo,5);
+	m_vdelimCombo->addItems(vdList);
+	m_vdelimCombo->setMinimumWidth(120);
+	vlayout->addWidget(m_vdelimCombo,5);
 	layout->addLayout(vlayout);
 
 	QBoxLayout* hlayout = new QHBoxLayout;
 	hlayout->setMargin(5);
 	hlayout->setSpacing(5);
-	headerCheck = new QCheckBox( tr("First row is a header"), this);
-	hlayout->addWidget(headerCheck);
+	m_headerCheck = new QCheckBox( tr("First row is a header"), this);
+	hlayout->addWidget(m_headerCheck);
 	layout->addLayout(hlayout);
 
 	QBoxLayout* blayout = new QHBoxLayout;
 	blayout->setMargin(5);
 	blayout->setSpacing(5);
 	blayout->addStretch(10);
-	okButton = new QPushButton( tr("OK"), this);
-	blayout->addWidget(okButton);
+	m_okButton = new QPushButton( tr("OK"), this);
+	blayout->addWidget(m_okButton);
 
-	cancelButton = new QPushButton( tr("Cancel"), this);
-	blayout->addWidget(cancelButton);
+	m_cancelButton = new QPushButton( tr("Cancel"), this);
+	blayout->addWidget(m_cancelButton);
 	layout->addLayout(blayout);
 
-	connect(okButton, SIGNAL(clicked()), this, SLOT(accept()));
-	connect(cancelButton, SIGNAL(clicked()), this, SLOT(reject()));
+	connect(m_okButton, SIGNAL(clicked()), this, SLOT(accept()));
+	connect(m_cancelButton, SIGNAL(clicked()), this, SLOT(reject()));
 }
 
 QString CsvDialog::getFDelim()
 {
-	if (fdelimCombo->currentText() == tr("(TAB)"))
+	if (m_fdelimCombo->currentText() == tr("(TAB)"))
 		return "\t";
-	return fdelimCombo->currentText();
+	return m_fdelimCombo->currentText();
 }
 
 QString CsvDialog::getVDelim()
 {
-	return vdelimCombo->currentText();
+	return m_vdelimCombo->currentText();
 }
 
 bool CsvDialog::hasHeader()
 {
-	return headerCheck->isChecked();
+	return m_headerCheck->isChecked();
 }
 
 bool CsvDialog::useVDelim()
 {
-	return vdelimCombo->currentIndex() != 2;
+	return m_vdelimCombo->currentIndex() != 2;
 }
 
 CsvDialog::~CsvDialog()

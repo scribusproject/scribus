@@ -26,11 +26,11 @@ public:
 	bool useVDelim();
 
 private:
-	QComboBox* fdelimCombo;
-	QComboBox* vdelimCombo;
-	QCheckBox* headerCheck;
-	QPushButton* okButton;
-	QPushButton* cancelButton;
+	QComboBox* m_fdelimCombo;
+	QComboBox* m_vdelimCombo;
+	QCheckBox* m_headerCheck;
+	QPushButton* m_okButton;
+	QPushButton* m_cancelButton;
 };
 
 #endif // CSVDIA_H
