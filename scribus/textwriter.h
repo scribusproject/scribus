@@ -105,23 +105,23 @@ public:
 	ScribusDoc* currentDoc();
 
 private:
-	ScribusDoc* document;
-	PageItem* frame;
+	ScribusDoc* m_document;
+	PageItem* m_frame;
 
-	CharStyle currentCharStyle;
-	ParagraphStyle currentParStyle;
+	CharStyle m_currentCharStyle;
+	ParagraphStyle m_currentParStyle;
 
-	int styledUptoPos;
+	int m_styledUptoPos;
 	void setStyles();
 
-	StyleSet<CharStyle> charStyles;
-	StyleSet<ParagraphStyle> parStyles;
+	StyleSet<CharStyle> m_charStyles;
+	StyleSet<ParagraphStyle> m_parStyles;
 
 	// for resolving name conflicts:
-	QMap<QString, QString> parStyleMap;
-	QMap<QString, QString> charStyleMap;
-	QMap<QString, QString> fontMap;
-	QMap<QString, QString> colorMap;
+	QMap<QString, QString> m_parStyleMap;
+	QMap<QString, QString> m_charStyleMap;
+	QMap<QString, QString> m_fontMap;
+	QMap<QString, QString> m_colorMap;
 };
 
 #endif
