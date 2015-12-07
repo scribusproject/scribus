@@ -147,7 +147,7 @@ class SCRIBUS_API FormatsManager
 	 * FormatsManager is singleton and the instance can be queried with the method
 	 * instance().
 	 */
-	static FormatsManager* _instance;
+	static FormatsManager* m_instance;
 };
 
 #endif
