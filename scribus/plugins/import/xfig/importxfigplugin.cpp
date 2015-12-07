@@ -40,7 +40,7 @@ void importxfig_freePlugin(ScPlugin* plugin)
 }
 
 ImportXfigPlugin::ImportXfigPlugin() : LoadSavePlugin(),
-	importAction(new ScrAction(ScrAction::DLL, "", QKeySequence(), this))
+	m_importAction(new ScrAction(ScrAction::DLL, "", QKeySequence(), this))
 {
 	// Set action info in languageChange, so we only have to do it in one
 	// place. This includes registering file format support.
@@ -50,7 +50,7 @@ ImportXfigPlugin::ImportXfigPlugin() : LoadSavePlugin(),
 
 void ImportXfigPlugin::languageChange()
 {
-	importAction->setText( tr("Import Xfig..."));
+	m_importAction->setText( tr("Import Xfig..."));
 	FileFormat* fmt = getFormatByExt("fig");
 	fmt->trName = FormatsManager::instance()->nameOfFormat(FormatsManager::XFIG);
 	fmt->filter = FormatsManager::instance()->extensionsForFormat(FormatsManager::XFIG);
