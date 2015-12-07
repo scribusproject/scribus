@@ -44,14 +44,14 @@ const QString CONTENT = "content.xml";
 class OdtIm
 {
 private:
-	gtWriter* writer;
-	QString encoding;
-	QString filename;
-	QString stylePath;
-	QString contentPath;
+	gtWriter* m_writer;
+	QString m_encoding;
+	QString m_filename;
+	QString m_stylePath;
+	QString m_contentPath;
 	bool decompress();
 public:
-	OdtIm(QString fileName, QString encoding, gtWriter* w, bool textOnly);
+	OdtIm(QString fileName, QString m_encoding, gtWriter* w, bool textOnly);
 	~OdtIm();
 };
 
