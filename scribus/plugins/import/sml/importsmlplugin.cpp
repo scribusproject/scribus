@@ -40,7 +40,7 @@ void importsml_freePlugin(ScPlugin* plugin)
 }
 
 ImportSmlPlugin::ImportSmlPlugin() : LoadSavePlugin(),
-	importAction(new ScrAction(ScrAction::DLL, QPixmap(), QPixmap(), "", QKeySequence(), this))
+	m_importAction(new ScrAction(ScrAction::DLL, QPixmap(), QPixmap(), "", QKeySequence(), this))
 {
 	// Set action info in languageChange, so we only have to do it in one
 	// place. This includes registering file format support.
@@ -50,7 +50,7 @@ ImportSmlPlugin::ImportSmlPlugin() : LoadSavePlugin(),
 
 void ImportSmlPlugin::languageChange()
 {
-	importAction->setText( tr("Import Sml..."));
+	m_importAction->setText( tr("Import Sml..."));
 	FileFormat* fmt = getFormatByExt("sml");
 	fmt->trName = tr("Kivio Stencils");
 	fmt->filter = tr("Kivio Stencils (*.sml *.SML)");
