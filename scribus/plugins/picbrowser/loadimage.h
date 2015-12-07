@@ -43,11 +43,11 @@ class loadImagesThread : public QThread
 		void run();
 
 	private:
-		QMutex mutex;
+		QMutex m_mutex;
 		//contains a pointer to the calling PictureBrowser object
-		PictureBrowser *pictureBrowser;
+		PictureBrowser *m_pictureBrowser;
 		//contains a pointer to the related PreviewImagesModel
-		PreviewImagesModel *pModel;
+		PreviewImagesModel *m_pModel;
 /*};
 
 
