@@ -34,7 +34,7 @@ private:
 	bool m_pretty;
 	int m_indentLevel;
 	bool m_manyAttributes;
-	bool pendingEmptyTag;
+	bool m_pendingEmptyTag;
 	void finalizePendingEmptyTag();
 };
 

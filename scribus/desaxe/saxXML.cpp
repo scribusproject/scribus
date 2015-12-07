@@ -14,10 +14,10 @@
 using namespace std;
 
 SaxXML::SaxXML(std::ostream& file, bool pretty) : m_stream(file), 
-     m_pretty(pretty), m_indentLevel(0), pendingEmptyTag(false) {} 
+     m_pretty(pretty), m_indentLevel(0), m_pendingEmptyTag(false) {} 
 
 SaxXML::SaxXML(const char* filename, bool pretty) : m_file(filename, ios::out | ios::binary), m_stream(m_file), 
-     m_pretty(pretty), m_indentLevel(0), pendingEmptyTag(false) {}
+     m_pretty(pretty), m_indentLevel(0), m_pendingEmptyTag(false) {}
 
 SaxXML::~SaxXML() { m_stream.flush(); m_file.close(); }
 
@@ -36,7 +36,7 @@ void SaxXML::endDoc()
 
 void SaxXML::finalizePendingEmptyTag()
 {
-	if (pendingEmptyTag) {
+	if (m_pendingEmptyTag) {
 		if (m_pretty && m_manyAttributes)
 		{
 			m_stream << "\n";
@@ -46,7 +46,7 @@ void SaxXML::finalizePendingEmptyTag()
 		}
 		else
 			m_stream << " >";
-		pendingEmptyTag = false;
+		m_pendingEmptyTag = false;
 	}
 }
 
@@ -87,7 +87,7 @@ void SaxXML::begin(const Xml_string& tag, Xml_attr attr)
 			m_stream << " " << fromXMLString(Xml_key(it)) << "=\"" << fromXMLString(txt) << "\"";
 		}
 	}
-	pendingEmptyTag = true;
+	m_pendingEmptyTag = true;
 	++m_indentLevel;
 }
 
@@ -95,7 +95,7 @@ void SaxXML::begin(const Xml_string& tag, Xml_attr attr)
 void SaxXML::end(const Xml_string& tag)
 {
 	--m_indentLevel;
-	if (pendingEmptyTag) {
+	if (m_pendingEmptyTag) {
 		if (m_pretty && m_manyAttributes)
 		{
 			m_stream << "\n";
@@ -103,7 +103,7 @@ void SaxXML::end(const Xml_string& tag)
 				m_stream << " ";
 		}
 		m_stream << " />"; 
-		pendingEmptyTag = false;
+		m_pendingEmptyTag = false;
 	}
 	else {
 		if (m_pretty)
