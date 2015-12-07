@@ -184,37 +184,37 @@ namespace cff {
 		QByteArray dump(const CFF_Variant& var) const;
 		
 		const QByteArray& data() const {
-			return bytes;
+			return m_bytes;
 		}
 		
 		QList<QByteArray> fontNames() const {
-			return fontTopDicts.keys();
+			return m_fontTopDicts.keys();
 		}
 		
 		uint offset(uint unscaled)
 		{
-			return unscaled * offsetSize;
+			return unscaled * m_offsetSize;
 		}
 		
 		QByteArray string(sid_type sid) const {
-			return sid < strings.length()? strings[sid] : "";
+			return sid < m_strings.length()? m_strings[sid] : "";
 		}
 		
 		sid_type sid(const QByteArray str) const {
-			return sids.contains(str)? sids[str] : sid_max1;
+			return m_sids.contains(str)? m_sids[str] : sid_max1;
 		}
 		
 		void dump(QDataStream& out) const;
 		
 	private:
-		QByteArray bytes;
-		uint offsetSize;
+		QByteArray m_bytes;
+		uint m_offsetSize;
 		
-		QList<QByteArray> names;
-		QMap<QByteArray, QMap<uint,CFF_Variant> > fontTopDicts;
-		QList<QByteArray> strings;
-		QHash<QByteArray,uint> sids;
-		QList<QByteArray> globalSubr;
+		QList<QByteArray> m_names;
+		QMap<QByteArray, QMap<uint,CFF_Variant> > m_fontTopDicts;
+		QList<QByteArray> m_strings;
+		QHash<QByteArray,uint> m_sids;
+		QList<QByteArray> m_globalSubr;
 		
 		sid_type createSid(const QByteArray& str);
 		

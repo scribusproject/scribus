@@ -546,64 +546,64 @@ namespace cff {
 	}
 
 	
-	CFF::CFF() : bytes(), offsetSize(4)
+	CFF::CFF() : m_bytes(), m_offsetSize(4)
 	{
 		for (int i = 0; i <= sid_last_std; ++i)
 		{
-			strings.append(stdStrings[i]);
-			sids[stdStrings[i]] = i;
+			m_strings.append(stdStrings[i]);
+			m_sids[stdStrings[i]] = i;
 		}
 	}
 	
 	
-	CFF::CFF(const QByteArray& cff) : bytes(cff)
+	CFF::CFF(const QByteArray& cff) : m_bytes(cff)
 	{
 		// read header
-		offsetSize = cff[cff_offSize];
+		m_offsetSize = cff[cff_offSize];
 		uint pos = cff[cff_hdrSize];
-		qDebug() << "cff header" << offsetSize << "starts" << pos;
+		qDebug() << "cff header" << m_offsetSize << "starts" << pos;
 		// read names
-		names = readIndex(pos);
+		m_names = readIndex(pos);
 		// read top dicts
 		QList<QByteArray> topDicts = readIndex(pos);
-		for (int i = 0; i < names.length(); ++i)
+		for (int i = 0; i < m_names.length(); ++i)
 		{
-			QByteArray fontName = names[i];
+			QByteArray fontName = m_names[i];
 			qDebug() << i << fontName;
 			if (fontName.length() > 0 && fontName[0] != char(0))
 			{
-				fontTopDicts[fontName] = getDict(topDicts[i]);
-				uint privLength = fontTopDicts[fontName][18].array[0].toCardinal();
-				uint privOffset = fontTopDicts[fontName][18].array[1].toCardinal();
+				m_fontTopDicts[fontName] = getDict(topDicts[i]);
+				uint privLength = m_fontTopDicts[fontName][18].array[0].toCardinal();
+				uint privOffset = m_fontTopDicts[fontName][18].array[1].toCardinal();
 				getDict(readSegment(privOffset, privLength));
 			}
 		}
 		// read strings
 		for (int i = 0; i <= sid_last_std; ++i)
 		{
-			strings.append(stdStrings[i]);
+			m_strings.append(stdStrings[i]);
 		}
-		strings.append(readIndex(pos));
-		for (int i = 0; i < strings.length(); ++i)
+		m_strings.append(readIndex(pos));
+		for (int i = 0; i < m_strings.length(); ++i)
 		{
 //			if ( i > sid_last_std)
 //				qDebug() << i << strings[i];
-			sids[strings[i]] = i;
+			m_sids[m_strings[i]] = i;
 		}
 		// read global subroutines
-		globalSubr = readIndex(pos);
+		m_globalSubr = readIndex(pos);
 	}
 	
 	
 	QByteArray CFF::readSegment(uint pos, uint size) const
 	{
-		return QByteArray::fromRawData(bytes.data() + pos, size);
+		return QByteArray::fromRawData(m_bytes.data() + pos, size);
 	}
 	
 	
 	uint CFF::readCard(uint pos) const
 	{
-		return static_cast<uchar>(bytes[pos]) << 8 | static_cast<uchar>(bytes[pos+1]);
+		return static_cast<uchar>(m_bytes[pos]) << 8 | static_cast<uchar>(m_bytes[pos+1]);
 	}
 	
 	
@@ -818,14 +818,14 @@ namespace cff {
 		if (N == 0)
 			return result;
 
-		uint offSize = bytes[pos++];
+		uint offSize = m_bytes[pos++];
 		uint dataStart = pos + offSize * (N+1) - 1;
 		qDebug() << "size" << N << "offsetsize" << offSize << "dataStart" << dataStart;
 		uint start = 0;
 		uint end = 0;
 		for (uint c = 0; c < offSize; ++c)
 		{
-			start = start << 8 | (uchar) bytes[pos++];
+			start = start << 8 | (uchar) m_bytes[pos++];
 		}
 		start += dataStart;
 		for (uint i = 0; i < N; ++i)
@@ -833,7 +833,7 @@ namespace cff {
 			end = 0;
 			for (uint c = 0; c < offSize; ++c)
 			{
-				end = end << 8 | (uchar) bytes[pos++];
+				end = end << 8 | (uchar) m_bytes[pos++];
 			}
 			end += dataStart;
 			result.append(readSegment(start, end-start));
@@ -851,8 +851,8 @@ namespace cff {
 		for(int i = 0; i < 256; ++i)
 			result.append(0);
 		
-		uchar format = bytes[pos++];
-		uchar N = bytes[pos++];
+		uchar format = m_bytes[pos++];
+		uchar N = m_bytes[pos++];
 		int gid;
 		uchar code;
 		switch (format)
@@ -861,7 +861,7 @@ namespace cff {
 			case 0x80:
 				for (gid = 1; gid <= N; ++gid)
 				{
-					code = bytes[pos++];
+					code = m_bytes[pos++];
 					if (result[code] == 0)
 					{
 						result[code] = gid;
@@ -873,8 +873,8 @@ namespace cff {
 				gid = 1;
 				for (int r = 0; r < N; ++r)
 				{
-					uchar first = bytes[pos++];
-					uchar nLeft = bytes[pos++];
+					uchar first = m_bytes[pos++];
+					uchar nLeft = m_bytes[pos++];
 					for (code = first; code <= first + nLeft; ++code)
 					{
 						if (result[code] == 0)
@@ -888,10 +888,10 @@ namespace cff {
 		}
 		if (format >= 0x80)
 		{
-			uchar nSupplements = bytes[pos++];
+			uchar nSupplements = m_bytes[pos++];
 			for (int i = 0; i < nSupplements; ++i)
 			{
-				code = bytes[pos++];
+				code = m_bytes[pos++];
 				gid = readCard(pos);
 				pos += 2;
 				result[code] = gid;
@@ -906,7 +906,7 @@ namespace cff {
 		QList<sid_type> result;
 		result.append(0); // sid for .notdef
 		
-		uchar format = bytes[pos++];
+		uchar format = m_bytes[pos++];
 		
 		sid_type first;
 		uchar nLeft1;
@@ -926,7 +926,7 @@ namespace cff {
 				{
 					first = readCard(pos);
 					pos += 2;
-					nLeft1 = bytes[pos++];
+					nLeft1 = m_bytes[pos++];
 					for (sid_type sid = first; sid <= first + nLeft1; ++sid)
 					{
 						result.append(sid);
@@ -993,9 +993,9 @@ namespace cff {
 	
 	void CFF::dump()
 	{
-		qDebug() << "CFF" << fontTopDicts.count() << "fonts, size =" << bytes.size() << "offset size=" << offsetSize;
+		qDebug() << "CFF" << m_fontTopDicts.count() << "fonts, size =" << m_bytes.size() << "offset size=" << m_offsetSize;
 		QMap<QByteArray,QMap<operator_type,CFF_Variant> >::Iterator it;
-		for (it = fontTopDicts.begin(); it != fontTopDicts.end(); ++it)
+		for (it = m_fontTopDicts.begin(); it != m_fontTopDicts.end(); ++it)
 		{
 			qDebug() << "Font" << it.key() << ":";
 			QMap<operator_type, CFF_Variant>::Iterator it2;
@@ -1064,11 +1064,11 @@ namespace cff {
 	
 	void CFF::dump(QDataStream& out) const
 	{
-		write(out, "<CFF version='1.0' offsetSize='" + num(offsetSize) + "' >\n");
-		for (int f = 0; f < names.length(); ++f)
+		write(out, "<CFF version='1.0' offsetSize='" + num(m_offsetSize) + "' >\n");
+		for (int f = 0; f < m_names.length(); ++f)
 		{
-			QByteArray font = names[f];
-			QMap<operator_type, CFF_Variant> topDict = fontTopDicts[font];
+			QByteArray font = m_names[f];
+			QMap<operator_type, CFF_Variant> topDict = m_fontTopDicts[font];
 			write(out, "  <Font name='" + font + "' >\n");
 			write(out, "    <TopDict>");
 			dumpDict(*this, topDict, out, "      ");
@@ -1128,10 +1128,10 @@ namespace cff {
 			write(out, "  </Font>\n");
 		}
 		write(out, "  <Strings>\n");
-		dumpStrings(strings, out, "    ");
+		dumpStrings(m_strings, out, "    ");
 		write(out, "  </Strings>\n");
 		write(out, "  <GlobalSubrs>\n");
-		dumpData(globalSubr, out, "    ");
+		dumpData(m_globalSubr, out, "    ");
 		write(out, "  </GlobalSubrs>\n");
 		write(out, "</CFF>\n");
 	}
@@ -1261,8 +1261,8 @@ namespace cff {
 	
 	uint CFF::writeSegment(const QByteArray& data)
 	{
-		uint result = bytes.length();
-		bytes.append(data);
+		uint result = m_bytes.length();
+		m_bytes.append(data);
 		return result;
 	}
 	
@@ -1270,16 +1270,16 @@ namespace cff {
 	sid_type CFF::createSid(const QByteArray& str)
 	{
 		sid_type result;
-		if (!sids.contains(str))
+		if (!m_sids.contains(str))
 		{
-			result = strings.length();
-			strings.append(str);
-			sids[str] = result;
+			result = m_strings.length();
+			m_strings.append(str);
+			m_sids[str] = result;
 			qDebug() << "new SID" << result << "for" << str;
 		}
 		else
 		{
-			result = sids[str];
+			result = m_sids[str];
 		}
 		return result;
 	}
@@ -1290,32 +1290,32 @@ namespace cff {
 	                       QList<QByteArray> oldStrings,
 	                       QHash<operator_type, uint>& patchAddresses)
 	{
-		offsetSize = 4;
-		names.append(name);
-		fontTopDicts[name] = dict;
-		bytes.append((char) 1);
-		bytes.append((char) 0);                     // format 1.0
-		bytes.append((char) 4);                     // header length 4
-		bytes.append((char) 4);                     // offsetSize 4
+		m_offsetSize = 4;
+		m_names.append(name);
+		m_fontTopDicts[name] = dict;
+		m_bytes.append((char) 1);
+		m_bytes.append((char) 0);                     // format 1.0
+		m_bytes.append((char) 4);                     // header length 4
+		m_bytes.append((char) 4);                     // offsetSize 4
 		
 		// write Name index
-		bytes.append(encodeBE(2,1));                  // count
+		m_bytes.append(encodeBE(2,1));                  // count
 		assert (name.length() < 255);
-		bytes.append(encodeBE(1, 1));                 // offSize
-		bytes.append(encodeBE(1, 1));                 // offset 1
-		bytes.append(encodeBE(1, 1 + name.length())); // offset 2
-		bytes.append(name);
+		m_bytes.append(encodeBE(1, 1));                 // offSize
+		m_bytes.append(encodeBE(1, 1));                 // offset 1
+		m_bytes.append(encodeBE(1, 1 + name.length())); // offset 2
+		m_bytes.append(name);
 		
 		
 		// write TopDict index
 		QByteArray topDict = makeDict(dict, oldStrings, patchAddresses);
 		int offSize = requiredOffsetSize(topDict.length());
-		bytes.append(encodeBE(2, 1));                          // count
-		bytes.append(encodeBE(1, offSize));                    // offSize
-		bytes.append(encodeBE(offSize, 1));                    // offset 1
-		bytes.append(encodeBE(offSize, 1 + topDict.length())); // offset 2
-		uint start = bytes.size();
-		bytes.append(topDict);
+		m_bytes.append(encodeBE(2, 1));                          // count
+		m_bytes.append(encodeBE(1, offSize));                    // offSize
+		m_bytes.append(encodeBE(offSize, 1));                    // offset 1
+		m_bytes.append(encodeBE(offSize, 1 + topDict.length())); // offset 2
+		uint start = m_bytes.size();
+		m_bytes.append(topDict);
 		return start;
 	}
 	
@@ -1437,18 +1437,18 @@ namespace cff {
 				case cff_dict_Subrs:
 				case cff_dict_FDArray:
 				case cff_dict_FDSelect:
-					assert (bytes[pos] == (char) cff_dict_Card32);
+					assert (m_bytes[pos] == (char) cff_dict_Card32);
 					++pos;
-					bytes.replace(pos, 4, encodeBE(4, offset));
+					m_bytes.replace(pos, 4, encodeBE(4, offset));
 					qDebug() << "patch" << cff_operator(op) << "offset @" << pos << offset;
 					break;
 				case cff_dict_Private:
-					c = bytes[pos];
+					c = m_bytes[pos];
 					if (c == cff_dict_Card16)
 					{
 						if (length > 0)
 						{
-							bytes.replace(pos+1, 2, encodeBE(2, length));
+							m_bytes.replace(pos+1, 2, encodeBE(2, length));
 							qDebug() << "patch priv short length @" << (pos+1) << length;
 						}
 						pos += 3;
@@ -1457,7 +1457,7 @@ namespace cff {
 					{
 						if (length > 0)
 						{
-							bytes.replace(pos+1, 4, encodeBE(4, length));
+							m_bytes.replace(pos+1, 4, encodeBE(4, length));
 							qDebug() << "patch priv length @" << (pos+1) << length;
 						}
 						pos += 5;
@@ -1474,9 +1474,9 @@ namespace cff {
 					{
 						/* error */
 					}
-					assert (bytes[pos] == (char) cff_dict_Card32);
+					assert (m_bytes[pos] == (char) cff_dict_Card32);
 					++pos;
-					bytes.replace(pos, 4, encodeBE(4, offset));
+					m_bytes.replace(pos, 4, encodeBE(4, offset));
 					qDebug() << "patch priv offset @" << pos << offset;
 					break;
 				default:
@@ -1586,8 +1586,8 @@ namespace cff {
 		uint pos;
 		
 		// get top dict
-		QByteArray fontName = names[faceIndex];
-		QMap<operator_type, CFF_Variant> topDict = fontTopDicts[fontName];
+		QByteArray fontName = m_names[faceIndex];
+		QMap<operator_type, CFF_Variant> topDict = m_fontTopDicts[fontName];
 		
 		// get charstrings
 		QList<QByteArray> charStrings;
@@ -1638,7 +1638,7 @@ namespace cff {
 		
 		// now create new font
 		CFF result;
-		result.globalSubr = globalSubr;  // no changes
+		result.m_globalSubr = m_globalSubr;  // no changes
 		
 		// subset
 		if (cids.length() > 0)
@@ -1660,9 +1660,9 @@ namespace cff {
 			{
 				sid_type gid = cids[i];
 				sid_type sid = charset[gid];
-				if (sid < strings.length())
+				if (sid < m_strings.length())
 				{
-					sid = result.createSid(strings[sid]);
+					sid = result.createSid(m_strings[sid]);
 				}
 				newCharset.append(sid);
 				newCharStrings.append(charStrings[gid]);
@@ -1677,9 +1677,9 @@ namespace cff {
 			for (int i = 0; i < charset.length(); ++i)
 			{
 				sid_type cid = charset[i];
-				if (cid < strings.length())
+				if (cid < m_strings.length())
 				{
-					cid = result.createSid(strings[cid]);
+					cid = result.createSid(m_strings[cid]);
 				}
 				charset[i] = cid;
 			}
@@ -1687,19 +1687,19 @@ namespace cff {
 		
 		// create new private dict
 		QHash<operator_type, uint> privatePatches;
-		QByteArray privateBytes = result.makeDict(privateDict, strings, privatePatches);
+		QByteArray privateBytes = result.makeDict(privateDict, m_strings, privatePatches);
 
 		
 		// write new header, name and topdict, remember offset positions for patching
 		QHash<operator_type, uint> patchPositions;
-		uint topDictOffset = result.writeTopDict(fontName, topDict, strings, patchPositions);
+		uint topDictOffset = result.writeTopDict(fontName, topDict, m_strings, patchPositions);
 		
 		// write strings
 		// makeDict() needs to be called before this in order to create SIDs for used strings
-		result.writeSegment(makeIndex(result.strings.mid(sid_last_std + 1)));
+		result.writeSegment(makeIndex(result.m_strings.mid(sid_last_std + 1)));
 		
 		// write global subr (required but maybe empty)
-		result.writeSegment(makeIndex(globalSubr));
+		result.writeSegment(makeIndex(m_globalSubr));
 
 		// write encoding
 		uint encodingOffset = encoding.size() > 1? result.writeSegment(makeEncoding(encoding)) : encoding.size() == 1? encoding[0] : 0;
