@@ -202,7 +202,7 @@ bool XPSExportPlugin::run(ScribusDoc* doc, QString filename)
 XPSExPlug::XPSExPlug(ScribusDoc* doc, int output_res)
 {
 	m_Doc = doc;
-	conversionFactor = 96.0 / 72.0;
+	m_conversionFactor = 96.0 / 72.0;
 	m_dpi = 96.0;
 	if (output_res == 0)
 		m_dpi = 72.0;
@@ -214,21 +214,21 @@ XPSExPlug::XPSExPlug(ScribusDoc* doc, int output_res)
 
 bool XPSExPlug::doExport(QString fName)
 {
-	zip = new ScZipHandler(true);
-	if (!zip->open(fName))
+	m_zip = new ScZipHandler(true);
+	if (!m_zip->open(fName))
 	{
-		delete zip;
+		delete m_zip;
 		return false;
 	}
-	dir = new QTemporaryDir();
-	if (dir->isValid())
+	m_dir = new QTemporaryDir();
+	if (m_dir->isValid())
 	{
-		imageCounter = 0;
-		fontCounter = 0;
-		xps_fontMap.clear();
-		baseDir = dir->path();
+		m_imageCounter = 0;
+		m_fontCounter = 0;
+		m_xps_fontMap.clear();
+		m_baseDir = m_dir->path();
 		// Create directory tree
-		QDir outDir(baseDir);
+		QDir outDir(m_baseDir);
 		outDir.mkdir("_rels");
 		outDir.mkdir("docProps");
 		outDir.mkdir("Documents");
@@ -254,16 +254,16 @@ bool XPSExPlug::doExport(QString fName)
 		writeDocRels();
 		// Write Thumbnail
 		QImage thumb = m_Doc->view()->PageToPixmap(0, 256, false);
-		thumb.save(baseDir + "/docProps/thumbnail.jpeg", "JPG");
+		thumb.save(m_baseDir + "/docProps/thumbnail.jpeg", "JPG");
 		// Write required DocStructure.struct
-		QFile fts(baseDir + "/Documents/1/Structure/DocStructure.struct");
+		QFile fts(m_baseDir + "/Documents/1/Structure/DocStructure.struct");
 		if (fts.open(QIODevice::WriteOnly))
 		{
 			fts.write(QByteArray("<DocumentStructure xmlns=\"http://schemas.microsoft.com/xps/2005/06/documentstructure\">\n</DocumentStructure>"));
 			fts.close();
 		}
 		// Write required FixedDocSeq.fdseq
-		QFile ft(baseDir + "/FixedDocSeq.fdseq");
+		QFile ft(m_baseDir + "/FixedDocSeq.fdseq");
 		if (ft.open(QIODevice::WriteOnly))
 		{
 			ft.write(QByteArray("<FixedDocumentSequence xmlns=\"http://schemas.microsoft.com/xps/2005/06\">\n\t<DocumentReference Source=\"/Documents/1/FixedDoc.fdoc\"/>\n</FixedDocumentSequence>"));
@@ -277,7 +277,7 @@ bool XPSExPlug::doExport(QString fName)
 		root.setAttribute("xmlns", "http://schemas.microsoft.com/xps/2005/06");
 		f_docu.appendChild(root);
 		writePages(root);
-		QFile fdo(baseDir + "/Documents/1/FixedDoc.fdoc");
+		QFile fdo(m_baseDir + "/Documents/1/FixedDoc.fdoc");
 		if (fdo.open(QIODevice::WriteOnly))
 		{
 			QString vo = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n";
@@ -287,11 +287,11 @@ bool XPSExPlug::doExport(QString fName)
 			s.writeRawData(utf8wr.data(), utf8wr.length());
 			fdo.close();
 		}
-		zip->write(baseDir);
+		m_zip->write(m_baseDir);
 	}
-	zip->close();
-	delete zip;
-	delete dir;
+	m_zip->close();
+	delete m_zip;
+	delete m_dir;
 	return true;
 }
 
@@ -303,8 +303,8 @@ void XPSExPlug::writePages(QDomElement &root)
 		p_docu.setContent(QString("<FixedPage></FixedPage>"));
 		QDomElement droot  = p_docu.documentElement();
 		droot.setAttribute("xmlns", "http://schemas.microsoft.com/xps/2005/06");
-		droot.setAttribute("Width", QString("%1").arg(Page->width() * conversionFactor));
-		droot.setAttribute("Height", QString("%1").arg(Page->height() * conversionFactor));
+		droot.setAttribute("Width", QString("%1").arg(Page->width() * m_conversionFactor));
+		droot.setAttribute("Height", QString("%1").arg(Page->height() * m_conversionFactor));
 		QString lang = QLocale::system().name();
 		lang.replace("_", "-");
 		droot.setAttribute("xml:lang", lang);
@@ -314,7 +314,7 @@ void XPSExPlug::writePages(QDomElement &root)
 		writePage(droot, rroot, Page);
 		p_docu.appendChild(droot);
 		r_docu.appendChild(rroot);
-		QFile ft(baseDir + QString("/Documents/1/Pages/%1.fpage").arg(a+1));
+		QFile ft(m_baseDir + QString("/Documents/1/Pages/%1.fpage").arg(a+1));
 		if (ft.open(QIODevice::WriteOnly))
 		{
 			QString vo = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n";
@@ -324,7 +324,7 @@ void XPSExPlug::writePages(QDomElement &root)
 			s.writeRawData(utf8wr.data(), utf8wr.length());
 			ft.close();
 		}
-		QFile ftr(baseDir + QString("/Documents/1/Pages/_rels/%1.fpage.rels").arg(a+1));
+		QFile ftr(m_baseDir + QString("/Documents/1/Pages/_rels/%1.fpage.rels").arg(a+1));
 		if (ftr.open(QIODevice::WriteOnly))
 		{
 			QString vo = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n";
@@ -477,24 +477,24 @@ void XPSExPlug::writeItemOnPage(double xOffset, double yOffset, PageItem *Item, 
 					if (Item->groupClipping())
 					{
 						FPointArray path = Item->PoLine.copy();
-						path.scale(conversionFactor, conversionFactor);
+						path.scale(m_conversionFactor, m_conversionFactor);
 						path.scale(Item->groupWidth / Item->width(), Item->groupHeight / Item->height());
 						SetClipAttr(ob, &path, Item->fillRule);
 					}
 					QTransform mpx;
-					mpx.translate(xOffset * conversionFactor, yOffset * conversionFactor);
+					mpx.translate(xOffset * m_conversionFactor, yOffset * m_conversionFactor);
 					mpx.scale(Item->width() / Item->groupWidth, Item->height() / Item->groupHeight);
 					if ((Item->rotation() != 0.0) || Item->imageFlippedH() || Item->imageFlippedV())
 					{
 						mpx.rotate(Item->rotation());
 						if (Item->imageFlippedH())
 						{
-							mpx.translate(Item->width() * conversionFactor, 0);
+							mpx.translate(Item->width() * m_conversionFactor, 0);
 							mpx.scale(-1, 1);
 						}
 						if (Item->imageFlippedV())
 						{
-							mpx.translate(0, Item->height() * conversionFactor);
+							mpx.translate(0, Item->height() * m_conversionFactor);
 							mpx.scale(1, -1);
 						}
 					}
@@ -528,8 +528,8 @@ void XPSExPlug::handleImageFallBack(PageItem *Item, QDomElement &parentElem, QDo
 	path.lineTo(0, bounds.height());
 	path.closeSubpath();
 	QTransform mpp;
-	mpp.translate((Item->visualXPos() - m_Doc->currentPage()->xOffset() - maxAdd) * conversionFactor, (Item->visualYPos() - m_Doc->currentPage()->yOffset() - maxAdd) * conversionFactor);
-	mpp.scale(conversionFactor, conversionFactor);
+	mpp.translate((Item->visualXPos() - m_Doc->currentPage()->xOffset() - maxAdd) * m_conversionFactor, (Item->visualYPos() - m_Doc->currentPage()->yOffset() - maxAdd) * m_conversionFactor);
+	mpp.scale(m_conversionFactor, m_conversionFactor);
 	path = mpp.map(path);
 	FPointArray fPath;
 	fPath.fromQPainterPath(path, true);
@@ -544,20 +544,20 @@ void XPSExPlug::handleImageFallBack(PageItem *Item, QDomElement &parentElem, QDo
 	double maxSize = qMax(bounds.width(), bounds.height());
 	maxSize = qMin(3000.0, maxSize * (m_dpi / 72.0));
 	QImage tmpImg = Item->DrawObj_toImage(maxSize);
-	tmpImg.save(baseDir + "/Resources/Images/" + QString("%1.png").arg(imageCounter), "PNG");
+	tmpImg.save(m_baseDir + "/Resources/Images/" + QString("%1.png").arg(m_imageCounter), "PNG");
 	gr.setAttribute("TileMode", "None");
 	gr.setAttribute("ViewboxUnits", "Absolute");
 	gr.setAttribute("ViewportUnits", "Absolute");
 	gr.setAttribute("Viewport", "0,0,1,1");
 	gr.setAttribute("Viewbox", QString("0, 0, %1, %2").arg(tmpImg.width()).arg(tmpImg.height()));
-	gr.setAttribute("Viewport", QString("%1, %2, %3, %4").arg((Item->visualXPos() - m_Doc->currentPage()->xOffset() - maxAdd) * conversionFactor).arg((Item->visualYPos() - m_Doc->currentPage()->yOffset() - maxAdd) * conversionFactor).arg(bounds.width() * conversionFactor).arg(bounds.height() * conversionFactor));
-	gr.setAttribute("ImageSource", "/Resources/Images/" + QString("%1.png").arg(imageCounter));
+	gr.setAttribute("Viewport", QString("%1, %2, %3, %4").arg((Item->visualXPos() - m_Doc->currentPage()->xOffset() - maxAdd) * m_conversionFactor).arg((Item->visualYPos() - m_Doc->currentPage()->yOffset() - maxAdd) * m_conversionFactor).arg(bounds.width() * m_conversionFactor).arg(bounds.height() * m_conversionFactor));
+	gr.setAttribute("ImageSource", "/Resources/Images/" + QString("%1.png").arg(m_imageCounter));
 	QDomElement rel = r_docu.createElement("Relationship");
-	rel.setAttribute("Id", QString("rIDi%1").arg(imageCounter));
+	rel.setAttribute("Id", QString("rIDi%1").arg(m_imageCounter));
 	rel.setAttribute("Type", "http://schemas.microsoft.com/xps/2005/06/required-resource");
-	rel.setAttribute("Target", "/Resources/Images/" + QString("%1.png").arg(imageCounter));
+	rel.setAttribute("Target", "/Resources/Images/" + QString("%1.png").arg(m_imageCounter));
 	rel_root.appendChild(rel);
-	imageCounter++;
+	m_imageCounter++;
 	obf.appendChild(gr);
 	ob.appendChild(obf);
 	parentElem.appendChild(ob);
@@ -579,12 +579,12 @@ void XPSExPlug::processPolyItem(double xOffset, double yOffset, PageItem *Item, 
 		QTransform mpx;
 		if (Item->rotation() != 0.0)
 		{
-			mpx.translate(xOffset * conversionFactor, yOffset * conversionFactor);
+			mpx.translate(xOffset * m_conversionFactor, yOffset * m_conversionFactor);
 			mpx.rotate(Item->rotation());
-			mpx.translate(-xOffset * conversionFactor, -yOffset * conversionFactor);
+			mpx.translate(-xOffset * m_conversionFactor, -yOffset * m_conversionFactor);
 		}
 		path.translate(xOffset, yOffset);
-		path.scale(conversionFactor, conversionFactor);
+		path.scale(m_conversionFactor, m_conversionFactor);
 		QString pa = SetClipPath(&path, closedPath);
 		if (Item->fillRule)
 			pa.prepend("F 0 ");
@@ -640,10 +640,10 @@ void XPSExPlug::processLineItem(double xOffset, double yOffset, PageItem *Item, 
 	if ((Item->GrTypeStroke != 0) || (Item->lineColor() != CommonStrings::None) || !Item->NamedLStyle.isEmpty())
 	{
 		QDomElement ob;
-		double x1 = xOffset * conversionFactor;
-		double y1 = yOffset * conversionFactor;
-		double x2 = (Item->width() + xOffset) * conversionFactor;
-		double y2 = yOffset * conversionFactor;
+		double x1 = xOffset * m_conversionFactor;
+		double y1 = yOffset * m_conversionFactor;
+		double x2 = (Item->width() + xOffset) * m_conversionFactor;
+		double y2 = yOffset * m_conversionFactor;
 		QLineF line = QLineF(x1, y1, x2, y2);
 		line.setAngle(-Item->rotation());
 		if (Item->NamedLStyle.isEmpty())
@@ -680,7 +680,7 @@ void XPSExPlug::processImageItem(double xOffset, double yOffset, PageItem *Item,
 		processHatchFill(xOffset, yOffset, Item, parentElem, rel_root);
 	FPointArray path = Item->PoLine.copy();
 	path.translate(xOffset, yOffset);
-	path.scale(conversionFactor, conversionFactor);
+	path.scale(m_conversionFactor, m_conversionFactor);
 	QString pa = SetClipPath(&path, true);
 	if (Item->fillRule)
 		pa.prepend("F 0 ");
@@ -690,9 +690,9 @@ void XPSExPlug::processImageItem(double xOffset, double yOffset, PageItem *Item,
 	QTransform mpx;
 	if (Item->rotation() != 0.0)
 	{
-		mpx.translate(xOffset * conversionFactor, yOffset * conversionFactor);
+		mpx.translate(xOffset * m_conversionFactor, yOffset * m_conversionFactor);
 		mpx.rotate(Item->rotation());
-		mpx.translate(-xOffset * conversionFactor, -yOffset * conversionFactor);
+		mpx.translate(-xOffset * m_conversionFactor, -yOffset * m_conversionFactor);
 		grp.setAttribute("RenderTransform", MatrixToStr(mpx));
 	}
 	if (Item->GrType != 14)
@@ -727,7 +727,7 @@ void XPSExPlug::processImageItem(double xOffset, double yOffset, PageItem *Item,
 		img.applyEffect(Item->effectsInUse, m_Doc->PageColors, true);
 		img.qImagePtr()->setDotsPerMeterX(3780);
 		img.qImagePtr()->setDotsPerMeterY(3780);
-		img.qImage().save(baseDir + "/Resources/Images/" + QString("%1.png").arg(imageCounter), "PNG");
+		img.qImage().save(m_baseDir + "/Resources/Images/" + QString("%1.png").arg(m_imageCounter), "PNG");
 		gr.setAttribute("TileMode", "None");
 		gr.setAttribute("ViewboxUnits", "Absolute");
 		gr.setAttribute("ViewportUnits", "Absolute");
@@ -736,8 +736,8 @@ void XPSExPlug::processImageItem(double xOffset, double yOffset, PageItem *Item,
 		QTransform mpx;
 		double xpos = Item->imageXOffset() * Item->imageXScale();
 		double ypos = Item->imageYOffset() * Item->imageYScale();
-		mpx.translate((xOffset + xpos) * conversionFactor, (yOffset + ypos) * conversionFactor);
-		mpx.scale(img.width() * Item->imageXScale() * conversionFactor, img.height() * Item->imageYScale() * conversionFactor);
+		mpx.translate((xOffset + xpos) * m_conversionFactor, (yOffset + ypos) * m_conversionFactor);
+		mpx.scale(img.width() * Item->imageXScale() * m_conversionFactor, img.height() * Item->imageYScale() * m_conversionFactor);
 		if (Item->imageFlippedH())
 		{
 			mpx.translate(Item->width() / (img.width() * Item->imageXScale()), 0);
@@ -750,13 +750,13 @@ void XPSExPlug::processImageItem(double xOffset, double yOffset, PageItem *Item,
 		}
 		mpx.rotate(Item->imageRotation());
 		gr.setAttribute("Transform", MatrixToStr(mpx));
-		gr.setAttribute("ImageSource", "/Resources/Images/" + QString("%1.png").arg(imageCounter));
+		gr.setAttribute("ImageSource", "/Resources/Images/" + QString("%1.png").arg(m_imageCounter));
 		QDomElement rel = r_docu.createElement("Relationship");
-		rel.setAttribute("Id", QString("rIDi%1").arg(imageCounter));
+		rel.setAttribute("Id", QString("rIDi%1").arg(m_imageCounter));
 		rel.setAttribute("Type", "http://schemas.microsoft.com/xps/2005/06/required-resource");
-		rel.setAttribute("Target", "/Resources/Images/" + QString("%1.png").arg(imageCounter));
+		rel.setAttribute("Target", "/Resources/Images/" + QString("%1.png").arg(m_imageCounter));
 		rel_root.appendChild(rel);
-		imageCounter++;
+		m_imageCounter++;
 		obf.appendChild(gr);
 		ob2.appendChild(obf);
 		grp.appendChild(ob2);
@@ -811,7 +811,7 @@ void XPSExPlug::processTextItem(double xOffset, double yOffset, PageItem *Item, 
 	if (Item->GrType == 14)
 		processHatchFill(xOffset, yOffset, Item, parentElem, rel_root);
 	FPointArray path = Item->PoLine.copy();
-	path.scale(conversionFactor, conversionFactor);
+	path.scale(m_conversionFactor, m_conversionFactor);
 	QString pa = SetClipPath(&path, true);
 	if (Item->fillRule)
 		pa.prepend("F 0 ");
@@ -820,20 +820,20 @@ void XPSExPlug::processTextItem(double xOffset, double yOffset, PageItem *Item, 
 	QDomElement grp = p_docu.createElement("Canvas");
 	QTransform mpx;
 	QTransform mpl;
-	mpl.translate(xOffset * conversionFactor, yOffset * conversionFactor);
-	mpx.translate(xOffset * conversionFactor, yOffset * conversionFactor);
+	mpl.translate(xOffset * m_conversionFactor, yOffset * m_conversionFactor);
+	mpx.translate(xOffset * m_conversionFactor, yOffset * m_conversionFactor);
 	if ((Item->rotation() != 0.0) || Item->imageFlippedH() || Item->imageFlippedV())
 	{
 		mpx.rotate(Item->rotation());
 		mpl.rotate(Item->rotation());
 		if (Item->imageFlippedH())
 		{
-			mpx.translate(Item->width() * conversionFactor, 0);
+			mpx.translate(Item->width() * m_conversionFactor, 0);
 			mpx.scale(-1, 1);
 		}
 		if (Item->imageFlippedV())
 		{
-			mpx.translate(0, Item->height() * conversionFactor);
+			mpx.translate(0, Item->height() * m_conversionFactor);
 			mpx.scale(1, -1);
 		}
 	}
@@ -867,7 +867,7 @@ void XPSExPlug::processTextItem(double xOffset, double yOffset, PageItem *Item, 
 				}
 				pathi.map(mpi);
 			}
-			pathi.scale(conversionFactor, conversionFactor);
+			pathi.scale(m_conversionFactor, m_conversionFactor);
 			QString pai = SetClipPath(&pathi, true);
 			if (Item->fillRule)
 				pai.prepend("F 0 ");
@@ -926,25 +926,25 @@ void XPSExPlug::processTextItem(double xOffset, double yOffset, PageItem *Item, 
 				continue;
 			}
 			QString guidFont;
-			if (!xps_fontMap.contains(font->replacementName()))
+			if (!m_xps_fontMap.contains(font->replacementName()))
 			{
 				guidFont = embedFont(font, rel_root);
-				xps_fontMap.insert(font->replacementName(), guidFont);
+				m_xps_fontMap.insert(font->replacementName(), guidFont);
 			}
 			else
-				guidFont = xps_fontMap[font->replacementName()];
+				guidFont = m_xps_fontMap[font->replacementName()];
 			if (current_run.isEmpty())
 				current_run.append(txItem);
 			else
 			{
 				txtRunItem txItemL = current_run.last();
-				double chl = (txItemL.style.fontSize() / 10.0) * qMax(txItemL.glyphs->scaleV, txItemL.glyphs->scaleH) * conversionFactor;
+				double chl = (txItemL.style.fontSize() / 10.0) * qMax(txItemL.glyphs->scaleV, txItemL.glyphs->scaleH) * m_conversionFactor;
 				const ScFace* fontL = &txItemL.style.font();
-				QString guidFontL = xps_fontMap[fontL->replacementName()];
+				QString guidFontL = m_xps_fontMap[fontL->replacementName()];
 				StyleFlag old_sty = txItemL.style.effects();
 				int old_shade = txItemL.style.fillShade();
 				QString old_fill = txItemL.style.fillColor();
-				double chs = (charStyle.fontSize() / 10.0) * qMax(glyphs->scaleV, glyphs->scaleH) * conversionFactor;
+				double chs = (charStyle.fontSize() / 10.0) * qMax(glyphs->scaleV, glyphs->scaleH) * m_conversionFactor;
 				if ((chs != chl) || (guidFont != guidFontL) || (charStyle.effects() != old_sty) || (charStyle.fillColor() != old_fill) || (charStyle.fillShade() != old_shade))
 				{
 					textRuns.append(current_run);
@@ -964,7 +964,7 @@ void XPSExPlug::processTextItem(double xOffset, double yOffset, PageItem *Item, 
 				continue;
 			double StartX = current_run[0].CurX;
 			CurX = current_run[0].CurX;
-			double chs = (current_run[0].style.fontSize() / 10.0) * qMax(current_run[0].glyphs->scaleV, current_run[0].glyphs->scaleH) * conversionFactor;
+			double chs = (current_run[0].style.fontSize() / 10.0) * qMax(current_run[0].glyphs->scaleV, current_run[0].glyphs->scaleH) * m_conversionFactor;
 			for (int cr = 0; cr < current_run.count(); cr++)
 			{
 				txtRunItem txItem = current_run[cr];
@@ -979,16 +979,16 @@ void XPSExPlug::processTextItem(double xOffset, double yOffset, PageItem *Item, 
 				}
 				else if ((SpecialChars::isBreakingSpace(txItem.chr)) || (SpecialChars::isExpandingSpace(txItem.chr)) || (txItem.chr.isSpace()))
 				{
-					indString += QString(",%1;").arg((txItem.glyphs->wide() * conversionFactor) / chs * 100);
+					indString += QString(",%1;").arg((txItem.glyphs->wide() * m_conversionFactor) / chs * 100);
 					uniString += " ";
 				}
 				else
 				{
 					uniString += txItem.chr;
 					if ((txItem.glyphs->xoffset != 0) || (txItem.glyphs->yoffset != 0))
-						indString += QString(",%1,%2,%3;").arg((txItem.glyphs->wide() * conversionFactor) / chs * 100).arg((txItem.glyphs->xoffset * conversionFactor) / chs * 100).arg((-txItem.glyphs->yoffset * conversionFactor) / chs * 100);
+						indString += QString(",%1,%2,%3;").arg((txItem.glyphs->wide() * m_conversionFactor) / chs * 100).arg((txItem.glyphs->xoffset * m_conversionFactor) / chs * 100).arg((-txItem.glyphs->yoffset * m_conversionFactor) / chs * 100);
 					else
-						indString += QString(",%1;").arg((txItem.glyphs->wide() * conversionFactor) / chs * 100);
+						indString += QString(",%1;").arg((txItem.glyphs->wide() * m_conversionFactor) / chs * 100);
 				}
 				CurX += txItem.glyphs->wide();
 			}
@@ -999,18 +999,18 @@ void XPSExPlug::processTextItem(double xOffset, double yOffset, PageItem *Item, 
 			gly.setAttribute("StyleSimulations", "None");
 			gly.setAttribute("FontRenderingEmSize", FToStr(chs));
 			const ScFace* fontL = &current_run[0].style.font();
-			gly.setAttribute("FontUri", xps_fontMap[fontL->replacementName()]);
+			gly.setAttribute("FontUri", m_xps_fontMap[fontL->replacementName()]);
 			gly.setAttribute("Fill", SetColor(current_run[0].style.fillColor(), current_run[0].style.fillShade(), 0));
 			gly.setAttribute("UnicodeString", uniString);
 			if (current_run.count() == 1)
 			{
-				gly.setAttribute("OriginX", FToStr((StartX + current_run[0].glyphs->xoffset) * conversionFactor));
-				gly.setAttribute("OriginY", FToStr((ls.y + current_run[0].glyphs->yoffset) * conversionFactor));
+				gly.setAttribute("OriginX", FToStr((StartX + current_run[0].glyphs->xoffset) * m_conversionFactor));
+				gly.setAttribute("OriginY", FToStr((ls.y + current_run[0].glyphs->yoffset) * m_conversionFactor));
 			}
 			else
 			{
-				gly.setAttribute("OriginX", FToStr(StartX * conversionFactor));
-				gly.setAttribute("OriginY", FToStr(ls.y * conversionFactor));
+				gly.setAttribute("OriginX", FToStr(StartX * m_conversionFactor));
+				gly.setAttribute("OriginY", FToStr(ls.y * m_conversionFactor));
 				gly.setAttribute("Indices", indString);
 			}
 			grp.appendChild(gly);
@@ -1025,9 +1025,9 @@ void XPSExPlug::processTextItem(double xOffset, double yOffset, PageItem *Item, 
 				{
 					QDomElement obO = p_docu.createElement("Canvas");
 					QTransform mm;
-					mm.translate(CurX * conversionFactor, (ls.y - (txItem.embItem->height() * (txItem.style.scaleV() / 1000.0))) * conversionFactor);
+					mm.translate(CurX * m_conversionFactor, (ls.y - (txItem.embItem->height() * (txItem.style.scaleV() / 1000.0))) * m_conversionFactor);
 					if (txItem.style.baselineOffset() != 0)
-						mm.translate(0, (txItem.style.baselineOffset() / 1000.0) * conversionFactor);
+						mm.translate(0, (txItem.style.baselineOffset() / 1000.0) * m_conversionFactor);
 					if (txItem.style.scaleH() != 1000)
 						mm.scale(txItem.style.scaleH() / 1000.0, 1);
 					if (txItem.style.scaleV() != 1000)
@@ -1087,21 +1087,21 @@ void XPSExPlug::processTextItem(double xOffset, double yOffset, PageItem *Item, 
 					{
 						FPointArray ptsS = pts.copy();
 						ptsS.translate(txItem.style.fontSize() * txItem.style.shadowXOffset() / 10000.0, -txItem.style.fontSize() * txItem.style.shadowYOffset() / 10000.0);
-						ptsS.scale(conversionFactor, conversionFactor);
+						ptsS.scale(m_conversionFactor, m_conversionFactor);
 						QString paS = SetClipPath(&ptsS, true);
 						QDomElement glyS = p_docu.createElement("Path");
 						glyS.setAttribute("Data", paS);
 						glyS.setAttribute("Fill", SetColor(txItem.style.strokeColor(), txItem.style.strokeShade(), 0));
 						grp.appendChild(glyS);
 					}
-					pts.scale(conversionFactor, conversionFactor);
+					pts.scale(m_conversionFactor, m_conversionFactor);
 					QString pa = SetClipPath(&pts, true);
 					QDomElement gly = p_docu.createElement("Path");
 					gly.setAttribute("Data", pa);
 					gly.setAttribute("Fill", SetColor(txItem.style.fillColor(), txItem.style.fillShade(), 0));
 					if (txItem.style.effects() & ScStyle_Outline)
 					{
-						gly.setAttribute("StrokeThickness", FToStr((chs * txItem.style.outlineWidth() / 10000.0) * conversionFactor));
+						gly.setAttribute("StrokeThickness", FToStr((chs * txItem.style.outlineWidth() / 10000.0) * m_conversionFactor));
 						gly.setAttribute("Stroke", SetColor(txItem.style.strokeColor(), txItem.style.strokeShade(), 0));
 					}
 					grp.appendChild(gly);
@@ -1129,11 +1129,11 @@ void XPSExPlug::processTextItem(double xOffset, double yOffset, PageItem *Item, 
 						st += (txItem.style.fontSize() / 10.0) * txItem.glyphs->scaleV * (txItem.style.baselineOffset() / 1000.0);
 					QDomElement gly = p_docu.createElement("Path");
 					if (txItem.style.effects() & ScStyle_Subscript)
-						gly.setAttribute("Data", QString("M%1,%2 L%3,%4").arg((CurX + txItem.glyphs->xoffset) * conversionFactor).arg((ls.y + txItem.glyphs->yoffset - st) * conversionFactor).arg((CurX + txItem.glyphs->xoffset + txItem.glyphs->xadvance) * conversionFactor).arg((ls.y + txItem.glyphs->yoffset - st) * conversionFactor));
+						gly.setAttribute("Data", QString("M%1,%2 L%3,%4").arg((CurX + txItem.glyphs->xoffset) * m_conversionFactor).arg((ls.y + txItem.glyphs->yoffset - st) * m_conversionFactor).arg((CurX + txItem.glyphs->xoffset + txItem.glyphs->xadvance) * m_conversionFactor).arg((ls.y + txItem.glyphs->yoffset - st) * m_conversionFactor));
 					else
-						gly.setAttribute("Data", QString("M%1,%2 L%3,%4").arg((CurX + txItem.glyphs->xoffset) * conversionFactor).arg((ls.y - st) * conversionFactor).arg((CurX + txItem.glyphs->xoffset + txItem.glyphs->xadvance) * conversionFactor).arg((ls.y - st) * conversionFactor));
+						gly.setAttribute("Data", QString("M%1,%2 L%3,%4").arg((CurX + txItem.glyphs->xoffset) * m_conversionFactor).arg((ls.y - st) * m_conversionFactor).arg((CurX + txItem.glyphs->xoffset + txItem.glyphs->xadvance) * m_conversionFactor).arg((ls.y - st) * m_conversionFactor));
 					gly.setAttribute("Stroke", SetColor(txItem.style.fillColor(), txItem.style.fillShade(), 0));
-					gly.setAttribute("StrokeThickness", FToStr(lw * conversionFactor));
+					gly.setAttribute("StrokeThickness", FToStr(lw * m_conversionFactor));
 					grp.appendChild(gly);
 				}
 				if (txItem.style.effects() & ScStyle_Strikethrough)
@@ -1158,9 +1158,9 @@ void XPSExPlug::processTextItem(double xOffset, double yOffset, PageItem *Item, 
 					if (txItem.style.baselineOffset() != 0)
 						st += (txItem.style.fontSize() / 10.0) * txItem.glyphs->scaleV * (txItem.style.baselineOffset() / 1000.0);
 					QDomElement gly = p_docu.createElement("Path");
-					gly.setAttribute("Data", QString("M%1,%2 L%3,%4").arg((CurX + txItem.glyphs->xoffset) * conversionFactor).arg((ls.y - st) * conversionFactor).arg((CurX + txItem.glyphs->xoffset + txItem.glyphs->xadvance) * conversionFactor).arg((ls.y - st) * conversionFactor));
+					gly.setAttribute("Data", QString("M%1,%2 L%3,%4").arg((CurX + txItem.glyphs->xoffset) * m_conversionFactor).arg((ls.y - st) * m_conversionFactor).arg((CurX + txItem.glyphs->xoffset + txItem.glyphs->xadvance) * m_conversionFactor).arg((ls.y - st) * m_conversionFactor));
 					gly.setAttribute("Stroke", SetColor(txItem.style.fillColor(), txItem.style.fillShade(), 0));
-					gly.setAttribute("StrokeThickness", FToStr(lw * conversionFactor));
+					gly.setAttribute("StrokeThickness", FToStr(lw * m_conversionFactor));
 					grp.appendChild(gly);
 				}
 			}
@@ -1210,18 +1210,18 @@ void XPSExPlug::processPathTextItem(double xOffset, double yOffset, PageItem *It
 {
 	QDomElement grp = p_docu.createElement("Canvas");
 	QTransform mpx;
-	mpx.translate(xOffset * conversionFactor, yOffset * conversionFactor);
+	mpx.translate(xOffset * m_conversionFactor, yOffset * m_conversionFactor);
 	if ((Item->rotation() != 0.0) || Item->imageFlippedH() || Item->imageFlippedV())
 	{
 		mpx.rotate(Item->rotation());
 		if (Item->imageFlippedH())
 		{
-			mpx.translate(Item->width() * conversionFactor, 0);
+			mpx.translate(Item->width() * m_conversionFactor, 0);
 			mpx.scale(-1, 1);
 		}
 		if (Item->imageFlippedV())
 		{
-			mpx.translate(0, Item->height() * conversionFactor);
+			mpx.translate(0, Item->height() * m_conversionFactor);
 			mpx.scale(1, -1);
 		}
 	}
@@ -1230,7 +1230,7 @@ void XPSExPlug::processPathTextItem(double xOffset, double yOffset, PageItem *It
 	{
 		QDomElement ob = p_docu.createElement("Path");
 		FPointArray path = Item->PoLine.copy();
-		path.scale(conversionFactor, conversionFactor);
+		path.scale(m_conversionFactor, m_conversionFactor);
 		QString pa = SetClipPath(&path, false);
 		ob.setAttribute("Data", pa);
 		if (Item->NamedLStyle.isEmpty())
@@ -1296,22 +1296,22 @@ void XPSExPlug::processPathTextItem(double xOffset, double yOffset, PageItem *It
 			chstr = chstr.toUpper();
 		uint chr = chstr[0].unicode();
 		QPointF tangt = QPointF( cos(pdata->PRot), sin(pdata->PRot) );
-		QTransform trafo = QTransform( 1, 0, 0, -1, -pdata->PDx * conversionFactor, 0 );
+		QTransform trafo = QTransform( 1, 0, 0, -1, -pdata->PDx * m_conversionFactor, 0 );
 		if (Item->textPathFlipped)
 			trafo *= QTransform(1, 0, 0, -1, 0, 0);
 		if (Item->textPathType == 0)
-			trafo *= QTransform( tangt.x(), tangt.y(), tangt.y(), -tangt.x(), pdata->PtransX * conversionFactor, pdata->PtransY * conversionFactor );
+			trafo *= QTransform( tangt.x(), tangt.y(), tangt.y(), -tangt.x(), pdata->PtransX * m_conversionFactor, pdata->PtransY * m_conversionFactor );
 		else if (Item->textPathType == 1)
-			trafo *= QTransform(1, 0, 0, -1, pdata->PtransX * conversionFactor, pdata->PtransY * conversionFactor );
+			trafo *= QTransform(1, 0, 0, -1, pdata->PtransX * m_conversionFactor, pdata->PtransY * m_conversionFactor );
 		else if (Item->textPathType == 2)
 		{
 			double a = 1;
 			if (tangt.x() < 0)
 				a = -1;
 			if (fabs(tangt.x()) > 0.1)
-				trafo *= QTransform( a, (tangt.y() / tangt.x()) * a, 0, -1, pdata->PtransX * conversionFactor, pdata->PtransY * conversionFactor ); // ID's Skew mode
+				trafo *= QTransform( a, (tangt.y() / tangt.x()) * a, 0, -1, pdata->PtransX * m_conversionFactor, pdata->PtransY * m_conversionFactor ); // ID's Skew mode
 			else
-				trafo *= QTransform( a, 4 * a, 0, -1, pdata->PtransX * conversionFactor, pdata->PtransY * conversionFactor );
+				trafo *= QTransform( a, 4 * a, 0, -1, pdata->PtransX * m_conversionFactor, pdata->PtransY * m_conversionFactor );
 		}
 		if (charStyle.baselineOffset() != 0)
 			trafo.translate(0, (-charStyle.fontSize() / 10.0) * (charStyle.baselineOffset() / 1000.0));
@@ -1323,7 +1323,7 @@ void XPSExPlug::processPathTextItem(double xOffset, double yOffset, PageItem *It
 			{
 				QDomElement obO = p_docu.createElement("Canvas");
 				QTransform mm = finalMat;
-				mm.translate(0, (-(embItem->height() * (charStyle.scaleV() / 1000.0))) * conversionFactor);
+				mm.translate(0, (-(embItem->height() * (charStyle.scaleV() / 1000.0))) * m_conversionFactor);
 				if (charStyle.scaleH() != 1000)
 					mm.scale(charStyle.scaleH() / 1000.0, 1);
 				if (charStyle.scaleV() != 1000)
@@ -1343,7 +1343,7 @@ void XPSExPlug::processPathTextItem(double xOffset, double yOffset, PageItem *It
 			}
 			continue;
 		}
-		finalMat.scale(conversionFactor, conversionFactor);
+		finalMat.scale(m_conversionFactor, m_conversionFactor);
 		FPointArray pts;
 		QTransform chma;
 		uint gl = charStyle.font().char2CMap(chr);
@@ -1377,7 +1377,7 @@ void XPSExPlug::processPathTextItem(double xOffset, double yOffset, PageItem *It
 		gly.setAttribute("Fill", SetColor(charStyle.fillColor(), charStyle.fillShade(), 0));
 		if (charStyle.effects() & ScStyle_Outline)
 		{
-			gly.setAttribute("StrokeThickness", FToStr((chs * charStyle.outlineWidth() / 10000.0) * conversionFactor));
+			gly.setAttribute("StrokeThickness", FToStr((chs * charStyle.outlineWidth() / 10000.0) * m_conversionFactor));
 			gly.setAttribute("Stroke", SetColor(charStyle.strokeColor(), charStyle.strokeShade(), 0));
 		}
 		grp.appendChild(gly);
@@ -1419,7 +1419,7 @@ void XPSExPlug::processPathTextItem(double xOffset, double yOffset, PageItem *It
 			QDomElement gly = p_docu.createElement("Path");
 			gly.setAttribute("Data", paS);
 			gly.setAttribute("Stroke", SetColor(charStyle.fillColor(), charStyle.fillShade(), 0));
-			gly.setAttribute("StrokeThickness", FToStr(lw * conversionFactor));
+			gly.setAttribute("StrokeThickness", FToStr(lw * m_conversionFactor));
 			grp.appendChild(gly);
 		}
 		if (charStyle.effects() & ScStyle_Strikethrough)
@@ -1452,7 +1452,7 @@ void XPSExPlug::processPathTextItem(double xOffset, double yOffset, PageItem *It
 			QDomElement gly = p_docu.createElement("Path");
 			gly.setAttribute("Data", paS);
 			gly.setAttribute("Stroke", SetColor(charStyle.fillColor(), charStyle.fillShade(), 0));
-			gly.setAttribute("StrokeThickness", FToStr(lw * conversionFactor));
+			gly.setAttribute("StrokeThickness", FToStr(lw * m_conversionFactor));
 			grp.appendChild(gly);
 		}
 	}
@@ -1465,23 +1465,23 @@ void XPSExPlug::processSymbolItem(double xOffset, double yOffset, PageItem *Item
 	QDomElement ob = p_docu.createElement("Canvas");
 	FPointArray path = Item->PoLine.copy();
 	ScPattern pat = m_Doc->docPatterns[Item->pattern()];
-	path.scale(conversionFactor, conversionFactor);
+	path.scale(m_conversionFactor, m_conversionFactor);
 	path.scale(pat.width / Item->width(), pat.height / Item->height());
 	SetClipAttr(ob, &path, Item->fillRule);
 	QTransform mpx;
-	mpx.translate(xOffset * conversionFactor, yOffset * conversionFactor);
+	mpx.translate(xOffset * m_conversionFactor, yOffset * m_conversionFactor);
 	mpx.scale(Item->width() / pat.width, Item->height() / pat.height);
 	if ((Item->rotation() != 0.0) || Item->imageFlippedH() || Item->imageFlippedV())
 	{
 		mpx.rotate(Item->rotation());
 		if (Item->imageFlippedH())
 		{
-			mpx.translate(Item->width() * conversionFactor, 0);
+			mpx.translate(Item->width() * m_conversionFactor, 0);
 			mpx.scale(-1, 1);
 		}
 		if (Item->imageFlippedV())
 		{
-			mpx.translate(0, Item->height() * conversionFactor);
+			mpx.translate(0, Item->height() * m_conversionFactor);
 			mpx.scale(1, -1);
 		}
 	}
@@ -1506,10 +1506,10 @@ void XPSExPlug::processTableItem(double xOffset, double yOffset, PageItem *Item,
 {
 	QDomElement ob = p_docu.createElement("Canvas");
 	QTransform mpx;
-	mpx.translate(xOffset * conversionFactor, yOffset * conversionFactor);
+	mpx.translate(xOffset * m_conversionFactor, yOffset * m_conversionFactor);
 	if (Item->rotation() != 0.0)
 		mpx.rotate(Item->rotation());
-	mpx.translate(Item->asTable()->gridOffset().x() * conversionFactor, Item->asTable()->gridOffset().y() * conversionFactor);
+	mpx.translate(Item->asTable()->gridOffset().x() * m_conversionFactor, Item->asTable()->gridOffset().y() * m_conversionFactor);
 	ob.setAttribute("RenderTransform", MatrixToStr(mpx));
 	// Paint table fill.
 	if (Item->asTable()->fillColor() != CommonStrings::None)
@@ -1527,7 +1527,7 @@ void XPSExPlug::processTableItem(double xOffset, double yOffset, PageItem *Item,
 		path.svgLineTo(width, height);
 		path.svgLineTo(0, height);
 		path.svgClosePath();
-		path.scale(conversionFactor, conversionFactor);
+		path.scale(m_conversionFactor, m_conversionFactor);
 		QString pa = SetClipPath(&path, true);
 		QDomElement cl = p_docu.createElement("Path");
 		cl.setAttribute("Data", pa);
@@ -1561,7 +1561,7 @@ void XPSExPlug::processTableItem(double xOffset, double yOffset, PageItem *Item,
 					path.svgLineTo(x + width, y + height);
 					path.svgLineTo(x, y + height);
 					path.svgClosePath();
-					path.scale(conversionFactor, conversionFactor);
+					path.scale(m_conversionFactor, m_conversionFactor);
 					QString pa = SetClipPath(&path, true);
 					QDomElement cl = p_docu.createElement("Path");
 					cl.setAttribute("Data", pa);
@@ -1741,7 +1741,7 @@ void XPSExPlug::paintBorder(const TableBorder& border, const QPointF& start, con
 		lineEnd.setX(end.x() + line.width() * endOffsetFactors.x());
 		lineEnd.setY(end.y() + line.width() * endOffsetFactors.y());
 		QDomElement cl = p_docu.createElement("Path");
-		cl.setAttribute("Data", "M"+FToStr(lineStart.x() * conversionFactor)+","+FToStr(lineStart.y() * conversionFactor)+" L"+FToStr(lineEnd.x() * conversionFactor)+" "+FToStr(lineEnd.y() * conversionFactor));
+		cl.setAttribute("Data", "M"+FToStr(lineStart.x() * m_conversionFactor)+","+FToStr(lineStart.y() * m_conversionFactor)+" L"+FToStr(lineEnd.x() * m_conversionFactor)+" "+FToStr(lineEnd.y() * m_conversionFactor));
 		QString dashVals = "";
 		if (line.style() != Qt::SolidLine)
 			dashVals = getDashString(line.style(), qMax(line.width(), 1.0));
@@ -1750,9 +1750,9 @@ void XPSExPlug::paintBorder(const TableBorder& border, const QPointF& start, con
 		if (line.color() != CommonStrings::None)
 			cl.setAttribute("Stroke", SetColor(line.color(), line.shade(), 0));
 		if (line.width() != 0.0)
-			cl.setAttribute("StrokeThickness", FToStr(line.width() * conversionFactor));
+			cl.setAttribute("StrokeThickness", FToStr(line.width() * m_conversionFactor));
 		else
-			cl.setAttribute("StrokeThickness", FToStr(1.0 * conversionFactor));
+			cl.setAttribute("StrokeThickness", FToStr(1.0 * m_conversionFactor));
 		ob.appendChild(cl);
 	}
 }
@@ -1761,7 +1761,7 @@ void XPSExPlug::processHatchFill(double xOffset, double yOffset, PageItem *Item,
 {
 	QDomElement obC = p_docu.createElement("Canvas");
 	FPointArray path = Item->PoLine.copy();
-	path.scale(conversionFactor, conversionFactor);
+	path.scale(m_conversionFactor, m_conversionFactor);
 	SetClipAttr(obC, &path, Item->fillRule);
 	if (Item->GrMask > 0)
 		handleMask(1, Item, obC, rel_root, xOffset, yOffset);
@@ -1771,7 +1771,7 @@ void XPSExPlug::processHatchFill(double xOffset, double yOffset, PageItem *Item,
 			obC.setAttribute("Opacity", FToStr(1.0 - Item->fillTransparency()));
 	}
 	QTransform mpo;
-	mpo.translate(xOffset * conversionFactor, yOffset * conversionFactor);
+	mpo.translate(xOffset * m_conversionFactor, yOffset * m_conversionFactor);
 	if (Item->rotation() != 0.0)
 		mpo.rotate(Item->rotation());
 	obC.setAttribute("RenderTransform", MatrixToStr(mpo));
@@ -1784,23 +1784,23 @@ void XPSExPlug::processHatchFill(double xOffset, double yOffset, PageItem *Item,
 		path.svgLineTo(Item->width(), Item->height());
 		path.svgLineTo(0, Item->height());
 		path.svgClosePath();
-		path.scale(conversionFactor, conversionFactor);
+		path.scale(m_conversionFactor, m_conversionFactor);
 		QString pa = SetClipPath(&path, true);
 		QDomElement cl = p_docu.createElement("Path");
 		cl.setAttribute("Data", pa);
 		cl.setAttribute("Fill", SetColor(Item->hatchBackground, 100, 0));
 		obC.appendChild(cl);
 	}
-	double lineLen = sqrt((Item->width() / 2.0) * (Item->width() / 2.0) + (Item->height() / 2.0) * (Item->height() / 2.0)) * conversionFactor;
+	double lineLen = sqrt((Item->width() / 2.0) * (Item->width() / 2.0) + (Item->height() / 2.0) * (Item->height() / 2.0)) * m_conversionFactor;
 	double dist = 0.0;
 	while (dist < lineLen)
 	{
 		QTransform mpx;
-		mpx.translate((Item->width() / 2.0) * conversionFactor, (Item->height() / 2.0) * conversionFactor);
+		mpx.translate((Item->width() / 2.0) * m_conversionFactor, (Item->height() / 2.0) * m_conversionFactor);
 		if (Item->hatchAngle != 0.0)
 			mpx.rotate(-Item->hatchAngle);
 		QDomElement ob = p_docu.createElement("Path");
-		ob.setAttribute("StrokeThickness", FToStr(conversionFactor));
+		ob.setAttribute("StrokeThickness", FToStr(m_conversionFactor));
 		ob.setAttribute("StrokeDashCap", "Flat");
 		ob.setAttribute("StrokeEndLineCap", "Flat");
 		ob.setAttribute("StrokeStartLineCap", "Flat");
@@ -1812,7 +1812,7 @@ void XPSExPlug::processHatchFill(double xOffset, double yOffset, PageItem *Item,
 		if (dist > 0)
 		{
 			QDomElement ob = p_docu.createElement("Path");
-			ob.setAttribute("StrokeThickness", FToStr(conversionFactor));
+			ob.setAttribute("StrokeThickness", FToStr(m_conversionFactor));
 			ob.setAttribute("StrokeDashCap", "Flat");
 			ob.setAttribute("StrokeEndLineCap", "Flat");
 			ob.setAttribute("StrokeStartLineCap", "Flat");
@@ -1822,7 +1822,7 @@ void XPSExPlug::processHatchFill(double xOffset, double yOffset, PageItem *Item,
 			ob.setAttribute("RenderTransform", MatrixToStr(mpx));
 			obC.appendChild(ob);
 		}
-		dist += Item->hatchDistance * conversionFactor;
+		dist += Item->hatchDistance * m_conversionFactor;
 	}
 	if ((Item->hatchType == 1) || (Item->hatchType == 2))
 	{
@@ -1830,11 +1830,11 @@ void XPSExPlug::processHatchFill(double xOffset, double yOffset, PageItem *Item,
 		while (dist < lineLen)
 		{
 			QTransform mpx;
-			mpx.translate((Item->width() / 2.0) * conversionFactor, (Item->height() / 2.0) * conversionFactor);
+			mpx.translate((Item->width() / 2.0) * m_conversionFactor, (Item->height() / 2.0) * m_conversionFactor);
 			if (Item->hatchAngle != 0.0)
 				mpx.rotate(-Item->hatchAngle + 90);
 			QDomElement ob = p_docu.createElement("Path");
-			ob.setAttribute("StrokeThickness", FToStr(conversionFactor));
+			ob.setAttribute("StrokeThickness", FToStr(m_conversionFactor));
 			ob.setAttribute("StrokeDashCap", "Flat");
 			ob.setAttribute("StrokeEndLineCap", "Flat");
 			ob.setAttribute("StrokeStartLineCap", "Flat");
@@ -1846,7 +1846,7 @@ void XPSExPlug::processHatchFill(double xOffset, double yOffset, PageItem *Item,
 			if (dist > 0)
 			{
 				QDomElement ob = p_docu.createElement("Path");
-				ob.setAttribute("StrokeThickness", FToStr(conversionFactor));
+				ob.setAttribute("StrokeThickness", FToStr(m_conversionFactor));
 				ob.setAttribute("StrokeDashCap", "Flat");
 				ob.setAttribute("StrokeEndLineCap", "Flat");
 				ob.setAttribute("StrokeStartLineCap", "Flat");
@@ -1856,7 +1856,7 @@ void XPSExPlug::processHatchFill(double xOffset, double yOffset, PageItem *Item,
 				ob.setAttribute("RenderTransform", MatrixToStr(mpx));
 				obC.appendChild(ob);
 			}
-			dist += Item->hatchDistance * conversionFactor;
+			dist += Item->hatchDistance * m_conversionFactor;
 		}
 	}
 	if (Item->hatchType == 2)
@@ -1866,11 +1866,11 @@ void XPSExPlug::processHatchFill(double xOffset, double yOffset, PageItem *Item,
 		{
 			double dDist = dist * sqrt(2.0);
 			QTransform mpx;
-			mpx.translate((Item->width() / 2.0) * conversionFactor, (Item->height() / 2.0) * conversionFactor);
+			mpx.translate((Item->width() / 2.0) * m_conversionFactor, (Item->height() / 2.0) * m_conversionFactor);
 			if (Item->hatchAngle != 0.0)
 				mpx.rotate(-Item->hatchAngle + 45);
 			QDomElement ob = p_docu.createElement("Path");
-			ob.setAttribute("StrokeThickness", FToStr(conversionFactor));
+			ob.setAttribute("StrokeThickness", FToStr(m_conversionFactor));
 			ob.setAttribute("StrokeDashCap", "Flat");
 			ob.setAttribute("StrokeEndLineCap", "Flat");
 			ob.setAttribute("StrokeStartLineCap", "Flat");
@@ -1882,7 +1882,7 @@ void XPSExPlug::processHatchFill(double xOffset, double yOffset, PageItem *Item,
 			if (dist > 0)
 			{
 				QDomElement ob = p_docu.createElement("Path");
-				ob.setAttribute("StrokeThickness", FToStr(conversionFactor));
+				ob.setAttribute("StrokeThickness", FToStr(m_conversionFactor));
 				ob.setAttribute("StrokeDashCap", "Flat");
 				ob.setAttribute("StrokeEndLineCap", "Flat");
 				ob.setAttribute("StrokeStartLineCap", "Flat");
@@ -1892,7 +1892,7 @@ void XPSExPlug::processHatchFill(double xOffset, double yOffset, PageItem *Item,
 				ob.setAttribute("RenderTransform", MatrixToStr(mpx));
 				obC.appendChild(ob);
 			}
-			dist += Item->hatchDistance * conversionFactor;
+			dist += Item->hatchDistance * m_conversionFactor;
 		}
 	}
 	parentElem.appendChild(obC);
@@ -1902,7 +1902,7 @@ void XPSExPlug::processSymbolStroke(double xOffset, double yOffset, PageItem *It
 {
 	QDomElement ob = p_docu.createElement("Canvas");
 	QTransform mpx;
-	mpx.translate(xOffset * conversionFactor, yOffset * conversionFactor);
+	mpx.translate(xOffset * m_conversionFactor, yOffset * m_conversionFactor);
 	ob.setAttribute("RenderTransform", MatrixToStr(mpx));
 	QPainterPath path = Item->PoLine.toQPainterPath(false);
 	ScPattern pat = m_Doc->docPatterns[Item->strokePattern()];
@@ -1919,7 +1919,7 @@ void XPSExPlug::processSymbolStroke(double xOffset, double yOffset, PageItem *It
 			currAngle = 360.0 - currAngle;
 		QPointF currPoint = path.pointAtPercent(currPerc);
 		QTransform trans;
-		trans.translate(currPoint.x() * conversionFactor, currPoint.y() * conversionFactor);
+		trans.translate(currPoint.x() * m_conversionFactor, currPoint.y() * m_conversionFactor);
 		trans.rotate(currAngle);
 		trans.translate(0.0, Item->patternStrokeOffsetY);
 		trans.rotate(-Item->patternStrokeRotation);
@@ -2061,12 +2061,12 @@ void XPSExPlug::drawArrow(double xOffset, double yOffset, PageItem *Item, QDomEl
 	QTransform mpx;
 	if (Item->rotation() != 0.0)
 	{
-		mpx.translate(xOffset * conversionFactor, yOffset * conversionFactor);
+		mpx.translate(xOffset * m_conversionFactor, yOffset * m_conversionFactor);
 		mpx.rotate(Item->rotation());
-		mpx.translate(-xOffset * conversionFactor, -yOffset * conversionFactor);
+		mpx.translate(-xOffset * m_conversionFactor, -yOffset * m_conversionFactor);
 	}
 	arrow.translate(xOffset, yOffset);
-	arrow.scale(conversionFactor, conversionFactor);
+	arrow.scale(m_conversionFactor, m_conversionFactor);
 	QString pa = SetClipPath(&arrow, true);
 	if (Item->NamedLStyle.isEmpty())
 	{
@@ -2127,24 +2127,24 @@ QString XPSExPlug::embedFont(const ScFace *font, QDomElement &rel_root)
 		fontData[i] = fontData[i] ^ guid[mapping[i]];
 		fontData[i+16] = fontData[i+16] ^ guid[mapping[i]];
 	}
-	QFile ft(baseDir + "/Resources/Fonts/" + guidString + ".odttf");
+	QFile ft(m_baseDir + "/Resources/Fonts/" + guidString + ".odttf");
 	if (ft.open(QIODevice::WriteOnly))
 	{
 		ft.write(fontData);
 		ft.close();
 	}
 	QDomElement rel = r_docu.createElement("Relationship");
-	rel.setAttribute("Id", QString("rIDf%1").arg(fontCounter));
+	rel.setAttribute("Id", QString("rIDf%1").arg(m_fontCounter));
 	rel.setAttribute("Type", "http://schemas.microsoft.com/xps/2005/06/required-resource");
 	rel.setAttribute("Target", "/Resources/Fonts/" + guidString + ".odttf");
 	rel_root.appendChild(rel);
-	fontCounter++;
+	m_fontCounter++;
 	return "/Resources/Fonts/" + guidString + ".odttf";
 }
 
 void XPSExPlug::GetMultiStroke(struct SingleLine *sl, QDomElement &parentElem)
 {
-	parentElem.setAttribute("StrokeThickness", FToStr(sl->Width * conversionFactor));
+	parentElem.setAttribute("StrokeThickness", FToStr(sl->Width * m_conversionFactor));
 	switch (static_cast<Qt::PenCapStyle>(sl->LineEnd))
 	{
 		case Qt::FlatCap:
@@ -2194,7 +2194,7 @@ void XPSExPlug::GetMultiStroke(struct SingleLine *sl, QDomElement &parentElem)
 
 void XPSExPlug::getStrokeStyle(PageItem *Item, QDomElement &parentElem, QDomElement &rel_root, double xOffset, double yOffset, bool forArrow)
 {
-	parentElem.setAttribute("StrokeThickness", FToStr(Item->lineWidth() * conversionFactor));
+	parentElem.setAttribute("StrokeThickness", FToStr(Item->lineWidth() * m_conversionFactor));
 	switch (Item->PLineEnd)
 	{
 		case Qt::FlatCap:
@@ -2278,13 +2278,13 @@ void XPSExPlug::getStrokeStyle(PageItem *Item, QDomElement &parentElem, QDomElem
 			gr.setAttribute("TileMode", "Tile");
 			gr.setAttribute("ViewboxUnits", "Absolute");
 			gr.setAttribute("ViewportUnits", "Absolute");
-			gr.setAttribute("Viewbox", QString("0, 0, %1, %2").arg(pa.width * conversionFactor).arg(pa.height * conversionFactor));
+			gr.setAttribute("Viewbox", QString("0, 0, %1, %2").arg(pa.width * m_conversionFactor).arg(pa.height * m_conversionFactor));
 			double patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternSkewX, patternSkewY, patternSpace;
 			Item->strokePatternTransform(patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternSkewX, patternSkewY, patternSpace);
 			patternScaleX /= 100.0;
 			patternScaleY /= 100.0;
 			double lw2 = Item->lineWidth() / 2.0;
-			gr.setAttribute("Viewport", QString("%1, %2, %3, %4").arg((xOffset + patternOffsetX - lw2) * conversionFactor).arg((yOffset + patternOffsetY - lw2) * conversionFactor).arg((pa.width * patternScaleX) * conversionFactor).arg((pa.height * patternScaleY) * conversionFactor));
+			gr.setAttribute("Viewport", QString("%1, %2, %3, %4").arg((xOffset + patternOffsetX - lw2) * m_conversionFactor).arg((yOffset + patternOffsetY - lw2) * m_conversionFactor).arg((pa.width * patternScaleX) * m_conversionFactor).arg((pa.height * patternScaleY) * m_conversionFactor));
 			bool mirrorX, mirrorY;
 			Item->strokePatternFlip(mirrorX, mirrorY);
 			if ((patternRotation != 0) || (patternSkewX != 0) || (patternSkewY != 0) || mirrorX || mirrorY)
@@ -2319,12 +2319,12 @@ void XPSExPlug::getStrokeStyle(PageItem *Item, QDomElement &parentElem, QDomElem
 			else
 				ob = p_docu.createElement("Path.Stroke");
 			QDomElement gr;
-			double GrStartX = (Item->GrStrokeStartX + xOffset) * conversionFactor;
-			double GrStartY = (Item->GrStrokeStartY + yOffset) * conversionFactor;
-			double GrFocalX = (Item->GrStrokeFocalX + xOffset) * conversionFactor;
-			double GrFocalY = (Item->GrStrokeFocalY + yOffset) * conversionFactor;
-			double GrEndX = (Item->GrStrokeEndX + xOffset) * conversionFactor;
-			double GrEndY = (Item->GrStrokeEndY + yOffset) * conversionFactor;
+			double GrStartX = (Item->GrStrokeStartX + xOffset) * m_conversionFactor;
+			double GrStartY = (Item->GrStrokeStartY + yOffset) * m_conversionFactor;
+			double GrFocalX = (Item->GrStrokeFocalX + xOffset) * m_conversionFactor;
+			double GrFocalY = (Item->GrStrokeFocalY + yOffset) * m_conversionFactor;
+			double GrEndX = (Item->GrStrokeEndX + xOffset) * m_conversionFactor;
+			double GrEndY = (Item->GrStrokeEndY + yOffset) * m_conversionFactor;
 			if (Item->GrTypeStroke == 6)
 			{
 				gr = p_docu.createElement("LinearGradientBrush");
@@ -2420,12 +2420,12 @@ void XPSExPlug::getFillStyle(PageItem *Item, QDomElement &parentElem, QDomElemen
 		{
 			QDomElement ob = p_docu.createElement("Path.Fill");
 			QDomElement gr;
-			double GrStartX = (Item->GrStartX + xOffset) * conversionFactor;
-			double GrStartY = (Item->GrStartY + yOffset) * conversionFactor;
-			double GrFocalX = (Item->GrFocalX + xOffset) * conversionFactor;
-			double GrFocalY = (Item->GrFocalY + yOffset) * conversionFactor;
-			double GrEndX = (Item->GrEndX + xOffset) * conversionFactor;
-			double GrEndY = (Item->GrEndY + yOffset) * conversionFactor;
+			double GrStartX = (Item->GrStartX + xOffset) * m_conversionFactor;
+			double GrStartY = (Item->GrStartY + yOffset) * m_conversionFactor;
+			double GrFocalX = (Item->GrFocalX + xOffset) * m_conversionFactor;
+			double GrFocalY = (Item->GrFocalY + yOffset) * m_conversionFactor;
+			double GrEndX = (Item->GrEndX + xOffset) * m_conversionFactor;
+			double GrEndY = (Item->GrEndY + yOffset) * m_conversionFactor;
 			if (Item->GrType == 6)
 			{
 				gr = p_docu.createElement("LinearGradientBrush");
@@ -2507,12 +2507,12 @@ void XPSExPlug::getFillStyle(PageItem *Item, QDomElement &parentElem, QDomElemen
 			gr.setAttribute("TileMode", "Tile");
 			gr.setAttribute("ViewboxUnits", "Absolute");
 			gr.setAttribute("ViewportUnits", "Absolute");
-			gr.setAttribute("Viewbox", QString("0, 0, %1, %2").arg(pa.width * conversionFactor).arg(pa.height * conversionFactor));
+			gr.setAttribute("Viewbox", QString("0, 0, %1, %2").arg(pa.width * m_conversionFactor).arg(pa.height * m_conversionFactor));
 			double patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternSkewX, patternSkewY;
 			Item->patternTransform(patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternSkewX, patternSkewY);
 			patternScaleX /= 100.0;
 			patternScaleY /= 100.0;
-			gr.setAttribute("Viewport", QString("%1, %2, %3, %4").arg((xOffset + patternOffsetX) * conversionFactor).arg((yOffset + patternOffsetY) * conversionFactor).arg((pa.width * patternScaleX) * conversionFactor).arg((pa.height * patternScaleY) * conversionFactor));
+			gr.setAttribute("Viewport", QString("%1, %2, %3, %4").arg((xOffset + patternOffsetX) * m_conversionFactor).arg((yOffset + patternOffsetY) * m_conversionFactor).arg((pa.width * patternScaleX) * m_conversionFactor).arg((pa.height * patternScaleY) * m_conversionFactor));
 			bool mirrorX, mirrorY;
 			Item->patternFlip(mirrorX, mirrorY);
 			if ((patternRotation != 0) || (patternSkewX != 0) || (patternSkewY != 0) || mirrorX || mirrorY)
@@ -2554,12 +2554,12 @@ void XPSExPlug::handleMask(int type, PageItem *Item, QDomElement &parentElem, QD
 	if ((Item->GrMask == 1) || (Item->GrMask == 2))
 	{
 		QDomElement gr;
-		double GrStartX = (Item->GrMaskStartX + xOffset) * conversionFactor;
-		double GrStartY = (Item->GrMaskStartY + yOffset) * conversionFactor;
-		double GrFocalX = (Item->GrMaskFocalX + xOffset) * conversionFactor;
-		double GrFocalY = (Item->GrMaskFocalY + yOffset) * conversionFactor;
-		double GrEndX = (Item->GrMaskEndX + xOffset) * conversionFactor;
-		double GrEndY = (Item->GrMaskEndY + yOffset) * conversionFactor;
+		double GrStartX = (Item->GrMaskStartX + xOffset) * m_conversionFactor;
+		double GrStartY = (Item->GrMaskStartY + yOffset) * m_conversionFactor;
+		double GrFocalX = (Item->GrMaskFocalX + xOffset) * m_conversionFactor;
+		double GrFocalY = (Item->GrMaskFocalY + yOffset) * m_conversionFactor;
+		double GrEndX = (Item->GrMaskEndX + xOffset) * m_conversionFactor;
+		double GrEndY = (Item->GrMaskEndY + yOffset) * m_conversionFactor;
 		if ((Item->GrMask == 1) || (Item->GrMask == 4))
 		{
 			gr = p_docu.createElement("LinearGradientBrush");
@@ -2637,12 +2637,12 @@ void XPSExPlug::handleMask(int type, PageItem *Item, QDomElement &parentElem, QD
 		gr.setAttribute("TileMode", "Tile");
 		gr.setAttribute("ViewboxUnits", "Absolute");
 		gr.setAttribute("ViewportUnits", "Absolute");
-		gr.setAttribute("Viewbox", QString("0, 0, %1, %2").arg(pa.width * conversionFactor).arg(pa.height * conversionFactor));
+		gr.setAttribute("Viewbox", QString("0, 0, %1, %2").arg(pa.width * m_conversionFactor).arg(pa.height * m_conversionFactor));
 		double patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternSkewX, patternSkewY;
 		Item->maskTransform(patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternSkewX, patternSkewY);
 		patternScaleX /= 100.0;
 		patternScaleY /= 100.0;
-		gr.setAttribute("Viewport", QString("%1, %2, %3, %4").arg((xOffset + patternOffsetX) * conversionFactor).arg((yOffset + patternOffsetY) * conversionFactor).arg((pa.width * patternScaleX) * conversionFactor).arg((pa.height * patternScaleY) * conversionFactor));
+		gr.setAttribute("Viewport", QString("%1, %2, %3, %4").arg((xOffset + patternOffsetX) * m_conversionFactor).arg((yOffset + patternOffsetY) * m_conversionFactor).arg((pa.width * patternScaleX) * m_conversionFactor).arg((pa.height * patternScaleY) * m_conversionFactor));
 		bool mirrorX, mirrorY;
 		Item->maskFlip(mirrorX, mirrorY);
 		if ((patternRotation != 0) || (patternSkewX != 0) || (patternSkewY != 0) || mirrorX || mirrorY)
@@ -2748,7 +2748,7 @@ void XPSExPlug::writeDocRels()
 	QDomElement root  = doc.documentElement();
 	root.setAttribute("xmlns", "http://schemas.openxmlformats.org/package/2006/relationships");
 	doc.appendChild(root);
-	QFile ft(baseDir + "/Documents/1/_rels/FixedDoc.fdoc.rels");
+	QFile ft(m_baseDir + "/Documents/1/_rels/FixedDoc.fdoc.rels");
 	if (ft.open(QIODevice::WriteOnly))
 	{
 		QString vo = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n";
@@ -2784,7 +2784,7 @@ void XPSExPlug::writeCore()
 	rel3.setAttribute("xsi:type", "dcterms:W3CDTF");
 	root.appendChild(rel3);
 	doc.appendChild(root);
-	QFile ft(baseDir + "/docProps/core.xml");
+	QFile ft(m_baseDir + "/docProps/core.xml");
 	if (ft.open(QIODevice::WriteOnly))
 	{
 		QString vo = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n";
@@ -2853,7 +2853,7 @@ void XPSExPlug::writeContentType()
 	rel12.setAttribute("ContentType", "application/vnd.openxmlformats-package.core-properties+xml");
 	root.appendChild(rel12);
 	doc.appendChild(root);
-	QFile ft(baseDir + "/[Content_Types].xml");
+	QFile ft(m_baseDir + "/[Content_Types].xml");
 	if (ft.open(QIODevice::WriteOnly))
 	{
 		QString vo = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n";
@@ -2889,7 +2889,7 @@ void XPSExPlug::writeBaseRel()
 	rel3.setAttribute("Target", "FixedDocSeq.fdseq");
 	root.appendChild(rel3);
 	doc.appendChild(root);
-	QFile ft(baseDir + "/_rels/.rels");
+	QFile ft(m_baseDir + "/_rels/.rels");
 	if (ft.open(QIODevice::WriteOnly))
 	{
 		QString vo = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n";

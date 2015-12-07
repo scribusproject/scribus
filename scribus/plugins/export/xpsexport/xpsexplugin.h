@@ -107,16 +107,16 @@ private:
 	int hex2int(char hex);
 	bool checkForFallback(PageItem *Item);
 	ScribusDoc* m_Doc;
-	ScZipHandler *zip;
-	QTemporaryDir *dir;
-	QString baseDir;
+	ScZipHandler *m_zip;
+	QTemporaryDir *m_dir;
+	QString m_baseDir;
 	QDomDocument f_docu;
 	QDomDocument p_docu;
 	QDomDocument r_docu;
-	double conversionFactor;
-	int imageCounter;
-	int fontCounter;
-	QMap<QString, QString> xps_fontMap;
+	double m_conversionFactor;
+	int m_imageCounter;
+	int m_fontCounter;
+	QMap<QString, QString> m_xps_fontMap;
 	struct txtRunItem
 	{
 		QChar chr;
