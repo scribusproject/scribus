@@ -2778,8 +2778,17 @@ void PageItem_TextFrame::layout()
 						// Justification
 						if (opticalMargins & ParagraphStyle::OM_RightHangingPunct)
 							current.line.width += opticalRightMargin(itemText, current.line);
-						else
-							current.line.naturalWidth += hyphWidth;
+						// #12565: Right alignment of hyphens
+						// The additional character width has already been taken into account
+						// above via the line break position, so it's not necessary to increase
+						// the line natural width again:
+						// line 2604: breakPos = current.xPos;
+						// line 2605: if (currentCh != '-')
+						// line 2606: {
+						// line 2607: 	breakPos += hyphWidth;
+						// line 2608: }
+						/*else
+							current.line.naturalWidth += hyphWidth;*/
 
 						OFs = 0;
 						if (style.alignment() == ParagraphStyle::Rightaligned)
