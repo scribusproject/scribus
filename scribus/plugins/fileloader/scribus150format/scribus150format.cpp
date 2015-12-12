@@ -5689,9 +5689,9 @@ bool Scribus150Format::readItemTableCell(PageItem_Table* item, ScXmlStreamReader
 		newItem->Cols   = tAtt.valueAsInt("TextColums", 1);
 		newItem->ColGap = tAtt.valueAsDouble("TextColGap", 0.0);
 		newItem->setTextToFrameDist(tAtt.valueAsDouble("TextDistLeft", 0.0),
+							tAtt.valueAsDouble("TextDistRight", 0.0),
 							tAtt.valueAsDouble("TextDistTop", 0.0),
-							tAtt.valueAsDouble("TextDistBottom", 0.0),
-							tAtt.valueAsDouble("TextDistRight", 0.0));
+							tAtt.valueAsDouble("TextDistBottom", 0.0));
 		newItem->setVerticalAlignment(tAtt.valueAsInt("TextVertAlign", 0));
 		newItem->setFirstLineOffset(static_cast<FirstLineOffsetPolicy>(tAtt.valueAsInt("Flop")));
 	}
