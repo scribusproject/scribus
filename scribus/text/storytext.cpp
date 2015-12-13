@@ -413,19 +413,19 @@ void StoryText::removeChars(int pos, uint len)
 	for ( int i=pos + static_cast<int>(len) - 1; i >= pos; --i )
 	{
 		ScText *it = d->at(i);
-		if ((it->ch == SpecialChars::PARSEP)) {
+		if ((it->ch == SpecialChars::PARSEP))
 			removeParSep(i);
-		}
-
-//		qDebug("remove char %d at %d", (int) it->ch.unicode(), i);
 		d->takeAt(i);
 		d->len--;
 		delete it;
 		// #9592 : adjust m_selFirst and m_selLast, those values have to be
 		// consistent in functions such as select()
-		if (i <= m_selLast) --m_selLast;
-		if (i < m_selFirst) --m_selFirst;
-		if ((i + 1 ) <= d->cursorPosition && d->cursorPosition > 0) d->cursorPosition -= 1;
+		if (i <= m_selLast)
+			--m_selLast;
+		if (i < m_selFirst)
+			--m_selFirst;
+		if (static_cast<uint>(i + 1 ) <= d->cursorPosition && d->cursorPosition > 0)
+			d->cursorPosition -= 1;
 	}
 
 	d->len = d->count();
@@ -500,7 +500,7 @@ void StoryText::insertChars(int pos, QString txt, bool applyNeighbourStyle) //, 
 //			qDebug() << QString("new PARSEP %2 at %1").arg(pos).arg(paragraphStyle(pos).name());
 			insertParSep(pos + i);
 		}
-		if (d->cursorPosition >= (pos + i)) {
+		if (d->cursorPosition >= static_cast<uint>(pos + i)) {
 			d->cursorPosition += 1;
 		}
 	}
