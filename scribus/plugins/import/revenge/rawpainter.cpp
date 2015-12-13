@@ -2332,9 +2332,6 @@ void RawPainter::setStyle(const ::WPXPropertyList &propList, const ::WPXProperty
 	}
 	if(propList["draw:fill"] && propList["draw:fill"]->getStr() == "gradient")
 	{
-		double angle = 0;
-		if (propList["draw:angle"])
-			angle = propList["draw:angle"]->getDouble();
 		if (gradient.count() > 1)
 		{
 			double opacity = 1.0;
@@ -2845,7 +2842,7 @@ void RawPainter::drawGraphicObject(const ::WPXPropertyList &propList, const ::WP
 	WPXString base64 = binaryData.getBase64Data();
 	if (propList["svg:x"] && propList["svg:y"] && propList["svg:width"] && propList["svg:height"])
 	{
-		PageItem *ite;
+		PageItem *ite = NULL;
 		double x = valueAsPoint(propList["svg:x"]);
 		double y = valueAsPoint(propList["svg:y"]);
 		double w = valueAsPoint(propList["svg:width"]);
@@ -2948,9 +2945,12 @@ void RawPainter::drawGraphicObject(const ::WPXPropertyList &propList, const ::WP
 				delete tempFile;
 			}
 		}
-		applyFlip(ite);
-		if (CurrColorFill != CommonStrings::None)
-			applyShadow(ite);
+		if (ite)
+		{
+			applyFlip(ite);
+			if (CurrColorFill != CommonStrings::None)
+				applyShadow(ite);
+		}
 	}
 //	qDebug() << "drawGraphicObject";
 //  printf("RawPainter::drawGraphicObject (%s)\n", getPropString(propList).cstr());
