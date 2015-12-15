@@ -13096,6 +13096,11 @@ ellers måles koordinatene i forhold til objektet.</translation>
         <source>Save As</source>
         <translation>Lagre som</translation>
     </message>
+    <message>
+        <source>The range of pages to export is invalid.
+Please check it and try again.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>PDFLibCore</name>
