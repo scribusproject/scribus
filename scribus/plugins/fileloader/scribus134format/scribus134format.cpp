@@ -1519,6 +1519,14 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 		QMap<PageItem*, int>::Iterator it;
 		for (it = groupIDF.begin(); it != groupIDF.end(); ++it)
 		{
+			int itemIndex = it.value();
+			if (itemIndex >= m_Doc->FrameItems.count())
+			{
+				qDebug() << "scribus134format: group corruption detected";
+				it.key()->isGroupControl = false;
+				it.key()->setFillColor(CommonStrings::None);
+				continue;
+			}
 			it.key()->groupsLastItem = m_Doc->FrameItems.at(it.value());
 		}
 	}
@@ -1527,6 +1535,14 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 		QMap<PageItem*, int>::Iterator it;
 		for (it = groupID.begin(); it != groupID.end(); ++it)
 		{
+			int itemIndex = it.value();
+			if (itemIndex >= m_Doc->DocItems.count())
+			{
+				qDebug() << "scribus134format: group corruption detected";
+				it.key()->isGroupControl = false;
+				it.key()->setFillColor(CommonStrings::None);
+				continue;
+			}
 			it.key()->groupsLastItem = m_Doc->DocItems.at(it.value());
 		}
 	}
@@ -1535,6 +1551,14 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 		QMap<PageItem*, int>::Iterator it;
 		for (it = groupIDM.begin(); it != groupIDM.end(); ++it)
 		{
+			int itemIndex = it.value();
+			if (itemIndex >= m_Doc->MasterItems.count())
+			{
+				qDebug() << "scribus134format: group corruption detected";
+				it.key()->isGroupControl = false;
+				it.key()->setFillColor(CommonStrings::None);
+				continue;
+			}
 			it.key()->groupsLastItem = m_Doc->MasterItems.at(it.value());
 		}
 	}
@@ -3396,7 +3420,15 @@ bool Scribus134Format::loadPage(const QString & fileName, int pageNumber, bool M
 		QMap<PageItem*, int>::Iterator it;
 		for (it = groupID.begin(); it != groupID.end(); ++it)
 		{
-			it.key()->groupsLastItem = m_Doc->Items->at(it.value());
+			int itemIndex = it.value();
+			if (itemIndex >= m_Doc->Items->count())
+			{
+				qDebug() << "scribus134format: group corruption detected";
+				it.key()->isGroupControl = false;
+				it.key()->setFillColor(CommonStrings::None);
+				continue;
+			}
+			it.key()->groupsLastItem = m_Doc->Items->at(itemIndex);
 		}
 	}
 	
