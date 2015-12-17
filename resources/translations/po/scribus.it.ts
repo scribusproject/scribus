@@ -18664,7 +18664,8 @@ Se nessuna maniglia è selezionata, tutte sono riportate alla posizione iniziale
         <location filename="../../../scribus/pdfopts.cpp" line="169"/>
         <source>The range of pages to export is invalid.
 Please check it and try again.</source>
-        <translation type="unfinished"></translation>
+        <translation>L&apos;intervallo di pagine da esportare non è valido.
+Controllare l&apos;intervallo e provare nuovamente.</translation>
     </message>
     <message>
         <location filename="../../../scribus/pdfopts.cpp" line="181"/>
