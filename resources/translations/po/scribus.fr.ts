@@ -11497,7 +11497,8 @@ Tous les ancrages seront remis à zéro si aucun d’eux n’est sélectioné.</
         <location filename="../../../scribus/pdfopts.cpp" line="169"/>
         <source>The range of pages to export is invalid.
 Please check it and try again.</source>
-        <translation type="unfinished"></translation>
+        <translation>L&apos;intervalle de pages spécifié est invalide.
+Veuillez le vérifier et réessayez à nouveau.</translation>
     </message>
     <message>
         <location filename="../../../scribus/pdfopts.cpp" line="181"/>
