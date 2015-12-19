@@ -1267,7 +1267,7 @@ void SlaOutputDev::restoreState(GfxState *state)
 		groupEntry gElements = m_groupStack.pop();
 		if (gElements.Items.count() > 0)
 		{
-			if ((gElements.Items.count() != 1) && (checkClip()))
+			if ((gElements.Items.count() > 1) && (checkClip()))
 			{
 				tmpSel->clear();
 				for (int dre = 0; dre < gElements.Items.count(); ++dre)
@@ -1276,22 +1276,25 @@ void SlaOutputDev::restoreState(GfxState *state)
 					m_Elements->removeAll(gElements.Items.at(dre));
 				}
 				PageItem *ite = m_doc->groupObjectsSelection(tmpSel);
-				ite->ClipEdited = true;
-				ite->FrameType = 3;
-				FPointArray out = m_currentClipPath.copy();
-				out.translate(m_doc->currentPage()->xOffset(), m_doc->currentPage()->yOffset());
-				out.translate(-ite->xPos(), -ite->yPos());
-				ite->PoLine = out.copy();
-				ite->setTextFlowMode(PageItem::TextFlowDisabled);
-				m_doc->AdjustItemSize(ite, true);
-				m_doc->resizeGroupToContents(ite);
-				ite->OldB2 = ite->width();
-				ite->OldH2 = ite->height();
-				m_Elements->append(ite);
-				if (m_groupStack.count() != 0)
+				if (ite)
 				{
-					applyMask(ite);
-					m_groupStack.top().Items.append(ite);
+					ite->ClipEdited = true;
+					ite->FrameType = 3;
+					FPointArray out = m_currentClipPath.copy();
+					out.translate(m_doc->currentPage()->xOffset(), m_doc->currentPage()->yOffset());
+					out.translate(-ite->xPos(), -ite->yPos());
+					ite->PoLine = out.copy();
+					ite->setTextFlowMode(PageItem::TextFlowDisabled);
+					m_doc->AdjustItemSize(ite, true);
+					m_doc->resizeGroupToContents(ite);
+					ite->OldB2 = ite->width();
+					ite->OldH2 = ite->height();
+					m_Elements->append(ite);
+					if (m_groupStack.count() != 0)
+					{
+						applyMask(ite);
+						m_groupStack.top().Items.append(ite);
+					}
 				}
 				tmpSel->clear();
 			}
