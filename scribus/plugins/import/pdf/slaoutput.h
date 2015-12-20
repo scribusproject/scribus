@@ -307,6 +307,7 @@ private:
 		QString ocgName;
 	};
 	QStack<mContent> m_mcStack;
+	int inPattern;
 	int layerNum;
 	int currentLayer;
 	bool firstLayer;

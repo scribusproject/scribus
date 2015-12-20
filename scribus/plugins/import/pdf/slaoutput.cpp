@@ -227,6 +227,7 @@ SlaOutputDev::SlaOutputDev(ScribusDoc* doc, QList<PageItem*> *Elements, QStringL
 	layersSetByOCG = false;
 	cropOffsetX = 0;
 	cropOffsetY = 0;
+	inPattern = 0;
 }
 
 SlaOutputDev::~SlaOutputDev()
@@ -1296,6 +1297,18 @@ void SlaOutputDev::restoreState(GfxState *state)
 						m_groupStack.top().Items.append(ite);
 					}
 				}
+				else
+				{
+					if (m_groupStack.count() != 0)
+					{
+						for (int dre = 0; dre < gElements.Items.count(); ++dre)
+						{
+							PageItem *ite = gElements.Items.at(dre);
+							applyMask(ite);
+							m_groupStack.top().Items.append(ite);
+						}
+					}
+				}
 				tmpSel->clear();
 			}
 			else
@@ -1637,7 +1650,7 @@ void SlaOutputDev::fill(GfxState *state)
 	FPoint wh = out.WidthHeight();
 	if ((out.size() > 3) && ((wh.x() != 0.0) || (wh.y() != 0.0)))
 	{
-//		CurrColorFill = getColor(state->getFillColorSpace(), state->getFillColor(), &CurrFillShade);
+		CurrColorFill = getColor(state->getFillColorSpace(), state->getFillColor(), &CurrFillShade);
 		int z;
 		if (pathIsClosed)
 			z = m_doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, xCoor, yCoor, 10, 10, 0, CurrColorFill, CommonStrings::None);
@@ -1682,7 +1695,7 @@ void SlaOutputDev::eoFill(GfxState *state)
 	FPoint wh = out.WidthHeight();
 	if ((out.size() > 3) && ((wh.x() != 0.0) || (wh.y() != 0.0)))
 	{
-//		CurrColorFill = getColor(state->getFillColorSpace(), state->getFillColor(), &CurrFillShade);
+		CurrColorFill = getColor(state->getFillColorSpace(), state->getFillColor(), &CurrFillShade);
 		int z;
 		if (pathIsClosed)
 			z = m_doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, xCoor, yCoor, 10, 10, 0, CurrColorFill, CommonStrings::None);
@@ -2204,8 +2217,9 @@ GBool SlaOutputDev::tilingPatternFill(GfxState *state, Gfx * /*gfx*/, Catalog *c
 #else
 	gfx = new Gfx(xref, this, resDict, catalog, &box, NULL);
 #endif
-
+	inPattern++;
 	gfx->display(str);
+	inPattern--;
 	gElements = m_groupStack.pop();
 	m_doc->m_Selection->clear();
 //	double pwidth = 0;
@@ -2431,7 +2445,7 @@ void SlaOutputDev::drawImageMask(GfxState *state, Object *ref, Stream *str, int 
 				m_groupStack.top().Items.append(ite);
 				applyMask(ite);
 			}
-			if (checkClip())
+			if ((checkClip()) && (inPattern == 0))
 			{
 				FPointArray out = m_currentClipPath.copy();
 				out.translate(m_doc->currentPage()->xOffset(), m_doc->currentPage()->yOffset());
@@ -2571,7 +2585,7 @@ void SlaOutputDev::drawSoftMaskedImage(GfxState *state, Object *ref, Stream *str
 				m_groupStack.top().Items.append(ite);
 				applyMask(ite);
 			}
-			if (checkClip())
+			if ((checkClip()) && (inPattern == 0))
 			{
 				FPointArray out = m_currentClipPath.copy();
 				out.translate(m_doc->currentPage()->xOffset(), m_doc->currentPage()->yOffset());
@@ -2718,7 +2732,7 @@ void SlaOutputDev::drawMaskedImage(GfxState *state, Object *ref, Stream *str,  i
 				m_groupStack.top().Items.append(ite);
 				applyMask(ite);
 			}
-			if (checkClip())
+			if ((checkClip()) && (inPattern == 0))
 			{
 				FPointArray out = m_currentClipPath.copy();
 				out.translate(m_doc->currentPage()->xOffset(), m_doc->currentPage()->yOffset());
@@ -2934,7 +2948,7 @@ void SlaOutputDev::drawImage(GfxState *state, Object *ref, Stream *str, int widt
 		}
 		delete tempFile;
 	}
-	if (checkClip())
+	if ((checkClip()) && (inPattern == 0))
 	{
 		FPointArray out = m_currentClipPath.copy();
 		out.translate(m_doc->currentPage()->xOffset(), m_doc->currentPage()->yOffset());
@@ -3752,11 +3766,11 @@ QString SlaOutputDev::getColor(GfxColorSpace *color_space, GfxColor *color, int 
 	tmp.setSpotColor(false);
 	tmp.setRegistrationColor(false);
 	*shade = 100;
-	if (m_F3Stack.count() > 0)
+/*	if (m_F3Stack.count() > 0)
 	{
 		if (!m_F3Stack.top().colored)
 			return "Black";
-	}
+	}*/
 	if ((color_space->getMode() == csDeviceRGB) || (color_space->getMode() == csCalRGB))
 	{
 		GfxRGB rgb;
@@ -3809,7 +3823,7 @@ QString SlaOutputDev::getColor(GfxColorSpace *color_space, GfxColor *color, int 
 		int Bc = qRound(colToDbl(rgb.b) * 255);
 		tmp.setColorRGB(Rc, Gc, Bc);
 		fNam = m_doc->PageColors.tryAddColor(namPrefix+tmp.name(), tmp);
-	//	qDebug() << "update fill color other colorspace" << color_space->getMode() << "treating as rgb" << Rc << Gc << Bc;
+//		qDebug() << "update fill color other colorspace" << color_space->getMode() << "treating as rgb" << Rc << Gc << Bc;
 	}
 	if (fNam == namPrefix+tmp.name())
 		m_importedColors->append(fNam);
