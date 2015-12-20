@@ -101,6 +101,8 @@ X-AppInstall-Package=scribus
 X-AppInstall-Section=main
 X-KDE-SubstituteUID=false
 X-KDE-Username=
+X-Desktop-File-Install-Version=0.22
+
 [X-Property::X-KDE-NativeExtension]
 Type=QString
 Value=.sla
