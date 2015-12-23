@@ -583,6 +583,7 @@ SET(SCRIBUS_SOURCES
 	cmserrorhandling.cpp
 	cmsettings.cpp
 	collapsedtablepainter.cpp
+	collapsedtablepainterex.cpp
 	collect4output.cpp
 	colorblind.cpp
 	colorsetmanager.cpp

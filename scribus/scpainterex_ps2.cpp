@@ -186,6 +186,11 @@ void ScPainterEx_Ps2::translate( double x, double y )
 	m_matrix.translate(x, y);
 }
 
+void ScPainterEx_Ps2::translate( const QPointF& offset )
+{
+	m_matrix.translate(offset.x(), offset.y());
+}
+
 void ScPainterEx_Ps2::rotate( double r )
 {
 	m_matrix.rotate(r);
@@ -927,6 +932,14 @@ void ScPainterEx_Ps2::drawPolyLine()
 }
 
 void ScPainterEx_Ps2::drawLine(FPoint start, FPoint end)
+{
+	newPath();
+	moveTo(start.x(), start.y());
+	lineTo(end.x(), end.y());
+	strokePath();
+}
+
+void ScPainterEx_Ps2::drawLine(const QPointF& start, const QPointF& end)
 {
 	newPath();
 	moveTo(start.x(), start.y());

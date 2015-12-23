@@ -90,6 +90,7 @@ public:
 	virtual void setWorldMatrix( const QTransform & );
 	virtual const QTransform worldMatrix();
 	virtual void translate( double, double );
+	virtual void translate( const QPointF& offset );
 	virtual void rotate( double );
 	virtual void scale( double, double );
 
@@ -132,6 +133,7 @@ public:
 	virtual void drawPolygon();
 	virtual void drawPolyLine();
 	virtual void drawLine(FPoint start, FPoint end);
+	virtual void drawLine(const QPointF& start, const QPointF& end);
 	virtual void drawRect(double, double, double, double);
 
 	// pen + brush

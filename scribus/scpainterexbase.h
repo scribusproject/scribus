@@ -34,6 +34,7 @@ for which a new license (GPL+exception) is in place.
 #include <QList>
 #include <QTransform>
 #include <QPixmap>
+#include <QPointF>
 #include <QStack>
 
 #include "scribusapi.h"
@@ -49,12 +50,9 @@ class ScPattern;
 
 class SCRIBUS_API ScPainterExBase
 {
-protected:
-	int m_capabilities;
-	ScPainterExBase(void);
 public:
-
 	virtual ~ScPainterExBase() {};
+
 	enum FillMode { None, Solid, Gradient, Pattern };
 	enum ColorMode { rgbMode = 1, cmykMode = 2 };
 	enum ImageMode { cmykImages, rgbImages, rawImages };
@@ -76,6 +74,7 @@ public:
 	virtual void setWorldMatrix( const QTransform & ) = 0;
 	virtual const QTransform worldMatrix() = 0;
 	virtual void translate( double, double ) = 0;
+	virtual void translate( const QPointF& offset ) = 0;
 	virtual void rotate( double ) = 0;
 	virtual void scale( double, double ) = 0;
 
@@ -112,6 +111,7 @@ public:
 	virtual void drawPolygon() = 0;
 	virtual void drawPolyLine() = 0;
 	virtual void drawLine(FPoint start, FPoint end) = 0;
+	virtual void drawLine(const QPointF& start, const QPointF& end) = 0;
 	virtual void drawRect(double, double, double, double) = 0;
 
 	// pen + brush
@@ -142,6 +142,10 @@ public:
 	ScPattern*   m_pattern;
 	ScPattern*   m_maskPattern;
 	QTransform   m_patternTransform;
+
+protected:
+	int m_capabilities;
+	ScPainterExBase(void);
 };
 
 #endif

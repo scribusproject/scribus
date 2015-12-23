@@ -21,19 +21,7 @@ class QIODevice;
 
 class SCRIBUS_API ScPageOutput_Ps2 : public ScPageOutput
 {
-protected:
-
-	QRect m_clip;
-	QIODevice* m_device;
-	QTextStream m_stream;
-	ScPs2OutputParams m_options;
-
-	int m_pageIndex;
-
-	virtual void initStream(QIODevice* dev);
-
 public:
-
 	ScPageOutput_Ps2(QIODevice* dev, ScribusDoc* doc, int pageIndex, ScPs2OutputParams& options);
 	virtual ~ScPageOutput_Ps2();
 
@@ -43,6 +31,16 @@ public:
 
 	const QRect clip(void);
 	void  setClip(const QRect& rect) { m_clip = rect; }
+
+protected:
+	QRect m_clip;
+	QIODevice* m_device;
+	QTextStream m_stream;
+	ScPs2OutputParams m_options;
+
+	int m_pageIndex;
+
+	virtual void initStream(QIODevice* dev);
 };
 
 #endif

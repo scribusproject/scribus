@@ -120,6 +120,11 @@ void ScPainterEx_Cairo::translate( double x, double y )
 	cairo_translate(m_cr, x, y);
 }
 
+void ScPainterEx_Cairo::translate( const QPointF& offset )
+{
+	cairo_translate(m_cr, offset.x(), offset.y());
+}
+
 void ScPainterEx_Cairo::rotate( double r )
 {
 	cairo_rotate(m_cr, r * 3.1415927 / 180.0);
@@ -598,6 +603,14 @@ void ScPainterEx_Cairo::drawPolyLine()
 }
 
 void ScPainterEx_Cairo::drawLine(FPoint start, FPoint end)
+{
+	newPath();
+	moveTo(start.x(), start.y());
+	lineTo(end.x(), end.y());
+	strokePath();
+}
+
+void ScPainterEx_Cairo::drawLine(const QPointF& start, const QPointF& end)
 {
 	newPath();
 	moveTo(start.x(), start.y());

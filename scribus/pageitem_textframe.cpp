@@ -3226,19 +3226,11 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRectF cullingArea)
 	double desc, asce;
 	//	tTabValues.clear();
 	p->save(); //SA1
-	//	QRect e2;
-	if (isEmbedded)
-	{
-	//	e2 = cullingArea;
-	}
-	else
-	{
-	//	e2 = QRect(qRound(cullingArea.x()  / sc + m_Doc->minCanvasCoordinate.x()), qRound(cullingArea.y()  / sc + m_Doc->minCanvasCoordinate.y()),
-	//			   qRound(cullingArea.width() / sc), qRound(cullingArea.height() / sc));
-		pf2.translate(m_xPos, m_yPos);
-	}
 
+	if (!isEmbedded)
+		pf2.translate(m_xPos, m_yPos);
 	pf2.rotate(m_rotation);
+
 	if (!m_Doc->layerOutline(LayerID))
 	{
 		if ((fillColor() != CommonStrings::None) || (GrType != 0))

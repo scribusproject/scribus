@@ -1022,6 +1022,9 @@
     <ClInclude Include="..\..\..\scribus\ui\ui_resourcemanagerlicensebase.h">
       <Filter>Generated Form Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\scribus\collapsedtablepainterex.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\scribus\desaxe\digester.cpp">
@@ -2552,6 +2555,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\scribus\marks.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\collapsedtablepainterex.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
