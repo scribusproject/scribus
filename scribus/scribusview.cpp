@@ -2689,12 +2689,12 @@ QImage ScribusView::PageToPixmap(int Nr, int maxGr, bool drawFrame, bool drawBac
 	int cliph = qRound(Doc->DocPages.at(Nr)->height() * sc);
 	if ((clipw <=0) || (cliph <= 0))
 		return im;
-
 	im = QImage(clipw, cliph, QImage::Format_ARGB32_Premultiplied);
 	if (im.isNull())
 		return im;
-
 	im.fill( qRgba(0, 0, 0, 0) );
+	int oldAppMode = Doc->appMode;
+	requestMode(modeNormal);
 	double oldScale = m_canvas->scale();
 	double cx = Doc->minCanvasCoordinate.x();
 	double cy = Doc->minCanvasCoordinate.y();
@@ -2836,7 +2836,7 @@ QImage ScribusView::PageToPixmap(int Nr, int maxGr, bool drawFrame, bool drawBac
 	m_canvas->setPreviewMode(Doc->drawAsPreview);
 	m_canvas->setForcedRedraw(false);
 	Doc->minCanvasCoordinate = FPoint(cx, cy);
-
+	requestMode(oldAppMode);
 	return im;
 }
 #if 0
