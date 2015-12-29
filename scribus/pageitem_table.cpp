@@ -857,7 +857,12 @@ void PageItem_Table::unsetDirectFormatting()
 	emit changed();
 }
 
-QString PageItem_Table::style() const
+const TableStyle& PageItem_Table::style() const
+{
+	return m_style;
+}
+
+QString PageItem_Table::styleName() const
 {
 	return m_style.parent();
 }

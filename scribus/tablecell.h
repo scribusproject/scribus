@@ -201,7 +201,10 @@ public:
 	void unsetDirectFormatting();
 
 	/// Returns the named cell style for this cell.
-	QString style() const { return d->style.parent(); }
+	const CellStyle& style() const { return d->style; }
+
+	/// Returns the cell style name for this cell.
+	QString styleName() const { return d->style.parent(); }
 
 	/// Sets the text for this cell to @a text.
 	void setText(const QString& text);

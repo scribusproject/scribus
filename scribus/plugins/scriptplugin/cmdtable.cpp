@@ -338,7 +338,7 @@ PyObject *scribus_gettablestyle(PyObject* /* self */, PyObject* args)
 		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot get table style on a non-table item.","python error").toLocal8Bit().constData());
 		return NULL;
 	}
-	return PyString_FromString(table->style().toUtf8());
+	return PyString_FromString(table->styleName().toUtf8());
 }
 
 PyObject *scribus_settablestyle(PyObject* /* self */, PyObject* args)

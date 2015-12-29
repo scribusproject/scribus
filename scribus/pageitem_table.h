@@ -58,7 +58,7 @@ class SCRIBUS_API PageItem_Table : public PageItem
 	Q_PROPERTY(TableBorder rightBorder READ rightBorder WRITE setRightBorder RESET unsetRightBorder NOTIFY changed)
 	Q_PROPERTY(TableBorder topBorder READ topBorder WRITE setTopBorder RESET unsetTopBorder NOTIFY changed)
 	Q_PROPERTY(TableBorder bottomBorder READ bottomBorder WRITE setBottomBorder RESET unsetBottomBorder NOTIFY changed)
-	Q_PROPERTY(QString style READ style WRITE setStyle RESET unsetStyle NOTIFY changed)
+	Q_PROPERTY(QString style READ styleName WRITE setStyle RESET unsetStyle NOTIFY changed)
 
 public:
 	/**
@@ -443,7 +443,10 @@ public:
 	void unsetDirectFormatting();
 
 	/// Returns the style of this table.
-	QString style() const;
+	const TableStyle& style() const;
+
+	/// Returns the style name of this table.
+	QString styleName() const;
 
 	/// Updates the position and size of all cell text frames for this table.
 	void updateCells() { updateCells(0, 0, rows() - 1, columns() - 1); }

@@ -2207,11 +2207,11 @@ void Scribus150Format::WriteObjects(ScribusDoc *doc, ScXmlStreamWriter& docu, co
 			//PTYPE == PageItem::Table or 16 (pageitem.h)
 			PageItem_Table* tableItem = item->asTable();
 			docu.writeStartElement("TableData");
-			QString tstyle = tableItem->style();
-			docu.writeAttribute("Style", tableItem->style());
+			QString tstyle = tableItem->styleName();
+			docu.writeAttribute("Style", tableItem->styleName());
 			TableStyle ts;
 			if (!tstyle.isEmpty())
-				ts = m_Doc->tableStyle(tstyle);
+				ts = tableItem->style();
 
 			if ((tstyle.isEmpty()) || ((!tstyle.isEmpty()) && (!ts.isInhFillColor())))
 				docu.writeAttribute("FillColor", tableItem->fillColor());
@@ -2288,8 +2288,8 @@ void Scribus150Format::WriteObjects(ScribusDoc *doc, ScXmlStreamWriter& docu, co
 					PageItem* textFrame = cell.textFrame();
 					docu.writeStartElement("Cell");
 					docu.writeAttribute("Row", cell.row());
-					docu.writeAttribute("Column",cell.column());
-					docu.writeAttribute("Style",cell.style());
+					docu.writeAttribute("Column", cell.column());
+					docu.writeAttribute("Style", cell.styleName());
 					docu.writeAttribute("TextColumns", textFrame->columns());
 					docu.writeAttribute("TextColGap", textFrame->columnGap());
 					docu.writeAttribute("TextDistLeft", textFrame->textToFrameDistLeft());
@@ -2299,10 +2299,10 @@ void Scribus150Format::WriteObjects(ScribusDoc *doc, ScXmlStreamWriter& docu, co
 					docu.writeAttribute("TextVertAlign", textFrame->verticalAlignment());
 					docu.writeAttribute("Flop", textFrame->firstLineOffset());
 
-					QString cstyle = cell.style();
+					QString cstyle = cell.styleName();
 					CellStyle cs;
-					if (!cell.style().isEmpty())
-						cs = m_Doc->cellStyle(cell.style());
+					if (!cstyle.isEmpty())
+						cs = cell.style();
 					if ((cstyle.isEmpty()) || ((!cstyle.isEmpty()) && ( !cs.isInhFillColor())))
 						docu.writeAttribute("FillColor", cell.fillColor());
 					if ((cstyle.isEmpty()) || ((!cstyle.isEmpty()) && ( !cs.isInhFillShade())))
@@ -2709,7 +2709,7 @@ void Scribus150Format::SetItemProps(ScXmlStreamWriter& docu, PageItem* item, con
 		docu.writeAttribute("CellAreas", outputData.simplified());
 		outputData.clear();
 
-		docu.writeAttribute("TableStyle",tableItem->style());
+		docu.writeAttribute("TableStyle",tableItem->styleName());
 	}
 
 	if (item->isGroup())
