@@ -3829,7 +3829,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRectF cullingArea)
 			QColor tmp;
 			double CurXB = ls.x;
 			QRectF scrG;
-			QString oldBack = "";
+			QString oldBack;
 			double oldShade = 100;
 			for (int a = ls.firstItem; a <= last; ++a)
 			{
@@ -3870,7 +3870,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRectF cullingArea)
 					}
 					else
 						scr = QRectF(CurXB, y1, glyphs->wide(), hl);
-					if ((oldBack == "") || ((oldBack == charStyle.backColor()) && (oldShade == charStyle.backShade())))
+					if ((oldBack.isEmpty()) || ((oldBack == charStyle.backColor()) && (oldShade == charStyle.backShade())))
 						scrG |= scr;
 					else if ((oldBack != charStyle.backColor()) || (oldShade != charStyle.backShade()))
 					{
@@ -3888,7 +3888,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRectF cullingArea)
 				}
 				else
 				{
-					oldBack = "";
+					oldBack.clear();
 					oldShade = 100;
 					if (!scrG.isNull())
 					{
