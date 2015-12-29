@@ -3216,6 +3216,8 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRectF cullingArea)
 	}
 	if (invalid)
 		return;
+	if (m_Doc->RePos)
+		return;
 	QTransform pf2;
 	QPoint pt1, pt2;
 	double wide;
@@ -3701,7 +3703,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRectF cullingArea)
 			const ParagraphStyle& LineStyle = itemText.paragraphStyle(ls.firstItem);
 			// This code is for rendering paragraph background color.
 			// We just need to define this attribute for the paragraphs now.
-			if ((!m_Doc->RePos) && (LineStyle.backgroundColor() != CommonStrings::None))
+			if (LineStyle.backgroundColor() != CommonStrings::None)
 			{
 				p->save();
 				p->setAntialiasing(false);
@@ -3769,40 +3771,37 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRectF cullingArea)
 						selectedFrame = QRectF();
 						previousWasObject = false;
 					}
-					if (!m_Doc->RePos)
+					if ((m_isSelected || (NextBox != 0 || BackBox != 0))
+						&& (m_Doc->appMode == modeEdit || m_Doc->appMode == modeEditTable))
 					{
-						if (((selecteds && m_isSelected) || ((NextBox != 0 || BackBox != 0) && selecteds))
-							&& (m_Doc->appMode == modeEdit || m_Doc->appMode == modeEditTable))
+						double xcoZli = selX + glyphs->xoffset;
+						// ugly hack to make selection correct, as xoffset is used to
+						// remove left-half of CJK lparen , which is blank.
+						if (glyphs->xoffset)
 						{
-							double xcoZli = selX + glyphs->xoffset;
-							// ugly hack to make selection correct, as xoffset is used to
-							// remove left-half of CJK lparen , which is blank.
-							if (glyphs->xoffset)
+							int attr = SpecialChars::getCJKAttr(itemText.text(as)) & SpecialChars::CJK_CHAR_MASK;
+							if (attr == SpecialChars::CJK_FENCE_BEGIN)
 							{
-								int attr = SpecialChars::getCJKAttr(itemText.text(as)) & SpecialChars::CJK_CHAR_MASK;
-								if (attr == SpecialChars::CJK_FENCE_BEGIN)
-								{
-									xcoZli -= glyphs->xoffset;
-								}
+								xcoZli -= glyphs->xoffset;
 							}
-							const ScFace font = charStyleS.font();
-							double fontSize = charStyleS.fontSize() / 10.0;
-							desc = - font.descent(fontSize);
-							asce = font.ascent(fontSize);
-							wide = glyphs->wide();
-							QRectF scr;
-							if (HasObject)
-							{
-								PageItem* obj = itemText.object(as);
-								double ww = (obj->width() + obj->lineWidth()) * glyphs->scaleH;
-								double hh = (obj->height() + obj->lineWidth()) * glyphs->scaleV;
-								scr = QRectF(xcoZli, ls.y - hh, ww , hh);
-								previousWasObject = true;
-							}
-							else
-								scr = QRectF(xcoZli, ls.y + glyphs->yoffset - asce * glyphs->scaleV, wide , (asce+desc) * (glyphs->scaleV));
-							selectedFrame |=  scr;
 						}
+						const ScFace font = charStyleS.font();
+						double fontSize = charStyleS.fontSize() / 10.0;
+						desc = - font.descent(fontSize);
+						asce = font.ascent(fontSize);
+						wide = glyphs->wide();
+						QRectF scr;
+						if (HasObject)
+						{
+							PageItem* obj = itemText.object(as);
+							double ww = (obj->width() + obj->lineWidth()) * glyphs->scaleH;
+							double hh = (obj->height() + obj->lineWidth()) * glyphs->scaleV;
+							scr = QRectF(xcoZli, ls.y - hh, ww , hh);
+							previousWasObject = true;
+						}
+						else
+							scr = QRectF(xcoZli, ls.y + glyphs->yoffset - asce * glyphs->scaleV, wide , (asce+desc) * (glyphs->scaleV));
+						selectedFrame |=  scr;
 					}
 				}
 				// Unneeded now that glyph xadvance is set appropriately for inline objects by layout() - JG
@@ -3835,7 +3834,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRectF cullingArea)
 			{
 				glyphs = itemText.getGlyphs(a);
 				const CharStyle& charStyle(itemText.charStyle(a));
-				if ((!m_Doc->RePos) && (charStyle.backColor() != CommonStrings::None))
+				if (charStyle.backColor() != CommonStrings::None)
 				{
 					SetQColor(&tmp, charStyle.backColor(), charStyle.backShade());
 					const ParagraphStyle& LineStyle = itemText.paragraphStyle(ls.firstItem);
@@ -3936,59 +3935,56 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRectF cullingArea)
 				else
 					p->setFillMode(ScPainter::None);
 
-				if (!m_Doc->RePos)
+				const ScFace font = charStyle.font();
+				double fontSize = charStyle.fontSize() / 10.0;
+				desc = - font.descent(fontSize);
+				asce = font.ascent(fontSize);
+				if (((selected && m_isSelected) || ((NextBox != 0 || BackBox != 0) && selected)) && (m_Doc->appMode == modeEdit || m_Doc->appMode == modeEditTable))
 				{
-					const ScFace font = charStyle.font();
-					double fontSize = charStyle.fontSize() / 10.0;
-					desc = - font.descent(fontSize);
-					asce = font.ascent(fontSize);
-					if (((selected && m_isSelected) || ((NextBox != 0 || BackBox != 0) && selected)) && (m_Doc->appMode == modeEdit || m_Doc->appMode == modeEditTable))
-					{
-						// set text color to highlight if its selected
-						p->setBrush(qApp->palette().color(QPalette::Active, QPalette::HighlightedText));
-					}
-
-					actStroke = charStyle.strokeColor();
-					actStrokeShade = charStyle.strokeShade();
-					if (actStroke != CommonStrings::None)
-					{
-						if ((cachedStrokeShade != actStrokeShade) || (cachedStroke != actStroke))
-						{
-							SetQColor(&tmp, actStroke, actStrokeShade);
-							p->setPen(tmp, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
-							cachedStrokeQ = tmp;
-							cachedStroke = actStroke;
-							cachedStrokeShade = actStrokeShade;
-						}
-						else
-							p->setPen(cachedStrokeQ, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
-					}
-					// paint glyphs
-					if (isEmbedded || cullingArea.intersects(pf2.mapRect(QRect(qRound(CurX + glyphs->xoffset),qRound(ls.y + glyphs->yoffset-asce), qRound(glyphs->xadvance+1), qRound(asce+desc)))))
-					{
-						p->save();//SA4
-						p->translate(CurX, ls.y);
-						if (itemText.hasObject(a))
-							DrawObj_Embedded(p, cullingArea, charStyle, itemText.object(a));
-						else
-						{
-							//control chars for marks
-							if (m_Doc->guidesPrefs().showControls && itemText.hasMark(a) && (glyphs->glyph != SpecialChars::OBJECT))
-							{
-								GlyphLayout markGlyph;
-								layoutGlyphs(charStyle, SpecialChars::OBJECT, ScLayout_None, markGlyph);
-								drawGlyphs(p, charStyle, ScLayout_None, markGlyph);
-							}
-							drawGlyphs(p, charStyle, itemText.flags(a), *glyphs);
-						}
-						p->restore();//RE4
-					}
-					// Unneeded now that glyph xadvance is set appropriately for inline objects by layout() - JG
-					/*if ((hl->ch == SpecialChars::OBJECT) && (hl->embedded.hasItem()))
-						CurX += (hl->embedded.getItem()->gWidth + hl->embedded.getItem()->lineWidth()) * hl->glyph.scaleH;
-					else*/
-					CurX += glyphs->wide();
+					// set text color to highlight if its selected
+					p->setBrush(qApp->palette().color(QPalette::Active, QPalette::HighlightedText));
 				}
+
+				actStroke = charStyle.strokeColor();
+				actStrokeShade = charStyle.strokeShade();
+				if (actStroke != CommonStrings::None)
+				{
+					if ((cachedStrokeShade != actStrokeShade) || (cachedStroke != actStroke))
+					{
+						SetQColor(&tmp, actStroke, actStrokeShade);
+						p->setPen(tmp, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
+						cachedStrokeQ = tmp;
+						cachedStroke = actStroke;
+						cachedStrokeShade = actStrokeShade;
+					}
+					else
+						p->setPen(cachedStrokeQ, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
+				}
+				// paint glyphs
+				if (isEmbedded || cullingArea.intersects(pf2.mapRect(QRect(qRound(CurX + glyphs->xoffset),qRound(ls.y + glyphs->yoffset-asce), qRound(glyphs->xadvance+1), qRound(asce+desc)))))
+				{
+					p->save();//SA4
+					p->translate(CurX, ls.y);
+					if (itemText.hasObject(a))
+						DrawObj_Embedded(p, cullingArea, charStyle, itemText.object(a));
+					else
+					{
+						//control chars for marks
+						if (m_Doc->guidesPrefs().showControls && itemText.hasMark(a) && (glyphs->glyph != SpecialChars::OBJECT))
+						{
+							GlyphLayout markGlyph;
+							layoutGlyphs(charStyle, SpecialChars::OBJECT, ScLayout_None, markGlyph);
+							drawGlyphs(p, charStyle, ScLayout_None, markGlyph);
+						}
+						drawGlyphs(p, charStyle, itemText.flags(a), *glyphs);
+					}
+					p->restore();//RE4
+				}
+				// Unneeded now that glyph xadvance is set appropriately for inline objects by layout() - JG
+				/*if ((hl->ch == SpecialChars::OBJECT) && (hl->embedded.hasItem()))
+					CurX += (hl->embedded.getItem()->gWidth + hl->embedded.getItem()->lineWidth()) * hl->glyph.scaleH;
+				else*/
+				CurX += glyphs->wide();
 			}
 		}
 	//	else {
@@ -4016,94 +4012,92 @@ void PageItem_TextFrame::DrawObj_Post(ScPainter *p)
 		if (fillBlendmode() != 0)
 			p->setBlendModeFill(0);
 		p->setMaskMode(0);
-		if (!m_Doc->RePos)
+		
+		if (!isAnnotation() || (isAnnotation() && ((annotation().Type() == 0) || (annotation().Type() > 6))))
 		{
-			if (!isAnnotation() || (isAnnotation() && ((annotation().Type() == 0) || (annotation().Type() > 6))))
+			p->setBlendModeStroke(lineBlendmode());
+			p->setPenOpacity(1.0 - lineTransparency());
+			p->setupPolygon(&PoLine);
+			if (NamedLStyle.isEmpty())
 			{
-				p->setBlendModeStroke(lineBlendmode());
-				p->setPenOpacity(1.0 - lineTransparency());
-				p->setupPolygon(&PoLine);
-				if (NamedLStyle.isEmpty())
+				if ((lineColor() != CommonStrings::None) || (!patternStrokeVal.isEmpty()) || (GrTypeStroke > 0))
 				{
-					if ((lineColor() != CommonStrings::None) || (!patternStrokeVal.isEmpty()) || (GrTypeStroke > 0))
+					p->setPen(strokeQColor, m_lineWidth, PLineArt, PLineEnd, PLineJoin);
+					if (DashValues.count() != 0)
+						p->setDash(DashValues, DashOffset);
+				}
+				if ((!patternStrokeVal.isEmpty()) && (m_Doc->docPatterns.contains(patternStrokeVal)))
+				{
+					if (patternStrokePath)
 					{
-						p->setPen(strokeQColor, m_lineWidth, PLineArt, PLineEnd, PLineJoin);
-						if (DashValues.count() != 0)
-							p->setDash(DashValues, DashOffset);
-					}
-					if ((!patternStrokeVal.isEmpty()) && (m_Doc->docPatterns.contains(patternStrokeVal)))
-					{
-						if (patternStrokePath)
-						{
-							QPainterPath guidePath = PoLine.toQPainterPath(false);
-							DrawStrokePattern(p, guidePath);
-						}
-						else
-						{
-							p->setPattern(&m_Doc->docPatterns[patternStrokeVal], patternStrokeScaleX, patternStrokeScaleY, patternStrokeOffsetX, patternStrokeOffsetY, patternStrokeRotation, patternStrokeSkewX, patternStrokeSkewY, patternStrokeMirrorX, patternStrokeMirrorY);
-							p->setStrokeMode(ScPainter::Pattern);
-							p->strokePath();
-						}
-					}
-					else if (GrTypeStroke > 0)
-					{
-						if ((!gradientStrokeVal.isEmpty()) && (!m_Doc->docGradients.contains(gradientStrokeVal)))
-							gradientStrokeVal = "";
-						if (!(gradientStrokeVal.isEmpty()) && (m_Doc->docGradients.contains(gradientStrokeVal)))
-							stroke_gradient = m_Doc->docGradients[gradientStrokeVal];
-						if (stroke_gradient.Stops() < 2) // fall back to solid stroking if there are not enough colorstops in the gradient.
-						{
-							if (lineColor() != CommonStrings::None)
-							{
-								p->setBrush(strokeQColor);
-								p->setStrokeMode(ScPainter::Solid);
-							}
-							else
-							{
-								no_stroke = true;
-								p->setStrokeMode(ScPainter::None);
-							}
-						}
-						else
-						{
-							p->setStrokeMode(ScPainter::Gradient);
-							p->stroke_gradient = stroke_gradient;
-							if (GrTypeStroke == 6)
-								p->setGradient(VGradient::linear, FPoint(GrStrokeStartX, GrStrokeStartY), FPoint(GrStrokeEndX, GrStrokeEndY), FPoint(GrStrokeStartX, GrStrokeStartY), GrStrokeScale, GrStrokeSkew);
-							else
-								p->setGradient(VGradient::radial, FPoint(GrStrokeStartX, GrStrokeStartY), FPoint(GrStrokeEndX, GrStrokeEndY), FPoint(GrStrokeFocalX, GrStrokeFocalY), GrStrokeScale, GrStrokeSkew);
-						}
-						p->strokePath();
-					}
-					else if (lineColor() != CommonStrings::None)
-					{
-						p->setStrokeMode(ScPainter::Solid);
-						p->setPen(strokeQColor, m_lineWidth, PLineArt, PLineEnd, PLineJoin);
-						if (DashValues.count() != 0)
-							p->setDash(DashValues, DashOffset);
-						p->strokePath();
+						QPainterPath guidePath = PoLine.toQPainterPath(false);
+						DrawStrokePattern(p, guidePath);
 					}
 					else
-						no_stroke = true;
-				}
-				else
-				{
-					p->setStrokeMode(ScPainter::Solid);
-					multiLine ml = m_Doc->MLineStyles[NamedLStyle];
-					QColor tmp;
-					for (int it = ml.size()-1; it > -1; it--)
 					{
-						SetQColor(&tmp, ml[it].Color, ml[it].Shade);
-						p->setPen(tmp, ml[it].Width,
-								  static_cast<Qt::PenStyle>(ml[it].Dash),
-								  static_cast<Qt::PenCapStyle>(ml[it].LineEnd),
-								  static_cast<Qt::PenJoinStyle>(ml[it].LineJoin));
+						p->setPattern(&m_Doc->docPatterns[patternStrokeVal], patternStrokeScaleX, patternStrokeScaleY, patternStrokeOffsetX, patternStrokeOffsetY, patternStrokeRotation, patternStrokeSkewX, patternStrokeSkewY, patternStrokeMirrorX, patternStrokeMirrorY);
+						p->setStrokeMode(ScPainter::Pattern);
 						p->strokePath();
 					}
 				}
-				if (lineBlendmode() != 0)
-					p->setBlendModeStroke(0);
+				else if (GrTypeStroke > 0)
+				{
+					if ((!gradientStrokeVal.isEmpty()) && (!m_Doc->docGradients.contains(gradientStrokeVal)))
+						gradientStrokeVal = "";
+					if (!(gradientStrokeVal.isEmpty()) && (m_Doc->docGradients.contains(gradientStrokeVal)))
+						stroke_gradient = m_Doc->docGradients[gradientStrokeVal];
+					if (stroke_gradient.Stops() < 2) // fall back to solid stroking if there are not enough colorstops in the gradient.
+					{
+						if (lineColor() != CommonStrings::None)
+						{
+							p->setBrush(strokeQColor);
+							p->setStrokeMode(ScPainter::Solid);
+						}
+						else
+						{
+							no_stroke = true;
+							p->setStrokeMode(ScPainter::None);
+						}
+					}
+					else
+					{
+						p->setStrokeMode(ScPainter::Gradient);
+						p->stroke_gradient = stroke_gradient;
+						if (GrTypeStroke == 6)
+							p->setGradient(VGradient::linear, FPoint(GrStrokeStartX, GrStrokeStartY), FPoint(GrStrokeEndX, GrStrokeEndY), FPoint(GrStrokeStartX, GrStrokeStartY), GrStrokeScale, GrStrokeSkew);
+						else
+							p->setGradient(VGradient::radial, FPoint(GrStrokeStartX, GrStrokeStartY), FPoint(GrStrokeEndX, GrStrokeEndY), FPoint(GrStrokeFocalX, GrStrokeFocalY), GrStrokeScale, GrStrokeSkew);
+					}
+					p->strokePath();
+				}
+				else if (lineColor() != CommonStrings::None)
+				{
+					p->setStrokeMode(ScPainter::Solid);
+					p->setPen(strokeQColor, m_lineWidth, PLineArt, PLineEnd, PLineJoin);
+					if (DashValues.count() != 0)
+						p->setDash(DashValues, DashOffset);
+					p->strokePath();
+				}
+				else
+					no_stroke = true;
 			}
+			else
+			{
+				p->setStrokeMode(ScPainter::Solid);
+				multiLine ml = m_Doc->MLineStyles[NamedLStyle];
+				QColor tmp;
+				for (int it = ml.size()-1; it > -1; it--)
+				{
+					SetQColor(&tmp, ml[it].Color, ml[it].Shade);
+					p->setPen(tmp, ml[it].Width,
+								static_cast<Qt::PenStyle>(ml[it].Dash),
+								static_cast<Qt::PenCapStyle>(ml[it].LineEnd),
+								static_cast<Qt::PenJoinStyle>(ml[it].LineJoin));
+					p->strokePath();
+				}
+			}
+			if (lineBlendmode() != 0)
+				p->setBlendModeStroke(0);
 		}
 	}
 	p->setFillMode(ScPainter::Solid);
