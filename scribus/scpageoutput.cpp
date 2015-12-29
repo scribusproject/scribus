@@ -1650,10 +1650,143 @@ void ScPageOutput::drawItem_TextFrame( PageItem_TextFrame* item, ScPainterExBase
 			wm.scale(1, -1);
 		}
 
+		for (uint ll = 0; ll < item->textLayout.lines(); ++ll)
+		{
+			const LineSpec& ls = item->textLayout.line(ll);
+			const ParagraphStyle& lineStyle = item->itemText.paragraphStyle(ls.firstItem);
+			// This code is for rendering paragraph background color.
+			// We just need to define this attribute for the paragraphs now.
+			if (lineStyle.backgroundColor() != CommonStrings::None)
+			{
+				painter->save();
+				painter->setFillMode(1);
+				painter->setStrokeMode(0);
+				ScColorShade colorShade(m_doc->PageColors[lineStyle.backgroundColor()], lineStyle.backgroundShade());
+				painter->setBrush(colorShade);
+				double y1 = ls.y;
+				double hl = ls.height;
+				double adjX = 0;
+				if (lineStyle.firstIndent() <= 0)
+					adjX += lineStyle.leftMargin() + lineStyle.firstIndent();
+				if (lineStyle.lineSpacingMode() == ParagraphStyle::BaselineGridLineSpacing)
+					hl = item->doc()->guidesPrefs().valueBaselineGrid;
+				else if (lineStyle.lineSpacingMode() == ParagraphStyle::FixedLineSpacing)
+					hl = lineStyle.lineSpacing();
+				if (ls.isFirstLine)
+				{
+					if (item->textLayout.lines() == 1)
+						hl = ls.ascent + ls.descent;
+					if (lineStyle.hasDropCap())
+						hl *= lineStyle.dropCapLines();
+				}
+				if (lineStyle.lineSpacingMode() == ParagraphStyle::BaselineGridLineSpacing)
+					y1 -= lineStyle.lineSpacing();
+				else if (item->firstLineOffset() == FLOPRealGlyphHeight || item->firstLineOffset() == FLOPFontAscent)
+					y1 -= ls.ascent;
+				else
+					y1 -= ls.ascent + (hl - (ls.ascent + ls.descent)) / 2.0;
+				painter->drawRect(ls.colLeft + adjX, y1, item->columnWidth() - adjX - lineStyle.rightMargin(), hl);
+				painter->restore();
+			}
+			// end background code
+		}
+
 		for (uint ll=0; ll < item->textLayout.lines(); ++ll)
 		{
 			LineSpec ls = item->textLayout.line(ll);
 			double CurX = ls.x;
+
+			// Draw text background
+			ScColorShade tmpShade;
+			double curXB = ls.x;
+			QRectF scrG;
+			QString oldBack;
+			double oldShade = 100;
+			for (int a = ls.firstItem; a <= ls.lastItem; ++a)
+			{
+				GlyphLayout* glyphs = item->itemText.getGlyphs(a);
+				const CharStyle& charStyle(item->itemText.charStyle(a));
+				if (charStyle.backColor() != CommonStrings::None)
+				{
+					tmpShade.color = m_doc->PageColors[charStyle.backColor()];
+					tmpShade.shade = charStyle.backShade();
+					const ParagraphStyle& lineStyle = item->itemText.paragraphStyle(ls.firstItem);
+					double y1 = ls.y;
+					double hl = ls.height;
+					if (lineStyle.lineSpacingMode() == ParagraphStyle::BaselineGridLineSpacing)
+						hl = m_doc->guidesPrefs().valueBaselineGrid;
+					else if (lineStyle.lineSpacingMode() == ParagraphStyle::FixedLineSpacing)
+						hl = lineStyle.lineSpacing();
+					if (ls.isFirstLine)
+					{
+						if (item->textLayout.lines() == 1)
+							hl = ls.ascent + ls.descent;
+						if (lineStyle.hasDropCap() && (a == ls.firstItem))
+							hl *= lineStyle.dropCapLines();
+						if (lineStyle.lineSpacingMode() == ParagraphStyle::BaselineGridLineSpacing)
+							y1 -= lineStyle.lineSpacing();
+						else if (item->firstLineOffset() == FLOPRealGlyphHeight || item->firstLineOffset() == FLOPFontAscent)
+							y1 -= ls.ascent;
+						else
+							y1 -= lineStyle.lineSpacing();
+					}
+					else
+						y1 -= ls.ascent + (hl - (ls.ascent + ls.descent)) / 2.0;
+					QRectF scr;
+					if (item->itemText.hasObject(a))
+					{
+						PageItem* obj = item->itemText.object(a);
+						double ww = (obj->width() + obj->lineWidth()) * glyphs->scaleH;
+						double hh = (obj->height() + obj->lineWidth()) * glyphs->scaleV;
+						scr = QRectF(curXB, ls.y - hh, ww , hh);
+					}
+					else
+						scr = QRectF(curXB, y1, glyphs->wide(), hl);
+					if ((oldBack.isEmpty()) || ((oldBack == charStyle.backColor()) && (oldShade == charStyle.backShade())))
+						scrG |= scr;
+					else if ((oldBack != charStyle.backColor()) || (oldShade != charStyle.backShade()))
+					{
+						tmpShade.color = m_doc->PageColors[oldBack];
+						tmpShade.shade = oldShade;
+						painter->save();
+						painter->setFillMode(1);
+						painter->setStrokeMode(0);
+						painter->setBrush(tmpShade);
+						painter->drawRect(scrG.x(), scrG.y(), scrG.width(), scrG.height());
+						painter->restore();
+						scrG = scr;
+					}
+					oldBack = charStyle.backColor();
+					oldShade = charStyle.backShade();
+				}
+				else
+				{
+					oldBack.clear();
+					oldShade = 100;
+					if (!scrG.isNull())
+					{
+						painter->save();
+						painter->setFillMode(1);
+						painter->setStrokeMode(0);
+						painter->setBrush(tmpShade);
+						painter->drawRect(scrG.x(), scrG.y(), scrG.width(), scrG.height());
+						painter->restore();
+					}
+					scrG = QRectF();
+				}
+				curXB += glyphs->wide();
+			}
+			if (!scrG.isNull())
+			{
+				painter->save();
+				painter->setFillMode(1);
+				painter->setStrokeMode(0);
+				painter->setBrush(tmpShade);
+				painter->drawRect(scrG.x(), scrG.y(), scrG.width(), scrG.height());
+				painter->restore();
+			}
+
+			// Draw text
 			for (a = ls.firstItem; a <= ls.lastItem; ++a)
 			{
 				GlyphLayout* glyphs = item->itemText.getGlyphs(a);
