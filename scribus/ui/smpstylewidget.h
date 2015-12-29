@@ -42,11 +42,13 @@ private:
 	ParagraphStyle* m_currPStyle;
 	StyleSet<CharStyle> *m_cstyles;
 
+	void fillColorCombo(ColorList &colors);
 	void fillBulletStrEditCombo();
 	void fillNumFormatCombo();
 	void fillNumerationsCombo();
 	void fillNumRestartCombo();
 	void checkParEffectState();
+	void showColors(const QList<ParagraphStyle*> &cstyles);
 	void showLineSpacing(QList<ParagraphStyle*> &pstyles);
 	void showSpaceAB(QList<ParagraphStyle*> &pstyles, int unitIndex);
 	void showDropCap(QList<ParagraphStyle*> &pstyles, QList<CharStyle> &cstyles, int unitIndex);

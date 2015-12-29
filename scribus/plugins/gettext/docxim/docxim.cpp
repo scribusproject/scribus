@@ -402,6 +402,21 @@ void DocXIm::parseParaProps(QDomElement &props, ParagraphStyle &pStyle)
 			if (spt.hasAttribute("w:before"))
 				pStyle.setGapBefore(pixelsFromTwips(spt.attribute("w:before", "0.0").toDouble()));
 		}
+		else if (spt.tagName() == "w:shd")
+		{
+			if (spt.hasAttribute("w:fill"))
+			{
+				QString color = spt.attribute("w:fill");
+				QColor colour;
+				colour.setNamedColor("#" + color);
+				ScColor tmp;
+				tmp.fromQColor(colour);
+				tmp.setSpotColor(false);
+				tmp.setRegistrationColor(false);
+				QString fNam = m_Doc->PageColors.tryAddColor("FromDocX"+colour.name(), tmp);
+				pStyle.setBackgroundColor(fNam);
+			}
+		}
 	}
 }
 
@@ -526,6 +541,21 @@ void DocXIm::parseCharProps(QDomElement &props, ParagraphStyle &pStyle)
 				tmp.setRegistrationColor(false);
 				QString fNam = m_Doc->PageColors.tryAddColor("FromDocX"+colour.name(), tmp);
 				pStyle.charStyle().setFillColor(fNam);
+			}
+		}
+		else if (spc.tagName() == "w:shd")
+		{
+			if (spc.hasAttribute("w:fill"))
+			{
+				QString color = spc.attribute("w:fill");
+				QColor colour;
+				colour.setNamedColor("#" + color);
+				ScColor tmp;
+				tmp.fromQColor(colour);
+				tmp.setSpotColor(false);
+				tmp.setRegistrationColor(false);
+				QString fNam = m_Doc->PageColors.tryAddColor("FromDocX"+colour.name(), tmp);
+				pStyle.charStyle().setBackgroundColor(fNam);
 			}
 		}
 		else if (spc.tagName() == "w:vertAlign")

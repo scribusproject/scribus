@@ -879,6 +879,47 @@ void XPSExPlug::processTextItem(double xOffset, double yOffset, PageItem *Item, 
 			grp.appendChild(ob);
 		}
 	}
+	for (uint ll = 0; ll < Item->textLayout.lines(); ++ll)
+	{
+		LineSpec ls = Item->textLayout.line(ll);
+		const ParagraphStyle& LineStyle = Item->itemText.paragraphStyle(ls.firstItem);
+		// This code is for rendering paragraph background color.
+		// We just need to define this attribute for the paragraphs now.
+		if (LineStyle.backgroundColor() != CommonStrings::None)
+		{
+			double y1 = ls.y;
+			double hl = ls.height;
+			double adjX = 0;
+			if (LineStyle.firstIndent() <= 0)
+				adjX += LineStyle.leftMargin() + LineStyle.firstIndent();
+			if (LineStyle.lineSpacingMode() == ParagraphStyle::BaselineGridLineSpacing)
+				hl = m_Doc->guidesPrefs().valueBaselineGrid;
+			if (ls.isFirstLine)
+			{
+				if (Item->textLayout.lines() == 1)
+					hl = ls.ascent + ls.descent;
+				if (LineStyle.hasDropCap())
+					hl *= LineStyle.dropCapLines();
+			}
+			if (LineStyle.lineSpacingMode() == ParagraphStyle::BaselineGridLineSpacing)
+				y1 -= LineStyle.lineSpacing();
+			else if (Item->firstLineOffset() == FLOPRealGlyphHeight || Item->firstLineOffset() == FLOPFontAscent)
+				y1 -= ls.ascent;
+			else
+				y1 -= LineStyle.lineSpacing();
+			QRectF scr(ls.colLeft + adjX, y1, Item->asTextFrame()->columnWidth() - adjX - LineStyle.rightMargin(), hl);
+			QString paS = QString("M%1,%2 ").arg(scr.x() * conversionFactor).arg(scr.y() * conversionFactor);
+			paS += QString("L%1,%2 ").arg((scr.x() + scr.width()) * conversionFactor).arg(scr.y() * conversionFactor);
+			paS += QString("L%1,%2 ").arg((scr.x() + scr.width()) * conversionFactor).arg((scr.y() + scr.height()) * conversionFactor);
+			paS += QString("L%1,%2 ").arg(scr.x() * conversionFactor).arg((scr.y() + scr.height()) * conversionFactor);
+			paS += "Z";
+			QDomElement glyS = p_docu.createElement("Path");
+			glyS.setAttribute("Data", paS);
+			glyS.setAttribute("Fill", SetColor(LineStyle.backgroundColor(), LineStyle.backgroundShade(), 0));
+			grp.appendChild(glyS);
+		}
+		// end background code
+	}
 	for (uint ll=0; ll < Item->textLayout.lines(); ++ll)
 	{
 		LineSpec ls = Item->textLayout.line(ll);
@@ -886,6 +927,104 @@ void XPSExPlug::processTextItem(double xOffset, double yOffset, PageItem *Item, 
 		QList<QList<txtRunItem> > textRuns;
 		QList<txtRunItem> specialText;
 		double CurX = ls.x;
+
+		double CurXB = ls.x;
+		int last = qMin(ls.lastItem, Item->itemText.length() - 1);
+		QRectF scr;
+		QString oldBack = "";
+		double oldShade = 100;
+		QString colorB = "";
+		for (int a = ls.firstItem; a <= last; ++a)
+		{
+			const GlyphLayout* glyphs(Item->itemText.getGlyphs(a));
+			const CharStyle& charStyle(Item->itemText.charStyle(a));
+			if (charStyle.backgroundColor() != CommonStrings::None)
+			{
+			// This code is for rendering character background color.
+				colorB = SetColor(charStyle.backgroundColor(), charStyle.backgroundShade(), 0);
+				const ParagraphStyle& LineStyle = Item->itemText.paragraphStyle(ls.firstItem);
+				double y1 = ls.y;
+				double hl = ls.height;
+				if (LineStyle.lineSpacingMode() == ParagraphStyle::BaselineGridLineSpacing)
+					hl = m_Doc->guidesPrefs().valueBaselineGrid;
+				else if (LineStyle.lineSpacingMode() == ParagraphStyle::FixedLineSpacing)
+					hl = LineStyle.lineSpacing();
+				if (ls.isFirstLine)
+				{
+					if (Item->textLayout.lines() == 1)
+						hl = ls.ascent + ls.descent;
+					if (LineStyle.hasDropCap() && (a == ls.firstItem))
+						hl *= LineStyle.dropCapLines();
+					if (LineStyle.lineSpacingMode() == ParagraphStyle::BaselineGridLineSpacing)
+						y1 -= LineStyle.lineSpacing();
+					else if (Item->firstLineOffset() == FLOPRealGlyphHeight || Item->firstLineOffset() == FLOPFontAscent)
+						y1 -= ls.ascent;
+					else
+						y1 -= LineStyle.lineSpacing();
+				}
+				else
+					y1 -= ls.ascent + (hl - (ls.ascent + ls.descent)) / 2.0;
+				QRectF scrG;
+				if (Item->itemText.hasObject(a))
+				{
+					PageItem* obj = Item->itemText.object(a);
+					double ww = (obj->width() + obj->lineWidth()) * glyphs->scaleH;
+					double hh = (obj->height() + obj->lineWidth()) * glyphs->scaleV;
+					scrG = QRectF(CurXB, ls.y - hh, ww , hh);
+				}
+				else
+					scrG = QRectF(CurXB, y1, glyphs->wide(), hl);
+				if ((oldBack == "") || ((oldBack == charStyle.backgroundColor()) && (oldShade == charStyle.backgroundShade())))
+					scr |= scrG;
+				else if ((oldBack != charStyle.backgroundColor()) || (oldShade != charStyle.backgroundShade()))
+				{
+					QString paS = QString("M%1,%2 ").arg(scr.x() * conversionFactor).arg(scr.y() * conversionFactor);
+					paS += QString("L%1,%2 ").arg((scr.x() + scr.width()) * conversionFactor).arg(scr.y() * conversionFactor);
+					paS += QString("L%1,%2 ").arg((scr.x() + scr.width()) * conversionFactor).arg((scr.y() + scr.height()) * conversionFactor);
+					paS += QString("L%1,%2 ").arg(scr.x() * conversionFactor).arg((scr.y() + scr.height()) * conversionFactor);
+					paS += "Z";
+					QDomElement glyS = p_docu.createElement("Path");
+					glyS.setAttribute("Data", paS);
+					glyS.setAttribute("Fill", SetColor(oldBack, oldShade, 0));
+					grp.appendChild(glyS);
+					scr = scrG;
+				}
+				oldBack = charStyle.backgroundColor();
+				oldShade = charStyle.backgroundShade();
+			}
+			else
+			{
+				if (!scr.isNull())
+				{
+					QString paS = QString("M%1,%2 ").arg(scr.x() * conversionFactor).arg(scr.y() * conversionFactor);
+					paS += QString("L%1,%2 ").arg((scr.x() + scr.width()) * conversionFactor).arg(scr.y() * conversionFactor);
+					paS += QString("L%1,%2 ").arg((scr.x() + scr.width()) * conversionFactor).arg((scr.y() + scr.height()) * conversionFactor);
+					paS += QString("L%1,%2 ").arg(scr.x() * conversionFactor).arg((scr.y() + scr.height()) * conversionFactor);
+					paS += "Z";
+					QDomElement glyS = p_docu.createElement("Path");
+					glyS.setAttribute("Data", paS);
+					glyS.setAttribute("Fill", colorB);
+					grp.appendChild(glyS);
+				}
+				oldBack = "";
+				oldShade = 100;
+				scr = QRectF();
+			}
+			CurXB += glyphs->wide();
+		}
+		if (!scr.isNull())
+		{
+			QString paS = QString("M%1,%2 ").arg(scr.x() * conversionFactor).arg(scr.y() * conversionFactor);
+			paS += QString("L%1,%2 ").arg((scr.x() + scr.width()) * conversionFactor).arg(scr.y() * conversionFactor);
+			paS += QString("L%1,%2 ").arg((scr.x() + scr.width()) * conversionFactor).arg((scr.y() + scr.height()) * conversionFactor);
+			paS += QString("L%1,%2 ").arg(scr.x() * conversionFactor).arg((scr.y() + scr.height()) * conversionFactor);
+			paS += "Z";
+			QDomElement glyS = p_docu.createElement("Path");
+			glyS.setAttribute("Data", paS);
+			glyS.setAttribute("Fill", colorB);
+			grp.appendChild(glyS);
+		}
+
 		for (int a = ls.firstItem; a <= ls.lastItem; ++a)
 		{
 			//ScText *hl = Item->itemText.item_p(a);

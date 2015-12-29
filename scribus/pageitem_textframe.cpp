@@ -540,6 +540,7 @@ struct LineControl {
 		line.width = 0.0;
 		line.naturalWidth = 0.0;
 		line.colLeft = colLeft;
+		line.isFirstLine = false;
 		breakIndex = -1;
 		breakXPos = 0.0;
 		maxShrink = 0.0;
@@ -828,9 +829,10 @@ struct LineControl {
 
 	void updateHeightMetrics(const StoryText& itemText)
 	{
-		double asce, desc;
+		double asce, desc, hei;
 		line.ascent  = 0;
 		line.descent = 0;
+		line.height = 0;
 		for (int zc = 0; zc < itemsInLine; ++zc)
 		{
 			QChar ch = itemText.text(line.firstItem+zc);
@@ -845,15 +847,18 @@ struct LineControl {
 			{
 				asce = (itemText.object(line.firstItem+zc)->height() + itemText.object(line.firstItem+zc)->lineWidth()) * scaleV + offset;
 				desc = 0.0;
+				hei = asce;
 			}
 			else //if ((itemText.flags(current.line.firstItem+zc) & ScLayout_DropCap) == 0)
 			{
 				asce = cStyle.font().realCharAscent(ch, cStyle.fontSize() / 10.0) * scaleV + offset;
 				desc = cStyle.font().realCharDescent(ch, cStyle.fontSize() / 10.0) * scaleV - offset;
+				hei = cStyle.font().height(cStyle.fontSize() / 10.0) * scaleV;
 			}
 			//	qDebug() << QString("checking char 'x%2' with ascender %1 > %3").arg(asce).arg(ch.unicode()).arg(result);
 			line.ascent  = qMax(line.ascent, asce);
 			line.descent = qMax(line.descent, desc);
+			line.height = qMax(line.height, hei);
 		}
 	}
 
@@ -1680,6 +1685,7 @@ void PageItem_TextFrame::layout()
 					}
 					else
 						DropCmode = false;
+					current.line.isFirstLine = true;
 				}
 			}
 
@@ -1748,6 +1754,7 @@ void PageItem_TextFrame::layout()
 						DropCapDrop = calculateLineSpacing (style, this) * (DropLines - 1);
 //						qDebug() << QString("dropcapdrop: y=%1+%2").arg(current.yPos).arg(DropCapDrop);
 					}
+					current.line.isFirstLine = true;
 				}
 			}
 			// find charsize factors
@@ -3687,11 +3694,51 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRectF cullingArea)
 		assert( firstInFrame() >= 0 );
 		assert( lastInFrame() < itemText.length() );
 		LineSpec ls;
+
+		for (uint ll = 0; ll < textLayout.lines(); ++ll)
+		{
+			ls = textLayout.line(ll);
+			const ParagraphStyle& LineStyle = itemText.paragraphStyle(ls.firstItem);
+			// This code is for rendering paragraph background color.
+			// We just need to define this attribute for the paragraphs now.
+			if ((!m_Doc->RePos) && (LineStyle.backgroundColor() != CommonStrings::None))
+			{
+				p->save();
+				p->setFillMode(1);
+				QColor tmp;
+				SetQColor(&tmp, LineStyle.backgroundColor(), LineStyle.backgroundShade());
+				p->setPen(tmp, 0, Qt::SolidLine, Qt::SquareCap, Qt::MiterJoin);
+				p->setBrush(tmp);
+				double y1 = ls.y;
+				double hl = ls.height;
+				double adjX = 0;
+				if (LineStyle.firstIndent() <= 0)
+					adjX += LineStyle.leftMargin() + LineStyle.firstIndent();
+				if (LineStyle.lineSpacingMode() == ParagraphStyle::BaselineGridLineSpacing)
+					hl = doc()->guidesPrefs().valueBaselineGrid;
+				if (ls.isFirstLine)
+				{
+					if (textLayout.lines() == 1)
+						hl = ls.ascent + ls.descent;
+					if (LineStyle.hasDropCap())
+						hl *= LineStyle.dropCapLines();
+				}
+				if (LineStyle.lineSpacingMode() == ParagraphStyle::BaselineGridLineSpacing)
+					y1 -= LineStyle.lineSpacing();
+				else if (firstLineOffset() == FLOPRealGlyphHeight || firstLineOffset() == FLOPFontAscent)
+					y1 -= ls.ascent;
+				else
+					y1 -= LineStyle.lineSpacing();
+				p->drawRect(ls.colLeft + adjX, y1, columnWidth() - adjX - LineStyle.rightMargin(), hl);
+				p->restore();
+			}
+			// end background code
+		}
+
 		for (uint ll=0; ll < textLayout.lines(); ++ll)
 		{
 			ls = textLayout.line(ll);
 			double CurX = ls.x;
-
 			// Draw text selection rectangles
 			QRectF selectedFrame;
 			QList<QRectF> sFList;
@@ -3776,12 +3823,96 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRectF cullingArea)
 			//	End of selection
 
 			QColor tmp;
+			double CurXB = ls.x;
+			QRectF scrG;
+			QString oldBack = "";
+			double oldShade = 100;
+			for (int a = ls.firstItem; a <= last; ++a)
+			{
+				glyphs = itemText.getGlyphs(a);
+				const CharStyle& charStyle(itemText.charStyle(a));
+				if ((!m_Doc->RePos) && (charStyle.backgroundColor() != CommonStrings::None))
+				{
+					SetQColor(&tmp, charStyle.backgroundColor(), charStyle.backgroundShade());
+					const ParagraphStyle& LineStyle = itemText.paragraphStyle(ls.firstItem);
+					double y1 = ls.y;
+					double hl = ls.height;
+					if (LineStyle.lineSpacingMode() == ParagraphStyle::BaselineGridLineSpacing)
+						hl = doc()->guidesPrefs().valueBaselineGrid;
+					else if (LineStyle.lineSpacingMode() == ParagraphStyle::FixedLineSpacing)
+						hl = LineStyle.lineSpacing();
+					if (ls.isFirstLine)
+					{
+						if (textLayout.lines() == 1)
+							hl = ls.ascent + ls.descent;
+						if (LineStyle.hasDropCap() && (a == ls.firstItem))
+							hl *= LineStyle.dropCapLines();
+						if (LineStyle.lineSpacingMode() == ParagraphStyle::BaselineGridLineSpacing)
+							y1 -= LineStyle.lineSpacing();
+						else if (firstLineOffset() == FLOPRealGlyphHeight || firstLineOffset() == FLOPFontAscent)
+							y1 -= ls.ascent;
+						else
+							y1 -= LineStyle.lineSpacing();
+					}
+					else
+						y1 -= ls.ascent + (hl - (ls.ascent + ls.descent)) / 2.0;
+					QRectF scr;
+					if (itemText.hasObject(a))
+					{
+						PageItem* obj = itemText.object(a);
+						double ww = (obj->width() + obj->lineWidth()) * glyphs->scaleH;
+						double hh = (obj->height() + obj->lineWidth()) * glyphs->scaleV;
+						scr = QRectF(CurXB, ls.y - hh, ww , hh);
+					}
+					else
+						scr = QRectF(CurXB, y1, glyphs->wide(), hl);
+					if ((oldBack == "") || ((oldBack == charStyle.backgroundColor()) && (oldShade == charStyle.backgroundShade())))
+						scrG |= scr;
+					else if ((oldBack != charStyle.backgroundColor()) || (oldShade != charStyle.backgroundShade()))
+					{
+						p->save();
+						p->setFillMode(1);
+						p->setStrokeMode(0);
+						SetQColor(&tmp, oldBack, oldShade);
+						p->setBrush(tmp);
+						p->drawRect(scrG.x(), scrG.y(), scrG.width(), scrG.height());
+						p->restore();
+						scrG = scr;
+					}
+					oldBack = charStyle.backgroundColor();
+					oldShade = charStyle.backgroundShade();
+				}
+				else
+				{
+					oldBack = "";
+					oldShade = 100;
+					if (!scrG.isNull())
+					{
+						p->save();
+						p->setFillMode(1);
+						p->setStrokeMode(0);
+						p->setBrush(tmp);
+						p->drawRect(scrG.x(), scrG.y(), scrG.width(), scrG.height());
+						p->restore();
+					}
+					scrG = QRectF();
+				}
+				CurXB += glyphs->wide();
+			}
+			if (!scrG.isNull())
+			{
+				p->save();
+				p->setFillMode(1);
+				p->setStrokeMode(0);
+				p->setBrush(tmp);
+				p->drawRect(scrG.x(), scrG.y(), scrG.width(), scrG.height());
+				p->restore();
+			}
 			for (int a = ls.firstItem; a <= last; ++a)
 			{
 				glyphs = itemText.getGlyphs(a);
 				const CharStyle& charStyle(itemText.charStyle(a));
 				bool selected = itemText.selected(a);
-
 				actFill = charStyle.fillColor();
 				actFillShade = charStyle.fillShade();
 				if (actFill != CommonStrings::None)

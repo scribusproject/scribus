@@ -2055,6 +2055,8 @@ void PagesPlug::applyCharAttrs(CharStyle &tmpCStyle, QString pAttrs)
 			tmpCStyle.setFontSize(actStyle.fontSize.value.toInt() * 10);
 		if (actStyle.fontColor.valid)
 			tmpCStyle.setFillColor(actStyle.fontColor.value);
+		if (actStyle.backColor.valid)
+			tmpCStyle.setBackgroundColor(actStyle.backColor.value);
 	}
 }
 

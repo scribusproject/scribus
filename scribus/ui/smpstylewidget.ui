@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>695</width>
-    <height>528</height>
+    <height>540</height>
    </rect>
   </property>
   <layout class="QVBoxLayout">
@@ -20,7 +20,7 @@
       <attribute name="title">
        <string>Properties</string>
       </attribute>
-      <layout class="QVBoxLayout" name="verticalLayout_4">
+      <layout class="QVBoxLayout" name="verticalLayout_8">
        <item>
         <layout class="QHBoxLayout">
          <property name="spacing">
@@ -563,6 +563,95 @@
                 <horstretch>0</horstretch>
                 <verstretch>0</verstretch>
                </sizepolicy>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <spacer>
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>40</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+           </layout>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <widget class="QGroupBox" name="smColorGroup">
+         <property name="title">
+          <string>Colors</string>
+         </property>
+         <layout class="QVBoxLayout" name="verticalLayout_4">
+          <property name="spacing">
+           <number>3</number>
+          </property>
+          <property name="leftMargin">
+           <number>5</number>
+          </property>
+          <property name="topMargin">
+           <number>5</number>
+          </property>
+          <property name="rightMargin">
+           <number>5</number>
+          </property>
+          <property name="bottomMargin">
+           <number>5</number>
+          </property>
+          <item>
+           <layout class="QHBoxLayout" name="_6">
+            <item>
+             <widget class="QLabel" name="backIcon">
+              <property name="minimumSize">
+               <size>
+                <width>20</width>
+                <height>0</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>22</width>
+                <height>22</height>
+               </size>
+              </property>
+              <property name="text">
+               <string/>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="SMColorCombo" name="backColor_"/>
+            </item>
+            <item>
+             <widget class="QLabel" name="backShadeLabel">
+              <property name="minimumSize">
+               <size>
+                <width>20</width>
+                <height>0</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>22</width>
+                <height>22</height>
+               </size>
+              </property>
+              <property name="text">
+               <string/>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="SMShadeButton" name="backShade_">
+              <property name="text">
+               <string/>
               </property>
              </widget>
             </item>
@@ -1160,6 +1249,21 @@
    <header>ui/smsccombobox.h</header>
   </customwidget>
   <customwidget>
+   <class>SMScrSpinBox</class>
+   <extends>QSpinBox</extends>
+   <header>ui/smscrspinbox.h</header>
+  </customwidget>
+  <customwidget>
+   <class>SMColorCombo</class>
+   <extends>QComboBox</extends>
+   <header>ui/smcolorcombo.h</header>
+  </customwidget>
+  <customwidget>
+   <class>SMShadeButton</class>
+   <extends>QPushButton</extends>
+   <header>ui/smshadebutton.h</header>
+  </customwidget>
+  <customwidget>
    <class>SMRadioButton</class>
    <extends>QRadioButton</extends>
    <header>ui/smradiobutton.h</header>
@@ -1168,11 +1272,6 @@
    <class>SMCheckBox</class>
    <extends>QCheckBox</extends>
    <header>ui/smcheckbox.h</header>
-  </customwidget>
-  <customwidget>
-   <class>SMScrSpinBox</class>
-   <extends>QSpinBox</extends>
-   <header>ui/smscrspinbox.h</header>
   </customwidget>
   <customwidget>
    <class>SMAlignSelect</class>

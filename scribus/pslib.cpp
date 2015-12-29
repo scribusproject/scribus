@@ -1409,7 +1409,6 @@ int PSLib::CreatePS(ScribusDoc* Doc, PrintOptions &options)
 	bool farb = options.useColor;
 	bool Hm = options.mirrorH;
 	bool Vm = options.mirrorV;
-	bool gcr = options.doGCR;
 	bool doDev = options.setDevParam;
 	bool doClip = options.doClip;
 	int sepac;
@@ -5069,10 +5068,151 @@ void PSLib::setTextSt(ScribusDoc* Doc, PageItem* ite, uint argh, ScPage* pg, boo
 	if (ite->lineColor() != CommonStrings::None)
 		tabDist += ite->lineWidth() / 2.0;
 
-	for (uint ll=0; ll < ite->textLayout.lines(); ++ll) {
+	for (uint ll = 0; ll < ite->textLayout.lines(); ++ll)
+	{
+		LineSpec ls = ite->textLayout.line(ll);
+		const ParagraphStyle& LineStyle = ite->itemText.paragraphStyle(ls.firstItem);
+		// This code is for rendering paragraph background color.
+		// We just need to define this attribute for the paragraphs now.
+		if (LineStyle.backgroundColor() != CommonStrings::None)
+		{
+			double y1 = ls.y;
+			double hl = ls.height;
+			double adjX = 0;
+			if (LineStyle.firstIndent() <= 0)
+				adjX += LineStyle.leftMargin() + LineStyle.firstIndent();
+			if (LineStyle.lineSpacingMode() == ParagraphStyle::BaselineGridLineSpacing)
+				hl = Doc->guidesPrefs().valueBaselineGrid;
+			if (ls.isFirstLine)
+			{
+				if (ite->textLayout.lines() == 1)
+					hl = ls.ascent + ls.descent;
+				if (LineStyle.hasDropCap())
+					hl *= LineStyle.dropCapLines();
+			}
+			if (LineStyle.lineSpacingMode() == ParagraphStyle::BaselineGridLineSpacing)
+				y1 -= LineStyle.lineSpacing();
+			else if (ite->firstLineOffset() == FLOPRealGlyphHeight || ite->firstLineOffset() == FLOPFontAscent)
+				y1 -= ls.ascent;
+			else
+				y1 -= LineStyle.lineSpacing();
+			QRectF scr(ls.colLeft + adjX, y1, ite->asTextFrame()->columnWidth() - adjX - LineStyle.rightMargin(), hl);
+			PS_save();
+			int h, s, v, k;
+			SetColor(LineStyle.backgroundColor(), LineStyle.backgroundShade(), &h, &s, &v, &k);
+			PS_setcmykcolor_fill(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
+			PS_moveto(scr.x(), -scr.y());
+			PS_lineto(scr.x() + scr.width(), -scr.y());
+			PS_lineto(scr.x() + scr.width(), -scr.y() - scr.height());
+			PS_lineto(scr.x(), -scr.y() - scr.height());
+			PS_closepath();
+			putColor(LineStyle.backgroundColor(), LineStyle.backgroundShade(), true);
+			PS_restore();
+		}
+		// end background code
+	}
+
+	for (uint ll=0; ll < ite->textLayout.lines(); ++ll)
+	{
 		LineSpec ls = ite->textLayout.line(ll);
 		tabDist = ls.x;
 		double CurX = ls.x;
+		double CurXB = ls.x;
+		QRectF scrG;
+		QString oldBack = "";
+		double oldShade = 100;
+		int last = qMin(ls.lastItem, ite->itemText.length() - 1);
+		for (int a = ls.firstItem; a <= last; ++a)
+		{
+			const GlyphLayout* glyphs(ite->itemText.getGlyphs(a));
+			const CharStyle& charStyle(ite->itemText.charStyle(a));
+			if (charStyle.backgroundColor() != CommonStrings::None)
+			{
+			// This code is for rendering character background color.
+				int h, s, v, k;
+				SetColor(charStyle.backgroundColor(), charStyle.backgroundShade(), &h, &s, &v, &k);
+				PS_setcmykcolor_fill(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
+				const ParagraphStyle& LineStyle = ite->itemText.paragraphStyle(ls.firstItem);
+				double y1 = ls.y;
+				double hl = ls.height;
+				if (LineStyle.lineSpacingMode() == ParagraphStyle::BaselineGridLineSpacing)
+					hl = Doc->guidesPrefs().valueBaselineGrid;
+				else if (LineStyle.lineSpacingMode() == ParagraphStyle::FixedLineSpacing)
+					hl = LineStyle.lineSpacing();
+				if (ls.isFirstLine)
+				{
+					if (ite->textLayout.lines() == 1)
+						hl = ls.ascent + ls.descent;
+					if (LineStyle.hasDropCap() && (a == ls.firstItem))
+						hl *= LineStyle.dropCapLines();
+					if (LineStyle.lineSpacingMode() == ParagraphStyle::BaselineGridLineSpacing)
+						y1 -= LineStyle.lineSpacing();
+					else if (ite->firstLineOffset() == FLOPRealGlyphHeight || ite->firstLineOffset() == FLOPFontAscent)
+						y1 -= ls.ascent;
+					else
+						y1 -= LineStyle.lineSpacing();
+				}
+				else
+					y1 -= ls.ascent + (hl - (ls.ascent + ls.descent)) / 2.0;
+				QRectF scr;
+				if (ite->itemText.hasObject(a))
+				{
+					PageItem* obj = ite->itemText.object(a);
+					double ww = (obj->width() + obj->lineWidth()) * glyphs->scaleH;
+					double hh = (obj->height() + obj->lineWidth()) * glyphs->scaleV;
+					scr = QRectF(CurXB, ls.y - hh, ww , hh);
+				}
+				else
+					scr = QRectF(CurXB, y1, glyphs->wide(), hl);
+				if ((oldBack == "") || ((oldBack == charStyle.backgroundColor()) && (oldShade == charStyle.backgroundShade())))
+					scrG |= scr;
+				else if ((oldBack != charStyle.backgroundColor()) || (oldShade != charStyle.backgroundShade()))
+				{
+					PS_save();
+					PS_moveto(scrG.x(), -scrG.y());
+					PS_lineto(scrG.x() + scrG.width(), -scrG.y());
+					PS_lineto(scrG.x() + scrG.width(), -scrG.y() - scrG.height());
+					PS_lineto(scrG.x(), -scrG.y() - scrG.height());
+					PS_closepath();
+					SetColor(oldBack, oldShade, &h, &s, &v, &k);
+					PS_setcmykcolor_fill(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
+					putColor(oldBack, oldShade, true);
+					PS_restore();
+					scrG = scr;
+				}
+				oldBack = charStyle.backgroundColor();
+				oldShade = charStyle.backgroundShade();
+			}
+			else
+			{
+				if (!scrG.isNull())
+				{
+					PS_save();
+					PS_moveto(scrG.x(), -scrG.y());
+					PS_lineto(scrG.x() + scrG.width(), -scrG.y());
+					PS_lineto(scrG.x() + scrG.width(), -scrG.y() - scrG.height());
+					PS_lineto(scrG.x(), -scrG.y() - scrG.height());
+					PS_closepath();
+					putColor(oldBack, oldShade, true);
+					PS_restore();
+				}
+				oldBack = "";
+				oldShade = 100;
+				scrG = QRectF();
+			}
+			CurXB += glyphs->wide();
+		}
+		if (!scrG.isNull())
+		{
+			PS_save();
+			PS_moveto(scrG.x(), -scrG.y());
+			PS_lineto(scrG.x() + scrG.width(), -scrG.y());
+			PS_lineto(scrG.x() + scrG.width(), -scrG.y() - scrG.height());
+			PS_lineto(scrG.x(), -scrG.y() - scrG.height());
+			PS_closepath();
+			putColor(oldBack, oldShade, true);
+			PS_restore();
+		}
 
 		for (int d = ls.firstItem; d <= ls.lastItem; ++d)
 		{

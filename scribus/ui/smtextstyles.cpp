@@ -76,6 +76,7 @@ void SMParagraphStyle::setCurrentDoc(ScribusDoc *doc)
 			m_pwidget->cpage->fillLangComboFromList(languageList);
 			m_pwidget->cpage->fillColorCombo(m_doc->PageColors);
 			m_pwidget->cpage->fontFace_->RebuildList(m_doc);
+			m_pwidget->fillColorCombo(m_doc->PageColors);
 			if (m_unitRatio != m_doc->unitRatio())
 				unitChange();
 		}
@@ -549,6 +550,8 @@ void SMParagraphStyle::setupConnections()
 	connect(m_pwidget->tabList->first_, SIGNAL(valueChanged(double)), this, SLOT(slotFirstLine()));
 
 	connect(m_pwidget->parentCombo, SIGNAL(activated(const QString&)), this, SLOT(slotParentChanged(const QString&)));
+	connect(m_pwidget->backColor_, SIGNAL(activated(const QString&)), this, SLOT(slotBackPColor()));
+	connect(m_pwidget->backShade_, SIGNAL(clicked()), this, SLOT(slotBackPShade()));
 
 	// character attributes
 	connect(m_pwidget->cpage->fontFace_, SIGNAL(fontSelected(QString)), this, SLOT(slotFont(QString)));
@@ -572,6 +575,8 @@ void SMParagraphStyle::setupConnections()
 	connect(m_pwidget->cpage->widthSpaceSpin, SIGNAL(valueChanged(double)), this, SLOT(slotWordTracking()));
 	connect(m_pwidget->cpage->baselineOffset_, SIGNAL(valueChanged(double)), this, SLOT(slotBaselineOffset()));
 	connect(m_pwidget->cpage->parentCombo, SIGNAL(activated(const QString&)), this, SLOT(slotCharParentChanged(const QString&)));
+	connect(m_pwidget->cpage->backColor_, SIGNAL(activated(const QString&)), this, SLOT(slotBackColor()));
+	connect(m_pwidget->cpage->backShade_, SIGNAL(clicked()), this, SLOT(slotBackShade()));
 }
 
 void SMParagraphStyle::removeConnections()
@@ -632,6 +637,8 @@ void SMParagraphStyle::removeConnections()
 	disconnect(m_pwidget->tabList->left_, SIGNAL(valueChanged(double)), this, SLOT(slotLeftIndent()));
 	disconnect(m_pwidget->tabList->right_, SIGNAL(valueChanged(double)), this, SLOT(slotRightIndent()));
 	disconnect(m_pwidget->tabList->first_, SIGNAL(valueChanged(double)), this, SLOT(slotFirstLine()));
+	disconnect(m_pwidget->backColor_, SIGNAL(activated(const QString&)), this, SLOT(slotBackPColor()));
+	disconnect(m_pwidget->backShade_, SIGNAL(clicked()), this, SLOT(slotBackPShade()));
 
 	disconnect(m_pwidget->cpage->fontFace_, SIGNAL(fontSelected(QString)), this, SLOT(slotFont(QString)));
 	disconnect(m_pwidget->cpage->effects_, SIGNAL(State(int)), this, SLOT(slotEffects(int)));
@@ -654,6 +661,8 @@ void SMParagraphStyle::removeConnections()
 	disconnect(m_pwidget->cpage->widthSpaceSpin, SIGNAL(valueChanged(double)), this, SLOT(slotWordTracking()));
 	disconnect(m_pwidget->cpage->baselineOffset_, SIGNAL(valueChanged(double)), this, SLOT(slotBaselineOffset()));
 	disconnect(m_pwidget->cpage->parentCombo, SIGNAL(activated(const QString&)), this, SLOT(slotCharParentChanged(const QString&)));
+	disconnect(m_pwidget->cpage->backColor_, SIGNAL(activated(const QString&)), this, SLOT(slotBackColor()));
+	disconnect(m_pwidget->cpage->backShade_, SIGNAL(clicked()), this, SLOT(slotBackShade()));
 }
 
 void SMParagraphStyle::slotLineSpacingMode(int mode)
@@ -1550,6 +1559,84 @@ void SMParagraphStyle::slotFillShade()
 	}
 }
 
+void SMParagraphStyle::slotBackPColor()
+{
+	if (m_pwidget->backColor_->useParentValue())
+		for (int i = 0; i < m_selection.count(); ++i)
+			m_selection[i]->resetBackgroundColor();
+	else {
+		QString col( m_pwidget->backColor_->currentText());
+		if (col == CommonStrings::tr_NoneColor)
+			col = CommonStrings::None;
+		for (int i = 0; i < m_selection.count(); ++i)
+			m_selection[i]->setBackgroundColor(col);
+	}
+
+	if (!m_selectionIsDirty)
+	{
+		m_selectionIsDirty = true;
+		emit selectionDirty();
+	}
+}
+
+void SMParagraphStyle::slotBackPShade()
+{
+	if (m_pwidget->backShade_->useParentValue())
+		for (int i = 0; i < m_selection.count(); ++i)
+			m_selection[i]->resetBackgroundShade();
+	else {
+		int fs = m_pwidget->backShade_->getValue();
+
+		for (int i = 0; i < m_selection.count(); ++i)
+			m_selection[i]->setBackgroundShade(fs);
+	}
+
+	if (!m_selectionIsDirty)
+	{
+		m_selectionIsDirty = true;
+		emit selectionDirty();
+	}
+}
+
+void SMParagraphStyle::slotBackColor()
+{
+	if (m_pwidget->cpage->backColor_->useParentValue())
+		for (int i = 0; i < m_selection.count(); ++i)
+			m_selection[i]->charStyle().resetBackgroundColor();
+	else {
+		QString col( m_pwidget->cpage->backColor_->currentText());
+		if (col == CommonStrings::tr_NoneColor)
+			col = CommonStrings::None;
+		for (int i = 0; i < m_selection.count(); ++i)
+			m_selection[i]->charStyle().setBackgroundColor(col);
+	}
+
+	if (!m_selectionIsDirty)
+	{
+		m_selectionIsDirty = true;
+		emit selectionDirty();
+	}
+}
+
+void SMParagraphStyle::slotBackShade()
+{
+	if (m_pwidget->cpage->backShade_->useParentValue())
+		for (int i = 0; i < m_selection.count(); ++i)
+			m_selection[i]->charStyle().resetBackgroundShade();
+	else {
+		int fs = m_pwidget->cpage->backShade_->getValue();
+
+		for (int i = 0; i < m_selection.count(); ++i)
+			m_selection[i]->charStyle().setBackgroundShade(fs);
+	}
+
+	if (!m_selectionIsDirty)
+	{
+		m_selectionIsDirty = true;
+		emit selectionDirty();
+	}
+}
+
 void SMParagraphStyle::slotStrokeColor()
 {
 	if (m_pwidget->cpage->strokeColor_->useParentValue())
@@ -2240,20 +2327,13 @@ void SMCharacterStyle::setupConnections()
 
 	connect(m_page->fontFace_, SIGNAL(fontSelected(QString)), this, SLOT(slotFont(QString)));
 	connect(m_page->effects_, SIGNAL(State(int)), this, SLOT(slotEffects(int)));
-	connect(m_page->effects_->ShadowVal->Xoffset, SIGNAL(valueChanged(double)),
-			   this, SLOT(slotEffectProperties()));
-	connect(m_page->effects_->ShadowVal->Yoffset, SIGNAL(valueChanged(double)),
-			   this, SLOT(slotEffectProperties()));
-	connect(m_page->effects_->OutlineVal->LWidth, SIGNAL(valueChanged(double)),
-			   this, SLOT(slotEffectProperties()));
-	connect(m_page->effects_->UnderlineVal->LPos, SIGNAL(valueChanged(double)),
-			   this, SLOT(slotEffectProperties()));
-	connect(m_page->effects_->UnderlineVal->LWidth, SIGNAL(valueChanged(double)),
-			   this, SLOT(slotEffectProperties()));
-	connect(m_page->effects_->StrikeVal->LPos, SIGNAL(valueChanged(double)),
-			   this, SLOT(slotEffectProperties()));
-	connect(m_page->effects_->StrikeVal->LWidth, SIGNAL(valueChanged(double)),
-			   this, SLOT(slotEffectProperties()));
+	connect(m_page->effects_->ShadowVal->Xoffset, SIGNAL(valueChanged(double)), this, SLOT(slotEffectProperties()));
+	connect(m_page->effects_->ShadowVal->Yoffset, SIGNAL(valueChanged(double)), this, SLOT(slotEffectProperties()));
+	connect(m_page->effects_->OutlineVal->LWidth, SIGNAL(valueChanged(double)), this, SLOT(slotEffectProperties()));
+	connect(m_page->effects_->UnderlineVal->LPos, SIGNAL(valueChanged(double)), this, SLOT(slotEffectProperties()));
+	connect(m_page->effects_->UnderlineVal->LWidth, SIGNAL(valueChanged(double)), this, SLOT(slotEffectProperties()));
+	connect(m_page->effects_->StrikeVal->LPos, SIGNAL(valueChanged(double)), this, SLOT(slotEffectProperties()));
+	connect(m_page->effects_->StrikeVal->LWidth, SIGNAL(valueChanged(double)), this, SLOT(slotEffectProperties()));
 	connect(m_page->fillColor_, SIGNAL(activated(const QString&)), this, SLOT(slotFillColor()));
 	connect(m_page->fillShade_, SIGNAL(clicked()), this, SLOT(slotFillShade()));
 	connect(m_page->strokeColor_, SIGNAL(activated(const QString&)), this, SLOT(slotStrokeColor()));
@@ -2265,8 +2345,9 @@ void SMCharacterStyle::setupConnections()
 	connect(m_page->tracking_, SIGNAL(valueChanged(double)), this, SLOT(slotTracking()));
 	connect(m_page->widthSpaceSpin, SIGNAL(valueChanged(double)), this, SLOT(slotWordTracking()));
 	connect(m_page->baselineOffset_, SIGNAL(valueChanged(double)), this, SLOT(slotBaselineOffset()));
-	connect(m_page->parentCombo, SIGNAL(activated(const QString&)),
-	        this, SLOT(slotParentChanged(const QString&)));
+	connect(m_page->parentCombo, SIGNAL(activated(const QString&)), this, SLOT(slotParentChanged(const QString&)));
+	connect(m_page->backColor_, SIGNAL(activated(const QString&)), this, SLOT(slotBackColor()));
+	connect(m_page->backShade_, SIGNAL(clicked()), this, SLOT(slotBackShade()));
 }
 
 void SMCharacterStyle::removeConnections()
@@ -2276,20 +2357,13 @@ void SMCharacterStyle::removeConnections()
 
 	disconnect(m_page->fontFace_, SIGNAL(fontSelected(QString)), this, SLOT(slotFont(QString)));
 	disconnect(m_page->effects_, SIGNAL(State(int)), this, SLOT(slotEffects(int)));
-	disconnect(m_page->effects_->ShadowVal->Xoffset, SIGNAL(valueChanged(double)),
-			   this, SLOT(slotEffectProperties()));
-	disconnect(m_page->effects_->ShadowVal->Yoffset, SIGNAL(valueChanged(double)),
-			   this, SLOT(slotEffectProperties()));
-	disconnect(m_page->effects_->OutlineVal->LWidth, SIGNAL(valueChanged(double)),
-			   this, SLOT(slotEffectProperties()));
-	disconnect(m_page->effects_->UnderlineVal->LPos, SIGNAL(valueChanged(double)),
-			   this, SLOT(slotEffectProperties()));
-	disconnect(m_page->effects_->UnderlineVal->LWidth, SIGNAL(valueChanged(double)),
-			   this, SLOT(slotEffectProperties()));
-	disconnect(m_page->effects_->StrikeVal->LPos, SIGNAL(valueChanged(double)),
-			   this, SLOT(slotEffectProperties()));
-	disconnect(m_page->effects_->StrikeVal->LWidth, SIGNAL(valueChanged(double)),
-			   this, SLOT(slotEffectProperties()));
+	disconnect(m_page->effects_->ShadowVal->Xoffset, SIGNAL(valueChanged(double)), this, SLOT(slotEffectProperties()));
+	disconnect(m_page->effects_->ShadowVal->Yoffset, SIGNAL(valueChanged(double)), this, SLOT(slotEffectProperties()));
+	disconnect(m_page->effects_->OutlineVal->LWidth, SIGNAL(valueChanged(double)), this, SLOT(slotEffectProperties()));
+	disconnect(m_page->effects_->UnderlineVal->LPos, SIGNAL(valueChanged(double)), this, SLOT(slotEffectProperties()));
+	disconnect(m_page->effects_->UnderlineVal->LWidth, SIGNAL(valueChanged(double)), this, SLOT(slotEffectProperties()));
+	disconnect(m_page->effects_->StrikeVal->LPos, SIGNAL(valueChanged(double)), this, SLOT(slotEffectProperties()));
+	disconnect(m_page->effects_->StrikeVal->LWidth, SIGNAL(valueChanged(double)), this, SLOT(slotEffectProperties()));
 	disconnect(m_page->fillColor_, SIGNAL(activated(const QString&)), this, SLOT(slotFillColor()));
 	disconnect(m_page->fillShade_, SIGNAL(clicked()), this, SLOT(slotFillShade()));
 	disconnect(m_page->strokeColor_, SIGNAL(activated(const QString&)), this, SLOT(slotStrokeColor()));
@@ -2301,8 +2375,9 @@ void SMCharacterStyle::removeConnections()
 	disconnect(m_page->tracking_, SIGNAL(valueChanged(double)), this, SLOT(slotTracking()));
 	disconnect(m_page->widthSpaceSpin, SIGNAL(valueChanged(double)), this, SLOT(slotWordTracking()));
 	disconnect(m_page->baselineOffset_, SIGNAL(valueChanged(double)), this, SLOT(slotBaselineOffset()));
-	disconnect(m_page->parentCombo, SIGNAL(activated(const QString&)),
-			this, SLOT(slotParentChanged(const QString&)));
+	disconnect(m_page->parentCombo, SIGNAL(activated(const QString&)),  this, SLOT(slotParentChanged(const QString&)));
+	disconnect(m_page->backColor_, SIGNAL(activated(const QString&)), this, SLOT(slotBackColor()));
+	disconnect(m_page->backShade_, SIGNAL(clicked()), this, SLOT(slotBackShade()));
 }
 
 void SMCharacterStyle::slotFontSize()
@@ -2466,6 +2541,45 @@ void SMCharacterStyle::slotFillShade()
 			m_selection[i]->setFillShade(fs);
 	}
 	
+	if (!m_selectionIsDirty)
+	{
+		m_selectionIsDirty = true;
+		emit selectionDirty();
+	}
+}
+
+void SMCharacterStyle::slotBackColor()
+{
+	if (m_page->backColor_->useParentValue())
+		for (int i = 0; i < m_selection.count(); ++i)
+			m_selection[i]->resetBackgroundColor();
+	else {
+		QString col(m_page->backColor_->currentText());
+		if (col == CommonStrings::tr_NoneColor)
+			col = CommonStrings::None;
+		for (int i = 0; i < m_selection.count(); ++i)
+			m_selection[i]->setBackgroundColor(col);
+	}
+
+	if (!m_selectionIsDirty)
+	{
+		m_selectionIsDirty = true;
+		emit selectionDirty();
+	}
+}
+
+void SMCharacterStyle::slotBackShade()
+{
+	if (m_page->backShade_->useParentValue())
+		for (int i = 0; i < m_selection.count(); ++i)
+			m_selection[i]->resetBackgroundShade();
+	else {
+		int fs = m_page->backShade_->getValue();
+
+		for (int i = 0; i < m_selection.count(); ++i)
+			m_selection[i]->setBackgroundShade(fs);
+	}
+
 	if (!m_selectionIsDirty)
 	{
 		m_selectionIsDirty = true;

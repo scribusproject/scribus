@@ -2467,6 +2467,13 @@ void Scribus150Format::readCharacterStyleAttrs(ScribusDoc *doc, ScXmlStreamAttri
 	if (attrs.hasAttribute(SCOLOR))
 		newStyle.setStrokeColor(attrs.valueAsString(SCOLOR, CommonStrings::None));
 
+	static const QString BCOLOR("BCOLOR");
+	if (attrs.hasAttribute(BCOLOR))
+		newStyle.setBackgroundColor(attrs.valueAsString(BCOLOR, CommonStrings::None));
+	static const QString BSHADE("BSHADE");
+	if (attrs.hasAttribute(BSHADE))
+		newStyle.setBackgroundShade(attrs.valueAsInt(BSHADE, 100));
+
 	static const QString SSHADE("SSHADE");
 	if (attrs.hasAttribute(SSHADE))
 		newStyle.setStrokeShade(attrs.valueAsInt(SSHADE));
@@ -2735,6 +2742,12 @@ void Scribus150Format::readParagraphStyle(ScribusDoc *doc, ScXmlStreamReader& re
 	static const QString KeepTogether("KeepTogether");
 	if (attrs.hasAttribute(KeepTogether))
 		newStyle.setKeepTogether(attrs.valueAsInt(KeepTogether));
+	static const QString BCOLOR("BCOLOR");
+	if (attrs.hasAttribute(BCOLOR))
+		newStyle.setBackgroundColor(attrs.valueAsString(BCOLOR, CommonStrings::None));
+	static const QString BSHADE("BSHADE");
+	if (attrs.hasAttribute(BSHADE))
+		newStyle.setBackgroundShade(attrs.valueAsInt(BSHADE, 100));
 
 	readCharacterStyleAttrs( doc, attrs, newStyle.charStyle());
 

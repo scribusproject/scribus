@@ -723,6 +723,10 @@ void Scribus150Format::putPStyle(ScXmlStreamWriter & docu, const ParagraphStyle 
 		docu.writeAttribute("KeepWithNext", style.keepWithNext());
 	if ( ! style.isInhKeepTogether())
 		docu.writeAttribute("KeepTogether", style.keepTogether());
+	if ( ! style.isInhBackgroundColor())
+		docu.writeAttribute("BCOLOR", style.backgroundColor());
+	if ( ! style.isInhBackgroundShade())
+		docu.writeAttribute("BSHADE", style.backgroundShade());
 
 	if ( ! style.shortcut().isEmpty() )
 		docu.writeAttribute("PSHORTCUT", style.shortcut()); // shortcuts won't be inherited
@@ -781,6 +785,10 @@ void Scribus150Format::putCStyle(ScXmlStreamWriter & docu, const CharStyle & sty
 		docu.writeAttribute("FSHADE", style.fillShade());
 	if ( ! style.isInhStrokeColor())
 		docu.writeAttribute("SCOLOR", style.strokeColor());
+	if ( ! style.isInhBackgroundColor())
+		docu.writeAttribute("BCOLOR", style.backgroundColor());
+	if ( ! style.isInhBackgroundShade())
+		docu.writeAttribute("BSHADE", style.backgroundShade());
 	if ( ! style.isInhStrokeShade())
 		docu.writeAttribute("SSHADE", style.strokeShade());
 	if ( ! style.isInhShadowXOffset())

@@ -2838,6 +2838,8 @@ bool PDFLibCore::PDF_TemplatePage(const ScPage* pag, bool )
 					case PageItem::Multiple:
 						Q_ASSERT(false);
 						break;
+					default:
+						break;
 				}
 				PutPage("Q\n");
 				PdfId templateObject = writer.newObject();
@@ -4925,6 +4927,8 @@ bool PDFLibCore::PDF_ProcessItem(QByteArray& output, PageItem* ite, const ScPage
 		case PageItem::Multiple:
 			Q_ASSERT(false);
 			break;
+		default:
+			break;
 	}
 	tmp += "Q\n";
 	output = tmp;
@@ -5378,11 +5382,144 @@ QByteArray PDFLibCore::setTextSt(PageItem *ite, uint PNr, const ScPage* pag)
 		straightPath.PRot = 0;
 		straightPath.PDx = 0;
 		tmp += "BT\n";
+		for (uint ll = 0; ll < ite->textLayout.lines(); ++ll)
+		{
+			LineSpec ls = ite->textLayout.line(ll);
+			const ParagraphStyle& LineStyle = ite->itemText.paragraphStyle(ls.firstItem);
+			// This code is for rendering paragraph background color.
+			// We just need to define this attribute for the paragraphs now.
+			if (LineStyle.backgroundColor() != CommonStrings::None)
+			{
+				double y1 = ls.y;
+				double hl = ls.height;
+				double adjX = 0;
+				if (LineStyle.firstIndent() <= 0)
+					adjX += LineStyle.leftMargin() + LineStyle.firstIndent();
+				if (LineStyle.lineSpacingMode() == ParagraphStyle::BaselineGridLineSpacing)
+					hl = doc.guidesPrefs().valueBaselineGrid;
+				if (ls.isFirstLine)
+				{
+					if (ite->textLayout.lines() == 1)
+						hl = ls.ascent + ls.descent;
+					if (LineStyle.hasDropCap())
+						hl *= LineStyle.dropCapLines();
+				}
+				if (LineStyle.lineSpacingMode() == ParagraphStyle::BaselineGridLineSpacing)
+					y1 -= LineStyle.lineSpacing();
+				else if (ite->firstLineOffset() == FLOPRealGlyphHeight || ite->firstLineOffset() == FLOPFontAscent)
+					y1 -= ls.ascent;
+				else
+					y1 -= LineStyle.lineSpacing();
+				QRectF scr(ls.colLeft + adjX, y1, ite->asTextFrame()->columnWidth() - adjX - LineStyle.rightMargin(), hl);
+				tmp += "q\n";
+				tmp += putColor(LineStyle.backgroundColor(), LineStyle.backgroundShade(), true);
+				tmp += FToStr(scr.x())     +" "+FToStr(-scr.y())+" m\n";
+				tmp += FToStr(scr.x() + scr.width())+" "+FToStr(-scr.y())+" l\n";
+				tmp += FToStr(scr.x() + scr.width())+" "+FToStr(-scr.y() - scr.height())+" l\n";
+				tmp += FToStr(scr.x())+" "+FToStr(-scr.y() - scr.height())+" l\n";
+				tmp += "h\nf*\n";
+				tmp += "Q\n";
+			}
+			// end background code
+		}
 		for (uint ll=0; ll < ite->textLayout.lines(); ++ll)
 		{
 			LineSpec ls = ite->textLayout.line(ll);
 			tabDist = ls.x;
 			double CurX = ls.x;
+			double CurXB = ls.x;
+			int last = qMin(ls.lastItem, ite->itemText.length() - 1);
+			QRectF scr;
+			QString oldBack = "";
+			double oldShade = 100;
+			QByteArray colorB = "";
+			for (int a = ls.firstItem; a <= last; ++a)
+			{
+				const GlyphLayout* glyphs(ite->itemText.getGlyphs(a));
+				const CharStyle& charStyle(ite->itemText.charStyle(a));
+				if (charStyle.backgroundColor() != CommonStrings::None)
+				{
+					colorB += putColor(charStyle.backgroundColor(), charStyle.backgroundShade(), true);
+				// This code is for rendering character background color.
+					const ParagraphStyle& LineStyle = ite->itemText.paragraphStyle(ls.firstItem);
+					double y1 = ls.y;
+					double hl = ls.height;
+					if (LineStyle.lineSpacingMode() == ParagraphStyle::BaselineGridLineSpacing)
+						hl = doc.guidesPrefs().valueBaselineGrid;
+					else if (LineStyle.lineSpacingMode() == ParagraphStyle::FixedLineSpacing)
+						hl = LineStyle.lineSpacing();
+					if (ls.isFirstLine)
+					{
+						if (ite->textLayout.lines() == 1)
+							hl = ls.ascent + ls.descent;
+						if (LineStyle.hasDropCap() && (a == ls.firstItem))
+							hl *= LineStyle.dropCapLines();
+						if (LineStyle.lineSpacingMode() == ParagraphStyle::BaselineGridLineSpacing)
+							y1 -= LineStyle.lineSpacing();
+						else if (ite->firstLineOffset() == FLOPRealGlyphHeight || ite->firstLineOffset() == FLOPFontAscent)
+							y1 -= ls.ascent;
+						else
+							y1 -= LineStyle.lineSpacing();
+					}
+					else
+						y1 -= ls.ascent + (hl - (ls.ascent + ls.descent)) / 2.0;
+					QRectF scrG;
+					if (ite->itemText.hasObject(a))
+					{
+						PageItem* obj = ite->itemText.object(a);
+						double ww = (obj->width() + obj->lineWidth()) * glyphs->scaleH;
+						double hh = (obj->height() + obj->lineWidth()) * glyphs->scaleV;
+						scrG = QRectF(CurXB, ls.y - hh, ww , hh);
+					}
+					else
+						scrG = QRectF(CurXB, y1, glyphs->wide(), hl);
+					if ((oldBack == "") || ((oldBack == charStyle.backgroundColor()) && (oldShade == charStyle.backgroundShade())))
+						scr |= scrG;
+					else if ((oldBack != charStyle.backgroundColor()) || (oldShade != charStyle.backgroundShade()))
+					{
+						tmp += "q\n";
+						tmp += putColor(oldBack, oldShade, true);
+						tmp += FToStr(scr.x())     +" "+FToStr(-scr.y())+" m\n";
+						tmp += FToStr(scr.x() + scr.width())+" "+FToStr(-scr.y())+" l\n";
+						tmp += FToStr(scr.x() + scr.width())+" "+FToStr(-scr.y() - scr.height())+" l\n";
+						tmp += FToStr(scr.x())+" "+FToStr(-scr.y() - scr.height())+" l\n";
+						tmp += "h\nf*\n";
+						tmp += "Q\n";
+						scr = scrG;
+					}
+					oldBack = charStyle.backgroundColor();
+					oldShade = charStyle.backgroundShade();
+				}
+				else
+				{
+					if (!scr.isNull())
+					{
+						tmp += "q\n";
+						tmp += colorB;
+						tmp += FToStr(scr.x())     +" "+FToStr(-scr.y())+" m\n";
+						tmp += FToStr(scr.x() + scr.width())+" "+FToStr(-scr.y())+" l\n";
+						tmp += FToStr(scr.x() + scr.width())+" "+FToStr(-scr.y() - scr.height())+" l\n";
+						tmp += FToStr(scr.x())+" "+FToStr(-scr.y() - scr.height())+" l\n";
+						tmp += "h\nf*\n";
+						tmp += "Q\n";
+					}
+					oldBack = "";
+					oldShade = 100;
+					scr = QRectF();
+				}
+				CurXB += glyphs->wide();
+			}
+			if (!scr.isNull())
+			{
+				tmp += "q\n";
+				tmp += colorB;
+				tmp += FToStr(scr.x())     +" "+FToStr(-scr.y())+" m\n";
+				tmp += FToStr(scr.x() + scr.width())+" "+FToStr(-scr.y())+" l\n";
+				tmp += FToStr(scr.x() + scr.width())+" "+FToStr(-scr.y() - scr.height())+" l\n";
+				tmp += FToStr(scr.x())+" "+FToStr(-scr.y() - scr.height())+" l\n";
+				tmp += "h\nf*\n";
+				tmp += "Q\n";
+			}
 			for (int d = ls.firstItem; d <= ls.lastItem; ++d)
 			{
 				GlyphLayout* glyphs = ite->itemText.getGlyphs(d);

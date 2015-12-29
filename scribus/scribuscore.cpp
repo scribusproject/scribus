@@ -290,6 +290,7 @@ void ScribusCore::getCMSProfiles(bool showInfo)
 	PrinterProfiles.clear();
 	InputProfiles.clear();
 	InputProfilesCMYK.clear();
+	LabProfiles.clear();
 	profDirs = ScPaths::getSystemProfilesDirs();
 	profDirs.prepend( prefsManager->appPrefs.pathPrefs.colorProfiles );
 	profDirs.prepend( ScPaths::instance().shareDir()+"profiles/");
@@ -349,6 +350,11 @@ void ScribusCore::getCMSProfilesDir(QString pfad, bool showInfo, bool recursive)
 				if (!InputProfilesCMYK.contains(profileName))
 					InputProfilesCMYK.insert(profileName, profInfo.file);
 			}
+			if (profInfo.colorSpace == ColorSpace_Lab)
+			{
+				if (!LabProfiles.contains(profileName))
+					LabProfiles.insert(profileName, profInfo.file);
+			}
 			break;
 		case Class_Display:
 			if (profInfo.colorSpace == ColorSpace_Rgb)
@@ -362,6 +368,11 @@ void ScribusCore::getCMSProfilesDir(QString pfad, bool showInfo, bool recursive)
 			{
 				if (!InputProfilesCMYK.contains(profileName))
 					InputProfilesCMYK.insert(profileName, profInfo.file);
+			}
+			if (profInfo.colorSpace == ColorSpace_Lab)
+			{
+				if (!LabProfiles.contains(profileName))
+					LabProfiles.insert(profileName, profInfo.file);
 			}
 			break;
 		case Class_Output:
@@ -429,7 +440,10 @@ void ScribusCore::InitDefaultColorTransforms(void)
 	// Now create default color transforms (used mainly when color management is "disabled")
 	int dcmsFlags        = Ctf_BlackPointCompensation;
 	eRenderIntent intent = Intent_Relative_Colorimetric;
-	defaultLabProfile = defaultEngine.createProfile_Lab();
+//	if (!LabProfiles.isEmpty())
+//		defaultLabProfile = defaultEngine.openProfileFromFile(LabProfiles.first());
+//	else
+		defaultLabProfile = defaultEngine.createProfile_Lab();
 
 	defaultRGBToScreenSolidTrans  = defaultEngine.createTransform(defaultRGBProfile, Format_RGB_16,  defaultRGBProfile, Format_RGB_16, intent, dcmsFlags);
 	defaultRGBToScreenImageTrans  = defaultEngine.createTransform(defaultRGBProfile, Format_RGBA_8,  defaultRGBProfile, Format_RGBA_8, intent, dcmsFlags);

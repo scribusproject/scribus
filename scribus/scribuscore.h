@@ -57,7 +57,7 @@ public:
 	ScribusCore();
 	~ScribusCore();
 	
-	ScSplashScreen* splash() {return m_SplashScreen;};
+	ScSplashScreen* splash() {return m_SplashScreen;}
 	/*
 	int exportToPDF() {return 0;}
 	int exportToEPS() {return 0;}
@@ -66,7 +66,7 @@ public:
 	*/	
 	int init(bool useGUI, const QList<QString>& filesToUse);
 	int initScribusCore(bool showSplash, bool showFontInfo, bool showProfileInfo, const QString newGuiLanguage, const QString prefsUserFile);
-	bool initialized() const {return m_ScribusInitialized;};
+	bool initialized() const {return m_ScribusInitialized;}
 	const QString& getGuiLanguage() const;
 
 	void initSplash(bool showSplash);
@@ -88,7 +88,7 @@ public:
 	*/
 	bool isWinGUI() const;
 	bool haveCMS() const {return m_HaveCMS;}
-	bool haveGS() const {return m_HaveGS;};
+	bool haveGS() const {return m_HaveGS;}
 	bool havePNGAlpha() const {return m_HavePngAlpha;}
 	bool haveTIFFSep() const {return m_HaveTiffSep;}
 	void getCMSProfiles(bool showInfo);
@@ -109,6 +109,7 @@ public:
 	ProfilesL MonitorProfiles;
 	ProfilesL PrinterProfiles;
 	ProfilesL PDFXProfiles;
+	ProfilesL LabProfiles;
 
 	ScColorMgmtEngine defaultEngine;
 	ScColorProfile   monitorProfile;

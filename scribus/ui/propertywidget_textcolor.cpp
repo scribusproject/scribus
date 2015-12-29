@@ -35,6 +35,11 @@ PropertyWidget_TextColor::PropertyWidget_TextColor(QWidget* parent) : QFrame(par
 	strokeIcon->setScaledContents( false );
 	strokeShadeLabel->setPixmap(IconManager::instance()->loadPixmap("shade.png"));
 
+	backLayout->setAlignment( Qt::AlignLeft );
+	backIcon->setPixmap(IconManager::instance()->loadPixmap("16/color-fill.png"));
+	backIcon->setScaledContents( false );
+	backShadeLabel->setPixmap(IconManager::instance()->loadPixmap("shade.png"));
+
 	effectsLayout->setAlignment( Qt::AlignLeft );
 	revertButton->setIcon(IconManager::instance()->loadIcon("Revers.png"));
 	revertButton->setCheckable( true );
@@ -129,6 +134,8 @@ void PropertyWidget_TextColor::connectSignals()
 	connect(strokeColor , SIGNAL(activated(int)), this, SLOT(handleTextStroke())   , Qt::UniqueConnection);
 	connect(fillShade   , SIGNAL(clicked())     , this, SLOT(handleTextShade())    , Qt::UniqueConnection);
 	connect(strokeShade , SIGNAL(clicked())     , this, SLOT(handleTextShade())    , Qt::UniqueConnection);
+	connect(backShade , SIGNAL(clicked())     , this, SLOT(handleTextShade())    , Qt::UniqueConnection);
+	connect(backColor   , SIGNAL(activated(int)), this, SLOT(handleTextBackground())     , Qt::UniqueConnection);
 
 	connect(textEffects, SIGNAL(State(int))      , this, SLOT(handleTypeStyle(int)), Qt::UniqueConnection);
 	connect(textEffects->ShadowVal->Xoffset  , SIGNAL(valueChanged(double)), this, SLOT(handleShadowOffs()), Qt::UniqueConnection);
@@ -147,6 +154,8 @@ void PropertyWidget_TextColor::disconnectSignals()
 	disconnect(strokeColor , SIGNAL(activated(int)), this, SLOT(handleTextStroke()));
 	disconnect(fillShade   , SIGNAL(clicked())     , this, SLOT(handleTextShade()));
 	disconnect(strokeShade , SIGNAL(clicked())     , this, SLOT(handleTextShade()));
+	disconnect(backShade , SIGNAL(clicked())     , this, SLOT(handleTextShade()));
+	disconnect(backColor   , SIGNAL(activated(int)), this, SLOT(handleTextBackground()));
 
 	disconnect(textEffects, SIGNAL(State(int))      , this, SLOT(handleTypeStyle(int)));
 	disconnect(textEffects->ShadowVal->Xoffset  , SIGNAL(valueChanged(double)), this, SLOT(handleShadowOffs()));
@@ -202,8 +211,10 @@ void PropertyWidget_TextColor::updateColorList()
 
 	fillColor->updateBox(m_doc->PageColors, ColorCombo::fancyPixmaps, true);
 	strokeColor->updateBox(m_doc->PageColors, ColorCombo::fancyPixmaps, false);
+	backColor->updateBox(m_doc->PageColors, ColorCombo::fancyPixmaps, true);
 	fillColor->view()->setMinimumWidth(fillColor->view()->maximumViewportSize().width() + 24);
 	strokeColor->view()->setMinimumWidth(strokeColor->view()->maximumViewportSize().width() + 24);
+	backColor->view()->setMinimumWidth(backColor->view()->maximumViewportSize().width() + 24);
 
 	if (m_item)
 		setCurrentItem(m_item);
@@ -216,7 +227,7 @@ void PropertyWidget_TextColor::updateCharStyle(const CharStyle& charStyle)
 
 	showOutlineW  (charStyle.outlineWidth());
 	showShadowOffset(charStyle.shadowXOffset(), charStyle.shadowYOffset());
-	showTextColors(charStyle.strokeColor(), charStyle.fillColor(), charStyle.strokeShade(), charStyle.fillShade());
+	showTextColors(charStyle.strokeColor(), charStyle.fillColor(), charStyle.backgroundColor(), charStyle.strokeShade(), charStyle.fillShade(), charStyle.backgroundShade());
 	showTextEffects(charStyle.effects());
 	showStrikeThru(charStyle.strikethruOffset()  , charStyle.strikethruWidth());
 	showUnderline (charStyle.underlineOffset(), charStyle.underlineWidth());
@@ -231,7 +242,7 @@ void PropertyWidget_TextColor::updateStyle(const ParagraphStyle& newCurrent)
 
 	showOutlineW  (charStyle.outlineWidth());
 	showShadowOffset(charStyle.shadowXOffset(), charStyle.shadowYOffset());
-	showTextColors(charStyle.strokeColor(), charStyle.fillColor(), charStyle.strokeShade(), charStyle.fillShade());
+	showTextColors(charStyle.strokeColor(), charStyle.fillColor(), charStyle.backgroundColor(), charStyle.strokeShade(), charStyle.fillShade(), charStyle.backgroundShade());
 	showTextEffects(charStyle.effects());
 	showStrikeThru(charStyle.strikethruOffset()  , charStyle.strikethruWidth());
 	showUnderline (charStyle.underlineOffset(), charStyle.underlineWidth());
@@ -260,7 +271,7 @@ void PropertyWidget_TextColor::showStrikeThru(double p, double w)
 	textEffects->StrikeVal->LWidth->showValue(w / 10.0);
 }
 
-void PropertyWidget_TextColor::showTextColors(QString p, QString b, double shp, double shb)
+void PropertyWidget_TextColor::showTextColors(QString p, QString b, QString bc, double shp, double shb, double sbc)
 {
 	if (!m_doc || !m_item || !m_ScMW || m_ScMW->scriptIsRunning())
 		return;
@@ -268,6 +279,7 @@ void PropertyWidget_TextColor::showTextColors(QString p, QString b, double shp, 
 	int c = 0;
 	fillShade->setValue(qRound(shb));
 	strokeShade->setValue(qRound(shp));
+	backShade->setValue(qRound(sbc));
 	if ((b != CommonStrings::None) && (!b.isEmpty()))
 	{
 		c++;
@@ -290,6 +302,18 @@ void PropertyWidget_TextColor::showTextColors(QString p, QString b, double shp, 
 		}
 	}
 	strokeColor->setCurrentIndex(c);
+	c = 0;
+	if ((bc != CommonStrings::None) && (!bc.isEmpty()))
+	{
+		c++;
+		for (it = m_doc->PageColors.begin(); it != m_doc->PageColors.end(); ++it)
+		{
+			if (it.key() == bc)
+				break;
+			c++;
+		}
+	}
+	backColor->setCurrentIndex(c);
 }
 
 void PropertyWidget_TextColor::showTextEffects(int s)
@@ -406,6 +430,21 @@ void PropertyWidget_TextColor::handleTextStroke()
 	}
 }
 
+void PropertyWidget_TextColor::handleTextBackground()
+{
+	if (!m_doc || !m_item || !m_ScMW || m_ScMW->scriptIsRunning())
+		return;
+	PageItem *i2 = m_item;
+	if (m_doc->appMode == modeEditTable)
+		i2 = m_item->asTable()->activeCell().textFrame();
+	if (i2 != NULL)
+	{
+		Selection tempSelection(this, false);
+		tempSelection.addItem(i2, true);
+		m_doc->itemSelection_SetBackgroundColor(backColor->currentColor(), &tempSelection);
+	}
+}
+
 void PropertyWidget_TextColor::handleTextShade()
 {
 	if (!m_doc || !m_item || !m_ScMW || m_ScMW->scriptIsRunning())
@@ -423,7 +462,7 @@ void PropertyWidget_TextColor::handleTextShade()
 			m_doc->itemSelection_SetStrokeShade(b, &tempSelection);
 		}
 	}
-	else
+	else if (fillShade == sender())
 	{
 		int b = fillShade->getValue();
 		PageItem *i2 = m_item;
@@ -434,6 +473,19 @@ void PropertyWidget_TextColor::handleTextShade()
 			Selection tempSelection(this, false);
 			tempSelection.addItem(i2, true);
 			m_doc->itemSelection_SetFillShade(b, &tempSelection);
+		}
+	}
+	else if (backShade == sender())
+	{
+		int b = backShade->getValue();
+		PageItem *i2 = m_item;
+		if (m_doc->appMode == modeEditTable)
+			i2 = m_item->asTable()->activeCell().textFrame();
+		if (i2 != NULL)
+		{
+			Selection tempSelection(this, false);
+			tempSelection.addItem(i2, true);
+			m_doc->itemSelection_SetBackgroundShade(b, &tempSelection);
 		}
 	}
 }
@@ -498,8 +550,10 @@ void PropertyWidget_TextColor::languageChange()
 
 	fillColor->setToolTip( "<qt>" + tr("Color of selected text. If Outline text decoration is enabled, this color will be the fill color. If Drop Shadow Text is enabled, then this will be the top most color.") + "</qt>" );
 	strokeColor->setToolTip( "<qt>" + tr("Color of text stroke and/or drop shadow, depending which is chosen. If both are chosen, then they share the same color.") + "</qt>" );
+	backColor->setToolTip( "<qt>" + tr("Background color of selected text.") + "</qt>" );
 	fillShade->setToolTip( tr("Saturation of color of text fill"));
 	strokeShade->setToolTip( tr("Saturation of color of text stroke"));
+	backShade->setToolTip( tr("Saturation of color of text background"));
 
 	revertButton->setToolTip( tr("Right to Left Writing"));
 }

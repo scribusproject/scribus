@@ -1863,6 +1863,7 @@ void OdgPlug::applyCharacterStyle(CharStyle &tmpCStyle, ObjStyle &oStyle)
 	tmpCStyle.setFont((*m_Doc->AllFonts)[oStyle.fontName]);
 	tmpCStyle.setFontSize(oStyle.fontSize * 10);
 	tmpCStyle.setFillColor(oStyle.CurrColorText);
+	tmpCStyle.setBackgroundColor(oStyle.CurrColorBText);
 	StyleFlag styleEffects = tmpCStyle.effects();
 	if ((oStyle.textPos.startsWith("super")) || (oStyle.textPos.startsWith("sub")))
 	{
@@ -2223,6 +2224,7 @@ void OdgPlug::parseStyles(QDomElement &sp)
 						currStyle.fontName = AttributeValue(spe.attribute("fo:font-family", ""));
 					currStyle.fontSize = AttributeValue(spe.attribute("fo:font-size", ""));
 					currStyle.fontColor = AttributeValue(spe.attribute("fo:color", ""));
+					currStyle.textBackgroundColor = AttributeValue(spe.attribute("fo:background-color", ""));
 					currStyle.textPos = AttributeValue(spe.attribute("style:text-position", ""));
 					currStyle.textOutline = AttributeValue(spe.attribute("style:text-outline", ""));
 					currStyle.textUnderline = AttributeValue(spe.attribute("style:text-underline-style", ""));
@@ -2391,6 +2393,8 @@ void OdgPlug::resovleStyle(ObjStyle &tmpOStyle, QString pAttrs)
 					actStyle.lineHeight = AttributeValue(currStyle.lineHeight.value);
 				if (currStyle.fontColor.valid)
 					actStyle.fontColor = AttributeValue(currStyle.fontColor.value);
+				if (currStyle.textBackgroundColor.valid)
+					actStyle.textBackgroundColor = AttributeValue(currStyle.textBackgroundColor.value);
 				if (currStyle.gradientAngle.valid)
 					actStyle.gradientAngle = AttributeValue(currStyle.gradientAngle.value);
 				if (currStyle.gradientBorder.valid)
@@ -2574,6 +2578,8 @@ void OdgPlug::resovleStyle(ObjStyle &tmpOStyle, QString pAttrs)
 			tmpOStyle.fontSize = parseUnit(actStyle.fontSize.value);
 		if (actStyle.fontColor.valid)
 			tmpOStyle.CurrColorText = parseColor(actStyle.fontColor.value);
+		if (actStyle.textBackgroundColor.valid)
+			tmpOStyle.CurrColorBText = parseColor(actStyle.textBackgroundColor.value);
 		if (actStyle.margin_top.valid)
 			tmpOStyle.margin_top = parseUnit(actStyle.margin_top.value);
 		if (actStyle.margin_bottom.valid)

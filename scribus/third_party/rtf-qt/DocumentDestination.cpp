@@ -99,6 +99,8 @@ namespace RtfReader
 			m_output->setForegroundColour(value);
 		else if (controlWord == "cbpat" )
 			m_output->setParagraphPatternBackgroundColour(value);
+		else if (controlWord == "chcbpat" )
+			m_output->setCharacterPatternBackgroundColour(value);
 		else if (controlWord == "highlight")
 			m_output->setHighlightColour(value);
 		else if ((controlWord == "deff") && hasValue)

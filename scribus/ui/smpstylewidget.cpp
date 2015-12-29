@@ -35,6 +35,10 @@ SMPStyleWidget::SMPStyleWidget(ScribusDoc* doc, StyleSet<CharStyle> *cstyles) : 
 	lineSpacingLabel->setPixmap(IconManager::instance()->loadPixmap("linespacing2.png"));
 	spaceAboveLabel->setPixmap(IconManager::instance()->loadPixmap("above.png") );
 	spaceBelowLabel->setPixmap(IconManager::instance()->loadPixmap("below.png") );
+	backIcon->setPixmap(IconManager::instance()->loadPixmap("16/color-fill.png"));
+	backShadeLabel->setPixmap(IconManager::instance()->loadPixmap("shade.png"));
+	backColor_->clear();
+	backColor_->addItem(CommonStrings::tr_NoneColor);
 
 	lineSpacingMode->addItem( tr("Fixed Linespacing"));
 	lineSpacingMode->addItem( tr("Automatic Linespacing"));
@@ -134,6 +138,10 @@ void SMPStyleWidget::languageChange()
 	keepLabelEnd->setToolTip(keepLinesEnd->toolTip());
 	keepTogether->setToolTip("<qt>" + tr("If checked, ensures that the paragraph won't be split across multiple pages or columns") + "</qt>");
 	keepWithNext->setToolTip("<qt>" + tr("If checked, automatically moves the paragraph to the next column or page if the next paragraph isn't on the same page or column") + "</qt>");
+	backColor_->setToolTip(      tr("Background Color"));
+	backShade_->setToolTip(      tr("Background Shade"));
+	backIcon->setToolTip(backColor_->toolTip());
+	backShadeLabel->setToolTip(backShade_->toolTip());
 
 /***********************************/
 /*      End Tooltips               */
@@ -230,6 +238,13 @@ void SMPStyleWidget::languageChange()
 
 	optMarginDefaultButton->setText(  tr("Reset to Default"));
 	optMarginParentButton->setText(   tr("Use Parent Value"));
+
+	if (backColor_->count() > 0)
+	{
+		bool sigBlocked = backColor_->blockSignals(true);
+		backColor_->setItemText(0, CommonStrings::tr_NoneColor);
+		backColor_->blockSignals(sigBlocked);
+	}
 }
 
 void SMPStyleWidget::unitChange(double oldRatio, double newRatio, int unitIndex)
@@ -248,6 +263,19 @@ void SMPStyleWidget::setDoc(ScribusDoc *doc)
 		connect(m_Doc->scMW(), SIGNAL(UpdateRequest(int)), this , SLOT(handleUpdateRequest(int)));
 		fillNumerationsCombo();
 	}
+}
+
+void SMPStyleWidget::fillColorCombo(ColorList &colors)
+{
+	backColor_->clear();
+	backColor_->addItem(CommonStrings::tr_NoneColor);
+	ColorList::Iterator itend=colors.end();
+	ScribusDoc* doc = colors.document();
+	for (ColorList::Iterator it = colors.begin(); it != itend; ++it)
+	{
+		backColor_->insertFancyItem(it.value(), doc, it.key());
+	}
+	backColor_->view()->setMinimumWidth(backColor_->view()->maximumViewportSize().width()+24);
 }
 
 void SMPStyleWidget::fillBulletStrEditCombo()
@@ -452,6 +480,11 @@ void SMPStyleWidget::show(ParagraphStyle *pstyle, QList<ParagraphStyle> &pstyles
 		numRestartOtherBox->setParentValue(parent->numOther());
 		numRestartHigherBox->setChecked(pstyle->numHigher(), pstyle->isInhNumHigher());
 		numRestartHigherBox->setParentValue(parent->numHigher());
+
+		backColor_->setCurrentText(pstyle->backgroundColor(), pstyle->isInhBackgroundColor());
+		backColor_->setParentText(parent->backgroundColor());
+		backShade_->setValue(qRound(pstyle->backgroundShade()), pstyle->isInhBackgroundShade());
+		backShade_->setParentValue(qRound(parent->backgroundShade()));
 	}
 	else
 	{
@@ -510,6 +543,8 @@ void SMPStyleWidget::show(ParagraphStyle *pstyle, QList<ParagraphStyle> &pstyles
 		keepLinesEnd->setValue (pstyle->keepLinesEnd());
 		keepTogether->setChecked (pstyle->keepTogether());
 		keepWithNext->setChecked (pstyle->keepWithNext());
+		backColor_->setCurrentText(pstyle->backgroundColor());
+		backShade_->setValue(qRound(pstyle->backgroundShade()));
 	}
 
 	lineSpacing->setEnabled(pstyle->lineSpacingMode() == ParagraphStyle::FixedLineSpacing);
@@ -577,7 +612,51 @@ void SMPStyleWidget::show(QList<ParagraphStyle*> &pstyles, QList<ParagraphStyle>
 		showCStyle(pstyles, cstyles, defLang, unitIndex);
 		showParent(pstyles);
 		checkParEffectState();
+		showColors(pstyles);
 	}
+}
+
+void SMPStyleWidget::showColors(const QList<ParagraphStyle*> &cstyles)
+{
+	double d = -30000;
+	for (int i = 0; i < cstyles.count(); ++i)
+	{
+		if (d != -30000 && cstyles[i]->backgroundShade() != d)
+		{
+			d = -30000;
+			break;
+		}
+		else
+			d = cstyles[i]->backgroundShade();
+	}
+	if (d == -30000)
+	{
+		backShade_->setValue(21);
+		backShade_->setText( tr("Shade"));
+	}
+	else
+		backShade_->setValue(qRound(d));
+
+	QString s;
+	QString emptyString;
+	for (int i = 0; i < cstyles.count(); ++i)
+	{
+		if (!s.isNull() && s != cstyles[i]->backgroundColor())
+		{
+			s = emptyString;
+			break;
+		}
+		else
+			s = cstyles[i]->backgroundColor();
+	}
+	if (s.isEmpty())
+	{
+		if (backColor_->itemText(backColor_->count() - 1) != "")
+			backColor_->addItem("");
+		backColor_->setCurrentIndex(backColor_->count() - 1);
+	}
+	else
+		backColor_->setCurrentText(s);
 }
 
 void SMPStyleWidget::showLineSpacing(QList<ParagraphStyle*> &pstyles)

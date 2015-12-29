@@ -6,81 +6,18 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>270</width>
-    <height>429</height>
+    <width>281</width>
+    <height>411</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Form</string>
   </property>
-  <layout class="QGridLayout" name="gridLayout" columnstretch="0,0">
-   <item row="12" column="0" colspan="2">
-    <widget class="QGroupBox" name="peGroup">
-     <property name="title">
-      <string>Effect Parameters</string>
-     </property>
-     <layout class="QGridLayout" name="gridLayout_4">
-      <item row="6" column="0">
-       <widget class="QLabel" name="peCharStyleLabel">
-        <property name="text">
-         <string>Char Style</string>
-        </property>
-        <property name="buddy">
-         <cstring>peCharStyleCombo</cstring>
-        </property>
-       </widget>
-      </item>
-      <item row="6" column="1">
-       <widget class="CharStyleComboBox" name="peCharStyleCombo"/>
-      </item>
-      <item row="1" column="0" colspan="2">
-       <layout class="QHBoxLayout" name="horizontalLayout_5">
-        <item>
-         <widget class="QCheckBox" name="peIndent">
-          <property name="text">
-           <string>AutoIndent</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <spacer name="horizontalSpacer_5">
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>40</width>
-            <height>20</height>
-           </size>
-          </property>
-         </spacer>
-        </item>
-        <item>
-         <widget class="QLabel" name="peOffsetLabel">
-          <property name="text">
-           <string>Offset</string>
-          </property>
-          <property name="buddy">
-           <cstring>peOffset</cstring>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="ScrSpinBox" name="peOffset">
-          <property name="minimum">
-           <double>-3000.000000000000000</double>
-          </property>
-          <property name="maximum">
-           <double>3000.000000000000000</double>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </item>
-     </layout>
-    </widget>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <widget class="QComboBox" name="peCombo"/>
    </item>
-   <item row="4" column="0" colspan="2">
+   <item>
     <widget class="QGroupBox" name="dropCapsGroup">
      <property name="title">
       <string>Drop Caps</string>
@@ -119,7 +56,61 @@
      </layout>
     </widget>
    </item>
-   <item row="8" column="0" rowspan="2" colspan="2">
+   <item>
+    <widget class="QGroupBox" name="bullGroup">
+     <property name="title">
+      <string>Bulleted List</string>
+     </property>
+     <layout class="QGridLayout" name="gridLayout_3">
+      <item row="0" column="1">
+       <widget class="QComboBox" name="bulletStrEdit">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>50</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="editable">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="0">
+       <widget class="QLabel" name="bulletCharLabel">
+        <property name="text">
+         <string>Bullet Char(s)</string>
+        </property>
+        <property name="buddy">
+         <cstring>bulletStrEdit</cstring>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="2">
+       <widget class="QPushButton" name="bulletCharTableButton">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="text">
+         <string>Char Table</string>
+        </property>
+        <property name="checkable">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
     <widget class="QGroupBox" name="numGroup">
      <property name="title">
       <string>Numbered List</string>
@@ -273,59 +264,68 @@
      </layout>
     </widget>
    </item>
-   <item row="2" column="0" colspan="2">
-    <widget class="QComboBox" name="peCombo"/>
-   </item>
-   <item row="7" column="0" colspan="2">
-    <widget class="QGroupBox" name="bullGroup">
+   <item>
+    <widget class="QGroupBox" name="peGroup">
      <property name="title">
-      <string>Bulleted List</string>
+      <string>Effect Parameters</string>
      </property>
-     <layout class="QGridLayout" name="gridLayout_3">
-      <item row="0" column="1">
-       <widget class="QComboBox" name="bulletStrEdit">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
-        <property name="minimumSize">
-         <size>
-          <width>50</width>
-          <height>0</height>
-         </size>
-        </property>
-        <property name="editable">
-         <bool>true</bool>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="0">
-       <widget class="QLabel" name="bulletCharLabel">
+     <layout class="QGridLayout" name="gridLayout_4">
+      <item row="6" column="0">
+       <widget class="QLabel" name="peCharStyleLabel">
         <property name="text">
-         <string>Bullet Char(s)</string>
+         <string>Char Style</string>
         </property>
         <property name="buddy">
-         <cstring>bulletStrEdit</cstring>
+         <cstring>peCharStyleCombo</cstring>
         </property>
        </widget>
       </item>
-      <item row="0" column="2">
-       <widget class="QPushButton" name="bulletCharTableButton">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
-        <property name="text">
-         <string>Char Table</string>
-        </property>
-        <property name="checkable">
-         <bool>true</bool>
-        </property>
-       </widget>
+      <item row="6" column="1">
+       <widget class="CharStyleComboBox" name="peCharStyleCombo"/>
+      </item>
+      <item row="1" column="0" colspan="2">
+       <layout class="QHBoxLayout" name="horizontalLayout_5">
+        <item>
+         <widget class="QCheckBox" name="peIndent">
+          <property name="text">
+           <string>AutoIndent</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <spacer name="horizontalSpacer_5">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item>
+         <widget class="QLabel" name="peOffsetLabel">
+          <property name="text">
+           <string>Offset</string>
+          </property>
+          <property name="buddy">
+           <cstring>peOffset</cstring>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="ScrSpinBox" name="peOffset">
+          <property name="minimum">
+           <double>-3000.000000000000000</double>
+          </property>
+          <property name="maximum">
+           <double>3000.000000000000000</double>
+          </property>
+         </widget>
+        </item>
+       </layout>
       </item>
      </layout>
     </widget>
@@ -336,12 +336,12 @@
   <customwidget>
    <class>ScrSpinBox</class>
    <extends>QDoubleSpinBox</extends>
-   <header location="global">ui/scrspinbox.h</header>
+   <header>ui/scrspinbox.h</header>
   </customwidget>
   <customwidget>
    <class>CharStyleComboBox</class>
    <extends>QComboBox</extends>
-   <header location="global">ui/spalette.h</header>
+   <header>ui/spalette.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

@@ -53,4 +53,6 @@ ATTRDEF(int, numStart, NumStart, 1)
 ATTRDEF(int, numRestart, NumRestart, 0)
 ATTRDEF(bool, numOther, NumOther, false)
 ATTRDEF(bool, numHigher, NumHigher, true)
+ATTRDEF(QString, backgroundColor, BackgroundColor, "None")
+ATTRDEF(double, backgroundShade, BackgroundShade, 100)
 

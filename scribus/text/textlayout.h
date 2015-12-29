@@ -39,6 +39,8 @@ struct LineSpec
 	int firstItem;
 	int lastItem;
 	qreal naturalWidth;
+	bool isFirstLine;
+	qreal height;
 };
 
 struct PathData

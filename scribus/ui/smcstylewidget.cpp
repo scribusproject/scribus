@@ -29,13 +29,17 @@ SMCStyleWidget::SMCStyleWidget(QWidget *parent) : QWidget()
 	fillShadeLabel->setPixmap(im->loadPixmap("shade.png"));
 	StrokeIcon->setPixmap(im->loadPixmap("16/color-stroke.png"));
 	strokeShadeLabel->setPixmap(im->loadPixmap("shade.png"));
+	backIcon->setPixmap(im->loadPixmap("16/color-fill.png"));
+	backShadeLabel->setPixmap(im->loadPixmap("shade.png"));
 
 	fillColor_->clear();
 	strokeColor_->clear();
+	backColor_->clear();
 	ColorList::Iterator it;
 	QPixmap pm = QPixmap(15, 15);
 	fillColor_->addItem(CommonStrings::tr_NoneColor);
 	strokeColor_->addItem(CommonStrings::tr_NoneColor);
+	backColor_->addItem(CommonStrings::tr_NoneColor);
 	StrokeIcon->setEnabled(false);
 	strokeShade_->setEnabled(false);
 	strokeColor_->setEnabled(false);
@@ -73,6 +77,13 @@ void SMCStyleWidget::languageChange()
 		strokeColor_->blockSignals(sigBlocked);
 	}
 
+	if (backColor_->count() > 0)
+	{
+		bool sigBlocked = backColor_->blockSignals(true);
+		backColor_->setItemText(0, CommonStrings::tr_NoneColor);
+		backColor_->blockSignals(sigBlocked);
+	}
+
 /***********************************/
 /*      Begin Tooltips             */
 /***********************************/
@@ -92,6 +103,8 @@ void SMCStyleWidget::languageChange()
 	fillShade_->setToolTip(      tr("Fill Shade"));
 	strokeColor_->setToolTip(    tr("Stroke Color"));
 	strokeShade_->setToolTip(    tr("Stroke Shade"));
+	backColor_->setToolTip(      tr("Background Color"));
+	backShade_->setToolTip(      tr("Background Shade"));
 
 	fontSizeLabel_->setToolTip(fontSize_->toolTip());
 	trackingLabel_->setToolTip(tracking_->toolTip());
@@ -103,6 +116,8 @@ void SMCStyleWidget::languageChange()
 	fillShadeLabel->setToolTip(fillShade_->toolTip());
 	StrokeIcon->setToolTip(strokeColor_->toolTip());
 	strokeShadeLabel->setToolTip(strokeShade_->toolTip());
+	backIcon->setToolTip(backColor_->toolTip());
+	backShadeLabel->setToolTip(backShade_->toolTip());
 
 /***********************************/
 /*        End Tooltips             */
@@ -156,18 +171,22 @@ void SMCStyleWidget::fillColorCombo(ColorList &colors)
 {
 	fillColor_->clear();
 	strokeColor_->clear();
+	backColor_->clear();
 
 	fillColor_->addItem(CommonStrings::tr_NoneColor);
 	strokeColor_->addItem(CommonStrings::tr_NoneColor);
+	backColor_->addItem(CommonStrings::tr_NoneColor);
 	ColorList::Iterator itend=colors.end();
 	ScribusDoc* doc = colors.document();
 	for (ColorList::Iterator it = colors.begin(); it != itend; ++it)
 	{
 		fillColor_->insertFancyItem(it.value(), doc, it.key());
 		strokeColor_->insertFancyItem(it.value(), doc, it.key());
+		backColor_->insertFancyItem(it.value(), doc, it.key());
 	}
 	fillColor_->view()->setMinimumWidth(fillColor_->view()->maximumViewportSize().width()+24);
 	strokeColor_->view()->setMinimumWidth(strokeColor_->view()->maximumViewportSize().width()+24);
+	backColor_->view()->setMinimumWidth(backColor_->view()->maximumViewportSize().width()+24);
 }
 
 void SMCStyleWidget::show(CharStyle *cstyle, QList<CharStyle> &cstyles, const QString &defLang, int unitIndex)
@@ -211,6 +230,12 @@ void SMCStyleWidget::show(CharStyle *cstyle, QList<CharStyle> &cstyles, const QS
 		strokeColor_->setCurrentText(cstyle->strokeColor(), cstyle->isInhStrokeColor());
 		strokeColor_->setParentText(parent->strokeColor());
 
+		backColor_->setCurrentText(cstyle->backgroundColor(), cstyle->isInhBackgroundColor());
+		backColor_->setParentText(parent->backgroundColor());
+
+		backShade_->setValue(qRound(cstyle->backgroundShade()), cstyle->isInhBackgroundShade());
+		backShade_->setParentValue(qRound(parent->backgroundShade()));
+
 		fontFace_->setCurrentFont(cstyle->font().scName(), cstyle->isInhFont());
 		fontFace_->setParentFont(parent->font().scName());
 	}
@@ -227,6 +252,8 @@ void SMCStyleWidget::show(CharStyle *cstyle, QList<CharStyle> &cstyles, const QS
 		strokeShade_->setValue(qRound(cstyle->strokeShade()));
 		fillColor_->setCurrentText(cstyle->fillColor());
 		strokeColor_->setCurrentText(cstyle->strokeColor());
+		backColor_->setCurrentText(cstyle->backgroundColor());
+		backShade_->setValue(qRound(cstyle->backgroundShade()));
 		fontFace_->setCurrentFont(cstyle->font().scName());
 	}
 
@@ -503,6 +530,25 @@ void SMCStyleWidget::showColors(const QList<CharStyle*> &cstyles)
 	else
 		strokeShade_->setValue(qRound(d));
 
+	d = -30000;
+	for (int i = 0; i < cstyles.count(); ++i)
+	{
+		if (d != -30000 && cstyles[i]->backgroundShade() != d)
+		{
+			d = -30000;
+			break;
+		}
+		else
+			d = cstyles[i]->backgroundShade();
+	}
+	if (d == -30000)
+	{
+		backShade_->setValue(21);
+		backShade_->setText( tr("Shade"));
+	}
+	else
+		backShade_->setValue(qRound(d));
+
 	QString s;
 	QString emptyString;
 	for (int i = 0; i < cstyles.count(); ++i)
@@ -543,6 +589,26 @@ void SMCStyleWidget::showColors(const QList<CharStyle*> &cstyles)
 	}
 	else
 		strokeColor_->setCurrentText(s);
+
+	s = emptyString;
+	for (int i = 0; i < cstyles.count(); ++i)
+	{
+		if (!s.isNull() && s != cstyles[i]->backgroundColor())
+		{
+			s = emptyString;
+			break;
+		}
+		else
+			s = cstyles[i]->backgroundColor();
+	}
+	if (s.isEmpty())
+	{
+		if (backColor_->itemText(backColor_->count() - 1) != "")
+			backColor_->addItem("");
+		backColor_->setCurrentIndex(backColor_->count() - 1);
+	}
+	else
+		backColor_->setCurrentText(s);
 }
 
 void SMCStyleWidget::showLanguage(const QList<CharStyle*> &cstyles, const QString &defLang)

@@ -25,6 +25,7 @@ for which a new license (GPL+exception) is in place.
 #include "scribuscore.h"
 #include "scribusdoc.h"
 #include "colormgmt/sccolormgmtengine.h"
+#include <cmath>
 
 QColor ScColorEngine::getRGBColor(const ScColor& color, const ScribusDoc* doc)
 {
@@ -138,7 +139,46 @@ void ScColorEngine::getRGBValues(const ScColor& color, const ScribusDoc* doc, RG
 	}
 	else if (model == colorModelLab)
 	{
-		ScColorTransform trans = doc ? doc->stdLabToRGBTrans : ScCore->defaultLabToRGBTrans;
+		// First step: Lab -> XYZ
+		double var_Y = (color.L_val + 16) / 116.0;
+		double var_X = color.a_val / 500.0 + var_Y;
+		double var_Z = var_Y - color.b_val / 200.0;
+		if (pow(var_Y, 3) > 0.008856)
+			var_Y = pow(var_Y, 3);
+		else
+			var_Y = (var_Y - 16.0 / 116.0) / 7.787;
+		if (pow(var_X, 3) > 0.008856)
+			var_X = pow(var_X, 3);
+		else
+			var_X = (var_X - 16.0 / 116.0) / 7.787;
+		if (pow(var_Z, 3) > 0.008856)
+			var_Z = pow(var_Z, 3);
+		else
+			var_Z = (var_Z - 16.0 / 116.0) / 7.787;
+		// Second step: XYZ -> RGB
+		// Whitepoint D50
+		var_X = 0.990720 * var_X;
+		var_Y = 1.00000  * var_Y;
+		var_Z = 0.825210 * var_Z;
+		double var_R = var_X *  3.2406 + var_Y * -1.5372 + var_Z * -0.4986;
+		double var_G = var_X * -0.9689 + var_Y *  1.8758 + var_Z *  0.0415;
+		double var_B = var_X *  0.0557 + var_Y * -0.2040 + var_Z *  1.0570;
+		if (var_R > 0.0031308)
+			var_R = 1.055 * (pow(var_R, (1.0 / 2.4))) - 0.055;
+		else
+			var_R = 12.92 * var_R;
+		if (var_G > 0.0031308)
+			var_G = 1.055 * (pow(var_G, (1.0 / 2.4))) - 0.055;
+		else
+			var_G = 12.92 * var_G;
+		if (var_B > 0.0031308)
+			var_B = 1.055 * (pow(var_B, (1.0 / 2.4))) - 0.055;
+		else
+			var_B = 12.92 * var_B;
+		rgb.r = qRound(qMax(qMin(var_R, 1.0), 0.0) * 255.0);
+		rgb.g = qRound(qMax(qMin(var_G, 1.0), 0.0) * 255.0);
+		rgb.b = qRound(qMax(qMin(var_B, 1.0), 0.0) * 255.0);
+	/*	ScColorTransform trans = doc ? doc->stdLabToRGBTrans : ScCore->defaultLabToRGBTrans;
 		double inC[3];
 		inC[0] = color.L_val;
 		inC[1] = color.a_val;
@@ -147,7 +187,7 @@ void ScColorEngine::getRGBValues(const ScColor& color, const ScribusDoc* doc, RG
 		trans.apply(inC, outC, 1);
 		rgb.r = outC[0] / 257;
 		rgb.g = outC[1] / 257;
-		rgb.b = outC[2] / 257;
+		rgb.b = outC[2] / 257;*/
 	}
 }
 
@@ -324,14 +364,62 @@ QColor ScColorEngine::getDisplayColor(const ScColor& color, const ScribusDoc* do
 	}
 	else if (color.getColorModel() == colorModelLab)
 	{
+		bool cmsUse = doc ? doc->HasCMS : false;
 		ScColorTransform trans  = doc ? doc->stdLabToRGBTrans : ScCore->defaultLabToRGBTrans;
-		double inC[3];
-		inC[0] = color.L_val;
-		inC[1] = color.a_val;
-		inC[2] = color.b_val;
-		quint16 outC[3];
-		trans.apply(inC, outC, 1);
-		tmp = QColor(outC[0] / 257, outC[1] / 257, outC[2] / 257);
+		if (cmsUse && trans)
+		{
+			double inC[3];
+			inC[0] = color.L_val;
+			inC[1] = color.a_val;
+			inC[2] = color.b_val;
+			quint16 outC[3];
+			trans.apply(inC, outC, 1);
+			tmp = QColor(outC[0] / 257, outC[1] / 257, outC[2] / 257);
+		}
+		else
+		{
+			// First step: Lab -> XYZ
+			double var_Y = (color.L_val + 16) / 116.0;
+			double var_X = color.a_val / 500.0 + var_Y;
+			double var_Z = var_Y - color.b_val / 200.0;
+			if (pow(var_Y, 3) > 0.008856)
+				var_Y = pow(var_Y, 3);
+			else
+				var_Y = (var_Y - 16.0 / 116.0) / 7.787;
+			if (pow(var_X, 3) > 0.008856)
+				var_X = pow(var_X, 3);
+			else
+				var_X = (var_X - 16.0 / 116.0) / 7.787;
+			if (pow(var_Z, 3) > 0.008856)
+				var_Z = pow(var_Z, 3);
+			else
+				var_Z = (var_Z - 16.0 / 116.0) / 7.787;
+			// Second step: XYZ -> RGB
+			// Whitepoint D50
+			var_X = 0.990720 * var_X;
+			var_Y = 1.00000  * var_Y;
+			var_Z = 0.825210 * var_Z;
+			double var_R = var_X *  3.2406 + var_Y * -1.5372 + var_Z * -0.4986;
+			double var_G = var_X * -0.9689 + var_Y *  1.8758 + var_Z *  0.0415;
+			double var_B = var_X *  0.0557 + var_Y * -0.2040 + var_Z *  1.0570;
+			if (var_R > 0.0031308)
+				var_R = 1.055 * (pow(var_R, (1.0 / 2.4))) - 0.055;
+			else
+				var_R = 12.92 * var_R;
+			if (var_G > 0.0031308)
+				var_G = 1.055 * (pow(var_G, (1.0 / 2.4))) - 0.055;
+			else
+				var_G = 12.92 * var_G;
+			if (var_B > 0.0031308)
+				var_B = 1.055 * (pow(var_B, (1.0 / 2.4))) - 0.055;
+			else
+				var_B = 12.92 * var_B;
+			tmp = QColor(0, 0, 0, 0);
+			var_R = qMax(qMin(var_R, 1.0), 0.0);
+			var_G = qMax(qMin(var_G, 1.0), 0.0);
+			var_B = qMax(qMin(var_B, 1.0), 0.0);
+			tmp.setRgbF(var_R, var_G, var_B);
+		}
 	}
 	return tmp;
 }

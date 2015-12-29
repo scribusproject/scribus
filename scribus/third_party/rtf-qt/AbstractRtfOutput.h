@@ -297,6 +297,7 @@ namespace RtfReader
 	virtual void setForegroundColour( const int value ) = 0;
 	virtual void setHighlightColour( const int value ) = 0;
 	virtual void setParagraphPatternBackgroundColour( const int value ) = 0;
+	virtual void setCharacterPatternBackgroundColour( const int value ) = 0;
 	virtual void setFont( const int fontIndex ) = 0;
 	virtual void setDefaultFont( const int fontIndex ) = 0;
 	virtual void setTextDirectionLeftToRight() = 0;

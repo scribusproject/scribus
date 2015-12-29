@@ -56,6 +56,7 @@ public:
 	  CurrColorFill(CommonStrings::None),
 	  CurrColorStroke(CommonStrings::None),
 	  CurrColorText("Black"),
+	  CurrColorBText(CommonStrings::None),
 	  CurrColorShadow("Black"),
 	  fillOpacity(0.0),
 	  strokeOpacity(0.0),
@@ -136,6 +137,7 @@ public:
 	QString							CurrColorFill;
 	QString							CurrColorStroke;
 	QString							CurrColorText;
+	QString							CurrColorBText;
 	QString							CurrColorShadow;
 	double							fillOpacity;
 	double							strokeOpacity;
@@ -268,6 +270,7 @@ private:
 		AttributeValue textUnderlineColor;
 		AttributeValue textStrikeThrough;
 		AttributeValue textShadow;
+		AttributeValue textBackgroundColor;
 		AttributeValue lineHeight;
 		AttributeValue margin_top;
 		AttributeValue margin_bottom;

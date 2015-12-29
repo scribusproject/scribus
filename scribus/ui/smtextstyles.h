@@ -108,6 +108,8 @@ private slots:
 	void slotLeftIndent();
 	void slotRightIndent();
 	void slotFirstLine();
+	void slotBackPColor();
+	void slotBackPShade();
 	// cstyle
 	void slotFontSize();
 	void slotEffects(int e);
@@ -116,6 +118,8 @@ private slots:
 	void slotFillShade();
 	void slotStrokeColor();
 	void slotStrokeShade();
+	void slotBackColor();
+	void slotBackShade();
 	void slotLanguage();
 	void slotScaleH();
 	void slotScaleV();
@@ -180,6 +184,8 @@ private slots:
 	void slotEffectProperties();
 	void slotFillColor();
 	void slotFillShade();
+	void slotBackColor();
+	void slotBackShade();
 	void slotStrokeColor();
 	void slotStrokeShade();
 	void slotLanguage();

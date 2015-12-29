@@ -156,6 +156,7 @@ private:
 		AttributeValue fontName;
 		AttributeValue fontSize;
 		AttributeValue fontColor;
+		AttributeValue backColor;
 	};
 	struct ParStyle
 	{

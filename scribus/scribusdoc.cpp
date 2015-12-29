@@ -513,6 +513,8 @@ void ScribusDoc::init()
 	pstyle.setHasNum(false);
 	pstyle.setDropCapLines(2);
 	pstyle.setParEffectOffset(0);
+	pstyle.setBackgroundColor(CommonStrings::None);
+	pstyle.setBackgroundShade(100);
 	pstyle.charStyle().setParent("");
 	
 	CharStyle cstyle;
@@ -525,6 +527,8 @@ void ScribusDoc::init()
 	cstyle.setFillShade(docPrefsData.itemToolPrefs.textShade);
 	cstyle.setStrokeColor(docPrefsData.itemToolPrefs.textStrokeColor);
 	cstyle.setStrokeShade(docPrefsData.itemToolPrefs.textStrokeShade);
+	cstyle.setBackgroundColor(CommonStrings::None);
+	cstyle.setBackgroundShade(100);
 	cstyle.setBaselineOffset(0);
 	cstyle.setShadowXOffset(50);
 	cstyle.setShadowYOffset(-50);
@@ -3812,7 +3816,7 @@ void ScribusDoc::getUsedColors(ColorList &colorsToUse, bool spot)
 			continue;
 		}
 		// Current paragraph style colors
-		if ((it.key() == currentStyle.charStyle().fillColor()) || (it.key() == currentStyle.charStyle().strokeColor()))
+		if ((it.key() == currentStyle.charStyle().fillColor()) || (it.key() == currentStyle.charStyle().strokeColor()) || (it.key() == currentStyle.charStyle().backgroundColor()))
 			found = true;
 		// Resources colors
 		if (!found)
@@ -8161,6 +8165,38 @@ void ScribusDoc::itemSelection_SetItemPen(QString farbe)
 		m_updateManager.setUpdatesEnabled();
 	}
 	changed();
+}
+
+void ScribusDoc::itemSelection_SetParBackgroundColor(QString farbe, Selection* customSelection)
+{
+	if (farbe == CommonStrings::tr_NoneColor)
+		farbe = CommonStrings::None;
+	ParagraphStyle newStyle;
+	newStyle.setBackgroundColor(farbe);
+	itemSelection_ApplyParagraphStyle(newStyle, customSelection);
+}
+
+void ScribusDoc::itemSelection_SetParBackgroundShade(int sha, Selection* customSelection)
+{
+	ParagraphStyle newStyle;
+	newStyle.setBackgroundShade(sha);
+	itemSelection_ApplyParagraphStyle(newStyle, customSelection);
+}
+
+void ScribusDoc::itemSelection_SetBackgroundColor(QString farbe, Selection* customSelection)
+{
+	if (farbe == CommonStrings::tr_NoneColor)
+		farbe = CommonStrings::None;
+	CharStyle newStyle;
+	newStyle.setBackgroundColor(farbe);
+	itemSelection_ApplyCharStyle(newStyle, customSelection, "BACK_COLOR");
+}
+
+void ScribusDoc::itemSelection_SetBackgroundShade(int sha, Selection* customSelection)
+{
+	CharStyle newStyle;
+	newStyle.setBackgroundShade(sha);
+	itemSelection_ApplyCharStyle(newStyle, customSelection, "BACK_SHADE");
 }
 
 void ScribusDoc::itemSelection_SetFillColor(QString farbe, Selection* customSelection)

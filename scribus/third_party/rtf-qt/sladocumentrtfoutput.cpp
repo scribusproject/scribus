@@ -374,7 +374,14 @@ namespace RtfReader
 
 	void SlaDocumentRtfOutput::setParagraphPatternBackgroundColour(const int colourIndex)
 	{
-	//	qDebug() << "setParagraphPatternBackgroundColour";
+		if ((m_colourTable.count() != 0) && (colourIndex < m_colourTable.count()))
+			m_textStyle.top().setBackgroundColor(m_colourTable.value(colourIndex));
+	}
+
+	void SlaDocumentRtfOutput::setCharacterPatternBackgroundColour(const int colourIndex)
+	{
+		if ((m_colourTable.count() != 0) && (colourIndex < m_colourTable.count()))
+			m_textCharStyle.top().setBackgroundColor(m_colourTable.value(colourIndex));
 	}
 
 	void SlaDocumentRtfOutput::setFont(const int fontIndex)

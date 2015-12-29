@@ -50,7 +50,7 @@ public slots:
 	void showOutlineW(double x);
 	void showShadowOffset(double x, double y);
 	void showStrikeThru(double p, double w);
-	void showTextColors(QString p, QString b, double shp, double shb);
+	void showTextColors(QString p, QString b, QString bc, double shp, double shb, double sbc);
 	void showTextEffects(int s);
 	void showUnderline(double p, double w);
 
@@ -64,6 +64,7 @@ private slots:
 	void handleTextFill();
 	void handleTextShade();
 	void handleTextStroke();
+	void handleTextBackground();
 	void handleTextDirection();
 	void handleTypeStyle(int s);
 	void handleUnderline();
