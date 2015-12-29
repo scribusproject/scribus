@@ -75,7 +75,7 @@ private slots:
 	/// Handles removing of a border line.
 	void on_removeBorderLineButton_clicked();
 	/// Handles border line shade changes.
-	void on_borderLineShade_valueChanged(int shade);
+	void on_borderLineShade_valueChanged(double shade);
 	/// Handles border line width changes.
 	void on_borderLineWidth_valueChanged(double width);
 	/// Handles border line color changes.
@@ -86,7 +86,7 @@ private slots:
 	/// Handles table fill color changes.
 	void on_fillColor_activated(const QString& colorName);
 	/// Handles table fill shade changes.
-	void on_fillShade_valueChanged(int shade);
+	void on_fillShade_valueChanged(double shade);
 	void on_buttonClearTableStyle_clicked();
 	void on_buttonClearCellStyle_clicked();
 

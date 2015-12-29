@@ -175,14 +175,14 @@ void PropertiesPalette_Table::updateStyleControls()
 		// Fill in values.
 		if (m_doc->appMode != modeEditTable)
 		{
-			showTableStyle(table->style());
+			showTableStyle(table->styleName());
 			cellStyleCombo->setEnabled(false);
 			buttonClearCellStyle->setEnabled(false);
 		}
 		else
 		{
 //			showTableStyle(table->style());
-			showCellStyle(table->activeCell().style());
+			showCellStyle(table->activeCell().styleName());
 		}
 	}
 	else
@@ -450,7 +450,7 @@ void PropertiesPalette_Table::on_borderLineWidth_valueChanged(double width)
 	updateBorderLineListItem();
 }
 
-void PropertiesPalette_Table::on_borderLineShade_valueChanged(int shade)
+void PropertiesPalette_Table::on_borderLineShade_valueChanged(double shade)
 {
 	int index = borderLineList->currentRow();
 	TableBorderLine borderLine = m_currentBorder.borderLines().at(index);
@@ -499,6 +499,8 @@ void PropertiesPalette_Table::on_fillColor_activated(const QString& colorName)
 	else
 	{
 		QSet<TableCell> cells = table->selectedCells();
+		if (cells.isEmpty())
+			cells.insert(table->activeCell());
 		QSet<TableCell>::Iterator cellIter;
 		for (cellIter = cells.begin(); cellIter != cells.end(); cellIter++)
 		{
@@ -511,7 +513,7 @@ void PropertiesPalette_Table::on_fillColor_activated(const QString& colorName)
 	table->update();
 }
 
-void PropertiesPalette_Table::on_fillShade_valueChanged(int shade)
+void PropertiesPalette_Table::on_fillShade_valueChanged(double shade)
 {
 	if (!m_item || !m_item->isTable())
 		return;
@@ -528,6 +530,8 @@ void PropertiesPalette_Table::on_fillShade_valueChanged(int shade)
 	else
 	{
 		QSet<TableCell> cells = table->selectedCells();
+		if (cells.isEmpty())
+			cells.insert(table->activeCell());
 		QSet<TableCell>::Iterator cellIter;
 		for (cellIter = cells.begin(); cellIter != cells.end(); cellIter++)
 		{
