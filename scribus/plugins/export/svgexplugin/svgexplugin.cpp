@@ -1184,6 +1184,8 @@ QDomElement SVGExPlug::processTextItem(PageItem *Item, QString trans, QString fi
 				adjX += LineStyle.leftMargin() + LineStyle.firstIndent();
 			if (LineStyle.lineSpacingMode() == ParagraphStyle::BaselineGridLineSpacing)
 				hl = m_Doc->guidesPrefs().valueBaselineGrid;
+			else if (LineStyle.lineSpacingMode() == ParagraphStyle::FixedLineSpacing)
+				hl = LineStyle.lineSpacing();
 			if (ls.isFirstLine)
 			{
 				if (Item->textLayout.lines() == 1)
@@ -1196,7 +1198,7 @@ QDomElement SVGExPlug::processTextItem(PageItem *Item, QString trans, QString fi
 			else if (Item->firstLineOffset() == FLOPRealGlyphHeight || Item->firstLineOffset() == FLOPFontAscent)
 				y1 -= ls.ascent;
 			else
-				y1 -= LineStyle.lineSpacing();
+				y1 -= ls.ascent + (hl - (ls.ascent + ls.descent)) / 2.0;
 			QRectF scr(ls.colLeft + adjX, y1, Item->asTextFrame()->columnWidth() - adjX - LineStyle.rightMargin(), hl);
 			QString paS = QString("M %1 %2 ").arg(scr.x()).arg(scr.y());
 			paS += QString("L %1 %2 ").arg(scr.x() + scr.width()).arg(scr.y());
@@ -1225,10 +1227,10 @@ QDomElement SVGExPlug::processTextItem(PageItem *Item, QString trans, QString fi
 		{
 			const GlyphLayout* glyphs(Item->itemText.getGlyphs(a));
 			const CharStyle& charStyle(Item->itemText.charStyle(a));
-			if (charStyle.backgroundColor() != CommonStrings::None)
+			if (charStyle.backColor() != CommonStrings::None)
 			{
 			// This code is for rendering character background color.
-				colorB = SetColor(charStyle.backgroundColor(), charStyle.backgroundShade());
+				colorB = SetColor(charStyle.backColor(), charStyle.backShade());
 				const ParagraphStyle& LineStyle = Item->itemText.paragraphStyle(ls.firstItem);
 				double y1 = ls.y;
 				double hl = ls.height;
@@ -1261,9 +1263,9 @@ QDomElement SVGExPlug::processTextItem(PageItem *Item, QString trans, QString fi
 				}
 				else
 					scrG = QRectF(CurXB, y1, glyphs->wide(), hl);
-				if ((oldBack == "") || ((oldBack == charStyle.backgroundColor()) && (oldShade == charStyle.backgroundShade())))
+				if ((oldBack == "") || ((oldBack == charStyle.backColor()) && (oldShade == charStyle.backShade())))
 					scr |= scrG;
-				else if ((oldBack != charStyle.backgroundColor()) || (oldShade != charStyle.backgroundShade()))
+				else if ((oldBack != charStyle.backColor()) || (oldShade != charStyle.backShade()))
 				{
 					QString paS = QString("M %1 %2 ").arg(scr.x()).arg(scr.y());
 					paS += QString("L %1 %2 ").arg(scr.x() + scr.width()).arg(scr.y());
@@ -1276,8 +1278,8 @@ QDomElement SVGExPlug::processTextItem(PageItem *Item, QString trans, QString fi
 					ob.appendChild(glyS);
 					scr = scrG;
 				}
-				oldBack = charStyle.backgroundColor();
-				oldShade = charStyle.backgroundShade();
+				oldBack = charStyle.backColor();
+				oldShade = charStyle.backShade();
 				// end background code
 			}
 			else

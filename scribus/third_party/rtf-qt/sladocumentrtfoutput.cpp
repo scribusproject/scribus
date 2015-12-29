@@ -381,7 +381,7 @@ namespace RtfReader
 	void SlaDocumentRtfOutput::setCharacterPatternBackgroundColour(const int colourIndex)
 	{
 		if ((m_colourTable.count() != 0) && (colourIndex < m_colourTable.count()))
-			m_textCharStyle.top().setBackgroundColor(m_colourTable.value(colourIndex));
+			m_textCharStyle.top().setBackColor(m_colourTable.value(colourIndex));
 	}
 
 	void SlaDocumentRtfOutput::setFont(const int fontIndex)

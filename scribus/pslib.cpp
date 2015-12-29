@@ -5083,6 +5083,8 @@ void PSLib::setTextSt(ScribusDoc* Doc, PageItem* ite, uint argh, ScPage* pg, boo
 				adjX += LineStyle.leftMargin() + LineStyle.firstIndent();
 			if (LineStyle.lineSpacingMode() == ParagraphStyle::BaselineGridLineSpacing)
 				hl = Doc->guidesPrefs().valueBaselineGrid;
+			else if (LineStyle.lineSpacingMode() == ParagraphStyle::FixedLineSpacing)
+				hl = LineStyle.lineSpacing();
 			if (ls.isFirstLine)
 			{
 				if (ite->textLayout.lines() == 1)
@@ -5095,7 +5097,7 @@ void PSLib::setTextSt(ScribusDoc* Doc, PageItem* ite, uint argh, ScPage* pg, boo
 			else if (ite->firstLineOffset() == FLOPRealGlyphHeight || ite->firstLineOffset() == FLOPFontAscent)
 				y1 -= ls.ascent;
 			else
-				y1 -= LineStyle.lineSpacing();
+				y1 -= ls.ascent + (hl - (ls.ascent + ls.descent)) / 2.0;
 			QRectF scr(ls.colLeft + adjX, y1, ite->asTextFrame()->columnWidth() - adjX - LineStyle.rightMargin(), hl);
 			PS_save();
 			int h, s, v, k;
@@ -5126,11 +5128,11 @@ void PSLib::setTextSt(ScribusDoc* Doc, PageItem* ite, uint argh, ScPage* pg, boo
 		{
 			const GlyphLayout* glyphs(ite->itemText.getGlyphs(a));
 			const CharStyle& charStyle(ite->itemText.charStyle(a));
-			if (charStyle.backgroundColor() != CommonStrings::None)
+			if (charStyle.backColor() != CommonStrings::None)
 			{
 			// This code is for rendering character background color.
 				int h, s, v, k;
-				SetColor(charStyle.backgroundColor(), charStyle.backgroundShade(), &h, &s, &v, &k);
+				SetColor(charStyle.backColor(), charStyle.backShade(), &h, &s, &v, &k);
 				PS_setcmykcolor_fill(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
 				const ParagraphStyle& LineStyle = ite->itemText.paragraphStyle(ls.firstItem);
 				double y1 = ls.y;
@@ -5164,9 +5166,9 @@ void PSLib::setTextSt(ScribusDoc* Doc, PageItem* ite, uint argh, ScPage* pg, boo
 				}
 				else
 					scr = QRectF(CurXB, y1, glyphs->wide(), hl);
-				if ((oldBack == "") || ((oldBack == charStyle.backgroundColor()) && (oldShade == charStyle.backgroundShade())))
+				if ((oldBack == "") || ((oldBack == charStyle.backColor()) && (oldShade == charStyle.backShade())))
 					scrG |= scr;
-				else if ((oldBack != charStyle.backgroundColor()) || (oldShade != charStyle.backgroundShade()))
+				else if ((oldBack != charStyle.backColor()) || (oldShade != charStyle.backShade()))
 				{
 					PS_save();
 					PS_moveto(scrG.x(), -scrG.y());
@@ -5180,8 +5182,8 @@ void PSLib::setTextSt(ScribusDoc* Doc, PageItem* ite, uint argh, ScPage* pg, boo
 					PS_restore();
 					scrG = scr;
 				}
-				oldBack = charStyle.backgroundColor();
-				oldShade = charStyle.backgroundShade();
+				oldBack = charStyle.backColor();
+				oldShade = charStyle.backShade();
 			}
 			else
 			{

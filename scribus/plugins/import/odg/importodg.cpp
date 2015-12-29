@@ -1863,7 +1863,7 @@ void OdgPlug::applyCharacterStyle(CharStyle &tmpCStyle, ObjStyle &oStyle)
 	tmpCStyle.setFont((*m_Doc->AllFonts)[oStyle.fontName]);
 	tmpCStyle.setFontSize(oStyle.fontSize * 10);
 	tmpCStyle.setFillColor(oStyle.CurrColorText);
-	tmpCStyle.setBackgroundColor(oStyle.CurrColorBText);
+	tmpCStyle.setBackColor(oStyle.CurrColorBText);
 	StyleFlag styleEffects = tmpCStyle.effects();
 	if ((oStyle.textPos.startsWith("super")) || (oStyle.textPos.startsWith("sub")))
 	{

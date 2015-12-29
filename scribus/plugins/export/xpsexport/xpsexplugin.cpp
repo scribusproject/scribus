@@ -894,6 +894,8 @@ void XPSExPlug::processTextItem(double xOffset, double yOffset, PageItem *Item, 
 				adjX += LineStyle.leftMargin() + LineStyle.firstIndent();
 			if (LineStyle.lineSpacingMode() == ParagraphStyle::BaselineGridLineSpacing)
 				hl = m_Doc->guidesPrefs().valueBaselineGrid;
+			else if (LineStyle.lineSpacingMode() == ParagraphStyle::FixedLineSpacing)
+				hl = LineStyle.lineSpacing();
 			if (ls.isFirstLine)
 			{
 				if (Item->textLayout.lines() == 1)
@@ -938,10 +940,10 @@ void XPSExPlug::processTextItem(double xOffset, double yOffset, PageItem *Item, 
 		{
 			const GlyphLayout* glyphs(Item->itemText.getGlyphs(a));
 			const CharStyle& charStyle(Item->itemText.charStyle(a));
-			if (charStyle.backgroundColor() != CommonStrings::None)
+			if (charStyle.backColor() != CommonStrings::None)
 			{
 			// This code is for rendering character background color.
-				colorB = SetColor(charStyle.backgroundColor(), charStyle.backgroundShade(), 0);
+				colorB = SetColor(charStyle.backColor(), charStyle.backShade(), 0);
 				const ParagraphStyle& LineStyle = Item->itemText.paragraphStyle(ls.firstItem);
 				double y1 = ls.y;
 				double hl = ls.height;
@@ -974,9 +976,9 @@ void XPSExPlug::processTextItem(double xOffset, double yOffset, PageItem *Item, 
 				}
 				else
 					scrG = QRectF(CurXB, y1, glyphs->wide(), hl);
-				if ((oldBack == "") || ((oldBack == charStyle.backgroundColor()) && (oldShade == charStyle.backgroundShade())))
+				if ((oldBack == "") || ((oldBack == charStyle.backColor()) && (oldShade == charStyle.backShade())))
 					scr |= scrG;
-				else if ((oldBack != charStyle.backgroundColor()) || (oldShade != charStyle.backgroundShade()))
+				else if ((oldBack != charStyle.backColor()) || (oldShade != charStyle.backShade()))
 				{
 					QString paS = QString("M%1,%2 ").arg(scr.x() * conversionFactor).arg(scr.y() * conversionFactor);
 					paS += QString("L%1,%2 ").arg((scr.x() + scr.width()) * conversionFactor).arg(scr.y() * conversionFactor);
@@ -989,8 +991,8 @@ void XPSExPlug::processTextItem(double xOffset, double yOffset, PageItem *Item, 
 					grp.appendChild(glyS);
 					scr = scrG;
 				}
-				oldBack = charStyle.backgroundColor();
-				oldShade = charStyle.backgroundShade();
+				oldBack = charStyle.backColor();
+				oldShade = charStyle.backShade();
 			}
 			else
 			{

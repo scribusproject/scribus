@@ -1602,13 +1602,13 @@ void SMParagraphStyle::slotBackColor()
 {
 	if (m_pwidget->cpage->backColor_->useParentValue())
 		for (int i = 0; i < m_selection.count(); ++i)
-			m_selection[i]->charStyle().resetBackgroundColor();
+			m_selection[i]->charStyle().resetBackColor();
 	else {
 		QString col( m_pwidget->cpage->backColor_->currentText());
 		if (col == CommonStrings::tr_NoneColor)
 			col = CommonStrings::None;
 		for (int i = 0; i < m_selection.count(); ++i)
-			m_selection[i]->charStyle().setBackgroundColor(col);
+			m_selection[i]->charStyle().setBackColor(col);
 	}
 
 	if (!m_selectionIsDirty)
@@ -1622,12 +1622,12 @@ void SMParagraphStyle::slotBackShade()
 {
 	if (m_pwidget->cpage->backShade_->useParentValue())
 		for (int i = 0; i < m_selection.count(); ++i)
-			m_selection[i]->charStyle().resetBackgroundShade();
+			m_selection[i]->charStyle().resetBackShade();
 	else {
 		int fs = m_pwidget->cpage->backShade_->getValue();
 
 		for (int i = 0; i < m_selection.count(); ++i)
-			m_selection[i]->charStyle().setBackgroundShade(fs);
+			m_selection[i]->charStyle().setBackShade(fs);
 	}
 
 	if (!m_selectionIsDirty)
@@ -2552,13 +2552,13 @@ void SMCharacterStyle::slotBackColor()
 {
 	if (m_page->backColor_->useParentValue())
 		for (int i = 0; i < m_selection.count(); ++i)
-			m_selection[i]->resetBackgroundColor();
+			m_selection[i]->resetBackColor();
 	else {
 		QString col(m_page->backColor_->currentText());
 		if (col == CommonStrings::tr_NoneColor)
 			col = CommonStrings::None;
 		for (int i = 0; i < m_selection.count(); ++i)
-			m_selection[i]->setBackgroundColor(col);
+			m_selection[i]->setBackColor(col);
 	}
 
 	if (!m_selectionIsDirty)
@@ -2572,12 +2572,12 @@ void SMCharacterStyle::slotBackShade()
 {
 	if (m_page->backShade_->useParentValue())
 		for (int i = 0; i < m_selection.count(); ++i)
-			m_selection[i]->resetBackgroundShade();
+			m_selection[i]->resetBackShade();
 	else {
 		int fs = m_page->backShade_->getValue();
 
 		for (int i = 0; i < m_selection.count(); ++i)
-			m_selection[i]->setBackgroundShade(fs);
+			m_selection[i]->setBackShade(fs);
 	}
 
 	if (!m_selectionIsDirty)

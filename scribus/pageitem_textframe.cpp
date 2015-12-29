@@ -3704,10 +3704,11 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRectF cullingArea)
 			if ((!m_Doc->RePos) && (LineStyle.backgroundColor() != CommonStrings::None))
 			{
 				p->save();
+				p->setAntialiasing(false);
 				p->setFillMode(1);
+				p->setStrokeMode(0);
 				QColor tmp;
 				SetQColor(&tmp, LineStyle.backgroundColor(), LineStyle.backgroundShade());
-				p->setPen(tmp, 0, Qt::SolidLine, Qt::SquareCap, Qt::MiterJoin);
 				p->setBrush(tmp);
 				double y1 = ls.y;
 				double hl = ls.height;
@@ -3716,6 +3717,8 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRectF cullingArea)
 					adjX += LineStyle.leftMargin() + LineStyle.firstIndent();
 				if (LineStyle.lineSpacingMode() == ParagraphStyle::BaselineGridLineSpacing)
 					hl = doc()->guidesPrefs().valueBaselineGrid;
+				else if (LineStyle.lineSpacingMode() == ParagraphStyle::FixedLineSpacing)
+					hl = LineStyle.lineSpacing();
 				if (ls.isFirstLine)
 				{
 					if (textLayout.lines() == 1)
@@ -3728,8 +3731,9 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRectF cullingArea)
 				else if (firstLineOffset() == FLOPRealGlyphHeight || firstLineOffset() == FLOPFontAscent)
 					y1 -= ls.ascent;
 				else
-					y1 -= LineStyle.lineSpacing();
+					y1 -= ls.ascent + (hl - (ls.ascent + ls.descent)) / 2.0;
 				p->drawRect(ls.colLeft + adjX, y1, columnWidth() - adjX - LineStyle.rightMargin(), hl);
+				p->setAntialiasing(true);
 				p->restore();
 			}
 			// end background code
@@ -3831,9 +3835,9 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRectF cullingArea)
 			{
 				glyphs = itemText.getGlyphs(a);
 				const CharStyle& charStyle(itemText.charStyle(a));
-				if ((!m_Doc->RePos) && (charStyle.backgroundColor() != CommonStrings::None))
+				if ((!m_Doc->RePos) && (charStyle.backColor() != CommonStrings::None))
 				{
-					SetQColor(&tmp, charStyle.backgroundColor(), charStyle.backgroundShade());
+					SetQColor(&tmp, charStyle.backColor(), charStyle.backShade());
 					const ParagraphStyle& LineStyle = itemText.paragraphStyle(ls.firstItem);
 					double y1 = ls.y;
 					double hl = ls.height;
@@ -3866,9 +3870,9 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRectF cullingArea)
 					}
 					else
 						scr = QRectF(CurXB, y1, glyphs->wide(), hl);
-					if ((oldBack == "") || ((oldBack == charStyle.backgroundColor()) && (oldShade == charStyle.backgroundShade())))
+					if ((oldBack == "") || ((oldBack == charStyle.backColor()) && (oldShade == charStyle.backShade())))
 						scrG |= scr;
-					else if ((oldBack != charStyle.backgroundColor()) || (oldShade != charStyle.backgroundShade()))
+					else if ((oldBack != charStyle.backColor()) || (oldShade != charStyle.backShade()))
 					{
 						p->save();
 						p->setFillMode(1);
@@ -3879,8 +3883,8 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRectF cullingArea)
 						p->restore();
 						scrG = scr;
 					}
-					oldBack = charStyle.backgroundColor();
-					oldShade = charStyle.backgroundShade();
+					oldBack = charStyle.backColor();
+					oldShade = charStyle.backShade();
 				}
 				else
 				{

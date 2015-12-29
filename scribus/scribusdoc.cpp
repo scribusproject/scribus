@@ -527,8 +527,8 @@ void ScribusDoc::init()
 	cstyle.setFillShade(docPrefsData.itemToolPrefs.textShade);
 	cstyle.setStrokeColor(docPrefsData.itemToolPrefs.textStrokeColor);
 	cstyle.setStrokeShade(docPrefsData.itemToolPrefs.textStrokeShade);
-	cstyle.setBackgroundColor(CommonStrings::None);
-	cstyle.setBackgroundShade(100);
+	cstyle.setBackColor(CommonStrings::None);
+	cstyle.setBackShade(100);
 	cstyle.setBaselineOffset(0);
 	cstyle.setShadowXOffset(50);
 	cstyle.setShadowYOffset(-50);
@@ -3816,7 +3816,7 @@ void ScribusDoc::getUsedColors(ColorList &colorsToUse, bool spot)
 			continue;
 		}
 		// Current paragraph style colors
-		if ((it.key() == currentStyle.charStyle().fillColor()) || (it.key() == currentStyle.charStyle().strokeColor()) || (it.key() == currentStyle.charStyle().backgroundColor()))
+		if ((it.key() == currentStyle.charStyle().fillColor()) || (it.key() == currentStyle.charStyle().strokeColor()) || (it.key() == currentStyle.charStyle().backColor()))
 			found = true;
 		// Resources colors
 		if (!found)
@@ -5777,6 +5777,7 @@ int ScribusDoc::itemAddUserFrame(InsertAFrameData &iafData)
 
 void ScribusDoc::itemAddDetails(const PageItem::ItemType itemType, const PageItem::ItemFrameType frameType, PageItem* newItem)
 {
+	ParagraphStyle defaultParagraphStyle;
 	Q_ASSERT(newItem->realItemType()==itemType);
 	switch( itemType )
 	{
@@ -5804,6 +5805,9 @@ void ScribusDoc::itemAddDetails(const PageItem::ItemType itemType, const PageIte
 			newItem->setFillShade(docPrefsData.itemToolPrefs.textFillColorShade);
 			newItem->setLineColor(docPrefsData.itemToolPrefs.textLineColor);
 			newItem->setLineShade(docPrefsData.itemToolPrefs.textLineColorShade);
+			defaultParagraphStyle.setParent(CommonStrings::DefaultParagraphStyle);
+			defaultParagraphStyle.charStyle().setParent(CommonStrings::DefaultCharacterStyle);
+			newItem->itemText.setDefaultStyle(defaultParagraphStyle);
 			break;
 		case PageItem::Line:
 			newItem->PLineArt = Qt::PenStyle(docPrefsData.itemToolPrefs.lineStyle);
@@ -8188,14 +8192,14 @@ void ScribusDoc::itemSelection_SetBackgroundColor(QString farbe, Selection* cust
 	if (farbe == CommonStrings::tr_NoneColor)
 		farbe = CommonStrings::None;
 	CharStyle newStyle;
-	newStyle.setBackgroundColor(farbe);
+	newStyle.setBackColor(farbe);
 	itemSelection_ApplyCharStyle(newStyle, customSelection, "BACK_COLOR");
 }
 
 void ScribusDoc::itemSelection_SetBackgroundShade(int sha, Selection* customSelection)
 {
 	CharStyle newStyle;
-	newStyle.setBackgroundShade(sha);
+	newStyle.setBackShade(sha);
 	itemSelection_ApplyCharStyle(newStyle, customSelection, "BACK_SHADE");
 }
 

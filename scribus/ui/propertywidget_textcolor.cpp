@@ -227,7 +227,7 @@ void PropertyWidget_TextColor::updateCharStyle(const CharStyle& charStyle)
 
 	showOutlineW  (charStyle.outlineWidth());
 	showShadowOffset(charStyle.shadowXOffset(), charStyle.shadowYOffset());
-	showTextColors(charStyle.strokeColor(), charStyle.fillColor(), charStyle.backgroundColor(), charStyle.strokeShade(), charStyle.fillShade(), charStyle.backgroundShade());
+	showTextColors(charStyle.strokeColor(), charStyle.fillColor(), charStyle.backColor(), charStyle.strokeShade(), charStyle.fillShade(), charStyle.backShade());
 	showTextEffects(charStyle.effects());
 	showStrikeThru(charStyle.strikethruOffset()  , charStyle.strikethruWidth());
 	showUnderline (charStyle.underlineOffset(), charStyle.underlineWidth());
@@ -242,7 +242,7 @@ void PropertyWidget_TextColor::updateStyle(const ParagraphStyle& newCurrent)
 
 	showOutlineW  (charStyle.outlineWidth());
 	showShadowOffset(charStyle.shadowXOffset(), charStyle.shadowYOffset());
-	showTextColors(charStyle.strokeColor(), charStyle.fillColor(), charStyle.backgroundColor(), charStyle.strokeShade(), charStyle.fillShade(), charStyle.backgroundShade());
+	showTextColors(charStyle.strokeColor(), charStyle.fillColor(), charStyle.backColor(), charStyle.strokeShade(), charStyle.fillShade(), charStyle.backShade());
 	showTextEffects(charStyle.effects());
 	showStrikeThru(charStyle.strikethruOffset()  , charStyle.strikethruWidth());
 	showUnderline (charStyle.underlineOffset(), charStyle.underlineWidth());

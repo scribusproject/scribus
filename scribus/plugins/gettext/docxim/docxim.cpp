@@ -555,7 +555,7 @@ void DocXIm::parseCharProps(QDomElement &props, ParagraphStyle &pStyle)
 				tmp.setSpotColor(false);
 				tmp.setRegistrationColor(false);
 				QString fNam = m_Doc->PageColors.tryAddColor("FromDocX"+colour.name(), tmp);
-				pStyle.charStyle().setBackgroundColor(fNam);
+				pStyle.charStyle().setBackColor(fNam);
 			}
 		}
 		else if (spc.tagName() == "w:vertAlign")

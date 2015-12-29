@@ -5397,6 +5397,8 @@ QByteArray PDFLibCore::setTextSt(PageItem *ite, uint PNr, const ScPage* pag)
 					adjX += LineStyle.leftMargin() + LineStyle.firstIndent();
 				if (LineStyle.lineSpacingMode() == ParagraphStyle::BaselineGridLineSpacing)
 					hl = doc.guidesPrefs().valueBaselineGrid;
+				else if (LineStyle.lineSpacingMode() == ParagraphStyle::FixedLineSpacing)
+					hl = LineStyle.lineSpacing();
 				if (ls.isFirstLine)
 				{
 					if (ite->textLayout.lines() == 1)
@@ -5409,15 +5411,16 @@ QByteArray PDFLibCore::setTextSt(PageItem *ite, uint PNr, const ScPage* pag)
 				else if (ite->firstLineOffset() == FLOPRealGlyphHeight || ite->firstLineOffset() == FLOPFontAscent)
 					y1 -= ls.ascent;
 				else
-					y1 -= LineStyle.lineSpacing();
+					y1 -= ls.ascent + (hl - (ls.ascent + ls.descent)) / 2.0;
 				QRectF scr(ls.colLeft + adjX, y1, ite->asTextFrame()->columnWidth() - adjX - LineStyle.rightMargin(), hl);
 				tmp += "q\n";
+				tmp += "n\n";
 				tmp += putColor(LineStyle.backgroundColor(), LineStyle.backgroundShade(), true);
 				tmp += FToStr(scr.x())     +" "+FToStr(-scr.y())+" m\n";
 				tmp += FToStr(scr.x() + scr.width())+" "+FToStr(-scr.y())+" l\n";
 				tmp += FToStr(scr.x() + scr.width())+" "+FToStr(-scr.y() - scr.height())+" l\n";
 				tmp += FToStr(scr.x())+" "+FToStr(-scr.y() - scr.height())+" l\n";
-				tmp += "h\nf*\n";
+				tmp += "h\nf\n";
 				tmp += "Q\n";
 			}
 			// end background code
@@ -5437,9 +5440,9 @@ QByteArray PDFLibCore::setTextSt(PageItem *ite, uint PNr, const ScPage* pag)
 			{
 				const GlyphLayout* glyphs(ite->itemText.getGlyphs(a));
 				const CharStyle& charStyle(ite->itemText.charStyle(a));
-				if (charStyle.backgroundColor() != CommonStrings::None)
+				if (charStyle.backColor() != CommonStrings::None)
 				{
-					colorB += putColor(charStyle.backgroundColor(), charStyle.backgroundShade(), true);
+					colorB = putColor(charStyle.backColor(), charStyle.backShade(), true);
 				// This code is for rendering character background color.
 					const ParagraphStyle& LineStyle = ite->itemText.paragraphStyle(ls.firstItem);
 					double y1 = ls.y;
@@ -5473,22 +5476,23 @@ QByteArray PDFLibCore::setTextSt(PageItem *ite, uint PNr, const ScPage* pag)
 					}
 					else
 						scrG = QRectF(CurXB, y1, glyphs->wide(), hl);
-					if ((oldBack == "") || ((oldBack == charStyle.backgroundColor()) && (oldShade == charStyle.backgroundShade())))
+					if ((oldBack == "") || ((oldBack == charStyle.backColor()) && (oldShade == charStyle.backShade())))
 						scr |= scrG;
-					else if ((oldBack != charStyle.backgroundColor()) || (oldShade != charStyle.backgroundShade()))
+					else if ((oldBack != charStyle.backColor()) || (oldShade != charStyle.backShade()))
 					{
 						tmp += "q\n";
+						tmp += "n\n";
 						tmp += putColor(oldBack, oldShade, true);
 						tmp += FToStr(scr.x())     +" "+FToStr(-scr.y())+" m\n";
 						tmp += FToStr(scr.x() + scr.width())+" "+FToStr(-scr.y())+" l\n";
 						tmp += FToStr(scr.x() + scr.width())+" "+FToStr(-scr.y() - scr.height())+" l\n";
 						tmp += FToStr(scr.x())+" "+FToStr(-scr.y() - scr.height())+" l\n";
-						tmp += "h\nf*\n";
+						tmp += "h\nf\n";
 						tmp += "Q\n";
 						scr = scrG;
 					}
-					oldBack = charStyle.backgroundColor();
-					oldShade = charStyle.backgroundShade();
+					oldBack = charStyle.backColor();
+					oldShade = charStyle.backShade();
 				}
 				else
 				{
@@ -5500,7 +5504,7 @@ QByteArray PDFLibCore::setTextSt(PageItem *ite, uint PNr, const ScPage* pag)
 						tmp += FToStr(scr.x() + scr.width())+" "+FToStr(-scr.y())+" l\n";
 						tmp += FToStr(scr.x() + scr.width())+" "+FToStr(-scr.y() - scr.height())+" l\n";
 						tmp += FToStr(scr.x())+" "+FToStr(-scr.y() - scr.height())+" l\n";
-						tmp += "h\nf*\n";
+						tmp += "h\nf\n";
 						tmp += "Q\n";
 					}
 					oldBack = "";
@@ -5517,7 +5521,7 @@ QByteArray PDFLibCore::setTextSt(PageItem *ite, uint PNr, const ScPage* pag)
 				tmp += FToStr(scr.x() + scr.width())+" "+FToStr(-scr.y())+" l\n";
 				tmp += FToStr(scr.x() + scr.width())+" "+FToStr(-scr.y() - scr.height())+" l\n";
 				tmp += FToStr(scr.x())+" "+FToStr(-scr.y() - scr.height())+" l\n";
-				tmp += "h\nf*\n";
+				tmp += "h\nf\n";
 				tmp += "Q\n";
 			}
 			for (int d = ls.firstItem; d <= ls.lastItem; ++d)

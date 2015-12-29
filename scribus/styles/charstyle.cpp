@@ -382,7 +382,7 @@ void CharStyle::getNamedResources(ResourceCollection& lists) const
 		lists.collectCharStyle(sty->name());
 	lists.collectColor(fillColor());
 	lists.collectColor(strokeColor());
-	lists.collectColor(backgroundColor());
+	lists.collectColor(backColor());
 	lists.collectFont(font().scName());
 }
 
@@ -397,8 +397,8 @@ void CharStyle::replaceNamedResources(ResourceCollection& newNames)
 	if (!inh_StrokeColor && (it = newNames.colors().find(strokeColor())) != newNames.colors().end())
 		setStrokeColor(it.value());
 
-	if (!inh_BackgroundColor && (it = newNames.colors().find(backgroundColor())) != newNames.colors().end())
-		setBackgroundColor(it.value());
+	if (!inh_BackColor && (it = newNames.colors().find(backColor())) != newNames.colors().end())
+		setBackColor(it.value());
 
 	if (hasParent() && (it = newNames.charStyles().find(parent())) != newNames.charStyles().end())
 		setParent(it.value());

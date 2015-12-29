@@ -2469,10 +2469,10 @@ void Scribus150Format::readCharacterStyleAttrs(ScribusDoc *doc, ScXmlStreamAttri
 
 	static const QString BCOLOR("BCOLOR");
 	if (attrs.hasAttribute(BCOLOR))
-		newStyle.setBackgroundColor(attrs.valueAsString(BCOLOR, CommonStrings::None));
+		newStyle.setBackColor(attrs.valueAsString(BCOLOR, CommonStrings::None));
 	static const QString BSHADE("BSHADE");
 	if (attrs.hasAttribute(BSHADE))
-		newStyle.setBackgroundShade(attrs.valueAsInt(BSHADE, 100));
+		newStyle.setBackShade(attrs.valueAsInt(BSHADE, 100));
 
 	static const QString SSHADE("SSHADE");
 	if (attrs.hasAttribute(SSHADE))

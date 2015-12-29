@@ -230,11 +230,11 @@ void SMCStyleWidget::show(CharStyle *cstyle, QList<CharStyle> &cstyles, const QS
 		strokeColor_->setCurrentText(cstyle->strokeColor(), cstyle->isInhStrokeColor());
 		strokeColor_->setParentText(parent->strokeColor());
 
-		backColor_->setCurrentText(cstyle->backgroundColor(), cstyle->isInhBackgroundColor());
-		backColor_->setParentText(parent->backgroundColor());
+		backColor_->setCurrentText(cstyle->backColor(), cstyle->isInhBackColor());
+		backColor_->setParentText(parent->backColor());
 
-		backShade_->setValue(qRound(cstyle->backgroundShade()), cstyle->isInhBackgroundShade());
-		backShade_->setParentValue(qRound(parent->backgroundShade()));
+		backShade_->setValue(qRound(cstyle->backShade()), cstyle->isInhBackShade());
+		backShade_->setParentValue(qRound(parent->backShade()));
 
 		fontFace_->setCurrentFont(cstyle->font().scName(), cstyle->isInhFont());
 		fontFace_->setParentFont(parent->font().scName());
@@ -252,8 +252,8 @@ void SMCStyleWidget::show(CharStyle *cstyle, QList<CharStyle> &cstyles, const QS
 		strokeShade_->setValue(qRound(cstyle->strokeShade()));
 		fillColor_->setCurrentText(cstyle->fillColor());
 		strokeColor_->setCurrentText(cstyle->strokeColor());
-		backColor_->setCurrentText(cstyle->backgroundColor());
-		backShade_->setValue(qRound(cstyle->backgroundShade()));
+		backColor_->setCurrentText(cstyle->backColor());
+		backShade_->setValue(qRound(cstyle->backShade()));
 		fontFace_->setCurrentFont(cstyle->font().scName());
 	}
 
@@ -533,13 +533,13 @@ void SMCStyleWidget::showColors(const QList<CharStyle*> &cstyles)
 	d = -30000;
 	for (int i = 0; i < cstyles.count(); ++i)
 	{
-		if (d != -30000 && cstyles[i]->backgroundShade() != d)
+		if (d != -30000 && cstyles[i]->backShade() != d)
 		{
 			d = -30000;
 			break;
 		}
 		else
-			d = cstyles[i]->backgroundShade();
+			d = cstyles[i]->backShade();
 	}
 	if (d == -30000)
 	{
@@ -593,13 +593,13 @@ void SMCStyleWidget::showColors(const QList<CharStyle*> &cstyles)
 	s = emptyString;
 	for (int i = 0; i < cstyles.count(); ++i)
 	{
-		if (!s.isNull() && s != cstyles[i]->backgroundColor())
+		if (!s.isNull() && s != cstyles[i]->backColor())
 		{
 			s = emptyString;
 			break;
 		}
 		else
-			s = cstyles[i]->backgroundColor();
+			s = cstyles[i]->backColor();
 	}
 	if (s.isEmpty())
 	{
