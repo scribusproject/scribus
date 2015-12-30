@@ -786,9 +786,9 @@ void Scribus150Format::putCStyle(ScXmlStreamWriter & docu, const CharStyle & sty
 	if ( ! style.isInhStrokeColor())
 		docu.writeAttribute("SCOLOR", style.strokeColor());
 	if ( ! style.isInhBackColor())
-		docu.writeAttribute("BCOLOR", style.backColor());
+		docu.writeAttribute("BGCOLOR", style.backColor());
 	if ( ! style.isInhBackShade())
-		docu.writeAttribute("BSHADE", style.backShade());
+		docu.writeAttribute("BGSHADE", style.backShade());
 	if ( ! style.isInhStrokeShade())
 		docu.writeAttribute("SSHADE", style.strokeShade());
 	if ( ! style.isInhShadowXOffset())

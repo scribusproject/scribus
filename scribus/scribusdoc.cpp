@@ -5805,9 +5805,6 @@ void ScribusDoc::itemAddDetails(const PageItem::ItemType itemType, const PageIte
 			newItem->setFillShade(docPrefsData.itemToolPrefs.textFillColorShade);
 			newItem->setLineColor(docPrefsData.itemToolPrefs.textLineColor);
 			newItem->setLineShade(docPrefsData.itemToolPrefs.textLineColorShade);
-			defaultParagraphStyle.setParent(CommonStrings::DefaultParagraphStyle);
-			defaultParagraphStyle.charStyle().setParent(CommonStrings::DefaultCharacterStyle);
-			newItem->itemText.setDefaultStyle(defaultParagraphStyle);
 			break;
 		case PageItem::Line:
 			newItem->PLineArt = Qt::PenStyle(docPrefsData.itemToolPrefs.lineStyle);
