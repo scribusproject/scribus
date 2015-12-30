@@ -5382,37 +5382,47 @@ QByteArray PDFLibCore::setTextSt(PageItem *ite, uint PNr, const ScPage* pag)
 		straightPath.PRot = 0;
 		straightPath.PDx = 0;
 		tmp += "BT\n";
-		for (uint ll = 0; ll < ite->textLayout.lines(); ++ll)
+		uint llp = 0;
+		while (llp < ite->textLayout.lines())
 		{
-			LineSpec ls = ite->textLayout.line(ll);
+			LineSpec ls = ite->textLayout.line(llp++);
 			const ParagraphStyle& LineStyle = ite->itemText.paragraphStyle(ls.firstItem);
-			// This code is for rendering paragraph background color.
-			// We just need to define this attribute for the paragraphs now.
 			if (LineStyle.backgroundColor() != CommonStrings::None)
 			{
-				double y1 = ls.y;
-				double hl = ls.height;
+				double y0 = ls.y;
+				double y2 = 0;
+				double ascent = ls.ascent;
+				double descent = ls.descent;
+				double rMarg = LineStyle.rightMargin();
+				double lMarg = ls.colLeft;
 				double adjX = 0;
 				if (LineStyle.firstIndent() <= 0)
 					adjX += LineStyle.leftMargin() + LineStyle.firstIndent();
-				if (LineStyle.lineSpacingMode() == ParagraphStyle::BaselineGridLineSpacing)
-					hl = doc.guidesPrefs().valueBaselineGrid;
-				else if (LineStyle.lineSpacingMode() == ParagraphStyle::FixedLineSpacing)
-					hl = LineStyle.lineSpacing();
-				if (ls.isFirstLine)
+				while (llp < ite->textLayout.lines())
 				{
-					if (ite->textLayout.lines() == 1)
-						hl = ls.ascent + ls.descent;
-					if (LineStyle.hasDropCap())
-						hl *= LineStyle.dropCapLines();
+					ls = ite->textLayout.line(llp);
+					if ((ls.colLeft > lMarg) || (ite->itemText.paragraphStyle(ls.firstItem) != LineStyle))
+					{
+						if (y2 == 0)
+							y2 = y0;
+						break;
+					}
+					if (ite->itemText.text(ls.lastItem) == SpecialChars::PARSEP)
+					{
+						y2 = ls.y;
+						descent = ls.descent;
+						if ((llp + 1) < ite->textLayout.lines())
+							descent += LineStyle.lineSpacing() - (ls.descent + ite->textLayout.line(llp + 1).ascent);
+						llp++;
+						break;
+					}
+					y2 = ls.y;
+					descent = ls.descent;
+					if ((llp + 1) < ite->textLayout.lines())
+						descent += LineStyle.lineSpacing() - (ls.descent + ite->textLayout.line(llp + 1).ascent);
+					llp++;
 				}
-				if (LineStyle.lineSpacingMode() == ParagraphStyle::BaselineGridLineSpacing)
-					y1 -= LineStyle.lineSpacing();
-				else if (ite->firstLineOffset() == FLOPRealGlyphHeight || ite->firstLineOffset() == FLOPFontAscent)
-					y1 -= ls.ascent;
-				else
-					y1 -= ls.ascent + (hl - (ls.ascent + ls.descent)) / 2.0;
-				QRectF scr(ls.colLeft + adjX, y1, ite->asTextFrame()->columnWidth() - adjX - LineStyle.rightMargin(), hl);
+				QRectF scr(lMarg + adjX, y0 - ascent, ite->asTextFrame()->columnWidth() - adjX - rMarg, y2 - y0 + descent + ascent);
 				tmp += "q\n";
 				tmp += "n\n";
 				tmp += putColor(LineStyle.backgroundColor(), LineStyle.backgroundShade(), true);
@@ -5423,7 +5433,6 @@ QByteArray PDFLibCore::setTextSt(PageItem *ite, uint PNr, const ScPage* pag)
 				tmp += "h\nf\n";
 				tmp += "Q\n";
 			}
-			// end background code
 		}
 		for (uint ll=0; ll < ite->textLayout.lines(); ++ll)
 		{

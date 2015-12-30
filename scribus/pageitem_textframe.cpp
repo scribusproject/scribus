@@ -518,6 +518,7 @@ struct LineControl {
 			colRight += lineCorr;
 		xPos = colLeft;
 		yPos = asce + insets.top() + lineCorr;
+		line.colLeft = colLeft;
 	}
 
 	bool isEndOfCol(double morespace = 0)
@@ -3697,6 +3698,59 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRectF cullingArea)
 		assert( lastInFrame() < itemText.length() );
 		LineSpec ls;
 
+		uint llp = 0;
+		while (llp < textLayout.lines())
+		{
+			ls = textLayout.line(llp++);
+			const ParagraphStyle& LineStyle = itemText.paragraphStyle(ls.firstItem);
+			if (LineStyle.backgroundColor() != CommonStrings::None)
+			{
+				QColor tmp;
+				SetQColor(&tmp, LineStyle.backgroundColor(), LineStyle.backgroundShade());
+				double y0 = ls.y;
+				double y2 = 0;
+				double ascent = ls.ascent;
+				double descent = ls.descent;
+				double rMarg = LineStyle.rightMargin();
+				double lMarg = ls.colLeft;
+				double adjX = 0;
+				if (LineStyle.firstIndent() <= 0)
+					adjX += LineStyle.leftMargin() + LineStyle.firstIndent();
+				while (llp < textLayout.lines())
+				{
+					ls = textLayout.line(llp);
+					if ((ls.colLeft > lMarg) || (itemText.paragraphStyle(ls.firstItem) != LineStyle))
+					{
+						if (y2 == 0)
+							y2 = y0;
+						break;
+					}
+					if (itemText.text(ls.lastItem) == SpecialChars::PARSEP)
+					{
+						y2 = ls.y;
+						descent = ls.descent;
+						if ((llp + 1) < textLayout.lines())
+							descent += LineStyle.lineSpacing() - (ls.descent + textLayout.line(llp + 1).ascent);
+						llp++;
+						break;
+					}
+					y2 = ls.y;
+					descent = ls.descent;
+					if ((llp + 1) < textLayout.lines())
+						descent += LineStyle.lineSpacing() - (ls.descent + textLayout.line(llp + 1).ascent);
+					llp++;
+				}
+				p->save();
+				p->setAntialiasing(false);
+				p->setFillMode(1);
+				p->setStrokeMode(0);
+				p->setBrush(tmp);
+				p->drawRect(lMarg + adjX, y0 - ascent, columnWidth() - adjX - rMarg, y2 - y0 + descent + ascent);
+				p->setAntialiasing(true);
+				p->restore();
+			}
+		}
+/*
 		for (uint ll = 0; ll < textLayout.lines(); ++ll)
 		{
 			ls = textLayout.line(ll);
@@ -3740,7 +3794,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRectF cullingArea)
 			}
 			// end background code
 		}
-
+*/
 		for (uint ll=0; ll < textLayout.lines(); ++ll)
 		{
 			ls = textLayout.line(ll);

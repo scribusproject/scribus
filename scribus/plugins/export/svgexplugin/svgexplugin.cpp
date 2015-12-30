@@ -1169,37 +1169,47 @@ QDomElement SVGExPlug::processTextItem(PageItem *Item, QString trans, QString fi
 	}
 	double x, y, wide;
 	QString chstr;
-	for (uint ll = 0; ll < Item->textLayout.lines(); ++ll)
+	uint llp = 0;
+	while (llp < Item->textLayout.lines())
 	{
-		LineSpec ls = Item->textLayout.line(ll);
+		LineSpec ls = Item->textLayout.line(llp++);
 		const ParagraphStyle& LineStyle = Item->itemText.paragraphStyle(ls.firstItem);
-		// This code is for rendering paragraph background color.
-		// We just need to define this attribute for the paragraphs now.
 		if (LineStyle.backgroundColor() != CommonStrings::None)
 		{
-			double y1 = ls.y;
-			double hl = ls.height;
+			double y0 = ls.y;
+			double y2 = 0;
+			double ascent = ls.ascent;
+			double descent = ls.descent;
+			double rMarg = LineStyle.rightMargin();
+			double lMarg = ls.colLeft;
 			double adjX = 0;
 			if (LineStyle.firstIndent() <= 0)
 				adjX += LineStyle.leftMargin() + LineStyle.firstIndent();
-			if (LineStyle.lineSpacingMode() == ParagraphStyle::BaselineGridLineSpacing)
-				hl = m_Doc->guidesPrefs().valueBaselineGrid;
-			else if (LineStyle.lineSpacingMode() == ParagraphStyle::FixedLineSpacing)
-				hl = LineStyle.lineSpacing();
-			if (ls.isFirstLine)
+			while (llp < Item->textLayout.lines())
 			{
-				if (Item->textLayout.lines() == 1)
-					hl = ls.ascent + ls.descent;
-				if (LineStyle.hasDropCap())
-					hl *= LineStyle.dropCapLines();
+				ls = Item->textLayout.line(llp);
+				if ((ls.colLeft > lMarg) || (Item->itemText.paragraphStyle(ls.firstItem) != LineStyle))
+				{
+					if (y2 == 0)
+						y2 = y0;
+					break;
+				}
+				if (Item->itemText.text(ls.lastItem) == SpecialChars::PARSEP)
+				{
+					y2 = ls.y;
+					descent = ls.descent;
+					if ((llp + 1) < Item->textLayout.lines())
+						descent += LineStyle.lineSpacing() - (ls.descent + Item->textLayout.line(llp + 1).ascent);
+					llp++;
+					break;
+				}
+				y2 = ls.y;
+				descent = ls.descent;
+				if ((llp + 1) < Item->textLayout.lines())
+					descent += LineStyle.lineSpacing() - (ls.descent + Item->textLayout.line(llp + 1).ascent);
+				llp++;
 			}
-			if (LineStyle.lineSpacingMode() == ParagraphStyle::BaselineGridLineSpacing)
-				y1 -= LineStyle.lineSpacing();
-			else if (Item->firstLineOffset() == FLOPRealGlyphHeight || Item->firstLineOffset() == FLOPFontAscent)
-				y1 -= ls.ascent;
-			else
-				y1 -= ls.ascent + (hl - (ls.ascent + ls.descent)) / 2.0;
-			QRectF scr(ls.colLeft + adjX, y1, Item->asTextFrame()->columnWidth() - adjX - LineStyle.rightMargin(), hl);
+			QRectF scr(lMarg + adjX, y0 - ascent, Item->asTextFrame()->columnWidth() - adjX - rMarg, y2 - y0 + descent + ascent);
 			QString paS = QString("M %1 %2 ").arg(scr.x()).arg(scr.y());
 			paS += QString("L %1 %2 ").arg(scr.x() + scr.width()).arg(scr.y());
 			paS += QString("L %1 %2 ").arg(scr.x() + scr.width()).arg(scr.y() + scr.height());
@@ -1210,7 +1220,6 @@ QDomElement SVGExPlug::processTextItem(PageItem *Item, QString trans, QString fi
 			glyS.setAttribute("style", "fill:"+SetColor(LineStyle.backgroundColor(), LineStyle.backgroundShade())+";" + "stroke:none;");
 			ob.appendChild(glyS);
 		}
-		// end background code
 	}
 	for (uint ll=0; ll < Item->textLayout.lines(); ++ll)
 	{
