@@ -65,7 +65,9 @@ public:
 	virtual void setFillRule( bool fillRule );
 	virtual bool fillRule() { return m_fillRule; }
 	virtual void setFillMode( int fill );
+	virtual int  fillMode() { return m_fillMode; }
 	virtual void setStrokeMode( int stroke );
+	virtual int  strokeMode() { return m_strokeMode; }
 	virtual void setGradient( VGradient::VGradientType mode, FPoint orig, FPoint vec, FPoint foc, double scale, double skew);
 	virtual void setPattern(ScPattern *pattern, double scaleX, double scaleY, double offsetX, double offsetY, double rotation, double skewX, double skewY, bool mirrorX, bool mirrorY);
 
@@ -184,7 +186,7 @@ private:
 	QColor m_fill;
 	double fill_trans;
 	bool m_fillRule;
-	int fillMode;				// 0 = none, 1 = solid, 2 = gradient 3 = pattern 4 = hatch
+	int m_fillMode;				// 0 = none, 1 = solid, 2 = gradient 3 = pattern 4 = hatch
 	double patternScaleX;
 	double patternScaleY;
 	double patternOffsetX;
@@ -223,7 +225,7 @@ private:
 	QColor m_stroke;
 	double stroke_trans;
 	double LineWidth;
-	int strokeMode;				// 0 = none, 1 = solid, 2 = gradient 3 = pattern
+	int m_strokeMode;				// 0 = none, 1 = solid, 2 = gradient 3 = pattern
 	int maskMode;				// 0 = none, 1 = gradient 2 = pattern
 	double mask_patternScaleX;
 	double mask_patternScaleY;

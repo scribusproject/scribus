@@ -2803,12 +2803,15 @@ void PageItem::drawGlyphs(ScPainter *p, const CharStyle& style, LayoutFlags flag
 			if (style.baselineOffset() != 0)
 				st += (style.fontSize() / 10.0) * glyphs.scaleV * (style.baselineOffset() / 1000.0);
 			QColor tmpC = p->pen();
+			int oldStrokeMode = p->strokeMode();
 			p->setPen(p->brush());
 			p->setLineWidth(lw);
+			p->setStrokeMode(1);
 			if (style.effects() & ScStyle_Subscript)
 				p->drawLine(FPoint(glyphs.xoffset, glyphs.yoffset - st), FPoint(glyphs.xoffset + glyphs.xadvance, glyphs.yoffset - st));
 			else
 				p->drawLine(FPoint(glyphs.xoffset, -st), FPoint(glyphs.xoffset + glyphs.xadvance, -st));
+			p->setStrokeMode(oldStrokeMode);
 			p->setPen(tmpC);
 		}
 		if (gly.size() > 3)

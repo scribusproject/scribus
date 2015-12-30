@@ -21,13 +21,13 @@ ScPainter::ScPainter( QImage *target, unsigned int w, unsigned int h, double tra
 	m_width = w;
 	m_height= h;
 	m_stroke = QColor(0,0,0);
-	strokeMode = 0;
+	m_strokeMode = 0;
 	maskMode = 0;
 	m_fill = QColor(0,0,0);
 	fill_trans = 1.0;
 	stroke_trans = 1.0;
 	m_fillRule = true;
-	fillMode = 1;
+	m_fillMode = 1;
 	LineWidth = 1.0;
 	m_offset = 0;
 	m_layerTransparency = transparency;
@@ -264,12 +264,12 @@ void ScPainter::setFillRule( bool fillRule )
 
 void ScPainter::setFillMode( int fill )
 {
-	fillMode = fill;
+	m_fillMode = fill;
 }
 
 void ScPainter::setStrokeMode( int stroke )
 {
-	strokeMode = stroke;
+	m_strokeMode = stroke;
 }
 
 void ScPainter::setGradient(VGradient::VGradientType mode, FPoint orig, FPoint vec, FPoint foc, double scale, double skew)
@@ -402,7 +402,7 @@ void ScPainter::setHatchParameters(int mode, double distance, double angle, bool
 
 void ScPainter::fillPath()
 {
-	if (fillMode != 0)
+	if (m_fillMode != 0)
 		fillPathHelper();
 }
 
@@ -410,7 +410,7 @@ void ScPainter::strokePath()
 {
 //	if( LineWidth == 0 )
 //		return;
-	if (strokeMode != 0)
+	if (m_strokeMode != 0)
 		strokePathHelper();
 }
 
@@ -680,7 +680,7 @@ void ScPainter::fillPathHelper()
 		cairo_set_fill_rule (m_cr, CAIRO_FILL_RULE_EVEN_ODD);
 	else
 		cairo_set_fill_rule (m_cr, CAIRO_FILL_RULE_WINDING);
-	if (fillMode == 1)
+	if (m_fillMode == 1)
 	{
 		double r, g, b;
 		m_fill.getRgbF(&r, &g, &b);
@@ -702,7 +702,7 @@ void ScPainter::fillPathHelper()
 			cairo_fill_preserve(m_cr);
 		}
 	}
-	else if (fillMode == 2)
+	else if (m_fillMode == 2)
 	{
 		cairo_pattern_t *pat = NULL;
 		cairo_surface_t *img = NULL;
@@ -1434,7 +1434,7 @@ void ScPainter::fillPathHelper()
 		}
 #endif
 	}
-	else if (fillMode == 3)
+	else if (m_fillMode == 3)
 	{
 		cairo_set_antialias(m_cr, CAIRO_ANTIALIAS_NONE);
 		cairo_surface_t *image2 = cairo_image_surface_create_for_data ((uchar*)m_pattern->getPattern()->bits(), CAIRO_FORMAT_ARGB32, m_pattern->getPattern()->width(), m_pattern->getPattern()->height(), m_pattern->getPattern()->width()*4);
@@ -1475,7 +1475,7 @@ void ScPainter::fillPathHelper()
 		cairo_surface_destroy (image2);
 		cairo_set_antialias(m_cr, CAIRO_ANTIALIAS_DEFAULT);
 	}
-	else if (fillMode == 4)
+	else if (m_fillMode == 4)
 	{
 		cairo_path_t *path;
 		path = cairo_copy_path(m_cr);
@@ -1594,7 +1594,7 @@ void ScPainter::strokePathHelper()
 		cairo_set_line_join( m_cr, CAIRO_LINE_JOIN_BEVEL );
 	else if( PLineJoin == Qt::MiterJoin )
 		cairo_set_line_join( m_cr, CAIRO_LINE_JOIN_MITER );
-	if (strokeMode == 3)
+	if (m_strokeMode == 3)
 	{
 		cairo_push_group(m_cr);
 		cairo_set_antialias(m_cr, CAIRO_ANTIALIAS_NONE);
@@ -1626,7 +1626,7 @@ void ScPainter::strokePathHelper()
 		setRasterOp(m_blendModeStroke);
 		cairo_paint_with_alpha (m_cr, stroke_trans);
 	}
-	else if (strokeMode == 2)
+	else if (m_strokeMode == 2)
 	{
 		cairo_push_group(m_cr);
 		cairo_pattern_t *pat;
