@@ -642,9 +642,12 @@ void ScPageOutput::drawGlyphs(PageItem* item, ScPainterExBase *painter, const Ch
 			}
 			if (style.baselineOffset() != 0)
 				st += (style.fontSize() / 10.0) * glyphs.scaleV * (style.baselineOffset() / 1000.0);
+			int tmpStrokeMode = painter->strokeMode();
 			painter->setPen(painter->brush());
 			painter->setLineWidth(lw);
+			painter->setStrokeMode(1);
 			painter->drawLine(FPoint(glyphs.xoffset, glyphs.yoffset - st), FPoint(glyphs.xoffset + glyphs.xadvance, glyphs.yoffset - st));
+			painter->setStrokeMode(tmpStrokeMode);
 		}
 	}
 	/*else

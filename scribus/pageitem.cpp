@@ -2923,9 +2923,12 @@ void PageItem::drawGlyphs(ScPainter *p, const CharStyle& style, LayoutFlags flag
 			}
 			if (style.baselineOffset() != 0)
 				st += (style.fontSize() / 10.0) * glyphs.scaleV * (style.baselineOffset() / 1000.0);
+			int oldStrokeMode = p->strokeMode();
 			p->setPen(p->brush());
 			p->setLineWidth(lw);
+			p->setStrokeMode(1);
 			p->drawLine(FPoint(glyphs.xoffset, glyphs.yoffset - st), FPoint(glyphs.xoffset + glyphs.xadvance, glyphs.yoffset - st));
+			p->setStrokeMode(oldStrokeMode);
 		}
 	}
 /*	else
