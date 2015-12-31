@@ -1,0 +1,46 @@
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<title>Color Palettes in Scribus (4a): CIE L*a*b* and CIE HLC</title>
+</head>
+<style>
+@import "manual.css";
+</style>
+<body>
+<h2>Color Palettes in Scribus (4a): CIE LAB and CIE HLC</h2>
+<br>
+<p>CIE L*a*b*, also spelled CIE LAB or CIELAB, is a color model that comprises all colors perceivable by the human eye, which is much more than any RGB or CMYK variant can offer, because it&rsquo;s not dependent on the limitations of a given device. It uses three parameters to define a color: Lightness (L), where 0 is black and 100 is white; the opposition between red and green (a), as well as the opposition between yellow and blue (b).</p>
+
+<p>Since CIE&nbsp;LAB isn&rsquo;t exactly intuitive, an alternative called CIE HLC has been developed. In this model, the parameters are Hue (H), Lightness (L) and C (Chroma). In terms of user-friendliness, it is to CIE LAB what HSV is to RGB.</p>
+
+<p>In contrast to the upcoming version 1.6.x, Scribus 1.4.x doesn&rsquo;t support CIE LAB/HLC in its color dialogs. The reason for including the four LAB and HLC palettes is the <a href="http://dtpstudio.de/cielab/shop.php">availability</a> of color fans that use these models at a reasonable price for individuals and companies and at-cost price for educational institutions.</p>
+
+<p>The color fans have been produced according to the highest currently available quality in offset printing, and they include color values in CMYK, sRGB (and its Hex equivalents), CIE LAB and CIE HLC, and they include 986 (CIE LAB) and 1032 (CIE HLC) colors, respectively.</p>
+
+<p>It&rsquo;s obvious that a printed color reference cannot include the whole spectrum of CIE LAB, but that is not the value proposition of the color fans. Rather, the latter consists in the use of a completely open and free model, as well as the respective model&rsquo;s approaches: If you use the CIE LAB fan, the colors are easily accessible by using the L parameter as a guide, whereas the HLC fan&rsquo;s colors are sorted by the H value. This might seem a bit odd for some, but after a short period of adaption, it works exceptionally well.</p>
+
+<table width="120%">
+  <tbody>
+    <tr>
+      <td align="center"><img src="images/faecher_hlc-lab.png" title="CIE LAB and CIE HLC color fans" alt="CIE LAB and CIE HLC color fans" /></td>
+    </tr>
+    <tr>
+      <td><div align="center"><p><i>CIE LAB and CIE HLC color fans</i></p></div></td>
+    </tr>
+  </tbody>
+</table>
+
+<p>As of version 1.4.6, Scribus includes four color palettes that can be used with the color fans in hand, namely:</p>
+<ul>
+<li><b>CIE-LAB CMYK.xml</b>: This is the digital CMYK equivalent of the physical color reference &ldquo;LAB Colors&rdquo;</li>
+<li><b>CIE-HLC CMYK.xml</b>: This is the digital CMYK equivalent of the physical color reference &ldquo;HLC Colors&rdquo;</li>
+<li><b>CIE-LAB_RGB.xml</b>: This is the sRGB equivalent of the physical color reference &ldquo;LAB Colors&rdquo;</li>
+<li><b>CIE-HLC RGB.xml</b>: This is the sRGB equivalent of the physical color reference &ldquo;HLC Colors&rdquo;</li>
+</ul>
+
+<p>If you decide to use one of the CMYK palettes for print output, please make sure you are using the right <a href="cms.html">ICC profile</a>, namely FOGRA39. You can download a working profile from either <a href="http://cielab.dtpstudio.de/downloads/CoatedFOGRA39.icc">dtp studio</a> or <a href="http://www.eci.org/_media/downloads/icc_profiles_from_eci/pso-coated_v3.zip">ECI</a>. Please note that the latter is preferable over the former, if only slightly. As for the sRGB versions, according to the producer of the fans, users should be able to reproduce the colors reliably with the sRGB profile that is already being shipped with Scribus.</p>
+<br>
+<br>
+
+</body>
+</html>

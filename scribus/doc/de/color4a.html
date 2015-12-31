@@ -1,0 +1,46 @@
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<title>Farbpaletten in Scribus (4a): CIE L*a*b* und CIE HLC</title>
+</head>
+<style>
+@import "manual.css";
+</style>
+<body>
+<h2>Farbpaletten in Scribus (4a): CIE L*a*b* und CIE HLC</h2>
+<br>
+<p>CIE L*a*b* bzw. CIE LAB or CIELAB (alternative Schreibweisen), ist ein Farbmodell, das alle Farben enth&auml;lt, die das menschliche Auge wahrnehmen kann. Es geht daher &uuml;ber RGB oder CMYk hinaus, denn es ist nicht an ein spezifisches Ausgabeger&auml;t gebunden. Das Modell verwendet drei Parameter, um eine Farbe zu definieren, n&auml;mlich Helligkeit (L&nbsp;=&nbsp;Lightness), wobei 0 f&uuml;r Schwarz und 100 f&uuml;r Wei&szlig; steht, sowie die Farbgegens&auml;tze Rot-Gr&uuml;n (&raquo;a&laquo;) sowie Gelb-Blau (&raquo;b&laquo;).</p>
+
+<p>Weil das CIE-LAB-Modell nicht unbedingt intuitiv zu verstehen ist, wurde eine Alternative namens CIE HLC entwickelt. In letzterer sind die drei Parameter Farbton (H&nbsp;=Hue), Helligkeit (L&nbsp;=&nbsp;Lightness) and S&auml;ttigung (C&nbsp;=&nbsp;Chroma). In bezug auf die Umrechnung und die Anwenderfreundlichkeit verh&auml;lt sich HLC zu LAB in etwa wie HSV zu RGB.</p>
+
+<p>Scribus 1.4.x kann im Gegensatz zur Nachfolgeversion noch nicht direkt mit Unterst&uuml;tzung f&uuml;r das CIE-LAB-Farbmodell in seinen Farbdialogen aufwarten. Der Grund f&uuml;r die Aufnahme der vier neuen Paletten in die 1.4er-Serie hatte dennoch einen pragmatischen Grund, n&auml;mlich die <a href="http://dtpstudio.de/cielab/shop.php">Verf&uuml;gbarkeit</a> von qualitativ hochwertigen Farbf&auml;chern zum Abmustern, die die genannten Farbmodelle verwenden, und zwar zu einem erschwinglichen Preis.</p>
+
+<p>Die F&auml;cher wurden nach dem derzeit bestm&ouml;glichen Offsetdruckstandard produziert, und die Farbabweichungen zwischen einzelnen F&auml;chern sind weitaus geringer als zwischen denen bekannterer Hersteller. Dar&uuml;ber hinaus bewegen sich die Abweichungen in einem f&uuml;r die Druckindustrie tolerierbaren Rahmen. Jeder der beiden F&auml;cher bietet die Farbwerte in CMYK, sRGB (und den entsprechenden Hex-&Auml;quivalenten), CIE LAB und CIE HLC, und sie enthalten 986 (CIE LAB) bzw. 1032 (CIE HLC) Farben.</p>
+
+<p>Selbstverst&auml;ndlich kann eine gedruckte Farbreferenz nicht das gesamte CIE-LAB-Farbspektrum wiedergeben, aber darum geht es auch gar nicht. Viel wichtiger ist, da&szlig; es sich bei CIE LAB um einen offenen und ohne jede Lizenzgeb&uuml;hr zug&auml;nglichen Standard handelt, der erstmals in zwei Farbf&auml;chern (samt Bedienungsanleitung) konsequent umgesetzt wurde: Wenn Sie den CIE-LAB-F&auml;cher verwenden, k&ouml;nnen Sie die ben&ouml;tigten Farbbereiche mit Hilfe des Helligkeitskriteriums (L) finden, w&auml;hrend das entscheidende Kriterium beim HLC-F&auml;cher der Farbton (H) ist. Das mag anfangs etwas gew&ouml;hnungsbed&uuml;rftig sein, erweist sich aber schnell als &auml;u&szlig;erst effektiv.</p>
+
+<table width="120%">
+  <tbody>
+    <tr>
+      <td align="center"><img src="images/faecher_hlc-lab.png" title="CIE-LAB- und CIE-HLC-Farbf&auml;cher" alt="CIE-LAB- und CIE-HLC-Farbf&auml;cher" /></td>
+    </tr>
+    <tr>
+      <td><div align="center"><p><i>CIE-LAB- und CIE-HLC-Farbf&auml;cher</i></p></div></td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Ab Version 1.4.6 enth&auml;lt Scribus vier neue Farbpaletten, die mit den genannten F&auml;chern verwendet werden k&ouml;nnen:</p>
+<ul>
+<li><b>CIE-LAB CMYK</b> &ndash; das digitale &Auml;quivalent zum entsprechenden Farbf&auml;cher.</li>
+<li><b>CIE-HLC CMYK</b> &ndash; das digitale &Auml;quivalent zum entsprechenden Farbf&auml;cher.</li>
+<li><b>CIE-LAB RGB</b> &ndash; das digitale sRGB-&Auml;quivalent zum entsprechenden Farbf&auml;cher.</li>
+<li><b>CIE-HLC RGB</b>&ndash; das digitale sRGB-&Auml;quivalent zum entsprechenden Farbf&auml;cher.</li>
+</ul>
+
+<p>Falls Sie eine der CMYK-Paletten f&uuml;r den Offsetdruck verwenden m&ouml;chten, achten Sie bitte darauf, das passende <a href="cms.html">ICC profil</a> zu verwenden bzw. zu installieren, in diesem Fall FOGRA39. Sie k&ouml;nnen dieses entweder beim <a href="http://cielab.dtpstudio.de/downloads/CoatedFOGRA39.icc">dtp studio oldenburg</a> oder bei der <a href="http://www.eci.org/_media/downloads/icc_profiles_from_eci/pso-coated_v3.zip">ECI</a> herunterladen, wobei das ECI-Profil noch etwas besser ist. Was die sRGB-Werte angeht, sollte das mit Scribus ausgelieferte sRGB-Profil laut Informationen des Herstellers die gew&uuml;nschten Farbwerte liefern.</p>
+<br>
+<br>
+
+</body>
+</html>

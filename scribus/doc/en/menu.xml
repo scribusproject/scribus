@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <menu>
 	<area text="Welcome" file="index.html">
-		<submenuitem text="New in Scribus 1.4.4" file="readme.html"/>
+		<submenuitem text="New in Scribus 1.4.6" file="readme.html"/>
 		<submenuitem text="Specification" file="specs.html"/>
 	</area>
 	<area text="Documentation" file="intro.html">
@@ -56,6 +56,8 @@
 			<submenuitem text="Resene Color Sets" file="color5.html" />
 			<submenuitem text="dtp studio Color Sets" file="color6.html" />
 			<submenuitem text="GiveLife Color System" file="color7.html" />
+			<submenuitem text="dtp studio Color Sets" file="color6.html" />
+			<submenuitem text="CIE LAB and CIE HLC Color sets" file="color4a.html" />
 			<submenuitem text="Galaxy Gauge Color System" file="color7a.html" />
 			<submenuitem text="Galaxy Color Harmonizer" file="color7b.html" />
 			<submenuitem text="Galaxy Color Emotions" file="color7c.html" />

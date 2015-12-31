@@ -1,5 +1,9 @@
 [Dolphin]
-Timestamp=2009,1,31,15,25,45
+PreviewsShown=true
+Timestamp=2015,12,31,9,24,50
+Version=3
+ViewMode=1
+VisibleRoles=Details_text,Details_size,Details_date,Details_type,CustomizedDetails
 
 [IconPosition::CVS]
 X=28
