@@ -5390,7 +5390,7 @@ QByteArray PDFLibCore::setTextSt(PageItem *ite, uint PNr, const ScPage* pag)
 			if (LineStyle.backgroundColor() != CommonStrings::None)
 			{
 				double y0 = ls.y;
-				double y2 = 0;
+				double y2 = ls.y;
 				double ascent = ls.ascent;
 				double descent = ls.descent;
 				double rMarg = LineStyle.rightMargin();
@@ -5425,6 +5425,7 @@ QByteArray PDFLibCore::setTextSt(PageItem *ite, uint PNr, const ScPage* pag)
 				QRectF scr(lMarg + adjX, y0 - ascent, ite->asTextFrame()->columnWidth() - adjX - rMarg, y2 - y0 + descent + ascent);
 				tmp += "q\n";
 				tmp += "n\n";
+				tmp += SetPathAndClip(ite);
 				tmp += putColor(LineStyle.backgroundColor(), LineStyle.backgroundShade(), true);
 				tmp += FToStr(scr.x())     +" "+FToStr(-scr.y())+" m\n";
 				tmp += FToStr(scr.x() + scr.width())+" "+FToStr(-scr.y())+" l\n";

@@ -879,6 +879,21 @@ void XPSExPlug::processTextItem(double xOffset, double yOffset, PageItem *Item, 
 			grp.appendChild(ob);
 		}
 	}
+	bool bFound = false;
+	for (uint ll=0; ll < Item->textLayout.lines(); ++ll)
+	{
+		if (Item->itemText.paragraphStyle(Item->textLayout.line(ll).firstItem).backgroundColor() != CommonStrings::None)
+		{
+			bFound = true;
+			break;
+		}
+	}
+	if (bFound)
+	{
+		FPointArray path = Item->PoLine.copy();
+		path.scale(conversionFactor, conversionFactor);
+		SetClipAttr(grp, &path, Item->fillRule);
+	}
 	uint llp = 0;
 	while (llp < Item->textLayout.lines())
 	{
@@ -887,7 +902,7 @@ void XPSExPlug::processTextItem(double xOffset, double yOffset, PageItem *Item, 
 		if (LineStyle.backgroundColor() != CommonStrings::None)
 		{
 			double y0 = ls.y;
-			double y2 = 0;
+			double y2 = ls.y;
 			double ascent = ls.ascent;
 			double descent = ls.descent;
 			double rMarg = LineStyle.rightMargin();

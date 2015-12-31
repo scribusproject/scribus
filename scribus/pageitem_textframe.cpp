@@ -3708,7 +3708,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRectF cullingArea)
 				QColor tmp;
 				SetQColor(&tmp, LineStyle.backgroundColor(), LineStyle.backgroundShade());
 				double y0 = ls.y;
-				double y2 = 0;
+				double y2 = ls.y;
 				double ascent = ls.ascent;
 				double descent = ls.descent;
 				double rMarg = LineStyle.rightMargin();
@@ -3741,6 +3741,8 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRectF cullingArea)
 					llp++;
 				}
 				p->save();
+				p->setupPolygon(&PoLine);
+				p->setClipPath();
 				p->setAntialiasing(false);
 				p->setFillMode(1);
 				p->setStrokeMode(0);
@@ -3750,51 +3752,6 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRectF cullingArea)
 				p->restore();
 			}
 		}
-/*
-		for (uint ll = 0; ll < textLayout.lines(); ++ll)
-		{
-			ls = textLayout.line(ll);
-			const ParagraphStyle& LineStyle = itemText.paragraphStyle(ls.firstItem);
-			// This code is for rendering paragraph background color.
-			// We just need to define this attribute for the paragraphs now.
-			if (LineStyle.backgroundColor() != CommonStrings::None)
-			{
-				p->save();
-				p->setAntialiasing(false);
-				p->setFillMode(1);
-				p->setStrokeMode(0);
-				QColor tmp;
-				SetQColor(&tmp, LineStyle.backgroundColor(), LineStyle.backgroundShade());
-				p->setBrush(tmp);
-				double y1 = ls.y;
-				double hl = ls.height;
-				double adjX = 0;
-				if (LineStyle.firstIndent() <= 0)
-					adjX += LineStyle.leftMargin() + LineStyle.firstIndent();
-				if (LineStyle.lineSpacingMode() == ParagraphStyle::BaselineGridLineSpacing)
-					hl = doc()->guidesPrefs().valueBaselineGrid;
-				else if (LineStyle.lineSpacingMode() == ParagraphStyle::FixedLineSpacing)
-					hl = LineStyle.lineSpacing();
-				if (ls.isFirstLine)
-				{
-					if (textLayout.lines() == 1)
-						hl = ls.ascent + ls.descent;
-					if (LineStyle.hasDropCap())
-						hl *= LineStyle.dropCapLines();
-				}
-				if (LineStyle.lineSpacingMode() == ParagraphStyle::BaselineGridLineSpacing)
-					y1 -= LineStyle.lineSpacing();
-				else if (firstLineOffset() == FLOPRealGlyphHeight || firstLineOffset() == FLOPFontAscent)
-					y1 -= ls.ascent;
-				else
-					y1 -= ls.ascent + (hl - (ls.ascent + ls.descent)) / 2.0;
-				p->drawRect(ls.colLeft + adjX, y1, columnWidth() - adjX - LineStyle.rightMargin(), hl);
-				p->setAntialiasing(true);
-				p->restore();
-			}
-			// end background code
-		}
-*/
 		for (uint ll=0; ll < textLayout.lines(); ++ll)
 		{
 			ls = textLayout.line(ll);

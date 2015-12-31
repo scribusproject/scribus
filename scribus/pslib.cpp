@@ -5076,7 +5076,7 @@ void PSLib::setTextSt(ScribusDoc* Doc, PageItem* ite, uint argh, ScPage* pg, boo
 		if (LineStyle.backgroundColor() != CommonStrings::None)
 		{
 			double y0 = ls.y;
-			double y2 = 0;
+			double y2 = ls.y;
 			double ascent = ls.ascent;
 			double descent = ls.descent;
 			double rMarg = LineStyle.rightMargin();
@@ -5110,6 +5110,7 @@ void PSLib::setTextSt(ScribusDoc* Doc, PageItem* ite, uint argh, ScPage* pg, boo
 			}
 			QRectF scr(lMarg + adjX, y0 - ascent, ite->asTextFrame()->columnWidth() - adjX - rMarg, y2 - y0 + descent + ascent);
 			PS_save();
+			SetPathAndClip(ite->PoLine, true);
 			int h, s, v, k;
 			SetColor(LineStyle.backgroundColor(), LineStyle.backgroundShade(), &h, &s, &v, &k);
 			PS_setcmykcolor_fill(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
