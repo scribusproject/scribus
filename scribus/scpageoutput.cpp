@@ -1656,50 +1656,64 @@ void ScPageOutput::drawItem_TextFrame( PageItem_TextFrame* item, ScPainterExBase
 			wm.scale(1, -1);
 		}
 
-		for (uint ll = 0; ll < item->textLayout.lines(); ++ll)
+		uint llp = 0;
+		LineSpec ls;
+		while (llp < item->textLayout.lines())
 		{
-			const LineSpec& ls = item->textLayout.line(ll);
-			const ParagraphStyle& lineStyle = item->itemText.paragraphStyle(ls.firstItem);
-			// This code is for rendering paragraph background color.
-			// We just need to define this attribute for the paragraphs now.
-			if (lineStyle.backgroundColor() != CommonStrings::None)
+			ls = item->textLayout.line(llp++);
+			const ParagraphStyle& LineStyle = item->itemText.paragraphStyle(ls.firstItem);
+			if (LineStyle.backgroundColor() != CommonStrings::None)
 			{
+				ScColorShade colorShade;
+				colorShade.color = m_doc->PageColors[LineStyle.backgroundColor()];
+				colorShade.shade = LineStyle.backgroundShade();
+				double y0 = ls.y;
+				double y2 = ls.y;
+				double ascent = ls.ascent;
+				double descent = ls.descent;
+				double rMarg = LineStyle.rightMargin();
+				double lMarg = ls.colLeft;
+				double adjX = 0;
+				if (LineStyle.firstIndent() <= 0)
+					adjX += LineStyle.leftMargin() + LineStyle.firstIndent();
+				while (llp < item->textLayout.lines())
+				{
+					ls = item->textLayout.line(llp);
+					if ((ls.colLeft > lMarg) || (item->itemText.paragraphStyle(ls.firstItem) != LineStyle))
+					{
+						if (y2 == 0)
+							y2 = y0;
+						break;
+					}
+					if (item->itemText.text(ls.lastItem) == SpecialChars::PARSEP)
+					{
+						y2 = ls.y;
+						descent = ls.descent;
+						if ((llp + 1) < item->textLayout.lines())
+							descent += LineStyle.lineSpacing() - (ls.descent + item->textLayout.line(llp + 1).ascent);
+						llp++;
+						break;
+					}
+					y2 = ls.y;
+					descent = ls.descent;
+					if ((llp + 1) < item->textLayout.lines())
+						descent += LineStyle.lineSpacing() - (ls.descent + item->textLayout.line(llp + 1).ascent);
+					llp++;
+				}
 				painter->save();
+				painter->setupPolygon(&item->PoLine);
+				painter->setClipPath();
 				painter->setFillMode(1);
 				painter->setStrokeMode(0);
-				ScColorShade colorShade(m_doc->PageColors[lineStyle.backgroundColor()], lineStyle.backgroundShade());
 				painter->setBrush(colorShade);
-				double y1 = ls.y;
-				double hl = ls.height;
-				double adjX = 0;
-				if (lineStyle.firstIndent() <= 0)
-					adjX += lineStyle.leftMargin() + lineStyle.firstIndent();
-				if (lineStyle.lineSpacingMode() == ParagraphStyle::BaselineGridLineSpacing)
-					hl = item->doc()->guidesPrefs().valueBaselineGrid;
-				else if (lineStyle.lineSpacingMode() == ParagraphStyle::FixedLineSpacing)
-					hl = lineStyle.lineSpacing();
-				if (ls.isFirstLine)
-				{
-					if (item->textLayout.lines() == 1)
-						hl = ls.ascent + ls.descent;
-					if (lineStyle.hasDropCap())
-						hl *= lineStyle.dropCapLines();
-				}
-				if (lineStyle.lineSpacingMode() == ParagraphStyle::BaselineGridLineSpacing)
-					y1 -= lineStyle.lineSpacing();
-				else if (item->firstLineOffset() == FLOPRealGlyphHeight || item->firstLineOffset() == FLOPFontAscent)
-					y1 -= ls.ascent;
-				else
-					y1 -= ls.ascent + (hl - (ls.ascent + ls.descent)) / 2.0;
-				painter->drawRect(ls.colLeft + adjX, y1, item->columnWidth() - adjX - lineStyle.rightMargin(), hl);
+				painter->drawRect(lMarg + adjX, y0 - ascent, item->columnWidth() - adjX - rMarg, y2 - y0 + descent + ascent);
 				painter->restore();
 			}
-			// end background code
 		}
 
 		for (uint ll=0; ll < item->textLayout.lines(); ++ll)
 		{
-			LineSpec ls = item->textLayout.line(ll);
+			const LineSpec& ls = item->textLayout.line(ll);
 			double CurX = ls.x;
 
 			// Draw text background
