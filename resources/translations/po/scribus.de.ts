@@ -6377,7 +6377,7 @@ currently selected item is used.</translation>
     <message>
         <location filename="../../../scribus/about.cpp" line="307"/>
         <source>Haiku Port:</source>
-        <translation type="unfinished"></translation>
+        <translation>Haiku-Portierung:</translation>
     </message>
     <message>
         <location filename="../../../scribus/about.cpp" line="311"/>
@@ -6461,12 +6461,12 @@ currently selected item is used.</translation>
     <message>
         <location filename="../../../scribus/about.cpp" line="301"/>
         <source>Mac OS&amp;#174; X Aqua Port:</source>
-        <translation>Mac OS&amp;#174; X Aqua Portierung:</translation>
+        <translation>Mac-OS&amp;#174;-X-Aqua-Portierung:</translation>
     </message>
     <message>
         <location filename="../../../scribus/about.cpp" line="305"/>
         <source>Windows&amp;#174; Port:</source>
-        <translation>Windows&amp;#174; Portierung:</translation>
+        <translation>Windows&amp;#174;-Portierung:</translation>
     </message>
     <message>
         <location filename="../../../scribus/about.cpp" line="321"/>
@@ -20673,7 +20673,8 @@ Falls kein Anfasser ausgewählt ist, werden alle zurückgesetzt.</translation>
         <location filename="../../../scribus/pdfopts.cpp" line="169"/>
         <source>The range of pages to export is invalid.
 Please check it and try again.</source>
-        <translation type="unfinished"></translation>
+        <translation>Die Seitenauswahl ist ungültig.
+Bitte überprüfen Sie diese und versuchen es erneut.</translation>
     </message>
     <message>
         <location filename="../../../scribus/pdfopts.cpp" line="181"/>
@@ -25191,12 +25192,12 @@ ab&amp;runden:</translation>
     <message>
         <location filename="../../../scribus/propertiespalette.cpp" line="5620"/>
         <source>Any path self-intersections or subpaths create holes in the fill.</source>
-        <translation type="unfinished"></translation>
+        <translation>Überschneidungen desselben Pfades oder mit eingefügten Pfaden erzeugen.</translation>
     </message>
     <message>
         <location filename="../../../scribus/propertiespalette.cpp" line="5621"/>
         <source>Fill is solid unless a subpath is counterdirectional.</source>
-        <translation type="unfinished"></translation>
+        <translation>Vollständiges Füllen, es sei denn, ein eingefügter Pfad läuft entgegengesetzt.</translation>
     </message>
     <message>
         <location filename="../../../scribus/propertiespalette.cpp" line="5639"/>
@@ -34138,7 +34139,7 @@ Sie können zwischen &quot;normal&quot; und verschiedenen Formen der Farbenblind
     <message>
         <location filename="../../../scribus/tabdisplay.ui" line="67"/>
         <source>Show Rulers</source>
-        <translation type="unfinished">Lineale anzeigen</translation>
+        <translation>Lineale anzeigen</translation>
     </message>
     <message>
         <location filename="../../../scribus/tabdisplay.ui" line="153"/>
