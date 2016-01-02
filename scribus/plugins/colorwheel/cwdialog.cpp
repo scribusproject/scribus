@@ -92,7 +92,6 @@ CWDialog::CWDialog(QWidget* parent, ScribusDoc* doc, const char* name, bool moda
 	previewLabel->resize(prefs->getInt("cw_samplex", 300), prefs->getInt("cw_sampley", 100));
 		
 	// setup
-	currentColorTable->horizontalHeader()->hide();
 	colorspaceTab_currentChanged(colorspaceTab->currentIndex());
 
 	// signals and slots that cannot be in ui file
@@ -552,7 +551,9 @@ void CWDialog::colorList_currentChanged(QListWidgetItem * item)
 		currentColorTable->setItem(2, 1, new QTableWidgetItem(num.setNum(s)));
 		currentColorTable->setItem(2, 2, new QTableWidgetItem(num.setNum(v)));
 	}
-	currentColorTable->resizeColumnsToContents();
+	int columnWidth = currentColorTable->fontMetrics().maxWidth() * 4;
+	for (int i = 0; i < 4 ; ++i)
+		currentColorTable->setColumnWidth(i, columnWidth);
 }
 
 QString CWDialog::getHexHsv(ScColor c)
