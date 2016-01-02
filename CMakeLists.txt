@@ -80,7 +80,7 @@ PROJECT(scribus)
 SET (VERSION_MAJOR "1")
 SET (VERSION_MINOR "4")
 SET (VERSION_PATCH "6")
-SET (VERSION_SUFFIX "svn")
+SET (VERSION_SUFFIX "")
 SET (VERSION ${VERSION_MAJOR})
 IF (VERSION_MINOR GREATER -1)
   SET (VERSION ${VERSION}.${VERSION_MINOR})
@@ -991,6 +991,12 @@ IF(EXISTS "${CMAKE_ROOT}/Modules/CPack.cmake")
 	scribus-1.4.6.svn.gz
 	scribus-1.4.6.svn.tar.bz2
 	scribus-1.4.6.svn.tar.7z
+	scribus-1.4.6.tar.gz
+	scribus-1.4.6.tar.Z
+	scribus-1.4.6.tar.xz
+	scribus-1.4.6.gz
+	scribus-1.4.6.tar.bz2
+	scribus-1.4.6.tar.7z
     "~$"
     "\\\\.cvsignore$"
     "\\\\.o$"
