@@ -1,4 +1,51 @@
-Scribus - 1.4.5 (Released 2015-01-XX)
+Scribus - 1.4.6.svn (Released 2016-01-XX) 
+=========================================
+- 0013605: [General] Scribus crashes immediately on opening a particular file (jghali) - closed.
+- 0013609: [Translation] Italian translation update for 1.4.6.svn (FirasH) - closed.
+- 0008548: [Canvas] redrawing the canvas goes wrong when object moved with arrow keys forcing the canvas to scroll (jghali) - closed.
+- 0013470: [Canvas] Missing Layout Update/Display Refresh for Text boxes using certain 'align and distribute' buttons (jghali) - closed.
+- 0013225: [General] "Replace All" in Search/Replace dialog freezes Scribus in determined condition (jghali) - closed.
+- 0013451: [PDF] Invalid PDF when specifying a non-existing page to export (jghali) - closed.
+- 0013503: [General] Crash when opening file (jghali) - closed.
+- 0013471: [Language Tools] Fix for broken hyphenation language selection (jghali) - closed.
+- 0010391: [Story Editor / Text Frames] add keyboard shortcut Ctrl+F to Search/Replace in Story Editor (jghali) - closed.
+- 0010270: [General] Story Editor: Ctrl-F doesn't open Search window (jghali) - closed.
+- 0013435: [Import / Export] blend modes not imported from SVG file (jghali) - closed.
+- 0013416: [Usability] Assert failure when loading document (jghali) - closed.
+- 0013039: [General] Error at startup prevents using script (psmedley) - closed.
+- 0013407: [Translation] Polish translation update for Scribus 1.4.6 (mhanski) - closed.
+- 0013404: [Translation] Updated Danish Translation (jghali) - closed.
+- 0013355: [Typography] Text effects only retained on first line when you reopen a document. (jghali) - closed.
+- 0013369: [Styles] Multiple Duplicate of text box loses style (jghali) - closed.
+- 0013365: [Undo/Redo] Rename action is wrongly recorded in Action History (FirasH) - closed.
+- 0013214: [General] Crash when reopening field properties dialog (jghali) - closed.
+- 0013154: [OS-Win32] Error message during the startup of scribus (jghali) - closed.
+- 0013180: [PDF] Encoding error in PDF with Symbol font (jghali) - closed.
+- 0013183: [User Interface] Crash when attempting to set keyboard shortcut to menu separator in keyboard shortcut prefs (cbradney) - closed.
+- 0013327: [PDF] Closing PDF "Field Properties" dialog after changing some values leads to crash (jghali) - closed.
+- 0013326: [Translation] Italian translation update for 1.4.6.svn (jghali) - closed.
+- 0013193: [PDF] Doesn't save a javascript script. (jghali) - closed.
+- 0013319: [PDF] [patch] valgrind error "Conditional jump or move depends on uninitialised value" in ScImgDataLoader_PS (jghali) - closed.
+- 0013184: [User Interface] "View rulers" setting not retained across session (jghali) - closed.
+- 0013219: [General] Backport 0012193 (Style Manager styles sorting) to 1.4.6.svn (cbradney) - closed.
+- 0013295: [Translation] Minor Italian translation improvement for 1.5.1.svn + backport to 1.4.6.svn (FirasH) - closed.
+- 0013270: [General] "Defaults" button duplicates Printing Destination in Preferences (cbradney) - closed.
+- 0013067: [User Interface] Better tooltip for fill rules (jghali) - closed.
+- 0013153: [Translation] Italian translation updates for 1.4.6.svn and 1.5.1.svn (FirasH) - closed.
+- 0013098: [Translation] Italian translation update for 1.4.6.svn (FirasH) - closed.
+- 0013065: [PDF] Transparency of layers is lost for object placed in template when exporting in PDF (jghali) - closed.
+- 0013042: [User Interface] Display DPI maximum too small for hi res screens (cbradney) - closed.
+- 0013035: [Build System] Build system does not respect DATAROOTDIR (cbradney) - closed.
+- 0013014: [PDF] PDF export creates XObject for every group on every page (jghali) - closed.
+- 0012986: [General] Multiple duplicate - Cannot enter more than 14 times manually, nor more than 99 times with the incrementor (cbradney) - closed.
+- 0012997: [Story Editor / Text Frames] [PATCH] Kerning between non-CJK and CJK letters does not appear until the text frame containing them is modified. (jghali) - closed.
+- 0012309: [Undo/Redo] "Arrange Pages" changes to pages arrangement might lead to wrong behavior of Undo/Redo (cbradney) - closed.
+- 0010870: [Story Editor / Text Frames] when deleting a linked text frame the content is not refreshed (jghali) - closed.
+- 0012459: [Undo/Redo] Undo/Redo does not restore the correct position using Flip Horizontal/Vertical (cbradney) - closed.
+- 0012893: [Usability] Incorrectly calculates the characters and words (jghali) - closed.
+- 0012904: [-] opening 'About' throws "please add the untranslated title "Haiku Port:" to About::trAuthorTitle()" (cbradney) - closed.
+
+Scribus - 1.4.5 (Released 2015-01-31)
 =========================================
 - 0012858: [Plug-ins] Barcode plugin updated barcode.ps file (fschmid) - resolved.
 - 0012827: [PDF] crash on pdf export (jghali) - resolved.
