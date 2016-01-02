@@ -1,12 +1,11 @@
-SCRIBUS 1.4.5
+SCRIBUS 1.4.6
 ----------------------------------------------
 
-1.4.5 is the new stable Scribus version, released  FIXME.
+1.4.6 is the new stable Scribus version, released January, 2016.
 
-While 1.4.5 is considered to be usable in production, if you have documents made in 1.3.3.x, you may want to keep the latest 1.3.3.14 as a fallback option for older documents due to some changes in layout. 
-Both versions can be installed in parallel. Please be aware of the fact that files saved with 1.3.4 or any later version cannot be opened by 1.3.3.x!
+Currently, the 1.5.x versions of Scribus are considered to be in the development stage. Both 1.4.6 and 1.5.x can be installed in parallel, but be aware that files saved with 1.5.0 or any later version cannot be opened by 1.4.6! In contrast 1.4.6 will open files from any earlier version.
 
-If you think you have found a bug in 1.4.5, you can use the Scribus bugtracker (http://bugs.scribus.net) to make us aware of it. Please make sure that the bug hasn't been reported earlier. The bugtracker's search feature can help you to check for issues that have already been submitted.
+If you think you have found a bug in 1.4.6, you can use the Scribus bugtracker (http://bugs.scribus.net) to make us aware of it. Please try to make sure that the bug hasn't been reported earlier. The bugtracker's search feature can help you to check for issues that have already been submitted.
 
 Compiling from Source
 =====================
@@ -36,7 +35,7 @@ The latest stable and development versions of Scribus (source tarballs, DMGs for
 LANGUAGE SUPPORT
 ================
 
-Scribus will usually read the language setting of your operating system/your graphical user interface. If, for some reason, the detection of the "locale" setting fails or if you want to use a different language for the Scribus user interface, you can easily change it via File > Preferences > General. You can also start Scribus from the command line via "scribus -l <lang>" or "scribus --lang <lang>" (without quotes), where <lang> has to be replaced with a locale (or language) definition. For instance, "scribus -l fr" will start Scribus with a user interface in French. To find out which languages are supported, you can use either the drop-down list in the Preferences tab mentioned above or use "scribus -la"/"scribus --langs-available" on the command line. If you choose to change the UI language via the Preferences, the change will take effect immediately. Please note that the documentation included in the Help Browser is currently only available in English, French and German. If you choose any other language 
+Scribus should read the language setting of your operating system/your graphical user interface. If, for some reason, the detection of the "locale" setting fails or if you want to use a different language for the Scribus user interface, you can easily change it via File > Preferences > General. You can also start Scribus from the command line via "scribus -l <lang>" or "scribus --lang <lang>" (without quotes), where <lang> has to be replaced with a locale (or language) definition. For instance, "scribus -l fr" will start Scribus with a user interface in French. To find out which languages are supported, you can use either the drop-down list in the Preferences tab mentioned above or use "scribus -la"/"scribus --langs-available" on the command line. If you choose to change the UI language via the Preferences, the change will take effect immediately. Please note that the documentation included in the Help Browser is currently only available in English, French and German. If you choose any other language 
 for the user interface, Scribus will use the English version.
 
 
@@ -57,7 +56,7 @@ GhostScript
 
 One of the more crucial tools Scribus depends on is Ghostscript (gs). While it is not required for compilation, Scribus must be able to find a recent version of Ghostscript at runtime for all features to be present and fully working. In particular, the print preview and EPS import into image frames will not be functional without Ghostscript. It is recommended to always use the latest Ghostcript version.
 
-Support for versions older than 8.6x is untested and Scribus may not operate reliably using such an old version of gs.
+Try to use the most up-to-date version of ghostscript you can find, currently 9.16 should be available. Support for versions older than 8.6x is untested and Scribus may not operate reliably using such an old version of gs.
 
 You can find out which version of GhostScript Scribus is using in the dialog Help > About Scribus. If you have a newer version installed somewhere else you can specify its location under File > Preferences > External Tools.
 
