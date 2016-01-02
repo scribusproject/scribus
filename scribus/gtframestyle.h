@@ -33,10 +33,10 @@ for which a new license (GPL+exception) is in place.
 class SCRIBUS_API gtFrameStyle : public gtParagraphStyle
 {
 private:
-	int     columns;
-	double  columnsGap;
-	QString bgColor;
-	int     bgShade;
+	int     m_columns;
+	double  m_columnsGap;
+	QString m_bgColor;
+	int     m_bgShade;
 	void init();
 public:
 	gtFrameStyle(QString name);
