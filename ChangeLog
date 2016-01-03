@@ -1,4 +1,4 @@
-Scribus - 1.4.6.svn (Released 2016-01-XX) 
+Scribus - 1.4.6.svn (Released 2016-01-03) 
 =========================================
 - 0013605: [General] Scribus crashes immediately on opening a particular file (jghali) - closed.
 - 0013609: [Translation] Italian translation update for 1.4.6.svn (FirasH) - closed.
@@ -45,7 +45,7 @@ Scribus - 1.4.6.svn (Released 2016-01-XX)
 - 0012893: [Usability] Incorrectly calculates the characters and words (jghali) - closed.
 - 0012904: [-] opening 'About' throws "please add the untranslated title "Haiku Port:" to About::trAuthorTitle()" (cbradney) - closed.
 
-Scribus - 1.4.5 (Released 2015-01-31)
+Scribus - 1.4.5 (Released 2015-01-26)
 =========================================
 - 0012858: [Plug-ins] Barcode plugin updated barcode.ps file (fschmid) - resolved.
 - 0012827: [PDF] crash on pdf export (jghali) - resolved.
