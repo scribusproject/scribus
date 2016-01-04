@@ -1220,7 +1220,10 @@ QDomElement SVGExPlug::processTextItem(PageItem *Item, QString trans, QString fi
 					y2 = ls.y;
 					descent = ls.descent;
 					if ((llp + 1) < Item->textLayout.lines())
-						descent += LineStyle.lineSpacing() - (ls.descent + Item->textLayout.line(llp + 1).ascent);
+					{
+						if ((Item->textLayout.line(llp + 1).lastItem - Item->textLayout.line(llp + 1).firstItem) > 0)
+							descent += LineStyle.lineSpacing() - (ls.descent + Item->textLayout.line(llp + 1).ascent);
+					}
 					llp++;
 					break;
 				}

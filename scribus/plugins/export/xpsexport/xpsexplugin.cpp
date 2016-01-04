@@ -924,7 +924,10 @@ void XPSExPlug::processTextItem(double xOffset, double yOffset, PageItem *Item, 
 					y2 = ls.y;
 					descent = ls.descent;
 					if ((llp + 1) < Item->textLayout.lines())
-						descent += LineStyle.lineSpacing() - (ls.descent + Item->textLayout.line(llp + 1).ascent);
+					{
+						if ((Item->textLayout.line(llp + 1).lastItem - Item->textLayout.line(llp + 1).firstItem) > 0)
+							descent += LineStyle.lineSpacing() - (ls.descent + Item->textLayout.line(llp + 1).ascent);
+					}
 					llp++;
 					break;
 				}
@@ -1246,6 +1249,9 @@ void XPSExPlug::processTextItem(double xOffset, double yOffset, PageItem *Item, 
 					else
 						pts.translate(0, -(chs / 10.0));
 					pts.translate(CurX, ls.y);
+					// Fix for drop caps ???
+					if (ls.isFirstLine && Item->itemText.paragraphStyle(ls.firstItem).hasDropCap() && (txItem.index == ls.firstItem))
+						pts.translate(0, -ls.ascent);
 					if (txItem.style.effects() & (ScStyle_Subscript | ScStyle_Superscript))
 						pts.translate(0, txItem.glyphs->yoffset);
 					if ((txItem.style.effects() & ScStyle_Shadowed) && (txItem.style.strokeColor() != CommonStrings::None))

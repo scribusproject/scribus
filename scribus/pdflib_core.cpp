@@ -5412,7 +5412,10 @@ QByteArray PDFLibCore::setTextSt(PageItem *ite, uint PNr, const ScPage* pag)
 						y2 = ls.y;
 						descent = ls.descent;
 						if ((llp + 1) < ite->textLayout.lines())
-							descent += LineStyle.lineSpacing() - (ls.descent + ite->textLayout.line(llp + 1).ascent);
+						{
+							if ((ite->textLayout.line(llp + 1).lastItem - ite->textLayout.line(llp + 1).firstItem) > 0)
+								descent += LineStyle.lineSpacing() - (ls.descent + ite->textLayout.line(llp + 1).ascent);
+						}
 						llp++;
 						break;
 					}

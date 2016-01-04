@@ -3730,7 +3730,10 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRectF cullingArea)
 						y2 = ls.y;
 						descent = ls.descent;
 						if ((llp + 1) < textLayout.lines())
-							descent += LineStyle.lineSpacing() - (ls.descent + textLayout.line(llp + 1).ascent);
+						{
+							if ((textLayout.line(llp + 1).lastItem - textLayout.line(llp + 1).firstItem) > 0)
+								descent += LineStyle.lineSpacing() - (ls.descent + textLayout.line(llp + 1).ascent);
+						}
 						llp++;
 						break;
 					}
