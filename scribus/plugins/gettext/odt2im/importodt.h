@@ -55,7 +55,9 @@ public:
 	  margin_left(0.0),
 	  margin_right(0.0),
 	  verticalAlignment(0),
-	  tabStops()
+	  tabStops(),
+	  breakBefore("auto"),
+	  breakAfter("auto")
 	  {}
 	QString							CurrColorText;
 	QString							CurrColorBText;
@@ -82,6 +84,8 @@ public:
 	double							margin_right;
 	int								verticalAlignment;
 	QList<ParagraphStyle::TabRecord> tabStops;
+	QString							breakBefore;
+	QString							breakAfter;
 };
 
 class ODTIm
@@ -121,6 +125,8 @@ class ODTIm
 			AttributeValue verticalAlignment;
 			AttributeValue tabDists;
 			AttributeValue tabTypes;
+			AttributeValue breakBefore;
+			AttributeValue breakAfter;
 		};
 		bool parseRawDocReference(QString designMap);
 		bool parseRawDocReferenceXML(QDomDocument &designMapDom);

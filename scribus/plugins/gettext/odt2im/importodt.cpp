@@ -369,6 +369,8 @@ void ODTIm::parseStyles(QDomElement &sp, QString type)
 					currStyle.textAlign = AttributeValue(spe.attribute("fo:text-align", ""));
 					currStyle.lineHeight = AttributeValue(spe.attribute("fo:line-height", ""));
 					currStyle.parBackgroundColor = AttributeValue(spe.attribute("fo:background-color", ""));
+					currStyle.breakAfter = AttributeValue(spe.attribute("fo:break-after", ""));
+					currStyle.breakBefore = AttributeValue(spe.attribute("fo:break-before", ""));
 					if (spe.hasChildNodes())
 					{
 						for(QDomElement spt = spe.firstChildElement(); !spt.isNull(); spt = spt.nextSiblingElement() )
@@ -443,6 +445,8 @@ void ODTIm::parseStyles(QDomElement &sp, QString type)
 					currStyle.textAlign = AttributeValue(spe.attribute("fo:text-align", ""));
 					currStyle.lineHeight = AttributeValue(spe.attribute("fo:line-height", ""));
 					currStyle.parBackgroundColor = AttributeValue(spe.attribute("fo:background-color", ""));
+					currStyle.breakAfter = AttributeValue(spe.attribute("fo:break-after", ""));
+					currStyle.breakBefore = AttributeValue(spe.attribute("fo:break-before", ""));
 					if (spe.hasChildNodes())
 					{
 						for(QDomElement spt = spe.firstChildElement(); !spt.isNull(); spt = spt.nextSiblingElement() )
@@ -668,6 +672,16 @@ void ODTIm::parseTextParagraph(QDomNode &elem, PageItem* item, ParagraphStyle &n
 			}
 		}
 	}
+	if (pStyle.breakBefore == "column")
+	{
+		QString txt = SpecialChars::COLBREAK;
+		insertChars(item, txt, tmpStyle, tmpCStyle, posC);
+	}
+	else if (pStyle.breakBefore == "page")
+	{
+		QString txt = SpecialChars::FRAMEBREAK;
+		insertChars(item, txt, tmpStyle, tmpCStyle, posC);
+	}
 	applyParagraphStyle(tmpStyle, pStyle);
 	if (elem.hasChildNodes())
 	{
@@ -730,6 +744,16 @@ void ODTIm::parseTextParagraph(QDomNode &elem, PageItem* item, ParagraphStyle &n
 		else
 			tmpStyle.setLineSpacing(tmpOStyle.lineHeight * tmpOStyle.fontSize);
 	} */
+	if (pStyle.breakAfter == "column")
+	{
+		QString txt = SpecialChars::COLBREAK;
+		insertChars(item, txt, tmpStyle, tmpCStyle, posC);
+	}
+	else if (pStyle.breakAfter == "page")
+	{
+		QString txt = SpecialChars::FRAMEBREAK;
+		insertChars(item, txt, tmpStyle, tmpCStyle, posC);
+	}
 	item->itemText.insertChars(posC, SpecialChars::PARSEP);
 	item->itemText.applyStyle(posC, tmpStyle);
 	posC = item->itemText.length();
@@ -950,6 +974,10 @@ void ODTIm::resovleStyle(ObjStyleODT &tmpOStyle, QString pAttrs)
 					actStyle.tabDists = AttributeValue(currStyle.tabDists.value);
 				if (currStyle.tabTypes.valid)
 					actStyle.tabTypes = AttributeValue(currStyle.tabTypes.value);
+				if (currStyle.breakAfter.valid)
+					actStyle.breakAfter = AttributeValue(currStyle.breakAfter.value);
+				if (currStyle.breakBefore.valid)
+					actStyle.breakBefore = AttributeValue(currStyle.breakBefore.value);
 			}
 		}
 		if (actStyle.textBackgroundColor.valid)
@@ -1078,6 +1106,10 @@ void ODTIm::resovleStyle(ObjStyleODT &tmpOStyle, QString pAttrs)
 				}
 			}
 		}
+		if (actStyle.breakAfter.valid)
+			tmpOStyle.breakAfter = actStyle.breakAfter.value;
+		if (actStyle.breakBefore.valid)
+			tmpOStyle.breakBefore = actStyle.breakBefore.value;
 	}
 }
 
