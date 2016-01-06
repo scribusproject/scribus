@@ -134,7 +134,7 @@ void PropertyWidget_TextColor::connectSignals()
 	connect(strokeColor , SIGNAL(activated(int)), this, SLOT(handleTextStroke())   , Qt::UniqueConnection);
 	connect(fillShade   , SIGNAL(clicked())     , this, SLOT(handleTextShade())    , Qt::UniqueConnection);
 	connect(strokeShade , SIGNAL(clicked())     , this, SLOT(handleTextShade())    , Qt::UniqueConnection);
-	connect(backShade , SIGNAL(clicked())     , this, SLOT(handleTextShade())    , Qt::UniqueConnection);
+	connect(backShade   , SIGNAL(clicked())     , this, SLOT(handleTextShade())    , Qt::UniqueConnection);
 	connect(backColor   , SIGNAL(activated(int)), this, SLOT(handleTextBackground())     , Qt::UniqueConnection);
 
 	connect(textEffects, SIGNAL(State(int))      , this, SLOT(handleTypeStyle(int)), Qt::UniqueConnection);
@@ -154,7 +154,7 @@ void PropertyWidget_TextColor::disconnectSignals()
 	disconnect(strokeColor , SIGNAL(activated(int)), this, SLOT(handleTextStroke()));
 	disconnect(fillShade   , SIGNAL(clicked())     , this, SLOT(handleTextShade()));
 	disconnect(strokeShade , SIGNAL(clicked())     , this, SLOT(handleTextShade()));
-	disconnect(backShade , SIGNAL(clicked())     , this, SLOT(handleTextShade()));
+	disconnect(backShade   , SIGNAL(clicked())     , this, SLOT(handleTextShade()));
 	disconnect(backColor   , SIGNAL(activated(int)), this, SLOT(handleTextBackground()));
 
 	disconnect(textEffects, SIGNAL(State(int))      , this, SLOT(handleTypeStyle(int)));
