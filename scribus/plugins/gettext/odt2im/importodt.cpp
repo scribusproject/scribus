@@ -927,7 +927,19 @@ void ODTIm::resovleStyle(ObjStyleODT &tmpOStyle, QString pAttrs)
 				if (currStyle.fontName.valid)
 					actStyle.fontName = AttributeValue(currStyle.fontName.value);
 				if (currStyle.fontSize.valid)
-					actStyle.fontSize = AttributeValue(currStyle.fontSize.value);
+				{
+					if (currStyle.fontSize.value.right(1) == "%")
+					{
+						double perc = parseUnit(currStyle.fontSize.value);
+						if (actStyle.fontSize.valid)
+						{
+							double value = parseUnit(actStyle.fontSize.value) * perc;
+							actStyle.fontSize = AttributeValue(QString("%1pt").arg(value));
+						}
+					}
+					else
+						actStyle.fontSize = AttributeValue(currStyle.fontSize.value);
+				}
 				if (currStyle.fontStyle.valid)
 					actStyle.fontStyle = AttributeValue(currStyle.fontStyle.value);
 				if (currStyle.fontWeight.valid)
@@ -1079,7 +1091,7 @@ void ODTIm::resovleStyle(ObjStyleODT &tmpOStyle, QString pAttrs)
 			}
 			else
 			{
-				tmpOStyle.lineHeight = parseUnit(actStyle.lineHeight.value);
+				tmpOStyle.lineHeight = parseUnit(actStyle.lineHeight.value) * tmpOStyle.fontSize;
 				tmpOStyle.absLineHeight = false;
 			}
 		}
