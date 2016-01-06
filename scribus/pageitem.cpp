@@ -2870,6 +2870,7 @@ void PageItem::drawGlyphs(ScPainter *p, const CharStyle& style, LayoutFlags flag
 			else if ((font.isStroked()) && (style.strokeColor() != CommonStrings::None) && ((style.fontSize() * glyphs.scaleV * style.outlineWidth() / 10000.0) != 0))
 			{
 				QColor tmp = p->brush();
+				p->setStrokeMode(1);
 				p->setPen(tmp, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 				p->setLineWidth(style.fontSize() * glyphs.scaleV * style.outlineWidth() / 10000.0);
 				p->strokePath();
@@ -2892,6 +2893,7 @@ void PageItem::drawGlyphs(ScPainter *p, const CharStyle& style, LayoutFlags flag
 					p->fillPath();
 				if ((style.effects() & ScStyle_Outline) && (style.strokeColor() != CommonStrings::None) && ((style.fontSize() * glyphs.scaleV * style.outlineWidth() / 10000.0) != 0))
 				{
+					p->setStrokeMode(1);
 					p->setLineWidth((style.fontSize() * glyphs.scaleV * style.outlineWidth() / 10000.0) / glySc);
 					p->strokePath();
 				}
