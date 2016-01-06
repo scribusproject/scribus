@@ -592,6 +592,7 @@ void ScPageOutput::drawGlyphs(PageItem* item, ScPainterExBase *painter, const Ch
 			else if ((style.font().isStroked()) && ((style.fontSize() * glyphs.scaleV * style.outlineWidth() / 10000.0) != 0))
 			{
 				ScColorShade tmp = painter->brush();
+				painter->setStrokeMode(1);
 				painter->setPen(tmp, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 				painter->setLineWidth(style.fontSize() * glyphs.scaleV * style.outlineWidth() / 10000.0);
 				painter->strokePath();
@@ -614,6 +615,7 @@ void ScPageOutput::drawGlyphs(PageItem* item, ScPainterExBase *painter, const Ch
 					fillPath(item, painter, clip);
 				if ((style.effects() & ScStyle_Outline) && (style.strokeColor() != CommonStrings::None) && ((style.fontSize() * glyphs.scaleV * style.outlineWidth() / 10000.0) != 0))
 				{
+					painter->setStrokeMode(1);
 					painter->setLineWidth((style.fontSize() * glyphs.scaleV * style.outlineWidth() / 10000.0) / glySc);
 					painter->strokePath();
 				}
@@ -1690,7 +1692,10 @@ void ScPageOutput::drawItem_TextFrame( PageItem_TextFrame* item, ScPainterExBase
 						y2 = ls.y;
 						descent = ls.descent;
 						if ((llp + 1) < item->textLayout.lines())
-							descent += LineStyle.lineSpacing() - (ls.descent + item->textLayout.line(llp + 1).ascent);
+						{
+							if ((item->textLayout.line(llp + 1).lastItem - item->textLayout.line(llp + 1).firstItem) > 0)
+								descent += LineStyle.lineSpacing() - (ls.descent + item->textLayout.line(llp + 1).ascent);
+						}
 						llp++;
 						break;
 					}
@@ -1722,7 +1727,7 @@ void ScPageOutput::drawItem_TextFrame( PageItem_TextFrame* item, ScPainterExBase
 			QRectF scrG;
 			QString oldBack;
 			double oldShade = 100;
-			for (int a = ls.firstItem; a <= ls.lastItem; ++a)
+			for (a = ls.firstItem; a <= ls.lastItem; ++a)
 			{
 				GlyphLayout* glyphs = item->itemText.getGlyphs(a);
 				const CharStyle& charStyle(item->itemText.charStyle(a));
