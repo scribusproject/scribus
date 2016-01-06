@@ -152,7 +152,13 @@ void StyleManager::languageChange()
 	//12193 turn off sort
 	//popupStrings.sort();
 	for (int i = 0; i < popupStrings.count(); ++i)
-		m_newPopup->addAction(popupStrings[i]);
+	{
+		// #13088 : some desktop environment, noticeably KDE Plasma will modify action text
+		// on the fly to add shortcut keys/text mnemonics. So we have to store the popup
+		// strings in the action data. See also https://bugs.kde.org/show_bug.cgi?id=337491
+		QAction* newAction = m_newPopup->addAction(popupStrings[i]);
+		newAction->setData(popupStrings[i]);
+	}
 
 	styleView->clear();
 	for (int i = 0; i < m_items.count(); ++i)
@@ -591,15 +597,18 @@ void StyleManager::slotNew()
 	m_newPopup->exec(newButton->mapToGlobal(QPoint(0, newButton->height() + 2)));
 }
 
-void StyleManager::slotNewPopup(QAction *i)
+void StyleManager::slotNewPopup(QAction *action)
 {
 	if (!m_isEditMode)
 		slotOk(); // switch to edit mode for a new style
 
 	QString typeName = m_rcType;
-	if (typeName.isNull())
-		typeName = i->text();
-	else if (i->text().isNull())
+	QString actionType = action->data().toString();
+	if (actionType.isEmpty())
+		actionType = action->text();
+	if (typeName.isEmpty())
+		typeName = actionType;
+	else if (actionType.isEmpty())
 		return;
 
 	m_rcType = QString::null;
