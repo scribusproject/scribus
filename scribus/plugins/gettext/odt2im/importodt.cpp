@@ -112,6 +112,11 @@ ODTIm::ODTIm(QString fileName, PageItem *textItem, bool textOnly)
 							parseDocReference("content.xml");
 					}
 				}
+				else
+				{
+					if (uz->contains("content.xml"))
+						parseDocReference("content.xml");
+				}
 			}
 			uz->close();
 			delete uz;
@@ -672,12 +677,12 @@ void ODTIm::parseTextParagraph(QDomNode &elem, PageItem* item, ParagraphStyle &n
 			}
 		}
 	}
-	if (pStyle.breakBefore == "column")
+	if ((pStyle.breakBefore == "column") && (item->itemText.length() > 0))
 	{
 		QString txt = SpecialChars::COLBREAK;
 		insertChars(item, txt, tmpStyle, tmpCStyle, posC);
 	}
-	else if (pStyle.breakBefore == "page")
+	else if ((pStyle.breakBefore == "page") && (item->itemText.length() > 0))
 	{
 		QString txt = SpecialChars::FRAMEBREAK;
 		insertChars(item, txt, tmpStyle, tmpCStyle, posC);
