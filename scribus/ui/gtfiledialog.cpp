@@ -26,6 +26,7 @@ gtFileDialog::gtFileDialog(const QString& filters, const QStringList& importers,
 	importerCombo->addItems(importers);
 
 	textOnlyCheckBox->setToolTip( tr("Import text without any formatting"));
+	prefixStylesCheckBox->setToolTip( tr("Prepend the item name to the Style name in Scribus"));
 
 	QList<QByteArray> codecNames = QTextCodec::availableCodecs();
 	QStringList codecList;
@@ -89,6 +90,11 @@ void gtFileDialog::loadSettings(void)
 		bool textOnly = context->getBool("textonly");
 		textOnlyCheckBox->setChecked(textOnly);
 	}
+	if (context->contains("prefix"))
+	{
+		bool textOnly = context->getBool("prefix");
+		textOnlyCheckBox->setChecked(textOnly);
+	}
 }
 
 void gtFileDialog::saveSettings(void)
@@ -98,6 +104,7 @@ void gtFileDialog::saveSettings(void)
 	context->set("importer", importerCombo->currentText());
 	context->set("encoding", encodingCombo->currentText());
 	context->set("textonly", textOnlyCheckBox->isChecked());
+	context->set("prefix", prefixStylesCheckBox->isChecked());
 }
 
 gtFileDialog::~gtFileDialog()

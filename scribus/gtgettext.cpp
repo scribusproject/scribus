@@ -47,7 +47,7 @@ gtGetText::gtGetText(ScribusDoc* doc)
 // Look at the results of the file selection dialog and figure out if you need to use an importer.
 // Prompt the user if the importer to use isn't obvious.
 void gtGetText::launchImporter(int importer, const QString& filename, bool textOnly, 
-								const QString& encoding, bool append, PageItem* target)
+								const QString& encoding, bool append, bool prefix, PageItem* target)
 {
 	// Struct for the plugin info, we'll load this up from the array.
 	struct ImporterData ida;
@@ -103,7 +103,7 @@ void gtGetText::launchImporter(int importer, const QString& filename, bool textO
 	// If the targetframe is not zero, and we do need to call the importer, 
 	// Run the importer via "CallDLL" and pass it what it needs to know.
 	if (targetFrame!=0 && callImporter)
-		CallDLL(ida, filename, encoding, textOnly, append, targetFrame);
+		CallDLL(ida, filename, encoding, textOnly, append, prefix, targetFrame);
 }  //void gtGetText::launchImporter(int importer, const QString& filename, bool textOnly, 
    //						const QString& encoding, bool append, PageItem* target)
 
@@ -199,12 +199,13 @@ ImportSetup gtGetText::run()
 	if (m_dias->runFileDialog(filters, m_ilist))
 	{
 		// Set the runDialog to true
-		impsetup.runDialog=true;
+		impsetup.runDialog = true;
 		// Copy the other values for the struct from the dialog results
-		impsetup.encoding=m_dias->getEncoding();
-		impsetup.filename=m_dias->getFileName();
-		impsetup.importer=m_dias->getImporter();
-		impsetup.textOnly=m_dias->importTextOnly();
+		impsetup.encoding = m_dias->getEncoding();
+		impsetup.filename = m_dias->getFileName();
+		impsetup.importer = m_dias->getImporter();
+		impsetup.textOnly = m_dias->importTextOnly();
+		impsetup.prefixNames = m_dias->prefixStyles();
 // 		launchImporter(dias->getImporter(), dias->getFileName(),
 // 		               dias->importTextOnly(), dias->getEncoding(), append);
 	}  // if (dias->runFileDialog(filters, ilist))
@@ -216,12 +217,12 @@ ImportSetup gtGetText::run()
 
 // Loads, validates, and executes the Importer code.
 void gtGetText::CallDLL(const ImporterData& idata, const QString& filePath,
-                        const QString& encoding, bool textOnly, bool append, PageItem* importItem)
+						const QString& encoding, bool textOnly, bool append, bool prefix, PageItem* importItem)
 {
 	// Pointer for the loaded plugin.
 	void* gtplugin;
 	// Type definition for GetText pointer in the function in question.
-	typedef void (*gt2ptr)(QString filename, QString encoding, bool textOnly, PageItem *textframe);
+	typedef void (*gt2ptr)(QString filename, QString encoding, bool textOnly, bool prefix, PageItem *textframe);
 	// Type definition for GetText pointer in the function in question.
 	typedef void (*sdem)(QString filename, QString encoding, bool textOnly, gtWriter *writer);
 	// The point to the above.
@@ -244,7 +245,7 @@ void gtGetText::CallDLL(const ImporterData& idata, const QString& filePath,
 		if (!append)
 			importItem->itemText.clear();
 		// Execute the importer's "GetText2" method.
-		(*fp_GetText2)(filePath, encoding, textOnly, importItem);
+		(*fp_GetText2)(filePath, encoding, textOnly, prefix, importItem);
 	}  // if (!fp_GetText2)        
 	else
 	{

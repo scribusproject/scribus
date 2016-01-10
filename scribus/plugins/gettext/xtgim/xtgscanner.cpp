@@ -39,7 +39,7 @@ for which a new license (GPL+exception) is in place.
 #include "util.h"
 
 
-XtgScanner::XtgScanner (QString filename, PageItem *item, bool textOnly)
+XtgScanner::XtgScanner(QString filename, PageItem *item, bool textOnly, bool prefix)
 {
 	m_item = item;
 	importTextOnly = textOnly;
@@ -71,6 +71,7 @@ XtgScanner::XtgScanner (QString filename, PageItem *item, bool textOnly)
 	m_isBold = false;
 	m_isItalic = false;
 	inDef = false;
+	m_prefixName = prefix;
 }
 
 /** Initialise a QHash which maps the values of n## to corresponding language strings
@@ -1007,7 +1008,10 @@ void XtgScanner::defEquals()	//Token =
 	if (lookAhead() != '[')
 	{
 		define = 1;
-		currentCharStyle.setName(m_item->itemName() + "_" + sfcName);
+		if (m_prefixName)
+			currentCharStyle.setName(m_item->itemName() + "_" + sfcName);
+		else
+			currentCharStyle.setName(sfcName);
 		enterState(textMode);
 	}
 	else 
@@ -1170,7 +1174,10 @@ void XtgScanner::definePStyles()
 	}
 	else
 		newStyle.setParent(pStyle);
-	newStyle.setName(m_item->itemName() + "_" + sfcName);
+	if (m_prefixName)
+		newStyle.setName(m_item->itemName() + "_" + sfcName);
+	else
+		newStyle.setName((sfcName));
 	newStyle.setLineSpacingMode(ParagraphStyle::AutomaticLineSpacing);
 	if (s3 != "")
 	{

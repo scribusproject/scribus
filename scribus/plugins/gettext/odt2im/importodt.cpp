@@ -40,16 +40,17 @@ QStringList FileExtensions()
 	return ret;
 }
 
-void GetText2(QString filename, QString encoding, bool textOnly, PageItem *textItem)
+void GetText2(QString filename, QString encoding, bool textOnly, bool prefix, PageItem *textItem)
 {
-	ODTIm* docxim = new ODTIm(filename, textItem, textOnly);
+	ODTIm* docxim = new ODTIm(filename, textItem, textOnly, prefix);
 	delete docxim;
 }
 
-ODTIm::ODTIm(QString fileName, PageItem *textItem, bool textOnly)
+ODTIm::ODTIm(QString fileName, PageItem *textItem, bool textOnly, bool prefix)
 {
 	m_Doc = textItem->doc();
 	m_item = textItem;
+	m_prefixName = prefix;
 	QFileInfo fi = QFileInfo(fileName);
 	QString ext = fi.suffix().toLower();
 	if (ext == "fodt")
@@ -516,7 +517,10 @@ void ODTIm::parseStyles(QDomElement &sp, QString type)
 					QString styleName = spd.attribute("style:name");
 					if (currStyle.displayName.valid)
 						styleName = currStyle.displayName.value;
-					newStyle.setName(m_item->itemName() + "_" + styleName);
+					if (m_prefixName)
+						newStyle.setName(m_item->itemName() + "_" + styleName);
+					else
+						newStyle.setName(styleName);
 					QString parentName = CommonStrings::DefaultParagraphStyle;
 					if (currStyle.parentStyle.valid)
 					{
@@ -528,7 +532,10 @@ void ODTIm::parseStyles(QDomElement &sp, QString type)
 								parentName = pStyle.displayName.value;
 						}
 					}
-					newStyle.setParent(m_item->itemName() + "_" + parentName);
+					if (m_prefixName)
+						newStyle.setParent(m_item->itemName() + "_" + parentName);
+					else
+						newStyle.setParent(parentName);
 					applyParagraphStyle(newStyle, tmpOStyle);
 					applyCharacterStyle(newStyle.charStyle(), tmpOStyle);
 					StyleSet<ParagraphStyle>tmp;
@@ -542,7 +549,10 @@ void ODTIm::parseStyles(QDomElement &sp, QString type)
 					QString styleName = spd.attribute("style:name");
 					if (currStyle.displayName.valid)
 						styleName = currStyle.displayName.value;
-					newStyle.setName(m_item->itemName() + "_" + styleName);
+					if (m_prefixName)
+						newStyle.setName(m_item->itemName() + "_" + styleName);
+					else
+						newStyle.setName(styleName);
 					newStyle.setParent(CommonStrings::DefaultCharacterStyle);
 					applyCharacterStyle(newStyle, tmpOStyle);
 					StyleSet<CharStyle> temp;
@@ -671,9 +681,18 @@ void ODTIm::parseTextParagraph(QDomNode &elem, PageItem* item, ParagraphStyle &n
 			DrawStyle currStyle = m_Styles[pStyleName];
 			if (currStyle.styleOrigin.value == "styles")
 			{
-				parStyleName = m_item->itemName() + "_" + pStyleName;
-				if (currStyle.displayName.valid)
-					parStyleName = m_item->itemName() + "_" + currStyle.displayName.value;
+				if (m_prefixName)
+				{
+					parStyleName = m_item->itemName() + "_" + pStyleName;
+					if (currStyle.displayName.valid)
+						parStyleName = m_item->itemName() + "_" + currStyle.displayName.value;
+				}
+				else
+				{
+					parStyleName = pStyleName;
+					if (currStyle.displayName.valid)
+						parStyleName = currStyle.displayName.value;
+				}
 			}
 		}
 	}

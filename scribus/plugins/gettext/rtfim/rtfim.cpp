@@ -30,7 +30,7 @@ QStringList FileExtensions()
 	return QStringList("rtf");
 }
 
-void GetText2(QString filename, QString encoding, bool textOnly, PageItem *textItem)
+void GetText2(QString filename, QString encoding, bool textOnly, bool prefix, PageItem *textItem)
 {
 	QFile f(filename);
 	if (f.open(QIODevice::ReadOnly))
@@ -39,7 +39,7 @@ void GetText2(QString filename, QString encoding, bool textOnly, PageItem *textI
 		f.close();
 		QBuffer buffer(&daten);
 		buffer.open(QIODevice::ReadOnly);
-		RtfReader::SlaDocumentRtfOutput *output = new RtfReader::SlaDocumentRtfOutput(textItem, textItem->doc());
+		RtfReader::SlaDocumentRtfOutput *output = new RtfReader::SlaDocumentRtfOutput(textItem, textItem->doc(), prefix);
 		RtfReader::Reader reader;
 		reader.parseFromDeviceTo(&buffer, output);
 		textItem->itemText.trim();

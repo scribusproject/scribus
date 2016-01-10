@@ -34,16 +34,17 @@ QStringList FileExtensions()
 	return QStringList("docx");
 }
 
-void GetText2(QString filename, QString encoding, bool textOnly, PageItem *textItem)
+void GetText2(QString filename, QString encoding, bool textOnly, bool prefix, PageItem *textItem)
 {
-	DocXIm* docxim = new DocXIm(filename, textItem, textOnly);
+	DocXIm* docxim = new DocXIm(filename, textItem, textOnly, prefix);
 	delete docxim;
 }
 
-DocXIm::DocXIm(QString fileName, PageItem *textItem, bool textOnly)
+DocXIm::DocXIm(QString fileName, PageItem *textItem, bool textOnly, bool prefix)
 {
 	m_Doc = textItem->doc();
 	m_item = textItem;
+	m_prefixName = prefix;
 	themePart = "";
 	docPart = "";
 	stylePart = "";
@@ -220,10 +221,16 @@ void DocXIm::parseStyles()
 				QDomElement nam = drawPag.firstChildElement("w:name");
 				if (!nam.isNull())
 				{
-					map_ID_to_Name.insert(drawPag.attribute("w:styleId"), m_item->itemName() + "_" + nam.attribute("w:val"));
+					if (m_prefixName)
+						map_ID_to_Name.insert(drawPag.attribute("w:styleId"), m_item->itemName() + "_" + nam.attribute("w:val"));
+					else
+						map_ID_to_Name.insert(drawPag.attribute("w:styleId"), nam.attribute("w:val"));
 					ParagraphStyle newStyle;
 					newStyle = defaultParagraphStyle;
-					newStyle.setName(m_item->itemName() + "_" + nam.attribute("w:val"));
+					if (m_prefixName)
+						newStyle.setName(m_item->itemName() + "_" + nam.attribute("w:val"));
+					else
+						newStyle.setName(nam.attribute("w:val"));
 					for(QDomElement spf = drawPag.firstChildElement(); !spf.isNull(); spf = spf.nextSiblingElement() )
 					{
 						if (spf.tagName() == "w:basedOn")

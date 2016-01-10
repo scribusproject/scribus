@@ -63,6 +63,7 @@ private:
 	 */
 	PageItem* m_item;
 	bool importTextOnly;
+	bool m_prefixName;
 	/**
 	 \variable Flag variables used in the scanner
 	 */
@@ -110,7 +111,7 @@ private:
 	bool m_isItalic;
 	
 public:
-	XtgScanner(QString filename, PageItem* item, bool textOnly);
+	XtgScanner(QString filename, PageItem* item, bool textOnly, bool prefix);
 	~XtgScanner();
 
 	/**

@@ -370,7 +370,7 @@ PyObject *scribus_inserthtmltext(PyObject* /* self */, PyObject* args)
 	QString fileName = QString::fromUtf8(file);
 
 	gtGetText gt(ScCore->primaryMainWindow()->doc);
-	gt.launchImporter(-1, fileName, false, QString("utf-8"), false, it);
+	gt.launchImporter(-1, fileName, false, QString("utf-8"), false, true, it);
 
 	// FIXME: PyMem_Free() - are any needed??
 	Py_RETURN_NONE;

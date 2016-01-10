@@ -35,14 +35,14 @@ for which a new license (GPL+exception) is in place.
 
 class StyleManager;
 
-extern "C" PLUGIN_API void GetText2(QString filename, QString encoding, bool textOnly, PageItem *textItem);
+extern "C" PLUGIN_API void GetText2(QString filename, QString encoding, bool textOnly, bool prefix, PageItem *textItem);
 extern "C" PLUGIN_API QString FileFormatName();
 extern "C" PLUGIN_API QStringList FileExtensions();
 
 class XtgIm
 {
 public:
-	XtgIm(QString fileName, PageItem *textItem, bool textOnly);
+	XtgIm(QString fileName, PageItem *textItem, bool textOnly, bool prefix);
 	~XtgIm();
 };
 #endif			/* XTGIM_H */

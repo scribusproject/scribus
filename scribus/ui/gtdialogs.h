@@ -67,6 +67,7 @@ public:
 	const QString& getEncoding();
 	int getImporter();
 	bool importTextOnly();
+	bool prefixStyles();
 	bool runFileDialog(const QString& filters, const QStringList& importers);
 	bool runImporterDialog(const QStringList& importers);
 };

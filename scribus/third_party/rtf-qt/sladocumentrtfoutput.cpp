@@ -29,10 +29,11 @@ for which a new license (GPL+exception) is in place.
 
 namespace RtfReader
 {
-	SlaDocumentRtfOutput::SlaDocumentRtfOutput(PageItem *ite, ScribusDoc *doc) : AbstractRtfOutput()
+	SlaDocumentRtfOutput::SlaDocumentRtfOutput(PageItem *ite, ScribusDoc *doc, bool prefix) : AbstractRtfOutput()
 	{
 		m_item = ite;
 		m_Doc = doc;
+		m_prefixName = prefix;
 		QString pStyle = CommonStrings::DefaultParagraphStyle;
 		ParagraphStyle newStyle;
 		newStyle.setParent(pStyle);
@@ -430,7 +431,9 @@ namespace RtfReader
 
 	void SlaDocumentRtfOutput::insertStyleSheetTableEntry(quint32 stylesheetTableIndex, ParagraphStyle stylesheetTableEntry)
 	{
-		QString newName = m_item->itemName() + "_" + stylesheetTableEntry.name();
+		QString newName = stylesheetTableEntry.name();
+		if (m_prefixName)
+			newName = m_item->itemName() + "_" + stylesheetTableEntry.name();
 		stylesheetTableEntry.setName(newName);
 		if (stylesheetTableEntry.charStyle().fontVariant() != "")
 		{

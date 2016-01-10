@@ -18,7 +18,7 @@ for which a new license (GPL+exception) is in place.
 
 #include <QString>
 
-extern "C" PLUGIN_API void GetText2(QString filename, QString encoding, bool textOnly, PageItem *textItem);
+extern "C" PLUGIN_API void GetText2(QString filename, QString encoding, bool textOnly, bool prefix, PageItem *textItem);
 extern "C" PLUGIN_API QString FileFormatName();
 extern "C" PLUGIN_API QStringList FileExtensions();
 

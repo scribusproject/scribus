@@ -231,6 +231,14 @@ bool gtDialogs::importTextOnly()
 	return ret;
 }
 
+bool gtDialogs::prefixStyles()
+{
+	bool ret = false;
+	if (fdia)
+		ret = fdia->prefixStylesCheckBox->isChecked();
+	return ret;
+}
+
 gtDialogs::~gtDialogs()
 {
 	delete fdia;

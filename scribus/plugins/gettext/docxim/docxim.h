@@ -22,14 +22,14 @@ for which a new license (GPL+exception) is in place.
 #include <QHash>
 class ScZipHandler;
 
-extern "C" PLUGIN_API void GetText2(QString filename, QString encoding, bool textOnly, PageItem *textItem);
+extern "C" PLUGIN_API void GetText2(QString filename, QString encoding, bool textOnly, bool prefix, PageItem *textItem);
 extern "C" PLUGIN_API QString FileFormatName();
 extern "C" PLUGIN_API QStringList FileExtensions();
 
 class DocXIm
 {
 	public:
-		DocXIm(QString fileName, PageItem *textItem, bool textOnly);
+		DocXIm(QString fileName, PageItem *textItem, bool textOnly, bool prefix);
 		~DocXIm();
 	private:
 		void parseContentTypes();
@@ -49,6 +49,7 @@ class DocXIm
 		ScZipHandler *uz;
 		ScribusDoc* m_Doc;
 		PageItem* m_item;
+		bool m_prefixName;
 		ParagraphStyle defaultParagraphStyle;
 		ParagraphStyle currentParagraphStyle;
 		QHash<QString, QString> map_ID_to_Name;

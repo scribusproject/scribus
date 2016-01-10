@@ -32,7 +32,7 @@ namespace RtfReader
 	class SlaDocumentRtfOutput : public AbstractRtfOutput
 	{
 	public:
-		explicit SlaDocumentRtfOutput(PageItem* ite, ScribusDoc* doc);
+		explicit SlaDocumentRtfOutput(PageItem* ite, ScribusDoc* doc, bool prefix);
 		virtual ~SlaDocumentRtfOutput();
 		virtual void startGroup();
 		virtual void endGroup();
@@ -116,6 +116,7 @@ namespace RtfReader
 		bool m_keepn;
 		bool m_isBold;
 		bool m_isItalic;
+		bool m_prefixName;
 	};
 }
 #endif // SLADOCUMENTRTFOUTPUT_H

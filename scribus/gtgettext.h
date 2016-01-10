@@ -57,6 +57,7 @@ struct ImportSetup {
 	int importer;					// Which importer was selected?
 	QString filename;				// What filename is to be loaded?
 	bool textOnly;					// Do we import as text only?
+	bool prefixNames;				// Prefix Style names with item name;
 	QString encoding;				// File encoding
 };
 
@@ -71,7 +72,7 @@ private:
 	void loadImporterPlugins();					// Find the available plugins based on the environment, validate they load, and 
 												// create quick lookup mappings.
 	void CallDLL(const ImporterData& idata, const QString& filePath,
-	             const QString& encoding, bool textOnly, bool append, PageItem* importItem);
+				 const QString& encoding, bool textOnly, bool append, bool prefix, PageItem* importItem);
 												// Loads, validates, and executes the Importer code.
 	bool DLLName(QString name, QString *ffName, QStringList *fileEndings);
 												// Loads the "DLL", validates the importer is good, populates the passed parameters with 
@@ -84,7 +85,7 @@ public:
 	gtGetText(ScribusDoc* doc);					// Constructor
 	~gtGetText();								// Destructor
 	ImportSetup run();							// Creates the dialog for the user to import a file based on the supported file formats.
-	void launchImporter(int importer, const QString& filename, bool textOnly, const QString& encoding, bool append, PageItem* target=0);
+	void launchImporter(int importer, const QString& filename, bool textOnly, const QString& encoding, bool append, bool prefix, PageItem* target=0);
 												// Look at the results of the file selection dialog and figure out if you need to use an importer.
 												// Prompt the user if the importer to use isn't obvious.
 };
