@@ -385,26 +385,7 @@ QStringList ScribusQApp::getLang(QString lang)
 
 	// read the locales
 	if (!lang.isEmpty())
-		langs.push_back(lang);
-
-	if (!(lang = ::getenv("LANG")).isEmpty())
-	{
-		if (lang=="C")
-			lang="en";
-		langs.push_back(lang);
-	}
-	if (!(lang = ::getenv("LC_MESSAGES")).isEmpty())
-	{
-		if (lang=="C")
-			lang="en";
-		langs.push_back(lang);
-	}
-	if (!(lang = ::getenv("LC_ALL")).isEmpty())
-	{
-		if (lang=="C")
-			lang="en";
-		langs.push_back(lang);
-	}
+		langs.append(lang);
 
 	//add in user preferences lang, only overridden by lang command line option
 	QString Pff = QDir::toNativeSeparators(ScPaths::getApplicationDataDir());
@@ -428,11 +409,30 @@ QStringList ScribusQApp::getLang(QString lang)
 				{
 					QString prefslang = userprefsContext->get("gui_language","");
 					if (!prefslang.isEmpty())
-						langs.push_back(prefslang);
+						langs.append(prefslang);
 				}
 			}
 			delete prefsFile;
 		}
+	}
+
+	if (!(lang = ::getenv("LANG")).isEmpty())
+	{
+		if (lang=="C")
+			lang="en";
+		langs.append(lang);
+	}
+	if (!(lang = ::getenv("LC_MESSAGES")).isEmpty())
+	{
+		if (lang=="C")
+			lang="en";
+		langs.append(lang);
+	}
+	if (!(lang = ::getenv("LC_ALL")).isEmpty())
+	{
+		if (lang=="C")
+			lang="en";
+		langs.append(lang);
 	}
 
 #if defined(_WIN32)
@@ -451,12 +451,12 @@ QStringList ScribusQApp::getLang(QString lang)
 			lang = language;
 			if ( sublanguage != language && !sublanguage.isEmpty() )
 				lang += "_" + sublanguage.toUpper();
-			langs.push_back(lang);
+			langs.append(lang);
 		}
 	}
 #endif
 
-	langs.push_back(QString(QLocale::system().name()));
+	langs.append(QString(QLocale::system().name()));
 
 	// remove duplicate entries...
 	QStringList::Iterator it = langs.end();
