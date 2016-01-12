@@ -44,6 +44,8 @@ namespace RtfReader
 			ParagraphStyle m_textStyle;
 			QByteArray m_styleName;
 			QHash<quint32, int> m_stylesTable;
+			int m_charactersToSkip;
+			int m_uc_Value;
 	};
 }
 

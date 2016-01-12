@@ -25,7 +25,7 @@
 namespace RtfReader
 {
 
-	StyleSheetDestination::StyleSheetDestination(Reader *reader, AbstractRtfOutput *output, const QString &name) : Destination(reader, output, name)
+	StyleSheetDestination::StyleSheetDestination(Reader *reader, AbstractRtfOutput *output, const QString &name) : Destination(reader, output, name), m_uc_Value(1)
 	{
 		m_currentStyleHandleNumber = 0; /* default */
 		m_textStyle.setParent(CommonStrings::DefaultParagraphStyle);
@@ -173,13 +173,35 @@ namespace RtfReader
 			m_currentStyleParent = value;
 		else if ((controlWord == "s") && hasValue)
 			m_currentStyleHandleNumber = value;
+		else if ((controlWord == "u") && hasValue)
+		{
+			m_styleName.append(m_output->getCurrentCodec()->fromUnicode(QChar(value)));
+			m_charactersToSkip = m_uc_Value; /* TODO: this should be driven by \uc, default to 1 */
+		}
+		else if ((controlWord == "uc") && hasValue)
+			m_uc_Value = value;
 	//	else
 	//		qDebug() << "unhandled control word in StyleSheetDestination:" << controlWord;
 	}
 
 	void StyleSheetDestination::handlePlainText(const QByteArray &plainText)
 	{
-		if (plainText == ";")
+		QByteArray pT = plainText;
+		if (m_charactersToSkip > 0)
+		{
+		//	qDebug() << "skipping" << m_charactersToSkip << "of" << plainText;
+			if (m_charactersToSkip >= plainText.size())
+			{
+				m_charactersToSkip -= plainText.size();
+				return;
+			}
+			else if (plainText.size() > m_charactersToSkip)
+			{
+				pT.remove(0, m_charactersToSkip);
+				m_charactersToSkip = 0;
+			}
+		}
+		if (pT == ";")
 		{
 			m_stylesTable.insert(m_currentStyleHandleNumber, m_currentStyleParent);
 			m_output->insertStyleSheetTableEntry(m_currentStyleHandleNumber, m_textStyle);
@@ -194,14 +216,14 @@ namespace RtfReader
 			m_styleName = "";
 			m_currentStyleParent = -1;
 		}
-		else if (plainText.endsWith(";"))
+		else if (pT.endsWith(";"))
 		{
 			// probably a style name with a terminating delimiter
-			int delimiterPosition = plainText.indexOf(";");
-			if (delimiterPosition == (plainText.length() - 1))
+			int delimiterPosition = pT.indexOf(";");
+			if (delimiterPosition == (pT.length() - 1))
 			{
 				// It is at the end, chop it off
-				QByteArray styleName = plainText.left(delimiterPosition);
+				QByteArray styleName = pT.left(delimiterPosition);
 				m_styleName.append(styleName);
 				m_textStyle.setName(m_output->getCurrentCodec()->toUnicode(m_styleName));
 				m_stylesTable.insert(m_currentStyleHandleNumber, m_currentStyleParent);
@@ -224,7 +246,7 @@ namespace RtfReader
 			}
 		}
 		else
-			m_styleName.append(plainText);
+			m_styleName.append(pT);
 	}
 
 	void StyleSheetDestination::aboutToEndDestination()
