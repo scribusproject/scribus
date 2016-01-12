@@ -6984,6 +6984,7 @@ bool PDFLibCore::PDF_PatternFillStroke(QByteArray& output, PageItem *currItem, i
 		}
 		else
 		{
+			mpa.translate(bleedDisplacementX, bleedDisplacementY);
 			mpa.translate(currItem->xPos() - ActPageP->xOffset(), ActPageP->height() - (currItem->yPos() - ActPageP->yOffset()));
 			mpa.rotate(-currItem->rotation());
 		}
@@ -7357,6 +7358,7 @@ bool PDFLibCore::PDF_MeshGradientFill(QByteArray& output, PageItem *c)
 		}
 		else
 		{
+			mpa.translate(bleedDisplacementX, bleedDisplacementY);
 			mpa.translate(c->xPos() - ActPageP->xOffset(), ActPageP->height() - (c->yPos() - ActPageP->yOffset()));
 			mpa.rotate(-c->rotation());
 		}
@@ -7686,6 +7688,7 @@ bool PDFLibCore::PDF_PatchMeshGradientFill(QByteArray& output, PageItem *c)
 		}
 		else
 		{
+			mpa.translate(bleedDisplacementX, bleedDisplacementY);
 			mpa.translate(c->xPos() - ActPageP->xOffset(), ActPageP->height() - (c->yPos() - ActPageP->yOffset()));
 			mpa.rotate(-c->rotation());
 		}
@@ -8108,6 +8111,7 @@ bool PDFLibCore::PDF_DiamondGradientFill(QByteArray& output, PageItem *c)
 		}
 		else
 		{
+			mpa.translate(bleedDisplacementX, bleedDisplacementY);
 			mpa.translate(c->xPos() - ActPageP->xOffset(), ActPageP->height() - (c->yPos() - ActPageP->yOffset()));
 			mpa.rotate(-c->rotation());
 		}
@@ -8430,6 +8434,7 @@ bool PDFLibCore::PDF_TensorGradientFill(QByteArray& output, PageItem *c)
 		}
 		else
 		{
+			mpa.translate(bleedDisplacementX, bleedDisplacementY);
 			mpa.translate(c->xPos() - ActPageP->xOffset(), ActPageP->height() - (c->yPos() - ActPageP->yOffset()));
 			mpa.rotate(-c->rotation());
 		}
