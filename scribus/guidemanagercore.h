@@ -130,7 +130,7 @@ private:
 };
 
 
-/*! \brief A separate clas for Guides IO operations in reading or closing
+/*! \brief A separate class for Guides IO operations in reading or closing
 the documents.
 \author Petr Vanek <petr@scribus.info>
 */

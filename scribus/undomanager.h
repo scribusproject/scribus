@@ -128,7 +128,7 @@ public:
 	 * <code>UndoGui</code> widgets but stores all incoming <code>UndoState</code> objects into
 	 * the transaction container which after call to the method commit() will be sent
 	 * to the guis as a single undo action. Transaction can be named when starting it or
-	 * naming can be done when commiting it.
+	 * naming can be done when committing it.
 	 * @param targetName name for the target of this transaction (f.e. "Selection")
 	 * @param targetPixmap Icon for the target on which this transaction works.
 	 * this icon will be drawn first when the action is presented in Action History
@@ -160,8 +160,8 @@ public:
 	/*
 	 * @brief Commit the current transaction.
 	 *
-	 * Current transaction will be commited and <code>UndoManager</code> will be switched
-	 * to the normal mode. Commited transaction will be sent to the attached undo gui
+	 * Current transaction will be committed and <code>UndoManager</code> will be switched
+	 * to the normal mode. Committed transaction will be sent to the attached undo gui
 	 * widgets and it will show up there as a single undo action. Details used as a parameter
 	 * will be details shown in the gui widgets.
 	 * @param targetName name for the target of this transaction (f.e. "Selection")
@@ -301,7 +301,7 @@ private:
 
 	/**
 	 * @brief Stores the transactions which are currently started but not
-	 * @brief canceled or commited.
+	 * @brief canceled or committed.
 	 */
 	std::vector<TransactionData*> transactions_;
 

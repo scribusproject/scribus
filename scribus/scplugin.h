@@ -180,7 +180,7 @@ class SCRIBUS_API ScPlugin : public QObject
 		 *
 		 * Returns a structure containing descriptive information about the
 		 * plug-in. This information is used in places like the Help->About
-		 * Plug-ins menu item. The stucture MUST be deleted using
+		 * Plug-ins menu item. The structure MUST be deleted using
 		 * deleteAboutData(AboutData* about) when finished with.
 		 *
 		 * Every plugin MUST reimplement getAboutData(...) and deleteAboutData(...).

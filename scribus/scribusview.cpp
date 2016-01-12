@@ -348,7 +348,7 @@ void ScribusView::changed(QRectF re, bool)
 	double scale = m_canvas->scale();
 	int newCanvasWidth = qRound((Doc->maxCanvasCoordinate.x() - Doc->minCanvasCoordinate.x()) * scale);
 	int newCanvasHeight = qRound((Doc->maxCanvasCoordinate.y() - Doc->minCanvasCoordinate.y()) * scale);
-	if (!re.isValid() && // dont check this all the time
+	if (!re.isValid() && // don't check this all the time
 		( m_oldCanvasWidth != newCanvasWidth || m_oldCanvasHeight != newCanvasHeight))
 	{
 		QSize maxViewport = maximumViewportSize();
@@ -426,7 +426,7 @@ void ScribusView::stopGesture()
 
 /**
 switches between appmodes:
- - for submodes, activate the appropiate dialog or palette
+ - for submodes, activate the appropriate dialog or palette
  - set a new CanvasMode if necessary
  - call ScribusMainWindow::setAppMode(), which de/activates actions
  */
@@ -3963,7 +3963,7 @@ bool ScribusView::eventFilter(QObject *obj, QEvent *event)
 		bool linkmode = (Doc->appMode == modeLinkFrames);
 		firstFrame = Doc->m_Selection->itemAt(0);
 		m_canvasMode->mousePressEvent(m);
-		//if user dont click any frame he want to draw new frame and link it
+		//if user don't click any frame he want to draw new frame and link it
 		bool requestDrawMode = (Doc->ElemToLink == NULL);
 		if (linkmode && requestDrawMode)
 		{

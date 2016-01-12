@@ -75,7 +75,7 @@ public slots:
 
 signals:
 	/*! \brief Inform its view about internal selection changes.
-	It's emitted everytime user adds an existing glyph to the
+	It's emitted every time a user adds an existing glyph to the
 	CharClassDef list. */
 	void selectionChanged(QItemSelectionModel * model);
 	//! \brief Emitted when there is a new row

@@ -304,7 +304,7 @@ void CanvasMode_NodeEdit::mouseMoveEvent(QMouseEvent *m)
 		}
 
 	}
-	else // shouldnt be in nodeedit mode now, should it??
+	else // shouldn't be in nodeedit mode now, should it??
 	{
 		npf = m_canvas->globalToCanvas(m->globalPos());
 		if ((m_canvas->m_viewMode.m_MouseButtonPressed) && (m->buttons() & Qt::LeftButton) && (m_GyM == -1) && (m_GxM == -1))

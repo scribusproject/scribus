@@ -7790,7 +7790,7 @@ void PageItem::restoreImageEffects(UndoState *state, bool isUndo)
 void PageItem::select()
 {
 	m_Doc->view()->Deselect(false);
-	//CB #2969 add this true parm to addItem so we dont connectToGUI, the rest of view->SelectItem isnt needed anyway
+	//CB #2969 add this true parm to addItem so we don't connectToGUI, the rest of view->SelectItem isn't needed anyway
 	m_Doc->m_Selection->addItem(this, true);
 }
 

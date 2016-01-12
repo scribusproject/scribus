@@ -122,7 +122,7 @@ private:
 	/*! \brief Draw guides into painter */
 	void drawGuides();
 
-	/*! \brief Theese methods simulate old button group behaviour.
+	/*! \brief These methods simulate old button group behaviour.
 	Is there a better way to do it? QButtonGroup? It's more code...
 	*/
 	void setHorizontalRefer(int button);

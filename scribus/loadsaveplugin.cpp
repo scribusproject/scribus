@@ -241,12 +241,12 @@ bool LoadSavePlugin::loadPalette(const QString & fileName)
 
 void LoadSavePlugin::setFileReadError()
 {
-	m_lastError = tr("An error occured while opening file or file is damaged");
+	m_lastError = tr("An error occurred while opening file or file is damaged");
 }
 
 void LoadSavePlugin::setDomParsingError(const QString& msg, int line, int column)
 {
-	m_lastError = tr("An error occured while parsing file at line %1, column %2 :\n%3").arg(line).arg(column).arg(msg);
+	m_lastError = tr("An error occurred while parsing file at line %1, column %2 :\n%3").arg(line).arg(column).arg(msg);
 }
 
 const QString& LoadSavePlugin::lastSavedFile(void)

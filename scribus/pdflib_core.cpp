@@ -278,7 +278,7 @@ bool PDFLibCore::doExport(const QString& fn, const QString& nam, int Components,
 				progressDialog->setOverallProgress(pc_exportmasterpages+pc_exportpages);
 			}
 		}
-		ret = true;//Even when aborting we return true. Dont want that "couldnt write msg"
+		ret = true;//Even when aborting we return true. Don't want that "couldnt write msg"
 		if (!abortExport)
 		{
 			if (PDF_IsPDFX(doc.pdfOptions().Version))
@@ -11013,7 +11013,7 @@ bool PDFLibCore::PDF_Image(PageItem* c, const QString& fn, double sx, double sy,
 					cm = PDFOptions::Compression_JPEG;
 				}
 				// We can't unfortunately use directly cmyk jpeg files. Otherwise we have to use the /Decode argument in image
-				// dictionnary, which we do not quite want as this argument is simply ignored by some rips and software
+				// dictionary, which we do not quite want as this argument is simply ignored by some rips and software
 				// amongst which photoshop and illustrator
 				/*else if (((!Options.UseRGB) && (!Options.isGrayscale) && (!Options.UseProfiles2)) && (cm== 0) && (c->effectsInUse.count() == 0) && (img.imgInfo.colorspace == ColorSpaceCMYK) && (!((Options.RecalcPic) && (Options.PicRes < (qMax(72.0 / c->imageXScale(), 72.0 / c->imageYScale()))))) && (!img.imgInfo.progressive))
 				{

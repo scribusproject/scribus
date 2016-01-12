@@ -116,8 +116,8 @@ ScAnnot::ScAnnot(QWidget* parent, PageItem *it, int Seite, int b, int h, ColorLi
 	QString borders[] = {CommonStrings::tr_NoneColor, tr("Thin"), tr("Normal"), tr("Wide")};
 	size_t bordersArray = sizeof(borders) / sizeof(*borders);
 	BorderW->clear();
-	for (uint propogate = 0; propogate < bordersArray; ++propogate)
-		BorderW->addItem(borders[propogate]);
+	for (uint propagate = 0; propagate < bordersArray; ++propagate)
+		BorderW->addItem(borders[propagate]);
 	BorderW->setCurrentIndex(annotation.Bwid());
 
 	BorderS->setCurrentIndex(annotation.Bsty());

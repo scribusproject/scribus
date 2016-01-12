@@ -501,7 +501,7 @@ QString checkFileExtension(const QString &currName, const QString &extension)
 		newName+=extension.toLower();
 		return newName;
 	}
-	//If filename doesnt end with the period+extension, add it on
+	//If filename doesn't end with the period+extension, add it on
 	QString dotExt("." + extension.toLower());
 	if (!newName.endsWith(dotExt, Qt::CaseInsensitive))
 		newName+=dotExt;

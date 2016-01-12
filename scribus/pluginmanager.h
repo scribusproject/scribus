@@ -49,13 +49,13 @@ public:
 	static void* resolveSym( void* plugin, const char* sym );
 	static void  unloadDLL( void* plugin );
 
-	/*! \brief Initalization of all plugins. It's called at scribus start.
+	/*! \brief Initialization of all plugins. It's called at scribus start.
 	 *
 	 * Walk through all plugins, try to init them and try to re-load failed
 	 * ones then. See initPlugin for more info.
 	 * Reload uses a "brute force" method - Repeat until there is something
 	 * to load again. It's not elegant I know. But there are no additional
-	 * dependancy relations addons (XML config, plugin classes change etc.).
+	 * dependency relations addons (XML config, plugin classes change etc.).
 	 */
 	void initPlugs();
 

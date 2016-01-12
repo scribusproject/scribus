@@ -343,7 +343,7 @@ void ScribusQApp::parseCommandLine()
 		UpgradeChecker uc;
 		uc.fetch();
 	}
-	//Dont run the GUI init process called from main.cpp, and return
+	//Don't run the GUI init process called from main.cpp, and return
 	if (header)
 		std::exit(EXIT_SUCCESS);
 	//proceed

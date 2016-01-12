@@ -24,7 +24,7 @@ pageType(0)
 {
 	marginData=*margs;
 	savedMargins=*margs;
-	savedPresetItem=PresetLayout::none;//we dont recheck if we are using a layout but always start at none
+	savedPresetItem=PresetLayout::none; //we don't recheck if we are using a layout but always start at none
 	facingPages = false;
 	useBleeds = showBleeds;
 	marginPage = new QWidget(this);

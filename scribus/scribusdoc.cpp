@@ -550,7 +550,7 @@ void ScribusDoc::init()
 	
 	docParagraphStyles[0].breakImplicitCharStyleInheritance();
 	docParagraphStyles[0].charStyle().setContext( & docCharStyles );
-//	docParagraphStyles[0].charStyle().setName( "cdocdefault" ); // DONT TRANSLATE
+//	docParagraphStyles[0].charStyle().setName( "cdocdefault" ); // DON'T TRANSLATE
 
 	currentStyle = pstyle;
 
@@ -1550,7 +1550,7 @@ void ScribusDoc::redefineStyles(const StyleSet<ParagraphStyle>& newStyles, bool 
 		{
 			sty.breakImplicitCharStyleInheritance(true);
 			sty.charStyle().setContext( & docCharStyles );
-//			sty.charStyle().setName( "cdocdefault" ); // DONT TRANSLATE
+//			sty.charStyle().setName( "cdocdefault" ); // DON'T TRANSLATE
 		}
 		else {
 			sty.breakImplicitCharStyleInheritance(false);
@@ -1632,7 +1632,7 @@ void ScribusDoc::redefineCellStyles(const StyleSet<CellStyle>& newStyles, bool r
  * including plugins.
  * - 2004-09-14 Craig Ringer
  */
-// dont like this here. could as well be a static method for reading this stuff into temp., then always use redefineXY() - av
+// don't like this here. could as well be a static method for reading this stuff into temp., then always use redefineXY() - av
 void ScribusDoc::loadStylesFromFile(QString fileName)
 {
 	StyleSet<ParagraphStyle> *wrkStyles     = &docParagraphStyles;
@@ -2699,7 +2699,7 @@ ScPage* ScribusDoc::addPage(const int pageIndex, const QString& masterPageName, 
 
 ScPage* ScribusDoc::addMasterPage(const int pageNumber, const QString& pageName)
 {
-	//CB We dont create master pages (yet) with a pageCount based location
+	//CB We don't create master pages (yet) with a pageCount based location
 	//Page* addedPage = new Page(ScratchLeft, MasterPages.count()*(pageHeight+ScratchBottom+ScratchTop)+ScratchTop, pageWidth, pageHeight);
 	ScPage* addedPage = new ScPage(docPrefsData.displayPrefs.scratch.left(), docPrefsData.displayPrefs.scratch.top(), docPrefsData.docSetupPrefs.pageWidth, docPrefsData.docSetupPrefs.pageHeight);
 	assert(addedPage!=NULL);
@@ -5389,7 +5389,7 @@ bool ScribusDoc::copyPageToMasterPage(const int pageNumber, const int leftPage, 
 	int nr = MasterPages.count();
 	ScPage* targetPage=addMasterPage(nr, masterPageName);
 	assert(targetPage!=NULL);
-	//Backup currentpage, and dont use sourcepage here as we might convert a non current page
+	//Backup currentpage, and don't use sourcepage here as we might convert a non current page
 	ScPage* oldCurrentPage = currentPage();
 	//Must set current page for pasteitem to work properly
 	setLoading(true);
@@ -5617,7 +5617,7 @@ int ScribusDoc::itemAdd(const PageItem::ItemType itemType, const PageItem::ItemF
 		//If the item is created "complete" (ie, not being created by drag/resize, commit to undomanager)
 		if (activeTransaction)
 		{
-			//dont think we need this now ... newItem->checkChanges(true);
+			//don't think we need this now ... newItem->checkChanges(true);
 			activeTransaction.commit(target->getUName(), newItem->getUPixmap(),
 											  Um::Create + " " + newItem->getUName(),  "", Um::ICreate);
 		}
@@ -6521,7 +6521,7 @@ PageItem* ScribusDoc::convertItemTo(PageItem *currItem, PageItem::ItemType newTy
 	Q_ASSERT(currItem!=NULL);
 	if (currItem == NULL)
 		return NULL;
-	//Dont attempt a Line conversion
+	//Don't attempt a Line conversion
 //	if (currItem->itemType()==PageItem::Line || newType==PageItem::Line)
 	if (newType==PageItem::Line)
 		return NULL;
@@ -6551,7 +6551,7 @@ PageItem* ScribusDoc::convertItemTo(PageItem *currItem, PageItem::ItemType newTy
 			if (UndoManager::undoEnabled() && oldItem->itemType()==PageItem::PathText)
 				transactionConversion = undoManager->beginTransaction(currentPage()->getUName(), 0, Um::TextFrame, "", Um::ITextFrame);
 			break;
-		//We dont allow this
+		//We don't allow this
 /*		case PageItem::Line:
 			newItem = new PageItem_PolyLine(*oldItem);
 			break; */
@@ -6609,7 +6609,7 @@ PageItem* ScribusDoc::convertItemTo(PageItem *currItem, PageItem::ItemType newTy
 				newItem->setRedrawBounding();
 			}
 			break;
-		//We dont allow this right now
+		//We don't allow this right now
 	/*	case PageItem::Line:
 			break; */
 		case PageItem::Polygon:
@@ -9957,7 +9957,7 @@ void ScribusDoc::itemSelection_forall(Arg newVal)
 
 
 
-/* CB Dont delete, backups
+/* CB Don't delete, backups
 void ScribusDoc::FlipImageH()
 {
 	uint docSelectionCount=m_Selection->count();

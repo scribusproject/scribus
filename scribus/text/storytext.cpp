@@ -370,8 +370,8 @@ void StoryText::insertParSep(int pos)
 			applyStyle(pos, d->trailingStyle);
 			d->trailingStyle.erase();
 		}
-//		it->parstyle->setName("para"); // DONT TRANSLATE
-//		it->parstyle->charStyle().setName("cpara"); // DONT TRANSLATE
+//		it->parstyle->setName("para"); // DON'T TRANSLATE
+//		it->parstyle->charStyle().setName("cpara"); // DON'T TRANSLATE
 //		it->parstyle->charStyle().setContext( d->defaultStyle.charStyleContext() );
 	}
 	d->replaceCharStyleContextInParagraph(pos, it->parstyle->charStyleContext());
@@ -391,7 +391,7 @@ void StoryText::removeParSep(int pos)
 		it->parstyle = 0;
 	}
 	// demote this parsep so the assert code in replaceCharStyleContextInParagraph()
-	// doesnt choke:
+	// doesn't choke:
 	it->ch = 0;
 	d->replaceCharStyleContextInParagraph(pos, paragraphStyle(pos+1).charStyleContext());
 }
@@ -972,8 +972,8 @@ const ParagraphStyle & StoryText::paragraphStyle(int pos) const
 		qDebug("inserting default parstyle at %i", pos);
 		current->parstyle = new ParagraphStyle();
 		current->parstyle->setContext( & d->pstyleContext);
-//		current->parstyle->setName( "para(paragraphStyle)" ); // DONT TRANSLATE
-//		current->parstyle->charStyle().setName( "cpara(paragraphStyle)" ); // DONT TRANSLATE
+//		current->parstyle->setName( "para(paragraphStyle)" ); // DON'T TRANSLATE
+//		current->parstyle->charStyle().setName( "cpara(paragraphStyle)" ); // DON'T TRANSLATE
 //		current->parstyle->charStyle().setContext( d->defaultStyle.charStyleContext());
 	}
 	else {
@@ -996,8 +996,8 @@ void StoryText::setDefaultStyle(const ParagraphStyle& style)
 //	const StyleContext * oldCContext = d->defaultStyle.charStyle().context();
 	d->defaultStyle = style;
 	d->defaultStyle.setContext( oldPContext );
-//	d->defaultStyle.setName( "storydefault" ); // DONT TRANSLATE
-//	d->defaultStyle.charStyle().setName( "cstorydefault" ); // DONT TRANSLATE
+//	d->defaultStyle.setName( "storydefault" ); // DON'T TRANSLATE
+//	d->defaultStyle.charStyle().setName( "cstorydefault" ); // DON'T TRANSLATE
 //	qDebug() << QString("defstyle %1 context %2 defcstyle %3 ccontext %4 newcontext %5")
 //		   .arg((uint)&d->defaultStyle,16).arg((uint)oldPContext,16)
 //		   .arg((uint)&d->defaultStyle.charStyle(),16).arg((uint)oldCContext,16)
@@ -1098,8 +1098,8 @@ void StoryText::applyStyle(int pos, const ParagraphStyle& style, bool rmDirectFo
 			qDebug("PARSEP without style at pos %i", i);
 			d->at(i)->parstyle = new ParagraphStyle();
 			d->at(i)->parstyle->setContext( & d->pstyleContext);
-//			d->at(i)->parstyle->setName( "para(applyStyle)" ); // DONT TRANSLATE
-//			d->at(i)->parstyle->charStyle().setName( "cpara(applyStyle)" ); // DONT TRANSLATE
+//			d->at(i)->parstyle->setName( "para(applyStyle)" ); // DON'T TRANSLATE
+//			d->at(i)->parstyle->charStyle().setName( "cpara(applyStyle)" ); // DON'T TRANSLATE
 //			d->at(i)->parstyle->charStyle().setContext( d->defaultStyle.charStyleContext() );
 		}
 //		qDebug() << QString("applying parstyle %2 at %1 for %3").arg(i).arg(paragraphStyle(pos).name()).arg(pos);
@@ -1139,8 +1139,8 @@ void StoryText::eraseStyle(int pos, const ParagraphStyle& style)
 			qDebug("PARSEP without style at pos %i", i);
 			d->at(i)->parstyle = new ParagraphStyle();
 			d->at(i)->parstyle->setContext( & d->pstyleContext);
-//			d->at(i)->parstyle->setName( "para(eraseStyle)" ); // DONT TRANSLATE
-//			d->at(i)->parstyle->charStyle().setName( "cpara(eraseStyle)" ); // DONT TRANSLATE
+//			d->at(i)->parstyle->setName( "para(eraseStyle)" ); // DON'T TRANSLATE
+//			d->at(i)->parstyle->charStyle().setName( "cpara(eraseStyle)" ); // DON'T TRANSLATE
 //			d->at(i)->parstyle->charStyle().setContext( d->defaultStyle.charStyleContext());
 		}
 		//		qDebug() << QString("applying parstyle %2 at %1 for %3").arg(i).arg(paragraphStyle(pos).name()).arg(pos);

@@ -111,7 +111,7 @@ public:
 	friend class FreehandMode;
 	friend class CalligraphicMode;
 	
-	/* Dont rely on these codes!
+	/* Don't rely on these codes!
 	 * 2 8 3
 	 * 7   6
 	 * 4 5 1
