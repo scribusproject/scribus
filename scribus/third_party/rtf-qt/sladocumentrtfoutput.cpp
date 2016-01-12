@@ -47,7 +47,12 @@ namespace RtfReader
 		m_fontTable.clear();
 		m_fontTableReal.clear();
 		m_codecList = QTextCodec::availableCodecs();
-		if (m_codecList.contains("cp1252") || m_codecList.contains("CP1252"))
+		for (int i = 0; i < m_codecList.count(); ++i)
+		{
+			QByteArray codecName = m_codecList.at(i);
+			m_codecList[i] = codecName.toLower();
+		}
+		if (m_codecList.contains("cp1252"))
 			m_codec = QTextCodec::codecForName("cp1252");		// Default ANSI codec
 		else
 			m_codec = QTextCodec::codecForLocale();
@@ -65,9 +70,9 @@ namespace RtfReader
 		QByteArray ba;
 		ba.setNum(enc);
 		QByteArray encTest = "cp" + ba;
-		if (m_codecList.contains(encTest) || m_codecList.contains(encTest.toUpper()))
+		if (m_codecList.contains(encTest))
 			m_codec = QTextCodec::codecForName(encTest);
-		else if (m_codecList.contains("cp1252") || m_codecList.contains("CP1252"))
+		else if (m_codecList.contains("cp1252"))
 			m_codec = QTextCodec::codecForName("cp1252");
 	}
 
