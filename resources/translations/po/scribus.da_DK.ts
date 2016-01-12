@@ -20431,7 +20431,8 @@ Hvis ingen håndtag er markerede, så nulstilles alle håndtag.</translation>
         <location filename="../../../scribus/pdfopts.cpp" line="169"/>
         <source>The range of pages to export is invalid.
 Please check it and try again.</source>
-        <translation type="unfinished"></translation>
+        <translation>Intervallet af sider der skal eksporteres er ugyldig.
+Kontroller det venligst og prøv igen.</translation>
     </message>
     <message>
         <location filename="../../../scribus/pdfopts.cpp" line="181"/>
