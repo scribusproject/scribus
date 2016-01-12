@@ -1,0 +1,47 @@
+<html>
+<head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+        <title>Raccolte colori in Scribus (4a): CIE L*a*b* e CIE HLC</title>
+</head>
+<style>
+@import "manual.css";
+</style>
+<body>
+<h2>Raccolte colori in Scribus (4a): CIE L*a*b* e CIE HLC</title>
+</head></h2>
+<br>
+<p>CIE L*a*b*, scritto anche come CIE LAB o CIELAB, &egrave; un modello di colore che comprende tutti i colori percepibili dall'occhio umano, che &egrave; molto pi&ugrave; di quanto possa offrire qualunque variante dei modelli RGB o CMYK, perch&eacute; &egrave; indipendente dalle limitazioni di un dato dispositivo. Esso utilizza tre parametri per definire un colore: luminosit&agrave; (L), dove 0 &egrave; il nero e 100 &egrave; il bianco; l'opposizione tra rosso e verde (a), e l'opposizione tra giallo e blu (b).</p>
+
+<p>Poich&eacute; il modello CIE&nbsp;LAB non &egrave; intuitivo, &egrave; stata sviluppata un'alternativa detta CIE HLC. In questo modello i parametri sono tonalit&agrave; (Hue - H), luminosit&agrave; (Lightness - L) e C (Chroma). In termini di facilit&agrave; d'uso, esso &egrave; per il CIE LAB ci&ograve; che l'HSV &egrave; per l'RGB.</p>
+
+<p>A differenza della prossima versione 1.6.x, Scribus 1.4.x non gestisce i modelli CIE LAB/HLC nelle finestre di dialogo per la gestione dei colori. Le quattro raccolte LAB e HSL sono state incluse per la <a href="http://dtpstudio.de/cielab/shop.php">disponibilit&agrave;</a> di campionari che utilizzano questi modelli a un prezzo ragionevole per persone e aziende, e al prezzo di costo per istituzioni educative.</p>
+
+<p>I campionari sono stati prodotti con la migliore qualit&agrave; attualmente disponibile nella stampa offset, e comprendono valori dei colori in CMYK, sRGB (e i suoi equivalenti esadecimali), CIE LAB e CIE HLC, e contengono 986 (CIE LAB) e 1032 (CIE HLC) colori, rispettivamente.</p>
+
+<p>&Egrave; ovvio che un campionario stampato non pu&ograve; contenere l'intero spettro del CIE LAB, ma non &egrave; questo il vero valore dei campionari. Piuttosto esso consiste nell'uso di un modello completamente libero e aperto, e nell'approccio dei rispettivi modelli: se usate il campionario CIE LAB, i colori sono facilmente accessibili usando come guida il parametro L, mentre quelli del campionario HLC sono ordinati per mezzo del parametro H. Questo potr&agrave; sembrare strano a qualcuno, ma dopo un breve periodo di adattamento ci&ograve; funziona eccezionalmente bene.</p>
+
+<table width="120%">
+  <tbody>
+    <tr>
+      <td align="center"><img src="images/faecher_hlc-lab.png" title="Campionari CIE LAB e CIE HLC" alt="Campionari CIE LAB e CIE HLC" /></td>
+    </tr>
+    <tr>
+      <td><div align="center"><p><i>Campionari CIE LAB e CIE HLC</i></p></div></td>
+    </tr>
+  </tbody>
+</table>
+
+<p>A partire dalla versione 1.4.6, Scribus comprende quattro raccolte di colori che possono essere utilizzate con questi campionari:</p>
+<ul>
+<li><b>CIE-LAB CMYK.xml</b>: questa &egrave; l'equivalente digitale CMYK del campionario fisico &ldquo;LAB Colors&rdquo;</li>
+<li><b>CIE-HLC CMYK.xml</b>: questa &egrave; l'equivalente digitale CMYK del campionario fisico &ldquo;HLC Colors&rdquo;</li>
+<li><b>CIE-LAB_RGB.xml</b>: questa &egrave; l'equivalente digitale sRGB del campionario fisico &ldquo;LAB Colors&rdquo;</li>
+<li><b>CIE-HLC RGB.xml</b>: questa &egrave; l'equivalente digitale sRGB del campionario fisico &ldquo;HLC Colors&rdquo;</li>
+</ul>
+
+<p>Se decidete di usare una delle raccolte CMYK per la stampa, accertatevi di usare il <a href="cms.html">profilo ICC</a> corretto, e cio&egrave; il FOGRA39. Potete prelevare un profilo da <a href="http://cielab.dtpstudio.de/downloads/CoatedFOGRA39.icc">dtp studio</a> o da <a href="http://www.eci.org/_media/downloads/icc_profiles_from_eci/pso-coated_v3.zip">ECI</a>; il secondo &egrave; lievemente preferibile al primo. Per quanto riguarda le versioni sRGB, secondo il produttore dei campionari gli utenti dovrebbero essere in grado di riprodurre i colori in modo affidabile con il profilo sRGB gi&agrave; fornito con Scribus.</p>
+<br>
+<br>
+
+</body>
+</html>
