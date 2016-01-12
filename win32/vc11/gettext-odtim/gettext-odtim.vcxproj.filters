@@ -11,33 +11,13 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\scribus\plugins\gettext\odtim\contentreader.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\scribus\plugins\gettext\odtim\odtdia.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\scribus\plugins\gettext\odtim\odtim.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\scribus\plugins\gettext\odtim\stylereader.cpp">
+    <ClCompile Include="..\..\..\scribus\plugins\gettext\odt2im\importodt.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\scribus\plugins\gettext\odtim\contentreader.h">
+    <ClInclude Include="..\..\..\scribus\plugins\gettext\odt2im\importodt.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\scribus\plugins\gettext\odtim\odtim.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\scribus\plugins\gettext\odtim\stylereader.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <moc Include="..\..\..\scribus\plugins\gettext\odtim\odtdia.h">
-      <Filter>Header Files</Filter>
-    </moc>
   </ItemGroup>
 </Project>
