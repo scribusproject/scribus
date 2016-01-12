@@ -79,8 +79,8 @@ PROJECT(scribus)
 #where VERSION_SUFFIX is of the form "", "svn" or "Nsvn" (N being the minor patch level)
 SET (VERSION_MAJOR "1")
 SET (VERSION_MINOR "4")
-SET (VERSION_PATCH "6")
-SET (VERSION_SUFFIX "")
+SET (VERSION_PATCH "7")
+SET (VERSION_SUFFIX "svn")
 SET (VERSION ${VERSION_MAJOR})
 IF (VERSION_MINOR GREATER -1)
   SET (VERSION ${VERSION}.${VERSION_MINOR})
@@ -985,18 +985,18 @@ IF(EXISTS "${CMAKE_ROOT}/Modules/CPack.cmake")
   SET(CPACK_TOPLEVEL_TAG "")
   SET(CPACK_SOURCE_IGNORE_FILES
     CMakeCache.txt
-	scribus-1.4.6.svn.tar.gz
-	scribus-1.4.6.svn.tar.Z
-	scribus-1.4.6.svn.tar.xz
-	scribus-1.4.6.svn.gz
-	scribus-1.4.6.svn.tar.bz2
-	scribus-1.4.6.svn.tar.7z
-	scribus-1.4.6.tar.gz
-	scribus-1.4.6.tar.Z
-	scribus-1.4.6.tar.xz
-	scribus-1.4.6.gz
-	scribus-1.4.6.tar.bz2
-	scribus-1.4.6.tar.7z
+	scribus-1.4.7.svn.tar.gz
+	scribus-1.4.7.svn.tar.Z
+	scribus-1.4.7.svn.tar.xz
+	scribus-1.4.7.svn.gz
+	scribus-1.4.7.svn.tar.bz2
+	scribus-1.4.7.svn.tar.7z
+	scribus-1.4.7.tar.gz
+	scribus-1.4.7.tar.Z
+	scribus-1.4.7.tar.xz
+	scribus-1.4.7.gz
+	scribus-1.4.7.tar.bz2
+	scribus-1.4.7.tar.7z
     "~$"
     "\\\\.cvsignore$"
     "\\\\.o$"
