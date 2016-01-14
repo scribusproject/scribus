@@ -5510,7 +5510,7 @@ PageItem* Scribus150Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 	double patternRotationm = attrs.valueAsDouble("pRotationM", 0.0);
 	double patternSkewXm    = attrs.valueAsDouble("pSkewXM", 0.0);
 	double patternSkewYm    = attrs.valueAsDouble("pSkewYM", 0.0);
-	currItem->maskTransform(patternScaleXm, patternScaleYm, patternOffsetXm, patternOffsetYm, patternRotationm, patternSkewXm, patternSkewYm);
+	currItem->setMaskTransform(patternScaleXm, patternScaleYm, patternOffsetXm, patternOffsetYm, patternRotationm, patternSkewXm, patternSkewYm);
 	bool mirrorXm = attrs.valueAsBool("pMirrorXM", false);
 	bool mirrorYm = attrs.valueAsBool("pMirrorYM", false);
 	currItem->setMaskFlip(mirrorXm, mirrorYm);
