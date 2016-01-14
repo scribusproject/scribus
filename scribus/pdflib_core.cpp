@@ -1186,7 +1186,10 @@ PdfFont PDFLibCore::PDF_WriteType3Font(const QByteArray& name, ScFace& face, con
 		}
 		else
 		{
-			fon = "h";
+			// 13654: make evince emit warning about "Syntax Error: No current point in closepath"
+			// PDF specification is not quite clear about that, but a single "h" operator might not
+			// be a valid way to make an empty path
+			// fon = "h";
 			np = FPoint(0, 0);
 			np1 = FPoint(0, 0);
 		}
@@ -1314,7 +1317,10 @@ PdfFont PDFLibCore::PDF_WriteGlyphsAsXForms(const QByteArray& fontName, ScFace& 
 		}
 		else
 		{
-			fon = "h";
+			// 13654: make evince emit warning about "Syntax Error: No current point in closepath"
+			// PDF specification is not quite clear about that, but a single "h" operator might not
+			// be a valid way to make an empty path
+			fon = " " /*"h"*/;
 			np = FPoint(0, 0);
 			np1 = FPoint(0, 0);
 		}
