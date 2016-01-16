@@ -1402,6 +1402,7 @@ bool ScribusView::PointOnLine(QPoint Start, QPoint End, QRect MArea)
 void ScribusView::TransformPoly(int mode, int rot, double scaling)
 {
 	PageItem *currItem = Doc->m_Selection->itemAt(0);
+	QRectF oldR = currItem->getBoundingRect().adjusted(-5, -5, 10, 10);
 	currItem->ClipEdited = true;
 	QTransform ma;
 	undoManager->setUndoEnabled(false);
@@ -1587,6 +1588,8 @@ void ScribusView::TransformPoly(int mode, int rot, double scaling)
 	if (currItem->asPathText())
 		currItem->updatePolyClip();
 	Doc->setRedrawBounding(currItem);
+	QRectF newR(currItem->getBoundingRect());
+	Doc->regionsChanged()->update(newR.united(oldR));
 	currItem->update();
 //	MarkClip(currItem, currItem->PoLine, true);
 	currItem->FrameType = 3;
