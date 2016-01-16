@@ -2847,23 +2847,6 @@ void SlaOutputDev::drawImage(GfxState *state, Object *ref, Stream *str, int widt
 	double sy = m_ctm.m22();
 	QImage img = image->copy();
 	QTransform mm = QTransform(ctm[0] / width, ctm[1] / width, -ctm[2] / height, -ctm[3] / height, 0, 0);
-	if ((mm.type() == QTransform::TxShear) || (mm.type() == QTransform::TxRotate))
-	{
-		mm.reset();
-		mm.rotate(-tline.angle());
-		img = image->transformed(mm);
-	}
-	else
-	{
-		if ((sx < 0) || (sy < 0))
-		{
-			if (sx < 0)
-				mm.scale(-1, 1);
-			if (sy < 0)
-				mm.scale(1, -1);
-			img = image->transformed(mm);
-		}
-	}
 	int z = m_doc->itemAdd(PageItem::ImageFrame, PageItem::Rectangle, xCoor + trect.x(), yCoor + trect.y(), trect.width(), trect.height(), 0, CommonStrings::None, CommonStrings::None);
 	PageItem* ite = m_doc->Items->at(z);
 	ite->ClipEdited = true;
@@ -2877,6 +2860,20 @@ void SlaOutputDev::drawImage(GfxState *state, Object *ref, Stream *str, int widt
 	ite->setFillTransparency(1.0 - state->getFillOpacity());
 	ite->setFillBlendmode(getBlendMode(state));
 	m_doc->AdjustItemSize(ite);
+	if ((mm.type() == QTransform::TxShear) || (mm.type() == QTransform::TxRotate))
+	{
+		ite->setImageRotation(-tline.angle());
+	}
+	else
+	{
+		if ((sx < 0) || (sy < 0))
+		{
+			if (sx < 0)
+				ite->setImageFlippedH(true);
+			if (sy < 0)
+				ite->setImageFlippedV(true);
+		}
+	}
 	if (colorMap->getNumPixelComps() == 4)
 	{
 		QTemporaryFile *tempFile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_pdf_XXXXXX.tif");
@@ -3321,7 +3318,6 @@ void SlaOutputDev::updateFont(GfxState *state)
 	  goto err2;
 	}
   }
-
   // get the font matrix
   textMat = state->getTextMat();
   fontSize = state->getFontSize();
