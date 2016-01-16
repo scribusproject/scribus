@@ -433,10 +433,14 @@ void ODTIm::parseStyles(QDomElement &sp, QString type)
 		else if (spd.tagName() == "style:style")
 		{
 			DrawStyle currStyle;
-			if (spd.attribute("style:family") == "paragraph")
-				currStyle = parDefaultStyle;
-			else if (spd.attribute("style:family") == "text")
-				currStyle = txtDefaultStyle;
+			currStyle.parentStyle = AttributeValue(spd.attribute("style:parent-style-name", ""));
+			if (!currStyle.parentStyle.valid)
+			{
+				if (spd.attribute("style:family") == "paragraph")
+					currStyle = parDefaultStyle;
+				else if (spd.attribute("style:family") == "text")
+					currStyle = txtDefaultStyle;
+			}
 			currStyle.styleType = AttributeValue(spd.attribute("style:family", ""));
 			currStyle.styleOrigin = AttributeValue(type);
 			for(QDomElement spe = spd.firstChildElement(); !spe.isNull(); spe = spe.nextSiblingElement() )
@@ -502,7 +506,6 @@ void ODTIm::parseStyles(QDomElement &sp, QString type)
 				}
 			}
 			currStyle.displayName = AttributeValue(spd.attribute("style:display-name", ""));
-			currStyle.parentStyle = AttributeValue(spd.attribute("style:parent-style-name", ""));
 			m_Styles.insert(spd.attribute("style:name"), currStyle);
 			if (type == "styles")
 			{
