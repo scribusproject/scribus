@@ -447,7 +447,6 @@ public slots:
 	void slotSelect();
 	/** \brief Switch appMode
 	\param mode TODO learn modes*/
-	//void setAppMode(int mode);
 	void setAppModeByToggle(bool isOn, int newMode);
 	/** \brief Neues Dokument erzeugt */
 	void HaveNewDoc();
@@ -477,7 +476,6 @@ public slots:
 	void generateTableOfContents();
 	void updateDocument();
 
-//	void saveStyles(StilFormate *dia); //still required for style save from SE
 	void setNewAlignment(int a);
 	void setNewParStyle(const QString& name);
 	void setNewCharStyle(const QString& name);
@@ -569,14 +567,12 @@ public slots:
 	void testQT_slot2(double);
 	void testQT_slot3(int);
 	void testQT_slot4();
-	//void adjustCMS();
 	void changePreviewQuality(int index);
 	void enablePalettes(bool b);
 	void ToggleFrameEdit();
 	void NoFrameEdit();
 
 signals:
-	//void AppModeChanged(int oldMode, int newMode);
 	void TextStyle(const ParagraphStyle&);
 //deprecated: (av)
 	void TextEffects(int);

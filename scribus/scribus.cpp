@@ -308,20 +308,6 @@ ScribusMainWindow::ScribusMainWindow()
 }
 
 /*
-static QCoreApplication::EventFilter origEventFilter = 0;
-
-bool reportFocusChanges(void *message, long *result)
-{
-	unsigned* data = static_cast<unsigned*>(message);
-	if (QApplication::focusWidget())
-		qDebug() << QApplication::applicationFilePath() << reinterpret_cast<void*>(QApplication::focusWidget()) << typeid(*QApplication::focusWidget()).name() << QApplication::focusWidget()->objectName() << message << data[0] << data[1] << data[2] << data[3] << data[4] << data[5] << data[6] << data[7];
-	else
-		qDebug() << QApplication::applicationFilePath() << "no focus" << message << data[0] << data[1] << data[2] << data[3] << data[4] << data[5] << data[6] << data[7];
-	return origEventFilter && origEventFilter(message, result);
-}
-*/
-
-/*
  * retval 0 - ok, 1 - no fonts, ...
  */
 int ScribusMainWindow::initScMW(bool primaryMainWindow)
@@ -333,8 +319,6 @@ int ScribusMainWindow::initScMW(bool primaryMainWindow)
 	{
 		qApp->setStyleSheet(QString(stylesheet));
 	}
-
-//	origEventFilter = qApp->setEventFilter(reportFocusChanges);
 
 	previewDinUse = false;
 	printDinUse = false;
@@ -380,10 +364,6 @@ int ScribusMainWindow::initScMW(bool primaryMainWindow)
 
 
 	actionManager->init(this);
-//	if (primaryMainWindow)
-//		ScCore->setSplashStatus( tr("Applying User Shortcuts") );
-//	prefsManager->applyLoadedShortCuts();
-//	initKeyboardShortcuts();
 	initMenuBar();
 	createMenuBar();
 	initToolBars();
@@ -721,18 +701,14 @@ void ScribusMainWindow::initPalettes()
 	connect( nsEditor, SIGNAL(paletteShown(bool)), scrActions["editNotesStyles"], SLOT(setChecked(bool)));
 	nsEditor->installEventFilter(this);
 
-//	connect(docCheckerPalette, SIGNAL(selectElement(int, int)), this, SLOT(selectItemsFromOutlines(int, int)));
 	connect(docCheckerPalette, SIGNAL(selectElementByItem(PageItem *, bool)), this, SLOT(selectItemsFromOutlines(PageItem *, bool)));
 	connect(docCheckerPalette, SIGNAL(selectElement(PageItem *, bool, int)), this, SLOT(selectItemFromOutlines(PageItem *, bool, int)));
 	connect(docCheckerPalette, SIGNAL(selectPage(int)), this, SLOT(selectPagesFromOutlines(int)));
 	connect(docCheckerPalette, SIGNAL(selectMasterPage(QString)), this, SLOT(editMasterPagesStart(QString)));
-//	connect(outlinePalette, SIGNAL(selectElement(int, int, bool)), this, SLOT(selectItemsFromOutlines(int, int, bool)));
 	connect(outlinePalette, SIGNAL(selectElementByItem(PageItem *, bool)), this, SLOT(selectItemsFromOutlines(PageItem *, bool)));
 	connect(outlinePalette, SIGNAL(editElementByItem(PageItem *)), this, SLOT(editItemsFromOutlines(PageItem *)));
 	connect(outlinePalette, SIGNAL(selectPage(int)), this, SLOT(selectPagesFromOutlines(int)));
 	connect(outlinePalette, SIGNAL(selectMasterPage(QString)), this, SLOT(editMasterPagesStart(QString)));
-//	connect(propertiesPalette, SIGNAL(EditLSt()), this, SLOT(slotEditLineStyles()));
-//	connect(nodePalette, SIGNAL(paletteClosed()), propertiesPalette, SLOT(endEdit2()));
 	connect(nodePalette, SIGNAL(paletteClosed()), this, SLOT(slotSelect()));
 	connect(nodePalette, SIGNAL(DocChanged()), this, SLOT(slotDocCh()));
 	connect(layerPalette, SIGNAL(LayerChanged()), this, SLOT(showLayer()));
@@ -1307,32 +1283,12 @@ void ScribusMainWindow::initStatusBar()
 	mainWindowYPosDataLabel->setMinimumWidth(mainWindowYPosDataLabel->fontMetrics().width("99999.999"));
 	statusBarLanguageChange();
 
-	/*
-	QByteArray stylesheet;
-	if (loadRawText(ScPaths::instance().libDir() + "scribus.css", stylesheet))
-	{
-		QString downArrow(IconManager::instance()->pathForIcon("16/go-down.png"));
-		QByteArray da;
-		da.append(downArrow);
-		stylesheet.replace("___downArrow___", da);
-	}
-	*/
-
 	layerMenu->setObjectName("layerMenu");
 	unitSwitcher->setObjectName("unitSwitcher");
 	zoomDefaultToolbarButton->setObjectName("zoomDefaultToolbarButton");
 	zoomInToolbarButton->setObjectName("zoomInToolbarButton");
 	zoomOutToolbarButton->setObjectName("zoomOutToolbarButton");
 	zoomSpinBox->setObjectName("zoomSpinBox");
-
-	/*
-	layerMenu->setStyleSheet(stylesheet);
-	unitSwitcher->setStyleSheet(stylesheet);
-	zoomDefaultToolbarButton->setStyleSheet(stylesheet);
-	zoomInToolbarButton->setStyleSheet(stylesheet);
-	zoomOutToolbarButton->setStyleSheet(stylesheet);
-	zoomSpinBox->setStyleSheet(stylesheet);
-	*/
 
 	statusBar()->setFont(fo);
 	statusBar()->addPermanentWidget(m_mainWindowStatusLabel, 5);
@@ -2274,11 +2230,7 @@ ScribusDoc *ScribusMainWindow::doFileNew(double width, double height, double top
 	if (requiresGUI)
 	{
 		w->setSubWin(mdiArea->addSubWindow(w));
-		//#9250 : transfered to newActWin()
-		//connect(undoManager, SIGNAL(undoRedoBegin()), tempDoc, SLOT(undoRedoBegin()));
-		//connect(undoManager, SIGNAL(undoRedoDone()), tempDoc, SLOT(undoRedoDone()));
-		//connect(undoManager, SIGNAL(undoRedoDone()), tempView, SLOT(DrawNew()));
-		connect(tempView, SIGNAL(signalGuideInformation(int, qreal)), alignDistributePalette, SLOT(setGuide(int, qreal)));
+			connect(tempView, SIGNAL(signalGuideInformation(int, qreal)), alignDistributePalette, SLOT(setGuide(int, qreal)));
 	}
 	//Independent finishing tasks after tempDoc setup
 	if (showView)
@@ -2364,8 +2316,6 @@ void ScribusMainWindow::windowsMenuAboutToShow()
 	if (windowsListNotEmpty)
 	{
 		int windowCount=static_cast<int>(windows.count());
-	//	if (windowCount>1)
-	//		scrMenuMgr->addMenuItemString("SEPARATOR", "Windows");
 		for ( int i = 0; i < windowCount; ++i )
 		{
 			QString docInWindow(windows.at(i)->windowTitle());
@@ -2514,11 +2464,7 @@ void ScribusMainWindow::newActWin(QMdiSubWindow *w)
 	actionManager->connectNewDocActions(doc);
 	connect(view, SIGNAL(signalGuideInformation(int, qreal)), alignDistributePalette, SLOT(setGuide(int, qreal)));
 	if (ScCore->usingGUI())
-	{
-		//connect(doc->m_Selection, SIGNAL(selectionIsMultiple(bool)), propertiesPalette, SLOT( setMultipleSelection(bool)));
 		connect(doc->m_Selection, SIGNAL(selectionIsMultiple(bool)), actionManager, SLOT( handleMultipleSelections(bool)));
-		//connect(doc->m_Selection, SIGNAL(empty()), propertiesPalette, SLOT( unsetItem()));
-	}
 	pagePalette->setView(view);
 	alignDistributePalette->setDoc(doc);
 	if (!doc->isLoading())
@@ -3207,7 +3153,6 @@ bool ScribusMainWindow::slotFileOpen()
 	else
 		docDir = docContext->get("docsopen", ".");
 	QString formats(FileLoader::getLoadFilterString());
-//	formats.remove("PDF (*.pdf *.PDF);;");
 	QString fileName(CFileDialog( docDir, tr("Open"), formats));
 	if (fileName.isEmpty()) // User cancelled
 		return false;
@@ -3350,25 +3295,12 @@ bool ScribusMainWindow::loadPage(QString fileName, int Nr, bool Mpa, const QStri
 		for (uint i = oldItemsCount; i < docItemsCount; ++i)
 		{
 			PageItem *ite = doc->Items->at(i);
-//			if ((docItemsCount - oldItemsCount) > 1)
-//				ite->Groups.push(doc->GroupCounter);
-//	#5386: allow locked imported items to remain locked
-// 			if (ite->locked())
-// 				ite->setLocked(false);
 			if ((ite->asTextFrame()) && (ite->isBookmark))
 				AddBookMark(ite);
 		}
-//		if ((docItemsCount - oldItemsCount) > 1)
-//			doc->GroupCounter++;
 		propertiesPalette->updateColorList();
 		emit UpdateRequest(reqArrowStylesUpdate | reqLineStylesUpdate | reqStyleComboDocUpdate | reqInlinePalUpdate);
 		symbolPalette->updateSymbolList();
-//		inlinePalette->updateItemList();
-//		if (!Mpa)
-//		{
-//			scanDocument();
-//			docCheckerPalette->buildErrorList(doc);
-//		}
 		slotDocCh();
 		rebuildLayersList();
 		updateLayerMenu();
@@ -3485,7 +3417,6 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 		doc->is12doc=is12doc;
 		doc->appMode = modeNormal;
 		doc->HasCMS = false;
-		//doc->setActiveLayer(0); //CB should not need this, the file load process sets it to ALAYER from the doc
 		doc->OpenNodes.clear();
 		doc->setLoading(true);
 		m_mainWindowStatusLabel->setText( tr("Loading..."));
@@ -3514,7 +3445,6 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 		{
 			view->close();
 			delete fileLoader;
-// 			delete view;
 			delete doc;
 			doc=NULL;
 			mdiArea->removeSubWindow(w->getSubWin());
@@ -3673,8 +3603,6 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 		{
 			doc->cmsSettings().CMSinUse = false;
 		}
-//		propertiesPalette->updateColorList();
-//		propertiesPalette->Cpal->showGradient(0);
 		if (fileLoader->fileType() > FORMATID_NATIVEIMPORTEND)
 		{
 			doc->setName(FName+ tr("(converted)"));
@@ -3685,11 +3613,8 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 		else
 			doc->setName(FName);
 		doc->setMasterPageMode(false);
-		//IL doc->setHyphLanguage(GetLang(doc->hyphLanguage()));
 		doc->createHyphenator();
 		HaveNewDoc();
-//		propertiesPalette->Cpal->showGradient(0);
-//		propertiesPalette->updateCList();
 		doc->hasName = true;
 		if (doc->MasterPages.count() == 0)
 		{
@@ -3724,7 +3649,6 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 //			qDebug() << QString("load M: %1 %2 %3").arg(azz).arg((uint)ite).arg(ite->itemType());
 			ite->layout();
 		}
-//		RestoreBookMarks();
 		doc->setMasterPageMode(false);
 		/*QTime t;
 		t.start();*/
@@ -3763,8 +3687,6 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 		}
 		view->reformPages(false);
 		doc->setLoading(false);
-//		if (fileLoader->fileType() > FORMATID_NATIVEIMPORTEND)
-//			scrActions["fileSave"]->setEnabled(false);
 		delete fileLoader;
 		view->updatesOn(true);
 		w->setUpdatesEnabled(true);
@@ -4123,7 +4045,6 @@ bool ScribusMainWindow::slotFileSaveAs()
 			return false;
 	//Turn off the warnings once the docs is saved.
 	doc->is12doc=false;
-	//
 	bool ret = false;
 	QString filename;
 	PrefsContext* docContext = m_prefsManager->prefsFile->getContext("docdirs", false);
@@ -4271,7 +4192,6 @@ bool ScribusMainWindow::DoFileClose()
 		plugin->unsetDoc();
 	}
 	view->close();
-// 	delete view;
 	//CB Yes, we are setting it to NULL without deleting it. ActWin(ScribusWin) owns the view
 	//due to it being the central widget and will delete it at the correct moment from its own pointer.
 	view = NULL;
@@ -4563,9 +4483,7 @@ void ScribusMainWindow::slotEditCut()
 	scrActions["editPaste"]->setEnabled(true);
 	scrMenuMgr->setMenuEnabled("EditPasteRecent", scrapbookPalette->tempBView->objectMap.count() != 0);
 	if (activeTransaction)
-	{
 		activeTransaction.commit();
-	}
 }
 
 void ScribusMainWindow::slotEditCopy()
@@ -4589,7 +4507,6 @@ void ScribusMainWindow::slotEditCopy()
 			StoryText itemText(doc);
 			itemText.setDefaultStyle(cItem->itemText.defaultStyle());
 			itemText.insert(0, cItem->itemText, true);
-//				BufferI = itemText.text(0, itemText.length());
 			std::ostringstream xmlString;
 			SaxXML xmlStream(xmlString);
 			xmlStream.beginDoc();
@@ -4734,7 +4651,6 @@ void ScribusMainWindow::slotEditPaste()
 			doc->SnapGrid = savedAlignGrid;
 			doc->SnapGuides = savedAlignGuides;
 			doc->SnapElement = savedAlignElement;
-			//int tempList=doc->m_Selection->backupToTempList(0);
 			Selection tempSelection(*doc->m_Selection);
 			doc->m_Selection->clear();
 			if (doc->Items->count() - ac > 1)
@@ -4763,10 +4679,7 @@ void ScribusMainWindow::slotEditPaste()
 				doc->Items->takeAt(ac);
 			}
 			doc->m_Selection->clear();
-			//doc->m_Selection->restoreFromTempList(0, tempList);
 			*doc->m_Selection=tempSelection;
-//				view->resizeContents(qRound((maxSize.x() - minSize.x()) * view->scale()), qRound((maxSize.y() - minSize.y()) * view->scale()));
-//				view->scrollBy(qRound((doc->minCanvasCoordinate.x() - minSize.x()) * view->scale()), qRound((doc->minCanvasCoordinate.y() - minSize.y()) * view->scale()));
 			doc->minCanvasCoordinate = minSize;
 			doc->maxCanvasCoordinate = maxSize;
 			if (outlinePalette->isVisible())
@@ -4884,7 +4797,6 @@ void ScribusMainWindow::slotEditPaste()
 			else
 			{
 				QString buffer  = ScMimeData::clipboardScribusElem();
-			//	qDebug()<<buffer;
 				slotElemRead(buffer, doc->currentPage()->xOffset(), doc->currentPage()->yOffset(), false, true, doc, view);
 			}
 			// update style lists:
@@ -5871,7 +5783,6 @@ void ScribusMainWindow::ToggleFrameEdit()
 	if (!doc->m_Selection->isEmpty())
 	{
 		PageItem *currItem = doc->m_Selection->itemAt(0);
-//			view->MarkClip(currItem, currItem->PoLine, true);
 		nodePalette->EditCont->setEnabled(currItem->ContourLine.size() != 0);
 		nodePalette->ResetCont->setEnabled(false);
 		nodePalette->ResetContClip->setEnabled(false);
@@ -6246,40 +6157,6 @@ void ScribusMainWindow::setItemFontSize(int fontSize)
 	propertiesPalette->textPal->showFontSize(fs*10);
 }
 
-/*
-//CB-->Doc partly
-void ScribusMainWindow::setItemShade(int id)
-{
-	int c = id;
-	bool ok = false;
-	if (!doc->m_Selection->isEmpty())
-	{
-		PageItem *currItem = doc->m_Selection->itemAt(0);
-		if (c != -1)
-		{
-			if ((currItem->itemType() == PageItem::TextFrame) || (currItem->itemType() == PageItem::PathText))
-				doc->itemSelection_SetFillShade(c);
-			else
-				doc->itemSelection_SetItemBrushShade(c);
-		}
-		else
-		{
-			Query dia(this, "New", 1, tr("&Shade:"), tr("Shade"));
-			if (dia.exec())
-			{
-				c = dia.getEditText().toInt(&ok);
-				if (ok)
-				{
-					if ((currItem->itemType() == PageItem::TextFrame) || (currItem->itemType() == PageItem::PathText))
-						doc->itemSelection_SetFillShade(c);
-					else
-						doc->itemSelection_SetItemBrushShade(c);
-				}
-			}
-		}
-	}
-}
-*/
 //CB-->Doc
 void ScribusMainWindow::setNewAlignment(int a)
 {
@@ -6717,32 +6594,6 @@ void ScribusMainWindow::slotDocSetup()
 
 int ScribusMainWindow::ShowSubs()
 {
-	bool showGSHelp=false;
-	/*
-	if (!ScCore->haveGS())
-	{
-		ScMessageBox mb(this);
-		QString msg = tr("Ghostscript is not installed on your system, or Scribus is not configured with the path to the software.");
-		QString msg2("<qt>");
-#ifndef _WIN32
-		msg2 += tr("Until this is remedied, you cannot import EPS images or use Print Preview. ")+"\n";
-#else
-		msg2 += tr("Until this is remedied, you cannot import EPS images or use PostScript Print Preview. ")+"\n";
-#endif
-		//msg2 += tr("Please read our <a href=\"http://wiki.scribus.net/index.php/Ghostscript\">help and installation instructions</a>.") + "</qt>";
-		msg2 += tr("Click the Help button to read Scribus-related Ghostscript help and installation instructions.") + "</qt>";
-		ScMessageBox msgBox;
-		msgBox.addButton(QMessageBox::Ok);
-		msgBox.addButton(QMessageBox::Help);
-		msgBox.setIcon(QMessageBox::Warning);
-		msgBox.setWindowTitle( tr("Ghostscript is missing") );
-		msgBox.setText(msg);
-		msgBox.setInformativeText(msg2);
-		int i=msgBox.exec();
-		if (i==QMessageBox::Help)
-			showGSHelp=true;
-	}
-*/
 	propertiesPalette->startup();
 	outlinePalette->startup();
 	scrapbookPalette->startup();
@@ -6750,7 +6601,6 @@ int ScribusMainWindow::ShowSubs()
 	downloadsPalette->startup();
 	pagePalette->startup();
 	layerPalette->startup();
-//	measurementPalette->startup();
 	docCheckerPalette->startup();
 	alignDistributePalette->startup();
 	undoPalette->startup();
@@ -6770,14 +6620,7 @@ int ScribusMainWindow::ShowSubs()
 
 	activateWindow();
 	if (!scriptIsRunning())
-	{
 		raise();
-		if (showGSHelp)
-		{
-			slotOnlineHelp("", "toolbox5.html");
-			return QMessageBox::Help;
-		}
-	}
 	return 0;
 }
 
@@ -6828,7 +6671,6 @@ void ScribusMainWindow::doPrintPreview()
 		prefsManager->appPrefs.printPreviewPrefs.PrPr_InkCoverage = dia->EnableInkCover->isChecked();
 		prefsManager->appPrefs.printPreviewPrefs.PrPr_InkThreshold = dia->CoverThresholdValue->value();
 	}
-//		prefsManager->appPrefs.Gcr_Mode = dia->EnableGCR->isChecked();
 	disconnect(dia, SIGNAL(doPrint()), this, SLOT(slotReallyPrint()));
 	previewDinUse = false;
 	delete dia;
@@ -7064,11 +6906,7 @@ void ScribusMainWindow::doSaveAsPDF()
 		scrActions["toolsPreflightVerifier"]->setChecked(false);
 		disconnect(docCheckerPalette, SIGNAL(ignoreAllErrors()), this, SLOT(doSaveAsPDF()));
 	}
-/*	if (bookmarkPalette->BView->childCount() == 0)
-		doc->PDF_Options.Bookmarks = false; */
-// reenabling the following line fixes Bug #7630, not sure why this line was commented out.
-// 	doc->reorganiseFonts();
-	QMap<QString, int> ReallyUsed = doc->reorganiseFonts(); //doc->UsedFonts;
+	QMap<QString, int> ReallyUsed = doc->reorganiseFonts();
 	if (doc->pdfOptions().EmbedList.count() != 0)
 	{
 		QList<QString> tmpEm;
@@ -7647,8 +7485,6 @@ void ScribusMainWindow::ApplyMasterPage()
 	}
 	view->reformPages();
 	view->DrawNew();
-	//CB done by doc::reformpages
-	//slotDocCh();
 	pagePalette->Rebuild();
 	// #9476 : call setupPage with false arg to setup only guidePalette GUI
 	// Otherwise setupPage() will apply guides to current page, doesn't need that, 
@@ -7980,7 +7816,6 @@ void ScribusMainWindow::recalcColors(QProgressBar *dia)
 
 void ScribusMainWindow::ModifyAnnot()
 {
-//	Q_ASSERT(!doc->masterPageMode());
 	if (doc->m_Selection->isEmpty())
 		return;
 
@@ -8162,7 +7997,6 @@ void ScribusMainWindow::initHyphenator()
 	}
 	//For each hyphenation file, grab the strings and the hyphenation data.
 	QString lang = QString(QLocale::system().name()).left(2);
-//IL	LangTransl.clear();
 	m_prefsManager->appPrefs.hyphPrefs.Language = "en_GB";
 	if (!LanguageManager::instance()->getHyphFilename(lang).isEmpty() )
 		m_prefsManager->appPrefs.hyphPrefs.Language = lang;
@@ -9950,27 +9784,6 @@ void ScribusMainWindow::testQT_slot4()
 	m_qqview->close();
 	m_qqview->deleteLater();
 }
-
-/*
-void ScribusMainWindow::adjustCMS()
-{
-	if (!HaveDoc)
-		return;
-	AdjustCmsDialog* dia = new AdjustCmsDialog(this, doc);
-	if (dia->exec())
-	{
-		dia->tabColorManagement->updateDocSettings(doc);
-		if (dia->tabColorManagement->changed)
-		{
-			doc->enableCMS(doc->cmsSettings().CMSinUse);
-			cmsToolbarButton->setChecked(doc->HasCMS);
-			requestUpdate(reqCmsOptionsUpdate);
-			doc->view()->DrawNew();
-		}
-	}
-	delete dia;
-}
-*/
 
 void ScribusMainWindow::changePreviewQuality(int index)
 {

@@ -752,10 +752,6 @@ public:
 	static void recalculateColorItem(PageItem *item);
 	void recalculateColors();
 	/**
-	 * @brief Sets up the ScText defaults from the document
-	 */
-	//void setScTextDefaultsFromDoc(ScText *);
-	/**
 	 * @brief Copies a normal page to be a master pages
 	 */
 	bool copyPageToMasterPage(const int, const int, const int, const QString&, bool);
@@ -828,11 +824,6 @@ public:
 	bool usesAutomaticTextFrames() const;
 	void setUsesAutomaticTextFrames(const bool);
 	
-	/**
-	 * @brief Load images into an image frame, moved from the view
-	 * @retval Return false on failure
-	 */
-//	bool LoadPict(QString fn, int ItNr, bool reload = false, bool showMsg = false);
 	/**
 	 * 
 	 * @param fn 
