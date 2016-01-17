@@ -14,50 +14,50 @@
 ScDLManager::ScDLManager(QObject *parent)
 	: QObject(parent)
 {
-	dlID=0;
-	thread=new ScDLThread();
-	connect(thread, SIGNAL(fileReceived(const QString &)), this, SLOT(dlReceived(const QString&)));
-	connect(thread, SIGNAL(fileFailed(const QString &)), this, SLOT(dlFailed(const QString&)));
-	connect(thread, SIGNAL(fileStarted(const QString &)), this, SLOT(dlStarted(const QString &)));
+	m_dlID=0;
+	m_thread=new ScDLThread();
+	connect(m_thread, SIGNAL(fileReceived(const QString &)), this, SLOT(dlReceived(const QString&)));
+	connect(m_thread, SIGNAL(fileFailed(const QString &)), this, SLOT(dlFailed(const QString&)));
+	connect(m_thread, SIGNAL(fileStarted(const QString &)), this, SLOT(dlStarted(const QString &)));
 	//connect(thread, SIGNAL(finished()), this, SIGNAL(finished()));
-	connect(thread, SIGNAL(finished()), this, SLOT(moveFinishedDownloads()));
+	connect(m_thread, SIGNAL(finished()), this, SLOT(moveFinishedDownloads()));
 }
 
 ScDLManager::~ScDLManager()
 {
 	// Per Qt doc, deleting a running thread will probably result in a program crash.
-	if (thread && !thread->isRunning())
-		delete thread;
+	if (m_thread && !m_thread->isRunning())
+		delete m_thread;
 }
 
 void ScDLManager::addURL(const QUrl &url, bool overwrite, const QString& downloadLocation, const QString& destinationLocation, const QString& destinationName)
 {
 	DownloadData d;
-	d.id=dlID++;
+	d.id=m_dlID++;
 	d.name=url.fileName();
 	d.url=url;
 	d.downloadLocation=downloadLocation;
 	d.destinationLocation=destinationLocation;
 	d.destinationName=destinationName;
 	d.state=DownloadData::New;
-	fileList.append(d);
+	m_fileList.append(d);
 
-	thread->addURL(url, overwrite, downloadLocation, destinationLocation);
+	m_thread->addURL(url, overwrite, downloadLocation, destinationLocation);
 }
 
 void ScDLManager::addURL(const QString &url, bool overwrite, const QString &downloadLocation, const QString& destinationLocation, const QString& destinationName)
 {
 	DownloadData d;
-	d.id=dlID++;
+	d.id=m_dlID++;
 	d.name=QUrl(url).fileName();
 	d.url=url;
 	d.downloadLocation=downloadLocation;
 	d.destinationLocation=destinationLocation;
 	d.destinationName=destinationName;
 	d.state=DownloadData::New;
-	fileList.append(d);
+	m_fileList.append(d);
 
-	thread->addURL(QUrl(url), overwrite, downloadLocation, destinationLocation);
+	m_thread->addURL(QUrl(url), overwrite, downloadLocation, destinationLocation);
 }
 
 void ScDLManager::addURLs(const QStringList &urlList, bool overwrite, const QString &downloadLocation, const QString& destinationLocation)
@@ -65,28 +65,28 @@ void ScDLManager::addURLs(const QStringList &urlList, bool overwrite, const QStr
 	foreach(QString s, urlList)
 	{
 		DownloadData d;
-		d.id=dlID++;
+		d.id=m_dlID++;
 		d.name=QUrl(s).fileName();
 		d.url=s;
 		d.downloadLocation=downloadLocation;
 		d.destinationLocation=destinationLocation;
 		d.destinationName="";
 		d.state=DownloadData::New;
-		fileList.append(d);
+		m_fileList.append(d);
 	}
-	thread->addURLs(urlList, overwrite, downloadLocation, destinationLocation);
+	m_thread->addURLs(urlList, overwrite, downloadLocation, destinationLocation);
 }
 
 void ScDLManager::startDownloads()
 {
 	//qDebug()<<"Manager starting downloads...";
-	thread->startDownloads();
+	m_thread->startDownloads();
 }
 
 void ScDLManager::dlStarted(const QString& filename)
 {
 	//qDebug()<<"File Started:"<<filename;
-	QMutableListIterator<DownloadData> i(fileList);
+	QMutableListIterator<DownloadData> i(m_fileList);
 	while (i.hasNext())
 	{
 		i.next();
@@ -103,7 +103,7 @@ void ScDLManager::dlReceived(const QString& filename)
 {
 	emit fileReceived(filename);
 	//qDebug()<<"File Received:"<<filename;
-	QMutableListIterator<DownloadData> i(fileList);
+	QMutableListIterator<DownloadData> i(m_fileList);
 	while (i.hasNext())
 	{
 		i.next();
@@ -120,7 +120,7 @@ void ScDLManager::dlFailed(const QString& filename)
 {
 	emit fileFailed(filename);
 	//qDebug()<<"File Failed:"<<filename;
-	QMutableListIterator<DownloadData> i(fileList);
+	QMutableListIterator<DownloadData> i(m_fileList);
 	while (i.hasNext())
 	{
 		i.next();
@@ -135,7 +135,7 @@ void ScDLManager::dlFailed(const QString& filename)
 
 void ScDLManager::moveFinishedDownloads()
 {
-	QMutableListIterator<DownloadData> i(fileList);
+	QMutableListIterator<DownloadData> i(m_fileList);
 	while (i.hasNext())
 	{
 		i.next();

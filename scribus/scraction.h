@@ -137,7 +137,7 @@ public:
 	 *         but we connect activated() only, eg itemLock. This means they can be setOn()
 	 *         to the status of an item's bool, eg isLocked(), without toggling anything.
 	 */		
-	void setToggleAction(bool isToggle, bool fakeToggle=false);
+	void setToggleAction(bool isToggle, bool m_fakeToggle=false);
 	
 	/*!
 		\author Craig Bradney
@@ -187,12 +187,12 @@ signals:
 	
 protected:
 	void initScrAction();
-	int menuIndex;
-	ActionType _actionType;
-	QMenu *popupMenuAddedTo;
-	QKeySequence savedKeySequence;
-	bool shortcutSaved;
-	bool fakeToggle;
+	int m_menuIndex;
+	ActionType m_actionType;
+	QMenu *m_popupMenuAddedTo;
+	QKeySequence m_savedKeySequence;
+	bool m_shortcutSaved;
+	bool m_fakeToggle;
 	QIcon m_icon;
 	
 	/*!

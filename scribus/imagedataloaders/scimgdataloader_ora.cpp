@@ -91,8 +91,8 @@ bool ScImgDataLoader_ORA::loadPicture(const QString& fn, int /*page*/, int /*res
 				QDomDocument designMapDom;
 				if(designMapDom.setContent(f))
 				{
-					inSubLayer = 0;
-					layerCount = 0;
+					m_inSubLayer = 0;
+					m_layerCount = 0;
 					QDomElement docElem = designMapDom.documentElement();
 					m_imageInfoRecord.exifInfo.height = docElem.attribute("h", "0").toInt();
 					m_imageInfoRecord.exifInfo.width = docElem.attribute("w", "0").toInt();
@@ -140,7 +140,7 @@ void ScImgDataLoader_ORA::parseStackXML(QDomElement &elem, ScPainter* painter, S
 		if (lay.tagName() == "layer")
 		{
 			struct PSDLayer layer;
-			QString layerName = lay.attribute("name", QString("layer%1").arg(layerCount+1));
+			QString layerName = lay.attribute("name", QString("layer%1").arg(m_layerCount+1));
 			QString compositeOp = lay.attribute("composite-op");
 			double opacity = lay.attribute("opacity", "1.0").toDouble();
 			int x = lay.attribute("x", "0").toInt();
@@ -160,14 +160,14 @@ void ScImgDataLoader_ORA::parseStackXML(QDomElement &elem, ScPainter* painter, S
 			double sy = img.height() / 40.0;
 			imt = sy < sx ?  img.scaled(qRound(img.width() / sx), qRound(img.height() / sx), Qt::IgnoreAspectRatio, Qt::SmoothTransformation) :
 				  img.scaled(qRound(img.width() / sy), qRound(img.height() / sy), Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
-			if (inSubLayer == 0)
+			if (m_inSubLayer == 0)
 			{
-				if ((m_imageInfoRecord.isRequest) && (m_imageInfoRecord.RequestProps.contains(layerCount)))
-					opacity = m_imageInfoRecord.RequestProps[layerCount].opacity / 255.0;
-				if ((m_imageInfoRecord.isRequest) && (m_imageInfoRecord.RequestProps.contains(layerCount)))
-					visible = m_imageInfoRecord.RequestProps[layerCount].visible;
-				if ((m_imageInfoRecord.isRequest) && (m_imageInfoRecord.RequestProps.contains(layerCount)))
-					compositeOp = m_imageInfoRecord.RequestProps[layerCount].blend;
+				if ((m_imageInfoRecord.isRequest) && (m_imageInfoRecord.RequestProps.contains(m_layerCount)))
+					opacity = m_imageInfoRecord.RequestProps[m_layerCount].opacity / 255.0;
+				if ((m_imageInfoRecord.isRequest) && (m_imageInfoRecord.RequestProps.contains(m_layerCount)))
+					visible = m_imageInfoRecord.RequestProps[m_layerCount].visible;
+				if ((m_imageInfoRecord.isRequest) && (m_imageInfoRecord.RequestProps.contains(m_layerCount)))
+					compositeOp = m_imageInfoRecord.RequestProps[m_layerCount].blend;
 				layer.layerName = layerName;
 				layer.channelType.clear();
 				layer.channelLen.clear();
@@ -180,7 +180,7 @@ void ScImgDataLoader_ORA::parseStackXML(QDomElement &elem, ScPainter* painter, S
 				layer.flags = visible ? 0 : 2;
 				layer.thumb = imt.copy();
 				m_imageInfoRecord.layerInfo.append(layer);
-				layerCount++;
+				m_layerCount++;
 			}
 			if (visible)
 			{
@@ -195,20 +195,20 @@ void ScImgDataLoader_ORA::parseStackXML(QDomElement &elem, ScPainter* painter, S
 		else if (lay.tagName() == "stack")
 		{
 			struct PSDLayer layer;
-			QString layerName = lay.attribute("name", QString("layer%1").arg(layerCount+1));
+			QString layerName = lay.attribute("name", QString("layer%1").arg(m_layerCount+1));
 			QString compositeOp = lay.attribute("composite-op");
 			double opacity = lay.attribute("opacity", "1.0").toDouble();
 			int x = lay.attribute("x", "0").toInt();
 			int y = lay.attribute("y", "0").toInt();
 			bool visible = lay.attribute("visibility", "visible") == "visible";
-			if (inSubLayer == 0)
+			if (m_inSubLayer == 0)
 			{
-				if ((m_imageInfoRecord.isRequest) && (m_imageInfoRecord.RequestProps.contains(layerCount)))
-					opacity = m_imageInfoRecord.RequestProps[layerCount].opacity / 255.0;
-				if ((m_imageInfoRecord.isRequest) && (m_imageInfoRecord.RequestProps.contains(layerCount)))
-					visible = m_imageInfoRecord.RequestProps[layerCount].visible;
-				if ((m_imageInfoRecord.isRequest) && (m_imageInfoRecord.RequestProps.contains(layerCount)))
-					compositeOp = m_imageInfoRecord.RequestProps[layerCount].blend;
+				if ((m_imageInfoRecord.isRequest) && (m_imageInfoRecord.RequestProps.contains(m_layerCount)))
+					opacity = m_imageInfoRecord.RequestProps[m_layerCount].opacity / 255.0;
+				if ((m_imageInfoRecord.isRequest) && (m_imageInfoRecord.RequestProps.contains(m_layerCount)))
+					visible = m_imageInfoRecord.RequestProps[m_layerCount].visible;
+				if ((m_imageInfoRecord.isRequest) && (m_imageInfoRecord.RequestProps.contains(m_layerCount)))
+					compositeOp = m_imageInfoRecord.RequestProps[m_layerCount].blend;
 				layer.layerName = layerName;
 				layer.channelType.clear();
 				layer.channelLen.clear();
@@ -220,9 +220,9 @@ void ScImgDataLoader_ORA::parseStackXML(QDomElement &elem, ScPainter* painter, S
 				layer.maskWidth = 0;
 				layer.flags = visible ? 0 : 2;
 				m_imageInfoRecord.layerInfo.append(layer);
-				layerCount++;
+				m_layerCount++;
 			}
-			inSubLayer++;
+			m_inSubLayer++;
 			if (visible)
 			{
 				painter->save();
@@ -232,7 +232,7 @@ void ScImgDataLoader_ORA::parseStackXML(QDomElement &elem, ScPainter* painter, S
 				painter->endLayer();
 				painter->restore();
 			}
-			inSubLayer--;
+			m_inSubLayer--;
 		}
 	}
 }

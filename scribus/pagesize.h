@@ -59,7 +59,7 @@ public:
 	QStringList untransPageSizeList(const QStringList &transList);
 
 private:
-	QMap<QString, PageSizeInfo > pageSizeList;
+	QMap<QString, PageSizeInfo > m_pageSizeList;
 	double m_width;
 	double m_height;
 	int m_pageUnitIndex;

@@ -40,14 +40,14 @@ for which a new license (GPL+exception) is in place.
 class SCRIBUS_API PrefsReader : public QXmlDefaultHandler
 {
 private:
-	ContextMap* aContexts;
-	ContextMap* pContexts;
-	PrefsContext* currentContext;
-	PrefsTable* currentTable;
-	bool inApp;
-	int rowIndex;
-	int colIndex;
-	bool inTable;
+	ContextMap* m_aContexts;
+	ContextMap* m_pContexts;
+	PrefsContext* m_currentContext;
+	PrefsTable* m_currentTable;
+	bool m_inApp;
+	int m_rowIndex;
+	int m_colIndex;
+	bool m_inTable;
 public:
 	PrefsReader(ContextMap *appContexts, ContextMap *pluginContexts);
 	~PrefsReader();

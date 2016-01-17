@@ -61,9 +61,9 @@ public:
     TreeItem *parent();
 
 private:
-    QList<TreeItem*> childItems;
-    QList<QVariant> itemData;
-    TreeItem *parentItem;
+	QList<TreeItem*> m_childItems;
+	QList<QVariant> m_itemData;
+	TreeItem *m_parentItem;
 };
 //! [0]
 

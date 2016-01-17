@@ -81,7 +81,7 @@ public:
 
 private:
 	ScribusDoc& m_Doc;
-	ColorList backUpColors;
+	ColorList m_backUpColors;
 //	Selection importCollection();
 //	void updateGradientColors(const ColorList& colors);
 };

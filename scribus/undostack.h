@@ -74,11 +74,11 @@ private:
     /* When an action happens it is pushed to the undoActions_ and the redoActions_
      * is cleared. When undo is requested action is popped from undoActions_ and
      * pushed to the redoActions_ (and vice versa). */
-    StateList undoActions_; /* stack would probably be enough for this but vector */
-    StateList redoActions_; /* will give more options in future */
+	StateList m_undoActions_; /* stack would probably be enough for this but vector */
+	StateList m_redoActions_; /* will give more options in future */
 
     /* maximum amount of actions stored, 0 for no limit */
-    uint maxSize_;
+	uint m_maxSize_;
 
     /* returns true if an action was popped from the stack */
     /* assures that we only hold the maxSize_ number of UndoStates */

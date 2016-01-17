@@ -29,31 +29,31 @@ for which a new license (GPL+exception) is in place.
 
 PrefsContext::PrefsContext()
 {
-	name = "";
-	ispersistent = false;
-	isplugin = false;
+	m_name = "";
+	m_ispersistent = false;
+	m_isplugin = false;
 }
 
 PrefsContext::PrefsContext(QString contextName, bool persistent, bool plugin)
 {
-	name = contextName;
-	ispersistent = persistent;
-	isplugin = plugin;
+	m_name = contextName;
+	m_ispersistent = persistent;
+	m_isplugin = plugin;
 }
 
 QString PrefsContext::getName()
 {
-	return name;
+	return m_name;
 }
 
 bool PrefsContext::isPersistent()
 {
-	return ispersistent;
+	return m_ispersistent;
 }
 
 bool PrefsContext::isPlugin()
 {
-	return isplugin;
+	return m_isplugin;
 }
 
 bool PrefsContext::isEmpty()

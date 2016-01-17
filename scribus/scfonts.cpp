@@ -408,7 +408,7 @@ ScFace SCFonts::LoadScalableFont(const QString &filename)
 			case ScFace::TTCF:
 			case ScFace::TYPE42:
 				t = ScFace(new ScFace_ttf(fam, sty, "", ts, qpsName, filename, faceindex));
-				getSFontType(face, t.m->typeCode);
+				getSFontType(face, t.m_m->typeCode);
 				if (t.type() == ScFace::OTF)
 					t.subset(true);
 				else
@@ -418,10 +418,10 @@ ScFace SCFonts::LoadScalableFont(const QString &filename)
                 /* catching any types not handled above to silence compiler */
 				break;
 		}
-		t.m->hasGlyphNames = HasNames;
+		t.m_m->hasGlyphNames = HasNames;
 		t.embedPs(true);
 		t.usable(true);
-		t.m->status = ScFace::UNKNOWN;
+		t.m_m->status = ScFace::UNKNOWN;
 		if (face->num_glyphs > 2048)
 			t.subset(true);
 	}
@@ -612,7 +612,7 @@ bool SCFonts::AddScalableFont(QString filename, FT_Library &library, QString Doc
 					break;
 				case ScFace::SFNT:
 					t = ScFace(new ScFace_ttf(fam, sty, "", ts, qpsName, filename, faceindex));
-					getSFontType(face, t.m->typeCode);
+					getSFontType(face, t.m_m->typeCode);
 					if (t.type() == ScFace::OTF) 
 					{
 						t.subset(true);
@@ -622,8 +622,8 @@ bool SCFonts::AddScalableFont(QString filename, FT_Library &library, QString Doc
 					break;
 				case ScFace::TTCF:
 					t = ScFace(new ScFace_ttf(fam, sty, "", ts, qpsName, filename, faceindex));
-					t.m->formatCode = ScFace::TTCF;
-					t.m->typeCode = ScFace::TTF;
+					t.m_m->formatCode = ScFace::TTCF;
+					t.m_m->typeCode = ScFace::TTF;
 					//getSFontType(face, t.m->typeCode);
 					if (t.type() == ScFace::OTF) 
 					{
@@ -634,7 +634,7 @@ bool SCFonts::AddScalableFont(QString filename, FT_Library &library, QString Doc
 					break;
 				case ScFace::TYPE42:
 					t = ScFace(new ScFace_ttf(fam, sty, "", ts, qpsName, filename, faceindex));
-					getSFontType(face, t.m->typeCode);
+					getSFontType(face, t.m_m->typeCode);
 					if (t.type() == ScFace::OTF) 
 					{
 						t.subset(true);
@@ -647,13 +647,13 @@ bool SCFonts::AddScalableFont(QString filename, FT_Library &library, QString Doc
 					break;
 			}
 			insert(ts,t);
-			t.m->hasGlyphNames = HasNames;
+			t.m_m->hasGlyphNames = HasNames;
 			t.embedPs(true);
 			t.usable(true);
-			t.m->status = ScFace::UNKNOWN;
+			t.m_m->status = ScFace::UNKNOWN;
 			if (face->num_glyphs > 2048)
 				t.subset(true);
-			t.m->forDocument = DocName;
+			t.m_m->forDocument = DocName;
 			//setBestEncoding(face); //AV
 			if (showFontInformation)
 				sDebug(QObject::tr("Font %1 loaded from %2(%3)").arg(t.psName()).arg(filename).arg(faceindex+1));

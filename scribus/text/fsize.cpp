@@ -126,9 +126,9 @@
 
 void FSize::transpose()
 {
-    qreal tmp = wd;
-    wd = ht;
-    ht = tmp;
+    qreal tmp = m_wd;
+    m_wd = m_ht;
+    m_ht = tmp;
 }
 
 /*! \enum FSize::ScaleMode
@@ -176,8 +176,8 @@ void FSize::transpose()
 void FSize::scale( qreal w, qreal h, Qt::AspectRatioMode mode )
 {
     if ( mode == Qt::IgnoreAspectRatio ) {
-	wd = (qreal)w;
-	ht = (qreal)h;
+	m_wd = (qreal)w;
+	m_ht = (qreal)h;
     } else {
 	bool useHeight = true;
 	qreal w0 = width();
@@ -191,11 +191,11 @@ void FSize::scale( qreal w, qreal h, Qt::AspectRatioMode mode )
 	}
 
 	if ( useHeight ) {
-	    wd = (qreal)rw;
-	    ht = (qreal)h;
+	    m_wd = (qreal)rw;
+	    m_ht = (qreal)h;
 	} else {
-	    wd = (qreal)w;
-	    ht = (qreal)( w * h0 / w0 );
+	    m_wd = (qreal)w;
+	    m_ht = (qreal)( w * h0 / w0 );
 	}
     }
 }

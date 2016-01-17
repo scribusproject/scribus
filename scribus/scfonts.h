@@ -80,15 +80,15 @@ class SCRIBUS_API SCFonts : public QMap<QString,ScFace>
 
 struct SCFontsIterator
 {
-	SCFontsIterator(SCFonts& fonts): it(fonts.begin()), end_it(fonts.end()) 
+	SCFontsIterator(SCFonts& fonts): m_it(fonts.begin()), m_end_it(fonts.end())
 	{}
-	ScFace& current()          { return *it; }
-	QString currentKey() const { return it.key(); }
-	bool hasNext()       const { return it != end_it; }
-	ScFace& next()             { ++it; return current(); }
+	ScFace& current()          { return *m_it; }
+	QString currentKey() const { return m_it.key(); }
+	bool hasNext()       const { return m_it != m_end_it; }
+	ScFace& next()             { ++m_it; return current(); }
 
 private:
-	QMap<QString,ScFace>::Iterator it, end_it;
+	QMap<QString,ScFace>::Iterator m_it, m_end_it;
 };
 
 #endif

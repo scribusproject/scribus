@@ -113,7 +113,7 @@ public:
 	virtual void setPen( const QColor &c, double w, Qt::PenStyle st, Qt::PenCapStyle ca, Qt::PenJoinStyle jo );
 	virtual void setPenOpacity( double op );
 	virtual void setLineWidth( double w);
-	virtual void setDash(const QVector<double>& array, double ofs);
+	virtual void setDash(const QVector<double>& m_array, double ofs);
 	virtual void setBrush( const QColor & );
 	virtual void setBrushOpacity( double op );
 	virtual void setOpacity( double op );
@@ -164,11 +164,11 @@ private:
 		bool fillRule;
 	};
 	cairo_pattern_t *getMaskPattern();
-	cairo_surface_t *imageMask;
-	QImage imageQ;
+	cairo_surface_t *m_imageMask;
+	QImage m_imageQ;
 
-	QStack<layerProp> Layers;
-	QStack<double> zoomStack;
+	QStack<layerProp> m_Layers;
+	QStack<double> m_zoomStack;
 	QImage *m_image;
 	double  m_layerTransparency;
 	int  m_blendMode;
@@ -184,20 +184,20 @@ private:
 	bool mf_outlined;
 	/*! \brief Filling */
 	QColor m_fill;
-	double fill_trans;
+	double m_fill_trans;
 	bool m_fillRule;
 	int m_fillMode;				// 0 = none, 1 = solid, 2 = gradient 3 = pattern 4 = hatch
-	double patternScaleX;
-	double patternScaleY;
-	double patternOffsetX;
-	double patternOffsetY;
-	double patternRotation;
-	double patternSkewX;
-	double patternSkewY;
-	bool patternMirrorX;
-	bool patternMirrorY;
-	double gradientScale;
-	double gradientSkew;
+	double m_patternScaleX;
+	double m_patternScaleY;
+	double m_patternOffsetX;
+	double m_patternOffsetY;
+	double m_patternRotation;
+	double m_patternSkewX;
+	double m_patternSkewY;
+	bool m_patternMirrorX;
+	bool m_patternMirrorY;
+	double m_gradientScale;
+	double m_gradientSkew;
 	FPoint gradPatchP1;
 	FPoint gradPatchP2;
 	FPoint gradPatchP3;
@@ -213,31 +213,31 @@ private:
 	QColor gradPatchColor4;
 	QList<QList<meshPoint> > meshGradientArray;
 	QList<meshGradientPatch> meshGradientPatches;
-	double hatchAngle;
-	double hatchDistance;
-	int hatchType;				// 0 = single 1 = double 2 = triple
-	bool hatchUseBackground;
-	QColor hatchBackground;
-	QColor hatchForeground;
-	double hatchWidth;
-	double hatchHeight;
+	double m_hatchAngle;
+	double m_hatchDistance;
+	int m_hatchType;				// 0 = single 1 = double 2 = triple
+	bool m_hatchUseBackground;
+	QColor m_hatchBackground;
+	QColor m_hatchForeground;
+	double m_hatchWidth;
+	double m_hatchHeight;
 	/*! \brief Stroking */
 	QColor m_stroke;
-	double stroke_trans;
-	double LineWidth;
+	double m_stroke_trans;
+	double m_LineWidth;
 	int m_strokeMode;				// 0 = none, 1 = solid, 2 = gradient 3 = pattern
-	int maskMode;				// 0 = none, 1 = gradient 2 = pattern
-	double mask_patternScaleX;
-	double mask_patternScaleY;
-	double mask_patternOffsetX;
-	double mask_patternOffsetY;
-	double mask_patternRotation;
-	double mask_patternSkewX;
-	double mask_patternSkewY;
-	bool mask_patternMirrorX;
-	bool mask_patternMirrorY;
-	double mask_gradientScale;
-	double mask_gradientSkew;
+	int m_maskMode;				// 0 = none, 1 = gradient 2 = pattern
+	double m_mask_patternScaleX;
+	double m_mask_patternScaleY;
+	double m_mask_patternOffsetX;
+	double m_mask_patternOffsetY;
+	double m_mask_patternRotation;
+	double m_mask_patternSkewX;
+	double m_mask_patternSkewY;
+	bool m_mask_patternMirrorX;
+	bool m_mask_patternMirrorY;
+	double m_mask_gradientScale;
+	double m_mask_gradientSkew;
 
 	/*! \brief Line End Style */
 	Qt::PenCapStyle PLineEnd;
@@ -248,9 +248,9 @@ private:
 	double m_offset;
 	/*! \brief Zoom Factor of the Painter */
 	double m_zoomFactor;
-	bool imageMode;
-	bool layeredMode;
-	bool svgMode;
+	bool m_imageMode;
+	bool m_layeredMode;
+	bool m_svgMode;
 };
 
 #endif

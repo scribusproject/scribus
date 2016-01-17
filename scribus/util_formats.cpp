@@ -20,7 +20,7 @@ for which a new license (GPL+exception) is in place.
 #include <magick/symbols.h>
 #endif
 
-FormatsManager* FormatsManager::_instance = 0;
+FormatsManager* FormatsManager::m_instance = 0;
 
 FormatsManager::FormatsManager()
 {
@@ -158,17 +158,17 @@ FormatsManager::~FormatsManager()
 
 FormatsManager* FormatsManager::instance()
 {
-	if (_instance == 0)
-		_instance = new FormatsManager();
+	if (m_instance == 0)
+		m_instance = new FormatsManager();
 
-	return _instance;
+	return m_instance;
 }
 
 void FormatsManager::deleteInstance()
 {
-	if (_instance)
-		delete _instance;
-	_instance = 0;
+	if (m_instance)
+		delete m_instance;
+	m_instance = 0;
 }
 
 void FormatsManager::imageFormatSupported(const QString& ext)

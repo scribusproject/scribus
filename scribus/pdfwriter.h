@@ -150,9 +150,9 @@ public:
 	
 	// file handling
 	bool open (const QString& filename);
-	QDataStream& getOutStream() { return outStream; }
+	QDataStream& getOutStream() { return m_outStream; }
 	bool close(bool aborted);
-	qint64 bytesWritten() { return Spool.pos(); }
+	qint64 bytesWritten() { return m_Spool.pos(); }
 	
 	// encryption
 	void setFileId(const QByteArray& id);
@@ -205,20 +205,20 @@ public:
 	PdfId ResourcesObj;
 	
 private:
-	PdfId ObjCounter;
-	PdfId CurrentObj;
+	PdfId m_ObjCounter;
+	PdfId m_CurrentObj;
 	
-	QFile Spool;
-	QDataStream outStream;
+	QFile m_Spool;
+	QDataStream m_outStream;
 	
-	QList<qint64> XRef;
+	QList<qint64> m_XRef;
 	
-	QByteArray KeyGen;
-	QByteArray OwnerKey;
-	QByteArray UserKey;
-	QByteArray FileID;
-	QByteArray EncryKey;
-	int KeyLen;
+	QByteArray m_KeyGen;
+	QByteArray m_OwnerKey;
+	QByteArray m_UserKey;
+	QByteArray m_FileID;
+	QByteArray m_EncryKey;
+	int m_KeyLen;
 
 };
 

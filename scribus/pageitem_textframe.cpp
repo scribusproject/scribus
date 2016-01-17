@@ -302,30 +302,30 @@ void PageItem_TextFrame::setShadow()
 		return;
 
 	QString newShadow = m_Doc->masterPageMode() ? OnMasterPage : QString::number(OwnPage);
-	if (newShadow != currentShadow) {
-		if (currentShadow == OnMasterPage) {
+	if (newShadow != m_currentShadow) {
+		if (m_currentShadow == OnMasterPage) {
 			// masterpage was edited, clear all shadows
-			shadows.clear();
+			m_shadows.clear();
 		}
-		if (!shadows.contains(newShadow)) {
-			if (!shadows.contains(OnMasterPage)) {
-				shadows[OnMasterPage] = itemText;
+		if (!m_shadows.contains(newShadow)) {
+			if (!m_shadows.contains(OnMasterPage)) {
+				m_shadows[OnMasterPage] = itemText;
 //				const ParagraphStyle& pstyle(shadows[OnMasterPage].paragraphStyle(0));
 //				qDebug() << QString("Pageitem_Textframe: style of master: %1 align=%2").arg(pstyle.parent()).arg(pstyle.alignment());
 //				qDebug() << QString("Pageitem_Textframe: shadow itemText->%1").arg(OnMasterPage);
 			}
 			if (newShadow != OnMasterPage) {
-				shadows[newShadow] = shadows[OnMasterPage].copy();
+				m_shadows[newShadow] = m_shadows[OnMasterPage].copy();
 //				const ParagraphStyle& pstyle(shadows[newShadow].paragraphStyle(0));
 //				qDebug() << QString("Pageitem_Textframe: style of shadow copy: %1 align=%2").arg(pstyle.parent()).arg(pstyle.alignment());
 			}
 //			qDebug() << QString("Pageitem_Textframe: shadow %1<-%2").arg(newShadow).arg(OnMasterPage);
 		}
-		itemText = shadows[newShadow];
+		itemText = m_shadows[newShadow];
 //		const ParagraphStyle& pstyle(itemText.paragraphStyle(0));
 //		qDebug() << QString("Pageitem_Textframe: style of shadow: %1 align=%2").arg(pstyle.parent()).arg(pstyle.alignment());
 		invalid = true;
-		currentShadow = newShadow;
+		m_currentShadow = newShadow;
 	}
 }
 /*

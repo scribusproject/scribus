@@ -69,8 +69,8 @@ public:
 private:
 	static LocaleManager* m_instance;
 
-	QList <LocaleDef> localeTable;
-	QLocale sysLocale;
+	QList <LocaleDef> m_localeTable;
+	QLocale m_sysLocale;
 	void generateLocaleList();
 };
 

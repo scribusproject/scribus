@@ -132,83 +132,83 @@ public:
 	void invalidateRegion(QRectF region);
 
 
-	MarginStruct* scratch() { return &docPrefsData.displayPrefs.scratch; }
-	MarginStruct* bleeds() { return &docPrefsData.docSetupPrefs.bleeds; }
-	MarginStruct& bleedsVal() { return docPrefsData.docSetupPrefs.bleeds; }
-	MarginStruct* margins() { return &docPrefsData.docSetupPrefs.margins; }
-	MarginStruct& marginsVal() { return docPrefsData.docSetupPrefs.margins; }
-	double pageGapHorizontal() const { return docPrefsData.displayPrefs.pageGapHorizontal; }
-	double pageGapVertical() const { return docPrefsData.displayPrefs.pageGapVertical; }
-	void setPageGapHorizontal(double h) { docPrefsData.displayPrefs.pageGapHorizontal=h; }
-	void setPageGapVertical(double v) { docPrefsData.displayPrefs.pageGapVertical=v; }
-	const QList<PageSet>& pageSets() const { return docPrefsData.pageSets; }
+	MarginStruct* scratch() { return &m_docPrefsData.displayPrefs.scratch; }
+	MarginStruct* bleeds() { return &m_docPrefsData.docSetupPrefs.bleeds; }
+	MarginStruct& bleedsVal() { return m_docPrefsData.docSetupPrefs.bleeds; }
+	MarginStruct* margins() { return &m_docPrefsData.docSetupPrefs.margins; }
+	MarginStruct& marginsVal() { return m_docPrefsData.docSetupPrefs.margins; }
+	double pageGapHorizontal() const { return m_docPrefsData.displayPrefs.pageGapHorizontal; }
+	double pageGapVertical() const { return m_docPrefsData.displayPrefs.pageGapVertical; }
+	void setPageGapHorizontal(double h) { m_docPrefsData.displayPrefs.pageGapHorizontal=h; }
+	void setPageGapVertical(double v) { m_docPrefsData.displayPrefs.pageGapVertical=v; }
+	const QList<PageSet>& pageSets() const { return m_docPrefsData.pageSets; }
 	void setPageSetFirstPage(int layout, int fp);
-	void clearPageSets() { docPrefsData.pageSets.clear(); }
-	void appendToPageSets(const PageSet& ps) { docPrefsData.pageSets.append(ps); }
-	void setPaperColor(const QColor &c) { docPrefsData.displayPrefs.paperColor=c; }
-	const QColor& paperColor() const { return docPrefsData.displayPrefs.paperColor; }
-	int hyphMinimumWordLength() const { return docPrefsData.hyphPrefs.MinWordLen; }
-	int hyphConsecutiveLines() const { return docPrefsData.hyphPrefs.HyCount; }
-	const QString& hyphLanguage() const { return docPrefsData.hyphPrefs.Language; }
-	bool hyphAutomatic() const { return docPrefsData.hyphPrefs.Automatic; }
-	bool hyphAutoCheck() const { return docPrefsData.hyphPrefs.AutoCheck; }
-	void setHyphMinimumWordLength(int i) { docPrefsData.hyphPrefs.MinWordLen=i; }
-	void setHyphConsecutiveLines(int i) { docPrefsData.hyphPrefs.HyCount=i; }
-	void setHyphLanguage(const QString& s) { docPrefsData.hyphPrefs.Language=s; }
-	void setHyphAutomatic(bool b) { docPrefsData.hyphPrefs.Automatic=b; }
-	void setHyphAutoCheck(bool b) { docPrefsData.hyphPrefs.AutoCheck=b; }
-	bool autoSave() const { return docPrefsData.docSetupPrefs.AutoSave; }
-	int autoSaveTime() const  { return docPrefsData.docSetupPrefs.AutoSaveTime; }
-	bool autoSaveClockDisplay() const  { return docPrefsData.displayPrefs.showAutosaveClockOnCanvas; }
-	void setAutoSave(bool b) { docPrefsData.docSetupPrefs.AutoSave=b; }
-	void setAutoSaveTime(int i) { docPrefsData.docSetupPrefs.AutoSaveTime=i; }
+	void clearPageSets() { m_docPrefsData.pageSets.clear(); }
+	void appendToPageSets(const PageSet& ps) { m_docPrefsData.pageSets.append(ps); }
+	void setPaperColor(const QColor &c) { m_docPrefsData.displayPrefs.paperColor=c; }
+	const QColor& paperColor() const { return m_docPrefsData.displayPrefs.paperColor; }
+	int hyphMinimumWordLength() const { return m_docPrefsData.hyphPrefs.MinWordLen; }
+	int hyphConsecutiveLines() const { return m_docPrefsData.hyphPrefs.HyCount; }
+	const QString& hyphLanguage() const { return m_docPrefsData.hyphPrefs.Language; }
+	bool hyphAutomatic() const { return m_docPrefsData.hyphPrefs.Automatic; }
+	bool hyphAutoCheck() const { return m_docPrefsData.hyphPrefs.AutoCheck; }
+	void setHyphMinimumWordLength(int i) { m_docPrefsData.hyphPrefs.MinWordLen=i; }
+	void setHyphConsecutiveLines(int i) { m_docPrefsData.hyphPrefs.HyCount=i; }
+	void setHyphLanguage(const QString& s) { m_docPrefsData.hyphPrefs.Language=s; }
+	void setHyphAutomatic(bool b) { m_docPrefsData.hyphPrefs.Automatic=b; }
+	void setHyphAutoCheck(bool b) { m_docPrefsData.hyphPrefs.AutoCheck=b; }
+	bool autoSave() const { return m_docPrefsData.docSetupPrefs.AutoSave; }
+	int autoSaveTime() const  { return m_docPrefsData.docSetupPrefs.AutoSaveTime; }
+	bool autoSaveClockDisplay() const  { return m_docPrefsData.displayPrefs.showAutosaveClockOnCanvas; }
+	void setAutoSave(bool b) { m_docPrefsData.docSetupPrefs.AutoSave=b; }
+	void setAutoSaveTime(int i) { m_docPrefsData.docSetupPrefs.AutoSaveTime=i; }
 	//FIXME (maybe) :non const, the loaders make a mess here
-	PDFOptions& pdfOptions() { return docPrefsData.pdfPrefs; }
-	ObjAttrVector& itemAttributes() { return docPrefsData.itemAttrPrefs.defaultItemAttributes; }
-	void setItemAttributes(ObjAttrVector& oav) { docPrefsData.itemAttrPrefs.defaultItemAttributes=oav;}
-	void clearItemAttributes() { docPrefsData.itemAttrPrefs.defaultItemAttributes.clear(); }
-	void appendToItemAttributes(const ObjectAttribute& oa) { docPrefsData.itemAttrPrefs.defaultItemAttributes.append(oa); }
-	ToCSetupVector& tocSetups() { return docPrefsData.tocPrefs.defaultToCSetups; }
-	void setTocSetups(ToCSetupVector& tsv) { docPrefsData.tocPrefs.defaultToCSetups=tsv; }
-	void clearTocSetups() { docPrefsData.tocPrefs.defaultToCSetups.clear(); }
-	void appendToTocSetups(const ToCSetup& ts) { docPrefsData.tocPrefs.defaultToCSetups.append(ts); }
-	void setArrowStyles(QList<ArrowDesc>& as) { docPrefsData.arrowStyles=as; }
-	QList<ArrowDesc>& arrowStyles() { return docPrefsData.arrowStyles; }
-	void appendToArrowStyles(const struct ArrowDesc& as) { docPrefsData.arrowStyles.append(as); }
-	const bool marginColored() const { return docPrefsData.displayPrefs.marginColored; }
-	void setMarginColored(bool b) { docPrefsData.displayPrefs.marginColored=b; }
-	QMap<QString, CheckerPrefs>& checkerProfiles() { return docPrefsData.verifierPrefs.checkerPrefsList; }
-	void setCheckerProfiles(const QMap<QString, CheckerPrefs>& cl) { docPrefsData.verifierPrefs.checkerPrefsList=cl; }
-	void set1CheckerProfile(const QString profileName, const struct CheckerPrefs& cs) { docPrefsData.verifierPrefs.checkerPrefsList[profileName] = cs; }
-	void clearCheckerProfiles() { docPrefsData.verifierPrefs.checkerPrefsList.clear(); }
-	const QString& curCheckProfile() const { return docPrefsData.verifierPrefs.curCheckProfile; }
-	void setCurCheckProfile(const QString& s) { docPrefsData.verifierPrefs.curCheckProfile=s; }
-	int pageOrientation() const { return docPrefsData.docSetupPrefs.pageOrientation; }
-	void setPageOrientation(int o) { docPrefsData.docSetupPrefs.pageOrientation=o; }
-	int pagePositioning() const { return docPrefsData.docSetupPrefs.pagePositioning; }
-	void setPagePositioning(int p) { docPrefsData.docSetupPrefs.pagePositioning=p; }
-	double pageHeight() const { return docPrefsData.docSetupPrefs.pageHeight; }
-	double pageWidth() const { return docPrefsData.docSetupPrefs.pageWidth; }
-	const QString& pageSize() const { return docPrefsData.docSetupPrefs.pageSize; }
-	void setPageHeight(double h) { docPrefsData.docSetupPrefs.pageHeight=h; }
-	void setPageWidth(double w) { docPrefsData.docSetupPrefs.pageWidth=w; }
-	void setPageSize(const QString& s) { docPrefsData.docSetupPrefs.pageSize=s; }
-	int marginPreset() const { return docPrefsData.docSetupPrefs.marginPreset; }
-	void setMarginPreset(int mp) { docPrefsData.docSetupPrefs.marginPreset=mp; }
+	PDFOptions& pdfOptions() { return m_docPrefsData.pdfPrefs; }
+	ObjAttrVector& itemAttributes() { return m_docPrefsData.itemAttrPrefs.defaultItemAttributes; }
+	void setItemAttributes(ObjAttrVector& oav) { m_docPrefsData.itemAttrPrefs.defaultItemAttributes=oav;}
+	void clearItemAttributes() { m_docPrefsData.itemAttrPrefs.defaultItemAttributes.clear(); }
+	void appendToItemAttributes(const ObjectAttribute& oa) { m_docPrefsData.itemAttrPrefs.defaultItemAttributes.append(oa); }
+	ToCSetupVector& tocSetups() { return m_docPrefsData.tocPrefs.defaultToCSetups; }
+	void setTocSetups(ToCSetupVector& tsv) { m_docPrefsData.tocPrefs.defaultToCSetups=tsv; }
+	void clearTocSetups() { m_docPrefsData.tocPrefs.defaultToCSetups.clear(); }
+	void appendToTocSetups(const ToCSetup& ts) { m_docPrefsData.tocPrefs.defaultToCSetups.append(ts); }
+	void setArrowStyles(QList<ArrowDesc>& as) { m_docPrefsData.arrowStyles=as; }
+	QList<ArrowDesc>& arrowStyles() { return m_docPrefsData.arrowStyles; }
+	void appendToArrowStyles(const struct ArrowDesc& as) { m_docPrefsData.arrowStyles.append(as); }
+	const bool marginColored() const { return m_docPrefsData.displayPrefs.marginColored; }
+	void setMarginColored(bool b) { m_docPrefsData.displayPrefs.marginColored=b; }
+	QMap<QString, CheckerPrefs>& checkerProfiles() { return m_docPrefsData.verifierPrefs.checkerPrefsList; }
+	void setCheckerProfiles(const QMap<QString, CheckerPrefs>& cl) { m_docPrefsData.verifierPrefs.checkerPrefsList=cl; }
+	void set1CheckerProfile(const QString profileName, const struct CheckerPrefs& cs) { m_docPrefsData.verifierPrefs.checkerPrefsList[profileName] = cs; }
+	void clearCheckerProfiles() { m_docPrefsData.verifierPrefs.checkerPrefsList.clear(); }
+	const QString& curCheckProfile() const { return m_docPrefsData.verifierPrefs.curCheckProfile; }
+	void setCurCheckProfile(const QString& s) { m_docPrefsData.verifierPrefs.curCheckProfile=s; }
+	int pageOrientation() const { return m_docPrefsData.docSetupPrefs.pageOrientation; }
+	void setPageOrientation(int o) { m_docPrefsData.docSetupPrefs.pageOrientation=o; }
+	int pagePositioning() const { return m_docPrefsData.docSetupPrefs.pagePositioning; }
+	void setPagePositioning(int p) { m_docPrefsData.docSetupPrefs.pagePositioning=p; }
+	double pageHeight() const { return m_docPrefsData.docSetupPrefs.pageHeight; }
+	double pageWidth() const { return m_docPrefsData.docSetupPrefs.pageWidth; }
+	const QString& pageSize() const { return m_docPrefsData.docSetupPrefs.pageSize; }
+	void setPageHeight(double h) { m_docPrefsData.docSetupPrefs.pageHeight=h; }
+	void setPageWidth(double w) { m_docPrefsData.docSetupPrefs.pageWidth=w; }
+	void setPageSize(const QString& s) { m_docPrefsData.docSetupPrefs.pageSize=s; }
+	int marginPreset() const { return m_docPrefsData.docSetupPrefs.marginPreset; }
+	void setMarginPreset(int mp) { m_docPrefsData.docSetupPrefs.marginPreset=mp; }
 
-	TypoPrefs& typographicPrefs() { return docPrefsData.typoPrefs; }
-	GuidesPrefs& guidesPrefs() { return docPrefsData.guidesPrefs; }
-	ItemToolPrefs& itemToolPrefs() { return docPrefsData.itemToolPrefs; }
-	OperatorToolPrefs& opToolPrefs() { return docPrefsData.opToolPrefs; }
-	ColorPrefs& colorPrefs() { return docPrefsData.colorPrefs; }
-	CMSData& cmsSettings() { return docPrefsData.colorPrefs.DCMSset; }
-	DocumentInformation& documentInfo() { return docPrefsData.docInfo; }
-	void setDocumentInfo(DocumentInformation di) { docPrefsData.docInfo=di; }
-	DocumentSectionMap& sections() { return docPrefsData.docSectionMap; }
-	void setSections(DocumentSectionMap dsm) { docPrefsData.docSectionMap=dsm; }
+	TypoPrefs& typographicPrefs() { return m_docPrefsData.typoPrefs; }
+	GuidesPrefs& guidesPrefs() { return m_docPrefsData.guidesPrefs; }
+	ItemToolPrefs& itemToolPrefs() { return m_docPrefsData.itemToolPrefs; }
+	OperatorToolPrefs& opToolPrefs() { return m_docPrefsData.opToolPrefs; }
+	ColorPrefs& colorPrefs() { return m_docPrefsData.colorPrefs; }
+	CMSData& cmsSettings() { return m_docPrefsData.colorPrefs.DCMSset; }
+	DocumentInformation& documentInfo() { return m_docPrefsData.docInfo; }
+	void setDocumentInfo(DocumentInformation di) { m_docPrefsData.docInfo=di; }
+	DocumentSectionMap& sections() { return m_docPrefsData.docSectionMap; }
+	void setSections(DocumentSectionMap dsm) { m_docPrefsData.docSectionMap=dsm; }
 	const QMap<QString, int> & usedFonts() { return UsedFonts; }
 
-	const ApplicationPrefs& prefsData() { return docPrefsData; }
+	const ApplicationPrefs& prefsData() { return m_docPrefsData; }
 	void setNewPrefs(const ApplicationPrefs& prefsData, const ApplicationPrefs& oldPrefsData, bool resizePages, bool resizeMasterPages, bool resizePageMargins, bool resizeMasterPageMargins);
 
 	// Add, delete and move pages
@@ -516,24 +516,24 @@ public:
 	 */
 	void enableCMS(bool enable);
 	
-	const ParagraphStyle& paragraphStyle(QString name) { return docParagraphStyles.get(name); }
-	const StyleSet<ParagraphStyle>& paragraphStyles()   { return docParagraphStyles; }
-	bool isDefaultStyle( const ParagraphStyle& p ) const { return docParagraphStyles.isDefault(p); }
-	bool isDefaultStyle( const CharStyle& c ) const { return docCharStyles.isDefault(c); }
+	const ParagraphStyle& paragraphStyle(QString name) { return m_docParagraphStyles.get(name); }
+	const StyleSet<ParagraphStyle>& paragraphStyles()   { return m_docParagraphStyles; }
+	bool isDefaultStyle( const ParagraphStyle& p ) const { return m_docParagraphStyles.isDefault(p); }
+	bool isDefaultStyle( const CharStyle& c ) const { return m_docCharStyles.isDefault(c); }
 // 	bool isDefaultStyle( LineStyle& l ) const { return MLineStyles......; }
 
 	/**
 	 * Returns the table style named @a name.
 	 */
-	const TableStyle& tableStyle(QString name) { return docTableStyles.get(name); }
+	const TableStyle& tableStyle(QString name) { return m_docTableStyles.get(name); }
 	/**
 	 * Returns the set of table styles in the document.
 	 */
-	const StyleSet<TableStyle>& tableStyles()   { return docTableStyles; }
+	const StyleSet<TableStyle>& tableStyles()   { return m_docTableStyles; }
 	/**
 	 * Returns <code>true</code> if @a style is the default table style.
 	 */
-	bool isDefaultStyle(const TableStyle& style) const { return docTableStyles.isDefault(style); }
+	bool isDefaultStyle(const TableStyle& style) const { return m_docTableStyles.isDefault(style); }
 	/**
 	 * Redefines the set of table styles in the document using styles in @a newStyles.
 	 * Removes unused table styles if @a removeUnused is <code>true</code>.
@@ -550,15 +550,15 @@ public:
 	/**
 	 * Returns the table cell style named @a name.
 	 */
-	const CellStyle& cellStyle(QString name) { return docCellStyles.get(name); }
+	const CellStyle& cellStyle(QString name) { return m_docCellStyles.get(name); }
 	/**
 	 * Returns the set of table cell styles in the document.
 	 */
-	const StyleSet<CellStyle>& cellStyles()   { return docCellStyles; }
+	const StyleSet<CellStyle>& cellStyles()   { return m_docCellStyles; }
 	/**
 	 * Returns <code>true</code> if @a style is the default table cell style.
 	 */
-	bool isDefaultStyle(const CellStyle& style) const { return docCellStyles.isDefault(style); }
+	bool isDefaultStyle(const CellStyle& style) const { return m_docCellStyles.isDefault(style); }
 	/**
 	 * Redefines the set of table cell styles in the document using styles in @a newStyles.
 	 * Removes unused table cell styles if @a removeUnused is <code>true</code>.
@@ -617,8 +617,8 @@ public:
 	                                          StyleSet<CharStyle> *tempCharStyles,
 											  QHash<QString, multiLine> *tempLineStyles);
 
-	const CharStyle& charStyle(QString name) { return docCharStyles.get(name); }
-	const StyleSet<CharStyle>& charStyles()  { return docCharStyles; }
+	const CharStyle& charStyle(QString name) { return m_docCharStyles.get(name); }
+	const StyleSet<CharStyle>& charStyles()  { return m_docCharStyles; }
 	void redefineCharStyles(const StyleSet<CharStyle>& newStyles, bool removeUnused=false);
 	/**
 	 * @brief Remove any reference to old styles and replace with new name. This needs to be
@@ -923,7 +923,7 @@ public:
 	bool symbolEditMode() const { return m_symbolEditMode; }
 	
 	/*** get the name of the symbol currently in editing */
-	QString getEditedSymbol() const { return currentEditedSymbol; }
+	QString getEditedSymbol() const { return m_currentEditedSymbol; }
 	/**
 	 * @brief Set the doc into inline edit mode
 	 */
@@ -1145,7 +1145,7 @@ public:
 	/*! \brief Apply grid to an FPoint, from ScribusView */
 	FPoint ApplyGridF(const FPoint& in);
 	/*! \brief Does this doc have any TOC setups and potentially a TOC to generate */
-	bool hasTOCSetup() { return !docPrefsData.tocPrefs.defaultToCSetups.empty(); }
+	bool hasTOCSetup() { return !m_docPrefsData.tocPrefs.defaultToCSetups.empty(); }
 	//! \brief Get the closest guide to the given point
 	void getClosestGuides(double xin, double yin, double *xout, double *yout, int *GxM, int *GyM, ScPage* refPage = NULL);
 	//! \brief Get the closest border of another element to the given point
@@ -1172,7 +1172,7 @@ public:
 	Serializer *textSerializer();
 
 	//! \brief Get rotation mode
-	int RotMode() const {return rotMode;}
+	int RotMode() const {return m_rotMode;}
 	//! \brief Set rotation mode
 	void RotMode(const int& val);
 
@@ -1184,23 +1184,23 @@ public:
 	void removeInlineFrame(int fIndex);
 	void checkItemForFrames(PageItem *it, int fIndex);
 	bool hasPreflightErrors();
-	QFileDevice::Permissions filePermissions() { return docFilePermissions; }
-	void saveFilePermissions(QFileDevice::Permissions p) { docFilePermissions=p; }
+	QFileDevice::Permissions filePermissions() { return m_docFilePermissions; }
+	void saveFilePermissions(QFileDevice::Permissions p) { m_docFilePermissions=p; }
 
 protected:
 	void addSymbols();
 	void applyPrefsPageSizingAndMargins(bool resizePages, bool resizeMasterPages, bool resizePageMargins, bool resizeMasterPageMargins);
 	bool m_hasGUI;
-	QFileDevice::Permissions docFilePermissions;
-	ApplicationPrefs& appPrefsData;
-	ApplicationPrefs docPrefsData;
-	UndoManager * const undoManager;
-	bool loading;
-	bool modified;
-	int ActiveLayer;
-	double docUnitRatio;
-	int rotMode;
-	bool automaticTextFrames; // Flag for automatic Textframes
+	QFileDevice::Permissions m_docFilePermissions;
+	ApplicationPrefs& m_appPrefsData;
+	ApplicationPrefs m_docPrefsData;
+	UndoManager * const m_undoManager;
+	bool m_loading;
+	bool m_modified;
+	int m_ActiveLayer;
+	double m_docUnitRatio;
+	int m_rotMode;
+	bool m_automaticTextFrames; // Flag for automatic Textframes
 	bool m_masterPageMode;
 	bool m_symbolEditMode;
 	bool m_inlineEditMode;
@@ -1212,8 +1212,8 @@ protected:
 	ScribusView* m_View;
 	ScGuardedObject<ScribusDoc> m_guardedObject;
 	Serializer *m_serializer, *m_tserializer;
-	QString currentEditedSymbol;
-	int currentEditedIFrame;
+	QString m_currentEditedSymbol;
+	int m_currentEditedIFrame;
 
 public: // Public attributes
 	bool is12doc; //public for now, it will be removed later
@@ -1283,10 +1283,10 @@ public: // Public attributes
 	PageItem *ElemToLink;
 	QList<PageItem*> DragElements;
 private:
-	StyleSet<ParagraphStyle> docParagraphStyles;
-	StyleSet<CharStyle> docCharStyles;
-	StyleSet<TableStyle> docTableStyles;
-	StyleSet<CellStyle> docCellStyles;
+	StyleSet<ParagraphStyle> m_docParagraphStyles;
+	StyleSet<CharStyle> m_docCharStyles;
+	StyleSet<TableStyle> m_docTableStyles;
+	StyleSet<CellStyle> m_docCellStyles;
 public:
 	ScLayers Layers;
 	//bool marginColored;
@@ -1672,7 +1672,7 @@ private:
 	QList<Mark*> m_docMarksList;
 	QList<TextNote*> m_docNotesList;
 	//flags used for indicating needs of updates
-	bool flag_notesChanged;
+	bool m_flag_notesChanged;
 
 public:
 	const QList<Mark*> marksList() { return m_docMarksList; }
@@ -1685,8 +1685,8 @@ public:
 	QList<PageItem_NoteFrame*> listNotesFrames(NotesStyle* NS);
 
 	//flags used for indicating needs of updates
-	bool notesChanged() { return flag_notesChanged; }
-	void setNotesChanged(bool on) { flag_notesChanged = on; }
+	bool notesChanged() { return m_flag_notesChanged; }
+	void setNotesChanged(bool on) { m_flag_notesChanged = on; }
 	bool flag_restartMarksRenumbering;
 	bool flag_updateMarksLabels;
 	bool flag_updateEndNotes;

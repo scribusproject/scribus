@@ -82,20 +82,20 @@ void ScImgDataLoader_PICT::parseHeader(QString fName, double &x, double &y, doub
 		ts >> vers;
 		if (vers == 0x1101)
 		{
-			pctVersion = 1;
+			m_pctVersion = 1;
 			h = pgW - pgX;
 			w = pgH - pgY;
 			x = pgY;
 			y = pgX;
-			resX = 72.0;
-			resY = 72.0;
+			m_resX = 72.0;
+			m_resY = 72.0;
 		}
 		else if (vers == 0x0011)
 		{
 			ts >> vers2 >> vers3;
 			if ((vers2 == 0x02FF) && (vers3 == 0x0C00))
 			{
-				pctVersion = 2;
+				m_pctVersion = 2;
 				qint16 vExt;
 				ts >> vExt;
 				if (vExt == -1)
@@ -108,8 +108,8 @@ void ScImgDataLoader_PICT::parseHeader(QString fName, double &x, double &y, doub
 					ts >> pgX2 >> pgY2 >> pgW2 >> pgH2;
 					ts >> dummy;
 					ts >> dummy;
-					resX = 72.0;
-					resY = 72.0;
+					m_resX = 72.0;
+					m_resY = 72.0;
 					h = pgW - pgX;
 					w = pgH - pgY;
 					x = pgY;
@@ -126,8 +126,8 @@ void ScImgDataLoader_PICT::parseHeader(QString fName, double &x, double &y, doub
 					w = pgH - pgY;
 					x = pgY;
 					y = pgX;
-					resX = xres;
-					resY = yres;
+					m_resX = xres;
+					m_resY = yres;
 				}
 			}
 		}
@@ -142,39 +142,39 @@ bool ScImgDataLoader_PICT::loadPicture(const QString& fn, int /*page*/, int /*re
 	initialize();
 	double x=0.0, y=0.0, w=0.0, h=0.0;
 	parseHeader(fn, x, y, w, h);
-	docWidth = w;
-	docHeight = h;
-	baseX = -x;
-	baseY = -y;
+	m_docWidth = w;
+	m_docHeight = h;
+	m_baseX = -x;
+	m_baseY = -y;
 	QFile f(fn);
 	if (f.open(QIODevice::ReadOnly))
 	{
 		QDataStream ts(&f);
 		ts.device()->seek(522);
-		m_image = QImage(docWidth, docHeight, QImage::Format_ARGB32);
+		m_image = QImage(m_docWidth, m_docHeight, QImage::Format_ARGB32);
 		if (m_image.isNull())
 			return false;
 		m_image.fill(qRgba(255, 255, 255, 255));
-		imagePainter.begin(&m_image);
-		imagePainter.setRenderHint(QPainter::Antialiasing , true);
-		imagePainter.translate(baseX, baseY);
-		patternMode = false;
-		patternData.resize(0);
-		backColor = Qt::white;
-		foreColor = Qt::black;
-		Coords = QPainterPath();
-		LineW = 1.0;
-		currentPoint = QPoint(0, 0);
-		currentPointT = QPoint(0, 0);
-		ovalSize = QPoint(0, 0);
-		fontMap.clear();
-		currentTextSize = 12;
-		currentFontID = 0;
-		currentFontStyle = 0;
-		imageData.resize(0);
-		skipOpcode = false;
-		postscriptMode = false;
-		textIsPostScript = false;
+		m_imagePainter.begin(&m_image);
+		m_imagePainter.setRenderHint(QPainter::Antialiasing , true);
+		m_imagePainter.translate(m_baseX, m_baseY);
+		m_patternMode = false;
+		m_patternData.resize(0);
+		m_backColor = Qt::white;
+		m_foreColor = Qt::black;
+		m_Coords = QPainterPath();
+		m_LineW = 1.0;
+		m_currentPoint = QPoint(0, 0);
+		m_currentPointT = QPoint(0, 0);
+		m_ovalSize = QPoint(0, 0);
+		m_fontMap.clear();
+		m_currentTextSize = 12;
+		m_currentFontID = 0;
+		m_currentFontStyle = 0;
+		m_imageData.resize(0);
+		m_skipOpcode = false;
+		m_postscriptMode = false;
+		m_textIsPostScript = false;
 		quint16 vers = 0;
 		ts >> vers;
 		while (vers == 0)
@@ -188,22 +188,22 @@ bool ScImgDataLoader_PICT::loadPicture(const QString& fn, int /*page*/, int /*re
 		}
 		if (vers == 0x1101)
 		{
-			pctVersion = 1;		// Pict Version 1
+			m_pctVersion = 1;		// Pict Version 1
 			parsePict(ts);
 		}
 		else
 		{
 			ts.skipRawData(4);	// skip the next 4 Bytes
 			ts >> vers;		// read the version info
-			pctVersion = 2;	// Pict Extended Version 2
+			m_pctVersion = 2;	// Pict Extended Version 2
 			ts.skipRawData(22);
 			parsePict(ts);
 		}
-		imagePainter.end();
+		m_imagePainter.end();
 		m_imageInfoRecord.type = ImageTypeOther;
 		m_imageInfoRecord.exifDataValid = false;
-		m_imageInfoRecord.xres = resX;
-		m_imageInfoRecord.yres = resY;
+		m_imageInfoRecord.xres = m_resX;
+		m_imageInfoRecord.yres = m_resY;
 		m_imageInfoRecord.BBoxX = 0;
 		m_imageInfoRecord.colorspace = ColorSpaceRGB;
 		m_imageInfoRecord.BBoxH = m_image.height();
@@ -221,7 +221,7 @@ void ScImgDataLoader_PICT::parsePict(QDataStream &ts)
 		quint16 opCode, dataLen;
 		quint8 dataLenByte;
 		quint32 dataLenLong;
-		if (pctVersion == 1)
+		if (m_pctVersion == 1)
 		{
 			ts >> dataLenByte;
 			opCode = dataLenByte;
@@ -653,12 +653,12 @@ void ScImgDataLoader_PICT::parsePict(QDataStream &ts)
 					handleComment(ts, true);
 					break;
 				case 0x00FF:		// End of Pict
-					if (imageData.size() > 0)
+					if (m_imageData.size() > 0)
 					{
 						QImage image;
-						image.loadFromData(imageData);
+						image.loadFromData(m_imageData);
 						image = image.convertToFormat(QImage::Format_ARGB32);
-						imagePainter.drawImage(0, 0, image);
+						m_imagePainter.drawImage(0, 0, image);
 					}
 //					qDebug() << "End of Pict";
 					return;
@@ -688,7 +688,7 @@ void ScImgDataLoader_PICT::parsePict(QDataStream &ts)
 void ScImgDataLoader_PICT::alignStreamToWord(QDataStream &ts, uint len)
 {
 	ts.skipRawData(len);
-	if (pctVersion == 1)
+	if (m_pctVersion == 1)
 		return;
 	uint adj = ts.device()->pos() % 2;
 	if (adj != 0)
@@ -755,9 +755,9 @@ void ScImgDataLoader_PICT::handleColor(QDataStream &ts, bool back)
 	blueC = qRound((Bc / 65535.0) * 255.0);
 	QColor c = QColor(redC, greenC, blueC);
 	if (back)
-		backColor = c;
+		m_backColor = c;
 	else
-		foreColor = c;
+		m_foreColor = c;
 }
 
 void ScImgDataLoader_PICT::handleColorRGB(QDataStream &ts, bool back)
@@ -770,22 +770,22 @@ void ScImgDataLoader_PICT::handleColorRGB(QDataStream &ts, bool back)
 	blueC = qRound((Bc / 65535.0) * 255.0);
 	QColor c = QColor(redC, greenC, blueC);
 	if (back)
-		backColor = c;
+		m_backColor = c;
 	else
-		foreColor = c;
+		m_foreColor = c;
 }
 
 void ScImgDataLoader_PICT::handlePenPattern(QDataStream &ts)
 {
-	patternData.resize(8);
-	ts.readRawData(patternData.data(), 8);
-	patternMode = false;
-	for (int a = 0; a < patternData.size(); a++)
+	m_patternData.resize(8);
+	ts.readRawData(m_patternData.data(), 8);
+	m_patternMode = false;
+	for (int a = 0; a < m_patternData.size(); a++)
 	{
-		uchar d = patternData[a];
+		uchar d = m_patternData[a];
 		if ((d != 0x00) && (d != 0xFF))
 		{
-			patternMode = true;
+			m_patternMode = true;
 			break;
 		}
 	}
@@ -800,26 +800,26 @@ void ScImgDataLoader_PICT::handlePolygon(QDataStream &ts, quint16 opCode)
 	polySize -= 14;				// subtract size count, bounding rect and first point from size
 	qint16 x, y;
 	ts >> y >> x;
-	Coords = QPainterPath();
-	Coords.moveTo(x, y);
+	m_Coords = QPainterPath();
+	m_Coords.moveTo(x, y);
 	QBrush fillBrush;
-	if (patternMode)
+	if (m_patternMode)
 		fillBrush = setFillPattern();
 	else
-		fillBrush = QBrush(foreColor);
+		fillBrush = QBrush(m_foreColor);
 	for(unsigned i = 0; i < polySize; i += 4)
 	{
 		ts >> y >> x;
-		Coords.lineTo(x, y);
+		m_Coords.lineTo(x, y);
 	}
 	if (opCode == 0x0070)
-		imagePainter.strokePath(Coords, QPen(foreColor, LineW));
+		m_imagePainter.strokePath(m_Coords, QPen(m_foreColor, m_LineW));
 	else if (opCode == 0x0071)
-		imagePainter.fillPath(Coords, fillBrush);
+		m_imagePainter.fillPath(m_Coords, fillBrush);
 	else if (opCode == 0x0072)
-		imagePainter.fillPath(Coords, QBrush(backColor));
+		m_imagePainter.fillPath(m_Coords, QBrush(m_backColor));
 	else if (opCode == 0x0074)
-		imagePainter.fillPath(Coords, fillBrush);
+		m_imagePainter.fillPath(m_Coords, fillBrush);
 	else
 	{
 //		qDebug() << QString("Not implemented OpCode: 0x%1").arg(opCode, 4, 16, QLatin1Char('0'));
@@ -831,171 +831,171 @@ void ScImgDataLoader_PICT::handleShape(QDataStream &ts, quint16 opCode)
 {
 	QRect bounds = readRect(ts);
 	QBrush fillBrush;
-	if (patternMode)
+	if (m_patternMode)
 		fillBrush = setFillPattern();
 	else
-		fillBrush = QBrush(foreColor);
+		fillBrush = QBrush(m_foreColor);
 //	qDebug() << QString("Handle Rect/Oval 0x%1").arg(opCode, 4, 16, QLatin1Char('0'));
 	if (opCode == 0x0030)
 	{
-		imagePainter.setPen(QPen(foreColor, LineW));
-		imagePainter.setBrush(Qt::NoBrush);
-		imagePainter.drawRect(bounds);
+		m_imagePainter.setPen(QPen(m_foreColor, m_LineW));
+		m_imagePainter.setBrush(Qt::NoBrush);
+		m_imagePainter.drawRect(bounds);
 	}
 	else if (opCode == 0x0031)
 	{
-		imagePainter.setPen(Qt::NoPen);
-		imagePainter.setBrush(fillBrush);
-		imagePainter.drawRect(bounds);
+		m_imagePainter.setPen(Qt::NoPen);
+		m_imagePainter.setBrush(fillBrush);
+		m_imagePainter.drawRect(bounds);
 	}
 	else if (opCode == 0x0032)
 	{
-		imagePainter.setPen(Qt::NoPen);
-		imagePainter.setBrush(QBrush(backColor));
-		imagePainter.drawRect(bounds);
+		m_imagePainter.setPen(Qt::NoPen);
+		m_imagePainter.setBrush(QBrush(m_backColor));
+		m_imagePainter.drawRect(bounds);
 	}
 	else if (opCode == 0x0034)
 	{
-		imagePainter.setPen(Qt::NoPen);
-		imagePainter.setBrush(fillBrush);
-		imagePainter.drawRect(bounds);
+		m_imagePainter.setPen(Qt::NoPen);
+		m_imagePainter.setBrush(fillBrush);
+		m_imagePainter.drawRect(bounds);
 	}
 	else if (opCode == 0x0040)
 	{
-		imagePainter.setPen(QPen(foreColor, LineW));
-		imagePainter.setBrush(Qt::NoBrush);
-		imagePainter.drawRoundedRect(bounds, ovalSize.x(), ovalSize.y());
+		m_imagePainter.setPen(QPen(m_foreColor, m_LineW));
+		m_imagePainter.setBrush(Qt::NoBrush);
+		m_imagePainter.drawRoundedRect(bounds, m_ovalSize.x(), m_ovalSize.y());
 	}
 	else if (opCode == 0x0041)
 	{
-		imagePainter.setPen(Qt::NoPen);
-		imagePainter.setBrush(fillBrush);
-		imagePainter.drawRoundedRect(bounds, ovalSize.x(), ovalSize.y());
+		m_imagePainter.setPen(Qt::NoPen);
+		m_imagePainter.setBrush(fillBrush);
+		m_imagePainter.drawRoundedRect(bounds, m_ovalSize.x(), m_ovalSize.y());
 	}
 	else if (opCode == 0x0042)
 	{
-		imagePainter.setPen(Qt::NoPen);
-		imagePainter.setBrush(QBrush(backColor));
-		imagePainter.drawRoundedRect(bounds, ovalSize.x(), ovalSize.y());
+		m_imagePainter.setPen(Qt::NoPen);
+		m_imagePainter.setBrush(QBrush(m_backColor));
+		m_imagePainter.drawRoundedRect(bounds, m_ovalSize.x(), m_ovalSize.y());
 	}
 	else if (opCode == 0x0044)
 	{
-		imagePainter.setPen(Qt::NoPen);
-		imagePainter.setBrush(fillBrush);
-		imagePainter.drawRoundedRect(bounds, ovalSize.x(), ovalSize.y());
+		m_imagePainter.setPen(Qt::NoPen);
+		m_imagePainter.setBrush(fillBrush);
+		m_imagePainter.drawRoundedRect(bounds, m_ovalSize.x(), m_ovalSize.y());
 	}
 	else if (opCode == 0x0050)
 	{
-		imagePainter.setPen(QPen(foreColor, LineW));
-		imagePainter.setBrush(Qt::NoBrush);
-		imagePainter.drawEllipse(bounds);
+		m_imagePainter.setPen(QPen(m_foreColor, m_LineW));
+		m_imagePainter.setBrush(Qt::NoBrush);
+		m_imagePainter.drawEllipse(bounds);
 	}
 	else if (opCode == 0x0051)
 	{
-		imagePainter.setPen(Qt::NoPen);
-		imagePainter.setBrush(fillBrush);
-		imagePainter.drawEllipse(bounds);
+		m_imagePainter.setPen(Qt::NoPen);
+		m_imagePainter.setBrush(fillBrush);
+		m_imagePainter.drawEllipse(bounds);
 	}
 	else if (opCode == 0x0052)
 	{
-		imagePainter.setPen(Qt::NoPen);
-		imagePainter.setBrush(QBrush(backColor));
-		imagePainter.drawEllipse(bounds);
+		m_imagePainter.setPen(Qt::NoPen);
+		m_imagePainter.setBrush(QBrush(m_backColor));
+		m_imagePainter.drawEllipse(bounds);
 	}
 	else if (opCode == 0x0054)
 	{
-		imagePainter.setPen(Qt::NoPen);
-		imagePainter.setBrush(fillBrush);
-		imagePainter.drawEllipse(bounds);
+		m_imagePainter.setPen(Qt::NoPen);
+		m_imagePainter.setBrush(fillBrush);
+		m_imagePainter.drawEllipse(bounds);
 	}
 	else
 	{
 //		qDebug() << QString("Not implemented OpCode: 0x%1").arg(opCode, 4, 16, QLatin1Char('0'));
 		return;
 	}
-	currRect = bounds;
+	m_currRect = bounds;
 }
 
 void ScImgDataLoader_PICT::handleSameShape(QDataStream &ts, quint16 opCode)
 {
 //	qDebug() << QString("Handle Same Rect/Oval 0x%1").arg(opCode, 4, 16, QLatin1Char('0'));
-	QRect bounds = currRect;
+	QRect bounds = m_currRect;
 	QBrush fillBrush;
-	if (patternMode)
+	if (m_patternMode)
 		fillBrush = setFillPattern();
 	else
-		fillBrush = QBrush(foreColor);
+		fillBrush = QBrush(m_foreColor);
 	if (opCode == 0x0038)
 	{
-		imagePainter.setPen(QPen(foreColor, LineW));
-		imagePainter.setBrush(Qt::NoBrush);
-		imagePainter.drawRect(bounds);
+		m_imagePainter.setPen(QPen(m_foreColor, m_LineW));
+		m_imagePainter.setBrush(Qt::NoBrush);
+		m_imagePainter.drawRect(bounds);
 	}
 	else if (opCode == 0x0039)
 	{
-		imagePainter.setPen(Qt::NoPen);
-		imagePainter.setBrush(fillBrush);
-		imagePainter.drawRect(bounds);
+		m_imagePainter.setPen(Qt::NoPen);
+		m_imagePainter.setBrush(fillBrush);
+		m_imagePainter.drawRect(bounds);
 	}
 	else if (opCode == 0x003A)
 	{
-		imagePainter.setPen(Qt::NoPen);
-		imagePainter.setBrush(QBrush(backColor));
-		imagePainter.drawRect(bounds);
+		m_imagePainter.setPen(Qt::NoPen);
+		m_imagePainter.setBrush(QBrush(m_backColor));
+		m_imagePainter.drawRect(bounds);
 	}
 	else if (opCode == 0x003C)
 	{
-		imagePainter.setPen(Qt::NoPen);
-		imagePainter.setBrush(fillBrush);
-		imagePainter.drawRect(bounds);
+		m_imagePainter.setPen(Qt::NoPen);
+		m_imagePainter.setBrush(fillBrush);
+		m_imagePainter.drawRect(bounds);
 	}
 	else if (opCode == 0x0048)
 	{
-		imagePainter.setPen(QPen(foreColor, LineW));
-		imagePainter.setBrush(Qt::NoBrush);
-		imagePainter.drawRoundedRect(bounds, ovalSize.x(), ovalSize.y());
+		m_imagePainter.setPen(QPen(m_foreColor, m_LineW));
+		m_imagePainter.setBrush(Qt::NoBrush);
+		m_imagePainter.drawRoundedRect(bounds, m_ovalSize.x(), m_ovalSize.y());
 	}
 	else if (opCode == 0x0049)
 	{
-		imagePainter.setPen(Qt::NoPen);
-		imagePainter.setBrush(fillBrush);
-		imagePainter.drawRoundedRect(bounds, ovalSize.x(), ovalSize.y());
+		m_imagePainter.setPen(Qt::NoPen);
+		m_imagePainter.setBrush(fillBrush);
+		m_imagePainter.drawRoundedRect(bounds, m_ovalSize.x(), m_ovalSize.y());
 	}
 	else if (opCode == 0x004A)
 	{
-		imagePainter.setPen(Qt::NoPen);
-		imagePainter.setBrush(QBrush(backColor));
-		imagePainter.drawRoundedRect(bounds, ovalSize.x(), ovalSize.y());
+		m_imagePainter.setPen(Qt::NoPen);
+		m_imagePainter.setBrush(QBrush(m_backColor));
+		m_imagePainter.drawRoundedRect(bounds, m_ovalSize.x(), m_ovalSize.y());
 	}
 	else if (opCode == 0x004C)
 	{
-		imagePainter.setPen(Qt::NoPen);
-		imagePainter.setBrush(fillBrush);
-		imagePainter.drawRoundedRect(bounds, ovalSize.x(), ovalSize.y());
+		m_imagePainter.setPen(Qt::NoPen);
+		m_imagePainter.setBrush(fillBrush);
+		m_imagePainter.drawRoundedRect(bounds, m_ovalSize.x(), m_ovalSize.y());
 	}
 	else if (opCode == 0x0058)
 	{
-		imagePainter.setPen(QPen(foreColor, LineW));
-		imagePainter.setBrush(Qt::NoBrush);
-		imagePainter.drawEllipse(bounds);
+		m_imagePainter.setPen(QPen(m_foreColor, m_LineW));
+		m_imagePainter.setBrush(Qt::NoBrush);
+		m_imagePainter.drawEllipse(bounds);
 	}
 	else if (opCode == 0x0059)
 	{
-		imagePainter.setPen(Qt::NoPen);
-		imagePainter.setBrush(fillBrush);
-		imagePainter.drawEllipse(bounds);
+		m_imagePainter.setPen(Qt::NoPen);
+		m_imagePainter.setBrush(fillBrush);
+		m_imagePainter.drawEllipse(bounds);
 	}
 	else if (opCode == 0x005A)
 	{
-		imagePainter.setPen(Qt::NoPen);
-		imagePainter.setBrush(QBrush(backColor));
-		imagePainter.drawEllipse(bounds);
+		m_imagePainter.setPen(Qt::NoPen);
+		m_imagePainter.setBrush(QBrush(m_backColor));
+		m_imagePainter.drawEllipse(bounds);
 	}
 	else if (opCode == 0x005C)
 	{
-		imagePainter.setPen(Qt::NoPen);
-		imagePainter.setBrush(fillBrush);
-		imagePainter.drawEllipse(bounds);
+		m_imagePainter.setPen(Qt::NoPen);
+		m_imagePainter.setBrush(fillBrush);
+		m_imagePainter.drawEllipse(bounds);
 	}
 	else
 	{
@@ -1026,7 +1026,7 @@ void ScImgDataLoader_PICT::handleFontName(QDataStream &ts)
 			break;
 		}
 	}
-	fontMap.insert(fontID, fontName);
+	m_fontMap.insert(fontID, fontName);
 	alignStreamToWord(ts, 0);
 //	qDebug() << "Handle FontName" << fontName << "ID" << fontID;
 }
@@ -1035,7 +1035,7 @@ void ScImgDataLoader_PICT::handleTextSize(QDataStream &ts)
 {
 	quint16 fontSize;
 	ts >> fontSize;
-	currentTextSize = fontSize;
+	m_currentTextSize = fontSize;
 //	qDebug() << "Handle Text Size" << fontSize;
 }
 
@@ -1043,7 +1043,7 @@ void ScImgDataLoader_PICT::handleTextFont(QDataStream &ts)
 {
 	quint16 fontID;
 	ts >> fontID;
-	currentFontID = fontID;
+	m_currentFontID = fontID;
 //	qDebug() << "Handle Text Font" << fontID;
 }
 
@@ -1052,7 +1052,7 @@ void ScImgDataLoader_PICT::handleTextStyle(QDataStream &ts)
 	quint8 style;
 	ts >> style;
 	alignStreamToWord(ts, 0);
-	currentFontStyle = style;
+	m_currentFontStyle = style;
 //	qDebug() << "Text Style" << style;
 }
 
@@ -1064,19 +1064,19 @@ void ScImgDataLoader_PICT::handleTextMode(QDataStream &ts)
 	switch (mode)
 	{
 		case 0:
-			imagePainter.setCompositionMode(QPainter::CompositionMode_SourceOver);
+			m_imagePainter.setCompositionMode(QPainter::CompositionMode_SourceOver);
 			break;
 		case 1:
-			imagePainter.setCompositionMode(QPainter::CompositionMode_SourceOver);
+			m_imagePainter.setCompositionMode(QPainter::CompositionMode_SourceOver);
 			break;
 		case 2:
-			imagePainter.setCompositionMode(QPainter::CompositionMode_Xor);
+			m_imagePainter.setCompositionMode(QPainter::CompositionMode_Xor);
 			break;
 		case 3:
-			imagePainter.setCompositionMode(QPainter::CompositionMode_Xor);
+			m_imagePainter.setCompositionMode(QPainter::CompositionMode_Xor);
 			break;
 		default:
-			imagePainter.setCompositionMode(QPainter::CompositionMode_SourceOver);
+			m_imagePainter.setCompositionMode(QPainter::CompositionMode_SourceOver);
 			break;
 	}
 }
@@ -1090,9 +1090,9 @@ void ScImgDataLoader_PICT::handleLongText(QDataStream &ts)
 	QByteArray text;
 	text.resize(textLen);
 	ts.readRawData(text.data(), textLen);
-	if (!textIsPostScript)
+	if (!m_textIsPostScript)
 	{
-		currentPointT = QPoint(x, y);
+		m_currentPointT = QPoint(x, y);
 		createTextPath(text);
 //		qDebug() << "Handle Long Text at" << x << y << text;
 	}
@@ -1106,10 +1106,10 @@ void ScImgDataLoader_PICT::handleDHText(QDataStream &ts)
 	QByteArray text;
 	text.resize(textLen);
 	ts.readRawData(text.data(), textLen);
-	if (!textIsPostScript)
+	if (!m_textIsPostScript)
 	{
-		QPoint s = currentPointT;
-		currentPointT = QPoint(s.x()+dh, s.y());
+		QPoint s = m_currentPointT;
+		m_currentPointT = QPoint(s.x()+dh, s.y());
 		createTextPath(text);
 //		qDebug() << "Handle DH Text at" << currentPointT << text;
 	}
@@ -1123,10 +1123,10 @@ void ScImgDataLoader_PICT::handleDVText(QDataStream &ts)
 	QByteArray text;
 	text.resize(textLen);
 	ts.readRawData(text.data(), textLen);
-	if (!textIsPostScript)
+	if (!m_textIsPostScript)
 	{
-		QPoint s = currentPointT;
-		currentPointT = QPoint(s.x(), s.y()+dv);
+		QPoint s = m_currentPointT;
+		m_currentPointT = QPoint(s.x(), s.y()+dv);
 		createTextPath(text);
 //		qDebug() << "Handle DV Text at" << currentPointT << text;
 	}
@@ -1140,10 +1140,10 @@ void ScImgDataLoader_PICT::handleDHVText(QDataStream &ts)
 	QByteArray text;
 	text.resize(textLen);
 	ts.readRawData(text.data(), textLen);
-	if (!textIsPostScript)
+	if (!m_textIsPostScript)
 	{
-		QPoint s = currentPointT;
-		currentPointT = QPoint(s.x()+dh, s.y()+dv);
+		QPoint s = m_currentPointT;
+		m_currentPointT = QPoint(s.x()+dh, s.y()+dv);
 		createTextPath(text);
 //		qDebug() << "Handle DHV Text" << dh << dv << "->" << currentPointT << text;
 	}
@@ -1155,30 +1155,30 @@ void ScImgDataLoader_PICT::createTextPath(QByteArray textString)
 	QTextCodec *codec = QTextCodec::codecForName("Apple Roman");
 	QString string = codec->toUnicode(textString);
 	QFont textFont;
-	if (!fontMap.contains(currentFontID))
+	if (!m_fontMap.contains(m_currentFontID))
 		textFont = QFont();
 	else
 	{
-		QString fontName = fontMap[currentFontID];
-		textFont = QFont(fontName, currentTextSize);
+		QString fontName = m_fontMap[m_currentFontID];
+		textFont = QFont(fontName, m_currentTextSize);
 		QFontInfo inf(textFont);
 //		qDebug() << "Using Font" << inf.family() << "for" << fontName;
 	}
-	textFont.setPixelSize(currentTextSize);
-	if (currentFontStyle & 1)
+	textFont.setPixelSize(m_currentTextSize);
+	if (m_currentFontStyle & 1)
 		textFont.setBold(true);
-	if (currentFontStyle & 2)
+	if (m_currentFontStyle & 2)
 		textFont.setItalic(true);
-	if (currentFontStyle & 4)
+	if (m_currentFontStyle & 4)
 		textFont.setUnderline(true);
 	QPainterPath painterPath;
-	painterPath.addText( currentPointT.x(), currentPointT.y(), textFont, string);
+	painterPath.addText( m_currentPointT.x(), m_currentPointT.y(), textFont, string);
 	QBrush fillBrush;
-	if (patternMode)
+	if (m_patternMode)
 		fillBrush = setFillPattern();
 	else
-		fillBrush = QBrush(foreColor);
-	imagePainter.fillPath(painterPath, fillBrush);
+		fillBrush = QBrush(m_foreColor);
+	m_imagePainter.fillPath(painterPath, fillBrush);
 }
 
 void ScImgDataLoader_PICT::handlePenMode(QDataStream &ts)
@@ -1189,19 +1189,19 @@ void ScImgDataLoader_PICT::handlePenMode(QDataStream &ts)
 	switch (mode)
 	{
 		case 0:
-			imagePainter.setCompositionMode(QPainter::CompositionMode_SourceOver);
+			m_imagePainter.setCompositionMode(QPainter::CompositionMode_SourceOver);
 			break;
 		case 1:
-			imagePainter.setCompositionMode(QPainter::CompositionMode_Xor);
+			m_imagePainter.setCompositionMode(QPainter::CompositionMode_Xor);
 			break;
 		case 8:
-			imagePainter.setCompositionMode(QPainter::CompositionMode_SourceOver);
+			m_imagePainter.setCompositionMode(QPainter::CompositionMode_SourceOver);
 			break;
 		case 9:
-			imagePainter.setCompositionMode(QPainter::CompositionMode_Xor);
+			m_imagePainter.setCompositionMode(QPainter::CompositionMode_Xor);
 			break;
 		default:
-			imagePainter.setCompositionMode(QPainter::CompositionMode_SourceOver);
+			m_imagePainter.setCompositionMode(QPainter::CompositionMode_SourceOver);
 			break;
 	}
 }
@@ -1211,7 +1211,7 @@ void ScImgDataLoader_PICT::handlePenSize(QDataStream &ts)
 //	qDebug() << "Handle Pen Size";
 	quint16 x, y;
 	ts >> y >> x;
-	LineW = qMax(x, y);
+	m_LineW = qMax(x, y);
 }
 
 void ScImgDataLoader_PICT::handleOvalSize(QDataStream &ts)
@@ -1219,7 +1219,7 @@ void ScImgDataLoader_PICT::handleOvalSize(QDataStream &ts)
 //	qDebug() << "Handle Oval Size";
 	quint16 x, y;
 	ts >> y >> x;
-	ovalSize = QPoint(x, y);
+	m_ovalSize = QPoint(x, y);
 }
 
 void ScImgDataLoader_PICT::handleShortLine(QDataStream &ts)
@@ -1228,9 +1228,9 @@ void ScImgDataLoader_PICT::handleShortLine(QDataStream &ts)
 	qint8 dh, dv;
 	ts >> y >> x;
 	ts >> dh >> dv;
-	imagePainter.setPen(QPen(foreColor, LineW));
-	imagePainter.drawLine(x, y, x + dh, y + dv);
-	currentPoint = QPoint(x+dh, y+dv);
+	m_imagePainter.setPen(QPen(m_foreColor, m_LineW));
+	m_imagePainter.drawLine(x, y, x + dh, y + dv);
+	m_currentPoint = QPoint(x+dh, y+dv);
 //	qDebug() << "Handle Short Line" << x << y << "+" << dh << dv << "->" << currentPoint;
 }
 
@@ -1240,10 +1240,10 @@ void ScImgDataLoader_PICT::handleShortLineFrom(QDataStream &ts)
 	ts >> dh >> dv;
 	if ((dh == 0) && (dv == 0))
 		return;
-	QPoint s = currentPoint;
-	imagePainter.setPen(QPen(foreColor, LineW));
-	imagePainter.drawLine(s.x(), s.y(), s.x() + dh, s.y() + dv);
-	currentPoint = QPoint(s.x()+dh, s.y()+dv);
+	QPoint s = m_currentPoint;
+	m_imagePainter.setPen(QPen(m_foreColor, m_LineW));
+	m_imagePainter.drawLine(s.x(), s.y(), s.x() + dh, s.y() + dv);
+	m_currentPoint = QPoint(s.x()+dh, s.y()+dv);
 //	qDebug() << "Handle Short Line from" << dh << dv << "->" << currentPoint;
 }
 
@@ -1252,9 +1252,9 @@ void ScImgDataLoader_PICT::handleLine(QDataStream &ts)
 	qint16 x1, x2, y1, y2;
 	ts >> y1 >> x1;
 	ts >> y2 >> x2;
-	imagePainter.setPen(QPen(foreColor, LineW));
-	imagePainter.drawLine(x1, y1, x2, y2);
-	currentPoint = QPoint(x2, y2);
+	m_imagePainter.setPen(QPen(m_foreColor, m_LineW));
+	m_imagePainter.drawLine(x1, y1, x2, y2);
+	m_currentPoint = QPoint(x2, y2);
 //	qDebug() << "Handle Line" << x1 << y1 << "->" << currentPoint;
 }
 
@@ -1264,10 +1264,10 @@ void ScImgDataLoader_PICT::handleLineFrom(QDataStream &ts)
 	ts >> y >> x;
 	if ((x == 0) && (y == 0))
 		return;
-	QPoint s = currentPoint;
-	imagePainter.setPen(QPen(foreColor, LineW));
-	imagePainter.drawLine(s.x(), s.y(), x, y);
-	currentPoint = QPoint(x, y);
+	QPoint s = m_currentPoint;
+	m_imagePainter.setPen(QPen(m_foreColor, m_LineW));
+	m_imagePainter.drawLine(s.x(), s.y(), x, y);
+	m_currentPoint = QPoint(x, y);
 //	qDebug() << "Handle Line from" << s << "->" << currentPoint;
 }
 
@@ -1354,7 +1354,7 @@ void ScImgDataLoader_PICT::handlePixmap(QDataStream &ts, quint16 opCode)
 		}
 		else
 			ts >> pixByteCount;
-		if (!skipOpcode)
+		if (!m_skipOpcode)
 		{
 			QByteArray data;
 			data.resize(pixByteCount);
@@ -1438,19 +1438,19 @@ void ScImgDataLoader_PICT::handlePixmap(QDataStream &ts, quint16 opCode)
 			ts.skipRawData(pixByteCount);
 		}
 	}
-	if (skipOpcode)
+	if (m_skipOpcode)
 	{
-		image.loadFromData(imageData);
+		image.loadFromData(m_imageData);
 		isPixmap = true;
-		imageData.resize(0);
+		m_imageData.resize(0);
 	}
-	if ((component_size == 24) || (component_size == 8) || (component_size == 1) || (component_size == 5) || (component_size == 4) || (!isPixmap) || (skipOpcode))
+	if ((component_size == 24) || (component_size == 8) || (component_size == 1) || (component_size == 5) || (component_size == 4) || (!isPixmap) || (m_skipOpcode))
 	{
 		image = image.convertToFormat(QImage::Format_ARGB32);
 		if (!isPixmap)
 			image.invertPixels();
-		imagePainter.drawImage(dstRect, image);
-		skipOpcode = false;
+		m_imagePainter.drawImage(dstRect, image);
+		m_skipOpcode = false;
 	}
 	alignStreamToWord(ts, 0);
 }
@@ -1503,9 +1503,9 @@ void ScImgDataLoader_PICT::handleQuickTime(QDataStream &ts, quint16 opCode)
 			ts >> dummyLong;
 			ts >> imgDataSize;
 			alignStreamToWord(ts, 38);
-			imageData.resize(imgDataSize);
-			ts.readRawData(imageData.data(), imgDataSize);
-			skipOpcode = true;
+			m_imageData.resize(imgDataSize);
+			ts.readRawData(m_imageData.data(), imgDataSize);
+			m_skipOpcode = true;
 		}
 	}
 	else
@@ -1518,7 +1518,7 @@ void ScImgDataLoader_PICT::handleQuickTime(QDataStream &ts, quint16 opCode)
 		}
 		ts >> mode;
 		handlePixmap(ts, mode);
-		skipOpcode = true;
+		m_skipOpcode = true;
 	}
 	ts.device()->seek(pos + dataLenLong);
 //	qDebug() << "File Pos" << ts.device()->pos();
@@ -1612,12 +1612,12 @@ void ScImgDataLoader_PICT::handleComment(QDataStream &ts, bool longComment)
 			qDebug() << "Comment type: SetLineWidth";
 			break; */
 		case 190:			// PostScriptBegin
-			postscriptMode = true;
+			m_postscriptMode = true;
 //			qDebug() << "Comment type: PostScriptBegin";
 			break;
 		case 191:			// PostScriptEnd
-			postscriptMode = false;
-			textIsPostScript = false;
+			m_postscriptMode = false;
+			m_textIsPostScript = false;
 //			qDebug() << "Comment type: PostScriptEnd";
 			break;
 		case 192:			// PostScriptHandle
@@ -1627,7 +1627,7 @@ void ScImgDataLoader_PICT::handleComment(QDataStream &ts, bool longComment)
 //			qDebug() << "Comment type: PostScriptFile";
 			break;
 		case 194:			// TextIsPostScript
-			textIsPostScript = true;
+			m_textIsPostScript = true;
 //			qDebug() << "Comment type: TextIsPostScript";
 			break;
 /*		case 195:			// ResourcePS
@@ -1755,13 +1755,13 @@ QBrush ScImgDataLoader_PICT::setFillPattern()
 {
 	QImage image = QImage(8, 8, QImage::Format_Mono);
 	QVector<QRgb> colors;
-	colors.append(backColor.rgb());
-	colors.append(foreColor.rgb());
+	colors.append(m_backColor.rgb());
+	colors.append(m_foreColor.rgb());
 	image.setColorTable(colors);
 	for (int rr = 0; rr < 8; rr++)
 	{
 		uchar *q = (uchar*)(image.scanLine(rr));
-		*q = patternData[rr];
+		*q = m_patternData[rr];
 	}
 	image = image.convertToFormat(QImage::Format_ARGB32);
 	return QBrush(image);

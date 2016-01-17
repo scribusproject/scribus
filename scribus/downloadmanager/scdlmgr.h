@@ -42,9 +42,9 @@ class ScDLManager: public QObject
 		void fileFailed(const QString& t);
 
 	private:
-		ScDLThread *thread;
-		int dlID;
-		QList <DownloadData> fileList;
+		ScDLThread *m_thread;
+		int m_dlID;
+		QList <DownloadData> m_fileList;
 };
 
 #endif

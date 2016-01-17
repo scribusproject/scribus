@@ -54,7 +54,7 @@ void LocaleManager::deleteInstance()
 
 void LocaleManager::init()
 {
-	sysLocale=QLocale::system();
+	m_sysLocale=QLocale::system();
 //	qDebug()<<"language:"<<QLocale::languageToString(sysLocale.language());
 //	qDebug()<<"measurement:"<<sysLocale.measurementSystem();
 //	qDebug()<<"bcp47name:"<<sysLocale.bcp47Name();
@@ -66,35 +66,35 @@ void LocaleManager::generateLocaleList()
 {
 	//Build table;
 	//No, we don't translate these, they are internal use that don't get to the GUI
-	localeTable.clear();
-	localeTable.append(LocaleDef("default","mm",   "A4"   ));
-	localeTable.append(LocaleDef("en",     "in",   "Letter"));
-	localeTable.append(LocaleDef("en_AU",  "mm",   "A4"   ));
-	localeTable.append(LocaleDef("en_GB",  "mm",   "A4"   ));
-	localeTable.append(LocaleDef("en_US",  "in",   "Letter"));
-	localeTable.append(LocaleDef("fr",     "mm",   "A4"   ));
-	localeTable.append(LocaleDef("fr_QC",  "pica", "Letter"));
+	m_localeTable.clear();
+	m_localeTable.append(LocaleDef("default","mm",   "A4"   ));
+	m_localeTable.append(LocaleDef("en",     "in",   "Letter"));
+	m_localeTable.append(LocaleDef("en_AU",  "mm",   "A4"   ));
+	m_localeTable.append(LocaleDef("en_GB",  "mm",   "A4"   ));
+	m_localeTable.append(LocaleDef("en_US",  "in",   "Letter"));
+	m_localeTable.append(LocaleDef("fr",     "mm",   "A4"   ));
+	m_localeTable.append(LocaleDef("fr_QC",  "pica", "Letter"));
 }
 
 void LocaleManager::printSelectedForLocale(const QString& locale)
 {
 	QString selectedLocale(locale);
-	for (int i = 0; i < localeTable.size(); ++i)
+	for (int i = 0; i < m_localeTable.size(); ++i)
 	{
-		if (localeTable[i].m_locale==selectedLocale)
+		if (m_localeTable[i].m_locale==selectedLocale)
 		{
-			qDebug()<<localeTable[i].m_locale.leftJustified(6) << ": " << localeTable[i].m_unit << ": " << localeTable[i].m_pageSize;
+			qDebug()<<m_localeTable[i].m_locale.leftJustified(6) << ": " << m_localeTable[i].m_unit << ": " << m_localeTable[i].m_pageSize;
 			return;
 		}
 	}
 
 	qDebug()<<"No definition for locale: "<<selectedLocale;
 	selectedLocale="default";
-	for (int i = 0; i < localeTable.size(); ++i)
+	for (int i = 0; i < m_localeTable.size(); ++i)
 	{
-		if (localeTable[i].m_locale==selectedLocale)
+		if (m_localeTable[i].m_locale==selectedLocale)
 		{
-			qDebug()<<localeTable[i].m_locale.leftJustified(6) << ": " << localeTable[i].m_unit << ": " << localeTable[i].m_pageSize;
+			qDebug()<<m_localeTable[i].m_locale.leftJustified(6) << ": " << m_localeTable[i].m_unit << ": " << m_localeTable[i].m_pageSize;
 			return;
 		}
 	}
@@ -103,15 +103,15 @@ void LocaleManager::printSelectedForLocale(const QString& locale)
 QString LocaleManager::pageSizeForLocale(const QString& locale)
 {
 	QString selectedLocale(locale);
-	for (int i = 0; i < localeTable.size(); ++i)
+	for (int i = 0; i < m_localeTable.size(); ++i)
 	{
-		if (localeTable[i].m_locale==selectedLocale)
-			return localeTable[i].m_pageSize;
+		if (m_localeTable[i].m_locale==selectedLocale)
+			return m_localeTable[i].m_pageSize;
 	}
 
 	//qDebug()<<"No definition for locale: "<<selectedLocale;
 	//No, we don't translate these, they are internal use that don't get to the GUI
-	if (sysLocale.measurementSystem()==0)
+	if (m_sysLocale.measurementSystem()==0)
 		return "A4";
 	else
 		return "Letter";
@@ -122,14 +122,14 @@ QString LocaleManager::pageSizeForLocale(const QString& locale)
 QString LocaleManager::unitForLocale(const QString &locale)
 {
 	QString selectedLocale(locale);
-	for (int i = 0; i < localeTable.size(); ++i)
+	for (int i = 0; i < m_localeTable.size(); ++i)
 	{
-		if (localeTable[i].m_locale==selectedLocale)
-			return localeTable[i].m_unit;
+		if (m_localeTable[i].m_locale==selectedLocale)
+			return m_localeTable[i].m_unit;
 	}
 	//qDebug()<<"No definition for locale: "<<selectedLocale;
 	//No, we don't translate these, they are internal use that don't get to the GUI
-	if (sysLocale.measurementSystem()==0)
+	if (m_sysLocale.measurementSystem()==0)
 		return "mm";
 	else
 		return "in";
@@ -139,7 +139,7 @@ QString LocaleManager::unitForLocale(const QString &locale)
 
 LocaleManager::~LocaleManager()
 {
-	localeTable.clear();
+	m_localeTable.clear();
 }
 
 

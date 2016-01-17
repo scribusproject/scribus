@@ -25,13 +25,13 @@ ScFace_ttf::ScFace_ttf ( QString fam, QString sty, QString alt, QString scname, 
 		: FtFace ( fam, sty, alt, scname, psname, path, face )
 {
 	formatCode = ScFace::SFNT;
-	kernFeature = 0;
+	m_kernFeature = 0;
 }
 
 ScFace_ttf::~ ScFace_ttf()
 {
-	if ( kernFeature )
-		delete kernFeature;
+	if ( m_kernFeature )
+		delete m_kernFeature;
 }
 
 bool ScFace_ttf::isSymbolic() const
@@ -44,8 +44,8 @@ bool ScFace_ttf::isSymbolic() const
 
 void ScFace_ttf::load() const
 {
-	if ( !kernFeature )
-		kernFeature = new KernFeature ( ftFace() );
+	if ( !m_kernFeature )
+		m_kernFeature = new KernFeature ( ftFace() );
 	FtFace::load();
 	sfnt::PostTable checkPost;
 	FT_Face face = ftFace();
@@ -59,16 +59,16 @@ void ScFace_ttf::load() const
 
 void ScFace_ttf::unload() const
 {
-	if ( kernFeature )
-		delete kernFeature;
-	kernFeature = 0;
+	if ( m_kernFeature )
+		delete m_kernFeature;
+	m_kernFeature = 0;
 	FtFace::unload();
 }
 
 qreal ScFace_ttf::glyphKerning ( ScFace::gid_type gl1, ScFace::gid_type gl2, qreal sz ) const
 {
-	if ( kernFeature->isValid() )
-		return kernFeature->getPairValue ( gl1,gl2 ) / m_uniEM * sz;
+	if ( m_kernFeature->isValid() )
+		return m_kernFeature->getPairValue ( gl1,gl2 ) / m_uniEM * sz;
 	return FtFace::glyphKerning ( gl1, gl2, sz );
 }
 

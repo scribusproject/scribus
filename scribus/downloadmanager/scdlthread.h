@@ -40,11 +40,11 @@ class ScDLThread : public QThread
 	private:
 		bool urlOK(QUrl url);
 		QStringList m_urlList;
-		QFile output;
-		QQueue<QPair<QUrl, QString> > downloadQueue;
-		int downloadedCount;
-		int totalCount;
-		QNetworkReply *currentDownload;
-		QNetworkAccessManager manager;
+		QFile m_output;
+		QQueue<QPair<QUrl, QString> > m_downloadQueue;
+		int m_downloadedCount;
+		int m_totalCount;
+		QNetworkReply *m_currentDownload;
+		QNetworkAccessManager m_manager;
 };
 #endif

@@ -394,7 +394,7 @@ void ScImgDataLoader_TIFF::blendOntoTarget(RawImage *tmp, int layOpa, QString la
 	{
 		for (int l = 0; l < tmp->height(); l++)
 		{
-			srand(random_table[ l  % 4096]);
+			srand(m_random_table[ l  % 4096]);
 			for (int k = 0; k < tmp->width(); k++)
 			{
 				int rand_val = rand() & 0xff;
@@ -659,14 +659,14 @@ bool ScImgDataLoader_TIFF::loadPicture(const QString& fn, int page, int res, boo
 	}
 	srand(314159265);
 	for (int i = 0; i < 4096; i++)
-		random_table[i] = rand();
+		m_random_table[i] = rand();
 	for (int i = 0; i < 4096; i++)
 	{
 		int tmp;
 		int swap = i + rand() % (4096 - i);
-		tmp = random_table[i];
-		random_table[i] = random_table[swap];
-		random_table[swap] = tmp;
+		tmp = m_random_table[i];
+		m_random_table[i] = m_random_table[swap];
+		m_random_table[swap] = tmp;
 	}
 	int test;
 	bool valid = m_imageInfoRecord.isRequest;
@@ -691,10 +691,10 @@ bool ScImgDataLoader_TIFF::loadPicture(const QString& fn, int page, int res, boo
 		TIFFGetField(tif, TIFFTAG_YRESOLUTION, &yres);
 		TIFFGetField(tif, TIFFTAG_RESOLUTIONUNIT , &resolutionunit);
 		size = widtht * heightt;
-		TIFFGetField(tif, TIFFTAG_PHOTOMETRIC, &photometric);
+		TIFFGetField(tif, TIFFTAG_PHOTOMETRIC, &m_photometric);
 		TIFFGetField(tif, TIFFTAG_PLANARCONFIG, &planar);
 		TIFFGetField(tif, TIFFTAG_BITSPERSAMPLE, &bitspersample);
-		TIFFGetField(tif, TIFFTAG_SAMPLESPERPIXEL, &samplesperpixel);
+		TIFFGetField(tif, TIFFTAG_SAMPLESPERPIXEL, &m_samplesperpixel);
 		TIFFGetField(tif, TIFFTAG_FILLORDER, &fillorder);
 
 		TIFFGetField(tif, TIFFTAG_MAKE, &scannerMake);
@@ -747,12 +747,12 @@ bool ScImgDataLoader_TIFF::loadPicture(const QString& fn, int page, int res, boo
 					m_imageInfoRecord.valid = (m_imageInfoRecord.PDSpathData.size())>0?true:false;
 				if (thumbnail)
 				{
-					if (photometric == PHOTOMETRIC_SEPARATED)
+					if (m_photometric == PHOTOMETRIC_SEPARATED)
 					{
 						isCMYK = true;
 						m_imageInfoRecord.colorspace = ColorSpaceCMYK;
 					}
-					else if (samplesperpixel == 1)
+					else if (m_samplesperpixel == 1)
 					{
 						m_imageInfoRecord.colorspace = ColorSpaceGray;
 						isCMYK = false;
@@ -837,13 +837,13 @@ bool ScImgDataLoader_TIFF::loadPicture(const QString& fn, int page, int res, boo
 				fakeHeader.height = heightt;
 				fakeHeader.channel_count = numChannels;
 				fakeHeader.depth = 8;
-				if (photometric == PHOTOMETRIC_SEPARATED)
+				if (m_photometric == PHOTOMETRIC_SEPARATED)
 				{
 					isCMYK = true;
 					fakeHeader.color_mode = CM_CMYK;
 					chans = 5;
 				}
-				else if (samplesperpixel == 1)
+				else if (m_samplesperpixel == 1)
 				{
 					fakeHeader.color_mode = CM_GRAYSCALE;
 					isCMYK = false;
@@ -886,12 +886,12 @@ bool ScImgDataLoader_TIFF::loadPicture(const QString& fn, int page, int res, boo
 		if ((!foundPS) || (failedPS))
 		{
 			int chans = 4;
-			if (photometric == PHOTOMETRIC_SEPARATED)
+			if (m_photometric == PHOTOMETRIC_SEPARATED)
 			{
-				if (samplesperpixel > 5) 
+				if (m_samplesperpixel > 5) 
 					chans = 4;
 				else
-					chans = samplesperpixel;
+					chans = m_samplesperpixel;
 			}
 			else
 				chans = 4;
@@ -912,7 +912,7 @@ bool ScImgDataLoader_TIFF::loadPicture(const QString& fn, int page, int res, boo
 				}
 
 				tmpImg.fill(0);
-				if (!getImageData(tif, &tmpImg, widtht, heightt, size, photometric, bitspersample, samplesperpixel, bilevel, isCMYK))
+				if (!getImageData(tif, &tmpImg, widtht, heightt, size, m_photometric, bitspersample, m_samplesperpixel, bilevel, isCMYK))
 				{
 					TIFFClose(tif);
 					return false;
@@ -994,7 +994,7 @@ bool ScImgDataLoader_TIFF::loadPicture(const QString& fn, int page, int res, boo
 			m_imageInfoRecord.colorspace = ColorSpaceCMYK;
 			m_pixelFormat = (r_image.channels() == 5) ? Format_CMYKA_8 : Format_CMYK_8;
 		}
-		else if (samplesperpixel == 1)
+		else if (m_samplesperpixel == 1)
 		{
 			// Do not set m_pixelFormat here as the real pixel format is most probably different than gray
 			if (bitspersample == 1)
@@ -1500,7 +1500,7 @@ bool ScImgDataLoader_TIFF::loadLayerChannels( QDataStream & s, const PSDHeader &
 				layOpa = m_imageInfoRecord.RequestProps[layer].opacity;
 			for (int l = 0; l < r2_image.height(); l++)
 			{
-				srand(random_table[ l  % 4096]);
+				srand(m_random_table[ l  % 4096]);
 				for (int k = 0; k < r2_image.width(); k++)
 				{
 					int rand_val = rand() & 0xff;

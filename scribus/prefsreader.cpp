@@ -28,12 +28,12 @@ for which a new license (GPL+exception) is in place.
 
 PrefsReader::PrefsReader(ContextMap *appContexts, ContextMap *pluginContexts)
 {
-	aContexts = appContexts;
-	pContexts = pluginContexts;
-	inApp = false;
-	rowIndex = 0;
-	colIndex = 0;
-	inTable = false;
+	m_aContexts = appContexts;
+	m_pContexts = pluginContexts;
+	m_inApp = false;
+	m_rowIndex = 0;
+	m_colIndex = 0;
+	m_inTable = false;
 }
 
 bool PrefsReader::startElement(const QString&, const QString&, const QString &name, const QXmlAttributes &attrs)
@@ -42,7 +42,7 @@ bool PrefsReader::startElement(const QString&, const QString&, const QString &na
 	{
 		for (int i = 0; i < attrs.count(); ++i)
 			if (attrs.localName(i) == "name")
-				currentContext = new PrefsContext(attrs.value(i));
+				m_currentContext = new PrefsContext(attrs.value(i));
 	}
 	else if (name == "level")
 	{
@@ -50,7 +50,7 @@ bool PrefsReader::startElement(const QString&, const QString&, const QString &na
 		for (int i = 0; i < attrs.count(); ++i)
 			if ((attrs.localName(i) == "name") && (attrs.value(i) == "application"))
 				found = true;
-		inApp = found;
+		m_inApp = found;
 	}
 	else if (name == "attribute")
 	{
@@ -63,26 +63,26 @@ bool PrefsReader::startElement(const QString&, const QString&, const QString &na
 			else if (attrs.localName(i) == "value")
 				value = attrs.value(i);
 		}
-		currentContext->set(key, value);
+		m_currentContext->set(key, value);
 	}
 	else if (name == "table")
 	{
 		for (int i = 0; i < attrs.count(); ++i)
 		{
 			if (attrs.localName(i) == "name")
-				currentTable = currentContext->getTable(attrs.value(i));
+				m_currentTable = m_currentContext->getTable(attrs.value(i));
 		}
 	}
 	else if (name == "col")
-		inTable = true;	
+		m_inTable = true;
 
 	return true;
 }
 
 bool PrefsReader::characters (const QString& ch)
 {
-	if (inTable)
-		currentTable->set(rowIndex, colIndex, ch);
+	if (m_inTable)
+		m_currentTable->set(m_rowIndex, m_colIndex, ch);
 	return true;
 } 
 
@@ -90,25 +90,25 @@ bool PrefsReader::endElement(const QString&, const QString&, const QString &name
 {
 	if (name == "context")
 	{
-		if (inApp)
-			(*aContexts)[currentContext->getName()] = currentContext;
+		if (m_inApp)
+			(*m_aContexts)[m_currentContext->getName()] = m_currentContext;
 		else
-			(*pContexts)[currentContext->getName()] = currentContext;
+			(*m_pContexts)[m_currentContext->getName()] = m_currentContext;
 	}
 	else if (name == "row")
 	{
-		++rowIndex;
-		colIndex = 0;
+		++m_rowIndex;
+		m_colIndex = 0;
 	}
 	else if (name == "col")
 	{
-		++colIndex;
-		inTable = false;
+		++m_colIndex;
+		m_inTable = false;
 	}
 	else if (name == "table")
 	{
-		rowIndex = 0;
-		colIndex = 0;
+		m_rowIndex = 0;
+		m_colIndex = 0;
 	}
 	return true;
 }

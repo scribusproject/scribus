@@ -97,7 +97,7 @@ struct SCRIBUS_API FtFace : public ScFace::ScFaceData
 protected:
 	mutable FT_Face m_face;
 
-	static FT_Library library;
+	static FT_Library m_library;
 
 	mutable QString m_pdfAscent;
 	mutable QString m_pdfCapHeight;

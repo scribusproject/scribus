@@ -129,13 +129,13 @@ public:
 protected:
 	void initCMS();
 	
-	QList<ScribusMainWindow*> ScMWList;
+	QList<ScribusMainWindow*> m_ScMWList;
 	int m_currScMW;
 	
 	ScSplashScreen *m_SplashScreen;
-	IconManager *iconManager;
-	UndoManager *undoManager;
-	PrefsManager *prefsManager;
+	IconManager *m_iconManager;
+	UndoManager *m_undoManager;
+	PrefsManager *m_prefsManager;
 	bool m_ScribusInitialized;
 	bool m_UseGUI;
 	QList<QString> m_Files;

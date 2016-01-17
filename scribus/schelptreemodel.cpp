@@ -59,9 +59,9 @@ ScHelpTreeModel::ScHelpTreeModel(const QString &dataFile, const QString &col1nam
 {
 	QList<QVariant> rootData;
 	rootData << col1name << col2name;
-	rootItem = new TreeItem(rootData);
+	m_rootItem = new TreeItem(rootData);
 	if (!dataFile.isEmpty())
-		setupModelData(dataFile, rootItem, indexToBuild);
+		setupModelData(dataFile, m_rootItem, indexToBuild);
 }
 
 void ScHelpTreeModel::setupModelData(const QString &dataFile, TreeItem *parent, QMap<QString, QString>* indexToBuild)
@@ -216,7 +216,7 @@ void ScHelpTreeModel::addRow(const QString& s1, const QString& s2, int i)
 {
 	QList<TreeItem*> parents;
 	QList<int> indentations;
-	parents << rootItem;
+	parents << m_rootItem;
 	if (parents.last()->childCount() > 0) 
 		parents << parents.last()->child(parents.last()->childCount()-1);
 	QList<QVariant> columnData;

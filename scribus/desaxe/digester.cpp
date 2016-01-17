@@ -92,61 +92,61 @@ private:
 };
 
 
-Digester::Digester() : objects(), storage(), errors() 
+Digester::Digester() : m_objects(), m_storage(), m_errors() 
 { 
-	state = new RuleState();
-	result_.ptr = NULL;
-	result_.type = "";
+	m_state = new RuleState();
+	m_result_.ptr = NULL;
+	m_result_.type = "";
 }
 
 
 Digester::~Digester() {
-	delete state;
-	deletePatches(patches);
+	delete m_state;
+	deletePatches(m_patches);
 }
 
 
 Digester& Digester::operator=(const Digester& other)
 {
-	delete state;
-	state = new RuleState(*other.state);
-	objects = other.objects;
-	storage = other.storage;
-	result_ = other.result_;
-	errors = other.errors;
+	delete m_state;
+	m_state = new RuleState(*other.m_state);
+	m_objects = other.m_objects;
+	m_storage = other.m_storage;
+	m_result_ = other.m_result_;
+	m_errors = other.m_errors;
 	return *this;
 }
 
 
 int Digester::nrOfErrors() const
 {
-	return errors.size();
+	return m_errors.size();
 }
 
 const Xml_string Digester::getError(int i) const
 {
-	return errors[i];
+	return m_errors[i];
 }
 
 
 void Digester::addRule(const Xml_string& pattern, Action action)
 {
 	action.setDigester(this);
-	state->addRule(pattern, action);
+	m_state->addRule(pattern, action);
 }
 
 void Digester::reset()
 {
-	objects.clear();
-	storage.clear();
-	result_.ptr = NULL;
-	result_.type = "";
-	errors.clear();
+	m_objects.clear();
+	m_storage.clear();
+	m_result_.ptr = NULL;
+	m_result_.type = "";
+	m_errors.clear();
 }
 
 void Digester::beginDoc()
 {
-	state->reset();
+	m_state->reset();
 #ifdef DESAXE_DEBUG	
 	state->dump();
 #endif
@@ -158,8 +158,8 @@ void Digester::endDoc()
 
 void Digester::begin(const Xml_string& tag, Xml_attr attr)
 {
-	state->open(tag);
-	const std::vector<rule_t>& rules (state->rulesForCurrentState());
+	m_state->open(tag);
+	const std::vector<rule_t>& rules (m_state->rulesForCurrentState());
 	std::vector<rule_t>::const_iterator it;
 	for(it=rules.begin(); it!=rules.end(); ++it)
 	{
@@ -172,7 +172,7 @@ void Digester::begin(const Xml_string& tag, Xml_attr attr)
 
 void Digester::end(const Xml_string& tag)
 {
-	const std::vector<rule_t>& rules (state->rulesForCurrentState());
+	const std::vector<rule_t>& rules (m_state->rulesForCurrentState());
 	std::vector<rule_t>::const_reverse_iterator it;
 	for(it=rules.rbegin(); it!=rules.rend(); ++it)
 	{
@@ -181,12 +181,12 @@ void Digester::end(const Xml_string& tag)
 #endif
 		const_cast<Action&>(it->second).end(tag);
 	}
-	state->close();
+	m_state->close();
 }
 
 void Digester::chars(const Xml_string& text)
 {
-	const std::vector<rule_t>& rules (state->rulesForCurrentState());
+	const std::vector<rule_t>& rules (m_state->rulesForCurrentState());
 	std::vector<rule_t>::const_iterator it;
 	for(it=rules.begin(); it!=rules.end(); ++it)
 	{

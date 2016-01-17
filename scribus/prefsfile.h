@@ -38,11 +38,11 @@ typedef QMap<QString, PrefsContext*> ContextMap;
 class SCRIBUS_API PrefsFile
 {
 private:
-	QString prefsFilePath;
-	ContextMap contexts;
-	ContextMap pluginContexts;
-	ContextMap userprefsContexts;
-	bool ioEnabled;
+	QString m_prefsFilePath;
+	ContextMap m_contexts;
+	ContextMap m_pluginContexts;
+	ContextMap m_userprefsContexts;
+	bool m_ioEnabled;
 	void load();
 	QString replaceIllegalChars(const QString& text);
 	void writeContexts(ContextMap* contextMap, QTextStream& stream);

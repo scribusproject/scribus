@@ -31,54 +31,54 @@ for which a new license (GPL+exception) is in place.
 
 TextWriter::TextWriter(ScribusDoc *doc)
 {
-	document = doc;
+	m_document = doc;
 }
 
 void TextWriter::open(PageItem *textframe)
 {
-	frame = textframe;
-	charStyleMap.clear();
-	parStyleMap.clear();
-	fontMap.clear();
-	colorMap.clear();
+	m_frame = textframe;
+	m_charStyleMap.clear();
+	m_parStyleMap.clear();
+	m_fontMap.clear();
+	m_colorMap.clear();
 
-	styledUptoPos = frame->itemText.length();
+	m_styledUptoPos = m_frame->itemText.length();
 
-	currentCharStyle.erase();
-	currentParStyle.erase();
+	m_currentCharStyle.erase();
+	m_currentParStyle.erase();
 }
 
 void TextWriter::appendText(const QString &text)
 {
-	frame->itemText.insertChars(frame->itemText.length(), text);
+	m_frame->itemText.insertChars(m_frame->itemText.length(), text);
 }
 
 void TextWriter::setStyles()
 {
-	StoryText& story(frame->itemText);
+	StoryText& story(m_frame->itemText);
 
-	if (story.length() > styledUptoPos)
+	if (story.length() > m_styledUptoPos)
 	{
-		story.setCharStyle(styledUptoPos, story.length() - styledUptoPos, currentCharStyle);
-		for (int i = styledUptoPos; i < story.length()-1; ++i)
+		story.setCharStyle(m_styledUptoPos, story.length() - m_styledUptoPos, m_currentCharStyle);
+		for (int i = m_styledUptoPos; i < story.length()-1; ++i)
 			if (story.text(i) == SpecialChars::PARSEP)
-				story.setStyle(i+1, currentParStyle);
-		styledUptoPos = story.length();
+				story.setStyle(i+1, m_currentParStyle);
+		m_styledUptoPos = story.length();
 	}
 }
 
 void TextWriter::close()
 {
 	setStyles();
-	document->redefineCharStyles(charStyles, false);
-	document->redefineStyles(parStyles, false);
+	m_document->redefineCharStyles(m_charStyles, false);
+	m_document->redefineStyles(m_parStyles, false);
 }
 
 void TextWriter::setCharStyle(const CharStyle &cstyle)
 {
-	if (currentCharStyle != cstyle)
+	if (m_currentCharStyle != cstyle)
 		setStyles();
-	currentCharStyle = cstyle;
+	m_currentCharStyle = cstyle;
 }
 
 void TextWriter::setCharStyle(const QString &name)
@@ -90,9 +90,9 @@ void TextWriter::setCharStyle(const QString &name)
 
 void TextWriter::setStyle(const ParagraphStyle &pstyle)
 {
-	if (currentParStyle != pstyle)
+	if (m_currentParStyle != pstyle)
 		setStyles();
-	currentParStyle = pstyle;
+	m_currentParStyle = pstyle;
 }
 
 void TextWriter::setStyle(const QString &name)
@@ -104,37 +104,37 @@ void TextWriter::setStyle(const QString &name)
 
 void TextWriter::defineCharStyle(const QString name, const CharStyle &cstyle)
 {
-	CharStyle* newStyle = charStyles.create(cstyle);
+	CharStyle* newStyle = m_charStyles.create(cstyle);
 	newStyle->setName(name);
 }
 
 void TextWriter::defineStyle(const QString& name, const ParagraphStyle& pstyle)
 {
-	ParagraphStyle* newStyle = parStyles.create(pstyle);
+	ParagraphStyle* newStyle = m_parStyles.create(pstyle);
 	newStyle->setName(name);
 }
 
 void TextWriter::defineFont(const QString &name, const QString& family, const QString& variant, bool bold, bool italic)
 {
-	document->AddFont(name);
+	m_document->AddFont(name);
 }
 
 void TextWriter::defineColor(const QString &name, const ScColor& color)
 {
-	document->PageColors.insert(name, color);
+	m_document->PageColors.insert(name, color);
 }
 
 CharStyle TextWriter::getCurrentCharStyle()
 {
-	return currentCharStyle;
+	return m_currentCharStyle;
 }
 
 ParagraphStyle TextWriter::getCurrentStyle()
 {
-	return currentParStyle;
+	return m_currentParStyle;
 }
 
 ScribusDoc* TextWriter::currentDoc()
 {
-	return document;
+	return m_document;
 }

@@ -11,15 +11,15 @@
 
 void UniqueID::begin(const Xml_string& tag, Xml_attr attr)
 {
-	if (level > 0)  // skip mode
-		++level;
+	if (m_level > 0)  // skip mode
+		++m_level;
 	else 
 	{
 		Xml_attr::iterator it = attr.find("id");
-		if (it != attr.end() && seenIDs.find(Xml_data(it)) != seenIDs.end())
+		if (it != attr.end() && m_seenIDs.find(Xml_data(it)) != m_seenIDs.end())
 		{
 			// enter skip mode
-			level = 1;
+			m_level = 1;
 			// replace with  <tag idref="seenid" />
 			Xml_attr idattr;
 			idattr["idref"] = Xml_data(it);
@@ -29,7 +29,7 @@ void UniqueID::begin(const Xml_string& tag, Xml_attr attr)
 		else 
 		{
 			if (it != attr.end())
-				seenIDs.insert(Xml_data(it));
+				m_seenIDs.insert(Xml_data(it));
 			SaxFilter::begin(tag, attr);
 		}
 	}
@@ -38,14 +38,14 @@ void UniqueID::begin(const Xml_string& tag, Xml_attr attr)
 
 void UniqueID::end(const Xml_string& tag)
 {
-	if (level > 0)  // skip mode
-		--level;
+	if (m_level > 0)  // skip mode
+		--m_level;
 	else
 		SaxFilter::end(tag);
 }
 
 void UniqueID::chars(const Xml_string& text)
 {
-	if (level == 0)
+	if (m_level == 0)
 		SaxFilter::chars(text);
 }
