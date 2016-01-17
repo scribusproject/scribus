@@ -595,8 +595,10 @@ void SVGPlug::setupTransform( const QDomElement &e )
 		gc->matrix = mat * gc->matrix;
 }
 
-void SVGPlug::finishNode( const QDomNode &e, PageItem* item)
+PageItem *SVGPlug::finishNode(const QDomNode &e, PageItem* item)
 {
+	PageItem* startArrow = NULL;
+	PageItem* endArrow = NULL;
 	SvgStyle *gc = m_gc.top();
 	QTransform gcm = gc->matrix;
 	double BaseX = m_Doc->currentPage()->xOffset();
@@ -860,10 +862,12 @@ void SVGPlug::finishNode( const QDomNode &e, PageItem* item)
 					arrowTrans.translate(-dX, -dY);
 					FPoint ba = FPoint(0.0, 0.0).transformPoint(arrowTrans, false);
 					int z = m_Doc->itemAdd(PageItem::Symbol, PageItem::Unspecified, ba.x(), ba.y(), dX * 2.0, dY * 2.0, 0, CommonStrings::None, CommonStrings::None);
-					PageItem* ite = m_Doc->Items->at(z);
-					ite->setPattern(importedPattTrans[gc->endMarker]);
-					ite->setRotation(r, true);
-					Elements.append(ite);
+					endArrow = m_Doc->Items->at(z);
+					endArrow->setPattern(importedPattTrans[gc->endMarker]);
+					endArrow->setRotation(r, true);
+					endArrow->setRedrawBounding();
+					endArrow->OwnPage = m_Doc->OnPage(endArrow);
+				//	Elements.append(ite);
 					break;
 				}
 			}
@@ -891,15 +895,28 @@ void SVGPlug::finishNode( const QDomNode &e, PageItem* item)
 					arrowTrans.translate(-dX, -dY);
 					FPoint ba = FPoint(0.0, 0.0).transformPoint(arrowTrans, false);
 					int z = m_Doc->itemAdd(PageItem::Symbol, PageItem::Unspecified, ba.x(), ba.y(), dX * 2.0, dY * 2.0, 0, CommonStrings::None, CommonStrings::None);
-					PageItem* ite = m_Doc->Items->at(z);
-					ite->setPattern(importedPattTrans[gc->startMarker]);
-					ite->setRotation(r, true);
-					Elements.append(ite);
+					startArrow = m_Doc->Items->at(z);
+					startArrow->setPattern(importedPattTrans[gc->startMarker]);
+					startArrow->setRotation(r, true);
+					startArrow->setRedrawBounding();
+					startArrow->OwnPage = m_Doc->OnPage(startArrow);
+				//	Elements.append(ite);
 					break;
 				}
 			}
 		}
 	}
+	if ((endArrow != NULL) || (startArrow != NULL))
+	{
+		QList<PageItem*> aElements;
+		aElements.append(item);
+		if (startArrow != NULL)
+			aElements.append(startArrow);
+		if (endArrow != NULL)
+			aElements.append(endArrow);
+		return m_Doc->groupObjectsList(aElements);
+	}
+	return item;
 }
 
 bool SVGPlug::isIgnorableNode( const QDomElement &e )
@@ -1611,7 +1628,7 @@ QList<PageItem*> SVGPlug::parseLine(const QDomElement &e)
 	ite->PoLine.setPoint(1, FPoint(x1, y1));
 	ite->PoLine.setPoint(2, FPoint(x2, y2));
 	ite->PoLine.setPoint(3, FPoint(x2, y2));
-	finishNode(e, ite);
+	ite = finishNode(e, ite);
 	LElements.append(ite);
 	delete( m_gc.pop() );
 	return LElements;
@@ -1640,7 +1657,7 @@ QList<PageItem*> SVGPlug::parsePath(const QDomElement &e)
 	}
 	else
 	{
-		finishNode(e, ite);
+		ite = finishNode(e, ite);
 		PElements.append(ite);
 	}
 	delete( m_gc.pop() );
@@ -1697,7 +1714,7 @@ QList<PageItem*> SVGPlug::parsePolyline(const QDomElement &e)
 		}
 		else
 		{
-			finishNode(e, ite);
+			ite = finishNode(e, ite);
 			PElements.append(ite);
 		}
 	}

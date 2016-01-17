@@ -241,7 +241,7 @@ public:
 	void addGraphicContext();
 	void setupNode( const QDomElement &e );
 	void setupTransform( const QDomElement &e );
-	void finishNode( const QDomNode &e, PageItem* item);
+	PageItem* finishNode( const QDomNode &e, PageItem* item);
 	bool isIgnorableNode( const QDomElement &e );
 	bool isIgnorableNodeName( const QString &n );
 	FPoint parseTextPosition(const QDomElement &e, const FPoint* pos = NULL);
