@@ -15604,30 +15604,33 @@ void ScribusDoc::removeFromGroup(PageItem* item)
 	SizeItem(item->width() * grScXi, item->height() * grScYi, item, false, true, false);
 	double nX = itPos.x();
 	double nY = itPos.y();
-	if (itemTrans.m11() < 0)
+	if (gRot != 0)
 	{
-		nX -= item->width();
-		if (item->isImageFrame() || item->isTextFrame() || item->isLatexFrame() || item->isOSGFrame() || item->isSymbol() || item->isGroup() || item->isSpiral())
-			item->flipImageH();
-		if (item->itemType() != PageItem::Line)
+		if (itemTrans.m11() < 0)
 		{
-			QTransform ma;
-			ma.scale(-1, 1);
-			item->PoLine.map(ma);
-			item->PoLine.translate(item->width(), 0);
+			nX -= item->width();
+			if (item->isImageFrame() || item->isTextFrame() || item->isLatexFrame() || item->isOSGFrame() || item->isSymbol() || item->isGroup() || item->isSpiral())
+				item->flipImageH();
+			if (item->itemType() != PageItem::Line)
+			{
+				QTransform ma;
+				ma.scale(-1, 1);
+				item->PoLine.map(ma);
+				item->PoLine.translate(item->width(), 0);
+			}
 		}
-	}
-	if (itemTrans.m22() < 0)
-	{
-		nY -= item->height();
-		if (item->isImageFrame() || item->isTextFrame() || item->isLatexFrame() || item->isOSGFrame() || item->isSymbol() || item->isGroup() || item->isSpiral())
-			item->flipImageV();
-		if (item->itemType() != PageItem::Line)
+		if (itemTrans.m22() < 0)
 		{
-			QTransform ma;
-			ma.scale(1, -1);
-			item->PoLine.map(ma);
-			item->PoLine.translate(0, item->height());
+			nY -= item->height();
+			if (item->isImageFrame() || item->isTextFrame() || item->isLatexFrame() || item->isOSGFrame() || item->isSymbol() || item->isGroup() || item->isSpiral())
+				item->flipImageV();
+			if (item->itemType() != PageItem::Line)
+			{
+				QTransform ma;
+				ma.scale(1, -1);
+				item->PoLine.map(ma);
+				item->PoLine.translate(0, item->height());
+			}
 		}
 	}
 	if (item->isTextFrame() || item->isPathText())
