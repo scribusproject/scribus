@@ -574,7 +574,7 @@ void ScribusMainWindow::initDefaultValues()
 	QString docexts = realSupportedExts.join(" ");
 	QStringList longList = formats.values();
 	QString longDesc = longList.join(";;") + ";;";
-	osgFilterString = tr("All Supported Formats (%1);;%2All Files (*)").arg(docexts).arg(longDesc);
+	m_osgFilterString = tr("All Supported Formats (%1);;%2All Files (*)").arg(docexts).arg(longDesc);
 #endif
 }
 
@@ -8201,7 +8201,7 @@ void ScribusMainWindow::callImageEditor()
 #ifdef HAVE_OSG
 	if (currItem->asOSGFrame())
 	{
-		OSGEditorDialog *dia = new OSGEditorDialog(this, currItem->asOSGFrame(), osgFilterString);
+		OSGEditorDialog *dia = new OSGEditorDialog(this, currItem->asOSGFrame(), m_osgFilterString);
 		dia->exec();
 		return;
 	}

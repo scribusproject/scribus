@@ -5385,7 +5385,7 @@ PageItem* ScribusDoc::createPageItem(const PageItem::ItemType itemType, const Pa
 			break;
 #ifdef HAVE_OSG
 		case PageItem::OSGFrame:
-			newItem = new PageItem_OSGFrame(this, x, y, b, h, w, docPrefsData.itemToolPrefs.imageFillColor, docPrefsData.itemToolPrefs.imageStrokeColor);
+			newItem = new PageItem_OSGFrame(this, x, y, b, h, w, m_docPrefsData.itemToolPrefs.imageFillColor, m_docPrefsData.itemToolPrefs.imageStrokeColor);
 //			Q_ASSERT(frameType==PageItem::Rectangle || frameType==PageItem::Unspecified);
 			break;
 #endif
@@ -9435,8 +9435,6 @@ void ScribusDoc::itemSelection_SetCharStyle(const CharStyle & newStyle, Selectio
 	for (uint aa = 0; aa < selectedItemCount; ++aa)
 	{
 		PageItem *currItem = itemSelection->itemAt(aa);
-		//		int currItemTextCount = currItem->lastInFrame() + 1 - currItem->firstInFrame();
-		//		if (currItemTextCount > 0 && ( appMode == modeEdit || !FRAMESELECTION_EDITS_DEFAULTSTYLE))
 		int currItemTextCount = currItem->itemText.length();
 		if ((currItemTextCount > 0) && ((appMode == modeEdit) || (appMode == modeEditTable)))
 		{
