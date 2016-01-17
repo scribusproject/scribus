@@ -1432,7 +1432,7 @@ void AIPlug::processData(QString data)
 					wh = getMaxClipF(&ite->PoLine);
 					ite->setWidthHeight(wh.x(),wh.y());
 					ite->setTextFlowMode(PageItem::TextFlowDisabled);
-					m_Doc->AdjustItemSize(ite);
+					m_Doc->adjustItemSize(ite);
 					QTemporaryFile *tempFile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_ai_XXXXXX.pdf");
 					tempFile->setAutoRemove(false);
 					tempFile->open();
@@ -1525,7 +1525,7 @@ void AIPlug::processData(QString data)
 				b->setXPos(xp + xoffset);
 				b->setYPos(yp + yoffset);
 				m_Doc->RotMode(3);
-				m_Doc->RotateItem(rotation * 180 / M_PI, b);
+				m_Doc->rotateItem(rotation * 180 / M_PI, b);
 				m_Doc->RotMode(0);
 //				b->setRotation(rotation * 180 / M_PI);
 				b->setTextFlowMode(PageItem::TextFlowDisabled);
@@ -1644,7 +1644,7 @@ void AIPlug::processData(QString data)
 						FPoint wh = getMaxClipF(&ite->PoLine);
 						ite->setWidthHeight(wh.x(),wh.y());
 						ite->setTextFlowMode(PageItem::TextFlowDisabled);
-						m_Doc->AdjustItemSize(ite);
+						m_Doc->adjustItemSize(ite);
 					}
 					if (patternMode)
 						PatternElements.append(ite);
@@ -1684,7 +1684,7 @@ void AIPlug::processData(QString data)
 				ite = m_Doc->Items->last();
 				FPoint wh = getMaxClipF(&ite->PoLine);
 				ite->setWidthHeight(wh.x(),wh.y());
-				m_Doc->AdjustItemSize(ite);
+				m_Doc->adjustItemSize(ite);
 			}
 		}
 		else if ((command == "u") || (command == "q"))

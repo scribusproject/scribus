@@ -1286,7 +1286,7 @@ void SlaOutputDev::restoreState(GfxState *state)
 					out.translate(-ite->xPos(), -ite->yPos());
 					ite->PoLine = out.copy();
 					ite->setTextFlowMode(PageItem::TextFlowDisabled);
-					m_doc->AdjustItemSize(ite, true);
+					m_doc->adjustItemSize(ite, true);
 					m_doc->resizeGroupToContents(ite);
 					ite->OldB2 = ite->width();
 					ite->OldH2 = ite->height();
@@ -1409,7 +1409,7 @@ void SlaOutputDev::endTransparencyGroup(GfxState *state)
 						out.translate(-ite->xPos(), -ite->yPos());
 						ite->PoLine = out.copy();
 						ite->setTextFlowMode(PageItem::TextFlowDisabled);
-						m_doc->AdjustItemSize(ite, true);
+						m_doc->adjustItemSize(ite, true);
 						m_doc->resizeGroupToContents(ite);
 						ite->OldB2 = ite->width();
 						ite->OldH2 = ite->height();
@@ -1583,7 +1583,7 @@ void SlaOutputDev::stroke(GfxState *state)
 			ite->ClipEdited = true;
 			ite->FrameType = 3;
 			ite->setWidthHeight(wh.x(),wh.y());
-			m_doc->AdjustItemSize(ite);
+			m_doc->adjustItemSize(ite);
 			if (m_Elements->count() != 0)
 			{
 				PageItem* lItem = m_Elements->last();
@@ -1669,7 +1669,7 @@ void SlaOutputDev::fill(GfxState *state)
 		ite->setLineJoin(PLineJoin);
 		ite->setWidthHeight(wh.x(),wh.y());
 		ite->setTextFlowMode(PageItem::TextFlowDisabled);
-		m_doc->AdjustItemSize(ite);
+		m_doc->adjustItemSize(ite);
 		m_Elements->append(ite);
 		if (m_groupStack.count() != 0)
 		{
@@ -1714,7 +1714,7 @@ void SlaOutputDev::eoFill(GfxState *state)
 		ite->setLineJoin(PLineJoin);
 		ite->setWidthHeight(wh.x(),wh.y());
 		ite->setTextFlowMode(PageItem::TextFlowDisabled);
-		m_doc->AdjustItemSize(ite);
+		m_doc->adjustItemSize(ite);
 		m_Elements->append(ite);
 		if (m_groupStack.count() != 0)
 		{
@@ -1825,7 +1825,7 @@ GBool SlaOutputDev::axialShadedFill(GfxState *state, GfxAxialShading *shading, d
 	}
 	ite->fill_gradient = FillGradient;
 	ite->setGradientVector(GrStartX, GrStartY, GrEndX, GrEndY, 0, 0, 1, 0);
-	m_doc->AdjustItemSize(ite);
+	m_doc->adjustItemSize(ite);
 	m_Elements->append(ite);
 	if (m_groupStack.count() != 0)
 	{
@@ -1944,7 +1944,7 @@ GBool SlaOutputDev::radialShadedFill(GfxState *state, GfxRadialShading *shading,
 	}
 	ite->fill_gradient = FillGradient;
 	ite->setGradientVector(GrStartX, GrStartY, GrEndX, GrEndY, GrFocalX, GrFocalY, 1, 0);
-	m_doc->AdjustItemSize(ite);
+	m_doc->adjustItemSize(ite);
 	m_Elements->append(ite);
 	if (m_groupStack.count() != 0)
 	{
@@ -1986,7 +1986,7 @@ GBool SlaOutputDev::gouraudTriangleShadedFill(GfxState *state, GfxGouraudTriangl
 	ite->setLineEnd(PLineEnd);
 	ite->setLineJoin(PLineJoin);
 	ite->setTextFlowMode(PageItem::TextFlowDisabled);
-	m_doc->AdjustItemSize(ite);
+	m_doc->adjustItemSize(ite);
 	m_Elements->append(ite);
 	if (m_groupStack.count() != 0)
 	{
@@ -2067,7 +2067,7 @@ GBool SlaOutputDev::patchMeshShadedFill(GfxState *state, GfxPatchMeshShading *sh
 	ite->setLineEnd(PLineEnd);
 	ite->setLineJoin(PLineJoin);
 	ite->setTextFlowMode(PageItem::TextFlowDisabled);
-	m_doc->AdjustItemSize(ite);
+	m_doc->adjustItemSize(ite);
 	m_Elements->append(ite);
 	if (m_groupStack.count() != 0)
 	{
@@ -2296,7 +2296,7 @@ GBool SlaOutputDev::tilingPatternFill(GfxState *state, Gfx * /*gfx*/, Catalog *c
 	ite->GrType = 8;
 	ite->setPattern(id);
 	ite->setPatternTransform(fabs(pmat[0]) * 100, fabs(pmat[3]) * 100, mmx.dx() - ctm[4], mmx.dy() - ctm[5], 0, -1 * pmat[1], pmat[2]);
-	m_doc->AdjustItemSize(ite);
+	m_doc->adjustItemSize(ite);
 	m_Elements->append(ite);
 	if (m_groupStack.count() != 0)
 	{
@@ -2425,7 +2425,7 @@ void SlaOutputDev::drawImageMask(GfxState *state, Object *ref, Stream *str, int 
 	ite->setFillShade(100);
 	ite->setLineShade(100);
 	ite->setFillEvenOdd(false);
-	m_doc->AdjustItemSize(ite);
+	m_doc->adjustItemSize(ite);
 	QTemporaryFile *tempFile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_pdf_XXXXXX.png");
 	tempFile->setAutoRemove(false);
 	if (tempFile->open())
@@ -2455,7 +2455,7 @@ void SlaOutputDev::drawImageMask(GfxState *state, Object *ref, Stream *str, int 
 				ite->setWidthHeight(wh.x(),wh.y());
 				ite->setTextFlowMode(PageItem::TextFlowDisabled);
 				ite->ScaleType   = true;
-				m_doc->AdjustItemSize(ite);
+				m_doc->adjustItemSize(ite);
 				ite->OldB2 = ite->width();
 				ite->OldH2 = ite->height();
 				ite->updateClip();
@@ -2565,7 +2565,7 @@ void SlaOutputDev::drawSoftMaskedImage(GfxState *state, Object *ref, Stream *str
 	ite->setFillEvenOdd(false);
 	ite->setFillTransparency(1.0 - state->getFillOpacity());
 	ite->setFillBlendmode(getBlendMode(state));
-	m_doc->AdjustItemSize(ite);
+	m_doc->adjustItemSize(ite);
 	QTemporaryFile *tempFile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_pdf_XXXXXX.png");
 	tempFile->setAutoRemove(false);
 	if (tempFile->open())
@@ -2595,7 +2595,7 @@ void SlaOutputDev::drawSoftMaskedImage(GfxState *state, Object *ref, Stream *str
 				ite->setWidthHeight(wh.x(),wh.y());
 				ite->setTextFlowMode(PageItem::TextFlowDisabled);
 				ite->ScaleType   = true;
-				m_doc->AdjustItemSize(ite);
+				m_doc->adjustItemSize(ite);
 				ite->OldB2 = ite->width();
 				ite->OldH2 = ite->height();
 				ite->updateClip();
@@ -2712,7 +2712,7 @@ void SlaOutputDev::drawMaskedImage(GfxState *state, Object *ref, Stream *str,  i
 	ite->setFillEvenOdd(false);
 	ite->setFillTransparency(1.0 - state->getFillOpacity());
 	ite->setFillBlendmode(getBlendMode(state));
-	m_doc->AdjustItemSize(ite);
+	m_doc->adjustItemSize(ite);
 	QTemporaryFile *tempFile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_pdf_XXXXXX.png");
 	tempFile->setAutoRemove(false);
 	if (tempFile->open())
@@ -2742,7 +2742,7 @@ void SlaOutputDev::drawMaskedImage(GfxState *state, Object *ref, Stream *str,  i
 				ite->setWidthHeight(wh.x(),wh.y());
 				ite->setTextFlowMode(PageItem::TextFlowDisabled);
 				ite->ScaleType   = true;
-				m_doc->AdjustItemSize(ite);
+				m_doc->adjustItemSize(ite);
 				ite->OldB2 = ite->width();
 				ite->OldH2 = ite->height();
 				ite->updateClip();
@@ -2859,7 +2859,7 @@ void SlaOutputDev::drawImage(GfxState *state, Object *ref, Stream *str, int widt
 	ite->setFillEvenOdd(false);
 	ite->setFillTransparency(1.0 - state->getFillOpacity());
 	ite->setFillBlendmode(getBlendMode(state));
-	m_doc->AdjustItemSize(ite);
+	m_doc->adjustItemSize(ite);
 	if ((mm.type() == QTransform::TxShear) || (mm.type() == QTransform::TxRotate))
 	{
 		ite->setImageRotation(-tline.angle());
@@ -2955,7 +2955,7 @@ void SlaOutputDev::drawImage(GfxState *state, Object *ref, Stream *str, int widt
 		ite->setWidthHeight(wh.x(),wh.y());
 		ite->setTextFlowMode(PageItem::TextFlowDisabled);
 		ite->ScaleType   = true;
-		m_doc->AdjustItemSize(ite);
+		m_doc->adjustItemSize(ite);
 		ite->OldB2 = ite->width();
 		ite->OldH2 = ite->height();
 		ite->updateClip();
@@ -3627,7 +3627,7 @@ void SlaOutputDev::drawChar(GfxState *state, double x, double y, double dx, doub
 				ite->setLineEnd(PLineEnd);
 				ite->setLineJoin(PLineJoin);
 				ite->setTextFlowMode(PageItem::TextFlowDisabled);
-				m_doc->AdjustItemSize(ite);
+				m_doc->adjustItemSize(ite);
 				if ((render & 3) == 1 || (render & 3) == 2)
 				{
 					ite->setLineColor(CurrColorStroke);

@@ -813,10 +813,10 @@ void CanvasMode_Edit::mouseReleaseEvent(QMouseEvent *m)
 						else
 							ny = npx.y();
 					}
-					m_doc->MoveItem(nx-currItem->xPos(), ny-currItem->yPos(), currItem);
+					m_doc->moveItem(nx-currItem->xPos(), ny-currItem->yPos(), currItem);
 				}
 				else
-					m_doc->MoveItem(0, 0, currItem);
+					m_doc->moveItem(0, 0, currItem);
 			}
 			m_canvas->m_viewMode.operItemMoving = false;
 			if (m_doc->m_Selection->isMultipleSelection())

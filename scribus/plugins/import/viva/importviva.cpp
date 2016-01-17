@@ -950,7 +950,7 @@ PageItem* VivaPlug::parseObjectXML(const QDomElement& obNode)
 					m_Doc->groupObjectsToItem(retObj, GElements);
 					retObj->setGroupClipping(groupClip);
 					retObj->moveBy(ob_xpos, ob_ypos, true);
-					m_Doc->AdjustItemSize(retObj);
+					m_Doc->adjustItemSize(retObj);
 					retObj->OwnPage = m_Doc->OnPage(retObj);
 					m_Doc->GroupOnPage(retObj);
 					m_Doc->Items->removeLast();
@@ -1474,7 +1474,7 @@ PageItem* VivaPlug::parseObjectDetailsXML(const QDomElement& obNode, int baseTyp
 			item->PoLine = Path.copy();
 			FPoint wh = getMaxClipF(&item->PoLine);
 			item->setWidthHeight(wh.x(),wh.y());
-			m_Doc->AdjustItemSize(item, true);
+			m_Doc->adjustItemSize(item, true);
 		}
 		item->ClipEdited = true;
 		if ((cornerRadius != 0) && (item->frameType() == PageItem::Rectangle))

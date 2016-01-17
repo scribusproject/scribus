@@ -243,7 +243,7 @@ bool PathFinderPlugin::run(ScribusDoc* doc, QString)
 			currItem->PoLine = points;
 			currItem->ClipEdited = true;
 			currItem->FrameType = 3;
-			currDoc->AdjustItemSize(currItem);
+			currDoc->adjustItemSize(currItem);
 			currItem->OldB2 = currItem->width();
 			currItem->OldH2 = currItem->height();
 			currItem->updateClip();
@@ -293,7 +293,7 @@ bool PathFinderPlugin::run(ScribusDoc* doc, QString)
 				Item1->PoLine = points;
 				Item1->ClipEdited = true;
 				Item1->FrameType = 3;
-				currDoc->AdjustItemSize(Item1);
+				currDoc->adjustItemSize(Item1);
 				Item1->OldB2 = Item1->width();
 				Item1->OldH2 = Item1->height();
 				Item1->updateClip();
@@ -336,7 +336,7 @@ bool PathFinderPlugin::run(ScribusDoc* doc, QString)
 				Item2->PoLine = points;
 				Item2->ClipEdited = true;
 				Item2->FrameType = 3;
-				currDoc->AdjustItemSize(Item2);
+				currDoc->adjustItemSize(Item2);
 				Item2->OldB2 = Item2->width();
 				Item2->OldH2 = Item2->height();
 				Item2->updateClip();
@@ -373,7 +373,7 @@ bool PathFinderPlugin::run(ScribusDoc* doc, QString)
 				newItem->PoLine = points;
 				newItem->ClipEdited = true;
 				newItem->FrameType = 3;
-				currDoc->AdjustItemSize(newItem);
+				currDoc->adjustItemSize(newItem);
 				newItem->OldB2 = newItem->width();
 				newItem->OldH2 = newItem->height();
 				newItem->updateClip();

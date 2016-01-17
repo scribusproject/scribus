@@ -158,7 +158,7 @@ void PropertyWidget_PathText::handlePathDist()
 	if (!m_doc || !m_item || !m_ScMW || m_ScMW->scriptIsRunning())
 		return;
 	m_item->setTextToFrameDistLeft(startOffset->value());
-	m_doc->AdjustItemSize(m_item);
+	m_doc->adjustItemSize(m_item);
 	m_item->updatePolyClip();
 	m_item->update();
 	m_doc->regionsChanged()->update(QRect());
@@ -187,7 +187,7 @@ void PropertyWidget_PathText::handlePathOffs()
 	if (!m_doc || !m_item || !m_ScMW || m_ScMW->scriptIsRunning())
 		return;
 	m_item->BaseOffs = -distFromCurve->value();
-	m_doc->AdjustItemSize(m_item);
+	m_doc->adjustItemSize(m_item);
 	m_item->updatePolyClip();
 	m_item->update();
 }

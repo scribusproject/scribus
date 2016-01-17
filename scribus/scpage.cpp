@@ -415,7 +415,7 @@ void ScPage::restorePageItemConversion(ScItemState<std::pair<PageItem*, PageItem
 	{
 		m_Doc->Items->replace(m_Doc->Items->indexOf(newItem), oldItem);
 		oldItem->updatePolyClip();
-		m_Doc->AdjustItemSize(oldItem);
+		m_Doc->adjustItemSize(oldItem);
 	}
 	else
 	{
@@ -439,7 +439,7 @@ void ScPage::restorePageItemConversionToSymbol(ScItemState<std::pair<PageItem*, 
 	{
 		m_Doc->Items->replace(m_Doc->Items->indexOf(newItem), oldItem);
 		oldItem->updatePolyClip();
-		m_Doc->AdjustItemSize(oldItem);
+		m_Doc->adjustItemSize(oldItem);
 		if (m_Doc->docPatterns.contains(patternName))
 			m_Doc->removePattern(patternName);
 	}

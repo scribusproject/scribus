@@ -775,7 +775,7 @@ void WMFImport::finishCmdParsing( PageItem* item )
 		item->setLineWidth(qMax(item->lineWidth() * (coeff1 + coeff2) / 2.0, 0.25));
 		FPoint wh = getMaxClipF(&item->PoLine);
 		item->setWidthHeight(wh.x(), wh.y());
-		m_Doc->AdjustItemSize(item);
+		m_Doc->adjustItemSize(item);
 	}
 	item->setRedrawBounding();
 	item->OwnPage   = m_Doc->OnPage(item);

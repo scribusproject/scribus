@@ -1339,7 +1339,7 @@ void XarPlug::endTextLine()
 							FPoint wh = getMaxClipF(&item->PoLine);
 							item->setWidthHeight(wh.x(),wh.y());
 							item->setTextFlowMode(PageItem::TextFlowDisabled);
-							m_Doc->AdjustItemSize(item);
+							m_Doc->adjustItemSize(item);
 							Elements.append(item);
 							item->setFillColor(txDat.FillCol);
 							item->setFillTransparency(txDat.FillOpacity);
@@ -1446,7 +1446,7 @@ void XarPlug::endTextLine()
 					FPoint wh = getMaxClipF(&item->PoLine);
 					item->setWidthHeight(wh.x(),wh.y());
 					item->setTextFlowMode(PageItem::TextFlowDisabled);
-					m_Doc->AdjustItemSize(item);
+					m_Doc->adjustItemSize(item);
 					Elements.append(item);
 					item->setFillColor(txDat.FillCol);
 					item->setFillTransparency(txDat.FillOpacity);
@@ -3038,7 +3038,7 @@ void XarPlug::createSimilarItem(QDataStream &ts)
 			FPoint wh = getMaxClipF(&newItem->PoLine);
 			newItem->setWidthHeight(wh.x(),wh.y());
 			newItem->setTextFlowMode(PageItem::TextFlowDisabled);
-			m_Doc->AdjustItemSize(newItem);
+			m_Doc->adjustItemSize(newItem);
 			Elements.append(newItem);
 			XarStyle *gc = m_gc.top();
 			gc->Elements.append(newItem);
@@ -3177,7 +3177,7 @@ void XarPlug::finishItem(int z)
 	FPoint wh = getMaxClipF(&ite->PoLine);
 	ite->setWidthHeight(wh.x(),wh.y());
 	ite->setTextFlowMode(PageItem::TextFlowDisabled);
-	m_Doc->AdjustItemSize(ite);
+	m_Doc->adjustItemSize(ite);
 	if (groupStack.count() > 0)
 	{
 		XarGroup gg = groupStack.top();
@@ -3680,7 +3680,7 @@ void XarPlug::popGraphicContext()
 					groupItem->PoLine.translate(-minx + baseX, -miny + baseY);
 					FPoint wh = getMaxClipF(&groupItem->PoLine);
 					groupItem->setWidthHeight(wh.x(),wh.y());
-					m_Doc->AdjustItemSize(groupItem);
+					m_Doc->adjustItemSize(groupItem);
 				}
 				groupItem->AutoName = false;
 				groupItem->setFillTransparency(0);

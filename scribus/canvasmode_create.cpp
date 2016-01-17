@@ -664,7 +664,7 @@ PageItem* CreateMode::doCreateNewObject(void)
 				else
 					z = m_doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, Rxp, Ryp, Rxpd, Rypd, m_doc->itemToolPrefs().shapeLineWidth, m_doc->itemToolPrefs().shapeFillColor, m_doc->itemToolPrefs().shapeLineColor);
 				m_doc->Items->at(z)->SetFrameShape(m_doc->ValCount, m_doc->ShapeValues);
-				m_doc->AdjustItemSize(m_doc->Items->at(z));
+				m_doc->adjustItemSize(m_doc->Items->at(z));
 				m_doc->setRedrawBounding(m_doc->Items->at(z));
 				m_doc->Items->at(z)->FrameType = createObjectSubMode + 2;
 				break;
@@ -719,7 +719,7 @@ PageItem* CreateMode::doCreateNewObject(void)
 			z = m_doc->itemAddArea(PageItem::Spiral, PageItem::Unspecified, Rxp, Ryp, m_doc->itemToolPrefs().shapeLineWidth, CommonStrings::None, m_doc->itemToolPrefs().lineColor);
 		else
 			z = m_doc->itemAdd(PageItem::Spiral, PageItem::Unspecified, Rxp, Ryp, Rxpd, Rypd, m_doc->itemToolPrefs().shapeLineWidth, CommonStrings::None, m_doc->itemToolPrefs().lineColor);
-		m_doc->AdjustItemSize(m_doc->Items->at(z));
+		m_doc->adjustItemSize(m_doc->Items->at(z));
 		m_doc->setRedrawBounding(m_doc->Items->at(z));
 		break;
 	case modeInsertPDFButton:

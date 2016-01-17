@@ -1991,7 +1991,7 @@ void EmfPlug::finishItem(PageItem* ite, bool fill)
 	FPoint wh = getMaxClipF(&ite->PoLine);
 	ite->setWidthHeight(wh.x(),wh.y());
 	ite->setTextFlowMode(PageItem::TextFlowDisabled);
-	m_Doc->AdjustItemSize(ite);
+	m_Doc->adjustItemSize(ite);
 	ite->moveBy(-docX, -docY, true);
 	ite->moveBy(-currentDC.winOrigin.x(), -currentDC.winOrigin.y());
 	ite->OldB2 = ite->width();
@@ -2355,7 +2355,7 @@ void EmfPlug::createClipGroup()
 		FPoint wh = getMaxClipF(&ite->PoLine);
 		ite->setWidthHeight(wh.x(),wh.y());
 		ite->setTextFlowMode(PageItem::TextFlowDisabled);
-		m_Doc->AdjustItemSize(ite, true);
+		m_Doc->adjustItemSize(ite, true);
 		ite->moveBy(-docX, -docY, true);
 		ite->moveBy(-currentDC.winOrigin.x(), -currentDC.winOrigin.y());
 		ite->OldB2 = ite->width();
@@ -2949,7 +2949,7 @@ void EmfPlug::handleImage(qint32 dstX, qint32 dstY, qint32 dstW, qint32 dstH, QI
 				FPoint wh = getMaxClipF(&ite->PoLine);
 				ite->setWidthHeight(wh.x(),wh.y());
 				ite->setTextFlowMode(PageItem::TextFlowDisabled);
-				m_Doc->AdjustItemSize(ite);
+				m_Doc->adjustItemSize(ite);
 				ite->OldB2 = ite->width();
 				ite->OldH2 = ite->height();
 				ite->updateClip();
@@ -5711,7 +5711,7 @@ void EmfPlug::handleEMFPDrawImageData(QPointF p1, QPointF p2, QPointF p3, quint8
 						FPoint wh = getMaxClipF(&ite->PoLine);
 						ite->setWidthHeight(wh.x(),wh.y());
 						ite->setTextFlowMode(PageItem::TextFlowDisabled);
-						m_Doc->AdjustItemSize(ite);
+						m_Doc->adjustItemSize(ite);
 						ite->OldB2 = ite->width();
 						ite->OldH2 = ite->height();
 						ite->updateClip();

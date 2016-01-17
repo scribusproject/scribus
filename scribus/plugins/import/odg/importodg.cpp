@@ -3422,7 +3422,7 @@ PageItem* OdgPlug::applyStartArrow(PageItem* ite, ObjStyle &obState)
 					iteS->FrameType = 3;
 					FPoint wh = getMaxClipF(&iteS->PoLine);
 					iteS->setWidthHeight(wh.x(), wh.y());
-					m_Doc->AdjustItemSize(iteS, true);
+					m_Doc->adjustItemSize(iteS, true);
 					iteS->setFillEvenOdd(false);
 					iteS->OldB2 = iteS->width();
 					iteS->OldH2 = iteS->height();
@@ -3489,7 +3489,7 @@ PageItem* OdgPlug::applyEndArrow(PageItem* ite, ObjStyle &obState)
 					iteS->FrameType = 3;
 					FPoint wh = getMaxClipF(&iteS->PoLine);
 					iteS->setWidthHeight(wh.x(), wh.y());
-					m_Doc->AdjustItemSize(iteS, true);
+					m_Doc->adjustItemSize(iteS, true);
 					iteS->setFillEvenOdd(false);
 					iteS->OldB2 = iteS->width();
 					iteS->OldH2 = iteS->height();
@@ -3512,7 +3512,7 @@ void OdgPlug::finishItem(PageItem* item, ObjStyle &obState)
 	FPoint wh = getMaxClipF(&item->PoLine);
 	item->setWidthHeight(wh.x(), wh.y());
 	item->Clip = FlattenPath(item->PoLine, item->Segments);
-	m_Doc->AdjustItemSize(item, true);
+	m_Doc->adjustItemSize(item, true);
 	item->OldB2 = item->width();
 	item->OldH2 = item->height();
 	item->updateClip();

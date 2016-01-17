@@ -357,7 +357,7 @@ void ScrPainter::finishItem(PageItem* ite)
 	FPoint wh = getMaxClipF(&ite->PoLine);
 	ite->setWidthHeight(wh.x(),wh.y());
 	ite->setTextFlowMode(PageItem::TextFlowDisabled);
-	m_Doc->AdjustItemSize(ite);
+	m_Doc->adjustItemSize(ite);
 	ite->OldB2 = ite->width();
 	ite->OldH2 = ite->height();
 	if (isGradient)

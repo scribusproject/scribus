@@ -205,14 +205,14 @@ void NodeEditContext::moveClipPoint(PageItem *currItem, FPoint ip)
 	{
 		if ((np.x() < 0) && (!m_isContourLine) && (!(currItem->isGroup() || currItem->isSymbol())))
 		{
-			Doc->SizeItem(currItem->width() - np.x(), currItem->height(), currItem, false, false, false);
+			Doc->sizeItem(currItem->width() - np.x(), currItem->height(), currItem, false, false, false);
 			if (currItem->rotation() != 0)
 			{
 				FPoint npv(np.x(), 0);
-				Doc->MoveRotated(currItem, npv);
+				Doc->moveRotated(currItem, npv);
 			}
 			else
-				Doc->MoveItem(np.x(), 0, currItem);
+				Doc->moveItem(np.x(), 0, currItem);
 			Clip.translate(-np.x(), 0);
 			if (!currItem->imageFlippedH())
 				currItem->moveImageInFrame(-np.x()/currItem->imageXScale(), 0);
@@ -220,14 +220,14 @@ void NodeEditContext::moveClipPoint(PageItem *currItem, FPoint ip)
 		}
 		if ((np.y() < 0) && (!m_isContourLine) && (!(currItem->isGroup() || currItem->isSymbol())))
 		{
-			Doc->SizeItem(currItem->width(), currItem->height() - np.y(), currItem, false, false, false);
+			Doc->sizeItem(currItem->width(), currItem->height() - np.y(), currItem, false, false, false);
 			if (currItem->rotation() != 0)
 			{
 				FPoint npv(0, np.y());
-				Doc->MoveRotated(currItem, npv);
+				Doc->moveRotated(currItem, npv);
 			}
 			else
-				Doc->MoveItem(0, np.y(), currItem);
+				Doc->moveItem(0, np.y(), currItem);
 			Clip.translate(0, -np.y());
 			if (!currItem->imageFlippedV())
 				currItem->moveImageInFrame(0, -np.y()/currItem->imageYScale());
@@ -366,7 +366,7 @@ void NodeEditContext::reset1Control(PageItem* currItem)
 	{
 		currItem->PoLine.setPoint(Doc->nodeEdit.m_ClRe, np);
 	//	if (!(currItem->isGroup() || currItem->isSymbol()))
-			Doc->AdjustItemSize(currItem, true, true);
+			Doc->adjustItemSize(currItem, true, true);
 		Doc->regionsChanged()->update(QRectF());
 	}
 	undoManager->setUndoEnabled(true);
@@ -459,7 +459,7 @@ void NodeEditContext::resetControl(PageItem* currItem)
 	{
 		currItem->PoLine = Clip.copy();
 	//	if (!(currItem->isGroup() || currItem->isSymbol()))
-			Doc->AdjustItemSize(currItem, true, true);
+			Doc->adjustItemSize(currItem, true, true);
 		Doc->regionsChanged()->update(QRectF());
 	}
 	else

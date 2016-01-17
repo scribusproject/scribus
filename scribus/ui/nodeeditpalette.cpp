@@ -578,7 +578,7 @@ void NodePalette::ResetShapeToImageClip()
 		currItem->PoLine = currItem->imageClip.copy();
 		currItem->ClipEdited = true;
 		currItem->FrameType = 3;
-		m_doc->AdjustItemSize(currItem);
+		m_doc->adjustItemSize(currItem);
 		if (currItem->itemType() == PageItem::PathText)
 			currItem->updatePolyClip();
 		m_doc->regionsChanged()->update(QRectF());
@@ -604,7 +604,7 @@ void NodePalette::MovePoint()
 			np -= zp;
 		}
 		m_doc->nodeEdit.moveClipPoint(currItem, np);
-		m_doc->AdjustItemSize(currItem, true, true);
+		m_doc->adjustItemSize(currItem, true, true);
 		if (currItem->itemType() == PageItem::PathText)
 			currItem->updatePolyClip();
 		m_doc->regionsChanged()->update(QRectF());
@@ -938,7 +938,7 @@ void NodePalette::CancelEdit()
 		currItem->setXYPos(xPos, yPos, true);
 		currItem->ContourLine = itemContourPath.copy();
 		currItem->PoLine = itemPath.copy();
-		m_doc->AdjustItemSize(currItem);
+		m_doc->adjustItemSize(currItem);
 		if (currItem->itemType() == PageItem::PathText)
 			currItem->updatePolyClip();
 	}
@@ -964,7 +964,7 @@ void NodePalette::ResetToEditDefaults()
 		{
 			currItem->setXYPos(xPos, yPos, true);
 			currItem->PoLine = itemPath.copy();
-			m_doc->AdjustItemSize(currItem);
+			m_doc->adjustItemSize(currItem);
 		}
 		if (currItem->itemType() == PageItem::PathText)
 			currItem->updatePolyClip();

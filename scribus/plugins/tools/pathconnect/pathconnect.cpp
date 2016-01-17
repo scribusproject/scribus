@@ -139,7 +139,7 @@ bool PathConnectPlugin::run(ScribusDoc* doc, QString)
 			m_item1->PoLine = computePath(pointOne, pointTwo, mode, originalPath1, originalPath2);
 			m_item1->ClipEdited = true;
 			m_item1->FrameType = 3;
-			m_doc->AdjustItemSize(m_item1);
+			m_doc->adjustItemSize(m_item1);
 			m_item1->OldB2 = m_item1->width();
 			m_item1->OldH2 = m_item1->height();
 			if (UndoManager::undoEnabled())
@@ -167,7 +167,7 @@ bool PathConnectPlugin::run(ScribusDoc* doc, QString)
 			m_item1->ClipEdited = true;
 			m_item1->FrameType = 3;
 			m_item1->setXYPos(originalXPos, originalYPos);
-			m_doc->AdjustItemSize(m_item1);
+			m_doc->adjustItemSize(m_item1);
 			m_item1->OldB2 = m_item1->width();
 			m_item1->OldH2 = m_item1->height();
 			m_item1->updateClip();
@@ -198,7 +198,7 @@ void PathConnectPlugin::updateEffect(int effectType, int pointOne, int pointTwo,
 		m_item1->ClipEdited = true;
 		m_item1->FrameType = 3;
 	}
-	m_doc->AdjustItemSize(m_item1);
+	m_doc->adjustItemSize(m_item1);
 	m_item1->OldB2 = m_item1->width();
 	m_item1->OldH2 = m_item1->height();
 	m_item1->updateClip();

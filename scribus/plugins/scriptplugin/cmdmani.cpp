@@ -255,7 +255,7 @@ PyObject *scribus_moveobjrel(PyObject* /* self */, PyObject* args)
 		ScCore->primaryMainWindow()->view->endGroupTransaction();
 	}
 	else {
-		ScCore->primaryMainWindow()->doc->MoveItem(ValueToPoint(x), ValueToPoint(y), item);
+		ScCore->primaryMainWindow()->doc->moveItem(ValueToPoint(x), ValueToPoint(y), item);
 		}
 	// Now restore the selection.
 	ScCore->primaryMainWindow()->view->Deselect();
@@ -294,7 +294,7 @@ PyObject *scribus_moveobjabs(PyObject* /* self */, PyObject* args)
 		ScCore->primaryMainWindow()->view->endGroupTransaction();
 	}
 	else
-		ScCore->primaryMainWindow()->doc->MoveItem(pageUnitXToDocX(x) - item->xPos(), pageUnitYToDocY(y) - item->yPos(), item);
+		ScCore->primaryMainWindow()->doc->moveItem(pageUnitXToDocX(x) - item->xPos(), pageUnitYToDocY(y) - item->yPos(), item);
 	// Now restore the selection.
 	ScCore->primaryMainWindow()->view->Deselect();
 	if (hadOrigSelection)
@@ -314,7 +314,7 @@ PyObject *scribus_rotobjrel(PyObject* /* self */, PyObject* args)
 	PageItem *item = GetUniqueItem(QString::fromUtf8(Name));
 	if (item == NULL)
 		return NULL;
-	ScCore->primaryMainWindow()->doc->RotateItem(item->rotation() - x, item);
+	ScCore->primaryMainWindow()->doc->rotateItem(item->rotation() - x, item);
 //	Py_INCREF(Py_None);
 //	return Py_None;
 	Py_RETURN_NONE;
@@ -331,7 +331,7 @@ PyObject *scribus_rotobjabs(PyObject* /* self */, PyObject* args)
 	PageItem *item = GetUniqueItem(QString::fromUtf8(Name));
 	if (item == NULL)
 		return NULL;
-	ScCore->primaryMainWindow()->doc->RotateItem(x * -1.0, item);
+	ScCore->primaryMainWindow()->doc->rotateItem(x * -1.0, item);
 //	Py_INCREF(Py_None);
 //	return Py_None;
 	Py_RETURN_NONE;
@@ -348,7 +348,7 @@ PyObject *scribus_sizeobjabs(PyObject* /* self */, PyObject* args)
 	PageItem *item = GetUniqueItem(QString::fromUtf8(Name));
 	if (item == NULL)
 		return NULL;
-	ScCore->primaryMainWindow()->doc->SizeItem(ValueToPoint(x), ValueToPoint(y), item);
+	ScCore->primaryMainWindow()->doc->sizeItem(ValueToPoint(x), ValueToPoint(y), item);
 //	Py_INCREF(Py_None);
 //	return Py_None;
 	Py_RETURN_NONE;

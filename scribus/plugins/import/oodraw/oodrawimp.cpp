@@ -751,7 +751,7 @@ QList<PageItem*> OODPlug::parseLine(const QDomElement &e)
 	if (!e.hasAttribute("draw:transform"))
 	{
 		ite->Clip = FlattenPath(ite->PoLine, ite->Segments);
-		m_Doc->AdjustItemSize(ite);
+		m_Doc->adjustItemSize(ite);
 	}
 	ite = finishNodeParsing(e, ite, style);
 	elements.append(ite);
@@ -777,7 +777,7 @@ QList<PageItem*> OODPlug::parsePolygon(const QDomElement &e)
 	if (!e.hasAttribute("draw:transform"))
 	{
 		ite->Clip = FlattenPath(ite->PoLine, ite->Segments);
-		m_Doc->AdjustItemSize(ite);
+		m_Doc->adjustItemSize(ite);
 	}
 	ite = finishNodeParsing(e, ite, style);
 	elements.append(ite);
@@ -803,7 +803,7 @@ QList<PageItem*> OODPlug::parsePolyline(const QDomElement &e)
 	if (!e.hasAttribute("draw:transform"))
 	{
 		ite->Clip = FlattenPath(ite->PoLine, ite->Segments);
-		m_Doc->AdjustItemSize(ite);
+		m_Doc->adjustItemSize(ite);
 	}
 	ite = finishNodeParsing(e, ite, style);
 	elements.append(ite);
@@ -855,7 +855,7 @@ QList<PageItem*> OODPlug::parsePath(const QDomElement &e)
 		if (!e.hasAttribute("draw:transform"))
 		{
 			ite->Clip = FlattenPath(ite->PoLine, ite->Segments);
-			m_Doc->AdjustItemSize(ite);
+			m_Doc->adjustItemSize(ite);
 		}
 		ite = finishNodeParsing(e, ite, style);
 		elements.append(ite);
@@ -1152,7 +1152,7 @@ PageItem* OODPlug::finishNodeParsing(const QDomElement &elm, PageItem* item, OOD
 		FPoint wh = getMaxClipF(&item->PoLine);
 		item->setWidthHeight(wh.x(), wh.y());
 		item->Clip = FlattenPath(item->PoLine, item->Segments);
-		m_Doc->AdjustItemSize(item);
+		m_Doc->adjustItemSize(item);
 	}
 	item->OwnPage = m_Doc->OnPage(item);
 	//ite->setTextFlowMode(PageItem::TextFlowUsesFrameShape);

@@ -712,7 +712,7 @@ void PageItem_Table::adjustFrameToTable()
 	if (!m_Doc)
 		return;
 
-	m_Doc->SizeItem(effectiveWidth(), effectiveHeight(), this);
+	m_Doc->sizeItem(effectiveWidth(), effectiveHeight(), this);
 }
 
 void PageItem_Table::setFillColor(const QString& color)

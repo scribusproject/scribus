@@ -701,7 +701,7 @@ void XfigPlug::processArrows(int forward_arrow, QString fArrowData, int backward
 			FPoint wh = getMaxClipF(&item->PoLine);
 			item->setWidthHeight(wh.x(),wh.y());
 			item->setTextFlowMode(PageItem::TextFlowDisabled);
-			m_Doc->AdjustItemSize(item);
+			m_Doc->adjustItemSize(item);
 			item->setWidthHeight(qMax(item->width(), 1.0), qMax(item->height(), 1.0));
 			depthMap.insert(999 - depth, currentItemNr);
 			currentItemNr++;
@@ -761,7 +761,7 @@ void XfigPlug::processArrows(int forward_arrow, QString fArrowData, int backward
 			FPoint wh = getMaxClipF(&item->PoLine);
 			item->setWidthHeight(wh.x(),wh.y());
 			item->setTextFlowMode(PageItem::TextFlowDisabled);
-			m_Doc->AdjustItemSize(item);
+			m_Doc->adjustItemSize(item);
 			item->setWidthHeight(qMax(item->width(), 1.0), qMax(item->height(), 1.0));
 			depthMap.insert(999 - depth, currentItemNr);
 			currentItemNr++;
@@ -883,7 +883,7 @@ void XfigPlug::processPolyline(QDataStream &ts, QString data)
 		FPoint wh = getMaxClipF(&ite->PoLine);
 		ite->setWidthHeight(wh.x(),wh.y());
 		ite->setTextFlowMode(PageItem::TextFlowDisabled);
-		m_Doc->AdjustItemSize(ite);
+		m_Doc->adjustItemSize(ite);
 		ite->setWidthHeight(qMax(ite->width(), 1.0), qMax(ite->height(), 1.0));
 		if (subtype == 4)
 		{
@@ -1015,7 +1015,7 @@ void XfigPlug::processSpline(QDataStream &ts, QString data)
 		FPoint wh = getMaxClipF(&ite->PoLine);
 		ite->setWidthHeight(wh.x(),wh.y());
 		ite->setTextFlowMode(PageItem::TextFlowDisabled);
-		m_Doc->AdjustItemSize(ite);
+		m_Doc->adjustItemSize(ite);
 		ite->setWidthHeight(qMax(ite->width(), 1.0), qMax(ite->height(), 1.0));
 		depthMap.insert(999 - depth, currentItemNr);
 		currentItemNr++;
@@ -1132,7 +1132,7 @@ void XfigPlug::processArc(QDataStream &ts, QString data)
 		FPoint wh = getMaxClipF(&ite->PoLine);
 		ite->setWidthHeight(wh.x(),wh.y());
 		ite->setTextFlowMode(PageItem::TextFlowDisabled);
-		m_Doc->AdjustItemSize(ite);
+		m_Doc->adjustItemSize(ite);
 		ite->setWidthHeight(qMax(ite->width(), 1.0), qMax(ite->height(), 1.0));
 		depthMap.insert(999 - depth, currentItemNr);
 		currentItemNr++;
@@ -1199,7 +1199,7 @@ void XfigPlug::processEllipse(QString data)
 		ite->setTextFlowMode(PageItem::TextFlowDisabled);
 		int rot = m_Doc->RotMode();
 		m_Doc->RotMode ( 2);
-		m_Doc->RotateItem(-angle * 180.0 / M_PI, ite);
+		m_Doc->rotateItem(-angle * 180.0 / M_PI, ite);
 		m_Doc->RotMode( rot);
 		depthMap.insert(999 - depth, currentItemNr);
 		currentItemNr++;
@@ -1511,12 +1511,12 @@ void XfigPlug::processText(QString data)
 		FPoint wh = getMaxClipF(&ite->PoLine);
 		ite->setWidthHeight(wh.x(),wh.y());
 		ite->setTextFlowMode(PageItem::TextFlowDisabled);
-		m_Doc->AdjustItemSize(ite);
+		m_Doc->adjustItemSize(ite);
 		ite->setWidthHeight(qMax(ite->width(), 1.0), qMax(ite->height(), 1.0));
 		if (subtype == 1)
-			m_Doc->MoveRotated(ite, FPoint(-br.width() / 2.0, 0.0));
+			m_Doc->moveRotated(ite, FPoint(-br.width() / 2.0, 0.0));
 		else if (subtype == 2)
-			m_Doc->MoveRotated(ite, FPoint(-br.width(), 0.0));
+			m_Doc->moveRotated(ite, FPoint(-br.width(), 0.0));
 		depthMap.insert(999 - depth, currentItemNr);
 		currentItemNr++;
 	}

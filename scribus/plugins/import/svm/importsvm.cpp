@@ -1221,7 +1221,7 @@ void SvmPlug::finishItem(PageItem* ite, bool fill)
 	FPoint wh = getMaxClipF(&ite->PoLine);
 	ite->setWidthHeight(wh.x(),wh.y());
 	ite->setTextFlowMode(PageItem::TextFlowDisabled);
-	m_Doc->AdjustItemSize(ite);
+	m_Doc->adjustItemSize(ite);
 	ite->moveBy(-docX, -docY, true);
 	ite->OldB2 = ite->width();
 	ite->OldH2 = ite->height();
@@ -4610,7 +4610,7 @@ void SvmPlug::handleEMFPDrawImageData(QPointF p1, QPointF p2, QPointF p3, quint8
 						FPoint wh = getMaxClipF(&ite->PoLine);
 						ite->setWidthHeight(wh.x(),wh.y());
 						ite->setTextFlowMode(PageItem::TextFlowDisabled);
-						m_Doc->AdjustItemSize(ite);
+						m_Doc->adjustItemSize(ite);
 						ite->OldB2 = ite->width();
 						ite->OldH2 = ite->height();
 						ite->updateClip();

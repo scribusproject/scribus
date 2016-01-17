@@ -1112,7 +1112,7 @@ void CanvasMode_Normal::mouseReleaseEvent(QMouseEvent *m)
 			else
 			{
 				currItem = m_doc->m_Selection->itemAt(0);
-				m_doc->MoveItem(m_objectDeltaPos.x(), m_objectDeltaPos.y(), currItem);
+				m_doc->moveItem(m_objectDeltaPos.x(), m_objectDeltaPos.y(), currItem);
 				if (m_doc->SnapGrid)
 				{
 					double nx = currItem->xPos();
@@ -1140,7 +1140,7 @@ void CanvasMode_Normal::mouseReleaseEvent(QMouseEvent *m)
 							ny += (gy - gyo);
 						}
 					}
-					m_doc->MoveItem(nx-currItem->xPos(), ny-currItem->yPos(), currItem);
+					m_doc->moveItem(nx-currItem->xPos(), ny-currItem->yPos(), currItem);
 				}
 			}
 			m_canvas->m_viewMode.operItemMoving = false;

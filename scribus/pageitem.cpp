@@ -3637,7 +3637,7 @@ void PageItem::meshToShape()
 	FrameType = 3;
 	FPoint wh = getMaxClipF(&PoLine);
 	setWidthHeight(wh.x(),wh.y());
-	m_Doc->AdjustItemSize(this);
+	m_Doc->adjustItemSize(this);
 	OldB2 = width();
 	OldH2 = height();
 	updateClip();
@@ -5516,13 +5516,13 @@ void PageItem::restoreConnectPath(SimpleState *state, bool isUndo)
 	if (isUndo)
 	{
 		PoLine = is->getItem().first;
-		doc()->AdjustItemSize(this);
+		doc()->adjustItemSize(this);
 		moveBy(is->getDouble("OLDX") - xPos(),is->getDouble("OLDY") - yPos());
 	}
 	else
 	{
 		PoLine = is->getItem().second;
-		doc()->AdjustItemSize(this);
+		doc()->adjustItemSize(this);
 		moveBy(is->getDouble("NEWX") - xPos(),is->getDouble("NEWY") - yPos());
 	}
 	OldB2 = width();
@@ -6047,7 +6047,7 @@ void PageItem::restoreArc(SimpleState *state, bool isUndo)
 		item->arcStartAngle = ss->getDouble("OLD_START");
 		item->arcSweepAngle = ss->getDouble("OLD_SWEEP");
 		item->PoLine = ss->getItem().first;
-		doc()->AdjustItemSize(item);
+		doc()->adjustItemSize(item);
 		moveBy(ss->getDouble("OLD_XPOS") - xPos(),ss->getDouble("OLD_YPOS") - yPos());
 	}
 	else
@@ -6057,7 +6057,7 @@ void PageItem::restoreArc(SimpleState *state, bool isUndo)
 		item->arcStartAngle = ss->getDouble("NEW_START");
 		item->arcSweepAngle = ss->getDouble("NEW_SWEEP");
 		item->PoLine = ss->getItem().second;
-		doc()->AdjustItemSize(item);
+		doc()->adjustItemSize(item);
 		moveBy(ss->getDouble("NEW_XPOS") - xPos(),ss->getDouble("NEW_YPOS") - yPos());
 	}
 	update();
@@ -6091,7 +6091,7 @@ void PageItem::restoreTransform(SimpleState *ss, bool isUndo)
 		ContourLine.map(is->getItem().at(1).inverted());
 		ContourLine.map(is->getItem().at(0).inverted());
 		ContourLine.translate(-x,-y);
-		doc()->AdjustItemSize(this);
+		doc()->adjustItemSize(this);
 		moveBy(is->getDouble("POSX") - xPos(),is->getDouble("POSY") - yPos());
 	}
 	else
@@ -6106,7 +6106,7 @@ void PageItem::restoreTransform(SimpleState *ss, bool isUndo)
 		ContourLine.map(is->getItem().at(1));
 		ContourLine.map(is->getItem().at(2));
 		ContourLine.translate(-x,-y);
-		doc()->AdjustItemSize(this);
+		doc()->adjustItemSize(this);
 	}
 }
 
@@ -6355,7 +6355,7 @@ void PageItem::restoreMoveMeshGrad(SimpleState *state, bool isUndo)
 		FrameType = is->getInt("FRAME_TYPE");
 		FPoint wh = getMaxClipF(&PoLine);
 		setWidthHeight(wh.x(),wh.y());
-		m_Doc->AdjustItemSize(this);
+		m_Doc->adjustItemSize(this);
 		OldB2 = is->getInt("OLDB");
 		OldH2 = is->getInt("OLDH");
 		updateClip();
@@ -7012,7 +7012,7 @@ void PageItem::restoreMove(SimpleState *state, bool isUndo)
 		mx = -mx;
 		my = -my;
 	}
-	m_Doc->MoveItem(mx, my, this);
+	m_Doc->moveItem(mx, my, this);
 	oldXpos = m_xPos;
 	oldYpos = m_yPos;
 	oldOwnPage = OwnPage;
@@ -7036,17 +7036,17 @@ void PageItem::restoreResize(SimpleState *state, bool isUndo)
 	bool redraw = ((stateCode != 1) && (stateCode != 3));
 	if (isUndo)
 	{
-		m_Doc->SizeItem(ow, oh, this, false, true, redraw);
-		m_Doc->MoveItem(mx, my, this);
-		m_Doc->RotateItem(ort, this);
+		m_Doc->sizeItem(ow, oh, this, false, true, redraw);
+		m_Doc->moveItem(mx, my, this);
+		m_Doc->rotateItem(ort, this);
 	}
 	else
 	{
 		mx = -mx;
 		my = -my;
-		m_Doc->SizeItem(w, h, this, false, true, redraw);
-		m_Doc->MoveItem(mx, my, this);
-		m_Doc->RotateItem(rt, this);
+		m_Doc->sizeItem(w, h, this, false, true, redraw);
+		m_Doc->moveItem(mx, my, this);
+		m_Doc->rotateItem(rt, this);
 	}
 	oldWidth = m_width;
 	oldHeight = m_height;
@@ -7072,15 +7072,15 @@ void PageItem::restoreRotate(SimpleState *state, bool isUndo)
 	bool redraw = ((stateCode != 1) && (stateCode != 3));
 	if (isUndo)
 	{
-		m_Doc->RotateItem(ort, this);
-		m_Doc->MoveItem(ox - m_xPos, oy - m_yPos, this);
-		m_Doc->SizeItem(ow, oh, this, false, true, redraw);
+		m_Doc->rotateItem(ort, this);
+		m_Doc->moveItem(ox - m_xPos, oy - m_yPos, this);
+		m_Doc->sizeItem(ow, oh, this, false, true, redraw);
 	}
 	else
 	{
-		m_Doc->RotateItem(rt, this);
-		m_Doc->MoveItem(x - m_xPos, y - m_yPos, this);
-		m_Doc->SizeItem(w, h, this, false, true, redraw);
+		m_Doc->rotateItem(rt, this);
+		m_Doc->moveItem(x - m_xPos, y - m_yPos, this);
+		m_Doc->sizeItem(w, h, this, false, true, redraw);
 	}
 	oldRot = m_rotation;
 	oldXpos = m_xPos;
@@ -7616,7 +7616,7 @@ void PageItem::restoreUniteItem(SimpleState *state, bool isUndo)
 			Segments.clear();
 			FrameType = is->getInt("FRAMETYPE");
 			ClipEdited = is->getBool("CLIPEDITED");
-			doc()->AdjustItemSize(this);
+			doc()->adjustItemSize(this);
 		} else {
 			select();
 			for (int i = 0; i < is->getItem().first.size(); ++i)
@@ -7753,8 +7753,8 @@ void PageItem::restoreShapeContour(UndoState *state, bool isUndo)
 				ContourLine = oldClip;
 			else
 				PoLine = oldClip;
-			m_Doc->AdjustItemSize(this);
-			m_Doc->MoveItem(oldX - xPos(), oldY - yPos(), this);
+			m_Doc->adjustItemSize(this);
+			m_Doc->moveItem(oldX - xPos(), oldY - yPos(), this);
 		}
 		else
 		{
@@ -7762,8 +7762,8 @@ void PageItem::restoreShapeContour(UndoState *state, bool isUndo)
 				ContourLine = newClip;
 			else
 				PoLine = newClip;
-			m_Doc->AdjustItemSize(this);
-			m_Doc->MoveItem(newX - xPos(), newY - yPos(), this);
+			m_Doc->adjustItemSize(this);
+			m_Doc->moveItem(newX - xPos(), newY - yPos(), this);
 		}
 		if (oldClip.count() != newClip.count())
 			m_Doc->nodeEdit.deselect();

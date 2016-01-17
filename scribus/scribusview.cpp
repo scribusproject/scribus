@@ -1249,7 +1249,7 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 					nx = npx.x();
 					ny = npx.y();
 				}
-				Doc->MoveItem(nx-currItem->xPos(), ny-currItem->yPos(), currItem);
+				Doc->moveItem(nx-currItem->xPos(), ny-currItem->yPos(), currItem);
 			}
 		}
 		if ((Doc->m_Selection->count() > 0) && (Doc->appMode != modeNormal))
@@ -1543,7 +1543,7 @@ void ScribusView::TransformPoly(int mode, int rot, double scaling)
 	}
 	currItem->PoLine.map(ma);
 	currItem->PoLine.translate(offsX, offsY);
-	Doc->AdjustItemSize(currItem);
+	Doc->adjustItemSize(currItem);
 	QTransform ma2;
 	ma2.translate(oldPos.x(), oldPos.y());
 	ma2.scale(1, 1);
@@ -1584,7 +1584,7 @@ void ScribusView::TransformPoly(int mode, int rot, double scaling)
 	}
 	double x = ma2.m11() * n.x() + ma2.m21() * n.y() + ma2.dx();
 	double y = ma2.m22() * n.y() + ma2.m12() * n.x() + ma2.dy();
-	Doc->MoveItem(x-oldPos.x(), y-oldPos.y(), currItem);
+	Doc->moveItem(x-oldPos.x(), y-oldPos.y(), currItem);
 	if (currItem->asPathText())
 		currItem->updatePolyClip();
 	Doc->setRedrawBounding(currItem);
@@ -1917,7 +1917,7 @@ void ScribusView::PasteToPage()
 				nx = npx.x();
 				ny = npx.y();
 			}
-			Doc->MoveItem(nx-currItem->xPos(), ny-currItem->yPos(), currItem);
+			Doc->moveItem(nx-currItem->xPos(), ny-currItem->yPos(), currItem);
 		}
 		currItem->emitAllToGUI();
 	}
@@ -3211,7 +3211,7 @@ void ScribusView::TextToPath()
 						bb->setLineColor(charStyle.fillColor());
 						bb->setLineShade(charStyle.fillShade());
 						bb->setLineWidth(Uwid);
-						Doc->AdjustItemSize(bb);
+						Doc->adjustItemSize(bb);
 						bb->ContourLine = bb->PoLine.copy();
 						bb->ClipEdited = true;
 						bb->FrameType = 3;
@@ -3255,7 +3255,7 @@ void ScribusView::TextToPath()
 								bb->setLineShade(100);
 							}
 							bb->setLineWidth(chs * charStyle.outlineWidth() / 10000.0);
-							Doc->AdjustItemSize(bb);
+							Doc->adjustItemSize(bb);
 							bb->ContourLine = bb->PoLine.copy();
 							bb->ClipEdited = true;
 							bb->FrameType = 3;
@@ -3292,7 +3292,7 @@ void ScribusView::TextToPath()
 							bb->setLineShade(100);
 						}
 						bb->setLineWidth(chs * charStyle.outlineWidth() / 10000.0);
-						Doc->AdjustItemSize(bb);
+						Doc->adjustItemSize(bb);
 						bb->ContourLine = bb->PoLine.copy();
 						bb->ClipEdited = true;
 						bb->FrameType = 3;
@@ -3351,7 +3351,7 @@ void ScribusView::TextToPath()
 						bb->setLineColor(charStyle.fillColor());
 						bb->setLineShade(charStyle.fillShade());
 						bb->setLineWidth(Uwid);
-						Doc->AdjustItemSize(bb);
+						Doc->adjustItemSize(bb);
 						bb->ContourLine = bb->PoLine.copy();
 						bb->ClipEdited = true;
 						bb->FrameType = 3;
@@ -3702,7 +3702,7 @@ void ScribusView::TextToPath()
 				bb->OldB2 = bb->width();
 				bb->OldH2 = bb->height();
 				bb->setRotation(currItem->rotation());
-				Doc->AdjustItemSize(bb);
+				Doc->adjustItemSize(bb);
 				undoManager->setUndoEnabled(true);
 				newGroupedItems.append(Doc->Items->takeAt(z));
 			}

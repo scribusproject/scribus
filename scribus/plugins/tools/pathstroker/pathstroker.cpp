@@ -205,7 +205,7 @@ bool PathStrokerPlugin::run(ScribusDoc* doc, QString)
 			newItem->PoLine = points;
 			newItem->ClipEdited = true;
 			newItem->FrameType = 3;
-			currDoc->AdjustItemSize(newItem);
+			currDoc->adjustItemSize(newItem);
 			newItem->OldB2 = newItem->width();
 			newItem->OldH2 = newItem->height();
 			newItem->updateClip();
@@ -258,7 +258,7 @@ bool PathStrokerPlugin::run(ScribusDoc* doc, QString)
 					newItem->PoLine = points;
 					newItem->ClipEdited = true;
 					newItem->FrameType = 3;
-					currDoc->AdjustItemSize(newItem);
+					currDoc->adjustItemSize(newItem);
 					newItem->OldB2 = newItem->width();
 					newItem->OldH2 = newItem->height();
 					newItem->updateClip();
@@ -295,7 +295,7 @@ bool PathStrokerPlugin::run(ScribusDoc* doc, QString)
 						newItem->PoLine = arrow;
 						newItem->ClipEdited = true;
 						newItem->FrameType = 3;
-						currDoc->AdjustItemSize(newItem);
+						currDoc->adjustItemSize(newItem);
 						newItem->OldB2 = newItem->width();
 						newItem->OldH2 = newItem->height();
 						newItem->updateClip();
@@ -334,7 +334,7 @@ bool PathStrokerPlugin::run(ScribusDoc* doc, QString)
 						newItem->PoLine = arrow;
 						newItem->ClipEdited = true;
 						newItem->FrameType = 3;
-						currDoc->AdjustItemSize(newItem);
+						currDoc->adjustItemSize(newItem);
 						newItem->OldB2 = newItem->width();
 						newItem->OldH2 = newItem->height();
 						newItem->updateClip();

@@ -404,7 +404,7 @@ void SmlPlug::finishItem(QDomElement &e, PageItem* ite)
 	ite->setLineEnd(LineEnd);
 	ite->setTextFlowMode(PageItem::TextFlowDisabled);
 	ite->PoLine.translate(m_Doc->currentPage()->xOffset(), m_Doc->currentPage()->yOffset());
-	m_Doc->AdjustItemSize(ite);
+	m_Doc->adjustItemSize(ite);
 	ite->OldB2 = ite->width();
 	ite->OldH2 = ite->height();
 	ite->updateClip();

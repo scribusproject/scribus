@@ -94,9 +94,9 @@ void BezierMode::finalizeItem(PageItem* currItem)
 	}
 	else
 	{
-		m_doc->SizeItem(currItem->PoLine.WidthHeight().x(), currItem->PoLine.WidthHeight().y(), currItem, false, false);
+		m_doc->sizeItem(currItem->PoLine.WidthHeight().x(), currItem->PoLine.WidthHeight().y(), currItem, false, false);
 //		currItem->setPolyClip(qRound(qMax(currItem->lineWidth() / 2.0, 1)));
-		m_doc->AdjustItemSize(currItem);
+		m_doc->adjustItemSize(currItem);
 		currItem->ContourLine = currItem->PoLine.copy();
 	}
 	m_view->resetMousePressed();
@@ -170,9 +170,9 @@ void BezierMode::deactivate(bool flag)
 	if (!currItem)
 		return;
 
-	m_doc->SizeItem(currItem->PoLine.WidthHeight().x(), currItem->PoLine.WidthHeight().y(), currItem, false, false);
+	m_doc->sizeItem(currItem->PoLine.WidthHeight().x(), currItem->PoLine.WidthHeight().y(), currItem, false, false);
 	currItem->setPolyClip(qRound(qMax(currItem->lineWidth() / 2.0, 1.0)));
-	m_doc->AdjustItemSize(currItem);
+	m_doc->adjustItemSize(currItem);
 	currItem->ContourLine = currItem->PoLine.copy();
 	currItem->ClipEdited = true;
 	currItem->FrameType = 3;
@@ -329,14 +329,14 @@ void BezierMode::mousePressEvent(QMouseEvent *m)
 	if (npf2.x() < 0)
 	{
 		currItem->PoLine.translate(-npf2.x(), 0);
-		m_doc->MoveItem(npf2.x(), 0, currItem);
+		m_doc->moveItem(npf2.x(), 0, currItem);
 	}
 	if (npf2.y() < 0)
 	{
 		currItem->PoLine.translate(0, -npf2.y());
-		m_doc->MoveItem(0, npf2.y(), currItem);
+		m_doc->moveItem(0, npf2.y(), currItem);
 	}
-	m_doc->SizeItem(currItem->PoLine.WidthHeight().x(), currItem->PoLine.WidthHeight().y(), currItem, false, false, false);
+	m_doc->sizeItem(currItem->PoLine.WidthHeight().x(), currItem->PoLine.WidthHeight().y(), currItem, false, false, false);
 	currItem->setPolyClip(qRound(qMax(currItem->lineWidth() / 2, 1.0)));
 	m_canvas->newRedrawPolygon();
 	undoManager->setUndoEnabled(false);
@@ -382,12 +382,12 @@ void BezierMode::mouseReleaseEvent(QMouseEvent *m)
 		if (np2.x() < 0)
 		{
 			currItem->PoLine.translate(-np2.x(), 0);
-			m_doc->MoveItem(np2.x(), 0, currItem);
+			m_doc->moveItem(np2.x(), 0, currItem);
 		}
 		if (np2.y() < 0)
 		{
 			currItem->PoLine.translate(0, -np2.y());
-			m_doc->MoveItem(0, np2.y(), currItem);
+			m_doc->moveItem(0, np2.y(), currItem);
 		}
 		if (FirstPoly)
 		{
@@ -396,8 +396,8 @@ void BezierMode::mouseReleaseEvent(QMouseEvent *m)
 		}
 		else
 		{
-			m_doc->SizeItem(currItem->PoLine.WidthHeight().x(), currItem->PoLine.WidthHeight().y(), currItem, false, false, false);
-			m_doc->AdjustItemSize(currItem);
+			m_doc->sizeItem(currItem->PoLine.WidthHeight().x(), currItem->PoLine.WidthHeight().y(), currItem, false, false, false);
+			m_doc->adjustItemSize(currItem);
 			currItem->Sizing = ssiz;
 			currItem->ContourLine = currItem->PoLine.copy();
 			m_canvas->setRenderModeUseBuffer(false);

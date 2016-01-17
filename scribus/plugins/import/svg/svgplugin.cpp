@@ -616,7 +616,7 @@ PageItem *SVGPlug::finishNode(const QDomNode &e, PageItem* item)
 			item->setLineWidth(item->lineWidth() * (coeff1 + coeff2) / 2.0);
 			FPoint wh = getMaxClipF(&item->PoLine);
 			item->setWidthHeight(wh.x(), wh.y());
-			m_Doc->AdjustItemSize(item);
+			m_Doc->adjustItemSize(item);
 //			item->moveBy(mm.dx(), mm.dy());
 //			item->setWidthHeight(item->width() * mm.m11(), item->height() * mm.m22());
 //			item->setLineWidth(item->lineWidth() * (coeff1 + coeff2) / 2.0);
@@ -659,7 +659,7 @@ PageItem *SVGPlug::finishNode(const QDomNode &e, PageItem* item)
 			FPoint wx = getMinClipF(&item->PoLine);
 			inGroupXOrigin = qMin(inGroupXOrigin, wx.x());
 			inGroupYOrigin = qMin(inGroupYOrigin, wx.y());
-			m_Doc->AdjustItemSize(item);
+			m_Doc->adjustItemSize(item);
 			break;
 		}
 	}

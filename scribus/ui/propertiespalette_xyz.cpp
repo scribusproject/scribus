@@ -726,7 +726,7 @@ void PropertiesPalette_XYZ::handleNewX()
 				w = sqrt(pow(w-x,2)+pow(h-y,2));
 				m_item->setXYPos(x, m_item->yPos(), true);
 				m_item->setRotation(r, true);
-				m_doc->SizeItem(w, m_item->height(), m_item, true);
+				m_doc->sizeItem(w, m_item->height(), m_item, true);
 			}
 			else
 			{
@@ -743,7 +743,7 @@ void PropertiesPalette_XYZ::handleNewX()
 					base = ma.m11() * m_item->width() + ma.m21() * m_item->height() + ma.dx();
 				else if (bp == 3)
 					base = ma.m11() * 0.0 + ma.m21() * m_item->height() + ma.dx();
-				m_doc->MoveItem(x - base, 0, m_item);
+				m_doc->moveItem(x - base, 0, m_item);
 			}
 		}
 		m_doc->regionsChanged()->update(QRect());
@@ -803,11 +803,11 @@ void PropertiesPalette_XYZ::handleNewY()
 			}
 			double r = atan2(h-y,w-x)*(180.0/M_PI);
 			w = sqrt(pow(w-x,2)+pow(h-y,2));
-			m_doc->MoveItem(0, y - m_item->yPos(), m_item);
+			m_doc->moveItem(0, y - m_item->yPos(), m_item);
 			m_item->setXYPos(m_item->xPos(), y, true);
 			m_item->setRotation(r, true);
-			m_doc->SizeItem(w, m_item->height(), m_item, true);
-			m_doc->RotateItem(r, m_item);
+			m_doc->sizeItem(w, m_item->height(), m_item, true);
+			m_doc->rotateItem(r, m_item);
 		}
 		else
 		{
@@ -824,7 +824,7 @@ void PropertiesPalette_XYZ::handleNewY()
 				base = ma.m22() * m_item->height() + ma.m12() * m_item->width() + ma.dy();
 			else if (bp == 3)
 				base = ma.m22() * m_item->height() + ma.m12() * 0.0 + ma.dy();
-			m_doc->MoveItem(0, y - base, m_item);
+			m_doc->moveItem(0, y - base, m_item);
 		}
 	}
 	m_doc->regionsChanged()->update(QRect());
@@ -878,17 +878,17 @@ void PropertiesPalette_XYZ::handleNewW()
 				m_item->setRotation(r, true);
 				w = sqrt(pow(w-x,2)+pow(h-y,2));
 			}
-			m_doc->SizeItem(w, m_item->height(), m_item, true, true, false);
+			m_doc->sizeItem(w, m_item->height(), m_item, true, true, false);
 		}
 		else
 		{
 			if (keepFrameWHRatioButton->isChecked())
 			{
 				showWH(w, (w / oldW) * m_item->height());
-				m_doc->SizeItem(w, (w / oldW) * m_item->height(), m_item, true, true, false);
+				m_doc->sizeItem(w, (w / oldW) * m_item->height(), m_item, true, true, false);
 			}
 			else
-				m_doc->SizeItem(w, m_item->height(), m_item, true, true, false);
+				m_doc->sizeItem(w, m_item->height(), m_item, true, true, false);
 		}
 		if (m_item->isArc())
 		{
@@ -960,17 +960,17 @@ void PropertiesPalette_XYZ::handleNewH()
 				m_item->setRotation(r, true);
 				w = sqrt(pow(w-x,2)+pow(h-y,2));
 			}
-			m_doc->SizeItem(w, m_item->height(), m_item, true, true, false);
+			m_doc->sizeItem(w, m_item->height(), m_item, true, true, false);
 		}
 		else
 		{
 			if (keepFrameWHRatioButton->isChecked())
 			{
 				showWH((h / oldH) * m_item->width(), h);
-				m_doc->SizeItem((h / oldH) * m_item->width(), h, m_item, true, true, false);
+				m_doc->sizeItem((h / oldH) * m_item->width(), h, m_item, true, true, false);
 			}
 			else
-				m_doc->SizeItem(m_item->width(), h, m_item, true, true, false);
+				m_doc->sizeItem(m_item->width(), h, m_item, true, true, false);
 		}
 		if (m_item->isArc())
 		{
@@ -1011,7 +1011,7 @@ void PropertiesPalette_XYZ::handleRotation()
 			showXY(gx, gy);
 		}
 		else
-			m_doc->RotateItem(rotationSpin->value()*(-1), m_item);
+			m_doc->rotateItem(rotationSpin->value()*(-1), m_item);
 		if (!_userActionOn)
 		{
 			for (int i = 0; i < m_doc->m_Selection->count(); ++i)

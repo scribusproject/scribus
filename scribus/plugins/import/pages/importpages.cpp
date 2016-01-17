@@ -1934,7 +1934,7 @@ PageItem* PagesPlug::addClip(PageItem* retObj, ObjState &obState)
 		itemg->PoLine.fromQPainterPath(obState.clipPath);
 		FPoint wh = getMaxClipF(&itemg->PoLine);
 		itemg->setWidthHeight(wh.x(),wh.y());
-		m_Doc->AdjustItemSize(itemg, true);
+		m_Doc->adjustItemSize(itemg, true);
 		itemg->ClipEdited = true;
 		itemg->FrameType = 3;
 		itemg->setFillEvenOdd(false);

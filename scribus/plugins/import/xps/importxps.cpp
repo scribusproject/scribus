@@ -1240,7 +1240,7 @@ PageItem* XpsPlug::parseObjectXML(QDomElement &dpg, QString path)
 					retObj->PoLine.scale(scX, scY);
 				FPoint wh = getMaxClipF(&retObj->PoLine);
 				retObj->setWidthHeight(wh.x(),wh.y());
-				m_Doc->AdjustItemSize(retObj, true);
+				m_Doc->adjustItemSize(retObj, true);
 				retObj->OldB2 = retObj->width();
 				retObj->OldH2 = retObj->height();
 				if (obState.maskTyp != 0)
@@ -1469,7 +1469,7 @@ void XpsPlug::parseFillXML(QDomElement &spe, QString path, ObjState &obState)
 							PageItem* item = parseObjectXML(eo, path);
 							if (item != NULL)
 							{
-								m_Doc->SizeItem((item->width() / conversionFactor) * vw, (item->height() / conversionFactor) * vh, item, false, true, false);
+								m_Doc->sizeItem((item->width() / conversionFactor) * vw, (item->height() / conversionFactor) * vh, item, false, true, false);
 								ScPattern pat = ScPattern();
 								pat.setDoc(m_Doc);
 								m_Doc->DoDrawing = true;
@@ -1659,7 +1659,7 @@ PageItem* XpsPlug::addClip(PageItem* retObj, ObjState &obState)
 		itemg->PoLine.fromQPainterPath(obState.clipPath);
 		FPoint wh = getMaxClipF(&itemg->PoLine);
 		itemg->setWidthHeight(wh.x(),wh.y());
-		m_Doc->AdjustItemSize(itemg, true);
+		m_Doc->adjustItemSize(itemg, true);
 		itemg->ClipEdited = true;
 		itemg->FrameType = 3;
 		itemg->setFillEvenOdd(false);
@@ -1742,7 +1742,7 @@ void XpsPlug::finishItem(PageItem* item, ObjState &obState)
 	item->PoLine.fromQPainterPath(obState.currentPath, !obState.currentPathClosed);
 	FPoint wh = getMaxClipF(&item->PoLine);
 	item->setWidthHeight(wh.x(),wh.y());
-	m_Doc->AdjustItemSize(item, true);
+	m_Doc->adjustItemSize(item, true);
 	item->ClipEdited = true;
 	item->FrameType = 3;
 	item->setFillEvenOdd(false);

@@ -1020,7 +1020,7 @@ void RawPainter::drawPolygon(const librevenge::RVNGPropertyList &propList)
 									  ite->PoLine = Coords.copy();
 									  int rm = m_Doc->RotMode();
 									  m_Doc->RotMode(2);
-									  m_Doc->RotateItem(-rot, ite);
+									  m_Doc->rotateItem(-rot, ite);
 									  m_Doc->RotMode(rm);
 								  }
 								  else
@@ -1171,7 +1171,7 @@ void RawPainter::drawPath(const librevenge::RVNGPropertyList &propList)
 									  ite->PoLine = Coords.copy();
 									  int rm = m_Doc->RotMode();
 									  m_Doc->RotMode(2);
-									  m_Doc->RotateItem(-rot, ite);
+									  m_Doc->rotateItem(-rot, ite);
 									  m_Doc->RotMode(rm);
 								  }
 								  else
@@ -1308,7 +1308,7 @@ void RawPainter::drawGraphicObject(const librevenge::RVNGPropertyList &propList)
 									ite->updateClip();
 									int rm = m_Doc->RotMode();
 									m_Doc->RotMode(2);
-									m_Doc->RotateItem(-rot, ite);
+									m_Doc->rotateItem(-rot, ite);
 									m_Doc->RotMode(rm);
 								}
 								else
@@ -1375,7 +1375,7 @@ void RawPainter::startTextObject(const librevenge::RVNGPropertyList &propList)
 		{
 			int rm = m_Doc->RotMode();
 			m_Doc->RotMode(2);
-			m_Doc->RotateItem(rot, ite);
+			m_Doc->rotateItem(rot, ite);
 			m_Doc->RotMode(rm);
 		}
 		if (propList["draw-mirror-horizontal"])
@@ -3755,7 +3755,7 @@ void RawPainter::finishItem(PageItem* ite)
 	FPoint wh = getMaxClipF(&ite->PoLine);
 	ite->setWidthHeight(wh.x(),wh.y(), true);
 	ite->setTextFlowMode(PageItem::TextFlowUsesBoundingBox);
-	m_Doc->AdjustItemSize(ite);
+	m_Doc->adjustItemSize(ite);
 	ite->OldB2 = ite->width();
 	ite->OldH2 = ite->height();
 	ite->setFillTransparency(CurrFillTrans);

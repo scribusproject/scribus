@@ -2229,7 +2229,7 @@ QList<PageItem*> IdmlPlug::parseItemXML(const QDomElement& itElem, QTransform pT
 				FPoint wh = getMaxClipF(&item->PoLine);
 				item->setWidthHeight(wh.x(),wh.y());
 				item->setTextFlowMode(textFlow);
-				m_Doc->AdjustItemSize(item);
+				m_Doc->adjustItemSize(item);
 				item->setRotation(-rot, true);
 				item->moveBy(dx, dy, true);
 				if (isPathText)
@@ -2347,7 +2347,7 @@ QList<PageItem*> IdmlPlug::parseItemXML(const QDomElement& itElem, QTransform pT
 			FPoint wh = getMaxClipF(&itemg->PoLine);
 			itemg->setWidthHeight(wh.x(),wh.y());
 			itemg->setTextFlowMode(textFlow);
-			m_Doc->AdjustItemSize(itemg, true);
+			m_Doc->adjustItemSize(itemg, true);
 			itemg->moveBy(dx, dy, true);
 			itemg->setRotation(-rot, true);
 			itemg->OldB2 = itemg->width();
@@ -2465,7 +2465,7 @@ QList<PageItem*> IdmlPlug::parseItemXML(const QDomElement& itElem, QTransform pT
 			FPoint wh = getMaxClipF(&item->PoLine);
 			item->setWidthHeight(wh.x(),wh.y());
 			item->setTextFlowMode(textFlow);
-			m_Doc->AdjustItemSize(item);
+			m_Doc->adjustItemSize(item);
 			item->moveBy(dx, dy, true);
 			if (isPathText)
 			{
@@ -2680,7 +2680,7 @@ QList<PageItem*> IdmlPlug::parseItemXML(const QDomElement& itElem, QTransform pT
 			int z = m_Doc->itemAdd(PageItem::Group, PageItem::Rectangle, gx, gy, gw, gh, 0, CommonStrings::None, CommonStrings::None);
 			PageItem *item = m_Doc->Items->at(z);
 			item->setTextFlowMode(textFlow);
-			m_Doc->AdjustItemSize(item);
+			m_Doc->adjustItemSize(item);
 			item->OldB2 = item->width();
 			item->OldH2 = item->height();
 			item->updateClip();

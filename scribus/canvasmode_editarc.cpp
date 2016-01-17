@@ -246,7 +246,7 @@ void CanvasMode_EditArc::applyValues(double start, double end, double height, do
 	currItem->PoLine.fromQPainterPath(ppr, true);
 	FPoint wh = getMaxClipF(&currItem->PoLine);
 	currItem->setWidthHeight(wh.x(),wh.y());
-	m_doc->AdjustItemSize(currItem);
+	m_doc->adjustItemSize(currItem);
 	currItem->OldB2 = currItem->width();
 	currItem->OldH2 = currItem->height();
 	QPainterPath pp;

@@ -256,7 +256,7 @@ bool PathAlongPathPlugin::run(ScribusDoc* doc, QString)
 				patternItem->FrameType = 3;
 				patternItem->setXYPos(originalXPos, originalYPos);
 				patternItem->setRotation(originalRot);
-				m_doc->AdjustItemSize(patternItem);
+				m_doc->adjustItemSize(patternItem);
 				patternItem->OldB2 = patternItem->width();
 				patternItem->OldH2 = patternItem->height();
 				patternItem->updateClip();
@@ -328,7 +328,7 @@ void PathAlongPathPlugin::updateEffectG(int effectType, double offset, double of
 			bxi->setXYPos(pathItem->xPos()+deltaX, pathItem->yPos()+deltaY, true);
 			double oW = bxi->width();
 			double oH = bxi->height();
-			m_doc->AdjustItemSize(bxi, true);
+			m_doc->adjustItemSize(bxi, true);
 			bxi->OldB2 = bxi->width();
 			bxi->OldH2 = bxi->height();
 			if (bxi->isGroup())
@@ -381,7 +381,7 @@ void PathAlongPathPlugin::updateEffect(int effectType, double offset, double off
 		patternItem->setXYPos(pathItem->xPos(), pathItem->yPos());
 		patternItem->setRotation(0);
 	}
-	m_doc->AdjustItemSize(patternItem, true);
+	m_doc->adjustItemSize(patternItem, true);
 	patternItem->OldB2 = patternItem->width();
 	patternItem->OldH2 = patternItem->height();
 	patternItem->updateClip();

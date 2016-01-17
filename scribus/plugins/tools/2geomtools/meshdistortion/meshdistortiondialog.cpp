@@ -545,7 +545,7 @@ void MeshDistortionDialog::updateAndExit()
 		currItem->FrameType = 3;
 		double oW = currItem->width();
 		double oH = currItem->height();
-		m_doc->AdjustItemSize(currItem, true);
+		m_doc->adjustItemSize(currItem, true);
 		currItem->OldB2 = currItem->width();
 		currItem->OldH2 = currItem->height();
 		if (currItem->isGroup())

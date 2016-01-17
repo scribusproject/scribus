@@ -135,7 +135,7 @@ bool FlattenPathPlugin::run(ScribusDoc* doc, QString)
 		currItem->PoLine.fromQPainterPath(result);
 		currItem->ClipEdited = true;
 		currItem->FrameType = 3;
-		currDoc->AdjustItemSize(currItem);
+		currDoc->adjustItemSize(currItem);
 		currItem->OldB2 = currItem->width();
 		currItem->OldH2 = currItem->height();
 		currItem->updateClip();

@@ -130,7 +130,7 @@ bool LensEffectsPlugin::run(ScribusDoc* doc, QString)
 				currItem->FrameType = 3;
 				double oW = currItem->width();
 				double oH = currItem->height();
-				currDoc->AdjustItemSize(currItem, true);
+				currDoc->adjustItemSize(currItem, true);
 				currItem->OldB2 = currItem->width();
 				currItem->OldH2 = currItem->height();
 				if (currItem->isGroup())

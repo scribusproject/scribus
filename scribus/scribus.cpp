@@ -1869,7 +1869,7 @@ void ScribusMainWindow::keyReleaseEvent(QKeyEvent *k)
 					PageItem *currItem = doc->m_Selection->itemAt(0);
 					double xposOrig = currItem->xPos();
 					double yposOrig = currItem->yPos();
-					doc->AdjustItemSize(currItem);
+					doc->adjustItemSize(currItem);
 					if (!doc->nodeEdit.isContourLine())
 						currItem->ContourLine.translate(xposOrig - currItem->xPos(),yposOrig - currItem->yPos());
 					currItem->update();

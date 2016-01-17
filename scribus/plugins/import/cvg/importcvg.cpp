@@ -462,7 +462,7 @@ void CvgPlug::getObjects(QDataStream &ts, bool color, quint32 lenData)
 		FPoint wh = getMaxClipF(&ite->PoLine);
 		ite->setWidthHeight(wh.x(),wh.y());
 		ite->setTextFlowMode(PageItem::TextFlowDisabled);
-		m_Doc->AdjustItemSize(ite);
+		m_Doc->adjustItemSize(ite);
 		ite->OldB2 = ite->width();
 		ite->OldH2 = ite->height();
 		ite->updateClip();

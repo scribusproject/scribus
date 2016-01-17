@@ -270,8 +270,8 @@ void CalligraphicMode::mouseReleaseEvent(QMouseEvent *m)
 			currItem->setXYPos(tp2.x(), tp2.y(), true);
 			currItem->PoLine.translate(-tp2.x(), -tp2.y());
 			FPoint tp(getMaxClipF(&currItem->PoLine));
-			m_doc->SizeItem(tp.x(), tp.y(), currItem, false, false, false);
-			m_doc->AdjustItemSize(currItem);
+			m_doc->sizeItem(tp.x(), tp.y(), currItem, false, false, false);
+			m_doc->adjustItemSize(currItem);
 			m_doc->m_Selection->clear();
 			m_doc->m_Selection->addItem(currItem);
 			currItem->ClipEdited = true;

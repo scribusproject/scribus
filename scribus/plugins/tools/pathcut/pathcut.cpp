@@ -164,7 +164,7 @@ bool PathCutPlugin::run(ScribusDoc* doc, QString)
 		Item2->PoLine = points;
 		Item2->ClipEdited = true;
 		Item2->FrameType = 3;
-		currDoc->AdjustItemSize(Item2);
+		currDoc->adjustItemSize(Item2);
 		Item2->OldB2 = Item2->width();
 		Item2->OldH2 = Item2->height();
 		Item2->updateClip();

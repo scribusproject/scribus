@@ -641,7 +641,7 @@ void CgmPlug::decodeClass0(QDataStream &ts, quint16 elemID, quint16 paramLen)
 			FPoint wh = getMaxClipF(&ite->PoLine);
 			ite->setWidthHeight(wh.x(),wh.y());
 			ite->setTextFlowMode(PageItem::TextFlowDisabled);
-			m_Doc->AdjustItemSize(ite);
+			m_Doc->adjustItemSize(ite);
 			ite->OldB2 = ite->width();
 			ite->OldH2 = ite->height();
 			ite->updateClip();
@@ -2403,7 +2403,7 @@ void CgmPlug::decodeClass5(QDataStream &ts, quint16 elemID, quint16 paramLen)
 		PageItem* ite = m_Doc->Items->at(z);
 		ite->SetRectFrame();
 		ite->setTextFlowMode(PageItem::TextFlowDisabled);
-		m_Doc->AdjustItemSize(ite);
+		m_Doc->adjustItemSize(ite);
 		ite->OldB2 = ite->width();
 		ite->OldH2 = ite->height();
 		QTemporaryFile *tempFile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_cgm_XXXXXX.png");
@@ -3457,7 +3457,7 @@ void CgmPlug::finishItem(PageItem* ite, bool line)
 	FPoint wh = getMaxClipF(&ite->PoLine);
 	ite->setWidthHeight(wh.x(),wh.y());
 	ite->setTextFlowMode(PageItem::TextFlowDisabled);
-	m_Doc->AdjustItemSize(ite);
+	m_Doc->adjustItemSize(ite);
 	ite->OldB2 = ite->width();
 	ite->OldH2 = ite->height();
 	if (line)

@@ -1145,12 +1145,12 @@ public:
 	void SnapToGuides(PageItem *currItem);
 	bool ApplyGuides(double *x, double *y, bool elementSnap = false);
 	bool ApplyGuides(FPoint* point, bool elementSnap = false);
-	bool MoveItem(double newX, double newY, PageItem* ite);
-	void RotateItem(double win, PageItem *currItem);
-	void MoveRotated(PageItem *currItem, FPoint npv);
-	bool SizeItem(double newX, double newY, PageItem *pi, bool fromMP = false, bool DoUpdateClip = true, bool redraw = true);
-	bool MoveSizeItem(FPoint newX, FPoint newY, PageItem* currItem, bool fromMP = false, bool constrainRotation = false);
-	void AdjustItemSize(PageItem *currItem, bool includeGroup = false, bool moveInGroup = true);
+	bool moveItem(double newX, double newY, PageItem* ite);
+	void rotateItem(double win, PageItem *currItem);
+	void moveRotated(PageItem *currItem, FPoint npv);
+	bool sizeItem(double newX, double newY, PageItem *pi, bool fromMP = false, bool DoUpdateClip = true, bool redraw = true);
+	bool moveSizeItem(FPoint newX, FPoint newY, PageItem* currItem, bool fromMP = false, bool constrainRotation = false);
+	void adjustItemSize(PageItem *currItem, bool includeGroup = false, bool moveInGroup = true);
 	void moveGroup(double x, double y, Selection* customSelection = 0);
 	void rotateGroup(double angle, Selection* customSelection = 0);
 	void rotateGroup(double angle, FPoint RCenter, Selection* customSelection = 0);
