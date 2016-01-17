@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="scribus-manual.xsl"?>
 <menu>
 	<area text="Welcome" file="index.html">
 		<submenuitem text="New in Scribus 1.5" file="readme.html"/>
