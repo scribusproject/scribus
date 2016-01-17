@@ -842,7 +842,10 @@ PageItem *SVGPlug::finishNode(const QDomNode &e, PageItem* item)
 	}
 	if (!gc->endMarker.isEmpty())
 	{
-		if (markers.contains(gc->endMarker))
+		QString marker = gc->endMarker;
+		if (importedPattTrans.contains(marker))
+			marker = importedPattTrans[marker];
+		if (markers.contains(marker))
 		{
 			FPoint End = item->PoLine.point(item->PoLine.size()-2);
 			for (uint xx = item->PoLine.size()-1; xx > 0; xx -= 2)
@@ -854,7 +857,7 @@ PageItem *SVGPlug::finishNode(const QDomNode &e, PageItem* item)
 					QTransform arrowTrans;
 					double bX = item->xPos() + End.x();
 					double bY = item->yPos() + End.y();
-					ScPattern pat = m_Doc->docPatterns[gc->endMarker];
+					ScPattern pat = m_Doc->docPatterns[marker];
 					double dX = (pat.width * item->lineWidth()) / 2.0;
 					double dY = (pat.height * item->lineWidth()) / 2.0;
 					arrowTrans.translate(bX, bY);
@@ -863,7 +866,7 @@ PageItem *SVGPlug::finishNode(const QDomNode &e, PageItem* item)
 					FPoint ba = FPoint(0.0, 0.0).transformPoint(arrowTrans, false);
 					int z = m_Doc->itemAdd(PageItem::Symbol, PageItem::Unspecified, ba.x(), ba.y(), dX * 2.0, dY * 2.0, 0, CommonStrings::None, CommonStrings::None);
 					endArrow = m_Doc->Items->at(z);
-					endArrow->setPattern(importedPattTrans[gc->endMarker]);
+					endArrow->setPattern(marker);
 					endArrow->setRotation(r, true);
 					endArrow->setRedrawBounding();
 					endArrow->OwnPage = m_Doc->OnPage(endArrow);
@@ -875,7 +878,10 @@ PageItem *SVGPlug::finishNode(const QDomNode &e, PageItem* item)
 	}
 	if (!gc->startMarker.isEmpty())
 	{
-		if (markers.contains(gc->startMarker))
+		QString marker = gc->endMarker;
+		if (importedPattTrans.contains(marker))
+			marker = importedPattTrans[marker];
+		if (markers.contains(marker))
 		{
 			FPoint End = item->PoLine.point(0);
 			for (int xx = 1; xx < item->PoLine.size(); xx += 2)
@@ -883,11 +889,11 @@ PageItem *SVGPlug::finishNode(const QDomNode &e, PageItem* item)
 				FPoint Vector = item->PoLine.point(xx);
 				if ((End.x() != Vector.x()) || (End.y() != Vector.y()))
 				{
-					double r = atan2(End.y()-Vector.y(),End.x()-Vector.x())*(180.0/M_PI) - 180.0;
+					double r = atan2(End.y()-Vector.y(),End.x()-Vector.x())*(180.0/M_PI);// - 180.0;
 					QTransform arrowTrans;
 					double bX = item->xPos() + End.x();
 					double bY = item->yPos() + End.y();
-					ScPattern pat = m_Doc->docPatterns[gc->startMarker];
+					ScPattern pat = m_Doc->docPatterns[marker];
 					double dX = (pat.width * item->lineWidth()) / 2.0;
 					double dY = (pat.height * item->lineWidth()) / 2.0;
 					arrowTrans.translate(bX, bY);
@@ -896,7 +902,7 @@ PageItem *SVGPlug::finishNode(const QDomNode &e, PageItem* item)
 					FPoint ba = FPoint(0.0, 0.0).transformPoint(arrowTrans, false);
 					int z = m_Doc->itemAdd(PageItem::Symbol, PageItem::Unspecified, ba.x(), ba.y(), dX * 2.0, dY * 2.0, 0, CommonStrings::None, CommonStrings::None);
 					startArrow = m_Doc->Items->at(z);
-					startArrow->setPattern(importedPattTrans[gc->startMarker]);
+					startArrow->setPattern(marker);
 					startArrow->setRotation(r, true);
 					startArrow->setRedrawBounding();
 					startArrow->OwnPage = m_Doc->OnPage(startArrow);
