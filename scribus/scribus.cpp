@@ -8336,15 +8336,15 @@ void ScribusMainWindow::insertSampleText()
 {
 	if (!HaveDoc)
 		return;
-	LoremManager m(doc, this);
+	LoremManager loremMgr(doc, this);
 	if (m_prefsManager->appPrefs.miscPrefs.useStandardLI)
 	{
-		m.insertLoremIpsum("la.xml", m_prefsManager->appPrefs.miscPrefs.paragraphsLI);
+		loremMgr.insertLoremIpsum("la.xml", m_prefsManager->appPrefs.miscPrefs.paragraphsLI);
 		return;
 	}
 
-	if (m.exec())
-		m.insertLoremIpsum(m.getName(), m.paragraphCount(), m.randomize());
+	if (loremMgr.exec())
+		loremMgr.insertLoremIpsum(loremMgr.getName(), loremMgr.paragraphCount(), loremMgr.randomize());
 }
 
 void ScribusMainWindow::languageChange()
@@ -8406,11 +8406,10 @@ void ScribusMainWindow::closeActiveWindowMasterPageEditor()
 {
 	if (!HaveDoc)
 		return;
-	if(doc->masterPageMode())
-	{
-		editMasterPagesEnd();
-		qApp->processEvents();
-	}
+	if(!doc->masterPageMode())
+		return;
+	editMasterPagesEnd();
+	qApp->processEvents();
 }
 
 void ScribusMainWindow::updateActiveWindowCaption(const QString &newCaption)
@@ -9143,9 +9142,7 @@ void ScribusMainWindow::insertMark(MarkType mType)
 		view->DrawNew();
 	}
 	if (trans)
-	{
 		trans.commit();
-	}
 }
 
 void ScribusMainWindow::slotEditMark()

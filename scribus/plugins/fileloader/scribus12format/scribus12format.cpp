@@ -460,7 +460,6 @@ void Scribus12Format::PasteItem(struct CopyPasteBuffer *Buffer, bool drag, bool 
 	currItem->PLineJoin = Qt::PenJoinStyle(Buffer->PLineJoin);
 	currItem->setPrintEnabled(Buffer->isPrintable);
 	currItem->isBookmark = Buffer->isBookmark;
-//	currItem->Groups = Buffer->Groups;
 	currItem->setIsAnnotation(Buffer->m_isAnnotation);
 	currItem->setAnnotation(Buffer->m_annotation);
 	if (!Buffer->AnName.isEmpty())
