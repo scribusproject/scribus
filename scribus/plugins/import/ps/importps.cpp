@@ -560,7 +560,7 @@ void EPSPlug::parseOutput(QString fn, bool eps)
 						ite->Clip = FlattenPath(ite->PoLine, ite->Segments);
 						ite->setFillTransparency(1.0 - Opacity);
 						ite->setTextFlowMode(PageItem::TextFlowDisabled);
-						m_Doc->AdjustItemSize(ite);
+						m_Doc->adjustItemSize(ite);
 						if (ite->itemType() == PageItem::Polygon)
 							ite->ContourLine = ite->PoLine.copy();
 						if ((groupStack.count() != 0) && (groupStackP.count() != 0))
@@ -606,7 +606,7 @@ void EPSPlug::parseOutput(QString fn, bool eps)
 						ite->setWidthHeight(wh.x(), wh.y());
 						ite->Clip = FlattenPath(ite->PoLine, ite->Segments);
 						ite->setLineTransparency(1.0 - Opacity);
-						m_Doc->AdjustItemSize(ite);
+						m_Doc->adjustItemSize(ite);
 						if (ite->itemType() == PageItem::Polygon)
 							ite->ContourLine = ite->PoLine.copy();
 						ite->setLineWidth(LineW);
@@ -641,7 +641,7 @@ void EPSPlug::parseOutput(QString fn, bool eps)
 						FPoint wh = getMaxClipF(&ite->PoLine);
 						ite->setWidthHeight(wh.x(),wh.y());
 						ite->Clip = FlattenPath(ite->PoLine, ite->Segments);
-						m_Doc->AdjustItemSize(ite, true);
+						m_Doc->adjustItemSize(ite, true);
 						ite->ContourLine = ite->PoLine.copy();
 						ite->setItemName( tr("Group%1").arg(m_Doc->GroupCounter));
 						ite->setTextFlowMode(PageItem::TextFlowDisabled);
@@ -867,7 +867,7 @@ bool EPSPlug::Image(QString vals)
 	m_Doc->loadPict(filename, ite, -1);
 	ite->setRotation(angle);
 	ite->setImageScalingMode(false, true); // fit to frame, keep ratio
-//	m_Doc->view()->AdjustItemSize(ite);
+//	m_Doc->view()->adjustItemSize(ite);
 	Elements.append(ite);
 	return ret == 0;
 }
