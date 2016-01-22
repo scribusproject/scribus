@@ -10884,7 +10884,14 @@ void ScribusDoc::itemSelection_FlipH()
 			if (currItem->rotation() != 0.0)
 			{
 				double ix2, iy2, iw2, ih2;
-				currItem->rotateBy(currItem->rotation() * -2.0);
+				double newRotation = -currItem->rotation();
+				if (currItem->itemType() == PageItem::Line)
+					newRotation = 180 - currItem->rotation();
+				while (newRotation < 0)
+					newRotation += 360.0;
+				while (newRotation >= 360.0)
+					newRotation -= 360.0;
+				currItem->setRotation(newRotation);
 				currItem->setRedrawBounding();
 				currItem->getBoundingRect(&ix2, &iy2, &iw2, &ih2);
 				currItem->moveBy(ix-ix2, iy-iy2, false);
@@ -10933,7 +10940,12 @@ void ScribusDoc::itemSelection_FlipH()
 		{
 			double ix2, iy2, iw2, ih2, ix, iy, iw, ih;
 			currItem->getBoundingRect(&ix, &iy, &iw, &ih);
-			currItem->rotateBy(currItem->rotation() * -2.0);
+			double newRotation = 180 - currItem->rotation();
+			while (newRotation < 0)
+				newRotation += 360.0;
+			while (newRotation >= 360.0)
+				newRotation -= 360.0;
+			currItem->setRotation(newRotation);
 			currItem->setRedrawBounding();
 			currItem->getBoundingRect(&ix2, &iy2, &iw2, &ih2);
 			currItem->moveBy(ix-ix2, iy-iy2, false);
