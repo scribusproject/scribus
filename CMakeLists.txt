@@ -661,19 +661,6 @@ ENDIF(ZLIB_FOUND)
 #ENDIF(PNG_FOUND)
 #>> ZLIB, PNG
 
-IF (WANT_NOOSG)
-	MESSAGE("Building without 3D Extension")
-ELSE (WANT_NOOSG)
-	FIND_PACKAGE(OSG)
-	IF(OSG_FOUND)
-		MESSAGE("OSG found OK")
-		SET(HAVE_OSG 1)
-		FIND_PACKAGE(OpenGL)
-	ELSE(OSG_FOUND)
-		MESSAGE("No OSG found, building without 3D Extension")
-	ENDIF(OSG_FOUND)
-ENDIF (WANT_NOOSG)
-
 #<< JPEG, TIFF
 FIND_PACKAGE(JPEG REQUIRED)
 IF (JPEG_FOUND)
@@ -714,7 +701,7 @@ ELSE (FREETYPE_FOUND)
 ENDIF(FREETYPE_FOUND)
 #>> FreeType2
 
-#<<Render Library
+#<< Render Library
 IF (WANT_PRIVATE_CAIRO)
 	MESSAGE("We no longer support the private cairo library as the latest public release is more up to date, setting WANT_SYSTEM_CAIRO=1")
 ENDIF(WANT_PRIVATE_CAIRO)
@@ -733,9 +720,9 @@ IF(CAIRO_FOUND)
 ELSE(CAIRO_FOUND)
 	MESSAGE(FATAL_ERROR "No Cairo Found")
 ENDIF(CAIRO_FOUND)
-#>>Render Library
+#>> Render Library
 
-#<<CUPS
+#<< CUPS
 IF(NOT WIN32 AND NOT HAIKU)
 	FIND_PACKAGE(Cups REQUIRED)
 	IF(CUPS_FOUND)
@@ -746,17 +733,17 @@ ELSE(NOT WIN32 AND NOT HAIKU)
 	# Windows doesn't use CUPS
 	SET(CUPS_INCLUDE_DIR)
 ENDIF(NOT WIN32 AND NOT HAIKU)
-#>>CUPS
+#>> CUPS
 
-#<<LibXML2
+#<< LibXML2
 FIND_PACKAGE(LibXml2 REQUIRED)
 IF(LIBXML2_FOUND)
 	SET(HAVE_XML 1)
 	MESSAGE("LIBXML2 Library Found OK")
 ENDIF(LIBXML2_FOUND)
-#>>LibXML2
+#>> LibXML2
 
-#<<LittleCMS
+#<< LittleCMS
 SET(LCMS_DIR ${CMAKE_MODULE_PATH})
 FIND_PACKAGE(LCMS2 REQUIRED)
 IF(LCMS2_FOUND)
@@ -767,9 +754,9 @@ IF(LCMS2_FOUND)
 ELSE(LCMS2_FOUND)
 	MESSAGE(FATAL_ERROR "Could not find the LittleCMS 2 Library")
 ENDIF(LCMS2_FOUND)
-#>>LittleCMS
+#>> LittleCMS
 
-#<<FontConfig
+#<< FontConfig
 IF(NOT WIN32)
 	SET(FONTCONFIG_DIR ${CMAKE_MODULE_PATH})
 	FIND_PACKAGE(FONTCONFIG)
@@ -781,9 +768,9 @@ ELSE(NOT WIN32)
 	# Windows builds neither use nor require fontconfig
 	SET(FONTCONFIG_INCLUDE_DIR)
 ENDIF(NOT WIN32)
-#>>FontConfig
+#>> FontConfig
 
-#<<HUNSPELL for Speelling support
+#<< HUNSPELL for Speelling support
 OPTION(WANT_HUNSPELL "Enable support for spell checking with hunspell" ON)
 IF (WANT_HUNSPELL)
 	FIND_PACKAGE(HUNSPELL)
@@ -794,9 +781,9 @@ IF (WANT_HUNSPELL)
 		MESSAGE("Hunspell or its developer libraries NOT found - Disabling support for spell checking")
 	ENDIF (HUNSPELL_FOUND)
 ENDIF (WANT_HUNSPELL)
-#>>HUNSPELL for Speelling support
+#>> HUNSPELL for Speelling support
 
-#<<PoDoFo for AI PDF import
+#<< PoDoFo for AI PDF import
 OPTION(WITH_PODOFO "Enable support for PDF embedded in AI" ON)
 IF (WITH_PODOFO)
 	FIND_PACKAGE(LIBPODOFO)
@@ -807,9 +794,9 @@ IF (WITH_PODOFO)
 		MESSAGE("PoDoFo NOT found - Disabling support for PDF embedded in AI")
 	ENDIF (LIBPODOFO_FOUND)
 ENDIF (WITH_PODOFO)
-#>>PoDoFo for AI PDF import
+#>> PoDoFo for AI PDF import
 
-#<<Boost for 2Geom Tools
+#<< Boost for 2Geom Tools
 OPTION(WITH_BOOST "Enable support for Boost based enhancements" ON)
 IF (WITH_BOOST)
 	FIND_PACKAGE(Boost)
@@ -820,9 +807,9 @@ IF (WITH_BOOST)
 		MESSAGE("Boost: NOT FOUND, not building 2geomtools")
 	ENDIF (Boost_FOUND)
 ENDIF (WITH_BOOST)
-#>>Boost for 2Geom Tools
+#>> Boost for 2Geom Tools
 
-#<<GraphicksMagick for image import
+#<< GraphicksMagick for image import
 IF (WANT_GRAPHICSMAGICK)
 	SET(GMAGICK_DIR ${CMAKE_MODULE_PATH})
 	pkg_check_modules(GMAGICK GraphicsMagick)
@@ -835,9 +822,9 @@ IF (WANT_GRAPHICSMAGICK)
 ELSE (WANT_GRAPHICSMAGICK)
 	MESSAGE("Building without GraphicksMagick (use -DWANT_GRAPHICSMAGICK=1 to enable)")
 ENDIF (WANT_GRAPHICSMAGICK)
-#>>GraphicksMagick for image import
+#>> GraphicksMagick for image import
 
-#<<Poppler for PDF import
+#<< Poppler for PDF import
 FIND_PACKAGE(POPPLER)
 IF (POPPLER_FOUND)
 	IF (FREETYPE_FOUND)
@@ -851,9 +838,9 @@ IF (POPPLER_FOUND)
 ELSE (POPPLER_FOUND)
 	MESSAGE("Poppler NOT found - Disabling support for native PDF import")
 ENDIF (POPPLER_FOUND)
-#>>Poppler for PDF import
+#>> Poppler for PDF import
 
-# librevenge for MsPub import
+#<< librevenge for MsPub import
 pkg_check_modules(LIBREVENGE librevenge-0.0)
 IF (LIBREVENGE_FOUND)
 	pkg_check_modules(LIBREVENGE_STREAM librevenge-stream-0.0)
@@ -864,6 +851,22 @@ IF (LIBREVENGE_FOUND)
 		ENDIF (LIBREVENGE_GENERATORS_FOUND)
 	ENDIF (LIBREVENGE_STREAM_FOUND)
 ENDIF (LIBREVENGE_FOUND)
+#>> librevenge for MsPub import
+
+#<< OpenSceneGraph for 3D Extensions
+IF (WANT_NOOSG)
+	MESSAGE("Building without 3D Extension")
+ELSE (WANT_NOOSG)
+	FIND_PACKAGE(OSG)
+	IF(OSG_FOUND)
+		MESSAGE("OSG found OK")
+		SET(HAVE_OSG 1)
+		FIND_PACKAGE(OpenGL)
+	ELSE(OSG_FOUND)
+		MESSAGE("No OSG found, building without 3D Extension")
+	ENDIF(OSG_FOUND)
+ENDIF (WANT_NOOSG)
+#>> OpenSceneGraph for 3D Extensions
 
 ##############################################################################################################
 ########## Include Setup                                                                            ##########
