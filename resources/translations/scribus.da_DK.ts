@@ -13130,7 +13130,7 @@ Hvis ingen håndtag er markerede, så nulstilles alle håndtag.</translation>
     <message>
         <location filename="../../scribus/ui/newmarginwidget.cpp" line="93"/>
         <source>Ensure all bleeds have the same value</source>
-        <translation type="unfinished">Sikrer, at alle beskæringer har samme værdi</translation>
+        <translation>Sikrer, at alle beskæringer har samme værdi</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/newmarginwidget.cpp" line="95"/>
@@ -22947,12 +22947,12 @@ Niveau 1 eller 2 kan give meget store filer.</translation>
     <message>
         <location filename="../../scribus/ui/prefs_userinterface.cpp" line="60"/>
         <source>Time before resize or move starts allows for a slight delay between when you click and the operation happens to avoid unintended moves. This can be helpful when dealing with mouse sensitivity settings or accessibility issues related to ergnomic mice, touch pads or moveability of the wrists and hands.</source>
-        <translation type="unfinished"></translation>
+        <translation>Tid før ændring af størrelse eller flytning starter giver mulighed for en lille forsinkelse, fra du klikker og funktionens udførelse, for at undgå utilsigtede bevægelser. Dette kan være nyttigt, når det drejer sig om indstillinger af musens følsomhed eller tilgængelighed i forbindelse med ergonomiske mus, touchpads eller bevægelighed af håndled og hænder.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_userinterface.cpp" line="61"/>
         <source>Number of lines Scribus will scroll for each &quot;notch&quot; of the mouse wheel</source>
-        <translation type="unfinished"></translation>
+        <translation>Antal linjer der rulles for hver &quot;hak&quot; af muse-hjulet</translation>
     </message>
     <message>
         <source>Number of lines Scribus will scroll for each move of the mouse wheel</source>
@@ -24638,7 +24638,7 @@ gennemsigtighed</translation>
     <message>
         <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="56"/>
         <source>Choose the shape of frame...</source>
-        <translation type="unfinished">Vælg rammens form...</translation>
+        <translation>Vælg rammens form...</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="59"/>
@@ -24674,22 +24674,22 @@ gennemsigtighed</translation>
     <message>
         <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="77"/>
         <source>R&amp;ound Corners:</source>
-        <translation type="unfinished">R&amp;unde hjørner:</translation>
+        <translation>R&amp;unde hjørner:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="93"/>
         <source>Set radius of corner rounding</source>
-        <translation type="unfinished">Angiv radius for runde hjørner</translation>
+        <translation>Angiv radius for runde hjørner</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="105"/>
         <source>Text &amp;Flow Around Frame</source>
-        <translation type="unfinished">Tekst &amp;flyder omkring ramme</translation>
+        <translation>Tekst &amp;flyder omkring ramme</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="151"/>
         <source>Use Frame &amp;Shape</source>
-        <translation type="unfinished">Brug ramme &amp;form</translation>
+        <translation>Brug rammens &amp;form</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="176"/>
@@ -24714,7 +24714,7 @@ gennemsigtighed</translation>
     <message>
         <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="290"/>
         <source>&lt;qt&gt;Any path self-intersections or subpaths create holes in the fill&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Enhver kurve der krydser sig selv eller en delkurve skaber huller i udfyldningen&lt;/qt&gt;</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="293"/>
@@ -24724,7 +24724,7 @@ gennemsigtighed</translation>
     <message>
         <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="306"/>
         <source>&lt;qt&gt;Fill is solid unless a subpath is counter-directional&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Udfyldningen er massiv, medmindre en delkurve angiver noget andet&lt;/qt&gt;</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="309"/>
@@ -25422,7 +25422,7 @@ gennemsigtighed</translation>
     <message>
         <location filename="../../scribus/ui/propertywidget_distance.cpp" line="437"/>
         <source>Vertical Alignment:</source>
-        <translation type="unfinished"></translation>
+        <translation>Vertikal justering:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_distance.cpp" line="471"/>
@@ -25841,12 +25841,12 @@ gennemsigtighed</translation>
     <message>
         <location filename="../../scribus/ui/propertywidget_pareffect.cpp" line="560"/>
         <source>Lines:</source>
-        <translation type="unfinished">Linjer:</translation>
+        <translation>Linjer:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_pareffect.cpp" line="563"/>
         <source>Bullet Char(s):</source>
-        <translation type="unfinished"></translation>
+        <translation>Punkttegn:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_pareffect.cpp" line="564"/>
@@ -25866,42 +25866,42 @@ gennemsigtighed</translation>
     <message>
         <location filename="../../scribus/ui/propertywidget_pareffect.cpp" line="567"/>
         <source>Level:</source>
-        <translation type="unfinished">Niveau:</translation>
+        <translation>Niveau:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_pareffect.cpp" line="568"/>
         <source>Set:</source>
-        <translation type="unfinished">Sæt:</translation>
+        <translation>Sæt:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_pareffect.cpp" line="569"/>
         <source>Format:</source>
-        <translation type="unfinished">Format:</translation>
+        <translation>Format:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_pareffect.cpp" line="570"/>
         <source>Start:</source>
-        <translation type="unfinished">Start:</translation>
+        <translation>Start:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_pareffect.cpp" line="571"/>
         <source>Prefix:</source>
-        <translation type="unfinished">Præfiks:</translation>
+        <translation>Præfiks:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_pareffect.cpp" line="572"/>
         <source>Suffix:</source>
-        <translation type="unfinished">Suffiks:</translation>
+        <translation>Suffiks:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_pareffect.cpp" line="575"/>
         <source>Offset:</source>
-        <translation type="unfinished">Forskydning:</translation>
+        <translation>Forskydning:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_pareffect.cpp" line="576"/>
         <source>Char Style:</source>
-        <translation type="unfinished"></translation>
+        <translation>Tegnformat:</translation>
     </message>
     <message>
         <source>Level</source>
