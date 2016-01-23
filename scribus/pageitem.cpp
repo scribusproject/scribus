@@ -3663,6 +3663,16 @@ void PageItem::createConicalMesh()
 {
 	VGradient gradient;
 	gradient.clearStops();
+	if (fill_gradient.Stops() < 2)
+	{
+		fill_gradient.clearStops();
+		const ScColor& col = m_Doc->PageColors["Black"];
+		QColor qcol = ScColorEngine::getRGBColor(col, m_Doc);
+		fill_gradient.addStop(qcol, 0.0, 0.5, 1.0, "Black", 100);
+		const ScColor& col2 = m_Doc->PageColors["White"];
+		qcol = ScColorEngine::getRGBColor(col2, m_Doc);
+		fill_gradient.addStop(qcol, 1.0, 0.5, 1.0, "White", 100);
+	}
 	QList<VColorStop*> cstops = fill_gradient.colorStops();
 	double lastStop = -1.0;
 	double actualStop = 0.0;

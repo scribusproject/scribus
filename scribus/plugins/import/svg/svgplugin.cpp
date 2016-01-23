@@ -2475,6 +2475,7 @@ void SVGPlug::parsePA( SvgStyle *obj, const QString &command, const QString &par
 				const GradientHelper& gradientHelper(m_gradients[key]);
 				if (gradientHelper.typeValid)
 					obj->FillGradientType = m_gradients[key].type;
+				key = m_gradients[key].reference;
 				if (obj->FillGradientType != 8)
 				{
 					if (gradientHelper.gradientValid)
@@ -2588,6 +2589,7 @@ void SVGPlug::parsePA( SvgStyle *obj, const QString &command, const QString &par
 				const GradientHelper& gradientHelper(m_gradients[key]);
 				if (gradientHelper.typeValid)
 					obj->StrokeGradientType = gradientHelper.type;
+				key = m_gradients[key].reference;
 				if (obj->StrokeGradientType != 8)
 				{
 					if (gradientHelper.gradientValid)
@@ -3158,8 +3160,11 @@ void SVGPlug::parseGradient( const QDomElement &e )
 	}
 	parseColorStops(&gradhelper, e);
 	m_gradients.insert(id, gradhelper);
-	if (m_Doc->addGradient(id, gradhelper.gradient))
-		importedGradients.append(id);
+	if (gradhelper.gradientValid)
+	{
+		if (m_Doc->addGradient(id, gradhelper.gradient))
+			importedGradients.append(id);
+	}
 	importedGradTrans.insert(origName, id);
 }
 
