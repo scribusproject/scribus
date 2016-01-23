@@ -55,7 +55,7 @@
 			<submenuitem text="Nationale/staatliche Farbstandards" file="color4.html" />
 			<submenuitem text="Resene-Farbpaletten" file="color5.html" />
 			<submenuitem text="dtp-studio-Farbpaletten" file="color6.html" />
-			<submenuitem text="GiveLife-Farbpaletten" file="color7.html" />
+			<submenuitem text="CIE LAB / CIE HLC" file="color4a.html" />
 			<submenuitem text="Galaxy-Gauge-Farbpaletten" file="color7a.html" />
 			<submenuitem text="Galaxy Color Harmonizer" file="color7b.html" />
 			<submenuitem text="Galaxy Color Emotions" file="color7c.html" />
