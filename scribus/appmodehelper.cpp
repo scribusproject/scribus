@@ -542,10 +542,6 @@ void AppModeHelper::enableActionsForSelection(ScribusMainWindow* scmw, ScribusDo
 			(*a_scrActions)["itemMulDuplicate"]->setEnabled(true);
 			(*a_scrActions)["itemTransform"]->setEnabled(true);
 			(*a_scrActions)["itemDelete"]->setEnabled(!inAnEditMode);
-			(*a_scrActions)["itemRaise"]->setEnabled(true);
-			(*a_scrActions)["itemLower"]->setEnabled(true);
-			(*a_scrActions)["itemRaiseToTop"]->setEnabled(true);
-			(*a_scrActions)["itemLowerToBottom"]->setEnabled(true);
 			(*a_scrActions)["itemSendToPattern"]->setEnabled(!inAnEditMode);
 			(*a_scrActions)["itemSendToInline"]->setEnabled(!inAnEditMode);
 			(*a_scrActions)["itemAdjustFrameToImage"]->setEnabled(true);
@@ -596,10 +592,6 @@ void AppModeHelper::enableActionsForSelection(ScribusMainWindow* scmw, ScribusDo
 			(*a_scrActions)["itemMulDuplicate"]->setEnabled(true);
 			(*a_scrActions)["itemTransform"]->setEnabled(true);
 			(*a_scrActions)["itemDelete"]->setEnabled(!inAnEditMode);
-			(*a_scrActions)["itemRaise"]->setEnabled(true);
-			(*a_scrActions)["itemLower"]->setEnabled(true);
-			(*a_scrActions)["itemRaiseToTop"]->setEnabled(true);
-			(*a_scrActions)["itemLowerToBottom"]->setEnabled(true);
 			//scrMenuMgr->setMenuEnabled("itemSendToScrapbook", true);
 			(*a_scrActions)["itemSendToPattern"]->setEnabled(!inAnEditMode);
 			(*a_scrActions)["itemSendToInline"]->setEnabled(!inAnEditMode);
@@ -697,10 +689,6 @@ void AppModeHelper::enableActionsForSelection(ScribusMainWindow* scmw, ScribusDo
 			(*a_scrActions)["itemMulDuplicate"]->setEnabled(true);
 			(*a_scrActions)["itemTransform"]->setEnabled(true);
 			(*a_scrActions)["itemDelete"]->setEnabled(!inAnEditMode);
-			(*a_scrActions)["itemRaise"]->setEnabled(true);
-			(*a_scrActions)["itemLower"]->setEnabled(true);
-			(*a_scrActions)["itemRaiseToTop"]->setEnabled(true);
-			(*a_scrActions)["itemLowerToBottom"]->setEnabled(true);
 			//		(*a_scrActions)["itemSendToScrapbook"]->setEnabled(true);
 			(*a_scrActions)["itemSendToPattern"]->setEnabled(!inAnEditMode);
 			(*a_scrActions)["itemSendToInline"]->setEnabled(!inAnEditMode);
@@ -749,10 +737,6 @@ void AppModeHelper::enableActionsForSelection(ScribusMainWindow* scmw, ScribusDo
 			(*a_scrActions)["itemMulDuplicate"]->setEnabled(true);
 			(*a_scrActions)["itemTransform"]->setEnabled(true);
 			(*a_scrActions)["itemDelete"]->setEnabled(!inAnEditMode);
-			(*a_scrActions)["itemRaise"]->setEnabled(true);
-			(*a_scrActions)["itemLower"]->setEnabled(true);
-			(*a_scrActions)["itemRaiseToTop"]->setEnabled(true);
-			(*a_scrActions)["itemLowerToBottom"]->setEnabled(true);
 			(*a_scrActions)["itemSendToPattern"]->setEnabled(!inAnEditMode);
 			(*a_scrActions)["itemSendToInline"]->setEnabled(!inAnEditMode);
 			(*a_scrActions)["itemAdjustFrameToImage"]->setEnabled(false);
@@ -904,6 +888,7 @@ void AppModeHelper::enableActionsForSelection(ScribusMainWindow* scmw, ScribusDo
 			(*a_scrActions)["itemGroupAdjust"]->setEnabled(false);
 			(*a_scrActions)["itemSplitPolygons"]->setEnabled( (currItem->asPolygon()) && (currItem->Segments.count() != 0) );
 		}
+		bool levelEnabled = true;
 		if (currItem->locked())
 		{
 			(*a_scrActions)["itemConvertToBezierCurve"]->setEnabled(false);
@@ -917,16 +902,13 @@ void AppModeHelper::enableActionsForSelection(ScribusMainWindow* scmw, ScribusDo
 			(*a_scrActions)["itemDetachTextFromPath"]->setEnabled(false);
 			(*a_scrActions)["itemCombinePolygons"]->setEnabled(false);
 			(*a_scrActions)["itemDelete"]->setEnabled(false);
-			(*a_scrActions)["itemLowerToBottom"]->setEnabled(false);
-			(*a_scrActions)["itemRaiseToTop"]->setEnabled(false);
-			(*a_scrActions)["itemRaise"]->setEnabled(false);
-			(*a_scrActions)["itemLower"]->setEnabled(false);
 			(*a_scrActions)["itemSendToPattern"]->setEnabled(!inAnEditMode);
 			(*a_scrActions)["itemSendToInline"]->setEnabled(!inAnEditMode);
 			(*a_scrActions)["editCut"]->setEnabled(false);
 			(*a_scrActions)["editClearContents"]->setEnabled(false);
 			(*a_scrActions)["editTruncateContents"]->setEnabled(false);
 			(*a_scrActions)["toolsRotate"]->setEnabled(false);
+			levelEnabled = false;
 		}
 		else
 		{
@@ -948,12 +930,13 @@ void AppModeHelper::enableActionsForSelection(ScribusMainWindow* scmw, ScribusDo
 						break;
 					}
 				}
-				(*a_scrActions)["itemRaise"]->setEnabled(haveSameParent);
-				(*a_scrActions)["itemLower"]->setEnabled(haveSameParent);
-				(*a_scrActions)["itemRaiseToTop"]->setEnabled(haveSameParent);
-				(*a_scrActions)["itemLowerToBottom"]->setEnabled(haveSameParent);
+				levelEnabled = haveSameParent;
 			}
 		}
+		(*a_scrActions)["itemRaise"]->setEnabled(levelEnabled);
+		(*a_scrActions)["itemLower"]->setEnabled(levelEnabled);
+		(*a_scrActions)["itemRaiseToTop"]->setEnabled(levelEnabled);
+		(*a_scrActions)["itemLowerToBottom"]->setEnabled(levelEnabled);
 		if (inAnEditMode)
 		{
 			(*a_scrActions)["itemSendToPattern"]->setEnabled(false);
