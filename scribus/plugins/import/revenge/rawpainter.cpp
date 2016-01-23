@@ -588,6 +588,11 @@ void RawPainter::endLayer()
 				Elements->removeAll(gElements.at(dre));
 				if (gElements.at(dre)->hasSoftShadow())
 					groupClip = false;
+				if (gElements.at(dre)->isGroup())
+				{
+					if (!gElements.at(dre)->groupClipping())
+						groupClip = false;
+				}
 			}
 			ite = m_Doc->groupObjectsSelection(tmpSel);
 			ite->setGroupClipping(groupClip);
@@ -1354,7 +1359,7 @@ void RawPainter::startTextObject(const librevenge::RVNGPropertyList &propList)
 	actTextItem = NULL;
 	lineSpSet = false;
 	lineSpIsPT = false;
-	if ((fileType == "pmd") || (fileType == "pm5") || (fileType == "p65"))
+//	if ((fileType == "pmd") || (fileType == "pm5") || (fileType == "p65"))
 		setStyle(propList);
 	if (propList["svg:x"] && propList["svg:y"] && propList["svg:width"] && propList["svg:height"])
 	{
@@ -3581,7 +3586,7 @@ void RawPainter::applyShadow(PageItem* ite)
 		ite->setSoftShadowColor(shadowColor);
 		ite->setSoftShadowXOffset(xof);
 		ite->setSoftShadowYOffset(yof);
-		ite->setSoftShadowBlurRadius(5);
+		ite->setSoftShadowBlurRadius(0);
 		ite->setSoftShadowShade(100);
 		ite->setSoftShadowOpacity(shadowTrans);
 		ite->setSoftShadowBlendMode(0);
