@@ -942,8 +942,7 @@ void RawPainter::drawPolygon(const librevenge::RVNGPropertyList &propList)
 		setStyle(propList);
 	Coords.resize(0);
 	Coords.svgInit();
-	PageItem *ite;
-	int z;
+	PageItem *ite=NULL;
 	Coords.svgMoveTo(valueAsPoint(vertices[0]["svg:x"]), valueAsPoint(vertices[0]["svg:y"]));
 	for(unsigned i = 1; i < vertices.count(); i++)
 	{
@@ -958,7 +957,7 @@ void RawPainter::drawPolygon(const librevenge::RVNGPropertyList &propList)
 		  {
 			  QByteArray ba(m_style["draw:fill-image"]->getStr().cstr());
 			  QByteArray imageData = QByteArray::fromBase64(ba);
-			  QString imgExt = "";
+			  QString imgExt;
 			  if (m_style["librevenge:mime-type"]->getStr() == "image/png")
 				  imgExt = "png";
 			  else if (m_style["librevenge:mime-type"]->getStr() == "image/jpeg")
@@ -971,7 +970,7 @@ void RawPainter::drawPolygon(const librevenge::RVNGPropertyList &propList)
 				  imgExt = "tif";
 			  if (!imgExt.isEmpty())
 			  {
-				  z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, baseX, baseY, 10, 10, LineW, CurrColorFill, CurrColorStroke);
+				  int z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, baseX, baseY, 10, 10, LineW, CurrColorFill, CurrColorStroke);
 				  ite = m_Doc->Items->at(z);
 				  ite->PoLine = Coords.copy();
 				  finishItem(ite);
@@ -1056,15 +1055,18 @@ void RawPainter::drawPolygon(const librevenge::RVNGPropertyList &propList)
 		}
 		else
 		{
-			z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, LineW, CurrColorFill, CurrColorStroke);
+			int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, LineW, CurrColorFill, CurrColorStroke);
 			ite = m_Doc->Items->at(z);
 			ite->PoLine = Coords.copy();
 			finishItem(ite);
 			applyFill(ite);
 		}
-		applyFlip(ite);
-		if (CurrColorFill != CommonStrings::None)
-			applyShadow(ite);
+		if (ite)
+		{
+			applyFlip(ite);
+			if (CurrColorFill != CommonStrings::None)
+				applyShadow(ite);
+		}
 	}
 }
 
@@ -1076,7 +1078,7 @@ void RawPainter::drawPath(const librevenge::RVNGPropertyList &propList)
 		setStyle(propList);
 	librevenge::RVNGPropertyListVector path = *propList.child("svg:d");
 	bool isClosed = false;
-	QString svgString = "";
+	QString svgString;
 	for(unsigned i=0; i < path.count(); i++)
 	{
 		librevenge::RVNGPropertyList pList = path[i];
@@ -1099,8 +1101,7 @@ void RawPainter::drawPath(const librevenge::RVNGPropertyList &propList)
 	Coords.resize(0);
 	Coords.svgInit();
 	Coords.parseSVG(svgString);
-	PageItem *ite;
-	int z;
+	PageItem *ite=NULL;
 	if (isClosed)
 	{
 		if(m_style["draw:fill"] && m_style["draw:fill"]->getStr() == "bitmap" && m_style["style:repeat"] && m_style["style:repeat"]->getStr() == "stretch")
@@ -1109,7 +1110,7 @@ void RawPainter::drawPath(const librevenge::RVNGPropertyList &propList)
 		  {
 			  QByteArray ba(m_style["draw:fill-image"]->getStr().cstr());
 			  QByteArray imageData = QByteArray::fromBase64(ba);
-			  QString imgExt = "";
+			  QString imgExt;
 			  if (m_style["librevenge:mime-type"]->getStr() == "image/png")
 				  imgExt = "png";
 			  else if (m_style["librevenge:mime-type"]->getStr() == "image/jpeg")
@@ -1122,7 +1123,7 @@ void RawPainter::drawPath(const librevenge::RVNGPropertyList &propList)
 				  imgExt = "tif";
 			  if (!imgExt.isEmpty())
 			  {
-				  z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, baseX, baseY, 10, 10, LineW, CurrColorFill, CurrColorStroke);
+				  int z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, baseX, baseY, 10, 10, LineW, CurrColorFill, CurrColorStroke);
 				  ite = m_Doc->Items->at(z);
 				  ite->PoLine = Coords.copy();
 				  finishItem(ite);
@@ -1207,19 +1208,22 @@ void RawPainter::drawPath(const librevenge::RVNGPropertyList &propList)
 		}
 		else
 		{
-			z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, LineW, CurrColorFill, CurrColorStroke);
+			int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, LineW, CurrColorFill, CurrColorStroke);
 			ite = m_Doc->Items->at(z);
 			ite->PoLine = Coords.copy();
 			finishItem(ite);
 			applyFill(ite);
 		}
-		applyFlip(ite);
-		if (CurrColorFill != CommonStrings::None)
-			applyShadow(ite);
+		if (ite)
+		{
+			applyFlip(ite);
+			if (CurrColorFill != CommonStrings::None)
+				applyShadow(ite);
+		}
 	}
 	else
 	{
-		z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX, baseY, 10, 10, LineW, CommonStrings::None, CurrColorStroke);
+		int z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX, baseY, 10, 10, LineW, CommonStrings::None, CurrColorStroke);
 		ite = m_Doc->Items->at(z);
 		ite->PoLine = Coords.copy();
 		finishItem(ite);
@@ -1239,14 +1243,14 @@ void RawPainter::drawGraphicObject(const librevenge::RVNGPropertyList &propList)
 		setStyle(propList);
 	if (propList["svg:x"] && propList["svg:y"] && propList["svg:width"] && propList["svg:height"])
 	{
-		PageItem *ite;
+		PageItem *ite=NULL;
 		double x = valueAsPoint(propList["svg:x"]);
 		double y = valueAsPoint(propList["svg:y"]);
 		double w = valueAsPoint(propList["svg:width"]);
 		double h = valueAsPoint(propList["svg:height"]);
 		QByteArray ba(propList["office:binary-data"]->getStr().cstr());
 		QByteArray imageData = QByteArray::fromBase64(ba);
-		QString imgExt = "";
+		QString imgExt;
 		if (propList["librevenge:mime-type"]->getStr() == "image/png")
 			imgExt = "png";
 		else if (propList["librevenge:mime-type"]->getStr() == "image/jpeg")
@@ -1268,7 +1272,7 @@ void RawPainter::drawGraphicObject(const librevenge::RVNGPropertyList &propList)
 		{
 			if ((propList["librevenge:mime-type"]->getStr() == "image/wmf") || (propList["librevenge:mime-type"]->getStr() == "image/emf"))
 			{
-				QString imgExt = "";
+				QString imgExt;
 				if (propList["librevenge:mime-type"]->getStr() == "image/wmf")
 					imgExt = "wmf";
 				else
@@ -1339,9 +1343,12 @@ void RawPainter::drawGraphicObject(const librevenge::RVNGPropertyList &propList)
 				delete tempFile;
 			}
 		}
-		applyFlip(ite);
-		if (CurrColorFill != CommonStrings::None)
-			applyShadow(ite);
+		if (ite)
+		{
+			applyFlip(ite);
+			if (CurrColorFill != CommonStrings::None)
+				applyShadow(ite);
+			}
 	}
 }
 
@@ -1633,7 +1640,7 @@ void RawPainter::openSpan(const librevenge::RVNGPropertyList &propList)
 		textCharStyle.setFillColor(parseColor(QString(propList["fo:color"]->getStr().cstr())));
 	if (propList["style:font-name"])
 	{
-		QString fontVari = "";
+		QString fontVari;
 		if (propList["fo:font-weight"])
 			fontVari = QString(propList["fo:font-weight"]->getStr().cstr());
 		QString fontName = QString(propList["style:font-name"]->getStr().cstr());
@@ -1642,7 +1649,7 @@ void RawPainter::openSpan(const librevenge::RVNGPropertyList &propList)
 	}
 	if (propList["fo:font-name"])
 	{
-		QString fontVari = "";
+		QString fontVari;
 		if (propList["fo:font-weight"])
 			fontVari = QString(propList["fo:font-weight"]->getStr().cstr());
 		QString fontName = QString(propList["fo:font-name"]->getStr().cstr());
@@ -2071,7 +2078,7 @@ void RawPainter::applyFill(PageItem* ite)
 	{
 		QByteArray ba(m_style["draw:fill-image"]->getStr().cstr());
 		QByteArray imageData = QByteArray::fromBase64(ba);
-		QString imgExt = "";
+		QString imgExt;
 		if (m_style["librevenge:mime-type"]->getStr() == "image/png")
 			imgExt = "png";
 		else if (m_style["librevenge:mime-type"]->getStr() == "image/jpeg")
@@ -2572,7 +2579,7 @@ void RawPainter::drawPolygon(const ::WPXPropertyListVector &vertices)
 		{
 		  QByteArray ba(m_style["draw:fill-image"]->getStr().cstr());
 		  QByteArray imageData = QByteArray::fromBase64(ba);
-		  QString imgExt = "";
+		  QString imgExt;
 		  if (m_style["libwpg:mime-type"]->getStr() == "image/png")
 			  imgExt = "png";
 		  else if (m_style["libwpg:mime-type"]->getStr() == "image/jpeg")
@@ -2687,7 +2694,7 @@ void RawPainter::drawPath(const ::WPXPropertyListVector &path)
 	if (!doProcessing)
 		return;
 	bool isClosed = false;
-	QString svgString = "";
+	QString svgString;
 	for(unsigned i=0; i < path.count(); i++)
 	{
 		WPXPropertyList propList = path[i];
@@ -2720,7 +2727,7 @@ void RawPainter::drawPath(const ::WPXPropertyListVector &path)
 		  {
 			  QByteArray ba(m_style["draw:fill-image"]->getStr().cstr());
 			  QByteArray imageData = QByteArray::fromBase64(ba);
-			  QString imgExt = "";
+			  QString imgExt;
 			  if (m_style["libwpg:mime-type"]->getStr() == "image/png")
 				  imgExt = "png";
 			  else if (m_style["libwpg:mime-type"]->getStr() == "image/jpeg")
@@ -2854,7 +2861,7 @@ void RawPainter::drawGraphicObject(const ::WPXPropertyList &propList, const ::WP
 		double h = valueAsPoint(propList["svg:height"]);
 		QByteArray ba(base64.cstr());
 		QByteArray imageData = QByteArray::fromBase64(ba);
-		QString imgExt = "";
+		QString imgExt;
 		if (propList["libwpg:mime-type"]->getStr() == "image/png")
 			imgExt = "png";
 		else if (propList["libwpg:mime-type"]->getStr() == "image/jpeg")
@@ -3101,7 +3108,7 @@ void RawPainter::startTextSpan(const ::WPXPropertyList &propList)
 		textCharStyle.setFillColor(parseColor(QString(propList["fo:color"]->getStr().cstr())));
 	if (propList["style:font-name"])
 	{
-		QString fontVari = "";
+		QString fontVari;
 		if (propList["fo:font-weight"])
 			fontVari = QString(propList["fo:font-weight"]->getStr().cstr());
 		QString fontName = QString(propList["style:font-name"]->getStr().cstr());
@@ -3302,7 +3309,7 @@ void RawPainter::applyFill(PageItem* ite)
 	{
 		QByteArray ba(m_style["draw:fill-image"]->getStr().cstr());
 		QByteArray imageData = QByteArray::fromBase64(ba);
-		QString imgExt = "";
+		QString imgExt;
 		if (m_style["libwpg:mime-type"]->getStr() == "image/png")
 			imgExt = "png";
 		else if (m_style["libwpg:mime-type"]->getStr() == "image/jpeg")
@@ -3372,7 +3379,7 @@ void RawPainter::applyFill(PageItem* ite)
 
 QString RawPainter::constructFontName(QString fontBaseName, QString fontStyle)
 {
-	QString fontName = "";
+	QString fontName;
 	bool found = false;
 	SCFontsIterator it(PrefsManager::instance()->appPrefs.fontPrefs.AvailFonts);
 	for ( ; it.hasNext(); it.next())
