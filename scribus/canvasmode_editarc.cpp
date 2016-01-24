@@ -221,6 +221,7 @@ void CanvasMode_EditArc::endEditing()
 void CanvasMode_EditArc::applyValues(double start, double end, double height, double width)
 {
 	PageItem *currItem = m_doc->m_Selection->itemAt(0);
+	QRectF oldR = currItem->getBoundingRect().adjusted(-5, -5, 10, 10);
 	PageItem_Arc *item = currItem->asArc();
 	QTransform bb;
 	bb.scale(height / width, 1.0);
@@ -236,24 +237,20 @@ void CanvasMode_EditArc::applyValues(double start, double end, double height, do
 		nSweep += 360;
 	double oldX = currItem->xPos();
 	double oldY = currItem->yPos();
+	double newX = oldX + m_centerPoint.x() - (width / 2.0);
+	double newY = oldY + m_centerPoint.y() - (height / 2.0);
+	item->setXYPos(newX, newY, true);
 	FPointArray old = item->PoLine;
-	QPainterPath ppr;
-	ppr.moveTo(m_centerPoint.x() - width / 2.0, m_centerPoint.y() - height / 2.0);
-	ppr.lineTo(m_centerPoint.x() + width / 2.0, m_centerPoint.y() - height / 2.0);
-	ppr.lineTo(m_centerPoint.x() + width / 2.0, m_centerPoint.y() + height / 2.0);
-	ppr.lineTo(m_centerPoint.x() - width / 2.0, m_centerPoint.y() + height / 2.0);
-	ppr.closeSubpath();
-	currItem->PoLine.fromQPainterPath(ppr, true);
-	FPoint wh = getMaxClipF(&currItem->PoLine);
-	currItem->setWidthHeight(wh.x(),wh.y());
-	m_doc->adjustItemSize(currItem);
-	currItem->OldB2 = currItem->width();
-	currItem->OldH2 = currItem->height();
 	QPainterPath pp;
 	pp.moveTo(width / 2.0, height / 2.0);
 	pp.arcTo(QRectF(0, 0, width, height), m_startAngle, nSweep);
 	pp.closeSubpath();
 	currItem->PoLine.fromQPainterPath(pp, true);
+	FPoint wh = getMaxClipF(&currItem->PoLine);
+	currItem->setWidthHeight(wh.x(),wh.y());
+	m_doc->adjustItemSize(currItem);
+	currItem->OldB2 = currItem->width();
+	currItem->OldH2 = currItem->height();
 	if (UndoManager::undoEnabled())
 	{
 		ScItemState<QPair<FPointArray, FPointArray> > *ss = new ScItemState<QPair<FPointArray, FPointArray> >(Um::EditArc,"",Um::IPolygon);
@@ -282,8 +279,12 @@ void CanvasMode_EditArc::applyValues(double start, double end, double height, do
 	m_centerPoint = currItem->PoLine.pointQF(0);
 	m_widthPoint = QPointF(m_centerPoint.x() - item->arcWidth / 2.0, m_centerPoint.y());
 	m_heightPoint = QPointF(m_centerPoint.x(), m_centerPoint.y() - item->arcHeight / 2.0);
-	QTransform itemMatrix = currItem->getTransform();
-	m_doc->regionsChanged()->update(itemMatrix.mapRect(QRectF(0, 0, currItem->width(), currItem->height())).adjusted(-currItem->width() / 2.0, -currItem->height() / 2.0, currItem->width(), currItem->height()));
+	m_doc->setRedrawBounding(currItem);
+	QRectF newR(currItem->getBoundingRect());
+	m_doc->regionsChanged()->update(newR.united(oldR));
+
+//	QTransform itemMatrix = currItem->getTransform();
+//	m_doc->regionsChanged()->update(itemMatrix.mapRect(QRectF(0, 0, currItem->width(), currItem->height())).adjusted(-currItem->width() / 2.0, -currItem->height() / 2.0, currItem->width(), currItem->height()));
 }
 
 void CanvasMode_EditArc::deactivate(bool forGesture)
@@ -359,7 +360,7 @@ void CanvasMode_EditArc::mouseMoveEvent(QMouseEvent *m)
 			blockUpdateFromItem(true);
 			currItem->update();
 			blockUpdateFromItem(false);
-			m_doc->regionsChanged()->update(itemMatrix.mapRect(QRectF(0, 0, currItem->width(), currItem->height())).adjusted(-currItem->width() / 2.0, -currItem->height() / 2.0, currItem->width(), currItem->height()));
+			m_doc->regionsChanged()->update(itemMatrix.mapRect(QRectF(0, 0, currItem->width(), currItem->height())).adjusted(-nWidth, -nHeight, nWidth, nHeight));
 		}
 	}
 	m_Mxp = newX;
@@ -428,9 +429,10 @@ void CanvasMode_EditArc::mouseReleaseEvent(QMouseEvent *m)
 		double start = inp.angleTo(QLineF(QPointF(item->arcWidth / 2.0, item->arcHeight / 2.0),m_startPoint));
 		inp.setAngle(start);
 		double end = inp.angleTo(QLineF(QPointF(item->arcWidth / 2.0, item->arcHeight / 2.0),m_endPoint));
-		double nWidth = mPoint.x() - m_widthPoint.x();
-		double nHeight = mPoint.y() - m_heightPoint.y();
-		applyValues(start,end + start, 2.0 * nHeight, 2.0 * nWidth);
+		double nWidth = qMax(qAbs(mPoint.x() - m_widthPoint.x()), 1.0);
+		double nHeight = qMax(qAbs(mPoint.y() - m_heightPoint.y()), 1.0);
+		if ((nWidth > 0) && (nHeight > 0))
+			applyValues(start,end + start, 2.0 * nHeight, 2.0 * nWidth);
 	}
 	QTransform itemMatrix = currItem->getTransform();
 	m_doc->regionsChanged()->update(itemMatrix.mapRect(QRectF(0, 0, currItem->width(), currItem->height())).adjusted(-currItem->width() / 2.0, -currItem->height() / 2.0, currItem->width(), currItem->height()));
