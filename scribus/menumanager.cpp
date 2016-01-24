@@ -114,16 +114,19 @@ bool MenuManager::addMenuStringToMenuBarBefore(const QString &menuName, const QS
 	if (menuStrings.contains(menuName))
 	{
 		QList<QAction*> mba=scribusMenuBar->actions();
-		QAction* beforeAct;
+		QAction* beforeAct=NULL;
 		foreach (beforeAct, mba)
 		{
 			if (beforeMenuName==beforeAct->text().remove('&').remove("..."))
 				break;
 		}
-		QMenu *m=new QMenu(menuName);
-		scribusMenuBar->insertMenu(beforeAct, m);
-		menuBarMenus.insert(menuName, m);
-		retVal=true;
+		if (beforeAct)
+		{
+			QMenu *m=new QMenu(menuName);
+			scribusMenuBar->insertMenu(beforeAct, m);
+			menuBarMenus.insert(menuName, m);
+			retVal=true;
+		}
 	}
 	return retVal;
 }
