@@ -43,7 +43,9 @@ static const char* table[] = {
 #endif
 
 // private functions
+#if 0
 static void readAdobeGlyphNames();
+#endif
 //static QString adobeGlyphName(FT_ULong charcode);
 static int traceMoveto( FT_Vector *to, FPointArray *composite );
 static int traceLineto( FT_Vector *to, FPointArray *composite );
