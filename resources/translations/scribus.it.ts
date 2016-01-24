@@ -9166,12 +9166,12 @@ Document Liberation Project http://www.documentliberation.org</translation>
     <message>
         <location filename="../../scribus/ui/hyask.cpp" line="69"/>
         <source>Accept the proposed hyphenation</source>
-        <translation type="unfinished"></translation>
+        <translation>Accetta la sillabazione proposta</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/hyask.cpp" line="76"/>
         <source>Add edited hyphen to local hyphenation dictionary list</source>
-        <translation type="unfinished"></translation>
+        <translation>Aggiungi la sillabazione modificata alla lista del dizionario locale</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/hyask.cpp" line="91"/>
@@ -9181,7 +9181,7 @@ Document Liberation Project http://www.documentliberation.org</translation>
     <message>
         <location filename="../../scribus/ui/hyask.cpp" line="97"/>
         <source>Add edited word to words that should not be hyphenated</source>
-        <translation type="unfinished"></translation>
+        <translation>Aggiungi la parola modificata alla lista dei termini da non sillabare</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/hyask.cpp" line="110"/>
@@ -9191,21 +9191,21 @@ Document Liberation Project http://www.documentliberation.org</translation>
     <message>
         <location filename="../../scribus/ui/hyask.cpp" line="111"/>
         <source>Do not apply the proposed hyphenation</source>
-        <translation type="unfinished"></translation>
+        <translation>Non applicare la sillabazione proposta</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/hyask.cpp" line="79"/>
         <source>Add to the
 Exception List</source>
         <translation>Aggiungi alla lista
-delle eccezioni</translation>
+delle Eccezioni</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/hyask.cpp" line="100"/>
         <source>Add to the
 Ignore List</source>
-        <translation>Aggiungi all&apos;elenco
-termini da ignorare</translation>
+        <translation>Aggiungi alla lista dei
+Termini da ignorare</translation>
     </message>
 </context>
 <context>
@@ -13128,7 +13128,7 @@ Se nessuna maniglia è selezionata, saranno tutte riportate alla posizione inizi
     <message>
         <location filename="../../scribus/ui/newmarginwidget.cpp" line="93"/>
         <source>Ensure all bleeds have the same value</source>
-        <translation type="unfinished">Assicura che tutti i margini per la pagina al vivo abbiano lo stesso valore</translation>
+        <translation>Assicura che tutti i margini per la pagina al vivo abbiano lo stesso valore</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/newmarginwidget.cpp" line="95"/>
@@ -30306,7 +30306,7 @@ Pertanto l&apos;immagine potrebbe essere non corretta</translation>
     <message>
         <location filename="../../scribus/plugins/gettext/docxim/docxim.cpp" line="29"/>
         <source>DOCX Document</source>
-        <translation type="unfinished"></translation>
+        <translation>Documento DOCX</translation>
     </message>
 </context>
 <context>
