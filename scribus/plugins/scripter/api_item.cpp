@@ -368,7 +368,7 @@ void ItemAPI::rotate(double rot)
 		return;
 	if (item == NULL)
 		return;
-	ScCore->primaryMainWindow()->doc->RotateItem(item->rotation() - rot, item);
+	ScCore->primaryMainWindow()->doc->rotateItem(item->rotation() - rot, item);
 
 }
 void ItemAPI::rotateAbs(double rot)
@@ -377,7 +377,7 @@ void ItemAPI::rotateAbs(double rot)
 		return;
 	if (item == NULL)
 		return;
-	ScCore->primaryMainWindow()->doc->RotateItem(rot * -1.0, item);
+	ScCore->primaryMainWindow()->doc->rotateItem(rot * -1.0, item);
 }
 
 

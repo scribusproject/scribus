@@ -2639,7 +2639,7 @@ void RawPainter::drawPolygon(const ::WPXPropertyListVector &vertices)
 								  ite->PoLine = Coords.copy();
 								  int rm = m_Doc->RotMode();
 								  m_Doc->RotMode(2);
-								  m_Doc->RotateItem(-rot, ite);
+								  m_Doc->rotateItem(-rot, ite);
 								  m_Doc->RotMode(rm);
 							  }
 							  else
@@ -2787,7 +2787,7 @@ void RawPainter::drawPath(const ::WPXPropertyListVector &path)
 									  ite->PoLine = Coords.copy();
 									  int rm = m_Doc->RotMode();
 									  m_Doc->RotMode(2);
-									  m_Doc->RotateItem(-rot, ite);
+									  m_Doc->rotateItem(-rot, ite);
 									  m_Doc->RotMode(rm);
 								  }
 								  else
@@ -2922,7 +2922,7 @@ void RawPainter::drawGraphicObject(const ::WPXPropertyList &propList, const ::WP
 									ite->PoLine = Coords.copy();
 									int rm = m_Doc->RotMode();
 									m_Doc->RotMode(2);
-									m_Doc->RotateItem(-rot, ite);
+									m_Doc->rotateItem(-rot, ite);
 									m_Doc->RotMode(rm);
 								}
 								else
@@ -2985,7 +2985,7 @@ void RawPainter::startTextObject(const ::WPXPropertyList &propList, const ::WPXP
 		{
 			int rm = m_Doc->RotMode();
 			m_Doc->RotMode(2);
-			m_Doc->RotateItem(rot, ite);
+			m_Doc->rotateItem(rot, ite);
 			m_Doc->RotMode(rm);
 		}
 		if (propList["draw-mirror-horizontal"])
