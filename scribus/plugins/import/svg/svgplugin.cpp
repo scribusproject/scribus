@@ -2838,16 +2838,16 @@ void SVGPlug::parseColorStops(GradientHelper *gradient, const QDomElement &e)
 			}
 			else
 				offset = ScCLocale::toDoubleC(temp);
-			if( !stop.attribute( "stop-opacity" ).isEmpty() )
+			if (stop.hasAttribute( "stop-opacity" ))
 				opa = fromPercentage(stop.attribute("stop-opacity"));
-			if( !stop.attribute( "stop-color" ).isEmpty() )
+			if (stop.hasAttribute("stop-color"))
 			{
 				if (stop.attribute("stop-color") == "currentColor")
 					Col = svgStyle.CurCol;
 				else
 					Col = parseColor(stop.attribute("stop-color"));
 			}
-			else
+			else if (stop.hasAttribute("style"))
 			{
 				QString style = stop.attribute( "style" ).simplified();
 				QStringList substyles = style.split(';', QString::SkipEmptyParts);
@@ -2865,6 +2865,8 @@ void SVGPlug::parseColorStops(GradientHelper *gradient, const QDomElement &e)
 					}
 				}
 			}
+			else
+				Col = "Black";
 		}
 		const ScColor& gradC = m_Doc->PageColors[Col];
 		gradient->gradient.addStop( ScColorEngine::getRGBColor(gradC, m_Doc), offset, 0.5, opa, Col, 100 );
