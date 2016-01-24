@@ -581,7 +581,7 @@ QByteArray extractFace(const QByteArray& coll, int faceIndex)
 	{
 		const QByteArray head = getTable(ttf, "head");
 		uint idxToLocFormat = word16(head, ttf_head_indexToLocFormat);
-		qDebug() << "loca format:" << (void*)idxToLocFormat;
+//		qDebug() << "loca format:" << (void*)idxToLocFormat;
 		return idxToLocFormat == 1;
 	}
 
