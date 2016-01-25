@@ -933,8 +933,13 @@ bool ScImgDataLoader_PS::loadPSjpeg(QString fn)
 		return false;
 	}
 	jpeg_create_decompress (&cinfo);
+#if defined(Q_OS_WIN32)
+	if ((infile = _wfopen((const wchar_t*) fn.utf16(), L"rb")) == NULL)
+		return false;
+#else
 	if ((infile = fopen (fn.toLocal8Bit(), "rb")) == NULL)
 		return false;
+#endif
 	jpeg_stdio_src(&cinfo, infile);
 	jpeg_read_header(&cinfo, true);
 	jpeg_start_decompress(&cinfo);
@@ -1053,8 +1058,13 @@ bool ScImgDataLoader_PS::loadPSjpeg(QString fn, QImage &tmpImg)
 		return false;
 	}
 	jpeg_create_decompress (&cinfo);
+#if defined(Q_OS_WIN32)
+	if ((infile = _wfopen((const wchar_t*) fn.utf16(), L"rb")) == NULL)
+		return false;
+#else
 	if ((infile = fopen (fn.toLocal8Bit(), "rb")) == NULL)
 		return false;
+#endif
 	jpeg_stdio_src(&cinfo, infile);
 	jpeg_read_header(&cinfo, true);
 	jpeg_start_decompress(&cinfo);

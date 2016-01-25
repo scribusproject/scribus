@@ -66,8 +66,13 @@ void ScImgDataLoader_JPEG::loadEmbeddedProfile(const QString& fn, int /*page*/)
 		return;
 	}
 	jpeg_create_decompress (&cinfo);
+#if defined(Q_OS_WIN32)
+	if ((infile = _wfopen((const wchar_t*) fn.utf16(), L"rb")) == NULL)
+		return;
+#else
 	if ((infile = fopen (fn.toLocal8Bit(), "rb")) == NULL)
 		return;
+#endif
 	jpeg_stdio_src(&cinfo, infile);
 	jpeg_save_markers(&cinfo, ICC_MARKER, 0xFFFF);
 	jpeg_read_header(&cinfo, true);
@@ -129,8 +134,13 @@ bool ScImgDataLoader_JPEG::loadPicture(const QString& fn, int /*page*/, int res,
 		return false;
 	}
 	jpeg_create_decompress (&cinfo);
+#if defined(Q_OS_WIN32)
+	if ((infile = _wfopen((const wchar_t*) fn.utf16(), L"rb")) == NULL)
+		return false;
+#else
 	if ((infile = fopen (fn.toLocal8Bit(), "rb")) == NULL)
 		return false;
+#endif
 	jpeg_stdio_src(&cinfo, infile);
 	jpeg_save_markers(&cinfo, ICC_MARKER, 0xFFFF);
 	jpeg_save_markers(&cinfo, PHOTOSHOP_MARKER, 0xFFFF);
