@@ -74,9 +74,9 @@ void ResourceManager::languageChange()
 	//resourceCategories.insert(RM_PROFILES, tr("Color Profiles"));
 
 	dataFiles.clear();
-	dataFiles.insert(RM_FONTS, "scribus_fonts.xml");
-	dataFiles.insert(RM_HYPH, "scribus_hyph_dicts.xml");
-	dataFiles.insert(RM_SPELL, "scribus_spell_dicts.xml");
+	dataFiles.insert(RM_FONTS, "scribus_fonts_151.xml");
+	dataFiles.insert(RM_HYPH, "scribus_hyph_dicts_151.xml");
+	dataFiles.insert(RM_SPELL, "scribus_spell_dicts_151.xml");
 	//dataFiles.insert(RM_TEMPLATES, "scribus_templates.xml");
 	//dataFiles.insert(RM_PROFILES, "scribus_profiles.xml");
 
