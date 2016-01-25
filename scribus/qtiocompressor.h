@@ -71,7 +71,7 @@ protected:
     qint64 writeData(const char * data, qint64 maxSize);
 private:
     static bool checkGzipSupport(const char * const versionString);
-	QtIOCompressorPrivate *m_ptr;
+	QtIOCompressorPrivate *d_ptr;
     Q_DECLARE_PRIVATE(QtIOCompressor)
     Q_DISABLE_COPY(QtIOCompressor)
 };

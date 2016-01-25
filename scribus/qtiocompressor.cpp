@@ -255,7 +255,7 @@ void QtIOCompressorPrivate::setZlibError(const QString &errorMessage, int zlibEr
     deompression at the expense of memory usage.
 */
 QtIOCompressor::QtIOCompressor(QIODevice *device, int compressionLevel, int bufferSize)
-:m_ptr(new QtIOCompressorPrivate(this, device, compressionLevel, bufferSize))
+:d_ptr(new QtIOCompressorPrivate(this, device, compressionLevel, bufferSize))
 {}
 
 /*!
