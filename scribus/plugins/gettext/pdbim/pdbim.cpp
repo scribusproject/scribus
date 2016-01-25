@@ -97,7 +97,12 @@ void PdbIm::loadFile(QString fname)
 							 QMessageBox::Ok, QMessageBox::NoButton);
 		return;
 	}
-	fread( &m_header, PDB_HEADER_SIZE, 1, m_pdfp );
+	size_t result = fread( &m_header, PDB_HEADER_SIZE, 1, m_pdfp );
+	if (result != PDB_HEADER_SIZE)
+	{
+		fclose(m_pdfp);
+		return;
+	}
 	if (strncmp(m_header.type, DOC_TYPE, sizeof(m_header.type) ) ||
 		strncmp( m_header.creator, DOC_CREATOR, sizeof(m_header.creator)))
 	{
@@ -113,8 +118,12 @@ void PdbIm::loadFile(QString fname)
 	fseek(m_pdfp, PDB_HEADER_SIZE, SEEK_SET);
 	GET_DWord(m_pdfp, offset);
 	fseek(m_pdfp, offset, SEEK_SET);
-	fread(&m_rec0, sizeof(m_rec0), 1, m_pdfp);
-
+	result = fread(&m_rec0, sizeof(m_rec0), 1, m_pdfp);
+	if (result != sizeof(m_rec0))
+	{
+		fclose(m_pdfp);
+		return;
+	}
 	if (swap_Word( m_rec0.version ) == 2 )
 		bCompressed = true;
 
@@ -154,6 +163,7 @@ void PdbIm::loadFile(QString fname)
 			++m_buf->position;
 		} 
 	}
+	fclose(m_pdfp);
 }
 
 void PdbIm::selectSwap()

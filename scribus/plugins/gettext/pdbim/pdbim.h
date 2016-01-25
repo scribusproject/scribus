@@ -96,8 +96,8 @@ typedef struct {
 	UT_uint32   position;
 } buffer;
 
-#define GET_Word(f,n)   { fread( &n, 2, 1, f ); n = swap_Word ( n ); }
-#define GET_DWord(f,n)  { fread( &n, 4, 1, f ); n = swap_DWord( n ); }
+#define GET_Word(f,n)   { size_t result = fread( &n, 2, 1, f ); if (result == 2) n = swap_Word ( n ); }
+#define GET_DWord(f,n)  { size_t result = fread( &n, 4, 1, f ); if (result == 4) n = swap_DWord( n ); }
 
 /*! \brief An import filter for Palm Documents (PDB files).
 PDB documents are simple non-formatted texts in binary forms used
