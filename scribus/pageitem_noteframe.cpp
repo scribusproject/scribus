@@ -59,7 +59,6 @@ PageItem_NoteFrame::PageItem_NoteFrame(NotesStyle *nStyle, ScribusDoc *doc, doub
 	else
 		m_SizeLocked = false;
 	deleteIt = false;
-	l_notes.empty();
 }
 
 PageItem_NoteFrame::PageItem_NoteFrame(ScribusDoc *doc, double x, double y, double w, double h, double w2, QString fill, QString outline)
@@ -69,7 +68,6 @@ PageItem_NoteFrame::PageItem_NoteFrame(ScribusDoc *doc, double x, double y, doub
 	m_masterFrame = NULL;
 	textFlowModeVal = TextFlowUsesFrameShape;
 	deleteIt = false;
-	l_notes.empty();
 }
 
 PageItem_NoteFrame::PageItem_NoteFrame(PageItem_TextFrame* inFrame, NotesStyle *nStyle) : PageItem_TextFrame(inFrame->doc(),inFrame->xPos(), inFrame->yPos(),inFrame->width(), inFrame->height(),inFrame->lineWidth(), inFrame->fillColor(), inFrame->lineColor())
@@ -132,7 +130,6 @@ PageItem_NoteFrame::PageItem_NoteFrame(PageItem_TextFrame* inFrame, NotesStyle *
 	else
 		m_SizeLocked = false;
 	deleteIt = false;
-	l_notes.empty();
 }
 
 void PageItem_NoteFrame::setNS(NotesStyle *nStyle, PageItem_TextFrame* master)
