@@ -40,6 +40,8 @@ DelColor::DelColor( QWidget* parent, ColorList colorList, QString colorName, boo
 
 	PrefsManager* prefsManager = PrefsManager::instance();
 	bool isToolColor = prefsManager->isToolColor(colorName);
+	replaceLabel = 0;
+	replacementColData = 0;
 	if (haveDoc || isToolColor)
 	{
 		replaceLabel = new QLabel( tr( "Replace With:" ), this );
@@ -69,7 +71,7 @@ DelColor::DelColor( QWidget* parent, ColorList colorList, QString colorName, boo
 
 	connect( okButton, SIGNAL( clicked() ), this, SLOT( accept() ) );
 	connect( cancelButton, SIGNAL( clicked() ), this, SLOT( reject() ) );
-	if (haveDoc || isToolColor)
+	if (replacementColData)
 		connect( replacementColData, SIGNAL(activated(int)), this, SLOT( ReplaceColor(int) ) );
 }
 
