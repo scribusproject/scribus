@@ -23,8 +23,6 @@ public:
 	Autoforms( QWidget* parent );
 	~Autoforms() {};
 	QPixmap getIconPixmap(int nr);
-	QMenu* Men;
-	QWidgetAction* MenAct;
 
 public slots:
 	void selForm(int a);
