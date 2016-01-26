@@ -43,7 +43,9 @@ const QString& SeItem::getPageName()
 /* ListBox Subclass */
 SeList::SeList(QWidget* parent) : QListWidget(parent)
 {
+	CurItem = 0;
 	Mpressed = false;
+	Thumb = false;
 	setAcceptDrops(true);
 }
 
