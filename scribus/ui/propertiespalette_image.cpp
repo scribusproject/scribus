@@ -33,7 +33,9 @@ PropertiesPalette_Image::PropertiesPalette_Image( QWidget* parent) : QWidget(par
 	m_doc  = 0;
 	m_haveDoc    = false;
 	m_haveItem   = false;
+	m_item       = 0;
 	m_unitRatio  = 1.0;
+	m_unitIndex  = 0;
 
 	m_userActionOn    = false;
 	userActionSniffer = new UserActionSniffer(this);
