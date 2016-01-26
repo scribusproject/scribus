@@ -143,6 +143,13 @@ SeView::SeView(QWidget* parent) : QTableWidget(parent)
 	setWordWrap(true);
 	Mpressed = false;
 	Namen = true;
+	MaxC  = -1;
+	colmult = 1;
+	coladd = 0;
+	rowmult = 2;
+	rowadd = 1;
+	cols = 1;
+	firstP = 0;
 // 	setFocusPolicy(Qt::NoFocus);
 }
 

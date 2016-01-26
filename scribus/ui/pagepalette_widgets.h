@@ -123,8 +123,6 @@ protected:
 	
 	QPoint Mpos;
 	bool Mpressed;
-	bool Doppel;
-	bool Links;
 	bool Namen;
 	int MaxC;
 	int colmult;
