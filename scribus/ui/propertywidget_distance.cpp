@@ -22,6 +22,9 @@ PropertyWidget_Distance::PropertyWidget_Distance(QWidget* parent) : QFrame(paren
 	m_item = 0;
 	m_ScMW = 0;
 
+	m_unitRatio = 1.0;
+	m_unitIndex = 0;
+
 	setupUi(this);
 
 	setFrameStyle(QFrame::Box | QFrame::Plain);
