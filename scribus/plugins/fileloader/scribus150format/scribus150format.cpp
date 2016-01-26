@@ -6729,8 +6729,9 @@ void Scribus150Format::updateNames2Ptr() //after document load - items pointers 
 			else
 			{
 				qWarning() << "Scribus150Format::updateNames2Ptr() : wrong mark [" << mrk->label << "] data - item [" << ItemID << "] not exists - DELETING MARK";
+				QString markLabel(mrk->label)
 				if (!m_Doc->eraseMark(mrk, true))
-					qWarning() << "Erase mark [" << mrk->label << "] failed - was it defined?";
+					qWarning() << "Erase mark [" << markLabel << "] failed - was it defined?";
 			}
 		}
 		markeredItemsMap.clear();
@@ -6753,8 +6754,9 @@ void Scribus150Format::updateNames2Ptr() //after document load - items pointers 
 			else
 			{
 				qWarning() << "Scribus150Format::updateNames2Ptr() : wrong mark [" << mark->label << "] data - pointed mark name [" << label2 << "] not exists - DELETING MARK";
+				QString markLabel(mark->label)
 				if (!m_Doc->eraseMark(mark, true))
-					qWarning() << "Erase mark [" << mark->label << "] failed - was it definied?";
+					qWarning() << "Erase mark [" << markLabel << "] failed - was it defined?";
 
 			}
 		}
