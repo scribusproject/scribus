@@ -4332,7 +4332,10 @@ void ScribusMainWindow::slotGetContent()
 				{
 					int t = QMessageBox::warning(this, CommonStrings::trWarning, tr("Do you really want to clear all your text?"), QMessageBox::Yes | QMessageBox::No, QMessageBox::No);
 					if (t == QMessageBox::No)
+					{
+						delete gt;
 						return;
+					}
 				}
 				gt->launchImporter(impsetup.importer, impsetup.filename, impsetup.textOnly, impsetup.encoding, false);
 				currItem->asTextFrame()->updateUndo();
