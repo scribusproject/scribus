@@ -109,6 +109,7 @@ void PdbIm::loadFile(QString fname)
 		ScMessageBox::warning(ScCore->primaryMainWindow(), QObject::tr("PDB Import", "PDB Importer"),
 							 "<qt>" + QObject::tr("This file is not recognized as a PDB document. Please, report this as a bug if you are sure it is one.", "PDB Importer") + "</qt>",
 							 QMessageBox::Ok, QMessageBox::NoButton);
+		fclose(m_pdfp);
 		return;
 	}
 
