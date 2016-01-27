@@ -810,21 +810,16 @@ StyleReader::StyleReader(QString documentName, gtWriter *w,
  
  void StyleReader::startElement(void*, const xmlChar * fullname, const xmlChar ** atts)
  {
- 	QString* name = new QString((const char*) fullname);
- 	name = new QString(name->toLower());
- 	QXmlAttributes* attrs = new QXmlAttributes();
- 	if (atts)
- 	{
- 		for(const xmlChar** cur = atts; cur && *cur; cur += 2)
- 			attrs->append(QString((char*)*cur), NULL, QString((char*)*cur), QString((char*)*(cur + 1)));
- 	}
- 	sreader->startElement(NULL, NULL, *name, *attrs);
+ 	QString name = QString((const char*) fullname).toLower();
+ 	QXmlAttributes attrs;
+ 	for(const xmlChar** cur = atts; cur && *cur; cur += 2)
+ 		attrs.append(QString((char*)*cur), NULL, QString((char*)*cur), QString((char*)*(cur + 1)));
+ 	sreader->startElement(NULL, NULL, name, attrs);
  }
  
  void StyleReader::endElement(void*, const xmlChar * name)
  {
- 	QString *nname = new QString((const char*) name);
- 	nname = new QString(nname->toLower());
- 	sreader->endElement(NULL, NULL, *nname);
+ 	QString nname = QString((const char*) name).toLower();
+ 	sreader->endElement(NULL, NULL, nname);
  }
  
