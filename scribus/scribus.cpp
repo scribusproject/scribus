@@ -3801,7 +3801,10 @@ void ScribusMainWindow::slotGetContent()
 								QMessageBox::No,	// GUI default
 								QMessageBox::Yes);	// batch default
 					if (t == QMessageBox::No)
+					{
+						delete gt;
 						return;
+					}
 				}
 				gt->launchImporter(impsetup.importer, impsetup.filename, impsetup.textOnly, impsetup.encoding, false, impsetup.prefixNames);
 			}
