@@ -53,6 +53,8 @@ void meshdistortion_freePlugin(ScPlugin* plugin)
 
 MeshDistortionPlugin::MeshDistortionPlugin() : ScActionPlugin()
 {
+	m_doc = 0;
+	m_patternItem = 0;
 	// Set action info in languageChange, so we only have to do
 	// it in one place.
 	languageChange();
