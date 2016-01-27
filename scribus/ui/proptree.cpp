@@ -40,13 +40,14 @@ for which a new license (GPL+exception) is in place.
 PropTreeItemDelegate::PropTreeItemDelegate(PropTreeWidget *parent) : QItemDelegate(parent)
 {
 	m_parent = parent;
+	m_edit = 0;
 }
 
 void PropTreeItemDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const
 {
 	QStyleOptionViewItem itemOpts = option;
 	itemOpts.state &= ~QStyle::State_HasFocus;
-	PropTreeItem* item = (PropTreeItem*)m_parent->indexToItem(index);
+	PropTreeItem* item = (PropTreeItem*) m_parent->indexToItem(index);
 	if ((index.column() == 1) && (item->m_type == PropTreeItem::CheckBox) && !(option.state & QStyle::State_Editing))
 	{
 		QStyleOptionButton buttonOption;
