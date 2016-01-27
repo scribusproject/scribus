@@ -171,7 +171,10 @@ bool ScImageCacheWriteAction::add(const QString & file)
 		if (!p)
 			return false;
 		if (!m_haveMasterLock && !p->lock())
+		{
+			delete p;
 			return false;
+		}
 		m_access[d] = p;
 	}
 
