@@ -207,6 +207,7 @@ void PropertiesPalette_XYZ::unsetDoc()
 	m_haveItem = false;
 	m_doc   = NULL;
 	m_item  = NULL;
+	nameEdit->clear();
 	xposSpin->setConstants(NULL);
 	yposSpin->setConstants(NULL);
 	widthSpin->setConstants(NULL);
