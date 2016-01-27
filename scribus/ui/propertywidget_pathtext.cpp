@@ -17,7 +17,9 @@ PropertyWidget_PathText::PropertyWidget_PathText(QWidget* parent) : QFrame(paren
 {
 	m_ScMW = 0;
 	m_doc  = 0;
-	m_unitRatio  = 1.0;
+	m_item = 0;
+	m_unitRatio = 1.0;
+	m_unitIndex = 0;
 
 	setupUi(this);
 
