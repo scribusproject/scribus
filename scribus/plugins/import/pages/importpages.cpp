@@ -1535,6 +1535,7 @@ PageItem* PagesPlug::parseObjReference(QDomElement &draw)
 {
 	ObjState obState;
 	obState.currentPath = QPainterPath();
+	obState.currentPathClosed = false;
 	obState.clipPath = QPainterPath();
 	obState.transform = QTransform();
 	obState.CurrColorFill = CommonStrings::None;
