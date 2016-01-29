@@ -67,6 +67,7 @@ CanvasMode_EditMeshGradient::CanvasMode_EditMeshGradient(ScribusView* view) : Ca
 	m_selectedMeshPoints.clear();
 	m_gradientPoint = noPointDefined;
 	m_old_mesh = new meshPoint();
+	m_keyRepeat = false;
 }
 
 CanvasMode_EditMeshGradient::~CanvasMode_EditMeshGradient()
