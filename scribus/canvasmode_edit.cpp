@@ -398,7 +398,6 @@ void CanvasMode_Edit::mouseMoveEvent(QMouseEvent *m)
 // 	const double mouseY = m->globalY();
 	const FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPos());
 	
-	m_lastPosWasOverGuide = false;
 	double newX, newY;
 	PageItem *currItem;
 	//bool erf = false;

@@ -73,7 +73,6 @@ private:
 	bool m_cursorVisible;
 	QTime m_blinkTime;
 	QTimer* m_blinker;
-	bool m_lastPosWasOverGuide;
 	double mRulerGuide;
 	bool m_longCursorTime;
 	bool m_keyRepeat;
