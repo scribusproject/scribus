@@ -39,12 +39,14 @@ ScColor::ScColor(void)
 	m_MG = 100;
 	m_YB = 50;
 	m_K = 0;
+	m_L_val = m_a_val = m_b_val = 0;
 	m_Spot = false;
 	m_Regist = false;
 }
 
 ScColor::ScColor(int c, int m, int y, int k)
 {
+	m_L_val = m_a_val = m_b_val = 0;
 	m_Spot = false;
 	m_Regist = false;
 	setColor(c, m, y, k);
@@ -52,6 +54,8 @@ ScColor::ScColor(int c, int m, int y, int k)
  
 ScColor::ScColor(int r, int g, int b)
 {
+	m_K = 0;
+	m_L_val = m_a_val = m_b_val = 0;
 	m_Spot = false;
 	m_Regist = false;
 	setColorRGB(r, g, b);
