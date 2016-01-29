@@ -49,6 +49,7 @@ CalligraphicMode::CalligraphicMode(ScribusView* view) : CanvasMode(view)
 {
 	Mxp = Myp = -1;
 	Dxp = Dyp = -1;
+	SeRx = SeRy = -1;
 	m_MouseButtonPressed = false;
 }
 
