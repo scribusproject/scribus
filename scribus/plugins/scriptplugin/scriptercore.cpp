@@ -168,7 +168,6 @@ void ScripterCore::FinishScriptRun()
 		ScMW->outlinePalette->BuildTree();
 		ScMW->pagePalette->setView(ScMW->view);
 		ScMW->pagePalette->Rebuild();
-		ScMW->doc->RePos = true;
 		ScMW->doc->RePos = false;
 		if (ScMW->doc->m_Selection->count() != 0)
 			ScMW->doc->m_Selection->itemAt(0)->emitAllToGUI();
