@@ -3010,7 +3010,7 @@ Configurazione non valida</translation>
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcode.cpp" line="51"/>
         <source>Scribus frontend for Barcode Writer in Pure PostScript</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Interfaccia Scribus per elaborare codici a barre in puro PostScript</translation>
     </message>
     <message>
         <source>Scribus frontend for Pure PostScript Barcode Writer</source>
@@ -5057,12 +5057,12 @@ Il tasto Inserisci inserisce un carattere (speciale) nell&apos;area di selezione
     <message>
         <location filename="../../scribus/ui/checkDocument.cpp" line="135"/>
         <source>This is a user definable setting serving as a caution for low resolution images, which may lead to poor quality output</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Questa impostazione è definibile dall&apos;utente per evitare immagini a bassa risoluzione e quindi output di scarsa qualità</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/checkDocument.cpp" line="136"/>
         <source>You have one or more characters which do not have a corresponding glyph in your chosen font</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Sono presenti uno o più caratteri che non hanno il glifo corrispondente per il font scelto</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/checkDocument.cpp" line="137"/>
@@ -5184,7 +5184,7 @@ Il tasto Inserisci inserisce un carattere (speciale) nell&apos;area di selezione
     <message>
         <location filename="../../scribus/ui/checkDocument.cpp" line="141"/>
         <source>There is more text than can show in the frame as sized. Nonvisible excess characters like spaces and carriage returns may trigger this if nothing appears to be missing.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">La cornice contiene più testo di quanto sia possibile visualizzare. I caratteri non visibili come spazi e ritorni a capo potrebbero generare il problema se tutto il contenuto è visualizzato.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/checkDocument.cpp" line="142"/>
@@ -5205,12 +5205,12 @@ Il tasto Inserisci inserisce un carattere (speciale) nell&apos;area di selezione
         <location filename="../../scribus/ui/checkDocument.cpp" line="144"/>
         <location filename="../../scribus/ui/checkDocument.cpp" line="146"/>
         <source>This layer uses transparency, only an issue if using older printing profiles. You may safely ignore this when using modern printing methods, or exporting to PDF version greater than 1.4.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Questo livello utilizza trasparenze, un problema solo in caso di profili di stampa vecchi. Puoi tranquillamente ignorare questo utilizzando metodi di stampa moderni, o esportare a versioni PDF successive a 1.4.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/checkDocument.cpp" line="145"/>
         <source>This layer uses blendmodes which relies on transparency, only an issue if using older printing profiles. You may safely ignore this when using modern printing methods, or exporting to PDF version greater than 1.4.</source>
-        <translation type="unfinished">Questo livello utilizza un metodo di fusione che fa affidamento su trasparenza, un problema solo in caso di profili di stampa vecchi. Puoi tranquillamente ignorare questo utilizzando metodi di stampa moderni, o esportare a versioni PDF successive a 1.4.</translation>
+        <translation type="unfinished">Questo livello utilizza metodi di fusione basati su trasparenze, un problema solo in caso di profili di stampa vecchi. Puoi tranquillamente ignorare questo utilizzando metodi di stampa moderni, o esportare a versioni PDF successive a 1.4.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/checkDocument.cpp" line="146"/>
@@ -11674,13 +11674,14 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../scribus/loadsaveplugin.cpp" line="244"/>
         <source>An error occurred while opening file or file is damaged</source>
-        <translation type="unfinished"></translation>
+        <translation>Si è verificato un errore durante l&apos;apertura del file o il file è danneggiato</translation>
     </message>
     <message>
         <location filename="../../scribus/loadsaveplugin.cpp" line="249"/>
         <source>An error occurred while parsing file at line %1, column %2 :
 %3</source>
-        <translation type="unfinished"></translation>
+        <translation>Si è verificato un errore durante l&apos;analisi del file alla riga %1, colonna %2 :
+%3</translation>
     </message>
     <message>
         <source>An error occured while opening file or file is damaged</source>
@@ -26189,12 +26190,12 @@ dell&apos;oggetto</translation>
     <message>
         <location filename="../../scribus/ui/propertywidget_textcolor.cpp" line="553"/>
         <source>Background color of selected text.</source>
-        <translation type="unfinished"></translation>
+        <translation>Colore di sfondo del testo selezionato</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_textcolor.cpp" line="554"/>
         <source>Saturation of color of text fill</source>
-        <translation>Intensità colore del riempimento del testo</translation>
+        <translation>Intensità colore dello riempimento del testo</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_textcolor.cpp" line="555"/>
@@ -26204,7 +26205,7 @@ dell&apos;oggetto</translation>
     <message>
         <location filename="../../scribus/ui/propertywidget_textcolor.cpp" line="556"/>
         <source>Saturation of color of text background</source>
-        <translation type="unfinished"></translation>
+        <translation>Intensità colore dello sfondo del testo</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_textcolor.cpp" line="558"/>
@@ -31001,7 +31002,7 @@ Si prega di sceglierne un altro.</translation>
     <message>
         <location filename="../../scribus/ui/smcstylewidget.cpp" line="102"/>
         <source>Fill Color</source>
-        <translation>Colore di riempimento</translation>
+        <translation>Colore dello riempimento</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smcstylewidget.cpp" line="103"/>
@@ -31011,7 +31012,7 @@ Si prega di sceglierne un altro.</translation>
     <message>
         <location filename="../../scribus/ui/smcstylewidget.cpp" line="104"/>
         <source>Stroke Color</source>
-        <translation>Colore contorno</translation>
+        <translation>Colore del contorno</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smcstylewidget.cpp" line="105"/>
@@ -31021,12 +31022,12 @@ Si prega di sceglierne un altro.</translation>
     <message>
         <location filename="../../scribus/ui/smcstylewidget.cpp" line="106"/>
         <source>Background Color</source>
-        <translation type="unfinished"></translation>
+        <translation>Colore di sfondo</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smcstylewidget.cpp" line="107"/>
         <source>Background Shade</source>
-        <translation type="unfinished"></translation>
+        <translation>Intensità sfondo</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smcstylewidget.cpp" line="270"/>
@@ -31356,7 +31357,7 @@ Si prega di sceglierne un altro.</translation>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.ui" line="590"/>
         <source>Colors</source>
-        <translation type="unfinished">Colori</translation>
+        <translation>Colori</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.ui" line="693"/>
