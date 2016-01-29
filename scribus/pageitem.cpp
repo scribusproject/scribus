@@ -3217,6 +3217,7 @@ void PageItem::set4ColorColors(QString col1, QString col2, QString col3, QString
 				case LatexFrame:
 				case OSGFrame:
 					setGradientCol4(m_Doc->itemToolPrefs().imageFillColor);
+					break;
 				case TextFrame:
 				case PathText:
 					setGradientCol4(m_Doc->itemToolPrefs().textFillColor);
