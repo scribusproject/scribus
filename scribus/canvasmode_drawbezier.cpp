@@ -62,9 +62,10 @@
 BezierMode::BezierMode(ScribusView* view) : CanvasMode(view) 
 {
 	Mxp = Myp = -1;
-	Dxp = Dyp = -1;
+	SeRx = SeRy = -1;
 	MoveGX = MoveGY = false;
 	inItemCreation = false;
+	m_MouseButtonPressed = false;
 	shiftSelItems = false;
 	FirstPoly = true;
 }
@@ -125,7 +126,6 @@ void BezierMode::activate(bool flag)
 {
 //	qDebug() << "DrawBezierMode::activate" << flag;
 	Mxp = Myp = -1;
-	Dxp = Dyp = -1;
 	MoveGX = MoveGY = false;
 	inItemCreation = false;
 	shiftSelItems = false;

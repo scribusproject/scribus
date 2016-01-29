@@ -54,7 +54,7 @@ private:
 
 	bool inItemCreation, shiftSelItems, FirstPoly;
 	bool m_MouseButtonPressed;
-	double Mxp, Myp, Dxp, Dyp;
+	double Mxp, Myp;
 	double SeRx, SeRy;
 	bool MoveGX, MoveGY;
 	FPointArray RecordP;
