@@ -3060,6 +3060,33 @@
     <lrelease Include="..\..\..\resources\translations\scribus.zh_TW.ts">
       <Filter>Translation Files</Filter>
     </lrelease>
+    <lrelease Include="..\..\..\resources\translations\scribus.so.ts">
+      <Filter>Translation Files</Filter>
+    </lrelease>
+    <lrelease Include="..\..\..\resources\translations\scribus.te.ts">
+      <Filter>Translation Files</Filter>
+    </lrelease>
+    <lrelease Include="..\..\..\resources\translations\scribus.eo.ts">
+      <Filter>Translation Files</Filter>
+    </lrelease>
+    <lrelease Include="..\..\..\resources\translations\scribus.fa_IR.ts">
+      <Filter>Translation Files</Filter>
+    </lrelease>
+    <lrelease Include="..\..\..\resources\translations\scribus.he_IL.ts">
+      <Filter>Translation Files</Filter>
+    </lrelease>
+    <lrelease Include="..\..\..\resources\translations\scribus.kab.ts">
+      <Filter>Translation Files</Filter>
+    </lrelease>
+    <lrelease Include="..\..\..\resources\translations\scribus.kn_IN.ts">
+      <Filter>Translation Files</Filter>
+    </lrelease>
+    <lrelease Include="..\..\..\resources\translations\scribus.mn_MN.ts">
+      <Filter>Translation Files</Filter>
+    </lrelease>
+    <lrelease Include="..\..\..\resources\translations\scribus.pt_PT.ts">
+      <Filter>Translation Files</Filter>
+    </lrelease>
   </ItemGroup>
   <ItemGroup>
     <moc Include="..\..\..\scribus\ui\about.h">
