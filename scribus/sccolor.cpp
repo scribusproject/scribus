@@ -52,6 +52,7 @@ ScColor::ScColor(int c, int m, int y, int k)
  
 ScColor::ScColor(int r, int g, int b)
 {
+	K = 0;
 	Spot = false;
 	Regist = false;
 	setColorRGB(r, g, b);
