@@ -199,6 +199,7 @@ void PropertiesPalette_Line::handleSelectionChanged()
 		case PageItem::LatexFrame:
 		case PageItem::OSGFrame:
 			setEnabled(currItem->asOSGFrame() == NULL);
+			break;
 		case PageItem::Line:
 			setEnabled(true);
 			lineMode->setEnabled(true);
