@@ -4309,6 +4309,7 @@ void PageItem::setFillQColor()
 				case LatexFrame:
 				case OSGFrame:
 					fillColorVal = m_Doc->itemToolPrefs().imageFillColor;
+					break;
 				case TextFrame:
 				case PathText:
 					fillColorVal = m_Doc->itemToolPrefs().textFillColor;
