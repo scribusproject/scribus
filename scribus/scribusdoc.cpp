@@ -8221,6 +8221,7 @@ void ScribusDoc::itemSelection_SetItemGradFill(int typ)
 								case PageItem::ImageFrame:
 								case PageItem::LatexFrame:
 									currItem->setFillColor(m_docPrefsData.itemToolPrefs.imageFillColor);
+									break;
 								case PageItem::TextFrame:
 								case PageItem::PathText:
 									currItem->setFillColor(m_docPrefsData.itemToolPrefs.textFillColor);
