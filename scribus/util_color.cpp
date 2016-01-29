@@ -869,8 +869,8 @@ bool importColorsFromFile(QString fileName, ColorList &EditColors, QHash<QString
 									QDomElement cg = colNode.toElement();
 									if (cg.tagName() == "colorEntry")
 									{
+										int r (0), g(0), b(0);
 										QString colorName = "";
-										int r, g, b;
 										QDomNode colEntry = cg.firstChild();
 										while(!colEntry.isNull())
 										{
