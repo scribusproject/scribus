@@ -690,20 +690,23 @@ bool AIPlug::decompressAIData(QString &fName)
 	strm.opaque = Z_NULL;
 	strm.avail_in = 0;
 	strm.next_in = Z_NULL;
-	ret = inflateInit(&strm);
 
+	ret = inflateInit(&strm);
 	if (ret != Z_OK)
 	{
 		fclose(source);
 		fclose(dest);
 		return false;
 	}
+
 	do
 	{
 		strm.avail_in = fread(in, 1, 4096, source);
 		if (ferror(source))
 		{
 			(void)inflateEnd(&strm);
+			fclose(source);
+			fclose(dest);
 			return false;
 		}
 		if (strm.avail_in == 0)
@@ -722,12 +725,16 @@ bool AIPlug::decompressAIData(QString &fName)
 				case Z_DATA_ERROR:
 				case Z_MEM_ERROR:
 					(void)inflateEnd(&strm);
+					fclose(source);
+					fclose(dest);
 					return false;
 			}
 			have = 4096 - strm.avail_out;
 			if (fwrite(out, 1, have, dest) != have || ferror(dest))
 			{
 				(void)inflateEnd(&strm);
+				fclose(source);
+				fclose(dest);
 				return false;
 			}
 		}
