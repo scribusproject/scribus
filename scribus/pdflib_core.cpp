@@ -10454,7 +10454,7 @@ void PDFLibCore::copyPoDoFoDirect(const PoDoFo::PdfVariant* obj, QList<PoDoFo::P
 			PutDoc("[");
 			for (uint i=0; i < array.size(); ++i)
 				copyPoDoFoDirect( &(array[i]), referencedObjects, importedObjects);
-				PutDoc("]");	
+			PutDoc("]");	
 			break;
 		}
 		case PoDoFo::ePdfDataType_Dictionary:
