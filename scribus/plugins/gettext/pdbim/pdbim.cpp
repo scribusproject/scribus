@@ -63,6 +63,12 @@ PdbIm::PdbIm(const QString& fname, const QString& enc, gtWriter *w)
 	loadFile(fname);
 }
 
+PdbIm::~PdbIm()
+{
+	if (m_buf)
+		delete m_buf;
+}
+
 void PdbIm::write()
 {
 	QTextCodec *codec;

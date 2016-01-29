@@ -119,7 +119,7 @@ public:
 	\param enc user selected text encoding. See encoding attr.
 	\param w a reference to the gtWriter instance */
 	PdbIm(const QString& fname, const QString& enc, gtWriter *w);
-	~PdbIm(){};
+	~PdbIm();
 	/*! \brief Write data into Scribus text frame.
 	User should specify encoding of the imported text - it's recoded here. */
 	void write();
