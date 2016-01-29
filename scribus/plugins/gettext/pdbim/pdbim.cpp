@@ -67,6 +67,12 @@ PdbIm::PdbIm(const QString& fname, const QString& enc, gtWriter *w)
 	loadFile(fname);
 }
 
+PdbIm::~PdbIm()
+{
+	if (m_buf)
+		delete m_buf;
+}
+
 void PdbIm::write()
 {
 	QTextCodec *codec;
@@ -98,7 +104,7 @@ void PdbIm::loadFile(QString fname)
 		return;
 	}
 	size_t result = fread( &m_header, PDB_HEADER_SIZE, 1, m_pdfp );
-	if (result != PDB_HEADER_SIZE)
+	if (result != 1)
 	{
 		fclose(m_pdfp);
 		return;
@@ -120,7 +126,7 @@ void PdbIm::loadFile(QString fname)
 	GET_DWord(m_pdfp, offset);
 	fseek(m_pdfp, offset, SEEK_SET);
 	result = fread(&m_rec0, sizeof(m_rec0), 1, m_pdfp);
-	if (result != sizeof(m_rec0))
+	if (result != 1)
 	{
 		fclose(m_pdfp);
 		return;
