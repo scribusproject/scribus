@@ -39,7 +39,7 @@ protected:
 public:
 	gtStyle(QString name);
 	gtStyle(const gtStyle& s);
-	void setFont(gtFont newFont);
+	void setFont(const gtFont& newFont);
 	gtFont* getFont();
 	QString getName();
 	void setName(QString newName);

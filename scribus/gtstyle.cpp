@@ -37,7 +37,7 @@ gtStyle::gtStyle(const gtStyle& s)
 	font = gtFont(s.font);
 }
 
-void gtStyle::setFont(gtFont newFont)
+void gtStyle::setFont(const gtFont& newFont)
 {
 	font = newFont;
 }
