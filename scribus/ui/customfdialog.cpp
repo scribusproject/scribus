@@ -401,6 +401,8 @@ CustomFDialog::CustomFDialog(QWidget *parent, QString wDir, QString caption, QSt
 		if (WithProfiles!=NULL)
 			WithProfiles->setToolTip( "<qt>" + tr( "Include color profiles when collecting files for the document" ) + "</qt>");
 		
+		TxCodeM = NULL;
+		TxCodeT = NULL;
 		if (flags & fdShowCodecs)
 		{
 			LayoutC = new QFrame(this);
