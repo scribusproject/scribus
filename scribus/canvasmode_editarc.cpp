@@ -65,6 +65,9 @@ CanvasMode_EditArc::CanvasMode_EditArc(ScribusView* view) : CanvasMode(view), m_
 	m_Mxp = m_Myp = -1;
 	m_blockUpdateFromItem = 0;
 	m_arcPoint = noPointDefined;
+	m_startAngle = m_endAngle = 0;
+
+	vectorDialog = 0;
 }
 
 inline bool CanvasMode_EditArc::GetItem(PageItem** pi)
@@ -153,7 +156,7 @@ void CanvasMode_EditArc::leaveEvent(QEvent *e)
 
 void CanvasMode_EditArc::activate(bool fromGesture)
 {
-	VectorDialog = new ArcVectorDialog(m_ScMW);
+	vectorDialog = new ArcVectorDialog(m_ScMW);
 	m_canvas->m_viewMode.m_MouseButtonPressed = false;
 	m_canvas->resetRenderMode();
 	m_doc->DragP = false;
@@ -173,18 +176,18 @@ void CanvasMode_EditArc::activate(bool fromGesture)
 	m_endAngle = m_startAngle + item->arcSweepAngle;
 	QLineF res = QLineF(m_centerPoint, m_startPoint);
 	QLineF swe = QLineF(m_centerPoint, m_endPoint);
-	VectorDialog->setValues(res.angle(), swe.angle(), item->arcHeight, item->arcWidth);
-	VectorDialog->unitChange(m_doc->unitIndex());
-	VectorDialog->show();
+	vectorDialog->setValues(res.angle(), swe.angle(), item->arcHeight, item->arcWidth);
+	vectorDialog->unitChange(m_doc->unitIndex());
+	vectorDialog->show();
 	setModeCursor();
 	if (fromGesture)
 	{
 		m_view->update();
 	}
-	connect(m_view, SIGNAL(changeUN(int)), VectorDialog, SLOT(unitChange(int)), Qt::UniqueConnection);
-	connect(VectorDialog, SIGNAL(NewVectors(double, double, double, double)), this, SLOT(applyValues(double, double, double, double)));
-	connect(VectorDialog, SIGNAL(endEdit()), this, SLOT(endEditing()));
-	connect(VectorDialog, SIGNAL(paletteShown(bool)), this, SLOT(endEditing(bool)));
+	connect(m_view, SIGNAL(changeUN(int)), vectorDialog, SLOT(unitChange(int)), Qt::UniqueConnection);
+	connect(vectorDialog, SIGNAL(NewVectors(double, double, double, double)), this, SLOT(applyValues(double, double, double, double)));
+	connect(vectorDialog, SIGNAL(endEdit()), this, SLOT(endEditing()));
+	connect(vectorDialog, SIGNAL(paletteShown(bool)), this, SLOT(endEditing(bool)));
 	connect(m_doc, SIGNAL(docChanged()), this, SLOT(updateFromItem()));
 }
 
@@ -203,7 +206,7 @@ void CanvasMode_EditArc::updateFromItem()
 	m_endAngle = m_startAngle + item->arcSweepAngle;
 	QLineF res = QLineF(m_centerPoint, m_startPoint);
 	QLineF swe = QLineF(m_centerPoint, m_endPoint);
-	VectorDialog->setValues(res.angle(), swe.angle(), item->arcHeight, item->arcWidth);
+	vectorDialog->setValues(res.angle(), swe.angle(), item->arcHeight, item->arcWidth);
 	m_view->update();
 }
 
@@ -289,9 +292,9 @@ void CanvasMode_EditArc::applyValues(double start, double end, double height, do
 
 void CanvasMode_EditArc::deactivate(bool forGesture)
 {
-	disconnect(VectorDialog, SIGNAL(paletteShown(bool)), this, SLOT(endEditing(bool)));
-	VectorDialog->close();
-	VectorDialog->deleteLater();
+	disconnect(vectorDialog, SIGNAL(paletteShown(bool)), this, SLOT(endEditing(bool)));
+	vectorDialog->close();
+	vectorDialog->deleteLater();
 	m_view->setRedrawMarkerShown(false);
 	m_arcPoint = noPointDefined;
 	disconnect(m_doc, SIGNAL(docChanged()), this, SLOT(updateFromItem()));
@@ -356,7 +359,7 @@ void CanvasMode_EditArc::mouseMoveEvent(QMouseEvent *m)
 			}
 			QLineF res = QLineF(m_centerPoint, m_startPoint);
 			QLineF swe = QLineF(m_centerPoint, m_endPoint);
-			VectorDialog->setValues(res.angle(), swe.angle(), nHeight * 2, nWidth * 2);
+			vectorDialog->setValues(res.angle(), swe.angle(), nHeight * 2, nWidth * 2);
 			blockUpdateFromItem(true);
 			currItem->update();
 			blockUpdateFromItem(false);

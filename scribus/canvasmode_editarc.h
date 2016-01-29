@@ -72,8 +72,6 @@ private:
 
 	double m_Mxp, m_Myp;
 	ScribusMainWindow* m_ScMW;
-	bool m_cursorVisible;
-	bool m_lastPosWasOverGuide;
 	QPointF m_startPoint;
 	QPointF m_endPoint;
 	QPointF m_centerPoint;
@@ -82,7 +80,7 @@ private:
 	double m_startAngle;
 	double m_endAngle;
 	eArcPoint m_arcPoint;
-	ArcVectorDialog* VectorDialog;
+	ArcVectorDialog* vectorDialog;
 
 	int    m_blockUpdateFromItem;
 	void   blockUpdateFromItem(bool block) { if (block) ++m_blockUpdateFromItem; else --m_blockUpdateFromItem; }
