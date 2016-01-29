@@ -2827,7 +2827,7 @@ bool PDFLibCore::PDF_TemplatePage(const ScPage* pag, bool )
 								patternStackPos.push(QPointF(embedded->gXpos, ite->height() - embedded->gYpos));
 								inPattern++; // We are not really exporting a pattern, but that fix gradient export
 								if (!PDF_ProcessItem(output, embedded, pag, pag->pageNr(), true, true))
-									return "";
+									return false;
 								inPattern--;
 								patternStackPos.pop();
 								tmpD += output;
