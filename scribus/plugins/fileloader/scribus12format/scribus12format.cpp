@@ -43,6 +43,8 @@ for which a new license (GPL+exception) is in place.
 Scribus12Format::Scribus12Format() :
 	LoadSavePlugin()
 {
+	VorlC = -1;
+
 	// Set action info in languageChange, so we only have to do
 	// it in one place. This includes registering file formats.
 	registerFormats();
