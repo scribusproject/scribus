@@ -1596,7 +1596,7 @@ void XPSExPlug::processPathTextItem(double xOffset, double yOffset, PageItem *It
 		if (charStyle.effects() & ScStyle_Strikethrough)
 		{
 			double st, lw;
-			if ((charStyle.strikethruOffset() != -1) || (charStyle.underlineWidth() != -1))
+			if ((charStyle.strikethruOffset() != -1) || (charStyle.strikethruWidth() != -1))
 			{
 				if (charStyle.strikethruOffset() != -1)
 					st = (charStyle.strikethruOffset() / 1000.0) * (charStyle.font().ascent(charStyle.fontSize() / 10.0));
