@@ -1367,10 +1367,10 @@ void Cpalette::resetOneControlPoint()
 		if(UndoManager::undoEnabled())
 		{
 			ss = new ScItemState<QPair<meshPoint,meshPoint> >(Um::GradPos);
-			ss->set("MOVE_MESH_PATCH","move_mesh_patch");
-			ss->set("ARRAY",false);
-			ss->set("X",grow);
-			ss->set("Y",gcol);
+			ss->set("MOVE_MESH_PATCH");
+			ss->set("ARRAY", false);
+			ss->set("X", grow);
+			ss->set("Y", gcol);
 		}
 		switch (gcol)
 		{
@@ -1436,10 +1436,10 @@ void Cpalette::resetOneControlPoint()
 		if(UndoManager::undoEnabled())
 		{
 			ScItemState<QPair<meshPoint,meshPoint> > *ss = new ScItemState<QPair<meshPoint,meshPoint> >(Um::GradPos);
-			ss->set("MOVE_MESH_PATCH","move_mesh_patch");
-			ss->set("ARRAY",true);
-			ss->set("X",grow);
-			ss->set("Y",gcol);
+			ss->set("MOVE_MESH_PATCH");
+			ss->set("ARRAY", true);
+			ss->set("X", grow);
+			ss->set("Y", gcol);
 			ss->setItem(qMakePair(currentItem->meshGradientArray[grow][gcol],tmp));
 			undoManager->action(currentItem,ss);
 		}
@@ -1462,10 +1462,10 @@ void Cpalette::resetAllControlPoints()
 		if(UndoManager::undoEnabled())
 		{
 			ss = new ScItemState<QPair<meshPoint,meshPoint> >(Um::GradPos);
-			ss->set("MOVE_MESH_PATCH","move_mesh_patch");
-			ss->set("ARRAY",false);
-			ss->set("X",grow);
-			ss->set("Y",gcol);
+			ss->set("MOVE_MESH_PATCH");
+			ss->set("ARRAY", false);
+			ss->set("X", grow);
+			ss->set("Y", gcol);
 		}
 		switch (gcol)
 		{
@@ -1525,10 +1525,10 @@ void Cpalette::resetAllControlPoints()
 		if(UndoManager::undoEnabled())
 		{
 			ScItemState<QPair<meshPoint,meshPoint> > *ss = new ScItemState<QPair<meshPoint,meshPoint> >(Um::GradPos);
-			ss->set("MOVE_MESH_PATCH","move_mesh_patch");
-			ss->set("ARRAY",true);
-			ss->set("X",grow);
-			ss->set("Y",gcol);
+			ss->set("MOVE_MESH_PATCH");
+			ss->set("ARRAY", true);
+			ss->set("X", grow);
+			ss->set("Y", gcol);
 			ss->setItem(qMakePair(currentItem->meshGradientArray[grow][gcol],tmp));
 			undoManager->action(currentItem,ss);
 		}
@@ -1686,9 +1686,9 @@ void Cpalette::handleRemovePatch()
 		if(UndoManager::undoEnabled())
 		{
 			ScItemState<meshGradientPatch> *ss = new ScItemState<meshGradientPatch>(Um::RemoveMeshPatch,"",Um::ILine);
-			ss->set("REMOVE_MESH_PATCH","remove_mesh_patch");
+			ss->set("REMOVE_MESH_PATCH");
 			ss->setItem(currentItem->meshGradientPatches.takeAt(currentItem->selectedMeshPointX));
-			ss->set("POS",currentItem->selectedMeshPointX);
+			ss->set("POS", currentItem->selectedMeshPointX);
 			undoManager->action(currentItem,ss);
 		}
 		currentItem->selectedMeshPointX = -1;
