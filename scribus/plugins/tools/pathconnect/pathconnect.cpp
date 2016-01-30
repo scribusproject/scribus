@@ -145,7 +145,7 @@ bool PathConnectPlugin::run(ScribusDoc* doc, QString)
 			if (UndoManager::undoEnabled())
 			{
 				ScItemState<QPair<FPointArray,FPointArray> > *is = new ScItemState<QPair<FPointArray,FPointArray> >(Um::ConnectPath);
-				is->set("CONNECT_PATH","connect_path");
+				is->set("CONNECT_PATH");
 				is->set("OLDX", originalXPos);
 				is->set("OLDY", originalYPos);
 				is->set("NEWX", m_item1->xPos());

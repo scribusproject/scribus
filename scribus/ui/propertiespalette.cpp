@@ -727,7 +727,7 @@ void PropertiesPalette::NewSpGradient(double x1, double y1, double x2, double y2
 			if (m_item->gradientType() == 13 && UndoManager::undoEnabled())
 			{
 				SimpleState *ss= new SimpleState("Refresh");
-				ss->set("UNDO_UPDATE_CONICAL","undo_update_conical");
+				ss->set("UNDO_UPDATE_CONICAL");
 				undoManager->action(m_item,ss);
 			}
 			m_item->setGradientStartX(x1 / m_unitRatio);
@@ -747,7 +747,7 @@ void PropertiesPalette::NewSpGradient(double x1, double y1, double x2, double y2
 			{
 				m_item->createConicalMesh();
 				SimpleState *ss= new SimpleState("Refresh");
-				ss->set("REDO_UPDATE_CONICAL","redo_update_conical");
+				ss->set("REDO_UPDATE_CONICAL");
 				undoManager->action(m_item,ss);
 			}
 			m_item->update();

@@ -326,7 +326,7 @@ void LoremManager::insertLoremIpsum(QString name, int paraCount, bool random)
 		if (UndoManager::undoEnabled())
 		{
 			SimpleState *ss = new SimpleState(Um::AddLoremIpsum,"",Um::ICreate);
-			ss->set("LOREM_FRAMETEXT", "lorem_frametext");
+			ss->set("LOREM_FRAMETEXT");
 			ss->set("ETEA", QString("insert_frametext"));
 			ss->set("TEXT_STR",sampleText);
 			ss->set("START", i2->itemText.length());

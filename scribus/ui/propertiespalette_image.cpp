@@ -749,9 +749,9 @@ void PropertiesPalette_Image::handleImagePageNumber()
 	if(UndoManager::undoEnabled())
 	{
 		SimpleState *ss = new SimpleState(Um::PageNmbr.arg(static_cast<int>(imagePageNumber->value())),"",Um::IImageFrame);
-		ss->set("IMAGE_NBR","image_nbr");
-		ss->set("OLD",m_item->pixm.imgInfo.actualPageNumber);
-		ss->set("NEW",imagePageNumber->value());
+		ss->set("IMAGE_NBR");
+		ss->set("OLD", m_item->pixm.imgInfo.actualPageNumber);
+		ss->set("NEW", imagePageNumber->value());
 		UndoManager::instance()->action(m_item,ss);
 	}
 	m_item->pixm.imgInfo.actualPageNumber = static_cast<int>(imagePageNumber->value());

@@ -163,7 +163,7 @@ bool PathFinderPlugin::run(ScribusDoc* doc, QString)
 			if (UndoManager::undoEnabled())
 			{
 				ScItemState<PageItem*> *is = new ScItemState<PageItem*>("Create PageItem");
-				is->set("CREATE_ITEM", "create_item");
+				is->set("CREATE_ITEM");
 				is->setItem(newItem);
 				UndoObject *target = currDoc->Pages->at(Item1->OwnPage);
 				undoManager->action(target, is);
@@ -187,7 +187,7 @@ bool PathFinderPlugin::run(ScribusDoc* doc, QString)
 			if (UndoManager::undoEnabled())
 			{
 				ScItemState<PageItem*> *is = new ScItemState<PageItem*>("Create PageItem");
-				is->set("CREATE_ITEM", "create_item");
+				is->set("CREATE_ITEM");
 				is->setItem(newItem);
 				UndoObject *target = currDoc->Pages->at(Item1->OwnPage);
 				undoManager->action(target, is);
@@ -229,7 +229,7 @@ bool PathFinderPlugin::run(ScribusDoc* doc, QString)
 			if (UndoManager::undoEnabled())
 			{
 				state = new ScItemState<QPair<QPair<FPointArray, FPointArray>, QPair<FPointArray, FPointArray> > >(Um::PathOperation);
-				state->set("PATH_OPERATION", "path_operation");
+				state->set("PATH_OPERATION");
 				state->set("PATH_OP_OLD_CLIPEDITED", currItem->ClipEdited);
 				state->set("PATH_OP_OLD_FRAMETYPE", currItem->FrameType);
 				state->set("PATH_OP_OLD_OLDB2", currItem->OldB2);
@@ -280,7 +280,7 @@ bool PathFinderPlugin::run(ScribusDoc* doc, QString)
 				if (UndoManager::undoEnabled())
 				{
 					state = new ScItemState<QPair<QPair<FPointArray, FPointArray>, QPair<FPointArray, FPointArray> > >(Um::PathOperation);
-					state->set("PATH_OPERATION", "path_operation");
+					state->set("PATH_OPERATION");
 					state->set("PATH_OP_OLD_CLIPEDITED", Item1->ClipEdited);
 					state->set("PATH_OP_OLD_FRAMETYPE", Item1->FrameType);
 					state->set("PATH_OP_OLD_OLDB2", Item1->OldB2);
@@ -321,7 +321,7 @@ bool PathFinderPlugin::run(ScribusDoc* doc, QString)
 				if (UndoManager::undoEnabled())
 				{
 					state = new ScItemState<QPair<QPair<FPointArray, FPointArray>, QPair<FPointArray, FPointArray> > >(Um::PathOperation);
-					state->set("PATH_OPERATION", "path_operation");
+					state->set("PATH_OPERATION");
 					state->set("PATH_OP_OLD_CLIPEDITED", Item2->ClipEdited);
 					state->set("PATH_OP_OLD_FRAMETYPE", Item2->FrameType);
 					state->set("PATH_OP_OLD_OLDB2", Item2->OldB2);
