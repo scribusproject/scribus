@@ -2065,7 +2065,7 @@ bool PrefsManager::ReadPref(QString ho)
 				appPrefs.typoPrefs.valueUnderlineWidth = -1;
 			double stp = ScCLocale::toDoubleC(dc.attribute("StrikeThruDistance"), -1.0);
 			if (stp != -1)
-				appPrefs.typoPrefs.valueStrikeThruPos = qRound(ulp * 10);
+				appPrefs.typoPrefs.valueStrikeThruPos = qRound(stp * 10);
 			else
 				appPrefs.typoPrefs.valueStrikeThruPos = -1;
 			double stw = ScCLocale::toDoubleC(dc.attribute("StrikeThruWidth"), -1.0);
