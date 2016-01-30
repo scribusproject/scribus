@@ -25,7 +25,6 @@
 			<submenuitem text="Working with Frames" file="WwFrames.html" />
 			<submenuitem text="Working with Text" file="WwText.html" />
 			<submenuitem text="Working with Styles" file="WwStyles.html" />
-			<submenuitem text="Working with Tables" file="WwTables.html" />
 			<submenuitem text="Working with Images" file="WwImages.html" />
 			<submenuitem text="Working with Render Frames" file="WwRenderframes.html" />
 			<submenuitem text="Working with Shapes" file="WwShapes.html" />
@@ -38,6 +37,7 @@
 			<submenuitem text="Page Numbering" file="pagenumber.html" />
 			<submenuitem text="The Short Words Plug-in" file="short-words.html" />
 		</submenuitem>
+		<submenuitem text="Collect for Output" file="collect4output.html"/>
                 <submenuitem text="Editing Colors" file="color_editing.html">
 			<submenuitem text="Adding and Editing Colors" file="add_colors.html" />
 			<submenuitem text="The Color Wheel" file="colorwheel.html" />
@@ -52,34 +52,19 @@
 			<submenuitem text="Galaxy Color Harmonizer" file="color7b.html" />
 			<submenuitem text="Galaxy Color Emotions" file="color7c.html" />
 			<submenuitem text="Special Purpose Colors" file="color8.html" />
-			<submenuitem text="What about Pantone, HKS and others?" file="color10.html" />
 		</submenuitem>
 		<submenuitem text="Importing" file="importhints.html">
 			<submenuitem text="Importing Output Formats" file="importoutput.html" />
-			<submenuitem text="Importing DTP Formats" file="importdtp.html" />
 			<submenuitem text="Importing Bitmap Files" file="importbitmap1.html" />
 			<submenuitem text="Importing Photoshop Files" file="psd.html" />
-			<submenuitem text="GraphicsMagick" file="importGraphMag.html" />
-			<submenuitem text="Rasterizing Files" file="importraster.html" />
 			<submenuitem text="Importing Vector Drawings" file="importhints2.html"/>
-			<submenuitem text="Importing CGM Files" file="importcgm.html" />
-			<submenuitem text="Importing EPS" file="importhints1.html"/>
-			<submenuitem text="Importing FIG Files" file="importfig.html" />
 			<submenuitem text="Importing SVG" file="scribus-svg.html" />
-			<submenuitem text="Importing Xara Files" file="importxar.html" />
 			<submenuitem text="Importing Clipart Files" file="importclipart.html" />
-			<submenuitem text="UniConvertor" file="importucv.html" />
 			<submenuitem text="Importing Text" file="importhints4.html" />
-			<submenuitem text="The Text Filter" file="textfilter.html" />
 			<submenuitem text="Importing OpenOffice.org and ODF Files" file="importhints3.html" />
-			<submenuitem text="Importing Word and Palm PDB Files" file="importword.html" />
 			<submenuitem text="Importing HTML Files" file="importhints4.html" />
-			<submenuitem text="Importing XPress Tag Files" file="importxtg.html" />
-			<submenuitem text="Importing 3D Files" file="import3d.html" />
-			<submenuitem text="Importing Other Formats" file="importhints-misc.html" />
 		</submenuitem>
 		<submenuitem text="Exporting" file="export.html">
-			<submenuitem text="Collect for Output" file="collect4output.html"/>
 			<submenuitem text="Exporting to PDF" file="pdfexport1.html"/>
 			<submenuitem text="PDF Flavors" file="pdflavor.html"/>
 			<submenuitem text="PDF Export Targets" file="pdfexport2.html"/>
@@ -88,10 +73,6 @@
 			<submenuitem text="PDF Presentations" file="pdfexport4.html"/>
 			<submenuitem text="Creating Document Links" file="createlinks.html"/>
 			<submenuitem text="PDF Forms" file="pdf_form.html"/>
-			<submenuitem text="PDF/X" file="pdfx.html"/>
-			<submenuitem text="Exporting XPS Files" file="xps-export.html"/>
-			<submenuitem text="Exporting Vector Files" file="export-vector.html"/>
-			<submenuitem text="Exporting Bitmap Files" file="export-bitmap.html"/>
 		</submenuitem>
 		<submenuitem text="Printing with Scribus" file="print1.html">
 			<submenuitem text="Printing Tools (1)" file="print2.html"/>
@@ -151,10 +132,6 @@
 			<submenuitem text="Scripter Extensions" file="scripter-extensions.html"/>
 			<submenuitem text="Scripter Extensions API" file="scripterapi-extensions.html"/>
 		</submenuitem>
-		<submenuitem text="Plugin Howto" file="plugin_howto.html"/>
-		<submenuitem text="GetText Howto" file="gettexthowto.html"/>
-		<submenuitem text="Coding Standards" file="codingstandards.html"/>
-		<submenuitem text="Translation Howto" file="translation_howto.html"/>
 		<submenuitem text="Lorem ipsum Howto" file="lipsum.html"/>
 	</area>
 	<area text="Other Information" file="otherinfo.html">
