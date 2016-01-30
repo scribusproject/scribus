@@ -102,7 +102,7 @@ void AppModeHelper::setApplicationMode(ScribusMainWindow* scmw, ScribusDoc* doc,
 		currItem = doc->m_Selection->itemAt(0);
 
 	//Ugly hack but I have absolutly no idea about how to do this in another way
-	if(UndoManager::undoEnabled() && currItem && oldMode != newMode && (newMode == modeEditMeshPatch || oldMode == modeEditMeshPatch ||
+	if (UndoManager::undoEnabled() && currItem && oldMode != newMode && (newMode == modeEditMeshPatch || oldMode == modeEditMeshPatch ||
 																		newMode == modeEditMeshGradient || oldMode == modeEditMeshGradient ||
 																		newMode == modeEditGradientVectors || oldMode == modeEditGradientVectors ||
 																		newMode == modeEditPolygon || oldMode == modeEditPolygon ||
@@ -110,9 +110,9 @@ void AppModeHelper::setApplicationMode(ScribusMainWindow* scmw, ScribusDoc* doc,
 																		newMode == modeEditSpiral || oldMode == modeEditSpiral))
 	{
 		SimpleState *ss = new SimpleState(Um::Mode);
-		ss->set("CHANGE_MODE","change_mode");
-		ss->set("OLD",oldMode);
-		ss->set("NEW",newMode);
+		ss->set("CHANGE_MODE");
+		ss->set("OLD", oldMode);
+		ss->set("NEW", newMode);
 		UndoManager::instance()->action(currItem,ss);
 	}
 	doc->appMode = newMode ;
