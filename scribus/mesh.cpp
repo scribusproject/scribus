@@ -77,7 +77,7 @@ void meshPoint::resetTo(FPoint p)
 	controlColor = gridPoint;
 }
 
-bool meshPoint::operator ==(meshPoint p)
+bool meshPoint::operator ==(const meshPoint& p)
 {
 	return ((gridPoint == p.gridPoint) && (controlTop == p.controlTop) && (controlBottom == p.controlBottom)
 			&& (controlLeft == p.controlLeft) && (controlRight == p.controlRight) &&
