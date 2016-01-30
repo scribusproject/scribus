@@ -31,4 +31,5 @@ ScPainterExBase::ScPainterExBase(void)
 {
 	m_capabilities = 0;
 	m_pattern = 0;
+	m_maskPattern = 0;
 }
