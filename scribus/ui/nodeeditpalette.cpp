@@ -546,7 +546,7 @@ void NodePalette::ResetContour()
 		if (UndoManager::undoEnabled())
 		{
 			ScItemState<FPointArray> *is = new ScItemState<FPointArray>(Um::ResetContourLine, "",Um::IBorder);
-			is->set("RESET_CONTOUR", "reset_contour");
+			is->set("RESET_CONTOUR");
 			is->setItem(m_doc->m_Selection->itemAt(0)->ContourLine);
 			UndoManager::instance()->action(currItem, is);
 		}
