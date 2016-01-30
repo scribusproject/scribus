@@ -49,11 +49,23 @@ extern ScribusQApp* ScQApp;
 
 ScribusCore::ScribusCore() : QObject(), defaultEngine(colorMgmtEngineFactory.createDefaultEngine())
 {
-	m_ScribusInitialized=false;
-	m_SplashScreen=0;
-	m_UseGUI=false;
-	m_HaveCMS=false;
-	m_currScMW=0;
+	m_ScribusInitialized = false;
+	m_currScMW = 0;
+
+	pluginManager = 0;
+	fileWatcher = 0;
+
+	m_SplashScreen = 0;
+	m_iconManager = 0;
+	m_undoManager = 0;
+	m_prefsManager = 0;
+
+	m_UseGUI = false;
+	m_HaveCMS = false;
+	m_HaveGS = false;
+	m_HavePngAlpha = false;
+	m_HaveTiffSep = false;
+
 	ScColorMgmtStrategy strategy;
 	strategy.useBlackPointCompensation = true;
 	strategy.useBlackPreservation      = false;
