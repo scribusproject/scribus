@@ -71,7 +71,7 @@ public:
 
 	const QImage& qImage();
 	QImage* qImagePtr();
-	QImage scaled(int h, int w, Qt::AspectRatioMode mode = Qt::IgnoreAspectRatio, Qt::TransformationMode transformMode = Qt::FastTransformation) const;
+	QImage scaled(int w, int h, Qt::AspectRatioMode mode = Qt::IgnoreAspectRatio, Qt::TransformationMode transformMode = Qt::FastTransformation) const;
 	
 	int height() const { return QImage::height(); }
 	int width() const { return QImage::width(); }

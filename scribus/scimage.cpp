@@ -84,9 +84,9 @@ QImage* ScImage::qImagePtr()
 	return this;
 }
 
-QImage ScImage::scaled(int h, int w, Qt::AspectRatioMode mode, Qt::TransformationMode transformMode) const
+QImage ScImage::scaled(int w, int h, Qt::AspectRatioMode mode, Qt::TransformationMode transformMode) const
 {
-	return QImage::scaled(h, w, mode, transformMode);
+	return QImage::scaled(w, h, mode, transformMode);
 }
 
 
