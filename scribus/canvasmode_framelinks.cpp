@@ -127,8 +127,6 @@ void CanvasMode_FrameLinks::mouseMoveEvent(QMouseEvent *m)
 		return;
 	if ((m_canvas->m_viewMode.m_MouseButtonPressed) && (m->buttons() & Qt::LeftButton))
 	{
-		m_SeRx = qRound(mousePointDoc.x()); //m_view->translateToDoc(m->x(), m->y()).x());
-		m_SeRy = qRound(mousePointDoc.y()); //m_view->translateToDoc(m->x(), m->y()).y());
 		QPoint startP = m_canvas->canvasToGlobal(m_doc->appMode == modeDrawTable2 ? QPointF(m_Dxp, m_Dyp) : QPointF(m_Mxp, m_Myp));
 		m_view->redrawMarker->setGeometry(QRect(m_view->mapFromGlobal(startP), m_view->mapFromGlobal(m->globalPos())).normalized());
 		m_view->setRedrawMarkerShown(true);
@@ -158,8 +156,6 @@ void CanvasMode_FrameLinks::mousePressEvent(QMouseEvent *m)
 	m_Mxp = qRound(Rxp);
 	Ryp = m_doc->ApplyGridF(FPoint(m_Mxp, m_Myp)).y();
 	m_Myp = qRound(Ryp);
-	m_SeRx = m_Mxp;
-	m_SeRy = m_Myp;
 	if (m->button() == Qt::MidButton)
 	{
 		m_view->MidButt = true;

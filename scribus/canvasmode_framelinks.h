@@ -65,7 +65,6 @@ private:
 
 	int    m_frameResizeHandle;
 	double m_Mxp, m_Myp, m_Dxp, m_Dyp;
-	double m_SeRx, m_SeRy;
 	ScribusMainWindow* m_ScMW;
 };
 
