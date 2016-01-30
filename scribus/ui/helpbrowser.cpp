@@ -133,13 +133,7 @@ class BookmarkParser2 : public QXmlDefaultHandler
 		}
 };
 
-bool HelpBrowser::firstRun=true;
-
-HelpBrowser::HelpBrowser(QWidget* parent)
-	: QMainWindow( parent )
-{
-	setupUi(this);
-}
+bool HelpBrowser::firstRun = true;
 
 HelpBrowser::HelpBrowser( QWidget* parent, const QString& /*caption*/, const QString& guiLanguage, const QString& jumpToSection, const QString& jumpToFile)
 	: QMainWindow( parent )

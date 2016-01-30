@@ -67,10 +67,8 @@ class SCRIBUS_API HelpBrowser : public QMainWindow, Ui::HelpBrowser
     Q_OBJECT
 
 public:
-	HelpBrowser(QWidget* parent);
 	HelpBrowser(QWidget* parent, const QString& caption, const QString& guiLangage="en", const QString& jumpToSection="", const QString& jumpToFile="");
 	~HelpBrowser();
-	
 	
 	virtual void changeEvent(QEvent *e);
 
