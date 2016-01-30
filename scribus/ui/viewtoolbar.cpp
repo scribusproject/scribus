@@ -46,6 +46,8 @@ ViewToolBar::ViewToolBar(ScribusMainWindow* parent) : ScToolBar( tr("View Tools"
 	visualMenu->setEnabled(false);
 	visualMenu->setSizeAdjustPolicy(QComboBox::AdjustToContents);
 
+	inPreview = visualMenu->isEnabled();
+
 	addWidget(previewQualitySwitcher);
 	addAction(parent->scrActions["viewToggleCMS"]);
 	addAction(parent->scrActions["viewPreviewMode"]);
