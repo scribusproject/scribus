@@ -63,6 +63,7 @@ Prefs_KeyboardShortcuts::Prefs_KeyboardShortcuts(QWidget* parent, ScribusDoc* do
 	keyCode = 0;
 	keyDisplay->setMinimumWidth(fontMetrics().width("CTRL+ALT+SHIFT+W"));
 	keyDisplay->setText("");
+	selectedLVI = NULL;
 
 	clearSearchButton->setIcon(IconManager::instance()->loadIcon("clear_right.png"));
 	// signals and slots connections
