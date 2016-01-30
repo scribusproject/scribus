@@ -37,11 +37,11 @@ void GetText(QString filename, QString encoding, bool /* textOnly */, gtWriter *
 /******* Class CsvIm **************************************************************/
 
 CsvIm::CsvIm(const QString& fname, const QString& enc, gtWriter *w, 
-             const QString& fdelim, const QString& vdelim, bool header, bool usevdelim)
+             const QString& fdelim, const QString& vdelim, bool hasheader, bool usevdelim)
 {
 	fieldDelimiter = fdelim;
 	valueDelimiter = vdelim;
-	hasHeader = header;
+	hasHeader = hasheader;
 	useVDelim = usevdelim;
 	filename = fname;
 	encoding = enc;

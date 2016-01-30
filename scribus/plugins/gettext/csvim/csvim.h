@@ -29,7 +29,7 @@ class CsvIm
 {
 public:
 	CsvIm(const QString& fname, const QString& enc, gtWriter *w, const QString& fdelim = ",",
-          const QString& vdelim = "\"", bool header = false, bool usevdelim = true);
+          const QString& vdelim = "\"", bool hasheader = false, bool usevdelim = true);
 	~CsvIm();
 	void setFieldDelimiter(const QString& fdelim);
 	void setValueDelimiter(const QString& vdelim);
