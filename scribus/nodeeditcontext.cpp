@@ -91,7 +91,7 @@ void NodeEditContext::finishTransaction(PageItem* currItem)
 			QString name = Doc->nodeEdit.m_isContourLine ? Um::EditContour : Um::EditShape;
 			ScItemState<QPair<FPointArray, FPointArray> > *state =
 				new ScItemState<QPair<FPointArray, FPointArray> >(name);
-			state->set("EDIT_SHAPE_OR_CONTOUR", "edit_shape_or_contour");
+			state->set("EDIT_SHAPE_OR_CONTOUR");
 			state->set("IS_CONTOUR", Doc->nodeEdit.m_isContourLine);
 			state->setItem(qMakePair(*oldClip, newClip));
 			state->set("OLD_X", m_oldItemX);
@@ -127,7 +127,7 @@ ScItemState<QPair<FPointArray, FPointArray> >* NodeEditContext::finishTransactio
 		{
 			QString name = Doc->nodeEdit.m_isContourLine ? Um::EditContour : Um::EditShape;
 			state = new ScItemState<QPair<FPointArray, FPointArray> >(name);
-			state->set("EDIT_SHAPE_OR_CONTOUR", "edit_shape_or_contour");
+			state->set("EDIT_SHAPE_OR_CONTOUR");
 			state->set("IS_CONTOUR", Doc->nodeEdit.m_isContourLine);
 			state->setItem(qMakePair(*oldClip, newClip));
 			undoManager->setUndoEnabled(false);
@@ -376,7 +376,7 @@ void NodeEditContext::reset1Control(PageItem* currItem)
 		ScItemState<QPair<FPointArray, FPointArray> > *state =
 		new ScItemState<QPair<FPointArray, FPointArray> >(Um::ResetControlPoint, "",
 														currItem->getUPixmap());
-		state->set("EDIT_SHAPE_OR_CONTOUR", "edit_shape_or_contour");
+		state->set("EDIT_SHAPE_OR_CONTOUR");
 		state->set("IS_CONTOUR", Doc->nodeEdit.m_isContourLine);
 		state->setItem(qMakePair(*oldClip, newClip));
 		state->set("OLD_X", m_oldItemX);
@@ -476,7 +476,7 @@ void NodeEditContext::resetControl(PageItem* currItem)
 		ScItemState<QPair<FPointArray, FPointArray> > *state =
 		new ScItemState<QPair<FPointArray, FPointArray> >(Um::ResetControlPoints, "",
 														currItem->getUPixmap());
-		state->set("EDIT_SHAPE_OR_CONTOUR", "edit_shape_or_contour");
+		state->set("EDIT_SHAPE_OR_CONTOUR");
 		state->set("IS_CONTOUR", Doc->nodeEdit.m_isContourLine);
 		state->setItem(qMakePair(*oldClip, newClip));
 		state->set("OLD_X", m_oldItemX);
