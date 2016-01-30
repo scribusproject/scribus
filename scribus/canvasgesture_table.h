@@ -35,8 +35,8 @@ public:
 	virtual ~TableGesture() {}
 
 protected:
-	explicit TableGesture(CanvasMode* parent) : CanvasGesture(parent->view()) {};
-	explicit TableGesture(ScribusView* view) : CanvasGesture(view) {};
+	explicit TableGesture(CanvasMode* parent) : CanvasGesture(parent->view()), m_table(0) {};
+	explicit TableGesture(ScribusView* view) : CanvasGesture(view), m_table(0) {};
 
 	/// Returns the currently edited table.
 	PageItem_Table* table() const { return m_table; }
