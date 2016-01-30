@@ -104,26 +104,26 @@ SimpleState::SimpleState(const QString& name, const QString& description, QPixma
 
 bool SimpleState::contains(const QString& key)
 {
-	return values_.contains(key);
+	return m_values.contains(key);
 }
 
 QVariant SimpleState::variant(const QString& key, const QVariant& def)
 {
-	QMap<QString, QVariant>::const_iterator it = values_.find(key);
-	if (it != values_.end())
+	QMap<QString, QVariant>::const_iterator it = m_values.find(key);
+	if (it != m_values.end())
 		return it.value();
 
-	values_[key] = def;
+	m_values[key] = def;
 	return def;
 }
 
 QString SimpleState::get(const QString& key, const QString& def)
 {
-	QMap<QString, QVariant>::const_iterator it = values_.find(key);
-	if (it != values_.end())
+	QMap<QString, QVariant>::const_iterator it = m_values.find(key);
+	if (it != m_values.end())
 		return it.value().toString();
 
-	values_[key] = def;
+	m_values[key] = def;
 	return def;
 }
 
@@ -167,29 +167,34 @@ bool SimpleState::getBool(const QString& key, bool def)
 	return ret;
 }
 
+void SimpleState::set(const QString& key)
+{
+	m_values[key] = QVariant();
+}
+
 void SimpleState::set(const QString& key, const QString& value)
 {
-	values_[key] = QVariant(value);
+	m_values[key] = QVariant(value);
 }
 
 void SimpleState::set(const QString& key, int value)
 {
-	values_[key] = QVariant(value);
+	m_values[key] = QVariant(value);
 }
 
 void SimpleState::set(const QString& key, uint value)
 {
-	values_[key] = QVariant(value);
+	m_values[key] = QVariant(value);
 }
 
 void SimpleState::set(const QString& key, double value)
 {
-	values_[key] = QVariant(value);
+	m_values[key] = QVariant(value);
 }
 
 void SimpleState::set(const QString& key, bool value)
 {
-	values_[key] = QVariant(value);
+	m_values[key] = QVariant(value);
 }
 
 

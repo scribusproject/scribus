@@ -244,6 +244,13 @@ public:
 	bool getBool(const QString& key, bool def = false);
 
 	/**
+	 * @brief Set a key with no value, to be used only for configuring action type
+	 * @param key Key that can be later used to query the value.
+	 * @param value Value attached to the key.
+	 */
+	void set(const QString& key);
+
+	/**
 	 * @brief Set a value for the key.
 	 * @param key Key that can be later used to query the value.
 	 * @param value Value attached to the key.
@@ -280,7 +287,7 @@ public:
 
 private:
 	/** @brief QMap to store key-value pairs */
-	QMap<QString, QVariant> values_;
+	QMap<QString, QVariant> m_values;
 
 	QVariant variant(const QString& key, const QVariant& def);
 };
