@@ -456,7 +456,7 @@ QStringList CollectForOutput::findFontMetrics(const QString& baseDir, const QStr
 			metricsFiles.append(pfmName);
 		else
 		{
-			afmName = afnm+"PFM";
+			pfmName = afnm+"PFM";
 			if (QFile::exists(pfmName))
 				metricsFiles.append(pfmName);
 		}
