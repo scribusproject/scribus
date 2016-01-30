@@ -585,7 +585,7 @@ void SMCStyleWidget::showColors(const QList<CharStyle*> &cstyles)
 	{
 		if (strokeColor_->itemText(strokeColor_->count() - 1) != "")
 			strokeColor_->addItem("");
-		strokeColor_->setCurrentIndex(fillColor_->count() - 1);
+		strokeColor_->setCurrentIndex(strokeColor_->count() - 1);
 	}
 	else
 		strokeColor_->setCurrentText(s);
