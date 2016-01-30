@@ -66,9 +66,15 @@ ScColor::ScColor(double l, double a, double b)
 	m_Spot = false;
 	m_Regist = false;
 	m_Model = colorModelLab;
+
 	m_L_val = l;
 	m_a_val = a;
 	m_b_val = b;
+
+	m_CR = 150;
+	m_MG = 100;
+	m_YB = 50;
+	m_K = 0;
 }
 
 bool ScColor::operator==(const ScColor& other) const
