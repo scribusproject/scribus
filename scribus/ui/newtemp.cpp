@@ -42,6 +42,9 @@ NewTm::NewTm( QWidget* parent, QString text, QString titel, ScribusDoc *doc, con
 	Layout2->addWidget( Frage );
 	Layout2->addWidget( Answer );
 	QueryLayout->addLayout( Layout2 );
+
+	Layout3 = 0;
+	Links = 0;
 	if (doc->pagePositioning() != singlePage)
 	{
 		Layout3 = new QHBoxLayout;
