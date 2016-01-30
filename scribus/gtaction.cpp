@@ -206,7 +206,7 @@ void gtAction::writeUnstyled(const QString& text, bool isNote)
 		if (UndoManager::undoEnabled())
 		{
 			SimpleState *ss = new SimpleState(Um::AppendText,"",Um::ICreate);
-			ss->set("INSERT_FRAMETEXT", "insert_frametext");
+			ss->set("INSERT_FRAMETEXT");
 			ss->set("TEXT_STR",textStr);
 			ss->set("START", pos);
 			m_undoManager->action(m_it, ss);
