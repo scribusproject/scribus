@@ -21,6 +21,8 @@ nftwidget::nftwidget(QWidget* parent) : QWidget(parent)
 {
 	setupUi(this);
 	currentDocumentTemplate = NULL;
+	settings = NULL;
+	openAction = removeAction = NULL;
 }
 
 void nftwidget::setupSettings(QString lang)
