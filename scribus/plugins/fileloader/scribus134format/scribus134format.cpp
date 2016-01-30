@@ -1644,7 +1644,7 @@ bool Scribus134Format::readPrinterOptions(ScribusDoc* doc, ScXmlStreamReader& re
 	doc->Print_Options.bleedMarks   = attrs.valueAsBool("bleedMarks");
 	doc->Print_Options.registrationMarks = attrs.valueAsBool("registrationMarks");
 	doc->Print_Options.colorMarks   = attrs.valueAsBool("colorMarks");
-	doc->Print_Options.includePDFMarks = attrs.valueAsBool("includePDFMarks", "1");
+	doc->Print_Options.includePDFMarks = attrs.valueAsBool("includePDFMarks", true);
 	if (attrs.hasAttribute("PrintEngine"))
 		doc->Print_Options.prnEngine = (PrintEngine) attrs.valueAsInt("PrintEngine", 3);
 	else
