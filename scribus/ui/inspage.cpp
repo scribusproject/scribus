@@ -295,7 +295,7 @@ InsPage::InsPage( QWidget* parent, ScribusDoc* currentDoc, int currentPage, int 
 	connect( insWhereData, SIGNAL( activated(int) ), this, SLOT( insWherePageDataDisable(int) ) );
 	connect( okButton, SIGNAL( clicked() ), this, SLOT( accept() ) );
 	connect( cancelButton, SIGNAL( clicked() ), this, SLOT( reject() ) );
-	connect(orientationQComboBox, SIGNAL(activated(int)), this, SLOT(setOrien(int)));
+	connect(orientationQComboBox, SIGNAL(activated(int)), this, SLOT(setOrientation(int)));
 	connect(sizeQComboBox, SIGNAL(activated(const QString &)), this, SLOT(setSize(const QString &)));
 	connect(overrideMPSizingCheckBox, SIGNAL(stateChanged(int)), this, SLOT(enableSizingControls(int)));
 }
@@ -320,7 +320,7 @@ void InsPage::setSize(const QString & gr)
 	delete ps2;
 }
 
-void InsPage::setOrien(int ori)
+void InsPage::setOrientation(int ori)
 {
 	double br;
 	setSize(sizeQComboBox->currentText());

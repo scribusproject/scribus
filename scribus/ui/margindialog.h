@@ -72,14 +72,14 @@ public:
 	int getMarginPreset();
 
 public slots:
-	//! \brief as setOrien for orientationQComboBox current item
+	//! \brief as setOrientation for orientationQComboBox current item
 	virtual void setPageSize();
 	/*! \brief Sets page size and enables/disables size widgets.
 	\param gr A QString with name of the page size or "Custom" */
 	virtual void setSize(const QString & gr);
 	/*! \brief Sets page orientation and sizes regarding the given value
 	\param  ori integer from orientationQComboBox item index */
-	virtual void setOrien(int ori);
+	virtual void setOrientation(int ori);
 	/*! \brief Recompute the page width for current unit.
 	It's called from width spinbox.
 	\param v new width */

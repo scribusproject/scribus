@@ -71,7 +71,7 @@ private:
 private slots:
 	void insWherePageDataDisable (int index);
 	void setSize(const QString &);
-	void setOrien(int ori);
+	void setOrientation(int ori);
 	void enableSizingControls(int);
 };
 
