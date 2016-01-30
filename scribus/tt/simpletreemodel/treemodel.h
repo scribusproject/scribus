@@ -55,7 +55,7 @@ class TreeModel : public QAbstractItemModel
 
 public:
     TreeModel(const QString &data, QObject *parent = 0);
-    TreeModel(QObject *parent = 0) {}; //Scribus Added for ScHelpTreeModel
+    TreeModel(QObject *parent = 0); //Scribus Added for ScHelpTreeModel
     ~TreeModel();
 
     QVariant data(const QModelIndex &index, int role) const;

@@ -50,6 +50,11 @@
 #include "treeitem.h"
 #include "treemodel.h"
 
+TreeModel::TreeModel(QObject *parent )
+{
+	m_rootItem = 0;
+}
+
 //! [0]
 TreeModel::TreeModel(const QString &data, QObject *parent)
     : QAbstractItemModel(parent)
