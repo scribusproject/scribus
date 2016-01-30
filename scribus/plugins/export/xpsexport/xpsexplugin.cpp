@@ -1310,7 +1310,7 @@ void XPSExPlug::processTextItem(double xOffset, double yOffset, PageItem *Item, 
 				if (txItem.style.effects() & ScStyle_Strikethrough)
 				{
 					double st, lw;
-					if ((txItem.style.strikethruOffset() != -1) || (txItem.style.underlineWidth() != -1))
+					if ((txItem.style.strikethruOffset() != -1) || (txItem.style.strikethruWidth() != -1))
 					{
 						if (txItem.style.strikethruOffset() != -1)
 							st = (txItem.style.strikethruOffset() / 1000.0) * (txItem.style.font().ascent(txItem.style.fontSize() / 10.0));
