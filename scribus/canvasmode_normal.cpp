@@ -75,6 +75,9 @@
 CanvasMode_Normal::CanvasMode_Normal(ScribusView* view) : CanvasMode(view), m_ScMW(view->m_ScMW) 
 {
 	m_frameResizeHandle = -1;
+	m_dragConstrainInitPtX = 0;
+	m_dragConstrainInitPtY = 0;
+	m_lastPosWasOverGuide = false;
 	m_shiftSelItems = false;
 	m_resizeGesture = NULL;
 	m_lineMoveGesture  = NULL;
