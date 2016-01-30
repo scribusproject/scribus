@@ -230,7 +230,7 @@ void CanvasMode_EditSpiral::applyValues(double start, double end, double factor)
 	PageItem *currItem = m_doc->m_Selection->itemAt(0);
 	PageItem_Spiral *item = currItem->asSpiral();
 	SimpleState *ss = new SimpleState(Um::EditSpiral, "", Um::IPolygon);
-	ss->set("SPIRAL","spiral");
+	ss->set("SPIRAL");
 	ss->set("OLD_START",item->spiralStartAngle);
 	ss->set("OLD_END",item->spiralEndAngle);
 	ss->set("OLD_FACTOR",item->spiralFactor);

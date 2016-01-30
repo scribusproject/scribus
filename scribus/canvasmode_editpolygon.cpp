@@ -253,7 +253,7 @@ void CanvasMode_EditPolygon::applyValues(int polyC, double polyF, bool polyUseCF
 	if (UndoManager::undoEnabled())
 	{
 		SimpleState *ss = new SimpleState(Um::EditPolygon,"",Um::IPolygon);
-		ss->set("POLYGON","polygon");
+		ss->set("POLYGON");
 		ss->set("NEW_CORNER",polyC);
 		ss->set("NEW_USEFACTOR",polyUseCF);
 		ss->set("NEW_FACTOR",m_polyFactor);

@@ -157,7 +157,7 @@ void BezierMode::deactivate(bool flag)
 	if (currItem && UndoManager::undoEnabled())
 	{
 		ScItemState<PageItem*> *is = new ScItemState<PageItem*>("Create PageItem");
-		is->set("CREATE_ITEM", "create_item");
+		is->set("CREATE_ITEM");
 		is->setItem(currItem);
 		//Undo target rests with the Page for object specific undo
 		UndoObject *target = m_doc->Pages->at(0);

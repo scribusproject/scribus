@@ -257,7 +257,7 @@ void CanvasMode_EditArc::applyValues(double start, double end, double height, do
 	if (UndoManager::undoEnabled())
 	{
 		ScItemState<QPair<FPointArray, FPointArray> > *ss = new ScItemState<QPair<FPointArray, FPointArray> >(Um::EditArc,"",Um::IPolygon);
-		ss->set("ARC","arc");
+		ss->set("ARC");
 		ss->set("OLD_WIDTH",item->arcWidth);
 		ss->set("NEW_WIDTH",width);
 		ss->set("OLD_XPOS",oldX);

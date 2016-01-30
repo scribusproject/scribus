@@ -974,7 +974,7 @@ void CanvasMode_EditMeshPatch::mouseReleaseEvent(QMouseEvent *m)
 	if (m_view->editStrokeGradient != 11 && m_currItem->selectedMeshPointX >=0 && m_patchPoint != noPointDefined && UndoManager::undoEnabled())
 	{
 		ScItemState<QPair<meshPoint,meshPoint> > *ss = new ScItemState<QPair<meshPoint,meshPoint> >(Um::GradPos);
-		ss->set("MOVE_MESH_PATCH","move_mesh_patch");
+		ss->set("MOVE_MESH_PATCH");
 		ss->set("X",m_currItem->selectedMeshPointX);
 		ss->set("Y",m_currItem->selectedMeshPointY);
 		ss->set("ARRAY",false);
