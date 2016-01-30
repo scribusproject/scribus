@@ -383,7 +383,7 @@ bool PageItem_LatexFrame::setFormula(QString formula, bool undoable)
 	if (UndoManager::undoEnabled() && undoable)
 	{
 		SimpleState *ss = new SimpleState(Um::ChangeFormula, "", Um::IChangeFormula);
-		ss->set("CHANGE_FORMULA", "change_formula");
+		ss->set("CHANGE_FORMULA");
 		ss->set("OLD_FORMULA", formulaText);
 		ss->set("NEW_FORMULA", formula);
 		undoManager->action(this, ss);

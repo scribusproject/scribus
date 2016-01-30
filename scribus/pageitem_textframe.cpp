@@ -4372,7 +4372,7 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 						ss->set("TEXT_STR",ss->get("TEXT_STR") + QString(QChar(conv)));
 					else {
 						ss = new SimpleState(Um::InsertText,"",Um::ICreate);
-						ss->set("INSERT_FRAMETEXT", "insert_frametext");
+						ss->set("INSERT_FRAMETEXT");
 						ss->set("ETEA", QString("insert_frametext"));
 						ss->set("TEXT_STR", QString(QChar(conv)));
 						ss->set("START", itemText.cursorPosition());
@@ -4839,7 +4839,7 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 				else
 				{
 					ss = new SimpleState(Um::InsertText,"",Um::ICreate);
-					ss->set("INSERT_FRAMETEXT", "insert_frametext");
+					ss->set("INSERT_FRAMETEXT");
 					ss->set("ETEA", QString("insert_frametext"));
 					ss->set("TEXT_STR", QString(SpecialChars::TAB));
 					ss->set("START", itemText.cursorPosition());
@@ -4863,13 +4863,13 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 			{
 				SimpleState *ss = dynamic_cast<SimpleState*>(undoManager->getLastUndo());
 				if (ss && ss->get("ETEA") == "insert_frametext")
-					ss->set("TEXT_STR",ss->get("TEXT_STR") + uc);
+					ss->set("TEXT_STR", ss->get("TEXT_STR") + uc);
 				else
 				{
 					ss = new SimpleState(Um::InsertText,"",Um::ICreate);
-					ss->set("INSERT_FRAMETEXT", "insert_frametext");
+					ss->set("INSERT_FRAMETEXT");
 					ss->set("ETEA", QString("insert_frametext"));
-					ss->set("TEXT_STR",uc);
+					ss->set("TEXT_STR", uc);
 					ss->set("START", itemText.cursorPosition());
 					UndoObject * undoTarget = this;
 					if (isNoteFrame())
@@ -5026,7 +5026,7 @@ void PageItem_TextFrame::deleteSelectedTextFromFrame(/*bool findNotes*/)
 					if (i - lastPos > 0)
 					{
 						is = new ScItemState<CharStyle>(Um::DeleteText, "", Um::IDelete);
-						is->set("DELETE_FRAMETEXT", "delete_frametext");
+						is->set("DELETE_FRAMETEXT");
 						is->set("ETEA", eteaString);
 						is->set("TEXT_STR", itemText.text(lastPos, i - lastPos));
 						is->set("START", start);

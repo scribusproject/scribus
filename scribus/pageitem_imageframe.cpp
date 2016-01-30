@@ -214,7 +214,7 @@ void PageItem_ImageFrame::clearContents()
 	if (UndoManager::undoEnabled())
 	{
 		ScItemState<ScImageEffectList> *is = new ScItemState<ScImageEffectList>(Um::ClearImage + "\n" + Pfile, "");
-		is->set("CLEAR_IMAGE", "clear_image");
+		is->set("CLEAR_IMAGE");
 		is->set("CI_PFILE", Pfile);
 		is->set("CI_FLIPPH",imageFlippedH());
 		is->set("CI_FLIPPV",imageFlippedV());
