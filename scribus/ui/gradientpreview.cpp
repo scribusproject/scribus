@@ -62,6 +62,7 @@ GradientPreview::GradientPreview(QWidget *pa) : QFrame(pa)
 
 	QList<VColorStop*> cstops = fill_gradient.colorStops();
 	StopM.clear();
+	contextStop = 0;
 	ActStop = 0;
 	for (uint a = 0; a < fill_gradient.Stops(); ++a)
 	{
