@@ -41,7 +41,7 @@ class PLUGIN_API HunspellDialog : public QDialog, private Ui::HunspellDialogBase
 		QMap<QString, HunspellDict*> *m_hspellerMap;
 		QList<WordsFound>* m_wfList;
 		WordsFound currWF;
-		int wfListIndex;
+		int  m_wfListIndex;
 		bool m_docChanged;
 		bool m_returnToDefaultLang;
 		int m_primaryLangIndex;

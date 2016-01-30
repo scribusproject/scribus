@@ -28,6 +28,11 @@ HunspellDialog::HunspellDialog(QWidget *parent, ScribusDoc *doc, StoryText *iTex
 	m_iText=iText;
 	m_returnToDefaultLang=false;
 	m_primaryLangIndex=0;
+
+	m_dictionaryMap = 0;
+	m_hspellerMap = 0;
+	m_wfList = 0;
+	m_wfListIndex = 0;
 }
 
 void HunspellDialog::set(QMap<QString, QString>* dictionaryMap, QMap<QString, HunspellDict*> *hspellerMap, QList<WordsFound> *wfList)
@@ -50,7 +55,7 @@ void HunspellDialog::set(QMap<QString, QString>* dictionaryMap, QMap<QString, Hu
 	languagesComboBox->setCurrentIndex(0);
 	m_primaryLangIndex=0;
 	languagesComboBox->blockSignals(b);
-	wfListIndex=0;
+	m_wfListIndex=0;
 	goToNextWord(0);
 }
 
@@ -70,15 +75,15 @@ void HunspellDialog::goToNextWord(int i)
 		languagesComboBox->blockSignals(b);
 	}
 	if (i>=0)
-		wfListIndex=i;
+		m_wfListIndex=i;
 	else
 	{
 		do {
-			++wfListIndex;
-		} while (wfListIndex<m_wfList->count() && (m_wfList->at(wfListIndex).changed || m_wfList->at(wfListIndex).ignore));
-		//qDebug()<<"selected word index"<<wfListIndex;
+			++m_wfListIndex;
+		} while (m_wfListIndex<m_wfList->count() && (m_wfList->at(m_wfListIndex).changed || m_wfList->at(m_wfListIndex).ignore));
+		//qDebug()<<"selected word index"<<m_wfListIndex;
 	}
-	if (wfListIndex>=m_wfList->count())
+	if (m_wfListIndex>=m_wfList->count())
 	{
 		statusLabel->setText(tr("Spelling check complete"));
 		suggestionsListWidget->clear();
@@ -91,7 +96,7 @@ void HunspellDialog::goToNextWord(int i)
 	}
 	else
 		statusLabel->setText("");
-	currWF=m_wfList->at(wfListIndex);
+	currWF=m_wfList->at(m_wfListIndex);
 	setLanguageCombo(currWF.lang);
 	updateSuggestions(currWF.replacements);
 
@@ -104,9 +109,9 @@ void HunspellDialog::goToNextWord(int i)
 
 void HunspellDialog::ignoreAllWords()
 {
-	if (wfListIndex < 0 || wfListIndex >= m_wfList->count())
+	if (m_wfListIndex < 0 || m_wfListIndex >= m_wfList->count())
 		return;
-	QString wordToIgnore = m_wfList->at(wfListIndex).w;
+	QString wordToIgnore = m_wfList->at(m_wfListIndex).w;
 	//Do we start from 0 or from the instance of the word where we are... 0 for now
 	for(int i = 0; i < m_wfList->count(); ++i)
 		if (m_wfList->at(i).w == wordToIgnore)
@@ -117,17 +122,17 @@ void HunspellDialog::ignoreAllWords()
 void HunspellDialog::changeWord()
 {
 	//If we have ignored a word or its already changed, skip to the next.
-	if(m_wfList->at(wfListIndex).ignore || m_wfList->at(wfListIndex).changed)
+	if(m_wfList->at(m_wfListIndex).ignore || m_wfList->at(m_wfListIndex).changed)
 		goToNextWord();
-	replaceWord(wfListIndex);
+	replaceWord(m_wfListIndex);
 	goToNextWord();
 }
 
 void HunspellDialog::changeAllWords()
 {
-	if(m_wfList->at(wfListIndex).ignore && !m_wfList->at(wfListIndex).changed)
+	if(m_wfList->at(m_wfListIndex).ignore && !m_wfList->at(m_wfListIndex).changed)
 		return;
-	QString wordToChange=m_wfList->at(wfListIndex).w;
+	QString wordToChange=m_wfList->at(m_wfListIndex).w;
 	//Do we start from 0 or from the instance of the word where we are... 0 for now
 	for(int i=0;i<m_wfList->count();++i)
 		if(m_wfList->at(i).w==wordToChange)
@@ -161,9 +166,9 @@ void HunspellDialog::languageComboChanged(const QString &newLanguage)
 	//qDebug()<<wordLang<<newLanguage;
 	if (m_wfList->count()==0)
 		return;
-	if (wfListIndex>=m_wfList->count())
-		wfListIndex=0;
-	QString word=m_wfList->at(wfListIndex).w;
+	if (m_wfListIndex>=m_wfList->count())
+		m_wfListIndex=0;
+	QString word=m_wfList->at(m_wfListIndex).w;
 	if ((*m_hspellerMap)[wordLang]->spell(word)==0)
 	{
 		QStringList replacements = (*m_hspellerMap)[wordLang]->suggest(word);
@@ -171,7 +176,7 @@ void HunspellDialog::languageComboChanged(const QString &newLanguage)
 	}
 	else
 	{
-		(*m_wfList)[wfListIndex].changed=true;
+		(*m_wfList)[m_wfListIndex].changed=true;
 		m_docChanged=true;
 		goToNextWord();
 	}
