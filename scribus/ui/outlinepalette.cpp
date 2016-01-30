@@ -102,10 +102,8 @@ void OutlineWidget::dropEvent(QDropEvent *e)
 	QTreeWidget::dropEvent(e);
 	if (it == NULL)
 		return;
-	OutlineTreeItem *item = (OutlineTreeItem*)it;
-	if (item == NULL)
-		return;
 
+	OutlineTreeItem *item = (OutlineTreeItem*) it;
 	OutlineTreeItem *itemPl = (OutlineTreeItem*)it->parent();
 	OutlineTreeItem *itemPg;
 	if (itemPl->type == 5)
