@@ -45,12 +45,12 @@ QStringList ScFace_postscript::findFontMetrics(const QString& baseDir, const QSt
 	QString     afnm = baseDir + "/" + baseName + ".";
 	// Look for afm files
 	QString afmName(afnm+"afm");
-	if(QFile::exists(afmName))
+	if (QFile::exists(afmName))
 		metricsFiles.append(afmName);
 	else
 	{
 		afmName = afnm+"Afm";
-		if(QFile::exists(afmName))
+		if (QFile::exists(afmName))
 			metricsFiles.append(afmName);
 		else
 		{
@@ -61,17 +61,17 @@ QStringList ScFace_postscript::findFontMetrics(const QString& baseDir, const QSt
 	}
 	// Look for pfm files
 	QString pfmName(afnm+"pfm");
-	if(QFile::exists(pfmName))
+	if (QFile::exists(pfmName))
 		metricsFiles.append(pfmName);
 	else
 	{
 		pfmName = afnm+"Pfm";
-		if(QFile::exists(pfmName))
+		if (QFile::exists(pfmName))
 			metricsFiles.append(pfmName);
 		else
 		{
 			pfmName = afnm+"PFM";
-			if(QFile::exists(pfmName))
+			if (QFile::exists(pfmName))
 				metricsFiles.append(pfmName);
 		}
 	}
