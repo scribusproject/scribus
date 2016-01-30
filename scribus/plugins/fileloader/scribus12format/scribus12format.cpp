@@ -693,7 +693,7 @@ void Scribus12Format::getReplacedFontData(bool & getNewReplacement, QMap<QString
 
 static long long scribus12itemID(int itemNr, int pageNr)
 {
-	return itemNr * 100000 + pageNr; 
+	return 100000 * ((long long) itemNr) + pageNr; 
 }
 
 bool Scribus12Format::loadFile(const QString & fileName, const FileFormat & /* fmt */, int /* flags */, int /* index */)
