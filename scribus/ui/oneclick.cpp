@@ -89,6 +89,8 @@ OneClick::OneClick( QWidget* parent, QString titel, int unitIndex, double defW, 
 		spinHeight->setValue(defH);
 	}
 	SizeGroupLayout->addWidget( spinHeight, 1, 1 );
+	
+	linkSize = 0;
 	if (mode == 0)
 	{
 		linkSize = new LinkButton( SizeGroup );
