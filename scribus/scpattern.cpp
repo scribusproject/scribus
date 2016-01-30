@@ -33,6 +33,7 @@ for which a new license (GPL+exception) is in place.
 ScPattern::ScPattern()
 {
 	items.clear();
+	doc = 0;
 	pattern = QImage();
 	scaleX = 1.0;
 	scaleY = 1.0;
@@ -50,9 +51,9 @@ ScPattern::~ScPattern()
 //	}
 }
 
-void ScPattern::setDoc(ScribusDoc *doc)
+void ScPattern::setDoc(ScribusDoc *theDoc)
 {
-	m_doc = doc;
+	doc = theDoc;
 }
 
 QImage* ScPattern::getPattern()
@@ -63,8 +64,8 @@ QImage* ScPattern::getPattern()
 void ScPattern::setPattern(QString name)
 {
 	items.clear();
-	m_doc->setLoading(true);
-	PageItem* newItem = new PageItem_ImageFrame(m_doc, 0, 0, 1, 1, 0, CommonStrings::None, CommonStrings::None);
+	doc->setLoading(true);
+	PageItem* newItem = new PageItem_ImageFrame(doc, 0, 0, 1, 1, 0, CommonStrings::None, CommonStrings::None);
 	if (newItem->loadImage(name, false, 72, false))
 	{
 		pattern = newItem->pixm.qImage().copy();
@@ -83,14 +84,14 @@ void ScPattern::setPattern(QString name)
 	}
 	else
 		pattern = QImage();
-	m_doc->setLoading(false);
+	doc->setLoading(false);
 }
 
 void ScPattern::createPreview()
 {
 	double sc = 500.0 / qMax(width, height);
-	bool savedFlag = m_doc->guidesPrefs().framesShown;
-	m_doc->guidesPrefs().framesShown = false;
+	bool savedFlag = doc->guidesPrefs().framesShown;
+	doc->guidesPrefs().framesShown = false;
 	pattern = QImage(qRound(width * sc), qRound(height * sc), QImage::Format_ARGB32_Premultiplied);
 	pattern.fill( qRgba(0, 0, 0, 0) );
 	ScPainter *painter = new ScPainter(&pattern, pattern.width(), pattern.height(), 1, 0);
@@ -108,5 +109,5 @@ void ScPattern::createPreview()
 	}
 	painter->end();
 	delete painter;
-	m_doc->guidesPrefs().framesShown = savedFlag;
+	doc->guidesPrefs().framesShown = savedFlag;
 }
