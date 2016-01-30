@@ -1499,7 +1499,7 @@ void ScribusMainWindow::specialActionKeyEvent(int unicodevalue)
 							ss->set("TEXT_STR",ss->get("TEXT_STR") + QString(QChar(unicodevalue)));
 						else {
 							ss = new SimpleState(Um::InsertText,"",Um::ICreate);
-							ss->set("INSERT_FRAMETEXT", "insert_frametext");
+							ss->set("INSERT_FRAMETEXT");
 							ss->set("ETEA", QString("insert_frametext"));
 							ss->set("TEXT_STR", QString(QChar(unicodevalue)));
 							ss->set("START", currItem->itemText.cursorPosition());
@@ -1534,7 +1534,7 @@ void ScribusMainWindow::specialActionKeyEvent(int unicodevalue)
 								ss->set("TEXT_STR",ss->get("TEXT_STR") + QString(SpecialChars::SHYPHEN));
 							else {
 								ss = new SimpleState(Um::InsertText,"",Um::ICreate);
-								ss->set("INSERT_FRAMETEXT", "insert_frametext");
+								ss->set("INSERT_FRAMETEXT");
 								ss->set("ETEA", QString("insert_frametext"));
 								ss->set("TEXT_STR", QString(SpecialChars::SHYPHEN));
 								ss->set("START", currItem->itemText.cursorPosition());
@@ -4615,7 +4615,7 @@ void ScribusMainWindow::slotEditPaste()
 			if (UndoManager::undoEnabled())
 			{
 				ScItemState<StoryText> *is = new ScItemState<StoryText>(Um::Paste);
-				is->set("PASTE_TEXT", "paste_text");
+				is->set("PASTE_TEXT");
 				is->set("START",currItem->itemText.cursorPosition());
 				is->setItem(*story);
 				m_undoManager->action(currItem, is);
@@ -4691,7 +4691,7 @@ void ScribusMainWindow::slotEditPaste()
 			if (UndoManager::undoEnabled())
 			{
 				SimpleState *is = new SimpleState(Um::Paste,"",Um::IPaste);
-				is->set("PASTE_INLINE", "paste_inline");
+				is->set("PASTE_INLINE");
 				is->set("START",currItem->itemText.cursorPosition());
 				is->set("INDEX",fIndex);
 				m_undoManager->action(currItem, is);
@@ -4758,7 +4758,7 @@ void ScribusMainWindow::slotEditPaste()
 				if (UndoManager::undoEnabled())
 				{
 					SimpleState *is = new SimpleState(Um::Paste,"",Um::IPaste);
-					is->set("PASTE_INLINE", "paste_inline");
+					is->set("PASTE_INLINE");
 					is->set("START",currItem->itemText.cursorPosition());
 					is->set("INDEX",fIndex);
 					m_undoManager->action(currItem, is);
@@ -5178,7 +5178,7 @@ void ScribusMainWindow::addNewPages(int wo, int where, int numPages, double heig
 	{
 		activeTransaction = m_undoManager->beginTransaction(doc->getUName(), Um::IDocument, (numPages == 1) ? Um::AddPage : Um::AddPages, "", Um::ICreate);
 		SimpleState *ss = new SimpleState(Um::AddPage, "", Um::ICreate);
-		ss->set("ADD_PAGE", "add_page");
+		ss->set("ADD_PAGE");
 		ss->set("PAGE", wo);
 		ss->set("WHERE", where);
 		ss->set("COUNT", numPages);
@@ -6022,7 +6022,7 @@ void ScribusMainWindow::deletePage(int from, int to)
 		if (UndoManager::undoEnabled())
 		{
 			SimpleState *ss = new SimpleState(Um::DeletePage, "", Um::ICreate);
-			ss->set("DELETE_PAGE", "delete_page");
+			ss->set("DELETE_PAGE");
 			ss->set("PAGENR", a + 1);
 			ss->set("PAGENAME",   doc->Pages->at(a)->pageName());
 			ss->set("MASTERPAGE", doc->Pages->at(a)->MPageNam);
