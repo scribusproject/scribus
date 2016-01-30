@@ -43,6 +43,10 @@ const QString CONTENT = "content.xml";
 
 class SxwIm
 {
+public:
+	SxwIm(QString fileName, QString encoding, gtWriter* w, bool textOnly);
+	~SxwIm();
+
 private:
 	gtWriter* writer;
 	QString encoding;
@@ -50,9 +54,6 @@ private:
 	QString stylePath;
 	QString contentPath;
 	bool decompress();
-public:
-	SxwIm(QString fileName, QString encoding, gtWriter* w, bool textOnly);
-	~SxwIm();
 };
 
 #endif // SXWIM_H

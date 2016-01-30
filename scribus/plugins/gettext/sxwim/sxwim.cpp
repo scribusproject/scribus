@@ -67,6 +67,7 @@ SxwIm::SxwIm(QString fileName, QString enc, gtWriter* w, bool textOnly)
 	bool ask = prefs->getBool("askAgain", true);
 	bool pack = prefs->getBool("pack", true);
 	encoding = enc;
+	writer = w;
 	if (!textOnly)
 	{
 		if (ask)
@@ -88,7 +89,6 @@ SxwIm::SxwIm(QString fileName, QString enc, gtWriter* w, bool textOnly)
 		}
 	}
 	filename = fileName;
-	writer = w;
 	writer->setUpdateParagraphStyles(update);
 	ScZipHandler* fun = new ScZipHandler();
 	if (fun->open(fileName))
