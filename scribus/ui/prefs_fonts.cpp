@@ -45,6 +45,8 @@ Prefs_Fonts::Prefs_Fonts(QWidget* parent, ScribusDoc* doc)
 	RList = PrefsManager::instance()->appPrefs.fontPrefs.GFontSub;
 	UsedFonts.clear();
 	CurrentPath = "";
+	m_askBeforeSubstitute = true;
+
 	setMinimumSize(fontMetrics().width( tr( "Available Fonts" )+ tr( "Font Substitutions" )+ tr( "Additional Paths" ))+180, 200);
 
 	fontListTableView->setModel(new FontListModel(fontListTableView, m_doc));

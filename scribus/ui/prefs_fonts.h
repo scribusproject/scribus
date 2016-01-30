@@ -50,7 +50,6 @@ class SCRIBUS_API Prefs_Fonts : public Prefs_Pane, Ui::Prefs_Fonts
 		QString CurrentPath;
 		ScribusDoc* m_doc;
 
-
 		SCFonts m_availFonts; //! Fonts that Scribus has available to it, or the current document has available to use
 		bool m_askBeforeSubstitute; //! Request that the user confirms a font substitution or not
 		QMap<QString,QString> m_GFontSub;
