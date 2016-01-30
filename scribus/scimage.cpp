@@ -2703,7 +2703,7 @@ bool ScImage::loadPicture(const QString & fn, int page, const CMSettings& cmSett
 	{
 		ScMessageBox::warning(ScCore->primaryMainWindow(), CommonStrings::trWarning, pDataLoader->getMessage());
 	}
-	else if (pDataLoader->issuedErrorMsg())
+	else if (pDataLoader->issuedWarningMsg())
 	{
 		QString msg = pDataLoader->getMessage();
 		qWarning("%s", msg.toLocal8Bit().data() );
