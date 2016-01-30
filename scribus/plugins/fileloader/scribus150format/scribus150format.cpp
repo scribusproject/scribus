@@ -3222,7 +3222,7 @@ bool Scribus150Format::readPrinterOptions(ScribusDoc* doc, ScXmlStreamReader& re
 	doc->Print_Options.bleedMarks   = attrs.valueAsBool("bleedMarks");
 	doc->Print_Options.registrationMarks = attrs.valueAsBool("registrationMarks");
 	doc->Print_Options.colorMarks   = attrs.valueAsBool("colorMarks");
-	doc->Print_Options.includePDFMarks = attrs.valueAsBool("includePDFMarks", "1");
+	doc->Print_Options.includePDFMarks = attrs.valueAsBool("includePDFMarks", true);
 	if (attrs.hasAttribute("PrintEngine"))
 		doc->Print_Options.prnEngine = (PrintEngine) attrs.valueAsInt("PrintEngine", 3);
 	else
@@ -6018,7 +6018,7 @@ bool Scribus150Format::loadPage(const QString & fileName, int pageNumber, bool M
 			if (UndoManager::undoEnabled())
 			{
 				ss = new SimpleState(Um::ChangePageAttrs, "", Um::ICreate);
-				ss->set("PAGE_ATTRS", "page_attrs");
+				ss->set("PAGE_ATTRS");
 				ss->set("LEFT_OLD", newPage->LeftPg);
 				ss->set("NAME_OLD", newPage->pageName());
 				ss->set("ORIENTATION_OLD", newPage->orientation());
