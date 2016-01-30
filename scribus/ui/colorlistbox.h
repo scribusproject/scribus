@@ -35,9 +35,9 @@ Q_DECLARE_METATYPE(ColorPixmapValue)
 
 class ColorPixmapItem : public QListWidgetItem
 {
-	enum {
+	enum usrType {
 		ColorPixmapUserType = UserType + 1
-	} usrtyp;
+	};
 public:	
 	ColorPixmapItem( const ScColor& col, ScribusDoc* doc, const QString colName) : QListWidgetItem(NULL, ColorPixmapUserType) { 
 		setText(colName);
