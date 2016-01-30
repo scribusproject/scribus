@@ -38,8 +38,10 @@ PropertiesPalette_Line::PropertiesPalette_Line( QWidget* parent) : QWidget(paren
 	m_doc  = 0;
 	m_haveDoc  = false;
 	m_haveItem = false;
+	m_item     = NULL;
 	m_lineMode = false;
 	m_unitRatio = 1.0;
+	m_unitIndex = 0;
 
 	setupUi(this);
 	setSizePolicy( QSizePolicy(QSizePolicy::Maximum, QSizePolicy::Maximum));
