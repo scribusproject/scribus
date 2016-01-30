@@ -5648,6 +5648,9 @@ void ScribusDoc::itemAddDetails(const PageItem::ItemType itemType, const PageIte
 			newItem->setFillShade(m_docPrefsData.itemToolPrefs.textFillColorShade);
 			newItem->setLineColor(m_docPrefsData.itemToolPrefs.textLineColor);
 			newItem->setLineShade(m_docPrefsData.itemToolPrefs.textLineColorShade);
+			defaultParagraphStyle.setParent(CommonStrings::DefaultParagraphStyle);
+			defaultParagraphStyle.charStyle().setParent(CommonStrings::DefaultCharacterStyle);
+			newItem->itemText.setDefaultStyle(defaultParagraphStyle);
 			break;
 		case PageItem::Line:
 			newItem->PLineArt = Qt::PenStyle(m_docPrefsData.itemToolPrefs.lineStyle);
@@ -17659,7 +17662,7 @@ void ScribusDoc::updateNotesFramesStyles(NotesStyle *nStyle)
 	}
 }
 
-void ScribusDoc::updateItemNotesFramesStyles(PageItem* item, ParagraphStyle newStyle)
+void ScribusDoc::updateItemNotesFramesStyles(PageItem* item, const ParagraphStyle& newStyle)
 {
 	if (item->isTextFrame() && !item->isNoteFrame())
 	{
