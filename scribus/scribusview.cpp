@@ -1045,7 +1045,7 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 									{
 										PageItem* newItem = Doc->m_Selection->itemAt(i);
 										ScItemState<PageItem*> *is = new ScItemState<PageItem*>("Create PageItem");
-										is->set("CREATE_ITEM", "create_item");
+										is->set("CREATE_ITEM");
 										is->setItem(newItem);
 										//Undo target rests with the Page for object specific undo
 										int pindex = (newItem->OwnPage > -1) ? newItem->OwnPage : 0;
@@ -1493,7 +1493,7 @@ void ScribusView::TransformPoly(int mode, int rot, double scaling)
 			currItem->checkChanges(true);
 			undoManager->setUndoEnabled(true);
 			SimpleState *ss = new SimpleState(Um::EditContourLine, "", Um::IBorder);
-			ss->set("EDIT_CONTOUR", "edit_contour");
+			ss->set("EDIT_CONTOUR");
 			ss->set("MODE", mode);
 			ss->set("ROT", rot);
 			ss->set("SCALING", scaling);
@@ -1600,7 +1600,7 @@ void ScribusView::TransformPoly(int mode, int rot, double scaling)
 		currItem->checkChanges(true);
 		undoManager->setUndoEnabled(true);
 		SimpleState *ss = new SimpleState(Um::EditShape, "", Um::IBorder);
-		ss->set("EDIT_SHAPE", "edit_shape");
+		ss->set("EDIT_SHAPE");
 		ss->set("MODE", mode);
 		ss->set("ROT", rot);
 		ss->set("SCALING", scaling);
