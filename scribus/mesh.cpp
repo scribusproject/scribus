@@ -26,6 +26,8 @@ for which a new license (GPL+exception) is in place.
 
 meshPoint::meshPoint()
 {
+	shade = 100;
+	transparency = 1.0;
 }
 
 void meshPoint::moveRel(double dx, double dy)
