@@ -46,6 +46,9 @@ for which a new license (GPL+exception) is in place.
 
 ShapeView::ShapeView(QWidget* parent) : QListWidget(parent)
 {
+	shapes.clear();
+	scMW = NULL;
+
 	setDragEnabled(true);
 	setViewMode(QListView::IconMode);
 	setFlow(QListView::LeftToRight);
@@ -61,7 +64,7 @@ ShapeView::ShapeView(QWidget* parent) : QListWidget(parent)
 	delegate->setIconOnly(false);
 	setItemDelegate(delegate);
 	setIconSize(QSize(48, 48));
-	m_Shapes.clear();
+
 	connect(this, SIGNAL(customContextMenuRequested (const QPoint &)), this, SLOT(HandleContextMenu(QPoint)));
 }
 
@@ -96,7 +99,7 @@ void ShapeView::deleteAll()
 				QMessageBox::Yes);	// batch default
 	if (t == QMessageBox::No)
 		return;
-	m_Shapes.clear();
+	shapes.clear();
 	clear();
 }
 
@@ -106,7 +109,7 @@ void ShapeView::delOne()
 	if (it != NULL)
 	{
 		QString key = it->data(Qt::UserRole).toString();
-		m_Shapes.remove(key);
+		shapes.remove(key);
 		updateShapeList();
 	}
 }
@@ -158,9 +161,9 @@ void ShapeView::keyPressEvent(QKeyEvent* e)
 				if (it != NULL)
 				{
 					QString key = it->data(Qt::UserRole).toString();
-					if (m_Shapes.contains(key))
+					if (shapes.contains(key))
 					{
-						m_Shapes.remove(key);
+						shapes.remove(key);
 						updateShapeList();
 						e->accept();
 					}
@@ -206,18 +209,18 @@ void ShapeView::dropEvent(QDropEvent *e)
 void ShapeView::startDrag(Qt::DropActions supportedActions)
 {
 	QString key = currentItem()->data(Qt::UserRole).toString();
-	if (m_Shapes.contains(key))
+	if (shapes.contains(key))
 	{
-		int w = m_Shapes[key].width;
-		int h = m_Shapes[key].height;
+		int w = shapes[key].width;
+		int h = shapes[key].height;
 		ScribusDoc *m_Doc = new ScribusDoc();
 		m_Doc->setup(0, 1, 1, 1, 1, "Custom", "Custom");
 		m_Doc->setPage(w, h, 0, 0, 0, 0, 0, 0, false, false);
 		m_Doc->addPage(0);
-		m_Doc->setGUI(false, m_scMW, 0);
+		m_Doc->setGUI(false, scMW, 0);
 		int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, m_Doc->currentPage()->xOffset(), m_Doc->currentPage()->yOffset(), w, h, m_Doc->itemToolPrefs().shapeLineWidth, m_Doc->itemToolPrefs().shapeFillColor, m_Doc->itemToolPrefs().shapeLineColor);
 		PageItem* ite = m_Doc->Items->at(z);
-		ite->PoLine = m_Shapes[key].path.copy();
+		ite->PoLine = shapes[key].path.copy();
 		FPoint wh = getMaxClipF(&ite->PoLine);
 		ite->setWidthHeight(wh.x(),wh.y());
 		ite->setTextFlowMode(PageItem::TextFlowDisabled);
@@ -241,7 +244,7 @@ void ShapeView::updateShapeList()
 {
 	clear();
 	setWordWrap(true);
-	for (QHash<QString, shapeData>::Iterator it = m_Shapes.begin(); it != m_Shapes.end(); ++it)
+	for (QHash<QString, shapeData>::Iterator it = shapes.begin(); it != shapes.end(); ++it)
 	{
 		int w = it.value().width + 4;
 		int h = it.value().height + 4;
@@ -326,7 +329,7 @@ void ShapePalette::writeToPrefs()
 		ShapeViewWidget = (ShapeView*)Frame3->widget(a);
 		QDomElement fil = docu.createElement("file");
 		fil.setAttribute("name", Frame3->itemText(a));
-		for (QHash<QString, shapeData>::Iterator it = ShapeViewWidget->m_Shapes.begin(); it != ShapeViewWidget->m_Shapes.end(); ++it)
+		for (QHash<QString, shapeData>::Iterator it = ShapeViewWidget->shapes.begin(); it != ShapeViewWidget->shapes.end(); ++it)
 		{
 			QDomElement shp = docu.createElement("shape");
 			shp.setAttribute("width", it.value().width);
@@ -364,7 +367,7 @@ void ShapePalette::readFromPrefs()
 			if (drawPag.tagName() == "file")
 			{
 				ShapeViewWidget = new ShapeView(this);
-				ShapeViewWidget->m_scMW = m_scMW;
+				ShapeViewWidget->scMW = m_scMW;
 				Frame3->addItem(ShapeViewWidget, drawPag.attribute("name"));
 				for(QDomElement dpg = drawPag.firstChildElement(); !dpg.isNull(); dpg = dpg.nextSiblingElement() )
 				{
@@ -375,7 +378,7 @@ void ShapePalette::readFromPrefs()
 						shData.width = dpg.attribute("width", "1").toInt();
 						shData.path.parseSVG(dpg.attribute("path"));
 						shData.name = dpg.attribute("name");
-						ShapeViewWidget->m_Shapes.insert(dpg.attribute("uuid"), shData);
+						ShapeViewWidget->shapes.insert(dpg.attribute("uuid"), shData);
 					}
 				}
 				ShapeViewWidget->updateShapeList();
@@ -534,14 +537,14 @@ void ShapePalette::Import()
 			shData.width = bounds.width();
 			shData.path = clip2.copy();
 			shData.name = string;
-			ShapeViewWidget->m_Shapes.insert(QString(uuid), shData);
+			ShapeViewWidget->shapes.insert(QString(uuid), shData);
 			ds.device()->seek(posi + shpLen);
 			shpCounter++;
 		}
 		file.close();
 		Frame3->setCurrentIndex(nIndex);
 		ShapeViewWidget->updateShapeList();
-		ShapeViewWidget->m_scMW = m_scMW;
+		ShapeViewWidget->scMW = m_scMW;
 		QApplication::restoreOverrideCursor();
 	}
 }
@@ -552,7 +555,7 @@ void ShapePalette::setMainWindow(ScribusMainWindow *mw)
 	for (int a = 0; a < Frame3->count(); a++)
 	{
 		ShapeViewWidget = (ShapeView*)Frame3->widget(a);
-		ShapeViewWidget->m_scMW = mw;
+		ShapeViewWidget->scMW = mw;
 	}
 }
 

@@ -59,9 +59,11 @@ class PLUGIN_API ShapeView : public QListWidget
 public:
 	ShapeView( QWidget* parent);
 	~ShapeView() {};
+
 	void updateShapeList();
-	QHash<QString, shapeData> m_Shapes;
-	ScribusMainWindow *m_scMW;
+
+	QHash<QString, shapeData> shapes;
+	ScribusMainWindow *scMW;
 
 public slots:
 	void HandleContextMenu(QPoint);
@@ -91,13 +93,13 @@ class PLUGIN_API ShapePalette : public ScDockPalette
 public:
 	ShapePalette(QWidget* parent);
 	~ShapePalette() {};
+
 	void writeToPrefs();
 	void readFromPrefs();
 	double decodePSDfloat(uint data);
 	void setMainWindow(ScribusMainWindow *mw);
 	void setDoc(ScribusDoc *);
 	void unsetDoc();
-	ScribusMainWindow *m_scMW;
 	
 	virtual void changeEvent(QEvent *e);
 
@@ -114,7 +116,9 @@ protected:
 	QHBoxLayout* buttonLayout;
 	QToolButton* importButton;
 	QToolButton* closeButton;
+
 	ScribusDoc *m_doc;
+	ScribusMainWindow *m_scMW;
 };
 
 #endif
