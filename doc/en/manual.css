@@ -1,8 +1,8 @@
-h1 {font-family:fontin,sans-serif; font-size:1.3em;}
-h2 {font-family:fontin,sans-serif; font-size:1.2em;}
-h3 {font-family:fontin,sans-serif; font-size:1.1em;}
-h4 {font-family:fontin,sans-serif; font-size:1em;}
-h5 {font-family:fontin,sans-serif; font-size:1em;}
+h1 {font-family:sans-serif; font-size:1.3em;}
+h2 {font-family:sans-serif; font-size:1.2em;}
+h3 {font-family:sans-serif; font-size:1.1em;}
+h4 {font-family:sans-serif; font-size:1em;}
+h5 {font-family:sans-serif; font-size:1em;}
 
 blockquote > p {font-family:dejavu sans,sans-serif; font-size:1.2em;}
 p {font-family:dejavu sans,sans-serif; font-size:0.8em;}
