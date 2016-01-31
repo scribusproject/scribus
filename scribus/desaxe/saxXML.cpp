@@ -14,10 +14,10 @@
 using namespace std;
 
 SaxXML::SaxXML(std::ostream& file, bool pretty) : m_stream(file), 
-     m_pretty(pretty), m_indentLevel(0), m_pendingEmptyTag(false) {} 
+     m_pretty(pretty), m_indentLevel(0), m_manyAttributes(false), m_pendingEmptyTag(false) {} 
 
 SaxXML::SaxXML(const char* filename, bool pretty) : m_file(filename, ios::out | ios::binary), m_stream(m_file), 
-     m_pretty(pretty), m_indentLevel(0), m_pendingEmptyTag(false) {}
+     m_pretty(pretty), m_indentLevel(0), m_manyAttributes(false), m_pendingEmptyTag(false) {}
 
 SaxXML::~SaxXML() { m_stream.flush(); m_file.close(); }
 
