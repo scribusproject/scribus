@@ -47,7 +47,10 @@ for which a new license (GPL+exception) is in place.
 gtWriter::gtWriter(bool append, PageItem *pageitem)
 {
 	m_action = new gtAction(append, pageitem);
+	m_defaultStyle = NULL;
+	m_currentStyle = NULL;
 	m_errorSet = false;
+
 	m_action->setProgressInfo();
 	setDefaultStyle();
 	unsetCharacterStyle();
@@ -201,6 +204,8 @@ gtWriter::~gtWriter()
 {
 	if (!m_errorSet)
 		m_action->setProgressInfoDone();
-	delete m_action;
-	delete m_defaultStyle;
+	if (m_action)
+		delete m_action;
+	if (m_defaultStyle)
+		delete m_defaultStyle;
 }
