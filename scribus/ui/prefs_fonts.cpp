@@ -374,14 +374,15 @@ void Prefs_Fonts::DelPath()
 	}
 	else
 		return;
-	SCFontsIterator it(m_availFonts);
-	for ( ; it.hasNext(); it.next())
+	QMutableMapIterator<QString,ScFace> it(m_availFonts);
+	while (it.hasNext())
 	{
-		if (it.current().isNone())
+		it.next();
+		if (it.value().isNone())
 			continue;
-		QFileInfo fi(it.current().fontFilePath());
+		QFileInfo fi(it.value().fontFilePath());
 		if (fi.absolutePath() == path)
-			m_availFonts.remove(it.currentKey());
+			m_availFonts.remove(it.key());
 	}
 	m_availFonts.updateFontMap();
 	CurrentPath = "";
