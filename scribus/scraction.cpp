@@ -42,9 +42,9 @@ ScrAction::ScrAction(ActionType aType, const QString & menuText, QKeySequence ac
 	setShortcut(accel);
 	initScrAction();
 	setData(d);
-	m_actionType=aType;
 
-	if (m_actionType!=Normal)
+	m_actionType = aType;
+	if (m_actionType != Normal)
 		connect (this, SIGNAL(triggered()), this, SLOT(triggeredToTriggeredData()));
 }
 
@@ -54,9 +54,9 @@ ScrAction::ScrAction(ActionType aType, const QPixmap & icon16, const QPixmap & i
 	initScrAction();
 	icon().addPixmap(icon22, QIcon::Normal, QIcon::On);
 
-	m_actionType=aType;
+	m_actionType = aType;
 	setData(d);
-	if (m_actionType!=Normal)
+	if (m_actionType != Normal)
 		connect (this, SIGNAL(triggered()), this, SLOT(triggeredToTriggeredData()));
 }
 
@@ -75,7 +75,7 @@ ScrAction::ScrAction(QKeySequence accel, QObject * parent, QVariant d)
 	setShortcut(accel);
 	initScrAction();
 	icon().addPixmap(QPixmap(), QIcon::Normal, QIcon::On);
-	m_actionType=UnicodeChar;
+	m_actionType = UnicodeChar;
 	setData(d);
 	connect (this, SIGNAL(triggered()), this, SLOT(triggeredToTriggeredData()));
 }
@@ -83,11 +83,12 @@ ScrAction::ScrAction(QKeySequence accel, QObject * parent, QVariant d)
 
 void ScrAction::initScrAction()
 {
-	m_actionType=ScrAction::Normal;
-	m_menuIndex=-1;
-	m_savedKeySequence=QKeySequence("");
-	m_shortcutSaved=false;
-	m_fakeToggle=false;
+	m_actionType = ScrAction::Normal;
+	m_menuIndex = -1;
+	m_popupMenuAddedTo = NULL;
+	m_savedKeySequence = QKeySequence("");
+	m_shortcutSaved = false;
+	m_fakeToggle = false;
 }
 
 ScrAction::~ScrAction()
