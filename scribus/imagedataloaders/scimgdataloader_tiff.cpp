@@ -26,6 +26,9 @@ static void TagExtender(TIFF *tiff)
 
 ScImgDataLoader_TIFF::ScImgDataLoader_TIFF(void) : ScImgDataLoader()
 {
+	m_photometric = PHOTOMETRIC_MINISBLACK;
+	m_samplesperpixel = 72;
+
 	initSupportedFormatList();
 }
 
