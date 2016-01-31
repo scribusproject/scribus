@@ -93,6 +93,8 @@ void ScPlugin::changedDoc(ScribusDoc* )
 
 ScActionPlugin::ScActionPlugin() : ScPlugin()
 {
+	m_Doc = NULL;
+
 	m_actionInfo.name = "";
 	m_actionInfo.text = "";
 	m_actionInfo.helpText = "";
