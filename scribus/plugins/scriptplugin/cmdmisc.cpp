@@ -739,7 +739,7 @@ PyObject *scribus_createlayer(PyObject* /* self */, PyObject* args)
 	char *Name = const_cast<char*>("");
 	if (!PyArg_ParseTuple(args, "es", "utf-8", &Name))
 		return NULL;
-	if(!checkHaveDocument())
+	if (!checkHaveDocument())
 		return NULL;
 	if (Name == EMPTY_STRING)
 	{
