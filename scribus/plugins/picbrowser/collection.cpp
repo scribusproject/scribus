@@ -36,6 +36,7 @@ collections::collections ( QString collectionsName )
 collectionReaderThread::collectionReaderThread ( QString &xmlFile2, bool importCollection )
 {
 	categoriesCount = 0;
+	collection = 0;
 	type = 0;
 	restartThread = false;
 
