@@ -71,6 +71,7 @@ FileLoader::FileLoader(const QString & fileName) :
 	QString realPath = QFileInfo(fileName).canonicalFilePath();
 	if (!realPath.isEmpty())
 		m_fileName = realPath;
+	m_newReplacement = false;
 }
 
 // FIXME: This static method is here as a temporary transitional
