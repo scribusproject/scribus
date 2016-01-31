@@ -515,6 +515,8 @@ bool SCFonts::AddScalableFont(QString filename, FT_Library &library, QString Doc
 			if (!checkedFonts[filename].isOK)
 			{
 				checkedFonts[filename].isChecked = true;
+				if (face != NULL)
+					FT_Done_Face( face );
 				return true;
 			}
 			if (checkedFonts[filename].lastMod != foCache.lastMod)
