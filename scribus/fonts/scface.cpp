@@ -21,6 +21,7 @@ ScFace::ScFaceData::ScFaceData() :
 	formatCode(ScFace::UNKNOWN_FORMAT),
 	usable(false),
 	embedPs(false),
+	outline(false),
 	subset(false),
 	isStroked(false),
 	isFixedPitch(false),
