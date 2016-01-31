@@ -55,7 +55,7 @@ QStringList ScFace_postscript::findFontMetrics(const QString& baseDir, const QSt
 		else
 		{
 			afmName = afnm+"AFM";
-			if(QFile::exists(afmName))
+			if (QFile::exists(afmName))
 				metricsFiles.append(afmName);
 		}
 	}
