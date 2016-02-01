@@ -1,3 +1,7 @@
+[![Build Status](https://travis-ci.org/scribusproject/scribus.svg?branch=master)](https://travis-ci.org/scribusproject/scribus)
+[![Coverity Scan Build Status](https://scan.coverity.com/projects/216/badge.svg)](https://scan.coverity.com/projects/scribus)
+
+
 =What’s New in Scribus 1.5.0?=
 
 This is a cursory overview over the most important changes in Scribus compared to the latest stable version 1.4.x.
