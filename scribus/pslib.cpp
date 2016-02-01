@@ -5304,12 +5304,9 @@ void PSLib::setTextSt(ScribusDoc* Doc, PageItem* ite, uint argh, ScPage* pg, boo
 			}
 			if ((cstyle.effects() & ScStyle_Shadowed) && (cstyle.strokeColor() != CommonStrings::None))
 			{
-				//ScText hl2;
-				//static_cast<CharStyle&>(hl2) = static_cast<const CharStyle&>(*hl);
-				//hl2.ch = chr;
-				//hl2.glyph.glyph = glyphs->glyph;
 				const GlyphLayout *gl1 = glyphs;
 				GlyphLayout* gl2 = new GlyphLayout(*gl1);
+				GlyphLayout* gl3 = gl2; 
 				while (gl1->more)
 				{
 					gl2->more = new GlyphLayout(*gl1->more);
@@ -5319,7 +5316,7 @@ void PSLib::setTextSt(ScribusDoc* Doc, PageItem* ite, uint argh, ScPage* pg, boo
 					gl1 = gl1->more;
 					gl2 = gl2->more;
 				}
-                CharStyle shadowed(cstyle);
+				CharStyle shadowed(cstyle);
 				shadowed.setFillColor(cstyle.strokeColor());
 				shadowed.setFillShade(cstyle.strokeShade());
 				gl2->xadvance = glyphs->xadvance;
@@ -5330,6 +5327,13 @@ void PSLib::setTextSt(ScribusDoc* Doc, PageItem* ite, uint argh, ScPage* pg, boo
 				gl2->scaleV = glyphs->scaleV;
 				
 				setTextCh(Doc, ite, CurX, ls.y, argh, d, chr, gl2, shadowed, pstyle, pg, sep, farb, master);
+				
+				while (gl3->more) {
+					GlyphLayout* more = gl3->more;
+					gl3->more = gl3->more->more;
+					delete more;
+				}
+				delete gl3;
 			}
 			setTextCh(Doc, ite, CurX, ls.y, argh, d, chr, glyphs, cstyle, pstyle, pg, sep, farb, master);
 			// Unneeded now that glyph xadvance is set appropriately for inline objects by PageItem_TextFrame::layout() - JG
