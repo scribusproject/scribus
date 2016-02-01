@@ -2791,7 +2791,7 @@ bool PDFLibCore::PDF_TemplatePage(const ScPage* pag, bool )
 								tmpD +=  "1 0 0 1 "+FToStr(embedded->gXpos)+" "+FToStr(ite->height() - embedded->gYpos)+" cm\n";
 								QByteArray output;
 								if (!PDF_ProcessItem(output, embedded, pag, pag->pageNr(), true))
-									return "";
+									return false;
 								tmpD += output;
 								tmpD += "Q\n";
 							}
@@ -4677,7 +4677,7 @@ bool PDFLibCore::PDF_ProcessItem(QByteArray& output, PageItem* ite, const ScPage
 					tmpD +=  "1 0 0 1 "+FToStr(embedded->gXpos)+" "+FToStr(ite->height() - embedded->gYpos)+" cm\n";
 					QByteArray output;
 					if (!PDF_ProcessItem(output, embedded, pag, PNr, true))
-						return "";
+						return false;
 					tmpD += output;
 					tmpD += "Q\n";
 				}
