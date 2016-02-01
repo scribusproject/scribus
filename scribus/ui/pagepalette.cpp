@@ -213,8 +213,11 @@ void PagePalette::endMasterPageMode()
 	}
 
 	PagePalette_Pages* pageWidget = dynamic_cast<PagePalette_Pages*>(this->currentWidget());
-	pageWidget->setView(m_view);
-	pageWidget->Rebuild();
+	if (pageWidget)
+	{
+		pageWidget->setView(m_view);
+		pageWidget->Rebuild();
+	}
 }
 
 void PagePalette::changeEvent(QEvent *e)
