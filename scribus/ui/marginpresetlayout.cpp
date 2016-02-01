@@ -16,6 +16,8 @@ PresetLayout::PresetLayout(QWidget *parent) : QComboBox(parent)
 	addItem( tr("Nine Parts"), PresetLayout::nineparts);
 	setCurrentIndex(PresetLayout::none);
 
+	updateMargins = false;
+
 	this->setToolTip( "<qt>" + tr("When you have selected a Document Layout other than Single Page, you can select a predefined page layout here. 'None' leaves margins as is, Gutenberg sets margins classically. 'Magazine' sets all margins to the same value. Leading is Left/Inside value.") + "</qt>");
 }
 
