@@ -66,7 +66,7 @@ bool UndoStack::undo(uint steps, int objectId)
 				else if((*it)->isTransaction())
 				{
 					TransactionState *ts = dynamic_cast<TransactionState*>(*it);
-					if(ts->containsOnly(objectId))
+					if(ts && ts->containsOnly(objectId))
 					{
 						tmpUndoState = *it;
 						m_undoActions_.erase(it);
