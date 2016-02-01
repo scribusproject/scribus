@@ -3178,7 +3178,7 @@ void SlaOutputDev::updateFont(GfxState *state)
 	  // if there is an embedded font, read it to memory
 	  tmpBuf = gfxFont->readEmbFontFile(xref, &tmpBufLen);
 	  if (! tmpBuf)
-	goto err2;
+		goto err2;
 
 	// external font
 	} else { // gfxFontLocExternal
