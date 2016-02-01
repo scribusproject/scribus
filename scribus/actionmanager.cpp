@@ -39,7 +39,14 @@ QVector< QPair<QString, QStringList> > ActionManager::defNonMenuActions;
 
 ActionManager::ActionManager ( QObject * parent ) :
 	QObject ( parent),
-	mainWindow(0)
+	mainWindow(0), 
+	undoManager(0), 
+	im(0), 
+	scrActions(0), 
+	scrActionGroups(0),
+	modeActionNames(0), 
+	nonEditActionNames(0), 
+	unicodeCharActionNames(0)
 {
 }
 

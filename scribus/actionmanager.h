@@ -113,7 +113,6 @@ class SCRIBUS_API ActionManager : public QObject
 	
 		QPixmap noIcon;
 		ScribusMainWindow *mainWindow;
-		ScribusQApp *ScQApp;
 		UndoManager *undoManager;
 		IconManager* im;
 		QMap<QString, QPointer<ScrAction> > *scrActions;
