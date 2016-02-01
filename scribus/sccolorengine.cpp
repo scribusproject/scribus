@@ -381,7 +381,7 @@ QColor ScColorEngine::getColorProof(CMYKColor& cmyk, const ScribusDoc* doc, bool
 		inC[1] = cmyk.m * 257;
 		inC[2] = cmyk.y * 257;
 		inC[3] = cmyk.k * 257;
-		if (cmsUse && !spot && doc->SoftProofing)
+		if (cmsUse && !spot && doc && doc->SoftProofing)
 		{
 			ScColorTransform xform = gamutCkeck ? transProofCMYKGC : transProofCMYK;
 			xform.apply(inC, outC, 1);
