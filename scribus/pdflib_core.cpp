@@ -8774,7 +8774,8 @@ bool PDFLibCore::PDF_GradientFillStroke(QByteArray& output, PageItem *currItem, 
 		ResCount++;
 		QByteArray GXName = ResNam+Pdf::toPdf(ResCount);
 		ResCount++;
-		Transpar[GXName] = writeGState("/SMask << /S /Luminosity /G "+Pdf::toPdf(formObject)+" 0 R >>\n/BM /Normal\n");
+		int bmCode = stroke ? currItem->lineBlendmode() : currItem->fillBlendmode();
+		Transpar[GXName] = writeGState("/SMask << /S /Luminosity /G "+Pdf::toPdf(formObject)+" 0 R >>\n/BM /" + blendMode(bmCode) + "\n");
 		TRes = GXName;
 	}
 	PdfId patObject = writer.newObject();
