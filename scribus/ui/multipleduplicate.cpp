@@ -20,6 +20,9 @@ for which a new license (GPL+exception) is in place.
 MultipleDuplicate::MultipleDuplicate( int unitIndex, QWidget* parent) : QDialog(parent), m_unitIndex(unitIndex)
 {
 	setupUi(this);
+
+	m_unitRatio = unitGetRatioFromIndex(m_unitIndex);
+
 	//set tab order
 	QWidget::setTabOrder(createGapRadioButton, horizShiftSpinBox);
 	QWidget::setTabOrder(horizShiftSpinBox, vertShiftSpinBox);
