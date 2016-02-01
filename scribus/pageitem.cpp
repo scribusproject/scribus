@@ -4802,7 +4802,7 @@ void PageItem::toggleLock()
 			ss = new SimpleState(Um::UnLock, 0, Um::IUnLock);
 		else
 			ss = new SimpleState(Um::Lock, 0, Um::ILock);
-		ss->set("LOCK", "lock");
+		ss->set("LOCK");
 		undoManager->action(this, ss);
 	}
 	m_Locked = !m_Locked;
