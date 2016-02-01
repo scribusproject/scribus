@@ -562,7 +562,7 @@ QColor ScColorEngine::getShadeColorProof(const ScColor& color, const ScribusDoc*
 		ScColorTransform trans  = doc ? doc->stdLabToRGBTrans : ScCore->defaultLabToRGBTrans;
 		ScColorTransform transProof   = doc ? doc->stdProofLab   : ScCore->defaultLabToRGBTrans;
 		ScColorTransform transProofGC = doc ? doc->stdProofLabGC : ScCore->defaultLabToRGBTrans;
-		if (cmsUse & doc->SoftProofing)
+		if (cmsUse && doc && doc->SoftProofing)
 		{
 			ScColorTransform xform = doGC ? transProofGC : transProof;
 			xform.apply(inC, outC, 1);
