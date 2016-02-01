@@ -75,11 +75,12 @@ bool UndoStack::undo(uint steps, int objectId)
 				}
 			}
 		}
-
-		m_redoActions_.insert(m_redoActions_.begin(), tmpUndoState); // push to the redo actions
-		tmpUndoState->undo();
+		if (tmpUndoState)
+		{
+			m_redoActions_.insert(m_redoActions_.begin(), tmpUndoState); // push to the redo actions
+			tmpUndoState->undo();
+		}
 	}
-
 	return true;
 }
 
@@ -107,7 +108,7 @@ bool UndoStack::redo(uint steps, int objectId)
 				else if((*it)->isTransaction())
 				{
 					TransactionState *ts = dynamic_cast<TransactionState*>(*it);
-					if(ts->containsOnly(objectId))
+					if(ts && ts->containsOnly(objectId))
 					{
 						tmpRedoState = *it;
 						m_redoActions_.erase(it);
@@ -116,11 +117,12 @@ bool UndoStack::redo(uint steps, int objectId)
 				}
 			}
 		}
-		
-		m_undoActions_.insert(m_undoActions_.begin(), tmpRedoState); // push to the undo actions
-		tmpRedoState->redo();
+		if (tmpRedoState)
+		{
+			m_undoActions_.insert(m_undoActions_.begin(), tmpRedoState); // push to the undo actions
+			tmpRedoState->redo();
+		}
 	}
-	
 	return true;
 }
 
