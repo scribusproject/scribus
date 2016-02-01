@@ -20,7 +20,9 @@ for which a new license (GPL+exception) is in place.
 CollectForOutput_UI::CollectForOutput_UI(QWidget* parent, ScribusDoc* doc, QString outputDirectory, bool withFonts, bool withProfiles, bool compressDoc) :
 	CollectForOutput(doc, outputDirectory, withFonts, withProfiles, compressDoc)
 {
-	uiCollect=true;
+	uiCollect = true;
+	progressDialog = 0;
+
 	connect(this, SIGNAL(fontsCollected(int)), this, SLOT(collectedFonts(int)));
 	connect(this, SIGNAL(itemsCollected(int)), this, SLOT(collectedItems(int)));
 	connect(this, SIGNAL(patternsCollected(int)), this, SLOT(collectedPatterns(int)));
@@ -32,7 +34,7 @@ QString CollectForOutput_UI::collect(QString &newFileName)
 	if (!newDirDialog())
 		return "Collect cancelled or unable to create collect destination directory";
 
-	progressDialog=new MultiProgressDialog("Collect for Output", "Cancel");
+	progressDialog = new MultiProgressDialog("Collect for Output", "Cancel");
 	QStringList barNames, barTexts;
 	QList<bool> barsNumeric;
 	barNames << "items";
@@ -73,11 +75,8 @@ QString CollectForOutput_UI::collect(QString &newFileName)
 	}
 	progressDialog->setOverallProgress(0);
 
-
-
 	ScCore->fileWatcher->forceScan();
 	ScCore->fileWatcher->stop();
-
 
 	progressDialog->show();
 //	connect(progressDialog, SIGNAL(canceled()), this, SLOT(cancelRequested()));
@@ -125,8 +124,11 @@ QString CollectForOutput_UI::collect(QString &newFileName)
 	ScCore->fileWatcher->start();
 	collectedFiles.clear();
 	newFileName=newName;
+
 	progressDialog->close();
 	delete progressDialog;
+	progressDialog = 0;
+
 	return QString::null;
 }
 
