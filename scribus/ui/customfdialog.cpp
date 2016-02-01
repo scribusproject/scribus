@@ -339,9 +339,12 @@ CustomFDialog::CustomFDialog(QWidget *parent, QString wDir, QString caption, QSt
 	CancelB->setAutoDefault( false );
 	hboxLayout1->addWidget( CancelB );
 	vboxLayout->addLayout(hboxLayout1);
+
 	SaveZip=NULL;
 	WithFonts=NULL;
 	WithProfiles=NULL;
+	TxCodeM = NULL;
+	TxCodeT = NULL;
 	if (flags & fdDirectoriesOnly)
 	{
 		Layout = new QFrame(this);
@@ -401,8 +404,6 @@ CustomFDialog::CustomFDialog(QWidget *parent, QString wDir, QString caption, QSt
 		if (WithProfiles!=NULL)
 			WithProfiles->setToolTip( "<qt>" + tr( "Include color profiles when collecting files for the document" ) + "</qt>");
 		
-		TxCodeM = NULL;
-		TxCodeT = NULL;
 		if (flags & fdShowCodecs)
 		{
 			LayoutC = new QFrame(this);
