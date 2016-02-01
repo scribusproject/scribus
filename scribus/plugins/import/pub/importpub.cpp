@@ -59,11 +59,15 @@ extern SCRIBUS_API ScribusQApp * ScQApp;
 
 PubPlug::PubPlug(ScribusDoc* doc, int flags)
 {
-	tmpSel=new Selection(this, false);
-	m_Doc=doc;
+	baseX = baseY = 0;
+	docWidth = docHeight = 1;
+
+	tmpSel = new Selection(this, false);
+	m_Doc = doc;
 	importerFlags = flags;
 	interactive = (flags & LoadSavePlugin::lfInteractive);
 	progressDialog = NULL;
+	cancel = false;
 }
 
 QImage PubPlug::readThumbnail(QString fName)
