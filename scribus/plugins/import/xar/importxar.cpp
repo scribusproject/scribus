@@ -2169,7 +2169,7 @@ void XarPlug::handleMultiGradientSkewed(QDataStream &ts)
 		ts >> cpos;
 		ts >> colRef;
 		QString gCol = "Black";
-		if (XarColorMap.contains(colRef1))
+		if (XarColorMap.contains(colRef))
 			gCol = XarColorMap[colRef].name;
 		if (gCol != CommonStrings::None)
 		{

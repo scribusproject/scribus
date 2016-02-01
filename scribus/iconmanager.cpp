@@ -273,7 +273,7 @@ QString IconManager::pathForIcon(const QString nam)
 	if (QFile::exists(iconFilePath))
 		return iconFilePath;
 
-	//qWarning("pathForIcon: Unable to load icon %s: File not found", iconFilePath.toLatin1().constData());
+	qWarning("pathForIcon: Unable to load icon %s: File not found", iconFilePath.toLatin1().constData());
 	iconFilePath=QString("%1%2%3").arg(ScPaths::instance().iconDir()).arg(primaryIconSubdir).arg(nam);
 
 	if (QFile::exists(iconFilePath))
@@ -282,7 +282,7 @@ QString IconManager::pathForIcon(const QString nam)
 		return iconFilePath;
 	}
 
-	//qWarning("pathForIcon: Unable to load icon %s: File not found", iconFilePath.toLatin1().constData());
+	qWarning("pathForIcon: Unable to load icon %s: File not found", iconFilePath.toLatin1().constData());
 	return "";
 }
 
