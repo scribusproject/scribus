@@ -106,6 +106,10 @@ ImageInfoDialog::ImageInfoDialog( QWidget* parent, ImageInfoRecord *info  ) : QD
 		if ((exposureTime > 0.0) && (exposureTime <= 0.5))
 			tag += QString().sprintf(" (1/%d)", (int)(0.5 + 1/exposureTime) );
 	}
+	Text7 = Text8 = 0;
+	ExposureTime = 0;
+	ApertureFNumber= 0;
+	ISOequivalent = 0;
 	if (info->type == 0)
 	{
 		ExposureTime = new QLabel(tag, ExGroup);
