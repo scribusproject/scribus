@@ -17409,7 +17409,6 @@ bool ScribusDoc::updateNotesNums(NotesStyle *nStyle)
 							if (endNF != NULL)
 								clearNotesInFrameList(endNF);
 							page = -1;
-							i = -1;
 							itemsCount = Items->count();
 							num = nStyle->start();
 							docWasChanged = true;
