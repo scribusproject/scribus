@@ -16664,7 +16664,7 @@ void ScribusDoc::updateNumbers(bool updateNumerations)
 								CharStyle emptyCS;
 								item->itemText.setCharStyle(pos, 1, emptyCS);
 							}
-							if (mark->getString() != prefixStr)
+							if (mark && mark->getString() != prefixStr)
 							{
 								mark->setString(prefixStr);
 								item->invalid = true;
