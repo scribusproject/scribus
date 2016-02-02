@@ -56,7 +56,6 @@ protected:
 	PropTreeItem *softShadowXOffset;
 	PropTreeItem *softShadowYOffset;
 	PropTreeItem *softShadowBlurRadius;
-	PropTreeItem *colorProps;
 	PropTreeItem *softShadowColor;
 	PropTreeItem *softShadowShade;
 	PropTreeItem *softShadowOpacity;
