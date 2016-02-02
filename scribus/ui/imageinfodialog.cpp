@@ -79,6 +79,7 @@ ImageInfoDialog::ImageInfoDialog( QWidget* parent, ImageInfoRecord *info  ) : QD
 	UserComment = new QLabel(info->exifInfo.userComment, ExGroup);
 	layout2->addWidget( UserComment, 1, 1 );
 	int a = 2;
+	Artist = Text5 = 0;
 	if (info->type == 1)
 	{
 		Text5 = new QLabel( tr("Artist:"), ExGroup);
