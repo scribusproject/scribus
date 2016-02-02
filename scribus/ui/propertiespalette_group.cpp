@@ -73,9 +73,12 @@ PropertiesPalette_Group::PropertiesPalette_Group( QWidget* parent) : QWidget(par
 {
 	m_ScMW = 0;
 	m_doc  = 0;
+	m_item = 0;
 	m_haveDoc   = false;
 	m_haveItem  = false;
+	m_unitIndex = 0;
 	m_unitRatio = 1.0;
+	m_userActionOn = false;
 
 	m_tmpSelection = new Selection(this, false);
 	m_tmpSelection->clear();
