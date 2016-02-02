@@ -470,7 +470,7 @@ void DrwPlug::decodeCmdData(QDataStream &ts, uint dataLen, quint8 cmd)
 void DrwPlug::decodeCmd(quint8 cmd, int pos)
 {
 	recordCount++;
-	bool printMSG = false;
+//	bool printMSG = false;
 /*	if ((recordCount > 29) && (recordCount < 33))
 	{
 		QFile f(QString("/home/franz/cmddatas%1.bin").arg(recordCount));
@@ -639,7 +639,7 @@ void DrwPlug::decodeCmd(quint8 cmd, int pos)
 		case 7:
 			cmdText = "";
 			decodeSymbol(ds);
-			printMSG = false;
+//			printMSG = false;
 			break;
 		case 8:
 			cmdText += "DRW Text";
@@ -765,7 +765,7 @@ void DrwPlug::decodeCmd(quint8 cmd, int pos)
 			break;
 		case 23:
 			cmdText += QString("DRW Overlay Name Data %1").arg(QString(cmdData).left(20));
-			printMSG = true;
+//			printMSG = true;
 			break;
 		case 24:
 			cmdText += "DRW Dimensions";
@@ -800,7 +800,7 @@ void DrwPlug::decodeCmd(quint8 cmd, int pos)
 			pattern.resize(16);
 			ds.readRawData(pattern.data(), 16);
 			patternDataMap.insert(data8, pattern);
-			printMSG = true;
+//			printMSG = true;
 			break;
 		case 29:
 			cmdText += "DRW Locked";
@@ -818,7 +818,7 @@ void DrwPlug::decodeCmd(quint8 cmd, int pos)
 			gradient.angle = data16 / 10.0;
 			gradientMap.insert(index, gradient);
 			cmdText += QString("DRW Gradient  Index: %1 Type: %2 Offsets: %3 %4 Angle: %5").arg(index).arg(gradient.type).arg(gradient.xOffset).arg(gradient.yOffset).arg(gradient.angle);
-			printMSG = true;
+//			printMSG = true;
 			break;
 		case 31:
 			cmdText += "DRW Text Hdr";
@@ -1004,29 +1004,29 @@ void DrwPlug::decodeCmd(quint8 cmd, int pos)
 		case 254:
 			cmdText += "DRW EOF";
 			decodeSymbol(ds, true);
-			printMSG = true;
+//			printMSG = true;
 			break;
 		case 255:
 			cmdText += QString("DRW Start File");
-			printMSG = true;
+			//printMSG = true;
 			break;
 		default:
 			cmdText += QString("Unknown Cmd-Nr %1  Data %2 Size %3").arg(cmd).arg(QString(cmdData.toHex().left(64))).arg(cmdData.size());
 			break;
 	}
-	printMSG = false;
-	if (printMSG)
-	{
-		qDebug() << cmdText; // << QString("at %1").arg(pos, 8, 16);
+//	printMSG = false;
+//	if (printMSG)
+//	{
+//		qDebug() << cmdText; // << QString("at %1").arg(pos, 8, 16);
 //		qDebug() << "\tData:" << cmdData.toHex().left(32);
-	}
+//	}
 }
 
 void DrwPlug::decodeSymbol(QDataStream &ds, bool last)
 {
 	symbolCount++;
 	QString cmdText = QString("Record %1 Symbol %2 Type:").arg(recordCount).arg(symbolCount);
-	bool printMSG = false;
+	//bool printMSG = false;
 	double bX = 0.0;
 	double bY = 0.0;
 	double groupX = 0.0;
@@ -1447,7 +1447,7 @@ void DrwPlug::decodeSymbol(QDataStream &ds, bool last)
 			break;
 		case 9:
 			cmdText += "Pie Wedge";
-			printMSG = true;
+			//printMSG = true;
 			break;
 		case 10:
 		case 11:
@@ -1731,31 +1731,31 @@ void DrwPlug::decodeSymbol(QDataStream &ds, bool last)
 			break;
 		case 26:
 			cmdText += "virtual Bitmap";
-			printMSG = true;
+			//printMSG = true;
 			break;
 		case 27:
 			cmdText += "simple Clip Path";
-			printMSG = true;
+			//printMSG = true;
 			break;
 		case 28:
 			cmdText += "tiled Clip Path";
-			printMSG = true;
+			//printMSG = true;
 			break;
 		case 29:
 			cmdText += "Path Text";
-			printMSG = true;
+			//printMSG = true;
 			break;
 		default:
 			cmdText += "Unknown";
 			break;
 	}
-	printMSG = false;
-	if (printMSG)
-	{
-		if (currentItem != NULL)
-			qDebug() << cmdText << " " << currentItem->itemName();
-		else
-			qDebug() << cmdText;
+	//printMSG = false;
+//	if (printMSG)
+//	{
+//		if (currentItem != NULL)
+//			qDebug() << cmdText << " " << currentItem->itemName();
+//		else
+//			qDebug() << cmdText;
 //		if (imageValid)
 //			qDebug() << "Bits/Pixel" << bitsPerPixel << "Bytes" << bytesScanline << "Planes" << planes << "Height" << imageHeight << "Width" << imageWidth;
 //		qDebug() << "Pos" << rotS << " --> " << rotE << " Box " << boundingBoxWO << boundingBoxHO;
@@ -1767,7 +1767,7 @@ void DrwPlug::decodeSymbol(QDataStream &ds, bool last)
 //		{
 //			qDebug() << "Expecting" << nrOfPoints;
 //		}
-	}
+//	}
 }
 
 void DrwPlug::handleLineStyle(PageItem* currentItem, quint8 flags, QString lineColor)
