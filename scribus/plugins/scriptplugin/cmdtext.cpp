@@ -695,19 +695,16 @@ PyObject *scribus_deletetext(PyObject* /* self */, PyObject* args)
 	PageItem *it = GetUniqueItem(QString::fromUtf8(Name));
 	if (it == NULL)
 		return NULL;
-	if (!(it->asTextFrame()) && !(it->asPathText()))
+	PageItem_TextFrame* item = it->asTextFrame();
+	if (!(item) && !(it->asPathText()))
 	{
 		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot delete text from a non-text frame.","python error").toLocal8Bit().constData());
 		return NULL;
 	}
 	if (it->HasSel)
-		dynamic_cast<PageItem_TextFrame*>(it)->deleteSelectedTextFromFrame();
+		item->deleteSelectedTextFromFrame();
 	else
-	{
-		it->itemText.clear();
-	}
-//	Py_INCREF(Py_None);
-//	return Py_None;
+		item->itemText.clear();
 	Py_RETURN_NONE;
 }
 
