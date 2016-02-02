@@ -29,8 +29,10 @@ PropertiesPalette_Shadow::PropertiesPalette_Shadow( QWidget* parent) : PropTreeW
 {
 	m_ScMW = 0;
 	m_doc = 0;
+	m_item = 0;
 	m_haveDoc  = false;
 	m_haveItem = false;
+	m_unitIndex = 0;
 	m_unitRatio = 1.0;
 	hasSoftShadow = new PropTreeItem(this, PropTreeItem::CheckBox, tr( "Has Drop Shadow"));
 	hasSoftShadow->setBoolValue(false);
