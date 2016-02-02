@@ -61,7 +61,6 @@ class SCRIBUS_API Prefs_DocumentSetup : public Prefs_Pane, Ui::Prefs_DocumentSet
 		ScribusDoc* m_doc;
 
 		double unitRatio;
-		int choosenLayout;
 		double pageW;
 		double pageH;
 		QString prefsPageSizeName;

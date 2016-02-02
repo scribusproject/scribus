@@ -23,6 +23,9 @@ Prefs_DocumentSetup::Prefs_DocumentSetup(QWidget* parent, ScribusDoc* doc)
 {
 	setupUi(this);
 
+	unitRatio = 1.0;
+	pageW = pageH = 1.0;
+
 	if (!m_doc)
 	{
 		applySizesToAllPagesCheckBox->hide();
