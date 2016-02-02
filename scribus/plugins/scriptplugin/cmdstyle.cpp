@@ -49,7 +49,7 @@ PyObject *scribus_createparagraphstyle(PyObject* /* self */, PyObject* args, PyO
 		return NULL;
 	if(!checkHaveDocument())
 		return NULL;
-	if (Name == EMPTY_STRING)
+	if (strlen(Name) == 0)
 	{
 		PyErr_SetString(PyExc_ValueError, QObject::tr("Cannot have an empty paragraph style name.","python error").toLocal8Bit().constData());
 		return NULL;
@@ -126,7 +126,7 @@ PyObject *scribus_createcharstyle(PyObject* /* self */, PyObject* args, PyObject
 		return NULL;
 	if(!checkHaveDocument())
 		return NULL;
-	if(Name == EMPTY_STRING)
+	if (strlen(Name) == 0)
 	{
 		PyErr_SetString(PyExc_ValueError, QObject::tr("Cannot have an empty char style name.","python error").toLocal8Bit().constData());
 		return NULL;

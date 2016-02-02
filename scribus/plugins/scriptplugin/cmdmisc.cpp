@@ -201,7 +201,7 @@ PyObject *scribus_senttolayer(PyObject* /* self */, PyObject* args)
 		return NULL;
 	if(!checkHaveDocument())
 		return NULL;
-	if (Layer == EMPTY_STRING)
+	if (strlen(Layer) == 0)
 	{
 		PyErr_SetString(PyExc_ValueError, QObject::tr("Cannot have an empty layer name.","python error").toLocal8Bit().constData());
 		return NULL;
@@ -219,7 +219,7 @@ PyObject *scribus_senttolayer(PyObject* /* self */, PyObject* args)
 	}
 	// If no name have been specified in args, process whole selection
 	currentView->SelectItem(item);
-	if (Name == EMPTY_STRING)
+	if (strlen(Name) == 0)
 	{
 		for (int i = 0; i < currentDoc->m_Selection->count(); ++i)
 		{
@@ -245,7 +245,7 @@ PyObject *scribus_layervisible(PyObject* /* self */, PyObject* args)
 		return NULL;
 	if(!checkHaveDocument())
 		return NULL;
-	if (Name == EMPTY_STRING)
+	if (strlen(Name) == 0)
 	{
 		PyErr_SetString(PyExc_ValueError, QString("Cannot have an empty layer name").toLocal8Bit().constData());
 		return NULL;
@@ -278,7 +278,7 @@ PyObject *scribus_layerprint(PyObject* /* self */, PyObject* args)
 		return NULL;
 	if(!checkHaveDocument())
 		return NULL;
-	if (Name == EMPTY_STRING)
+	if (strlen(Name) == 0)
 	{
 		PyErr_SetString(PyExc_ValueError, QObject::tr("Cannot have an empty layer name.","python error").toLocal8Bit().constData());
 		return NULL;
@@ -311,7 +311,7 @@ PyObject *scribus_layerlock(PyObject* /* self */, PyObject* args)
 		return NULL;
 	if(!checkHaveDocument())
 		return NULL;
-	if (Name == EMPTY_STRING)
+	if (strlen(Name) == 0)
 	{
 		PyErr_SetString(PyExc_ValueError, QObject::tr("Cannot have an empty layer name.","python error").toLocal8Bit().constData());
 		return NULL;
@@ -344,7 +344,7 @@ PyObject *scribus_layeroutline(PyObject* /* self */, PyObject* args)
 		return NULL;
 	if(!checkHaveDocument())
 		return NULL;
-	if (Name == EMPTY_STRING)
+	if (strlen(Name) == 0)
 	{
 		PyErr_SetString(PyExc_ValueError, QObject::tr("Cannot have an empty layer name.","python error").toLocal8Bit().constData());
 		return NULL;
@@ -377,7 +377,7 @@ PyObject *scribus_layerflow(PyObject* /* self */, PyObject* args)
 		return NULL;
 	if(!checkHaveDocument())
 		return NULL;
-	if (Name == EMPTY_STRING)
+	if (strlen(Name) == 0)
 	{
 		PyErr_SetString(PyExc_ValueError, QObject::tr("Cannot have an empty layer name.","python error").toLocal8Bit().constData());
 		return NULL;
@@ -410,7 +410,7 @@ PyObject *scribus_layerblend(PyObject* /* self */, PyObject* args)
 		return NULL;
 	if(!checkHaveDocument())
 		return NULL;
-	if (Name == EMPTY_STRING)
+	if (strlen(Name) == 0)
 	{
 		PyErr_SetString(PyExc_ValueError, QString("Cannot have an empty layer name").toLocal8Bit().constData());
 		return NULL;
@@ -443,7 +443,7 @@ PyObject *scribus_layertrans(PyObject* /* self */, PyObject* args)
 		return NULL;
 	if(!checkHaveDocument())
 		return NULL;
-	if (Name == EMPTY_STRING)
+	if (strlen(Name) == 0)
 	{
 		PyErr_SetString(PyExc_ValueError, QString("Cannot have an empty layer name").toLocal8Bit().constData());
 		return NULL;
@@ -475,7 +475,7 @@ PyObject *scribus_glayervisib(PyObject* /* self */, PyObject* args)
 		return NULL;
 	if(!checkHaveDocument())
 		return NULL;
-	if (Name == EMPTY_STRING)
+	if (strlen(Name) == 0)
 	{
 		PyErr_SetString(PyExc_ValueError, QObject::tr("Cannot have an empty layer name.","python error").toLocal8Bit().constData());
 		return NULL;
@@ -506,7 +506,7 @@ PyObject *scribus_glayerprint(PyObject* /* self */, PyObject* args)
 		return NULL;
 	if(!checkHaveDocument())
 		return NULL;
-	if (Name == EMPTY_STRING)
+	if (strlen(Name) == 0)
 	{
 		PyErr_SetString(PyExc_ValueError, QObject::tr("Cannot have an empty layer name.","python error").toLocal8Bit().constData());
 		return NULL;
@@ -537,7 +537,7 @@ PyObject *scribus_glayerlock(PyObject* /* self */, PyObject* args)
 		return NULL;
 	if(!checkHaveDocument())
 		return NULL;
-	if (Name == EMPTY_STRING)
+	if (strlen(Name) == 0)
 	{
 		PyErr_SetString(PyExc_ValueError, QObject::tr("Cannot have an empty layer name.","python error").toLocal8Bit().constData());
 		return NULL;
@@ -568,7 +568,7 @@ PyObject *scribus_glayeroutline(PyObject* /* self */, PyObject* args)
 		return NULL;
 	if(!checkHaveDocument())
 		return NULL;
-	if (Name == EMPTY_STRING)
+	if (strlen(Name) == 0)
 	{
 		PyErr_SetString(PyExc_ValueError, QObject::tr("Cannot have an empty layer name.","python error").toLocal8Bit().constData());
 		return NULL;
@@ -599,7 +599,7 @@ PyObject *scribus_glayerflow(PyObject* /* self */, PyObject* args)
 		return NULL;
 	if(!checkHaveDocument())
 		return NULL;
-	if (Name == EMPTY_STRING)
+	if (strlen(Name) == 0)
 	{
 		PyErr_SetString(PyExc_ValueError, QObject::tr("Cannot have an empty layer name.","python error").toLocal8Bit().constData());
 		return NULL;
@@ -630,7 +630,7 @@ PyObject *scribus_glayerblend(PyObject* /* self */, PyObject* args)
 		return NULL;
 	if(!checkHaveDocument())
 		return NULL;
-	if (Name == EMPTY_STRING)
+	if (strlen(Name) == 0)
 	{
 		PyErr_SetString(PyExc_ValueError, QObject::tr("Cannot have an empty layer name.","python error").toLocal8Bit().constData());
 		return NULL;
@@ -661,7 +661,7 @@ PyObject *scribus_glayertrans(PyObject* /* self */, PyObject* args)
 		return NULL;
 	if(!checkHaveDocument())
 		return NULL;
-	if (Name == EMPTY_STRING)
+	if (strlen(Name) == 0)
 	{
 		PyErr_SetString(PyExc_ValueError, QObject::tr("Cannot have an empty layer name.","python error").toLocal8Bit().constData());
 		return NULL;
@@ -693,7 +693,7 @@ PyObject *scribus_removelayer(PyObject* /* self */, PyObject* args)
 		return NULL;
 	if(!checkHaveDocument())
 		return NULL;
-	if (Name == EMPTY_STRING)
+	if (strlen(Name) == 0)
 	{
 		PyErr_SetString(PyExc_ValueError, QObject::tr("Cannot have an empty layer name.","python error").toLocal8Bit().constData());
 		return NULL;
@@ -741,7 +741,7 @@ PyObject *scribus_createlayer(PyObject* /* self */, PyObject* args)
 		return NULL;
 	if (!checkHaveDocument())
 		return NULL;
-	if (Name == EMPTY_STRING)
+	if (strlen(Name) == 0)
 	{
 		PyErr_SetString(PyExc_ValueError, QObject::tr("Cannot create layer without a name.","python error").toLocal8Bit().constData());
 		return NULL;
