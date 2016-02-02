@@ -19,6 +19,8 @@ PropertyWidget_Advanced::PropertyWidget_Advanced(QWidget* parent) : QFrame(paren
 {
 	m_item = NULL;
 	m_ScMW = NULL;
+	m_unitIndex = 0;
+	m_unitRatio = 1.0;
 
 	setupUi(this);
 
