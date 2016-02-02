@@ -55,7 +55,6 @@ void ParaStyleComboBox::updateFormatList()
 	if (currentDoc != NULL)
 	{
 		QStringList st;
-		st.clear();
 		addItem( tr("No Style"));
 		for (int x = 0; x < currentDoc->paragraphStyles().count(); ++x)
 		{
@@ -66,22 +65,21 @@ void ParaStyleComboBox::updateFormatList()
 		addItems(st);
 	}
 	QListView *tmpView = dynamic_cast<QListView*>(view());
-	int tmpWidth = tmpView->sizeHintForColumn(0);
-	if (tmpWidth > 0)
-		tmpView->setMinimumWidth(tmpWidth + 24);
+	if (tmpView)
+	{
+		int tmpWidth = tmpView->sizeHintForColumn(0);
+		if (tmpWidth > 0)
+			tmpView->setMinimumWidth(tmpWidth + 24);
+	}
 	connect(this, SIGNAL(activated(int)), this, SLOT(selFormat(int)));
 }
 
 void ParaStyleComboBox::selFormat(int e)
 {
 	if (e == 0)
-	{
 		emit newStyle(QString::null);
-	}
 	else
-	{
 		emit newStyle(currentText());
-	}
 }
 
 CharStyleComboBox::CharStyleComboBox(QWidget* parent) : QComboBox(parent)
