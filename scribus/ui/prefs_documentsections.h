@@ -30,7 +30,7 @@ class SCRIBUS_API Prefs_DocumentSections : public Prefs_Pane, Ui::Prefs_Document
 
 	protected:
 		DocumentSectionMap localSections;
-		uint m_maxpageindex;
+		uint m_maxPageIndex;
 		QStringList styles;
 		ScribusDoc* m_doc;
 		virtual void updateTable();

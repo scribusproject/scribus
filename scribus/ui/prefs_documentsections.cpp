@@ -17,7 +17,7 @@ for which a new license (GPL+exception) is in place.
 
 Prefs_DocumentSections::Prefs_DocumentSections(QWidget* parent, ScribusDoc* doc)
 	: Prefs_Pane(parent),
-	m_doc(doc)
+	m_doc(doc), m_maxPageIndex(0)
 {
 	setupUi(this);
 	languageChange();
@@ -37,7 +37,7 @@ void Prefs_DocumentSections::languageChange()
 void Prefs_DocumentSections::restoreDefaults(struct ApplicationPrefs *prefsData)
 {
 	localSections=prefsData->docSectionMap;
-	m_maxpageindex=m_doc->DocPages.count()-1;
+	m_maxPageIndex=m_doc->DocPages.count()-1;
 	styles.clear();
 	styles=getFormatListTr();
 	styles << CommonStrings::tr_None;
@@ -125,7 +125,7 @@ void Prefs_DocumentSections::tableItemChanged( int row, int col )
 	case 3:
 	case 4:
 		// Validate to/from page specification before conversion to an index
-		//!!!	There is still a problem here if m_maxpageindex == MAX_UINT ;)
+		//!!!	There is still a problem here if m_maxPageIndex == MAX_UINT ;)
 		newDocPageSpec=sectionsTable->item(row, col)->text().toUInt();
 		if (newDocPageSpec==0)
 		{
@@ -133,9 +133,9 @@ void Prefs_DocumentSections::tableItemChanged( int row, int col )
 			outOfRange=true;
 		}
 		else
-		if (newDocPageSpec>m_maxpageindex+1)
+		if (newDocPageSpec>m_maxPageIndex+1)
 		{
-			newDocPageSpec=m_maxpageindex+1;
+			newDocPageSpec=m_maxPageIndex+1;
 			outOfRange=true;
 		}
 		// Now, since newDocPageSpec >= 1, convert to index
@@ -181,7 +181,7 @@ void Prefs_DocumentSections::tableItemChanged( int row, int col )
 	if (outOfRange)
 	{
 		updateTable();
-		ScMessageBox::warning(parentWidget(), tr("Page Number Out Of Bounds"),"<qt>"+ tr("The value you have entered is outside the range of page numbers in the current document (%1-%2).").arg(1).arg(m_maxpageindex+1)+"</qt>");
+		ScMessageBox::warning(parentWidget(), tr("Page Number Out Of Bounds"),"<qt>"+ tr("The value you have entered is outside the range of page numbers in the current document (%1-%2).").arg(1).arg(m_maxPageIndex+1)+"</qt>");
 	}
 }
 
@@ -206,8 +206,8 @@ void Prefs_DocumentSections::addEntry()
 		uint count=localSections.count();
 		blank.number=count;
 		blank.name=QString::number(count);
-		blank.fromindex=m_maxpageindex+1;
-		blank.toindex=m_maxpageindex+1;
+		blank.fromindex=m_maxPageIndex+1;
+		blank.toindex=m_maxPageIndex+1;
 		blank.type=Type_1_2_3;
 		blank.sectionstartindex=1;
 		blank.reversed=false;
@@ -286,7 +286,7 @@ void Prefs_DocumentSections::deleteEntry()
 		int newCount=localSections.count();
 		//int preIndex=qMax(currentIndex-1, 0);
 		localSections[0].fromindex=0;
-		localSections[newCount-1].toindex=m_maxpageindex;
+		localSections[newCount-1].toindex = m_maxPageIndex;
 		updateTable();
 	}
 }
