@@ -60,9 +60,9 @@ Q_DECLARE_METATYPE(LineFormatValue);
 
 class SCRIBUS_API LineFormatItem : public QListWidgetItem
 {	
-	enum {
+	enum usrType {
 		LineFormatUserType = UserType + 2
-	} usrtyp;
+	};
 	
 public:	
 	LineFormatItem( ScribusDoc* doc, const multiLine& line, const QString& name ) : QListWidgetItem(NULL, LineFormatUserType)
