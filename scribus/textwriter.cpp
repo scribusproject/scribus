@@ -32,6 +32,8 @@ for which a new license (GPL+exception) is in place.
 TextWriter::TextWriter(ScribusDoc *doc)
 {
 	m_document = doc;
+	m_frame = 0;
+	m_styledUptoPos = 0;
 }
 
 void TextWriter::open(PageItem *textframe)
