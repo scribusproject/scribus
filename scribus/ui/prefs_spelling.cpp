@@ -238,7 +238,8 @@ void Prefs_Spelling::setAvailDictsXMLFile(QString availDictsXMLDataFile)
 	QFile dataFile(availDictsXMLDataFile);
 	if (!dataFile.exists())
 		return;
-	dataFile.open(QIODevice::ReadOnly);
+	if (!dataFile.open(QIODevice::ReadOnly))
+		return;
 	QTextStream ts(&dataFile);
 	ts.setCodec(QTextCodec::codecForName("UTF-8"));
 	QString errorMsg;
