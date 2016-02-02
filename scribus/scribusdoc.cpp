@@ -17058,7 +17058,6 @@ bool ScribusDoc::updateMarks(bool updateNotesMarks)
 				//refresh endnotes content
 				if (flag_updateEndNotes || isLoading())
 					updateEndnotesFrames(NS);
-				docWasChanged = true;
 			}
 			if (flag_updateEndNotes)
 				updateEndnotesFrames(NS);
