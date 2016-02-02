@@ -34,6 +34,7 @@ TextLayout::TextLayout(StoryText* text, PageItem* frame)
 
 	m_firstInFrame = 0;
 	m_lastInFrame = -1;
+	m_validLayout = false;
 	m_magicX = 0.0;
 	m_lastMagicPos = -1;
 }
