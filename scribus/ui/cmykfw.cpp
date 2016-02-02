@@ -980,10 +980,15 @@ void CMYKChoose::selFromSwatch(QListWidgetItem* c)
 			ComboBox1->setCurrentIndex( 0 );
 			selModel( tr("CMYK"));
 		}
-		else
+		else if (tmp.getColorModel() == colorModelRGB)
 		{
 			ComboBox1->setCurrentIndex( 1 );
 			selModel( tr("RGB"));
+		}
+		else
+		{
+			ComboBox1->setCurrentIndex( 2 );
+			selModel( tr("Lab"));
 		}
 	}
 	imageN.fill( ScColorEngine::getDisplayColor(tmp, m_doc) );
