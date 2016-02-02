@@ -57,7 +57,7 @@ public:
 	virtual void keyPressEvent(QKeyEvent *e);
 	virtual bool handleKeyEvents() { return true; }
 	virtual void drawControls(QPainter* p);
-	void drawControlsMeshPoint(QPainter* psx, meshPoint mp, bool isSelected);
+	void drawControlsMeshPoint(QPainter* psx, const meshPoint& mp, bool isSelected);
 	void drawControlsMeshPatch(QPainter* pp, PageItem* currItem);
 
 private:

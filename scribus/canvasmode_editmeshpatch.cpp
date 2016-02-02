@@ -101,7 +101,7 @@ void CanvasMode_EditMeshPatch::drawControls(QPainter* p)
 	p->restore();
 }
 
-void CanvasMode_EditMeshPatch::drawControlsMeshPoint(QPainter* psx, meshPoint mp, bool isSelected)
+void CanvasMode_EditMeshPatch::drawControlsMeshPoint(QPainter* psx, const meshPoint& mp, bool isSelected)
 {
 	QPen p8r = QPen(Qt::red, 8.0 / m_canvas->m_viewMode.scale, Qt::SolidLine, Qt::RoundCap, Qt::MiterJoin);
 	QPen p8m = QPen(Qt::magenta, 8.0 / m_canvas->m_viewMode.scale, Qt::SolidLine, Qt::RoundCap, Qt::MiterJoin);
