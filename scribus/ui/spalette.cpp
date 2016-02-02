@@ -110,7 +110,6 @@ void CharStyleComboBox::updateFormatList()
 	if (currentDoc != NULL)
 	{
 		QStringList st;
-		st.clear();
 		addItem( tr("No Style"));
 		for (int x = 0; x < currentDoc->charStyles().count(); ++x)
 		{
@@ -121,22 +120,21 @@ void CharStyleComboBox::updateFormatList()
 		addItems(st);
 	}
 	QListView *tmpView = dynamic_cast<QListView*>(view());
-	int tmpWidth = tmpView->sizeHintForColumn(0);
-	if (tmpWidth > 0)
-		tmpView->setMinimumWidth(tmpWidth + 24);
+	if (tmpView)
+	{
+		int tmpWidth = tmpView->sizeHintForColumn(0);
+		if (tmpWidth > 0)
+			tmpView->setMinimumWidth(tmpWidth + 24);
+	}
 	connect(this, SIGNAL(activated(int)), this, SLOT(selFormat(int)));
 }
 
 void CharStyleComboBox::selFormat(int e)
 {
 	if (e == 0)
-	{
 		emit newStyle(QString::null);
-	}
 	else
-	{
 		emit newStyle(currentText());
-	}
 }
 
 CellStyleComboBox::CellStyleComboBox(QWidget* parent) : QComboBox(parent)
