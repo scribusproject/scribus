@@ -113,9 +113,6 @@ private slots:
 	void doClearPStyle();
 
 protected:
-
-	ScComboBox* pathTextType;
-
 	PropertyWidget_TextColor* colorWidgets;
 	QTreeWidgetItem* colorWidgetsItem;
 

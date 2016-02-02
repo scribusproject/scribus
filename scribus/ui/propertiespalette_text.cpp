@@ -44,17 +44,17 @@ for which a new license (GPL+exception) is in place.
 #include "util.h"
 #include "util_math.h"
 
-
 //using namespace std;
 
 PropertiesPalette_Text::PropertiesPalette_Text( QWidget* parent) : QWidget(parent)
 {
 	m_ScMW=0;
 	m_doc=0;
+	m_item=0;
 	m_haveDoc = false;
 	m_haveItem = false;
+	m_unitIndex = 0;
 	m_unitRatio = 1.0;
-
 
 	setupUi(this);
 	setSizePolicy( QSizePolicy(QSizePolicy::Maximum, QSizePolicy::Maximum));
