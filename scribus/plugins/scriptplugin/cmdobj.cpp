@@ -37,7 +37,7 @@ PyObject *scribus_newrect(PyObject* /* self */, PyObject* args)
 								ScCore->primaryMainWindow()->doc->itemToolPrefs().shapeLineWidth,
 								ScCore->primaryMainWindow()->doc->itemToolPrefs().shapeFillColor, ScCore->primaryMainWindow()->doc->itemToolPrefs().shapeLineColor);
 //	ScCore->primaryMainWindow()->doc->setRedrawBounding(ScCore->primaryMainWindow()->doc->Items->at(i));
-	if (strlen(Name) >= 0)
+	if (strlen(Name) > 0)
 	{
 		QString objName = QString::fromUtf8(Name);
 		if (!ItemExists(objName))
@@ -63,7 +63,7 @@ PyObject *scribus_newellipse(PyObject* /* self */, PyObject* args)
 										ScCore->primaryMainWindow()->doc->itemToolPrefs().shapeLineWidth,
 										ScCore->primaryMainWindow()->doc->itemToolPrefs().shapeFillColor,
 										ScCore->primaryMainWindow()->doc->itemToolPrefs().shapeLineColor);
-	if (strlen(Name) >= 0)
+	if (strlen(Name) > 0)
 	{
 		QString objName = QString::fromUtf8(Name);
 		if (!ItemExists(objName))
@@ -88,7 +88,7 @@ PyObject *scribus_newimage(PyObject* /* self */, PyObject* args)
 									ValueToPoint(h),
 									1, ScCore->primaryMainWindow()->doc->itemToolPrefs().imageFillColor,
 									ScCore->primaryMainWindow()->doc->itemToolPrefs().imageStrokeColor);
-	if (strlen(Name) >= 0)
+	if (strlen(Name) > 0)
 	{
 		QString objName = QString::fromUtf8(Name);
 		if (!ItemExists(objName))
@@ -113,7 +113,7 @@ PyObject *scribus_newtext(PyObject* /* self */, PyObject* args)
 								ValueToPoint(h),
 								ScCore->primaryMainWindow()->doc->itemToolPrefs().shapeLineWidth, CommonStrings::None,
 								ScCore->primaryMainWindow()->doc->itemToolPrefs().textColor);
-	if (strlen(Name) >= 0)
+	if (strlen(Name) > 0)
 	{
 		QString objName = QString::fromUtf8(Name);
 		if (!ItemExists(objName))
@@ -149,7 +149,7 @@ PyObject *scribus_newtable(PyObject* /* self */, PyObject* args)
 	table->insertColumns(0, numColumns - 1);
 	table->adjustTableToFrame();
 	table->adjustFrameToTable();
-	if (strlen(Name) >= 0)
+	if (strlen(Name) > 0)
 	{
 		QString objName = QString::fromUtf8(Name);
 		if (!ItemExists(objName))
@@ -209,7 +209,7 @@ PyObject *scribus_newline(PyObject* /* self */, PyObject* args)
 	ScCore->primaryMainWindow()->view->SizeItem(it->PoLine.WidthHeight().x(),
 						 it->PoLine.WidthHeight().y(), i, false, false, false);
 	ScCore->primaryMainWindow()->view->AdjustItemSize(it);*/
-	if (strlen(Name) >= 0)
+	if (strlen(Name) > 0)
 	{
 		QString objName = QString::fromUtf8(Name);
 		if (!ItemExists(objName))
@@ -286,7 +286,7 @@ PyObject *scribus_polyline(PyObject* /* self */, PyObject* args)
 	}
 	ScCore->primaryMainWindow()->doc->sizeItem(it->PoLine.WidthHeight().x(), it->PoLine.WidthHeight().y(), it, false, false, false);
 	ScCore->primaryMainWindow()->doc->adjustItemSize(it);
-	if (strlen(Name) >= 0)
+	if (strlen(Name) > 0)
 	{
 		QString objName = QString::fromUtf8(Name);
 		if (!ItemExists(objName))
@@ -368,7 +368,7 @@ PyObject *scribus_polygon(PyObject* /* self */, PyObject* args)
 	}
 	ScCore->primaryMainWindow()->doc->sizeItem(it->PoLine.WidthHeight().x(), it->PoLine.WidthHeight().y(), it, false, false, false);
 	ScCore->primaryMainWindow()->doc->adjustItemSize(it);
-	if (strlen(Name) >= 0)
+	if (strlen(Name) > 0)
 	{
 		QString objName = QString::fromUtf8(Name);
 		if (!ItemExists(objName))
@@ -459,7 +459,7 @@ PyObject *scribus_bezierline(PyObject* /* self */, PyObject* args)
 	}
 	ScCore->primaryMainWindow()->doc->sizeItem(it->PoLine.WidthHeight().x(), it->PoLine.WidthHeight().y(), it, false, false, false);
 	ScCore->primaryMainWindow()->doc->adjustItemSize(it);
-	if (strlen(Name) >= 0)
+	if (strlen(Name) > 0)
 	{
 		QString objName = QString::fromUtf8(Name);
 		if (!ItemExists(objName))
@@ -500,7 +500,7 @@ PyObject *scribus_pathtext(PyObject* /* self */, PyObject* args)
 	ScCore->primaryMainWindow()->doc->m_Selection->addItem(ii);
 	ScCore->primaryMainWindow()->view->ToPathText();
 	ScCore->primaryMainWindow()->doc->moveItem(pageUnitXToDocX(x) - i->xPos(), pageUnitYToDocY(y) - i->yPos(), i);
-	if (strlen(Name) >= 0)
+	if (strlen(Name) > 0)
 	{
 		QString objName = QString::fromUtf8(Name);
 		if (!ItemExists(objName))
