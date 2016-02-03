@@ -345,6 +345,8 @@ CustomFDialog::CustomFDialog(QWidget *parent, QString wDir, QString caption, QSt
 	WithProfiles=NULL;
 	TxCodeM = NULL;
 	TxCodeT = NULL;
+	Layout = LayoutC = NULL;
+	Layout1 = Layout1C = NULL;
 	if (flags & fdDirectoriesOnly)
 	{
 		Layout = new QFrame(this);
