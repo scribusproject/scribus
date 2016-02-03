@@ -987,7 +987,7 @@ void CMYKChoose::selFromSwatch(QListWidgetItem* c)
 		}
 		else
 		{
-			ComboBox1->setCurrentIndex( 2 );
+			ComboBox1->setCurrentIndex( 3 );
 			selModel( tr("Lab"));
 		}
 	}
