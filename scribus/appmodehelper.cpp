@@ -1277,7 +1277,7 @@ void AppModeHelper::updateTableMenuActions(ScribusDoc* doc)
 	// Determine state.
 	PageItem* item = doc ? doc->m_Selection->itemAt(0) : 0;
 	PageItem_Table* table = (item && item->isTable()) ? item->asTable() : 0;
-	const bool tableEdit = table && doc->appMode == modeEditTable;
+	const bool tableEdit = table && (doc->appMode == modeEditTable);
 	const int tableRows = table ? table->rows() : 0;
 	const int tableColumns = table ? table->columns() : 0;
 	const int selectedRows = tableEdit ? table->selectedRows().size() : 0;
