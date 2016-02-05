@@ -1,19 +1,17 @@
-Official Translations and Translators:
+Official Translations and Translators: (alphebatized by locale shortcode)
+#########################################################################
 
 Afrikaans (af)
-Kobus Wolvaardt (kobuswolf@diewereld.co.za)
 
 Arabic (ar)
 حاتم المسلم (dr.hatim@hotmail.com)
 
-Basque (eu)
-Iñaki Larrañaga Murgoitio (dooteo@euskalgnu.org)
 
 Breton (br)
 Alan Monfort (alan.monfort@free.fr)
 
 Catalan (ca)
-Xavier Sala Pujolar (utrescu@xaviersala.net)
+
 
 Chinese (Trad.) (zh_TW)
 Lyper Lai (lyp069@gmail.com)
@@ -28,9 +26,17 @@ Petr Vaněk (petr@yarpen.cz)
 Danish (da)
 Morten Langlo (mlanglo@mail.dk)
 
-Dutch (nl)
-Foppe Benedictus (foppe.benedictus@gmail.com)
-Erik Collou (collou@gmx.net)
+German (de)
+Christoph Schäfer (christoph-schaefer@gmx.de)
+Johannes Rüschel (jo.rueschel@gmx.de)
+Franz Schmid (Franz.Schmid@altmuehlnet.de)
+
+German (Swiss) (de_CH)
+Christoph Schäfer (christoph-schaefer@gmx.de)
+
+German (Trad.) (de_1901)
+Christoph Schäfer (christoph-schaefer@gmx.de)
+Johannes Rüschel (jo.rueschel@gmx.de)
 
 English (Australian) (en_AU)
 Craig Bradney (mrb@scribus.info)
@@ -41,36 +47,25 @@ Craig Bradney (mrb@scribus.info)
 Esperanto (eo)
 Pier Luigi Cinquantini (plcinquantini@gmail.com)
 
+Spanish (es_ES)
+Franz Rogar (franzrogar@gmail.com)
+
 Estonian (et)
-Marek Laane (bald@starman.ee)
 Hasso Tepper (hasso@estpak.ee)
 
+Basque (eu)
+
 Finnish (fi)
-Riku Leino (riku@scribus.info)
 
 French (fr)
 Nicolas Boos (nicolas.boos@wanadoo.fr)
 Louis Desjardins (louis.desjardins@gmail.com)
 Frédéric Dubuy (effediwhy@gmail.com)
 
-German (de)
-Johannes Rüschel (jo.rueschel@gmx.de)
-Franz Schmid (Franz.Schmid@altmuehlnet.de)
-Christoph Schäfer (christoph-schaefer@gmx.de)
-
-German (Swiss) (de_CH)
-Christoph Schäfer (christoph-schaefer@gmx.de)
-
-German (Trad.) (de_1901)
-Johannes Rüschel (jo.rueschel@gmx.de)
-Christoph Schäfer (christoph-schaefer@gmx.de)
+Greek (el)
 
 Galician (gl)
 Xose Calvo (xosecalvo@galizaweb.net)
-Manuel Anxo Rei (manxopar@avogaciagalega.org)
-
-Greek (el)
-Τούσης Μανώλης (manolis@koppermind.homelinux.org)
 
 Hungarian (hu)
 Gellért Gyuris (bubu@ujevangelizacio.hu)
@@ -80,7 +75,6 @@ Alessandro Levati (8av10s@tiscali.it)
 Firas Hanife (FirasHanife@gmail.com)
 
 Japanese (ja)
-Shushi Kurose (md81@bird.email.ne.jp)
 
 Korean (ko)
 Jin-Hwan Jeong (yongdoriaa@gmail.com)
@@ -89,8 +83,10 @@ Kitae Kim (neeum@yahoo.com)
 Lithuanian (lt)
 Aidas Žandaris (aidas00@gmail.com)
 
-Norwegian (Bokm&#229;l) (nb)
-Axel Bojer (axelb@skolelinux.no)
+Norwegian (Bokmål) (nb)
+
+Dutch (nl)
+Foppe Benedictus (foppe.benedictus@gmail.com)
 
 Polish (pl)
 Maciej Hański (m.hanski@gmx.at)
@@ -99,34 +95,25 @@ Portuguese (pt)
 Fausto Guilherme (faustoguilherme@gmail.com)
 
 Portuguese (BR) (pt_BR)
-Ludi Maciel (iludi@uol.com.br)
 Frederico Gonçalves (<td>)
 
 Russian (ru)
 Александр Прокудин (alexandre.prokoudine@gmail.com)
 
-Serbian (sr)
-Bojan Božovi&#263; (bole89@infosky.net)
-
 Slovak (sk)
 Zdenko Podobn&yacute; (zdposter@gmail.com)
 
 Slovenian (sl)
-Boštjan Špetič (igzebedze@kiberpipa.org)
-Peter Čuhalev (skatey@slocartoon.net)
 
-Spanish (es_ES)
-Franz Rogar (franzrogar@gmail.com)
+Serbian (sr)
 
 Swedish (sv)
-Göran Bondeson (goran@bondeson.net)
 
 Thai (th_TH)
 Sira Nokyoungthong (gumara@msn.com)
 Santhana Sriwanthana (sriwanthana@gmail.com)
 
 Turkish (tr)
-Barış Atasoy (batasoy@pozitifpc.com)
 
 Ukranian (uk)
 Oleksandr Moskalenko (malex@tagancha.org)
@@ -134,34 +121,49 @@ Oleksandr Moskalenko (malex@tagancha.org)
 Welsh (cy)
 Kevin Donnelly (kevin@dotmon.com)
 
-
+##########################################################################
 Previous Translation Contributors:
+##########################################################################
+
+Afrikaans (af)
+Kobus Wolvaardt (kobuswolf@diewereld.co.za)
 
 Basque (eu)
 Pablo Saratxaga (pablo@mandrakesoft.com)
+Iñaki Larrañaga Murgoitio (dooteo@euskalgnu.org)
 
 Portuguese (BR) (pt_BR)
 Celio Santos (celio@electronic.srv.br)
 Cezar de Souza Marson Nido (cesar@electronic.srv.br)
+Ludi Maciel (iludi@uol.com.br)
 
 Bulgarian (bg)
 Vasko Tomanov (vasko@web.bg)
 
-Dutch (nl)
-Wilbert Berendsen (wbsoft@xs4all.nl)
+Catalan (ca)
+Xavier Sala Pujolar (utrescu@xaviersala.net)
+
+Greek (el)
+Τούσης Μανώλης (manolis@koppermind.homelinux.org)
 
 English (British) (en_GB)
 Paul F. Johnson (paul@all-the-johnsons.co.uk)
+
+Spanish (es)
+Josep Febrer (josep@linuxmail.org)
+
+Estonian (et)
+Marek Laane (bald@starman.ee)
+
+Finnish (fi)
+Riku Leino (riku@scribus.info)
 
 French (fr)
 Michel Briand (michelbriand@free.fr)
 Yves Ceccone (yves@yeccoe.org)
 
-Italian (it)
-Pier Luigi Cinquantini (plcinquantini@gmail.com)
-
-Spanish (es)
-Josep Febrer (josep@linuxmail.org)
+Galician (gl)
+Manuel Anxo Rei (manxopar@avogaciagalega.org)
 
 Hungarian (hu)
 Giovanni Biczó (gbiczo@freestart.hu)
@@ -169,15 +171,37 @@ Bence Nagy (scribus@tipogral.hu)
 Zoltán Böszörményi (zboszor@freemail.hu)
 Csaba Zakarias (csaba.zakarias@gmail.com)
 
+Italian (it)
+Pier Luigi Cinquantini (plcinquantini@gmail.com)
+
+Japanese (ja)
+Shushi Kurose (md81@bird.email.ne.jp)
+
 Lithuanian (lt)
 Aivaras Kirejevas (kiras@mail.lt)
 
-Norwegian (Bokm&#229;l) (nb)
+Norwegian (Bokmål) (nb)
 Klaus Ade Johnstad (klaus@inout.no)
 Johannes Wilm (j@indymedia.no)
+Axel Bojer (axelb@skolelinux.no)
+
+Dutch (nl)
+Wilbert Berendsen (wbsoft@xs4all.nl)
+Erik Collou (collou@gmx.net)
+
+Slovenian (sl)
+Boštjan Špetič (igzebedze@kiberpipa.org)
+Peter Čuhalev (skatey@slocartoon.net)
+
+Serbian (sr)
+Bojan Božović (bole89@infosky.net)
+
+Swedish (sv)
+Göran Bondeson (goran@bondeson.net)
 
 Turkish (tr)
 Erkan Kaplan (Selamsana@uni.de)
+Barış Atasoy (batasoy@pozitifpc.com)
 
 Ukranian (uk)
 Sergiy Kudryk (kudryk@yahoo.com)
