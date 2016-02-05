@@ -408,12 +408,40 @@ void ColorManager::duplicateColor()
 {
 	if (paletteLocked)
 		return;
+	QString oldName = sColor;
 	QString nam = tr("Copy of %1").arg(sColor);
 	EditColors.insert(nam, EditColors[sColor]);
 	sColor = nam;
-	editColor();
-	updateCList();
-//	updateButtons();
+
+	ScColor tmpColor = EditColors[sColor];
+	CMYKChoose* dia = new CMYKChoose(this, m_Doc, tmpColor, sColor, &EditColors, customColSet, false);
+	if (dia->exec())
+	{
+		dia->Farbe.setSpotColor(dia->Separations->isChecked());
+		dia->Farbe.setRegistrationColor(tmpColor.isRegistrationColor());
+		EditColors[dia->Farbname->text()] = dia->Farbe;
+		if (sColor != dia->Farbname->text())
+		{
+			replaceMap.insert(sColor, dia->Farbname->text());
+			EditColors.remove(sColor);
+		}
+		updateCList();
+	}
+	else
+	{
+		EditColors.remove(nam);
+		sColor = oldName;
+	}
+	delete dia;
+
+	QList<QListWidgetItem *> insList = colorListBox->findItems(sColor, Qt::MatchExactly);
+	if (insList.count() > 0)
+	{
+		insList[0]->setSelected(true);
+		int newItemIndex = colorListBox->row(insList[0]);
+		colorListBox->setCurrentRow(newItemIndex);
+	}
+	updateButtons();
 }
 
 void ColorManager::newColor()
@@ -571,7 +599,7 @@ void ColorManager::updateButtons()
 void ColorManager::updateCList()
 {
 	colorListBox->updateBox(EditColors, ColorListBox::fancyPixmap);
-	if(colorListBox->currentItem())
+	if (colorListBox->currentItem())
 		colorListBox->currentItem()->setSelected(false);
 	updateButtons();
 }
