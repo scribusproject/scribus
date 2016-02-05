@@ -661,6 +661,11 @@ void PaintManagerDialog::duplicateColorItem()
 				itemSelected(dataTree->currentItem());
 				modified = true;
 			}
+			else
+			{
+				dialogGradients.remove(gradN);
+				origNames.remove(gradN);
+			}
 			delete dia;
 		}
 		else if (it->parent() == colorItems)
@@ -691,6 +696,8 @@ void PaintManagerDialog::duplicateColorItem()
 				itemSelected(dataTree->currentItem());
 				modified = true;
 			}
+			else
+				m_colorList.remove(nam);
 			delete dia;
 		}
 	}
