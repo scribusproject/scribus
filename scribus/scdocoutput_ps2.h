@@ -31,7 +31,6 @@ protected:
 	std::vector<int> m_pageNumbers;
 	ScPs2OutputParams m_options;
 
-	int m_status;
 	QString m_lastError;
 
 	QString m_author;
