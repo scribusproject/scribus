@@ -70,8 +70,6 @@ public slots:
 		
 protected:
 	AutoformButtonGroup* autoFormButtonGroup;
-	QWidgetAction* insertShapeButtonAct;
-	QMenu* insertShapeButtonMenu;
 	QMenu* insertPolygonButtonMenu;
 	QAction* idInsertPolygonButtonMenu;
 	ScribusMainWindow* m_ScMW;
