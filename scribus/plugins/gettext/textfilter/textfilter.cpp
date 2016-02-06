@@ -43,6 +43,7 @@ TextFilter::TextFilter(const QString& fname, const QString& enc, gtWriter* w)
 {
 	filename = fname;
 	encoding = enc;
+	filters = 0;
 	writer = w;
 	writer->setOverridePStyleFont(false);
 	prefs = PrefsManager::instance()->prefsFile->getPluginContext("TextFilter");
