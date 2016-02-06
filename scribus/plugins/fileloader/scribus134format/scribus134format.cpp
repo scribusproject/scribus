@@ -49,6 +49,9 @@ for which a new license (GPL+exception) is in place.
 Scribus134Format::Scribus134Format() :
 	LoadSavePlugin()
 {
+	itemCount = itemCountM = 0;
+	legacyStyleCount = 0;
+
 	// Set action info in languageChange, so we only have to do
 	// it in one place. This includes registering file formats.
 	registerFormats();
