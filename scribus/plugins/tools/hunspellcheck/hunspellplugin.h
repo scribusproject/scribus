@@ -32,8 +32,6 @@ class PLUGIN_API HunspellPlugin : public ScActionPlugin
 		virtual void addToMainWindowMenu(ScribusMainWindow *) {};
 
 		// Special features (none)
-
-		QWidget *m_parent;
 };
 
 extern "C" PLUGIN_API int hunspellplugin_getPluginAPIVersion();
