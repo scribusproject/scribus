@@ -13,6 +13,8 @@ for which a new license (GPL+exception) is in place.
 
 AlignSelect::AlignSelect(QWidget* parent) : QWidget(parent)
 {
+	selected = 0;
+
 	IconManager* im=IconManager::instance();
 	buttonGroup = new QButtonGroup(this);
 
