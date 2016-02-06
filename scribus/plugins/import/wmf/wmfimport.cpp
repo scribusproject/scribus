@@ -20,7 +20,6 @@ for which a new license (GPL+exception) is in place.
 #include <QRegExp>
 
 #include "commonstrings.h"
-//#include "fonts/scfontmetrics.h"
 #include "fpointarray.h"
 #include "loadsaveplugin.h"
 #include "pageitem.h"
@@ -149,6 +148,8 @@ WMFImport::WMFImport( ScribusDoc* doc, int flags )
 	m_docTitle = "";
 	interactive = (flags & LoadSavePlugin::lfInteractive);
 
+	m_IsPlaceable  = false;
+	m_IsEnhanced   = false;
 	m_Valid        = false;
 	m_ObjHandleTab = NULL;
 	m_Dpi          = 1440;
