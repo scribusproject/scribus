@@ -2,7 +2,7 @@
 #include "marks.h"
 #include <QComboBox>
 
-MarkVariableText::MarkVariableText(const QList<Mark*>& marks, QWidget *parent) : MarkInsert(marks, parent)
+MarkVariableText::MarkVariableText(const QList<Mark*>& marks, QWidget *parent) : MarkInsert(marks, parent), m_mark(0)
 {
 	//for editing mark entry in text - user can change mark pointer inserted into text or create new mark entry
 	setupUi(this);
@@ -22,7 +22,7 @@ MarkVariableText::MarkVariableText(const QList<Mark*>& marks, QWidget *parent) :
 	setWindowTitle(tr("Mark with Variable Text"));
 }
 
-MarkVariableText::MarkVariableText(const Mark* mark, QWidget *parent) : MarkInsert(mark, parent), mrk(mark)
+MarkVariableText::MarkVariableText(const Mark* mark, QWidget *parent) : MarkInsert(mark, parent), m_mark(mark)
 {
 	//for editing by marks Manager - user can change label and variable text
 	setupUi(this);
@@ -56,7 +56,7 @@ Mark* MarkVariableText::values(QString& label, QString& text)
 	label = ((QLineEdit*) labelEditWidget)->text();
 	if (label == tr("New Mark"))
 		label = "VariableMark";
-	return const_cast<Mark*> (mrk);
+	return const_cast<Mark*> (m_mark);
 }
 
 void MarkVariableText::setValues(QString label, QString text)

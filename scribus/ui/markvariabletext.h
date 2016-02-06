@@ -24,7 +24,7 @@ private slots:
 
 private:
 	QWidget* labelEditWidget;
-	const Mark* mrk;
+	const Mark* m_mark;
 };
 
 #endif // MARKVARIABLETEXT_H
