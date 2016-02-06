@@ -14,6 +14,12 @@ using namespace std;
 Measurements::Measurements( QWidget* parent ) : ScrPaletteBase( parent, "MeasurementsPalette", false, 0 )
 {
 	setupUi(this);
+
+	mX1 = mY1 = 0;
+	mX2 = mY2 = 0;
+	mDX = mDY = 0;
+	mLength = 0;
+
 	const QString widthString="10000.0000";
 	int textWidth = fontMetrics().width(widthString);
 	x1Data->setMinimumSize(textWidth, 12);
