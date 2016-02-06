@@ -69,6 +69,10 @@ SelectFields::SelectFields(QWidget* parent, QString Felder, QString Own, Scribus
 	Layout1->addWidget( AvailFields );
 	Layout5->addLayout( Layout1 );
 
+	Layout2 = Layout3 = NULL;
+	SelFields = NULL;
+	ToSel = FromSel = NULL;
+	Text2 = NULL;
 	if (Art > 1)
 	{
 		Layout2 = new QVBoxLayout;
