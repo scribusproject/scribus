@@ -23,6 +23,7 @@ ScDocOutput_Ps2::ScDocOutput_Ps2(ScribusDoc* doc, QString fileName, vector<int>&
 	m_pageNumbers = pageNumbers;
 	m_clip = clip;
 	m_options = options;
+	m_status = 0;
 	m_author = doc->documentInfo().author();
 	m_title  = doc->documentInfo().title();
 	m_creator = QString("Scribus ") + QString(VERSION);
