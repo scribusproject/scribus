@@ -46,7 +46,6 @@ public:
 	~Vruler() {};
 	
 	double offs;
-	bool repainted;
 	int oldMark;
 	bool Mpressed;
 	double ruleSpacing();

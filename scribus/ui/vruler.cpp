@@ -35,15 +35,12 @@ for which a new license (GPL+exception) is in place.
 
 #include <cmath>
 
-
 #include "canvasgesture_rulermove.h"
 #include "prefsmanager.h"
 #include "scpage.h"
 #include "scribusdoc.h"
 #include "scribusview.h"
 #include "units.h"
-
-
 
 Vruler::Vruler(ScribusView *pa, ScribusDoc *doc) : QWidget(pa)
 {
@@ -59,6 +56,7 @@ Vruler::Vruler(ScribusView *pa, ScribusDoc *doc) : QWidget(pa)
 	oldMark = 0;
 	Mpressed = false;
 	drawMark = false;
+	whereToDraw = 0;
 	setMouseTracking(true);
 	rulerGesture = new RulerGesture(m_view, RulerGesture::VERTICAL);
 	unitChange();
