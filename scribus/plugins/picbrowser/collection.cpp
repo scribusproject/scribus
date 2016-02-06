@@ -256,6 +256,7 @@ void collectionReaderThread::restart()
 
 collectionListReaderThread::collectionListReaderThread ( QStringList &xmlFiles2 )
 {
+	m_clrt = 0;
 	restartThread = false;
 
 	xmlFiles = xmlFiles2;
@@ -270,9 +271,9 @@ void collectionListReaderThread::run()
 	}
 
 	xmlFile = xmlFiles.takeAt ( 0 );
-	clrt = new collectionReaderThread ( xmlFile, false );
-	connect ( clrt, SIGNAL ( finished() ), this, SLOT ( collectionReaderThreadFinished() ) );
-	clrt->start();
+	m_clrt = new collectionReaderThread ( xmlFile, false );
+	connect ( m_clrt, SIGNAL ( finished() ), this, SLOT ( collectionReaderThreadFinished() ) );
+	m_clrt->start();
 
 	exec();
 }
@@ -286,8 +287,8 @@ void collectionListReaderThread::restart()
 
 void collectionListReaderThread::collectionReaderThreadFinished()
 {
-	readCollections.append ( clrt->collection );
-	delete clrt;
+	readCollections.append ( m_clrt->collection );
+	delete m_clrt;
 
 	if ( xmlFiles.isEmpty() || restartThread )
 	{
@@ -296,9 +297,9 @@ void collectionListReaderThread::collectionReaderThreadFinished()
 	else
 	{
 		xmlFile = xmlFiles.takeAt ( 0 );
-		clrt = new collectionReaderThread ( xmlFile, false );
-		connect ( clrt, SIGNAL ( finished() ), this, SLOT ( collectionReaderThreadFinished() ) );
-		clrt->start();
+		m_clrt = new collectionReaderThread ( xmlFile, false );
+		connect ( m_clrt, SIGNAL ( finished() ), this, SLOT ( collectionReaderThreadFinished() ) );
+		m_clrt->start();
 	}
 }
 

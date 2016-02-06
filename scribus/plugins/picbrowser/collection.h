@@ -137,7 +137,7 @@ class collectionListReaderThread : public QThread
 		void collectionReaderThreadFinished();
 
 	private:
-		collectionReaderThread *clrt;
+		collectionReaderThread *m_clrt;
 };
 
 
