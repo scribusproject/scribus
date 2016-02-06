@@ -55,6 +55,8 @@ CanvasMode_Magnifier::CanvasMode_Magnifier(ScribusView* view) : CanvasMode(view)
 {
 	m_Mxp = m_Myp = -1;
 	m_Dxp = m_Dyp = -1;
+	m_SeRx = m_SeRy = -1;
+	m_lastPosWasOverGuide = false;
 }
 
 void CanvasMode_Magnifier::drawControls(QPainter* p)

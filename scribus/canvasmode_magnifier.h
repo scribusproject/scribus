@@ -58,7 +58,7 @@ private:
 
 	double m_Mxp, m_Myp, m_Dxp, m_Dyp;
 	double m_SeRx, m_SeRy;
-	bool m_lastPosWasOverGuide;
+	bool   m_lastPosWasOverGuide;
 };
 
 
