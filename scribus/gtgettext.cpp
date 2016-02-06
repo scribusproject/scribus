@@ -38,8 +38,9 @@ for which a new license (GPL+exception) is in place.
 // Constructor
 gtGetText::gtGetText(ScribusDoc* doc)
 {
+	m_dias = NULL;
 	// Attach to the active document
-	m_Doc=doc;
+	m_Doc = doc;
 	// Load the plugins array.
 	loadImporterPlugins();
 } // gtGetText::gtGetText(ScribusDoc* doc)
