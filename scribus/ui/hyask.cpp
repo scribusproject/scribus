@@ -44,6 +44,8 @@ void WortEdit::keyPressEvent ( QKeyEvent *k )
 
 HyAsk::HyAsk ( QWidget* parent, QString HWort ) : QDialog ( parent )
 {
+	xpos = ypos = 0;
+
 	setModal(true);
 	setWindowTitle( tr( "Possible Hyphenation" ));
 	setWindowIcon(IconManager::instance()->loadIcon ( "AppIcon.png" ));
