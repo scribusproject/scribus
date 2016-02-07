@@ -2038,6 +2038,8 @@ void PictureBrowser::applyFilters()
 					{
 						pImages->filterFileType ( filters->typeFilters.at ( c[3] ), true );
 					}
+					break;
+
 				case 4:
 					if ( c[4] < filters->tagFilters.size() )
 					{
