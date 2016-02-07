@@ -51,7 +51,7 @@ protected:
 	QNetworkAccessManager* m_networkManager;
 	QNetworkReply *m_networkReply;
 	QString m_message;
-	QFile *m_;
+	QFile *m_file;
 	bool m_errorReported;
 };
 

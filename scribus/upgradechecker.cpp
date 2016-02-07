@@ -31,7 +31,12 @@ for which a new license (GPL+exception) is in place.
 UpgradeChecker::UpgradeChecker() : QObject()
 {
 	init();
-	m_writeToConsole=true;
+
+	m_fin = false;
+	m_file = 0;
+	m_networkManager = 0;
+	m_networkReply = 0;
+	m_writeToConsole = true;
 }
 
 UpgradeChecker::~UpgradeChecker()
@@ -70,13 +75,13 @@ void UpgradeChecker::fetch()
 
 	m_fin=false;
 
-	m_=new QFile(m_tempFile);
+	m_file=new QFile(m_tempFile);
 	m_networkManager=new QNetworkAccessManager(this);
-	if (m_networkManager!=0 && m_!=0)
+	if (m_networkManager!=0 && m_file!=0)
 	{
 		outputText( tr("No data on your computer will be sent to an external location"));
 		qApp->processEvents();
-		if(m_->open(QIODevice::ReadWrite))
+		if(m_file->open(QIODevice::ReadWrite))
 		{
 			QString hostname("services.scribus.net");
 			QString filepath("/"+filename);
@@ -105,12 +110,12 @@ void UpgradeChecker::fetch()
 			{
 					outputText("<b>"+ tr("Timed out when attempting to get update file.")+"</b>");
 			}
-			m_->close();
+			m_file->close();
 		}
-		m_->remove();
+		m_file->remove();
 	}
-	delete m_;
-	m_=0;
+	delete m_file;
+	m_file=0;
 	outputText( tr("Finished") );
 	m_networkReply->deleteLater();
 	m_networkManager->deleteLater();
@@ -122,7 +127,7 @@ void UpgradeChecker::downloadFinished()
 		outputText(QString("Failed: %1").arg(qPrintable(m_networkReply->errorString())));
 	else
 	{
-		m_->reset();
+		m_file->reset();
 		process();
 		m_fin=true;
 		show(m_networkReply->error()!=QNetworkReply::NoError);
@@ -132,14 +137,14 @@ void UpgradeChecker::downloadFinished()
 
 void UpgradeChecker::downloadReadyRead()
 {
-	m_->write(m_networkReply->readAll());
+	m_file->write(m_networkReply->readAll());
 }
 
 bool UpgradeChecker::process()
 {
-	if (!m_)
+	if (!m_file)
 		return false;
-	QTextStream ts(m_);
+	QTextStream ts(m_file);
 	ts.setCodec(QTextCodec::codecForName("UTF-8"));
 	QString errorMsg;
 	int eline;
@@ -151,7 +156,7 @@ bool UpgradeChecker::process()
 		if (data.toLower().contains("404 not found"))
 			outputText("<b>"+ tr("File not found on server")+"</b>");
 		else
-			outputText("<b>"+ tr("Could not open version file: %1\nError:%2 at line: %3, row: %4").arg(m_->fileName()).arg(errorMsg).arg(eline).arg(ecol)+"</b>");
+			outputText("<b>"+ tr("Could not open version file: %1\nError:%2 at line: %3, row: %4").arg(m_file->fileName()).arg(errorMsg).arg(eline).arg(ecol)+"</b>");
 		return false;
 	}
 	
