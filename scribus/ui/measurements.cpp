@@ -61,13 +61,19 @@ void Measurements::unitChanged()
 {
 	QString tmp;
 	int uInd = unitSwitch->currentIndex();
-	x1Data->setText(tmp.setNum(qRound(mX1*unitGetRatioFromIndex(uInd)*unitGetDecimalsFromIndex(uInd)) / static_cast<double>(unitGetDecimalsFromIndex(uInd)), 'f', unitGetPrecisionFromIndex(uInd)) + " " + unitGetStrFromIndex(uInd));
-	y1Data->setText(tmp.setNum(qRound(mY1*unitGetRatioFromIndex(uInd)*unitGetDecimalsFromIndex(uInd)) / static_cast<double>(unitGetDecimalsFromIndex(uInd)), 'f', unitGetPrecisionFromIndex(uInd)) + " " + unitGetStrFromIndex(uInd));
-	x2Data->setText(tmp.setNum(qRound(mX2*unitGetRatioFromIndex(uInd)*unitGetDecimalsFromIndex(uInd)) / static_cast<double>(unitGetDecimalsFromIndex(uInd)), 'f', unitGetPrecisionFromIndex(uInd)) + " " + unitGetStrFromIndex(uInd));
-	y2Data->setText(tmp.setNum(qRound(mY2*unitGetRatioFromIndex(uInd)*unitGetDecimalsFromIndex(uInd)) / static_cast<double>(unitGetDecimalsFromIndex(uInd)), 'f', unitGetPrecisionFromIndex(uInd)) + " " + unitGetStrFromIndex(uInd));
-	dXData->setText(tmp.setNum(qRound(mDX*unitGetRatioFromIndex(uInd)*unitGetDecimalsFromIndex(uInd)) / static_cast<double>(unitGetDecimalsFromIndex(uInd)), 'f', unitGetPrecisionFromIndex(uInd)) + " " + unitGetStrFromIndex(uInd));
-	dYData->setText(tmp.setNum(qRound(mDY*unitGetRatioFromIndex(uInd)*unitGetDecimalsFromIndex(uInd)) / static_cast<double>(unitGetDecimalsFromIndex(uInd)), 'f', unitGetPrecisionFromIndex(uInd)) + " " + unitGetStrFromIndex(uInd));
-	lengthData->setText(tmp.setNum(qRound(mLength*unitGetRatioFromIndex(uInd)*unitGetDecimalsFromIndex(uInd)) / static_cast<double>(unitGetDecimalsFromIndex(uInd)), 'f', unitGetPrecisionFromIndex(uInd)) + " " + unitGetStrFromIndex(uInd));
+	int uDec = unitGetDecimalsFromIndex(uInd);
+	if (uDec == 0)
+		uDec = 1; // Unlikely but avoid division by 0 if unitGetDecimalsFromIndex() returns 0
+	int uPrec = unitGetPrecisionFromIndex(uInd);
+	double uRatio = unitGetRatioFromIndex(uInd);
+	QString uStr  = unitGetStrFromIndex(uInd);
+	x1Data->setText(tmp.setNum(qRound(mX1 * uRatio * uDec) / static_cast<double>(uDec), 'f', uPrec) + " " + uStr);
+	y1Data->setText(tmp.setNum(qRound(mY1 * uRatio * uDec) / static_cast<double>(uDec), 'f', uPrec) + " " + uStr);
+	x2Data->setText(tmp.setNum(qRound(mX2 * uRatio * uDec) / static_cast<double>(uDec), 'f', uPrec) + " " + uStr);
+	y2Data->setText(tmp.setNum(qRound(mY2 * uRatio * uDec) / static_cast<double>(uDec), 'f', uPrec) + " " + uStr);
+	dXData->setText(tmp.setNum(qRound(mDX * uRatio * uDec) / static_cast<double>(uDec), 'f', uPrec) + " " + uStr);
+	dYData->setText(tmp.setNum(qRound(mDY * uRatio * uDec) / static_cast<double>(uDec), 'f', uPrec) + " " + uStr);
+	lengthData->setText(tmp.setNum(qRound(mLength * uRatio * uDec) / static_cast<double>(uDec), 'f', uPrec) + " " + uStr);
 }
 
 void Measurements::changeEvent(QEvent *e)
