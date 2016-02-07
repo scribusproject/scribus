@@ -76,6 +76,7 @@ PageSize::PageSize(const double w, const double h)
 {
 	m_width=w;
 	m_height=h;
+	m_pageUnitIndex=-1;
 	m_pageSizeName=CommonStrings::customPageSize;
 	m_trPageSizeName=CommonStrings::trCustomPageSize;	
 }
