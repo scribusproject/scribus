@@ -64,6 +64,7 @@ InsPage::InsPage( QWidget* parent, ScribusDoc* currentDoc, int currentPage, int 
 	whereLayout->addItem(new QSpacerItem(insCountLabel->fontMetrics().width( tr( "&Insert" )), 0), 0, 0);
 	dialogLayout->addLayout( whereLayout );
 	
+	masterPageLabel = 0;
 	masterPageGroup = new QGroupBox( this);
 	masterPageGroup->setTitle( tr( "Master Pages" ) );
 	masterPageLayout = new QGridLayout( masterPageGroup );
