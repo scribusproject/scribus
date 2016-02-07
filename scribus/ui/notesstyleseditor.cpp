@@ -23,7 +23,6 @@ NotesStylesEditor::NotesStylesEditor(QWidget *parent, const char *name)
 	
 	addNewNsMode = false;
 	setDoc(0);
-	languageChange();
 	NSlistBox->setInsertPolicy(QComboBox::InsertAlphabetically);
 
 	NumberingBox->addItem("1 2 3");
@@ -38,6 +37,8 @@ NotesStylesEditor::NotesStylesEditor(QWidget *parent, const char *name)
 	RangeBox->addItem(tr("Story"));
 	RangeBox->addItem(tr("Page"));
 	RangeBox->addItem(tr("Frame"));
+
+	languageChange();
 
 	StartSpinBox->setMinimum(1);
 	StartSpinBox->setMaximum(99999);
