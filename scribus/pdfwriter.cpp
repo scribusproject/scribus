@@ -447,11 +447,13 @@ namespace Pdf
 		NamesObj = 7;
 		ThreadsObj = 8;
 		
+		OCPropertiesObj = 0;
 		OutputIntentObj = 0;
 		EncryptObj = 0;
 		MetaDataObj = 0;
 		ResourcesObj = 0;
 		
+		m_ObjCounter = 0;
 		m_CurrentObj = 0;
 		
 		m_KeyLen = 5;
