@@ -43,6 +43,7 @@ FreehandMode::FreehandMode(ScribusView* view) : CanvasMode(view)
 {
 	Mxp = Myp = -1;
 	Dxp = Dyp = -1;
+	SeRx = SeRy = -1;
 	MoveGX = MoveGY = false;
 	m_MouseButtonPressed = false;
 }
