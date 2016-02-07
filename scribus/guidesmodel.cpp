@@ -15,7 +15,7 @@ GuidesModel::GuidesModel(QObject * /*parent*/)
 		m_docUnitIndex(0),
 		m_docUnitDecimals(0)
 {
-
+	m_rule = 0.0;
 	// debug
 // 	m_values << 1.0 << 10.1 << 6.3 << 4.1;
 // 	qSort(m_values);
