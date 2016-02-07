@@ -44,6 +44,8 @@ GuideManager::GuideManager(QWidget* parent) :
 		currentPage(0),
 		m_drawGuides(true)
 {
+	docUnitIndex = 0;
+
 	setupUi(this);
 	tabWidget->setEnabled(false);
 	horizontalAutoGapSpin->setMinimum(0.0);
@@ -103,7 +105,13 @@ GuideManager::GuideManager(QWidget* parent) :
 
 void GuideManager::setDoc(ScribusDoc* doc)
 {
-	m_Doc=doc;
+	m_Doc = doc;
+	if (m_Doc)
+	{
+		docUnitIndex = m_Doc->unitIndex();
+		suffix = unitGetSuffixFromIndex(docUnitIndex);
+	}
+
 	qobject_cast<GuidesHDelegate*>(horizontalView->itemDelegateForColumn(0))->setDoc(doc);
 	qobject_cast<GuidesVDelegate*>(verticalView->itemDelegateForColumn(0))->setDoc(doc);
 	if (!m_Doc)
