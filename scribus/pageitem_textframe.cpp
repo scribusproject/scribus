@@ -6046,6 +6046,7 @@ NotesInFrameMap PageItem_TextFrame::updateNotesFrames(QMap<int, Mark*> noteMarks
 							break;
 						case NSRsection:
 							m_Doc->setEndNoteFrame(nF, m_Doc->getSectionKeyForPageIndex(OwnPage));
+							break;
 						case NSRstory:
 							m_Doc->setEndNoteFrame(nF, (void*) firstInChain());
 							break;
