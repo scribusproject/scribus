@@ -67,8 +67,10 @@ CanvasMode_EditMeshPatch::CanvasMode_EditMeshPatch(ScribusView* view) : CanvasMo
 	m_Mxp = m_Myp = -1;
 	m_patchPoint = noPointDefined;
 	m_gradientPoint = noControlPointDefined;
+	m_keyRepeat = false;
 	m_click_count = 0;
 	m_old_mesh = new meshPoint();
+	m_currItem = NULL;
 }
 
 CanvasMode_EditMeshPatch::~CanvasMode_EditMeshPatch()
