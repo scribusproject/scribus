@@ -33,8 +33,8 @@ for which a new license (GPL+exception) is in place.
 // Initialize members here, if any
 HunspellPluginImpl::HunspellPluginImpl() : QObject(0)
 {
-	//hspellers=NULL;
 //	numDicts=0;
+	m_doc=NULL;
 	m_runningForSE=false;
 	m_SE=NULL;
 }
