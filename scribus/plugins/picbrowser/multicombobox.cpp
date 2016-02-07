@@ -24,6 +24,7 @@ Qt::ItemFlags multiComboboxModel::flags ( const QModelIndex& index ) const
 
 multiView::multiView ( QWidget* parent ) : QListView ( parent )
 {
+	parentMcb = 0;
 }
 
 
