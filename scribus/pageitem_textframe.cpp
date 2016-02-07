@@ -3975,7 +3975,18 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRectF cullingArea)
 						p->setPen(cachedStrokeQ, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 				}
 				// paint glyphs
-				if (isEmbedded || cullingArea.intersects(pf2.mapRect(QRect(qRound(CurX + glyphs->xoffset),qRound(ls.y + glyphs->yoffset-asce), qRound(glyphs->xadvance+1), qRound(asce+desc)))))
+				QRectF scrGl;
+				if (itemText.hasObject(a))
+				{
+					PageItem* obj = itemText.object(a);
+					double ww = (obj->width() + obj->lineWidth()) * glyphs->scaleH;
+					double hh = (obj->height() + obj->lineWidth()) * glyphs->scaleV;
+					scrGl = QRectF(CurX, ls.y + glyphs->yoffset, ww , -hh).normalized();
+					previousWasObject = true;
+				}
+				else
+					scrGl = QRectF(CurX + glyphs->xoffset, ls.y + glyphs->yoffset - asce * glyphs->scaleV, glyphs->xadvance+1 , (asce+desc) * (glyphs->scaleV));
+				if (isEmbedded || cullingArea.intersects(pf2.mapRect(scrGl)))
 				{
 					p->save();//SA4
 					p->translate(CurX, ls.y);
