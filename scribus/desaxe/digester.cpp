@@ -34,7 +34,7 @@ struct DFA_State
 	unsigned int ID;
 	std::vector<rule_t> rules;
 
-	DFA_State() : rules() {}
+	DFA_State() : ID(0), rules() {}
 };
 
 typedef DFA_State* dfa_state_t;
