@@ -30,23 +30,26 @@ for which a new license (GPL+exception) is in place.
 #include "iconmanager.h"
 #include "util.h"
 
-RulerT::RulerT(QWidget *pa, int ein, QList<ParagraphStyle::TabRecord> Tabs, bool ind, double wid) : QWidget(pa)
+RulerT::RulerT(QWidget *pa, int ein, QList<ParagraphStyle::TabRecord> Tabs, bool ind, double wid) : QWidget(pa),
+	mousePressed(false),
+	tabValues(Tabs),
+	haveInd(ind),
+	unitIndex(ein),
+	offset(0),
+	actTab(-1),
+	leftIndent(0),
+	firstLine(0),
+	Width(0.0),
+	rulerCode(0),
+	mouseX(0),
+	offsetIncrement(5)
 {
 	QPalette palette;
 	palette.setColor(backgroundRole(), QColor(255,255,255));
 	setPalette(palette);
-	unitIndex = ein;
 	iter=unitRulerGetIter1FromIndex(unitIndex);
 	iter2=unitRulerGetIter2FromIndex(unitIndex);
-	tabValues = Tabs;
-	haveInd = ind;
-	offsetIncrement = 5;
-	offset = 0;
-	firstLine = 0;
-	leftIndent = 0;
-	mousePressed = false;
-	rulerCode = 0;
-	actTab = -1;
+
 	setMouseTracking(true);
 	if (wid < 0)
 	{

@@ -146,8 +146,8 @@ protected:
 	QHBoxLayout* layout2;
 	QHBoxLayout* layout1;
 	QHBoxLayout* indentLayout;
-	QVBoxLayout* layout3;
-	QHBoxLayout *layout4;
+//	QVBoxLayout* layout3;
+	QHBoxLayout* layout4;
 	QComboBox* typeCombo;
 	QComboBox* tabFillCombo;
 	QLabel* tabFillComboT;
