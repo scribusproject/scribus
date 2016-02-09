@@ -213,7 +213,7 @@ private:
 	* PrefsManager is singleton and the instance can be queried with the method
 	* instance().
 	*/
-	static PrefsManager* _instance;
+	static PrefsManager* m_instance;
 
 	QString m_prefsLocation;
 	bool m_importingFrom12;

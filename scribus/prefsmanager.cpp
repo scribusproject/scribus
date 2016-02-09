@@ -64,11 +64,12 @@ for which a new license (GPL+exception) is in place.
 extern ScribusQApp* ScQApp;
 extern bool emergencyActivated;
 
-PrefsManager* PrefsManager::_instance = 0;
+PrefsManager* PrefsManager::m_instance = 0;
 
-PrefsManager::PrefsManager(QObject *parent)
- : QObject(parent),
- m_firstTimeIgnoreOldPrefs(false)
+PrefsManager::PrefsManager(QObject *parent) : QObject(parent),
+	prefsFile(0),
+	m_importingFrom12(false),
+	m_firstTimeIgnoreOldPrefs(false)
 {
 }
 
@@ -80,17 +81,17 @@ PrefsManager::~PrefsManager()
 
 PrefsManager* PrefsManager::instance()
 {
-	if (_instance == 0)
-		_instance = new PrefsManager();
+	if (m_instance == 0)
+		m_instance = new PrefsManager();
 
-	return _instance;
+	return m_instance;
 }
 
 void PrefsManager::deleteInstance()
 {
-	if (_instance)
-		delete _instance;
-	_instance = 0;
+	if (m_instance)
+		delete m_instance;
+	m_instance = 0;
 }
 
 
