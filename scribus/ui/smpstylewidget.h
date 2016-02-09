@@ -33,8 +33,7 @@ public:
 	void setDoc(ScribusDoc* doc);
 
 private:
-	bool hasParent_;
-	//bool parentParEffects_;
+	bool m_hasParent;
 	bool m_parentDC, m_parentBul, m_parentNum;
 	CharSelectEnhanced * m_enhanced;
 	ScribusDoc * m_Doc;

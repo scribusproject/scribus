@@ -24,9 +24,14 @@ static bool isEqual(double a, double b)
 }
 
 
-SMPStyleWidget::SMPStyleWidget(ScribusDoc* doc, StyleSet<CharStyle> *cstyles) : QWidget()
+SMPStyleWidget::SMPStyleWidget(ScribusDoc* doc, StyleSet<CharStyle> *cstyles) : QWidget(),
+	m_hasParent(false),
+	m_parentDC(false),
+	m_parentBul(false),
+	m_parentNum(false),
+	m_Doc(doc),
+	m_currPStyle(0)
 {
-	m_Doc = doc;
 	m_cstyles = cstyles;
 
 	setupUi(this);
@@ -333,7 +338,7 @@ void SMPStyleWidget::show(ParagraphStyle *pstyle, QList<ParagraphStyle> &pstyles
 	double unitRatio = unitGetRatioFromIndex(unitIndex);
 	parentCombo->setEnabled(!pstyle->isDefaultStyle());
 	const ParagraphStyle *parent = dynamic_cast<const ParagraphStyle*>(pstyle->parentStyle());
-	hasParent_ = pstyle->hasParent() && parent != NULL && parent->hasName() && pstyle->parent() != "";
+	m_hasParent = pstyle->hasParent() && parent != NULL && parent->hasName() && pstyle->parent() != "";
 
 	lineSpacingMode->clear();
 	lineSpacingMode->addItem( tr("Fixed Linespacing"));
@@ -358,7 +363,7 @@ void SMPStyleWidget::show(ParagraphStyle *pstyle, QList<ParagraphStyle> &pstyles
 	//fillNumerationsCombo();
 	//fillNumRestartCombo();
 
-	if (hasParent_)
+	if (m_hasParent)
 	{
 		lineSpacingMode->setCurrentItem(pstyle->lineSpacingMode(), pstyle->isInhLineSpacingMode());
 		lineSpacingMode->setParentItem(parent->lineSpacingMode());
@@ -570,7 +575,7 @@ void SMPStyleWidget::show(ParagraphStyle *pstyle, QList<ParagraphStyle> &pstyles
 				parentCombo->addItem(pstyles[i].name());
 		}
 	}
-	if (pstyle->isDefaultStyle() || !hasParent_)
+	if (pstyle->isDefaultStyle() || !m_hasParent)
 		parentCombo->setCurrentIndex(0);
 	else
 	{
@@ -1114,7 +1119,7 @@ void SMPStyleWidget::setOpticalMargins(int o, bool inhO, const ParagraphStyle *p
 void SMPStyleWidget::slotDefaultOpticalMargins()
 {
 	optMarginRadioNone->setChecked(true);
-	if (hasParent_)
+	if (m_hasParent)
 		optMarginParentButton->show();
 }
 
@@ -1151,7 +1156,7 @@ void SMPStyleWidget::slotDropCap(bool isOn)
 	}
 	else
 		dropCapLines->setEnabled(false);
-	if (hasParent_)
+	if (m_hasParent)
 		parentParEffectsButton->show();
 	checkParEffectState();
 	connectPESignals();
@@ -1182,7 +1187,7 @@ void SMPStyleWidget::slotBullets(bool isOn)
 		bulletStrEdit->setEnabled(false);
 		bulletCharTableButton->setEnabled(false);
 	}
-	if (hasParent_)
+	if (m_hasParent)
 		parentParEffectsButton->show();
 	checkParEffectState();
 	connectPESignals();
@@ -1218,7 +1223,7 @@ void SMPStyleWidget::slotNumbering(bool isOn)
 		numFormatCombo->setEnabled(false);
 		numLevelSpin->setEnabled(false);
 	}
-	if (hasParent_)
+	if (m_hasParent)
 		parentParEffectsButton->show();
 	checkParEffectState();
 	connectPESignals();
