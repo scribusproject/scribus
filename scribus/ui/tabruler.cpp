@@ -489,11 +489,16 @@ void RulerT::moveLeftIndent(double t)
 	repaint();
 }
 
-Tabruler::Tabruler( QWidget* parent, bool haveFirst, int dEin, QList<ParagraphStyle::TabRecord> Tabs, double wid ) : QWidget( parent )
+Tabruler::Tabruler( QWidget* parent, bool haveFirst, int dEin, QList<ParagraphStyle::TabRecord> Tabs, double wid ) : QWidget( parent ),
+	firstLineLabel(0),
+	leftIndentLabel(0),
+	rightIndentLabel(0),
+	firstLineData(0),
+	leftIndentData(0),
+	rightIndentData(0)
 {
 	docUnitRatio=unitGetRatioFromIndex(dEin);
-	double ww;
-	ww = (wid < 0) ? 4000 : wid;
+	double ww = (wid < 0) ? 4000 : wid;
 	tabrulerLayout = new QVBoxLayout( this );
 	tabrulerLayout->setMargin(0);
 	tabrulerLayout->setSpacing(5);
