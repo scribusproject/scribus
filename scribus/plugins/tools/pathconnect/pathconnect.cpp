@@ -50,7 +50,13 @@ void pathconnect_freePlugin(ScPlugin* plugin)
 	delete plug;
 }
 
-PathConnectPlugin::PathConnectPlugin() : ScActionPlugin()
+PathConnectPlugin::PathConnectPlugin() : ScActionPlugin(),
+	m_item1(0),
+	m_item2(0),
+	m_doc(0),
+	originalXPos(0.0),
+	originalYPos(0.0),
+	firstUpdate(false)
 {
 	// Set action info in languageChange, so we only have to do
 	// it in one place.
