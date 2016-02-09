@@ -54,7 +54,23 @@ void pathalongpath_freePlugin(ScPlugin* plugin)
 	delete plug;
 }
 
-PathAlongPathPlugin::PathAlongPathPlugin() : ScActionPlugin()
+PathAlongPathPlugin::PathAlongPathPlugin() : ScActionPlugin(),
+	patternItem(0),
+	pathItem(0),
+	originalRot(0.0),
+	originalXPos(0.0),
+	originalYPos(0.0),
+	m_doc(0),
+	firstUpdate(false),
+	m_scaling(0.0),
+	nbCopies(0),
+	pattWidth(0.0),
+	m_offsetX(0.0),
+	m_offsetY(0.0),
+	m_gapval(0.0),
+	m_rotate(0),
+	selOffs(0),
+	selCount(0)
 {
 	// Set action info in languageChange, so we only have to do
 	// it in one place.
