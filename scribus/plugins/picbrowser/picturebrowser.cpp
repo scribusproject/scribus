@@ -24,12 +24,12 @@ for which a new license (GPL+exception) is in place.
 #include "iconmanager.h"
 #include "util_formats.h"
 
-PictureBrowser::PictureBrowser ( ScribusDoc* doc, QWidget *parent ) :
-	QDialog ( parent ),
+PictureBrowser::PictureBrowser(ScribusDoc* doc, QWidget *parent):
+	QDialog(parent),
 	pModel(0),
 	pImages(0)
 {
-	setupUi ( this );
+	setupUi(this);
 
 //set Scribusdoc
 	m_Doc = doc;
@@ -40,57 +40,57 @@ PictureBrowser::PictureBrowser ( ScribusDoc* doc, QWidget *parent ) :
 
 	documentChanged = false;
 
-	connect ( navigationBox, SIGNAL ( currentIndexChanged ( int ) ), this, SLOT ( navigate ( int ) ) );
-	connect ( sortCombobox, SIGNAL ( currentIndexChanged ( int ) ), this, SLOT ( sortChanged ( int ) ) );
-	connect ( previewModeCombobox, SIGNAL ( currentIndexChanged ( int ) ), this, SLOT ( previewModeChanged ( int ) ) );
-	connect ( moreButton, SIGNAL ( clicked() ), this, SLOT ( moreButtonClicked() ) );
-	connect ( resetSettingsButton, SIGNAL ( clicked() ), this, SLOT ( resetSettingsButtonClicked() ) );
-	connect ( sortOrderButton, SIGNAL ( clicked() ), this, SLOT ( sortOrderButtonClicked() ) );
-	connect ( actionsGoButton, SIGNAL ( clicked() ), this, SLOT ( actionsGoButtonClicked() ) );
+	connect(navigationBox, SIGNAL(currentIndexChanged(int)), this, SLOT(navigate(int)));
+	connect(sortCombobox, SIGNAL(currentIndexChanged(int)), this, SLOT(sortChanged(int)));
+	connect(previewModeCombobox, SIGNAL(currentIndexChanged(int)), this, SLOT(previewModeChanged(int)));
+	connect(moreButton, SIGNAL(clicked()), this, SLOT(moreButtonClicked()));
+	connect(resetSettingsButton, SIGNAL(clicked()), this, SLOT(resetSettingsButtonClicked()));
+	connect(sortOrderButton, SIGNAL(clicked()), this, SLOT(sortOrderButtonClicked()));
+	connect(actionsGoButton, SIGNAL(clicked()), this, SLOT(actionsGoButtonClicked()));
 
-	connect ( zoomPlusButton, SIGNAL ( clicked() ), this, SLOT ( zoomPlusButtonClicked() ) );
-	connect ( zoomMinusButton, SIGNAL ( clicked() ), this, SLOT ( zoomMinusButtonClicked() ) );
+	connect(zoomPlusButton, SIGNAL(clicked()), this, SLOT(zoomPlusButtonClicked()));
+	connect(zoomMinusButton, SIGNAL(clicked()), this, SLOT(zoomMinusButtonClicked()));
 
 //close button
-	connect ( closeButton, SIGNAL ( clicked() ), this, SLOT ( accept() ) );
+	connect(closeButton, SIGNAL(clicked()), this, SLOT(accept()));
 
-	connect ( tabWidget, SIGNAL ( currentChanged ( int ) ), this, SLOT ( tabWidgetCurrentChanged ( int ) ) );
+	connect(tabWidget, SIGNAL(currentChanged(int)), this, SLOT(tabWidgetCurrentChanged(int)));
 
 //"goto page" button in documentbrowser
-	connect ( gotoPageButton, SIGNAL ( clicked() ), this, SLOT ( gotoPageButtonClicked() ) );
+	connect(gotoPageButton, SIGNAL(clicked()), this, SLOT(gotoPageButtonClicked()));
 
-	connect ( folderView, SIGNAL ( activated ( const QModelIndex & ) ), this, SLOT ( dirChosen ( const QModelIndex & ) ) );
-	connect ( folderView, SIGNAL ( clicked ( const QModelIndex & ) ), this, SLOT ( dirChosen ( const QModelIndex & ) ) );
-	connect ( folderView, SIGNAL ( doubleClicked ( const QModelIndex & ) ), this, SLOT ( dirChosen ( const QModelIndex & ) ) );
+	connect(folderView, SIGNAL(activated(const QModelIndex &)), this, SLOT(dirChosen(const QModelIndex &)));
+	connect(folderView, SIGNAL(clicked(const QModelIndex &)), this, SLOT(dirChosen(const QModelIndex &)));
+	connect(folderView, SIGNAL(doubleClicked(const QModelIndex &)), this, SLOT(dirChosen(const QModelIndex &)));
 
 //changing page
-	connect ( this, SIGNAL ( selectPage ( int ) ), ScCore->primaryMainWindow(), SLOT ( selectPagesFromOutlines ( int ) ) );
-	connect ( this, SIGNAL ( selectMasterPage ( QString ) ), ScCore->primaryMainWindow(), SLOT ( editMasterPagesStart ( QString ) ) );
+	connect(this, SIGNAL(selectPage(int)), ScCore->primaryMainWindow(), SLOT(selectPagesFromOutlines(int)));
+	connect(this, SIGNAL(selectMasterPage(QString)), ScCore->primaryMainWindow(), SLOT(editMasterPagesStart(QString)));
 
 //always-on-top checkbox
-	connect ( alwaysOnTopCheckbox, SIGNAL ( stateChanged ( int ) ), this, SLOT ( alwaysOnTopCheckboxStateChanged() ) );
+	connect(alwaysOnTopCheckbox, SIGNAL(stateChanged(int)), this, SLOT(alwaysOnTopCheckboxStateChanged()));
 //save settings checkbox
-	connect ( saveSettingsCheckbox, SIGNAL ( stateChanged ( int ) ), this, SLOT ( saveSettingsCheckboxStateChanged() ) );
+	connect(saveSettingsCheckbox, SIGNAL(stateChanged(int)), this, SLOT(saveSettingsCheckboxStateChanged()));
 
 //folderbrowser:include subdirs
-	connect ( subdirsCheckbox, SIGNAL ( stateChanged ( int ) ), this, SLOT ( subdirsCheckboxStateChanged() ) );
+	connect(subdirsCheckbox, SIGNAL(stateChanged(int)), this, SLOT(subdirsCheckboxStateChanged()));
 
 	loadIcons();
 
 	setSettings();
 
-	navigationStack->setCurrentIndex ( 0 );
+	navigationStack->setCurrentIndex(0);
 
 
 //maybe add QDir::Readable, although users might wonder where their folders are
-	folderModel.setFilter ( QDir::AllDirs|QDir::Drives|QDir::NoDotAndDotDot|QDir::NoSymLinks/*|QDir::Hidden*/ );
-	folderView->setModel ( &folderModel );
+	folderModel.setFilter(QDir::AllDirs|QDir::Drives|QDir::NoDotAndDotDot|QDir::NoSymLinks/*|QDir::Hidden*/);
+	folderView->setModel(&folderModel);
 
 // this should give a little performance boost
-	folderView->setUniformRowHeights ( true );
-	folderView->setCurrentIndex ( folderModel.index ( QDir::currentPath() ) );
-	folderView->scrollTo ( folderView->currentIndex(), QAbstractItemView::PositionAtTop );
-	folderView->resizeColumnToContents ( 0 );
+	folderView->setUniformRowHeights(true);
+	folderView->setCurrentIndex(folderModel.index(QDir::currentPath()));
+	folderView->scrollTo(folderView->currentIndex(), QAbstractItemView::PositionAtTop);
+	folderView->resizeColumnToContents(0);
 
 //this needs to be calculated later from height/width of QListView!
 	previewIconsVisible = 8;
@@ -104,7 +104,7 @@ PictureBrowser::PictureBrowser ( ScribusDoc* doc, QWidget *parent ) :
 	currentRow = 0;
 
 //set up previewimages instance, fill with last shown images later
-	pImages = new previewImages ( QStringList() );
+	pImages = new previewImages(QStringList());
 
 //set threadpointer to 0
 	fit = 0;
@@ -113,79 +113,79 @@ PictureBrowser::PictureBrowser ( ScribusDoc* doc, QWidget *parent ) :
 	clrt = 0;
 
 
-	pModel = new PreviewImagesModel ( this );
+	pModel = new PreviewImagesModel(this);
 
 //create loadImagesThread instance, connect and run it
-	lit = new loadImagesThread ( this, pModel );
+	lit = new loadImagesThread(this, pModel);
 	lit->start();
 
-	connect ( imageViewArea, SIGNAL ( clicked ( const QModelIndex & ) ), this, SLOT ( previewIconClicked ( const QModelIndex & ) ) );
-	connect ( imageViewArea, SIGNAL ( doubleClicked ( const QModelIndex & ) ), this, SLOT ( previewIconDoubleClicked ( const QModelIndex & ) ) );
+	connect(imageViewArea, SIGNAL(clicked(const QModelIndex &)), this, SLOT(previewIconClicked(const QModelIndex &)));
+	connect(imageViewArea, SIGNAL(doubleClicked(const QModelIndex &)), this, SLOT(previewIconDoubleClicked(const QModelIndex &)));
 
-	imageViewArea->SetIconSize ( QSize ( pbSettings.previewIconSize, pbSettings.previewIconSize ) );
-	imageViewArea->SetGridSize ( QSize ( qRound ( ( 1.1 ) *pbSettings.previewIconSize ), ( qRound ( ( 1.1 ) *pbSettings.previewIconSize ) + pbSettings.previewMode*10 ) ) );
-	imageViewArea->SetModel ( pModel );
+	imageViewArea->SetIconSize(QSize(pbSettings.previewIconSize, pbSettings.previewIconSize));
+	imageViewArea->SetGridSize(QSize(qRound(( 1.1)*pbSettings.previewIconSize),(qRound(( 1.1)*pbSettings.previewIconSize)+ pbSettings.previewMode*10)));
+	imageViewArea->SetModel(pModel);
 
 //register item selections
-	connect ( imageViewArea->SelectionModel(), SIGNAL ( selectionChanged ( const QItemSelection &, const QItemSelection & ) ), this, SLOT ( previewImageSelectionChanged ( const QItemSelection &, const QItemSelection & ) ) );
+	connect(imageViewArea->SelectionModel(), SIGNAL(selectionChanged(const QItemSelection &, const QItemSelection &)), this, SLOT(previewImageSelectionChanged(const QItemSelection &, const QItemSelection &)));
 
 //documentbrowser setup
-	connect ( documentWidget, SIGNAL ( itemActivated ( QTreeWidgetItem * , int ) ), this, SLOT ( documentChosen ( QTreeWidgetItem * , int ) ) );
-	connect ( documentWidget, SIGNAL ( itemClicked ( QTreeWidgetItem * , int ) ), this, SLOT ( documentChosen ( QTreeWidgetItem * , int ) ) );
+	connect(documentWidget, SIGNAL(itemActivated(QTreeWidgetItem * , int)), this, SLOT(documentChosen(QTreeWidgetItem * , int)));
+	connect(documentWidget, SIGNAL(itemClicked(QTreeWidgetItem * , int)), this, SLOT(documentChosen(QTreeWidgetItem * , int)));
 
-	documentWidget->setColumnCount ( 1 );
-	documentWidget->setHeaderLabels ( QStringList ( "Pages" ) );
+	documentWidget->setColumnCount(1);
+	documentWidget->setHeaderLabels(QStringList("Pages"));
 
 
 //collectionsbrowser setup
-	connect ( collectionsWidget, SIGNAL ( itemActivated ( QTreeWidgetItem * , int ) ), this, SLOT ( collectionChosen ( QTreeWidgetItem * , int ) ) );
-	connect ( collectionsWidget, SIGNAL ( itemClicked ( QTreeWidgetItem * , int ) ), this, SLOT ( collectionChosen ( QTreeWidgetItem * , int ) ) );
-	connect ( collectionsWidget, SIGNAL ( itemChanged ( QTreeWidgetItem * , int ) ), this, SLOT ( collectionsWidgetItemEdited ( QTreeWidgetItem * , int ) ) );
-	connect ( collectionsNewCategoryButton, SIGNAL ( clicked() ), this, SLOT ( collectionsNewCategoryButtonClicked() ) );
-	connect ( collectionsNewButton, SIGNAL ( clicked() ), this, SLOT ( collectionsNewButtonClicked() ) );
-	connect ( collectionsImportButton, SIGNAL ( clicked() ), this, SLOT ( collectionsImportButtonClicked() ) );
-	connect ( collectionsExportButton, SIGNAL ( clicked() ), this, SLOT ( collectionsExportButtonClicked() ) );
-	connect ( collectionsDeleteButton, SIGNAL ( clicked() ), this, SLOT ( collectionsDeleteButtonClicked() ) );
-	connect ( collectionsRenameButton, SIGNAL ( clicked() ), this, SLOT ( collectionsRenameButtonClicked() ) );
+	connect(collectionsWidget, SIGNAL(itemActivated(QTreeWidgetItem * , int)), this, SLOT(collectionChosen(QTreeWidgetItem * , int)));
+	connect(collectionsWidget, SIGNAL(itemClicked(QTreeWidgetItem * , int)), this, SLOT(collectionChosen(QTreeWidgetItem * , int)));
+	connect(collectionsWidget, SIGNAL(itemChanged(QTreeWidgetItem * , int)), this, SLOT(collectionsWidgetItemEdited(QTreeWidgetItem * , int)));
+	connect(collectionsNewCategoryButton, SIGNAL(clicked()), this, SLOT(collectionsNewCategoryButtonClicked()));
+	connect(collectionsNewButton, SIGNAL(clicked()), this, SLOT(collectionsNewButtonClicked()));
+	connect(collectionsImportButton, SIGNAL(clicked()), this, SLOT(collectionsImportButtonClicked()));
+	connect(collectionsExportButton, SIGNAL(clicked()), this, SLOT(collectionsExportButtonClicked()));
+	connect(collectionsDeleteButton, SIGNAL(clicked()), this, SLOT(collectionsDeleteButtonClicked()));
+	connect(collectionsRenameButton, SIGNAL(clicked()), this, SLOT(collectionsRenameButtonClicked()));
 
-	connect ( collectionsAddImagesButton, SIGNAL ( clicked() ), this, SLOT ( collectionsAddImagesButtonClicked() ) );
-	connect ( collectionsRemoveImagesButton, SIGNAL ( clicked() ), this, SLOT ( collectionsRemoveImagesButtonClicked() ) );
-	connect ( collectionsTagImagesButton, SIGNAL ( clicked() ), this, SLOT ( collectionsTagImagesButtonClicked() ) );
-	connect ( collectionsAddImagesOkButton, SIGNAL ( clicked() ), this, SLOT ( collectionsAddImagesOkButtonClicked() ) );
-	connect ( collectionsAddImagesCancelButton, SIGNAL ( clicked() ), this, SLOT ( collectionsAddImagesCancelButtonClicked() ) );
+	connect(collectionsAddImagesButton, SIGNAL(clicked()), this, SLOT(collectionsAddImagesButtonClicked()));
+	connect(collectionsRemoveImagesButton, SIGNAL(clicked()), this, SLOT(collectionsRemoveImagesButtonClicked()));
+	connect(collectionsTagImagesButton, SIGNAL(clicked()), this, SLOT(collectionsTagImagesButtonClicked()));
+	connect(collectionsAddImagesOkButton, SIGNAL(clicked()), this, SLOT(collectionsAddImagesOkButtonClicked()));
+	connect(collectionsAddImagesCancelButton, SIGNAL(clicked()), this, SLOT(collectionsAddImagesCancelButtonClicked()));
 
-	connect ( collectionsSetTagsButton, SIGNAL ( clicked() ), this, SLOT ( collectionsSetTagsButtonClicked() ) );
-	connect ( collectionsAddNewTagButton, SIGNAL ( clicked() ), this, SLOT ( collectionsAddNewTagButtonClicked() ) );
+	connect(collectionsSetTagsButton, SIGNAL(clicked()), this, SLOT(collectionsSetTagsButtonClicked()));
+	connect(collectionsAddNewTagButton, SIGNAL(clicked()), this, SLOT(collectionsAddNewTagButtonClicked()));
 
 	connect (jumpToImageButton, SIGNAL(clicked()), this, SLOT(jumpToImageFolder()));
 
-	collectionsWidget->setColumnCount ( 1 );
-	collectionsWidget->setHeaderLabels ( QStringList ( "Name" ) );
+	collectionsWidget->setColumnCount(1);
+	collectionsWidget->setHeaderLabels(QStringList("Name"));
 
-	cdbFile = ScPaths::instance().getPluginDataDir() + QString ( "collectionsdb.xml" );
+	cdbFile = ScPaths::instance().getPluginDataDir() + QString("collectionsdb.xml");
 //emtpy initialization, maybe accessed before collection is actually loaded
 	currCollection = new imageCollection;
 	currCollection->name = "empty";
 	currCollection->file = "empty";
 
-	crt = new collectionReaderThread ( cdbFile, false );
-	connect ( crt, SIGNAL ( finished() ), this, SLOT ( collectionReaderThreadFinished() ) );
+	crt = new collectionReaderThread(cdbFile, false);
+	connect(crt, SIGNAL(finished()), this, SLOT(collectionReaderThreadFinished()));
 	crt->start();
 
-	connect ( insertPositionCombobox, SIGNAL ( currentIndexChanged ( int ) ), this, SLOT ( insertPositionComboboxChanged ( int ) ) );
-	connect ( insertSizeCombobox, SIGNAL ( currentIndexChanged ( int ) ), this, SLOT ( insertSizeComboboxChanged ( int ) ) );
-	connect ( insertImageButton, SIGNAL ( clicked() ), this, SLOT ( insertImageButtonClicked() ) );
-	connect ( insertPagesCombobox, SIGNAL ( checkstateChanged ( int ) ), this, SLOT ( insertPagesComboboxCheckstateChanged ( int ) ) );
-	insertPagesCombobox->addItem ( "Current Page", 1 );
-	insertPagesCombobox->addItem ( "All Pages", 0 );
+	connect(insertPositionCombobox, SIGNAL(currentIndexChanged(int)), this, SLOT(insertPositionComboboxChanged(int)));
+	connect(insertSizeCombobox, SIGNAL(currentIndexChanged(int)), this, SLOT(insertSizeComboboxChanged(int)));
+	connect(insertImageButton, SIGNAL(clicked()), this, SLOT(insertImageButtonClicked()));
+	connect(insertPagesCombobox, SIGNAL(checkstateChanged(int)), this, SLOT(insertPagesComboboxCheckstateChanged(int)));
+	insertPagesCombobox->addItem("Current Page", 1);
+	insertPagesCombobox->addItem("All Pages", 0);
 
-	for ( int i = 0 ; i < ( int ) ( m_Doc->Pages->count() ) ; ++i )
+	for(int i = 0 ; i <(int)(m_Doc->Pages->count()); ++i)
 	{
-		insertPagesCombobox->addItem ( QString ( "Page %1" ).arg ( i+1 ), 0 );
+		insertPagesCombobox->addItem(QString("Page %1").arg(i+1), 0);
 	}
 
-	insertFramesCombobox->addItem ( "All Frames", 0 );
-	insertFramesCombobox->addItem ( "All Empty Frames", 0 );
+	insertFramesCombobox->addItem("All Frames", 0);
+	insertFramesCombobox->addItem("All Empty Frames", 0);
 
 
 	PageItem *pItem;
@@ -200,14 +200,14 @@ PictureBrowser::PictureBrowser ( ScribusDoc* doc, QWidget *parent ) :
 		for (int ii = 0; ii < allItems.count(); ii++)
 		{
 			pItem = allItems.at(ii);
-			if ( ( pItem->itemType() == PageItem::ImageFrame ) && ( !pItem->asLatexFrame() ) )
+			if(( pItem->itemType() == PageItem::ImageFrame)&&(!pItem->asLatexFrame()))
 			{
 				QString itemText;
-				if ( pItem->imageIsAvailable )
-					itemText = QString ( "Frame %1" ).arg ( pItem->itemName() );
+				if(pItem->imageIsAvailable)
+					itemText = QString("Frame %1").arg(pItem->itemName());
 				else
-					itemText = QString ( "Frame %1 (empty)" ).arg ( pItem->itemName() );
-				insertFramesCombobox->addItem ( itemText, 0 );
+					itemText = QString("Frame %1 (empty)").arg(pItem->itemName());
+				insertFramesCombobox->addItem(itemText, 0);
 			}
 		}
 		allItems.clear();
@@ -222,14 +222,14 @@ PictureBrowser::PictureBrowser ( ScribusDoc* doc, QWidget *parent ) :
 		for (int ii = 0; ii < allItems.count(); ii++)
 		{
 			pItem = allItems.at(ii);
-			if ( ( pItem->itemType() == PageItem::ImageFrame ) && ( !pItem->asLatexFrame() ) )
+			if(( pItem->itemType() == PageItem::ImageFrame)&&(!pItem->asLatexFrame()))
 			{
 				QString itemText;
-				if ( pItem->imageIsAvailable )
-					itemText = QString ( "Frame %1" ).arg ( pItem->itemName() );
+				if(pItem->imageIsAvailable)
+					itemText = QString("Frame %1").arg(pItem->itemName());
 				else
-					itemText = QString ( "Frame %1 (empty)" ).arg ( pItem->itemName() );
-				insertFramesCombobox->addItem ( itemText, 0 );
+					itemText = QString("Frame %1 (empty)").arg(pItem->itemName());
+				insertFramesCombobox->addItem(itemText, 0);
 			}
 		}
 		allItems.clear();
@@ -251,21 +251,21 @@ PictureBrowser::PictureBrowser ( ScribusDoc* doc, QWidget *parent ) :
 
 
 //filter/search setup
-	connect ( filterTargetCombobox, SIGNAL ( currentIndexChanged ( int ) ), this, SLOT ( filterTargetComboboxChanged ( int ) ) );
-	connect ( filterCriteriaCombobox, SIGNAL ( currentIndexChanged ( int ) ), this, SLOT ( filterCriteriaComboboxChanged ( int ) ) );
-	connect ( filterFilterButton, SIGNAL ( clicked() ), this, SLOT ( filterFilterButtonClicked() ) );
-	connect ( filterClearButton, SIGNAL ( clicked() ), this, SLOT ( filterClearButtonClicked() ) );
-	connect ( filterAddCriterionButton, SIGNAL ( clicked() ), this, SLOT ( filterAddCriterionButtonClicked() ) );
-	connect ( filterSearchDirButton, SIGNAL ( clicked() ), this, SLOT ( filterSearchDirButtonClicked() ) );
+	connect(filterTargetCombobox, SIGNAL(currentIndexChanged(int)), this, SLOT(filterTargetComboboxChanged(int)));
+	connect(filterCriteriaCombobox, SIGNAL(currentIndexChanged(int)), this, SLOT(filterCriteriaComboboxChanged(int)));
+	connect(filterFilterButton, SIGNAL(clicked()), this, SLOT(filterFilterButtonClicked()));
+	connect(filterClearButton, SIGNAL(clicked()), this, SLOT(filterClearButtonClicked()));
+	connect(filterAddCriterionButton, SIGNAL(clicked()), this, SLOT(filterAddCriterionButtonClicked()));
+	connect(filterSearchDirButton, SIGNAL(clicked()), this, SLOT(filterSearchDirButtonClicked()));
 
 	filters = new imageFilters;
 
 
-	filterTypeCombobox->addItem ( "All Supported Formats", 1 );
+	filterTypeCombobox->addItem("All Supported Formats", 1);
 
-	for ( int i = 0 ; i < nameFilters.size() ; ++i )
+	for(int i = 0 ; i < nameFilters.size() ; ++i)
 	{
-		filterTypeCombobox->addItem ( nameFilters.at ( i ), 1 );
+		filterTypeCombobox->addItem(nameFilters.at(i), 1);
 	}
 
 //fix: scrollperitem doesnt work
@@ -276,7 +276,7 @@ PictureBrowser::PictureBrowser ( ScribusDoc* doc, QWidget *parent ) :
 
 
 //Actually select the current folder to generate the preview from it's contents
-	dirChosen(folderModel.index( QDir::currentPath() ));
+	dirChosen(folderModel.index( QDir::currentPath()));
 }
 
 
@@ -293,53 +293,53 @@ void PictureBrowser::closeEvent(QCloseEvent* e)
 }
 
 
-void PictureBrowser::callLoadImageThread ( int row, int pId )
+void PictureBrowser::callLoadImageThread(int row, int pId)
 {
-	previewImage *imageToLoad = pModel->modelItemsList.at ( row );
+	previewImage *imageToLoad = pModel->modelItemsList.at(row);
 
-	emit loadImageJob ( row, imageToLoad->fileInformation.absoluteFilePath(), pbSettings.previewIconSize, pId );
+	emit loadImageJob(row, imageToLoad->fileInformation.absoluteFilePath(), pbSettings.previewIconSize, pId);
 }
 
 
-void PictureBrowser::navigate ( int index )
+void PictureBrowser::navigate(int index)
 {
 	//this check shouldnt be necessary but you never know...
-	if ( ( index >= 0 ) && ( index < 3 ) )
+	if((index >= 0) && (index < 3))
 	{
-		if ( index == 2 )
+		if(index == 2)
 		{
 			updateDocumentbrowser();
 		}
 
-		navigationStack->setCurrentIndex ( index );
+		navigationStack->setCurrentIndex(index);
 	}
 }
 
 
-void PictureBrowser::previewIconClicked ( const QModelIndex &index )
+void PictureBrowser::previewIconClicked(const QModelIndex &index)
 {
 	int row = index.row();
 
-	if ( row >= 0 )
+	if(row >= 0)
 	{
 		previewIconIndex = row;
-		updateInformationTab ( previewIconIndex );
+		updateInformationTab(previewIconIndex);
 	}
 }
 
 
-void PictureBrowser::previewIconDoubleClicked ( const QModelIndex &index )
+void PictureBrowser::previewIconDoubleClicked(const QModelIndex &index)
 {
 	int row = index.row();
 
-	if ( row >= 0 )
+	if(row >= 0)
 	{
-		ScribusDoc *currentDoc ( m_ScMW->doc );
-		Imagedialog *id ( new Imagedialog ( pImages->previewImagesList.at ( row )->fileInformation.absoluteFilePath(), currentDoc ,this ) );
+		ScribusDoc *currentDoc(m_ScMW->doc);
+		Imagedialog *id(new Imagedialog(pImages->previewImagesList.at(row)->fileInformation.absoluteFilePath(), currentDoc ,this));
 
-		if ( id )
+		if(id)
 		{
-			id->setAttribute ( Qt::WA_DeleteOnClose );
+			id->setAttribute(Qt::WA_DeleteOnClose);
 			id->show();
 			id->raise();
 			id->activateWindow();
@@ -348,31 +348,31 @@ void PictureBrowser::previewIconDoubleClicked ( const QModelIndex &index )
 }
 
 
-void PictureBrowser::sortChanged ( int index )
+void PictureBrowser::sortChanged(int index)
 {
 	//this check shouldnt be necessary but you never know...
-	if ( ( index >= 0 ) && ( index < 4 ) )
+	if(( index >= 0)&&(index < 4))
 	{
 		pbSettings.sortSetting = index;
 
-		if ( saveSettingsCheckbox->isChecked() )
+		if(saveSettingsCheckbox->isChecked())
 		{
 			pbSettings.save();
 		}
 
-		updateBrowser ( false, true, false );
+		updateBrowser(false, true, false);
 	}
 }
 
 
-void PictureBrowser::previewModeChanged ( int index )
+void PictureBrowser::previewModeChanged(int index)
 {
-	if ( ( index >= 0 ) && ( index < 2 ) )
+	if(( index >= 0)&&(index < 2))
 	{
 		pbSettings.previewMode = index;
-		imageViewArea->SetGridSize ( QSize ( qRound ( ( 1.1 ) *pbSettings.previewIconSize ), ( qRound ( ( 1.1 ) *pbSettings.previewIconSize ) + pbSettings.previewMode*10 ) ) );
+		imageViewArea->SetGridSize(QSize(qRound(( 1.1)*pbSettings.previewIconSize),(qRound(( 1.1)*pbSettings.previewIconSize)+ pbSettings.previewMode*10)));
 
-		if ( saveSettingsCheckbox->isChecked() )
+		if(saveSettingsCheckbox->isChecked())
 		{
 			pbSettings.save();
 		}
@@ -385,24 +385,24 @@ void PictureBrowser::previewModeChanged ( int index )
 void PictureBrowser::moreButtonClicked()
 {
 	// dialog is not enlarged -> enlarge, change buttontext/icon
-	if ( !pbSettings.showMore )
+	if(!pbSettings.showMore)
 	{
-		expandDialog ( true );
+		expandDialog(true);
 		pbSettings.showMore = true;
 
-		if ( tabWidget->currentIndex() == 0 )
+		if(tabWidget->currentIndex() == 0)
 		{
-			updateInformationTab ( previewIconIndex );
+			updateInformationTab(previewIconIndex);
 		}
 	}
 	// dialog is enlarged, set back to original size, change buttontext/icon
 	else
 	{
-		expandDialog ( false );
+		expandDialog(false);
 		pbSettings.showMore = false;
 	}
 
-	if ( saveSettingsCheckbox->isChecked() )
+	if(saveSettingsCheckbox->isChecked())
 	{
 		pbSettings.save();
 	}
@@ -420,24 +420,24 @@ void PictureBrowser::actionsGoButtonClicked()
 {
 	int index = actionsCombobox->currentIndex();
 
-	if ( ( previewIconIndex < 0 ) || ( previewIconIndex > pImages->previewImagesList.size() ) )
+	if(( previewIconIndex < 0)||(previewIconIndex > pImages->previewImagesList.size()))
 	{
-		ScMessageBox::warning ( this, tr ( "Picture Browser Error" ), tr ( "No Image(s) Selected" ) );
+		ScMessageBox::warning(this, tr("Picture Browser Error"), tr("No Image(s) Selected"));
 		return;
 	}
 
-	if ( index == 0 )
+	if(index == 0)
 	{
 		previewImage *tmpImage;
 
 		//image from pModel needed here
-		tmpImage = pModel->modelItemsList.at ( previewIconIndex );
+		tmpImage = pModel->modelItemsList.at(previewIconIndex);
 		InsertAFrameData iafData;
 
 		iafData.frameType=PageItem::ImageFrame;
 		iafData.source=tmpImage->fileInformation.absoluteFilePath();
 		iafData.locationType = 0;
-		iafData.pageList = QString ( "" );
+		iafData.pageList = QString("");
 		iafData.positionType = 0;
 		iafData.sizeType = 0;
 		iafData.x = 0;
@@ -451,99 +451,99 @@ void PictureBrowser::actionsGoButtonClicked()
 		iafData.linkToExistingFrame = false;
 		iafData.linkToExistingFramePtr=NULL;
 
-		tmpImage->insertIntoDocument ( m_Doc, iafData );
+		tmpImage->insertIntoDocument(m_Doc, iafData);
 	}
-	else if ( index == 1 )
+	else if(index == 1)
 	{
-		if ( !pbSettings.showMore )
+		if(!pbSettings.showMore)
 		{
-			expandDialog ( true );
+			expandDialog(true);
 		}
 
-		if ( tabWidget->currentIndex() != 3 )
+		if(tabWidget->currentIndex() != 3)
 		{
-			tabWidget->setCurrentIndex ( 3 );
+			tabWidget->setCurrentIndex(3);
 		}
 	}
-	else if ( index == 2 )
+	else if(index == 2)
 	{
-		navigationBox->setCurrentIndex ( 1 );
-		collectionsStackedwidget->setCurrentIndex ( 1 );
-		updateCollectionsWidget ( true );
-		collectionsWidget->blockSignals ( true );
+		navigationBox->setCurrentIndex(1);
+		collectionsStackedwidget->setCurrentIndex(1);
+		updateCollectionsWidget(true);
+		collectionsWidget->blockSignals(true);
 	}
 }
 
 
 void PictureBrowser::sortOrderButtonClicked()
 {
-	if ( !pbSettings.sortOrder )
+	if(!pbSettings.sortOrder)
 	{
 		pbSettings.sortOrder = true;
-		sortOrderButton->setIcon ( *iconArrowUp );
+		sortOrderButton->setIcon(*iconArrowUp);
 	}
 	else
 	{
 		pbSettings.sortOrder = false;
-		sortOrderButton->setIcon ( *iconArrowDown );
+		sortOrderButton->setIcon(*iconArrowDown);
 	}
 
-	if ( saveSettingsCheckbox->isChecked() )
+	if(saveSettingsCheckbox->isChecked())
 	{
 		pbSettings.save();
 	}
 
-	updateBrowser ( false, false, false );
+	updateBrowser(false, false, false);
 }
 
 
 void PictureBrowser::zoomPlusButtonClicked()
 {
-	if ( pbSettings.previewIconSize < 500 )
+	if(pbSettings.previewIconSize < 500)
 	{
 		pbSettings.previewIconSize += 20;
 
-		imageViewArea->SetIconSize ( QSize ( pbSettings.previewIconSize, pbSettings.previewIconSize ) );
-		imageViewArea->SetGridSize ( QSize ( qRound ( ( 1.1 ) *pbSettings.previewIconSize ), ( qRound ( ( 1.1 ) *pbSettings.previewIconSize ) + pbSettings.previewMode*10 ) ) );
+		imageViewArea->SetIconSize(QSize(pbSettings.previewIconSize, pbSettings.previewIconSize));
+		imageViewArea->SetGridSize(QSize(qRound(( 1.1)*pbSettings.previewIconSize),(qRound(( 1.1)*pbSettings.previewIconSize)+ pbSettings.previewMode*10)));
 
-		pModel->createDefaultIcon ( pbSettings.previewIconSize );
+		pModel->createDefaultIcon(pbSettings.previewIconSize);
 
-		if ( saveSettingsCheckbox->isChecked() )
+		if(saveSettingsCheckbox->isChecked())
 		{
 			pbSettings.save();
 		}
 
-		updateBrowser ( false, false, true );
+		updateBrowser(false, false, true);
 	}
 }
 
 
 void PictureBrowser::zoomMinusButtonClicked()
 {
-	if ( pbSettings.previewIconSize > 50 )
+	if(pbSettings.previewIconSize > 50)
 	{
 		pbSettings.previewIconSize -= 20;
 
-		imageViewArea->SetIconSize ( QSize ( pbSettings.previewIconSize, pbSettings.previewIconSize ) );
-		imageViewArea->SetGridSize ( QSize ( qRound ( ( 1.1 ) *pbSettings.previewIconSize ), ( qRound ( ( 1.1 ) *pbSettings.previewIconSize ) + pbSettings.previewMode*10 ) ) );
+		imageViewArea->SetIconSize(QSize(pbSettings.previewIconSize, pbSettings.previewIconSize));
+		imageViewArea->SetGridSize(QSize(qRound(( 1.1)*pbSettings.previewIconSize),(qRound(( 1.1)*pbSettings.previewIconSize)+ pbSettings.previewMode*10)));
 
-		pModel->createDefaultIcon ( pbSettings.previewIconSize );
+		pModel->createDefaultIcon(pbSettings.previewIconSize);
 
-		if ( saveSettingsCheckbox->isChecked() )
+		if(saveSettingsCheckbox->isChecked())
 		{
 			pbSettings.save();
 		}
 
-		updateBrowser ( false, false, true );
+		updateBrowser(false, false, true);
 	}
 }
 
 
-void PictureBrowser::tabWidgetCurrentChanged ( int index )
+void PictureBrowser::tabWidgetCurrentChanged(int index)
 {
-	if ( index == 0 )
+	if(index == 0)
 	{
-		updateInformationTab ( previewIconIndex );
+		updateInformationTab(previewIconIndex);
 	}
 }
 
@@ -552,20 +552,20 @@ void PictureBrowser::gotoPageButtonClicked()
 {
 	QTreeWidgetItem *item = documentWidget->currentItem();
 
-	if ( !item )
+	if(!item)
 	{
 		return;
 	}
 
-	int id = item->data ( 0, Qt::UserRole ).toInt();
+	int id = item->data(0, Qt::UserRole).toInt();
 
-	if ( id > 0 )
+	if(id > 0)
 	{
 		id--;
 	}
 
 	ScCore->primaryMainWindow()->closeActiveWindowMasterPageEditor();
-	emit selectPage ( id );
+	emit selectPage(id);
 }
 
 
@@ -573,12 +573,12 @@ void PictureBrowser::alwaysOnTopCheckboxStateChanged()
 {
 	pbSettings.alwaysOnTop = alwaysOnTopCheckbox->isChecked();
 
-	if ( saveSettingsCheckbox->isChecked() )
+	if(saveSettingsCheckbox->isChecked())
 	{
 		pbSettings.save();
 	}
 
-	setAlwaysOnTop ( pbSettings.alwaysOnTop );
+	setAlwaysOnTop(pbSettings.alwaysOnTop);
 }
 
 
@@ -596,19 +596,19 @@ void PictureBrowser::subdirsCheckboxStateChanged()
 
 
 // processes chosen dirs in the folderbrowser
-void PictureBrowser::dirChosen ( const QModelIndex &index )
+void PictureBrowser::dirChosen(const QModelIndex &index)
 {
 	// as long as the folder doesnt change, only the first signal (click, doubleclick or activated) is processed
-	if ( documentChanged || !tmpindex.isValid() || ( tmpindex != index ) )
+	if(documentChanged || !tmpindex.isValid() ||(tmpindex != index))
 	{
 		tmpindex = index;
 		documentChanged = false;
-		currPath = folderModel.filePath ( index );
+		currPath = folderModel.filePath(index);
 
-		if ( !fit )
+		if(!fit)
 		{
-			fit = new findImagesThread ( currPath, nameFilters, QDir::Name, folderBrowserIncludeSubdirs );
-			connect ( fit, SIGNAL ( finished() ), this, SLOT ( findImagesThreadFinished() ), Qt::QueuedConnection );
+			fit = new findImagesThread(currPath, nameFilters, QDir::Name, folderBrowserIncludeSubdirs);
+			connect(fit, SIGNAL(finished()), this, SLOT(findImagesThreadFinished()), Qt::QueuedConnection);
 			fit->start();
 		}
 		else
@@ -619,11 +619,11 @@ void PictureBrowser::dirChosen ( const QModelIndex &index )
 }
 
 
-void PictureBrowser::documentChosen ( QTreeWidgetItem * item, int column )
+void PictureBrowser::documentChosen(QTreeWidgetItem * item, int column)
 {
 	PageItem *pItem;
 	QStringList imageFiles;
-	int id = item->data ( 0, Qt::UserRole ).toInt();
+	int id = item->data(0, Qt::UserRole).toInt();
 	QList<PageItem*> allItems;
 	for (int a = 0; a < m_Doc->MasterItems.count(); ++a)
 	{
@@ -635,11 +635,11 @@ void PictureBrowser::documentChosen ( QTreeWidgetItem * item, int column )
 		for (int ii = 0; ii < allItems.count(); ii++)
 		{
 			pItem = allItems.at(ii);
-			if ( ( pItem->itemType() == PageItem::ImageFrame ) && ( pItem->imageIsAvailable ) && ( !pItem->asLatexFrame() ) )
+			if(( pItem->itemType() == PageItem::ImageFrame)&&(pItem->imageIsAvailable)&&(!pItem->asLatexFrame()))
 			{
-				if ( ( id == 0 ) || ( ( id-1 ) == pItem->OwnPage ) )
+				if(( id == 0)||(( id-1)== pItem->OwnPage))
 				{
-					imageFiles.append ( pItem->Pfile );
+					imageFiles.append(pItem->Pfile);
 				}
 			}
 		}
@@ -655,11 +655,11 @@ void PictureBrowser::documentChosen ( QTreeWidgetItem * item, int column )
 		for (int ii = 0; ii < allItems.count(); ii++)
 		{
 			pItem = allItems.at(ii);
-			if ( ( pItem->itemType() == PageItem::ImageFrame ) && ( pItem->imageIsAvailable ) && ( !pItem->asLatexFrame() ) )
+			if(( pItem->itemType() == PageItem::ImageFrame)&&(pItem->imageIsAvailable)&&(!pItem->asLatexFrame()))
 			{
-				if ( ( id == 0 ) || ( ( id-1 ) == pItem->OwnPage ) )
+				if(( id == 0)||(( id-1)== pItem->OwnPage))
 				{
-					imageFiles.append ( pItem->Pfile );
+					imageFiles.append(pItem->Pfile);
 				}
 			}
 		}
@@ -669,27 +669,27 @@ void PictureBrowser::documentChosen ( QTreeWidgetItem * item, int column )
 //todo: check if item is selected: item->isSelected()
 
 
-	pImages->createPreviewImagesList ( imageFiles );
+	pImages->createPreviewImagesList(imageFiles);
 
-	updateBrowser ( true, true, false );
+	updateBrowser(true, true, false);
 }
 
 
-void PictureBrowser::collectionChosen ( QTreeWidgetItem * item, int column )
+void PictureBrowser::collectionChosen(QTreeWidgetItem * item, int column)
 {
-	QString collectionFile = item->data ( 0, Qt::UserRole ).toString();
+	QString collectionFile = item->data(0, Qt::UserRole).toString();
 
-	if ( collectionFile == "Category" )
+	if(collectionFile == "Category")
 	{
 		return;
 	}
 
 	currCollectionFile = collectionFile;
 
-	if ( !crt )
+	if(!crt)
 	{
-		crt = new collectionReaderThread ( currCollectionFile, false );
-		connect ( crt, SIGNAL ( finished() ), this, SLOT ( collectionReaderThreadFinished() ) );
+		crt = new collectionReaderThread(currCollectionFile, false);
+		connect(crt, SIGNAL(finished()), this, SLOT(collectionReaderThreadFinished()));
 		crt->start();
 	}
 	else
@@ -699,7 +699,7 @@ void PictureBrowser::collectionChosen ( QTreeWidgetItem * item, int column )
 }
 
 
-void PictureBrowser::collectionsWidgetItemEdited ( QTreeWidgetItem * item, int column )
+void PictureBrowser::collectionsWidgetItemEdited(QTreeWidgetItem * item, int column)
 {
 	saveCollectionsDb();
 }
@@ -707,20 +707,20 @@ void PictureBrowser::collectionsWidgetItemEdited ( QTreeWidgetItem * item, int c
 
 void PictureBrowser::findImagesThreadFinished()
 {
-	if ( fit->restartThread )
+	if(fit->restartThread)
 	{
 		delete fit;
 
 		//maybe the state of folderBrowserIncludeSubdirs needs to be saved when canceling the old thread
-		fit = new findImagesThread ( currPath, nameFilters, QDir::Name, folderBrowserIncludeSubdirs );
-		connect ( fit, SIGNAL ( finished() ), this, SLOT ( findImagesThreadFinished() ), Qt::QueuedConnection );
+		fit = new findImagesThread(currPath, nameFilters, QDir::Name, folderBrowserIncludeSubdirs);
+		connect(fit, SIGNAL(finished()), this, SLOT(findImagesThreadFinished()), Qt::QueuedConnection);
 		fit->start();
 	}
 	else
 	{
-		pImages->createPreviewImagesList ( fit->imageFiles );
+		pImages->createPreviewImagesList(fit->imageFiles);
 
-		updateBrowser ( true, true, false );
+		updateBrowser(true, true, false);
 
 		delete fit;
 		fit = 0;
@@ -730,74 +730,74 @@ void PictureBrowser::findImagesThreadFinished()
 
 void PictureBrowser::collectionReaderThreadFinished()
 {
-	if ( crt->restartThread )
+	if(crt->restartThread)
 	{
 		bool import = crt->import;
 		delete crt;
 
-		crt = new collectionReaderThread ( currCollectionFile, import );
-		connect ( crt, SIGNAL ( finished() ), this, SLOT ( collectionReaderThreadFinished() ) );
+		crt = new collectionReaderThread(currCollectionFile, import);
+		connect(crt, SIGNAL(finished()), this, SLOT(collectionReaderThreadFinished()));
 		crt->start();
 
 		return;
 	}
 
-	switch ( crt->type )
+	switch(crt->type)
 	{
 		case 0:
-// 			ScMessageBox::warning ( this, tr ( "Picture Browser Error" ), tr ( "File not found or file is not a collection file" ) );
+// 			ScMessageBox::warning(this, tr("Picture Browser Error"), tr("File not found or file is not a collection file"));
 			break;
 
 		case 1:
 			collectionsDb += crt->collectionsSet;
 
-			updateCollectionsWidget ( false );
+			updateCollectionsWidget(false);
 			updateCollectionsAddImagesCombobox();
 			break;
 
 		case 2:
-			if ( crt->import )
+			if(crt->import)
 			{
-				collectionsWidget->blockSignals ( true );
+				collectionsWidget->blockSignals(true);
 
 				QTreeWidgetItem *currItem = collectionsWidget->currentItem();
 
-				if ( !currItem )
+				if(!currItem)
 				{
-					currItem = collectionsWidget->topLevelItem ( 0 );
+					currItem = collectionsWidget->topLevelItem(0);
 
-					if ( !currItem )
+					if(!currItem)
 					{
-						ScMessageBox::warning ( this, tr ( "Picture Browser Error" ), tr ( "You have to create a category first" ) );
+						ScMessageBox::warning(this, tr("Picture Browser Error"), tr("You have to create a category first"));
 						return;
 					}
 				}
 
 				QTreeWidgetItem *tmpItem;
 
-				if ( currItem->parent() )
+				if(currItem->parent())
 				{
-					tmpItem = new QTreeWidgetItem ( currItem->parent(), QStringList ( crt->collection->name ) );
+					tmpItem = new QTreeWidgetItem(currItem->parent(), QStringList(crt->collection->name));
 				}
 				else
 				{
-					tmpItem = new QTreeWidgetItem ( currItem, QStringList ( crt->collection->name ) );
+					tmpItem = new QTreeWidgetItem(currItem, QStringList(crt->collection->name));
 				}
 
-				tmpItem->setFlags ( Qt::ItemIsSelectable|Qt::ItemIsEditable|Qt::ItemIsEnabled );
-				tmpItem->setData ( 0, Qt::UserRole, crt->collection->file );
-				tmpItem->setIcon ( 0, *iconCollection );
-				collectionsWidget->blockSignals ( false );
+				tmpItem->setFlags(Qt::ItemIsSelectable|Qt::ItemIsEditable|Qt::ItemIsEnabled);
+				tmpItem->setData(0, Qt::UserRole, crt->collection->file);
+				tmpItem->setIcon(0, *iconCollection);
+				collectionsWidget->blockSignals(false);
 
-				collectionsWidget->setCurrentItem ( tmpItem );
+				collectionsWidget->setCurrentItem(tmpItem);
 				saveCollectionsDb();
 			}
 
 			currCollection = crt->collection;
-			pImages->createPreviewImagesList ( currCollection );
+			pImages->createPreviewImagesList(currCollection);
 
 			//update view
-			updateBrowser ( true, true, false );
+			updateBrowser(true, true, false);
 			updateCollectionsAddImagesCombobox();
 			break;
 
@@ -838,17 +838,17 @@ void PictureBrowser::collectionReaderThreadListFinishedSave()
 	collectionWriterThread *tmpCwt;
 	imageCollection *tmpCollection;
 
-	for ( int i = 0 ; i < crtList.size() ; ++i )
+	for(int i = 0 ; i < crtList.size() ; ++i)
 	{
-		tmpCrt = crtList.at ( i );
+		tmpCrt = crtList.at(i);
 
-		if ( tmpCrt->isFinished() )
+		if(tmpCrt->isFinished())
 		{
 			QStringList tmpTags;
 
-			if ( !tmpCrt->type )
+			if(!tmpCrt->type)
 			{
-				ScMessageBox::warning ( this, tr ( "Picture Browser Error" ), QString ( "A collection was not found:\n%1\nit will be created" ).arg ( tmpCrt->xmlFile ) );
+				ScMessageBox::warning(this, tr("Picture Browser Error"), QString("A collection was not found:\n%1\nit will be created").arg(tmpCrt->xmlFile));
 				tmpCollection = new imageCollection;
 				tmpCollection->imageFiles = tmpCrt->addImages;
 			}
@@ -859,18 +859,18 @@ void PictureBrowser::collectionReaderThreadListFinishedSave()
 			}
 
 			//add empty tags for list consistency
-			for ( int j = 0 ; j < tmpCrt->addImages.size() ; ++j )
+			for(int j = 0 ; j < tmpCrt->addImages.size() ; ++j)
 			{
-				tmpCollection->tags.append ( tmpTags );
+				tmpCollection->tags.append(tmpTags);
 			}
 
-			tmpCwt = new collectionWriterThread ( tmpCrt->xmlFile, *tmpCollection );
-			connect ( tmpCwt, SIGNAL ( finished() ), this, SLOT ( collectionWriterThreadListFinished() ) );
-			cwtList.append ( tmpCwt );
+			tmpCwt = new collectionWriterThread(tmpCrt->xmlFile, *tmpCollection);
+			connect(tmpCwt, SIGNAL(finished()), this, SLOT(collectionWriterThreadListFinished()));
+			cwtList.append(tmpCwt);
 			tmpCwt->start();
 
 			delete tmpCollection;
-			delete crtList.takeAt ( i );
+			delete crtList.takeAt(i);
 		}
 	}
 }
@@ -878,12 +878,12 @@ void PictureBrowser::collectionReaderThreadListFinishedSave()
 
 void PictureBrowser::collectionsDbWriterThreadFinished()
 {
-	if ( cdbwt->restartThread )
+	if(cdbwt->restartThread)
 	{
 		delete cdbwt;
 
-		cdbwt = new collectionsWriterThread ( cdbFile, collectionsDb );
-		connect ( cdbwt, SIGNAL ( finished() ), this, SLOT ( collectionsDbWriterThreadFinished() ) );
+		cdbwt = new collectionsWriterThread(cdbFile, collectionsDb);
+		connect(cdbwt, SIGNAL(finished()), this, SLOT(collectionsDbWriterThreadFinished()));
 		cdbwt->start();
 	}
 	else
@@ -896,50 +896,50 @@ void PictureBrowser::collectionsDbWriterThreadFinished()
 
 void PictureBrowser::collectionWriterThreadListFinished()
 {
-	for ( int i = 0 ; i < cwtList.size() ; ++i )
+	for(int i = 0 ; i < cwtList.size() ; ++i)
 	{
-		if ( cwtList.at ( i )->isFinished() )
+		if(cwtList.at(i)->isFinished())
 		{
-			delete cwtList.takeAt ( i );
+			delete cwtList.takeAt(i);
 		}
 	}
 }
 
 
-void PictureBrowser::insertPagesComboboxCheckstateChanged ( int row )
+void PictureBrowser::insertPagesComboboxCheckstateChanged(int row)
 {
-	int tmpState = insertPagesCombobox->checkstate ( 1 );
+	int tmpState = insertPagesCombobox->checkstate(1);
 
-	if ( row == 1 )
+	if(row == 1)
 	{
 		int itemsCount = insertPagesCombobox->count();
 
-		for ( int i = 2 ; i < itemsCount ; ++i )
+		for(int i = 2 ; i < itemsCount ; ++i)
 		{
-			insertPagesCombobox->setCheckstate ( i, tmpState );
+			insertPagesCombobox->setCheckstate(i, tmpState);
 		}
 	}
-	else if ( ( tmpState == 1 ) && ( row > 1 ) )
+	else if(( tmpState == 1)&&(row > 1))
 	{
-		insertPagesCombobox->setCheckstate ( 1, 0 );
+		insertPagesCombobox->setCheckstate(1, 0);
 	}
 
-	insertPagesCombobox->setCurrentIndex ( row );
+	insertPagesCombobox->setCurrentIndex(row);
 }
 
 
 void PictureBrowser::insertImageButtonClicked()
 {
-	if ( ( previewIconIndex < 0 ) || ( previewIconIndex > pModel->modelItemsList.size() ) )
+	if(( previewIconIndex < 0)||(previewIconIndex > pModel->modelItemsList.size()))
 	{
-		ScMessageBox::warning ( this, tr ( "Picture Browser Error" ), tr ( "No image(s) selected" ) );
+		ScMessageBox::warning(this, tr("Picture Browser Error"), tr("No image(s) selected"));
 		return;
 	}
 
 	previewImage *tmpImage;
 
 //image from pModel needed here
-	tmpImage = pModel->modelItemsList.at ( previewIconIndex );
+	tmpImage = pModel->modelItemsList.at(previewIconIndex);
 	InsertAFrameData iafData;
 
 	iafData.frameType=PageItem::ImageFrame;
@@ -947,7 +947,7 @@ void PictureBrowser::insertImageButtonClicked()
 
 	QString pageList = "";
 
-	if ( insertPagesCombobox->checkstate ( 1 ) == 1 )
+	if(insertPagesCombobox->checkstate(1)== 1)
 	{
 		iafData.locationType = 1;
 	}
@@ -956,32 +956,32 @@ void PictureBrowser::insertImageButtonClicked()
 		iafData.locationType = 2;
 
 		//current page has been selected
-		if ( insertPagesCombobox->checkstate ( 0 ) == 1 )
+		if(insertPagesCombobox->checkstate(0)== 1)
 		{
 			int currPage = m_Doc->currentPageNumber() + 1;
 
 			//prevent double insert, only add current page to pagelist if the page isn't selected yet
-			if ( insertPagesCombobox->checkstate ( currPage + 1 ) == 0 )
+			if(insertPagesCombobox->checkstate(currPage + 1)== 0)
 			{
-				pageList += QString ( "%1," ).arg ( currPage );
+				pageList += QString("%1,").arg(currPage);
 			}
 		}
 
-		for ( int i = 2 ; i < insertPagesCombobox->count() ; ++i )
+		for(int i = 2 ; i < insertPagesCombobox->count() ; ++i)
 		{
-			if ( insertPagesCombobox->checkstate ( i ) == 1 )
+			if(insertPagesCombobox->checkstate(i)== 1)
 			{
-				pageList += QString ( "%1," ).arg ( i-1 );
+				pageList += QString("%1,").arg(i-1);
 			}
 		}
 
-		if ( pageList.isEmpty() )
+		if(pageList.isEmpty())
 		{
-			ScMessageBox::warning ( this, tr ( "Picture Browser Error" ), tr ( "No page/image frame selected" ) );
+			ScMessageBox::warning(this, tr("Picture Browser Error"), tr("No page/image frame selected"));
 			return;
 		}
 
-		pageList.chop ( 1 );
+		pageList.chop(1);
 	}
 
 	iafData.pageList = pageList;
@@ -1000,99 +1000,99 @@ void PictureBrowser::insertImageButtonClicked()
 	iafData.linkToExistingFrame = false;
 	iafData.linkToExistingFramePtr=NULL;
 
-	tmpImage->insertIntoDocument ( m_Doc, iafData );
+	tmpImage->insertIntoDocument(m_Doc, iafData);
 }
 
 
-void PictureBrowser::insertPositionComboboxChanged ( int index )
+void PictureBrowser::insertPositionComboboxChanged(int index)
 {
-	if ( ( index == 3 ) && !insertCustomPosition )
+	if(( index == 3)&& !insertCustomPosition)
 	{
-		insertPositionXSpinbox->setEnabled ( true );
-		insertPositionYSpinbox->setEnabled ( true );
-		insertPositionXLabel->setEnabled ( true );
-		insertPositionYLabel->setEnabled ( true );
+		insertPositionXSpinbox->setEnabled(true);
+		insertPositionYSpinbox->setEnabled(true);
+		insertPositionXLabel->setEnabled(true);
+		insertPositionYLabel->setEnabled(true);
 		insertCustomPosition = true;
 	}
-	else if ( insertCustomPosition )
+	else if(insertCustomPosition)
 	{
-		insertPositionXSpinbox->setEnabled ( false );
-		insertPositionYSpinbox->setEnabled ( false );
-		insertPositionXLabel->setEnabled ( false );
-		insertPositionYLabel->setEnabled ( false );
+		insertPositionXSpinbox->setEnabled(false);
+		insertPositionYSpinbox->setEnabled(false);
+		insertPositionXLabel->setEnabled(false);
+		insertPositionYLabel->setEnabled(false);
 		insertCustomPosition = false;
 	}
 }
 
 
-void PictureBrowser::insertSizeComboboxChanged ( int index )
+void PictureBrowser::insertSizeComboboxChanged(int index)
 {
-	if ( ( index == 3 ) && !insertCustomSize )
+	if(( index == 3)&& !insertCustomSize)
 	{
-		insertWidthSpinbox->setEnabled ( true );
-		insertHeightSpinbox->setEnabled ( true );
-		insertWidthLabel->setEnabled ( true );
-		insertHeightLabel->setEnabled ( true );
+		insertWidthSpinbox->setEnabled(true);
+		insertHeightSpinbox->setEnabled(true);
+		insertWidthLabel->setEnabled(true);
+		insertHeightLabel->setEnabled(true);
 		insertCustomSize = true;
 	}
-	else if ( insertCustomSize )
+	else if(insertCustomSize)
 	{
-		insertWidthSpinbox->setEnabled ( false );
-		insertHeightSpinbox->setEnabled ( false );
-		insertWidthLabel->setEnabled ( false );
-		insertHeightLabel->setEnabled ( false );
+		insertWidthSpinbox->setEnabled(false);
+		insertHeightSpinbox->setEnabled(false);
+		insertWidthLabel->setEnabled(false);
+		insertHeightLabel->setEnabled(false);
 		insertCustomSize = false;
 	}
 }
 
 
-void PictureBrowser::filterCriteriaComboboxChanged ( int index )
+void PictureBrowser::filterCriteriaComboboxChanged(int index)
 {
 	//this check shouldnt be necessary but you never know...
-	if ( ( index >= 0 ) && ( index < 5 ) )
+	if(( index >= 0)&&(index < 5))
 	{
-		filterStackedwidget->setCurrentIndex ( index );
+		filterStackedwidget->setCurrentIndex(index);
 	}
 }
 
 
-void PictureBrowser::filterTargetComboboxChanged ( int index )
+void PictureBrowser::filterTargetComboboxChanged(int index)
 {
-	if ( ( index >= 0 ) && ( index < 3 ) )
+	if(( index >= 0)&&(index < 3))
 	{
-		filterTargetStackedWidget->setCurrentIndex ( index );
+		filterTargetStackedWidget->setCurrentIndex(index);
 	}
 
-	if ( index == 1 )
+	if(index == 1)
 	{
-		filterFilterButton->setText ( "Search" );
+		filterFilterButton->setText("Search");
 	}
 	else
 	{
-		filterFilterButton->setText ( "Apply Filters" );
+		filterFilterButton->setText("Apply Filters");
 	}
 }
 
 
 void PictureBrowser::filterFilterButtonClicked()
 {
-	if ( filterTargetCombobox->currentIndex() == 1 )
+	if(filterTargetCombobox->currentIndex() == 1)
 	{
 		QString searchDir = filterSearchLineedit->text();
-		QDir dir ( searchDir );
+		QDir dir(searchDir);
 
-		if ( !dir.exists() )
+		if(!dir.exists())
 		{
-			ScMessageBox::warning ( this, tr ( "Picture Browser Error" ), tr ( "Directory does not exist" ) );
+			ScMessageBox::warning(this, tr("Picture Browser Error"), tr("Directory does not exist"));
 			return;
 		}
 
 		currPath = searchDir;
 
-		if ( !fit )
+		if(!fit)
 		{
-			fit = new findImagesThread ( currPath, nameFilters, QDir::Name, true );
-			connect ( fit, SIGNAL ( finished() ), this, SLOT ( findImagesThreadFinished() ) );
+			fit = new findImagesThread(currPath, nameFilters, QDir::Name, true);
+			connect(fit, SIGNAL(finished()), this, SLOT(findImagesThreadFinished()));
 			fit->start();
 		}
 		else
@@ -1100,7 +1100,7 @@ void PictureBrowser::filterFilterButtonClicked()
 			fit->restart();
 		}
 	}
-	else if ( filterTargetCombobox->currentIndex() == 2 )
+	else if(filterTargetCombobox->currentIndex() == 2)
 	{
 		/*	if(!clrt)
 			{
@@ -1115,7 +1115,7 @@ void PictureBrowser::filterFilterButtonClicked()
 	}
 	else
 	{
-		updateBrowser ( true, false, false );
+		updateBrowser(true, false, false);
 	}
 }
 
@@ -1128,7 +1128,7 @@ void PictureBrowser::filterClearButtonClicked()
 	delete filters;
 	filters = new imageFilters;
 
-	updateBrowser ( true, false, false );
+	updateBrowser(true, false, false);
 }
 
 
@@ -1136,131 +1136,131 @@ void PictureBrowser::filterAddCriterionButtonClicked()
 {
 	QListWidgetItem *newItem = new QListWidgetItem;
 
-	newItem->setFlags ( Qt::ItemIsSelectable | Qt::ItemIsUserCheckable | Qt::ItemIsEnabled );
-	newItem->setCheckState ( Qt::Checked );
+	newItem->setFlags(Qt::ItemIsSelectable | Qt::ItemIsUserCheckable | Qt::ItemIsEnabled);
+	newItem->setCheckState(Qt::Checked);
 
 	int index = filterCriteriaCombobox->currentIndex();
 	QString filterText = "Empty Filter";
 
-	if ( index == 0 )
+	if(index == 0)
 	{
-		if ( filterNameCombobox->currentIndex() == 0 )
+		if(filterNameCombobox->currentIndex() == 0)
 		{
-			filterText = QString ( "Name contains \"%1\"" ).arg ( filterNameLineedit->text() );
-			filters->nameInverts.append ( true );
+			filterText = QString("Name contains \"%1\"").arg(filterNameLineedit->text());
+			filters->nameInverts.append(true);
 		}
 		else
 		{
-			filterText = QString ( "Name does not contain \"%1\"" ).arg ( filterNameLineedit->text() );
-			filters->nameInverts.append ( false );
+			filterText = QString("Name does not contain \"%1\"").arg(filterNameLineedit->text());
+			filters->nameInverts.append(false);
 		}
 
-		filters->nameFilters.append ( filterNameLineedit->text() );
+		filters->nameFilters.append(filterNameLineedit->text());
 	}
-	else if ( index == 1 )
+	else if(index == 1)
 	{
-		if ( filterDateCombobox->currentIndex() == 0 )
+		if(filterDateCombobox->currentIndex() == 0)
 		{
-			filterText = QString ( "Newer than %1" ).arg ( filterDateDatetimeedit->dateTime().toString ( "dd.MM.yyyy hh:mm" ) );
-			filters->dateInverts.append ( false );
+			filterText = QString("Newer than %1").arg(filterDateDatetimeedit->dateTime().toString("dd.MM.yyyy hh:mm"));
+			filters->dateInverts.append(false);
 		}
 		else
 		{
-			filterText = QString ( "Older than %1" ).arg ( filterDateDatetimeedit->dateTime().toString ( "dd.MM.yyyy hh:mm" ) );
-			filters->dateInverts.append ( true );
+			filterText = QString("Older than %1").arg(filterDateDatetimeedit->dateTime().toString("dd.MM.yyyy hh:mm"));
+			filters->dateInverts.append(true);
 		}
 
-		filters->dateFilters.append ( filterDateDatetimeedit->dateTime() );
+		filters->dateFilters.append(filterDateDatetimeedit->dateTime());
 	}
-	else if ( index == 2 )
+	else if(index == 2)
 	{
-		if ( filterSizeCombobox->currentIndex() == 0 )
+		if(filterSizeCombobox->currentIndex() == 0)
 		{
-			filterText = QString ( "Smaller than %1 KB" ).arg ( filterSizeSpinbox->value() );
-			filters->sizeInverts.append ( true );
+			filterText = QString("Smaller than %1 KB").arg(filterSizeSpinbox->value());
+			filters->sizeInverts.append(true);
 		}
 		else
 		{
-			filterText = QString ( "Bigger than %1 KB" ).arg ( filterSizeSpinbox->value() );
-			filters->sizeInverts.append ( false );
+			filterText = QString("Bigger than %1 KB").arg(filterSizeSpinbox->value());
+			filters->sizeInverts.append(false);
 		}
 
-		filters->sizeFilters.append ( filterSizeSpinbox->value() );
+		filters->sizeFilters.append(filterSizeSpinbox->value());
 	}
-	else if ( index == 3 )
+	else if(index == 3)
 	{
 		QStringList types;
-		filterText = QString ( "Allowed types: " );
+		filterText = QString("Allowed types: ");
 
-		if ( filterTypeCombobox->checkstate ( 0 ) == 1 )
+		if(filterTypeCombobox->checkstate(0)== 1)
 		{
-			filterText += QString ( "All supported types (really a useful filter...)" );
+			filterText += QString("All supported types (really a useful filter...)");
 			types = nameFilters;
 		}
 		else
 		{
 			int itemsCount = filterTypeCombobox->count();
 
-			for ( int i = 1 ; i < itemsCount ; ++i )
+			for(int i = 1 ; i < itemsCount ; ++i)
 			{
-				if ( filterTypeCombobox->checkstate ( i ) == 1 )
+				if(filterTypeCombobox->checkstate(i)== 1)
 				{
-					filterText += QString ( "\"%1\", " ).arg ( nameFilters.at ( i - 1 ) );
-					types.append ( nameFilters.at ( i - 1 ) );
+					filterText += QString("\"%1\", ").arg(nameFilters.at(i - 1));
+					types.append(nameFilters.at(i - 1));
 				}
 			}
 		}
 
-		filters->typeFilters.append ( types );
+		filters->typeFilters.append(types);
 	}
-	else if ( index == 4 )
+	else if(index == 4)
 	{
 		QStringList tags;
-		filterText = QString ( "Has tags: " );
+		filterText = QString("Has tags: ");
 
 		int itemsCount = filterTagsCombobox->count();
 
-		for ( int i = 1 ; i < itemsCount ; ++i )
+		for(int i = 1 ; i < itemsCount ; ++i)
 		{
-			if ( filterTagsCombobox->checkstate ( i ) == 1 )
+			if(filterTagsCombobox->checkstate(i)== 1)
 			{
-				filterText += QString ( "\"%1\", " ).arg ( filterTagsCombobox->itemText ( i ) );
-				tags.append ( filterTagsCombobox->itemText ( i ) );
+				filterText += QString("\"%1\", ").arg(filterTagsCombobox->itemText(i));
+				tags.append(filterTagsCombobox->itemText(i));
 			}
 		}
 
-		filters->tagFilters.append ( tags );
+		filters->tagFilters.append(tags);
 	}
 
-	filters->filterMap.append ( index );
+	filters->filterMap.append(index);
 
-	newItem->setText ( filterText );
-	filterFiltersListwidget->addItem ( newItem );
+	newItem->setText(filterText);
+	filterFiltersListwidget->addItem(newItem);
 }
 
 
 void PictureBrowser::filterSearchDirButtonClicked()
 {
-	QString searchDir = QFileDialog::getExistingDirectory ( this, tr ( "Select Directory" ), QDir::rootPath(), QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks );
-	filterSearchLineedit->setText ( searchDir );
+	QString searchDir = QFileDialog::getExistingDirectory(this, tr("Select Directory"), QDir::rootPath(), QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks);
+	filterSearchLineedit->setText(searchDir);
 }
 
 
 void PictureBrowser::collectionsNewCategoryButtonClicked()
 {
-	collectionsWidget->blockSignals ( true );
+	collectionsWidget->blockSignals(true);
 
 	QTreeWidgetItem *tmpCategory;
 
-	tmpCategory = new QTreeWidgetItem ( collectionsWidget, QStringList ( "New Category" ) );
-	tmpCategory->setFlags ( Qt::ItemIsSelectable|Qt::ItemIsEditable|Qt::ItemIsEnabled );
-	tmpCategory->setData ( 0, Qt::UserRole, QString ( "Category" ) );
-	tmpCategory->setExpanded ( true );
+	tmpCategory = new QTreeWidgetItem(collectionsWidget, QStringList("New Category"));
+	tmpCategory->setFlags(Qt::ItemIsSelectable|Qt::ItemIsEditable|Qt::ItemIsEnabled);
+	tmpCategory->setData(0, Qt::UserRole, QString("Category"));
+	tmpCategory->setExpanded(true);
 
-	collectionsWidget->blockSignals ( false );
+	collectionsWidget->blockSignals(false);
 
-	collectionsWidget->setCurrentItem ( tmpCategory );
-	collectionsWidget->editItem ( tmpCategory );
+	collectionsWidget->setCurrentItem(tmpCategory);
+	collectionsWidget->editItem(tmpCategory);
 
 	saveCollectionsDb();
 }
@@ -1268,17 +1268,17 @@ void PictureBrowser::collectionsNewCategoryButtonClicked()
 
 void PictureBrowser::collectionsNewButtonClicked()
 {
-	collectionsWidget->blockSignals ( true );
+	collectionsWidget->blockSignals(true);
 
 	QTreeWidgetItem *currItem = collectionsWidget->currentItem();
 
-	if ( !currItem )
+	if(!currItem)
 	{
-		currItem = collectionsWidget->topLevelItem ( 0 );
+		currItem = collectionsWidget->topLevelItem(0);
 
-		if ( !currItem )
+		if(!currItem)
 		{
-			ScMessageBox::warning ( this, tr ( "Picture Browser Error" ), tr ( "You have to create a category first" ) );
+			ScMessageBox::warning(this, tr("Picture Browser Error"), tr("You have to create a category first"));
 			return;
 		}
 	}
@@ -1288,48 +1288,48 @@ void PictureBrowser::collectionsNewButtonClicked()
 
 	parentItem = currItem->parent();
 
-	if ( parentItem )
+	if(parentItem)
 	{
-		tmpItem = new QTreeWidgetItem ( parentItem, QStringList ( "New Collection" ) );
-		newCollectionFile += QString ( "c%1_%2.sic" ).arg ( collectionsWidget->indexOfTopLevelItem ( parentItem ) ).arg ( parentItem->childCount() );
+		tmpItem = new QTreeWidgetItem(parentItem, QStringList("New Collection"));
+		newCollectionFile += QString("c%1_%2.sic").arg(collectionsWidget->indexOfTopLevelItem(parentItem)).arg(parentItem->childCount());
 	}
 	else
 	{
-		tmpItem = new QTreeWidgetItem ( currItem, QStringList ( "New Collection" ) );
-		newCollectionFile += QString ( "c%1_%2.sic" ).arg ( collectionsWidget->indexOfTopLevelItem ( currItem ) ).arg ( currItem->childCount() );
+		tmpItem = new QTreeWidgetItem(currItem, QStringList("New Collection"));
+		newCollectionFile += QString("c%1_%2.sic").arg(collectionsWidget->indexOfTopLevelItem(currItem)).arg(currItem->childCount());
 	}
 
-	tmpItem->setFlags ( Qt::ItemIsSelectable|Qt::ItemIsEditable|Qt::ItemIsEnabled );
-	tmpItem->setData ( 0, Qt::UserRole, newCollectionFile );
-	tmpItem->setIcon ( 0, *iconCollection );
-	collectionsWidget->blockSignals ( false );
+	tmpItem->setFlags(Qt::ItemIsSelectable|Qt::ItemIsEditable|Qt::ItemIsEnabled);
+	tmpItem->setData(0, Qt::UserRole, newCollectionFile);
+	tmpItem->setIcon(0, *iconCollection);
+	collectionsWidget->blockSignals(false);
 
-	collectionsWidget->setCurrentItem ( tmpItem );
-	collectionsWidget->editItem ( tmpItem );
+	collectionsWidget->setCurrentItem(tmpItem);
+	collectionsWidget->editItem(tmpItem);
 
 	saveCollectionsDb();
 
 	imageCollection tmpCollection;
 	collectionWriterThread *tmpCwt;
-	tmpCwt = new collectionWriterThread ( newCollectionFile, tmpCollection );
-	connect ( tmpCwt, SIGNAL ( finished() ), this, SLOT ( collectionWriterThreadListFinished() ) );
-	cwtList.append ( tmpCwt );
+	tmpCwt = new collectionWriterThread(newCollectionFile, tmpCollection);
+	connect(tmpCwt, SIGNAL(finished()), this, SLOT(collectionWriterThreadListFinished()));
+	cwtList.append(tmpCwt);
 	tmpCwt->start();
 }
 
 
 void PictureBrowser::collectionsImportButtonClicked()
 {
-	QString fileName = QFileDialog::getOpenFileName ( this, tr ( "Import Image Collection" ), QDir::rootPath(), tr ( "Scribus ImageCollection (*.sic)" ) );
+	QString fileName = QFileDialog::getOpenFileName(this, tr("Import Image Collection"), QDir::rootPath(), tr("Scribus ImageCollection (*.sic)"));
 
-	if ( !fileName.isEmpty() )
+	if(!fileName.isEmpty())
 	{
 		currCollectionFile = fileName;
 
-		if ( !crt )
+		if(!crt)
 		{
-			crt = new collectionReaderThread ( currCollectionFile, true );
-			connect ( crt, SIGNAL ( finished() ), this, SLOT ( collectionReaderThreadFinished() ) );
+			crt = new collectionReaderThread(currCollectionFile, true);
+			connect(crt, SIGNAL(finished()), this, SLOT(collectionReaderThreadFinished()));
 			crt->start();
 		}
 		else
@@ -1342,23 +1342,23 @@ void PictureBrowser::collectionsImportButtonClicked()
 
 void PictureBrowser::collectionsExportButtonClicked()
 {
-	QString fileName = QFileDialog::getSaveFileName ( this, tr ( "Export Image Collection" ), QDir::rootPath(), tr ( "Scribus ImageCollection (*.sic)" ) );
+	QString fileName = QFileDialog::getSaveFileName(this, tr("Export Image Collection"), QDir::rootPath(), tr("Scribus ImageCollection (*.sic)"));
 
 	QTreeWidgetItem *currItem = collectionsWidget->currentItem();
 
-	if ( !currItem )
+	if(!currItem)
 	{
-		ScMessageBox::warning ( this, tr ( "Picture Browser Error" ), tr ( "You have to select something you want to export" ) );
+		ScMessageBox::warning(this, tr("Picture Browser Error"), tr("You have to select something you want to export"));
 		return;
 	}
 
 	//collection
-	if ( currItem->parent() )
+	if(currItem->parent())
 	{
 		collectionWriterThread *tmpCwt;
-		tmpCwt = new collectionWriterThread ( fileName, *currCollection );
-		connect ( tmpCwt, SIGNAL ( finished() ), this, SLOT ( collectionWriterThreadListFinished() ) );
-		cwtList.append ( tmpCwt );
+		tmpCwt = new collectionWriterThread(fileName, *currCollection);
+		connect(tmpCwt, SIGNAL(finished()), this, SLOT(collectionWriterThreadListFinished()));
+		cwtList.append(tmpCwt);
 		tmpCwt->start();
 	}
 	//category
@@ -1373,7 +1373,7 @@ void PictureBrowser::collectionsDeleteButtonClicked()
 {
 	QTreeWidgetItem *currItem = collectionsWidget->currentItem();
 
-	if ( !currItem )
+	if(!currItem)
 	{
 		return;
 	}
@@ -1388,41 +1388,41 @@ void PictureBrowser::collectionsRenameButtonClicked()
 {
 	QTreeWidgetItem *currItem = collectionsWidget->currentItem();
 
-	if ( !currItem )
+	if(!currItem)
 	{
 		return;
 	}
 
-	collectionsWidget->editItem ( currItem );
+	collectionsWidget->editItem(currItem);
 }
 
 
 void PictureBrowser::collectionsAddImagesButtonClicked()
 {
-	collectionsStackedwidget->setCurrentIndex ( 1 );
-	updateCollectionsWidget ( true );
-	collectionsWidget->blockSignals ( true );
+	collectionsStackedwidget->setCurrentIndex(1);
+	updateCollectionsWidget(true);
+	collectionsWidget->blockSignals(true);
 }
 
 
 void PictureBrowser::collectionsSetTagsButtonClicked()
 {
-	for ( int i = 0 ; i < collectionsTagImagesCombobox->count() ; ++i )
+	for(int i = 0 ; i < collectionsTagImagesCombobox->count() ; ++i)
 	{
-		if ( collectionsTagImagesCombobox->checkstate ( i ) == 0 )
+		if(collectionsTagImagesCombobox->checkstate(i)== 0)
 		{
-			for ( int j = 0 ; j < selectedIndexes.size() ; ++j )
+			for(int j = 0 ; j < selectedIndexes.size() ; ++j)
 			{
-				pImages->previewImagesList.at ( selectedIndexes.at ( j ) )->tags.removeAll ( collectionsTagImagesCombobox->itemText ( i ) );
+				pImages->previewImagesList.at(selectedIndexes.at(j))->tags.removeAll(collectionsTagImagesCombobox->itemText(i));
 			}
 		}
-		else if ( collectionsTagImagesCombobox->checkstate ( i ) == 1 )
+		else if(collectionsTagImagesCombobox->checkstate(i)== 1)
 		{
-			for ( int j = 0 ; j < selectedIndexes.size() ; ++j )
+			for(int j = 0 ; j < selectedIndexes.size() ; ++j)
 			{
-				if ( !pImages->previewImagesList.at ( selectedIndexes.at ( j ) )->tags.contains ( collectionsTagImagesCombobox->itemText ( i ) ) )
+				if(!pImages->previewImagesList.at(selectedIndexes.at(j))->tags.contains(collectionsTagImagesCombobox->itemText(i)))
 				{
-					pImages->previewImagesList.at ( selectedIndexes.at ( j ) )->tags.append ( collectionsTagImagesCombobox->itemText ( i ) );
+					pImages->previewImagesList.at(selectedIndexes.at(j))->tags.append(collectionsTagImagesCombobox->itemText(i));
 				}
 			}
 		}
@@ -1434,15 +1434,15 @@ void PictureBrowser::collectionsSetTagsButtonClicked()
 	currCollection->imageFiles.clear();
 	currCollection->tags.clear();
 
-	for ( int i = 0 ; i < pImages->previewImagesList.size() ; ++i )
+	for(int i = 0 ; i < pImages->previewImagesList.size() ; ++i)
 	{
-		currCollection->imageFiles.append ( pImages->previewImagesList.at ( i )->fileInformation.absoluteFilePath() );
-		currCollection->tags.append ( pImages->previewImagesList.at ( i )->tags );
+		currCollection->imageFiles.append(pImages->previewImagesList.at(i)->fileInformation.absoluteFilePath());
+		currCollection->tags.append(pImages->previewImagesList.at(i)->tags);
 	}
 
-	tmpCwt = new collectionWriterThread ( currCollection->file, *currCollection );
-	connect ( tmpCwt, SIGNAL ( finished() ), this, SLOT ( collectionWriterThreadListFinished() ) );
-	cwtList.append ( tmpCwt );
+	tmpCwt = new collectionWriterThread(currCollection->file, *currCollection);
+	connect(tmpCwt, SIGNAL(finished()), this, SLOT(collectionWriterThreadListFinished()));
+	cwtList.append(tmpCwt);
 	tmpCwt->start();
 }
 
@@ -1451,16 +1451,16 @@ void PictureBrowser::collectionsAddNewTagButtonClicked()
 {
 	QString newTag = collectionsAddNewTagLineedit->text();
 
-	if ( !newTag.isEmpty() )
-		collectionsTagImagesCombobox->addItem ( newTag, 1 );
+	if(!newTag.isEmpty())
+		collectionsTagImagesCombobox->addItem(newTag, 1);
 	else
-		ScMessageBox::warning ( this, tr ( "Picture Browser Error" ), tr ( "No tag entered" ) );
+		ScMessageBox::warning(this, tr("Picture Browser Error"), tr("No tag entered"));
 }
 
 void PictureBrowser::jumpToImageFolder()
 {
 	QString searchDir = informationFilepathLabel->text();
-	QDir dir ( searchDir );
+	QDir dir(searchDir);
 
 	if (!dir.exists())
 		return;
@@ -1469,8 +1469,8 @@ void PictureBrowser::jumpToImageFolder()
 
 	if (!fit)
 	{
-		fit = new findImagesThread ( currPath, nameFilters, QDir::Name, true );
-		connect ( fit, SIGNAL ( finished() ), this, SLOT ( findImagesThreadFinished() ) );
+		fit = new findImagesThread(currPath, nameFilters, QDir::Name, true);
+		connect(fit, SIGNAL(finished()), this, SLOT(findImagesThreadFinished()));
 		fit->start();
 	}
 	else
@@ -1486,31 +1486,31 @@ void PictureBrowser::collectionsRemoveImagesButtonClicked()
 	collectionWriterThread *tmpCwt;
 	QList<previewImage *> tmpPreviewImagesList;
 
-	for ( int i = 0 ; i < selectedIndexes.size() ; ++i )
+	for(int i = 0 ; i < selectedIndexes.size() ; ++i)
 	{
-		tmpPreviewImagesList.append ( pImages->previewImagesList.takeAt ( selectedIndexes.at ( i ) ) );
+		tmpPreviewImagesList.append(pImages->previewImagesList.takeAt(selectedIndexes.at(i)));
 	}
 
 //update view
-	updateBrowser ( false, false, false );
+	updateBrowser(false, false, false);
 
-	for ( int i = 0 ; i < tmpPreviewImagesList.size() ; ++i )
+	for(int i = 0 ; i < tmpPreviewImagesList.size() ; ++i)
 	{
-		delete tmpPreviewImagesList.at ( i );
+		delete tmpPreviewImagesList.at(i);
 	}
 
 	currCollection->imageFiles.clear();
 	currCollection->tags.clear();
 
-	for ( int i = 0 ; i < pImages->previewImagesList.size() ; ++i )
+	for(int i = 0 ; i < pImages->previewImagesList.size() ; ++i)
 	{
-		currCollection->imageFiles.append ( pImages->previewImagesList.at ( i )->fileInformation.absoluteFilePath() );
-		currCollection->tags.append ( pImages->previewImagesList.at ( i )->tags );
+		currCollection->imageFiles.append(pImages->previewImagesList.at(i)->fileInformation.absoluteFilePath());
+		currCollection->tags.append(pImages->previewImagesList.at(i)->tags);
 	}
 
-	tmpCwt = new collectionWriterThread ( currCollection->file, *currCollection );
-	connect ( tmpCwt, SIGNAL ( finished() ), this, SLOT ( collectionWriterThreadListFinished() ) );
-	cwtList.append ( tmpCwt );
+	tmpCwt = new collectionWriterThread(currCollection->file, *currCollection);
+	connect(tmpCwt, SIGNAL(finished()), this, SLOT(collectionWriterThreadListFinished()));
+	cwtList.append(tmpCwt);
 	tmpCwt->start();
 }
 
@@ -1528,175 +1528,173 @@ void PictureBrowser::collectionsAddImagesOkButtonClicked()
 
 	QStringList addImages;
 
-	for ( int k = 0 ; k < selectedIndexes.size() ; ++k )
+	for(int k = 0 ; k < selectedIndexes.size() ; ++k)
 	{
-		addImages.append ( pModel->modelItemsList.at ( selectedIndexes.at ( k ) )->fileInformation.absoluteFilePath() );
+		addImages.append(pModel->modelItemsList.at(selectedIndexes.at(k))->fileInformation.absoluteFilePath());
 	}
 
 
-	for ( int i = 0 ; i < collectionsWidget->topLevelItemCount() ; ++i )
+	for(int i = 0 ; i < collectionsWidget->topLevelItemCount() ; ++i)
 	{
-		tmpItem = collectionsWidget->topLevelItem ( i );
+		tmpItem = collectionsWidget->topLevelItem(i);
 
-		for ( int j = 0 ; j < tmpItem->childCount() ; ++j )
+		for(int j = 0 ; j < tmpItem->childCount() ; ++j)
 		{
-			tmpItem2 = tmpItem->child ( j );
+			tmpItem2 = tmpItem->child(j);
 
-			if ( tmpItem2->checkState ( 0 ) == Qt::Checked )
+			if(tmpItem2->checkState(0)== Qt::Checked)
 			{
 				//add images here
-				collectionFile = tmpItem2->data ( 0, Qt::UserRole ).toString();
+				collectionFile = tmpItem2->data(0, Qt::UserRole).toString();
 
-				tmpCrt = new collectionReaderThread ( collectionFile, false );
+				tmpCrt = new collectionReaderThread(collectionFile, false);
 				tmpCrt->addImages = addImages;
-				connect ( tmpCrt, SIGNAL ( finished() ), this, SLOT ( collectionReaderThreadListFinishedSave() ) );
-				crtList.append ( tmpCrt );
+				connect(tmpCrt, SIGNAL(finished()), this, SLOT(collectionReaderThreadListFinishedSave()));
+				crtList.append(tmpCrt);
 				tmpCrt->start();
 			}
 		}
 	}
 
-	collectionsStackedwidget->setCurrentIndex ( 0 );
-	updateCollectionsWidget ( false );
-	collectionsWidget->blockSignals ( false );
+	collectionsStackedwidget->setCurrentIndex(0);
+	updateCollectionsWidget(false);
+	collectionsWidget->blockSignals(false);
 }
 
 
 void PictureBrowser::collectionsAddImagesCancelButtonClicked()
 {
-	collectionsStackedwidget->setCurrentIndex ( 0 );
-	updateCollectionsWidget ( false );
-	collectionsWidget->blockSignals ( false );
+	collectionsStackedwidget->setCurrentIndex(0);
+	updateCollectionsWidget(false);
+	collectionsWidget->blockSignals(false);
 }
 
 
-void PictureBrowser::updateBrowser ( bool filter, bool sort, bool reload )
+void PictureBrowser::updateBrowser(bool filter, bool sort, bool reload)
 {
-	if ( filter )
-	{
+	if(filter)
 		applyFilters();
-	}
 
-	if ( sort )
+	if(sort)
 	{
 		if (pImages)
-			pImages->sortPreviewImages ( pbSettings.sortSetting );
+			pImages->sortPreviewImages(pbSettings.sortSetting);
 	}
 
-	if ( reload )
+	if(reload)
 	{
 		previewImage *tmpImage;
 
 		//force reload, check if needed is necessary
-		for ( int i = 0 ; i < pImages->previewImagesList.size() ; ++i )
+		for(int i = 0 ; i < pImages->previewImagesList.size() ; ++i)
 		{
-			tmpImage = pImages->previewImagesList.at ( i );
+			tmpImage = pImages->previewImagesList.at(i);
 			tmpImage->previewImageLoading = false;
 			tmpImage->previewIconCreated = false;
 		}
 	}
 
 	if (pModel)
-		pModel->setModelItemsList ( pImages->previewImagesList );
-	statusLabel->setText ( QString ( "%1 image(s) displayed, %2 image(s) filtered" ).arg ( imagesDisplayed ).arg ( imagesFiltered ) );
+		pModel->setModelItemsList(pImages->previewImagesList);
+	statusLabel->setText(QString("%1 image(s) displayed, %2 image(s) filtered").arg(imagesDisplayed).arg(imagesFiltered));
 }
 
 
 void PictureBrowser::loadIcons()
 {
 	IconManager *im=IconManager::instance();
-	iconArrowUp = new QIcon ( im->loadIcon ( "pitr_green_arrows_set_1.svg" ) );
-	iconArrowDown = new QIcon ( im->loadIcon ( "pitr_green_arrows_set_5.svg" ) );
-	iconFolderBrowser = new QIcon ( im->loadIcon ( "sarxos_Simple_Folder_Seek.svg" ) );
-	iconCollectionsBrowser = new QIcon ( im->loadIcon ( "sarxos_Simple_Green_Yellow_Blue_Violet_Folders.svg" ) );
-	iconDocumentBrowser = new QIcon ( im->loadIcon ( "sarxos_Paper_Sheets.svg" ) );
-	iconDocument = new QIcon ( im->loadIcon ( "doc.png" ) );
-	iconCollection = new QIcon ( im->loadIcon ( "cmyk.png" ) );
-	iconOk = new QIcon ( im->loadIcon ( "ok22.png" ) );
-	iconClose = new QIcon ( im->loadIcon ( "/16/close.png" ) );
-	iconZoomPlus = new QIcon ( im->loadIcon ( "viewmagin.png" ) );
-	iconZoomMinus = new QIcon ( im->loadIcon ( "viewmagout.png" ) );
-	iconNew = new QIcon ( im->loadIcon ( "/16/insert-table.png" ) );
-	iconNew2 = new QIcon ( im->loadIcon ( "/16/document-new.png" ) );
-	iconEdit = new QIcon ( im->loadIcon ( "/16/document-properties.png" ) );
-	iconRemove = new QIcon ( im->loadIcon ( "/16/edit-cut.png" ) );
-	iconLoad = new QIcon ( im->loadIcon ( "/16/document-open.png" ) );
-	iconSave = new QIcon ( im->loadIcon ( "/16/document-save.png" ) );
-	iconPlus = new QIcon ( im->loadIcon ( "/16/list-add.png" ) );
-	iconMinus = new QIcon ( im->loadIcon ( "/16/list-remove.png" ) );
-	iconPen = new QIcon ( im->loadIcon ( "/16/story-editor.png" ) );
+	iconArrowUp = new QIcon(im->loadIcon("pitr_green_arrows_set_1.svg"));
+	iconArrowDown = new QIcon(im->loadIcon("pitr_green_arrows_set_5.svg"));
+	iconFolderBrowser = new QIcon(im->loadIcon("sarxos_Simple_Folder_Seek.svg"));
+	iconCollectionsBrowser = new QIcon(im->loadIcon("sarxos_Simple_Green_Yellow_Blue_Violet_Folders.svg"));
+	iconDocumentBrowser = new QIcon(im->loadIcon("sarxos_Paper_Sheets.svg"));
+	iconDocument = new QIcon(im->loadIcon("doc.png"));
+	iconCollection = new QIcon(im->loadIcon("cmyk.png"));
+	iconOk = new QIcon(im->loadIcon("ok22.png"));
+	iconClose = new QIcon(im->loadIcon("/16/close.png"));
+	iconZoomPlus = new QIcon(im->loadIcon("viewmagin.png"));
+	iconZoomMinus = new QIcon(im->loadIcon("viewmagout.png"));
+	iconNew = new QIcon(im->loadIcon("/16/insert-table.png"));
+	iconNew2 = new QIcon(im->loadIcon("/16/document-new.png"));
+	iconEdit = new QIcon(im->loadIcon("/16/document-properties.png"));
+	iconRemove = new QIcon(im->loadIcon("/16/edit-cut.png"));
+	iconLoad = new QIcon(im->loadIcon("/16/document-open.png"));
+	iconSave = new QIcon(im->loadIcon("/16/document-save.png"));
+	iconPlus = new QIcon(im->loadIcon("/16/list-add.png"));
+	iconMinus = new QIcon(im->loadIcon("/16/list-remove.png"));
+	iconPen = new QIcon(im->loadIcon("/16/story-editor.png"));
 
-	collectionsNewCategoryButton->setIcon ( *iconNew );
-	collectionsNewButton->setIcon ( *iconNew2 );
-	collectionsRenameButton->setIcon ( *iconEdit );
-	collectionsDeleteButton->setIcon ( *iconRemove );
-	collectionsImportButton->setIcon ( *iconLoad );
-	collectionsExportButton->setIcon ( *iconSave );
-	collectionsAddImagesButton->setIcon ( *iconPlus );
-	collectionsRemoveImagesButton->setIcon ( *iconMinus );
-	collectionsTagImagesButton->setIcon ( *iconPen );
-	collectionsAddImagesOkButton->setIcon ( *iconOk );
-	collectionsAddImagesCancelButton->setIcon ( *iconClose );
+	collectionsNewCategoryButton->setIcon(*iconNew);
+	collectionsNewButton->setIcon(*iconNew2);
+	collectionsRenameButton->setIcon(*iconEdit);
+	collectionsDeleteButton->setIcon(*iconRemove);
+	collectionsImportButton->setIcon(*iconLoad);
+	collectionsExportButton->setIcon(*iconSave);
+	collectionsAddImagesButton->setIcon(*iconPlus);
+	collectionsRemoveImagesButton->setIcon(*iconMinus);
+	collectionsTagImagesButton->setIcon(*iconPen);
+	collectionsAddImagesOkButton->setIcon(*iconOk);
+	collectionsAddImagesCancelButton->setIcon(*iconClose);
 
-	navigationBox->setItemIcon ( 0, *iconFolderBrowser );
-	navigationBox->setItemIcon ( 1, *iconCollectionsBrowser );
-	navigationBox->setItemIcon ( 2, *iconDocumentBrowser );
+	navigationBox->setItemIcon(0, *iconFolderBrowser);
+	navigationBox->setItemIcon(1, *iconCollectionsBrowser);
+	navigationBox->setItemIcon(2, *iconDocumentBrowser);
 
-	zoomPlusButton->setIcon ( *iconZoomPlus );
-	zoomMinusButton->setIcon ( *iconZoomMinus );
+	zoomPlusButton->setIcon(*iconZoomPlus);
+	zoomMinusButton->setIcon(*iconZoomMinus);
 
-	actionsGoButton->setIcon ( *iconOk );
+	actionsGoButton->setIcon(*iconOk);
 
-	closeButton->setIcon ( *iconClose );
+	closeButton->setIcon(*iconClose);
 
-	moreButton->setIcon ( *iconArrowDown );
+	moreButton->setIcon(*iconArrowDown);
 }
 
 
 void PictureBrowser::setSettings()
 {
 //set settings
-	if ( pbSettings.saveSettings )
+	if(pbSettings.saveSettings)
 	{
-		saveSettingsCheckbox->setCheckState ( Qt::Checked );
+		saveSettingsCheckbox->setCheckState(Qt::Checked);
 	}
 
-	if ( pbSettings.showMore )
+	if(pbSettings.showMore)
 	{
-		expandDialog ( true );
+		expandDialog(true);
 	}
 	else
 	{
-		expandDialog ( false );
+		expandDialog(false);
 	}
 
-	if ( pbSettings.sortOrder )
+	if(pbSettings.sortOrder)
 	{
-		sortOrderButton->setIcon ( *iconArrowUp );
+		sortOrderButton->setIcon(*iconArrowUp);
 	}
 	else
 	{
-		sortOrderButton->setIcon ( *iconArrowDown );
+		sortOrderButton->setIcon(*iconArrowDown);
 	}
 
-	sortCombobox->setCurrentIndex ( pbSettings.sortSetting );
-	previewModeCombobox->setCurrentIndex ( pbSettings.previewMode );
+	sortCombobox->setCurrentIndex(pbSettings.sortSetting);
+	previewModeCombobox->setCurrentIndex(pbSettings.previewMode);
 
-	if ( pbSettings.alwaysOnTop )
+	if(pbSettings.alwaysOnTop)
 	{
-		alwaysOnTopCheckbox->setCheckState ( Qt::Checked );
-		setAlwaysOnTop ( true );
+		alwaysOnTopCheckbox->setCheckState(Qt::Checked);
+		setAlwaysOnTop(true);
 	}
 }
 
-void PictureBrowser::changedDocument ( ScribusDoc* doc )
+void PictureBrowser::changedDocument(ScribusDoc* doc)
 {
 	m_Doc = doc;
 	updateDocumentbrowser();
-	actionsGoButton->setEnabled ( true );
-	insertImageButton->setEnabled ( true );
+	actionsGoButton->setEnabled(true);
+	insertImageButton->setEnabled(true);
 	documentChanged=true;
-	dirChosen(folderModel.index( QDir::currentPath() ));
+	dirChosen(folderModel.index( QDir::currentPath()));
 }
 
 void PictureBrowser::closedDocument()
@@ -1705,35 +1703,35 @@ void PictureBrowser::closedDocument()
 	documentItems.clear();
 	m_Doc = NULL;
 	pImages->clearPreviewImagesList();
-	updateBrowser ( false, false, false );
-	actionsGoButton->setEnabled ( false );
-	insertImageButton->setEnabled ( false );
+	updateBrowser(false, false, false);
+	actionsGoButton->setEnabled(false);
+	insertImageButton->setEnabled(false);
 }
 
 void PictureBrowser::updateDocumentbrowser()
 {
 	documentWidget->clear();
 	documentItems.clear();
-	QTreeWidgetItem* allpages=new QTreeWidgetItem ( documentWidget, QStringList ( "All Pages" ) );
-	allpages->setData ( 0, Qt::UserRole, 0 );
-	allpages->setExpanded ( true );
-	documentWidget->addTopLevelItem ( allpages );
+	QTreeWidgetItem* allpages=new QTreeWidgetItem(documentWidget, QStringList("All Pages"));
+	allpages->setData(0, Qt::UserRole, 0);
+	allpages->setExpanded(true);
+	documentWidget->addTopLevelItem(allpages);
 
 	QTreeWidgetItem *tmpItem;
 
-	for ( int i = 0 ; i < ( int ) ( m_Doc->Pages->count() ) ; ++i )
+	for(int i = 0 ; i <(int)(m_Doc->Pages->count()); ++i)
 	{
-		tmpItem = new QTreeWidgetItem ( allpages, QStringList ( QString ( "Page %1" ).arg ( i+1 ) ) );
-		tmpItem->setData ( 0, Qt::UserRole, ( i+1 ) );
-		tmpItem->setIcon ( 0, *iconDocument );
-		documentItems.append ( tmpItem );
+		tmpItem = new QTreeWidgetItem(allpages, QStringList(QString("Page %1").arg(i+1)));
+		tmpItem->setData(0, Qt::UserRole,(i+1));
+		tmpItem->setIcon(0, *iconDocument);
+		documentItems.append(tmpItem);
 	}
 
-	documentWidget->insertTopLevelItems ( 0, documentItems );
+	documentWidget->insertTopLevelItems(0, documentItems);
 }
 
 
-void PictureBrowser::previewImageSelectionChanged ( const QItemSelection & selected, const QItemSelection & deselected )
+void PictureBrowser::previewImageSelectionChanged(const QItemSelection & selected, const QItemSelection & deselected)
 {
 	QItemSelectionModel *selectionModel = imageViewArea->SelectionModel();
 	QModelIndexList selection = selectionModel->selectedIndexes();
@@ -1742,72 +1740,72 @@ void PictureBrowser::previewImageSelectionChanged ( const QItemSelection & selec
 
 	selectedIndexes.clear();
 
-	for ( int i = 0 ; i < selection.size() ; ++i )
+	for(int i = 0 ; i < selection.size() ; ++i)
 	{
-		tmpIndex = selection.at ( i ).row();
+		tmpIndex = selection.at(i).row();
 
 		//take filtered images into account
-		for ( int j = 0 ; ( j <= tmpIndex ) && ( j < pImages->previewImagesList.size() ) ; ++j )
+		for(int j = 0 ;(j <= tmpIndex)&&(j < pImages->previewImagesList.size()); ++j)
 		{
-			if ( pImages->previewImagesList.at ( j )->filtered )
+			if(pImages->previewImagesList.at(j)->filtered)
 			{
 				tmpIndex++;
 			}
 		}
 
-		selectedIndexes.append ( tmpIndex );
+		selectedIndexes.append(tmpIndex);
 	}
 
 	updateTagImagesTab();
 }
 
 
-void PictureBrowser::updateInformationTab ( int index )
+void PictureBrowser::updateInformationTab(int index)
 {
-	if ( pbSettings.showMore && ( tabWidget->currentIndex() == 0 ) )
+	if(pbSettings.showMore &&(tabWidget->currentIndex() == 0))
 	{
-		if ( ( index >= 0 ) && ( index < pModel->modelItemsList.size() ) )
+		if(( index >= 0)&&(index < pModel->modelItemsList.size()))
 		{
 			previewImage *tmpImage;
-			tmpImage = pModel->modelItemsList.at ( index );
+			tmpImage = pModel->modelItemsList.at(index);
 
-			informationFilenameLabel->setText ( tmpImage->fileInformation.fileName() );
-			informationFilepathLabel->setText ( tmpImage->fileInformation.absolutePath() );
-			informationFilesizeLabel->setText ( QString ( "%1 Bytes" ).arg ( tmpImage->fileInformation.size() ) );
-			informationFiledateLabel->setText ( tmpImage->fileInformation.lastModified().toString ( "dd.MM.yyyy hh:mm:ss" ) );
+			informationFilenameLabel->setText(tmpImage->fileInformation.fileName());
+			informationFilepathLabel->setText(tmpImage->fileInformation.absolutePath());
+			informationFilesizeLabel->setText(QString("%1 Bytes").arg(tmpImage->fileInformation.size()));
+			informationFiledateLabel->setText(tmpImage->fileInformation.lastModified().toString("dd.MM.yyyy hh:mm:ss"));
 			informationFilepathLabel->setToolTip(tmpImage->fileInformation.absoluteFilePath());
 
 
 			if(tmpImage->previewImageLoading)
 				informationFilenameLabel->setText (tr("Image still loading"));
-			else if ( tmpImage->imgInfo->valid )
+			else if(tmpImage->imgInfo->valid)
 			{
 				QString format;
 
-				switch ( tmpImage->imgInfo->type )
+				switch(tmpImage->imgInfo->type)
 				{
 					case 0:
-						format = tr ( "JPG" );
+						format = tr("JPG");
 						break;
 
 					case 1:
-						format = tr ( "TIFF" );
+						format = tr("TIFF");
 						break;
 
 					case 2:
-						format = tr ( "PSD" );
+						format = tr("PSD");
 						break;
 
 					case 3:
-						format = tr ( "EPS/PS" );
+						format = tr("EPS/PS");
 						break;
 
 					case 4:
-						format = tr ( "PDF" );
+						format = tr("PDF");
 						break;
 
 					case 5:
-						format = tr ( "JPG2000" );
+						format = tr("JPG2000");
 						break;
 
 					case 6:
@@ -1815,77 +1813,77 @@ void PictureBrowser::updateInformationTab ( int index )
 						break;
 
 					case 7:
-						format = tr ( "emb. PSD" );
+						format = tr("emb. PSD");
 						break;
 
 					default:
-						format = tr ( "not available" );
+						format = tr("not available");
 						break;
 				}
 
-				informationFormatLabel->setText ( format );
-				informationColorspaceLabel->setText ( colorSpaceText ( tmpImage->imgInfo->colorspace ) );
-				informationDpiLabel->setText ( QString ( "%1 x %2" ).arg ( tmpImage->imgInfo->xdpi ).arg ( tmpImage->imgInfo->ydpi ) );
-				informationWidthLabel->setText ( QString ( "%1 Pixels" ).arg ( tmpImage->imgInfo->width ) );
-				informationHeightLabel->setText ( QString ( "%1 Pixels" ).arg ( tmpImage->imgInfo->height ) );
-				informationLayersLabel->setText ( QString ( "%1" ).arg ( tmpImage->imgInfo->layers ) );
+				informationFormatLabel->setText(format);
+				informationColorspaceLabel->setText(colorSpaceText(tmpImage->imgInfo->colorspace));
+				informationDpiLabel->setText(QString("%1 x %2").arg(tmpImage->imgInfo->xdpi).arg(tmpImage->imgInfo->ydpi));
+				informationWidthLabel->setText(QString("%1 Pixels").arg(tmpImage->imgInfo->width));
+				informationHeightLabel->setText(QString("%1 Pixels").arg(tmpImage->imgInfo->height));
+				informationLayersLabel->setText(QString("%1").arg(tmpImage->imgInfo->layers));
 
-				if ( tmpImage->imgInfo->embedded )
+				if(tmpImage->imgInfo->embedded)
 				{
-					informationEmbeddedLabel->setText ( QString ( "Yes" ) );
+					informationEmbeddedLabel->setText(QString("Yes"));
 				}
 				else
 				{
-					informationEmbeddedLabel->setText ( QString ( "No" ) );
+					informationEmbeddedLabel->setText(QString("No"));
 				}
 
-				informationProfilenameLabel->setText ( QString ( "%1" ).arg ( tmpImage->imgInfo->profileName ) );
+				informationProfilenameLabel->setText(QString("%1").arg(tmpImage->imgInfo->profileName));
 			}
 		}
 		else
 		{
-			informationFilenameLabel->setText ( tr("No image selected") );
+			informationFilenameLabel->setText(tr("No image selected"));
 		}
 	}
 }
 
 
-void PictureBrowser::updateCollectionsWidget ( bool addImages )
+void PictureBrowser::updateCollectionsWidget(bool addImages)
 {
-	collectionsWidget->blockSignals ( true );
+	collectionsWidget->blockSignals(true);
 	collectionsWidget->clear();
 
-	for ( int i = 0 ; i < collectionsDb.size() ; ++i )
+	for(int i = 0 ; i < collectionsDb.size() ; ++i)
 	{
-		collections *tmpCollections = collectionsDb.at ( i );
+		collections *tmpCollections = collectionsDb.at(i);
 
 		QTreeWidgetItem *tmpCategory;
-		tmpCategory = new QTreeWidgetItem ( collectionsWidget, QStringList ( tmpCollections->name ) );
-		tmpCategory->setFlags ( Qt::ItemIsSelectable|Qt::ItemIsEditable|Qt::ItemIsEnabled );
-		tmpCategory->setData ( 0, Qt::UserRole, QString ( "Category" ) );
-		tmpCategory->setExpanded ( true );
+		tmpCategory = new QTreeWidgetItem(collectionsWidget, QStringList(tmpCollections->name));
+		tmpCategory->setFlags(Qt::ItemIsSelectable|Qt::ItemIsEditable|Qt::ItemIsEnabled);
+		tmpCategory->setData(0, Qt::UserRole, QString("Category"));
+		tmpCategory->setExpanded(true);
 
-		for ( int j = 0 ; j < tmpCollections->collectionNames.size() ; ++j )
+		for(int j = 0 ; j < tmpCollections->collectionNames.size() ; ++j)
 		{
 			QTreeWidgetItem *tmpItem;
-			tmpItem = new QTreeWidgetItem ( tmpCategory, QStringList ( tmpCollections->collectionNames.at ( j ) ) );
+			tmpItem = new QTreeWidgetItem(tmpCategory, QStringList(tmpCollections->collectionNames.at(j)));
 
-			if ( addImages )
+			if(addImages)
 			{
-				tmpItem->setFlags ( Qt::ItemIsSelectable|Qt::ItemIsUserCheckable|Qt::ItemIsEnabled );
-				tmpItem->setCheckState ( 0, Qt::Unchecked );
+				tmpItem->setFlags(Qt::ItemIsSelectable|Qt::ItemIsUserCheckable|Qt::ItemIsEnabled);
+				tmpItem->setCheckState(0, Qt::Unchecked);
 			}
 			else
 			{
-				tmpItem->setFlags ( Qt::ItemIsSelectable|Qt::ItemIsEditable|Qt::ItemIsEnabled );
+				tmpItem->setFlags(Qt::ItemIsSelectable|Qt::ItemIsEditable|Qt::ItemIsEnabled);
 			}
 
-			tmpItem->setData ( 0, Qt::UserRole, tmpCollections->collectionFiles.at ( j ) );
-			tmpItem->setIcon ( 0, *iconCollection );
+			tmpItem->setData(0, Qt::UserRole, tmpCollections->collectionFiles.at(j));
+			tmpItem->setIcon(0, *iconCollection);
 		}
 	}
 
-	collectionsWidget->blockSignals ( false );
+	collectionsWidget->blockSignals(false);
 }
 
 
@@ -1906,35 +1904,35 @@ void PictureBrowser::updateCollectionsAddImagesCombobox()
 }
 
 
-void PictureBrowser::expandDialog ( bool expand )
+void PictureBrowser::expandDialog(bool expand)
 {
-	if ( expand )
+	if(expand)
 	{
 		tabWidget->show();
 
-		resize ( 872, 550 );
-		moreButton->setText ( "Hide" );
-		moreButton->setIcon ( *iconArrowUp );
+		resize(872, 550);
+		moreButton->setText("Hide");
+		moreButton->setIcon(*iconArrowUp);
 	}
 	else
 	{
 		tabWidget->hide();
 
-		resize ( 872, 385 );
-		moreButton->setText ( "More" );
-		moreButton->setIcon ( *iconArrowDown );
+		resize(872, 385);
+		moreButton->setText("More");
+		moreButton->setIcon(*iconArrowDown);
 	}
 }
 
 
-void PictureBrowser::setAlwaysOnTop ( bool alwaysOnTop )
+void PictureBrowser::setAlwaysOnTop(bool alwaysOnTop)
 {
 	Qt::WindowFlags flags = windowFlags();
 
 //save current position of the window
-	QPoint pos = mapToParent ( QPoint ( 0, 0 ) );
+	QPoint pos = mapToParent(QPoint(0, 0));
 
-	if ( alwaysOnTop )
+	if(alwaysOnTop)
 	{
 		flags |= Qt::WindowStaysOnTopHint;
 	}
@@ -1943,10 +1941,10 @@ void PictureBrowser::setAlwaysOnTop ( bool alwaysOnTop )
 		flags ^= Qt::WindowStaysOnTopHint;
 	}
 
-	this->setWindowFlags ( flags );
+	this->setWindowFlags(flags);
 
 //move to previous position
-	move ( pos );
+	move(pos);
 
 //FIXME: calling setWindowFlags sets window invisible (odd behaviour, documented). causes flickering
 	this->show();
@@ -1958,34 +1956,34 @@ void PictureBrowser::saveCollectionsDb()
 	QTreeWidgetItem *tmpItem, *tmpItem2;
 	collections *tmpCollections;
 
-	for ( int i = 0 ; i < collectionsDb.size() ; ++i )
+	for(int i = 0 ; i < collectionsDb.size() ; ++i)
 	{
-		delete collectionsDb.at ( i );
+		delete collectionsDb.at(i);
 	}
 
 	collectionsDb.clear();
 
 
-	for ( int i = 0 ; i < collectionsWidget->topLevelItemCount() ; ++i )
+	for(int i = 0 ; i < collectionsWidget->topLevelItemCount() ; ++i)
 	{
-		tmpItem = collectionsWidget->topLevelItem ( i );
+		tmpItem = collectionsWidget->topLevelItem(i);
 
-		tmpCollections = new collections ( tmpItem->text ( 0 ) );
-		collectionsDb.append ( tmpCollections );
+		tmpCollections = new collections(tmpItem->text(0));
+		collectionsDb.append(tmpCollections);
 
-		for ( int j = 0 ; j < tmpItem->childCount() ; ++j )
+		for(int j = 0 ; j < tmpItem->childCount() ; ++j)
 		{
-			tmpItem2 = tmpItem->child ( j );
-			tmpCollections->collectionNames.append ( tmpItem2->text ( 0 ) );
-			tmpCollections->collectionFiles.append ( tmpItem2->data ( 0, Qt::UserRole ).toString() );
+			tmpItem2 = tmpItem->child(j);
+			tmpCollections->collectionNames.append(tmpItem2->text(0));
+			tmpCollections->collectionFiles.append(tmpItem2->data(0, Qt::UserRole).toString());
 		}
 	}
 
 
-	if ( !cdbwt )
+	if(!cdbwt)
 	{
-		cdbwt = new collectionsWriterThread ( cdbFile, collectionsDb );
-		connect ( cdbwt, SIGNAL ( finished() ), this, SLOT ( collectionsDbWriterThreadFinished() ) );
+		cdbwt = new collectionsWriterThread(cdbFile, collectionsDb);
+		connect(cdbwt, SIGNAL(finished()), this, SLOT(collectionsDbWriterThreadFinished()));
 		cdbwt->start();
 	}
 	else
@@ -2003,47 +2001,47 @@ void PictureBrowser::applyFilters()
 
 	pImages->clearFilters();
 
-	for ( int i = 0 ; i < filterFiltersListwidget->count() ; ++i )
+	for(int i = 0 ; i < filterFiltersListwidget->count() ; ++i)
 	{
-		item = filterFiltersListwidget->item ( i );
-		filterType = filters->filterMap.at ( i );
+		item = filterFiltersListwidget->item(i);
+		filterType = filters->filterMap.at(i);
 
-		if ( item->checkState() == Qt::Checked )
+		if(item->checkState() == Qt::Checked)
 		{
-			switch ( filterType )
+			switch(filterType)
 			{
 				case 0:
-					if ( c[0] < filters->nameFilters.size() )
+					if(c[0] < filters->nameFilters.size())
 					{
-						pImages->filterFileName ( filters->nameFilters.at ( c[0] ), filters->nameInverts.at ( c[0] ) );
+						pImages->filterFileName(filters->nameFilters.at(c[0]), filters->nameInverts.at(c[0]));
 					}
 					break;
 
 				case 1:
-					if ( c[1] < filters->dateFilters.size() )
+					if(c[1] < filters->dateFilters.size())
 					{
-						pImages->filterFileModified ( filters->dateFilters.at ( c[1] ), filters->dateInverts.at ( c[1] ) );
+						pImages->filterFileModified(filters->dateFilters.at(c[1]), filters->dateInverts.at(c[1]));
 					}
 					break;
 
 				case 2:
-					if ( c[2] < filters->sizeFilters.size() )
+					if(c[2] < filters->sizeFilters.size())
 					{
-						pImages->filterFileSize ( ( filters->sizeFilters.at ( c[2] ) *1024 ), filters->sizeInverts.at ( c[2] ) );
+						pImages->filterFileSize(( filters->sizeFilters.at(c[2])*1024), filters->sizeInverts.at(c[2]));
 					}
 					break;
 
 				case 3:
-					if ( c[3] < filters->typeFilters.size() )
+					if(c[3] < filters->typeFilters.size())
 					{
-						pImages->filterFileType ( filters->typeFilters.at ( c[3] ), true );
+						pImages->filterFileType(filters->typeFilters.at(c[3]), true);
 					}
 					break;
 
 				case 4:
-					if ( c[4] < filters->tagFilters.size() )
+					if(c[4] < filters->tagFilters.size())
 					{
-						pImages->filterTag ( filters->tagFilters.at ( c[4] ), true );
+						pImages->filterTag(filters->tagFilters.at(c[4]), true);
 					}
 					break;
 			}
@@ -2063,50 +2061,50 @@ void PictureBrowser::updateTagImagesTab()
 	collectionsTagImagesCombobox->clear();
 
 
-	for ( int i = 0 ; ( i < selectedIndexes.size() ) && ( i < currCollection->imageFiles.size() ) ; ++i )
+	for(int i = 0 ;(i < selectedIndexes.size())&&(i < currCollection->imageFiles.size()); ++i)
 	{
-		new QListWidgetItem ( pImages->previewImagesList.at ( selectedIndexes.at ( i ) )->fileInformation.absoluteFilePath(), collectionsSelectedImagesListwidget );
+		new QListWidgetItem(pImages->previewImagesList.at(selectedIndexes.at(i))->fileInformation.absoluteFilePath(), collectionsSelectedImagesListwidget);
 	}
 
-	for ( int i = 0 ; i < currCollection->tags.size() ; ++i )
+	for(int i = 0 ; i < currCollection->tags.size() ; ++i)
 	{
-		tmpTags = currCollection->tags.at ( i );
+		tmpTags = currCollection->tags.at(i);
 
-		for ( int j = 0 ; j < tmpTags.size() ; ++j )
+		for(int j = 0 ; j < tmpTags.size() ; ++j)
 		{
-			if ( !tmpTagList.contains ( tmpTags.at ( j ) ) )
+			if(!tmpTagList.contains(tmpTags.at(j)))
 			{
-				tmpTagList.append ( tmpTags.at ( j ) );
+				tmpTagList.append(tmpTags.at(j));
 			}
 		}
 	}
 
 
-	for ( int i = 0 ; i < tmpTagList.size() ; ++i )
+	for(int i = 0 ; i < tmpTagList.size() ; ++i)
 	{
-		collectionsTagImagesCombobox->addItem ( tmpTagList.at ( i ), 0 );
+		collectionsTagImagesCombobox->addItem(tmpTagList.at(i), 0);
 
 		int tagCount=0;
 
-		for ( int j = 0 ; j < selectedIndexes.size() ; ++j )
+		for(int j = 0 ; j < selectedIndexes.size() ; ++j)
 		{
-			if ( pImages->previewImagesList.at ( selectedIndexes.at ( j ) )->tags.contains ( tmpTagList.at ( i ) ) )
+			if(pImages->previewImagesList.at(selectedIndexes.at(j))->tags.contains(tmpTagList.at(i)))
 			{
 				tagCount++;
 			}
-			else if ( tagCount > 0 )
+			else if(tagCount > 0)
 			{
 				break;
 			}
 		}
 
-		if ( tagCount == selectedIndexes.size() )
+		if(tagCount == selectedIndexes.size())
 		{
-			collectionsTagImagesCombobox->setCheckstate ( i, 1 );
+			collectionsTagImagesCombobox->setCheckstate(i, 1);
 		}
-		else if ( tagCount > 0 )
+		else if(tagCount > 0)
 		{
-			collectionsTagImagesCombobox->setCheckstate ( i, 2 );
+			collectionsTagImagesCombobox->setCheckstate(i, 2);
 		}
 	}
 }
@@ -2117,45 +2115,52 @@ imageFilters::imageFilters()
 }
 
 
-picturebrowserSettings::picturebrowserSettings()
+PictureBrowserSettings::PictureBrowserSettings() :
+	saveSettings(false),
+	showMore(false),
+	sortOrder(false),
+	sortSetting(0),
+	previewMode(0),
+	previewIconSize(0),
+	alwaysOnTop(false)
 {
 }
 
 
-void picturebrowserSettings::load()
+void PictureBrowserSettings::load()
 {
-	PrefsContext *picturebrowserPluginPrefs = PrefsManager::instance()->prefsFile->getPluginContext ( "picturebrowser" );
+	PrefsContext *pictureBrowserPluginPrefs = PrefsManager::instance()->prefsFile->getPluginContext("picturebrowser");
 
-	saveSettings = picturebrowserPluginPrefs->getBool ( "pb_savesettings", true );
-	showMore = picturebrowserPluginPrefs->getBool ( "pb_showmore", false );
-	sortOrder = picturebrowserPluginPrefs->getBool ( "pb_sortorder", false );
-	sortSetting = picturebrowserPluginPrefs->getInt ( "pb_sortsetting", 0 );
-	previewMode = picturebrowserPluginPrefs->getInt ( "pb_previewmode", 0 );
-	previewIconSize = picturebrowserPluginPrefs->getInt ( "pb_previewiconsize", 128 );
-	alwaysOnTop = picturebrowserPluginPrefs->getBool ( "pb_alwaysontop", false );
+	saveSettings = pictureBrowserPluginPrefs->getBool("pb_savesettings", true);
+	showMore = pictureBrowserPluginPrefs->getBool("pb_showmore", false);
+	sortOrder = pictureBrowserPluginPrefs->getBool("pb_sortorder", false);
+	sortSetting = pictureBrowserPluginPrefs->getInt("pb_sortsetting", 0);
+	previewMode = pictureBrowserPluginPrefs->getInt("pb_previewmode", 0);
+	previewIconSize = pictureBrowserPluginPrefs->getInt("pb_previewiconsize", 128);
+	alwaysOnTop = pictureBrowserPluginPrefs->getBool("pb_alwaysontop", false);
 
 // default value "dog" will be used if "s" doesn't already exist
 //QString s = myPluginPrefs->get("s", "dog");
 }
 
 
-void picturebrowserSettings::save()
+void PictureBrowserSettings::save()
 {
-	PrefsContext *picturebrowserPluginPrefs = PrefsManager::instance()->prefsFile->getPluginContext ( "picturebrowser" );
+	PrefsContext *pictureBrowserPluginPrefs = PrefsManager::instance()->prefsFile->getPluginContext("picturebrowser");
 
-	picturebrowserPluginPrefs->set ( "pb_savesettings", saveSettings );
-	picturebrowserPluginPrefs->set ( "pb_showmore", showMore );
-	picturebrowserPluginPrefs->set ( "pb_sortorder", sortOrder );
-	picturebrowserPluginPrefs->set ( "pb_sortsetting", sortSetting );
-	picturebrowserPluginPrefs->set ( "pb_previewmode", previewMode );
-	picturebrowserPluginPrefs->set ( "pb_previewiconsize", previewIconSize );
-	picturebrowserPluginPrefs->set ( "pb_alwaysontop", alwaysOnTop );
+	pictureBrowserPluginPrefs->set("pb_savesettings", saveSettings);
+	pictureBrowserPluginPrefs->set("pb_showmore", showMore);
+	pictureBrowserPluginPrefs->set("pb_sortorder", sortOrder);
+	pictureBrowserPluginPrefs->set("pb_sortsetting", sortSetting);
+	pictureBrowserPluginPrefs->set("pb_previewmode", previewMode);
+	pictureBrowserPluginPrefs->set("pb_previewiconsize", previewIconSize);
+	pictureBrowserPluginPrefs->set("pb_alwaysontop", alwaysOnTop);
 
-//picturebrowserPluginPrefs->set("previewMode", "cat");
+//pictureBrowserPluginPrefs->set("previewMode", "cat");
 }
 
 
-void picturebrowserSettings::reset()
+void PictureBrowserSettings::reset()
 {
 	saveSettings = true;
 	showMore = false;

@@ -48,7 +48,7 @@ for which a new license (GPL+exception) is in place.
 #include <prefsfile.h>
 #include <prefscontext.h>
 
-class picturebrowserSettings;
+class PictureBrowserSettings;
 class ImageInformation;
 class previewImage;
 class previewImages;
@@ -67,10 +67,10 @@ class imageFilters;
 
 
 
-class picturebrowserSettings
+class PictureBrowserSettings
 {
 	public:
-		picturebrowserSettings();
+		PictureBrowserSettings();
 
 		void load();
 		void save();
@@ -107,7 +107,7 @@ class PictureBrowser : public QDialog, Ui::PictureBrowser
 
 		//posts an image which should be loaded to the imageloading thread
 		void callLoadImageThread ( int row, int pId );
-		picturebrowserSettings pbSettings;
+		PictureBrowserSettings pbSettings;
 
 		//for statusinfo, contains how many images are currently displayed/filtered
 		int imagesDisplayed, imagesFiltered;
