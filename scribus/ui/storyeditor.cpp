@@ -262,9 +262,7 @@ SEditor::SEditor(QWidget* parent, ScribusDoc *docc, StoryEditor* parentSE) : QTe
 	setCurrentDocument(docc);
 	parentStoryEditor=parentSE;
 	wasMod = false;
-	StoredSel = false;
 	SelCharStart = 0;
-	SelParaStart = 0;
 	StyledText.clear();
 	document()->setUndoRedoEnabled(true);
 	viewport()->setAcceptDrops(false);
@@ -504,32 +502,28 @@ void SEditor::focusOutEvent(QFocusEvent *e)
 	QTextCursor tc(textCursor());
 	if (tc.hasSelection())
 	{
-		SelParaStart = tc.selectionStart();
-		SelParaEnd = tc.selectionEnd();
-		StoredSel = true;
+		QPair<int, int> selPair = qMakePair(tc.selectionStart(), tc.selectionEnd());
+		SelStack.push(selPair);
 	}
 	else
 	{
-		SelParaStart = tc.position();
-		StoredSel = false;
+		QPair<int, int> selPair = qMakePair(tc.position(), -1);
+		SelStack.push(selPair);
 	}
 	QTextEdit::focusOutEvent(e);
 }
 
 void SEditor::focusInEvent(QFocusEvent *e)
 {
-	QTextCursor tc(textCursor());
-	if (StoredSel)
+	if (SelStack.count() > 0)
 	{
-		tc.setPosition(SelParaStart);
-		tc.setPosition(SelParaEnd, QTextCursor::KeepAnchor);
-		StoredSel = false;
+		QTextCursor tc(textCursor());
+		QPair<int, int> selPair = SelStack.pop();
+		tc.setPosition(qMin(selPair.first, StyledText.length()));
+		if (selPair.second >= 0)
+			tc.setPosition(selPair.second, QTextCursor::KeepAnchor);
+		setTextCursor(tc);
 	}
-	else
-	{
-		tc.setPosition(qMin(SelParaStart, StyledText.length()));
-	}
-	setTextCursor(tc);
 	QTextEdit::focusInEvent(e);
 }
 
@@ -687,7 +681,8 @@ void SEditor::loadItemText(PageItem *currItem)
 	if (currItem->itemText.cursorPosition() < SelCharStart)
 		SelCharStart = currItem->itemText.cursorPosition();
 	SelCharStart -= currItem->itemText.startOfParagraph(newSelParaStart);
-	StoredSel = false;
+	if (SelStack.count())
+		SelStack.top().second = -1;
 	//qDebug() << "SE::loadItemText: cursor";
 //	setCursorPosition(SelParaStart, SelCharStart);
 	emit setProps(newSelParaStart, SelCharStart);
@@ -880,11 +875,16 @@ void SEditor::updateFromChars(int pa)
 void SEditor::updateSel(const ParagraphStyle& newStyle)
 {
 	int PStart, PEnd, SelStart, SelEnd, start;
-	if (StoredSel)
+	if (SelStack.count())
 	{
-		textCursor().setPosition(SelParaStart);
-		textCursor().setPosition(SelParaEnd, QTextCursor::KeepAnchor);
-		StoredSel = false;
+		QTextCursor tc(textCursor());
+		QPair<int, int> selPair = SelStack.pop();
+		if (selPair.second >= 0)
+		{
+			tc.setPosition(selPair.first);
+			tc.setPosition(selPair.second, QTextCursor::KeepAnchor);
+			setTextCursor(tc);
+		}
 	}
 	SelStart = textCursor().selectionStart();
 	PStart = StyledText.nrOfParagraph(SelStart);
@@ -899,11 +899,16 @@ void SEditor::updateSel(const ParagraphStyle& newStyle)
 
 void SEditor::updateSel(const CharStyle& newStyle)
 {
-	if (StoredSel)
+	if (SelStack.count())
 	{
-		textCursor().setPosition(SelParaStart);
-		textCursor().setPosition(SelParaEnd, QTextCursor::KeepAnchor);
-		StoredSel = false;
+		QTextCursor tc(textCursor());
+		QPair<int, int> selPair = SelStack.pop();
+		if (selPair.second >= 0)
+		{
+			tc.setPosition(selPair.first);
+			tc.setPosition(selPair.second, QTextCursor::KeepAnchor);
+			setTextCursor(tc);
+		}
 	}
 	int start = textCursor().selectionStart();
 	int end = textCursor().selectionEnd();
@@ -919,7 +924,7 @@ void SEditor::deleteSel()
 	if (end > start)
 		StyledText.removeChars(start, end-start);
 	textCursor().setPosition(start);
-	StoredSel = false;
+	SelStack.clear();
 }
 
 void SEditor::setEffects(int effects)
@@ -3019,8 +3024,7 @@ void StoryEditor::SearchText()
 		QTextCursor tCursor = Editor->textCursor();
 		tCursor.setPosition(pos);
 		Editor->setTextCursor(tCursor);
-		Editor->SelParaStart = pos; 
-		Editor->SelParaEnd = pos;
+		Editor->SelStack.push(qMakePair(pos, -1));
 	}
 	delete dia;
 	qApp->processEvents();

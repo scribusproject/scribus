@@ -41,11 +41,13 @@ for which a new license (GPL+exception) is in place.
 #include <QMenuBar>
 #include <QMouseEvent>
 #include <QPaintEvent>
+#include <QPair>
 #include <QPixmap>
 #include <QPointer>
 #include <QShowEvent>
 #include <QSpinBox>
 #include <QSplitter>
+#include <QStack>
 #include <QStatusBar>
 #include <QStringList>
 #include <QToolBar>
@@ -156,9 +158,9 @@ protected:
 	QString prevFont;
 	QString CurrFont;
 	QString unicodeInputString;
-	bool StoredSel;
-	int SelParaStart;
-	int SelParaEnd;
+
+	QStack< QPair<int, int> > SelStack;
+
 	int SelCharStart;
 	int SelCharEnd;
 	int SuspendContentsChange;	// input method
