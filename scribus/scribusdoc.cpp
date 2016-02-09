@@ -2274,6 +2274,8 @@ void ScribusDoc::restore(UndoState* state, bool isUndo)
 void ScribusDoc::restoreLevelDown(SimpleState* ss, bool isUndo)
 {
 	ScItemState<QList<QPointer<PageItem> > > *is = dynamic_cast<ScItemState<QList<QPointer<PageItem> > > *>(ss);
+	if (!is)
+		return;
 	QList<QPointer<PageItem> > listItem = is->getItem();
 	m_Selection->clear();
 	for (int i = 0; i<listItem.size();i++)
@@ -2287,6 +2289,8 @@ void ScribusDoc::restoreLevelDown(SimpleState* ss, bool isUndo)
 void ScribusDoc::restoreLevelBottom(SimpleState* ss, bool isUndo)
 {
 	ScItemState<QList<QPointer<PageItem> > > *is = dynamic_cast<ScItemState<QList<QPointer<PageItem> > > *>(ss);
+	if (!is)
+		return;
 	QList<QPointer<PageItem> > listItem = is->getItem();
 	m_Selection->clear();
 	for (int i = 0; i<listItem.size();i++)
