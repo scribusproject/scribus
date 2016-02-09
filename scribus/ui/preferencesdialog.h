@@ -110,7 +110,7 @@ class SCRIBUS_API PreferencesDialog : public QDialog, Ui::PreferencesDialog
 		Prefs_PreflightVerifier *prefs_PreflightVerifier;
 		Prefs_Printer *prefs_Printer;
 		Prefs_Scrapbook *prefs_Scrapbook;
-		Prefs_Spelling *prefs_Spelling;
+		//Prefs_Spelling *prefs_Spelling;
 		Prefs_TableOfContents *prefs_TableOfContents;
 		Prefs_Typography *prefs_Typography;
 		Prefs_UserInterface *prefs_UserInterface;
