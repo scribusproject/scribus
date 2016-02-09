@@ -16495,6 +16495,8 @@ QString ScribusDoc::getNumberStr(QString numName, int level, bool reset, Paragra
 
 void ScribusDoc::setNumerationCounter(QString numName, int level, int number)
 {
+	if (!numerations.contains(numName))
+		return;
 	NumStruct * numS = numerations.value(numName);
 	if (level > numS->m_counters.count())
 		numS->m_counters.insert(level, number);
