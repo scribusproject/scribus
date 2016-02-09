@@ -51,7 +51,7 @@ CanvasMode_EditSpiral::CanvasMode_EditSpiral(ScribusView* view) : CanvasMode(vie
 {
 	m_Mxp = m_Myp = -1;
 	m_blockUpdateFromItem = 0;
-	m_startAngle = m_endAngle;
+	m_startAngle = m_endAngle = 0.0;
 	m_arcPoint = noPointDefined;
 	m_VectorDialog = NULL;
 }
