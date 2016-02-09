@@ -34,12 +34,15 @@ for which a new license (GPL+exception) is in place.
 
 
 
-KCurve::KCurve(QWidget *parent) : QWidget(parent)
+KCurve::KCurve(QWidget *parent) : QWidget(parent),
+	m_leftmost(0.0),
+	m_rightmost(0.0),
+	m_pos(0),
+	m_dragging(false),
+	m_linear(false),
+	m_grabOffsetX(0.0),
+	m_grabOffsetY(0.0)
 {
-	m_grab_point     = FPoint();
-	m_dragging = false;
-	m_linear = false;
-	m_pos = 0;
 	setMouseTracking(true);
 	setMinimumSize(150, 150);
 	m_points.resize(0);
