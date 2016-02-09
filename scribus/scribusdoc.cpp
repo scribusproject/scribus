@@ -16464,6 +16464,8 @@ void ScribusDoc::setupNumerations()
 QString ScribusDoc::getNumberStr(QString numName, int level, bool reset, ParagraphStyle &style)
 {
 	Q_ASSERT(numerations.contains(numName));
+	if (!numerations.contains(numName))
+		return QString();
 	NumStruct * numS = numerations.value(numName);
 	numS->m_lastlevel = level;
 
