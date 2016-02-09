@@ -3319,7 +3319,7 @@ void PageItem::setMeshPointColor(int x, int y, QString color, int shade, double 
 		VisionDefectColor defect;
 		MQColor = defect.convertDefect(MQColor, m_Doc->previewVisual);
 	}
-	meshPoint *mp;
+	meshPoint *mp = NULL;
 	if (forPatch)
 	{
 		meshGradientPatch *patch = &meshGradientPatches[x];
@@ -5684,7 +5684,9 @@ void PageItem::restoreSoftShadowBlendMode(SimpleState *state, bool isUndo)
 void PageItem::restoreMarkString(SimpleState *state, bool isUndo)
 {
 	ScItemState< QPair<int,QString> > *is = dynamic_cast<ScItemState< QPair<int,QString> >*>(state);
-    Mark * mark = itemText.mark(is->getItem().first);
+	if (!is)
+		return;
+	Mark* mark = itemText.mark(is->getItem().first);
     if (!itemText.hasMark(is->getItem().first))
 		return;
 	if (isUndo)
