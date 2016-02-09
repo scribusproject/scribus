@@ -75,9 +75,6 @@ private:
 	PrefsContext *m_prefs;
 	Qt::Orientation floatOrientation;
 	QToolButton *prefsButton;
-// 	QMenu  *popup;
-// 	QMenu  *dockMenu;
-// 	QMenu  *orientationMenu;
 	QMainWindow* parentMW;
 	bool dockTop;
 	bool dockRight;
