@@ -87,9 +87,14 @@ bool HunspellPlugin::run(QWidget *parent, ScribusDoc *doc, QString target)
 {
 	HunspellPluginImpl *hunspellPluginImpl = new HunspellPluginImpl();
 	Q_CHECK_PTR(hunspellPluginImpl);
+	bool result = false;
 	if (parent)
-		hunspellPluginImpl->setRunningForSE(true, dynamic_cast<StoryEditor*>(parent));
-	bool result = hunspellPluginImpl->run(target, doc);
+	{
+		StoryEditor* se = dynamic_cast<StoryEditor*>(parent);
+		if (se)
+			hunspellPluginImpl->setRunningForSE(true, se);
+	}
+	result = hunspellPluginImpl->run(target, doc);
 	delete hunspellPluginImpl;
 	return result;
 }
