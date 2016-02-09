@@ -314,7 +314,7 @@ namespace RtfReader
 	virtual void addTabStop( const int value, const int type ) = 0;
 	virtual void appendToColourTable( const QColor &colour ) = 0;
 	virtual void insertFontTableEntry( FontTableEntry fontTableEntry, quint32 fontTableIndex ) = 0;
-	virtual void insertStyleSheetTableEntry( quint32 stylesheetTableIndex, ParagraphStyle stylesheetTableEntry ) = 0;
+	virtual void insertStyleSheetTableEntry( quint32 stylesheetTableIndex, const ParagraphStyle& stylesheetTableEntry ) = 0;
 	virtual void resolveStyleSheetParents(QHash<quint32, int> &parentSet) = 0;
 	virtual void useStyleSheetTableEntry(const int styleIndex) = 0;
 

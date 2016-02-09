@@ -78,7 +78,7 @@ namespace RtfReader
 		virtual void setTextDirectionRightToLeft();
 		virtual void appendToColourTable(const QColor &colour);
 		virtual void insertFontTableEntry(FontTableEntry fontTableEntry, quint32 fontTableIndex);
-		virtual void insertStyleSheetTableEntry(quint32 stylesheetTableIndex, ParagraphStyle stylesheetTableEntry);
+		virtual void insertStyleSheetTableEntry(quint32 stylesheetTableIndex, const ParagraphStyle& stylesheetTableEntry);
 		virtual void resolveStyleSheetParents(QHash<quint32, int> &parentSet);
 		virtual void useStyleSheetTableEntry(const int styleIndex);
 		virtual void resetParagraphFormat();

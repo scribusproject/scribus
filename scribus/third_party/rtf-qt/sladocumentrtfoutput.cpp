@@ -434,29 +434,28 @@ namespace RtfReader
 
 	}
 
-	void SlaDocumentRtfOutput::insertStyleSheetTableEntry(quint32 stylesheetTableIndex, ParagraphStyle stylesheetTableEntry)
+	void SlaDocumentRtfOutput::insertStyleSheetTableEntry(quint32 stylesheetTableIndex, const ParagraphStyle& stylesheetTableEntry)
 	{
-		QString newName = stylesheetTableEntry.name();
+		ParagraphStyle pStyle(stylesheetTableEntry);
 		if (m_prefixName)
-			newName = m_item->itemName() + "_" + stylesheetTableEntry.name();
-		stylesheetTableEntry.setName(newName);
-		if (stylesheetTableEntry.charStyle().fontVariant() != "")
+			pStyle.setName(m_item->itemName() + "_" + stylesheetTableEntry.name());
+		if (pStyle.charStyle().fontVariant() != "")
 		{
-			int fontInd = stylesheetTableEntry.charStyle().fontVariant().toInt();
-			stylesheetTableEntry.charStyle().setFontVariant("");
+			int fontInd = pStyle.charStyle().fontVariant().toInt();
+			pStyle.charStyle().setFontVariant("");
 			if (m_fontTable.contains(fontInd))
 			{
 				FontTableEntry fontTableEntry = m_fontTable[fontInd];
 				QString fontName = getFontName(fontTableEntry.fontName());
-				stylesheetTableEntry.charStyle().setFont(PrefsManager::instance()->appPrefs.fontPrefs.AvailFonts[fontName]);
+				pStyle.charStyle().setFont(PrefsManager::instance()->appPrefs.fontPrefs.AvailFonts[fontName]);
 				fontTableEntry.setFontName(fontName);
 				m_fontTableReal.insert(fontInd, fontTableEntry);
 			}
 		}
 		StyleSet<ParagraphStyle>tmp;
-		tmp.create(stylesheetTableEntry);
+		tmp.create(pStyle);
 		m_Doc->redefineStyles(tmp, false);
-		m_stylesTable.insert(stylesheetTableIndex, stylesheetTableEntry);
+		m_stylesTable.insert(stylesheetTableIndex, pStyle);
 	}
 
 	void SlaDocumentRtfOutput::resolveStyleSheetParents(QHash<quint32, int> &parentSet)
