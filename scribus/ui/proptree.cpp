@@ -278,13 +278,17 @@ QSize PropTreeItemDelegate::sizeHint(const QStyleOptionViewItem &opt, const QMod
 	return sz;
 }
 
-PropTreeItem::PropTreeItem(QTreeWidget *parent, int typ, QString title) : QObject(parent), QTreeWidgetItem(parent)
+PropTreeItem::PropTreeItem(QTreeWidget *parent, int typ, QString title) : QObject(parent), QTreeWidgetItem(parent),
+	m_type(typ),
+	m_unit(0),
+	m_decimals(0),
+	m_fmin(0.0),
+	m_fmax(0.0),
+	m_min(0),
+	m_max(0),
+	m_comboIndex(-1)
 {
 	setText(0, title);
-	m_type = typ;
-	m_comboIndex = -1;
-	m_unit = 0;
-	m_decimals = 0;
 	setData(0, Qt::UserRole, 0);
 	setData(1, Qt::UserRole, 0);
 	if (typ > 0)
