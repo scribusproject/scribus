@@ -6588,7 +6588,14 @@ QByteArray PDFLibCore::PDF_TransparenzFill(PageItem *currItem)
 			mpa.scale(scaleX, scaleY);
 		}
 		else
+		{
 			mpa.translate(bleedDisplacementX, bleedDisplacementY);
+			if (currItem->isImageFrame())
+			{
+				mpa.translate(currItem->imageXOffset() * currItem->imageXScale(), -currItem->imageYOffset() * currItem->imageYScale());
+				mpa.rotate(-currItem->imageRotation());
+			}
+		}
 		// #11761 : cause trouble when exporting transparency gradient
 		/*else
 			mpa.rotate(-currItem->rotation());*/
