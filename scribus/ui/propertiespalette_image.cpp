@@ -343,8 +343,8 @@ void PropertiesPalette_Image::showScaleAndOffset(double scx, double scy, double 
 {
 	if (!m_ScMW || m_ScMW->scriptIsRunning())
 		return;
-	keepImageWHRatioButton->blockSignals(true);
-	keepImageDPIRatioButton->blockSignals(true);
+	bool whRatioBlocked = keepImageWHRatioButton->blockSignals(true);
+	bool dpiRatioBlocked = keepImageDPIRatioButton->blockSignals(true);
 	if (fabs(scx - scy) > 0.0002)
 	{
 		keepImageWHRatioButton->setChecked(false);
@@ -368,8 +368,8 @@ void PropertiesPalette_Image::showScaleAndOffset(double scx, double scy, double 
 		imgDpiX->showValue(72);
 		imgDpiY->showValue(72);
 	}
-	keepImageWHRatioButton->blockSignals(false);
-	keepImageDPIRatioButton->blockSignals(false);
+	keepImageWHRatioButton->blockSignals(whRatioBlocked);
+	keepImageDPIRatioButton->blockSignals(dpiRatioBlocked);
 }
 
 void PropertiesPalette_Image::handleSelectionChanged()
@@ -636,54 +636,54 @@ void PropertiesPalette_Image::handleScaling()
 
 void PropertiesPalette_Image::handleXScale()
 {
-	imageXScaleSpinBox->blockSignals(true);
-	imageYScaleSpinBox->blockSignals(true);
+	bool xscaleBlocked = imageXScaleSpinBox->blockSignals(true);
+	bool yscaleBlocked = imageYScaleSpinBox->blockSignals(true);
 	if (keepImageWHRatioButton->isChecked())
 		imageYScaleSpinBox->setValue(imageXScaleSpinBox->value());
 	handleLocalScale();
-	imageXScaleSpinBox->blockSignals(false);
-	imageYScaleSpinBox->blockSignals(false);
+	imageXScaleSpinBox->blockSignals(xscaleBlocked);
+	imageYScaleSpinBox->blockSignals(yscaleBlocked);
 }
 
 void PropertiesPalette_Image::handleYScale()
 {
-	imageXScaleSpinBox->blockSignals(true);
-	imageYScaleSpinBox->blockSignals(true);
+	bool xscaleBlocked = imageXScaleSpinBox->blockSignals(true);
+	bool yscaleBlocked = imageYScaleSpinBox->blockSignals(true);
 	if (keepImageWHRatioButton->isChecked())
 		imageXScaleSpinBox->setValue(imageYScaleSpinBox->value());
 	handleLocalScale();
-	imageXScaleSpinBox->blockSignals(false);
-	imageYScaleSpinBox->blockSignals(false);
+	imageXScaleSpinBox->blockSignals(xscaleBlocked);
+	imageYScaleSpinBox->blockSignals(yscaleBlocked);
 }
 
 void PropertiesPalette_Image::handleDpiX()
 {
-	imgDpiX->blockSignals(true);
-	imgDpiY->blockSignals(true);
+	bool dpiXBlocked = imgDpiX->blockSignals(true);
+	bool dpiYBlocked = imgDpiY->blockSignals(true);
 	if (keepImageDPIRatioButton->isChecked())
 		imgDpiY->setValue(imgDpiX->value());
 	handleLocalDpi();
-	imgDpiX->blockSignals(false);
-	imgDpiY->blockSignals(false);
+	imgDpiX->blockSignals(dpiXBlocked);
+	imgDpiY->blockSignals(dpiYBlocked);
 }
 
 void PropertiesPalette_Image::handleDpiY()
 {
-	imgDpiX->blockSignals(true);
-	imgDpiY->blockSignals(true);
+	bool dpiXBlocked = imgDpiX->blockSignals(true);
+	bool dpiYBlocked = imgDpiY->blockSignals(true);
 	if (keepImageDPIRatioButton->isChecked())
 		imgDpiX->setValue(imgDpiY->value());
 	handleLocalDpi();
-	imgDpiX->blockSignals(false);
-	imgDpiY->blockSignals(false);
+	imgDpiX->blockSignals(dpiXBlocked);
+	imgDpiY->blockSignals(dpiYBlocked);
 }
 
 void PropertiesPalette_Image::handleImageDPIRatio()
 {
 	if (!m_ScMW || m_ScMW->scriptIsRunning())
 		return;
-	imgDpiX->blockSignals(true);
-	imgDpiY->blockSignals(true);
+	bool dpiXBlocked = imgDpiX->blockSignals(true);
+	bool dpiYBlocked = imgDpiY->blockSignals(true);
 	if (keepImageDPIRatioButton->isChecked())
 	{
 		double minXY = qMin(imgDpiX->value(), imgDpiY->value());
@@ -698,16 +698,16 @@ void PropertiesPalette_Image::handleImageDPIRatio()
 		keepImageWHRatioButton->setChecked(false);
 		cbProportional->setChecked(false);
 	}
-	imgDpiX->blockSignals(false);
-	imgDpiY->blockSignals(false);
+	imgDpiX->blockSignals(dpiXBlocked);
+	imgDpiY->blockSignals(dpiYBlocked);
 }
 
 void PropertiesPalette_Image::handleImageWHRatio()
 {
 	if (!m_ScMW || m_ScMW->scriptIsRunning())
 		return;
-	imageXScaleSpinBox->blockSignals(true);
-	imageYScaleSpinBox->blockSignals(true);
+	bool xscaleBlocked = imageXScaleSpinBox->blockSignals(true);
+	bool yscaleBlocked = imageYScaleSpinBox->blockSignals(true);
 	if (keepImageWHRatioButton->isChecked())
 	{
 		double maxXY = qMax(imageXScaleSpinBox->value(), imageYScaleSpinBox->value());
@@ -722,8 +722,8 @@ void PropertiesPalette_Image::handleImageWHRatio()
 		keepImageDPIRatioButton->setChecked(false);
 		cbProportional->setChecked(false);
 	}
-	imageXScaleSpinBox->blockSignals(false);
-	imageYScaleSpinBox->blockSignals(false);
+	imageXScaleSpinBox->blockSignals(xscaleBlocked);
+	imageYScaleSpinBox->blockSignals(yscaleBlocked);
 }
 
 void PropertiesPalette_Image::handleImageEffects()
