@@ -3127,229 +3127,236 @@ void SlaOutputDev::markPoint(char *name, Dict *properties)
 #ifdef POPPLER_VERSION
 void SlaOutputDev::updateFont(GfxState *state)
 {
-  GfxFont *gfxFont;
-  GfxFontLoc *fontLoc;
-  GfxFontType fontType;
-  SplashOutFontFileID *id;
-  SplashFontFile *fontFile;
-  SplashFontSrc *fontsrc = NULL;
-  FoFiTrueType *ff;
-  Object refObj, strObj;
-  GooString *fileName;
-  char *tmpBuf;
-  int tmpBufLen;
-  int *codeToGID;
-  double *textMat;
-  double m11, m12, m21, m22, fontSize;
-  SplashCoord mat[4];
-  int n;
-  int faceIndex = 0;
-  SplashCoord matrix[6];
+	GfxFont *gfxFont;
+	GfxFontLoc *fontLoc;
+	GfxFontType fontType;
+	SplashOutFontFileID *id;
+	SplashFontFile *fontFile;
+	SplashFontSrc *fontsrc = NULL;
+	FoFiTrueType *ff;
+	Object refObj, strObj;
+	GooString *fileName;
+	char *tmpBuf;
+	int tmpBufLen;
+	int *codeToGID;
+	double *textMat;
+	double m11, m12, m21, m22, fontSize;
+	SplashCoord mat[4];
+	int n;
+	int faceIndex = 0;
+	SplashCoord matrix[6];
 
-  m_font = NULL;
-  fileName = NULL;
-  tmpBuf = NULL;
-  fontLoc = NULL;
+	m_font = NULL;
+	fileName = NULL;
+	tmpBuf = NULL;
+	fontLoc = NULL;
 
-  if (!(gfxFont = state->getFont())) {
-	goto err1;
-  }
-  fontType = gfxFont->getType();
-  if (fontType == fontType3) {
-	goto err1;
-  }
+	if (!(gfxFont = state->getFont())) {
+		goto err1;
+	}
+	fontType = gfxFont->getType();
+	if (fontType == fontType3) {
+		goto err1;
+	}
 
-  // check the font file cache
-  id = new SplashOutFontFileID(gfxFont->getID());
-  if ((fontFile = m_fontEngine->getFontFile(id))) {
+	// check the font file cache
+	id = new SplashOutFontFileID(gfxFont->getID());
+	if ((fontFile = m_fontEngine->getFontFile(id))) {
+		delete id;
+
+	} else {
+
+		if (!(fontLoc = gfxFont->locateFont(xref, 0))) {
+			error(errSyntaxError, -1, "Couldn't find a font for '{0:s}'",
+			gfxFont->getName() ? gfxFont->getName()->getCString()
+			: "(unnamed)");
+			goto err2;
+		}
+
+		// embedded font
+		if (fontLoc->locType == gfxFontLocEmbedded) {
+			// if there is an embedded font, read it to memory
+			tmpBuf = gfxFont->readEmbFontFile(xref, &tmpBufLen);
+			if (! tmpBuf)
+				goto err2;
+
+			// external font
+		} else { // gfxFontLocExternal
+			fileName = fontLoc->path;
+			fontType = fontLoc->fontType;
+		}
+
+		fontsrc = new SplashFontSrc;
+		if (fileName)
+			fontsrc->setFile(fileName, gFalse);
+		else
+			fontsrc->setBuf(tmpBuf, tmpBufLen, gTrue);
+
+		// load the font file
+		switch (fontType) {
+		case fontType1:
+			if (!(fontFile = m_fontEngine->loadType1Font(
+				id,
+				fontsrc,
+				(const char **)((Gfx8BitFont *)gfxFont)->getEncoding())))
+			{
+				error(errSyntaxError, -1, "Couldn't create a font for '{0:s}'",
+				gfxFont->getName() ? gfxFont->getName()->getCString()
+				: "(unnamed)");
+				goto err2;
+			}
+			break;
+		case fontType1C:
+			if (!(fontFile = m_fontEngine->loadType1CFont(
+							id,
+							fontsrc,
+							(const char **)((Gfx8BitFont *)gfxFont)->getEncoding())))
+			{
+				error(errSyntaxError, -1, "Couldn't create a font for '{0:s}'",
+				gfxFont->getName() ? gfxFont->getName()->getCString()
+				: "(unnamed)");
+				goto err2;
+			}
+			break;
+		case fontType1COT:
+			if (!(fontFile = m_fontEngine->loadOpenTypeT1CFont(
+							id,
+							fontsrc,
+							(const char **)((Gfx8BitFont *)gfxFont)->getEncoding())))
+			{
+				error(errSyntaxError, -1, "Couldn't create a font for '{0:s}'",
+				gfxFont->getName() ? gfxFont->getName()->getCString()
+				: "(unnamed)");
+				goto err2;
+			}
+			break;
+		case fontTrueType:
+		case fontTrueTypeOT:
+			if (fileName)
+				ff = FoFiTrueType::load(fileName->getCString());
+			else
+				ff = FoFiTrueType::make(tmpBuf, tmpBufLen);
+			if (ff) {
+				codeToGID = ((Gfx8BitFont *)gfxFont)->getCodeToGIDMap(ff);
+				n = 256;
+				delete ff;
+			} else {
+				codeToGID = NULL;
+				n = 0;
+			}
+			if (!(fontFile = m_fontEngine->loadTrueTypeFont(
+							id,
+							fontsrc,
+							codeToGID, n)))
+			{
+				error(errSyntaxError, -1, "Couldn't create a font for '{0:s}'",
+				gfxFont->getName() ? gfxFont->getName()->getCString()
+				: "(unnamed)");
+				goto err2;
+			}
+			break;
+		case fontCIDType0:
+		case fontCIDType0C:
+			if (!(fontFile = m_fontEngine->loadCIDFont(
+							id,
+							fontsrc)))
+			{
+				error(errSyntaxError, -1, "Couldn't create a font for '{0:s}'",
+				gfxFont->getName() ? gfxFont->getName()->getCString()
+				: "(unnamed)");
+				goto err2;
+			}
+			break;
+		case fontCIDType0COT:
+			if (((GfxCIDFont *)gfxFont)->getCIDToGID()) {
+				n = ((GfxCIDFont *)gfxFont)->getCIDToGIDLen();
+				codeToGID = (int *)gmallocn(n, sizeof(int));
+				memcpy(codeToGID, ((GfxCIDFont *)gfxFont)->getCIDToGID(),
+				n * sizeof(int));
+			} else {
+				codeToGID = NULL;
+				n = 0;
+			}
+			if (!(fontFile = m_fontEngine->loadOpenTypeCFFFont(
+							id,
+							fontsrc,
+							codeToGID, n)))
+			{
+				error(errSyntaxError, -1, "Couldn't create a font for '{0:s}'",
+				gfxFont->getName() ? gfxFont->getName()->getCString()
+				: "(unnamed)");
+				goto err2;
+			}
+			break;
+		case fontCIDType2:
+		case fontCIDType2OT:
+			codeToGID = NULL;
+			n = 0;
+			if (((GfxCIDFont *)gfxFont)->getCIDToGID()) {
+				n = ((GfxCIDFont *)gfxFont)->getCIDToGIDLen();
+				if (n) {
+					codeToGID = (int *)gmallocn(n, sizeof(int));
+					memcpy(codeToGID, ((GfxCIDFont *)gfxFont)->getCIDToGID(),
+					n * sizeof(Gushort));
+				}
+			} else {
+				if (fileName)
+					ff = FoFiTrueType::load(fileName->getCString());
+				else
+					ff = FoFiTrueType::make(tmpBuf, tmpBufLen);
+				if (! ff)
+					goto err2;
+				codeToGID = ((GfxCIDFont *)gfxFont)->getCodeToGIDMap(ff, &n);
+				delete ff;
+			}
+			if (!(fontFile = m_fontEngine->loadTrueTypeFont(
+							id,
+							fontsrc,
+							codeToGID, n, faceIndex)))
+			{
+				error(errSyntaxError, -1, "Couldn't create a font for '{0:s}'",
+				gfxFont->getName() ? gfxFont->getName()->getCString()
+				: "(unnamed)");
+				goto err2;
+			}
+			break;
+		default:
+			// this shouldn't happen
+			goto err2;
+		}
+	}
+	// get the font matrix
+	textMat = state->getTextMat();
+	fontSize = state->getFontSize();
+	m11 = textMat[0] * fontSize * state->getHorizScaling();
+	m12 = textMat[1] * fontSize * state->getHorizScaling();
+	m21 = textMat[2] * fontSize;
+	m22 = textMat[3] * fontSize;
+	matrix[0] = 1;
+	matrix[1] = 0;
+	matrix[2] = 0;
+	matrix[3] = 1;
+	matrix[4] = 0;
+	matrix[5] = 0;
+	// create the scaled font
+	mat[0] = m11;
+	mat[1] = -m12;
+	mat[2] = m21;
+	mat[3] = -m22;
+	m_font = m_fontEngine->getFont(fontFile, mat, matrix);
+
+	delete fontLoc;
+	if (fontsrc && !fontsrc->isFile)
+		fontsrc->unref();
+	return;
+
+err2:
 	delete id;
-
-  } else {
-
-	if (!(fontLoc = gfxFont->locateFont(xref, 0))) {
-	  error(errSyntaxError, -1, "Couldn't find a font for '{0:s}'",
-		gfxFont->getName() ? gfxFont->getName()->getCString()
-						   : "(unnamed)");
-	  goto err2;
-	}
-
-	// embedded font
-	if (fontLoc->locType == gfxFontLocEmbedded) {
-	  // if there is an embedded font, read it to memory
-	  tmpBuf = gfxFont->readEmbFontFile(xref, &tmpBufLen);
-	  if (! tmpBuf)
-	goto err2;
-
-	// external font
-	} else { // gfxFontLocExternal
-	  fileName = fontLoc->path;
-	  fontType = fontLoc->fontType;
-	}
-
-	fontsrc = new SplashFontSrc;
-	if (fileName)
-	  fontsrc->setFile(fileName, gFalse);
-	else
-	  fontsrc->setBuf(tmpBuf, tmpBufLen, gTrue);
-
-	// load the font file
-	switch (fontType) {
-	case fontType1:
-	  if (!(fontFile = m_fontEngine->loadType1Font(
-			   id,
-			   fontsrc,
-			   (const char **)((Gfx8BitFont *)gfxFont)->getEncoding()))) {
-	error(errSyntaxError, -1, "Couldn't create a font for '{0:s}'",
-		  gfxFont->getName() ? gfxFont->getName()->getCString()
-							 : "(unnamed)");
-	goto err2;
-	  }
-	  break;
-	case fontType1C:
-	  if (!(fontFile = m_fontEngine->loadType1CFont(
-			   id,
-			   fontsrc,
-			   (const char **)((Gfx8BitFont *)gfxFont)->getEncoding()))) {
-	error(errSyntaxError, -1, "Couldn't create a font for '{0:s}'",
-		  gfxFont->getName() ? gfxFont->getName()->getCString()
-							 : "(unnamed)");
-	goto err2;
-	  }
-	  break;
-	case fontType1COT:
-	  if (!(fontFile = m_fontEngine->loadOpenTypeT1CFont(
-			   id,
-			   fontsrc,
-			   (const char **)((Gfx8BitFont *)gfxFont)->getEncoding()))) {
-	error(errSyntaxError, -1, "Couldn't create a font for '{0:s}'",
-		  gfxFont->getName() ? gfxFont->getName()->getCString()
-							 : "(unnamed)");
-	goto err2;
-	  }
-	  break;
-	case fontTrueType:
-	case fontTrueTypeOT:
-	if (fileName)
-	 ff = FoFiTrueType::load(fileName->getCString());
-	else
-	ff = FoFiTrueType::make(tmpBuf, tmpBufLen);
-	  if (ff) {
-	codeToGID = ((Gfx8BitFont *)gfxFont)->getCodeToGIDMap(ff);
-	n = 256;
-	delete ff;
-	  } else {
-	codeToGID = NULL;
-	n = 0;
-	  }
-	  if (!(fontFile = m_fontEngine->loadTrueTypeFont(
-			   id,
-			   fontsrc,
-			   codeToGID, n))) {
-	error(errSyntaxError, -1, "Couldn't create a font for '{0:s}'",
-		  gfxFont->getName() ? gfxFont->getName()->getCString()
-							 : "(unnamed)");
-	goto err2;
-	  }
-	  break;
-	case fontCIDType0:
-	case fontCIDType0C:
-	  if (!(fontFile = m_fontEngine->loadCIDFont(
-			   id,
-			   fontsrc))) {
-	error(errSyntaxError, -1, "Couldn't create a font for '{0:s}'",
-		  gfxFont->getName() ? gfxFont->getName()->getCString()
-							 : "(unnamed)");
-	goto err2;
-	  }
-	  break;
-	case fontCIDType0COT:
-	  if (((GfxCIDFont *)gfxFont)->getCIDToGID()) {
-	n = ((GfxCIDFont *)gfxFont)->getCIDToGIDLen();
-	codeToGID = (int *)gmallocn(n, sizeof(int));
-	memcpy(codeToGID, ((GfxCIDFont *)gfxFont)->getCIDToGID(),
-		   n * sizeof(int));
-	  } else {
-	codeToGID = NULL;
-	n = 0;
-	  }
-	  if (!(fontFile = m_fontEngine->loadOpenTypeCFFFont(
-			   id,
-			   fontsrc,
-			   codeToGID, n))) {
-	error(errSyntaxError, -1, "Couldn't create a font for '{0:s}'",
-		  gfxFont->getName() ? gfxFont->getName()->getCString()
-							 : "(unnamed)");
-	goto err2;
-	  }
-	  break;
-	case fontCIDType2:
-	case fontCIDType2OT:
-	  codeToGID = NULL;
-	  n = 0;
-	  if (((GfxCIDFont *)gfxFont)->getCIDToGID()) {
-	n = ((GfxCIDFont *)gfxFont)->getCIDToGIDLen();
-	if (n) {
-	  codeToGID = (int *)gmallocn(n, sizeof(int));
-	  memcpy(codeToGID, ((GfxCIDFont *)gfxFont)->getCIDToGID(),
-		  n * sizeof(Gushort));
-	}
-	  } else {
-	if (fileName)
-	  ff = FoFiTrueType::load(fileName->getCString());
-	else
-	  ff = FoFiTrueType::make(tmpBuf, tmpBufLen);
-	if (! ff)
-	  goto err2;
-	codeToGID = ((GfxCIDFont *)gfxFont)->getCodeToGIDMap(ff, &n);
-	delete ff;
-	  }
-	  if (!(fontFile = m_fontEngine->loadTrueTypeFont(
-			   id,
-			   fontsrc,
-			   codeToGID, n, faceIndex))) {
-	error(errSyntaxError, -1, "Couldn't create a font for '{0:s}'",
-		  gfxFont->getName() ? gfxFont->getName()->getCString()
-							 : "(unnamed)");
-	goto err2;
-	  }
-	  break;
-	default:
-	  // this shouldn't happen
-	  goto err2;
-	}
-  }
-  // get the font matrix
-  textMat = state->getTextMat();
-  fontSize = state->getFontSize();
-  m11 = textMat[0] * fontSize * state->getHorizScaling();
-  m12 = textMat[1] * fontSize * state->getHorizScaling();
-  m21 = textMat[2] * fontSize;
-  m22 = textMat[3] * fontSize;
-  matrix[0] = 1;
-  matrix[1] = 0;
-  matrix[2] = 0;
-  matrix[3] = 1;
-  matrix[4] = 0;
-  matrix[5] = 0;
-// create the scaled font
-  mat[0] = m11;
-  mat[1] = -m12;
-  mat[2] = m21;
-  mat[3] = -m22;
-  m_font = m_fontEngine->getFont(fontFile, mat, matrix);
-
-  delete fontLoc;
-  if (fontsrc && !fontsrc->isFile)
-	  fontsrc->unref();
-  return;
-
- err2:
-  delete id;
-  delete fontLoc;
- err1:
-  if (fontsrc && !fontsrc->isFile)
-	  fontsrc->unref();
-  return;
+	delete fontLoc;
+err1:
+	if (fontsrc && !fontsrc->isFile)
+		fontsrc->unref();
+	return;
 }
 #else
 void SlaOutputDev::updateFont(GfxState *state)
@@ -3398,11 +3405,11 @@ void SlaOutputDev::updateFont(GfxState *state)
 			tmpBuf = gfxFont->readEmbFontFile(xref, &tmpBufLen);
 			if (!tmpBuf)
 				goto err2;
-		// if there is an external font file, use it
+			// if there is an external font file, use it
 		}
 		else if (!(fileName = gfxFont->getExtFontFile()))
 		{
-	  // look for a display font mapping or a substitute font
+			// look for a display font mapping or a substitute font
 			dfp = NULL;
 			if (gfxFont->getName())
 			{
@@ -3431,7 +3438,7 @@ void SlaOutputDev::updateFont(GfxState *state)
 			fontsrc->setFile(fileName, gFalse);
 		else
 			fontsrc->setBuf(tmpBuf, tmpBufLen, gTrue);
-	// load the font file
+		// load the font file
 		switch (fontType)
 		{
 			case fontType1:
@@ -3524,7 +3531,7 @@ void SlaOutputDev::updateFont(GfxState *state)
 			}
 			break;
 		default:
-	  // this shouldn't happen
+			// this shouldn't happen
 			goto err2;
 		}
 	}
@@ -3541,7 +3548,7 @@ void SlaOutputDev::updateFont(GfxState *state)
 	matrix[3] = 1;
 	matrix[4] = 0;
 	matrix[5] = 0;
-  // create the scaled font
+	// create the scaled font
 	mat[0] = m11;
 	mat[1] = -m12;
 	mat[2] = m21;
@@ -3567,7 +3574,7 @@ void SlaOutputDev::drawChar(GfxState *state, double x, double y, double dx, doub
 	updateFont(state);
 	if (!m_font)
 		return;
-  // check for invisible text -- this is used by Acrobat Capture
+	// check for invisible text -- this is used by Acrobat Capture
 	render = state->getRender();
 	if (render == 3)
 		return;
@@ -3762,7 +3769,7 @@ QString SlaOutputDev::getColor(GfxColorSpace *color_space, GfxColor *color, int 
 	tmp.setSpotColor(false);
 	tmp.setRegistrationColor(false);
 	*shade = 100;
-/*	if (m_F3Stack.count() > 0)
+	/*if (m_F3Stack.count() > 0)
 	{
 		if (!m_F3Stack.top().colored)
 			return "Black";
@@ -3868,41 +3875,41 @@ QString SlaOutputDev::getAnnotationColor(AnnotColor *color)
 
 QString SlaOutputDev::convertPath(GfxPath *path)
 {
-    if (! path)
+	if (! path)
 		return QString();
 
-    QString output;
+	QString output;
 	pathIsClosed = false;
 
 	for (int i = 0; i < path->getNumSubpaths(); ++i)
 	{
-        GfxSubpath * subpath = path->getSubpath(i);
+		GfxSubpath * subpath = path->getSubpath(i);
 		if (subpath->getNumPoints() > 0)
 		{
 			output += QString("M %1 %2").arg(subpath->getX(0)).arg(subpath->getY(0));
-            int j = 1;
+			int j = 1;
 			while (j < subpath->getNumPoints())
 			{
 				if (subpath->getCurve(j))
 				{
 					output += QString("C %1 %2 %3 %4 %5 %6")
-                              .arg(subpath->getX(j)).arg(subpath->getY(j))
-                              .arg(subpath->getX(j + 1)).arg(subpath->getY(j + 1))
-                              .arg(subpath->getX(j + 2)).arg(subpath->getY(j + 2));
-                    j += 3;
+					.arg(subpath->getX(j)).arg(subpath->getY(j))
+					.arg(subpath->getX(j + 1)).arg(subpath->getY(j + 1))
+					.arg(subpath->getX(j + 2)).arg(subpath->getY(j + 2));
+					j += 3;
 				}
 				else
 				{
 					output += QString("L %1 %2").arg(subpath->getX(j)).arg(subpath->getY(j));
-                    ++j;
-                }
-            }
+					++j;
+				}
+			}
 			if (subpath->isClosed())
 			{
-                output += QString("Z");
+				output += QString("Z");
 				pathIsClosed = true;
-            }
-        }
+			}
+		}
 	}
 	return output;
 }
