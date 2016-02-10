@@ -7019,6 +7019,12 @@ bool PDFLibCore::PDF_PatternFillStroke(QByteArray& output, PageItem *currItem, i
 	}
 	if (kind == 1)
 		mpa.translate(-currItem->lineWidth() / 2.0, currItem->lineWidth() / 2.0);
+	// #13649, bad pattern placement: improve the situation, does not totally fix it in complex cases
+	if ((kind == 2) && currItem->isImageFrame())
+	{
+		mpa.translate(currItem->imageXOffset() * currItem->imageXScale(), -currItem->imageYOffset() * currItem->imageYScale());
+		mpa.rotate(-currItem->imageRotation());
+	}
 	mpa.translate(patternOffsetX, -patternOffsetY);
 	if (currItem->itemType() == PageItem::Symbol)
 		mpa.rotate(patternRotation);
