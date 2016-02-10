@@ -128,13 +128,11 @@ About::About( QWidget* parent, AboutMode diaMode ) : QDialog( parent )
 	if (BUILD_NAME == "BleedingEdge")
 		built = tr("%3-%2-%1 %4 %5").arg(BUILD_DAY).arg(BUILD_MONTH).arg(BUILD_YEAR).arg(BUILD_TIME).arg(BUILD_TZ);
 
-#ifdef HAVE_SVNVERSION
-	#ifdef SVNVERSION
-		QString revText;
-		revText=QString(tr("SVN Revision: %1")).arg(SVNVERSION);
-		built+=" - ";
-		built+=revText;
-	#endif
+#if defined(HAVE_SVNVERSION) && defined(SVNVERSION)
+	QString revText;
+	revText=QString(tr("SVN Revision: %1")).arg(SVNVERSION);
+	built+=" - ";
+	built+=revText;
 #endif
 	QString bu;
 	bu += "C";

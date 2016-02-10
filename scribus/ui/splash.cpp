@@ -77,24 +77,22 @@ void ScSplashScreen::drawContents(QPainter* painter)
 
 	if (v.contains("svn"))
 	{
-#ifdef HAVE_SVNVERSION
-	#ifdef SVNVERSION
+#if defined(HAVE_SVNVERSION) && defined(SVNVERSION)
 		QString revText;
 		revText=QString("SVN Revision: %1").arg(SVNVERSION);
 		QRect r2 = rect().adjusted(0, 0, -15, -50);
 		painter->setFont(f);
 		painter->drawText(r2, Qt::AlignRight | Qt::AlignBottom, revText );
-	#endif
 #endif
 		QFont wf(font());
 #if defined _WIN32
-	wf.setPointSize(10);
+		wf.setPointSize(10);
 #elif defined(__INNOTEK_LIBC__)
-	wf.setPointSize(9);
+		wf.setPointSize(9);
 #elif defined(Q_OS_MAC)
-	wf.setPointSize(12);
+		wf.setPointSize(12);
 #else
-	wf.setPointSize(9);
+		wf.setPointSize(9);
 #endif
 		painter->setFont(wf);
 		painter->setPen(QPen(Qt::red));
