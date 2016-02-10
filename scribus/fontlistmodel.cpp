@@ -82,19 +82,26 @@ QVariant FontListModel::headerData(int section,
 //			case FontListModel::FontVariant:
 //				return tr("Variant");
 			case FontListModel::FontType:
-				return isDisplayRole? QString("a") : tr("Type");
+				return tr("Type");
+//				return isDisplayRole? QString("a") : tr("Type");
 			case FontListModel::FontFormat:
-				return isDisplayRole? QString("b") : tr("Format");
+				return tr("Format");
+//				return isDisplayRole? QString("b") : tr("Format");
 			case FontListModel::FontEmbed:
-				return isDisplayRole? QString("c") : tr("Embed in PostScript");
+				return tr("Embed in PostScript");
+//				return isDisplayRole? QString("c") : tr("Embed in PostScript");
 			case FontListModel::FontSubset:
-				return isDisplayRole? QString("d") : tr("Subset");
+				return tr("Subset");
+//				return isDisplayRole? QString("d") : tr("Subset");
 			case FontListModel::FontOutline:
-				return isDisplayRole? QString("e") : tr("Outline");
+				return tr("Outline");
+//				return isDisplayRole? QString("e") : tr("Outline");
 			case FontListModel::FontAccess:
-				return isDisplayRole? QString("f") : tr("Access");
+				return tr("Access");
+//				return isDisplayRole? QString("f") : tr("Access");
 			case FontListModel::FontInDoc:
-				return isDisplayRole? QString("g") : tr("Used in Doc");
+				return tr("Used in Doc");
+//				return isDisplayRole? QString("g") : tr("Used in Doc");
 			case FontListModel::FontFile:
 				return tr("Path to Font File");
 			default:
