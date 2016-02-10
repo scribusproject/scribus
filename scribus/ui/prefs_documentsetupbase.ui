@@ -49,7 +49,6 @@
         <widget class="QLabel" name="pageSizeTitleLabel">
          <property name="font">
           <font>
-           <pointsize>13</pointsize>
            <weight>75</weight>
            <bold>true</bold>
           </font>
@@ -187,7 +186,6 @@
         <widget class="QLabel" name="pageLayoutTitleLabel">
          <property name="font">
           <font>
-           <pointsize>13</pointsize>
            <weight>75</weight>
            <bold>true</bold>
           </font>
@@ -229,7 +227,7 @@
             <string>4-Fold</string>
            </property>
            <attribute name="buttonGroup">
-            <string>pageLayoutButtonGroup</string>
+            <string notr="true">pageLayoutButtonGroup</string>
            </attribute>
           </widget>
          </item>
@@ -239,7 +237,7 @@
             <string>3-Fold</string>
            </property>
            <attribute name="buttonGroup">
-            <string>pageLayoutButtonGroup</string>
+            <string notr="true">pageLayoutButtonGroup</string>
            </attribute>
           </widget>
          </item>
@@ -249,7 +247,7 @@
             <string>Double Page</string>
            </property>
            <attribute name="buttonGroup">
-            <string>pageLayoutButtonGroup</string>
+            <string notr="true">pageLayoutButtonGroup</string>
            </attribute>
           </widget>
          </item>
@@ -262,7 +260,7 @@
             <bool>true</bool>
            </property>
            <attribute name="buttonGroup">
-            <string>pageLayoutButtonGroup</string>
+            <string notr="true">pageLayoutButtonGroup</string>
            </attribute>
           </widget>
          </item>
@@ -307,19 +305,27 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>252</width>
-            <height>206</height>
+            <width>428</width>
+            <height>525</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_5">
-           <property name="margin">
+           <property name="leftMargin">
+            <number>0</number>
+           </property>
+           <property name="topMargin">
+            <number>0</number>
+           </property>
+           <property name="rightMargin">
+            <number>0</number>
+           </property>
+           <property name="bottomMargin">
             <number>0</number>
            </property>
            <item>
             <widget class="QLabel" name="marginsTitleLabel">
              <property name="font">
               <font>
-               <pointsize>13</pointsize>
                <weight>75</weight>
                <bold>true</bold>
               </font>
@@ -338,7 +344,16 @@
            </item>
            <item>
             <layout class="QHBoxLayout" name="horizontalLayout_6">
-             <property name="margin">
+             <property name="leftMargin">
+              <number>5</number>
+             </property>
+             <property name="topMargin">
+              <number>5</number>
+             </property>
+             <property name="rightMargin">
+              <number>5</number>
+             </property>
+             <property name="bottomMargin">
               <number>5</number>
              </property>
              <item>
@@ -393,7 +408,6 @@
             <widget class="QLabel" name="bleedsTitleLabel">
              <property name="font">
               <font>
-               <pointsize>13</pointsize>
                <weight>75</weight>
                <bold>true</bold>
               </font>
@@ -412,7 +426,16 @@
            </item>
            <item>
             <layout class="QHBoxLayout" name="horizontalLayout_7">
-             <property name="margin">
+             <property name="leftMargin">
+              <number>5</number>
+             </property>
+             <property name="topMargin">
+              <number>5</number>
+             </property>
+             <property name="rightMargin">
+              <number>5</number>
+             </property>
+             <property name="bottomMargin">
               <number>5</number>
              </property>
              <item>
@@ -484,7 +507,6 @@
         <widget class="QLabel" name="autosaveTitleLable">
          <property name="font">
           <font>
-           <pointsize>13</pointsize>
            <weight>75</weight>
            <bold>true</bold>
           </font>
@@ -559,7 +581,6 @@
         <widget class="QLabel" name="undoRedoTitleLabel">
          <property name="font">
           <font>
-           <pointsize>13</pointsize>
            <weight>75</weight>
            <bold>true</bold>
           </font>
