@@ -322,7 +322,7 @@ ScFace SCFonts::LoadScalableFont(const QString &filename)
 	ScFace::FontType   type;
 	FT_Face         face = NULL;
 	error = FT_New_Face(library, QFile::encodeName(filename), 0, &face);
-	if (error)
+	if (error || (face == NULL))
 	{
 		if (face != NULL)
 			FT_Done_Face(face);
@@ -332,37 +332,34 @@ ScFace SCFonts::LoadScalableFont(const QString &filename)
 	getFontFormat(face, format, type);
 	if (format == ScFace::UNKNOWN_FORMAT)
 	{
-		if (face != NULL)
-			FT_Done_Face(face);
+		FT_Done_Face(face);
 		FT_Done_FreeType(library);
 		return t;
 	}
 	bool HasNames = FT_HAS_GLYPH_NAMES(face);
-	if (!error)
+
+	FT_UInt gindex = 0;
+	FT_ULong charcode = FT_Get_First_Char(face, &gindex);
+	while (gindex != 0)
 	{
-		FT_UInt gindex = 0;
-		FT_ULong charcode = FT_Get_First_Char( face, &gindex );
-		while ( gindex != 0 )
+		error = FT_Load_Glyph(face, gindex, FT_LOAD_NO_SCALE | FT_LOAD_NO_BITMAP);
+		if (error)
 		{
-			error = FT_Load_Glyph(face, gindex, FT_LOAD_NO_SCALE | FT_LOAD_NO_BITMAP);
-			if (error)
-			{
-				if (face != NULL)
-					FT_Done_Face(face);
-				FT_Done_FreeType(library);
-				return t;
-			}
-			FT_Get_Glyph_Name(face, gindex, buf, 50);
-			QString newName = QString(reinterpret_cast<char*>(buf));
-			if (newName == glyName)
-			{
-				HasNames = false;
-				Subset = true;
-			}
-			glyName = newName;
-			charcode = FT_Get_Next_Char(face, charcode, &gindex);
+			FT_Done_Face(face);
+			FT_Done_FreeType(library);
+			return t;
 		}
+		FT_Get_Glyph_Name(face, gindex, buf, 50);
+		QString newName = QString(reinterpret_cast<char*>(buf));
+		if (newName == glyName)
+		{
+			HasNames = false;
+			Subset = true;
+		}
+		glyName = newName;
+		charcode = FT_Get_Next_Char(face, charcode, &gindex);
 	}
+
 	int faceIndex=0;
 	QString fam(face->family_name);
 	QString sty(face->style_name);
@@ -415,7 +412,7 @@ ScFace SCFonts::LoadScalableFont(const QString &filename)
 					t.subset(Subset);
 				break;
 			default:
-                /* catching any types not handled above to silence compiler */
+				/* catching any types not handled above to silence compiler */
 				break;
 		}
 		t.m_m->hasGlyphNames = HasNames;
