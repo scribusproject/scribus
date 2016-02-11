@@ -1275,6 +1275,8 @@ void ScImgDataLoader_PICT::handlePixmap(QDataStream &ts, quint16 opCode)
 {
 	quint16 bytesPerLine, packType, pixel_type, bits_per_pixel, component_count, component_size;
 	quint32 packSize, horizontal_resolution, vertical_resolution, color_table, plane_bytes;
+	bytesPerLine = packType = pixel_type = bits_per_pixel = component_count = component_size = 0;
+	packSize = horizontal_resolution = vertical_resolution = color_table = plane_bytes = 0;
 	if ((opCode == 0x009A) || (opCode == 0x009B))
 		ts.skipRawData(4);
 	ts >> bytesPerLine;
