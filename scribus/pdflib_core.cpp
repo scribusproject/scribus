@@ -1730,12 +1730,12 @@ PdfFont PDFLibCore::PDF_WriteTtfSubsetFont(const QByteArray& fontName, ScFace& f
 {
 	QByteArray font;
 	face.RawData(font);
-dumpFont(face.psName() + ".ttf", font);
+	/*dumpFont(face.psName() + ".ttf", font);*/
 	QList<ScFace::gid_type> glyphs = RealGlyphs.uniqueKeys();
 	glyphs.removeAll(0);
 	glyphs.prepend(0);
 	QByteArray subset = sfnt::subsetFace(font, glyphs);
-dumpFont(face.psName()+"subs.ttf", subset);
+	/*dumpFont(face.psName()+"subs.ttf", subset);*/
 	PdfId embeddedFontObj = PDF_EmbedFontObject(subset, QByteArray());
 	PdfId fontDes = PDF_WriteFontDescriptor(fontName, face, face.format(), embeddedFontObj);
 	QByteArray baseFont = Pdf::toName(sanitizeFontName(face.psName()));
@@ -1771,12 +1771,12 @@ PdfFont PDFLibCore::PDF_WriteCffSubsetFont(const QByteArray& fontName, ScFace& f
 	QByteArray font, data;
 	face.RawData(data);
 	font = sfnt::getTable(data, "CFF ");
-	dumpFont(face.psName() + ".cff", font);
+	/*dumpFont(face.psName() + ".cff", font);*/
 	QList<ScFace::gid_type> glyphs = RealGlyphs.uniqueKeys();
 	glyphs.removeAll(0);
 	glyphs.prepend(0);
 	QByteArray subset = cff::subsetFace(font, glyphs);
-	dumpFont(face.psName()+"subs.cff", subset);
+	/*dumpFont(face.psName()+"subs.cff", subset);*/
 	PdfId embeddedFontObj = PDF_EmbedFontObject(subset, "/CIDFontType0C");
 	PdfId fontDes = PDF_WriteFontDescriptor(fontName, face, face.format(), embeddedFontObj);
 	QByteArray baseFont = Pdf::toName(sanitizeFontName(face.psName()));
