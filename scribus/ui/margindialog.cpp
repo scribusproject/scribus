@@ -112,11 +112,11 @@ MarginDialog::MarginDialog( QWidget* parent, ScribusDoc* doc ) : QDialog( parent
 	}
 	dialogLayout->addWidget( dsGroupBox7 );
 	
-	GroupRand = new MarginWidget(this,  tr( "Margin Guides" ), &doc->currentPage()->initialMargins, doc->unitIndex(), false, false);
-	GroupRand->setPageWidthHeight(doc->currentPage()->width(), doc->currentPage()->height());
-	GroupRand->setFacingPages(!(doc->pagePositioning() == singlePage), doc->locationOfPage(doc->currentPage()->pageNr()));
-	GroupRand->setMarginPreset(doc->currentPage()->marginPreset);
-	dialogLayout->addWidget( GroupRand );
+	marginWidget = new MarginWidget(this,  tr( "Margin Guides" ), &doc->currentPage()->initialMargins, doc->unitIndex(), false, false);
+	marginWidget->setPageWidthHeight(doc->currentPage()->width(), doc->currentPage()->height());
+	marginWidget->setFacingPages(!(doc->pagePositioning() == singlePage), doc->locationOfPage(doc->currentPage()->pageNr()));
+	marginWidget->setMarginPreset(doc->currentPage()->marginPreset);
+	dialogLayout->addWidget( marginWidget );
 
 	groupMaster = new QGroupBox( this );
 	groupMaster->setTitle( tr( "Other Settings" ) );
@@ -196,7 +196,7 @@ MarginDialog::MarginDialog( QWidget* parent, ScribusDoc* doc ) : QDialog( parent
 void MarginDialog::setPageWidth(double)
 {
 	pageWidth = widthSpinBox->value() / unitRatio;
-	GroupRand->setPageWidth(pageWidth);
+	marginWidget->setPageWidth(pageWidth);
 	int newOrientation = (widthSpinBox->value() > heightSpinBox->value()) ? landscapePage : portraitPage;
 	if (newOrientation != orientationQComboBox->currentIndex())
 	{
@@ -210,7 +210,7 @@ void MarginDialog::setPageWidth(double)
 void MarginDialog::setPageHeight(double)
 {
 	pageHeight = heightSpinBox->value() / unitRatio;
-	GroupRand->setPageHeight(pageHeight);
+	marginWidget->setPageHeight(pageHeight);
 	int newOrientation = (widthSpinBox->value() > heightSpinBox->value()) ? landscapePage : portraitPage;
 	if (newOrientation != orientationQComboBox->currentIndex())
 	{
@@ -251,9 +251,9 @@ void MarginDialog::setSize(const QString & gr)
 	disconnect(heightSpinBox, SIGNAL(valueChanged(double)), this, SLOT(setPageHeight(double)));
 	widthSpinBox->setValue(pageWidth * unitRatio);
 	heightSpinBox->setValue(pageHeight * unitRatio);
-	GroupRand->setPageHeight(pageHeight);
-	GroupRand->setPageWidth(pageWidth);
-	GroupRand->setPageSize(gr);
+	marginWidget->setPageHeight(pageHeight);
+	marginWidget->setPageWidth(pageWidth);
+	marginWidget->setPageSize(gr);
 	connect(widthSpinBox, SIGNAL(valueChanged(double)), this, SLOT(setPageWidth(double)));
 	connect(heightSpinBox, SIGNAL(valueChanged(double)), this, SLOT(setPageHeight(double)));
 	delete ps2;
@@ -327,22 +327,22 @@ bool MarginDialog::getMoveObjects()
 
 double MarginDialog::top()
 {
-	return GroupRand->top();
+	return marginWidget->top();
 }
 
 double MarginDialog::bottom()
 {
-	return GroupRand->bottom();
+	return marginWidget->bottom();
 }
 
 double MarginDialog::left()
 {
-	return GroupRand->left();
+	return marginWidget->left();
 }
 
 double MarginDialog::right()
 {
-	return GroupRand->right();
+	return marginWidget->right();
 }
 
 QString MarginDialog::masterPage()
@@ -354,5 +354,5 @@ QString MarginDialog::masterPage()
 
 int MarginDialog::getMarginPreset()
 {
-	return GroupRand->getMarginPreset();
+	return marginWidget->getMarginPreset();
 }

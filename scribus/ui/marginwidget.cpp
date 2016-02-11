@@ -255,11 +255,11 @@ void MarginWidget::setFacingPages(bool facing, int pagetype)
 
 void MarginWidget::setPageWidthHeight(double width, double height)
 {
-	rightR->setMaximum(width * m_unitRatio - leftR->value());
-	leftR->setMaximum(width * m_unitRatio - rightR->value());
+	rightR->setMaximum(qMax(0.0, width * m_unitRatio - leftR->value()));
+	leftR->setMaximum(qMax(0.0, width * m_unitRatio - rightR->value()));
 	pageWidth = width;
-	topR->setMaximum(height * m_unitRatio - bottomR->value());
-	bottomR->setMaximum(height * m_unitRatio - topR->value());
+	topR->setMaximum(qMax(0.0, height * m_unitRatio - bottomR->value()));
+	bottomR->setMaximum(qMax(0.0, height * m_unitRatio - topR->value()));
 	pageHeight = height;
 	setPreset();
 }

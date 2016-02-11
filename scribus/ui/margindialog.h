@@ -90,7 +90,7 @@ public slots:
 	virtual void setPageHeight(double v);
 
 private:
-	MarginWidget* GroupRand;
+	MarginWidget* marginWidget;
 	QGroupBox* dsGroupBox7;
 	QGroupBox* groupMaster;
 	QLabel* masterPageLabel;
