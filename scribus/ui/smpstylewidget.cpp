@@ -1308,7 +1308,9 @@ void SMPStyleWidget::on_bulletCharTableButton_toggled(bool checked)
 
 void SMPStyleWidget::handleUpdateRequest(int updateFlags)
 {
-	if ((updateFlags & reqColorsUpdate) && m_Doc)
+	if (!m_Doc)
+		return;
+	if (updateFlags & reqColorsUpdate)
 		fillColorCombo(m_Doc->PageColors);
 	if (updateFlags & reqNumUpdate)
 		fillNumerationsCombo();
