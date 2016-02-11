@@ -6056,6 +6056,8 @@ void PageItem::restorePolygon(SimpleState *ss, bool isUndo)
 void PageItem::restoreArc(SimpleState *state, bool isUndo)
 {
 	ScItemState<QPair<FPointArray, FPointArray> > *ss = dynamic_cast<ScItemState<QPair<FPointArray, FPointArray> > *>(state);
+	if (!ss)
+		return;
 	PageItem_Arc *item = asArc();
 	if (isUndo)
 	{
@@ -6094,6 +6096,8 @@ void PageItem::restoreImageNbr(SimpleState *state, bool isUndo)
 void PageItem::restoreTransform(SimpleState *ss, bool isUndo)
 {
 	ScItemState<QList<QTransform> > *is = dynamic_cast<ScItemState<QList<QTransform > >*>(ss);
+	if (!is)
+		return;
 	int x = is->getDouble("DX");
 	int y = is->getDouble("DY");
 	if (isUndo)
@@ -6257,6 +6261,8 @@ void PageItem::restoreGradientTrans4(SimpleState *state, bool isUndo)
 void PageItem::restoreGradPos(SimpleState *state, bool isUndo)
 {
 	ScItemState<QList<FPoint> > *is = dynamic_cast<ScItemState<QList<FPoint> > *>(state);
+	if (!is)
+		return;
 	if (isUndo)
 	{
 		GrStartX = is->getDouble("OLDSTARTX");
@@ -6329,6 +6335,8 @@ void PageItem::restoreGradPos(SimpleState *state, bool isUndo)
 void PageItem::restoreGradientColor1(SimpleState *state, bool isUndo)
 {
 	ScItemState<QPair<QColor,QColor> > *is = dynamic_cast<ScItemState<QPair<QColor,QColor> > *>(state);
+	if (!is)
+		qFatal("PageItem::restoreGradientColor1: dynamic cast failed");
 	if (isUndo)
 		GrColorP1QColor = is->getItem().first;
 	else
@@ -6339,6 +6347,8 @@ void PageItem::restoreGradientColor1(SimpleState *state, bool isUndo)
 void PageItem::restoreRemoveMeshPatch(SimpleState *state, bool isUndo)
 {
 	ScItemState<meshGradientPatch> *is = dynamic_cast<ScItemState<meshGradientPatch> *>(state);
+	if (!is)
+		qFatal("PageItem::restoreRemoveMeshPatch: dynamic cast failed");
 	if (isUndo)
 	{
 		selectedMeshPointX = is->getInt("POS");
@@ -6355,6 +6365,8 @@ void PageItem::restoreRemoveMeshPatch(SimpleState *state, bool isUndo)
 void PageItem::restoreCreateMeshGrad(SimpleState *state, bool isUndo)
 {
 	ScItemState<QList<QList<meshPoint> > > *is = dynamic_cast<ScItemState<QList<QList<meshPoint> > > *>(state);
+	if (!is)
+		qFatal("PageItem::restoreCreateMeshGrad: dynamic cast failed");
 	if (isUndo)
 		meshGradientArray = is->getItem();
 	else
@@ -6365,6 +6377,8 @@ void PageItem::restoreCreateMeshGrad(SimpleState *state, bool isUndo)
 void PageItem::restoreMoveMeshGrad(SimpleState *state, bool isUndo)
 {
 	ScItemState<QPair<QList<QList<meshPoint> >,FPointArray> > *is = dynamic_cast<ScItemState<QPair<QList<QList<meshPoint> >,FPointArray> > *>(state);
+	if (!is)
+		qFatal("PageItem::restoreMoveMeshGrad: dynamic cast failed");
 	if (isUndo)
 	{
 		PoLine = is->getItem().second;
@@ -6386,6 +6400,8 @@ void PageItem::restoreMoveMeshGrad(SimpleState *state, bool isUndo)
 void PageItem::restoreResetMeshGrad(SimpleState *state, bool isUndo)
 {
 	ScItemState<QList<QList<meshPoint> > > *is = dynamic_cast<ScItemState<QList<QList<meshPoint> > > *>(state);
+	if (!is)
+		qFatal("PageItem::restoreResetMeshGrad: dynamic cast failed");
 	if (isUndo)
 		meshGradientArray = is->getItem();
 	else
@@ -6396,6 +6412,8 @@ void PageItem::restoreResetMeshGrad(SimpleState *state, bool isUndo)
 void PageItem::restoreGradientColor2(SimpleState *state, bool isUndo)
 {
 	ScItemState<QPair<QColor,QColor> > *is = dynamic_cast<ScItemState<QPair<QColor,QColor> > *>(state);
+	if (!is)
+		qFatal("PageItem::restoreGradientColor2: dynamic cast failed");
 	if (isUndo)
 		GrColorP2QColor = is->getItem().first;
 	else
@@ -6406,6 +6424,8 @@ void PageItem::restoreGradientColor2(SimpleState *state, bool isUndo)
 void PageItem::restoreGradientColor3(SimpleState *state, bool isUndo)
 {
 	ScItemState<QPair<QColor,QColor> > *is = dynamic_cast<ScItemState<QPair<QColor,QColor> > *>(state);
+	if (!is)
+		qFatal("PageItem::restoreGradientColor3: dynamic cast failed");
 	if (isUndo)
 		GrColorP3QColor = is->getItem().first;
 	else
@@ -6416,6 +6436,8 @@ void PageItem::restoreGradientColor3(SimpleState *state, bool isUndo)
 void PageItem::restoreGradientColor4(SimpleState *state, bool isUndo)
 {
 	ScItemState<QPair<QColor,QColor> > *is = dynamic_cast<ScItemState<QPair<QColor,QColor> > *>(state);
+	if (!is)
+		qFatal("PageItem::restoreGradientColor4: dynamic cast failed");
 	if (isUndo)
 		GrColorP4QColor = is->getItem().first;
 	else
@@ -6426,6 +6448,8 @@ void PageItem::restoreGradientColor4(SimpleState *state, bool isUndo)
 void PageItem::restoreMoveMeshPatch(SimpleState *state, bool isUndo)
 {
 	ScItemState<QPair<meshPoint,meshPoint> > *is = dynamic_cast<ScItemState<QPair<meshPoint,meshPoint> > *>(state);
+	if (!is)
+		qFatal("PageItem::restoreMoveMeshPatch: dynamic cast failed");
 	int x = is->getInt("X");
 	int y = is->getInt("Y");
 	if (isUndo)
@@ -6474,6 +6498,8 @@ void PageItem::restoreMoveMeshPatch(SimpleState *state, bool isUndo)
 void PageItem::restoreFillGradient(SimpleState *state, bool isUndo)
 {
 	ScItemState<QPair<VGradient,VGradient> > *is = dynamic_cast<ScItemState<QPair<VGradient,VGradient> > *>(state);
+	if (!is)
+		qFatal("PageItem::restoreFillGradient: dynamic cast failed");
 	if (isUndo)
 		fill_gradient = is->getItem().first;
 	else
@@ -6486,6 +6512,8 @@ void PageItem::restoreFillGradient(SimpleState *state, bool isUndo)
 void PageItem::restoreMaskGradient(SimpleState *state, bool isUndo)
 {
 	ScItemState<QPair<VGradient,VGradient> > *is = dynamic_cast<ScItemState<QPair<VGradient,VGradient> > *>(state);
+	if (!is)
+		qFatal("PageItem::restoreMaskGradient: dynamic cast failed");
 	if (isUndo)
 		mask_gradient = is->getItem().first;
 	else
@@ -6497,6 +6525,8 @@ void PageItem::restoreMaskGradient(SimpleState *state, bool isUndo)
 void PageItem::restoreStrokeGradient(SimpleState *state, bool isUndo)
 {
 	ScItemState<QPair<VGradient,VGradient> > *is = dynamic_cast<ScItemState<QPair<VGradient,VGradient> > *>(state);
+	if (!is)
+		qFatal("PageItem::restoreStrokeGradient: dynamic cast failed");
 	if (isUndo)
 		stroke_gradient = is->getItem().first;
 	else
@@ -6507,6 +6537,8 @@ void PageItem::restoreStrokeGradient(SimpleState *state, bool isUndo)
 void PageItem::restoreGradientMeshColor(SimpleState *ss, bool isUndo)
 {
 	ScItemState<QPair<QColor,QColor> > *is = dynamic_cast<ScItemState<QPair<QColor,QColor> > *>(ss);
+	if (!is)
+		qFatal("PageItem::restoreGradientMeshColor: dynamic cast failed");
 	int x = is->getInt("X");
 	int y = is->getInt("Y");
 	meshPoint *mp=NULL;
@@ -6678,6 +6710,8 @@ void PageItem::restoreGradientMaskSkew(SimpleState *is, bool isUndo)
 void PageItem::restoreGradientControl1(SimpleState *state, bool isUndo)
 {
 	ScItemState<QPair<FPoint,FPoint> > *is = dynamic_cast<ScItemState<QPair<FPoint,FPoint> > *>(state);
+	if (!is)
+		qFatal("PageItem::restoreGradientControl1: dynamic cast failed");
 	if (isUndo)
 		GrControl1= is->getItem().first;
 	else
@@ -6687,6 +6721,8 @@ void PageItem::restoreGradientControl1(SimpleState *state, bool isUndo)
 void PageItem::restoreGradientControl2(SimpleState *state, bool isUndo)
 {
 	ScItemState<QPair<FPoint,FPoint> > *is = dynamic_cast<ScItemState<QPair<FPoint,FPoint> > *>(state);
+	if (!is)
+		qFatal("PageItem::restoreGradientControl2: dynamic cast failed");
 	if (isUndo)
 		GrControl2= is->getItem().first;
 	else
@@ -6696,6 +6732,8 @@ void PageItem::restoreGradientControl2(SimpleState *state, bool isUndo)
 void PageItem::restoreGradientControl3(SimpleState *state, bool isUndo)
 {
 	ScItemState<QPair<FPoint,FPoint> > *is = dynamic_cast<ScItemState<QPair<FPoint,FPoint> > *>(state);
+	if (!is)
+		qFatal("PageItem::restoreGradientControl3: dynamic cast failed");
 	if (isUndo)
 		GrControl3= is->getItem().first;
 	else
@@ -6705,6 +6743,8 @@ void PageItem::restoreGradientControl3(SimpleState *state, bool isUndo)
 void PageItem::restoreGradientControl4(SimpleState *state, bool isUndo)
 {
 	ScItemState<QPair<FPoint,FPoint> > *is = dynamic_cast<ScItemState<QPair<FPoint,FPoint> > *>(state);
+	if (!is)
+		qFatal("PageItem::restoreGradientControl4: dynamic cast failed");
 	if (isUndo)
 		GrControl4= is->getItem().first;
 	else
@@ -6714,6 +6754,8 @@ void PageItem::restoreGradientControl4(SimpleState *state, bool isUndo)
 void PageItem::restoreGradientControl5(SimpleState *state, bool isUndo)
 {
 	ScItemState<QPair<FPoint,FPoint> > *is = dynamic_cast<ScItemState<QPair<FPoint,FPoint> > *>(state);
+	if (!is)
+		qFatal("PageItem::restoreGradientControl5: dynamic cast failed");
 	if (isUndo)
 		GrControl5= is->getItem().first;
 	else
@@ -6839,6 +6881,8 @@ void PageItem::restorePasteInline(SimpleState *is, bool isUndo)
 void PageItem::restorePasteText(SimpleState *ss, bool isUndo)
 {
 	ScItemState<StoryText> *is = dynamic_cast<ScItemState<StoryText>*>(ss);
+	if (!is)
+		qFatal("PageItem::restorePasteText: dynamic cast failed");
 	int start = is->getInt("START");
 	if (isUndo){
 		itemText.select(start,is->getItem().length());
@@ -6905,6 +6949,8 @@ void PageItem::restoreColumns(SimpleState *ss, bool isUndo)
 void PageItem::restoreFirstLineOffset(SimpleState *ss, bool isUndo)
 {
 	ScItemState<QPair<FirstLineOffsetPolicy, FirstLineOffsetPolicy > > *is = dynamic_cast<ScItemState<QPair<FirstLineOffsetPolicy, FirstLineOffsetPolicy> >*>(ss);
+	if (!is)
+		qFatal("PageItem::restoreFirstLineOffset: dynamic cast failed");
 	if (isUndo)
 		firstLineOffsetP = is->getItem().first;
 	else
@@ -6915,6 +6961,8 @@ void PageItem::restoreFirstLineOffset(SimpleState *ss, bool isUndo)
 void PageItem::restoreDefaultParagraphStyle(SimpleState *ss, bool isUndo)
 {
 	ScItemState<QPair<ParagraphStyle, ParagraphStyle > > *is = dynamic_cast<ScItemState<QPair<ParagraphStyle, ParagraphStyle> >*>(ss);
+	if (!is)
+		qFatal("PageItem::restoreDefaultParagraphStyle: dynamic cast failed");
 	if (isUndo)
 		itemText.setDefaultStyle(is->getItem().second);
 	else
@@ -6924,6 +6972,8 @@ void PageItem::restoreDefaultParagraphStyle(SimpleState *ss, bool isUndo)
 void PageItem::restoreParagraphStyle(SimpleState *ss, bool isUndo)
 {
 	ScItemState<QPair<ParagraphStyle, ParagraphStyle > > *is = dynamic_cast<ScItemState<QPair<ParagraphStyle, ParagraphStyle> >*>(ss);
+	if (!is)
+		qFatal("PageItem::restoreParagraphStyle: dynamic cast failed");
 	int pos = is->getInt("POS");
 	if (isUndo)
 	{
@@ -6937,6 +6987,8 @@ void PageItem::restoreParagraphStyle(SimpleState *ss, bool isUndo)
 void PageItem::restoreCharStyle(SimpleState *ss, bool isUndo)
 {
 	ScItemState<QPair<CharStyle, CharStyle > > *is = dynamic_cast<ScItemState<QPair<CharStyle, CharStyle> >*>(ss);
+	if (!is)
+		qFatal("PageItem::restoreCharStyle: dynamic cast failed");
 	int length = is->getInt("LENGTH");
 	int start = is->getInt("START");
 	if (isUndo)
@@ -6951,6 +7003,8 @@ void PageItem::restoreCharStyle(SimpleState *ss, bool isUndo)
 void PageItem::restoreSetCharStyle(SimpleState *ss, bool isUndo)
 {
 	ScItemState<QPair<CharStyle, CharStyle > > *is = dynamic_cast<ScItemState<QPair<CharStyle, CharStyle> >*>(ss);
+	if (!is)
+		qFatal("PageItem::restoreSetCharStyle: dynamic cast failed");
 	int length = is->getInt("LENGTH");
 	int start = is->getInt("START");
 	if (isUndo)
@@ -6962,6 +7016,8 @@ void PageItem::restoreSetCharStyle(SimpleState *ss, bool isUndo)
 void PageItem::restoreSetParagraphStyle(SimpleState *ss, bool isUndo)
 {
 	ScItemState<QPair<ParagraphStyle, ParagraphStyle > > *is = dynamic_cast<ScItemState<QPair<ParagraphStyle, ParagraphStyle> >*>(ss);
+	if (!is)
+		qFatal("PageItem::restoreSetParagraphStyle: dynamic cast failed");
 	int pos = is->getInt("POS");
 	if (isUndo)
 		itemText.setStyle(pos, is->getItem().second);
@@ -6972,6 +7028,8 @@ void PageItem::restoreSetParagraphStyle(SimpleState *ss, bool isUndo)
 void PageItem::restoreDeleteFrameText(SimpleState *ss, bool isUndo)
 {
 	ScItemState<CharStyle> *is = dynamic_cast<ScItemState<CharStyle> *>(ss);
+	if (!is)
+		qFatal("PageItem::restoreDeleteFrameText: dynamic cast failed");
 	QString text = is->get("TEXT_STR");
 	int start = is->getInt("START");
 	if (isUndo)
