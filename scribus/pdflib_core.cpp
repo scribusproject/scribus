@@ -1712,17 +1712,23 @@ PdfFont PDFLibCore::PDF_EncodeSimpleFont(const QByteArray& fontName, ScFace& fac
 static void dumpFont(QString name, QByteArray data)
 {
 	QFile file(name);
-	file.open(QIODevice::WriteOnly);
-	QDataStream out(&file);
-	out.writeRawData(data.data(), data.length());
+	if (file.open(QIODevice::WriteOnly))
+	{
+		QDataStream out(&file);
+		out.writeRawData(data.data(), data.length());
+		file.close();
+	}
 }
 
 static void dumpCFF(QString name, cff::CFF font)
 {
 	QFile file(name);
-	file.open(QIODevice::WriteOnly);
-	QDataStream out(&file);
-	font.dump(out);
+	if (file.open(QIODevice::WriteOnly))
+	{
+		QDataStream out(&file);
+		font.dump(out);
+		file.close();
+	}
 }
 
 
