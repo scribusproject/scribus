@@ -266,6 +266,7 @@ void SMPStyleWidget::setDoc(ScribusDoc *doc)
 	if (m_Doc)
 	{
 		connect(m_Doc->scMW(), SIGNAL(UpdateRequest(int)), this , SLOT(handleUpdateRequest(int)));
+		fillColorCombo(m_Doc->PageColors);
 		fillNumerationsCombo();
 	}
 }
@@ -1307,6 +1308,8 @@ void SMPStyleWidget::on_bulletCharTableButton_toggled(bool checked)
 
 void SMPStyleWidget::handleUpdateRequest(int updateFlags)
 {
+	if ((updateFlags & reqColorsUpdate) && m_Doc)
+		fillColorCombo(m_Doc->PageColors);
 	if (updateFlags & reqNumUpdate)
 		fillNumerationsCombo();
 }
