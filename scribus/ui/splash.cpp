@@ -71,11 +71,11 @@ void ScSplashScreen::drawContents(QPainter* painter)
 #else
 	lgf.setPointSize(29);
 #endif
-	QString v(VERSION);
+	QString versionText(VERSION);
 	painter->setFont(lgf);
-	painter->drawText(r, Qt::AlignRight | Qt::AlignBottom, v );
+	painter->drawText(r, Qt::AlignRight | Qt::AlignBottom, versionText );
 
-	if (v.contains("svn"))
+	if (versionText.contains("svn"))
 	{
 #if defined(HAVE_SVNVERSION) && defined(SVNVERSION)
 		QString revText;
