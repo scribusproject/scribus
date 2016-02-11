@@ -5042,17 +5042,17 @@ Il tasto Inserisci inserisce un carattere (speciale) nell&apos;area di selezione
     <message>
         <location filename="../../scribus/ui/checkDocument.cpp" line="131"/>
         <source>When some imported document uses non-embedded fonts, then their rendering will be wrong, unless by chance you have them installed on their system, but that cannot be guaranteed in case you want to share the resulting document</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Quando un documento importato utilizza font non incorporati, il rendering di questi sarà errato, a meno che lo stesso font sia installato sul sistema, ma ciò non può essere garantito se il documento è condiviso su diversi sistemi</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/checkDocument.cpp" line="132"/>
         <source>This is a user definable setting serving as a caution for high resolution images, which may lead to unnecessarily large files</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Questa impostazione è definibile dall&apos;utente per evitare immagini con risoluzione troppo elevata, quindi file inutilmente grandi</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/checkDocument.cpp" line="133"/>
         <source>The image does not fit the whole space you reserved for it. Maybe this is intended, or maybe this is caused by bad inner placement or scale. The result will either be a cropped image or white space around the image.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">L&apos;immagine non occupa tutto lo spazio della cornice. Ciò, se non intenzionalmente eseguito, potrebbe essere causato da un posizionamento errato o dalla scala dell&apos;immagine. Questo comporterà il taglio o la presenza di spazio bianco attorno all&apos;immagine.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/checkDocument.cpp" line="135"/>
@@ -5161,7 +5161,7 @@ Il tasto Inserisci inserisce un carattere (speciale) nell&apos;area di selezione
     <message>
         <location filename="../../scribus/ui/checkDocument.cpp" line="134"/>
         <source>This warning alerts you that you are using a bitmap based graphic format that is typically not used for high resolution images (.gif is one of those). This may result in poor viewing quality (for example: when commercially printed, viewed on a high-resolution screens, etc...). If your PDF will be printed commercially, there are some printing systems that will have difficulty printing these types of images.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Questo avviso indica che si sta utilizzando una grafica bitmap tipicamente non per immagini ad alta risoluzione (come .gif). Ciò può risultare in una bassa qualità (nella stampa commerciale, su schermi ad alta risoluzione, ecc...). Se il file sarà stampato commercialmente, alcuni sistemi di stampa potrebbero avere difficoltà con questa tipologia di immagini.</translation>
     </message>
     <message>
         <source>The assigned image file cannot be found.</source>
@@ -5179,7 +5179,7 @@ Il tasto Inserisci inserisce un carattere (speciale) nell&apos;area di selezione
     <message>
         <location filename="../../scribus/ui/checkDocument.cpp" line="140"/>
         <source>The warning is verifying for you that there is a PDF loaded into an Image Frame, where it will be rasterized or converted to a bitmap. Its resolution may be less than ideal. See PDF Export to learn how to minimize this problem.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Questo avviso verifica che un PDF è caricato all&apos;interno di una cornice immagine dove sarà rasterizzato e convertito in bitmap. La sua risoluzione potrebbe essere troppo bassa.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/checkDocument.cpp" line="141"/>
@@ -5189,7 +5189,7 @@ Il tasto Inserisci inserisce un carattere (speciale) nell&apos;area di selezione
     <message>
         <location filename="../../scribus/ui/checkDocument.cpp" line="142"/>
         <source>This warning indicates that your document contains images that have a transparent layer. This is really only an issue if using older printing profiles or PostScript. It is safe to ignore this when exporting to PDF version greater than 1.4.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Questo avviso indica che il documento contiene immagini con un livello di trasparenza. Ciò è un problema solamente se si utilizzano profili di stampa vecchi o PostScript. Puoi ignorare l&apos;avviso esportando a versioni PDF successive a 1.4.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/checkDocument.cpp" line="143"/>
@@ -5205,12 +5205,12 @@ Il tasto Inserisci inserisce un carattere (speciale) nell&apos;area di selezione
         <location filename="../../scribus/ui/checkDocument.cpp" line="144"/>
         <location filename="../../scribus/ui/checkDocument.cpp" line="146"/>
         <source>This layer uses transparency, only an issue if using older printing profiles. You may safely ignore this when using modern printing methods, or exporting to PDF version greater than 1.4.</source>
-        <translation type="unfinished">Questo livello utilizza trasparenze, un problema solo in caso di profili di stampa vecchi. Puoi tranquillamente ignorare questo utilizzando metodi di stampa moderni, o esportare a versioni PDF successive a 1.4.</translation>
+        <translation type="unfinished">Questo livello utilizza trasparenze, un problema solo in caso di profili di stampa vecchi. Puoi ignorare l&apos;avviso utilizzando metodi di stampa moderni, o esportare a versioni PDF successive a 1.4.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/checkDocument.cpp" line="145"/>
         <source>This layer uses blendmodes which relies on transparency, only an issue if using older printing profiles. You may safely ignore this when using modern printing methods, or exporting to PDF version greater than 1.4.</source>
-        <translation type="unfinished">Questo livello utilizza metodi di fusione basati su trasparenze, un problema solo in caso di profili di stampa vecchi. Puoi tranquillamente ignorare questo utilizzando metodi di stampa moderni, o esportare a versioni PDF successive a 1.4.</translation>
+        <translation type="unfinished">Questo livello utilizza metodi di fusione basati su trasparenze, un problema solo in caso di profili di stampa vecchi. Puoi ignorare l&apos;avviso utilizzando metodi di stampa moderni, o esportare a versioni PDF successive a 1.4.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/checkDocument.cpp" line="146"/>
@@ -22975,7 +22975,7 @@ Un valore uguale a 0 significa sillabazioni illimitate.</translation>
     <message>
         <location filename="../../scribus/ui/prefs_userinterface.cpp" line="60"/>
         <source>Time before resize or move starts allows for a slight delay between when you click and the operation happens to avoid unintended moves. This can be helpful when dealing with mouse sensitivity settings or accessibility issues related to ergnomic mice, touch pads or moveability of the wrists and hands.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Tempo prima che il ridimensionamento o il trascinamento abbia effetto. Utile per evitare movimenti non desiderati o per impostare la sensibilità del mouse o touch pad.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_userinterface.cpp" line="61"/>
@@ -25994,7 +25994,7 @@ dell&apos;oggetto</translation>
     <message>
         <location filename="../../scribus/ui/propertywidget_pareffect.h" line="102"/>
         <source>Background Color</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Colore di sfondo</translation>
     </message>
 </context>
 <context>
@@ -27472,7 +27472,7 @@ Collegamenti esterni
     <message>
         <location filename="../../scribus/langmgr.cpp" line="130"/>
         <source>Hindi</source>
-        <translation type="unfinished"></translation>
+        <translation>Hindi</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="132"/>
@@ -27492,7 +27492,7 @@ Collegamenti esterni
     <message>
         <location filename="../../scribus/langmgr.cpp" line="138"/>
         <source>Kabyle</source>
-        <translation type="unfinished"></translation>
+        <translation>Cabilo</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="140"/>
@@ -27502,7 +27502,7 @@ Collegamenti esterni
     <message>
         <location filename="../../scribus/langmgr.cpp" line="141"/>
         <source>Kannada</source>
-        <translation type="unfinished"></translation>
+        <translation>Kannada</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="142"/>
@@ -27542,7 +27542,7 @@ Collegamenti esterni
     <message>
         <location filename="../../scribus/langmgr.cpp" line="160"/>
         <source>Somali</source>
-        <translation type="unfinished"></translation>
+        <translation>Somalo</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="163"/>
@@ -30356,7 +30356,7 @@ Pertanto l&apos;immagine potrebbe essere non corretta</translation>
     <message>
         <location filename="../../scribus/plugins/gettext/odt2im/importodt.cpp" line="32"/>
         <source>ODT Document</source>
-        <translation type="unfinished"></translation>
+        <translation>Documento ODT</translation>
     </message>
 </context>
 <context>
@@ -31605,12 +31605,12 @@ Si prega di sceglierne un altro.</translation>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.cpp" line="141"/>
         <source>Background Color</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Colore di sfondo</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.cpp" line="142"/>
         <source>Background Shade</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Intensità sfondo</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.cpp" line="185"/>
