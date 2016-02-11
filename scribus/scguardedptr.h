@@ -47,6 +47,7 @@ public:
 	T& operator*() const { return *((T*)(data ? data->pointer : 0)); }
 	operator T*() const { return (T*)(data ? data->pointer : 0); }
 
+	int refCount(void) const;
 	void deref(void);
 };
 
@@ -111,6 +112,14 @@ bool ScGuardedPtr<T>::isNull(void)
 	if (data)
 		return (data->pointer == 0);
 	return true;
+};
+
+template<typename T>
+int ScGuardedPtr<T>::refCount(void) const
+{
+	if (data)
+		return data->refs;
+	return 0;
 };
 
 template<typename T>
