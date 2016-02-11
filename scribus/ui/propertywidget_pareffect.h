@@ -99,7 +99,6 @@ private:
 		peCombo->addItem(tr("Drop Caps"));
 		peCombo->addItem(tr("Bulleted List"));
 		peCombo->addItem(tr("Numerated List"));
-		peCombo->addItem(tr("Background Color"));
 	}
 
 //	void SMPStyleWidget::fillNumRestartCombo()
