@@ -114,9 +114,9 @@ About::About( QWidget* parent, AboutMode diaMode ) : QDialog( parent )
 	buildID = new QLabel( tab );
 	buildID->setAlignment(Qt::AlignCenter);
 	buildID->setTextInteractionFlags(Qt::TextSelectableByMouse);
-	QString BUILD_DAY = "20";
-	QString BUILD_MONTH = CommonStrings::december;
-	QString BUILD_YEAR = "2015";
+	QString BUILD_DAY = "14";
+	QString BUILD_MONTH = CommonStrings::february;
+	QString BUILD_YEAR = "2016";
 	QString BUILD_TIME = "";
 	QString BUILD_TZ = "";
 	QString BUILD_NAME = "";
