@@ -45,11 +45,11 @@ PageItem_LatexFrame::PageItem_LatexFrame(ScribusDoc *pa, double x, double y, dou
 	AnName = tr("Render") + QString::number(m_Doc->TotalItems);
 	setUName(AnName);
 	
-	imgValid = false;
+	m_imgValid = false;
 	m_usePreamble = true;
-	err = 0;
+	m_err = 0;
 	internalEditor = 0;
-	killed = false;
+	m_killed = false;
 	
 	config = 0;
 	if (PrefsManager::instance()->latexConfigs().count() > 0)
@@ -68,6 +68,7 @@ PageItem_LatexFrame::PageItem_LatexFrame(ScribusDoc *pa, double x, double y, dou
 	delete tempfile;
 	Q_ASSERT(!tempFileBase.isEmpty());
 	
+	m_lastWidth = m_lastHeight = 0;
 	m_dpi = 0;
 }
 
@@ -77,7 +78,7 @@ PageItem_LatexFrame::~PageItem_LatexFrame()
 	
 	latex->disconnect();
 	if (latex->state() != QProcess::NotRunning) {
-		killed = true;
+		m_killed = true;
 		latex->terminate();
 		latex->waitForFinished(500);
 		if (latex->state() != QProcess::NotRunning) {
@@ -94,8 +95,8 @@ void PageItem_LatexFrame::clearContents()
 	PageItem_ImageFrame::clearContents();
 	formulaText = "";
 	appStdout = "";
-	err = 0;
-	imgValid = false;
+	m_err = 0;
+	m_imgValid = false;
 }
 
 void PageItem_LatexFrame::deleteImageFile()
@@ -114,13 +115,13 @@ void PageItem_LatexFrame::deleteImageFile()
 		Q_ASSERT(file.startsWith("scribus_temp"));
 		dir.remove(file);
 	}
-	imgValid = false;
+	m_imgValid = false;
 }
 
 void PageItem_LatexFrame::DrawObj_Item(ScPainter *p, QRectF e)
 {
 	layout();
-	if (!imgValid && !err)
+	if (!m_imgValid && !m_err)
 	{
 		//Draw indicator that latex is running
 		p->setBrush(Qt::white);
@@ -128,7 +129,7 @@ void PageItem_LatexFrame::DrawObj_Item(ScPainter *p, QRectF e)
 		p->drawLine(FPoint(0, 0), FPoint(m_width, m_height));
 		p->drawText(QRectF(0.0, 0.0, m_width, m_height), tr("Rendering..."));
 	}
-	else if (err)
+	else if (m_err)
 	{
 		//Draw error indicator
 		p->setBrush(Qt::white);
@@ -147,15 +148,15 @@ void PageItem_LatexFrame::DrawObj_Item(ScPainter *p, QRectF e)
 void PageItem_LatexFrame::updateImage(int exitCode, QProcess::ExitStatus exitStatus)
 {
 	appStdout = latex->readAllStandardOutput();
-	err = exitCode;
+	m_err = exitCode;
 	
 	emit latexFinished();
 	emit stateChanged(latex->state());
 	
 	static bool firstWarning = true;
 	if (exitCode) {
-		imgValid = false;
-		if (firstWarning && !killed)
+		m_imgValid = false;
+		if (firstWarning && !m_killed)
 		{
 			bool editorRunning = internalEditor && internalEditor->isVisible();
 			ScMessageBox msgBox;
@@ -178,7 +179,7 @@ void PageItem_LatexFrame::updateImage(int exitCode, QProcess::ExitStatus exitSta
 			firstWarning = false;
 		}
 		qCritical() << "RENDER FRAME: updateImage():" << tr("Running the external application failed!");
-		killed = false;
+		m_killed = false;
 		update(); //Show error marker
 		return;
 	}
@@ -186,7 +187,7 @@ void PageItem_LatexFrame::updateImage(int exitCode, QProcess::ExitStatus exitSta
 	{
 		firstWarning = true;
 	}
-	imgValid = true;
+	m_imgValid = true;
 
 	//Save state and restore afterwards
 	double xres, yres;
@@ -221,9 +222,9 @@ void PageItem_LatexFrame::updateImage(int exitCode, QProcess::ExitStatus exitSta
 
 void PageItem_LatexFrame::runApplication()
 {
-	imgValid = false;
-	err = 0;
-	killed = false;
+	m_imgValid = false;
+	m_err = 0;
+	m_killed = false;
 	
 	static bool firstWarningTmpfile = true;
 	static bool firstWarningLatexMissing = true;
@@ -236,7 +237,7 @@ void PageItem_LatexFrame::runApplication()
 	
 	QFile tempfile(tempFileBase);
 	if (!tempfile.open(QIODevice::Truncate|QIODevice::WriteOnly)) {
-		err = 0xffff;
+		m_err = 0xffff;
 		update(); //Show error marker
 		if (firstWarningTmpfile)
 		{
@@ -256,7 +257,7 @@ void PageItem_LatexFrame::runApplication()
 	
 	QString full_command = config->executable();
 	if (full_command.isEmpty()) {
-		err = 0xffff;
+		m_err = 0xffff;
 		update(); //Show error marker
 		if (firstWarningLatexMissing)
 		{
@@ -317,7 +318,7 @@ void PageItem_LatexFrame::runEditor()
 void PageItem_LatexFrame::rerunApplication(bool updateDisplay)
 {
 	if (latex->state() != QProcess::NotRunning) {
-		killed = true;
+		m_killed = true;
 		latex->terminate();
 		latex->waitForFinished(500);
 		if (latex->state() != QProcess::NotRunning) {
@@ -378,8 +379,8 @@ bool PageItem_LatexFrame::setFormula(QString formula, bool undoable)
 		//Nothing changed
 		return false;
 	}
-	imgValid = false;
-	err = 0;
+	m_imgValid = false;
+	m_err = 0;
 	if (UndoManager::undoEnabled() && undoable)
 	{
 		SimpleState *ss = new SimpleState(Um::ChangeFormula, "", Um::IChangeFormula);
@@ -396,11 +397,11 @@ bool PageItem_LatexFrame::setFormula(QString formula, bool undoable)
 
 void PageItem_LatexFrame::latexError(QProcess::ProcessError error)
 {
-	err = 0xffff;
+	m_err = 0xffff;
 	update(); //Show error marker
 	static bool firstWarning = true;
-	if (killed) {
-		killed = false;
+	if (m_killed) {
+		m_killed = false;
 		update();
 		//Don't show errors caused by killing processes
 		return; 
@@ -502,7 +503,7 @@ void PageItem_LatexFrame::setConfigFile(QString newConfig, bool relative)
 
 void PageItem_LatexFrame::killProcess()
 {
-	killed = true;
+	m_killed = true;
 	latex->kill();
 }
 
@@ -535,9 +536,9 @@ void PageItem_LatexFrame::layout()
 	if (!invalid) return;
 	invalid = false;
 	
-	if (m_width == lastWidth && m_height == lastHeight) return;
-	lastWidth = m_width;
-	lastHeight = m_height;
+	if (m_width == m_lastWidth && m_height == m_lastHeight) return;
+	m_lastWidth = m_width;
+	m_lastHeight = m_height;
 	
 	rerunApplication(false);
 }

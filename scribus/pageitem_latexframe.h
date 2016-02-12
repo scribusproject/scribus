@@ -88,19 +88,19 @@ class SCRIBUS_API PageItem_LatexFrame : public PageItem_ImageFrame
 		
 		const QString output() const { return appStdout; }
 		QProcess::ProcessState state() const { return latex->state(); }
-		int error() const { return err; }
+		int error() const { return m_err; }
 
 		QMap<QString,QString> editorProperties;
 	protected:
 		virtual void DrawObj_Item(ScPainter *p, QRectF e);
-		double lastWidth, lastHeight;
+		double m_lastWidth, m_lastHeight;
 		
 		QString formulaText;
 
 		void writeFileContents(QFile *tempfile);
 		void deleteImageFile();
 		/* Last error code */
-		int err;
+		int m_err;
 		int m_dpi;
 		
 		QString imageFile, tempFileBase;
@@ -110,9 +110,9 @@ class SCRIBUS_API PageItem_LatexFrame : public PageItem_ImageFrame
 		QProcess *latex;
 		LatexEditor *internalEditor;
 		LatexConfigParser *config;
-		bool imgValid;
+		bool m_imgValid;
 		bool m_usePreamble;
-		bool killed;
+		bool m_killed;
 	signals:
 		void formulaAutoUpdate(QString oldText, QString newText);
 		void latexFinished();
