@@ -15,7 +15,9 @@ NodeEditContext::NodeEditContext() :
 	m_SegP2(-1),
 	m_EdPoints(true),
 	m_MoveSym(false),
-	m_SelNode()
+	m_SelNode(),
+	m_oldItemX(0.0),
+	m_oldItemY(0.0)
 {
 }
 
