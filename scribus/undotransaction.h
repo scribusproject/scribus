@@ -65,6 +65,8 @@ class TransactionData : public Transaction::TransactionStateBase
 {
 public:
 	TransactionData() {
+		stackLevel = 0;
+		UM = 0;
 		transactionObject = 0;
 		transactionState = 0;
 	}
