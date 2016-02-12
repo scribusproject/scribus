@@ -6056,8 +6056,8 @@ void PageItem::restorePolygon(SimpleState *ss, bool isUndo)
 void PageItem::restoreArc(SimpleState *state, bool isUndo)
 {
 	ScItemState<QPair<FPointArray, FPointArray> > *ss = dynamic_cast<ScItemState<QPair<FPointArray, FPointArray> > *>(state);
-	if (!ss)
-		return;
+	if (!is)
+		qFatal("PageItem::restoreArc: dynamic cast failed");
 	PageItem_Arc *item = asArc();
 	if (isUndo)
 	{
@@ -6097,7 +6097,7 @@ void PageItem::restoreTransform(SimpleState *ss, bool isUndo)
 {
 	ScItemState<QList<QTransform> > *is = dynamic_cast<ScItemState<QList<QTransform > >*>(ss);
 	if (!is)
-		return;
+		qFatal("PageItem::restoreTransform: dynamic cast failed");
 	int x = is->getDouble("DX");
 	int y = is->getDouble("DY");
 	if (isUndo)
@@ -6262,7 +6262,7 @@ void PageItem::restoreGradPos(SimpleState *state, bool isUndo)
 {
 	ScItemState<QList<FPoint> > *is = dynamic_cast<ScItemState<QList<FPoint> > *>(state);
 	if (!is)
-		return;
+		qFatal("PageItem::restoreGradPos: dynamic cast failed");
 	if (isUndo)
 	{
 		GrStartX = is->getDouble("OLDSTARTX");
