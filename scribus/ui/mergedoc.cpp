@@ -56,6 +56,12 @@ MergeDoc::MergeDoc(QWidget* parent, bool importMasterPages, int targetDocPageCou
 	fromInfoLayout->addWidget( changeButton, 0, 2 );
 	importPageLabel = new QLabel( tr( "&Import Page(s):" ), this );
 	fromInfoLayout->addWidget( importPageLabel, 1, 0 );
+
+	fromLabel = NULL;
+	pageNumberData = NULL;
+	createPageData = NULL;
+	importWhereData = NULL;
+	importWherePageData = NULL;
 	if (masterPages)
 	{
 		importPageLabel->setText( tr("&Import Master Page") );
