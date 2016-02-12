@@ -191,7 +191,7 @@ public:
 	SideBar(QWidget *pa);
 	~SideBar() {};
 	int offs;
-	int CurrentPar;
+	int currentPar;
 	SEditor *editor;
 	QMenu *pmen;
 	QWidgetAction* paraStyleAct;

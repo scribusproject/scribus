@@ -116,10 +116,12 @@ SideBar::SideBar(QWidget *pa) : QLabel(pa)
 	setAutoFillBackground(true);
 	setPalette(pal);
 	offs = 0;
+	currentPar = 0;
 	editor = 0;
 	noUpdt = true;
 	inRep = false;
 	pmen = new QMenu(this);
+	paraStyleAct = NULL;
 	setMinimumWidth(fontMetrics().width( tr("No Style") )+30);
 }
 
@@ -128,7 +130,7 @@ void SideBar::mouseReleaseEvent(QMouseEvent *m)
 	QPoint globalPos = m->globalPos();
 	QPoint viewPos   = editor->viewport()->mapFromGlobal(globalPos);
 	int p = editor->cursorForPosition(QPoint(2, viewPos.y())).position();
-	CurrentPar = editor->StyledText.nrOfParagraph(p);
+	currentPar = editor->StyledText.nrOfParagraph(p);
 	int pos = editor->StyledText.startOfParagraph( editor->StyledText.nrOfParagraph(p) );
 
 	pmen->clear();
@@ -136,9 +138,9 @@ void SideBar::mouseReleaseEvent(QMouseEvent *m)
 	QString styleName = "";
 	ParaStyleComboBox* paraStyleCombo = new ParaStyleComboBox(pmen);
 	paraStyleCombo->setDoc(editor->doc);
-	if ((CurrentPar < static_cast<int>(editor->StyledText.nrOfParagraphs())) && (editor->StyledText.length() != 0))
+	if ((currentPar < static_cast<int>(editor->StyledText.nrOfParagraphs())) && (editor->StyledText.length() != 0))
 	{
-		int len = editor->StyledText.endOfParagraph(CurrentPar) - editor->StyledText.startOfParagraph(CurrentPar);
+		int len = editor->StyledText.endOfParagraph(currentPar) - editor->StyledText.startOfParagraph(currentPar);
 		if (len > 0)
 			styleName = editor->StyledText.paragraphStyle(pos).parent(); //FIXME ParaStyleComboBox and use localized style name
 	}
@@ -158,7 +160,7 @@ void SideBar::mouseReleaseEvent(QMouseEvent *m)
 
 void SideBar::setPStyle(const QString& name)
 {
-	emit ChangeStyle(CurrentPar, name);
+	emit ChangeStyle(currentPar, name);
 	pmen->close();
 }
 
