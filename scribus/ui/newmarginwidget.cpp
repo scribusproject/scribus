@@ -19,8 +19,12 @@ NewMarginWidget::NewMarginWidget(QWidget* parent)
 {
 	setupUi(this);
 
+	m_unitIndex = 0;
+	m_unitRatio = 1.0;
+
 	pageWidth  = 0;
 	pageHeight = 0;
+	pageType = 0;
 }
 
 NewMarginWidget::~NewMarginWidget()
