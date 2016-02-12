@@ -6056,7 +6056,7 @@ void PageItem::restorePolygon(SimpleState *ss, bool isUndo)
 void PageItem::restoreArc(SimpleState *state, bool isUndo)
 {
 	ScItemState<QPair<FPointArray, FPointArray> > *ss = dynamic_cast<ScItemState<QPair<FPointArray, FPointArray> > *>(state);
-	if (!is)
+	if (!ss)
 		qFatal("PageItem::restoreArc: dynamic cast failed");
 	PageItem_Arc *item = asArc();
 	if (isUndo)
