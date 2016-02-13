@@ -1118,7 +1118,8 @@ void ScribusMainWindow::initMenuBar()
 	scrMenuMgr->addMenuItemString("extrasManageImages", "Extras");
 	scrMenuMgr->addMenuItemString("SEPARATOR", "Extras");
 	scrMenuMgr->addMenuItemString("extrasUpdateDocument", "Extras");
-	scrMenuMgr->addMenuItemString("extrasTestQTQuick2_1", "Extras");
+//	Disabled for release as it does nothing useful
+//	scrMenuMgr->addMenuItemString("extrasTestQTQuick2_1", "Extras");
 
 	//Window menu
 	scrMenuMgr->createMenu("Windows", ActionManager::defaultMenuNameEntryTranslated("Windows"), QString::null, true);
