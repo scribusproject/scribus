@@ -746,6 +746,11 @@ PageItem *SVGPlug::finishNode(const QDomNode &e, PageItem* item)
 					item->GrEndY   = gra.point(1).y() - item->yPos() + BaseY;
 					item->GrFocalX = gra.point(2).x() - item->xPos() + BaseX;
 					item->GrFocalY = gra.point(2).y() - item->yPos() + BaseY;
+					double ScaleX = 1.0;
+					double ScaleY = 1.0;
+					getScaleFromMatrix(mm, ScaleX, ScaleY);
+					if (ScaleX != ScaleY)
+						item->GrScale = ScaleY / ScaleX;
 				}
 				item->GrType = gc->FillGradientType;
 			}
