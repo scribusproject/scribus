@@ -6955,9 +6955,26 @@ bool PDFLibCore::PDF_PatternFillStroke(QByteArray& output, PageItem *currItem, i
 		pat = &doc.docPatterns[currItem->pattern()];
 	}
 	else if (kind == 1)
+	{
+		QString strokePattern = currItem->strokePattern();
+		if (strokePattern.isEmpty() || !doc.docPatterns.contains(strokePattern))
+		{
+			if (currItem->lineColor() != CommonStrings::None)
+			{
+				output += putColor(currItem->lineColor(), currItem->lineShade(), true);
+				output += FToStr(fabs(currItem->lineWidth()))+" w\n";
+			}
+			return true;
+		}
 		pat = &doc.docPatterns[currItem->strokePattern()];
+	}
 	else if (kind == 2)
+	{
+		QString patternMask = currItem->patternMask();
+		if (patternMask.isEmpty() || !doc.docPatterns.contains(patternMask))
+			return true;
 		pat = &doc.docPatterns[currItem->patternMask()];
+	}
 	else
 		return false;
 	for (int em = 0; em < pat->items.count(); ++em)
