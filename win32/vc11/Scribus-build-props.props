@@ -29,13 +29,13 @@
 	<!-- Boost -->
 	<BOOST_DIR>$(SCRIBUS_COMMON_LIB_ROOT)\boost-1.58.0</BOOST_DIR>
 	<!-- Cairo -->
-	<CAIRO_DIR>$(SCRIBUS_LIB_ROOT)\cairo-1.14.4</CAIRO_DIR>
+	<CAIRO_DIR>$(SCRIBUS_LIB_ROOT)\cairo-1.14.6</CAIRO_DIR>
 	<CAIRO_INCLUDE_DIR>$(CAIRO_DIR)\include</CAIRO_INCLUDE_DIR>
 	<CAIRO_LIB_DIR>$(CAIRO_DIR)\lib\$(Platform)-$(PlatformToolset)</CAIRO_LIB_DIR>
 	<CAIRO_LIB Condition="'$(Configuration)' == 'Debug'">cairo2d.lib</CAIRO_LIB>
 	<CAIRO_LIB Condition="'$(Configuration)' == 'Release'">cairo2.lib</CAIRO_LIB>
 	<!-- Freetype -->
-	<FREETYPE_DIR>$(SCRIBUS_LIB_ROOT)\freetype-2.6.1</FREETYPE_DIR>
+	<FREETYPE_DIR>$(SCRIBUS_LIB_ROOT)\freetype-2.6.3</FREETYPE_DIR>
 	<FREETYPE_INCLUDE_DIR>$(FREETYPE_DIR)\include</FREETYPE_INCLUDE_DIR>
 	<FREETYPE_LIB_DIR>$(FREETYPE_DIR)\lib\$(Platform)-$(PlatformToolset)</FREETYPE_LIB_DIR>
 	<FREETYPE_LIB Condition="'$(Configuration)' == 'Debug'">freetype_d.lib</FREETYPE_LIB>
@@ -63,7 +63,7 @@
 	<LCMS_LIB Condition="'$(Configuration)' == 'Debug'">lcms2_staticd.lib</LCMS_LIB>
 	<LCMS_LIB Condition="'$(Configuration)' == 'Release'">lcms2_static.lib</LCMS_LIB>
 	<!-- Libcdr -->
-	<LIBCDR_DIR>$(SCRIBUS_LIB_ROOT)\libcdr-0.1.1</LIBCDR_DIR>
+	<LIBCDR_DIR>$(SCRIBUS_LIB_ROOT)\libcdr-0.1.2</LIBCDR_DIR>
 	<LIBCDR_INCLUDE_DIR>$(LIBCDR_DIR)\inc</LIBCDR_INCLUDE_DIR>
 	<LIBCDR_LIB_DIR>$(LIBCDR_DIR)\lib\$(Platform)-$(PlatformToolset)</LIBCDR_LIB_DIR>
 	<LIBCDR_LIB Condition="'$(Configuration)' == 'Debug'">libcdr_d.lib</LIBCDR_LIB>
@@ -93,7 +93,7 @@
 	<LIBPAGEMAKER_LIB Condition="'$(Configuration)' == 'Debug'">libpagemaker_d.lib</LIBPAGEMAKER_LIB>
 	<LIBPAGEMAKER_LIB Condition="'$(Configuration)' == 'Release'">libpagemaker.lib</LIBPAGEMAKER_LIB>
 	<!-- Librevenge -->
-	<LIBREVENGE_DIR>$(SCRIBUS_LIB_ROOT)\librevenge-0.0.2</LIBREVENGE_DIR>
+	<LIBREVENGE_DIR>$(SCRIBUS_LIB_ROOT)\librevenge-0.0.3</LIBREVENGE_DIR>
 	<LIBREVENGE_INCLUDE_DIR>$(LIBREVENGE_DIR)\inc</LIBREVENGE_INCLUDE_DIR>
 	<LIBREVENGE_LIB_DIR>$(LIBREVENGE_DIR)\lib\$(Platform)-$(PlatformToolset)</LIBREVENGE_LIB_DIR>
 	<LIBREVENGE_LIB Condition="'$(Configuration)' == 'Debug'">librevenge-0.0d.lib</LIBREVENGE_LIB>
@@ -109,7 +109,7 @@
 	<LIBTIFF_LIB Condition="'$(Configuration)' == 'Debug'">libtiff5_d.lib</LIBTIFF_LIB>
 	<LIBTIFF_LIB Condition="'$(Configuration)' == 'Release'">libtiff5.lib</LIBTIFF_LIB>
 	<!-- Libvisio -->
-	<LIBVISIO_DIR>$(SCRIBUS_LIB_ROOT)\libvisio-0.1.1</LIBVISIO_DIR>
+	<LIBVISIO_DIR>$(SCRIBUS_LIB_ROOT)\libvisio-0.1.3</LIBVISIO_DIR>
 	<LIBVISIO_INCLUDE_DIR>$(LIBVISIO_DIR)\inc</LIBVISIO_INCLUDE_DIR>
 	<LIBVISIO_LIB_DIR>$(LIBVISIO_DIR)\lib\$(Platform)-$(PlatformToolset)</LIBVISIO_LIB_DIR>
 	<LIBVISIO_LIB Condition="'$(Configuration)' == 'Debug'">libvisio_d.lib</LIBVISIO_LIB>
@@ -127,7 +127,7 @@
 	<PODOFO_LIB Condition="'$(Configuration)' == 'Debug'">PoDoFoLibD.lib</PODOFO_LIB>
 	<PODOFO_LIB Condition="'$(Configuration)' == 'Release'">PoDoFoLib.lib</PODOFO_LIB>
 	<!-- Poppler -->
-	<POPPLER_DIR>$(SCRIBUS_LIB_ROOT)\poppler-0.37.0</POPPLER_DIR>
+	<POPPLER_DIR>$(SCRIBUS_LIB_ROOT)\poppler-0.39.0</POPPLER_DIR>
 	<POPPLER_INCLUDE_DIR>$(POPPLER_DIR)\include</POPPLER_INCLUDE_DIR>
 	<POPPLER_LIB_DIR>$(POPPLER_DIR)\lib\$(Platform)-$(PlatformToolset)</POPPLER_LIB_DIR>
 	<POPPLER_LIB Condition="'$(Configuration)' == 'Debug'">poppler_staticD.lib</POPPLER_LIB>
