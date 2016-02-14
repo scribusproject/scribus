@@ -76,7 +76,7 @@ void ExportForm::computeSize()
 void ExportForm::OutputDirectoryButton_pressed()
 {
 	QString lastDir = prefs->get("wdir", ".");
-	QString dirName = QFileDialog::getExistingDirectory(this, tr("Choose a Export Directory"), lastDir);
+	QString dirName = QFileDialog::getExistingDirectory(this, tr("Choose an Export Directory"), lastDir);
 	if (dirName.length()>0)
 	{
 		dirName = QDir::toNativeSeparators(dirName);
