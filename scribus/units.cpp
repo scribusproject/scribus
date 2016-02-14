@@ -30,7 +30,7 @@ for which a new license (GPL+exception) is in place.
 double unitGetRatioFromIndex(const int index)
 {
 	//PT, MM, IN, P, CM, C (Cicero)
-	//NOTE: Calling functions that divide by this value will crash on divide by 0. They shouldnt be getting
+	//NOTE: Calling functions that divide by this value will crash on divide by 0. They shouldn't be getting
 	// a zero value if they are accessing here with a correct index.
 	if (index<UNITMIN || index>UNITMAX)
 		return 0;
@@ -211,7 +211,7 @@ const QStringList unitGetTextUnitList()
 	suffixList.append( QObject::tr( "Picas (p)" ) );
 	suffixList.append( QObject::tr( "Centimeters (cm)" ) );
 	suffixList.append( QObject::tr( "Cicero (c)" ) );
-	//Here for completeness, dont use!
+	//Here for completeness, don't use!
 	//suffixList.append( QObject::tr( "°" ) );
 	//suffixList.append( QObject::tr( "%" ) );
 	return QStringList(suffixList);
@@ -317,7 +317,7 @@ double pts2value(double unitValue, int unit)
 		case 3:
 		case 6:
 		case 7:
-			ret = unitValue; //dont multiply by 1
+			ret = unitValue; //don't multiply by 1
 			break;
 		default:
 			ret = unitValue * unitGetRatioFromIndex(unit);
@@ -338,7 +338,7 @@ double value2pts(double unitValue, int unit)
 		case 3:
 		case 6:
 		case 7:
-			ret = unitValue; // dont divide by 1
+			ret = unitValue; // don't divide by 1
 			break;
 		default:
 			ret = unitValue / unitGetRatioFromIndex(unit);
