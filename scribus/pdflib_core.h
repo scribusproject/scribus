@@ -49,7 +49,7 @@ class ScText;
  * This is not public API and is not exported in Scribus's symbol table on supporting
  * platforms. Do not include this header, use pdflib.h instead. Including this header
  * from anywhere except pdflib.cpp may cause linker errors and other problems,
- * and is totally pointless since all the interfaces that are publically
+ * and is totally pointless since all the interfaces that are publicly
  * visible are presented by PDFlib anyway.
  *
  *@author Franz Schmid
