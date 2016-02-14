@@ -184,7 +184,7 @@ void CanvasMode_Normal::mouseDoubleClickEvent(QMouseEvent *m)
 				m_view->Deselect(false);
 				m_doc->m_Selection->addItem(currItem);
 				currItem->isSingleSel = true;
-				//CB FIXME dont call this if the added item is item 0
+				//CB FIXME don't call this if the added item is item 0
 				if (!m_doc->m_Selection->primarySelectionIs(currItem))
 					currItem->emitAllToGUI();
 				m_view->updateContents(currItem->getRedrawBounding(m_canvas->scale()));
@@ -933,7 +933,7 @@ void CanvasMode_Normal::mousePressEvent(QMouseEvent *m)
 			m_dragConstrainInitPtX = qRound(currItem->xPos());
 			m_dragConstrainInitPtY = qRound(currItem->yPos());
 			
-			// dont call SeleItem() without need here:
+			// don't call SeleItem() without need here:
 			m_frameResizeHandle = m_canvas->frameHitTest(QPointF(mousePointDoc.x(),mousePointDoc.y()), currItem);
 			//#6797
 			if (m_frameResizeHandle <= 0 || m->modifiers() != Qt::NoModifier)
@@ -1284,7 +1284,7 @@ void CanvasMode_Normal::mouseReleaseEvent(QMouseEvent *m)
 			m_doc->itemAddCommit(m_doc->m_Selection->itemAt(0));
 		}
 	}
-	//Make sure the Zoom spinbox and page selector dont have focus if we click on the canvas
+	//Make sure the Zoom spinbox and page selector don't have focus if we click on the canvas
 	m_view->m_ScMW->zoomSpinBox->clearFocus();
 	m_view->m_ScMW->pageSelector->clearFocus();
 	if (m_doc->m_Selection->count() > 0)
