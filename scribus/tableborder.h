@@ -73,7 +73,7 @@ private:
 	Qt::PenStyle m_style;
 	/// The color of the table border line.
 	QString m_color;
-	/// Ths shade of the table border line
+	/// The shade of the table border line
 	double m_shade;
 };
 Q_DECLARE_TYPEINFO(TableBorderLine, Q_MOVABLE_TYPE);
