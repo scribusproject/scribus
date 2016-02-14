@@ -444,7 +444,7 @@ void CanvasMode_Edit::mouseMoveEvent(QMouseEvent *m)
 				currItem->itemText.deselectAll();
 				currItem->HasSel = false;
 				m_view->slotSetCurs(m->globalPos().x(), m->globalPos().y());
-				//Make sure we dont go here if the old cursor position was not set
+				//Make sure we don't go here if the old cursor position was not set
 				if (oldCp!=-1 && currItem->itemText.length() > 0)
 				{
 					if (currItem->itemText.cursorPosition() < oldCp)
@@ -932,7 +932,7 @@ void CanvasMode_Edit::mouseReleaseEvent(QMouseEvent *m)
 	{
 		m_doc->itemAddCommit(m_doc->m_Selection->itemAt(0));
 	}
-	//Make sure the Zoom spinbox and page selector dont have focus if we click on the canvas
+	//Make sure the Zoom spinbox and page selector don't have focus if we click on the canvas
 	m_view->m_ScMW->zoomSpinBox->clearFocus();
 	m_view->m_ScMW->pageSelector->clearFocus();
 	if (m_doc->m_Selection->itemAt(0) != 0) // is there the old clip stored for the undo action
