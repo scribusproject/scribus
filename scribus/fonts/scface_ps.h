@@ -57,7 +57,7 @@ class ScFace_postscript : public FtFace
 			{
 				// re-initialize: ScFaceData::load() just clears caches,
 				// FtFace::load() skips FT_New_Face if m_face is already defined.
-				// dont mind checking glyphs again for now (PS files have only 255 glyphs max, anyway)
+				// don't mind checking glyphs again for now (PS files have only 255 glyphs max, anyway)
 				FtFace::load();
 			}
 //			Ascent = tmp.setNum(face->ascender);
