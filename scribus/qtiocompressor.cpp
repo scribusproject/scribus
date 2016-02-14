@@ -259,7 +259,7 @@ QtIOCompressor::QtIOCompressor(QIODevice *device, int compressionLevel, int buff
 {}
 
 /*!
-    Destroys the QtIOCompressor, closing it if neccesary.
+    Destroys the QtIOCompressor, closing it if necessary.
 */
 QtIOCompressor::~QtIOCompressor()
 {
@@ -319,7 +319,7 @@ bool QtIOCompressor::isSequential() const
     If the underlying device is not opened, this function will open it in a suitable mode. If this happens
     the device will also be closed when close() is called.
 
-    If the underlying device is already opened, its openmode must be compatable with \a mode.
+    If the underlying device is already opened, its openmode must be compatible with \a mode.
 
     Returns true on success, false on error.
 
