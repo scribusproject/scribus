@@ -439,10 +439,10 @@ void PropertiesPalette_Image::setCurrentItem(PageItem *item)
 {
 	if (!m_ScMW || m_ScMW->scriptIsRunning())
 		return;
-	//CB We shouldnt really need to process this if our item is the same one
+	//CB We shouldn't really need to process this if our item is the same one
 	//maybe we do if the item has been changed by scripter.. but that should probably
 	//set some status if so.
-	//FIXME: This wont work until when a canvas deselect happens, m_item must be NULL.
+	//FIXME: This won't work until when a canvas deselect happens, m_item must be NULL.
 	//if (m_item == i)
 	//	return;
 
@@ -557,7 +557,7 @@ void PropertiesPalette_Image::handleLocalScale()
 		return;
 	if ((m_haveDoc) && (m_haveItem))
 	{
-		//CB Dont pass in the scale to the offset change as its taken from the new scale
+		//CB Don't pass in the scale to the offset change as its taken from the new scale
 		m_doc->itemSelection_SetImageScaleAndOffset(imageXScaleSpinBox->value() / 100.0 / m_item->pixm.imgInfo.xres * 72.0, imageYScaleSpinBox->value() / 100.0 / m_item->pixm.imgInfo.yres * 72.0, imageXOffsetSpinBox->value() / m_unitRatio, imageYOffsetSpinBox->value() / m_unitRatio);
 		imgDpiX->showValue(qRound(720.0 / m_item->imageXScale()) / 10.0);
 		imgDpiY->showValue(qRound(720.0 / m_item->imageYScale()) / 10.0);
@@ -570,7 +570,7 @@ void PropertiesPalette_Image::handleLocalDpi()
 		return;
 	if ((m_haveDoc) && (m_haveItem))
 	{
-		//CB Dont pass in the scale to the offset change as its taken from the new scale
+		//CB Don't pass in the scale to the offset change as its taken from the new scale
 		m_doc->itemSelection_SetImageScaleAndOffset(72.0 / imgDpiX->value(), 72.0 / imgDpiY->value(), imageXOffsetSpinBox->value() / m_unitRatio, imageYOffsetSpinBox->value() / m_unitRatio);
 		
 		imageXScaleSpinBox->showValue(m_item->imageXScale() * 100 / 72.0 * m_item->pixm.imgInfo.xres);
