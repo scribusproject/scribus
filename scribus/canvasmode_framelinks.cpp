@@ -313,7 +313,7 @@ void CanvasMode_FrameLinks::mouseReleaseEvent(QMouseEvent *m)
 	m_view->MidButt = false;
 	for (int i = 0; i < m_doc->m_Selection->count(); ++i)
 		m_doc->m_Selection->itemAt(i)->checkChanges(true);
-	//Make sure the Zoom spinbox and page selector dont have focus if we click on the canvas
+	//Make sure the Zoom spinbox and page selector don't have focus if we click on the canvas
 	m_view->m_ScMW->zoomSpinBox->clearFocus();
 	m_view->m_ScMW->pageSelector->clearFocus();
 }
