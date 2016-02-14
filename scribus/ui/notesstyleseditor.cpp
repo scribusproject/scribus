@@ -280,7 +280,7 @@ void NotesStylesEditor::on_ApplyButton_clicked()
 	}
 	else
 	{
-		//remeber current NStyle
+		//remember current NStyle
 		QString currNS = NSlistBox->currentText();
 		NotesStyle* NS = NULL;
 		
