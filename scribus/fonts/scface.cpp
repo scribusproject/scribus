@@ -126,7 +126,7 @@ FPoint ScFace::ScFaceData::glyphOrigin(gid_type gl, qreal sz) const
    
    canRender(unicode) -> CharMap cache? -> loadChar/Glyph -> !broken
    Glyphs:  width    status
-            -1000    unkown
+            -1000    unknown
             -2000    broken
             >= 0     ok, outline valid
    CharMap:  unicode -> glyph index
