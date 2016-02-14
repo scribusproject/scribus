@@ -2119,12 +2119,12 @@ void PageItem_TextFrame::layout()
 				//FIX ME - that should be paragraph style`s properties
 				//if set then indent is add to possible line start point (after overflow)
 				//if not then indent is calculated from column left edge
-				//if you dont agree that adding indent to overflow should be default behaviour
+				//if you don't agree that adding indent to overflow should be default behaviour
 				//then change it to false
 				bool addIndent2overflow = false; // should be addIndent2Overflow = style.addIndent2Overlow();
 				bool addFirstIndent2overflow = true; // should be addFirstIndent2Overflow = style.addFirstIndent2Overlow();
 				//if first line indent is negative and left indent should not be added to overflow
-				//then dont add first line ident either
+				//then don't add first line ident either
 				if ((style.firstIndent() < 0) && !addIndent2overflow)
 					addFirstIndent2overflow = false;
 
@@ -2272,7 +2272,7 @@ void PageItem_TextFrame::layout()
 					else /*if (current.startOfCol)*/
 					{
 						//FIX ME - that is ugly hack I must made, because simply expression
-						//current.yPos += diff; stop working, dont know why (compiler bug?)
+						//current.yPos += diff; stop working, don't know why (compiler bug?)
 						float YPOS = (float) current.yPos + (float) diff + 0.01;
 						current.yPos = (double) YPOS;
 						if (current.hasDropCap && diff > DropCapDrop)
@@ -2832,7 +2832,7 @@ void PageItem_TextFrame::layout()
 				// end of column
 				if (current.isEndOfCol(desc))
 				{
-					//check if realy line extends bottom margin
+					//check if really line extends bottom margin
 					current.updateHeightMetrics(itemText);
 					if (current.isEndOfCol(current.line.descent))
 					{
@@ -4986,7 +4986,7 @@ void PageItem_TextFrame::deleteSelectedTextFromFrame(/*bool findNotes*/)
 		if (isNoteFrame()/* && findNotes*/)
 		{
 			//find and delete notes
-			//if marks are in notes then they will be deleted further while note is physicaly deleted
+			//if marks are in notes then they will be deleted further while note is physically deleted
 			for (int i=start; i < stop; ++i)
 			{
 				if (i == itemText.length())
