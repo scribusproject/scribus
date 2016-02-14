@@ -202,7 +202,7 @@ bool FileLoader::loadPage(ScribusDoc* currDoc, int PageToLoad, bool Mpage, QStri
 		}
 	}
 	if (ret)
-		ret = postLoad(currDoc);  // FIXME: return false if user doesnt want to replace fonts??
+		ret = postLoad(currDoc);  // FIXME: return false if user doesn't want to replace fonts??
 
 	return ret;
 }
