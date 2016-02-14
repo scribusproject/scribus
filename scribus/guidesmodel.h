@@ -56,7 +56,7 @@ class GuidesModel : public QAbstractTableModel
 #endif
 
 	signals:
-		/*! \brief Signal emmitted when the user finish the editation of one value.
+		/*! \brief Signal emitted when the user finishes editing one value.
 		*/
 		void valueChanged();
 
