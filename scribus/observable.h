@@ -81,7 +81,7 @@ struct Private_Memento : public UpdateMemento
 
 
 /**
-  Implement this interface if you want to observe an observable but dont want to derive from QObject 
+  Implement this interface if you want to observe an observable but don't want to derive from QObject 
  */
 template<class OBSERVED>
 class SCRIBUS_API Observer {
@@ -97,7 +97,7 @@ public:
  An MassObservable is basically just the source of a changed() signal.
  Observers can register via the Qt signal/slot mechanism or via the above interface.
  
- The difference to Observable (below) is that a MassObservable doesnt report changes to
+ The difference to Observable (below) is that a MassObservable doesn't report changes to
  itself but to a bunch of SingleObservables.
  When you call update() on the SingleObservable, it will tell the associated
  MassObservable to notify all observers with the "changed" signal,
