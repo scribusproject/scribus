@@ -1846,7 +1846,7 @@ void StoryEditor::buildGUI()
 	m_smartSelection = prefsManager->appPrefs.storyEditorPrefs.smartTextSelection;
 	initActions();
 	ActionManager::initUnicodeActions(&seActions, this, &unicodeCharActionNames);
-	seActions["unicodeSoftHyphen"]->setEnabled(false);//CB TODO doesnt work in SE yet.
+	seActions["unicodeSoftHyphen"]->setEnabled(false);//CB TODO doesn't work in SE yet.
 	buildMenus();
 
 	setWindowIcon(IconManager::instance()->loadPixmap("AppIcon.png"));
@@ -2239,7 +2239,7 @@ bool StoryEditor::eventFilter( QObject* ob, QEvent* ev )
 				activFromApp = true;
 				if (m_item != NULL)
 				{
-					//set to false otherwise some dialog properties wont be set correctly
+					//set to false otherwise some dialog properties won't be set correctly
 					if (m_item->itemText.length() == 0)
 						m_firstSet = false; 
 					disconnectSignals();
@@ -2914,7 +2914,7 @@ void StoryEditor::PasteAvail()
 
 void StoryEditor::updateTextFrame()
 {
-	//Return immediately if we dont have to update the frame
+	//Return immediately if we don't have to update the frame
 	if (!m_textChanged)
 		return;
 	PageItem *nextItem = m_item;
