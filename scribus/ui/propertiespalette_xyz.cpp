@@ -282,10 +282,10 @@ void PropertiesPalette_XYZ::setCurrentItem(PageItem *i)
 {
 	if (!m_ScMW || m_ScMW->scriptIsRunning())
 		return;
-	//CB We shouldnt really need to process this if our item is the same one
+	//CB We shouldn't really need to process this if our item is the same one
 	//maybe we do if the item has been changed by scripter.. but that should probably
 	//set some status if so.
-	//FIXME: This wont work until when a canvas deselect happens, m_item must be NULL.
+	//FIXME: This won't work until when a canvas deselect happens, m_item must be NULL.
 	//if (m_item == i)
 	//	return;
 
@@ -505,7 +505,7 @@ void PropertiesPalette_XYZ::handleSelectionChanged()
 			flipV->setChecked(false);
 		}
 		
-		//CB Why cant we do this for lines?
+		//CB Why can't we do this for lines?
 //		flipH->setEnabled((itemType !=-1) && (itemType !=5));
 //		flipV->setEnabled((itemType !=-1) && (itemType !=5));
 		flipH->setEnabled(itemType !=-1);
