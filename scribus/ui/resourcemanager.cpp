@@ -630,12 +630,12 @@ void ResourceManager::downloadFilesFinished()
 					QFile dledFile(fn);
 					QFileInfo fi(dledFile);
 					if (!dledFile.exists())
-						qDebug()<<"File doesnt exist"<<fn;
+						qDebug()<<"File doesn\'t exist"<<fn;
 					else
 					{
 						ScZipHandler* fun = new ScZipHandler();
 						if (!fun->open(fn))
-							qDebug()<<"Zip file doesnt open"<<fn;
+							qDebug()<<"Zip file doesn\'t open"<<fn;
 						else
 						{
 							QStringList zipFileContents(fun->files());
@@ -672,12 +672,12 @@ void ResourceManager::downloadFilesFinished()
 					QFile dledFile(fn);
 					QFileInfo fi(dledFile);
 					if (!dledFile.exists())
-						qDebug()<<"File doesnt exist"<<fn;
+						qDebug()<<"File doesn\'t exist"<<fn;
 					else
 					{
 						ScZipHandler* fun = new ScZipHandler();
 						if (!fun->open(fn))
-							qDebug()<<"Zip file doesnt open"<<fn;
+							qDebug()<<"Zip file doesn\'t open"<<fn;
 						else
 						{
 							QStringList zipContents(fun->files());
