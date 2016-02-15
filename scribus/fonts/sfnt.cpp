@@ -919,7 +919,7 @@ QByteArray extractFace(const QByteArray& coll, int faceIndex)
 	
 	
 	QList<uint> copyGlyphComponents(QByteArray& destGlyf, const QByteArray& srcGlyf, uint srcOffset,
-	                                QMap<uint,uint> newForOldGid, uint& nextFreeGid)
+	                                QMap<uint,uint>& newForOldGid, uint& nextFreeGid)
 	{
 		QList<uint> result;
 		
@@ -979,8 +979,6 @@ QByteArray extractFace(const QByteArray& coll, int faceIndex)
 			}
 		} while ( flags & ttf_glyf_ComponentFlag_MORE_COMPONENTS );
 			
-			
-
 		if (haveInstructions)
 		{
 			uint numInstr = word16(srcGlyf, pos);
@@ -1006,7 +1004,7 @@ QByteArray extractFace(const QByteArray& coll, int faceIndex)
 		int i = 0;
 		if (glyphLength > 0)
 		{
-			uint nrOfContours = word16(srcGlyf, glyphStart);
+			quint16 nrOfContours = word16(srcGlyf, glyphStart);
 			if (nrOfContours <= ttf_glyf_Max_numberOfContours)
 			{
 				// simple glyph
@@ -1018,7 +1016,17 @@ QByteArray extractFace(const QByteArray& coll, int faceIndex)
 			else
 			{
 				compositeElements.append(copyGlyphComponents(destGlyf, srcGlyf, glyphStart, newForOldGid, nextFreeGid));
-					 qDebug() << i++ << ":" << srcGid << "composite glyph brought" << compositeElements.size() << "more glyphs";
+				qDebug() << i++ << ":" << srcGid << "composite glyph brought" << compositeElements.size() << "more glyphs";
+			}
+			// Data must be aligned at least on 2 byte boundary, however
+			// a 4-byte alignment is recommended by TTF specs for reasons
+			// related to CPU and efficiency
+			uint targetSize = (destGlyf.size() + 3) & ~3;
+			if (destGlyf.size() < targetSize)
+			{
+				destGlyf.reserve(targetSize);
+				while (destGlyf.size() < targetSize)
+					destGlyf.append('\0');
 			}
 		}
 
@@ -1049,12 +1057,17 @@ QByteArray extractFace(const QByteArray& coll, int faceIndex)
 			QByteArray newGlyf;
 			glyphs.removeAll(0);
 			glyphs.prepend(0);
+
+			for (int i = 0; i < glyphs.length(); ++i)
+			{
+				uint oldGid = glyphs[i];
+				newForOldGid[oldGid] = i;
+			}
 			
 			uint nextFreeGid = glyphs.length();
 			for (int i = 0; i < glyphs.length(); ++i)
 			{
 				uint oldGid = glyphs[i];
-				newForOldGid[oldGid] = i;
 				glyphs.append(copyGlyph(newLoca, newGlyf, i,
 				                        oldLoca, oldGlyf, oldGid,
 				                        newForOldGid, nextFreeGid));
