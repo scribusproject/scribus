@@ -564,7 +564,7 @@ void HelpBrowser::loadMenu()
 		{
 			if (!language.isEmpty())
 			{
-				//Check if we can load, eg "de" when "de_CH" docs dont exist
+				//Check if we can load, eg "de" when "de_CH" docs don't exist
 				QString baseHelpMenuFile3 = QDir::toNativeSeparators(baseHelpDir + language.left(2) + "/menu.xml");
 				QString altHelpMenuFile3 = QDir::toNativeSeparators(altHelpDir + "doc/" + language.left(2) + "/menu.xml");
 				QFileInfo fi3 = QFileInfo(baseHelpMenuFile3);
