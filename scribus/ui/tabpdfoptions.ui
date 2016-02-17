@@ -83,11 +83,7 @@
               <widget class="QLineEdit" name="PageNr"/>
              </item>
              <item>
-              <widget class="QPushButton" name="pageNrButton">
-               <property name="text">
-                <string>...</string>
-               </property>
-              </widget>
+              <widget class="QPushButton" name="pageNrButton"/>
              </item>
             </layout>
            </item>
