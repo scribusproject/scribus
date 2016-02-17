@@ -1021,7 +1021,7 @@ QByteArray extractFace(const QByteArray& coll, int faceIndex)
 			// Data must be aligned at least on 2 byte boundary, however
 			// a 4-byte alignment is recommended by TTF specs for reasons
 			// related to CPU and efficiency
-			uint targetSize = (destGlyf.size() + 3) & ~3;
+			int targetSize = (destGlyf.size() + 3) & ~3;
 			if (destGlyf.size() < targetSize)
 			{
 				destGlyf.reserve(targetSize);
