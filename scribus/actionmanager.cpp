@@ -1552,12 +1552,12 @@ void ActionManager::languageChange()
 	(*scrActions)["typeEffectOutline"]->setTexts( tr("&Outline", "type effect"));
 	(*scrActions)["typeEffectShadow"]->setTexts( tr("S&hadow"));
 
-	(*scrActions)["styleImageEffects"]->setTexts( tr("&Image Effects"));
+	(*scrActions)["styleImageEffects"]->setTexts( tr("&Image Effects..."));
 	(*scrActions)["styleTabulators"]->setTexts( tr("&Tabulators..."));
 
 	//Item Menu
 	(*scrActions)["itemDuplicate"]->setTexts( tr("D&uplicate"));
-	(*scrActions)["itemMulDuplicate"]->setTexts( tr("&Multiple Duplicate"));
+	(*scrActions)["itemMulDuplicate"]->setTexts( tr("&Multiple Duplicate..."));
 	(*scrActions)["itemTransform"]->setTexts( tr("&Transform"));
 	(*scrActions)["itemDelete"]->setTexts( tr("&Delete"));
 	(*scrActions)["itemGroup"]->setTexts( tr("&Group"));
@@ -1594,7 +1594,7 @@ void ActionManager::languageChange()
 	(*scrActions)["itemAdjustFrameToImage"]->setTexts( tr("Adjust Frame to Image"));
 	(*scrActions)["itemAdjustImageToFrame"]->setTexts( tr("Adjust Image to Frame"));
 	(*scrActions)["itemToggleInlineImage"]->setTexts( tr("Embed Image"));
-	(*scrActions)["itemExtendedImageProperties"]->setTexts( tr("Extended Image Properties"));
+	(*scrActions)["itemExtendedImageProperties"]->setTexts( tr("Extended Image Properties..."));
 	(*scrActions)["itemPreviewFull"]->setTexts( tr("&Full Resolution"));
 	(*scrActions)["itemPreviewNormal"]->setTexts( tr("&Normal Resolution"));
 	(*scrActions)["itemPreviewLow"]->setTexts( tr("&Low Resolution"));
@@ -1620,7 +1620,7 @@ void ActionManager::languageChange()
 	//Insert Menu
 	(*scrActions)["insertFrame"]->setTexts( tr("&Frames..."));
 	(*scrActions)["insertGlyph"]->setTexts( tr("&Glyph..."));
-	(*scrActions)["insertSampleText"]->setTexts( tr("Sample Text"));
+	(*scrActions)["insertSampleText"]->setTexts( tr("Sample Text..."));
 	(*scrActions)["stickyTools"]->setTexts( tr("Sticky Tools"));
 	(*scrActions)["insertMarkAnchor"]->setTexts( tr("Anchor Mark"));
 	(*scrActions)["insertMarkVariableText"]->setTexts( tr("Variable Text"));

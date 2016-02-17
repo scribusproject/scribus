@@ -2036,7 +2036,7 @@ void StoryEditor::languageChange()
 	seMenuMgr->setText("InsertChar", tr("Character"));
 	seMenuMgr->setText("InsertQuote", tr("Quote"));
 	seMenuMgr->setText("InsertSpace", tr("Space"));
-	seActions["insertSampleText"]->setTexts( tr("&Sample Text"));
+	seActions["insertSampleText"]->setTexts( tr("&Sample Text..."));
 
 	//Settings Menu
 	seMenuMgr->setText("Settings", tr("&Settings"));
