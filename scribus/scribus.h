@@ -559,7 +559,7 @@ public slots:
 	void slotInsertMarkNote();
 	void slotInsertMarkIndex() { insertMark(MARKIndexType); }
 	void slotEditMark();
-	//connected to signal emited by actions when "Update Marks" menu item is triggered
+	//connected to signal emitted by actions when "Update Marks" menu item is triggered
 	void slotUpdateMarks();
 	bool editMarkDlg(Mark *mrk, PageItem_TextFrame* currItem = NULL);
 	void testQTQuick2_1();

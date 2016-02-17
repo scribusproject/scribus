@@ -406,7 +406,7 @@ public slots:
 	/** @brief Remove the last (oldest) item from the undo stack representation. */
 	void popBack();
 
-	/** @brief Recieve prefsChanged() signal to update shortcuts. */
+	/** @brief Receive prefsChanged() signal to update shortcuts. */
 	void updateFromPrefs();
 
 signals:

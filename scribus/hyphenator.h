@@ -46,7 +46,7 @@ public:
 	
 private:
 
-	/*! Embeded reference to the \see ScribusDoc filled by \a dok */
+	/*! Embedded reference to the \see ScribusDoc filled by \a dok */
 	ScribusDoc *m_doc;
 	/*! Reference to the hyphen dictionary structure. */
 	HyphenDict *m_hdict;
@@ -85,7 +85,7 @@ public slots:
 	\brief Writes actual hyphen configuration into \a doc object.
 	\date
 	\author Franz Schmid
-	\param Wordlen lenght of the word.
+	\param Wordlen length of the word.
 	\param Autom is automatic flag.
 	\param ACheck AutoCheck flag.
 	\param Num HyCount

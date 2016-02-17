@@ -1402,7 +1402,7 @@ void CanvasMode::commonkeyPressEvent_NormalNodeEdit(QKeyEvent *e)
 			bool resizingsmaller=(resizing && (buttonModifiers & Qt::ShiftModifier));
 			double resizeBy=1.0;
 			//CB with control locked out due to the requirement of moveby of 0.01, we cannot support
-			//resizeby 10 units unless we move to supporting modifier keys that most people dont have.
+			//resizeby 10 units unless we move to supporting modifier keys that most people don't have.
 			//if (buttonModifiers & Qt::ControlModifier)
 			//	resizeBy*=10.0;
 			resizeBy/=m_doc->unitRatio();

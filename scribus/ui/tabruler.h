@@ -127,7 +127,7 @@ public slots:
 	void setCustomFillChar(const QString &txt);
 
 signals:
-	/*! This signal is emited when is something changed in the tab ruler dialog/widget.
+	/*! This signal is emitted when something is changed in the tab ruler dialog/widget.
 	4/11/2005 pv */
 	void tabrulerChanged();
 

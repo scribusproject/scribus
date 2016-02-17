@@ -589,7 +589,7 @@ void StyleManager::slotScrap()
 
 void StyleManager::slotNew()
 {
-//#5334: Dont open into edit mdoe until user has selected a style type
+//#5334: Don't open into edit mdoe until user has selected a style type
 // 	if (!m_isEditMode)
 // 		slotOk(); // switch to edit mode for a new style
 
@@ -897,7 +897,7 @@ void StyleManager::addNewType(StyleItem *item, bool loadFromDoc)
 			else 
 			{
 				bool postpone = false;
-				// search if parent is in remaing styles
+				// search if parent is in remaining styles
 				for (int j = i+1; j < styles.count(); ++j)
 				{
 					if (styles[j].first == styles[i].second)

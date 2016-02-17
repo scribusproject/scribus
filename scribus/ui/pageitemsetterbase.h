@@ -35,7 +35,7 @@ class Selection;
 *  properties of a page item.
 *
 * note about dragging:
-* this base class is expected to handle propper dragging, droppers
+* this base class is expected to handle proper dragging, droppers
 * must ask the pageitemsettersmanager a clone of a dropped setter based
 * on the name.
 *

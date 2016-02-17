@@ -975,7 +975,7 @@ namespace cff {
 				break;
 			case cff_varnt_Delta:
 				result += "Delta";
-				/* fall thru */
+				/* fall through */
 			case cff_varnt_Array:
 				result += "[";
 				for (int i = 0; i < var.array.length(); ++i)

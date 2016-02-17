@@ -110,7 +110,7 @@ public:
 	virtual bool handleKeyEvents() { return false; }
 
 	/**
-		Sets appropiate values for this canvas mode
+		Sets appropriate values for this canvas mode
 	 */
 	virtual void updateViewMode(CanvasViewMode* viewmode);
 	
@@ -141,7 +141,7 @@ public:
 	QCursor modeCursor();
 	void setModeCursor();
 	
-	/** main canvas modes dont have a delegate */
+	/** main canvas modes don't have a delegate */
 	virtual CanvasMode* delegate() { return 0; }
 	ScribusView* view() const { return m_view; }
 	virtual ~CanvasMode();

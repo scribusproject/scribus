@@ -145,7 +145,7 @@ private:
 	*/
 	void init();
 
-	/*! \brief This function performs initialisations that are dependant
+	/*! \brief This function performs initialisations that are dependent
 	on the type of color deficiency (see defectMode). */
 	void setupDefect();
 

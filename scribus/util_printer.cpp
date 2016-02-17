@@ -145,7 +145,7 @@ bool PrinterUtil::getPrinterMarginValues(const QString& printerName, const QStri
 		ppd = ppdOpenFile(filename);
 		if (ppd!=NULL)
 		{
-			ppd_size_t *size; // page size data, null if printer doesnt support selected size
+			ppd_size_t *size; // page size data, null if printer doesn't support selected size
 			size = ppdPageSize(ppd, pageSize.toLocal8Bit().constData());
 			if (size!=NULL)
 			{

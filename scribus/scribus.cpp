@@ -1520,7 +1520,7 @@ void ScribusMainWindow::specialActionKeyEvent(int unicodevalue)
 				else if (unicodevalue==SpecialChars::SHYPHEN.unicode()) //ignore the char as we use an attribute if the text item, for now.
 				{
 					// this code is currently dead since unicodeSoftHyphen
-					// doesnt have unicodevalue == -1 any more
+					// doesn't have unicodevalue == -1 any more
 					if (currItem->itemText.cursorPosition() > 1)
 					{
 #if 0
@@ -2556,7 +2556,7 @@ void ScribusMainWindow::SwitchWin()
 	rebuildLayersList();
 	updateLayerMenu();
 	setLayerMenuText(doc->activeLayerName());
-	//Do not set this!, it doesnt get valid pointers unless its in EditClip mode and its not
+	//Do not set this!, it doesn't get valid pointers unless its in EditClip mode and its not
 	//if we are switching windows #4357
 	//nodePalette->setDoc(doc, view);
 	slotChangeUnit(doc->unitIndex(), false);
@@ -4226,7 +4226,7 @@ bool ScribusMainWindow::DoFileClose()
 	updateLayerMenu();
 	updateTableMenuActions();
 	rebuildScrapbookMenu();
-	//not running view's togglePreview as we dont want to affect the doc settings.
+	//not running view's togglePreview as we don't want to affect the doc settings.
 	scrActions["viewPreviewMode"]->setChecked(false);
 	appModeHelper->setPreviewMode(false);
 	return true;
@@ -8095,8 +8095,8 @@ void ScribusMainWindow::slotStoryEditor(bool fromTable)
 	PageItem *currItemSE = storyEditor->currentItem();
 	ScribusDoc *currDocSE = storyEditor->currentDocument();
 	storyEditor->activFromApp = true;
-	//CB shouldnt these be after the if?
-	//Why are we resetting the doc and item in this case. My original code didnt do this.
+	//CB shouldn't these be after the if?
+	//Why are we resetting the doc and item in this case. My original code didn't do this.
 	storyEditor->setCurrentDocumentAndItem(doc, i2);
 	if (i2 == currItemSE && doc == currDocSE)
 	{
@@ -8995,7 +8995,7 @@ void ScribusMainWindow::managePaints()
 			doc->PageColors = dia->m_colorList;
 			if (dia->replaceColorMap.isEmpty())
 			{
-				// invalidate all charstyles, as replaceNamedResources() wont do it if all maps are empty
+				// invalidate all charstyles, as replaceNamedResources() won't do it if all maps are empty
 				const StyleSet<CharStyle> dummy;
 				doc->redefineCharStyles(dummy, false);
 			}

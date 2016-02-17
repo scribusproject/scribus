@@ -63,7 +63,7 @@ public:
 	
 	/**
 		Automatically commits if forgotten.
-		Override as appropiate. Since the superclass destructor is called last, you
+		Override as appropriate. Since the superclass destructor is called last, you
 	    can cancel in the subclass destructor; the commit here then will do nothing.
 	    Don't forget to set m_data to NULL if you free the m_data pointer!
 	 */

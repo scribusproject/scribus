@@ -125,7 +125,7 @@ void PrefsManager::setup()
 	if (m_importingFrom12)
 		convert12Preferences();
 	//<<CB TODO Reset keyboard shortcuts of all 1.3 users as too many
-	//	 have conflicts if they dont nuke their settings.
+	//	 have conflicts if they don't nuke their settings.
 	// - Remove for 1.3.0 release: importingFrom12=true;
 	//>>CB
 }
@@ -814,7 +814,7 @@ bool PrefsManager::copyOldPreferences()
 	bool retVal=false;
 	if (existsPrefs150[0] && existsPrefs150[2])
 		return retVal;
-	//Only check for these three as they will be autocreated if they dont exist.
+	//Only check for these three as they will be autocreated if they don't exist.
 	if( (existsPrefs135[0] && !existsPrefs140[0]) || (existsPrefs135[2] && !existsPrefs140[2]) )
 	{
 		// Now always return false
@@ -2298,7 +2298,7 @@ bool PrefsManager::ReadPref(QString ho)
 			appPrefs.verifierPrefs.curCheckProfile = dc.attribute("CurrentProfile", CommonStrings::PostScript);
 			appPrefs.verifierPrefs.showPagesWithoutErrors = static_cast<bool>(dc.attribute("ShowPagesWithoutErrors", "0").toInt());
 			appPrefs.verifierPrefs.showNonPrintingLayerErrors = static_cast<bool>(dc.attribute("ShowNonPrintingLayerErrors", "0").toInt());
-			//#2516 work around old values until people wont have them anymore, not that these
+			//#2516 work around old values until people won't have them anymore, not that these
 			//translated strings should be going into prefs anyway!
 			if ((appPrefs.verifierPrefs.curCheckProfile == tr("PostScript")) ||
 				((appPrefs.verifierPrefs.curCheckProfile == tr("Postscript")) ||

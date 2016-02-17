@@ -364,7 +364,7 @@ bool ScrSpinBox::eventFilter( QObject* watched, QEvent* event )
 	*/
 	if ( event->type() == QEvent::Wheel )
 	{
-		//If read only dont spin
+		//If read only don't spin
 		if (isReadOnly())
 			return false;
 		QWheelEvent* k = (QWheelEvent*)event;

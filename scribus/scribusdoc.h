@@ -1652,7 +1652,7 @@ public:
 	 * Explanation
 	 * master frame - text frame with marks for notes
 	 * notesframe - frame with notes
-	 * master & note mark - master is mark in "master" text, note mark is at begining of note in noteframe
+	 * master & note mark - master is mark in "master" text, note mark is at beginning of note in noteframe
 	 */
 	
 	//return page where endnotesframe should be located depending of notes style range and location of master mark
@@ -1698,7 +1698,7 @@ public:
 	bool eraseMark(Mark* mrk, bool fromText=false, PageItem* item=NULL, bool force = false); //force is used only for deleting non-unique marks by MarksManager
 	void setUndoDelMark(Mark* mrk);
 	//invalidate all text frames where given mark will found
-	//usefull spacially for varaible text marks after changing its text definition
+	//useful spacially for varaible text marks after changing its text definition
 	//if forceUpdate then found master frames are relayouted
 	bool invalidateVariableTextFrames(Mark* mrk, bool forceUpdate = false); //returns if any text was changed
 

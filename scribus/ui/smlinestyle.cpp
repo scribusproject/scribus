@@ -281,7 +281,7 @@ bool SMLineStyle::isDefaultStyle(const QString &stylename) const
 
 void SMLineStyle::setDefaultStyle(bool ids)
 {
-	/* we dont have default line styles yet
+	/* we don't have default line styles yet
 	Q_ASSERT(m_selection.count() == 1);
 	if (m_selection.count() != 1)
 		return;

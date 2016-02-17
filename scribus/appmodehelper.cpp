@@ -91,7 +91,7 @@ void AppModeHelper::setApplicationMode(ScribusMainWindow* scmw, ScribusDoc* doc,
 		return;
 	}
 
-	//disconnect the tools actions so we dont fire them off
+	//disconnect the tools actions so we don't fire them off
 	a_actMgr->disconnectModeActions();
 	setModeActionsPerMode(newMode);
 
@@ -101,7 +101,7 @@ void AppModeHelper::setApplicationMode(ScribusMainWindow* scmw, ScribusDoc* doc,
 	if (!doc->m_Selection->isEmpty())
 		currItem = doc->m_Selection->itemAt(0);
 
-	//Ugly hack but I have absolutly no idea about how to do this in another way
+	//Ugly hack but I have absolutely no idea about how to do this in another way
 	if (UndoManager::undoEnabled() && currItem && oldMode != newMode && (newMode == modeEditMeshPatch || oldMode == modeEditMeshPatch ||
 																		newMode == modeEditMeshGradient || oldMode == modeEditMeshGradient ||
 																		newMode == modeEditGradientVectors || oldMode == modeEditGradientVectors ||

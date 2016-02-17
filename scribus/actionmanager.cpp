@@ -2519,7 +2519,7 @@ void ActionManager::handleMultipleSelections(bool isMultiple)
 
 void ActionManager::languageChangeActions()
 {
-	//Here we mangle the URL based on the current GUI language, returning English if we dont get one of these hard coded options.
+	//Here we mangle the URL based on the current GUI language, returning English if we don't get one of these hard coded options.
 	//CB TODO make more flexible one day.
 	QString language="EN";
 	QString langpref(ScCore->getGuiLanguage().left(2));

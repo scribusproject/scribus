@@ -7171,7 +7171,7 @@ void ScribusDoc::copyPage(int pageNumberToCopy, int existingPage, int whereToIns
 		destination->setOrientation(from->orientation());
 		destination->m_pageSize = from->m_pageSize;
 		//CB: Can possibly partially use the code from applyMasterPage here instead of runnin all of this again..
-		//TODO make a fucntion to do this margin stuff and use elsewhere too
+		//TODO make a function to do this margin stuff and use elsewhere too
 		destination->initialMargins.setTop(from->initialMargins.top());
 		destination->initialMargins.setBottom(from->initialMargins.bottom());
 		if (pageSets()[m_docPrefsData.docSetupPrefs.pagePositioning].Columns == 1)
@@ -15483,7 +15483,7 @@ void ScribusDoc::itemSelection_convertItemsTo(const PageItem::ItemType newType, 
 	uint selectedItemCount=itemSelection->count();
 	if (selectedItemCount == 0)
 		return;
-	//Create our copy selection as our item *s will be invalidated as we go through the loop and the selection index wont work
+	//Create our copy selection as our item *s will be invalidated as we go through the loop and the selection index won't work
 	//convertItemTo does this
 	Selection tmpSel(*itemSelection);
 	tmpSel.disconnectAllItemsFromGUI();
@@ -16656,7 +16656,7 @@ void ScribusDoc::updateNumbers(bool updateNumerations)
 							else if (style.numOther())
 							{
 								ParagraphStyle preStyle = item->itemText.paragraphStyle(pos -1);
-								//reset counter if prev style hasnt numeration or has other numeration
+								//reset counter if prev style hasn't numeration or has other numeration
 								if (!preStyle.hasNum() || (preStyle.numName() != style.numName()))
 									resetNums = true;
 							}
@@ -17309,7 +17309,7 @@ void ScribusDoc::setUndoDelNote(TextNote *note)
 void ScribusDoc::updateItemNotesNums(PageItem_TextFrame* frame, NotesStyle* nStyle, int &num)
 {
 	//update marks strings in master text and in notes frame (only numbers!)
-	//check if notes schould be added or removed from notes frame
+	//check if notes should be added or removed from notes frame
 	int noteNum = num;
 	int index = 0;
 	bool doUpdate = false;
@@ -17987,7 +17987,7 @@ void ScribusDoc::delNoteFrame(PageItem_NoteFrame* nF, bool removeMarks, bool for
 
 bool ScribusDoc::validateNSet(NotesStyle NS, QString newName)
 {
-	//check if choosen numbering type is avaiable with choosen range, prefix and suffix
+	//check if chosen numbering type is available with chosen range, prefix and suffix
 	QString errStr;
 	foreach (NotesStyle* NS2, m_docNotesStylesList)
 	{

@@ -175,7 +175,7 @@ void PrintDialog::SetOptions()
 	{
 		delete cdia; // if options was canceled delete dia 
 		cdia = 0;    // so that getoptions() in the okButtonClicked() will get 
-		             // the default values from the last succesful run
+		             // the default values from the last successful run
 	}
 
 #elif defined(_WIN32)

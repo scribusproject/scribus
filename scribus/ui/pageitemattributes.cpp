@@ -239,7 +239,7 @@ void PageItemAttributes::updateTable()
 
 void PageItemAttributes::okClicked()
 {
-	//Qt hack as we will lose data if the user hasnt left a cell
+	//Qt hack as we will lose data if the user hasn't left a cell
 	//http://www.qtforum.org/thread.php?threadid=9078
 	if (attributesTable->rowCount()>0 && attributesTable->currentRow()!=-1)
 	{

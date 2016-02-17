@@ -124,7 +124,7 @@ public:
 	virtual void changeEvent(QEvent *e);
 
 signals:
-	//! \brief Signal transfering the chosen character as QString
+	//! \brief Signal transferring the chosen character as QString
 	void chosenUnicode(const QString &);
 
 public slots:

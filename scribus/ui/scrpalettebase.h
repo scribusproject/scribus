@@ -54,7 +54,7 @@ class SCRIBUS_API ScrPaletteBase : public QDialog
 		int exec(QWidget* newParent);
 		
 	signals:
-		/** @brief Let the action for this palette know when something changes and it hasnt caused it */
+		/** @brief Let the action for this palette know when something changes and it hasn't caused it */
 		void paletteShown(bool);
 		
 	protected:
