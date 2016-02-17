@@ -573,8 +573,8 @@ namespace cff {
 			if (fontName.length() > 0 && fontName[0] != char(0))
 			{
 				m_fontTopDicts[fontName] = getDict(topDicts[i]);
-				uint privLength = m_fontTopDicts[fontName][18].array[0].toCardinal();
-				uint privOffset = m_fontTopDicts[fontName][18].array[1].toCardinal();
+				uint privLength = m_fontTopDicts[fontName][cff_dict_Private].array[0].toCardinal();
+				uint privOffset = m_fontTopDicts[fontName][cff_dict_Private].array[1].toCardinal();
 				getDict(readSegment(privOffset, privLength));
 			}
 		}
