@@ -1917,9 +1917,9 @@ PdfId PDFLibCore::PDF_EmbedFontObject(const QString& name, ScFace& face)
 			{
 				subtype = "/CIDFontType0C";
 				QByteArray cff_bb = sfnt::getTable(bb, "CFF ");
-				dumpCFF(face.psName() + ".cff", cff::CFF(cff_bb));
+				//dumpCFF(face.psName() + ".cff", cff::CFF(cff_bb));
 				bb = cff::extractFace(cff_bb, 0);
-				dumpCFF(face.psName() + "full.cff", cff::CFF(bb));
+				//dumpCFF(face.psName() + "full.cff", cff::CFF(bb));
 			}
 			embeddedFontObject = PDF_EmbedFontObject(bb, subtype);
 		}
