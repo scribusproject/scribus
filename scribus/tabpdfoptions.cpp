@@ -1127,6 +1127,24 @@ void TabPDFOptions::restoreDefaults(PDFOptions & Optionen,
 					FontsToOutline.append(Opts.SubsetList[fe]);
 				}
 			}
+			// Check for fonts not previously used in doc
+			FontList = Opts.FontList;
+			for (it = DocFonts.constBegin(); it != DocFonts.constEnd(); ++it)
+			{
+				QString font = it.key();
+				if (FontList.contains(font) || FontsToEmbed.contains(font) || FontsToOutline.contains(font))
+					continue;
+				if (AllFonts[font].subset())
+				{
+					FontsToOutline.append(font);
+					OutlineList->addItem(font);
+				}
+				else
+				{
+					FontsToEmbed.append(font);
+					EmbedList->addItem(font);
+				}
+			}
 			QMap<QString, QString>::Iterator itAnn;
 			for (itAnn = AnnotationFonts.begin(); itAnn != AnnotationFonts.end(); ++itAnn)
 			{
@@ -1143,6 +1161,7 @@ void TabPDFOptions::restoreDefaults(PDFOptions & Optionen,
 					delete OutlineList->takeItem(OutlineList->row(itR.at(0)));
 				}
 			}
+			FontList = DocFonts.keys();
 		}
 		CheckBox10->setChecked(Opts.PresentMode);
 		PagePrev->setChecked(false);
@@ -2298,6 +2317,7 @@ void TabPDFOptions::SelSFont(QListWidgetItem *c)
 
 void TabPDFOptions::EmbedAll()
 {
+	FontList.clear();
 	EmbedList->clear();
 	FontsToEmbed.clear();
 	OutlineList->clear();
@@ -2308,6 +2328,7 @@ void TabPDFOptions::EmbedAll()
 	FromOutline->setEnabled(false);
 	for (int a=0; a < AvailFlist->count(); ++a)
 	{
+		FontList.append(AvailFlist->item(a)->text());
 		if (AvailFlist->item(a)->flags() & Qt::ItemIsSelectable)
 		{
 			if (!AllFonts[AvailFlist->item(a)->text()].subset())
@@ -2337,6 +2358,7 @@ void TabPDFOptions::EmbedAll()
 
 void TabPDFOptions::OutlineAll()
 {
+	FontList.clear();
 	EmbedList->clear();
 	FontsToEmbed.clear();
 	OutlineList->clear();
@@ -2347,6 +2369,7 @@ void TabPDFOptions::OutlineAll()
 	FromOutline->setEnabled(false);
 	for (int a=0; a < AvailFlist->count(); ++a)
 	{
+		FontList.append(AvailFlist->item(a)->text());
 		if (AvailFlist->item(a)->flags() & Qt::ItemIsSelectable)
 		{
 			if (AnnotationFonts.contains(AvailFlist->item(a)->text()))

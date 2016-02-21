@@ -167,6 +167,8 @@ protected:
 	int PgSel;
 	QList<PDFPresentationData> EffVal;
 	QString SelLPIcolor;
+
+	QList<QString> FontList;
 	QList<QString> FontsToEmbed;
 	QList<QString> FontsToOutline;
 

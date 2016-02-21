@@ -755,6 +755,11 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 						lpo.SpotFunc = pdfF.attribute("SpotFunction").toInt();
 						m_Doc->PDF_Options.LPISettings[pdfF.attribute("Color")] = lpo;
 					}
+					if (pdfF.tagName() == "DocFonts")
+					{
+						if (!m_Doc->PDF_Options.FontList.contains(pdfF.attribute("Name")))
+							m_Doc->PDF_Options.FontList.append(pdfF.attribute("Name"));
+					}
 					if (pdfF.tagName() == "Fonts")
 					{
 						if (!m_Doc->PDF_Options.EmbedList.contains(pdfF.attribute("Name")))

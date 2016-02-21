@@ -126,6 +126,7 @@ void PDFOptionsIO::buildSettings()
 	addElem(m_root, "pdfVersion", pdfVersString);
 	addElem(m_root, "resolution", m_opts->Resolution);
 	addElem(m_root, "binding", m_opts->Binding);
+	addList(m_root, "fonts", m_opts->FontList);
 	addList(m_root, "embedFonts", m_opts->EmbedList);
 	addList(m_root, "subsetFonts", m_opts->SubsetList);
 	addElem(m_root, "mirrorH", m_opts->MirrorH);
@@ -346,6 +347,8 @@ bool PDFOptionsIO::readSettings()
 	if (!readElem(m_root, "resolution", &m_opts->Resolution))
 		return false;
 	if (!readElem(m_root, "binding", &m_opts->Binding))
+		return false;
+	if (!readList(m_root, "fonts", &m_opts->FontList))
 		return false;
 	if (!readList(m_root, "embedFonts", &m_opts->EmbedList))
 		return false;

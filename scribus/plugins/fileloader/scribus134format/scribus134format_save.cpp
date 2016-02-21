@@ -710,6 +710,11 @@ void Scribus134Format::writePdfOptions(ScXmlStreamWriter & docu)
 	docu.writeAttribute("fitWindow", static_cast<int>(m_Doc->PDF_Options.fitWindow));
 	docu.writeAttribute("PageLayout", m_Doc->PDF_Options.PageLayout);
 	docu.writeAttribute("openAction", m_Doc->PDF_Options.openAction);
+	for (int pdoA = 0; pdoA < m_Doc->PDF_Options.FontList.count(); ++pdoA)
+	{
+		docu.writeEmptyElement("DocFonts");
+		docu.writeAttribute("Name", m_Doc->PDF_Options.FontList[pdoA]);
+	}
 	for (int pdoF = 0; pdoF < m_Doc->PDF_Options.EmbedList.count(); ++pdoF)
 	{
 		docu.writeEmptyElement("Fonts");

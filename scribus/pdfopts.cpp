@@ -259,6 +259,7 @@ void PDFExportDialog::updateDocOptions()
 	Opts.CompressMethod = (PDFOptions::PDFCompression) Options->CMethod->currentIndex();
 	Opts.Quality = Options->CQuality->currentIndex();
 	Opts.Resolution = Options->Resolution->value();
+	Opts.FontList  = Options->FontList;
 	Opts.EmbedList = Options->FontsToEmbed;
 	Opts.SubsetList = Options->FontsToOutline;
 	Opts.RecalcPic = Options->DSColor->isChecked();

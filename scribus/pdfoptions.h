@@ -108,6 +108,7 @@ public:
 	PDFVersion Version;
 	int  Resolution;
 	int  Binding;
+	QList<QString> FontList;
 	QList<QString> EmbedList;
 	QList<QString> SubsetList;
 	bool MirrorH;
