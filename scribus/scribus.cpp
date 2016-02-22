@@ -4956,7 +4956,7 @@ void ScribusMainWindow::SelectAll(bool docWideSelect)
 		for (uint a = 0; a < docItemsCount; ++a)
 		{
 			currItem = doc->Items->at(a);
-			if ((currItem->LayerID == doc->activeLayer()) && (!doc->layerLocked(currItem->LayerID)))
+			if (((currItem->LayerID == doc->activeLayer()) || (doc->layerSelectable(currItem->LayerID))) && (!doc->layerLocked(currItem->LayerID)))
 			{
 				if (docWideSelect)
 					doc->m_Selection->addItem(currItem);
