@@ -10,7 +10,7 @@ for which a new license (GPL+exception) is in place.
 #include <QColor>
 #include <QString>
 #include <QList>
-#include <QSet>    //necessary to avoid msvc warnings induced by SCRIBUS_API on ScLayers + early instanciation of templates
+#include <QSet>    //necessary to avoid msvc warnings induced by SCRIBUS_API on ScLayers + early instantiation of templates
 
 #include "scribusapi.h"
 

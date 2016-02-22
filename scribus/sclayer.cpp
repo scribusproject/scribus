@@ -7,9 +7,9 @@ for which a new license (GPL+exception) is in place.
 
 #include "sclayer.h"
 
-#include <QHash>   //necessary to avoid msvc warnings induced by SCRIBUS_API on ScLayers + early instanciation of templates
+#include <QHash>   //necessary to avoid msvc warnings induced by SCRIBUS_API on ScLayers + early instantiation of templates
 #include <QObject>
-#include <QVector> //necessary to avoid msvc warnings induced by SCRIBUS_API on ScLayers + early instanciation of templates
+#include <QVector> //necessary to avoid msvc warnings induced by SCRIBUS_API on ScLayers + early instantiation of templates
 #include <QtAlgorithms>
 
 ScLayer::ScLayer(void)

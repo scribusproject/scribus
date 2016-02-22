@@ -545,7 +545,7 @@ void CanvasMode_EditMeshPatch::mouseDoubleClickEvent(QMouseEvent *m)
 					m_view->Deselect(false);
 					m_doc->m_Selection->addItem(currItem);
 					currItem->isSingleSel = true;
-					//CB FIXME dont call this if the added item is item 0
+					//CB FIXME don't call this if the added item is item 0
 					if (!m_doc->m_Selection->primarySelectionIs(currItem))
 						currItem->emitAllToGUI();
 					m_view->updateContents(currItem->getRedrawBounding(m_canvas->scale()));

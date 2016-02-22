@@ -135,7 +135,7 @@ bool UndoTransaction::commit()
 				UM->transactions_.erase(UM->transactions_.begin() + stackLevel);
 			}
 				
-			if (tmps->sizet() > 0) // are there any actions inside the commited transaction
+			if (tmps->sizet() > 0) // are there any actions inside the committed transaction
 			{
 				if (tmps->getName().isEmpty())
 					tmps->useActionName();

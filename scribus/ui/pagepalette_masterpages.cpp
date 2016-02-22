@@ -400,7 +400,7 @@ void PagePalette_MasterPages::importPage()
 		m_doc->setCurrentPage(m_doc->addMasterPage(nr, MasterPageName2));
 		qApp->processEvents();
 		//CB TODO: If we are loading to a new name, we rely on doc->onpage in 
-		//FileLoader::PasteItem as this call doesnt pass in the new destination page
+		//FileLoader::PasteItem as this call doesn't pass in the new destination page
 		m_doc->scMW()->loadPage(dia->getFromDoc(), dia->getMasterPageNameItem(), true, MasterPageName2);
 		qApp->processEvents();
 
