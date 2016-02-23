@@ -546,19 +546,22 @@ void HelpBrowser::loadHelp(const QString& filename)
 
 void HelpBrowser::loadMenu()
 {
-	QString baseHelpDir = ScPaths::instance().docDir();
-	QString altHelpDir  = ScPaths::instance().getApplicationDataDir();
+//	QString baseHelpDir = ScPaths::instance().docDir();
+//	QString altHelpDir  = ScPaths::instance().getApplicationDataDir();
+	QString baseHelpDir = ScPaths::instance().getUserHelpFilesDir(false);
+	QString installHelpDir  = ScPaths::instance().docDir();
+
 	QString baseHelpMenuFile = QDir::toNativeSeparators(baseHelpDir + language + "/menu.xml");
-	QString altHelpMenuFile = QDir::toNativeSeparators(altHelpDir + "doc/" + language + "/menu.xml");
+	QString installHelpMenuFile = QDir::toNativeSeparators(installHelpDir + language + "/menu.xml");
 	QFileInfo baseFi = QFileInfo(baseHelpMenuFile);
-	QFileInfo altFi = QFileInfo(altHelpMenuFile);
+	QFileInfo installFi = QFileInfo(installHelpMenuFile);
 	QString toLoad = baseHelpMenuFile;
 	if (!baseFi.exists())
 	{
-		if (altFi.exists())
+		if (installFi.exists())
 		{
-			toLoad=altHelpMenuFile;
-			baseFi=altFi;
+			toLoad=installHelpMenuFile;
+			baseFi=installFi;
 		}
 		else		
 		{
@@ -566,7 +569,7 @@ void HelpBrowser::loadMenu()
 			{
 				//Check if we can load, eg "de" when "de_CH" docs don't exist
 				QString baseHelpMenuFile3 = QDir::toNativeSeparators(baseHelpDir + language.left(2) + "/menu.xml");
-				QString altHelpMenuFile3 = QDir::toNativeSeparators(altHelpDir + "doc/" + language.left(2) + "/menu.xml");
+				QString altHelpMenuFile3 = QDir::toNativeSeparators(installHelpDir + "doc/" + language.left(2) + "/menu.xml");
 				QFileInfo fi3 = QFileInfo(baseHelpMenuFile3);
 				QFileInfo altfi3 = QFileInfo(altHelpMenuFile3);
 				if (fi3.exists())
@@ -595,6 +598,11 @@ void HelpBrowser::loadMenu()
 			}
 			baseFi = QFileInfo(toLoad);
 		}
+	}
+	else
+	{
+		if (installFi.exists())
+			baseFi=installFi;
 	}
 	//Set our final location for loading the help files
 	finalBaseDir=baseFi.path();
