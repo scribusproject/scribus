@@ -545,6 +545,17 @@ QString ScPaths::getUserFontDir(bool createIfNotExists)
 	return userDictDirectory.absolutePath()+"/";
 }
 
+QString ScPaths::getUserHelpFilesDir(bool createIfNotExists)
+{
+	QDir userHelpDocsDirectory(getApplicationDataDir() + "helpfiles/");
+	if(createIfNotExists)
+	{
+		if (!userHelpDocsDirectory.exists())
+			userHelpDocsDirectory.mkpath(userHelpDocsDirectory.absolutePath());
+	}
+	return userHelpDocsDirectory.absolutePath()+"/";
+}
+
 QString ScPaths::getUserDocumentDir(void)
 {
 #if defined(_WIN32)
