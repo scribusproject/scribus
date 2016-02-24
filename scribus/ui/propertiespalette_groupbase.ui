@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Form</string>
+   <string notr="true">Form</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout_3">
    <property name="spacing">
@@ -90,7 +90,7 @@
    <item>
     <widget class="QGroupBox" name="textFlowGroup">
      <property name="title">
-      <string>Text Flow Around Frame</string>
+      <string>Text &amp;Flow Around Frame</string>
      </property>
      <property name="flat">
       <bool>true</bool>
@@ -119,6 +119,9 @@
           <verstretch>0</verstretch>
          </sizepolicy>
         </property>
+        <property name="toolTip">
+         <string>Disable text flow from lower frames around object</string>
+        </property>
         <property name="text">
          <string>Disabled</string>
         </property>
@@ -144,8 +147,11 @@
           <verstretch>0</verstretch>
          </sizepolicy>
         </property>
+        <property name="toolTip">
+         <string>Use the frame shape for text flow of text frames below the object</string>
+        </property>
         <property name="text">
-         <string>Use &amp;Frame Shape</string>
+         <string>Use Frame &amp;Shape</string>
         </property>
         <property name="checkable">
          <bool>true</bool>
@@ -168,6 +174,9 @@
           <horstretch>0</horstretch>
           <verstretch>0</verstretch>
          </sizepolicy>
+        </property>
+        <property name="toolTip">
+         <string>&lt;qt&gt;Use the bounding box, which is always rectangular, instead of the frame's shape for text flow of text frames below the object&lt;/qt&gt;</string>
         </property>
         <property name="text">
          <string>Use &amp;Bounding Box</string>
@@ -194,6 +203,9 @@
           <verstretch>0</verstretch>
          </sizepolicy>
         </property>
+        <property name="toolTip">
+         <string>&lt;qt&gt;When chosen, the contour line can be edited with the Edit Shape Tool on the palette further above. When edited via the shape palette, this becomes a second separate line originally based on the frame's shape for text flow of text frames below the object.&lt;/qt&gt;</string>
+        </property>
         <property name="text">
          <string>&amp;Use Contour Line</string>
         </property>
@@ -218,6 +230,9 @@
           <horstretch>0</horstretch>
           <verstretch>0</verstretch>
          </sizepolicy>
+        </property>
+        <property name="toolTip">
+         <string>&lt;qt&gt;Use the clipping path of the image&lt;/qt&gt;</string>
         </property>
         <property name="text">
          <string>Use Image Clip Path</string>
@@ -284,6 +299,9 @@
           <verstretch>0</verstretch>
          </sizepolicy>
         </property>
+        <property name="toolTip">
+         <string>&lt;qt&gt;Any path self-intersections or subpaths create holes in the fill&lt;/qt&gt;</string>
+        </property>
         <property name="text">
          <string>Even-Odd</string>
         </property>
@@ -296,6 +314,9 @@
           <horstretch>0</horstretch>
           <verstretch>0</verstretch>
          </sizepolicy>
+        </property>
+        <property name="toolTip">
+         <string>&lt;qt&gt;Fill is solid unless a subpath is counter-directional&lt;/qt&gt;</string>
         </property>
         <property name="text">
          <string>Non Zero</string>

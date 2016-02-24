@@ -630,24 +630,7 @@ void PropertiesPalette_Group::changeEvent(QEvent *e)
 
 void PropertiesPalette_Group::languageChange()
 {
-	editShape->setText( tr("&Edit..."));
-	shapeGroup->setTitle( tr("Shape"));
-
-	textFlowGroup->setTitle( tr("Text &Flow Around Frame"));
-	textFlowDisabled->setText( tr("Disabled"));
-	textFlowUsesFrameShape->setText( tr("Use Frame &Shape"));
-	textFlowUsesBoundingBox->setText( tr("Use &Bounding Box"));
-	textFlowUsesContourLine->setText( tr("&Use Contour Line"));
-	textFlowUsesImageClipping->setText( tr("Use Image Clip Path"));
-
-	textFlowDisabled->setToolTip( tr("Disable text flow from lower frames around object"));
-	textFlowUsesFrameShape->setToolTip( tr("Use the frame shape for text flow of text frames below the object"));
-	textFlowUsesBoundingBox->setToolTip(  "<qt>" + tr("Use the bounding box, which is always rectangular, instead of the frame's shape for text flow of text frames below the object") + "</qt>" );
-	textFlowUsesContourLine->setToolTip(  "<qt>" + tr("When chosen, the contour line can be edited with the Edit Shape Tool on the palette further above. When edited via the shape palette, this becomes a second separate line originally based on the frame's shape for text flow of text frames below the object.") + "</qt>" );
-	textFlowUsesImageClipping->setToolTip(  "<qt>" + tr("Use the clipping path of the image") + "</qt>" );
-
-	evenOdd->setToolTip( "<qt>" + tr("Any path self-intersections or subpaths create holes in the fill")  + "</qt>");
-	nonZero->setToolTip( "<qt>" + tr("Fill is solid unless a subpath is counter-directional")  + "</qt>");
+	retranslateUi(this);
 }
 
 void PropertiesPalette_Group::unitChange()
