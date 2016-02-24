@@ -404,7 +404,7 @@ bool ScImgDataLoader_JPEG::loadPicture(const QString& fn, int /*page*/, int res,
 		if ( cinfo.output_components == 4 )
 		{
 			int method = 0;
-			if (cinfo.jpeg_color_space == JCS_YCCK)
+			if ((cinfo.jpeg_color_space == JCS_YCCK) || (cinfo.out_color_space == JCS_CMYK))
 				method = 1;
 			else if (fromPS)
 			{
