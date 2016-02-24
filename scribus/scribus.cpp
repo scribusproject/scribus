@@ -995,7 +995,7 @@ void ScribusMainWindow::initMenuBar()
 	scrMenuMgr->addMenuItemString("unicodeQuoteCJKDoubleLeft", "InsertQuote");
 	scrMenuMgr->addMenuItemString("unicodeQuoteCJKDoubleRight", "InsertQuote");
 
-	scrMenuMgr->createMenu("InsertSpace", tr("S&paces / Breaks"), "Insert");
+	scrMenuMgr->createMenu("InsertSpace", tr("S&paces/Breaks"), "Insert");
 	scrMenuMgr->addMenuItemString("InsertSpace", "Insert");
 	scrMenuMgr->addMenuItemString("unicodeNonBreakingSpace", "InsertSpace");
 	scrMenuMgr->addMenuItemString("unicodeSpaceEN", "InsertSpace");
