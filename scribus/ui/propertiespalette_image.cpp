@@ -790,31 +790,9 @@ void PropertiesPalette_Image::handleCompressionQuality()
 
 void PropertiesPalette_Image::languageChange()
 {
-	imagePageNumberLabel->setText( tr("&Page Number:"));
+	retranslateUi(this);
+
 	imagePageNumber->setSpecialValueText( tr( "Auto" ));
-	xposImgLabel->setText( tr("&X-Pos:"));
-	yposImgLabel->setText( tr("&Y-Pos:"));
-	imageRotationLabel->setText( tr("Rotation:"));
-
-	scalingGroupBox->setTitle( tr("Scaling"));
-	freeScale->setText( tr("&Free Scaling"));
-	xscaleLabel->setText( tr("X-Sc&ale:"));
-	yscaleLabel->setText( tr("Y-Scal&e:"));
-	imgDPIXLabel->setText( tr("Actual X-DPI:"));
-	imgDPIYLabel->setText( tr("Actual Y-DPI:"));
-	frameScale->setText( tr("&To Frame Size"));
-	cbProportional->setText( tr("P&roportional"));
-
-	colorMgmtGroup->setTitle( tr("Color Management"));
-	inputProfLabel->setText( tr("Input Profile:"));
-	renderIntentLabel->setText( tr("Rendering Intent:"));
-
-	pdfCompressionGroup->setTitle( tr("PDF Compression"));
-	compressionMethodLabel->setText( tr("Method:"));
-	compressionQualityLabel->setText( tr("Quality:"));
-
-	imgEffectsButton->setText( tr("Image Effects"));
-	imgExtProperties->setText( tr("Extended Properties"));
 
 	int oldMonitorI=renderIntent->currentIndex();
 	renderIntent->clear();
@@ -852,21 +830,6 @@ void PropertiesPalette_Image::languageChange()
 
 	imageXOffsetSpinBox->setSuffix(suffix);
 	imageYOffsetSpinBox->setSuffix(suffix);
-
-	imageXOffsetSpinBox->setToolTip( tr("Horizontal offset of image within frame"));
-	imageYOffsetSpinBox->setToolTip( tr("Vertical offset of image within frame"));
-	imageXScaleSpinBox->setToolTip( tr("Resize the image horizontally"));
-	imageYScaleSpinBox->setToolTip( tr("Resize the image vertically"));
-	keepImageWHRatioButton->setToolTip( tr("Keep the X and Y scaling the same"));
-	freeScale->setToolTip( tr("Allow the image to be a different size to the frame"));
-	frameScale->setToolTip( tr("Make the image fit within the size of the frame"));
-	imgDpiX->setToolTip( tr("Effective horizontal DPI of the image after scaling"));
-	imgDpiY->setToolTip( tr("Effective vertical DPI of the image after scaling"));
-	cbProportional->setToolTip( tr("Use image proportions rather than those of the frame"));
-	inputProfiles->setToolTip( tr("Source profile of the image"));
-	renderIntent->setToolTip( tr("Rendering intent for the image"));
-	compressionMethod->setToolTip( tr("Compression method used in PDF export for the image"));
-	compressionQuality->setToolTip( tr("Compression quality used in PDF export for the image"));
 }
 
 void PropertiesPalette_Image::unitChange()
