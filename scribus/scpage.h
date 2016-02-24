@@ -85,7 +85,7 @@ public:
 	const QString& pageSectionNumber() const { return m_pageSectionNumber; }
 	void setPageSectionNumber(const QString&);
 	//! Return the page's name
-	const QString& pageName() const {return m_PageName;};
+	const QString& pageName() const {return m_PageName;}
 	void setPageName(const QString& newName);
 	void restore(UndoState* state, bool isUndo);
 
