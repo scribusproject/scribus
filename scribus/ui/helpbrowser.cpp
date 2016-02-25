@@ -577,8 +577,7 @@ void HelpBrowser::loadMenu()
 					language=language.left(2);
 					toLoad = QDir::toNativeSeparators(baseHelpMenuFile3);
 				}
-				else
-				if (altfi3.exists())
+				else if (altfi3.exists())
 				{
 					language=language.left(2);
 					toLoad = QDir::toNativeSeparators(altHelpMenuFile3);
@@ -588,7 +587,10 @@ void HelpBrowser::loadMenu()
 					//Fall back to English
 					sDebug("Scribus help in your selected language does not exist, trying English. Otherwise, please visit http://docs.scribus.net.");
 					language="en";
-					toLoad = QDir::toNativeSeparators(baseHelpDir + language + "/menu.xml");
+					if (QFile::exists(baseHelpDir + language + "/menu.xml"))
+						toLoad = QDir::toNativeSeparators(baseHelpDir + language + "/menu.xml");
+					else
+						toLoad = QDir::toNativeSeparators(installHelpDir + language + "/menu.xml");
 				}
 			}
 			else
