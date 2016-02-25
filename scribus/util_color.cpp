@@ -212,8 +212,8 @@ static quint64 code64(const ScColor & col)
 		double L, a, b;
 		col.getLab(&L, &a, &b);
 		R = qRound(L);
-		G = qRound(a);
-		B = qRound(b);
+		G = qRound(a + 128);
+		B = qRound(b + 128);
 	}
 	result |= col.getColorModel() == colorModelRGB ? 1 : 0;
 	result |= col.isSpotColor() ? 64 : 0;
