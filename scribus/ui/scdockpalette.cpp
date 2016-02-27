@@ -207,6 +207,7 @@ void ScDockPalette::hide()
 	{
 		storePosition();
 		storeSize();
+		storeDockState();
 		QDockWidget::hide();
 	}
 }

@@ -145,6 +145,7 @@ struct UIPrefs
 	QString iconSet; //! Icon set name
 	WindowPrefs mainWinSettings;
 	QByteArray mainWinState;
+	QList<QStringList> tabbedPalettes;
 };
 
 //Paths

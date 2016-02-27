@@ -1932,6 +1932,23 @@ void ScribusMainWindow::closeEvent(QCloseEvent *ce)
 	editToolBar->connectPrefsSlot(false);
 	modeToolBar->connectPrefsSlot(false);
 	pdfToolBar->connectPrefsSlot(false);
+
+	m_prefsManager->appPrefs.uiPrefs.tabbedPalettes.clear();
+	QList<QTabBar *> bars = findChildren<QTabBar *>(QString());
+	for (int i = 0; i < bars.count(); ++i)
+	{
+		QTabBar *bar = bars[i];
+		QStringList currentTab;
+		for (int ii = 0; ii < bar->count(); ii++)
+		{
+			QObject *obj = (QObject*)bar->tabData(ii).toULongLong();
+			if (obj != NULL)
+				currentTab.append(obj->objectName());
+		}
+		if (!currentTab.isEmpty())
+			m_prefsManager->appPrefs.uiPrefs.tabbedPalettes.append(currentTab);
+	}
+
 	propertiesPalette->hide();
 	outlinePalette->hide();
 	scrapbookPalette->hide();
@@ -6615,6 +6632,25 @@ int ScribusMainWindow::ShowSubs()
 	marksManager->startup();
 	nsEditor->startup();
 	symbolPalette->startup();
+	if (!m_prefsManager->appPrefs.uiPrefs.tabbedPalettes.isEmpty())
+	{
+		for (int a = 0; a < m_prefsManager->appPrefs.uiPrefs.tabbedPalettes.count(); a++)
+		{
+			QStringList actTab = m_prefsManager->appPrefs.uiPrefs.tabbedPalettes[a];
+			QDockWidget *container = findChild<QDockWidget *>(actTab[0]);
+			if (container)
+			{
+				for (int i = 1; i < actTab.count(); i++)
+				{
+					QDockWidget *content = findChild<QDockWidget *>(actTab[i]);
+					if (content)
+						tabifyDockWidget(container, content);
+				}
+			}
+		}
+		move(m_prefsManager->appPrefs.uiPrefs.mainWinSettings.xPosition, m_prefsManager->appPrefs.uiPrefs.mainWinSettings.yPosition);
+		resize(m_prefsManager->appPrefs.uiPrefs.mainWinSettings.width, m_prefsManager->appPrefs.uiPrefs.mainWinSettings.height);
+	}
 
 	// init the toolbars
 	fileToolBar->initVisibility();
