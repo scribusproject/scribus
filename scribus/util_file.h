@@ -7,6 +7,7 @@ for which a new license (GPL+exception) is in place.
 #ifndef _UTIL_FILE_H
 #define _UTIL_FILE_H
 
+#include <QCryptographicHash>
 #include "scribusapi.h"
 
 class QDataStream;
@@ -81,10 +82,22 @@ bool SCRIBUS_API touchFile(const QString& file);
    *
    * This function checks if an executable exists in the path given
    *
-   * @param  file name of the file to check, possibly including parameters that will be igored
+   * @param  file name of the file to check, possibly including parameters that will be ignored
    * @return true on success, false on failure.
 **/
 bool SCRIBUS_API fileInPath(const QString& filename);
+/**
+* @brief Check if a file's checksum matches the has in the given file.
+   *
+   * This function checks if an executable exists in the path given
+   *
+   * @param  the directory where the files live in
+   * @param  the file to check the has for
+   * @param  the file that contains the hash data
+   * @param  the method/checksum
+   * @return true on success, false on failure.
+**/
+bool SCRIBUS_API checkFileHash(const QString& directory, const QString& filename, const QString& hashFilename, QCryptographicHash::Algorithm method);
 
 PageItem SCRIBUS_API * getVectorFileFromData(ScribusDoc *doc, QByteArray &data, QString ext, double x, double y, double w = -1.0, double h = -1.0);
 #endif
