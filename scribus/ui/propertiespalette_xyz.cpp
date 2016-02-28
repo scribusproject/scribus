@@ -68,11 +68,6 @@ PropertiesPalette_XYZ::PropertiesPalette_XYZ( QWidget* parent) : QWidget(parent)
 	installSniffer(widthSpin);
 	installSniffer(heightSpin);
 
-	xposLabel->setBuddy(xposSpin);
-	yposLabel->setBuddy(yposSpin);
-	widthLabel->setBuddy(widthSpin);
-	heightLabel->setBuddy(heightSpin);
-
 	keepFrameWHRatioButton->setCheckable( true );
 	keepFrameWHRatioButton->setAutoRaise( true );
 	keepFrameWHRatioButton->setMaximumSize( QSize( 15, 32767 ) );
@@ -217,8 +212,8 @@ void PropertiesPalette_XYZ::unsetDoc()
 	flipH->setEnabled(false);
 	flipV->setEnabled(false);
 	xposLabel->setText( tr( "&X-Pos:" ) );
-	widthLabel->setText( tr( "&Width:" ) );
 	yposLabel->setText( tr( "&Y-Pos:" ) );
+	widthLabel->setText( tr( "&Width:" ) );
 	heightLabel->setText( tr( "&Height:" ) );
 	xposSpin->showValue(0);
 	yposSpin->showValue(0);
@@ -240,8 +235,8 @@ void PropertiesPalette_XYZ::setLineMode(int lineMode)
 	if (lineMode == 0)
 	{
 		xposLabel->setText( tr( "&X-Pos:" ) );
-		widthLabel->setText( tr( "&Width:" ) );
 		yposLabel->setText( tr( "&Y-Pos:" ) );
+		widthLabel->setText( tr( "&Width:" ) );
 		heightLabel->setText( tr( "&Height:" ) );
 		rotationSpin->setEnabled(true);
 		heightSpin->setEnabled(false);
@@ -250,8 +245,8 @@ void PropertiesPalette_XYZ::setLineMode(int lineMode)
 	else
 	{
 		xposLabel->setText( tr( "&X1:" ) );
-		widthLabel->setText( tr( "X&2:" ) );
 		yposLabel->setText( tr( "Y&1:" ) );
+		widthLabel->setText( tr( "X&2:" ) );
 		heightLabel->setText( tr( "&Y2:" ) );
 		rotationSpin->setEnabled(false);
 		heightSpin->setEnabled(true);
@@ -360,16 +355,16 @@ void PropertiesPalette_XYZ::setCurrentItem(PageItem *i)
 	if ((m_item->itemType() == PageItem::Line) && m_lineMode)
 	{
 		xposLabel->setText( tr( "&X1:" ) );
-		widthLabel->setText( tr( "X&2:" ) );
 		yposLabel->setText( tr( "Y&1:" ) );
+		widthLabel->setText( tr( "X&2:" ) );
 		heightLabel->setText( tr( "&Y2:" ) );
 		rotationSpin->setEnabled(false);
 	}
 	else
 	{
 		xposLabel->setText( tr( "&X-Pos:" ) );
-		widthLabel->setText( tr( "&Width:" ) );
 		yposLabel->setText( tr( "&Y-Pos:" ) );
+		widthLabel->setText( tr( "&Width:" ) );
 		heightLabel->setText( tr( "&Height:" ) );
 		rotationSpin->setEnabled(true);
 	}
@@ -446,8 +441,8 @@ void PropertiesPalette_XYZ::handleSelectionChanged()
 		else if (bp == 0)
 			m_ScMW->view->RCenter = FPoint(gx + gw, gy + gh);
 		xposLabel->setText( tr( "&X-Pos:" ) );
-		widthLabel->setText( tr( "&Width:" ) );
 		yposLabel->setText( tr( "&Y-Pos:" ) );
+		widthLabel->setText( tr( "&Width:" ) );
 		heightLabel->setText( tr( "&Height:" ) );
 
 		xposSpin->showValue(gx);
@@ -514,8 +509,8 @@ void PropertiesPalette_XYZ::handleSelectionChanged()
 		{
 		case -1:
 			xposLabel->setText( tr( "&X-Pos:" ) );
-			widthLabel->setText( tr( "&Width:" ) );
 			yposLabel->setText( tr( "&Y-Pos:" ) );
+			widthLabel->setText( tr( "&Width:" ) );
 			heightLabel->setText( tr( "&Height:" ) );
 
 			xposSpin->showValue(0);
@@ -1290,17 +1285,8 @@ void PropertiesPalette_XYZ::changeEvent(QEvent *e)
 void PropertiesPalette_XYZ::languageChange()
 {
 	setWindowTitle( tr("Properties"));
+	retranslateUi(this);
 
-	nameGroup->setTitle( tr("Name"));
-	geoGroup->setTitle( tr("Geometry"));
-	xposLabel->setText( tr("&X-Pos:"));
-	yposLabel->setText( tr("&Y-Pos:"));
-	widthLabel->setText( tr("&Width:"));
-	heightLabel->setText( tr("&Height:"));
-	rotationLabel->setText( tr("&Rotation:"));
-	basepointLabel->setText( tr("Basepoint:"));
-	levelGroup->setTitle( tr("Level"));
-	
 	QString ptSuffix = tr(" pt");
 
 	QString ein = (m_haveDoc) ? unitGetSuffixFromIndex(m_doc->unitIndex()) : ptSuffix;
@@ -1309,28 +1295,6 @@ void PropertiesPalette_XYZ::languageChange()
 	yposSpin->setSuffix(ein);
 	widthSpin->setSuffix(ein);
 	heightSpin->setSuffix(ein);
-
-	nameEdit->setToolTip( tr("Name of selected object"));
-	xposSpin->setToolTip( tr("Horizontal position of current basepoint"));
-	yposSpin->setToolTip( tr("Vertical position of current basepoint"));
-	widthSpin->setToolTip( tr("Width"));
-	heightSpin->setToolTip( tr("Height"));
-	rotationSpin->setToolTip( tr("Rotation of object at current basepoint"));
-	basepointLabel->setToolTip( tr("Point from which measurements or rotation angles are referenced"));
-	doGroup->setToolTip( tr("Group the selected objects"));
-	doUnGroup->setToolTip( tr("Ungroup the selected group"));
-	flipH->setToolTip( tr("Flip Horizontal"));
-	flipV->setToolTip( tr("Flip Vertical"));
-	levelUp->setToolTip( tr("Move one level up"));
-	levelDown->setToolTip( tr("Move one level down"));
-	levelTop->setToolTip( tr("Move to front"));
-	levelBottom->setToolTip( tr("Move to back"));
-	levelLabel->setToolTip( tr("Indicates the level the object is on, 1 means the object is at the bottom"));
-	doLock->setToolTip( tr("Lock or unlock the object"));
-	noResize->setToolTip( tr("Lock or unlock the size of the object"));
-	noPrint->setToolTip( tr("Enable or disable exporting of the object"));
-
-	keepFrameWHRatioButton->setToolTip( tr("Keep the aspect ratio"));
 }
 
 void PropertiesPalette_XYZ::updateSpinBoxConstants()
