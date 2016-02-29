@@ -1938,14 +1938,15 @@ void ScribusMainWindow::closeEvent(QCloseEvent *ce)
 	for (int i = 0; i < bars.count(); ++i)
 	{
 		QTabBar *bar = bars[i];
-		QStringList currentTab;
+		tabPrefs currentTab;
 		for (int ii = 0; ii < bar->count(); ii++)
 		{
+			currentTab.activeTab = bar->currentIndex();
 			QObject *obj = (QObject*)bar->tabData(ii).toULongLong();
 			if (obj != NULL)
-				currentTab.append(obj->objectName());
+				currentTab.palettes.append(obj->objectName());
 		}
-		if (!currentTab.isEmpty())
+		if (!currentTab.palettes.isEmpty())
 			m_prefsManager->appPrefs.uiPrefs.tabbedPalettes.append(currentTab);
 	}
 
@@ -6636,7 +6637,7 @@ int ScribusMainWindow::ShowSubs()
 	{
 		for (int a = 0; a < m_prefsManager->appPrefs.uiPrefs.tabbedPalettes.count(); a++)
 		{
-			QStringList actTab = m_prefsManager->appPrefs.uiPrefs.tabbedPalettes[a];
+			QStringList actTab = m_prefsManager->appPrefs.uiPrefs.tabbedPalettes[a].palettes;
 			QDockWidget *container = findChild<QDockWidget *>(actTab[0]);
 			if (container)
 			{
@@ -6646,6 +6647,30 @@ int ScribusMainWindow::ShowSubs()
 					if (content)
 						tabifyDockWidget(container, content);
 				}
+			}
+			QList<QTabBar *> bars = findChildren<QTabBar *>(QString());
+			bool found = false;
+			for (int i = 0; i < bars.count(); ++i)
+			{
+				QTabBar *bar = bars[i];
+				for (int ii = 0; ii < bar->count(); ii++)
+				{
+					QObject *obj = (QObject*)bar->tabData(ii).toULongLong();
+					if (obj != NULL)
+					{
+						if (obj->objectName() == container->objectName());
+						{
+							if (m_prefsManager->appPrefs.uiPrefs.tabbedPalettes[a].activeTab > -1)
+							{
+								bar->setCurrentIndex(m_prefsManager->appPrefs.uiPrefs.tabbedPalettes[a].activeTab);
+								found = true;
+								break;
+							}
+						}
+					}
+				}
+				if (found)
+					break;
 			}
 		}
 		move(m_prefsManager->appPrefs.uiPrefs.mainWinSettings.xPosition, m_prefsManager->appPrefs.uiPrefs.mainWinSettings.yPosition);

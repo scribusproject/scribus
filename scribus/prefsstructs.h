@@ -111,6 +111,12 @@ struct WindowPrefs
 	bool maximized;
 };
 
+struct tabPrefs
+{
+	int activeTab;
+	QStringList palettes;
+};
+
 //User Interface
 struct UIPrefs
 {
@@ -145,7 +151,7 @@ struct UIPrefs
 	QString iconSet; //! Icon set name
 	WindowPrefs mainWinSettings;
 	QByteArray mainWinState;
-	QList<QStringList> tabbedPalettes;
+	QList<tabPrefs> tabbedPalettes;
 };
 
 //Paths

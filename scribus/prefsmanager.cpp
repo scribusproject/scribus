@@ -940,17 +940,22 @@ void PrefsManager::ReadPrefsXML()
 			appPrefs.uiPrefs.mainWinState = QByteArray::fromBase64(userprefsContext->get("mainwinstate","").toLatin1());
 			appPrefs.uiPrefs.tabbedPalettes.clear();
 			PrefsTable *tabsTable = userprefsContext->getTable("tabbedPalettes");
+			PrefsTable *actTabsTable = userprefsContext->getTable("activeTabs");
 			if (tabsTable)
 			{
 				for (int r = 0; r < tabsTable->getRowCount(); r++)
 				{
-					QStringList tabs;
+					tabPrefs tabs;
 					for (int c = 0; c < tabsTable->getColCount(); c++)
 					{
 						QString tabName = tabsTable->get(r, c);
 						if (!tabName.isEmpty())
-							tabs.append(tabsTable->get(r, c));
+							tabs.palettes.append(tabsTable->get(r, c));
 					}
+					if (actTabsTable)
+						tabs.activeTab = actTabsTable->getInt(r, 0);
+					else
+						tabs.activeTab = -1;
 					appPrefs.uiPrefs.tabbedPalettes.append(tabs);
 				}
 			}
@@ -1013,17 +1018,20 @@ void PrefsManager::SavePrefsXML()
 				int maxCols = 0;
 				for (int a = 0; a < appPrefs.uiPrefs.tabbedPalettes.count(); a++)
 				{
-					maxCols = qMax(maxCols, appPrefs.uiPrefs.tabbedPalettes[a].count());
+					maxCols = qMax(maxCols, appPrefs.uiPrefs.tabbedPalettes[a].palettes.count());
 				}
 				PrefsTable *tabsTable = userprefsContext->getTable("tabbedPalettes");
 				tabsTable->clear();
+				PrefsTable *actTabsTable = userprefsContext->getTable("activeTabs");
+				actTabsTable->clear();
 				for (int a = 0; a < appPrefs.uiPrefs.tabbedPalettes.count(); a++)
 				{
-					QStringList actTab = appPrefs.uiPrefs.tabbedPalettes[a];
+					QStringList actTab = appPrefs.uiPrefs.tabbedPalettes[a].palettes;
 					for (int i = 0; i < actTab.count(); i++)
 					{
 						tabsTable->set(a, i, actTab[i]);
 					}
+					actTabsTable->set(a, 0, appPrefs.uiPrefs.tabbedPalettes[a].activeTab);
 					if (actTab.count() < maxCols)
 					{
 						for (int i = actTab.count(); i < maxCols; i++)
