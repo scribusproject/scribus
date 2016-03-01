@@ -984,9 +984,6 @@ void ScPageOutput::drawItem_ImageFrame( PageItem_ImageFrame* item, ScPainterExBa
 
 void ScPageOutput::drawItem_Line( PageItem_Line* item, ScPainterExBase* painter, QRect clip )
 {
-	if (item->PoLine.size() < 4)
-		return;
-
 	int startArrowIndex = item->startArrowIndex();
 	int endArrowIndex = item->endArrowIndex();
 
