@@ -44,7 +44,10 @@ ColorCombo::ColorCombo(bool rw, QWidget* parent) : QComboBox(parent)
 
 QString ColorCombo::currentColor() const
 {
-	return currentText();
+	QString  colorName = currentText();
+	if (colorName == CommonStrings::tr_NoneColor)
+		colorName = CommonStrings::None;
+	return colorName;
 }
 
 void ColorCombo::updateBox(ColorList& list, ColorCombo::PixmapType pixType , bool insertNone)
