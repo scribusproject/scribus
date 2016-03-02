@@ -6658,7 +6658,7 @@ int ScribusMainWindow::ShowSubs()
 					QObject *obj = (QObject*)bar->tabData(ii).toULongLong();
 					if (obj != NULL)
 					{
-						if (obj->objectName() == container->objectName());
+						if (obj->objectName() == container->objectName())
 						{
 							if (m_prefsManager->appPrefs.uiPrefs.tabbedPalettes[a].activeTab > -1)
 							{
