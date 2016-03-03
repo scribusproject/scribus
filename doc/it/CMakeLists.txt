@@ -3,7 +3,6 @@ INCLUDE_DIRECTORIES(
 )
 
 ADD_SUBDIRECTORY(images)
-#ADD_SUBDIRECTORY(tutorials)
 
 #Install our html files
 FILE( GLOB SCRIBUS_DOC_IT_FILES *.html *.xml )

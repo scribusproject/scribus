@@ -1,1 +1,1 @@
-ADD_SUBDIRECTORY(tutorials)
+ADD_SUBDIRECTORY(tutorials/short-words)
