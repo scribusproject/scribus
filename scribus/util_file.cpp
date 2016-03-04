@@ -300,7 +300,11 @@ bool checkFileHash(const QString& directory, const QString& filename, const QStr
 			QList<QByteArray> fileData(ba_hash.split(' '));
 			if (fileData[0] == ch.result().toHex() && fileData[1] == filename)
 				return true;
+			else
+				qDebug()<<"checkFileHash: checksum failed for"<<directory<<filename;
 		}
 	}
+	else
+		qDebug()<<"checkFileHash: loadRawText file unsuccessful";
 	return false;
 }
