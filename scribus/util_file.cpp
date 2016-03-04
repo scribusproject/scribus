@@ -298,14 +298,10 @@ bool checkFileHash(const QString& directory, const QString& filename, const QStr
 			QList<QByteArray> fileData(ba_hash.split(' '));
 			QCryptographicHash ch(method);
 			ch.addData(&source);
+			source.close();
 			if (fileData[0] == ch.result().toHex() && fileData[1] == filename)
-			{
-				//qDebug()<<"checkFileHash: checksum successful for"<<directory<<filename;
-				source.close();
 				return true;
-			}
-			else
-				qDebug()<<"checkFileHash: checksum failed for"<<directory<<filename;
+			qDebug()<<"checkFileHash: checksum failed for"<<directory<<filename;
 		}
 	}
 	else
