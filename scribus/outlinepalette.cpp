@@ -148,7 +148,7 @@ OutlinePalette::OutlinePalette( QWidget* parent) : ScrPaletteBase( parent, "Tree
 {
 //	resize( 220, 240 );
 	setMinimumSize( QSize( 220, 240 ) );
-	setMaximumSize( QSize( 800, 600 ) );
+//	setMaximumSize( QSize( 800, 600 ) );
  
 	filterEdit = new QLineEdit;
 	filterEdit->setToolTip( tr("Enter a keyword or regular expression to filter the outline.") );
