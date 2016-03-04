@@ -288,18 +288,22 @@ bool checkFileHash(const QString& directory, const QString& filename, const QStr
 {
 	//In a single directory, make a hash of filename, and compare it to the string for that file in hashFilename
 	//Assumption is that the hash file only has one line for now
-	QByteArray ba_fileData;
-	if (loadRawText(directory + filename, ba_fileData))
+	QByteArray ba_hash;
+	if (loadRawText(directory + hashFilename, ba_hash))
 	{
-		QByteArray ba_hash;
-		if (loadRawText(directory + hashFilename, ba_hash))
+		QFile source(directory + filename);
+		if (source.open(QIODevice::ReadOnly))
 		{
-			QCryptographicHash ch(method);
-			ch.addData(ba_fileData);
 			ba_hash = ba_hash.simplified();
 			QList<QByteArray> fileData(ba_hash.split(' '));
+			QCryptographicHash ch(method);
+			ch.addData(&source);
 			if (fileData[0] == ch.result().toHex() && fileData[1] == filename)
+			{
+				//qDebug()<<"checkFileHash: checksum successful for"<<directory<<filename;
+				source.close();
 				return true;
+			}
 			else
 				qDebug()<<"checkFileHash: checksum failed for"<<directory<<filename;
 		}
