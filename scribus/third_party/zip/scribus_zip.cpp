@@ -110,7 +110,7 @@ bool ScZipHandler::write(QString dirName)
 	return retVal;
 }
 
-bool ScZipHandler::extract(QString name, QString path)
+bool ScZipHandler::extract(QString name, QString path, ExtractionOption eo)
 {
 	bool retVal = false;
 	if (m_uz != NULL)
@@ -126,7 +126,7 @@ bool ScZipHandler::extract(QString name, QString path)
 		if (!fi.isWritable())
 			outDir = ScPaths::getApplicationDataDir();
 		QDir::setCurrent(outDir);
-		UnZip::ErrorCode ec = m_uz->extractFile(name, outDir, UnZip::SkipPaths);
+		UnZip::ErrorCode ec = m_uz->extractFile(name, outDir, static_cast<UnZip::ExtractionOption>(eo));
 		retVal = (ec == UnZip::Ok);
 		QDir::setCurrent(pwd);
 	}

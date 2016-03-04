@@ -28,6 +28,14 @@ class UnZip;
 class ScZipHandler
 {
 	public:
+		enum ExtractionOption
+		{
+			ExtractPaths = 0x0001,
+			SkipPaths = 0x0002,
+			VerifyOnly = 0x0004,
+			NoSilentDirectoryCreation = 0x0008
+		};
+
 		ScZipHandler(bool forWrite = false);
 		virtual ~ScZipHandler();
 		bool open(QString fileName);
@@ -35,7 +43,7 @@ class ScZipHandler
 		bool contains(QString fileName);
 		bool read(QString fileName, QByteArray &buf);
 		bool write(QString dirName);
-		bool extract(QString name, QString path);
+		bool extract(QString name, QString path, ExtractionOption eo);
 		QStringList files();
 	private:
 		UnZip* m_uz;

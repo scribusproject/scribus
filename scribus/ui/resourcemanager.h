@@ -44,7 +44,9 @@ class SCRIBUS_API ResourceManager : public QDialog, Ui::ResourceManagerBase
 		RM_HYPH,
 		RM_PROFILES,
 		RM_SPELL,
-		RM_TEMPLATES
+		RM_TEMPLATES,
+		RM_HELP,
+		RM_TEST=99
 	};
 	public:
 		ResourceManager(QWidget* parent);
@@ -57,19 +59,19 @@ class SCRIBUS_API ResourceManager : public QDialog, Ui::ResourceManagerBase
 		void languageChange();
 
 	protected:
-		void setFontCategory();
-		void setHyphCategory();
-		void setSpellCategory();
-		void setTemplatesCategory();
-
 		void updateInstalledFonts();
 		void updateInstalledHyph();
 		void updateInstalledSpell();
 		void updateInstalledTemplates();
+		void updateInstalledHelp();
+		void updateInstalledTest();
+
 		void updateAvailableFonts();
 		void updateAvailableHyph();
 		void updateAvailableSpell();
 		void updateAvailableTemplates();
+		void updateAvailableHelp();
+		void updateAvailableTest();
 
 		QString currentCategory;
 		QMap <int, QString> resourceCategories;
@@ -80,8 +82,10 @@ class SCRIBUS_API ResourceManager : public QDialog, Ui::ResourceManagerBase
 		QList <DownloadItem> dictList;
 		QList <DownloadItem> fontList;
 		QList <DownloadItem> templateList;
+		QList <DownloadItem> helpList;
 		QList <DownloadItem> profileList;
 		QList <DownloadItem> downloadList;
+		QList <DownloadItem> testList;
 		QString affixFileName(QStringList files);
 		QString dictFileName(QStringList files);
 		QString findDestinationFolder();

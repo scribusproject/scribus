@@ -95,8 +95,8 @@ SxwIm::SxwIm(QString fileName, QString enc, gtWriter* w, bool textOnly)
 	{
 		QTemporaryDir *dir = new QTemporaryDir();
 		QString baseDir = dir->path();
-		fun->extract(STYLE, baseDir);
-		fun->extract(CONTENT, baseDir);
+		fun->extract(STYLE, baseDir, ScZipHandler::SkipPaths);
+		fun->extract(CONTENT, baseDir, ScZipHandler::SkipPaths);
 		stylePath   = baseDir + "/" + STYLE;
 		contentPath = baseDir + "/" + CONTENT;
 		if ((!stylePath.isNull()) && (!contentPath.isNull()))
