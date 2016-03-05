@@ -11,17 +11,17 @@
 CHANGELOGS
 Original script is quotes.py or autoquotes.py
 9 oct 2013 :
-The algorythm has been slightly changed for determining
+The algorithm has been slightly changed for determining
 whether a quote is opening or closing
 + it provides the choice for the type of space to add :
-none or non breaking or thin or non breaking thin
-+ spaces are only aded when not allready there...
+none or non-breaking or thin or non-breaking thin
++ spaces are only added when not already there...
 + a french version of the dialogs is included
 25 oct 2013 :
-choice to change the spaces for allready existing correct doublequotes
-if 'none' is choosen, then existing spaces inside double quotes are deleted
-+ take into account allready existing doublequotes for the correct choice open / close of next dquote
-+ warning if some open/close unconsistency is detected
+choice to change the spaces for already existing correct doublequotes
+if 'none' is chosen, then existing spaces inside double quotes are deleted
++ take into account already existing doublequotes for the correct choice open / close of next dquote
++ warning if some open/close inconsistency is detected
 for example in « texte " suite »
 
 LIMITS
@@ -42,7 +42,7 @@ There will be a dialog asking for the language for the quotes,
 Detected errors shut down the script with an appropriate message.
 A dialog then asks what is your choice as for spaces.
 Follow indications and answer 0, 1, 2 or 3 
-Another dialog asks wether you want the script to manage 
+Another dialog asks whether you want the script to manage 
 existing correct doublequotes.
 
 

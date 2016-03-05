@@ -5,7 +5,7 @@ ABOUT THIS SCRIPT:
 
 Export Scribus Colors to CSV
 
-color2csv.py allows a user to export  the colors of a given scribus document in a csv file. The file will be a text file with comma seperated values in the following format:
+color2csv.py allows a user to export  the colors of a given scribus document in a csv file. The file will be a text file with comma separated values in the following format:
 "colorname", c,m,y,k 
 
 If there is a document opened in scribus, color2csv uses this document as color source.
@@ -110,7 +110,7 @@ def main(argv):
         
         #@TODO: optimize path checking
         if filename !="":
-            if os.path.exists(filename): #make shure we don't accidentaly overwrite existing files
+            if os.path.exists(filename): #make sure we don't accidentally overwrite existing files
                 answer= scribus.messageBox("color2csv", "File already exists! \n do you want to overwrite it?",  icon=scribus.ICON_WARNING,  button1=scribus.BUTTON_YES,  button2=scribus.BUTTON_ABORT)
                 if answer == scribus.BUTTON_YES:
                     writeColorCsvFile(filename,  cols)

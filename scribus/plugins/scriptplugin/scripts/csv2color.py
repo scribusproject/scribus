@@ -6,14 +6,14 @@ ABOUT THIS SCRIPT:
 Import Colors from a CSV file to Scribus
 
 csv2color.py allows a user to import colors from a given csv file into a scribus document. 
-The file must be a text file with comma seperated values in the following format:
+The file must be a text file with comma separated values in the following format:
 
 "colorname", c,m,y,k 
 
 There must be a document opend in scribus where the colors can be defined in. 
 If the csv contanins one or more color names that already exist in the document, the colors will be imported with a `*` as prefix.
 
-This script is especially helpfull if you want to use CMYK color representations of color systems like HKS, Pantone or RAL in Scribus. Lots of such CMYK translation tables can be found on the Web. 
+This script is especially helpful if you want to use CMYK color representations of color systems like HKS, Pantone or RAL in Scribus. Lots of such CMYK translation tables can be found on the Web. 
 One can easily copy such a table into a text file, save it in the obove described format and import it into a scribus document.
 
 Use color2csv to export the colors from a scribus document into a csv file.

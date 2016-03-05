@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 """ This is a simple 'Calendar creation wizard' for Scribus. It's a fully
-rewritten Calender.py from Scribus examples. Enjoy.
+rewritten Calendar.py from Scribus examples. Enjoy.
 
 DESCRIPTION & USAGE:
 This script needs Tkinter. It will create a GUI with available options
