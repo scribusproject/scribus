@@ -1,7 +1,8 @@
-<ui version="4.0" >
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
  <class>nftwidget</class>
- <widget class="QWidget" name="nftwidget" >
-  <property name="geometry" >
+ <widget class="QWidget" name="nftwidget">
+  <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
@@ -9,28 +10,28 @@
     <height>313</height>
    </rect>
   </property>
-  <property name="windowTitle" >
-   <string>Form</string>
+  <property name="windowTitle">
+   <string notr="true">Form</string>
   </property>
-  <layout class="QHBoxLayout" name="horizontalLayout" >
-   <property name="spacing" >
+  <layout class="QHBoxLayout" name="horizontalLayout">
+   <property name="spacing">
     <number>5</number>
    </property>
    <item>
-    <widget class="QListWidget" name="categoryList" >
-     <property name="sizePolicy" >
-      <sizepolicy vsizetype="Expanding" hsizetype="Preferred" >
+    <widget class="QListWidget" name="categoryList">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
        <horstretch>0</horstretch>
        <verstretch>0</verstretch>
       </sizepolicy>
      </property>
-     <property name="minimumSize" >
+     <property name="minimumSize">
       <size>
        <width>130</width>
        <height>200</height>
       </size>
      </property>
-     <property name="maximumSize" >
+     <property name="maximumSize">
       <size>
        <width>140</width>
        <height>16777215</height>
@@ -39,37 +40,37 @@
     </widget>
    </item>
    <item>
-    <widget class="QListWidget" name="tnailGrid" >
-     <property name="minimumSize" >
+    <widget class="QListWidget" name="tnailGrid">
+     <property name="minimumSize">
       <size>
        <width>250</width>
        <height>0</height>
       </size>
      </property>
-     <property name="contextMenuPolicy" >
+     <property name="contextMenuPolicy">
       <enum>Qt::ActionsContextMenu</enum>
      </property>
-     <property name="spacing" >
+     <property name="spacing">
       <number>5</number>
      </property>
-     <property name="viewMode" >
+     <property name="viewMode">
       <enum>QListView::IconMode</enum>
      </property>
     </widget>
    </item>
    <item>
-    <widget class="QToolBox" name="toolBox" >
-     <property name="minimumSize" >
+    <widget class="QToolBox" name="toolBox">
+     <property name="minimumSize">
       <size>
        <width>220</width>
        <height>16</height>
       </size>
      </property>
-     <property name="currentIndex" >
+     <property name="currentIndex">
       <number>0</number>
      </property>
-     <widget class="QWidget" name="aboutPage" >
-      <property name="geometry" >
+     <widget class="QWidget" name="aboutPage">
+      <property name="geometry">
        <rect>
         <x>0</x>
         <y>0</y>
@@ -77,23 +78,32 @@
         <height>202</height>
        </rect>
       </property>
-      <attribute name="label" >
+      <attribute name="label">
        <string>&amp;About</string>
       </attribute>
-      <layout class="QGridLayout" >
-       <property name="margin" >
+      <layout class="QGridLayout">
+       <property name="leftMargin">
         <number>9</number>
        </property>
-       <property name="spacing" >
+       <property name="topMargin">
+        <number>9</number>
+       </property>
+       <property name="rightMargin">
+        <number>9</number>
+       </property>
+       <property name="bottomMargin">
+        <number>9</number>
+       </property>
+       <property name="spacing">
         <number>6</number>
        </property>
-       <item row="0" column="0" >
-        <widget class="QTextBrowser" name="textBrowser" />
+       <item row="0" column="0">
+        <widget class="QTextBrowser" name="textBrowser"/>
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="previewPage" >
-      <property name="geometry" >
+     <widget class="QWidget" name="previewPage">
+      <property name="geometry">
        <rect>
         <x>0</x>
         <y>0</y>
@@ -101,27 +111,36 @@
         <height>112</height>
        </rect>
       </property>
-      <attribute name="label" >
+      <attribute name="label">
        <string>&amp;Preview</string>
       </attribute>
-      <layout class="QGridLayout" name="_2" >
-       <property name="margin" >
+      <layout class="QGridLayout" name="_2">
+       <property name="leftMargin">
         <number>9</number>
        </property>
-       <property name="spacing" >
+       <property name="topMargin">
+        <number>9</number>
+       </property>
+       <property name="rightMargin">
+        <number>9</number>
+       </property>
+       <property name="bottomMargin">
+        <number>9</number>
+       </property>
+       <property name="spacing">
         <number>6</number>
        </property>
-       <item row="0" column="0" >
-        <widget class="QListWidget" name="imageView" >
-         <property name="viewMode" >
+       <item row="0" column="0">
+        <widget class="QListWidget" name="imageView">
+         <property name="viewMode">
           <enum>QListView::IconMode</enum>
          </property>
         </widget>
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="helpPage" >
-      <property name="geometry" >
+     <widget class="QWidget" name="helpPage">
+      <property name="geometry">
        <rect>
         <x>0</x>
         <y>0</y>
@@ -129,18 +148,27 @@
         <height>112</height>
        </rect>
       </property>
-      <attribute name="label" >
+      <attribute name="label">
        <string>&amp;Help</string>
       </attribute>
-      <layout class="QGridLayout" name="_3" >
-       <property name="margin" >
+      <layout class="QGridLayout" name="_3">
+       <property name="leftMargin">
         <number>9</number>
        </property>
-       <property name="spacing" >
+       <property name="topMargin">
+        <number>9</number>
+       </property>
+       <property name="rightMargin">
+        <number>9</number>
+       </property>
+       <property name="bottomMargin">
+        <number>9</number>
+       </property>
+       <property name="spacing">
         <number>6</number>
        </property>
-       <item row="0" column="0" >
-        <widget class="QTextBrowser" name="helpBrowser" />
+       <item row="0" column="0">
+        <widget class="QTextBrowser" name="helpBrowser"/>
        </item>
       </layout>
      </widget>
