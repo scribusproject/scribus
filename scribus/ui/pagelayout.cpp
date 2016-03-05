@@ -186,15 +186,15 @@ void PageLayouts::selectItem(uint nr)
 	connect(firstPage, SIGNAL(activated(int)), this, SIGNAL(selectedFirstPage(int)));
 }
 
-void PageLayouts::itemSelectedPost(int choosen)
+void PageLayouts::itemSelectedPost(int chosen)
 {
 	disconnect(firstPage, SIGNAL(activated(int)), this, SIGNAL(selectedFirstPage(int)));
-	if (choosen > 0)
+	if (chosen > 0)
 	{
 		firstPage->setEnabled(true);
 		firstPage->clear();
 		QStringList::Iterator pNames;
-		for(pNames = pageSets[choosen].pageNames.begin(); pNames != pageSets[choosen].pageNames.end(); ++pNames )
+		for(pNames = pageSets[chosen].pageNames.begin(); pNames != pageSets[chosen].pageNames.end(); ++pNames )
 		{
 			firstPage->addItem(CommonStrings::translatePageSetLocString((*pNames)));
 		}

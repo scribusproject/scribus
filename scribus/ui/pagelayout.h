@@ -61,7 +61,7 @@ signals:
 	void selectedFirstPage(int);
 
 private:
-	void itemSelectedPost(int choosen);
+	void itemSelectedPost(int chosen);
 	bool modus;
 
 protected:
