@@ -2348,6 +2348,10 @@ PageItem* Scribus134Format::PasteItem(QDomElement *obj, ScribusDoc *doc, const Q
 		break;
 	}
 
+	QString tagName = obj->tagName();
+	if ((tagName == "FRAMEOBJECT") || (tagName == "PatternItem"))
+		currItem->OwnPage = -1;
+
 	UndoManager::instance()->setUndoEnabled(false);
 	currItem->FrameType = obj->attribute("FRTYPE", "0").toInt();
 	int startArrowIndex = obj->attribute("startArrowIndex", "0").toInt();
