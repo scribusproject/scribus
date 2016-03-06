@@ -122,8 +122,9 @@ public:
 		bool usable;
 		bool embedPs;
 		bool subset;
-        bool outline;
+		bool outline;
 
+		bool isCIDFont;
 		bool isStroked;
 		bool isFixedPitch;
 		bool hasGlyphNames;
@@ -185,6 +186,7 @@ public:
 		virtual bool EmbedFont(QByteArray &/*str*/)       const { return false; }
 		virtual void RawData(QByteArray & /*bb*/)      const {}
 
+		virtual bool isCIDKeyed() const { return isCIDFont; }
 		virtual bool hasNames() const { return hasGlyphNames; }
 		virtual bool glyphNames(QMap<gid_type, std::pair<ucs4_type, QString> >& gList) const;
 
@@ -299,6 +301,9 @@ public:
 
 	/// deprecated? tells if the face has PS names
 	bool hasNames()    const { return m_m->hasNames(); }
+
+	/// tells if the font is a CID font
+	virtual bool isCIDKeyed() const { return m_m->isCIDFont; }
 
 	/// tells if this font is an outline font
 	bool isStroked()   const { return m_m->isStroked; }

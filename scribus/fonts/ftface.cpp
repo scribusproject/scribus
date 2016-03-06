@@ -7,6 +7,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "fonts/ftface.h"
 
+#include FT_CID_H
 #include FT_OUTLINE_H
 #include FT_GLYPH_H
 #include FT_TRUETYPE_IDS_H
@@ -89,6 +90,10 @@ void FtFace::load() const
 		}
 	}
 
+	FT_Bool isCID = false;
+	FT_Get_CID_Is_Internally_CID_Keyed(m_face, &isCID);
+
+	const_cast<FtFace*>(this)->isCIDFont = isCID;
 	const_cast<FtFace*>(this)->isStroked = false;
 	const_cast<FtFace*>(this)->hasGlyphNames = FT_HAS_GLYPH_NAMES(m_face);
 

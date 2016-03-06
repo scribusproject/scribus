@@ -1988,6 +1988,10 @@ void PDFLibCore::PDF_Begin_WriteUsedFonts(SCFonts &AllFonts, const QMap<QString,
 					{
 						pdfFont = PDF_WriteTtfSubsetFont(fontName, face, usedGlyphs);
 					}
+					else if (face.isCIDKeyed())
+					{
+						pdfFont = PDF_WriteType3Font(fontName, face, usedGlyphs);
+					}
 					else
 					{
 						pdfFont = PDF_WriteCffSubsetFont(fontName, face, usedGlyphs);

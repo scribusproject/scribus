@@ -23,6 +23,7 @@ ScFace::ScFaceData::ScFaceData() :
 	embedPs(false),
 	subset(false),
 	outline(false),
+	isCIDFont(false),
 	isStroked(false),
 	isFixedPitch(false),
 	hasGlyphNames(false),
