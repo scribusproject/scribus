@@ -26,6 +26,7 @@ for which a new license (GPL+exception) is in place.
 #include <QDomDocument>
 #include <QFile>
 #include <QFileInfo>
+#include <QLabel>
 #include <QList>
 #include <QMessageBox>
 #include <QString>
@@ -52,6 +53,7 @@ ResourceManager::ResourceManager(QWidget* parent)
 	downloadButton->setEnabled(false);
 	downloadProgressBar->setValue(0);
 	downloadProgressBar->setVisible(false);
+	dataReceivedLabel->setVisible(false);
 	languageChange();
 
 	connect(categoryComboBox, SIGNAL(currentIndexChanged(int)), this, SLOT(categoryChanged()));
@@ -685,6 +687,7 @@ void ResourceManager::updateDownloadLists()
 	downloadButton->setEnabled(false);
 	downloadProgressBar->setValue(0);
 	downloadProgressBar->setVisible(true);
+	dataReceivedLabel->setVisible(true);
 	downloadProgressBar->setRange(0, dataFiles.count());
 	foreach(QString f, dataFiles)
 		ScQApp->dlManager()->addURL("http://services.scribus.net/"+f, true, ScPaths::downloadDir(), ScPaths::downloadDir());
@@ -693,6 +696,8 @@ void ResourceManager::updateDownloadLists()
 	connect(ScQApp->dlManager(), SIGNAL(finished()), this, SLOT(downloadListFinished()));
 	connect(ScQApp->dlManager(), SIGNAL(fileReceived(const QString&)), this, SLOT(updateProgressBar()));
 	connect(ScQApp->dlManager(), SIGNAL(fileFailed(const QString&)), this, SLOT(updateProgressBar()));
+	connect(ScQApp->dlManager(), SIGNAL(fileFailed(const QString&)), this, SLOT(updateProgressBar()));
+	connect(ScQApp->dlManager(), SIGNAL(fileDownloadProgress(qint64, qint64)), this, SLOT(updateProgressData(qint64, qint64)));
 	ScQApp->dlManager()->startDownloads();
 }
 
@@ -701,6 +706,7 @@ void ResourceManager::downloadListFinished()
 	disconnect(ScQApp->dlManager(), SIGNAL(finished()), this, SLOT(downloadListFinished()));
 	disconnect(ScQApp->dlManager(), SIGNAL(fileReceived(const QString&)), this, SLOT(updateProgressBar()));
 	disconnect(ScQApp->dlManager(), SIGNAL(fileFailed(const QString&)), this, SLOT(updateProgressBar()));
+	disconnect(ScQApp->dlManager(), SIGNAL(fileDownloadProgress(qint64, qint64)), this, SLOT(updateProgressData(qint64, qint64)));
 
 	int category = categoryComboBox->currentData().toInt();
 	switch (category)
@@ -734,6 +740,7 @@ void ResourceManager::downloadListFinished()
 	downloadButton->setEnabled(true);
 	downloadProgressBar->setValue(0);
 	downloadProgressBar->setVisible(false);
+	dataReceivedLabel->setVisible(false);
 }
 
 void ResourceManager::downloadFilesFinished()
@@ -741,9 +748,11 @@ void ResourceManager::downloadFilesFinished()
 	disconnect(ScQApp->dlManager(), SIGNAL(finished()), this, SLOT(downloadFilesFinished()));
 	disconnect(ScQApp->dlManager(), SIGNAL(fileReceived(const QString&)), this, SLOT(updateProgressBar()));
 	disconnect(ScQApp->dlManager(), SIGNAL(fileFailed(const QString&)), this, SLOT(updateProgressBar()));
+	disconnect(ScQApp->dlManager(), SIGNAL(fileDownloadProgress(qint64, qint64)), this, SLOT(updateProgressData(qint64, qint64)));
 	categoryChanged();
 	downloadProgressBar->setValue(0);
 	downloadProgressBar->setVisible(false);
+	dataReceivedLabel->setVisible(false);
 	downloadButton->setEnabled(true);
 
 	int category = categoryComboBox->currentData().toInt();
@@ -923,6 +932,20 @@ void ResourceManager::updateProgressBar()
 	downloadProgressBar->setValue(downloadProgressBar->value() + 1);
 }
 
+void ResourceManager::updateProgressData(qint64 bytesReceived, qint64 bytesTotal)
+{
+	QString totalText;
+	if (bytesTotal == -1)
+		totalText = QString("%1 bytes").arg(bytesReceived);
+	else
+	{
+		totalText = QString("%1 / %2 bytes").arg(bytesReceived).arg(bytesTotal);
+		QString totalTextWidth = QString("%1 / %2 bytes").arg(bytesTotal).arg(bytesTotal);
+		dataReceivedLabel->setMinimumWidth(QWidget::fontMetrics().width(totalTextWidth));
+	}
+	dataReceivedLabel->setText(totalText);
+}
+
 void ResourceManager::startDownload()
 {
 	int rows = availableTableWidget->rowCount();
@@ -941,6 +964,7 @@ void ResourceManager::startDownload()
 	downloadList.clear();
 	downloadProgressBar->setValue(0);
 	downloadProgressBar->setVisible(true);
+	dataReceivedLabel->setVisible(true);
 //	dlLabel->setVisible(true);
 	int dlCount=0;
 
@@ -1045,6 +1069,7 @@ void ResourceManager::startDownload()
 		connect(ScQApp->dlManager(), SIGNAL(finished()), this, SLOT(downloadFilesFinished()));
 		connect(ScQApp->dlManager(), SIGNAL(fileReceived(const QString&)), this, SLOT(updateProgressBar()));
 		connect(ScQApp->dlManager(), SIGNAL(fileFailed(const QString&)), this, SLOT(updateProgressBar()));
+		connect(ScQApp->dlManager(), SIGNAL(fileDownloadProgress(qint64, qint64)), this, SLOT(updateProgressData(qint64, qint64)));
 		ScQApp->dlManager()->startDownloads();
 	}
 }

@@ -29,6 +29,7 @@ class ScDLThread : public QThread
 		void fileStarted(const QString &);
 		void fileReceived(const QString &);
 		void fileFailed(const QString &);
+		void fileDownloadProgress(qint64 bytesReceived, qint64 bytesTotal);
 
 	private slots:
 		void startNextDownload();

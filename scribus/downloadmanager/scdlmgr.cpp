@@ -19,6 +19,7 @@ ScDLManager::ScDLManager(QObject *parent)
 	connect(m_thread, SIGNAL(fileReceived(const QString &)), this, SLOT(dlReceived(const QString&)));
 	connect(m_thread, SIGNAL(fileFailed(const QString &)), this, SLOT(dlFailed(const QString&)));
 	connect(m_thread, SIGNAL(fileStarted(const QString &)), this, SLOT(dlStarted(const QString &)));
+	connect(m_thread, SIGNAL(fileDownloadProgress(qint64, qint64)), this, SIGNAL(fileDownloadProgress(qint64, qint64)));
 	//connect(thread, SIGNAL(finished()), this, SIGNAL(finished()));
 	connect(m_thread, SIGNAL(finished()), this, SLOT(moveFinishedDownloads()));
 }

@@ -40,6 +40,7 @@ class ScDLManager: public QObject
 		void finished();
 		void fileReceived(const QString& t);
 		void fileFailed(const QString& t);
+		void fileDownloadProgress(qint64 bytesReceived, qint64 bytesTotal);
 
 	private:
 		ScDLThread *m_thread;

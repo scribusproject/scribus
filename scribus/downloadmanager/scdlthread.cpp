@@ -128,6 +128,7 @@ void ScDLThread::startNextDownload()
 	m_currentDownload = m_manager.get(request);
 	connect(m_currentDownload, SIGNAL(finished()), this, SLOT(downloadFinished()));
 	connect(m_currentDownload, SIGNAL(readyRead()), this, SLOT(downloadReadyRead()));
+	connect(m_currentDownload, SIGNAL(downloadProgress(qint64, qint64)), this, SIGNAL(fileDownloadProgress(qint64, qint64)));
 
 	//qDebug()<<"Downloading:"<<urlPair.first.toEncoded().constData();
 }
