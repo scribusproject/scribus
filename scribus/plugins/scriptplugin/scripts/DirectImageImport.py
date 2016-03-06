@@ -91,4 +91,4 @@ if __name__ == '__main__':
     if haveDoc() > 0:
         main()
     else:
-        messageBox("Image Import", "You need to have a document open <i>before</i> you can run this script succesfully.", ICON_INFORMATION)
+        messageBox("Image Import", "You need to have a document open <i>before</i> you can run this script successfully.", ICON_INFORMATION)
