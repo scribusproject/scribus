@@ -44,9 +44,9 @@ bool ScFace_ttf::isSymbolic() const
 
 void ScFace_ttf::load() const
 {
-	if ( !m_kernFeature )
-		m_kernFeature = new KernFeature ( ftFace() );
 	FtFace::load();
+	if (!m_kernFeature)
+		m_kernFeature = new KernFeature ( ftFace() );
 	sfnt::PostTable checkPost;
 	FT_Face face = ftFace();
 	checkPost.readFrom(face);
