@@ -936,13 +936,13 @@ void ResourceManager::updateProgressData(qint64 bytesReceived, qint64 bytesTotal
 {
 	QString totalText;
 	if (bytesTotal == -1)
-		totalText = QString("%1 bytes").arg(bytesReceived);
+		totalText = QString("%1 kB").arg(bytesReceived/1000);
 	else
-	{
-		totalText = QString("%1 / %2 bytes").arg(bytesReceived).arg(bytesTotal);
-		QString totalTextWidth = QString("%1 / %2 bytes").arg(bytesTotal).arg(bytesTotal);
-		dataReceivedLabel->setMinimumWidth(QWidget::fontMetrics().width(totalTextWidth));
-	}
+//	{
+		totalText = QString("%1 / %2 kB").arg(bytesReceived/1000).arg(bytesTotal/1000);
+//		QString totalTextWidth = QString("%1 / %2 kB").arg(bytesTotal).arg(bytesTotal);
+//		dataReceivedLabel->setMinimumWidth(QWidget::fontMetrics().width(totalTextWidth));
+//	}
 	dataReceivedLabel->setText(totalText);
 }
 
