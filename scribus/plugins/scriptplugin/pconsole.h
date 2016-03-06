@@ -56,7 +56,7 @@ class PythonConsole : public QMainWindow, public Ui::PythonConsole
 		virtual void slot_saveAs();
 		virtual void slot_saveOutput();
 		virtual void slot_quit();
-		/*! \brief Slot processed after user change cursor postion in "programmer's editor".
+		/*! \brief Slot processed after user change cursor position in "programmer's editor".
 		*/
 		virtual void commandEdit_cursorPositionChanged();
 

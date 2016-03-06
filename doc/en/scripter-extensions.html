@@ -74,7 +74,7 @@ to Scribus without having the objects they created destroyed. If another script
 is then run, it can see all the objects created by the first script.</p>
 
 <p>There are several situations where being able to create objects from Python
-that hang around after the script exits is useful. The most signficiant is
+that hang around after the script exits is useful. The most significant is
 graphical programming with PyQt, where PyQt objects are created when the script
 runs and become functional only after the script exits, returning control to
 the Scribus event loop. Another possible use is for macros, event callbacks,
@@ -271,7 +271,7 @@ script again. The original window should vanish and be replaced with
 the new one.</p>
 
 <p>There aren't really any good solutions to this yet, and the right
-behavour depends on what exactly you want to do. I'd like to have some
+behaviour depends on what exactly you want to do. I'd like to have some
 clearer recommendations to give, but for that I need use cases. If
 you're running into this issue, please post a description of your
 project on the Scribus mailing list and I or someone else will try to
@@ -296,7 +296,7 @@ possible to make use of extension scripts. For example, you can use
 PyQt to run a function on a timer. One use might be to check for
 updates to an article in a database and perhaps ask the user if they
 wish to update their document with the new text (or see the
-differences). You can find a very simple exmaple of setting up a timer
+differences). You can find a very simple example of setting up a timer
 with PyQt in the examples directory, called <code>pyqt_timer.py</code>.</p>
 
 <p>Another idea, as suggested by someone on the mailing list, was to
