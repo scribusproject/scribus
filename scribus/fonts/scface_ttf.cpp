@@ -505,9 +505,9 @@ bool ScFace_ttf::isSymbolic() const
 
 void ScFace_ttf::load() const
 {
-	if ( !kernFeature )
-		kernFeature = new KernFeature ( ftFace() );
 	FtFace::load();
+	if (!kernFeature)
+		kernFeature = new KernFeature ( ftFace() );
 }
 
 void ScFace_ttf::unload() const
