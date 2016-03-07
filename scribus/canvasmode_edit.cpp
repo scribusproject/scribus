@@ -647,6 +647,7 @@ void CanvasMode_Edit::mousePressEvent(QMouseEvent *m)
 					if (currItem->asTextFrame())
 					{
 						m_view->slotSetCurs(m->globalPos().x(), m->globalPos().y());
+						oldCp = oldP = currItem->itemText.cursorPosition();
 						currItem->asTextFrame()->lastUndoAction = PageItem::NOACTION;
 					}
 				}
