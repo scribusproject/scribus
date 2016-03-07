@@ -278,6 +278,7 @@ void CanvasMode_Edit::activate(bool fromGesture)
 	m_view->MidButt = false;
 	Mxp = Myp = -1;
 	Dxp = Dyp = -1;
+	SeRx = SeRy = -1;
 	oldCp = Cp = -1;
 	frameResizeHandle = -1;
 	setModeCursor();
@@ -600,7 +601,10 @@ void CanvasMode_Edit::mousePressEvent(QMouseEvent *m)
 						m_view->setCursor(QCursor(Qt::ArrowCursor));
 					}
 					if (currItem->asTextFrame())
+					{
 						m_view->slotSetCurs(m->globalPos().x(), m->globalPos().y());
+						oldCp = currItem->itemText.cursorPosition();
+					}
 				}
 				else
 				{
