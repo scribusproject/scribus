@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>657</width>
-    <height>531</height>
+    <height>549</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -449,6 +449,19 @@
        </item>
       </layout>
      </widget>
+    </item>
+    <item>
+     <spacer name="verticalSpacer_6">
+      <property name="orientation">
+       <enum>Qt::Vertical</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>20</width>
+        <height>40</height>
+       </size>
+      </property>
+     </spacer>
     </item>
    </layout>
   </widget>
@@ -1269,6 +1282,19 @@ when PDF document is opened:</string>
       </layout>
      </widget>
     </item>
+    <item>
+     <spacer name="verticalSpacer_5">
+      <property name="orientation">
+       <enum>Qt::Vertical</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>20</width>
+        <height>40</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
    </layout>
   </widget>
   <widget class="QWidget" name="tabColor">
@@ -1379,88 +1405,100 @@ when PDF document is opened:</string>
        <property name="spacing">
         <number>5</number>
        </property>
-       <item row="0" column="2">
-        <widget class="QSpinBox" name="LPIfreq">
-         <property name="minimum">
-          <number>10</number>
-         </property>
-         <property name="maximum">
-          <number>1000</number>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="1">
-        <widget class="QLabel" name="label_18">
-         <property name="text">
-          <string>&amp;Angle:</string>
-         </property>
-         <property name="buddy">
-          <cstring>LPIangle</cstring>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="1">
-        <widget class="QLabel" name="label_17">
-         <property name="text">
-          <string>Fre&amp;quency:</string>
-         </property>
-         <property name="buddy">
-          <cstring>LPIfreq</cstring>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="2">
-        <widget class="QSpinBox" name="LPIangle">
-         <property name="suffix">
-          <string> °</string>
-         </property>
-         <property name="minimum">
-          <number>-180</number>
-         </property>
-         <property name="maximum">
-          <number>180</number>
-         </property>
-        </widget>
-       </item>
        <item row="0" column="0">
         <widget class="QComboBox" name="LPIcolor"/>
        </item>
-       <item row="2" column="1">
-        <widget class="QLabel" name="label_19">
-         <property name="text">
-          <string>S&amp;pot Function:</string>
-         </property>
-         <property name="buddy">
-          <cstring>LPIfunc</cstring>
-         </property>
-        </widget>
+       <item row="0" column="1">
+        <layout class="QHBoxLayout" name="horizontalLayout_10">
+         <item>
+          <widget class="QLabel" name="label_17">
+           <property name="text">
+            <string>Fre&amp;quency:</string>
+           </property>
+           <property name="buddy">
+            <cstring>LPIfreq</cstring>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QSpinBox" name="LPIfreq">
+           <property name="minimum">
+            <number>10</number>
+           </property>
+           <property name="maximum">
+            <number>1000</number>
+           </property>
+          </widget>
+         </item>
+        </layout>
        </item>
-       <item row="2" column="2">
-        <widget class="QComboBox" name="LPIfunc">
-         <property name="editable">
-          <bool>false</bool>
-         </property>
+       <item row="1" column="1">
+        <layout class="QHBoxLayout" name="horizontalLayout_11">
          <item>
-          <property name="text">
-           <string>Simple Dot</string>
-          </property>
+          <widget class="QLabel" name="label_18">
+           <property name="text">
+            <string>&amp;Angle:</string>
+           </property>
+           <property name="buddy">
+            <cstring>LPIangle</cstring>
+           </property>
+          </widget>
          </item>
          <item>
-          <property name="text">
-           <string>Line</string>
-          </property>
+          <widget class="QSpinBox" name="LPIangle">
+           <property name="suffix">
+            <string> °</string>
+           </property>
+           <property name="minimum">
+            <number>-180</number>
+           </property>
+           <property name="maximum">
+            <number>180</number>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item row="2" column="1">
+        <layout class="QHBoxLayout" name="horizontalLayout_12">
+         <item>
+          <widget class="QLabel" name="label_19">
+           <property name="text">
+            <string>S&amp;pot Function:</string>
+           </property>
+           <property name="buddy">
+            <cstring>LPIfunc</cstring>
+           </property>
+          </widget>
          </item>
          <item>
-          <property name="text">
-           <string>Round</string>
-          </property>
+          <widget class="QComboBox" name="LPIfunc">
+           <property name="editable">
+            <bool>false</bool>
+           </property>
+           <item>
+            <property name="text">
+             <string>Simple Dot</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Line</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Round</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Ellipse</string>
+            </property>
+           </item>
+          </widget>
          </item>
-         <item>
-          <property name="text">
-           <string>Ellipse</string>
-          </property>
-         </item>
-        </widget>
+        </layout>
        </item>
       </layout>
      </widget>
@@ -1678,10 +1716,10 @@ when PDF document is opened:</string>
        <property name="spacing">
         <number>5</number>
        </property>
-       <item row="3" column="1">
-        <widget class="QLabel" name="label_25">
+       <item row="3" column="0">
+        <widget class="QCheckBox" name="colorMarks">
          <property name="text">
-          <string>Offset:</string>
+          <string>Color Bars</string>
          </property>
         </widget>
        </item>
@@ -1692,31 +1730,10 @@ when PDF document is opened:</string>
          </property>
         </widget>
        </item>
-       <item row="3" column="0">
-        <widget class="QCheckBox" name="colorMarks">
-         <property name="text">
-          <string>Color Bars</string>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="1">
-        <widget class="QLabel" name="label_24">
-         <property name="text">
-          <string>Length:</string>
-         </property>
-        </widget>
-       </item>
        <item row="1" column="0">
         <widget class="QCheckBox" name="bleedMarks">
          <property name="text">
           <string>Bleed Marks</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="1">
-        <widget class="QCheckBox" name="docInfoMarks">
-         <property name="text">
-          <string>Page Information</string>
          </property>
         </widget>
        </item>
@@ -1727,11 +1744,40 @@ when PDF document is opened:</string>
          </property>
         </widget>
        </item>
-       <item row="2" column="2">
-        <widget class="ScrSpinBox" name="markLength"/>
+       <item row="3" column="1">
+        <layout class="QHBoxLayout" name="horizontalLayout_6">
+         <item>
+          <widget class="QLabel" name="label_25">
+           <property name="text">
+            <string>Offset:</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="ScrSpinBox" name="markOffset"/>
+         </item>
+        </layout>
        </item>
-       <item row="3" column="2">
-        <widget class="ScrSpinBox" name="markOffset"/>
+       <item row="2" column="1">
+        <layout class="QHBoxLayout" name="horizontalLayout_8">
+         <item>
+          <widget class="QLabel" name="label_24">
+           <property name="text">
+            <string>Length:</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="ScrSpinBox" name="markLength"/>
+         </item>
+        </layout>
+       </item>
+       <item row="0" column="1">
+        <widget class="QCheckBox" name="docInfoMarks">
+         <property name="text">
+          <string>Page Information</string>
+         </property>
+        </widget>
        </item>
       </layout>
      </widget>
@@ -1884,6 +1930,94 @@ when PDF document is opened:</string>
    <header>ui/scrspinbox.h</header>
   </customwidget>
  </customwidgets>
+ <tabstops>
+  <tabstop>AllPages</tabstop>
+  <tabstop>OnlySome</tabstop>
+  <tabstop>PageNr</tabstop>
+  <tabstop>pageNrButton</tabstop>
+  <tabstop>RotateDeg</tabstop>
+  <tabstop>MirrorH</tabstop>
+  <tabstop>MirrorV</tabstop>
+  <tabstop>ClipMarg</tabstop>
+  <tabstop>PDFVersionCombo</tabstop>
+  <tabstop>ComboBind</tabstop>
+  <tabstop>CheckBox1</tabstop>
+  <tabstop>Article</tabstop>
+  <tabstop>CheckBM</tabstop>
+  <tabstop>useLayers</tabstop>
+  <tabstop>Resolution</tabstop>
+  <tabstop>EmbedPDF</tabstop>
+  <tabstop>Compression</tabstop>
+  <tabstop>CMethod</tabstop>
+  <tabstop>CQuality</tabstop>
+  <tabstop>DSColor</tabstop>
+  <tabstop>ValC</tabstop>
+  <tabstop>fontEmbeddingCombo</tabstop>
+  <tabstop>EmbedList</tabstop>
+  <tabstop>SubsetList</tabstop>
+  <tabstop>ToSubset</tabstop>
+  <tabstop>FromSubset</tabstop>
+  <tabstop>EmbedFonts</tabstop>
+  <tabstop>SubsetFonts</tabstop>
+  <tabstop>CheckBox10</tabstop>
+  <tabstop>Pages</tabstop>
+  <tabstop>PageTime</tabstop>
+  <tabstop>EffectTime</tabstop>
+  <tabstop>EffectType</tabstop>
+  <tabstop>EDirection</tabstop>
+  <tabstop>EDirection_2</tabstop>
+  <tabstop>EDirection_2_2</tabstop>
+  <tabstop>EonAllPg</tabstop>
+  <tabstop>PagePrev</tabstop>
+  <tabstop>singlePage</tabstop>
+  <tabstop>continuousPages</tabstop>
+  <tabstop>doublePageLeft</tabstop>
+  <tabstop>doublePageRight</tabstop>
+  <tabstop>useViewDefault</tabstop>
+  <tabstop>useFullScreen</tabstop>
+  <tabstop>useBookmarks</tabstop>
+  <tabstop>useThumbnails</tabstop>
+  <tabstop>useLayers2</tabstop>
+  <tabstop>hideToolBar</tabstop>
+  <tabstop>hideMenuBar</tabstop>
+  <tabstop>fitWindow</tabstop>
+  <tabstop>actionCombo</tabstop>
+  <tabstop>Encry</tabstop>
+  <tabstop>PassOwner</tabstop>
+  <tabstop>PassUser</tabstop>
+  <tabstop>PrintSec</tabstop>
+  <tabstop>ModifySec</tabstop>
+  <tabstop>CopySec</tabstop>
+  <tabstop>AddSec</tabstop>
+  <tabstop>OutCombo</tabstop>
+  <tabstop>useSpot</tabstop>
+  <tabstop>UseLPI</tabstop>
+  <tabstop>LPIcolor</tabstop>
+  <tabstop>LPIfreq</tabstop>
+  <tabstop>LPIangle</tabstop>
+  <tabstop>LPIfunc</tabstop>
+  <tabstop>EmbedProfs</tabstop>
+  <tabstop>SolidPr</tabstop>
+  <tabstop>IntendS</tabstop>
+  <tabstop>EmbedProfs2</tabstop>
+  <tabstop>NoEmbedded</tabstop>
+  <tabstop>ImageP</tabstop>
+  <tabstop>IntendI</tabstop>
+  <tabstop>cropMarks</tabstop>
+  <tabstop>bleedMarks</tabstop>
+  <tabstop>registrationMarks</tabstop>
+  <tabstop>colorMarks</tabstop>
+  <tabstop>docInfoMarks</tabstop>
+  <tabstop>markLength</tabstop>
+  <tabstop>markOffset</tabstop>
+  <tabstop>docBleeds</tabstop>
+  <tabstop>BleedTop</tabstop>
+  <tabstop>BleedBottom</tabstop>
+  <tabstop>BleedLeft</tabstop>
+  <tabstop>BleedRight</tabstop>
+  <tabstop>PrintProfC</tabstop>
+  <tabstop>InfoString</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>
