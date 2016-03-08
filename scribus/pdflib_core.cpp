@@ -1708,7 +1708,7 @@ PdfFont PDFLibCore::PDF_EncodeSimpleFont(const QByteArray& fontName, ScFace& fac
 	return result;
 }
 
-
+/*
 static void dumpFont(QString name, QByteArray data)
 {
 	QFile file(name);
@@ -1730,6 +1730,7 @@ static void dumpCFF(QString name, cff::CFF font)
 		file.close();
 	}
 }
+*/
 
 
 PdfFont PDFLibCore::PDF_WriteTtfSubsetFont(const QByteArray& fontName, ScFace& face, const QMap<uint,FPointArray>& RealGlyphs)
@@ -2925,7 +2926,7 @@ void PDFLibCore::PDF_Begin_Page(const ScPage* pag, QPixmap pm)
 				compDataAvail = true;
 			}
 		}
-		uint thumbnail = writer.newObject();
+		PdfId thumbnail = writer.newObject();
 		writer.startObj(thumbnail);
 		PutDoc("<<\n/Width "+Pdf::toPdf(img.width())+"\n");
 		PutDoc("/Height "+Pdf::toPdf(img.height())+"\n");

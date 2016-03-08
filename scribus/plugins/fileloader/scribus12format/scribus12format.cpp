@@ -385,6 +385,7 @@ void Scribus12Format::PasteItem(struct CopyPasteBuffer *Buffer, bool drag, bool 
 	case PageItem::Arc:
 	case PageItem::Spiral:
 	case PageItem::Table:
+	case PageItem::NoteFrame:
 		Q_ASSERT(false);
 		break;
 	case PageItem::LatexFrame:

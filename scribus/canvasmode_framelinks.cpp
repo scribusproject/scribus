@@ -119,7 +119,7 @@ void CanvasMode_FrameLinks::mouseDoubleClickEvent(QMouseEvent *m)
 
 void CanvasMode_FrameLinks::mouseMoveEvent(QMouseEvent *m)
 {
-	const FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPos());
+	//const FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPos());
 	
 	m->accept();
 

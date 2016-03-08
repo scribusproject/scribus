@@ -29,10 +29,10 @@ class SCRIBUS_API Prefs_DocumentSections : public Prefs_Pane, Ui::Prefs_Document
 		void languageChange();
 
 	protected:
-		DocumentSectionMap localSections;
-		uint m_maxPageIndex;
-		QStringList styles;
+		DocumentSectionMap m_localSections;
 		ScribusDoc* m_doc;
+		uint m_maxPageIndex;
+		QStringList m_styles;
 		virtual void updateTable();
 
 	protected slots:

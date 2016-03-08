@@ -69,7 +69,7 @@ struct PdfPageTree
 struct PdfPageData
 {
     PdfId ObjNum;
-    int Thumb;
+	PdfId Thumb;
     Pdf::ResourceMap XObjects;
     Pdf::ResourceMap ImgObjects;
     Pdf::ResourceMap FObjects;
