@@ -86,7 +86,7 @@ build-all-platform-libs.bat script. For example :
 BUILDING SCRIBUS
 ====================
 
-After having installed all dependencies, open Scribus-build-props.props files located in Scribus\win32\vc11 in a text editor
+After having compiled all dependencies, open Scribus-build-props.props files located in Scribus\win32\vc11 in a text editor
 Update the dependency paths to match your system.
 
 Open the Visual Studio solution located in same directoy and start building. Note: if you built dependencies with a different 
