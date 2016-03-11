@@ -323,6 +323,7 @@ QStringList ScPaths::hyphDirs() const
 	QString linuxLocalPath("/usr/local/share/hunspell/");
 	QString linuxHunspellPath("/usr/share/hunspell/");
 	QString linuxMyspellPath("/usr/share/myspell/");
+	QString linuxHyphen1Path("/usr/share/hyphen/");
 	QString windowsLOPath("LibreOffice 3.5/share/extensions");
 	QDir d;
 	QStringList hyphDirs;
@@ -366,6 +367,9 @@ QStringList ScPaths::hyphDirs() const
 			hyphDirs.append(progFiles+windowsLOPath + "/" + dir + "/");
 	}
 #elif defined(Q_OS_LINUX)
+	d.setPath(linuxHyhpen1Path);
+	if (d.exists())
+		hyphDirs.append(linuxHyphen1Path);
 	d.setPath(linuxHunspellPath);
 	if (d.exists())
 		hyphDirs.append(linuxHunspellPath);
