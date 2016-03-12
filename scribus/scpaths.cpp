@@ -529,35 +529,46 @@ QString ScPaths::getUserDictDir(ScPaths::DictType dictType, bool createIfNotExis
 		dictSuffix = "hyph/";
 	if (dictType == ScPaths::Spell)
 		dictSuffix = "spell/";
-	QDir userDictDirectory(getApplicationDataDir() + "dicts/" + dictSuffix);
+	QDir useFilesDirectory(getApplicationDataDir() + "dicts/" + dictSuffix);
 	if(createIfNotExists)
 	{
-		if (!userDictDirectory.exists())
-			userDictDirectory.mkpath(userDictDirectory.absolutePath());
+		if (!useFilesDirectory.exists())
+			useFilesDirectory.mkpath(useFilesDirectory.absolutePath());
 	}
-	return userDictDirectory.absolutePath()+"/";
+	return useFilesDirectory.absolutePath()+"/";
 }
 
 QString ScPaths::getUserFontDir(bool createIfNotExists)
 {
-	QDir userDictDirectory(getApplicationDataDir() + "fonts/");
+	QDir useFilesDirectory(getApplicationDataDir() + "fonts/");
 	if(createIfNotExists)
 	{
-		if (!userDictDirectory.exists())
-			userDictDirectory.mkpath(userDictDirectory.absolutePath());
+		if (!useFilesDirectory.exists())
+			useFilesDirectory.mkpath(useFilesDirectory.absolutePath());
 	}
-	return userDictDirectory.absolutePath()+"/";
+	return useFilesDirectory.absolutePath()+"/";
 }
 
 QString ScPaths::getUserHelpFilesDir(bool createIfNotExists)
 {
-	QDir userHelpDocsDirectory(getApplicationDataDir() + "helpfiles/");
+	QDir useFilesDirectory(getApplicationDataDir() + "helpfiles/");
 	if(createIfNotExists)
 	{
-		if (!userHelpDocsDirectory.exists())
-			userHelpDocsDirectory.mkpath(userHelpDocsDirectory.absolutePath());
+		if (!useFilesDirectory.exists())
+			useFilesDirectory.mkpath(useFilesDirectory.absolutePath());
 	}
-	return userHelpDocsDirectory.absolutePath()+"/";
+	return useFilesDirectory.absolutePath()+"/";
+}
+
+QString ScPaths::getUserSwatchFilesDir(bool createIfNotExists)
+{
+	QDir useFilesDirectory(getApplicationDataDir() + "swatches/");
+	if(createIfNotExists)
+	{
+		if (!useFilesDirectory.exists())
+			useFilesDirectory.mkpath(useFilesDirectory.absolutePath());
+	}
+	return useFilesDirectory.absolutePath()+"/";
 }
 
 QString ScPaths::getUserDocumentDir(void)

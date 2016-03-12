@@ -78,6 +78,8 @@ public:
 	static QString getUserFontDir(bool createIfNotExists);
 	/** @brief Return path to application data dir for downloaded docs*/
 	static QString getUserHelpFilesDir(bool createIfNotExists);
+	/** @brief Return path to application data dir for downloaded swatches*/
+	static QString getUserSwatchFilesDir(bool createIfNotExists);
 	/** @brief Return path to image cache dir*/
 	static QString getImageCacheDir(void);
 	/** @brief Return path to plugin data dir*/

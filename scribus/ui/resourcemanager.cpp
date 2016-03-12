@@ -76,6 +76,7 @@ void ResourceManager::languageChange()
 	resourceCategories.insert(RM_HYPH, tr("Hyphenation Dictionaries"));
 	resourceCategories.insert(RM_SPELL, tr("Spelling Dictionaries"));
 	resourceCategories.insert(RM_HELP, tr("Help Manuals"));
+	resourceCategories.insert(RM_SWATCHES, tr("Swatches"));
 	//resourceCategories.insert(RM_TEMPLATES, tr("Templates"));
 	//resourceCategories.insert(RM_PROFILES, tr("Color Profiles"));
 //	resourceCategories.insert(RM_TEST, tr("Test"));
@@ -85,6 +86,7 @@ void ResourceManager::languageChange()
 	dataFiles.insert(RM_HYPH, "scribus_hyph_dicts.xml");
 	dataFiles.insert(RM_SPELL, "scribus_spell_dicts.xml");
 	dataFiles.insert(RM_HELP, "scribus_help.xml");
+	dataFiles.insert(RM_SWATCHES, "scribus_swatches.xml");
 	//dataFiles.insert(RM_TEMPLATES, "scribus_templates.xml");
 	//dataFiles.insert(RM_PROFILES, "scribus_profiles.xml");
 //	dataFiles.insert(RM_TEST, "test.txt");
@@ -205,6 +207,12 @@ void ResourceManager::updateInstalledTemplates()
 }
 
 void ResourceManager::updateInstalledHelp()
+{
+	dictionaryMap.clear();
+	installedTableWidget->clear();
+}
+
+void ResourceManager::updateInstalledSwatches()
 {
 	dictionaryMap.clear();
 	installedTableWidget->clear();
@@ -614,6 +622,103 @@ void ResourceManager::updateAvailableHelp()
 	downloadButton->setEnabled(true);
 }
 
+void ResourceManager::updateAvailableSwatches()
+{
+	QFile dataFile(ScPaths::downloadDir() + dataFiles[RM_SWATCHES]);
+	if (!dataFile.exists())
+		return;
+	dataFile.open(QIODevice::ReadOnly);
+	QTextStream ts(&dataFile);
+	ts.setCodec(QTextCodec::codecForName("UTF-8"));
+	QString errorMsg;
+	int eline;
+	int ecol;
+	QDomDocument doc( QString(dataFiles[RM_SWATCHES]).remove(".xml") );
+	QString data(ts.readAll());
+	dataFile.close();
+	if ( !doc.setContent( data, &errorMsg, &eline, &ecol ))
+	{
+		if (data.toLower().contains("404 not found"))
+			qDebug()<<"File not found on server";
+		else
+			qDebug()<<"Could not open file"<<dataFile.fileName();
+		return;
+	}
+	swatchList.clear();
+	QDomElement docElem = doc.documentElement();
+	QDomNode n = docElem.firstChild();
+	while( !n.isNull() )
+	{
+		QDomElement e = n.toElement();
+		if( !e.isNull() )
+		{
+			if (e.tagName()=="swatch")
+			{
+				if (e.hasAttribute("type") && e.hasAttribute("filetype"))
+				{
+					//if (e.attribute("type")=="scribusofficial")
+					{
+						struct DownloadItem d;
+						d.desc=e.attribute("description");
+						d.download=false;
+						d.files=e.attribute("files");
+						d.extractfiles="";
+						d.url=e.attribute("URL");
+						d.version=e.attribute("version");
+						d.lang=e.attribute("language");
+						d.license=e.attribute("license");
+						d.filetype=e.attribute("filetype");
+						d.type=e.attribute("type");
+						QUrl url(d.url);
+						if (url.isValid() && !url.isEmpty() && !url.host().isEmpty())
+							swatchList.append(d);
+					}
+				}
+			}
+		}
+		n = n.nextSibling();
+	}
+	availableTableWidget->clear();
+	if(swatchList.isEmpty())
+	{
+		downloadButton->setEnabled(false);
+		return;
+	}
+	availableTableWidget->setRowCount(swatchList.count());
+	availableTableWidget->setColumnCount(5);
+	availableTableWidget->setSortingEnabled(false);
+	int row=0;
+	foreach(DownloadItem d, swatchList)
+	{
+		int column=0;
+		QTableWidgetItem *newItem1 = new QTableWidgetItem(d.desc);
+		newItem1->setFlags(newItem1->flags() & ~Qt::ItemIsEditable & ~Qt::ItemIsSelectable);
+		availableTableWidget->setItem(row, column++, newItem1);
+		QTableWidgetItem *newItem2 = new QTableWidgetItem("");
+		newItem2->setFlags(newItem1->flags());
+		availableTableWidget->setItem(row, column++, newItem2);
+		QTableWidgetItem *newItem3 = new QTableWidgetItem();
+		newItem3->setCheckState(dictionaryMap.contains(d.lang) ? Qt::Checked : Qt::Unchecked);
+		newItem3->setFlags(newItem1->flags() & ~Qt::ItemIsUserCheckable);
+		availableTableWidget->setItem(row, column++, newItem3);
+		QTableWidgetItem *newItem4 = new QTableWidgetItem(d.license);
+		availableTableWidget->setItem(row, column++, newItem4);
+		newItem4->setFlags(newItem4->flags() & ~Qt::ItemIsEditable);
+		QTableWidgetItem *newItem5 = new QTableWidgetItem();
+		newItem5->setFlags(newItem1->flags());
+		newItem5->setCheckState(d.download ? Qt::Checked : Qt::Unchecked);
+		availableTableWidget->setItem(row, column++, newItem5);
+		++row;
+	}
+	QStringList headers;
+	headers << tr("Description") << tr("") << tr("Installed") << tr("License") << tr("Download");
+	availableTableWidget->setHorizontalHeaderLabels(headers);
+	availableTableWidget->resizeColumnsToContents();
+	availableTableWidget->setSortingEnabled(true);
+	availableTableWidget->sortByColumn(0, Qt::AscendingOrder);
+	downloadButton->setEnabled(true);
+}
+
 void ResourceManager::updateAvailableTest()
 {
 	availableTableWidget->clear();
@@ -641,6 +746,9 @@ QString ResourceManager::findDestinationFolder()
 			break;
 		case RM_HELP:
 			destinationFolder=ScPaths::getUserHelpFilesDir(true);
+			break;
+		case RM_SWATCHES:
+			destinationFolder=ScPaths::getUserSwatchFilesDir(true);
 			break;
 		case RM_TEST:
 			destinationFolder=ScPaths::downloadDir();
@@ -673,6 +781,10 @@ void ResourceManager::categoryChanged()
 		case RM_HELP:
 			updateInstalledHelp();
 			updateAvailableHelp();
+			break;
+		case RM_SWATCHES:
+			updateInstalledSwatches();
+			updateAvailableSwatches();
 			break;
 		case RM_TEST:
 			updateInstalledTest();
@@ -709,28 +821,39 @@ void ResourceManager::downloadListFinished()
 	disconnect(ScQApp->dlManager(), SIGNAL(fileDownloadProgress(qint64, qint64)), this, SLOT(updateProgressData(qint64, qint64)));
 
 	int category = categoryComboBox->currentData().toInt();
+	bool fileOk=checkFileHash(ScPaths::downloadDir(), dataFiles[category], dataFiles[category] + ".sha256", QCryptographicHash::Sha256);
 	switch (category)
 	{
 		case RM_FONTS:
-			updateAvailableFonts();
+			if (fileOk)
+				updateAvailableFonts();
 			break;
 		case RM_HYPH:
-			updateAvailableHyph();
+			if (fileOk)
+				updateAvailableHyph();
 			break;
 		case RM_SPELL:
-			updateAvailableSpell();
+			if (fileOk)
+				updateAvailableSpell();
 			break;
 		case RM_TEMPLATES:
-			updateAvailableTemplates();
+			if (fileOk)
+				updateAvailableTemplates();
 			break;
 		case RM_HELP:
-			if (checkFileHash(ScPaths::downloadDir(), dataFiles[RM_HELP], dataFiles[RM_HELP] + ".sha256", QCryptographicHash::Sha256))
+			if (fileOk)
 				updateAvailableHelp();
 			else
-				qDebug()<<"Failure :(";
+				qDebug()<<"Help Failure :(";
+			break;
+		case RM_SWATCHES:
+			if (fileOk)
+				updateAvailableSwatches();
+			else
+				qDebug()<<"Swatch Failure :(";
 			break;
 		case RM_TEST:
-			if (checkFileHash(ScPaths::downloadDir(), dataFiles[RM_TEST], dataFiles[RM_TEST] + ".sha256", QCryptographicHash::Sha256))
+			if (fileOk)
 				qDebug()<<"Success!!!";
 			else
 				qDebug()<<"Failure :(";
@@ -969,7 +1092,7 @@ void ResourceManager::startDownload()
 	int dlCount=0;
 
 	//Set up destination
-	QString destinationFolder=findDestinationFolder();
+	QString destinationFolder(findDestinationFolder());
 	int category = categoryComboBox->currentData().toInt();
 	switch (category)
 	{
@@ -1060,6 +1183,28 @@ void ResourceManager::startDownload()
 				}
 			}
 			break;
+		case RM_SWATCHES:
+			foreach(DownloadItem d, swatchList)
+			{
+//				qDebug()<<d.desc;
+				if (filesToDownload.contains(d.desc))
+				{
+					if (d.filetype=="zip")
+					{
+//						qDebug()<<"zip type:"<<d.url<<d.files;
+						QStringList plainURLs(d.files.split(";", QString::SkipEmptyParts));
+						foreach (QString s, plainURLs)
+						{
+							ScQApp->dlManager()->addURL(d.url+"/"+s, true, ScPaths::downloadDir(), destinationFolder);
+							ScQApp->dlManager()->addURL(d.url+"/"+s+".sha256", true, ScPaths::downloadDir(), destinationFolder);
+							dlCount+=2;
+						}
+						downloadList.append(d);
+						d.download=true;
+					}
+				}
+			}
+			break;
 		default:
 			break;
 	}
@@ -1093,6 +1238,7 @@ void ResourceManager::showLicense()
 			break;
 		}
 	}
+	qDebug()<<lang<<licenceFileName;
 	if (!licenceFileName.isEmpty())
 	{
 		bool doDownload=true;
@@ -1117,19 +1263,42 @@ void ResourceManager::showLicense()
 			QStringList filesToDownload;
 			filesToDownload<<lang;
 			//There's only one here... foreach?
-			foreach(DownloadItem d, dictList)
+			int category = categoryComboBox->currentData().toInt();
+			switch (category)
 			{
-				if (filesToDownload.contains(d.desc))
-				{
-					if (d.filetype=="plain")
+				case RM_HYPH:
+				case RM_SPELL:
+					foreach(DownloadItem d, dictList)
 					{
-						ScQApp->dlManager()->addURL(d.url+"/"+licenceFileName, true, ScPaths::downloadDir(), ScPaths::getTempFileDir());
-						connect(ScQApp->dlManager(), SIGNAL(finished()), this, SLOT(downloadLicenseFinished()));
-						connect(ScQApp->dlManager(), SIGNAL(fileReceived(const QString&)), this, SLOT(downloadLicenseFileFinished(const QString&)));
-						connect(ScQApp->dlManager(), SIGNAL(fileFailed(const QString&)), this, SLOT(downloadLicenseFileFailed(const QString&)));
-						ScQApp->dlManager()->startDownloads();
+						if (filesToDownload.contains(d.desc))
+						{
+							if (d.filetype=="plain")
+							{
+								ScQApp->dlManager()->addURL(d.url+"/"+licenceFileName, true, ScPaths::downloadDir(), ScPaths::getTempFileDir());
+								connect(ScQApp->dlManager(), SIGNAL(finished()), this, SLOT(downloadLicenseFinished()));
+								connect(ScQApp->dlManager(), SIGNAL(fileReceived(const QString&)), this, SLOT(downloadLicenseFileFinished(const QString&)));
+								connect(ScQApp->dlManager(), SIGNAL(fileFailed(const QString&)), this, SLOT(downloadLicenseFileFailed(const QString&)));
+								ScQApp->dlManager()->startDownloads();
+							}
+						}
 					}
-				}
+					break;
+				case RM_SWATCHES:
+					foreach(DownloadItem d, swatchList)
+					{
+						if (filesToDownload.contains(d.desc))
+						{
+//							if (d.filetype=="plain")
+							{
+								ScQApp->dlManager()->addURL(d.url+"/"+licenceFileName, true, ScPaths::downloadDir(), ScPaths::getTempFileDir());
+								connect(ScQApp->dlManager(), SIGNAL(finished()), this, SLOT(downloadLicenseFinished()));
+								connect(ScQApp->dlManager(), SIGNAL(fileReceived(const QString&)), this, SLOT(downloadLicenseFileFinished(const QString&)));
+								connect(ScQApp->dlManager(), SIGNAL(fileFailed(const QString&)), this, SLOT(downloadLicenseFileFailed(const QString&)));
+								ScQApp->dlManager()->startDownloads();
+							}
+						}
+					}
+					break;
 			}
 		}
 	}

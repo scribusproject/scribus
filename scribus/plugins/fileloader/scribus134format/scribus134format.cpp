@@ -2651,6 +2651,7 @@ PageItem* Scribus134Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 	case PageItem::Spiral:
 	case PageItem::Multiple:
 	case PageItem::Table:
+	case PageItem::NoteFrame:
 		Q_ASSERT(false);
 		break;
 	}
