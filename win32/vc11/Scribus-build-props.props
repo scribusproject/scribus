@@ -87,13 +87,13 @@
 	<LIBMSPUB_LIB Condition="'$(Configuration)' == 'Debug'">libmspub_d.lib</LIBMSPUB_LIB>
 	<LIBMSPUB_LIB Condition="'$(Configuration)' == 'Release'">libmspub.lib</LIBMSPUB_LIB>
 	<!-- Libpagemaker -->
-	<LIBPAGEMAKER_DIR>$(SCRIBUS_LIB_ROOT)\libpagemaker-0.0.2</LIBPAGEMAKER_DIR>
+	<LIBPAGEMAKER_DIR>$(SCRIBUS_LIB_ROOT)\libpagemaker-0.0.3</LIBPAGEMAKER_DIR>
 	<LIBPAGEMAKER_INCLUDE_DIR>$(LIBPAGEMAKER_DIR)\inc</LIBPAGEMAKER_INCLUDE_DIR>
 	<LIBPAGEMAKER_LIB_DIR>$(LIBPAGEMAKER_DIR)\lib\$(Platform)-$(PlatformToolset)</LIBPAGEMAKER_LIB_DIR>
 	<LIBPAGEMAKER_LIB Condition="'$(Configuration)' == 'Debug'">libpagemaker_d.lib</LIBPAGEMAKER_LIB>
 	<LIBPAGEMAKER_LIB Condition="'$(Configuration)' == 'Release'">libpagemaker.lib</LIBPAGEMAKER_LIB>
 	<!-- Librevenge -->
-	<LIBREVENGE_DIR>$(SCRIBUS_LIB_ROOT)\librevenge-0.0.3</LIBREVENGE_DIR>
+	<LIBREVENGE_DIR>$(SCRIBUS_LIB_ROOT)\librevenge-0.0.4</LIBREVENGE_DIR>
 	<LIBREVENGE_INCLUDE_DIR>$(LIBREVENGE_DIR)\inc</LIBREVENGE_INCLUDE_DIR>
 	<LIBREVENGE_LIB_DIR>$(LIBREVENGE_DIR)\lib\$(Platform)-$(PlatformToolset)</LIBREVENGE_LIB_DIR>
 	<LIBREVENGE_LIB Condition="'$(Configuration)' == 'Debug'">librevenge-0.0d.lib</LIBREVENGE_LIB>
@@ -109,7 +109,7 @@
 	<LIBTIFF_LIB Condition="'$(Configuration)' == 'Debug'">libtiff5_d.lib</LIBTIFF_LIB>
 	<LIBTIFF_LIB Condition="'$(Configuration)' == 'Release'">libtiff5.lib</LIBTIFF_LIB>
 	<!-- Libvisio -->
-	<LIBVISIO_DIR>$(SCRIBUS_LIB_ROOT)\libvisio-0.1.3</LIBVISIO_DIR>
+	<LIBVISIO_DIR>$(SCRIBUS_LIB_ROOT)\libvisio-0.1.5</LIBVISIO_DIR>
 	<LIBVISIO_INCLUDE_DIR>$(LIBVISIO_DIR)\inc</LIBVISIO_INCLUDE_DIR>
 	<LIBVISIO_LIB_DIR>$(LIBVISIO_DIR)\lib\$(Platform)-$(PlatformToolset)</LIBVISIO_LIB_DIR>
 	<LIBVISIO_LIB Condition="'$(Configuration)' == 'Debug'">libvisio_d.lib</LIBVISIO_LIB>
@@ -127,7 +127,7 @@
 	<PODOFO_LIB Condition="'$(Configuration)' == 'Debug'">PoDoFoLibD.lib</PODOFO_LIB>
 	<PODOFO_LIB Condition="'$(Configuration)' == 'Release'">PoDoFoLib.lib</PODOFO_LIB>
 	<!-- Poppler -->
-	<POPPLER_DIR>$(SCRIBUS_LIB_ROOT)\poppler-0.39.0</POPPLER_DIR>
+	<POPPLER_DIR>$(SCRIBUS_LIB_ROOT)\poppler-0.41.0</POPPLER_DIR>
 	<POPPLER_INCLUDE_DIR>$(POPPLER_DIR)\include</POPPLER_INCLUDE_DIR>
 	<POPPLER_LIB_DIR>$(POPPLER_DIR)\lib\$(Platform)-$(PlatformToolset)</POPPLER_LIB_DIR>
 	<POPPLER_LIB Condition="'$(Configuration)' == 'Debug'">poppler_staticD.lib</POPPLER_LIB>
