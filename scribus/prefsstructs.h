@@ -177,6 +177,8 @@ struct DocumentSetupPrefs
 	int docUnitIndex; //! The index of the default unit
 	bool AutoSave;
 	int AutoSaveTime;
+	int AutoSaveCount;
+	bool AutoSaveKeep;
 	bool saveCompressed;
 };
 

@@ -159,9 +159,13 @@ public:
 	void setHyphAutoCheck(bool b) { m_docPrefsData.hyphPrefs.AutoCheck=b; }
 	bool autoSave() const { return m_docPrefsData.docSetupPrefs.AutoSave; }
 	int autoSaveTime() const  { return m_docPrefsData.docSetupPrefs.AutoSaveTime; }
+	int autoSaveCount() const  { return m_docPrefsData.docSetupPrefs.AutoSaveCount; }
+	bool autoSaveKeep() const  { return m_docPrefsData.docSetupPrefs.AutoSaveKeep; }
 	bool autoSaveClockDisplay() const  { return m_docPrefsData.displayPrefs.showAutosaveClockOnCanvas; }
 	void setAutoSave(bool b) { m_docPrefsData.docSetupPrefs.AutoSave=b; }
 	void setAutoSaveTime(int i) { m_docPrefsData.docSetupPrefs.AutoSaveTime=i; }
+	void setAutoSaveCount(int i) { m_docPrefsData.docSetupPrefs.AutoSaveCount=i; }
+	void setAutoSaveKeep(bool i) { m_docPrefsData.docSetupPrefs.AutoSaveKeep=i; }
 	//FIXME (maybe) :non const, the loaders make a mess here
 	PDFOptions& pdfOptions() { return m_docPrefsData.pdfPrefs; }
 	ObjAttrVector& itemAttributes() { return m_docPrefsData.itemAttrPrefs.defaultItemAttributes; }
@@ -1332,6 +1336,7 @@ public:
 	bool hasName;
 	bool isConverted;
 	QTimer * const autoSaveTimer;
+	QList<QString> autoSaveFiles;
 	QHash<QString,multiLine> MLineStyles;
 	QHash<QString, ScPattern> docPatterns;
 	QHash<QString, VGradient> docGradients;
@@ -1380,7 +1385,6 @@ signals:
 	 * @brief Let the document tell whatever is listening that it has changed
 	 */
 	void docChanged();
-	void saved(QString name);
 	void updateContents();
 	void updateContents(const QRect &r);
 	void refreshItem(PageItem *);

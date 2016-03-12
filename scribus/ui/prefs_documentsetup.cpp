@@ -114,11 +114,12 @@ void Prefs_DocumentSetup::languageChange()
 	pageSizeLinkToolButton->setToolTip( "<qt>" + tr( "Enable or disable more page sizes by jumping to Page Size preferences" ) + "</qt>" );
 	pageOrientationComboBox->setToolTip( "<qt>" + tr( "Default orientation of document pages" ) + "</qt>" );
 	pageUnitsComboBox->setToolTip( "<qt>" + tr( "Default unit of measurement for document editing" ) + "</qt>" );
-	autosaveCheckBox->setToolTip( "<qt>" + tr( "When enabled, Scribus saves a backup copy of your file with the .bak extension each time the time period elapses" ) + "</qt>" );
+	autosaveCheckBox->setToolTip( "<qt>" + tr( "When enabled, Scribus saves backup copys of your file each time the time period elapses" ) + "</qt>" );
 	autosaveIntervalSpinBox->setToolTip( "<qt>" + tr( "Time period between saving automatically" ) + "</qt>" );
 	undoLengthSpinBox->setToolTip( "<qt>" + tr("Set the length of the action history in steps. If set to 0 infinite amount of actions will be stored.") + "</qt>");
 	applySizesToAllPagesCheckBox->setToolTip( "<qt>" + tr( "Apply the page size changes to all existing pages in the document" ) + "</qt>" );
 	applyMarginsToAllPagesCheckBox->setToolTip( "<qt>" + tr( "Apply the page size changes to all existing master pages in the document" ) + "</qt>" );
+	autosaveCountSpinBox->setToolTip("<qt>" + tr("Keep this many files during the editing session. Backup files will be removed when you close the document.") + "</qt>");
 }
 
 void Prefs_DocumentSetup::restoreDefaults(struct ApplicationPrefs *prefsData)
@@ -180,6 +181,8 @@ void Prefs_DocumentSetup::restoreDefaults(struct ApplicationPrefs *prefsData)
 	saveCompressedCheckBox->setChecked(prefsData->docSetupPrefs.saveCompressed);
 	autosaveCheckBox->setChecked( prefsData->docSetupPrefs.AutoSave );
 	autosaveIntervalSpinBox->setValue(prefsData->docSetupPrefs.AutoSaveTime / 1000 / 60);
+	autosaveCountSpinBox->setValue(prefsData->docSetupPrefs.AutoSaveCount);
+	autosaveKeepCheckBox->setChecked(prefsData->docSetupPrefs.AutoSaveKeep);
 	undoCheckBox->setChecked(PrefsManager::instance()->prefsFile->getContext("undo")->getBool("enabled", true));
 	int undoLength = UndoManager::instance()->getHistoryLength();
 	if (undoLength == -1)
@@ -204,6 +207,8 @@ void Prefs_DocumentSetup::saveGuiToPrefs(struct ApplicationPrefs *prefsData) con
 	prefsData->docSetupPrefs.saveCompressed=saveCompressedCheckBox->isChecked();
 	prefsData->docSetupPrefs.AutoSave=autosaveCheckBox->isChecked();
 	prefsData->docSetupPrefs.AutoSaveTime = autosaveIntervalSpinBox->value() * 1000 * 60;
+	prefsData->docSetupPrefs.AutoSaveCount = autosaveCountSpinBox->value();
+	prefsData->docSetupPrefs.AutoSaveKeep = autosaveKeepCheckBox->isChecked();
 	bool undoActive=undoCheckBox->isChecked();
 	if (!undoActive)
 		UndoManager::instance()->clearStack();

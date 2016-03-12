@@ -326,6 +326,8 @@ bool Scribus150Format::saveFile(const QString & fileName, const FileFormat & /* 
 	docu.writeAttribute("spiralFactor", m_Doc->itemToolPrefs().spiralFactor);
 	docu.writeAttribute("AutoSave", static_cast<int>(m_Doc->autoSave()));
 	docu.writeAttribute("AutoSaveTime", m_Doc->autoSaveTime());
+	docu.writeAttribute("AutoSaveCount", m_Doc->autoSaveCount());
+	docu.writeAttribute("AutoSaveKeep", static_cast<int>(m_Doc->autoSaveKeep()));
 	docu.writeAttribute("ScratchBottom", m_Doc->scratch()->bottom());
 	docu.writeAttribute("ScratchLeft", m_Doc->scratch()->left());
 	docu.writeAttribute("ScratchRight", m_Doc->scratch()->right());

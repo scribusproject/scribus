@@ -324,6 +324,8 @@ void PrefsManager::initDefaults()
 	appPrefs.hyphPrefs.AutoCheck = false;
 	appPrefs.docSetupPrefs.AutoSave = true;
 	appPrefs.docSetupPrefs.AutoSaveTime = 600000;
+	appPrefs.docSetupPrefs.AutoSaveCount = 5;
+	appPrefs.docSetupPrefs.AutoSaveKeep = false;
 	appPrefs.docSetupPrefs.saveCompressed = false;
 	int dpi = qApp->desktop()->logicalDpiX();
 	if ((dpi < 60) || (dpi > 200))
@@ -1378,6 +1380,8 @@ bool PrefsManager::WritePref(QString ho)
 	deDocumentSetup.setAttribute("PagePositioning", appPrefs.docSetupPrefs.pagePositioning);
 	deDocumentSetup.setAttribute("AutoSave", static_cast<int>(appPrefs.docSetupPrefs.AutoSave));
 	deDocumentSetup.setAttribute("AutoSaveTime", appPrefs.docSetupPrefs.AutoSaveTime);
+	deDocumentSetup.setAttribute("AutoSaveCount", appPrefs.docSetupPrefs.AutoSaveCount);
+	deDocumentSetup.setAttribute("AutoSaveKeep", static_cast<int>(appPrefs.docSetupPrefs.AutoSaveKeep));
 	deDocumentSetup.setAttribute("SaveCompressed", static_cast<int>(appPrefs.docSetupPrefs.saveCompressed));
 	deDocumentSetup.setAttribute("BleedTop", ScCLocale::toQStringC(appPrefs.docSetupPrefs.bleeds.top()));
 	deDocumentSetup.setAttribute("BleedLeft", ScCLocale::toQStringC(appPrefs.docSetupPrefs.bleeds.left()));
@@ -1987,6 +1991,8 @@ bool PrefsManager::ReadPref(QString ho)
 			appPrefs.docSetupPrefs.pagePositioning	= dc.attribute("PagePositioning", "0").toInt();
 			appPrefs.docSetupPrefs.AutoSave	  = static_cast<bool>(dc.attribute("AutoSave", "0").toInt());
 			appPrefs.docSetupPrefs.AutoSaveTime  = dc.attribute("AutoSaveTime", "600000").toInt();
+			appPrefs.docSetupPrefs.AutoSaveCount  = dc.attribute("AutoSaveCount", "5").toInt();
+			appPrefs.docSetupPrefs.AutoSaveKeep = static_cast<bool>(dc.attribute("AutoSaveKeep", "0").toInt());
 			appPrefs.docSetupPrefs.saveCompressed = static_cast<bool>(dc.attribute("SaveCompressed", "0").toInt());
 			appPrefs.docSetupPrefs.bleeds.setTop(ScCLocale::toDoubleC(dc.attribute("BleedTop"), 0.0));
 			appPrefs.docSetupPrefs.bleeds.setLeft(ScCLocale::toDoubleC(dc.attribute("BleedLeft"), 0.0));

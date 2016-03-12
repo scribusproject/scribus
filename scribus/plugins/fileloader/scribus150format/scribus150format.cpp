@@ -2083,6 +2083,8 @@ void Scribus150Format::readDocAttributes(ScribusDoc* doc, ScXmlStreamAttributes&
 
 	m_Doc->setAutoSave(attrs.valueAsBool("AutoSave", false));
 	m_Doc->setAutoSaveTime(attrs.valueAsInt("AutoSaveTime", 600000));
+	m_Doc->setAutoSaveKeep(attrs.valueAsBool("AutoSaveKeep", false));
+	m_Doc->setAutoSaveCount(attrs.valueAsInt("AutoSaveCount", 5));
 	double leftScratch;
 	// FIXME A typo in early 1.3cvs (MAR 05) means we must support loading of
 	// FIXME 'ScatchLeft' for a while too. This can be removed in a few months.

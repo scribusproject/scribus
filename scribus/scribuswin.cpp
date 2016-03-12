@@ -60,13 +60,6 @@ void ScribusWin::setView(ScribusView* newView)
 	setStatusBar(0);
 }
 
-void ScribusWin::slotSaved(QString newName)
-{
-	setWindowTitle(QDir::toNativeSeparators(newName));
-	qApp->processEvents();
-	emit autoSaved(); //TODO: to update the main window title, do this from the doc?
-}
-
 void ScribusWin::closeEvent(QCloseEvent *ce)
 {
 	activateWindow();

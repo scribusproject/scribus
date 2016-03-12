@@ -345,7 +345,6 @@ public slots:
 	 * @brief Do post loading functions
 	 */
 	bool postLoadDoc();
-	void slotAutoSaved();
 	/** \brief save a document */
 	bool slotFileSave();
 	/** \brief save a document under a different filename*/

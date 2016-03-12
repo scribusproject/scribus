@@ -51,12 +51,6 @@ public:
 	ScribusDoc* doc() const { return m_Doc;}
 	QMdiSubWindow* getSubWin() { return m_subWindow; }
 	void setSubWin(QMdiSubWindow *win) { m_subWindow = win; }
-	
-public slots:
-	void slotSaved(QString newName);
-
-signals:
-	void autoSaved();
 
 protected:
 	QMdiSubWindow *m_subWindow;

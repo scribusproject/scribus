@@ -2265,7 +2265,6 @@ ScribusDoc *ScribusMainWindow::doFileNew(double width, double height, double top
 	}
 	if (requiresGUI)
 	{
-		connect(w, SIGNAL(autoSaved()), this, SLOT(slotAutoSaved()));
 		connect(ScCore->fileWatcher, SIGNAL(fileChanged(QString)), tempDoc, SLOT(updatePict(QString)));
 		connect(ScCore->fileWatcher, SIGNAL(fileDeleted(QString)), tempDoc, SLOT(removePict(QString)));
 		connect(ScCore->fileWatcher, SIGNAL(dirChanged(QString )), tempDoc, SLOT(updatePictDir(QString )));
@@ -3725,7 +3724,6 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 		view->zoom();
 		view->GotoPage(0);
 		connect(mdiArea, SIGNAL(subWindowActivated(QMdiSubWindow *)), this, SLOT(newActWin(QMdiSubWindow *)));
-		connect(w, SIGNAL(autoSaved()), this, SLOT(slotAutoSaved()));
 		connect(ScCore->fileWatcher, SIGNAL(fileChanged(QString )), doc, SLOT(updatePict(QString)));
 		connect(ScCore->fileWatcher, SIGNAL(fileDeleted(QString )), doc, SLOT(removePict(QString)));
 		connect(ScCore->fileWatcher, SIGNAL(dirChanged(QString )), doc, SLOT(updatePictDir(QString )));
@@ -4032,12 +4030,6 @@ void ScribusMainWindow::slotFileRevert()
 	}
 }
 
-void ScribusMainWindow::slotAutoSaved()
-{
-	if (ActWin == sender())
-		updateActiveWindowCaption(doc->DocName);
-}
-
 bool ScribusMainWindow::slotFileSave()
 {
 	bool ret = false;
@@ -4170,8 +4162,6 @@ bool ScribusMainWindow::DoFileClose()
 	slotSelect();
 	doc->autoSaveTimer->stop();
 	doc->disconnectDocSignals();
-	disconnect(doc, SIGNAL(saved(QString)));
-	disconnect(doc->WinHan, SIGNAL(autoSaved()));
 	disconnect(ScCore->fileWatcher, SIGNAL(fileChanged(QString )), doc, SLOT(updatePict(QString)));
 	disconnect(ScCore->fileWatcher, SIGNAL(fileDeleted(QString )), doc, SLOT(removePict(QString)));
 	disconnect(ScCore->fileWatcher, SIGNAL(dirChanged(QString )), doc, SLOT(updatePictDir(QString )));

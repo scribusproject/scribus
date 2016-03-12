@@ -754,6 +754,18 @@ ScribusDoc::~ScribusDoc()
 		delete m_serializer;
 	if (m_tserializer)
 		delete m_tserializer;
+	if (!m_docPrefsData.docSetupPrefs.AutoSaveKeep)
+	{
+		if (autoSaveFiles.count() != 0)
+		{
+			for (int a = 0; a < autoSaveFiles.count(); a++)
+			{
+				QFile f(autoSaveFiles[a]);
+				f.remove();
+			}
+			autoSaveFiles.clear();
+		}
+	}
 	ScCore->fileWatcher->start();
 }
 
@@ -9800,7 +9812,6 @@ void ScribusDoc::connectDocSignals()
 		{
 			connect(this, SIGNAL(docChanged()), m_ScMW, SLOT(slotDocCh()));
 			connect(this, SIGNAL(firstSelectedItemType(int)), m_ScMW, SLOT(HaveNewSel()));
-			connect(this, SIGNAL(saved(QString)), WinHan, SLOT(slotSaved(QString)));
 			connect(this->m_Selection, SIGNAL(selectionChanged()), m_ScMW, SLOT(HaveNewSel()));
 			connect(autoSaveTimer, SIGNAL(timeout()), this, SLOT(slotAutoSave()));
 		}
@@ -9815,7 +9826,6 @@ void ScribusDoc::disconnectDocSignals()
 		{
 			disconnect(this, SIGNAL(docChanged()), m_ScMW, SLOT(slotDocCh()));
 			disconnect(this, SIGNAL(firstSelectedItemType(int)), m_ScMW, SLOT(HaveNewSel()));
-			disconnect(this, SIGNAL(saved(QString)), WinHan, SLOT(slotSaved(QString)));
 			disconnect(this->m_Selection, SIGNAL(selectionChanged()), m_ScMW, SLOT(HaveNewSel()));
 			disconnect(autoSaveTimer, SIGNAL(timeout()), this, SLOT(slotAutoSave()));
 		}
@@ -16398,9 +16408,23 @@ void ScribusDoc::slotAutoSave()
 {
 	if (hasName && isModified())
 	{
-		FileLoader fl(DocName);
-		if (fl.saveFile(DocName+".autosave", this, 0))
-			emit saved(DocName);
+		autoSaveTimer->stop();
+		QFileInfo fi(DocName);
+		QDateTime dat = QDateTime::currentDateTime();
+		QString fileName = QDir::cleanPath(fi.path() + "/" + fi.baseName() + QString("_autosave_%1.sla").arg(dat.toString("dd_MM_yyyy_hh_mm")));
+		FileLoader fl(fileName);
+		if (fl.saveFile(fileName, this, 0))
+		{
+			if (autoSaveFiles.count() >= m_docPrefsData.docSetupPrefs.AutoSaveCount)
+			{
+				QFile f(autoSaveFiles.first());
+				f.remove();
+				autoSaveFiles.removeFirst();
+			}
+			autoSaveFiles.append(fileName);
+		}
+		if (m_docPrefsData.docSetupPrefs.AutoSave)
+			autoSaveTimer->start(m_docPrefsData.docSetupPrefs.AutoSaveTime);
 	}
 }
 
