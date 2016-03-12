@@ -367,7 +367,7 @@ QStringList ScPaths::hyphDirs() const
 			hyphDirs.append(progFiles+windowsLOPath + "/" + dir + "/");
 	}
 #elif defined(Q_OS_LINUX)
-	d.setPath(linuxHyhpen1Path);
+	d.setPath(linuxHyphen1Path);
 	if (d.exists())
 		hyphDirs.append(linuxHyphen1Path);
 	d.setPath(linuxHunspellPath);
