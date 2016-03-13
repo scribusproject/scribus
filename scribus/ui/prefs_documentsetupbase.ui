@@ -756,7 +756,72 @@
   <tabstop>undoLengthSpinBox</tabstop>
  </tabstops>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>autosaveDocRadio</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>autosaveDirEdit</receiver>
+   <slot>setDisabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>68</x>
+     <y>261</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>151</x>
+     <y>285</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>autosaveDocRadio</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>changeAutoDir</receiver>
+   <slot>setDisabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>209</x>
+     <y>260</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>465</x>
+     <y>286</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>autosaveDirRadio</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>autosaveDirEdit</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>74</x>
+     <y>293</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>142</x>
+     <y>296</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>autosaveDirRadio</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>changeAutoDir</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>85</x>
+     <y>283</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>469</x>
+     <y>290</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
  <buttongroups>
   <buttongroup name="pageLayoutButtonGroup"/>
  </buttongroups>
