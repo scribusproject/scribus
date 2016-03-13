@@ -560,9 +560,9 @@ QString ScPaths::getUserHelpFilesDir(bool createIfNotExists)
 	return useFilesDirectory.absolutePath()+"/";
 }
 
-QString ScPaths::getUserSwatchFilesDir(bool createIfNotExists)
+QString ScPaths::getUserPaletteFilesDir(bool createIfNotExists)
 {
-	QDir useFilesDirectory(getApplicationDataDir() + "swatches/");
+	QDir useFilesDirectory(getApplicationDataDir() + "palettes/");
 	if(createIfNotExists)
 	{
 		if (!useFilesDirectory.exists())

@@ -222,7 +222,7 @@ void ColorSetManager::findPalettes(QTreeWidgetItem* parent)
 void ColorSetManager::findUserPalettes(QTreeWidgetItem* parent)
 {
 	userPalettes.clear();
-	searchDir(ScPaths::getUserSwatchFilesDir(true), userPalettes, parent);
+	searchDir(ScPaths::getUserPaletteFilesDir(true), userPalettes, parent);
 }
 
 QStringList ColorSetManager::paletteNames()

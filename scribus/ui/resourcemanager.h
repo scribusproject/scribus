@@ -46,7 +46,7 @@ class SCRIBUS_API ResourceManager : public QDialog, Ui::ResourceManagerBase
 		RM_SPELL,
 		RM_TEMPLATES,
 		RM_HELP,
-		RM_SWATCHES,
+		RM_PALETTES,
 		RM_TEST=99
 	};
 	public:
@@ -65,7 +65,7 @@ class SCRIBUS_API ResourceManager : public QDialog, Ui::ResourceManagerBase
 		void updateInstalledSpell();
 		void updateInstalledTemplates();
 		void updateInstalledHelp();
-		void updateInstalledSwatches();
+		void updateInstalledPalettes();
 		void updateInstalledTest();
 
 		void updateAvailableFonts();
@@ -73,7 +73,7 @@ class SCRIBUS_API ResourceManager : public QDialog, Ui::ResourceManagerBase
 		void updateAvailableSpell();
 		void updateAvailableTemplates();
 		void updateAvailableHelp();
-		void updateAvailableSwatches();
+		void updateAvailablePalettes();
 		void updateAvailableTest();
 
 		QString currentCategory;
@@ -86,7 +86,7 @@ class SCRIBUS_API ResourceManager : public QDialog, Ui::ResourceManagerBase
 		QList <DownloadItem> fontList;
 		QList <DownloadItem> templateList;
 		QList <DownloadItem> helpList;
-		QList <DownloadItem> swatchList;
+		QList <DownloadItem> paletteList;
 		QList <DownloadItem> profileList;
 		QList <DownloadItem> downloadList;
 		QList <DownloadItem> testList;

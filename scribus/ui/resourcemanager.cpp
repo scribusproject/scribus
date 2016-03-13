@@ -76,7 +76,7 @@ void ResourceManager::languageChange()
 	resourceCategories.insert(RM_HYPH, tr("Hyphenation Dictionaries"));
 	resourceCategories.insert(RM_SPELL, tr("Spelling Dictionaries"));
 	resourceCategories.insert(RM_HELP, tr("Help Manuals"));
-	resourceCategories.insert(RM_SWATCHES, tr("Swatches"));
+	resourceCategories.insert(RM_PALETTES, tr("Palettes"));
 	//resourceCategories.insert(RM_TEMPLATES, tr("Templates"));
 	//resourceCategories.insert(RM_PROFILES, tr("Color Profiles"));
 //	resourceCategories.insert(RM_TEST, tr("Test"));
@@ -86,7 +86,7 @@ void ResourceManager::languageChange()
 	dataFiles.insert(RM_HYPH, "scribus_hyph_dicts.xml");
 	dataFiles.insert(RM_SPELL, "scribus_spell_dicts.xml");
 	dataFiles.insert(RM_HELP, "scribus_help.xml");
-	dataFiles.insert(RM_SWATCHES, "scribus_swatches.xml");
+	dataFiles.insert(RM_PALETTES, "scribus_palettes.xml");
 	//dataFiles.insert(RM_TEMPLATES, "scribus_templates.xml");
 	//dataFiles.insert(RM_PROFILES, "scribus_profiles.xml");
 //	dataFiles.insert(RM_TEST, "test.txt");
@@ -212,7 +212,7 @@ void ResourceManager::updateInstalledHelp()
 	installedTableWidget->clear();
 }
 
-void ResourceManager::updateInstalledSwatches()
+void ResourceManager::updateInstalledPalettes()
 {
 	dictionaryMap.clear();
 	installedTableWidget->clear();
@@ -622,9 +622,9 @@ void ResourceManager::updateAvailableHelp()
 	downloadButton->setEnabled(true);
 }
 
-void ResourceManager::updateAvailableSwatches()
+void ResourceManager::updateAvailablePalettes()
 {
-	QFile dataFile(ScPaths::downloadDir() + dataFiles[RM_SWATCHES]);
+	QFile dataFile(ScPaths::downloadDir() + dataFiles[RM_PALETTES]);
 	if (!dataFile.exists())
 		return;
 	dataFile.open(QIODevice::ReadOnly);
@@ -633,7 +633,7 @@ void ResourceManager::updateAvailableSwatches()
 	QString errorMsg;
 	int eline;
 	int ecol;
-	QDomDocument doc( QString(dataFiles[RM_SWATCHES]).remove(".xml") );
+	QDomDocument doc( QString(dataFiles[RM_PALETTES]).remove(".xml") );
 	QString data(ts.readAll());
 	dataFile.close();
 	if ( !doc.setContent( data, &errorMsg, &eline, &ecol ))
@@ -644,7 +644,7 @@ void ResourceManager::updateAvailableSwatches()
 			qDebug()<<"Could not open file"<<dataFile.fileName();
 		return;
 	}
-	swatchList.clear();
+	paletteList.clear();
 	QDomElement docElem = doc.documentElement();
 	QDomNode n = docElem.firstChild();
 	while( !n.isNull() )
@@ -652,7 +652,7 @@ void ResourceManager::updateAvailableSwatches()
 		QDomElement e = n.toElement();
 		if( !e.isNull() )
 		{
-			if (e.tagName()=="swatch")
+			if (e.tagName()=="palette")
 			{
 				if (e.hasAttribute("type") && e.hasAttribute("filetype"))
 				{
@@ -671,7 +671,7 @@ void ResourceManager::updateAvailableSwatches()
 						d.type=e.attribute("type");
 						QUrl url(d.url);
 						if (url.isValid() && !url.isEmpty() && !url.host().isEmpty())
-							swatchList.append(d);
+							paletteList.append(d);
 					}
 				}
 			}
@@ -679,16 +679,16 @@ void ResourceManager::updateAvailableSwatches()
 		n = n.nextSibling();
 	}
 	availableTableWidget->clear();
-	if(swatchList.isEmpty())
+	if(paletteList.isEmpty())
 	{
 		downloadButton->setEnabled(false);
 		return;
 	}
-	availableTableWidget->setRowCount(swatchList.count());
+	availableTableWidget->setRowCount(paletteList.count());
 	availableTableWidget->setColumnCount(5);
 	availableTableWidget->setSortingEnabled(false);
 	int row=0;
-	foreach(DownloadItem d, swatchList)
+	foreach(DownloadItem d, paletteList)
 	{
 		int column=0;
 		QTableWidgetItem *newItem1 = new QTableWidgetItem(d.desc);
@@ -747,8 +747,8 @@ QString ResourceManager::findDestinationFolder()
 		case RM_HELP:
 			destinationFolder=ScPaths::getUserHelpFilesDir(true);
 			break;
-		case RM_SWATCHES:
-			destinationFolder=ScPaths::getUserSwatchFilesDir(true);
+		case RM_PALETTES:
+			destinationFolder=ScPaths::getUserPaletteFilesDir(true);
 			break;
 		case RM_TEST:
 			destinationFolder=ScPaths::downloadDir();
@@ -782,9 +782,9 @@ void ResourceManager::categoryChanged()
 			updateInstalledHelp();
 			updateAvailableHelp();
 			break;
-		case RM_SWATCHES:
-			updateInstalledSwatches();
-			updateAvailableSwatches();
+		case RM_PALETTES:
+			updateInstalledPalettes();
+			updateAvailablePalettes();
 			break;
 		case RM_TEST:
 			updateInstalledTest();
@@ -846,11 +846,11 @@ void ResourceManager::downloadListFinished()
 			else
 				qDebug()<<"Help Failure :(";
 			break;
-		case RM_SWATCHES:
+		case RM_PALETTES:
 			if (fileOk)
-				updateAvailableSwatches();
+				updateAvailablePalettes();
 			else
-				qDebug()<<"Swatch Failure :(";
+				qDebug()<<"Palette Failure :(";
 			break;
 		case RM_TEST:
 			if (fileOk)
@@ -1183,8 +1183,8 @@ void ResourceManager::startDownload()
 				}
 			}
 			break;
-		case RM_SWATCHES:
-			foreach(DownloadItem d, swatchList)
+		case RM_PALETTES:
+			foreach(DownloadItem d, paletteList)
 			{
 //				qDebug()<<d.desc;
 				if (filesToDownload.contains(d.desc))
@@ -1283,8 +1283,8 @@ void ResourceManager::showLicense()
 						}
 					}
 					break;
-				case RM_SWATCHES:
-					foreach(DownloadItem d, swatchList)
+				case RM_PALETTES:
+					foreach(DownloadItem d, paletteList)
 					{
 						if (filesToDownload.contains(d.desc))
 						{
