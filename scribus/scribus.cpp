@@ -8175,17 +8175,25 @@ void ScribusMainWindow::emergencySave()
 		ActWin = (ScribusWin*)windows.at(i)->widget();
 		doc = ActWin->doc();
 		view = ActWin->view();
+		doc->autoSaveTimer->stop();
+		doc->setMasterPageMode(false);
 		doc->setModified(false);
+		QString base = tr("Document");
+		QString path = m_prefsManager->documentDir();
+		QString fileName = "";
 		if (doc->hasName)
 		{
-			std::cout << "Saving: " << doc->DocName.toStdString() << ".emergency" << std::endl;
-			doc->autoSaveTimer->stop();
-			QString emName = doc->DocName+".emergency";
-			if (doc->DocName.right(2) == "gz")
-				emName += ".gz";
-			FileLoader fl(emName);
-			fl.saveFile(emName, doc, 0);
+			QFileInfo fi(doc->DocName);
+			base = fi.baseName();
+			path = fi.absolutePath();
 		}
+		QDateTime dat = QDateTime::currentDateTime();
+		if ((!doc->prefsData().docSetupPrefs.AutoSaveLocation) && (!doc->prefsData().docSetupPrefs.AutoSaveDir.isEmpty()))
+			path = doc->prefsData().docSetupPrefs.AutoSaveDir;
+		fileName = QDir::cleanPath(path + "/" + base + QString("_emergency_%1.sla").arg(dat.toString("dd_MM_yyyy_hh_mm")));
+		std::cout << "Saving: " << fileName.toStdString() << std::endl;
+		FileLoader fl(fileName);
+		fl.saveFile(fileName, doc, 0);
 		view->close();
 		uint numPages=doc->Pages->count();
 		for (uint a=0; a<numPages; ++a)

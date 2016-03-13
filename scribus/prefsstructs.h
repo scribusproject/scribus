@@ -179,6 +179,8 @@ struct DocumentSetupPrefs
 	int AutoSaveTime;
 	int AutoSaveCount;
 	bool AutoSaveKeep;
+	bool AutoSaveLocation;
+	QString AutoSaveDir;
 	bool saveCompressed;
 };
 

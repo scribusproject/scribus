@@ -1776,11 +1776,19 @@ QList<PageItem*> SVGPlug::parseText(const QDomElement &e)
 		getTextChunkWidth(e, chunkWidth);
 	for(QDomNode n = e.firstChild(); !n.isNull(); n = n.nextSibling())
 	{
-		if (n.isElement() && (parseTagName(n.toElement()) == "tspan"))
+		if (n.isElement())
 		{
-			QList<PageItem*> el = parseTextSpan(n.toElement(), currentPos, chunkWidth);
-			for (int ec = 0; ec < el.count(); ++ec)
-				GElements.append(el.at(ec));
+			if (parseTagName(n.toElement()) == "tspan")
+			{
+				QList<PageItem*> el = parseTextSpan(n.toElement(), currentPos, chunkWidth);
+				for (int ec = 0; ec < el.count(); ++ec)
+					GElements.append(el.at(ec));
+			}
+			else if (parseTagName(n.toElement()) == "textPath")
+			{
+				GElements = parseText(n.toElement());
+				break;
+			}
 		}
 		if (n.isText())
 		{

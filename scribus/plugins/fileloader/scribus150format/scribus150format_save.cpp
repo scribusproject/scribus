@@ -328,6 +328,8 @@ bool Scribus150Format::saveFile(const QString & fileName, const FileFormat & /* 
 	docu.writeAttribute("AutoSaveTime", m_Doc->autoSaveTime());
 	docu.writeAttribute("AutoSaveCount", m_Doc->autoSaveCount());
 	docu.writeAttribute("AutoSaveKeep", static_cast<int>(m_Doc->autoSaveKeep()));
+	docu.writeAttribute("AUtoSaveInDocDir", static_cast<int>(m_Doc->autoSaveInDocDir()));
+	docu.writeAttribute("AutoSaveDir", m_Doc->autoSaveDir());
 	docu.writeAttribute("ScratchBottom", m_Doc->scratch()->bottom());
 	docu.writeAttribute("ScratchLeft", m_Doc->scratch()->left());
 	docu.writeAttribute("ScratchRight", m_Doc->scratch()->right());

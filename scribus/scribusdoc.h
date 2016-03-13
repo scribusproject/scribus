@@ -161,11 +161,15 @@ public:
 	int autoSaveTime() const  { return m_docPrefsData.docSetupPrefs.AutoSaveTime; }
 	int autoSaveCount() const  { return m_docPrefsData.docSetupPrefs.AutoSaveCount; }
 	bool autoSaveKeep() const  { return m_docPrefsData.docSetupPrefs.AutoSaveKeep; }
+	bool autoSaveInDocDir() const  { return m_docPrefsData.docSetupPrefs.AutoSaveLocation; }
+	QString autoSaveDir() const { return m_docPrefsData.docSetupPrefs.AutoSaveDir; }
 	bool autoSaveClockDisplay() const  { return m_docPrefsData.displayPrefs.showAutosaveClockOnCanvas; }
 	void setAutoSave(bool b) { m_docPrefsData.docSetupPrefs.AutoSave=b; }
 	void setAutoSaveTime(int i) { m_docPrefsData.docSetupPrefs.AutoSaveTime=i; }
 	void setAutoSaveCount(int i) { m_docPrefsData.docSetupPrefs.AutoSaveCount=i; }
 	void setAutoSaveKeep(bool i) { m_docPrefsData.docSetupPrefs.AutoSaveKeep=i; }
+	void setAutoSaveInDocDir(bool i) { m_docPrefsData.docSetupPrefs.AutoSaveLocation=i; }
+	void setAutoSaveDir(QString i) { m_docPrefsData.docSetupPrefs.AutoSaveDir = i; }
 	//FIXME (maybe) :non const, the loaders make a mess here
 	PDFOptions& pdfOptions() { return m_docPrefsData.pdfPrefs; }
 	ObjAttrVector& itemAttributes() { return m_docPrefsData.itemAttrPrefs.defaultItemAttributes; }

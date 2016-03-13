@@ -16406,12 +16406,22 @@ void ScribusDoc::restartAutoSaveTimer()
 
 void ScribusDoc::slotAutoSave()
 {
-	if (hasName && isModified())
+	if (isModified())
 	{
 		autoSaveTimer->stop();
-		QFileInfo fi(DocName);
+		QString base = tr("Document");
+		QString path = m_docPrefsData.pathPrefs.documents;
+		QString fileName = "";
+		if (hasName)
+		{
+			QFileInfo fi(DocName);
+			base = fi.baseName();
+			path = fi.absolutePath();
+		}
 		QDateTime dat = QDateTime::currentDateTime();
-		QString fileName = QDir::cleanPath(fi.path() + "/" + fi.baseName() + QString("_autosave_%1.sla").arg(dat.toString("dd_MM_yyyy_hh_mm")));
+		if ((!m_docPrefsData.docSetupPrefs.AutoSaveLocation) && (!m_docPrefsData.docSetupPrefs.AutoSaveDir.isEmpty()))
+			path = m_docPrefsData.docSetupPrefs.AutoSaveDir;
+		fileName = QDir::cleanPath(path + "/" + base + QString("_autosave_%1.sla").arg(dat.toString("dd_MM_yyyy_hh_mm")));
 		FileLoader fl(fileName);
 		if (fl.saveFile(fileName, this, 0))
 		{

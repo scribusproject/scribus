@@ -54,6 +54,7 @@ class SCRIBUS_API Prefs_DocumentSetup : public Prefs_Pane, Ui::Prefs_DocumentSet
 		void setPageSize();
 		void slotUndo(bool);
 		void unitChange();
+		void changeAutoDocDir();
 		void emitSectionChange();
 
 	protected:
