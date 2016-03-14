@@ -186,9 +186,10 @@ void Prefs_DocumentSetup::restoreDefaults(struct ApplicationPrefs *prefsData)
 	autosaveCountSpinBox->setValue(prefsData->docSetupPrefs.AutoSaveCount);
 	autosaveKeepCheckBox->setChecked(prefsData->docSetupPrefs.AutoSaveKeep);
 	autosaveDocRadio->setChecked(prefsData->docSetupPrefs.AutoSaveLocation);
+	autosaveDirRadio->setChecked(!prefsData->docSetupPrefs.AutoSaveLocation);
 	autosaveDirEdit->setText(prefsData->docSetupPrefs.AutoSaveDir);
-	autosaveDirEdit->setEnabled(!autosaveDocRadio->isChecked());
-	changeAutoDir->setEnabled(!autosaveDocRadio->isChecked());
+	autosaveDirEdit->setEnabled(!prefsData->docSetupPrefs.AutoSaveLocation);
+	changeAutoDir->setEnabled(!prefsData->docSetupPrefs.AutoSaveLocation);
 	undoCheckBox->setChecked(PrefsManager::instance()->prefsFile->getContext("undo")->getBool("enabled", true));
 	int undoLength = UndoManager::instance()->getHistoryLength();
 	if (undoLength == -1)
