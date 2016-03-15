@@ -190,6 +190,7 @@ void Prefs_DocumentSetup::restoreDefaults(struct ApplicationPrefs *prefsData)
 	autosaveDirEdit->setText(prefsData->docSetupPrefs.AutoSaveDir);
 	autosaveDirEdit->setEnabled(!prefsData->docSetupPrefs.AutoSaveLocation);
 	changeAutoDir->setEnabled(!prefsData->docSetupPrefs.AutoSaveLocation);
+	showAutosaveClockOnCanvasCheckBox->setChecked(prefsData->displayPrefs.showAutosaveClockOnCanvas);
 	undoCheckBox->setChecked(PrefsManager::instance()->prefsFile->getContext("undo")->getBool("enabled", true));
 	int undoLength = UndoManager::instance()->getHistoryLength();
 	if (undoLength == -1)
@@ -218,6 +219,7 @@ void Prefs_DocumentSetup::saveGuiToPrefs(struct ApplicationPrefs *prefsData) con
 	prefsData->docSetupPrefs.AutoSaveKeep = autosaveKeepCheckBox->isChecked();
 	prefsData->docSetupPrefs.AutoSaveLocation = autosaveDocRadio->isChecked();
 	prefsData->docSetupPrefs.AutoSaveDir = autosaveDirEdit->text();
+	prefsData->displayPrefs.showAutosaveClockOnCanvas=showAutosaveClockOnCanvasCheckBox->isChecked();
 	bool undoActive=undoCheckBox->isChecked();
 	if (!undoActive)
 		UndoManager::instance()->clearStack();

@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>521</width>
-    <height>406</height>
+    <height>415</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -119,13 +119,6 @@
         <widget class="QCheckBox" name="showVerifierWarningsOnCanvasCheckBox">
          <property name="text">
           <string>Show Preflight Verifier Warnings on the Page</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QCheckBox" name="showAutosaveClockOnCanvasCheckBox">
-         <property name="text">
-          <string>Show Autosave Countdown Clock on the Canvas</string>
          </property>
         </widget>
        </item>
@@ -375,8 +368,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>246</width>
-            <height>350</height>
+            <width>212</width>
+            <height>292</height>
            </rect>
           </property>
           <layout class="QFormLayout" name="formLayout_2">

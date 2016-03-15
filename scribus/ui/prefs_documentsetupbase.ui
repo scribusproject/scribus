@@ -630,6 +630,13 @@
         </widget>
        </item>
        <item>
+        <widget class="QCheckBox" name="showAutosaveClockOnCanvasCheckBox">
+         <property name="text">
+          <string>Show Autosave Countdown Clock on the Canvas</string>
+         </property>
+        </widget>
+       </item>
+       <item>
         <spacer name="verticalSpacer_7">
          <property name="orientation">
           <enum>Qt::Vertical</enum>
@@ -721,8 +728,8 @@
  <customwidgets>
   <customwidget>
    <class>ScrSpinBox</class>
-   <extends>QDoubleSpinBox</extends>
-   <header>ui/scrspinbox.h</header>
+   <extends>QSpinBox</extends>
+   <header location="global">ui/scrspinbox.h</header>
   </customwidget>
   <customwidget>
    <class>NewMarginWidget</class>
