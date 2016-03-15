@@ -320,6 +320,7 @@ int ScribusMainWindow::initScMW(bool primaryMainWindow)
 		qApp->setStyleSheet(QString(stylesheet));
 	}
 
+	qApp->setLayoutDirection(QLocale(ScCore->getGuiLanguage()).textDirection());
 	previewDinUse = false;
 	printDinUse = false;
 	internalCopy = false;
@@ -8421,6 +8422,7 @@ void ScribusMainWindow::languageChange()
 	m_prefsManager->languageChange();
 	CommonStrings::languageChange();
 	LanguageManager::instance()->languageChange();
+	qApp->setLayoutDirection(QLocale(ScCore->getGuiLanguage()).textDirection());
 	//Update actions
 	if (actionManager!=NULL)
 	{
