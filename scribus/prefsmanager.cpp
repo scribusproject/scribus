@@ -324,7 +324,7 @@ void PrefsManager::initDefaults()
 	appPrefs.hyphPrefs.AutoCheck = false;
 	appPrefs.docSetupPrefs.AutoSave = true;
 	appPrefs.docSetupPrefs.AutoSaveTime = 600000;
-	appPrefs.docSetupPrefs.AutoSaveCount = 5;
+	appPrefs.docSetupPrefs.AutoSaveCount = 1;
 	appPrefs.docSetupPrefs.AutoSaveKeep = false;
 	appPrefs.docSetupPrefs.saveCompressed = false;
 	appPrefs.docSetupPrefs.AutoSaveLocation = true;
@@ -1995,7 +1995,7 @@ bool PrefsManager::ReadPref(QString ho)
 			appPrefs.docSetupPrefs.pagePositioning	= dc.attribute("PagePositioning", "0").toInt();
 			appPrefs.docSetupPrefs.AutoSave	  = static_cast<bool>(dc.attribute("AutoSave", "0").toInt());
 			appPrefs.docSetupPrefs.AutoSaveTime  = dc.attribute("AutoSaveTime", "600000").toInt();
-			appPrefs.docSetupPrefs.AutoSaveCount  = dc.attribute("AutoSaveCount", "5").toInt();
+			appPrefs.docSetupPrefs.AutoSaveCount  = dc.attribute("AutoSaveCount", "1").toInt();
 			appPrefs.docSetupPrefs.AutoSaveKeep = static_cast<bool>(dc.attribute("AutoSaveKeep", "0").toInt());
 			appPrefs.docSetupPrefs.AutoSaveLocation = static_cast<bool>(dc.attribute("AutoSaveLoc", "1").toInt());
 			appPrefs.docSetupPrefs.AutoSaveDir = dc.attribute("AutoSaveDir","");
