@@ -2084,7 +2084,7 @@ void Scribus150Format::readDocAttributes(ScribusDoc* doc, ScXmlStreamAttributes&
 	m_Doc->setAutoSave(attrs.valueAsBool("AutoSave", false));
 	m_Doc->setAutoSaveTime(attrs.valueAsInt("AutoSaveTime", 600000));
 	m_Doc->setAutoSaveKeep(attrs.valueAsBool("AutoSaveKeep", false));
-	m_Doc->setAutoSaveCount(attrs.valueAsInt("AutoSaveCount", 5));
+	m_Doc->setAutoSaveCount(attrs.valueAsInt("AutoSaveCount", 1));
 	m_Doc->setAutoSaveInDocDir(attrs.valueAsBool("AUtoSaveInDocDir", true));
 	m_Doc->setAutoSaveDir(attrs.valueAsString("AutoSaveDir", ""));
 	double leftScratch;
