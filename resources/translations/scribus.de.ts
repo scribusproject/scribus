@@ -19006,7 +19006,7 @@ Möchten Sie diese in der neuen Scribus-Version verwenden?</translation>
     <message>
         <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="507"/>
         <source>Enable Automatic Saving of Documents</source>
-        <translation>Autmatisches Speichern aktivieren</translation>
+        <translation type="unfinished">Automatisches Speichern aktivieren</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="516"/>
