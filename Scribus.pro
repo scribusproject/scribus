@@ -944,9 +944,6 @@ HEADERS += scribus/actionmanager.h \
            scribus/plugins/tools/pathfinder/pathfinderdialog.h \
            scribus/plugins/tools/pathstroker/pathstroker.h \
            scribus/plugins/tools/smoothpath/smoothpath.h \
-           scribus/plugins/tools/spellcheck/aspellplugin.h \
-           scribus/plugins/tools/spellcheck/aspellpluginimpl.h \
-           scribus/plugins/tools/spellcheck/suggest.h \
            scribus/plugins/tools/subdivide/subdivide.h \
            scribus/plugins/tools/2geomtools/meshdistortion/meshdistortion.h \
            scribus/plugins/tools/2geomtools/meshdistortion/meshdistortiondialog.h \
@@ -1093,7 +1090,6 @@ FORMS += scribus/ui/aboutplugins.ui \
          scribus/plugins/tools/lenseffects/lensdialogbase.ui \
          scribus/plugins/tools/pathconnect/pathconnectdialogbase.ui \
          scribus/plugins/tools/pathfinder/pathfinderbase.ui \
-         scribus/plugins/tools/spellcheck/aspellpluginbase.ui \
          scribus/plugins/scripter/python/sceditor/mainwindow.ui \
          scribus/plugins/tools/2geomtools/meshdistortion/meshdistortiondialog.ui \
          scribus/plugins/tools/2geomtools/pathalongpath/pathdialogbase.ui
@@ -2021,9 +2017,6 @@ SOURCES += scribus/actionmanager.cpp \
            scribus/plugins/tools/pathfinder/pathfinderdialog.cpp \
            scribus/plugins/tools/pathstroker/pathstroker.cpp \
            scribus/plugins/tools/smoothpath/smoothpath.cpp \
-           scribus/plugins/tools/spellcheck/aspellplugin.cpp \
-           scribus/plugins/tools/spellcheck/aspellpluginimpl.cpp \
-           scribus/plugins/tools/spellcheck/suggest.cpp \
            scribus/plugins/tools/subdivide/subdivide.cpp \
            scribus/plugins/tools/2geomtools/meshdistortion/meshdistortion.cpp \
            scribus/plugins/tools/2geomtools/meshdistortion/meshdistortiondialog.cpp \
