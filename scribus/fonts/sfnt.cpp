@@ -674,14 +674,15 @@ QByteArray extractFace(const QByteArray& coll, int faceIndex)
 		
 		uint numSubtables = word16(cmaps, ttf_cmap_numberSubtables);
 		uint startOfUnicodeTable = 0;
-		uint format = 0;
+		uint startOfSymbolTable = 0;
+		uint unicodeFormat = 0, symbolFormat = 0;
 		uint pos = ttf_cmap_encodings;
 		for (uint i = 0; i < numSubtables; ++i)
 		{
 			uint platform = word16(cmaps, pos + ttf_cmap_encoding_platformID);
 			uint encoding = word16(cmaps, pos + ttf_cmap_encoding_platformSpecificID);
 			uint offset = word(cmaps, pos + ttf_cmap_encoding_offset);
-			format = word16(cmaps, offset + ttf_cmapx_format);
+			uint format = word16(cmaps, offset + ttf_cmapx_format);
 			pos += ttf_cmap_encoding_Size;
 			
 			if (format < 4 || format > 12)
@@ -689,9 +690,23 @@ QByteArray extractFace(const QByteArray& coll, int faceIndex)
 			if (platform == 0 || (platform == 3 && encoding == 1))
 			{
 				startOfUnicodeTable = offset;
+				unicodeFormat = format;
 				break;
 			}
+			if (platform == 3 && encoding == 0) // MS Symbol cmap
+			{
+				startOfSymbolTable = offset;
+				symbolFormat = format;
+				continue;
+			}
 			format = 1; // no such format
+		}
+		// If no unicode cmap was found, fallback on ms symbol cmap
+		uint format = unicodeFormat;
+		if ((unicodeFormat <= 0) && (symbolFormat > 0))
+		{
+			startOfUnicodeTable = startOfSymbolTable;
+			format = symbolFormat;
 		}
 		qDebug() << "reading cmap format" << format;
 		switch(format)
