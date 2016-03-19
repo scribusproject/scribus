@@ -192,11 +192,11 @@ void ScTreeWidget::setCurrentIndex(int index)
 	int tops = topLevelItemCount();
 	for (int t = 0; t < tops; t++)
 	{
-		setItemExpanded(topLevelItem(t), false);
+		topLevelItem(t)->setExpanded(false);
 	}
 	QTreeWidgetItem *top = topLevelItem(index);
 	setCurrentItem(top);
-	setItemExpanded(top, true);
+	top->setExpanded(true);
 	int wide = 0;
 	if (top->childCount() != 0)
 	{
@@ -236,7 +236,7 @@ void ScTreeWidget::handleMousePress(QTreeWidgetItem *item)
 	{
 		if (item->isDisabled())
 		{
-			setItemExpanded(item, false);
+			item->setExpanded(false);
 			return;
 		}
 		int wide = 0;
@@ -245,10 +245,10 @@ void ScTreeWidget::handleMousePress(QTreeWidgetItem *item)
 		{
 			for (int t = 0; t < tops; t++)
 			{
-				setItemExpanded(topLevelItem(t), false);
+				topLevelItem(t)->setExpanded(false);
 			}
 			setCurrentItem(item);
-			setItemExpanded(item, true);
+			item->setExpanded(true);
 			if (item->childCount() != 0)
 			{
 				QTreeWidgetItem *child = item->child(0);
@@ -262,11 +262,11 @@ void ScTreeWidget::handleMousePress(QTreeWidgetItem *item)
 		}
 		else
 		{
-			setItemExpanded(item, !isItemExpanded(item));
+			item->setExpanded(!item->isExpanded());
 			for (int t = 0; t < tops; t++)
 			{
 				QTreeWidgetItem *top = topLevelItem(t);
-				if (isItemExpanded(top))
+				if (top->isExpanded())
 				{
 					if (top->childCount() != 0)
 					{
