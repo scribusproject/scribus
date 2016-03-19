@@ -92,7 +92,10 @@ QSize ScTreeWidgetDelegate::sizeHint(const QStyleOptionViewItem &opt, const QMod
 
 ScTreeWidget::ScTreeWidget(QWidget* pa) : QTreeWidget(pa)
 {
-	setFocusPolicy(Qt::NoFocus);
+	// #12204: Opening/Closing Properties palette tabs moves the view to the first document
+	// When a tab looses focus, this cause problems has Qt has to fallback to another widget
+	// for setting new focus, and this may be an arbitrary document window
+	// setFocusPolicy(Qt::NoFocus);
 	setColumnCount(1);
 	setItemDelegate(new ScTreeWidgetDelegate(this, this));
 	setRootIsDecorated(false);
