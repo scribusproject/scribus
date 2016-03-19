@@ -189,23 +189,32 @@ void PropertiesPalette::SelTab(int t)
 {
 	if (!m_ScMW || m_ScMW->scriptIsRunning())
 		return;
+
+	if (!TabStack->widget(t)->isVisible())
+		return;
+
+	bool focusNowSet = false;
 	foreach (QObject *o, TabStack->widget(t)->children())
 	{
 		// Layouts, boxes etc aren't widgets at all
 		// so let's skip them silently...
 		QWidget *w = qobject_cast<QWidget*>(o);
-		if (w)
+		if (!w)
+			continue;
+
+		QWidget *i = TabStack->widget(t);
+		while ((i = i->nextInFocusChain()) != TabStack->widget(t))
 		{
-			QWidget *i = TabStack->widget(t);
-			while ((i = i->nextInFocusChain()) != TabStack->widget(t))
+			if (((i->focusPolicy() & Qt::TabFocus) == Qt::TabFocus) && !i->focusProxy() && i->isEnabled())
 			{
-				if (((i->focusPolicy() & Qt::TabFocus) == Qt::TabFocus) && !i->focusProxy() && i->isEnabled())
-				{
-					i->setFocus();
-					break;
-				}
+				focusNowSet = true;
+				i->setFocus();
+				break;
 			}
 		}
+
+		if (focusNowSet)
+			break;
 	}
 }
 
