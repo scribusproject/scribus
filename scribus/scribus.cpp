@@ -227,6 +227,7 @@ for which a new license (GPL+exception) is in place.
 #include "ui/propertiespalette_text.h"
 #include "ui/propertiespalette_xyz.h"
 #include "ui/query.h"
+#include "ui/recoverdialog.h"
 #include "ui/replacecolors.h"
 #include "ui/resourcemanager.h"
 #include "ui/sccombobox.h"
@@ -1994,6 +1995,81 @@ void ScribusMainWindow::requestUpdate(int val)
 bool ScribusMainWindow::arrowKeyDown()
 {
 	return m__arrowKeyDown;
+}
+
+QStringList ScribusMainWindow::findRecoverableFile()
+{
+	QSet<QString> foundFiles;
+	if (!m_prefsManager->appPrefs.docSetupPrefs.AutoSaveDir.isEmpty())
+	{
+		QDir dirAuto(m_prefsManager->appPrefs.docSetupPrefs.AutoSaveDir, "*_emergency_*.sla", QDir::Name | QDir::Time, QDir::Files | QDir::NoSymLinks | QDir::NoDot | QDir::NoDotDot);
+		QFileInfoList aList = dirAuto.entryInfoList();
+		if (aList.count() > 0)
+		{
+			for (int a = 0; a < aList.count(); a++)
+			{
+				foundFiles.insert(aList[a].absoluteFilePath());
+			}
+		}
+		QDir dirAuto2(m_prefsManager->appPrefs.docSetupPrefs.AutoSaveDir, "*_autosave_*.sla", QDir::Name | QDir::Time, QDir::Files | QDir::NoSymLinks | QDir::NoDot | QDir::NoDotDot);
+		QFileInfoList aList2 = dirAuto2.entryInfoList();
+		if (aList2.count() > 0)
+		{
+			for (int a = 0; a < aList2.count(); a++)
+			{
+				foundFiles.insert(aList2[a].absoluteFilePath());
+			}
+		}
+	}
+	QDir dirDoc(m_prefsManager->documentDir(), "*_emergency_*.sla", QDir::Name | QDir::Time, QDir::Files | QDir::NoSymLinks | QDir::NoDot | QDir::NoDotDot);
+	QFileInfoList dList = dirDoc.entryInfoList();
+	for (int a = 0; a < dList.count(); a++)
+	{
+		foundFiles.insert(dList[a].absoluteFilePath());
+	}
+	QDir dirDoc2(m_prefsManager->documentDir(), "*_autosave_*.sla", QDir::Name | QDir::Time, QDir::Files | QDir::NoSymLinks | QDir::NoDot | QDir::NoDotDot);
+	QFileInfoList dList2 = dirDoc2.entryInfoList();
+	for (int a = 0; a < dList2.count(); a++)
+	{
+		foundFiles.insert(dList2[a].absoluteFilePath());
+	}
+	QDir dirHome(QDir::toNativeSeparators(QDir::homePath()), "*_emergency_*.sla", QDir::Name | QDir::Time, QDir::Files | QDir::NoSymLinks | QDir::NoDot | QDir::NoDotDot);
+	QFileInfoList hList = dirHome.entryInfoList();
+	for (int a = 0; a < hList.count(); a++)
+	{
+		foundFiles.insert(hList[a].absoluteFilePath());
+	}
+	QDir dirHome2(QDir::toNativeSeparators(QDir::homePath()), "*_autosave_*.sla", QDir::Name | QDir::Time, QDir::Files | QDir::NoSymLinks | QDir::NoDot | QDir::NoDotDot);
+	QFileInfoList hList2 = dirHome2.entryInfoList();
+	for (int a = 0; a < hList2.count(); a++)
+	{
+		foundFiles.insert(hList2[a].absoluteFilePath());
+	}
+	return foundFiles.toList();
+}
+
+void ScribusMainWindow::recoverFile(QStringList foundFiles)
+{
+	appModeHelper->setStartupActionsEnabled(false);
+	RecoverDialog* dia = new RecoverDialog(this, foundFiles);
+	if (dia->exec())
+	{
+		if (!dia->recoverFiles.isEmpty())
+		{
+			for (int i = 0; i < dia->recoverFiles.count(); ++i)
+			{
+				loadDoc(dia->recoverFiles[i]);
+				QFileInfo fi(dia->recoverFiles[i]);
+				doc->setName(fi.absolutePath() + "/" + dia->recoverNames[i] + ".sla");
+				doc->hasName = true;
+				updateActiveWindowCaption(doc->DocName);
+				outlinePalette->setDoc(doc);
+				if (outlinePalette->isVisible())
+					outlinePalette->BuildTree();
+			}
+		}
+	}
+	delete dia;
 }
 
 void ScribusMainWindow::startUpDialog()
@@ -8165,6 +8241,8 @@ void ScribusMainWindow::slotStoryEditor(bool fromTable)
 void ScribusMainWindow::emergencySave()
 {
 	emergencyActivated=true;
+	if (!m_prefsManager->appPrefs.miscPrefs.saveEmergencyFile)
+		return;
 	std::cout << "Calling Emergency Save" << std::endl;
 	QList<QMdiSubWindow *> windows = mdiArea->subWindowList();
 	if (windows.isEmpty())

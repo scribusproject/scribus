@@ -126,6 +126,7 @@ int ScribusCore::startGUI(bool showSplash, bool showFontInfo, bool showProfileIn
 	connect(ScQApp, SIGNAL(lastWindowClosed()), ScQApp, SLOT(quit()));
 
 	scribus->show();
+	QStringList recoverFiles = scribus->findRecoverableFile();
 	int subsRet=scribus->ShowSubs();
 	if (subsRet==0)
 	{
@@ -134,10 +135,13 @@ int ScribusCore::startGUI(bool showSplash, bool showFontInfo, bool showProfileIn
 			for (int i = 0; i < m_Files.size(); ++i)
 				scribus->loadDoc(m_Files.at(i));
 		}
+		else if ((recoverFiles.count() > 0) && usingGUI())
+		{
+			scribus->recoverFile(recoverFiles);
+		}
 		else
 		{
-			if (PrefsManager::instance()->appPrefs.uiPrefs.showStartupDialog
-			    && usingGUI())
+			if (PrefsManager::instance()->appPrefs.uiPrefs.showStartupDialog && usingGUI())
 				scribus->startUpDialog();
 			else
 				scribus->setFocus();

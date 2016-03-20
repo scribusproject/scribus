@@ -414,6 +414,7 @@ struct ExternalToolsPrefs
 struct MiscellaneousPrefs
 {
 	bool haveStylePreview; //! Show previews in the Style setup areas like Style Manager
+	bool saveEmergencyFile; //! true = try to save emergency files when crashing
 
 	// lorem ipsum
 	bool useStandardLI; //! Use the standard Lorem Ipsum text

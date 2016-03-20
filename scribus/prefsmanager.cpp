@@ -329,6 +329,7 @@ void PrefsManager::initDefaults()
 	appPrefs.docSetupPrefs.saveCompressed = false;
 	appPrefs.docSetupPrefs.AutoSaveLocation = true;
 	appPrefs.docSetupPrefs.AutoSaveDir = "";
+	appPrefs.miscPrefs.saveEmergencyFile = true;
 	int dpi = qApp->desktop()->logicalDpiX();
 	if ((dpi < 60) || (dpi > 200))
 		dpi = 72;
@@ -416,6 +417,7 @@ void PrefsManager::initDefaults()
 	appPrefs.docSetupPrefs.pagePositioning = singlePage;
 	appPrefs.fontPrefs.askBeforeSubstitute = true;
 	appPrefs.miscPrefs.haveStylePreview = true;
+	appPrefs.miscPrefs.saveEmergencyFile = true;
 	// lorem ipsum defaults
 	appPrefs.miscPrefs.useStandardLI = false;
 	appPrefs.miscPrefs.paragraphsLI = 10;
@@ -1440,6 +1442,7 @@ bool PrefsManager::WritePref(QString ho)
 	deMiscellaneous.setAttribute("ShowStylePreview", static_cast<int>(appPrefs.miscPrefs.haveStylePreview));
 	deMiscellaneous.setAttribute("LoremIpsumUseStandard", static_cast<int>(appPrefs.miscPrefs.useStandardLI));
 	deMiscellaneous.setAttribute("LoremIpsumParagraphs", appPrefs.miscPrefs.paragraphsLI);
+	deMiscellaneous.setAttribute("saveEmergencyFile", static_cast<int>(appPrefs.miscPrefs.saveEmergencyFile));
 	elem.appendChild(deMiscellaneous);
 
 
@@ -2012,6 +2015,7 @@ bool PrefsManager::ReadPref(QString ho)
 			appPrefs.miscPrefs.haveStylePreview = static_cast<bool>(dc.attribute("ShowStylePreview", "1").toInt());
 			appPrefs.miscPrefs.useStandardLI = static_cast<bool>(dc.attribute("LoremIpsumUseStandard", "0").toInt());
 			appPrefs.miscPrefs.paragraphsLI = dc.attribute("LoremIpsumParagraphs", "10").toInt();
+			appPrefs.miscPrefs.saveEmergencyFile = static_cast<bool>(dc.attribute("saveEmergencyFile", "1").toInt());
 		}
 
 

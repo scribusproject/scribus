@@ -488,6 +488,13 @@
         </widget>
        </item>
        <item>
+        <widget class="QCheckBox" name="emergencyCheckBox">
+         <property name="text">
+          <string>Try to save an &quot;Emergency File&quot; in case of a Crash</string>
+         </property>
+        </widget>
+       </item>
+       <item>
         <spacer name="verticalSpacer_6">
          <property name="orientation">
           <enum>Qt::Vertical</enum>

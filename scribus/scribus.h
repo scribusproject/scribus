@@ -171,6 +171,8 @@ public:
 	QStringList  scrapbookNames();
 	void updateLayerMenu();
 	void emergencySave();
+	QStringList findRecoverableFile();
+	void recoverFile(QStringList foundFiles);
 
 	/**
 	 * @brief Returns true if an arrow key is pressed down.

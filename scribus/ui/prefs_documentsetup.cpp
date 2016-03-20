@@ -39,6 +39,7 @@ Prefs_DocumentSetup::Prefs_DocumentSetup(QWidget* parent, ScribusDoc* doc)
 	else
 	{
 		pageSizeLinkToolButton->hide();
+		emergencyCheckBox->hide();
 	}
 
 	pageLayoutButtonGroup->setId(singlePageRadioButton,0);
@@ -181,6 +182,7 @@ void Prefs_DocumentSetup::restoreDefaults(struct ApplicationPrefs *prefsData)
 //	bleedsWidget->setPageSize(prefsPageSizeName);
 	bleedsWidget->setMarginPreset(prefsData->docSetupPrefs.marginPreset);
 	saveCompressedCheckBox->setChecked(prefsData->docSetupPrefs.saveCompressed);
+	emergencyCheckBox->setChecked(prefsData->miscPrefs.saveEmergencyFile);
 	autosaveCheckBox->setChecked( prefsData->docSetupPrefs.AutoSave );
 	autosaveIntervalSpinBox->setValue(prefsData->docSetupPrefs.AutoSaveTime / 1000 / 60);
 	autosaveCountSpinBox->setValue(prefsData->docSetupPrefs.AutoSaveCount);
@@ -213,6 +215,7 @@ void Prefs_DocumentSetup::saveGuiToPrefs(struct ApplicationPrefs *prefsData) con
 	prefsData->docSetupPrefs.margins=marginsWidget->margins();
 	prefsData->docSetupPrefs.bleeds=bleedsWidget->margins();
 	prefsData->docSetupPrefs.saveCompressed=saveCompressedCheckBox->isChecked();
+	prefsData->miscPrefs.saveEmergencyFile = emergencyCheckBox->isChecked();
 	prefsData->docSetupPrefs.AutoSave=autosaveCheckBox->isChecked();
 	prefsData->docSetupPrefs.AutoSaveTime = autosaveIntervalSpinBox->value() * 1000 * 60;
 	prefsData->docSetupPrefs.AutoSaveCount = autosaveCountSpinBox->value();
