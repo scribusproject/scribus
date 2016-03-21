@@ -68,7 +68,12 @@ void RecoverDialog::doRecover()
 		if (((QCheckBox*)(filesList->cellWidget(a, 0)))->isChecked())
 		{
 			recoverFiles.append(m_files[a]);
-			recoverNames.append(filesList->item(a, 1)->text());
+			QString nName = m_files[a];
+			if (nName.contains("emergency"))
+				nName.replace("emergency", tr("(recovered)"));
+			if (nName.contains("autosave"))
+				nName.replace("autosave", tr("(recovered)"));
+			recoverNames.append(nName);
 		}
 	}
 	accept();

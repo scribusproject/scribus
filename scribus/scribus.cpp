@@ -2059,8 +2059,7 @@ void ScribusMainWindow::recoverFile(QStringList foundFiles)
 			for (int i = 0; i < dia->recoverFiles.count(); ++i)
 			{
 				loadDoc(dia->recoverFiles[i]);
-				QFileInfo fi(dia->recoverFiles[i]);
-				doc->setName(fi.absolutePath() + "/" + dia->recoverNames[i] + ".sla");
+				doc->setName(dia->recoverNames[i]);
 				doc->hasName = true;
 				updateActiveWindowCaption(doc->DocName);
 				outlinePalette->setDoc(doc);
