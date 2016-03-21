@@ -571,6 +571,7 @@
     <moc Include="..\..\..\scribus\ui\viewtoolbar.h" />
     <moc Include="..\..\..\scribus\ui\resourcemanager.h" />
     <moc Include="..\..\..\scribus\ui\resourcemanagerlicense.h" />
+    <moc Include="..\..\..\scribus\ui\recoverdialog.h" />
     <ClInclude Include="..\..\..\scribus\ui\sccolorslider.h" />
     <ClInclude Include="..\..\..\scribus\ui\ui_downloadspalettebase.h" />
     <ClInclude Include="..\..\..\scribus\ui\ui_resourcemanagerbase.h" />
@@ -1307,6 +1308,7 @@
       <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
       </ForcedIncludeFiles>
     </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\recoverdialog.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\replacecolors.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\replaceonecolor.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\resourcemanager.cpp" />
@@ -1620,6 +1622,7 @@
     <uic Include="..\..\..\scribus\ui\propertywidget_pareffectbase.ui" />
     <uic Include="..\..\..\scribus\ui\propertywidget_pathtextbase.ui" />
     <uic Include="..\..\..\scribus\ui\propertywidget_textcolorbase.ui" />
+    <uic Include="..\..\..\scribus\ui\recoverdialog.ui" />
     <uic Include="..\..\..\scribus\ui\replacecolors.ui" />
     <uic Include="..\..\..\scribus\ui\replaceonecolor.ui" />
     <uic Include="..\..\..\scribus\ui\resourcemanagerbase.ui" />

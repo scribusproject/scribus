@@ -2560,6 +2560,9 @@
     <ClCompile Include="..\..\..\scribus\collapsedtablepainterex.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\recoverdialog.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Scribus.rc">
@@ -2924,6 +2927,9 @@
       <Filter>Form Files</Filter>
     </uic>
     <uic Include="..\..\..\scribus\ui\resourcemanagerlicensebase.ui">
+      <Filter>Form Files</Filter>
+    </uic>
+    <uic Include="..\..\..\scribus\ui\recoverdialog.ui">
       <Filter>Form Files</Filter>
     </uic>
   </ItemGroup>
@@ -4065,6 +4071,9 @@
       <Filter>Header Files</Filter>
     </moc>
     <moc Include="..\..\..\scribus\ui\resourcemanagerlicense.h">
+      <Filter>Header Files</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\recoverdialog.h">
       <Filter>Header Files</Filter>
     </moc>
   </ItemGroup>
