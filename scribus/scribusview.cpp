@@ -1410,6 +1410,7 @@ void ScribusView::TransformPoly(int mode, int rot, double scaling)
 	{
 		FPoint tp2(getMinClipF(&currItem->ContourLine));
 		FPoint tp(getMaxClipF(&currItem->ContourLine));
+		FPoint tpS = currItem->ContourLine.WidthHeight();
 		currItem->ContourLine.translate(-qRound((tp.x() + tp2.x()) / 2.0), -qRound((tp.y() + tp2.y()) / 2.0));
 		switch (mode)
 		{
@@ -1438,18 +1439,10 @@ void ScribusView::TransformPoly(int mode, int rot, double scaling)
 			ma.shear(0, 0.017455);
 			break;
 		case 8:
-			{
-				double sx=(tp.x() - tp2.x() - scaling) / (tp.x() - tp2.x());
-				double sy=(tp.y() - tp2.y() - scaling) / (tp.y() - tp2.y());
-				ma.scale(sx, sy);
-			}
+			ma.scale(1.0 - (scaling / tpS.x()),1.0 - (scaling / tpS.y()));
 			break;
 		case 9:
-			{
-				double sx=(tp.x() - tp2.x() + scaling) / (tp.x() - tp2.x());
-				double sy=(tp.y() - tp2.y() + scaling) / (tp.y() - tp2.y());
-				ma.scale(sx, sy);
-			}
+			ma.scale(1.0 + (scaling / tpS.x()),1.0 + (scaling / tpS.y()));
 			break;
 		//10-13 are for scaling the contour line in shape edit mode
 		case 10:
