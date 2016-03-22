@@ -20,8 +20,7 @@
    <item>
     <widget class="QLabel" name="label">
      <property name="text">
-      <string>It appears that Scribus crashed with the following files opend.
-Would you like to try to recover them?</string>
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;It appears that Scribus crashed with the following files open.&lt;br&gt;Would you like to try to recover them?&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
      </property>
      <property name="wordWrap">
       <bool>true</bool>
@@ -116,7 +115,7 @@ Would you like to try to recover them?</string>
        <item>
         <widget class="QPushButton" name="buttonExit">
          <property name="text">
-          <string>Abort</string>
+          <string>Close</string>
          </property>
         </widget>
        </item>
