@@ -4135,7 +4135,7 @@ void PageItem_TextFrame::DrawObj_Decoration(ScPainter *p)
 	//#12405 if (isAnnotation() && ((annotation().Type() > 1) && (annotation().Type() < 7)) && (annotation().Bwid() > 0))
 	//	return;
 	p->save();
-	p->setAntialiasing(false);
+//	p->setAntialiasing(false);
 	if (!isEmbedded)
 		p->translate(m_xPos, m_yPos);
 	p->rotate(m_rotation);
@@ -4158,7 +4158,7 @@ void PageItem_TextFrame::DrawObj_Decoration(ScPainter *p)
 		}
 		if ((m_Doc->guidesPrefs().framesShown) && textFlowUsesContourLine() && (ContourLine.size() != 0))
 		{
-			p->setPen(Qt::lightGray, scpInv, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
+			p->setPen(Qt::darkGray, 0, Qt::DotLine, Qt::FlatCap, Qt::MiterJoin);
 			p->setupSharpPolygon(&ContourLine);
 			p->strokePath();
 		}
@@ -4200,7 +4200,7 @@ void PageItem_TextFrame::DrawObj_Decoration(ScPainter *p)
 		//	drawLockedMarker(p);
 	}
 	FrameOnly = false;
-	p->setAntialiasing(true);
+//	p->setAntialiasing(true);
 	p->restore();
 }
 
