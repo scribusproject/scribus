@@ -101,7 +101,9 @@ void TextLayout::appendLine(LineBox* ls)
 	// HACK: the ascent set by PageItem_TextFrame::layout()
 	// is useless, we reset it again based on the y position
 	ls->setAscent(ls->y() - m_box->boxes().last()->naturalHeight());
-	dynamic_cast<GroupBox*>(m_box->boxes().last())->addBox(ls);
+	GroupBox* gb=dynamic_cast<GroupBox*>(m_box->boxes().last());
+	if (gb)
+		gb->addBox(ls);
 }
 
 // Remove the last line from the list. Used when we need to backtrack on the layouting.
