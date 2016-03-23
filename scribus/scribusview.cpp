@@ -80,6 +80,7 @@ for which a new license (GPL+exception) is in place.
 #include "hyphenator.h"
 #include "iconmanager.h"
 #include "loadsaveplugin.h"
+#include "text/textlayoutpainter.h"
 #include "pageitem.h"
 #include "pageitem_group.h"
 #include "pageitem_imageframe.h"
@@ -1651,8 +1652,14 @@ bool ScribusView::slotSetCurs(int x, int y)
 			point.setX(textFrame->width() - point.x());
 		if (textFrame->imageFlippedV())
 			point.setY(textFrame->height() - point.y());
-		textFrame->itemText.setCursorPosition(textFrame->itemText.length() == 0 ? 0 :
-			textFrame->textLayout.screenToPosition(point));
+		if (textFrame->itemText.length() == 0)
+			textFrame->itemText.setCursorPosition(0);
+		else
+		{
+			int result = textFrame->textLayout.pointToPosition(point.toQPointF());
+			if (result >= 0)
+				textFrame->itemText.setCursorPosition(result);
+		}
 
 		if (textFrame->itemText.length() > 0)
 		{
@@ -2998,6 +3005,91 @@ void ScribusView::FromPathText()
 	}
 }
 
+// FIXME: the following code is untested, but it should give an idea for
+// anyone who wants to fix and knows how to test it.
+class TextToPathPainter: public TextLayoutPainter
+{
+	ScribusView* m_view;
+	PageItem* m_item;
+	QList<PageItem*> m_group;
+	int m_counter;
+
+public:
+	TextToPathPainter(ScribusView* view, PageItem* item)
+		: m_view(view)
+		, m_item(item)
+		, m_counter(0)
+	{}
+
+	void drawGlyph(const GlyphLayout gl)
+	{
+
+		FPointArray outline = font().glyphOutline(gl.glyph);
+		if (outline.size() < 4)
+			return;
+		QTransform transform = matrix();
+		transform.scale(x(), y());
+		outline.map(transform);
+		uint z = m_view->Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, m_item->xPos(), m_item->yPos(), m_item->width(), m_item->height(), m_item->lineWidth(), m_item->lineColor(), m_item->fillColor());
+		PageItem* item = m_view->Doc->Items->at(z);
+		m_view->undoManager->setUndoEnabled(false);
+		item->setTextFlowMode(m_item->textFlowMode());
+		item->setSizeLocked(m_item->sizeLocked());
+		item->setLocked(m_item->locked());
+		item->NamedLStyle = m_item->NamedLStyle;
+		item->setItemName(m_item->itemName() + "+U" + QString::number(m_counter++));
+		item->PoLine = outline.copy();
+		if (!m_item->asPathText())
+			item->setRotation(m_item->rotation());
+		item->setFillColor(fillColor().color);
+		item->setFillShade(fillColor().shade);
+		item->setLineWidth(strokeWidth());
+		m_view->Doc->adjustItemSize(item);
+		item->ContourLine = item->PoLine.copy();
+		item->ClipEdited = true;
+		item->FrameType = 3;
+		item->OldB2 = item->width();
+		item->OldH2 = item->height();
+		m_view->Doc->setRedrawBounding(item);
+		m_view->undoManager->setUndoEnabled(true);
+		m_group.append(m_view->Doc->Items->takeAt(z));
+	}
+	void drawGlyphOutline(const GlyphLayout gl, bool fill)
+	{
+		drawGlyph(gl);
+	}
+	void drawLine(QPointF start, QPointF end)
+	{
+		QTransform transform = matrix();
+		transform.translate(x(), y());
+		uint z = m_view->Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, m_item->xPos(), m_item->yPos(), m_item->width(), m_item->height(), m_item->lineWidth(), m_item->lineColor(), m_item->fillColor());
+		PageItem* item = m_view->Doc->Items->at(z);
+		m_view->undoManager->setUndoEnabled(false);
+		item->setTextFlowMode(m_item->textFlowMode());
+		item->setSizeLocked(m_item->sizeLocked());
+		item->setLocked(m_item->locked());
+		item->NamedLStyle = m_item->NamedLStyle;
+		item->setItemName(m_item->itemName() + "+U" + QString::number(m_counter++));
+		item->PoLine.resize(0);
+		item->PoLine.addQuadPoint(FPoint(start), FPoint(start), FPoint(end), FPoint(end));
+		item->PoLine.map(transform);
+		item->setLineColor(fillColor().color);
+		item->setLineShade(fillColor().shade);
+		item->setLineWidth(strokeWidth());
+		m_view->Doc->adjustItemSize(item);
+		item->ContourLine = item->PoLine.copy();
+		item->ClipEdited = true;
+		item->FrameType = 3;
+		item->OldB2 = item->width();
+		item->OldH2 = item->height();
+		m_view->Doc->setRedrawBounding(item);
+		m_view->undoManager->setUndoEnabled(true);
+		m_group.append(m_view->Doc->Items->takeAt(z));
+	}
+	void drawRect(QRectF rect) {}
+	void drawObject(PageItem* item) {}
+};
+
 void ScribusView::TextToPath()
 {
 	if (Doc->appMode == modeEditClip)
@@ -3048,642 +3140,9 @@ void ScribusView::TextToPath()
 				++offset;
 				continue;
 			}
-//			newGroupedItems.clear();
-			FPointArray pts;
-			double x=0.0, y=0.0, wide=0.0;
-			QString chstr, ccounter;
-			QChar chstrex;
-			PageItem* bb;
 
-			if (currItem->asPathText())
-			{
-				for (int a = 0; a < currItem->asPathText()->itemRenderText.length(); ++a)
-				{
-					pts.resize(0);
-					x = 0.0;
-					y = 0.0;
-					//ScText * hl = currItem->asPathText()->itemRenderText.item_p(a);
-					const CharStyle& charStyle(currItem->asPathText()->itemRenderText.charStyle(a));
-					const PathData& pdata(currItem->textLayout.point(a));
-					const GlyphLayout* glyphs = currItem->asPathText()->itemRenderText.getGlyphs(a);
-					LayoutFlags flags = currItem->asPathText()->itemRenderText.flags(a);
-					
-					chstr = currItem->asPathText()->itemRenderText.text(a,1);
-					if ((chstr == SpecialChars::PARSEP) || (chstr == SpecialChars::OLD_NBSPACE))
-						continue;
-					if (chstr == SpecialChars::OBJECT)
-					{
-						continue;
-					}
-					if (chstr == SpecialChars::PAGENUMBER)
-						chstr = currItem->ExpandToken(a);
-					double chs = charStyle.fontSize();
-					if (charStyle.effects() & ScStyle_SmallCaps)
-					{
-						if (chstr[0].toUpper() != chstr[0])
-						{
-							chs = qMax(static_cast<int>(charStyle.fontSize() * Doc->typographicPrefs().valueSmallCaps / 100), 1);
-							chstr = chstr[0].toUpper();
-						}
-					}
-					else if (charStyle.effects() & ScStyle_AllCaps)
-						chstr = chstr[0].toUpper();
-	//					double csi = static_cast<double>(chs) / 100.0;
-					uint chr = chstr[0].unicode();
-					QPointF tangt = QPointF( cos(pdata.PRot), sin(pdata.PRot) );
-					QTransform chma, chma2, chma3, chma4, chma6;
-					QTransform trafo = QTransform( 1, 0, 0, -1, -pdata.PDx, 0 );
-					if (currItem->textPathFlipped)
-						trafo *= QTransform(1, 0, 0, -1, 0, 0);
-					if (currItem->textPathType == 0)
-						trafo *= QTransform( tangt.x(), tangt.y(), tangt.y(), -tangt.x(), pdata.PtransX, pdata.PtransY );
-					else if (currItem->textPathType == 1)
-						trafo *= QTransform(1, 0, 0, -1, pdata.PtransX, pdata.PtransY );
-					else if (currItem->textPathType == 2)
-					{
-						double a = 1;
-						double b = -1;
-						if (tangt.x() < 0)
-						{
-							a = -1;
-							b = 1;
-						}
-						if (fabs(tangt.x()) > 0.1)
-							trafo *= QTransform( a, (tangt.y() / tangt.x()) * b, 0, -1, pdata.PtransX, pdata.PtransY ); // ID's Skew mode
-						else
-							trafo *= QTransform( a, 6 * b, 0, -1, pdata.PtransX, pdata.PtransY );
-					}
-					//trafo *= QTransform( hl->PtransX, hl->PtransY, hl->PtransY, -hl->PtransX, glyphs->xoffset, glyphs->yoffset);
-					if (currItem->rotation() != 0)
-					{
-						QTransform sca;
-						sca.translate(-currItem->xPos(), -currItem->yPos());
-						sca.rotate(currItem->rotation());
-						trafo *= sca;
-					}
-					chma.scale(glyphs->scaleH * charStyle.fontSize() / 100.00, glyphs->scaleV * charStyle.fontSize() / 100.0);
-					if (currItem->reversed())
-					{
-						if (a < currItem->asPathText()->itemRenderText.length()-1)
-							wide = charStyle.font().charWidth(chstr[0], charStyle.fontSize(), currItem->asPathText()->itemRenderText.text(a+1));
-						else
-							wide = charStyle.font().charWidth(chstr[0], charStyle.fontSize());
-						chma3.scale(-1, 1);
-						chma3.translate(-wide, 0);
-					}
-					chma4.translate(0, currItem->BaseOffs - (charStyle.fontSize() / 10.0) * glyphs->scaleV);
-					if (charStyle.effects() & (ScStyle_Subscript | ScStyle_Superscript))
-						chma6.translate(0, glyphs->yoffset);
-					if (charStyle.baselineOffset() != 0)
-						chma6.translate(0, (-charStyle.fontSize() / 10.0) * (charStyle.baselineOffset() / 1000.0));
-					uint gl = charStyle.font().char2CMap(chr);
-					QTransform finalMat = QTransform(chma * chma2 * chma3 * chma4 * chma6 * trafo);
-					if (currItem->rotation() != 0)
-					{
-						QTransform sca;
-						sca.translate(currItem->xPos(), currItem->yPos());
-						pts.map(sca);
-					}
-					QChar chstc = chstr[0];
-					if (((charStyle.effects() & ScStyle_Underline) && !SpecialChars::isBreak(chstc))
-						|| ((charStyle.effects() & ScStyle_UnderlineWords) && !chstc.isSpace() && !SpecialChars::isBreak(chstc)))
-					{
-						QTransform stro = QTransform(chma2 * chma3 * chma6 * trafo);
-						if (currItem->rotation() != 0)
-						{
-							QTransform sca;
-							sca.translate(currItem->xPos(), currItem->yPos());
-							stro *= sca;
-						}
-						double Ulen = glyphs->xadvance;
-						double Upos, Uwid, kern;
-						if (flags & ScLayout_StartOfLine)
-							kern = 0;
-						else
-							kern = charStyle.fontSize() * charStyle.tracking() / 10000.0;
-						if ((charStyle.underlineOffset() != -1) || (charStyle.underlineWidth() != -1))
-						{
-							if (charStyle.underlineOffset() != -1)
-								Upos = (charStyle.underlineOffset() / 1000.0) * (charStyle.font().descent(charStyle.fontSize() / 10.0));
-							else
-								Upos = charStyle.font().underlinePos(charStyle.fontSize() / 10.0);
-							if (charStyle.underlineWidth() != -1)
-								Uwid = (charStyle.underlineWidth() / 1000.0) * (charStyle.fontSize() / 10.0);
-							else
-								Uwid = qMax(charStyle.font().strokeWidth(charStyle.fontSize() / 10.0), 1.0);
-						}
-						else
-						{
-							Upos = charStyle.font().underlinePos(charStyle.fontSize() / 10.0);
-							Uwid = qMax(charStyle.font().strokeWidth(charStyle.fontSize() / 10.0), 1.0);
-						}
-						if (charStyle.baselineOffset() != 0)
-							Upos += (charStyle.fontSize() / 10.0) * (charStyle.baselineOffset() / 1000.0);
-						uint z = Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, currItem->xPos(), currItem->yPos(), currItem->width(), currItem->height(), currItem->lineWidth(), currItem->lineColor(), currItem->fillColor());
-						bb = Doc->Items->at(z);
-						undoManager->setUndoEnabled(false);
-						bb->setTextFlowMode(currItem->textFlowMode());
-						bb->setSizeLocked(currItem->sizeLocked());
-						bb->setLocked(currItem->locked());
-						bb->NamedLStyle = currItem->NamedLStyle;
-						bb->setItemName(currItem->itemName()+"+U"+ccounter.setNum(a));
-						FPoint start, stop;
-						if (charStyle.effects() & ScStyle_Subscript)
-						{
-							start = FPoint(glyphs->xoffset-kern, -Upos);
-							stop = FPoint(glyphs->xoffset+Ulen, -Upos);
-						}
-						else
-						{
-							start = FPoint(glyphs->xoffset-kern, -(Upos + glyphs->yoffset));
-							stop = FPoint(glyphs->xoffset+Ulen, -(Upos + glyphs->yoffset));
-						}
-						bb->PoLine.resize(0);
-						bb->PoLine.addQuadPoint(start, start, stop, stop);
-						bb->PoLine.map(stro);
-						bb->setLineColor(charStyle.fillColor());
-						bb->setLineShade(charStyle.fillShade());
-						bb->setLineWidth(Uwid);
-						Doc->adjustItemSize(bb);
-						bb->ContourLine = bb->PoLine.copy();
-						bb->ClipEdited = true;
-						bb->FrameType = 3;
-						bb->OldB2 = bb->width();
-						bb->OldH2 = bb->height();
-						Doc->setRedrawBounding(bb);
-						undoManager->setUndoEnabled(true);
-						newGroupedItems.append(Doc->Items->takeAt(z));
-					}
-					if ((chstr.length() > 0) && (!chstr.at(0).isSpace()))
-					{
-						pts = charStyle.font().glyphOutline(gl);
-						if (pts.size() < 4)
-							continue;
-						if ((charStyle.effects() & ScStyle_Shadowed) && (charStyle.strokeColor() != CommonStrings::None))
-						{
-							double glxTr = charStyle.fontSize() * charStyle.shadowXOffset() / 10000.0;
-							double glyTr = -charStyle.fontSize() * charStyle.shadowYOffset() / 10000.0;
-							uint z = Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, currItem->xPos(), currItem->yPos(), currItem->width(), currItem->height(), currItem->lineWidth(), currItem->lineColor(), currItem->fillColor());
-							bb = Doc->Items->at(z);
-							undoManager->setUndoEnabled(false);
-							bb->setTextFlowMode(currItem->textFlowMode());
-							bb->setSizeLocked(currItem->sizeLocked());
-							bb->setLocked(currItem->locked());
-							bb->NamedLStyle = currItem->NamedLStyle;
-							bb->setItemName(currItem->itemName()+"+Sh"+ccounter.setNum(a));
-							bb->PoLine = pts.copy();
-							QTransform shmap;
-							shmap.translate(glxTr, glyTr);
-							bb->PoLine.map(finalMat * shmap);
-							bb->setFillColor(charStyle.strokeColor());
-							bb->setFillShade(charStyle.strokeShade());
-							if (currItem->asPathText()->itemRenderText.charStyle(a).effects() & ScStyle_Outline)
-							{
-								bb->setLineColor(charStyle.strokeColor());
-								bb->setLineShade(charStyle.strokeShade());
-							}
-							else
-							{
-								bb->setLineColor(CommonStrings::None);
-								bb->setLineShade(100);
-							}
-							bb->setLineWidth(chs * charStyle.outlineWidth() / 10000.0);
-							Doc->adjustItemSize(bb);
-							bb->ContourLine = bb->PoLine.copy();
-							bb->ClipEdited = true;
-							bb->FrameType = 3;
-							bb->OldB2 = bb->width();
-							bb->OldH2 = bb->height();
-							Doc->setRedrawBounding(bb);
-							undoManager->setUndoEnabled(true);
-							newGroupedItems.append(Doc->Items->takeAt(z));
-						}
-						pts.map(finalMat);
-						uint z = Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, currItem->xPos(), currItem->yPos(), currItem->width(), currItem->height(), currItem->lineWidth(), currItem->lineColor(), currItem->fillColor());
-						bb = Doc->Items->at(z);
-						//bb->setTextFlowsAroundFrame(currItem->textFlowsAroundFrame());
-						//bb->setTextFlowUsesBoundingBox(currItem->textFlowUsesBoundingBox());
-						undoManager->setUndoEnabled(false);
-						bb->setTextFlowMode(currItem->textFlowMode());
-						bb->setSizeLocked(currItem->sizeLocked());
-						bb->setLocked(currItem->locked());
-						bb->NamedLStyle = currItem->NamedLStyle;
-						bb->setItemName(currItem->itemName()+"+"+ccounter.setNum(a));
-						bb->PoLine = pts.copy();
-						if (!currItem->asPathText())
-							bb->setRotation(currItem->rotation());
-						bb->setFillColor(charStyle.fillColor());
-						bb->setFillShade(charStyle.fillShade());
-						if (currItem->asPathText()->itemRenderText.charStyle(a).effects() & ScStyle_Outline)
-						{
-							bb->setLineColor(charStyle.strokeColor());
-							bb->setLineShade(charStyle.strokeShade());
-						}
-						else
-						{
-							bb->setLineColor(CommonStrings::None);
-							bb->setLineShade(100);
-						}
-						bb->setLineWidth(chs * charStyle.outlineWidth() / 10000.0);
-						Doc->adjustItemSize(bb);
-						bb->ContourLine = bb->PoLine.copy();
-						bb->ClipEdited = true;
-						bb->FrameType = 3;
-						bb->OldB2 = bb->width();
-						bb->OldH2 = bb->height();
-						Doc->setRedrawBounding(bb);
-						undoManager->setUndoEnabled(true);
-						newGroupedItems.append(Doc->Items->takeAt(z));
-					}
-					if (charStyle.effects() & ScStyle_Strikethrough)
-					{
-						QTransform stro = QTransform(chma2 * chma3 * chma6 * trafo);
-						if (currItem->rotation() != 0)
-						{
-							QTransform sca;
-							sca.translate(currItem->xPos(), currItem->yPos());
-							stro *= sca;
-						}
-						double Ulen = glyphs->xadvance;
-						double Upos, Uwid, kern;
-						if (flags & ScLayout_StartOfLine)
-							kern = 0;
-						else
-							kern = charStyle.fontSize() * charStyle.tracking() / 10000.0;
-						if ((charStyle.strikethruOffset() != -1) || (charStyle.strikethruWidth() != -1))
-						{
-							if (charStyle.strikethruOffset() != -1)
-								Upos = (charStyle.strikethruOffset() / 1000.0) * (charStyle.font().ascent(charStyle.fontSize() / 10.0));
-							else
-								Upos = charStyle.font().strikeoutPos(charStyle.fontSize() / 10.0);
-							if (charStyle.strikethruWidth() != -1)
-								Uwid = (charStyle.strikethruWidth() / 1000.0) * (charStyle.fontSize() / 10.0);
-							else
-								Uwid = qMax(charStyle.font().strokeWidth(charStyle.fontSize() / 10.0), 1.0);
-						}
-						else
-						{
-							Upos = charStyle.font().strikeoutPos(charStyle.fontSize() / 10.0);
-							Uwid = qMax(charStyle.font().strokeWidth(charStyle.fontSize() / 10.0), 1.0);
-						}
-						if (charStyle.baselineOffset() != 0)
-							Upos += (charStyle.fontSize() / 10.0) * (charStyle.baselineOffset() / 1000.0);
-						uint z = Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, currItem->xPos(), currItem->yPos(), currItem->width(), currItem->height(), currItem->lineWidth(), currItem->lineColor(), currItem->fillColor());
-						bb = Doc->Items->at(z);
-						undoManager->setUndoEnabled(false);
-						bb->setTextFlowMode(currItem->textFlowMode());
-						bb->setSizeLocked(currItem->sizeLocked());
-						bb->setLocked(currItem->locked());
-						bb->NamedLStyle = currItem->NamedLStyle;
-						bb->setItemName(currItem->itemName()+"+S"+ccounter.setNum(a));
-						FPoint start = FPoint(glyphs->xoffset-kern, -Upos);
-						FPoint stop = FPoint(glyphs->xoffset+Ulen, -Upos);
-						bb->PoLine.resize(0);
-						bb->PoLine.addQuadPoint(start, start, stop, stop);
-						bb->PoLine.map(stro);
-						bb->setLineColor(charStyle.fillColor());
-						bb->setLineShade(charStyle.fillShade());
-						bb->setLineWidth(Uwid);
-						Doc->adjustItemSize(bb);
-						bb->ContourLine = bb->PoLine.copy();
-						bb->ClipEdited = true;
-						bb->FrameType = 3;
-						bb->OldB2 = bb->width();
-						bb->OldH2 = bb->height();
-						Doc->setRedrawBounding(bb);
-						bb->setItemName(currItem->itemName()+"+S"+ccounter.setNum(a));
-						undoManager->setUndoEnabled(true);
-						newGroupedItems.append(Doc->Items->takeAt(z));
-					}
-				}
-			}
-			else
-			{
-				for (uint ll=0; ll < currItem->textLayout.lines(); ++ll)
-				{
-					LineSpec ls = currItem->textLayout.line(ll);
-					double CurX = ls.x;
-					for (int a = ls.firstItem; a <= ls.lastItem; ++a)
-					{
-						pts.resize(0);
-						x = 0.0;
-						y = 0.0;
-						GlyphLayout* glyphs = currItem->itemText.getGlyphs(a);
-						const CharStyle& charStyle(currItem->itemText.charStyle(a));
-
-						chstr = currItem->itemText.text(a,1);
-						if ((chstr == SpecialChars::PARSEP) || (chstr == SpecialChars::OLD_NBSPACE))
-						{
-							if (chstr == SpecialChars::OLD_NBSPACE)
-								CurX += glyphs->wide();
-							continue;
-						}
-						if (chstr == SpecialChars::OBJECT)
-						{
-							if (currItem->itemText.hasObject(a))
-							{
-								ScriXmlDoc ss;
-								Selection tempSelection(this, false);
-								tempSelection.addItem(currItem->itemText.object(a), true);
-								QString dataS = ss.WriteElem(Doc, &tempSelection);
-								emit LoadElem(dataS, currItem->xPos(), currItem->yPos(), false, true, Doc, this);
-								bb = Doc->Items->last();
-								int z = Doc->Items->indexOf(bb);
-								bb->setTextFlowMode(currItem->textFlowMode());
-								bb->setSizeLocked(currItem->sizeLocked());
-								bb->setLocked(currItem->locked());
-								bb->setItemName(currItem->itemName()+"+"+ccounter.setNum(a));
-								bb->setRotation(currItem->rotation());
-								double textX = CurX + glyphs->xoffset;
-								double textY = ls.y - bb->height();
-								if (charStyle.baselineOffset() != 0)
-									textY -= (charStyle.fontSize() / 10.0) * (charStyle.baselineOffset() / 1000.0);
-								if (currItem->imageFlippedH())
-									textX = currItem->width() - textX - wide;
-								if (currItem->imageFlippedV())
-									textY = currItem->height() - textY + y - (bb->height() - y);
-								FPoint npo(textX, textY, 0.0, 0.0, currItem->rotation(), 1.0, 1.0);
-								bb->setXYPos(currItem->xPos() + npo.x(), currItem->yPos() + npo.y(), false);
-								Doc->setRedrawBounding(bb);
-								newGroupedItems.append(Doc->Items->takeAt(z));
-							}
-							CurX += glyphs->wide();
-							continue;
-						}
-						if (chstr == SpecialChars::PAGENUMBER)
-							chstr = currItem->ExpandToken(a);
-						for (int cx = 0; cx < chstr.count(); cx++)
-						{
-							chstrex = chstr[cx];
-							double chs = charStyle.fontSize();
-							if (currItem->itemText.charStyle(a).effects() & ScStyle_SmallCaps)
-							{
-								if (chstrex.toUpper() != chstrex)
-								{
-									chs = qMax(static_cast<int>(chs * Doc->typographicPrefs().valueSmallCaps / 100), 1);
-									chstrex = chstrex.toUpper();
-								}
-							}
-							else if (currItem->itemText.charStyle(a).effects() &  ScStyle_AllCaps)
-								chstrex = chstrex.toUpper();
-							double csi = static_cast<double>(chs) / 100.0;
-							uint chr = chstrex.unicode();
-							QTransform chma, chma6;
-							uint gl = charStyle.font().char2CMap(chr);
-							FPoint origin = charStyle.font().glyphOrigin(gl);
-							x = origin.x() * csi * glyphs->scaleH;
-							y = origin.y() * csi * glyphs->scaleV;
-							if ((charStyle.effects() & ScStyle_Underline) || ((charStyle.effects() & ScStyle_UnderlineWords)  && chstr.toUInt() != charStyle.font().char2CMap(QChar(' '))))
-						{
-								double st, lw;
-								if ((charStyle.underlineOffset() != -1) || (charStyle.underlineWidth() != -1))
-								{
-									if (charStyle.underlineOffset() != -1)
-										st = (charStyle.underlineOffset() / 1000.0) * (charStyle.font().descent(charStyle.fontSize() / 10.0));
-									else
-										st = charStyle.font().underlinePos(charStyle.fontSize() / 10.0);
-									if (charStyle.underlineWidth() != -1)
-										lw = (charStyle.underlineWidth() / 1000.0) * (charStyle.fontSize() / 10.0);
-									else
-										lw = qMax(charStyle.font().strokeWidth(charStyle.fontSize() / 10.0), 1.0);
-								}
-								else
-								{
-									st = charStyle.font().underlinePos(charStyle.fontSize() / 10.0);
-									lw = qMax(charStyle.font().strokeWidth(charStyle.fontSize() / 10.0), 1.0);
-								}
-								if (charStyle.baselineOffset() != 0)
-									st += (charStyle.fontSize() / 10.0) * glyphs->scaleV * (charStyle.baselineOffset() / 1000.0);
-								uint z = Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, currItem->xPos(), currItem->yPos(), currItem->width(), currItem->height(), currItem->lineWidth(), currItem->lineColor(), currItem->fillColor());
-								bb = Doc->Items->at(z);
-								undoManager->setUndoEnabled(false);
-								bb->setTextFlowMode(currItem->textFlowMode());
-								bb->setSizeLocked(currItem->sizeLocked());
-								bb->setLocked(currItem->locked());
-								bb->NamedLStyle = currItem->NamedLStyle;
-								bb->setItemName(currItem->itemName()+"+U"+ccounter.setNum(a));
-								bb->setRotation(currItem->rotation());
-								bb->PoLine.addQuadPoint(FPoint(0, 0), FPoint(0, 0), FPoint(glyphs->xadvance, 0), FPoint(glyphs->xadvance, 0));
-								bb->setLineColor(charStyle.fillColor());
-								bb->setLineShade(charStyle.fillShade());
-								bb->setLineWidth(lw);
-								FPoint tp2(getMinClipF(&bb->PoLine));
-								bb->PoLine.translate(-tp2.x(), -tp2.y());
-								FPoint tp(getMaxClipF(&bb->PoLine));
-								bb->setWidthHeight(tp.x(), tp.y());
-								bb->Clip = FlattenPath(bb->PoLine, bb->Segments);
-								double textX = CurX;
-								double textY = ls.y - st;  // + glyphs->yoffset;
-								if (charStyle.effects() & ScStyle_Subscript)
-									textY += glyphs->yoffset;
-								if (charStyle.baselineOffset() != 0)
-									textY -= (charStyle.fontSize() / 10.0) * (charStyle.baselineOffset() / 1000.0);
-								if (a < currItem->itemText.length()-1)
-									wide = charStyle.font().charWidth(chstr[0], charStyle.fontSize(), currItem->itemText.text(a+1));
-								else
-									wide = charStyle.font().charWidth(chstr[0], charStyle.fontSize());
-								if (currItem->imageFlippedH())
-									textX = currItem->width() - textX - bb->width() - x;
-								if (currItem->imageFlippedV())
-									textY = currItem->height() - textY + y - (bb->height() - y);
-								FPoint npo(textX, textY, 0.0, 0.0, currItem->rotation(), 1.0, 1.0);
-								bb->moveBy(npo.x(),npo.y());
-								bb->ContourLine = bb->PoLine.copy();
-								bb->ClipEdited = true;
-								bb->FrameType = 3;
-								bb->OldB2 = bb->width();
-								bb->OldH2 = bb->height();
-								Doc->setRedrawBounding(bb);
-								undoManager->setUndoEnabled(true);
-								newGroupedItems.append(Doc->Items->takeAt(z));
-							}
-							if (!chstrex.isSpace())
-							{
-								pts = charStyle.font().glyphOutline(gl);
-								if (pts.size() < 4)
-									continue;
-								chma = QTransform();
-								chma.scale(glyphs->scaleH * charStyle.fontSize() / 100.00, glyphs->scaleV * charStyle.fontSize() / 100.0);
-								pts.map(chma);
-								chma = QTransform();
-								if (currItem->imageFlippedH() && (!currItem->reversed()))
-									chma.scale(-1, 1);
-								if (currItem->imageFlippedV())
-									chma.scale(1, -1);
-								undoManager->setUndoEnabled(false);
-								pts.map(chma);
-								if ((charStyle.effects() & ScStyle_Shadowed) && (charStyle.strokeColor() != CommonStrings::None))
-								{
-									double glxTr = charStyle.fontSize() * charStyle.shadowXOffset() / 10000.0;
-									double glyTr = -charStyle.fontSize() * charStyle.shadowYOffset() / 10000.0;
-									uint z = Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, currItem->xPos() + glxTr, currItem->yPos() + glyTr, currItem->width(), currItem->height(), currItem->lineWidth(), currItem->lineColor(), currItem->fillColor());
-									bb = Doc->Items->at(z);
-									undoManager->setUndoEnabled(false);
-									bb->setTextFlowMode(currItem->textFlowMode());
-									bb->setSizeLocked(currItem->sizeLocked());
-									bb->setLocked(currItem->locked());
-									bb->NamedLStyle = currItem->NamedLStyle;
-									bb->setItemName(currItem->itemName()+"+Sh"+ccounter.setNum(a));
-									bb->PoLine = pts.copy();
-									bb->setRotation(currItem->rotation());
-									bb->setFillColor(charStyle.strokeColor());
-									bb->setFillShade(charStyle.strokeShade());
-									bb->setLineColor(CommonStrings::None);
-									bb->setLineShade(100);
-									bb->setLineWidth(chs * charStyle.outlineWidth() / 10000.0);
-									FPoint tp2(getMinClipF(&bb->PoLine));
-									bb->PoLine.translate(-tp2.x(), -tp2.y());
-									FPoint tp(getMaxClipF(&bb->PoLine));
-									bb->setWidthHeight(tp.x(), tp.y());
-									bb->Clip = FlattenPath(bb->PoLine, bb->Segments);
-									double textX = CurX + glyphs->xoffset;
-									double textY = ls.y;  // + glyphs->yoffset;
-									if (charStyle.effects() & (ScStyle_Subscript | ScStyle_Superscript))
-										textY += glyphs->yoffset;
-									chma6 = QTransform();
-									if (charStyle.baselineOffset() != 0)
-										textY -= (charStyle.fontSize() / 10.0) * (charStyle.baselineOffset() / 1000.0);
-									if (a < currItem->itemText.length()-1)
-										wide = charStyle.font().charWidth(chstr[0], charStyle.fontSize(), currItem->itemText.text(a+1));
-									else
-										wide = charStyle.font().charWidth(chstr[0], charStyle.fontSize());
-									if (currItem->imageFlippedH())
-										textX = currItem->width() - textX - bb->width() - x;
-									if (currItem->imageFlippedV())
-										textY = currItem->height() - textY + y - (bb->height() - y);
-									FPoint npo(textX+x, textY-y, 0.0, 0.0, currItem->rotation(), 1.0, 1.0);
-									bb->moveBy(npo.x(),npo.y());
-									bb->ContourLine = bb->PoLine.copy();
-									bb->ClipEdited = true;
-									bb->FrameType = 3;
-									bb->OldB2 = bb->width();
-									bb->OldH2 = bb->height();
-									Doc->setRedrawBounding(bb);
-									undoManager->setUndoEnabled(true);
-									newGroupedItems.append(Doc->Items->takeAt(z));
-								}
-								uint z = Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, currItem->xPos(), currItem->yPos(), currItem->width(), currItem->height(), currItem->lineWidth(), currItem->lineColor(), currItem->fillColor());
-								bb = Doc->Items->at(z);
-								//bb->setTextFlowsAroundFrame(currItem->textFlowsAroundFrame());
-								//bb->setTextFlowUsesBoundingBox(currItem->textFlowUsesBoundingBox());
-								bb->setTextFlowMode(currItem->textFlowMode());
-								bb->setSizeLocked(currItem->sizeLocked());
-								bb->setLocked(currItem->locked());
-								bb->NamedLStyle = currItem->NamedLStyle;
-								bb->setItemName(currItem->itemName()+"+"+ccounter.setNum(a));
-								bb->PoLine = pts.copy();
-								bb->setRotation(currItem->rotation());
-								bb->setFillColor(charStyle.fillColor());
-								bb->setFillShade(charStyle.fillShade());
-								if (currItem->itemText.charStyle(a).effects() & ScStyle_Outline)
-								{
-									bb->setLineColor(charStyle.strokeColor());
-									bb->setLineShade(charStyle.strokeShade());
-								}
-								else
-								{
-									bb->setLineColor(CommonStrings::None);
-									bb->setLineShade(100);
-								}
-								bb->setLineWidth(chs * charStyle.outlineWidth() / 10000.0);
-								FPoint tp2(getMinClipF(&bb->PoLine));
-								bb->PoLine.translate(-tp2.x(), -tp2.y());
-								FPoint tp(getMaxClipF(&bb->PoLine));
-								bb->setWidthHeight(tp.x(), tp.y());
-								bb->Clip = FlattenPath(bb->PoLine, bb->Segments);
-								double textX = CurX + glyphs->xoffset;
-								double textY = ls.y;  // + glyphs->yoffset;
-								if (charStyle.effects() & (ScStyle_Subscript | ScStyle_Superscript))
-									textY += glyphs->yoffset;
-								chma6 = QTransform();
-								if (charStyle.baselineOffset() != 0)
-									textY -= (charStyle.fontSize() / 10.0) * (charStyle.baselineOffset() / 1000.0);
-								if (a < currItem->itemText.length()-1)
-									wide = charStyle.font().charWidth(chstr[0], charStyle.fontSize(), currItem->itemText.text(a+1));
-								else
-									wide = charStyle.font().charWidth(chstr[0], charStyle.fontSize());
-								if (currItem->imageFlippedH())
-									textX = currItem->width() - textX - bb->width() - x;
-								if (currItem->imageFlippedV())
-									textY = currItem->height() - textY + y - (bb->height() - y);
-								FPoint npo(textX+x, textY-y, 0.0, 0.0, currItem->rotation(), 1.0, 1.0);
-								bb->moveBy(npo.x(),npo.y());
-								bb->ContourLine = bb->PoLine.copy();
-								bb->ClipEdited = true;
-								bb->FrameType = 3;
-								bb->OldB2 = bb->width();
-								bb->OldH2 = bb->height();
-								Doc->setRedrawBounding(bb);
-								undoManager->setUndoEnabled(true);
-								newGroupedItems.append(Doc->Items->takeAt(z));
-							}
-							if (charStyle.effects() & ScStyle_Strikethrough)
-							{
-								double st, lw;
-								if ((charStyle.strikethruOffset() != -1) || (charStyle.strikethruWidth() != -1))
-								{
-									if (charStyle.strikethruOffset() != -1)
-										st = (charStyle.strikethruOffset() / 1000.0) * (charStyle.font().ascent(charStyle.fontSize() / 10.0));
-									else
-										st = charStyle.font().strikeoutPos(charStyle.fontSize() / 10.0);
-									if (charStyle.strikethruWidth() != -1)
-										lw = (charStyle.strikethruWidth() / 1000.0) * (charStyle.fontSize() / 10.0);
-									else
-										lw = qMax(charStyle.font().strokeWidth(charStyle.fontSize() / 10.0), 1.0);
-								}
-								else
-								{
-									st = charStyle.font().strikeoutPos(charStyle.fontSize() / 10.0);
-									lw = qMax(charStyle.font().strokeWidth(charStyle.fontSize() / 10.0), 1.0);
-								}
-								if (charStyle.baselineOffset() != 0)
-									st += (charStyle.fontSize() / 10.0) * glyphs->scaleV * (charStyle.baselineOffset() / 1000.0);
-								uint z = Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, currItem->xPos(), currItem->yPos(), currItem->width(), currItem->height(), currItem->lineWidth(), currItem->lineColor(), currItem->fillColor());
-								bb = Doc->Items->at(z);
-								undoManager->setUndoEnabled(false);
-								bb->setTextFlowMode(currItem->textFlowMode());
-								bb->setSizeLocked(currItem->sizeLocked());
-								bb->setLocked(currItem->locked());
-								bb->NamedLStyle = currItem->NamedLStyle;
-								bb->setItemName(currItem->itemName()+"+S"+ccounter.setNum(a));
-								bb->setRotation(currItem->rotation());
-								bb->PoLine.addQuadPoint(FPoint(0, 0), FPoint(0, 0), FPoint(glyphs->xadvance, 0), FPoint(glyphs->xadvance, 0));
-								bb->setLineColor(charStyle.fillColor());
-								bb->setLineShade(charStyle.fillShade());
-								bb->setLineWidth(lw);
-								FPoint tp2(getMinClipF(&bb->PoLine));
-								bb->PoLine.translate(-tp2.x(), -tp2.y());
-								FPoint tp(getMaxClipF(&bb->PoLine));
-								bb->setWidthHeight(tp.x(), tp.y());
-								bb->Clip = FlattenPath(bb->PoLine, bb->Segments);
-								double textX = CurX;
-								double textY = ls.y - st + glyphs->yoffset;
-								if (charStyle.baselineOffset() != 0)
-									textY -= (charStyle.fontSize() / 10.0) * (charStyle.baselineOffset() / 1000.0);
-								if (a < currItem->itemText.length()-1)
-									wide = charStyle.font().charWidth(chstr[0], charStyle.fontSize(), currItem->itemText.text(a+1));
-								else
-									wide = charStyle.font().charWidth(chstr[0], charStyle.fontSize());
-								if (currItem->imageFlippedH())
-									textX = currItem->width() - textX - bb->width() - x;
-								if (currItem->imageFlippedV())
-									textY = currItem->height() - textY + y - (bb->height() - y);
-								FPoint npo(textX, textY, 0.0, 0.0, currItem->rotation(), 1.0, 1.0);
-								bb->moveBy(npo.x(),npo.y());
-								bb->ContourLine = bb->PoLine.copy();
-								bb->ClipEdited = true;
-								bb->FrameType = 3;
-								bb->OldB2 = bb->width();
-								bb->OldH2 = bb->height();
-								Doc->setRedrawBounding(bb);
-								undoManager->setUndoEnabled(true);
-								newGroupedItems.append(Doc->Items->takeAt(z));
-							}
-							CurX += glyphs->wide();
-						}
-					}
-				}
-			}
+			TextToPathPainter p(this, currItem);
+			currItem->textLayout.render(&p);
 			if ((currItem->asPathText()) && (currItem->PoShow))
 			{
 				uint z = Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, currItem->xPos(), currItem->yPos(), currItem->width(), currItem->height(), currItem->lineWidth(), CommonStrings::None, currItem->lineColor());

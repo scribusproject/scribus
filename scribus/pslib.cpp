@@ -55,12 +55,157 @@ for which a new license (GPL+exception) is in place.
 #include "scstreamfilter_ascii85.h"
 #include "scstreamfilter_flate.h"
 #include "tableutils.h"
+#include "text/textlayoutpainter.h"
 #include "ui/multiprogressdialog.h"
 #include "util.h"
 #include "util_formats.h"
 #include "util_math.h"
+#include "text/boxes.h"
 
 using namespace TableUtils;
+
+class PSPainter:public TextLayoutPainter
+{
+	ScribusDoc* m_Doc;
+	uint m_argh;
+	ScPage* m_page;
+	bool m_sep;
+	bool m_farb;
+	bool m_master;
+	PSLib* m_ps;
+
+	void applyTransform()
+	{
+		if (matrix() != QTransform())
+		{
+			m_ps->PutStream(m_ps->MatrixToStr(1.0, 0.0, 0.0, -1.0, x(), 0.0) + "\n");
+			m_ps->PutStream(m_ps->MatrixToStr(matrix().m11(), -matrix().m12(), matrix().m21(), -matrix().m22(), matrix().dx(), -matrix().dy()) + "\n");
+			m_ps->PutStream("[0.0 0.0 0.0 0.0 0.0 0.0] concatmatrix\nconcat\n");
+		}
+	}
+
+public:
+	PSPainter(ScribusDoc* Doc, uint argh, ScPage* page, bool sep, bool farb, bool master, PSLib* ps):
+		m_Doc(Doc),
+		m_argh(argh),
+		m_page(page),
+		m_sep(sep),
+		m_farb(farb),
+		m_master(master),
+		m_ps(ps)
+	{}
+
+	void drawGlyph(const GlyphLayout gl);
+	void drawGlyphOutline(const GlyphLayout gl, bool fill);
+	void drawLine(QPointF start, QPointF end);
+	void drawRect(QRectF rect);
+	void drawObject(PageItem* item);
+};
+
+void PSPainter::drawGlyph(const GlyphLayout gl)
+{
+	if (gl.glyph >= ScFace::CONTROL_GLYPHS)
+		return;
+
+	m_ps->PS_save();
+	applyTransform();
+	m_ps->PS_translate(x(), -(y() - fontSize()));
+	if (gl.scaleH != 1.0)
+		m_ps->PS_scale(gl.scaleH, 1);
+	if (gl.scaleV != 1.0)
+	{
+		m_ps->PS_translate(0, -(fontSize() - fontSize() * gl.scaleV));
+		m_ps->PS_scale(1, gl.scaleV);
+	}
+	if (fillColor().color != CommonStrings::None)
+		m_ps->putColorNoDraw(fillColor().color, fillColor().shade);
+	m_ps->PS_showSub(gl.glyph, m_ps->FontSubsetMap[font().scName()], fontSize(), false);
+	m_ps->PS_restore();
+}
+
+void PSPainter::drawGlyphOutline(const GlyphLayout gl, bool fill)
+{
+	if (gl.glyph >= ScFace::CONTROL_GLYPHS)
+		return;
+
+	int h, s, v, k;
+	QVector<double> dum;
+	dum.clear();
+	m_ps->PS_save();
+	applyTransform();
+	if (strokeColor().color != CommonStrings::None)
+	{
+		m_ps->PS_setlinewidth(strokeWidth());
+		m_ps->PS_setcapjoin(Qt::FlatCap, Qt::MiterJoin);
+		m_ps->PS_setdash(Qt::SolidLine, 0, dum);
+		m_ps->PS_translate(x(), -(y() - fontSize()));
+		FPointArray gly = font().glyphOutline(gl.glyph);
+		QTransform chma;
+		chma.scale((fontSize() * gl.scaleH) / 10.0, (fontSize() * gl.scaleV) / 10.0);
+		gly.map(chma);
+		m_ps->PS_translate(0, -(fontSize() - fontSize() * gl.scaleV));
+		m_ps->SetColor(strokeColor().color, strokeColor().shade, &h, &s, &v, &k);
+		m_ps->PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
+		m_ps->SetClipPath(&gly, true);
+		m_ps->PS_closepath();
+		m_ps->putColor(strokeColor().color, strokeColor().shade, false);
+
+		if (gl.scaleH != 1.0 || gl.scaleV != 1.0)
+			m_ps->PS_scale(gl.scaleH, gl.scaleV);
+		if (fill)
+			m_ps->putColorNoDraw(fillColor().color, fillColor().shade);
+		m_ps->PS_showSub(gl.glyph, m_ps->FontSubsetMap[font().scName()], fontSize(), false);
+	}
+	m_ps->PS_restore();
+}
+
+void PSPainter::drawRect(QRectF rect)
+{
+	int h, s, v, k;
+	m_ps->PS_save();
+	applyTransform();
+	m_ps->PS_moveto(x() + rect.x(), -y() - rect.y());
+	m_ps->PS_lineto(x() + rect.x() + rect.width(), -y() - rect.y());
+	m_ps->PS_lineto(x() + rect.x() + rect.width(), -y() - rect.y() - rect.height());
+	m_ps->PS_lineto(x() + rect.x(), -y() - rect.y() - rect.height());
+	m_ps->PS_closepath();
+	m_ps->SetColor(fillColor().color, fillColor().shade, &h, &s, &v, &k);
+	m_ps->PS_setcmykcolor_fill(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
+	m_ps->putColor(fillColor().color, fillColor().shade, true);
+	m_ps->PS_restore();
+}
+
+void PSPainter::drawLine(QPointF start, QPointF end)
+{
+	int h, s, v, k ;
+	QVector<double> dum;
+	dum.clear();
+	m_ps->PS_save();
+	applyTransform();
+	if (fillColor().color != CommonStrings::None)
+	{
+		m_ps->PS_setcapjoin(Qt::FlatCap, Qt::MiterJoin);
+		m_ps->PS_setdash(Qt::SolidLine, 0, dum);
+		m_ps->SetColor(fillColor().color,fillColor().shade, &h, &s, &v, &k);
+		m_ps->PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
+	}
+	m_ps->PS_setlinewidth(strokeWidth());
+	m_ps->PS_moveto(x() + start.x(), -y() - start.y());
+	m_ps->PS_lineto(x() + end.x(), -y() - end.y());
+	m_ps->putColor(fillColor().color, fillColor().shade, false);
+	m_ps->PS_restore();
+}
+
+void PSPainter::drawObject(PageItem* item)
+{
+	m_ps->PS_save();
+	m_ps->PS_translate(x(), -y());
+	applyTransform();
+	if (scaleH() != 1 || scaleV() != 1)
+		m_ps->PS_scale(scaleH(), scaleV());
+	m_ps->ProcessItem(m_Doc, m_page, item, m_argh, m_sep, m_farb, m_master, true);
+	m_ps->PS_restore();
+}
 
 PSLib::PSLib(PrintOptions &options, bool psart, SCFonts &AllFonts, QMap<QString, QMap<uint, FPointArray> > DocFonts, ColorList DocColors, bool pdf, bool spot)
 {
@@ -555,7 +700,7 @@ void PSLib::PS_begin_page(ScPage* pg, MarginStruct* Ma, bool Clipping)
 	PutStream("%%Page: " + IToStr(Seiten) + " " + IToStr(Seiten) + "\n");
 	PutStream("%%PageOrientation: ");
 // when creating EPS files determine the orientation from the bounding box
-  	if (!psExport)
+	if (!psExport)
 	{
 		if ((pg->width() - Ma->left() - Ma->right()) <= (pg->height() - Ma->bottom() - Ma->top()))
 			PutStream("Portrait\n");
@@ -1665,14 +1810,8 @@ int PSLib::CreatePS(ScribusDoc* Doc, PrintOptions &options)
 
 bool PSLib::ProcessItem(ScribusDoc* Doc, ScPage* a, PageItem* c, uint PNr, bool sep, bool farb, bool master, bool embedded, bool useTemplate)
 {
-	double tsz;
 	int h, s, v, k;
-	int d;
-	int savedOwnPage;
-	//ScText *hl;
 	QVector<double> dum;
-	QChar chstr;
-	QString tmps;
 	if (c->printEnabled())
 	{
 		fillRule = true;
@@ -2156,401 +2295,7 @@ bool PSLib::ProcessItem(ScribusDoc* Doc, ScPage* a, PageItem* c, uint PNr, bool 
 					PS_restore();
 				}
 			}
-			savedOwnPage = c->OwnPage;
-			c->OwnPage = PNr-1;
-			c->asPathText()->layout();
-			c->OwnPage = savedOwnPage;
-			for (d = 0; d < c->maxCharsInFrame(); ++d)
-			{
-                // hl = c->asPathText()->itemRenderText.item_p(d);
-				chstr = c->asPathText()->itemRenderText.text(d);
-				if ((chstr == QChar(13)) || (chstr == QChar(30)) || (chstr == QChar(9)) || (chstr == QChar(28)))
-					continue;
-                
-                const CharStyle & style(c->asPathText()->itemRenderText.charStyle(d));
-				const PathData& pdata(c->textLayout.point(d));
-                const GlyphLayout* glyphs(c->asPathText()->itemRenderText.getGlyphs(d));
-                PageItem* embItem = c->asPathText()->itemRenderText.hasObject(d)?
-                                          c->asPathText()->itemRenderText.object(d) : NULL;
-                
-				QPointF tangt = QPointF( cos(pdata.PRot), sin(pdata.PRot) );
-				tsz = style.fontSize();
-				if (chstr == QChar(29))
-					chstr = ' ';
-				if (chstr == QChar(0xA0))
-					chstr = ' ';
-				if (style.effects() & ScStyle_AllCaps)
-				{
-					if (chstr.toUpper() != chstr)
-						chstr = chstr.toUpper();
-				}
-				if (style.effects() & ScStyle_SmallCaps)
-				{
-					if (chstr.toUpper() != chstr)
-					{
-						tsz = style.fontSize() * Doc->typographicPrefs().valueSmallCaps / 100;
-						chstr = chstr.toUpper();
-					}
-				}
-				if (style.effects() & ScStyle_Superscript)
-					tsz = style.fontSize() * Doc->typographicPrefs().scalingSuperScript / 100;
-				if (style.effects() & ScStyle_Subscript)
-					tsz = style.fontSize() * Doc->typographicPrefs().scalingSubScript / 100;
-				if (style.fillColor() != CommonStrings::None)
-				{
-					SetColor(style.fillColor(), style.fillShade(), &h, &s, &v, &k);
-					PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
-				}
-				if (embItem != NULL)
-				{
-					PS_save();
-					PutStream( MatrixToStr(1.0, 0.0, 0.0, -1.0, -pdata.PDx, 0.0) + "\n");
-					if (c->textPathFlipped)
-					{
-						PutStream("[1 0 0 -1 0 0]\n");
-						PutStream("[0 0 0  0 0 0] concatmatrix\n"); //???????
-					}
-					if (c->textPathType == 0)
-						PutStream( MatrixToStr(tangt.x(), -tangt.y(), -tangt.y(), -tangt.x(), pdata.PtransX, -pdata.PtransY) + "\n");
-					else if (c->textPathType == 1)
-						PutStream( MatrixToStr(1.0, 0.0, 0.0, -1.0, pdata.PtransX, -pdata.PtransY) + "\n");
-					else if (c->textPathType == 2)
-					{
-						double a = 1;
-						double b = -1;
-						if (tangt.x()< 0)
-						{
-							a = -1;
-							b = 1;
-						}
-						if (fabs(tangt.x()) > 0.1)
-							PutStream( MatrixToStr(a, (tangt.y() / tangt.x()) * b, 0.0, -1.0, pdata.PtransX, -pdata.PtransY) + "\n");
-						else
-							PutStream( MatrixToStr(a, 4.0, 0.0, -1.0, pdata.PtransX, -pdata.PtransY) + "\n");
-					}
-					PutStream("[0.0 0.0 0.0 0.0 0.0 0.0] concatmatrix\nconcat\n");
-//					PS_translate(0, (tsz / 10.0));
-					if (c->BaseOffs != 0)
-						PS_translate(0, -c->BaseOffs);
-					if (style.scaleH() != 1000)
-						PS_scale(style.scaleH() / 1000.0, 1);
-					QList<PageItem*> emG;
-                    if (embItem->isGroup())
-                        emG = embItem->getItemList();
-                    else
-                        emG.append(embItem);
-					for (int em = 0; em < emG.count(); ++em)
-					{
-						PageItem* embedded = emG.at(em);
-						PS_save();
-						PS_translate(embedded->gXpos * (style.scaleH() / 1000.0), ((embedded->gHeight * (style.scaleV() / 1000.0)) - embedded->gYpos * (style.scaleV() / 1000.0)));
-						if (style.baselineOffset() != 0)
-							PS_translate(0, embedded->gHeight * (style.baselineOffset() / 1000.0));
-						if (style.scaleH() != 1000)
-							PS_scale(style.scaleH() / 1000.0, 1);
-						if (style.scaleV() != 1000)
-							PS_scale(1, style.scaleV() / 1000.0);
-						ProcessItem(Doc, a, embedded, PNr, sep, farb, master, true);
-						PS_restore();
-					}
-					PS_restore();
-					continue;
-				}
-				/* Subset all TTF Fonts until the bug in the TTF-Embedding Code is fixed */
-				if (FontSubsetMap.contains(style.font().scName()))
-				{
-//					uint chr = chstr.unicode();
-					uint chr = style.font().char2CMap(chstr);
-					if (style.font().canRender(chstr))
-					{
-						PS_save();
-						if (style.fillColor() != CommonStrings::None)
-						{
-							PutStream( MatrixToStr(1.0, 0.0, 0.0, -1.0, -pdata.PDx, 0.0) + "\n");
-							if (c->textPathFlipped)
-							{
-								PutStream("[1.0 0.0 0.0 -1.0 0.0 0.0]\n");
-								PutStream("[0.0 0.0 0.0  0.0 0.0 0.0] concatmatrix\n");
-							}
-							if (c->textPathType == 0)
-								PutStream( MatrixToStr(tangt.x(), -tangt.y(), -tangt.y(), -tangt.x(), pdata.PtransX, -pdata.PtransY) + "\n");
-							else if (c->textPathType == 1)
-								PutStream( MatrixToStr(1.0, 0.0, 0.0, -1.0, pdata.PtransX, -pdata.PtransY) + "\n");
-							else if (c->textPathType == 2)
-							{
-								double a = 1;
-								double b = -1;
-								if (tangt.x() < 0)
-								{
-									a = -1;
-									b = 1;
-								}
-								if (fabs(tangt.x()) > 0.1)
-									PutStream( MatrixToStr(a, (tangt.y() / tangt.x()) * b, 0.0, -1.0, pdata.PtransX, -pdata.PtransY) + "\n");
-								else
-									PutStream( MatrixToStr(a, 4.0, 0.0, -1.0, pdata.PtransX, -pdata.PtransY) + "\n");
-							}
-							PutStream("[0.0 0.0 0.0 0.0 0.0 0.0] concatmatrix\nconcat\n");
-							PS_translate(0, (tsz / 10.0));
-							if (c->BaseOffs != 0)
-								PS_translate(0, -c->BaseOffs);
-							if (glyphs->xoffset !=0 || glyphs->yoffset != 0)
-								PS_translate(glyphs->xoffset, -glyphs->yoffset);
-							if (style.scaleH() != 1000)
-								PS_scale(style.scaleH() / 1000.0, 1);
-							if (((style.effects() & ScStyle_Underline) && !SpecialChars::isBreak(chstr)) //FIXME && (chstr != QChar(13)))  
-								|| ((style.effects() & ScStyle_UnderlineWords) && !chstr.isSpace() && !SpecialChars::isBreak(chstr)))
-							{
-								PS_save();
-								PS_translate(0, -(tsz / 10.0));
-								double Ulen = glyphs->xadvance;
-								double Upos, Uwid;
-								if ((style.underlineOffset() != -1) || (style.underlineWidth() != -1))
-								{
-									if (style.underlineOffset() != -1)
-										Upos = (style.underlineOffset() / 1000.0) * (style.font().descent(style.fontSize() / 10.0));
-									else
-										Upos = style.font().underlinePos(style.fontSize() / 10.0);
-									if (style.underlineWidth() != -1)
-										Uwid = (style.underlineWidth() / 1000.0) * (style.fontSize() / 10.0);
-									else
-										Uwid = qMax(style.font().strokeWidth(style.fontSize() / 10.0), 1.0);
-								}
-								else
-								{
-									Upos = style.font().underlinePos(style.fontSize() / 10.0);
-									Uwid = qMax(style.font().strokeWidth(style.fontSize() / 10.0), 1.0);
-								}
-								if (style.baselineOffset() != 0)
-									Upos += (style.fontSize() / 10.0) * glyphs->scaleV * (style.baselineOffset() / 1000.0);
-								if (style.fillColor() != CommonStrings::None)
-								{
-									SetColor(style.fillColor(), style.fillShade(), &h, &s, &v, &k);
-									PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
-								}
-								PS_setlinewidth(Uwid);
-								if (style.effects() & ScStyle_Subscript)
-								{
-									PS_moveto(glyphs->xoffset     , Upos);
-									PS_lineto(glyphs->xoffset+Ulen, Upos);
-								}
-								else
-								{
-									PS_moveto(glyphs->xoffset     , glyphs->yoffset+Upos);
-									PS_lineto(glyphs->xoffset+Ulen, glyphs->yoffset+Upos);
-								}
-								putColor(style.fillColor(), style.fillShade(), false);
-								PS_restore();
-							}
-							if (chstr != ' ')
-							{
-								if ((style.effects() & ScStyle_Shadowed) && (style.strokeColor() != CommonStrings::None))
-								{
-									PS_save();
-									PS_translate(style.fontSize() * style.shadowXOffset() / 10000.0, style.fontSize() * style.shadowYOffset() / 10000.0);
-									putColorNoDraw(style.strokeColor(), style.strokeShade());
-									PS_showSub(chr, FontSubsetMap[style.font().scName()], tsz / 10.0, false);
-									PS_restore();
-								}
-								putColorNoDraw(style.fillColor(), style.fillShade());
-								PS_showSub(chr, FontSubsetMap[style.font().scName()], tsz / 10.0, false);
-								if ((style.effects() & ScStyle_Outline))
-								{
-									if ((style.strokeColor() != CommonStrings::None) && ((tsz * style.outlineWidth() / 10000.0) != 0))
-									{
-										PS_save();
-										PS_setlinewidth(tsz * style.outlineWidth() / 10000.0);
-										putColorNoDraw(style.strokeColor(), style.strokeShade());
-										PS_showSub(chr, FontSubsetMap[style.font().scName()], tsz / 10.0, true);
-										PS_restore();
-									}
-								}
-							}
-							if ((style.effects() & ScStyle_Strikethrough) && (chstr != SpecialChars::PARSEP))
-							{
-								PS_save();
-								PS_translate(0, -(tsz / 10.0));
-								double Ulen = glyphs->xadvance;
-								double Upos, Uwid;
-								if ((style.strikethruOffset() != -1) || (style.strikethruWidth() != -1))
-								{
-									if (style.strikethruOffset() != -1)
-										Upos = (style.strikethruOffset() / 1000.0) * (style.font().ascent(style.fontSize() / 10.0));
-									else
-										Upos = style.font().strikeoutPos(style.fontSize() / 10.0);
-									if (style.strikethruWidth() != -1)
-										Uwid = (style.strikethruWidth() / 1000.0) * (style.fontSize() / 10.0);
-									else
-										Uwid = qMax(style.font().strokeWidth(style.fontSize() / 10.0), 1.0);
-								}
-								else
-								{
-									Upos = style.font().strikeoutPos(style.fontSize() / 10.0);
-									Uwid = qMax(style.font().strokeWidth(style.fontSize() / 10.0), 1.0);
-								}
-								if (style.baselineOffset() != 0)
-									Upos += (style.fontSize() / 10.0) * glyphs->scaleV * (style.baselineOffset() / 1000.0);
-								if (style.fillColor() != CommonStrings::None)
-								{
-									SetColor(style.fillColor(), style.fillShade(), &h, &s, &v, &k);
-									PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
-								}
-								PS_setlinewidth(Uwid);
-								PS_moveto(glyphs->xoffset     , Upos);
-								PS_lineto(glyphs->xoffset+Ulen, Upos);
-								putColor(style.fillColor(), style.fillShade(), false);
-								PS_restore();
-							}
-						}
-						PS_restore();
-					}
-				}
-				else
-				{
-					uint glyph = glyphs->glyph;
-					PS_selectfont(style.font().replacementName(), tsz / 10.0);
-					PS_save();
-					PutStream( MatrixToStr(1.0, 0.0, 0.0, -1.0, -pdata.PDx, 0.0) + "\n");
-					if (c->textPathFlipped)
-					{
-						PutStream("[1.0 0.0 0.0 -1.0 0.0 0.0]\n");
-						PutStream("[0.0 0.0 0.0  0.0 0.0 0.0] concatmatrix\n");
-					}
-					if (c->textPathType == 0)
-						PutStream( MatrixToStr(tangt.x(), -tangt.y(), -tangt.y(), -tangt.x(), pdata.PtransX, -pdata.PtransY) + "\n");
-					else if (c->textPathType == 1)
-						PutStream( MatrixToStr(1.0, 0.0, 0.0, -1.0, pdata.PtransX, -pdata.PtransY) + "\n");
-					else if (c->textPathType == 2)
-					{
-						double a = 1;
-						double b = -1;
-						if (tangt.x() < 0)
-						{
-							a = -1;
-							b = 1;
-						}
-						if (fabs(tangt.x()) > 0.1)
-							PutStream( MatrixToStr(a, (tangt.y() / tangt.x()) * b, 0.0, -1.0, pdata.PtransX, -pdata.PtransY) + "\n");
-						else
-							PutStream( MatrixToStr(a, 4.0, 0.0, -1.0, pdata.PtransX, -pdata.PtransY) + "\n");
-					}
-					PutStream("[0.0 0.0 0.0 0.0 0.0 0.0] concatmatrix\nconcat\n");
-					if (c->BaseOffs != 0)
-						PS_translate(0, -c->BaseOffs);
-					if (glyphs->xoffset !=0 || glyphs->yoffset != 0)
-						PS_translate(glyphs->xoffset, -glyphs->yoffset);
-					if (((style.effects() & ScStyle_Underline) && !SpecialChars::isBreak(chstr)) //FIXME && (chstr != QChar(13)))  
-						|| ((style.effects() & ScStyle_UnderlineWords) && !chstr.isSpace() && !SpecialChars::isBreak(chstr)))
-					{
-						PS_save();
-						double Ulen = glyphs->xadvance;
-						double Upos, Uwid;
-						if ((style.underlineOffset() != -1) || (style.underlineWidth() != -1))
-						{
-							if (style.underlineOffset() != -1)
-								Upos = (style.underlineOffset() / 1000.0) * (style.font().descent(style.fontSize() / 10.0));
-							else
-								Upos = style.font().underlinePos(style.fontSize() / 10.0);
-							if (style.underlineWidth() != -1)
-								Uwid = (style.underlineWidth() / 1000.0) * (style.fontSize() / 10.0);
-							else
-								Uwid = qMax(style.font().strokeWidth(style.fontSize() / 10.0), 1.0);
-						}
-						else
-						{
-							Upos = style.font().underlinePos(style.fontSize() / 10.0);
-							Uwid = qMax(style.font().strokeWidth(style.fontSize() / 10.0), 1.0);
-						}
-						if (style.baselineOffset() != 0)
-							Upos += (style.fontSize() / 10.0) * glyphs->scaleV * (style.baselineOffset() / 1000.0);
-						if (style.fillColor() != CommonStrings::None)
-						{
-							SetColor(style.fillColor(), style.fillShade(), &h, &s, &v, &k);
-							PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
-						}
-						PS_setlinewidth(Uwid);
-						if (style.effects() & ScStyle_Subscript)
-						{
-							PS_moveto(glyphs->xoffset     , Upos);
-							PS_lineto(glyphs->xoffset+Ulen, Upos);
-						}
-						else
-						{
-							PS_moveto(glyphs->xoffset     , glyphs->yoffset+Upos);
-							PS_lineto(glyphs->xoffset+Ulen, glyphs->yoffset+Upos);
-						}
-						putColor(style.fillColor(), style.fillShade(), false);
-						PS_restore();
-					}
-					if (chstr != ' ')
-					{
-						if ((style.effects() & ScStyle_Shadowed) && (style.strokeColor() != CommonStrings::None))
-						{
-							PS_save();
-							PS_translate(style.fontSize() * style.shadowXOffset() / 10000.0, style.fontSize() * style.shadowYOffset() / 10000.0);
-							PS_show_xyG(style.font().replacementName(), glyph, 0, 0, style.strokeColor(), style.strokeShade());
-							PS_restore();
-						}
-						PS_show_xyG(style.font().replacementName(), glyph, 0, 0, style.fillColor(), style.fillShade());
-						if ((style.effects() & ScStyle_Outline))
-						{
-							if ((style.strokeColor() != CommonStrings::None) && ((tsz * style.outlineWidth() / 10000.0) != 0))
-							{
-								uint gl = style.font().char2CMap(chstr);
-								FPointArray gly = style.font().glyphOutline(gl);
-								QTransform chma;
-								chma.scale(tsz / 100.0, tsz / 100.0);
-								gly.map(chma);
-								PS_save();
-								PS_setlinewidth(tsz * style.outlineWidth() / 10000.0);
-								PS_translate(0,  tsz / 10.0);
-								SetColor(style.strokeColor(), style.strokeShade(), &h, &s, &v, &k);
-								PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
-								SetClipPath(&gly);
-								PS_closepath();
-								putColor(style.strokeColor(), style.strokeShade(), false);
-								PS_restore();
-							}
-						}
-					}
-					if ((style.effects() & ScStyle_Strikethrough) && (chstr != SpecialChars::PARSEP))
-					{
-						PS_save();
-						double Ulen = glyphs->xadvance;
-						double Upos, Uwid;
-						if ((style.strikethruOffset() != -1) || (style.strikethruWidth() != -1))
-						{
-							if (style.strikethruOffset() != -1)
-								Upos = (style.strikethruOffset() / 1000.0) * (style.font().ascent(style.fontSize() / 10.0));
-							else
-								Upos = style.font().strikeoutPos(style.fontSize() / 10.0);
-							if (style.strikethruWidth() != -1)
-								Uwid = (style.strikethruWidth() / 1000.0) * (style.fontSize() / 10.0);
-							else
-								Uwid = qMax(style.font().strokeWidth(style.fontSize() / 10.0), 1.0);
-						}
-						else
-						{
-							Upos = style.font().strikeoutPos(style.fontSize() / 10.0);
-							Uwid = qMax(style.font().strokeWidth(style.fontSize() / 10.0), 1.0);
-						}
-						if (style.baselineOffset() != 0)
-							Upos += (style.fontSize() / 10.0) * glyphs->scaleV * (style.baselineOffset() / 1000.0);
-						if (style.fillColor() != CommonStrings::None)
-						if (style.fillColor() != CommonStrings::None)
-						{
-							SetColor(style.fillColor(), style.fillShade(), &h, &s, &v, &k);
-							PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
-						}
-						PS_setlinewidth(Uwid);
-						PS_moveto(glyphs->xoffset     , Upos);
-						PS_lineto(glyphs->xoffset+Ulen, Upos);
-						putColor(style.fillColor(), style.fillShade(), false);
-						PS_restore();
-					}
-					PS_restore();
-				}
-			}
+			setTextSt(Doc, c, PNr-1, a, sep, farb, master);
 			break;
 		case PageItem::Symbol:
 			if (m_Doc->docPatterns.contains(c->pattern()))
@@ -3221,10 +2966,6 @@ bool PSLib::ProcessMasterPageLayer(ScribusDoc* Doc, ScPage* page, ScLayer& layer
 			}
 			else if (ite->asPathText())
 			{
-				double tsz;
-				int d;
-				//ScText *hl;
-				QChar chstr;
 				PS_save();
 				PS_translate(ite->xPos() - mPage->xOffset(), mPage->height() - (ite->yPos() - mPage->yOffset()));
 				if (ite->PoShow)
@@ -3270,400 +3011,7 @@ bool PSLib::ProcessMasterPageLayer(ScribusDoc* Doc, ScPage* page, ScLayer& layer
 						PS_restore();
 					}
 				}
-				int savedOwnPage = ite->OwnPage;
-				ite->OwnPage = PNr;
-				ite->asPathText()->layout();
-				ite->OwnPage = savedOwnPage;
-				for (d = 0; d < ite->maxCharsInFrame(); ++d)
-				{
-                    //hl = ite->asPathText()->itemRenderText.item_p(d);
-					chstr = ite->asPathText()->itemRenderText.text(d);
-					const CharStyle & style(ite->asPathText()->itemRenderText.charStyle(d));
-					if ((chstr == QChar(13)) || (chstr == QChar(30)) || (chstr == QChar(9)) || (chstr == QChar(28)))
-						continue;
-                    const PathData& pdata(ite->textLayout.point(d));
-                    const GlyphLayout* glyphs(ite->asPathText()->itemRenderText.getGlyphs(d));
-                    PageItem* embItem = ite->asPathText()->itemRenderText.hasObject(d)?
-                                              ite->asPathText()->itemRenderText.object(d) : NULL;
-                    
-					QPointF tangt = QPointF( cos(pdata.PRot), sin(pdata.PRot) );
-					tsz = style.fontSize();
-					if (chstr == QChar(29))
-						chstr = ' ';
-					if (chstr == QChar(0xA0))
-						chstr = ' ';
-					if (style.effects() & ScStyle_AllCaps)
-					{
-						if (chstr.toUpper() != chstr)
-							chstr = chstr.toUpper();
-					}
-					if (style.effects() & ScStyle_SmallCaps)
-					{
-						if (chstr.toUpper() != chstr)
-						{
-							tsz = style.fontSize() * Doc->typographicPrefs().valueSmallCaps / 100;
-							chstr = chstr.toUpper();
-						}
-					}
-					if (style.effects() & ScStyle_Superscript)
-						tsz = style.fontSize() * Doc->typographicPrefs().scalingSuperScript / 100;
-					if (style.effects() & ScStyle_Subscript)
-						tsz = style.fontSize() * Doc->typographicPrefs().scalingSubScript / 100;
-					if (style.fillColor() != CommonStrings::None)
-					{
-						SetColor(style.fillColor(), style.fillShade(), &h, &s, &v, &k);
-						PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
-					}
-					if (embItem != NULL)
-					{
-						PS_save();
-						PutStream( MatrixToStr(1.0, 0.0, 0.0, -1.0, -pdata.PDx, 0.0) + "\n");
-						if (ite->textPathFlipped)
-						{
-							PutStream("[1 0 0 -1 0 0]\n");
-							PutStream("[0 0 0  0 0 0] concatmatrix\n"); //???????
-						}
-						if (ite->textPathType == 0)
-							PutStream( MatrixToStr(tangt.x(), -tangt.y(), -tangt.y(), -tangt.x(), pdata.PtransX, -pdata.PtransY) + "\n");
-						else if (ite->textPathType == 1)
-							PutStream( MatrixToStr(1.0, 0.0, 0.0, -1.0, pdata.PtransX, -pdata.PtransY) + "\n");
-						else if (ite->textPathType == 2)
-						{
-							double a = 1;
-							double b = -1;
-							if (tangt.x()< 0)
-							{
-								a = -1;
-								b = 1;
-							}
-							if (fabs(tangt.x()) > 0.1)
-								PutStream( MatrixToStr(a, (tangt.y() / tangt.x()) * b, 0.0, -1.0, pdata.PtransX, -pdata.PtransY) + "\n");
-							else
-								PutStream( MatrixToStr(a, 4.0, 0.0, -1.0, pdata.PtransX, -pdata.PtransY) + "\n");
-						}
-						PutStream("[0.0 0.0 0.0 0.0 0.0 0.0] concatmatrix\nconcat\n");
-	//					PS_translate(0, (tsz / 10.0));
-						if (ite->BaseOffs != 0)
-							PS_translate(0, -ite->BaseOffs);
-						if (style.scaleH() != 1000)
-							PS_scale(style.scaleH() / 1000.0, 1);
-						QList<PageItem*> emG;
-                        if (embItem->isGroup())
-                            emG = embItem->getItemList();
-                        else
-                            emG.append(embItem);
-                        for (int em = 0; em < emG.count(); ++em)
-						{
-							PageItem* embedded = emG.at(em);
-							PS_save();
-							PS_translate(embedded->gXpos * (style.scaleH() / 1000.0), ((embedded->gHeight * (style.scaleV() / 1000.0)) - embedded->gYpos * (style.scaleV() / 1000.0)));
-							if (style.baselineOffset() != 0)
-								PS_translate(0, embedded->gHeight * (style.baselineOffset() / 1000.0));
-							if (style.scaleH() != 1000)
-								PS_scale(style.scaleH() / 1000.0, 1);
-							if (style.scaleV() != 1000)
-								PS_scale(1, style.scaleV() / 1000.0);
-							ProcessItem(Doc, mPage, embedded, PNr, sep, farb, true, true);
-							PS_restore();
-						}
-						PS_restore();
-						continue;
-					}
-					/* Subset all TTF Fonts until the bug in the TTF-Embedding Code is fixed */
-					if (FontSubsetMap.contains(style.font().scName()))
-					{
-	//					uint chr = chstr.unicode();
-						uint chr = style.font().char2CMap(chstr);
-						if (style.font().canRender(chstr))
-						{
-							PS_save();
-							if (style.fillColor() != CommonStrings::None)
-							{
-								PutStream( MatrixToStr(1.0, 0.0, 0.0, -1.0, -pdata.PDx, 0.0) + "\n");
-								if (ite->textPathFlipped)
-								{
-									PutStream("[1.0 0.0 0.0 -1.0 0.0 0.0]\n");
-									PutStream("[0.0 0.0 0.0  0.0 0.0 0.0] concatmatrix\n");
-								}
-								if (ite->textPathType == 0)
-									PutStream( MatrixToStr(tangt.x(), -tangt.y(), -tangt.y(), -tangt.x(), pdata.PtransX, -pdata.PtransY) + "\n");
-								else if (ite->textPathType == 1)
-									PutStream( MatrixToStr(1.0, 0.0, 0.0, -1.0, pdata.PtransX, -pdata.PtransY) + "\n");
-								else if (ite->textPathType == 2)
-								{
-									double a = 1;
-									double b = -1;
-									if (tangt.x() < 0)
-									{
-										a = -1;
-										b = 1;
-									}
-									if (fabs(tangt.x()) > 0.1)
-										PutStream( MatrixToStr(a, (tangt.y() / tangt.x()) * b, 0.0, -1.0, pdata.PtransX, -pdata.PtransY) + "\n");
-									else
-										PutStream( MatrixToStr(a, 4.0, 0.0, -1.0, pdata.PtransX, -pdata.PtransY) + "\n");
-								}
-								PutStream("[0.0 0.0 0.0 0.0 0.0 0.0] concatmatrix\nconcat\n");
-								PS_translate(0, (tsz / 10.0));
-								if (ite->BaseOffs != 0)
-									PS_translate(0, -ite->BaseOffs);
-								if (glyphs->xoffset !=0 || glyphs->yoffset != 0)
-									PS_translate(glyphs->xoffset, -glyphs->yoffset);
-								if (style.scaleH() != 1000)
-									PS_scale(style.scaleH() / 1000.0, 1);
-								if (((style.effects() & ScStyle_Underline) && !SpecialChars::isBreak(chstr)) //FIXME && (chstr != QChar(13)))
-									|| ((style.effects() & ScStyle_UnderlineWords) && !chstr.isSpace() && !SpecialChars::isBreak(chstr)))
-								{
-									PS_save();
-									PS_translate(0, -(tsz / 10.0));
-									double Ulen = glyphs->xadvance;
-									double Upos, Uwid;
-									if ((style.underlineOffset() != -1) || (style.underlineWidth() != -1))
-									{
-										if (style.underlineOffset() != -1)
-											Upos = (style.underlineOffset() / 1000.0) * (style.font().descent(style.fontSize() / 10.0));
-										else
-											Upos = style.font().underlinePos(style.fontSize() / 10.0);
-										if (style.underlineWidth() != -1)
-											Uwid = (style.underlineWidth() / 1000.0) * (style.fontSize() / 10.0);
-										else
-											Uwid = qMax(style.font().strokeWidth(style.fontSize() / 10.0), 1.0);
-									}
-									else
-									{
-										Upos = style.font().underlinePos(style.fontSize() / 10.0);
-										Uwid = qMax(style.font().strokeWidth(style.fontSize() / 10.0), 1.0);
-									}
-									if (style.baselineOffset() != 0)
-										Upos += (style.fontSize() / 10.0) * glyphs->scaleV * (style.baselineOffset() / 1000.0);
-									if (style.fillColor() != CommonStrings::None)
-									{
-										SetColor(style.fillColor(), style.fillShade(), &h, &s, &v, &k);
-										PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
-									}
-									PS_setlinewidth(Uwid);
-									if (style.effects() & ScStyle_Subscript)
-									{
-										PS_moveto(glyphs->xoffset     , Upos);
-										PS_lineto(glyphs->xoffset+Ulen, Upos);
-									}
-									else
-									{
-										PS_moveto(glyphs->xoffset     , glyphs->yoffset+Upos);
-										PS_lineto(glyphs->xoffset+Ulen, glyphs->yoffset+Upos);
-									}
-									putColor(style.fillColor(), style.fillShade(), false);
-									PS_restore();
-								}
-								if (chstr != ' ')
-								{
-									if ((style.effects() & ScStyle_Shadowed) && (style.strokeColor() != CommonStrings::None))
-									{
-										PS_save();
-										PS_translate(style.fontSize() * style.shadowXOffset() / 10000.0, style.fontSize() * style.shadowYOffset() / 10000.0);
-										putColorNoDraw(style.strokeColor(), style.strokeShade());
-										PS_showSub(chr, FontSubsetMap[style.font().scName()], tsz / 10.0, false);
-										PS_restore();
-									}
-									putColorNoDraw(style.fillColor(), style.fillShade());
-									PS_showSub(chr, FontSubsetMap[style.font().scName()], tsz / 10.0, false);
-									if ((style.effects() & ScStyle_Outline))
-									{
-										if ((style.strokeColor() != CommonStrings::None) && ((tsz * style.outlineWidth() / 10000.0) != 0))
-										{
-											PS_save();
-											PS_setlinewidth(tsz * style.outlineWidth() / 10000.0);
-											putColorNoDraw(style.strokeColor(), style.strokeShade());
-											PS_showSub(chr, FontSubsetMap[style.font().scName()], tsz / 10.0, true);
-											PS_restore();
-										}
-									}
-								}
-								if ((style.effects() & ScStyle_Strikethrough) && (chstr != SpecialChars::PARSEP))
-								{
-									PS_save();
-									PS_translate(0, -(tsz / 10.0));
-									double Ulen = glyphs->xadvance;
-									double Upos, Uwid;
-									if ((style.strikethruOffset() != -1) || (style.strikethruWidth() != -1))
-									{
-										if (style.strikethruOffset() != -1)
-											Upos = (style.strikethruOffset() / 1000.0) * (style.font().ascent(style.fontSize() / 10.0));
-										else
-											Upos = style.font().strikeoutPos(style.fontSize() / 10.0);
-										if (style.strikethruWidth() != -1)
-											Uwid = (style.strikethruWidth() / 1000.0) * (style.fontSize() / 10.0);
-										else
-											Uwid = qMax(style.font().strokeWidth(style.fontSize() / 10.0), 1.0);
-									}
-									else
-									{
-										Upos = style.font().strikeoutPos(style.fontSize() / 10.0);
-										Uwid = qMax(style.font().strokeWidth(style.fontSize() / 10.0), 1.0);
-									}
-									if (style.baselineOffset() != 0)
-										Upos += (style.fontSize() / 10.0) * glyphs->scaleV * (style.baselineOffset() / 1000.0);
-									if (style.fillColor() != CommonStrings::None)
-									{
-										SetColor(style.fillColor(), style.fillShade(), &h, &s, &v, &k);
-										PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
-									}
-									PS_setlinewidth(Uwid);
-									PS_moveto(glyphs->xoffset     , Upos);
-									PS_lineto(glyphs->xoffset+Ulen, Upos);
-									putColor(style.fillColor(), style.fillShade(), false);
-									PS_restore();
-								}
-							}
-							PS_restore();
-						}
-					}
-					else
-					{
-						uint glyph = glyphs->glyph;
-						PS_selectfont(style.font().replacementName(), tsz / 10.0);
-						PS_save();
-						PutStream( MatrixToStr(1.0, 0.0, 0.0, -1.0, -pdata.PDx, 0.0) + "\n");
-						if (ite->textPathFlipped)
-						{
-							PutStream("[1.0 0.0 0.0 -1.0 0.0 0.0]\n");
-							PutStream("[0.0 0.0 0.0  0.0 0.0 0.0] concatmatrix\n");
-						}
-						if (ite->textPathType == 0)
-							PutStream( MatrixToStr(tangt.x(), -tangt.y(), -tangt.y(), -tangt.x(), pdata.PtransX, -pdata.PtransY) + "\n");
-						else if (ite->textPathType == 1)
-							PutStream( MatrixToStr(1.0, 0.0, 0.0, -1.0, pdata.PtransX, -pdata.PtransY) + "\n");
-						else if (ite->textPathType == 2)
-						{
-							double a = 1;
-							double b = -1;
-							if (tangt.x() < 0)
-							{
-								a = -1;
-								b = 1;
-							}
-							if (fabs(tangt.x()) > 0.1)
-								PutStream( MatrixToStr(a, (tangt.y() / tangt.x()) * b, 0.0, -1.0, pdata.PtransX, -pdata.PtransY) + "\n");
-							else
-								PutStream( MatrixToStr(a, 4.0, 0.0, -1.0, pdata.PtransX, -pdata.PtransY) + "\n");
-						}
-						PutStream("[0.0 0.0 0.0 0.0 0.0 0.0] concatmatrix\nconcat\n");
-						if (ite->BaseOffs != 0)
-							PS_translate(0, -ite->BaseOffs);
-						if (glyphs->xoffset !=0 || glyphs->yoffset != 0)
-							PS_translate(glyphs->xoffset, -glyphs->yoffset);
-						if (((style.effects() & ScStyle_Underline) && !SpecialChars::isBreak(chstr)) //FIXME && (chstr != QChar(13)))
-							|| ((style.effects() & ScStyle_UnderlineWords) && !chstr.isSpace() && !SpecialChars::isBreak(chstr)))
-						{
-							PS_save();
-							double Ulen = glyphs->xadvance;
-							double Upos, Uwid;
-							if ((style.underlineOffset() != -1) || (style.underlineWidth() != -1))
-							{
-								if (style.underlineOffset() != -1)
-									Upos = (style.underlineOffset() / 1000.0) * (style.font().descent(style.fontSize() / 10.0));
-								else
-									Upos = style.font().underlinePos(style.fontSize() / 10.0);
-								if (style.underlineWidth() != -1)
-									Uwid = (style.underlineWidth() / 1000.0) * (style.fontSize() / 10.0);
-								else
-									Uwid = qMax(style.font().strokeWidth(style.fontSize() / 10.0), 1.0);
-							}
-							else
-							{
-								Upos = style.font().underlinePos(style.fontSize() / 10.0);
-								Uwid = qMax(style.font().strokeWidth(style.fontSize() / 10.0), 1.0);
-							}
-							if (style.baselineOffset() != 0)
-								Upos += (style.fontSize() / 10.0) * glyphs->scaleV * (style.baselineOffset() / 1000.0);
-							if (style.fillColor() != CommonStrings::None)
-							{
-								SetColor(style.fillColor(), style.fillShade(), &h, &s, &v, &k);
-								PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
-							}
-							PS_setlinewidth(Uwid);
-							if (style.effects() & ScStyle_Subscript)
-							{
-								PS_moveto(glyphs->xoffset     , Upos);
-								PS_lineto(glyphs->xoffset+Ulen, Upos);
-							}
-							else
-							{
-								PS_moveto(glyphs->xoffset     , glyphs->yoffset+Upos);
-								PS_lineto(glyphs->xoffset+Ulen, glyphs->yoffset+Upos);
-							}
-							putColor(style.fillColor(), style.fillShade(), false);
-							PS_restore();
-						}
-						if (chstr != ' ')
-						{
-							if ((style.effects() & ScStyle_Shadowed) && (style.strokeColor() != CommonStrings::None))
-							{
-								PS_save();
-								PS_translate(style.fontSize() * style.shadowXOffset() / 10000.0, style.fontSize() * style.shadowYOffset() / 10000.0);
-								PS_show_xyG(style.font().replacementName(), glyph, 0, 0, style.strokeColor(), style.strokeShade());
-								PS_restore();
-							}
-							PS_show_xyG(style.font().replacementName(), glyph, 0, 0, style.fillColor(), style.fillShade());
-							if ((style.effects() & ScStyle_Outline))
-							{
-								if ((style.strokeColor() != CommonStrings::None) && ((tsz * style.outlineWidth() / 10000.0) != 0))
-								{
-									uint gl = style.font().char2CMap(chstr);
-									FPointArray gly = style.font().glyphOutline(gl);
-									QTransform chma;
-									chma.scale(tsz / 100.0, tsz / 100.0);
-									gly.map(chma);
-									PS_save();
-									PS_setlinewidth(tsz * style.outlineWidth() / 10000.0);
-									PS_translate(0,  tsz / 10.0);
-									SetColor(style.strokeColor(), style.strokeShade(), &h, &s, &v, &k);
-									PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
-									SetClipPath(&gly);
-									PS_closepath();
-									putColor(style.strokeColor(), style.strokeShade(), false);
-									PS_restore();
-								}
-							}
-						}
-						if ((style.effects() & ScStyle_Strikethrough) && (chstr != SpecialChars::PARSEP))
-						{
-							PS_save();
-							double Ulen = glyphs->xadvance;
-							double Upos, Uwid;
-							if ((style.strikethruOffset() != -1) || (style.strikethruWidth() != -1))
-							{
-								if (style.strikethruOffset() != -1)
-									Upos = (style.strikethruOffset() / 1000.0) * (style.font().ascent(style.fontSize() / 10.0));
-								else
-									Upos = style.font().strikeoutPos(style.fontSize() / 10.0);
-								if (style.strikethruWidth() != -1)
-									Uwid = (style.strikethruWidth() / 1000.0) * (style.fontSize() / 10.0);
-								else
-									Uwid = qMax(style.font().strokeWidth(style.fontSize() / 10.0), 1.0);
-							}
-							else
-							{
-								Upos = style.font().strikeoutPos(style.fontSize() / 10.0);
-								Uwid = qMax(style.font().strokeWidth(style.fontSize() / 10.0), 1.0);
-							}
-							if (style.baselineOffset() != 0)
-								Upos += (style.fontSize() / 10.0) * glyphs->scaleV * (style.baselineOffset() / 1000.0);
-							if (style.fillColor() != CommonStrings::None)
-							if (style.fillColor() != CommonStrings::None)
-							{
-								SetColor(style.fillColor(), style.fillShade(), &h, &s, &v, &k);
-								PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
-							}
-							PS_setlinewidth(Uwid);
-							PS_moveto(glyphs->xoffset     , Upos);
-							PS_lineto(glyphs->xoffset+Ulen, Upos);
-							putColor(style.fillColor(), style.fillShade(), false);
-							PS_restore();
-						}
-						PS_restore();
-					}
-				}
+				setTextSt(Doc, ite, PNr, mPage, sep, farb, true);
 				PS_restore();
 			}
 			if (!success)
@@ -5056,571 +4404,9 @@ void PSLib::SetColor(const ScColor& farb, double shade, int *h, int *s, int *v, 
  */
 void PSLib::setTextSt(ScribusDoc* Doc, PageItem* ite, uint argh, ScPage* pg, bool sep, bool farb, bool master)
 {
-//	qDebug() << QString("pslib setTextSt: ownPage=%1 pageNr=%2 OnMasterPage=%3;").arg(ite->OwnPage).arg(pg->pageNr()).arg(ite->OnMasterPage);
-	int tabCc = 0;
-	int savedOwnPage = ite->OwnPage;
-	double tabDist = ite->textToFrameDistLeft();
-	QList<ParagraphStyle::TabRecord> tTabValues;
-
-	ite->OwnPage = argh;
-	ite->layout();
-	ite->OwnPage = savedOwnPage;
-	if (ite->lineColor() != CommonStrings::None)
-		tabDist += ite->lineWidth() / 2.0;
-
-	uint llp = 0;
-	while (llp < ite->textLayout.lines())
-	{
-		LineSpec ls = ite->textLayout.line(llp++);
-		const ParagraphStyle& LineStyle = ite->itemText.paragraphStyle(ls.firstItem);
-		if (LineStyle.backgroundColor() != CommonStrings::None)
-		{
-			double y0 = ls.y;
-			double y2 = ls.y;
-			double ascent = ls.ascent;
-			double descent = ls.descent;
-			double rMarg = LineStyle.rightMargin();
-			double lMarg = ls.colLeft;
-			double adjX = 0;
-			if (LineStyle.firstIndent() <= 0)
-				adjX += LineStyle.leftMargin() + LineStyle.firstIndent();
-			while (llp < ite->textLayout.lines())
-			{
-				ls = ite->textLayout.line(llp);
-				if ((ls.colLeft > lMarg) || (ite->itemText.paragraphStyle(ls.firstItem) != LineStyle))
-				{
-					if (y2 == 0)
-						y2 = y0;
-					break;
-				}
-				if (ite->itemText.text(ls.lastItem) == SpecialChars::PARSEP)
-				{
-					y2 = ls.y;
-					descent = ls.descent;
-					if ((llp + 1) < ite->textLayout.lines())
-					{
-						if ((ite->textLayout.line(llp + 1).lastItem - ite->textLayout.line(llp + 1).firstItem) > 0)
-							descent += LineStyle.lineSpacing() - (ls.descent + ite->textLayout.line(llp + 1).ascent);
-					}
-					llp++;
-					break;
-				}
-				y2 = ls.y;
-				descent = ls.descent;
-				if ((llp + 1) < ite->textLayout.lines())
-					descent += LineStyle.lineSpacing() - (ls.descent + ite->textLayout.line(llp + 1).ascent);
-				llp++;
-			}
-			QRectF scr(lMarg + adjX, y0 - ascent, ite->asTextFrame()->columnWidth() - adjX - rMarg, y2 - y0 + descent + ascent);
-			PS_save();
-			SetPathAndClip(ite->PoLine, true);
-			int h, s, v, k;
-			SetColor(LineStyle.backgroundColor(), LineStyle.backgroundShade(), &h, &s, &v, &k);
-			PS_setcmykcolor_fill(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
-			PS_moveto(scr.x(), -scr.y());
-			PS_lineto(scr.x() + scr.width(), -scr.y());
-			PS_lineto(scr.x() + scr.width(), -scr.y() - scr.height());
-			PS_lineto(scr.x(), -scr.y() - scr.height());
-			PS_closepath();
-			putColor(LineStyle.backgroundColor(), LineStyle.backgroundShade(), true);
-			PS_restore();
-		}
-	}
-
-	for (uint ll=0; ll < ite->textLayout.lines(); ++ll)
-	{
-		LineSpec ls = ite->textLayout.line(ll);
-		tabDist = ls.x;
-		double CurX = ls.x;
-		double CurXB = ls.x;
-		QRectF scrG;
-		QString oldBack = "";
-		double oldShade = 100;
-		int last = qMin(ls.lastItem, ite->itemText.length() - 1);
-		for (int a = ls.firstItem; a <= last; ++a)
-		{
-			const GlyphLayout* glyphs(ite->itemText.getGlyphs(a));
-			const CharStyle& charStyle(ite->itemText.charStyle(a));
-			if (charStyle.backColor() != CommonStrings::None)
-			{
-			// This code is for rendering character background color.
-				int h, s, v, k;
-				SetColor(charStyle.backColor(), charStyle.backShade(), &h, &s, &v, &k);
-				PS_setcmykcolor_fill(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
-				const ParagraphStyle& LineStyle = ite->itemText.paragraphStyle(ls.firstItem);
-				double y1 = ls.y;
-				double hl = ls.height;
-				if (LineStyle.lineSpacingMode() == ParagraphStyle::BaselineGridLineSpacing)
-					hl = Doc->guidesPrefs().valueBaselineGrid;
-				else if (LineStyle.lineSpacingMode() == ParagraphStyle::FixedLineSpacing)
-					hl = LineStyle.lineSpacing();
-				if (ls.isFirstLine)
-				{
-					if (ite->textLayout.lines() == 1)
-						hl = ls.ascent + ls.descent;
-					if (LineStyle.hasDropCap() && (a == ls.firstItem))
-						hl *= LineStyle.dropCapLines();
-					if (LineStyle.lineSpacingMode() == ParagraphStyle::BaselineGridLineSpacing)
-						y1 -= LineStyle.lineSpacing();
-					else if (ite->firstLineOffset() == FLOPRealGlyphHeight || ite->firstLineOffset() == FLOPFontAscent)
-						y1 -= ls.ascent;
-					else
-						y1 -= LineStyle.lineSpacing();
-				}
-				else
-					y1 -= ls.ascent + (hl - (ls.ascent + ls.descent)) / 2.0;
-				QRectF scr;
-				if (ite->itemText.hasObject(a))
-				{
-					PageItem* obj = ite->itemText.object(a);
-					double ww = (obj->width() + obj->lineWidth()) * glyphs->scaleH;
-					double hh = (obj->height() + obj->lineWidth()) * glyphs->scaleV;
-					scr = QRectF(CurXB, ls.y - hh, ww , hh);
-				}
-				else
-					scr = QRectF(CurXB, y1, glyphs->wide(), hl);
-				if ((oldBack == "") || ((oldBack == charStyle.backColor()) && (oldShade == charStyle.backShade())))
-					scrG |= scr;
-				else if ((oldBack != charStyle.backColor()) || (oldShade != charStyle.backShade()))
-				{
-					PS_save();
-					PS_moveto(scrG.x(), -scrG.y());
-					PS_lineto(scrG.x() + scrG.width(), -scrG.y());
-					PS_lineto(scrG.x() + scrG.width(), -scrG.y() - scrG.height());
-					PS_lineto(scrG.x(), -scrG.y() - scrG.height());
-					PS_closepath();
-					SetColor(oldBack, oldShade, &h, &s, &v, &k);
-					PS_setcmykcolor_fill(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
-					putColor(oldBack, oldShade, true);
-					PS_restore();
-					scrG = scr;
-				}
-				oldBack = charStyle.backColor();
-				oldShade = charStyle.backShade();
-			}
-			else
-			{
-				if (!scrG.isNull())
-				{
-					PS_save();
-					PS_moveto(scrG.x(), -scrG.y());
-					PS_lineto(scrG.x() + scrG.width(), -scrG.y());
-					PS_lineto(scrG.x() + scrG.width(), -scrG.y() - scrG.height());
-					PS_lineto(scrG.x(), -scrG.y() - scrG.height());
-					PS_closepath();
-					putColor(oldBack, oldShade, true);
-					PS_restore();
-				}
-				oldBack = "";
-				oldShade = 100;
-				scrG = QRectF();
-			}
-			CurXB += glyphs->wide();
-		}
-		if (!scrG.isNull())
-		{
-			PS_save();
-			PS_moveto(scrG.x(), -scrG.y());
-			PS_lineto(scrG.x() + scrG.width(), -scrG.y());
-			PS_lineto(scrG.x() + scrG.width(), -scrG.y() - scrG.height());
-			PS_lineto(scrG.x(), -scrG.y() - scrG.height());
-			PS_closepath();
-			putColor(oldBack, oldShade, true);
-			PS_restore();
-		}
-
-		for (int d = ls.firstItem; d <= ls.lastItem; ++d)
-		{
-            //ScText *hl = ite->itemText.item_p(d);
-            QChar chr = ite->itemText.text(d);
-			const CharStyle & cstyle(ite->itemText.charStyle(d));
-			const ParagraphStyle& pstyle(ite->itemText.paragraphStyle(d));
-			const GlyphLayout* glyphs(ite->itemText.getGlyphs(d));
-            LayoutFlags flags = ite->itemText.flags(d);
-            
-//			if ((hl->ch == QChar(13)) || (hl->ch == QChar(10)) || (hl->ch == QChar(28)) || (hl->ch == QChar(27)) || (hl->ch == QChar(26)))
-//				continue;
-			if (flags & ScLayout_SuppressSpace)
-				continue;
-			tTabValues = pstyle.tabValues();
-			if (flags & ScLayout_StartOfLine)
-				tabCc = 0;
-			if ((chr == SpecialChars::TAB) && (tTabValues.count() != 0))
-			{
-				QChar tabFillChar;
-				const TabLayout* tabLayout = dynamic_cast<const TabLayout*>(glyphs->more);
-				if (tabLayout)
-					tabFillChar = tabLayout->fillChar;
-				if (!tabFillChar.isNull())
-				{
-					//ScText hl2;
-					//static_cast<CharStyle&>(hl2) = static_cast<const CharStyle&>(*hl);
-					const GlyphLayout * const gl = glyphs->more;
-					double scale = gl ? gl->scaleV : 1.0;
-					double wt    = cstyle.font().charWidth(tabFillChar, cstyle.fontSize() * scale / 10.0);
-					double len   = glyphs->xadvance;
-					int coun     = static_cast<int>(len / wt);
-					// JG - #6728 : update code according to fillInTabLeaders() and PageItem::layout()
-					double sPos  = 0.0 /*CurX - len + cstyle.fontSize() / 10.0 * 0.7 + 1*/;
-					//hl2.ch = tabFillChar;
-					//hl2.setTracking(0);
-					//hl2.setScaleH(1000);
-					//hl2.setScaleV(1000);
-					//hl2.glyph.glyph   = cstyle.font().char2CMap(tabFillChar);
-					//hl2.glyph.yoffset = glyphs->yoffset;
-                    
-                    GlyphLayout gl2 = *gl;
-                    gl2.glyph   = cstyle.font().char2CMap(tabFillChar);
-                    gl2.yoffset = glyphs->yoffset;
-                    
-                    CharStyle shadow(cstyle);
-                    shadow.setFillColor(cstyle.strokeColor());
-                    
-					for (int cx = 0; cx < coun; ++cx)
-					{
-						gl2.xoffset =  sPos + wt * cx;
-						if ((cstyle.effects() & ScStyle_Shadowed) && (cstyle.strokeColor() != CommonStrings::None))
-						{
-							//ScText hl3;
-							//static_cast<CharStyle&>(hl3) = static_cast<const CharStyle&>(hl2);
-							//hl3.ch = hl2.ch;
-							//hl3.glyph.glyph = hl2.glyph.glyph;
-							//hl3.setFillColor(hl2.strokeColor());
-							//hl3.glyph.yoffset = hl2.glyph.yoffset - (hl2.fontSize() * hl2.shadowYOffset() / 10000.0);
-							//hl3.glyph.xoffset = hl2.glyph.xoffset + (hl2.fontSize() * hl2.shadowXOffset() / 10000.0);
-							GlyphLayout gl3 = gl2;
-                            gl3.yoffset = gl2.yoffset - (cstyle.fontSize() * cstyle.shadowYOffset() / 10000.0);
-							gl3.xoffset = gl2.xoffset + (cstyle.fontSize() * cstyle.shadowXOffset() / 10000.0);
-							setTextCh(Doc, ite, CurX, ls.y, argh, d, tabFillChar, &gl3, shadow, pstyle, pg, sep, farb, master);
-						}
-						setTextCh(Doc, ite, CurX, ls.y, argh, d, tabFillChar, &gl2, cstyle, pstyle, pg, sep, farb, master);
-					}
-				}
-				tabCc++;
-			}
-			if (chr == SpecialChars::TAB) {
-				CurX += glyphs->wide();
-				continue;
-			}
-			if ((cstyle.effects() & ScStyle_Shadowed) && (cstyle.strokeColor() != CommonStrings::None))
-			{
-				const GlyphLayout *gl1 = glyphs;
-				GlyphLayout* gl2 = new GlyphLayout(*gl1);
-				GlyphLayout* gl3 = gl2; 
-				while (gl1->more)
-				{
-					gl2->more = new GlyphLayout(*gl1->more);
-					gl2->more->yoffset -= (cstyle.fontSize() * cstyle.shadowYOffset() / 10000.0);
-					gl2->more->xoffset += (cstyle.fontSize() * cstyle.shadowXOffset() / 10000.0);
-					gl2->more->more = NULL;
-					gl1 = gl1->more;
-					gl2 = gl2->more;
-				}
-				CharStyle shadowed(cstyle);
-				shadowed.setFillColor(cstyle.strokeColor());
-				shadowed.setFillShade(cstyle.strokeShade());
-				gl2->xadvance = glyphs->xadvance;
-				gl2->yadvance = glyphs->yadvance;
-				gl2->yoffset = glyphs->yoffset - (cstyle.fontSize() * cstyle.shadowYOffset() / 10000.0);
-				gl2->xoffset = glyphs->xoffset + (cstyle.fontSize() * cstyle.shadowXOffset() / 10000.0);
-				gl2->scaleH = glyphs->scaleH;
-				gl2->scaleV = glyphs->scaleV;
-				
-				setTextCh(Doc, ite, CurX, ls.y, argh, d, chr, gl2, shadowed, pstyle, pg, sep, farb, master);
-				
-				while (gl3->more) {
-					GlyphLayout* more = gl3->more;
-					gl3->more = gl3->more->more;
-					delete more;
-				}
-				delete gl3;
-			}
-			setTextCh(Doc, ite, CurX, ls.y, argh, d, chr, glyphs, cstyle, pstyle, pg, sep, farb, master);
-			// Unneeded now that glyph xadvance is set appropriately for inline objects by PageItem_TextFrame::layout() - JG
-			/*if (hl->ch == SpecialChars::OBJECT)
-			{
-				InlineFrame& embedded(const_cast<InlineFrame&>(hl->embedded));
-				CurX += (embedded.getItem()->gWidth + embedded.getItem()->lineWidth()) * glyphs->scaleH;
-			}
-			else*/
-			CurX += glyphs->wide();
-			tabDist = CurX;
-		}
-	}
-}
-
-void PSLib::setTextCh(ScribusDoc* Doc, PageItem* ite, double x, double y, uint argh, uint doh, QChar chstr, const GlyphLayout* glyphs, const CharStyle& cstyle, const ParagraphStyle& pstyle, ScPage* pg, bool sep, bool farb, bool master)
-{
-	//QChar chstr = hl->ch;
-	//const CharStyle & cstyle(*hl);
-	//const GlyphLayout* glyphs(&(hl->glyph));
-	uint glyph = glyphs->glyph;
-
-	int h, s, v, k;
-	double tsz;
-	double wideR = 0.0;
-	QVector<double> dum;
-	dum.clear();
-
-	tsz = cstyle.fontSize();
-
-/*	if (cstyle.effects() & ScStyle_DropCap)
-	{
-//		QString chstr; // dummy, FIXME: replace by glyph
-		if (pstyle.lineSpacingMode() == ParagraphStyle::BaselineGridLineSpacing)
-			tsz = qRound(10 * ((Doc->typographicSettings.valueBaseGrid *  (pstyle.dropCapLines()-1)+(cstyle.font().ascent(pstyle.charStyle().fontSize() / 10.0))) / (cstyle.font().realCharHeight(chstr, 10))));
-		else
-		{
-			if (pstyle.lineSpacingMode() == ParagraphStyle::FixedLineSpacing)
-				tsz = qRound(10 * ((pstyle.lineSpacing() *  (pstyle.dropCapLines()-1)+(cstyle.font().ascent(pstyle.charStyle().fontSize() / 10.0))) / (cstyle.font().realCharHeight(chstr, 10))));
-			else
-			{
-				double currasce = cstyle.font().height(pstyle.charStyle().fontSize());
-				tsz = qRound(10 * ((currasce * (pstyle.dropCapLines()-1)+(cstyle.font().ascent(pstyle.charStyle().fontSize() / 10.0))) / cstyle.font().realCharHeight(chstr, 10)));
-			}
-		}
-	}
-	*/
-	if (ite->itemText.hasObject(doh-1))
-	{
-		PageItem* embedded = ite->itemText.object(doh-1);
-		PS_save();
-		PS_translate(x + glyphs->xoffset + embedded->gXpos * (cstyle.scaleH() / 1000.0), (y + glyphs->yoffset - (embedded->gHeight * (cstyle.scaleV() / 1000.0)) + embedded->gYpos * (cstyle.scaleV() / 1000.0)) * -1);
-		if (doh == 0 || ite->itemText.text(doh-1) == SpecialChars::PARSEP)
-		{
-			if ((cstyle.baselineOffset() != 0) && (!pstyle.hasDropCap()))
-				PS_translate(0, embedded->gHeight * (cstyle.baselineOffset() / 1000.0));
-		}
-		else
-		{
-			if (cstyle.baselineOffset() != 0)
-				PS_translate(0, embedded->gHeight * (cstyle.baselineOffset() / 1000.0));
-		}
-		if (cstyle.scaleH() != 1000)
-			PS_scale(cstyle.scaleH() / 1000.0, 1);
-		if (cstyle.scaleV() != 1000)
-			PS_scale(1, cstyle.scaleV() / 1000.0);
-		ProcessItem(Doc, pg, embedded, argh, sep, farb, master, true);
-		PS_restore();
-		return;
-	}
-
-	if (glyph == (ScFace::CONTROL_GLYPHS + SpecialChars::NBSPACE.unicode()) ||
-		glyph == (ScFace::CONTROL_GLYPHS + 32)) 
-	{
-		glyph = cstyle.font().char2CMap(QChar(' '));
-		chstr = ' ';
-	}
-	else if (glyph == (ScFace::CONTROL_GLYPHS + SpecialChars::NBHYPHEN.unicode()))
-	{
-		glyph = cstyle.font().char2CMap(QChar('-'));
-		chstr = '-';
-	}
-	
-	if (glyph < ScFace::CONTROL_GLYPHS)
-	{
-		if (((cstyle.effects() & ScStyle_Underline) && !SpecialChars::isBreak(chstr)) //FIXME && (chstr != QChar(13)))  
-			|| ((cstyle.effects() & ScStyle_UnderlineWords) && !chstr.isSpace() && !SpecialChars::isBreak(chstr)))
-		{
-	//		double Ulen = cstyle.font().glyphWidth(glyph, cstyle.fontSize()) * glyphs->scaleH;
-			double Ulen = glyphs->xadvance;
-			double Upos, lw;
-			if ((cstyle.underlineOffset() != -1) || (cstyle.underlineWidth() != -1))
-			{
-				if (cstyle.underlineOffset() != -1)
-					Upos = (cstyle.underlineOffset() / 1000.0) * (cstyle.font().descent(cstyle.fontSize() / 10.0));
-				else
-					Upos = cstyle.font().underlinePos(cstyle.fontSize() / 10.0);
-				if (cstyle.underlineWidth() != -1)
-					lw = (cstyle.underlineWidth() / 1000.0) * (cstyle.fontSize() / 10.0);
-				else
-					lw = qMax(cstyle.font().strokeWidth(cstyle.fontSize() / 10.0), 1.0);
-			}
-			else
-			{
-				Upos = cstyle.font().underlinePos(cstyle.fontSize() / 10.0);
-				lw = qMax(cstyle.font().strokeWidth(cstyle.fontSize() / 10.0), 1.0);
-			}
-			if (cstyle.baselineOffset() != 0)
-				Upos += (cstyle.fontSize() / 10.0) * glyphs->scaleV * (cstyle.baselineOffset() / 1000.0);
-			if (cstyle.fillColor() != CommonStrings::None)
-			{
-				PS_setcapjoin(Qt::FlatCap, Qt::MiterJoin);
-				PS_setdash(Qt::SolidLine, 0, dum);
-				SetColor(cstyle.fillColor(), cstyle.fillShade(), &h, &s, &v, &k);
-				PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
-			}
-			PS_setlinewidth(lw);
-			if (cstyle.effects() & ScStyle_Subscript)
-			{
-				PS_moveto(x + glyphs->xoffset     , -y - glyphs->yoffset+Upos);
-				PS_lineto(x + glyphs->xoffset+Ulen, -y - glyphs->yoffset+Upos);
-			}
-			else
-			{
-				PS_moveto(x + glyphs->xoffset     , -y + Upos);
-				PS_lineto(x + glyphs->xoffset+Ulen, -y + Upos);
-			}
-			putColor(cstyle.fillColor(), cstyle.fillShade(), false);
-		}
-		/* Subset all TTF Fonts until the bug in the TTF-Embedding Code is fixed */
-		if (FontSubsetMap.contains(cstyle.font().scName()))
-		{
-			if (glyph != 0 && glyph != cstyle.font().char2CMap(QChar(' ')) && (!SpecialChars::isBreak(chstr)))
-			{
-				PS_save();
-				if (ite->reversed())
-				{
-					PS_translate(x + glyphs->xoffset, (y + glyphs->yoffset - (tsz / 10.0)) * -1);
-					PS_scale(-1, 1);
-					PS_translate(-glyphs->xadvance, 0);
-				}
-				else
-					PS_translate(x + glyphs->xoffset, (y + glyphs->yoffset - (cstyle.fontSize() / 10.0)) * -1);
-				if (cstyle.baselineOffset() != 0)
-					PS_translate(0, (cstyle.fontSize() / 10.0) * (cstyle.baselineOffset() / 1000.0));
-				if (glyphs->scaleH != 1.0)
-					PS_scale(glyphs->scaleH, 1);
-				if (glyphs->scaleV != 1.0)
-				{
-					PS_translate(0, -((tsz / 10.0) - (tsz / 10.0) * (glyphs->scaleV)));
-					PS_scale(1, glyphs->scaleV);
-				}
-				if (cstyle.fillColor() != CommonStrings::None)
-				{
-					putColorNoDraw(cstyle.fillColor(), cstyle.fillShade());
-					PS_showSub(glyph, FontSubsetMap[cstyle.font().scName()], tsz / 10.0, false);
-				}
-				PS_restore();
-			}
-		}
-		else if (glyph != 0)
-		{
-			PS_selectfont(cstyle.font().replacementName(), tsz / 10.0);
-			PS_save();
-			PS_translate(x + glyphs->xoffset, -y - glyphs->yoffset);
-			if (ite->reversed())
-			{
-				PS_scale(-1, 1);
-				PS_translate(glyphs->xadvance, 0);
-			}
-			if (cstyle.baselineOffset() != 0)
-				PS_translate(0, (cstyle.fontSize() / 10.0) * (cstyle.baselineOffset() / 1000.0));
-			if (glyphs->scaleH != 1.0 || glyphs->scaleV != 1.0)
-				PS_scale(glyphs->scaleH, glyphs->scaleV);
-			if (cstyle.fillColor() != CommonStrings::None)
-			{
-				PS_show_xyG(cstyle.font().replacementName(), glyph, 0, 0, cstyle.fillColor(), cstyle.fillShade());
-			}
-			PS_restore();
-		}
-		if ((cstyle.effects() & ScStyle_Outline) || glyph == 0)//&& (chstr != QChar(13)))
-		{
-//		if (cstyle.font().canRender(chstr))
-			{
-				FPointArray gly = cstyle.font().glyphOutline(glyph);
-				QTransform chma, chma2, chma3;
-				chma.scale(tsz / 100.0, tsz / 100.0);
-				chma2.scale(glyphs->scaleH, glyphs->scaleV);
-				if (cstyle.baselineOffset() != 0)
-					chma3.translate(0, -(cstyle.fontSize() / 10.0) * (cstyle.baselineOffset() / 1000.0));
-				gly.map(chma * chma2 * chma3);
-				if (ite->reversed())
-				{
-					chma = QTransform();
-					chma.scale(-1, 1);
-					chma.translate(wideR, 0);
-					gly.map(chma);
-				}
-				if ((cstyle.strokeColor() != CommonStrings::None) && ((tsz * cstyle.outlineWidth() / 10000.0) != 0))
-				{
-					PS_save();
-					PS_setlinewidth(tsz * cstyle.outlineWidth() / 10000.0);
-					PS_setcapjoin(Qt::FlatCap, Qt::MiterJoin);
-					PS_setdash(Qt::SolidLine, 0, dum);
-					PS_translate(x + glyphs->xoffset, (y + glyphs->yoffset - (tsz / 10.0)) * -1);
-					PS_translate(0, -((tsz / 10.0) - (tsz / 10.0) * glyphs->scaleV));
-					SetColor(cstyle.strokeColor(), cstyle.strokeShade(), &h, &s, &v, &k);
-					PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
-					SetClipPath(&gly);
-					PS_closepath();
-					putColor(cstyle.strokeColor(), cstyle.strokeShade(), false);
-					PS_restore();
-				}
-			}
-		}
-		if ((cstyle.effects() & ScStyle_Strikethrough))//&& (chstr != QChar(13)))
-		{
-			//		double Ulen = cstyle.font().glyphWidth(glyph, cstyle.fontSize()) * glyphs->scaleH;
-			double Ulen = glyphs->xadvance;
-			double Upos, lw;
-			if ((cstyle.strikethruOffset() != -1) || (cstyle.strikethruWidth() != -1))
-			{
-				if (cstyle.strikethruOffset() != -1)
-					Upos = (cstyle.strikethruOffset() / 1000.0) * (cstyle.font().ascent(cstyle.fontSize() / 10.0));
-				else
-					Upos = cstyle.font().strikeoutPos(cstyle.fontSize() / 10.0);
-				if (cstyle.strikethruWidth() != -1)
-					lw = (cstyle.strikethruWidth() / 1000.0) * (cstyle.fontSize() / 10.0);
-				else
-					lw = qMax(cstyle.font().strokeWidth(cstyle.fontSize() / 10.0), 1.0);
-			}
-			else
-			{
-				Upos = cstyle.font().strikeoutPos(cstyle.fontSize() / 10.0);
-				lw = qMax(cstyle.font().strokeWidth(cstyle.fontSize() / 10.0), 1.0);
-			}
-			if (cstyle.baselineOffset() != 0)
-				Upos += (cstyle.fontSize() / 10.0) * glyphs->scaleV * (cstyle.baselineOffset() / 1000.0);
-			if (cstyle.fillColor() != CommonStrings::None)
-			{
-				PS_setcapjoin(Qt::FlatCap, Qt::MiterJoin);
-				PS_setdash(Qt::SolidLine, 0, dum);
-				SetColor(cstyle.fillColor(), cstyle.fillShade(), &h, &s, &v, &k);
-				PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
-			}
-			PS_setlinewidth(lw);
-			PS_moveto(x + glyphs->xoffset     , -y-glyphs->yoffset+Upos);
-			PS_lineto(x + glyphs->xoffset+Ulen, -y-glyphs->yoffset+Upos);
-			putColor(cstyle.fillColor(), cstyle.fillShade(), false);
-		}
-	}
-	if (glyphs->more) {
-		//// ugly hack until setTextCh interface is changed
-		//ScText hl2(*hl);
-		//hl2.glyph = *glyphs->more;
-		setTextCh(Doc, ite, x + glyphs->xadvance, y, argh, doh, chstr, glyphs->more, cstyle, pstyle, pg, sep, farb, master);
-		//// don't let hl2's destructor delete these!
-		//hl2.glyph.more = 0;
-	}
-/*	if (cstyle.effects() & ScStyle_SoftHyphenVisible)
-	{
-		int chs = cstyle.fontSize();
-//		double wide = cstyle.font().charWidth(chstr, chs) * (cstyle.scaleH() / 1000.0);
-//		chstr = '-';
-//		if (cstyle.font().canRender(chstr))
-		{
-			FPointArray gly = cstyle.font().glyphOutline(glyph);
-			QTransform chma;
-			chma.scale(tsz / 100.0, tsz / 100.0);
-			gly.map(chma);
-			chma = QTransform();
-			chma.scale(glyphs->scaleH, glyphs->scaleV);
-			gly.map(chma);
-			if (cstyle.fillColor() != CommonStrings::None)
-			{
-				PS_save();
-				PS_newpath();
-				PS_translate(x + glyphs->xoffset + glyphs->xadvance, (y + glyphs->yoffset - (tsz / 10.0)) * -1);
-				SetColor(cstyle.fillColor(), cstyle.fillShade(), &h, &s, &v, &k);
-				PS_setcmykcolor_fill(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
-				SetClipPath(&gly);
-				PS_closepath();
-				putColor(cstyle.fillColor(), cstyle.fillShade(), true);
-				PS_restore();
-			}
-		}
-	}*/
+	PSPainter p(Doc, argh, pg, sep, farb, master, this);
+	ite->textLayout.renderBackground(&p);
+	ite->textLayout.render(&p);
 }
 
 void PSLib::putColor(const QString& colorName, double shade, bool fill)

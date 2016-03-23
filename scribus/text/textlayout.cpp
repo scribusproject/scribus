@@ -23,6 +23,8 @@
 #include "specialchars.h"
 #include "storytext.h"
 #include "textlayout.h"
+#include "textlayoutpainter.h"
+#include "boxes.h"
 
 
 
@@ -32,22 +34,49 @@ TextLayout::TextLayout(StoryText* text, PageItem* frame)
 	m_story = text;
 	m_frame = frame;
 
-	m_firstInFrame = 0;
-	m_lastInFrame = -1;
 	m_validLayout = false;
 	m_magicX = 0.0;
 	m_lastMagicPos = -1;
+
+	m_box = new GroupBox(Box::D_Horizontal);
 }
 
+TextLayout::~TextLayout()
+{
+	delete m_box;
+}
 
 uint TextLayout::lines() const
 {
-	return m_lines.count();
+	uint count = 0;
+	foreach (const Box *box, m_box->boxes())
+	{
+		count += box->boxes().count();
+	}
+	return count;
 }
 
-const LineSpec& TextLayout::line(uint i) const
+const LineBox* TextLayout::line(uint i) const
 {
-	return m_lines[i];
+	uint count = 0;
+	foreach (const Box *box, m_box->boxes())
+	{
+		if (i < count + box->boxes().count())
+			return dynamic_cast<const LineBox*>(box->boxes()[i - count]);
+		count += box->boxes().count();
+	}
+	assert(false);
+	return NULL;
+}
+
+const Box* TextLayout::box() const
+{
+	return m_box;
+}
+
+Box* TextLayout::box()
+{
+	return m_box;
 }
 
 const PathData& TextLayout::point(int pos) const
@@ -63,45 +92,73 @@ PathData& TextLayout::point(int pos)
 }
 
 
-void TextLayout::appendLine(const LineSpec& ls)
-	{ 
-		assert( ls.firstItem >= 0 );
-		assert( ls.firstItem < story()->length() );
-		assert( ls.lastItem >= 0 && ls.firstItem - ls.lastItem < 1 );
-		assert( ls.lastItem < story()->length() );
-		m_lines.append(ls);
-		if (m_lastInFrame < m_firstInFrame) {
-			m_firstInFrame = ls.firstItem;
-			m_lastInFrame = ls.lastItem;
-		}
-		else {
-			m_firstInFrame = qMin(m_firstInFrame, ls.firstItem);
-			m_lastInFrame = qMax(m_lastInFrame, ls.lastItem);
-		}
-	}
+void TextLayout::appendLine(LineBox* ls)
+{
+	assert( ls->firstChar() >= 0 );
+	assert( ls->firstChar() < story()->length() );
+	assert( ls->lastChar() < story()->length() );
+
+	// HACK: the ascent set by PageItem_TextFrame::layout()
+	// is useless, we reset it again based on the y position
+	ls->setAscent(ls->y() - m_box->boxes().last()->naturalHeight());
+	dynamic_cast<GroupBox*>(m_box->boxes().last())->addBox(ls);
+}
 
 // Remove the last line from the list. Used when we need to backtrack on the layouting.
 void TextLayout::removeLastLine ()
 {
-	if (m_lines.isEmpty()) return;
-	LineSpec last = m_lines.takeLast ();
-	if (m_lines.isEmpty()) {
-		clear();
-		return;
-	}
-	// fix lastFrameItem
-	if (m_lastInFrame != last.lastItem) return;
-	m_lastInFrame = m_lines.last().lastItem;
+	m_box->removeBox(m_box->boxes().count() - 1);
 }
 
+void TextLayout::render(TextLayoutPainter *p, PageItem *item)
+{
+	p->save();
+	m_box->render(p, item);
+	p->restore();
+}
 
+void TextLayout::renderBackground(TextLayoutPainter *p)
+{
+	foreach (const Box* column, m_box->boxes())
+	{
+		const ParagraphStyle& style = m_story->paragraphStyle(column->firstChar());
+		if (style.backgroundColor() != CommonStrings::None)
+		{
+			p->save();
+			TextLayoutColor backColor(style.backgroundColor(), style.backgroundShade());
+			p->setFillColor(backColor);
+			p->setStrokeColor(backColor);
+			p->drawRect(column->bbox());
+			p->restore();
+		}
+	}
+}
+
+void TextLayout::render(TextLayoutPainter *p)
+{
+	p->save();
+	m_box->render(p);
+	p->restore();
+}
+
+void TextLayout::addColumn(double colLeft, double colWidth)
+{
+	GroupBox *newBox = new GroupBox(Box::D_Vertical);
+	newBox->moveTo(colLeft, 0.0);
+	newBox->setWidth(colWidth);
+	newBox->setAscent(m_frame->height());
+	m_box->addBox(newBox);
+
+	// Update the box width and height, any better place to do this?
+	m_box->setAscent(m_frame->height());
+	m_box->setWidth(m_frame->width());
+}
 
 void TextLayout::clear() 
 {
-	m_lines.clear();
+	delete m_box;
+	m_box = new GroupBox(Box::D_Horizontal);
 	m_path.clear();
-	m_firstInFrame = 0;
-	m_lastInFrame = -1;
 	if (m_frame->asPathText() != NULL)
 		m_path.resize(story()->length());
 }
@@ -114,198 +171,154 @@ void TextLayout::setStory(StoryText *story)
 
 int TextLayout::startOfLine(int pos) const
 {
-	for (int i=0; i < m_lines.count(); ++i) {
-		const LineSpec & ls(m_lines.at(i));
-		if (ls.firstItem <= pos && pos <= ls.lastItem)
-			return ls.firstItem;
+	for (uint i=0; i < lines(); ++i) {
+		const LineBox* ls = line(i);
+		if (ls->firstChar() <= pos && pos <= ls->lastChar())
+			return ls->firstChar();
 	}
 	return 0;
 }
 
 int TextLayout::endOfLine(int pos) const
 {
-	for (int i=0; i < m_lines.count(); ++i) {
-		const LineSpec & ls(m_lines.at(i));
-		if (ls.firstItem <= pos && pos <= ls.lastItem)
-			return story()->text(ls.lastItem) == SpecialChars::PARSEP ? ls.lastItem :
-				story()->text(ls.lastItem) == ' ' ? ls.lastItem : ls.lastItem + 1;
+	for (uint i=0; i < lines(); ++i) {
+		const LineBox* ls = line(i);
+		if (ls->containsPos(pos))
+			return story()->text(ls->lastChar()) == SpecialChars::PARSEP ? ls->lastChar() :
+				story()->text(ls->lastChar()) == ' ' ? ls->lastChar() : ls->lastChar() + 1;
 	}
 	return story()->length();
 }
 
 int TextLayout::prevLine(int pos) const
 {
-	for (int i=0; i < m_lines.count(); ++i)
+	for (uint i=0; i < lines(); ++i)
 	{
 		// find line for pos
-		const LineSpec & ls(m_lines.at(i));
-		if (ls.firstItem <= pos && pos <= ls.lastItem)
+		const LineBox* ls = line(i);
+		if (ls->containsPos(pos))
 		{
 			if (i == 0)
 				return startOfLine(pos);
 			// find current xpos
-			qreal xpos = 0.0;
-			for (int j = ls.firstItem; j < pos; ++j)
-				xpos += story()->getGlyphs(j)->wide();
+			qreal xpos = ls->positionToPoint(pos).x1();
 			if (pos != m_lastMagicPos || xpos > m_magicX)
 				m_magicX = xpos;
-			const LineSpec & ls2(m_lines.at(i-1));
+
+			const LineBox* ls2 = line(i-1);
 			// find new cpos
-			xpos = 0.0;
-			for (int j = ls2.firstItem; j <= ls2.lastItem; ++j)
+			for (int j = ls2->firstChar(); j <= ls2->lastChar(); ++j)
 			{
-				xpos += story()->getGlyphs(j)->wide();
+				xpos = ls2->positionToPoint(j).x1();
 				if (xpos > m_magicX) {
 					m_lastMagicPos = j;
 					return j;
 				}
 			}
-			m_lastMagicPos = ls2.lastItem;
-			return ls2.lastItem;
+			m_lastMagicPos = ls2->lastChar();
+			return ls2->lastChar();
 		}
 	}
-	return m_firstInFrame;
+	return m_box->firstChar();
 }
 
 int TextLayout::nextLine(int pos) const
 {
-	for (int i=0; i < m_lines.count(); ++i)
+	for (uint i=0; i < lines(); ++i)
 	{
 		// find line for pos
-		const LineSpec & ls(m_lines.at(i));
-		if (ls.firstItem <= pos && pos <= ls.lastItem)
+		const LineBox* ls = line(i);
+		if (ls->containsPos(pos))
 		{
-			if (i+1 == m_lines.count())
+			if (i+1 == lines())
 				return endOfLine(pos);
 			// find current xpos
-			qreal xpos = 0.0;
-			for (int j = ls.firstItem; j < pos; ++j)
-				xpos += story()->getGlyphs(j)->wide();
+			qreal xpos = ls->positionToPoint(pos).x1();
+
 			if (pos != m_lastMagicPos || xpos > m_magicX)
 				m_magicX = xpos;
-			const LineSpec & ls2(m_lines.at(i+1));
+
+			const LineBox* ls2 = line(i+1);
 			// find new cpos
-			xpos = 0.0;
-			for (int j = ls2.firstItem; j <= ls2.lastItem; ++j)
+			for (int j = ls2->firstChar(); j <= ls2->lastChar(); ++j)
 			{
-				xpos += story()->getGlyphs(j)->wide();
+				xpos = ls2->positionToPoint(j).x1();
 				if (xpos > m_magicX) {
 					m_lastMagicPos = j;
 					return j;
 				}
 			}
-			m_lastMagicPos = ls2.lastItem + 1;
-			return ls2.lastItem + 1;
+			m_lastMagicPos = ls2->lastChar() + 1;
+			return ls2->lastChar() + 1;
 		}
 	}
-	return m_lastInFrame;
+	return m_box->lastChar();
 }
 
 int TextLayout::startOfFrame() const
 {
-	return m_firstInFrame;
+	return m_box->firstChar();
 }
 
 int TextLayout::endOfFrame() const
 {
-	return m_lastInFrame + 1;
+	return m_box->lastChar() + 1;
 }
 
 
-int TextLayout::screenToPosition(FPoint coord) const
+int TextLayout::pointToPosition(QPointF coord) const
 {
-	qreal maxx = coord.x() - 1.0;
-	for (unsigned int i=0; i < lines(); ++i)
+	int position = m_box->pointToPosition(coord);
+	if (position == m_box->lastChar())
+		position += 1;
+	return position;
+}
+
+
+QLineF TextLayout::positionToPoint(int pos) const
+{
+	QLineF result;
+
+	result = m_box->positionToPoint(pos);
+	if (result.isNull())
 	{
-		LineSpec ls = line(i);
-//		qDebug() << QString("screenToPosition: (%1,%2) -> y %3 - %4 + %5").arg(coord.x()).arg(coord.y()).arg(ls.y).arg(ls.ascent).arg(ls.descent);
-		if (ls.y + ls.descent < coord.y())
-			continue;
-		qreal xpos = ls.x;
-		for (int j = ls.firstItem; j <= ls.lastItem; ++j)
+		qreal x, y1, y2;
+		if (lines() > 0)
 		{
-//				qDebug() << QString("screenToPosition: (%1,%2) -> x %3 + %4").arg(coord.x()).arg(coord.y()).arg(xpos).arg(item(j)->glyph.wide());
-			qreal width = story()->getGlyphs(j)->wide();
-			xpos += width;
-			if (xpos >= coord.x())
+			// TODO: move this branch to GroupBox::positionToPoint()
+			// last glyph box in last line
+			Box* column = m_box->boxes().last();
+			Box* line = column->boxes().last();
+			Box* glyph = line->boxes().last();
+			QChar ch = story()->text(glyph->lastChar());
+			if (ch == SpecialChars::PARSEP || ch == SpecialChars::LINEBREAK)
 			{
-				if (story()->hasObject(j))
-					return j;
-				else
-					return xpos - width/2 > coord.x() ? j : j+1;
+				// last character is a newline, draw the cursor on the next line.
+				x = 1;
+				y1 = line->y() + line->height();
+				y2 = y1 + line->height();
 			}
+			else
+			{
+				// draw the cursor at the end of last line.
+				x = line->x() + glyph->x() + glyph->width();
+				y1 = line->y();
+				y2 = y1 + line->height();
+			}
+			result.setLine(x, y1, x, y2);
+			result.translate(column->x(), column->y());
 		}
-		if (xpos > maxx)
-			maxx = xpos;
-		if (xpos + 1.0 > coord.x()) // allow 1pt after end of line
-			return ls.lastItem + 1;
-		else if (coord.x() <= ls.x + ls.width) // last line of paragraph?
-			return ((ls.lastItem == m_lastInFrame) ? (ls.lastItem + 1) : ls.lastItem);
-		else if (xpos < ls.x + 0.01 && maxx >= coord.x()) // check for empty line
-			return ls.firstItem;
-	}
-	return qMax(m_lastInFrame+1, m_firstInFrame);
-}
-
-
-FRect TextLayout::boundingBox(int pos, uint len) const
-{
-	FRect result;
-	LineSpec ls;
-	for (uint i=0; i < lines(); ++i)
-	{
-		ls = line(i);
-		if (ls.lastItem < pos)
-			continue;
-		if (ls.firstItem <= pos) {
-			/*
-			//if (ls.lastItem == pos && (item(pos)->effects() & ScLayout_SuppressSpace)  )
-			{
-				if (i+1 < lines())
-				{
-					ls = line(i+1);
-					result.setRect(ls.x, ls.y - ls.ascent, 1, ls.ascent + ls.descent);
-				}
-				else
-				{
-					ls = line(lines()-1);
-					const ParagraphStyle& pstyle(paragraphStyle(pos));
-					result.setRect(ls.x, ls.y + pstyle.lineSpacing() - ls.ascent, 1, ls.ascent + ls.descent);
-				}
-			}
-			else */
-			{
-				qreal xpos = ls.x;
-				for (int j = ls.firstItem; j < pos; ++j)
-				{
-					if (story()->hasObject(j))
-						xpos += (story()->object(j)->width() + story()->object(j)->lineWidth()) * story()->getGlyphs(j)->scaleH;
-					else
-						xpos += story()->getGlyphs(j)->wide();
-				}
-				qreal finalw = 1;
-				if (story()->hasObject(pos))
-					finalw = (story()->object(pos)->width() + story()->object(pos)->lineWidth()) * story()->getGlyphs(pos)->scaleH;
-				else
-					finalw = story()->getGlyphs(pos)->wide();
-				const CharStyle& cs(story()->charStyle(pos));
-				qreal desc = -cs.font().descent(cs.fontSize() / 10.0);
-				qreal asce = cs.font().ascent(cs.fontSize() / 10.0);
-				result.setRect(xpos, ls.y - asce, pos < story()->length()? finalw : 1, desc+asce);
-			}
-			return result;
+		else
+		{
+			// rather the trailing style than a segfault.
+			const ParagraphStyle& pstyle(story()->paragraphStyle(qMin(pos, story()->length())));
+			x = 1;
+			y1 = 0;
+			y2 = pstyle.lineSpacing();
+			result.setLine(x, y1, x, y2);
 		}
+		result.translate(m_box->x(), m_box->y());
 	}
-	const ParagraphStyle& pstyle(story()->paragraphStyle(qMin(pos, story()->length()))); // rather the trailing style than a segfault.
-	if (lines() > 0)
-	{
-		ls = line(lines()-1);
-		result.setRect(ls.x, ls.y + pstyle.lineSpacing() - ls.ascent, 1, ls.ascent + ls.descent);
-	}
-	else
-	{
-		result.setRect(1, 1, 1, pstyle.lineSpacing());
-	}
+
 	return result;
 }
-

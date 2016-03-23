@@ -1016,141 +1016,21 @@ void CanvasMode::commonDrawControls(QPainter* p, bool drawHandles)
 
 void CanvasMode::commonDrawTextCursor(QPainter* p, PageItem_TextFrame* textframe, const QPointF& offset)
 {
-	double dx, dy, dy1;
+	QLineF cursor;
 	QPen cPen ( Qt::black, 0.9 , Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin );
 
 	// normalize Current Position
 	textframe->itemText.normalizeCursorPosition();
 	int textCursorPos ( textframe->itemText.cursorPosition() );
+	cursor = textframe->textLayout.positionToPoint(textCursorPos);
 
-	if ( textframe->lastInFrame() >= textframe->itemText.length()
-		 || textframe->itemText.length() == 0 )
-	{
-		dx = textframe->textToFrameDistLeft();
-		dy = textframe->textToFrameDistTop();
-		dy1 = textframe->textToFrameDistTop() + (textframe->itemText.defaultStyle().charStyle().fontSize() / 10.0);
+	cPen.setColor(ScColorEngine::getRGBColor(m_doc->PageColors[textframe->itemText.charStyle(textCursorPos).fillColor()], m_doc));
 
-		cPen.setColor ( ScColorEngine::getRGBColor ( m_doc->PageColors[textframe->itemText.defaultStyle().charStyle().fillColor() ], m_doc ) );
-	}
-	else if ( textCursorPos > textframe->lastInFrame() )
-	{
-		// Happens often when typing directly into frame.
-		// And the cursor curses nothing, vertigo.
-		textCursorPos = qMax(0, textframe->lastInFrame());
-		QChar textCursorChar = textframe->itemText.text(textCursorPos);
-		if (textCursorChar == SpecialChars::PARSEP || textCursorChar == SpecialChars::LINEBREAK)
-		{
-			// The cursor must be moved to the beginning of the next line
-			FRect bbox = textframe->textLayout.boundingBox ( textCursorPos );
-			double lineSpacing(textframe->itemText.paragraphStyle(textCursorPos).lineSpacing());
-
-			// take care if cursor is not in first column
-			int curCol(1);
-			double ccPos(textframe->textLayout.boundingBox ( textCursorPos ).x());
-			double leftOffset(textframe->textToFrameDistLeft());
-			for(int ci(1); ci <= textframe->columns(); ++ci)
-			{
-				double cLeft(((ci-1) * textframe->columnWidth()) + ((ci -1) * textframe->columnGap()) + leftOffset);
-				double cRight((ci * textframe->columnWidth()) + ((ci -1) * textframe->columnGap()) + leftOffset);
-				if((cLeft <= ccPos) && (ccPos <= cRight))
-				{
-					curCol = ci;
-					break;
-				}
-			}
-			dx = (textframe->columnWidth() * (curCol - 1)) + (textframe->columnGap() * (curCol - 1))  + leftOffset;
-			dy = bbox.y();
-
-			if ( bbox.height() <= 2 )
-				dy1 = bbox.y() + textframe->itemText.charStyle ( textCursorPos ).fontSize() / 30.0;
-			else
-				dy1 = bbox.y() + bbox.height();
-
-			dy  += lineSpacing;
-			dy1 += lineSpacing;
-		}
-		else if (textCursorChar == SpecialChars::COLBREAK)
-		{
-			// A bit tricky :)
-			// We want to position the cursor at the beginning of the next column, if any.
-			// At first we need to know in which column the cursor is.
-			int curCol(1);
-			double ccPos(textframe->textLayout.boundingBox ( textCursorPos ).x());
-			double leftOffset(textframe->textToFrameDistLeft());
-			for(int ci(1); ci <= textframe->columns(); ++ci)
-			{
-				double cLeft(((ci-1) * textframe->columnWidth()) + ((ci -1) * textframe->columnGap()) + leftOffset);
-				double cRight((ci * textframe->columnWidth()) + ((ci -1) * textframe->columnGap()) + leftOffset);
-				if((cLeft <= ccPos) && (ccPos <= cRight))
-				{
-					curCol = ci;
-					break;
-				}
-			}
-			if(textframe->columns() > curCol)
-			{
-				dx = (textframe->columnWidth() * curCol) + (textframe->columnGap() * curCol)  + leftOffset;
-				dy = textframe->textToFrameDistTop();
-				dy1 = textframe->textToFrameDistTop() + textframe->textLayout.boundingBox ( textCursorPos ).height();
-			}
-			else // there is no column after the current column
-			{
-				FRect bbox = textframe->textLayout.boundingBox ( textCursorPos );
-				dx = bbox.x();
-				dy = bbox.y();
-                dx += textframe->itemText.getGlyphs(textCursorPos)->wide();
-				if ( bbox.height() <= 2 )
-					dy1 = bbox.y() + textframe->itemText.charStyle ( textCursorPos ).fontSize() / 30.0;
-				else
-					dy1 = bbox.y() + bbox.height();
-			}
-		}
-		else
-		{
-			FRect bbox = textframe->textLayout.boundingBox ( textCursorPos );
-			dx = bbox.x();
-			dy = bbox.y();
-            dx += textframe->itemText.getGlyphs(textCursorPos)->wide();
-			if ( bbox.height() <= 2 )
-				dy1 = bbox.y() + textframe->itemText.charStyle ( textCursorPos ).fontSize() / 30.0;
-			else
-				dy1 = bbox.y() + bbox.height();
-
-		}
-		cPen.setColor ( ScColorEngine::getRGBColor ( m_doc->PageColors[textframe->itemText.charStyle ( textCursorPos ).fillColor() ], m_doc ) );
-	}
-	else
-	{
-		FRect bbox = textframe->textLayout.boundingBox ( textCursorPos );
-		dx = bbox.x();
-		dy = bbox.y();
-		if ( bbox.height() <= 2 )
-			dy1 = bbox.y() + textframe->itemText.charStyle ( textCursorPos ).fontSize() / 30.0;
-		else
-			dy1 = bbox.y() + bbox.height();
-
-		cPen.setColor ( ScColorEngine::getRGBColor ( m_doc->PageColors[textframe->itemText.charStyle ( textCursorPos ).fillColor() ], m_doc ) );
-	}
-	//handle Right to Left writing
-	if (textframe->imageFlippedH())
-		dx = textframe->width() - dx;
-	if (textframe->imageFlippedV())
-	{
-		dy  = textframe->height() - dy;
-		dy1 = textframe->height() - dy1;
-	}
 	p->save();
 	p->setTransform(textframe->getTransform(), true);
 	p->setPen ( cPen );
 	p->setRenderHint ( QPainter::Antialiasing, true );
-	// avoid displaying the cursor on the frameborder
-	dx = qMax ( ( cPen.widthF() / 2.0 ), dx );
-
-	dy =  qMin ( qMax ( dy,0.0 ) , textframe->height() );
-	dy1 = qMin ( qMax ( dy1,0.0 ), textframe->height() );
-
-	p->drawLine ( QLineF ( dx,dy,dx,dy1 ).translated(offset) );
-
+	p->drawLine(cursor.translated(offset));
 	p->restore();
 }
 

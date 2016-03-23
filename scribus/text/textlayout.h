@@ -26,22 +26,10 @@
 #include "sctextstruct.h"
 
 class StoryText;
-
-struct LineSpec
-{
-	qreal x;
-	qreal y;
-	qreal width;
-	qreal ascent;
-	qreal descent;
-	qreal colLeft;
-
-	int firstItem;
-	int lastItem;
-	qreal naturalWidth;
-	bool isFirstLine;
-	qreal height;
-};
+class Box;
+class GroupBox;
+class LineBox;
+class TextLayoutPainter;
 
 struct PathData
 {
@@ -61,13 +49,16 @@ class SCRIBUS_API TextLayout
 {
 public:
 	TextLayout(StoryText* text, PageItem* frame);
+	~TextLayout();
 
 	bool overflows() const;
 	
 	StoryText* story() { return m_story; }
 	const StoryText* story() const { return m_story; }
 	void setStory(StoryText* story);
-
+	void render(TextLayoutPainter *p, PageItem *item);
+	void render(TextLayoutPainter *p);
+	void renderBackground(TextLayoutPainter *p);
 	int startOfLine(int pos) const;
 	int endOfLine(int pos) const;
 	int prevLine(int pos) const;
@@ -75,17 +66,20 @@ public:
 	int startOfFrame() const;
 	int endOfFrame() const;
 
-	int screenToPosition(FPoint coord) const;
- 	FRect boundingBox(int pos, uint len = 1) const;
+	int pointToPosition(QPointF coord) const;
+	QLineF positionToPoint(int pos) const;
 
 	uint lines() const;
 	
-	const LineSpec& line(uint i) const;
+	const LineBox*  line(uint i) const;
+	const Box* box() const;
+	Box* box();
 	const PathData& point(int pos) const;
 	PathData& point(int pos);
 
-	void appendLine(const LineSpec& ls);
+	void appendLine(LineBox* ls);
 	void removeLastLine ();
+	void addColumn(double colLeft, double colWidth);
 
 	void clear();
 
@@ -94,10 +88,8 @@ protected:
 	
 	StoryText* m_story;
     PageItem* m_frame;
+	GroupBox* m_box;
 	
-    int m_firstInFrame;
-	int m_lastInFrame;
-	QList<LineSpec> m_lines;
 	QVector<PathData> m_path;
 	bool m_validLayout;
 	mutable qreal m_magicX;

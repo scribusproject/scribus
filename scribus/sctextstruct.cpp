@@ -13,22 +13,19 @@ for which a new license (GPL+exception) is in place.
 #include "pageitem.h"
 #include "scribusdoc.h"
 
-void GlyphLayout::growWithTabLayout()
+
+qreal GlyphRun::width() const
 {
-	if (more)
-		shrink();
-	more = new TabLayout();
+	qreal width = 0;
+	foreach (const GlyphLayout gl, m_glyphs)
+	{
+		width += gl.xadvance * gl.scaleH;
+	}
+	return width;
 }
 
 ScText::~ScText() 
 {
-	// delete the linked list if present
-	GlyphLayout * more = glyph.more;
-	while (more) {
-		glyph.more = glyph.more->more;
-		delete more;
-		more = glyph.more;
-	}
 	if (parstyle)
 		delete parstyle;
 	parstyle = NULL;

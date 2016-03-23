@@ -43,6 +43,8 @@ class ScText;
 
 #include "pdfwriter.h"
 
+class PdfPainter;
+
 /**
  * PDFLibCore provides Scribus's implementation of PDF export functionality.
  *
@@ -58,6 +60,8 @@ class ScText;
 class PDFLibCore : public QObject
 {
 	Q_OBJECT
+
+friend class PdfPainter;
 
 public:
 	explicit PDFLibCore(ScribusDoc & docu);
@@ -171,7 +175,6 @@ private:
     QByteArray Write_FormXObject(QByteArray &data, PageItem *controlItem = 0);
 	QByteArray Write_TransparencyGroup(double trans, int blend, QByteArray &data, PageItem *controlItem = 0);
 	QByteArray setTextSt(PageItem *ite, uint PNr, const ScPage* pag);
-	bool    setTextCh(PageItem *ite, uint PNr, double x, double y, uint d,  QByteArray &tmp, QByteArray &tmp2, const CharStyle& cstyle, GlyphLayout *glyphs, PathData* pdata, const ParagraphStyle& pstyle, const ScPage* pag);
 	void    getBleeds(const ScPage* page, double &left, double &right);
 	void    getBleeds(const ScPage* page, double &left, double &right, double &bottom, double& top);
 

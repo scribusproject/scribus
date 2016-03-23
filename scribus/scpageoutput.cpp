@@ -10,7 +10,7 @@ for which a new license (GPL+exception) is in place.
 #include <QPointF>
 #include <QRectF>
 #include <QStack>
-
+#include <pageitem_textframe.h>
 #include "cmsettings.h"
 #include "collapsedtablepainterex.h"
 #include "commonstrings.h"
@@ -31,11 +31,13 @@ for which a new license (GPL+exception) is in place.
 #include "scimage.h"
 #include "scpage.h"
 #include "scpattern.h"
+#include "text/textlayoutpainter.h"
 
 #include "scribusdoc.h"
 #include "util.h"
 #include "util_formats.h"
 #include "util_math.h"
+#include "text/boxes.h"
 
 
 MarksOptions::MarksOptions(void)
@@ -506,167 +508,6 @@ void ScPageOutput::drawItem_Post( PageItem* item, ScPainterExBase* painter )
 	painter->restore();
 }
 
-void ScPageOutput::drawGlyphs(PageItem* item, ScPainterExBase *painter, const CharStyle& style, GlyphLayout& glyphs, QRect clip)
-{
-	uint glyph = glyphs.glyph;
-	if (glyph == (ScFace::CONTROL_GLYPHS + SpecialChars::NBSPACE.unicode())) // NBSPACE
-		glyph = style.font().char2CMap(QChar(' '));
-	else if (glyph == (ScFace::CONTROL_GLYPHS + SpecialChars::NBHYPHEN.unicode())) // NBHYPHEN
-		glyph = style.font().char2CMap(QChar('-'));
-	
-	if (glyph >= ScFace::CONTROL_GLYPHS)
-	{
-		if (glyphs.more)
-		{
-			painter->translate(glyphs.xadvance, 0);
-			drawGlyphs(item, painter, style, *glyphs.more, clip);
-		}
-		return;
-	}
-	
-	//if (style.font().canRender(QChar(glyph)))
-	{
-		QTransform chma, chma2, chma3, chma4, chma5, chma6;
-		chma.scale(glyphs.scaleH * style.fontSize() / 100.00, glyphs.scaleV * style.fontSize() / 100.0);
-		FPointArray gly = style.font().glyphOutline(glyph);
-		// Do underlining first so you can get typographically correct
-		// underlines when drawing a white outline
-		if ((style.effects() & ScStyle_Underline) || ((style.effects() & ScStyle_UnderlineWords) && (glyph != style.font().char2CMap(QChar(' ')))))
-		{
-			double st, lw;
-			if ((style.underlineOffset() != -1) || (style.underlineWidth() != -1))
-			{
-				if (style.underlineOffset() != -1)
-					st = (style.underlineOffset() / 1000.0) * (style.font().descent(style.fontSize() / 10.0));
-				else
-					st = style.font().underlinePos(style.fontSize() / 10.0);
-				if (style.underlineWidth() != -1)
-					lw = (style.underlineWidth() / 1000.0) * (style.fontSize() / 10.0);
-				else
-					lw = qMax(style.font().strokeWidth(style.fontSize() / 10.0), 1.0);
-			}
-			else
-			{
-				st = style.font().underlinePos(style.fontSize() / 10.0);
-				lw = qMax(style.font().strokeWidth(style.fontSize() / 10.0), 1.0);
-			}
-			if (style.baselineOffset() != 0)
-				st += (style.fontSize() / 10.0) * glyphs.scaleV * (style.baselineOffset() / 1000.0);
-			ScColorShade tmpPen = painter->pen();
-			int tmpStrokeMode = painter->strokeMode();
-			painter->setPen(painter->brush());
-			painter->setLineWidth(lw);
-			painter->setStrokeMode(1);
-			if (style.effects() & ScStyle_Subscript)
-				painter->drawLine(FPoint(glyphs.xoffset, glyphs.yoffset - st), FPoint(glyphs.xoffset + glyphs.xadvance, glyphs.yoffset - st));
-			else
-				painter->drawLine(FPoint(glyphs.xoffset, -st), FPoint(glyphs.xoffset + glyphs.xadvance, -st));
-			painter->setStrokeMode(tmpStrokeMode);
-			painter->setPen(tmpPen);
-		}
-		if (gly.size() > 3)
-		{
-			painter->save();
-			painter->translate(glyphs.xoffset, glyphs.yoffset - ((style.fontSize() / 10.0) * glyphs.scaleV));
-			if (item->reversed())
-			{
-				painter->scale(-1, 1);
-				painter->translate(-glyphs.xadvance, 0);
-			}
-			if (style.baselineOffset() != 0)
-				painter->translate(0, -(style.fontSize() / 10.0) * (style.baselineOffset() / 1000.0));
-			double glxSc = glyphs.scaleH * style.fontSize() / 100.00;
-			double glySc = glyphs.scaleV * style.fontSize() / 100.0;
-			painter->scale(glxSc, glySc);
-			painter->setFillMode(ScPainterExBase::Solid);
-			bool fr = painter->fillRule();
-			painter->setFillRule(false);
-			painter->setupPolygon(&gly, true);
-			if (glyph == 0)
-			{
-				ScColorShade tmp(PrefsManager::instance()->appPrefs.displayPrefs.controlCharColor, 100);
-				painter->setPen(tmp, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
-				painter->setLineWidth(style.fontSize() * glyphs.scaleV * style.outlineWidth() * 2 / 10000.0);
-				painter->strokePath();
-			}
-			else if ((style.font().isStroked()) && ((style.fontSize() * glyphs.scaleV * style.outlineWidth() / 10000.0) != 0))
-			{
-				ScColorShade tmp = painter->brush();
-				painter->setStrokeMode(1);
-				painter->setPen(tmp, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
-				painter->setLineWidth(style.fontSize() * glyphs.scaleV * style.outlineWidth() / 10000.0);
-				painter->strokePath();
-			}
-			else
-			{
-				if ((style.effects() & ScStyle_Shadowed) && (style.strokeColor() != CommonStrings::None))
-				{
-					painter->save();
-					painter->translate((style.fontSize() * glyphs.scaleH * style.shadowXOffset() / 10000.0) / glxSc, -(style.fontSize() * glyphs.scaleV * style.shadowYOffset() / 10000.0) / glySc);
-					ScColorShade tmp = painter->brush();
-					painter->setBrush(painter->pen());
-					painter->setupPolygon(&gly, true);
-					fillPath(item, painter, clip);
-					painter->setBrush(tmp);
-					painter->restore();
-					painter->setupPolygon(&gly, true);
-				}
-				if (style.fillColor() != CommonStrings::None)
-					fillPath(item, painter, clip);
-				if ((style.effects() & ScStyle_Outline) && (style.strokeColor() != CommonStrings::None) && ((style.fontSize() * glyphs.scaleV * style.outlineWidth() / 10000.0) != 0))
-				{
-					painter->setStrokeMode(1);
-					painter->setLineWidth((style.fontSize() * glyphs.scaleV * style.outlineWidth() / 10000.0) / glySc);
-					painter->strokePath();
-				}
-			}
-			painter->setFillRule(fr);
-			painter->restore();
-		}
-		if (style.effects() & ScStyle_Strikethrough)
-		{
-			double st, lw;
-			if ((style.strikethruOffset() != -1) || (style.strikethruWidth() != -1))
-			{
-				if (style.strikethruOffset() != -1)
-					st = (style.strikethruOffset() / 1000.0) * (style.font().ascent(style.fontSize() / 10.0));
-				else
-					st = style.font().strikeoutPos(style.fontSize() / 10.0);
-				if (style.strikethruWidth() != -1)
-					lw = (style.strikethruWidth() / 1000.0) * (style.fontSize() / 10.0);
-				else
-					lw = qMax(style.font().strokeWidth(style.fontSize() / 10.0), 1.0);
-			}
-			else
-			{
-				st = style.font().strikeoutPos(style.fontSize() / 10.0);
-				lw = qMax(style.font().strokeWidth(style.fontSize() / 10.0), 1.0);
-			}
-			if (style.baselineOffset() != 0)
-				st += (style.fontSize() / 10.0) * glyphs.scaleV * (style.baselineOffset() / 1000.0);
-			int tmpStrokeMode = painter->strokeMode();
-			painter->setPen(painter->brush());
-			painter->setLineWidth(lw);
-			painter->setStrokeMode(1);
-			painter->drawLine(FPoint(glyphs.xoffset, glyphs.yoffset - st), FPoint(glyphs.xoffset + glyphs.xadvance, glyphs.yoffset - st));
-			painter->setStrokeMode(tmpStrokeMode);
-		}
-	}
-	/*else
-	{
-		painter->setLineWidth(1);
-		painter->setPen(ScColorShade(Qt::red, 100));
-		painter->setBrush(ScColorShade(Qt::red, 100));
-		painter->setFillMode(1);
-		painter->drawRect(glyphs.xoffset, glyphs.yoffset - (style.fontSize() / 10.0) * glyphs.scaleV , (style.fontSize() / 10.0) * glyphs.scaleH, (style.fontSize() / 10.0) * glyphs.scaleV);
-	}*/
-	if (glyphs.more)
-	{
-		painter->translate(glyphs.xadvance, 0);
-		drawGlyphs(item, painter, style, *glyphs.more, clip);
-	}
-}
-
 void ScPageOutput::drawItem_Embedded( PageItem* item, ScPainterExBase *p, QRect clip, const CharStyle& style, PageItem* cembedded)
 {
 	if (!cembedded)
@@ -1080,185 +921,185 @@ void ScPageOutput::drawItem_Line( PageItem_Line* item, ScPainterExBase* painter,
 	}
 }
 
+class ScpageoutputPainter: public TextLayoutPainter
+{
+private:
+	PageItem* m_item;
+	ScPainterExBase* m_painter;
+	ScPageOutput* m_scpage;
+
+	void setupState()
+	{
+		m_painter->setLineWidth(strokeWidth());
+		ScColorShade fill(m_item->doc()->PageColors[fillColor().color], qRound(fillColor().shade));
+		m_painter->setBrush(fill);
+		ScColorShade stroke(m_item->doc()->PageColors[strokeColor().color], qRound(strokeColor().shade));
+		m_painter->setPen(stroke);
+		if (matrix() != QTransform())
+		{
+			m_painter->setWorldMatrix(matrix() * m_painter->worldMatrix());
+		}
+	}
+
+public:
+	ScpageoutputPainter(PageItem* item, ScPainterExBase* painter, ScPageOutput* scpage)
+		: m_item(item)
+		, m_painter(painter)
+		, m_scpage(scpage)
+	{}
+
+	void translate(double xp, double yp)
+	{
+		TextLayoutPainter::translate(xp, yp);
+		m_painter->translate(xp, yp);
+	}
+
+	void save()
+	{
+		TextLayoutPainter::save();
+		m_painter->save();
+	}
+
+	void restore()
+	{
+		TextLayoutPainter::restore();
+		m_painter->restore();
+	}
+
+	void setScale(double h, double v)
+	{
+		TextLayoutPainter::setScale(h, v);
+		m_painter->scale(h, v);
+	}
+
+	void drawGlyph(const GlyphLayout gl)
+	{
+		if (gl.glyph >= ScFace::CONTROL_GLYPHS)
+			return;
+
+		m_painter->save();
+		bool fr = m_painter->fillRule();
+		int fm = m_painter->fillMode();
+
+		m_painter->setFillRule(false);
+		m_painter->setFillMode(1);
+
+		setupState();
+		m_painter->translate(0, -(fontSize() * gl.scaleV));
+		FPointArray outline = font().glyphOutline(gl.glyph);
+		double scaleH = gl.scaleH * fontSize() / 10.0;
+		double scaleV = gl.scaleV * fontSize() / 10.0;
+		m_painter->scale(scaleH, scaleV);
+		m_painter->setupPolygon(&outline, true);
+		if (outline.size() > 3)
+			m_painter->fillPath();
+
+		m_painter->setFillMode(fm);
+		m_painter->setFillRule(fr);
+		m_painter->restore();
+	}
+
+	void drawGlyphOutline(const GlyphLayout gl, bool fill)
+	{
+		if (gl.glyph >= ScFace::CONTROL_GLYPHS)
+			return;
+
+		m_painter->save();
+		bool fr = m_painter->fillRule();
+		m_painter->setFillRule(false);
+
+		setupState();
+		m_painter->translate(0, -(fontSize() * gl.scaleV));
+
+		FPointArray outline = font().glyphOutline(gl.glyph);
+		double scaleH = gl.scaleH * fontSize() / 10.0;
+		double scaleV = gl.scaleV * fontSize() / 10.0;
+		m_painter->scale(scaleH, scaleV);
+		m_painter->setupPolygon(&outline, true);
+		if (outline.size() > 3)
+		{
+			m_painter->setLineWidth(strokeWidth());
+			m_painter->strokePath();
+		}
+
+		m_painter->setFillRule(fr);
+		m_painter->restore();
+
+		if (fill)
+			drawGlyph(gl);
+	}
+
+	void drawLine(QPointF start, QPointF end)
+	{
+		m_painter->save();
+		setupState();
+		m_painter->drawLine(start, end);
+		m_painter->restore();
+	}
+
+	void drawRect(QRectF rect)
+	{
+		m_painter->save();
+		setupState();
+		m_painter->setFillMode(1);
+		m_painter->setStrokeMode(1);
+		m_painter->drawRect(rect.x(), rect.y(), rect.width(), rect.height());
+		m_painter->restore();
+	}
+
+	void drawObject(PageItem* embedded)
+	{
+		QRect cullingArea;
+		if (!embedded)
+			return;
+		if (!m_item->m_Doc->DoDrawing)
+			return;
+
+		m_painter->save();
+		double pws = embedded->m_lineWidth;
+
+		embedded->Dirty = m_item->Dirty;
+		embedded->invalid = true;
+		m_scpage->drawItem_Pre(embedded, m_painter);
+
+		switch(embedded->itemType())
+		{
+		case PageItem::ImageFrame:
+		case PageItem::TextFrame:
+		case PageItem::LatexFrame:
+		case PageItem::OSGFrame:
+		case PageItem::Polygon:
+		case PageItem::PathText:
+		case PageItem::Symbol:
+		case PageItem::Group:
+		case PageItem::RegularPolygon:
+		case PageItem::Arc:
+		case PageItem::Table:
+			m_scpage->drawItem(embedded, m_painter, cullingArea);
+			break;
+		case PageItem::Line:
+		case PageItem::PolyLine:
+		case PageItem::Spiral:
+			embedded->m_lineWidth = pws * qMin(scaleH(), scaleV());
+			m_scpage->drawItem(embedded, m_painter, cullingArea);
+			break;
+		default:
+			break;
+		}
+
+		embedded->m_lineWidth = pws * qMin(scaleH(), scaleV());
+		m_scpage->drawItem_Post(embedded, m_painter);
+		embedded->m_lineWidth = pws;
+		m_painter->restore();
+	}
+};
+
+
 void ScPageOutput::drawItem_PathText( PageItem_PathText* item, ScPainterExBase* painter, QRect clip )
 {
-	QString chstr;
-	//ScText *hl;
-	FPoint point = FPoint(0, 0);
-	FPoint tangent = FPoint(0, 0);
-	double CurX = item->textToFrameDistLeft(); // item->CurX = item->textToFrameDistLeft()
-	QString actFill, actStroke;
-	double actFillShade, actStrokeShade, dx;
-	StoryText& itemText = item->itemText;
-	if (item->pathTextShowFrame())
-	{
-		painter->setupPolygon(&item->PoLine, false);
-		if (item->NamedLStyle.isEmpty())
-		{
-			if (item->lineColor() != CommonStrings::None)
-				painter->strokePath();
-		}
-		else
-		{
-			multiLine ml = m_doc->MLineStyles[item->NamedLStyle];
-			for (int it = ml.size() - 1; it > -1; it--)
-			{
-				const SingleLine& sl = ml[it];
-				if ((sl.Color != CommonStrings::None) && (sl.Width != 0))
-				{
-					ScColorShade tmp(m_doc->PageColors[sl.Color], sl.Shade);
-					painter->setPen(tmp, sl.Width,  static_cast<Qt::PenStyle>(sl.Dash), 
-							 static_cast<Qt::PenCapStyle>(sl.LineEnd), 
-							 static_cast<Qt::PenJoinStyle>(sl.LineJoin));
-					painter->drawLine(FPoint(0, 0), FPoint(item->width(), 0));
-				}
-			}
-		}
-	}
-	double totalTextLen = 0.0;
-	double totalCurveLen = 0.0;
-	double extraOffset = 0.0;
-	if (itemText.length() != 0)
-	{
-        CurX += itemText.charStyle(0).fontSize() * itemText.charStyle(0).tracking() / 10000.0;
-		totalTextLen += itemText.charStyle(0).fontSize() * itemText.charStyle(0).tracking() / 10000.0;
-	}
-	for (int a = 0; a < itemText.length(); ++a)
-	{
-        GlyphLayout* glyphs = itemText.getGlyphs(a);
-        chstr =itemText.text(a,1);
-		if (chstr[0] == SpecialChars::PAGENUMBER || chstr[0] == SpecialChars::PARSEP || chstr[0] == SpecialChars::PAGECOUNT
-			|| chstr[0] == SpecialChars::TAB || chstr == SpecialChars::LINEBREAK)
-			continue;
-		if (a < itemText.length()-1)
-			chstr += itemText.text(a+1, 1);
-        glyphs->yadvance = 0;
-        item->layoutGlyphs(itemText.charStyle(a), chstr, itemText.flags(a), *glyphs);
-        glyphs->shrink();
-        if (item->itemText.hasObject(a))
-            totalTextLen += (item->itemText.object(a)->width() + item->itemText.object(a)->lineWidth()) * glyphs->scaleH;
-		else
-            totalTextLen += glyphs->wide()+itemText.charStyle(a).fontSize() * itemText.charStyle(a).tracking() / 10000.0;
-	}
-	for (int segs = 0; segs < item->PoLine.size()-3; segs += 4)
-	{
-		totalCurveLen += item->PoLine.lenPathSeg(segs);
-	}
-	if ((itemText.defaultStyle().alignment() != 0) && (totalCurveLen >= totalTextLen + item->textToFrameDistLeft()))
-	{
-		if (itemText.defaultStyle().alignment() == 2)
-		{
-			CurX = totalCurveLen  - totalTextLen;
-			CurX -= item->textToFrameDistLeft();
-		}
-		if (itemText.defaultStyle().alignment() == 1)
-			CurX = (totalCurveLen - totalTextLen) / 2.0;
-		if ((itemText.defaultStyle().alignment() == 3) || (itemText.defaultStyle().alignment() == 4))
-			extraOffset = (totalCurveLen - item->textToFrameDistLeft()  - totalTextLen) / static_cast<double>(itemText.length());
-	}
-
-	QPainterPath guidePath = item->PoLine.toQPainterPath(false);
-	QList<QPainterPath> pathList = decomposePath(guidePath);
-	QPainterPath currPath = pathList[0];
-	int currPathIndex = 0;
-	for (int a = item->firstInFrame(); a < itemText.length(); ++a)
-	{
-        GlyphLayout* glyphs = itemText.getGlyphs(a);
-        PathData* pdata = &(item->textLayout.point(a));
-        
-        chstr = itemText.text(a,1);
-		if (chstr[0] == SpecialChars::PAGENUMBER || chstr[0] == SpecialChars::PARSEP || chstr[0] == SpecialChars::PAGECOUNT
-			|| chstr[0] == SpecialChars::TAB || chstr[0] == SpecialChars::LINEBREAK)
-			continue;
-		if (a < itemText.length()-1)
-			chstr += itemText.text(a+1, 1);
-        glyphs->yadvance = 0;
-        item->layoutGlyphs(itemText.charStyle(a), chstr, itemText.flags(a), *glyphs);
-        glyphs->shrink();                                                           // HACK
-		// Unneeded now that glyph xadvance is set appropriately for inline objects by PageItem_TextFrame::layout() - JG
-		/*if (hl->hasObject())
-			dx = (hl->embedded.getItem()->gWidth + hl->embedded.getItem()->lineWidth()) * hl->glyph.scaleH / 2.0;
-		else*/
-        dx = glyphs->wide() / 2.0;
-
-		CurX += dx;
-
-		double currPerc = currPath.percentAtLength(CurX);
-		if (currPerc >= 0.9999999)
-		{
-			currPathIndex++;
-			if (currPathIndex == pathList.count())
-				break;
-			currPath = pathList[currPathIndex];
-			CurX = dx;
-			currPerc = currPath.percentAtLength(CurX);
-		}
-		double currAngle = currPath.angleAtPercent(currPerc);
-		if (currAngle <= 180.0)
-			currAngle *= -1.0;
-		else
-			currAngle = 360.0 - currAngle;
-		QPointF currPoint = currPath.pointAtPercent(currPerc);
-		tangent = FPoint(cos(currAngle * M_PI / 180.0), sin(currAngle * M_PI / 180.0));
-		point = FPoint(currPoint.x(), currPoint.y());
-
-        //hl = itemText.item_p(a);
-        glyphs->xoffset = 0;
-		pdata->PtransX = point.x();
-		pdata->PtransY = point.y();
-		pdata->PRot    = currAngle * M_PI / 180.0;
-		pdata->PDx     = dx;
-		QTransform trafo = QTransform( 1, 0, 0, -1, -dx, 0 );
-		if (item->textPathFlipped)
-			trafo *= QTransform(1, 0, 0, -1, 0, 0);
-		if (item->textPathType == 0)
-			trafo *= QTransform( tangent.x(), tangent.y(), tangent.y(), -tangent.x(), point.x(), point.y() ); // ID's Rainbow mode
-		else if (item->textPathType == 1)
-			trafo *= QTransform( 1, 0, 0, -1, point.x(), point.y() ); // ID's Stair Step mode
-		else if (item->textPathType == 2)
-		{
-			double a = 1;
-			if (tangent.x() < 0)
-				a = -1;
-			if (fabs(tangent.x()) > 0.1)
-				trafo *= QTransform( a, (tangent.y() / tangent.x()) * a, 0, -1, point.x(), point.y() ); // ID's Skew mode
-			else
-				trafo *= QTransform( a, 4 * a, 0, -1, point.x(), point.y() );
-		}
-		QTransform sca = painter->worldMatrix();
-		trafo *= sca;
-		painter->save();
-		QTransform savWM = painter->worldMatrix();
-		painter->setWorldMatrix(trafo);
-
-		actFill = itemText.charStyle(a).fillColor();
-		actFillShade = itemText.charStyle(a).fillShade();
-		if (actFill != CommonStrings::None)
-		{
-			ScColorShade tmp(m_doc->PageColors[actFill], qRound(actFillShade));
-			painter->setBrush(tmp);
-		}
-		actStroke = itemText.charStyle(a).strokeColor();
-		actStrokeShade = itemText.charStyle(a).strokeShade();
-		if (actStroke != CommonStrings::None)
-		{
-			ScColorShade tmp(m_doc->PageColors[actStroke], qRound(actStrokeShade));
-			painter->setPen(tmp, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
-		}
-		painter->translate(0.0, item->pathTextBaseOffset());
-        if (itemText.hasObject(a))
-            drawItem_Embedded(itemText.object(a), painter, clip, itemText.charStyle(a), itemText.object(a));
-		else
-            drawGlyphs(item, painter, itemText.charStyle(a), *glyphs, clip);
-
-		painter->setWorldMatrix(savWM);
-		painter->restore();
-		CurX -= dx;
-        if (itemText.hasObject(a))
-            CurX += (itemText.object(a)->width() + itemText.object(a)->lineWidth()) * glyphs->scaleH;
-		else
-            CurX += glyphs->wide()+itemText.charStyle(a).fontSize() * itemText.charStyle(a).tracking() / 10000.0 + extraOffset;
-	}
+	ScpageoutputPainter p(item, painter, this);
+	item->textLayout.renderBackground(&p);
+	item->textLayout.render(&p);
 }
 
 void ScPageOutput::drawItem_Polygon ( PageItem_Polygon* item , ScPainterExBase* painter, QRect clip )
@@ -1610,251 +1451,9 @@ void ScPageOutput::drawItem_Table( PageItem_Table* item, ScPainterExBase* painte
 
 void ScPageOutput::drawItem_TextFrame( PageItem_TextFrame* item, ScPainterExBase* painter, QRect cullingArea )
 {
-	QTransform wm;
-	QPoint pt1, pt2;
-	FPoint ColBound;
-	QRegion cm;
-	int a;
-	double desc, asce;
-	
-	painter->save();
-	if (!item->isEmbedded)
-		wm.translate(item->xPos(), item->yPos());
-	wm.rotate(item->rotation());
-
-	if ((item->fillColor() != CommonStrings::None) || (item->GrType != 0))
-	{
-		painter->setupPolygon(&item->PoLine);
-		fillPath(item, painter, cullingArea);
-	}
-	if ((item->isAnnotation()) && (item->annotation().Type() == Annotation::Button) && (!item->Pfile.isEmpty()) && (item->imageIsAvailable) && (item->imageVisible()) && (item->annotation().UseIcons()))
-	{
-		painter->save();
-		painter->setupPolygon(&item->PoLine);
-		painter->setClipPath();
-		painter->scale(item->imageXScale(), item->imageYScale());
-		painter->translate(static_cast<int>(item->imageXOffset() * item->imageXScale()), static_cast<int>(item->imageYOffset()  * item->imageYScale()));
-		if (!item->pixm.qImage().isNull())
-			painter->drawImage(&item->pixm, ScPainterExBase::rgbImages);
-		painter->restore();
-	}
-	if ((item->itemText.length() != 0))
-	{
-		if (item->imageFlippedH())
-		{
-			painter->translate(item->width(), 0);
-			painter->scale(-1, 1);
-			wm.translate(item->width(), 0);
-			wm.scale(-1, 1);
-		}
-		if (item->imageFlippedV())
-		{
-			painter->translate(0, item->height());
-			painter->scale(1, -1);
-			wm.translate(0, item->height());
-			wm.scale(1, -1);
-		}
-
-		uint llp = 0;
-		LineSpec ls;
-		while (llp < item->textLayout.lines())
-		{
-			ls = item->textLayout.line(llp++);
-			const ParagraphStyle& LineStyle = item->itemText.paragraphStyle(ls.firstItem);
-			if (LineStyle.backgroundColor() != CommonStrings::None)
-			{
-				ScColorShade colorShade;
-				colorShade.color = m_doc->PageColors[LineStyle.backgroundColor()];
-				colorShade.shade = LineStyle.backgroundShade();
-				double y0 = ls.y;
-				double y2 = ls.y;
-				double ascent = ls.ascent;
-				double descent = ls.descent;
-				double rMarg = LineStyle.rightMargin();
-				double lMarg = ls.colLeft;
-				double adjX = 0;
-				if (LineStyle.firstIndent() <= 0)
-					adjX += LineStyle.leftMargin() + LineStyle.firstIndent();
-				while (llp < item->textLayout.lines())
-				{
-					ls = item->textLayout.line(llp);
-					if ((ls.colLeft > lMarg) || (item->itemText.paragraphStyle(ls.firstItem) != LineStyle))
-					{
-						if (y2 == 0)
-							y2 = y0;
-						break;
-					}
-					if (item->itemText.text(ls.lastItem) == SpecialChars::PARSEP)
-					{
-						y2 = ls.y;
-						descent = ls.descent;
-						if ((llp + 1) < item->textLayout.lines())
-						{
-							if ((item->textLayout.line(llp + 1).lastItem - item->textLayout.line(llp + 1).firstItem) > 0)
-								descent += LineStyle.lineSpacing() - (ls.descent + item->textLayout.line(llp + 1).ascent);
-						}
-						llp++;
-						break;
-					}
-					y2 = ls.y;
-					descent = ls.descent;
-					if ((llp + 1) < item->textLayout.lines())
-						descent += LineStyle.lineSpacing() - (ls.descent + item->textLayout.line(llp + 1).ascent);
-					llp++;
-				}
-				painter->save();
-				painter->setupPolygon(&item->PoLine);
-				painter->setClipPath();
-				painter->setFillMode(1);
-				painter->setStrokeMode(0);
-				painter->setBrush(colorShade);
-				painter->drawRect(lMarg + adjX, y0 - ascent, item->columnWidth() - adjX - rMarg, y2 - y0 + descent + ascent);
-				painter->restore();
-			}
-		}
-
-		for (uint ll=0; ll < item->textLayout.lines(); ++ll)
-		{
-			const LineSpec& ls = item->textLayout.line(ll);
-			double CurX = ls.x;
-
-			// Draw text background
-			ScColorShade tmpShade;
-			double curXB = ls.x;
-			QRectF scrG;
-			QString oldBack;
-			double oldShade = 100;
-			for (a = ls.firstItem; a <= ls.lastItem; ++a)
-			{
-				GlyphLayout* glyphs = item->itemText.getGlyphs(a);
-				const CharStyle& charStyle(item->itemText.charStyle(a));
-				if (charStyle.backColor() != CommonStrings::None)
-				{
-					tmpShade.color = m_doc->PageColors[charStyle.backColor()];
-					tmpShade.shade = charStyle.backShade();
-					const ParagraphStyle& lineStyle = item->itemText.paragraphStyle(ls.firstItem);
-					double y1 = ls.y;
-					double hl = ls.height;
-					if (lineStyle.lineSpacingMode() == ParagraphStyle::BaselineGridLineSpacing)
-						hl = m_doc->guidesPrefs().valueBaselineGrid;
-					else if (lineStyle.lineSpacingMode() == ParagraphStyle::FixedLineSpacing)
-						hl = lineStyle.lineSpacing();
-					if (ls.isFirstLine)
-					{
-						if (item->textLayout.lines() == 1)
-							hl = ls.ascent + ls.descent;
-						if (lineStyle.hasDropCap() && (a == ls.firstItem))
-							hl *= lineStyle.dropCapLines();
-						if (lineStyle.lineSpacingMode() == ParagraphStyle::BaselineGridLineSpacing)
-							y1 -= lineStyle.lineSpacing();
-						else if (item->firstLineOffset() == FLOPRealGlyphHeight || item->firstLineOffset() == FLOPFontAscent)
-							y1 -= ls.ascent;
-						else
-							y1 -= lineStyle.lineSpacing();
-					}
-					else
-						y1 -= ls.ascent + (hl - (ls.ascent + ls.descent)) / 2.0;
-					QRectF scr;
-					if (item->itemText.hasObject(a))
-					{
-						PageItem* obj = item->itemText.object(a);
-						double ww = (obj->width() + obj->lineWidth()) * glyphs->scaleH;
-						double hh = (obj->height() + obj->lineWidth()) * glyphs->scaleV;
-						scr = QRectF(curXB, ls.y - hh, ww , hh);
-					}
-					else
-						scr = QRectF(curXB, y1, glyphs->wide(), hl);
-					if ((oldBack.isEmpty()) || ((oldBack == charStyle.backColor()) && (oldShade == charStyle.backShade())))
-						scrG |= scr;
-					else if ((oldBack != charStyle.backColor()) || (oldShade != charStyle.backShade()))
-					{
-						tmpShade.color = m_doc->PageColors[oldBack];
-						tmpShade.shade = oldShade;
-						painter->save();
-						painter->setFillMode(1);
-						painter->setStrokeMode(0);
-						painter->setBrush(tmpShade);
-						painter->drawRect(scrG.x(), scrG.y(), scrG.width(), scrG.height());
-						painter->restore();
-						scrG = scr;
-					}
-					oldBack = charStyle.backColor();
-					oldShade = charStyle.backShade();
-				}
-				else
-				{
-					oldBack.clear();
-					oldShade = 100;
-					if (!scrG.isNull())
-					{
-						painter->save();
-						painter->setFillMode(1);
-						painter->setStrokeMode(0);
-						painter->setBrush(tmpShade);
-						painter->drawRect(scrG.x(), scrG.y(), scrG.width(), scrG.height());
-						painter->restore();
-					}
-					scrG = QRectF();
-				}
-				curXB += glyphs->wide();
-			}
-			if (!scrG.isNull())
-			{
-				painter->save();
-				painter->setFillMode(1);
-				painter->setStrokeMode(0);
-				painter->setBrush(tmpShade);
-				painter->drawRect(scrG.x(), scrG.y(), scrG.width(), scrG.height());
-				painter->restore();
-			}
-
-			// Draw text
-			for (a = ls.firstItem; a <= ls.lastItem; ++a)
-			{
-				GlyphLayout* glyphs = item->itemText.getGlyphs(a);
-				const CharStyle& charStyle  = item->itemText.charStyle(a);
-
-				if (charStyle.fillColor() != CommonStrings::None)
-				{
-					ScColorShade tmp(m_doc->PageColors[charStyle.fillColor()], (int) charStyle.fillShade());
-					painter->setBrush(tmp);
-				}
-				if (charStyle.strokeColor() != CommonStrings::None)
-				{
-					ScColorShade tmp(m_doc->PageColors[charStyle.strokeColor()], (int) charStyle.strokeShade());
-					painter->setPen(tmp, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
-				}
-
-				//if (!m_doc->RePos)
-				{
-					//double xcoZli = CurX + glyphs->xoffset;
-					desc = - charStyle.font().descent(charStyle.fontSize() / 10.0);
-					asce = charStyle.font().ascent(charStyle.fontSize() / 10.0);
-					if (charStyle.strokeColor() != CommonStrings::None)
-					{
-						ScColorShade tmp(m_doc->PageColors[charStyle.strokeColor()], (int) charStyle.strokeShade());
-						painter->setPen(tmp, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
-					}
-					if (item->isEmbedded || cullingArea.intersects(wm.mapRect(QRect(qRound(CurX + glyphs->xoffset),qRound(ls.y + glyphs->yoffset-asce), qRound(glyphs->xadvance+1), qRound(asce+desc)))))
-					{
-						painter->save();
-						painter->translate(CurX, ls.y);
-						if (item->itemText.hasObject(a))
-							drawItem_Embedded(item, painter, cullingArea, charStyle, item->itemText.object(a));
-						else
-							drawGlyphs(item, painter, charStyle, *glyphs, cullingArea);
-						painter->restore();
-					}
-					// Unneeded now that glyph xadvance is set appropriately for inline objects by PageItem_TextFrame::layout() - JG
-					/*if (hl->hasObject())
-						CurX += (hl->embedded.getItem()->gWidth + hl->embedded.getItem()->lineWidth());
-					else*/
-					CurX += glyphs->wide();
-				}
-			}
-		}
-	}
-	painter->restore();
+	ScpageoutputPainter p(item, painter, this);
+	item->textLayout.renderBackground(&p);
+	item->textLayout.render(&p);
 }
 
 void ScPageOutput::drawArrow(ScPainterExBase* painter, PageItem* item, QTransform &arrowTrans, int arrowIndex)

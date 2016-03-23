@@ -2061,6 +2061,7 @@ void Canvas::DrawPageGuides(ScPainter *p, QRectF clip, bool master)
 void Canvas::DrawPageIndicatorSub(ScPainter *p, ScPage *page)
 {
 	p->save();
+	int fm = p->fillMode();
 	p->setAntialiasing(false);
 	p->translate(page->xOffset(), page->yOffset());
 	double lineWidth = 1.0 / m_viewMode.scale;
@@ -2072,6 +2073,7 @@ void Canvas::DrawPageIndicatorSub(ScPainter *p, ScPage *page)
 	p->setPen(PrefsManager::instance()->appPrefs.displayPrefs.pageBorderColor, 1 / m_viewMode.scale, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 	p->drawRect(0, 0, pageWidth, pageHeight);
 	p->setAntialiasing(true);
+	p->setFillMode(fm);
 	p->restore();
 }
 

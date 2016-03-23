@@ -159,6 +159,9 @@ protected:
 
 public:
 	void setTextFrameHeight();
+
+private:
+	QList<GlyphRun> shapeText();
 };
 
 #endif

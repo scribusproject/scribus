@@ -415,9 +415,8 @@ public: // Start public functions
 	/// Return current text properties (current char + paragraph properties)
 	void currentTextProps(ParagraphStyle& parStyle) const;
 	// deprecated:
-	double layoutGlyphs(const CharStyle& style, const QString& chars, LayoutFlags flags, GlyphLayout& layout);
+	GlyphLayout layoutGlyphs(const CharStyle& style, const QString& chars, LayoutFlags flags);
 	void SetQColor(QColor *tmp, QString farbe, double shad);
-	void drawGlyphs(ScPainter *p, const CharStyle& style, LayoutFlags flags, GlyphLayout& glyphs );
 	void DrawPolyL(QPainter *p, QPolygon pts);
 	QString ExpandToken(uint base);
 	const FPointArray shape() const { return PoLine; }

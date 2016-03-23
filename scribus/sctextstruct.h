@@ -39,17 +39,21 @@ class ScribusDoc;
 // from charstlye.h ScStyleFlags
 enum LayoutFlags {
 	ScLayout_None          = 0,
+	ScLayout_BulletNum     = 1,       // new: marks list layout glyphs
+	ScLayout_FixedSpace    = 2,       // new: marks a fixed space
+	ScLayout_ExpandingSpace= 4,       // new: marks an expanding space
+	ScLayout_ImplicitSpace = 8,       // new: marks an implicit space
+	ScLayout_TabLeaders    = 16,      // new: marks a tab with fillchar
 	ScLayout_HyphenationPossible=128, //Hyphenation possible here (Soft Hyphen)
 	ScLayout_DropCap       = 2048,
-	ScLayout_SuppressSpace = 4096,//internal use in PageItem (Suppresses spaces when in Block alignment)
-	ScLayout_SoftHyphenVisible=8192, //Soft Hyphen visible at line end
-	ScLayout_StartOfLine   = 16384
+	ScLayout_SuppressSpace = 4096,    //internal use in PageItem (Suppresses spaces when in Block alignment)
+	ScLayout_SoftHyphenVisible=8192,  //Soft Hyphen visible at line end
+	ScLayout_StartOfLine   = 16384    //set for start of line
 };
 
 
 /**
  * This struct stores a positioned glyph. This is the result of the layout process.
- * If a char gets translated to more than one glyph, a linked list is built.
  */
 struct SCRIBUS_API GlyphLayout {
 	float xadvance;
@@ -59,50 +63,42 @@ struct SCRIBUS_API GlyphLayout {
 	double scaleV;
 	double scaleH;
 	uint glyph;
-	GlyphLayout* more;
 	
 	GlyphLayout() : xadvance(0.0f), yadvance(0.0f), xoffset(0.0f), yoffset(0.0f),
-		scaleV(1.0), scaleH(1.0), glyph(0), more(NULL) 
+		scaleV(1.0), scaleH(1.0), glyph(0) //, more(NULL)
 	{ }
-	GlyphLayout(const GlyphLayout& o) : xadvance(o.xadvance), yadvance(o.yadvance), xoffset(o.xoffset), yoffset(o.yoffset),
-		scaleV(o.scaleH), scaleH(o.scaleV), glyph(o.glyph), more(NULL)
-	{ }
-	virtual ~GlyphLayout()
-	{ }
-	double wide() const 
-	{ 
-		double ret = 0; 
-		for(const GlyphLayout* p=this; p; p=p->more) 
-			ret += p->xadvance; 
-		return ret; 
-	}
-	GlyphLayout* last() 
-	{ 
-		if (more) 
-			return more->last();
-		else 
-			return this;
-	}
-	void shrink()
-	{
-		if (more) {
-			more->shrink();
-			delete more;
-			more = NULL;
-		}
-	}
-	void grow()
-	{
-		if (!more) {
-			more = new GlyphLayout();
-		}
-	}
-	virtual void growWithTabLayout();
 };
 
-struct SCRIBUS_API TabLayout : public GlyphLayout
+
+class GlyphRun
 {
-	QChar fillChar;
+	const CharStyle* m_style;
+	LayoutFlags m_flags;
+	QList<GlyphLayout> m_glyphs;
+	int m_firstChar;
+	int m_lastChar;
+	PageItem* m_object;
+
+public:
+	GlyphRun(const CharStyle* style, LayoutFlags flags, int first, int last, PageItem* o)
+		: m_style(style)
+		, m_flags(flags)
+		, m_firstChar(first)
+		, m_lastChar(last)
+		, m_object(o)
+	{}
+
+	const CharStyle&         style()  const { return *m_style; }
+	bool       hasFlag(LayoutFlags f) const { return (m_flags & f) == f; }
+	void       setFlag(LayoutFlags f)       { m_flags = static_cast<LayoutFlags>(m_flags | f); }
+	void     clearFlag(LayoutFlags f)       { m_flags = static_cast<LayoutFlags>(m_flags & ~f); }
+
+	QList<GlyphLayout>&      glyphs()       { return m_glyphs; }
+	const QList<GlyphLayout> glyphs() const { return m_glyphs; }
+	int firstChar()					const	{ return m_firstChar; }
+	int lastChar()					const	{ return m_lastChar; }
+	qreal width() const;
+	PageItem* object()				const	{ return m_object; }
 };
 
 
@@ -110,28 +106,18 @@ class SCRIBUS_API ScText : public CharStyle
 {
 public:
 	ParagraphStyle* parstyle; // only for parseps
-	GlyphLayout glyph;
 	int embedded;
 	Mark* mark;
 	QChar ch;
-	ScText() : 
+	ScText() :
 		CharStyle(),
-		parstyle(NULL), glyph(), 
+		parstyle(NULL),
 		embedded(0), mark(NULL), ch() {}
-	ScText(const ScText& other) : 
+	ScText(const ScText& other) :
 		CharStyle(other),
-		parstyle(NULL), glyph(other.glyph), 
+		parstyle(NULL),
 		embedded(other.embedded), mark(NULL), ch(other.ch)
 	{
-		glyph.more = NULL;
-		GlyphLayout *layout = &glyph;
-		const GlyphLayout *otherLayout = &other.glyph;
-		while (otherLayout->more)
-		{
-			layout->more = new GlyphLayout(*otherLayout->more);
-			layout       = layout->more;
-			otherLayout  = otherLayout->more;
-		}
 		if (other.parstyle)
 			parstyle = new ParagraphStyle(*other.parstyle);
 		if (other.mark)

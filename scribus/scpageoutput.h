@@ -53,6 +53,8 @@ public:
 
 class SCRIBUS_API ScPageOutput
 {
+	friend class ScpageoutputPainter;
+
 public:
 	ScPageOutput(ScribusDoc* doc, bool reloadImages = false, int resolution = 72, bool useProfiles = false);
 	virtual ~ScPageOutput() { }
@@ -82,7 +84,6 @@ protected:
 	virtual void drawItem_Pre( PageItem* item, ScPainterExBase* painter );
 	virtual void drawItem_Post( PageItem* item, ScPainterExBase* painter );
 
-	virtual void drawGlyphs(PageItem* item, ScPainterExBase *painter, const CharStyle& style, GlyphLayout& glyphs, QRect clip);
 	virtual void drawItem_Embedded( PageItem* item, ScPainterExBase *p, QRect clip, const CharStyle& style, PageItem* cembedded);
 	virtual void drawPattern(PageItem* item, ScPainterExBase* painter, QRect clip);
 	virtual void drawStrokePattern(PageItem* item, ScPainterExBase* painter, const QPainterPath& path);

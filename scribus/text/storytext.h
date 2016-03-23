@@ -231,8 +231,6 @@ class SCRIBUS_API StoryText : public QObject, public SaxIO
 
 // layout helpers
 
-    GlyphLayout* getGlyphs(int pos);
-    const GlyphLayout* getGlyphs(int pos) const;
 	LayoutFlags flags(int pos) const;
 	bool hasFlag(int pos, LayoutFlags flag) const;
 	void setFlag(int pos, LayoutFlags flag);

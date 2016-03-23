@@ -51,6 +51,7 @@ for which a new license (GPL+exception) is in place.
 #include "scribusview.h"
 #include "sctextstruct.h"
 #include "tableutils.h"
+#include "text/textlayoutpainter.h"
 #include "util.h"
 #include "ui/customfdialog.h"
 #include "ui/guidemanager.h"
@@ -59,6 +60,7 @@ for which a new license (GPL+exception) is in place.
 #include "util_formats.h"
 #include "util_math.h"
 #include "third_party/zip/scribus_zip.h"
+#include "text/boxes.h"
 
 int xpsexplugin_getPluginAPIVersion()
 {
@@ -435,17 +437,12 @@ void XPSExPlug::writeItemOnPage(double xOffset, double yOffset, PageItem *Item, 
 			else
 				processImageItem(xOffset, yOffset, Item, parentElem, rel_root);
 			break;
+		case PageItem::PathText:
 		case PageItem::TextFrame:
 			if (checkForFallback(Item))
 				handleImageFallBack(Item, parentElem, rel_root);
 			else
 				processTextItem(xOffset, yOffset, Item, parentElem, rel_root);
-			break;
-		case PageItem::PathText:
-			if (checkForFallback(Item))
-				handleImageFallBack(Item, parentElem, rel_root);
-			else
-				processPathTextItem(xOffset, yOffset, Item, parentElem, rel_root);
 			break;
 		case PageItem::Table:
 			if (checkForFallback(Item))
@@ -804,6 +801,121 @@ void XPSExPlug::processImageItem(double xOffset, double yOffset, PageItem *Item,
 	return;
 }
 
+class XPSPainter: public TextLayoutPainter
+{
+	PageItem *m_item;
+	QDomElement m_group;
+	XPSExPlug *m_xps;
+	QMap<QString, QString> &m_fontMap;
+	QDomElement &m_relRoot;
+
+public:
+	XPSPainter(PageItem *item, QDomElement &group, XPSExPlug *xps, QMap<QString, QString> &XPSfontMap, QDomElement &rel_root):
+		m_item(item),
+		m_group(group),
+		m_xps(xps),
+		m_fontMap(XPSfontMap),
+		m_relRoot(rel_root)
+	{ }
+
+	void drawGlyph(const GlyphLayout gl)
+	{
+		if (gl.glyph >= ScFace::CONTROL_GLYPHS)
+			return;
+
+		if (!m_fontMap.contains(font().replacementName()))
+			m_fontMap.insert(font().replacementName(), m_xps->embedFont(font(), m_relRoot));
+
+		QTransform transform = matrix();
+		QDomElement glyph = m_xps->p_docu.createElement("Glyphs");
+		double size = fontSize() * qMax(gl.scaleV, gl.scaleH) * m_xps->conversionFactor;
+		glyph.setAttribute("RenderTransform", m_xps->MatrixToStr(transform, m_xps->conversionFactor));
+		glyph.setAttribute("BidiLevel", "0");
+		glyph.setAttribute("StyleSimulations", "None");
+		glyph.setAttribute("FontRenderingEmSize", m_xps->FToStr(size));
+		glyph.setAttribute("FontUri", m_fontMap[font().replacementName()]);
+		glyph.setAttribute("Fill", m_xps->SetColor(fillColor().color,fillColor().shade, 0));
+		glyph.setAttribute("OriginX", m_xps->FToStr(x() * m_xps->conversionFactor));
+		glyph.setAttribute("OriginY", m_xps->FToStr(y() * m_xps->conversionFactor));
+		glyph.setAttribute("Indices", QString::number(gl.glyph));
+
+		m_group.appendChild(glyph);
+	}
+
+	void drawGlyphOutline(const GlyphLayout gl, bool fill)
+	{
+		if (gl.glyph >= ScFace::CONTROL_GLYPHS)
+			return;
+
+		FPointArray outline = font().glyphOutline(gl.glyph);
+		if (outline.size() >= 4)
+		{
+			QTransform transform = matrix();
+			transform.scale((fontSize() * gl.scaleH) / 10.0, (fontSize() * gl.scaleV) / 10.0);
+			outline.map(transform);
+			outline.translate(0, -fontSize() * gl.scaleV);
+			outline.translate(x(), y());
+			outline.scale(m_xps->conversionFactor, m_xps->conversionFactor);
+			QString pathData = m_xps->SetClipPath(&outline, true);
+			QDomElement glyph = m_xps->p_docu.createElement("Path");
+			glyph.setAttribute("Data", pathData);
+			if (!fill)
+				glyph.setAttribute("Fill", m_xps->SetColor("None", fillColor().shade, 0));
+			else
+				glyph.setAttribute("Fill", m_xps->SetColor(fillColor().color, fillColor().shade, 0));
+			glyph.setAttribute("StrokeThickness", m_xps->FToStr(strokeWidth() * m_xps->conversionFactor));
+			glyph.setAttribute("Stroke", m_xps->SetColor(strokeColor().color, strokeColor().shade, 0));
+			m_group.appendChild(glyph);
+		}
+	}
+
+	void drawLine(QPointF start, QPointF end)
+	{
+		QTransform transform = matrix();
+		QDomElement path = m_xps->p_docu.createElement("Path");
+		path.setAttribute("RenderTransform", m_xps->MatrixToStr(transform, m_xps->conversionFactor));
+		path.setAttribute("Data", QString("M%1,%2 L%3,%4").arg((x() + start.x()) * m_xps->conversionFactor).arg((y() + end.y()) * m_xps->conversionFactor).arg((x() + start.x() + end.x()) * m_xps->conversionFactor).arg((y() + end.y()) * m_xps->conversionFactor));
+		path.setAttribute("Stroke", m_xps->SetColor(strokeColor().color, strokeColor().shade, 0));
+		path.setAttribute("StrokeThickness", m_xps->FToStr(strokeWidth() * m_xps->conversionFactor));
+		m_group.appendChild(path);
+	}
+
+	void drawRect(QRectF rect)
+	{
+		QTransform transform = matrix();
+		double rx = (x() + rect.x()) * m_xps->conversionFactor;
+		double ry = (y() + rect.y()) * m_xps->conversionFactor;
+		double rw = rx + rect.width() * m_xps->conversionFactor;
+		double rh = ry + rect.height() * m_xps->conversionFactor;
+		QString paS = QString("M%1,%2 ").arg(rx).arg(ry);
+		paS += QString("L%1,%2 ").arg(rw).arg(ry);
+		paS += QString("L%1,%2 ").arg(rw).arg(rh);
+		paS += QString("L%1,%2 ").arg(rx).arg(rh);
+		paS += "Z";
+		QDomElement path = m_xps->p_docu.createElement("Path");
+		path.setAttribute("RenderTransform", m_xps->MatrixToStr(transform, m_xps->conversionFactor));
+		path.setAttribute("Data", paS);
+		path.setAttribute("Fill", m_xps->SetColor(fillColor().color, fillColor().shade, 0));
+		path.setAttribute("StrokeThickness", m_xps->FToStr(strokeWidth() * m_xps->conversionFactor));
+		path.setAttribute("Stroke", m_xps->SetColor(strokeColor().color, strokeColor().shade, 0));
+		m_group.appendChild(path);
+	}
+
+	void drawObject(PageItem* item)
+	{
+		QDomElement canvas = m_xps->p_docu.createElement("Canvas");
+		QTransform matrix = QTransform();
+		matrix.translate(x() * m_xps->conversionFactor, (y() - (item->height() * (scaleV() / 1000.0))) * m_xps->conversionFactor);
+		if (scaleH() != 1.0)
+			matrix.scale(scaleH(), 1);
+		if (scaleV() != 1.0)
+			matrix.scale(1, scaleV());
+		canvas.setAttribute("RenderTransform", m_xps->MatrixToStr(matrix));
+		m_xps->writeItemOnPage(item->gXpos, item->gYpos, item, canvas, m_relRoot);
+		m_group.appendChild(canvas);
+	}
+};
+
 void XPSExPlug::processTextItem(double xOffset, double yOffset, PageItem *Item, QDomElement &parentElem, QDomElement &rel_root)
 {
 	if (Item->isAnnotation())
@@ -879,756 +991,11 @@ void XPSExPlug::processTextItem(double xOffset, double yOffset, PageItem *Item, 
 			grp.appendChild(ob);
 		}
 	}
-	bool bFound = false;
-	for (uint ll=0; ll < Item->textLayout.lines(); ++ll)
-	{
-		if (Item->itemText.paragraphStyle(Item->textLayout.line(ll).firstItem).backgroundColor() != CommonStrings::None)
-		{
-			bFound = true;
-			break;
-		}
-	}
-	if (bFound)
-	{
-		FPointArray path = Item->PoLine.copy();
-		path.scale(conversionFactor, conversionFactor);
-		SetClipAttr(grp, &path, Item->fillRule);
-	}
-	uint llp = 0;
-	while (llp < Item->textLayout.lines())
-	{
-		LineSpec ls = Item->textLayout.line(llp++);
-		const ParagraphStyle& LineStyle = Item->itemText.paragraphStyle(ls.firstItem);
-		if (LineStyle.backgroundColor() != CommonStrings::None)
-		{
-			double y0 = ls.y;
-			double y2 = ls.y;
-			double ascent = ls.ascent;
-			double descent = ls.descent;
-			double rMarg = LineStyle.rightMargin();
-			double lMarg = ls.colLeft;
-			double adjX = 0;
-			if (LineStyle.firstIndent() <= 0)
-				adjX += LineStyle.leftMargin() + LineStyle.firstIndent();
-			while (llp < Item->textLayout.lines())
-			{
-				ls = Item->textLayout.line(llp);
-				if ((ls.colLeft > lMarg) || (Item->itemText.paragraphStyle(ls.firstItem) != LineStyle))
-				{
-					if (y2 == 0)
-						y2 = y0;
-					break;
-				}
-				if (Item->itemText.text(ls.lastItem) == SpecialChars::PARSEP)
-				{
-					y2 = ls.y;
-					descent = ls.descent;
-					if ((llp + 1) < Item->textLayout.lines())
-					{
-						if ((Item->textLayout.line(llp + 1).lastItem - Item->textLayout.line(llp + 1).firstItem) > 0)
-							descent += LineStyle.lineSpacing() - (ls.descent + Item->textLayout.line(llp + 1).ascent);
-					}
-					llp++;
-					break;
-				}
-				y2 = ls.y;
-				descent = ls.descent;
-				if ((llp + 1) < Item->textLayout.lines())
-					descent += LineStyle.lineSpacing() - (ls.descent + Item->textLayout.line(llp + 1).ascent);
-				llp++;
-			}
-			QRectF scr(lMarg + adjX, y0 - ascent, Item->asTextFrame()->columnWidth() - adjX - rMarg, y2 - y0 + descent + ascent);
-			QString paS = QString("M%1,%2 ").arg(scr.x() * conversionFactor).arg(scr.y() * conversionFactor);
-			paS += QString("L%1,%2 ").arg((scr.x() + scr.width()) * conversionFactor).arg(scr.y() * conversionFactor);
-			paS += QString("L%1,%2 ").arg((scr.x() + scr.width()) * conversionFactor).arg((scr.y() + scr.height()) * conversionFactor);
-			paS += QString("L%1,%2 ").arg(scr.x() * conversionFactor).arg((scr.y() + scr.height()) * conversionFactor);
-			paS += "Z";
-			QDomElement glyS = p_docu.createElement("Path");
-			glyS.setAttribute("Data", paS);
-			glyS.setAttribute("Fill", SetColor(LineStyle.backgroundColor(), LineStyle.backgroundShade(), 0));
-			grp.appendChild(glyS);
-		}
-	}
-	for (uint ll=0; ll < Item->textLayout.lines(); ++ll)
-	{
-		LineSpec ls = Item->textLayout.line(ll);
-		QList<txtRunItem> current_run;
-		QList<QList<txtRunItem> > textRuns;
-		QList<txtRunItem> specialText;
-		double CurX = ls.x;
 
-		double CurXB = ls.x;
-		int last = qMin(ls.lastItem, Item->itemText.length() - 1);
-		QRectF scr;
-		QString oldBack = "";
-		double oldShade = 100;
-		QString colorB = "";
-		for (int a = ls.firstItem; a <= last; ++a)
-		{
-			const GlyphLayout* glyphs(Item->itemText.getGlyphs(a));
-			const CharStyle& charStyle(Item->itemText.charStyle(a));
-			if (charStyle.backColor() != CommonStrings::None)
-			{
-			// This code is for rendering character background color.
-				colorB = SetColor(charStyle.backColor(), charStyle.backShade(), 0);
-				const ParagraphStyle& LineStyle = Item->itemText.paragraphStyle(ls.firstItem);
-				double y1 = ls.y;
-				double hl = ls.height;
-				if (LineStyle.lineSpacingMode() == ParagraphStyle::BaselineGridLineSpacing)
-					hl = m_Doc->guidesPrefs().valueBaselineGrid;
-				else if (LineStyle.lineSpacingMode() == ParagraphStyle::FixedLineSpacing)
-					hl = LineStyle.lineSpacing();
-				if (ls.isFirstLine)
-				{
-					if (Item->textLayout.lines() == 1)
-						hl = ls.ascent + ls.descent;
-					if (LineStyle.hasDropCap() && (a == ls.firstItem))
-						hl *= LineStyle.dropCapLines();
-					if (LineStyle.lineSpacingMode() == ParagraphStyle::BaselineGridLineSpacing)
-						y1 -= LineStyle.lineSpacing();
-					else if (Item->firstLineOffset() == FLOPRealGlyphHeight || Item->firstLineOffset() == FLOPFontAscent)
-						y1 -= ls.ascent;
-					else
-						y1 -= LineStyle.lineSpacing();
-				}
-				else
-					y1 -= ls.ascent + (hl - (ls.ascent + ls.descent)) / 2.0;
-				QRectF scrG;
-				if (Item->itemText.hasObject(a))
-				{
-					PageItem* obj = Item->itemText.object(a);
-					double ww = (obj->width() + obj->lineWidth()) * glyphs->scaleH;
-					double hh = (obj->height() + obj->lineWidth()) * glyphs->scaleV;
-					scrG = QRectF(CurXB, ls.y - hh, ww , hh);
-				}
-				else
-					scrG = QRectF(CurXB, y1, glyphs->wide(), hl);
-				if ((oldBack == "") || ((oldBack == charStyle.backColor()) && (oldShade == charStyle.backShade())))
-					scr |= scrG;
-				else if ((oldBack != charStyle.backColor()) || (oldShade != charStyle.backShade()))
-				{
-					QString paS = QString("M%1,%2 ").arg(scr.x() * conversionFactor).arg(scr.y() * conversionFactor);
-					paS += QString("L%1,%2 ").arg((scr.x() + scr.width()) * conversionFactor).arg(scr.y() * conversionFactor);
-					paS += QString("L%1,%2 ").arg((scr.x() + scr.width()) * conversionFactor).arg((scr.y() + scr.height()) * conversionFactor);
-					paS += QString("L%1,%2 ").arg(scr.x() * conversionFactor).arg((scr.y() + scr.height()) * conversionFactor);
-					paS += "Z";
-					QDomElement glyS = p_docu.createElement("Path");
-					glyS.setAttribute("Data", paS);
-					glyS.setAttribute("Fill", SetColor(oldBack, oldShade, 0));
-					grp.appendChild(glyS);
-					scr = scrG;
-				}
-				oldBack = charStyle.backColor();
-				oldShade = charStyle.backShade();
-			}
-			else
-			{
-				if (!scr.isNull())
-				{
-					QString paS = QString("M%1,%2 ").arg(scr.x() * conversionFactor).arg(scr.y() * conversionFactor);
-					paS += QString("L%1,%2 ").arg((scr.x() + scr.width()) * conversionFactor).arg(scr.y() * conversionFactor);
-					paS += QString("L%1,%2 ").arg((scr.x() + scr.width()) * conversionFactor).arg((scr.y() + scr.height()) * conversionFactor);
-					paS += QString("L%1,%2 ").arg(scr.x() * conversionFactor).arg((scr.y() + scr.height()) * conversionFactor);
-					paS += "Z";
-					QDomElement glyS = p_docu.createElement("Path");
-					glyS.setAttribute("Data", paS);
-					glyS.setAttribute("Fill", colorB);
-					grp.appendChild(glyS);
-				}
-				oldBack = "";
-				oldShade = 100;
-				scr = QRectF();
-			}
-			CurXB += glyphs->wide();
-		}
-		if (!scr.isNull())
-		{
-			QString paS = QString("M%1,%2 ").arg(scr.x() * conversionFactor).arg(scr.y() * conversionFactor);
-			paS += QString("L%1,%2 ").arg((scr.x() + scr.width()) * conversionFactor).arg(scr.y() * conversionFactor);
-			paS += QString("L%1,%2 ").arg((scr.x() + scr.width()) * conversionFactor).arg((scr.y() + scr.height()) * conversionFactor);
-			paS += QString("L%1,%2 ").arg(scr.x() * conversionFactor).arg((scr.y() + scr.height()) * conversionFactor);
-			paS += "Z";
-			QDomElement glyS = p_docu.createElement("Path");
-			glyS.setAttribute("Data", paS);
-			glyS.setAttribute("Fill", colorB);
-			grp.appendChild(glyS);
-		}
-
-		for (int a = ls.firstItem; a <= ls.lastItem; ++a)
-		{
-			//ScText *hl = Item->itemText.item_p(a);
-			QChar chr = Item->itemText.text(a);
-			CharStyle charStyle = Item->itemText.charStyle(a);
-			GlyphLayout* glyphs = Item->itemText.getGlyphs(a);
-			LayoutFlags flags = Item->itemText.flags(a);
-			const ScFace* font = &charStyle.font();
-			txtRunItem txItem;
-			txItem.chr = chr;
-			txItem.glyphs = glyphs;
-			txItem.style = charStyle;
-			txItem.index = a;
-			txItem.CurX = CurX;
-			txItem.embItem = Item->itemText.hasObject(a)? Item->itemText.object(a) : NULL;
-			if (!((font->type() == ScFace::TTF) || (font->type() == ScFace::OTF)))
-			{
-				specialText.append(txItem);
-				textRuns.append(current_run);
-				current_run.clear();
-				CurX += txItem.glyphs->wide();
-				continue;
-			}
-			if (SpecialChars::isBreak(chr, true) || (chr == QChar(10)))
-			{
-				continue;
-			}
-			if (flags & ScLayout_SuppressSpace)
-			{
-				continue;
-			}
-			if ((chr == SpecialChars::OLD_NBSPACE) || (chr == SpecialChars::OBJECT) || (charStyle.effects() & ScStyle_UserStyles))
-			{
-				specialText.append(txItem);
-				textRuns.append(current_run);
-				current_run.clear();
-				CurX += txItem.glyphs->wide();
-				continue;
-			}
-			QString guidFont;
-			if (!xps_fontMap.contains(font->replacementName()))
-			{
-				guidFont = embedFont(font, rel_root);
-				xps_fontMap.insert(font->replacementName(), guidFont);
-			}
-			else
-				guidFont = xps_fontMap[font->replacementName()];
-			if (current_run.isEmpty())
-				current_run.append(txItem);
-			else
-			{
-				txtRunItem txItemL = current_run.last();
-				double chl = (txItemL.style.fontSize() / 10.0) * qMax(txItemL.glyphs->scaleV, txItemL.glyphs->scaleH) * conversionFactor;
-				const ScFace* fontL = &txItemL.style.font();
-				QString guidFontL = xps_fontMap[fontL->replacementName()];
-				StyleFlag old_sty = txItemL.style.effects();
-				int old_shade = txItemL.style.fillShade();
-				QString old_fill = txItemL.style.fillColor();
-				double chs = (charStyle.fontSize() / 10.0) * qMax(glyphs->scaleV, glyphs->scaleH) * conversionFactor;
-				if ((chs != chl) || (guidFont != guidFontL) || (charStyle.effects() != old_sty) || (charStyle.fillColor() != old_fill) || (charStyle.fillShade() != old_shade))
-				{
-					textRuns.append(current_run);
-					current_run.clear();
-				}
-				current_run.append(txItem);
-			}
-			CurX += txItem.glyphs->wide();
-		}
-		textRuns.append(current_run);
-		for (int txr = 0; txr < textRuns.count(); txr++)
-		{
-			QString uniString = "";
-			QString indString = "";
-			current_run = textRuns[txr];
-			if (current_run.isEmpty())
-				continue;
-			double StartX = current_run[0].CurX;
-			CurX = current_run[0].CurX;
-			double chs = (current_run[0].style.fontSize() / 10.0) * qMax(current_run[0].glyphs->scaleV, current_run[0].glyphs->scaleH) * conversionFactor;
-			for (int cr = 0; cr < current_run.count(); cr++)
-			{
-				txtRunItem txItem = current_run[cr];
-				if ((txItem.chr == SpecialChars::PAGENUMBER) || (txItem.chr == SpecialChars::PAGECOUNT))
-				{
-					QString exString = Item->ExpandToken(txItem.index);
-					for (int ex = 0; ex < exString.count(); ex++)
-					{
-						indString += ";";
-					}
-					uniString += exString;
-				}
-				else if ((SpecialChars::isBreakingSpace(txItem.chr)) || (SpecialChars::isExpandingSpace(txItem.chr)) || (txItem.chr.isSpace()))
-				{
-					indString += QString(",%1;").arg((txItem.glyphs->wide() * conversionFactor) / chs * 100);
-					uniString += " ";
-				}
-				else
-				{
-					uniString += txItem.chr;
-					if ((txItem.glyphs->xoffset != 0) || (txItem.glyphs->yoffset != 0))
-						indString += QString(",%1,%2,%3;").arg((txItem.glyphs->wide() * conversionFactor) / chs * 100).arg((txItem.glyphs->xoffset * conversionFactor) / chs * 100).arg((-txItem.glyphs->yoffset * conversionFactor) / chs * 100);
-					else
-						indString += QString(",%1;").arg((txItem.glyphs->wide() * conversionFactor) / chs * 100);
-				}
-				CurX += txItem.glyphs->wide();
-			}
-			if (!indString.isEmpty())
-				indString.chop(1);
-			QDomElement gly = p_docu.createElement("Glyphs");
-			gly.setAttribute("BidiLevel", "0");
-			gly.setAttribute("StyleSimulations", "None");
-			gly.setAttribute("FontRenderingEmSize", FToStr(chs));
-			const ScFace* fontL = &current_run[0].style.font();
-			gly.setAttribute("FontUri", xps_fontMap[fontL->replacementName()]);
-			gly.setAttribute("Fill", SetColor(current_run[0].style.fillColor(), current_run[0].style.fillShade(), 0));
-			gly.setAttribute("UnicodeString", uniString);
-			if (current_run.count() == 1)
-			{
-				gly.setAttribute("OriginX", FToStr((StartX + current_run[0].glyphs->xoffset) * conversionFactor));
-				gly.setAttribute("OriginY", FToStr((ls.y + current_run[0].glyphs->yoffset) * conversionFactor));
-			}
-			else
-			{
-				gly.setAttribute("OriginX", FToStr(StartX * conversionFactor));
-				gly.setAttribute("OriginY", FToStr(ls.y * conversionFactor));
-				gly.setAttribute("Indices", indString);
-			}
-			grp.appendChild(gly);
-		}
-		for (int cr = 0; cr < specialText.count(); cr++)
-		{
-			txtRunItem txItem = specialText[cr];
-			CurX = txItem.CurX;
-			if (txItem.chr == SpecialChars::OBJECT)
-			{
-				if (txItem.embItem != NULL)
-				{
-					QDomElement obO = p_docu.createElement("Canvas");
-					QTransform mm;
-					mm.translate(CurX * conversionFactor, (ls.y - (txItem.embItem->height() * (txItem.style.scaleV() / 1000.0))) * conversionFactor);
-					if (txItem.style.baselineOffset() != 0)
-						mm.translate(0, (txItem.style.baselineOffset() / 1000.0) * conversionFactor);
-					if (txItem.style.scaleH() != 1000)
-						mm.scale(txItem.style.scaleH() / 1000.0, 1);
-					if (txItem.style.scaleV() != 1000)
-						mm.scale(1, txItem.style.scaleV() / 1000.0);
-					obO.setAttribute("RenderTransform", MatrixToStr(mm));
-					QList<PageItem*> emG;
-					if (txItem.embItem->isGroup())
-						emG = txItem.embItem->getItemList();
-					else
-						emG.append(txItem.embItem);
-					for (int em = 0; em < emG.count(); ++em)
-					{
-						PageItem* embed = emG.at(em);
-						writeItemOnPage(embed->gXpos, embed->gYpos, embed, obO, rel_root);
-					}
-					grp.appendChild(obO);
-				}
-				continue;
-			}
-			QString chstr = txItem.chr;
-			if ((txItem.chr == SpecialChars::PAGENUMBER) || (txItem.chr == SpecialChars::PAGECOUNT))
-				chstr = Item->ExpandToken(txItem.index);
-			double chs = txItem.style.fontSize();
-			if (txItem.style.effects() & ScStyle_SmallCaps)
-			{
-				if (chstr.toUpper() != chstr)
-				{
-					chs = qMax(static_cast<int>(txItem.style.fontSize() * m_Doc->typographicPrefs().valueSmallCaps / 100), 1);
-					chstr = chstr.toUpper();
-				}
-			}
-			else if (txItem.style.effects() & ScStyle_AllCaps)
-				chstr = chstr.toUpper();
-			for (int cx = 0; cx < chstr.count(); cx++)
-			{
-				FPointArray pts;
-				QChar chstrex = chstr[cx];
-				uint chr = chstrex.unicode();
-				QTransform chma;
-				uint gl = txItem.style.font().char2CMap(chr);
-				if (!chstrex.isSpace())
-				{
-					pts = txItem.style.font().glyphOutline(gl);
-					if (pts.size() < 4)
-						continue;
-					chma = QTransform();
-					chma.scale(txItem.glyphs->scaleH * txItem.style.fontSize() / 100.00, txItem.glyphs->scaleV * txItem.style.fontSize() / 100.0);
-					pts.map(chma);
-					if (txItem.style.effects() & (ScStyle_Subscript | ScStyle_Superscript))
-						pts.translate(0, -(chs / 10.0 * txItem.glyphs->scaleV));
-					else
-						pts.translate(0, -(chs / 10.0));
-					pts.translate(CurX, ls.y);
-					// Fix for drop caps ???
-					if (ls.isFirstLine && Item->itemText.paragraphStyle(ls.firstItem).hasDropCap() && (txItem.index == ls.firstItem))
-						pts.translate(0, -ls.ascent);
-					if (txItem.style.effects() & (ScStyle_Subscript | ScStyle_Superscript))
-						pts.translate(0, txItem.glyphs->yoffset);
-					if ((txItem.style.effects() & ScStyle_Shadowed) && (txItem.style.strokeColor() != CommonStrings::None))
-					{
-						FPointArray ptsS = pts.copy();
-						ptsS.translate(txItem.style.fontSize() * txItem.style.shadowXOffset() / 10000.0, -txItem.style.fontSize() * txItem.style.shadowYOffset() / 10000.0);
-						ptsS.scale(conversionFactor, conversionFactor);
-						QString paS = SetClipPath(&ptsS, true);
-						QDomElement glyS = p_docu.createElement("Path");
-						glyS.setAttribute("Data", paS);
-						glyS.setAttribute("Fill", SetColor(txItem.style.strokeColor(), txItem.style.strokeShade(), 0));
-						grp.appendChild(glyS);
-					}
-					pts.scale(conversionFactor, conversionFactor);
-					QString pa = SetClipPath(&pts, true);
-					QDomElement gly = p_docu.createElement("Path");
-					gly.setAttribute("Data", pa);
-					gly.setAttribute("Fill", SetColor(txItem.style.fillColor(), txItem.style.fillShade(), 0));
-					if (txItem.style.effects() & ScStyle_Outline)
-					{
-						gly.setAttribute("StrokeThickness", FToStr((chs * txItem.style.outlineWidth() / 10000.0) * conversionFactor));
-						gly.setAttribute("Stroke", SetColor(txItem.style.strokeColor(), txItem.style.strokeShade(), 0));
-					}
-					grp.appendChild(gly);
-				}
-				if ((txItem.style.effects() & ScStyle_Underline) || ((txItem.style.effects() & ScStyle_UnderlineWords)  && chstr.toUInt() != txItem.style.font().char2CMap(QChar(' '))))
-				{
-					double st, lw;
-					if ((txItem.style.underlineOffset() != -1) || (txItem.style.underlineWidth() != -1))
-					{
-						if (txItem.style.underlineOffset() != -1)
-							st = (txItem.style.underlineOffset() / 1000.0) * (txItem.style.font().descent(txItem.style.fontSize() / 10.0));
-						else
-							st = txItem.style.font().underlinePos(txItem.style.fontSize() / 10.0);
-						if (txItem.style.underlineWidth() != -1)
-							lw = (txItem.style.underlineWidth() / 1000.0) * (txItem.style.fontSize() / 10.0);
-						else
-							lw = qMax(txItem.style.font().strokeWidth(txItem.style.fontSize() / 10.0), 1.0);
-					}
-					else
-					{
-						st = txItem.style.font().underlinePos(txItem.style.fontSize() / 10.0);
-						lw = qMax(txItem.style.font().strokeWidth(txItem.style.fontSize() / 10.0), 1.0);
-					}
-					if (txItem.style.baselineOffset() != 0)
-						st += (txItem.style.fontSize() / 10.0) * txItem.glyphs->scaleV * (txItem.style.baselineOffset() / 1000.0);
-					QDomElement gly = p_docu.createElement("Path");
-					if (txItem.style.effects() & ScStyle_Subscript)
-						gly.setAttribute("Data", QString("M%1,%2 L%3,%4").arg((CurX + txItem.glyphs->xoffset) * conversionFactor).arg((ls.y + txItem.glyphs->yoffset - st) * conversionFactor).arg((CurX + txItem.glyphs->xoffset + txItem.glyphs->xadvance) * conversionFactor).arg((ls.y + txItem.glyphs->yoffset - st) * conversionFactor));
-					else
-						gly.setAttribute("Data", QString("M%1,%2 L%3,%4").arg((CurX + txItem.glyphs->xoffset) * conversionFactor).arg((ls.y - st) * conversionFactor).arg((CurX + txItem.glyphs->xoffset + txItem.glyphs->xadvance) * conversionFactor).arg((ls.y - st) * conversionFactor));
-					gly.setAttribute("Stroke", SetColor(txItem.style.fillColor(), txItem.style.fillShade(), 0));
-					gly.setAttribute("StrokeThickness", FToStr(lw * conversionFactor));
-					grp.appendChild(gly);
-				}
-				if (txItem.style.effects() & ScStyle_Strikethrough)
-				{
-					double st, lw;
-					if ((txItem.style.strikethruOffset() != -1) || (txItem.style.strikethruWidth() != -1))
-					{
-						if (txItem.style.strikethruOffset() != -1)
-							st = (txItem.style.strikethruOffset() / 1000.0) * (txItem.style.font().ascent(txItem.style.fontSize() / 10.0));
-						else
-							st = txItem.style.font().strikeoutPos(txItem.style.fontSize() / 10.0);
-						if (txItem.style.strikethruWidth() != -1)
-							lw = (txItem.style.strikethruWidth() / 1000.0) * (txItem.style.fontSize() / 10.0);
-						else
-							lw = qMax(txItem.style.font().strokeWidth(txItem.style.fontSize() / 10.0), 1.0);
-					}
-					else
-					{
-						st = txItem.style.font().strikeoutPos(txItem.style.fontSize() / 10.0);
-						lw = qMax(txItem.style.font().strokeWidth(txItem.style.fontSize() / 10.0), 1.0);
-					}
-					if (txItem.style.baselineOffset() != 0)
-						st += (txItem.style.fontSize() / 10.0) * txItem.glyphs->scaleV * (txItem.style.baselineOffset() / 1000.0);
-					QDomElement gly = p_docu.createElement("Path");
-					gly.setAttribute("Data", QString("M%1,%2 L%3,%4").arg((CurX + txItem.glyphs->xoffset) * conversionFactor).arg((ls.y - st) * conversionFactor).arg((CurX + txItem.glyphs->xoffset + txItem.glyphs->xadvance) * conversionFactor).arg((ls.y - st) * conversionFactor));
-					gly.setAttribute("Stroke", SetColor(txItem.style.fillColor(), txItem.style.fillShade(), 0));
-					gly.setAttribute("StrokeThickness", FToStr(lw * conversionFactor));
-					grp.appendChild(gly);
-				}
-			}
-		}
-	}
 	parentElem.appendChild(grp);
-	if ((Item->GrTypeStroke != 0) || (Item->lineColor() != CommonStrings::None) || !Item->NamedLStyle.isEmpty())
-	{
-		if (Item->NamedLStyle.isEmpty())
-		{
-			if ((!Item->strokePattern().isEmpty()) && (Item->patternStrokePath))
-			{
-				processSymbolStroke(xOffset, yOffset, Item, parentElem, rel_root);
-			}
-			else
-			{
-				QDomElement ob3 = p_docu.createElement("Path");
-				ob3.setAttribute("Data", pa);
-				getStrokeStyle(Item, ob3, rel_root, xOffset, yOffset);
-				ob3.setAttribute("RenderTransform", MatrixToStr(mpl));
-				parentElem.appendChild(ob3);
-			}
-		}
-		else
-		{
-			QDomElement grp2 = p_docu.createElement("Canvas");
-			multiLine ml = m_Doc->MLineStyles[Item->NamedLStyle];
-			for (int it = ml.size()-1; it > -1; it--)
-			{
-				if ((ml[it].Color != CommonStrings::None) && (ml[it].Width != 0))
-				{
-					QDomElement ob3 = p_docu.createElement("Path");
-					ob3.setAttribute("Data", pa);
-					GetMultiStroke(&ml[it], ob3);
-					grp2.appendChild(ob3);
-				}
-			}
-			if (Item->lineTransparency() != 0)
-				grp2.setAttribute("Opacity", FToStr(1.0 - Item->lineTransparency()));
-			grp2.setAttribute("RenderTransform", MatrixToStr(mpl));
-			parentElem.appendChild(grp2);
-		}
-	}
-}
-
-void XPSExPlug::processPathTextItem(double xOffset, double yOffset, PageItem *Item, QDomElement &parentElem, QDomElement &rel_root)
-{
-	QDomElement grp = p_docu.createElement("Canvas");
-	QTransform mpx;
-	mpx.translate(xOffset * conversionFactor, yOffset * conversionFactor);
-	if ((Item->rotation() != 0.0) || Item->imageFlippedH() || Item->imageFlippedV())
-	{
-		mpx.rotate(Item->rotation());
-		if (Item->imageFlippedH())
-		{
-			mpx.translate(Item->width() * conversionFactor, 0);
-			mpx.scale(-1, 1);
-		}
-		if (Item->imageFlippedV())
-		{
-			mpx.translate(0, Item->height() * conversionFactor);
-			mpx.scale(1, -1);
-		}
-	}
-	grp.setAttribute("RenderTransform", MatrixToStr(mpx));
-	if ((Item->PoShow) && (Item->lineColor() != CommonStrings::None))
-	{
-		QDomElement ob = p_docu.createElement("Path");
-		FPointArray path = Item->PoLine.copy();
-		path.scale(conversionFactor, conversionFactor);
-		QString pa = SetClipPath(&path, false);
-		ob.setAttribute("Data", pa);
-		if (Item->NamedLStyle.isEmpty())
-		{
-			if ((!Item->strokePattern().isEmpty()) && (Item->patternStrokePath))
-			{
-				processSymbolStroke(xOffset, yOffset, Item, parentElem, rel_root);
-			}
-			else
-			{
-				getStrokeStyle(Item, ob, rel_root, xOffset, yOffset);
-				grp.appendChild(ob);
-			}
-		}
-		else
-		{
-			QDomElement grp2 = p_docu.createElement("Canvas");
-			multiLine ml = m_Doc->MLineStyles[Item->NamedLStyle];
-			for (int it = ml.size()-1; it > -1; it--)
-			{
-				if ((ml[it].Color != CommonStrings::None) && (ml[it].Width != 0))
-				{
-					QDomElement ob3 = p_docu.createElement("Path");
-					ob3.setAttribute("Data", pa);
-					GetMultiStroke(&ml[it], ob3);
-					grp2.appendChild(ob3);
-				}
-			}
-			if (Item->lineTransparency() != 0)
-				grp2.setAttribute("Opacity", FToStr(1.0 - Item->lineTransparency()));
-			grp.appendChild(grp2);
-		}
-	}
-	QString chstr;
-	for (int a = 0; a < Item->asPathText()->itemRenderText.length(); ++a)
-	{
-		//ScText *hl = Item->asPathText()->itemRenderText.item_p(a);
-		const CharStyle& charStyle(Item->asPathText()->itemRenderText.charStyle(a));
-		const PathData* pdata = &(Item->asPathText()->textLayout.point(a));
-		const GlyphLayout* glyphs = Item->asPathText()->itemRenderText.getGlyphs(a);
-		PageItem* embItem = Item->asPathText()->itemRenderText.hasObject(a)?
-		                    Item->asPathText()->itemRenderText.object(a) : NULL;
-		
-		chstr = Item->asPathText()->itemRenderText.text(a,1);
-		if ((chstr == QChar(13)) || (chstr == QChar(29)))
-			continue;
-		if (chstr == QChar(30))
-		{
-			chstr = Item->ExpandToken(a);
-			if (chstr == QChar(32))
-				continue;
-		}
-		double chs = charStyle.fontSize();
-		if (charStyle.effects() & ScStyle_SmallCaps)
-		{
-			if (chstr.toUpper() != chstr)
-			{
-				chs = qMax(static_cast<int>(charStyle.fontSize() * m_Doc->typographicPrefs().valueSmallCaps / 100), 1);
-				chstr = chstr.toUpper();
-			}
-		}
-		else if (charStyle.effects() & ScStyle_AllCaps)
-			chstr = chstr.toUpper();
-		uint chr = chstr[0].unicode();
-		QPointF tangt = QPointF( cos(pdata->PRot), sin(pdata->PRot) );
-		QTransform trafo = QTransform( 1, 0, 0, -1, -pdata->PDx * conversionFactor, 0 );
-		if (Item->textPathFlipped)
-			trafo *= QTransform(1, 0, 0, -1, 0, 0);
-		if (Item->textPathType == 0)
-			trafo *= QTransform( tangt.x(), tangt.y(), tangt.y(), -tangt.x(), pdata->PtransX * conversionFactor, pdata->PtransY * conversionFactor );
-		else if (Item->textPathType == 1)
-			trafo *= QTransform(1, 0, 0, -1, pdata->PtransX * conversionFactor, pdata->PtransY * conversionFactor );
-		else if (Item->textPathType == 2)
-		{
-			double a = 1;
-			if (tangt.x() < 0)
-				a = -1;
-			if (fabs(tangt.x()) > 0.1)
-				trafo *= QTransform( a, (tangt.y() / tangt.x()) * a, 0, -1, pdata->PtransX * conversionFactor, pdata->PtransY * conversionFactor ); // ID's Skew mode
-			else
-				trafo *= QTransform( a, 4 * a, 0, -1, pdata->PtransX * conversionFactor, pdata->PtransY * conversionFactor );
-		}
-		if (charStyle.baselineOffset() != 0)
-			trafo.translate(0, (-charStyle.fontSize() / 10.0) * (charStyle.baselineOffset() / 1000.0));
-		trafo.translate(0, Item->BaseOffs);
-		QTransform finalMat = trafo;
-		if (chr == SpecialChars::OBJECT)
-		{
-			if (embItem != NULL)
-			{
-				QDomElement obO = p_docu.createElement("Canvas");
-				QTransform mm = finalMat;
-				mm.translate(0, (-(embItem->height() * (charStyle.scaleV() / 1000.0))) * conversionFactor);
-				if (charStyle.scaleH() != 1000)
-					mm.scale(charStyle.scaleH() / 1000.0, 1);
-				if (charStyle.scaleV() != 1000)
-					mm.scale(1, charStyle.scaleV() / 1000.0);
-				obO.setAttribute("RenderTransform", MatrixToStr(mm));
-				QList<PageItem*> emG;
-				if (embItem->isGroup())
-					emG = embItem->getItemList();
-				else
-					emG.append(embItem);
-				for (int em = 0; em < emG.count(); ++em)
-				{
-					PageItem* embed = emG.at(em);
-					writeItemOnPage(embed->gXpos, embed->gYpos, embed, obO, rel_root);
-				}
-				grp.appendChild(obO);
-			}
-			continue;
-		}
-		finalMat.scale(conversionFactor, conversionFactor);
-		FPointArray pts;
-		QTransform chma;
-		uint gl = charStyle.font().char2CMap(chr);
-		pts = charStyle.font().glyphOutline(gl);
-		if (pts.size() < 4)
-			continue;
-		chma = QTransform();
-		chma.scale(glyphs->scaleH * charStyle.fontSize() / 100.00, glyphs->scaleV * charStyle.fontSize() / 100.0);
-		pts.map(chma);
-		if (charStyle.effects() & (ScStyle_Subscript | ScStyle_Superscript))
-			pts.translate(0, -(chs / 10.0 * glyphs->scaleV));
-		else
-			pts.translate(0, -(chs / 10.0));
-		if (charStyle.effects() & (ScStyle_Subscript | ScStyle_Superscript))
-			pts.translate(0, glyphs->yoffset);
-		if ((charStyle.effects() & ScStyle_Shadowed) && (charStyle.strokeColor() != CommonStrings::None))
-		{
-			FPointArray ptsS = pts.copy();
-			ptsS.translate(charStyle.fontSize() * charStyle.shadowXOffset() / 10000.0, -charStyle.fontSize() * charStyle.shadowYOffset() / 10000.0);
-			ptsS.map(finalMat);
-			QString paS = SetClipPath(&ptsS, true);
-			QDomElement glyS = p_docu.createElement("Path");
-			glyS.setAttribute("Data", paS);
-			glyS.setAttribute("Fill", SetColor(charStyle.strokeColor(), charStyle.strokeShade(), 0));
-			grp.appendChild(glyS);
-		}
-		pts.map(finalMat);
-		QString pa = SetClipPath(&pts, true);
-		QDomElement gly = p_docu.createElement("Path");
-		gly.setAttribute("Data", pa);
-		gly.setAttribute("Fill", SetColor(charStyle.fillColor(), charStyle.fillShade(), 0));
-		if (charStyle.effects() & ScStyle_Outline)
-		{
-			gly.setAttribute("StrokeThickness", FToStr((chs * charStyle.outlineWidth() / 10000.0) * conversionFactor));
-			gly.setAttribute("Stroke", SetColor(charStyle.strokeColor(), charStyle.strokeShade(), 0));
-		}
-		grp.appendChild(gly);
-		if ((charStyle.effects() & ScStyle_Underline) || ((charStyle.effects() & ScStyle_UnderlineWords)  && chstr.toUInt() != charStyle.font().char2CMap(QChar(' '))))
-		{
-			double st, lw;
-			if ((charStyle.underlineOffset() != -1) || (charStyle.underlineWidth() != -1))
-			{
-				if (charStyle.underlineOffset() != -1)
-					st = (charStyle.underlineOffset() / 1000.0) * (charStyle.font().descent(charStyle.fontSize() / 10.0));
-				else
-					st = charStyle.font().underlinePos(charStyle.fontSize() / 10.0);
-				if (charStyle.underlineWidth() != -1)
-					lw = (charStyle.underlineWidth() / 1000.0) * (charStyle.fontSize() / 10.0);
-				else
-					lw = qMax(charStyle.font().strokeWidth(charStyle.fontSize() / 10.0), 1.0);
-			}
-			else
-			{
-				st = charStyle.font().underlinePos(charStyle.fontSize() / 10.0);
-				lw = qMax(charStyle.font().strokeWidth(charStyle.fontSize() / 10.0), 1.0);
-			}
-			if (charStyle.baselineOffset() != 0)
-				st += (charStyle.fontSize() / 10.0) * glyphs->scaleV * (charStyle.baselineOffset() / 1000.0);
-			FPointArray ptsS;
-			ptsS.svgInit();
-			if (charStyle.effects() & ScStyle_Subscript)
-			{
-				ptsS.svgMoveTo(glyphs->xoffset, glyphs->yoffset - st);
-				ptsS.svgLineTo(glyphs->xoffset + glyphs->xadvance, glyphs->yoffset - st);
-			}
-			else
-			{
-				ptsS.svgMoveTo(glyphs->xoffset, -st);
-				ptsS.svgLineTo(glyphs->xoffset + glyphs->xadvance, -st);
-			}
-			ptsS.map(finalMat);
-			QString paS = SetClipPath(&ptsS, true);
-			QDomElement gly = p_docu.createElement("Path");
-			gly.setAttribute("Data", paS);
-			gly.setAttribute("Stroke", SetColor(charStyle.fillColor(), charStyle.fillShade(), 0));
-			gly.setAttribute("StrokeThickness", FToStr(lw * conversionFactor));
-			grp.appendChild(gly);
-		}
-		if (charStyle.effects() & ScStyle_Strikethrough)
-		{
-			double st, lw;
-			if ((charStyle.strikethruOffset() != -1) || (charStyle.strikethruWidth() != -1))
-			{
-				if (charStyle.strikethruOffset() != -1)
-					st = (charStyle.strikethruOffset() / 1000.0) * (charStyle.font().ascent(charStyle.fontSize() / 10.0));
-				else
-					st = charStyle.font().strikeoutPos(charStyle.fontSize() / 10.0);
-				if (charStyle.strikethruWidth() != -1)
-					lw = (charStyle.strikethruWidth() / 1000.0) * (charStyle.fontSize() / 10.0);
-				else
-					lw = qMax(charStyle.font().strokeWidth(charStyle.fontSize() / 10.0), 1.0);
-			}
-			else
-			{
-				st = charStyle.font().strikeoutPos(charStyle.fontSize() / 10.0);
-				lw = qMax(charStyle.font().strokeWidth(charStyle.fontSize() / 10.0), 1.0);
-			}
-			if (charStyle.baselineOffset() != 0)
-				st += (charStyle.fontSize() / 10.0) * glyphs->scaleV * (charStyle.baselineOffset() / 1000.0);
-			FPointArray ptsS;
-			ptsS.svgInit();
-			ptsS.svgMoveTo(glyphs->xoffset, -st);
-			ptsS.svgLineTo(glyphs->xoffset + glyphs->xadvance, -st);
-			ptsS.map(finalMat);
-			QString paS = SetClipPath(&ptsS, true);
-			QDomElement gly = p_docu.createElement("Path");
-			gly.setAttribute("Data", paS);
-			gly.setAttribute("Stroke", SetColor(charStyle.fillColor(), charStyle.fillShade(), 0));
-			gly.setAttribute("StrokeThickness", FToStr(lw * conversionFactor));
-			grp.appendChild(gly);
-		}
-	}
-	parentElem.appendChild(grp);
-	return;
+	XPSPainter p(Item, grp, this, xps_fontMap, rel_root);
+	Item->textLayout.renderBackground(&p);
+	Item->textLayout.render(&p);
 }
 
 void XPSExPlug::processSymbolItem(double xOffset, double yOffset, PageItem *Item, QDomElement &parentElem, QDomElement &rel_root)
@@ -2274,10 +1641,10 @@ void XPSExPlug::drawArrow(double xOffset, double yOffset, PageItem *Item, QDomEl
 	}
 }
 
-QString XPSExPlug::embedFont(const ScFace *font, QDomElement &rel_root)
+QString XPSExPlug::embedFont(const ScFace font, QDomElement &rel_root)
 {
 	QByteArray fontData;
-	loadRawText(font->fontFilePath(), fontData);
+	loadRawText(font.fontFilePath(), fontData);
 	QUuid id = QUuid::createUuid();
 	QString guidString = id.toString();
 	guidString = guidString.toUpper();
@@ -3082,6 +2449,12 @@ QString XPSExPlug::IToStr(int c)
 {
 	QString cc;
 	return cc.setNum(c);
+}
+
+QString XPSExPlug::MatrixToStr(QTransform &mat, double factor)
+{
+	QString cc("%1, %2, %3, %4, %5, %6");
+	return  cc.arg(mat.m11()).arg(mat.m12()).arg(mat.m21()).arg(mat.m22()).arg(mat.dx() * factor).arg(mat.dy() * factor);
 }
 
 QString XPSExPlug::MatrixToStr(QTransform &mat)

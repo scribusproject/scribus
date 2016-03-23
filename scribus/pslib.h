@@ -45,6 +45,7 @@ class PageItem;
 class MultiProgressDialog;
 class ScImage;
 class ScLayer;
+class PSPainter;
 
 /**
   *@author Franz Schmid
@@ -54,6 +55,9 @@ class ScLayer;
 class SCRIBUS_API PSLib : public QObject
 {
 	Q_OBJECT
+
+	friend class PSPainter;
+
 	public:
 
 		typedef enum
@@ -140,7 +144,6 @@ class SCRIBUS_API PSLib : public QObject
 		virtual void SetColor(const QString& color, double shade, int *h, int *s, int *v, int *k);
 		virtual void SetColor(const ScColor& color, double shade, int *h, int *s, int *v, int *k);
 		virtual void setTextSt(ScribusDoc* Doc, PageItem* ite, uint a, ScPage* pg, bool sep, bool farb, bool master);
-		virtual void setTextCh(ScribusDoc* Doc, PageItem* ite, double x, double y, uint a, uint d, QChar chstr, const GlyphLayout* glyphs, const CharStyle& cstyle, const ParagraphStyle& pstyle, ScPage* pg, bool sep, bool farb, bool master);
 		bool psExport;
 
 	private:
