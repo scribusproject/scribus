@@ -373,6 +373,7 @@
     <moc Include="..\..\..\scribus\ui\fontreplacedialog.h" />
     <ClInclude Include="..\..\..\scribus\fpoint.h" />
     <ClInclude Include="..\..\..\scribus\fpointarray.h" />
+    <moc Include="..\..\..\scribus\text\boxes.h" />
     <ClInclude Include="..\..\..\scribus\text\frect.h" />
     <ClInclude Include="..\..\..\scribus\text\fsize.h" />
     <ClInclude Include="..\..\..\scribus\fonts\ftface.h" />
@@ -396,9 +397,11 @@
     <moc Include="..\..\..\scribus\guidesmodel.h" />
     <moc Include="..\..\..\scribus\guidesview.h" />
     <moc Include="..\..\..\scribus\ui\helpbrowser.h" />
+    <ClInclude Include="..\..\..\scribus\text\screenpainter.h" />
     <ClInclude Include="..\..\..\scribus\text\textlayout.h" />
     <moc Include="..\..\..\scribus\ui\filedialogeventcatcher.h" />
     <moc Include="..\..\..\scribus\ui\downloadspalette.h" />
+    <ClInclude Include="..\..\..\scribus\text\textlayoutpainter.h" />
     <ClInclude Include="..\..\..\scribus\ui\helpnavigation.h" />
     <ClInclude Include="..\..\..\scribus\third_party\hyphen\hnjalloc.h" />
     <moc Include="..\..\..\scribus\ui\hruler.h" />
@@ -912,7 +915,10 @@
     <ClCompile Include="..\..\..\scribus\qtiocompressor.cpp" />
     <ClCompile Include="..\..\..\scribus\imagedataloaders\scimgdataloader_ora.cpp" />
     <ClCompile Include="..\..\..\scribus\selectionrubberband.cpp" />
+    <ClCompile Include="..\..\..\scribus\text\boxes.cpp" />
+    <ClCompile Include="..\..\..\scribus\text\screenpainter.cpp" />
     <ClCompile Include="..\..\..\scribus\text\textlayout.cpp" />
+    <ClCompile Include="..\..\..\scribus\text\textlayoutpainter.cpp" />
     <ClCompile Include="..\..\..\scribus\third_party\fparser\fparser.cc" />
     <ClCompile Include="..\..\..\scribus\third_party\fparser\fpoptimizer.cc" />
     <ClCompile Include="..\..\..\scribus\ui\about.cpp" />

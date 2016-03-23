@@ -1025,6 +1025,12 @@
     <ClInclude Include="..\..\..\scribus\collapsedtablepainterex.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\scribus\text\screenpainter.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\text\textlayoutpainter.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\scribus\desaxe\digester.cpp">
@@ -2563,6 +2569,15 @@
     <ClCompile Include="..\..\..\scribus\ui\recoverdialog.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\scribus\text\screenpainter.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\text\textlayoutpainter.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\text\boxes.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Scribus.rc">
@@ -4074,6 +4089,9 @@
       <Filter>Header Files</Filter>
     </moc>
     <moc Include="..\..\..\scribus\ui\recoverdialog.h">
+      <Filter>Header Files</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\text\boxes.h">
       <Filter>Header Files</Filter>
     </moc>
   </ItemGroup>
