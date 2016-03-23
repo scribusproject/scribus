@@ -127,7 +127,7 @@ void LanguageManager::generateLangList()
 	m_langTable.append(LangDef("gd",     "gd_GB", "Scottish Gaelic",        QObject::tr( "Scottish Gaelic" )) );
 	m_langTable.append(LangDef("gl",     "gl_ES", "Galician",               QObject::tr( "Galician" )) );
 	m_langTable.append(LangDef("gu",     "gu_IN", "Gujarati",               QObject::tr( "Gujarati" )) );
-	m_langTable.append(LangDef("he",     "hi_IL", "Hebrew",                 QObject::tr( "Hebrew" )) );
+	m_langTable.append(LangDef("he",     "he_IL", "Hebrew",                 QObject::tr( "Hebrew" )) );
 	m_langTable.append(LangDef("hi_IN",  "",      "Hindi",                  QObject::tr( "Hindi" )) );
 	m_langTable.append(LangDef("hr",     "",      "Croatian",               QObject::tr( "Croatian" )) );
 	m_langTable.append(LangDef("hu",     "hu_HU", "Hungarian",              QObject::tr( "Hungarian" )) );
