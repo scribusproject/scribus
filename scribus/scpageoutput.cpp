@@ -921,7 +921,7 @@ void ScPageOutput::drawItem_Line( PageItem_Line* item, ScPainterExBase* painter,
 	}
 }
 
-class ScpageoutputPainter: public TextLayoutPainter
+class ScPageOutputPainter: public TextLayoutPainter
 {
 private:
 	PageItem* m_item;
@@ -942,7 +942,7 @@ private:
 	}
 
 public:
-	ScpageoutputPainter(PageItem* item, ScPainterExBase* painter, ScPageOutput* scpage)
+	ScPageOutputPainter(PageItem* item, ScPainterExBase* painter, ScPageOutput* scpage)
 		: m_item(item)
 		, m_painter(painter)
 		, m_scpage(scpage)
@@ -1097,7 +1097,7 @@ public:
 
 void ScPageOutput::drawItem_PathText( PageItem_PathText* item, ScPainterExBase* painter, QRect clip )
 {
-	ScpageoutputPainter p(item, painter, this);
+	ScPageOutputPainter p(item, painter, this);
 	item->textLayout.renderBackground(&p);
 	item->textLayout.render(&p);
 }
@@ -1451,7 +1451,7 @@ void ScPageOutput::drawItem_Table( PageItem_Table* item, ScPainterExBase* painte
 
 void ScPageOutput::drawItem_TextFrame( PageItem_TextFrame* item, ScPainterExBase* painter, QRect cullingArea )
 {
-	ScpageoutputPainter p(item, painter, this);
+	ScPageOutputPainter p(item, painter, this);
 	item->textLayout.renderBackground(&p);
 	item->textLayout.render(&p);
 }
