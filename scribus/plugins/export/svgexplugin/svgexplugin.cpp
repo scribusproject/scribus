@@ -1259,19 +1259,7 @@ QDomElement SVGExPlug::processTextItem(PageItem *Item, QString trans, QString fi
 			ob.appendChild(ob1);
 		}
 	}
-	bool bFound = false;
-	if (bFound)
-	{
-		QDomElement cl;
-		QDomElement ob2 = createClipPathElement(&Item->PoLine, &cl);
-			if (!ob2.isNull())
-		{
-			ob2.setAttribute("clipPathUnits", "userSpaceOnUse");
-			ob2.setAttribute("clip-rule", "evenodd");
-		}
-		if (!ob2.isNull())
-			ob.setAttribute("clip-path", "url(#" + ob2.attribute("id") + ")");
-	}
+
 	SvgPainter p(trans, this, ob);
 	Item->textLayout.renderBackground(&p);
 	Item->textLayout.render(&p);
