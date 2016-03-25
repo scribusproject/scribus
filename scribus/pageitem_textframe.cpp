@@ -2569,7 +2569,7 @@ void PageItem_TextFrame::layout()
 			if ((glyphRuns[i].hasFlag(ScLayout_HyphenationPossible)
 				  || itemText.text(a) == '-'
 				  || itemText.text(a) == SpecialChars::SHYPHEN)
-				 && (!outs) && !itemText.text(glyphRuns[i - 1].lastChar()).isSpace() )
+				 && (!outs) && ((i == 0) || !itemText.text(glyphRuns[i - 1].lastChar()).isSpace()) )
 			{
 				breakPos = current.xPos;
 				if (itemText.text(a) != '-')
