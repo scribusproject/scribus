@@ -456,9 +456,6 @@ struct LineControl {
 	double   restartX; //starting X position of line if must be restarted
 	double   rowDesc;
 
-	double   ascend;
-	double   descend;
-	double   width;
 	double   xPos;
 	double   yPos;
 	int      breakIndex;
@@ -482,6 +479,29 @@ struct LineControl {
 		colWidth = colwidth;
 		colGap = colgap;
 		hyphenCount = 0;
+
+		isEmpty = true;
+		colLeft = insets.left() + lineCorr;
+		colRight = colLeft + colWidth;
+		startOfCol = true;
+		afterOverflow = false;
+		addLine = false;
+		recalculateY = false;
+		lastInRowLine = false;
+		addLeftIndent = false;
+		wasFirstInRow = false;
+		leftIndent = 0.0;
+		rightMargin = 0.0;
+		mustLineEnd = false;
+		restartIndex = 0;
+		restartRowIndex = 0;
+		restartX = 0.0;
+		rowDesc = 0.0;
+		xPos = 0.0;
+		yPos = 0.0;
+		breakIndex = -1;
+		breakXPos = 0.0;
+		maxShrink = 0.0;
 	}
 
 	/// move position to next column
@@ -522,7 +542,6 @@ struct LineControl {
 		breakXPos = 0.0;
 		maxShrink = 0.0;
 		maxStretch = 0.0;
-		width = 0.0;
 		leftIndent = 0.0;
 		rightMargin = 0.0;
 		rowDesc = 0.0;

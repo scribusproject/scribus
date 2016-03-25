@@ -94,16 +94,19 @@ PathData& TextLayout::point(int pos)
 
 void TextLayout::appendLine(LineBox* ls)
 {
-	assert( ls->firstChar() >= 0 );
-	assert( ls->firstChar() < story()->length() );
-	assert( ls->lastChar() < story()->length() );
+	assert(ls);
+	assert(ls->firstChar() >= 0);
+	assert(ls->firstChar() < story()->length());
+	assert(ls->lastChar() < story()->length());
+	assert(!m_box->boxes().empty());
+
+	GroupBox* column = dynamic_cast<GroupBox*>(m_box->boxes().last());
+	assert(column);
 
 	// HACK: the ascent set by PageItem_TextFrame::layout()
 	// is useless, we reset it again based on the y position
-	ls->setAscent(ls->y() - m_box->boxes().last()->naturalHeight());
-	GroupBox* gb=dynamic_cast<GroupBox*>(m_box->boxes().last());
-	if (gb)
-		gb->addBox(ls);
+	ls->setAscent(ls->y() - column->naturalHeight());
+	column->addBox(ls);
 }
 
 // Remove the last line from the list. Used when we need to backtrack on the layouting.
