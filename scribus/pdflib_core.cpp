@@ -4131,6 +4131,8 @@ QByteArray PDFLibCore::PDF_PutSoftShadow(PageItem* ite, const ScPage *pag)
 	tmp += FToStr(ite->visualWidth() + 2 * ite->softShadowBlurRadius()) + " 0 0 " + FToStr(ite->visualHeight() + 2 * ite->softShadowBlurRadius())+" 0 0 cm\n" ;
 	maxSize = qMax(ite->visualWidth(), ite->visualHeight());
 	maxSize = qMin(3000.0, maxSize * (softShadowDPI / 72.0));
+	bool saveControl = ite->doc()->guidesPrefs().showControls;
+	ite->doc()->guidesPrefs().showControls = false;
 	bool savedShadow = ite->hasSoftShadow();
 	ite->setHasSoftShadow(false);
 	double transF = ite->fillTransparency();
@@ -4160,6 +4162,7 @@ QByteArray PDFLibCore::PDF_PutSoftShadow(PageItem* ite, const ScPage *pag)
 		delete p;
 	}
 
+	ite->doc()->guidesPrefs().showControls = saveControl;
 	ite->setHasSoftShadow(savedShadow);
 	ScImage img = imgC.alphaChannel().convertToFormat(QImage::Format_RGB32);
 	PdfId maskObj = writer.newObject();
