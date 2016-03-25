@@ -161,13 +161,12 @@ public:
 				m_pathBuffer += FillColor;
 
 			m_pathBuffer += "q\n";
+			m_pathBuffer += transformToStr(transform) + " cm\n";
 			m_pathBuffer += FToStr(fontSize()) + " 0 0 " + FToStr(fontSize()) + " " + FToStr(x()) + " " + FToStr((y() - fontSize()) * -1) + " cm\n";
 
 			if (gl.scaleV != 1.0)
 				m_pathBuffer += "1 0 0 1 0 " + FToStr(((fontSize() - fontSize() * gl.scaleV) / fontSize()) * -1) + " cm\n";
-
-			transform.scale(qMax(gl.scaleH, 0.1), qMax(gl.scaleV, 0.1));
-			m_pathBuffer += transformToStr(transform) + " cm\n";
+			m_pathBuffer += FToStr(qMax(gl.scaleH, 0.1)) + " 0 0 " + FToStr(qMax(gl.scaleV, 0.1)) + " 0 0 cm\n";
 
 			if (!FillColor.isEmpty())
 				m_pathBuffer += pdfFont.name + Pdf::toPdf(gl.glyph) + " Do\n";
@@ -258,13 +257,13 @@ public:
 				m_pathBuffer += FillColor;
 
 			m_pathBuffer += "q\n";
+			m_pathBuffer += transformToStr(transform) + " cm\n";
 			m_pathBuffer += FToStr(fontSize()) + " 0 0 " + FToStr(fontSize()) + " " + FToStr(x()) + " " + FToStr((y() - fontSize()) * -1) + " cm\n";
 
 			if (gl.scaleV != 1.0)
 				m_pathBuffer += "1 0 0 1 0 " + FToStr(((fontSize() - fontSize() * (gl.scaleV)) / fontSize()) * -1) + " cm\n";
 
-			transform.scale(qMax(gl.scaleH, 0.1), qMax(gl.scaleV, 0.1));
-			m_pathBuffer += transformToStr(transform) + " cm\n";
+			m_pathBuffer += FToStr(qMax(gl.scaleH, 0.1)) + " 0 0 " + FToStr(qMax(gl.scaleV, 0.1)) + " 0 0 cm\n";
 
 			if (!FillColor.isEmpty())
 				m_pathBuffer += pdfFont.name + Pdf::toPdf(gl.glyph) + " Do\n";
