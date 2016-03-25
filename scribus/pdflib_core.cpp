@@ -161,13 +161,13 @@ public:
 				m_pathBuffer += FillColor;
 
 			m_pathBuffer += "q\n";
-			m_glyphBuffer += FToStr(fontSize()) + " 0 0 " + FToStr(fontSize()) + " " + FToStr(x()) + " " + FToStr(y()) + " cm\n";
+			m_pathBuffer += FToStr(fontSize()) + " 0 0 " + FToStr(fontSize()) + " " + FToStr(x()) + " " + FToStr((y() - fontSize()) * -1) + " cm\n";
 
 			if (gl.scaleV != 1.0)
 				m_pathBuffer += "1 0 0 1 0 " + FToStr(((fontSize() - fontSize() * gl.scaleV) / fontSize()) * -1) + " cm\n";
 
 			transform.scale(qMax(gl.scaleH, 0.1), qMax(gl.scaleV, 0.1));
-			m_glyphBuffer += transformToStr(transform) + " cm\n";
+			m_pathBuffer += transformToStr(transform) + " cm\n";
 
 			if (!FillColor.isEmpty())
 				m_pathBuffer += pdfFont.name + Pdf::toPdf(gl.glyph) + " Do\n";
@@ -250,7 +250,7 @@ public:
 		{
 			if (!StrokeColor.isEmpty())
 			{
-				m_pathBuffer += FToStr(strokeWidth()) + " w\n[] 0 d\n0 J\n0 j\n";
+				m_pathBuffer += FToStr(strokeWidth() / 10.0) + " w\n[] 0 d\n0 J\n0 j\n";
 				m_pathBuffer += StrokeColor;
 			}
 
@@ -258,7 +258,7 @@ public:
 				m_pathBuffer += FillColor;
 
 			m_pathBuffer += "q\n";
-			m_glyphBuffer += FToStr(fontSize()) + " 0 0 " + FToStr(fontSize()) + " " + FToStr(x()) + " " + FToStr(y()) + " cm\n";
+			m_pathBuffer += FToStr(fontSize()) + " 0 0 " + FToStr(fontSize()) + " " + FToStr(x()) + " " + FToStr((y() - fontSize()) * -1) + " cm\n";
 
 			if (gl.scaleV != 1.0)
 				m_pathBuffer += "1 0 0 1 0 " + FToStr(((fontSize() - fontSize() * (gl.scaleV)) / fontSize()) * -1) + " cm\n";
