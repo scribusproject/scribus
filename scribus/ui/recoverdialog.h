@@ -44,6 +44,7 @@ private:
 	void updateFilesTable();
 	QStringList m_files;
 private slots:
+	void toggleAllfromHeader(int col);
 	void handleItemClick();
 	void doRecover();
 	void doRemove();

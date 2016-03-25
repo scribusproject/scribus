@@ -40,9 +40,27 @@ RecoverDialog::RecoverDialog(QWidget* parent, QStringList files) : QDialog(paren
 	m_files = files;
 	recoverFiles.clear();
 	filesList->setColumnWidth(0, 24);
+	QHeaderView *header = filesList->horizontalHeader();
+	header->setStretchLastSection(true);
+	header->setSectionsClickable(true );
+	header->setSectionsMovable( false );
+	header->setSectionResizeMode(QHeaderView::Fixed);
+	header->setHighlightSections(false);
 	updateFilesTable();
 	connect(buttonRecover, SIGNAL(clicked()), this, SLOT(doRecover()));
 	connect(buttonRemove, SIGNAL(clicked()), this, SLOT(doRemove()));
+	connect(header, SIGNAL(sectionClicked(int)), this, SLOT(toggleAllfromHeader(int)));
+}
+
+void RecoverDialog::toggleAllfromHeader(int col)
+{
+	if (col != 0)
+		return;
+	for (int a = 0; a < filesList->rowCount(); a++)
+	{
+		((QCheckBox*)(filesList->cellWidget(a, 0)))->toggle();
+	}
+	handleItemClick();
 }
 
 void RecoverDialog::handleItemClick()
