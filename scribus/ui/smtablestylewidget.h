@@ -28,6 +28,8 @@ public:
 	SMTableStyleWidget(QWidget *parent = 0);
 	/// Destructor.
 	~SMTableStyleWidget();
+
+	void setDoc(ScribusDoc* doc);
 	virtual void changeEvent(QEvent *e);
 
 	/**
@@ -64,6 +66,12 @@ public:
 	 */
 	void fillFillColorCombo(ColorList &colors);
 	void showColors(const QList<TableStyle*> &tableStyles);
+
+private:
+	ScribusDoc * m_Doc;
+
+private slots:
+	void handleUpdateRequest(int);
 };
 
 #endif // SMTABLESTYLEWIDGET_H

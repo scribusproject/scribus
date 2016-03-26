@@ -7,14 +7,16 @@ for which a new license (GPL+exception) is in place.
 
 #include <QEvent>
 
-#include "langmgr.h"
-#include "smcstylewidget.h"
 #include "iconmanager.h"
+#include "langmgr.h"
+#include "scribus.h"
+#include "smcstylewidget.h"
 #include "util.h"
 #include "units.h"
 
 
-SMCStyleWidget::SMCStyleWidget(QWidget *parent) : QWidget()
+SMCStyleWidget::SMCStyleWidget(QWidget *parent) : QWidget(),
+	m_Doc(0)
 {
 	setupUi(this);
 
@@ -187,6 +189,32 @@ void SMCStyleWidget::fillColorCombo(ColorList &colors)
 	fillColor_->view()->setMinimumWidth(fillColor_->view()->maximumViewportSize().width()+24);
 	strokeColor_->view()->setMinimumWidth(strokeColor_->view()->maximumViewportSize().width()+24);
 	backColor_->view()->setMinimumWidth(backColor_->view()->maximumViewportSize().width()+24);
+}
+
+void SMCStyleWidget::handleUpdateRequest(int updateFlags)
+{
+	if (!m_Doc)
+		return;
+	if (updateFlags & reqColorsUpdate)
+		fillColorCombo(m_Doc->PageColors);
+}
+
+void SMCStyleWidget::setDoc(ScribusDoc *doc)
+{
+	if (m_Doc)
+		disconnect(m_Doc->scMW(), SIGNAL(UpdateRequest(int)), this , SLOT(handleUpdateRequest(int)));
+
+	m_Doc = doc;
+	if (!m_Doc)
+		return;
+
+	QStringList languageList;
+	LanguageManager::instance()->fillInstalledHyphStringList(&languageList);
+	fillLangComboFromList(languageList);
+	fillColorCombo(m_Doc->PageColors);
+	fontFace_->RebuildList(m_Doc);
+
+	connect(m_Doc->scMW(), SIGNAL(UpdateRequest(int)), this , SLOT(handleUpdateRequest(int)));
 }
 
 void SMCStyleWidget::show(CharStyle *cstyle, QList<CharStyle> &cstyles, const QString &defLang, int unitIndex)

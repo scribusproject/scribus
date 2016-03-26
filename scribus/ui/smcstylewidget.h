@@ -24,6 +24,7 @@ public:
 	
 	virtual void changeEvent(QEvent *e);
 
+	void setDoc(ScribusDoc* doc);
 	void show(CharStyle *cstyle, QList<CharStyle> &cstyles, const QString &defLang, int unitIndex);
 	void show(QList<CharStyle*> &cstyles, QList<CharStyle> &cstylesAll, const QString &defLang, int unitIndex);
 	//void fillLangCombo(QMap<QString,QString> langMap);
@@ -34,6 +35,7 @@ public:
 
 private:
 	//QMap<QString, QString> m_langMap;
+	ScribusDoc * m_Doc;
 
 	void showSizeAndPosition(const QList<CharStyle*> &cstyles);
 	void showEffects(const QList<CharStyle*> &cstyles);
@@ -46,6 +48,7 @@ private:
 
 private slots:
 	void slotColorChange();
+	void handleUpdateRequest(int);
 };
 
 #endif

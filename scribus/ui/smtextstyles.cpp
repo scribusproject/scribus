@@ -71,25 +71,20 @@ void SMParagraphStyle::setCurrentDoc(ScribusDoc *doc)
 	{
 		if (m_pwidget)
 		{
-			QStringList languageList;
-			LanguageManager::instance()->fillInstalledHyphStringList(&languageList);
-			m_pwidget->cpage->fillLangComboFromList(languageList);
-			m_pwidget->cpage->fillColorCombo(m_doc->PageColors);
-			m_pwidget->cpage->fontFace_->RebuildList(m_doc);
-			m_pwidget->fillColorCombo(m_doc->PageColors);
+			m_pwidget->setDoc(m_doc);
 			if (m_unitRatio != m_doc->unitRatio())
 				unitChange();
 		}
 	}
 	else
 	{
+		if (m_pwidget)
+			m_pwidget->setDoc(0);
 		removeConnections();
 		m_selection.clear();
 		m_tmpStyles.clear();
 		m_deleted.clear();
 	}
-	if (m_pwidget)
-		m_pwidget->setDoc(doc);
 }
 
 StyleSet<ParagraphStyle>* SMParagraphStyle::tmpStyles()
@@ -1936,24 +1931,15 @@ QString SMCharacterStyle::typeNameSingular()
 void SMCharacterStyle::setCurrentDoc(ScribusDoc *doc)
 {
 	m_doc = doc;
-	if (m_doc)
-	{
-		if (m_page)
-		{
-			QStringList languageList;
-			LanguageManager::instance()->fillInstalledHyphStringList(&languageList);
-			m_page->fillLangComboFromList(languageList);
-			m_page->fillColorCombo(m_doc->PageColors);
-			m_page->fontFace_->RebuildList(m_doc);
-		}
-	}
-	else
+	if (m_page)
+		m_page->setDoc(doc);
+
+	if (!m_doc)
 	{
 		removeConnections();
 		m_selection.clear();
 		m_tmpStyles.clear();
 	}
-
 }
 
 StyleSet<CharStyle>* SMCharacterStyle::tmpStyles()

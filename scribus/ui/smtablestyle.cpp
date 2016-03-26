@@ -54,21 +54,10 @@ void SMTableStyle::setCurrentDoc(ScribusDoc *doc)
 {
 	m_doc = doc;
 
-	if (!m_doc)
-	{
-		removeConnections();
-		m_selection.clear();
-		m_cachedStyles.clear();
-	}
+	if (m_page)
+		m_page->setDoc(doc);
 
-	if (m_doc)
-	{
-		if (m_page)
-		{
-			m_page->fillFillColorCombo(m_doc->PageColors);
-		}
-	}
-	else
+	if (!m_doc)
 	{
 		removeConnections();
 		m_selection.clear();

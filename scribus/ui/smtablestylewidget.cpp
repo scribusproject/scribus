@@ -10,7 +10,8 @@ for which a new license (GPL+exception) is in place.
 #include "smtablestylewidget.h"
 #include "iconmanager.h"
 
-SMTableStyleWidget::SMTableStyleWidget(QWidget *parent) : QWidget()
+SMTableStyleWidget::SMTableStyleWidget(QWidget *parent) : QWidget(),
+	m_Doc(0)
 {
 	setupUi(this);
 
@@ -29,6 +30,27 @@ void SMTableStyleWidget::changeEvent(QEvent *e)
 		languageChange();
 	else
 		QWidget::changeEvent(e);
+}
+
+void SMTableStyleWidget::handleUpdateRequest(int updateFlags)
+{
+	if (!m_Doc)
+		return;
+	if (updateFlags & reqColorsUpdate)
+		fillFillColorCombo(m_Doc->PageColors);
+}
+
+void SMTableStyleWidget::setDoc(ScribusDoc* doc)
+{
+	if (m_Doc)
+		disconnect(m_Doc->scMW(), SIGNAL(UpdateRequest(int)), this , SLOT(handleUpdateRequest(int)));
+
+	m_Doc = doc;
+	if (!m_Doc)
+		return;
+
+	fillFillColorCombo(m_Doc->PageColors);
+	connect(m_Doc->scMW(), SIGNAL(UpdateRequest(int)), this , SLOT(handleUpdateRequest(int)));
 }
 
 void SMTableStyleWidget::show(TableStyle *tableStyle, QList<TableStyle> &tableStyles, const QString &defLang, int unitIndex)

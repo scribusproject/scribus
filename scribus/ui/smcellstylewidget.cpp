@@ -10,7 +10,8 @@ for which a new license (GPL+exception) is in place.
 #include "smcellstylewidget.h"
 #include "iconmanager.h"
 
-SMCellStyleWidget::SMCellStyleWidget(QWidget *parent) : QWidget()
+SMCellStyleWidget::SMCellStyleWidget(QWidget *parent) : QWidget(),
+	m_Doc(0)
 {
 	setupUi(this);
 
@@ -31,6 +32,26 @@ void SMCellStyleWidget::changeEvent(QEvent *e)
 		QWidget::changeEvent(e);
 }
 
+void SMCellStyleWidget::handleUpdateRequest(int updateFlags)
+{
+	if (!m_Doc)
+		return;
+	if (updateFlags & reqColorsUpdate)
+		fillFillColorCombo(m_Doc->PageColors);
+}
+
+void SMCellStyleWidget::setDoc(ScribusDoc* doc)
+{
+	if (m_Doc)
+		disconnect(m_Doc->scMW(), SIGNAL(UpdateRequest(int)), this , SLOT(handleUpdateRequest(int)));
+
+	m_Doc = doc;
+	if (!m_Doc)
+		return;
+
+	fillFillColorCombo(m_Doc->PageColors);
+	connect(m_Doc->scMW(), SIGNAL(UpdateRequest(int)), this , SLOT(handleUpdateRequest(int)));
+}
 
 void SMCellStyleWidget::show(CellStyle *cellStyle, QList<CellStyle> &cellStyles, const QString &defLang, int unitIndex)
 {

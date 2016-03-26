@@ -262,6 +262,7 @@ void SMPStyleWidget::setDoc(ScribusDoc *doc)
 {
 	if (m_Doc)
 		disconnect(m_Doc->scMW(), SIGNAL(UpdateRequest(int)), this , SLOT(handleUpdateRequest(int)));
+
 	m_Doc = doc;
 	if (m_Doc)
 	{
@@ -269,6 +270,8 @@ void SMPStyleWidget::setDoc(ScribusDoc *doc)
 		fillColorCombo(m_Doc->PageColors);
 		fillNumerationsCombo();
 	}
+
+	cpage->setDoc(m_Doc);
 }
 
 void SMPStyleWidget::fillColorCombo(ColorList &colors)
