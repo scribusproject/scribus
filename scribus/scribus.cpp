@@ -2048,9 +2048,10 @@ QStringList ScribusMainWindow::findRecoverableFile()
 	return foundFiles.toList();
 }
 
-void ScribusMainWindow::recoverFile(QStringList foundFiles)
+bool ScribusMainWindow::recoverFile(QStringList foundFiles)
 {
 	appModeHelper->setStartupActionsEnabled(false);
+	bool ret = false;
 	RecoverDialog* dia = new RecoverDialog(this, foundFiles);
 	if (dia->exec())
 	{
@@ -2066,9 +2067,11 @@ void ScribusMainWindow::recoverFile(QStringList foundFiles)
 				if (outlinePalette->isVisible())
 					outlinePalette->BuildTree();
 			}
+			ret = true;
 		}
 	}
 	delete dia;
+	return ret;
 }
 
 void ScribusMainWindow::startUpDialog()

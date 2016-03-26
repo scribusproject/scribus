@@ -172,7 +172,7 @@ public:
 	void updateLayerMenu();
 	void emergencySave();
 	QStringList findRecoverableFile();
-	void recoverFile(QStringList foundFiles);
+	bool recoverFile(QStringList foundFiles);
 
 	/**
 	 * @brief Returns true if an arrow key is pressed down.

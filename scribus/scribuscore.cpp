@@ -137,7 +137,11 @@ int ScribusCore::startGUI(bool showSplash, bool showFontInfo, bool showProfileIn
 		}
 		else if ((recoverFiles.count() > 0) && usingGUI())
 		{
-			scribus->recoverFile(recoverFiles);
+			if (!scribus->recoverFile(recoverFiles))
+			{
+				if (PrefsManager::instance()->appPrefs.uiPrefs.showStartupDialog)
+					scribus->startUpDialog();
+			}
 		}
 		else
 		{
