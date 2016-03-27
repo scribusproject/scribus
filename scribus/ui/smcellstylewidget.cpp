@@ -7,8 +7,9 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 
-#include "smcellstylewidget.h"
 #include "iconmanager.h"
+#include "scribus.h"
+#include "smcellstylewidget.h"
 
 SMCellStyleWidget::SMCellStyleWidget(QWidget *parent) : QWidget(),
 	m_Doc(0)
