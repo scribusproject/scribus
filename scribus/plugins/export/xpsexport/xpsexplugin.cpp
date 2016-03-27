@@ -837,7 +837,7 @@ public:
 		glyph.setAttribute("Fill", m_xps->SetColor(fillColor().color,fillColor().shade, 0));
 		glyph.setAttribute("OriginX", m_xps->FToStr(x() * m_xps->conversionFactor));
 		glyph.setAttribute("OriginY", m_xps->FToStr(y() * m_xps->conversionFactor));
-		glyph.setAttribute("Indices", QString::number(gl.glyph));
+		glyph.setAttribute("Indices", QString("%1,%2").arg(gl.glyph).arg((gl.xadvance * m_xps->conversionFactor) / size * 100));
 
 		m_group.appendChild(glyph);
 	}
@@ -992,10 +992,89 @@ void XPSExPlug::processTextItem(double xOffset, double yOffset, PageItem *Item, 
 		}
 	}
 
-	parentElem.appendChild(grp);
+//	parentElem.appendChild(grp);
 	XPSPainter p(Item, grp, this, xps_fontMap, rel_root);
 	Item->textLayout.renderBackground(&p);
 	Item->textLayout.render(&p);
+	QDomElement grp2 = p_docu.createElement("Canvas");
+	if (grp.hasAttribute("RenderTransform"))
+		grp2.setAttribute("RenderTransform", grp.attribute("RenderTransform"));
+	if (grp.hasAttribute("Name"))
+		grp2.setAttribute("Name", grp.attribute("Name"));
+	if (grp.hasAttribute("Opacity"))
+		grp2.setAttribute("Opacity", grp.attribute("Opacity"));
+	bool first = true;
+	QString RenderTransform = "";
+	QString FontRenderingEmSize = "";
+	QString FontUri = "";
+	QString Fill = "";
+	QString OriginX = "";
+	QString OriginY = "";
+	QString Indices = "";
+	QDomElement glyph;
+	for(QDomElement txtGrp = grp.firstChildElement(); !txtGrp.isNull(); txtGrp = txtGrp.nextSiblingElement() )
+	{
+		if (txtGrp.tagName() != "Glyphs")
+			grp2.appendChild(txtGrp.cloneNode(true));
+		else
+		{
+			if (first)
+			{
+				RenderTransform = txtGrp.attribute("RenderTransform");
+				FontRenderingEmSize = txtGrp.attribute("FontRenderingEmSize");
+				FontUri = txtGrp.attribute("FontUri");
+				Fill = txtGrp.attribute("Fill");
+				OriginX = txtGrp.attribute("OriginX");
+				OriginY = txtGrp.attribute("OriginY");
+				Indices = txtGrp.attribute("Indices");
+				glyph = p_docu.createElement("Glyphs");
+				glyph.setAttribute("RenderTransform", RenderTransform);
+				glyph.setAttribute("BidiLevel", "0");
+				glyph.setAttribute("StyleSimulations", "None");
+				glyph.setAttribute("FontRenderingEmSize", FontRenderingEmSize);
+				glyph.setAttribute("FontUri", FontUri);
+				glyph.setAttribute("Fill", Fill);
+				glyph.setAttribute("OriginX", OriginX);
+				glyph.setAttribute("OriginY", OriginY);
+				glyph.setAttribute("Indices", Indices);
+				grp2.appendChild(glyph);
+				first = false;
+			}
+			else
+			{
+				if ((RenderTransform == txtGrp.attribute("RenderTransform")) && (FontRenderingEmSize == txtGrp.attribute("FontRenderingEmSize")) && (FontUri == txtGrp.attribute("FontUri")) && (OriginY == txtGrp.attribute("OriginY")) && (Fill == txtGrp.attribute("Fill")))
+				{
+					Indices.append(";" + txtGrp.attribute("Indices"));
+				}
+				else
+				{
+					glyph.setAttribute("Indices", Indices);
+					RenderTransform = txtGrp.attribute("RenderTransform");
+					FontRenderingEmSize = txtGrp.attribute("FontRenderingEmSize");
+					FontUri = txtGrp.attribute("FontUri");
+					Fill = txtGrp.attribute("Fill");
+					OriginX = txtGrp.attribute("OriginX");
+					OriginY = txtGrp.attribute("OriginY");
+					Indices = txtGrp.attribute("Indices");
+					glyph = p_docu.createElement("Glyphs");
+					glyph.setAttribute("RenderTransform", RenderTransform);
+					glyph.setAttribute("BidiLevel", "0");
+					glyph.setAttribute("StyleSimulations", "None");
+					glyph.setAttribute("FontRenderingEmSize", FontRenderingEmSize);
+					glyph.setAttribute("FontUri", FontUri);
+					glyph.setAttribute("Fill", Fill);
+					glyph.setAttribute("OriginX", OriginX);
+					glyph.setAttribute("OriginY", OriginY);
+					glyph.setAttribute("Indices", Indices);
+					grp2.appendChild(glyph);
+					first = false;
+				}
+			}
+			if (txtGrp == grp.lastChildElement())
+				glyph.setAttribute("Indices", Indices);
+		}
+	}
+	parentElem.appendChild(grp2);
 }
 
 void XPSExPlug::processSymbolItem(double xOffset, double yOffset, PageItem *Item, QDomElement &parentElem, QDomElement &rel_root)
