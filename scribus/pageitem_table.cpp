@@ -72,6 +72,14 @@ void PageItem_Table::adjustTable()
 	doc()->dontResize = false;
 }
 
+void PageItem_Table::currentTextProps(ParagraphStyle& parStyle) const
+{
+	if (m_Doc && (m_Doc->appMode == modeEditTable))
+		m_activeCell.textFrame()->currentTextProps(parStyle);
+	else
+		parStyle = this->itemText.defaultStyle();
+}
+
 void PageItem_Table::resize(double width, double height)
 {
 	ASSERT_VALID();

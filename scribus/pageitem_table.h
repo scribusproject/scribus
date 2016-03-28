@@ -91,6 +91,9 @@ public:
 	/// Resizes the table to fit the frame.
 	void adjustTable();
 
+	/// Return current text properties (current char + paragraph properties)
+	virtual void currentTextProps(ParagraphStyle& parStyle) const;
+
 	/// Returns the number of rows in the table.
 	int rows() const { return m_rows; }
 

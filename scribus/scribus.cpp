@@ -1448,8 +1448,10 @@ void ScribusMainWindow::setTBvals(PageItem *currItem)
 	propertiesPalette->textPal->showParStyle(currPStyle.parent());
 	propertiesPalette->textPal->showCharStyle(item->currentCharStyle().parent());
 	doc->currentStyle = item->currentStyle();
-	// #8112 : do not use operator= here as it does not update style features
-	doc->currentStyle.charStyle().setStyle(item->currentCharStyle());
+	if (doc->appMode == modeEdit || doc->appMode == modeEditTable)
+		item->currentTextProps(doc->currentStyle);
+	else
+		doc->currentStyle.charStyle().setStyle(item->currentCharStyle());
 	emit TextStyle(doc->currentStyle);
 	// to go: (av)
 	propertiesPalette->textPal->updateStyle(doc->currentStyle);

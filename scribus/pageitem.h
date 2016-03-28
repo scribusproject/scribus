@@ -413,7 +413,7 @@ public: // Start public functions
 	/// returns the style at the current charpos
 	const CharStyle& currentCharStyle() const;
 	/// Return current text properties (current char + paragraph properties)
-	void currentTextProps(ParagraphStyle& parStyle) const;
+	virtual void currentTextProps(ParagraphStyle& parStyle) const;
 	// deprecated:
 	GlyphLayout layoutGlyphs(const CharStyle& style, const QString& chars, LayoutFlags flags);
 	void SetQColor(QColor *tmp, QString farbe, double shad);
