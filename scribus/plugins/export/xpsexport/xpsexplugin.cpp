@@ -1065,7 +1065,15 @@ void XPSExPlug::processTextItem(double xOffset, double yOffset, PageItem *Item, 
 	for(QDomElement txtGrp = grp.firstChildElement(); !txtGrp.isNull(); txtGrp = txtGrp.nextSiblingElement() )
 	{
 		if (txtGrp.tagName() != "Glyphs")
+		{
+			if (!first)
+			{
+				glyph.setAttribute("Indices", Indices);
+				glyph.setAttribute("UnicodeString", UnicodeString);
+				first = true;
+			}
 			grp2.appendChild(txtGrp.cloneNode(true));
+		}
 		else
 		{
 			if (first)
