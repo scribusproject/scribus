@@ -1551,7 +1551,11 @@ void PageItem::currentTextProps(ParagraphStyle& parStyle) const
 		position = qMin(qMax(itemText.endOfSelection() - 1, 0), qMax(position, itemText.startOfSelection()));
 
 	if (frameDisplays(position))
-		parStyle.charStyle().setStyle( itemText.charStyle(position) );
+	{
+		// Do not use setStyle here otherwise char style properties explicitly
+		// set at paragraph level without using styles might get lost
+		parStyle.charStyle().applyCharStyle( itemText.charStyle(position) );
+	}
 	else
 		parStyle.charStyle().setStyle( itemText.defaultStyle().charStyle() );
 }
