@@ -621,14 +621,16 @@ int GlyphBox::pointToPosition(QPointF coord) const
 	double relX = coord.x() - m_x;
 	double xPos = 0.0;
 
-	for (int i = 0; i < m_glyphRun.glyphs().length(); ++i)
+	const QList<GlyphLayout>& glyphs = m_glyphRun.glyphs();
+	for (int i = 0; i < glyphs.length(); ++i)
 	{
-		double width = m_glyphRun.glyphs().at(i).xadvance;
-		if (xPos <= relX && relX <= xPos + width)
-		{
-			return m_firstChar + i; // FIXME: use clusters
-		}
+		double width = glyphs.at(i).xadvance;
 		xPos += width;
+		if (xPos >= relX)
+		{
+			int index = (xPos - width / 2.0 > relX) ? i : i + 1; // FIXME: use clusters
+			return m_firstChar + index;
+		}
 	}
 	return -1;
 }

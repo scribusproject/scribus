@@ -93,8 +93,8 @@ public:
 	void       setFlag(LayoutFlags f)       { m_flags = static_cast<LayoutFlags>(m_flags | f); }
 	void     clearFlag(LayoutFlags f)       { m_flags = static_cast<LayoutFlags>(m_flags & ~f); }
 
-	QList<GlyphLayout>&      glyphs()       { return m_glyphs; }
-	const QList<GlyphLayout> glyphs() const { return m_glyphs; }
+	QList<GlyphLayout>&       glyphs()       { return m_glyphs; }
+	const QList<GlyphLayout>& glyphs() const { return m_glyphs; }
 	int firstChar()					const	{ return m_firstChar; }
 	int lastChar()					const	{ return m_lastChar; }
 	qreal width() const;
