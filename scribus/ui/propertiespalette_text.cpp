@@ -351,7 +351,10 @@ void PropertiesPalette_Text::setCurrentItem(PageItem *i)
 	if (m_item->asTextFrame() || m_item->asPathText() || m_item->asTable())
 	{
 		ParagraphStyle parStyle =  m_item->itemText.defaultStyle();
-		m_item->currentTextProps(parStyle);
+		if (m_doc->appMode == modeEdit)
+			m_item->currentTextProps(parStyle);
+		else if (m_doc->appMode == modeEditTable)
+			m_item->asTable()->activeCell().textFrame()->currentTextProps(parStyle);
 		updateStyle(parStyle);
 	}
 	if (m_item->asOSGFrame())
