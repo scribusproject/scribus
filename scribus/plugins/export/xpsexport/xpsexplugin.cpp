@@ -874,6 +874,7 @@ public:
 			glyph.setAttribute("StrokeThickness", m_xps->FToStr(strokeWidth() * m_xps->conversionFactor));
 			glyph.setAttribute("Stroke", m_xps->SetColor(strokeColor().color, strokeColor().shade, 0));
 			m_group.appendChild(glyph);
+			qDebug() << "StrokeWidth XPS" << strokeWidth();
 		}
 	}
 

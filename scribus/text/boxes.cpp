@@ -569,7 +569,7 @@ void GlyphBox::render(TextLayoutPainter *p) const
 
 			if ((charStyle.effects() & ScStyle_Outline) && hasStrokeColor && ((charStyle.fontSize() * gl.scaleV * charStyle.outlineWidth() / 10000.0) != 0))
 			{
-				p->setStrokeWidth((charStyle.fontSize() * gl.scaleV * charStyle.outlineWidth() / 10000.0) / glySc);
+				p->setStrokeWidth((charStyle.fontSize() * gl.scaleV * charStyle.outlineWidth() / 10000.0));// / glySc);
 				p->drawGlyphOutline(gl, hasFillColor);
 			}
 			else if (hasFillColor)

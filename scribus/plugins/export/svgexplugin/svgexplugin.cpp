@@ -1191,7 +1191,7 @@ public:
 		if (hasFill)
 			fill = "fill:" + m_svg->SetColor(fillColor().color, fillColor().shade) + ";";
 		QString stroke ="stroke:" + m_svg->SetColor(strokeColor().color, strokeColor().shade) + ";";
-		stroke += " stroke-width:" + m_svg->FToStr(strokeWidth()) + ";";
+		stroke += " stroke-width:" + m_svg->FToStr(strokeWidth() / (gl.scaleV * fontSize() / 10.0)) + ";";
 		glyph.setAttribute("style", fill + stroke);
 		m_elem.appendChild(glyph);
 	}
@@ -1263,6 +1263,82 @@ QDomElement SVGExPlug::processTextItem(PageItem *Item, QString trans, QString fi
 	SvgPainter p(trans, this, ob);
 	Item->textLayout.renderBackground(&p);
 	Item->textLayout.render(&p);
+	if (Item->isTextFrame())
+	{
+		if (Item->NamedLStyle.isEmpty())
+		{
+			if ((!Item->strokePattern().isEmpty()) && (Item->patternStrokePath))
+			{
+				QDomElement ob4 = docu.createElement("g");
+				QDomElement ob2 = docu.createElement("path");
+				ob2.setAttribute("d", SetClipPath(&Item->PoLine, true));
+				ob2.setAttribute("transform", trans);
+				ob2.setAttribute("style", fill);
+				ob4.appendChild(ob2);
+				ob4.appendChild(processSymbolStroke(Item, trans));
+				ob.appendChild(ob4);
+			}
+			else
+			{
+				QDomElement ob4 = docu.createElement("path");
+				ob4.setAttribute("d", SetClipPath(&Item->PoLine, true));
+				ob4.setAttribute("style", "fill:none; "+stroke);
+				ob.appendChild(ob4);
+			}
+		}
+		else
+		{
+			multiLine ml = m_Doc->MLineStyles[Item->NamedLStyle];
+			for (int it = ml.size()-1; it > -1; it--)
+			{
+				if ((ml[it].Color != CommonStrings::None) && (ml[it].Width != 0))
+				{
+					QDomElement ob5 = docu.createElement("path");
+					ob5.setAttribute("d", SetClipPath(&Item->PoLine, true));
+					ob5.setAttribute("style", "fill:none; "+GetMultiStroke(&ml[it], Item));
+					ob.appendChild(ob5);
+				}
+			}
+		}
+	}
+	else if (Item->isPathText() && Item->PoShow)
+	{
+		if (Item->NamedLStyle.isEmpty())
+		{
+			if ((!Item->strokePattern().isEmpty()) && (Item->patternStrokePath))
+			{
+				QDomElement ob4 = docu.createElement("g");
+				QDomElement ob2 = docu.createElement("path");
+				ob2.setAttribute("d", SetClipPath(&Item->PoLine, false));
+				ob2.setAttribute("transform", trans);
+				ob2.setAttribute("style", fill);
+				ob4.appendChild(ob2);
+				ob4.appendChild(processSymbolStroke(Item, trans));
+				ob.appendChild(ob4);
+			}
+			else
+			{
+				QDomElement ob4 = docu.createElement("path");
+				ob4.setAttribute("d", SetClipPath(&Item->PoLine, false));
+				ob4.setAttribute("style", "fill:none; "+stroke);
+				ob.appendChild(ob4);
+			}
+		}
+		else
+		{
+			multiLine ml = m_Doc->MLineStyles[Item->NamedLStyle];
+			for (int it = ml.size()-1; it > -1; it--)
+			{
+				if ((ml[it].Color != CommonStrings::None) && (ml[it].Width != 0))
+				{
+					QDomElement ob5 = docu.createElement("path");
+					ob5.setAttribute("d", SetClipPath(&Item->PoLine, false));
+					ob5.setAttribute("style", "fill:none; "+GetMultiStroke(&ml[it], Item));
+					ob.appendChild(ob5);
+				}
+			}
+		}
+	}
 	return ob;
 }
 

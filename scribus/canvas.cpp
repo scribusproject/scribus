@@ -804,7 +804,7 @@ void Canvas::fillBuffer(QPaintDevice* buffer, QPoint bufferOrigin, QRect clipRec
 */
 void Canvas::paintEvent ( QPaintEvent * p )
 {
-// 	qDebug()<<"Canvas::paintEvent"<<p->rect()<<m_viewMode.forceRedraw<<m_viewMode.operItemSelecting;
+//	qDebug()<<"Canvas::paintEvent"<<p->rect()<<m_viewMode.forceRedraw<<m_viewMode.operItemSelecting;
 // 	printBacktrace(62);
 	if (m_doc->isLoading())
 		return;

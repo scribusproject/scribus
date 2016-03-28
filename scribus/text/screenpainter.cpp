@@ -204,6 +204,8 @@ void ScreenPainter::drawGlyph(const GlyphLayout gl)
 
 void ScreenPainter::drawGlyphOutline(const GlyphLayout gl, bool fill)
 {
+	if (fill)
+		drawGlyph(gl);
 	m_painter->save();
 	bool fr = m_painter->fillRule();
 	m_painter->setFillRule(false);
@@ -212,9 +214,11 @@ void ScreenPainter::drawGlyphOutline(const GlyphLayout gl, bool fill)
 	m_painter->translate(0, -(fontSize() * gl.scaleV));
 
 	FPointArray outline = font().glyphOutline(gl.glyph);
-	double scaleH = gl.scaleH * fontSize() / 10.0;
-	double scaleV = gl.scaleV * fontSize() / 10.0;
-	m_painter->scale(scaleH, scaleV);
+	double scaleHv = gl.scaleH * fontSize() / 10.0;
+	double scaleVv = gl.scaleV * fontSize() / 10.0;
+	QTransform trans;
+	trans.scale(scaleHv, scaleVv);
+	outline.map(trans);
 	m_painter->setupPolygon(&outline, true);
 	if (outline.size() > 3)
 	{
@@ -225,8 +229,6 @@ void ScreenPainter::drawGlyphOutline(const GlyphLayout gl, bool fill)
 	m_painter->setFillRule(fr);
 	m_painter->restore();
 
-	if (fill)
-		drawGlyph(gl);
 }
 
 void ScreenPainter::drawLine(QPointF start, QPointF end)

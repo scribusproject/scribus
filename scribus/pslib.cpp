@@ -144,17 +144,17 @@ void PSPainter::drawGlyphOutline(const GlyphLayout gl, bool fill)
 		chma.scale((fontSize() * gl.scaleH) / 10.0, (fontSize() * gl.scaleV) / 10.0);
 		gly.map(chma);
 		m_ps->PS_translate(0, -(fontSize() - fontSize() * gl.scaleV));
+		if (gl.scaleH != 1.0 || gl.scaleV != 1.0)
+			m_ps->PS_scale(gl.scaleH, gl.scaleV);
+		if (fill)
+			m_ps->putColorNoDraw(fillColor().color, fillColor().shade);
+		m_ps->PS_showSub(gl.glyph, m_ps->FontSubsetMap[font().scName()], fontSize(), false);
 		m_ps->SetColor(strokeColor().color, strokeColor().shade, &h, &s, &v, &k);
 		m_ps->PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
 		m_ps->SetClipPath(&gly, true);
 		m_ps->PS_closepath();
 		m_ps->putColor(strokeColor().color, strokeColor().shade, false);
 
-		if (gl.scaleH != 1.0 || gl.scaleV != 1.0)
-			m_ps->PS_scale(gl.scaleH, gl.scaleV);
-		if (fill)
-			m_ps->putColorNoDraw(fillColor().color, fillColor().shade);
-		m_ps->PS_showSub(gl.glyph, m_ps->FontSubsetMap[font().scName()], fontSize(), false);
 	}
 	m_ps->PS_restore();
 }
