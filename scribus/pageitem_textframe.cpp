@@ -986,22 +986,15 @@ static void justifyLine(const ParagraphStyle& style, LineControl& curr)
 	if (curr.glyphRuns[startItem].hasFlag(ScLayout_DropCap))
 		startItem++;
 	// distribute whitespace on spaces and glyphs
-
 	for (int i = startItem; i <= curr.line.lastRun; ++i)
 	{
 		GlyphRun& glyphrun = curr.glyphRuns[i];
-		if (i != curr.line.firstRun && glyphrun.hasFlag(ScLayout_ImplicitSpace))
-		{
-			GlyphRun& lastRun = curr.glyphRuns[i-1];
-			lastRun.glyphs().last().xadvance += imSpace;
-		}
 		double wide = glyphrun.width();
 		if (!glyphrun.hasFlag(ScLayout_ExpandingSpace))
 		{
 			for (int j = 0; j < glyphrun.glyphs().count(); ++j)
 			{
 				GlyphLayout& glyph = glyphrun.glyphs()[j];
-				glyph.xadvance += wide * glyphExtension;
 				glyph.xoffset *= glyphScale;
 				glyph.scaleH *= glyphScale;
 			}
@@ -1010,7 +1003,11 @@ static void justifyLine(const ParagraphStyle& style, LineControl& curr)
 		{
 			GlyphLayout& glyph = glyphrun.glyphs().last();
 			glyph.xadvance += wide * spaceExtension;
-
+		}
+		if (i != curr.line.firstRun && glyphrun.hasFlag(ScLayout_ImplicitSpace))
+		{
+			GlyphRun& lastRun = curr.glyphRuns[i - 1];
+			lastRun.glyphs().last().xadvance += imSpace;
 		}
 	}
 }
