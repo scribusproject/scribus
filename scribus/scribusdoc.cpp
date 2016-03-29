@@ -16291,6 +16291,7 @@ void ScribusDoc::slotAutoSave()
 		FileLoader fl(fileName);
 		if (fl.saveFile(fileName, this, 0))
 		{
+			scMW()->statusBar()->showMessage( tr("File %1 autosaved").arg(base), 5000);
 			if (autoSaveFiles.count() >= m_docPrefsData.docSetupPrefs.AutoSaveCount)
 			{
 				QFile f(autoSaveFiles.first());
