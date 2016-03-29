@@ -46,6 +46,9 @@ RecoverDialog::RecoverDialog(QWidget* parent, QStringList files) : QDialog(paren
 	header->setSectionsMovable( false );
 	header->setSectionResizeMode(QHeaderView::Fixed);
 	header->setHighlightSections(false);
+	filesList->horizontalHeaderItem(0)->setIcon(style()->standardIcon(QStyle::SP_DialogApplyButton));
+	filesList->horizontalHeaderItem(0)->setToolTip("<qt>" + tr("Click here to toggle your choice") + "</qt>" );
+	filesList->horizontalHeaderItem(3)->setToolTip("<qt>" + tr("Autosaved files are files are automatically saved versions of a document that was opened in a previous Scribus session.") + "<br>" + "Emergency files are files that Scribus was able to salvage after a crash." + "</qt>" );
 	updateFilesTable();
 	connect(buttonRecover, SIGNAL(clicked()), this, SLOT(doRecover()));
 	connect(buttonRemove, SIGNAL(clicked()), this, SLOT(doRemove()));
