@@ -283,17 +283,18 @@ PSLib::PSLib(PrintOptions &options, bool psart, SCFonts &AllFonts, QMap<QString,
 	}
 	QMap<QString, QString> psNameMap;
 	QMap<QString, QMap<uint, FPointArray> >::Iterator it;
-	int a = 0;
+//	int a = 0;
 	for (it = DocFonts.begin(); it != DocFonts.end(); ++it)
 	{
 		// Subset all TTF Fonts until the bug in the TTF-Embedding Code is fixed
 		// Subset also font whose postscript name conflicts with an already used font
+		// Subset always now with new boxes code.
 		ScFace &face (AllFonts[it.key()]);
-		ScFace::FontType type = face.type();
+//		ScFace::FontType type = face.type();
 		QString encodedName = face.psName().simplified().replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "_" );
 
-		if ((type == ScFace::TTF) || (face.isOTF()) || (face.subset()) || psNameMap.contains(encodedName))
-		{
+//		if ((type == ScFace::TTF) || (face.isOTF()) || (face.subset()) || psNameMap.contains(encodedName))
+//		{
 			QMap<uint, FPointArray>& RealGlyphs(it.value());
 			// Handle possible PostScript name conflict in oft/ttf fonts
 			int psNameIndex = 1;
@@ -339,7 +340,7 @@ PSLib::PSLib(PrintOptions &options, bool psart, SCFonts &AllFonts, QMap<QString,
 			}
 			FontDesc += "end\n";
 			FontSubsetMap.insert(face.scName(), encodedName);
-		}
+/*		}
 		else
 		{
 			UsedFonts.insert(it.key(), "/Fo"+IToStr(a));
@@ -357,7 +358,7 @@ PSLib::PSLib(PrintOptions &options, bool psart, SCFonts &AllFonts, QMap<QString,
 			face.glyphNames(gl);
 			GlyphsOfFont.insert(it.key(), gl);
 			a++;
-		}
+		} */
 		psNameMap.insert(encodedName, face.scName());
 	}
 	Prolog = "%%BeginProlog\n";
