@@ -68,8 +68,7 @@ static void Printer_dealloc(Printer* self)
 static PyObject * Printer_new(PyTypeObject *type, PyObject * /*args*/, PyObject * /*kwds*/)
 {
 // do not create new object if there is no opened document
-	if (!ScCore->primaryMainWindow()->HaveDoc) {
-		PyErr_SetString(PyExc_SystemError, "Need to open document first");
+	if (!checkHaveDocument()) {
 		return NULL;
 	}
 
@@ -132,6 +131,9 @@ static PyObject * Printer_new(PyTypeObject *type, PyObject * /*args*/, PyObject 
 
 static int Printer_init(Printer *self, PyObject * /*args*/, PyObject * /*kwds*/)
 {
+	if (!checkHaveDocument()) {
+		return -1;
+	}
 // pool system for installed printers
 // most code is stolen and little adopted from druck.cpp
 	PyObject *allPrinters = PyList_New(0);
@@ -186,11 +188,7 @@ static int Printer_init(Printer *self, PyObject * /*args*/, PyObject * /*kwds*/)
 // if document exist when created Printer instance
 // set to print all pages
 	PyObject *pages = NULL;
-	int num = 0;
-	if (ScCore->primaryMainWindow()->HaveDoc)
-		// which one should I use ???
-		// new = ScCore->primaryMainWindow()->view->Pages.count()
-		num = ScCore->primaryMainWindow()->doc->Pages->count();
+	int num = ScCore->primaryMainWindow()->doc->Pages->count();
 	pages = PyList_New(num);
 	if (pages){
 		Py_DECREF(self->pages);
@@ -396,8 +394,7 @@ static PyGetSetDef Printer_getseters [] = {
 // Here we actually print
 static PyObject *Printer_print(Printer *self)
 {
-	if (!ScCore->primaryMainWindow()->HaveDoc) {
-		PyErr_SetString(PyExc_SystemError, "Need to open documetnt first");
+	if (!checkHaveDocument()) {
 		return NULL;
 	}
 // copied from void ScribusMainWindow::slotFilePrint() in file scribus.cpp

@@ -141,8 +141,7 @@ static void PDFfile_dealloc(PDFfile *self)
 static PyObject * PDFfile_new(PyTypeObject *type, PyObject * /*args*/, PyObject * /*kwds*/)
 {
 // do not create new object if there is no opened document
-	if (!ScCore->primaryMainWindow()->HaveDoc) {
-		PyErr_SetString(PyExc_SystemError, "Need to open document first");
+	if (!checkHaveDocument()) {
 		return NULL;
 	}
 
@@ -326,8 +325,7 @@ static PyObject * PDFfile_new(PyTypeObject *type, PyObject * /*args*/, PyObject 
 static int PDFfile_init(PDFfile *self, PyObject * /*args*/, PyObject * /*kwds*/)
 {
 	int i;
-	if (!ScCore->primaryMainWindow()->HaveDoc) {
-		PyErr_SetString(PyExc_SystemError, "Must open doc first");
+	if (!checkHaveDocument()) {
 		return -1;
 	}
 
@@ -1256,10 +1254,9 @@ static PyGetSetDef PDFfile_getseters [] = {
 
 static PyObject *PDFfile_save(PDFfile *self)
 {
-	if (!ScCore->primaryMainWindow()->HaveDoc) {
-		PyErr_SetString(PyExc_SystemError, "Need to open document first");
+	if (!checkHaveDocument()) {
 		return NULL;
-	};
+	}
 
 	ScribusDoc* currentDoc = ScCore->primaryMainWindow()->doc;
 	PDFOptions& pdfOptions = currentDoc->pdfOptions();
