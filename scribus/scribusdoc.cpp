@@ -11363,8 +11363,9 @@ void ScribusDoc::itemSelection_DeleteItem(Selection* customSelection, bool force
 				currItem->asTextFrame()->removeMarksFromText(true);
 				currItem->asTextFrame()->delAllNoteFrames(false);
 				currItem->itemText.deselectAll();
-				currItem->dropLinks();
 			}
+			if (currItem->asTextFrame())
+				currItem->dropLinks();
 		}
 		if (currItem->isWelded())
 			currItem->unWeld();
