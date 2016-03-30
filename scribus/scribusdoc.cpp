@@ -15838,10 +15838,7 @@ void ScribusDoc::setNewPrefs(const ApplicationPrefs& prefsData, const Applicatio
 
 //	bool viewToRecalcPictureRes = (m_docPrefsData.itemToolPrefs.imageLowResType==oldPrefsData.itemToolPrefs.imageLowResType);
 
-	autoSaveTimer->stop();
-	if (m_docPrefsData.docSetupPrefs.AutoSave)
-		autoSaveTimer->start(m_docPrefsData.docSetupPrefs.AutoSaveTime);
-	emit updateAutoSaveClock();
+	restartAutoSaveTimer();
 
 /*	FIXME: scribus determines dict by charstyle now, so this setting should go into the doc's default charstyle
 		currDoc->docHyphenator->slotNewDict(ScMW->GetLang(tabHyphenator->language->currentText()));
