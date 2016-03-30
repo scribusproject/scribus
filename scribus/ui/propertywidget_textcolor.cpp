@@ -108,20 +108,18 @@ void PropertyWidget_TextColor::setCurrentItem(PageItem *item)
 	if (!m_item->isTable() && !m_item->isTextFrame() && !m_item->asPathText())
 		return;
 
-	PageItem_TextFrame *i2;
+	PageItem_TextFrame *textItem;
 	if (m_doc->appMode == modeEditTable)
-		i2 = m_item->asTable()->activeCell().textFrame();
+		textItem = m_item->asTable()->activeCell().textFrame();
 	else
-		i2 = m_item->asTextFrame();
-	if (i2 != 0)
-		revertButton->setChecked(i2->reversed());
+		textItem = m_item->asTextFrame();
+	if (textItem != 0)
+		revertButton->setChecked(textItem->reversed());
 	if (m_item->asTextFrame() || m_item->asPathText() || m_item->asTable())
 	{
 		ParagraphStyle parStyle =  m_item->itemText.defaultStyle();
-		if (m_doc->appMode == modeEdit)
+		if (m_doc->appMode == modeEdit || m_doc->appMode == modeEditTable)
 			m_item->currentTextProps(parStyle);
-		else if (m_doc->appMode == modeEditTable)
-			m_item->asTable()->activeCell().textFrame()->currentTextProps(parStyle);
 		updateStyle(parStyle);
 	}
 	connectSignals();

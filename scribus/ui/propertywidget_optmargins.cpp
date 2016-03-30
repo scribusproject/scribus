@@ -85,10 +85,8 @@ void PropertyWidget_OptMargins::setCurrentItem(PageItem *item)
 		if (m_item->asTextFrame() || m_item->asPathText())
 		{
 			ParagraphStyle parStyle =  m_item->itemText.defaultStyle();
-			if (m_doc->appMode == modeEdit)
+			if (m_doc->appMode == modeEdit || m_doc->appMode == modeEditTable)
 				m_item->currentTextProps(parStyle);
-			else if (m_doc->appMode == modeEditTable)
-				m_item->asTable()->activeCell().textFrame()->currentTextProps(parStyle);
 			showOpticalMargins(parStyle);
 		}
 
