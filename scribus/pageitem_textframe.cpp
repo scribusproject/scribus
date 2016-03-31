@@ -1783,7 +1783,7 @@ void PageItem_TextFrame::layout()
 				chsd = (10 * ((DropCapDrop + fontAscent) / realCharHeight));
 				chs  = (10 * ((DropCapDrop + fontAscent) / realCharAscent));
 				glyphRuns[i].setFlag(ScLayout_DropCap);
-				glyphRuns[i].glyphs().first().yoffset += DropCapDrop;
+//				glyphRuns[i].glyphs().first().yoffset += DropCapDrop;
 				if (HasObject)
 				{
 					chs = qRound((currentObject->height() + currentObject->lineWidth()) * 10);
@@ -2207,8 +2207,8 @@ void PageItem_TextFrame::layout()
 				}
 				current.line.x = current.restartX = current.xPos;
 				current.line.y = current.yPos;
-				if (glyphRuns[current.line.firstRun].hasFlag(ScLayout_DropCap))
-					current.line.y -= DropCapDrop;
+//				if (glyphRuns[current.line.firstRun].hasFlag(ScLayout_DropCap))
+//					current.line.y -= DropCapDrop;
 			}
 
 			//check if line must start at new Y position due to current glyph height or previous line descent
@@ -2838,7 +2838,8 @@ void PageItem_TextFrame::layout()
 				{
 					if (current.addLine && current.breakIndex >= 0)
 					{
-						if (glyphRuns[current.line.firstRun].style().effects() & ScLayout_DropCap)
+//						if (glyphRuns[current.line.firstRun].style().effects() & ScLayout_DropCap)
+						if (glyphRuns[current.line.firstRun].hasFlag(ScLayout_DropCap))
 						{
 							// put line back to top
 							current.line.y -= DropCapDrop;
@@ -3041,7 +3042,8 @@ void PageItem_TextFrame::layout()
 					current.line.naturalWidth += opticalRightMargin(itemText, glyphRuns, current.line);
 				indentLine(style, current, OFs);
 			}
-			if (glyphRuns[current.line.firstRun].style().effects() & ScLayout_DropCap)
+//			if (glyphRuns[current.line.firstRun].style().effects() & ScLayout_DropCap)
+			if (glyphRuns[current.line.firstRun].hasFlag(ScLayout_DropCap))
 			{
 				// put line back to top
 				current.line.y -= DropCapDrop;
