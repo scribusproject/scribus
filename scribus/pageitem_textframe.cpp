@@ -1709,7 +1709,7 @@ void PageItem_TextFrame::layout()
 					continue;
 				}
 				else
-					itemText.clearFlag(a, ScLayout_SuppressSpace);
+					glyphRuns[i].clearFlag(ScLayout_SuppressSpace);
 			}
 			else // from 134 on use NBSPACE for this effect
 			{
@@ -1720,7 +1720,7 @@ void PageItem_TextFrame::layout()
 					continue;
 				}
 				else
-					itemText.clearFlag(a, ScLayout_SuppressSpace);
+					glyphRuns[i].clearFlag(ScLayout_SuppressSpace);
 			}
 			if (current.isEmpty)
 			{
