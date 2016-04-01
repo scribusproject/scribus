@@ -306,7 +306,7 @@ void PageItem_PathText::DrawObj_Item(ScPainter *p, QRectF cullingArea)
 			else
 				trafo *= QTransform( a, 4 * a, 0, -1, point.x(), point.y() );
 		}
-
+		trafo.translate(0, BaseOffs);
 
 		const CharStyle& cStyle(run.style());
 		double scaleV = cStyle.scaleV() / 1000.0;
@@ -331,7 +331,6 @@ void PageItem_PathText::DrawObj_Item(ScPainter *p, QRectF cullingArea)
 
 		box->setMatrix(trafo);
 		linebox->addBox(box);
-
 
 		MaxChars = a+1;
 		CurX -= dx;
