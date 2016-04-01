@@ -4405,6 +4405,11 @@ void PSLib::SetColor(const ScColor& farb, double shade, int *h, int *s, int *v, 
  */
 void PSLib::setTextSt(ScribusDoc* Doc, PageItem* ite, uint argh, ScPage* pg, bool sep, bool farb, bool master)
 {
+	int savedOwnPage = ite->OwnPage;
+	ite->OwnPage = argh;
+	ite->layout();
+	ite->OwnPage = savedOwnPage;
+
 	PSPainter p(Doc, argh, pg, sep, farb, master, this);
 	ite->textLayout.renderBackground(&p);
 	ite->textLayout.render(&p);
