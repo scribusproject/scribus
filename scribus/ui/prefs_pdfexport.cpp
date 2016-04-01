@@ -806,7 +806,7 @@ void Prefs_PDFExport::enableCMS(bool enabled)
 {
 	cmsEnabled=enabled;
 	addPDFVersions(enabled);
-	enableProfiles(enabled);
+	enableProfiles(outputIntentionComboBox->currentIndex());
 }
 
 void Prefs_PDFExport::enablePDFExportTabs(bool enabled)
@@ -964,13 +964,22 @@ void Prefs_PDFExport::enableSolidsImagesWidgets(bool enabled)
 {
 	//if we want to show/hide instead
 	//setSolidsImagesWidgetsShown(enabled);
+	bool enableSolidWidgets = false;
 	useSolidColorProfileCheckBox->setEnabled(enabled);
-	solidColorProfileComboBox->setEnabled(enabled);
-	solidColorRenderingIntentComboBox->setEnabled(enabled);
+	if (enabled)
+		enableSolidWidgets = useSolidColorProfileCheckBox->isChecked();
+	solidColorProfileComboBox->setEnabled(enableSolidWidgets);
+	solidColorRenderingIntentComboBox->setEnabled(enableSolidWidgets);
+
+	bool enableImageWidgets = false;
 	useImageProfileCheckBox->setEnabled(enabled);
-	doNotUseEmbeddedImageProfileCheckBox->setEnabled(enabled);
-	imageProfileComboBox->setEnabled(enabled);
-	imageRenderingIntentComboBox->setEnabled(enabled);
+	if (enabled)
+		enableImageWidgets = useImageProfileCheckBox->isChecked();
+	doNotUseEmbeddedImageProfileCheckBox->setEnabled(enableImageWidgets);
+	if (enableImageWidgets)
+		enableImageWidgets = doNotUseEmbeddedImageProfileCheckBox->isChecked();
+	imageProfileComboBox->setEnabled(enableImageWidgets);
+	imageRenderingIntentComboBox->setEnabled(enableImageWidgets);
 }
 
 void Prefs_PDFExport::enablePDFXWidgets(bool enabled)
