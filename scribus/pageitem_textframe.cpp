@@ -1382,13 +1382,6 @@ QList<GlyphRun> PageItem_TextFrame::shapeText()
 		if (itemText.hasObject(a))
 			gl.xadvance = itemText.object(a)->width() + itemText.object(a)->lineWidth();
 
-		if (a == 0 || itemText.text(a - 1) == SpecialChars::PARSEP)
-		{
-			ParagraphStyle style = itemText.paragraphStyle(a);
-			if (style.hasBullet() || style.hasNum())
-				gl.xadvance += style.parEffectOffset();
-		}
-
 		run.glyphs().append(gl);
 
 		glyphRuns.append(run);
@@ -1716,7 +1709,7 @@ void PageItem_TextFrame::layout()
 					continue;
 				}
 				else
-					glyphRuns[i].clearFlag(ScLayout_SuppressSpace);
+					itemText.clearFlag(a, ScLayout_SuppressSpace);
 			}
 			else // from 134 on use NBSPACE for this effect
 			{
@@ -1727,7 +1720,7 @@ void PageItem_TextFrame::layout()
 					continue;
 				}
 				else
-					glyphRuns[i].clearFlag(ScLayout_SuppressSpace);
+					itemText.clearFlag(a, ScLayout_SuppressSpace);
 			}
 			if (current.isEmpty)
 			{
@@ -2643,6 +2636,7 @@ void PageItem_TextFrame::layout()
 			if ((DropCmode || BulNumMode) && !outs)
 			{
 				current.xPos += style.parEffectOffset();
+				lastGlyph.xadvance += style.parEffectOffset();
 				if (DropCmode)
 				{
 					DropCmode = false;
