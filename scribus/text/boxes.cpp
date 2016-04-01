@@ -548,10 +548,10 @@ void GlyphBox::render(TextLayoutPainter *p) const
 		}
 		else
 		{
-			if (m_effects & ScStyle_Shadowed && hasStrokeColor)
+			if ((m_effects & ScStyle_Shadowed) && hasStrokeColor)
 			{
-				double xoff = (charStyle.fontSize() * gl.scaleH * charStyle.shadowXOffset() / 10000.0) / glxSc;
-				double yoff = (charStyle.fontSize() * gl.scaleV * charStyle.shadowYOffset() / 10000.0) / glySc;
+				double xoff = (charStyle.fontSize() * gl.scaleH * charStyle.shadowXOffset() / 10000.0);
+				double yoff = (charStyle.fontSize() * gl.scaleV * charStyle.shadowYOffset() / 10000.0);
 
 				bool s = p->selected();
 				const TextLayoutColor& fc = p->fillColor();
