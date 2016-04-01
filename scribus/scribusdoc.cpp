@@ -13423,6 +13423,10 @@ void ScribusDoc::itemSelection_MultipleDuplicate(ItemMultipleDuplicateData& mdDa
 				PageItem* bItem = Items->at(as);
 				bItem->setLocked(false);
 				bItem->moveBy(dH2, dV2, true);
+				if (bItem->isGroup())
+					GroupOnPage(bItem);
+				else
+					bItem->OwnPage = OnPage(bItem);
 				m_Selection->addItem(bItem);
 			}
 			m_Selection->delaySignalsOff();
@@ -13479,6 +13483,10 @@ void ScribusDoc::itemSelection_MultipleDuplicate(ItemMultipleDuplicateData& mdDa
 					PageItem* bItem = Items->at(as);
 					bItem->setLocked(false);
 					bItem->moveBy(j*dX, i*dY, true);
+					if (bItem->isGroup())
+						GroupOnPage(bItem);
+					else
+						bItem->OwnPage = OnPage(bItem);
 					bItem->connectToGUI();
 					bItem->emitAllToGUI();
 				}
