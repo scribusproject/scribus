@@ -4970,6 +4970,9 @@ void ScribusDoc::recalculateColorItem(PageItem *item)
 
 void ScribusDoc::recalculateColors()
 {
+	// #12658, #13889 : disable undo temporarily, there is nothing to cancel here
+	m_undoManager->setUndoEnabled(false);
+
 	//Adjust Items of the 3 types to the colors
 	QHash<QString, VGradient>::Iterator itGrad;
 	for (itGrad = docGradients.begin(); itGrad != docGradients.end(); ++itGrad)
@@ -5104,6 +5107,8 @@ void ScribusDoc::recalculateColors()
 		maxy = qMax(maxy, y2);
 		docPatterns[patterns[c]].pattern = ite->DrawObj_toImage(qMin(qMax(maxx - minx, maxy - miny), 500.0));
 	}
+
+	m_undoManager->setUndoEnabled(true);
 }
 
 bool ScribusDoc::copyPageToMasterPage(const int pageNumber, const int leftPage, const int maxLeftPage,  const QString& masterPageName, bool copyFromAppliedMaster)
