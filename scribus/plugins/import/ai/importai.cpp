@@ -2776,6 +2776,21 @@ void AIPlug::processPattern(QDataStream &ts)
 							}
 							m_Doc->addPattern(currentPatternDefName, pat);
 							importedPatterns.append(currentPatternDefName);
+						/*	double minx =  std::numeric_limits<double>::max();
+							double miny =  std::numeric_limits<double>::max();
+							double maxx = -std::numeric_limits<double>::max();
+							double maxy = -std::numeric_limits<double>::max();
+							double x1, x2, y1, y2;
+							currItem->getVisualBoundingRect(&x1, &y1, &x2, &y2);
+							minx = qMin(minx, x1);
+							miny = qMin(miny, y1);
+							maxx = qMax(maxx, x2);
+							maxy = qMax(maxy, y2);
+							currItem->gXpos = currItem->xPos() - minx;
+							currItem->gYpos = currItem->yPos() - miny;
+							currItem->setXYPos(currItem->gXpos, currItem->gYpos, true);
+							m_Doc->docPatterns[currentPatternDefName].width = maxx - minx;
+							m_Doc->docPatterns[currentPatternDefName].height = maxy - miny;*/
 						}
 					}
 					m_Doc->itemSelection_DeleteItem(tmpSel);

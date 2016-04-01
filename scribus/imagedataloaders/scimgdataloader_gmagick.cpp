@@ -134,6 +134,7 @@ bool ScImgDataLoader_GMagick::readRGB(Image *input, QImage *output, int width, i
 		*s = qRgba(r, g, b, a);
 		s++;
 	}
+
 	return true;
 }
 
