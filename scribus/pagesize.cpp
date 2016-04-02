@@ -352,6 +352,56 @@ void PageSize::generateSizeList()
 	info.pageUnitIndex=SC_IN;
 	info.trSizeName=QObject::tr("11x17");
 	m_pageSizeList.insert("11x17", info);
+
+	// Arch A 9 × 12
+	info.width = in2pts(9);
+	info.height = in2pts(12);
+	info.pageUnitIndex = SC_IN;
+	info.trSizeName = QObject::tr("9x12 (Arch A)");
+	m_pageSizeList.insert("9x12 (Arch A)", info);
+	// Arch B 12 × 18
+	info.width = in2pts(12);
+	info.height = in2pts(18);
+	info.pageUnitIndex = SC_IN;
+	info.trSizeName = QObject::tr("12x18 (Arch B)");
+	m_pageSizeList.insert("12x18 (Arch B)", info);
+	// Arch C 18 × 24
+	info.width = in2pts(18);
+	info.height = in2pts(24);
+	info.pageUnitIndex = SC_IN;
+	info.trSizeName = QObject::tr("18x24 (Arch C)");
+	m_pageSizeList.insert("18x (Arch C)", info);
+	// Arch D 24 × 36
+	info.width = in2pts(24);
+	info.height = in2pts(36);
+	info.pageUnitIndex = SC_IN;
+	info.trSizeName = QObject::tr("24x36 (Arch D)");
+	m_pageSizeList.insert("24x36 (Arch D)", info);
+	// Arch E 36 × 48
+	info.width = in2pts(36);
+	info.height = in2pts(48);
+	info.pageUnitIndex = SC_IN;
+	info.trSizeName = QObject::tr("36x48 (Arch E)");
+	m_pageSizeList.insert("36x48 (Arch E)", info);
+	// Arch E1 30 × 42
+	info.width = in2pts(30);
+	info.height = in2pts(42);
+	info.pageUnitIndex = SC_IN;
+	info.trSizeName = QObject::tr("30x42 (Arch E1)");
+	m_pageSizeList.insert("30x42 (Arch E1)", info);
+	// Arch E2 26 × 38
+	info.width = in2pts(26);
+	info.height = in2pts(38);
+	info.pageUnitIndex = SC_IN;
+	info.trSizeName = QObject::tr("26x38 (Arch E2)");
+	m_pageSizeList.insert("26x38 (Arch E2)", info);
+	// Arch E3 27 × 39
+	info.width = in2pts(27);
+	info.height = in2pts(39);
+	info.pageUnitIndex = SC_IN;
+	info.trSizeName = QObject::tr("27x39 (Arch E3)");
+	m_pageSizeList.insert("27x39 (Arch E3)", info);
+
 	//Executive
 	//Folio
 	//Ledger
