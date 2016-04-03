@@ -402,6 +402,7 @@
     <moc Include="..\..\..\scribus\ui\filedialogeventcatcher.h" />
     <moc Include="..\..\..\scribus\ui\downloadspalette.h" />
     <ClInclude Include="..\..\..\scribus\text\textlayoutpainter.h" />
+    <ClInclude Include="..\..\..\scribus\text\textshaper.h" />
     <ClInclude Include="..\..\..\scribus\ui\helpnavigation.h" />
     <ClInclude Include="..\..\..\scribus\third_party\hyphen\hnjalloc.h" />
     <moc Include="..\..\..\scribus\ui\hruler.h" />
@@ -919,6 +920,7 @@
     <ClCompile Include="..\..\..\scribus\text\screenpainter.cpp" />
     <ClCompile Include="..\..\..\scribus\text\textlayout.cpp" />
     <ClCompile Include="..\..\..\scribus\text\textlayoutpainter.cpp" />
+    <ClCompile Include="..\..\..\scribus\text\textshaper.cpp" />
     <ClCompile Include="..\..\..\scribus\third_party\fparser\fparser.cc" />
     <ClCompile Include="..\..\..\scribus\third_party\fparser\fpoptimizer.cc" />
     <ClCompile Include="..\..\..\scribus\ui\about.cpp" />

@@ -2644,8 +2644,8 @@ GlyphLayout PageItem::layoutGlyphs(const CharStyle& style, const QString& chars,
 	}
 	else */
 	{
-		gl.xadvance = font.glyphWidth(gl.glyph, style.fontSize() / 10);
-		gl.yadvance = font.glyphBBox(gl.glyph, style.fontSize() / 10).ascent;
+		gl.xadvance = font.glyphWidth(gl.glyph, style.fontSize() / 10) * gl.scaleH;
+		gl.yadvance = font.glyphBBox(gl.glyph, style.fontSize() / 10).ascent * gl.scaleV;
 	}
 	if (gl.xadvance > 0)
 		gl.xadvance += tracking;

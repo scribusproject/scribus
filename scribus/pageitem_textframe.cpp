@@ -57,6 +57,7 @@ for which a new license (GPL+exception) is in place.
 #include "selection.h"
 #include "text/boxes.h"
 #include "text/screenpainter.h"
+#include "text/textshaper.h"
 #include "ui/guidemanager.h"
 #include "ui/marksmanager.h"
 #include "undomanager.h"
@@ -1242,154 +1243,6 @@ void PageItem_TextFrame::adjustParagraphEndings ()
 	}
 }
 
-QList<GlyphRun> PageItem_TextFrame::shapeText()
-{
-	// maps expanded characters to itemText tokens.
-	QMap<int, int> textMap;
-	QString text;
-	for (int i = firstInFrame(); i < itemText.length(); ++i)
-	{
-		Mark* mark = itemText.mark(i);
-		if (itemText.hasMark(i))
-		{
-			mark->OwnPage = OwnPage;
-			//itemPtr and itemName set to this frame only if mark type is different than MARK2ItemType
-			if (!mark->isType(MARK2ItemType))
-			{
-				mark->setItemPtr(this);
-				mark->setItemName(itemName());
-			}
-
-			//anchors and indexes has no visible inserts in text
-			if (mark->isType(MARKAnchorType) || mark->isType(MARKIndexType))
-				continue;
-
-			//set note marker charstyle
-			if (mark->isNoteType())
-			{
-				TextNote* note = mark->getNotePtr();
-				if (note == NULL)
-					continue;
-				mark->setItemPtr(this);
-				NotesStyle* nStyle = note->notesStyle();
-				Q_ASSERT(nStyle != NULL);
-				QString chsName = nStyle->marksChStyle();
-				CharStyle currStyle(itemText.charStyle(i));
-				if (!chsName.isEmpty())
-				{
-					CharStyle marksStyle(m_Doc->charStyle(chsName));
-					if (!currStyle.equiv(marksStyle))
-					{
-						currStyle.setParent(chsName);
-						itemText.applyCharStyle(i, 1, currStyle);
-					}
-				}
-
-				StyleFlag s(itemText.charStyle(i).effects());
-				if (mark->isType(MARKNoteMasterType))
-				{
-					if (nStyle->isSuperscriptInMaster())
-						s |= ScStyle_Superscript;
-					else
-						s &= ~ScStyle_Superscript;
-				}
-				else
-				{
-					if (nStyle->isSuperscriptInNote())
-						s |= ScStyle_Superscript;
-					else
-						s &= ~ScStyle_Superscript;
-				}
-				if (s != itemText.charStyle(i).effects())
-				{
-					CharStyle haveSuperscript;
-					haveSuperscript.setFeatures(s.featureList());
-					itemText.applyCharStyle(i, 1, haveSuperscript);
-				}
-			}
-		}
-
-		bool bullet = false;
-		if (i == 0 || itemText.text(i - 1) == SpecialChars::PARSEP)
-		{
-			ParagraphStyle style = itemText.paragraphStyle(i);
-			if (style.hasBullet() || style.hasNum())
-			{
-				bullet = true;
-				if (mark == NULL || !mark->isType(MARKBullNumType))
-				{
-					itemText.insertMark(new BulNumMark(), i);
-					i--;
-					continue;
-				}
-				if (style.hasBullet())
-					mark->setString(style.bulletStr());
-				else if (style.hasNum() && mark->getString().isEmpty())
-				{
-					mark->setString("?");
-					m_Doc->flag_Renumber = true;
-				}
-			}
-		}
-
-		if (!bullet && mark && mark->isType(MARKBullNumType))
-		{
-			itemText.removeChars(i, 1);
-			i--;
-			continue;
-		}
-
-		QString str = ExpandToken(i);
-		if (str.isEmpty())
-			str = SpecialChars::ZWNBSPACE;
-
-		for (int j = 0; j < str.length(); j++)
-			textMap.insert(text.length() + j, i);
-
-		text.append(str);
-	}
-
-	QList<GlyphRun> glyphRuns;
-	glyphRuns.reserve(text.length());
-	for (int i = 0; i < text.length(); i++)
-	{
-		const QChar ch(text.at(i));
-		int a = textMap.value(i);
-
-		GlyphRun run(&itemText.charStyle(a), itemText.flags(a), a, a, itemText.object(a));
-		if (SpecialChars::isExpandingSpace(ch))
-			run.setFlag(ScLayout_ExpandingSpace);
-
-		GlyphLayout gl = layoutGlyphs(run.style(), QString(ch), itemText.flags(a));
-
-		if (!glyphRuns.isEmpty())
-		{
-			GlyphLayout& last = glyphRuns.last().glyphs().last();
-			last.xadvance += run.style().font().glyphKerning(last.glyph, gl.glyph, run.style().fontSize() / 10) * last.scaleH;
-		}
-
-		//show control characters for marks
-		if (itemText.hasMark(a))
-		{
-			GlyphLayout control;
-			control.glyph = SpecialChars::OBJECT.unicode() + ScFace::CONTROL_GLYPHS;
-			run.glyphs().append(control);
-		}
-
-		if (SpecialChars::isExpandingSpace(ch))
-			gl.xadvance *= run.style().wordTracking();
-
-		if (itemText.hasObject(a))
-			gl.xadvance = itemText.object(a)->width() + itemText.object(a)->lineWidth();
-
-		run.glyphs().append(gl);
-
-		glyphRuns.append(run);
-	}
-
-	return glyphRuns;
-}
-
 void PageItem_TextFrame::layout()
 {
 // 	qDebug()<<"==Layout==" << itemName() ;
@@ -1526,7 +1379,8 @@ void PageItem_TextFrame::layout()
 			m_availableRegion = matrix.map(m_availableRegion);
 		}
 
-		QList<GlyphRun> glyphRuns = shapeText();
+		QList<GlyphRun> glyphRuns;
+		TextShaper shaper(this, firstInFrame());
 
 		LineControl current(m_width, m_height, m_textDistanceMargins, lineCorr, m_Doc, glyphRuns, columnWidth(), ColGap);
 		current.nextColumn(textLayout);
@@ -1585,11 +1439,18 @@ void PageItem_TextFrame::layout()
 		setMaxY(-1);
 		double maxYAsc = 0.0, maxYDesc = 0.0;
 		int regionMinY = 0, regionMaxY= 0;
-
 		double autoLeftIndent = 0.0;
-		for (int i = 0; i < glyphRuns.length(); ++i)
+
+		for (int i = 0; shaper.hasRun(i); ++i)
 		{
-			if (glyphRuns[i].glyphs().isEmpty())
+			GlyphRun newRun = shaper.runAt(i);
+			if (i >= glyphRuns.count())
+				glyphRuns.append(newRun);
+			else
+				glyphRuns[i] = newRun;
+
+			GlyphRun& currentRun = glyphRuns[i];
+			if (currentRun.glyphs().isEmpty())
 				continue;
 
 			int a = glyphRuns[i].firstChar();
@@ -1811,11 +1672,11 @@ void PageItem_TextFrame::layout()
 			GlyphLayout& firstGlyph = glyphRuns[i].glyphs().first();
 			GlyphLayout& lastGlyph = glyphRuns[i].glyphs().last();
 
-			// apply cjk kerning
-			//TODO: cjk spacing and kerning should be done in layoutGlyphs!
-			if (i + 1 < glyphRuns.length())
+			// Apply cjk kerning
+			// TODO: cjk spacing and kerning should be done in layoutGlyphs!
+			if (shaper.hasRun(i + 1))
 			{
-				GlyphRun nextRun = glyphRuns[i + 1];
+				GlyphRun nextRun = shaper.runAt(i + 1);
 				// change xadvance, xoffset according to JIS X4051
 				int nextStat = SpecialChars::getCJKAttr(itemText.text(nextRun.firstChar()));
 				if (curStat != 0)
@@ -1909,7 +1770,7 @@ void PageItem_TextFrame::layout()
 						realAsce = qMax(realAsce, gm.ascent + gm.descent);
 						wide += gm.width;
 					}
-					wide = (wide* scaleH) + (1 - scaleH);
+					wide = (wide * scaleH) + (1 - scaleH);
 					realAsce = realAsce  * scaleV + offset;
 					if (realCharHeight == 0)
 						realCharHeight = font.height(style.charStyle().fontSize() / 10.0);
@@ -1920,7 +1781,7 @@ void PageItem_TextFrame::layout()
 					firstGlyph.scaleH *= firstGlyph.scaleV;
 					firstGlyph.xoffset -= 0.5; //drop caps are always to far from column left edge
 				}
-				firstGlyph.xadvance = wide / firstGlyph.scaleH;
+				firstGlyph.xadvance = wide / firstGlyph.scaleH;  // FIXME: why this division?
 				desc = realDesc = 0;
 			}
 			else // !DropCMode
@@ -2636,7 +2497,9 @@ void PageItem_TextFrame::layout()
 			if ((DropCmode || BulNumMode) && !outs)
 			{
 				current.xPos += style.parEffectOffset();
-				lastGlyph.xadvance += style.parEffectOffset();
+				 // FIXME: why a special case for drop caps
+				lastGlyph.xadvance += DropCmode ? (style.parEffectOffset() / lastGlyph.scaleH)
+				                                :  style.parEffectOffset();
 				if (DropCmode)
 				{
 					DropCmode = false;
@@ -2949,7 +2812,7 @@ void PageItem_TextFrame::layout()
 					}
 				}
 			}
-			if (i == glyphRuns.length() - 1)
+			if (glyphRuns[i].lastChar() == itemText.length() - 1)
 			{
 				if (!current.afterOverflow || current.addLine)
 				{
