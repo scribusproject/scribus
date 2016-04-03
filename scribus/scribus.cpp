@@ -7154,7 +7154,7 @@ void ScribusMainWindow::doSaveAsPDF()
 			{
 				QStringList args;
 				args << QDir::toNativeSeparators(doc->pdfOptions().fileName);
-				System(pdfViewer, args);
+				QProcess::startDetached(pdfViewer, args);
 			}
 		}
 	}
