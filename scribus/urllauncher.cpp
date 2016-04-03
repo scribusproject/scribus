@@ -50,7 +50,7 @@ void UrlLauncher::launchUrlExt(const QString& link, QWidget *parent)
 
 void UrlLauncher::launchUrlExt(const QUrl& link, QWidget *parent)
 {
-	if (link.scheme()=="http")
+	if (link.scheme()=="http" || link.scheme()=="https")
 	{
 		QWidget *p=parent;
 		if (p==0)
@@ -71,8 +71,8 @@ void UrlLauncher::launchUrlExt(const QUrl& link, QWidget *parent)
 		{
 			QStringList args;
 			args << link.toString();
-			int ret=System(extBrowser, args);
-			if (ret!=0)
+			bool ok = QProcess::startDetached(extBrowser, args);
+			if (!ok)
 			{
 				QMessageBox::StandardButton sb=ScMessageBox::critical(p, tr("External Web Browser Failed to Start"), tr("Scribus was not able to start the external web browser application %1. Please check the setting in Preferences.\nWould you like to start the system's default browser instead?").arg(PrefsManager::instance()->extBrowserExecutable()), QMessageBox::Ok|QMessageBox::Cancel, QMessageBox::Ok);
 				if (sb==QMessageBox::Ok)
