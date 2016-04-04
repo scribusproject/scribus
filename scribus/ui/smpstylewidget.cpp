@@ -123,7 +123,7 @@ void SMPStyleWidget::languageChange()
 	parEffectOffset->setToolTip(         tr("Paragraph Effects Chars Offset"));
 	parEffectIndentBox->setToolTip(      tr("Hang Paragraph Effect before paragraph indent"));
 	parEffectCharStyleCombo->setToolTip( tr("Choose character style or leave blank for use default paragraph style"));
-	alignment->setToolTip(       tr("Alignment"));
+	alignment->languageChange();
 	tabList->first_->setToolTip( tr("First Line Indent"));
 	tabList->left_->setToolTip(  tr("Left Indent"));
 	tabList->right_->setToolTip( tr("Right Indent"));
