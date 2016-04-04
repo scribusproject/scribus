@@ -1398,6 +1398,7 @@ void SToolBAlign::changeEvent(QEvent *e)
 
 void SToolBAlign::languageChange()
 {
+	GroupAlign->languageChange();
 	paraStyleCombo->setToolTip("");
 	paraStyleCombo->setToolTip( tr("Style of current paragraph"));
 }
