@@ -2630,13 +2630,13 @@ GlyphLayout PageItem::layoutGlyphs(const CharStyle& style, const QString& chars,
 	
 /*	if (layout.glyph == (ScFace::CONTROL_GLYPHS + SpecialChars::NBSPACE.unicode())) {
 		uint replGlyph = font.char2CMap(QChar(' '));
-		layout.xadvance = font.glyphWidth(replGlyph, style.fontSize() / 10) * layout.scaleH;
-		layout.yadvance = font.glyphBBox(replGlyph, style.fontSize() / 10).ascent * layout.scaleV;
+		layout.xadvance = font.glyphWidth(replGlyph, style.fontSize() / 10);
+		layout.yadvance = font.glyphBBox(replGlyph, style.fontSize() / 10).ascent;
 	}
 	else if (layout.glyph == (ScFace::CONTROL_GLYPHS + SpecialChars::NBHYPHEN.unicode())) {
 		uint replGlyph = font.char2CMap(QChar('-'));
-		layout.xadvance = font.glyphWidth(replGlyph, style.fontSize() / 10) * layout.scaleH;
-		layout.yadvance = font.glyphBBox(replGlyph, style.fontSize() / 10).ascent * layout.scaleV;
+		layout.xadvance = font.glyphWidth(replGlyph, style.fontSize() / 10);
+		layout.yadvance = font.glyphBBox(replGlyph, style.fontSize() / 10).ascent;
 	}
 	else if (layout.glyph >= ScFace::CONTROL_GLYPHS) {
 		layout.xadvance = 0;
@@ -2644,8 +2644,8 @@ GlyphLayout PageItem::layoutGlyphs(const CharStyle& style, const QString& chars,
 	}
 	else */
 	{
-		gl.xadvance = font.glyphWidth(gl.glyph, style.fontSize() / 10) * gl.scaleH;
-		gl.yadvance = font.glyphBBox(gl.glyph, style.fontSize() / 10).ascent * gl.scaleV;
+		gl.xadvance = font.glyphWidth(gl.glyph, style.fontSize() / 10);
+		gl.yadvance = font.glyphBBox(gl.glyph, style.fontSize() / 10).ascent;
 	}
 	if (gl.xadvance > 0)
 		gl.xadvance += tracking;

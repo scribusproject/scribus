@@ -185,7 +185,7 @@ void TextShaper::initGlyphLayout(GlyphRun& run, const QString& chars, int runInd
 	if (runIndex > 0)
 	{
 		GlyphLayout& last = m_runs[runIndex - 1].glyphs().last();
-		last.xadvance += runStyle.font().glyphKerning(last.glyph, gl.glyph, runStyle.fontSize() / 10) * last.scaleH;
+		last.xadvance += runStyle.font().glyphKerning(last.glyph, gl.glyph, runStyle.fontSize() / 10);
 		m_lastKernedIndex = qMax(m_lastKernedIndex, runIndex - 1);
 	}
 

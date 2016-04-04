@@ -1003,7 +1003,7 @@ static void justifyLine(const ParagraphStyle& style, LineControl& curr)
 		else if (!glyphrun.hasFlag(ScLayout_SuppressSpace))
 		{
 			GlyphLayout& glyph = glyphrun.glyphs().last();
-			glyph.xadvance += wide * spaceExtension;
+			glyph.xadvance += (wide * spaceExtension) / glyph.scaleH;
 		}
 		if (i != curr.line.firstRun && glyphrun.hasFlag(ScLayout_ImplicitSpace))
 		{
@@ -1781,7 +1781,7 @@ void PageItem_TextFrame::layout()
 					firstGlyph.scaleH *= firstGlyph.scaleV;
 					firstGlyph.xoffset -= 0.5; //drop caps are always to far from column left edge
 				}
-				firstGlyph.xadvance = wide / firstGlyph.scaleH;  // FIXME: why this division?
+				firstGlyph.xadvance = wide / firstGlyph.scaleH;
 				desc = realDesc = 0;
 			}
 			else // !DropCMode
@@ -2497,9 +2497,7 @@ void PageItem_TextFrame::layout()
 			if ((DropCmode || BulNumMode) && !outs)
 			{
 				current.xPos += style.parEffectOffset();
-				 // FIXME: why a special case for drop caps
-				lastGlyph.xadvance += DropCmode ? (style.parEffectOffset() / lastGlyph.scaleH)
-				                                :  style.parEffectOffset();
+				lastGlyph.xadvance += style.parEffectOffset() / lastGlyph.scaleH;
 				if (DropCmode)
 				{
 					DropCmode = false;
