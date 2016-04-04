@@ -1477,7 +1477,7 @@ void ActionManager::languageChange()
 	createDefaultNonMenuNames();
 
 	//File Menu
-	(*scrActions)["fileNew"]->setTexts( tr("&New"));
+	(*scrActions)["fileNew"]->setTexts( tr("&New..."));
 	(*scrActions)["fileNewFromTemplate"]->setTexts( tr("New &from Template..."));
 	(*scrActions)["fileOpen"]->setTexts( tr("&Open..."));
 	(*scrActions)["fileClose"]->setTexts( tr("&Close"));
@@ -1498,7 +1498,7 @@ void ActionManager::languageChange()
 //	(*scrActions)["filePreferences"]->setTexts( tr("P&references (old)..."));
 	(*scrActions)["filePreferences150"]->setTexts( tr("P&references..."));
 	(*scrActions)["filePrint"]->setTexts( tr("&Print..."));
-	(*scrActions)["PrintPreview"]->setTexts( tr("Print Previe&w"));
+	(*scrActions)["PrintPreview"]->setTexts( tr("Print Previe&w..."));
 	(*scrActions)["fileQuit"]->setTexts( tr("&Quit"));
 	//Edit Menu
 	(*scrActions)["editUndoAction"]->setTexts( tr("&Undo"));
@@ -1558,7 +1558,7 @@ void ActionManager::languageChange()
 	//Item Menu
 	(*scrActions)["itemDuplicate"]->setTexts( tr("D&uplicate"));
 	(*scrActions)["itemMulDuplicate"]->setTexts( tr("&Multiple Duplicate..."));
-	(*scrActions)["itemTransform"]->setTexts( tr("&Transform"));
+	(*scrActions)["itemTransform"]->setTexts( tr("&Transform..."));
 	(*scrActions)["itemDelete"]->setTexts( tr("&Delete"));
 	(*scrActions)["itemGroup"]->setTexts( tr("&Group"));
 	(*scrActions)["itemUngroup"]->setTexts( tr("&Ungroup"));
@@ -1600,8 +1600,8 @@ void ActionManager::languageChange()
 	(*scrActions)["itemPreviewLow"]->setTexts( tr("&Low Resolution"));
 	(*scrActions)["itemPDFIsBookmark"]->setTexts( tr("Is PDF &Bookmark"));
 	(*scrActions)["itemPDFIsAnnotation"]->setTexts( tr("Is PDF A&nnotation"));
-	(*scrActions)["itemPDFAnnotationProps"]->setTexts( tr("Annotation P&roperties"));
-	(*scrActions)["itemPDFFieldProps"]->setTexts( tr("Field P&roperties"));
+	(*scrActions)["itemPDFAnnotationProps"]->setTexts( tr("Annotation P&roperties..."));
+	(*scrActions)["itemPDFFieldProps"]->setTexts( tr("Field P&roperties..."));
 	(*scrActions)["itemShapeEdit"]->setTexts( tr("&Edit Shape..."));
 	(*scrActions)["itemAttachTextToPath"]->setTexts( tr("&Attach Text to Path"));
 	(*scrActions)["itemDetachTextFromPath"]->setTexts( tr("&Detach Text from Path"));
@@ -1732,7 +1732,7 @@ void ActionManager::languageChange()
 #endif
 
 	//Extras Menu
-	(*scrActions)["extrasManageImages"]->setTexts( tr("&Manage Images"));
+	(*scrActions)["extrasManageImages"]->setTexts( tr("&Manage Images..."));
 	(*scrActions)["extrasHyphenateText"]->setTexts( tr("&Hyphenate Text"));
 	(*scrActions)["extrasDeHyphenateText"]->setTexts( tr("Dehyphenate Text"));
 	(*scrActions)["extrasGenerateTableOfContents"]->setTexts( tr("&Generate Table Of Contents"));
