@@ -97,19 +97,13 @@ int AlignSelect::selectedId()
 void AlignSelect::changeEvent(QEvent *e)
 {
 	if (e->type() == QEvent::LanguageChange)
-	{
 		languageChange();
-	}
+	else
+		QWidget::changeEvent(e);
 }
 
 void AlignSelect::languageChange()
 {
-	TextL->setToolTip("");
-	TextR->setToolTip("");
-	TextC->setToolTip("");
-	TextB->setToolTip("");
-	TextF->setToolTip("");
-
 	TextL->setToolTip( tr("Align Text Left"));
 	TextR->setToolTip( tr("Align Text Right"));
 	TextC->setToolTip( tr("Align Text Center"));
