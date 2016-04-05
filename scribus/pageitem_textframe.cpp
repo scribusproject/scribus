@@ -2556,6 +2556,7 @@ void PageItem_TextFrame::layout()
 								&&  (itemText.text(a) == SpecialChars::LINEBREAK ||
 									 itemText.text(a) == SpecialChars::FRAMEBREAK ||
 									 itemText.text(a) == SpecialChars::COLBREAK)
+								&&  (current.line.lastRun - 1 >= 0)
 								&&  !itemText.text(glyphRuns[current.line.lastRun - 1].lastChar()).isSpace()))
 						{
 							justifyLine(style, current);
