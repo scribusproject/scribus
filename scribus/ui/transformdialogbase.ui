@@ -121,7 +121,7 @@
          <widget class="QWidget" name="pageScale">
           <layout class="QGridLayout">
            <item row="0" column="0" colspan="3">
-            <widget class="QLabel" name="label_3">
+            <widget class="QLabel" name="ScalingStackLabel">
              <property name="font">
               <font>
                <pointsize>11</pointsize>
@@ -136,9 +136,9 @@
             </widget>
            </item>
            <item row="1" column="0">
-            <widget class="QLabel" name="label">
+            <widget class="QLabel" name="horizontalScaleLabel">
              <property name="text">
-              <string>Horizontal</string>
+              <string>Horizontal:</string>
              </property>
             </widget>
            </item>
@@ -199,9 +199,9 @@
             </widget>
            </item>
            <item row="2" column="0">
-            <widget class="QLabel" name="label_2">
+            <widget class="QLabel" name="verticalScaleLabel">
              <property name="text">
-              <string>Vertical</string>
+              <string>Vertical:</string>
              </property>
             </widget>
            </item>
@@ -241,7 +241,7 @@
          <widget class="QWidget" name="pageTranslate">
           <layout class="QGridLayout">
            <item row="0" column="0" colspan="2">
-            <widget class="QLabel" name="label_4">
+            <widget class="QLabel" name="TranslationStackLabel">
              <property name="font">
               <font>
                <pointsize>11</pointsize>
@@ -256,9 +256,9 @@
             </widget>
            </item>
            <item row="1" column="0">
-            <widget class="QLabel" name="label_5">
+            <widget class="QLabel" name="translateHorizontalLabel">
              <property name="text">
-              <string>Horizontal</string>
+              <string>Horizontal:</string>
              </property>
             </widget>
            </item>
@@ -273,9 +273,9 @@
             </widget>
            </item>
            <item row="2" column="0">
-            <widget class="QLabel" name="label_6">
+            <widget class="QLabel" name="translateVerticalLabel">
              <property name="text">
-              <string>Vertical</string>
+              <string>Vertical:</string>
              </property>
             </widget>
            </item>
@@ -294,7 +294,7 @@
          <widget class="QWidget" name="pageRotate">
           <layout class="QGridLayout">
            <item row="0" column="0" colspan="2">
-            <widget class="QLabel" name="label_7">
+            <widget class="QLabel" name="RotateStackLabel">
              <property name="font">
               <font>
                <pointsize>11</pointsize>
@@ -309,9 +309,9 @@
             </widget>
            </item>
            <item row="1" column="0">
-            <widget class="QLabel" name="label_8">
+            <widget class="QLabel" name="rotationValueLabel">
              <property name="text">
-              <string>Angle</string>
+              <string>Angle:</string>
              </property>
             </widget>
            </item>
@@ -333,7 +333,7 @@
          <widget class="QWidget" name="Seite">
           <layout class="QGridLayout">
            <item row="0" column="0" colspan="3">
-            <widget class="QLabel" name="label_10">
+            <widget class="QLabel" name="SkewStackLabel">
              <property name="font">
               <font>
                <pointsize>11</pointsize>
@@ -348,9 +348,9 @@
             </widget>
            </item>
            <item row="1" column="0">
-            <widget class="QLabel" name="label_11">
+            <widget class="QLabel" name="horizontalSkewLabel">
              <property name="text">
-              <string>Horizontal</string>
+              <string>Horizontal:</string>
              </property>
             </widget>
            </item>
@@ -393,9 +393,9 @@
             </widget>
            </item>
            <item row="2" column="0">
-            <widget class="QLabel" name="label_12">
+            <widget class="QLabel" name="verticalSkewLabel">
              <property name="text">
-              <string>Vertical</string>
+              <string>Vertical:</string>
              </property>
             </widget>
            </item>
