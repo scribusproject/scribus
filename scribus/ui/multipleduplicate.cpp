@@ -23,13 +23,6 @@ MultipleDuplicate::MultipleDuplicate( int unitIndex, QWidget* parent) : QDialog(
 
 	m_unitRatio = unitGetRatioFromIndex(m_unitIndex);
 
-	//set tab order
-	QWidget::setTabOrder(createGapRadioButton, horizShiftSpinBox);
-	QWidget::setTabOrder(horizShiftSpinBox, vertShiftSpinBox);
-	QWidget::setTabOrder(gridColsSpinBox, horizRCGapSpinBox);
-	QWidget::setTabOrder(horizRCGapSpinBox, vertRCGapSpinBox);
-	QWidget::setTabOrder(vertRCGapSpinBox, rotationSpinBox);
-	
 	//set up mspinboxes
 	horizShiftSpinBox->setNewUnit(unitIndex);
 	vertShiftSpinBox->setNewUnit(unitIndex);
