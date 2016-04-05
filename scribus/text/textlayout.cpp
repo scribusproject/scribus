@@ -112,7 +112,16 @@ void TextLayout::appendLine(LineBox* ls)
 // Remove the last line from the list. Used when we need to backtrack on the layouting.
 void TextLayout::removeLastLine ()
 {
-	m_box->removeBox(m_box->boxes().count() - 1);
+	QList<Box*>& boxes = m_box->boxes();
+	if (boxes.isEmpty())
+		return;
+
+	GroupBox* column = dynamic_cast<GroupBox*>(boxes.last());
+	assert(column);
+
+	int lineCount = column->boxes().count();
+	if (lineCount > 0)
+		column->removeBox(lineCount - 1);
 }
 
 void TextLayout::render(TextLayoutPainter *p, PageItem *item)
