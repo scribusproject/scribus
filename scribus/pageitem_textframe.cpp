@@ -517,6 +517,7 @@ struct LineControl {
 			colRight += lineCorr;
 		xPos = colLeft;
 		yPos = insets.top() + lineCorr;
+		line.colLeft = colLeft;
 	}
 
 	bool isEndOfCol(double morespace = 0)
@@ -2183,16 +2184,17 @@ void PageItem_TextFrame::layout()
 						// remember fill char
 						if (!tabs.fillChar.isNull())
 						{
-								glyphRuns[i].setFlag(ScLayout_TabLeaders);
-								GlyphLayout tglyph;
-								tglyph.glyph	= font.char2CMap(tabs.fillChar);
-								tglyph.yoffset  = firstGlyph.yoffset;
-								tglyph.scaleV   = tglyph.scaleH = chs / charStyle.fontSize();
-								tglyph.xadvance = 0;
-								glyphRuns[i].glyphs().append(tglyph);
+							glyphRuns[i].setFlag(ScLayout_TabLeaders);
+							GlyphLayout tglyph;
+							tglyph.glyph	= font.char2CMap(tabs.fillChar);
+							tglyph.yoffset  = firstGlyph.yoffset;
+							tglyph.scaleV   = tglyph.scaleH = chs / charStyle.fontSize();
+							tglyph.xadvance = 0;
+							glyphRuns[i].glyphs().append(tglyph);
 						}
 					}
-					firstGlyph.xadvance = current.xPos + wide - tabs.xPos;
+					current.xPos -= (legacy ? 1.0 : 0.0);
+					firstGlyph.xadvance = (current.xPos + wide - tabs.xPos) / firstGlyph.scaleH;
 					tabs.tabGlyph = &firstGlyph;
 				}
 			}
@@ -2262,7 +2264,6 @@ void PageItem_TextFrame::layout()
 				hyphWidth = font.charWidth('-', hlcsize10) * (charStyle.scaleH() / 1000.0);
 			if ((current.isEndOfLine(style.rightMargin() + hyphWidth)) || current.isEndOfCol(realDesc) || SpecialChars::isBreak(itemText.text(a), Cols > 1) || (current.xPos - current.maxShrink + hyphWidth) >= current.mustLineEnd)
 			{
-
 				//end of row reached - right column, end of column, break char or line must end
 				if (current.isEmpty && !current.afterOverflow && !SpecialChars::isBreak(itemText.text(a), Cols > 1))
 				{
@@ -2484,7 +2485,8 @@ void PageItem_TextFrame::layout()
 				if (tabs.status == TabCENTER)
 					cen = 2;
 
-				double newTabAdvance = tabs.tabGlyph->xadvance - wide / cen;
+				double newTabAdvance = tabs.tabGlyph->xadvance;
+				newTabAdvance -= wide / cen / tabs.tabGlyph->scaleH;
 
 				if (newTabAdvance >= 0) {
 					tabs.tabGlyph->xadvance = newTabAdvance;
