@@ -421,7 +421,7 @@ void ScPageOutput::drawItem_Post( PageItem* item, ScPainterExBase* painter )
 			}
 			else
 				painter->setLineWidth(0);
-			if ((item->itemType() == PageItem::LatexFrame) || (item->itemType() == PageItem::ImageFrame) || (item->itemType() == PageItem::OSGFrame))
+			if ((item->itemType() == PageItem::LatexFrame) || (item->itemType() == PageItem::ImageFrame) || (item->itemType() == PageItem::TextFrame) || (item->itemType() == PageItem::OSGFrame))
 				painter->setupPolygon(&item->PoLine);
 			if (item->NamedLStyle.isEmpty())
 			{
