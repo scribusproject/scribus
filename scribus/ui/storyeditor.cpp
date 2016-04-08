@@ -1455,6 +1455,8 @@ SToolBFont::SToolBFont(QMainWindow* parent) : QToolBar( tr("Font Settings"), par
 	connect(ChScaleV, SIGNAL(valueChanged(double)), this, SIGNAL(newScaleV(double)));
 	connect(Fonts, SIGNAL(activated(const QString &)), this, SIGNAL(NewFont(const QString &)));
 	connect(Size, SIGNAL(valueChanged(double)), this, SIGNAL(NewSize(double)));
+
+	languageChange();
 }
 
 void SToolBFont::changeEvent(QEvent *e)
@@ -1469,10 +1471,6 @@ void SToolBFont::changeEvent(QEvent *e)
 
 void SToolBFont::languageChange()
 {
-	Fonts->setToolTip("");
-	Size->setToolTip("");
-	ChScale->setToolTip("");
-	ChScaleV->setToolTip("");
 	Fonts->setToolTip( tr("Font of selected text"));
 	Size->setToolTip( tr("Font Size"));
 	ChScale->setToolTip( tr("Scaling width of characters"));
