@@ -23,8 +23,14 @@ class SCRIBUS_API FontListView : public QTableView
 
 	public:
 		FontListView(QWidget * parent = 0);
+
 		void setModel(QAbstractItemModel * model);
 		void setFonts(SCFonts f);
+
+		QString fontName(int i);
+		bool    isFontUsable(int i);
+		bool    isFontSubsetted(int i);
+		bool    isFontEmbeddedInPS(int i);
 };
 
 #endif

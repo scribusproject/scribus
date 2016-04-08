@@ -32,3 +32,37 @@ void FontListView::setFonts(SCFonts f)
 	if (!isSortingEnabled())
 		sortByColumn(FontListModel::SortIndex, Qt::AscendingOrder);
 }
+
+QString FontListView::fontName(int i)
+{
+	FontListModel* fontModel = qobject_cast<FontListModel*>(model());
+	QModelIndex cellIndex = fontModel->index(i, FontListModel::FontName);
+	return fontModel->nameForIndex(cellIndex);
+}
+
+bool FontListView::isFontUsable(int i)
+{
+	FontListModel* fontModel = qobject_cast<FontListModel*>(model());
+	QModelIndex cellIndex = fontModel->index(i, FontListModel::FontUsable);
+	QVariant    checkData = fontModel->data(cellIndex, Qt::CheckStateRole);
+	Qt::CheckState checkState = static_cast<Qt::CheckState>(checkData.toInt());
+	return (checkState == Qt::Checked);
+}
+
+bool FontListView::isFontSubsetted(int i)
+{
+	FontListModel* fontModel = qobject_cast<FontListModel*>(model());
+	QModelIndex cellIndex = fontModel->index(i, FontListModel::FontSubset);
+	QVariant    checkData = fontModel->data(cellIndex, Qt::CheckStateRole);
+	Qt::CheckState checkState = static_cast<Qt::CheckState>(checkData.toInt());
+	return (checkState == Qt::Checked);
+}
+
+bool FontListView::isFontEmbeddedInPS(int i)
+{
+	FontListModel* fontModel = qobject_cast<FontListModel*>(model());
+	QModelIndex cellIndex = fontModel->index(i, FontListModel::FontEmbed);
+	QVariant    checkData = fontModel->data(cellIndex, Qt::CheckStateRole);
+	Qt::CheckState checkState = static_cast<Qt::CheckState>(checkData.toInt());
+	return (checkState == Qt::Checked);
+}

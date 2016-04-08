@@ -37,14 +37,10 @@ class SCRIBUS_API FontListModel : public QAbstractTableModel
 		enum ColumnTypes {
             FontUsable = 0,
 			FontName,
-//			FontFamily,
-//			FontStyle,
-//			FontVariant,
 			FontType,
 			FontFormat,
 			FontEmbed,
 			FontSubset,
-            FontOutline,
 			FontAccess,
 			FontInDoc,
 			FontFile,
@@ -83,22 +79,28 @@ class SCRIBUS_API FontListModel : public QAbstractTableModel
 		*/
 		QString nameForIndex(const QModelIndex & index);
 
-        bool isLive() const { return m_embedMethod.count() == 0; }
+        bool isLive() const { return m_embedFlags.count() == 0; }
 	private:
     
-    enum EmbedMethod {
-        DontEmbed = 0,
-        EmbedFont = 1,
-        SubsetFont = 2,
-        OutlineFont = 3
-    };
+		enum EmbedMethod {
+			DontEmbed = 0,
+			EmbedFont = 1,
+			SubsetFont = 2,
+			OutlineFont = 3
+		};
+
+		enum EmbedFlags {
+			EmbedPS = 1,
+			SubsetPDF = 2
+		};
     
 		ScribusDoc * m_doc;
 		//! Scribus fonts. \note: It's shared!
 		SCFonts m_fonts;
-		QList<ScFace> m_font_values;
+		QList<ScFace>  m_font_values;
         QList<QString> m_font_names;
-        QList<EmbedMethod> m_embedMethod;
+		QList<bool>    m_enabledFonts;
+        QList<int>     m_embedFlags;
     
 		//! Display icons by the Qt::DecorationRole
 		QPixmap ttfFont;

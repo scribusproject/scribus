@@ -211,13 +211,24 @@ void Prefs_Fonts::restoreDefaults(struct ApplicationPrefs *prefsData)
 
 void Prefs_Fonts::saveGuiToPrefs(struct ApplicationPrefs *prefsData) const
 {
+	int fontCount = fontListTableView->model()->rowCount();
+	for (int i = 0; i < fontCount; ++i)
+	{
+		QString fontName = fontListTableView->fontName(i);
+		ScFace face = m_availFonts[fontName];
+
+		face.usable(fontListTableView->isFontUsable(i));
+		face.subset(fontListTableView->isFontSubsetted(i));
+		face.embedPs(fontListTableView->isFontEmbeddedInPS(i));
+	}
+
 	if (m_doc==0)
 		writePaths();
+
 	prefsData->fontPrefs.GFontSub.clear();
 	uint a = 0;
 	for (QMap<QString,QString>::ConstIterator itfsu = RList.begin(); itfsu != RList.end(); ++itfsu)
 		prefsData->fontPrefs.GFontSub[itfsu.key()] = FlagsRepl.at(a++)->currentText();
-
 }
 
 void Prefs_Fonts::changeUnit(ApplicationPrefs *prefsData) const
