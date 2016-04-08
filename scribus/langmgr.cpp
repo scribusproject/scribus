@@ -167,6 +167,7 @@ void LanguageManager::generateLangList()
 	m_langTable.append(LangDef("te",     "te_IN", "Telugu",                 QObject::tr( "Telugu" )) );
 	m_langTable.append(LangDef("th",     "th_TH", "Thai",                   QObject::tr( "Thai" )) );
 	m_langTable.append(LangDef("tr",     "tr_TR", "Turkish",                QObject::tr( "Turkish" )) );
+	m_langTable.append(LangDef("ur",     "",      "Urdu",                   QObject::tr( "Urdu" )) );
 	m_langTable.append(LangDef("uk",     "uk_UA", "Ukranian",               QObject::tr( "Ukranian" )) );
 	m_langTable.append(LangDef("vi",     "",      "Vietnamese",             QObject::tr( "Vietnamese" )) );
 	m_langTable.append(LangDef("zh",     "",      "Chinese",                QObject::tr( "Chinese" )) );
