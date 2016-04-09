@@ -8056,7 +8056,7 @@ Document Liberation : http://www.documentliberation.org</translation>
     <message>
         <location filename="../../scribus/fontlistmodel.cpp" line="93"/>
         <source>Outline</source>
-        <translation type="unfinished">Plan du document</translation>
+        <translation type="unfinished">Vectorisation</translation>
     </message>
     <message>
         <location filename="../../scribus/fontlistmodel.cpp" line="95"/>
