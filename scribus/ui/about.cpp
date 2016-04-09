@@ -114,8 +114,8 @@ About::About( QWidget* parent, AboutMode diaMode ) : QDialog( parent )
 	buildID = new QLabel( tab );
 	buildID->setAlignment(Qt::AlignCenter);
 	buildID->setTextInteractionFlags(Qt::TextSelectableByMouse);
-	QString BUILD_DAY = "19";
-	QString BUILD_MONTH = CommonStrings::march;
+	QString BUILD_DAY = "3";
+	QString BUILD_MONTH = CommonStrings::april;
 	QString BUILD_YEAR = "2016";
 	QString BUILD_TIME = "";
 	QString BUILD_TZ = "";
@@ -137,11 +137,6 @@ About::About( QWidget* parent, AboutMode diaMode ) : QDialog( parent )
 	QString bu;
 	bu += "C";
 	bu += "-";
-#ifdef HAVE_CUPS
-	bu += "C";
-#else
-	bu += "*";
-#endif
 	bu += "-";
 	bu += "T";
 	bu += "-";

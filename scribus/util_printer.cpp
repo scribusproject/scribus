@@ -6,11 +6,11 @@ for which a new license (GPL+exception) is in place.
 */
 #include "util_printer.h"
 #include "scconfig.h"
+#include <QPrinterInfo>
+#include <QPrinter>
+#include <QPageLayout>
 
-#if defined(HAVE_CUPS)
- #include <cups/cups.h>
- #include <cups/ppd.h>
-#elif defined(_WIN32)
+#if defined(_WIN32)
  #include <windows.h>
  #include <winspool.h>
 #endif
@@ -25,57 +25,7 @@ for which a new license (GPL+exception) is in place.
 
 QStringList PrinterUtil::getPrinterNames()
 {
-	QString printerName;
-	QStringList printerNames;
-#if defined (HAVE_CUPS)
-	cups_dest_t *dests;
-	int num_dests = cupsGetDests(&dests);
-	for (int pr = 0; pr < num_dests; ++pr)
-	{
-		printerName = QString(dests[pr].name);
-		printerNames.append(printerName);
-	}
-	cupsFreeDests(num_dests, dests);
-#elif defined(_WIN32)
-	DWORD size;
-	DWORD numPrinters;
-	PRINTER_INFO_2W* printerInfos = NULL;
-	EnumPrintersW (PRINTER_ENUM_LOCAL|PRINTER_ENUM_CONNECTIONS , NULL, 2, NULL, 0, &size, &numPrinters);
-	printerInfos = (PRINTER_INFO_2W*) malloc(size);
-	if (EnumPrintersW (PRINTER_ENUM_LOCAL|PRINTER_ENUM_CONNECTIONS, NULL, 2, (LPBYTE) printerInfos, size, &size, &numPrinters))
-	{
-		for (uint i = 0; i < numPrinters; i++)
-		{
-			printerName = QString::fromUtf16((const ushort*) printerInfos[i].pPrinterName);
-			printerNames.append(printerName);
-		}
-		printerNames.sort();	
-	}
-	if (printerInfos) free(printerInfos);
-#else
-	QString tmp;
-	QStringList wt;
-	QByteArray printCap;
-	if (loadRawText("/etc/printcap", printCap))
-	{
-		QDataStream ts(&printCap, QIODevice::ReadOnly);
-		while(!ts.atEnd())
-		{
-			tmp = readLinefromDataStream(ts);
-			if (tmp.isEmpty())
-				continue;
-			if ((tmp[0] != '#') && (tmp[0] != ' ') && (tmp[0] != '\n') && (tmp[0] != '\t'))
-			{
-				tmp = tmp.trimmed();
-				tmp = tmp.left(tmp.length() - (tmp.right(2) == ":\\" ? 2 : 1));
-				wt = tmp.split("|", QString::SkipEmptyParts);
-				printerName = wt[0];
-				printerNames.append(printerName);
-			}
-		}
-	}
-#endif
-	return printerNames;
+	return QPrinterInfo::availablePrinterNames();
 }
 
 #if defined(_WIN32)
@@ -135,83 +85,18 @@ bool PrinterUtil::initDeviceSettings(QString printerName, QByteArray& devModeA)
 
 bool PrinterUtil::getPrinterMarginValues(const QString& printerName, const QString& pageSize, double& ptsTopMargin, double& ptsBottomMargin, double& ptsLeftMargin, double& ptsRightMargin)
 {
-	bool retVal=false;
-#if defined(HAVE_CUPS)
-	const char *filename; // tmp PPD filename
-	filename=cupsGetPPD(printerName.toLocal8Bit().constData());
-	if (filename!=NULL)
+	bool retVal = false;
+	QPrinterInfo pInfo = QPrinterInfo::printerInfo(printerName);
+	if (!pInfo.isNull())
 	{
-		ppd_file_t *ppd; // PPD data
-		ppd = ppdOpenFile(filename);
-		if (ppd!=NULL)
-		{
-			ppd_size_t *size; // page size data, null if printer doesn't support selected size
-			size = ppdPageSize(ppd, pageSize.toLocal8Bit().constData());
-			if (size!=NULL)
-			{
-				//Store in pts for returning via getNewPrinterMargins in pts
-				retVal=true;
-				ptsTopMargin=size->length-size->top;
-				ptsBottomMargin=size->bottom;
-				ptsLeftMargin=size->left;
-				ptsRightMargin=size->width-size->right;
-			}
-			ppdClose(ppd);
-		}
+		QPrinter printer(pInfo, QPrinter::HighResolution);
+		QMarginsF margs = printer.pageLayout().margins(QPageLayout::Point);
+		ptsTopMargin = margs.top();
+		ptsBottomMargin = margs.bottom();
+		ptsLeftMargin = margs.left();
+		ptsRightMargin = margs.right();
+		retVal = true;
 	}
-#elif defined(_WIN32)
-	DWORD nPaper;
-	DWORD nPaperNames;
-	typedef WCHAR wchar64[64];
-	nPaper = DeviceCapabilitiesW((LPCWSTR) printerName.utf16(), NULL, DC_PAPERS, NULL, NULL);
-	nPaperNames = DeviceCapabilitiesW((LPCWSTR) printerName.utf16(), NULL, DC_PAPERNAMES, NULL, NULL);
-	if ((nPaper > 0) && (nPaperNames > 0) && (nPaper == nPaperNames))
-	{
-		int paperIndex = -1;
-		DWORD   *papers = new DWORD[nPaper];
-		wchar64 *paperNames = new wchar64[nPaperNames];
-		DWORD s1 = DeviceCapabilitiesW((LPCWSTR) printerName.utf16(), NULL, DC_PAPERS, (LPWSTR) papers, NULL);
-		DWORD s2 = DeviceCapabilitiesW((LPCWSTR) printerName.utf16(), NULL, DC_PAPERNAMES, (LPWSTR) paperNames, NULL);
-		for (uint i = 0; i < nPaperNames; i++)
-		{
-			if (pageSize == QString::fromUtf16((const ushort*) paperNames[i]))
-			{
-				paperIndex = i;
-				break;
-			}
-		}
-		if (paperIndex >= 0)
-		{
-			Qt::HANDLE handle = NULL;
-			if (OpenPrinterW((LPWSTR) printerName.utf16(), &handle, NULL))
-			{
-				// Retrieve DEVMODE structure for selected device
-				uint size = DocumentPropertiesW((HWND) ScCore->primaryMainWindow()->winId(), handle, (LPWSTR) printerName.utf16(), NULL, NULL, 0);
-				QByteArray devModeW(size, 0);
-				DEVMODEW* devMode = (DEVMODEW*) devModeW.data();
-				DocumentPropertiesW((HWND) ScCore->primaryMainWindow()->winId(), handle, (LPWSTR) printerName.utf16(), devMode, NULL, DM_OUT_BUFFER);
-				ClosePrinter(handle);
-				// Set paper size
-				devMode->dmPaperSize = papers[paperIndex];
-				// Create device context
-				HDC printerDC = CreateDCW(NULL, (LPWSTR) printerName.utf16(), NULL, devMode);
-				if (printerDC)
-				{
-					retVal = true;
-					int logPixelsX = GetDeviceCaps(printerDC, LOGPIXELSX);
-					int logPixelsY = GetDeviceCaps(printerDC, LOGPIXELSY);
-					int physicalOffsetX = GetDeviceCaps(printerDC, PHYSICALOFFSETX);
-					int physicalOffsetY = GetDeviceCaps(printerDC, PHYSICALOFFSETY);
-					ptsLeftMargin = ptsRightMargin = (physicalOffsetX / (double) logPixelsX * 72);
-					ptsTopMargin = ptsBottomMargin = (physicalOffsetY / (double) logPixelsY * 72);
-					DeleteDC(printerDC);
-				}
-			}
-		}
-		delete[] papers;
-		delete[] paperNames;
-	}
-#endif
 	return retVal;
 }
 

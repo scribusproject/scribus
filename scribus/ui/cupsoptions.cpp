@@ -34,6 +34,8 @@ for which a new license (GPL+exception) is in place.
 #include <QStringList>
 #include <QToolTip>
 #include <QSpacerItem>
+#include <QPrinterInfo>
+#include <QPrinter>
 
 #include "prefsmanager.h"
 #include "prefscontext.h"

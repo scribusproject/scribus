@@ -98,12 +98,10 @@ pageType(0)
 	}
 
 	usePrinterMarginsButton=NULL;
-#if defined(HAVE_CUPS) || defined(_WIN32)
-	usePrinterMarginsButton=new QPushButton( tr("Printer Margins..."),marginPage );
+	usePrinterMarginsButton = new QPushButton( tr("Printer Margins..."),marginPage );
 	GroupLayout->addWidget( usePrinterMarginsButton, 5, 1 );
 	usePrinterMarginsButton->setToolTip( "<qt>" + tr( "Import the margins for the selected page size from the available printers" ) + "</qt>");
 	connect(usePrinterMarginsButton, SIGNAL(clicked()), this, SLOT(setMarginsToPrinterMargins()));
-#endif
 
 	addTab(marginPage, tr("Margin Guides"));
 
