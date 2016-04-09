@@ -2929,7 +2929,7 @@ void PageItem_TextFrame::layout()
 	MaxChars = itemText.length();
 	if ((verticalAlign > 0) && (NextBox == NULL))
 	{
-		double hAdjust = height() - textLayout.box()->naturalHeight();
+		double hAdjust = height() - textLayout.box()->naturalHeight() - m_textDistanceMargins.bottom();
 		if (hAdjust > 0)
 		{
 			if (verticalAlign == 1)
