@@ -561,7 +561,7 @@ ENDIF(WIN32)
 ########## Find Dependencies                                                                        ##########
 
 #<< Qt
-SET (QT_MIN_VERSION "5.2.0")
+SET (QT_MIN_VERSION "5.3.0")
 SET(CMAKE_PREFIX_PATH "${QT_PREFIX}/lib/cmake")
 SET(CMAKE_INCLUDE_CURRENT_DIR ON)
 FIND_PACKAGE(Qt5Core REQUIRED)
