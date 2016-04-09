@@ -5829,20 +5829,22 @@ int ScribusDoc::OnPage(double x2, double  y2)
 int ScribusDoc::OnPage(PageItem *currItem)
 {
 	int retw = -1;
+
+	double w2 = currItem->visualWidth();
+	double h2 = currItem->visualHeight();
+	double x2 = -currItem->visualLineWidth() / 2.0;
+	double y2 = -currItem->visualLineWidth() / 2.0;
+	QTransform t = currItem->getTransform();
+	QRectF itemRect = t.mapRect(QRectF(x2, y2, w2, h2));
+
 	if (masterPageMode())
 	{
-		double x = currentPage()->xOffset() - m_docPrefsData.docSetupPrefs.bleeds.left();
-		double y = currentPage()->yOffset() - m_docPrefsData.docSetupPrefs.bleeds.top();
-		double w = currentPage()->width() + m_docPrefsData.docSetupPrefs.bleeds.left() + m_docPrefsData.docSetupPrefs.bleeds.right();
+		double x1 = currentPage()->xOffset() - m_docPrefsData.docSetupPrefs.bleeds.left();
+		double y1 = currentPage()->yOffset() - m_docPrefsData.docSetupPrefs.bleeds.top();
+		double w1 = currentPage()->width() + m_docPrefsData.docSetupPrefs.bleeds.left() + m_docPrefsData.docSetupPrefs.bleeds.right();
 		double h1 = currentPage()->height() + m_docPrefsData.docSetupPrefs.bleeds.bottom() + m_docPrefsData.docSetupPrefs.bleeds.top();
-		QTransform t = currItem->getTransform();
-		double w2 = currItem->visualWidth();
-		double h2 = currItem->visualHeight();
-		double x2 = -currItem->visualLineWidth() / 2.0;
-		double y2 = -currItem->visualLineWidth() / 2.0;
-		QRectF ret = t.mapRect(QRectF(x2, y2, w2, h2));
-		ret.getCoords(&x2, &y2, &w2, &h2);
-		if (( qMax( x, x2 ) <= qMin( x+w, x2+w2 ) && qMax( y, y2 ) <= qMin( y+h1, y2+h2 )))
+		QRectF pageRect(x1, y1, w1, h1);
+		if (itemRect.intersects(pageRect))
 			retw = currentPage()->pageNr();
 	}
 	else
@@ -5852,19 +5854,12 @@ int ScribusDoc::OnPage(PageItem *currItem)
 		for (uint a = 0; a < docPageCount; ++a)
 		{
 			getBleeds(a, pageBleeds);
-			double x = Pages->at(a)->xOffset() - pageBleeds.left();
-			double y = Pages->at(a)->yOffset() - pageBleeds.top();
-			double w = Pages->at(a)->width() + pageBleeds.left() + pageBleeds.right();
+			double x1 = Pages->at(a)->xOffset() - pageBleeds.left();
+			double y1 = Pages->at(a)->yOffset() - pageBleeds.top();
+			double w1 = Pages->at(a)->width() + pageBleeds.left() + pageBleeds.right();
 			double h1 = Pages->at(a)->height() + pageBleeds.bottom() + pageBleeds.top();
-			QTransform t = currItem->getTransform();
-			double w2 = currItem->visualWidth();
-			double h2 = currItem->visualHeight();
-			double x2 = -currItem->visualLineWidth() / 2.0;
-			double y2 = -currItem->visualLineWidth() / 2.0;
-			QRectF ret = t.mapRect(QRectF(x2, y2, w2, h2));
-
-			ret.getCoords(&x2, &y2, &w2, &h2);
-			if (( qMax( x, x2 ) <= qMin( x+w, x2+w2 ) && qMax( y, y2 ) <= qMin( y+h1, y2+h2 )))
+			QRectF pageRect(x1, y1, w1, h1);
+			if (itemRect.intersects(pageRect))
 			{
 				retw = static_cast<int>(a);
 				break;
@@ -5936,12 +5931,11 @@ void  ScribusDoc::fixItemPageOwner()
 			double h2 = currItem->visualHeight();
 			double x2 = -currItem->visualLineWidth() / 2.0;
 			double y2 = -currItem->visualLineWidth() / 2.0;
-			QRectF ret = t.mapRect(QRectF(x2, y2, w2, h2));
-			ret.getCoords(&x2, &y2, &w2, &h2);
-			if (( qMax(x1, x2) <= qMin(x1 + w1, x2 + w2) && qMax(y1, y2) <= qMin(y1 + h1, y2 + h2)))
-			{
+			
+			QRectF pageRect(x1, y1, w1, h1);
+			QRectF itemRect = t.mapRect(QRectF(x2, y2, w2, h2));
+			if (itemRect.intersects(pageRect))
 				continue;
-			}
 		}
 
 		// If no or page owner is incorrect, recompute page owner

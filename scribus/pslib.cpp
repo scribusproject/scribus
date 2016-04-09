@@ -1690,16 +1690,16 @@ int PSLib::CreatePS(ScribusDoc* Doc, PrintOptions &options)
 							continue;
 						double bLeft, bRight, bBottom, bTop;
 						GetBleeds(Doc->MasterPages.at(ap), bLeft, bRight, bBottom, bTop);
-						double x  = Doc->MasterPages.at(ap)->xOffset() - bLeft;
-						double y  = Doc->MasterPages.at(ap)->yOffset() - bTop;
-						double w  = Doc->MasterPages.at(ap)->width() + bLeft + bRight;
+						double x1 = Doc->MasterPages.at(ap)->xOffset() - bLeft;
+						double y1 = Doc->MasterPages.at(ap)->yOffset() - bTop;
+						double w1 = Doc->MasterPages.at(ap)->width() + bLeft + bRight;
 						double h1 = Doc->MasterPages.at(ap)->height()+ bBottom + bTop;
-						double ilw = it->lineWidth();
-						double x2 = it->BoundingX - ilw / 2.0;
-						double y2 = it->BoundingY - ilw / 2.0;
-						double w2 = qMax(it->BoundingW + ilw, 1.0);
-						double h2 = qMax(it->BoundingH + ilw, 1.0);
-						if (!( qMax( x, x2 ) <= qMin( x+w, x2+w2 ) && qMax( y, y2 ) <= qMin( y+h1, y2+h2 )))
+						double lw = it->visualLineWidth();
+						double x2 = it->BoundingX - lw / 2.0;
+						double y2 = it->BoundingY - lw / 2.0;
+						double w2 = qMax(it->BoundingW + lw, 1.0);
+						double h2 = qMax(it->BoundingH + lw, 1.0);
+						if (!QRectF(x2, y2, w2, h2).intersects(QRectF(x1, y1, w1, h1)))
 							continue;
 						if ((it->OwnPage != static_cast<int>(Doc->MasterPages.at(ap)->pageNr())) && (it->OwnPage != -1))
 							continue;
@@ -2634,16 +2634,16 @@ void PSLib::ProcessPage(ScribusDoc* Doc, ScPage* a, uint PNr, bool sep, bool far
 					continue;
 				double bLeft, bRight, bBottom, bTop;
 				GetBleeds(a, bLeft, bRight, bBottom, bTop);
-				double x  = a->xOffset() - bLeft;
-				double y  = a->yOffset() - bTop;
-				double w  = a->width() + bLeft + bRight;
+				double x1 = a->xOffset() - bLeft;
+				double y1 = a->yOffset() - bTop;
+				double w1 = a->width() + bLeft + bRight;
 				double h1 = a->height() + bBottom + bTop;
-				double ilw = c->lineWidth();
-				double x2 = c->BoundingX - ilw / 2.0;
-				double y2 = c->BoundingY - ilw / 2.0;
-				double w2 = qMax(c->BoundingW + ilw, 1.0);
-				double h2 = qMax(c->BoundingH + ilw, 1.0);
-				if (!( qMax( x, x2 ) <= qMin( x+w, x2+w2 ) && qMax( y, y2 ) <= qMin( y+h1, y2+h2 )))
+				double lw = c->visualLineWidth();
+				double x2 = c->BoundingX - lw / 2.0;
+				double y2 = c->BoundingY - lw / 2.0;
+				double w2 = qMax(c->BoundingW + lw, 1.0);
+				double h2 = qMax(c->BoundingH + lw, 1.0);
+				if (!QRectF(x2, y2, w2, h2).intersects(QRectF(x1, y1, w1, h1)))
 					continue;
 				if (c->ChangedMasterItem)
 					continue;
@@ -3057,16 +3057,16 @@ bool PSLib::ProcessPageLayer(ScribusDoc* Doc, ScPage* page, ScLayer& layer, uint
 				continue;
 			double bLeft, bRight, bBottom, bTop;
 			GetBleeds(page, bLeft, bRight, bBottom, bTop);
-			double x  = page->xOffset() - bLeft;
-			double y  = page->yOffset() - bTop;
-			double w  = page->width() + bLeft + bRight;
+			double x1 = page->xOffset() - bLeft;
+			double y1 = page->yOffset() - bTop;
+			double w1 = page->width() + bLeft + bRight;
 			double h1 = page->height() + bBottom + bTop;
-			double ilw = item->lineWidth();
-			double x2 = item->BoundingX - ilw / 2.0;
-			double y2 = item->BoundingY - ilw / 2.0;
-			double w2 = qMax(item->BoundingW + ilw, 1.0);
-			double h2 = qMax(item->BoundingH + ilw, 1.0);
-			if (!( qMax( x, x2 ) <= qMin( x+w, x2+w2 ) && qMax( y, y2 ) <= qMin( y+h1, y2+h2 )))
+			double lw = item->visualLineWidth();
+			double x2 = item->BoundingX - lw / 2.0;
+			double y2 = item->BoundingY - lw / 2.0;
+			double w2 = qMax(item->BoundingW + lw, 1.0);
+			double h2 = qMax(item->BoundingH + lw, 1.0);
+			if (!QRectF(x2, y2, w2, h2).intersects(QRectF(x1, y1, w1, h1)))
 				continue;
 			if (item->ChangedMasterItem)
 				continue;

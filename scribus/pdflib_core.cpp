@@ -2628,12 +2628,12 @@ bool PDFLibCore::PDF_TemplatePage(const ScPage* pag, bool )
 				double y  = pag->yOffset() - bTop;
 				double w  = pag->width() + bLeft + bRight;
 				double h1 = pag->height() + bBottom + bTop;
-				double ilw= ite->lineWidth();
+				double ilw= ite->visualLineWidth();
 				double x2 = ite->BoundingX - ilw / 2.0;
 				double y2 = ite->BoundingY - ilw / 2.0;
 				double w2 = ite->BoundingW + ilw;
 				double h2 = ite->BoundingH + ilw;
-				if (!( qMax( x, x2 ) <= qMin( x+w, x2+w2 ) && qMax( y, y2 ) <= qMin( y+h1, y2+h2 )))
+				if (!QRectF(x2, y2, w2, h2).intersects(QRectF(x, y, w, h1)))
 					continue;
 				if (ite->ChangedMasterItem)
 					continue;
@@ -4280,21 +4280,21 @@ bool PDFLibCore::PDF_ProcessItem(QByteArray& output, PageItem* ite, const ScPage
 	ite->setRedrawBounding();
 	double bLeft, bRight, bBottom, bTop;
 	getBleeds(pag, bLeft, bRight, bBottom, bTop);
-	double x  = pag->xOffset() - bLeft;
-	double y  = pag->yOffset() - bTop;
-	double w  = pag->width() + bLeft + bRight;
-	double h1 = pag->height()+ bBottom + bTop;
-	double ilw=ite->lineWidth();
-	double x2 = ite->BoundingX - ilw / 2.0;
-	double y2 = ite->BoundingY - ilw / 2.0;
-	double w2 = qMax(ite->BoundingW + ilw, 1.0);
-	double h2 = qMax(ite->BoundingH + ilw, 1.0);
 	output.resize(0);
 	if (!pattern)
 	{
+		double x1 = pag->xOffset() - bLeft;
+		double y1 = pag->yOffset() - bTop;
+		double w1 = pag->width()   + bLeft + bRight;
+		double h1 = pag->height()  + bBottom + bTop;
+		double lw = ite->visualLineWidth();
+		double x2 = ite->BoundingX - lw / 2.0;
+		double y2 = ite->BoundingY - lw / 2.0;
+		double w2 = qMax(ite->BoundingW + lw, 1.0);
+		double h2 = qMax(ite->BoundingH + lw, 1.0);
 //		qDebug() << QString("pdflib process item: pagename=%1 ownpage=%2 pagenr=%3 changedMP=%4").arg(pag->pageName()).arg(ite->OwnPage).arg(pag->pageNr()).arg(ite->ChangedMasterItem);
-//		qDebug() << QString("pdflib process item: x=%1 x2=%2 y=%3 y2=%4 w=%5 w2=%6 h1=%7 h2=%8 ilw=%9").arg(x).arg(x2).arg(y).arg(y2).arg(w).arg(w2).arg(h1).arg(h2).arg(ilw);
-		if (!( qMax( x, x2 ) <= qMin( x+w, x2+w2 ) && qMax( y, y2 ) <= qMin( y+h1, y2+h2 )) && !embedded)
+//		qDebug() << QString("pdflib process item: x1=%1 x2=%2 y1=%3 y2=%4 w1=%5 w2=%6 h1=%7 h2=%8 lw=%9").arg(x1).arg(x2).arg(y1).arg(y2).arg(w1).arg(w2).arg(h1).arg(h2).arg(lw);
+		if (!(QRectF(x2, y2, w2, h2).intersects(QRectF(x1, y1, w1, h1))) && !embedded)
 		{
 			output = tmp;
 			return true;
