@@ -390,7 +390,7 @@ void PropertiesPalette_Text::handleLineSpacingMode(int id)
 		Selection tempSelection(this, false);
 		tempSelection.addItem(m_item, true);
 		m_doc->itemSelection_SetLineSpacingMode(id, &tempSelection);
-		updateStyle(((m_doc->appMode == modeEdit) || (m_doc->appMode == modeEditTable)) ? m_item->currentStyle() : m_item->itemText.defaultStyle());
+	//	updateStyle(((m_doc->appMode == modeEdit) || (m_doc->appMode == modeEditTable)) ? m_item->currentStyle() : m_item->itemText.defaultStyle());
 		m_doc->regionsChanged()->update(QRect());
 	}
 }
