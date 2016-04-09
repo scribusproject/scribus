@@ -1796,12 +1796,10 @@ void PageItem_TextFrame::layout()
 					{
 						foreach (GlyphLayout gl, glyphRuns[i].glyphs()) {
 							GlyphMetrics gm = font.glyphBBox(gl.glyph, hlcsize10);
-							realDesc = qMax(realDesc, gm.descent);
+							realDesc = qMax(realDesc, gm.descent * scaleV - offset);
 							realAsce = gm.ascent;
 						}
 					}
-
-					realDesc =  realDesc * scaleV - offset;
 					desc = -font.descent(hlcsize10);
 					current.rememberShrinkStretch(itemText.text(a), wide, style);
 				}

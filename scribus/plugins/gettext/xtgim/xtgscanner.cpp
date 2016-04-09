@@ -498,7 +498,7 @@ void XtgScanner::setVerticalScale()
 	token = getToken();
 	if (token == "$")
 		token = "100";
-//	currentCharStyle.setScaleV(token.toDouble() * 10.0);
+	currentCharStyle.setScaleV(token.toDouble() * 10.0);
 }
 
 void XtgScanner::setLigatures()
