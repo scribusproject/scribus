@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>558</width>
-    <height>560</height>
+    <width>495</width>
+    <height>359</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -17,13 +17,13 @@
    </sizepolicy>
   </property>
   <property name="windowTitle">
-   <string notr="true">Form</string>
+   <string notr="true"/>
   </property>
   <layout class="QGridLayout" name="gridLayout_3">
    <item row="0" column="0">
     <layout class="QGridLayout" name="gridLayout">
      <item row="0" column="0">
-      <widget class="QLabel" name="label">
+      <widget class="QLabel" name="cornersSpinBoxLabel">
        <property name="text">
         <string>Corn&amp;ers:</string>
        </property>
@@ -49,7 +49,7 @@
       </widget>
      </item>
      <item row="1" column="0">
-      <widget class="QLabel" name="label_2">
+      <widget class="QLabel" name="rotationSpinBoxLabel">
        <property name="text">
         <string>&amp;Rotation:</string>
        </property>
@@ -147,8 +147,8 @@
        </property>
        <property name="sizeHint" stdset="0">
         <size>
-         <width>20</width>
-         <height>40</height>
+         <width>0</width>
+         <height>0</height>
         </size>
        </property>
       </spacer>
@@ -168,7 +168,7 @@
      </property>
      <layout class="QGridLayout" name="gridLayout_2">
       <item row="0" column="0">
-       <widget class="QLabel" name="label_3">
+       <widget class="QLabel" name="factorSpinBoxLabel">
         <property name="text">
          <string>&amp;Factor:</string>
         </property>
@@ -213,14 +213,14 @@
        </widget>
       </item>
       <item row="2" column="0">
-       <widget class="QLabel" name="label_4">
+       <widget class="QLabel" name="innerRotationSpinBoxLabel">
         <property name="text">
          <string>Inner Rotation:</string>
         </property>
        </widget>
       </item>
       <item row="2" column="1">
-       <widget class="ScrSpinBox" name="innerRotationspinBox">
+       <widget class="ScrSpinBox" name="innerRotationSpinBox">
         <property name="minimum">
          <number>-180</number>
         </property>
@@ -246,7 +246,7 @@
        </widget>
       </item>
       <item row="4" column="0">
-       <widget class="QLabel" name="label_5">
+       <widget class="QLabel" name="curvatureSpinBoxLabel">
         <property name="text">
          <string>Inner C&amp;urvature:</string>
         </property>
@@ -279,14 +279,14 @@
        </widget>
       </item>
       <item row="6" column="0">
-       <widget class="QLabel" name="label_6">
+       <widget class="QLabel" name="outerCurvatureSpinBoxLabel">
         <property name="text">
          <string>Outer Curvature:</string>
         </property>
        </widget>
       </item>
       <item row="6" column="1">
-       <widget class="ScrSpinBox" name="OuterCurvatureSpinBox">
+       <widget class="ScrSpinBox" name="outerCurvatureSpinBox">
         <property name="suffix">
          <string> %</string>
         </property>
@@ -296,7 +296,7 @@
        </widget>
       </item>
       <item row="7" column="0" colspan="2">
-       <widget class="QSlider" name="OuterCurvatureSlider">
+       <widget class="QSlider" name="outerCurvatureSlider">
         <property name="maximum">
          <number>100</number>
         </property>
@@ -309,18 +309,18 @@
        </widget>
       </item>
      </layout>
-     <zorder>label_3</zorder>
+     <zorder>factorSpinBoxLabel</zorder>
      <zorder>factorSpinBox</zorder>
      <zorder>factorSlider</zorder>
-     <zorder>label_5</zorder>
+     <zorder>curvatureSpinBoxLabel</zorder>
      <zorder>curvatureSpinBox</zorder>
      <zorder>curvatureSlider</zorder>
-     <zorder>label_6</zorder>
-     <zorder>OuterCurvatureSpinBox</zorder>
-     <zorder>OuterCurvatureSlider</zorder>
+     <zorder>outerCurvatureSpinBoxLabel</zorder>
+     <zorder>outerCurvatureSpinBox</zorder>
+     <zorder>outerCurvatureSlider</zorder>
      <zorder>innerRotationSlider</zorder>
-     <zorder>innerRotationspinBox</zorder>
-     <zorder>label_4</zorder>
+     <zorder>innerRotationSpinBox</zorder>
+     <zorder>innerRotationSpinBoxLabel</zorder>
     </widget>
    </item>
   </layout>
@@ -332,6 +332,20 @@
    <header location="global">ui/scrspinbox.h</header>
   </customwidget>
  </customwidgets>
+ <tabstops>
+  <tabstop>cornersSpinBox</tabstop>
+  <tabstop>rotationSpinBox</tabstop>
+  <tabstop>rotationSlider</tabstop>
+  <tabstop>applyConvexGroupBox</tabstop>
+  <tabstop>factorSpinBox</tabstop>
+  <tabstop>factorSlider</tabstop>
+  <tabstop>innerRotationSpinBox</tabstop>
+  <tabstop>innerRotationSlider</tabstop>
+  <tabstop>curvatureSpinBox</tabstop>
+  <tabstop>curvatureSlider</tabstop>
+  <tabstop>outerCurvatureSpinBox</tabstop>
+  <tabstop>outerCurvatureSlider</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

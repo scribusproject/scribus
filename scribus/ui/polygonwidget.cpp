@@ -30,9 +30,9 @@ PolygonWidget::PolygonWidget(QWidget* parent) : QWidget( parent )
 	cornersSpinBox->setDecimals(0);
 	cornersSpinBox->setDecimals(0);
 	curvatureSpinBox->setDecimals(0);
-	innerRotationspinBox->setNewUnit(6);
-	innerRotationspinBox->setDecimals(0);
-	OuterCurvatureSpinBox->setDecimals(0);
+	innerRotationSpinBox->setNewUnit(6);
+	innerRotationSpinBox->setDecimals(0);
+	outerCurvatureSpinBox->setDecimals(0);
 	editMode = false;
 }
 
@@ -45,9 +45,9 @@ PolygonWidget::PolygonWidget(QWidget* parent, int polyCorners, double polyF, boo
 	cornersSpinBox->setDecimals(0);
 	cornersSpinBox->setDecimals(0);
 	curvatureSpinBox->setDecimals(0);
-	innerRotationspinBox->setNewUnit(6);
-	innerRotationspinBox->setDecimals(0);
-	OuterCurvatureSpinBox->setDecimals(0);
+	innerRotationSpinBox->setNewUnit(6);
+	innerRotationSpinBox->setDecimals(0);
+	outerCurvatureSpinBox->setDecimals(0);
 	editMode = forEditMode;
 	if (editMode)
 		Preview->hide();
@@ -72,12 +72,12 @@ void PolygonWidget::connectSignals(bool conn)
 		connect(curvatureSpinBox, SIGNAL(valueChanged(double)), this, SLOT(setCurvatureSlider(double)));
 		connect(curvatureSlider, SIGNAL(valueChanged(int)), curvatureSpinBox, SLOT(setValue(int)));
 		connect(curvatureSlider, SIGNAL(valueChanged(int)), this, SLOT(updatePreview()));
-		connect(innerRotationSlider, SIGNAL(valueChanged(int)), innerRotationspinBox, SLOT(setValue(int)));
+		connect(innerRotationSlider, SIGNAL(valueChanged(int)), innerRotationSpinBox, SLOT(setValue(int)));
 		connect(innerRotationSlider, SIGNAL(valueChanged(int)), this, SLOT(updatePreview()));
-		connect(innerRotationspinBox, SIGNAL(valueChanged(double)), this, SLOT(setInnerRotationSlider(double)));
-		connect(OuterCurvatureSpinBox, SIGNAL(valueChanged(double)), this, SLOT(setOuterCurvatureSlider(double)));
-		connect(OuterCurvatureSlider, SIGNAL(valueChanged(int)), OuterCurvatureSpinBox, SLOT(setValue(int)));
-		connect(OuterCurvatureSlider, SIGNAL(valueChanged(int)), this, SLOT(updatePreview()));
+		connect(innerRotationSpinBox, SIGNAL(valueChanged(double)), this, SLOT(setInnerRotationSlider(double)));
+		connect(outerCurvatureSpinBox, SIGNAL(valueChanged(double)), this, SLOT(setOuterCurvatureSlider(double)));
+		connect(outerCurvatureSlider, SIGNAL(valueChanged(int)), outerCurvatureSpinBox, SLOT(setValue(int)));
+		connect(outerCurvatureSlider, SIGNAL(valueChanged(int)), this, SLOT(updatePreview()));
 	}
 	else
 	{
@@ -92,12 +92,12 @@ void PolygonWidget::connectSignals(bool conn)
 		disconnect(curvatureSpinBox, SIGNAL(valueChanged(double)), this, SLOT(setCurvatureSlider(double)));
 		disconnect(curvatureSlider, SIGNAL(valueChanged(int)), curvatureSpinBox, SLOT(setValue(int)));
 		disconnect(curvatureSlider, SIGNAL(valueChanged(int)), this, SLOT(updatePreview()));
-		disconnect(innerRotationSlider, SIGNAL(valueChanged(int)), innerRotationspinBox, SLOT(setValue(int)));
+		disconnect(innerRotationSlider, SIGNAL(valueChanged(int)), innerRotationSpinBox, SLOT(setValue(int)));
 		disconnect(innerRotationSlider, SIGNAL(valueChanged(int)), this, SLOT(updatePreview()));
-		disconnect(innerRotationspinBox, SIGNAL(valueChanged(double)), this, SLOT(setInnerRotationSlider(double)));
-		disconnect(OuterCurvatureSpinBox, SIGNAL(valueChanged(double)), this, SLOT(setOuterCurvatureSlider(double)));
-		disconnect(OuterCurvatureSlider, SIGNAL(valueChanged(int)), OuterCurvatureSpinBox, SLOT(setValue(int)));
-		disconnect(OuterCurvatureSlider, SIGNAL(valueChanged(int)), this, SLOT(updatePreview()));
+		disconnect(innerRotationSpinBox, SIGNAL(valueChanged(double)), this, SLOT(setInnerRotationSlider(double)));
+		disconnect(outerCurvatureSpinBox, SIGNAL(valueChanged(double)), this, SLOT(setOuterCurvatureSlider(double)));
+		disconnect(outerCurvatureSlider, SIGNAL(valueChanged(int)), outerCurvatureSpinBox, SLOT(setValue(int)));
+		disconnect(outerCurvatureSlider, SIGNAL(valueChanged(int)), this, SLOT(updatePreview()));
 	}
 }
 
@@ -116,9 +116,9 @@ void PolygonWidget::restoreDefaults(struct ItemToolPrefs *prefsData)
 	applyConvexGroupBox->setChecked(prefsData->polyUseFactor);
 	curvatureSpinBox->setValue(qRound(prefsData->polyCurvature * 100));
 	curvatureSlider->setValue(qRound(prefsData->polyCurvature * 100));
-	OuterCurvatureSpinBox->setValue(qRound(prefsData->polyOuterCurvature * 100));
-	OuterCurvatureSlider->setValue(qRound(prefsData->polyOuterCurvature * 100));
-	innerRotationspinBox->setValue(static_cast<int>(prefsData->polyInnerRot));
+	outerCurvatureSpinBox->setValue(qRound(prefsData->polyOuterCurvature * 100));
+	outerCurvatureSlider->setValue(qRound(prefsData->polyOuterCurvature * 100));
+	innerRotationSpinBox->setValue(static_cast<int>(prefsData->polyInnerRot));
 	innerRotationSlider->setValue(static_cast<int>(prefsData->polyInnerRot));
 	updatePreview();
 	connectSignals(true);
@@ -130,9 +130,9 @@ void PolygonWidget::saveGuiToPrefs(struct ItemToolPrefs *prefsData)
 	prefsData->polyFactor = PFactor;
 	prefsData->polyUseFactor = applyConvexGroupBox->isChecked();
 	prefsData->polyRotation = rotationSpinBox->value();
-	prefsData->polyInnerRot = innerRotationspinBox->value();
+	prefsData->polyInnerRot = innerRotationSpinBox->value();
 	prefsData->polyCurvature = curvatureSpinBox->value() / 100.0;
-	prefsData->polyOuterCurvature = OuterCurvatureSpinBox->value() / 100.0;
+	prefsData->polyOuterCurvature = outerCurvatureSpinBox->value() / 100.0;
 }
 
 void PolygonWidget::setValues(int polyCorners, double polyF, bool polyUseConvexFactor, double polyRotation, double polyCurvature, double polyInnerRot, double polyOuterCurvature)
@@ -142,7 +142,7 @@ void PolygonWidget::setValues(int polyCorners, double polyF, bool polyUseConvexF
 	int fGui = qRound(getUserValFromFactor(polyF));
 	rotationSpinBox->setValue(static_cast<int>(polyRotation));
 	rotationSlider->setValue(static_cast<int>(polyRotation));
-	innerRotationspinBox->setValue(static_cast<int>(polyInnerRot));
+	innerRotationSpinBox->setValue(static_cast<int>(polyInnerRot));
 	innerRotationSlider->setValue(static_cast<int>(polyInnerRot));
 	applyConvexGroupBox->setChecked(polyUseConvexFactor);
 	factorSpinBox->setValue(fGui);
@@ -150,8 +150,8 @@ void PolygonWidget::setValues(int polyCorners, double polyF, bool polyUseConvexF
 	applyConvexGroupBox->setChecked(polyUseConvexFactor);
 	curvatureSpinBox->setValue(qRound(polyCurvature * 100));
 	curvatureSlider->setValue(qRound(polyCurvature * 100));
-	OuterCurvatureSpinBox->setValue(qRound(polyOuterCurvature * 100));
-	OuterCurvatureSlider->setValue(qRound(polyOuterCurvature * 100));
+	outerCurvatureSpinBox->setValue(qRound(polyOuterCurvature * 100));
+	outerCurvatureSlider->setValue(qRound(polyOuterCurvature * 100));
 }
 
 void PolygonWidget::getValues(int* polyCorners, double* polyF, bool* polyUseConvexFactor, double* polyRotation, double* polyCurvature, double* polyInnerRot, double* polyOuterCurvature)
@@ -160,9 +160,9 @@ void PolygonWidget::getValues(int* polyCorners, double* polyF, bool* polyUseConv
 	*polyF = PFactor;
 	*polyUseConvexFactor = applyConvexGroupBox->isChecked();
 	*polyRotation = rotationSpinBox->value();
-	*polyInnerRot = innerRotationspinBox->value();
+	*polyInnerRot = innerRotationSpinBox->value();
 	*polyCurvature = curvatureSpinBox->value() / 100.0;
-	*polyOuterCurvature = OuterCurvatureSpinBox->value() / 100.0;
+	*polyOuterCurvature = outerCurvatureSpinBox->value() / 100.0;
 }
 
 void PolygonWidget::setFactorSlider(double a)
@@ -181,9 +181,9 @@ void PolygonWidget::setRotationSlider(double a)
 
 void PolygonWidget::setInnerRotationSlider(double a)
 {
-	disconnect(innerRotationSlider, SIGNAL(valueChanged(int)), innerRotationspinBox, SLOT(setValue(int)));
+	disconnect(innerRotationSlider, SIGNAL(valueChanged(int)), innerRotationSpinBox, SLOT(setValue(int)));
 	innerRotationSlider->setValue(static_cast<int>(a));
-	connect(innerRotationSlider, SIGNAL(valueChanged(int)), innerRotationspinBox, SLOT(setValue(int)));
+	connect(innerRotationSlider, SIGNAL(valueChanged(int)), innerRotationSpinBox, SLOT(setValue(int)));
 }
 
 void PolygonWidget::setCurvatureSlider(double a)
@@ -195,27 +195,27 @@ void PolygonWidget::setCurvatureSlider(double a)
 
 void PolygonWidget::setOuterCurvatureSlider(double a)
 {
-	disconnect(OuterCurvatureSlider, SIGNAL(valueChanged(int)), OuterCurvatureSpinBox, SLOT(setValue(int)));
-	OuterCurvatureSlider->setValue(static_cast<int>(a));
-	connect(OuterCurvatureSlider, SIGNAL(valueChanged(int)), OuterCurvatureSpinBox, SLOT(setValue(int)));
+	disconnect(outerCurvatureSlider, SIGNAL(valueChanged(int)), outerCurvatureSpinBox, SLOT(setValue(int)));
+	outerCurvatureSlider->setValue(static_cast<int>(a));
+	connect(outerCurvatureSlider, SIGNAL(valueChanged(int)), outerCurvatureSpinBox, SLOT(setValue(int)));
 }
 
 void PolygonWidget::updatePreview()
 {
 	if (editMode)
 	{
-		emit NewVectors(cornersSpinBox->value(), GetFactor(), applyConvexGroupBox->isChecked(), rotationSpinBox->value(), curvatureSpinBox->value() / 100.0, innerRotationspinBox->value(), OuterCurvatureSpinBox->value() / 100.0);
+		emit NewVectors(cornersSpinBox->value(), GetFactor(), applyConvexGroupBox->isChecked(), rotationSpinBox->value(), curvatureSpinBox->value() / 100.0, innerRotationSpinBox->value(), outerCurvatureSpinBox->value() / 100.0);
 		return;
 	}
 	double roundness = curvatureSpinBox->value() / 100.0;
-	double innerround = OuterCurvatureSpinBox->value() / 100.0;
+	double innerround = outerCurvatureSpinBox->value() / 100.0;
 	QPixmap pm = QPixmap(Preview->width() - 5, Preview->height() - 5);
 	pm.fill(Qt::white);
 	QPainter p;
 	p.begin(&pm);
 	p.setBrush(Qt::NoBrush);
 	p.setPen(Qt::black);
-	QPainterPath pp = RegularPolygonPath(Preview->width() - 6, Preview->height() - 6, cornersSpinBox->value(), applyConvexGroupBox->isChecked(), GetFactor(), rotationSlider->value(), roundness, innerRotationspinBox->value(), innerround);
+	QPainterPath pp = RegularPolygonPath(Preview->width() - 6, Preview->height() - 6, cornersSpinBox->value(), applyConvexGroupBox->isChecked(), GetFactor(), rotationSlider->value(), roundness, innerRotationSpinBox->value(), innerround);
 	QRectF br = pp.boundingRect();
 	if (br.x() < 0)
 	{
