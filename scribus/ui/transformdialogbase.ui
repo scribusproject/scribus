@@ -175,10 +175,16 @@
            </item>
            <item row="1" column="2" rowspan="2">
             <widget class="LinkButton" name="scaleLink">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
              <property name="minimumSize">
               <size>
                <width>15</width>
-               <height>15</height>
+               <height>0</height>
               </size>
              </property>
              <property name="maximumSize">
@@ -369,10 +375,16 @@
            </item>
            <item row="1" column="2" rowspan="2">
             <widget class="LinkButton" name="linkSkew">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
              <property name="minimumSize">
               <size>
                <width>15</width>
-               <height>15</height>
+               <height>0</height>
               </size>
              </property>
              <property name="maximumSize">
