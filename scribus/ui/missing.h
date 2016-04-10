@@ -13,7 +13,7 @@ class QLabel;
 class QHBoxLayout;
 class QGridLayout;
 class QPushButton;
-class FontCombo;
+class FontComboH;
 class ScribusDoc;
 #include "scribusapi.h"
 #include "scribusstructs.h"
@@ -37,7 +37,7 @@ protected:
 	QPushButton* okButton;
 	QLabel* insteadLabel;
 	QLabel* pixmapLabel;
-	FontCombo* replaceFontCombo;
+	FontComboH* replaceFontCombo;
 	QLabel* notInstalledLabel;
 	QLabel* useLabel;
 	QString replacementFont;
