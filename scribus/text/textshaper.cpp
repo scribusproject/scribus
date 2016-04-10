@@ -49,7 +49,6 @@ GlyphRun TextShaper::runAt(int i)
 
 void TextShaper::needChars(int runIndex)
 {
-	int oldRunCount = m_runs.count();
 	StoryText& itemText = m_item->itemText;
 
 	for ( ; m_index < itemText.length(); ++m_index)
