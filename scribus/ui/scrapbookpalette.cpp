@@ -674,6 +674,7 @@ void BibView::ReadContents(QString name)
 			p.drawPixmap(30 - itf.value().Preview.width() / 2, 30 - itf.value().Preview.height() / 2, itf.value().Preview);
 			p.end();
 			QListWidgetItem *item = new QListWidgetItem(QIcon(pm), itf.key(), this);
+			item->setToolTip(itf.key());
 			item->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
 			itf.value().widgetItem = item;
 		}
@@ -690,6 +691,7 @@ void BibView::ReadContents(QString name)
 			p.drawPixmap(30 - itf.value().Preview.width() / 2, 30 - itf.value().Preview.height() / 2, itf.value().Preview);
 			p.end();
 			QListWidgetItem *item = new QListWidgetItem(QIcon(pm), itf.key(), this);
+			item->setToolTip(itf.key());
 			itf.value().widgetItem = item;
 		}
 	}
@@ -1277,6 +1279,7 @@ bool Biblio::copyObj(int id)
 	p.drawPixmap(30 - pm.width() / 2, 30 - pm.height() / 2, pm);
 	p.end();
 	QListWidgetItem *item = new QListWidgetItem(QIcon(pm), nam, bv);
+	item->setToolTip(nam);
 	bv->objectMap[nam].widgetItem = item;
 	if (bv == tempBView)
 	{
@@ -1421,6 +1424,7 @@ void Biblio::renameObj()
 	else
 		return;
 	ite->setText(nam);
+	ite->setToolTip(nam);
 	ObjData = activeBView->objectMap[OldName].Data;
 	ObjPreview = activeBView->objectMap[OldName].Preview;
 	QDir d = QDir();
@@ -1661,6 +1665,7 @@ void Biblio::ObjFromFile(QString path, int testResult)
 		p.drawPixmap(30 - pm.width() / 2, 30 - pm.height() / 2, pm);
 		p.end();
 		QListWidgetItem *item = new QListWidgetItem(QIcon(pm2), nam, activeBView);
+		item->setToolTip(nam);
 		activeBView->objectMap[nam].widgetItem = item;
 		if (isImage)
 			item->setHidden(conf_HideImages->isChecked());
@@ -1762,6 +1767,7 @@ void Biblio::ObjFromMenu(QString text)
 	p.drawPixmap(30 - pm.width() / 2, 30 - pm.height() / 2, pm);
 	p.end();
 	QListWidgetItem *item = new QListWidgetItem(QIcon(pm2), nam, activeBView);
+	item->setToolTip(nam);
 	activeBView->objectMap[nam].widgetItem = item;
 	delete pre;
 	if (Frame3->currentIndex() == 1)
@@ -1839,6 +1845,7 @@ void Biblio::ObjFromCopyAction(QString text, QString name)
 	p.drawPixmap(30 - pm.width() / 2, 30 - pm.height() / 2, pm);
 	p.end();
 	QListWidgetItem *item = new QListWidgetItem(QIcon(pm2), nam, tempBView);
+	item->setToolTip(nam);
 	tempBView->objectMap[nam].widgetItem = item;
 	delete pre;
 	if (tempBView->objectMap.count() > PrefsManager::instance()->appPrefs.scrapbookPrefs.numScrapbookCopies)
@@ -1925,6 +1932,7 @@ void Biblio::ObjFromMainMenu(QString text, int scrapID)
 	p.drawPixmap(30 - pm.width() / 2, 30 - pm.height() / 2, pm);
 	p.end();
 	QListWidgetItem *item = new QListWidgetItem(QIcon(pm2), nam, actBView);
+	item->setToolTip(nam);
 	actBView->objectMap[nam].widgetItem = item;
 	delete pre;
 	reloadLib(actBView->ScFilename);
