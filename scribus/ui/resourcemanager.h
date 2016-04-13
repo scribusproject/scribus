@@ -82,12 +82,7 @@ class SCRIBUS_API ResourceManager : public QDialog, Ui::ResourceManagerBase
 
 		QMap<QString, QString> dictionaryMap;
 		QStringList dictionaryPaths;
-		QList <DownloadItem> dictList;
-		QList <DownloadItem> fontList;
-		QList <DownloadItem> templateList;
-		QList <DownloadItem> helpList;
-		QList <DownloadItem> paletteList;
-		QList <DownloadItem> profileList;
+		QList <DownloadItem> availableList;
 		QList <DownloadItem> downloadList;
 		QList <DownloadItem> testList;
 		QString affixFileName(QStringList files);

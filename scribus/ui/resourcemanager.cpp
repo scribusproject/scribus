@@ -247,7 +247,7 @@ void ResourceManager::updateAvailableFonts()
 			qDebug()<<"Could not open file"<<dataFile.fileName();
 		return;
 	}
-	fontList.clear();
+	availableList.clear();
 	QDomElement docElem = doc.documentElement();
 	QDomNode n = docElem.firstChild();
 	while( !n.isNull() )
@@ -273,7 +273,7 @@ void ResourceManager::updateAvailableFonts()
 					d.type=e.attribute("type").toUpper();
 					QUrl url(d.url);
 					if (url.isValid() && !url.isEmpty() && !url.host().isEmpty())
-						fontList.append(d);
+						availableList.append(d);
 //					else
 //						qDebug()<<"rm : availFonts : invalid URL"<<d.url;
 				}
@@ -282,16 +282,16 @@ void ResourceManager::updateAvailableFonts()
 		n = n.nextSibling();
 	}
 	availableTableWidget->clear();
-	if(fontList.isEmpty())
+	if(availableList.isEmpty())
 	{
 		downloadButton->setEnabled(false);
 		return;
 	}
-	availableTableWidget->setRowCount(fontList.count());
+	availableTableWidget->setRowCount(availableList.count());
 	availableTableWidget->setColumnCount(4);
 	availableTableWidget->setSortingEnabled(false);
 	int row=0;
-	foreach(DownloadItem d, fontList)
+	foreach(DownloadItem d, availableList)
 	{
 		int column=0;
 //		qDebug()<<d.version<<d.files<<d.url<<d.desc<<d.license;
@@ -342,7 +342,7 @@ void ResourceManager::updateAvailableHyph()
 			qDebug()<<"Could not open file"<<dataFile.fileName();
 		return;
 	}
-	dictList.clear();
+	availableList.clear();
 	QDomElement docElem = doc.documentElement();
 	QDomNode n = docElem.firstChild();
 	while( !n.isNull() )
@@ -369,7 +369,7 @@ void ResourceManager::updateAvailableHyph()
 						d.type=e.attribute("type");
 						QUrl url(d.url);
 						if (url.isValid() && !url.isEmpty() && !url.host().isEmpty())
-							dictList.append(d);
+							availableList.append(d);
 						//else
 						//	qDebug()<<"hysettings : availDicts : invalid URL"<<d.url;
 					}
@@ -379,16 +379,16 @@ void ResourceManager::updateAvailableHyph()
 		n = n.nextSibling();
 	}
 	availableTableWidget->clear();
-	if(dictList.isEmpty())
+	if(availableList.isEmpty())
 	{
 		downloadButton->setEnabled(false);
 		return;
 	}
-	availableTableWidget->setRowCount(dictList.count());
+	availableTableWidget->setRowCount(availableList.count());
 	availableTableWidget->setColumnCount(5);
 	availableTableWidget->setSortingEnabled(false);
 	int row=0;
-	foreach(DownloadItem d, dictList)
+	foreach(DownloadItem d, availableList)
 	{
 		int column=0;
 		//qDebug()<<d.version<<d.files<<d.url<<d.desc<<d.license;
@@ -442,7 +442,7 @@ void ResourceManager::updateAvailableSpell()
 			qDebug()<<"Could not open file"<<dataFile.fileName();
 		return;
 	}
-	dictList.clear();
+	availableList.clear();
 	QDomElement docElem = doc.documentElement();
 	QDomNode n = docElem.firstChild();
 	while( !n.isNull() )
@@ -469,7 +469,7 @@ void ResourceManager::updateAvailableSpell()
 						d.type=e.attribute("type");
 						QUrl url(d.url);
 						if (url.isValid() && !url.isEmpty() && !url.host().isEmpty())
-							dictList.append(d);
+							availableList.append(d);
 						//else
 						//	qDebug()<<"hysettings : availDicts : invalid URL"<<d.url;
 					}
@@ -479,16 +479,16 @@ void ResourceManager::updateAvailableSpell()
 		n = n.nextSibling();
 	}
 	availableTableWidget->clear();
-	if(dictList.isEmpty())
+	if(availableList.isEmpty())
 	{
 		downloadButton->setEnabled(false);
 		return;
 	}
-	availableTableWidget->setRowCount(dictList.count());
+	availableTableWidget->setRowCount(availableList.count());
 	availableTableWidget->setColumnCount(5);
 	availableTableWidget->setSortingEnabled(false);
 	int row=0;
-	foreach(DownloadItem d, dictList)
+	foreach(DownloadItem d, availableList)
 	{
 		int column=0;
 		//qDebug()<<d.version<<d.files<<d.url<<d.desc<<d.license;
@@ -547,7 +547,7 @@ void ResourceManager::updateAvailableHelp()
 			qDebug()<<"Could not open file"<<dataFile.fileName();
 		return;
 	}
-	helpList.clear();
+	availableList.clear();
 	QDomElement docElem = doc.documentElement();
 	QDomNode n = docElem.firstChild();
 	while( !n.isNull() )
@@ -574,7 +574,7 @@ void ResourceManager::updateAvailableHelp()
 						d.type=e.attribute("type");
 						QUrl url(d.url);
 						if (url.isValid() && !url.isEmpty() && !url.host().isEmpty())
-							helpList.append(d);
+							availableList.append(d);
 					}
 				}
 			}
@@ -582,16 +582,16 @@ void ResourceManager::updateAvailableHelp()
 		n = n.nextSibling();
 	}
 	availableTableWidget->clear();
-	if(helpList.isEmpty())
+	if(availableList.isEmpty())
 	{
 		downloadButton->setEnabled(false);
 		return;
 	}
-	availableTableWidget->setRowCount(helpList.count());
+	availableTableWidget->setRowCount(availableList.count());
 	availableTableWidget->setColumnCount(5);
 	availableTableWidget->setSortingEnabled(false);
 	int row=0;
-	foreach(DownloadItem d, helpList)
+	foreach(DownloadItem d, availableList)
 	{
 		int column=0;
 		QTableWidgetItem *newItem1 = new QTableWidgetItem(d.desc);
@@ -644,7 +644,7 @@ void ResourceManager::updateAvailablePalettes()
 			qDebug()<<"Could not open file"<<dataFile.fileName();
 		return;
 	}
-	paletteList.clear();
+	availableList.clear();
 	QDomElement docElem = doc.documentElement();
 	QDomNode n = docElem.firstChild();
 	while( !n.isNull() )
@@ -671,7 +671,7 @@ void ResourceManager::updateAvailablePalettes()
 						d.type=e.attribute("type");
 						QUrl url(d.url);
 						if (url.isValid() && !url.isEmpty() && !url.host().isEmpty())
-							paletteList.append(d);
+							availableList.append(d);
 					}
 				}
 			}
@@ -679,16 +679,16 @@ void ResourceManager::updateAvailablePalettes()
 		n = n.nextSibling();
 	}
 	availableTableWidget->clear();
-	if(paletteList.isEmpty())
+	if(availableList.isEmpty())
 	{
 		downloadButton->setEnabled(false);
 		return;
 	}
-	availableTableWidget->setRowCount(paletteList.count());
+	availableTableWidget->setRowCount(availableList.count());
 	availableTableWidget->setColumnCount(5);
 	availableTableWidget->setSortingEnabled(false);
 	int row=0;
-	foreach(DownloadItem d, paletteList)
+	foreach(DownloadItem d, availableList)
 	{
 		int column=0;
 		QTableWidgetItem *newItem1 = new QTableWidgetItem(d.desc);
@@ -1097,7 +1097,7 @@ void ResourceManager::startDownload()
 	switch (category)
 	{
 		case RM_FONTS:
-			foreach(DownloadItem d, fontList)
+			foreach(DownloadItem d, availableList)
 			{
 				if (filesToDownload.contains(d.desc))
 				{
@@ -1129,7 +1129,7 @@ void ResourceManager::startDownload()
 			break;
 		case RM_HYPH:
 		case RM_SPELL:
-			foreach(DownloadItem d, dictList)
+			foreach(DownloadItem d, availableList)
 			{
 //				qDebug()<<d.desc;
 				if (filesToDownload.contains(d.desc))
@@ -1162,7 +1162,7 @@ void ResourceManager::startDownload()
 			}
 			break;
 		case RM_HELP:
-			foreach(DownloadItem d, helpList)
+			foreach(DownloadItem d, availableList)
 			{
 //				qDebug()<<d.desc;
 				if (filesToDownload.contains(d.desc))
@@ -1184,7 +1184,7 @@ void ResourceManager::startDownload()
 			}
 			break;
 		case RM_PALETTES:
-			foreach(DownloadItem d, paletteList)
+			foreach(DownloadItem d, availableList)
 			{
 //				qDebug()<<d.desc;
 				if (filesToDownload.contains(d.desc))
@@ -1263,42 +1263,27 @@ void ResourceManager::showLicense()
 			QStringList filesToDownload;
 			filesToDownload<<lang;
 			//There's only one here... foreach?
-			int category = categoryComboBox->currentData().toInt();
+/*			int category = categoryComboBox->currentData().toInt();
 			switch (category)
 			{
 				case RM_HYPH:
 				case RM_SPELL:
-					foreach(DownloadItem d, dictList)
-					{
-						if (filesToDownload.contains(d.desc))
-						{
-							if (d.filetype=="plain")
-							{
-								ScQApp->dlManager()->addURL(d.url+"/"+licenceFileName, true, ScPaths::downloadDir(), ScPaths::getTempFileDir());
-								connect(ScQApp->dlManager(), SIGNAL(finished()), this, SLOT(downloadLicenseFinished()));
-								connect(ScQApp->dlManager(), SIGNAL(fileReceived(const QString&)), this, SLOT(downloadLicenseFileFinished(const QString&)));
-								connect(ScQApp->dlManager(), SIGNAL(fileFailed(const QString&)), this, SLOT(downloadLicenseFileFailed(const QString&)));
-								ScQApp->dlManager()->startDownloads();
-							}
-						}
-					}
-					break;
 				case RM_PALETTES:
-					foreach(DownloadItem d, paletteList)
-					{
-						if (filesToDownload.contains(d.desc))
-						{
-//							if (d.filetype=="plain")
-							{
-								ScQApp->dlManager()->addURL(d.url+"/"+licenceFileName, true, ScPaths::downloadDir(), ScPaths::getTempFileDir());
-								connect(ScQApp->dlManager(), SIGNAL(finished()), this, SLOT(downloadLicenseFinished()));
-								connect(ScQApp->dlManager(), SIGNAL(fileReceived(const QString&)), this, SLOT(downloadLicenseFileFinished(const QString&)));
-								connect(ScQApp->dlManager(), SIGNAL(fileFailed(const QString&)), this, SLOT(downloadLicenseFileFailed(const QString&)));
-								ScQApp->dlManager()->startDownloads();
-							}
-						}
-					}
+*/
+			foreach(DownloadItem d, availableList)
+			{
+				if (filesToDownload.contains(d.desc))
+				{
+					ScQApp->dlManager()->addURL(d.url+"/"+licenceFileName, true, ScPaths::downloadDir(), ScPaths::getTempFileDir());
+					connect(ScQApp->dlManager(), SIGNAL(finished()), this, SLOT(downloadLicenseFinished()));
+					connect(ScQApp->dlManager(), SIGNAL(fileReceived(const QString&)), this, SLOT(downloadLicenseFileFinished(const QString&)));
+					connect(ScQApp->dlManager(), SIGNAL(fileFailed(const QString&)), this, SLOT(downloadLicenseFileFailed(const QString&)));
+					ScQApp->dlManager()->startDownloads();
+				}
+/*
+ * 					}
 					break;
+*/
 			}
 		}
 	}
