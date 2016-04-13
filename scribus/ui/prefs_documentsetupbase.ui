@@ -305,8 +305,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>242</width>
-            <height>208</height>
+            <width>428</width>
+            <height>525</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_5">
@@ -490,7 +490,7 @@
        <item>
         <widget class="QCheckBox" name="emergencyCheckBox">
          <property name="text">
-          <string>Try to save an &quot;Emergency File&quot; in case of a Crash</string>
+          <string>Try to save an &quot;Emergency File&quot; in case of a crash</string>
          </property>
         </widget>
        </item>
@@ -533,14 +533,14 @@
        <item>
         <widget class="QCheckBox" name="autosaveCheckBox">
          <property name="text">
-          <string>Enable Automatic Saving of Documents</string>
+          <string>Enable automatic saving of documents</string>
          </property>
         </widget>
        </item>
        <item>
         <layout class="QHBoxLayout" name="horizontalLayout">
          <item>
-          <layout class="QFormLayout" name="formLayout_2">
+          <layout class="QGridLayout" name="gridLayout">
            <item row="0" column="0">
             <widget class="QLabel" name="label">
              <property name="text">
@@ -561,7 +561,7 @@
            <item row="1" column="0">
             <widget class="QLabel" name="label_2">
              <property name="text">
-              <string>Number of Files to keep:</string>
+              <string>Number of files to keep:</string>
              </property>
             </widget>
            </item>
@@ -590,40 +590,34 @@
         </layout>
        </item>
        <item>
-        <widget class="QRadioButton" name="autosaveDocRadio">
-         <property name="text">
-          <string>Save into the same Directory as Document</string>
-         </property>
-         <property name="checked">
-          <bool>true</bool>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <layout class="QHBoxLayout" name="horizontalLayout_3">
-         <property name="spacing">
-          <number>1</number>
-         </property>
-         <item>
+        <layout class="QGridLayout" name="gridLayout_2">
+         <item row="0" column="0" colspan="3">
+          <widget class="QRadioButton" name="autosaveDocRadio">
+           <property name="text">
+            <string>Save into the same directory as the document</string>
+           </property>
+           <property name="checked">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="0">
           <widget class="QRadioButton" name="autosaveDirRadio">
            <property name="text">
             <string>Save into:</string>
            </property>
           </widget>
          </item>
-         <item>
+         <item row="1" column="1">
           <widget class="QLineEdit" name="autosaveDirEdit"/>
          </item>
-         <item>
+         <item row="1" column="2">
           <widget class="QPushButton" name="changeAutoDir">
-           <property name="maximumSize">
-            <size>
-             <width>20</width>
-             <height>16777215</height>
-            </size>
-           </property>
            <property name="text">
-            <string>...</string>
+            <string>Change...</string>
+           </property>
+           <property name="flat">
+            <bool>false</bool>
            </property>
           </widget>
          </item>
@@ -632,14 +626,14 @@
        <item>
         <widget class="QCheckBox" name="autosaveKeepCheckBox">
          <property name="text">
-          <string>Keep Backup Files after closing the Document</string>
+          <string>Keep backup files after closing the document</string>
          </property>
         </widget>
        </item>
        <item>
         <widget class="QCheckBox" name="showAutosaveClockOnCanvasCheckBox">
          <property name="text">
-          <string>Show Autosave Countdown Clock on the Canvas</string>
+          <string>Show autosave countdown clock on the canvas</string>
          </property>
         </widget>
        </item>
