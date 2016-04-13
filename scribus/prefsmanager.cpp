@@ -2119,7 +2119,7 @@ bool PrefsManager::ReadPref(QString ho)
 			appPrefs.typoPrefs.valueSubScript = dc.attribute("SubScriptDistance").toInt();
 			appPrefs.typoPrefs.scalingSubScript = dc.attribute("SubScriptScaling").toInt();
 			appPrefs.typoPrefs.valueSmallCaps  = dc.attribute("SmallCapsScaling").toInt();
-			appPrefs.typoPrefs.autoLineSpacing = dc.valueAsInt("AutomaticLineSpacing", 100, 500, 100);
+			appPrefs.typoPrefs.autoLineSpacing = dc.valueAsInt("AutomaticLineSpacing", 1, 500, 100);
 			double ulp = ScCLocale::toDoubleC(dc.attribute("UnderlineDistance"), -1.0);
 			if (ulp != -1)
 				appPrefs.typoPrefs.valueUnderlinePos = qRound(ulp * 10);

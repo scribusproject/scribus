@@ -2295,7 +2295,7 @@ void Scribus150Format::readTypographicSettings(ScribusDoc* doc, ScXmlStreamAttri
 	doc->guidesPrefs().valueBaselineGrid      = attrs.valueAsDouble("BASEGRID", 12.0);
 	doc->guidesPrefs().offsetBaselineGrid     = attrs.valueAsDouble("BASEO", 0.0);
 	// #9621 : autolinespacing is now expressed as a percentage of the font height
-	doc->typographicPrefs().autoLineSpacing    = attrs.valueAsInt("AUTOL", 100, 500, 100);
+	doc->typographicPrefs().autoLineSpacing    = attrs.valueAsInt("AUTOL", 1, 500, 100);
 	doc->typographicPrefs().valueUnderlinePos  = attrs.valueAsInt("UnderlinePos", -1);
 	doc->typographicPrefs().valueUnderlineWidth  = attrs.valueAsInt("UnderlineWidth", -1);
 	doc->typographicPrefs().valueStrikeThruPos   = attrs.valueAsInt("StrikeThruPos", -1);
