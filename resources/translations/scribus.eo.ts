@@ -267,10 +267,6 @@
         <translation>Versio:</translation>
     </message>
     <message>
-        <source>Enabled:</source>
-        <translation type="vanished">Ebligita:</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/aboutplugins.cpp" line="76"/>
         <source>Release Date:</source>
         <translation>Publikigodato:</translation>
@@ -304,17 +300,9 @@
 <context>
     <name>ActionManager</name>
     <message>
-        <source>&amp;Image Effects</source>
-        <translation type="vanished">Bildo&amp;efektoj</translation>
-    </message>
-    <message>
         <location filename="../../scribus/actionmanager.cpp" line="1556"/>
         <source>&amp;Tabulators...</source>
         <translation>Ta&amp;boj...</translation>
-    </message>
-    <message>
-        <source>&amp;New</source>
-        <translation type="vanished">&amp;Nova</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1482"/>
@@ -524,10 +512,6 @@
         <translation>D&amp;uobligu</translation>
     </message>
     <message>
-        <source>&amp;Multiple Duplicate</source>
-        <translation type="vanished">&amp;Multobligu</translation>
-    </message>
-    <message>
         <location filename="../../scribus/actionmanager.cpp" line="1562"/>
         <source>&amp;Delete</source>
         <translation>&amp;Forigu</translation>
@@ -598,14 +582,6 @@
         <translation>PDF-&amp;noto</translation>
     </message>
     <message>
-        <source>Annotation P&amp;roperties</source>
-        <translation type="vanished">Notaj e&amp;coj</translation>
-    </message>
-    <message>
-        <source>Field P&amp;roperties</source>
-        <translation type="vanished">&amp;Kampo-ecoj</translation>
-    </message>
-    <message>
         <location filename="../../scribus/actionmanager.cpp" line="1605"/>
         <source>&amp;Edit Shape...</source>
         <translation>R&amp;edaktu formon...</translation>
@@ -658,10 +634,6 @@
         <location filename="../../scribus/actionmanager.cpp" line="1622"/>
         <source>&amp;Glyph...</source>
         <translation>S&amp;ignobildoj...</translation>
-    </message>
-    <message>
-        <source>Sample Text</source>
-        <translation type="vanished">Specimena teksto</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1635"/>
@@ -990,10 +962,6 @@
         <translation>Alĝustigu la kadron al la bildo</translation>
     </message>
     <message>
-        <source>Extended Image Properties</source>
-        <translation type="vanished">Kromaj bildaj ecoj</translation>
-    </message>
-    <message>
         <location filename="../../scribus/actionmanager.cpp" line="1666"/>
         <source>Show Control Characters</source>
         <translation>Montru kontrolsignojn</translation>
@@ -1047,10 +1015,6 @@
         <location filename="../../scribus/actionmanager.cpp" line="1643"/>
         <source>Manage Page Properties...</source>
         <translation>Administru paĝoecojn...</translation>
-    </message>
-    <message>
-        <source>Print Previe&amp;w</source>
-        <translation type="vanished">Print-antaŭri&amp;gardo</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1528"/>
@@ -1258,7 +1222,7 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1597"/>
         <source>Extended Image Properties...</source>
-        <translation type="unfinished">Detalaj bildo-ecoj...</translation>
+        <translation>Detalaj bildo-ecoj...</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1603"/>
@@ -1444,10 +1408,6 @@
         <translation>Montru kuntekstan menuon</translation>
     </message>
     <message>
-        <source>&amp;Manage Images</source>
-        <translation type="vanished">Ad&amp;ministru bildojn</translation>
-    </message>
-    <message>
         <location filename="../../scribus/actionmanager.cpp" line="1747"/>
         <source>&amp;About Plugins</source>
         <translation>Pri &amp;kromprogramoj</translation>
@@ -1621,10 +1581,6 @@
         <location filename="../../scribus/actionmanager.cpp" line="1481"/>
         <source>New &amp;from Template...</source>
         <translation>No&amp;va el ŝablono...</translation>
-    </message>
-    <message>
-        <source>&amp;Transform</source>
-        <translation type="vanished">&amp;Transformu</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1513"/>
@@ -1871,10 +1827,6 @@
         <location filename="../../scribus/actionmanager.cpp" line="1778"/>
         <source>Edit contents of a frame</source>
         <translation>Redaktu la kadroentenon</translation>
-    </message>
-    <message>
-        <source>Edit text in the Story Editor</source>
-        <translation type="vanished">Redaktu tekston en tekstoredaktilo</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1780"/>
@@ -2203,10 +2155,6 @@
         <translation>&amp;Alliniigu flankojn per:</translation>
     </message>
     <message>
-        <source>...</source>
-        <translation type="vanished">...</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/aligndistribute.ui" line="306"/>
         <source>Distribute</source>
         <translation>Dismetu</translation>
@@ -2227,10 +2175,6 @@
         <translation>Interŝanĝu</translation>
     </message>
     <message>
-        <source>DockWidget</source>
-        <translation type="vanished">DockWidget</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/aligndistribute.ui" line="14"/>
         <source>Align and Distribute</source>
         <translation>Alliniigu kaj dismetu</translation>
@@ -2238,14 +2182,6 @@
 </context>
 <context>
     <name>AlignDistributePalette</name>
-    <message>
-        <source>Align and Distribute</source>
-        <translation type="vanished">Alliniigu kaj dismetu</translation>
-    </message>
-    <message>
-        <source>&amp;Relative to:</source>
-        <translation type="vanished">&amp;Relative al:</translation>
-    </message>
     <message>
         <location filename="../../scribus/ui/aligndistribute.cpp" line="96"/>
         <source>First Selected</source>
@@ -2270,10 +2206,6 @@
         <location filename="../../scribus/ui/aligndistribute.cpp" line="101"/>
         <source>Selection</source>
         <translation>Areo</translation>
-    </message>
-    <message>
-        <source>&amp;Align Sides By:</source>
-        <translation type="vanished">&amp;Alliniigu flankojn per:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/aligndistribute.cpp" line="116"/>
@@ -2339,14 +2271,6 @@
         <location filename="../../scribus/ui/aligndistribute.cpp" line="100"/>
         <source>Guide</source>
         <translation>Helplinio</translation>
-    </message>
-    <message>
-        <source>&amp;Selected Guide:</source>
-        <translation type="vanished">&amp;Elektita helplinio:</translation>
-    </message>
-    <message>
-        <source>&amp;Distance:</source>
-        <translation type="vanished">&amp;Distanco:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/aligndistribute.cpp" line="141"/>
@@ -2442,14 +2366,6 @@
         <location filename="../../scribus/ui/aligndistribute.cpp" line="137"/>
         <source>Make vertical gaps between items and the top and bottom of page equal</source>
         <translation>Egaligu la vertikalan distancon inter la objektoj al la supro kaj malsupro de la paĝo</translation>
-    </message>
-    <message>
-        <source>Align</source>
-        <translation type="vanished">Alliniigu</translation>
-    </message>
-    <message>
-        <source>Distribute</source>
-        <translation type="vanished">Dismetu</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/aligndistribute.cpp" line="103"/>
@@ -2773,10 +2689,6 @@
 <context>
     <name>ArcWidgetBase</name>
     <message>
-        <source>Form</source>
-        <translation type="vanished">Formo</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/arcwidgetbase.ui" line="36"/>
         <source>Start Angle:</source>
         <translation>Startangulo:</translation>
@@ -2790,171 +2702,6 @@
         <location filename="../../scribus/ui/arcwidgetbase.ui" line="117"/>
         <source>Sample Polygon</source>
         <translation>Specimena poligono</translation>
-    </message>
-</context>
-<context>
-    <name>AspellPlugin</name>
-    <message>
-        <source>Spell-checking support</source>
-        <translation type="vanished">Helpilo por ortografia kontrolo</translation>
-    </message>
-    <message>
-        <source>0.1</source>
-        <translation type="vanished">0.1</translation>
-    </message>
-    <message>
-        <source>Spell Checker</source>
-        <translation type="vanished">Ortografia kontrolilo</translation>
-    </message>
-    <message>
-        <source>Adds support for spell-checking via Aspell. Languages can be chosen from among the installed Aspell dictionaries, and spell-checking can be done on the fly, or on selected text.</source>
-        <translation type="vanished">Aldonas helpilon por ortografia kontrolo tra &quot;aspell&quot;. Eblas elekti la lingvojn inter la aspell-vortaroj instalitaj, kaj  la ortografia kontrolo estos farita dinamike aŭ en la selektita teksto.</translation>
-    </message>
-    <message>
-        <source>Aspell Plugin Error</source>
-        <translation type="vanished">Eraro de la Aspell-kromprogamo</translation>
-    </message>
-</context>
-<context>
-    <name>AspellPluginBase</name>
-    <message>
-        <source>Spell Check</source>
-        <translation type="vanished">Ortografia kontrolo</translation>
-    </message>
-    <message>
-        <source>Replacement:</source>
-        <translation type="vanished">Anstataŭigo:</translation>
-    </message>
-    <message>
-        <source>The currently active dictionary. Scribus uses Aspell for dictionary support.&lt;br /&gt;If you require updated or more dictionaries, you should install them via your system&apos;s installation system or package manager.</source>
-        <translation type="vanished">La aktuala aktiva vortaro. Scribus uzas Aspell kiel subtenon por la vortaro.&lt;br /&gt;Se oni bezonas kromajn aŭ ĝisdatigitajn vortarojn, necesas instali ilin per la instalsistemo aŭ pakaĵa administrilo.</translation>
-    </message>
-    <message>
-        <source>&amp;Add Word</source>
-        <translation type="vanished">&amp;Aldonu vorton</translation>
-    </message>
-    <message>
-        <source>&amp;Change</source>
-        <translation type="vanished">Ŝan&amp;ĝu</translation>
-    </message>
-    <message>
-        <source>Not in Dictionary:</source>
-        <translation type="vanished">Mankas en la vortaro:</translation>
-    </message>
-    <message>
-        <source>Word that was not found in the active dictionary</source>
-        <translation type="vanished">Vorto ne trovita en la aktiva vortaro</translation>
-    </message>
-    <message>
-        <source>Replacement text for the current word that was not found in the dictionary</source>
-        <translation type="vanished">Anstataŭa teksto por la aktuala vorto, ne trovita en la vortaro</translation>
-    </message>
-    <message>
-        <source>Active Dictionary: </source>
-        <translation type="vanished">Aktiva vortaro:</translation>
-    </message>
-    <message>
-        <source>Ignore the current text not found in the active dictionary</source>
-        <translation type="vanished">Ignoru la aktualan tekston ne trovitan en la aktiva vortaro</translation>
-    </message>
-    <message>
-        <source>&amp;Ignore</source>
-        <translation type="vanished">&amp;Ignoru</translation>
-    </message>
-    <message>
-        <source>Ignore all occurrences of the current text not found in the active dictionary</source>
-        <translation type="vanished">Ignoru ĉiujn aperojn de la aktuala teksto ne trovita en la aktiva vortaro</translation>
-    </message>
-    <message>
-        <source>I&amp;gnore All</source>
-        <translation type="vanished">I&amp;gnoru ĉiujn</translation>
-    </message>
-    <message>
-        <source>Add the current word to the your personal spelling dictionary for future use</source>
-        <translation type="vanished">Aldonu la aktualan vorton en via persona ortografia vortaro por estonta uzo</translation>
-    </message>
-    <message>
-        <source>Change the current word that was not found to that shown in the replacement entry field</source>
-        <translation type="vanished">Ŝanĝu la aktualan vorton, ne trovitan, per tiu montrita en la anstataŭa eniga kampo</translation>
-    </message>
-    <message>
-        <source>Change all occurrences of the current word in the text that was not found to that shown in the replacement entry field</source>
-        <translation type="vanished">Ŝanĝu ĉiujn aperojn de la aktuala vorto en la teksto ne trovita, per tiu montrita en la anstataŭa eniga kampo</translation>
-    </message>
-    <message>
-        <source>Change A&amp;ll</source>
-        <translation type="vanished">Ŝanĝu ĉ&amp;iujn</translation>
-    </message>
-    <message>
-        <source>Close</source>
-        <translation type="vanished">Fermu</translation>
-    </message>
-</context>
-<context>
-    <name>AspellPluginImpl</name>
-    <message>
-        <source>Loaded </source>
-        <translation type="vanished">Ŝargita </translation>
-    </message>
-    <message>
-        <source>default </source>
-        <translation type="vanished">defaŭlta </translation>
-    </message>
-    <message>
-        <source>AspellPluginImpl::on_fskipAllBtn_clicked(): Unable to skip all instances of &quot;</source>
-        <translation type="vanished">AspellPluginImpl::on_fskipAllBtn_clicked(): Ne eblas transsalti ĉiujn ekzemplojn de &quot;</translation>
-    </message>
-    <message>
-        <source> by adding it to the session list.</source>
-        <translation type="vanished">aldonante ĝin al la seancolisto.</translation>
-    </message>
-    <message>
-        <source>AspellPluginImpl::on_faddWordBtn_clicked(): Unable to add word to personal list.</source>
-        <translation type="vanished">aspellplugin (AspellPluginImpl::AspellPluginImpl): Ne eblas aldoni vorton al la persona listo.</translation>
-    </message>
-    <message>
-        <source>Spelling check complete</source>
-        <translation type="vanished">Ortografia kontrolo kompleta</translation>
-    </message>
-    <message>
-        <source> Aspell dictionary.</source>
-        <translation type="vanished">Aspell-vortaro.</translation>
-    </message>
-    <message>
-        <source>Spell Checker</source>
-        <translation type="vanished">Ortografia kontrolilo</translation>
-    </message>
-    <message>
-        <source>No available Aspell dictionaries found. Install some, please.</source>
-        <translation type="vanished">Ne estis trovitaj Aspell-vortaroj disponeblaj. Instalu unu, bonvole.</translation>
-    </message>
-    <message>
-        <source>Do you want start from the beginning of the selection with new language selected?</source>
-        <translation type="vanished">Ĉu vi volas komenci de la komenco de la areo per nove elektita lingvo?</translation>
-    </message>
-    <message>
-        <source>Spell Checker Plugin Failed to Initialize.
-Configuration invalid</source>
-        <translation type="vanished">Malsukcesis pravalorizi kromprogramon por ortografia kontrolo.
-Nevalida konfiguro</translation>
-    </message>
-    <message>
-        <source>Spell Checker Plugin Failed to Initialize.</source>
-        <translation type="vanished">Malsukcesis pravalorizi kromprogramon por ortografia kontrolo.</translation>
-    </message>
-    <message>
-        <source>No Aspell dictionaries could be found.</source>
-        <translation type="vanished">Ne eblis trovi Aspell-vortarojn.</translation>
-    </message>
-    <message>
-        <source>Spell Checker Plugin Failed to Initialise.
-Configuration invalid</source>
-        <translation type="vanished">Malsukcesis pravalorizi kromprogramon por ortografia kontrolo.
-Nevalida konfiguro</translation>
-    </message>
-    <message>
-        <source>Spell Checker Plugin Failed to Initialise.</source>
-        <translation type="vanished">Malsukcesis pravalorizi kromprogramon por ortografia kontrolo.</translation>
     </message>
 </context>
 <context>
@@ -2993,10 +2740,6 @@ Nevalida konfiguro</translation>
 <context>
     <name>Barcode</name>
     <message>
-        <source>Scribus frontend for Pure PostScript Barcode Writer</source>
-        <translation type="vanished">Scribus-fasado por redaktilo de streka kodo en pura postskripto</translation>
-    </message>
-    <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcode.cpp" line="25"/>
         <source>Barcode</source>
         <translation>Strekokodo</translation>
@@ -3015,157 +2758,9 @@ Nevalida konfiguro</translation>
 <context>
     <name>BarcodeGenerator</name>
     <message>
-        <source>Error opening file: %1</source>
-        <translation type="vanished">Eraro dum malfermo de dosiero: %1</translation>
-    </message>
-    <message>
-        <source>12 or 13 digits</source>
-        <translation type="vanished">12 aŭ 13 ciferoj</translation>
-    </message>
-    <message>
-        <source>8 digits</source>
-        <translation type="vanished">8 ciferoj</translation>
-    </message>
-    <message>
-        <source>11 or 12 digits</source>
-        <translation type="vanished">11 aŭ 12 ciferoj</translation>
-    </message>
-    <message>
-        <source>7 or 8 digits</source>
-        <translation type="vanished">7 aŭ 8 ciferoj</translation>
-    </message>
-    <message>
-        <source>5 digits</source>
-        <translation type="vanished">5 ciferoj</translation>
-    </message>
-    <message>
-        <source>2 digits</source>
-        <translation type="vanished">2 ciferoj</translation>
-    </message>
-    <message>
-        <source>Variable number of characters, digits and any of the symbols -. *$/+%.</source>
-        <translation type="vanished">Varia nombro de signoj, ciferoj kaj de la simboloj -. *$/+%.</translation>
-    </message>
-    <message>
-        <source>Variable number of ASCII characters and special function symbols, starting with the appropriate start character for the initial character set. UCC/EAN-128s must have a mandatory FNC 1 symbol immediately following the start character.</source>
-        <translation type="vanished">Varia nombro de ASCII-signoj kaj specialaj funkci-simboloj, komenciĝantaj per specifa komencsigno de la sign-aro. La kodo UCC/EAN-128s devas havi la simbolon FNC 1 tuj post la komencsigno.</translation>
-    </message>
-    <message>
-        <source>Variable number of digits and any of the symbols -$:/.+ABCD.</source>
-        <translation type="vanished">Varia nombro de ciferoj kaj de la simboloj -$:/.+ABCD.</translation>
-    </message>
-    <message>
-        <source>Variable number of digits. An ITF-14 is 14 characters and does not have a check digit</source>
-        <translation type="vanished">Varia nomrbo de ciferoj. Simbolo ITF-14 entenas 14 signojn kaj ne devas havi kontrolciferon</translation>
-    </message>
-    <message>
-        <source>Variable number of digits</source>
-        <translation type="vanished">Varia nombro de ciferoj</translation>
-    </message>
-    <message>
-        <source>Variable number of digits and capital letters</source>
-        <translation type="vanished">Varia nombro de ciferoj kaj majusklaj literoj</translation>
-    </message>
-    <message>
-        <source>Variable number of hexadecimal characters</source>
-        <translation type="vanished">Varia nombro de deksesumaj signoj</translation>
-    </message>
-    <message>
-        <source>Barcode</source>
-        <translation type="vanished">Strekokodo</translation>
-    </message>
-    <message>
-        <source>Barcode incomplete</source>
-        <translation type="vanished">Nekompleta strekokodo</translation>
-    </message>
-    <message>
-        <source>12 or 13 digits with dashes. The legacy ISBN-10 format accepts 9 or 10 digits with dashes, but this standard was depreciated for public use after 1st January 2007. (Note: To convert an old ISBN-10 to a new ISBN-13, prefix 978- to the first 9 digits, e.g. 1-56592-479-7 -&gt; 978-1-56592-479. The final check-digit will be calculated automatically.)</source>
-        <translation type="vanished">12 aŭ 13 ciferoj kun streketoj. La malnova formato ISBN 10 akceptas 9 aŭ 10 ciferojn kun streketoj, sed ĉi tiu modelo kadukiĝis por la publika uzado ekde la 1a de januaro 2007a. (Noto: Por konverti malnovan ISBN 10 en novan ISBN-13, antaŭmetu 978 al la unuaj 9 ciferoj, ekz. 1-56592-479-7 -&gt; 978-1-56592-479. La fina kontrolcifero estos aŭtomate kalkulita.)</translation>
-    </message>
-    <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.cpp" line="386"/>
         <source>Select Type</source>
         <translation>Elektu la tipon</translation>
-    </message>
-    <message>
-        <source>Variable number of characters, digits and any symbols.</source>
-        <translation type="vanished">Varia nombro de signoj, ciferoj kaj de ajnaj simboloj.</translation>
-    </message>
-    <message>
-        <source>EAN-13</source>
-        <translation type="vanished">EAN-13</translation>
-    </message>
-    <message>
-        <source>EAN-8</source>
-        <translation type="vanished">EAN-8</translation>
-    </message>
-    <message>
-        <source>UPC-A</source>
-        <translation type="vanished">UPC-A</translation>
-    </message>
-    <message>
-        <source>UPC-E</source>
-        <translation type="vanished">UPC-E</translation>
-    </message>
-    <message>
-        <source>EAN-5</source>
-        <translation type="vanished">EAN-5</translation>
-    </message>
-    <message>
-        <source>EAN-2</source>
-        <translation type="vanished">EAN-2</translation>
-    </message>
-    <message>
-        <source>ISBN</source>
-        <translation type="vanished">ISBN</translation>
-    </message>
-    <message>
-        <source>Code-39</source>
-        <translation type="vanished">Code-39</translation>
-    </message>
-    <message>
-        <source>Code-128</source>
-        <translation type="vanished">Code-128</translation>
-    </message>
-    <message>
-        <source>UCC/EAN-128</source>
-        <translation type="vanished">UCC/EAN-128</translation>
-    </message>
-    <message>
-        <source>Rationalized Codabar</source>
-        <translation type="vanished">Raciigita kodostreko</translation>
-    </message>
-    <message>
-        <source>Interleaved 2 of 5</source>
-        <translation type="vanished">Interleaved 2 of 5</translation>
-    </message>
-    <message>
-        <source>ITF-14</source>
-        <translation type="vanished">ITF-14</translation>
-    </message>
-    <message>
-        <source>Code 2 of 5</source>
-        <translation type="vanished">Kodo 2 el 5</translation>
-    </message>
-    <message>
-        <source>Postnet</source>
-        <translation type="vanished">Postnet</translation>
-    </message>
-    <message>
-        <source>Royal Mail</source>
-        <translation type="vanished">Royal Mail</translation>
-    </message>
-    <message>
-        <source>MSI</source>
-        <translation type="vanished">MSI</translation>
-    </message>
-    <message>
-        <source>Plessey</source>
-        <translation type="vanished">Plessey</translation>
-    </message>
-    <message>
-        <source>QR Code</source>
-        <translation type="vanished">QR Kodo</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.cpp" line="184"/>
@@ -3227,18 +2822,6 @@ Nevalida konfiguro</translation>
 <context>
     <name>BarcodeGeneratorBase</name>
     <message>
-        <source>&amp;Type:</source>
-        <translation type="vanished">&amp;Tipo:</translation>
-    </message>
-    <message>
-        <source>Select one of the available barcode type here</source>
-        <translation type="vanished">Elektu unu el la disponeblaj tipoj de strekokodoj ĉi tie</translation>
-    </message>
-    <message>
-        <source>The numeric representation of the code itself. See the help message below</source>
-        <translation type="vanished">La cifera reprezento de la kodo mem. Vidu la helpmesaĝon ĉi-sube</translation>
-    </message>
-    <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="412"/>
         <source>Reset the barcode samples</source>
         <translation>Reŝargu la strekokodajn specimenojn</translation>
@@ -3262,10 +2845,6 @@ Nevalida konfiguro</translation>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="104"/>
         <source>Draw arrows to be sure of space next the code</source>
         <translation>Desegnu sagojn por certi ke estu spaco apud la kodo</translation>
-    </message>
-    <message>
-        <source>Colors</source>
-        <translation type="vanished">Koloroj</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="152"/>
@@ -3313,14 +2892,6 @@ Nevalida konfiguro</translation>
         <translation>Koloro de la teksto kaj ciferoj</translation>
     </message>
     <message>
-        <source>Hints and help is shown here</source>
-        <translation type="vanished">Sugestoj kaj helpo montrataj ĉi tie</translation>
-    </message>
-    <message>
-        <source>Co&amp;de:</source>
-        <translation type="vanished">Ko&amp;do:</translation>
-    </message>
-    <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="130"/>
         <source>Alt+N</source>
         <translation>Alt+A</translation>
@@ -3344,42 +2915,6 @@ Nevalida konfiguro</translation>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="16"/>
         <source>Insert Barcode</source>
         <translation>Enmetu strekokodon</translation>
-    </message>
-    <message>
-        <source>Format</source>
-        <translation type="vanished">Formato</translation>
-    </message>
-    <message>
-        <source>Incl&amp;ude Checksum Digit</source>
-        <translation type="vanished">Inkl&amp;uzivu kontrolsuman numeron</translation>
-    </message>
-    <message>
-        <source>I&amp;nclude Checksum</source>
-        <translation type="vanished">I&amp;nkluzivu kontrolsumon</translation>
-    </message>
-    <message>
-        <source>&amp;Guard Whitespace</source>
-        <translation type="vanished">Konser&amp;vu spacetojn</translation>
-    </message>
-    <message>
-        <source>&amp;Include Text in Barcode</source>
-        <translation type="vanished">&amp;Inkluzivu tekston en la strekokodo</translation>
-    </message>
-    <message>
-        <source>Options</source>
-        <translation type="vanished">Opcioj</translation>
-    </message>
-    <message>
-        <source>&amp;Format:</source>
-        <translation type="vanished">&amp;Formato:</translation>
-    </message>
-    <message>
-        <source>Error &amp;checking:</source>
-        <translation type="vanished">Erar-&amp;kontrolo:</translation>
-    </message>
-    <message>
-        <source>Minimum error checking; raised opportunistically if size of symbol is not increased</source>
-        <translation type="vanished">Minimuma erarkontrolo; oportune pliigita se la grando de simbolo ne pliiĝis</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="71"/>
@@ -3891,7 +3426,7 @@ oni devus elekti Relativan Kolorgamon aŭ Perceptan.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/cmsprefsbase.ui" line="274"/>
-        <source>Enable &apos;soft proofing&apos; of how your document colors will print,
+        <source>Enable 'soft proofing' of how your document colors will print,
 based on the chosen printer profile.</source>
         <translation>Ebligu la kolorprovon pri tio kiel la dokumentkoloroj printiĝos,
 laŭ la elektita printilprofilo.</translation>
@@ -3970,14 +3505,6 @@ Estas rekomendinde ke vi ebligu ĝin se vi havas fotojn en via dokumento.</trans
         <translation>RVB por Interreto</translation>
     </message>
     <message>
-        <source>New</source>
-        <translation type="vanished">Nova</translation>
-    </message>
-    <message>
-        <source>Old</source>
-        <translation type="vanished">Malnova</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/cmykfw.cpp" line="631"/>
         <location filename="../../scribus/ui/cmykfw.cpp" line="794"/>
         <source>C:</source>
@@ -3992,10 +3519,6 @@ Estas rekomendinde ke vi ebligu ĝin se vi havas fotojn en via dokumento.</trans
         <location filename="../../scribus/ui/cmykfw.cpp" line="633"/>
         <source>Y:</source>
         <translation>Y:</translation>
-    </message>
-    <message>
-        <source>K:</source>
-        <translation type="vanished">K:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/cmykfw.cpp" line="270"/>
@@ -4032,18 +3555,6 @@ Estas rekomendinde ke vi ebligu ĝin se vi havas fotojn en via dokumento.</trans
         <location filename="../../scribus/ui/cmykfw.cpp" line="627"/>
         <source> %</source>
         <translation> %</translation>
-    </message>
-    <message>
-        <source>&amp;Name:</source>
-        <translation type="vanished">&amp;Nomo:</translation>
-    </message>
-    <message>
-        <source>Color &amp;Model</source>
-        <translation type="vanished">Ko&amp;lorŝablono</translation>
-    </message>
-    <message>
-        <source>Is Spot Color</source>
-        <translation type="vanished">Baza koloro</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/cmykfw.cpp" line="1121"/>
@@ -4185,10 +3696,6 @@ bonvolu elekti alian.</translation>
         <translation> %</translation>
     </message>
     <message>
-        <source>...</source>
-        <translation type="vanished">...</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/cmykfwbase.ui" line="539"/>
         <source>M:</source>
         <translation>M:</translation>
@@ -4275,10 +3782,6 @@ bonvolu elekti alian.</translation>
         <translation>HSV</translation>
     </message>
     <message>
-        <source>Colors of your chosen color scheme.</source>
-        <translation type="vanished">Koloroj de via elektita kolorskemo.</translation>
-    </message>
-    <message>
         <location filename="../../scribus/plugins/colorwheel/cwdialog.ui" line="183"/>
         <source>Color Scheme Method</source>
         <translation>Kolorskema metodo</translation>
@@ -4347,10 +3850,6 @@ bonvolu elekti alian.</translation>
         <location filename="../../scribus/plugins/colorwheel/cwdialog.ui" line="342"/>
         <source>Preview:</source>
         <translation>Antaŭrigardo:</translation>
-    </message>
-    <message>
-        <source>Sample color scheme.</source>
-        <translation type="vanished">Specimena kolorskemo.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/colorwheel/cwdialog.ui" line="394"/>
@@ -4603,10 +4102,6 @@ Dosiero; %1
 Paĝo: %2</translation>
     </message>
     <message>
-        <source>Overflow Characters: %1 (%2 White Spaces)</source>
-        <translation type="vanished">Tro da signoj: %1 (%2 blankaj spacetoj)</translation>
-    </message>
-    <message>
         <location filename="../../scribus/canvasmode_normal.cpp" line="436"/>
         <source>Overflow Characters: %1 (%2 White Spaces)
 Click to link to existing text frame or auto-create new linked text frame</source>
@@ -4708,10 +4203,6 @@ Document Liberation Project http://www.documentliberation.org</translation>
         <location filename="../../scribus/ui/charselect.cpp" line="342"/>
         <source>You will remove all characters from this palette. Are you sure?</source>
         <translation>Estos forigitaj ĉiujn signojn el ĉi tiu paletro. Ĉu vi certas?</translation>
-    </message>
-    <message>
-        <source>Hide/Show Enhanced Palette</source>
-        <translation type="vanished">Montru/Kaŝu etenditan paletron</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/charselect.cpp" line="305"/>
@@ -5081,14 +4572,6 @@ La klavo Enmetu enmetas signobildon en la areon malsupran kaj la Foriga klavo fo
         <translation>Tavolo &quot;%1&quot;</translation>
     </message>
     <message>
-        <source>Annotation uses a non TrueType font</source>
-        <translation type="vanished">Komento uzas tiparon ne True Type</translation>
-    </message>
-    <message>
-        <source>Preflight profile to base the report generation on. Options can be set in Document Setup or Preferences</source>
-        <translation type="vanished">Verifprofilo sur kiu bazi la raportogeneradon. Oni povas agordi la opciojn en Dokument-agordaro aŭ en Ecoj</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/checkDocument.cpp" line="122"/>
         <source>Ignore found errors and continue to export or print. Be sure to understand the errors you are ignoring before continuing.</source>
         <translation>Ignoru la trovitajn erarojn kaj daŭrigu eksporti aŭ printi. Certiĝu ke vi komprenis la erarojn ignorotajn antaŭ ol daŭrigi.</translation>
@@ -5107,10 +4590,6 @@ La klavo Enmetu enmetas signobildon en la areon malsupran kaj la Foriga klavo fo
         <location filename="../../scribus/ui/checkDocument.cpp" line="416"/>
         <source>Layers</source>
         <translation>Tavoloj</translation>
-    </message>
-    <message>
-        <source>Print/Visible Mismatch</source>
-        <translation type="vanished">Printu/Videbla nekongrua</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/checkDocument.cpp" line="469"/>
@@ -5179,50 +4658,14 @@ aktuale %2 x %3 DPI  </translation>
         <translation>Ĉu vi aplikis la ĝustan ĉefpaĝon?</translation>
     </message>
     <message>
-        <source>If you have created an image frame, there is the presumption that you planned to put an image in it.</source>
-        <translation type="vanished">Se oni kreis bildokadron, oni supozas, ke oni planis enmeti bildon en ĝin.</translation>
-    </message>
-    <message>
-        <source>If you have created a text frame, there is the presumption that you planned to put text in it.</source>
-        <translation type="vanished">Se oni kreis tekstokadron, oni supozas, ke oni planis enmeti tekston en ĝin.</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/checkDocument.cpp" line="131"/>
         <source>Imported document contains non-embedded fonts</source>
         <translation>La dokumento importita entenas ne-enkorpigitajn tiparojn</translation>
     </message>
     <message>
-        <source>When some imported document uses non-embedded fonts, then their rendering will be wrong, unless by chance you have them installed on their system, but that cannot be guaranteed in case you want to share the resulting document.</source>
-        <translation type="vanished">Kiam iu dokumento importita uzas ne-enkorpigitajn tiparojn, tiam ilia bildigo estos neĝusta, krome se hazarde oni jam instalis ilin en la sistemon, se tion oni ne povas garantii kaze ke oni volas kunhavigi la finan dokumenton.</translation>
-    </message>
-    <message>
-        <source>This is a user definable setting serving as a caution for high resolution images, which may lead to unnecessarily large files.</source>
-        <translation type="vanished">Ĉi tiu agordaro, difinita de la uzanto, avertas pri altdistingivaj bildoj, kiuj povus krei nenecesajn grandajn dosierojn.</translation>
-    </message>
-    <message>
-        <source>mage doesnt fit the whole space you reserved for it. Maybe this is intended, or maybe this is caused by bad inner placement or scale. The result will either be a cropped image or white space around the image.</source>
-        <translation type="vanished">La bildo ne tute plenigas la spacon de vi rezervita. Eble tio estis intenca aŭ ŝuldita al malbona lokado en la kadro aŭ al malbona skalo. La rezulto estos aŭ tajlita bildo aŭ blanka spaco ĉirkaŭ ĝi.</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/checkDocument.cpp" line="134"/>
         <source>This warning alerts you that you are using a bitmap based graphic format that is typically not used for high resolution images (.gif is one of those). This may result in poor viewing quality (for example: when commercially printed, viewed on a high-resolution screens, etc...). If your PDF will be printed commercially, there are some printing systems that will have difficulty printing these types of images.</source>
         <translation>Ĉi tiu averto atentigas ke oni estas uzanta grafikaĵon bazitan sur rastrumo kiu kutime ne estas uzata por altdistingivaj bildoj (.gif estas unu el tiuj). Tio povus rezultigi malaltkvalitan vidigon (ekzemple: se printita profesie, vidita en altdistingivaj ekranoj, ktp...). Se la PDF-aĵo estos printita profesie, estos kelkaj printsistemoj kiuj malfacile printos ĉi tiujn tipojn de bildoj.</translation>
-    </message>
-    <message>
-        <source>This is a user definable setting serving as a caution for low resolution images, which may lead to poor quality output.</source>
-        <translation type="vanished">Ĉi tiu agordaro, difinita de la uzanto, avertas pri malaltdistingivaj bildoj, kiuj povus krei malaltkvalitajn eligojn.</translation>
-    </message>
-    <message>
-        <source>You have one or more characters which do not have a corresponding glyph in your chosen font.</source>
-        <translation type="vanished">Estas unu aŭ pli da signoj kiuj ne havas la respondan signobildon en la tiparo elektita.</translation>
-    </message>
-    <message>
-        <source>The assigned image file cannot be found.</source>
-        <translation type="vanished">Ne eblis trovi la atribuitan bildodosieron.</translation>
-    </message>
-    <message>
-        <source>An object is placed somewhere outside of the page borders, it will not be printed and might be missing somewhere.</source>
-        <translation type="vanished">Oni lokis objekton ien ekster la paĝorandoj, tiel ĝi ne estos printita kaj povus esti perdita ie.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/checkDocument.cpp" line="139"/>
@@ -6381,10 +5824,6 @@ aktuale %2 x %3 DPI  </translation>
         <translation>Paĝnombro en la dokumento:</translation>
     </message>
     <message>
-        <source>Doc Page Range</source>
-        <translation type="vanished">Dokumenta paĝ-intervalo</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/createrange.ui" line="80"/>
         <source>Basic Range Selection</source>
         <translation>Baza intervalelekto</translation>
@@ -6473,10 +5912,6 @@ aktuale %2 x %3 DPI  </translation>
         <location filename="../../scribus/ui/createrange.ui" line="282"/>
         <source>Advanced Reordering</source>
         <translation>Detala reordigo</translation>
-    </message>
-    <message>
-        <source>Page Order</source>
-        <translation type="vanished">Paĝordo</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/createrange.ui" line="330"/>
@@ -6638,10 +6073,6 @@ aktuale %2 x %3 DPI  </translation>
         <translation>Pofoliaj paĝoj</translation>
     </message>
     <message>
-        <source>This panel displays various CUPS options when printing. The exact parameters available will depend on your printer driver. You can confirm CUPS support by selecting Help &gt; About. Look for the listings: C-C-T These equate to C=CUPS C=littlecms T=TIFF support. Missing library support is indicated by a *</source>
-        <translation type="vanished">Ĉi tiu panelo montras la diversajn CUPS-opciojn dum printado. La precizaj parametroj disponeblaj dependos de la printilpelilo. Oni povas konfirmi la CUPS-subtenon elektante Helpo &gt; Pri Scribus. Legu la literlistojn: C-C-T egalas al subteno de C=CUPS C=littlecms T=TIFF. Subteno por mankantaj bibliotekoj estas montrita per *</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/cupsoptions.cpp" line="227"/>
         <source>This panel displays various CUPS options when printing. The exact parameters available will depend on your printer driver. You can confirm CUPS support by selecting Help &gt; About. Look for the listings: C-C-T These equate to C=CUPS C=littlecms T=TIFF support. Missing library support is indicated by a *.</source>
         <translation>Ĉi tiu panelo montras la diversajn CUPS-opciojn dum printado. La precizaj parametroj disponeblaj dependos de via printilpelilo. Oni povas konfirmi la CUPS-subtenon elektante Helpo &gt; Pri Scribus. Legu la literlistojn: C-C-T egalas al subteno de C=CUPS C=littlecms T=TIFF. Subteno por mankantaj bibliotekoj estas montrita per *.</translation>
@@ -6653,10 +6084,6 @@ aktuale %2 x %3 DPI  </translation>
         <location filename="../../scribus/ui/curvewidget.cpp" line="411"/>
         <source>Open</source>
         <translation>Malfermu</translation>
-    </message>
-    <message>
-        <source>Curve Files &quot;*.scu&quot; (*.scu *.SCU);;All Files (*)</source>
-        <translation type="vanished">Kurbo-dosieroj (*.scu *.SCU);;Ĉiaj dosieroj (*) </translation>
     </message>
     <message>
         <location filename="../../scribus/ui/curvewidget.cpp" line="449"/>
@@ -6962,14 +6389,6 @@ aktuale %2 x %3 DPI  </translation>
         <translation>Kromaj &amp;informoj</translation>
     </message>
     <message>
-        <source>A person or organisation responsible for making the document available</source>
-        <translation type="vanished">Persono aŭ organizo respondeca pri la disvastigo de la dokumento</translation>
-    </message>
-    <message>
-        <source>A person or organisation responsible for making contributions to the content of the document</source>
-        <translation type="vanished">Persono aŭ organizo kontribuintaj al la dokument-enteno</translation>
-    </message>
-    <message>
         <location filename="../../scribus/docinfo.cpp" line="173"/>
         <source>A date associated with an event in the life cycle of the document, in YYYY-MM-DD format, as per ISO 8601</source>
         <translation>Dato rilata al evento en la vivociklo de la dokumento, en formato JJJJ-MM-TT, kiel en la kodo ISO 8601</translation>
@@ -7010,33 +6429,9 @@ aktuale %2 x %3 DPI  </translation>
         <translation>Dokumen&amp;to</translation>
     </message>
     <message>
-        <source>The person or organisation primarily responsible for making the content of the document. This field can be embedded in the Scribus document for reference, as well as in the metadata of a PDF</source>
-        <translation type="vanished">La persono aŭ la organizo ĉefe respondecaj pri la kreado de la dokument-enteno. Ĉi tiu kampo povas esti enkorpigita en la Scribus-dokumenton kiel referencon aŭ en la metadatumojn de PDF-dosiero</translation>
-    </message>
-    <message>
-        <source>A name given to the document. This field can be embedded in the Scribus document for reference, as well as in the metadata of a PDF</source>
-        <translation type="vanished">Nomo donita al la dokumento. Ĉi tiu kampo povas esti enkorpigita en la Scribus-dokumenton kiel referencon aŭ en la metadatumojn de PDF-dosiero</translation>
-    </message>
-    <message>
-        <source>An account of the content of the document. This field is for a brief description or abstract of the document. It is embedded in the PDF on export</source>
-        <translation type="vanished">Resumo de la dokument-enteno. Ĉi tiu kampo estas eta priskribo aŭ resumo de la dokumento. Ĝi estas enkorpigita en la PDF-dosieron dum la eksporto</translation>
-    </message>
-    <message>
-        <source>The topic of the content of the document. This field is for document keywords you wish to embed in a PDF, to assist searches and indexing of PDF files</source>
-        <translation type="vanished">La temobjekto de la dokument-enteno. Ĉi tiu kampo estas por dokumentaj ŝlosilvortoj kiujn vi celas enkorpigi en PDF-dosieron, por helpi traserĉadon kaj indeksadon de PDF-dosieroj</translation>
-    </message>
-    <message>
-        <source>The physical or digital manifestation of the document. Media type and dimensions would be worth noting. RFC2045,RFC2046 for MIME types are also useful here</source>
-        <translation type="vanished">La fizika aŭ cifereca manifestiĝo de la dokumento. Indus noti la mediajn tipon kaj grandojn. RFC2045, RFC2046 por MIME-tipoj povus utili ĉi tie</translation>
-    </message>
-    <message>
         <location filename="../../scribus/docinfo.cpp" line="178"/>
         <source>The language in which the content of the document is written, usually a ISO-639 language code optionally suffixed with a hypen and an ISO-3166 country code, eg. en-GB, fr-CH</source>
         <translation>La lingvo en kiu oni skribis ĉi tiun dokumenton, kutime lingvokodo ISO-639 laŭvole sufiksita per streketo kaj landokodo ISO-3166, ekz. en-GB, fr-CH</translation>
-    </message>
-    <message>
-        <source>The person or organisation primarily responsible for making the content of the document. This field can be embedded in the Scribus document for reference, as well as in the metadata of a PDF.</source>
-        <translation type="vanished">La persono aŭ la organizo ĉefe respondecaj pri la kreado de la dokument-enteno. Ĉi tiu kampo povas esti enkorpigita en la Scribus-dokumenton kiel referencon aŭ en la metadatumojn de PDF-dosiero.</translation>
     </message>
     <message>
         <location filename="../../scribus/docinfo.cpp" line="168"/>
@@ -7657,10 +7052,6 @@ La nomo de la eksportdosiero estos &apos;dokumentnomo-paĝnumero.dosierotipo&apo
         <translation>Disponeblaj eksportoformoj</translation>
     </message>
     <message>
-        <source>Choose a Export Directory</source>
-        <translation type="vanished">Elektu eksportdosierujon</translation>
-    </message>
-    <message>
         <location filename="../../scribus/plugins/export/pixmapexport/exportform.ui" line="50"/>
         <source>C&amp;hange...</source>
         <translation>Ŝanĝ&amp;u...</translation>
@@ -7727,14 +7118,6 @@ La nomo de la eksportdosiero estos &apos;dokumentnomo-paĝnumero.dosierotipo&apo
         <translation>Eksportu paĝintervalon</translation>
     </message>
     <message>
-        <source>Insert a comma separated list of tokens where
-a token can be * for all the pages, 1-5 for
-a range of pages or a single page number.</source>
-        <translation type="vanished">Enmetu komdisigitan liston de simboloj, kie
-simbolo povus esti * por ĉiuj paĝoj, 1-5
-por paĝointervalo, aŭ unuopa paĝnumero.</translation>
-    </message>
-    <message>
         <location filename="../../scribus/plugins/export/pixmapexport/dialog.cpp" line="119"/>
         <source>Export all pages</source>
         <translation>Eksportu ĉiujn paĝojn</translation>
@@ -7760,10 +7143,6 @@ Uzu 72 dpi por bildoj celitaj por la ekrano</translation>
         <location filename="../../scribus/plugins/export/pixmapexport/exportform.ui" line="184"/>
         <source>Image size in Pixels</source>
         <translation>Bildogrando en rastrumeroj</translation>
-    </message>
-    <message>
-        <source>TextLabel</source>
-        <translation type="vanished">TextLabel</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/export/pixmapexport/dialog.cpp" line="123"/>
@@ -8237,10 +7616,6 @@ Document Liberation Project http://www.documentliberation.org</translation>
         <source>Click to change the value</source>
         <translation>Alklaku por sanĝi la valoron</translation>
     </message>
-    <message>
-        <source>Outline</source>
-        <translation type="vanished">Konturo</translation>
-    </message>
 </context>
 <context>
     <name>FontPreview</name>
@@ -8378,14 +7753,6 @@ Document Liberation Project http://www.documentliberation.org</translation>
         <translation>Ĉi tiu dokumento entenas kelkajn tiparojn ne instalitajn en la sistemo, bonvolu elekti taŭgan anstataŭigon por ili. Rezigno haltigos la ŝargadon de la dokumento.</translation>
     </message>
     <message>
-        <source>Cancels these font substitutions and stops loading the document.</source>
-        <translation type="vanished">Rezignas pri la tiparanstataŭoj kaj haltigas la ŝargadon de la dokumento.</translation>
-    </message>
-    <message>
-        <source>If you select OK, then save, these substitutions are made permanent in the document.</source>
-        <translation type="vanished">Se oni elektas Konfirmu kaj Konservu, la anstataŭoj estos daŭraj en la dokumento.</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/fontreplacedialog.cpp" line="84"/>
         <source>Enabling this tells Scribus to use these replacements for missing fonts permanently in all future layouts. This can be reverted or changed in File &gt; Preferences &gt; Fonts.</source>
         <translation>Per ebligo de tio, Scribus uzos ĉi tiujn anstataŭojn de la mankantaj tiparoj ĉiam en ĉiuj estontaj aspektoj. Tion oni povas malfari aŭ ŝanĝi en Redaktu -&gt; Agordoj -&gt; Tiparoj. </translation>
@@ -8416,14 +7783,6 @@ Document Liberation Project http://www.documentliberation.org</translation>
 </context>
 <context>
     <name>GradientEditor</name>
-    <message>
-        <source>Position:</source>
-        <translation type="vanished">Pozicio:</translation>
-    </message>
-    <message>
-        <source> %</source>
-        <translation type="vanished"> %</translation>
-    </message>
     <message>
         <location filename="../../scribus/ui/gradienteditor.cpp" line="182"/>
         <source>Add, change or remove color stops here</source>
@@ -8948,14 +8307,6 @@ Document Liberation Project http://www.documentliberation.org</translation>
         <translation>&amp;Printu...</translation>
     </message>
     <message>
-        <source>New Bookmark</source>
-        <translation type="vanished">Nova legosigno</translation>
-    </message>
-    <message>
-        <source>New Bookmark&apos;s Title:</source>
-        <translation type="vanished">Nova legosigna titolo:</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/helpbrowser.cpp" line="308"/>
         <source>&amp;File</source>
         <translation>&amp;Dosiero</translation>
@@ -8985,10 +8336,6 @@ Document Liberation Project http://www.documentliberation.org</translation>
         <location filename="../../scribus/ui/helpbrowser.cpp" line="147"/>
         <source>Navigation</source>
         <translation>Navigado</translation>
-    </message>
-    <message>
-        <source>Loading Failed</source>
-        <translation type="vanished">Ŝargado malsukcesis</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/helpbrowser.cpp" line="317"/>
@@ -9046,10 +8393,6 @@ Document Liberation Project http://www.documentliberation.org</translation>
 </context>
 <context>
     <name>HelpBrowserNavigation</name>
-    <message>
-        <source>Form</source>
-        <translation type="vanished">Formularo</translation>
-    </message>
     <message>
         <location filename="../../scribus/ui/helpbrowsernavigation.ui" line="31"/>
         <source>&amp;Contents</source>
@@ -9405,10 +8748,6 @@ konvertante iliajn vektorajn datumojn en Scribus-objektoj.</translation>
         <translation>Corel Draw</translation>
     </message>
     <message>
-        <source>Corel Draw CDR (*.cdr *.CDR)</source>
-        <translation type="vanished">Corel Draw CDR (*.cdr *.CDR)</translation>
-    </message>
-    <message>
         <location filename="../../scribus/plugins/import/cdr/importcdrplugin.cpp" line="76"/>
         <source>Imports Corel Draw Files</source>
         <translation>Imports Corel-Draw-dosierojn</translation>
@@ -9419,10 +8758,6 @@ konvertante iliajn vektorajn datumojn en Scribus-objektoj.</translation>
 converting their vector data into Scribus objects.</source>
         <translation>Importas la plejparton el la Corel-Draw-dosierojn en la aktualan dokumenton,
 konvertante iliajn vektorajn datumojn en Scribus-objektoj.</translation>
-    </message>
-    <message>
-        <source>Corel Draw (*.cdr *.CDR)</source>
-        <translation type="vanished">Corel Draw (*.cdr *.CDR)</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/cdr/importcdrplugin.cpp" line="126"/>
@@ -9454,10 +8789,6 @@ Document Liberation Project http://www.documentliberation.org</translation>
 </context>
 <context>
     <name>ImportCgmPlugin</name>
-    <message>
-        <source>Import Cgm...</source>
-        <translation type="vanished">Importu Cgm...</translation>
-    </message>
     <message>
         <location filename="../../scribus/plugins/import/cgm/importcgmplugin.cpp" line="97"/>
         <source>CGM File</source>
@@ -9504,20 +8835,6 @@ konvertante iliajn vektorajn datumojn en Scribus-objektoj.</translation>
 <context>
     <name>ImportCvgPlugin</name>
     <message>
-        <source>Import Cvg...</source>
-        <translation type="vanished">Import Cvg...</translation>
-    </message>
-    <message>
-        <source>Imports Cvg Files</source>
-        <translation type="vanished">Imports Cvg Files</translation>
-    </message>
-    <message>
-        <source>Imports most Cvg files into the current document,
-converting their vector data into Scribus objects.</source>
-        <translation type="vanished">Imports most Cvg files into the current document,
-converting their vector data into Scribus objects.</translation>
-    </message>
-    <message>
         <location filename="../../scribus/plugins/import/cvg/importcvgplugin.cpp" line="122"/>
         <source>All Supported Formats</source>
         <translation>All Supported Formats</translation>
@@ -9542,10 +8859,6 @@ konvertante iliajn vektorajn datumojn en Scribus-objektoj.</translation>
 </context>
 <context>
     <name>ImportDrwPlugin</name>
-    <message>
-        <source>Import DRW...</source>
-        <translation type="vanished">Importu DRW...</translation>
-    </message>
     <message>
         <location filename="../../scribus/plugins/import/drw/importdrwplugin.cpp" line="98"/>
         <source>Micrografx DRW File</source>
@@ -9574,14 +8887,6 @@ konvertante iliajn vektorajn datumojn en Scribus-objektoj.</translation>
         <translation>Ĉiuj subtenataj formoj</translation>
     </message>
     <message>
-        <source>Micrografx DRW</source>
-        <translation type="vanished">Micrografx DRW</translation>
-    </message>
-    <message>
-        <source>Micrografx DRW (*.drw *.DRW)</source>
-        <translation type="vanished">Micrografx DRW (*.drw *.DRW)</translation>
-    </message>
-    <message>
         <location filename="../../scribus/plugins/import/drw/importdrwplugin.cpp" line="60"/>
         <source>Import Micrografx Draw...</source>
         <translation>Importu Micrografx Draw...</translation>
@@ -9599,10 +8904,6 @@ konvertante iliajn vektorajn datumojn en Scribus-objektoj.</translation>
 </context>
 <context>
     <name>ImportEmfPlugin</name>
-    <message>
-        <source>Import EMF...</source>
-        <translation type="vanished">Importu EMF...</translation>
-    </message>
     <message>
         <location filename="../../scribus/plugins/import/emf/importemfplugin.cpp" line="95"/>
         <source>EMF</source>
@@ -9692,7 +8993,7 @@ konvertante iliajn vektorajn datumojn en Scribus-objektoj.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/idml_old/importidml.cpp" line="66"/>
-        <source>Imports Adobe Indesign&apos;s idml packages into Scribus
+        <source>Imports Adobe Indesign's idml packages into Scribus
  converting Indesign objects into scribus pageitems; not all are supported in Scribus, but all those supported are being imported here</source>
         <translation>I</translation>
     </message>
@@ -9878,20 +9179,6 @@ konvertante iliajn vektorajn datumojn en Scribus-objektoj.</translation>
 <context>
     <name>ImportPctPlugin</name>
     <message>
-        <source>Import Pict...</source>
-        <translation type="vanished">Importu Pict...</translation>
-    </message>
-    <message>
-        <source>Imports Pict Files</source>
-        <translation type="vanished">Importas Pict-dosierojn</translation>
-    </message>
-    <message>
-        <source>Imports most Mac Pict files into the current document,
-converting their vector data into Scribus objects.</source>
-        <translation type="vanished">Importas la plejparton el la dosieroj de Mac Pict en la aktualan dokumenton,
-konvertante iliajn vektorajn datumojn en Scribus-objektoj.</translation>
-    </message>
-    <message>
         <location filename="../../scribus/plugins/import/pct/importpctplugin.cpp" line="122"/>
         <source>All Supported Formats</source>
         <translation>Ĉiuj subtenataj formoj</translation>
@@ -10026,14 +9313,6 @@ konvertante iliajn vektorajn datumojn en Scribus-objektoj.</translation>
         <translation>Importu Dia-formojn...</translation>
     </message>
     <message>
-        <source>Dia Shapes &quot;*.shape&quot; File</source>
-        <translation type="vanished">Dia-formoj &quot;*.shape&quot;-Dosiero</translation>
-    </message>
-    <message>
-        <source>Dia Shapes &quot;*.shape&quot; File (*.shape *.SHAPE)</source>
-        <translation type="vanished">Dia-formoj &quot;*.shape&quot; Dosiero (*.shape *.SHAPE)</translation>
-    </message>
-    <message>
         <location filename="../../scribus/plugins/import/shape/importshapeplugin.cpp" line="74"/>
         <source>Imports Dia shape Files</source>
         <translation>Importas formdosierojn de Dia</translation>
@@ -10044,10 +9323,6 @@ konvertante iliajn vektorajn datumojn en Scribus-objektoj.</translation>
 converting their vector data into Scribus objects.</source>
         <translation>Importas la plejparton el la Dia-dosieroj en la aktualan dokumenton,
 konvertante iliajn vektorajn datumojn en Scribus-objektoj.</translation>
-    </message>
-    <message>
-        <source>Dia shapes &quot;*.shape&quot; File (*.shape *.SHAPE)</source>
-        <translation type="vanished">Dia-formoj &quot;*.shape&quot; Dosiero (*.shape *.SHAPE)</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/shape/importshapeplugin.cpp" line="123"/>
@@ -10229,20 +9504,6 @@ konvertante iliajn vektorajn datumojn en Scribus-objektoj.</translation>
 </context>
 <context>
     <name>ImportWpgPlugin</name>
-    <message>
-        <source>Import WPG...</source>
-        <translation type="vanished">Importu WPG...</translation>
-    </message>
-    <message>
-        <source>Imports WPG Files</source>
-        <translation type="vanished">Importas WPG-dosierojn</translation>
-    </message>
-    <message>
-        <source>Imports most WPG files into the current document,
-converting their vector data into Scribus objects.</source>
-        <translation type="vanished">Importas la plejparton el la WPG-dosieroj en la aktualan dokumenton,
-konvertante iliajn vektorajn datumojn en Scribus-objektoj.</translation>
-    </message>
     <message>
         <location filename="../../scribus/plugins/import/wpg/importwpgplugin.cpp" line="122"/>
         <source>All Supported Formats</source>
@@ -10469,7 +9730,7 @@ konvertante iliajn vektorajn datumojn en Scribus-objektoj.</translation>
         <location filename="../../scribus/plugins/imposition/impositionbase.ui" line="325"/>
         <source>&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Sans Serif'; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Separate pages with a comma, ranges with a hyphen, e.g. 1,4,9-11 to get pages 1,4,9,10,11.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
@@ -11432,26 +10693,6 @@ p, li { white-space: pre-wrap; }
         <translation>Heleco</translation>
     </message>
     <message>
-        <source>Color of the Layer Indicator - Each layer has a color assigned to display on the canvas when layer indicators are enabled. You can double click to edit the color. </source>
-        <translation type="vanished">Koloro de la tavolindikilo - Ĉiu tavolo havas sian koloron por montri sur la laborareo kiam la tavolindikiloj estas ebligitaj. Vi povas duoble alklaki por redakti la koloron. </translation>
-    </message>
-    <message>
-        <source>Make Layer Visible - Uncheck to hide the layer from the display </source>
-        <translation type="vanished">Vidigu la tavolon - Malmarku por kaŝi la tavolon</translation>
-    </message>
-    <message>
-        <source>Print Layer - Uncheck to disable printing. </source>
-        <translation type="vanished">Printu Tavolon - Malmarku por malebligi la printadon.</translation>
-    </message>
-    <message>
-        <source>Lock or Unlock Layer - Unchecked is unlocked </source>
-        <translation type="vanished">Ŝlosu aŭ malŝlosu tavolon - Nemarkita estas malŝlosita</translation>
-    </message>
-    <message>
-        <source>Outline Mode - Toggles the &apos;wireframe&apos; display of objects to speed the display of very complex objects.</source>
-        <translation type="vanished">Kontura reĝimo - (Mal)aktivigas la vidigon de la objektoj en &apos;drata kadro&apos; por rapidigi la montron de tre kompleksaj objektoj.</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/layers.cpp" line="678"/>
         <source>Selects the Blendmode, works only in PDF 1.4</source>
         <translation>Elektas la fandoreĝimon, funkcias nur en PDF 1.4</translation>
@@ -11480,18 +10721,6 @@ p, li { white-space: pre-wrap; }
         <location filename="../../scribus/ui/layers.cpp" line="677"/>
         <source>Lower Layer</source>
         <translation>Pli malsupra tavolo</translation>
-    </message>
-    <message>
-        <source>Make text in lower layers flow around objects - Enabling this forces text in lower layers to flow around objects of the layer for which this option has been enabled</source>
-        <translation type="vanished">Igu la tekston en la malsupraj tavoloj flui ĉirkaŭ objektojn. - La ebligo de tio perfortos la tekston en pli malsupraj tavoloj flui ĉirkaŭ la objektoj de la tavolo, kiel ebligite</translation>
-    </message>
-    <message>
-        <source>Name of the Layer - Double click on the name of a layer to edit the name</source>
-        <translation type="vanished">Nomo de la tavolo - Alklaku duoble sur la nomo de la tavolo por modifi ĝin</translation>
-    </message>
-    <message>
-        <source>Select Objects on Layer - Check to enable selecting. </source>
-        <translation type="vanished">Elektu objektojn sur la tavolo - Ŝaltu por ebligi la elekton.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/layers.cpp" line="680"/>
@@ -11689,16 +10918,6 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>An error occured while opening file or file is damaged</source>
-        <translation type="vanished">Okazis eraro dum la malfermo de la dosiero aŭ la dosiero estas difektita</translation>
-    </message>
-    <message>
-        <source>An error occured while parsing file at line %1, column %2 :
-%3</source>
-        <translation type="vanished">Okazis eraro dum la sintaksa analizo de la dosiero ĉe la linio %1, kolumno %2:
-%3</translation>
-    </message>
-    <message>
         <location filename="../../scribus/loadsaveplugin.cpp" line="104"/>
         <location filename="../../scribus/loadsaveplugin.cpp" line="140"/>
         <location filename="../../scribus/loadsaveplugin.cpp" line="176"/>
@@ -11844,10 +11063,6 @@ p, li { white-space: pre-wrap; }
         <translation>Ĉefpaĝo:</translation>
     </message>
     <message>
-        <source>Size of the inserted pages, either a standard or custom size.</source>
-        <translation type="vanished">Grando de la enmetitaj paĝoj, aŭ modela aŭ propra grando.</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/margindialog.cpp" line="185"/>
         <source>Orientation of the page(s) to be inserted</source>
         <translation>Orientiĝo de la paĝo(j) enmetota(j)</translation>
@@ -11933,10 +11148,6 @@ p, li { white-space: pre-wrap; }
         <translation>Printilaj marĝenoj...</translation>
     </message>
     <message>
-        <source>Import the margins for the selected page size from the available printers.</source>
-        <translation type="vanished">Importu la margenojn por la elektita paĝogrando el la disponeblaj printiloj.</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/marginwidget.cpp" line="79"/>
         <source>Apply settings to:</source>
         <translation>Apliku agordojn al:</translation>
@@ -12015,14 +11226,6 @@ p, li { white-space: pre-wrap; }
         <location filename="../../scribus/ui/marginwidget.cpp" line="248"/>
         <source>Right:</source>
         <translation>Dekstre:</translation>
-    </message>
-    <message>
-        <source>Distance between the left margin guide and the edge of the page. If a double-sided, 3 or 4-fold layout is selected, this margin space can be used to achieve the correct margins for binding</source>
-        <translation type="vanished">Distanco inter la maldekstra marĝeno kaj la rando de la paĝo. Se oni markis la opcion Vidalvidaj Paĝoj, 3- aŭ 4-faldfolio, vi povas uzi ĉi tiun marĝenon por kalkuli la ĝustajn marĝenojn por bindado</translation>
-    </message>
-    <message>
-        <source>Distance between the right margin guide and the edge of the page. If a double-sided, 3 or 4-fold layout is selected, this margin space can be used to achieve the correct margins for binding</source>
-        <translation type="vanished">Distanco inter la dekstra marĝeno kaj la rando de la paĝo. Se oni markis la opcion Vidalvidaj Paĝoj, 3- aŭ 4-faldfolio, vi povas uzi ĉi tiun marĝenon por kalkuli la ĝustajn marĝenojn por bindado</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/marginwidget.cpp" line="103"/>
@@ -12170,10 +11373,6 @@ p, li { white-space: pre-wrap; }
         <translation>Nova indikilo</translation>
     </message>
     <message>
-        <source>Edit selected Mark`s label. To create new Mark select &quot;New Mark&quot; in drop list and input new label</source>
-        <translation type="vanished">Redaktu la elektitan etikedon de la indikilo. Por krei novan indikilon elektu &quot;Nova indikilo&quot; en la fallisto kan enskribu novan etikedon</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/markvariabletext.cpp" line="21"/>
         <location filename="../../scribus/ui/markvariabletext.cpp" line="34"/>
         <source>Edit variable text</source>
@@ -12184,14 +11383,6 @@ p, li { white-space: pre-wrap; }
         <location filename="../../scribus/ui/markvariabletext.cpp" line="35"/>
         <source>Mark with Variable Text</source>
         <translation>Indikilo kun variebla teksto</translation>
-    </message>
-    <message>
-        <source>Edit selected Mark`s label.</source>
-        <translation type="vanished">Redaktu la elektitan indikilon de la marko.</translation>
-    </message>
-    <message>
-        <source>Edit selected Mark`s label. To create new Mark select &quot;New Mark&quot; in drop list and input new label.</source>
-        <translation type="vanished">Redaktu la elektitan etikedon de la indikilo. Por krei novan indikilon elektu &quot;Nova indikilo&quot; en la fallisto kan enskribu novan etikedon.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/markvariabletext.cpp" line="18"/>
@@ -12230,10 +11421,6 @@ p, li { white-space: pre-wrap; }
 </context>
 <context>
     <name>MarksManager</name>
-    <message>
-        <source>Dialog</source>
-        <translation type="vanished">Dialogo</translation>
-    </message>
     <message>
         <location filename="../../scribus/ui/marksmanager.ui" line="41"/>
         <source>Update All Marks</source>
@@ -12296,81 +11483,6 @@ p, li { white-space: pre-wrap; }
     </message>
 </context>
 <context>
-    <name>MasterPagesPalette</name>
-    <message>
-        <source>Edit Master Pages</source>
-        <translation type="vanished">Redaktu ĉefpaĝojn</translation>
-    </message>
-    <message>
-        <source>&amp;Name:</source>
-        <translation type="vanished">&amp;Nomo:</translation>
-    </message>
-    <message>
-        <source>New Master Page</source>
-        <translation type="vanished">Nova ĉefpaĝo</translation>
-    </message>
-    <message>
-        <source>Name:</source>
-        <translation type="vanished">Nomo:</translation>
-    </message>
-    <message>
-        <source>New MasterPage</source>
-        <translation type="vanished">Nova ĉefpaĝo</translation>
-    </message>
-    <message>
-        <source>Copy #%1 of </source>
-        <translation type="vanished">Kopio #%1 el </translation>
-    </message>
-    <message>
-        <source>Duplicate the selected master page</source>
-        <translation type="vanished">Duobligu la elektitan ĉefpaĝon</translation>
-    </message>
-    <message>
-        <source>Delete the selected master page</source>
-        <translation type="vanished">Forigu la elektitan ĉefpaĝon</translation>
-    </message>
-    <message>
-        <source>Add a new master page</source>
-        <translation type="vanished">Aldonu novan ĉefpaĝon</translation>
-    </message>
-    <message>
-        <source>Import master pages from another document</source>
-        <translation type="vanished">Importu ĉefpaĝojn el alia dokumento</translation>
-    </message>
-    <message>
-        <source>New Master Page %1</source>
-        <translation type="vanished">Nova ĉefpaĝo %1</translation>
-    </message>
-    <message>
-        <source>Unable to Rename Master Page</source>
-        <translation type="vanished">Ne eblis alinomi la ĉefpaĝon</translation>
-    </message>
-    <message>
-        <source>The Normal page is not allowed to be renamed.</source>
-        <translation type="vanished">Ne estas permesate alinomi normalan paĝon.</translation>
-    </message>
-    <message>
-        <source>Rename Master Page</source>
-        <translation type="vanished">Alinomu ĉefpaĝon</translation>
-    </message>
-    <message>
-        <source>New Name:</source>
-        <translation type="vanished">Nova nomo:</translation>
-    </message>
-    <message>
-        <source>Copy #%1 of %2</source>
-        <translation type="vanished">Kopio #%1 el %2</translation>
-    </message>
-    <message>
-        <source>This master page is used at least once in the document.</source>
-        <translation type="vanished">Ĉi tiu ĉefpaĝo estas uzata almenaŭ unu fojon en la dokumento.</translation>
-    </message>
-    <message>
-        <source>Do you really want to delete master page &quot;%1&quot;?</source>
-        <translation type="vanished">Ĉu vi vere volas forigi la ĉefpaĝon &quot;%1&quot;? </translation>
-    </message>
-</context>
-<context>
     <name>Measurements</name>
     <message>
         <location filename="../../scribus/ui/measurements.cpp" line="56"/>
@@ -12380,10 +11492,6 @@ p, li { white-space: pre-wrap; }
 </context>
 <context>
     <name>MeasurementsBase</name>
-    <message>
-        <source>Distances</source>
-        <translation type="vanished">Distancoj</translation>
-    </message>
     <message>
         <location filename="../../scribus/ui/measurementsbase.ui" line="20"/>
         <source>X1:</source>
@@ -12514,10 +11622,6 @@ p, li { white-space: pre-wrap; }
         <location filename="../../scribus/ui/mergedoc.cpp" line="109"/>
         <source>&amp;Import</source>
         <translation>&amp;Importu</translation>
-    </message>
-    <message>
-        <source>Insert a comma separated list of tokens import where a token can be * for all the pages, 1-5 for a range of pages or a single page number.</source>
-        <translation type="vanished">Enmetu komdisigitan liston de simboloj, kie simbolo povus esti * por ĉiuj paĝoj, 1-5 por paĝointervalo, aŭ unuopan paĝnumeron.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/mergedoc.cpp" line="54"/>
@@ -13041,10 +12145,6 @@ Se estis elektita neniu tenilo, ĉiuj teniloj estos reportitaj al komenca pozici
 <context>
     <name>NewMarginWidget</name>
     <message>
-        <source>Form</source>
-        <translation type="vanished">Formularo</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/newmarginwidgetbase.ui" line="68"/>
         <source>Preset Layouts:</source>
         <translation>Antaŭagorditaj aspektoj:</translation>
@@ -13070,10 +12170,6 @@ Se estis elektita neniu tenilo, ĉiuj teniloj estos reportitaj al komenca pozici
         <translation>Malsupra:</translation>
     </message>
     <message>
-        <source>Link</source>
-        <translation type="vanished">Ligilo</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/newmarginwidgetbase.ui" line="125"/>
         <source>Printer Margins...</source>
         <translation>Printilaj marĝenoj...</translation>
@@ -13087,14 +12183,6 @@ Se estis elektita neniu tenilo, ĉiuj teniloj estos reportitaj al komenca pozici
         <location filename="../../scribus/ui/newmarginwidget.cpp" line="86"/>
         <source>Distance between the bottom margin guide and the edge of the page</source>
         <translation>Distanco inter la malsupra marĝeno kaj la rando de la paĝo</translation>
-    </message>
-    <message>
-        <source>Distance between the left margin guide and the edge of the page. If a double-sided, 3 or 4-fold layout is selected, this margin space can be used to achieve the correct margins for binding</source>
-        <translation type="vanished">Distanco inter la maldekstra marĝeno kaj la rando de la paĝo. Se oni markis la opcion Vidalvidaj Paĝoj, 3- aŭ 4-faldfolio, vi povas uzi ĉi tiun marĝenon por kalkuli la ĝustajn marĝenojn por bindado</translation>
-    </message>
-    <message>
-        <source>Distance between the right margin guide and the edge of the page. If a double-sided, 3 or 4-fold layout is selected, this margin space can be used to achieve the correct margins for binding</source>
-        <translation type="vanished">Distanco inter la dekstra marĝeno kaj la rando de la paĝo. Se oni markis la opcion Vidalvidaj Paĝoj, 3- aŭ 4-faldfolio, vi povas uzi ĉi tiun marĝenon por kalkuli la ĝustajn marĝenojn por bindado</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/newmarginwidget.cpp" line="339"/>
@@ -13122,10 +12210,6 @@ Se estis elektita neniu tenilo, ĉiuj teniloj estos reportitaj al komenca pozici
         <translation>Certiĝu ke ĉiuj marĝenoj havas saman valoron</translation>
     </message>
     <message>
-        <source>Import the margins for the selected page size from the available printers.</source>
-        <translation type="vanished">Importu la margenojn por la elektita paĝogrando el la disponeblaj printiloj.</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/newmarginwidget.cpp" line="87"/>
         <source>Distance between the left margin guide and the edge of the page. If a double-sided, 3 or 4-fold layout is selected, this margin space can be used to achieve the correct margins for binding.</source>
         <translation>Distanco inter la maldekstra marĝeno kaj la rando de la paĝo. Se oni markis la opcion Vidalvidaj Paĝoj, 3- aŭ 4-faldfolio,  vi povas uzi ĉi tiun marĝenon por kalkuli la ĝustajn marĝenojn por bindado.</translation>
@@ -13138,7 +12222,7 @@ Se estis elektita neniu tenilo, ĉiuj teniloj estos reportitaj al komenca pozici
     <message>
         <location filename="../../scribus/ui/newmarginwidget.cpp" line="97"/>
         <source>Ensure all bleeds have the same value</source>
-        <translation type="unfinished">Certiĝu ke ĉiuj eksterrandzonoj havas saman valoron</translation>
+        <translation>Certiĝu ke ĉiuj eksterrandzonoj havas saman valoron</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/newmarginwidget.cpp" line="99"/>
@@ -13312,10 +12396,6 @@ Se estis elektita neniu tenilo, ĉiuj teniloj estos reportitaj al komenca pozici
         <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1002"/>
         <source> %</source>
         <translation> %</translation>
-    </message>
-    <message>
-        <source>When checked use coordinates relative to the page, otherwise coordinates are relative to the Object.</source>
-        <translation type="vanished">Kiam markita ĝi uzas koordinatojn relativajn al la paĝo, alie koordinatojn relativajn al la objekto. </translation>
     </message>
     <message>
         <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1035"/>
@@ -13590,12 +12670,6 @@ Se estis elektita neniu tenilo, ĉiuj teniloj estos reportitaj al komenca pozici
         <location filename="../../scribus/ui/notesstyleseditor.cpp" line="419"/>
         <source>Notes Styles Editor is in adding new notes style mode. After pressing Cancel button Notes Styles Editor switch into normal notes styles edit mode.</source>
         <translation>La notstila redaktilo estas en reĝimo de aldono de nova notstilo. Post la premo de la Rezignobutono la notstila redaktilo pasos denove al normala reĝimo de notstila redaktado.</translation>
-    </message>
-    <message>
-        <source>New notes style will be add to document only after pressing Apply button.
-You cannot switch to different notes style before you apply that new one or press Cancel button and exit from adding mode.</source>
-        <translation type="vanished">La nova notstilo estos aldonita post la premo de la butono Apliku.
-Ne eblas pasi al alia notstilo antaŭ ol apliko de la nova aŭ premo de la Rezignobutono kaj eliro ee la aldonreĝimo.</translation>
     </message>
 </context>
 <context>
@@ -13949,14 +13023,6 @@ Ne eblas pasi al alia notstilo antaŭ ol apliko de la nova aŭ premo de la Rezig
         <translation>Kunfandu alinestilojn kun atributoj. La rezulto estos malpli da similaj alinestiloj, konservante tamen la stilatributojn, kvankam la originaj dokumentstiloj estos nomataj malsame.</translation>
     </message>
     <message>
-        <source>Prepend the document name to the paragraph style name in Scribus.</source>
-        <translation type="vanished">Antaŭmetu la dokumentnomon al la nomo de la alinestilo en Scribus. </translation>
-    </message>
-    <message>
-        <source>Make these settings the default and do not prompt again when importing an OASIS OpenDocument.</source>
-        <translation type="vanished">Igu ĉi tiujn agordojn defaŭltaj kaj ne demandu plu dum importado de OpenDocument OASIS.</translation>
-    </message>
-    <message>
         <location filename="../../scribus/plugins/gettext/odtim/odtdia.cpp" line="52"/>
         <source>Overwrite Paragraph Styles</source>
         <translation>Anstataŭigu alinestilojn</translation>
@@ -14081,10 +13147,6 @@ Ne eblas pasi al alia notstilo antaŭ ol apliko de la nova aŭ premo de la Rezig
         <location filename="../../scribus/ui/outlinepalette.cpp" line="1433"/>
         <source>Outline</source>
         <translation>Dokumentskemo</translation>
-    </message>
-    <message>
-        <source>Enter a keyword or regular expression to filter the outline.</source>
-        <translation type="vanished">Enmetu ŝlosilvorton aŭ regulan esprimon por filtri la skemon.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/outlinepalette.cpp" line="426"/>
@@ -14224,14 +13286,6 @@ Ne eblas pasi al alia notstilo antaŭ ol apliko de la nova aŭ premo de la Rezig
         <translation>&amp;Konservu</translation>
     </message>
     <message>
-        <source>Open the exported PDF with the PDF viewer as set in External Tools preferences, when not exporting to a multi-file export destination.</source>
-        <translation type="vanished">Malfermu la eksportotan PDF-dosieron per PDF-vidigilo kiel konfigurite en la agordoj de Eksteraj Iloj, kiam oni ne eksportas al multdosiera eksportcelo.</translation>
-    </message>
-    <message>
-        <source>The save button will be disabled if you are trying to export PDF/X and the info string is missing from the PDF/X tab.</source>
-        <translation type="vanished">Se vi provas eksporti en PDF/X kaj la infoteksto mankas el la langeto de PDF/X, la konservobutono estos malebligita.</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/pdfexportdialog.cpp" line="237"/>
         <source>PDF Files (*.pdf);;All Files (*)</source>
         <translation>PDF-dosieroj (*.pdf);;Ĉiaj dosieroj (*)</translation>
@@ -14361,10 +13415,6 @@ Bonvolu kontroli ĝin kaj reprovi.</translation>
         <translation>Ĉiuj</translation>
     </message>
     <message>
-        <source>Shows transparency and transparent items in your document. Requires Ghostscript 7.07 or later</source>
-        <translation type="vanished">Montras travideblecon kaj travideblajn elementojn en via dokumento. Postulas Ghostscript 7.07 aŭ postan</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/preview.cpp" line="352"/>
         <source>Gives a print preview using simulations of generic CMYK inks, instead of RGB colors</source>
         <translation>Donas printantaŭrigardon uzante simuladojn de komunaj inkoj CMYK, anstataŭ RGB-koloroj</translation>
@@ -14470,10 +13520,6 @@ Bonvolu kontroli ĝin kaj reprovi.</translation>
         <translation>Maniero estingi iom da griztonoj kiuj konsistas el cejanblua, flava kaj karmezina koloroj anstataŭigante ilin per la nigra. UCR plejparte koncernas la partojn de la bildoj kiuj estas neŭtraj kaj/aŭ la malhelajn tonojn kiuj proksimas al la griza. La uzo de tio povas pliboniĝi printante kelkajn bildojn kaj provante laŭ la diversaj kazoj. UCR malpliigas la eblon de trosaturiĝo kun CMY-inkoj.</translation>
     </message>
     <message>
-        <source>Resize the scale of the page.</source>
-        <translation type="vanished">Ŝanĝŭ la skalon de la paĝo.</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/preview.cpp" line="319"/>
         <source>Close</source>
         <translation>Fermu</translation>
@@ -14537,14 +13583,6 @@ Bonvolu kontroli ĝin kaj reprovi.</translation>
         <location filename="../../scribus/ui/preview.cpp" line="355"/>
         <source>Enables Spot Colors to be converted to composite colors. Unless you are planning to print spot colors at a commercial printer, this is probably best left enabled.</source>
         <translation>Ebligas la konverton de bazaj koloroj al kunmetitaj koloroj. Se oni ne planis printi bazajn kolorojn per komerca printilo, eble pli bone lasi ĝin ebligita.</translation>
-    </message>
-    <message>
-        <source>Apply Color Profiles</source>
-        <translation type="vanished">Apliku kolorprofilojn</translation>
-    </message>
-    <message>
-        <source>Allows you to embed color profiles in the print stream when color management is enabled</source>
-        <translation type="vanished">Permesas enkorpigi kolorprofilojn en la printfluo kiam la koloradministrado estas ebligita</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/preview.cpp" line="272"/>
@@ -15115,12 +14153,6 @@ Bonvolu kontroli ĝin kaj reprovi.</translation>
         <translation>Dokument-aranĝo</translation>
     </message>
     <message>
-        <source>Number of pages to show side-by-side on the canvas
-Often used for allowing items to be placed across page spreads</source>
-        <translation type="vanished">Nombro de paĝoj montrotaj flankĉeflankaj sur la laborareo
-Ofte uzata por permesi la surmeton de elementojn tra la paĝoj flankĉeflankaj</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/pagelayout.cpp" line="303"/>
         <source>Location on the canvas where the first page of the document is placed</source>
         <translation>Pozicio sur la laborareo kie estas lokita la unua paĝo de la dokumento</translation>
@@ -15225,10 +14257,6 @@ Ofte uzata por permesi la surmeton de elementojn tra la paĝoj flankĉeflankaj</
 <context>
     <name>PagePalette_MasterPagesBase</name>
     <message>
-        <source>Form</source>
-        <translation type="vanished">Formularo</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/pagepalette_masterpagesbase.ui" line="108"/>
         <source>&lt;&lt;&lt; Return to Normal Page Mode</source>
         <translation>&lt;&lt;&lt; Revenu al reĝimo de Normala Paĝo</translation>
@@ -15246,41 +14274,13 @@ Ofte uzata por permesi la surmeton de elementojn tra la paĝoj flankĉeflankaj</
         <source>Do you really want to delete this master page?</source>
         <translation>Ĉu vi vere volas forigi ĉi tiun ĉefpaĝon? </translation>
     </message>
-    <message>
-        <source>Arrange Pages</source>
-        <translation type="vanished">Aranĝu paĝojn</translation>
-    </message>
-    <message>
-        <source>Available Master Pages:</source>
-        <translation type="vanished">Disponeblaj ĉefpaĝoj:</translation>
-    </message>
-    <message>
-        <source>Document Pages:</source>
-        <translation type="vanished">Paĝoj de la dokumento:</translation>
-    </message>
-    <message>
-        <source>List of master pages in the document. Master page names may be dragged onto the page view below to apply master pages, or onto the empty space between pages to create new pages.</source>
-        <translation type="vanished">Listo de ĉefpaĝoj en la dokumento. La nomoj de la ĉefpaĝoj povas esti trenitaj sur la ĉi-suba paĝovido por apliki ilin al la paĝoj, aŭ sur la malplenaj spacoj inter la paĝoj por krei novajn paĝojn.</translation>
-    </message>
-    <message>
-        <source>List of normal pages in the document, shown with the document layout. Pages may be dragged to rearrange or delete them.</source>
-        <translation type="vanished">Listo de normalaj paĝoj en la dokumento, montrita kun la dokumentaspekto. La paĝoj povas estis trenitaj por rearanĝi aŭ forigi ilin.</translation>
-    </message>
-    <message>
-        <source>Drag pages or master pages onto the trash to delete them</source>
-        <translation type="vanished">Por forigi paĝojn aŭ ĉefpaĝojn trenu ilin en la rubujon</translation>
-    </message>
 </context>
 <context>
     <name>PagePalette_PagesBase</name>
     <message>
-        <source>Form</source>
-        <translation type="vanished">Formularo</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/pagepalette_pagesbase.ui" line="14"/>
         <source>Arrange Pages</source>
-        <translation type="unfinished">Aranĝu paĝojn</translation>
+        <translation>Aranĝu paĝojn</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pagepalette_pagesbase.ui" line="57"/>
@@ -15385,7 +14385,7 @@ Document Liberation Project http://www.documentliberation.org</translation>
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:10pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Sans Serif'; font-size:10pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;table border=&quot;0&quot; style=&quot;-qt-table-type: root; margin-top:4px; margin-bottom:4px; margin-left:4px; margin-right:4px;&quot;&gt;
 &lt;tr&gt;
 &lt;td style=&quot;border: none;&quot;&gt;
@@ -15980,18 +14980,6 @@ ambaŭ finaj punktoj devas esti ekster la poligono</translation>
         <translation>Interŝanĝu formojn</translation>
     </message>
     <message>
-        <source>First source shape.</source>
-        <translation type="vanished">Unua fontformo.</translation>
-    </message>
-    <message>
-        <source>Second source shape.</source>
-        <translation type="vanished">Dua fontformo.</translation>
-    </message>
-    <message>
-        <source>The resulting shape.</source>
-        <translation type="vanished">La rezulta formo.</translation>
-    </message>
-    <message>
         <location filename="../../scribus/plugins/tools/pathfinder/pathfinderbase.ui" line="313"/>
         <source>Unites the shapes</source>
         <translation>Kunmetas la formojn</translation>
@@ -16285,10 +15273,6 @@ La rezulto estas kombino de &quot;Intersekco&quot; kaj &quot;Ekskludo&quot; </tr
         <translation>Importo de dosiero:</translation>
     </message>
     <message>
-        <source>TextLabel</source>
-        <translation type="vanished">Tekstoetikedo</translation>
-    </message>
-    <message>
         <location filename="../../scribus/plugins/import/pdf/pdfimportoptions.ui" line="63"/>
         <source>Page Range</source>
         <translation>Paĝintervalo</translation>
@@ -16384,7 +15368,7 @@ La rezulto estas kombino de &quot;Intersekco&quot; kaj &quot;Ekskludo&quot; </tr
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:8pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Sans Serif'; font-size:8pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Attention:&lt;/span&gt; This script file contains code which &lt;span style=&quot; font-style:italic;&quot;&gt;might harm &lt;/span&gt;your system.&lt;/p&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;You should only permit execution of this script if you are sure that it comes from a trustworthy source. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
@@ -16406,7 +15390,7 @@ p, li { white-space: pre-wrap; }
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;DejaVu Sans&apos;; font-size:8pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'DejaVu Sans'; font-size:8pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:&apos;Sans Serif&apos;;&quot;&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
@@ -16495,10 +15479,6 @@ p, li { white-space: pre-wrap; }
 </context>
 <context>
     <name>PicSearchOptions</name>
-    <message>
-        <source>The filesystem will be searched for case insensitive file names when you check this on. Remember it is not default on most operating systems except MS Windows</source>
-        <translation type="vanished">Se vi markas tion la serĉado de dosieroj estos usklecoblinda. Memoru ke tio ne estas defaŭlta en la plejparto de la operaciumoj escepte de MS Windows</translation>
-    </message>
     <message>
         <location filename="../../scribus/ui/picsearchoptions.cpp" line="59"/>
         <source>Cancel Search</source>
@@ -16887,10 +15867,6 @@ Bonvolu elekti alian.</translation>
 <context>
     <name>PictureBrowser</name>
     <message>
-        <source>Scribus Picture Browser</source>
-        <translation type="vanished">Bildofoliumilo de Scribus</translation>
-    </message>
-    <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="68"/>
         <source>Folder Browser</source>
         <translation>Foliumilo de dosierujoj</translation>
@@ -16989,10 +15965,6 @@ Bonvolu elekti alian.</translation>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="592"/>
         <source>Sort by Type</source>
         <translation>Ordigu laŭ tipo</translation>
-    </message>
-    <message>
-        <source>Change sortorder</source>
-        <translation type="vanished">Ŝanĝu ordigmanieron</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="653"/>
@@ -17782,10 +16754,6 @@ Bonvolu elekti alian.</translation>
         <source>You need to restart the application to apply the changes.</source>
         <translation>Necesas restartigi la aplikaĵon por apliki la ŝanĝojn.</translation>
     </message>
-    <message>
-        <source>Form</source>
-        <translation type="vanished">Formularo</translation>
-    </message>
 </context>
 <context>
     <name>PmPlug</name>
@@ -17829,10 +16797,6 @@ Document Liberation Project http://www.documentliberation.org</translation>
 </context>
 <context>
     <name>PolygonWidgetBase</name>
-    <message>
-        <source>Form</source>
-        <translation type="vanished">Formularo</translation>
-    </message>
     <message>
         <location filename="../../scribus/ui/polygonwidgetbase.ui" line="28"/>
         <source>Corn&amp;ers:</source>
@@ -17905,10 +16869,6 @@ Document Liberation Project http://www.documentliberation.org</translation>
 </context>
 <context>
     <name>PositionSetterWidget</name>
-    <message>
-        <source>Form</source>
-        <translation type="vanished">Formularo</translation>
-    </message>
     <message>
         <location filename="../../scribus/ui/positionsetter.ui" line="24"/>
         <source>X-pos:</source>
@@ -18171,10 +17131,6 @@ Do you want to migrate them to the new Scribus version?</source>
 <context>
     <name>Prefs_ColorManagement</name>
     <message>
-        <source>Form</source>
-        <translation type="vanished">Formularo</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/prefs_colormanagementbase.ui" line="29"/>
         <source>Color Management</source>
         <translation>Koloradministrado</translation>
@@ -18297,10 +17253,6 @@ Do you want to migrate them to the new Scribus version?</source>
 </context>
 <context>
     <name>Prefs_Display</name>
-    <message>
-        <source>Form</source>
-        <translation type="vanished">Formularo</translation>
-    </message>
     <message>
         <location filename="../../scribus/ui/prefs_displaybase.ui" line="27"/>
         <source>Display</source>
@@ -18487,10 +17439,6 @@ Do you want to migrate them to the new Scribus version?</source>
         <translation>Kolorigu la areon ekster la marĝenoj per la sama marĝenkoloro</translation>
     </message>
     <message>
-        <source>Enable or disable  the display of linked frames.</source>
-        <translation type="vanished">Ebligu aŭ malebligu la montron de la ligitaj kadroj.</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/prefs_display.cpp" line="74"/>
         <source>Display non-printing characters such as paragraph markers in text frames</source>
         <translation>Montru neprinteblajn signojn kiel alinemarkilojn en tekstokadroj</translation>
@@ -18553,10 +17501,6 @@ Do you want to migrate them to the new Scribus version?</source>
         <translation> dpi</translation>
     </message>
     <message>
-        <source>Show Autosave Countdown Clock on the Canvas</source>
-        <translation type="vanished">Montru la horloĝon kun la tempo ĝis la aŭtokonservo sur la laborareo</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/prefs_display.cpp" line="73"/>
         <source>Enable or disable the display of linked frames</source>
         <translation>Ebligu aŭ malebligu la montron de la ligitaj kadroj.</translation>
@@ -18564,10 +17508,6 @@ Do you want to migrate them to the new Scribus version?</source>
 </context>
 <context>
     <name>Prefs_DocumentInformation</name>
-    <message>
-        <source>Form</source>
-        <translation type="vanished">Formularo</translation>
-    </message>
     <message>
         <location filename="../../scribus/ui/prefs_documentinformationbase.ui" line="27"/>
         <source>Document Information</source>
@@ -18814,26 +17754,6 @@ Do you want to migrate them to the new Scribus version?</source>
 <context>
     <name>Prefs_DocumentSections</name>
     <message>
-        <source>1, 2, 3, ...</source>
-        <translation type="vanished">1, 2, 3, ...</translation>
-    </message>
-    <message>
-        <source>i, ii, iii, ...</source>
-        <translation type="vanished">i, ii, iii, ...</translation>
-    </message>
-    <message>
-        <source>I, II, III, ...</source>
-        <translation type="vanished">I, II, III, ...</translation>
-    </message>
-    <message>
-        <source>a, b, c, ...</source>
-        <translation type="vanished">a, b, c, ...</translation>
-    </message>
-    <message>
-        <source>A, B, C, ...</source>
-        <translation type="vanished">A, B, C, ...</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/prefs_documentsections.cpp" line="184"/>
         <source>Page Number Out Of Bounds</source>
         <translation>Paĝonumero eksterintervala</translation>
@@ -18914,21 +17834,9 @@ Do you want to migrate them to the new Scribus version?</source>
         <source>Reversed</source>
         <translation>Renversita</translation>
     </message>
-    <message>
-        <source>*</source>
-        <translation type="vanished">*</translation>
-    </message>
-    <message>
-        <source>CJK</source>
-        <translation type="vanished">CJK</translation>
-    </message>
 </context>
 <context>
     <name>Prefs_DocumentSetup</name>
-    <message>
-        <source>Form</source>
-        <translation type="vanished">Formularo</translation>
-    </message>
     <message>
         <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="27"/>
         <source>Document Setup</source>
@@ -19017,10 +17925,6 @@ Do you want to migrate them to the new Scribus version?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Enable Automatic Saving of Documents</source>
-        <translation type="vanished">Ebligu aŭtokonservadon de la dokumentoj</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="547"/>
         <source>Interval:</source>
         <translation>Intervalo:</translation>
@@ -19048,7 +17952,7 @@ Do you want to migrate them to the new Scribus version?</source>
     <message>
         <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="617"/>
         <source>Change...</source>
-        <translation type="unfinished">Ŝanĝu...</translation>
+        <translation>Ŝanĝu...</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="629"/>
@@ -19079,10 +17983,6 @@ Do you want to migrate them to the new Scribus version?</source>
         <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="257"/>
         <source>Single Page</source>
         <translation>Unuopa paĝo</translation>
-    </message>
-    <message>
-        <source>pageLayoutButtonGroup</source>
-        <translation type="vanished">pageLayoutButtonGroup</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="247"/>
@@ -19177,11 +18077,7 @@ Do you want to migrate them to the new Scribus version?</source>
     <message>
         <location filename="../../scribus/ui/prefs_documentsetup.cpp" line="395"/>
         <source>Choose a Directory</source>
-        <translation type="unfinished">Elektu dosierujon</translation>
-    </message>
-    <message>
-        <source>When enabled, Scribus saves a backup copy of your file with the .bak extension each time the time period elapses</source>
-        <translation type="vanished">Se ebligita, Scribus konservas sekurkopion de via dosiero kun la finaĵo .bak ĉiam kiam pasas la tempoperiodo</translation>
+        <translation>Elektu dosierujon</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_documentsetup.cpp" line="121"/>
@@ -19366,10 +18262,6 @@ Do you want to migrate them to the new Scribus version?</source>
         <translation>Ekstera redaktilo:</translation>
     </message>
     <message>
-        <source>&lt;qt&gt;Path to the editor executable.&lt;/qt&gt;</source>
-        <translation type="vanished">&lt;qt&gt;Vojo al plenumebla dosiero de la redaktilo.&lt;/qt&gt;</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/prefs_externaltoolsbase.ui" line="613"/>
         <source>Start with empty frame</source>
         <translation>Komencu kun malplena kadro</translation>
@@ -19378,10 +18270,6 @@ Do you want to migrate them to the new Scribus version?</source>
         <location filename="../../scribus/ui/prefs_externaltoolsbase.ui" line="639"/>
         <source>Use Embedded Editor</source>
         <translation>Uzu enkorpigitan redaktilon</translation>
-    </message>
-    <message>
-        <source>Always use the configured DPI setting for calculating the size, even if the image file reports something different.</source>
-        <translation type="vanished">Uzu ĉiam la DPI-agordon konfiguritan por kalkuli la grandon, eĉ se la bildodosiero raportas ion malsaman.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_externaltoolsbase.ui" line="666"/>
@@ -19478,18 +18366,6 @@ Do you want to use this?</source>
 Ĉu oni volas uzi ĝin?</translation>
     </message>
     <message>
-        <source>&lt;qt&gt;File system location for web browser.&lt;/qt&gt;</source>
-        <translation type="vanished">&lt;qt&gt;Loko de la dosiersistemo de la Interreta foliumilo.&lt;/qt&gt;</translation>
-    </message>
-    <message>
-        <source>&lt;qt&gt;File system location for PDF viewer.&lt;/qt&gt;</source>
-        <translation type="vanished">&lt;qt&gt;Loko de la dosiersistemo de la PDF-vidigilo.&lt;/qt&gt;</translation>
-    </message>
-    <message>
-        <source>&lt;qt&gt;File system location for Uniconvertor.&lt;/qt&gt;</source>
-        <translation type="vanished">  &lt;qt&gt;Loko de la dosiersistemo de Uniconverter.&lt;/qt&gt;</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/prefs_externaltoolsbase.ui" line="332"/>
         <source>&lt;qt&gt;File system location for web browser&lt;/qt&gt;</source>
         <translation>&lt;qt&gt;Loko de la dosiersistemo de la Interreta foliumilo.&lt;/qt&gt;</translation>
@@ -19517,10 +18393,6 @@ Do you want to use this?</source>
 </context>
 <context>
     <name>Prefs_Fonts</name>
-    <message>
-        <source>Form</source>
-        <translation type="vanished">Formularo</translation>
-    </message>
     <message>
         <location filename="../../scribus/ui/prefs_fontsbase.ui" line="27"/>
         <source>Fonts</source>
@@ -19589,10 +18461,6 @@ Do you want to use this?</source>
 <context>
     <name>Prefs_Guides</name>
     <message>
-        <source>Form</source>
-        <translation type="vanished">Formularo</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/prefs_guidesbase.ui" line="27"/>
         <location filename="../../scribus/ui/prefs_guidesbase.ui" line="339"/>
         <location filename="../../scribus/ui/prefs_guides.cpp" line="61"/>
@@ -19605,10 +18473,6 @@ Do you want to use this?</source>
         <location filename="../../scribus/ui/prefs_guidesbase.ui" line="50"/>
         <source>Placement</source>
         <translation>Lokado</translation>
-    </message>
-    <message>
-        <source>Placement:</source>
-        <translation type="vanished">Lokado:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_guidesbase.ui" line="155"/>
@@ -19725,10 +18589,6 @@ Do you want to use this?</source>
         <translation>Distanco ene de kiu objekto alkaptiĝos al la helplinioj. Post la agordo necesos restartigo de Scribus por igi ĝin daŭra.</translation>
     </message>
     <message>
-        <source>Radius of the area where Scribus will allow you to grab an objects handles.After setting this you will need to restart Scribus to set this setting.</source>
-        <translation type="vanished">Radiuso de la areo kie Scribus permesos kapti la objektotenilojn. Post la agordo necesos restartigo de Scribus por igi ĝin daŭra.</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/prefs_guides.cpp" line="89"/>
         <source>Color of the minor grid lines</source>
         <translation>Koloro de la malgrandkradaj linioj</translation>
@@ -19824,26 +18684,14 @@ Do you want to use this?</source>
 <context>
     <name>Prefs_Hyphenator</name>
     <message>
-        <source>Form</source>
-        <translation type="vanished">Formularo</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/prefs_hyphenatorbase.ui" line="27"/>
         <source>Hyphenation</source>
         <translation>Vortdivido</translation>
     </message>
     <message>
-        <source>A dialog box showing all possible hyphens for each word will show up when you use the Extras, Hyphenate Text option.</source>
-        <translation type="vanished">Aperos dialogujo montranta ĉiujn eblajn dividojn por ĉiu vorto, kiam vi uzas la opcion Ekstraĵoj, Dividu vortojn.</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/prefs_hyphenatorbase.ui" line="54"/>
         <source>&amp;Hyphenation Suggestions</source>
         <translation>Vortdividaj su&amp;gestoj</translation>
-    </message>
-    <message>
-        <source>Enables automatic hyphenation of your text while typing.</source>
-        <translation type="vanished">Ebligas aŭtomatan vortdividon de la teksto dum tajpado.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_hyphenatorbase.ui" line="64"/>
@@ -19864,10 +18712,6 @@ Do you want to use this?</source>
         <location filename="../../scribus/ui/prefs_hyphenatorbase.ui" line="110"/>
         <source>Smallest Word:</source>
         <translation>Plej mallonga vorto:</translation>
-    </message>
-    <message>
-        <source>Length of the smallest word to be hyphenated.</source>
-        <translation type="vanished">Ĉi tio estas la longo de la plej eta vorto dividota.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_hyphenatorbase.ui" line="133"/>
@@ -19951,21 +18795,9 @@ Valoro egala al 0 signifas senlimajn dividojn.</translation>
         <translation>La ebligo de la bilda kaŝmemoro multe pli rapidigos la ŝargon de la bildoj. Ebligu la kaŝmemoron se oni laboras ofte kun grandaj dokumentoj entenantaj multajn bildojn kaj oni posedas multan diskospacon en la datumdosierujo de la aplikaĵo.</translation>
     </message>
     <message>
-        <source>Limit the total size of all files in the image cache directory to this amount.</source>
-        <translation type="vanished">Limigu la tutan grandon de ĉiuj dosieroj en la bilda kaŝmemoro al ĉi tiu kvanto</translation>
-    </message>
-    <message>
-        <source>Limit the number of cache entries to this number.</source>
-        <translation type="vanished">Limigu la elementnombron en la kaŝmemoro al ĉi tiu valoro.</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/prefs_imagecache.cpp" line="31"/>
         <source>Set the level of compression for images in the cache. Higher values result in smaller cache files but also make writes to the cache slower.</source>
         <translation>Agordu la densigonivelon por la bildoj en la kaŝmemoro. Pli altaj valoroj rezultigos pli malgrandajn kaŝmemorajn dosierojn sed ankaŭ malrapidigos la skribadon de la kaŝmemoro.</translation>
-    </message>
-    <message>
-        <source>Form</source>
-        <translation type="vanished">Formularo</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_imagecachebase.ui" line="27"/>
@@ -20010,10 +18842,6 @@ Valoro egala al 0 signifas senlimajn dividojn.</translation>
 </context>
 <context>
     <name>Prefs_ItemTools</name>
-    <message>
-        <source>Form</source>
-        <translation type="vanished">Formularo</translation>
-    </message>
     <message>
         <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="27"/>
         <source>Item Tools</source>
@@ -20165,10 +18993,6 @@ Valoro egala al 0 signifas senlimajn dividojn.</translation>
         <translation>Libera skalado</translation>
     </message>
     <message>
-        <source>scalingButtonGroup</source>
-        <translation type="vanished">scalingButtonGroup</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="892"/>
         <source>Horizontal Scaling:</source>
         <translation>Horizontala skalado:</translation>
@@ -20202,10 +19026,6 @@ Valoro egala al 0 signifas senlimajn dividojn.</translation>
         <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="822"/>
         <source>Full Resolution</source>
         <translation>Alta distingivo</translation>
-    </message>
-    <message>
-        <source>previewButtonGroup</source>
-        <translation type="vanished">previewButtonGroup</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="832"/>
@@ -20494,10 +19314,6 @@ Valoro egala al 0 signifas senlimajn dividojn.</translation>
 <context>
     <name>Prefs_Miscellaneous</name>
     <message>
-        <source>Form</source>
-        <translation type="vanished">Formularo</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/prefs_miscellaneousbase.ui" line="27"/>
         <source>Miscellaneous</source>
         <translation>Diversaĵoj</translation>
@@ -20530,10 +19346,6 @@ Valoro egala al 0 signifas senlimajn dividojn.</translation>
 </context>
 <context>
     <name>Prefs_OperatorTools</name>
-    <message>
-        <source>Form</source>
-        <translation type="vanished">Formularo</translation>
-    </message>
     <message>
         <location filename="../../scribus/ui/prefs_operatortoolsbase.ui" line="27"/>
         <source>Operator Tools</source>
@@ -20630,10 +19442,6 @@ Valoro egala al 0 signifas senlimajn dividojn.</translation>
 <context>
     <name>Prefs_PDFExport</name>
     <message>
-        <source>Form</source>
-        <translation type="vanished">Formularo</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="27"/>
         <source>PDF Export</source>
         <translation>PDF-eksporto</translation>
@@ -20648,10 +19456,6 @@ Valoro egala al 0 signifas senlimajn dividojn.</translation>
         <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="71"/>
         <source>All Pages</source>
         <translation>Ĉiuj paĝoj</translation>
-    </message>
-    <message>
-        <source>rangeButtonGroup</source>
-        <translation type="vanished">rangeButtonGroup</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="81"/>
@@ -20944,10 +19748,6 @@ Valoro egala al 0 signifas senlimajn dividojn.</translation>
         <translation>Uzu la dokumentan eksterrandzonon</translation>
     </message>
     <message>
-        <source>PDF/X-3 Output Intent</source>
-        <translation type="vanished">Eligcelo de PDF/X</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1230"/>
         <source>Output Profile:</source>
         <translation>Eliga profilo:</translation>
@@ -20963,26 +19763,14 @@ Valoro egala al 0 signifas senlimajn dividojn.</translation>
         <translation>Tiparoj</translation>
     </message>
     <message>
-        <source>Available Fonts</source>
-        <translation type="vanished">Disponeblaj Tiparoj</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1346"/>
         <source>Embed All</source>
         <translation>Enkorpigu ĉiujn</translation>
     </message>
     <message>
-        <source>Outline All</source>
-        <translation type="vanished">Konturu ĉiujn</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1336"/>
         <source>Fonts to Embed</source>
         <translation>Tiparoj enkorpigotaj</translation>
-    </message>
-    <message>
-        <source>Fonts to Outline</source>
-        <translation type="vanished">Tiparoj konturotaj</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1428"/>
@@ -21142,14 +19930,6 @@ kiam PDF-dokumento estas malfermita:</translation>
         <translation>Eksportu paĝintervalon al PDF</translation>
     </message>
     <message>
-        <source>Insert a comma separated list of tokens where a token can be * for all the pages, 1-5 for a range of pages or a single page number.</source>
-        <translation type="vanished">Enmetu komdisigitan liston de simboloj, kie simbolo povus esti * por ĉiuj paĝoj, 1-5 por paĝointervalo, aŭ unuopa paĝnumeron.</translation>
-    </message>
-    <message>
-        <source>Determines the PDF compatibility.&lt;br/&gt;The default is &lt;b&gt;PDF 1.3&lt;/b&gt; which gives the widest compatibility.&lt;br/&gt;Choose &lt;b&gt;PDF 1.4&lt;/b&gt; if your file uses features such as transparency or you require 128 bit encryption.&lt;br/&gt;&lt;b&gt;PDF 1.5&lt;/b&gt; is necessary when you wish to preserve objects in separate layers within the PDF.&lt;br/&gt;&lt;b&gt;PDF/X-3&lt;/b&gt; is for exporting the PDF when you want color managed RGB for commercial printing and is selectable when you have activated color management. Use only when advised by your printer or in some cases printing to a 4 color digital color laser printer.&lt;br/&gt;&lt;b&gt;PDF/X-1a&lt;/b&gt; is for blind exchange with colors strictly specified in CMYK or spot colors.&lt;br/&gt;&lt;b&gt;PDF/X-4&lt;/b&gt; is an extension of PDF/X-3 to support transparancy and layering.</source>
-        <translation type="vanished">Determinas la PDF-kongruon.&lt;br/&gt;La defaŭlta estas&lt;b&gt;PDF 1.3&lt;/b&gt; kiu donas la plej grandan kongruecon.&lt;br/&gt;Elektu&lt;b&gt;PDF 1.4&lt;/b&gt; se la ecoj de via dosieroj estas, ekzemple, travidebleco aŭ ĉifrado je 128 bit.&lt;br/&gt;&lt;b&gt;PDF 1.5&lt;/b&gt;necesas kiam vi deziras konservi la objektojn en apartaj tavoloj en la PDF.&lt;br/&gt;&lt;b&gt;PDF/X-3&lt;/b&gt; estas por eksportado de PDF kiam vi volas koloron RGB por komerca printado kaj ĝi estas elektebla kiam vi aktivigis koloradministradon. Uzu nur kiam petita fare de via presisto aŭ en iaj kazoj dum printado al 4-koloroj per cifereckolora laserprintilo.&lt;br/&gt;&lt;b&gt;PDF/X-1a&lt;/b&gt; estas por blinda interŝanĝo kun koloroj strikte specifitaj en CMYK aŭ bazaj koloroj.&lt;br/&gt;&lt;b&gt;PDF/X-4&lt;/b&gt; estas etendo de PDF/X-3 por subteni travideblecon kaj tavolojn.</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="57"/>
         <source>Determines the binding of pages in the PDF. Unless you know you need to change it leave the default choice - Left.</source>
         <translation>Difinas la paĝobindon en PDF-dosiero. Se vi ne scias ĉu vi bezonas modifi, lasu ĝin laŭ la defaŭlta elekto - Maldekstra.</translation>
@@ -21158,14 +19938,6 @@ kiam PDF-dokumento estas malfermita:</translation>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="58"/>
         <source>Generates thumbnails of each page in the PDF. Some viewers can use the thumbnails for navigation.</source>
         <translation>Generas miniaturojn por ĉiu PDF-paĝo. Kelkaj vidigiloj povas uzi la minaturojn por la navigado.</translation>
-    </message>
-    <message>
-        <source>Generate PDF Articles, which is useful for navigating linked articles in a PDF.</source>
-        <translation type="vanished">Generas PDF-erojn, utilajn por la navigado tra la ligitaj artikoloj en PDF-dosiero.</translation>
-    </message>
-    <message>
-        <source>Layers in your document are exported to the PDF Only available if PDF 1.5 is chosen.</source>
-        <translation type="vanished">La tavoloj de via dokumento estos eksportitaj al PDF. Disponebla nur se oni elektis PDF 1.5.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="61"/>
@@ -21203,25 +19975,9 @@ kiam PDF-dokumento estas malfermita:</translation>
         <translation>Malgrandigas la rastrumbildojn ĝis la elektita DPI. Bildoj kun pli malalta distingivo ne estos modifitaj. Se vi ne markas la bildoj restos kun la origina distingivo. La ebligo de tio pliigos la uzadon de la memoro kaj malrapidigos la eksporton. </translation>
     </message>
     <message>
-        <source>DPI (Dots Per Inch) for image export.</source>
-        <translation type="vanished">DPI (punktoj en colo) por la bildoeksporto.</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="69"/>
         <source>Enable the security features in your exported PDF. If you selected PDF 1.3, the PDF will be protected by 40 bit encryption. If you selected PDF 1.4, the PDF will be protected by 128 bit encryption. Disclaimer: PDF encryption is not as reliable as GPG or PGP encryption and does have some limitations.</source>
         <translation>Ebligu la sekurecon en la eksportita PDF-dosiero. Se vi elektis PDf 1.3, la PDF-dosiero estos protektita de 40bita ĉifrado. Se vi elektis PDF 1.4, la PDF-dosiero estos protektita de 128bita ĉifrado. Atenton: PDF-ĉifrado ne estas sekura kiel GPG- aŭ PGP-ĉifrado kaj havas kelkajn limojn.</translation>
-    </message>
-    <message>
-        <source>Choose a password for users to be able to read your PDF.</source>
-        <translation type="vanished">Elektu pasvorton por uzantoj kiu ebligas al ili legi vian PDF-dosieron.</translation>
-    </message>
-    <message>
-        <source>Allow printing of the PDF. If un-checked, printing is prevented. </source>
-        <translation type="vanished">Permesas printadon de la PDF-dosieron. Se ne markita, ne eblas printi. </translation>
-    </message>
-    <message>
-        <source>Allow modifying of the PDF. If un-checked, modifying the PDF is prevented.</source>
-        <translation type="vanished">Permesas redakton de la PDF-dosiero. Se ne markita ne eblas modifi la PDF-dosieron.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="74"/>
@@ -21562,30 +20318,6 @@ kiam PDF-dokumento estas malfermita:</translation>
         <translation>Longo de la tempo dum kiu la efekto plenumiĝas. Pli mallonga tempo rapidigos la efekton, pli longa malrapidigos ĝin.</translation>
     </message>
     <message>
-        <source>Type of the display effect.</source>
-        <translation type="vanished">Tipo de la vidigoefekto.</translation>
-    </message>
-    <message>
-        <source>Direction of the effect of moving lines for the split and blind effects.</source>
-        <translation type="vanished">Direkto de la efekto de la moviĝantaj linioj por la efektoj Opako kaj Disigo.</translation>
-    </message>
-    <message>
-        <source>Starting position for the box and split effects.</source>
-        <translation type="vanished">Startpozicio por la efektoj Disigo kaj Ĉelo.</translation>
-    </message>
-    <message>
-        <source>Direction of the glitter or wipe effects.</source>
-        <translation type="vanished">Direkto de la efektoj Brilo kaj Purigo. </translation>
-    </message>
-    <message>
-        <source>Apply the selected effect to all pages.</source>
-        <translation type="vanished">Apliku la elektitan efekton al ĉiuj paĝoj.</translation>
-    </message>
-    <message>
-        <source>Convert all glyphs in the document to outlines.</source>
-        <translation type="vanished">Konvertu ĉiujn signobildojn en la dokumento al konturoj.</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="662"/>
         <source>Show the document in single page mode</source>
         <translation>Montru la dokumenton en unuopapaĝa reĝimo</translation>
@@ -21634,14 +20366,6 @@ kiam PDF-dokumento estas malfermita:</translation>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="671"/>
         <source>Hides the Tool Bar which has selection and other editing capabilities</source>
         <translation>Kaŝas la Ilbreton kiu enhavas elektan kaj aliajn redaktajn kapablecojn</translation>
-    </message>
-    <message>
-        <source>Hides the Menu Bar for the viewer, the PDF will display in a plain window. </source>
-        <translation type="vanished">Kaŝas la Menubreton en la vidigilo, la PDF estos montrita en simpla fenestro. </translation>
-    </message>
-    <message>
-        <source>Fit the document page or pages to the available space in the viewer window.</source>
-        <translation type="vanished">Adaptu la dokumentpaĝon aŭ paĝojn al la disponebla spaco en la vidigila fenestro.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1043"/>
@@ -21697,10 +20421,6 @@ kiam PDF-dokumento estas malfermita:</translation>
         <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1416"/>
         <source>Subset All</source>
         <translation>Sub-arigu ĉiujn</translation>
-    </message>
-    <message>
-        <source>Embed only subset fonts with glyphs used in the document into the PDF.</source>
-        <translation type="vanished">Enkorpigu en la PDF-dokumenton nur sub-arajn tiparojn kun la bildosignoj uzataj en la dokumento.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="51"/>
@@ -21791,10 +20511,6 @@ kiam PDF-dokumento estas malfermita:</translation>
 <context>
     <name>Prefs_PageSizes</name>
     <message>
-        <source>Form</source>
-        <translation type="vanished">Formularo</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/prefs_pagesizesbase.ui" line="27"/>
         <source>Page Sizes</source>
         <translation>Paĝograndoj</translation>
@@ -21812,10 +20528,6 @@ kiam PDF-dokumento estas malfermita:</translation>
 </context>
 <context>
     <name>Prefs_Paths</name>
-    <message>
-        <source>Form</source>
-        <translation type="vanished">Formularo</translation>
-    </message>
     <message>
         <location filename="../../scribus/ui/prefs_pathsbase.ui" line="27"/>
         <source>Paths</source>
@@ -21913,10 +20625,6 @@ kiam PDF-dokumento estas malfermita:</translation>
 <context>
     <name>Prefs_Plugins</name>
     <message>
-        <source>Form</source>
-        <translation type="vanished">Formularo</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/prefs_pluginsbase.ui" line="27"/>
         <source>Plugins</source>
         <translation>Kromprogramoj</translation>
@@ -21959,10 +20667,6 @@ kiam PDF-dokumento estas malfermita:</translation>
 </context>
 <context>
     <name>Prefs_PreflightVerifier</name>
-    <message>
-        <source>Form</source>
-        <translation type="vanished">Formularo</translation>
-    </message>
     <message>
         <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="27"/>
         <source>Preflight Verifier</source>
@@ -22103,10 +20807,6 @@ kiam PDF-dokumento estas malfermita:</translation>
 <context>
     <name>Prefs_Printer</name>
     <message>
-        <source>Form</source>
-        <translation type="vanished">Formularo</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/prefs_printerbase.ui" line="29"/>
         <source>Printing</source>
         <translation>Printebla</translation>
@@ -22192,10 +20892,6 @@ kiam PDF-dokumento estas malfermita:</translation>
         <translation>Konvertu bazajn kolorojn al CMYK-modelaj </translation>
     </message>
     <message>
-        <source>Apply ICC Profiles</source>
-        <translation type="vanished">Apliku ICC-profilojn</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/prefs_printerbase.ui" line="319"/>
         <source>PostScript</source>
         <translation>Postskripto</translation>
@@ -22276,12 +20972,6 @@ kiam PDF-dokumento estas malfermita:</translation>
         <translation>Uzu alian printadministrilon, kiel kprinter aŭ gtklp, por uzi kromajn printopciojn</translation>
     </message>
     <message>
-        <source>Sets the PostScript Level.
- Setting to Level 1 or 2 can create huge files</source>
-        <translation type="vanished">Agordas Postskriptnivelon.
-Agordado al Nivelo 1 aŭ 2 povus krei grandegajn dosierojn</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/prefs_printer.cpp" line="33"/>
         <source>A way of switching off some of the gray shades which are composed of cyan, yellow and magenta and using black instead. UCR most affects parts of images which are neutral and/or dark tones which are close to the gray. Use of this may improve printing some images and some experimentation and testing is need on a case by case basis. UCR reduces the possibility of over saturation with CMY inks.</source>
         <translation>Maniero estingi iom da griztonoj kiuj konsistas el cejanblua, flava kaj karmezina koloroj anstataŭigante ilin per la nigra. UCR plejparte koncernas la partojn de la bildoj kiuj estas neŭtraj kaj/aŭ la malhelajn tonojn kiuj proksimas al la griza. La uzo de tio povas pliboniĝi printante kelkajn bildojn kaj provante laŭ la diversaj kazoj. UCR malpliigas la eblon de trosaturiĝo kun CMY-inkoj.</translation>
@@ -22292,17 +20982,9 @@ Agordado al Nivelo 1 aŭ 2 povus krei grandegajn dosierojn</translation>
         <translation>Ebligas la konverton de bazaj koloroj al kunmetitaj koloroj. Se oni ne planis printi bazajn kolorojn per komerca printilo, eble pli bone lasi ĝin ebligita.</translation>
     </message>
     <message>
-        <source>Allows you to embed color profiles in the print stream when color management is enabled</source>
-        <translation type="vanished">Permesas enkorpigi kolorprofilojn en la printfluo kiam la koloradministrado estas ebligita</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/prefs_printer.cpp" line="62"/>
         <source>File</source>
         <translation>Dosiero</translation>
-    </message>
-    <message>
-        <source>All</source>
-        <translation type="vanished">Ĉiuj</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_printerbase.ui" line="495"/>
@@ -22324,10 +21006,6 @@ Agordado al Nivelo 1 aŭ 2 povus krei grandegajn dosierojn.</translation>
 </context>
 <context>
     <name>Prefs_Scrapbook</name>
-    <message>
-        <source>Form</source>
-        <translation type="vanished">Formularo</translation>
-    </message>
     <message>
         <location filename="../../scribus/ui/prefs_scrapbookbase.ui" line="27"/>
         <source>Scrapbook</source>
@@ -22354,10 +21032,6 @@ Agordado al Nivelo 1 aŭ 2 povus krei grandegajn dosierojn.</translation>
         <translation>Nombro de kopiitaj elementoj konservotaj en la albumo</translation>
     </message>
     <message>
-        <source>This enables the scrapbook to be used an extension to the copy/paste buffers. Simply copying an object or grouped object will send this to the Scrapbook automatically</source>
-        <translation type="vanished">Ebligas la uzadon de la albumo kiel kroma bufro por kopii/alglui. Kopiado de objekto aŭ objektgrupo aŭtomate sendos ilin al Albumo</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/prefs_scrapbook.cpp" line="26"/>
         <source>This enables copied items to be kept permanently in the scrapbook</source>
         <translation>Tio ebligas kopiitajn elementojn esti daŭre konservitaj en la albumo</translation>
@@ -22380,10 +21054,6 @@ Agordado al Nivelo 1 aŭ 2 povus krei grandegajn dosierojn.</translation>
 </context>
 <context>
     <name>Prefs_Scripter</name>
-    <message>
-        <source>Form</source>
-        <translation type="vanished">Formularo</translation>
-    </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/prefs_scripterbase.ui" line="27"/>
         <source>Scripter</source>
@@ -22458,10 +21128,6 @@ Agordado al Nivelo 1 aŭ 2 povus krei grandegajn dosierojn.</translation>
 <context>
     <name>Prefs_ShortWords</name>
     <message>
-        <source>Form</source>
-        <translation type="vanished">Formularo</translation>
-    </message>
-    <message>
         <location filename="../../scribus/plugins/short-words/prefs_shortwordsbase.ui" line="66"/>
         <source>Save</source>
         <translation>Konservu</translation>
@@ -22516,10 +21182,6 @@ Agordado al Nivelo 1 aŭ 2 povus krei grandegajn dosierojn.</translation>
 </context>
 <context>
     <name>Prefs_Spelling</name>
-    <message>
-        <source>Form</source>
-        <translation type="vanished">Formularo</translation>
-    </message>
     <message>
         <location filename="../../scribus/ui/prefs_spellingbase.ui" line="27"/>
         <source>Spelling</source>
@@ -22580,10 +21242,6 @@ Agordado al Nivelo 1 aŭ 2 povus krei grandegajn dosierojn.</translation>
 </context>
 <context>
     <name>Prefs_TableOfContents</name>
-    <message>
-        <source>Form</source>
-        <translation type="vanished">Formularo</translation>
-    </message>
     <message>
         <location filename="../../scribus/ui/prefs_tableofcontentsbase.ui" line="27"/>
         <source>Table of Contents</source>
@@ -22687,10 +21345,6 @@ Agordado al Nivelo 1 aŭ 2 povus krei grandegajn dosierojn.</translation>
 </context>
 <context>
     <name>Prefs_Typography</name>
-    <message>
-        <source>Form</source>
-        <translation type="vanished">Formularo</translation>
-    </message>
     <message>
         <location filename="../../scribus/ui/prefs_typographybase.ui" line="27"/>
         <source>Typography</source>
@@ -22825,10 +21479,6 @@ Agordado al Nivelo 1 aŭ 2 povus krei grandegajn dosierojn.</translation>
 <context>
     <name>Prefs_UserInterface</name>
     <message>
-        <source>Form</source>
-        <translation type="vanished">Formularo</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/prefs_userinterfacebase.ui" line="27"/>
         <source>User Interface</source>
         <translation>Fasado de la uzanto</translation>
@@ -22940,17 +21590,9 @@ Agordado al Nivelo 1 aŭ 2 povus krei grandegajn dosierojn.</translation>
         <translation>Montru la komencan dialogujon</translation>
     </message>
     <message>
-        <source>Select your default language for Scribus to run with. Leave this blank to choose based on environment variables. You can still override this by passing a command line option when starting Scribus</source>
-        <translation type="vanished">Elektu la defaŭltan lingvon por Scribus. Lasu ĝin malplena por elekti laŭ la lokaĵaro. Eblas superskribi tion per komando kun opcia linio dum la lanĉo de Scribus</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/prefs_userinterface.cpp" line="54"/>
         <source>Choose the default window decoration and looks. Scribus inherits any available KDE or Qt themes, if Qt is configured to search KDE plugins.</source>
         <translation>Elektu la defaŭltan fenestroaspekton kaj ormanon. Scribus uzos la disponeblajn KDE- kaj Qt-temojn, se ĉi lasta estas konfigurita por serĉi KDE-kromprogramojn.</translation>
-    </message>
-    <message>
-        <source>Palette windows will use smaller (space savy) widgets. Requires application restart</source>
-        <translation type="vanished">Paletraj fenestroj uzos pli malgrandajn (spacŝparigaj) fenestraĵoj. Postulas aplikaĵan restartigon</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_userinterface.cpp" line="57"/>
@@ -22973,12 +21615,8 @@ Agordado al Nivelo 1 aŭ 2 povus krei grandegajn dosierojn.</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Number of lines Scribus will scroll for each move of the mouse wheel</source>
-        <translation type="vanished">Lini-nombro kiun Scribus rulos por ĉiu movo de la musrado</translation>
-    </message>
-    <message>
-        <source></source>
-        <translation></translation>
+        <source/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_userinterfacebase.ui" line="254"/>
@@ -23209,14 +21847,6 @@ Agordado al Nivelo 1 aŭ 2 povus krei grandegajn dosierojn.</translation>
         <translation>Printu inte&amp;valon</translation>
     </message>
     <message>
-        <source>Insert a comma separated list of tokens where
-a token can be * for all the pages, 1-5 for
-a range of pages or a single page number.</source>
-        <translation type="vanished">Enmetu komdisigitan liston de simboloj, kie
-simbolo povus esti * por ĉiuj paĝoj, 1-5
-por paĝointervalo, aŭ unuopa paĝnumero.</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/printdialogbase.ui" line="295"/>
         <source>Options</source>
         <translation>Opcioj</translation>
@@ -23240,12 +21870,6 @@ por paĝointervalo, aŭ unuopa paĝnumero.</translation>
         <location filename="../../scribus/ui/printdialogbase.ui" line="321"/>
         <source>Print in Grayscale</source>
         <translation>Printu grizgame</translation>
-    </message>
-    <message>
-        <source>Sets the PostScript Level.
- Setting to Level 1 or 2 can create huge files</source>
-        <translation type="vanished">Agordas Postskriptnivelon.
-Agordado al Nivelo 1 aŭ 2 povus krei grandegajn dosierojn.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/printdialogbase.ui" line="354"/>
@@ -23286,14 +21910,6 @@ Agordado al Nivelo 1 aŭ 2 povus krei grandegajn dosierojn.</translation>
         <location filename="../../scribus/ui/printdialogbase.ui" line="419"/>
         <source>Convert Spot Colors to Process Colors</source>
         <translation>Konvertu bazajn kolorojn al CMYK-modelaj </translation>
-    </message>
-    <message>
-        <source>Allows you to embed color profiles in the print stream when color management is enabled</source>
-        <translation type="vanished">Permesas enkorpigi kolorprofilojn en la printfluo kiam la koloradministrado estas ebligita</translation>
-    </message>
-    <message>
-        <source>Apply Color Profiles</source>
-        <translation type="vanished">Apliku kolorprofilojn</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/printdialogbase.ui" line="446"/>
@@ -23421,12 +22037,6 @@ Agordado al Nivelo 1 aŭ 2 povus krei grandegajn dosierojn.</translation>
         <translation>Rezignu</translation>
     </message>
     <message>
-        <source>Include PDF Annotations and Links into the output.
-Note: PDF Forms will not be exported.</source>
-        <translation type="vanished">Inkluzivu PDF&apos;ajn komentojn kaj ligilojn en la eligo.
-Noto: PDF-formularoj ne estos eksportitaj.</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/printdialogbase.ui" line="346"/>
         <source>Include PDF Annotations and Links</source>
         <translation>Inkluzivu PDF&apos;ajn komentojn kaj ligilojn</translation>
@@ -23542,90 +22152,7 @@ Agordado al Nivelo 1 aŭ 2 povus krei grandegajn dosierojn.</translation>
     </message>
 </context>
 <context>
-    <name>PropertiesPalette_Group</name>
-    <message>
-        <source>&amp;Edit...</source>
-        <translation type="vanished">R&amp;edaktu...</translation>
-    </message>
-    <message>
-        <source>Shape</source>
-        <translation type="vanished">Formo</translation>
-    </message>
-    <message>
-        <source>Text &amp;Flow Around Frame</source>
-        <translation type="vanished">Teksto&amp;fluo ĉirkaŭ kadro</translation>
-    </message>
-    <message>
-        <source>Disabled</source>
-        <translation type="vanished">Neebligita</translation>
-    </message>
-    <message>
-        <source>Use Frame &amp;Shape</source>
-        <translation type="vanished">Uz&amp;u la kadroformon</translation>
-    </message>
-    <message>
-        <source>Use &amp;Bounding Box</source>
-        <translation type="vanished">Uzu la limig&amp;an keston</translation>
-    </message>
-    <message>
-        <source>&amp;Use Contour Line</source>
-        <translation type="vanished">&amp;Uzu konturon</translation>
-    </message>
-    <message>
-        <source>Use Image Clip Path</source>
-        <translation type="vanished">Uzu tondostrekon de la bildo</translation>
-    </message>
-    <message>
-        <source>Disable text flow from lower frames around object</source>
-        <translation type="vanished">Malebligu tekstofluon el la malsuperaj kadroj ĉirkaŭ la objekto</translation>
-    </message>
-    <message>
-        <source>Use the frame shape for text flow of text frames below the object.</source>
-        <translation type="vanished">Uzu la kadroformon por la tekstofluo de la tekstokadroj sub la objekto.</translation>
-    </message>
-    <message>
-        <source>Use the bounding box, which is always rectangular, instead of the frame&apos;s shape for text flow of text frames below the object. </source>
-        <translation type="vanished">Uzu la limigan keston, kiu estas ĉiam rektangula, anstataŭ la kadroformo por la tekstofluo de la tekstokadroj sub la objekto.</translation>
-    </message>
-    <message>
-        <source>When chosen, the contour line can be edited with the Edit Shape Tool on the palette further above. When edited via the shape palette, this becomes a second separate line originally based on the frame&apos;s shape for text flow of text frames below the object.</source>
-        <translation type="vanished">Se elektita, eblas redakti la konturlinion per la Formoredaktilo sur la paletro ĉi-supra. Kiam redaktata tra la formopaletro, ĝi fariĝas dua apartigita linio origine bazita sur la kadroformo por tekstofluo de la tekstokadroj sub la objekto.</translation>
-    </message>
-    <message>
-        <source>Use the clipping path of the image</source>
-        <translation type="vanished">Uzu la tondostrekon de la bildo</translation>
-    </message>
-    <message>
-        <source>Any path self-intersections or subpaths create holes in the fill.</source>
-        <translation type="vanished">Ĉiu intersekciĝo de la streko kun si mem kreas truojn en la plenigo.</translation>
-    </message>
-    <message>
-        <source>Fill is solid unless a subpath is counterdirectional.</source>
-        <translation type="vanished">La plenigo estas homogena krom se la substreko estas en mala direkto.</translation>
-    </message>
-    <message>
-        <source>Use the frame shape for text flow of text frames below the object</source>
-        <translation type="vanished">Uzu la kadroformon por la tekstofluo de la tekstokadroj sub la objekto</translation>
-    </message>
-    <message>
-        <source>Use the bounding box, which is always rectangular, instead of the frame&apos;s shape for text flow of text frames below the object</source>
-        <translation type="vanished">Uzu la limigan keston, kiu estas ĉiam rektangula, anstataŭ la kadroformo por la tekstofluo de la tekstokadroj sub la objekto</translation>
-    </message>
-    <message>
-        <source>Any path self-intersections or subpaths create holes in the fill</source>
-        <translation type="vanished">Ĉiu intersekciĝo de la streko kun si mem kreas truojn en la plenigo</translation>
-    </message>
-    <message>
-        <source>Fill is solid unless a subpath is counter-directional</source>
-        <translation type="vanished">La plenigo estas homogena krom se la substreko estas en mala direkto</translation>
-    </message>
-</context>
-<context>
     <name>PropertiesPalette_GroupBase</name>
-    <message>
-        <source>Form</source>
-        <translation type="vanished">Formularo</translation>
-    </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_groupbase.ui" line="35"/>
         <source>Shape</source>
@@ -23642,17 +22169,9 @@ Agordado al Nivelo 1 aŭ 2 povus krei grandegajn dosierojn.</translation>
         <translation>R&amp;edaktu...</translation>
     </message>
     <message>
-        <source>Text Flow Around Frame</source>
-        <translation type="vanished">Tekstofluo ĉirkaŭ kadro</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/propertiespalette_groupbase.ui" line="126"/>
         <source>Disabled</source>
         <translation>Neebligita</translation>
-    </message>
-    <message>
-        <source>Use &amp;Frame Shape</source>
-        <translation type="vanished">Uz&amp;u la kadroformon</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_groupbase.ui" line="182"/>
@@ -23682,22 +22201,22 @@ Agordado al Nivelo 1 aŭ 2 povus krei grandegajn dosierojn.</translation>
     <message>
         <location filename="../../scribus/ui/propertiespalette_groupbase.ui" line="93"/>
         <source>Text &amp;Flow Around Frame</source>
-        <translation type="unfinished">Teksto&amp;fluo ĉirkaŭ kadro</translation>
+        <translation>Teksto&amp;fluo ĉirkaŭ kadro</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_groupbase.ui" line="123"/>
         <source>Disable text flow from lower frames around object</source>
-        <translation type="unfinished">Malebligu tekstofluon el la malsuperaj kadroj ĉirkaŭ la objekto</translation>
+        <translation>Malebligu tekstofluon el la malsuperaj kadroj ĉirkaŭ la objekto</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_groupbase.ui" line="151"/>
         <source>Use the frame shape for text flow of text frames below the object</source>
-        <translation type="unfinished">Uzu la kadroformon por la tekstofluo de la tekstokadroj sub la objekto</translation>
+        <translation>Uzu la kadroformon por la tekstofluo de la tekstokadroj sub la objekto</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_groupbase.ui" line="154"/>
         <source>Use Frame &amp;Shape</source>
-        <translation type="unfinished">Uz&amp;u la kadroformon</translation>
+        <translation>Uz&amp;u la kadroformon</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_groupbase.ui" line="179"/>
@@ -23752,70 +22271,6 @@ Agordado al Nivelo 1 aŭ 2 povus krei grandegajn dosierojn.</translation>
         <location filename="../../scribus/ui/propertiespalette_image.cpp" line="795"/>
         <source>Auto</source>
         <translation>Aŭtomata</translation>
-    </message>
-    <message>
-        <source>Actual X-DPI:</source>
-        <translation type="vanished">Aktuala X DPI:</translation>
-    </message>
-    <message>
-        <source>Actual Y-DPI:</source>
-        <translation type="vanished">Aktuala Y-DPI:</translation>
-    </message>
-    <message>
-        <source>&amp;X-Pos:</source>
-        <translation type="vanished">&amp;X-Poz:</translation>
-    </message>
-    <message>
-        <source>&amp;Y-Pos:</source>
-        <translation type="vanished">&amp;Y-Poz:</translation>
-    </message>
-    <message>
-        <source>X-Sc&amp;ale:</source>
-        <translation type="vanished">X-Sk&amp;alo:</translation>
-    </message>
-    <message>
-        <source>Y-Scal&amp;e:</source>
-        <translation type="vanished">Y-Ska&amp;lo:</translation>
-    </message>
-    <message>
-        <source>&amp;Free Scaling</source>
-        <translation type="vanished">Li&amp;bera skalado</translation>
-    </message>
-    <message>
-        <source>&amp;Page Number:</source>
-        <translation type="vanished">&amp;Paĝonumero:</translation>
-    </message>
-    <message>
-        <source>Rotation:</source>
-        <translation type="vanished">Rotacio:</translation>
-    </message>
-    <message>
-        <source>P&amp;roportional</source>
-        <translation type="vanished">P&amp;roporcie</translation>
-    </message>
-    <message>
-        <source>Image Effects</source>
-        <translation type="vanished">Bildoefektoj</translation>
-    </message>
-    <message>
-        <source>Extended Properties</source>
-        <translation type="vanished">Kromaj bildaj ecoj</translation>
-    </message>
-    <message>
-        <source>Input Profile:</source>
-        <translation type="vanished">Eniga profilo:</translation>
-    </message>
-    <message>
-        <source>Rendering Intent:</source>
-        <translation type="vanished">Bildigocelo:</translation>
-    </message>
-    <message>
-        <source>Method:</source>
-        <translation type="vanished">Metodo:</translation>
-    </message>
-    <message>
-        <source>Quality:</source>
-        <translation type="vanished">Kvalito:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_image.cpp" line="799"/>
@@ -23899,89 +22354,13 @@ Agordado al Nivelo 1 aŭ 2 povus krei grandegajn dosierojn.</translation>
         <translation> pt</translation>
     </message>
     <message>
-        <source>Horizontal offset of image within frame</source>
-        <translation type="vanished">Horizontala ŝovo de la bildo en la kadro</translation>
-    </message>
-    <message>
-        <source>Vertical offset of image within frame</source>
-        <translation type="vanished">Vertikala ŝovo de la bildo en la kadro</translation>
-    </message>
-    <message>
-        <source>Resize the image horizontally</source>
-        <translation type="vanished">Ŝanĝu la grandon de la bildo horizontale</translation>
-    </message>
-    <message>
-        <source>Resize the image vertically</source>
-        <translation type="vanished">Ŝanĝu la grandon de la bildo vertikale</translation>
-    </message>
-    <message>
-        <source>Keep the X and Y scaling the same</source>
-        <translation type="vanished">Konservu X- kaj Y-skalojn egalaj</translation>
-    </message>
-    <message>
-        <source>Allow the image to be a different size to the frame</source>
-        <translation type="vanished">Permesu al la bildo havi malsaman grandon ol la kadro</translation>
-    </message>
-    <message>
-        <source>Make the image fit within the size of the frame</source>
-        <translation type="vanished">Alĝustigu la bildon al la grando de la kadro</translation>
-    </message>
-    <message>
-        <source>Effective horizontal DPI of the image after scaling</source>
-        <translation type="vanished">Efektiva horizontala DPI de la bildo post skalado</translation>
-    </message>
-    <message>
-        <source>Effective vertical DPI of the image after scaling</source>
-        <translation type="vanished">Efektiva vertikala DPI de la bildo post skalado</translation>
-    </message>
-    <message>
-        <source>Use image proportions rather than those of the frame</source>
-        <translation type="vanished">Uzu la proporciojn de la bildo anstataŭ tiuj de la kadro</translation>
-    </message>
-    <message>
-        <source>Source profile of the image</source>
-        <translation type="vanished">Origina profilo de la bildo</translation>
-    </message>
-    <message>
-        <source>Rendering intent for the image</source>
-        <translation type="vanished">Bildigocelo por la bildo</translation>
-    </message>
-    <message>
-        <source>Compression method used in PDF export for the image</source>
-        <translation type="vanished">Densigometodo uzata por la bildo en la PDF-eksporto</translation>
-    </message>
-    <message>
-        <source>Compression quality used in PDF export for the image</source>
-        <translation type="vanished">Densigokvalito uzata por la bildo en la PDF-eksporto</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/propertiespalette_image.cpp" line="88"/>
         <source>&amp;To Frame Size</source>
         <translation>Ĝis kadro&amp;grando</translation>
     </message>
-    <message>
-        <source>Scaling</source>
-        <translation type="vanished">Skalado</translation>
-    </message>
-    <message>
-        <source>Color Management</source>
-        <translation type="vanished">Koloradministrado</translation>
-    </message>
-    <message>
-        <source>PDF Compression</source>
-        <translation type="vanished">PDF-Densigo</translation>
-    </message>
 </context>
 <context>
     <name>PropertiesPalette_ImageBase</name>
-    <message>
-        <source>Form</source>
-        <translation type="vanished">Formularo</translation>
-    </message>
-    <message>
-        <source>X-Pos:</source>
-        <translation type="vanished">X-Poz:</translation>
-    </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="57"/>
         <source>Rotation:</source>
@@ -23993,28 +22372,24 @@ Agordado al Nivelo 1 aŭ 2 povus krei grandegajn dosierojn.</translation>
         <translation>&amp;Paĝonumero:</translation>
     </message>
     <message>
-        <source>Y-Pos:</source>
-        <translation type="vanished">Y-Poz:</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="37"/>
         <source>&amp;X-Pos:</source>
-        <translation type="unfinished">&amp;X-Poz:</translation>
+        <translation>&amp;X-Poz:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="50"/>
         <source>Horizontal offset of image within frame</source>
-        <translation type="unfinished">Horizontala ŝovo de la bildo en la kadro</translation>
+        <translation>Horizontala ŝovo de la bildo en la kadro</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="81"/>
         <source>&amp;Y-Pos:</source>
-        <translation type="unfinished">&amp;Y-Poz:</translation>
+        <translation>&amp;Y-Poz:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="94"/>
         <source>Vertical offset of image within frame</source>
-        <translation type="unfinished">Vertikala ŝovo de la bildo en la kadro</translation>
+        <translation>Vertikala ŝovo de la bildo en la kadro</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="101"/>
@@ -24034,7 +22409,7 @@ Agordado al Nivelo 1 aŭ 2 povus krei grandegajn dosierojn.</translation>
     <message>
         <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="129"/>
         <source>Resize the image horizontally</source>
-        <translation type="unfinished">Ŝanĝu la grandon de la bildo horizontale</translation>
+        <translation>Ŝanĝu la grandon de la bildo horizontale</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="136"/>
@@ -24044,12 +22419,12 @@ Agordado al Nivelo 1 aŭ 2 povus krei grandegajn dosierojn.</translation>
     <message>
         <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="149"/>
         <source>Resize the image vertically</source>
-        <translation type="unfinished">Ŝanĝu la grandon de la bildo vertikale</translation>
+        <translation>Ŝanĝu la grandon de la bildo vertikale</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="162"/>
         <source>Keep the X and Y scaling the same</source>
-        <translation type="unfinished">Konservu X- kaj Y-skalojn egalaj</translation>
+        <translation>Konservu X- kaj Y-skalojn egalaj</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="165"/>
@@ -24065,7 +22440,7 @@ Agordado al Nivelo 1 aŭ 2 povus krei grandegajn dosierojn.</translation>
     <message>
         <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="188"/>
         <source>Effective horizontal DPI of the image after scaling</source>
-        <translation type="unfinished">Efektiva horizontala DPI de la bildo post skalado</translation>
+        <translation>Efektiva horizontala DPI de la bildo post skalado</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="195"/>
@@ -24075,56 +22450,52 @@ Agordado al Nivelo 1 aŭ 2 povus krei grandegajn dosierojn.</translation>
     <message>
         <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="202"/>
         <source>Effective vertical DPI of the image after scaling</source>
-        <translation type="unfinished">Efektiva vertikala DPI de la bildo post skalado</translation>
+        <translation>Efektiva vertikala DPI de la bildo post skalado</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="231"/>
         <source>Allow the image to be a different size to the frame</source>
-        <translation type="unfinished">Permesu al la bildo havi malsaman grandon ol la kadro</translation>
+        <translation>Permesu al la bildo havi malsaman grandon ol la kadro</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="234"/>
         <source>&amp;Free Scaling</source>
-        <translation type="unfinished">Li&amp;bera skalado</translation>
+        <translation>Li&amp;bera skalado</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="241"/>
         <source>Use image proportions rather than those of the frame</source>
-        <translation type="unfinished">Uzu la proporciojn de la bildo anstataŭ tiuj de la kadro</translation>
+        <translation>Uzu la proporciojn de la bildo anstataŭ tiuj de la kadro</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="251"/>
         <source>Make the image fit within the size of the frame</source>
-        <translation type="unfinished">Alĝustigu la bildon al la grando de la kadro</translation>
+        <translation>Alĝustigu la bildon al la grando de la kadro</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="254"/>
         <source>&amp;To Frame Size</source>
-        <translation type="unfinished">Ĝis kadro&amp;grando</translation>
+        <translation>Ĝis kadro&amp;grando</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="270"/>
         <source>Input Profile:</source>
-        <translation type="unfinished">Eniga profilo:</translation>
+        <translation>Eniga profilo:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="283"/>
         <source>Source profile of the image</source>
-        <translation type="unfinished">Origina profilo de la bildo</translation>
+        <translation>Origina profilo de la bildo</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="290"/>
         <source>Rendering Intent:</source>
-        <translation type="unfinished">Bildigocelo:</translation>
+        <translation>Bildigocelo:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="297"/>
         <source>Rendering intent for the image</source>
-        <translation type="unfinished">Bildigocelo por la bildo</translation>
-    </message>
-    <message>
-        <source>Free</source>
-        <translation type="vanished">Libera</translation>
+        <translation>Bildigocelo por la bildo</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="244"/>
@@ -24132,17 +22503,9 @@ Agordado al Nivelo 1 aŭ 2 povus krei grandegajn dosierojn.</translation>
         <translation>Proporcie</translation>
     </message>
     <message>
-        <source>To Frame Size</source>
-        <translation type="vanished">Ĝis kadrogrando</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="264"/>
         <source>Color Management</source>
         <translation>Koloradministrado</translation>
-    </message>
-    <message>
-        <source>Input Profile</source>
-        <translation type="vanished">Eniga profilo</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="307"/>
@@ -24157,7 +22520,7 @@ Agordado al Nivelo 1 aŭ 2 povus krei grandegajn dosierojn.</translation>
     <message>
         <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="326"/>
         <source>Compression method used in PDF export for the image</source>
-        <translation type="unfinished">Densigometodo uzata por la bildo en la PDF-eksporto</translation>
+        <translation>Densigometodo uzata por la bildo en la PDF-eksporto</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="333"/>
@@ -24167,7 +22530,7 @@ Agordado al Nivelo 1 aŭ 2 povus krei grandegajn dosierojn.</translation>
     <message>
         <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="346"/>
         <source>Compression quality used in PDF export for the image</source>
-        <translation type="unfinished">Densigokvalito uzata por la bildo en la PDF-eksporto</translation>
+        <translation>Densigokvalito uzata por la bildo en la PDF-eksporto</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="364"/>
@@ -24343,10 +22706,6 @@ Agordado al Nivelo 1 aŭ 2 povus krei grandegajn dosierojn.</translation>
 </context>
 <context>
     <name>PropertiesPalette_LineBase</name>
-    <message>
-        <source>Form</source>
-        <translation type="vanished">Formularo</translation>
-    </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_linebase.ui" line="20"/>
         <source>&amp;Basepoint:</source>
@@ -24551,10 +22910,6 @@ de la objekto</translation>
 <context>
     <name>PropertiesPalette_ShadowBase</name>
     <message>
-        <source>Form</source>
-        <translation type="vanished">Formularo</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/propertiespalette_shadowbase.ui" line="20"/>
         <source>Object has a drop shadow</source>
         <translation>La objekto posedas ombron</translation>
@@ -24687,90 +23042,7 @@ de la objekto</translation>
     </message>
 </context>
 <context>
-    <name>PropertiesPalette_Shape</name>
-    <message>
-        <source> pt</source>
-        <translation type="vanished"> pt</translation>
-    </message>
-    <message>
-        <source>Shape:</source>
-        <translation type="vanished">Formo:</translation>
-    </message>
-    <message>
-        <source>Choose the shape of frame...</source>
-        <translation type="vanished">Elektu la kadroformon...</translation>
-    </message>
-    <message>
-        <source>&amp;Edit...</source>
-        <translation type="vanished">&amp;Redaktu...</translation>
-    </message>
-    <message>
-        <source>Set radius of corner rounding</source>
-        <translation type="vanished">Agordu la radion de la angulrondigo</translation>
-    </message>
-    <message>
-        <source>R&amp;ound Corners:</source>
-        <translation type="vanished">Rondi&amp;gu angulojn:</translation>
-    </message>
-    <message>
-        <source>Fill Rule</source>
-        <translation type="vanished">Plenigregulo</translation>
-    </message>
-    <message>
-        <source>Even-Odd</source>
-        <translation type="vanished">Para-Malpara</translation>
-    </message>
-    <message>
-        <source>Non Zero</source>
-        <translation type="vanished">Ne nulo</translation>
-    </message>
-    <message>
-        <source>Text &amp;Flow Around Frame</source>
-        <translation type="vanished">Teksto&amp;fluo ĉirkaŭ kadro</translation>
-    </message>
-    <message>
-        <source>Disabled</source>
-        <translation type="vanished">Neebligita</translation>
-    </message>
-    <message>
-        <source>Use Frame &amp;Shape</source>
-        <translation type="vanished">Uz&amp;u la kadroformon</translation>
-    </message>
-    <message>
-        <source>Use &amp;Bounding Box</source>
-        <translation type="vanished">Uzu la limig&amp;an keston</translation>
-    </message>
-    <message>
-        <source>&amp;Use Contour Line</source>
-        <translation type="vanished">&amp;Uzu konturon</translation>
-    </message>
-    <message>
-        <source>Use Image Clip Path</source>
-        <translation type="vanished">Uzu tondostrekon de la bildo</translation>
-    </message>
-    <message>
-        <source>Any path self-intersections or subpaths create holes in the fill.</source>
-        <translation type="vanished">Ĉiu intersekciĝo de la streko kun si mem kreas truojn en la plenigo.</translation>
-    </message>
-    <message>
-        <source>Fill is solid unless a subpath is counterdirectional.</source>
-        <translation type="vanished">La plenigo estas homogena krom se la substreko estas en mala direkto.</translation>
-    </message>
-    <message>
-        <source>Any path self-intersections or subpaths create holes in the fill</source>
-        <translation type="vanished">Ĉiu intersekciĝo de la streko kun si mem kreas truojn en la plenigo</translation>
-    </message>
-    <message>
-        <source>Fill is solid unless a subpath is counter-directional</source>
-        <translation type="vanished">La plenigo estas homogena krom se la substreko estas en mala direkto</translation>
-    </message>
-</context>
-<context>
     <name>PropertiesPalette_ShapeBase</name>
-    <message>
-        <source>Form</source>
-        <translation type="vanished">Formularo</translation>
-    </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="35"/>
         <source>Shape</source>
@@ -24779,7 +23051,7 @@ de la objekto</translation>
     <message>
         <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="74"/>
         <source>Choose the shape of frame...</source>
-        <translation type="unfinished">Elektu la kadroformon...</translation>
+        <translation>Elektu la kadroformon...</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="77"/>
@@ -24792,45 +23064,29 @@ de la objekto</translation>
         <translation>R&amp;edaktu...</translation>
     </message>
     <message>
-        <source>Round Corners</source>
-        <translation type="vanished">Rondaj anguloj</translation>
-    </message>
-    <message>
-        <source>Text Flow Around Frame</source>
-        <translation type="vanished">Tekstofluo ĉirkaŭ kadro</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="153"/>
         <source>Disabled</source>
         <translation>Neebligita</translation>
     </message>
     <message>
-        <source>textFlowBtnGroup</source>
-        <translation type="vanished">textFlowBtnGroup</translation>
-    </message>
-    <message>
-        <source>Use &amp;Frame Shape</source>
-        <translation type="vanished">Uz&amp;u la kadroformon</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="95"/>
         <source>R&amp;ound Corners:</source>
-        <translation type="unfinished">Rondi&amp;gu angulojn:</translation>
+        <translation>Rondi&amp;gu angulojn:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="111"/>
         <source>Set radius of corner rounding</source>
-        <translation type="unfinished">Agordu la radion de la angulrondigo</translation>
+        <translation>Agordu la radion de la angulrondigo</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="123"/>
         <source>Text &amp;Flow Around Frame</source>
-        <translation type="unfinished">Teksto&amp;fluo ĉirkaŭ kadro</translation>
+        <translation>Teksto&amp;fluo ĉirkaŭ kadro</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="178"/>
         <source>Use Frame &amp;Shape</source>
-        <translation type="unfinished">Uz&amp;u la kadroformon</translation>
+        <translation>Uz&amp;u la kadroformon</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="203"/>
@@ -24898,10 +23154,6 @@ de la objekto</translation>
 </context>
 <context>
     <name>PropertiesPalette_TableBase</name>
-    <message>
-        <source>Form</source>
-        <translation type="vanished">Formularo</translation>
-    </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_tablebase.ui" line="89"/>
         <source>Borders</source>
@@ -25033,10 +23285,6 @@ de la objekto</translation>
         <translation>Lini-distanco</translation>
     </message>
     <message>
-        <source>Select the line spacing mode.</source>
-        <translation type="vanished">Elektu la interlinian reĝimon.</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/propertiespalette_text.cpp" line="668"/>
         <source>Paragraph style of currently selected text or paragraph</source>
         <translation>Alinea stilo de la aktuala elektita teksto aŭ alineo</translation>
@@ -25087,13 +23335,6 @@ de la objekto</translation>
     </message>
 </context>
 <context>
-    <name>PropertiesPalette_TextBase</name>
-    <message>
-        <source>Form</source>
-        <translation type="vanished">Formularo</translation>
-    </message>
-</context>
-<context>
     <name>PropertiesPalette_XYZ</name>
     <message>
         <location filename="../../scribus/ui/propertiespalette_xyz.cpp" line="214"/>
@@ -25103,10 +23344,6 @@ de la objekto</translation>
         <location filename="../../scribus/ui/propertiespalette_xyz.cpp" line="511"/>
         <source>&amp;X-Pos:</source>
         <translation>&amp;X-Poz:</translation>
-    </message>
-    <message>
-        <source>&amp;Width</source>
-        <translation type="vanished">Larĝ&amp;o</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_xyz.cpp" line="215"/>
@@ -25170,117 +23407,13 @@ de la objekto</translation>
         <translation>Ecoj</translation>
     </message>
     <message>
-        <source>Name</source>
-        <translation type="vanished">Nomo</translation>
-    </message>
-    <message>
-        <source>Geometry</source>
-        <translation type="vanished">Geometrio</translation>
-    </message>
-    <message>
-        <source>&amp;Rotation:</source>
-        <translation type="vanished">Rota&amp;cio:</translation>
-    </message>
-    <message>
-        <source>Basepoint:</source>
-        <translation type="vanished">Bazpunkto:</translation>
-    </message>
-    <message>
-        <source>Level</source>
-        <translation type="vanished">Nivelo</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/propertiespalette_xyz.cpp" line="1290"/>
         <source> pt</source>
         <translation> pt</translation>
     </message>
-    <message>
-        <source>Name of selected object</source>
-        <translation type="vanished">Nomo de la elektita objekto</translation>
-    </message>
-    <message>
-        <source>Horizontal position of current basepoint</source>
-        <translation type="vanished">Horizontala pozicio de la aktuala bazpunkto</translation>
-    </message>
-    <message>
-        <source>Vertical position of current basepoint</source>
-        <translation type="vanished">Vertikala pozicio de la aktuala bazpunkto</translation>
-    </message>
-    <message>
-        <source>Width</source>
-        <translation type="vanished">Larĝo</translation>
-    </message>
-    <message>
-        <source>Height</source>
-        <translation type="vanished">Alto</translation>
-    </message>
-    <message>
-        <source>Rotation of object at current basepoint</source>
-        <translation type="vanished">Rotacio de la objekto laŭ la aktuala bazpunkto</translation>
-    </message>
-    <message>
-        <source>Point from which measurements or rotation angles are referenced</source>
-        <translation type="vanished">Punkto al kiu la mezuroj aŭ rotaciaj anguloj rilatas</translation>
-    </message>
-    <message>
-        <source>Group the selected objects</source>
-        <translation type="vanished">Grupigu la elektitajn objektojn</translation>
-    </message>
-    <message>
-        <source>Ungroup the selected group</source>
-        <translation type="vanished">Malgrupigu la elektitan grupon</translation>
-    </message>
-    <message>
-        <source>Flip Horizontal</source>
-        <translation type="vanished">Reflektu</translation>
-    </message>
-    <message>
-        <source>Flip Vertical</source>
-        <translation type="vanished">Renversu</translation>
-    </message>
-    <message>
-        <source>Move one level up</source>
-        <translation type="vanished">Movu unu nivelon supren</translation>
-    </message>
-    <message>
-        <source>Move one level down</source>
-        <translation type="vanished">Movu unu nivelon malsupren</translation>
-    </message>
-    <message>
-        <source>Move to front</source>
-        <translation type="vanished">Movu ĝis supro</translation>
-    </message>
-    <message>
-        <source>Move to back</source>
-        <translation type="vanished">Movu ĝis fono</translation>
-    </message>
-    <message>
-        <source>Lock or unlock the object</source>
-        <translation type="vanished">Ŝlosu aŭ malŝlosu la objekton</translation>
-    </message>
-    <message>
-        <source>Lock or unlock the size of the object</source>
-        <translation type="vanished">Ŝlosu aŭ malŝlosu la grandon de la objekto</translation>
-    </message>
-    <message>
-        <source>Enable or disable exporting of the object</source>
-        <translation type="vanished">Ebligu aŭ malebligu la eksportadon de la objekto</translation>
-    </message>
-    <message>
-        <source>Keep the aspect ratio</source>
-        <translation type="vanished">Konservu la proporciojn</translation>
-    </message>
-    <message>
-        <source>Indicates the level the object is on, 1 means the object is at the bottom</source>
-        <translation type="vanished">Montras la nivelon de la objektoj, 1 signifas ke ĝi estas fone</translation>
-    </message>
 </context>
 <context>
     <name>PropertiesPalette_XYZBase</name>
-    <message>
-        <source>Form</source>
-        <translation type="vanished">Formularo</translation>
-    </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="41"/>
         <source>Name</source>
@@ -25289,7 +23422,7 @@ de la objekto</translation>
     <message>
         <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="65"/>
         <source>Name of selected object</source>
-        <translation type="unfinished">Nomo de la elektita objekto</translation>
+        <translation>Nomo de la elektita objekto</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="81"/>
@@ -25304,7 +23437,7 @@ de la objekto</translation>
     <message>
         <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="132"/>
         <source>Horizontal position of current basepoint</source>
-        <translation type="unfinished">Horizontala pozicio de la aktuala bazpunkto</translation>
+        <translation>Horizontala pozicio de la aktuala bazpunkto</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="139"/>
@@ -25319,7 +23452,7 @@ de la objekto</translation>
     <message>
         <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="159"/>
         <source>Vertical position of current basepoint</source>
-        <translation type="unfinished">Vertikala pozicio de la aktuala bazpunkto</translation>
+        <translation>Vertikala pozicio de la aktuala bazpunkto</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="166"/>
@@ -25344,12 +23477,12 @@ de la objekto</translation>
     <message>
         <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="197"/>
         <source>Rotation of object at current basepoint</source>
-        <translation type="unfinished">Rotacio de la objekto laŭ la aktuala bazpunkto</translation>
+        <translation>Rotacio de la objekto laŭ la aktuala bazpunkto</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="207"/>
         <source>Point from which measurements or rotation angles are referenced</source>
-        <translation type="unfinished">Punkto al kiu la mezuroj aŭ rotaciaj anguloj rilatas</translation>
+        <translation>Punkto al kiu la mezuroj aŭ rotaciaj anguloj rilatas</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="210"/>
@@ -25359,7 +23492,7 @@ de la objekto</translation>
     <message>
         <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="226"/>
         <source>Keep the aspect ratio</source>
-        <translation type="unfinished">Konservu la proporciojn</translation>
+        <translation>Konservu la proporciojn</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="229"/>
@@ -25374,27 +23507,27 @@ de la objekto</translation>
     <message>
         <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="276"/>
         <source>Move one level up</source>
-        <translation type="unfinished">Movu unu nivelon supren</translation>
+        <translation>Movu unu nivelon supren</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="292"/>
         <source>Move one level down</source>
-        <translation type="unfinished">Movu unu nivelon malsupren</translation>
+        <translation>Movu unu nivelon malsupren</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="308"/>
         <source>Move to front</source>
-        <translation type="unfinished">Movu ĝis supro</translation>
+        <translation>Movu ĝis supro</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="324"/>
         <source>Move to back</source>
-        <translation type="unfinished">Movu ĝis fono</translation>
+        <translation>Movu ĝis fono</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="334"/>
         <source>Indicates the level the object is on, 1 means the object is at the bottom</source>
-        <translation type="unfinished">Montras la nivelon de la objektoj, 1 signifas ke ĝi estas fone</translation>
+        <translation>Montras la nivelon de la objektoj, 1 signifas ke ĝi estas fone</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="337"/>
@@ -25404,37 +23537,37 @@ de la objekto</translation>
     <message>
         <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="362"/>
         <source>Group the selected objects</source>
-        <translation type="unfinished">Grupigu la elektitajn objektojn</translation>
+        <translation>Grupigu la elektitajn objektojn</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="372"/>
         <source>Ungroup the selected group</source>
-        <translation type="unfinished">Malgrupigu la elektitan grupon</translation>
+        <translation>Malgrupigu la elektitan grupon</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="382"/>
         <source>Flip horizontally</source>
-        <translation type="unfinished">Reflektu</translation>
+        <translation>Reflektu</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="392"/>
         <source>Flip vertically</source>
-        <translation type="unfinished">Renversu</translation>
+        <translation>Renversu</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="402"/>
         <source>Lock or unlock the object</source>
-        <translation type="unfinished">Ŝlosu aŭ malŝlosu la objekton</translation>
+        <translation>Ŝlosu aŭ malŝlosu la objekton</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="412"/>
         <source>Enable or disable exporting of the object</source>
-        <translation type="unfinished">Ebligu aŭ malebligu la eksportadon de la objekto</translation>
+        <translation>Ebligu aŭ malebligu la eksportadon de la objekto</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="422"/>
         <source>Lock or unlock the size of the object</source>
-        <translation type="unfinished">Ŝlosu aŭ malŝlosu la grandon de la objekto</translation>
+        <translation>Ŝlosu aŭ malŝlosu la grandon de la objekto</translation>
     </message>
 </context>
 <context>
@@ -25551,7 +23684,7 @@ de la objekto</translation>
     <message>
         <location filename="../../scribus/ui/propertywidget_distance.cpp" line="440"/>
         <source>Vertical Alignment:</source>
-        <translation type="unfinished"></translation>
+        <translation>Vertikala ĝisrandigo:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_distance.cpp" line="450"/>
@@ -25654,10 +23787,6 @@ de la objekto</translation>
         <source>Bottom</source>
         <translation>Malsupra</translation>
     </message>
-    <message>
-        <source>Vertical Alignment</source>
-        <translation type="vanished">Vertikala ĝisrandigo</translation>
-    </message>
 </context>
 <context>
     <name>PropertyWidget_DistanceBase</name>
@@ -25757,10 +23886,6 @@ de la objekto</translation>
 </context>
 <context>
     <name>PropertyWidget_DropCapBase</name>
-    <message>
-        <source>Form</source>
-        <translation type="vanished">Formularo</translation>
-    </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_dropcapbase.ui" line="23"/>
         <source>Height</source>
@@ -25988,10 +24113,6 @@ de la objekto</translation>
 <context>
     <name>PropertyWidget_OrphansBase</name>
     <message>
-        <source>Form</source>
-        <translation type="vanished">Formularo</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/propertywidget_orphansbase.ui" line="20"/>
         <source>Ensure that first lines of a paragraph won&apos;t end up separated from the rest (known as widow/orphan control)</source>
         <translation>Klopodu, ke la unuaj linioj de alineo ne estu disigitaj de la cetero (&quot;konata kiel kontrolo de vidvinoj/orfoj&quot;)</translation>
@@ -26026,10 +24147,6 @@ de la objekto</translation>
 <context>
     <name>PropertyWidget_ParEffect</name>
     <message>
-        <source>Lines</source>
-        <translation type="vanished">Linioj</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/propertywidget_pareffect.cpp" line="559"/>
         <location filename="../../scribus/ui/propertywidget_pareffect.h" line="99"/>
         <source>Drop Caps</source>
@@ -26042,18 +24159,14 @@ de la objekto</translation>
         <translation>Buletlisto</translation>
     </message>
     <message>
-        <source>Bullet Char(s)</source>
-        <translation type="vanished">Buletsigno(j)</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/propertywidget_pareffect.cpp" line="558"/>
         <source>Lines:</source>
-        <translation type="unfinished">Lines:</translation>
+        <translation>Lines:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_pareffect.cpp" line="561"/>
         <source>Bullet Char(s):</source>
-        <translation type="unfinished"></translation>
+        <translation>Buletsigno(j):</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_pareffect.cpp" line="562"/>
@@ -26073,73 +24186,37 @@ de la objekto</translation>
     <message>
         <location filename="../../scribus/ui/propertywidget_pareffect.cpp" line="565"/>
         <source>Level:</source>
-        <translation type="unfinished">Nivelo:</translation>
+        <translation>Nivelo:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_pareffect.cpp" line="566"/>
         <source>Set:</source>
-        <translation type="unfinished">Aro:</translation>
+        <translation>Aro:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_pareffect.cpp" line="567"/>
         <source>Format:</source>
-        <translation type="unfinished">Formato:</translation>
+        <translation>Formato:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_pareffect.cpp" line="568"/>
         <source>Start:</source>
-        <translation type="unfinished">Komenco:</translation>
+        <translation>Komenco:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_pareffect.cpp" line="569"/>
         <source>Prefix:</source>
-        <translation type="unfinished">Prefikso:</translation>
+        <translation>Prefikso:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_pareffect.cpp" line="570"/>
         <source>Suffix:</source>
-        <translation type="unfinished">Sufikso:</translation>
-    </message>
-    <message>
-        <source>Level</source>
-        <translation type="vanished">Nivelo</translation>
-    </message>
-    <message>
-        <source>Set</source>
-        <translation type="vanished">Aro</translation>
-    </message>
-    <message>
-        <source>Format</source>
-        <translation type="vanished">Formato</translation>
-    </message>
-    <message>
-        <source>Start</source>
-        <translation type="vanished">Komenco</translation>
-    </message>
-    <message>
-        <source>Prefix</source>
-        <translation type="vanished">Prefikso</translation>
-    </message>
-    <message>
-        <source>Suffix</source>
-        <translation type="vanished">Sufikso</translation>
-    </message>
-    <message>
-        <source>Offset</source>
-        <translation type="vanished">Ŝovo</translation>
+        <translation>Sufikso:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_pareffect.cpp" line="572"/>
         <source>Auto-Indent</source>
         <translation>Aŭtomata deŝovo</translation>
-    </message>
-    <message>
-        <source>Char Style</source>
-        <translation type="vanished">Signostilo</translation>
-    </message>
-    <message>
-        <source>Choose chracter style or leave blank for use default paragraph style</source>
-        <translation type="vanished">Elektu signostilon, aŭ lasu malplena por uzi la alinestilon defaŭltan</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_pareffect.h" line="98"/>
@@ -26159,12 +24236,12 @@ de la objekto</translation>
     <message>
         <location filename="../../scribus/ui/propertywidget_pareffect.cpp" line="573"/>
         <source>Offset:</source>
-        <translation type="unfinished">Ŝovo:</translation>
+        <translation>Ŝovo:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_pareffect.cpp" line="574"/>
         <source>Char Style:</source>
-        <translation type="unfinished"></translation>
+        <translation>Signostilo:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_pareffect.cpp" line="575"/>
@@ -26174,10 +24251,6 @@ de la objekto</translation>
 </context>
 <context>
     <name>PropertyWidget_ParEffectBase</name>
-    <message>
-        <source>Form</source>
-        <translation type="vanished">Formularo</translation>
-    </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_pareffectbase.ui" line="270"/>
         <source>Effect Parameters</source>
@@ -26353,10 +24426,6 @@ de la objekto</translation>
         <translation>Koloro de la elektita teksto. Se oni ebligis Konturitan Tekston, ĝi estos la pleniga koloro. Se oni ebligis Ombrumitan Tekston, ĝi estos la ĉefa plej supra koloro.</translation>
     </message>
     <message>
-        <source>Color of text stroke and/or drop shadow, depending which is chosen.If both are chosen, then they share the same color.</source>
-        <translation type="vanished">Koloro de la tekstokonturo kaj/aŭ de la ombro, depende de kiu estas elektita. Se ambaŭ estas elektitaj, por ambaŭ estas la sama koloro.</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/propertywidget_textcolor.cpp" line="551"/>
         <source>Background color of selected text</source>
         <translation type="unfinished"></translation>
@@ -26374,7 +24443,7 @@ de la objekto</translation>
     <message>
         <location filename="../../scribus/ui/propertywidget_textcolor.cpp" line="554"/>
         <source>Saturation of color of text background</source>
-        <translation type="unfinished"></translation>
+        <translation>Pureco de la koloro de la teksta fono</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_textcolor.cpp" line="556"/>
@@ -26455,10 +24524,6 @@ Document Liberation Project http://www.documentliberation.org</translation>
         <location filename="../../scribus/plugins/scriptplugin/pconsole.ui" line="13"/>
         <source>Script Console</source>
         <translation>Skriptkonzolo</translation>
-    </message>
-    <message>
-        <source>Write your commands here. A selection is processed as script</source>
-        <translation type="vanished">Skribu la komandojn ĉi tie. Selekto estas prilaborita kiel skripto</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/pconsole.cpp" line="135"/>
@@ -26626,10 +24691,6 @@ dokumentaron por kromaj informoj. </translation>
         <location filename="../../scribus/translationdummy.cpp" line="152"/>
         <source>&amp;Add to Custom Colors</source>
         <translation>&amp;Aldonu al propraj koloroj</translation>
-    </message>
-    <message>
-        <source>Select color</source>
-        <translation type="vanished">Elektu koloron</translation>
     </message>
     <message>
         <location filename="../../scribus/translationdummy.cpp" line="147"/>
@@ -27198,10 +25259,6 @@ qt/&lt;/tt&gt; por kromaj informoj.&lt;/p&gt;</translation>
 <context>
     <name>QObject</name>
     <message>
-        <source>Spell check (Aspell)</source>
-        <translation type="vanished">Ortografia kontrolo (Aspell)</translation>
-    </message>
-    <message>
         <location filename="../../scribus/scribuscore.cpp" line="231"/>
         <source>Initializing...</source>
         <translation>Pravalorizo...</translation>
@@ -27574,7 +25631,7 @@ Eksteraj ligiloj</translation>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="131"/>
         <source>Hindi</source>
-        <translation type="unfinished"></translation>
+        <translation>Hindia</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="133"/>
@@ -27604,7 +25661,7 @@ Eksteraj ligiloj</translation>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="142"/>
         <source>Kannada</source>
-        <translation type="unfinished"></translation>
+        <translation>Kannada</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="143"/>
@@ -27644,7 +25701,7 @@ Eksteraj ligiloj</translation>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="162"/>
         <source>Somali</source>
-        <translation type="unfinished"></translation>
+        <translation>Somala</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="166"/>
@@ -28208,10 +26265,6 @@ Eksteraj ligiloj</translation>
         <translation>Malsukcesis la verifo de agordaro: %1</translation>
     </message>
     <message>
-        <source>Unable to read settings XML:</source>
-        <translation type="vanished">Ne eblas legi la XML-agordaron:</translation>
-    </message>
-    <message>
         <location filename="../../scribus/pdfoptionsio.cpp" line="317"/>
         <source>%1 (line %2 col %3)</source>
         <comment>Load PDF settings</comment>
@@ -28251,11 +26304,6 @@ Eksteraj ligiloj</translation>
         <source>found %1 &lt;%2&gt; nodes, need 1.</source>
         <comment>Load PDF settings</comment>
         <translation>trovitaj %1 &lt;%2&gt; nodojn, necesas 1.</translation>
-    </message>
-    <message>
-        <source>unexpected null &lt;%2&gt; node</source>
-        <comment>Load PDF settings</comment>
-        <translation type="vanished">malplena nodo &lt;%2&gt; neatendita</translation>
     </message>
     <message>
         <location filename="../../scribus/pdfoptionsio.cpp" line="550"/>
@@ -28355,11 +26403,6 @@ Eksteraj ligiloj</translation>
         <location filename="../../scribus/scribus.cpp" line="2377"/>
         <source>Document Template: </source>
         <translation>Dokumentŝablono:</translation>
-    </message>
-    <message>
-        <source>Failed to open document.</source>
-        <comment>python error</comment>
-        <translation type="vanished">Malsukcesis malfermi dokumenton.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmddoc.cpp" line="215"/>
@@ -28591,18 +26634,18 @@ not currently documented in the docstring for each function.
 without a document to operate on.
 - If you do not pass a frame name to a function that requires one,
 the function will use the currently selected frame, if any, or
-raise a NoValidObjectError if it can&apos;t find anything to operate
+raise a NoValidObjectError if it can't find anything to operate
 on.
 - Many functions will raise WrongFrameTypeError if you try to use them
 on a frame type that they do not make sense with. For example, setting
-the text color on a graphics frame doesn&apos;t make sense, and will result
+the text color on a graphics frame doesn't make sense, and will result
 in this exception being raised.
 - Errors resulting from calls to the underlying Python API will be
 passed through unaltered. As such, the list of exceptions thrown by
 any function as provided here and in its docstring is incomplete.
 
 Details of what exceptions each function may throw are provided on the
-function&apos;s documentation, though as with most Python code this list
+function's documentation, though as with most Python code this list
 is not exhaustive due to exceptions from called functions.
 </source>
         <translation>Pitona interfacmodulo de Scribus
@@ -28701,22 +26744,6 @@ de la funkcioj, kvankam, kiel plejparto de la Pitona kodo, ĉi tiu listo estas n
         <location filename="../../scribus/fonts/sfnt.cpp" line="450"/>
         <source>extracting face %1 from font %2 (offset=%3, nTables=%4)</source>
         <translation>ekstraktas signon %1 el la tiparo %2 (offset=%3, nTables=%4)</translation>
-    </message>
-    <message>
-        <source>memcpy header: %1 %2 %3</source>
-        <translation type="vanished">memcpy header: %1 %2 %3</translation>
-    </message>
-    <message>
-        <source>table &apos;%1&apos;</source>
-        <translation type="vanished">tabelo &apos;%1&apos;</translation>
-    </message>
-    <message>
-        <source>memcpy table: %1 %2 %3</source>
-        <translation type="vanished">tabelo memcpy: %1 %2 %3</translation>
-    </message>
-    <message>
-        <source>memcpy offset: %1 %2 %3</source>
-        <translation type="vanished">ŝovo memcpy: %1 %2 %3</translation>
     </message>
     <message>
         <location filename="../../scribus/main_nix.cpp" line="119"/>
@@ -28911,14 +26938,6 @@ de la funkcioj, kvankam, kiel plejparto de la Pitona kodo, ĉi tiu listo estas n
         <location filename="../../scribus/pslib.cpp" line="1583"/>
         <source>Printing File</source>
         <translation>Printas dosieron</translation>
-    </message>
-    <message>
-        <source>C&amp;reate</source>
-        <translation type="vanished">K&amp;reu</translation>
-    </message>
-    <message>
-        <source>&amp;Import</source>
-        <translation type="vanished">&amp;Importu</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="168"/>
@@ -29401,10 +27420,6 @@ de la funkcioj, kvankam, kiel plejparto de la Pitona kodo, ĉi tiu listo estas n
 %1 ?</translation>
     </message>
     <message>
-        <source>Encapsulated PostScript &quot;*.eps&quot;</source>
-        <translation type="vanished">Enkapsulita PostScript</translation>
-    </message>
-    <message>
         <location filename="../../scribus/util_formats.cpp" line="82"/>
         <source>GIF</source>
         <translation>GIF</translation>
@@ -29428,38 +27443,6 @@ de la funkcioj, kvankam, kiel plejparto de la Pitona kodo, ĉi tiu listo estas n
         <location filename="../../scribus/util_formats.cpp" line="88"/>
         <source>PNG</source>
         <translation>PNG</translation>
-    </message>
-    <message>
-        <source>PostScript &quot;*.ps&quot;</source>
-        <translation type="vanished">Postskripto</translation>
-    </message>
-    <message>
-        <source>Adobe Photoshop &quot;*.psd&quot;</source>
-        <translation type="vanished">Adobe Photoshop</translation>
-    </message>
-    <message>
-        <source>Windows Meta File &quot;*.wmf&quot;</source>
-        <translation type="vanished">Windows Meta File</translation>
-    </message>
-    <message>
-        <source>Scalable Vector Graphics &quot;*.svg&quot;</source>
-        <translation type="vanished">Skalebla VektorGrafikaĵo (SVG)</translation>
-    </message>
-    <message>
-        <source>Adobe Illustrator &quot;*.ai&quot;</source>
-        <translation type="vanished">Adobe Illustrator &quot;*.ai&quot;</translation>
-    </message>
-    <message>
-        <source>GraphicsMagick File</source>
-        <translation type="vanished">GraphicsMagick-dosiero</translation>
-    </message>
-    <message>
-        <source>UniConvertor File</source>
-        <translation type="vanished">Uniconvertor-dosiero</translation>
-    </message>
-    <message>
-        <source>Macintosh Pict File</source>
-        <translation type="vanished">Pict-dosiero de Macintosh</translation>
     </message>
     <message>
         <location filename="../../scribus/util_formats.cpp" line="92"/>
@@ -29697,10 +27680,6 @@ Do, la bildo povas esti ne ĝusta</translation>
         <translation>Malfermo de configfile %1 malsukcesis! %2 </translation>
     </message>
     <message>
-        <source>Cvg Importer</source>
-        <translation type="vanished">Cvg-importilo</translation>
-    </message>
-    <message>
         <location filename="../../scribus/plugins/import/pct/importpctplugin.cpp" line="66"/>
         <source>Pict Importer</source>
         <translation>Pict-importilo</translation>
@@ -29781,14 +27760,6 @@ Do, la bildo povas esti ne ĝusta</translation>
         <location filename="../../scribus/util_formats.cpp" line="87"/>
         <source>PGF</source>
         <translation>PGF</translation>
-    </message>
-    <message>
-        <source>Calamus CVG File</source>
-        <translation type="vanished">CVG-dosiero de Calamus</translation>
-    </message>
-    <message>
-        <source>Word Perfect WPG File</source>
-        <translation type="vanished">Word-Perfect-WPG-dosiero</translation>
     </message>
     <message>
         <location filename="../../scribus/util_formats.cpp" line="79"/>
@@ -30359,10 +28330,6 @@ Do, la bildo povas esti ne ĝusta</translation>
         <translation>Corel-Draw-importilo</translation>
     </message>
     <message>
-        <source>Open Raster Files</source>
-        <translation type="vanished">Open-Raster-dosieroj</translation>
-    </message>
-    <message>
         <location filename="../../scribus/pdfoptionsio.cpp" line="542"/>
         <source>unexpected null &lt;%1&gt; node</source>
         <comment>Load PDF settings</comment>
@@ -30435,18 +28402,10 @@ Do, la bildo povas esti ne ĝusta</translation>
         <translation>SVM-importilo</translation>
     </message>
     <message>
-        <source>Qt supported File</source>
-        <translation type="vanished">Dosiero subtenita de QT</translation>
-    </message>
-    <message>
         <location filename="../../scribus/plugins/shapes/shapeplugin.cpp" line="73"/>
         <location filename="../../scribus/plugins/shapes/shapeplugin.cpp" line="85"/>
         <source>Custom Shapes</source>
         <translation>Propraj formoj</translation>
-    </message>
-    <message>
-        <source>CustomShapes</source>
-        <translation type="vanished">CustomShapes</translation>
     </message>
     <message>
         <location filename="../../scribus/util_formats.cpp" line="81"/>
@@ -30477,14 +28436,6 @@ Do, la bildo povas esti ne ĝusta</translation>
         <location filename="../../scribus/util_formats.cpp" line="78"/>
         <source>Adobe Illustrator</source>
         <translation>Adobe Illustrator</translation>
-    </message>
-    <message>
-        <source>Calamus CVG</source>
-        <translation type="vanished">Calamus CVG</translation>
-    </message>
-    <message>
-        <source>Word Perfect WPG</source>
-        <translation type="vanished">Word Perfect WPG</translation>
     </message>
     <message>
         <location filename="../../scribus/util_formats.cpp" line="84"/>
@@ -30585,7 +28536,7 @@ Do, la bildo povas esti ne ĝusta</translation>
     <message>
         <location filename="../../scribus/plugins/gettext/odt2im/importodt.cpp" line="32"/>
         <source>ODT Document</source>
-        <translation type="unfinished"></translation>
+        <translation>ODT-Dokumento</translation>
     </message>
 </context>
 <context>
@@ -30756,7 +28707,7 @@ Bonvolu elekti alian.</translation>
     <message>
         <location filename="../../scribus/ui/recoverdialog.cpp" line="153"/>
         <source>Autosave</source>
-        <translation type="unfinished">Aŭtokonservado</translation>
+        <translation>Aŭtokonservado</translation>
     </message>
 </context>
 <context>
@@ -30944,10 +28895,6 @@ Bonvolu elekti alian.</translation>
 </context>
 <context>
     <name>RotationWidget</name>
-    <message>
-        <source>Form</source>
-        <translation type="vanished">Formularo</translation>
-    </message>
     <message>
         <location filename="../../scribus/ui/rotationsetter.ui" line="24"/>
         <source>Rotation:</source>
@@ -31236,10 +29183,6 @@ Bonvolu elekti alian.</translation>
         <translation>Detala formatado</translation>
     </message>
     <message>
-        <source>TextLabel</source>
-        <translation type="vanished">Tekstoetikedo</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/smcstylewidget.ui" line="447"/>
         <location filename="../../scribus/ui/smcstylewidget.cpp" line="130"/>
         <source>Colors</source>
@@ -31298,7 +29241,7 @@ Bonvolu elekti alian.</translation>
     <message>
         <location filename="../../scribus/ui/smcstylewidget.cpp" line="108"/>
         <source>Background Color</source>
-        <translation type="unfinished"></translation>
+        <translation>Fonkoloro</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smcstylewidget.cpp" line="109"/>
@@ -31364,10 +29307,6 @@ Bonvolu elekti alian.</translation>
         <translation>Koloroj</translation>
     </message>
     <message>
-        <source>TextLabel</source>
-        <translation type="vanished">Tekstoetikedo</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/smcellstylewidget.ui" line="68"/>
         <source>Fill Color</source>
         <translation>Plenigokoloro</translation>
@@ -31376,10 +29315,6 @@ Bonvolu elekti alian.</translation>
         <location filename="../../scribus/ui/smcellstylewidget.ui" line="19"/>
         <source>Based On:</source>
         <translation>Bazita sur:</translation>
-    </message>
-    <message>
-        <source>Text</source>
-        <translation type="vanished">Teksto</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smcellstylewidget.ui" line="88"/>
@@ -31521,38 +29456,6 @@ Bonvolu elekti alian.</translation>
         <translation>Ronda</translation>
     </message>
     <message>
-        <source>Add a new line</source>
-        <translation type="vanished">Aldonu novan linion</translation>
-    </message>
-    <message>
-        <source>Remove a line</source>
-        <translation type="vanished">Forigu linion</translation>
-    </message>
-    <message>
-        <source>Line style</source>
-        <translation type="vanished">Linistilo</translation>
-    </message>
-    <message>
-        <source>Line width</source>
-        <translation type="vanished">Linilarĝo</translation>
-    </message>
-    <message>
-        <source>End style</source>
-        <translation type="vanished">Stilo de ekstremaĵo</translation>
-    </message>
-    <message>
-        <source>Join style</source>
-        <translation type="vanished">Konektostilo</translation>
-    </message>
-    <message>
-        <source>Line color</source>
-        <translation type="vanished">Linikoloro</translation>
-    </message>
-    <message>
-        <source>Line shade</source>
-        <translation type="vanished">Liniintenso</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/smlinestylewidget.ui" line="178"/>
         <source>%</source>
         <translation>%</translation>
@@ -31590,10 +29493,6 @@ Bonvolu elekti alian.</translation>
         <translation>Alliniigu al la bazlinia krado</translation>
     </message>
     <message>
-        <source>Distances and Alignment</source>
-        <translation type="vanished">Distancoj kaj alliniigo</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/smpstylewidget.ui" line="1024"/>
         <location filename="../../scribus/ui/smpstylewidget.cpp" line="210"/>
         <source>Drop Caps</source>
@@ -31626,10 +29525,6 @@ Bonvolu elekti alian.</translation>
         <location filename="../../scribus/ui/smpstylewidget.cpp" line="214"/>
         <source>Distance from Text:</source>
         <translation>Distanco de la teksto:</translation>
-    </message>
-    <message>
-        <source>Alignment</source>
-        <translation type="vanished">Ĝisrandigo</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.cpp" line="109"/>
@@ -31698,7 +29593,7 @@ Bonvolu elekti alian.</translation>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.ui" line="590"/>
         <source>Colors</source>
-        <translation type="unfinished">Koloroj</translation>
+        <translation>Koloroj</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.ui" line="1199"/>
@@ -31872,47 +29767,15 @@ Esprimita kiel procento de la aktuala blankspaca valoro.</translation>
         <translation>Buletoj</translation>
     </message>
     <message>
-        <source>Bullet Char/String</source>
-        <translation type="vanished">Buletsigno/Signoĉeno</translation>
-    </message>
-    <message>
-        <source>Char Table</source>
-        <translation type="vanished">Signotabelo</translation>
-    </message>
-    <message>
-        <source>Numeration</source>
-        <translation type="vanished">Numerado</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/smpstylewidget.ui" line="812"/>
         <source>Set:</source>
         <translation>Aro:</translation>
-    </message>
-    <message>
-        <source>Level</source>
-        <translation type="vanished">Nivelo</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.ui" line="852"/>
         <location filename="../../scribus/ui/smpstylewidget.cpp" line="195"/>
         <source>Create New Set:</source>
         <translation>Kreu novan aron:</translation>
-    </message>
-    <message>
-        <source>Nums Format</source>
-        <translation type="vanished">Numera formato</translation>
-    </message>
-    <message>
-        <source>Start with</source>
-        <translation type="vanished">Komencu per</translation>
-    </message>
-    <message>
-        <source>Prefix</source>
-        <translation type="vanished">Prefikso</translation>
-    </message>
-    <message>
-        <source>Suffix</source>
-        <translation type="vanished">Sufikso</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.ui" line="963"/>
@@ -31945,10 +29808,6 @@ Esprimita kiel procento de la aktuala blankspaca valoro.</translation>
         <location filename="../../scribus/ui/smpstylewidget.cpp" line="124"/>
         <source>Hang Paragraph Effect before paragraph indent</source>
         <translation>Apliku la alinean efekton antaŭ la alinea deŝovo</translation>
-    </message>
-    <message>
-        <source>Numbering Style</source>
-        <translation type="vanished">Numeradstilo</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.cpp" line="321"/>
@@ -31999,7 +29858,7 @@ Esprimita kiel procento de la aktuala blankspaca valoro.</translation>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.cpp" line="146"/>
         <source>Background Color</source>
-        <translation type="unfinished"></translation>
+        <translation>Fonkoloro</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.cpp" line="147"/>
@@ -32050,7 +29909,7 @@ Esprimita kiel procento de la aktuala blankspaca valoro.</translation>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.cpp" line="644"/>
         <source>Shade</source>
-        <translation type="unfinished"></translation>
+        <translation>Volvu</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.ui" line="719"/>
@@ -32314,10 +30173,6 @@ Esprimita kiel procento de la aktuala blankspaca valoro.</translation>
         <translation>Koloroj</translation>
     </message>
     <message>
-        <source>TextLabel</source>
-        <translation type="vanished">TextLabel</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/smtablestylewidget.ui" line="62"/>
         <source>Fill Color</source>
         <translation>Plenigokoloro</translation>
@@ -32326,10 +30181,6 @@ Esprimita kiel procento de la aktuala blankspaca valoro.</translation>
         <location filename="../../scribus/ui/smtablestylewidget.ui" line="19"/>
         <source>Based On:</source>
         <translation>Bazita sur:</translation>
-    </message>
-    <message>
-        <source>Text</source>
-        <translation type="vanished">Teksto</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smtablestylewidget.cpp" line="78"/>
@@ -32485,10 +30336,6 @@ Atentu: tio pligrandigos la dosieron!</translation>
         <translation>Eksportu paĝfonon</translation>
     </message>
     <message>
-        <source>Adds the Page itself as background to the SVG.</source>
-        <translation type="vanished">Aldonas la paĝon mem kiel fonon al la SVG-dosiero</translation>
-    </message>
-    <message>
         <location filename="../../scribus/plugins/export/svgexplugin/svgexplugin.cpp" line="151"/>
         <source>Adds the Page itself as background to the SVG</source>
         <translation>Aldonas la paĝon mem kiel fonon al la SVG-dosiero</translation>
@@ -32534,21 +30381,6 @@ konvertante iliajn vektorajn datumojn en Scribus-objektoj.</translation>
         <source>Short Words</source>
         <comment>short words plugin</comment>
         <translation>Mallongaj vortoj</translation>
-    </message>
-    <message>
-        <source>Only selected frames processed.</source>
-        <comment>short words plugin</comment>
-        <translation type="vanished">Prilaboritaj nur la elektitaj kadroj.</translation>
-    </message>
-    <message>
-        <source>Only actual page processed.</source>
-        <comment>short words plugin</comment>
-        <translation type="vanished">Prilaborita nur la aktuala paĝo.</translation>
-    </message>
-    <message>
-        <source>All items in document processed.</source>
-        <comment>short words plugin</comment>
-        <translation type="vanished">Prilaboritaj ĉiuj elementoj de la dokumento.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/short-words/swdialog.ui" line="14"/>
@@ -32664,10 +30496,6 @@ konvertante iliajn vektorajn datumojn en Scribus-objektoj.</translation>
         <location filename="../../scribus/plugins/short-words/swprefsgui.cpp" line="96"/>
         <source>Reload system wide configuration and remove user defined one</source>
         <translation>Reŝargu la sistemkonfiguron kaj forigu tiun difinita de la uzanto</translation>
-    </message>
-    <message>
-        <source>Edit custom configuration. If you save it, it will be used over system wide configuration</source>
-        <translation type="vanished">Redaktu propran konfiguron. Se vi konservas ĝin, ĝi estos uzata anstataŭ la sisteman</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/short-words/swprefsgui.cpp" line="110"/>
@@ -32952,11 +30780,6 @@ konvertante iliajn vektorajn datumojn en Scribus-objektoj.</translation>
         <translation>Emfazo</translation>
     </message>
     <message>
-        <source>None</source>
-        <comment>highlight</comment>
-        <translation type="vanished">Neniu</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/annot.ui" line="604"/>
         <source>Invert</source>
         <translation>Negativa</translation>
@@ -33231,10 +31054,6 @@ konvertante iliajn vektorajn datumojn en Scribus-objektoj.</translation>
         <location filename="../../scribus/ui/annot.ui" line="1374"/>
         <source>Field is formatted as:</source>
         <translation>Kampo formatita kiel:</translation>
-    </message>
-    <message>
-        <source>Plain</source>
-        <translation type="vanished">Normala</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/annot.ui" line="1387"/>
@@ -34045,10 +31864,6 @@ konvertante iliajn vektorajn datumojn en Scribus-objektoj.</translation>
         <translation>&amp;PDF-opcioj</translation>
     </message>
     <message>
-        <source>C&amp;onvert To</source>
-        <translation type="vanished">K&amp;onvertu al</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/scmwmenumanager.cpp" line="64"/>
         <source>Character</source>
         <translation>Signo</translation>
@@ -34541,10 +32356,6 @@ Rotacio: %4</translation>
         <translation>&amp;PDF-opcioj</translation>
     </message>
     <message>
-        <source>C&amp;onvert To</source>
-        <translation type="vanished">K&amp;onvertu al</translation>
-    </message>
-    <message>
         <location filename="../../scribus/scribus.cpp" line="2156"/>
         <location filename="../../scribus/scribus.cpp" line="2196"/>
         <location filename="../../scribus/scribus.cpp" line="3780"/>
@@ -34697,14 +32508,6 @@ Rotacio: %4</translation>
         <location filename="../../scribus/scribus.cpp" line="6242"/>
         <source>Size</source>
         <translation>Grando</translation>
-    </message>
-    <message>
-        <source>&amp;Shade:</source>
-        <translation type="vanished">Inten&amp;so:</translation>
-    </message>
-    <message>
-        <source>Shade</source>
-        <translation type="vanished">Intenso</translation>
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="6607"/>
@@ -34894,10 +32697,6 @@ Pripensu ĉu uzi la antaŭkontrolon por korekti ilin</translation>
         <translation>Redaktado de simbolo: %1</translation>
     </message>
     <message>
-        <source>Close</source>
-        <translation type="vanished">Fermu</translation>
-    </message>
-    <message>
         <location filename="../../scribus/scribus.cpp" line="1356"/>
         <source>Unknown</source>
         <translation>Nekonata</translation>
@@ -35009,7 +32808,7 @@ Pripensu ĉu uzi la antaŭkontrolon por korekti ilin</translation>
     <message>
         <location filename="../../scribus/scribus.cpp" line="1000"/>
         <source>S&amp;paces &amp;&amp; Breaks</source>
-        <translation type="unfinished"></translation>
+        <translation>S&amp;pacoj &amp;&amp; interrompoj</translation>
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="1055"/>
@@ -35020,10 +32819,6 @@ Pripensu ĉu uzi la antaŭkontrolon por korekti ilin</translation>
         <location filename="../../scribus/scribus.cpp" line="1064"/>
         <source>Preview</source>
         <translation>Antaŭrigardo</translation>
-    </message>
-    <message>
-        <source>Measures</source>
-        <translation type="vanished">Mezuroj</translation>
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="1072"/>
@@ -35039,10 +32834,6 @@ Pripensu ĉu uzi la antaŭkontrolon por korekti ilin</translation>
         <location filename="../../scribus/scribus.cpp" line="1087"/>
         <source>Grids and Guides</source>
         <translation>Kradoj kaj helplinioj</translation>
-    </message>
-    <message>
-        <source>S&amp;paces / Breaks</source>
-        <translation type="vanished">S&amp;pacoj / Interrompoj</translation>
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="1235"/>
@@ -35125,18 +32916,10 @@ Pripensu ĉu uzi la antaŭkontrolon por korekti ilin</translation>
 <context>
     <name>ScribusQApp</name>
     <message>
-        <source>Invalid argument: </source>
-        <translation type="vanished">Nevalida argumento:</translation>
-    </message>
-    <message>
         <location filename="../../scribus/scribusapp.cpp" line="299"/>
         <location filename="../../scribus/scribusapp.cpp" line="314"/>
         <source>File %1 does not exist, aborting.</source>
         <translation>La dosiero %1 ne ekzistas, ĉesigas.</translation>
-    </message>
-    <message>
-        <source>Usage: scribus [option ... ] [file]</source>
-        <translation type="vanished">Uzado: scribus [opcio ... ] [dosiero]</translation>
     </message>
     <message>
         <location filename="../../scribus/scribusapp.cpp" line="577"/>
@@ -35172,10 +32955,6 @@ Pripensu ĉu uzi la antaŭkontrolon por korekti ilin</translation>
         <location filename="../../scribus/scribusapp.cpp" line="587"/>
         <source>Output version information and exit</source>
         <translation>Montru la informojn pri la versio kaj eliru</translation>
-    </message>
-    <message>
-        <source>Use right to left dialog button ordering (eg. Cancel/No/Yes instead of Yes/No/Cancel)</source>
-        <translation type="vanished">Organizu la dialogajn butonojn de dekstre maldekstren (ekz. Rezignu/Ne/Jes anstataŭ Jes/Ne/Rezignu)</translation>
     </message>
     <message>
         <location filename="../../scribus/scribusapp.cpp" line="584"/>
@@ -35233,21 +33012,9 @@ Pripensu ĉu uzi la antaŭkontrolon por korekti ilin</translation>
         <translation>Problemoj</translation>
     </message>
     <message>
-        <source>Stop the showing of the splashscreen on startup. Writes an empty file called .neversplash in ~/.scribus.</source>
-        <translation type="vanished">Ĉesas montri la salutŝildon ĉe la starto. Skribas malplenan dosieron nomatan .neversplash in ~/.scribus.</translation>
-    </message>
-    <message>
-        <source>Download a file from the Scribus website and show the latest available version.</source>
-        <translation type="vanished">Elŝutu dosieron el la Scribus-retejo kaj montru la plej lastan disponeblan version.</translation>
-    </message>
-    <message>
         <location filename="../../scribus/scribusapp.cpp" line="594"/>
         <source>Display a console window</source>
         <translation>Montru konzolfenestron</translation>
-    </message>
-    <message>
-        <source>Show location ICC profile information on console while starting</source>
-        <translation type="vanished">Montru la lokon de la informoj pri la ICC-profilo en la konzolo dum la starto</translation>
     </message>
     <message>
         <location filename="../../scribus/scribusapp.cpp" line="293"/>
@@ -35258,10 +33025,6 @@ Pripensu ĉu uzi la antaŭkontrolon por korekti ilin</translation>
         <location filename="../../scribus/scribusapp.cpp" line="598"/>
         <source>Run unit tests and exit</source>
         <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Run filename in Python scripter</source>
-        <translation type="vanished">Rulu filemane en Piton-skriptilo</translation>
     </message>
     <message>
         <location filename="../../scribus/scribusapp.cpp" line="589"/>
@@ -35284,21 +33047,9 @@ Pripensu ĉu uzi la antaŭkontrolon por korekti ilin</translation>
         <translation>Elŝutu dosieron el la Scribus-retejo kaj montru la plej lastan disponeblan version</translation>
     </message>
     <message>
-        <source>Invalid argument use: &apos;%1&apos; requires to be followed by &lt;argument&gt; [value]</source>
-        <translation type="vanished">Nevalida uzo de argumento: &apos;%1&apos; postulas la sekvon de &lt;argument&gt; [valoro]</translation>
-    </message>
-    <message>
         <location filename="../../scribus/scribusapp.cpp" line="576"/>
         <source>Usage: scribus [options] [files]</source>
         <translation>Uzado: scribus [opcio ... ] [dosiero]</translation>
-    </message>
-    <message>
-        <source>argument</source>
-        <translation type="vanished">argumento</translation>
-    </message>
-    <message>
-        <source>value</source>
-        <translation type="vanished">valoro</translation>
     </message>
     <message>
         <location filename="../../scribus/scribusapp.cpp" line="590"/>
@@ -35371,10 +33122,6 @@ Pripensu ĉu uzi la antaŭkontrolon por korekti ilin</translation>
         <translation>Neebligita</translation>
     </message>
     <message>
-        <source>Linking Text Frames</source>
-        <translation type="vanished">Kunligas tekstokadrojn</translation>
-    </message>
-    <message>
         <location filename="../../scribus/scribusview.cpp" line="3171"/>
         <source>Cannot Convert In-Use Item</source>
         <translation>Ne eblas konverti elementon uzatan</translation>
@@ -35400,21 +33147,9 @@ Pripensu ĉu uzi la antaŭkontrolon por korekti ilin</translation>
         <translation>CMS estas aktiva. Do la kolormontro povas ne kongrui kun perceptado fare de malbonvidantoj</translation>
     </message>
     <message>
-        <source>Enter Object Size</source>
-        <translation type="vanished">Enmetu objektograndon</translation>
-    </message>
-    <message>
-        <source>You are trying to link a frame to itself.</source>
-        <translation type="vanished">Vi provas ligi kadron al si mem.</translation>
-    </message>
-    <message>
         <location filename="../../scribus/scribusview.cpp" line="228"/>
         <source>End Edit</source>
         <translation>Finu redakti</translation>
-    </message>
-    <message>
-        <source>Click here to leave this special edit mode.</source>
-        <translation type="vanished">Alklaku ĉi tie por forlasi ĉi tiun specialan redaktoreĝimon.</translation>
     </message>
     <message>
         <location filename="../../scribus/scribusview.cpp" line="258"/>
@@ -35687,10 +33422,6 @@ Pripensu ĉu uzi la antaŭkontrolon por korekti ilin</translation>
         <location filename="../../scribus/plugins/scriptplugin/scripterprefsgui.cpp" line="145"/>
         <source>Locate Startup Script</source>
         <translation>Trovu startigan skripton</translation>
-    </message>
-    <message>
-        <source>Form</source>
-        <translation type="vanished">Formularo</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/scripterprefsgui.ui" line="185"/>
@@ -36265,10 +33996,6 @@ Pripensu ĉu uzi la antaŭkontrolon por korekti ilin</translation>
 <context>
     <name>SpiralWidgetBase</name>
     <message>
-        <source>Form</source>
-        <translation type="vanished">Formularo</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/spiralwidgetbase.ui" line="36"/>
         <source>Start Angle:</source>
         <translation>Startangulo:</translation>
@@ -36343,10 +34070,6 @@ Pripensu ĉu uzi la antaŭkontrolon por korekti ilin</translation>
         <location filename="../../scribus/ui/storyeditor.cpp" line="3296"/>
         <source>Open</source>
         <translation>Malfermu</translation>
-    </message>
-    <message>
-        <source>Text Files (*.txt);;All Files(*)</source>
-        <translation type="vanished">Tekstaj dosieroj (*.txt);;Ĉiaj dosieroj (*)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/storyeditor.cpp" line="3331"/>
@@ -36462,10 +34185,6 @@ Pripensu ĉu uzi la antaŭkontrolon por korekti ilin</translation>
         <translation>A&amp;gordaro</translation>
     </message>
     <message>
-        <source>&amp;Insert Glyph...</source>
-        <translation type="vanished">E&amp;nmetu signobildon...</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/storyeditor.cpp" line="2013"/>
         <source>Clear All Text</source>
         <translation>Forigu tutan tekston</translation>
@@ -36528,10 +34247,6 @@ Pripensu ĉu uzi la antaŭkontrolon por korekti ilin</translation>
         <location filename="../../scribus/ui/storyeditor.cpp" line="2033"/>
         <source>&amp;Glyph...</source>
         <translation>S&amp;ignobildo...</translation>
-    </message>
-    <message>
-        <source>&amp;Sample Text</source>
-        <translation type="vanished">&amp;Specimena teksto</translation>
     </message>
 </context>
 <context>
@@ -36736,10 +34451,6 @@ Pripensu ĉu uzi la antaŭkontrolon por korekti ilin</translation>
         <translation>Alt+A</translation>
     </message>
     <message>
-        <source>Clone copies the style to make similar styles easily.</source>
-        <translation type="vanished">Klonu la stilon por faciligi la kreon de similaj stiloj.</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/stylemanager.ui" line="144"/>
         <source>Alt+C</source>
         <translation>Alt+C</translation>
@@ -36920,10 +34631,6 @@ Pripensu ĉu uzi la antaŭkontrolon por korekti ilin</translation>
         <translation>Antaŭmetu la dokumentnomon al la nomo de la alinestilo en Scribus. </translation>
     </message>
     <message>
-        <source>Make these settings the default and do not prompt again when importing an OpenOffice.org 1.x document.</source>
-        <translation type="vanished">Igu ĉi tiujn agordojn defaŭltaj kaj ne demandu plu dum importado de dokumentoj OpenOffice.org 1.x.</translation>
-    </message>
-    <message>
         <location filename="../../scribus/plugins/gettext/sxwim/sxwdia.cpp" line="33"/>
         <source>Overwrite Paragraph Styles</source>
         <translation>Anstataŭigu alinestilojn</translation>
@@ -37099,10 +34806,6 @@ Pripensu ĉu uzi la antaŭkontrolon por korekti ilin</translation>
         <translation>Enkorpigo</translation>
     </message>
     <message>
-        <source>Available Fonts:</source>
-        <translation type="vanished">Disponeblaj Tiparoj:</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/tabpdfoptions.ui" line="552"/>
         <source>Fonts to embed:</source>
         <translation>Tiparoj enkorpigotaj:</translation>
@@ -37121,10 +34824,6 @@ Pripensu ĉu uzi la antaŭkontrolon por korekti ilin</translation>
         <location filename="../../scribus/ui/tabpdfoptions.ui" line="1859"/>
         <source>PDF/X Output Intent</source>
         <translation>Eligcelo de PDF/X</translation>
-    </message>
-    <message>
-        <source>Determines the PDF compatibility.&lt;br/&gt;The default is &lt;b&gt;PDF 1.3&lt;/b&gt; which gives the widest compatibility.&lt;br/&gt;Choose &lt;b&gt;PDF 1.4&lt;/b&gt; if your file uses features such as transparency or you require 128 bit encryption.&lt;br/&gt;&lt;b&gt;PDF 1.5&lt;/b&gt; is necessary when you wish to preserve objects in separate layers within the PDF.&lt;br/&gt;&lt;b&gt;PDF/X-3&lt;/b&gt; is for exporting the PDF when you want color managed RGB for commercial printing and is selectable when you have activated color management. Use only when advised by your printer or in some cases printing to a 4 color digital color laser printer.&lt;br/&gt;&lt;b&gt;PDF/X-1a&lt;/b&gt; is for blind exchange with colors strictly specified in CMYK or spot colors.&lt;br/&gt;&lt;b&gt;PDF/X-4&lt;/b&gt; is an extension of PDF/X-3 to support transparancy and layering.</source>
-        <translation type="vanished">Determinas la PDF-kongruon.&lt;br/&gt;La defaŭlta estas&lt;b&gt;PDF 1.3&lt;/b&gt; kiu donas la plej grandan kongruecon.&lt;br/&gt;Elektu&lt;b&gt;PDF 1.4&lt;/b&gt; se la ecoj de via dosieroj estas, ekzemple, travidebleco aŭ ĉifrado je 128 bit.&lt;br/&gt;&lt;b&gt;PDF 1.5&lt;/b&gt;necesas kiam vi deziras konservi la objektojn en apartaj tavoloj en la PDF.&lt;br/&gt;&lt;b&gt;PDF/X-3&lt;/b&gt; estas por eksportado de PDF kiam vi volas koloron RGB por komerca printado kaj ĝi estas elektebla kiam vi aktivigis koloradministradon. Uzu nur kiam petita fare de via presisto aŭ en iaj kazoj dum printado al 4-koloroj per cifereckolora laserprintilo.&lt;br/&gt;&lt;b&gt;PDF/X-1a&lt;/b&gt; estas por blinda interŝanĝo kun koloroj strikte specifitaj en CMYK aŭ bazaj koloroj.&lt;br/&gt;&lt;b&gt;PDF/X-4&lt;/b&gt; estas etendo de PDF/X-3 por subteni travideblecon kaj tavolojn.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="293"/>
@@ -37501,26 +35200,6 @@ Pripensu ĉu uzi la antaŭkontrolon por korekti ilin</translation>
         <translation>Eksportu paĝintervalon al PDF</translation>
     </message>
     <message>
-        <source>Generate PDF Articles, which is useful for navigating linked articles in a PDF.</source>
-        <translation type="vanished">Generas PDF-erojn, utilajn por la navigado tra la ligitaj artikoloj en PDF-dosiero.</translation>
-    </message>
-    <message>
-        <source>DPI (Dots Per Inch) for image export.</source>
-        <translation type="vanished">DPI (punktoj en colo) por la bildoeksporto.</translation>
-    </message>
-    <message>
-        <source>Choose a password for users to be able to read your PDF.</source>
-        <translation type="vanished">Elektu pasvorton por uzantoj kiu ebligas al ili legi vian PDF-dosieron.</translation>
-    </message>
-    <message>
-        <source>Allow printing of the PDF. If un-checked, printing is prevented. </source>
-        <translation type="vanished">Permesas printadon de la PDF-dosieron. Se ne markita, ne eblas printi. </translation>
-    </message>
-    <message>
-        <source>Allow modifying of the PDF. If un-checked, modifying the PDF is prevented.</source>
-        <translation type="vanished">Permesas redakton de la PDF-dosiero. Se ne markita ne eblas modifi la PDF-dosieron.</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="270"/>
         <source>Embed a color profile for solid colors</source>
         <translation>Enkorpigu kolorprofilon por homogenaj koloroj</translation>
@@ -37636,10 +35315,6 @@ Pripensu ĉu uzi la antaŭkontrolon por korekti ilin</translation>
         <translation>Longo de la tempo dum kiu la efekto plenumiĝas. Pli mallonga tempo rapidigos la efekton, pli longa malrapidigos ĝin.</translation>
     </message>
     <message>
-        <source>Insert a comma separated list of tokens where a token can be * for all the pages, 1-5 for a range of pages or a single page number.</source>
-        <translation type="vanished">Enmetu komdisigitan liston de simboloj, kie simbolo povus esti * por ĉiuj paĝoj, 1-5 por paĝointervalo, aŭ unuopa paĝnumeron.</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="216"/>
         <source>Determines the binding of pages in the PDF. Unless you know you need to change it leave the default choice - Left.</source>
         <translation>Difinas la paĝobindon en PDF-dosiero. Se vi ne scias ĉu vi bezonas modifi, lasu ĝin laŭ la defaŭlta elekto - Maldekstra.</translation>
@@ -37668,10 +35343,6 @@ Pripensu ĉu uzi la antaŭkontrolon por korekti ilin</translation>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="259"/>
         <source>Enable the security features in your exported PDF. If you selected PDF 1.3, the PDF will be protected by 40 bit encryption. If you selected PDF 1.4, the PDF will be protected by 128 bit encryption. Disclaimer: PDF encryption is not as reliable as GPG or PGP encryption and does have some limitations.</source>
         <translation>Ebligu la sekurecon en la eksportita PDF-dosiero. Se vi elektis PDf 1.3, la PDF-dosiero estos protektita de 40bita ĉifrado. Se vi elektis PDF 1.4, la PDF-dosiero estos protektita de 128bita ĉifrado. Atenton: PDF-ĉifrado ne estas sekura kiel GPG- aŭ PGP-ĉifrado kaj havas kelkajn limojn.</translation>
-    </message>
-    <message>
-        <source>This is an advanced setting which is not enabled by default. This should only be enabled when specifically requested by your printer and they have given you the exact details needed. Otherwize, your exported PDF may not print properly and is truly not portable across systems.</source>
-        <translation type="vanished">Ĉi tio estas kroma agordaĵo kiu ne estas defaŭlte ebligita. Ĝi devus estis ebligita nur kiam ĝin postulas via printilo kaj oni konas la necesajn detalojn. Alie la eksportita PDF-dosiero povus ne bone funkcii kaj ne esti portebla al aliaj sistemoj.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.ui" line="918"/>
@@ -37782,10 +35453,6 @@ kiam PDF-dokumento estas malfermita:</translation>
         <translation>Ebligas prezentoefektojn kiam oni uzas Adobe Reader&amp;#174, kaj aliaj PDF-vidigiloj kiuj subtenas tion en tutekrana reĝimo.</translation>
     </message>
     <message>
-        <source>Layers in your document are exported to the PDF Only available if PDF 1.5 is chosen.</source>
-        <translation type="vanished">La tavoloj de via dokumento estos eksportitaj al PDF. Disponebla nur se oni elektis PDF 1.5.</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="268"/>
         <source>Color model for the output of your PDF. Choose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets. Choose Printer when printing to a true 4 color CMYK printer. Choose Grayscale when you want a grey scale PDF.</source>
         <translation>Kolormodelo por la eligo de via PDF. Elektu Ekrano/TTT por PDF&apos;oj uzataj por montri sur ekrano aŭ por printi per ordinaraj inkprintiloj. Elektu Printilo kiam oni printas al 4-kolora CMYK-printilo. Elektu Grizgamo se vi volas grizgaman PDF&apos;on.</translation>
@@ -37881,10 +35548,6 @@ kiam PDF-dokumento estas malfermita:</translation>
         <translation>Kvalitaj niveloj de densigo por densigmetodo kun perdo: Minimuma (25%), Malalta (50%), Meza (75%),Alta (85%), Maksimuma (95%). Notu ke kvalitnivelo ne rekte determinas la grandon de la rezulta bildo - kaj grando kaj kvalitoperdo varias de bildo al bildo je kiu ajn kvalitonivelo. Eĉ kun la Maksimumo elektita, estas ĉiam perdo de kvalito kun jpeg. </translation>
     </message>
     <message>
-        <source>InfoString</source>
-        <translation type="vanished">Informteskto</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="717"/>
         <source>Inside:</source>
         <translation>Interna:</translation>
@@ -37898,18 +35561,6 @@ kiam PDF-dokumento estas malfermita:</translation>
         <location filename="../../scribus/ui/tabpdfoptions.ui" line="562"/>
         <source>&amp;Embed all</source>
         <translation>Enkorp&amp;igu ĉiujn</translation>
-    </message>
-    <message>
-        <source>Fonts to outline:</source>
-        <translation type="vanished">Tiparoj konturotaj:</translation>
-    </message>
-    <message>
-        <source>&amp;Outline all</source>
-        <translation type="vanished">Kontu&amp;ru ĉiujn</translation>
-    </message>
-    <message>
-        <source>Convert all glyphs in the document to outlines.</source>
-        <translation type="vanished">Konvertu ĉiujn signobildojn en la dokumento al konturoj.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.ui" line="956"/>
@@ -37970,14 +35621,6 @@ kiam PDF-dokumento estas malfermita:</translation>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="254"/>
         <source>Hides the Tool Bar which has selection and other editing capabilities</source>
         <translation>Kaŝas la Ilbreton kiu enhavas elektan kaj aliajn redaktajn kapablecojn</translation>
-    </message>
-    <message>
-        <source>Hides the Menu Bar for the viewer, the PDF will display in a plain window. </source>
-        <translation type="vanished">Kaŝas la Menubreton en la vidigilo, la PDF estos montrita en simpla fenestro. </translation>
-    </message>
-    <message>
-        <source>Fit the document page or pages to the available space in the viewer window.</source>
-        <translation type="vanished">Adaptu la dokumentpaĝon aŭ paĝojn al la disponebla spaco en la vidigila fenestro.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="226"/>
@@ -38119,10 +35762,6 @@ kiam PDF-dokumento estas malfermita:</translation>
         <location filename="../../scribus/ui/tabpdfoptions.ui" line="14"/>
         <source>TabWidget</source>
         <translation>TabWidget</translation>
-    </message>
-    <message>
-        <source>...</source>
-        <translation type="vanished">...</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.ui" line="121"/>
@@ -38514,33 +36153,25 @@ kiam PDF-dokumento estas malfermita:</translation>
         <location filename="../../scribus/ui/transformdialogbase.ui" line="267"/>
         <location filename="../../scribus/ui/transformdialogbase.ui" line="359"/>
         <source>Horizontal:</source>
-        <translation type="unfinished">Horizontala:</translation>
+        <translation>Horizontala:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/transformdialogbase.ui" line="210"/>
         <location filename="../../scribus/ui/transformdialogbase.ui" line="284"/>
         <location filename="../../scribus/ui/transformdialogbase.ui" line="410"/>
         <source>Vertical:</source>
-        <translation type="unfinished">Vertikala:</translation>
+        <translation>Vertikala:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/transformdialogbase.ui" line="320"/>
         <source>Angle:</source>
-        <translation type="unfinished">Angulo:</translation>
-    </message>
-    <message>
-        <source>Horizontal</source>
-        <translation type="vanished">Horizontala</translation>
+        <translation>Angulo:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/transformdialogbase.ui" line="160"/>
         <location filename="../../scribus/ui/transformdialogbase.ui" line="229"/>
         <source> %</source>
         <translation> %</translation>
-    </message>
-    <message>
-        <source>Vertical</source>
-        <translation type="vanished">Vertikala</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/transformdialogbase.ui" line="257"/>
@@ -38551,10 +36182,6 @@ kiam PDF-dokumento estas malfermita:</translation>
         <location filename="../../scribus/ui/transformdialogbase.ui" line="310"/>
         <source>Rotate</source>
         <translation>Rotaciu</translation>
-    </message>
-    <message>
-        <source>Angle</source>
-        <translation type="vanished">Angulo</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/transformdialogbase.ui" line="349"/>
@@ -40132,10 +37759,6 @@ Would you like to start the system&apos;s default browser instead?</source>
         <translation>Elektu la kvaliton de la bildantaŭrigardo</translation>
     </message>
     <message>
-        <source>Select the visual appearance of the display. You can choose between normal and several color blindness forms</source>
-        <translation type="vanished">Elektu la aspekton de la vidigilo. Vi povas elekti inter normala kaj diverskoloraj formoj de blindeco </translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/viewtoolbar.cpp" line="99"/>
         <source>Select image preview quality</source>
         <translation>Elektu la kvaliton de la bildantaŭrigardo</translation>
@@ -40308,10 +37931,6 @@ konvertante iliajn vektorajn datumojn en Scribus-objektoj.</translation>
         <translation>Importo de dosiero:</translation>
     </message>
     <message>
-        <source>TextLabel</source>
-        <translation type="vanished">TextLabel</translation>
-    </message>
-    <message>
         <location filename="../../scribus/plugins/import/xps/xpsimportoptions.ui" line="67"/>
         <source>Page Range</source>
         <translation>Paĝintervalo</translation>
@@ -40363,17 +37982,9 @@ konvertante iliajn vektorajn datumojn en Scribus-objektoj.</translation>
         <translation>Uzu la nomon de la dokumento kiel prefikson por la stiloj</translation>
     </message>
     <message>
-        <source>Prepend the document name to the Style name in Scribus.</source>
-        <translation type="vanished">Antaŭmetu la dokumentnomon al la nomo de la stilo en Scribus. </translation>
-    </message>
-    <message>
         <location filename="../../scribus/plugins/gettext/xtgim/xtgdialog.cpp" line="62"/>
         <source>Do not ask again</source>
         <translation>Ne plu demandu</translation>
-    </message>
-    <message>
-        <source>Make these settings the default and do not prompt again when importing an XPress Tags document.</source>
-        <translation type="vanished">Igu ĉi tiujn agordojn defaŭltaj kaj ne demandu plu dum importado de OpenDocument OASIS.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/gettext/xtgim/xtgdialog.cpp" line="73"/>
@@ -40451,10 +38062,6 @@ konvertante iliajn vektorajn datumojn en Scribus-objektoj.</translation>
 </context>
 <context>
     <name>colorPalette</name>
-    <message>
-        <source>Form</source>
-        <translation type="vanished">Formularo</translation>
-    </message>
     <message>
         <location filename="../../scribus/ui/colorpalette.ui" line="105"/>
         <location filename="../../scribus/ui/colorpalette.ui" line="510"/>
@@ -40539,10 +38146,6 @@ konvertante iliajn vektorajn datumojn en Scribus-objektoj.</translation>
         <location filename="../../scribus/ui/colorpalette.ui" line="490"/>
         <source>Color:</source>
         <translation>Koloro:</translation>
-    </message>
-    <message>
-        <source>Transparency:</source>
-        <translation type="vanished">Travidebleco:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/colorpalette.ui" line="569"/>
@@ -40641,10 +38244,6 @@ konvertante iliajn vektorajn datumojn en Scribus-objektoj.</translation>
         <translation>Linikoloro:</translation>
     </message>
     <message>
-        <source>Background</source>
-        <translation type="vanished">Fono</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/colorpalette.ui" line="227"/>
         <location filename="../../scribus/ui/colorpalette.ui" line="915"/>
         <source>Extend:</source>
@@ -40723,7 +38322,7 @@ bonvolu elekti alian.</translation>
     <message>
         <location filename="../../scribus/ui/gtfiledialog.cpp" line="29"/>
         <source>Prepend the item name to the Style name in Scribus</source>
-        <translation type="unfinished"></translation>
+        <translation>Antaŭmetu la elementnomon al la nomo de la stilo en Scribus</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/gtfiledialog.ui" line="14"/>
@@ -40748,7 +38347,7 @@ bonvolu elekti alian.</translation>
     <message>
         <location filename="../../scribus/ui/gtfiledialog.ui" line="56"/>
         <source>Prefix Styles with Item Name</source>
-        <translation type="unfinished"></translation>
+        <translation>Prefiksaj stiloj kun elementnomo</translation>
     </message>
 </context>
 <context>
@@ -41061,10 +38660,6 @@ bonvolu elekti alian.</translation>
         <translation>Kopiu ekzistantan template.xml en dosieron nomatan template.lang_COUNTRY.xml (uzu la saman lingvan kodon kiu estas en la qm-dosiero de via lingvo), ekzemple template.fi.xml por la template.xml de finna lingvo. La kopio devus esti lokita en la sama dosierujo kiel la originala template.xml tiel ke Scribus povu ŝargi ĝin.</translation>
     </message>
     <message>
-        <source>Form</source>
-        <translation type="vanished">Formularo</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/nftwidget.ui" line="82"/>
         <source>&amp;About</source>
         <translation>&amp;Pri</translation>
@@ -41095,17 +38690,17 @@ bonvolu elekti alian.</translation>
     <message>
         <location filename="../../scribus/ui/recoverdialog.ui" line="65"/>
         <source>Name</source>
-        <translation type="unfinished">Nomo</translation>
+        <translation>Nomo</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/recoverdialog.ui" line="70"/>
         <source>Date</source>
-        <translation type="unfinished">Dato</translation>
+        <translation>Dato</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/recoverdialog.ui" line="75"/>
         <source>Type</source>
-        <translation type="unfinished">Tipo</translation>
+        <translation>Tipo</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/recoverdialog.ui" line="88"/>
@@ -41115,12 +38710,12 @@ bonvolu elekti alian.</translation>
     <message>
         <location filename="../../scribus/ui/recoverdialog.ui" line="98"/>
         <source>Remove</source>
-        <translation type="unfinished">Forigu</translation>
+        <translation>Forigu</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/recoverdialog.ui" line="118"/>
         <source>Close</source>
-        <translation type="unfinished">Fermu</translation>
+        <translation>Fermu</translation>
     </message>
 </context>
 <context>
@@ -41479,10 +39074,6 @@ bonvolu elekti alian.</translation>
 <context>
     <name>transparencyPalette</name>
     <message>
-        <source>Form</source>
-        <translation type="vanished">Formularo</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/transparencypalette.ui" line="28"/>
         <source>Edit Line Color Properties</source>
         <translation>Redaktu linikolor-ecojn</translation>
@@ -41666,14 +39257,6 @@ bonvolu elekti alian.</translation>
 </context>
 <context>
     <name>weldEditBase</name>
-    <message>
-        <source>Form</source>
-        <translation type="vanished">Formularo</translation>
-    </message>
-    <message>
-        <source>Move weld Point</source>
-        <translation type="vanished">Movu veldopunkton</translation>
-    </message>
     <message>
         <location filename="../../scribus/ui/weldeditbase.ui" line="30"/>
         <source>Move Object</source>

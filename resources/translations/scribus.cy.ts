@@ -17,7 +17,7 @@
     <message>
         <location filename="../../scribus/plugins/import/ai/importai.cpp" line="2345"/>
         <source>Group%1</source>
-        <translation>Grŵp %1</translation>
+        <translation>Grŵp%1</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/ai/importai.cpp" line="3459"/>
@@ -268,10 +268,6 @@
         <translation>Fersiwn:</translation>
     </message>
     <message>
-        <source>Enabled:</source>
-        <translation type="vanished">Galluogi:</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/aboutplugins.cpp" line="76"/>
         <source>Release Date:</source>
         <translation>Dyddiad Rhyddhad</translation>
@@ -305,17 +301,9 @@
 <context>
     <name>ActionManager</name>
     <message>
-        <source>&amp;Image Effects</source>
-        <translation type="vanished">&amp;Delwedd Effeithiau</translation>
-    </message>
-    <message>
         <location filename="../../scribus/actionmanager.cpp" line="1556"/>
         <source>&amp;Tabulators...</source>
         <translation>&amp;Tablwr...</translation>
-    </message>
-    <message>
-        <source>&amp;New</source>
-        <translation type="vanished">&amp;Newydd</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1482"/>
@@ -525,10 +513,6 @@
         <translation>D&amp;yblygeb</translation>
     </message>
     <message>
-        <source>&amp;Multiple Duplicate</source>
-        <translation type="vanished">&amp;Lluosog Dyblygeb</translation>
-    </message>
-    <message>
         <location filename="../../scribus/actionmanager.cpp" line="1562"/>
         <source>&amp;Delete</source>
         <translation>&amp;Dileu</translation>
@@ -599,14 +583,6 @@
         <translation>Ydyw PDF A&amp;nodiad</translation>
     </message>
     <message>
-        <source>Annotation P&amp;roperties</source>
-        <translation type="vanished">Anodiad P&amp;riodwedd</translation>
-    </message>
-    <message>
-        <source>Field P&amp;roperties</source>
-        <translation type="vanished">Maes P&amp;riodwedd</translation>
-    </message>
-    <message>
         <location filename="../../scribus/actionmanager.cpp" line="1605"/>
         <source>&amp;Edit Shape...</source>
         <translation>&amp;Golygu Siâp</translation>
@@ -659,10 +635,6 @@
         <location filename="../../scribus/actionmanager.cpp" line="1622"/>
         <source>&amp;Glyph...</source>
         <translation>&amp;Glyff...</translation>
-    </message>
-    <message>
-        <source>Sample Text</source>
-        <translation type="vanished">Testun Sampl</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1635"/>
@@ -991,10 +963,6 @@
         <translation>Addasu Ffrâm i&apos;r Delwedd</translation>
     </message>
     <message>
-        <source>Extended Image Properties</source>
-        <translation type="vanished">Estynedig Delwedd Priodwedd</translation>
-    </message>
-    <message>
         <location filename="../../scribus/actionmanager.cpp" line="1666"/>
         <source>Show Control Characters</source>
         <translation>Dangos Rheoli Cymeriadau</translation>
@@ -1048,10 +1016,6 @@
         <location filename="../../scribus/actionmanager.cpp" line="1643"/>
         <source>Manage Page Properties...</source>
         <translation>Rheoli Tudalen Priodwedd...</translation>
-    </message>
-    <message>
-        <source>Print Previe&amp;w</source>
-        <translation type="vanished">Print Rhagolw&amp;g</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1528"/>
@@ -1445,10 +1409,6 @@
         <translation>Dangos Cysywllt Dewislen</translation>
     </message>
     <message>
-        <source>&amp;Manage Images</source>
-        <translation type="vanished">&amp;Ymdopi Delweddau</translation>
-    </message>
-    <message>
         <location filename="../../scribus/actionmanager.cpp" line="1747"/>
         <source>&amp;About Plugins</source>
         <translation>&amp;Ynglŷn â  Ategyn</translation>
@@ -1622,10 +1582,6 @@
         <location filename="../../scribus/actionmanager.cpp" line="1481"/>
         <source>New &amp;from Template...</source>
         <translation>Newydd &amp;o Templed...</translation>
-    </message>
-    <message>
-        <source>&amp;Transform</source>
-        <translation type="vanished">&amp;Trawsffurfio</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1513"/>
@@ -1872,10 +1828,6 @@
         <location filename="../../scribus/actionmanager.cpp" line="1778"/>
         <source>Edit contents of a frame</source>
         <translation>Golygu cynnwys y ffram</translation>
-    </message>
-    <message>
-        <source>Edit text in the Story Editor</source>
-        <translation type="vanished">Golygu testun yn y Story Editor</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1780"/>
@@ -2204,10 +2156,6 @@
         <translation>&amp;Alinio Ochrau Gan:</translation>
     </message>
     <message>
-        <source>...</source>
-        <translation type="vanished">...</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/aligndistribute.ui" line="306"/>
         <source>Distribute</source>
         <translation>Dosbarthu</translation>
@@ -2228,25 +2176,13 @@
         <translation>Cyfnewid</translation>
     </message>
     <message>
-        <source>DockWidget</source>
-        <translation type="vanished">DockWidget</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/aligndistribute.ui" line="14"/>
         <source>Align and Distribute</source>
-        <translation type="unfinished">Ymochri a Dosbarthu</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>AlignDistributePalette</name>
-    <message>
-        <source>Align and Distribute</source>
-        <translation type="vanished">Ymochri a Dosbarthu</translation>
-    </message>
-    <message>
-        <source>&amp;Relative to:</source>
-        <translation type="vanished">Perthynol a:</translation>
-    </message>
     <message>
         <location filename="../../scribus/ui/aligndistribute.cpp" line="96"/>
         <source>First Selected</source>
@@ -2271,10 +2207,6 @@
         <location filename="../../scribus/ui/aligndistribute.cpp" line="101"/>
         <source>Selection</source>
         <translation>Dewis</translation>
-    </message>
-    <message>
-        <source>&amp;Align Sides By:</source>
-        <translation type="vanished">&amp;Alinio Ochrau Gan:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/aligndistribute.cpp" line="116"/>
@@ -2340,14 +2272,6 @@
         <location filename="../../scribus/ui/aligndistribute.cpp" line="100"/>
         <source>Guide</source>
         <translation>Canllaw</translation>
-    </message>
-    <message>
-        <source>&amp;Selected Guide:</source>
-        <translation type="vanished">&amp;Dewis Canllaw:</translation>
-    </message>
-    <message>
-        <source>&amp;Distance:</source>
-        <translation type="vanished">&amp;Pellter:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/aligndistribute.cpp" line="141"/>
@@ -2443,14 +2367,6 @@
         <location filename="../../scribus/ui/aligndistribute.cpp" line="137"/>
         <source>Make vertical gaps between items and the top and bottom of page equal</source>
         <translation>Gwneud fertigol bylchau rhwng eitemau a&apos;r top a gwelod  y tudalen yn gyfratal</translation>
-    </message>
-    <message>
-        <source>Align</source>
-        <translation type="vanished">Alinio</translation>
-    </message>
-    <message>
-        <source>Distribute</source>
-        <translation type="vanished">Dosbarthu</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/aligndistribute.cpp" line="103"/>
@@ -2774,10 +2690,6 @@
 <context>
     <name>ArcWidgetBase</name>
     <message>
-        <source>Form</source>
-        <translation type="vanished">Ffurflen</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/arcwidgetbase.ui" line="36"/>
         <source>Start Angle:</source>
         <translation>Cychwyn Ongl:</translation>
@@ -2791,87 +2703,6 @@
         <location filename="../../scribus/ui/arcwidgetbase.ui" line="117"/>
         <source>Sample Polygon</source>
         <translation>Sampl Polygon</translation>
-    </message>
-</context>
-<context>
-    <name>AspellPlugin</name>
-    <message>
-        <source>Spell-checking support</source>
-        <translation type="vanished">Cefnogaeth Gwirio sillafu</translation>
-    </message>
-    <message>
-        <source>0.1</source>
-        <translation type="vanished">0.1</translation>
-    </message>
-    <message>
-        <source>Spell Checker</source>
-        <translation type="vanished">Gwirydd Sillafu</translation>
-    </message>
-</context>
-<context>
-    <name>AspellPluginBase</name>
-    <message>
-        <source>Spell Check</source>
-        <translation type="vanished">Gwirio Sillafu</translation>
-    </message>
-    <message>
-        <source>Replacement:</source>
-        <translation type="vanished">Ailddodiad:</translation>
-    </message>
-    <message>
-        <source>&amp;Add Word</source>
-        <translation type="vanished">&amp;Ategu Gair</translation>
-    </message>
-    <message>
-        <source>&amp;Change</source>
-        <translation type="vanished">&amp;Newid</translation>
-    </message>
-    <message>
-        <source>Not in Dictionary:</source>
-        <translation type="vanished">Ddim yn y Geiriadur:</translation>
-    </message>
-    <message>
-        <source>Active Dictionary: </source>
-        <translation type="vanished">Bywiogi Geiriadur:</translation>
-    </message>
-    <message>
-        <source>&amp;Ignore</source>
-        <translation type="vanished">&amp;Anwybyddu</translation>
-    </message>
-    <message>
-        <source>I&amp;gnore All</source>
-        <translation type="vanished">A&amp;nwybyddu y Cyfan</translation>
-    </message>
-    <message>
-        <source>Change A&amp;ll</source>
-        <translation type="vanished">Newid y C&amp;yfan</translation>
-    </message>
-    <message>
-        <source>Close</source>
-        <translation type="vanished">Cau</translation>
-    </message>
-</context>
-<context>
-    <name>AspellPluginImpl</name>
-    <message>
-        <source>Loaded </source>
-        <translation type="vanished">Llwythog</translation>
-    </message>
-    <message>
-        <source>default </source>
-        <translation type="vanished">rhagosodiad</translation>
-    </message>
-    <message>
-        <source>Spelling check complete</source>
-        <translation type="vanished">Sillafu siec yn gyflawn</translation>
-    </message>
-    <message>
-        <source> Aspell dictionary.</source>
-        <translation type="vanished">Aspell geiriadur.</translation>
-    </message>
-    <message>
-        <source>Spell Checker</source>
-        <translation type="vanished">Gwirydd Sillafu</translation>
     </message>
 </context>
 <context>
@@ -2928,133 +2759,9 @@
 <context>
     <name>BarcodeGenerator</name>
     <message>
-        <source>Error opening file: %1</source>
-        <translation type="vanished">Gwall wrth agor ffeil: %1</translation>
-    </message>
-    <message>
-        <source>12 or 13 digits</source>
-        <translation type="vanished">12 neu 13 digidau</translation>
-    </message>
-    <message>
-        <source>8 digits</source>
-        <translation type="vanished">8 digidau</translation>
-    </message>
-    <message>
-        <source>11 or 12 digits</source>
-        <translation type="vanished">11 neu 12 digidau</translation>
-    </message>
-    <message>
-        <source>7 or 8 digits</source>
-        <translation type="vanished">7 neu 8 digidau</translation>
-    </message>
-    <message>
-        <source>5 digits</source>
-        <translation type="vanished">5 digidau</translation>
-    </message>
-    <message>
-        <source>2 digits</source>
-        <translation type="vanished">2 digidau</translation>
-    </message>
-    <message>
-        <source>Variable number of digits</source>
-        <translation type="vanished">Cyfnewidiol rhif o digidau</translation>
-    </message>
-    <message>
-        <source>Variable number of digits and capital letters</source>
-        <translation type="vanished">Cyfnewidiol rhif o digidau a priflythrennau</translation>
-    </message>
-    <message>
-        <source>Variable number of hexadecimal characters</source>
-        <translation type="vanished">Cyfnewidiol rhif hecsadegol llythrenau</translation>
-    </message>
-    <message>
-        <source>Barcode</source>
-        <translation type="vanished">Barcod</translation>
-    </message>
-    <message>
-        <source>Barcode incomplete</source>
-        <translation type="vanished">Barcod anghyflawn</translation>
-    </message>
-    <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.cpp" line="386"/>
         <source>Select Type</source>
         <translation>Dethol Math</translation>
-    </message>
-    <message>
-        <source>EAN-13</source>
-        <translation type="vanished">EAN-13</translation>
-    </message>
-    <message>
-        <source>EAN-8</source>
-        <translation type="vanished">EAN-8</translation>
-    </message>
-    <message>
-        <source>UPC-A</source>
-        <translation type="vanished">UPC-A</translation>
-    </message>
-    <message>
-        <source>UPC-E</source>
-        <translation type="vanished">UPC-E</translation>
-    </message>
-    <message>
-        <source>EAN-5</source>
-        <translation type="vanished">EAN-5</translation>
-    </message>
-    <message>
-        <source>EAN-2</source>
-        <translation type="vanished">EAN-2</translation>
-    </message>
-    <message>
-        <source>ISBN</source>
-        <translation type="vanished">ISBN</translation>
-    </message>
-    <message>
-        <source>Code-39</source>
-        <translation type="vanished">Cod-39</translation>
-    </message>
-    <message>
-        <source>Code-128</source>
-        <translation type="vanished">Cod-128</translation>
-    </message>
-    <message>
-        <source>UCC/EAN-128</source>
-        <translation type="vanished">UCC/EAN-128</translation>
-    </message>
-    <message>
-        <source>Rationalized Codabar</source>
-        <translation type="vanished">Rhesymoliad Codabar</translation>
-    </message>
-    <message>
-        <source>Interleaved 2 of 5</source>
-        <translation type="vanished">Daearudeiliog 2 o 5</translation>
-    </message>
-    <message>
-        <source>ITF-14</source>
-        <translation type="vanished">ITF-14</translation>
-    </message>
-    <message>
-        <source>Code 2 of 5</source>
-        <translation type="vanished">Cod 2 o 5</translation>
-    </message>
-    <message>
-        <source>Postnet</source>
-        <translation type="vanished">Postynrhwyd</translation>
-    </message>
-    <message>
-        <source>Royal Mail</source>
-        <translation type="vanished">Post Brenhinol</translation>
-    </message>
-    <message>
-        <source>MSI</source>
-        <translation type="vanished">MSI</translation>
-    </message>
-    <message>
-        <source>Plessey</source>
-        <translation type="vanished">Plessey</translation>
-    </message>
-    <message>
-        <source>QR Code</source>
-        <translation type="vanished">QR Cod</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.cpp" line="184"/>
@@ -3116,10 +2823,6 @@
 <context>
     <name>BarcodeGeneratorBase</name>
     <message>
-        <source>&amp;Type:</source>
-        <translation type="vanished">Ma&amp;th:</translation>
-    </message>
-    <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="412"/>
         <source>Reset the barcode samples</source>
         <translation type="unfinished"></translation>
@@ -3143,10 +2846,6 @@
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="104"/>
         <source>Draw arrows to be sure of space next the code</source>
         <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Colors</source>
-        <translation type="vanished">Lliwiau</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="152"/>
@@ -3194,10 +2893,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Co&amp;de:</source>
-        <translation type="vanished">Co&amp;d:</translation>
-    </message>
-    <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="130"/>
         <source>Alt+N</source>
         <translation>Alt+N</translation>
@@ -3221,30 +2916,6 @@
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="16"/>
         <source>Insert Barcode</source>
         <translation>Mewnosod Barcode</translation>
-    </message>
-    <message>
-        <source>Format</source>
-        <translation type="vanished">Fformat</translation>
-    </message>
-    <message>
-        <source>Incl&amp;ude Checksum Digit</source>
-        <translation type="vanished">Cynn&amp;wys Prawfswm Digudol</translation>
-    </message>
-    <message>
-        <source>I&amp;nclude Checksum</source>
-        <translation type="vanished">C&amp;ynnwys Prawfswm</translation>
-    </message>
-    <message>
-        <source>Options</source>
-        <translation type="vanished">Dewisiadau</translation>
-    </message>
-    <message>
-        <source>&amp;Format:</source>
-        <translation type="vanished">&amp;Fformat:</translation>
-    </message>
-    <message>
-        <source>Error &amp;checking:</source>
-        <translation type="vanished">Gwall &amp;gwirio:</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="71"/>
@@ -3294,7 +2965,7 @@
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="384"/>
         <source>Options:</source>
-        <translation type="unfinished">Dewisiadau:</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="371"/>
@@ -3309,7 +2980,7 @@
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="457"/>
         <source>Version:</source>
-        <translation type="unfinished">Fersiwn:</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="496"/>
@@ -3753,7 +3424,7 @@ Relative Colorimetric or Perceptual should be chosen.</source>
     </message>
     <message>
         <location filename="../../scribus/ui/cmsprefsbase.ui" line="274"/>
-        <source>Enable &apos;soft proofing&apos; of how your document colors will print,
+        <source>Enable 'soft proofing' of how your document colors will print,
 based on the chosen printer profile.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3828,14 +3499,6 @@ It is recommended that you enable this if you have photos in your document.</sou
         <translation>RGB Gwê</translation>
     </message>
     <message>
-        <source>New</source>
-        <translation type="vanished">Newydd</translation>
-    </message>
-    <message>
-        <source>Old</source>
-        <translation type="vanished">Hen</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/cmykfw.cpp" line="631"/>
         <location filename="../../scribus/ui/cmykfw.cpp" line="794"/>
         <source>C:</source>
@@ -3850,10 +3513,6 @@ It is recommended that you enable this if you have photos in your document.</sou
         <location filename="../../scribus/ui/cmykfw.cpp" line="633"/>
         <source>Y:</source>
         <translation>Y:</translation>
-    </message>
-    <message>
-        <source>K:</source>
-        <translation type="vanished">K:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/cmykfw.cpp" line="270"/>
@@ -3890,14 +3549,6 @@ It is recommended that you enable this if you have photos in your document.</sou
         <location filename="../../scribus/ui/cmykfw.cpp" line="627"/>
         <source> %</source>
         <translation>%</translation>
-    </message>
-    <message>
-        <source>&amp;Name:</source>
-        <translation type="vanished">&amp;Enw:</translation>
-    </message>
-    <message>
-        <source>Color &amp;Model</source>
-        <translation type="vanished">Model &amp;Lliw</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/cmykfw.cpp" line="1121"/>
@@ -4034,10 +3685,6 @@ Please choose another one.</source>
         <location filename="../../scribus/ui/cmykfwbase.ui" line="546"/>
         <source> %</source>
         <translation>%</translation>
-    </message>
-    <message>
-        <source>...</source>
-        <translation type="vanished">...</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/cmykfwbase.ui" line="539"/>
@@ -6417,10 +6064,6 @@ currently %2 x %3 DPI</source>
         <translation>Agor</translation>
     </message>
     <message>
-        <source>Curve Files &quot;*.scu&quot; (*.scu *.SCU);;All Files (*)</source>
-        <translation type="vanished">Cromlin Ffeils &quot;*.scu&quot; (*.scu *.SCU);;Oll Ffeils (*)</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/curvewidget.cpp" line="449"/>
         <source>Save as</source>
         <translation>Cadw fel</translation>
@@ -6722,14 +6365,6 @@ currently %2 x %3 DPI</source>
         <location filename="../../scribus/docinfo.cpp" line="161"/>
         <source>Further &amp;Information</source>
         <translation>Gwybodaeth &amp;Bellach</translation>
-    </message>
-    <message>
-        <source>A person or organisation responsible for making the document available</source>
-        <translation type="vanished">Person neu sefydliad sy&apos;n gyfrifol ar gyfer cyhoeddi&apos;r ddogfen</translation>
-    </message>
-    <message>
-        <source>A person or organisation responsible for making contributions to the content of the document</source>
-        <translation type="vanished">Person neu sefydliad sy&apos;n gyfrifol ar gyfer gweud cyfraniadau i gynnwys y ddogfen</translation>
     </message>
     <message>
         <location filename="../../scribus/docinfo.cpp" line="173"/>
@@ -7397,10 +7032,6 @@ Name of the export file will be &apos;documentname-pagenumber.filetype&apos;</so
         <translation>Fformatau allforio ar gael</translation>
     </message>
     <message>
-        <source>Choose a Export Directory</source>
-        <translation type="vanished">Dewis Cyfeiriadur Allforio</translation>
-    </message>
-    <message>
         <location filename="../../scribus/plugins/export/pixmapexport/exportform.ui" line="50"/>
         <source>C&amp;hange...</source>
         <translation>&amp;Newid...</translation>
@@ -7467,14 +7098,6 @@ Name of the export file will be &apos;documentname-pagenumber.filetype&apos;</so
         <translation>Allforio amrediad o dudalennau</translation>
     </message>
     <message>
-        <source>Insert a comma separated list of tokens where
-a token can be * for all the pages, 1-5 for
-a range of pages or a single page number.</source>
-        <translation type="vanished">Mewnosod rhestr wedi&apos;i gwahanu gan atalnodau o docynnau, lle
-gall tocyn fod yn * ar gyfer pob tudalen, 1-5 ar gyfer
-amrediad tudalennau, neu rhif tudalen unigol.</translation>
-    </message>
-    <message>
         <location filename="../../scribus/plugins/export/pixmapexport/dialog.cpp" line="119"/>
         <source>Export all pages</source>
         <translation>Allforio pob tudalen</translation>
@@ -7500,10 +7123,6 @@ Defnyddiwch 72 dpi ar gyfer Delweddau a fwriedir i&apos;r Sgrin</translation>
         <location filename="../../scribus/plugins/export/pixmapexport/exportform.ui" line="184"/>
         <source>Image size in Pixels</source>
         <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>TextLabel</source>
-        <translation type="vanished">TestynLebal</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/export/pixmapexport/dialog.cpp" line="123"/>
@@ -7803,7 +7422,7 @@ a range of pages or a single page number</source>
     <message>
         <location filename="../../scribus/plugins/import/fh/importfh.cpp" line="150"/>
         <source>Analyzing File:</source>
-        <translation type="unfinished">Dadansoddiadu Ffeil:</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/fh/importfh.cpp" line="355"/>
@@ -8139,14 +7758,6 @@ Document Liberation Project http://www.documentliberation.org</source>
 </context>
 <context>
     <name>GradientEditor</name>
-    <message>
-        <source>Position:</source>
-        <translation type="vanished">Lleoliad:</translation>
-    </message>
-    <message>
-        <source> %</source>
-        <translation type="vanished">%</translation>
-    </message>
     <message>
         <location filename="../../scribus/ui/gradienteditor.cpp" line="182"/>
         <source>Add, change or remove color stops here</source>
@@ -8758,10 +8369,6 @@ Document Liberation Project http://www.documentliberation.org</source>
 <context>
     <name>HelpBrowserNavigation</name>
     <message>
-        <source>Form</source>
-        <translation type="vanished">Ffurflen</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/helpbrowsernavigation.ui" line="31"/>
         <source>&amp;Contents</source>
         <translation type="unfinished"></translation>
@@ -8785,7 +8392,7 @@ Document Liberation Project http://www.documentliberation.org</source>
         <location filename="../../scribus/ui/helpbrowsernavigation.ui" line="70"/>
         <location filename="../../scribus/ui/helpbrowsernavigation.ui" line="86"/>
         <source>1</source>
-        <translation type="unfinished">1</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/helpbrowsernavigation.ui" line="79"/>
@@ -9337,7 +8944,7 @@ converting their vector data into Scribus objects.</source>
     <message>
         <location filename="../../scribus/plugins/import/fh/importfhplugin.cpp" line="124"/>
         <source>All Supported Formats</source>
-        <translation type="unfinished">Pob Fformat a Gynhelir</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -9349,7 +8956,7 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/idml_old/importidml.cpp" line="66"/>
-        <source>Imports Adobe Indesign&apos;s idml packages into Scribus
+        <source>Imports Adobe Indesign's idml packages into Scribus
  converting Indesign objects into scribus pageitems; not all are supported in Scribus, but all those supported are being imported here</source>
         <translation type="unfinished"></translation>
     </message>
@@ -10048,17 +9655,17 @@ converting their vector data into Scribus objects.</source>
     <message>
         <location filename="../../scribus/plugins/imposition/impositionbase.ui" line="296"/>
         <source>4</source>
-        <translation type="unfinished">4</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/imposition/impositionbase.ui" line="301"/>
         <source>8</source>
-        <translation type="unfinished">8</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/imposition/impositionbase.ui" line="306"/>
         <source>16</source>
-        <translation type="unfinished">16</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/imposition/impositionbase.ui" line="318"/>
@@ -10069,7 +9676,7 @@ converting their vector data into Scribus objects.</source>
         <location filename="../../scribus/plugins/imposition/impositionbase.ui" line="325"/>
         <source>&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Sans Serif'; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Separate pages with a comma, ranges with a hyphen, e.g. 1,4,9-11 to get pages 1,4,9,10,11.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation type="unfinished"></translation>
     </message>
@@ -11602,7 +11209,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../scribus/ui/mark2item.ui" line="26"/>
         <source>Dialog</source>
-        <translation type="unfinished">Deialog</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/mark2item.ui" line="37"/>
@@ -11644,7 +11251,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../scribus/ui/mark2mark.ui" line="32"/>
         <source>Dialog</source>
-        <translation type="unfinished">Deialog</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/mark2mark.ui" line="42"/>
@@ -11670,7 +11277,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../scribus/ui/markanchor.ui" line="32"/>
         <source>Dialog</source>
-        <translation type="unfinished">Deialog</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/markanchor.ui" line="38"/>
@@ -11691,7 +11298,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../scribus/ui/marknote.ui" line="26"/>
         <source>Dialog</source>
-        <translation type="unfinished">Deialog</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/marknote.ui" line="65"/>
@@ -11819,17 +11426,6 @@ p, li { white-space: pre-wrap; }
     </message>
 </context>
 <context>
-    <name>MasterPagesPalette</name>
-    <message>
-        <source>&amp;Name:</source>
-        <translation type="vanished">&amp;Enw:</translation>
-    </message>
-    <message>
-        <source>Rename Master Page</source>
-        <translation type="vanished">Ailenwi Prif Tudaln</translation>
-    </message>
-</context>
-<context>
     <name>Measurements</name>
     <message>
         <location filename="../../scribus/ui/measurements.cpp" line="56"/>
@@ -11854,7 +11450,7 @@ p, li { white-space: pre-wrap; }
         <location filename="../../scribus/ui/measurementsbase.ui" line="129"/>
         <location filename="../../scribus/ui/measurementsbase.ui" line="146"/>
         <source>10000.0000</source>
-        <translation type="unfinished">10000.0000</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/measurementsbase.ui" line="37"/>
@@ -11899,7 +11495,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../scribus/ui/measurementsbase.ui" line="14"/>
         <source>Measurements</source>
-        <translation type="unfinished">Mesuriadau</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -12491,10 +12087,6 @@ If no handle is selected all handles will be reset.</source>
 <context>
     <name>NewMarginWidget</name>
     <message>
-        <source>Form</source>
-        <translation type="vanished">Ffurflen</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/newmarginwidgetbase.ui" line="68"/>
         <source>Preset Layouts:</source>
         <translation type="unfinished"></translation>
@@ -12518,10 +12110,6 @@ If no handle is selected all handles will be reset.</source>
         <location filename="../../scribus/ui/newmarginwidgetbase.ui" line="28"/>
         <source>Bottom:</source>
         <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Link</source>
-        <translation type="vanished">Cyswllt</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/newmarginwidgetbase.ui" line="125"/>
@@ -13767,10 +13355,6 @@ Please check it and try again.</source>
         <translation>Popeth</translation>
     </message>
     <message>
-        <source>Shows transparency and transparent items in your document. Requires Ghostscript 7.07 or later</source>
-        <translation type="vanished">Dangos tryloywder ac eitemau tryloyw yn eich dogfen.  Angen Ghostscript 7.07 neu hwyrach</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/preview.cpp" line="352"/>
         <source>Gives a print preview using simulations of generic CMYK inks, instead of RGB colors</source>
         <translation>Dangos rhagolwg argraffu gan ddefnyddio efelychiadau o inciau CMYK cyffredinol, yn lle lliwiau RGB</translation>
@@ -14613,10 +14197,6 @@ Please check it and try again.</source>
 <context>
     <name>PagePalette_MasterPagesBase</name>
     <message>
-        <source>Form</source>
-        <translation type="vanished">Ffurflen</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/pagepalette_masterpagesbase.ui" line="108"/>
         <source>&lt;&lt;&lt; Return to Normal Page Mode</source>
         <translation type="unfinished"></translation>
@@ -14637,10 +14217,6 @@ Please check it and try again.</source>
 </context>
 <context>
     <name>PagePalette_PagesBase</name>
-    <message>
-        <source>Form</source>
-        <translation type="vanished">Ffurflen</translation>
-    </message>
     <message>
         <location filename="../../scribus/ui/pagepalette_pagesbase.ui" line="14"/>
         <source>Arrange Pages</source>
@@ -14746,7 +14322,7 @@ Document Liberation Project http://www.documentliberation.org</source>
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:10pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Sans Serif'; font-size:10pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;table border=&quot;0&quot; style=&quot;-qt-table-type: root; margin-top:4px; margin-bottom:4px; margin-left:4px; margin-right:4px;&quot;&gt;
 &lt;tr&gt;
 &lt;td style=&quot;border: none;&quot;&gt;
@@ -14756,7 +14332,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../scribus/ui/paintmanagerbase.ui" line="46"/>
         <source>1</source>
-        <translation type="unfinished">1</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/paintmanagerbase.ui" line="56"/>
@@ -15274,22 +14850,22 @@ both end points must lie outside of the polygon</source>
     <message>
         <location filename="../../scribus/plugins/tools/2geomtools/pathalongpath/pathdialogbase.ui" line="80"/>
         <source>0°</source>
-        <translation type="unfinished">0°</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/tools/2geomtools/pathalongpath/pathdialogbase.ui" line="85"/>
         <source>90°</source>
-        <translation type="unfinished">90°</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/tools/2geomtools/pathalongpath/pathdialogbase.ui" line="90"/>
         <source>180°</source>
-        <translation type="unfinished">180°</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/tools/2geomtools/pathalongpath/pathdialogbase.ui" line="95"/>
         <source>270°</source>
-        <translation type="unfinished">270°</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -15622,10 +15198,6 @@ The result is a combination of &quot;Intersection&quot; and &quot;Exclusion&quot
         <translation>Mewnforio Ffeil:</translation>
     </message>
     <message>
-        <source>TextLabel</source>
-        <translation type="vanished">TestynLebal</translation>
-    </message>
-    <message>
         <location filename="../../scribus/plugins/import/pdf/pdfimportoptions.ui" line="63"/>
         <source>Page Range</source>
         <translation>Tudalen Amrediad</translation>
@@ -15722,7 +15294,7 @@ The result is a combination of &quot;Intersection&quot; and &quot;Exclusion&quot
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:8pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Sans Serif'; font-size:8pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Attention:&lt;/span&gt; This script file contains code which &lt;span style=&quot; font-style:italic;&quot;&gt;might harm &lt;/span&gt;your system.&lt;/p&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;You should only permit execution of this script if you are sure that it comes from a trustworthy source. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
@@ -15738,7 +15310,7 @@ p, li { white-space: pre-wrap; }
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;DejaVu Sans&apos;; font-size:8pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'DejaVu Sans'; font-size:8pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:&apos;Sans Serif&apos;;&quot;&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation type="unfinished"></translation>
     </message>
@@ -17097,10 +16669,6 @@ Please choose another one.</source>
         <source>You need to restart the application to apply the changes.</source>
         <translation type="unfinished"></translation>
     </message>
-    <message>
-        <source>Form</source>
-        <translation type="vanished">Ffurflen</translation>
-    </message>
 </context>
 <context>
     <name>PmPlug</name>
@@ -17142,10 +16710,6 @@ Document Liberation Project http://www.documentliberation.org</source>
 </context>
 <context>
     <name>PolygonWidgetBase</name>
-    <message>
-        <source>Form</source>
-        <translation type="vanished">Ffurflen</translation>
-    </message>
     <message>
         <location filename="../../scribus/ui/polygonwidgetbase.ui" line="28"/>
         <source>Corn&amp;ers:</source>
@@ -17218,10 +16782,6 @@ Document Liberation Project http://www.documentliberation.org</source>
 </context>
 <context>
     <name>PositionSetterWidget</name>
-    <message>
-        <source>Form</source>
-        <translation type="vanished">Ffurflen</translation>
-    </message>
     <message>
         <location filename="../../scribus/ui/positionsetter.ui" line="24"/>
         <source>X-pos:</source>
@@ -17483,10 +17043,6 @@ Do you want to migrate them to the new Scribus version?</source>
 <context>
     <name>Prefs_ColorManagement</name>
     <message>
-        <source>Form</source>
-        <translation type="vanished">Ffurflen</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/prefs_colormanagementbase.ui" line="29"/>
         <source>Color Management</source>
         <translation type="unfinished"></translation>
@@ -17609,10 +17165,6 @@ Do you want to migrate them to the new Scribus version?</source>
 </context>
 <context>
     <name>Prefs_Display</name>
-    <message>
-        <source>Form</source>
-        <translation type="vanished">Ffurflen</translation>
-    </message>
     <message>
         <location filename="../../scribus/ui/prefs_displaybase.ui" line="27"/>
         <source>Display</source>
@@ -17868,10 +17420,6 @@ Do you want to migrate them to the new Scribus version?</source>
 </context>
 <context>
     <name>Prefs_DocumentInformation</name>
-    <message>
-        <source>Form</source>
-        <translation type="vanished">Ffurflen</translation>
-    </message>
     <message>
         <location filename="../../scribus/ui/prefs_documentinformationbase.ui" line="27"/>
         <source>Document Information</source>
@@ -18202,10 +17750,6 @@ Do you want to migrate them to the new Scribus version?</source>
 <context>
     <name>Prefs_DocumentSetup</name>
     <message>
-        <source>Form</source>
-        <translation type="vanished">Ffurflen</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="27"/>
         <source>Document Setup</source>
         <translation>Gosodiadau&apos;r Ddogfen</translation>
@@ -18320,7 +17864,7 @@ Do you want to migrate them to the new Scribus version?</source>
     <message>
         <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="617"/>
         <source>Change...</source>
-        <translation type="unfinished">Newid...</translation>
+        <translation>Newid...</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="629"/>
@@ -18445,7 +17989,7 @@ Do you want to migrate them to the new Scribus version?</source>
     <message>
         <location filename="../../scribus/ui/prefs_documentsetup.cpp" line="395"/>
         <source>Choose a Directory</source>
-        <translation type="unfinished">Dewis Cyfeiriadur</translation>
+        <translation>Dewis Cyfeiriadur</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_documentsetup.cpp" line="121"/>
@@ -18760,10 +18304,6 @@ Do you want to use this?</source>
 <context>
     <name>Prefs_Fonts</name>
     <message>
-        <source>Form</source>
-        <translation type="vanished">Ffurflen</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/prefs_fontsbase.ui" line="27"/>
         <source>Fonts</source>
         <translation>Wynebfath</translation>
@@ -18830,10 +18370,6 @@ Do you want to use this?</source>
 </context>
 <context>
     <name>Prefs_Guides</name>
-    <message>
-        <source>Form</source>
-        <translation type="vanished">Ffurflen</translation>
-    </message>
     <message>
         <location filename="../../scribus/ui/prefs_guidesbase.ui" line="27"/>
         <location filename="../../scribus/ui/prefs_guidesbase.ui" line="339"/>
@@ -19058,10 +18594,6 @@ Do you want to use this?</source>
 <context>
     <name>Prefs_Hyphenator</name>
     <message>
-        <source>Form</source>
-        <translation type="vanished">Ffurflen</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/prefs_hyphenatorbase.ui" line="27"/>
         <source>Hyphenation</source>
         <translation type="unfinished"></translation>
@@ -19177,10 +18709,6 @@ A value of 0 means unlimited hyphenations.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Form</source>
-        <translation type="vanished">Ffurflen</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/prefs_imagecachebase.ui" line="27"/>
         <source>Image Cache</source>
         <translation type="unfinished"></translation>
@@ -19223,10 +18751,6 @@ A value of 0 means unlimited hyphenations.</source>
 </context>
 <context>
     <name>Prefs_ItemTools</name>
-    <message>
-        <source>Form</source>
-        <translation type="vanished">Ffurflen</translation>
-    </message>
     <message>
         <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="27"/>
         <source>Item Tools</source>
@@ -19699,10 +19223,6 @@ A value of 0 means unlimited hyphenations.</source>
 <context>
     <name>Prefs_Miscellaneous</name>
     <message>
-        <source>Form</source>
-        <translation type="vanished">Ffurflen</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/prefs_miscellaneousbase.ui" line="27"/>
         <source>Miscellaneous</source>
         <translation type="unfinished"></translation>
@@ -19735,10 +19255,6 @@ A value of 0 means unlimited hyphenations.</source>
 </context>
 <context>
     <name>Prefs_OperatorTools</name>
-    <message>
-        <source>Form</source>
-        <translation type="vanished">Ffurflen</translation>
-    </message>
     <message>
         <location filename="../../scribus/ui/prefs_operatortoolsbase.ui" line="27"/>
         <source>Operator Tools</source>
@@ -19834,10 +19350,6 @@ A value of 0 means unlimited hyphenations.</source>
 </context>
 <context>
     <name>Prefs_PDFExport</name>
-    <message>
-        <source>Form</source>
-        <translation type="vanished">Ffurflen</translation>
-    </message>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="27"/>
         <source>PDF Export</source>
@@ -20907,10 +20419,6 @@ A value of 0 means unlimited hyphenations.</source>
 <context>
     <name>Prefs_PageSizes</name>
     <message>
-        <source>Form</source>
-        <translation type="vanished">Ffurflen</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/prefs_pagesizesbase.ui" line="27"/>
         <source>Page Sizes</source>
         <translation type="unfinished"></translation>
@@ -20928,10 +20436,6 @@ A value of 0 means unlimited hyphenations.</source>
 </context>
 <context>
     <name>Prefs_Paths</name>
-    <message>
-        <source>Form</source>
-        <translation type="vanished">Ffurflen</translation>
-    </message>
     <message>
         <location filename="../../scribus/ui/prefs_pathsbase.ui" line="27"/>
         <source>Paths</source>
@@ -21029,10 +20533,6 @@ A value of 0 means unlimited hyphenations.</source>
 <context>
     <name>Prefs_Plugins</name>
     <message>
-        <source>Form</source>
-        <translation type="vanished">Ffurflen</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/prefs_pluginsbase.ui" line="27"/>
         <source>Plugins</source>
         <translation type="unfinished"></translation>
@@ -21075,10 +20575,6 @@ A value of 0 means unlimited hyphenations.</source>
 </context>
 <context>
     <name>Prefs_PreflightVerifier</name>
-    <message>
-        <source>Form</source>
-        <translation type="vanished">Ffurflen</translation>
-    </message>
     <message>
         <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="27"/>
         <source>Preflight Verifier</source>
@@ -21218,10 +20714,6 @@ A value of 0 means unlimited hyphenations.</source>
 </context>
 <context>
     <name>Prefs_Printer</name>
-    <message>
-        <source>Form</source>
-        <translation type="vanished">Ffurflen</translation>
-    </message>
     <message>
         <location filename="../../scribus/ui/prefs_printerbase.ui" line="29"/>
         <source>Printing</source>
@@ -21422,10 +20914,6 @@ A value of 0 means unlimited hyphenations.</source>
 <context>
     <name>Prefs_Scrapbook</name>
     <message>
-        <source>Form</source>
-        <translation type="vanished">Ffurflen</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/prefs_scrapbookbase.ui" line="27"/>
         <source>Scrapbook</source>
         <translation>Llyfr Lloffion</translation>
@@ -21473,10 +20961,6 @@ A value of 0 means unlimited hyphenations.</source>
 </context>
 <context>
     <name>Prefs_Scripter</name>
-    <message>
-        <source>Form</source>
-        <translation type="vanished">Ffurflen</translation>
-    </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/prefs_scripterbase.ui" line="27"/>
         <source>Scripter</source>
@@ -21551,10 +21035,6 @@ A value of 0 means unlimited hyphenations.</source>
 <context>
     <name>Prefs_ShortWords</name>
     <message>
-        <source>Form</source>
-        <translation type="vanished">Ffurflen</translation>
-    </message>
-    <message>
         <location filename="../../scribus/plugins/short-words/prefs_shortwordsbase.ui" line="66"/>
         <source>Save</source>
         <translation>Cadw</translation>
@@ -21609,10 +21089,6 @@ A value of 0 means unlimited hyphenations.</source>
 </context>
 <context>
     <name>Prefs_Spelling</name>
-    <message>
-        <source>Form</source>
-        <translation type="vanished">Ffurflen</translation>
-    </message>
     <message>
         <location filename="../../scribus/ui/prefs_spellingbase.ui" line="27"/>
         <source>Spelling</source>
@@ -21673,10 +21149,6 @@ A value of 0 means unlimited hyphenations.</source>
 </context>
 <context>
     <name>Prefs_TableOfContents</name>
-    <message>
-        <source>Form</source>
-        <translation type="vanished">Ffurflen</translation>
-    </message>
     <message>
         <location filename="../../scribus/ui/prefs_tableofcontentsbase.ui" line="27"/>
         <source>Table of Contents</source>
@@ -21780,10 +21252,6 @@ A value of 0 means unlimited hyphenations.</source>
 </context>
 <context>
     <name>Prefs_Typography</name>
-    <message>
-        <source>Form</source>
-        <translation type="vanished">Ffurflen</translation>
-    </message>
     <message>
         <location filename="../../scribus/ui/prefs_typographybase.ui" line="27"/>
         <source>Typography</source>
@@ -21917,10 +21385,6 @@ A value of 0 means unlimited hyphenations.</source>
 </context>
 <context>
     <name>Prefs_UserInterface</name>
-    <message>
-        <source>Form</source>
-        <translation type="vanished">Ffurflen</translation>
-    </message>
     <message>
         <location filename="../../scribus/ui/prefs_userinterfacebase.ui" line="27"/>
         <source>User Interface</source>
@@ -22058,8 +21522,8 @@ A value of 0 means unlimited hyphenations.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source></source>
-        <translation></translation>
+        <source/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_userinterfacebase.ui" line="254"/>
@@ -22288,14 +21752,6 @@ A value of 0 means unlimited hyphenations.</source>
         <location filename="../../scribus/ui/printdialogbase.ui" line="237"/>
         <source>Print &amp;Range</source>
         <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Insert a comma separated list of tokens where
-a token can be * for all the pages, 1-5 for
-a range of pages or a single page number.</source>
-        <translation type="vanished">Mewnosod rhestr wedi&apos;i gwahanu gan atalnodau o docynnau, lle
-gall tocyn fod yn * ar gyfer pob tudalen, 1-5 ar gyfer
-amrediad tudalennau, neu rhif tudalen unigol.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/printdialogbase.ui" line="295"/>
@@ -22599,30 +22055,7 @@ a range of pages or a single page number</source>
     </message>
 </context>
 <context>
-    <name>PropertiesPalette_Group</name>
-    <message>
-        <source>&amp;Edit...</source>
-        <translation type="vanished">&amp;Golygu...</translation>
-    </message>
-    <message>
-        <source>Shape</source>
-        <translation type="vanished">Siâp</translation>
-    </message>
-    <message>
-        <source>Use &amp;Bounding Box</source>
-        <translation type="vanished">Defnyddio &amp;Blwch Ffinio</translation>
-    </message>
-    <message>
-        <source>&amp;Use Contour Line</source>
-        <translation type="vanished">Defnyddio Llinell &amp;Amlin</translation>
-    </message>
-</context>
-<context>
     <name>PropertiesPalette_GroupBase</name>
-    <message>
-        <source>Form</source>
-        <translation type="vanished">Ffurflen</translation>
-    </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_groupbase.ui" line="35"/>
         <source>Shape</source>
@@ -22743,38 +22176,6 @@ a range of pages or a single page number</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>&amp;X-Pos:</source>
-        <translation type="vanished">Lleoliad &amp;X:</translation>
-    </message>
-    <message>
-        <source>&amp;Y-Pos:</source>
-        <translation type="vanished">Lleoliad &amp;Y:</translation>
-    </message>
-    <message>
-        <source>X-Sc&amp;ale:</source>
-        <translation type="vanished">&amp;Graddfa X:</translation>
-    </message>
-    <message>
-        <source>Y-Scal&amp;e:</source>
-        <translation type="vanished">&amp;Graddfa Y:</translation>
-    </message>
-    <message>
-        <source>&amp;Free Scaling</source>
-        <translation type="vanished">Graddfa &amp;Rydd</translation>
-    </message>
-    <message>
-        <source>P&amp;roportional</source>
-        <translation type="vanished">Cy&amp;frannol</translation>
-    </message>
-    <message>
-        <source>Input Profile:</source>
-        <translation type="vanished">Mewnosod Proffil:</translation>
-    </message>
-    <message>
-        <source>Rendering Intent:</source>
-        <translation type="vanished">Bwriad Llunio:</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/propertiespalette_image.cpp" line="799"/>
         <source>Perceptual</source>
         <translation>Canfyddiadol</translation>
@@ -22856,46 +22257,6 @@ a range of pages or a single page number</source>
         <translation>pt</translation>
     </message>
     <message>
-        <source>Horizontal offset of image within frame</source>
-        <translation type="vanished">Atred llorweddol y ddelwedd tu mewn y ffrâm</translation>
-    </message>
-    <message>
-        <source>Vertical offset of image within frame</source>
-        <translation type="vanished">Atred fertigol y ddelwedd tu mewn y ffrâm</translation>
-    </message>
-    <message>
-        <source>Resize the image horizontally</source>
-        <translation type="vanished">Newid maint y ddelwedd yn llorweddol</translation>
-    </message>
-    <message>
-        <source>Resize the image vertically</source>
-        <translation type="vanished">Newid maint y ddelwedd yn fertigol</translation>
-    </message>
-    <message>
-        <source>Keep the X and Y scaling the same</source>
-        <translation type="vanished">Cadw&apos;r graddio X a Y yn hafal</translation>
-    </message>
-    <message>
-        <source>Allow the image to be a different size to the frame</source>
-        <translation type="vanished">Caniatáu i&apos;r ddelwedd fod yn faint gwahanol i&apos;r ffrâm</translation>
-    </message>
-    <message>
-        <source>Make the image fit within the size of the frame</source>
-        <translation type="vanished">Gwneud i&apos;r ddelwedd ffitio tu mewn maint y ffrâm</translation>
-    </message>
-    <message>
-        <source>Use image proportions rather than those of the frame</source>
-        <translation type="vanished">Defnyddio cyfraneddau&apos;r ddelwedd yn lle rhai y ffrâm</translation>
-    </message>
-    <message>
-        <source>Source profile of the image</source>
-        <translation type="vanished">Proffil tarddiad y ddelwedd</translation>
-    </message>
-    <message>
-        <source>Rendering intent for the image</source>
-        <translation type="vanished">Bwriad llunio ar gyfer y ddelwedd</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/propertiespalette_image.cpp" line="88"/>
         <source>&amp;To Frame Size</source>
         <translation type="unfinished"></translation>
@@ -22903,14 +22264,6 @@ a range of pages or a single page number</source>
 </context>
 <context>
     <name>PropertiesPalette_ImageBase</name>
-    <message>
-        <source>Form</source>
-        <translation type="vanished">Ffurflen</translation>
-    </message>
-    <message>
-        <source>X-Pos:</source>
-        <translation type="vanished">Lleoliad X:</translation>
-    </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="57"/>
         <source>Rotation:</source>
@@ -22922,28 +22275,24 @@ a range of pages or a single page number</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Y-Pos:</source>
-        <translation type="vanished">Y:</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="37"/>
         <source>&amp;X-Pos:</source>
-        <translation type="unfinished">Lleoliad &amp;X:</translation>
+        <translation>Lleoliad &amp;X:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="50"/>
         <source>Horizontal offset of image within frame</source>
-        <translation type="unfinished">Atred llorweddol y ddelwedd tu mewn y ffrâm</translation>
+        <translation>Atred llorweddol y ddelwedd tu mewn y ffrâm</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="81"/>
         <source>&amp;Y-Pos:</source>
-        <translation type="unfinished">Lleoliad &amp;Y:</translation>
+        <translation>Lleoliad &amp;Y:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="94"/>
         <source>Vertical offset of image within frame</source>
-        <translation type="unfinished">Atred fertigol y ddelwedd tu mewn y ffrâm</translation>
+        <translation>Atred fertigol y ddelwedd tu mewn y ffrâm</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="101"/>
@@ -22963,7 +22312,7 @@ a range of pages or a single page number</source>
     <message>
         <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="129"/>
         <source>Resize the image horizontally</source>
-        <translation type="unfinished">Newid maint y ddelwedd yn llorweddol</translation>
+        <translation>Newid maint y ddelwedd yn llorweddol</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="136"/>
@@ -22973,12 +22322,12 @@ a range of pages or a single page number</source>
     <message>
         <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="149"/>
         <source>Resize the image vertically</source>
-        <translation type="unfinished">Newid maint y ddelwedd yn fertigol</translation>
+        <translation>Newid maint y ddelwedd yn fertigol</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="162"/>
         <source>Keep the X and Y scaling the same</source>
-        <translation type="unfinished">Cadw&apos;r graddio X a Y yn hafal</translation>
+        <translation>Cadw&apos;r graddio X a Y yn hafal</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="165"/>
@@ -23009,22 +22358,22 @@ a range of pages or a single page number</source>
     <message>
         <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="231"/>
         <source>Allow the image to be a different size to the frame</source>
-        <translation type="unfinished">Caniatáu i&apos;r ddelwedd fod yn faint gwahanol i&apos;r ffrâm</translation>
+        <translation>Caniatáu i&apos;r ddelwedd fod yn faint gwahanol i&apos;r ffrâm</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="234"/>
         <source>&amp;Free Scaling</source>
-        <translation type="unfinished">Graddfa &amp;Rydd</translation>
+        <translation>Graddfa &amp;Rydd</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="241"/>
         <source>Use image proportions rather than those of the frame</source>
-        <translation type="unfinished">Defnyddio cyfraneddau&apos;r ddelwedd yn lle rhai y ffrâm</translation>
+        <translation>Defnyddio cyfraneddau&apos;r ddelwedd yn lle rhai y ffrâm</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="251"/>
         <source>Make the image fit within the size of the frame</source>
-        <translation type="unfinished">Gwneud i&apos;r ddelwedd ffitio tu mewn maint y ffrâm</translation>
+        <translation>Gwneud i&apos;r ddelwedd ffitio tu mewn maint y ffrâm</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="254"/>
@@ -23034,22 +22383,22 @@ a range of pages or a single page number</source>
     <message>
         <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="270"/>
         <source>Input Profile:</source>
-        <translation type="unfinished">Mewnosod Proffil:</translation>
+        <translation>Mewnosod Proffil:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="283"/>
         <source>Source profile of the image</source>
-        <translation type="unfinished">Proffil tarddiad y ddelwedd</translation>
+        <translation>Proffil tarddiad y ddelwedd</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="290"/>
         <source>Rendering Intent:</source>
-        <translation type="unfinished">Bwriad Llunio:</translation>
+        <translation>Bwriad Llunio:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="297"/>
         <source>Rendering intent for the image</source>
-        <translation type="unfinished">Bwriad llunio ar gyfer y ddelwedd</translation>
+        <translation>Bwriad llunio ar gyfer y ddelwedd</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="244"/>
@@ -23261,10 +22610,6 @@ a range of pages or a single page number</source>
 <context>
     <name>PropertiesPalette_LineBase</name>
     <message>
-        <source>Form</source>
-        <translation type="vanished">Ffurflen</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/propertiespalette_linebase.ui" line="20"/>
         <source>&amp;Basepoint:</source>
         <translation>&amp;Sailbwynt:</translation>
@@ -23466,10 +22811,6 @@ Transparency</source>
 <context>
     <name>PropertiesPalette_ShadowBase</name>
     <message>
-        <source>Form</source>
-        <translation type="vanished">Ffurflen</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/propertiespalette_shadowbase.ui" line="20"/>
         <source>Object has a drop shadow</source>
         <translation type="unfinished"></translation>
@@ -23602,38 +22943,7 @@ Transparency</source>
     </message>
 </context>
 <context>
-    <name>PropertiesPalette_Shape</name>
-    <message>
-        <source>Shape:</source>
-        <translation type="vanished">Siâp:</translation>
-    </message>
-    <message>
-        <source>Choose the shape of frame...</source>
-        <translation type="vanished">Dewis siâp y ffrâm...</translation>
-    </message>
-    <message>
-        <source>&amp;Edit...</source>
-        <translation type="vanished">&amp;Golygu...</translation>
-    </message>
-    <message>
-        <source>Set radius of corner rounding</source>
-        <translation type="vanished">Gosod radiws y crynder corneli</translation>
-    </message>
-    <message>
-        <source>Use &amp;Bounding Box</source>
-        <translation type="vanished">Defnyddio &amp;Blwch Ffinio</translation>
-    </message>
-    <message>
-        <source>&amp;Use Contour Line</source>
-        <translation type="vanished">Defnyddio Llinell &amp;Amlin</translation>
-    </message>
-</context>
-<context>
     <name>PropertiesPalette_ShapeBase</name>
-    <message>
-        <source>Form</source>
-        <translation type="vanished">Ffurflen</translation>
-    </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="35"/>
         <source>Shape</source>
@@ -23642,7 +22952,7 @@ Transparency</source>
     <message>
         <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="74"/>
         <source>Choose the shape of frame...</source>
-        <translation type="unfinished">Dewis siâp y ffrâm...</translation>
+        <translation>Dewis siâp y ffrâm...</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="77"/>
@@ -23667,7 +22977,7 @@ Transparency</source>
     <message>
         <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="111"/>
         <source>Set radius of corner rounding</source>
-        <translation type="unfinished">Gosod radiws y crynder corneli</translation>
+        <translation>Gosod radiws y crynder corneli</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="123"/>
@@ -23745,10 +23055,6 @@ Transparency</source>
 </context>
 <context>
     <name>PropertiesPalette_TableBase</name>
-    <message>
-        <source>Form</source>
-        <translation type="vanished">Ffurflen</translation>
-    </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_tablebase.ui" line="89"/>
         <source>Borders</source>
@@ -23930,13 +23236,6 @@ Transparency</source>
     </message>
 </context>
 <context>
-    <name>PropertiesPalette_TextBase</name>
-    <message>
-        <source>Form</source>
-        <translation type="vanished">Ffurflen</translation>
-    </message>
-</context>
-<context>
     <name>PropertiesPalette_XYZ</name>
     <message>
         <location filename="../../scribus/ui/propertiespalette_xyz.cpp" line="214"/>
@@ -24009,101 +23308,13 @@ Transparency</source>
         <translation>Priodweddau</translation>
     </message>
     <message>
-        <source>Name</source>
-        <translation type="vanished">Enw</translation>
-    </message>
-    <message>
-        <source>Geometry</source>
-        <translation type="vanished">Geometreg</translation>
-    </message>
-    <message>
-        <source>&amp;Rotation:</source>
-        <translation type="vanished">C&amp;ylchdro:</translation>
-    </message>
-    <message>
-        <source>Basepoint:</source>
-        <translation type="vanished">Sailbwynt:</translation>
-    </message>
-    <message>
-        <source>Level</source>
-        <translation type="vanished">Lefel</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/propertiespalette_xyz.cpp" line="1290"/>
         <source> pt</source>
         <translation>pt</translation>
     </message>
-    <message>
-        <source>Name of selected object</source>
-        <translation type="vanished">Enw&apos;r gwrthrych penodol</translation>
-    </message>
-    <message>
-        <source>Horizontal position of current basepoint</source>
-        <translation type="vanished">Lleoliad llorweddol y gwaelodbwynt cyfredol</translation>
-    </message>
-    <message>
-        <source>Vertical position of current basepoint</source>
-        <translation type="vanished">Lleoliad fertigol y gwaelodbwynt cyfredol</translation>
-    </message>
-    <message>
-        <source>Width</source>
-        <translation type="vanished">Lled</translation>
-    </message>
-    <message>
-        <source>Height</source>
-        <translation type="vanished">Taldra</translation>
-    </message>
-    <message>
-        <source>Rotation of object at current basepoint</source>
-        <translation type="vanished">Cylchdroi y gwrthrych wrth y gwaelodbwynt cyfredol</translation>
-    </message>
-    <message>
-        <source>Point from which measurements or rotation angles are referenced</source>
-        <translation type="vanished">Pwynt y cyfeirir mesuriadau neu onglau cylchdroi ohono</translation>
-    </message>
-    <message>
-        <source>Flip Horizontal</source>
-        <translation type="vanished">Troi drosodd yn Llorweddol</translation>
-    </message>
-    <message>
-        <source>Flip Vertical</source>
-        <translation type="vanished">Troi drosodd yn Fertigol</translation>
-    </message>
-    <message>
-        <source>Move one level up</source>
-        <translation type="vanished">Symud un lefel i fyny</translation>
-    </message>
-    <message>
-        <source>Move one level down</source>
-        <translation type="vanished">Symud un lefel i lawr</translation>
-    </message>
-    <message>
-        <source>Move to front</source>
-        <translation type="vanished">Symud i&apos;r blaen</translation>
-    </message>
-    <message>
-        <source>Move to back</source>
-        <translation type="vanished">Symud i&apos;r cefn</translation>
-    </message>
-    <message>
-        <source>Lock or unlock the object</source>
-        <translation type="vanished">(Dad)gloi&apos;r gwrthrych</translation>
-    </message>
-    <message>
-        <source>Lock or unlock the size of the object</source>
-        <translation type="vanished">(Dad)gloi maint y gwrthrych</translation>
-    </message>
-    <message>
-        <source>Keep the aspect ratio</source>
-        <translation type="vanished">Cadw&apos;r gymhareb agwedd</translation>
-    </message>
 </context>
 <context>
     <name>PropertiesPalette_XYZBase</name>
-    <message>
-        <source>Form</source>
-        <translation type="vanished">Ffurflen</translation>
-    </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="41"/>
         <source>Name</source>
@@ -24112,7 +23323,7 @@ Transparency</source>
     <message>
         <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="65"/>
         <source>Name of selected object</source>
-        <translation type="unfinished">Enw&apos;r gwrthrych penodol</translation>
+        <translation>Enw&apos;r gwrthrych penodol</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="81"/>
@@ -24127,7 +23338,7 @@ Transparency</source>
     <message>
         <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="132"/>
         <source>Horizontal position of current basepoint</source>
-        <translation type="unfinished">Lleoliad llorweddol y gwaelodbwynt cyfredol</translation>
+        <translation>Lleoliad llorweddol y gwaelodbwynt cyfredol</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="139"/>
@@ -24142,7 +23353,7 @@ Transparency</source>
     <message>
         <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="159"/>
         <source>Vertical position of current basepoint</source>
-        <translation type="unfinished">Lleoliad fertigol y gwaelodbwynt cyfredol</translation>
+        <translation>Lleoliad fertigol y gwaelodbwynt cyfredol</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="166"/>
@@ -24167,12 +23378,12 @@ Transparency</source>
     <message>
         <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="197"/>
         <source>Rotation of object at current basepoint</source>
-        <translation type="unfinished">Cylchdroi y gwrthrych wrth y gwaelodbwynt cyfredol</translation>
+        <translation>Cylchdroi y gwrthrych wrth y gwaelodbwynt cyfredol</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="207"/>
         <source>Point from which measurements or rotation angles are referenced</source>
-        <translation type="unfinished">Pwynt y cyfeirir mesuriadau neu onglau cylchdroi ohono</translation>
+        <translation>Pwynt y cyfeirir mesuriadau neu onglau cylchdroi ohono</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="210"/>
@@ -24182,7 +23393,7 @@ Transparency</source>
     <message>
         <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="226"/>
         <source>Keep the aspect ratio</source>
-        <translation type="unfinished">Cadw&apos;r gymhareb agwedd</translation>
+        <translation>Cadw&apos;r gymhareb agwedd</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="229"/>
@@ -24197,22 +23408,22 @@ Transparency</source>
     <message>
         <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="276"/>
         <source>Move one level up</source>
-        <translation type="unfinished">Symud un lefel i fyny</translation>
+        <translation>Symud un lefel i fyny</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="292"/>
         <source>Move one level down</source>
-        <translation type="unfinished">Symud un lefel i lawr</translation>
+        <translation>Symud un lefel i lawr</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="308"/>
         <source>Move to front</source>
-        <translation type="unfinished">Symud i&apos;r blaen</translation>
+        <translation>Symud i&apos;r blaen</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="324"/>
         <source>Move to back</source>
-        <translation type="unfinished">Symud i&apos;r cefn</translation>
+        <translation>Symud i&apos;r cefn</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="334"/>
@@ -24247,7 +23458,7 @@ Transparency</source>
     <message>
         <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="402"/>
         <source>Lock or unlock the object</source>
-        <translation type="unfinished">(Dad)gloi&apos;r gwrthrych</translation>
+        <translation>(Dad)gloi&apos;r gwrthrych</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="412"/>
@@ -24257,7 +23468,7 @@ Transparency</source>
     <message>
         <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="422"/>
         <source>Lock or unlock the size of the object</source>
-        <translation type="unfinished">(Dad)gloi maint y gwrthrych</translation>
+        <translation>(Dad)gloi maint y gwrthrych</translation>
     </message>
 </context>
 <context>
@@ -24577,10 +23788,6 @@ Transparency</source>
 <context>
     <name>PropertyWidget_DropCapBase</name>
     <message>
-        <source>Form</source>
-        <translation type="vanished">Ffurflen</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/propertywidget_dropcapbase.ui" line="23"/>
         <source>Height</source>
         <translation>Taldra</translation>
@@ -24807,10 +24014,6 @@ Transparency</source>
 <context>
     <name>PropertyWidget_OrphansBase</name>
     <message>
-        <source>Form</source>
-        <translation type="vanished">Ffurflen</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/propertywidget_orphansbase.ui" line="20"/>
         <source>Ensure that first lines of a paragraph won&apos;t end up separated from the rest (known as widow/orphan control)</source>
         <translation type="unfinished"></translation>
@@ -24844,10 +24047,6 @@ Transparency</source>
 </context>
 <context>
     <name>PropertyWidget_ParEffect</name>
-    <message>
-        <source>Lines</source>
-        <translation type="vanished">Llinellau</translation>
-    </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_pareffect.cpp" line="559"/>
         <location filename="../../scribus/ui/propertywidget_pareffect.h" line="99"/>
@@ -24898,7 +24097,7 @@ Transparency</source>
     <message>
         <location filename="../../scribus/ui/propertywidget_pareffect.cpp" line="567"/>
         <source>Format:</source>
-        <translation type="unfinished">Fformat:</translation>
+        <translation>Fformat:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_pareffect.cpp" line="568"/>
@@ -24916,41 +24115,9 @@ Transparency</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Level</source>
-        <translation type="vanished">Lefel</translation>
-    </message>
-    <message>
-        <source>Set</source>
-        <translation type="vanished">Set</translation>
-    </message>
-    <message>
-        <source>Format</source>
-        <translation type="vanished">Fformat</translation>
-    </message>
-    <message>
-        <source>Start</source>
-        <translation type="vanished">Dechrau</translation>
-    </message>
-    <message>
-        <source>Prefix</source>
-        <translation type="vanished">Rhagddodiad</translation>
-    </message>
-    <message>
-        <source>Suffix</source>
-        <translation type="vanished">Ôl-ddodiad</translation>
-    </message>
-    <message>
-        <source>Offset</source>
-        <translation type="vanished">Atrad</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/propertywidget_pareffect.cpp" line="572"/>
         <source>Auto-Indent</source>
         <translation>Awto-Mewnoliad</translation>
-    </message>
-    <message>
-        <source>Char Style</source>
-        <translation type="vanished">Rhuddo Arddull</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_pareffect.h" line="98"/>
@@ -24970,7 +24137,7 @@ Transparency</source>
     <message>
         <location filename="../../scribus/ui/propertywidget_pareffect.cpp" line="573"/>
         <source>Offset:</source>
-        <translation type="unfinished">Atred:</translation>
+        <translation>Atred:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_pareffect.cpp" line="574"/>
@@ -24985,10 +24152,6 @@ Transparency</source>
 </context>
 <context>
     <name>PropertyWidget_ParEffectBase</name>
-    <message>
-        <source>Form</source>
-        <translation type="vanished">Ffurflen</translation>
-    </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_pareffectbase.ui" line="270"/>
         <source>Effect Parameters</source>
@@ -25424,10 +24587,6 @@ Scripter documentation for futher information. </source>
         <location filename="../../scribus/translationdummy.cpp" line="152"/>
         <source>&amp;Add to Custom Colors</source>
         <translation>&amp;Ychwanegu i&apos;r Lliwiau Addasiedig</translation>
-    </message>
-    <message>
-        <source>Select color</source>
-        <translation type="vanished">Dethol lliw</translation>
     </message>
     <message>
         <location filename="../../scribus/translationdummy.cpp" line="147"/>
@@ -25994,10 +25153,6 @@ Gwiriwch y llwybr ac enw&apos;r ffeil.</translation>
 </context>
 <context>
     <name>QObject</name>
-    <message>
-        <source>Spell check (Aspell)</source>
-        <translation type="vanished">Gwirio sillafu (Aspell)</translation>
-    </message>
     <message>
         <location filename="../../scribus/scribuscore.cpp" line="231"/>
         <source>Initializing...</source>
@@ -27374,18 +26529,18 @@ not currently documented in the docstring for each function.
 without a document to operate on.
 - If you do not pass a frame name to a function that requires one,
 the function will use the currently selected frame, if any, or
-raise a NoValidObjectError if it can&apos;t find anything to operate
+raise a NoValidObjectError if it can't find anything to operate
 on.
 - Many functions will raise WrongFrameTypeError if you try to use them
 on a frame type that they do not make sense with. For example, setting
-the text color on a graphics frame doesn&apos;t make sense, and will result
+the text color on a graphics frame doesn't make sense, and will result
 in this exception being raised.
 - Errors resulting from calls to the underlying Python API will be
 passed through unaltered. As such, the list of exceptions thrown by
 any function as provided here and in its docstring is incomplete.
 
 Details of what exceptions each function may throw are provided on the
-function&apos;s documentation, though as with most Python code this list
+function's documentation, though as with most Python code this list
 is not exhaustive due to exceptions from called functions.
 </source>
         <translation type="unfinished"></translation>
@@ -27454,10 +26609,6 @@ is not exhaustive due to exceptions from called functions.
         <location filename="../../scribus/fonts/sfnt.cpp" line="450"/>
         <source>extracting face %1 from font %2 (offset=%3, nTables=%4)</source>
         <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>table &apos;%1&apos;</source>
-        <translation type="vanished">tabl &apos;%1&apos;</translation>
     </message>
     <message>
         <location filename="../../scribus/main_nix.cpp" line="119"/>
@@ -28156,10 +27307,6 @@ is not exhaustive due to exceptions from called functions.
         <location filename="../../scribus/util_formats.cpp" line="88"/>
         <source>PNG</source>
         <translation>PNG</translation>
-    </message>
-    <message>
-        <source>PostScript &quot;*.ps&quot;</source>
-        <translation type="vanished">PostScript &quot;*.ps&quot;</translation>
     </message>
     <message>
         <location filename="../../scribus/util_formats.cpp" line="92"/>
@@ -28970,7 +28117,7 @@ Therefore the image may be not correct</source>
     <message>
         <location filename="../../scribus/pagesize.cpp" line="353"/>
         <source>11x17</source>
-        <translation type="unfinished">2A17 {11x?}</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/pages/importpagesplugin.cpp" line="72"/>
@@ -29606,10 +28753,6 @@ Please choose another.</source>
 <context>
     <name>RotationWidget</name>
     <message>
-        <source>Form</source>
-        <translation type="vanished">Ffurflen</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/rotationsetter.ui" line="24"/>
         <source>Rotation:</source>
         <translation type="unfinished"></translation>
@@ -29897,10 +29040,6 @@ Please choose another.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>TextLabel</source>
-        <translation type="vanished">TestynLebal</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/smcstylewidget.ui" line="447"/>
         <location filename="../../scribus/ui/smcstylewidget.cpp" line="130"/>
         <source>Colors</source>
@@ -30025,10 +29164,6 @@ Please choose another.</source>
         <translation>Lliwiau</translation>
     </message>
     <message>
-        <source>TextLabel</source>
-        <translation type="vanished">TestynLebal</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/smcellstylewidget.ui" line="68"/>
         <source>Fill Color</source>
         <translation>Lliw Llenwad</translation>
@@ -30037,10 +29172,6 @@ Please choose another.</source>
         <location filename="../../scribus/ui/smcellstylewidget.ui" line="19"/>
         <source>Based On:</source>
         <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Text</source>
-        <translation type="vanished">Testun</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smcellstylewidget.ui" line="88"/>
@@ -30319,7 +29450,7 @@ Please choose another.</source>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.ui" line="590"/>
         <source>Colors</source>
-        <translation type="unfinished">Lliwiau</translation>
+        <translation>Lliwiau</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.ui" line="1199"/>
@@ -30492,31 +29623,15 @@ Expressed as a percentage of the current white space value.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Char Table</source>
-        <translation type="vanished">Rhuthro Tabl</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/smpstylewidget.ui" line="812"/>
         <source>Set:</source>
         <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Level</source>
-        <translation type="vanished">Lefel</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.ui" line="852"/>
         <location filename="../../scribus/ui/smpstylewidget.cpp" line="195"/>
         <source>Create New Set:</source>
         <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Prefix</source>
-        <translation type="vanished">Rhagddodiad</translation>
-    </message>
-    <message>
-        <source>Suffix</source>
-        <translation type="vanished">Ôl-ddodiad</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.ui" line="963"/>
@@ -30650,7 +29765,7 @@ Expressed as a percentage of the current white space value.</source>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.cpp" line="644"/>
         <source>Shade</source>
-        <translation type="unfinished"></translation>
+        <translation>Arlliw</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.ui" line="719"/>
@@ -30914,10 +30029,6 @@ Expressed as a percentage of the current white space value.</source>
         <translation>Lliwiau</translation>
     </message>
     <message>
-        <source>TextLabel</source>
-        <translation type="vanished">TestynLebal</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/smtablestylewidget.ui" line="62"/>
         <source>Fill Color</source>
         <translation>Lliw Llenwad</translation>
@@ -30926,10 +30037,6 @@ Expressed as a percentage of the current white space value.</source>
         <location filename="../../scribus/ui/smtablestylewidget.ui" line="19"/>
         <source>Based On:</source>
         <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Text</source>
-        <translation type="vanished">Testun</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smtablestylewidget.cpp" line="78"/>
@@ -31527,11 +30634,6 @@ converting their vector data into Scribus objects.</source>
         <translation>Amlygu</translation>
     </message>
     <message>
-        <source>None</source>
-        <comment>highlight</comment>
-        <translation type="vanished">Dim</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/annot.ui" line="604"/>
         <source>Invert</source>
         <translation>Gwrthdroi</translation>
@@ -31806,10 +30908,6 @@ converting their vector data into Scribus objects.</source>
         <location filename="../../scribus/ui/annot.ui" line="1374"/>
         <source>Field is formatted as:</source>
         <translation>Mae&apos;r maes wedi&apos;i fformatio fel:</translation>
-    </message>
-    <message>
-        <source>Plain</source>
-        <translation type="vanished">Plaen</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/annot.ui" line="1387"/>
@@ -32400,25 +31498,25 @@ converting their vector data into Scribus objects.</source>
         <location filename="../../scribus/ui/annot.ui" line="1529"/>
         <location filename="../../scribus/ui/annot.ui" line="1628"/>
         <source>9,999.99</source>
-        <translation type="unfinished">9,999.99</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/annot.ui" line="1539"/>
         <location filename="../../scribus/ui/annot.ui" line="1638"/>
         <source>9.999,99</source>
-        <translation type="unfinished">9.999,99</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/annot.ui" line="1546"/>
         <location filename="../../scribus/ui/annot.ui" line="1645"/>
         <source>9999.99</source>
-        <translation type="unfinished">9999.99</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/annot.ui" line="1553"/>
         <location filename="../../scribus/ui/annot.ui" line="1652"/>
         <source>9999,99</source>
-        <translation type="unfinished">9999,99</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/annot.ui" line="1703"/>
@@ -32677,7 +31775,7 @@ converting their vector data into Scribus objects.</source>
     <message>
         <location filename="../../scribus/ui/scmwmenumanager.cpp" line="54"/>
         <source>Scrapbook</source>
-        <translation type="unfinished">Llyfr Lloffion</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/scmwmenumanager.cpp" line="55"/>
@@ -32687,7 +31785,7 @@ converting their vector data into Scribus objects.</source>
     <message>
         <location filename="../../scribus/ui/scmwmenumanager.cpp" line="56"/>
         <source>Image</source>
-        <translation type="unfinished">Delwedd</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/scmwmenumanager.cpp" line="60"/>
@@ -32732,7 +31830,7 @@ converting their vector data into Scribus objects.</source>
     <message>
         <location filename="../../scribus/ui/scmwmenumanager.cpp" line="78"/>
         <source>Document</source>
-        <translation type="unfinished">Dogfen</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/scmwmenumanager.cpp" line="79"/>
@@ -33105,11 +32203,6 @@ Rotation: %4</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="1000"/>
-        <source>S&amp;paces &amp;&amp; Breaks</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../../scribus/scribus.cpp" line="2156"/>
         <location filename="../../scribus/scribus.cpp" line="2196"/>
         <location filename="../../scribus/scribus.cpp" line="3780"/>
@@ -33446,10 +32539,6 @@ Consider using the Preflight Verifier to correct them</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Close</source>
-        <translation type="vanished">Cau</translation>
-    </message>
-    <message>
         <location filename="../../scribus/scribus.cpp" line="1356"/>
         <source>Unknown</source>
         <translation>Anhysbys</translation>
@@ -33556,6 +32645,11 @@ Consider using the Preflight Verifier to correct them</source>
     <message>
         <location filename="../../scribus/scribus.cpp" line="927"/>
         <source>Welding</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/scribus.cpp" line="1000"/>
+        <source>S&amp;paces &amp;&amp; Breaks</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -33870,10 +32964,6 @@ Consider using the Preflight Verifier to correct them</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Linking Text Frames</source>
-        <translation type="vanished">Cysylltu Testun Fframiau</translation>
-    </message>
-    <message>
         <location filename="../../scribus/scribusview.cpp" line="3171"/>
         <source>Cannot Convert In-Use Item</source>
         <translation type="unfinished"></translation>
@@ -34174,10 +33264,6 @@ Consider using the Preflight Verifier to correct them</source>
         <location filename="../../scribus/plugins/scriptplugin/scripterprefsgui.cpp" line="145"/>
         <source>Locate Startup Script</source>
         <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Form</source>
-        <translation type="vanished">Ffurflen</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/scripterprefsgui.ui" line="185"/>
@@ -34754,10 +33840,6 @@ Consider using the Preflight Verifier to correct them</source>
 <context>
     <name>SpiralWidgetBase</name>
     <message>
-        <source>Form</source>
-        <translation type="vanished">Ffurflen</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/spiralwidgetbase.ui" line="36"/>
         <source>Start Angle:</source>
         <translation>Cychwyn Ongl:</translation>
@@ -35008,7 +34090,7 @@ Consider using the Preflight Verifier to correct them</source>
     <message>
         <location filename="../../scribus/ui/storyeditor.cpp" line="2033"/>
         <source>&amp;Glyph...</source>
-        <translation type="unfinished">&amp;Glyff...</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -35963,11 +35045,6 @@ Consider using the Preflight Verifier to correct them</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/tabpdfoptions.cpp" line="215"/>
-        <source>Determines the PDF compatibility.&lt;br/&gt;The default is &lt;b&gt;PDF 1.3&lt;/b&gt; which gives the widest compatibility.&lt;br/&gt;Choose &lt;b&gt;PDF 1.4&lt;/b&gt; if your file uses features such as transparency or you require 128 bit encryption.&lt;br/&gt;&lt;b&gt;PDF 1.5&lt;/b&gt; is necessary when you wish to preserve objects in separate layers within the PDF.&lt;br/&gt;&lt;b&gt;PDF/X-1a&lt;/b&gt; is for blind exchange with colors strictly specified in CMYK or spot colors.&lt;br/&gt;&lt;b&gt;PDF/X-3&lt;/b&gt; is for exporting the PDF when you want color managed RGB for commercial printing and is selectable when you have activated color management. Use only when advised by your printer or in some cases printing to a 4 color digital color laser printer.&lt;br/&gt;&lt;b&gt;PDF/X-4&lt;/b&gt; is an extension of PDF/X-3 to support transparency and layering.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="270"/>
         <source>Embed a color profile for solid colors</source>
         <translation type="unfinished"></translation>
@@ -36451,6 +35528,11 @@ when PDF document is opened:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/tabpdfoptions.cpp" line="215"/>
+        <source>Determines the PDF compatibility.&lt;br/&gt;The default is &lt;b&gt;PDF 1.3&lt;/b&gt; which gives the widest compatibility.&lt;br/&gt;Choose &lt;b&gt;PDF 1.4&lt;/b&gt; if your file uses features such as transparency or you require 128 bit encryption.&lt;br/&gt;&lt;b&gt;PDF 1.5&lt;/b&gt; is necessary when you wish to preserve objects in separate layers within the PDF.&lt;br/&gt;&lt;b&gt;PDF/X-1a&lt;/b&gt; is for blind exchange with colors strictly specified in CMYK or spot colors.&lt;br/&gt;&lt;b&gt;PDF/X-3&lt;/b&gt; is for exporting the PDF when you want color managed RGB for commercial printing and is selectable when you have activated color management. Use only when advised by your printer or in some cases printing to a 4 color digital color laser printer.&lt;br/&gt;&lt;b&gt;PDF/X-4&lt;/b&gt; is an extension of PDF/X-3 to support transparency and layering.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="222"/>
         <source>Export PDFs in image frames as embedded PDFs. This does *not* yet take care of colorspaces, so you should know what you are doing before setting this to &apos;true&apos;.</source>
         <translation type="unfinished"></translation>
@@ -36524,10 +35606,6 @@ when PDF document is opened:</source>
         <location filename="../../scribus/ui/tabpdfoptions.ui" line="14"/>
         <source>TabWidget</source>
         <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>...</source>
-        <translation type="vanished">...</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.ui" line="121"/>
@@ -36931,7 +36009,7 @@ when PDF document is opened:</source>
     <message>
         <location filename="../../scribus/ui/transformdialogbase.ui" line="320"/>
         <source>Angle:</source>
-        <translation type="unfinished">Ongl:</translation>
+        <translation>Ongl:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/transformdialogbase.ui" line="160"/>
@@ -38692,10 +37770,6 @@ converting their vector data into Scribus objects.</source>
         <translation>Mewnforio Ffeil:</translation>
     </message>
     <message>
-        <source>TextLabel</source>
-        <translation type="vanished">TestynLebal</translation>
-    </message>
-    <message>
         <location filename="../../scribus/plugins/import/xps/xpsimportoptions.ui" line="67"/>
         <source>Page Range</source>
         <translation>Tudalen Amrediad</translation>
@@ -38829,10 +37903,6 @@ converting their vector data into Scribus objects.</source>
 <context>
     <name>colorPalette</name>
     <message>
-        <source>Form</source>
-        <translation type="vanished">Ffurflen</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/colorpalette.ui" line="105"/>
         <location filename="../../scribus/ui/colorpalette.ui" line="510"/>
         <location filename="../../scribus/ui/colorpalette.ui" line="840"/>
@@ -38916,10 +37986,6 @@ converting their vector data into Scribus objects.</source>
         <location filename="../../scribus/ui/colorpalette.ui" line="490"/>
         <source>Color:</source>
         <translation>Lliw:</translation>
-    </message>
-    <message>
-        <source>Transparency:</source>
-        <translation type="vanished">Tryloywder:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/colorpalette.ui" line="569"/>
@@ -39016,10 +38082,6 @@ converting their vector data into Scribus objects.</source>
         <location filename="../../scribus/ui/colorpalette.ui" line="663"/>
         <source>Line Color:</source>
         <translation>Lliw Llinell:</translation>
-    </message>
-    <message>
-        <source>Background</source>
-        <translation type="vanished">Cefndir</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/colorpalette.ui" line="227"/>
@@ -39436,10 +38498,6 @@ please choose another one.</source>
         <translation>Copïo template.xml (ffeil patrymlun) sydd yn bodoli eisoes i ffeil o&apos;r enw template.iaith_GWLAD.xml (defnyddiwch y côd iaith sydd yn y ffeil qm ar gyfer eich iaith), er enghraifft template.fi.xml ar gyfer template.xml yn yr iaith Fffinneg.  Rhaid i&apos;r gopi fod yn yr un cyfeiriadur a&apos;r template.xml gwreiddiol, i Scribus gael ei lwytho.</translation>
     </message>
     <message>
-        <source>Form</source>
-        <translation type="vanished">Ffurflen</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/nftwidget.ui" line="82"/>
         <source>&amp;About</source>
         <translation>&amp;Ynglyn â</translation>
@@ -39470,17 +38528,17 @@ please choose another one.</source>
     <message>
         <location filename="../../scribus/ui/recoverdialog.ui" line="65"/>
         <source>Name</source>
-        <translation type="unfinished">Enw</translation>
+        <translation>Enw</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/recoverdialog.ui" line="70"/>
         <source>Date</source>
-        <translation type="unfinished">Dyddiad</translation>
+        <translation>Dyddiad</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/recoverdialog.ui" line="75"/>
         <source>Type</source>
-        <translation type="unfinished">Math</translation>
+        <translation>Math</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/recoverdialog.ui" line="88"/>
@@ -39490,12 +38548,12 @@ please choose another one.</source>
     <message>
         <location filename="../../scribus/ui/recoverdialog.ui" line="98"/>
         <source>Remove</source>
-        <translation type="unfinished">Gwaredu</translation>
+        <translation>Gwaredu</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/recoverdialog.ui" line="118"/>
         <source>Close</source>
-        <translation type="unfinished">Cau</translation>
+        <translation>Cau</translation>
     </message>
 </context>
 <context>
@@ -39854,10 +38912,6 @@ please choose another one.</source>
 <context>
     <name>transparencyPalette</name>
     <message>
-        <source>Form</source>
-        <translation type="vanished">Ffurflen</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/transparencypalette.ui" line="28"/>
         <source>Edit Line Color Properties</source>
         <translation>Golygu Priodweddau&apos;r Lliw Llinell</translation>
@@ -40041,14 +39095,6 @@ please choose another one.</source>
 </context>
 <context>
     <name>weldEditBase</name>
-    <message>
-        <source>Form</source>
-        <translation type="vanished">Ffurflen</translation>
-    </message>
-    <message>
-        <source>Move weld Point</source>
-        <translation type="vanished">Symud weldio Pwynt</translation>
-    </message>
     <message>
         <location filename="../../scribus/ui/weldeditbase.ui" line="30"/>
         <source>Move Object</source>

@@ -267,10 +267,6 @@
         <translation>Bertsioa:</translation>
     </message>
     <message>
-        <source>Enabled:</source>
-        <translation type="vanished">Gaituta:</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/aboutplugins.cpp" line="76"/>
         <source>Release Date:</source>
         <translation>Argitatze-data:</translation>
@@ -304,17 +300,9 @@
 <context>
     <name>ActionManager</name>
     <message>
-        <source>&amp;Image Effects</source>
-        <translation type="vanished">&amp;Irudi-efektuak</translation>
-    </message>
-    <message>
         <location filename="../../scribus/actionmanager.cpp" line="1556"/>
         <source>&amp;Tabulators...</source>
         <translation>&amp;Tabulatzaileak...</translation>
-    </message>
-    <message>
-        <source>&amp;New</source>
-        <translation type="vanished">&amp;Berria</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1482"/>
@@ -524,10 +512,6 @@
         <translation>Bi&amp;koiztu</translation>
     </message>
     <message>
-        <source>&amp;Multiple Duplicate</source>
-        <translation type="vanished">Bikoizte &amp;anitza</translation>
-    </message>
-    <message>
         <location filename="../../scribus/actionmanager.cpp" line="1562"/>
         <source>&amp;Delete</source>
         <translation>&amp;Ezabatu</translation>
@@ -598,14 +582,6 @@
         <translation>PDF &amp;oharpena da</translation>
     </message>
     <message>
-        <source>Annotation P&amp;roperties</source>
-        <translation type="vanished">Oharpenaren p&amp;ropietateak</translation>
-    </message>
-    <message>
-        <source>Field P&amp;roperties</source>
-        <translation type="vanished">Eremu-&amp;propietateak</translation>
-    </message>
-    <message>
         <location filename="../../scribus/actionmanager.cpp" line="1605"/>
         <source>&amp;Edit Shape...</source>
         <translation>&amp;Editatu forma...</translation>
@@ -658,10 +634,6 @@
         <location filename="../../scribus/actionmanager.cpp" line="1622"/>
         <source>&amp;Glyph...</source>
         <translation>&amp;Glifoa...</translation>
-    </message>
-    <message>
-        <source>Sample Text</source>
-        <translation type="vanished">Testu-lagina</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1635"/>
@@ -990,10 +962,6 @@
         <translation>Doitu markoa irudira</translation>
     </message>
     <message>
-        <source>Extended Image Properties</source>
-        <translation type="vanished">Irudiaren propietate hedatuak</translation>
-    </message>
-    <message>
         <location filename="../../scribus/actionmanager.cpp" line="1666"/>
         <source>Show Control Characters</source>
         <translation>Erakutsi karaktere-kontrola</translation>
@@ -1047,10 +1015,6 @@
         <location filename="../../scribus/actionmanager.cpp" line="1643"/>
         <source>Manage Page Properties...</source>
         <translation>Kudeatu orriaren propietateak...</translation>
-    </message>
-    <message>
-        <source>Print Previe&amp;w</source>
-        <translation type="vanished">Inprimatzeko &amp;aurrebista</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1528"/>
@@ -1258,7 +1222,7 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1597"/>
         <source>Extended Image Properties...</source>
-        <translation type="unfinished">Irudi-propietate hedatuak...</translation>
+        <translation>Irudi-propietate hedatuak...</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1603"/>
@@ -1444,10 +1408,6 @@
         <translation>Erakutsi testuinguru-menua</translation>
     </message>
     <message>
-        <source>&amp;Manage Images</source>
-        <translation type="vanished">&amp;Kudeatu irudiak</translation>
-    </message>
-    <message>
         <location filename="../../scribus/actionmanager.cpp" line="1747"/>
         <source>&amp;About Plugins</source>
         <translation>&amp;Pluginei buruz</translation>
@@ -1621,10 +1581,6 @@
         <location filename="../../scribus/actionmanager.cpp" line="1481"/>
         <source>New &amp;from Template...</source>
         <translation>Berria &amp;txantiloitik...</translation>
-    </message>
-    <message>
-        <source>&amp;Transform</source>
-        <translation type="vanished">E&amp;raldatu</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1513"/>
@@ -1871,10 +1827,6 @@
         <location filename="../../scribus/actionmanager.cpp" line="1778"/>
         <source>Edit contents of a frame</source>
         <translation>Editatu marko baten edukiak</translation>
-    </message>
-    <message>
-        <source>Edit text in the Story Editor</source>
-        <translation type="vanished">Editatu testua artikulu-editorean</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1780"/>
@@ -2203,10 +2155,6 @@
         <translation>&amp;Lerrokatu aldeak honen arabera:</translation>
     </message>
     <message>
-        <source>...</source>
-        <translation type="vanished">...</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/aligndistribute.ui" line="306"/>
         <source>Distribute</source>
         <translation>Banatu</translation>
@@ -2227,10 +2175,6 @@
         <translation>Trukatu</translation>
     </message>
     <message>
-        <source>DockWidget</source>
-        <translation type="vanished">DockWidget</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/aligndistribute.ui" line="14"/>
         <source>Align and Distribute</source>
         <translation>Lerrokatu eta banatu</translation>
@@ -2238,14 +2182,6 @@
 </context>
 <context>
     <name>AlignDistributePalette</name>
-    <message>
-        <source>Align and Distribute</source>
-        <translation type="vanished">Lerrokatu eta banatu</translation>
-    </message>
-    <message>
-        <source>&amp;Relative to:</source>
-        <translation type="vanished">&amp;Erlatiboa honi:</translation>
-    </message>
     <message>
         <location filename="../../scribus/ui/aligndistribute.cpp" line="96"/>
         <source>First Selected</source>
@@ -2270,10 +2206,6 @@
         <location filename="../../scribus/ui/aligndistribute.cpp" line="101"/>
         <source>Selection</source>
         <translation>Hautapena</translation>
-    </message>
-    <message>
-        <source>&amp;Align Sides By:</source>
-        <translation type="vanished">&amp;Lerrokatu aldeak honen arabera:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/aligndistribute.cpp" line="116"/>
@@ -2339,14 +2271,6 @@
         <location filename="../../scribus/ui/aligndistribute.cpp" line="100"/>
         <source>Guide</source>
         <translation>Gida</translation>
-    </message>
-    <message>
-        <source>&amp;Selected Guide:</source>
-        <translation type="vanished">&amp;Hautatutako gida:</translation>
-    </message>
-    <message>
-        <source>&amp;Distance:</source>
-        <translation type="vanished">&amp;Distantzia:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/aligndistribute.cpp" line="141"/>
@@ -2442,14 +2366,6 @@
         <location filename="../../scribus/ui/aligndistribute.cpp" line="137"/>
         <source>Make vertical gaps between items and the top and bottom of page equal</source>
         <translation>Berdindu elementuen eta orrialdearen goiko eta beheko aldearen arteko tarte bertikalak</translation>
-    </message>
-    <message>
-        <source>Align</source>
-        <translation type="vanished">Lerrokatu</translation>
-    </message>
-    <message>
-        <source>Distribute</source>
-        <translation type="vanished">Banatu</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/aligndistribute.cpp" line="103"/>
@@ -2773,10 +2689,6 @@
 <context>
     <name>ArcWidgetBase</name>
     <message>
-        <source>Form</source>
-        <translation type="vanished">Inprimakia</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/arcwidgetbase.ui" line="36"/>
         <source>Start Angle:</source>
         <translation>Hasierako angelua:</translation>
@@ -2790,171 +2702,6 @@
         <location filename="../../scribus/ui/arcwidgetbase.ui" line="117"/>
         <source>Sample Polygon</source>
         <translation>Adibideko poligonoa</translation>
-    </message>
-</context>
-<context>
-    <name>AspellPlugin</name>
-    <message>
-        <source>Spell-checking support</source>
-        <translation type="vanished">Ortografia-egiaztatzailearen euskarria</translation>
-    </message>
-    <message>
-        <source>0.1</source>
-        <translation type="vanished">0.1</translation>
-    </message>
-    <message>
-        <source>Spell Checker</source>
-        <translation type="vanished">Ortografia-egiaztatzailea</translation>
-    </message>
-    <message>
-        <source>Adds support for spell-checking via Aspell. Languages can be chosen from among the installed Aspell dictionaries, and spell-checking can be done on the fly, or on selected text.</source>
-        <translation type="vanished">Ortografia-egiaztatzailea gehitzen du Aspell bidez. Instalatutako Aspell hiztegien araberako hizkuntzak hauta daitezke, eta ortografia dinamikoki egiazta daiteke, edo hautatutako testuaren gainean.</translation>
-    </message>
-    <message>
-        <source>Aspell Plugin Error</source>
-        <translation type="vanished">Errorea Aspell pluginean</translation>
-    </message>
-</context>
-<context>
-    <name>AspellPluginBase</name>
-    <message>
-        <source>Spell Check</source>
-        <translation type="vanished">Ortografia egiaztatu</translation>
-    </message>
-    <message>
-        <source>Replacement:</source>
-        <translation type="vanished">Ordezkoa:</translation>
-    </message>
-    <message>
-        <source>The currently active dictionary. Scribus uses Aspell for dictionary support.&lt;br /&gt;If you require updated or more dictionaries, you should install them via your system&apos;s installation system or package manager.</source>
-        <translation type="vanished">Uneko hiztegi aktiboa. Scribus-ek Aspell darabil hiztegiak onartzeko&lt;br /&gt; Hiztegi gehiago edo hiztegi eguneratuak behar badituzu, sistemaren instalazioaren bidez edo pakete-kudeatzaile baten bidez instalatu beharko dizutu.</translation>
-    </message>
-    <message>
-        <source>&amp;Add Word</source>
-        <translation type="vanished">&amp;Gehitu hitza</translation>
-    </message>
-    <message>
-        <source>&amp;Change</source>
-        <translation type="vanished">&amp;Aldatu</translation>
-    </message>
-    <message>
-        <source>Not in Dictionary:</source>
-        <translation type="vanished">Ez dago hiztegian:</translation>
-    </message>
-    <message>
-        <source>Word that was not found in the active dictionary</source>
-        <translation type="vanished">Hiztegi aktiboan aurkitu ez den hitza</translation>
-    </message>
-    <message>
-        <source>Replacement text for the current word that was not found in the dictionary</source>
-        <translation type="vanished">Hiztegian aurkitu ez den uneko hitzaren ordezko testua</translation>
-    </message>
-    <message>
-        <source>Active Dictionary: </source>
-        <translation type="vanished">Hiztegi aktiboa:</translation>
-    </message>
-    <message>
-        <source>Ignore the current text not found in the active dictionary</source>
-        <translation type="vanished">Ez ikusi hiztegi aktiboan aurkitu ez den uneko testua</translation>
-    </message>
-    <message>
-        <source>&amp;Ignore</source>
-        <translation type="vanished">&amp;Ez ikusi</translation>
-    </message>
-    <message>
-        <source>Ignore all occurrences of the current text not found in the active dictionary</source>
-        <translation type="vanished">Ez ikusi hiztegi aktiboan aurkitu ez den uneko testuaren gertaldi guztiak</translation>
-    </message>
-    <message>
-        <source>I&amp;gnore All</source>
-        <translation type="vanished">E&amp;z ikusi denak</translation>
-    </message>
-    <message>
-        <source>Add the current word to the your personal spelling dictionary for future use</source>
-        <translation type="vanished">Gehitu uneko hitza zure ortografia-hiztegiari, etorkizunean erabili ahal izateko.</translation>
-    </message>
-    <message>
-        <source>Change the current word that was not found to that shown in the replacement entry field</source>
-        <translation type="vanished">Aldatu aurkitu ez den uneko hitza ordezkoen sarrera-eremuan agertu den hitzarekin</translation>
-    </message>
-    <message>
-        <source>Change all occurrences of the current word in the text that was not found to that shown in the replacement entry field</source>
-        <translation type="vanished">Aldatu aurkitu ez den uneko hitzaren gertaldi guztiak ordezkoen sarrera-eremuan agertu den hitzarekin</translation>
-    </message>
-    <message>
-        <source>Change A&amp;ll</source>
-        <translation type="vanished">A&amp;ldatu dena</translation>
-    </message>
-    <message>
-        <source>Close</source>
-        <translation type="vanished">Itxi</translation>
-    </message>
-</context>
-<context>
-    <name>AspellPluginImpl</name>
-    <message>
-        <source>Loaded </source>
-        <translation type="vanished">Kargatua</translation>
-    </message>
-    <message>
-        <source>default </source>
-        <translation type="vanished">lehenetsia</translation>
-    </message>
-    <message>
-        <source>AspellPluginImpl::on_fskipAllBtn_clicked(): Unable to skip all instances of &quot;</source>
-        <translation type="vanished">AspellPluginImpl::on_fskipAllBtn_clicked(): Ezin dira saltatu honen instantzia guztiak: &quot;</translation>
-    </message>
-    <message>
-        <source> by adding it to the session list.</source>
-        <translation type="vanished">hura saio-zerrendara gehituz.</translation>
-    </message>
-    <message>
-        <source>AspellPluginImpl::on_faddWordBtn_clicked(): Unable to add word to personal list.</source>
-        <translation type="vanished">AspellPluginImpl::on_faddWordBtn_clicked(): Ezin izan da hitza gehitu zerrenda pertsonalera.</translation>
-    </message>
-    <message>
-        <source>Spelling check complete</source>
-        <translation type="vanished">Ortografia egiaztatzea osatu da</translation>
-    </message>
-    <message>
-        <source> Aspell dictionary.</source>
-        <translation type="vanished">Aspell hiztegia</translation>
-    </message>
-    <message>
-        <source>Spell Checker</source>
-        <translation type="vanished">Ortografia-egiaztatzailea</translation>
-    </message>
-    <message>
-        <source>No available Aspell dictionaries found. Install some, please.</source>
-        <translation type="vanished">Ez da Aspell hiztegirik aurkitu. Instalatu bat.</translation>
-    </message>
-    <message>
-        <source>Do you want start from the beginning of the selection with new language selected?</source>
-        <translation type="vanished">Hautapenaren hasieratik hasi nahi duzu hizkuntza berria hautatuta?</translation>
-    </message>
-    <message>
-        <source>Spell Checker Plugin Failed to Initialize.
-Configuration invalid</source>
-        <translation type="vanished">Ortografia-egiaztatzailearen plugina ezin izan da hasieratu.
-Konfigurazio baliogabea</translation>
-    </message>
-    <message>
-        <source>Spell Checker Plugin Failed to Initialize.</source>
-        <translation type="vanished">Ortografia-egiaztatzailearen plugina ezin izan da hasieratu</translation>
-    </message>
-    <message>
-        <source>No Aspell dictionaries could be found.</source>
-        <translation type="vanished">Ez da Aspell hiztegirik aurkitu.</translation>
-    </message>
-    <message>
-        <source>Spell Checker Plugin Failed to Initialise.
-Configuration invalid</source>
-        <translation type="vanished">Ortografia-egiaztatzailearen plugina ezin izan da hasieratu.
-Konfigurazio baliogabea</translation>
-    </message>
-    <message>
-        <source>Spell Checker Plugin Failed to Initialise.</source>
-        <translation type="vanished">Ortografia-egiaztatzailearen plugina ezin izan da hasieratu</translation>
     </message>
 </context>
 <context>
@@ -2993,10 +2740,6 @@ Konfigurazio baliogabea</translation>
 <context>
     <name>Barcode</name>
     <message>
-        <source>Scribus frontend for Pure PostScript Barcode Writer</source>
-        <translation type="vanished">Scribus interfazea Pure PostScript Barcode Writer-erako</translation>
-    </message>
-    <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcode.cpp" line="25"/>
         <source>Barcode</source>
         <translation>Barra-kodea</translation>
@@ -3015,157 +2758,9 @@ Konfigurazio baliogabea</translation>
 <context>
     <name>BarcodeGenerator</name>
     <message>
-        <source>Error opening file: %1</source>
-        <translation type="vanished">Errorea fitxategia irekitzean: %1</translation>
-    </message>
-    <message>
-        <source>12 or 13 digits</source>
-        <translation type="vanished">12 edo 13 digitu</translation>
-    </message>
-    <message>
-        <source>8 digits</source>
-        <translation type="vanished">8 digitu</translation>
-    </message>
-    <message>
-        <source>11 or 12 digits</source>
-        <translation type="vanished">11 edo 12 digitu</translation>
-    </message>
-    <message>
-        <source>7 or 8 digits</source>
-        <translation type="vanished">7 edo 8 digitu</translation>
-    </message>
-    <message>
-        <source>5 digits</source>
-        <translation type="vanished">5 digitu</translation>
-    </message>
-    <message>
-        <source>2 digits</source>
-        <translation type="vanished">2 digitu</translation>
-    </message>
-    <message>
-        <source>Variable number of characters, digits and any of the symbols -. *$/+%.</source>
-        <translation type="vanished">Karaktereen, digituen eta  -. *$/+% ikurretako edozeinen kopuru aldakorra.</translation>
-    </message>
-    <message>
-        <source>Variable number of ASCII characters and special function symbols, starting with the appropriate start character for the initial character set. UCC/EAN-128s must have a mandatory FNC 1 symbol immediately following the start character.</source>
-        <translation type="vanished">ASCII karaktere- eta funtzio berezien ikur-kopuru aldagarria, hasierako karaktere egokiarekin hasiz, hasierako karakterea ezartzeko. UCC/EAN-128 kodeak derrigorrez FNC 1 ikurra eduki behar du hasierako karaktereari berehala jarraituz.</translation>
-    </message>
-    <message>
-        <source>Variable number of digits and any of the symbols -$:/.+ABCD.</source>
-        <translation type="vanished">Digituen eta -$:/.+ABCD ikurretako edozeinen kopuru aldakorra.</translation>
-    </message>
-    <message>
-        <source>Variable number of digits. An ITF-14 is 14 characters and does not have a check digit</source>
-        <translation type="vanished">Digitu-kopuru aldagarria. ITF-14 14 karakteretakoa da eta ez du digituen kontrol-baturarik.</translation>
-    </message>
-    <message>
-        <source>Variable number of digits</source>
-        <translation type="vanished">Digitu-kopuru aldakorra</translation>
-    </message>
-    <message>
-        <source>Variable number of digits and capital letters</source>
-        <translation type="vanished">Digitu eta letra maiuskulen kopuru aldakorra</translation>
-    </message>
-    <message>
-        <source>Variable number of hexadecimal characters</source>
-        <translation type="vanished">Karaktere hamaseitarren kopuru aldakorra</translation>
-    </message>
-    <message>
-        <source>Barcode</source>
-        <translation type="vanished">Barra-kodea</translation>
-    </message>
-    <message>
-        <source>Barcode incomplete</source>
-        <translation type="vanished">Barra-kode osatugabea</translation>
-    </message>
-    <message>
-        <source>12 or 13 digits with dashes. The legacy ISBN-10 format accepts 9 or 10 digits with dashes, but this standard was depreciated for public use after 1st January 2007. (Note: To convert an old ISBN-10 to a new ISBN-13, prefix 978- to the first 9 digits, e.g. 1-56592-479-7 -&gt; 978-1-56592-479. The final check-digit will be calculated automatically.)</source>
-        <translation type="vanished">12 edo 13 digitu, marratxoak barne. Bertsio zaharreko ISBN-10 formatuak 9 edo 10 digitu onartzen ditu, marratxoak barne, baina estandar hori baztertu egin zen erabilera publikorako 2007ko urtarrilaren 1ean. (Oharra: ISBN-10 zahar bat ISBN-13 berrira aldatzeko, jarri 978-aurrizki modura lehen 9 digituei, adib.  1-56592-479-7 -&gt; 978-1-56592-479. Azken kontrol-digitua automatikoki kalkulatuko da.)</translation>
-    </message>
-    <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.cpp" line="386"/>
         <source>Select Type</source>
         <translation>Hautatu mota</translation>
-    </message>
-    <message>
-        <source>Variable number of characters, digits and any symbols.</source>
-        <translation type="vanished">Karaktereen, digituen eta edozein ikurren kopurua aldakorra.</translation>
-    </message>
-    <message>
-        <source>EAN-13</source>
-        <translation type="vanished">EAN-13</translation>
-    </message>
-    <message>
-        <source>EAN-8</source>
-        <translation type="vanished">EAN-8</translation>
-    </message>
-    <message>
-        <source>UPC-A</source>
-        <translation type="vanished">UPC-A</translation>
-    </message>
-    <message>
-        <source>UPC-E</source>
-        <translation type="vanished">UPC-E</translation>
-    </message>
-    <message>
-        <source>EAN-5</source>
-        <translation type="vanished">EAN-5</translation>
-    </message>
-    <message>
-        <source>EAN-2</source>
-        <translation type="vanished">EAN-2</translation>
-    </message>
-    <message>
-        <source>ISBN</source>
-        <translation type="vanished">ISBN</translation>
-    </message>
-    <message>
-        <source>Code-39</source>
-        <translation type="vanished">Code-39</translation>
-    </message>
-    <message>
-        <source>Code-128</source>
-        <translation type="vanished">Code-128</translation>
-    </message>
-    <message>
-        <source>UCC/EAN-128</source>
-        <translation type="vanished">UCC/EAN-128</translation>
-    </message>
-    <message>
-        <source>Rationalized Codabar</source>
-        <translation type="vanished">Rationalized Codabar</translation>
-    </message>
-    <message>
-        <source>Interleaved 2 of 5</source>
-        <translation type="vanished">2. tartekatua 5etik</translation>
-    </message>
-    <message>
-        <source>ITF-14</source>
-        <translation type="vanished">ITF-14</translation>
-    </message>
-    <message>
-        <source>Code 2 of 5</source>
-        <translation type="vanished">2. kodea 5etik</translation>
-    </message>
-    <message>
-        <source>Postnet</source>
-        <translation type="vanished">Postnet</translation>
-    </message>
-    <message>
-        <source>Royal Mail</source>
-        <translation type="vanished">Royal Mail</translation>
-    </message>
-    <message>
-        <source>MSI</source>
-        <translation type="vanished">MSI</translation>
-    </message>
-    <message>
-        <source>Plessey</source>
-        <translation type="vanished">Plessey</translation>
-    </message>
-    <message>
-        <source>QR Code</source>
-        <translation type="vanished">QR kodea</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.cpp" line="184"/>
@@ -3227,18 +2822,6 @@ Konfigurazio baliogabea</translation>
 <context>
     <name>BarcodeGeneratorBase</name>
     <message>
-        <source>&amp;Type:</source>
-        <translation type="vanished">&amp;Mota:</translation>
-    </message>
-    <message>
-        <source>Select one of the available barcode type here</source>
-        <translation type="vanished">Hautatu barra-kode mota erabilgarria</translation>
-    </message>
-    <message>
-        <source>The numeric representation of the code itself. See the help message below</source>
-        <translation type="vanished">Kodearen adierazpen numerikoa. Ikus azpiko laguntzako mezua</translation>
-    </message>
-    <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="412"/>
         <source>Reset the barcode samples</source>
         <translation>Berrezarri barra-kodearen laginak</translation>
@@ -3262,10 +2845,6 @@ Konfigurazio baliogabea</translation>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="104"/>
         <source>Draw arrows to be sure of space next the code</source>
         <translation>Marraztu geziak kodetik gertu lekua egoteko</translation>
-    </message>
-    <message>
-        <source>Colors</source>
-        <translation type="vanished">Koloreak</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="152"/>
@@ -3313,14 +2892,6 @@ Konfigurazio baliogabea</translation>
         <translation>Testuaren eta zenbakien kolorea</translation>
     </message>
     <message>
-        <source>Hints and help is shown here</source>
-        <translation type="vanished">Argibideak eta laguntza erakusten dira</translation>
-    </message>
-    <message>
-        <source>Co&amp;de:</source>
-        <translation type="vanished">Ko&amp;dea:</translation>
-    </message>
-    <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="130"/>
         <source>Alt+N</source>
         <translation>Alt+R</translation>
@@ -3344,42 +2915,6 @@ Konfigurazio baliogabea</translation>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="16"/>
         <source>Insert Barcode</source>
         <translation>Txertatu barra-kodea</translation>
-    </message>
-    <message>
-        <source>Format</source>
-        <translation type="vanished">Formatua</translation>
-    </message>
-    <message>
-        <source>Incl&amp;ude Checksum Digit</source>
-        <translation type="vanished">Sartu &amp;kontroleko batura</translation>
-    </message>
-    <message>
-        <source>I&amp;nclude Checksum</source>
-        <translation type="vanished">Sartu k&amp;ontroleko batura</translation>
-    </message>
-    <message>
-        <source>&amp;Guard Whitespace</source>
-        <translation type="vanished">&amp;Babestu zuriunea</translation>
-    </message>
-    <message>
-        <source>&amp;Include Text in Barcode</source>
-        <translation type="vanished">&amp;Sartu testua kode-barran</translation>
-    </message>
-    <message>
-        <source>Options</source>
-        <translation type="vanished">Aukerak</translation>
-    </message>
-    <message>
-        <source>&amp;Format:</source>
-        <translation type="vanished">&amp;Formatua:</translation>
-    </message>
-    <message>
-        <source>Error &amp;checking:</source>
-        <translation type="vanished">Errore-e&amp;giaztatzea:</translation>
-    </message>
-    <message>
-        <source>Minimum error checking; raised opportunistically if size of symbol is not increased</source>
-        <translation type="vanished">Erroreen egiaztatze minimoa: behar denean erabiltzen da ikur-tamaina handitzen ez bada</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="71"/>
@@ -3892,7 +3427,7 @@ aukeratu &apos;Koloremetria erlatiboa&apos; edo &apos;Pertzepziozkoa&apos;.</tra
     </message>
     <message>
         <location filename="../../scribus/ui/cmsprefsbase.ui" line="274"/>
-        <source>Enable &apos;soft proofing&apos; of how your document colors will print,
+        <source>Enable 'soft proofing' of how your document colors will print,
 based on the chosen printer profile.</source>
         <translation>Gaitu zure dokumentuaren koloreak nola inprimatuko diren erakusten duen
 &apos;probatze biguna&apos;, hautatutako inprimagailu-profilean oinarrituta.</translation>
@@ -3971,14 +3506,6 @@ Aukera hau gaitzea gomendatzen da zure dokumentuan argazkiak badituzu.</translat
         <translation>Web Safe RGB</translation>
     </message>
     <message>
-        <source>New</source>
-        <translation type="vanished">Berria</translation>
-    </message>
-    <message>
-        <source>Old</source>
-        <translation type="vanished">Zaharra</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/cmykfw.cpp" line="631"/>
         <location filename="../../scribus/ui/cmykfw.cpp" line="794"/>
         <source>C:</source>
@@ -3993,10 +3520,6 @@ Aukera hau gaitzea gomendatzen da zure dokumentuan argazkiak badituzu.</translat
         <location filename="../../scribus/ui/cmykfw.cpp" line="633"/>
         <source>Y:</source>
         <translation>Y:</translation>
-    </message>
-    <message>
-        <source>K:</source>
-        <translation type="vanished">K:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/cmykfw.cpp" line="270"/>
@@ -4033,18 +3556,6 @@ Aukera hau gaitzea gomendatzen da zure dokumentuan argazkiak badituzu.</translat
         <location filename="../../scribus/ui/cmykfw.cpp" line="627"/>
         <source> %</source>
         <translation> %</translation>
-    </message>
-    <message>
-        <source>&amp;Name:</source>
-        <translation type="vanished">&amp;Izena:</translation>
-    </message>
-    <message>
-        <source>Color &amp;Model</source>
-        <translation type="vanished">Kolore-&amp;modeloa</translation>
-    </message>
-    <message>
-        <source>Is Spot Color</source>
-        <translation type="vanished">Kolore zuzena da</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/cmykfw.cpp" line="1121"/>
@@ -4186,10 +3697,6 @@ Hautatu beste izen bat.</translation>
         <translation>%</translation>
     </message>
     <message>
-        <source>...</source>
-        <translation type="vanished">...</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/cmykfwbase.ui" line="539"/>
         <source>M:</source>
         <translation>M:</translation>
@@ -4276,10 +3783,6 @@ Hautatu beste izen bat.</translation>
         <translation>HSV</translation>
     </message>
     <message>
-        <source>Colors of your chosen color scheme.</source>
-        <translation type="vanished">Hautatu duzun kolore-eskemaren koloreak.</translation>
-    </message>
-    <message>
         <location filename="../../scribus/plugins/colorwheel/cwdialog.ui" line="183"/>
         <source>Color Scheme Method</source>
         <translation>Kolore-eskemaren metodoa</translation>
@@ -4348,10 +3851,6 @@ Hautatu beste izen bat.</translation>
         <location filename="../../scribus/plugins/colorwheel/cwdialog.ui" line="342"/>
         <source>Preview:</source>
         <translation>Aurrebista:</translation>
-    </message>
-    <message>
-        <source>Sample color scheme.</source>
-        <translation type="vanished">Adibideko kolore-eskema.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/colorwheel/cwdialog.ui" line="394"/>
@@ -4604,10 +4103,6 @@ Fitxategia: %1
 Orrialdea: %2</translation>
     </message>
     <message>
-        <source>Overflow Characters: %1 (%2 White Spaces)</source>
-        <translation type="vanished">Gainezkatze-karaktereak: %1 (%2 zuriune)</translation>
-    </message>
-    <message>
         <location filename="../../scribus/canvasmode_normal.cpp" line="436"/>
         <source>Overflow Characters: %1 (%2 White Spaces)
 Click to link to existing text frame or auto-create new linked text frame</source>
@@ -4709,10 +4204,6 @@ Document Liberation Project-era http://www.documentliberation.org</translation>
         <location filename="../../scribus/ui/charselect.cpp" line="342"/>
         <source>You will remove all characters from this palette. Are you sure?</source>
         <translation>Paleta honetako karaktere guztiak kenduko dituzu. Ziur zaude?</translation>
-    </message>
-    <message>
-        <source>Hide/Show Enhanced Palette</source>
-        <translation type="vanished">Ezkutatu/erakutsi paleta hobetua</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/charselect.cpp" line="305"/>
@@ -5082,14 +4573,6 @@ Insert teklak glifo bat txertatzen du beheko hautapenean, eta Supr teklak txerta
         <translation>&quot;%1&quot; geruza</translation>
     </message>
     <message>
-        <source>Annotation uses a non TrueType font</source>
-        <translation type="vanished">Oharpenak TrueType ez den letra-tipoa darabil</translation>
-    </message>
-    <message>
-        <source>Preflight profile to base the report generation on. Options can be set in Document Setup or Preferences</source>
-        <translation type="vanished">Txostena sortzeko erabiliko den inprimatze aurreko egiaztatze-profila. Aukerak dokumentuaren-konfigurazioan edo hobespenetan ezar daitezke.</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/checkDocument.cpp" line="122"/>
         <source>Ignore found errors and continue to export or print. Be sure to understand the errors you are ignoring before continuing.</source>
         <translation>Ez ikusi aurkitutako erroreak eta jarraitu esportatzen edo inprimatzen. Jarraitu baino lehen, ziurtatu ez ikusten ari zaren erroreak ulertu dituzula.</translation>
@@ -5108,10 +4591,6 @@ Insert teklak glifo bat txertatzen du beheko hautapenean, eta Supr teklak txerta
         <location filename="../../scribus/ui/checkDocument.cpp" line="416"/>
         <source>Layers</source>
         <translation>Geruzak</translation>
-    </message>
-    <message>
-        <source>Print/Visible Mismatch</source>
-        <translation type="vanished">Inprimatzen dena eta ikusten dena ez datoz bat</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/checkDocument.cpp" line="469"/>
@@ -5180,50 +4659,14 @@ unekoa %2 x %3 DPI</translation>
         <translation>Orri maisu zuzena aplikatu duzu?</translation>
     </message>
     <message>
-        <source>If you have created an image frame, there is the presumption that you planned to put an image in it.</source>
-        <translation type="vanished">Irudi-marko bat sortu baduzu, hartan irudi bat sartuko duzula espero da.</translation>
-    </message>
-    <message>
-        <source>If you have created a text frame, there is the presumption that you planned to put text in it.</source>
-        <translation type="vanished">Testu-marko bat sortu baduzu, hartan testua sartuko duzula espero da.</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/checkDocument.cpp" line="131"/>
         <source>Imported document contains non-embedded fonts</source>
         <translation>Inportatutako dokumentuak kapsulatu ez diren letra-tipoak ditu</translation>
     </message>
     <message>
-        <source>When some imported document uses non-embedded fonts, then their rendering will be wrong, unless by chance you have them installed on their system, but that cannot be guaranteed in case you want to share the resulting document.</source>
-        <translation type="vanished">Inportatutako zenbait dokumentuk kapsulatu gabeko letra-tipoak erabiltzen dituztenean, gaizki errendatuko dira, letra-tipo horiek zure sisteman instalatuta ez badituzu, baina hori ezin da bermatu dokumentua partekatu nahi duzunean.</translation>
-    </message>
-    <message>
-        <source>This is a user definable setting serving as a caution for high resolution images, which may lead to unnecessarily large files.</source>
-        <translation type="vanished">Erabiltzaileak ezar dezakeen ezarpen honek bereizmen handiko irudien kasurako abisua dira, beharrezkoak ez diren fitxategia handiekin kontuz ibiltzeko.</translation>
-    </message>
-    <message>
-        <source>mage doesnt fit the whole space you reserved for it. Maybe this is intended, or maybe this is caused by bad inner placement or scale. The result will either be a cropped image or white space around the image.</source>
-        <translation type="vanished">Irudiak ez du betetzen harentzako utzi duzun espazio guztia. Beharbada nahita egindako zerbait da, edo beharbada kokapen edo eskala oker baten ondorio da. Emaitza moztutako irudi bat edo irudiaren inguruko espazio zuria izango da.</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/checkDocument.cpp" line="134"/>
         <source>This warning alerts you that you are using a bitmap based graphic format that is typically not used for high resolution images (.gif is one of those). This may result in poor viewing quality (for example: when commercially printed, viewed on a high-resolution screens, etc...). If your PDF will be printed commercially, there are some printing systems that will have difficulty printing these types of images.</source>
         <translation>Abisu honek esaten dizu bereizmen handiko irudietan normalean erabiltzen ez den bitmap-oinarriko formatu grafiko bat erabiltzen ari zarela (.gif horietako bat da). Horrek bistaratze-kalitate urria eragin dezake (adibidez komertzialki inprimatu nahi denerako, edo bereizmen handiko pantailetan ikusi nahi denerako). Zure PDFa komertzialki inprimatuko bada, zenbait inprimatze-sistemek zailtasunak eduki ditzakete irudi mota horiek inprimatzeko.</translation>
-    </message>
-    <message>
-        <source>This is a user definable setting serving as a caution for low resolution images, which may lead to poor quality output.</source>
-        <translation type="vanished">Erabiltzaileak definitu ahal duen ezarpen bat da hau, dokumentuaren kalitate baxua eragin dezaketen bereizmen txikiko irudiak saihesteko erabil daitekeena.</translation>
-    </message>
-    <message>
-        <source>You have one or more characters which do not have a corresponding glyph in your chosen font.</source>
-        <translation type="vanished">Hautatu duzun letra-tipoan gliforik ez du(t)en karaktere bat edo gehiago dituzu.</translation>
-    </message>
-    <message>
-        <source>The assigned image file cannot be found.</source>
-        <translation type="vanished">Esleitutako irudi-fitxategia ezin da aurkitu.</translation>
-    </message>
-    <message>
-        <source>An object is placed somewhere outside of the page borders, it will not be printed and might be missing somewhere.</source>
-        <translation type="vanished">Objektu bat orrialde-ertzetik kanpo kokatu da, ez da inprimatuko eta agian zerbait galtzen ari zara.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/checkDocument.cpp" line="139"/>
@@ -6382,10 +5825,6 @@ unekoa %2 x %3 DPI</translation>
         <translation>Dokumentuaren orrialde kopurua:</translation>
     </message>
     <message>
-        <source>Doc Page Range</source>
-        <translation type="vanished">Dokumentuaren orrialde-barrutia</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/createrange.ui" line="80"/>
         <source>Basic Range Selection</source>
         <translation>Oinarrizko barruti-hautapena</translation>
@@ -6474,10 +5913,6 @@ unekoa %2 x %3 DPI</translation>
         <location filename="../../scribus/ui/createrange.ui" line="282"/>
         <source>Advanced Reordering</source>
         <translation>Berrordenatze aurreratua</translation>
-    </message>
-    <message>
-        <source>Page Order</source>
-        <translation type="vanished">Orrialde-ordena</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/createrange.ui" line="330"/>
@@ -6639,14 +6074,6 @@ unekoa %2 x %3 DPI</translation>
         <translation>Orrialde orriko</translation>
     </message>
     <message>
-        <source>This panel displays various CUPS options when printing. The exact parameters available will depend on your printer driver. You can confirm CUPS support by selecting Help &gt; About. Look for the listings: C-C-T These equate to C=CUPS C=littlecms T=TIFF support. Missing library support is indicated by a *</source>
-        <translation type="vanished">Panel honek CUPSeko hainbat aukera bistaratzen ditu inprimatzean. 
-Parametro erabilgarriak inprimagailuaren kontrolatzailearen 
-mende daude. CUPS euskarria berretsi dezakezu Laguntza &gt; Honi buruz hautatuz. Begiratu zerrendan: C-C-T zera adierazten du: 
-C=CUPS, C=littlecms, T=TIFF euskarria. Falta diren liburutegiak 
-* ikurrarekin adierazten dira.</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/cupsoptions.cpp" line="227"/>
         <source>This panel displays various CUPS options when printing. The exact parameters available will depend on your printer driver. You can confirm CUPS support by selecting Help &gt; About. Look for the listings: C-C-T These equate to C=CUPS C=littlecms T=TIFF support. Missing library support is indicated by a *.</source>
         <translation>Panel honek CUPSeko hainbat aukera bistaratzen ditu inprimatzean. Parametro erabilgarriak inprimagailuaren kontrolatzailearen mende daude. CUPS euskarria berretsi dezakezu &apos;Laguntza &gt; Honi buruz&apos; hautatuz. Begiratu zerrendak: C-C-T kodeak zera adierazten du: 
@@ -6659,10 +6086,6 @@ C=CUPS, C=littlecms, T=TIFF euskarria. Falta diren liburutegiak * ikurrarekin ad
         <location filename="../../scribus/ui/curvewidget.cpp" line="411"/>
         <source>Open</source>
         <translation>Ireki</translation>
-    </message>
-    <message>
-        <source>Curve Files &quot;*.scu&quot; (*.scu *.SCU);;All Files (*)</source>
-        <translation type="vanished">Kurba fitxategiak &quot;*.scu&quot; (*.scu *.SCU);;Fitxategi guztiak (*)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/curvewidget.cpp" line="449"/>
@@ -6968,14 +6391,6 @@ C=CUPS, C=littlecms, T=TIFF euskarria. Falta diren liburutegiak * ikurrarekin ad
         <translation>I&amp;nformazio gehiago</translation>
     </message>
     <message>
-        <source>A person or organisation responsible for making the document available</source>
-        <translation type="vanished">Dokumentua eskuragarri egitearen arduraduna (pertsona edo erakundea)</translation>
-    </message>
-    <message>
-        <source>A person or organisation responsible for making contributions to the content of the document</source>
-        <translation type="vanished">Dokumentuaren edukian lagundu duten arduradunak (pertsona edo erakundea)</translation>
-    </message>
-    <message>
         <location filename="../../scribus/docinfo.cpp" line="173"/>
         <source>A date associated with an event in the life cycle of the document, in YYYY-MM-DD format, as per ISO 8601</source>
         <translation>Dokumentuaren bizitzaren zikloko gertaera batekin elkartutako data, UUUU-HH-EE formatuan, ISO8601 antzera.</translation>
@@ -7017,34 +6432,9 @@ denbora eta jurisdikzioa sartuz.</translation>
         <translation>Dokumen&amp;tua</translation>
     </message>
     <message>
-        <source>The person or organisation primarily responsible for making the content of the document. This field can be embedded in the Scribus document for reference, as well as in the metadata of a PDF</source>
-        <translation type="vanished">Dokumentuaren edukia egitearen arduraduna den pertsona edo erakundea. Eremu hau Scribus-eko dokumentuan kapsula daiteke erreferentziatzeko, edota PDF baten metadatuan.</translation>
-    </message>
-    <message>
-        <source>A name given to the document. This field can be embedded in the Scribus document for reference, as well as in the metadata of a PDF</source>
-        <translation type="vanished">Dokumentuari emandako izena. Eremu hau Scribus-eko dokumentuan kapsula 
-daiteke erreferentziatzeko, edota PDF baten metadatuetan</translation>
-    </message>
-    <message>
-        <source>An account of the content of the document. This field is for a brief description or abstract of the document. It is embedded in the PDF on export</source>
-        <translation type="vanished">Dokumentuaren edukiari buruzkoa. Eremu hau dokumentuaren azalpen laburra edo laburpena da. PDFan kapsula daiteke esportatzeko.</translation>
-    </message>
-    <message>
-        <source>The topic of the content of the document. This field is for document keywords you wish to embed in a PDF, to assist searches and indexing of PDF files</source>
-        <translation type="vanished">Dokumentuaren edukiaren gaia. Eremu hau dokumentuko gakoak PDFan kapsulatzeko da, bilaketetan laguntzeko edo PDF fitxategiak indexatzeko</translation>
-    </message>
-    <message>
-        <source>The physical or digital manifestation of the document. Media type and dimensions would be worth noting. RFC2045,RFC2046 for MIME types are also useful here</source>
-        <translation type="vanished">Dokumentuaren manifestazio digitala edo fisikoa. MIMEren RFC2045, RFC2046 motak ere erabilgarriak dira.</translation>
-    </message>
-    <message>
         <location filename="../../scribus/docinfo.cpp" line="178"/>
         <source>The language in which the content of the document is written, usually a ISO-639 language code optionally suffixed with a hypen and an ISO-3166 country code, eg. en-GB, fr-CH</source>
         <translation>Dokumentuaren edukia zein hizkuntzatan idatzita dagoen, arruntena ISO-639 hizkuntza-kodea erabiltzea da, estatuen ISO-3166 kodearekin elkartuz: adib. en-GB, eu-ES</translation>
-    </message>
-    <message>
-        <source>The person or organisation primarily responsible for making the content of the document. This field can be embedded in the Scribus document for reference, as well as in the metadata of a PDF.</source>
-        <translation type="vanished">Dokumentuaren edukia egitearen arduraduna den pertsona edo erakundea. Eremu hau Scribus-eko dokumentuan kapsula daiteke erreferentziatzeko, edota PDF baten metadatuan.</translation>
     </message>
     <message>
         <location filename="../../scribus/docinfo.cpp" line="168"/>
@@ -7667,10 +7057,6 @@ Esportatutako fitxategiaren izena honelakoa izan daiteke:
         <translation>Esportatzeko formatu erabilgarriak</translation>
     </message>
     <message>
-        <source>Choose a Export Directory</source>
-        <translation type="vanished">Aukeratu direktorioa esportatzeko</translation>
-    </message>
-    <message>
         <location filename="../../scribus/plugins/export/pixmapexport/exportform.ui" line="50"/>
         <source>C&amp;hange...</source>
         <translation>Al&amp;datu...</translation>
@@ -7737,14 +7123,6 @@ Esportatutako fitxategiaren izena honelakoa izan daiteke:
         <translation>Esportatu barrutik orrialdeak</translation>
     </message>
     <message>
-        <source>Insert a comma separated list of tokens where
-a token can be * for all the pages, 1-5 for
-a range of pages or a single page number.</source>
-        <translation type="vanished">Txertatu komaz bereiztutako token-en zerrenda, 
-token bat * orrialde guztientzako, 1-5 orrialde barruti 
-batentzako, edo orrialde bakar batentzako izan daiteke.</translation>
-    </message>
-    <message>
         <location filename="../../scribus/plugins/export/pixmapexport/dialog.cpp" line="119"/>
         <source>Export all pages</source>
         <translation>Esportatu orrialde guztiak</translation>
@@ -7770,10 +7148,6 @@ Erabili 72 dpi irudiak pantailan erabiltzeko badira</translation>
         <location filename="../../scribus/plugins/export/pixmapexport/exportform.ui" line="184"/>
         <source>Image size in Pixels</source>
         <translation>Irudi-tamaina pixeletan</translation>
-    </message>
-    <message>
-        <source>TextLabel</source>
-        <translation type="vanished">TextLabel</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/export/pixmapexport/dialog.cpp" line="123"/>
@@ -8247,10 +7621,6 @@ Document Liberation Project-era http://www.documentliberation.org</translation>
         <source>Click to change the value</source>
         <translation>Klik balioa aldatzeko</translation>
     </message>
-    <message>
-        <source>Outline</source>
-        <translation type="vanished">Eskema</translation>
-    </message>
 </context>
 <context>
     <name>FontPreview</name>
@@ -8388,14 +7758,6 @@ Document Liberation Project-era http://www.documentliberation.org</translation>
         <translation>Dokumentu honek sisteman instalatuta ez dauden letra-tipo batzuk erabiltzen ditu, aukeratu hauentzako ordezko egokienak. Bertan behera uzteak dokumentua kargatzea geldituko luke.</translation>
     </message>
     <message>
-        <source>Cancels these font substitutions and stops loading the document.</source>
-        <translation type="vanished">Letra-tipoak ordeztea bertan behera utzi eta dokumentua kargatzea gelditzen du.</translation>
-    </message>
-    <message>
-        <source>If you select OK, then save, these substitutions are made permanent in the document.</source>
-        <translation type="vanished">Ados hautatzen bada gorde egingo du, eta ordezpena betirako izango dira dokumentuan.</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/fontreplacedialog.cpp" line="84"/>
         <source>Enabling this tells Scribus to use these replacements for missing fonts permanently in all future layouts. This can be reverted or changed in File &gt; Preferences &gt; Fonts.</source>
         <translation>Hau gaituta, Scribus-ek ordezkapen hauek erabiliko ditu falta diren letra-tipoak behin-betiko ordezkatzeko etorkizuneko diseinuetan. Hau aldatzeko, joan Fitxategia &gt; Hobespenak &gt; Letra-tipoak atalera.</translation>
@@ -8426,14 +7788,6 @@ Document Liberation Project-era http://www.documentliberation.org</translation>
 </context>
 <context>
     <name>GradientEditor</name>
-    <message>
-        <source>Position:</source>
-        <translation type="vanished">Kokalekua:</translation>
-    </message>
-    <message>
-        <source> %</source>
-        <translation type="vanished"> %</translation>
-    </message>
     <message>
         <location filename="../../scribus/ui/gradienteditor.cpp" line="182"/>
         <source>Add, change or remove color stops here</source>
@@ -8958,14 +8312,6 @@ Document Liberation Project-era http://www.documentliberation.org</translation>
         <translation>&amp;Inprimatu...</translation>
     </message>
     <message>
-        <source>New Bookmark</source>
-        <translation type="vanished">Laster-marka berria</translation>
-    </message>
-    <message>
-        <source>New Bookmark&apos;s Title:</source>
-        <translation type="vanished">Laster-markaren titulu berria:</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/helpbrowser.cpp" line="308"/>
         <source>&amp;File</source>
         <translation>&amp;Fitxategia</translation>
@@ -8995,10 +8341,6 @@ Document Liberation Project-era http://www.documentliberation.org</translation>
         <location filename="../../scribus/ui/helpbrowser.cpp" line="147"/>
         <source>Navigation</source>
         <translation>Nabigazioa</translation>
-    </message>
-    <message>
-        <source>Loading Failed</source>
-        <translation type="vanished">Kargatzeak huts egin du</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/helpbrowser.cpp" line="317"/>
@@ -9056,10 +8398,6 @@ Document Liberation Project-era http://www.documentliberation.org</translation>
 </context>
 <context>
     <name>HelpBrowserNavigation</name>
-    <message>
-        <source>Form</source>
-        <translation type="vanished">Inprimakia</translation>
-    </message>
     <message>
         <location filename="../../scribus/ui/helpbrowsernavigation.ui" line="31"/>
         <source>&amp;Contents</source>
@@ -9415,10 +8753,6 @@ haien datu bektorialak Scribus objektu bihurtuz.</translation>
         <translation>Corel Draw</translation>
     </message>
     <message>
-        <source>Corel Draw CDR (*.cdr *.CDR)</source>
-        <translation type="vanished">Corel Draw CDR (*.cdr *.CDR)</translation>
-    </message>
-    <message>
         <location filename="../../scribus/plugins/import/cdr/importcdrplugin.cpp" line="76"/>
         <source>Imports Corel Draw Files</source>
         <translation>Corel Draw fitxategiak inportatzen ditu</translation>
@@ -9429,10 +8763,6 @@ haien datu bektorialak Scribus objektu bihurtuz.</translation>
 converting their vector data into Scribus objects.</source>
         <translation>Corel Draw fitxategi gehienak uneko dokumentura inportatzen ditu,
 haien datu bektorialak Scribus objektu bihurtuz.</translation>
-    </message>
-    <message>
-        <source>Corel Draw (*.cdr *.CDR)</source>
-        <translation type="vanished">Corel Draw (*.cdr *.CDR)</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/cdr/importcdrplugin.cpp" line="126"/>
@@ -9464,10 +8794,6 @@ Document Liberation Project-era http://www.documentliberation.org</translation>
 </context>
 <context>
     <name>ImportCgmPlugin</name>
-    <message>
-        <source>Import Cgm...</source>
-        <translation type="vanished">Inportatu CGM...</translation>
-    </message>
     <message>
         <location filename="../../scribus/plugins/import/cgm/importcgmplugin.cpp" line="97"/>
         <source>CGM File</source>
@@ -9514,20 +8840,6 @@ Haien datu bektorialak Scribus objektu bihurtuz.</translation>
 <context>
     <name>ImportCvgPlugin</name>
     <message>
-        <source>Import Cvg...</source>
-        <translation type="vanished">Inportatu CVG...</translation>
-    </message>
-    <message>
-        <source>Imports Cvg Files</source>
-        <translation type="vanished">CVG fitxategiak inportatzen ditu</translation>
-    </message>
-    <message>
-        <source>Imports most Cvg files into the current document,
-converting their vector data into Scribus objects.</source>
-        <translation type="vanished">CVG fitxategi gehienak uneko dokumentura inportatzen ditu,
-haien datu bektorialak Scribus objektu bihurtuz.</translation>
-    </message>
-    <message>
         <location filename="../../scribus/plugins/import/cvg/importcvgplugin.cpp" line="122"/>
         <source>All Supported Formats</source>
         <translation>Onartutako formatu guztiak</translation>
@@ -9552,10 +8864,6 @@ inportatzen ditu, haien datu bektorialak Scribus objektu bihurtuz.</translation>
 </context>
 <context>
     <name>ImportDrwPlugin</name>
-    <message>
-        <source>Import DRW...</source>
-        <translation type="vanished">Inportatu DRW...</translation>
-    </message>
     <message>
         <location filename="../../scribus/plugins/import/drw/importdrwplugin.cpp" line="98"/>
         <source>Micrografx DRW File</source>
@@ -9584,14 +8892,6 @@ haien datu bektorialak Scribus objektu bihurtuz.</translation>
         <translation>Onartutako formatu guztiak</translation>
     </message>
     <message>
-        <source>Micrografx DRW</source>
-        <translation type="vanished">Micrografx DRW</translation>
-    </message>
-    <message>
-        <source>Micrografx DRW (*.drw *.DRW)</source>
-        <translation type="vanished">Micrografx DRW (*.drw *.DRW)</translation>
-    </message>
-    <message>
         <location filename="../../scribus/plugins/import/drw/importdrwplugin.cpp" line="60"/>
         <source>Import Micrografx Draw...</source>
         <translation>Inportatu Micrografx Draw...</translation>
@@ -9609,10 +8909,6 @@ haien datu bektorialak Scribus objektu bihurtuz.</translation>
 </context>
 <context>
     <name>ImportEmfPlugin</name>
-    <message>
-        <source>Import EMF...</source>
-        <translation type="vanished">Inportatu EMF...</translation>
-    </message>
     <message>
         <location filename="../../scribus/plugins/import/emf/importemfplugin.cpp" line="95"/>
         <source>EMF</source>
@@ -9702,7 +8998,7 @@ haien datu bektorialak Scribus objektu bihurtuz.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/idml_old/importidml.cpp" line="66"/>
-        <source>Imports Adobe Indesign&apos;s idml packages into Scribus
+        <source>Imports Adobe Indesign's idml packages into Scribus
  converting Indesign objects into scribus pageitems; not all are supported in Scribus, but all those supported are being imported here</source>
         <translation>Adobe Indesign aplikazioaren IDML paketeak inportatzen ditu,
 Indesign objektuak Scribus elementu bihurtuz; Scribus-ek ez ditu denak onartzen, baina onartutako guztiak hona inportatuko dira</translation>
@@ -9889,20 +9185,6 @@ inportatzen ditu, haien datu bektorialak Scribus objektu bihurtuz.</translation>
 <context>
     <name>ImportPctPlugin</name>
     <message>
-        <source>Import Pict...</source>
-        <translation type="vanished">Inportatu Pict...</translation>
-    </message>
-    <message>
-        <source>Imports Pict Files</source>
-        <translation type="vanished">Inportatu Pict fitxategiak</translation>
-    </message>
-    <message>
-        <source>Imports most Mac Pict files into the current document,
-converting their vector data into Scribus objects.</source>
-        <translation type="vanished">Mac Pict fitxategi gehienak uneko dokumentura
-inportatzen ditu, haien datu bektorialak Scribus objektu bihurtuz.</translation>
-    </message>
-    <message>
         <location filename="../../scribus/plugins/import/pct/importpctplugin.cpp" line="122"/>
         <source>All Supported Formats</source>
         <translation>Onartutako formatu guztiak</translation>
@@ -10037,14 +9319,6 @@ ditu, haien datu bektorialak Scribus objektu bihurtuz.</translation>
         <translation>Inportatu Dia Shapes...</translation>
     </message>
     <message>
-        <source>Dia Shapes &quot;*.shape&quot; File</source>
-        <translation type="vanished">Dia Shapes &quot;*.shape&quot; fitxategia</translation>
-    </message>
-    <message>
-        <source>Dia Shapes &quot;*.shape&quot; File (*.shape *.SHAPE)</source>
-        <translation type="vanished">Dia Shapes &quot;*.shape&quot; fitxategia (*.shape *.SHAPE)</translation>
-    </message>
-    <message>
         <location filename="../../scribus/plugins/import/shape/importshapeplugin.cpp" line="74"/>
         <source>Imports Dia shape Files</source>
         <translation>Dia shape fitxategiak inportatzen ditu</translation>
@@ -10055,10 +9329,6 @@ ditu, haien datu bektorialak Scribus objektu bihurtuz.</translation>
 converting their vector data into Scribus objects.</source>
         <translation>Dia Shapes gehienak uneko dokumentura inportatzen
 ditu, haien datu bektorialak Scribus objektu bihurtuz.</translation>
-    </message>
-    <message>
-        <source>Dia shapes &quot;*.shape&quot; File (*.shape *.SHAPE)</source>
-        <translation type="vanished">Dia shapes &quot;*.shape&quot; fitxategia (*.shape *.SHAPE)</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/shape/importshapeplugin.cpp" line="123"/>
@@ -10240,20 +9510,6 @@ ditu, haien datu bektorialak Scribus objektu bihurtuz.</translation>
 </context>
 <context>
     <name>ImportWpgPlugin</name>
-    <message>
-        <source>Import WPG...</source>
-        <translation type="vanished">Inportatu WPG...</translation>
-    </message>
-    <message>
-        <source>Imports WPG Files</source>
-        <translation type="vanished">WPG fitxategiak inportatzen ditu</translation>
-    </message>
-    <message>
-        <source>Imports most WPG files into the current document,
-converting their vector data into Scribus objects.</source>
-        <translation type="vanished">WPG fitxategi gehienak uneko dokumentura inportatzen
-ditu, haien datu bektorialak Scribus objektu bihurtuz.</translation>
-    </message>
     <message>
         <location filename="../../scribus/plugins/import/wpg/importwpgplugin.cpp" line="122"/>
         <source>All Supported Formats</source>
@@ -10480,7 +9736,7 @@ inportatzen ditu, haien datu bektorialak Scribus objektu bihurtuz.</translation>
         <location filename="../../scribus/plugins/imposition/impositionbase.ui" line="325"/>
         <source>&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Sans Serif'; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Separate pages with a comma, ranges with a hyphen, e.g. 1,4,9-11 to get pages 1,4,9,10,11.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
@@ -11443,26 +10699,6 @@ p, li { white-space: pre-wrap; }
         <translation>Argitasuna</translation>
     </message>
     <message>
-        <source>Color of the Layer Indicator - Each layer has a color assigned to display on the canvas when layer indicators are enabled. You can double click to edit the color. </source>
-        <translation type="vanished">Geruza-adierazlearen kolorea - Geruza-adierazleak gaituta daudenean, geruza bakoitzak kolore bat du esleituta oihalean erakusten denerako. Klik bikoitza erabil dezakezu kolorea editatzeko.</translation>
-    </message>
-    <message>
-        <source>Make Layer Visible - Uncheck to hide the layer from the display </source>
-        <translation type="vanished">Egin geruza ikusgai - Kendu marka geruza ezkutatzeko</translation>
-    </message>
-    <message>
-        <source>Print Layer - Uncheck to disable printing. </source>
-        <translation type="vanished">Inprimatze-geruza - Kendu marka inprimatzea desgaitzeko.</translation>
-    </message>
-    <message>
-        <source>Lock or Unlock Layer - Unchecked is unlocked </source>
-        <translation type="vanished">Blokeatu edo desblokeatu geruza - Marka kenduta dagoenean, desblokeatuta dago</translation>
-    </message>
-    <message>
-        <source>Outline Mode - Toggles the &apos;wireframe&apos; display of objects to speed the display of very complex objects.</source>
-        <translation type="vanished">Eskema-modua - Objektuen iIngerada-bilbea&apos; ikuspegia txandakatzen du objektu oso konplexuen bistaratzea azkartzeko. </translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/layers.cpp" line="678"/>
         <source>Selects the Blendmode, works only in PDF 1.4</source>
         <translation>Nahaste modua hautatzen du, PDF 1.4 formatuan soilik dabil</translation>
@@ -11491,18 +10727,6 @@ p, li { white-space: pre-wrap; }
         <location filename="../../scribus/ui/layers.cpp" line="677"/>
         <source>Lower Layer</source>
         <translation>Beheratu geruza</translation>
-    </message>
-    <message>
-        <source>Make text in lower layers flow around objects - Enabling this forces text in lower layers to flow around objects of the layer for which this option has been enabled</source>
-        <translation type="vanished">Gaitu azpiko geruzetako testua objektuetara egokitu dadin - Hau gaitzeak azpiragoko testuak geruzaren objektuetara egokitu dadin behartzen du, gaituta dagoen geruzetarako</translation>
-    </message>
-    <message>
-        <source>Name of the Layer - Double click on the name of a layer to edit the name</source>
-        <translation type="vanished">Geruzaren izena - Klik bikoitza geruzaren izenean hura editatzeko</translation>
-    </message>
-    <message>
-        <source>Select Objects on Layer - Check to enable selecting. </source>
-        <translation type="vanished">Hautatu objektuak geruzan - Markatu hautatzea gaitzeko.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/layers.cpp" line="680"/>
@@ -11691,22 +10915,13 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../scribus/loadsaveplugin.cpp" line="244"/>
         <source>An error occurred while opening file or file is damaged</source>
-        <translation type="unfinished"></translation>
+        <translation>Errorea gertatu da fitxategia irekitzean, edo fitxategia hondatuta dago</translation>
     </message>
     <message>
         <location filename="../../scribus/loadsaveplugin.cpp" line="249"/>
         <source>An error occurred while parsing file at line %1, column %2 :
 %3</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>An error occured while opening file or file is damaged</source>
-        <translation type="vanished">Errorea gertatu da fitxategia irekitzean edo fitxategia hondatuta dago</translation>
-    </message>
-    <message>
-        <source>An error occured while parsing file at line %1, column %2 :
-%3</source>
-        <translation type="vanished">Errorea gertatu da fitxategia analizatzean, %1 lerroan, %2 zutabean :
+        <translation>Errorea gertatu da fitxategia analizatzean, %1 lerroan, %2 zutabean:
 %3</translation>
     </message>
     <message>
@@ -11855,10 +11070,6 @@ p, li { white-space: pre-wrap; }
         <translation>Orri maisua:</translation>
     </message>
     <message>
-        <source>Size of the inserted pages, either a standard or custom size.</source>
-        <translation type="vanished">Txertatutako orrialdeen tamaina, bai estandarra bai pertsonalizatua.</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/margindialog.cpp" line="185"/>
         <source>Orientation of the page(s) to be inserted</source>
         <translation>Txertatuko d(ir)en orrialde(ar)en orientazioa</translation>
@@ -11944,10 +11155,6 @@ p, li { white-space: pre-wrap; }
         <translation>Inprimagailuaren marjinak...</translation>
     </message>
     <message>
-        <source>Import the margins for the selected page size from the available printers.</source>
-        <translation type="vanished">Inportatu marjinak inprimagailu erabilgarrietatik (hautatutako orri-tamainarentzako).</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/marginwidget.cpp" line="79"/>
         <source>Apply settings to:</source>
         <translation>Aplikatu ezarpenak honi:</translation>
@@ -12026,14 +11233,6 @@ p, li { white-space: pre-wrap; }
         <location filename="../../scribus/ui/marginwidget.cpp" line="248"/>
         <source>Right:</source>
         <translation>Eskuinean:</translation>
-    </message>
-    <message>
-        <source>Distance between the left margin guide and the edge of the page. If a double-sided, 3 or 4-fold layout is selected, this margin space can be used to achieve the correct margins for binding</source>
-        <translation type="vanished">Ezkerreko marjinako gidaren eta orrialde-ertzaren arteko distantzia. Bi, hiru edo lau aldeko diseinu bat hautatu bada, marjineko espazio hori liburua josteko marjina zuzenak lortzeko erabil daiteke.</translation>
-    </message>
-    <message>
-        <source>Distance between the right margin guide and the edge of the page. If a double-sided, 3 or 4-fold layout is selected, this margin space can be used to achieve the correct margins for binding</source>
-        <translation type="vanished">Eskuineko marjinako gidaren eta orrialde-ertzaren arteko distantzia. Bi, hiru edo lau aldeko diseinu bat hautatu bada, marjineko espazio hori liburua josteko marjina zuzenak lortzeko erabil daiteke.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/marginwidget.cpp" line="103"/>
@@ -12181,10 +11380,6 @@ p, li { white-space: pre-wrap; }
         <translation>Marka berria</translation>
     </message>
     <message>
-        <source>Edit selected Mark`s label. To create new Mark select &quot;New Mark&quot; in drop list and input new label</source>
-        <translation type="vanished">Editatu hautatutako marken etiketa. Marka berria sortzeko, hautatu &apos;Marka berria&apos; goitibeherako zerrendan eta sartu etiketa berria</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/markvariabletext.cpp" line="21"/>
         <location filename="../../scribus/ui/markvariabletext.cpp" line="34"/>
         <source>Edit variable text</source>
@@ -12195,14 +11390,6 @@ p, li { white-space: pre-wrap; }
         <location filename="../../scribus/ui/markvariabletext.cpp" line="35"/>
         <source>Mark with Variable Text</source>
         <translation>Testu aldakorreko marka</translation>
-    </message>
-    <message>
-        <source>Edit selected Mark`s label.</source>
-        <translation type="vanished">Editatu hautatutako markaren etiketa.</translation>
-    </message>
-    <message>
-        <source>Edit selected Mark`s label. To create new Mark select &quot;New Mark&quot; in drop list and input new label.</source>
-        <translation type="vanished">Editatu hautatutako marken etiketa. Marka berria sortzeko, hautatu &apos;Marka berria&apos; goitibeherako zerrendan eta sartu etiketa berria.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/markvariabletext.cpp" line="18"/>
@@ -12241,10 +11428,6 @@ p, li { white-space: pre-wrap; }
 </context>
 <context>
     <name>MarksManager</name>
-    <message>
-        <source>Dialog</source>
-        <translation type="vanished">Elkarrizketa</translation>
-    </message>
     <message>
         <location filename="../../scribus/ui/marksmanager.ui" line="41"/>
         <source>Update All Marks</source>
@@ -12307,81 +11490,6 @@ p, li { white-space: pre-wrap; }
     </message>
 </context>
 <context>
-    <name>MasterPagesPalette</name>
-    <message>
-        <source>Edit Master Pages</source>
-        <translation type="vanished">Editatu orri maisuak</translation>
-    </message>
-    <message>
-        <source>&amp;Name:</source>
-        <translation type="vanished">&amp;Izena:</translation>
-    </message>
-    <message>
-        <source>New Master Page</source>
-        <translation type="vanished">Orri maisu berria</translation>
-    </message>
-    <message>
-        <source>Name:</source>
-        <translation type="vanished">Izena:</translation>
-    </message>
-    <message>
-        <source>New MasterPage</source>
-        <translation type="vanished">OrriMaisu berria</translation>
-    </message>
-    <message>
-        <source>Copy #%1 of </source>
-        <translation type="vanished">Kopiatu #%1 hautetatik: </translation>
-    </message>
-    <message>
-        <source>Duplicate the selected master page</source>
-        <translation type="vanished">Bikoiztu hautatutako orri maisua</translation>
-    </message>
-    <message>
-        <source>Delete the selected master page</source>
-        <translation type="vanished">Ezabatu hautatutako orri maisua</translation>
-    </message>
-    <message>
-        <source>Add a new master page</source>
-        <translation type="vanished">Gehitu orri maisu berria</translation>
-    </message>
-    <message>
-        <source>Import master pages from another document</source>
-        <translation type="vanished">Inportatu orri maisuak beste dokumentu batetik</translation>
-    </message>
-    <message>
-        <source>New Master Page %1</source>
-        <translation type="vanished">Orri maisu berria: %1</translation>
-    </message>
-    <message>
-        <source>Unable to Rename Master Page</source>
-        <translation type="vanished">Ezin izan da orri maisua berrizendatu</translation>
-    </message>
-    <message>
-        <source>The Normal page is not allowed to be renamed.</source>
-        <translation type="vanished">Normal orrialdea ezin da berrizendatu.</translation>
-    </message>
-    <message>
-        <source>Rename Master Page</source>
-        <translation type="vanished">Berrizendatu orri maisua</translation>
-    </message>
-    <message>
-        <source>New Name:</source>
-        <translation type="vanished">Izen berria:</translation>
-    </message>
-    <message>
-        <source>Copy #%1 of %2</source>
-        <translation type="vanished">#%1. kopia %2(e)tik</translation>
-    </message>
-    <message>
-        <source>This master page is used at least once in the document.</source>
-        <translation type="vanished">Orri maisu hau gutxienez behin erabili da dokumentuan.</translation>
-    </message>
-    <message>
-        <source>Do you really want to delete master page &quot;%1&quot;?</source>
-        <translation type="vanished">Benetan ezabatu nahi duzu &quot;%1&quot; orri maisua?</translation>
-    </message>
-</context>
-<context>
     <name>Measurements</name>
     <message>
         <location filename="../../scribus/ui/measurements.cpp" line="56"/>
@@ -12391,10 +11499,6 @@ p, li { white-space: pre-wrap; }
 </context>
 <context>
     <name>MeasurementsBase</name>
-    <message>
-        <source>Distances</source>
-        <translation type="vanished">Distantziak</translation>
-    </message>
     <message>
         <location filename="../../scribus/ui/measurementsbase.ui" line="20"/>
         <source>X1:</source>
@@ -12525,10 +11629,6 @@ p, li { white-space: pre-wrap; }
         <location filename="../../scribus/ui/mergedoc.cpp" line="109"/>
         <source>&amp;Import</source>
         <translation>&amp;Inportatu</translation>
-    </message>
-    <message>
-        <source>Insert a comma separated list of tokens import where a token can be * for all the pages, 1-5 for a range of pages or a single page number.</source>
-        <translation type="vanished">Txertatu komaz bereiztutako token-en zerrenda, token bat * orrialde guztientzako, 1-5 orrialde barruti batentzako, edo orrialde bakar batentzako izan daiteke.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/mergedoc.cpp" line="54"/>
@@ -13053,10 +12153,6 @@ hautatu baduzu.</translation>
 <context>
     <name>NewMarginWidget</name>
     <message>
-        <source>Form</source>
-        <translation type="vanished">Inprimakia</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/newmarginwidgetbase.ui" line="68"/>
         <source>Preset Layouts:</source>
         <translation>Diseinu aurredefinituak:</translation>
@@ -13082,10 +12178,6 @@ hautatu baduzu.</translation>
         <translation>Behean:</translation>
     </message>
     <message>
-        <source>Link</source>
-        <translation type="vanished">Esteka</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/newmarginwidgetbase.ui" line="125"/>
         <source>Printer Margins...</source>
         <translation>Inprimagailuaren marjinak...</translation>
@@ -13099,14 +12191,6 @@ hautatu baduzu.</translation>
         <location filename="../../scribus/ui/newmarginwidget.cpp" line="86"/>
         <source>Distance between the bottom margin guide and the edge of the page</source>
         <translation>Beheko marjinaren gida eta orriaren ertzaren arteko distantzia</translation>
-    </message>
-    <message>
-        <source>Distance between the left margin guide and the edge of the page. If a double-sided, 3 or 4-fold layout is selected, this margin space can be used to achieve the correct margins for binding</source>
-        <translation type="vanished">Ezkerreko marjinako gidaren eta orrialde-ertzaren arteko distantzia. Bi, hiru edo lau aldeko diseinu bat hautatu bada, marjineko espazio hori liburua josteko marjina zuzenak lortzeko erabil daiteke.</translation>
-    </message>
-    <message>
-        <source>Distance between the right margin guide and the edge of the page. If a double-sided, 3 or 4-fold layout is selected, this margin space can be used to achieve the correct margins for binding</source>
-        <translation type="vanished">Eskuineko marjinako gidaren eta orrialde-ertzaren arteko distantzia. Bi, hiru edo lau aldeko diseinu bat hautatu bada, marjineko espazio hori liburua josteko marjina zuzenak lortzeko erabil daiteke.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/newmarginwidget.cpp" line="339"/>
@@ -13134,10 +12218,6 @@ hautatu baduzu.</translation>
         <translation>Ziurtatu marjina guztiek balio bera dutela</translation>
     </message>
     <message>
-        <source>Import the margins for the selected page size from the available printers.</source>
-        <translation type="vanished">Inportatu marjinak inprimagailu erabilgarrietatik (hautatutako orri-tamainarentzako).</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/newmarginwidget.cpp" line="87"/>
         <source>Distance between the left margin guide and the edge of the page. If a double-sided, 3 or 4-fold layout is selected, this margin space can be used to achieve the correct margins for binding.</source>
         <translation>Ezkerreko marjinako gidaren eta orrialde-ertzaren arteko distantzia. Bi, hiru edo lau aldeko diseinu bat hautatu bada, marjineko espazio hori liburua josteko marjina zuzenak lortzeko erabil daiteke.</translation>
@@ -13150,7 +12230,7 @@ hautatu baduzu.</translation>
     <message>
         <location filename="../../scribus/ui/newmarginwidget.cpp" line="97"/>
         <source>Ensure all bleeds have the same value</source>
-        <translation type="unfinished">Ziurtatu koskatze guztiek balio bera dutela</translation>
+        <translation>Ziurtatu koskatze guztiek balio bera dutela</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/newmarginwidget.cpp" line="99"/>
@@ -13324,10 +12404,6 @@ hautatu baduzu.</translation>
         <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1002"/>
         <source> %</source>
         <translation> %</translation>
-    </message>
-    <message>
-        <source>When checked use coordinates relative to the page, otherwise coordinates are relative to the Object.</source>
-        <translation type="vanished">Egiaztatuta dagoenean orrialdearekiko korrdenatu erlatiboak erabiltzen ditu, bestela koordenatuak objektuarekiko erlatiboak dira.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1035"/>
@@ -13602,12 +12678,6 @@ hautatu baduzu.</translation>
         <location filename="../../scribus/ui/notesstyleseditor.cpp" line="419"/>
         <source>Notes Styles Editor is in adding new notes style mode. After pressing Cancel button Notes Styles Editor switch into normal notes styles edit mode.</source>
         <translation>Ohar-estiloen editorea ohar-estilo berriak gehitzeko moduan dago. &apos;Utzi&apos; botoia sakatzen bada, ohar-estiloen edizio normalera aldatuko da.</translation>
-    </message>
-    <message>
-        <source>New notes style will be add to document only after pressing Apply button.
-You cannot switch to different notes style before you apply that new one or press Cancel button and exit from adding mode.</source>
-        <translation type="vanished">Ohar berrien estiloa &apos;Aplikatu&apos; botoia sakatzean soilik gehituko da dokumentura.
-Ezin duzu ohar-estilo desberdinen artean txandakatu berria aplikatu baino lehen edo &apos;Utzi&apos; botoia sakatu eta gehitze-modutik irten baino lehen.</translation>
     </message>
 </context>
 <context>
@@ -13963,14 +13033,6 @@ objektuetan bihurtuz.</translation>
         <translation>Fusionatu paragrafo-estiloak atributuen arabera. Horrela, paragrafo-estilo gutxiago izango dira, eta estilo-atributuak mantenduko dira nahiz eta jatorrizko dokumentuen estiloek izen desberdinak izan.</translation>
     </message>
     <message>
-        <source>Prepend the document name to the paragraph style name in Scribus.</source>
-        <translation type="vanished">Jarri aurretik dokumentuaren izena paragrafo-estiloaren izenari Scribus-en.</translation>
-    </message>
-    <message>
-        <source>Make these settings the default and do not prompt again when importing an OASIS OpenDocument.</source>
-        <translation type="vanished">Jarri ezarpen hauek lehenetsi gisa, eta ez galdetu berriro OASIS OpenDocument inportatzean.</translation>
-    </message>
-    <message>
         <location filename="../../scribus/plugins/gettext/odtim/odtdia.cpp" line="52"/>
         <source>Overwrite Paragraph Styles</source>
         <translation>Gainidatzi paragrafo-estiloak</translation>
@@ -14095,10 +13157,6 @@ objektuetan bihurtuz.</translation>
         <location filename="../../scribus/ui/outlinepalette.cpp" line="1433"/>
         <source>Outline</source>
         <translation>Eskema</translation>
-    </message>
-    <message>
-        <source>Enter a keyword or regular expression to filter the outline.</source>
-        <translation type="vanished">Sartu gako-hitz bat edo adierazpen erregular bat eskema iragazteko.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/outlinepalette.cpp" line="426"/>
@@ -14238,14 +13296,6 @@ objektuetan bihurtuz.</translation>
         <translation>&amp;Gorde</translation>
     </message>
     <message>
-        <source>Open the exported PDF with the PDF viewer as set in External Tools preferences, when not exporting to a multi-file export destination.</source>
-        <translation type="vanished">Ireki esportatutako PDFa kanpoko tresnen hobespenetan ezarri den PDF bisorearekin, fitxategi anitzeko esportazioa egin ez denean</translation>
-    </message>
-    <message>
-        <source>The save button will be disabled if you are trying to export PDF/X and the info string is missing from the PDF/X tab.</source>
-        <translation type="vanished">Gorde botoia desgaitu egingo da PDF/X formatura esportatzen saiatzean, eta informazioaren katea galdu egingo da PDF/X fitxatik.</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/pdfexportdialog.cpp" line="237"/>
         <source>PDF Files (*.pdf);;All Files (*)</source>
         <translation>PDF fitxategiak (*.pdf);;Fitxategi guztiak (*)</translation>
@@ -14375,10 +13425,6 @@ Egiaztatu ondo dagoela eta saiatu berriro.</translation>
         <translation>Denak</translation>
     </message>
     <message>
-        <source>Shows transparency and transparent items in your document. Requires Ghostscript 7.07 or later</source>
-        <translation type="vanished">Shows transparency and transparent items in your document. Requires Ghostscript 7.07 or later</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/preview.cpp" line="352"/>
         <source>Gives a print preview using simulations of generic CMYK inks, instead of RGB colors</source>
         <translation>Inprimatzeko aurrebista ematen du CMYK tinta orokorren simulazioa landuz , RGB koloreak erabili ordez</translation>
@@ -14484,10 +13530,6 @@ Egiaztatu ondo dagoela eta saiatu berriro.</translation>
         <translation>Grisen itzaldura itzaltzeko modu bat. Itzaldura hau zian, hori eta magenta koloreekin osatua dago, beltzaren ordez erabiliz. UCR metodoak irudi bateko tonu grisetik gertu dauden neutralak edota ilunak diren zatiei eragiten die batik bat. Honen erabilpenak zenbait irudiren inprimazioa hobetzen du, eta kasuz kasuko esperimentazioa eta probak egin behar izaten dira. UCRek gainsaturazioaren posibilitatea gutxitzen du CMY tintekin.</translation>
     </message>
     <message>
-        <source>Resize the scale of the page.</source>
-        <translation type="vanished">Aldatu orriaren eskalaren tamaina.</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/preview.cpp" line="319"/>
         <source>Close</source>
         <translation>Itxi</translation>
@@ -14551,14 +13593,6 @@ Egiaztatu ondo dagoela eta saiatu berriro.</translation>
         <location filename="../../scribus/ui/preview.cpp" line="355"/>
         <source>Enables Spot Colors to be converted to composite colors. Unless you are planning to print spot colors at a commercial printer, this is probably best left enabled.</source>
         <translation>Kolore zuzenak kolore konposatu bihur daitezen ahalbidetzen du. Inprimagailu komertzial batean kolore zuzenak inprimatuko ez badituzu, hobe izango da aukera hau gaituta uztzen baduzu.</translation>
-    </message>
-    <message>
-        <source>Apply Color Profiles</source>
-        <translation type="vanished">Aplikatu kolore-profilak</translation>
-    </message>
-    <message>
-        <source>Allows you to embed color profiles in the print stream when color management is enabled</source>
-        <translation type="vanished">Kolore-profilak inprimatze-korrontean kapsulatzea ahalbidetzen du, kolore-kudeaketa gaituta dagoenean</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/preview.cpp" line="272"/>
@@ -15130,11 +14164,6 @@ berriagoa behar da.</translation>
         <translation>Dokumentu-diseinua</translation>
     </message>
     <message>
-        <source>Number of pages to show side-by-side on the canvas
-Often used for allowing items to be placed across page spreads</source>
-        <translation type="vanished">Oihalean elkarren alboan erakutsiko den orrialde kopurua. Sarritan elementuak hainbat orrialdetan barrena kokatzeko erabiltzen da. </translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/pagelayout.cpp" line="303"/>
         <source>Location on the canvas where the first page of the document is placed</source>
         <translation>Dokumentuaren lehen orrialdea kokatzen den oihalaren kokapena</translation>
@@ -15239,10 +14268,6 @@ Often used for allowing items to be placed across page spreads</source>
 <context>
     <name>PagePalette_MasterPagesBase</name>
     <message>
-        <source>Form</source>
-        <translation type="vanished">Inprimakia</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/pagepalette_masterpagesbase.ui" line="108"/>
         <source>&lt;&lt;&lt; Return to Normal Page Mode</source>
         <translation>&lt;&lt;&lt; Itzuli orrialde normalaren modura</translation>
@@ -15260,41 +14285,13 @@ Often used for allowing items to be placed across page spreads</source>
         <source>Do you really want to delete this master page?</source>
         <translation>Benetan ezabatu nahi duzu orri maisu hau?</translation>
     </message>
-    <message>
-        <source>Arrange Pages</source>
-        <translation type="vanished">Antolatu orrialdeak</translation>
-    </message>
-    <message>
-        <source>Available Master Pages:</source>
-        <translation type="vanished">Orri maisu erabilgarriak:</translation>
-    </message>
-    <message>
-        <source>Document Pages:</source>
-        <translation type="vanished">Dokumentuaren orrialdeak:</translation>
-    </message>
-    <message>
-        <source>List of master pages in the document. Master page names may be dragged onto the page view below to apply master pages, or onto the empty space between pages to create new pages.</source>
-        <translation type="vanished">Dokumentuko orri maisuen zerrenda. Orri maisuen izenak beheko orrialde-ikuspegira arrastatu daitezke orri maisuak aplikatzeko, edo orrialdeen arteko hutsarteetara orrialde berriak sortzeko</translation>
-    </message>
-    <message>
-        <source>List of normal pages in the document, shown with the document layout. Pages may be dragged to rearrange or delete them.</source>
-        <translation type="vanished">Dokumentuko orrialde normalen zerrenda, dokumentuaren diseinuarekin erakutsiak. Orrialdeak arrastatu egin daitezke haiek berrantolatzeko edo ezabatzeko</translation>
-    </message>
-    <message>
-        <source>Drag pages or master pages onto the trash to delete them</source>
-        <translation type="vanished">Arrastatu orrialdeak edo orri maisuak zakarrontzira haiek ezabatzeko</translation>
-    </message>
 </context>
 <context>
     <name>PagePalette_PagesBase</name>
     <message>
-        <source>Form</source>
-        <translation type="vanished">Inprimakia</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/pagepalette_pagesbase.ui" line="14"/>
         <source>Arrange Pages</source>
-        <translation type="unfinished">Antolatu orrialdeak</translation>
+        <translation>Antolatu orrialdeak</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pagepalette_pagesbase.ui" line="57"/>
@@ -15399,7 +14396,7 @@ Document Liberation Project-era http://www.documentliberation.org</translation>
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:10pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Sans Serif'; font-size:10pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;table border=&quot;0&quot; style=&quot;-qt-table-type: root; margin-top:4px; margin-bottom:4px; margin-left:4px; margin-right:4px;&quot;&gt;
 &lt;tr&gt;
 &lt;td style=&quot;border: none;&quot;&gt;
@@ -15994,18 +14991,6 @@ both end points must lie outside of the polygon</source>
         <translation>Trukatu formak</translation>
     </message>
     <message>
-        <source>First source shape.</source>
-        <translation type="vanished">Lehen iturburuko forma.</translation>
-    </message>
-    <message>
-        <source>Second source shape.</source>
-        <translation type="vanished">Bigarren iturburuko forma.</translation>
-    </message>
-    <message>
-        <source>The resulting shape.</source>
-        <translation type="vanished">Emaitza gisa lortu den forma.</translation>
-    </message>
-    <message>
         <location filename="../../scribus/plugins/tools/pathfinder/pathfinderbase.ui" line="313"/>
         <source>Unites the shapes</source>
         <translation>Formak batzen ditu</translation>
@@ -16299,10 +15284,6 @@ Emaitza &apos;Ebakidura&apos; eta &apos;Esklusio&apos; aukeren konbinazioa da.</
         <translation>Fitxategia inportatzen:</translation>
     </message>
     <message>
-        <source>TextLabel</source>
-        <translation type="vanished">TestuEtiketa</translation>
-    </message>
-    <message>
         <location filename="../../scribus/plugins/import/pdf/pdfimportoptions.ui" line="63"/>
         <source>Page Range</source>
         <translation>Orrialde-barrutia</translation>
@@ -16398,7 +15379,7 @@ Emaitza &apos;Ebakidura&apos; eta &apos;Esklusio&apos; aukeren konbinazioa da.</
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:8pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Sans Serif'; font-size:8pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Attention:&lt;/span&gt; This script file contains code which &lt;span style=&quot; font-style:italic;&quot;&gt;might harm &lt;/span&gt;your system.&lt;/p&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;You should only permit execution of this script if you are sure that it comes from a trustworthy source. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
@@ -16420,7 +15401,7 @@ p, li { white-space: pre-wrap; }
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;DejaVu Sans&apos;; font-size:8pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'DejaVu Sans'; font-size:8pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:&apos;Sans Serif&apos;;&quot;&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
@@ -16509,10 +15490,6 @@ p, li { white-space: pre-wrap; }
 </context>
 <context>
     <name>PicSearchOptions</name>
-    <message>
-        <source>The filesystem will be searched for case insensitive file names when you check this on. Remember it is not default on most operating systems except MS Windows</source>
-        <translation type="vanished">Hau markatzen baduzu, maiuskulak eta minuskulak bereizi gabe bilatuko dira fitxategi-izenak fitxategi-sisteman. Gogoan izan hori ez dela portaera lehenetsia sistema eragile askotan (MS Windowsen bai)</translation>
-    </message>
     <message>
         <location filename="../../scribus/ui/picsearchoptions.cpp" line="59"/>
         <source>Cancel Search</source>
@@ -16901,10 +15878,6 @@ Hautatu beste bat.</translation>
 <context>
     <name>PictureBrowser</name>
     <message>
-        <source>Scribus Picture Browser</source>
-        <translation type="vanished">Scribus irudi-arakatzailea</translation>
-    </message>
-    <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="68"/>
         <source>Folder Browser</source>
         <translation>Karpeta-arakatzailea</translation>
@@ -17003,10 +15976,6 @@ Hautatu beste bat.</translation>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="592"/>
         <source>Sort by Type</source>
         <translation>Ordenatu motaren arabera</translation>
-    </message>
-    <message>
-        <source>Change sortorder</source>
-        <translation type="vanished">Aldatu ordena</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="653"/>
@@ -17796,10 +16765,6 @@ Hautatu beste bat.</translation>
         <source>You need to restart the application to apply the changes.</source>
         <translation>Aplikazioa berrabiarazi behar da aldaketak eragina izateko.</translation>
     </message>
-    <message>
-        <source>Form</source>
-        <translation type="vanished">Inprimakia</translation>
-    </message>
 </context>
 <context>
     <name>PmPlug</name>
@@ -17843,10 +16808,6 @@ Document Liberation Project-era http://www.documentliberation.org</translation>
 </context>
 <context>
     <name>PolygonWidgetBase</name>
-    <message>
-        <source>Form</source>
-        <translation type="vanished">Inprimakia</translation>
-    </message>
     <message>
         <location filename="../../scribus/ui/polygonwidgetbase.ui" line="28"/>
         <source>Corn&amp;ers:</source>
@@ -17919,10 +16880,6 @@ Document Liberation Project-era http://www.documentliberation.org</translation>
 </context>
 <context>
     <name>PositionSetterWidget</name>
-    <message>
-        <source>Form</source>
-        <translation type="vanished">Inprimakia</translation>
-    </message>
     <message>
         <location filename="../../scribus/ui/positionsetter.ui" line="24"/>
         <source>X-pos:</source>
@@ -18187,10 +17144,6 @@ egoerako %2 kodea</translation>
 <context>
     <name>Prefs_ColorManagement</name>
     <message>
-        <source>Form</source>
-        <translation type="vanished">Inprimakia</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/prefs_colormanagementbase.ui" line="29"/>
         <source>Color Management</source>
         <translation>Kolore-kudeaketa</translation>
@@ -18313,10 +17266,6 @@ egoerako %2 kodea</translation>
 </context>
 <context>
     <name>Prefs_Display</name>
-    <message>
-        <source>Form</source>
-        <translation type="vanished">Inprimakia</translation>
-    </message>
     <message>
         <location filename="../../scribus/ui/prefs_displaybase.ui" line="27"/>
         <source>Display</source>
@@ -18503,10 +17452,6 @@ egoerako %2 kodea</translation>
         <translation>Maskaratu marjinen kanpoko area marjinen kolorearekin</translation>
     </message>
     <message>
-        <source>Enable or disable  the display of linked frames.</source>
-        <translation type="vanished">Gaitu edo desgaitu estekatutako markoen bistaratzea</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/prefs_display.cpp" line="74"/>
         <source>Display non-printing characters such as paragraph markers in text frames</source>
         <translation>Erakutsi inprimatzen ez diren karaktereak, esaterako testu-markoetako paragrafo-markatzaileak</translation>
@@ -18569,10 +17514,6 @@ egoerako %2 kodea</translation>
         <translation> dpi</translation>
     </message>
     <message>
-        <source>Show Autosave Countdown Clock on the Canvas</source>
-        <translation type="vanished">Erakutsi oihalean gordetze automatikoko atzerako kontaketako erlojua</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/prefs_display.cpp" line="73"/>
         <source>Enable or disable the display of linked frames</source>
         <translation>Gaitu edo desgaitu estekatutako markoen bistaratzea</translation>
@@ -18580,10 +17521,6 @@ egoerako %2 kodea</translation>
 </context>
 <context>
     <name>Prefs_DocumentInformation</name>
-    <message>
-        <source>Form</source>
-        <translation type="vanished">Inprimakia</translation>
-    </message>
     <message>
         <location filename="../../scribus/ui/prefs_documentinformationbase.ui" line="27"/>
         <source>Document Information</source>
@@ -18830,26 +17767,6 @@ egoerako %2 kodea</translation>
 <context>
     <name>Prefs_DocumentSections</name>
     <message>
-        <source>1, 2, 3, ...</source>
-        <translation type="vanished">1, 2, 3, ...</translation>
-    </message>
-    <message>
-        <source>i, ii, iii, ...</source>
-        <translation type="vanished">i, ii, iii, ...</translation>
-    </message>
-    <message>
-        <source>I, II, III, ...</source>
-        <translation type="vanished">I, II, III, ...</translation>
-    </message>
-    <message>
-        <source>a, b, c, ...</source>
-        <translation type="vanished">a, b, c, ...</translation>
-    </message>
-    <message>
-        <source>A, B, C, ...</source>
-        <translation type="vanished">A, B, C, ...</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/prefs_documentsections.cpp" line="184"/>
         <source>Page Number Out Of Bounds</source>
         <translation>Orrialde-zenbakia mugetatik kanpo</translation>
@@ -18930,21 +17847,9 @@ egoerako %2 kodea</translation>
         <source>Reversed</source>
         <translation>Alderantzikatua</translation>
     </message>
-    <message>
-        <source>*</source>
-        <translation type="vanished">*</translation>
-    </message>
-    <message>
-        <source>CJK</source>
-        <translation type="vanished">CJK</translation>
-    </message>
 </context>
 <context>
     <name>Prefs_DocumentSetup</name>
-    <message>
-        <source>Form</source>
-        <translation type="vanished">Inprimakia</translation>
-    </message>
     <message>
         <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="27"/>
         <source>Document Setup</source>
@@ -19033,10 +17938,6 @@ egoerako %2 kodea</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Enable Automatic Saving of Documents</source>
-        <translation type="vanished">Gaitu dokumentuen gordetze automatikoa</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="547"/>
         <source>Interval:</source>
         <translation>Tartea:</translation>
@@ -19064,7 +17965,7 @@ egoerako %2 kodea</translation>
     <message>
         <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="617"/>
         <source>Change...</source>
-        <translation type="unfinished">Aldatu...</translation>
+        <translation>Aldatu...</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="629"/>
@@ -19095,10 +17996,6 @@ egoerako %2 kodea</translation>
         <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="257"/>
         <source>Single Page</source>
         <translation>Alde batetik</translation>
-    </message>
-    <message>
-        <source>pageLayoutButtonGroup</source>
-        <translation type="vanished">pageLayoutButtonGroup</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="247"/>
@@ -19193,11 +18090,7 @@ egoerako %2 kodea</translation>
     <message>
         <location filename="../../scribus/ui/prefs_documentsetup.cpp" line="395"/>
         <source>Choose a Directory</source>
-        <translation type="unfinished">Aukeratu direktorioa</translation>
-    </message>
-    <message>
-        <source>When enabled, Scribus saves a backup copy of your file with the .bak extension each time the time period elapses</source>
-        <translation type="vanished">Gaituta dagoenean, Scribus-ek zure fitxategiaren .bak luzapeneko babeskopia bat gordetzen du denbora-tartea betetzen den bakoitzean.</translation>
+        <translation>Aukeratu direktorioa</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_documentsetup.cpp" line="121"/>
@@ -19382,10 +18275,6 @@ egoerako %2 kodea</translation>
         <translation>Kanpoko editorea:</translation>
     </message>
     <message>
-        <source>&lt;qt&gt;Path to the editor executable.&lt;/qt&gt;</source>
-        <translation type="vanished">&lt;qt&gt;Editorearen exekutagarriaren bide-izena.&lt;/qt&gt;</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/prefs_externaltoolsbase.ui" line="613"/>
         <source>Start with empty frame</source>
         <translation>Hasi marko hutsarekin</translation>
@@ -19394,10 +18283,6 @@ egoerako %2 kodea</translation>
         <location filename="../../scribus/ui/prefs_externaltoolsbase.ui" line="639"/>
         <source>Use Embedded Editor</source>
         <translation>Erabili kapsulatutako editorea</translation>
-    </message>
-    <message>
-        <source>Always use the configured DPI setting for calculating the size, even if the image file reports something different.</source>
-        <translation type="vanished">Erabili beti konfiguratutako DPI ezarpena tamaian kalkulatzeko, baita irudi-fitxategiak beste zerbait dionean ere.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_externaltoolsbase.ui" line="666"/>
@@ -19494,18 +18379,6 @@ Do you want to use this?</source>
 Hori erabili nahi duzu?</translation>
     </message>
     <message>
-        <source>&lt;qt&gt;File system location for web browser.&lt;/qt&gt;</source>
-        <translation type="vanished">&lt;qt&gt;Web nabigatzailearen kokapena fitxategi-sisteman.&lt;/qt&gt;</translation>
-    </message>
-    <message>
-        <source>&lt;qt&gt;File system location for PDF viewer.&lt;/qt&gt;</source>
-        <translation type="vanished">&lt;qt&gt;PDF ikustailearen kokapena fitxategi-sisteman.&lt;/qt&gt;</translation>
-    </message>
-    <message>
-        <source>&lt;qt&gt;File system location for Uniconvertor.&lt;/qt&gt;</source>
-        <translation type="vanished">&lt;qt&gt;Uniconvertor-en kokapena fitxategi-sisteman.&lt;/qt&gt;</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/prefs_externaltoolsbase.ui" line="332"/>
         <source>&lt;qt&gt;File system location for web browser&lt;/qt&gt;</source>
         <translation>&lt;qt&gt;Web nabigatzailearen kokapena fitxategi-sisteman&lt;/qt&gt;</translation>
@@ -19533,10 +18406,6 @@ Hori erabili nahi duzu?</translation>
 </context>
 <context>
     <name>Prefs_Fonts</name>
-    <message>
-        <source>Form</source>
-        <translation type="vanished">Inprimakia</translation>
-    </message>
     <message>
         <location filename="../../scribus/ui/prefs_fontsbase.ui" line="27"/>
         <source>Fonts</source>
@@ -19605,10 +18474,6 @@ Hori erabili nahi duzu?</translation>
 <context>
     <name>Prefs_Guides</name>
     <message>
-        <source>Form</source>
-        <translation type="vanished">Inprimakia</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/prefs_guidesbase.ui" line="27"/>
         <location filename="../../scribus/ui/prefs_guidesbase.ui" line="339"/>
         <location filename="../../scribus/ui/prefs_guides.cpp" line="61"/>
@@ -19621,10 +18486,6 @@ Hori erabili nahi duzu?</translation>
         <location filename="../../scribus/ui/prefs_guidesbase.ui" line="50"/>
         <source>Placement</source>
         <translation>Kokapena</translation>
-    </message>
-    <message>
-        <source>Placement:</source>
-        <translation type="vanished">Kokapena:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_guidesbase.ui" line="155"/>
@@ -19741,10 +18602,6 @@ Hori erabili nahi duzu?</translation>
         <translation>Objektu bat gidetara zein distantziatik atxikiko den. Hau ezarri ondoren, Scribus berrabiarazi beharko duzu ezarpena indarrean sar dadin.</translation>
     </message>
     <message>
-        <source>Radius of the area where Scribus will allow you to grab an objects handles.After setting this you will need to restart Scribus to set this setting.</source>
-        <translation type="vanished">Objektuen heldulekuak atzitu ahal diren azaleraren erradioa. Hau ezarri ondoren, Scribus berrabiarazi beharko duzu ezarpena indarrean sar dadin.</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/prefs_guides.cpp" line="89"/>
         <source>Color of the minor grid lines</source>
         <translation>2. mailako sareta-lerroen kolorea</translation>
@@ -19840,26 +18697,14 @@ Hori erabili nahi duzu?</translation>
 <context>
     <name>Prefs_Hyphenator</name>
     <message>
-        <source>Form</source>
-        <translation type="vanished">Inprimakia</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/prefs_hyphenatorbase.ui" line="27"/>
         <source>Hyphenation</source>
         <translation>Hitz-zatiketa</translation>
     </message>
     <message>
-        <source>A dialog box showing all possible hyphens for each word will show up when you use the Extras, Hyphenate Text option.</source>
-        <translation type="vanished">Hitz bakoitzaren zatiketa-aukerak erakusten dituen elkarrizketa-koadroa bistaratuko da &apos;Estrak&apos; menuko &apos;Zatitu testua&apos; erabiltzean.</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/prefs_hyphenatorbase.ui" line="54"/>
         <source>&amp;Hyphenation Suggestions</source>
         <translation>&amp;Hitz-zatiketarako iradokizunak</translation>
-    </message>
-    <message>
-        <source>Enables automatic hyphenation of your text while typing.</source>
-        <translation type="vanished">Idatzi ahala zure testuko hitzak automatikoki zatitzea gaitzen du.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_hyphenatorbase.ui" line="64"/>
@@ -19880,10 +18725,6 @@ Hori erabili nahi duzu?</translation>
         <location filename="../../scribus/ui/prefs_hyphenatorbase.ui" line="110"/>
         <source>Smallest Word:</source>
         <translation>Hitzik laburrena:</translation>
-    </message>
-    <message>
-        <source>Length of the smallest word to be hyphenated.</source>
-        <translation type="vanished">Zatituko den hitzik laburrenaren luzera</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_hyphenatorbase.ui" line="133"/>
@@ -19967,21 +18808,9 @@ A value of 0 means unlimited hyphenations.</source>
         <translation>Irudien cachea gaitzeak asko azkartuko du irudiak kargatzea. Gaitu cachea irudi asko dituzten dokumentu handiekin lan egiten baduzu eta espazio asko badaukazu aplikazioen datuen direktorioan zure diskoan.</translation>
     </message>
     <message>
-        <source>Limit the total size of all files in the image cache directory to this amount.</source>
-        <translation type="vanished">Mugatu irudi-cacheko direktorioko fitxategi guztien tamaina osoa kantitate honetara.</translation>
-    </message>
-    <message>
-        <source>Limit the number of cache entries to this number.</source>
-        <translation type="vanished">Mugatu cache-sarreren kopurua zenbaki honetara.</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/prefs_imagecache.cpp" line="31"/>
         <source>Set the level of compression for images in the cache. Higher values result in smaller cache files but also make writes to the cache slower.</source>
         <translation>Ezarri cacheko irudien konprimaketa-maila. Balio altuagoek cache-fitxategi txikiagoak emango ditu, baina cache-an idaztea motelagoa izango da.</translation>
-    </message>
-    <message>
-        <source>Form</source>
-        <translation type="vanished">Inprimakia</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_imagecachebase.ui" line="27"/>
@@ -20026,10 +18855,6 @@ A value of 0 means unlimited hyphenations.</source>
 </context>
 <context>
     <name>Prefs_ItemTools</name>
-    <message>
-        <source>Form</source>
-        <translation type="vanished">Inprimakia</translation>
-    </message>
     <message>
         <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="27"/>
         <source>Item Tools</source>
@@ -20181,10 +19006,6 @@ A value of 0 means unlimited hyphenations.</source>
         <translation>Eskalatze askea</translation>
     </message>
     <message>
-        <source>scalingButtonGroup</source>
-        <translation type="vanished">scalingButtonGroup</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="892"/>
         <source>Horizontal Scaling:</source>
         <translation>Eskalatze horizontala:</translation>
@@ -20218,10 +19039,6 @@ A value of 0 means unlimited hyphenations.</source>
         <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="822"/>
         <source>Full Resolution</source>
         <translation>Bereizmen osoa</translation>
-    </message>
-    <message>
-        <source>previewButtonGroup</source>
-        <translation type="vanished">previewButtonGroup</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="832"/>
@@ -20510,10 +19327,6 @@ A value of 0 means unlimited hyphenations.</source>
 <context>
     <name>Prefs_Miscellaneous</name>
     <message>
-        <source>Form</source>
-        <translation type="vanished">Inprimakia</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/prefs_miscellaneousbase.ui" line="27"/>
         <source>Miscellaneous</source>
         <translation>Hainbat</translation>
@@ -20546,10 +19359,6 @@ A value of 0 means unlimited hyphenations.</source>
 </context>
 <context>
     <name>Prefs_OperatorTools</name>
-    <message>
-        <source>Form</source>
-        <translation type="vanished">Inprimakia</translation>
-    </message>
     <message>
         <location filename="../../scribus/ui/prefs_operatortoolsbase.ui" line="27"/>
         <source>Operator Tools</source>
@@ -20646,10 +19455,6 @@ A value of 0 means unlimited hyphenations.</source>
 <context>
     <name>Prefs_PDFExport</name>
     <message>
-        <source>Form</source>
-        <translation type="vanished">Inprimakia</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="27"/>
         <source>PDF Export</source>
         <translation>PDF esportatzea</translation>
@@ -20664,10 +19469,6 @@ A value of 0 means unlimited hyphenations.</source>
         <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="71"/>
         <source>All Pages</source>
         <translation>Orrialde guztiak</translation>
-    </message>
-    <message>
-        <source>rangeButtonGroup</source>
-        <translation type="vanished">rangeButtonGroup</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="81"/>
@@ -20960,10 +19761,6 @@ A value of 0 means unlimited hyphenations.</source>
         <translation>Erabili dokumentu-koskatzeak</translation>
     </message>
     <message>
-        <source>PDF/X-3 Output Intent</source>
-        <translation type="vanished">PDF/X-3 irteera</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1230"/>
         <source>Output Profile:</source>
         <translation>Irteerako profila:</translation>
@@ -20979,26 +19776,14 @@ A value of 0 means unlimited hyphenations.</source>
         <translation>Letra-tipoa</translation>
     </message>
     <message>
-        <source>Available Fonts</source>
-        <translation type="vanished">Letra-tipo erabilgarriak</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1346"/>
         <source>Embed All</source>
         <translation>Kapsulatu dena</translation>
     </message>
     <message>
-        <source>Outline All</source>
-        <translation type="vanished">Denen eskema</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1336"/>
         <source>Fonts to Embed</source>
         <translation>Kapsulatuko diren letra-tipoa</translation>
-    </message>
-    <message>
-        <source>Fonts to Outline</source>
-        <translation type="vanished">Eskema erauziko zaien letra-tipoak</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1428"/>
@@ -21157,16 +19942,6 @@ A value of 0 means unlimited hyphenations.</source>
         <translation>Esportatu orri-barrutia PDFra</translation>
     </message>
     <message>
-        <source>Insert a comma separated list of tokens where a token can be * for all the pages, 1-5 for a range of pages or a single page number.</source>
-        <translation type="vanished">Txertatu komaz bereiztutako token-en zerrenda, 
-token bat * orrialde guztientzako, 1-5 orrialde barruti 
-batentzako, edo orrialde bakar batentzako izan daiteke.</translation>
-    </message>
-    <message>
-        <source>Determines the PDF compatibility.&lt;br/&gt;The default is &lt;b&gt;PDF 1.3&lt;/b&gt; which gives the widest compatibility.&lt;br/&gt;Choose &lt;b&gt;PDF 1.4&lt;/b&gt; if your file uses features such as transparency or you require 128 bit encryption.&lt;br/&gt;&lt;b&gt;PDF 1.5&lt;/b&gt; is necessary when you wish to preserve objects in separate layers within the PDF.&lt;br/&gt;&lt;b&gt;PDF/X-3&lt;/b&gt; is for exporting the PDF when you want color managed RGB for commercial printing and is selectable when you have activated color management. Use only when advised by your printer or in some cases printing to a 4 color digital color laser printer.&lt;br/&gt;&lt;b&gt;PDF/X-1a&lt;/b&gt; is for blind exchange with colors strictly specified in CMYK or spot colors.&lt;br/&gt;&lt;b&gt;PDF/X-4&lt;/b&gt; is an extension of PDF/X-3 to support transparancy and layering.</source>
-        <translation type="vanished">PDF bateragarritasuna zehazten du.&lt;br/&gt;Balio lehenetsia &lt;b&gt;PDF 1.3&lt;/b&gt; da, bateragarritasunik zabalena ematen duena.&lt;br/&gt;Hautatu &lt;b&gt;PDF 1.4&lt;/b&gt; zure fitxategiek gardentasuna bezalako ezaugarriak baditu edo 128 bit-eko zifratzea behar baduzu.&lt;br/&gt;&lt;b&gt;PDF 1.5&lt;/b&gt; beharrezkoa da objektuak geruza desberdinetan antolatuta gorde nahi badituzu.&lt;br/&gt;&lt;b&gt;PDF/X-3&lt;/b&gt; inprimatze komertzialerako kolore-kudeaketa duen eta hura aktibatuta dagoenean aukeratu daitekeena duen PDFa behar duzunerako da. Erabili soilik zure inprimatze-etxean aholkatzen dizutenean edo zenbait kasutan 4 kolore figitaleko laser-inprimagailuetan erabiltzeko.&lt;br/&gt;&lt;b&gt;PDF/X-1a&lt;/b&gt; koloreak CMY sisteman zehatz-mehatz adierazita daudenerako edo kolore zuzenak direnerako trukatze itsurako da.&lt;br/&gt;&lt;b&gt;PDF/X-4&lt;/b&gt; PDF/X-3 formatuaren luzapen bat da gardentasuna eta geruzak onartzeko.</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="57"/>
         <source>Determines the binding of pages in the PDF. Unless you know you need to change it leave the default choice - Left.</source>
         <translation>Orrien loturak zehazten ditu PDFan. Aldatzeko beharreik ez baduzu, utzi aukera lehenetsiarekin: ezkerra.</translation>
@@ -21175,14 +19950,6 @@ batentzako, edo orrialde bakar batentzako izan daiteke.</translation>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="58"/>
         <source>Generates thumbnails of each page in the PDF. Some viewers can use the thumbnails for navigation.</source>
         <translation>Orrialde bakoitzaren miniaturak sortzen ditu PDFan. Ikustaile batzuk miniaturak erabil ditzakete nabigaziorako.</translation>
-    </message>
-    <message>
-        <source>Generate PDF Articles, which is useful for navigating linked articles in a PDF.</source>
-        <translation type="vanished">Sortu PDF artikuluak, PDF batean estekatutako artikuluetan zehar erosoki nabigatzeko.</translation>
-    </message>
-    <message>
-        <source>Layers in your document are exported to the PDF Only available if PDF 1.5 is chosen.</source>
-        <translation type="vanished">Dokumentuko geruzak PDFra esportatzen dira. PDF 1.5 aukeran soilik erabilgarria.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="61"/>
@@ -21220,25 +19987,9 @@ batentzako, edo orrialde bakar batentzako izan daiteke.</translation>
         <translation>Zure bitmap-irudien bereizmena hautatutako DPIaren funtzioan mugatzen du. Bereizmen txikiagoa duten irudiak ez dira ukituko. Hau markatzen ez bada, irudiak jatorrizko bereizmenarekin errendatuko dira. Hau gaitzeak memoria-erabilera handituko du eta esportazioa motelduko du.</translation>
     </message>
     <message>
-        <source>DPI (Dots Per Inch) for image export.</source>
-        <translation type="vanished">DPI (puntu hazbeteko) irudia esportatzeko.</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="69"/>
         <source>Enable the security features in your exported PDF. If you selected PDF 1.3, the PDF will be protected by 40 bit encryption. If you selected PDF 1.4, the PDF will be protected by 128 bit encryption. Disclaimer: PDF encryption is not as reliable as GPG or PGP encryption and does have some limitations.</source>
         <translation>Gaitu segurtasun funtzioak esportatutako PDFan. PDF 1.3 aukeratzen baduzu, PDFa 40 bit-eko enkriptazioarekin babestuko da. PDF 1.4 aukeratuz enkriptatzean 128 bit erabiliko dira PDFa babesteko. Ezespena: PDFa enkriptatzea ez da GPG edo PGP enkripzio bezain fidagarria eta zenbait murriztapen ditu.</translation>
-    </message>
-    <message>
-        <source>Choose a password for users to be able to read your PDF.</source>
-        <translation type="vanished">Aukeratu erabiltzaileen pasahitzak zure PDFa irakur ahal izateko.</translation>
-    </message>
-    <message>
-        <source>Allow printing of the PDF. If un-checked, printing is prevented. </source>
-        <translation type="vanished">Baimendu PDFa inprimatzea. Ez bada aktibatzen, inprimatzea galarazita egongo da.</translation>
-    </message>
-    <message>
-        <source>Allow modifying of the PDF. If un-checked, modifying the PDF is prevented.</source>
-        <translation type="vanished">Baimendu PDFa eraldatzea. Ez badago aktibatuta, PDFa aldatzea galarazita egongo da.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="74"/>
@@ -21581,30 +20332,6 @@ Adobe&amp;#174; Reader&amp;#174; eta beste PDF ikustaileak erabiltzean</translat
         <translation>Efektua exekutatzek denbora. Denbora motz batek efektua abiazkartuko du, handiago batek moteldu egingo du.</translation>
     </message>
     <message>
-        <source>Type of the display effect.</source>
-        <translation type="vanished">Bistaratzeko efektu-mota.</translation>
-    </message>
-    <message>
-        <source>Direction of the effect of moving lines for the split and blind effects.</source>
-        <translation type="vanished">Lerro mugikorren efektuaren norabidea efektuak zatitu eta lotzeko.</translation>
-    </message>
-    <message>
-        <source>Starting position for the box and split effects.</source>
-        <translation type="vanished">Hasierako posizioa kutxa- eta zaitze-efektuentzat.</translation>
-    </message>
-    <message>
-        <source>Direction of the glitter or wipe effects.</source>
-        <translation type="vanished">Distira- edo ezabatze-efektuen norabidea.</translation>
-    </message>
-    <message>
-        <source>Apply the selected effect to all pages.</source>
-        <translation type="vanished">Aplikatu hautatutako efektua orrialde guztietan.</translation>
-    </message>
-    <message>
-        <source>Convert all glyphs in the document to outlines.</source>
-        <translation type="vanished">Bihurtu dokumentuo glifo guztiak eskemetara.</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="662"/>
         <source>Show the document in single page mode</source>
         <translation>Erakutsi dokumentua orrialde bakarreko moduan</translation>
@@ -21653,14 +20380,6 @@ Adobe&amp;#174; Reader&amp;#174; eta beste PDF ikustaileak erabiltzean</translat
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="671"/>
         <source>Hides the Tool Bar which has selection and other editing capabilities</source>
         <translation>Hautapenak egiteko eta beste edizio-gaitasun batzuetarako ahamena duen tresna-barra ezkutatzen du</translation>
-    </message>
-    <message>
-        <source>Hides the Menu Bar for the viewer, the PDF will display in a plain window. </source>
-        <translation type="vanished">Bisorearen menu-barra ezkutatzen du, PDFa leiho arrunt batean erakutsiko da.</translation>
-    </message>
-    <message>
-        <source>Fit the document page or pages to the available space in the viewer window.</source>
-        <translation type="vanished">Doitu dokumentuaren orrialdea edo orrialdeak bisorearen leihoan erabilgarri dagoen espaziora.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1043"/>
@@ -21716,10 +20435,6 @@ Adobe&amp;#174; Reader&amp;#174; eta beste PDF ikustaileak erabiltzean</translat
         <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1416"/>
         <source>Subset All</source>
         <translation>Denen azpimultzoak</translation>
-    </message>
-    <message>
-        <source>Embed only subset fonts with glyphs used in the document into the PDF.</source>
-        <translation type="vanished">Dokumentuan erabilitako glifoak dituzten letra-tipoen azpimultzoak soilik kapsulatu PDFan. </translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="51"/>
@@ -21810,10 +20525,6 @@ Adobe&amp;#174; Reader&amp;#174; eta beste PDF ikustaileak erabiltzean</translat
 <context>
     <name>Prefs_PageSizes</name>
     <message>
-        <source>Form</source>
-        <translation type="vanished">Inprimakia</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/prefs_pagesizesbase.ui" line="27"/>
         <source>Page Sizes</source>
         <translation>Orrialde-tamaina</translation>
@@ -21831,10 +20542,6 @@ Adobe&amp;#174; Reader&amp;#174; eta beste PDF ikustaileak erabiltzean</translat
 </context>
 <context>
     <name>Prefs_Paths</name>
-    <message>
-        <source>Form</source>
-        <translation type="vanished">Inprimakia</translation>
-    </message>
     <message>
         <location filename="../../scribus/ui/prefs_pathsbase.ui" line="27"/>
         <source>Paths</source>
@@ -21932,10 +20639,6 @@ Adobe&amp;#174; Reader&amp;#174; eta beste PDF ikustaileak erabiltzean</translat
 <context>
     <name>Prefs_Plugins</name>
     <message>
-        <source>Form</source>
-        <translation type="vanished">Inprimakia</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/prefs_pluginsbase.ui" line="27"/>
         <source>Plugins</source>
         <translation>Pluginak</translation>
@@ -21978,10 +20681,6 @@ Adobe&amp;#174; Reader&amp;#174; eta beste PDF ikustaileak erabiltzean</translat
 </context>
 <context>
     <name>Prefs_PreflightVerifier</name>
-    <message>
-        <source>Form</source>
-        <translation type="vanished">Inprimakia</translation>
-    </message>
     <message>
         <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="27"/>
         <source>Preflight Verifier</source>
@@ -22122,10 +20821,6 @@ Adobe&amp;#174; Reader&amp;#174; eta beste PDF ikustaileak erabiltzean</translat
 <context>
     <name>Prefs_Printer</name>
     <message>
-        <source>Form</source>
-        <translation type="vanished">Inprimakia</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/prefs_printerbase.ui" line="29"/>
         <source>Printing</source>
         <translation>Inprimatzen</translation>
@@ -22211,10 +20906,6 @@ Adobe&amp;#174; Reader&amp;#174; eta beste PDF ikustaileak erabiltzean</translat
         <translation>Bihurtu kolore zuzenak prozesu-koloreetara</translation>
     </message>
     <message>
-        <source>Apply ICC Profiles</source>
-        <translation type="vanished">Aplikatu ICC profilak</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/prefs_printerbase.ui" line="319"/>
         <source>PostScript</source>
         <translation>Postscript</translation>
@@ -22295,12 +20986,6 @@ Adobe&amp;#174; Reader&amp;#174; eta beste PDF ikustaileak erabiltzean</translat
         <translation>Erabili inprimatze-kudeatzaile alternatibo bat, esaterako kprinter edo gtklp, inprimatze-aukera gehiago erabiltzeko</translation>
     </message>
     <message>
-        <source>Sets the PostScript Level.
- Setting to Level 1 or 2 can create huge files</source>
-        <translation type="vanished">PostScript maila ezartzen du.
-1. edo 2. maila ezartzeak fitxategi handiak sor ditzake</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/prefs_printer.cpp" line="33"/>
         <source>A way of switching off some of the gray shades which are composed of cyan, yellow and magenta and using black instead. UCR most affects parts of images which are neutral and/or dark tones which are close to the gray. Use of this may improve printing some images and some experimentation and testing is need on a case by case basis. UCR reduces the possibility of over saturation with CMY inks.</source>
         <translation>Grisen itzaldura itzaltzeko modu bat. Itzaldura hau zian, hori eta magenta koloreekin osatua dago, beltzaren ordez erabiliz. UCR metodoak irudi bateko tonu grisetik gertu dauden neutralak edota ilunak diren zatiei eragiten die bati bat. Honen erabilpenak zenbait irudiren inprimazioa hobetzen du, eta kasuz kasuko esperimentazioa eta probak egin behar izaten dira. UCRek gainsaturazioaren posibilitatea gutxitzen du CMY tintekin.</translation>
@@ -22311,17 +20996,9 @@ Adobe&amp;#174; Reader&amp;#174; eta beste PDF ikustaileak erabiltzean</translat
         <translation>Kolore zuzenak kolore konposatu bihurtzea ahalbidetzen du. Inprimatze-etxe komertzial batean kolore zuzenak inprimatzea aurreikusten ez baduzu, onena aukera hori gaituta uztea da.</translation>
     </message>
     <message>
-        <source>Allows you to embed color profiles in the print stream when color management is enabled</source>
-        <translation type="vanished">Kolore-profilak inprimatze-korrontean kapsulatzea ahalbidetzen du, kolore-kudeaketa gaituta dagoenean</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/prefs_printer.cpp" line="62"/>
         <source>File</source>
         <translation>Fitxategia</translation>
-    </message>
-    <message>
-        <source>All</source>
-        <translation type="vanished">Dena</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_printerbase.ui" line="495"/>
@@ -22343,10 +21020,6 @@ Adobe&amp;#174; Reader&amp;#174; eta beste PDF ikustaileak erabiltzean</translat
 </context>
 <context>
     <name>Prefs_Scrapbook</name>
-    <message>
-        <source>Form</source>
-        <translation type="vanished">Inprimakia</translation>
-    </message>
     <message>
         <location filename="../../scribus/ui/prefs_scrapbookbase.ui" line="27"/>
         <source>Scrapbook</source>
@@ -22373,10 +21046,6 @@ Adobe&amp;#174; Reader&amp;#174; eta beste PDF ikustaileak erabiltzean</translat
         <translation>Ebakinen albumean mantenduko diren kopiatutako elementuen kopurua</translation>
     </message>
     <message>
-        <source>This enables the scrapbook to be used an extension to the copy/paste buffers. Simply copying an object or grouped object will send this to the Scrapbook automatically</source>
-        <translation type="vanished">Ebakinen albuma kopiatu/itsatsi bufferren luzapen gisa erabiltzea ahalbidetznen du. Objektu bat edo taldekatutako objektu bat kopiatzeak hura ebakinen albumera automatikoki bidaliko du.</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/prefs_scrapbook.cpp" line="26"/>
         <source>This enables copied items to be kept permanently in the scrapbook</source>
         <translation>Kopiatutako elementuak ebakinen albumean modu iraunkorrean mantentzea ahalbidetzen du</translation>
@@ -22399,10 +21068,6 @@ Adobe&amp;#174; Reader&amp;#174; eta beste PDF ikustaileak erabiltzean</translat
 </context>
 <context>
     <name>Prefs_Scripter</name>
-    <message>
-        <source>Form</source>
-        <translation type="vanished">Inprimakia</translation>
-    </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/prefs_scripterbase.ui" line="27"/>
         <source>Scripter</source>
@@ -22477,10 +21142,6 @@ Adobe&amp;#174; Reader&amp;#174; eta beste PDF ikustaileak erabiltzean</translat
 <context>
     <name>Prefs_ShortWords</name>
     <message>
-        <source>Form</source>
-        <translation type="vanished">Inprimakia</translation>
-    </message>
-    <message>
         <location filename="../../scribus/plugins/short-words/prefs_shortwordsbase.ui" line="66"/>
         <source>Save</source>
         <translation>Gorde</translation>
@@ -22535,10 +21196,6 @@ Adobe&amp;#174; Reader&amp;#174; eta beste PDF ikustaileak erabiltzean</translat
 </context>
 <context>
     <name>Prefs_Spelling</name>
-    <message>
-        <source>Form</source>
-        <translation type="vanished">Inprimakia</translation>
-    </message>
     <message>
         <location filename="../../scribus/ui/prefs_spellingbase.ui" line="27"/>
         <source>Spelling</source>
@@ -22599,10 +21256,6 @@ Adobe&amp;#174; Reader&amp;#174; eta beste PDF ikustaileak erabiltzean</translat
 </context>
 <context>
     <name>Prefs_TableOfContents</name>
-    <message>
-        <source>Form</source>
-        <translation type="vanished">Inprimakia</translation>
-    </message>
     <message>
         <location filename="../../scribus/ui/prefs_tableofcontentsbase.ui" line="27"/>
         <source>Table of Contents</source>
@@ -22706,10 +21359,6 @@ Adobe&amp;#174; Reader&amp;#174; eta beste PDF ikustaileak erabiltzean</translat
 </context>
 <context>
     <name>Prefs_Typography</name>
-    <message>
-        <source>Form</source>
-        <translation type="vanished">Inprimakia</translation>
-    </message>
     <message>
         <location filename="../../scribus/ui/prefs_typographybase.ui" line="27"/>
         <source>Typography</source>
@@ -22844,10 +21493,6 @@ Adobe&amp;#174; Reader&amp;#174; eta beste PDF ikustaileak erabiltzean</translat
 <context>
     <name>Prefs_UserInterface</name>
     <message>
-        <source>Form</source>
-        <translation type="vanished">Inprimakia</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/prefs_userinterfacebase.ui" line="27"/>
         <source>User Interface</source>
         <translation>Erabiltzaile-interfazea</translation>
@@ -22959,21 +21604,11 @@ Adobe&amp;#174; Reader&amp;#174; eta beste PDF ikustaileak erabiltzean</translat
         <translation>Erakutsi abioko elkarrizketa-koadroa</translation>
     </message>
     <message>
-        <source>Select your default language for Scribus to run with. Leave this blank to choose based on environment variables. You can still override this by passing a command line option when starting Scribus</source>
-        <translation type="vanished">Hautatu Scribus-ek erabiliko duen hizkuntza lehenetsia. Utzi hau hutsik
-inguruneko aldagaien arabera aukeratzeko. Komando-lerroko aukera bat
-erabil dezakezu, Scribus abiaraztean, erabilera hau gainidazteko</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/prefs_userinterface.cpp" line="54"/>
         <source>Choose the default window decoration and looks. Scribus inherits any available KDE or Qt themes, if Qt is configured to search KDE plugins.</source>
         <translation>Aukeratu leihoen dekorazio eta itxura lehenetsia. Scribus-ek
 erabilgarri dauden KDE edo Qt gaiak jasotzen ditu, baldin eta Qt 
 konfiguratuta badago KDEko pluginak bilatzeko.</translation>
-    </message>
-    <message>
-        <source>Palette windows will use smaller (space savy) widgets. Requires application restart</source>
-        <translation type="vanished">Paleta-leihoek widget txikiagoak (toki gutxiago betetzen dutenak) erabiliko dituzte. Aplikazioa berrabiarazi behar da</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_userinterface.cpp" line="57"/>
@@ -22996,12 +21631,8 @@ konfiguratuta badago KDEko pluginak bilatzeko.</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Number of lines Scribus will scroll for each move of the mouse wheel</source>
-        <translation type="vanished">Sagu-gurpilaren mugimendu bakoitzean Scribus-ek korrituko duen lerro kopurua</translation>
-    </message>
-    <message>
-        <source></source>
-        <translation></translation>
+        <source/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_userinterfacebase.ui" line="254"/>
@@ -23033,7 +21664,7 @@ erabil dezakezu, Scribus abiaraztean, erabilera hau gainidazteko.</translation>
     <message>
         <location filename="../../scribus/ui/prefs_userinterface.cpp" line="61"/>
         <source>Number of lines Scribus will scroll for each &quot;notch&quot; of the mouse wheel</source>
-        <translation type="unfinished"></translation>
+        <translation>Saguaren gurpilaren koska bakoitzeko Scribus-ek korrituko duen lerro kopurua</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_userinterface.cpp" line="64"/>
@@ -23234,14 +21865,6 @@ erabil dezakezu, Scribus abiaraztean, erabilera hau gainidazteko.</translation>
         <translation>Inprimatze-ba&amp;rrutia</translation>
     </message>
     <message>
-        <source>Insert a comma separated list of tokens where
-a token can be * for all the pages, 1-5 for
-a range of pages or a single page number.</source>
-        <translation type="vanished">Txertatu komaz bereiztutako token-en zerrenda, 
-token bat * orrialde guztientzako, 1-5 orrialde barruti 
-batentzako, edo orrialde bakar batentzako izan daiteke.</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/printdialogbase.ui" line="295"/>
         <source>Options</source>
         <translation>Aukerak</translation>
@@ -23265,12 +21888,6 @@ batentzako, edo orrialde bakar batentzako izan daiteke.</translation>
         <location filename="../../scribus/ui/printdialogbase.ui" line="321"/>
         <source>Print in Grayscale</source>
         <translation>Inprimatu gris-eskalan</translation>
-    </message>
-    <message>
-        <source>Sets the PostScript Level.
- Setting to Level 1 or 2 can create huge files</source>
-        <translation type="vanished">PostScript maila ezartzen du.
-1. edo 2. maila ezartzeak fitxategi handiak sor ditzake</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/printdialogbase.ui" line="354"/>
@@ -23311,14 +21928,6 @@ batentzako, edo orrialde bakar batentzako izan daiteke.</translation>
         <location filename="../../scribus/ui/printdialogbase.ui" line="419"/>
         <source>Convert Spot Colors to Process Colors</source>
         <translation>Bihurtu kolore zuzenak prozesu-koloreetara</translation>
-    </message>
-    <message>
-        <source>Allows you to embed color profiles in the print stream when color management is enabled</source>
-        <translation type="vanished">Kolore-profilak inprimatze-korrontean kapsulatzea ahalbidetzen du, kolore-kudeaketa gaituta dagoenean</translation>
-    </message>
-    <message>
-        <source>Apply Color Profiles</source>
-        <translation type="vanished">Aplikatu kolore-profilak</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/printdialogbase.ui" line="446"/>
@@ -23446,11 +22055,6 @@ batentzako, edo orrialde bakar batentzako izan daiteke.</translation>
         <translation>Utzi</translation>
     </message>
     <message>
-        <source>Include PDF Annotations and Links into the output.
-Note: PDF Forms will not be exported.</source>
-        <translation type="vanished">Sartu PDF oharpenak eta estekak irteeran. Oharra: PDF inprimakiak ez dira esportatuko.</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/printdialogbase.ui" line="346"/>
         <source>Include PDF Annotations and Links</source>
         <translation>Sartu PDF oharpenak eta estekak</translation>
@@ -23564,90 +22168,7 @@ batentzako, edo orrialde bakar baten zenbakia</translation>
     </message>
 </context>
 <context>
-    <name>PropertiesPalette_Group</name>
-    <message>
-        <source>&amp;Edit...</source>
-        <translation type="vanished">&amp;Editatu...</translation>
-    </message>
-    <message>
-        <source>Shape</source>
-        <translation type="vanished">Forma</translation>
-    </message>
-    <message>
-        <source>Text &amp;Flow Around Frame</source>
-        <translation type="vanished">Testu-&amp;fluxua markoaren inguruan</translation>
-    </message>
-    <message>
-        <source>Disabled</source>
-        <translation type="vanished">Desgaituta</translation>
-    </message>
-    <message>
-        <source>Use Frame &amp;Shape</source>
-        <translation type="vanished">Erabili &amp;markoaren forma</translation>
-    </message>
-    <message>
-        <source>Use &amp;Bounding Box</source>
-        <translation type="vanished">Erabili &amp;muga-koadroa</translation>
-    </message>
-    <message>
-        <source>&amp;Use Contour Line</source>
-        <translation type="vanished">Erabili ingerada-marrak</translation>
-    </message>
-    <message>
-        <source>Use Image Clip Path</source>
-        <translation type="vanished">Erabili irudiaren mozte-bidea</translation>
-    </message>
-    <message>
-        <source>Disable text flow from lower frames around object</source>
-        <translation type="vanished">Desgaitu azpiko markoen testu-fluxua objektuaren inguruan</translation>
-    </message>
-    <message>
-        <source>Use the frame shape for text flow of text frames below the object.</source>
-        <translation type="vanished">Erabili markoaren forma objektuaren azpian dauden testu-markoen testu-fluxurako.</translation>
-    </message>
-    <message>
-        <source>Use the bounding box, which is always rectangular, instead of the frame&apos;s shape for text flow of text frames below the object. </source>
-        <translation type="vanished">Erabili muga-koadroa (beti laukizuzena dena) markoaren forma erabili ordez objektuaren azpian dauden testu-markoen testua egokitzeko.</translation>
-    </message>
-    <message>
-        <source>When chosen, the contour line can be edited with the Edit Shape Tool on the palette further above. When edited via the shape palette, this becomes a second separate line originally based on the frame&apos;s shape for text flow of text frames below the object.</source>
-        <translation type="vanished">Hautatuta dagoenean, ingerada-lerroa goiko paletako &apos;Editatu forma&apos; tresnarekin edita daiteke. Formen paletaren bidez editatzen denean, bereizitako bigarren lerro bat bihurtzen da, jatorriz markoaren forman oinarritutakoa, objektuaren azpiko testu-markoen testu-fluxurako.</translation>
-    </message>
-    <message>
-        <source>Use the clipping path of the image</source>
-        <translation type="vanished">Erabili irudiaren mozte-bidea</translation>
-    </message>
-    <message>
-        <source>Any path self-intersections or subpaths create holes in the fill.</source>
-        <translation type="vanished">Bideen edozein autoebakidurak edo azpibidek zuloak sortzen ditu betegarrian.</translation>
-    </message>
-    <message>
-        <source>Fill is solid unless a subpath is counterdirectional.</source>
-        <translation type="vanished">Betegarria solidoa da azpibide bat kontrako noranzkoa ez bada.</translation>
-    </message>
-    <message>
-        <source>Use the frame shape for text flow of text frames below the object</source>
-        <translation type="vanished">Erabili markoaren forma objektuaren azpian dauden testu-markoen testu-fluxurako</translation>
-    </message>
-    <message>
-        <source>Use the bounding box, which is always rectangular, instead of the frame&apos;s shape for text flow of text frames below the object</source>
-        <translation type="vanished">Erabili muga-koadroa, beti laukizuzena dena, markoaren forma erabili ordez objektuaren azpian dauden testu-markoen testua egokitzeko</translation>
-    </message>
-    <message>
-        <source>Any path self-intersections or subpaths create holes in the fill</source>
-        <translation type="vanished">Bideen edozein autoebakidurak edo azpibidek zuloak sortzen ditu betegarrian</translation>
-    </message>
-    <message>
-        <source>Fill is solid unless a subpath is counter-directional</source>
-        <translation type="vanished">Betegarria solidoa da azpibide bat kontrako noranzkoa ez bada</translation>
-    </message>
-</context>
-<context>
     <name>PropertiesPalette_GroupBase</name>
-    <message>
-        <source>Form</source>
-        <translation type="vanished">Inprimakia</translation>
-    </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_groupbase.ui" line="35"/>
         <source>Shape</source>
@@ -23664,17 +22185,9 @@ batentzako, edo orrialde bakar baten zenbakia</translation>
         <translation>&amp;Editatu...</translation>
     </message>
     <message>
-        <source>Text Flow Around Frame</source>
-        <translation type="vanished">Testu-fluxua markoaren inguruan</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/propertiespalette_groupbase.ui" line="126"/>
         <source>Disabled</source>
         <translation>Desgaituta</translation>
-    </message>
-    <message>
-        <source>Use &amp;Frame Shape</source>
-        <translation type="vanished">Erabili &amp;markoaren forma</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_groupbase.ui" line="182"/>
@@ -23704,22 +22217,22 @@ batentzako, edo orrialde bakar baten zenbakia</translation>
     <message>
         <location filename="../../scribus/ui/propertiespalette_groupbase.ui" line="93"/>
         <source>Text &amp;Flow Around Frame</source>
-        <translation type="unfinished">Testu-&amp;fluxua markoaren inguruan</translation>
+        <translation>Testu-&amp;fluxua markoaren inguruan</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_groupbase.ui" line="123"/>
         <source>Disable text flow from lower frames around object</source>
-        <translation type="unfinished">Desgaitu azpiko markoen testu-fluxua objektuaren inguruan</translation>
+        <translation>Desgaitu azpiko markoen testu-fluxua objektuaren inguruan</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_groupbase.ui" line="151"/>
         <source>Use the frame shape for text flow of text frames below the object</source>
-        <translation type="unfinished">Erabili markoaren forma objektuaren azpian dauden testu-markoen testu-fluxurako</translation>
+        <translation>Erabili markoaren forma objektuaren azpian dauden testu-markoen testu-fluxurako</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_groupbase.ui" line="154"/>
         <source>Use Frame &amp;Shape</source>
-        <translation type="unfinished">Erabili &amp;markoaren forma</translation>
+        <translation>Erabili &amp;markoaren forma</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_groupbase.ui" line="179"/>
@@ -23739,7 +22252,7 @@ batentzako, edo orrialde bakar baten zenbakia</translation>
     <message>
         <location filename="../../scribus/ui/propertiespalette_groupbase.ui" line="303"/>
         <source>&lt;qt&gt;Any path self-intersections or subpaths create holes in the fill&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Edozein bidek bere burua ebakitzen badu edo azpibideak baditu, zuloak sortuko dira betegarrian&lt;/qt&gt;</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_groupbase.ui" line="306"/>
@@ -23749,7 +22262,7 @@ batentzako, edo orrialde bakar baten zenbakia</translation>
     <message>
         <location filename="../../scribus/ui/propertiespalette_groupbase.ui" line="319"/>
         <source>&lt;qt&gt;Fill is solid unless a subpath is counter-directional&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Betegarria solidoa da azpibideak kontrako noranzkoa ez badu&lt;/qt&gt;</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_groupbase.ui" line="322"/>
@@ -23774,70 +22287,6 @@ batentzako, edo orrialde bakar baten zenbakia</translation>
         <location filename="../../scribus/ui/propertiespalette_image.cpp" line="795"/>
         <source>Auto</source>
         <translation>Automatikoa</translation>
-    </message>
-    <message>
-        <source>Actual X-DPI:</source>
-        <translation type="vanished">Uneko X-dpi:</translation>
-    </message>
-    <message>
-        <source>Actual Y-DPI:</source>
-        <translation type="vanished">Uneko Y-dpi:</translation>
-    </message>
-    <message>
-        <source>&amp;X-Pos:</source>
-        <translation type="vanished">&amp;X posizioa:</translation>
-    </message>
-    <message>
-        <source>&amp;Y-Pos:</source>
-        <translation type="vanished">&amp;Y posizioa:</translation>
-    </message>
-    <message>
-        <source>X-Sc&amp;ale:</source>
-        <translation type="vanished">&amp;X eskala:</translation>
-    </message>
-    <message>
-        <source>Y-Scal&amp;e:</source>
-        <translation type="vanished">&amp;Y eskala:</translation>
-    </message>
-    <message>
-        <source>&amp;Free Scaling</source>
-        <translation type="vanished">Eskalatze &amp;librea</translation>
-    </message>
-    <message>
-        <source>&amp;Page Number:</source>
-        <translation type="vanished">&amp;Orrialde-zenbakia:</translation>
-    </message>
-    <message>
-        <source>Rotation:</source>
-        <translation type="vanished">Biraketa:</translation>
-    </message>
-    <message>
-        <source>P&amp;roportional</source>
-        <translation type="vanished">&amp;Proportzionala</translation>
-    </message>
-    <message>
-        <source>Image Effects</source>
-        <translation type="vanished">Irudien efektuak</translation>
-    </message>
-    <message>
-        <source>Extended Properties</source>
-        <translation type="vanished">Propietate hedatuak</translation>
-    </message>
-    <message>
-        <source>Input Profile:</source>
-        <translation type="vanished">Sarrera-profila:</translation>
-    </message>
-    <message>
-        <source>Rendering Intent:</source>
-        <translation type="vanished">Errendatze-modua:</translation>
-    </message>
-    <message>
-        <source>Method:</source>
-        <translation type="vanished">Metodoa:</translation>
-    </message>
-    <message>
-        <source>Quality:</source>
-        <translation type="vanished">Kalitatea:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_image.cpp" line="799"/>
@@ -23921,89 +22370,13 @@ batentzako, edo orrialde bakar baten zenbakia</translation>
         <translation> pt</translation>
     </message>
     <message>
-        <source>Horizontal offset of image within frame</source>
-        <translation type="vanished">Irudiaren desplazamendu horizontala markoan</translation>
-    </message>
-    <message>
-        <source>Vertical offset of image within frame</source>
-        <translation type="vanished">Irudiaren desplazamendu bertikala markoan</translation>
-    </message>
-    <message>
-        <source>Resize the image horizontally</source>
-        <translation type="vanished">Aldatu irudiaren tamaina horizontalki</translation>
-    </message>
-    <message>
-        <source>Resize the image vertically</source>
-        <translation type="vanished">Aldatu irudiaren tamaina bertikalki</translation>
-    </message>
-    <message>
-        <source>Keep the X and Y scaling the same</source>
-        <translation type="vanished">Mantendu X eta Y, berdin eskalatuz</translation>
-    </message>
-    <message>
-        <source>Allow the image to be a different size to the frame</source>
-        <translation type="vanished">Baimendu irudiak markoaren tamaina ezberdina edukitzea</translation>
-    </message>
-    <message>
-        <source>Make the image fit within the size of the frame</source>
-        <translation type="vanished">Doitu irudia markoaren tamainara</translation>
-    </message>
-    <message>
-        <source>Effective horizontal DPI of the image after scaling</source>
-        <translation type="vanished">Irudiaren DPI horizontal efektiboa eskalatzearen ondoren</translation>
-    </message>
-    <message>
-        <source>Effective vertical DPI of the image after scaling</source>
-        <translation type="vanished">Irudiaren DPI bertikal efektiboa eskalatzearen ondoren</translation>
-    </message>
-    <message>
-        <source>Use image proportions rather than those of the frame</source>
-        <translation type="vanished">Erabili irudiaren proportzioak, markoarenak baino</translation>
-    </message>
-    <message>
-        <source>Source profile of the image</source>
-        <translation type="vanished">Irudiaren profilaren iturburua</translation>
-    </message>
-    <message>
-        <source>Rendering intent for the image</source>
-        <translation type="vanished">Irudia errendatzearen saiakera</translation>
-    </message>
-    <message>
-        <source>Compression method used in PDF export for the image</source>
-        <translation type="vanished">Irudiaren PDF esportazioan erabilitako konpresio-metodoa</translation>
-    </message>
-    <message>
-        <source>Compression quality used in PDF export for the image</source>
-        <translation type="vanished">Irudiaren PDF esportazioan erabilitako konpresio-kalitatea</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/propertiespalette_image.cpp" line="88"/>
         <source>&amp;To Frame Size</source>
         <translation>&amp;Markoaren tamainara</translation>
     </message>
-    <message>
-        <source>Scaling</source>
-        <translation type="vanished">Eskalatzea</translation>
-    </message>
-    <message>
-        <source>Color Management</source>
-        <translation type="vanished">Kolore-kudeaketa</translation>
-    </message>
-    <message>
-        <source>PDF Compression</source>
-        <translation type="vanished">PDF konpresioa</translation>
-    </message>
 </context>
 <context>
     <name>PropertiesPalette_ImageBase</name>
-    <message>
-        <source>Form</source>
-        <translation type="vanished">Inprimakia</translation>
-    </message>
-    <message>
-        <source>X-Pos:</source>
-        <translation type="vanished">X posizioa:</translation>
-    </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="57"/>
         <source>Rotation:</source>
@@ -24015,28 +22388,24 @@ batentzako, edo orrialde bakar baten zenbakia</translation>
         <translation>&amp;Orrialde-zenbakia:</translation>
     </message>
     <message>
-        <source>Y-Pos:</source>
-        <translation type="vanished">Y posizioa:</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="37"/>
         <source>&amp;X-Pos:</source>
-        <translation type="unfinished">&amp;X posizioa:</translation>
+        <translation>&amp;X posizioa:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="50"/>
         <source>Horizontal offset of image within frame</source>
-        <translation type="unfinished">Irudiaren desplazamendu horizontala markoan</translation>
+        <translation>Irudiaren desplazamendu horizontala markoan</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="81"/>
         <source>&amp;Y-Pos:</source>
-        <translation type="unfinished">&amp;Y posizioa:</translation>
+        <translation>&amp;Y posizioa:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="94"/>
         <source>Vertical offset of image within frame</source>
-        <translation type="unfinished">Irudiaren desplazamendu bertikala markoan</translation>
+        <translation>Irudiaren desplazamendu bertikala markoan</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="101"/>
@@ -24056,7 +22425,7 @@ batentzako, edo orrialde bakar baten zenbakia</translation>
     <message>
         <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="129"/>
         <source>Resize the image horizontally</source>
-        <translation type="unfinished">Aldatu irudiaren tamaina horizontalki</translation>
+        <translation>Aldatu irudiaren tamaina horizontalki</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="136"/>
@@ -24066,12 +22435,12 @@ batentzako, edo orrialde bakar baten zenbakia</translation>
     <message>
         <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="149"/>
         <source>Resize the image vertically</source>
-        <translation type="unfinished">Aldatu irudiaren tamaina bertikalki</translation>
+        <translation>Aldatu irudiaren tamaina bertikalki</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="162"/>
         <source>Keep the X and Y scaling the same</source>
-        <translation type="unfinished">Mantendu X eta Y, berdin eskalatuz</translation>
+        <translation>Mantendu X eta Y, berdin eskalatuz</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="165"/>
@@ -24087,7 +22456,7 @@ batentzako, edo orrialde bakar baten zenbakia</translation>
     <message>
         <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="188"/>
         <source>Effective horizontal DPI of the image after scaling</source>
-        <translation type="unfinished">Irudiaren DPI horizontal efektiboa eskalatzearen ondoren</translation>
+        <translation>Irudiaren DPI horizontal efektiboa eskalatzearen ondoren</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="195"/>
@@ -24097,56 +22466,52 @@ batentzako, edo orrialde bakar baten zenbakia</translation>
     <message>
         <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="202"/>
         <source>Effective vertical DPI of the image after scaling</source>
-        <translation type="unfinished">Irudiaren DPI bertikal efektiboa eskalatzearen ondoren</translation>
+        <translation>Irudiaren DPI bertikal efektiboa eskalatzearen ondoren</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="231"/>
         <source>Allow the image to be a different size to the frame</source>
-        <translation type="unfinished">Baimendu irudiak markoaren tamaina ezberdina edukitzea</translation>
+        <translation>Baimendu irudiak markoaren tamaina ezberdina edukitzea</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="234"/>
         <source>&amp;Free Scaling</source>
-        <translation type="unfinished">Eskalatze &amp;librea</translation>
+        <translation>Eskalatze &amp;librea</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="241"/>
         <source>Use image proportions rather than those of the frame</source>
-        <translation type="unfinished">Erabili irudiaren proportzioak, markoarenak baino</translation>
+        <translation>Erabili irudiaren proportzioak, markoarenak baino</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="251"/>
         <source>Make the image fit within the size of the frame</source>
-        <translation type="unfinished">Doitu irudia markoaren tamainara</translation>
+        <translation>Doitu irudia markoaren tamainara</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="254"/>
         <source>&amp;To Frame Size</source>
-        <translation type="unfinished">&amp;Markoaren tamainara</translation>
+        <translation>&amp;Markoaren tamainara</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="270"/>
         <source>Input Profile:</source>
-        <translation type="unfinished">Sarrera-profila:</translation>
+        <translation>Sarrera-profila:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="283"/>
         <source>Source profile of the image</source>
-        <translation type="unfinished">Irudiaren profilaren iturburua</translation>
+        <translation>Irudiaren profilaren iturburua</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="290"/>
         <source>Rendering Intent:</source>
-        <translation type="unfinished">Errendatze-modua:</translation>
+        <translation>Errendatze-modua:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="297"/>
         <source>Rendering intent for the image</source>
-        <translation type="unfinished">Irudia errendatzearen saiakera</translation>
-    </message>
-    <message>
-        <source>Free</source>
-        <translation type="vanished">Askea</translation>
+        <translation>Irudia errendatzearen saiakera</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="244"/>
@@ -24154,21 +22519,9 @@ batentzako, edo orrialde bakar baten zenbakia</translation>
         <translation>proportzionalki</translation>
     </message>
     <message>
-        <source>To Frame Size</source>
-        <translation type="vanished">Markoaren tamainara</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="264"/>
         <source>Color Management</source>
         <translation>Kolore-kudeaketa</translation>
-    </message>
-    <message>
-        <source>Input Profile</source>
-        <translation type="vanished">Sarrerako profila</translation>
-    </message>
-    <message>
-        <source>Intent</source>
-        <translation type="vanished">Saiakera</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="307"/>
@@ -24183,7 +22536,7 @@ batentzako, edo orrialde bakar baten zenbakia</translation>
     <message>
         <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="326"/>
         <source>Compression method used in PDF export for the image</source>
-        <translation type="unfinished">Irudiaren PDF esportazioan erabilitako konpresio-metodoa</translation>
+        <translation>Irudiaren PDF esportazioan erabilitako konpresio-metodoa</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="333"/>
@@ -24193,7 +22546,7 @@ batentzako, edo orrialde bakar baten zenbakia</translation>
     <message>
         <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="346"/>
         <source>Compression quality used in PDF export for the image</source>
-        <translation type="unfinished">Irudiaren PDF esportazioan erabilitako konpresio-kalitatea</translation>
+        <translation>Irudiaren PDF esportazioan erabilitako konpresio-kalitatea</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="364"/>
@@ -24369,10 +22722,6 @@ batentzako, edo orrialde bakar baten zenbakia</translation>
 </context>
 <context>
     <name>PropertiesPalette_LineBase</name>
-    <message>
-        <source>Form</source>
-        <translation type="vanished">Inprimakia</translation>
-    </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_linebase.ui" line="20"/>
         <source>&amp;Basepoint:</source>
@@ -24577,10 +22926,6 @@ gardentasuna</translation>
 <context>
     <name>PropertiesPalette_ShadowBase</name>
     <message>
-        <source>Form</source>
-        <translation type="vanished">Inprimakia</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/propertiespalette_shadowbase.ui" line="20"/>
         <source>Object has a drop shadow</source>
         <translation>Objektuak itzal paraleloa du</translation>
@@ -24713,98 +23058,7 @@ gardentasuna</translation>
     </message>
 </context>
 <context>
-    <name>PropertiesPalette_Shape</name>
-    <message>
-        <source> pt</source>
-        <translation type="vanished">pt</translation>
-    </message>
-    <message>
-        <source>Shape:</source>
-        <translation type="vanished">Forma:</translation>
-    </message>
-    <message>
-        <source>Choose the shape of frame...</source>
-        <translation type="vanished">Aukeratu markoaren forma...</translation>
-    </message>
-    <message>
-        <source>&amp;Edit...</source>
-        <translation type="vanished">&amp;Editatu...</translation>
-    </message>
-    <message>
-        <source>Set radius of corner rounding</source>
-        <translation type="vanished">Ezarri izkineko biribiltze-erradioa</translation>
-    </message>
-    <message>
-        <source>R&amp;ound Corners:</source>
-        <translation type="vanished">Biribildu iz&amp;kinak:</translation>
-    </message>
-    <message>
-        <source>Fill Rule</source>
-        <translation type="vanished">Erregela osoa</translation>
-    </message>
-    <message>
-        <source>Even-Odd</source>
-        <translation type="vanished">Bikoitia/Bakoitia</translation>
-    </message>
-    <message>
-        <source>Non Zero</source>
-        <translation type="vanished">Ez zero</translation>
-    </message>
-    <message>
-        <source>Text &amp;Flow Around Frame</source>
-        <translation type="vanished">Testu-&amp;fluxua markoaren inguruan</translation>
-    </message>
-    <message>
-        <source>Disabled</source>
-        <translation type="vanished">Desgaituta</translation>
-    </message>
-    <message>
-        <source>Use Frame &amp;Shape</source>
-        <translation type="vanished">Erabili &amp;markoaren forma</translation>
-    </message>
-    <message>
-        <source>Use &amp;Bounding Box</source>
-        <translation type="vanished">Erabili &amp;muga-koadroa</translation>
-    </message>
-    <message>
-        <source>&amp;Use Contour Line</source>
-        <translation type="vanished">Erabili &amp;ingerada-lerroa</translation>
-    </message>
-    <message>
-        <source>Use Image Clip Path</source>
-        <translation type="vanished">Erabili irudiaren mozte-bidea</translation>
-    </message>
-    <message>
-        <source>This rule determines the &amp;quot;insideness&amp;quot; of a point on the canvas by drawing a ray from that point to infinity in any direction and counting the number of path segments from the given shape that the ray crosses. If this number is odd, the point is inside, if even, the point is outside.</source>
-        <translation type="vanished">Erregela honek puntu bat oihalean dagoen zehazten du, izpi bat marraztuz puntutik infinituraino edozein norabidetan eta izpiak formaren zenbat bide-segmentu zeharkatzen dituen zenbatuz. Zenbakia bakoitia bada, puntua barruan dago. Bikoitia bada, kanpoan dago.</translation>
-    </message>
-    <message>
-        <source>This rule determines the &amp;quot;insideness&amp;quot; of a point on the canvas by drawing a ray from that point to infinity in any direction and then examining the places where a segment of the shape crosses the ray. Starting with a count of zero, add one each time a path segment crosses the ray from left to right and subtract one each time a path segment crosses the ray from right to left. If the result is zero then the point is outside the path. Otherwise, it is inside.</source>
-        <translation type="vanished">Erregela honek puntu bat oihalean dagoen zehazten du, izpi bat marraztuz puntutik infinituraino edozein norabidetan eta formaren segmentu batek izpia zein tokitan zeharkatzen duen aztertuz. Zerotik hasita, gehitu bat bide-segmentu batek izpia ezkerretik eskuinera zeharkatzen duen bakoitzean, eta kendu bat eskuinetik ezkerrera zeharkatzen duen bakoitzean. Emaitza zero bada, puntua bidetik kanpo dago. Bestela, barruan dago.</translation>
-    </message>
-    <message>
-        <source>Any path self-intersections or subpaths create holes in the fill.</source>
-        <translation type="vanished">Bideen edozein autoebakidurak edo azpibidek zuloak sortzen ditu betegarrian.</translation>
-    </message>
-    <message>
-        <source>Fill is solid unless a subpath is counterdirectional.</source>
-        <translation type="vanished">Betegarria solidoa da azpibide bat kontrako noranzkoa ez bada.</translation>
-    </message>
-    <message>
-        <source>Any path self-intersections or subpaths create holes in the fill</source>
-        <translation type="vanished">Bideen edozein autoebakidurak edo azpibidek zuloak sortzen ditu betegarrian</translation>
-    </message>
-    <message>
-        <source>Fill is solid unless a subpath is counter-directional</source>
-        <translation type="vanished">Betegarria solidoa da azpibide bat kontrako noranzkoa ez bada</translation>
-    </message>
-</context>
-<context>
     <name>PropertiesPalette_ShapeBase</name>
-    <message>
-        <source>Form</source>
-        <translation type="vanished">Inprimakia</translation>
-    </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="35"/>
         <source>Shape</source>
@@ -24813,7 +23067,7 @@ gardentasuna</translation>
     <message>
         <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="74"/>
         <source>Choose the shape of frame...</source>
-        <translation type="unfinished">Aukeratu markoaren forma...</translation>
+        <translation>Aukeratu markoaren forma...</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="77"/>
@@ -24826,45 +23080,29 @@ gardentasuna</translation>
         <translation>&amp;Editatu...</translation>
     </message>
     <message>
-        <source>Round Corners</source>
-        <translation type="vanished">Biribildu izkinak</translation>
-    </message>
-    <message>
-        <source>Text Flow Around Frame</source>
-        <translation type="vanished">Testu-fluxua markoaren inguruan</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="153"/>
         <source>Disabled</source>
         <translation>Desgaituta</translation>
     </message>
     <message>
-        <source>textFlowBtnGroup</source>
-        <translation type="vanished">textFlowBtnGroup</translation>
-    </message>
-    <message>
-        <source>Use &amp;Frame Shape</source>
-        <translation type="vanished">Erabili &amp;markoaren forma</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="95"/>
         <source>R&amp;ound Corners:</source>
-        <translation type="unfinished">Biribildu iz&amp;kinak:</translation>
+        <translation>Biribildu iz&amp;kinak:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="111"/>
         <source>Set radius of corner rounding</source>
-        <translation type="unfinished">Ezarri izkineko biribiltze-erradioa</translation>
+        <translation>Ezarri izkineko biribiltze-erradioa</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="123"/>
         <source>Text &amp;Flow Around Frame</source>
-        <translation type="unfinished">Testu-&amp;fluxua markoaren inguruan</translation>
+        <translation>Testu-&amp;fluxua markoaren inguruan</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="178"/>
         <source>Use Frame &amp;Shape</source>
-        <translation type="unfinished">Erabili &amp;markoaren forma</translation>
+        <translation>Erabili &amp;markoaren forma</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="203"/>
@@ -24889,7 +23127,7 @@ gardentasuna</translation>
     <message>
         <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="326"/>
         <source>&lt;qt&gt;Any path self-intersections or subpaths create holes in the fill&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Edozein bidek bere burua ebakitzen badu edo azpibideak baditu, zuloak sortuko dira betegarrian&lt;/qt&gt;</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="329"/>
@@ -24899,7 +23137,7 @@ gardentasuna</translation>
     <message>
         <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="342"/>
         <source>&lt;qt&gt;Fill is solid unless a subpath is counter-directional&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Betegarria solidoa da azpibideak kontrako noranzkoa ez badu&lt;/qt&gt;</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="345"/>
@@ -24932,10 +23170,6 @@ gardentasuna</translation>
 </context>
 <context>
     <name>PropertiesPalette_TableBase</name>
-    <message>
-        <source>Form</source>
-        <translation type="vanished">Inprimakia</translation>
-    </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_tablebase.ui" line="89"/>
         <source>Borders</source>
@@ -25067,10 +23301,6 @@ gardentasuna</translation>
         <translation>Lerroen arteko tartea</translation>
     </message>
     <message>
-        <source>Select the line spacing mode.</source>
-        <translation type="vanished">Hautatu lerroarte modua.</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/propertiespalette_text.cpp" line="668"/>
         <source>Paragraph style of currently selected text or paragraph</source>
         <translation>Hautatutako testuaren edo paragrafoaren paragrafo-estiloa</translation>
@@ -25121,13 +23351,6 @@ gardentasuna</translation>
     </message>
 </context>
 <context>
-    <name>PropertiesPalette_TextBase</name>
-    <message>
-        <source>Form</source>
-        <translation type="vanished">Inprimakia</translation>
-    </message>
-</context>
-<context>
     <name>PropertiesPalette_XYZ</name>
     <message>
         <location filename="../../scribus/ui/propertiespalette_xyz.cpp" line="214"/>
@@ -25137,10 +23360,6 @@ gardentasuna</translation>
         <location filename="../../scribus/ui/propertiespalette_xyz.cpp" line="511"/>
         <source>&amp;X-Pos:</source>
         <translation>&amp;X posizioa:</translation>
-    </message>
-    <message>
-        <source>&amp;Width</source>
-        <translation type="vanished">&amp;Zabalera</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_xyz.cpp" line="215"/>
@@ -25204,117 +23423,13 @@ gardentasuna</translation>
         <translation>Propietateak</translation>
     </message>
     <message>
-        <source>Name</source>
-        <translation type="vanished">Izena</translation>
-    </message>
-    <message>
-        <source>Geometry</source>
-        <translation type="vanished">Geometria</translation>
-    </message>
-    <message>
-        <source>&amp;Rotation:</source>
-        <translation type="vanished">&amp;Biraketa:</translation>
-    </message>
-    <message>
-        <source>Basepoint:</source>
-        <translation type="vanished">Oinarri-puntua:</translation>
-    </message>
-    <message>
-        <source>Level</source>
-        <translation type="vanished">Maila</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/propertiespalette_xyz.cpp" line="1290"/>
         <source> pt</source>
         <translation> pt</translation>
     </message>
-    <message>
-        <source>Name of selected object</source>
-        <translation type="vanished">Hautatutako objektuaren izena</translation>
-    </message>
-    <message>
-        <source>Horizontal position of current basepoint</source>
-        <translation type="vanished">Uneko oinarri-puntuaren posizio horizontala</translation>
-    </message>
-    <message>
-        <source>Vertical position of current basepoint</source>
-        <translation type="vanished">Uneko oinarri-puntuaren posizio bertikala</translation>
-    </message>
-    <message>
-        <source>Width</source>
-        <translation type="vanished">Zabalera</translation>
-    </message>
-    <message>
-        <source>Height</source>
-        <translation type="vanished">Altuera</translation>
-    </message>
-    <message>
-        <source>Rotation of object at current basepoint</source>
-        <translation type="vanished">Objektuaren biraketa uneko oinarri-puntuan</translation>
-    </message>
-    <message>
-        <source>Point from which measurements or rotation angles are referenced</source>
-        <translation type="vanished">Puntua (neurketak edo biraketako angeluak lantzeko)</translation>
-    </message>
-    <message>
-        <source>Group the selected objects</source>
-        <translation type="vanished">Elkartu hautatutako objektuak</translation>
-    </message>
-    <message>
-        <source>Ungroup the selected group</source>
-        <translation type="vanished">Banandu hautatutako taldea</translation>
-    </message>
-    <message>
-        <source>Flip Horizontal</source>
-        <translation type="vanished">Irauli horizontalki</translation>
-    </message>
-    <message>
-        <source>Flip Vertical</source>
-        <translation type="vanished">Irauli bertikalki</translation>
-    </message>
-    <message>
-        <source>Move one level up</source>
-        <translation type="vanished">Eraman maila bat gora</translation>
-    </message>
-    <message>
-        <source>Move one level down</source>
-        <translation type="vanished">Eraman maila bat behera</translation>
-    </message>
-    <message>
-        <source>Move to front</source>
-        <translation type="vanished">Eraman goraino</translation>
-    </message>
-    <message>
-        <source>Move to back</source>
-        <translation type="vanished">Eraman beheraino</translation>
-    </message>
-    <message>
-        <source>Lock or unlock the object</source>
-        <translation type="vanished">Blokeatu edo desblokeatu objektua</translation>
-    </message>
-    <message>
-        <source>Lock or unlock the size of the object</source>
-        <translation type="vanished">Blokeatu edo desblokeatu objektuaren tamaina</translation>
-    </message>
-    <message>
-        <source>Enable or disable exporting of the object</source>
-        <translation type="vanished">Gaitu edo desgaitu objektua esportatzea</translation>
-    </message>
-    <message>
-        <source>Keep the aspect ratio</source>
-        <translation type="vanished">Mantendu itxuraren erlazioa</translation>
-    </message>
-    <message>
-        <source>Indicates the level the object is on, 1 means the object is at the bottom</source>
-        <translation type="vanished">Objektua zein mailan dagoen adierazten du, 1 zenbakiak objektua behealdean dagoela esan nahi du</translation>
-    </message>
 </context>
 <context>
     <name>PropertiesPalette_XYZBase</name>
-    <message>
-        <source>Form</source>
-        <translation type="vanished">Inprimakia</translation>
-    </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="41"/>
         <source>Name</source>
@@ -25323,7 +23438,7 @@ gardentasuna</translation>
     <message>
         <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="65"/>
         <source>Name of selected object</source>
-        <translation type="unfinished">Hautatutako objektuaren izena</translation>
+        <translation>Hautatutako objektuaren izena</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="81"/>
@@ -25338,7 +23453,7 @@ gardentasuna</translation>
     <message>
         <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="132"/>
         <source>Horizontal position of current basepoint</source>
-        <translation type="unfinished">Uneko oinarri-puntuaren posizio horizontala</translation>
+        <translation>Uneko oinarri-puntuaren posizio horizontala</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="139"/>
@@ -25353,7 +23468,7 @@ gardentasuna</translation>
     <message>
         <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="159"/>
         <source>Vertical position of current basepoint</source>
-        <translation type="unfinished">Uneko oinarri-puntuaren posizio bertikala</translation>
+        <translation>Uneko oinarri-puntuaren posizio bertikala</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="166"/>
@@ -25378,12 +23493,12 @@ gardentasuna</translation>
     <message>
         <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="197"/>
         <source>Rotation of object at current basepoint</source>
-        <translation type="unfinished">Objektuaren biraketa uneko oinarri-puntuan</translation>
+        <translation>Objektuaren biraketa uneko oinarri-puntuan</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="207"/>
         <source>Point from which measurements or rotation angles are referenced</source>
-        <translation type="unfinished">Puntua (neurketak edo biraketako angeluak lantzeko)</translation>
+        <translation>Puntua (neurketak edo biraketako angeluak lantzeko)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="210"/>
@@ -25393,7 +23508,7 @@ gardentasuna</translation>
     <message>
         <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="226"/>
         <source>Keep the aspect ratio</source>
-        <translation type="unfinished">Mantendu itxuraren erlazioa</translation>
+        <translation>Mantendu itxuraren erlazioa</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="229"/>
@@ -25408,27 +23523,27 @@ gardentasuna</translation>
     <message>
         <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="276"/>
         <source>Move one level up</source>
-        <translation type="unfinished">Eraman maila bat gora</translation>
+        <translation>Eraman maila bat gora</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="292"/>
         <source>Move one level down</source>
-        <translation type="unfinished">Eraman maila bat behera</translation>
+        <translation>Eraman maila bat behera</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="308"/>
         <source>Move to front</source>
-        <translation type="unfinished">Eraman goraino</translation>
+        <translation>Eraman goraino</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="324"/>
         <source>Move to back</source>
-        <translation type="unfinished">Eraman beheraino</translation>
+        <translation>Eraman beheraino</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="334"/>
         <source>Indicates the level the object is on, 1 means the object is at the bottom</source>
-        <translation type="unfinished">Objektua zein mailan dagoen adierazten du, 1 zenbakiak objektua behealdean dagoela esan nahi du</translation>
+        <translation>Objektua zein mailan dagoen adierazten du, 1 zenbakiak objektua behealdean dagoela esan nahi du</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="337"/>
@@ -25438,37 +23553,37 @@ gardentasuna</translation>
     <message>
         <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="362"/>
         <source>Group the selected objects</source>
-        <translation type="unfinished">Elkartu hautatutako objektuak</translation>
+        <translation>Elkartu hautatutako objektuak</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="372"/>
         <source>Ungroup the selected group</source>
-        <translation type="unfinished">Banandu hautatutako taldea</translation>
+        <translation>Banandu hautatutako taldea</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="382"/>
         <source>Flip horizontally</source>
-        <translation type="unfinished">Irauli horizontalki</translation>
+        <translation>Irauli horizontalki</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="392"/>
         <source>Flip vertically</source>
-        <translation type="unfinished">Irauli bertikalki</translation>
+        <translation>Irauli bertikalki</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="402"/>
         <source>Lock or unlock the object</source>
-        <translation type="unfinished">Blokeatu edo desblokeatu objektua</translation>
+        <translation>Blokeatu edo desblokeatu objektua</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="412"/>
         <source>Enable or disable exporting of the object</source>
-        <translation type="unfinished">Gaitu edo desgaitu objektua esportatzea</translation>
+        <translation>Gaitu edo desgaitu objektua esportatzea</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="422"/>
         <source>Lock or unlock the size of the object</source>
-        <translation type="unfinished">Blokeatu edo desblokeatu objektuaren tamaina</translation>
+        <translation>Blokeatu edo desblokeatu objektuaren tamaina</translation>
     </message>
 </context>
 <context>
@@ -25585,7 +23700,7 @@ gardentasuna</translation>
     <message>
         <location filename="../../scribus/ui/propertywidget_distance.cpp" line="440"/>
         <source>Vertical Alignment:</source>
-        <translation type="unfinished"></translation>
+        <translation>Lerrokatze bertikala</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_distance.cpp" line="450"/>
@@ -25688,10 +23803,6 @@ gardentasuna</translation>
         <source>Bottom</source>
         <translation>Behean</translation>
     </message>
-    <message>
-        <source>Vertical Alignment</source>
-        <translation type="vanished">Lerrokatze bertikala</translation>
-    </message>
 </context>
 <context>
     <name>PropertyWidget_DistanceBase</name>
@@ -25791,10 +23902,6 @@ gardentasuna</translation>
 </context>
 <context>
     <name>PropertyWidget_DropCapBase</name>
-    <message>
-        <source>Form</source>
-        <translation type="vanished">Inprimakia</translation>
-    </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_dropcapbase.ui" line="23"/>
         <source>Height</source>
@@ -26022,10 +24129,6 @@ gardentasuna</translation>
 <context>
     <name>PropertyWidget_OrphansBase</name>
     <message>
-        <source>Form</source>
-        <translation type="vanished">Inprimakia</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/propertywidget_orphansbase.ui" line="20"/>
         <source>Ensure that first lines of a paragraph won&apos;t end up separated from the rest (known as widow/orphan control)</source>
         <translation>Ziurtatu paragrafo baten lehen lerroek ez direla paragrafotik bereiziko (alargunen/umezurtzen kontrola)</translation>
@@ -26060,10 +24163,6 @@ gardentasuna</translation>
 <context>
     <name>PropertyWidget_ParEffect</name>
     <message>
-        <source>Lines</source>
-        <translation type="vanished">Lerroak</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/propertywidget_pareffect.cpp" line="559"/>
         <location filename="../../scribus/ui/propertywidget_pareffect.h" line="99"/>
         <source>Drop Caps</source>
@@ -26076,18 +24175,14 @@ gardentasuna</translation>
         <translation>Buletdun zerrenda</translation>
     </message>
     <message>
-        <source>Bullet Char(s)</source>
-        <translation type="vanished">Bulet-karakterea(k)</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/propertywidget_pareffect.cpp" line="558"/>
         <source>Lines:</source>
-        <translation type="unfinished">Lerroak:</translation>
+        <translation>Lerroak:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_pareffect.cpp" line="561"/>
         <source>Bullet Char(s):</source>
-        <translation type="unfinished"></translation>
+        <translation>Bulet-karakterea(k):</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_pareffect.cpp" line="562"/>
@@ -26107,73 +24202,37 @@ gardentasuna</translation>
     <message>
         <location filename="../../scribus/ui/propertywidget_pareffect.cpp" line="565"/>
         <source>Level:</source>
-        <translation type="unfinished">Maila:</translation>
+        <translation>Maila:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_pareffect.cpp" line="566"/>
         <source>Set:</source>
-        <translation type="unfinished">Multzoa:</translation>
+        <translation>Multzoa:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_pareffect.cpp" line="567"/>
         <source>Format:</source>
-        <translation type="unfinished">Formatua:</translation>
+        <translation>Formatua:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_pareffect.cpp" line="568"/>
         <source>Start:</source>
-        <translation type="unfinished">Hasiera:</translation>
+        <translation>Hasiera:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_pareffect.cpp" line="569"/>
         <source>Prefix:</source>
-        <translation type="unfinished">Aurrizkia:</translation>
+        <translation>Aurrizkia:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_pareffect.cpp" line="570"/>
         <source>Suffix:</source>
-        <translation type="unfinished">Atzizkia:</translation>
-    </message>
-    <message>
-        <source>Level</source>
-        <translation type="vanished">Maila</translation>
-    </message>
-    <message>
-        <source>Set</source>
-        <translation type="vanished">Ezarri</translation>
-    </message>
-    <message>
-        <source>Format</source>
-        <translation type="vanished">Formatua</translation>
-    </message>
-    <message>
-        <source>Start</source>
-        <translation type="vanished">Hasiera</translation>
-    </message>
-    <message>
-        <source>Prefix</source>
-        <translation type="vanished">Aurrizkia</translation>
-    </message>
-    <message>
-        <source>Suffix</source>
-        <translation type="vanished">Atzizkia</translation>
-    </message>
-    <message>
-        <source>Offset</source>
-        <translation type="vanished">Desplazamendua</translation>
+        <translation>Atzizkia:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_pareffect.cpp" line="572"/>
         <source>Auto-Indent</source>
         <translation>Koska automatikoa</translation>
-    </message>
-    <message>
-        <source>Char Style</source>
-        <translation type="vanished">Karaktere-estiloa</translation>
-    </message>
-    <message>
-        <source>Choose chracter style or leave blank for use default paragraph style</source>
-        <translation type="vanished">Hautatu karaktere-estiloa edo utzi hutsik paragrafo-estilo lehenetsia erabiltzeko</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_pareffect.h" line="98"/>
@@ -26193,12 +24252,12 @@ gardentasuna</translation>
     <message>
         <location filename="../../scribus/ui/propertywidget_pareffect.cpp" line="573"/>
         <source>Offset:</source>
-        <translation type="unfinished">Desplazamendua:</translation>
+        <translation>Desplazamendua:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_pareffect.cpp" line="574"/>
         <source>Char Style:</source>
-        <translation type="unfinished"></translation>
+        <translation>Karaktere-estiloa:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_pareffect.cpp" line="575"/>
@@ -26208,10 +24267,6 @@ gardentasuna</translation>
 </context>
 <context>
     <name>PropertyWidget_ParEffectBase</name>
-    <message>
-        <source>Form</source>
-        <translation type="vanished">Inprimakia</translation>
-    </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_pareffectbase.ui" line="270"/>
         <source>Effect Parameters</source>
@@ -26387,11 +24442,6 @@ gardentasuna</translation>
         <translation>Hautatutako testuaren kolorea. Testuaren eskemaren dekorazioa gaituta badago, kolore hau betegarri-kolorea izango da. Testuaren itzal paraleloa gaituta badago, hau gaineragoko kolorea izango da.</translation>
     </message>
     <message>
-        <source>Color of text stroke and/or drop shadow, depending which is chosen.If both are chosen, then they share the same color.</source>
-        <translation type="vanished">Testuaren trazua edota itzalaren kolorea, aukeratzen denaren arabera. 
-Biak aukeratzen badira, kolore berdina partekatuko dute.</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/propertywidget_textcolor.cpp" line="551"/>
         <source>Background color of selected text</source>
         <translation type="unfinished"></translation>
@@ -26409,7 +24459,7 @@ Biak aukeratzen badira, kolore berdina partekatuko dute.</translation>
     <message>
         <location filename="../../scribus/ui/propertywidget_textcolor.cpp" line="554"/>
         <source>Saturation of color of text background</source>
-        <translation type="unfinished"></translation>
+        <translation>Testuaren atzeko planoaren kolore-saturazioa</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_textcolor.cpp" line="556"/>
@@ -26490,10 +24540,6 @@ Document Liberation Project-era http://www.documentliberation.org</translation>
         <location filename="../../scribus/plugins/scriptplugin/pconsole.ui" line="13"/>
         <source>Script Console</source>
         <translation>Script kontsola</translation>
-    </message>
-    <message>
-        <source>Write your commands here. A selection is processed as script</source>
-        <translation type="vanished">Idatzi zure komandoak hemen. Hautapen bat scrip gisa prozesatzen da</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/pconsole.cpp" line="135"/>
@@ -26661,10 +24707,6 @@ informazio gehiagorako.</translation>
         <location filename="../../scribus/translationdummy.cpp" line="152"/>
         <source>&amp;Add to Custom Colors</source>
         <translation>&amp;Gehitu kolore pertsonalizatuei</translation>
-    </message>
-    <message>
-        <source>Select color</source>
-        <translation type="vanished">Hautatu kolorea</translation>
     </message>
     <message>
         <location filename="../../scribus/translationdummy.cpp" line="147"/>
@@ -27237,10 +25279,6 @@ garatzeko.&lt;/p&gt;
 <context>
     <name>QObject</name>
     <message>
-        <source>Spell check (Aspell)</source>
-        <translation type="vanished">Ortografia-egiaztatzailea (Aspell)</translation>
-    </message>
-    <message>
         <location filename="../../scribus/scribuscore.cpp" line="231"/>
         <source>Initializing...</source>
         <translation>Hasieratzen...</translation>
@@ -27613,7 +25651,7 @@ Kanpoko estekak</translation>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="131"/>
         <source>Hindi</source>
-        <translation type="unfinished"></translation>
+        <translation>Hindia</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="133"/>
@@ -27633,7 +25671,7 @@ Kanpoko estekak</translation>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="139"/>
         <source>Kabyle</source>
-        <translation type="unfinished"></translation>
+        <translation>Kabylera</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="141"/>
@@ -27643,7 +25681,7 @@ Kanpoko estekak</translation>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="142"/>
         <source>Kannada</source>
-        <translation type="unfinished"></translation>
+        <translation>Kannada</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="143"/>
@@ -27683,7 +25721,7 @@ Kanpoko estekak</translation>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="162"/>
         <source>Somali</source>
-        <translation type="unfinished"></translation>
+        <translation>Somaliera</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="166"/>
@@ -28247,10 +26285,6 @@ Kanpoko estekak</translation>
         <translation>Huts egin du ezarpenak egiaztatzean: %1</translation>
     </message>
     <message>
-        <source>Unable to read settings XML:</source>
-        <translation type="vanished">Ezin da ezarpenen XMLa irakurri:</translation>
-    </message>
-    <message>
         <location filename="../../scribus/pdfoptionsio.cpp" line="317"/>
         <source>%1 (line %2 col %3)</source>
         <comment>Load PDF settings</comment>
@@ -28290,11 +26324,6 @@ Kanpoko estekak</translation>
         <source>found %1 &lt;%2&gt; nodes, need 1.</source>
         <comment>Load PDF settings</comment>
         <translation>%1 &lt;%2&gt; nodo aurkituak, 1 behar da.</translation>
-    </message>
-    <message>
-        <source>unexpected null &lt;%2&gt; node</source>
-        <comment>Load PDF settings</comment>
-        <translation type="vanished">espero ez zen &lt;%2&gt; nodo nulua</translation>
     </message>
     <message>
         <location filename="../../scribus/pdfoptionsio.cpp" line="550"/>
@@ -28394,11 +26423,6 @@ Kanpoko estekak</translation>
         <location filename="../../scribus/scribus.cpp" line="2377"/>
         <source>Document Template: </source>
         <translation>Dokumentu-txantiloia: </translation>
-    </message>
-    <message>
-        <source>Failed to open document.</source>
-        <comment>python error</comment>
-        <translation type="vanished">Ezin izan da dokumentua ireki.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmddoc.cpp" line="215"/>
@@ -28630,18 +26654,18 @@ not currently documented in the docstring for each function.
 without a document to operate on.
 - If you do not pass a frame name to a function that requires one,
 the function will use the currently selected frame, if any, or
-raise a NoValidObjectError if it can&apos;t find anything to operate
+raise a NoValidObjectError if it can't find anything to operate
 on.
 - Many functions will raise WrongFrameTypeError if you try to use them
 on a frame type that they do not make sense with. For example, setting
-the text color on a graphics frame doesn&apos;t make sense, and will result
+the text color on a graphics frame doesn't make sense, and will result
 in this exception being raised.
 - Errors resulting from calls to the underlying Python API will be
 passed through unaltered. As such, the list of exceptions thrown by
 any function as provided here and in its docstring is incomplete.
 
 Details of what exceptions each function may throw are provided on the
-function&apos;s documentation, though as with most Python code this list
+function's documentation, though as with most Python code this list
 is not exhaustive due to exceptions from called functions.
 </source>
         <translation>Scribus-eko Python interfazeko modulua
@@ -28737,22 +26761,6 @@ hori ez den osoa, deitutako funtzioetako salbuespenen ondorioz.
         <location filename="../../scribus/fonts/sfnt.cpp" line="450"/>
         <source>extracting face %1 from font %2 (offset=%3, nTables=%4)</source>
         <translation>%1 kanporatzen %2 letra-tipotik (despl.=%3, nTaula=%4)</translation>
-    </message>
-    <message>
-        <source>memcpy header: %1 %2 %3</source>
-        <translation type="vanished">memcpy goiburua: %1 %2 %3</translation>
-    </message>
-    <message>
-        <source>table &apos;%1&apos;</source>
-        <translation type="vanished">&apos;%1&apos; taula</translation>
-    </message>
-    <message>
-        <source>memcpy table: %1 %2 %3</source>
-        <translation type="vanished">memcpy taula: %1 %2 %3</translation>
-    </message>
-    <message>
-        <source>memcpy offset: %1 %2 %3</source>
-        <translation type="vanished">memcpy desplazamendua: %1 %2 %3</translation>
     </message>
     <message>
         <location filename="../../scribus/main_nix.cpp" line="119"/>
@@ -28948,14 +26956,6 @@ Jarraitzea nahi duzu?</translation>
         <location filename="../../scribus/pslib.cpp" line="1583"/>
         <source>Printing File</source>
         <translation>Fitxategia inprimatzen</translation>
-    </message>
-    <message>
-        <source>C&amp;reate</source>
-        <translation type="vanished">&amp;Sortu</translation>
-    </message>
-    <message>
-        <source>&amp;Import</source>
-        <translation type="vanished">I&amp;nportatu</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="168"/>
@@ -29438,10 +27438,6 @@ Jarraitzea nahi duzu?</translation>
 %1 ?</translation>
     </message>
     <message>
-        <source>Encapsulated PostScript &quot;*.eps&quot;</source>
-        <translation type="vanished">Encapsulated PostScript &quot;*.eps&quot;</translation>
-    </message>
-    <message>
         <location filename="../../scribus/util_formats.cpp" line="82"/>
         <source>GIF</source>
         <translation>GIF</translation>
@@ -29465,38 +27461,6 @@ Jarraitzea nahi duzu?</translation>
         <location filename="../../scribus/util_formats.cpp" line="88"/>
         <source>PNG</source>
         <translation>PNG</translation>
-    </message>
-    <message>
-        <source>PostScript &quot;*.ps&quot;</source>
-        <translation type="vanished">PostScript &quot;*.ps&quot;</translation>
-    </message>
-    <message>
-        <source>Adobe Photoshop &quot;*.psd&quot;</source>
-        <translation type="vanished">Adobe Photoshop &quot;*.psd&quot;</translation>
-    </message>
-    <message>
-        <source>Windows Meta File &quot;*.wmf&quot;</source>
-        <translation type="vanished">Windows Meta File &quot;*.wmf&quot;</translation>
-    </message>
-    <message>
-        <source>Scalable Vector Graphics &quot;*.svg&quot;</source>
-        <translation type="vanished">Scalable Vector Graphics &quot;*.svg&quot;</translation>
-    </message>
-    <message>
-        <source>Adobe Illustrator &quot;*.ai&quot;</source>
-        <translation type="vanished">Adobe Illustrator &quot;*.ai&quot;</translation>
-    </message>
-    <message>
-        <source>GraphicsMagick File</source>
-        <translation type="vanished">GraphicsMagick fitxategia</translation>
-    </message>
-    <message>
-        <source>UniConvertor File</source>
-        <translation type="vanished">UniConvertor fitxategia</translation>
-    </message>
-    <message>
-        <source>Macintosh Pict File</source>
-        <translation type="vanished">Macintosh Pict File</translation>
     </message>
     <message>
         <location filename="../../scribus/util_formats.cpp" line="92"/>
@@ -29730,10 +27694,6 @@ Therefore the image may be not correct</source>
         <translation>%1 konfigurazio-fitxategia irekitzeak huts egin du! %2</translation>
     </message>
     <message>
-        <source>Cvg Importer</source>
-        <translation type="vanished">Cvg inportatzailea</translation>
-    </message>
-    <message>
         <location filename="../../scribus/plugins/import/pct/importpctplugin.cpp" line="66"/>
         <source>Pict Importer</source>
         <translation>Pict inportatzailea</translation>
@@ -29814,14 +27774,6 @@ Therefore the image may be not correct</source>
         <location filename="../../scribus/util_formats.cpp" line="87"/>
         <source>PGF</source>
         <translation>PGF</translation>
-    </message>
-    <message>
-        <source>Calamus CVG File</source>
-        <translation type="vanished">Calamus CVG fitxategia</translation>
-    </message>
-    <message>
-        <source>Word Perfect WPG File</source>
-        <translation type="vanished">Word Perfect WPG fitxategia</translation>
     </message>
     <message>
         <location filename="../../scribus/util_formats.cpp" line="79"/>
@@ -30392,10 +28344,6 @@ Therefore the image may be not correct</source>
         <translation>Corel Draw inportatzailea</translation>
     </message>
     <message>
-        <source>Open Raster Files</source>
-        <translation type="vanished">Open Raster fitxategiak</translation>
-    </message>
-    <message>
         <location filename="../../scribus/pdfoptionsio.cpp" line="542"/>
         <source>unexpected null &lt;%1&gt; node</source>
         <comment>Load PDF settings</comment>
@@ -30468,18 +28416,10 @@ Therefore the image may be not correct</source>
         <translation>SVM inportatzailea</translation>
     </message>
     <message>
-        <source>Qt supported File</source>
-        <translation type="vanished">Qt-k onartutako fitxategia</translation>
-    </message>
-    <message>
         <location filename="../../scribus/plugins/shapes/shapeplugin.cpp" line="73"/>
         <location filename="../../scribus/plugins/shapes/shapeplugin.cpp" line="85"/>
         <source>Custom Shapes</source>
         <translation>Forma pertsonalizatuak</translation>
-    </message>
-    <message>
-        <source>CustomShapes</source>
-        <translation type="vanished">CustomShapes</translation>
     </message>
     <message>
         <location filename="../../scribus/util_formats.cpp" line="81"/>
@@ -30510,14 +28450,6 @@ Therefore the image may be not correct</source>
         <location filename="../../scribus/util_formats.cpp" line="78"/>
         <source>Adobe Illustrator</source>
         <translation>Adobe Illustrator</translation>
-    </message>
-    <message>
-        <source>Calamus CVG</source>
-        <translation type="vanished">Calamus CVG</translation>
-    </message>
-    <message>
-        <source>Word Perfect WPG</source>
-        <translation type="vanished">Word Perfect WPG</translation>
     </message>
     <message>
         <location filename="../../scribus/util_formats.cpp" line="84"/>
@@ -30618,7 +28550,7 @@ Therefore the image may be not correct</source>
     <message>
         <location filename="../../scribus/plugins/gettext/odt2im/importodt.cpp" line="32"/>
         <source>ODT Document</source>
-        <translation type="unfinished"></translation>
+        <translation>ODT dokumentua</translation>
     </message>
 </context>
 <context>
@@ -30789,7 +28721,7 @@ Hautatu beste bat.</translation>
     <message>
         <location filename="../../scribus/ui/recoverdialog.cpp" line="153"/>
         <source>Autosave</source>
-        <translation type="unfinished">Gorde automatikoki</translation>
+        <translation>Gorde automatikoki</translation>
     </message>
 </context>
 <context>
@@ -30977,10 +28909,6 @@ Hautatu beste bat.</translation>
 </context>
 <context>
     <name>RotationWidget</name>
-    <message>
-        <source>Form</source>
-        <translation type="vanished">Inprimakia</translation>
-    </message>
     <message>
         <location filename="../../scribus/ui/rotationsetter.ui" line="24"/>
         <source>Rotation:</source>
@@ -31269,10 +29197,6 @@ Hautatu beste bat.</translation>
         <translation>Formatu aurreratua</translation>
     </message>
     <message>
-        <source>TextLabel</source>
-        <translation type="vanished">TestuEtiketa</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/smcstylewidget.ui" line="447"/>
         <location filename="../../scribus/ui/smcstylewidget.cpp" line="130"/>
         <source>Colors</source>
@@ -31331,12 +29255,12 @@ Hautatu beste bat.</translation>
     <message>
         <location filename="../../scribus/ui/smcstylewidget.cpp" line="108"/>
         <source>Background Color</source>
-        <translation type="unfinished"></translation>
+        <translation>Atzeko planoaren kolorea</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smcstylewidget.cpp" line="109"/>
         <source>Background Shade</source>
-        <translation type="unfinished"></translation>
+        <translation>Atzeko planoaren itzala</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smcstylewidget.cpp" line="298"/>
@@ -31397,10 +29321,6 @@ Hautatu beste bat.</translation>
         <translation>Koloreak</translation>
     </message>
     <message>
-        <source>TextLabel</source>
-        <translation type="vanished">Testu-etiketa</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/smcellstylewidget.ui" line="68"/>
         <source>Fill Color</source>
         <translation>Betegarri-kolorea</translation>
@@ -31409,10 +29329,6 @@ Hautatu beste bat.</translation>
         <location filename="../../scribus/ui/smcellstylewidget.ui" line="19"/>
         <source>Based On:</source>
         <translation>Honetan oinarrituta:</translation>
-    </message>
-    <message>
-        <source>Text</source>
-        <translation type="vanished">Testua</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smcellstylewidget.ui" line="88"/>
@@ -31554,38 +29470,6 @@ Hautatu beste bat.</translation>
         <translation>Lotura biribila</translation>
     </message>
     <message>
-        <source>Add a new line</source>
-        <translation type="vanished">Gehitu lerro berria</translation>
-    </message>
-    <message>
-        <source>Remove a line</source>
-        <translation type="vanished">Kendu lerro bat</translation>
-    </message>
-    <message>
-        <source>Line style</source>
-        <translation type="vanished">Lerro-estiloa</translation>
-    </message>
-    <message>
-        <source>Line width</source>
-        <translation type="vanished">Lerro-zabalera</translation>
-    </message>
-    <message>
-        <source>End style</source>
-        <translation type="vanished">Amaiera-estiloa</translation>
-    </message>
-    <message>
-        <source>Join style</source>
-        <translation type="vanished">Lotura-estiloa</translation>
-    </message>
-    <message>
-        <source>Line color</source>
-        <translation type="vanished">Lerro-kolorea</translation>
-    </message>
-    <message>
-        <source>Line shade</source>
-        <translation type="vanished">Lerro-itzaleztadura</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/smlinestylewidget.ui" line="178"/>
         <source>%</source>
         <translation>%</translation>
@@ -31623,10 +29507,6 @@ Hautatu beste bat.</translation>
         <translation>Lerrokatu oinarri-lerroen saretarekin</translation>
     </message>
     <message>
-        <source>Distances and Alignment</source>
-        <translation type="vanished">Distantzeak eta lerrokatzea</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/smpstylewidget.ui" line="1024"/>
         <location filename="../../scribus/ui/smpstylewidget.cpp" line="210"/>
         <source>Drop Caps</source>
@@ -31659,10 +29539,6 @@ Hautatu beste bat.</translation>
         <location filename="../../scribus/ui/smpstylewidget.cpp" line="214"/>
         <source>Distance from Text:</source>
         <translation>Distantzia testutik:</translation>
-    </message>
-    <message>
-        <source>Alignment</source>
-        <translation type="vanished">Lerrokatzea</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.cpp" line="109"/>
@@ -31731,7 +29607,7 @@ Hautatu beste bat.</translation>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.ui" line="590"/>
         <source>Colors</source>
-        <translation type="unfinished">Koloreak</translation>
+        <translation>Koloreak</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.ui" line="1199"/>
@@ -31905,47 +29781,15 @@ Uneko zuriune-balioaren ehuneko gisa adierazita.</translation>
         <translation>Buletak</translation>
     </message>
     <message>
-        <source>Bullet Char/String</source>
-        <translation type="vanished">Buleten karakterea/katea</translation>
-    </message>
-    <message>
-        <source>Char Table</source>
-        <translation type="vanished">Karaktere-taula</translation>
-    </message>
-    <message>
-        <source>Numeration</source>
-        <translation type="vanished">Zenbakitzea</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/smpstylewidget.ui" line="812"/>
         <source>Set:</source>
         <translation>Multzoa:</translation>
-    </message>
-    <message>
-        <source>Level</source>
-        <translation type="vanished">Maila</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.ui" line="852"/>
         <location filename="../../scribus/ui/smpstylewidget.cpp" line="195"/>
         <source>Create New Set:</source>
         <translation>Sortu multzo berria:</translation>
-    </message>
-    <message>
-        <source>Nums Format</source>
-        <translation type="vanished">Zenbakien formatua</translation>
-    </message>
-    <message>
-        <source>Start with</source>
-        <translation type="vanished">Hasi honekin:</translation>
-    </message>
-    <message>
-        <source>Prefix</source>
-        <translation type="vanished">Aurrizkia</translation>
-    </message>
-    <message>
-        <source>Suffix</source>
-        <translation type="vanished">Atzizkia</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.ui" line="963"/>
@@ -31978,10 +29822,6 @@ Uneko zuriune-balioaren ehuneko gisa adierazita.</translation>
         <location filename="../../scribus/ui/smpstylewidget.cpp" line="124"/>
         <source>Hang Paragraph Effect before paragraph indent</source>
         <translation>Paragrafo esekiaren efektua paragrafo-koskaren aurretik</translation>
-    </message>
-    <message>
-        <source>Numbering Style</source>
-        <translation type="vanished">Zenbakitze-estiloa</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.cpp" line="321"/>
@@ -32032,12 +29872,12 @@ Uneko zuriune-balioaren ehuneko gisa adierazita.</translation>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.cpp" line="146"/>
         <source>Background Color</source>
-        <translation type="unfinished"></translation>
+        <translation>Atzeko planoaren kolorea</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.cpp" line="147"/>
         <source>Background Shade</source>
-        <translation type="unfinished"></translation>
+        <translation>Atzeko planoaren itzala</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.cpp" line="233"/>
@@ -32083,7 +29923,7 @@ Uneko zuriune-balioaren ehuneko gisa adierazita.</translation>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.cpp" line="644"/>
         <source>Shade</source>
-        <translation type="unfinished">Itzaldura</translation>
+        <translation>Itzaldura</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.ui" line="719"/>
@@ -32347,10 +30187,6 @@ Uneko zuriune-balioaren ehuneko gisa adierazita.</translation>
         <translation>Koloreak</translation>
     </message>
     <message>
-        <source>TextLabel</source>
-        <translation type="vanished">TestuEtiketa</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/smtablestylewidget.ui" line="62"/>
         <source>Fill Color</source>
         <translation>Kolorea</translation>
@@ -32359,10 +30195,6 @@ Uneko zuriune-balioaren ehuneko gisa adierazita.</translation>
         <location filename="../../scribus/ui/smtablestylewidget.ui" line="19"/>
         <source>Based On:</source>
         <translation>Honetan oinarrituta:</translation>
-    </message>
-    <message>
-        <source>Text</source>
-        <translation type="vanished">Testua</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smtablestylewidget.cpp" line="78"/>
@@ -32518,10 +30350,6 @@ Kontuz: honek fitxategi-tamaina handituko du!</translation>
         <translation>Esportatu orrialdearen atzeko planoa</translation>
     </message>
     <message>
-        <source>Adds the Page itself as background to the SVG.</source>
-        <translation type="vanished">Gehitu orrialdea bera SVGaren atzeko plano gisa.</translation>
-    </message>
-    <message>
         <location filename="../../scribus/plugins/export/svgexplugin/svgexplugin.cpp" line="151"/>
         <source>Adds the Page itself as background to the SVG</source>
         <translation>Gehitu orrialdea bera SVGaren atzeko plano gisa</translation>
@@ -32567,21 +30395,6 @@ beraien bektore-datuak Scribus objektuetan bihurtuz.</translation>
         <source>Short Words</source>
         <comment>short words plugin</comment>
         <translation>Laburdurak</translation>
-    </message>
-    <message>
-        <source>Only selected frames processed.</source>
-        <comment>short words plugin</comment>
-        <translation type="vanished">Prozesatutako hautatutako markoak soilik.</translation>
-    </message>
-    <message>
-        <source>Only actual page processed.</source>
-        <comment>short words plugin</comment>
-        <translation type="vanished">Prozesatutako uneko orrialdea soilik</translation>
-    </message>
-    <message>
-        <source>All items in document processed.</source>
-        <comment>short words plugin</comment>
-        <translation type="vanished">Prozesatutako dokumentuko elementu guztiak</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/short-words/swdialog.ui" line="14"/>
@@ -32697,10 +30510,6 @@ beraien bektore-datuak Scribus objektuetan bihurtuz.</translation>
         <location filename="../../scribus/plugins/short-words/swprefsgui.cpp" line="96"/>
         <source>Reload system wide configuration and remove user defined one</source>
         <translation>Birkargatu konfigurazio orokorra eta kendu erabiltzaileak definitutakoa</translation>
-    </message>
-    <message>
-        <source>Edit custom configuration. If you save it, it will be used over system wide configuration</source>
-        <translation type="vanished">Edit custom configuration. If you save it, it will be used over system wide configuration</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/short-words/swprefsgui.cpp" line="110"/>
@@ -32986,11 +30795,6 @@ gainean erabiliko da.</translation>
         <translation>Nabarmendu</translation>
     </message>
     <message>
-        <source>None</source>
-        <comment>highlight</comment>
-        <translation type="vanished">Bat ere ez</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/annot.ui" line="604"/>
         <source>Invert</source>
         <translation>Alderantzikatu</translation>
@@ -33265,10 +31069,6 @@ gainean erabiliko da.</translation>
         <location filename="../../scribus/ui/annot.ui" line="1374"/>
         <source>Field is formatted as:</source>
         <translation>Eremuak formatu hau du:</translation>
-    </message>
-    <message>
-        <source>Plain</source>
-        <translation type="vanished">Soila</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/annot.ui" line="1387"/>
@@ -34079,10 +31879,6 @@ gainean erabiliko da.</translation>
         <translation>&amp;PDF aukerak</translation>
     </message>
     <message>
-        <source>C&amp;onvert To</source>
-        <translation type="vanished">Bi&amp;hurtu hona:</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/scmwmenumanager.cpp" line="64"/>
         <source>Character</source>
         <translation>Karakterea</translation>
@@ -34575,10 +32371,6 @@ Biraketa: %4</translation>
         <translation>&amp;PDF aukerak</translation>
     </message>
     <message>
-        <source>C&amp;onvert To</source>
-        <translation type="vanished">Bi&amp;hurtu hona:</translation>
-    </message>
-    <message>
         <location filename="../../scribus/scribus.cpp" line="2156"/>
         <location filename="../../scribus/scribus.cpp" line="2196"/>
         <location filename="../../scribus/scribus.cpp" line="3780"/>
@@ -34731,14 +32523,6 @@ Biraketa: %4</translation>
         <location filename="../../scribus/scribus.cpp" line="6242"/>
         <source>Size</source>
         <translation>Tamaina</translation>
-    </message>
-    <message>
-        <source>&amp;Shade:</source>
-        <translation type="vanished">&amp;Itzaldura:</translation>
-    </message>
-    <message>
-        <source>Shade</source>
-        <translation type="vanished">Itzaldura</translation>
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="6607"/>
@@ -34927,10 +32711,6 @@ Inprimatze aurreko egiaztatzailea erabil dezakezu haiek zuzentzeko.</translation
         <translation>Ikurra editatzen: %1</translation>
     </message>
     <message>
-        <source>Close</source>
-        <translation type="vanished">Itxi</translation>
-    </message>
-    <message>
         <location filename="../../scribus/scribus.cpp" line="1356"/>
         <source>Unknown</source>
         <translation>Ezezaguna</translation>
@@ -35042,7 +32822,7 @@ Inprimatze aurreko egiaztatzailea erabil dezakezu haiek zuzentzeko.</translation
     <message>
         <location filename="../../scribus/scribus.cpp" line="1000"/>
         <source>S&amp;paces &amp;&amp; Breaks</source>
-        <translation type="unfinished"></translation>
+        <translation>Z&amp;uriuneak eta etenak</translation>
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="1055"/>
@@ -35053,10 +32833,6 @@ Inprimatze aurreko egiaztatzailea erabil dezakezu haiek zuzentzeko.</translation
         <location filename="../../scribus/scribus.cpp" line="1064"/>
         <source>Preview</source>
         <translation>Aurrebista</translation>
-    </message>
-    <message>
-        <source>Measures</source>
-        <translation type="vanished">Neurketak</translation>
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="1072"/>
@@ -35072,10 +32848,6 @@ Inprimatze aurreko egiaztatzailea erabil dezakezu haiek zuzentzeko.</translation
         <location filename="../../scribus/scribus.cpp" line="1087"/>
         <source>Grids and Guides</source>
         <translation>Saretak eta gidak</translation>
-    </message>
-    <message>
-        <source>S&amp;paces / Breaks</source>
-        <translation type="vanished">Z&amp;uriuneak eta etenak</translation>
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="1235"/>
@@ -35158,18 +32930,10 @@ Inprimatze aurreko egiaztatzailea erabil dezakezu haiek zuzentzeko.</translation
 <context>
     <name>ScribusQApp</name>
     <message>
-        <source>Invalid argument: </source>
-        <translation type="vanished">Baliogabeko argumentua: </translation>
-    </message>
-    <message>
         <location filename="../../scribus/scribusapp.cpp" line="299"/>
         <location filename="../../scribus/scribusapp.cpp" line="314"/>
         <source>File %1 does not exist, aborting.</source>
         <translation>%1 fitxategia ez da existitzen, abortatzen.</translation>
-    </message>
-    <message>
-        <source>Usage: scribus [option ... ] [file]</source>
-        <translation type="vanished">Erabilera: scribus [aukera ... ] [fitxategia]</translation>
     </message>
     <message>
         <location filename="../../scribus/scribusapp.cpp" line="577"/>
@@ -35205,10 +32969,6 @@ Inprimatze aurreko egiaztatzailea erabil dezakezu haiek zuzentzeko.</translation
         <location filename="../../scribus/scribusapp.cpp" line="587"/>
         <source>Output version information and exit</source>
         <translation>Bistaratu bertsioaren informazioa eta irten</translation>
-    </message>
-    <message>
-        <source>Use right to left dialog button ordering (eg. Cancel/No/Yes instead of Yes/No/Cancel)</source>
-        <translation type="vanished">Erabili eskuinetik ezkerrerako botoi-ordena elkarrizketa-koadroetan (adib. Utzi/Ez/Bai eta ez Bai/Ez/Utzi)</translation>
     </message>
     <message>
         <location filename="../../scribus/scribusapp.cpp" line="584"/>
@@ -35266,21 +33026,9 @@ Inprimatze aurreko egiaztatzailea erabil dezakezu haiek zuzentzeko.</translation
         <translation>Zenbakiak</translation>
     </message>
     <message>
-        <source>Stop the showing of the splashscreen on startup. Writes an empty file called .neversplash in ~/.scribus.</source>
-        <translation type="vanished">Ez erakutsi harrera-pantaila abioan. .neversplash izeneko fitxategi huts bat idazten du ~/.scribus direktorioan</translation>
-    </message>
-    <message>
-        <source>Download a file from the Scribus website and show the latest available version.</source>
-        <translation type="vanished">Deskargatu fitxategi bat Scribus-en webgunetik eta erakutsi eskuragarri dagoen azken bertsioa.</translation>
-    </message>
-    <message>
         <location filename="../../scribus/scribusapp.cpp" line="594"/>
         <source>Display a console window</source>
         <translation>Erautsi kontsola-leiho bat</translation>
-    </message>
-    <message>
-        <source>Show location ICC profile information on console while starting</source>
-        <translation type="vanished">Erakutsi ICC profilen kokapen-informazioa kontsolan abioan</translation>
     </message>
     <message>
         <location filename="../../scribus/scribusapp.cpp" line="293"/>
@@ -35291,10 +33039,6 @@ Inprimatze aurreko egiaztatzailea erabil dezakezu haiek zuzentzeko.</translation
         <location filename="../../scribus/scribusapp.cpp" line="598"/>
         <source>Run unit tests and exit</source>
         <translation>Exekutatu unitate-probak eta irten</translation>
-    </message>
-    <message>
-        <source>Run filename in Python scripter</source>
-        <translation type="vanished">Exekutatu fitxategi-izena Python Scripter-en</translation>
     </message>
     <message>
         <location filename="../../scribus/scribusapp.cpp" line="589"/>
@@ -35317,25 +33061,9 @@ Inprimatze aurreko egiaztatzailea erabil dezakezu haiek zuzentzeko.</translation
         <translation>Deskargatu fitxategi bat Scribus-en webgunetik eta erakutsi eskuragarri dagoen azken bertsioa.</translation>
     </message>
     <message>
-        <source>Invalid argument use: &apos;%1&apos; requires to be followed by &lt;argument&gt; [value]</source>
-        <translation type="vanished">Argumentuaren erabilera baliogabea: &apos;%1&apos;-ek behar du &lt;argumentua&gt; [balioa] izatea jarraian</translation>
-    </message>
-    <message>
         <location filename="../../scribus/scribusapp.cpp" line="576"/>
         <source>Usage: scribus [options] [files]</source>
         <translation>Erabilera: scribus [aukerak] [fitxategia]</translation>
-    </message>
-    <message>
-        <source>argument</source>
-        <translation type="vanished">argumentua</translation>
-    </message>
-    <message>
-        <source>value</source>
-        <translation type="vanished">balioa</translation>
-    </message>
-    <message>
-        <source>Argument passed on to python script, with an optional value, no effect without -py</source>
-        <translation type="vanished">Python script-ari pasatutako argumentua, aukerako balioarekin, efekturik ez -py gabe</translation>
     </message>
     <message>
         <location filename="../../scribus/scribusapp.cpp" line="590"/>
@@ -35408,10 +33136,6 @@ Inprimatze aurreko egiaztatzailea erabil dezakezu haiek zuzentzeko.</translation
         <translation>Desgaituta</translation>
     </message>
     <message>
-        <source>Linking Text Frames</source>
-        <translation type="vanished">Testu-markoak estekatzen</translation>
-    </message>
-    <message>
         <location filename="../../scribus/scribusview.cpp" line="3171"/>
         <source>Cannot Convert In-Use Item</source>
         <translation>Ezin da erabiltzen dagoen elementua bihurtu</translation>
@@ -35438,21 +33162,9 @@ eragiketa saltatu egingo da</translation>
         <translation>CMS aktibatuta dago. Hortaz, koloreen bistaratzea beharbada ez dator bat ikusmena gaizki dutenen pertzepzioarekin</translation>
     </message>
     <message>
-        <source>Enter Object Size</source>
-        <translation type="vanished">Sartu objektu-tamaina</translation>
-    </message>
-    <message>
-        <source>You are trying to link a frame to itself.</source>
-        <translation type="vanished">Marko bat bere buruarekin estekatzen saiatzen ari zara.</translation>
-    </message>
-    <message>
         <location filename="../../scribus/scribusview.cpp" line="228"/>
         <source>End Edit</source>
         <translation>Amaitu edizioa</translation>
-    </message>
-    <message>
-        <source>Click here to leave this special edit mode.</source>
-        <translation type="vanished">Klik hemen edizio-modu berezi hau uzteko</translation>
     </message>
     <message>
         <location filename="../../scribus/scribusview.cpp" line="258"/>
@@ -35727,10 +33439,6 @@ helbidera bidaliko bazenu.</translation>
         <location filename="../../scribus/plugins/scriptplugin/scripterprefsgui.cpp" line="145"/>
         <source>Locate Startup Script</source>
         <translation>Kokatu abioko script-a</translation>
-    </message>
-    <message>
-        <source>Form</source>
-        <translation type="vanished">Inprimakia</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/scripterprefsgui.ui" line="185"/>
@@ -36305,10 +34013,6 @@ helbidera bidaliko bazenu.</translation>
 <context>
     <name>SpiralWidgetBase</name>
     <message>
-        <source>Form</source>
-        <translation type="vanished">Inprimakia</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/spiralwidgetbase.ui" line="36"/>
         <source>Start Angle:</source>
         <translation>Hasierako angelua:</translation>
@@ -36383,10 +34087,6 @@ helbidera bidaliko bazenu.</translation>
         <location filename="../../scribus/ui/storyeditor.cpp" line="3296"/>
         <source>Open</source>
         <translation>Ireki</translation>
-    </message>
-    <message>
-        <source>Text Files (*.txt);;All Files(*)</source>
-        <translation type="vanished">Testu-fitxategiak (*.txt);;Fitxategi guztiak (*)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/storyeditor.cpp" line="3331"/>
@@ -36502,10 +34202,6 @@ helbidera bidaliko bazenu.</translation>
         <translation>&amp;Ezarpenak</translation>
     </message>
     <message>
-        <source>&amp;Insert Glyph...</source>
-        <translation type="vanished">&amp;Txertatu glifoa...</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/storyeditor.cpp" line="2013"/>
         <source>Clear All Text</source>
         <translation>Garbitu testu osoa</translation>
@@ -36568,10 +34264,6 @@ helbidera bidaliko bazenu.</translation>
         <location filename="../../scribus/ui/storyeditor.cpp" line="2033"/>
         <source>&amp;Glyph...</source>
         <translation>&amp;Glifoa...</translation>
-    </message>
-    <message>
-        <source>&amp;Sample Text</source>
-        <translation type="vanished">&amp;Adibideko testua</translation>
     </message>
 </context>
 <context>
@@ -36776,10 +34468,6 @@ helbidera bidaliko bazenu.</translation>
         <translation>Alt+R</translation>
     </message>
     <message>
-        <source>Clone copies the style to make similar styles easily.</source>
-        <translation type="vanished">Klonatzeak estiloa kopiatzen du antzeko estiloak sortzea errazteko</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/stylemanager.ui" line="144"/>
         <source>Alt+C</source>
         <translation>Alt+T</translation>
@@ -36960,11 +34648,6 @@ helbidera bidaliko bazenu.</translation>
         <translation>Jarri aurretik dokumentuaren izena paragrafo-estiloaren izenari Scribus-en.</translation>
     </message>
     <message>
-        <source>Make these settings the default and do not prompt again when importing an OpenOffice.org 1.x document.</source>
-        <translation type="vanished">Jarri ezarpen hauek lehenetsi gisa, eta ez galdetu berriro OpenOffice.org 1.x 
-bertsioko dokumentua inportatzean.</translation>
-    </message>
-    <message>
         <location filename="../../scribus/plugins/gettext/sxwim/sxwdia.cpp" line="33"/>
         <source>Overwrite Paragraph Styles</source>
         <translation>Gainidatzi paragrafo-estiloak</translation>
@@ -37140,10 +34823,6 @@ bertsioko dokumentua inportatzean.</translation>
         <translation>Kapsulatzen</translation>
     </message>
     <message>
-        <source>Available Fonts:</source>
-        <translation type="vanished">Letra-tipo erabilgarriak:</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/tabpdfoptions.ui" line="552"/>
         <source>Fonts to embed:</source>
         <translation>Kapsulatzeko letra-tipoak:</translation>
@@ -37162,10 +34841,6 @@ bertsioko dokumentua inportatzean.</translation>
         <location filename="../../scribus/ui/tabpdfoptions.ui" line="1859"/>
         <source>PDF/X Output Intent</source>
         <translation>PDF/X irteera</translation>
-    </message>
-    <message>
-        <source>Determines the PDF compatibility.&lt;br/&gt;The default is &lt;b&gt;PDF 1.3&lt;/b&gt; which gives the widest compatibility.&lt;br/&gt;Choose &lt;b&gt;PDF 1.4&lt;/b&gt; if your file uses features such as transparency or you require 128 bit encryption.&lt;br/&gt;&lt;b&gt;PDF 1.5&lt;/b&gt; is necessary when you wish to preserve objects in separate layers within the PDF.&lt;br/&gt;&lt;b&gt;PDF/X-3&lt;/b&gt; is for exporting the PDF when you want color managed RGB for commercial printing and is selectable when you have activated color management. Use only when advised by your printer or in some cases printing to a 4 color digital color laser printer.&lt;br/&gt;&lt;b&gt;PDF/X-1a&lt;/b&gt; is for blind exchange with colors strictly specified in CMYK or spot colors.&lt;br/&gt;&lt;b&gt;PDF/X-4&lt;/b&gt; is an extension of PDF/X-3 to support transparancy and layering.</source>
-        <translation type="vanished">PDF bateragarritasuna zehazten du.&lt;br/&gt;Balio lehenetsia &lt;b&gt;PDF 1.3&lt;/b&gt; da, bateragarritasunik zabalena ematen duena.&lt;br/&gt;Hautatu &lt;b&gt;PDF 1.4&lt;/b&gt; zure fitxategiek gardentasuna bezalako ezaugarriak baditu edo 128 bit-eko zifratzea behar baduzu.&lt;br/&gt;&lt;b&gt;PDF 1.5&lt;/b&gt; beharrezkoa da objektuak geruza desberdinetan antolatuta gorde nahi badituzu.&lt;br/&gt;&lt;b&gt;PDF/X-3&lt;/b&gt; inprimatze komertzialerako kolore-kudeaketa duen eta hura aktibatuta dagoenean aukeratu daitekeena duen PDFa behar duzunerako da. Erabili soilik zure inprimatze-etxean aholkatzen dizutenean edo zenbait kasutan 4 kolore figitaleko laser-inprimagailuetan erabiltzeko.&lt;br/&gt;&lt;b&gt;PDF/X-1a&lt;/b&gt; koloreak CMY sisteman zehatz-mehatz adierazita daudenerako edo kolore zuzenak direnerako trukatze itsurako da.&lt;br/&gt;&lt;b&gt;PDF/X-4&lt;/b&gt; PDF/X-3 formatuaren luzapen bat da gardentasuna eta geruzak onartzeko.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="293"/>
@@ -37542,26 +35217,6 @@ bertsioko dokumentua inportatzean.</translation>
         <translation>Esportatu orri-barrutia PDFra</translation>
     </message>
     <message>
-        <source>Generate PDF Articles, which is useful for navigating linked articles in a PDF.</source>
-        <translation type="vanished">Sortu PDF artikuluak, PDF batean estekatutako artikuluetan zehar erosoki nabigatzeko.</translation>
-    </message>
-    <message>
-        <source>DPI (Dots Per Inch) for image export.</source>
-        <translation type="vanished">DPI (puntu hazbeteko) irudia esportatzeko.</translation>
-    </message>
-    <message>
-        <source>Choose a password for users to be able to read your PDF.</source>
-        <translation type="vanished">Aukeratu erabiltzaileen pasahitzak zure PDFa irakur ahal izateko.</translation>
-    </message>
-    <message>
-        <source>Allow printing of the PDF. If un-checked, printing is prevented. </source>
-        <translation type="vanished">Baimendu PDFa inprimatzea. Ez bada aktibatzen, inprimatzea galarazita egongo da.</translation>
-    </message>
-    <message>
-        <source>Allow modifying of the PDF. If un-checked, modifying the PDF is prevented.</source>
-        <translation type="vanished">Baimendu PDFa eraldatzea. Ez badago aktibatuta, PDFa aldatzea galarazita egongo da.</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="270"/>
         <source>Embed a color profile for solid colors</source>
         <translation>Kapsulatu kolore solidoen kolore-profila</translation>
@@ -37677,12 +35332,6 @@ bertsioko dokumentua inportatzean.</translation>
         <translation>Efektua exekutatzek denbora. Denbora motz batek efektua abiazkartuko du, handiago batek moteldu egingo du.</translation>
     </message>
     <message>
-        <source>Insert a comma separated list of tokens where a token can be * for all the pages, 1-5 for a range of pages or a single page number.</source>
-        <translation type="vanished">Txertatu komaz bereiztutako token-en zerrenda, 
-token bat * orrialde guztientzako, 1-5 orrialde barruti 
-batentzako, edo orrialde bakar batentzako izan daiteke.</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="216"/>
         <source>Determines the binding of pages in the PDF. Unless you know you need to change it leave the default choice - Left.</source>
         <translation>Orrien loturak zehazten ditu PDFan. Aldatzeko beharreik ez baduzu, utzi aukera lehenetsiarekin: ezkerra.</translation>
@@ -37711,10 +35360,6 @@ batentzako, edo orrialde bakar batentzako izan daiteke.</translation>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="259"/>
         <source>Enable the security features in your exported PDF. If you selected PDF 1.3, the PDF will be protected by 40 bit encryption. If you selected PDF 1.4, the PDF will be protected by 128 bit encryption. Disclaimer: PDF encryption is not as reliable as GPG or PGP encryption and does have some limitations.</source>
         <translation>Gaitu segurtasun funtzioak esportatutako PDFan. PDF 1.3 aukeratzen baduzu, PDFa 40 bit-eko enkriptazioarekin babestuko da. PDF 1.4 aukeratuz enkriptatzean 128 bit erabiliko dira PDFa babesteko. Ezespena: PDFa enkriptatzea ez da GPG edo PGP enkripzio bezain fidagarria eta zenbait murriztapen ditu.</translation>
-    </message>
-    <message>
-        <source>This is an advanced setting which is not enabled by default. This should only be enabled when specifically requested by your printer and they have given you the exact details needed. Otherwize, your exported PDF may not print properly and is truly not portable across systems.</source>
-        <translation type="vanished">Aukera aurreratu hau ez dago gaituta modu lehenetsian. Zure inprimatze-etxeak berariaz eskatzen dizunean eta beharrezkoak diren xehetasunak eman dizutenean soilik gaitu behar duzu. Bestela, esportatuko duzun PDFa beharbada ez da ongi inprimatuko eta ezin izango duzu sistema batetik bestera eraman.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.ui" line="918"/>
@@ -37826,10 +35471,6 @@ PDF dokumentuan irekitzean:</translation>
 Adobe&amp;#174; Reader&amp;#174; eta beste PDF ikustaileak erabiltzean</translation>
     </message>
     <message>
-        <source>Layers in your document are exported to the PDF Only available if PDF 1.5 is chosen.</source>
-        <translation type="vanished">Dokumentuko geruzak PDFra esportatzen dira. PDF 1.5 aukeran soilik erabilgarria.</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="268"/>
         <source>Color model for the output of your PDF. Choose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets. Choose Printer when printing to a true 4 color CMYK printer. Choose Grayscale when you want a grey scale PDF.</source>
         <translation>PDFaren irteerako kolore-eredua. Aukeratu &apos;Pantaila/Web gunea&apos; pantailan bistaratuko diren PDFentzako eta tintaz inprimatzeko. Aukeratu &apos;Inprimagailua&apos; egiazko 4 koloredun CMYK motako inprimagailuan inprimatzeko. Aukeratu &apos;Gris-eskala&apos; PDF dokumentua gris-eskalan egotea nahi denean.</translation>
@@ -37925,10 +35566,6 @@ Adobe&amp;#174; Reader&amp;#174; eta beste PDF ikustaileak erabiltzean</translat
         <translation>Konpresio-kalitatearen maila galera eragiten duten konpresio-metodoetarako: Minimoa (%25), baxua (%50), ertaina (%75), altua (%85), maximoa (%95). Kontuan izan kalitate-mailak ez duela zuzenean zehazten emaitza gisa lortuko den irudiaren tamaina - biak, tamaina eta kalitate-galera aldakorrak dira irudi batetik bestera, edozein kalitate-mailan. Nahiz eta maximoa egon hautatuta, beti dago galera txiki bat JPEG formatuan.</translation>
     </message>
     <message>
-        <source>InfoString</source>
-        <translation type="vanished">InfoString</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="717"/>
         <source>Inside:</source>
         <translation>Barruan:</translation>
@@ -37942,18 +35579,6 @@ Adobe&amp;#174; Reader&amp;#174; eta beste PDF ikustaileak erabiltzean</translat
         <location filename="../../scribus/ui/tabpdfoptions.ui" line="562"/>
         <source>&amp;Embed all</source>
         <translation>&amp;Kapsulatu dena</translation>
-    </message>
-    <message>
-        <source>Fonts to outline:</source>
-        <translation type="vanished">Eskema erauziko zaien letra-tipoak:</translation>
-    </message>
-    <message>
-        <source>&amp;Outline all</source>
-        <translation type="vanished">&amp;Eskema denetatik</translation>
-    </message>
-    <message>
-        <source>Convert all glyphs in the document to outlines.</source>
-        <translation type="vanished">Bihurtu dokumentuo glifo guztiak eskemetara.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.ui" line="956"/>
@@ -38014,14 +35639,6 @@ Adobe&amp;#174; Reader&amp;#174; eta beste PDF ikustaileak erabiltzean</translat
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="254"/>
         <source>Hides the Tool Bar which has selection and other editing capabilities</source>
         <translation>Hautapenak egiteko eta beste edizio-gaitasun batzuetarako ahamena duen tresna-barra ezkutatzen du</translation>
-    </message>
-    <message>
-        <source>Hides the Menu Bar for the viewer, the PDF will display in a plain window. </source>
-        <translation type="vanished">Bisorearen menu-barra ezkutatzen du, PDFa leiho arrunt batean erakutsiko da.</translation>
-    </message>
-    <message>
-        <source>Fit the document page or pages to the available space in the viewer window.</source>
-        <translation type="vanished">Doitu dokumentuaren orrialdea edo orrialdeak bisorearen leihoan erabilgarri dagoen espaziora.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="226"/>
@@ -38163,10 +35780,6 @@ Adobe&amp;#174; Reader&amp;#174; eta beste PDF ikustaileak erabiltzean</translat
         <location filename="../../scribus/ui/tabpdfoptions.ui" line="14"/>
         <source>TabWidget</source>
         <translation>TabWidget</translation>
-    </message>
-    <message>
-        <source>...</source>
-        <translation type="vanished">...</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.ui" line="121"/>
@@ -38558,33 +36171,25 @@ Adobe&amp;#174; Reader&amp;#174; eta beste PDF ikustaileak erabiltzean</translat
         <location filename="../../scribus/ui/transformdialogbase.ui" line="267"/>
         <location filename="../../scribus/ui/transformdialogbase.ui" line="359"/>
         <source>Horizontal:</source>
-        <translation type="unfinished">Horizontala:</translation>
+        <translation>Horizontala:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/transformdialogbase.ui" line="210"/>
         <location filename="../../scribus/ui/transformdialogbase.ui" line="284"/>
         <location filename="../../scribus/ui/transformdialogbase.ui" line="410"/>
         <source>Vertical:</source>
-        <translation type="unfinished">Bertikala:</translation>
+        <translation>Bertikala:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/transformdialogbase.ui" line="320"/>
         <source>Angle:</source>
-        <translation type="unfinished">Angelua:</translation>
-    </message>
-    <message>
-        <source>Horizontal</source>
-        <translation type="vanished">Horizontala</translation>
+        <translation>Angelua:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/transformdialogbase.ui" line="160"/>
         <location filename="../../scribus/ui/transformdialogbase.ui" line="229"/>
         <source> %</source>
         <translation> %</translation>
-    </message>
-    <message>
-        <source>Vertical</source>
-        <translation type="vanished">Bertikala</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/transformdialogbase.ui" line="257"/>
@@ -38595,10 +36200,6 @@ Adobe&amp;#174; Reader&amp;#174; eta beste PDF ikustaileak erabiltzean</translat
         <location filename="../../scribus/ui/transformdialogbase.ui" line="310"/>
         <source>Rotate</source>
         <translation>Biratu</translation>
-    </message>
-    <message>
-        <source>Angle</source>
-        <translation type="vanished">Angelua</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/transformdialogbase.ui" line="349"/>
@@ -40175,10 +37776,6 @@ Sistemaren nabigatzaile lehenetsia ireki nahi duzu?</translation>
         <translation>Hautatu irudien aurrebisten kalitatea</translation>
     </message>
     <message>
-        <source>Select the visual appearance of the display. You can choose between normal and several color blindness forms</source>
-        <translation type="vanished">Hautatu bistaratzearen itxura. Itxura normalaren eta hainbat kolore-itsutasunen artean aukera dezakezu.</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/viewtoolbar.cpp" line="99"/>
         <source>Select image preview quality</source>
         <translation>Hautatu irudien aurrebisten kalitatea</translation>
@@ -40351,10 +37948,6 @@ haien datu bektorialak Scribus objektu bihurtuz.</translation>
         <translation>Fitxategia inportatzen:</translation>
     </message>
     <message>
-        <source>TextLabel</source>
-        <translation type="vanished">TestuEtiketa</translation>
-    </message>
-    <message>
         <location filename="../../scribus/plugins/import/xps/xpsimportoptions.ui" line="67"/>
         <source>Page Range</source>
         <translation>Orrialde-barrutia</translation>
@@ -40406,17 +37999,9 @@ haien datu bektorialak Scribus objektu bihurtuz.</translation>
         <translation>Erabili dokumentuaren izena estiloen aurrizki gisa</translation>
     </message>
     <message>
-        <source>Prepend the document name to the Style name in Scribus.</source>
-        <translation type="vanished">Erantsi aurretik dokumentu-izena estilo-izenari Scribus-en</translation>
-    </message>
-    <message>
         <location filename="../../scribus/plugins/gettext/xtgim/xtgdialog.cpp" line="62"/>
         <source>Do not ask again</source>
         <translation>Ez galdetu berriro</translation>
-    </message>
-    <message>
-        <source>Make these settings the default and do not prompt again when importing an XPress Tags document.</source>
-        <translation type="vanished">Ezarpen hauek ezarpen lehenetsi bihurtu eta ez eskatu berriro XPress Tags dokumentu bat inportatzean.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/gettext/xtgim/xtgdialog.cpp" line="73"/>
@@ -40494,10 +38079,6 @@ haien datu bektorialak Scribus objektu bihurtuz.</translation>
 </context>
 <context>
     <name>colorPalette</name>
-    <message>
-        <source>Form</source>
-        <translation type="vanished">Inprimakia</translation>
-    </message>
     <message>
         <location filename="../../scribus/ui/colorpalette.ui" line="105"/>
         <location filename="../../scribus/ui/colorpalette.ui" line="510"/>
@@ -40582,10 +38163,6 @@ haien datu bektorialak Scribus objektu bihurtuz.</translation>
         <location filename="../../scribus/ui/colorpalette.ui" line="490"/>
         <source>Color:</source>
         <translation>Kolorea:</translation>
-    </message>
-    <message>
-        <source>Transparency:</source>
-        <translation type="vanished">Gardentasuna:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/colorpalette.ui" line="569"/>
@@ -40684,10 +38261,6 @@ haien datu bektorialak Scribus objektu bihurtuz.</translation>
         <translation>Lerro-kolorea:</translation>
     </message>
     <message>
-        <source>Background</source>
-        <translation type="vanished">Atzeko planoa</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/colorpalette.ui" line="227"/>
         <location filename="../../scribus/ui/colorpalette.ui" line="915"/>
         <source>Extend:</source>
@@ -40766,7 +38339,7 @@ hautatu beste izen bat.</translation>
     <message>
         <location filename="../../scribus/ui/gtfiledialog.cpp" line="29"/>
         <source>Prepend the item name to the Style name in Scribus</source>
-        <translation type="unfinished"></translation>
+        <translation>Erantsi elementuaren izena estiloaren izenari Scribus-en</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/gtfiledialog.ui" line="14"/>
@@ -40791,7 +38364,7 @@ hautatu beste izen bat.</translation>
     <message>
         <location filename="../../scribus/ui/gtfiledialog.ui" line="56"/>
         <source>Prefix Styles with Item Name</source>
-        <translation type="unfinished"></translation>
+        <translation>Ezarri aurrizki gisa elementuaren izena estiloari</translation>
     </message>
 </context>
 <context>
@@ -41114,10 +38687,6 @@ jatorrizko &apos;template.xml&apos; fitxategiaren direktorio berdinean kokatu be
 Scribus-ek kopiako fitxategia kargatzeko.</translation>
     </message>
     <message>
-        <source>Form</source>
-        <translation type="vanished">Inprimakia</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/nftwidget.ui" line="82"/>
         <source>&amp;About</source>
         <translation>&amp;Honi buruz</translation>
@@ -41148,17 +38717,17 @@ Scribus-ek kopiako fitxategia kargatzeko.</translation>
     <message>
         <location filename="../../scribus/ui/recoverdialog.ui" line="65"/>
         <source>Name</source>
-        <translation type="unfinished"></translation>
+        <translation>Izena</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/recoverdialog.ui" line="70"/>
         <source>Date</source>
-        <translation type="unfinished">Data</translation>
+        <translation>Data</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/recoverdialog.ui" line="75"/>
         <source>Type</source>
-        <translation type="unfinished">Mota</translation>
+        <translation>Mota</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/recoverdialog.ui" line="88"/>
@@ -41168,12 +38737,12 @@ Scribus-ek kopiako fitxategia kargatzeko.</translation>
     <message>
         <location filename="../../scribus/ui/recoverdialog.ui" line="98"/>
         <source>Remove</source>
-        <translation type="unfinished">Kendu</translation>
+        <translation>Kendu</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/recoverdialog.ui" line="118"/>
         <source>Close</source>
-        <translation type="unfinished">Itxi</translation>
+        <translation>Itxi</translation>
     </message>
 </context>
 <context>
@@ -41532,10 +39101,6 @@ Scribus-ek kopiako fitxategia kargatzeko.</translation>
 <context>
     <name>transparencyPalette</name>
     <message>
-        <source>Form</source>
-        <translation type="vanished">Inprimakia</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/transparencypalette.ui" line="28"/>
         <source>Edit Line Color Properties</source>
         <translation>Editatu lerro-kolorearen propietateak</translation>
@@ -41719,14 +39284,6 @@ Scribus-ek kopiako fitxategia kargatzeko.</translation>
 </context>
 <context>
     <name>weldEditBase</name>
-    <message>
-        <source>Form</source>
-        <translation type="vanished">Inprimakia</translation>
-    </message>
-    <message>
-        <source>Move weld Point</source>
-        <translation type="vanished">Mugitu soldadura-puntua</translation>
-    </message>
     <message>
         <location filename="../../scribus/ui/weldeditbase.ui" line="30"/>
         <source>Move Object</source>
