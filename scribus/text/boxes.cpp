@@ -120,7 +120,19 @@ void GroupBox::justify(const ParagraphStyle& style)
 
 int LineBox::pointToPosition(QPointF coord) const
 {
-	int position = GroupBox::pointToPosition(coord);
+	int position = -1;
+
+	QPointF rel = coord - QPointF(m_x, m_y);
+	foreach (const Box *box, boxes())
+	{
+		int result = box->pointToPosition(rel);
+		if (result >= 0)
+		{
+			position = result;
+			break;
+		}
+	}
+
 	if (position < 0)
 	{
 		if (containsPoint(coord))
@@ -622,7 +634,8 @@ int GlyphBox::pointToPosition(QPointF coord) const
 	const QList<GlyphLayout>& glyphs = m_glyphRun.glyphs();
 	for (int i = 0; i < glyphs.length(); ++i)
 	{
-		double width = glyphs.at(i).xadvance;
+		const GlyphLayout& glyph = glyphs.at(i);
+		double width = glyph.xadvance * glyph.scaleH;
 		xPos += width;
 		if (xPos >= relX)
 		{
