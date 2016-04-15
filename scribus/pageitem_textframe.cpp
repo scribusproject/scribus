@@ -1782,6 +1782,13 @@ void PageItem_TextFrame::layout()
 					firstGlyph.scaleH *= firstGlyph.scaleV;
 					firstGlyph.xoffset -= 0.5; //drop caps are always to far from column left edge
 				}
+				// This is to mimic pre-boxes branches in case first character of paragraph is a space
+				// If we don't do this, paragraph offset will not apply correctly to first line
+				if ((firstGlyph.scaleH == 0.0) || (firstGlyph.scaleV == 0.0))
+				{
+					firstGlyph.scaleH = firstGlyph.scaleV = 1.0;
+					wide = 0.0;
+				}
 				firstGlyph.xadvance = wide / firstGlyph.scaleH;
 				desc = realDesc = 0;
 			}
