@@ -1237,7 +1237,7 @@ void PageItem_TextFrame::adjustParagraphEndings ()
 			// push this paragraph to the next frame
 			for (int i = 0; i < pull; ++i)
 				textLayout.removeLastLine();
-			MaxChars = textLayout.endOfFrame();
+			MaxChars = incompletePositions[incompleteLines-pull];
 			incompleteLines = 0;
 			incompletePositions.clear();
 		}
