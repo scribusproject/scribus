@@ -2583,7 +2583,7 @@ void SlaOutputDev::drawSoftMaskedImage(GfxState *state, Object *ref, Stream *str
 			if (m_groupStack.count() != 0)
 			{
 				m_groupStack.top().Items.append(ite);
-				applyMask(ite);
+			//	applyMask(ite);
 			}
 			if ((checkClip()) && (inPattern == 0))
 			{
@@ -2730,7 +2730,7 @@ void SlaOutputDev::drawMaskedImage(GfxState *state, Object *ref, Stream *str,  i
 			if (m_groupStack.count() != 0)
 			{
 				m_groupStack.top().Items.append(ite);
-				applyMask(ite);
+			//	applyMask(ite);
 			}
 			if ((checkClip()) && (inPattern == 0))
 			{
