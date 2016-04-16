@@ -1338,6 +1338,9 @@ void PageItem_TextFrame::layout()
 			next->invalid = false;
 			next = next->nextInChain();
 		}
+		// TODO layout() shouldn't delete any frame here, as it breaks any loop
+		// over the doc->Items or doc->MasterItems lists when done with indexes
+		// see Bug #12685 for an example
 		if (!isNoteFrame() && m_Doc->notesChanged() && !m_notesFramesMap.isEmpty())
 		{ //if notes are used
 			UndoManager::instance()->setUndoEnabled(false);

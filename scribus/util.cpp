@@ -441,15 +441,15 @@ void ReOrderText(ScribusDoc *currentDoc, ScribusView *view)
 	QImage pgPix(10, 10, QImage::Format_ARGB32_Premultiplied);
 	QRect rd; // = QRect(0,0,9,9);
 	ScPainter *painter = new ScPainter(&pgPix, pgPix.width(), pgPix.height());
-	for (int azz=0; azz<currentDoc->MasterItems.count(); ++azz)
+	for (QList<PageItem*>::iterator it = currentDoc->MasterItems.begin(); it != currentDoc->MasterItems.end(); ++it)
 	{
-		PageItem *currItem = currentDoc->MasterItems.at(azz);
+		PageItem* currItem = *it;
 		if (currItem->itemType() == PageItem::PathText)
 			currItem->DrawObj(painter, rd);
 	}
-	for (int azz=0; azz<currentDoc->Items->count(); ++azz)
+	for (QList<PageItem*>::iterator it = currentDoc->Items->begin(); it != currentDoc->Items->end(); ++it)
 	{
-		PageItem *currItem = currentDoc->Items->at(azz);
+		PageItem* currItem = *it;
 		currItem->layout();
 		if (currItem->itemType() == PageItem::PathText)
 			currItem->DrawObj(painter, rd); //FIXME: this should be replaced by code in layout()

@@ -3739,9 +3739,9 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 		doc->reformPages();
 		doc->refreshGuides();
 		doc->setLoading(false);
-		for (int i=0; i<doc->MasterItems.count(); ++i)
+		for (QList<PageItem*>::iterator itm = doc->MasterItems.begin(); itm != doc->MasterItems.end(); ++itm)
 		{
-			PageItem *ite = doc->MasterItems.at(i);
+			PageItem* ite = *itm;
 			// TODO fix that for Groups on Masterpages
 //			if (ite->Groups.count() != 0)
 //				view->GroupOnPage(ite);
@@ -3751,11 +3751,10 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 		doc->setMasterPageMode(false);
 		/*QTime t;
 		t.start();*/
-		int docItemsCount=doc->Items->count();
 		doc->flag_Renumber = false;
-		for (int i=0; i<docItemsCount; ++i)
+		for (QList<PageItem*>::iterator iti = doc->Items->begin(); iti != doc->Items->end(); ++iti)
 		{
-			PageItem *ite = doc->Items->at(i);
+			PageItem* ite = *iti;
 			if((ite->nextInChain() == NULL) && !ite->isNoteFrame())  //do not layout notes frames
 				ite->layout();
 		}
