@@ -431,7 +431,7 @@ PyObject *scribus_importpage(PyObject* /* self */, PyObject* args)
 
 	if (!PyTuple_Check(pages))
 	{
-		PyErr_SetString(PyExc_TypeError, QObject::tr("second argument is not tuple: must be tuple of int values.","python error").toLocal8Bit().constData());
+		PyErr_SetString(PyExc_TypeError, QObject::tr("second argument is not tuple: must be tuple of integer values.","python error").toLocal8Bit().constData());
 		return NULL;
 	}
 
@@ -443,7 +443,7 @@ PyObject *scribus_importpage(PyObject* /* self */, PyObject* args)
 	{
 		if (!PyArg_Parse(PyTuple_GetItem(pages, i), "i", &p))
 		{
-			PyErr_SetString(PyExc_TypeError, QObject::tr("second argument contains non-numeric values: must be list of int values.","python error").toLocal8Bit().constData());
+			PyErr_SetString(PyExc_TypeError, QObject::tr("second argument contains non-numeric values: must be list of integer values.","python error").toLocal8Bit().constData());
 			Py_DECREF(pages);
 			return NULL;
 		}
