@@ -2964,7 +2964,7 @@
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="384"/>
         <source>Options:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">विकल्पाः :</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="371"/>
@@ -2979,7 +2979,7 @@
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="457"/>
         <source>Version:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">संस्करणम् :</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="496"/>
@@ -3422,7 +3422,7 @@ Relative Colorimetric or Perceptual should be chosen.</source>
     </message>
     <message>
         <location filename="../../scribus/ui/cmsprefsbase.ui" line="274"/>
-        <source>Enable 'soft proofing' of how your document colors will print,
+        <source>Enable &apos;soft proofing&apos; of how your document colors will print,
 based on the chosen printer profile.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3634,12 +3634,12 @@ Please choose another one.</source>
     <message>
         <location filename="../../scribus/ui/cmykfwbase.ui" line="14"/>
         <source>Edit Color</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">वर्णं सम्पादय</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/cmykfwbase.ui" line="43"/>
         <source>&amp;Name:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">नाम :</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/cmykfwbase.ui" line="69"/>
@@ -3654,17 +3654,17 @@ Please choose another one.</source>
     <message>
         <location filename="../../scribus/ui/cmykfwbase.ui" line="229"/>
         <source>OK</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">अस्तु</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/cmykfwbase.ui" line="239"/>
         <source>Cancel</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">निरसनं कुरु</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/cmykfwbase.ui" line="116"/>
         <source>New</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">नूतनम्</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/cmykfwbase.ui" line="138"/>
@@ -3674,7 +3674,7 @@ Please choose another one.</source>
     <message>
         <location filename="../../scribus/ui/cmykfwbase.ui" line="506"/>
         <source>C:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">C:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/cmykfwbase.ui" line="474"/>
@@ -3682,22 +3682,22 @@ Please choose another one.</source>
         <location filename="../../scribus/ui/cmykfwbase.ui" line="526"/>
         <location filename="../../scribus/ui/cmykfwbase.ui" line="546"/>
         <source> %</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"> %</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/cmykfwbase.ui" line="539"/>
         <source>M:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">M:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/cmykfwbase.ui" line="559"/>
         <source>Y:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Y:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/cmykfwbase.ui" line="448"/>
         <source>K:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">K:</translation>
     </message>
 </context>
 <context>
@@ -3954,12 +3954,12 @@ Y: %2</source>
     <message>
         <location filename="../../scribus/canvas.cpp" line="2427"/>
         <source>X: %1</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">X: %1</translation>
     </message>
     <message>
         <location filename="../../scribus/canvas.cpp" line="2434"/>
         <source>Y: %1</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Y: %1</translation>
     </message>
     <message>
         <location filename="../../scribus/canvas.cpp" line="2450"/>
@@ -7402,12 +7402,12 @@ a range of pages or a single page number</source>
     <message>
         <location filename="../../scribus/plugins/import/fh/importfh.cpp" line="147"/>
         <source>Importing: %1</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">आयानीकरोति : %1</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/fh/importfh.cpp" line="150"/>
         <source>Analyzing File:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">फैल् परिशीलयति :</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/fh/importfh.cpp" line="355"/>
@@ -8929,7 +8929,7 @@ converting their vector data into Scribus objects.</source>
     <message>
         <location filename="../../scribus/plugins/import/fh/importfhplugin.cpp" line="124"/>
         <source>All Supported Formats</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">सर्वाः समर्थिताः रचनाः</translation>
     </message>
 </context>
 <context>
@@ -8941,7 +8941,7 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/idml_old/importidml.cpp" line="66"/>
-        <source>Imports Adobe Indesign's idml packages into Scribus
+        <source>Imports Adobe Indesign&apos;s idml packages into Scribus
  converting Indesign objects into scribus pageitems; not all are supported in Scribus, but all those supported are being imported here</source>
         <translation type="unfinished"></translation>
     </message>
@@ -9661,7 +9661,7 @@ converting their vector data into Scribus objects.</source>
         <location filename="../../scribus/plugins/imposition/impositionbase.ui" line="325"/>
         <source>&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Sans Serif'; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Separate pages with a comma, ranges with a hyphen, e.g. 1,4,9-11 to get pages 1,4,9,10,11.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation type="unfinished"></translation>
     </message>
@@ -12159,22 +12159,22 @@ If no handle is selected all handles will be reset.</source>
     <message>
         <location filename="../../scribus/ui/newmarginwidget.cpp" line="93"/>
         <source>Distance for bleed from the top of the physical page</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">भौतिकपृष्ठस्य उपरिभागात् मोचनाय दूरत्वम्</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/newmarginwidget.cpp" line="94"/>
         <source>Distance for bleed from the bottom of the physical page</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">भौतिकपृष्ठस्य तलात् मोचनाय दूरत्वम्</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/newmarginwidget.cpp" line="95"/>
         <source>Distance for bleed from the left of the physical page</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">भौतिकपृष्ठस्य वामतः मोचनाय दूरत्वम्</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/newmarginwidget.cpp" line="96"/>
         <source>Distance for bleed from the right of the physical page</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">भौतिकपृष्ठस्य दक्षिणतः मोचनाय दूरत्वम्</translation>
     </message>
 </context>
 <context>
@@ -14035,32 +14035,32 @@ Please check it and try again.</source>
 <context>
     <name>PageItem_TextFrame</name>
     <message>
-        <location filename="../../scribus/pageitem_textframe.cpp" line="4894"/>
+        <location filename="../../scribus/pageitem_textframe.cpp" line="4904"/>
         <source>Linked Text</source>
         <translation>सम्बद्धविषयः</translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem_textframe.cpp" line="4896"/>
+        <location filename="../../scribus/pageitem_textframe.cpp" line="4906"/>
         <source>Text Frame</source>
         <translation>विषयाबन्धः</translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem_textframe.cpp" line="4900"/>
+        <location filename="../../scribus/pageitem_textframe.cpp" line="4910"/>
         <source>Paragraphs: </source>
         <translation>अधिकरणानि : </translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem_textframe.cpp" line="4908"/>
+        <location filename="../../scribus/pageitem_textframe.cpp" line="4918"/>
         <source>Lines: </source>
         <translation>रेखाः</translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem_textframe.cpp" line="4914"/>
+        <location filename="../../scribus/pageitem_textframe.cpp" line="4924"/>
         <source>Words: </source>
         <translation>शब्दाः : </translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem_textframe.cpp" line="4922"/>
+        <location filename="../../scribus/pageitem_textframe.cpp" line="4932"/>
         <source>Chars: </source>
         <translation>सम्प्रतीकाः : </translation>
     </message>
@@ -14307,7 +14307,7 @@ Document Liberation Project http://www.documentliberation.org</source>
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Sans Serif'; font-size:10pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:10pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;table border=&quot;0&quot; style=&quot;-qt-table-type: root; margin-top:4px; margin-bottom:4px; margin-left:4px; margin-right:4px;&quot;&gt;
 &lt;tr&gt;
 &lt;td style=&quot;border: none;&quot;&gt;
@@ -15277,7 +15277,7 @@ The result is a combination of &quot;Intersection&quot; and &quot;Exclusion&quot
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Sans Serif'; font-size:8pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:8pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Attention:&lt;/span&gt; This script file contains code which &lt;span style=&quot; font-style:italic;&quot;&gt;might harm &lt;/span&gt;your system.&lt;/p&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;You should only permit execution of this script if you are sure that it comes from a trustworthy source. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
@@ -15293,7 +15293,7 @@ p, li { white-space: pre-wrap; }
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'DejaVu Sans'; font-size:8pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;DejaVu Sans&apos;; font-size:8pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:&apos;Sans Serif&apos;;&quot;&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation type="unfinished"></translation>
     </message>
@@ -20390,7 +20390,7 @@ A value of 0 means unlimited hyphenations.</source>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1211"/>
         <source>PDF/X Output Intent</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">PDF/X औट्पुट् आशयः</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="72"/>
@@ -21504,8 +21504,8 @@ A value of 0 means unlimited hyphenations.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source/>
-        <translation type="unfinished"></translation>
+        <source></source>
+        <translation></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_userinterfacebase.ui" line="254"/>
@@ -26412,6 +26412,18 @@ External Links
         <translation>वादे सङ्ख्यामूल्यानि न सन्ति : प्लावमूल्यानां सूची भवितव्या।</translation>
     </message>
     <message>
+        <location filename="../../scribus/plugins/scriptplugin/cmdpage.cpp" line="434"/>
+        <source>second argument is not tuple: must be tuple of integer values.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/plugins/scriptplugin/cmdpage.cpp" line="446"/>
+        <source>second argument contains non-numeric values: must be list of integer values.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdsetprop.cpp" line="246"/>
         <source>Line width out of bounds, must be 0 &lt;= line_width &lt;= 300.</source>
         <comment>python error</comment>
@@ -26507,18 +26519,18 @@ not currently documented in the docstring for each function.
 without a document to operate on.
 - If you do not pass a frame name to a function that requires one,
 the function will use the currently selected frame, if any, or
-raise a NoValidObjectError if it can't find anything to operate
+raise a NoValidObjectError if it can&apos;t find anything to operate
 on.
 - Many functions will raise WrongFrameTypeError if you try to use them
 on a frame type that they do not make sense with. For example, setting
-the text color on a graphics frame doesn't make sense, and will result
+the text color on a graphics frame doesn&apos;t make sense, and will result
 in this exception being raised.
 - Errors resulting from calls to the underlying Python API will be
 passed through unaltered. As such, the list of exceptions thrown by
 any function as provided here and in its docstring is incomplete.
 
 Details of what exceptions each function may throw are provided on the
-function's documentation, though as with most Python code this list
+function&apos;s documentation, though as with most Python code this list
 is not exhaustive due to exceptions from called functions.
 </source>
         <translation type="unfinished"></translation>
@@ -26747,7 +26759,7 @@ is not exhaustive due to exceptions from called functions.
         <translation>फोण्ट्स् कृते अन्वेषयति</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4094"/>
+        <location filename="../../scribus/scribus.cpp" line="4093"/>
         <source>The changes to your document have not been saved and you have requested to revert them. Do you wish to continue?</source>
         <translation>तव लेख्यपत्रपरिणामाः न सञ्चिताः, तान् प्रतिष्ठापयितुं च प्रार्थितोऽसि। अनुसन्तनोतुम् इच्छसि किम्?</translation>
     </message>
@@ -27319,16 +27331,14 @@ is not exhaustive due to exceptions from called functions.
         <translation>%1 विन्यासफैल् न दृष्टम् अथवा फैल् पाठ्यं नास्ति</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdpage.cpp" line="434"/>
         <source>second argument is not tuple: must be tuple of int values.</source>
         <comment>python error</comment>
-        <translation>द्वितीयवादः tuple नास्ति : int मूल्यानां tuple भवितव्यम्।</translation>
+        <translation type="vanished">द्वितीयवादः tuple नास्ति : int मूल्यानां tuple भवितव्यम्।</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdpage.cpp" line="446"/>
         <source>second argument contains non-numeric values: must be list of int values.</source>
         <comment>python error</comment>
-        <translation>द्वितीयवादे असङ्ख्यामूल्यानि सन्ति : int मूल्यानां सूची भवितव्या।</translation>
+        <translation type="vanished">द्वितीयवादे असङ्ख्यामूल्यानि सन्ति : int मूल्यानां सूची भवितव्या।</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdstyle.cpp" line="54"/>
@@ -28095,7 +28105,7 @@ Therefore the image may be not correct</source>
     <message>
         <location filename="../../scribus/pagesize.cpp" line="353"/>
         <source>11x17</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">2A17 {11x?}</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/pages/importpagesplugin.cpp" line="72"/>
@@ -31753,7 +31763,7 @@ converting their vector data into Scribus objects.</source>
     <message>
         <location filename="../../scribus/ui/scmwmenumanager.cpp" line="54"/>
         <source>Scrapbook</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">स्क्रैप्बुक्</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/scmwmenumanager.cpp" line="55"/>
@@ -31763,7 +31773,7 @@ converting their vector data into Scribus objects.</source>
     <message>
         <location filename="../../scribus/ui/scmwmenumanager.cpp" line="56"/>
         <source>Image</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">चित्रम्</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/scmwmenumanager.cpp" line="60"/>
@@ -31778,12 +31788,12 @@ converting their vector data into Scribus objects.</source>
     <message>
         <location filename="../../scribus/ui/scmwmenumanager.cpp" line="68"/>
         <source>Marks</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">पुस्तकचिह्नानि</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/scmwmenumanager.cpp" line="73"/>
         <source>Zoom</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">जूम् कुरु</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/scmwmenumanager.cpp" line="74"/>
@@ -31798,17 +31808,17 @@ converting their vector data into Scribus objects.</source>
     <message>
         <location filename="../../scribus/ui/scmwmenumanager.cpp" line="76"/>
         <source>Text Frames</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">विषयाबन्धाः</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/scmwmenumanager.cpp" line="77"/>
         <source>Image Frames</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">चित्राबन्धाः</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/scmwmenumanager.cpp" line="78"/>
         <source>Document</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">लेख्यपत्रम्</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/scmwmenumanager.cpp" line="79"/>
@@ -32183,18 +32193,18 @@ Rotation: %4</source>
     <message>
         <location filename="../../scribus/scribus.cpp" line="2156"/>
         <location filename="../../scribus/scribus.cpp" line="2196"/>
-        <location filename="../../scribus/scribus.cpp" line="3780"/>
-        <location filename="../../scribus/scribus.cpp" line="4198"/>
-        <location filename="../../scribus/scribus.cpp" line="4272"/>
-        <location filename="../../scribus/scribus.cpp" line="4427"/>
-        <location filename="../../scribus/scribus.cpp" line="8536"/>
+        <location filename="../../scribus/scribus.cpp" line="3779"/>
+        <location filename="../../scribus/scribus.cpp" line="4197"/>
+        <location filename="../../scribus/scribus.cpp" line="4271"/>
+        <location filename="../../scribus/scribus.cpp" line="4426"/>
+        <location filename="../../scribus/scribus.cpp" line="8535"/>
         <source>Ready</source>
         <translation>सज्जम्</translation>
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="3137"/>
         <location filename="../../scribus/scribus.cpp" line="3255"/>
-        <location filename="../../scribus/scribus.cpp" line="3877"/>
+        <location filename="../../scribus/scribus.cpp" line="3876"/>
         <source>Open</source>
         <translation>उद्घाटय</translation>
     </message>
@@ -32245,159 +32255,159 @@ Rotation: %4</source>
         <translation>(विकृतम्)</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4036"/>
+        <location filename="../../scribus/scribus.cpp" line="4035"/>
         <source>Filename and Path for Image</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4036"/>
+        <location filename="../../scribus/scribus.cpp" line="4035"/>
         <source>All Files (*)</source>
         <translation>सर्वफैल्स् (*)</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4128"/>
-        <location filename="../../scribus/scribus.cpp" line="4193"/>
-        <location filename="../../scribus/scribus.cpp" line="6980"/>
-        <location filename="../../scribus/scribus.cpp" line="7111"/>
-        <location filename="../../scribus/scribus.cpp" line="7133"/>
+        <location filename="../../scribus/scribus.cpp" line="4127"/>
+        <location filename="../../scribus/scribus.cpp" line="4192"/>
+        <location filename="../../scribus/scribus.cpp" line="6979"/>
+        <location filename="../../scribus/scribus.cpp" line="7110"/>
+        <location filename="../../scribus/scribus.cpp" line="7132"/>
         <source>Cannot write the file: 
 %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4178"/>
-        <location filename="../../scribus/scribus.cpp" line="5202"/>
-        <location filename="../../scribus/scribus.cpp" line="6971"/>
+        <location filename="../../scribus/scribus.cpp" line="4177"/>
+        <location filename="../../scribus/scribus.cpp" line="5201"/>
+        <location filename="../../scribus/scribus.cpp" line="6970"/>
         <source>Save As</source>
         <translation>एवं सञ्चय </translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4207"/>
+        <location filename="../../scribus/scribus.cpp" line="4206"/>
         <source>Saving...</source>
         <translation>सञ्चयति...</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4333"/>
-        <location filename="../../scribus/scribus.cpp" line="6832"/>
+        <location filename="../../scribus/scribus.cpp" line="4332"/>
+        <location filename="../../scribus/scribus.cpp" line="6831"/>
         <source>Scribus has detected some errors. Consider using the Preflight Verifier to correct them</source>
         <translation>स्क्रैबस् द्वारा केचन दोषाः प्रत्यभिज्ञाताः। तान् परिशोधितुं पूर्वप्रयाणसत्यापनकर्तारम् उपयोजय</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4368"/>
+        <location filename="../../scribus/scribus.cpp" line="4367"/>
         <source>Printing...</source>
         <translation>मुद्रयति...</translation>
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="1081"/>
         <location filename="../../scribus/scribus.cpp" line="2225"/>
-        <location filename="../../scribus/scribus.cpp" line="4372"/>
-        <location filename="../../scribus/scribus.cpp" line="6948"/>
-        <location filename="../../scribus/scribus.cpp" line="8264"/>
+        <location filename="../../scribus/scribus.cpp" line="4371"/>
+        <location filename="../../scribus/scribus.cpp" line="6947"/>
+        <location filename="../../scribus/scribus.cpp" line="8263"/>
         <source>Document</source>
         <translation>लेख्यपत्रम्</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4415"/>
+        <location filename="../../scribus/scribus.cpp" line="4414"/>
         <source>Printing failed!</source>
         <translation>मुद्रणं निष्फलम्!</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4506"/>
+        <location filename="../../scribus/scribus.cpp" line="4505"/>
         <source>Cannot Cut In-Use Item</source>
         <translation>उपयोगे भवं वस्तु कर्तयितुं न शक्यते</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4506"/>
+        <location filename="../../scribus/scribus.cpp" line="4505"/>
         <source>The item %1 is currently being edited by Story Editor. The cut operation will be cancelled</source>
         <translation>%1 वस्तु सम्प्रति कथासम्पादकेन सम्पादितः अस्ति। कर्तनकार्यं निरस्तं भविष्यति</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="5134"/>
+        <location filename="../../scribus/scribus.cpp" line="5133"/>
         <source>About Qt</source>
         <translation>Qt उद्दिश्य</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="5147"/>
+        <location filename="../../scribus/scribus.cpp" line="5146"/>
         <source>Scribus Manual</source>
         <translation>स्क्रैबस् संहिता</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="6242"/>
+        <location filename="../../scribus/scribus.cpp" line="6241"/>
         <source>&amp;Size:</source>
         <translation>परिमाणम् :</translation>
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="1402"/>
-        <location filename="../../scribus/scribus.cpp" line="6242"/>
+        <location filename="../../scribus/scribus.cpp" line="6241"/>
         <source>Size</source>
         <translation>परिमाणम्</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="6607"/>
+        <location filename="../../scribus/scribus.cpp" line="6606"/>
         <source>An error occurred while opening monitor profile.
 Former monitor profile will be used.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="6869"/>
+        <location filename="../../scribus/scribus.cpp" line="6868"/>
         <source>All</source>
         <translation>सर्वम्</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="6915"/>
+        <location filename="../../scribus/scribus.cpp" line="6914"/>
         <source>Scribus detected some errors.
 Consider using the Preflight Verifier  to correct them.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="7013"/>
+        <location filename="../../scribus/scribus.cpp" line="7012"/>
         <source>Detected some errors.
 Consider using the Preflight Verifier to correct them</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="7107"/>
+        <location filename="../../scribus/scribus.cpp" line="7106"/>
         <source>-Page%1</source>
         <translation>-पृष्ठम्%1</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="7668"/>
+        <location filename="../../scribus/scribus.cpp" line="7667"/>
         <source>Some objects are locked.</source>
         <translation>कानिचन वस्तूनि पिहितानि सन्ति।</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="7664"/>
+        <location filename="../../scribus/scribus.cpp" line="7663"/>
         <source>&amp;Lock All</source>
         <translation>सर्वं पिधत्स्व</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="7148"/>
+        <location filename="../../scribus/scribus.cpp" line="7147"/>
         <source>Locate your PDF viewer</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="7665"/>
+        <location filename="../../scribus/scribus.cpp" line="7664"/>
         <source>&amp;Unlock All</source>
         <translation>सर्वम् उद्घाटय</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="8360"/>
+        <location filename="../../scribus/scribus.cpp" line="8359"/>
         <source>Information</source>
         <translation>सूचना</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="8360"/>
+        <location filename="../../scribus/scribus.cpp" line="8359"/>
         <source>The program %1 is already running!</source>
         <translation>%1 प्रोग्राम् पूर्वमेव चलन्नस्ति!</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="8399"/>
+        <location filename="../../scribus/scribus.cpp" line="8398"/>
         <source>The program %1 is missing!</source>
         <translation>%1 प्रोग्राम् अनुपस्थितम्!</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3966"/>
-        <location filename="../../scribus/scribus.cpp" line="8738"/>
+        <location filename="../../scribus/scribus.cpp" line="3965"/>
+        <location filename="../../scribus/scribus.cpp" line="8737"/>
         <source>Do you really want to replace your existing image?</source>
         <translation>निश्चयेन तव विद्यमानं चित्रं प्रतिसमाधातुम् इच्छसि किम्?</translation>
     </message>
@@ -32427,12 +32437,12 @@ Consider using the Preflight Verifier to correct them</source>
         <translation>अद्यतनं लेपय</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4176"/>
+        <location filename="../../scribus/scribus.cpp" line="4175"/>
         <source>Documents (*.sla *.sla.gz);;All Files (*)</source>
         <translation>लेख्यपत्राणि (*.sla *.sla.gz);;सर्वफैल्स् (*)</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3897"/>
+        <location filename="../../scribus/scribus.cpp" line="3896"/>
         <source>Do you really want to clear all your text?</source>
         <translation>निश्चयेन तव सर्वविषयं स्वच्छीकर्तुम् इच्छसि किम्?</translation>
     </message>
@@ -32447,7 +32457,7 @@ Consider using the Preflight Verifier to correct them</source>
         <translation>अनेन लेख्यपत्रेण उपयुक्तानि कानिचन वर्णप्रोफैल्स् न संस्थापितानि :</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="6971"/>
+        <location filename="../../scribus/scribus.cpp" line="6970"/>
         <source>%1;;All Files (*)</source>
         <translation>%1;;सर्वफैल्स् (*)</translation>
     </message>
@@ -32457,19 +32467,19 @@ Consider using the Preflight Verifier to correct them</source>
         <translation>प्रयोक्तृसरलमार्गान् प्रयोजयति</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="6643"/>
+        <location filename="../../scribus/scribus.cpp" line="6642"/>
         <source>Updating Images</source>
         <translation>चित्राणि नवीकरोति</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4126"/>
-        <location filename="../../scribus/scribus.cpp" line="4191"/>
+        <location filename="../../scribus/scribus.cpp" line="4125"/>
+        <location filename="../../scribus/scribus.cpp" line="4190"/>
         <source>Your document was saved to a temporary file and could not be moved: 
 %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4479"/>
+        <location filename="../../scribus/scribus.cpp" line="4478"/>
         <source>Print engine initialization failed</source>
         <translation>मुद्रण इञ्जिन् आरम्भः निष्फलः</translation>
     </message>
@@ -32479,19 +32489,19 @@ Consider using the Preflight Verifier to correct them</source>
         <translation>सर्वाः समर्थिताः रचनाः</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9015"/>
-        <location filename="../../scribus/scribus.cpp" line="9089"/>
+        <location filename="../../scribus/scribus.cpp" line="9014"/>
+        <location filename="../../scribus/scribus.cpp" line="9088"/>
         <source>&amp;Name:</source>
         <translation>नाम :</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9015"/>
-        <location filename="../../scribus/scribus.cpp" line="9089"/>
+        <location filename="../../scribus/scribus.cpp" line="9014"/>
+        <location filename="../../scribus/scribus.cpp" line="9088"/>
         <source>New Entry</source>
         <translation>नूतननिवेशः</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="6782"/>
+        <location filename="../../scribus/scribus.cpp" line="6781"/>
         <source>Ghostscript is missing : PostScript Print Preview is not available</source>
         <translation type="unfinished"></translation>
     </message>
@@ -32511,7 +32521,7 @@ Consider using the Preflight Verifier to correct them</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="7401"/>
+        <location filename="../../scribus/scribus.cpp" line="7400"/>
         <source>Editing Symbol: %1</source>
         <translation type="unfinished"></translation>
     </message>
@@ -32541,36 +32551,36 @@ Consider using the Preflight Verifier to correct them</source>
         <translation>पुस्तकचिह्नानि</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9441"/>
+        <location filename="../../scribus/scribus.cpp" line="9440"/>
         <source>Insert new </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9458"/>
-        <location filename="../../scribus/scribus.cpp" line="9690"/>
+        <location filename="../../scribus/scribus.cpp" line="9457"/>
+        <location filename="../../scribus/scribus.cpp" line="9689"/>
         <source>Anchor mark</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9466"/>
-        <location filename="../../scribus/scribus.cpp" line="9703"/>
+        <location filename="../../scribus/scribus.cpp" line="9465"/>
+        <location filename="../../scribus/scribus.cpp" line="9702"/>
         <source>Mark with &lt;%1&gt; variable text</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9474"/>
-        <location filename="../../scribus/scribus.cpp" line="9741"/>
+        <location filename="../../scribus/scribus.cpp" line="9473"/>
+        <location filename="../../scribus/scribus.cpp" line="9740"/>
         <source>Mark to %1 item</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9484"/>
-        <location filename="../../scribus/scribus.cpp" line="9762"/>
+        <location filename="../../scribus/scribus.cpp" line="9483"/>
+        <location filename="../../scribus/scribus.cpp" line="9761"/>
         <source>Mark to %1 mark</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9672"/>
+        <location filename="../../scribus/scribus.cpp" line="9671"/>
         <source>Edit </source>
         <translation type="unfinished"></translation>
     </message>
@@ -32661,53 +32671,53 @@ Consider using the Preflight Verifier to correct them</source>
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="1277"/>
-        <location filename="../../scribus/scribus.cpp" line="8532"/>
+        <location filename="../../scribus/scribus.cpp" line="8531"/>
         <source>X:</source>
         <translation>X:</translation>
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="1279"/>
-        <location filename="../../scribus/scribus.cpp" line="8533"/>
+        <location filename="../../scribus/scribus.cpp" line="8532"/>
         <source>Y:</source>
         <translation>Y:</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="5202"/>
+        <location filename="../../scribus/scribus.cpp" line="5201"/>
         <source>Text Files (*.txt);;All Files (*)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="7467"/>
+        <location filename="../../scribus/scribus.cpp" line="7466"/>
         <source>Editing Inline Item</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="8526"/>
+        <location filename="../../scribus/scribus.cpp" line="8525"/>
         <source>Current zoom level</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="8527"/>
+        <location filename="../../scribus/scribus.cpp" line="8526"/>
         <source>Zoom to 100%</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="8528"/>
+        <location filename="../../scribus/scribus.cpp" line="8527"/>
         <source>Zoom out by the stepping value in Tools preferences</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="8529"/>
+        <location filename="../../scribus/scribus.cpp" line="8528"/>
         <source>Zoom in by the stepping value in Tools preferences</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="8530"/>
+        <location filename="../../scribus/scribus.cpp" line="8529"/>
         <source>Select the current layer</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="8531"/>
+        <location filename="../../scribus/scribus.cpp" line="8530"/>
         <source>Select the current unit</source>
         <translation type="unfinished"></translation>
     </message>
@@ -34065,7 +34075,7 @@ Consider using the Preflight Verifier to correct them</source>
     <message>
         <location filename="../../scribus/ui/storyeditor.cpp" line="2033"/>
         <source>&amp;Glyph...</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ग्लिफ्...</translation>
     </message>
 </context>
 <context>
@@ -35644,7 +35654,7 @@ when PDF document is opened:</source>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="269"/>
         <source>This is an advanced setting which is not enabled by default. This should only be enabled when specifically requested by your printer and they have given you the exact details needed. Otherwise, your exported PDF may not print properly and is truly not portable across systems.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">एतदेकं प्रौढनिर्धारणं यत् मूलभूततया न प्रकारितम्। यदा तव मुद्रकेण विशिष्टतया प्रार्थितम्, तथा, आवश्यकाः तथ्यनिर्देशाः च दत्ताः, तदैव एतत् प्रकारितव्यम्। अन्यथा, तव निर्यातं PDF समीचीनतया न मुद्रयेत्, सिस्टम्स् उपरि च न वाह्यम्।</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="208"/>
