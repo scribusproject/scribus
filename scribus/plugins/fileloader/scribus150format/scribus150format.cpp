@@ -3692,6 +3692,11 @@ bool Scribus150Format::readObject(ScribusDoc* doc, ScXmlStreamReader& reader, It
 		LinkID.insert(info.itemID, newItem);
 	}
 	info.nextItem = attrs.valueAsInt("NEXTITEM", -1);
+	if (isNewFormat)
+	{
+		if (info.nextItem != -1)
+			itemNext[info.itemID] = info.nextItem;
+	}
 	info.ownLink  = newItem->isTableItem ? attrs.valueAsInt("OwnLINK", 0) : 0;
 	info.groupLastItem = 0;
 	info.isGroupFlag = attrs.valueAsBool("isGroupControl", 0);
