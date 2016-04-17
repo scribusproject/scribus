@@ -2776,7 +2776,7 @@ void AIPlug::processPattern(QDataStream &ts)
 							}
 							m_Doc->addPattern(currentPatternDefName, pat);
 							importedPatterns.append(currentPatternDefName);
-							double minx =  std::numeric_limits<double>::max();
+						/*	double minx =  std::numeric_limits<double>::max();
 							double miny =  std::numeric_limits<double>::max();
 							double maxx = -std::numeric_limits<double>::max();
 							double maxy = -std::numeric_limits<double>::max();
@@ -2790,7 +2790,7 @@ void AIPlug::processPattern(QDataStream &ts)
 							currItem->gYpos = currItem->yPos() - miny;
 							currItem->setXYPos(currItem->gXpos, currItem->gYpos, true);
 							m_Doc->docPatterns[currentPatternDefName].width = maxx - minx;
-							m_Doc->docPatterns[currentPatternDefName].height = maxy - miny;
+							m_Doc->docPatterns[currentPatternDefName].height = maxy - miny;*/
 						}
 					}
 					m_Doc->itemSelection_DeleteItem(tmpSel);

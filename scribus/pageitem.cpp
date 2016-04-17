@@ -2356,7 +2356,7 @@ void PageItem::DrawSoftShadow(ScPainter *p)
 		m_rotation = 0;
 		m_hasSoftShadow = false;
 		isEmbedded = true;
-		invalid = true;
+		invalid = false;
 		p->save();
 		p->translate(m_softShadowXOffset, m_softShadowYOffset);
 		DrawObj(p, QRectF());
