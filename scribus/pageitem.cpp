@@ -2347,6 +2347,8 @@ void PageItem::DrawSoftShadow(ScPainter *p)
 		p->beginLayer(1.0 - m_softShadowOpacity, m_softShadowBlendMode);
 	if (!hasFill())
 	{
+		bool   isEmbedded_Old = isEmbedded;
+		bool   hasSoftShadow_Old = m_hasSoftShadow;
 		double fillTrans_Old = fillTransparency();
 		double lineTrans_Old = lineTransparency();
 		bool   shadow_Old = hasSoftShadow();
@@ -2373,7 +2375,10 @@ void PageItem::DrawSoftShadow(ScPainter *p)
 			p->endLayer();
 			p->restore();
 		}
-		isEmbedded = false;
+		if (isEmbedded_Old != isEmbedded)
+			invalid = true;
+		isEmbedded = isEmbedded_Old;
+		m_hasSoftShadow = hasSoftShadow_Old;
 		fillTransparencyVal = fillTrans_Old;
 		lineTransparencyVal = lineTrans_Old;
 		m_rotation = rotation_Old;
