@@ -613,7 +613,10 @@ void CanvasMode_Edit::mousePressEvent(QMouseEvent *m)
 				}
 				m_doc->m_Selection->delaySignalsOff();
 				if (wantNormal)
+				{
 					m_view->requestMode(modeNormal);
+					m_view->canvasMode()->mousePressEvent(m);
+				}
 				return;
 			}
 		}
