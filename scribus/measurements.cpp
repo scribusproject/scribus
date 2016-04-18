@@ -4,8 +4,11 @@ to the COPYING file provided with the program. Following this notice may exist
 a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
-#include "measurements.h"
 #include <cmath>
+
+#include "measurements.h"
+#include "scribusdoc.h"
+#include "scribusview.h"
 #include "units.h"
 
 using namespace std;
@@ -14,6 +17,12 @@ using namespace std;
 Measurements::Measurements( QWidget* parent ) : ScrPaletteBase( parent, "MeasurementsPalette", false, 0 )
 {
 	setupUi(this);
+
+	mX1 = mY1 = 0;
+	mX2 = mY2 = 0;
+	mDX = mDY = 0;
+	mLength = 0;
+
 	const QString widthString="10000.0000";
 	int textWidth = fontMetrics().width(widthString);
 	x1Data->setMinimumSize(textWidth, 12);
@@ -31,6 +40,20 @@ Measurements::Measurements( QWidget* parent ) : ScrPaletteBase( parent, "Measure
 	int minHeight = unitSwitch->minimumSizeHint().height();
 	unitSwitch->setMinimumSize(textWidth, minHeight);
 	resize(minimumSizeHint());
+
+	// Try to start with doc unit if possible
+	ScribusView* view = qobject_cast<ScribusView*>(parent);
+	if (view)
+	{
+		ScribusDoc* doc = view->Doc;
+		if (doc)
+		{
+			int unitIndex = doc->unitIndex();
+			unitSwitch->setCurrentIndex(unitIndex);
+		}
+	}
+	setValues(0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
+
 	connect(unitSwitch, SIGNAL(currentIndexChanged(int)), this, SLOT(unitChanged()));
 }
 
