@@ -103,8 +103,8 @@ void PropertyWidget_PathText::setCurrentItem(PageItem *item)
 			pathTextType->setCurrentIndex(m_item->textPathType);
 			flippedPathText->setChecked(m_item->textPathFlipped);
 			showCurveCheckBox->setChecked(m_item->PoShow);
-			distFromCurve->setValue(m_item->BaseOffs * -1);
-			startOffset->setValue(m_item->textToFrameDistLeft());
+			distFromCurve->showValue(m_item->BaseOffs * -1 * m_unitRatio);
+			startOffset->showValue(m_item->textToFrameDistLeft() * m_unitRatio);
 		}
 		connectSignals();
 	}
@@ -159,7 +159,7 @@ void PropertyWidget_PathText::handlePathDist()
 {
 	if (!m_doc || !m_item || !m_ScMW || m_ScMW->scriptIsRunning())
 		return;
-	m_item->setTextToFrameDistLeft(startOffset->value());
+	m_item->setTextToFrameDistLeft(startOffset->value() / m_unitRatio);
 	m_doc->adjustItemSize(m_item);
 	m_item->updatePolyClip();
 	m_item->update();
@@ -188,7 +188,7 @@ void PropertyWidget_PathText::handlePathOffs()
 {
 	if (!m_doc || !m_item || !m_ScMW || m_ScMW->scriptIsRunning())
 		return;
-	m_item->BaseOffs = -distFromCurve->value();
+	m_item->BaseOffs = -distFromCurve->value() / m_unitRatio;
 	m_doc->adjustItemSize(m_item);
 	m_item->updatePolyClip();
 	m_item->update();
@@ -229,8 +229,9 @@ void PropertyWidget_PathText::languageChange()
 	distFromCurveLabel->setText( tr("Distance from Curve:"));
 	
 	QString ptSuffix = tr(" pt");
-	startOffset->setSuffix(ptSuffix);
-	distFromCurve->setSuffix(ptSuffix);
+	QString unitSuffix = m_doc ? unitGetSuffixFromIndex(m_doc->unitIndex()) : ptSuffix;
+	startOffset->setSuffix(unitSuffix);
+	distFromCurve->setSuffix(unitSuffix);
 }
 
 void PropertyWidget_PathText::unitChange()
