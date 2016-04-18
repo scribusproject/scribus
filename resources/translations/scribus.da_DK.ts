@@ -1487,25 +1487,25 @@
         <location filename="../../scribus/actionmanager.cpp" line="1859"/>
         <source>Single Left Guillemet</source>
         <comment>Unicode 0x2039</comment>
-        <translation>Enkelt venstre anførelsestegn</translation>
+        <translation>Enkelt venstre anførselstegn</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1860"/>
         <source>Single Right Guillemet</source>
         <comment>Unicode 0x203A</comment>
-        <translation>Enkelt højre anførelsestegn</translation>
+        <translation>Enkelt højre anførselstegn</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1861"/>
         <source>Double Left Guillemet</source>
         <comment>Unicode 0x00AB</comment>
-        <translation>Dobbelt venstre anførelsestegn</translation>
+        <translation>Dobbelt venstre anførselstegn</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1862"/>
         <source>Double Right Guillemet</source>
         <comment>Unicode 0x00BB</comment>
-        <translation>Dobbelt højre anførelsestegn</translation>
+        <translation>Dobbelt højre anførselstegn</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1863"/>
@@ -1626,12 +1626,12 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1480"/>
         <source>&amp;New...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Nyt...</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1501"/>
         <source>Print Previe&amp;w...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Vis udskrift...</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1513"/>
@@ -1656,17 +1656,17 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1555"/>
         <source>&amp;Image Effects...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Billedeffekter...</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1560"/>
         <source>&amp;Multiple Duplicate...</source>
-        <translation type="unfinished"></translation>
+        <translation>Dupliker &amp;flere gange...</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1561"/>
         <source>&amp;Transform...</source>
-        <translation type="unfinished"></translation>
+        <translation>For&amp;vandl...</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1565"/>
@@ -1687,17 +1687,17 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1597"/>
         <source>Extended Image Properties...</source>
-        <translation type="unfinished">Udvidede billedegenskaber...</translation>
+        <translation>Udvidede billedegenskaber...</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1603"/>
         <source>Annotation P&amp;roperties...</source>
-        <translation type="unfinished"></translation>
+        <translation>Kommentering-e&amp;genskaber...</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1604"/>
         <source>Field P&amp;roperties...</source>
-        <translation type="unfinished"></translation>
+        <translation>Felt-ege&amp;nskaber...</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1616"/>
@@ -1712,7 +1712,7 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1623"/>
         <source>Sample Text...</source>
-        <translation type="unfinished"></translation>
+        <translation>Prøvetekst...</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1671"/>
@@ -1747,7 +1747,7 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1735"/>
         <source>&amp;Manage Images...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Håndter billeder...</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1739"/>
@@ -7159,7 +7159,7 @@ Brug 72 dpi for billeder, der er beregnet til skærmen</translation>
     <message>
         <location filename="../../scribus/plugins/export/pixmapexport/dialog.cpp" line="79"/>
         <source>Choose an Export Directory</source>
-        <translation type="unfinished"></translation>
+        <translation>Vælg en eksportmappe</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/export/pixmapexport/dialog.cpp" line="119"/>
@@ -10910,13 +10910,14 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../scribus/loadsaveplugin.cpp" line="244"/>
         <source>An error occurred while opening file or file is damaged</source>
-        <translation type="unfinished"></translation>
+        <translation>Der opstod en fejl under indlæsning af fil, eller fil er ødelagt</translation>
     </message>
     <message>
         <location filename="../../scribus/loadsaveplugin.cpp" line="249"/>
         <source>An error occurred while parsing file at line %1, column %2 :
 %3</source>
-        <translation type="unfinished"></translation>
+        <translation>Der opstod en fejl under analysering af fil i linje %1 kolonne %2 :
+%3</translation>
     </message>
     <message>
         <location filename="../../scribus/loadsaveplugin.cpp" line="104"/>
@@ -13001,7 +13002,7 @@ Hvis ingen håndtag er markerede, så nulstilles alle håndtag.</translation>
     <message>
         <location filename="../../scribus/plugins/gettext/odtim/odtdia.cpp" line="72"/>
         <source>Prepend the document name to the paragraph style name in Scribus</source>
-        <translation>Sæt dokumentnavn foran afsnitstypografiens navn i Scribus</translation>
+        <translation>Tilføj dokumentnavnet foran afsnitstypografiens navn i Scribus</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/gettext/odtim/odtdia.cpp" line="79"/>
@@ -13067,7 +13068,7 @@ Hvis ingen håndtag er markerede, så nulstilles alle håndtag.</translation>
     <message>
         <location filename="../../scribus/ui/oneclick.cpp" line="39"/>
         <source>Basepoint</source>
-        <translation>Omdrejningspunkt</translation>
+        <translation>Udgangspunkt</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/oneclick.cpp" line="56"/>
@@ -14281,7 +14282,7 @@ Kontroller det venligst og prøv igen.</translation>
     <message>
         <location filename="../../scribus/ui/pagepalette_pagesbase.ui" line="14"/>
         <source>Arrange Pages</source>
-        <translation type="unfinished">Arranger sider</translation>
+        <translation>Arranger sider</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pagepalette_pagesbase.ui" line="57"/>
@@ -14291,7 +14292,7 @@ Kontroller det venligst og prøv igen.</translation>
     <message>
         <location filename="../../scribus/ui/pagepalette_pagesbase.ui" line="70"/>
         <source>&lt;qt&gt;List of master pages in the document. Master page names may be dragged onto the page view below to apply master pages, or onto the empty space between pages to create new pages.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Liste over mastersider i dokumentet. Mastersidenavne kan trækkes hen på side-visningen herunder for at anvende mastersider, eller hen på det tomme mellemrum mellem sider for at lave nye sider.&lt;/qt&gt;</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pagepalette_pagesbase.ui" line="102"/>
@@ -14301,7 +14302,7 @@ Kontroller det venligst og prøv igen.</translation>
     <message>
         <location filename="../../scribus/ui/pagepalette_pagesbase.ui" line="115"/>
         <source>&lt;qt&gt;List of normal pages in the document, shown with the document layout. Pages may be dragged to rearrange or delete them.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Liste over normale-sider i dokumentet, vist med dokument-layoutet. Sider kan trækkes for at flytte eller slette dem.&lt;/qt&gt;</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pagepalette_pagesbase.ui" line="151"/>
@@ -14311,7 +14312,7 @@ Kontroller det venligst og prøv igen.</translation>
     <message>
         <location filename="../../scribus/ui/pagepalette_pagesbase.ui" line="170"/>
         <source>&lt;qt&gt;Drag pages or master pages onto the trash to delete them&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Træk sider eller mastersider hen på skraldespanden for at slette dem&lt;/qt&gt;</translation>
     </message>
 </context>
 <context>
@@ -17913,7 +17914,7 @@ Do you want to migrate them to the new Scribus version?</source>
     <message>
         <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="493"/>
         <source>Try to save an &quot;Emergency File&quot; in case of a crash</source>
-        <translation type="unfinished"></translation>
+        <translation>Forsøg at lave en &quot;Nødlagringsfil&quot; i tilfælde af et nedbrud</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="522"/>
@@ -17923,7 +17924,7 @@ Do you want to migrate them to the new Scribus version?</source>
     <message>
         <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="536"/>
         <source>Enable automatic saving of documents</source>
-        <translation type="unfinished"></translation>
+        <translation>Aktiver automatisk gem af dokumenter</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="547"/>
@@ -17938,32 +17939,32 @@ Do you want to migrate them to the new Scribus version?</source>
     <message>
         <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="564"/>
         <source>Number of files to keep:</source>
-        <translation type="unfinished"></translation>
+        <translation>Antal filer der skal opbevares:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="597"/>
         <source>Save into the same directory as the document</source>
-        <translation type="unfinished"></translation>
+        <translation>Gem i den samme mappe som dokumentet</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="607"/>
         <source>Save into:</source>
-        <translation type="unfinished"></translation>
+        <translation>Gem i:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="617"/>
         <source>Change...</source>
-        <translation type="unfinished">Ændr...</translation>
+        <translation>Ændr...</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="629"/>
         <source>Keep backup files after closing the document</source>
-        <translation type="unfinished"></translation>
+        <translation>Behold backupfiler efter lukning af dokumentet</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="636"/>
         <source>Show autosave countdown clock on the canvas</source>
-        <translation type="unfinished"></translation>
+        <translation>Vis nedtællingsur for automatisk gem på dokumentområdet</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="665"/>
@@ -18068,17 +18069,17 @@ Do you want to migrate them to the new Scribus version?</source>
     <message>
         <location filename="../../scribus/ui/prefs_documentsetup.cpp" line="120"/>
         <source>When enabled, Scribus saves backup copys of your file each time the time period elapses</source>
-        <translation type="unfinished"></translation>
+        <translation>Når dette er aktiveret, gemmer Scribus sikkerhedskopier af din fil hver gang tidsperioden udløber</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_documentsetup.cpp" line="125"/>
         <source>Keep this many files during the editing session. Backup files will be removed when you close the document.</source>
-        <translation type="unfinished"></translation>
+        <translation>Behold dette antal filer under redigerings-session. Backupfiler bliver fjernet, når du lukker dokumentet.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_documentsetup.cpp" line="395"/>
         <source>Choose a Directory</source>
-        <translation type="unfinished">Vælg en mappe</translation>
+        <translation>Vælg en mappe</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_documentsetup.cpp" line="121"/>
@@ -20042,7 +20043,7 @@ Værdien 0 betyder ubegrænset antal.</translation>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="56"/>
         <source>Determines the PDF compatibility.&lt;br/&gt;The default is &lt;b&gt;PDF 1.3&lt;/b&gt; which gives the widest compatibility.&lt;br/&gt;Choose &lt;b&gt;PDF 1.4&lt;/b&gt; if your file uses features such as transparency or you require 128 bit encryption.&lt;br/&gt;&lt;b&gt;PDF 1.5&lt;/b&gt; is necessary when you wish to preserve objects in separate layers within the PDF.&lt;br/&gt;&lt;b&gt;PDF/X-1a&lt;/b&gt; is for blind exchange with colors strictly specified in CMYK or spot colors.&lt;br/&gt;&lt;b&gt;PDF/X-3&lt;/b&gt; is for exporting the PDF when you want color managed RGB for commercial printing and is selectable when you have activated color management. Use only when advised by your printer or in some cases printing to a 4 color digital color laser printer.&lt;br/&gt;&lt;b&gt;PDF/X-4&lt;/b&gt; is an extension of PDF/X-3 to support transparency and layering.</source>
-        <translation type="unfinished"></translation>
+        <translation>Bestemmer PDF-kompatibiliteten.&lt;/br&gt;Standarden er &lt;b&gt;PDF 1.3&lt;/b&gt;, som giver den største kompatibilitet.&lt;br/&gt;Vælg &lt;b&gt;PDF 1.4&lt;/b&gt;, hvis filen har egenskaber som f.eks. gennemsigtighed, eller hvis du ønsker 128 bit kryptering.&lt;br/&gt;&lt;b&gt;PDF 1.5&lt;/b&gt; er nødvendig, når du ønsker at bevare objekter i separate lag inden i PDF-filen.&lt;br/&gt;&lt;b&gt; PDF/X-1a&lt;/b&gt;er for blind udveksling med farver udelukkende specificeret i CMYK eller pantonefarver.&lt;br/&gt;&lt;b&gt;PDF/X-3&lt;/b&gt; bruges til eksport til PDF, når du ønsker farvestyring af RGB for kommerciel trykning og kan vælges, når du har aktiveret farvestyring. Bruges kun når dit trykkeri ønsker det, eller i nogle tilfælde, når der udskrives til en 4 farve digital farve laserprinter.&lt;br/&gt;&lt;b&gt;PDF/X-4&lt;/b&gt; er en udvidelse af PDF/X-3 til støtte for transparens og lagdeling.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="59"/>
@@ -21637,7 +21638,7 @@ Niveau 1 eller 2 kan give meget store filer.</translation>
     <message>
         <location filename="../../scribus/ui/prefs_userinterface.cpp" line="60"/>
         <source>Time before resize or move starts allows for a slight delay between when you click and the operation happens to avoid unintended moves. This can be helpful when dealing with mouse sensitivity settings or accessibility issues related to ergonomic mice, touch pads or moveability of the wrists and hands.</source>
-        <translation type="unfinished"></translation>
+        <translation>Tid før ændring af størrelse eller flytning starter giver mulighed for en lille forsinkelse, fra du klikker og funktionens udførelse, for at undgå utilsigtede bevægelser. Dette kan være nyttigt, når det drejer sig om indstillinger af musens følsomhed eller tilgængelighed i forbindelse med ergonomiske mus, touchpads eller bevægelighed i håndled og hænder.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_userinterface.cpp" line="61"/>
@@ -22170,27 +22171,27 @@ en række sider eller et enkelt sidenummer</translation>
     <message>
         <location filename="../../scribus/ui/propertiespalette_groupbase.ui" line="93"/>
         <source>Text &amp;Flow Around Frame</source>
-        <translation type="unfinished">Tekst &amp;flyder omkring ramme</translation>
+        <translation>Tekst &amp;flyder omkring ramme</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_groupbase.ui" line="123"/>
         <source>Disable text flow from lower frames around object</source>
-        <translation type="unfinished">Deaktiver tekstflydning fra bagved liggende rammer omkring objekt</translation>
+        <translation>Deaktiver tekstflydning fra bagved liggende rammer omkring objekt</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_groupbase.ui" line="151"/>
         <source>Use the frame shape for text flow of text frames below the object</source>
-        <translation type="unfinished">Brug rammens form for tekstflydning af tekstrammer bagved objektet</translation>
+        <translation>Brug rammens form for tekstflydning af tekstrammer bagved objektet</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_groupbase.ui" line="154"/>
         <source>Use Frame &amp;Shape</source>
-        <translation type="unfinished">Brug rammens &amp;form</translation>
+        <translation>Brug rammens &amp;form</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_groupbase.ui" line="179"/>
         <source>&lt;qt&gt;Use the bounding box, which is always rectangular, instead of the frame&apos;s shape for text flow of text frames below the object&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Brug indbindingsboksen, som altid er rektangulær, i stedet for rammens form for tekstflydning af tekstrammer bagved objektet&lt;/qt&gt;</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_groupbase.ui" line="182"/>
@@ -22200,7 +22201,7 @@ en række sider eller et enkelt sidenummer</translation>
     <message>
         <location filename="../../scribus/ui/propertiespalette_groupbase.ui" line="207"/>
         <source>&lt;qt&gt;When chosen, the contour line can be edited with the Edit Shape Tool on the palette further above. When edited via the shape palette, this becomes a second separate line originally based on the frame&apos;s shape for text flow of text frames below the object.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Når dette er valgt, kan konturlinjen redigeres med rediger form værktøjet på paletten længere oppe. Når linjen er redigeret via formpaletten, bliver den en anden separat linje originalt baseret på rammens form for flydning af tekst under objektet.&lt;/qt&gt;</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_groupbase.ui" line="210"/>
@@ -22210,7 +22211,7 @@ en række sider eller et enkelt sidenummer</translation>
     <message>
         <location filename="../../scribus/ui/propertiespalette_groupbase.ui" line="235"/>
         <source>&lt;qt&gt;Use the clipping path of the image&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Brug billedets fritlægningsmaske&lt;/qt&gt;</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_groupbase.ui" line="238"/>
@@ -22225,7 +22226,7 @@ en række sider eller et enkelt sidenummer</translation>
     <message>
         <location filename="../../scribus/ui/propertiespalette_groupbase.ui" line="303"/>
         <source>&lt;qt&gt;Any path self-intersections or subpaths create holes in the fill&lt;/qt&gt;</source>
-        <translation type="unfinished">&lt;qt&gt;Enhver kurve der krydser sig selv eller en delkurve skaber huller i udfyldningen&lt;/qt&gt;</translation>
+        <translation>&lt;qt&gt;Enhver kurve der krydser sig selv eller en delkurve skaber huller i udfyldningen&lt;/qt&gt;</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_groupbase.ui" line="306"/>
@@ -22235,7 +22236,7 @@ en række sider eller et enkelt sidenummer</translation>
     <message>
         <location filename="../../scribus/ui/propertiespalette_groupbase.ui" line="319"/>
         <source>&lt;qt&gt;Fill is solid unless a subpath is counter-directional&lt;/qt&gt;</source>
-        <translation type="unfinished">&lt;qt&gt;Udfyldningen er massiv, medmindre en delkurve angiver noget andet&lt;/qt&gt;</translation>
+        <translation>&lt;qt&gt;Udfyldningen er massiv, medmindre en delkurve angiver noget andet&lt;/qt&gt;</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_groupbase.ui" line="322"/>
@@ -22368,22 +22369,22 @@ en række sider eller et enkelt sidenummer</translation>
     <message>
         <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="37"/>
         <source>&amp;X-Pos:</source>
-        <translation type="unfinished">&amp;X-Pos:</translation>
+        <translation>&amp;X-Pos:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="50"/>
         <source>Horizontal offset of image within frame</source>
-        <translation type="unfinished">Horisontale forskydning af billedet inde i rammen</translation>
+        <translation>Horisontale forskydning af billedet inde i rammen</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="81"/>
         <source>&amp;Y-Pos:</source>
-        <translation type="unfinished">&amp;Y-Pos:</translation>
+        <translation>&amp;Y-Pos:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="94"/>
         <source>Vertical offset of image within frame</source>
-        <translation type="unfinished">Vertikale forskydning af billedet inde i rammen</translation>
+        <translation>Vertikale forskydning af billedet inde i rammen</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="101"/>
@@ -22403,7 +22404,7 @@ en række sider eller et enkelt sidenummer</translation>
     <message>
         <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="129"/>
         <source>Resize the image horizontally</source>
-        <translation type="unfinished">Ændre billedets størrelse horisontalt</translation>
+        <translation>Ændre billedets størrelse horisontalt</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="136"/>
@@ -22413,12 +22414,12 @@ en række sider eller et enkelt sidenummer</translation>
     <message>
         <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="149"/>
         <source>Resize the image vertically</source>
-        <translation type="unfinished">Ændre billedets størrelse vertikalt</translation>
+        <translation>Ændre billedets størrelse vertikalt</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="162"/>
         <source>Keep the X and Y scaling the same</source>
-        <translation type="unfinished">Behold den samme X og Y skalering</translation>
+        <translation>Behold den samme X og Y skalering</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="165"/>
@@ -22434,7 +22435,7 @@ en række sider eller et enkelt sidenummer</translation>
     <message>
         <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="188"/>
         <source>Effective horizontal DPI of the image after scaling</source>
-        <translation type="unfinished">Billedets effektive horisontale DPI efter skalering</translation>
+        <translation>Billedets effektive horisontale DPI efter skalering</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="195"/>
@@ -22444,52 +22445,52 @@ en række sider eller et enkelt sidenummer</translation>
     <message>
         <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="202"/>
         <source>Effective vertical DPI of the image after scaling</source>
-        <translation type="unfinished">Billedets effektive vertikale DPI efter skalering</translation>
+        <translation>Billedets effektive vertikale DPI efter skalering</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="231"/>
         <source>Allow the image to be a different size to the frame</source>
-        <translation type="unfinished">Tillad billedet at have en anden størrelse en rammen</translation>
+        <translation>Tillad billedet at have en anden størrelse en rammen</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="234"/>
         <source>&amp;Free Scaling</source>
-        <translation type="unfinished">&amp;Fri skalering</translation>
+        <translation>&amp;Fri skalering</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="241"/>
         <source>Use image proportions rather than those of the frame</source>
-        <translation type="unfinished">Brug billedets proportioner i stedet for rammens</translation>
+        <translation>Brug billedets proportioner i stedet for rammens</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="251"/>
         <source>Make the image fit within the size of the frame</source>
-        <translation type="unfinished">Tilpas billedet til rammens størrelse</translation>
+        <translation>Tilpas billedet til rammens størrelse</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="254"/>
         <source>&amp;To Frame Size</source>
-        <translation type="unfinished">&amp;Til rammestørrelse</translation>
+        <translation>&amp;Til rammestørrelse</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="270"/>
         <source>Input Profile:</source>
-        <translation type="unfinished">Inputprofil:</translation>
+        <translation>Inputprofil:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="283"/>
         <source>Source profile of the image</source>
-        <translation type="unfinished">Billedets kildeprofil</translation>
+        <translation>Billedets kildeprofil</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="290"/>
         <source>Rendering Intent:</source>
-        <translation type="unfinished">Gengivelsesformål:</translation>
+        <translation>Gengivelsesformål:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="297"/>
         <source>Rendering intent for the image</source>
-        <translation type="unfinished">Gengivelsesformål for billedet</translation>
+        <translation>Gengivelsesformål for billedet</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="244"/>
@@ -22514,7 +22515,7 @@ en række sider eller et enkelt sidenummer</translation>
     <message>
         <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="326"/>
         <source>Compression method used in PDF export for the image</source>
-        <translation type="unfinished">Komprimeringsmetode der anvendes i PDF-eksport for billedet</translation>
+        <translation>Komprimeringsmetode der anvendes i PDF-eksport for billedet</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="333"/>
@@ -22524,7 +22525,7 @@ en række sider eller et enkelt sidenummer</translation>
     <message>
         <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="346"/>
         <source>Compression quality used in PDF export for the image</source>
-        <translation type="unfinished">Komprimeringskvalitet der anvendes i PDF-eksport for billedet</translation>
+        <translation>Komprimeringskvalitet der anvendes i PDF-eksport for billedet</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="364"/>
@@ -22703,7 +22704,7 @@ en række sider eller et enkelt sidenummer</translation>
     <message>
         <location filename="../../scribus/ui/propertiespalette_linebase.ui" line="20"/>
         <source>&amp;Basepoint:</source>
-        <translation>&amp;Omdrejningspunkt:</translation>
+        <translation>&amp;Udgangspunkt:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_linebase.ui" line="30"/>
@@ -23416,7 +23417,7 @@ gennemsigtighed</translation>
     <message>
         <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="65"/>
         <source>Name of selected object</source>
-        <translation type="unfinished">Det valgte objekts navn</translation>
+        <translation>Det valgte objekts navn</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="81"/>
@@ -23431,7 +23432,7 @@ gennemsigtighed</translation>
     <message>
         <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="132"/>
         <source>Horizontal position of current basepoint</source>
-        <translation type="unfinished">Horisontale placering af nuværende omdrejningspunkt</translation>
+        <translation>Horisontale placering af nuværende udgangspunkt</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="139"/>
@@ -23446,12 +23447,12 @@ gennemsigtighed</translation>
     <message>
         <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="159"/>
         <source>Vertical position of current basepoint</source>
-        <translation type="unfinished">Vertikale placering af nuværende omdrejningspunkt</translation>
+        <translation>Vertikale placering af nuværende udgangspunkt</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="166"/>
         <source>Width of current selection</source>
-        <translation type="unfinished"></translation>
+        <translation>Bredde af nuværende valg</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="173"/>
@@ -23461,7 +23462,7 @@ gennemsigtighed</translation>
     <message>
         <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="183"/>
         <source>Height of current selection</source>
-        <translation type="unfinished"></translation>
+        <translation>Højde af nuværende valg</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="190"/>
@@ -23471,22 +23472,22 @@ gennemsigtighed</translation>
     <message>
         <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="197"/>
         <source>Rotation of object at current basepoint</source>
-        <translation type="unfinished">Rotation af objekt på nuværende omdrejningspunkt</translation>
+        <translation>Rotation af objekt på nuværende udgangspunkt</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="207"/>
         <source>Point from which measurements or rotation angles are referenced</source>
-        <translation type="unfinished">Referencepunkt for målinger eller rotationsvinkler</translation>
+        <translation>Referencepunkt for målinger eller rotationsvinkler</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="210"/>
         <source>Basepoint:</source>
-        <translation>Omdrejningspunkt:</translation>
+        <translation>Udgangspunkt:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="226"/>
         <source>Keep the aspect ratio</source>
-        <translation type="unfinished">Bevar bredde/højde forholdet</translation>
+        <translation>Bevar bredde/højde forholdet</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="229"/>
@@ -23501,27 +23502,27 @@ gennemsigtighed</translation>
     <message>
         <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="276"/>
         <source>Move one level up</source>
-        <translation type="unfinished">Flyt et niveau op</translation>
+        <translation>Flyt et niveau op</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="292"/>
         <source>Move one level down</source>
-        <translation type="unfinished">Flyt et niveau ned</translation>
+        <translation>Flyt et niveau ned</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="308"/>
         <source>Move to front</source>
-        <translation type="unfinished">Placer forrest</translation>
+        <translation>Placer forrest</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="324"/>
         <source>Move to back</source>
-        <translation type="unfinished">Placer bagerst</translation>
+        <translation>Placer bagerst</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="334"/>
         <source>Indicates the level the object is on, 1 means the object is at the bottom</source>
-        <translation type="unfinished">Viser det niveau hvor objektet er placeret, 1 betyder objektet er nederst</translation>
+        <translation>Viser det niveau hvor objektet er placeret, 1 betyder objektet er nederst</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="337"/>
@@ -23531,37 +23532,37 @@ gennemsigtighed</translation>
     <message>
         <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="362"/>
         <source>Group the selected objects</source>
-        <translation type="unfinished">Lav gruppe af de valgte objekter</translation>
+        <translation>Lav gruppe af de valgte objekter</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="372"/>
         <source>Ungroup the selected group</source>
-        <translation type="unfinished">Adskil den valgte gruppe</translation>
+        <translation>Adskil den valgte gruppe</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="382"/>
         <source>Flip horizontally</source>
-        <translation type="unfinished">Vend horisontalt</translation>
+        <translation>Vend horisontalt</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="392"/>
         <source>Flip vertically</source>
-        <translation type="unfinished">Vend vertikalt</translation>
+        <translation>Vend vertikalt</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="402"/>
         <source>Lock or unlock the object</source>
-        <translation type="unfinished">Lås eller frigør objektet</translation>
+        <translation>Lås eller frigør objektet</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="412"/>
         <source>Enable or disable exporting of the object</source>
-        <translation type="unfinished">Aktiver eller deaktiver eksport af objektet</translation>
+        <translation>Aktiver eller deaktiver eksport af objektet</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="422"/>
         <source>Lock or unlock the size of the object</source>
-        <translation type="unfinished">Lås eller frigør objektets størrelse</translation>
+        <translation>Lås eller frigør objektets størrelse</translation>
     </message>
 </context>
 <context>
@@ -24427,7 +24428,7 @@ gennemsigtighed</translation>
     <message>
         <location filename="../../scribus/ui/propertywidget_textcolor.cpp" line="551"/>
         <source>Background color of selected text</source>
-        <translation type="unfinished"></translation>
+        <translation>Baggrundsfarve for valgte tekst.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_textcolor.cpp" line="552"/>
@@ -24442,7 +24443,7 @@ gennemsigtighed</translation>
     <message>
         <location filename="../../scribus/ui/propertywidget_textcolor.cpp" line="554"/>
         <source>Saturation of color of text background</source>
-        <translation type="unfinished"></translation>
+        <translation>Farvestyrke for tekstens baggrund</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_textcolor.cpp" line="556"/>
@@ -25567,7 +25568,7 @@ Ekstern Links</translation>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="170"/>
         <source>Urdu</source>
-        <translation type="unfinished"></translation>
+        <translation>Urdu</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="173"/>
@@ -25690,7 +25691,7 @@ Ekstern Links</translation>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="124"/>
         <source>Persian</source>
-        <translation type="unfinished"></translation>
+        <translation>Persisk</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="127"/>
@@ -25705,7 +25706,7 @@ Ekstern Links</translation>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="131"/>
         <source>Hindi</source>
-        <translation type="unfinished"></translation>
+        <translation>Hindi</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="133"/>
@@ -25725,7 +25726,7 @@ Ekstern Links</translation>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="139"/>
         <source>Kabyle</source>
-        <translation type="unfinished"></translation>
+        <translation>Kabyle</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="141"/>
@@ -25735,7 +25736,7 @@ Ekstern Links</translation>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="142"/>
         <source>Kannada</source>
-        <translation type="unfinished"></translation>
+        <translation>Kannada</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="143"/>
@@ -25750,7 +25751,7 @@ Ekstern Links</translation>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="148"/>
         <source>Mongolian</source>
-        <translation type="unfinished"></translation>
+        <translation>Mongolsk</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="149"/>
@@ -25780,7 +25781,7 @@ Ekstern Links</translation>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="162"/>
         <source>Somali</source>
-        <translation type="unfinished"></translation>
+        <translation>Somali</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="165"/>
@@ -26789,13 +26790,13 @@ Ekstern Links</translation>
         <location filename="../../scribus/plugins/scriptplugin/cmdpage.cpp" line="434"/>
         <source>second argument is not tuple: must be tuple of integer values.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>andet argument er ikke en tuple: skal være en tuple med heltals-værdier.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdpage.cpp" line="446"/>
         <source>second argument contains non-numeric values: must be list of integer values.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>andet argument indeholder andet end numeriske værdier: skal være en liste med heltals-værdier.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdsetprop.cpp" line="246"/>
@@ -26973,7 +26974,7 @@ er denne liste ikke udtømmende, på grund af indsigelser fra kaldte funktioner.
     <message>
         <location filename="../../scribus/plugins/fileloader/scribus134format/scribus134format.cpp" line="3232"/>
         <location filename="../../scribus/plugins/fileloader/scribus13format/scribus13format.cpp" line="2172"/>
-        <location filename="../../scribus/plugins/fileloader/scribus150format/scribus150format.cpp" line="5997"/>
+        <location filename="../../scribus/plugins/fileloader/scribus150format/scribus150format.cpp" line="5992"/>
         <source>Copy #%1 of </source>
         <translation>Kopi #%1 af </translation>
     </message>
@@ -27360,42 +27361,42 @@ er denne liste ikke udtømmende, på grund af indsigelser fra kaldte funktioner.
     <message>
         <location filename="../../scribus/pagesize.cpp" line="360"/>
         <source>9x12 (Arch A)</source>
-        <translation type="unfinished"></translation>
+        <translation>9x12 (Arch A)</translation>
     </message>
     <message>
         <location filename="../../scribus/pagesize.cpp" line="366"/>
         <source>12x18 (Arch B)</source>
-        <translation type="unfinished"></translation>
+        <translation>12x18 (Arch B)</translation>
     </message>
     <message>
         <location filename="../../scribus/pagesize.cpp" line="372"/>
         <source>18x24 (Arch C)</source>
-        <translation type="unfinished"></translation>
+        <translation>18x24 (Arch C)</translation>
     </message>
     <message>
         <location filename="../../scribus/pagesize.cpp" line="378"/>
         <source>24x36 (Arch D)</source>
-        <translation type="unfinished"></translation>
+        <translation>24x36 (Arch D)</translation>
     </message>
     <message>
         <location filename="../../scribus/pagesize.cpp" line="384"/>
         <source>36x48 (Arch E)</source>
-        <translation type="unfinished"></translation>
+        <translation>36x48 (Arch E)</translation>
     </message>
     <message>
         <location filename="../../scribus/pagesize.cpp" line="390"/>
         <source>30x42 (Arch E1)</source>
-        <translation type="unfinished"></translation>
+        <translation>30x42 (Arch E1)</translation>
     </message>
     <message>
         <location filename="../../scribus/pagesize.cpp" line="396"/>
         <source>26x38 (Arch E2)</source>
-        <translation type="unfinished"></translation>
+        <translation>26x38 (Arch E2)</translation>
     </message>
     <message>
         <location filename="../../scribus/pagesize.cpp" line="402"/>
         <source>27x39 (Arch E3)</source>
-        <translation type="unfinished"></translation>
+        <translation>27x39 (Arch E3)</translation>
     </message>
     <message>
         <location filename="../../scribus/fonts/ftface.cpp" line="71"/>
@@ -27748,6 +27749,16 @@ er denne liste ikke udtømmende, på grund af indsigelser fra kaldte funktioner.
         <location filename="../../scribus/ui/latexeditor.cpp" line="386"/>
         <source>Configfile %1 not found or the file is not readable</source>
         <translation>Konfigurationsfil %1 blev ikke fundet eller filen kan ikke læses</translation>
+    </message>
+    <message>
+        <source>second argument is not tuple: must be tuple of int values.</source>
+        <comment>python error</comment>
+        <translation type="vanished">andet argument er ikke en tuple: skal være en tuple med heltals-værdier.</translation>
+    </message>
+    <message>
+        <source>second argument contains non-numeric values: must be list of int values.</source>
+        <comment>python error</comment>
+        <translation type="vanished">andet argument indeholder andet end numeriske værdier: skal være en liste med heltals-værdier.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdstyle.cpp" line="54"/>
@@ -28528,7 +28539,7 @@ Derfor er billedet måske ikke korrekt</translation>
     <message>
         <location filename="../../scribus/plugins/gettext/odt2im/importodt.cpp" line="32"/>
         <source>ODT Document</source>
-        <translation type="unfinished"></translation>
+        <translation>ODT Dokument</translation>
     </message>
 </context>
 <context>
@@ -28678,28 +28689,28 @@ Vælg venligst et andet.</translation>
     <message>
         <location filename="../../scribus/ui/recoverdialog.cpp" line="50"/>
         <source>Click here to toggle your choice</source>
-        <translation type="unfinished"></translation>
+        <translation>Klik her for at skifte dit valg</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/recoverdialog.cpp" line="51"/>
         <source>Autosaved files are files are automatically saved versions of a document that was opened in a previous Scribus session.</source>
-        <translation type="unfinished"></translation>
+        <translation>Automatisk gemte filer er gemte versioner af et dokument, der var åbnet i en tidligere Scribus session.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/recoverdialog.cpp" line="94"/>
         <location filename="../../scribus/ui/recoverdialog.cpp" line="96"/>
         <source>(recovered)</source>
-        <translation type="unfinished"></translation>
+        <translation>(gendannet)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/recoverdialog.cpp" line="141"/>
         <source>Emergency</source>
-        <translation type="unfinished"></translation>
+        <translation>Nødsituation</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/recoverdialog.cpp" line="153"/>
         <source>Autosave</source>
-        <translation type="unfinished">Gem automatisk</translation>
+        <translation>Gem automatisk</translation>
     </message>
 </context>
 <context>
@@ -28732,12 +28743,12 @@ Vælg venligst et andet.</translation>
     <message>
         <location filename="../../scribus/ui/resourcemanager.cpp" line="78"/>
         <source>Help Manuals</source>
-        <translation type="unfinished"></translation>
+        <translation>Hjælpemanualer</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/resourcemanager.cpp" line="79"/>
         <source>Palettes</source>
-        <translation type="unfinished"></translation>
+        <translation>Paletter</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/resourcemanager.cpp" line="114"/>
@@ -29233,12 +29244,12 @@ Vælg venligst et andet.</translation>
     <message>
         <location filename="../../scribus/ui/smcstylewidget.cpp" line="108"/>
         <source>Background Color</source>
-        <translation type="unfinished"></translation>
+        <translation>Baggrundsfarve</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smcstylewidget.cpp" line="109"/>
         <source>Background Shade</source>
-        <translation type="unfinished"></translation>
+        <translation>Baggrundens farvetone</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smcstylewidget.cpp" line="298"/>
@@ -29586,7 +29597,7 @@ Vælg venligst et andet.</translation>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.ui" line="590"/>
         <source>Colors</source>
-        <translation type="unfinished">Farver</translation>
+        <translation>Farver</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.ui" line="693"/>
@@ -29806,12 +29817,12 @@ Vælg venligst et andet.</translation>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.cpp" line="146"/>
         <source>Background Color</source>
-        <translation type="unfinished"></translation>
+        <translation>Baggrundsfarve</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.cpp" line="147"/>
         <source>Background Shade</source>
-        <translation type="unfinished"></translation>
+        <translation>Baggrundens farvetone</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.cpp" line="190"/>
@@ -29831,7 +29842,7 @@ Vælg venligst et andet.</translation>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.cpp" line="644"/>
         <source>Shade</source>
-        <translation type="unfinished"></translation>
+        <translation>Farvetone</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.cpp" line="234"/>
@@ -31437,7 +31448,7 @@ og konverterer deres vektordata til Scribus objekter.</translation>
     <message>
         <location filename="../../scribus/ui/annot.ui" line="1516"/>
         <source>Prepend Currency Symbol</source>
-        <translation>Sæt valutasymbol foran</translation>
+        <translation>Tilføj valutasymbol foran</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/annot.ui" line="1523"/>
@@ -32120,7 +32131,7 @@ Hvis du gemmer den i denne version, vil den ikke længere kunne læses af ældre
         <translation>Scribus 1.5.0+ dokument</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/fileloader/scribus150format/scribus150format.cpp" line="6620"/>
+        <location filename="../../scribus/plugins/fileloader/scribus150format/scribus150format.cpp" line="6615"/>
         <source>Copy #%1 of </source>
         <translation>Kopi #%1 af </translation>
     </message>
@@ -32206,7 +32217,7 @@ Hvis du gemmer den i denne version, vil den ikke længere kunne læses af ældre
     <message>
         <location filename="../../scribus/scribusdoc.cpp" line="16299"/>
         <source>File %1 autosaved</source>
-        <translation type="unfinished"></translation>
+        <translation>Fil %1 gemt automatisk</translation>
     </message>
     <message>
         <location filename="../../scribus/scribusdoc.cpp" line="17554"/>
@@ -32473,7 +32484,7 @@ Rotation: %4</translation>
     <message>
         <location filename="../../scribus/scribus.cpp" line="1000"/>
         <source>S&amp;paces &amp;&amp; Breaks</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Mellemrum &amp;&amp; Manuelle skift</translation>
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="1067"/>
@@ -34625,7 +34636,7 @@ Overvej at bruge Preflight Efterprøvning for at rette dem</translation>
     <message>
         <location filename="../../scribus/plugins/gettext/sxwim/sxwdia.cpp" line="53"/>
         <source>Prepend the document name to the paragraph style name in Scribus.</source>
-        <translation>Sæt dokumentnavn foran afsnitstypografiens navn i Scribus.</translation>
+        <translation>Tilføj dokumentnavnet foran afsnitstypografiens navn i Scribus.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/gettext/sxwim/sxwdia.cpp" line="33"/>
@@ -35758,7 +35769,7 @@ når PDF dokument åbnes:</translation>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="215"/>
         <source>Determines the PDF compatibility.&lt;br/&gt;The default is &lt;b&gt;PDF 1.3&lt;/b&gt; which gives the widest compatibility.&lt;br/&gt;Choose &lt;b&gt;PDF 1.4&lt;/b&gt; if your file uses features such as transparency or you require 128 bit encryption.&lt;br/&gt;&lt;b&gt;PDF 1.5&lt;/b&gt; is necessary when you wish to preserve objects in separate layers within the PDF.&lt;br/&gt;&lt;b&gt;PDF/X-1a&lt;/b&gt; is for blind exchange with colors strictly specified in CMYK or spot colors.&lt;br/&gt;&lt;b&gt;PDF/X-3&lt;/b&gt; is for exporting the PDF when you want color managed RGB for commercial printing and is selectable when you have activated color management. Use only when advised by your printer or in some cases printing to a 4 color digital color laser printer.&lt;br/&gt;&lt;b&gt;PDF/X-4&lt;/b&gt; is an extension of PDF/X-3 to support transparency and layering.</source>
-        <translation type="unfinished"></translation>
+        <translation>Bestemmer PDF-kompatibiliteten.&lt;/br&gt;Standarden er &lt;b&gt;PDF 1.3&lt;/b&gt;, som giver den største kompatibilitet.&lt;br/&gt;Vælg &lt;b&gt;PDF 1.4&lt;/b&gt;, hvis filen har egenskaber som f.eks. gennemsigtighed, eller hvis du ønsker 128 bit kryptering.&lt;br/&gt;&lt;b&gt;PDF 1.5&lt;/b&gt; er nødvendig, når du ønsker at bevare objekter i separate lag inden i PDF-filen.&lt;br/&gt;&lt;b&gt; PDF/X-1a&lt;/b&gt;er for blind udveksling med farver udelukkende specificeret i CMYK eller pantonefarver.&lt;br/&gt;&lt;b&gt;PDF/X-3&lt;/b&gt; bruges til eksport til PDF, når du ønsker farvestyring af RGB for kommerciel trykning og kan vælges, når du har aktiveret farvestyring. Bruges kun når dit trykkeri ønsker det, eller i nogle tilfælde, når der udskrives til en 4 farve digital farve laserprinter.&lt;br/&gt;&lt;b&gt;PDF/X-4&lt;/b&gt; er en udvidelse af PDF/X-3 til støtte for transparens og lagdeling.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="262"/>
@@ -36146,19 +36157,19 @@ når PDF dokument åbnes:</translation>
         <location filename="../../scribus/ui/transformdialogbase.ui" line="267"/>
         <location filename="../../scribus/ui/transformdialogbase.ui" line="359"/>
         <source>Horizontal:</source>
-        <translation type="unfinished">Horisontalt:</translation>
+        <translation>Horisontalt:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/transformdialogbase.ui" line="210"/>
         <location filename="../../scribus/ui/transformdialogbase.ui" line="284"/>
         <location filename="../../scribus/ui/transformdialogbase.ui" line="410"/>
         <source>Vertical:</source>
-        <translation type="unfinished">Vertikalt:</translation>
+        <translation>Vertikalt:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/transformdialogbase.ui" line="320"/>
         <source>Angle:</source>
-        <translation type="unfinished">Vinkel:</translation>
+        <translation>Vinkel:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/transformdialogbase.ui" line="160"/>
@@ -37977,7 +37988,7 @@ og konverterer deres vektordata til Scribus objekter.</translation>
     <message>
         <location filename="../../scribus/plugins/gettext/xtgim/xtgdialog.cpp" line="55"/>
         <source>Prepend the document name to the Style name in Scribus</source>
-        <translation>Tilføj dokumentnavnet til starten af typografi-navnet i Scribus</translation>
+        <translation>Tilføj dokumentnavnet foran formatnavnet i Scribus</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/gettext/xtgim/xtgdialog.cpp" line="64"/>
@@ -38315,7 +38326,7 @@ Vælg venligst et andet.</translation>
     <message>
         <location filename="../../scribus/ui/gtfiledialog.cpp" line="29"/>
         <source>Prepend the item name to the Style name in Scribus</source>
-        <translation type="unfinished"></translation>
+        <translation>Tilføj elementnavnet foran formatnavnet i Scribus</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/gtfiledialog.ui" line="14"/>
@@ -38340,7 +38351,7 @@ Vælg venligst et andet.</translation>
     <message>
         <location filename="../../scribus/ui/gtfiledialog.ui" line="56"/>
         <source>Prefix Styles with Item Name</source>
-        <translation type="unfinished"></translation>
+        <translation>Præfiks formater med elementnavn</translation>
     </message>
 </context>
 <context>
@@ -38673,42 +38684,42 @@ Vælg venligst et andet.</translation>
     <message>
         <location filename="../../scribus/ui/recoverdialog.ui" line="17"/>
         <source>Crash Recovery</source>
-        <translation type="unfinished"></translation>
+        <translation>Gendannelse efter nedbrud</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/recoverdialog.ui" line="23"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;It appears that Scribus crashed with the following files open.&lt;br&gt;Would you like to try to recover them?&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Det ser ud til, at Scribus havde et nedbrud med følgende åbne filer.&lt;br&gt;Vil du forsøge at gendanne dem?&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/recoverdialog.ui" line="65"/>
         <source>Name</source>
-        <translation type="unfinished">Navn</translation>
+        <translation>Navn</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/recoverdialog.ui" line="70"/>
         <source>Date</source>
-        <translation type="unfinished">Dato</translation>
+        <translation>Dato</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/recoverdialog.ui" line="75"/>
         <source>Type</source>
-        <translation type="unfinished">Type</translation>
+        <translation>Type</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/recoverdialog.ui" line="88"/>
         <source>Recover</source>
-        <translation type="unfinished"></translation>
+        <translation>Gendan</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/recoverdialog.ui" line="98"/>
         <source>Remove</source>
-        <translation type="unfinished">Fjern</translation>
+        <translation>Fjern</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/recoverdialog.ui" line="118"/>
         <source>Close</source>
-        <translation type="unfinished">Luk</translation>
+        <translation>Luk</translation>
     </message>
 </context>
 <context>
