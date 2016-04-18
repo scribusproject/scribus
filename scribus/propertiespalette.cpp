@@ -2290,8 +2290,8 @@ void PropertiesPalette::SetCurItem(PageItem *i)
 		pathTextType->setCurrentIndex(CurItem->textPathType);
 		flippedPathText->setChecked(CurItem->textPathFlipped);
 		showcurveCheckBox->setChecked(CurItem->PoShow);
-		LineW->setValue(CurItem->BaseOffs * -1);
-		Dist->setValue(CurItem->textToFrameDistLeft());
+		LineW->setValue(CurItem->BaseOffs * -1 * m_unitRatio);
+		Dist->setValue(CurItem->textToFrameDistLeft() * m_unitRatio);
 		flopItem->setHidden(true);
 		DistanceItem->setHidden(true);
 		Distance2Item->setHidden(false);
@@ -2703,6 +2703,9 @@ void PropertiesPalette::unitChange()
     DRight->setNewUnit( m_unitIndex );
     RoundRect->setNewUnit( m_unitIndex );
     LSize->setNewUnit( m_unitIndex );
+
+	Dist->setNewUnit( m_unitIndex );
+	LineW->setNewUnit( m_unitIndex );
 /*
 	double maxXYWHVal=30000 * m_unitRatio;
 	double minXYVal=-30000 * m_unitRatio;
@@ -5052,7 +5055,7 @@ void PropertiesPalette::handlePathDist()
 {
 	if (!HaveDoc || !HaveItem || !m_ScMW || m_ScMW->scriptIsRunning())
 		return;
-	CurItem->setTextToFrameDistLeft(Dist->value());
+	CurItem->setTextToFrameDistLeft(Dist->value() / m_unitRatio);
 	doc->AdjustItemSize(CurItem);
 	CurItem->updatePolyClip();
 	CurItem->update();
@@ -5063,7 +5066,7 @@ void PropertiesPalette::handlePathOffs()
 {
 	if (!HaveDoc || !HaveItem || !m_ScMW || m_ScMW->scriptIsRunning())
 		return;
-	CurItem->BaseOffs = -LineW->value();
+	CurItem->BaseOffs = -LineW->value() / m_unitRatio;
 	doc->AdjustItemSize(CurItem);
 	CurItem->updatePolyClip();
 	CurItem->update();
@@ -5472,8 +5475,6 @@ void PropertiesPalette::languageChange()
 	maxGlyphExtSpinBox->setSuffix(pctSuffix);
 	
 	QString ptSuffix = tr(" pt");
-	Dist->setSuffix(ptSuffix);
-	LineW->setSuffix(ptSuffix);
 	Size->setSuffix(ptSuffix);
 	LineSp->setSuffix(ptSuffix);
 
@@ -5493,6 +5494,9 @@ void PropertiesPalette::languageChange()
 	DBottom->setSuffix(ein);
 	DRight->setSuffix(ein);
 	RoundRect->setSuffix(ein);
+
+	Dist->setSuffix(ein);
+	LineW->setSuffix(ein);
 
 	SeStyle->languageChange();
 	GroupAlign->languageChange();
