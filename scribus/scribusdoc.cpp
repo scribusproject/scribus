@@ -16670,7 +16670,8 @@ PageItem* ScribusDoc::findMarkItem(Mark* mrk, int &lastItem)
 		item = DocItems.at(a);
 		if (!item || !item->isTextFrame() || (item->itemText.length() <= 0))
 			continue;
-		for (int i = item->firstInFrame(); i <= item->lastInFrame(); ++i)
+	//	for (int i = item->firstInFrame(); i <= item->lastInFrame(); ++i)
+		for (int i = 0; i < item->itemText.length(); ++i)
 		{
 			if (item->itemText.hasMark(i, mrk))
 			{

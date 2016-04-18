@@ -54,7 +54,7 @@ void TextShaper::needChars(int runIndex)
 	for ( ; m_index < itemText.length(); ++m_index)
 	{
 		Mark* mark = itemText.mark(m_index);
-		if (itemText.hasMark(m_index))
+		if ((mark != NULL) && (itemText.hasMark(m_index)))
 		{
 			mark->OwnPage = m_item->OwnPage;
 			//itemPtr and itemName set to this frame only if mark type is different than MARK2ItemType
