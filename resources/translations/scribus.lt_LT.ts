@@ -26748,7 +26748,7 @@ Išsamiau apie kiekvienos funkcijos galimas išimtis rasite jų aprašuose
     <message>
         <location filename="../../scribus/plugins/fileloader/scribus134format/scribus134format.cpp" line="3232"/>
         <location filename="../../scribus/plugins/fileloader/scribus13format/scribus13format.cpp" line="2172"/>
-        <location filename="../../scribus/plugins/fileloader/scribus150format/scribus150format.cpp" line="5992"/>
+        <location filename="../../scribus/plugins/fileloader/scribus150format/scribus150format.cpp" line="5997"/>
         <source>Copy #%1 of </source>
         <translation>%1-oji kopija iš </translation>
     </message>
@@ -27430,16 +27430,6 @@ nauju?</translation>
         <location filename="../../scribus/ui/latexeditor.cpp" line="386"/>
         <source>Configfile %1 not found or the file is not readable</source>
         <translation>Konfigūracijos failas „%1“ nerastas arba neįmanoma jo perskaityti</translation>
-    </message>
-    <message>
-        <source>second argument is not tuple: must be tuple of int values.</source>
-        <comment>python error</comment>
-        <translation type="vanished">antrasis argumentas – ne rinkinys: turi būti sveikųjų skaičių rinkinys.</translation>
-    </message>
-    <message>
-        <source>second argument contains non-numeric values: must be list of int values.</source>
-        <comment>python error</comment>
-        <translation type="vanished">ne visos antrojo argumento reikšmės – skaičiai: turi būti sveikųjų skaičių sąrašas.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdstyle.cpp" line="54"/>
@@ -32070,7 +32060,7 @@ Jei įrašysite šia „Scribus“ versija, tai nebegalėsite atverti senesnėmi
         <translation>„Scribus 1.3.5“ (ir naujesnių) dokumentas</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/fileloader/scribus150format/scribus150format.cpp" line="6615"/>
+        <location filename="../../scribus/plugins/fileloader/scribus150format/scribus150format.cpp" line="6620"/>
         <source>Copy #%1 of </source>
         <translation>%1-oji kopija iš </translation>
     </message>

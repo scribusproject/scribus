@@ -26796,7 +26796,7 @@ debido a excepcións das funcións chamadas.</translation>
     <message>
         <location filename="../../scribus/plugins/fileloader/scribus134format/scribus134format.cpp" line="3232"/>
         <location filename="../../scribus/plugins/fileloader/scribus13format/scribus13format.cpp" line="2172"/>
-        <location filename="../../scribus/plugins/fileloader/scribus150format/scribus150format.cpp" line="5992"/>
+        <location filename="../../scribus/plugins/fileloader/scribus150format/scribus150format.cpp" line="5997"/>
         <source>Copy #%1 of </source>
         <translation>Copia nº %1 de </translation>
     </message>
@@ -27477,16 +27477,6 @@ debido a excepcións das funcións chamadas.</translation>
         <location filename="../../scribus/ui/latexeditor.cpp" line="386"/>
         <source>Configfile %1 not found or the file is not readable</source>
         <translation>Non se atopou o ficheiro de configuración %1 ou este non é lexíbel</translation>
-    </message>
-    <message>
-        <source>second argument is not tuple: must be tuple of int values.</source>
-        <comment>python error</comment>
-        <translation type="vanished">o segundo argumento non é un par de valores; ha de ser un par de valores enteiros.</translation>
-    </message>
-    <message>
-        <source>second argument contains non-numeric values: must be list of int values.</source>
-        <comment>python error</comment>
-        <translation type="vanished">o segundo argumento contén valores non numéricos; ha de ser unha lista de valores enteiros.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdstyle.cpp" line="54"/>
@@ -32118,7 +32108,7 @@ Se o garda nesta versión xa non o poderán ler as versións máis antigas do Sc
         <translation>Documento do Scribus 1.5.0+</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/fileloader/scribus150format/scribus150format.cpp" line="6615"/>
+        <location filename="../../scribus/plugins/fileloader/scribus150format/scribus150format.cpp" line="6620"/>
         <source>Copy #%1 of </source>
         <translation>Copia nº%1 de </translation>
     </message>
