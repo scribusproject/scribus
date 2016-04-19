@@ -98,6 +98,7 @@ void Prefs_Display::unitChange(int unitIndex)
 	scratchSpaceBottomSpinBox->setNewUnit(unitIndex);
 	pageGapHorizontalSpinBox->setNewUnit(unitIndex);
 	pageGapVerticalSpinBox->setNewUnit(unitIndex);
+	docUnitIndex = unitIndex;
 }
 
 void Prefs_Display::restoreDefaults(struct ApplicationPrefs *prefsData)
@@ -410,7 +411,8 @@ void Prefs_Display::saveGuiToPrefs(struct ApplicationPrefs *prefsData) const
 	prefsData->guidesPrefs.showBleed=showBleedAreaCheckBox->isChecked();
 	prefsData->displayPrefs.showPageShadow=showPageShadowCheckBox->isChecked();
 	prefsData->displayPrefs.showVerifierWarningsOnCanvas=showVerifierWarningsOnCanvasCheckBox->isChecked();
-	double unitRatio = unitGetRatioFromIndex(docUnitIndex);
+
+	double unitRatio = unitGetRatioFromIndex(prefsData->docSetupPrefs.docUnitIndex);
 	prefsData->displayPrefs.scratch.setLeft(scratchSpaceLeftSpinBox->value() / unitRatio);
 	prefsData->displayPrefs.scratch.setRight(scratchSpaceRightSpinBox->value() / unitRatio);
 	prefsData->displayPrefs.scratch.setTop(scratchSpaceTopSpinBox->value() / unitRatio);
