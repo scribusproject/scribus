@@ -2647,8 +2647,13 @@ GlyphLayout PageItem::layoutGlyphs(const CharStyle& style, const QString& chars,
 		gl.xadvance = font.glyphWidth(gl.glyph, style.fontSize() / 10);
 		gl.yadvance = font.glyphBBox(gl.glyph, style.fontSize() / 10).ascent;
 	}
+	if (gl.scaleH == 0.0)
+	{
+		gl.xadvance = 0.0;
+		gl.scaleH = 1.0;
+	}
 	if (gl.xadvance > 0)
-		gl.xadvance += tracking;
+		gl.xadvance += tracking / gl.scaleH;
 
 	return gl;
 }

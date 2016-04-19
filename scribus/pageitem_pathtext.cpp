@@ -207,7 +207,7 @@ void PageItem_PathText::DrawObj_Item(ScPainter *p, QRectF cullingArea)
 		if (itemRenderText.hasObject(a))
 			totalTextLen += (itemRenderText.object(a)->width() + itemRenderText.object(a)->lineWidth()) * glyphs.scaleH;
 		else
-			totalTextLen += glyphs.xadvance+itemRenderText.charStyle(a).fontSize() * itemRenderText.charStyle(a).tracking() / 10000.0;
+			totalTextLen += glyphs.xadvance * glyphs.scaleH + itemRenderText.charStyle(a).fontSize() * itemRenderText.charStyle(a).tracking() / 10000.0;
 	}
 	for (int segs = 0; segs < PoLine.size()-3; segs += 4)
 	{
@@ -255,13 +255,11 @@ void PageItem_PathText::DrawObj_Item(ScPainter *p, QRectF cullingArea)
 			chstr += itemRenderText.text(a+1, 1);
 
 		GlyphLayout glyphs = layoutGlyphs(itemRenderText.charStyle(a), chstr, itemRenderText.flags(a));
-		GlyphRun run(&itemRenderText.charStyle(a), itemRenderText.flags(a), a, a, itemRenderText.object(a));
-		run.glyphs().append(glyphs);
 
 		if (itemRenderText.hasObject(a))
 			dx = (itemRenderText.object(a)->width() + itemRenderText.object(a)->lineWidth()) * glyphs.scaleH / 2.0;
 		else
-			dx = glyphs.xadvance / 2.0;
+			dx = glyphs.xadvance * glyphs.scaleH / 2.0;
 		CurX += dx;
 		double currPerc = currPath.percentAtLength(CurX);
 		if (currPerc >= 0.9999999)
@@ -308,6 +306,9 @@ void PageItem_PathText::DrawObj_Item(ScPainter *p, QRectF cullingArea)
 		}
 		trafo.translate(0, BaseOffs);
 
+		GlyphRun run(&itemRenderText.charStyle(a), itemRenderText.flags(a), a, a, itemRenderText.object(a));
+		run.glyphs().append(glyphs);
+
 		const CharStyle& cStyle(run.style());
 		double scaleV = cStyle.scaleV() / 1000.0;
 		double offset = (cStyle.fontSize() / 10) * (cStyle.baselineOffset() / 1000.0);
@@ -337,9 +338,9 @@ void PageItem_PathText::DrawObj_Item(ScPainter *p, QRectF cullingArea)
 		if (itemRenderText.hasObject(a))
 			CurX += (itemRenderText.object(a)->width() + itemRenderText.object(a)->lineWidth()) * glyphs.scaleH + extraOffset;
 		else if (chstr[0] == SpecialChars::BLANK)
-			CurX += glyphs.xadvance+itemRenderText.charStyle(a).fontSize() * itemRenderText.charStyle(a).tracking() / 10000.0 + wordExtra + extraOffset;
+			CurX += glyphs.xadvance * glyphs.scaleH + itemRenderText.charStyle(a).fontSize() * itemRenderText.charStyle(a).tracking() / 10000.0 + wordExtra + extraOffset;
 		else
-			CurX += glyphs.xadvance+itemRenderText.charStyle(a).fontSize() *itemRenderText.charStyle(a).tracking() / 10000.0 + extraOffset;
+			CurX += glyphs.xadvance * glyphs.scaleH + itemRenderText.charStyle(a).fontSize() * itemRenderText.charStyle(a).tracking() / 10000.0 + extraOffset;
 	}
 
 	textLayout.addColumn(0, 0);
