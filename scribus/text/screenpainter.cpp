@@ -282,14 +282,14 @@ void ScreenPainter::drawObject(PageItem* embedded)
 	case PageItem::Line:
 	case PageItem::PolyLine:
 	case PageItem::Spiral:
-		embedded->m_lineWidth = pws * qMin(scaleH(), scaleV());
+	//	embedded->m_lineWidth = pws * qMin(scaleH(), scaleV());
 		embedded->DrawObj_Item(m_painter, cullingArea);
 		break;
 	default:
 		break;
 	}
 
-	embedded->m_lineWidth = pws * qMin(scaleH(), scaleV());
+//	embedded->m_lineWidth = pws * qMin(scaleH(), scaleV());
 	embedded->DrawObj_Post(m_painter);
 	embedded->m_lineWidth = pws;
 

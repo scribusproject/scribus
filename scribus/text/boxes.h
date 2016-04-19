@@ -245,7 +245,7 @@ public:
 
 	const CharStyle& style() const { return m_glyphRun.style(); }
 
-private:
+protected:
 	GlyphRun m_glyphRun;
 	const StyleFlag m_effects;
 };

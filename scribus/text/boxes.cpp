@@ -655,7 +655,10 @@ void ObjectBox::render(TextLayoutPainter *p) const
 	const CharStyle& charStyle = style();
 
 	p->translate(x(), y() - ascent());
-	p->setScale(charStyle.scaleH() / 1000.0, charStyle.scaleV() / 1000.0);
+	if (m_glyphRun.hasFlag(ScLayout_DropCap))
+		p->setScale(m_glyphRun.glyphs().first().scaleH, m_glyphRun.glyphs().first().scaleV);
+	else
+		p->setScale(charStyle.scaleH() / 1000.0, charStyle.scaleV() / 1000.0);
 	p->setMatrix(m_matrix);
 
 	m_item->setXPos(m_item->gXpos);

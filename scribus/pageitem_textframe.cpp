@@ -804,7 +804,10 @@ struct LineControl {
 		if (run.object())
 		{
 			result = new ObjectBox(run);
-			result->setAscent(run.object()->height() - run.object()->lineWidth());
+			if (run.hasFlag(ScLayout_DropCap))
+				result->setAscent((run.object()->height() - run.object()->lineWidth()) * run.glyphs().first().scaleV - run.glyphs().first().yoffset);
+			else
+				result->setAscent(run.object()->height() - run.object()->lineWidth());
 			result->setDescent(0);
 		}
 		else
@@ -1757,10 +1760,12 @@ void PageItem_TextFrame::layout()
 					if (itemHeight == 0)
 						itemHeight = font.height(style.charStyle().fontSize() / 10.0);
 					asce = currentObject->height() + currentObject->lineWidth();
+					wide = currentObject->width() + currentObject->lineWidth();
 					realAsce = calculateLineSpacing (style, this) * DropLines;
 					firstGlyph.scaleH /= firstGlyph.scaleV;
 					firstGlyph.scaleV = (realAsce / itemHeight);
 					firstGlyph.scaleH *= firstGlyph.scaleV;
+					wide *= firstGlyph.scaleH;
 				}
 				else
 				{
