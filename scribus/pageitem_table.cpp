@@ -987,6 +987,7 @@ void PageItem_Table::activateCell(const TableCell& cell)
 	// Deselect previous active cell and its text.
 	m_activeCell.textFrame()->setSelected(false);
 	m_activeCell.textFrame()->itemText.deselectAll();
+	m_activeCell.textFrame()->HasSel = false;
 
 	// Set the new active cell and select it.
 	m_activeCell = newActiveCell;

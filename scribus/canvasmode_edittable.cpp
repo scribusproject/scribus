@@ -328,8 +328,8 @@ void CanvasMode_EditTable::handleMouseDrag(QMouseEvent* event)
 	{
 		// Select text in active cell text frame.
 		activeFrame->itemText.deselectAll();
-		m_view->slotSetCurs(event->globalPos().x(), event->globalPos().y());
 		activeFrame->HasSel = false;
+		m_view->slotSetCurs(event->globalPos().x(), event->globalPos().y());
 
 		const int selectionStart = qMin(activeFrame->itemText.cursorPosition(), m_lastCursorPos);
 		const int selectionLength = qAbs(activeFrame->itemText.cursorPosition() - m_lastCursorPos);
