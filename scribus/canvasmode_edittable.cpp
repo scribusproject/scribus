@@ -314,7 +314,10 @@ void CanvasMode_EditTable::drawControls(QPainter* p)
 
 void CanvasMode_EditTable::updateCanvas(bool forceRedraw)
 {
-	m_canvas->setForcedRedraw(forceRedraw);
+	// Do not let update timer cancel forced redraw otherwise
+	// we get refresh issues  when typing or selecting text
+	if (!m_canvas->isForcedRedraw())
+		m_canvas->setForcedRedraw(forceRedraw);
 	m_canvas->update(m_canvas->canvasToLocal(m_table->getBoundingRect()));
 }
 
