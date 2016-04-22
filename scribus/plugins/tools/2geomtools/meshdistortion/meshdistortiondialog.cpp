@@ -552,6 +552,7 @@ void MeshDistortionDialog::updateAndExit()
 		{
 			currItem->groupWidth = currItem->groupWidth * (currItem->OldB2 / oW);
 			currItem->groupHeight = currItem->groupHeight * (currItem->OldH2 / oH);
+			currItem->SetRectFrame();
 		}
 		currItem->updateClip();
 		currItem->ContourLine = currItem->PoLine.copy();

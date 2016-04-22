@@ -28,6 +28,7 @@ for which a new license (GPL+exception) is in place.
 #include "lensdialog.h"
 #include "scribuscore.h"
 #include "selection.h"
+#include "scribusview.h"
 
 int lenseffects_getPluginAPIVersion()
 {
@@ -139,9 +140,24 @@ bool LensEffectsPlugin::run(ScribusDoc* doc, QString)
 					currItem->groupHeight = currItem->groupHeight * (currItem->OldH2 / oH);
 				}
 				currItem->updateClip();
+				if (currItem->isGroup())
+				{
+					currDoc->resizeGroupToContents(currItem);
+					currItem->SetRectFrame();
+				}
 				currItem->ContourLine = currItem->PoLine.copy();
 			}
+			if (currDoc->m_Selection->count() > 0)
+			{
+				PageItem *m_patternItem = currDoc->m_Selection->itemAt(0);
+				if (m_patternItem->isGroup())
+				{
+					currDoc->resizeGroupToContents(m_patternItem);
+					m_patternItem->SetRectFrame();
+				}
+			}
 			currDoc->changed();
+			currDoc->view()->DrawNew();
 		}
 		delete dia;
 	}

@@ -125,6 +125,11 @@ bool MeshDistortionPlugin::run(ScribusDoc* doc, QString)
 		if (dia->exec())
 		{
 			dia->updateAndExit();
+			if (m_patternItem->isGroup())
+			{
+				m_doc->resizeGroupToContents(m_patternItem);
+				m_patternItem->SetRectFrame();
+			}
 			m_doc->changed();
 			m_doc->view()->DrawNew();
 		}

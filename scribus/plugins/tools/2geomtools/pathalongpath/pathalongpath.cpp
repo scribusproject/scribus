@@ -231,6 +231,12 @@ bool PathAlongPathPlugin::run(ScribusDoc* doc, QString)
 			{
 				updateEffectG(dia->effectType, dia->offset, dia->offsetY, dia->gap, dia->rotate);
 				m_doc->changed();
+				if (bxi->isGroup())
+				{
+					m_doc->resizeGroupToContents(bxi);
+					bxi->SetRectFrame();
+					m_doc->view()->DrawNew();
+				}
 			}
 			else
 			{
