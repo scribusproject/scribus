@@ -553,7 +553,7 @@ void NodePalette::ResetContour()
 		//FIXME make an internal item copy poline to contourline member
 		currItem->ContourLine = currItem->PoLine.copy();
 		currItem->ClipEdited = true;
-		m_view->DrawNew();
+		m_doc->regionsChanged()->update(QRectF());
 		emit DocChanged();
 	}
 }
@@ -565,7 +565,7 @@ void NodePalette::ResetContourToImageClip()
 		PageItem *currItem = m_doc->m_Selection->itemAt(0);
 		currItem->ContourLine = currItem->imageClip.copy();
 		currItem->ClipEdited = true;
-		m_view->DrawNew();
+		m_doc->regionsChanged()->update(QRectF());
 		emit DocChanged();
 	}
 }
@@ -941,6 +941,7 @@ void NodePalette::CancelEdit()
 		m_doc->adjustItemSize(currItem);
 		if (currItem->itemType() == PageItem::PathText)
 			currItem->updatePolyClip();
+		m_doc->regionsChanged()->update(QRectF());
 	}
 	PolySplit->setEnabled(false);
 	BezierClose->setEnabled(false);
@@ -969,6 +970,7 @@ void NodePalette::ResetToEditDefaults()
 		if (currItem->itemType() == PageItem::PathText)
 			currItem->updatePolyClip();
 		currItem->update();
+		m_doc->regionsChanged()->update(QRectF());
 	}
 }
 

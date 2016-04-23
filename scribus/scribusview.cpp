@@ -1403,7 +1403,6 @@ bool ScribusView::PointOnLine(QPoint Start, QPoint End, QRect MArea)
 void ScribusView::TransformPoly(int mode, int rot, double scaling)
 {
 	PageItem *currItem = Doc->m_Selection->itemAt(0);
-	QRectF oldR = currItem->getBoundingRect().adjusted(-5, -5, 10, 10);
 	currItem->ClipEdited = true;
 	QTransform ma;
 	undoManager->setUndoEnabled(false);
@@ -1479,7 +1478,7 @@ void ScribusView::TransformPoly(int mode, int rot, double scaling)
 		currItem->ContourLine.translate(qRound((tp.x() + tp2.x()) / 2.0), qRound((tp.y() + tp2.y()) / 2.0));
 		updateContents();
 		currItem->FrameOnly = true;
-		updateContents(currItem->getRedrawBounding(m_canvas->scale()));
+		Doc->regionsChanged()->update(QRect());
 		undoManager->setUndoEnabled(true);
 		if (UndoManager::undoEnabled())
 		{
@@ -1582,10 +1581,8 @@ void ScribusView::TransformPoly(int mode, int rot, double scaling)
 	if (currItem->asPathText())
 		currItem->updatePolyClip();
 	Doc->setRedrawBounding(currItem);
-	QRectF newR(currItem->getBoundingRect());
-	Doc->regionsChanged()->update(newR.united(oldR));
+	Doc->regionsChanged()->update(QRect());
 	currItem->update();
-//	MarkClip(currItem, currItem->PoLine, true);
 	currItem->FrameType = 3;
 	undoManager->setUndoEnabled(true);
 	if (UndoManager::undoEnabled())
