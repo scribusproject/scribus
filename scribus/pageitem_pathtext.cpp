@@ -221,7 +221,7 @@ void PageItem_PathText::DrawObj_Item(ScPainter *p, QRectF cullingArea)
 			CurX -= m_textDistanceMargins.left();
 		}
 		if (itemRenderText.paragraphStyle(0).alignment() == 1)
-			CurX = (totalCurveLen - totalTextLen) / 2.0;
+			CurX = ((totalCurveLen - totalTextLen) / 2.0) + m_textDistanceMargins.left();
 		if (itemRenderText.paragraphStyle(0).alignment() == 3)
 		{
 			if (spaceCount != 0)

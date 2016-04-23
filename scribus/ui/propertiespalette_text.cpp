@@ -577,6 +577,8 @@ void PropertiesPalette_Text::handleAlignment(int a)
 	Selection tempSelection(this, false);
 	tempSelection.addItem(m_item, true);
 	m_doc->itemSelection_SetAlignment(a, &tempSelection);
+	if (m_item->isPathText())
+		pathTextWidgets->handleSelectionChanged();
 }
 
 void PropertiesPalette_Text::handleTextFont(QString c)

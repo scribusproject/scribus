@@ -104,6 +104,14 @@ void PropertyWidget_PathText::setCurrentItem(PageItem *item)
 			flippedPathText->setChecked(m_item->textPathFlipped);
 			showCurveCheckBox->setChecked(m_item->PoShow);
 			distFromCurve->showValue(m_item->BaseOffs * -1 * m_unitRatio);
+			if (m_item->itemText.paragraphStyle(0).alignment() == 1)
+				startOffset->setMinimum(-3000);
+			else
+			{
+				if (m_item->textToFrameDistLeft() < 0)
+					m_item->setTextToFrameDistLeft(0);
+				startOffset->setMinimum(0);
+			}
 			startOffset->showValue(m_item->textToFrameDistLeft() * m_unitRatio);
 		}
 		connectSignals();
@@ -192,6 +200,7 @@ void PropertyWidget_PathText::handlePathOffs()
 	m_doc->adjustItemSize(m_item);
 	m_item->updatePolyClip();
 	m_item->update();
+	m_doc->regionsChanged()->update(QRect());
 }
 
 void PropertyWidget_PathText::handlePathType()
