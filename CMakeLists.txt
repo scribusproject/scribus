@@ -1020,8 +1020,6 @@ INSTALL(FILES
 	DESTINATION ${MIMELNKDIR}
 )
 
-)
-
 
 #Install the appdata file
 INSTALL(FILES
