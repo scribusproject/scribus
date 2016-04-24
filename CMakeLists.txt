@@ -355,6 +355,15 @@ ELSE()
     ADD_DEFINITIONS("-DDESKTOPDIR=\\\"${DESKTOPDIR}\\\"")
 ENDIF()
 
+#APPDATA
+SET(APPDATADIR "${CMAKE_INSTALL_DATAROOTDIR}/appdata/")
+IF(NOT IS_ABSOLUTE ${APPDATADIRR})
+    ADD_DEFINITIONS("-DAPPDATADIR=\\\"${CMAKE_INSTALL_PREFIX}/${APPDATADIR}\\\"")
+ELSE()
+    ADD_DEFINITIONS("-DAPPDATADIR=\\\"${APPDATADIR}\\\"")
+ENDIF()
+
+
 # APPLICATION_DATA_DIR
 # It allows specify the user configuration directory in the compile time.
 # Example: I want to use special ~/.scribus135svn config directory for my trunk
@@ -945,12 +954,22 @@ INSTALL(FILES
   DESTINATION ${MIMELNKDIR}
 )
 
-## PL We may not need this anymore
+
 #Install the desktop file
-## INSTALL(FILES
- # scribus.desktop
- # #DESTINATION ${DESKTOPDIR}
-#)
+INSTALL(FILES
+scribus.desktop
+DESTINATION ${DESKTOPDIR}
+)
+
+)
+
+
+#Install the appdata file
+INSTALL(FILES
+scribus.appdata.xml
+DESTINATION ${APPDATADIR}
+)
+
 
 #If building an Apple bundle, install these specific files
 IF(APPLEBUNDLE)
