@@ -954,15 +954,11 @@ INSTALL(FILES
   DESTINATION ${MIMELNKDIR}
 )
 
-
 #Install the desktop file
 INSTALL(FILES
 scribus.desktop
 DESTINATION ${DESKTOPDIR}
 )
-
-)
-
 
 #Install the appdata file
 INSTALL(FILES
