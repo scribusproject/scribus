@@ -19,6 +19,7 @@ TextShaper::TextShaper(PageItem_TextFrame* textItem, int startIndex)
 	      : m_startIndex(startIndex),
 			m_index(startIndex),
 			m_lastKernedIndex(-1),
+			m_layoutFlags(ScLayout_None),
 			m_item(textItem)
 {
 	if (m_item->lastInFrame() >= m_item->firstInFrame())
@@ -169,6 +170,19 @@ void TextShaper::needChars(int runIndex)
 		m_lastKernedIndex = m_runs.count() - 1;
 }
 
+void TextShaper::startLine(int i)
+{
+	m_layoutFlags = ScLayout_StartOfLine;
+
+	while (m_runs.count() > i)
+	{
+		m_index = m_runs.last().firstChar();
+		m_runs.removeLast();
+	}
+
+	m_lastKernedIndex = m_runs.count() - 1;
+}
+
 void TextShaper::initGlyphLayout(GlyphRun& run, const QString& chars, int runIndex)
 {
 	int a = run.firstChar();
@@ -179,7 +193,9 @@ void TextShaper::initGlyphLayout(GlyphRun& run, const QString& chars, int runInd
 	if (SpecialChars::isExpandingSpace(ch))
 		run.setFlag(ScLayout_ExpandingSpace);
 
-	GlyphLayout gl = m_item->layoutGlyphs(runStyle, chars, itemText.flags(a));
+	LayoutFlags layoutFlags = static_cast<LayoutFlags>(itemText.flags(a) | m_layoutFlags);
+	GlyphLayout gl = m_item->layoutGlyphs(runStyle, chars, layoutFlags);
+	m_layoutFlags  = static_cast<LayoutFlags>(m_layoutFlags & (~ScLayout_StartOfLine));
 
 	if (runIndex > 0)
 	{

@@ -30,6 +30,11 @@ public:
 	 * Retrieve glyph run at specified index
 	 */
 	GlyphRun runAt(int i);
+
+	/**
+	 * Indicates that a new line is being started
+	 */
+	void startLine(int i);
 	
 protected:
 
@@ -41,6 +46,9 @@ protected:
 
 	// Last run which has been kerned
 	int m_lastKernedIndex;
+
+	// Additional flags used for glyph layout
+	LayoutFlags m_layoutFlags;
 	
 	// The item whose text is being shaped
 	PageItem_TextFrame* m_item;

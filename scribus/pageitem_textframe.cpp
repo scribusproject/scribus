@@ -1448,9 +1448,15 @@ void PageItem_TextFrame::layout()
 		int regionMinY = 0, regionMaxY= 0;
 		double autoLeftIndent = 0.0;
 
-		for (int i = 0; shaper.hasRun(i); ++i)
+		for (int i = 0; true; ++i)
 		{
+			if (current.isEmpty)
+				shaper.startLine(i);
+
+			if (!shaper.hasRun(i))
+				break;
 			GlyphRun newRun = shaper.runAt(i);
+
 			if (i >= glyphRuns.count())
 				glyphRuns.append(newRun);
 			else
@@ -1464,6 +1470,16 @@ void PageItem_TextFrame::layout()
 			bool HasObject = itemText.hasObject(a);
 			PageItem* currentObject = itemText.object(a);
 			bool HasMark = itemText.hasMark(a);
+
+			// set StartOfLine
+			if (current.isEmpty)
+			{
+				glyphRuns[i].setFlag(ScLayout_StartOfLine);
+			}
+			else
+			{
+				glyphRuns[i].clearFlag(ScLayout_StartOfLine);
+			}
 
 			const StyleFlag& effects = itemText.charStyle(a).effects();
 			if (effects & ScStyle_UnderlineWords)
@@ -1662,15 +1678,6 @@ void PageItem_TextFrame::layout()
 					chs = qRound((currentObject->height() + currentObject->lineWidth()) * 10);
 				else
 					chs = charStyle.fontSize();
-			}
-			// set StartOfLine
-			if (current.isEmpty)
-			{
-				glyphRuns[i].setFlag(ScLayout_StartOfLine);
-			}
-			else
-			{
-				glyphRuns[i].clearFlag(ScLayout_StartOfLine);
 			}
 //			glyphs->yadvance = 0;
 
