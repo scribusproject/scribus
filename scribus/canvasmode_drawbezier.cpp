@@ -84,14 +84,12 @@ inline bool BezierMode::GetItem(PageItem** pi)
 
 void BezierMode::finalizeItem(PageItem* currItem)
 {
-	if (currItem->PoLine.size() >= 2)
+	if (currItem->PoLine.size() % 4 != 0)
 		currItem->PoLine.resize(currItem->PoLine.size()-2);
 	if (currItem->PoLine.size() < 4)
 	{
-//		emit DelObj(m_doc->currentPage->pageNr(), currItem->ItemNr);
 		m_doc->Items->removeOne(currItem);
 		m_doc->m_Selection->removeFirst();
-		//emit HaveSel();
 	}
 	else
 	{
@@ -142,7 +140,8 @@ void BezierMode::deactivate(bool flag)
 	//When only one node(size=2) was created; it's not a valid line(min valid PoLine size is 6), delete it
 	if (currItem)
 	{
-		currItem->PoLine.resize(qMax(0, static_cast<int>(currItem->PoLine.size())-2));
+		if (currItem->PoLine.size() % 4 != 0)
+			currItem->PoLine.resize(qMax(0, static_cast<int>(currItem->PoLine.size())-2));
 		if (currItem->PoLine.size() < 4)
 		{
 			m_view->Deselect(false);
@@ -153,7 +152,6 @@ void BezierMode::deactivate(bool flag)
 		}
 	}
 
-	undoManager->setUndoEnabled(true);
 	if (currItem && UndoManager::undoEnabled())
 	{
 		ScItemState<PageItem*> *is = new ScItemState<PageItem*>("Create PageItem");
@@ -184,6 +182,42 @@ void BezierMode::mouseDoubleClickEvent(QMouseEvent *m)
 	m_MouseButtonPressed = false;
 	m_canvas->resetRenderMode();
 	mousePressEvent(m);
+	mouseReleaseEvent(m);
+	PageItem *currItem = NULL;
+	if (m_doc->appMode == modeDrawBezierLine)
+	{
+		m_view->stopGesture();
+		undoManager->setUndoEnabled(true);
+		currItem = m_doc->m_Selection->itemAt(0);
+		if (currItem != 0)
+			finalizeItem(currItem);
+		if (!PrefsManager::instance()->appPrefs.uiPrefs.stickyTools)
+			m_view->requestMode(modeNormal);
+		else
+			m_view->requestMode(m_doc->appMode);
+		m_doc->changed();
+		FirstPoly = true;
+		inItemCreation = false;
+		m_canvas->setRenderModeUseBuffer(false);
+	}
+	m_doc->DragP = false;
+	m_doc->leaveDrag = false;
+	m_view->MidButt = false;
+	shiftSelItems = false;
+	if (m_view->groupTransactionStarted())
+	{
+		for (int i = 0; i < m_doc->m_Selection->count(); ++i)
+			m_doc->m_Selection->itemAt(i)->checkChanges(true);
+		m_view->endGroupTransaction();
+	}
+	//Make sure the Zoom spinbox and page selector don't have focus if we click on the canvas
+	m_view->m_ScMW->zoomSpinBox->clearFocus();
+	m_view->m_ScMW->pageSelector->clearFocus();
+	if (m_doc->m_Selection->itemAt(0) != 0) // is there the old clip stored for the undo action
+	{
+		currItem = m_doc->m_Selection->itemAt(0);
+		m_doc->nodeEdit.finishTransaction(currItem);
+	}
 }
 
 
@@ -339,7 +373,7 @@ void BezierMode::mousePressEvent(QMouseEvent *m)
 	m_doc->sizeItem(currItem->PoLine.WidthHeight().x(), currItem->PoLine.WidthHeight().y(), currItem, false, false, false);
 	currItem->setPolyClip(qRound(qMax(currItem->lineWidth() / 2, 1.0)));
 	m_canvas->newRedrawPolygon();
-	undoManager->setUndoEnabled(false);
+//	undoManager->setUndoEnabled(false);
 }
 
 
@@ -347,14 +381,11 @@ void BezierMode::mousePressEvent(QMouseEvent *m)
 void BezierMode::mouseReleaseEvent(QMouseEvent *m)
 {
 	const FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPos());
-	
-	undoManager->setUndoEnabled(true);
+
 	PageItem *currItem;
 	m_MouseButtonPressed = false;
 	m_canvas->resetRenderMode();
 	m->accept();
-//	m_view->stopDragTimer();
-	
 	m_canvas->setRenderModeUseBuffer(false);
 	if ((m_doc->appMode == modeDrawBezierLine) && (m->button() == Qt::LeftButton))
 	{
@@ -411,8 +442,9 @@ void BezierMode::mouseReleaseEvent(QMouseEvent *m)
 	}
 	if ((m_doc->appMode == modeDrawBezierLine) && (m->button() == Qt::RightButton))
 	{
+		undoManager->setUndoEnabled(true);
 		currItem = m_doc->m_Selection->itemAt(0);
-		if (currItem!=0)
+		if (currItem != 0)
 		{
 			finalizeItem(currItem);
 		}
@@ -460,11 +492,6 @@ void BezierMode::mouseReleaseEvent(QMouseEvent *m)
 	{
 		currItem = m_doc->m_Selection->itemAt(0);
 		m_doc->nodeEdit.finishTransaction(currItem);
-	}
-	else
-	{
-		//delete oldClip;
-		//oldClip = 0;
 	}
 }
 

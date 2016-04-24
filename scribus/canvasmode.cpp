@@ -634,7 +634,8 @@ void CanvasMode::drawOutline(QPainter* p, double scalex, double scaley, double d
 						p->rotate(currItem->rotation());
 					}
 					p->scale(scalex, scaley);
-					currItem->DrawPolyL(p, currItem->Clip);
+					p->drawPath(currItem->PoLine.toQPainterPath(false));
+				//	currItem->DrawPolyL(p, currItem->Clip);
 					p->restore();
 				}
 			}
