@@ -1465,15 +1465,13 @@ void PageItem_TextFrame::layout()
 			PageItem* currentObject = itemText.object(a);
 			bool HasMark = itemText.hasMark(a);
 
-			if (itemText.charStyle(a).effects() & ScStyle_UnderlineWords)
+			const StyleFlag& effects = itemText.charStyle(a).effects();
+			if (effects & ScStyle_UnderlineWords)
 			{
-				CharStyle tmp(itemText.charStyle(a));
-				StyleFlag effects = tmp.effects();
-				if (!itemText.text(a).isSpace())
-					effects |= ScStyle_Underline;
-				effects &= ~ScStyle_UnderlineWords;
-				tmp.setFeatures(effects.featureList());
-				itemText.applyCharStyle(a, 1, tmp);
+				if (itemText.text(a).isSpace())
+					glyphRuns[i].clearFlag(ScLayout_Underlined);
+				else
+					glyphRuns[i].setFlag(ScLayout_Underlined);
 			}
 
 			if (HasMark)

@@ -309,6 +309,15 @@ void PageItem_PathText::DrawObj_Item(ScPainter *p, QRectF cullingArea)
 		GlyphRun run(&itemRenderText.charStyle(a), itemRenderText.flags(a), a, a, itemRenderText.object(a));
 		run.glyphs().append(glyphs);
 
+		const StyleFlag& effects = itemRenderText.charStyle(a).effects();
+		if (effects & ScStyle_UnderlineWords)
+		{
+			if (itemRenderText.text(a).isSpace())
+				run.clearFlag(ScLayout_Underlined);
+			else
+				run.setFlag(ScLayout_Underlined);
+		}
+
 		const CharStyle& cStyle(run.style());
 		double scaleV = cStyle.scaleV() / 1000.0;
 		double offset = (cStyle.fontSize() / 10) * (cStyle.baselineOffset() / 1000.0);

@@ -145,7 +145,7 @@ public:
 	QString asString() const;
 	
 	/** This property will be evaluated at runtime and is not stored. See 'updateFeatures()' */
-	const StyleFlag effects() const { validate(); return m_Effects; }
+	const StyleFlag& effects() const { validate(); return m_Effects; }
 	void setEffects(StyleFlag flags) { m_Effects = flags; }
 	
 	

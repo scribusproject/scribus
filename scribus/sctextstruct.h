@@ -44,11 +44,12 @@ enum LayoutFlags {
 	ScLayout_ExpandingSpace= 4,       // new: marks an expanding space
 	ScLayout_ImplicitSpace = 8,       // new: marks an implicit space
 	ScLayout_TabLeaders    = 16,      // new: marks a tab with fillchar
-	ScLayout_HyphenationPossible=128, //Hyphenation possible here (Soft Hyphen)
+	ScLayout_HyphenationPossible=128, // Hyphenation possible here (Soft Hyphen)
 	ScLayout_DropCap       = 2048,
-	ScLayout_SuppressSpace = 4096,    //internal use in PageItem (Suppresses spaces when in Block alignment)
-	ScLayout_SoftHyphenVisible=8192,  //Soft Hyphen visible at line end
-	ScLayout_StartOfLine   = 16384    //set for start of line
+	ScLayout_SuppressSpace = 4096,    // internal use in PageItem (Suppresses spaces when in Block alignment)
+	ScLayout_SoftHyphenVisible=8192,  // Soft Hyphen visible at line end
+	ScLayout_StartOfLine   = 16384,   // set for start of line
+	ScLayout_Underlined    = 32768    // chararcter should be underlined
 };
 
 
