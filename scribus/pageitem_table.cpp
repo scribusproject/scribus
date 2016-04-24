@@ -80,6 +80,100 @@ void PageItem_Table::currentTextProps(ParagraphStyle& parStyle) const
 		parStyle = this->itemText.defaultStyle();
 }
 
+void PageItem_Table::getNamedResources(ResourceCollection& lists) const
+{
+	TableBorder lborder = leftBorder();
+	foreach (const TableBorderLine& line, lborder.borderLines())
+	{
+		if (line.color() == CommonStrings::None)
+			continue;
+		lists.collectColor(line.color());
+	}
+
+	TableBorder rborder = rightBorder();
+	foreach (const TableBorderLine& line, rborder.borderLines())
+	{
+		if (line.color() == CommonStrings::None)
+			continue;
+		lists.collectColor(line.color());
+	}
+
+	TableBorder bborder = bottomBorder();
+	foreach (const TableBorderLine& line, bborder.borderLines())
+	{
+		if (line.color() == CommonStrings::None)
+			continue;
+		lists.collectColor(line.color());
+	}
+
+	TableBorder tborder = topBorder();
+	foreach (const TableBorderLine& line, tborder.borderLines())
+	{
+		if (line.color() == CommonStrings::None)
+			continue;
+		lists.collectColor(line.color());
+	}
+
+	QString tableStyleName = this->styleName();
+	if (!tableStyleName.isEmpty())
+		lists.collectTableStyle(tableStyleName);
+
+	for (int row = 0; row < rows(); ++row)
+	{
+		int colSpan = 0;
+		for (int col = 0; col < columns(); col += colSpan)
+		{
+			TableCell cell = cellAt(row, col);
+			PageItem_TextFrame* textFrame = cell.textFrame();
+			textFrame->getNamedResources(lists);
+
+			QString cellStyle = cell.styleName();
+			if (!cellStyle.isEmpty())
+				lists.collectCellStyle(cellStyle);
+
+			QString cellFill = cell.fillColor();
+			if (cellFill != CommonStrings::None)
+				lists.collectColor(cellFill);
+
+			lborder = cell.leftBorder();
+			foreach (const TableBorderLine& line, lborder.borderLines())
+			{
+				if (line.color() == CommonStrings::None)
+					continue;
+				lists.collectColor(line.color());
+			}
+
+			rborder = cell.rightBorder();
+			foreach (const TableBorderLine& line, rborder.borderLines())
+			{
+				if (line.color() == CommonStrings::None)
+					continue;
+				lists.collectColor(line.color());
+			}
+
+			bborder = cell.bottomBorder();
+			foreach (const TableBorderLine& line, bborder.borderLines())
+			{
+				if (line.color() == CommonStrings::None)
+					continue;
+				lists.collectColor(line.color());
+			}
+
+			tborder = cell.topBorder();
+			foreach (const TableBorderLine& line, tborder.borderLines())
+			{
+				if (line.color() == CommonStrings::None)
+					continue;
+				lists.collectColor(line.color());
+			}
+
+			colSpan = cell.columnSpan();
+		}
+	}
+
+	PageItem::getNamedResources(lists);
+}
+
 void PageItem_Table::resize(double width, double height)
 {
 	ASSERT_VALID();

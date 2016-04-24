@@ -481,6 +481,9 @@ public:
 	/// Returns the rows of the table for writing to SLA
 	QList<QList<TableCell> > cellRows() const { return m_cellRows; }
 
+	// Collect named resource of table and its cells
+	virtual void getNamedResources(ResourceCollection& lists) const;
+
 signals:
 	/// This signal is emitted whenever the table changes.
 	void changed();
