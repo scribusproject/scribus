@@ -2100,7 +2100,7 @@ void PageItem_TextFrame::layout()
 				double diff = 0;
 				if (current.startOfCol || DropCmode)
 					diff = realAsce - (current.yPos - lastLineY);
-				else if (style.lineSpacingMode() == ParagraphStyle::BaselineGridLineSpacing)
+				else if (style.lineSpacingMode() != ParagraphStyle::FixedLineSpacing)
 				{
 					if (HasObject)
 						diff = (currentObject->height() + currentObject->lineWidth()) * scaleV + offset - (current.yPos - lastLineY);
