@@ -748,34 +748,102 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 	UndoTransaction activeTransaction;
 	bool img = false;
 	m_canvas->resetRenderMode();
-//	redrawMarker->hide();
-//	struct ScText *hg;
-//	uint a;
 	int re = 0;
-//	e->accept(Q3TextDrag::canDecode(e));
 	e->accept();
-	bool selectedItemByDrag=false;
+	bool selectedItemByDrag = false;
 	FPoint dropPosDoc = m_canvas->globalToCanvas(widget()->mapToGlobal(e->pos()));
 	QPointF dropPosDocQ(dropPosDoc.x(), dropPosDoc.y());
-//	int ex = qRound(e->pos().x()/m_canvas->scale());// + Doc->minCanvasCoordinate.x());
-//		int ey = qRound(e->pos().y()/m_canvas->scale());// + Doc->minCanvasCoordinate.y());
-
-//  Commented out to fix Bug #11254 (fs)
-/*	if (ScMimeData::clipboardHasScribusElem() && (Doc->DraggedElem == 0))
+	//Loop through all items and see which one(s) were under the drop point on the current layer
+	//Should make a nice function for this.
+	//#9051 :  loop in reverse order so that items in front of others are prioritized
+	Doc->m_Selection->delaySignalsOn();
+	for (int i = Doc->Items->count() - 1; i >= 0 ; --i)
 	{
-		text = ScMimeData::clipboardScribusElem();
-		url  = QUrl(text);
+		if (Doc->Items->at(i)->LayerID==Doc->activeLayer())
+		{
+			if (m_canvas->frameHitTest(dropPosDocQ, Doc->Items->at(i)) >= Canvas::INSIDE)
+			{
+				Deselect(false);
+				Doc->m_Selection->addItem(Doc->Items->at(i));
+				selectedItemByDrag = true;
+				break;
+			}
+		}
 	}
-	else*/
-	if (e->mimeData()->hasText() && (!e->mimeData()->text().isEmpty()))
+	Doc->m_Selection->delaySignalsOff();
+	QStringList imfo;
+	QList<QByteArray> imgs = QImageReader::supportedImageFormats();
+	for (int i = 0; i < imgs.count(); ++i )
+	{
+		imfo.append(QString(imgs.at(i)).toUpper());
+	}
+	QString formatD(FormatsManager::instance()->extensionListForFormat(FormatsManager::IMAGESIMGFRAME, 1).toUpper());
+	imfo += formatD.split("|");
+	if (e->mimeData()->hasUrls())
+	{
+		if ((e->mimeData()->urls().count() == 1) || selectedItemByDrag)
+		{
+			url = e->mimeData()->urls().at(0);
+			text = "";
+		}
+		else
+		{
+			int dropOffsetX = 0;
+			int dropOffsetY = 0;
+			QList<QUrl> fileUrls = e->mimeData()->urls();
+			for (int a = 0; a < fileUrls.count(); a++)
+			{
+				url = fileUrls[a];
+				QFileInfo fi(url.toLocalFile());
+				QString ext = fi.suffix().toUpper();
+				if (ext == "JPG")
+					ext = "JPEG";
+				if (imfo.contains(ext) && fi.exists() && !selectedItemByDrag)
+				{
+					int z = Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, dropPosDoc.x() + dropOffsetX, dropPosDoc.y() + dropOffsetY, 1, 1, Doc->itemToolPrefs().shapeLineWidth, Doc->itemToolPrefs().imageFillColor, Doc->itemToolPrefs().imageStrokeColor);
+					PageItem *b = Doc->Items->at(z);
+					b->LayerID = Doc->activeLayer();
+					Doc->loadPict(url.toLocalFile(), b);
+					double iw = static_cast<double>(b->OrigW * 72.0 / b->pixm.imgInfo.xres);
+					double ih = static_cast<double>(b->OrigH * 72.0 / b->pixm.imgInfo.yres);
+					if (iw > ih)
+					{
+						double pw = Doc->currentPage()->width();
+						if (iw > pw)
+						{
+							ih = pw * (ih / iw);
+							iw = pw;
+						}
+					}
+					else
+					{
+						double ph = Doc->currentPage()->height();
+						if (ih > ph)
+						{
+							iw = ph * (iw / ih);
+							ih = ph;
+						}
+					}
+					b->setWidth(iw);
+					b->setHeight(ih);
+					b->OldB2 = b->width();
+					b->OldH2 = b->height();
+					b->updateClip();
+					b->AdjustPictScale();
+					b->update();
+					dropOffsetX += Doc->opToolPrefs().dispX;
+					dropOffsetY += Doc->opToolPrefs().dispY;
+				}
+			}
+			emit DocChanged();
+			update();
+			return;
+		}
+	}
+	else if (e->mimeData()->hasText() && (!e->mimeData()->text().isEmpty()))
 	{
 		text = e->mimeData()->text();
 		url = QUrl(text);
-	}
-	else if (e->mimeData()->hasUrls())
-	{
-		url = e->mimeData()->urls().at(0);
-		text = "";
 	}
 	else if (e->mimeData()->hasFormat("text/symbol"))
 	{
@@ -878,41 +946,9 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 		fi.setFile(url.toLocalFile());
 		ext = fi.suffix().toUpper();
 	}
-//		QFileInfo fi(url.toLocalFile());
-//		QString ext = fi.suffix().toUpper();
-	QStringList imfo;
-	QList<QByteArray> imgs = QImageReader::supportedImageFormats();
-	for (int i = 0; i < imgs.count(); ++i )
-	{
-		imfo.append(QString(imgs.at(i)).toUpper());
-	}
 	if (ext == "JPG")
 		ext = "JPEG";
-	QString formatD(FormatsManager::instance()->extensionListForFormat(FormatsManager::IMAGESIMGFRAME, 1).toUpper());
-	imfo += formatD.split("|");
 	img = imfo.contains(ext);
-	//CB Need to handle this ugly file extension list elsewhere... some capabilities class perhaps
-//	img = ((imfo.contains(ext)) || extensionIndicatesPDF(ext) || extensionIndicatesEPSorPS(ext) || extensionIndicatesTIFF(ext) || extensionIndicatesJPEG(ext) || extensionIndicatesPSD(ext));
-//		int pscx=qRound(e->pos().x()/m_canvas->scale()), pscy=qRound(e->pos().y()/m_canvas->scale());
-	//Loop through all items and see which one(s) were under the drop point on the current layer
-	//Should make a nice function for this.
-	//#9051 :  loop in reverse order so that items in front of others are prioritized
-	Doc->m_Selection->delaySignalsOn();
-	for (int i = Doc->Items->count() - 1; i >= 0 ; --i)
-	{
-		if (Doc->Items->at(i)->LayerID==Doc->activeLayer())
-		{
-			if (m_canvas->frameHitTest(dropPosDocQ, Doc->Items->at(i)) >= Canvas::INSIDE)
-			{
-				Deselect(false);
-				Doc->m_Selection->addItem(Doc->Items->at(i));
-//					SelectItem(Doc->Items->at(i));
-				selectedItemByDrag=true;
-				break;
-			}
-		}
-	}
-	Doc->m_Selection->delaySignalsOff();
 	bool vectorFile = false;
 	if (fi.exists())
 	{
