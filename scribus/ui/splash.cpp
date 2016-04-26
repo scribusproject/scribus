@@ -53,7 +53,7 @@ void ScSplashScreen::setStatus( const QString &message )
 		}
 	}
 
-	showMessage ( tmp, Qt::AlignRight | Qt::AlignBottom, Qt::white );
+	showMessage ( tmp, Qt::AlignRight | Qt::AlignAbsolute | Qt::AlignBottom, Qt::white );
 }
 
 void ScSplashScreen::drawContents(QPainter* painter)
@@ -73,7 +73,7 @@ void ScSplashScreen::drawContents(QPainter* painter)
 #endif
 	QString versionText(VERSION);
 	painter->setFont(lgf);
-	painter->drawText(r, Qt::AlignRight | Qt::AlignBottom, versionText );
+	painter->drawText(r, Qt::AlignRight | Qt::AlignAbsolute | Qt::AlignBottom, versionText );
 
 	if (versionText.contains("svn"))
 	{
@@ -82,7 +82,7 @@ void ScSplashScreen::drawContents(QPainter* painter)
 		revText=QString("SVN Revision: %1").arg(SVNVERSION);
 		QRect r2 = rect().adjusted(0, 0, -15, -50);
 		painter->setFont(f);
-		painter->drawText(r2, Qt::AlignRight | Qt::AlignBottom, revText );
+		painter->drawText(r2, Qt::AlignRight | Qt::AlignAbsolute | Qt::AlignBottom, revText );
 #endif
 		QFont wf(font());
 #if defined _WIN32
@@ -98,7 +98,7 @@ void ScSplashScreen::drawContents(QPainter* painter)
 		painter->setPen(QPen(Qt::red));
 		QString warningText("UNSTABLE. For testing purposes only!");
 		QRect r3 = rect().adjusted(0, 0, -15, -25);
-		painter->drawText(r3, Qt::AlignRight | Qt::AlignBottom, warningText );
+		painter->drawText(r3, Qt::AlignRight | Qt::AlignAbsolute | Qt::AlignBottom, warningText );
 	}
 }
 
