@@ -839,7 +839,7 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1735"/>
         <source>&amp;Manage Images...</source>
-        <translation type="unfinished"></translation>
+        <translation>Ad&amp;ministru bildojn...</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1736"/>
@@ -1197,27 +1197,27 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1480"/>
         <source>&amp;New...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Nova...</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1501"/>
         <source>Print Previe&amp;w...</source>
-        <translation type="unfinished"></translation>
+        <translation>Print-antaŭri&amp;gardo...</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1555"/>
         <source>&amp;Image Effects...</source>
-        <translation type="unfinished"></translation>
+        <translation>B&amp;ildoefektoj...</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1560"/>
         <source>&amp;Multiple Duplicate...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Multobligu...</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1561"/>
         <source>&amp;Transform...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Transformu...</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1597"/>
@@ -1227,17 +1227,17 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1603"/>
         <source>Annotation P&amp;roperties...</source>
-        <translation type="unfinished"></translation>
+        <translation>Komentaj e&amp;coj...</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1604"/>
         <source>Field P&amp;roperties...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Kampo-ecoj...</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1623"/>
         <source>Sample Text...</source>
-        <translation type="unfinished"></translation>
+        <translation>Specimena teksto...</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1646"/>
@@ -1906,7 +1906,7 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1795"/>
         <source>Insert link annotation</source>
-        <translation>Enmetu ligil-noton</translation>
+        <translation>Enmetu ligil-komenton</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1796"/>
@@ -2728,7 +2728,7 @@
         <location filename="../../scribus/ui/autoformbuttongroup.cpp" line="66"/>
         <location filename="../../scribus/ui/autoformbuttongroup.cpp" line="775"/>
         <source>Specials</source>
-        <translation>Specialaj</translation>
+        <translation>Specialaj signoj</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/autoformbuttongroup.cpp" line="21"/>
@@ -2929,7 +2929,7 @@
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="97"/>
         <source>Parse specials</source>
-        <translation type="unfinished"></translation>
+        <translation>Analizu specialajn signojn</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="107"/>
@@ -3426,7 +3426,7 @@ oni devus elekti Relativan Kolorgamon aŭ Perceptan.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/cmsprefsbase.ui" line="274"/>
-        <source>Enable &apos;soft proofing&apos; of how your document colors will print,
+        <source>Enable 'soft proofing' of how your document colors will print,
 based on the chosen printer profile.</source>
         <translation>Ebligu la kolorprovon pri tio kiel la dokumentkoloroj printiĝos,
 laŭ la elektita printilprofilo.</translation>
@@ -4340,7 +4340,7 @@ Document Liberation Project http://www.documentliberation.org</translation>
     <message>
         <location filename="../../scribus/ui/charselectenhanced.cpp" line="322"/>
         <source>Specials</source>
-        <translation>Specialaj</translation>
+        <translation>Specialaj signoj</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/charselectenhanced.cpp" line="328"/>
@@ -4650,7 +4650,7 @@ aktuale %2 x %3 DPI  </translation>
     <message>
         <location filename="../../scribus/ui/checkDocument.cpp" line="126"/>
         <source>Indicates that editorial changes have been made to a PDF are still present or your PDF contains unprintable annotation items. They may cause issues in professional printing. Also helpful reminder if you are wanting to publish a final draft without editorial relics.</source>
-        <translation type="unfinished"></translation>
+        <translation>Montras ke la redaktaj ŝanĝoj faritaj en la PDF plu ĉeestas aŭ ke la PDF entenas neprinteblajn koment-elementojn. Ili povas krei problempojn en profesia printado. Ĝi estas tre bona memorigilo se oni volas publikigi finan version sen redaktaj malnetaĵoj.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/checkDocument.cpp" line="128"/>
@@ -7039,7 +7039,7 @@ La nomo de la eksportdosiero estos &apos;dokumentnomo-paĝnumero.dosierotipo&apo
     <message>
         <location filename="../../scribus/plugins/export/pixmapexport/dialog.cpp" line="79"/>
         <source>Choose an Export Directory</source>
-        <translation type="unfinished"></translation>
+        <translation>Elektu eksportdosierujon</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/export/pixmapexport/dialog.cpp" line="120"/>
@@ -8993,7 +8993,7 @@ konvertante iliajn vektorajn datumojn en Scribus-objektoj.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/idml_old/importidml.cpp" line="66"/>
-        <source>Imports Adobe Indesign&apos;s idml packages into Scribus
+        <source>Imports Adobe Indesign's idml packages into Scribus
  converting Indesign objects into scribus pageitems; not all are supported in Scribus, but all those supported are being imported here</source>
         <translation>I</translation>
     </message>
@@ -9730,7 +9730,7 @@ konvertante iliajn vektorajn datumojn en Scribus-objektoj.</translation>
         <location filename="../../scribus/plugins/imposition/impositionbase.ui" line="325"/>
         <source>&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Sans Serif'; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Separate pages with a comma, ranges with a hyphen, e.g. 1,4,9-11 to get pages 1,4,9,10,11.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
@@ -10909,13 +10909,14 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../scribus/loadsaveplugin.cpp" line="244"/>
         <source>An error occurred while opening file or file is damaged</source>
-        <translation type="unfinished"></translation>
+        <translation>Okazis eraro dum la malfermo de la dosiero aŭ la dosiero estas difektita</translation>
     </message>
     <message>
         <location filename="../../scribus/loadsaveplugin.cpp" line="249"/>
         <source>An error occurred while parsing file at line %1, column %2 :
 %3</source>
-        <translation type="unfinished"></translation>
+        <translation>Okazis eraro dum la sintaksa analizo de la dosiero ĉe la linio %1, kolumno %2:
+%3</translation>
     </message>
     <message>
         <location filename="../../scribus/loadsaveplugin.cpp" line="104"/>
@@ -12605,7 +12606,7 @@ Se estis elektita neniu tenilo, ĉiuj teniloj estos reportitaj al komenca pozici
         <location filename="../../scribus/ui/notesstyleseditor.cpp" line="37"/>
         <location filename="../../scribus/ui/notesstyleseditor.cpp" line="106"/>
         <source>Story</source>
-        <translation type="unfinished"></translation>
+        <translation>Historio</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/notesstyleseditor.cpp" line="38"/>
@@ -14290,7 +14291,7 @@ Bonvolu kontroli ĝin kaj reprovi.</translation>
     <message>
         <location filename="../../scribus/ui/pagepalette_pagesbase.ui" line="70"/>
         <source>&lt;qt&gt;List of master pages in the document. Master page names may be dragged onto the page view below to apply master pages, or onto the empty space between pages to create new pages.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Listo de ĉefpaĝoj en la dokumento. La nomoj de la ĉefpaĝoj povas esti trenitaj sur la ĉi-suba paĝovido por apliki ilin al la paĝoj, aŭ sur la malplenaj spacoj inter la paĝoj por krei novajn paĝojn.&lt;/qt&gt;</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pagepalette_pagesbase.ui" line="102"/>
@@ -14300,7 +14301,7 @@ Bonvolu kontroli ĝin kaj reprovi.</translation>
     <message>
         <location filename="../../scribus/ui/pagepalette_pagesbase.ui" line="115"/>
         <source>&lt;qt&gt;List of normal pages in the document, shown with the document layout. Pages may be dragged to rearrange or delete them.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>Listo de normalaj paĝoj en la dokumento, montrita kun la dokumentaspekto. La paĝoj povas estis trenitaj por rearanĝi aŭ forigi ilin.&lt;/qt&gt;</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pagepalette_pagesbase.ui" line="151"/>
@@ -14310,7 +14311,7 @@ Bonvolu kontroli ĝin kaj reprovi.</translation>
     <message>
         <location filename="../../scribus/ui/pagepalette_pagesbase.ui" line="170"/>
         <source>&lt;qt&gt;Drag pages or master pages onto the trash to delete them&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>Por forigi paĝojn aŭ ĉefpaĝojn trenu ilin en la rubujon&lt;/qt&gt;</translation>
     </message>
 </context>
 <context>
@@ -14385,7 +14386,7 @@ Document Liberation Project http://www.documentliberation.org</translation>
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:10pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Sans Serif'; font-size:10pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;table border=&quot;0&quot; style=&quot;-qt-table-type: root; margin-top:4px; margin-bottom:4px; margin-left:4px; margin-right:4px;&quot;&gt;
 &lt;tr&gt;
 &lt;td style=&quot;border: none;&quot;&gt;
@@ -15368,7 +15369,7 @@ La rezulto estas kombino de &quot;Intersekco&quot; kaj &quot;Ekskludo&quot; </tr
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:8pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Sans Serif'; font-size:8pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Attention:&lt;/span&gt; This script file contains code which &lt;span style=&quot; font-style:italic;&quot;&gt;might harm &lt;/span&gt;your system.&lt;/p&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;You should only permit execution of this script if you are sure that it comes from a trustworthy source. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
@@ -15390,7 +15391,7 @@ p, li { white-space: pre-wrap; }
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;DejaVu Sans&apos;; font-size:8pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'DejaVu Sans'; font-size:8pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:&apos;Sans Serif&apos;;&quot;&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
@@ -17912,7 +17913,7 @@ Do you want to migrate them to the new Scribus version?</source>
     <message>
         <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="493"/>
         <source>Try to save an &quot;Emergency File&quot; in case of a crash</source>
-        <translation type="unfinished"></translation>
+        <translation>Provu konservi &quot;Krizokazan dosieron&quot; kaze de kolapso</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="522"/>
@@ -17922,7 +17923,7 @@ Do you want to migrate them to the new Scribus version?</source>
     <message>
         <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="536"/>
         <source>Enable automatic saving of documents</source>
-        <translation type="unfinished"></translation>
+        <translation>Ebligu aŭtokonservadon de la dokumentoj</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="547"/>
@@ -17937,17 +17938,17 @@ Do you want to migrate them to the new Scribus version?</source>
     <message>
         <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="564"/>
         <source>Number of files to keep:</source>
-        <translation type="unfinished"></translation>
+        <translation>Nombro de dosieroj konservotaj:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="597"/>
         <source>Save into the same directory as the document</source>
-        <translation type="unfinished"></translation>
+        <translation>Konservu en la saman dosierujon kiel dokumento</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="607"/>
         <source>Save into:</source>
-        <translation type="unfinished"></translation>
+        <translation>Konservu en:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="617"/>
@@ -17957,12 +17958,12 @@ Do you want to migrate them to the new Scribus version?</source>
     <message>
         <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="629"/>
         <source>Keep backup files after closing the document</source>
-        <translation type="unfinished"></translation>
+        <translation>Konservu la savdosierojn post la fermo de la dokumento</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="636"/>
         <source>Show autosave countdown clock on the canvas</source>
-        <translation type="unfinished"></translation>
+        <translation>Montru la horloĝon kun la tempo ĝis la aŭtokonservo sur la laborareo</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="665"/>
@@ -18067,12 +18068,12 @@ Do you want to migrate them to the new Scribus version?</source>
     <message>
         <location filename="../../scribus/ui/prefs_documentsetup.cpp" line="120"/>
         <source>When enabled, Scribus saves backup copys of your file each time the time period elapses</source>
-        <translation type="unfinished"></translation>
+        <translation>Se ebligita, Scribus konservas savkopiojn de via dosiero ĉiam kiam pasas la tempoperiodo</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_documentsetup.cpp" line="125"/>
         <source>Keep this many files during the editing session. Backup files will be removed when you close the document.</source>
-        <translation type="unfinished"></translation>
+        <translation>Konservu ĝin multajn dosierojn dum la redakta seanco. La savdosieroj estos forigitaj kiam oni fermas la dokumenton.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_documentsetup.cpp" line="395"/>
@@ -20430,7 +20431,7 @@ kiam PDF-dokumento estas malfermita:</translation>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="56"/>
         <source>Determines the PDF compatibility.&lt;br/&gt;The default is &lt;b&gt;PDF 1.3&lt;/b&gt; which gives the widest compatibility.&lt;br/&gt;Choose &lt;b&gt;PDF 1.4&lt;/b&gt; if your file uses features such as transparency or you require 128 bit encryption.&lt;br/&gt;&lt;b&gt;PDF 1.5&lt;/b&gt; is necessary when you wish to preserve objects in separate layers within the PDF.&lt;br/&gt;&lt;b&gt;PDF/X-1a&lt;/b&gt; is for blind exchange with colors strictly specified in CMYK or spot colors.&lt;br/&gt;&lt;b&gt;PDF/X-3&lt;/b&gt; is for exporting the PDF when you want color managed RGB for commercial printing and is selectable when you have activated color management. Use only when advised by your printer or in some cases printing to a 4 color digital color laser printer.&lt;br/&gt;&lt;b&gt;PDF/X-4&lt;/b&gt; is an extension of PDF/X-3 to support transparency and layering.</source>
-        <translation type="unfinished"></translation>
+        <translation>Determinas la PDF-kongruon.&lt;br/&gt;La defaŭlta estas&lt;b&gt;PDF 1.3&lt;/b&gt; kiu donas la plej grandan kongruecon.&lt;br/&gt;Elektu&lt;b&gt;PDF 1.4&lt;/b&gt; se la ecoj de via dosieroj estas, ekzemple, travidebleco aŭ ĉifrado je 128 bitoj.&lt;br/&gt;&lt;b&gt;PDF 1.5&lt;/b&gt;necesas kiam vi deziras konservi la objektojn en apartaj tavoloj en la PDF.&lt;br/&gt;&lt;b&gt;PDF/X-1a&lt;/b&gt; estas por blinda interŝanĝo kun koloroj strikte specifitaj en CMYK aŭ bazaj koloroj.&lt;br/&gt;&lt;b&gt;PDF/X-3&lt;/b&gt; estas por eksportado de PDF kiam vi volas koloron RGB por komerca printado kaj ĝi estas elektebla kiam vi aktivigis koloradministradon. Uzu nur kiam petita fare de via presisto aŭ en iaj kazoj dum printado al 4-koloroj per cifereckolora laserprintilo.&lt;br/&gt;&lt;b&gt;PDF/X-4&lt;/b&gt; estas etendo de PDF/X-3 por subteni travideblecon kaj tavolojn.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="59"/>
@@ -21612,11 +21613,11 @@ Agordado al Nivelo 1 aŭ 2 povus krei grandegajn dosierojn.</translation>
     <message>
         <location filename="../../scribus/ui/prefs_userinterface.cpp" line="60"/>
         <source>Time before resize or move starts allows for a slight delay between when you click and the operation happens to avoid unintended moves. This can be helpful when dealing with mouse sensitivity settings or accessibility issues related to ergonomic mice, touch pads or moveability of the wrists and hands.</source>
-        <translation type="unfinished"></translation>
+        <translation>La tempo antaŭ ol movo aŭ (mal)grandigo komenciĝu permesas malgrandan malfruon inter la klako kaj la komenco de la operacio, tiel ke oni povas eviti neintencajn movojn. Tio povas utili kaze de musoj kun tre sentivaj agordoj aŭ ergonomiaj, kun tuŝplatoj aŭ kaze de problemoj kun pojnoj kaj manoj.</translation>
     </message>
     <message>
-        <source></source>
-        <translation></translation>
+        <source/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_userinterfacebase.ui" line="254"/>
@@ -21646,7 +21647,7 @@ Agordado al Nivelo 1 aŭ 2 povus krei grandegajn dosierojn.</translation>
     <message>
         <location filename="../../scribus/ui/prefs_userinterface.cpp" line="61"/>
         <source>Number of lines Scribus will scroll for each &quot;notch&quot; of the mouse wheel</source>
-        <translation type="unfinished"></translation>
+        <translation>Lini-nombro kiun Scribus rulos por ĉiu elkliko de la musrado</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_userinterface.cpp" line="64"/>
@@ -22221,22 +22222,22 @@ Agordado al Nivelo 1 aŭ 2 povus krei grandegajn dosierojn.</translation>
     <message>
         <location filename="../../scribus/ui/propertiespalette_groupbase.ui" line="179"/>
         <source>&lt;qt&gt;Use the bounding box, which is always rectangular, instead of the frame&apos;s shape for text flow of text frames below the object&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Uzu la limigan keston, kiu estas ĉiam rektangula, anstataŭ la kadroformo por la tekstofluo de la tekstokadroj sub la objekto.&lt;/qt&gt;</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_groupbase.ui" line="207"/>
         <source>&lt;qt&gt;When chosen, the contour line can be edited with the Edit Shape Tool on the palette further above. When edited via the shape palette, this becomes a second separate line originally based on the frame&apos;s shape for text flow of text frames below the object.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Se elektita, eblas redakti la konturlinion per la Formoredaktilo sur la paletro ĉi-supra. Kiam redaktata tra la formopaletro, ĝi fariĝas dua apartigita linio origine bazita sur la kadroformo por tekstofluo de la tekstokadroj sub la objekto.&lt;/qt&gt;</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_groupbase.ui" line="235"/>
         <source>&lt;qt&gt;Use the clipping path of the image&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Uzu la tondostrekon de la bildo.&lt;/qt&gt;</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_groupbase.ui" line="303"/>
         <source>&lt;qt&gt;Any path self-intersections or subpaths create holes in the fill&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Ĉiu intersekciĝo de la streko kun si mem kreas truojn en la plenigo.&lt;/qt&gt;</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_groupbase.ui" line="306"/>
@@ -22246,7 +22247,7 @@ Agordado al Nivelo 1 aŭ 2 povus krei grandegajn dosierojn.</translation>
     <message>
         <location filename="../../scribus/ui/propertiespalette_groupbase.ui" line="319"/>
         <source>&lt;qt&gt;Fill is solid unless a subpath is counter-directional&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;La plenigo estas homogena krom se la substreko estas en mala direkto&lt;/qt&gt;</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_groupbase.ui" line="322"/>
@@ -23111,7 +23112,7 @@ de la objekto</translation>
     <message>
         <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="326"/>
         <source>&lt;qt&gt;Any path self-intersections or subpaths create holes in the fill&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Ĉiu intersekciĝo de la streko kun si mem kreas truojn en la plenigo.&lt;/qt&gt;</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="329"/>
@@ -23121,7 +23122,7 @@ de la objekto</translation>
     <message>
         <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="342"/>
         <source>&lt;qt&gt;Fill is solid unless a subpath is counter-directional&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;La plenigo estas homogena krom se la substreko estas en mala direkto&lt;/qt&gt;</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="345"/>
@@ -23308,7 +23309,7 @@ de la objekto</translation>
         <location filename="../../scribus/ui/propertiespalette_text.cpp" line="78"/>
         <location filename="../../scribus/ui/propertiespalette_text.cpp" line="636"/>
         <source>Orphans and Widows</source>
-        <translation type="unfinished"></translation>
+        <translation>Orfoj kaj vidvinoj</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_text.cpp" line="72"/>
@@ -23457,7 +23458,7 @@ de la objekto</translation>
     <message>
         <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="166"/>
         <source>Width of current selection</source>
-        <translation type="unfinished"></translation>
+        <translation>Larĝo de la aktuala areo</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="173"/>
@@ -23467,7 +23468,7 @@ de la objekto</translation>
     <message>
         <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="183"/>
         <source>Height of current selection</source>
-        <translation type="unfinished"></translation>
+        <translation>Alto de la aktuala areo</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="190"/>
@@ -24428,7 +24429,7 @@ de la objekto</translation>
     <message>
         <location filename="../../scribus/ui/propertywidget_textcolor.cpp" line="551"/>
         <source>Background color of selected text</source>
-        <translation type="unfinished"></translation>
+        <translation>Fonkoloro de la elektita teksto</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_textcolor.cpp" line="552"/>
@@ -25032,7 +25033,7 @@ Kontrolu vojon kaj dosiernomon.</translation>
     <message>
         <location filename="../../scribus/translationdummy.cpp" line="31"/>
         <source>Recent Places</source>
-        <translation type="unfinished"></translation>
+        <translation>Lastaj lokoj</translation>
     </message>
     <message>
         <location filename="../../scribus/translationdummy.cpp" line="67"/>
@@ -25563,7 +25564,7 @@ Eksteraj ligiloj</translation>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="170"/>
         <source>Urdu</source>
-        <translation type="unfinished"></translation>
+        <translation>Urduo</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="173"/>
@@ -25626,7 +25627,7 @@ Eksteraj ligiloj</translation>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="124"/>
         <source>Persian</source>
-        <translation type="unfinished"></translation>
+        <translation>Persa</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="131"/>
@@ -25651,7 +25652,7 @@ Eksteraj ligiloj</translation>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="139"/>
         <source>Kabyle</source>
-        <translation type="unfinished"></translation>
+        <translation>Kabila</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="141"/>
@@ -25676,7 +25677,7 @@ Eksteraj ligiloj</translation>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="148"/>
         <source>Mongolian</source>
-        <translation type="unfinished"></translation>
+        <translation>Mongola</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="152"/>
@@ -26542,13 +26543,13 @@ Eksteraj ligiloj</translation>
         <location filename="../../scribus/plugins/scriptplugin/cmdpage.cpp" line="434"/>
         <source>second argument is not tuple: must be tuple of integer values.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>la dua argumento ne estas tuplo: devas esti tuplo de entjeraj valoroj.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdpage.cpp" line="446"/>
         <source>second argument contains non-numeric values: must be list of integer values.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>la dua argumento entenas neciferajn valorojn: devas esti listo de entjeraj valoroj.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdsetprop.cpp" line="246"/>
@@ -26646,18 +26647,18 @@ not currently documented in the docstring for each function.
 without a document to operate on.
 - If you do not pass a frame name to a function that requires one,
 the function will use the currently selected frame, if any, or
-raise a NoValidObjectError if it can&apos;t find anything to operate
+raise a NoValidObjectError if it can't find anything to operate
 on.
 - Many functions will raise WrongFrameTypeError if you try to use them
 on a frame type that they do not make sense with. For example, setting
-the text color on a graphics frame doesn&apos;t make sense, and will result
+the text color on a graphics frame doesn't make sense, and will result
 in this exception being raised.
 - Errors resulting from calls to the underlying Python API will be
 passed through unaltered. As such, the list of exceptions thrown by
 any function as provided here and in its docstring is incomplete.
 
 Details of what exceptions each function may throw are provided on the
-function&apos;s documentation, though as with most Python code this list
+function's documentation, though as with most Python code this list
 is not exhaustive due to exceptions from called functions.
 </source>
         <translation>Pitona interfacmodulo de Scribus
@@ -27231,42 +27232,42 @@ de la funkcioj, kvankam, kiel plejparto de la Pitona kodo, ĉi tiu listo estas n
     <message>
         <location filename="../../scribus/pagesize.cpp" line="360"/>
         <source>9x12 (Arch A)</source>
-        <translation type="unfinished"></translation>
+        <translation>9x12 (Arch A)</translation>
     </message>
     <message>
         <location filename="../../scribus/pagesize.cpp" line="366"/>
         <source>12x18 (Arch B)</source>
-        <translation type="unfinished"></translation>
+        <translation>12x18 (Arch B)</translation>
     </message>
     <message>
         <location filename="../../scribus/pagesize.cpp" line="372"/>
         <source>18x24 (Arch C)</source>
-        <translation type="unfinished"></translation>
+        <translation>18x24 (Arch C)</translation>
     </message>
     <message>
         <location filename="../../scribus/pagesize.cpp" line="378"/>
         <source>24x36 (Arch D)</source>
-        <translation type="unfinished"></translation>
+        <translation>24x36 (Arch D)</translation>
     </message>
     <message>
         <location filename="../../scribus/pagesize.cpp" line="384"/>
         <source>36x48 (Arch E)</source>
-        <translation type="unfinished"></translation>
+        <translation>36x48 (Arch E)</translation>
     </message>
     <message>
         <location filename="../../scribus/pagesize.cpp" line="390"/>
         <source>30x42 (Arch E1)</source>
-        <translation type="unfinished"></translation>
+        <translation>30x42 (Arch E1)</translation>
     </message>
     <message>
         <location filename="../../scribus/pagesize.cpp" line="396"/>
         <source>26x38 (Arch E2)</source>
-        <translation type="unfinished"></translation>
+        <translation>26x38 (Arch E2)</translation>
     </message>
     <message>
         <location filename="../../scribus/pagesize.cpp" line="402"/>
         <source>27x39 (Arch E3)</source>
-        <translation type="unfinished"></translation>
+        <translation>27x39 (Arch E3)</translation>
     </message>
     <message>
         <location filename="../../scribus/imagedataloaders/scimgdataloader_tiff.cpp" line="886"/>
@@ -28686,23 +28687,23 @@ Bonvolu elekti alian.</translation>
     <message>
         <location filename="../../scribus/ui/recoverdialog.cpp" line="50"/>
         <source>Click here to toggle your choice</source>
-        <translation type="unfinished"></translation>
+        <translation>Alklaku ĉi tie por baskuli vian elekton</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/recoverdialog.cpp" line="51"/>
         <source>Autosaved files are files are automatically saved versions of a document that was opened in a previous Scribus session.</source>
-        <translation type="unfinished"></translation>
+        <translation>Aŭtokonservitaj dosieroj estas aŭtomate konservitaj versioj de dokumento kiu estis malfermita en antaŭa seanco de Scribus </translation>
     </message>
     <message>
         <location filename="../../scribus/ui/recoverdialog.cpp" line="94"/>
         <location filename="../../scribus/ui/recoverdialog.cpp" line="96"/>
         <source>(recovered)</source>
-        <translation type="unfinished"></translation>
+        <translation>(riparita)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/recoverdialog.cpp" line="141"/>
         <source>Emergency</source>
-        <translation type="unfinished"></translation>
+        <translation>Krizokazo</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/recoverdialog.cpp" line="153"/>
@@ -28740,12 +28741,12 @@ Bonvolu elekti alian.</translation>
     <message>
         <location filename="../../scribus/ui/resourcemanager.cpp" line="78"/>
         <source>Help Manuals</source>
-        <translation type="unfinished"></translation>
+        <translation>Helpmanlibroj</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/resourcemanager.cpp" line="79"/>
         <source>Palettes</source>
-        <translation type="unfinished"></translation>
+        <translation>Paletroj</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/resourcemanager.cpp" line="114"/>
@@ -29246,7 +29247,7 @@ Bonvolu elekti alian.</translation>
     <message>
         <location filename="../../scribus/ui/smcstylewidget.cpp" line="109"/>
         <source>Background Shade</source>
-        <translation type="unfinished"></translation>
+        <translation>Fon-intenso</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smcstylewidget.cpp" line="298"/>
@@ -29670,7 +29671,7 @@ Esprimita kiel procento de la aktuala blankspaca valoro.</translation>
         <location filename="../../scribus/ui/smpstylewidget.ui" line="233"/>
         <location filename="../../scribus/ui/smpstylewidget.cpp" line="180"/>
         <source>Orphans and Widows</source>
-        <translation type="unfinished"></translation>
+        <translation>Orfoj kaj vidvinoj</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.ui" line="241"/>
@@ -29822,7 +29823,7 @@ Esprimita kiel procento de la aktuala blankspaca valoro.</translation>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.cpp" line="323"/>
         <source>Story</source>
-        <translation type="unfinished"></translation>
+        <translation>Historio</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.cpp" line="324"/>
@@ -29863,7 +29864,7 @@ Esprimita kiel procento de la aktuala blankspaca valoro.</translation>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.cpp" line="147"/>
         <source>Background Shade</source>
-        <translation type="unfinished"></translation>
+        <translation>Fon-intenso</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.cpp" line="233"/>
@@ -32283,7 +32284,7 @@ Rotacio: %4</translation>
     <message>
         <location filename="../../scribus/scribusdoc.cpp" line="16299"/>
         <source>File %1 autosaved</source>
-        <translation type="unfinished"></translation>
+        <translation>Dosiero %1 aŭtokonservita</translation>
     </message>
     <message>
         <location filename="../../scribus/scribusdoc.cpp" line="17554"/>
@@ -33024,7 +33025,7 @@ Pripensu ĉu uzi la antaŭkontrolon por korekti ilin</translation>
     <message>
         <location filename="../../scribus/scribusapp.cpp" line="598"/>
         <source>Run unit tests and exit</source>
-        <translation type="unfinished"></translation>
+        <translation>Rulu unuo-testojn kaj eliru</translation>
     </message>
     <message>
         <location filename="../../scribus/scribusapp.cpp" line="589"/>
@@ -35686,7 +35687,7 @@ kiam PDF-dokumento estas malfermita:</translation>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="215"/>
         <source>Determines the PDF compatibility.&lt;br/&gt;The default is &lt;b&gt;PDF 1.3&lt;/b&gt; which gives the widest compatibility.&lt;br/&gt;Choose &lt;b&gt;PDF 1.4&lt;/b&gt; if your file uses features such as transparency or you require 128 bit encryption.&lt;br/&gt;&lt;b&gt;PDF 1.5&lt;/b&gt; is necessary when you wish to preserve objects in separate layers within the PDF.&lt;br/&gt;&lt;b&gt;PDF/X-1a&lt;/b&gt; is for blind exchange with colors strictly specified in CMYK or spot colors.&lt;br/&gt;&lt;b&gt;PDF/X-3&lt;/b&gt; is for exporting the PDF when you want color managed RGB for commercial printing and is selectable when you have activated color management. Use only when advised by your printer or in some cases printing to a 4 color digital color laser printer.&lt;br/&gt;&lt;b&gt;PDF/X-4&lt;/b&gt; is an extension of PDF/X-3 to support transparency and layering.</source>
-        <translation type="unfinished"></translation>
+        <translation>Determinas la PDF-kongruon.&lt;br/&gt;La defaŭlta estas&lt;b&gt;PDF 1.3&lt;/b&gt; kiu donas la plej grandan kongruecon.&lt;br/&gt;Elektu&lt;b&gt;PDF 1.4&lt;/b&gt; se la ecoj de via dosieroj estas, ekzemple, travidebleco aŭ ĉifrado je 128 bitoj.&lt;br/&gt;&lt;b&gt;PDF 1.5&lt;/b&gt;necesas kiam vi deziras konservi la objektojn en apartaj tavoloj en la PDF.&lt;br/&gt;&lt;b&gt;PDF/X-1a&lt;/b&gt; estas por blinda interŝanĝo kun koloroj strikte specifitaj en CMYK aŭ bazaj koloroj.&lt;br/&gt;&lt;b&gt;PDF/X-3&lt;/b&gt; estas por eksportado de PDF kiam vi volas koloron RGB por komerca printado kaj ĝi estas elektebla kiam vi aktivigis koloradministradon. Uzu nur kiam petita fare de via presisto aŭ en iaj kazoj dum printado al 4-koloroj per cifereckolora laserprintilo.&lt;br/&gt;&lt;b&gt;PDF/X-4&lt;/b&gt; estas etendo de PDF/X-3 por subteni travideblecon kaj tavolojn.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="222"/>
@@ -36279,7 +36280,7 @@ kiam PDF-dokumento estas malfermita:</translation>
     <message>
         <location filename="../../scribus/third_party/zip/unzip.cpp" line="1209"/>
         <source>Inconsistent headers. Archive might be corrupted.</source>
-        <translation type="unfinished"></translation>
+        <translation>Nekoheraj kapdosieroj. Eble la arkivo estas difektita.</translation>
     </message>
     <message>
         <location filename="../../scribus/third_party/zip/unzip.cpp" line="1213"/>
@@ -38680,12 +38681,12 @@ bonvolu elekti alian.</translation>
     <message>
         <location filename="../../scribus/ui/recoverdialog.ui" line="17"/>
         <source>Crash Recovery</source>
-        <translation type="unfinished"></translation>
+        <translation>Postkolapsa riparado</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/recoverdialog.ui" line="23"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;It appears that Scribus crashed with the following files open.&lt;br&gt;Would you like to try to recover them?&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Ŝajnas ke Scribuskolapsis kun la sekvaj dosieroj malfermitaj.&lt;br&gt;Ĉu oni volas provi ripari ilin?&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/recoverdialog.ui" line="65"/>
@@ -38705,7 +38706,7 @@ bonvolu elekti alian.</translation>
     <message>
         <location filename="../../scribus/ui/recoverdialog.ui" line="88"/>
         <source>Recover</source>
-        <translation type="unfinished"></translation>
+        <translation>Riparu</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/recoverdialog.ui" line="98"/>

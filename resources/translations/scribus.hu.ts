@@ -3424,7 +3424,7 @@ Relative Colorimetric or Perceptual should be chosen.</source>
     </message>
     <message>
         <location filename="../../scribus/ui/cmsprefsbase.ui" line="274"/>
-        <source>Enable &apos;soft proofing&apos; of how your document colors will print,
+        <source>Enable 'soft proofing' of how your document colors will print,
 based on the chosen printer profile.</source>
         <translation>Engedélyezi a monitoron történő színellenőrzést, vagyis hogy milyenek lesznek a kinyomtatott színek a kiválasztott nyomtatóprofil alapján.</translation>
     </message>
@@ -6436,7 +6436,7 @@ currently %2 x %3 DPI</source>
     <message>
         <location filename="../../scribus/docinfo.cpp" line="170"/>
         <source>The topic of the content of the document. This field is for document keywords you wish to embed in a PDF, to assist searches and indexing of PDF files.</source>
-        <translation>A dokumentum tartalmának témakörei. Ez a mező arra szolgál, hogy a dokumentum kulcsszavait be lehessen ágyazni a PDF-be, ezzel segítve a PDF fájlok keresését és indexelését.</translation>
+        <translation>A dokumentum tartalmának témakörei. Ez a mező arra szolgál, hogy a dokumentum kulcsszavait be lehessen ágyazni a PDF-be, ezzel segítve a PDF-fájlok keresését és indexelését.</translation>
     </message>
     <message>
         <location filename="../../scribus/docinfo.cpp" line="175"/>
@@ -7028,7 +7028,7 @@ Az exportálandó fájl neve ilyen lesz: dokumentumnév-oldalszám.fájltípus</
     <message>
         <location filename="../../scribus/plugins/export/pixmapexport/dialog.cpp" line="79"/>
         <source>Choose an Export Directory</source>
-        <translation>Válasszon exportálási mappát</translation>
+        <translation>Válasszunk exportálási mappát</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/export/pixmapexport/dialog.cpp" line="120"/>
@@ -8680,7 +8680,7 @@ Ignore List</source>
         <location filename="../../scribus/plugins/import/ai/importaiplugin.cpp" line="81"/>
         <source>Imports most Illustrator files into the current document,
 converting their vector data into Scribus objects.</source>
-        <translation>A legtöbb Illustrator fájlt képes az aktuális dokumentumba importálni, a vektoros adataikat Scribus objektumokká konvertálva.</translation>
+        <translation>A legtöbb Illustrator-fájlt képes az aktuális dokumentumba importálni, a vektoros adataikat Scribus objektumokká konvertálva.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/ai/importaiplugin.cpp" line="190"/>
@@ -8793,7 +8793,7 @@ Document Liberation Project számára: http://www.documentliberation.org</transl
         <location filename="../../scribus/plugins/import/cgm/importcgmplugin.cpp" line="82"/>
         <source>Imports most binary CGM files into the current document,
 converting their vector data into Scribus objects.</source>
-        <translation>A legtöbb bináris CGM fájlt képes az aktuális dokumentumba importálni, a vektoros adataikat Scribus objektumokká konvertálva.</translation>
+        <translation>A legtöbb bináris CGM-fájlt képes az aktuális dokumentumba importálni, a vektoros adataikat Scribus objektumokká konvertálva.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/cgm/importcgmplugin.cpp" line="129"/>
@@ -8861,7 +8861,7 @@ converting their vector data into Scribus objects.</source>
         <location filename="../../scribus/plugins/import/drw/importdrwplugin.cpp" line="83"/>
         <source>Imports most DRW files into the current document,
 converting their vector data into Scribus objects.</source>
-        <translation>A legtöbb DRW fájlt képes az aktuális dokumentumba importálni, a vektoros adataikat Scribus objektumokká konvertálva.</translation>
+        <translation>A legtöbb DRW-fájlt képes az aktuális dokumentumba importálni, a vektoros adataikat Scribus objektumokká konvertálva.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/drw/importdrwplugin.cpp" line="130"/>
@@ -8905,7 +8905,7 @@ converting their vector data into Scribus objects.</source>
         <location filename="../../scribus/plugins/import/emf/importemfplugin.cpp" line="80"/>
         <source>Imports most EMF files into the current document,
 converting their vector data into Scribus objects.</source>
-        <translation>A legtöbb EMF fájlt képes az aktuális dokumentumba importálni, a vektoros adataikat Scribus objektumokká konvertálva.</translation>
+        <translation>A legtöbb EMF-fájlt képes az aktuális dokumentumba importálni, a vektoros adataikat Scribus objektumokká konvertálva.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/emf/importemfplugin.cpp" line="127"/>
@@ -8956,7 +8956,7 @@ converting their vector data into Scribus objects.</source>
         <location filename="../../scribus/plugins/import/fh/importfhplugin.cpp" line="75"/>
         <source>Imports most Freehand files into the current document,
 converting their vector data into Scribus objects.</source>
-        <translation>A legtöbb Freehand fájlt képes az aktuális dokumentumba importálni, a vektoros adataikat Scribus objektumokká konvertálva.</translation>
+        <translation>A legtöbb Freehand-fájlt képes az aktuális dokumentumba importálni, a vektoros adataikat Scribus objektumokká konvertálva.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/fh/importfhplugin.cpp" line="124"/>
@@ -8973,7 +8973,7 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/idml_old/importidml.cpp" line="66"/>
-        <source>Imports Adobe Indesign&apos;s idml packages into Scribus
+        <source>Imports Adobe Indesign's idml packages into Scribus
  converting Indesign objects into scribus pageitems; not all are supported in Scribus, but all those supported are being imported here</source>
         <translation>A legtöbb Adobe Indesign Idml csomagot képes az aktuális dokumentumba importálni, az Indesign objektumokat Scribus objektumokká konvertálva; nem minden objektum támogatott, de minden támogatott importálásra kerül itt</translation>
     </message>
@@ -9027,7 +9027,7 @@ converting their vector data into Scribus objects.</source>
         <location filename="../../scribus/plugins/import/idml/importidmlplugin.cpp" line="84"/>
         <source>Imports most IDML files into the current document,
 converting their vector data into Scribus objects.</source>
-        <translation>A legtöbb IDML fájlt képes az aktuális dokumentumba importálni, a vektoros adataikat Scribus objektumokká konvertálva.</translation>
+        <translation>A legtöbb IDML-fájlt képes az aktuális dokumentumba importálni, a vektoros adataikat Scribus objektumokká konvertálva.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/idml/importidmlplugin.cpp" line="64"/>
@@ -9107,13 +9107,13 @@ converting their vector data into Scribus objects.</source>
     <message>
         <location filename="../../scribus/plugins/import/ps/importpsplugin.cpp" line="83"/>
         <source>Imports PostScript Files</source>
-        <translation>PostScript fájlok importálása</translation>
+        <translation>PostScript-fájlok importálása</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/ps/importpsplugin.cpp" line="84"/>
         <source>Imports most PostScript files into the current document,
 converting their vector data into Scribus objects.</source>
-        <translation>A legtöbb PostScript fájlt képes az aktuális dokumentumba importálni, a vektoros adataikat Scribus objektumokká konvertálva.</translation>
+        <translation>A legtöbb PostScript-fájlt képes az aktuális dokumentumba importálni, a vektoros adataikat Scribus objektumokká konvertálva.</translation>
     </message>
 </context>
 <context>
@@ -9167,7 +9167,7 @@ converting their vector data into Scribus objects.</source>
     <message>
         <location filename="../../scribus/plugins/import/pct/importpctplugin.cpp" line="74"/>
         <source>Imports Macintosh Pict Files</source>
-        <translation>Macintosh Pict-fájlok importálása</translation>
+        <translation>Macintosh Pict fájlok importálása</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/pct/importpctplugin.cpp" line="75"/>
@@ -9192,7 +9192,7 @@ converting their vector data into Scribus objects.</source>
         <location filename="../../scribus/plugins/import/pdf/importpdfplugin.cpp" line="90"/>
         <source>Imports most PDF files into the current document,
 converting their vector data into Scribus objects.</source>
-        <translation>A legtöbb PDF fájlt képes az aktuális dokumentumba importálni, a vektoros adataikat Scribus objektumokká konvertálva.</translation>
+        <translation>A legtöbb PDF-fájlt képes az aktuális dokumentumba importálni, a vektoros adataikat Scribus objektumokká konvertálva.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/pdf/importpdfplugin.cpp" line="162"/>
@@ -9233,7 +9233,7 @@ converting their vector data into Scribus objects.</source>
         <location filename="../../scribus/plugins/import/pm/importpmplugin.cpp" line="75"/>
         <source>Imports most Pagemaker files into the current document,
 converting their vector data into Scribus objects.</source>
-        <translation>A legtöbb Pagemaker fájlt képes az aktuális dokumentumba importálni, a vektoros adataikat Scribus objektumokká konvertálva.</translation>
+        <translation>A legtöbb Pagemaker-fájlt képes az aktuális dokumentumba importálni, a vektoros adataikat Scribus objektumokká konvertálva.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/pm/importpmplugin.cpp" line="123"/>
@@ -9282,12 +9282,12 @@ converting their vector data into Scribus objects.</source>
     <message>
         <location filename="../../scribus/plugins/import/shape/importshapeplugin.cpp" line="53"/>
         <source>Import Dia Shapes...</source>
-        <translation>Dia Shapes importálása...</translation>
+        <translation>Dia alakzat importálása...</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/shape/importshapeplugin.cpp" line="74"/>
         <source>Imports Dia shape Files</source>
-        <translation>Dia Shapes-fájlok importálása</translation>
+        <translation>Dia alakzat fájlok importálása</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/shape/importshapeplugin.cpp" line="75"/>
@@ -9304,17 +9304,17 @@ converting their vector data into Scribus objects.</source>
         <location filename="../../scribus/plugins/import/shape/importshapeplugin.cpp" line="55"/>
         <location filename="../../scribus/plugins/import/shape/importshapeplugin.cpp" line="90"/>
         <source>Dia Shapes</source>
-        <translation>Dia Shapes</translation>
+        <translation>Dia alakzat</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/shape/importshapeplugin.cpp" line="56"/>
         <source>Dia Shapes (*.shape *.SHAPE)</source>
-        <translation>Dia Shapes (*.shape *.SHAPE)</translation>
+        <translation>Dia alakzat (*.shape *.SHAPE)</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/shape/importshapeplugin.cpp" line="92"/>
         <source>Dia shapes (*.shape *.SHAPE)</source>
-        <translation>Dia Shapes (*.shape *.SHAPE)</translation>
+        <translation>Dia alakzat (*.shape *.SHAPE)</translation>
     </message>
 </context>
 <context>
@@ -9327,12 +9327,12 @@ converting their vector data into Scribus objects.</source>
     <message>
         <location filename="../../scribus/plugins/import/sml/importsmlplugin.cpp" line="90"/>
         <source>Kivio Stencils &quot;*.sml&quot; File</source>
-        <translation>Kivio Stencils „*.sml”-fájl</translation>
+        <translation>Kivio rajzsablon „*.sml”-fájl</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/sml/importsmlplugin.cpp" line="92"/>
         <source>Kivio Stencils &quot;*.sml&quot; File (*.sml *.SML)</source>
-        <translation>Kivio Stencils „*.sml”-fájl (*.sml *.SML)</translation>
+        <translation>Kivio rajzsablon „*.sml”-fájl (*.sml *.SML)</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/sml/importsmlplugin.cpp" line="74"/>
@@ -9343,7 +9343,7 @@ converting their vector data into Scribus objects.</source>
         <location filename="../../scribus/plugins/import/sml/importsmlplugin.cpp" line="75"/>
         <source>Imports most Kivio stencils into the current document,
 converting their vector data into Scribus objects.</source>
-        <translation>A legtöbb Kivio Stencils fájlt képes az aktuális dokumentumba importálni, a vektoros adataikat Scribus objektumokká konvertálva.</translation>
+        <translation>A legtöbb Kivio rajzsablon fájlt képes az aktuális dokumentumba importálni, a vektoros adataikat Scribus objektumokká konvertálva.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/sml/importsmlplugin.cpp" line="123"/>
@@ -9353,12 +9353,12 @@ converting their vector data into Scribus objects.</source>
     <message>
         <location filename="../../scribus/plugins/import/sml/importsmlplugin.cpp" line="55"/>
         <source>Kivio Stencils</source>
-        <translation>Kivio Stencils</translation>
+        <translation>Kivio rajzsablon</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/sml/importsmlplugin.cpp" line="56"/>
         <source>Kivio Stencils (*.sml *.SML)</source>
-        <translation>Kivio Stencils (*.sml *.SML)</translation>
+        <translation>Kivio rajzsablon (*.sml *.SML)</translation>
     </message>
 </context>
 <context>
@@ -9389,7 +9389,7 @@ converting their vector data into Scribus objects.</source>
         <location filename="../../scribus/plugins/import/svm/importsvmplugin.cpp" line="80"/>
         <source>Imports most SVM files into the current document,
 converting their vector data into Scribus objects.</source>
-        <translation>A legtöbb SVM fájlt képes az aktuális dokumentumba importálni, a vektoros adataikat Scribus objektumokká konvertálva.</translation>
+        <translation>A legtöbb SVM-fájlt képes az aktuális dokumentumba importálni, a vektoros adataikat Scribus objektumokká konvertálva.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/svm/importsvmplugin.cpp" line="127"/>
@@ -9425,7 +9425,7 @@ converting their vector data into Scribus objects.</source>
         <location filename="../../scribus/plugins/import/viva/importvivaplugin.cpp" line="81"/>
         <source>Imports most Viva files into the current document,
 converting their vector data into Scribus objects.</source>
-        <translation>A legtöbb Viva fájlt képes az aktuális dokumentumba importálni, a vektoros adataikat Scribus objektumokká konvertálva.</translation>
+        <translation>A legtöbb Viva-fájlt képes az aktuális dokumentumba importálni, a vektoros adataikat Scribus objektumokká konvertálva.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/viva/importvivaplugin.cpp" line="130"/>
@@ -9519,7 +9519,7 @@ converting their vector data into Scribus objects.</source>
         <location filename="../../scribus/plugins/import/xar/importxarplugin.cpp" line="75"/>
         <source>Imports most Xara files into the current document,
 converting their vector data into Scribus objects.</source>
-        <translation>A legtöbb Xara fájlt képes az aktuális dokumentumba importálni, a vektoros adataikat Scribus objektumokká konvertálva.</translation>
+        <translation>A legtöbb Xara-fájlt képes az aktuális dokumentumba importálni, a vektoros adataikat Scribus objektumokká konvertálva.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/xar/importxarplugin.cpp" line="123"/>
@@ -9553,7 +9553,7 @@ converting their vector data into Scribus objects.</source>
         <location filename="../../scribus/plugins/import/xfig/importxfigplugin.cpp" line="75"/>
         <source>Imports most Xfig files into the current document,
 converting their vector data into Scribus objects.</source>
-        <translation>A legtöbb Xfig fájlt képes az aktuális dokumentumba importálni, a vektoros adataikat Scribus objektumokká konvertálva.</translation>
+        <translation>A legtöbb Xfig-fájlt képes az aktuális dokumentumba importálni, a vektoros adataikat Scribus objektumokká konvertálva.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/xfig/importxfigplugin.cpp" line="122"/>
@@ -9693,7 +9693,7 @@ converting their vector data into Scribus objects.</source>
         <location filename="../../scribus/plugins/imposition/impositionbase.ui" line="325"/>
         <source>&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Sans Serif'; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Separate pages with a comma, ranges with a hyphen, e.g. 1,4,9-11 to get pages 1,4,9,10,11.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
@@ -12640,7 +12640,7 @@ Ha nincs kijelölve egy köröcske, az összes alaphelyzetbe lesz állítva.</tr
     <message>
         <location filename="../../scribus/plugins/import/oodraw/oodrawimp.cpp" line="418"/>
         <source>This document does not seem to be an OpenOffice Draw file.</source>
-        <translation>Ez a dokumentum nem OpenOffice Rajz fájl.</translation>
+        <translation>Ez a dokumentum nem OpenOffice Draw fájl.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/oodraw/oodrawimp.cpp" line="642"/>
@@ -12653,12 +12653,12 @@ Ha nincs kijelölve egy köröcske, az összes alaphelyzetbe lesz állítva.</tr
     <message>
         <location filename="../../scribus/plugins/import/oodraw/oodrawimp.cpp" line="93"/>
         <source>Import &amp;OpenOffice.org Draw...</source>
-        <translation>&amp;OpenOffice.org Ábra importálása...</translation>
+        <translation>&amp;OpenOffice.org Draw importálása...</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/oodraw/oodrawimp.cpp" line="111"/>
         <source>Imports OpenOffice.org Draw Files</source>
-        <translation>OpenOffice Ábra fájlok importálása</translation>
+        <translation>OpenOffice Draw fájlok importálása</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/oodraw/oodrawimp.cpp" line="112"/>
@@ -12670,7 +12670,7 @@ Ha nincs kijelölve egy köröcske, az összes alaphelyzetbe lesz állítva.</tr
         <location filename="../../scribus/plugins/import/oodraw/oodrawimp.cpp" line="139"/>
         <source>OpenOffice.org 1.x Draw</source>
         <comment>Import/export format name</comment>
-        <translation>OpenOffice.org 1.x Ábra</translation>
+        <translation>OpenOffice.org 1.x Draw</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/oodraw/oodrawimp.cpp" line="208"/>
@@ -12685,7 +12685,7 @@ Ha nincs kijelölve egy köröcske, az összes alaphelyzetbe lesz állítva.</tr
     <message>
         <location filename="../../scribus/plugins/import/oodraw/oodrawimp.cpp" line="99"/>
         <source>OpenOffice.org 1.x Draw (*.sxd *.SXD)</source>
-        <translation>OpenOffice.org 1.x Ábra (*.sxd *.SXD)</translation>
+        <translation>OpenOffice.org 1.x Draw (*.sxd *.SXD)</translation>
     </message>
 </context>
 <context>
@@ -13251,12 +13251,12 @@ Ha nincs kijelölve egy köröcske, az összes alaphelyzetbe lesz állítva.</tr
     <message>
         <location filename="../../scribus/ui/pdfexportdialog.cpp" line="237"/>
         <source>PDF Files (*.pdf);;All Files (*)</source>
-        <translation>PDF fájlok (*.pdf);;Minden fájl (*)</translation>
+        <translation>PDF-fájlok (*.pdf);;Minden fájl (*)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pdfexportdialog.cpp" line="134"/>
         <source>This enables exporting one individually named PDF file for each page in the document. Page numbers are added automatically. This is most useful for imposing PDF for commercial printing.</source>
-        <translation>Engedélyezi a dokumentum egyes oldalainak külön PDF fájlba exportálását. Az oldalszámok automatikusan hozzáadódnak. Leginkább a PDF-ek kilövésére alkalmas a nyomda számára.</translation>
+        <translation>Engedélyezi a dokumentum egyes oldalainak külön PDF-fájlba exportálását. Az oldalszámok automatikusan hozzáadódnak. Leginkább a PDF-ek kilövésére alkalmas a nyomda számára.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pdfexportdialog.cpp" line="188"/>
@@ -14348,7 +14348,7 @@ Document Liberation Project számára: http://www.documentliberation.org</transl
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:10pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Sans Serif'; font-size:10pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;table border=&quot;0&quot; style=&quot;-qt-table-type: root; margin-top:4px; margin-bottom:4px; margin-left:4px; margin-right:4px;&quot;&gt;
 &lt;tr&gt;
 &lt;td style=&quot;border: none;&quot;&gt;
@@ -15304,7 +15304,7 @@ The result is a combination of &quot;Intersection&quot; and &quot;Exclusion&quot
     <message>
         <location filename="../../scribus/plugins/import/pdf/importpdf.cpp" line="414"/>
         <source>Open PDF-File</source>
-        <translation>PDF fájl megnyitása</translation>
+        <translation>PDF-fájl megnyitása</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/pdf/importpdf.cpp" line="414"/>
@@ -15329,7 +15329,7 @@ The result is a combination of &quot;Intersection&quot; and &quot;Exclusion&quot
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:8pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Sans Serif'; font-size:8pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Attention:&lt;/span&gt; This script file contains code which &lt;span style=&quot; font-style:italic;&quot;&gt;might harm &lt;/span&gt;your system.&lt;/p&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;You should only permit execution of this script if you are sure that it comes from a trustworthy source. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
@@ -15351,7 +15351,7 @@ p, li { white-space: pre-wrap; }
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;DejaVu Sans&apos;; font-size:8pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'DejaVu Sans'; font-size:8pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:&apos;Sans Serif&apos;;&quot;&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
@@ -17907,7 +17907,7 @@ Do you want to migrate them to the new Scribus version?</source>
     <message>
         <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="607"/>
         <source>Save into:</source>
-        <translation>Mentés a:</translation>
+        <translation>Mentés ide:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="617"/>
@@ -18027,7 +18027,7 @@ Do you want to migrate them to the new Scribus version?</source>
     <message>
         <location filename="../../scribus/ui/prefs_documentsetup.cpp" line="120"/>
         <source>When enabled, Scribus saves backup copys of your file each time the time period elapses</source>
-        <translation>Engedélyezve, a Scribus folyamatosan készíti a biztonsági mentéseket a fájlról</translation>
+        <translation>Engedélyezve a Scribus folyamatos biztonsági mentéseket készíti a fájlról</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_documentsetup.cpp" line="125"/>
@@ -19267,7 +19267,7 @@ A value of 0 means unlimited hyphenations.</source>
     <message>
         <location filename="../../scribus/ui/prefs_keyboardshortcuts.cpp" line="474"/>
         <source>The %1 key sequence is already in use by &quot;%2&quot;</source>
-        <translation>Ezt a billentyűzet kombinációt (%1) már foglalja ez a művelet: %2</translation>
+        <translation>Ezt a billentyűzet-kombinációt (%1) már foglalja ez a művelet: %2</translation>
     </message>
 </context>
 <context>
@@ -19496,7 +19496,7 @@ A value of 0 means unlimited hyphenations.</source>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="311"/>
         <source>Save Linked Text Frames as PDF Articles</source>
-        <translation>Kapcsolt szövegkeretek mentése PDF cikkekként való</translation>
+        <translation>Kapcsolt szövegkeretek mentése PDF cikkekként</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="318"/>
@@ -19950,7 +19950,7 @@ A value of 0 means unlimited hyphenations.</source>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="76"/>
         <source>Color model for the output of your PDF. Choose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets. Choose Printer when printing to a true 4 color CMYK printer. Choose Grayscale when you want a grey scale PDF.</source>
-        <translation>A kimeneti PDF színmódja. A &quot;Képernyő / Web&quot; beállítást akkor válassza egy PDF számára, ha képernyőn szeretné megjeleníteni vagy tintasugaras nyomtatón nyomtatni. A &quot;Nyomtató&quot; beállítást akkor válassza, ha valódi 4 színű CMYK nyomtatón nyomtat. A &quot;Szürkeárnyalatos&quot; beállítást akkor válassza, ha szürkeárnyalatos PDF-et szeretne.</translation>
+        <translation>A kimeneti PDF színmódja. A „Képernyő / web” beállítást akkor tanácsolt választani egy PDF számára, ha képernyőn szeretnénk megjeleníteni vagy tintasugaras nyomtatón nyomtatni,  a „Nyomtató” beállítást  pedig akkor, ha valódi 4 színű CMYK nyomtatón nyomtatunk. A „Szürkeárnyalatos” beállítást akkor válasszuk, ha szürkeárnyalatos PDF-et szeretnénk.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="77"/>
@@ -20724,7 +20724,7 @@ A value of 0 means unlimited hyphenations.</source>
     <message>
         <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="310"/>
         <source>Check for placed PDF files</source>
-        <translation>Beágyazott PDF fájlok ellenőrzése</translation>
+        <translation>Beágyazott PDF-fájlok ellenőrzése</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="317"/>
@@ -20952,7 +20952,7 @@ A value of 0 means unlimited hyphenations.</source>
     <message>
         <location filename="../../scribus/ui/prefs_printer.cpp" line="35"/>
         <source>This enables you to explicitly set the media size of the PostScript file. Not recommended unless requested by your printer.</source>
-        <translation>Lehetővé teszi a PostScript fájl médiaméretének explicit megadását. Nem javasolt, hacsak nem a nyomtató kéri.</translation>
+        <translation>Lehetővé teszi a PostScript-fájl médiaméretének explicit megadását. Nem javasolt, hacsak nem a nyomtató kéri.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_printer.cpp" line="32"/>
@@ -21570,11 +21570,11 @@ Az 1. és a 2. szint nagy méretű fájlt eredményez.</translation>
     <message>
         <location filename="../../scribus/ui/prefs_userinterface.cpp" line="60"/>
         <source>Time before resize or move starts allows for a slight delay between when you click and the operation happens to avoid unintended moves. This can be helpful when dealing with mouse sensitivity settings or accessibility issues related to ergonomic mice, touch pads or moveability of the wrists and hands.</source>
-        <translation>Kis késleltetést képező idő a kattintás és az átméretezés, ill. a mozgatás megkezdése között, amely megakadályozza  az akaratlan elmozdítást. Ez akkor lehet hasznos ha próbáljuk beállítani a az egér érzékenységét vagy az ergonomikus egér, érintőpad hozzáférhetőségét vagy a csukló és a kéz mozgathatóságát.</translation>
+        <translation>Kis késleltetési idő a kattintás és az átméretezés, ill. a mozgatás megkezdése között, amely megakadályozza az akaratlan elmozdítást. Ez akkor lehet hasznos, ha próbáljuk beállítani az egér érzékenységét vagy az ergonomikus egér, érintőpad hozzáférhetőségét vagy a csukló és a kéz mozgathatóságát.</translation>
     </message>
     <message>
-        <source></source>
-        <translation></translation>
+        <source/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_userinterfacebase.ui" line="254"/>
@@ -21714,7 +21714,7 @@ Az 1. és a 2. szint nagy méretű fájlt eredményez.</translation>
     <message>
         <location filename="../../scribus/ui/printdialog.cpp" line="382"/>
         <source>PostScript Files (*.ps);;All Files (*)</source>
-        <translation>PostScript fájlok (*.ps);;Minden fájl (*)</translation>
+        <translation>PostScript-fájlok (*.ps);;Minden fájl (*)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/printdialog.cpp" line="320"/>
@@ -22002,7 +22002,7 @@ Az 1. és a 2. szint nagy méretű fájlt eredményez.</translation>
     <message>
         <location filename="../../scribus/ui/printdialogbase.ui" line="380"/>
         <source>This enables you to explicitly set the media size of the PostScript file. Not recommended unless requested by your printer.</source>
-        <translation>Lehetővé teszi a PostScript fájl médiaméretének explicit megadását. Nem javasolt, hacsak nem a nyomtató kéri.</translation>
+        <translation>Lehetővé teszi a PostScript-fájl médiaméretének explicit megadását. Nem javasolt, hacsak nem a nyomtató kéri.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/printdialogbase.ui" line="390"/>
@@ -22181,7 +22181,7 @@ Figyelem: a PDF űrlapok nem kerülnek exportálásra.</translation>
     <message>
         <location filename="../../scribus/ui/propertiespalette_groupbase.ui" line="207"/>
         <source>&lt;qt&gt;When chosen, the contour line can be edited with the Edit Shape Tool on the palette further above. When edited via the shape palette, this becomes a second separate line originally based on the frame&apos;s shape for text flow of text frames below the object.&lt;/qt&gt;</source>
-        <translation>&lt;qt&gt;Ezt választva a kontúrvonal a csomópontok szerkesztése eszközzel módosítható, mely e paletta felett jelenik meg. Amikor szerkesztjük, egy második, különálló vonalat kapunk az eredeti keret alakjából az alsóbb keret körüli szöveg körbefuttatásához&lt;/qt&gt;</translation>
+        <translation>&lt;qt&gt;Ezt választva a kontúrvonal a csomópontok szerkesztése eszközzel módosítható, mely e paletta felett jelenik meg. Amikor szerkesztjük, egy második, különálló vonalat kapunk az eredeti keret alakjából az alsóbb keret körüli szöveg körbefuttatásához.&lt;/qt&gt;</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_groupbase.ui" line="235"/>
@@ -23281,7 +23281,7 @@ Transparency</source>
         <location filename="../../scribus/ui/propertiespalette_text.cpp" line="81"/>
         <location filename="../../scribus/ui/propertiespalette_text.cpp" line="637"/>
         <source>Paragraph Effects</source>
-        <translation>Bekezdés effektusok</translation>
+        <translation>Bekezdéseffektusok</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_text.cpp" line="667"/>
@@ -23437,7 +23437,7 @@ Transparency</source>
     <message>
         <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="207"/>
         <source>Point from which measurements or rotation angles are referenced</source>
-        <translation>A megadott ponthoz képest történnek a mérések, vagy a forgatás</translation>
+        <translation>A pont, ahová viszonyítva történnek a mérések vagy a forgatások</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="210"/>
@@ -23581,12 +23581,12 @@ Transparency</source>
     <message>
         <location filename="../../scribus/ui/propertywidget_advanced.cpp" line="394"/>
         <source>Minimal width of spaces between words</source>
-        <translation>Minimális szélességű szóköz a szavak között</translation>
+        <translation>Minimális szélességű térköz a szavak között</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_advanced.cpp" line="395"/>
         <source>Normal width of spaces between words</source>
-        <translation>Normál szélességű szóköz a szavak között</translation>
+        <translation>Normál szélességű térköz a szavak között</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_advanced.cpp" line="396"/>
@@ -24176,7 +24176,7 @@ Transparency</source>
     <message>
         <location filename="../../scribus/ui/propertywidget_pareffect.h" line="98"/>
         <source>No Paragraph Effects</source>
-        <translation>Nincsenek bekezdés effektusok</translation>
+        <translation>Nincsenek bekezdéseffektusok</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_pareffect.h" line="101"/>
@@ -24186,7 +24186,7 @@ Transparency</source>
     <message>
         <location filename="../../scribus/ui/propertywidget_pareffect.cpp" line="571"/>
         <source>Effect Parameters</source>
-        <translation>Effektus paraméterek</translation>
+        <translation>Effektusparaméterek</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_pareffect.cpp" line="573"/>
@@ -24209,7 +24209,7 @@ Transparency</source>
     <message>
         <location filename="../../scribus/ui/propertywidget_pareffectbase.ui" line="270"/>
         <source>Effect Parameters</source>
-        <translation>Effektus paraméterek</translation>
+        <translation>Effektusparaméterek</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_pareffectbase.ui" line="276"/>
@@ -24383,7 +24383,7 @@ Transparency</source>
     <message>
         <location filename="../../scribus/ui/propertywidget_textcolor.cpp" line="551"/>
         <source>Background color of selected text</source>
-        <translation>A kijelölt szöveg háttérszíne.</translation>
+        <translation>A kijelölt szöveg háttérszíne</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_textcolor.cpp" line="552"/>
@@ -25808,7 +25808,7 @@ Külső hivatkozások
     <message>
         <location filename="../../scribus/plugins/gettext/sxwim/sxwim.cpp" line="46"/>
         <source>OpenOffice.org Writer Documents</source>
-        <translation>OpenOffice.org Szöveg dokumentumok</translation>
+        <translation>OpenOffice.org Writer dokumentumok</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdgetprop.cpp" line="104"/>
@@ -26494,13 +26494,13 @@ Külső hivatkozások
         <location filename="../../scribus/plugins/scriptplugin/cmdpage.cpp" line="434"/>
         <source>second argument is not tuple: must be tuple of integer values.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>a második argumentum nem szekvencia: szekvencia érték kell legyen.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdpage.cpp" line="446"/>
         <source>second argument contains non-numeric values: must be list of integer values.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>a második argumentum nem numerikus értékeket tartalmaz: egészek listája kell legyen.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdsetprop.cpp" line="246"/>
@@ -26598,18 +26598,18 @@ not currently documented in the docstring for each function.
 without a document to operate on.
 - If you do not pass a frame name to a function that requires one,
 the function will use the currently selected frame, if any, or
-raise a NoValidObjectError if it can&apos;t find anything to operate
+raise a NoValidObjectError if it can't find anything to operate
 on.
 - Many functions will raise WrongFrameTypeError if you try to use them
 on a frame type that they do not make sense with. For example, setting
-the text color on a graphics frame doesn&apos;t make sense, and will result
+the text color on a graphics frame doesn't make sense, and will result
 in this exception being raised.
 - Errors resulting from calls to the underlying Python API will be
 passed through unaltered. As such, the list of exceptions thrown by
 any function as provided here and in its docstring is incomplete.
 
 Details of what exceptions each function may throw are provided on the
-function&apos;s documentation, though as with most Python code this list
+function's documentation, though as with most Python code this list
 is not exhaustive due to exceptions from called functions.
 </source>
         <translation>Scribus Python felület modul
@@ -26827,7 +26827,7 @@ lista hiányos a meghívott funkciók miatt.</translation>
     <message>
         <location filename="../../scribus/plugins/import/oodraw/oodrawimp.cpp" line="104"/>
         <source>OpenOffice.org Draw Importer</source>
-        <translation>OpenOffice.org Rajz importáló</translation>
+        <translation>OpenOffice.org Draw importáló</translation>
     </message>
     <message>
         <location filename="../../scribus/main_win32.cpp" line="291"/>
@@ -26893,7 +26893,7 @@ lista hiányos a meghívott funkciók miatt.</translation>
     <message>
         <location filename="../../scribus/pslib.cpp" line="1581"/>
         <source>Exporting PostScript File</source>
-        <translation>PostScript fájl exportálása</translation>
+        <translation>PostScript-fájl exportálása</translation>
     </message>
     <message>
         <location filename="../../scribus/pslib.cpp" line="1583"/>
@@ -27180,42 +27180,42 @@ lista hiányos a meghívott funkciók miatt.</translation>
     <message>
         <location filename="../../scribus/pagesize.cpp" line="360"/>
         <source>9x12 (Arch A)</source>
-        <translation>9x12 (A ív)</translation>
+        <translation>9×12 (A ív)</translation>
     </message>
     <message>
         <location filename="../../scribus/pagesize.cpp" line="366"/>
         <source>12x18 (Arch B)</source>
-        <translation>12x18 (B ív)</translation>
+        <translation>12×18 (B ív)</translation>
     </message>
     <message>
         <location filename="../../scribus/pagesize.cpp" line="372"/>
         <source>18x24 (Arch C)</source>
-        <translation>18x24 (C ív)</translation>
+        <translation>18×24 (C ív)</translation>
     </message>
     <message>
         <location filename="../../scribus/pagesize.cpp" line="378"/>
         <source>24x36 (Arch D)</source>
-        <translation>24x36 (D ív)</translation>
+        <translation>24×36 (D ív)</translation>
     </message>
     <message>
         <location filename="../../scribus/pagesize.cpp" line="384"/>
         <source>36x48 (Arch E)</source>
-        <translation>36x48 (E ív)</translation>
+        <translation>36×48 (E ív)</translation>
     </message>
     <message>
         <location filename="../../scribus/pagesize.cpp" line="390"/>
         <source>30x42 (Arch E1)</source>
-        <translation>30x42 (E1 ív)</translation>
+        <translation>30×42 (E1 ív)</translation>
     </message>
     <message>
         <location filename="../../scribus/pagesize.cpp" line="396"/>
         <source>26x38 (Arch E2)</source>
-        <translation>26x38 (E2 ív)</translation>
+        <translation>26×38 (E2 ív)</translation>
     </message>
     <message>
         <location filename="../../scribus/pagesize.cpp" line="402"/>
         <source>27x39 (Arch E3)</source>
-        <translation>27x39 ( E3 ív)</translation>
+        <translation>27×39 (E3 ív)</translation>
     </message>
     <message>
         <location filename="../../scribus/imagedataloaders/scimgdataloader_tiff.cpp" line="886"/>
@@ -27500,7 +27500,7 @@ lista hiányos a meghívott funkciók miatt.</translation>
     <message>
         <location filename="../../scribus/util_formats.cpp" line="95"/>
         <source>Xfig File</source>
-        <translation>Xfig fájl</translation>
+        <translation>Xfig-fájl</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="150"/>
@@ -27732,12 +27732,12 @@ A kép valószínű nem lesz így helyes</translation>
     <message>
         <location filename="../../scribus/plugins/tools/flattenpath/flattenpath.cpp" line="93"/>
         <source>FlattenPath</source>
-        <translation>Útvonal lapítása</translation>
+        <translation>Útvonallapítás</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/tools/smoothpath/smoothpath.cpp" line="99"/>
         <source>SmoothPath</source>
-        <translation>Útvonal ívesítés</translation>
+        <translation>Útvonalívesítés</translation>
     </message>
     <message>
         <location filename="../../scribus/nftrcreader.cpp" line="174"/>
@@ -28165,7 +28165,7 @@ A kép valószínű nem lesz így helyes</translation>
     <message>
         <location filename="../../scribus/scribus.cpp" line="762"/>
         <source>You are running a development version of Scribus 1.5.x. The document you are working with was created in Scribus 1.2.x.  Saving the current file under 1.5.x renders it unable to be edited in Scribus 1.2.x versions. To preserve the ability to edit in 1.2.x, save this file under a different name and further edit the newly named file and the original will be untouched. Are you sure you wish to proceed with this operation?</source>
-        <translation>A Scribus 1.5.x fejlesztői verzióját futtatja. A dokumentum, melyen dolgozik, még a Scribus 1.2.x verziójával készült. Elmentve a fájl a Scribus 1.5.x verziójával már nem lehet többé megnyitni a Scribus 1.2.x verzióval. A lehetőség megőrzéséhez, hogy 1.2.x alatt is tudja szerkeszteni, mentse el más néven. Biztosan folytatható a műveletet?</translation>
+        <translation>A Scribus 1.5.x fejlesztői verzióját futtatja. A dokumentum, melyen dolgozik, még a Scribus 1.2.x verziójával készült. A fájlt a Scribus 1.5.x verziójával való elmentés után már nem lehet többé megnyitni a Scribus 1.2.x verzióval. A lehetőség megőrzéséhez, hogy 1.2.x alatt is tudja szerkeszteni, mentse el más néven. Biztosan folytatható a műveletet?</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/pub/importpubplugin.cpp" line="66"/>
@@ -28270,7 +28270,7 @@ A kép valószínű nem lesz így helyes</translation>
     <message>
         <location filename="../../scribus/plugins/import/oodraw/oodrawimp.cpp" line="174"/>
         <source>OpenOffice.org Draw (*.sxd *.SXD);;All Files (*)</source>
-        <translation>OpenOffice.org Rajz (*.sxd *.SXD);;Minden fájl (*)</translation>
+        <translation>OpenOffice.org Draw (*.sxd *.SXD);;Minden fájl (*)</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/cdr/importcdrplugin.cpp" line="68"/>
@@ -28530,7 +28530,7 @@ A kép valószínű nem lesz így helyes</translation>
     <message>
         <location filename="../../scribus/translationdummy.cpp" line="113"/>
         <source>System Menu</source>
-        <translation>Rendszer menü</translation>
+        <translation>Rendszermenü</translation>
     </message>
     <message>
         <location filename="../../scribus/translationdummy.cpp" line="114"/>
@@ -29689,7 +29689,7 @@ Az aktuális szóköz százalékában van kifejezve.</translation>
         <location filename="../../scribus/ui/smpstylewidget.ui" line="693"/>
         <location filename="../../scribus/ui/smpstylewidget.cpp" line="229"/>
         <source>Paragraph Effects</source>
-        <translation>Bekezdés effektusok</translation>
+        <translation>Bekezdéseffektusok</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.ui" line="1084"/>
@@ -29750,12 +29750,12 @@ Az aktuális szóköz százalékában van kifejezve.</translation>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.cpp" line="123"/>
         <source>Paragraph Effects Chars Offset</source>
-        <translation>Bekezdés effektus karakter eltolása</translation>
+        <translation>Bekezdéseffektus karakter eltolása</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.cpp" line="124"/>
         <source>Hang Paragraph Effect before paragraph indent</source>
-        <translation>A bekezdés effektus elhelyezése a bekezdés behúzása elé</translation>
+        <translation>A bekezdéseffektus elhelyezése a bekezdés behúzása elé</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.cpp" line="321"/>
@@ -30000,7 +30000,7 @@ Az aktuális szóköz százalékában van kifejezve.</translation>
         <location filename="../../scribus/ui/smsccombobox.cpp" line="103"/>
         <location filename="../../scribus/ui/smsccombobox.cpp" line="180"/>
         <source>Use Parent Value</source>
-        <translation>Szülő értékének használata</translation>
+        <translation>Szülő értékének alkalmazása</translation>
     </message>
 </context>
 <context>
@@ -30008,7 +30008,7 @@ Az aktuális szóköz százalékában van kifejezve.</translation>
     <message>
         <location filename="../../scribus/ui/smshadebutton.cpp" line="63"/>
         <source>Use Parent Value</source>
-        <translation>Szülő értékének használata</translation>
+        <translation>Szülő értékének alkalmazása</translation>
     </message>
 </context>
 <context>
@@ -30249,12 +30249,12 @@ Az aktuális szóköz százalékában van kifejezve.</translation>
     <message>
         <location filename="../../scribus/plugins/export/svgexplugin/svgexplugin.cpp" line="115"/>
         <source>Exports SVG Files</source>
-        <translation>SVG fájlok exportálása</translation>
+        <translation>SVG-fájlok exportálása</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/export/svgexplugin/svgexplugin.cpp" line="116"/>
         <source>Exports the current page into an SVG file.</source>
-        <translation>A jelenlegi oldal exportálása SVG fájlba.</translation>
+        <translation>A jelenlegi oldal exportálása SVG-fájlba.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/export/svgexplugin/svgexplugin.cpp" line="99"/>
@@ -30299,13 +30299,13 @@ Figyelem: ez megnöveli a fájl méretét!</translation>
     <message>
         <location filename="../../scribus/plugins/import/svg/svgplugin.cpp" line="114"/>
         <source>Imports SVG Files</source>
-        <translation>SVG fájlok importálása</translation>
+        <translation>SVG-fájlok importálása</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/svg/svgplugin.cpp" line="115"/>
         <source>Imports most SVG files into the current document,
 converting their vector data into Scribus objects.</source>
-        <translation>A legtöbb SVG fájlt képes az aktuális dokumentumba importálni, a vektoros adataikat Scribus objektumokká konvertálva.</translation>
+        <translation>A legtöbb SVG-fájlt képes az aktuális dokumentumba importálni, a vektoros adataikat Scribus objektumokká konvertálva.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/svg/svgplugin.cpp" line="198"/>
@@ -31234,7 +31234,7 @@ converting their vector data into Scribus objects.</source>
     <message>
         <location filename="../../scribus/ui/annot.cpp" line="1604"/>
         <source>PDF Files (*.pdf);;All Files (*)</source>
-        <translation>PDF fájlok (*.pdf);;Minden fájl (*)</translation>
+        <translation>PDF-fájlok (*.pdf);;Minden fájl (*)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/annot.ui" line="55"/>
@@ -32230,7 +32230,7 @@ Forgatás: %4</translation>
     <message>
         <location filename="../../scribus/scribusdoc.cpp" line="16299"/>
         <source>File %1 autosaved</source>
-        <translation>Fájl %1 elmentve</translation>
+        <translation>Fájl %1 automatikusan elmentve</translation>
     </message>
     <message>
         <location filename="../../scribus/scribusdoc.cpp" line="17554"/>
@@ -33887,7 +33887,7 @@ Tekintse meg őket az Elővizsgálóval, hogy javítani tudja</translation>
     <message>
         <location filename="../../scribus/plugins/tools/smoothpath/smoothpath.cpp" line="77"/>
         <source>Smooth Path</source>
-        <translation>Útvonal ívesítés</translation>
+        <translation>Útvonalívesítés</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/tools/smoothpath/smoothpath.cpp" line="81"/>
@@ -34363,7 +34363,7 @@ Tekintse meg őket az Elővizsgálóval, hogy javítani tudja</translation>
     <message>
         <location filename="../../scribus/ui/stylemanager.cpp" line="1111"/>
         <source>This key sequence is already in use</source>
-        <translation>Ez a billentyűzet kombináció már foglalt</translation>
+        <translation>Ez a billentyűzet-kombináció már foglalt</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/stylemanager.cpp" line="110"/>
@@ -34553,7 +34553,7 @@ Tekintse meg őket az Elővizsgálóval, hogy javítani tudja</translation>
     <message>
         <location filename="../../scribus/plugins/gettext/sxwim/sxwdia.cpp" line="24"/>
         <source>OpenOffice.org Writer Importer Options</source>
-        <translation>OpenOffice.org Szöveg importáló beállításai</translation>
+        <translation>OpenOffice.org Writer importáló beállításai</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/gettext/sxwim/sxwdia.cpp" line="35"/>
@@ -35399,7 +35399,7 @@ when PDF document is opened:</source>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="268"/>
         <source>Color model for the output of your PDF. Choose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets. Choose Printer when printing to a true 4 color CMYK printer. Choose Grayscale when you want a grey scale PDF.</source>
-        <translation>A kimeneti PDF színmódja. A &quot;Képernyő / Web&quot; beállítást akkor válassza egy PDF számára, ha képernyőn szeretné megjeleníteni vagy tintasugaras nyomtatón nyomtatni. A &quot;Nyomtató&quot; beállítást akkor válassza, ha valódi 4 színű CMYK nyomtatón nyomtat. A &quot;Szürkeárnyalatos&quot; beállítást akkor válassza, ha szürkeárnyalatos PDF-et szeretne.</translation>
+        <translation>A kimeneti PDF színmódja. A „Képernyő / web” beállítást akkor tanácsolt választani egy PDF számára, ha képernyőn szeretnénk megjeleníteni vagy tintasugaras nyomtatón nyomtatni,  a „Nyomtató” beállítást  pedig akkor, ha valódi 4 színű CMYK nyomtatón nyomtatunk. A „Szürkeárnyalatos” beállítást akkor válasszuk, ha szürkeárnyalatos PDF-et szeretnénk.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="212"/>
@@ -35574,7 +35574,7 @@ when PDF document is opened:</source>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="280"/>
         <source>Creates crop marks in the PDF indicating where the paper should be cut or trimmed after printing</source>
-        <translation>Vágójeleket hoz létre a PDF-ben, melyek jelzik, hogy hol kell a papírt a nyomtatás után elvágni</translation>
+        <translation>Vágójeleket hoz létre a PDF-ben, melyek jelzik, hol kell a papírt a nyomtatás után elvágni</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="281"/>
@@ -36799,7 +36799,7 @@ to %2</source>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="684"/>
         <source>Import OpenOffice.org Draw image</source>
-        <translation>OpenOffice.org Rajz kép importálása</translation>
+        <translation>OpenOffice.org Draw kép importálása</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="652"/>
@@ -36990,7 +36990,7 @@ X: %4, Y: %5</translation>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="689"/>
         <source>Import WMF drawing</source>
-        <translation>WMF rajz importálása</translation>
+        <translation>WMF-rajz importálása</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="713"/>
@@ -37484,7 +37484,7 @@ X: %4, Y: %5</translation>
     <message>
         <location filename="../../scribus/ui/unicodesearch.ui" line="39"/>
         <source>Enter the search phrase. Then press Enter.</source>
-        <translation>Adja meg a keresendő kifejezést, majd Enter.</translation>
+        <translation>A keresendő kifejezés megadása után nyomjuk meg az Enter billentyűt.</translation>
     </message>
 </context>
 <context>
@@ -37768,13 +37768,13 @@ Document Liberation Project számára: http://www.documentliberation.org</transl
     <message>
         <location filename="../../scribus/plugins/import/wmf/wmfimportplugin.cpp" line="92"/>
         <source>Imports WMF Files</source>
-        <translation>WGP fájlok importálása</translation>
+        <translation>WMF-fájlok importálása</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/wmf/wmfimportplugin.cpp" line="93"/>
         <source>Imports most WMF files into the current document,
 converting their vector data into Scribus objects.</source>
-        <translation>A legtöbb WMF fájlt képes az aktuális dokumentumba importálni, a vektoros adataikat Scribus objektumokká konvertálva.</translation>
+        <translation>A legtöbb WMF-fájlt képes az aktuális dokumentumba importálni, a vektoros adataikat Scribus objektumokká konvertálva.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/wmf/wmfimportplugin.cpp" line="176"/>
@@ -37784,7 +37784,7 @@ converting their vector data into Scribus objects.</source>
     <message>
         <location filename="../../scribus/plugins/import/wmf/wmfimportplugin.cpp" line="178"/>
         <source>WMF file contains some unsupported features</source>
-        <translation>A WMF fájl néhány nem támogatott szolgáltatást tartalmaz</translation>
+        <translation>A WMF-fájl néhány nem támogatott szolgáltatást tartalmaz</translation>
     </message>
 </context>
 <context>
@@ -38454,7 +38454,7 @@ please choose another one.</source>
     <message>
         <location filename="../../scribus/plugins/newfromtemplateplugin/nftdialog.cpp" line="199"/>
         <source>The template creator should also make sure that the Installing Templates section above applies to their templates as well. This means a user should be able to download a template package and be able to extract them to the template directory and start using them.</source>
-        <translation>A sablon készítőjének meg kell győződni róla, hogy a fenti &quot;Sablonok telepítése&quot; részben elérhetőek a sablonjai. A felhasználónak lehetőséget kell biztosítani arra, hogy letöltsön egy sablon csomagot, kicsomagolja a sablonok mappába, majd használatba vegye azt.</translation>
+        <translation>A sablon készítőjének meg kell győződni róla, hogy a fenti „Sablonok telepítése” részben elérhetőek a sablonjai. A felhasználónak lehetőséget kell biztosítani arra, hogy letöltsön egy sablon csomagot, kicsomagolja a sablonok mappába, majd használatba vegye azt.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/newfromtemplateplugin/nftdialog.cpp" line="203"/>
@@ -38577,7 +38577,7 @@ please choose another one.</source>
     <message>
         <location filename="../../scribus/ui/nftwidget.cpp" line="189"/>
         <source>The template creator should also make sure that the Installing Templates section above applies to their templates as well. This means a user should be able to download a template package and be able to extract them to the template directory and start using them.</source>
-        <translation>A sablon készítőjének meg kell győződni róla, hogy a fenti &quot;Sablonok telepítése&quot; részben elérhetőek a sablonjai. A felhasználónak lehetőséget kell biztosítani arra, hogy letöltsön egy sablon csomagot, kicsomagolja a sablonok mappába, majd használatba vegye azt.</translation>
+        <translation>A sablon készítőjének meg kell győződni róla, hogy a fenti „Sablonok telepítése” részben elérhetőek a sablonjai. A felhasználónak lehetőséget kell biztosítani arra, hogy letöltsön egy sablon csomagot, kicsomagolja a sablonok mappába, majd használatba vegye azt.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/nftwidget.cpp" line="191"/>
