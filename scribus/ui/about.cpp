@@ -303,6 +303,8 @@ QString About::trAuthorTitle(QString title)
 		result = tr("Tango Project Icons:");
 	else if ( title == "Scribus 1.5.1+ Icon Set:" )
 		result = tr("Scribus 1.5.1+ Icon Set:");
+	else if ( title == "Refactoring text layout code and the new boxes model, Oman House of Open Source Technology team:" )
+		result = tr("Refactoring text layout code and the new boxes model, Oman House of Open Source Technology team:");
 	else
 	{
 		std::cout << "please add the untranslated title \"" << qPrintable(title) << "\" to About::trAuthorTitle()" << std::endl;
