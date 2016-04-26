@@ -113,9 +113,9 @@ void PropertyWidget_ParEffect::unitChange()
 	m_unitRatio = m_doc->unitRatio();
 	m_unitIndex = m_doc->unitIndex();
 
-	peOffset->blockSignals(true);
+	bool sigBlocked = peOffset->blockSignals(true);
 	peOffset->setNewUnit( m_unitIndex );
-	peOffset->blockSignals(false);
+	peOffset->blockSignals(sigBlocked);
 }
 
 void PropertyWidget_ParEffect::fillNumerationsCombo()
