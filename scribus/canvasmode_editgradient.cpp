@@ -641,7 +641,7 @@ void CanvasMode_EditGradient::mouseMoveEvent(QMouseEvent *m)
 //		m_view->RefreshGradient(currItem, dx * m_canvas->scale(), dy * m_canvas->scale());
 		m_ScMW->propertiesPalette->updateColorSpecialGradient();
 		currItem->update();
-		QRectF upRect;
+/*		QRectF upRect;
 		if (m_view->editStrokeGradient == 1)
 		{
 			upRect = QRectF(QPointF(currItem->GrStrokeStartX, currItem->GrStrokeStartY), QPointF(currItem->GrStrokeEndX, currItem->GrStrokeEndY));
@@ -699,9 +699,10 @@ void CanvasMode_EditGradient::mouseMoveEvent(QMouseEvent *m)
 		}
 		QTransform itemMatrix = currItem->getTransform();
 		upRect = itemMatrix.mapRect(upRect);
+		m_doc->regionsChanged()->update(upRect.adjusted(-10.0, -10.0, 10.0, 10.0)); */
 		if (currItem->GrType == 13)
 			currItem->createConicalMesh();
-		m_doc->regionsChanged()->update(upRect.adjusted(-10.0, -10.0, 10.0, 10.0));
+		m_doc->regionsChanged()->update(QRectF());
 	}
 }
 
