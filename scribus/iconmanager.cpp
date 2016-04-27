@@ -199,7 +199,7 @@ QIcon IconManager::loadIcon(const QString nam, bool forceUseColor)
 	return QIcon(loadPixmap(nam, forceUseColor));
 }
 
-QPixmap IconManager::loadPixmap(const QString nam, bool forceUseColor)
+QPixmap IconManager::loadPixmap(const QString nam, bool forceUseColor, bool rtlFlip)
 {
 	if (m_pxCache.contains(nam))
 		return *m_pxCache[nam];
@@ -213,6 +213,12 @@ QPixmap IconManager::loadPixmap(const QString nam, bool forceUseColor)
 //		qDebug()<<"Successful icon load from"<<iconFilePath;
 	if (PrefsManager::instance()->appPrefs.uiPrefs.grayscaleIcons && !forceUseColor)
 		iconToGrayscale(pm);
+	if (rtlFlip)
+	{
+		QTransform t;
+		t.rotate(180);
+		*pm = pm->transformed(t);
+	}
 	m_pxCache.insert(nam, pm);
 	return *pm;
 }

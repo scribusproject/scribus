@@ -41,6 +41,7 @@ public:
 	 */
 	LinkButton(QWidget *pa);
 	~LinkButton() {};
+	void setNewIcon();
 	/*!
 	\author Franz Schmid
 	\brief Returns size of QPixmap, see the Qt-Documentation for further explaining of that.

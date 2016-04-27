@@ -53,7 +53,7 @@ class SCRIBUS_API IconManager : public QObject
 		bool setup();
 		QCursor loadCursor(const QString nam, int hotX = -1, int hotY = -1, bool forceUseColor=false);
 		QIcon loadIcon(const QString nam, bool forceUseColor=false);
-		QPixmap loadPixmap(const QString nam, bool forceUseColor=false);
+		QPixmap loadPixmap(const QString nam, bool forceUseColor=false, bool rtlFlip=false);
 		QString pathForIcon(const QString nam);
 		QStringList pathList();
 		QStringList nameList(QString language);
