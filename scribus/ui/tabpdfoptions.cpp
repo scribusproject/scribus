@@ -400,12 +400,14 @@ void TabPDFOptions::restoreDefaults(PDFOptions & Optionen,
 	}
 	fontEmbeddingCombo->setCurrentIndex((int) Opts.FontEmbedding);
 
+	EmbedList->clearSelection();
 	EmbedList->setEnabled(Opts.FontEmbedding == PDFOptions::EmbedFonts);
 	EmbedFonts->setEnabled(Opts.FontEmbedding == PDFOptions::EmbedFonts);
+	SubsetList->clearSelection();
 	SubsetList->setEnabled(Opts.FontEmbedding == PDFOptions::EmbedFonts);
 	SubsetFonts->setEnabled(Opts.FontEmbedding == PDFOptions::EmbedFonts);
-	ToSubset->setEnabled(Opts.FontEmbedding == PDFOptions::EmbedFonts);
-	FromSubset->setEnabled(Opts.FontEmbedding == PDFOptions::EmbedFonts);
+	ToSubset->setEnabled(false); // Will be enabled when user select a font in appropriate list
+	FromSubset->setEnabled(false); // Will be enabled when user select a font in appropriate list
 
 //	Build a list of all Fonts used in Annotations;
 	PageItem *pgit;
