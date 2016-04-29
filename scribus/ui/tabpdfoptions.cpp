@@ -482,7 +482,8 @@ void TabPDFOptions::restoreDefaults(PDFOptions & Optionen,
 		for (int fe = 0; fe < m_docFonts.count(); ++ fe)
 		{
 			QString fontName = m_docFonts.at(fe);
-			if (Opts.EmbedList.contains(fontName))
+			const ScFace fontFace = AllFonts[fontName];
+			if (Opts.EmbedList.contains(fontName) && (fontFace.type() != ScFace::OTF))
 				addFontItem(fontName, EmbedList);
 			else
 			{
