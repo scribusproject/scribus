@@ -1320,12 +1320,14 @@ void TabPDFOptions::EmbeddingModeChange()
 {
 	PDFOptions::PDFFontEmbedding embeddingMode = fontEmbeddingMode();
 
+	EmbedList->clearSelection();
 	EmbedList->setEnabled(embeddingMode == PDFOptions::EmbedFonts);
 	EmbedFonts->setEnabled(embeddingMode == PDFOptions::EmbedFonts);
+	SubsetList->clearSelection();
 	SubsetList->setEnabled(embeddingMode == PDFOptions::EmbedFonts);
 	SubsetFonts->setEnabled(embeddingMode == PDFOptions::EmbedFonts);
-	ToSubset->setEnabled(embeddingMode == PDFOptions::EmbedFonts);
-	FromSubset->setEnabled(embeddingMode == PDFOptions::EmbedFonts);
+	ToSubset->setEnabled(false); // Will be enabled when user select a font in appropriate list
+	FromSubset->setEnabled(false); // Will be enabled when user select a font in appropriate list
 }
 
 void TabPDFOptions::RemoveSubset()
@@ -1386,15 +1388,12 @@ void TabPDFOptions::SelSFont(QListWidgetItem*)
 	QList<QListWidgetItem*> selection = SubsetList->selectedItems();
 	int enabledForEmbedding = selection.count();
 
-	if (PDFVersionCombo->currentIndex() == 4)
+	for (int i = 0; i < selection.count(); ++i)
 	{
-		for (int i = 0; i < selection.count(); ++i)
-		{
-			const QListWidgetItem* item = selection.at(i);
-			const ScFace face = AllFonts[item->text()];
-			if (face.isOTF() || face.subset())
-				enabledForEmbedding--;
-		}
+		const QListWidgetItem* item = selection.at(i);
+		const ScFace face = AllFonts[item->text()];
+		if (face.isOTF() || face.subset())
+			enabledForEmbedding--;
 	}
 
 	FromSubset->setEnabled(enabledForEmbedding > 0);
