@@ -483,7 +483,7 @@ void TabPDFOptions::restoreDefaults(PDFOptions & Optionen,
 		{
 			QString fontName = m_docFonts.at(fe);
 			const ScFace fontFace = AllFonts[fontName];
-			if (Opts.EmbedList.contains(fontName) && (fontFace.type() != ScFace::OTF))
+			if (Opts.EmbedList.contains(fontName) && (!fontFace.isOTF()))
 				addFontItem(fontName, EmbedList);
 			else
 			{
@@ -1336,7 +1336,7 @@ void TabPDFOptions::RemoveSubset()
 		QListWidgetItem* fontItem = selection[i];
 		QString currentFont = fontItem->text();
 		const ScFace fontFace = AllFonts[currentFont];
-		if ((fontFace.type() == ScFace::OTF) || (fontFace.subset()))
+		if (fontFace.isOTF() || fontFace.subset())
 			continue;
 		addFontItem(currentFont, EmbedList);
 		int currentRow = SubsetList->row(fontItem);
@@ -1392,7 +1392,7 @@ void TabPDFOptions::SelSFont(QListWidgetItem*)
 		{
 			const QListWidgetItem* item = selection.at(i);
 			const ScFace face = AllFonts[item->text()];
-			if ((face.type() == ScFace::OTF) || (face.subset()))
+			if (face.isOTF() || face.subset())
 				enabledForEmbedding--;
 		}
 	}
@@ -1411,7 +1411,8 @@ void TabPDFOptions::EmbedAll()
 	for (int a = 0; a < m_docFonts.count(); ++a)
 	{
 		QString fontName = m_docFonts.at(a);
-		if (!AllFonts[fontName].subset())
+		const ScFace fontFace = AllFonts[fontName];
+		if (!fontFace.subset() && !fontFace.isOTF())
 		{
 			QListWidgetItem* item = addFontItem(fontName, EmbedList);
 			if (m_annotationFonts.contains(item->text()))
