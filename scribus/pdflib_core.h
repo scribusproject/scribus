@@ -219,7 +219,7 @@ private:
 	void    PDF_Form(const QByteArray& im);
 	void    PDF_xForm(uint objNr, double w, double h, QByteArray im);
 	bool    PDF_Image(PageItem* c, const QString& fn, double sx, double sy, double x, double y, bool fromAN = false, const QString& Profil = "", bool Embedded = false, eRenderIntent Intent = Intent_Relative_Colorimetric, QByteArray* output = NULL);
-	bool    PDF_EmbeddedPDF(PageItem* c, const QString& fn, double sx, double sy, double x, double y, bool fromAN, const QString& Profil, bool Embedded, int Intent, ShIm& imgInfo, QByteArray* output = NULL);
+	bool    PDF_EmbeddedPDF(PageItem* c, const QString& fn, double sx, double sy, double x, double y, bool fromAN, ShIm& imgInfo, bool &fatalError);
 #if HAVE_PODOFO
 	void copyPoDoFoObject(const PoDoFo::PdfObject* obj, uint scObjID, QMap<PoDoFo::PdfReference, uint>& importedObjects);
 	void copyPoDoFoDirect(const PoDoFo::PdfVariant* obj, QList<PoDoFo::PdfReference>& referencedObjects, QMap<PoDoFo::PdfReference, uint>& importedObjects);
