@@ -36,12 +36,6 @@
    </item>
    <item row="2" column="0" colspan="4">
     <widget class="DashEditor" name="dashEditor">
-     <property name="minimumSize">
-      <size>
-       <width>0</width>
-       <height>10</height>
-      </size>
-     </property>
      <property name="frameShape">
       <enum>QFrame::StyledPanel</enum>
      </property>
