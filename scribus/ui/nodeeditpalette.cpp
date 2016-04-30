@@ -234,6 +234,11 @@ NodePalette::NodePalette( QWidget* parent) : ScrPaletteBase( parent, "nodePalett
 
 	QSpacerItem* spacer = new QSpacerItem( 3, 3, QSizePolicy::Fixed, QSizePolicy::Fixed );
 	vboxLayout->addItem(spacer);
+
+	PreviewMode = new QCheckBox(this);
+	PreviewMode->setChecked(false);
+	vboxLayout->addWidget(PreviewMode);
+
 	AbsMode = new QGroupBox( "&Absolute Coordinates", this );
 	AbsMode->setCheckable(true);
 	AbsMode->setChecked(false);
@@ -339,6 +344,7 @@ void NodePalette::connectSignals()
 	connect(ResetCont, SIGNAL(clicked()), this, SLOT(ResetContour()));
 	connect(ResetContClip, SIGNAL(clicked()), this, SLOT(ResetContourToImageClip()));
 	connect(ResetShape2Clip, SIGNAL(clicked()), this, SLOT(ResetShapeToImageClip()));
+	connect(PreviewMode, SIGNAL(clicked()), this, SLOT(TogglePreview()));
 }
 
 void NodePalette::disconnectSignals()
@@ -374,6 +380,7 @@ void NodePalette::disconnectSignals()
 	disconnect(ResetCont, SIGNAL(clicked()), this, SLOT(ResetContour()));
 	disconnect(ResetContClip, SIGNAL(clicked()), this, SLOT(ResetContourToImageClip()));
 	disconnect(ResetShape2Clip, SIGNAL(clicked()), this, SLOT(ResetShapeToImageClip()));
+	disconnect(PreviewMode, SIGNAL(clicked()), this, SLOT(TogglePreview()));
 }
 
 void NodePalette::setDoc(ScribusDoc *dc, ScribusView *vi)
@@ -729,6 +736,15 @@ void NodePalette::ToggleConMode()
 	connect(YSpin, SIGNAL(valueChanged(double)), this, SLOT(MovePoint()));
 }
 
+void NodePalette::TogglePreview()
+{
+	if (m_doc != 0)
+	{
+		m_doc->nodeEdit.setPreviewMode(PreviewMode->isChecked());
+		m_doc->regionsChanged()->update(QRectF());
+	}
+}
+
 void NodePalette::HaveNode(bool have, bool mov)
 {
 	if (m_doc==0)
@@ -910,6 +926,7 @@ void NodePalette::EndEdit()
 		m_doc->nodeEdit.setSegP1(-1);
 		m_doc->nodeEdit.setSegP2(-1);
 		m_doc->nodeEdit.selNode().clear();
+		m_doc->nodeEdit.setPreviewMode(false);
 		EditCont->setChecked(false);
 		ToggleConMode();
 		PageItem *currItem = m_doc->m_Selection->itemAt(0);
@@ -932,6 +949,7 @@ void NodePalette::CancelEdit()
 		m_doc->nodeEdit.setSegP1(-1);
 		m_doc->nodeEdit.setSegP2(-1);
 		m_doc->nodeEdit.selNode().clear();
+		m_doc->nodeEdit.setPreviewMode(false);
 		EditCont->setChecked(false);
 		ToggleConMode();
 		PageItem *currItem = m_doc->m_Selection->itemAt(0);
@@ -958,6 +976,7 @@ void NodePalette::ResetToEditDefaults()
 		m_doc->nodeEdit.setSegP1(-1);
 		m_doc->nodeEdit.setSegP2(-1);
 		m_doc->nodeEdit.selNode().clear();
+		m_doc->nodeEdit.setPreviewMode(false);
 		PageItem *currItem = m_doc->m_Selection->itemAt(0);
 		if (EditCont->isChecked())
 			currItem->ContourLine = itemContourPath.copy();
@@ -1008,6 +1027,7 @@ void NodePalette::languageChange()
 	absToPage->setText( tr("to Page"));
 	TextLabel1->setText( tr("&X-Pos:"));
 	TextLabel2->setText( tr("&Y-Pos:"));
+	PreviewMode->setText( tr("Preview Object"));
 	EditCont->setText( tr("Edit &Contour Line"));
 	ResetCont->setText( tr("&Reset Contour Line"));
 	ResetContClip->setText( tr("Set Contour to Image Clip"));

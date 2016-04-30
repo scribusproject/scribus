@@ -55,6 +55,8 @@ void CanvasMode_NodeEdit::drawControls(QPainter* p)
 	double x, y;
 	if (m_doc->m_Selection->count() == 0)
 		return;
+	if (m_doc->nodeEdit.previewMode())
+		return;
 	PageItem* currItem = m_doc->m_Selection->itemAt(0);
 	FPointArray cli;
 	

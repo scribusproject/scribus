@@ -17,7 +17,8 @@ NodeEditContext::NodeEditContext() :
 	m_MoveSym(false),
 	m_SelNode(),
 	m_oldItemX(0.0),
-	m_oldItemY(0.0)
+	m_oldItemY(0.0),
+	m_preview(false)
 {
 }
 
@@ -46,9 +47,13 @@ void NodeEditContext::reset()
 	nodeTransaction.reset();
 	m_MoveSym = false;
 	m_SelNode.clear();
+	m_preview = false;
 }
 
-
+void NodeEditContext::setPreviewMode(bool mode)
+{
+	m_preview = mode;
+}
 
 FPointArray NodeEditContext::beginTransaction(PageItem* currItem)
 {

@@ -61,6 +61,7 @@ public:
 	QToolButton* Shrink;
 	QToolButton* Enlarge;
 	QToolButton* Reduce;
+	QCheckBox* PreviewMode;
 	QGroupBox* AbsMode;
 	QRadioButton* absToCanvas;
 	QRadioButton* absToPage;
@@ -109,6 +110,7 @@ private slots:
 	void ShearD();
 	void ToggleAbsMode();
 	void ToggleConMode();
+	void TogglePreview();
 
 public slots:
 	void MoveN();

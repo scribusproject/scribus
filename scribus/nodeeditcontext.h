@@ -58,6 +58,8 @@ class SCRIBUS_API NodeEditContext : public MassObservable<QPointF>
 		bool hasNodeSelected();
 		void deselect();
 		void reset();
+		void setPreviewMode(bool mode);
+		bool previewMode() { return m_preview; }
 		int submode() { return m_submode; }
 		void setSubMode(int i) { m_submode = i; }
 		void reset1Control(PageItem* currItem);
@@ -86,5 +88,6 @@ class SCRIBUS_API NodeEditContext : public MassObservable<QPointF>
 		QList<int> m_SelNode;
 		double m_oldItemX;
 		double m_oldItemY;
+		bool m_preview;
 };
 #endif
