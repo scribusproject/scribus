@@ -315,8 +315,8 @@ QString About::trAuthorTitle(QString title)
 QString About::trTranslationTitle(QString title)
 {
 	QString result;
-	if ( title == "Official Translations and Translators (alphebatized by locale shortcode):" )
-		result = tr("Official Translations and Translators (alphebatized by locale shortcode):");
+	if ( title == "Official Translations and Translators (in order of locale shortcode):" )
+		result = tr("Official Translations and Translators (in order of locale shortcode):");
 	else if ( title == "Previous Translation Contributors:" )
 		result = tr("Previous Translation Contributors:");
 	else
