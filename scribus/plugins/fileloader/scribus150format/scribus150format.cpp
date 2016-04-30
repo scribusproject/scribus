@@ -3993,6 +3993,8 @@ bool Scribus150Format::readObject(ScribusDoc* doc, ScXmlStreamReader& reader, It
 					newItem->groupItemList.append(currItem);
 					currItem->Parent = newItem;
 					currItem->LayerID = newItem->LayerID;
+					currItem->OwnPage = newItem->OwnPage;
+					currItem->OnMasterPage = newItem->OnMasterPage;
 				}
 				doc->Items = DItems;
 			}
@@ -5234,7 +5236,21 @@ PageItem* Scribus150Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 	currItem->Cols   = attrs.valueAsInt("COLUMNS", 1);
 	currItem->ColGap = attrs.valueAsDouble("COLGAP", 0.0);
 	if (attrs.valueAsInt("LAYER", 0) != -1)
+	{
 		currItem->LayerID = attrs.valueAsInt("LAYER", 0);
+		uint layerCount = doc->Layers.count();
+		bool found = false;
+		for (uint i = 0; i < layerCount; ++i)
+		{
+			if (doc->Layers[i].ID == currItem->LayerID)
+			{
+				found = true;
+				break;
+			}
+		}
+		if (!found)
+			currItem->LayerID = doc->firstLayerID();
+	}
 	tmp = "";
 	if ((attrs.hasAttribute("NUMDASH")) && (attrs.valueAsInt("NUMDASH", 0) != 0))
 	{
