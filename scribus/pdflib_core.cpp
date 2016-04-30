@@ -10197,7 +10197,8 @@ bool PDFLibCore::PDF_Image(PageItem* c, const QString& fn, double sx, double sy,
 		{
 			if (fatalError)
 			{
-				PDF_Error( tr("Failed to embed the PDF file : %1").arg(pdfFile) );
+				PDF_Error( tr("Failed to embed the PDF file : %1.\n"
+				              "Please disable experimental PDF and PS embedding and try again.").arg(pdfFile) );
 				return false;
 			}
 			qDebug() << "Failed to embed the PDF file";
