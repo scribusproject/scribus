@@ -139,7 +139,7 @@ void LanguageManager::generateLangList()
 	m_langTable.append(LangDef("kab",    "",      "Kabyle",                 QObject::tr( "Kabyle" )) );
 	m_langTable.append(LangDef("km",     "",      "Khmer",                  QObject::tr( "Khmer" )) );
 	m_langTable.append(LangDef("ko",     "",      "Korean",                 QObject::tr( "Korean" )) );
-	m_langTable.append(LangDef("kn_IN",  "",      "Kannada",                QObject::tr( "Kannada" )) );
+	m_langTable.append(LangDef("kn_IN",  "kn",    "Kannada",                QObject::tr( "Kannada" )) );
 	m_langTable.append(LangDef("ku",     "",      "Kurdish",                QObject::tr( "Kurdish" )) );
 	m_langTable.append(LangDef("la",     "",      "Latin",                  QObject::tr( "Latin" )) );
 	m_langTable.append(LangDef("lb",     "",      "Luxembourgish",          QObject::tr( "Luxembourgish" )) );

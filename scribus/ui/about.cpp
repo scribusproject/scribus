@@ -315,8 +315,8 @@ QString About::trAuthorTitle(QString title)
 QString About::trTranslationTitle(QString title)
 {
 	QString result;
-	if ( title == "Official Translations and Translators:" )
-		result = tr("Official Translations and Translators:");
+	if ( title == "Official Translations and Translators (alphebatized by locale shortcode):" )
+		result = tr("Official Translations and Translators (alphebatized by locale shortcode):");
 	else if ( title == "Previous Translation Contributors:" )
 		result = tr("Previous Translation Contributors:");
 	else
@@ -557,6 +557,7 @@ QString About::parseTranslationFile(QString fileName)
 		{
 			s.next();
 			result += s.value();
+			result += "<tr><td></td><td></td></tr>";
 			QMapIterator<QString, QString> l(languages);
 			while (l.hasNext())
 			{
