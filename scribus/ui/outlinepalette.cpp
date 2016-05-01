@@ -915,13 +915,13 @@ void OutlinePalette::slotMultiSelect()
 		return;
 	if (currDoc==NULL)
 		return;
-	if (currDoc->drawAsPreview)
-		return;
 	disconnect(reportDisplay, SIGNAL(itemSelectionChanged()), this, SLOT(slotMultiSelect()));
 	selectionTriggered = true;
 	QList<QTreeWidgetItem *> items = reportDisplay->selectedItems();
 	if (items.count() != 1)
 	{
+		if (currDoc->drawAsPreview)
+			return;
 		if (currDoc->appMode == modeEditClip)
 			currDoc->view()->requestMode(submodeEndNodeEdit);
 		currDoc->m_Selection->delaySignalsOn();
@@ -965,8 +965,6 @@ void OutlinePalette::slotSelect(QTreeWidgetItem* ite, int)
 {
 	if (!m_MainWindow || m_MainWindow->scriptIsRunning())
 		return;
-	if (currDoc->drawAsPreview)
-		return;
 	selectionTriggered = true;
 	OutlineTreeItem *item = (OutlineTreeItem*)ite;
 	uint pg = 0;
@@ -988,6 +986,8 @@ void OutlinePalette::slotSelect(QTreeWidgetItem* ite, int)
 				emit selectElementByItem(pgItem, true);
 			break;
 		case 2:
+			if (currDoc->drawAsPreview)
+				return;
 			if (!currDoc->symbolEditMode())
 			{
 				pg = item->PageObject->pageNr();
@@ -997,6 +997,8 @@ void OutlinePalette::slotSelect(QTreeWidgetItem* ite, int)
 			break;
 		case 3:
 		case 4:
+			if (currDoc->drawAsPreview)
+				return;
 			pgItem = item->PageItemObject;
 			m_MainWindow->closeActiveWindowMasterPageEditor();
 			currDoc->setActiveLayer(pgItem->LayerID);
@@ -1007,6 +1009,8 @@ void OutlinePalette::slotSelect(QTreeWidgetItem* ite, int)
 				emit selectElementByItem(pgItem, true);
 			break;
 		case 5:
+			if (currDoc->drawAsPreview)
+				return;
 			currDoc->setActiveLayer(item->LayerID);
 			m_MainWindow->changeLayer(currDoc->activeLayer());
 			break;
@@ -1020,8 +1024,6 @@ void OutlinePalette::slotDoubleClick(QTreeWidgetItem* ite, int)
 {
 	if (!m_MainWindow || m_MainWindow->scriptIsRunning())
 		return;
-	if (currDoc->drawAsPreview)
-		return;
 	OutlineTreeItem *item = (OutlineTreeItem*)ite;
 	PageItem *pgItem = NULL;
 	switch (item->type)
@@ -1034,6 +1036,8 @@ void OutlinePalette::slotDoubleClick(QTreeWidgetItem* ite, int)
 			break;
 		case 3:
 		case 4:
+			if (currDoc->drawAsPreview)
+				return;
 			pgItem = item->PageItemObject;
 			m_MainWindow->closeActiveWindowMasterPageEditor();
 			emit editElementByItem(pgItem);

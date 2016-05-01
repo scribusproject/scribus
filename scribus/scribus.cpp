@@ -7513,6 +7513,11 @@ void ScribusMainWindow::editMasterPagesStart(QString temp)
 	else
 		mpName = temp;
 	view->Deselect(true);
+	if (doc->drawAsPreview)
+	{
+		view->togglePreview(false);
+		scrActions["viewPreviewMode"]->setChecked(false);
+	}
 	m_WasAutoSave = doc->autoSave();
 	if (m_WasAutoSave)
 	{
