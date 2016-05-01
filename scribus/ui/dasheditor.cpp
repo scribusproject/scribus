@@ -31,6 +31,7 @@ for which a new license (GPL+exception) is in place.
 #include <QPainter>
 #include <QPixmap>
 #include <QPolygon>
+#include <QSignalBlocker>
 #include <QToolTip>
 
 #include "scpainter.h"
@@ -279,14 +280,14 @@ void DashPreview::setDashValues(QVector<double> vals)
 	if ((ActStop >= vals.count()) || (ActStop == -1))
 		ActStop = 0;
 	onlyselect = true;
-	repaint();
-	if (StopM.count() != 0)
+	if (DashValues.count() != 0)
 	{
 		if ((ActStop >= vals.count()) || (ActStop == -1))
-			emit currStep(StopM[0] / 10.0);
+			emit currStep(DashValues[0]);
 		else
-			emit currStep(StopM[ActStop] / 10.0);
+			emit currStep(DashValues[ActStop]);
 	}
+	update();
 }
 
 DashEditor::DashEditor(QWidget *pa) : QFrame(pa)
@@ -331,9 +332,8 @@ DashEditor::DashEditor(QWidget *pa) : QFrame(pa)
 
 void DashEditor::setPos(double p)
 {
-	disconnect(Position, SIGNAL(valueChanged(double)), Preview, SLOT(setActStep(double)));
+	QSignalBlocker blocker(Position);
 	Position->setValue(p);
-	connect(Position, SIGNAL(valueChanged(double)), Preview, SLOT(setActStep(double)));
 }
 
 void DashEditor::setDashValues(QVector<double> vals, double linewidth, double offset)
