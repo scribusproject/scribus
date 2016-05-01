@@ -257,6 +257,7 @@ private:
 	void drawControlsMeasurementLine(QPainter* pp);
 	void drawControlsDrawLine(QPainter* pp);
 	void drawControlsFreehandLine(QPainter* pp);
+	void getLinkedFrames(PageItem* currItem);
 	void getClipPathForPages(FPointArray* PoLine);
 	void calculateFrameLinkPoints(PageItem* pi1, PageItem* pi2, FPoint& start, FPoint& end);
 		
