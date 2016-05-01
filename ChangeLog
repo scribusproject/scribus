@@ -1,3 +1,161 @@
+Scribus - 1.5.2 (Released 2016-05-xx)
+=======================================
+- 0014005: [Usability] Moved object double framed (outcome and relationship: alignment problems) (fschmid) - resolved.
+- 0010748: [Scripter] Scripter: Get and Apply a Master Page (cbradney) - resolved.
+- 0014007: [Usability] When using Line editor spinbox, value grow abnormally (jghali) - resolved.
+- 0013981: [Story Editor / Text Frames] Text line spacing sometimes not correct (jghali) - resolved.
+- 0013535: [Fonts] Cannot change fonts in story editor - resolved.
+- 0013242: [Story Editor / Text Frames] changing text size spinboxes in SE loses focus on intended text (+ mysteriously increments text size +1) - resolved.
+- 0013971: [Tables] If you paste text in the table, the program will abort. (jghali) - resolved.
+- 0013894: [Typography] "Paragraph Effects" for numbered (or un-numbered) lists get removed when creating a new line or pressing backspace (jghali) - resolved.
+- 0013682: [Printing] Cups APIs outdated and need fixing (fschmid) - resolved.
+- 0013896: [Usability] Widgets inconsistently enabled in colors tab of PDF export settings in Document Setup (jghali) - resolved.
+- 0013897: [General] Pathtext distance from path not working in r21140 (jghali) - resolved.
+- 0013869: [Typography] DropCaps do not work correctly on 1st Paragraph (jghali) - resolved.
+- 0013852: [Import / Export] XPS export of Text is broken. (fschmid) - resolved.
+- 0013107: [OS-Win32] Wrong language on document closing dialogue: Save - Close without Saving - Cancel (cbradney) - resolved.
+- 0014003: [Story Editor / Text Frames] Grouped single linked text frame with another object has missing refresh text arrow issue (fschmid) - closed.
+- 0013996: [Story Editor / Text Frames] Grouping text frames will result in a loss of chained text arrows (fschmid) - closed.
+- 0013579: [Usability] Entering masterpage edit mode should exit preview mode (fschmid) - closed.
+- 0012172: [User Interface] Custom line type widget too small (jghali) - closed.
+- 0010332: [Fonts] Kerning is incorrect when "All Caps" is applied (jghali) - closed.
+- 0013829: [Canvas] Ability to drag and drop import multiple images at the same time (fschmid) - closed.
+- 0013992: [Shape Drawing] Node Editor lacks a preview function (fschmid) - closed.
+- 0013959: [Story Editor / Text Frames] Grouping text frames will result in a loss of chained text areas (jghali) - closed.
+- 0013998: [Import / Export] Widget activation issue in font pane of PDF export dialog (JLuc) - closed.
+- 0013999: [General] [crash] Ghost items on masterpage (fschmid) - closed.
+- 0014000: [PDF] Experimental embedding of PDF and EPS triggers crash on PDF export (jghali) - closed.
+- 0013831: [Translation] Fix Console "please add the untranslated title" messages (cbradney) - closed.
+- 0013994: [Translation] Hyphen file for Esperanto (jghali) - closed.
+- 0013602: [Import / Export] Crash on opening SLA with reference to item mark (fschmid) - closed.
+- 0013680: [Story Editor / Text Frames] Vertical Alignment To Bottom Inactivates Text Alignment Buttons (Kunda) - closed.
+- 0013846: [NLS] RTL: Height x Width Chain needs to be flipped (cbradney) - closed.
+- 0013677: [Canvas] 'Move Vector' artifacts (fschmid) - closed.
+- 0013843: [NLS] RTL: Splash Screen dynamic text conflict with graphic (cbradney) - closed.
+- 0013808: [Canvas] Regression: Ghost Palettes (fschmid) - closed.
+- 0011544: [User Interface] Docked palettes position / size is not saved between sessions. (fschmid) - closed.
+- 0013947: [Usability] Endless selection when exiting edit mode by clicking outside of frame (jghali) - closed.
+- 0013948: [Usability] It's hard to select text, if "Space Above" is increased (jghali) - closed.
+- 0013473: [Properties Palette] Can not reduce a circle shape below 0.3528 inches - closed.
+- 0013979: [General] Incorrect colors when copy-pasting table to other doc (jghali) - closed.
+- 0013977: [Story Editor / Text Frames] Text centering does not work correctly after increasing distance between characters (jghali) - closed.
+- 0013964: [Story Editor / Text Frames] Text on path not correct with increased distance of letters (jghali) - closed.
+- 0013965: [Story Editor / Text Frames] Text on path: start offset has not effect with centered text (fschmid) - closed.
+- 0013796: [Canvas] Node Menu: 'Enlarge/Reduce the size of path by the shown value' artifacts (fschmid) - closed.
+- 0010420: [PDF] Text on Path Contour Position mismatch after PDF export (fschmid) - closed.
+- 0006574: [Import / Export] Some style attributes are lost when importing from OpenOffice text - closed.
+- 0013973: [General] mesh distortion for outlined text (fschmid) - closed.
+- 0013097: [Translation] [PATCH] script to update translations from Transifex (Kunda) - closed.
+- 0013539: [Translation] automatic update translation sources on Transifex (Kunda) - closed.
+- 0004161: [Story Editor / Text Frames] Font list in the Story Editor sometimes doesn't show the correct font (christoph_s) - closed.
+- 0011624: [Scrapbook] Scrapbook: name of element is too much summarized (fschmid) - closed.
+- 0008594: [Typography] Image Drop Caps incorrectly format especially in second column, linked text frame (fschmid) - closed.
+- 0013871: [Usability] If paragraph contains DropCaps and Enter is pressed before Space --> content disappears (jghali) - closed.
+- 0012138: [Story Editor / Text Frames] [Patch] Bottom align : text disappear when frame is too high (fschmid) - closed.
+- 0013963: [Translation] Updated Danish Translation (jghali) - closed.
+- 0013960: [Translation] Hungarian Translation (from Transifex) (cbradney) - closed.
+- 0009742: [Typography] Changing the line spacing percentage does not change the line spacing (fschmid) - closed.
+- 0013646: [Graphics / Image Frames] Text flow around images stopped working! (fschmid) - closed.
+- 0013951: [Translation] More clarity in plugins/scriptplugin/cmdpage.cpp for translators (cbradney) - closed.
+- 0013938: [Typography] Orphans and widows line management leads to blank text frames depending on the size of the frame (jghali) - closed.
+- 0011573: [General] Opening SLA crashes scribus (sla maybe corrupted) (fschmid) - closed.
+- 0012685: [General] Scribus crashes with "unexpected end of file" opening a specific document (fschmid) - closed.
+- 0013460: [Story Editor / Text Frames] Setting vertical scale for text above 100% causes strange rendering (fschmid) - closed.
+- 0012126: [Story Editor / Text Frames] "Scaling height of characters" malfunction (fschmid) - closed.
+- 0013954: [Translation] Italian translation update for 1.5.2.svn (FirasH) - closed.
+- 0013953: [Graphics / Image Frames] Image's opacity not well rendered when used as pattern - or PDF import issue (fschmid) - closed.
+- 0013881: [Story Editor / Text Frames] First line text selection is inaccurate if "Align to Baseline Grid" is enabled (jghali) - closed.
+- 0010529: [Plug-ins] Autoquote: Simple quotation marks in cs, sl, sk is not working properly (gpittman) - closed.
+- 0013940: [Internal] Compilation warning (jghali) - closed.
+- 0013942: [User Interface] Follow-up to 0013284, consistent "Chain" button in Preferences > Item Tools (FirasH) - closed.
+- 0013941: [User Interface] Various naming fixes to polygonWidget (FirasH) - closed.
+- 0013363: [Usability] Repaint backlog / lag when resizing text frames - closed.
+- 0009562: [Story Editor / Text Frames] Text frames not showing text on some pages (jghali) - closed.
+- 0013933: [Typography] Bottom-aligned text frames do not respect the bottom margin (jghali) - closed.
+- 0013284: [User Interface] Keep "Chain" button consistent across UI (fschmid) - closed.
+- 0013798: [User Interface] Rework UI appearance of Item Tools Preferences (fschmid) - closed.
+- 0012096: [Typography] Broken font height setting (fschmid) - closed.
+- 0013840: [PDF] Drop Shadow export shadow of control character/marks to PDF (fschmid) - closed.
+- 0013914: [Canvas] Dual-Page Layout: Full-Width items duplicated on export (jghali) - closed.
+- 0012658: [Qt5 Port] Activating colour management and/or preview mode for colour blindness is extremely slow and a resource hog (jghali) - closed.
+- 0013925: [Fonts] Non persistent setting when trying to enable Arial Regular subsetting (jghali) - closed.
+- 0013432: [Fonts] Preferences > Fonts menu unresponsive i.e values can not be changed (jghali) - closed.
+- 0013813: [Fonts] Font Management disabled (jghali) - closed.
+- 0013931: [Story Editor / Text Frames] SToolBFont tooltips in Story Editor are not initialized (FirasH) - closed.
+- 0013895: [Typography] Bulleted list paragraph effects' first line text offset is not the same as the other lines (jghali) - closed.
+- 0008988: [Graphics / Image Frames] expanding the countour line does not respect the measures (fschmid) - closed.
+- 0012463: [Canvas] Multiple Duplicate does not place items on the correct page in Windows > Outline (fschmid) - closed.
+- 0008788: [General] Automatic recovery (fschmid) - closed.
+ - 0013847: [General] All / None option in autosave recovery dialog (fschmid) - closed.
+ - 0013838: [Usability] Crash Recovery UI missing a 'Continue' option if user chooses to remove found emergency/autosave files (fschmid) - closed.
+ - 0013832: [General] Automatic recovery should rename file that was autorecovered as "filename_(recovered)_DD_MM_YYYY_HH_MM" (fschmid) - closed.
+- 0013918: [Printing] Borders of text frames are invisible in print preview and when printed (jghali) - closed.
+- 0013917: [Story Editor / Text Frames] [scribusboxes] Tabs & indents don't line up (jghali) - closed.
+- 0013916: [Story Editor / Text Frames] [scribusboxes] some text not displayed (jghali) - closed.
+- 0010097: [Graphics / Image Frames] Postscript images with negative bounding box value are cropped (fschmid) - closed.
+- 0013911: [General] Remove duplicated tabstops in .cpp and .ui from multipleduplicate.cpp (FirasH) - closed.
+- 0013904: [User Interface] Fix missing colons in "Transform" dialog (FirasH) - closed.
+- 0013915: [Story Editor / Text Frames] [scribusboxes] Crash when inserting frame jump (jghali) - closed.
+- 0013581: [Canvas] Linked Text Frame Arrow Artifact after deleting target text frame (jghali) - closed.
+- 0013836: [User Interface] Multiple autosave countdown clocks don't autosave in-sync - closed.
+- 0013908: [User Interface] Show correct tooltips for Alignment options in Style Manager (FirasH) - closed.
+- 0013905: [User Interface] Add missing ellipsis in "Item" menu (where dialogs are opened) (FirasH) - closed.
+- 0013898: [User Interface] SE Tooltips needed for align buttons (FirasH) - closed.
+- 0013880: [Story Editor / Text Frames] Scribusboxes : another case of buggy justified alignment (jghali) - closed.
+- 0013899: [Internal] Compilation warning (jghali) - closed.
+- 0013400: [User Interface] Help > Scribus Homepage hangs Scribus (jghali) - closed.
+- 0013848: [Integration] Sub-processes launched from Scribus will block the Scribus mainloop until the other application is closed (jghali) - closed.
+- 0013903: [User Interface] Rework "Multiple Duplicate" dialog to use space as good as possible (FirasH) - closed.
+- 0013891: [General] Add presets for north-american "ARCH" paper sizes? (fschmid) - closed.
+- 0013900: [Internal] Crash when using function savePageAsEPS without GUI (fschmid) - closed.
+- 0013873: [Graphics / Image Frames] When I delete one of the linked text frames, the link relations don't change. (jghali) - closed.
+- 0013877: [Internal] Replace repetitive error setting with function call (jghali) - closed.
+- 0013872: [Internal] Replace duplicated inlined code with function call (jghali) - closed.
+- 0013870: [Tables] Double-click on Table Crashes Scribus with Signal 11 (jghali) - closed.
+- 0013815: [User Interface] Scribus {c|sh}ould let user know document was just autosaved (fschmid) - closed.
+- 0013861: [Story Editor / Text Frames] Buggy justified alignment when using glyph scaling (jghali) - closed.
+- 0013866: [General] Aborting autosave doesn't trigger Open New File dialog (fschmid) - closed.
+- 0006235: [General] bad display of character STYLE when selection is not empty (jghali) - closed.
+- 0013855: [Color Management] Style Manager does not update available colors after importing PDF/SVG files (jghali) - closed.
+- 0006017: [Translation] when loading hebrew translation, ui (menus) should be justified to the right (jghali) - closed.
+- 0013293: [PDF] Crashes with assertion failure while exporting PDF embedding Noto Sans Ja fonts (jghali) - closed.
+- 0012204: [Qt5 Port] Opening/Closing Properties palette tabs moves the view to the first document (2+ document Tabs) (jghali) - closed.
+- 0010887: [General] No autosave for unsaved files (fschmid) - closed.
+- 0013814: [NLS] Main Window layout should be RTL when Arabic translation selected (jghali) - closed.
+- 0013838: [Usability] Crash Recovery UI missing a 'Continue' option if user chooses to remove found emergency/autosave files (fschmid) - closed.
+- 0013452: [General] Can not open ".autosave" file: "is not in an acceptable format" (fschmid) - closed.
+- 0013823: [Graphics / Image Frames] Export to PDF with subsetted Wingding font crashes scribus (jghali) - closed.
+- 0013804: [Usability] Change in tabs triggered by operation (jghali) - closed.
+- 0003155: [Usability] feature request: configurable .emergency file restore behavior (fschmid) - closed.
+- 0013821: [Usability] use 1 as default for the number of the auto saved documenty to keep (fschmid) - closed.
+- 0013529: [OS-MacOSX] Feature Request: Ability to drop dirs/files in to Qt File dialog result: auto-find and highlight file - closed.
+- 0010220: [General] Configurable directory for .autosaved doc (fschmid) - closed.
+ - 0013809: [General] Configurable directory for .autosaved doc is not remembered (fschmid) - closed.
+- 0013816: [Usability] Move 'Show Autosave Countdown Clock on Canvas' to Prefs > Doc Setup > Saving & Undo (fschmid) - closed.
+- 0006253: [Import / Export] Missing "save 5 last version of saved doc" option (fschmid) - closed.
+- 0013801: [Internal] Compilation warning (cbradney) - closed.
+- 0013797: [Usability] 2 text frame + 2 paragraph + select text + moving another text frame == Scribus Crash (jghali) - closed.
+- 0013647: [General] several typos (in the original strings) (cbradney) - closed.
+- 0013593: [Translation] Remove aspell plugin now that we use hunspell (jghali) - closed.
+- 0013761: [PDF] CFF files left behind after PDF export (jghali) - closed.
+- 0013792: [Styles] Automatic numbering ignores charcter style in first paragraph (jghali) - closed.
+- 0013793: [Internal] Misspelling of variable in pagelayout.[cpp|h] (jghali) - closed.
+- 0013791: [General] Remove unnecessary "Form" strings from translation files (cbradney) - closed.
+- 0013790: [General] Fix "Spaces && Breaks" menu in Story editor to match "Spaces/Breaks" in Insert menu (cbradney) - closed.
+- 0013782: [Translation] Simplify Arrange Pages Palette strings translation (FirasH) - closed.
+- 0013774: [Translation] Simplify X,Y,Z Palette strings translation (FirasH) - closed.
+- 0013720: [Usability] [PATCH] select all items on all layers (cbradney) - closed.
+- 0013765: [Import / Export] LAB colours with negative a or b values interpreted as spot colours (jghali) - closed.
+- 0013769: [Translation] Simplify Group Palette strings translation (FirasH) - closed.
+- 0013770: [Translation] Simplify Image Palette strings translation (FirasH) - closed.
+- 0013760: [General] Some typos and inconsistencies in strings (cbradney) - closed.
+- 0013600: [User Interface] Fix "Range Button" icon in PDF Export/Preferences/Document Setup dialogs (FirasH) - closed.
+- 0013702: [User Interface] Missing ellipsis in some menu entries (cbradney) - closed.
+- 0013711: [Translation] TRANSLATION file update (cbradney) - closed.
+- 0013738: [Translation] Translation typo (jghali) - closed.
+- 0013742: [Translation] Update doc/it/readme-win32.html (jghali) - closed.
+
+
 Scribus - 1.5.1 (Released 2016-02-14)
 ========================================
 - 0013429: [Translation] Polish translation update for Scribus 1.5.1 (cbradney) - resolved.
