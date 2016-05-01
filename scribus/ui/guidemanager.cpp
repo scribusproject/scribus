@@ -140,6 +140,8 @@ void GuideManager::setupGui()
 			this, SLOT(horizontalAutoGapCheck_stateChanged(int)));
 	disconnect(verticalAutoGapCheck, SIGNAL(stateChanged(int)),
 			this, SLOT(verticalAutoGapCheck_stateChanged(int)));
+	disconnect(lockCheck, SIGNAL(stateChanged(int)), 
+			this, SLOT(lockCheck_stateChanged(int)));
 
 	// restore values from new page
 	clearRestoreHorizontalList();
@@ -174,10 +176,15 @@ void GuideManager::setupGui()
 	// allow the selection radio button?
 	verticalSelectionAutoButton->setEnabled(!m_Doc->m_Selection->isEmpty());
 
+	// restore guide locking
+	lockCheck->setChecked(m_Doc->GuideLock);
+
 	connect(horizontalAutoGapCheck, SIGNAL(stateChanged(int)),
 			this, SLOT(horizontalAutoGapCheck_stateChanged(int)));
 	connect(verticalAutoGapCheck, SIGNAL(stateChanged(int)),
 			this, SLOT(verticalAutoGapCheck_stateChanged(int)));
+	connect(lockCheck, SIGNAL(stateChanged(int)), 
+			this, SLOT(lockCheck_stateChanged(int)));
 
 	m_drawGuides = true;
 // 	drawGuides(); let Canvas::DrawPageMarks take care of it and avoid a costly ScribusView::DrawNew()
