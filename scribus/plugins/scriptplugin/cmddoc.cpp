@@ -390,6 +390,22 @@ PyObject* scribus_deletemasterpage(PyObject* /* self */, PyObject* args)
 	Py_RETURN_NONE;
 }
 
+PyObject *scribus_getmasterpage(PyObject* /* self */, PyObject* args)
+{
+	int e;
+	if (!PyArg_ParseTuple(args, "i", &e))
+		return NULL;
+	if(!checkHaveDocument())
+		return NULL;
+	e--;
+	if ((e < 0) || (e > static_cast<int>(ScCore->primaryMainWindow()->doc->Pages->count())-1))
+	{
+		PyErr_SetString(PyExc_IndexError, QObject::tr("Page number out of range: '%1'.","python error").arg(e+1).toLocal8Bit().constData());
+		return NULL;
+	}
+	return PyString_FromString(ScCore->primaryMainWindow()->doc->DocPages.at(e)->MPageNam.toUtf8());
+}
+
 PyObject* scribus_applymasterpage(PyObject* /* self */, PyObject* args)
 {
 	char* name = 0;
@@ -426,5 +442,5 @@ PV */
 void cmddocdocwarnings()
 {
 	QStringList s;
-	s << scribus_newdocument__doc__ << scribus_newdoc__doc__ <<  scribus_closedoc__doc__ << scribus_havedoc__doc__ << scribus_opendoc__doc__ << scribus_savedoc__doc__ << scribus_getdocname__doc__ << scribus_savedocas__doc__ << scribus_setinfo__doc__ <<scribus_setmargins__doc__ <<scribus_setunit__doc__ <<scribus_getunit__doc__ <<scribus_loadstylesfromfile__doc__ <<scribus_setdoctype__doc__ <<scribus_closemasterpage__doc__ <<scribus_masterpagenames__doc__ <<scribus_editmasterpage__doc__ <<scribus_createmasterpage__doc__ <<scribus_deletemasterpage__doc__ << scribus_setbaseline__doc__  << scribus_applymasterpage__doc__;
+	s << scribus_newdocument__doc__ << scribus_newdoc__doc__ <<  scribus_closedoc__doc__ << scribus_havedoc__doc__ << scribus_opendoc__doc__ << scribus_savedoc__doc__ << scribus_getdocname__doc__ << scribus_savedocas__doc__ << scribus_setinfo__doc__ <<scribus_setmargins__doc__ <<scribus_setunit__doc__ <<scribus_getunit__doc__ <<scribus_loadstylesfromfile__doc__ <<scribus_setdoctype__doc__ <<scribus_closemasterpage__doc__ <<scribus_masterpagenames__doc__ <<scribus_editmasterpage__doc__ <<scribus_createmasterpage__doc__ <<scribus_deletemasterpage__doc__ << scribus_setbaseline__doc__ << scribus_getmasterpage__doc__  << scribus_applymasterpage__doc__;
 }
