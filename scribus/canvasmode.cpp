@@ -519,7 +519,8 @@ void CanvasMode::drawOutline(QPainter* p, double scalex, double scaley, double d
 			}
 			p->scale(scalex * m_scaleX, scaley * m_scaleY);
 			p->translate(addTransX, 0);
-			currItem->DrawPolyL(p, currItem->Clip);
+			p->drawPath(currItem->PoLine.toQPainterPath(false));
+		//	currItem->DrawPolyL(p, currItem->Clip);
 		}
 		else // moving page item
 		{

@@ -155,6 +155,7 @@ public:
 	QPoint canvasToLocal(QPointF p) const;
 	QPoint canvasToGlobal(QPointF p) const;
 	QRect canvasToLocal(QRectF p) const;
+	QRectF canvasToLocalF(QRectF p) const;
 	QRect canvasToGlobal(QRectF p) const;
 	FPoint localToCanvas(QPoint p) const;
 //	FPoint localToCanvas(QPointF p) const;

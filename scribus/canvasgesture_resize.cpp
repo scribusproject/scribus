@@ -131,7 +131,7 @@ void ResizeGesture::deactivate(bool forgesture)
 void ResizeGesture::drawControls(QPainter* p) 
 {
 	QColor drawColor = qApp->palette().color(QPalette::Active, QPalette::Highlight);
-	QRect localRect;
+	QRectF localRect;
 	switch (m_handle)
 	{
 		case Canvas::NORTHWEST:
@@ -162,7 +162,7 @@ void ResizeGesture::drawControls(QPainter* p)
 			break;
 	}
 	if (m_doc->m_Selection->isMultipleSelection())
-		localRect = m_canvas->canvasToLocal(m_bounds.normalized());
+		localRect = m_canvas->canvasToLocalF(m_bounds.normalized());
 	p->save();
 	if (m_rotation != 0)
 	{
@@ -201,8 +201,10 @@ void ResizeGesture::drawControls(QPainter* p)
 					m.scale(1, -1);
 				}
 			}
-			QPolygon clip = m.map(currItem->Clip);
-			currItem->DrawPolyL(p, clip);
+			QPainterPath clip = m.map(currItem->PoLine.toQPainterPath(false));
+			p->drawPath(clip);
+		//	QPolygon clip = m.map(currItem->Clip);
+		//	currItem->DrawPolyL(p, clip);
 		}
 		else if (m_doc->m_Selection->isMultipleSelection())
 		{
@@ -226,8 +228,10 @@ void ResizeGesture::drawControls(QPainter* p)
 					m.scale(scx, scy);
 					if (currItem->rotation() != 0)
 						m.rotate(currItem->rotation());
-					QPolygon clip = m.map(currItem->Clip);
-					currItem->DrawPolyL(p, clip);
+					QPainterPath clip = m.map(currItem->PoLine.toQPainterPath(false));
+					p->drawPath(clip);
+				//	QPolygon clip = m.map(currItem->Clip);
+				//	currItem->DrawPolyL(p, clip);
 				}
 			}
 		}

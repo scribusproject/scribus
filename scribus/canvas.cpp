@@ -204,6 +204,14 @@ QRect Canvas::canvasToLocal(QRectF p) const
 				  qRound(p.height() * m_viewMode.scale));
 }
 
+QRectF Canvas::canvasToLocalF(QRectF p) const
+{
+	return 	QRectF((p.x() - m_doc->minCanvasCoordinate.x()) * m_viewMode.scale,
+				  (p.y() - m_doc->minCanvasCoordinate.y()) * m_viewMode.scale,
+				  p.width() * m_viewMode.scale,
+				  p.height() * m_viewMode.scale);
+}
+
 
 QPoint Canvas::canvasToGlobal(FPoint p) const
 {
