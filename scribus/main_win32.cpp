@@ -97,6 +97,9 @@ int main(int argc, char *argv[])
 		qInstallMessageHandler(messageHandler);
 	}
 #endif
+#if QT_VERSION >= 0x050600
+	ScribusQApp::setAttribute(Qt::AA_EnableHighDpiScaling);
+#endif
 	ScribusQApp app(argc, argv);
 	setPythonEnvironment(app.applicationDirPath());
 	result =  mainApp(app);
