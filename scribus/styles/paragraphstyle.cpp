@@ -236,6 +236,15 @@ void ParagraphStyle::getNamedResources(ResourceCollection& lists) const
 	for (const Style *sty = parentStyle(); sty != NULL; sty = sty->parentStyle())
 		lists.collectStyle(sty->name());
 	charStyle().getNamedResources(lists);
+
+	QString parEffectStyle = peCharStyleName();
+	if (parEffectStyle.length() > 0)
+	{
+		const CharStyle *peCharStyle = dynamic_cast<const CharStyle*>(m_cstyleContext.resolve(parEffectStyle));
+		if (peCharStyle)
+			peCharStyle->getNamedResources(lists);
+		lists.collectCharStyle(parEffectStyle);
+	}
 }
 
 
