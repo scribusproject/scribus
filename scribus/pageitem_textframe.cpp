@@ -1542,7 +1542,8 @@ void PageItem_TextFrame::layout()
 				//par effect is cleared but is set dcCharStyleName = clear drop cap char style
 				{
 					const QString& curParent(style.hasParent() ? style.parent() : style.name());
-					charStyle.eraseCharStyle(m_Doc->charStyle(style.peCharStyleName()));
+					if (m_Doc->charStyles().contains(style.peCharStyleName()))
+						charStyle.eraseCharStyle(m_Doc->charStyle(style.peCharStyleName()));
 					charStyle.setParent(m_Doc->paragraphStyle(curParent).charStyle().name());
 					itemText.setCharStyle(a, 1,charStyle);
 				}
