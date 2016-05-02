@@ -5,8 +5,9 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 
-#include "propertywidget_pareffect.h"
+#include <QSignalBlocker>
 
+#include "propertywidget_pareffect.h"
 
 #include "appmodehelper.h"
 #include "appmodes.h"
@@ -205,7 +206,19 @@ void PropertyWidget_ParEffect::updateStyle(const ParagraphStyle& newPStyle)
 		enableParEffect(false);
 		return;
 	}
-	disconnectSignals ();
+
+	QSignalBlocker blocker1(peCombo);
+	QSignalBlocker blocker2(dropCapLines);
+	QSignalBlocker blocker3(bulletStrEdit);
+	QSignalBlocker blocker4(numComboBox);
+	QSignalBlocker blocker5(numLevelSpin);
+	QSignalBlocker blocker6(numFormatCombo);
+	QSignalBlocker blocker7(numPrefix);
+	QSignalBlocker blocker8(numSuffix);
+	QSignalBlocker blocker9(numStart);
+	QSignalBlocker blockerA(peOffset);
+	QSignalBlocker blockerB(peIndent);
+	QSignalBlocker blockerC(peCharStyleCombo);
 
 	bool enablePE = true;
 	if (newPStyle.hasDropCap())
@@ -251,7 +264,6 @@ void PropertyWidget_ParEffect::updateStyle(const ParagraphStyle& newPStyle)
 	showCharStyle(newPStyle.peCharStyleName());
 
 	enableParEffect(enablePE);
-	connectSignals ();
 }
 
 void PropertyWidget_ParEffect::connectSignals()
