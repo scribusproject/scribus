@@ -598,7 +598,8 @@ void CanvasMode::drawOutline(QPainter* p, double scalex, double scaley, double d
 								p->setRenderHint(QPainter::Antialiasing);
 								p->rotate(currItem->rotation());
 							}
-							currItem->DrawPolyL(p, currItem->Clip);
+							p->drawPath(currItem->PoLine.toQPainterPath(false));
+						//	currItem->DrawPolyL(p, currItem->Clip);
 							p->restore();
 						}
 					}
@@ -613,13 +614,14 @@ void CanvasMode::drawOutline(QPainter* p, double scalex, double scaley, double d
 					p->save();
 					p->setBrush(m_brush["outline"]);
 					p->setPen(m_pen["outline"]);
-					p->translate(currItem->visualXPos(), currItem->visualYPos());
+					p->translate(currItem->xPos(), currItem->yPos());
 					p->translate(deltax, deltay);
 					if (currItem->rotation() != 0)
 					{
 						p->setRenderHint(QPainter::Antialiasing);
 						p->rotate(currItem->rotation());
 					}
+					p->translate(-currItem->visualLineWidth() / 2.0, -currItem->visualLineWidth() / 2.0);
 					p->scale(scalex, scaley);
 					p->drawRect(QRectF(0.0, 0.0, currItem->visualWidth(), currItem->visualHeight()));
 					p->restore();
