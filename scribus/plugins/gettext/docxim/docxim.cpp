@@ -34,17 +34,18 @@ QStringList FileExtensions()
 	return QStringList("docx");
 }
 
-void GetText2(QString filename, QString encoding, bool textOnly, bool prefix, PageItem *textItem)
+void GetText2(QString filename, QString encoding, bool textOnly, bool prefix, bool append, PageItem *textItem)
 {
-	DocXIm* docxim = new DocXIm(filename, textItem, textOnly, prefix);
+	DocXIm* docxim = new DocXIm(filename, textItem, textOnly, prefix, append);
 	delete docxim;
 }
 
-DocXIm::DocXIm(QString fileName, PageItem *textItem, bool textOnly, bool prefix)
+DocXIm::DocXIm(QString fileName, PageItem *textItem, bool textOnly, bool prefix, bool append)
 {
 	m_Doc = textItem->doc();
 	m_item = textItem;
 	m_prefixName = prefix;
+	m_append = append;
 	themePart = "";
 	docPart = "";
 	stylePart = "";
@@ -274,6 +275,15 @@ void DocXIm::parseStyledText(PageItem *textItem)
 	{
 		qDebug() << "Error loading File" << errorMsg << "at Line" << errorLine << "Column" << errorColumn;
 		return;
+	}
+	if (!m_append)
+	{
+		QString pStyleD = CommonStrings::DefaultParagraphStyle;
+		ParagraphStyle newStyle;
+		newStyle.setDefaultStyle(false);
+		newStyle.setParent(pStyleD);
+		textItem->itemText.clear();
+		textItem->itemText.setDefaultStyle(newStyle);
 	}
 	textItem->itemText.setDefaultStyle(defaultParagraphStyle);
 	QDomElement docElem = designMapDom.documentElement();
@@ -597,6 +607,15 @@ void DocXIm::parsePlainTextOnly(PageItem *textItem)
 	{
 		qDebug() << "Error loading File" << errorMsg << "at Line" << errorLine << "Column" << errorColumn;
 		return;
+	}
+	if (!m_append)
+	{
+		QString pStyleD = CommonStrings::DefaultParagraphStyle;
+		ParagraphStyle newStyle;
+		newStyle.setDefaultStyle(false);
+		newStyle.setParent(pStyleD);
+		textItem->itemText.clear();
+		textItem->itemText.setDefaultStyle(newStyle);
 	}
 	currentParagraphStyle.setParent(CommonStrings::DefaultParagraphStyle);
 	currentParagraphStyle.charStyle().setParent(CommonStrings::DefaultCharacterStyle);

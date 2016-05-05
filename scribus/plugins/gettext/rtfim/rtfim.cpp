@@ -30,7 +30,7 @@ QStringList FileExtensions()
 	return QStringList("rtf");
 }
 
-void GetText2(QString filename, QString encoding, bool textOnly, bool prefix, PageItem *textItem)
+void GetText2(QString filename, QString encoding, bool textOnly, bool prefix, bool append, PageItem *textItem)
 {
 	QFile f(filename);
 	if (f.open(QIODevice::ReadOnly))
@@ -41,6 +41,15 @@ void GetText2(QString filename, QString encoding, bool textOnly, bool prefix, Pa
 		buffer.open(QIODevice::ReadOnly);
 		RtfReader::SlaDocumentRtfOutput *output = new RtfReader::SlaDocumentRtfOutput(textItem, textItem->doc(), prefix);
 		RtfReader::Reader reader;
+		if (!append)
+		{
+			QString pStyleD = CommonStrings::DefaultParagraphStyle;
+			ParagraphStyle newStyle;
+			newStyle.setDefaultStyle(false);
+			newStyle.setParent(pStyleD);
+			textItem->itemText.clear();
+			textItem->itemText.setDefaultStyle(newStyle);
+		}
 		reader.parseFromDeviceTo(&buffer, output);
 		textItem->itemText.trim();
 		textItem->itemText.invalidateLayout();

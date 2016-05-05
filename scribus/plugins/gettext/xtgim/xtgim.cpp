@@ -37,17 +37,17 @@ QStringList FileExtensions()
 	return QStringList("xtg");
 }
 
-void GetText2(QString filename, QString encoding, bool textOnly, bool prefix, PageItem *textItem)
+void GetText2(QString filename, QString encoding, bool textOnly, bool prefix, bool append, PageItem *textItem)
 {
-	XtgIm* xtgim = new XtgIm(filename, textItem, textOnly, prefix);
+	XtgIm* xtgim = new XtgIm(filename, textItem, textOnly, prefix, append);
 	delete xtgim;
 }
 
 /********************************Class XtgIm***********************************/
 
-XtgIm::XtgIm(QString fileName, PageItem *textItem, bool textOnly, bool prefix)
+XtgIm::XtgIm(QString fileName, PageItem *textItem, bool textOnly, bool prefix, bool append)
 {
-	XtgScanner *scanner = new XtgScanner(fileName, textItem, textOnly, prefix);
+	XtgScanner *scanner = new XtgScanner(fileName, textItem, textOnly, prefix, append);
 	scanner->xtgParse();
 	delete scanner;
 }

@@ -39,10 +39,11 @@ for which a new license (GPL+exception) is in place.
 #include "util.h"
 
 
-XtgScanner::XtgScanner(QString filename, PageItem *item, bool textOnly, bool prefix)
+XtgScanner::XtgScanner(QString filename, PageItem *item, bool textOnly, bool prefix, bool append)
 {
 	m_item = item;
 	importTextOnly = textOnly;
+	m_append = append;
 	loadRawBytes(filename, input_Buffer);
 	top = 0;
 	if ((input_Buffer[0] == '\xFF') && (input_Buffer[1] == '\xFE'))
@@ -1502,6 +1503,15 @@ void XtgScanner::applyFeature(StyleFlagValue feature)
 void XtgScanner::xtgParse()
 {
 	/* Enter the default mode as textMode */
+	if (!m_append)
+	{
+		QString pStyleD = CommonStrings::DefaultParagraphStyle;
+		ParagraphStyle newStyle;
+		newStyle.setDefaultStyle(false);
+		newStyle.setParent(pStyleD);
+		m_item->itemText.clear();
+		m_item->itemText.setDefaultStyle(newStyle);
+	}
 	enterState(textMode);
 	currentParagraphStyle.setParent(CommonStrings::DefaultParagraphStyle);
 	currentParagraphStyle.charStyle().setParent(CommonStrings::DefaultCharacterStyle);

@@ -23,7 +23,7 @@ for which a new license (GPL+exception) is in place.
 #include <QHash>
 class ScZipHandler;
 
-extern "C" PLUGIN_API void GetText2(QString filename, QString encoding, bool textOnly, bool prefix, PageItem *textItem);
+extern "C" PLUGIN_API void GetText2(QString filename, QString encoding, bool textOnly, bool prefix, bool append, PageItem *textItem);
 extern "C" PLUGIN_API QString FileFormatName();
 extern "C" PLUGIN_API QStringList FileExtensions();
 
@@ -91,7 +91,7 @@ public:
 class ODTIm
 {
 	public:
-		ODTIm(QString fileName, PageItem *textItem, bool textOnly, bool prefix);
+		ODTIm(QString fileName, PageItem *textItem, bool textOnly, bool prefix, bool append);
 		~ODTIm();
 	private:
 		struct DrawStyle
@@ -155,6 +155,7 @@ class ODTIm
 		ScribusDoc* m_Doc;
 		PageItem* m_item;
 		bool m_prefixName;
+		bool m_append;
 		QHash<QString, QString> map_ID_to_Name;
 		QHash<QString, QString> m_fontMap;
 		QHash<QString, DrawStyle> m_Styles;

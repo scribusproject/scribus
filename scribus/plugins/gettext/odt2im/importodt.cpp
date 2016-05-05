@@ -40,17 +40,18 @@ QStringList FileExtensions()
 	return ret;
 }
 
-void GetText2(QString filename, QString encoding, bool textOnly, bool prefix, PageItem *textItem)
+void GetText2(QString filename, QString encoding, bool textOnly, bool prefix, bool append, PageItem *textItem)
 {
-	ODTIm* docxim = new ODTIm(filename, textItem, textOnly, prefix);
+	ODTIm* docxim = new ODTIm(filename, textItem, textOnly, prefix, append);
 	delete docxim;
 }
 
-ODTIm::ODTIm(QString fileName, PageItem *textItem, bool textOnly, bool prefix)
+ODTIm::ODTIm(QString fileName, PageItem *textItem, bool textOnly, bool prefix, bool append)
 {
 	m_Doc = textItem->doc();
 	m_item = textItem;
 	m_prefixName = prefix;
+	m_append = append;
 	QFileInfo fi = QFileInfo(fileName);
 	QString ext = fi.suffix().toLower();
 	if (ext == "fodt")
@@ -259,13 +260,16 @@ void ODTIm::parseRawTextParagraph(QDomNode &elem, PageItem* item, ParagraphStyle
 
 void ODTIm::parseRawText(QDomElement &elem, PageItem* item)
 {
-	int posC = 0;
 	QString pStyleD = CommonStrings::DefaultParagraphStyle;
 	ParagraphStyle newStyle;
 	newStyle.setDefaultStyle(false);
 	newStyle.setParent(pStyleD);
-	item->itemText.clear();
-	item->itemText.setDefaultStyle(newStyle);
+	if (!m_append)
+	{
+		item->itemText.clear();
+		item->itemText.setDefaultStyle(newStyle);
+	}
+	int posC = item->itemText.length();
 	for(QDomNode para = elem.firstChild(); !para.isNull(); para = para.nextSibling())
 	{
 		if ((para.nodeName() == "text:p") || (para.nodeName() == "text:h"))
@@ -788,7 +792,6 @@ void ODTIm::parseTextParagraph(QDomNode &elem, PageItem* item, ParagraphStyle &n
 
 void ODTIm::parseText(QDomElement &elem, PageItem* item, ObjStyleODT &tmpOStyle)
 {
-	int posC = 0;
 	QString pStyleD = CommonStrings::DefaultParagraphStyle;
 	ParagraphStyle newStyle;
 	newStyle.setDefaultStyle(false);
@@ -797,9 +800,13 @@ void ODTIm::parseText(QDomElement &elem, PageItem* item, ObjStyleODT &tmpOStyle)
 	CharStyle nstyle = ttx.charStyle();
 	newStyle.setLineSpacingMode(ParagraphStyle::AutomaticLineSpacing);
 	newStyle.setLineSpacing(nstyle.fontSize() / 10.0);
-	item->itemText.clear();
-	item->itemText.setDefaultStyle(newStyle);
-	item->setFirstLineOffset(FLOPFontAscent);
+	if (!m_append)
+	{
+		item->itemText.clear();
+		item->itemText.setDefaultStyle(newStyle);
+		item->setFirstLineOffset(FLOPFontAscent);
+	}
+	int posC = item->itemText.length();
 	for(QDomNode para = elem.firstChild(); !para.isNull(); para = para.nextSibling())
 	{
 		if ((para.nodeName() == "text:p") || (para.nodeName() == "text:h"))

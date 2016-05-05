@@ -223,7 +223,7 @@ void gtGetText::CallDLL(const ImporterData& idata, const QString& filePath,
 	// Pointer for the loaded plugin.
 	void* gtplugin;
 	// Type definition for GetText pointer in the function in question.
-	typedef void (*gt2ptr)(QString filename, QString encoding, bool textOnly, bool prefix, PageItem *textframe);
+	typedef void (*gt2ptr)(QString filename, QString encoding, bool textOnly, bool prefix, bool append, PageItem *textframe);
 	// Type definition for GetText pointer in the function in question.
 	typedef void (*sdem)(QString filename, QString encoding, bool textOnly, gtWriter *writer);
 	// The point to the above.
@@ -246,7 +246,7 @@ void gtGetText::CallDLL(const ImporterData& idata, const QString& filePath,
 		if (!append)
 			importItem->itemText.clear();
 		// Execute the importer's "GetText2" method.
-		(*fp_GetText2)(filePath, encoding, textOnly, prefix, importItem);
+		(*fp_GetText2)(filePath, encoding, textOnly, prefix, append, importItem);
 	}  // if (!fp_GetText2)        
 	else
 	{
