@@ -15044,7 +15044,7 @@ void ScribusDoc::removeFromGroup(PageItem* item)
 	sizeItem(item->width() * grScXi, item->height() * grScYi, item, false, true, false);
 	double nX = itPos.x();
 	double nY = itPos.y();
-	if (gRot != 0)
+/*	if (gRot != 0)
 	{
 		if (itemTrans.m11() < 0)
 		{
@@ -15072,7 +15072,7 @@ void ScribusDoc::removeFromGroup(PageItem* item)
 				item->PoLine.translate(0, item->height());
 			}
 		}
-	}
+	}*/
 	if (item->isTextFrame() || item->isPathText())
 	{
 		if (item->itemText.length() != 0)
