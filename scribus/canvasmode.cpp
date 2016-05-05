@@ -623,7 +623,10 @@ void CanvasMode::drawOutline(QPainter* p, double scalex, double scaley, double d
 						p->setRenderHint(QPainter::Antialiasing);
 						p->rotate(currItem->rotation());
 					}
-					p->translate(-currItem->visualLineWidth() / 2.0, -currItem->visualLineWidth() / 2.0);
+					if (currItem->isLine())
+						p->translate(0, -currItem->visualLineWidth() / 2.0);
+					else
+						p->translate(-currItem->visualLineWidth() / 2.0, -currItem->visualLineWidth() / 2.0);
 					p->scale(scalex, scaley);
 					p->drawRect(QRectF(0.0, 0.0, currItem->visualWidth(), currItem->visualHeight()));
 					p->restore();
