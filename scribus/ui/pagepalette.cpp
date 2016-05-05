@@ -201,6 +201,7 @@ void PagePalette::startMasterPageMode(QString masterPage)
 	// Set focus to page palette or focus may be set to wrong document window
 	this->setFocus();
 	stackedWidget->setCurrentIndex(1);
+	setWindowTitle( tr( "Manage Masterpages" ) );
 }
 
 void PagePalette::endMasterPageMode()
@@ -218,6 +219,7 @@ void PagePalette::endMasterPageMode()
 		pageWidget->setView(m_view);
 		pageWidget->Rebuild();
 	}
+	setWindowTitle( tr( "Arrange Pages" ) );
 }
 
 void PagePalette::changeEvent(QEvent *e)
@@ -233,5 +235,8 @@ void PagePalette::changeEvent(QEvent *e)
 
 void PagePalette::languageChange()
 {
-	setWindowTitle( tr( "Arrange Pages" ) );
+	if (masterPageMode())
+		setWindowTitle( tr( "Manage Masterpages" ) );
+	else
+		setWindowTitle( tr( "Arrange Pages" ) );
 }
