@@ -573,6 +573,8 @@ void CanvasMode::drawOutline(QPainter* p, double scalex, double scaley, double d
 					}
 					p->scale(scalex, scaley);
 					p->drawRect(QRectF(0.0, 0.0, currItem->visualWidth(), currItem->visualHeight()));
+					p->setClipping(true);
+					p->setClipRect(QRectF(0.0, 0.0, currItem->visualWidth(), currItem->visualHeight()));
 					PageItem_Group* gItem = currItem->asGroupFrame();
 					uint itemCountG = gItem->groupItemList.count();
 					if (itemCountG < m_canvas->moveWithFullOutlinesThreshold)
