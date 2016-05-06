@@ -397,32 +397,18 @@ void Selection::setGroupRect()
 		currItem = itemAt(gc);
 		if (currItem->rotation() != 0)
 		{
-			FPointArray pb(4);
-			pb.setPoint(0, FPoint(currItem->xPos(), currItem->yPos()));
-			pb.setPoint(1, FPoint(currItem->width(), 0.0, currItem->xPos(), currItem->yPos(), currItem->rotation(), 1.0, 1.0));
-			pb.setPoint(2, FPoint(currItem->width(), currItem->height(), currItem->xPos(), currItem->yPos(), currItem->rotation(), 1.0, 1.0));
-			pb.setPoint(3, FPoint(0.0, currItem->height(), currItem->xPos(), currItem->yPos(), currItem->rotation(), 1.0, 1.0));
-			for (uint pc = 0; pc < 4; ++pc)
-			{
-				minx = qMin(minx, pb.point(pc).x());
-				miny = qMin(miny, pb.point(pc).y());
-				maxx = qMax(maxx, pb.point(pc).x());
-				maxy = qMax(maxy, pb.point(pc).y());
-			}
+			QRectF itRect(currItem->getBoundingRect());
+			vminx = qMin(vminx, itRect.x());
+			vminy = qMin(vminy, itRect.y());
+			vmaxx = qMax(vmaxx, itRect.right());
+			vmaxy = qMax(vmaxy, itRect.bottom());
 			
 			// Same for visual
-// 			pb.setPoint(0, FPoint(currItem->visualXPos(), currItem->visualYPos()));
-// 			pb.setPoint(1, FPoint(currItem->visualWidth(), 0.0, currItem->visualXPos(), currItem->visualYPos(), currItem->rotation(), 1.0, 1.0));
-// 			pb.setPoint(2, FPoint(currItem->visualWidth(), currItem->visualHeight(), currItem->visualXPos(), currItem->visualYPos(), currItem->rotation(), 1.0, 1.0));
-// 			pb.setPoint(3, FPoint(0.0, currItem->visualHeight(), currItem->visualXPos(), currItem->visualYPos(), currItem->rotation(), 1.0, 1.0));
-			QRectF itRect(currItem->getVisualBoundingRect());
-// 			for (uint pc = 0; pc < 4; ++pc)
-			{
-				vminx = qMin(vminx, itRect.x());
-				vminy = qMin(vminy, itRect.y());
-				vmaxx = qMax(vmaxx, itRect.right());
-				vmaxy = qMax(vmaxy, itRect.bottom());
-			}
+			QRectF itVisualRect(currItem->getVisualBoundingRect());
+			vminx = qMin(vminx, itVisualRect.x());
+			vminy = qMin(vminy, itVisualRect.y());
+			vmaxx = qMax(vmaxx, itVisualRect.right());
+			vmaxy = qMax(vmaxy, itVisualRect.bottom());
 		}
 		else
 		{

@@ -372,7 +372,7 @@ void CanvasMode::drawSelection(QPainter* psx, bool drawHandles)
 				psx->setTransform(t, true);
 				w = currItem->visualWidth();
 				h = currItem->visualHeight();
-				x = -currItem->visualLineWidth() / 2.0;
+				x = currItem->asLine() ? 0 : (-currItem->visualLineWidth() / 2.0);
 				y = -currItem->visualLineWidth() / 2.0;
 				psx->setBrush(Qt::NoBrush);
 				QRectF drRect = QRectF(x, y, w, h).normalized();

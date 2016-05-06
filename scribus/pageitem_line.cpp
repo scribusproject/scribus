@@ -174,7 +174,38 @@ QPointF PageItem_Line::endPoint()
 
 void PageItem_Line::getBoundingRect(double *x1, double *y1, double *x2, double *y2) const
 {
-	PageItem::getBoundingRect(x1, y1, x2, y2);
+	double minx =  std::numeric_limits<double>::max();
+	double miny =  std::numeric_limits<double>::max();
+	double maxx = -std::numeric_limits<double>::max();
+	double maxy = -std::numeric_limits<double>::max();
+	if (m_rotation != 0)
+	{
+		FPointArray pb;
+		pb.resize(0);
+		pb.addPoint(FPoint(0,       -m_lineWidth / 2.0, m_xPos, m_yPos, m_rotation, 1.0, 1.0));
+		pb.addPoint(FPoint(m_width, -m_lineWidth / 2.0, m_xPos, m_yPos, m_rotation, 1.0, 1.0));
+		pb.addPoint(FPoint(m_width, +m_lineWidth / 2.0, m_xPos, m_yPos, m_rotation, 1.0, 1.0));
+		pb.addPoint(FPoint(0,       +m_lineWidth / 2.0, m_xPos, m_yPos, m_rotation, 1.0, 1.0));
+		for (uint pc = 0; pc < 4; ++pc)
+		{
+			minx = qMin(minx, pb.point(pc).x());
+			miny = qMin(miny, pb.point(pc).y());
+			maxx = qMax(maxx, pb.point(pc).x());
+			maxy = qMax(maxy, pb.point(pc).y());
+		}
+		*x1 = minx;
+		*y1 = miny;
+		*x2 = maxx;
+		*y2 = maxy;
+	}
+	else
+	{
+		*x1 = m_xPos;
+		*y1 = m_yPos - qMax(1.0, m_lineWidth) / 2.0;
+		*x2 = m_xPos + m_width;
+		*y2 = m_yPos + qMax(1.0, m_lineWidth) / 2.0;
+	}
+
 	QRectF totalRect = QRectF(QPointF(*x1, *y1), QPointF(*x2, *y2));
 	if (m_startArrowIndex != 0)
 	{
@@ -230,7 +261,63 @@ void PageItem_Line::getBoundingRect(double *x1, double *y1, double *x2, double *
 
 void PageItem_Line::getVisualBoundingRect(double * x1, double * y1, double * x2, double * y2) const
 {
-	PageItem::getVisualBoundingRect(x1, y1, x2, y2);
+	double minx =  std::numeric_limits<double>::max();
+	double miny =  std::numeric_limits<double>::max();
+	double maxx = -std::numeric_limits<double>::max();
+	double maxy = -std::numeric_limits<double>::max();
+	double extraSpace = 0.0;
+	if (NamedLStyle.isEmpty())
+	{
+		if ((lineColor() != CommonStrings::None) || (!patternStrokeVal.isEmpty()) || (GrTypeStroke > 0))
+		{
+			extraSpace = m_lineWidth / 2.0;
+		}
+		if ((!patternStrokeVal.isEmpty()) && (m_Doc->docPatterns.contains(patternStrokeVal)) && (patternStrokePath))
+		{
+			ScPattern *pat = &m_Doc->docPatterns[patternStrokeVal];
+			QTransform mat;
+			mat.rotate(patternStrokeRotation);
+			mat.scale(patternStrokeScaleX / 100.0, patternStrokeScaleY / 100.0);
+			QRectF p1R = QRectF(0, 0, pat->width / 2.0, pat->height / 2.0);
+			QRectF p2R = mat.map(p1R).boundingRect();
+			extraSpace = p2R.height();
+		}
+	}
+	else
+	{
+		multiLine ml = m_Doc->MLineStyles[NamedLStyle];
+		struct SingleLine& sl = ml[ml.size()-1];
+		if ((sl.Color != CommonStrings::None) && (sl.Width != 0))
+			extraSpace = sl.Width / 2.0;
+	}
+	if (m_rotation != 0)
+	{
+		FPointArray pb;
+		pb.resize(0);
+		pb.addPoint(FPoint(0.0,           -extraSpace, xPos(), yPos(), m_rotation, 1.0, 1.0));
+		pb.addPoint(FPoint(visualWidth(), -extraSpace, xPos(), yPos(), m_rotation, 1.0, 1.0));
+		pb.addPoint(FPoint(visualWidth(), +extraSpace, xPos(), yPos(), m_rotation, 1.0, 1.0));
+		pb.addPoint(FPoint(0.0,           +extraSpace, xPos(), yPos(), m_rotation, 1.0, 1.0));
+		for (uint pc = 0; pc < 4; ++pc)
+		{
+			minx = qMin(minx, pb.point(pc).x());
+			miny = qMin(miny, pb.point(pc).y());
+			maxx = qMax(maxx, pb.point(pc).x());
+			maxy = qMax(maxy, pb.point(pc).y());
+		}
+		*x1 = minx;
+		*y1 = miny;
+		*x2 = maxx;
+		*y2 = maxy;
+	}
+	else
+	{
+		*x1 = m_xPos;
+		*y1 = m_yPos - extraSpace;
+		*x2 = m_xPos + visualWidth();
+		*y2 = m_yPos + extraSpace;
+	}
+
 	QRectF totalRect(QPointF(*x1, *y1), QPointF(*x2, *y2));
 	if (m_startArrowIndex != 0)
 	{

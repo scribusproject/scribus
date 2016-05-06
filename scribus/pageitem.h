@@ -492,7 +492,7 @@ public: // Start public functions
 	double height() const { return m_height; }
 	double visualWidth() const;
 	double visualHeight() const;
-	double visualLineWidth();
+	double visualLineWidth() const;
 	void setWidth(const double);
 	void setHeight(const double);
 	void setWidthHeight(const double, const double, bool drawingOnly);
