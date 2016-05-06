@@ -1027,7 +1027,7 @@ void NodePalette::languageChange()
 	absToPage->setText( tr("to Page"));
 	TextLabel1->setText( tr("&X-Pos:"));
 	TextLabel2->setText( tr("&Y-Pos:"));
-	PreviewMode->setText( tr("Preview Object"));
+	PreviewMode->setText( tr("Hide Nodes"));
 	EditCont->setText( tr("Edit &Contour Line"));
 	ResetCont->setText( tr("&Reset Contour Line"));
 	ResetContClip->setText( tr("Set Contour to Image Clip"));
