@@ -398,10 +398,10 @@ void Selection::setGroupRect()
 		if (currItem->rotation() != 0)
 		{
 			QRectF itRect(currItem->getBoundingRect());
-			vminx = qMin(vminx, itRect.x());
-			vminy = qMin(vminy, itRect.y());
-			vmaxx = qMax(vmaxx, itRect.right());
-			vmaxy = qMax(vmaxy, itRect.bottom());
+			minx = qMin(minx, itRect.x());
+			miny = qMin(miny, itRect.y());
+			maxx = qMax(maxx, itRect.right());
+			maxy = qMax(maxy, itRect.bottom());
 			
 			// Same for visual
 			QRectF itVisualRect(currItem->getVisualBoundingRect());
