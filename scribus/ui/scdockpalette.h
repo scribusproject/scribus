@@ -69,7 +69,7 @@ class SCRIBUS_API ScDockPalette : public QDockWidget
 		/** @brief Captures the close event and changes it to hide */
 		virtual void closeEvent(QCloseEvent *closeEvent);
 		/** @brief Stores the geometry of the window when hiding. */
-		virtual void hideEvent(QHideEvent*);
+		virtual void hideEvent(QHideEvent* hideEvent);
 		
 		PrefsContext* palettePrefs;
 		QString prefsContextName;

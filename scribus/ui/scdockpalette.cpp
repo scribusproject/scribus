@@ -93,6 +93,7 @@ void ScDockPalette::startup()
 	setFontSize();
 	if (visibleOnStartup)
 	{
+#if QT_VERSION < 0x050600
 		QMainWindow* mainWindow = dynamic_cast<QMainWindow*>(parent());
 		if (palettePrefs && mainWindow)
 		{
@@ -105,6 +106,7 @@ void ScDockPalette::startup()
 				setFloating (palettePrefs->getBool("floating"));
 			}
 		}
+#endif
 		show();
 	}
 	else
@@ -139,15 +141,17 @@ void ScDockPalette::closeEvent(QCloseEvent *closeEvent)
 	hide();
 }
 
-void ScDockPalette::hideEvent(QHideEvent*)
+void ScDockPalette::hideEvent(QHideEvent* hideEvent)
 {
 	storePosition();
 	storeSize();
 	storeDockState();
+	QDockWidget::hideEvent(hideEvent);
 }
 
 void ScDockPalette::showEvent(QShowEvent *showEvent)
 {
+#if QT_VERSION < 0x050600
 	// According to Qt doc, non-spontaneous show events are sent to widgets
 	// immediately before they are shown. We want to restore geometry for those
 	// events as spontaneous events are delivered after dialog has been shown
@@ -198,6 +202,7 @@ void ScDockPalette::showEvent(QShowEvent *showEvent)
 		storeDockState();
 		storeVisibility(true);
 	}
+#endif
 	QDockWidget::showEvent(showEvent);
 }
 

@@ -6703,6 +6703,7 @@ int ScribusMainWindow::ShowSubs()
 	marksManager->startup();
 	nsEditor->startup();
 	symbolPalette->startup();
+#if QT_VERSION < 0x050600
 	if (!m_prefsManager->appPrefs.uiPrefs.tabbedPalettes.isEmpty())
 	{
 		for (int a = 0; a < m_prefsManager->appPrefs.uiPrefs.tabbedPalettes.count(); a++)
@@ -6743,9 +6744,10 @@ int ScribusMainWindow::ShowSubs()
 					break;
 			}
 		}
-		move(m_prefsManager->appPrefs.uiPrefs.mainWinSettings.xPosition, m_prefsManager->appPrefs.uiPrefs.mainWinSettings.yPosition);
-		resize(m_prefsManager->appPrefs.uiPrefs.mainWinSettings.width, m_prefsManager->appPrefs.uiPrefs.mainWinSettings.height);
 	}
+#endif
+	move(m_prefsManager->appPrefs.uiPrefs.mainWinSettings.xPosition, m_prefsManager->appPrefs.uiPrefs.mainWinSettings.yPosition);
+	resize(m_prefsManager->appPrefs.uiPrefs.mainWinSettings.width, m_prefsManager->appPrefs.uiPrefs.mainWinSettings.height);
 
 	// init the toolbars
 	fileToolBar->initVisibility();
