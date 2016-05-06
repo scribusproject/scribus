@@ -7352,6 +7352,19 @@ bool PDFLibCore::PDF_DiamondGradientFill(QByteArray& output, PageItem *c)
 	for (uint cst = 0; cst < gradient.Stops(); ++cst)
 	{
 		double actualStop = cstops.at(cst)->rampPoint;
+		if (cst == 0)
+		{
+			StopVec.append(0);
+			colorNames.append(cstops.at(cst)->name);
+			colorShades.append(cstops.at(cst)->shade);
+			TransVec.append(cstops.at(cst)->opacity);
+			if (spotMap.contains(cstops.at(cst)->name))
+			{
+				if (!spotColorSet.contains(cstops.at(cst)->name))
+					spotColorSet.append(cstops.at(cst)->name);
+			}
+			Gcolors.append(SetGradientColor(cstops.at(cst)->name, cstops.at(cst)->shade));
+		}
 		StopVec.append(actualStop);
 		colorNames.append(cstops.at(cst)->name);
 		colorShades.append(cstops.at(cst)->shade);
@@ -7386,7 +7399,7 @@ bool PDFLibCore::PDF_DiamondGradientFill(QByteArray& output, PageItem *c)
 		QDataStream vst(&vertStreamT, QIODevice::WriteOnly);
 		vst.setByteOrder(QDataStream::BigEndian);
 		quint8 flg = 0;
-		for (uint offset = 1; offset < gradient.Stops(); ++offset)
+		for (int offset = 1; offset < StopVec.count(); ++offset)
 		{
 			QLineF e1 = edge1;
 			QLineF e1s = edge1;
@@ -7563,7 +7576,7 @@ bool PDFLibCore::PDF_DiamondGradientFill(QByteArray& output, PageItem *c)
 	QDataStream vs(&vertStream, QIODevice::WriteOnly);
 	vs.setByteOrder(QDataStream::BigEndian);
 	quint8 flg = 0;
-	for (uint offset = 1; offset < gradient.Stops(); ++offset)
+	for (int offset = 1; offset < StopVec.count(); ++offset)
 	{
 		QLineF e1 = edge1;
 		QLineF e1s = edge1;

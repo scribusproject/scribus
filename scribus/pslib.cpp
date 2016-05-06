@@ -3530,8 +3530,23 @@ void PSLib::HandleDiamondGradient(PageItem* c)
 		gradient = c->fill_gradient;
 	gradient.setRepeatMethod(c->getGradientExtend());
 	QList<VColorStop*> colorStops = gradient.colorStops();
+	QList<double> qStopRampPoints;
 	for (uint cst = 0; cst < gradient.Stops(); ++cst)
 	{
+		if (cst == 0)
+		{
+			if (colorStops[cst]->rampPoint > 0)
+			{
+				qStopRampPoints.append(0);
+				cols.append(colorStops.at(cst)->name);
+				colsSh.append(colorStops.at(cst)->shade);
+				if (spotMap.contains(colorStops.at(cst)->name))
+				{
+					if (!spotColorSet.contains(colorStops.at(cst)->name))
+						spotColorSet.append(colorStops.at(cst)->name);
+				}
+			}
+		}
 		cols.append(colorStops.at(cst)->name);
 		colsSh.append(colorStops.at(cst)->shade);
 		if (spotMap.contains(colorStops.at(cst)->name))
@@ -3539,6 +3554,7 @@ void PSLib::HandleDiamondGradient(PageItem* c)
 			if (!spotColorSet.contains(colorStops.at(cst)->name))
 				spotColorSet.append(colorStops.at(cst)->name);
 		}
+		qStopRampPoints.append(colorStops.at(cst)->rampPoint);
 	}
 	for (int ac = 0; ac < cols.count(); ac++)
 	{
@@ -3633,7 +3649,7 @@ void PSLib::HandleDiamondGradient(PageItem* c)
 	QLineF edge2 = QLineF(centerP, QPointF(c->GrControl2.x(), -c->GrControl2.y()));
 	QLineF edge3 = QLineF(centerP, QPointF(c->GrControl3.x(), -c->GrControl3.y()));
 	QLineF edge4 = QLineF(centerP, QPointF(c->GrControl4.x(), -c->GrControl4.y()));
-	for (uint offset = 1; offset < gradient.Stops(); ++offset)
+	for (int offset = 1; offset < qStopRampPoints.count(); ++offset)
 	{
 		QLineF e1 = edge1;
 		QLineF e1s = edge1;
@@ -3643,14 +3659,14 @@ void PSLib::HandleDiamondGradient(PageItem* c)
 		QLineF e3s = edge3;
 		QLineF e4 = edge4;
 		QLineF e4s = edge4;
-		e1.setLength(edge1.length() * colorStops[ offset ]->rampPoint);
-		e2.setLength(edge2.length() * colorStops[ offset ]->rampPoint);
-		e3.setLength(edge3.length() * colorStops[ offset ]->rampPoint);
-		e4.setLength(edge4.length() * colorStops[ offset ]->rampPoint);
-		e1s.setLength(edge1.length() * colorStops[ offset - 1 ]->rampPoint);
-		e2s.setLength(edge2.length() * colorStops[ offset - 1 ]->rampPoint);
-		e3s.setLength(edge3.length() * colorStops[ offset - 1 ]->rampPoint);
-		e4s.setLength(edge4.length() * colorStops[ offset - 1 ]->rampPoint);
+		e1.setLength(edge1.length() * qStopRampPoints[ offset ]);
+		e2.setLength(edge2.length() * qStopRampPoints[ offset ]);
+		e3.setLength(edge3.length() * qStopRampPoints[ offset ]);
+		e4.setLength(edge4.length() * qStopRampPoints[ offset ]);
+		e1s.setLength(edge1.length() * qStopRampPoints[ offset - 1 ]);
+		e2s.setLength(edge2.length() * qStopRampPoints[ offset - 1 ]);
+		e3s.setLength(edge3.length() * qStopRampPoints[ offset - 1 ]);
+		e4s.setLength(edge4.length() * qStopRampPoints[ offset - 1 ]);
 		if (offset == 1)
 		{
 			PutStream("0\n");

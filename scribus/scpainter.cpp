@@ -838,12 +838,22 @@ void ScPainter::fillPathHelper()
 			double r, g, b, a;
 			QList<VColorStop*> colorStops = fill_gradient.colorStops();
 			QList<QColor> qStopColors;
+			QList<double> qStopRampPoints;
 			QColor qStopColor;
 			for( int offset = 0 ; offset < colorStops.count() ; offset++ )
 			{
 				qStopColor = colorStops[ offset ]->color;
 				qStopColor.setAlphaF(colorStops[offset]->opacity);
+				if (offset == 0)
+				{
+					if (colorStops[offset]->rampPoint > 0)
+					{
+						qStopRampPoints.append(0);
+						qStopColors.append(qStopColor);
+					}
+				}
 				qStopColors.append(qStopColor);
+				qStopRampPoints.append(colorStops[offset]->rampPoint);
 			}
 			qStopColors.last().getRgbF(&r, &g, &b, &a);
 			QPointF centerP = QPointF(gradControlP5.x(), gradControlP5.y());
@@ -868,7 +878,7 @@ void ScPainter::fillPathHelper()
 			cairo_fill(cr);
 			cairo_set_operator(cr, CAIRO_OPERATOR_ADD);
 			mpat = cairo_pattern_create_mesh();
-			for( int offset = 1 ; offset < colorStops.count() ; offset++ )
+			for( int offset = 1 ; offset < qStopRampPoints.count() ; offset++ )
 			{
 				QLineF e1 = edge1;
 				QLineF e1s = edge1;
@@ -878,14 +888,14 @@ void ScPainter::fillPathHelper()
 				QLineF e3s = edge3;
 				QLineF e4 = edge4;
 				QLineF e4s = edge4;
-				e1.setLength(edge1.length() * colorStops[ offset ]->rampPoint);
-				e2.setLength(edge2.length() * colorStops[ offset ]->rampPoint);
-				e3.setLength(edge3.length() * colorStops[ offset ]->rampPoint);
-				e4.setLength(edge4.length() * colorStops[ offset ]->rampPoint);
-				e1s.setLength(edge1.length() * colorStops[ offset - 1 ]->rampPoint);
-				e2s.setLength(edge2.length() * colorStops[ offset - 1 ]->rampPoint);
-				e3s.setLength(edge3.length() * colorStops[ offset - 1 ]->rampPoint);
-				e4s.setLength(edge4.length() * colorStops[ offset - 1 ]->rampPoint);
+				e1.setLength(edge1.length() * qStopRampPoints[ offset ]);
+				e2.setLength(edge2.length() * qStopRampPoints[ offset ]);
+				e3.setLength(edge3.length() * qStopRampPoints[ offset ]);
+				e4.setLength(edge4.length() * qStopRampPoints[ offset ]);
+				e1s.setLength(edge1.length() * qStopRampPoints[ offset - 1 ]);
+				e2s.setLength(edge2.length() * qStopRampPoints[ offset - 1 ]);
+				e3s.setLength(edge3.length() * qStopRampPoints[ offset - 1 ]);
+				e4s.setLength(edge4.length() * qStopRampPoints[ offset - 1 ]);
 				if (offset == 1)
 				{
 #if (CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 11, 4))
