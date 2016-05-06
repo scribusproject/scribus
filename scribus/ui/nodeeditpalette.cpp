@@ -235,10 +235,6 @@ NodePalette::NodePalette( QWidget* parent) : ScrPaletteBase( parent, "nodePalett
 	QSpacerItem* spacer = new QSpacerItem( 3, 3, QSizePolicy::Fixed, QSizePolicy::Fixed );
 	vboxLayout->addItem(spacer);
 
-	PreviewMode = new QCheckBox(this);
-	PreviewMode->setChecked(false);
-	vboxLayout->addWidget(PreviewMode);
-
 	AbsMode = new QGroupBox( "&Absolute Coordinates", this );
 	AbsMode->setCheckable(true);
 	AbsMode->setChecked(false);
@@ -272,34 +268,38 @@ NodePalette::NodePalette( QWidget* parent) : ScrPaletteBase( parent, "nodePalett
 	EditCont->setChecked(false);
 	gridLayout2->addWidget(EditCont, 4, 0, 1, 2);
 
+	PreviewMode = new QCheckBox(this);
+	PreviewMode->setChecked(false);
+	gridLayout2->addWidget(PreviewMode, 5, 0, 1, 2);
+
 	ResetCont = new QPushButton(this);
 	ResetCont->setEnabled(false);
-	gridLayout2->addWidget(ResetCont, 5, 0, 1, 2);
+	gridLayout2->addWidget(ResetCont, 6, 0, 1, 2);
 
 	ResetContClip = new QPushButton(this);
 	ResetContClip->setEnabled(true);
 	ResetContClip->setSizePolicy(QSizePolicy(static_cast<QSizePolicy::Policy>(6), static_cast<QSizePolicy::Policy>(6)));
 	ResetContClip->hide();
-	gridLayout2->addWidget(ResetContClip, 6, 0, 1, 2);
+	gridLayout2->addWidget(ResetContClip, 7, 0, 1, 2);
 
 	ResetShape2Clip = new QPushButton(this);
 	ResetShape2Clip->setEnabled(true);
 	ResetShape2Clip->setSizePolicy(QSizePolicy(static_cast<QSizePolicy::Policy>(6), static_cast<QSizePolicy::Policy>(6)));
 	ResetShape2Clip->hide();
-	gridLayout2->addWidget(ResetShape2Clip, 7, 0, 1, 2);
+	gridLayout2->addWidget(ResetShape2Clip, 8, 0, 1, 2);
 
 	resetDefaultButton = new QPushButton(this);
 	resetDefaultButton->setEnabled(true);
-	gridLayout2->addWidget(resetDefaultButton, 8, 0, 1, 2);
+	gridLayout2->addWidget(resetDefaultButton, 9, 0, 1, 2);
 
 	editEditButton = new QPushButton(IconManager::instance()->loadIcon("22/exit.png"), tr("OK"), this);
 	editEditButton->setEnabled(true);
 	editEditButton->setDefault(true);
-	gridLayout2->addWidget(editEditButton, 9, 0, 1, 1);
+	gridLayout2->addWidget(editEditButton, 10, 0, 1, 1);
 
 	cancelEditButton = new QPushButton( tr("Cancel"), this);
 	cancelEditButton->setEnabled(true);
-	gridLayout2->addWidget(cancelEditButton, 9, 1, 1, 1);
+	gridLayout2->addWidget(cancelEditButton, 10, 1, 1, 1);
 
 	vboxLayout->addLayout(gridLayout2);
 	resize(QSize(170, 380).expandedTo(minimumSizeHint()));
