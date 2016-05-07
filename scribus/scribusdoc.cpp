@@ -13361,6 +13361,74 @@ FPoint ScribusDoc::ApplyGridF(const FPoint& in)
 	return np;
 }
 
+QRectF ScribusDoc::ApplyGridF(const QRectF& in)
+{
+	QRectF nr(in);
+	if (!SnapGrid)
+		return nr;
+
+	bool   onPage = false;
+	double dX = m_docPrefsData.guidesPrefs.minorGridSpacing;
+	double dY = m_docPrefsData.guidesPrefs.minorGridSpacing;
+	double newX = in.x(), newY = in.y();
+
+	FPoint fp1(in.x(), in.y());
+	FPoint fp2(in.x(), in.y() + in.height());
+	FPoint fp3(in.x() + in.width(), in.y());
+	FPoint fp4(in.x() + in.width(), in.y() + in.height());
+
+	int onp = OnPage(fp1.x(), fp1.y());
+	if (onp >= 0)
+	{
+		newX = qRound((fp1.x() - Pages->at(onp)->xOffset()) / m_docPrefsData.guidesPrefs.minorGridSpacing) * m_docPrefsData.guidesPrefs.minorGridSpacing + Pages->at(onp)->xOffset();
+		newY = qRound((fp1.y() - Pages->at(onp)->yOffset()) / m_docPrefsData.guidesPrefs.minorGridSpacing) * m_docPrefsData.guidesPrefs.minorGridSpacing + Pages->at(onp)->yOffset();
+		if (fabs(newX - fp1.x()) < fabs(dX))
+			dX = newX - fp1.x();
+		if (fabs(newY - fp1.y()) < fabs(dY))
+			dY = newY - fp1.y();
+		onPage = true;
+	}
+
+	onp = OnPage(fp2.x(), fp2.y());
+	if (onp >= 0)
+	{
+		newX = qRound((fp2.x() - Pages->at(onp)->xOffset()) / m_docPrefsData.guidesPrefs.minorGridSpacing) * m_docPrefsData.guidesPrefs.minorGridSpacing + Pages->at(onp)->xOffset();
+		newY = qRound((fp2.y() - Pages->at(onp)->yOffset()) / m_docPrefsData.guidesPrefs.minorGridSpacing) * m_docPrefsData.guidesPrefs.minorGridSpacing + Pages->at(onp)->yOffset();
+		if (fabs(newX - fp2.x()) < fabs(dX))
+			dX = newX - fp2.x();
+		if (fabs(newY - fp2.y()) < fabs(dY))
+			dY = newY - fp2.y();
+		onPage = true;
+	}
+
+	onp = OnPage(fp3.x(), fp3.y());
+	if (onp >= 0)
+	{
+		newX = qRound((fp3.x() - Pages->at(onp)->xOffset()) / m_docPrefsData.guidesPrefs.minorGridSpacing) * m_docPrefsData.guidesPrefs.minorGridSpacing + Pages->at(onp)->xOffset();
+		newY = qRound((fp3.y() - Pages->at(onp)->yOffset()) / m_docPrefsData.guidesPrefs.minorGridSpacing) * m_docPrefsData.guidesPrefs.minorGridSpacing + Pages->at(onp)->yOffset();
+		if (fabs(newX - fp3.x()) < fabs(dX))
+			dX = newX - fp3.x();
+		if (fabs(newY - fp3.y()) < fabs(dY))
+			dY = newY - fp3.y();
+		onPage = true;
+	}
+
+	onp = OnPage(fp4.x(), fp4.y());
+	if (onp >= 0)
+	{
+		newX = qRound((fp4.x() - Pages->at(onp)->xOffset()) / m_docPrefsData.guidesPrefs.minorGridSpacing) * m_docPrefsData.guidesPrefs.minorGridSpacing + Pages->at(onp)->xOffset();
+		newY = qRound((fp4.y() - Pages->at(onp)->yOffset()) / m_docPrefsData.guidesPrefs.minorGridSpacing) * m_docPrefsData.guidesPrefs.minorGridSpacing + Pages->at(onp)->yOffset();
+		if (fabs(newX - fp4.x()) < fabs(dX))
+			dX = newX - fp4.x();
+		if (fabs(newY - fp4.y()) < fabs(dY))
+			dY = newY - fp4.y();
+		onPage = true;
+	}
+
+	if (onPage)
+		nr.translate(dX, dY);
+	return nr;
+}
 
 void ScribusDoc::itemSelection_MultipleDuplicate(ItemMultipleDuplicateData& mdData)
 {

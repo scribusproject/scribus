@@ -612,16 +612,9 @@ void CanvasMode_Normal::mouseMoveEvent(QMouseEvent *m)
 							gy += m_objectDeltaPos.y();
 							gxo = gx;
 							gyo = gy;
-							FPoint npx = m_doc->ApplyGridF(FPoint(gx, gy));
-							FPoint npw = m_doc->ApplyGridF(FPoint(gx+gw, gy+gh));
-							if ((fabs(gx-npx.x())) > (fabs((gx+gw)-npw.x())))
-								gx = npw.x() - gw;
-							else
-								gx = npx.x();
-							if ((fabs(gy-npx.y())) > (fabs((gy+gh)-npw.y())))
-								gy = npw.y() - gh;
-							else
-								gy = npx.y();
+							QRectF nr  = m_doc->ApplyGridF(QRectF(gx, gy, gw, gh));
+							gx = nr.x();
+							gy = nr.y();
 							if ((fabs(gx - gxo) < (m_doc->guidesPrefs().guideRad) / m_canvas->scale()) && (fabs(gy - gyo) < (m_doc->guidesPrefs().guideRad) / m_canvas->scale()))
 								m_objectDeltaPos += FPoint(gx-gxo, gy-gyo);
 						}
@@ -698,16 +691,9 @@ void CanvasMode_Normal::mouseMoveEvent(QMouseEvent *m)
 						gy += m_objectDeltaPos.y();
 						gxo = gx;
 						gyo = gy;
-						FPoint npx = m_doc->ApplyGridF(FPoint(gx, gy));
-						FPoint npw = m_doc->ApplyGridF(FPoint(gx+gw, gy+gh));
-						if ((fabs(gx-npx.x())) > (fabs((gx+gw)-npw.x())))
-							gx = npw.x() - gw;
-						else
-							gx = npx.x();
-						if ((fabs(gy-npx.y())) > (fabs((gy+gh)-npw.y())))
-							gy = npw.y() - gh;
-						else
-							gy = npx.y();
+						QRectF nr = m_doc->ApplyGridF(QRectF(gx, gy, gw, gh));
+						gx = nr.x();
+						gy = nr.y();
 						if ((fabs(gx - gxo) < (m_doc->guidesPrefs().guideRad) / m_canvas->scale()) && (fabs(gy - gyo) < (m_doc->guidesPrefs().guideRad) / m_canvas->scale()))
 							m_objectDeltaPos += FPoint(gx-gxo, gy-gyo);
 					}
@@ -1092,16 +1078,9 @@ void CanvasMode_Normal::mouseReleaseEvent(QMouseEvent *m)
 				double ny = gy;
 				if (!m_doc->ApplyGuides(&nx, &ny) && !m_doc->ApplyGuides(&nx, &ny,true))
 				{
-					FPoint npx = m_doc->ApplyGridF(FPoint(gx, gy));
-					FPoint npw = m_doc->ApplyGridF(FPoint(gx+gw, gy+gh));
-					if ((fabs(gx-npx.x())) > (fabs((gx+gw)-npw.x())))
-						nx = npw.x() - gw;
-					else
-						nx = npx.x();
-					if ((fabs(gy-npx.y())) > (fabs((gy+gh)-npw.y())))
-						ny = npw.y() - gh;
-					else
-						ny = npx.y();
+					QRectF nr  = m_doc->ApplyGridF(QRectF(gx, gy, gw, gh));
+					nx = nr.x();
+					ny = nr.y();
 				}
 				m_doc->moveGroup(nx-gx, ny-gy);
 				m_doc->m_Selection->setGroupRect();
@@ -1127,16 +1106,9 @@ void CanvasMode_Normal::mouseReleaseEvent(QMouseEvent *m)
 						m_doc->m_Selection->getVisualGroupRect(&gx, &gy, &gw, &gh);
 						gxo = gx;
 						gyo = gy;
-						FPoint npx = m_doc->ApplyGridF(FPoint(gx, gy));
-						FPoint npw = m_doc->ApplyGridF(FPoint(gx+gw, gy+gh));
-						if ((fabs(gx-npx.x())) > (fabs((gx+gw)-npw.x())))
-							gx = npw.x() - gw;
-						else
-							gx = npx.x();
-						if ((fabs(gy-npx.y())) > (fabs((gy+gh)-npw.y())))
-							gy = npw.y() - gh;
-						else
-							gy = npx.y();
+						QRectF nr = m_doc->ApplyGridF(QRectF(gx, gy, gw, gh));
+						gx = nr.x();
+						gy = nr.y();
 						if ((fabs(gx - gxo) < (m_doc->guidesPrefs().guideRad) / m_canvas->scale()) && (fabs(gy - gyo) < (m_doc->guidesPrefs().guideRad) / m_canvas->scale()))
 						{
 							nx += (gx - gxo);

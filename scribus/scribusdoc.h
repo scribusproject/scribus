@@ -1143,6 +1143,8 @@ public:
 	QPoint ApplyGrid(const QPoint& in);
 	/*! \brief Apply grid to an FPoint, from ScribusView */
 	FPoint ApplyGridF(const FPoint& in);
+	/*! \brief Apply grid to an QRectF, from ScribusView */
+	QRectF ApplyGridF(const QRectF& in);
 	/*! \brief Does this doc have any TOC setups and potentially a TOC to generate */
 	bool hasTOCSetup() { return !m_docPrefsData.tocPrefs.defaultToCSetups.empty(); }
 	//! \brief Get the closest guide to the given point
