@@ -332,23 +332,15 @@ void SEditor::inputMethodEvent(QInputMethodEvent *event)
 void SEditor::keyPressEvent(QKeyEvent *k)
 {
 	emit SideBarUp(false);
-// 	int pos = textCursor().position();
-	int keyMod=0;
-	if (k->modifiers() & Qt::ShiftModifier)
-		keyMod |= Qt::SHIFT;
-	if (k->modifiers() & Qt::ControlModifier)
-		keyMod |= Qt::CTRL;
-	if (k->modifiers() & Qt::AltModifier)
-		keyMod |= Qt::ALT;
 
-	if(ScCore->primaryMainWindow()->actionManager->compareKeySeqToShortcut(k->key(), k->modifiers(), "specialUnicodeSequenceBegin"))
+	if (ScCore->primaryMainWindow()->actionManager->compareKeySeqToShortcut(k->key(), k->modifiers(), "specialUnicodeSequenceBegin"))
 	{
 		unicodeTextEditMode = true;
 		unicodeInputCount = 0;
 		unicodeInputString = "";
 		return;
 	}
-
+	
 	QString uc = k->text();
 	if ((k->modifiers() == Qt::ControlModifier) ||
 		(k->modifiers() == (Qt::ControlModifier | Qt::ShiftModifier)) ||
@@ -356,33 +348,34 @@ void SEditor::keyPressEvent(QKeyEvent *k)
 		(k->modifiers() == (Qt::ControlModifier | Qt::ShiftModifier | Qt::KeypadModifier))
 	   )
 	{
+		bool processed = false;
 		switch (k->key())
 		{
 			case Qt::Key_K:
 				moveCursor(QTextCursor::EndOfLine, QTextCursor::KeepAnchor);
 				textCursor().removeSelectedText();
+				processed = true;
 				break;
 			case Qt::Key_D:
 				moveCursor(QTextCursor::NextCharacter, QTextCursor::KeepAnchor);
 				textCursor().removeSelectedText();
+				processed = true;
 				break;
 			case Qt::Key_H:
 				moveCursor(QTextCursor::PreviousCharacter, QTextCursor::KeepAnchor);
 				textCursor().removeSelectedText();
+				processed = true;
 				break;
-			/*case Qt::Key_X:
-				cut();
-				return;
-				break;
-			case Qt::Key_V:
-				paste();
-				return;
-				break;*/
 			case Qt::Key_Y:
 			case Qt::Key_Z:
 				emit SideBarUp(true);
 				return;
-				break;
+		}
+		if (processed)
+		{
+			emit SideBarUp(true);
+			emit SideBarUpdate();
+			return;
 		}
 	}
 	if ((k->modifiers() == Qt::NoModifier) ||
