@@ -93,7 +93,7 @@ void gtFileDialog::loadSettings(void)
 	if (context->contains("prefix"))
 	{
 		bool textOnly = context->getBool("prefix");
-		textOnlyCheckBox->setChecked(textOnly);
+		prefixStylesCheckBox->setChecked(textOnly);
 	}
 }
 
