@@ -382,6 +382,7 @@ struct DownloadItem
 	QString filetype;
 	QString type;
 	QString movetofile;
+	QString source;
 	bool download;
 };
 

@@ -669,6 +669,7 @@ void ResourceManager::updateAvailablePalettes()
 						d.license=e.attribute("license");
 						d.filetype=e.attribute("filetype");
 						d.type=e.attribute("type");
+						d.source=e.attribute("source");
 						QUrl url(d.url);
 						if (url.isValid() && !url.isEmpty() && !url.host().isEmpty())
 							availableList.append(d);
@@ -694,7 +695,7 @@ void ResourceManager::updateAvailablePalettes()
 		QTableWidgetItem *newItem1 = new QTableWidgetItem(d.desc);
 		newItem1->setFlags(newItem1->flags() & ~Qt::ItemIsEditable & ~Qt::ItemIsSelectable);
 		availableTableWidget->setItem(row, column++, newItem1);
-		QTableWidgetItem *newItem2 = new QTableWidgetItem("");
+		QTableWidgetItem *newItem2 = new QTableWidgetItem(d.source);
 		newItem2->setFlags(newItem1->flags());
 		availableTableWidget->setItem(row, column++, newItem2);
 		QTableWidgetItem *newItem3 = new QTableWidgetItem();
@@ -711,7 +712,7 @@ void ResourceManager::updateAvailablePalettes()
 		++row;
 	}
 	QStringList headers;
-	headers << tr("Description") << tr("") << tr("Installed") << tr("License") << tr("Download");
+	headers << tr("Description") << tr("Source") << tr("Installed") << tr("License") << tr("Download");
 	availableTableWidget->setHorizontalHeaderLabels(headers);
 	availableTableWidget->resizeColumnsToContents();
 	availableTableWidget->setSortingEnabled(true);
