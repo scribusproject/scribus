@@ -298,7 +298,8 @@ void ScreenPainter::drawObject(PageItem* embedded)
 		int fm = m_painter->fillMode();
 		m_painter->setPen(PrefsManager::instance()->appPrefs.displayPrefs.frameNormColor, 0, Qt::DotLine, Qt::FlatCap, Qt::MiterJoin);
 		m_painter->setFillMode(ScPainter::None);
-		m_painter->drawSharpRect(0, 0, embedded->width(), embedded->height());
+		QRectF bBox = embedded->getVisualBoundingRect();
+		m_painter->drawSharpRect(0, 0, bBox.width(), bBox.height());
 		m_painter->setFillMode(fm);
 	}
 

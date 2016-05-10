@@ -7523,8 +7523,9 @@ void ScribusMainWindow::editInlineEnd()
 	m_storedPageNum = qMin(m_storedPageNum, doc->DocPages.count() - 1);
 	doc->setCurrentPage(doc->DocPages.at(m_storedPageNum));
 	view->setContentsPos(static_cast<int>(m_storedViewXCoor * m_storedViewScale), static_cast<int>(m_storedViewYCoor * m_storedViewScale));
-	if (doc->currentEditedTextframe != NULL)
-		doc->currentEditedTextframe->invalidateLayout();
+	doc->invalidateAll();
+//	if (doc->currentEditedTextframe != NULL)
+//		doc->currentEditedTextframe->invalidateLayout();
 	doc->currentEditedTextframe = NULL;
 	view->DrawNew();
 	pagePalette->Rebuild();

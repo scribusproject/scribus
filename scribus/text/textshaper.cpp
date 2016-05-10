@@ -216,7 +216,7 @@ void TextShaper::initGlyphLayout(GlyphRun& run, const QString& chars, int runInd
 		gl.xadvance *= runStyle.wordTracking();
 
 	if (itemText.hasObject(a))
-		gl.xadvance = itemText.object(a)->width() + itemText.object(a)->lineWidth();
+		gl.xadvance = itemText.object(a)->getVisualBoundingRect().width();
 
 	run.glyphs().append(gl);
 }

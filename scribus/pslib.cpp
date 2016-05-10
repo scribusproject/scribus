@@ -199,7 +199,7 @@ void PSPainter::drawLine(QPointF start, QPointF end)
 void PSPainter::drawObject(PageItem* item)
 {
 	m_ps->PS_save();
-	m_ps->PS_translate(x(), -y());
+	m_ps->PS_translate(x() + item->gXpos, -(y() + item->gYpos));
 	applyTransform();
 	if (scaleH() != 1 || scaleV() != 1)
 		m_ps->PS_scale(scaleH(), scaleV());

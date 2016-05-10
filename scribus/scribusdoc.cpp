@@ -6636,7 +6636,8 @@ void ScribusDoc::setInlineEditMode(bool mode, int id)
 		PageItem *pa = FrameItems[id];
 		pa->isEmbedded = false;
 		m_currentEditedIFrame = id;
-		ScPage* addedPage = new ScPage(m_docPrefsData.displayPrefs.scratch.left(), m_docPrefsData.displayPrefs.scratch.top(), pa->visualWidth(), pa->visualHeight());
+		QRectF bBox = pa->getVisualBoundingRect();
+		ScPage* addedPage = new ScPage(m_docPrefsData.displayPrefs.scratch.left(), m_docPrefsData.displayPrefs.scratch.top(), bBox.width(), bBox.height());
 		addedPage->setDocument(this);
 		addedPage->Margins.set(0, 0, 0, 0);
 		addedPage->initialMargins.set(0, 0, 0, 0);

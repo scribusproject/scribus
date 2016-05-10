@@ -461,7 +461,7 @@ public:
 		m_pathBuffer = "";
 
 		m_pathBuffer += "q\n";
-		m_pathBuffer += FToStr(scaleH()) + " 0 0 " + FToStr(scaleV()) + " " + FToStr(x()) + " " + FToStr(-y()) + " cm\n";
+		m_pathBuffer += FToStr(scaleH()) + " 0 0 " + FToStr(scaleV()) + " " + FToStr(x() + embedded->gXpos) + " " + FToStr(-(y() + embedded->gYpos)) + " cm\n";
 
 		QByteArray output;
 		if (!m_pdf->PDF_ProcessItem(output, embedded, m_page, m_PNr, true))
