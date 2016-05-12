@@ -215,7 +215,41 @@ void ResourceManager::updateInstalledHelp()
 void ResourceManager::updateInstalledPalettes()
 {
 	dictionaryMap.clear();
+	QString palDir(findDestinationFolder());
+	foreach(DownloadItem d, availableList)
+	{
+		if (QFileInfo::exists(palDir+d.files))
+			dictionaryMap.insert(d.desc, palDir+d.files);
+	}
+
 	installedTableWidget->clear();
+	installedTableWidget->setRowCount(dictionaryMap.count());
+	installedTableWidget->setColumnCount(2);
+	installedTableWidget->setSortingEnabled(false);
+	if (dictionaryMap.count()>0)
+	{
+		QMapIterator<QString, QString> i(dictionaryMap);
+		int row=0;
+		while (i.hasNext())
+		{
+			i.next();
+			int column=0;
+			QTableWidgetItem *newItem1 = new QTableWidgetItem(i.key());
+			newItem1->setFlags(newItem1->flags() & ~Qt::ItemIsEditable & ~Qt::ItemIsSelectable);
+			installedTableWidget->setItem(row, column++, newItem1);
+			QTableWidgetItem *newItem2 = new QTableWidgetItem(i.value());
+			newItem2->setFlags(newItem1->flags());
+			installedTableWidget->setItem(row, column++, newItem2);
+			++row;
+		}
+	}
+	QStringList headers;
+	headers << tr("Description") << tr("Location") ;
+	installedTableWidget->setHorizontalHeaderLabels(headers);
+
+	installedTableWidget->resizeColumnsToContents();
+	installedTableWidget->setSortingEnabled(true);
+	installedTableWidget->sortByColumn(0, Qt::AscendingOrder);
 }
 
 void ResourceManager::updateInstalledTest()
@@ -699,7 +733,7 @@ void ResourceManager::updateAvailablePalettes()
 		newItem2->setFlags(newItem1->flags());
 		availableTableWidget->setItem(row, column++, newItem2);
 		QTableWidgetItem *newItem3 = new QTableWidgetItem();
-		newItem3->setCheckState(dictionaryMap.contains(d.lang) ? Qt::Checked : Qt::Unchecked);
+		newItem3->setCheckState(dictionaryMap.contains(d.files) ? Qt::Checked : Qt::Unchecked);
 		newItem3->setFlags(newItem1->flags() & ~Qt::ItemIsUserCheckable);
 		availableTableWidget->setItem(row, column++, newItem3);
 		QTableWidgetItem *newItem4 = new QTableWidgetItem(d.license);
@@ -784,8 +818,8 @@ void ResourceManager::categoryChanged()
 			updateAvailableHelp();
 			break;
 		case RM_PALETTES:
-			updateInstalledPalettes();
 			updateAvailablePalettes();
+			updateInstalledPalettes();
 			break;
 		case RM_TEST:
 			updateInstalledTest();
