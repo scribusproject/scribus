@@ -327,8 +327,8 @@ void NodePalette::connectSignals()
 	connect(YSpin, SIGNAL(valueChanged(double)), this, SLOT(MovePoint()));
 	connect(PolyMirrorH, SIGNAL(clicked()), this, SLOT(MirrorH()));
 	connect(PolyMirrorV, SIGNAL(clicked()), this, SLOT(MirrorV()));
-	connect(PolyShearR, SIGNAL(clicked()), this, SLOT(ShearL()));
-	connect(PolyShearL, SIGNAL(clicked()), this, SLOT(ShearR()));
+	connect(PolyShearR, SIGNAL(clicked()), this, SLOT(ShearR()));
+	connect(PolyShearL, SIGNAL(clicked()), this, SLOT(ShearL()));
 	connect(PolyShearU, SIGNAL(clicked()), this, SLOT(ShearU()));
 	connect(PolyShearD, SIGNAL(clicked()), this, SLOT(ShearD()));
 	connect(RotateCCW, SIGNAL(clicked()), this, SLOT(doRotCCW()));
@@ -500,13 +500,13 @@ void NodePalette::doEnlarge()
 void NodePalette::ShearR()
 {
 	if (m_doc != 0)
-		m_view->TransformPoly(5);
+		m_view->TransformPoly(4);
 }
 
 void NodePalette::ShearL()
 {
 	if (m_doc != 0)
-		m_view->TransformPoly(4);
+		m_view->TransformPoly(5);
 }
 
 void NodePalette::ShearU()
