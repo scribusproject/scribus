@@ -11,6 +11,7 @@ for which a new license (GPL+exception) is in place.
 #define _USE_MATH_DEFINES
 #endif
 #include <cmath>
+#include <QSignalBlocker>
 
 #include "arrowchooser.h"
 #include "commonstrings.h"
@@ -647,16 +648,20 @@ void PropertiesPalette_Line::handleLineStyle(QListWidgetItem *widgetItem)
 
 void PropertiesPalette_Line::languageChange()
 {
+	QSignalBlocker lineTypeBlocker(lineType);
 	int oldLineStyle = lineType->currentIndex();
 	lineType->clear();
 	lineType->updateList();
 	lineType->addItem( tr("Custom"));
 	lineType->setCurrentIndex(oldLineStyle);
+
+	QSignalBlocker lineModeBlocker(lineMode);
 	int oldLineMode = lineMode->currentIndex();
 	lineMode->clear();
 	lineMode->addItem( tr("Left Point"));
 	lineMode->addItem( tr("End Points"));
 	lineMode->setCurrentIndex(oldLineMode);
+
 	lineModeLabel->setText( tr("&Basepoint:"));
 	lineTypeLabel->setText( tr("T&ype of Line:"));
 	startArrowLabel->setText( tr("Start Arrow:"));
@@ -665,9 +670,11 @@ void PropertiesPalette_Line::languageChange()
 	endArrowScaleLabel->setText( tr("Scaling:"));
 	if (m_haveDoc)
 	{
+		QSignalBlocker startArrowBlocker(startArrow);
 		int arrowItem = startArrow->currentIndex();
 		startArrow->rebuildList(&m_doc->arrowStyles());
 		startArrow->setCurrentIndex(arrowItem);
+		QSignalBlocker endArrowBlocker(endArrow);
 		arrowItem = endArrow->currentIndex();
 		endArrow->rebuildList(&m_doc->arrowStyles());
 		endArrow->setCurrentIndex(arrowItem);
@@ -675,7 +682,8 @@ void PropertiesPalette_Line::languageChange()
 	lineWidthLabel->setText( tr("Line &Width:"));
 	lineJoinLabel->setText( tr("Ed&ges:"));
 
-	int oldLJoinStyle=lineJoinStyle->currentIndex();
+	QSignalBlocker lineJoinStyleBlocker(lineJoinStyle);
+	int oldLJoinStyle = lineJoinStyle->currentIndex();
 	lineJoinStyle->clear();
 	IconManager* im=IconManager::instance();
 	lineJoinStyle->addItem(im->loadIcon("16/stroke-join-miter.png"), tr("Miter Join"));
@@ -683,7 +691,8 @@ void PropertiesPalette_Line::languageChange()
 	lineJoinStyle->addItem(im->loadIcon("16/stroke-join-round.png"), tr("Round Join"));
 	lineJoinStyle->setCurrentIndex(oldLJoinStyle);
 
-	int oldLEndStyle=lineEndStyle->currentIndex();
+	QSignalBlocker lineEndStyleBlocker(lineEndStyle);
+	int oldLEndStyle = lineEndStyle->currentIndex();
 	lineEndStyle->clear();
 	lineEndStyle->addItem(im->loadIcon("16/stroke-cap-butt.png"), tr("Flat Cap"));
 	lineEndStyle->addItem(im->loadIcon("16/stroke-cap-square.png"), tr("Square Cap"));

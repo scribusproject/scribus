@@ -12,12 +12,13 @@ for which a new license (GPL+exception) is in place.
 #define _USE_MATH_DEFINES
 #endif
 #include <cmath>
+#include <QSignalBlocker>
+
 #include "commonstrings.h"
-#include "sccolorengine.h"
 #include "pageitem.h"
 #include "propertiespalette_utils.h"
+#include "sccolorengine.h"
 #include "sccombobox.h"
-
 #include "scribuscore.h"
 #include "scraction.h"
 #include "scribusview.h"
@@ -794,15 +795,17 @@ void PropertiesPalette_Image::languageChange()
 
 	imagePageNumber->setSpecialValueText( tr( "Auto" ));
 
-	int oldMonitorI=renderIntent->currentIndex();
+	QSignalBlocker renderIntentBlocker(renderIntent);
+	int oldRenderI = renderIntent->currentIndex();
 	renderIntent->clear();
 	renderIntent->addItem( tr("Perceptual"));
 	renderIntent->addItem( tr("Relative Colorimetric"));
 	renderIntent->addItem( tr("Saturation"));
 	renderIntent->addItem( tr("Absolute Colorimetric"));
-	renderIntent->setCurrentIndex(oldMonitorI);
+	renderIntent->setCurrentIndex(oldRenderI);
 
-	int oldCompressionMethod=compressionMethod->currentIndex();
+	QSignalBlocker compressionMethodBlocker(compressionMethod);
+	int oldCompressionMethod = compressionMethod->currentIndex();
 	compressionMethod->clear();
 	compressionMethod->addItem( tr( "Global" ) );
 	compressionMethod->addItem( tr( "Automatic" ) );
@@ -811,7 +814,8 @@ void PropertiesPalette_Image::languageChange()
 	compressionMethod->addItem( tr( "None" ) );
 	compressionMethod->setCurrentIndex(oldCompressionMethod);
 
-	int oldCompressionQuality=compressionQuality->currentIndex();
+	QSignalBlocker compressionQualityBlocker(compressionQuality);
+	int oldCompressionQuality = compressionQuality->currentIndex();
 	compressionQuality->clear();
 	compressionQuality->addItem( tr( "Global" ) );
 	compressionQuality->addItem( tr( "Maximum" ) );

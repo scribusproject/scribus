@@ -7,6 +7,8 @@ for which a new license (GPL+exception) is in place.
 
 #include "propertywidget_distance.h"
 
+#include <QSignalBlocker>
+
 #include "appmodehelper.h"
 #include "appmodes.h"
 #include "pageitem_table.h"
@@ -438,18 +440,21 @@ void PropertyWidget_Distance::languageChange()
 	columnsLabel->setText( tr("Colu&mns:"));
 
 	verticalAlignLabel->setText( tr("Vertical Alignment:"));
-	int oldAliLabel = verticalAlign->currentIndex();
+
+	QSignalBlocker verticalAlignBlocker(verticalAlign);
+	int oldAlignIndex = verticalAlign->currentIndex();
 	verticalAlign->clear();
 	verticalAlign->addItem( tr("Top"));
 	verticalAlign->addItem( tr("Middle"));
 	verticalAlign->addItem( tr("Bottom"));
-	verticalAlign->setCurrentIndex(oldAliLabel);
+	verticalAlign->setCurrentIndex(oldAlignIndex);
 
-	int oldcolgapLabel = columnGapLabel->currentIndex();
+	QSignalBlocker columnGapLabelBlocker(columnGapLabel);
+	int oldColGapLabel = columnGapLabel->currentIndex();
 	columnGapLabel->clear();
 	columnGapLabel->addItem( tr("Gap:"));
 	columnGapLabel->addItem( tr("Width:"));
-	columnGapLabel->setCurrentIndex(oldcolgapLabel);
+	columnGapLabel->setCurrentIndex(oldColGapLabel);
 
 	topLabel->setText( tr("To&p:"));
 	bottomLabel->setText( tr("&Bottom:"));

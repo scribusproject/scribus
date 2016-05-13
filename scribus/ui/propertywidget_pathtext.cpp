@@ -7,11 +7,12 @@ for which a new license (GPL+exception) is in place.
 
 #include "propertywidget_pathtext.h"
 
+#include <QSignalBlocker>
+
 #include "scribus.h"
 #include "scribusdoc.h"
 #include "selection.h"
 #include "units.h"
-
 
 PropertyWidget_PathText::PropertyWidget_PathText(QWidget* parent) : QFrame(parent)
 {
@@ -224,6 +225,7 @@ void PropertyWidget_PathText::changeEvent(QEvent *e)
 
 void PropertyWidget_PathText::languageChange()
 {
+	QSignalBlocker pathTextTypeBlocker(pathTextType);
 	int oldPathType = pathTextType->currentIndex();
 	pathTextType->clear();
 	pathTextType->addItem( tr("Default"));
