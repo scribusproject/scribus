@@ -478,13 +478,13 @@ void NodePalette::doEnlarge()
 void NodePalette::ShearR()
 {
 	if (doc != 0)
-		view->TransformPoly(5);
+		view->TransformPoly(4);
 }
 
 void NodePalette::ShearL()
 {
 	if (doc != 0)
-		view->TransformPoly(4);
+		view->TransformPoly(5);
 }
 
 void NodePalette::ShearU()
