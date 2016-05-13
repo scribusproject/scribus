@@ -5304,24 +5304,31 @@ void PropertiesPalette::languageChange()
 	blendMode->setCurrentIndex(oldBlendMode);
 	rndcornersLabel->setText( tr("R&ound\nCorners:"));
 	columnsLabel->setText( tr("Colu&mns:"));
-	int oldcolgapLabel = colgapLabel->currentIndex();
+
+	bool colgapLabelBlocked = colgapLabel->blockSignals(true);
+	int oldColGapLabel = colgapLabel->currentIndex();
 	colgapLabel->clear();
 	colgapLabel->addItem( tr("Gap:"));
 	colgapLabel->addItem( tr("Width:"));
-	colgapLabel->setCurrentIndex(oldcolgapLabel);
-//	colgapLabel->setTexts( tr("&Gap:"), tr("&Width:"));
+	colgapLabel->setCurrentIndex(oldColGapLabel);
+	colgapLabel->blockSignals(colgapLabelBlocked);
+
 	topLabel->setText( tr("To&p:"));
 	bottomLabel->setText( tr("&Bottom:"));
 	leftLabel->setText( tr("&Left:"));
 	rightLabel->setText( tr("&Right:"));
 	TabsButton->setText( tr("T&abulators..."));
 //	Distance2->setTitle( tr("Path Text Properties"));
+
+	bool pathTextTypeBlocked = pathTextType->blockSignals(true);
 	int oldPathType = pathTextType->currentIndex();
 	pathTextType->clear();
 	pathTextType->addItem( tr("Default"));
 	pathTextType->addItem( tr("Stair Step"));
 	pathTextType->addItem( tr("Skew"));
 	pathTextType->setCurrentIndex(oldPathType);
+	pathTextType->blockSignals(pathTextTypeBlocked);
+
 	flippedPathText->setText( tr("Flip Text"));
 	showcurveCheckBox->setText( tr("Show Curve"));
 	pathTextTypeLabel->setText( tr("Type:"));
@@ -5393,63 +5400,82 @@ void PropertiesPalette::languageChange()
 	EditPSDProps->setText( tr("Extended Image Properties"));
 	TextCms1->setText( tr("Input Profile:"));
 	TextCms2->setText( tr("Rendering Intent:"));
-// 	QList<QAction*> actList = lineSpacingPop->actions();
-// 	actList[0]->setText( tr("Fixed Linespacing"));
-// 	actList[1]->setText( tr("Automatic Linespacing"));
-// 	actList[2]->setText( tr("Align to Baseline Grid"));
+
+	bool lineSpacingModeComboBlocked = lineSpacingModeCombo->blockSignals(true);
 	int oldLineSpacingMode = lineSpacingModeCombo->currentIndex();
 	lineSpacingModeCombo->clear();
 	lineSpacingModeCombo->addItem( tr("Fixed Linespacing"));
 	lineSpacingModeCombo->addItem( tr("Automatic Linespacing"));
 	lineSpacingModeCombo->addItem( tr("Align to Baseline Grid"));
 	lineSpacingModeCombo->setCurrentIndex(oldLineSpacingMode);
-	int oldMonitorI=MonitorI->currentIndex();
+	lineSpacingModeCombo->blockSignals(lineSpacingModeComboBlocked);
+
+	bool monitorIBlocked = MonitorI->blockSignals(true);
+	int oldMonitorI = MonitorI->currentIndex();
 	MonitorI->clear();
 	MonitorI->addItem( tr("Perceptual"));
 	MonitorI->addItem( tr("Relative Colorimetric"));
 	MonitorI->addItem( tr("Saturation"));
 	MonitorI->addItem( tr("Absolute Colorimetric"));
 	MonitorI->setCurrentIndex(oldMonitorI);
+	MonitorI->blockSignals(monitorIBlocked);
+
+	int lStyleBlocked = LStyle->blockSignals(true);
 	int oldLineStyle = LStyle->currentIndex();
 	LStyle->clear();
 	LStyle->updateList();
 	LStyle->addItem( tr("Custom"));
 	LStyle->setCurrentIndex(oldLineStyle);
-	int oldLineMode=LineMode->currentIndex();
+	LStyle->blockSignals(lStyleBlocked);
+
+	int lineModeBlocked = LineMode->blockSignals(true);
+	int oldLineMode = LineMode->currentIndex();
 	LineMode->clear();
 	LineMode->addItem( tr("Left Point"));
 	LineMode->addItem( tr("End Points"));
 	LineMode->setCurrentIndex(oldLineMode);
+	LineMode->blockSignals(lineModeBlocked);
+
 	LineModeT->setText( tr("&Basepoint:"));
 	linetypeLabel->setText( tr("T&ype of Line:"));
 	startArrowText->setText( tr("Start Arrow:"));
 	endArrowText->setText( tr("End Arrow:"));
 	if (HaveDoc)
 	{
-		int arrowItem=startArrow->currentIndex();
+		bool startArrowBlocked = startArrow->blockSignals(true);
+		int arrowItem = startArrow->currentIndex();
 		startArrow->rebuildList(&doc->arrowStyles);
 		startArrow->setCurrentIndex(arrowItem);
-		arrowItem=endArrow->currentIndex();
+		startArrow->blockSignals(startArrowBlocked);
+
+		bool endArrowBlocked = endArrow->blockSignals(true);
+		arrowItem = endArrow->currentIndex();
 		endArrow->rebuildList(&doc->arrowStyles);
 		endArrow->setCurrentIndex(arrowItem);
+		endArrow->blockSignals(endArrowBlocked);
 	}
 	linewidthLabel->setText( tr("Line &Width:"));
 	edgesLabel->setText( tr("Ed&ges:"));
-	int oldLJoinStyle=LJoinStyle->currentIndex();
+
+	bool lJoinStyleBlocked = LJoinStyle->blockSignals(true);
+	int oldLJoinStyle = LJoinStyle->currentIndex();
 	LJoinStyle->clear();
 	LJoinStyle->addItem(loadIcon("16/stroke-join-miter.png"), tr("Miter Join"));
 	LJoinStyle->addItem(loadIcon("16/stroke-join-bevel.png"), tr("Bevel Join"));
 	LJoinStyle->addItem(loadIcon("16/stroke-join-round.png"), tr("Round Join"));
 	LJoinStyle->setCurrentIndex(oldLJoinStyle);
+	LJoinStyle->blockSignals(lJoinStyleBlocked);
 
-	int oldLEndStyle=LEndStyle->currentIndex();
+	bool lEndStyleBlocked = LEndStyle->blockSignals(true);
+	int oldLEndStyle = LEndStyle->currentIndex();
 	LEndStyle->clear();
 	LEndStyle->addItem(loadIcon("16/stroke-cap-butt.png"), tr("Flat Cap"));
 	LEndStyle->addItem(loadIcon("16/stroke-cap-square.png"), tr("Square Cap"));
 	LEndStyle->addItem(loadIcon("16/stroke-cap-round.png"), tr("Round Cap"));
 	LEndStyle->setCurrentIndex(oldLEndStyle);
+	LEndStyle->blockSignals(lEndStyleBlocked);
 	endingsLabel->setText( tr("&Endings:"));
-
+	
 	TLines->setTitle( tr("Cell Lines"));
 	TopLine->setText( tr("Line at Top"));
 	LeftLine->setText( tr("Line at the Left"));
@@ -5505,98 +5531,7 @@ void PropertiesPalette::languageChange()
 		StyledLine->item(0)->setText( tr("No Style") );
 // 	updateCList();
 // 	updateCmsList();
-/* CB: doesnt look like we need to do this on languageChange anymore with qt4
-	NameEdit->setToolTip("");
-	Xpos->setToolTip("");
-	Ypos->setToolTip("");
-	Width->setToolTip("");
-	Height->setToolTip("");
-	Rotation->setToolTip("");
-	basepointLabel->setToolTip("");
-//	TopLeft->setToolTip("");
-//	TopRight->setToolTip("");
-//	BottomLeft->setToolTip("");
-//	BottomRight->setToolTip("");
-//	Center->setToolTip("");
-	FlipH->setToolTip("");
-	FlipV->setToolTip("");
-	Zup->setToolTip("");
-	ZDown->setToolTip("");
-	ZTop->setToolTip("");
-	ZBottom->setToolTip("");
-	LevelTxt->setToolTip("");
-	Locked->setToolTip("");
-	NoResize->setToolTip("");
-	NoPrint->setToolTip("");
-	textFlowOptions->setToolTip("");
-	textFlowDisabled->setToolTip("");
-	textFlowUsesFrameShape->setToolTip("");
-	textFlowUsesBoundingBox->setToolTip("");
-	textFlowUsesContourLine->setToolTip("");
-	textFlowUsesImageClipping->setToolTip("");
-	textFlowOptions2->setToolTip("");
-	textFlowDisabled2->setToolTip("");
-	textFlowUsesFrameShape2->setToolTip("");
-	textFlowUsesBoundingBox2->setToolTip("");
-	textFlowUsesContourLine2->setToolTip("");
-	textFlowUsesImageClipping2->setToolTip("");
 
-	//Fonts->setToolTip("");
-	Size->setToolTip("");
-	ChBase->setToolTip("");
-	ChScale->setToolTip("");
-	ChScaleV->setToolTip("");
-	TxStroke->setToolTip("");
-	TxFill->setToolTip("");
-	PM1->setToolTip("");
-	PM2->setToolTip("");
-	Revert->setToolTip("");
-	Extra->setToolTip("");
-	LineSp->setToolTip("");
-	linespacingButton->setToolTip("");
-	paraStyleCombo->setToolTip("");
-	charStyleCombo->setToolTip("");
-	paraStyleClear->setToolTip("");
-	charStyleClear->setToolTip("");
-//	langCombo->setToolTip("");
-
-	minWordTrackingSpinBox->setToolTip("");
-	normWordTrackingSpinBox->setToolTip("");
-	minGlyphExtSpinBox->setToolTip("");
-	maxGlyphExtSpinBox->setToolTip("");
-	optMarginCombo->setToolTip("");
-
-	LineMode->setToolTip("");
-	LStyle->setToolTip("");
-	LSize->setToolTip("");
-	LJoinStyle->setToolTip("");
-	LEndStyle->setToolTip("");
-	StyledLine->setToolTip("");
-
-	SCustom->setToolTip("");
-	EditShape->setToolTip("");
-	RoundRect->setToolTip("");
-	DCol->setToolTip("");
-	colgapLabel->setToolTip("");
-	dGap->setToolTip("");
-	DTop->setToolTip("");
-	DBottom->setToolTip("");
-	DLeft->setToolTip("");
-	DRight->setToolTip("");
-	TabsButton->setToolTip("");
-
-	FreeScale->setToolTip("");
-	imageXOffsetSpinBox->setToolTip("");
-	imageYOffsetSpinBox->setToolTip("");
-	imageXScaleSpinBox->setToolTip("");
-	imageYScaleSpinBox->setToolTip("");
-	keepImageWHRatioButton->setToolTip("");
-	keepFrameWHRatioButton->setToolTip("");
-	FrameScale->setToolTip("");
-	Aspect->setToolTip("");
-	InputP->setToolTip("");
-	MonitorI->setToolTip("");
-*/
 	NameEdit->setToolTip( tr("Name of selected object"));
 	Xpos->setToolTip( tr("Horizontal position of current basepoint"));
 	Ypos->setToolTip( tr("Vertical position of current basepoint"));
