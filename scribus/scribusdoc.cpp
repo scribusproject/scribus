@@ -15105,43 +15105,44 @@ void ScribusDoc::removeFromGroup(PageItem* item)
 	QTransform groupTrans = group->getTransform();
 	group->groupItemList.removeAll(item);
 	item->Parent = NULL;
-	QPointF itPos = itemTrans.map(QPointF(0, 0));
 	double grScXi = 1.0;
 	double grScYi = 1.0;
 	getScaleFromMatrix(itemTrans, grScXi, grScYi);
 	double gRot = getRotationDFromMatrix(groupTrans);
 	sizeItem(item->width() * grScXi, item->height() * grScYi, item, false, true, false);
+	if (group->imageFlippedH())
+	{
+		groupTrans.translate(group->width(), 0);
+		groupTrans.translate(-item->width(), 0);
+		groupTrans.scale(-1, 1);
+		if (item->isImageFrame() || item->isTextFrame() || item->isLatexFrame() || item->isOSGFrame() || item->isSymbol() || item->isGroup() || item->isSpiral())
+			item->flipImageH();
+		if (item->itemType() != PageItem::Line)
+		{
+			QTransform ma;
+			ma.scale(-1, 1);
+			item->PoLine.map(ma);
+			item->PoLine.translate(item->width(), 0);
+		}
+	}
+	if (group->imageFlippedV())
+	{
+		groupTrans.translate(0, group->height());
+		groupTrans.translate(0, -item->height());
+		groupTrans.scale(1, -1);
+		if (item->isImageFrame() || item->isTextFrame() || item->isLatexFrame() || item->isOSGFrame() || item->isSymbol() || item->isGroup() || item->isSpiral())
+			item->flipImageV();
+		if (item->itemType() != PageItem::Line)
+		{
+			QTransform ma;
+			ma.scale(1, -1);
+			item->PoLine.map(ma);
+			item->PoLine.translate(0, item->height());
+		}
+	}
+	QPointF itPos = groupTrans.map(QPointF(item->gXpos * grScXi, item->gYpos * grScYi));
 	double nX = itPos.x();
 	double nY = itPos.y();
-/*	if (gRot != 0)
-	{
-		if (itemTrans.m11() < 0)
-		{
-			nX -= item->width();
-			if (item->isImageFrame() || item->isTextFrame() || item->isLatexFrame() || item->isOSGFrame() || item->isSymbol() || item->isGroup() || item->isSpiral())
-				item->flipImageH();
-			if (item->itemType() != PageItem::Line)
-			{
-				QTransform ma;
-				ma.scale(-1, 1);
-				item->PoLine.map(ma);
-				item->PoLine.translate(item->width(), 0);
-			}
-		}
-		if (itemTrans.m22() < 0)
-		{
-			nY -= item->height();
-			if (item->isImageFrame() || item->isTextFrame() || item->isLatexFrame() || item->isOSGFrame() || item->isSymbol() || item->isGroup() || item->isSpiral())
-				item->flipImageV();
-			if (item->itemType() != PageItem::Line)
-			{
-				QTransform ma;
-				ma.scale(1, -1);
-				item->PoLine.map(ma);
-				item->PoLine.translate(0, item->height());
-			}
-		}
-	}*/
 	if (item->isTextFrame() || item->isPathText())
 	{
 		if (item->itemText.length() != 0)
