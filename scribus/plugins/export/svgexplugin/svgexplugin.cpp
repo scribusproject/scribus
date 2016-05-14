@@ -1222,7 +1222,7 @@ public:
 		paS += QString("L %1 %2 ").arg(rect.x() + rect.width()).arg(rect.y() + rect.height());
 		paS += QString("L %1 %2 ").arg(rect.x()).arg(rect.y() + rect.height());
 		paS += "Z";
-		QDomElement path = m_svg-> docu.createElement("path");
+		QDomElement path = m_svg->docu.createElement("path");
 		path.setAttribute("d", paS);
 		path.setAttribute("transform", m_svg->MatrixToStr(transform));
 		path.setAttribute("style", "fill:" + m_svg->SetColor(fillColor().color, fillColor().shade) + ";" + "stroke:none;");
@@ -1231,8 +1231,15 @@ public:
 
 	void drawObject(PageItem* item)
 	{
+		QTransform transform = matrix();
+		transform.translate(x() + item->gXpos, y() + item->gYpos);
+		transform.rotate(item->rotation());
+		transform.scale(scaleH(), scaleV());
+		QDomElement Group = m_svg->docu.createElement("g");
 		QDomElement layerGroup = m_svg->processInlineItem(item, m_trans, scaleH(), scaleV());
-		m_elem.appendChild(layerGroup);
+		Group.appendChild(layerGroup);
+		Group.setAttribute("transform", m_svg->MatrixToStr(transform));
+		m_elem.appendChild(Group);
 	}
 };
 
@@ -1346,7 +1353,7 @@ QDomElement SVGExPlug::processInlineItem(PageItem* embItem, QString trans, doubl
 {
 	QList<PageItem*> emG;
 	if (embItem->isGroup())
-		emG = embItem->getItemList();
+		emG = embItem->groupItemList;
 	else 
 		emG.append(embItem);
 
@@ -1358,6 +1365,13 @@ QDomElement SVGExPlug::processInlineItem(PageItem* embItem, QString trans, doubl
 		QString fill = getFillStyle(embedded);
 		QString stroke = "stroke:none";
 		stroke = getStrokeStyle(embedded);
+		QString transE = "";
+		if (embItem->isGroup())
+		{
+			transE = "translate("+FToStr(embedded->gXpos)+", "+FToStr(embedded->gYpos)+")";
+			if (embedded->rotation() != 0)
+				transE += " rotate("+FToStr(embedded->rotation())+")";
+		}
 		switch (embedded->itemType())
 		{
 			case PageItem::Arc:
@@ -1365,38 +1379,84 @@ QDomElement SVGExPlug::processInlineItem(PageItem* embItem, QString trans, doubl
 			case PageItem::PolyLine:
 			case PageItem::RegularPolygon:
 			case PageItem::Spiral:
-				obE = processPolyItem(embedded, trans, fill, stroke);
+				obE = processPolyItem(embedded, transE, fill, stroke);
 				if ((embedded->lineColor() != CommonStrings::None) && ((embedded->startArrowIndex() != 0) || (embedded->endArrowIndex() != 0)))
-					obE = processArrows(embedded, obE, trans);
+					obE = processArrows(embedded, obE, transE);
 				break;
 			case PageItem::Line:
-				obE = processLineItem(embedded, trans, stroke);
+				obE = processLineItem(embedded, transE, stroke);
 				if ((embedded->lineColor() != CommonStrings::None) && ((embedded->startArrowIndex() != 0) || (embedded->endArrowIndex() != 0)))
-					obE = processArrows(embedded, obE, trans);
+					obE = processArrows(embedded, obE, transE);
 				break;
 			case PageItem::ImageFrame:
 			case PageItem::LatexFrame:
-				obE = processImageItem(embedded, trans, fill, stroke);
+				obE = processImageItem(embedded, transE, fill, stroke);
 				break;
 			case PageItem::TextFrame:
 			case PageItem::PathText:
-				obE = processTextItem(embedded, trans, fill, stroke);
+				obE = processTextItem(embedded, transE, fill, stroke);
 				break;
 			case PageItem::Symbol:
-				obE = processSymbolItem(embedded, trans);
+				obE = processSymbolItem(embedded, transE);
+				break;
+			case PageItem::Group:
+				if (embedded->groupItemList.count() > 0)
+				{
+					obE = docu.createElement("g");
+					if (!embedded->AutoName)
+						obE.setAttribute("id", embedded->itemName());
+					if (embedded->GrMask > 0)
+						obE.setAttribute("mask", handleMask(embedded, embedded->xPos() - m_Doc->currentPage()->xOffset(), embedded->yPos() - m_Doc->currentPage()->yOffset()));
+					else
+					{
+						if (embedded->fillTransparency() != 0)
+							obE.setAttribute("opacity", FToStr(1.0 - embedded->fillTransparency()));
+					}
+					QString tr = trans;
+					if (embedded->imageFlippedH())
+					{
+						tr += QString(" translate(%1, 0.0)").arg(embedded->width());
+						tr += QString(" scale(-1.0, 1.0)");
+					}
+					if (embedded->imageFlippedV())
+					{
+						tr += QString(" translate(0.0, %1)").arg(embedded->height());
+						tr += QString(" scale(1.0, -1.0)");
+					}
+					tr += QString(" scale(%1, %2)").arg(embedded->width() / embedded->groupWidth).arg(embedded->height() / embedded->groupHeight);
+					obE.setAttribute("transform", tr);
+					obE.setAttribute("style", "fill:none; stroke:none");
+					if (embedded->groupClipping())
+					{
+						FPointArray clipPath = embedded->PoLine;
+						QTransform transform;
+						transform.scale(embedded->width() / embedded->groupWidth, embedded->height() / embedded->groupHeight);
+						transform = transform.inverted();
+						clipPath.map(transform);
+						QDomElement obc = createClipPathElement(&clipPath);
+						if (!obc.isNull())
+							obE.setAttribute("clip-path", "url(#"+ obc.attribute("id") + ")");
+						if (embedded->fillRule)
+							obE.setAttribute("clip-rule", "evenodd");
+						else
+							obE.setAttribute("clip-rule", "nonzero");
+					}
+					for (int em = 0; em < embedded->groupItemList.count(); ++em)
+					{
+						PageItem* embed = embedded->groupItemList.at(em);
+						ProcessItemOnPage(embed->gXpos, embed->gYpos, embed, &obE);
+					}
+				}
 				break;
 			default:
 				break;
 		}
-		QTransform mm;
-		if (scaleH != 1.0)
-			mm.scale(scaleH, 1);
-		if (scaleV != 1.0)
-			mm.scale(1, scaleV);
-		mm.rotate(embedded->rotation());
-		obE.setAttribute("transform", MatrixToStr(mm));
 		layerGroup.appendChild(obE);
 	}
+	QTransform mm;
+	if (embItem->isGroup())
+		mm.scale(embItem->width() / embItem->groupWidth, embItem->height() / embItem->groupHeight);
+	layerGroup.setAttribute("transform", MatrixToStr(mm));
 	return layerGroup;
 }
 
