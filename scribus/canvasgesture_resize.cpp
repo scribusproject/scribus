@@ -550,14 +550,13 @@ void ResizeGesture::adjustBounds(QMouseEvent *m)
 		|| m_handle == Canvas::SOUTHWEST || m_handle == Canvas::SOUTHEAST;
 	if (m_rotation == 0 || isCorner)
 	{
-		FPoint snappedPoint = m_doc->ApplyGridF(docPoint);
-		double x = snappedPoint.x(), y = snappedPoint.y();
+		FPoint snappedPoint = applyGrid(docPoint);
+		snappedPoint = applyGuides(snappedPoint);
 
-		m_doc->ApplyGuides(&x, &y);
-		m_doc->ApplyGuides(&x, &y,true);
-		if(x != snappedPoint.x() && m_handle != Canvas::NORTH && m_handle != Canvas::SOUTH)
+		double x = snappedPoint.x(), y = snappedPoint.y();
+		if (x != snappedPoint.x() && m_handle != Canvas::NORTH && m_handle != Canvas::SOUTH)
 			xSnap = x;
-		if(y != snappedPoint.y() && m_handle != Canvas::EAST && m_handle != Canvas::WEST)
+		if (y != snappedPoint.y() && m_handle != Canvas::EAST && m_handle != Canvas::WEST)
 			ySnap = y;
 //		if (m_doc->ApplyGuides(&x, &y))
 //			qDebug() << "guides applied:" << snappedPoint.x() << snappedPoint.y() << "to" << x << y;
@@ -747,7 +746,243 @@ void ResizeGesture::adjustBounds(QMouseEvent *m)
 	}
 }
 
+FPoint ResizeGesture::applyGrid(const FPoint& docPoint)
+{
+	int pointPage;
 
+	if (!m_doc->SnapGrid)
+		return docPoint;
+	FPoint snappedPoint = docPoint;
+
+	switch (m_handle)
+	{
+		case Canvas::NORTHWEST:
+			pointPage = m_doc->OnPage(docPoint.x(), docPoint.y());
+			if (pointPage >= 0)
+				snappedPoint = m_doc->ApplyGridF(docPoint);
+			else
+			{
+				FPoint tempPoint1 = m_doc->ApplyGridF(FPoint(docPoint.x(), m_bounds.bottom()));
+				FPoint tempPoint2 = m_doc->ApplyGridF(FPoint(m_bounds.right(), docPoint.y()));
+				snappedPoint.setXY(tempPoint1.x(), tempPoint2.y());
+			}
+			break;
+		case Canvas::NORTHEAST:
+			pointPage = m_doc->OnPage(docPoint.x(), docPoint.y());
+			if (pointPage >= 0)
+				snappedPoint = m_doc->ApplyGridF(docPoint);
+			else
+			{
+				FPoint tempPoint1 = m_doc->ApplyGridF(FPoint(docPoint.x(), m_bounds.bottom()));
+				FPoint tempPoint2 = m_doc->ApplyGridF(FPoint(m_bounds.left(), docPoint.y()));
+				snappedPoint.setXY(tempPoint1.x(), tempPoint2.y());
+			}
+			break;
+		case Canvas::SOUTHWEST:
+			pointPage = m_doc->OnPage(docPoint.x(), docPoint.y());
+			if (pointPage >= 0)
+				snappedPoint = m_doc->ApplyGridF(docPoint);
+			else
+			{
+				FPoint tempPoint1 = m_doc->ApplyGridF(FPoint(docPoint.x(), m_bounds.top()));
+				FPoint tempPoint2 = m_doc->ApplyGridF(FPoint(m_bounds.right(), docPoint.y()));
+				snappedPoint.setXY(tempPoint1.x(), tempPoint2.y());
+			}
+			break;
+		case Canvas::SOUTHEAST:
+			pointPage = m_doc->OnPage(docPoint.x(), docPoint.y());
+			if (pointPage >= 0)
+				snappedPoint = m_doc->ApplyGridF(docPoint);
+			else
+			{
+				FPoint tempPoint1 = m_doc->ApplyGridF(FPoint(docPoint.x(), m_bounds.top()));
+				FPoint tempPoint2 = m_doc->ApplyGridF(FPoint(m_bounds.left(), docPoint.y()));
+				snappedPoint.setXY(tempPoint1.x(), tempPoint2.y());
+			}
+			break;
+		case Canvas::NORTH:
+		case Canvas::SOUTH:
+			pointPage = m_doc->OnPage(docPoint.x(), docPoint.y());
+			if (pointPage >= 0)
+				snappedPoint = m_doc->ApplyGridF(docPoint);
+			else if (m_doc->OnPage(m_bounds.left(), docPoint.y()) >= 0)
+			{
+				FPoint tempPoint = m_doc->ApplyGridF(FPoint(m_bounds.left(), docPoint.y()));
+				snappedPoint.setY(tempPoint.y());
+			}
+			else if (m_doc->OnPage(m_bounds.right(), docPoint.y()) >= 0)
+			{
+				FPoint tempPoint = m_doc->ApplyGridF(FPoint(m_bounds.right(), docPoint.y()));
+				snappedPoint.setY(tempPoint.y());
+			}
+			break;
+		case Canvas::EAST:
+		case Canvas::WEST:
+			pointPage = m_doc->OnPage(docPoint.x(), docPoint.y());
+			if (pointPage >= 0)
+				snappedPoint = m_doc->ApplyGridF(docPoint);
+			else if (m_doc->OnPage(docPoint.x(), m_bounds.top()) >= 0)
+			{
+				FPoint tempPoint = m_doc->ApplyGridF(FPoint(docPoint.x(), m_bounds.top()));
+				snappedPoint.setX(tempPoint.x());
+			}
+			else if (m_doc->OnPage(docPoint.x(), m_bounds.bottom()) >= 0)
+			{
+				FPoint tempPoint = m_doc->ApplyGridF(FPoint(docPoint.x(), m_bounds.bottom()));
+				snappedPoint.setX(tempPoint.x());
+			}
+			break;
+		default:
+			snappedPoint = m_doc->ApplyGridF(docPoint);
+			break;
+	}
+
+	/*double gx = snappedPoint.x(), gxo = docPoint.x();
+	double gy = snappedPoint.y(), gyo = docPoint.y();
+	if ((fabs(gx - gxo) > (m_doc->guidesPrefs().guideRad / m_canvas->scale())) || 
+		(fabs(gy - gyo) > (m_doc->guidesPrefs().guideRad / m_canvas->scale())))
+	{
+		snappedPoint = docPoint;
+	}*/
+	return snappedPoint;
+}
+
+FPoint ResizeGesture::applyGuides(const FPoint& docPoint)
+{
+	int pointPage;
+
+	if (!m_doc->SnapGuides)
+		return docPoint;
+	FPoint snappedPoint = docPoint;
+
+	switch (m_handle)
+	{
+		case Canvas::NORTHWEST:
+			pointPage = m_doc->OnPage(docPoint.x(), docPoint.y());
+			if (pointPage >= 0)
+			{
+				m_doc->ApplyGuides(&snappedPoint);
+				m_doc->ApplyGuides(&snappedPoint, true);
+			}
+			else
+			{
+				FPoint tempPoint1(docPoint.x(), m_bounds.bottom());
+				m_doc->ApplyGuides(&tempPoint1);
+				m_doc->ApplyGuides(&tempPoint1, true);
+				FPoint tempPoint2(m_bounds.right(), docPoint.y());
+				m_doc->ApplyGuides(&tempPoint2);
+				m_doc->ApplyGuides(&tempPoint2, true);
+				snappedPoint.setXY(tempPoint1.x(), tempPoint2.y());
+			}
+			break;
+		case Canvas::NORTHEAST:
+			pointPage = m_doc->OnPage(docPoint.x(), docPoint.y());
+			if (pointPage >= 0)
+			{
+				m_doc->ApplyGuides(&snappedPoint);
+				m_doc->ApplyGuides(&snappedPoint, true);
+			}
+			else
+			{
+				FPoint tempPoint1(docPoint.x(), m_bounds.bottom());
+				m_doc->ApplyGuides(&tempPoint1);
+				m_doc->ApplyGuides(&tempPoint1, true);
+				FPoint tempPoint2(m_bounds.left(), docPoint.y());
+				m_doc->ApplyGuides(&tempPoint2);
+				m_doc->ApplyGuides(&tempPoint2, true);
+				snappedPoint.setXY(tempPoint1.x(), tempPoint2.y());
+			}
+			break;
+		case Canvas::SOUTHWEST:
+			pointPage = m_doc->OnPage(docPoint.x(), docPoint.y());
+			if (pointPage >= 0)
+			{
+				m_doc->ApplyGuides(&snappedPoint);
+				m_doc->ApplyGuides(&snappedPoint, true);
+			}
+			else
+			{
+				FPoint tempPoint1(docPoint.x(), m_bounds.top());
+				m_doc->ApplyGuides(&tempPoint1);
+				m_doc->ApplyGuides(&tempPoint1, true);
+				FPoint tempPoint2(m_bounds.right(), docPoint.y());
+				m_doc->ApplyGuides(&tempPoint2);
+				m_doc->ApplyGuides(&tempPoint2, true);
+				snappedPoint.setXY(tempPoint1.x(), tempPoint2.y());
+			}
+			break;
+		case Canvas::SOUTHEAST:
+			pointPage = m_doc->OnPage(docPoint.x(), docPoint.y());
+			if (pointPage >= 0)
+			{
+				m_doc->ApplyGuides(&snappedPoint);
+				m_doc->ApplyGuides(&snappedPoint, true);
+			}
+			else
+			{
+				FPoint tempPoint1(docPoint.x(), m_bounds.top());
+				m_doc->ApplyGuides(&tempPoint1);
+				m_doc->ApplyGuides(&tempPoint1, true);
+				FPoint tempPoint2(m_bounds.left(), docPoint.y());
+				m_doc->ApplyGuides(&tempPoint2);
+				m_doc->ApplyGuides(&tempPoint2, true);
+				snappedPoint.setXY(tempPoint1.x(), tempPoint2.y());
+			}
+			break;
+		case Canvas::NORTH:
+		case Canvas::SOUTH:
+			pointPage = m_doc->OnPage(docPoint.x(), docPoint.y());
+			if (pointPage >= 0)
+			{
+				m_doc->ApplyGuides(&snappedPoint);
+				m_doc->ApplyGuides(&snappedPoint, true);
+			}
+			else if (m_doc->OnPage(m_bounds.left(), docPoint.y()) >= 0)
+			{
+				FPoint tempPoint(m_bounds.left(), docPoint.y());
+				m_doc->ApplyGuides(&tempPoint);
+				m_doc->ApplyGuides(&tempPoint, true);
+				snappedPoint.setY(tempPoint.y());
+			}
+			else if (m_doc->OnPage(m_bounds.right(), docPoint.y()) >= 0)
+			{
+				FPoint tempPoint(m_bounds.right(), docPoint.y());
+				m_doc->ApplyGuides(&tempPoint);
+				m_doc->ApplyGuides(&tempPoint, true);
+				snappedPoint.setY(tempPoint.y());
+			}
+			break;
+		case Canvas::EAST:
+		case Canvas::WEST:
+			pointPage = m_doc->OnPage(docPoint.x(), docPoint.y());
+			if (pointPage >= 0)
+			{
+				m_doc->ApplyGuides(&snappedPoint);
+				m_doc->ApplyGuides(&snappedPoint, true);
+			}
+			else if (m_doc->OnPage(docPoint.x(), m_bounds.top()) >= 0)
+			{
+				FPoint tempPoint(docPoint.x(), m_bounds.top());
+				m_doc->ApplyGuides(&tempPoint);
+				m_doc->ApplyGuides(&tempPoint, true);
+				snappedPoint.setX(tempPoint.x());
+			}
+			else if (m_doc->OnPage(docPoint.x(), m_bounds.bottom()) >= 0)
+			{
+				FPoint tempPoint(docPoint.x(), m_bounds.bottom());
+				m_doc->ApplyGuides(&tempPoint);
+				m_doc->ApplyGuides(&tempPoint, true);
+				snappedPoint.setX(tempPoint.x());
+			}
+			break;
+		default:
+			m_doc->ApplyGuides(&snappedPoint);
+			m_doc->ApplyGuides(&snappedPoint, true);
+			break;
+	}
+
+	return snappedPoint;
+}
 
 void ResizeGesture::mousePressEvent(QMouseEvent *m)
 {

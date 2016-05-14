@@ -73,6 +73,10 @@ public:
 private:
 	void adjustBounds(QMouseEvent *m);
 	void doResize(bool scaleContent);
+
+	FPoint applyGrid(const FPoint& docPoint);
+	FPoint applyGuides(const FPoint& docPoint);
+
 	Canvas::FrameHandle m_handle;
 	double m_rotation;
 	double m_origRatio;
