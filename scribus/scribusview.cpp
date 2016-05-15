@@ -1024,21 +1024,51 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 		{
 			if ((fi.exists()) && (!img))
 			{
-				QByteArray file;
-				QTextCodec *codec = QTextCodec::codecForLocale();
-				// TODO create a Dialog for selecting the codec
-				if (loadRawText(url.toLocalFile(), file))
+				gtGetText* gt = new gtGetText(Doc);
+				QStringList exts = gt->getSupportedTypes();
+				if (exts.contains(fi.suffix().toLower()))
 				{
-					QString txt = codec->toUnicode( file.data() );
-					txt.replace(QRegExp("\r"), QChar(13));
-					txt.replace(QRegExp("\n"), QChar(13));
-					txt.replace(QRegExp("\t"), QChar(9));
-					b->itemText.insertChars(txt, true);
-					if (Doc->docHyphenator->AutoCheck)
-						Doc->docHyphenator->slotHyphenate(b);
-					b->invalidateLayout();
-					b->update();
+					ImportSetup impsetup;
+					impsetup.runDialog = true;
+					impsetup.encoding = "";
+					impsetup.prefixNames = true;
+					impsetup.textOnly = false;
+					impsetup.importer = -1;
+					impsetup.filename = url.toLocalFile();
+					if (b->itemText.length() != 0)
+					{
+						int t = ScMessageBox::warning(this, CommonStrings::trWarning, tr("Do you really want to clear all your text?"),
+									QMessageBox::Yes | QMessageBox::No,
+									QMessageBox::No,	// GUI default
+									QMessageBox::Yes);	// batch default
+						if (t == QMessageBox::No)
+						{
+							delete gt;
+							return;
+						}
+					}
+					gt->launchImporter(impsetup.importer, impsetup.filename, impsetup.textOnly, impsetup.encoding, false, impsetup.prefixNames, b);
+					m_ScMW->updateFromDrop();
 				}
+				else
+				{
+					QByteArray file;
+					QTextCodec *codec = QTextCodec::codecForLocale();
+					// TODO create a Dialog for selecting the codec
+					if (loadRawText(url.toLocalFile(), file))
+					{
+						QString txt = codec->toUnicode( file.data() );
+						txt.replace(QRegExp("\r"), QChar(13));
+						txt.replace(QRegExp("\n"), QChar(13));
+						txt.replace(QRegExp("\t"), QChar(9));
+						b->itemText.insertChars(txt, true);
+					}
+				}
+				if (Doc->docHyphenator->AutoCheck)
+					Doc->docHyphenator->slotHyphenate(b);
+				b->invalidateLayout();
+				b->update();
+				delete gt;
 			}
 		}
 		emit DocChanged();

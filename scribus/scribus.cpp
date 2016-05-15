@@ -3931,6 +3931,20 @@ void ScribusMainWindow::slotGetContent()
 	}
 }
 
+void ScribusMainWindow::updateFromDrop()
+{
+	m_styleManager->setDoc(doc);
+	marksManager->setDoc(doc);
+	nsEditor->setDoc(doc);
+	inlinePalette->unsetDoc();
+	inlinePalette->setDoc(doc);
+	if (outlinePalette->isVisible())
+		outlinePalette->BuildTree();
+	propertiesPalette->updateColorList();
+	emit UpdateRequest(reqArrowStylesUpdate | reqLineStylesUpdate | reqStyleComboDocUpdate | reqInlinePalUpdate);
+	symbolPalette->updateSymbolList();
+}
+
 void ScribusMainWindow::slotGetContent2() // kk2006
 {
 	if (doc->m_Selection->isEmpty())

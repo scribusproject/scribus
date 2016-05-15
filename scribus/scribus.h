@@ -190,6 +190,7 @@ public:
 	void restoreAddPage(SimpleState *state, bool isUndo);
 	void restoreDeletePage(SimpleState *state, bool isUndo);
 	void setPreviewToolbar();
+	void updateFromDrop();
 	struct CopyContentsBuffer contentsBuffer;
 	bool internalCopy;
 	QString internalCopyBuffer;
