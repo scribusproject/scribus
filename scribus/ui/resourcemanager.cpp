@@ -226,22 +226,20 @@ void ResourceManager::updateInstalledPalettes()
 	installedTableWidget->setRowCount(dictionaryMap.count());
 	installedTableWidget->setColumnCount(2);
 	installedTableWidget->setSortingEnabled(false);
-	if (dictionaryMap.count()>0)
+
+	QMapIterator<QString, QString> i(dictionaryMap);
+	int row=0;
+	while (i.hasNext())
 	{
-		QMapIterator<QString, QString> i(dictionaryMap);
-		int row=0;
-		while (i.hasNext())
-		{
-			i.next();
-			int column=0;
-			QTableWidgetItem *newItem1 = new QTableWidgetItem(i.key());
-			newItem1->setFlags(newItem1->flags() & ~Qt::ItemIsEditable & ~Qt::ItemIsSelectable);
-			installedTableWidget->setItem(row, column++, newItem1);
-			QTableWidgetItem *newItem2 = new QTableWidgetItem(i.value());
-			newItem2->setFlags(newItem1->flags());
-			installedTableWidget->setItem(row, column++, newItem2);
-			++row;
-		}
+		i.next();
+		int column=0;
+		QTableWidgetItem *newItem1 = new QTableWidgetItem(i.key());
+		newItem1->setFlags(newItem1->flags() & ~Qt::ItemIsEditable & ~Qt::ItemIsSelectable);
+		installedTableWidget->setItem(row, column++, newItem1);
+		QTableWidgetItem *newItem2 = new QTableWidgetItem(i.value());
+		newItem2->setFlags(newItem1->flags());
+		installedTableWidget->setItem(row, column++, newItem2);
+		++row;
 	}
 	QStringList headers;
 	headers << tr("Description") << tr("Location") ;
