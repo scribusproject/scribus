@@ -89,12 +89,12 @@
     <message>
         <location filename="../../scribus/ui/about.cpp" line="307"/>
         <source>Refactoring text layout code and the new boxes model, Oman House of Open Source Technology team:</source>
-        <translation type="unfinished"></translation>
+        <translation>Refactoring codice per il layout del testo e nuovo modello boxes, Oman House of Open Source Technology:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/about.cpp" line="319"/>
         <source>Official Translations and Translators (in order of locale shortcode):</source>
-        <translation type="unfinished"></translation>
+        <translation>Traduzioni e traduttori ufficiali:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/about.cpp" line="335"/>
@@ -2768,58 +2768,58 @@
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.cpp" line="180"/>
         <source>Select a barcode family</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Seleziona una famiglia di codici a barre</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.cpp" line="184"/>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.cpp" line="367"/>
         <source>Select a barcode format</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Seleziona un formato di codice a barre</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.cpp" line="190"/>
         <source>Point of Sale</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Punto di vendita</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.cpp" line="196"/>
         <source>Supply Chain</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Supply Chain</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.cpp" line="203"/>
         <source>Two-dimensional symbols</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Simboli bidimensionali</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.cpp" line="210"/>
         <source>One-dimensional symbols</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Simboli monodimensionali</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.cpp" line="218"/>
         <source>GS1 DataBar family</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Famiglia GS1 DataBar</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.cpp" line="226"/>
         <source>Postal symbols</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Simboli postali</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.cpp" line="234"/>
         <source>Pharmaceutical symbols</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Simboli farmaceutici</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.cpp" line="243"/>
         <source>Less-used symbols</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Altri simboli</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.cpp" line="253"/>
         <source>GS1 Composite symbols</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Simboli GS1 Composite</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.cpp" line="386"/>
@@ -2842,7 +2842,7 @@
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="71"/>
         <source>Display checksum</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Mostra checksum</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="81"/>
@@ -2852,7 +2852,7 @@
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="84"/>
         <source>Show readable text</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Mostra testo</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="97"/>
@@ -2872,32 +2872,32 @@
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="266"/>
         <source>Barcode Family:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Famiglia codice:</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="346"/>
         <source>Advanced options for the barcode</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Opzioni avanzate per il codice a barre</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="476"/>
         <source>Version of the symbol</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Versione del simbolo</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="489"/>
         <source>Error correction level</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Livello correzione errore</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="289"/>
         <source>&amp;Barcode:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Codice a &amp;Barre:</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="321"/>
         <source>&amp;Contents:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Contenuto:</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="384"/>
@@ -2907,12 +2907,12 @@
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="371"/>
         <source>The contents encoded in the barcode</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Contenuto codificato nel codice a barre</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="308"/>
         <source>Select one of the available barcode types here</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Seleziona un tipo dei codici a barre qui disponibili</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="457"/>
@@ -2922,7 +2922,7 @@
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="496"/>
         <source>Error correction level:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Livello correzione errore:</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="104"/>
@@ -2952,7 +2952,7 @@
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="127"/>
         <source>Add checksum</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Aggiungi checksum</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="184"/>
@@ -12337,7 +12337,7 @@ Se nessuna maniglia è selezionata, saranno tutte riportate alla posizione inizi
     <message>
         <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1030"/>
         <source>Hide Nodes</source>
-        <translation type="unfinished"></translation>
+        <translation>Nascondi nodi</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1031"/>
@@ -13397,7 +13397,8 @@ Verificalo e prova nuovamente.</translation>
         <location filename="../../scribus/pdflib_core.cpp" line="10213"/>
         <source>Failed to embed the PDF file : %1.
 Please disable experimental PDF and PS embedding and try again.</source>
-        <translation type="unfinished"></translation>
+        <translation>Impossibile incorporare il file PDF: %1.
+Disabilita l&apos;incorporazione sperimentale dei file PDF e PS e prova nuovamente.</translation>
     </message>
     <message>
         <location filename="../../scribus/pdflib_core.cpp" line="11389"/>
@@ -14202,7 +14203,7 @@ Please disable experimental PDF and PS embedding and try again.</source>
         <location filename="../../scribus/ui/pagepalette.cpp" line="204"/>
         <location filename="../../scribus/ui/pagepalette.cpp" line="239"/>
         <source>Manage Masterpages</source>
-        <translation type="unfinished"></translation>
+        <translation>Gestione pagine mastro</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pagepalette.cpp" line="222"/>
@@ -21692,7 +21693,7 @@ Un valore uguale a 0 significa sillabazioni illimitate.</translation>
     <message>
         <location filename="../../scribus/ui/prefs_userinterface.cpp" line="60"/>
         <source>Time before resize or move starts allows for a slight delay between when you click and the operation happens to avoid unintended moves. This can be helpful when dealing with mouse sensitivity settings or accessibility issues related to ergonomic mice, touch pads or moveability of the wrists and hands.</source>
-        <translation type="unfinished"></translation>
+        <translation>Permette di definire un piccolo ritardo tra il clic del mouse e l&apos;operazione per evitare azioni involontarie. Questa opzione può risultare utile per impostare la sensibiltà di mouse o touchpad.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_userinterface.cpp" line="61"/>
@@ -31012,7 +31013,7 @@ Si prega di sceglierne un altro.</translation>
     <message>
         <location filename="../../scribus/ui/recoverdialog.cpp" line="50"/>
         <source>Click here to toggle your choice</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Clicca qui per selezionare la tua scelta</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/recoverdialog.cpp" line="51"/>
@@ -31028,7 +31029,7 @@ Si prega di sceglierne un altro.</translation>
     <message>
         <location filename="../../scribus/ui/recoverdialog.cpp" line="141"/>
         <source>Emergency</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Emergenza</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/recoverdialog.cpp" line="153"/>
@@ -32091,7 +32092,7 @@ Si prega di sceglierne un altro.</translation>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.cpp" line="200"/>
         <source>Restart:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ricomincia:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.cpp" line="233"/>
@@ -40659,7 +40660,7 @@ Inserire un nome diverso.</translation>
     <message>
         <location filename="../../scribus/ui/gtfiledialog.cpp" line="29"/>
         <source>Prepend the item name to the Style name in Scribus</source>
-        <translation type="unfinished"></translation>
+        <translation>Precedi il nome dello stile in Scribus con il nome dell&apos;oggetto</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/gtfiledialog.ui" line="14"/>
@@ -40684,7 +40685,7 @@ Inserire un nome diverso.</translation>
     <message>
         <location filename="../../scribus/ui/gtfiledialog.ui" line="56"/>
         <source>Prefix Styles with Item Name</source>
-        <translation type="unfinished"></translation>
+        <translation>Nome oggetto prefisso stile</translation>
     </message>
 </context>
 <context>
