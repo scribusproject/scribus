@@ -63,6 +63,7 @@ FormatsManager::FormatsManager()
 	MagickFree(magick_array);
 	//qDebug()<<gmagickformats;
 	gmagickformats.removeAll("eps");
+	gmagickformats.removeAll("html");
 	gmagickformats.removeAll("pdf");
 	gmagickformats.removeAll("pict");
 	gmagickformats.removeAll("ps");
@@ -70,6 +71,7 @@ FormatsManager::FormatsManager()
 	gmagickformats.removeAll("svg");
 	gmagickformats.removeAll("svgz");
 	gmagickformats.removeAll("tiff");
+	gmagickformats.removeAll("txt");
 	gmagickformats.removeAll("wmf");
 	gmagickformats.removeAll("wpg");
 	m_fmts.insert(FormatsManager::GMAGICK, gmagickformats);
