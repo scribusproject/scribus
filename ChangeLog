@@ -1,25 +1,49 @@
 Scribus - 1.5.2 (Released 2016-05-xx)
-=======================================
-- 0014005: [Usability] Moved object double framed (outcome and relationship: alignment problems) (fschmid) - resolved.
-- 0010748: [Scripter] Scripter: Get and Apply a Master Page (cbradney) - resolved.
-- 0014007: [Usability] When using Line editor spinbox, value grow abnormally (jghali) - resolved.
-- 0013981: [Story Editor / Text Frames] Text line spacing sometimes not correct (jghali) - resolved.
-- 0013535: [Fonts] Cannot change fonts in story editor - resolved.
+=========================================
+- 0013204: [Usability] Unusably tiny tool icons on HiDPI screen on Ubuntu Unity desktop (fschmid) - resolved.
+- 0014043: [Usability] Ungrouping with flipped objects, objects are not positioned correctly (fschmid) - resolved.
 - 0013242: [Story Editor / Text Frames] changing text size spinboxes in SE loses focus on intended text (+ mysteriously increments text size +1) - resolved.
-- 0013971: [Tables] If you paste text in the table, the program will abort. (jghali) - resolved.
 - 0013894: [Typography] "Paragraph Effects" for numbered (or un-numbered) lists get removed when creating a new line or pressing backspace (jghali) - resolved.
-- 0013682: [Printing] Cups APIs outdated and need fixing (fschmid) - resolved.
 - 0013896: [Usability] Widgets inconsistently enabled in colors tab of PDF export settings in Document Setup (jghali) - resolved.
 - 0013897: [General] Pathtext distance from path not working in r21140 (jghali) - resolved.
 - 0013869: [Typography] DropCaps do not work correctly on 1st Paragraph (jghali) - resolved.
 - 0013852: [Import / Export] XPS export of Text is broken. (fschmid) - resolved.
 - 0013107: [OS-Win32] Wrong language on document closing dialogue: Save - Close without Saving - Cancel (cbradney) - resolved.
+- 0014062: [General] Text aligned to baseline grid in 1.4.x is loaded jumping even lines in 1.5.2.svn (jghali) - closed.
+- 0003725: [Usability] wrong snapping when resizing objects off page (jghali) - closed.
+- 0007312: [User Interface] Drag/Drop of ODT to text frame outputs gibberish (fschmid) - closed.
+- 0014052: [Translation] unnecessary placeholder text in translation file (cbradney) - closed.
+- 0014058: [Translation] Italian translation update for 1.5.2.svn (jghali) - closed.
+- 0014051: [Build System] TravisCI update Trusty Linux builds to Qt5.6 (cbradney) - closed.
+- 0012067: [Usability] Inline Items are wrongly placed in Text Frames (fschmid) - closed.
+- 0013971: [Tables] If you paste text in the table, the program will abort. (jghali) - closed.
+- 0011359: [Story Editor / Text Frames] Missing redraw of inline frames (fschmid) - closed.
+- 0012921: [Canvas] Snap to grid doesn't work if frame is partially outside page (jghali) - closed.
+- 0014009: [Usability] Objects in rotated groups are loosing it's position on ungrouping (fschmid) - closed.
+- 0008955: [Scrapbook] manual tracking is lost when add item from scrapbook (fschmid) - closed.
+- 0014021: [Canvas] Widened & Rotated line that is grouped with another object shows abnormal outline when grouped (jghali) - closed.
+- 0014031: [General] in the shape dialog, "preview object" should be "hide nodes" (fschmid) - closed.
+- 0013504: [Graphics / Image Frames] rhomb color gradient is not adjustable in % (fschmid) - closed.
+- 0014035: [Usability] Rotated object popup help show too large value (jghali) - closed.
+- 0014029: [User Interface] Shape palette layout (fschmid) - closed.
+- 0012108: [User Interface] Wrong caption for Edit Master Pages dialog (fschmid) - closed.
+- 0013919: [Canvas] Rotated line shows duplicated stacked line when previewed (while moving) (fschmid) - closed.
+- 0013829: [Canvas] Ability to drag and drop import multiple images at the same time (fschmid) - closed.
+- 0014010: [Import / Export] ODT Importer Append completely overwrites text frame (fschmid) - closed.
+- 0013682: [Printing] Cups APIs outdated and need fixing (fschmid) - closed.
+- 0014015: [Story Editor / Text Frames] Hyphen displayed incorrectly as another character (jghali) - closed.
+- 0013535: [Fonts] Cannot change fonts in story editor - closed.
+- 0013981: [Story Editor / Text Frames] Text line spacing sometimes not correct (jghali) - closed.
+- 0014016: [Import / Export] crash loading file (fschmid) - closed.
+- 0013158: [Story Editor / Text Frames] 2-key character input issues (with deadkey) (JLuc) - closed.
+- 0014005: [Usability] Moved object double framed (outcome and relationship: alignment problems) (fschmid) - closed.
+- 0014007: [Usability] When using Line editor spinbox, value grow abnormally (jghali) - closed.
+- 0010748: [Scripter] Scripter: Get and Apply a Master Page (cbradney) - closed.
 - 0014003: [Story Editor / Text Frames] Grouped single linked text frame with another object has missing refresh text arrow issue (fschmid) - closed.
 - 0013996: [Story Editor / Text Frames] Grouping text frames will result in a loss of chained text arrows (fschmid) - closed.
 - 0013579: [Usability] Entering masterpage edit mode should exit preview mode (fschmid) - closed.
 - 0012172: [User Interface] Custom line type widget too small (jghali) - closed.
 - 0010332: [Fonts] Kerning is incorrect when "All Caps" is applied (jghali) - closed.
-- 0013829: [Canvas] Ability to drag and drop import multiple images at the same time (fschmid) - closed.
 - 0013992: [Shape Drawing] Node Editor lacks a preview function (fschmid) - closed.
 - 0013959: [Story Editor / Text Frames] Grouping text frames will result in a loss of chained text areas (jghali) - closed.
 - 0013998: [Import / Export] Widget activation issue in font pane of PDF export dialog (JLuc) - closed.
