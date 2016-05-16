@@ -405,6 +405,7 @@ void LayerPalette::printLayer()
 	{
 		m_Doc->setLayerPrintable(layerID,((QCheckBox*)(senderBox))->isChecked());
 		setActiveLayer(Table->currentRow(), -1);
+		emit LayerChanged();
 	}
 }
 
