@@ -1,11 +1,11 @@
-=What’s New in Scribus 1.5.1?=
+=What’s New in Scribus 1.5.2?=
 
 
 This is a cursory overview over the most important changes in Scribus compared to the latest stable version 1.4.x.
  
 Please note that the file format has changed and is not backwardly compatible with any prior stable version (1.4.x or earlier). To be precise, you will not be able to open 1.5.x files with version 1.4.x or any earlier version.
 
-Also note that the 1.5.x series is not an officially stable version. Instead, all 1.5.x versions are development candidates of the upcoming stable Scribus 1.6.0! If you try to do some serious work with 1.5.x, you do so at your own peril. That being said, the Scribus Team considers Scribus 1.5.1 to be stable enough to be used for daily work. Features that are already in 1.4.x will work as reliably and in many cases even better than in 1.4.x.
+Also note that the 1.5.x series is not an officially stable version. Instead, all 1.5.x versions are development candidates of the upcoming stable Scribus 1.6.0! If you try to do some serious work with 1.5.x, you do so at your own peril. That being said, the Scribus Team considers Scribus 1.5.2 to be stable enough to be used for daily work. Features that are already in 1.4.x will work as reliably and in many cases even better than in 1.4.x.
 
 
 ￼
@@ -68,7 +68,9 @@ A new feature-rich plug-in called “Picture Browser” enables asset management
 ￼
 ===L*a*b* and HLC colors in Scribus===
 
-Support for CIE L*a*b* and CIE HLC color models: As of version 1.5.1 Scribus supports the CIE L*a*b* color space and its user-friendly variant HLC in almost all color-related dialogs. You can now add or convert existing colors using L*a*b* or HLC. 
+- Support for CIE L*a*b* and CIE HLC color models: As of version 1.5.1 Scribus supports the CIE L*a*b* color space and its user-friendly variant HLC in almost all color-related dialogs. You can now add or convert existing colors using L*a*b* or HLC.
+
+- Availability of more than 300 color palettes: As of version 1.5.2, Scribus provides access to the more than 300 mostly commercial color palettes of the Open Colour Systems Collection in the CIE L*a*b color space via the Resource Manager.
 ￼
 ===The unified Colors & Fills Manager===
 
@@ -156,11 +158,6 @@ Note that the Online Manual will probably not be updated until the release of th
 ==Known Issues in 1.5==
 
 - Properties Palette functionality has grown significantly and needs to be split into separate palettes later in the 1.5.x series.
-- CTL (Complex Text Layout) like RTL/CJK is not supported yet (but is under development).
-- Diacritic marks in Text Editor or directly into a text box may not be possible (depending on OS/distro).
-- Undo/Redo functionality may not be reliable for certain new features yet.
-- Certain scripts that come bundled with Scribus do not work.
-- Trackpads may cause strange mouse behavior on the Scribus canvas. 
-
+- Certain scripts that come bundled with Scribus may not work.
 
 
