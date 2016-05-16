@@ -1,14 +1,20 @@
-Scribus - 1.5.2 (Released 2016-05-xx)
+Scribus - 1.5.2 (Released 2016-05-17)
 =========================================
-- 0013204: [Usability] Unusably tiny tool icons on HiDPI screen on Ubuntu Unity desktop (fschmid) - resolved.
-- 0014043: [Usability] Ungrouping with flipped objects, objects are not positioned correctly (fschmid) - resolved.
-- 0013242: [Story Editor / Text Frames] changing text size spinboxes in SE loses focus on intended text (+ mysteriously increments text size +1) - resolved.
-- 0013894: [Typography] "Paragraph Effects" for numbered (or un-numbered) lists get removed when creating a new line or pressing backspace (jghali) - resolved.
-- 0013896: [Usability] Widgets inconsistently enabled in colors tab of PDF export settings in Document Setup (jghali) - resolved.
-- 0013897: [General] Pathtext distance from path not working in r21140 (jghali) - resolved.
-- 0013869: [Typography] DropCaps do not work correctly on 1st Paragraph (jghali) - resolved.
-- 0013852: [Import / Export] XPS export of Text is broken. (fschmid) - resolved.
-- 0013107: [OS-Win32] Wrong language on document closing dialogue: Save - Close without Saving - Cancel (cbradney) - resolved.
+- 0010723: [User Interface] Incorrect rubber band box selection bounds after selecting text. - closed.
+- 0013465: [User Interface] Drag/Drop of HTML to text frame (fschmid) - closed.
+- 0014044: [Translation] Duplicate "Pfad glätten" in german translation (christoph_s) - closed.
+- 0014059: [General] "Print Layer" is not in sync with Preview Mode (fschmid) - closed.
+- 0014060: [Integration] Crash when using dropping image onto image frame via digikam or nemo (fschmid) - closed.
+- 0014064: [Canvas] bezier curve + text frame + text to path = crash (fschmid) - closed.
+- 0013107: [OS-Win32] Wrong language on document closing dialogue: Save - Close without Saving - Cancel (cbradney) - closed.
+- 0013852: [Import / Export] XPS export of Text is broken. (fschmid) - closed.
+- 0013869: [Typography] DropCaps do not work correctly on 1st Paragraph (jghali) - closed.
+- 0013894: [Typography] "Paragraph Effects" for numbered (or un-numbered) lists get removed when creating a new line or pressing backspace (jghali) - closed.
+- 0013896: [Usability] Widgets inconsistently enabled in colors tab of PDF export settings in Document Setup (jghali) - closed.
+- 0013897: [General] Pathtext distance from path not working in r21140 (jghali) - closed.
+- 0013204: [Usability] Unusably tiny tool icons on HiDPI screen on Ubuntu Unity desktop (fschmid) - closed.
+- 0013242: [Story Editor / Text Frames] changing text size spinboxes in SE loses focus on intended text (+ mysteriously increments text size +1) - closed.
+- 0014043: [Usability] Ungrouping with flipped objects, objects are not positioned correctly (fschmid) - closed.
 - 0014062: [General] Text aligned to baseline grid in 1.4.x is loaded jumping even lines in 1.5.2.svn (jghali) - closed.
 - 0003725: [Usability] wrong snapping when resizing objects off page (jghali) - closed.
 - 0007312: [User Interface] Drag/Drop of ODT to text frame outputs gibberish (fschmid) - closed.
