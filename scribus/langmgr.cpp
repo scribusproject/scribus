@@ -481,7 +481,7 @@ void LanguageManager::generateLangList()
 	m_langTable.append(LangDef("phk",      "",         "Phake",                   QObject::tr("Phake")));
 	m_langTable.append(LangDef("pih",      "",         "Pitcairn-Norfolk",        QObject::tr("Pitcairn-Norfolk")));
 	m_langTable.append(LangDef("pcd",      "",         "Picard",                  QObject::tr("Picard")));
-	m_langTable.append(LangDef("pms",      "",         "Piemontese",              QObject::tr("Piemontese")));
+	m_langTable.append(LangDef("pms",      "",         "Piedmontese",             QObject::tr("Piedmontese")));
 	m_langTable.append(LangDef("pl",       "pl_PL",    "Polish",                  QObject::tr("Polish")));
 	m_langTable.append(LangDef("pap",      "",         "Papiamento",              QObject::tr("Papiamento")));
 	m_langTable.append(LangDef("pt",       "pt_PT",    "Portuguese",              QObject::tr("Portuguese")));
