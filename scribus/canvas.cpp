@@ -671,7 +671,7 @@ bool Canvas::adjustBuffer()
 	{
 //		qDebug() << "adjust buffer: invalid buffer, viewport" << viewport;
 		m_bufferRect = viewport;
-		m_buffer = QPixmap(m_bufferRect.width(), m_bufferRect.height());
+		m_buffer = createPixmap(m_bufferRect.width(), m_bufferRect.height());
 		fillBuffer(&m_buffer, m_bufferRect.topLeft(), m_bufferRect);
 		ret = true;
 #if DRAW_DEBUG_LINES
@@ -699,8 +699,7 @@ bool Canvas::adjustBuffer()
 		{
 //			qDebug() << "adjust buffer: fresh buffer" << m_bufferRect << "-->" << newRect;
 			m_bufferRect = newRect;
-// 			m_buffer = QImage(m_bufferRect.width(), m_bufferRect.height(), QImage::Format_ARGB32);
-			m_buffer = QPixmap(m_bufferRect.width(), m_bufferRect.height());
+			m_buffer = createPixmap(m_bufferRect.width(), m_bufferRect.height());
 			fillBuffer(&m_buffer, m_bufferRect.topLeft(), m_bufferRect);
 			ret = true;
 #if DRAW_DEBUG_LINES
@@ -714,8 +713,7 @@ bool Canvas::adjustBuffer()
 		else
 		{
 			// copy buffer:
-// 			QImage newBuffer(newRect.width(), newRect.height(), QImage::Format_ARGB32);
-			QPixmap newBuffer(newRect.width(), newRect.height());
+			QPixmap newBuffer = createPixmap(newRect.width(), newRect.height());
 			QPainter p(&newBuffer);
 			int xpos = m_bufferRect.x() - newRect.x();
 			int ypos = m_bufferRect.y() - newRect.y();
@@ -743,8 +741,8 @@ bool Canvas::adjustBuffer()
 			{
 				height = newRect.height() - ypos;
 			}
-// 			p.drawImage(xpos, ypos, m_buffer, x, y,  width + 1, height + 1); // FIXME: == params drawPixmap?
-			p.drawPixmap(xpos, ypos, m_buffer, x, y,  width + 1, height + 1);
+
+			drawPixmap(p, xpos, ypos, m_buffer, x, y, width + 1, height + 1);
 #if DRAW_DEBUG_LINES
 			p.setPen(Qt::blue);
 			p.drawLine(xpos, ypos+height/2, xpos+width/2, ypos);
@@ -826,11 +824,7 @@ void Canvas::paintEvent ( QPaintEvent * p )
 #endif
 	// fill buffer if necessary
 	bool bufferFilled = adjustBuffer();
-	// It is ugly, but until we figure out why drawing directly on the 
-	// widget is so slow, it saves us a Cray! - pm
-	QPixmap tmpImg(p->rect().size());
-	QPainter qp(&tmpImg);
-	qp.translate(-p->rect().x(), -p->rect().y());
+	QPainter qp(this);
 	switch (m_renderMode)
 	{
 		case RENDER_NORMAL:
@@ -858,8 +852,7 @@ void Canvas::paintEvent ( QPaintEvent * p )
 			int hV = p->rect().height();
 			if (hV > 0 && wV > 0)
 			{
-// 				qp.drawImage(p->rect().x(), p->rect().y(), m_buffer, xV, yV,  wV, hV);
-				qp.drawPixmap(p->rect().x(), p->rect().y(), m_buffer, xV, yV,  wV, hV);
+				drawPixmap(qp, p->rect().x(), p->rect().y(), m_buffer, xV, yV,  wV, hV);
 #if DRAW_DEBUG_LINES
 //				qDebug() << "normal rendering" << xV << yV << wV << hV << "at" << p->rect().x() << p->rect().y();
 				qp.setPen(Qt::blue);
@@ -912,9 +905,7 @@ void Canvas::paintEvent ( QPaintEvent * p )
 #endif
 				if (hV > 0 && wV > 0)
 				{
-// 					qp.drawImage(p->rect().x(), p->rect().y(), m_buffer, xV, yV,  wV, hV);
-					
-					qp.drawPixmap(p->rect().x(), p->rect().y(), m_buffer, xV, yV,  wV, hV);
+					drawPixmap(qp, p->rect().x(), p->rect().y(), m_buffer, xV, yV,  wV, hV);
 	#if DRAW_DEBUG_LINES
 //					qDebug() << "buffered rendering" << xV << yV << wV << hV << "at" << p->rect().x() << p->rect().y();
 					qp.setPen(Qt::green);
@@ -956,8 +947,6 @@ void Canvas::paintEvent ( QPaintEvent * p )
 	// does mode specific rendering, currently selection in legacymode and nodes in nodeedit
 	m_view->m_canvasMode->drawControls(&qp);
 	m_view->m_canvasMode->drawSnapLine(&qp);
-	QPainter tp(this);
-	tp.drawPixmap(p->rect(), tmpImg, tmpImg.rect());
 #ifdef SHOW_ME_WHAT_YOU_GET_IN_D_CANVA
 	t6 = t.elapsed();
 	qDebug()<<dmode<<t1<<t2<<t3<<t4<<t5<<t6<<"-" <<t1+t2+t3+t4+t5+t6;
@@ -977,7 +966,8 @@ void Canvas::drawContents(QPainter *psx, int clipx, int clipy, int clipw, int cl
 // 	qDebug() << "Canvas::drawContents" << clipx << clipy << clipw << cliph<<m_viewMode.forceRedraw<<m_viewMode.operItemSelecting;
 	uint docPagesCount=m_doc->Pages->count();
 	ScPainter *painter=0;
-	QImage img = QImage(clipw, cliph, QImage::Format_ARGB32_Premultiplied);
+	QImage img = QImage(clipw * devicePixelRatio(), cliph * devicePixelRatio(), QImage::Format_ARGB32_Premultiplied);
+	img.setDevicePixelRatio(devicePixelRatio());
 	painter = new ScPainter(&img, img.width(), img.height(), 1.0, 0);
 	painter->clear(palette().color(QPalette::Window));
 	painter->newPath();
@@ -2417,6 +2407,22 @@ void Canvas::calculateFrameLinkPoints(PageItem *pi1, PageItem *pi2, FPoint & sta
 	start.transform(pi1->xPos(), pi1->yPos(), pi1->rotation(), 1, 1, false);
 	end.setXY(a2-pi2->xPos(), b2-pi2->yPos());
 	end.transform(pi2->xPos(), pi2->yPos(), pi2->rotation(), 1, 1, false);
+}
+
+QPixmap Canvas::createPixmap(double w, double h)
+{
+	QPixmap p(w * devicePixelRatio(), h * devicePixelRatio());
+	p.setDevicePixelRatio(devicePixelRatio());
+	return p;
+}
+
+void Canvas::drawPixmap(QPainter& painter, double x, double y, const QPixmap& pixmap, double sx, double sy, double sw, double sh)
+{
+	sx *= devicePixelRatio();
+	sy *= devicePixelRatio();
+	sw *= devicePixelRatio();
+	sh *= devicePixelRatio();
+	painter.drawPixmap(x, y, pixmap, sx, sy, sw, sh);
 }
 
 void Canvas::displayXYHUD(QPoint m)

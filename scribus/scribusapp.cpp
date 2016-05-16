@@ -110,7 +110,7 @@ ScribusQApp::ScribusQApp( int & argc, char ** argv ) : QApplication(argc, argv),
 	m_scDLMgr = 0;
 	m_ScCore = NULL;
 	initDLMgr();
-
+	setAttribute(Qt::AA_UseHighDpiPixmaps, true);
 }
 
 ScribusQApp::~ScribusQApp()

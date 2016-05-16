@@ -52,6 +52,7 @@ ScPainter::ScPainter( QImage *target, unsigned int w, unsigned int h, double tra
 	m_matrix = QTransform();
 	m_zoomStack.clear();
 	cairo_surface_t *img = cairo_image_surface_create_for_data(m_image->bits(), CAIRO_FORMAT_ARGB32, w, h, w*4);
+	cairo_surface_set_device_scale(img, m_image->devicePixelRatio(), m_image->devicePixelRatio());
 	m_cr = cairo_create(img);
 	cairo_save( m_cr );
 	cairo_set_fill_rule (m_cr, CAIRO_FILL_RULE_EVEN_ODD);
