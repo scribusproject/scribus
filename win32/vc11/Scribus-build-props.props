@@ -127,7 +127,7 @@
 	<PODOFO_LIB Condition="'$(Configuration)' == 'Debug'">PoDoFoLibD.lib</PODOFO_LIB>
 	<PODOFO_LIB Condition="'$(Configuration)' == 'Release'">PoDoFoLib.lib</PODOFO_LIB>
 	<!-- Poppler -->
-	<POPPLER_DIR>$(SCRIBUS_LIB_ROOT)\poppler-0.41.0</POPPLER_DIR>
+	<POPPLER_DIR>$(SCRIBUS_LIB_ROOT)\poppler-0.42.0</POPPLER_DIR>
 	<POPPLER_INCLUDE_DIR>$(POPPLER_DIR)\include</POPPLER_INCLUDE_DIR>
 	<POPPLER_LIB_DIR>$(POPPLER_DIR)\lib\$(Platform)-$(PlatformToolset)</POPPLER_LIB_DIR>
 	<POPPLER_LIB Condition="'$(Configuration)' == 'Debug'">poppler_staticD.lib</POPPLER_LIB>
