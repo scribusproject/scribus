@@ -1043,75 +1043,44 @@ void XPSExPlug::processTextItem(double xOffset, double yOffset, PageItem *Item, 
 	}
 
 //	parentElem.appendChild(grp);
-	XPSPainter p(Item, grp, this, xps_fontMap, rel_root);
-	Item->textLayout.renderBackground(&p);
-	Item->textLayout.render(&p);
-	QDomElement grp2 = p_docu.createElement("Canvas");
-	if (grp.hasAttribute("RenderTransform"))
-		grp2.setAttribute("RenderTransform", grp.attribute("RenderTransform"));
-	if (grp.hasAttribute("Name"))
-		grp2.setAttribute("Name", grp.attribute("Name"));
-	if (grp.hasAttribute("Opacity"))
-		grp2.setAttribute("Opacity", grp.attribute("Opacity"));
-	bool first = true;
-	QString RenderTransform = "";
-	QString FontRenderingEmSize = "";
-	QString FontUri = "";
-	QString Fill = "";
-	QString OriginX = "";
-	QString OriginY = "";
-	QString Indices = "";
-	QString UnicodeString = "";
-	QDomElement glyph;
-	for(QDomElement txtGrp = grp.firstChildElement(); !txtGrp.isNull(); txtGrp = txtGrp.nextSiblingElement() )
+	if (Item->itemText.length() != 0)
 	{
-		if (txtGrp.tagName() != "Glyphs")
+		XPSPainter p(Item, grp, this, xps_fontMap, rel_root);
+		Item->textLayout.renderBackground(&p);
+		Item->textLayout.render(&p);
+		QDomElement grp2 = p_docu.createElement("Canvas");
+		if (grp.hasAttribute("RenderTransform"))
+			grp2.setAttribute("RenderTransform", grp.attribute("RenderTransform"));
+		if (grp.hasAttribute("Name"))
+			grp2.setAttribute("Name", grp.attribute("Name"));
+		if (grp.hasAttribute("Opacity"))
+			grp2.setAttribute("Opacity", grp.attribute("Opacity"));
+		bool first = true;
+		QString RenderTransform = "";
+		QString FontRenderingEmSize = "";
+		QString FontUri = "";
+		QString Fill = "";
+		QString OriginX = "";
+		QString OriginY = "";
+		QString Indices = "";
+		QString UnicodeString = "";
+		QDomElement glyph;
+		for(QDomElement txtGrp = grp.firstChildElement(); !txtGrp.isNull(); txtGrp = txtGrp.nextSiblingElement() )
 		{
-			if (!first)
+			if (txtGrp.tagName() != "Glyphs")
 			{
-				glyph.setAttribute("Indices", Indices);
-				glyph.setAttribute("UnicodeString", UnicodeString);
-				first = true;
-			}
-			grp2.appendChild(txtGrp.cloneNode(true));
-		}
-		else
-		{
-			if (first)
-			{
-				RenderTransform = txtGrp.attribute("RenderTransform");
-				FontRenderingEmSize = txtGrp.attribute("FontRenderingEmSize");
-				FontUri = txtGrp.attribute("FontUri");
-				Fill = txtGrp.attribute("Fill");
-				OriginX = txtGrp.attribute("OriginX");
-				OriginY = txtGrp.attribute("OriginY");
-				Indices = txtGrp.attribute("Indices");
-				UnicodeString = txtGrp.attribute("UnicodeString");
-				glyph = p_docu.createElement("Glyphs");
-				glyph.setAttribute("RenderTransform", RenderTransform);
-				glyph.setAttribute("BidiLevel", "0");
-				glyph.setAttribute("StyleSimulations", "None");
-				glyph.setAttribute("FontRenderingEmSize", FontRenderingEmSize);
-				glyph.setAttribute("FontUri", FontUri);
-				glyph.setAttribute("Fill", Fill);
-				glyph.setAttribute("OriginX", OriginX);
-				glyph.setAttribute("OriginY", OriginY);
-				glyph.setAttribute("Indices", Indices);
-				glyph.setAttribute("UnicodeString", UnicodeString);
-				grp2.appendChild(glyph);
-				first = false;
-			}
-			else
-			{
-				if ((RenderTransform == txtGrp.attribute("RenderTransform")) && (FontRenderingEmSize == txtGrp.attribute("FontRenderingEmSize")) && (FontUri == txtGrp.attribute("FontUri")) && (OriginY == txtGrp.attribute("OriginY")) && (Fill == txtGrp.attribute("Fill")))
-				{
-					Indices.append(";" + txtGrp.attribute("Indices"));
-					UnicodeString.append(txtGrp.attribute("UnicodeString"));
-				}
-				else
+				if (!first)
 				{
 					glyph.setAttribute("Indices", Indices);
 					glyph.setAttribute("UnicodeString", UnicodeString);
+					first = true;
+				}
+				grp2.appendChild(txtGrp.cloneNode(true));
+			}
+			else
+			{
+				if (first)
+				{
 					RenderTransform = txtGrp.attribute("RenderTransform");
 					FontRenderingEmSize = txtGrp.attribute("FontRenderingEmSize");
 					FontUri = txtGrp.attribute("FontUri");
@@ -1134,15 +1103,49 @@ void XPSExPlug::processTextItem(double xOffset, double yOffset, PageItem *Item, 
 					grp2.appendChild(glyph);
 					first = false;
 				}
-			}
-			if (txtGrp == grp.lastChildElement())
-			{
-				glyph.setAttribute("Indices", Indices);
-				glyph.setAttribute("UnicodeString", UnicodeString);
+				else
+				{
+					if ((RenderTransform == txtGrp.attribute("RenderTransform")) && (FontRenderingEmSize == txtGrp.attribute("FontRenderingEmSize")) && (FontUri == txtGrp.attribute("FontUri")) && (OriginY == txtGrp.attribute("OriginY")) && (Fill == txtGrp.attribute("Fill")))
+					{
+						Indices.append(";" + txtGrp.attribute("Indices"));
+						UnicodeString.append(txtGrp.attribute("UnicodeString"));
+					}
+					else
+					{
+						glyph.setAttribute("Indices", Indices);
+						glyph.setAttribute("UnicodeString", UnicodeString);
+						RenderTransform = txtGrp.attribute("RenderTransform");
+						FontRenderingEmSize = txtGrp.attribute("FontRenderingEmSize");
+						FontUri = txtGrp.attribute("FontUri");
+						Fill = txtGrp.attribute("Fill");
+						OriginX = txtGrp.attribute("OriginX");
+						OriginY = txtGrp.attribute("OriginY");
+						Indices = txtGrp.attribute("Indices");
+						UnicodeString = txtGrp.attribute("UnicodeString");
+						glyph = p_docu.createElement("Glyphs");
+						glyph.setAttribute("RenderTransform", RenderTransform);
+						glyph.setAttribute("BidiLevel", "0");
+						glyph.setAttribute("StyleSimulations", "None");
+						glyph.setAttribute("FontRenderingEmSize", FontRenderingEmSize);
+						glyph.setAttribute("FontUri", FontUri);
+						glyph.setAttribute("Fill", Fill);
+						glyph.setAttribute("OriginX", OriginX);
+						glyph.setAttribute("OriginY", OriginY);
+						glyph.setAttribute("Indices", Indices);
+						glyph.setAttribute("UnicodeString", UnicodeString);
+						grp2.appendChild(glyph);
+						first = false;
+					}
+				}
+				if (txtGrp == grp.lastChildElement())
+				{
+					glyph.setAttribute("Indices", Indices);
+					glyph.setAttribute("UnicodeString", UnicodeString);
+				}
 			}
 		}
+		parentElem.appendChild(grp2);
 	}
-	parentElem.appendChild(grp2);
 	if (Item->isTextFrame())
 	{
 		if ((Item->GrTypeStroke != 0) || (Item->lineColor() != CommonStrings::None) || !Item->NamedLStyle.isEmpty())

@@ -1267,9 +1267,12 @@ QDomElement SVGExPlug::processTextItem(PageItem *Item, QString trans, QString fi
 		}
 	}
 
-	SvgPainter p(trans, this, ob);
-	Item->textLayout.renderBackground(&p);
-	Item->textLayout.render(&p);
+	if (Item->itemText.length() != 0)
+	{
+		SvgPainter p(trans, this, ob);
+		Item->textLayout.renderBackground(&p);
+		Item->textLayout.render(&p);
+	}
 	if (Item->isTextFrame())
 	{
 		if (Item->NamedLStyle.isEmpty())

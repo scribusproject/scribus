@@ -1990,7 +1990,8 @@ bool PSLib::ProcessItem(ScribusDoc* Doc, ScPage* a, PageItem* c, uint PNr, bool 
 				PS_translate(0, -c->height());
 				PS_scale(1, -1);
 			}
-			setTextSt(Doc, c, PNr-1, a, sep, farb, master);
+			if (c->itemText.length() != 0)
+				setTextSt(Doc, c, PNr-1, a, sep, farb, master);
 			if (((c->lineColor() != CommonStrings::None) || (!c->NamedLStyle.isEmpty()) || (!c->strokePattern().isEmpty()) || (c->GrTypeStroke > 0)))
 			{
 				PS_setlinewidth(c->lineWidth());
@@ -2302,7 +2303,8 @@ bool PSLib::ProcessItem(ScribusDoc* Doc, ScPage* a, PageItem* c, uint PNr, bool 
 					PS_restore();
 				}
 			}
-			setTextSt(Doc, c, PNr-1, a, sep, farb, master);
+			if (c->itemText.length() != 0)
+				setTextSt(Doc, c, PNr-1, a, sep, farb, master);
 			break;
 		case PageItem::Symbol:
 			if (m_Doc->docPatterns.contains(c->pattern()))
@@ -2921,7 +2923,8 @@ bool PSLib::ProcessMasterPageLayer(ScribusDoc* Doc, ScPage* page, ScLayer& layer
 					PS_translate(0, -ite->height());
 					PS_scale(1, -1);
 				}
-				setTextSt(Doc, ite, PNr, mPage, sep, farb, true);
+				if (ite->itemText.length() != 0)
+					setTextSt(Doc, ite, PNr, mPage, sep, farb, true);
 				if (((ite->lineColor() != CommonStrings::None) || (!ite->NamedLStyle.isEmpty()) || (!ite->strokePattern().isEmpty()) || (ite->GrTypeStroke > 0)))
 				{
 					if (ite->NamedLStyle.isEmpty()) // && (ite->lineWidth() != 0.0))
@@ -3018,7 +3021,8 @@ bool PSLib::ProcessMasterPageLayer(ScribusDoc* Doc, ScPage* page, ScLayer& layer
 						PS_restore();
 					}
 				}
-				setTextSt(Doc, ite, PNr, mPage, sep, farb, true);
+				if (ite->itemText.length() != 0)
+					setTextSt(Doc, ite, PNr, mPage, sep, farb, true);
 				PS_restore();
 			}
 			if (!success)

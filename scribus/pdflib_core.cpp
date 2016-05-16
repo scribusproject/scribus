@@ -4595,7 +4595,8 @@ bool PDFLibCore::PDF_ProcessItem(QByteArray& output, PageItem* ite, const ScPage
 				tmp += "-1 0 0 1 "+FToStr(ite->width())+" 0 cm\n";
 			if (ite->imageFlippedV())
 				tmp += "1 0 0 -1 0 "+FToStr(-ite->height())+" cm\n";
-			tmp += setTextSt(ite, PNr, pag);
+			if (ite->itemText.length() != 0)
+				tmp += setTextSt(ite, PNr, pag);
 			tmp += "Q\n";
 			tmp += "Q\n";
 			if (((ite->lineColor() != CommonStrings::None) || (!ite->NamedLStyle.isEmpty()) || (!ite->strokePattern().isEmpty()) || (ite->GrTypeStroke > 0)))
@@ -5027,7 +5028,8 @@ bool PDFLibCore::PDF_ProcessItem(QByteArray& output, PageItem* ite, const ScPage
 					tmp += "q\n";
 				tmp += PDF_TransparenzFill(ite);
 			}
-			tmp += setTextSt(ite, PNr, pag);
+			if (ite->itemText.length() != 0)
+				tmp += setTextSt(ite, PNr, pag);
 			if (ite->GrMask > 0)
 				tmp += "Q\n";
 			break;

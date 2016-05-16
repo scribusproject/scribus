@@ -163,6 +163,8 @@ void PageItem_PathText::DrawObj_Item(ScPainter *p, QRectF cullingArea)
 		CurX += itemText.charStyle(0).fontSize() * itemText.charStyle(0).tracking() / 10000.0;
 		totalTextLen += itemText.charStyle(0).fontSize() * itemText.charStyle(0).tracking() / 10000.0;
 	}
+	else
+		return;
 	itemRenderText.clear();
 	itemRenderText.setDoc(m_Doc);
 	itemRenderText.setDefaultStyle(itemText.defaultStyle());
