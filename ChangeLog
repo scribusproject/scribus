@@ -1,5 +1,6 @@
 Scribus - 1.5.2 (Released 2016-05-17)
 =========================================
+- 0014004: [Canvas] Improve Canvas rendering on Hi-DPI screens (cbradney) - closed.
 - 0010723: [User Interface] Incorrect rubber band box selection bounds after selecting text. - closed.
 - 0013465: [User Interface] Drag/Drop of HTML to text frame (fschmid) - closed.
 - 0014044: [Translation] Duplicate "Pfad glätten" in german translation (christoph_s) - closed.
