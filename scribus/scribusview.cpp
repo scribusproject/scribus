@@ -629,12 +629,16 @@ void ScribusView::contentsDragEnterEvent(QDragEnterEvent *e)
 		text = elemData->scribusElem();
 	else if (e->mimeData()->hasUrls())
 	{
-		QUrl url = e->mimeData()->urls().at(0);
-		QFileInfo fi(url.toLocalFile());
-		if (fi.exists())
+		QList<QUrl> urls = e->mimeData()->urls();
+		if (!urls.isEmpty())
 		{
-			fromFile = true;
-			text = url.toLocalFile();
+			QUrl url = urls[0];
+			QFileInfo fi(url.toLocalFile());
+			if (fi.exists())
+			{
+				fromFile = true;
+				text = url.toLocalFile();
+			}
 		}
 	}
 
