@@ -347,7 +347,14 @@ bool ODTIm::parseStyleSheetsXML(QDomDocument &designMapDom)
 				if (spf.tagName() == "style:font-face")
 				{
 					if (!spf.attribute("style:name").isEmpty())
-						m_fontMap.insert(spf.attribute("style:name"), spf.attribute("svg:font-family"));
+					{
+						QString fontFamily = spf.attribute("svg:font-family");
+						if (fontFamily.startsWith(QChar('\'')))
+							fontFamily = fontFamily.mid(1);
+						if (fontFamily.endsWith(QChar('\'')))
+							fontFamily.chop(1);
+						m_fontMap.insert(spf.attribute("style:name"), fontFamily);
+					}
 				}
 			}
 		}
@@ -604,7 +611,14 @@ bool ODTIm::parseDocReferenceXML(QDomDocument &designMapDom)
 				if (spf.tagName() == "style:font-face")
 				{
 					if (!spf.attribute("style:name").isEmpty())
-						m_fontMap.insert(spf.attribute("style:name"), spf.attribute("svg:font-family"));
+					{
+						QString fontFamily = spf.attribute("svg:font-family");
+						if (fontFamily.startsWith(QChar('\'')))
+							fontFamily = fontFamily.mid(1);
+						if (fontFamily.endsWith(QChar('\'')))
+							fontFamily.chop(1);
+						m_fontMap.insert(spf.attribute("style:name"), fontFamily);
+					}
 				}
 			}
 		}
@@ -1055,6 +1069,16 @@ void ODTIm::resovleStyle(ObjStyleODT &tmpOStyle, QString pAttrs)
 				tmpOStyle.fontName = constructFontName(tmpOStyle.fontName, "");
 				m_fontMap[actStyle.fontName.value] = tmpOStyle.fontName;
 			}
+		}
+		else if (parDefaultStyle.fontName.valid)
+		{
+			tmpOStyle.fontName = constructFontName(parDefaultStyle.fontName.value, "");
+			m_fontMap[parDefaultStyle.fontName.value] = tmpOStyle.fontName;
+		}
+		else if (txtDefaultStyle.fontName.valid)
+		{
+			tmpOStyle.fontName = constructFontName(txtDefaultStyle.fontName.value, "");
+			m_fontMap[txtDefaultStyle.fontName.value] = tmpOStyle.fontName;
 		}
 		if (actStyle.fontStyle.valid)
 			tmpOStyle.fontStyle = actStyle.fontStyle.value;
