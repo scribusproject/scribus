@@ -574,7 +574,8 @@ void ScripterCore::runStartupScript()
 			this->slotRunScriptFile(this->m_startupScript, true);
 		}
 		else
-			qDebug("Startup script enabled, but couln't find script %s.", m_startupScript.toLatin1().constData());
+			ScMessageBox::warning(ScCore->primaryMainWindow(), tr("Startup Script error"),
+					      tr("Could not find script: %1.").arg( m_startupScript));
 	}
 }
 

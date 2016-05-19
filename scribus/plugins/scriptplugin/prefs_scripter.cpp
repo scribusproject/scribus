@@ -30,9 +30,7 @@ Prefs_Scripter::Prefs_Scripter(QWidget* parent)
 	extensionScriptsChk->setChecked(scripterCore->extensionsEnabled());
 	// The startup script box should be disabled  if ext scripts are off
 	startupScriptEdit->setEnabled(extensionScriptsChk->isChecked());
-	connect(extensionScriptsChk, SIGNAL(toggled(bool)),
-			startupScriptEdit, SLOT(setEnabled(bool)));
-
+	startupScriptEdit->setText(scripterCore->startupScript());
 	// signals and slots connections
 	connect(extensionScriptsChk, SIGNAL(toggled(bool)), startupScriptEdit, SLOT(setEnabled(bool)));
 	// colors
@@ -43,6 +41,7 @@ Prefs_Scripter::Prefs_Scripter(QWidget* parent)
 	connect(signButton, SIGNAL(clicked()), this, SLOT(setColor()));
 	connect(stringButton, SIGNAL(clicked()), this, SLOT(setColor()));
 	connect(numberButton, SIGNAL(clicked()), this, SLOT(setColor()));
+	connect(extensionScriptsChk, SIGNAL(toggled(bool)), startupScriptChangeButton, SLOT(setEnabled(bool)));
 	connect(startupScriptChangeButton, SIGNAL(clicked()), this, SLOT(changeStartupScript()));
 }
 
