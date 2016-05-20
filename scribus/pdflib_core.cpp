@@ -2038,7 +2038,7 @@ PdfFont PDFLibCore::PDF_EncodeSimpleFont(const QByteArray& fontName, ScFace& fac
 	//				{
 	//					PutDoc("/TrueType\n");
 	PutDoc("/Name " + formFont.name+ "\n");
-	pageData.FObjects[formFont.name] = fontObjectForm;
+	pageData.FObjects[fontName + "Form"] = fontObjectForm;
 	UsedFontsF.insert(face.replacementName(), formFont);
 	/*				}
 	 else
