@@ -16451,7 +16451,8 @@ QString ScribusDoc::getNumberStr(QString numName, int level, bool reset, Paragra
 		return QString();
 	NumStruct * numS = numerations.value(numName);
 	numS->m_lastlevel = level;
-
+	if (level >= numS->m_nums.count())
+		return QString();
 	Numeration num = numS->m_nums[level];
 	num.numFormat = (NumFormat) style.numFormat();
 	num.start = style.numStart();
