@@ -734,11 +734,31 @@ struct LineControl {
 		// Can happen when inserting a new line at end of text, WTF!
 		if (line.firstRun >= glyphRuns.length())
 			return;
-		const CharStyle& cStyle(glyphRuns.at(line.firstRun).style());
-		double scaleV = cStyle.scaleV() / 1000.0;
-		double offset = (cStyle.fontSize() / 10) * (cStyle.baselineOffset() / 1000.0);
-		line.ascent = cStyle.font().ascent(cStyle.fontSize()/10.00) * scaleV + offset;
-		line.descent = cStyle.font().descent(cStyle.fontSize()/10.00) * scaleV - offset;
+
+		for (int i = line.firstRun; i <= breakIndex; ++i)
+		{
+			const GlyphRun &glyphRun = glyphRuns.at(i);
+			const CharStyle& cStyle(glyphRuns.at(line.firstRun).style());
+			double scaleV = cStyle.scaleV() / 1000.0;
+			double offset = (cStyle.fontSize() / 10) * (cStyle.baselineOffset() / 1000.0);
+
+			if (glyphRun.object())
+			{
+				QRectF bbox = glyphRun.object()->getVisualBoundingRect();
+				line.ascent  = qMax(line.ascent, bbox.height() * scaleV + offset);
+				line.descent = qMax(line.descent, 0.0);
+				continue;
+			}
+
+			const QList<GlyphLayout>& glyphs = glyphRun.glyphs();
+			for (int j = 0; j < glyphs.count(); ++j)
+			{
+				const GlyphLayout& layout = glyphs.at(j);
+				GlyphMetrics metrics = cStyle.font().glyphBBox(layout.glyph, cStyle.fontSize()/10.00);
+				line.ascent  = qMax(line.ascent, metrics.ascent  * scaleV + offset);
+				line.descent = qMax(line.descent, metrics.descent * scaleV - offset);
+			}
+		}
 	}
 
 // yPos should not be changed when all line is already calculated - at new y position there can be overflow!!!
@@ -2758,10 +2778,7 @@ void PageItem_TextFrame::layout()
 						current.restartIndex = current.line.lastRun + 1;
 						i = current.line.lastRun;
 						a = glyphRuns[i].firstChar();
-					//	if (glyphRuns[current.line.firstRun].hasFlag(ScLayout_DropCap))
-					//		current.rowDesc = qMax(current.rowDesc,current.yPos + current.line.descent);
-					//	else
-							current.rowDesc = qMax(current.rowDesc,current.yPos - current.line.descent);
+						current.rowDesc = qMax(current.rowDesc, current.yPos + current.line.descent);
 						if (!current.lastInRowLine)
 						{
 							current.restartX = current.xPos;
