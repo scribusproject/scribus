@@ -1659,7 +1659,7 @@ void PageItem_TextFrame::layout()
 					if (DropCmode && !current.afterOverflow)
 					{
 						DropLines = style.dropCapLines();
-						DropCapDrop = calculateLineSpacing (style, this) * (DropLines - 1);
+//						DropCapDrop = calculateLineSpacing (style, this) * (DropLines - 1);
 //						qDebug() << QString("dropcapdrop: y=%1+%2").arg(current.yPos).arg(DropCapDrop);
 					}
 					current.line.isFirstLine = true;
@@ -1668,7 +1668,7 @@ void PageItem_TextFrame::layout()
 			// find charsize factors
 			if (DropCmode)
 			{
-//				DropCapDrop = calculateLineSpacing (style, this) * (DropLines - 1);
+				DropCapDrop = calculateLineSpacing (style, this) * (DropLines - 1);
 
 				// FIXME : we should ensure that fonts are loaded before calls to layout()
 				// ScFace::realCharHeight()/Ascent() ensure font is loaded thanks to an indirect call to char2CMap()
