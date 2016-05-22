@@ -208,7 +208,7 @@ void LanguageManager::generateLangList()
 	m_langTable.append(LangDef("nl",       "nl_NL",    "Dutch",                   QObject::tr("Dutch")));
 	m_langTable.append(LangDef("dz",       "",         "Dzongkha",                QObject::tr("Dzongkha")));
 	m_langTable.append(LangDef("igb",      "",         "Ebira",                   QObject::tr("Ebira")));
-	m_langTable.append(LangDef("efi",      "",         "Efik",                    QObject::tr("English (Efik)")));
+	m_langTable.append(LangDef("efi",      "",         "Efik",                    QObject::tr("Efik")));
 	m_langTable.append(LangDef("en_AU",    "",         "English (Australia)",     QObject::tr("English (Australia)")));
 	m_langTable.append(LangDef("en_CA",    "",         "English (Canada)",        QObject::tr("English (Canada)")));
 	m_langTable.append(LangDef("en_NZ",    "",         "English (New Zealand)",   QObject::tr("English (New Zealand)")));
