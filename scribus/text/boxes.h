@@ -122,6 +122,9 @@ public:
 	/// Same as render() but handles text selection, for rendering on screen.
 	virtual void render(TextLayoutPainter *p, PageItem *item) const = 0;
 
+	/// Return the box type
+	BoxType type() const { return m_type; }
+
 public slots:
 	virtual void childChanged() { }
 signals:

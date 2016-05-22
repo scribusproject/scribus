@@ -154,8 +154,24 @@ QLineF LineBox::positionToPoint(int pos) const
 	{
 		if (box->containsPos(pos))
 		{
+			const GlyphBox* glypBox = dynamic_cast<const GlyphBox*>(box);
+			if (!glypBox)
+			{
+				double xPos = x() + box->x();
+				result = QLineF(xPos, y(), xPos, y() + height());
+				break;
+			}
+
+			const CharStyle& cStyle(glypBox->style());
+			double fontSize = cStyle.fontSize() / 10.0;
+			double scaleV = cStyle.scaleV() / 1000.0;
+			double offset = fontSize * (cStyle.baselineOffset() / 1000.0);
+			double asce = cStyle.font().ascent(fontSize) * scaleV + offset;
+			double desc = cStyle.font().descent(fontSize) * scaleV - offset;
+
 			double xPos = x() + box->x();
-			result = QLineF(xPos, y(), xPos, y() + height());
+			double yPos = y() + box->y() + ascent();
+			result = QLineF(xPos, yPos - asce, xPos, yPos - desc);
 			break;
 		}
 	}

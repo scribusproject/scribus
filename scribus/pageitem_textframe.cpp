@@ -808,7 +808,7 @@ struct LineControl {
 		result->moveTo(line.x - colLeft, line.y);
 		result->setWidth(line.width);
 		result->setAscent(line.ascent);
-		result->setDescent(line.descent);
+		result->setDescent(-line.descent);
 
 		for (int i = line.firstRun; i <= line.lastRun; ++i)
 		{

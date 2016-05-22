@@ -312,6 +312,20 @@ QLineF TextLayout::positionToPoint(int pos) const
 				y1 = line->y() + line->height();
 				y2 = y1 + line->height();
 			}
+			else if (glyph->type() == Box::T_Glyph)
+			{
+				// draw the cursor at the end of last line.
+				const CharStyle& cStyle(story()->charStyle(glyph->lastChar()));
+				double fontSize = cStyle.fontSize() / 10.0;
+				double scaleV = cStyle.scaleV() / 1000.0;
+				double offset = fontSize * (cStyle.baselineOffset() / 1000.0);
+				double asce = cStyle.font().ascent(fontSize) * scaleV + offset;
+				double desc = cStyle.font().descent(fontSize) * scaleV - offset;
+
+				x = line->x() + glyph->x() + glyph->width();
+				y1 = line->y() + line->ascent() - asce;
+				y2 = line->y() + line->ascent() - desc;
+			}
 			else
 			{
 				// draw the cursor at the end of last line.
