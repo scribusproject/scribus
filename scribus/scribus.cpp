@@ -6352,16 +6352,15 @@ void ScribusMainWindow::duplicateItem()
 	mdData.copyShiftGapV = doc->opToolPrefs().dispY * doc->unitRatio();
 
 	int oldItemCount = doc->Items->count();
+	doc->m_Selection->delaySignalsOn();
 	doc->itemSelection_MultipleDuplicate(mdData);
-
-	doc->m_Selection->blockSignals(true);
 	view->Deselect(true);
 	for (int i = oldItemCount; i < doc->Items->count(); ++i)
 	{
 		PageItem* item = doc->Items->at(i);
 		doc->m_Selection->addItem(item);
 	}
-	doc->m_Selection->blockSignals(false);
+	doc->m_Selection->delaySignalsOff();
 
 	if (trans)
 		trans.commit();
