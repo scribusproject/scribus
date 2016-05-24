@@ -50,7 +50,11 @@ void ParaStyleComboBox::setFormat(QString name)
 
 void ParaStyleComboBox::updateFormatList()
 {
-	disconnect(this, SIGNAL(activated(int)), this, SLOT(selFormat(int)));
+	QString oldStyleName;
+	if (currentDoc && this->count() > 0)
+		oldStyleName = this->currentText();
+
+	bool sigBlocked = this->blockSignals(true);
 	clear();
 	if (currentDoc != NULL)
 	{
@@ -63,6 +67,13 @@ void ParaStyleComboBox::updateFormatList()
 		}
 		st.sort();
 		addItems(st);
+
+		if (oldStyleName.length() > 0)
+		{
+			int newIndex = this->findText(oldStyleName);
+			if (newIndex >= 0)
+				setCurrentIndex(newIndex);
+		}
 	}
 	QListView *tmpView = dynamic_cast<QListView*>(view());
 	if (tmpView)
@@ -71,7 +82,7 @@ void ParaStyleComboBox::updateFormatList()
 		if (tmpWidth > 0)
 			tmpView->setMinimumWidth(tmpWidth + 24);
 	}
-	connect(this, SIGNAL(activated(int)), this, SLOT(selFormat(int)));
+	this->blockSignals(sigBlocked);
 }
 
 void ParaStyleComboBox::selFormat(int e)
@@ -103,7 +114,11 @@ void CharStyleComboBox::setFormat(QString name)
 
 void CharStyleComboBox::updateFormatList()
 {
-	disconnect(this, SIGNAL(activated(int)), this, SLOT(selFormat(int)));
+	QString oldStyleName;
+	if (currentDoc && this->count() > 0)
+		oldStyleName = this->currentText();
+
+	bool sigBlocked = this->blockSignals(true);
 	clear();
 	if (currentDoc != NULL)
 	{
@@ -116,6 +131,13 @@ void CharStyleComboBox::updateFormatList()
 		}
 		st.sort();
 		addItems(st);
+
+		if (oldStyleName.length() > 0)
+		{
+			int newIndex = this->findText(oldStyleName);
+			if (newIndex >= 0)
+				setCurrentIndex(newIndex);
+		}
 	}
 	QListView *tmpView = dynamic_cast<QListView*>(view());
 	if (tmpView)
@@ -124,7 +146,7 @@ void CharStyleComboBox::updateFormatList()
 		if (tmpWidth > 0)
 			tmpView->setMinimumWidth(tmpWidth + 24);
 	}
-	connect(this, SIGNAL(activated(int)), this, SLOT(selFormat(int)));
+	this->blockSignals(sigBlocked);
 }
 
 void CharStyleComboBox::selFormat(int e)
@@ -156,12 +178,15 @@ void CellStyleComboBox::setFormat(QString name)
 
 void CellStyleComboBox::updateFormatList()
 {
-	disconnect(this, SIGNAL(activated(int)), this, SLOT(selFormat(int)));
+	QString oldStyleName;
+	if (currentDoc && this->count() > 0)
+		oldStyleName = this->currentText();
+
+	bool sigBlocked = this->blockSignals(true);
 	clear();
 	if (currentDoc != NULL)
 	{
 		QStringList st;
-		st.clear();
 		addItem( tr("No Style"));
 		for (int x = 0; x < currentDoc->cellStyles().count(); ++x)
 		{
@@ -170,12 +195,19 @@ void CellStyleComboBox::updateFormatList()
 		}
 		st.sort();
 		addItems(st);
+
+		if (oldStyleName.length() > 0)
+		{
+			int newIndex = this->findText(oldStyleName);
+			if (newIndex >= 0)
+				setCurrentIndex(newIndex);
+		}
 	}
 	QListView *tmpView = dynamic_cast<QListView*>(view());
 	int tmpWidth = tmpView->sizeHintForColumn(0);
 	if (tmpWidth > 0)
 		tmpView->setMinimumWidth(tmpWidth + 24);
-	connect(this, SIGNAL(activated(int)), this, SLOT(selFormat(int)));
+	this->blockSignals(sigBlocked);
 }
 
 void CellStyleComboBox::selFormat(int e)
@@ -211,12 +243,15 @@ void TableStyleComboBox::setFormat(QString name)
 
 void TableStyleComboBox::updateFormatList()
 {
-	disconnect(this, SIGNAL(activated(int)), this, SLOT(selFormat(int)));
+	QString oldStyleName;
+	if (currentDoc && this->count() > 0)
+		oldStyleName = this->currentText();
+
+	bool sigBlocked = this->blockSignals(true);
 	clear();
 	if (currentDoc != NULL)
 	{
 		QStringList st;
-		st.clear();
 		addItem( tr("No Style"));
 		for (int x = 0; x < currentDoc->tableStyles().count(); ++x)
 		{
@@ -225,12 +260,19 @@ void TableStyleComboBox::updateFormatList()
 		}
 		st.sort();
 		addItems(st);
+
+		if (oldStyleName.length() > 0)
+		{
+			int newIndex = this->findText(oldStyleName);
+			if (newIndex >= 0)
+				setCurrentIndex(newIndex);
+		}
 	}
 	QListView *tmpView = dynamic_cast<QListView*>(view());
 	int tmpWidth = tmpView->sizeHintForColumn(0);
 	if (tmpWidth > 0)
 		tmpView->setMinimumWidth(tmpWidth + 24);
-	connect(this, SIGNAL(activated(int)), this, SLOT(selFormat(int)));
+	this->blockSignals(sigBlocked);
 }
 
 void TableStyleComboBox::selFormat(int e)
