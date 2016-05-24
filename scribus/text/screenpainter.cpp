@@ -337,7 +337,7 @@ void ScreenPainter::setupState(bool rect)
 			m_strokeColor = strokeColor();
 		}
 		m_painter->setBrush(m_fillQColor);
-		m_painter->setPen(m_fillStrokeQColor, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
+		m_painter->setPen(m_fillStrokeQColor, strokeWidth(), Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 	}
 
 	m_painter->translate(x(), y());
