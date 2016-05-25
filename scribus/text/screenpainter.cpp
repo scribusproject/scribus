@@ -308,18 +308,19 @@ void ScreenPainter::drawObject(PageItem* embedded)
 
 void ScreenPainter::setupState(bool rect)
 {
-	m_painter->setLineWidth(strokeWidth());
 	if (selected() && rect)
 	{
 		// we are drawing a selection rect
-		m_painter->setBrush(qApp->palette().color(QPalette::Active, QPalette::Highlight));
-		m_painter->setPen(qApp->palette().color(QPalette::Active, QPalette::Highlight));
+		QColor color = qApp->palette().color(QPalette::Active, QPalette::Highlight);
+		m_painter->setBrush(color);
+		m_painter->setPen(color, strokeWidth(), Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 	}
 	else if (selected())
 	{
 		// we are drawing selected text
-		m_painter->setBrush(qApp->palette().color(QPalette::Active, QPalette::HighlightedText));
-		m_painter->setPen(qApp->palette().color(QPalette::Active, QPalette::HighlightedText));
+		QColor color = qApp->palette().color(QPalette::Active, QPalette::HighlightedText);
+		m_painter->setBrush(color);
+		m_painter->setPen(color, strokeWidth(), Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 	}
 	else
 	{
