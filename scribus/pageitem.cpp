@@ -1519,17 +1519,30 @@ bool PageItem::frameDisplays(int textpos) const
 /// returns the style at the current charpos
 const ParagraphStyle& PageItem::currentStyle() const
 {
-	if (frameDisplays(itemText.cursorPosition()))
-		return itemText.paragraphStyle(itemText.cursorPosition());
-	else
-		return itemText.defaultStyle();
+	int cursorPosition = itemText.cursorPosition();
+	if (itemText.lengthOfSelection() > 0)
+	{
+		int firstSelected = itemText.startOfSelection();
+		int lastSelected  = qMax(itemText.endOfSelection() - 1, 0);
+		cursorPosition = qMax(firstSelected, qMin(cursorPosition, lastSelected));
+	}
+	if (frameDisplays(cursorPosition))
+		return itemText.paragraphStyle(cursorPosition);
+	return itemText.defaultStyle();
 }
 
 /// returns the style at the current charpos for changing
 ParagraphStyle& PageItem::changeCurrentStyle()
 {
-	if (frameDisplays(itemText.cursorPosition()))
-		return const_cast<ParagraphStyle&>(itemText.paragraphStyle(itemText.cursorPosition()));
+	int cursorPosition = itemText.cursorPosition();
+	if (itemText.lengthOfSelection() > 0)
+	{
+		int firstSelected = itemText.startOfSelection();
+		int lastSelected  = qMax(itemText.endOfSelection() - 1, 0);
+		cursorPosition = qMax(firstSelected, qMin(cursorPosition, lastSelected));
+	}
+	if (frameDisplays(cursorPosition))
+		return const_cast<ParagraphStyle&>(itemText.paragraphStyle(cursorPosition));
 	else
 		return const_cast<ParagraphStyle&>(itemText.defaultStyle());
 }
@@ -1537,8 +1550,15 @@ ParagraphStyle& PageItem::changeCurrentStyle()
 /// returns the style at the current charpos
 const CharStyle& PageItem::currentCharStyle() const
 {
-	if (frameDisplays(itemText.cursorPosition()))
-		return itemText.charStyle(itemText.cursorPosition());
+	int cursorPosition = itemText.cursorPosition();
+	if (itemText.lengthOfSelection() > 0)
+	{
+		int firstSelected = itemText.startOfSelection();
+		int lastSelected  = qMax(itemText.endOfSelection() - 1, 0);
+		cursorPosition = qMax(firstSelected, qMin(cursorPosition, lastSelected));
+	}
+	if (frameDisplays(cursorPosition))
+		return itemText.charStyle(cursorPosition);
 	else
 		return itemText.defaultStyle().charStyle();
 }
