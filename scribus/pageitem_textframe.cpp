@@ -1815,8 +1815,9 @@ void PageItem_TextFrame::layout()
 						realCharHeight = qMax(realCharHeight, gm.ascent + gm.descent);
 						gm = font.glyphBBox(gl.glyph, chsd / 10.0);
 						realAsce = qMax(realAsce, gm.ascent + gm.descent);
-						wide += font.glyphWidth(gl.glyph, charStyle.fontSize() / 10.0);
+						wide += gm.width;
 					}
+					wide = (wide * scaleH) + (1 - scaleH);
 					realAsce = realAsce  * scaleV + offset;
 					if (realCharHeight == 0)
 						realCharHeight = font.height(style.charStyle().fontSize() / 10.0);
@@ -1826,7 +1827,6 @@ void PageItem_TextFrame::layout()
 					firstGlyph.scaleV = (realAsce / realCharHeight);
 					firstGlyph.scaleH *= firstGlyph.scaleV;
 					firstGlyph.xoffset -= 0.5; //drop caps are always to far from column left edge
-					wide *= firstGlyph.scaleH;
 				}
 				// This is to mimic pre-boxes branches in case first character of paragraph is a space
 				// If we don't do this, paragraph offset will not apply correctly to first line
