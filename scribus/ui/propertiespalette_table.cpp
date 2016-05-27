@@ -601,10 +601,7 @@ void PropertiesPalette_Table::updateBorders()
 
 void PropertiesPalette_Table::languageChange()
 {
-	cellStyleCombo->setToolTip( tr("Cell style of currently selected cell"));
-	tableStyleCombo->setToolTip( tr("Table style of currently selected table"));
-	buttonClearCellStyle->setToolTip( tr("Remove Direct Cell Formatting"));
-	buttonClearTableStyle->setToolTip( tr("Remove Direct Table Formatting"));
+	retranslateUi(this);
 }
 
 void PropertiesPalette_Table::unitChange()

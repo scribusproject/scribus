@@ -35,10 +35,16 @@
           <verstretch>0</verstretch>
          </sizepolicy>
         </property>
+        <property name="toolTip">
+         <string>Table style of currently selected table</string>
+        </property>
        </widget>
       </item>
       <item row="0" column="2">
        <widget class="QToolButton" name="buttonClearTableStyle">
+        <property name="toolTip">
+         <string>Remove Direct Table Formatting</string>
+        </property>
         <property name="text">
          <string/>
         </property>
@@ -65,10 +71,16 @@
           <verstretch>0</verstretch>
          </sizepolicy>
         </property>
+        <property name="toolTip">
+         <string>Cell style of currently selected cell</string>
+        </property>
        </widget>
       </item>
       <item row="1" column="2">
        <widget class="QToolButton" name="buttonClearCellStyle">
+        <property name="toolTip">
+         <string>Remove Direct Cell Formatting</string>
+        </property>
         <property name="text">
          <string/>
         </property>
