@@ -2,7 +2,7 @@
 #include "marks.h"
 #include <QComboBox>
 
-MarkVariableText::MarkVariableText(const QList<Mark*>& marks, QWidget *parent) : MarkInsert(marks, parent), m_mark(0)
+MarkVariableText::MarkVariableText(const QList<Mark*>& marks, QWidget *parent) : MarkInsert(marks, parent), m_mark(0), m_widgetType(ComboBox)
 {
 	//for editing mark entry in text - user can change mark pointer inserted into text or create new mark entry
 	setupUi(this);
@@ -22,7 +22,7 @@ MarkVariableText::MarkVariableText(const QList<Mark*>& marks, QWidget *parent) :
 	setWindowTitle(tr("Mark with Variable Text"));
 }
 
-MarkVariableText::MarkVariableText(const Mark* mark, QWidget *parent) : MarkInsert(mark, parent), m_mark(mark)
+MarkVariableText::MarkVariableText(const Mark* mark, QWidget *parent) : MarkInsert(mark, parent), m_mark(mark), m_widgetType(LineEdit)
 {
 	//for editing by marks Manager - user can change label and variable text
 	setupUi(this);
@@ -45,13 +45,14 @@ Mark* MarkVariableText::values(QString& label, QString& text)
 {
 	text = textEdit->text();
 	//hack to read if it is QComboBox or QLineEdit
-	if (labelEditWidget->toolTip() != tr("Edit selected Mark's label."))
+	if (m_widgetType == ComboBox)
 	{
-		int labelID = ((QComboBox*) labelEditWidget)->currentIndex();
-		label = ((QComboBox*) labelEditWidget)->currentText();
+		QComboBox* comboBox = (QComboBox*) labelEditWidget;
+		int labelID = comboBox->currentIndex();
+		label = comboBox->currentText();
 		if (label == tr("New Mark"))
 			label = "VariableMark";
-		return (Mark*) ((QComboBox*) labelEditWidget)->itemData(labelID).value<void*>();
+		return (Mark*) (comboBox->itemData(labelID).value<void*>());
 	}
 	label = ((QLineEdit*) labelEditWidget)->text();
 	if (label == tr("New Mark"))
@@ -61,10 +62,13 @@ Mark* MarkVariableText::values(QString& label, QString& text)
 
 void MarkVariableText::setValues(QString label, QString text)
 {
-	if (labelEditWidget->toolTip() == tr("Edit selected Mark's label."))
+	if (m_widgetType == LineEdit)
 		((QLineEdit*) labelEditWidget)->setText(label);
 	else
-		((QComboBox*) labelEditWidget)->setCurrentIndex(((QComboBox*) labelEditWidget)->findText(label));
+	{
+		QComboBox* comboBox = (QComboBox*) labelEditWidget;
+		comboBox->setCurrentIndex(comboBox->findText(label));
+	}
 	textEdit->setText(text);
 }
 

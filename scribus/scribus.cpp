@@ -9665,10 +9665,10 @@ bool ScribusMainWindow::editMarkDlg(Mark *mrk, PageItem_TextFrame* currItem)
 		case MARKVariableTextType:
 			if (currItem == NULL)
 				//invoked from Marks Manager
-				editMDialog = (MarkInsert*) new MarkVariableText(mrk, this);
+				editMDialog = dynamic_cast<MarkInsert*>(new MarkVariableText(mrk, this));
 			else
 				//invoked from mark`s entry in text
-				editMDialog = (MarkInsert*) new MarkVariableText(doc->marksList(), this);
+				editMDialog = dynamic_cast<MarkInsert*>(new MarkVariableText(doc->marksList(), this));
 			editMDialog->setValues(mrk->label, mrk->getString());
 			break;
 		case MARK2ItemType:

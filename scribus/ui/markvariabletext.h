@@ -23,7 +23,16 @@ private slots:
 	void onLabelList_currentIndexChanged(int index);
 
 private:
+
+	enum WidgetType
+	{
+		ComboBox = 0,
+		LineEdit = 1
+	};
+
 	QWidget* labelEditWidget;
+	const WidgetType m_widgetType;
+
 	const Mark* m_mark;
 };
 
