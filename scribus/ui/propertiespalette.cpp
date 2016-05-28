@@ -617,7 +617,7 @@ void  PropertiesPalette::handleSelectionChanged()
 	if (TabStack->isItemEnabled(currentTab) && (TabStack->currentIndex() != currentTab))
 		TabStack->setCurrentIndex(currentTab);
 	updateGeometry();
-	repaint();
+	update();
 	connect(TabStack, SIGNAL(currentChanged2(int)), this, SLOT(SelTab(int)));
 
 	if (currItem)
