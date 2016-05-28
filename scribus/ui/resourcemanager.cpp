@@ -106,6 +106,65 @@ void ResourceManager::languageChange()
 	categoryChanged();
 }
 
+void ResourceManager::readAvailablePalettes()
+{
+	QFile dataFile(ScPaths::downloadDir() + dataFiles[RM_PALETTES]);
+	if (!dataFile.exists())
+		return;
+	dataFile.open(QIODevice::ReadOnly);
+	QTextStream ts(&dataFile);
+	ts.setCodec(QTextCodec::codecForName("UTF-8"));
+	QString errorMsg;
+	int eline;
+	int ecol;
+	QDomDocument doc( QString(dataFiles[RM_PALETTES]).remove(".xml") );
+	QString data(ts.readAll());
+	dataFile.close();
+	if ( !doc.setContent( data, &errorMsg, &eline, &ecol ))
+	{
+		if (data.toLower().contains("404 not found"))
+			qDebug()<<"File not found on server";
+		else
+			qDebug()<<"Could not open file"<<dataFile.fileName();
+		return;
+	}
+	availableList.clear();
+	QDomElement docElem = doc.documentElement();
+	QDomNode n = docElem.firstChild();
+	while( !n.isNull() )
+	{
+		QDomElement e = n.toElement();
+		if( !e.isNull() )
+		{
+			if (e.tagName()=="palette")
+			{
+				if (e.hasAttribute("type") && e.hasAttribute("filetype"))
+				{
+					//if (e.attribute("type")=="scribusofficial")
+					{
+						struct DownloadItem d;
+						d.desc=e.attribute("description");
+						d.download=false;
+						d.files=e.attribute("files");
+						d.extractfiles="";
+						d.url=e.attribute("URL");
+						d.version=e.attribute("version");
+						d.lang=e.attribute("language");
+						d.license=e.attribute("license");
+						d.filetype=e.attribute("filetype");
+						d.type=e.attribute("type");
+						d.source=e.attribute("source");
+						QUrl url(d.url);
+						if (url.isValid() && !url.isEmpty() && !url.host().isEmpty())
+							availableList.append(d);
+					}
+				}
+			}
+		}
+		n = n.nextSibling();
+	}
+}
+
 void ResourceManager::updateInstalledFonts()
 {
 	installedTableWidget->clear();
@@ -656,61 +715,6 @@ void ResourceManager::updateAvailableHelp()
 
 void ResourceManager::updateAvailablePalettes()
 {
-	QFile dataFile(ScPaths::downloadDir() + dataFiles[RM_PALETTES]);
-	if (!dataFile.exists())
-		return;
-	dataFile.open(QIODevice::ReadOnly);
-	QTextStream ts(&dataFile);
-	ts.setCodec(QTextCodec::codecForName("UTF-8"));
-	QString errorMsg;
-	int eline;
-	int ecol;
-	QDomDocument doc( QString(dataFiles[RM_PALETTES]).remove(".xml") );
-	QString data(ts.readAll());
-	dataFile.close();
-	if ( !doc.setContent( data, &errorMsg, &eline, &ecol ))
-	{
-		if (data.toLower().contains("404 not found"))
-			qDebug()<<"File not found on server";
-		else
-			qDebug()<<"Could not open file"<<dataFile.fileName();
-		return;
-	}
-	availableList.clear();
-	QDomElement docElem = doc.documentElement();
-	QDomNode n = docElem.firstChild();
-	while( !n.isNull() )
-	{
-		QDomElement e = n.toElement();
-		if( !e.isNull() )
-		{
-			if (e.tagName()=="palette")
-			{
-				if (e.hasAttribute("type") && e.hasAttribute("filetype"))
-				{
-					//if (e.attribute("type")=="scribusofficial")
-					{
-						struct DownloadItem d;
-						d.desc=e.attribute("description");
-						d.download=false;
-						d.files=e.attribute("files");
-						d.extractfiles="";
-						d.url=e.attribute("URL");
-						d.version=e.attribute("version");
-						d.lang=e.attribute("language");
-						d.license=e.attribute("license");
-						d.filetype=e.attribute("filetype");
-						d.type=e.attribute("type");
-						d.source=e.attribute("source");
-						QUrl url(d.url);
-						if (url.isValid() && !url.isEmpty() && !url.host().isEmpty())
-							availableList.append(d);
-					}
-				}
-			}
-		}
-		n = n.nextSibling();
-	}
 	availableTableWidget->clear();
 	if(availableList.isEmpty())
 	{
@@ -731,7 +735,7 @@ void ResourceManager::updateAvailablePalettes()
 		newItem2->setFlags(newItem1->flags());
 		availableTableWidget->setItem(row, column++, newItem2);
 		QTableWidgetItem *newItem3 = new QTableWidgetItem();
-		newItem3->setCheckState(dictionaryMap.contains(d.files) ? Qt::Checked : Qt::Unchecked);
+		newItem3->setCheckState(dictionaryMap.contains(d.desc) ? Qt::Checked : Qt::Unchecked);
 		newItem3->setFlags(newItem1->flags() & ~Qt::ItemIsUserCheckable);
 		availableTableWidget->setItem(row, column++, newItem3);
 		QTableWidgetItem *newItem4 = new QTableWidgetItem(d.license);
@@ -816,8 +820,9 @@ void ResourceManager::categoryChanged()
 			updateAvailableHelp();
 			break;
 		case RM_PALETTES:
-			updateAvailablePalettes();
+			readAvailablePalettes();
 			updateInstalledPalettes();
+			updateAvailablePalettes();
 			break;
 		case RM_TEST:
 			updateInstalledTest();
@@ -1271,7 +1276,6 @@ void ResourceManager::showLicense()
 			break;
 		}
 	}
-	qDebug()<<lang<<licenceFileName;
 	if (!licenceFileName.isEmpty())
 	{
 		bool doDownload=true;
