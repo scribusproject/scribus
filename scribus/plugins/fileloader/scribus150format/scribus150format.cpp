@@ -2041,18 +2041,16 @@ void Scribus150Format::readDocAttributes(ScribusDoc* doc, ScXmlStreamAttributes&
 	if (attrs.hasAttribute(LANGUAGE))
 	{
 		QString l(attrs.valueAsString(LANGUAGE));
-		if (LanguageManager::instance()->langTableIndex(l)!=-1)
+		if (LanguageManager::instance()->langTableIndex(l) != -1)
 			m_Doc->setHyphLanguage(l); //new style storage
 		else
 		{ //old style storage
-			QString lnew=LanguageManager::instance()->getAbbrevFromLang(l, true, false);
+			QString lnew = LanguageManager::instance()->getAbbrevFromLang(l, true, false);
 			if (lnew.isEmpty())
-				lnew=LanguageManager::instance()->getAbbrevFromLang(l, false, false);
+				lnew = LanguageManager::instance()->getAbbrevFromLang(l, false, false);
 			m_Doc->setHyphLanguage(lnew);
 		}
 	}
-
-
 
 	m_Doc->setHyphMinimumWordLength(attrs.valueAsInt("MINWORDLEN", 3));
 	m_Doc->setHyphConsecutiveLines(attrs.valueAsInt("HYCOUNT", 2));

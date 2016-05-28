@@ -855,7 +855,22 @@ void Scribus134Format::readDocAttributes(ScribusDoc* doc, ScXmlStreamAttributes&
 	m_Doc->PageSpa = attrs.valueAsDouble("ABSTSPALTEN");
 	m_Doc->setUnitIndex( attrs.valueAsInt("UNITS", 0) );
 
-	m_Doc->setHyphLanguage(attrs.valueAsString("LANGUAGE", ""));
+	//m_Doc->setHyphLanguage(attrs.valueAsString("LANGUAGE", ""));
+	static const QString LANGUAGE("LANGUAGE");
+	if (attrs.hasAttribute(LANGUAGE))
+	{
+		QString l(attrs.valueAsString(LANGUAGE));
+		if (LanguageManager::instance()->langTableIndex(l) != -1)
+			m_Doc->setHyphLanguage(l); //new style storage
+		else
+		{ //old style storage
+			QString lnew = LanguageManager::instance()->getAbbrevFromLang(l, true, false);
+			if (lnew.isEmpty())
+				lnew = LanguageManager::instance()->getAbbrevFromLang(l, false, false);
+			m_Doc->setHyphLanguage(lnew);
+		}
+	}
+
 	m_Doc->setHyphMinimumWordLength(attrs.valueAsInt("MINWORDLEN", 3));
 	m_Doc->setHyphConsecutiveLines(attrs.valueAsInt("HYCOUNT", 2));
 
@@ -1251,9 +1266,9 @@ void Scribus134Format::readCharacterStyleAttrs(ScribusDoc *doc, ScXmlStreamAttri
 			newStyle.setLanguage(l); //new style storage
 		else
 		{ //old style storage
-			QString lnew=LanguageManager::instance()->getAbbrevFromLang(l, true, false);
+			QString lnew = LanguageManager::instance()->getAbbrevFromLang(l, true, false);
 			if (lnew.isEmpty())
-				lnew=LanguageManager::instance()->getAbbrevFromLang(l, false, false);
+				lnew = LanguageManager::instance()->getAbbrevFromLang(l, false, false);
 			newStyle.setLanguage(lnew);
 		}
 	}
