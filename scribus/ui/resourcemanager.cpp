@@ -106,6 +106,64 @@ void ResourceManager::languageChange()
 	categoryChanged();
 }
 
+void ResourceManager::readAvailableHelp()
+{
+	QFile dataFile(ScPaths::downloadDir() + dataFiles[RM_HELP]);
+	if (!dataFile.exists())
+		return;
+	dataFile.open(QIODevice::ReadOnly);
+	QTextStream ts(&dataFile);
+	ts.setCodec(QTextCodec::codecForName("UTF-8"));
+	QString errorMsg;
+	int eline;
+	int ecol;
+	QDomDocument doc( QString(dataFiles[RM_HELP]).remove(".xml") );
+	QString data(ts.readAll());
+	dataFile.close();
+	if ( !doc.setContent( data, &errorMsg, &eline, &ecol ))
+	{
+		if (data.toLower().contains("404 not found"))
+			qDebug()<<"File not found on server";
+		else
+			qDebug()<<"Could not open file"<<dataFile.fileName();
+		return;
+	}
+	availableList.clear();
+	QDomElement docElem = doc.documentElement();
+	QDomNode n = docElem.firstChild();
+	while( !n.isNull() )
+	{
+		QDomElement e = n.toElement();
+		if( !e.isNull() )
+		{
+			if (e.tagName()=="help")
+			{
+				if (e.hasAttribute("type") && e.hasAttribute("filetype"))
+				{
+					if (e.attribute("type")=="scribusofficial")
+					{
+						struct DownloadItem d;
+						d.desc=e.attribute("description");
+						d.download=false;
+						d.files=e.attribute("files");
+						d.extractfiles="";
+						d.url=e.attribute("URL");
+						d.version=e.attribute("version");
+						d.lang=e.attribute("language");
+						d.license=e.attribute("license");
+						d.filetype=e.attribute("filetype");
+						d.type=e.attribute("type");
+						QUrl url(d.url);
+						if (url.isValid() && !url.isEmpty() && !url.host().isEmpty())
+							availableList.append(d);
+					}
+				}
+			}
+		}
+		n = n.nextSibling();
+	}
+}
+
 void ResourceManager::readAvailablePalettes()
 {
 	QFile dataFile(ScPaths::downloadDir() + dataFiles[RM_PALETTES]);
@@ -268,7 +326,39 @@ void ResourceManager::updateInstalledTemplates()
 void ResourceManager::updateInstalledHelp()
 {
 	dictionaryMap.clear();
+	QString helpDir(findDestinationFolder());
+	foreach(DownloadItem d, availableList)
+	{
+		if (QFileInfo::exists(helpDir+d.lang))
+			dictionaryMap.insert(d.desc, helpDir+d.lang);
+	}
 	installedTableWidget->clear();
+	installedTableWidget->setRowCount(dictionaryMap.count());
+	installedTableWidget->setColumnCount(2);
+	installedTableWidget->setSortingEnabled(false);
+
+	QMapIterator<QString, QString> i(dictionaryMap);
+	int row=0;
+	while (i.hasNext())
+	{
+		i.next();
+		int column=0;
+		QTableWidgetItem *newItem1 = new QTableWidgetItem(i.key());
+		newItem1->setFlags(newItem1->flags() & ~Qt::ItemIsEditable & ~Qt::ItemIsSelectable);
+		installedTableWidget->setItem(row, column++, newItem1);
+		QTableWidgetItem *newItem2 = new QTableWidgetItem(i.value());
+		newItem2->setFlags(newItem1->flags());
+		installedTableWidget->setItem(row, column++, newItem2);
+		++row;
+	}
+
+	QStringList headers;
+	headers << tr("Description") << tr("Location") ;
+	installedTableWidget->setHorizontalHeaderLabels(headers);
+
+	installedTableWidget->resizeColumnsToContents();
+	installedTableWidget->setSortingEnabled(true);
+	installedTableWidget->sortByColumn(0, Qt::AscendingOrder);
 }
 
 void ResourceManager::updateInstalledPalettes()
@@ -618,60 +708,6 @@ void ResourceManager::updateAvailableTemplates()
 
 void ResourceManager::updateAvailableHelp()
 {
-	QFile dataFile(ScPaths::downloadDir() + dataFiles[RM_HELP]);
-	if (!dataFile.exists())
-		return;
-	dataFile.open(QIODevice::ReadOnly);
-	QTextStream ts(&dataFile);
-	ts.setCodec(QTextCodec::codecForName("UTF-8"));
-	QString errorMsg;
-	int eline;
-	int ecol;
-	QDomDocument doc( QString(dataFiles[RM_HELP]).remove(".xml") );
-	QString data(ts.readAll());
-	dataFile.close();
-	if ( !doc.setContent( data, &errorMsg, &eline, &ecol ))
-	{
-		if (data.toLower().contains("404 not found"))
-			qDebug()<<"File not found on server";
-		else
-			qDebug()<<"Could not open file"<<dataFile.fileName();
-		return;
-	}
-	availableList.clear();
-	QDomElement docElem = doc.documentElement();
-	QDomNode n = docElem.firstChild();
-	while( !n.isNull() )
-	{
-		QDomElement e = n.toElement();
-		if( !e.isNull() )
-		{
-			if (e.tagName()=="help")
-			{
-				if (e.hasAttribute("type") && e.hasAttribute("filetype"))
-				{
-					if (e.attribute("type")=="scribusofficial")
-					{
-						struct DownloadItem d;
-						d.desc=e.attribute("description");
-						d.download=false;
-						d.files=e.attribute("files");
-						d.extractfiles="";
-						d.url=e.attribute("URL");
-						d.version=e.attribute("version");
-						d.lang=e.attribute("language");
-						d.license=e.attribute("license");
-						d.filetype=e.attribute("filetype");
-						d.type=e.attribute("type");
-						QUrl url(d.url);
-						if (url.isValid() && !url.isEmpty() && !url.host().isEmpty())
-							availableList.append(d);
-					}
-				}
-			}
-		}
-		n = n.nextSibling();
-	}
 	availableTableWidget->clear();
 	if(availableList.isEmpty())
 	{
@@ -816,6 +852,7 @@ void ResourceManager::categoryChanged()
 			updateAvailableTemplates();
 			break;
 		case RM_HELP:
+			readAvailableHelp();
 			updateInstalledHelp();
 			updateAvailableHelp();
 			break;
@@ -910,7 +947,7 @@ void ResourceManager::downloadFilesFinished()
 	disconnect(ScQApp->dlManager(), SIGNAL(fileReceived(const QString&)), this, SLOT(updateProgressBar()));
 	disconnect(ScQApp->dlManager(), SIGNAL(fileFailed(const QString&)), this, SLOT(updateProgressBar()));
 	disconnect(ScQApp->dlManager(), SIGNAL(fileDownloadProgress(qint64, qint64)), this, SLOT(updateProgressData(qint64, qint64)));
-	categoryChanged();
+
 	downloadProgressBar->setValue(0);
 	downloadProgressBar->setVisible(false);
 	dataReceivedLabel->setVisible(false);
@@ -1051,7 +1088,7 @@ void ResourceManager::downloadFilesFinished()
 			}
 			break;
 	}
-
+	categoryChanged();
 }
 
 void ResourceManager::downloadLicenseFinished()

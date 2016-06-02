@@ -60,6 +60,7 @@ class SCRIBUS_API ResourceManager : public QDialog, Ui::ResourceManagerBase
 		void languageChange();
 
 	protected:
+		void readAvailableHelp();
 		void readAvailablePalettes();
 
 		void updateInstalledFonts();
