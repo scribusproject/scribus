@@ -1802,6 +1802,8 @@ bool Scribus150Format::loadFile(const QString & fileName, const FileFormat & /* 
 	m_Doc->refreshGuides();
 
 	// #12282 : some docs have language dependent style names specified in style properties
+	// #14129 : some others reference deleted character styles
+	m_Doc->fixCharacterStyles();
 	m_Doc->fixParagraphStyles();
 	m_Doc->fixNotesStyles();
 

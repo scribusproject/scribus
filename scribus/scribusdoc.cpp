@@ -6067,11 +6067,36 @@ void  ScribusDoc::fixItemPageOwner()
 	}
 }
 
+void ScribusDoc::fixCharacterStyles()
+{
+	for (int i = 0; i < m_docCharStyles.count(); ++i)
+	{
+		CharStyle& charStyle = m_docCharStyles[i];
+		QString parentName = charStyle.parent();
+		if (parentName.isEmpty())
+			continue;
+		if (!m_docCharStyles.contains(parentName))
+			charStyle.setParent(QString());
+	}
+}
+
 void ScribusDoc::fixParagraphStyles()
 {
 	for (int i = 0; i < m_docParagraphStyles.count(); ++i)
 	{
 		ParagraphStyle& parStyle = m_docParagraphStyles[i];
+		QString parentName = parStyle.parent();
+		if (!parentName.isEmpty())
+		{
+			if (!m_docParagraphStyles.contains(parentName))
+				parStyle.setParent(QString());
+		}
+		QString charStyleName = parStyle.charStyle().parent();
+		if (!charStyleName.isEmpty())
+		{
+			if (!m_docCharStyles.contains(charStyleName))
+				parStyle.charStyle().setParent(QString());
+		}
 		QString peStyleName = parStyle.peCharStyleName();
 		if (peStyleName.isEmpty())
 			continue;

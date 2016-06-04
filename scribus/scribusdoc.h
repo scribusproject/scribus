@@ -871,6 +871,8 @@ public:
 
 	/** @brief Check and fix if needed PageItem OwnPage member */
 	void fixItemPageOwner();
+	/** @brief Fix character styles */
+	void fixCharacterStyles();
 	/** @brief Fix paragraph styles */
 	void fixParagraphStyles();
 	/** @brief Fix notes styles */
