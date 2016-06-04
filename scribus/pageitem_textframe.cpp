@@ -537,7 +537,8 @@ struct LineControl {
 		line.lastRun = 0;
 		line.ascent = 0.0;
 		line.descent = 0.0;
-		line.width = 0.0;
+		line.width  = 0.0;
+		line.height = 0.0;
 		line.naturalWidth = 0.0;
 		line.colLeft = colLeft;
 		breakIndex = -1;
@@ -2582,8 +2583,15 @@ void PageItem_TextFrame::layout()
 				tabs.status = TabNONE;
 				if (SpecialChars::isBreak(itemText.text(a), Cols > 1))
 				{
-					// find end of line
+					// Find end of line
+					// For break characters regionMinY and regionMaxY are usually equal due
+					// to ascent and descent of those characters being 0. So for non rectangular frames, 
+					// this may result in current.endOfLine() finding an excessive value and some characters
+					// hanging out of frame, especially when using right alignment. So recompute regionMinY and 
+					// regionMaxY based on line ascent and descent.
 					current.breakLine(style, firstLineOffset(), i);
+					regionMinY = current.line.y - current.line.ascent;
+					regionMaxY = current.line.y + current.line.descent;
 					EndX = current.endOfLine(m_availableRegion, style.rightMargin(), regionMinY, regionMaxY);
 					current.finishLine(EndX);
 					//addLine = true;
@@ -2999,7 +3007,18 @@ void PageItem_TextFrame::layout()
 		{
 			if (verticalAlign == 1)
 				hAdjust /= 2;
-			textLayout.box()->moveBy(0, hAdjust);
+			if (FrameType == 0) // Rectangular frame
+				textLayout.box()->moveBy(0, hAdjust);
+			else
+			{
+				int vertAlign = verticalAlign;
+				double topDist = m_textDistanceMargins.top();
+				m_textDistanceMargins.setTop(topDist + hAdjust);
+				verticalAlign = 0;
+				layout();
+				verticalAlign = vertAlign;
+				m_textDistanceMargins.setTop(topDist);
+			}
 		}
 	}
 	invalid = false;
