@@ -4533,6 +4533,38 @@ void  ScribusDoc::fixItemPageOwner()
 	}
 }
 
+void ScribusDoc::fixCharacterStyles()
+{
+	for (int i = 0; i < docCharStyles.count(); ++i)
+	{
+		CharStyle& charStyle = docCharStyles[i];
+		QString parentName = charStyle.parent();
+		if (parentName.isEmpty())
+			continue;
+		if (!docCharStyles.contains(parentName))
+			charStyle.setParent(QString());
+	}
+}
+
+void ScribusDoc::fixParagraphStyles()
+{
+	for (int i = 0; i < docParagraphStyles.count(); ++i)
+	{
+		ParagraphStyle& parStyle = docParagraphStyles[i];
+		QString parentName = parStyle.parent();
+		if (!parentName.isEmpty())
+		{
+			if (!docParagraphStyles.contains(parentName))
+				parStyle.setParent(QString());
+		}
+		QString charStyleName = parStyle.charStyle().parent();
+		if (!charStyleName.isEmpty())
+		{
+			if (!docCharStyles.contains(charStyleName))
+				parStyle.charStyle().setParent(QString());
+		}
+	}
+}
 
 struct oldPageVar
 {

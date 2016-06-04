@@ -27,6 +27,8 @@ public:
 		assert(index < styles.count()); 
 		return * styles[index]; 
 	}
+
+	inline bool contains(const QString& name) const;
 	
 	inline int find(const QString& name) const;
 
@@ -110,6 +112,15 @@ inline void StyleSet<STYLE>::remove(int index)
 //	delete (*it);
 //	styles.erase(it);
 	styles.removeAt(index);
+}
+
+template<class STYLE>
+inline bool StyleSet<STYLE>::contains(const QString& name) const
+{
+	for (int i=0; i < styles.count(); ++i)
+		if (styles[i]->name() == name)
+			return true;
+	return false;
 }
 
 template<class STYLE>

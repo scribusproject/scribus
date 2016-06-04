@@ -705,6 +705,10 @@ public:
 	void refreshGuides();
 	/** @brief Check and fix if needed PageItem OwnPage member */
 	void fixItemPageOwner();
+	/** @brief Fix paragraph styles */
+	void fixCharacterStyles();
+	/** @brief Fix paragraph styles */
+	void fixParagraphStyles();
 	
 	/**
 	 * @brief Return the x or y offset for a page on the canvas

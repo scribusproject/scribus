@@ -1572,6 +1572,11 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 	m_Doc->reformPages();
 	m_Doc->refreshGuides();
 
+	// #12282 : some docs have language dependent style names specified in style properties
+	// #14129 : some docs reference deleted character styles
+	m_Doc->fixCharacterStyles();
+	m_Doc->fixParagraphStyles();
+
 	// Some old long doc may have page owner somewhat broken
 	m_Doc->fixItemPageOwner();
 
