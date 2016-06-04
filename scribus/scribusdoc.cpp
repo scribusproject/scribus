@@ -4513,10 +4513,11 @@ public:
 		if (gl.glyph >= ScFace::CONTROL_GLYPHS)
 			return;
 
-		if (!font().replacementName().isEmpty())
+		QString replacementName = font().replacementName();
+		if (!replacementName.isEmpty())
 		{
 			FPointArray outline(font().glyphOutline(gl.glyph));
-			m_really[font().replacementName()].insert(gl.glyph, outline);
+			m_really[replacementName].insert(gl.glyph, outline);
 		}
 	}
 
