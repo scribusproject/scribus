@@ -85,7 +85,7 @@ void UpgradeChecker::fetch()
 		{
 			QString hostname("services.scribus.net");
 			QString filepath("/"+filename);
-			QUrl fileURL(QString("http://%1%2").arg(hostname).arg(filepath));
+			QUrl fileURL(QString("https://%1%2").arg(hostname).arg(filepath));
 			outputText("<b>"+ tr("Attempting to get the Scribus version update file:")+"</b>");
 			outputText(fileURL.toString());
 
