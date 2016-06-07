@@ -190,7 +190,6 @@ void PropertyWidget_TextColor::handleSelectionChanged()
 	PageItem* currItem = currentItemFromSelection();
 	setCurrentItem(currItem);
 	updateGeometry();
-	repaint();
 }
 
 void PropertyWidget_TextColor::handleUpdateRequest(int updateFlags)

@@ -167,7 +167,6 @@ void PropertyWidget_Advanced::handleSelectionChanged()
 	PageItem* currItem = currentItemFromSelection();
 	setCurrentItem(currItem);
 	updateGeometry();
-	repaint();
 }
 
 void PropertyWidget_Advanced::showBaseLineOffset(double e)

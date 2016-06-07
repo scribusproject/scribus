@@ -143,7 +143,6 @@ void PropertyWidget_OptMargins::handleSelectionChanged()
 	PageItem* currItem = currentItemFromSelection();
 	setCurrentItem(currItem);
 	updateGeometry();
-	repaint();
 }
 
 void PropertyWidget_OptMargins::showOpticalMargins(const ParagraphStyle & pStyle)

@@ -328,7 +328,6 @@ void PropertyWidget_ParEffect::handleSelectionChanged()
 	PageItem* currItem = currentItemFromSelection();
 	setCurrentItem(currItem);
 	updateGeometry();
-	repaint();
 }
 
 void PropertyWidget_ParEffect::handleUpdateRequest(int updateFlags)

@@ -224,7 +224,6 @@ void PropertyWidget_Distance::handleSelectionChanged()
 	PageItem* currItem = currentItemFromSelection();
 	setCurrentItem(currItem);
 	updateGeometry();
-	repaint();
 }
 
 void PropertyWidget_Distance::handleUpdateRequest(int /*updateFlags*/)

@@ -156,7 +156,6 @@ void PropertyWidget_PathText::handleSelectionChanged()
 	PageItem* currItem = currentItemFromSelection();
 	setCurrentItem(currItem);
 	updateGeometry();
-	repaint();
 }
 
 void PropertyWidget_PathText::handleUpdateRequest(int /*updateFlags*/)
