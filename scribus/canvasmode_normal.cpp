@@ -1819,7 +1819,7 @@ void CanvasMode_Normal::importToPage()
 	PrefsContext* dirs = PrefsManager::instance()->prefsFile->getContext("dirs");
 	QString wdir = dirs->get("pastefile", ".");
 	FPoint pastePoint = m_mouseCurrentPoint;
-	CustomFDialog dia(m_view, wdir, tr("Open"), allFormats, fdExistingFiles | fdShowImportOptions);
+	CustomFDialog dia(m_view, wdir, tr("Open"), allFormats, fdExistingFiles | fdShowImportOptions | fdDisableOk);
 	if (dia.exec() == QDialog::Accepted)
 		fileName = dia.selectedFile();
 	else

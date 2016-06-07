@@ -65,7 +65,7 @@ public:
 	} ActionSelected;
 
 	NewDoc( QWidget* parent, const QStringList& recentDocs, bool startUp = false, QString lang = "");
-	~NewDoc() {};
+	~NewDoc() {}
 	void createNewDocPage();
 	void createNewFromTempPage();
 	void createOpenDocPage();
@@ -150,6 +150,7 @@ public slots:
 	void gotoSelectedDirectory();
 	void gotoDesktopDirectory();
 	void gotoHomeDirectory();
+	void openFileDialogFileClicked(const QString &path);
 
 protected:
 	QVBoxLayout* TabbedNewDocLayout;

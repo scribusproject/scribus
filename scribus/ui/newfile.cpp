@@ -170,10 +170,6 @@ NewDoc::NewDoc( QWidget* parent, const QStringList& recentDocs, bool startUp, QS
 		connect(recentDocListBox, SIGNAL(itemDoubleClicked(QListWidgetItem *)), this, SLOT(recentDocListBox_doubleClicked()));
 		connect(tabWidget, SIGNAL(currentChanged(int)), this, SLOT(adjustTitles(int)));
 	}
-
-// 	setMinimumSize(minimumSizeHint());
-//  	setMaximumSize(minimumSizeHint());
-// 	resize(minimumSizeHint());
 }
 
 void NewDoc::createNewDocPage()
@@ -392,6 +388,7 @@ void NewDoc::createOpenDocPage()
 	connect(keyCatcher, SIGNAL(homePressed()), this, SLOT(gotoHomeDirectory()));
 	connect(keyCatcher, SIGNAL(parentPressed()), this, SLOT(gotoParentDirectory()));
 	connect(keyCatcher, SIGNAL(enterSelectedPressed()), this, SLOT(gotoSelectedDirectory()));
+	connect(fileDialog, SIGNAL(currentChanged(const QString &)), this, SLOT(openFileDialogFileClicked(const QString &)));
 	connect(fileDialog, SIGNAL(filesSelected(const QStringList &)), this, SLOT(openFile()));
 	connect(fileDialog, SIGNAL(rejected()), this, SLOT(reject()));
 }
@@ -554,6 +551,12 @@ void NewDoc::ExitOK()
 			QStringList files = fileDialog->selectedFiles();
 			if (files.count() != 0)
 				m_selectedFile = QDir::fromNativeSeparators(files[0]);
+			QFileInfo fi(m_selectedFile);
+			if (fi.isDir())
+			{
+				fileDialog->setDirectory(fi.absoluteFilePath());
+				return;
+			}
 		}
 		else if (m_tabSelected == NewDoc::OpenRecentTab) // open recent doc
 		{
@@ -661,15 +664,16 @@ void NewDoc::recentDocListBox_doubleClicked()
 void NewDoc::adjustTitles(int tab)
 {
 	if (tab == 0)
-		setWindowTitle( tr( "New Document" ) );
+		setWindowTitle(tr("New Document"));
 	else if (tab == 1)
-		setWindowTitle( tr("New from Template"));
+		setWindowTitle(tr("New from Template"));
 	else if (tab == 2)
-		setWindowTitle( tr("Open Existing Document"));
+		setWindowTitle(tr("Open Existing Document"));
 	else if (tab == 3)
- 		setWindowTitle( tr("Open Recent Document"));
+		setWindowTitle(tr("Open Recent Document"));
  	else
-		setWindowTitle( tr( "New Document" ) );
+		setWindowTitle(tr("New Document"));
+	OKButton->setEnabled(tab!=2);
 }
 
 void NewDoc::locationDropped(QString fileUrl)
@@ -698,7 +702,6 @@ void NewDoc::gotoSelectedDirectory()
 	if (s.count()>0)
 	{
 		QFileInfo fi(s.first());
-		qDebug()<<s.first()<<fi.absoluteFilePath();
 		if (fi.isDir())
 			fileDialog->setDirectory(fi.absoluteFilePath());
 	}
@@ -719,4 +722,9 @@ void NewDoc::gotoHomeDirectory()
 	QFileInfo fi(dp);
 	if (fi.exists())
 		fileDialog->setDirectory(dp);
+}
+
+void NewDoc::openFileDialogFileClicked(const QString& path)
+{
+	OKButton->setEnabled(!path.isEmpty());
 }

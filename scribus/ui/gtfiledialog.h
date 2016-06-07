@@ -29,6 +29,8 @@ public:
 
 public slots:
 	virtual void accept();
+	void fileClicked(const QString &path);
+	void okClicked();
 
 protected:
 	void loadSettings(void);

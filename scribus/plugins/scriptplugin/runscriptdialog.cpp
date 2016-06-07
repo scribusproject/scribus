@@ -5,6 +5,7 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 #include <QDir>
+#include <QPushButton>
 #include "runscriptdialog.h"
 #include "prefsmanager.h"
 
@@ -28,9 +29,12 @@ RunScriptDialog::RunScriptDialog(QWidget* parent, bool extEnable) :
 
 	if (!extEnable)
 		extChk->setVisible(false);
-
+	buttonBox->button(QDialogButtonBox::Ok)->setEnabled(false);
+	connect(fileWidget, SIGNAL(currentChanged(const QString &)), this, SLOT(fileClicked(const QString &)));
 	connect(fileWidget, SIGNAL(accepted()), this, SLOT(accept()));
 	connect(fileWidget, SIGNAL(rejected()), this, SLOT(reject()));
+	connect(buttonBox, SIGNAL(accepted()), this, SLOT(okClicked()));
+	connect(buttonBox, SIGNAL(rejected()), this, SLOT(reject()));
 }
 
 RunScriptDialog::~RunScriptDialog()
@@ -54,4 +58,23 @@ void RunScriptDialog:: accept()
 {
 	m_lastScriptDir = fileWidget->directory().path();
 	QDialog::accept();
+}
+
+void RunScriptDialog::fileClicked(const QString& path)
+{
+	buttonBox->button(QDialogButtonBox::Ok)->setEnabled(!path.isEmpty());
+}
+
+void RunScriptDialog::okClicked()
+{
+	QString selFile;
+	QStringList sel = fileWidget->selectedFiles();
+	if (sel.isEmpty())
+		return;
+	selFile = QDir::fromNativeSeparators(sel[0]);
+	QFileInfo fi(selFile);
+	if (fi.isDir())
+		fileWidget->gotoSelectedDirectory();
+	else
+		accept();
 }

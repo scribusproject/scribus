@@ -335,6 +335,8 @@ CustomFDialog::CustomFDialog(QWidget *parent, QString wDir, QString caption, QSt
 	OKButton = new QPushButton( CommonStrings::tr_OK, this);
 	OKButton->setDefault( true );
 	hboxLayout1->addWidget( OKButton );
+	if (flags & fdDisableOk)
+		OKButton->setEnabled(false);
 	CancelB = new QPushButton( CommonStrings::tr_Cancel, this);
 	CancelB->setAutoDefault( false );
 	hboxLayout1->addWidget( CancelB );
@@ -492,7 +494,7 @@ CustomFDialog::CustomFDialog(QWidget *parent, QString wDir, QString caption, QSt
 	}
 	fileDialog->setNameFilterDetailsVisible(false);
 	extZip = "gz";
-	connect(OKButton, SIGNAL(clicked()), this, SLOT(accept()));
+	connect(OKButton, SIGNAL(clicked()), this, SLOT(okClicked()));
 	connect(CancelB, SIGNAL(clicked()), this, SLOT(reject()));
 	connect(showPreview, SIGNAL(clicked()), this, SLOT(togglePreview()));
 	connect(fileDialog, SIGNAL(currentChanged(const QString &)), this, SLOT(fileClicked(const QString &)));
@@ -505,8 +507,22 @@ CustomFDialog::CustomFDialog(QWidget *parent, QString wDir, QString caption, QSt
 
 void CustomFDialog::fileClicked(const QString &path)
 {
+	if (optionFlags & fdDisableOk)
+		OKButton->setEnabled(!path.isEmpty());
 	if (previewIsShown)
 		pw->GenPreview(path);
+}
+
+void CustomFDialog::okClicked()
+{
+	QString selFile=selectedFile();
+	if (selFile.isEmpty())
+		return;
+	QFileInfo fi(selFile);
+	if (fi.isDir())
+		fileDialog->gotoSelectedDirectory();
+	else
+		accept();
 }
 
 void CustomFDialog::togglePreview()

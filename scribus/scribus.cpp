@@ -3134,7 +3134,7 @@ void ScribusMainWindow::importVectorFile()
 	allFormats += formats.join(";;");
 	PrefsContext* dirs = PrefsManager::instance()->prefsFile->getContext("dirs");
 	QString wdir = dirs->get("pastefile", ".");
-	CustomFDialog dia(this, wdir, tr("Open"), allFormats, fdExistingFiles);
+	CustomFDialog dia(this, wdir, tr("Open"), allFormats, fdExistingFiles | fdDisableOk);
 	QString fileName("");
 	if (dia.exec() == QDialog::Accepted)
 	{
@@ -3252,7 +3252,7 @@ bool ScribusMainWindow::slotFileOpen()
 	else
 		docDir = docContext->get("docsopen", ".");
 	QString formats(FileLoader::getLoadFilterString());
-	QString fileName(CFileDialog( docDir, tr("Open"), formats));
+	QString fileName(CFileDialog( docDir, tr("Open"), formats, "", fdDisableOk));
 	if (fileName.isEmpty()) // User cancelled
 		return false;
 	QFileInfo fi(fileName);
@@ -3873,7 +3873,7 @@ void ScribusMainWindow::slotGetContent()
 
 			QStringList fileNames;
 			fileNames.clear();
-			CustomFDialog *dia = new CustomFDialog(qApp->activeWindow(), docDir, tr("Open"), formatD, fdShowPreview | fdExistingFilesI);
+			CustomFDialog *dia = new CustomFDialog(qApp->activeWindow(), docDir, tr("Open"), formatD, fdShowPreview | fdExistingFilesI | fdDisableOk);
 			if (dia->exec() == QDialog::Accepted)
 				fileNames = dia->fileDialog->selectedFiles();
 			delete dia;

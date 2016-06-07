@@ -37,6 +37,8 @@ class RunScriptDialog : public QDialog, public Ui::RunScriptDialog
 
 	protected slots:
 		virtual void accept();
+		void fileClicked(const QString &path);
+		void okClicked();
 };
 
 #endif

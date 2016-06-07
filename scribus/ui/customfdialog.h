@@ -77,7 +77,8 @@ typedef enum {
 	fdDirectoriesOnly = 16, // Show only directories
 	fdHidePreviewCheckBox = 32, // Hide preview Checkbox
 	fdExistingFilesI = 64, // For multiple files
-	fdShowImportOptions = 128 // Show Vector Images Import Options
+	fdShowImportOptions = 128, // Show Vector Images Import Options
+	fdDisableOk = 256 // Disable Ok button, used for file open, import etc
 } fdFlags;
 
 /*! \brief A Scribus own file dialog.
@@ -131,6 +132,7 @@ public:
 private slots:
 	//! \brief Go to the document home dir.
 	void fileClicked(const QString &path);
+	void okClicked();
 	void togglePreview();
 public slots:
 	//! \brief Switch the filename extensions by compress checkbox state.

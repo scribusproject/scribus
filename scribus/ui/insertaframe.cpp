@@ -231,7 +231,7 @@ void InsertAFrame::locateImageFile()
 		docDir = prefsManager->prefsFile->getContext("dirs")->get("images", ".");
 		
 	QString fileName("");
-	CustomFDialog dia(this, docDir, tr("Open"), formatD, fdShowPreview | fdExistingFiles);
+	CustomFDialog dia(this, docDir, tr("Open"), formatD, fdShowPreview | fdExistingFiles | fdDisableOk);
 	if (dia.exec() == QDialog::Accepted)
 		fileName = dia.selectedFile();
 	

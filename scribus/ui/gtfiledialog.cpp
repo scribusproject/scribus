@@ -4,6 +4,7 @@ to the COPYING file provided with the program. Following this notice may exist
 a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
+#include <QPushButton>
 #include <QToolTip>
 #include <QTextCodec>
 #include "gtfiledialog.h"
@@ -45,9 +46,12 @@ gtFileDialog::gtFileDialog(const QString& filters, const QStringList& importers,
 	}
 
 	loadSettings();
-
+	buttonBox->button(QDialogButtonBox::Ok)->setEnabled(false);
+	connect(fileWidget, SIGNAL(currentChanged(const QString &)), this, SLOT(fileClicked(const QString &)));
 	connect(fileWidget, SIGNAL(accepted()), this, SLOT(accept()));
 	connect(fileWidget, SIGNAL(rejected()), this, SLOT(reject()));
+	connect(buttonBox, SIGNAL(accepted()), this, SLOT(okClicked()));
+	connect(buttonBox, SIGNAL(rejected()), this, SLOT(reject()));
 }
 
 QString gtFileDialog::selectedFile()
@@ -59,6 +63,25 @@ void gtFileDialog::accept()
 {
 	saveSettings();
 	QDialog::accept();
+}
+
+void gtFileDialog::fileClicked(const QString& path)
+{
+	buttonBox->button(QDialogButtonBox::Ok)->setEnabled(!path.isEmpty());
+}
+
+void gtFileDialog::okClicked()
+{
+	QString selFile;
+	QStringList sel = fileWidget->selectedFiles();
+	if (sel.isEmpty())
+		return;
+	selFile = QDir::fromNativeSeparators(sel[0]);
+	QFileInfo fi(selFile);
+	if (fi.isDir())
+		fileWidget->gotoSelectedDirectory();
+	else
+		accept();
 }
 
 void gtFileDialog::loadSettings(void)

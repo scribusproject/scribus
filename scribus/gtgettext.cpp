@@ -32,7 +32,6 @@ for which a new license (GPL+exception) is in place.
 #include "selection.h"
 #include "ui/gtdialogs.h"
 #include "gtwriter.h"
-//Added by qt3to4:
 #include <QPixmap>
 
 // Constructor

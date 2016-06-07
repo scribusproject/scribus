@@ -97,10 +97,10 @@ void ScFileWidget::gotoParentDirectory()
 void ScFileWidget::gotoSelectedDirectory()
 {
 	QStringList s(selectedFiles());
-	if (s.count()>0)
+	if (!s.isEmpty())
 	{
 		QFileInfo fi(s.first());
-		qDebug()<<s.first()<<fi.absoluteFilePath();
+//		qDebug()<<s.first()<<fi.absoluteFilePath();
 		if (fi.isDir())
 			setDirectory(fi.absoluteFilePath());
 	}

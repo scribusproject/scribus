@@ -1029,7 +1029,7 @@ void PaintManagerDialog::importColorItems()
 			allFormats += formats;
 			PrefsContext* dirs = PrefsManager::instance()->prefsFile->getContext("dirs");
 			QString wdir = dirs->get("gradients", ".");
-			CustomFDialog dia(this, wdir, tr("Open"), allFormats, fdHidePreviewCheckBox | fdExistingFiles);
+			CustomFDialog dia(this, wdir, tr("Open"), allFormats, fdHidePreviewCheckBox | fdExistingFiles | fdDisableOk);
 			if (dia.exec() == QDialog::Accepted)
 				fileName = dia.selectedFile();
 			else
@@ -1067,7 +1067,7 @@ void PaintManagerDialog::importColorItems()
 			QString ooexts(" *.acb *.aco *.ase *.skp *.soc *.gpl *.xml *.sbz");
 			ooexts += extra;
 			QString filter = tr("All Supported Formats (%1);;Documents (%2);;Other Files (%3);;All Files (*)").arg(docexts+" "+aiepsext+ooexts).arg(docexts).arg(aiepsext+ooexts);
-			CustomFDialog dia(this, wdir, tr("Import Colors"), filter, fdHidePreviewCheckBox);
+			CustomFDialog dia(this, wdir, tr("Import Colors"), filter, fdHidePreviewCheckBox | fdDisableOk);
 			if (dia.exec() == QDialog::Accepted)
 				fileName = dia.selectedFile();
 			else
@@ -1181,7 +1181,7 @@ void PaintManagerDialog::importColorItems()
 			allFormats += formats.join(";;");
 			PrefsContext* dirs = PrefsManager::instance()->prefsFile->getContext("dirs");
 			QString wdir = dirs->get("patterns", ".");
-			CustomFDialog dia(this, wdir, tr("Open"), allFormats, fdHidePreviewCheckBox | fdExistingFiles);
+			CustomFDialog dia(this, wdir, tr("Open"), allFormats, fdHidePreviewCheckBox | fdExistingFiles | fdDisableOk);
 			if (dia.exec() == QDialog::Accepted)
 				fileName = dia.selectedFile();
 			else
