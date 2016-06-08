@@ -185,14 +185,19 @@ void HunspellDialog::languageComboChanged(const QString &newLanguage)
 void HunspellDialog::setLanguageCombo(const QString &newLangAbbrev)
 {
 	QMap<QString, QString>::iterator it = m_dictionaryMap->begin();
-	int i=0;
+	bool found=false;
 	while (it != m_dictionaryMap->end())
 	{
 		if (it.key()==newLangAbbrev)
+		{
+			found=true;
 			break;
-		++i;
+		}
 		++it;
 	}
+	int i=0;
+	if (found)
+		i=languagesComboBox->findText(LanguageManager::instance()->getLangFromAbbrev(newLangAbbrev,true));
 	bool b=languagesComboBox->blockSignals(true);
 	languagesComboBox->setCurrentIndex(i);
 	languagesComboBox->blockSignals(b);

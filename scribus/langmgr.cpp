@@ -215,6 +215,7 @@ void LanguageManager::generateLangList()
 	m_langTable.append(LangDef("en_ZA",    "",         "English (South Africa)",  QObject::tr("English (South Africa)")));
 	m_langTable.append(LangDef("en_GB",    "en",       "English (UK)",            QObject::tr("English (UK)")));
 	m_langTable.append(LangDef("en_US",    "",         "English (US)",            QObject::tr("English (US)")));
+	m_langTable.append(LangDef("en_US",    "",         "English",                 QObject::tr("English")));
 	m_langTable.append(LangDef("ang",      "",         "English (Old 450-1100)",  QObject::tr("English (Old 450-1100)")));
 	m_langTable.append(LangDef("eo",       "",         "Esperanto",               QObject::tr("Esperanto")));
 	m_langTable.append(LangDef("myv",      "",         "Erzya",                   QObject::tr("Erzya")));
@@ -548,6 +549,7 @@ void LanguageManager::generateLangList()
 	m_langTable.append(LangDef("nso",      "",         "Sotho Northern",          QObject::tr("Sotho Northern")));
 	m_langTable.append(LangDef("st",       "",         "Sotho Southern",          QObject::tr("Sotho Southern")));
 	m_langTable.append(LangDef("es",       "es_ES",    "Spanish",                 QObject::tr("Spanish")));
+	m_langTable.append(LangDef("es",       "es_ANY",   "Spanish",                 QObject::tr("Spanish")));
 	m_langTable.append(LangDef("es_AR",    "",         "Spanish (Argentina)",     QObject::tr("Spanish (Argentina)")));
 	m_langTable.append(LangDef("es_LA",    "",         "Spanish (Latin)",         QObject::tr("Spanish (Latin)")));
 	m_langTable.append(LangDef("aii",      "",         "Swadaya Aramaic",         QObject::tr("Swadaya Aramaic")));
