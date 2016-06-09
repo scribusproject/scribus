@@ -3130,7 +3130,7 @@ void ScribusMainWindow::importVectorFile()
 	}
 	allFormats += "*.sce *.SCE);;";
 	formats.append("Scribus Objects (*.sce *.SCE)");
-	qSort(formats);
+	formats.sort(Qt::CaseInsensitive);
 	allFormats += formats.join(";;");
 	PrefsContext* dirs = PrefsManager::instance()->prefsFile->getContext("dirs");
 	QString wdir = dirs->get("pastefile", ".");

@@ -273,8 +273,8 @@ QString FormatsManager::extensionListForFormat(int type, int listType)
 
 void FormatsManager::fileTypeStrings(int type, QString& formatList, QString& formatText, QString& formatAll, bool lowerCaseOnly)
 {
-	QString fmtList = QObject::tr("All Supported Formats")+" (";
-	QString fmtText;
+	QString allFormats = QObject::tr("All Supported Formats")+" (";
+	QStringList formats;
 	QMapIterator<int, QStringList> it(m_fmts);
 	bool first=true;
 	int n=0;
@@ -292,34 +292,34 @@ void FormatsManager::fileTypeStrings(int type, QString& formatList, QString& for
 				first=false;
 			else
 			{
-				fmtList += " ";
-				fmtText += ";;";
+				allFormats += " ";
 			}
 			QString text=m_fmtNames[it.key()] + " (";
 			QStringListIterator itSL(it.value());
 			while (itSL.hasNext())
 			{
 				QString t("*." + itSL.next());
-				fmtList += t;
+				allFormats += t;
 				text += t;
 				if(!lowerCaseOnly)
 				{
-					fmtList += " " + t.toUpper();
+					allFormats += " " + t.toUpper();
 					text += " " + t.toUpper();
 				}
 				if (itSL.hasNext())
 				{
-					fmtList += " ";
+					allFormats += " ";
 					text += " ";
 				}
 			}
 			text += ")";
-			fmtText += text;
+			formats.append(text);
 		}
 		++n;
 	}
-	formatList+=fmtList + ");;";
-	formatText+=fmtText;
+	formatList+=allFormats + ");;";
+	formats.sort(Qt::CaseInsensitive);
+	formatText+=formats.join(";;");
 	formatAll=QObject::tr("All Files (*)");
 }
 

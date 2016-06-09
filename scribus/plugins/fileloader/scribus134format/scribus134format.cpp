@@ -110,6 +110,7 @@ void Scribus134Format::registerFormats()
 	fmt.mimeTypes.append("application/x-scribus");
 	fmt.fileExtensions = QStringList() << "sla" << "sla.gz" << "scd" << "scd.gz";
 	fmt.priority = 64;
+	fmt.nativeScribus = true;
 	registerFormat(fmt);
 }
 

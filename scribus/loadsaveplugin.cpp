@@ -190,27 +190,32 @@ const QStringList LoadSavePlugin::getDialogFilter(bool forLoad)
 	// highest priority entry for each ID, and we can start with the first entry
 	// in the list.
 	//First, check if we even have any plugins to load with
-	if (it!=itEnd)
+	if (it==itEnd)
 	{
-		filterList.append((*it).filter);
-		unsigned int lastID = (*it).formatId;
-		++it;
-		for ( ; it != itEnd ; ++it )
-		{
-			// Find the next load/save (as appropriate) plugin for the next format type
-			if ( (forLoad ? (*it).load : (*it).save) && ((*it).formatId > lastID) )
-			{
-				// And add it to the filter list, since we know it's 
-				// the highest priority because of the sort order.
-				filterList.append((*it).filter);
-				lastID = (*it).formatId;
-			}
-		}
-	}
-	else
 		qDebug("%s", tr("No File Loader Plugins Found").toLocal8Bit().data());
+		return filterList;
+	}
+	unsigned int lastID = 0;
+	QStringList scribusList;
+	while (it!=itEnd)
+	{
+		// Find the next load/save (as appropriate) plugin for the next format type
+		if ( (forLoad ? (*it).load : (*it).save) && ((*it).formatId > lastID) )
+		{
+			// And add it to the filter list, since we know it's
+			// the highest priority because of the sort order.
+			// #11294, sort them and keep Scribus ones at the top
+			if((*it).nativeScribus)
+				scribusList.append((*it).filter);
+			else
+				filterList.append((*it).filter);
+			lastID = (*it).formatId;
+		}
+		++it;
+	}
+	filterList.sort(Qt::CaseInsensitive);
 	filterList.append( tr("All Files (*)"));
-	return filterList;
+	return scribusList+filterList;
 }
 
 bool LoadSavePlugin::saveFile(const QString & /* fileName */,
@@ -467,6 +472,26 @@ bool FileFormat::savePalette(const QString & fileName) const
 QString FileFormat::saveElements(double xp, double yp, double wp, double hp, Selection* selection, QByteArray &prevData) const
 {
 	return (plug && save) ? plug->saveElements(xp, yp, wp, hp, selection, prevData) : "";
+}
+
+FileFormat::FileFormat() :
+	load(false),
+	save(false),
+	thumb(false),
+	colorReading(false),
+	nativeScribus(false),
+	plug(0)
+{
+}
+
+FileFormat::FileFormat(LoadSavePlugin* plug) :
+	load(false),
+	save(false),
+	thumb(false),
+	colorReading(false),
+	nativeScribus(false),
+	plug(plug)
+{
 }
 
 bool FileFormat::loadElements(const QString & data, QString fileDir, int toLayer, double Xp_in, double Yp_in, bool loc) const

@@ -191,9 +191,9 @@ class SCRIBUS_API FileFormat
 {
 	public:
 		// Default ctor to make QValueList happy
-		FileFormat() : load(false), save(false), thumb(false), colorReading(false), plug(0) {}
+		FileFormat();
 		// Standard ctor that sets up a valid FileFormat
-		FileFormat(LoadSavePlugin * plug) : load(false), save(false), thumb(false), colorReading(false), plug(plug) {}
+		FileFormat(LoadSavePlugin * plug);
 
 		bool loadElements(const QString & data, QString fileDir, int toLayer, double Xp_in, double Yp_in, bool loc) const;
 		// Load a file with this format
@@ -245,6 +245,8 @@ class SCRIBUS_API FileFormat
 		bool thumb;
 		// Can we load colors?
 		bool colorReading;
+		//Native Scribus format (for putting at the top of the file loader lists)
+		bool nativeScribus;
 		// Priority of this format from 0 (lowest, tried last) to
 		// 255 (highest, tried first). 64-128 recommended in general.
 		// Priority controls the order options are displayed in when a file
