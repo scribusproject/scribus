@@ -1318,6 +1318,12 @@ void ScribusMainWindow::initStatusBar()
 
 void ScribusMainWindow::setStatusBarMousePosition(double xp, double yp)
 {
+	if (!HaveDoc)
+	{
+		mainWindowXPosDataLabel->clear();
+		mainWindowYPosDataLabel->clear();
+		return;
+	}
 	if (doc->Pages->count() == 0)
 		return;
 	double xn = xp;
@@ -4328,6 +4334,8 @@ bool ScribusMainWindow::DoFileClose()
 	updateLayerMenu();
 	updateTableMenuActions();
 	rebuildScrapbookMenu();
+	mainWindowXPosDataLabel->clear();
+	mainWindowYPosDataLabel->clear();
 	//not running view's togglePreview as we don't want to affect the doc settings.
 	scrActions["viewPreviewMode"]->setChecked(false);
 	appModeHelper->setPreviewMode(false);
@@ -7295,10 +7303,14 @@ QStringList ScribusMainWindow::scrapbookNames()
 
 void ScribusMainWindow::updateLayerMenu()
 {
-	if (doc==NULL)
-		return;
 	bool b = layerMenu->blockSignals(true);
 	layerMenu->clear();
+	if (doc==NULL)
+	{
+		layerMenu->blockSignals(b);
+		return;
+	}
+
 	QStringList newNames;
 	doc->orderedLayerList(&newNames);
 	for (QStringList::Iterator it=newNames.begin(); it!=newNames.end(); ++it)
