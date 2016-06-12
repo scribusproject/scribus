@@ -293,6 +293,35 @@ void SMCellStyle::deleteStyles(const QList<RemoveItem> &removeList)
 			m_cachedStyles.remove(index);
 		m_deleted << removeItem;
 	}
+
+	// Check other styles and replace inherited styles if necessary
+	for (int i = 0; i < m_cachedStyles.count(); ++i)
+	{
+		CellStyle& cellStyle = m_cachedStyles[i];
+		QString parentName = cellStyle.parent();
+		if (parentName.isEmpty())
+			continue;
+
+		QString replacementName = parentName;
+		for (int j = 0; j < removeList.count(); ++j)
+		{
+			if (removeList.at(j).first == parentName)
+			{
+				replacementName = removeList.at(j).second;
+				break;
+			}
+		}
+
+		if (replacementName == parentName)
+			continue;
+		if (replacementName == CommonStrings::trDefaultCellStyle)
+			replacementName = CommonStrings::DefaultCellStyle;
+		if (!cellStyle.canInherit(replacementName))
+			replacementName = QString();
+		if (!replacementName.isEmpty() && (m_cachedStyles.find(replacementName) < 0))
+			replacementName = QString();
+		cellStyle.setParent(replacementName);
+	}
 }
 
 void SMCellStyle::nameChanged(const QString &newName)

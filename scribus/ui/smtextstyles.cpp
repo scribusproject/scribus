@@ -41,10 +41,11 @@ for which a new license (GPL+exception) is in place.
 #include "util.h"
 
 
-SMParagraphStyle::SMParagraphStyle(StyleSet<CharStyle> *cstyles) : StyleItem(),
-m_pwidget(0), m_doc(0), m_selectionIsDirty(false), m_unitRatio(1.0), m_cstyles(cstyles)
+SMParagraphStyle::SMParagraphStyle(SMCharacterStyle* cstyleItem) : StyleItem(),
+m_pwidget(0), m_doc(0), m_selectionIsDirty(false), m_unitRatio(1.0), m_cstyleItem(cstyleItem)
 {
-	Q_ASSERT(m_cstyles);
+	Q_ASSERT(m_cstyleItem);
+	m_cstyles = m_cstyleItem->tmpStyles();
 	m_pwidget = new SMPStyleWidget(m_doc, m_cstyles);
 	Q_CHECK_PTR(m_pwidget);
 }
@@ -405,6 +406,35 @@ void SMParagraphStyle::deleteStyles(const QList<RemoveItem> &removeList)
 
 		m_deleted.append(removeList[i]);
 	}
+
+	// Check other paragraph styles and replace inherited styles if necessary
+	for (int i = 0; i < m_tmpStyles.count(); ++i)
+	{
+		ParagraphStyle& parStyle = m_tmpStyles[i];
+		QString parentName = parStyle.parent();
+		if (parentName.isEmpty())
+			continue;
+
+		QString replacementName = parentName;
+		for (int j = 0; j < removeList.count(); ++j)
+		{
+			if (removeList.at(j).first == parentName)
+			{
+				replacementName = removeList.at(j).second;
+				break;
+			}
+		}
+
+		if (replacementName == parentName)
+			continue;
+		if (replacementName == CommonStrings::trDefaultParagraphStyle)
+			replacementName = CommonStrings::DefaultParagraphStyle;
+		if (!parStyle.canInherit(replacementName))
+			replacementName = QString();
+		if (!replacementName.isEmpty() && (m_tmpStyles.find(replacementName) < 0))
+			replacementName = QString();
+		parStyle.setParent(replacementName);
+	}
 }
 
 void SMParagraphStyle::nameChanged(const QString &newName)
@@ -572,6 +602,9 @@ void SMParagraphStyle::setupConnections()
 	connect(m_pwidget->cpage->parentCombo, SIGNAL(activated(const QString&)), this, SLOT(slotCharParentChanged(const QString&)));
 	connect(m_pwidget->cpage->backColor_, SIGNAL(activated(const QString&)), this, SLOT(slotBackColor()));
 	connect(m_pwidget->cpage->backShade_, SIGNAL(clicked()), this, SLOT(slotBackShade()));
+
+	// Referenced character style changes
+	connect(m_cstyleItem, SIGNAL(charStylesDeleted(const QList<RemoveItem>&)), this, SLOT(slotCharStylesDeleted(const QList<RemoveItem>&)));
 }
 
 void SMParagraphStyle::removeConnections()
@@ -658,6 +691,8 @@ void SMParagraphStyle::removeConnections()
 	disconnect(m_pwidget->cpage->parentCombo, SIGNAL(activated(const QString&)), this, SLOT(slotCharParentChanged(const QString&)));
 	disconnect(m_pwidget->cpage->backColor_, SIGNAL(activated(const QString&)), this, SLOT(slotBackColor()));
 	disconnect(m_pwidget->cpage->backShade_, SIGNAL(clicked()), this, SLOT(slotBackShade()));
+
+	disconnect(m_cstyleItem, SIGNAL(charStylesDeleted(const QList<RemoveItem>&)), this, SLOT(slotCharStylesDeleted(const QList<RemoveItem>&)));
 }
 
 void SMParagraphStyle::slotLineSpacingMode(int mode)
@@ -1894,6 +1929,48 @@ void SMParagraphStyle::slotCharParentChanged(const QString &parent)
 	}
 }
 
+void SMParagraphStyle::slotCharStylesDeleted(const QList<RemoveItem> &removeList)
+{
+	for (int i = 0; i < m_tmpStyles.count(); ++i)
+	{
+		ParagraphStyle& parStyle = m_tmpStyles[i];
+
+		QString charStyleName = parStyle.charStyle().parent();
+		if (!charStyleName.isEmpty())
+		{
+			for (int j = 0; j < removeList.count(); ++j)
+			{
+				const RemoveItem& rmItem = removeList.at(j);
+				if (charStyleName == rmItem.first)
+				{
+					QString replacementName = rmItem.second;
+					if (rmItem.second == CommonStrings::trDefaultCharacterStyle)
+						replacementName = CommonStrings::DefaultCharacterStyle;
+					parStyle.charStyle().setParent(replacementName);
+					break;
+				}
+			}
+		}
+
+		QString peCharStyleName = parStyle.peCharStyleName();
+		if (!peCharStyleName.isEmpty())
+		{
+			for (int j = 0; j < removeList.count(); ++j)
+			{
+				const RemoveItem& rmItem = removeList.at(j);
+				if (peCharStyleName == rmItem.first)
+				{
+					QString replacementName = rmItem.second;
+					if (rmItem.second == CommonStrings::trDefaultCharacterStyle)
+						replacementName = CommonStrings::DefaultCharacterStyle;
+					parStyle.setPeCharStyleName(replacementName);
+					break;
+				}
+			}
+		}
+	}
+}
+
 SMParagraphStyle::~SMParagraphStyle()
 {
 	delete m_pwidget;
@@ -2232,6 +2309,37 @@ void SMCharacterStyle::deleteStyles(const QList<RemoveItem> &removeList)
 			m_tmpStyles.remove(index);
 		m_deleted << removeList[i];
 	}
+
+	// Check other character styles and replace inherited styles if necessary
+	for (int i = 0; i < m_tmpStyles.count(); ++i)
+	{
+		CharStyle& charStyle = m_tmpStyles[i];
+		QString parentName = charStyle.parent();
+		if (parentName.isEmpty())
+			continue;
+
+		QString replacementName = parentName;
+		for (int j = 0; j < removeList.count(); ++j)
+		{
+			if (removeList.at(j).first == parentName)
+			{
+				replacementName = removeList.at(j).second;
+				break;
+			}
+		}
+
+		if (replacementName == parentName)
+			continue;
+		if (replacementName == CommonStrings::trDefaultCharacterStyle)
+			replacementName = CommonStrings::DefaultCharacterStyle;
+		if (!charStyle.canInherit(replacementName))
+			replacementName = QString();
+		if (!replacementName.isEmpty() && (m_tmpStyles.find(replacementName) < 0))
+			replacementName = QString();
+		charStyle.setParent(replacementName);
+	}
+
+	emit charStylesDeleted(removeList);
 }
 
 void SMCharacterStyle::nameChanged(const QString &newName)
@@ -2273,7 +2381,12 @@ void SMCharacterStyle::nameChanged(const QString &newName)
 	}
 
 	if (oldName != newName)
+	{
 		m_deleted.append(RemoveItem(oldName, newName));
+		QList<RemoveItem> deletedStyles;
+		deletedStyles.append(RemoveItem(oldName, newName));
+		emit charStylesDeleted(deletedStyles);
+	}
 
 	if (!m_selectionIsDirty)
 	{

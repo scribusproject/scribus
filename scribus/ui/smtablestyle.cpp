@@ -289,6 +289,35 @@ void SMTableStyle::deleteStyles(const QList<RemoveItem> &removeList)
 			m_cachedStyles.remove(index);
 		m_deleted << removeItem;
 	}
+
+	// Check other styles and replace inherited styles if necessary
+	for (int i = 0; i < m_cachedStyles.count(); ++i)
+	{
+		TableStyle& tableStyle = m_cachedStyles[i];
+		QString parentName = tableStyle.parent();
+		if (parentName.isEmpty())
+			continue;
+
+		QString replacementName = parentName;
+		for (int j = 0; j < removeList.count(); ++j)
+		{
+			if (removeList.at(j).first == parentName)
+			{
+				replacementName = removeList.at(j).second;
+				break;
+			}
+		}
+
+		if (replacementName == parentName)
+			continue;
+		if (replacementName == CommonStrings::trDefaultTableStyle)
+			replacementName = CommonStrings::DefaultTableStyle;
+		if (!tableStyle.canInherit(replacementName))
+			replacementName = QString();
+		if (!replacementName.isEmpty() && (m_cachedStyles.find(replacementName) < 0))
+			replacementName = QString();
+		tableStyle.setParent(replacementName);
+	}
 }
 
 void SMTableStyle::nameChanged(const QString &newName)

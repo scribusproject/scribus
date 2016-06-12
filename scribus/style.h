@@ -95,6 +95,8 @@ public:
 	void setParent(const QString& p);
 	bool hasParent() const           { return ! m_parent.isEmpty(); }
 	const Style* parentStyle() const;
+
+	bool canInherit(const QString& parentName) const;
 	
 	static const QString INHERIT_PARENT;
 	

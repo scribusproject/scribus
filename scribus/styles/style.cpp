@@ -68,6 +68,32 @@ const Style* Style::parentStyle() const
 	if (par == this) return NULL; else return par;
 }
 
+bool Style::canInherit(const QString& parentName) const
+{
+	if (m_name.isEmpty() || parentName.isEmpty())
+		return true;
+	if (!m_context || (m_name == parentName))
+		return false;
+
+	const Style* parentStyle = m_context->resolve(parentName);
+	if (!parentStyle)
+		return false;
+
+	bool  loop = false, parentLoop = false;
+
+	const Style* pStyle = parentStyle;
+	while (pStyle)
+	{
+		if (pStyle->hasParent() && (pStyle->parent() == m_name))
+		{
+			loop = parentLoop = true;
+			break;
+		}
+		pStyle = pStyle->hasParent() ? pStyle->parentStyle() : NULL;
+	}
+
+	return (!parentLoop);
+}
 
 void Style::saxxAttributes(Xml_attr& attr) const
 {
