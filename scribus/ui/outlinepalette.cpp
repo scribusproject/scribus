@@ -1352,7 +1352,7 @@ void OutlinePalette::BuildTree(bool storeVals)
 	filterTree();
 	if (currDoc->m_Selection->count() > 0)
 		slotShowSelect(0, NULL);
-	repaint();
+	update();
 	connect(reportDisplay, SIGNAL(itemSelectionChanged()), this, SLOT(slotMultiSelect()));
 	connect(reportDisplay, SIGNAL(itemChanged(QTreeWidgetItem*, int)), this, SLOT(slotDoRename(QTreeWidgetItem*, int)));
 }
