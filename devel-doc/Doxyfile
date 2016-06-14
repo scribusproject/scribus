@@ -38,7 +38,7 @@ PROJECT_NUMBER         =
 # If a relative path is entered, it will be relative to the location 
 # where doxygen was started. If left blank the current directory will be used.
 
-OUTPUT_DIRECTORY       = ../devel-doc
+OUTPUT_DIRECTORY       = html/
 
 # If the CREATE_SUBDIRS tag is set to YES, then doxygen will create 
 # 4096 sub-directories (in 2 levels) under the output directory of each output 
@@ -701,7 +701,7 @@ HTML_FOOTER            = templates/footer.html
 # the style sheet file to the HTML output directory, so don't put your own 
 # stylesheet in the HTML output directory as well, or it will be erased!
 
-HTML_STYLESHEET        = templates/styles.css
+HTML_STYLESHEET        = styles.css
 
 # If the HTML_ALIGN_MEMBERS tag is set to YES, the members of classes, 
 # files or namespaces will be aligned in HTML using tables. If set to 
@@ -1285,6 +1285,15 @@ GENERATE_LEGEND        = YES
 # the various graphs.
 
 DOT_CLEANUP            = YES
+
+#---------------------------------------------------------------------------
+# Copy the css and template related files
+#---------------------------------------------------------------------------
+
+HTML_EXTRA_FILES = templates/scribus.css \
+                   images/logo3l.png \
+                   images/logo3m.png \
+                   images/logo3r.png
 
 #---------------------------------------------------------------------------
 # Configuration::additions related to the search engine   
