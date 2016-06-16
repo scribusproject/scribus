@@ -98,7 +98,7 @@ public:
 #include "charstyle.attrdefs.cxx"
 #undef ATTRDEF
 		m_isDefaultStyle=false;
-    };
+	}
 	
     CharStyle(const ScFace& font, int size, StyleFlag style = ScStyle_Default) : Style() {
 #define ATTRDEF(attr_TYPE, attr_GETTER, attr_NAME, attr_DEFAULT) \
@@ -110,7 +110,7 @@ public:
 		setFont(font);
         setFontSize(size);
 		setEffects(style);
-    };
+	}
 	
 	CharStyle(const CharStyle & other);
 	

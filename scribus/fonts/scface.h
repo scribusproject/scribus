@@ -131,7 +131,7 @@ public:
 		gid_type maxGlyph;
 
 		ScFaceData();
-		virtual ~ScFaceData() { };
+		virtual ~ScFaceData() { }
 	protected:
 
 		friend class ScFace;
