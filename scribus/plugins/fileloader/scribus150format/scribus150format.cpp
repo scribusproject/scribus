@@ -1593,12 +1593,12 @@ bool Scribus150Format::loadFile(const QString & fileName, const FileFormat & /* 
 	for (it = bookmarks.begin(); it != bookmarks.end(); ++it)
 	{
 		int elem = it.key();
-		if (elem < m_Doc->Items->count())
-		{
-			ScribusDoc::BookMa bookmark = it.value();
-			bookmark.PageObject = m_Doc->Items->at(elem);
-			m_Doc->BookMarks.append( bookmark );
-		}
+		PageItem* item = LinkID.value(elem, (PageItem*) 0);
+		if (!item)
+			continue;
+		ScribusDoc::BookMa bookmark = it.value();
+		bookmark.PageObject = item;
+		m_Doc->BookMarks.append( bookmark );
 	}
 
 	if (isNewFormat)
@@ -6243,12 +6243,12 @@ bool Scribus150Format::loadPage(const QString & fileName, int pageNumber, bool M
 	for (it = bookmarks.begin(); it != bookmarks.end(); ++it)
 	{
 		int elem = it.key();
-		if (elem < m_Doc->Items->count())
-		{
-			ScribusDoc::BookMa bookmark = it.value();
-			bookmark.PageObject = LinkID[elem];
-			m_Doc->BookMarks.append( bookmark );
-		}
+		PageItem* item = LinkID.value(elem, (PageItem*) 0);
+		if (!item)
+			continue;
+		ScribusDoc::BookMa bookmark = it.value();
+		bookmark.PageObject = item;
+		m_Doc->BookMarks.append( bookmark );
 	}
 
 	if (isNewFormat)

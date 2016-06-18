@@ -10875,7 +10875,7 @@ void PDFLibCore::PDF_End_Bookmarks()
 				}
 				Inhal += "/Dest ["+Pdf::toPdf(PageTree.Kids[ip->PageObject->OwnPage])+" 0 R "+action+"\n";
 			}
-			//Inhal += ">>\nendObj\n");
+			Inhal += ">>";
 			Inha[ip->ItemNr] = Inhal;
 			++it;
 		}
