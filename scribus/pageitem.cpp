@@ -1029,6 +1029,10 @@ void PageItem::setRotation(const double newRotation, bool drawingOnly)
 	double dR = newRotation - m_rotation;
 	double oldRot = m_rotation;
 	m_rotation = newRotation;
+	while (m_rotation < 0.0)
+		m_rotation += 360.0;
+	while (m_rotation > 360.0)
+		m_rotation -= 360.0;
 	if (drawingOnly || m_Doc->isLoading())
 		return;
 	rotateWelded(dR, oldRot);
@@ -1039,7 +1043,11 @@ void PageItem::rotateBy(const double dR)
 {
 	if (dR==0.0)
 		return;
-	m_rotation+=dR;
+	m_rotation += dR;
+	while (m_rotation < 0.0)
+		m_rotation += 360.0;
+	while (m_rotation > 360.0)
+		m_rotation -= 360.0;
 	if (m_Doc->isLoading())
 		return;
 	checkChanges();

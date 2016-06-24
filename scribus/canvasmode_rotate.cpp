@@ -153,6 +153,11 @@ void CanvasMode_Rotate::getNewItemPosition(PageItem* item, FPoint& pos, double& 
 		pos.setXY(item->xPos(), item->yPos());
 		rotation = newAngle;
 	}
+
+	while (rotation < 0)
+		rotation += 360.0;
+	while (rotation > 360)
+		rotation -= 360.0;
 }
 
 void CanvasMode_Rotate::activate(bool fromGesture)
