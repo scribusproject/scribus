@@ -1087,7 +1087,7 @@ bool FPointArray::parseSVG(const QString& svgPath)
 				}
 			}
 			lastCommand = command;
-			if(*ptr == '+' || *ptr == '-' || (*ptr >= '0' && *ptr <= '9'))
+			if(*ptr == '+' || *ptr == '-' || *ptr == '.' || (*ptr >= '0' && *ptr <= '9'))
 			{
 				// there are still coords in this command
 				if(command == 'M')
