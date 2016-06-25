@@ -1191,6 +1191,7 @@ void SVGPlug::parseFilterAttr(const QDomElement &e, PageItem* item)
 QList<PageItem*> SVGPlug::parseA(const QDomElement &e)
 {
 	QList<PageItem*> aElements;
+	setupNode(e);
 	for ( QDomNode n = e.firstChild(); !n.isNull(); n = n.nextSibling() )
 	{
 		QDomElement b = n.toElement();
@@ -1204,6 +1205,7 @@ QList<PageItem*> SVGPlug::parseA(const QDomElement &e)
 		for (int ec = 0; ec < el.count(); ++ec)
 			aElements.append(el.at(ec));
 	}
+	delete( m_gc.pop() );
 	return aElements;
 }
 
