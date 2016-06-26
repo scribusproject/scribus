@@ -847,9 +847,9 @@ void AppModeHelper::enableActionsForSelection(ScribusMainWindow* scmw, ScribusDo
 			bool canAttachTextToPath = false;
 			PageItem* item1 = doc->m_Selection->itemAt(0);
 			PageItem* item2 = doc->m_Selection->itemAt(1);
-			if (!item1->asTextFrame() || !(item2->asPolygon() || item2->asPolyLine()))
+			if (!item1->asTextFrame() || !(item2->asPolygon() || item2->asPolyLine() || item2->asSpiral() || item2->asArc() || item2->asRegularPolygon()))
 				std::swap(item1, item2);
-			if (item1->asTextFrame() && (item2->asPolygon() || item2->asPolyLine()))
+			if (item1->asTextFrame() && (item2->asPolygon() || item2->asPolyLine() || item2->asSpiral() || item2->asArc() || item2->asRegularPolygon()))
 			{
 				canAttachTextToPath  = true;
 				canAttachTextToPath &= (item1->nextInChain() == 0);
