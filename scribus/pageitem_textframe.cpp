@@ -2193,6 +2193,9 @@ void PageItem_TextFrame::layout()
 						}
 					}
 					i = current.restartRow(false);
+					tabs.active = false;
+					tabs.status = TabNONE;
+					tabs.xPos   = 0.0;
 					continue;
 				}
 			}
@@ -2581,6 +2584,7 @@ void PageItem_TextFrame::layout()
 			{
 				tabs.active = false;
 				tabs.status = TabNONE;
+				tabs.xPos   = 0.0;
 				if (SpecialChars::isBreak(itemText.text(a), Cols > 1))
 				{
 					// Find end of line
