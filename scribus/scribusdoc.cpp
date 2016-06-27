@@ -13742,33 +13742,29 @@ void ScribusDoc::itemSelection_ApplyArrowHead(int startArrowID, int endArrowID, 
 	QString tooltip = Um::ItemsInvolved + "\n";
 	if (selectedItemCount > Um::ItemsInvolvedLimit)
 		tooltip = Um::ItemsInvolved2 + "\n";
-	for (uint a = 0; a < selectedItemCount; ++a)
+	for (int i = 0; i < selectedItemCount; ++i)
 	{
-		PageItem *currItem = itemSelection->itemAt(a);
+		PageItem *currItem = itemSelection->itemAt(i);
 		if (!(currItem->asLine() || currItem->asPolyLine() || currItem->asSpiral()))
 			continue;
 		if (startArrowID!=-1)
-		{
 			currItem->setStartArrowIndex(startArrowID);
-		}
 		if (endArrowID!=-1)
-		{
 			currItem->setEndArrowIndex(endArrowID);
-		}
 		if (selectedItemCount <= Um::ItemsInvolvedLimit)
 			tooltip += "\t" + currItem->getUName() + "\n";
 		currItem->update();
 	}
-	QString t;
+	QString undoText;
 	if (startArrowID!=-1 && endArrowID!=-1)
-		t=Um::StartAndEndArrow;
+		undoText=Um::StartAndEndArrow;
 	else
-		t=(startArrowID!=-1) ? Um::StartArrow : Um::EndArrow;
+		undoText=(startArrowID!=-1) ? Um::StartArrow : Um::EndArrow;
 	if (activeTransaction)
 	{
 		activeTransaction.commit(Um::Selection,
 								 Um::IGroup,
-								 t,
+								 undoText,
 								 tooltip,
 								 Um::IArrow);
 	}
@@ -13783,21 +13779,41 @@ void ScribusDoc::itemSelection_ApplyArrowScale(int startArrowSc, int endArrowSc,
 	uint selectedItemCount=itemSelection->count();
 	if (selectedItemCount == 0)
 		return;
-	for (uint a = 0; a < selectedItemCount; ++a)
+
+	UndoTransaction activeTransaction;
+	m_updateManager.setUpdatesDisabled();
+	if (UndoManager::undoEnabled() && selectedItemCount > 1)
+		activeTransaction = m_undoManager->beginTransaction();
+	QString tooltip = Um::ItemsInvolved + "\n";
+	if (selectedItemCount > Um::ItemsInvolvedLimit)
+		tooltip = Um::ItemsInvolved2 + "\n";
+	for (int i = 0; i < selectedItemCount; ++i)
 	{
-		PageItem *currItem = itemSelection->itemAt(a);
+		PageItem *currItem = itemSelection->itemAt(i);
 		if (!(currItem->asLine() || currItem->asPolyLine() || currItem->asSpiral()))
 			continue;
 		if (startArrowSc !=  -1)
-		{
 			currItem->setStartArrowScale(startArrowSc);
-		}
 		if (endArrowSc != -1)
-		{
 			currItem->setEndArrowScale(endArrowSc);
-		}
+		if (selectedItemCount <= Um::ItemsInvolvedLimit)
+			tooltip += "\t" + currItem->getUName() + "\n";
 		currItem->update();
 	}
+	QString undoText;
+	if (startArrowSc!=-1 && endArrowSc!=-1)
+		undoText=Um::StartAndEndArrow;
+	else
+		undoText=(startArrowSc!=-1) ? Um::StartArrow : Um::EndArrow;
+	if (activeTransaction)
+	{
+		activeTransaction.commit(Um::Selection,
+								 Um::IGroup,
+								 undoText,
+								 tooltip,
+								 Um::IArrow);
+	}
+	m_updateManager.setUpdatesEnabled();
 	changed();
 }
 
