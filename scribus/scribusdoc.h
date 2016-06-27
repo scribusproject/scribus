@@ -1175,9 +1175,9 @@ public:
 	Serializer *textSerializer();
 
 	//! \brief Get rotation mode
-	int RotMode() const {return m_rotMode;}
+	int rotationMode() const {return m_rotMode;}
 	//! \brief Set rotation mode
-	void RotMode(const int& val);
+	void setRotationMode(const int val);
 
 	//! \brief Fonctions which avoid doc updater and update manager to send too much
 	// unncessary signals when doing updates on multiple items

@@ -10558,7 +10558,7 @@ void PageItem::rotateWelded(double dR, double oldRot)
 	ma.translate(xPos(), yPos());
 	ma.scale(1, 1);
 	ma.rotate(oldRot);
-	switch (m_Doc->RotMode())
+	switch (m_Doc->rotationMode())
 	{
 		case 2:
 			ma.translate(width()/2.0, height()/2.0);

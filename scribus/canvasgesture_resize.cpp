@@ -313,8 +313,8 @@ void ResizeGesture::doResize(bool scaleContent)
 	}
 	if (m_doc->m_Selection->isMultipleSelection())
 	{
-		int RotModeBack = m_doc->RotMode();
-		m_doc->RotMode ( 0 );
+		int RotModeBack = m_doc->rotationMode();
+		m_doc->setRotationMode ( 0 );
 		double gx, gy, gh, gw;
 		m_doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
 		QRectF oldBounds(gx, gy, gw, gh);
@@ -329,7 +329,7 @@ void ResizeGesture::doResize(bool scaleContent)
 		double dy = newBounds.y() - oldBounds.y();
 		if (dx != 0 || dy != 0)
 			m_doc->moveGroup(dx + m_extraX, dy + m_extraY);
-		m_doc->RotMode ( RotModeBack );
+		m_doc->setRotationMode ( RotModeBack );
 	}
 	else
 	{

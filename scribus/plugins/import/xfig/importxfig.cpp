@@ -1197,10 +1197,10 @@ void XfigPlug::processEllipse(QString data)
 		if (line_style > 0)
 			ite->setDashes(getDashValues(LineW, line_style));
 		ite->setTextFlowMode(PageItem::TextFlowDisabled);
-		int rot = m_Doc->RotMode();
-		m_Doc->RotMode ( 2);
+		int rot = m_Doc->rotationMode();
+		m_Doc->setRotationMode ( 2);
 		m_Doc->rotateItem(-angle * 180.0 / M_PI, ite);
-		m_Doc->RotMode( rot);
+		m_Doc->setRotationMode( rot);
 		depthMap.insert(999 - depth, currentItemNr);
 		currentItemNr++;
 	}

@@ -1022,10 +1022,10 @@ void RawPainter::drawPolygon(const librevenge::RVNGPropertyList &propList)
 									  FPoint tp2(getMinClipF(&Coords));
 									  Coords.translate(-tp2.x(), -tp2.y());
 									  ite->PoLine = Coords.copy();
-									  int rm = m_Doc->RotMode();
-									  m_Doc->RotMode(2);
+									  int rm = m_Doc->rotationMode();
+									  m_Doc->setRotationMode(2);
 									  m_Doc->rotateItem(-rot, ite);
-									  m_Doc->RotMode(rm);
+									  m_Doc->setRotationMode(rm);
 								  }
 								  else
 								  {
@@ -1175,10 +1175,10 @@ void RawPainter::drawPath(const librevenge::RVNGPropertyList &propList)
 									  FPoint tp2(getMinClipF(&Coords));
 									  Coords.translate(-tp2.x(), -tp2.y());
 									  ite->PoLine = Coords.copy();
-									  int rm = m_Doc->RotMode();
-									  m_Doc->RotMode(2);
+									  int rm = m_Doc->rotationMode();
+									  m_Doc->setRotationMode(2);
 									  m_Doc->rotateItem(-rot, ite);
-									  m_Doc->RotMode(rm);
+									  m_Doc->setRotationMode(rm);
 								  }
 								  else
 								  {
@@ -1315,10 +1315,10 @@ void RawPainter::drawGraphicObject(const librevenge::RVNGPropertyList &propList)
 									ite->setXYPos(baseX + baR.x(), baseY + baR.y(), true);
 									ite->setWidthHeight(baR.width(), baR.height(), true);
 									ite->updateClip();
-									int rm = m_Doc->RotMode();
-									m_Doc->RotMode(2);
+									int rm = m_Doc->rotationMode();
+									m_Doc->setRotationMode(2);
 									m_Doc->rotateItem(-rot, ite);
-									m_Doc->RotMode(rm);
+									m_Doc->setRotationMode(rm);
 								}
 								else
 								{
@@ -1385,10 +1385,10 @@ void RawPainter::startTextObject(const librevenge::RVNGPropertyList &propList)
 		applyShadow(ite);
 		if (rot != 0)
 		{
-			int rm = m_Doc->RotMode();
-			m_Doc->RotMode(2);
+			int rm = m_Doc->rotationMode();
+			m_Doc->setRotationMode(2);
 			m_Doc->rotateItem(rot, ite);
-			m_Doc->RotMode(rm);
+			m_Doc->setRotationMode(rm);
 		}
 		if (propList["draw-mirror-horizontal"])
 			ite->flipImageH();
@@ -2644,10 +2644,10 @@ void RawPainter::drawPolygon(const ::WPXPropertyListVector &vertices)
 								  FPoint tp2(getMinClipF(&Coords));
 								  Coords.translate(-tp2.x(), -tp2.y());
 								  ite->PoLine = Coords.copy();
-								  int rm = m_Doc->RotMode();
-								  m_Doc->RotMode(2);
+								  int rm = m_Doc->setRotationMode();
+								  m_Doc->setRotationMode(2);
 								  m_Doc->rotateItem(-rot, ite);
-								  m_Doc->RotMode(rm);
+								  m_Doc->setRotationMode(rm);
 							  }
 							  else
 							  {
@@ -2792,10 +2792,10 @@ void RawPainter::drawPath(const ::WPXPropertyListVector &path)
 									  FPoint tp2(getMinClipF(&Coords));
 									  Coords.translate(-tp2.x(), -tp2.y());
 									  ite->PoLine = Coords.copy();
-									  int rm = m_Doc->RotMode();
-									  m_Doc->RotMode(2);
+									  int rm = m_Doc->setRotationMode();
+									  m_Doc->setRotationMode(2);
 									  m_Doc->rotateItem(-rot, ite);
-									  m_Doc->RotMode(rm);
+									  m_Doc->setRotationMode(rm);
 								  }
 								  else
 								  {
@@ -2927,10 +2927,10 @@ void RawPainter::drawGraphicObject(const ::WPXPropertyList &propList, const ::WP
 									FPoint tp2(getMinClipF(&Coords));
 									Coords.translate(-tp2.x(), -tp2.y());
 									ite->PoLine = Coords.copy();
-									int rm = m_Doc->RotMode();
-									m_Doc->RotMode(2);
+									int rm = m_Doc->setRotationMode();
+									m_Doc->setRotationMode(2);
 									m_Doc->rotateItem(-rot, ite);
-									m_Doc->RotMode(rm);
+									m_Doc->setRotationMode(rm);
 								}
 								else
 								{
@@ -2990,10 +2990,10 @@ void RawPainter::startTextObject(const ::WPXPropertyList &propList, const ::WPXP
 		applyShadow(ite);
 		if (rot != 0)
 		{
-			int rm = m_Doc->RotMode();
-			m_Doc->RotMode(2);
+			int rm = m_Doc->setRotationMode();
+			m_Doc->setRotationMode(2);
 			m_Doc->rotateItem(rot, ite);
-			m_Doc->RotMode(rm);
+			m_Doc->setRotationMode(rm);
 		}
 		if (propList["draw-mirror-horizontal"])
 			ite->flipImageH();

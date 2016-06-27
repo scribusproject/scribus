@@ -1062,7 +1062,7 @@ void PropertiesPalette_XYZ::handleBasePoint(int m)
 	if ((m_haveDoc) && (m_haveItem))
 	{
 		m_haveItem = false;
-		m_doc->RotMode ( m );
+		m_doc->setRotationMode(m);
 		if (m_doc->m_Selection->isMultipleSelection())
 		{
 			m_doc->m_Selection->setGroupRect();
