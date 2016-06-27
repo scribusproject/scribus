@@ -136,7 +136,7 @@ double PageItemRotationSetter::returnedVal(const double& val) const
 
 void PageItemRotationSetter::rotate(double angle, PageItem * item)
 {
-	int rotMode = item->m_Doc->RotMode();
+	int rotMode = item->m_Doc->rotationMode();
 	if (rotMode != 0)
 	{
 		QTransform ma;

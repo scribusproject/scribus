@@ -80,7 +80,7 @@ void PageItemPositionSetter::changeItem(Selection * sel)
 	yposSpinBox->setNewUnit(unitIndex);
 	widthSpinBox->setNewUnit(unitIndex);
 	heightSpinBox->setNewUnit(unitIndex);
-	rotmode = refItem->m_Doc->RotMode();
+	rotmode = refItem->m_Doc->rotationMode();
 	updateValues();
 }
 
