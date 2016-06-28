@@ -2493,12 +2493,13 @@ void PDFLibCore::PDF_Begin_Colors()
 		ColorList::Iterator itf;
 		for (itf = colorsToUse.begin(); itf != colorsToUse.end(); ++itf)
 		{
-			if ((colorsToUse[itf.key()].isSpotColor()) || (colorsToUse[itf.key()].isRegistrationColor()))
+			const ScColor& colorToUse = itf.value();
+			if ((colorToUse.isSpotColor()) || (colorToUse.isRegistrationColor()))
 			{
 				CMYKColor cmykValues;
 				int cc, cm, cy, ck;
 				PdfSpotC spotD;
-				ScColorEngine::getCMYKValues(colorsToUse[itf.key()], &doc, cmykValues);
+				ScColorEngine::getCMYKValues(colorToUse, &doc, cmykValues);
 				cmykValues.getValues(cc, cm, cy, ck);
 				QByteArray colorDesc = "{\ndup "+FToStr(static_cast<double>(cc) / 255)+"\nmul exch dup ";
 				colorDesc += FToStr(static_cast<double>(cm) / 255)+"\nmul exch dup ";
@@ -2518,7 +2519,7 @@ void PDFLibCore::PDF_Begin_Colors()
 				if (colorsToUse[itf.key()].isRegistrationColor())
 					PutDoc("/All");
 				else
-					PutDoc(Pdf::toName(itf.key().simplified().replace("#", "#23").replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "#20" )));
+					PutDoc(Pdf::toName(itf.key().simplified()));
 				PutDoc(" /DeviceCMYK "+Pdf::toObjRef(separationFunction)+" ]");
 				writer.endObj(separationColorspace);
 				spotD.ResName = spotNam+Pdf::toPdf(spotCount);
