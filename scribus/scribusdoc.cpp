@@ -6139,8 +6139,8 @@ void ScribusDoc::reformPages(bool moveObjects)
 
 	lastYPos = Pages->at(0)->initialHeight();
 	ScPage* page;
-	uint docPageCount=Pages->count();
-	for (uint i = 0; i < docPageCount; ++i)
+	int docPageCount=Pages->count();
+	for (int i = 0; i < docPageCount; ++i)
 	{
 		page = Pages->at(i);
 		oldPg.oldXO = page->xOffset();
@@ -6218,8 +6218,8 @@ void ScribusDoc::reformPages(bool moveObjects)
 	{
 		m_undoManager->setUndoEnabled(false);
 		this->beginUpdate();
-		uint docItemsCount = Items->count();
-		for (uint ite = 0; ite < docItemsCount; ++ite)
+		int docItemsCount = Items->count();
+		for (int ite = 0; ite < docItemsCount; ++ite)
 		{
 			PageItem *item = Items->at(ite);
 			if (item->OwnPage < 0)
@@ -6557,7 +6557,7 @@ bool ScribusDoc::itemNameExists(const QString checkItemName)
 	bool found = false;
 	QList<PageItem*> allItems;
 	uint docItemCount = Items->count();
-	for (uint i = 0; i < docItemCount; ++i)
+	for (int i = 0; i < docItemCount; ++i)
 	{
 		PageItem *currItem = Items->at(i);
 		if (checkItemName == currItem->itemName())
@@ -6889,7 +6889,7 @@ void ScribusDoc::setInlineEditMode(bool mode, int id)
 void ScribusDoc::addSection(const int number, const QString& name, const uint fromindex, const uint toindex, const NumFormat type, const uint sectionstartindex, const bool reversed, const bool active, const QChar fillChar, int fieldWidth)
 {
 	struct DocumentSection newSection;
-	uint docPageCount=DocPages.count();
+	int docPageCount=DocPages.count();
 	bool empty=m_docPrefsData.docSectionMap.isEmpty();
 	if (empty)
 	{
@@ -7032,8 +7032,8 @@ int ScribusDoc::getSectionPageNumberWidthForPageIndex(const uint pageIndex) cons
 
 void ScribusDoc::updateSectionPageNumbersToPages()
 {
-	uint docPageCount=DocPages.count();
-	for (uint i=0;i<docPageCount;++i)
+	int docPageCount=DocPages.count();
+	for (int i=0; i < docPageCount; ++i)
 		DocPages.at(i)->setPageSectionNumber(getSectionPageNumberForPageIndex(i));
 }
 
@@ -7248,9 +7248,7 @@ void ScribusDoc::copyPage(int pageNumberToCopy, int existingPage, int whereToIns
 	changed();
 	m_undoManager->setUndoEnabled(true);
 	if (copyTransaction)
-	{
 		copyTransaction.commit();
-	}
 }
 
 
@@ -7309,92 +7307,89 @@ void ScribusDoc::RecalcPictures(ProfilesL *Pr, ProfilesL *PrCMYK, QProgressBar *
 	QList<PageItem*> itemList = FrameItems.values();
 	RecalcPictures(&itemList, Pr, PrCMYK, dia);
 	QList<PageItem*> allItems;
-	uint docItemCount = FrameItems.count();
-	if ( docItemCount!= 0)
+	if (FrameItems.isEmpty())
+		return;
+	bool usingGUI=ScCore->usingGUI();
+	int counter = 0;
+	if (usingGUI && dia != NULL)
+		counter = dia->value();
+	for (QHash<int, PageItem*>::iterator itf = FrameItems.begin(); itf != FrameItems.end(); ++itf)
 	{
-		bool usingGUI=ScCore->usingGUI();
-		int counter = 0;
-		if (usingGUI && dia != NULL)
-			counter = dia->value();
-		for (QHash<int, PageItem*>::iterator itf = FrameItems.begin(); itf != FrameItems.end(); ++itf)
+		PageItem *it = itf.value();
+		if (it->isGroup())
+			allItems = it->asGroupFrame()->getItemList();
+		else
+			allItems.append(it);
+		for (int i = 0; i < allItems.count(); i++)
 		{
-			PageItem *it = itf.value();
-			if (it->isGroup())
-				allItems = it->asGroupFrame()->getItemList();
-			else
-				allItems.append(it);
-			for (int ii = 0; ii < allItems.count(); ii++)
+			it = allItems.at(i);
+			if ((it->itemType() == PageItem::ImageFrame) && (it->imageIsAvailable))
 			{
-				it = allItems.at(ii);
-				if ((it->itemType() == PageItem::ImageFrame) && (it->imageIsAvailable))
+				if (it->pixm.imgInfo.colorspace == ColorSpaceCMYK)
 				{
-					if (it->pixm.imgInfo.colorspace == ColorSpaceCMYK)
-					{
-						if (!PrCMYK->contains(it->IProfile))
-							it->IProfile = m_docPrefsData.colorPrefs.DCMSset.DefaultImageCMYKProfile;
-					}
-					else
-					{
-						if (!Pr->contains(it->IProfile))
-							it->IProfile = m_docPrefsData.colorPrefs.DCMSset.DefaultImageRGBProfile;
-					}
-					loadPict(it->Pfile, it, true);
+					if (!PrCMYK->contains(it->IProfile))
+						it->IProfile = m_docPrefsData.colorPrefs.DCMSset.DefaultImageCMYKProfile;
 				}
+				else
+				{
+					if (!Pr->contains(it->IProfile))
+						it->IProfile = m_docPrefsData.colorPrefs.DCMSset.DefaultImageRGBProfile;
+				}
+				loadPict(it->Pfile, it, true);
 			}
-			allItems.clear();
-			if (usingGUI)
-			{
-				++counter;
-				if (dia != NULL)
-					dia->setValue(counter);
-			}
+		}
+		allItems.clear();
+		if (usingGUI)
+		{
+			++counter;
+			if (dia != NULL)
+				dia->setValue(counter);
 		}
 	}
 }
 
 void ScribusDoc::RecalcPictures(QList<PageItem*>* items, ProfilesL *Pr, ProfilesL *PrCMYK, QProgressBar *dia)
 {
+	if (items->isEmpty())
+		return;
 	QList<PageItem*> allItems;
-	uint docItemCount = items->count();
-	if ( docItemCount!= 0)
+	bool usingGUI=ScCore->usingGUI();
+	int counter = 0;
+	if (usingGUI && dia != NULL)
+		counter = dia->value();
+	PageItem* it;
+	int docItemCount = items->count();
+	for (int i=0; i < docItemCount; ++i)
 	{
-		bool usingGUI=ScCore->usingGUI();
-		int counter = 0;
-		if (usingGUI && dia != NULL)
-			counter = dia->value();
-		PageItem* it;
-		for (uint i=0; i < docItemCount; ++i)
+		it = items->at(i);
+		if (it->isGroup())
+			allItems = it->asGroupFrame()->getItemList();
+		else
+			allItems.append(it);
+		for (int j = 0; j < allItems.count(); j++)
 		{
-			it = items->at(i);
-			if (it->isGroup())
-				allItems = it->asGroupFrame()->getItemList();
-			else
-				allItems.append(it);
-			for (int ii = 0; ii < allItems.count(); ii++)
+			it = allItems.at(j);
+			if ((it->itemType() == PageItem::ImageFrame) && (it->imageIsAvailable))
 			{
-				it = allItems.at(ii);
-				if ((it->itemType() == PageItem::ImageFrame) && (it->imageIsAvailable))
+				if (it->pixm.imgInfo.colorspace == ColorSpaceCMYK)
 				{
-					if (it->pixm.imgInfo.colorspace == ColorSpaceCMYK)
-					{
-						if (!PrCMYK->contains(it->IProfile))
-							it->IProfile = m_docPrefsData.colorPrefs.DCMSset.DefaultImageCMYKProfile;
-					}
-					else
-					{
-						if (!Pr->contains(it->IProfile))
-							it->IProfile = m_docPrefsData.colorPrefs.DCMSset.DefaultImageRGBProfile;
-					}
-					loadPict(it->Pfile, it, true);
+					if (!PrCMYK->contains(it->IProfile))
+						it->IProfile = m_docPrefsData.colorPrefs.DCMSset.DefaultImageCMYKProfile;
 				}
+				else
+				{
+					if (!Pr->contains(it->IProfile))
+						it->IProfile = m_docPrefsData.colorPrefs.DCMSset.DefaultImageRGBProfile;
+				}
+				loadPict(it->Pfile, it, true);
 			}
-			allItems.clear();
-			if (usingGUI)
-			{
-				++counter;
-				if (dia != NULL)
-					dia->setValue(counter);
-			}
+		}
+		allItems.clear();
+		if (usingGUI)
+		{
+			++counter;
+			if (dia != NULL)
+				dia->setValue(counter);
 		}
 	}
 }
@@ -7403,12 +7398,10 @@ void ScribusDoc::RecalcPictures(QList<PageItem*>* items, ProfilesL *Pr, Profiles
 
 void ScribusDoc::insertColor(QString nam, double c, double m, double y, double k)
 {
-	if (!PageColors.contains(nam))
-	{
-		ScColor tmp = ScColor(static_cast<int>(255 * c), static_cast<int>(255 * m),
-							  static_cast<int>(255 * y), static_cast<int>(255 * k));
-		PageColors.insert(nam, tmp);
-	}
+	if (PageColors.contains(nam))
+		return;
+	ScColor tmp = ScColor(static_cast<int>(255 * c), static_cast<int>(255 * m), static_cast<int>(255 * y), static_cast<int>(255 * k));
+	PageColors.insert(nam, tmp);
 }
 
 struct objOrdHelper
@@ -7482,7 +7475,6 @@ void ScribusDoc::sendItemSelectionToBack()
 	changed();
 	invalidateRegion(selRect);
 	regionsChanged()->update(QRectF());
-	return;
 }
 
 void ScribusDoc::bringItemSelectionToFront()
@@ -7708,35 +7700,34 @@ void ScribusDoc::itemSelection_SetSoftShadow(bool has, QString color, double dx,
 	if (color == CommonStrings::tr_NoneColor)
 		color = CommonStrings::None;
 	uint selectedItemCount = m_Selection->count();
-	if (selectedItemCount != 0)
-	{
-		UndoTransaction activeTransaction;
-		m_updateManager.setUpdatesDisabled();
-		if (UndoManager::undoEnabled() && selectedItemCount > 1)
-			activeTransaction = m_undoManager->beginTransaction(Um::SelectionGroup,
-															  Um::IGroup, Um::LineWidth, "", Um::ILineStyle);
+	if (selectedItemCount == 0)
+		return;
+	UndoTransaction activeTransaction;
+	m_updateManager.setUpdatesDisabled();
+	if (UndoManager::undoEnabled() && selectedItemCount > 1)
+		activeTransaction = m_undoManager->beginTransaction(Um::SelectionGroup,
+														  Um::IGroup, Um::LineWidth, "", Um::ILineStyle);
 
-		for (uint a = 0; a < selectedItemCount; ++a)
-		{
-			PageItem *currItem = m_Selection->itemAt(a);
-			currItem->setHasSoftShadow(has);
-			currItem->setSoftShadowColor(color);
-			currItem->setSoftShadowXOffset(dx);
-			currItem->setSoftShadowYOffset(dy);
-			currItem->setSoftShadowBlurRadius(radius);
-			currItem->setSoftShadowShade(shade);
-			currItem->setSoftShadowOpacity(opac);
-			currItem->setSoftShadowBlendMode(blend);
-			currItem->setSoftShadowErasedByObject(erase);
-			currItem->setSoftShadowHasObjectTransparency(objopa);
-			QRectF newRect = currItem->getVisualBoundingRect().adjusted(-dx, -dy, dx, dy);
-			currItem->invalidateLayout();
-			regionsChanged()->update(newRect);
-		}
-		if (activeTransaction)
-			activeTransaction.commit();
-		m_updateManager.setUpdatesEnabled();
+	for (uint a = 0; a < selectedItemCount; ++a)
+	{
+		PageItem *currItem = m_Selection->itemAt(a);
+		currItem->setHasSoftShadow(has);
+		currItem->setSoftShadowColor(color);
+		currItem->setSoftShadowXOffset(dx);
+		currItem->setSoftShadowYOffset(dy);
+		currItem->setSoftShadowBlurRadius(radius);
+		currItem->setSoftShadowShade(shade);
+		currItem->setSoftShadowOpacity(opac);
+		currItem->setSoftShadowBlendMode(blend);
+		currItem->setSoftShadowErasedByObject(erase);
+		currItem->setSoftShadowHasObjectTransparency(objopa);
+		QRectF newRect = currItem->getVisualBoundingRect().adjusted(-dx, -dy, dx, dy);
+		currItem->invalidateLayout();
+		regionsChanged()->update(newRect);
 	}
+	if (activeTransaction)
+		activeTransaction.commit();
+	m_updateManager.setUpdatesEnabled();
 	changed();
 
 }
@@ -7744,38 +7735,37 @@ void ScribusDoc::itemSelection_SetSoftShadow(bool has, QString color, double dx,
 void ScribusDoc::itemSelection_SetLineWidth(double w)
 {
 	uint selectedItemCount=m_Selection->count();
-	if (selectedItemCount != 0)
+	if (selectedItemCount == 0)
+		return;
+	UndoTransaction activeTransaction;
+	m_updateManager.setUpdatesDisabled();
+	if (UndoManager::undoEnabled() && selectedItemCount > 1)
+		activeTransaction = m_undoManager->beginTransaction(Um::SelectionGroup,
+														  Um::IGroup, Um::LineWidth, "", Um::ILineStyle);
+	for (uint a = 0; a < selectedItemCount; ++a)
 	{
-		UndoTransaction activeTransaction;
-		m_updateManager.setUpdatesDisabled();
-		if (UndoManager::undoEnabled() && selectedItemCount > 1)
-			activeTransaction = m_undoManager->beginTransaction(Um::SelectionGroup,
-															  Um::IGroup, Um::LineWidth, "", Um::ILineStyle);
-		for (uint a = 0; a < selectedItemCount; ++a)
+		PageItem *currItem = m_Selection->itemAt(a);
+		QRectF oldRect = currItem->getVisualBoundingRect();
+		//cb moved to setlinewidth
+		//currItem->Oldm_lineWidth = currItem->lineWidth();
+		currItem->setLineWidth(w);
+		if (currItem->asPolyLine() || currItem->asSpiral())
+			currItem->setPolyClip(qRound(qMax(currItem->lineWidth() / 2, 1.0)));
+		if (currItem->asLine())
 		{
-			PageItem *currItem = m_Selection->itemAt(a);
-			QRectF oldRect = currItem->getVisualBoundingRect();
-			//cb moved to setlinewidth
-			//currItem->Oldm_lineWidth = currItem->lineWidth();
-			currItem->setLineWidth(w);
-			if (currItem->asPolyLine() || currItem->asSpiral())
-				currItem->setPolyClip(qRound(qMax(currItem->lineWidth() / 2, 1.0)));
-			if (currItem->asLine())
-			{
-				int ph = static_cast<int>(qMax(1.0, w / 2.0));
-				currItem->Clip.setPoints(4, -ph,-ph, static_cast<int>(currItem->width()+ph),-ph,
-										 static_cast<int>(currItem->width()+ph),static_cast<int>(currItem->height()+ph),
-										 -ph,static_cast<int>(currItem->height()+ph));
-			}
-			QRectF newRect = currItem->getVisualBoundingRect();
-			//currItem->update();
-			currItem->invalidateLayout();
-			regionsChanged()->update(newRect.united(oldRect));
+			int ph = static_cast<int>(qMax(1.0, w / 2.0));
+			currItem->Clip.setPoints(4, -ph,-ph, static_cast<int>(currItem->width()+ph),-ph,
+									 static_cast<int>(currItem->width()+ph),static_cast<int>(currItem->height()+ph),
+									 -ph,static_cast<int>(currItem->height()+ph));
 		}
-		if (activeTransaction)
-			activeTransaction.commit();
-		m_updateManager.setUpdatesEnabled();
+		QRectF newRect = currItem->getVisualBoundingRect();
+		//currItem->update();
+		currItem->invalidateLayout();
+		regionsChanged()->update(newRect.united(oldRect));
 	}
+	if (activeTransaction)
+		activeTransaction.commit();
+	m_updateManager.setUpdatesEnabled();
 	changed();
 }
 
@@ -7784,22 +7774,21 @@ void ScribusDoc::itemSelection_SetLineWidth(double w)
 void ScribusDoc::itemSelection_SetLineArt(Qt::PenStyle w)
 {
 	uint selectedItemCount=m_Selection->count();
-	if (selectedItemCount != 0)
+	if (selectedItemCount == 0)
+		return;
+	UndoTransaction activeTransaction;
+	m_updateManager.setUpdatesDisabled();
+	if (UndoManager::undoEnabled() && selectedItemCount > 1)
+		activeTransaction = m_undoManager->beginTransaction(Um::SelectionGroup,
+														  Um::IGroup, Um::LineStyle, "", Um::ILineStyle);
+	for (uint a = 0; a < selectedItemCount; ++a)
 	{
-		UndoTransaction activeTransaction;
-		m_updateManager.setUpdatesDisabled();
-		if (UndoManager::undoEnabled() && selectedItemCount > 1)
-			activeTransaction = m_undoManager->beginTransaction(Um::SelectionGroup,
-															  Um::IGroup, Um::LineStyle, "", Um::ILineStyle);
-		for (uint a = 0; a < selectedItemCount; ++a)
-		{
-			m_Selection->itemAt(a)->setLineStyle(w);
-			m_Selection->itemAt(a)->update();
-		}
-		if (activeTransaction)
-			activeTransaction.commit();
-		m_updateManager.setUpdatesEnabled();
+		m_Selection->itemAt(a)->setLineStyle(w);
+		m_Selection->itemAt(a)->update();
 	}
+	if (activeTransaction)
+		activeTransaction.commit();
+	m_updateManager.setUpdatesEnabled();
 	changed();
 }
 
@@ -7808,22 +7797,21 @@ void ScribusDoc::itemSelection_SetLineArt(Qt::PenStyle w)
 void ScribusDoc::itemSelection_SetLineJoin(Qt::PenJoinStyle w)
 {
 	uint selectedItemCount=m_Selection->count();
-	if (selectedItemCount != 0)
+	if (selectedItemCount == 0)
+		return;
+	UndoTransaction activeTransaction;
+	m_updateManager.setUpdatesDisabled();
+	if (UndoManager::undoEnabled() && selectedItemCount > 1)
+		activeTransaction = m_undoManager->beginTransaction(Um::SelectionGroup,
+														  Um::IGroup, Um::LineJoin, "", Um::ILineStyle);
+	for (uint a = 0; a < selectedItemCount; ++a)
 	{
-		UndoTransaction activeTransaction;
-		m_updateManager.setUpdatesDisabled();
-		if (UndoManager::undoEnabled() && selectedItemCount > 1)
-			activeTransaction = m_undoManager->beginTransaction(Um::SelectionGroup,
-															  Um::IGroup, Um::LineJoin, "", Um::ILineStyle);
-		for (uint a = 0; a < selectedItemCount; ++a)
-		{
-			m_Selection->itemAt(a)->setLineJoin(w);
-			m_Selection->itemAt(a)->update();
-		}
-		if (activeTransaction)
-			activeTransaction.commit();
-		m_updateManager.setUpdatesEnabled();
+		m_Selection->itemAt(a)->setLineJoin(w);
+		m_Selection->itemAt(a)->update();
 	}
+	if (activeTransaction)
+		activeTransaction.commit();
+	m_updateManager.setUpdatesEnabled();
 	changed();
 }
 
@@ -7832,22 +7820,21 @@ void ScribusDoc::itemSelection_SetLineJoin(Qt::PenJoinStyle w)
 void ScribusDoc::itemSelection_SetLineEnd(Qt::PenCapStyle w)
 {
 	uint selectedItemCount=m_Selection->count();
-	if (selectedItemCount != 0)
+	if (selectedItemCount == 0)
+		return;
+	UndoTransaction activeTransaction;
+	m_updateManager.setUpdatesDisabled();
+	if (UndoManager::undoEnabled() && selectedItemCount > 1)
+		activeTransaction = m_undoManager->beginTransaction(Um::SelectionGroup,
+														  Um::IGroup, Um::LineEnd, "", Um::ILineStyle);
+	for (uint a = 0; a < selectedItemCount; ++a)
 	{
-		UndoTransaction activeTransaction;
-		m_updateManager.setUpdatesDisabled();
-		if (UndoManager::undoEnabled() && selectedItemCount > 1)
-			activeTransaction = m_undoManager->beginTransaction(Um::SelectionGroup,
-															  Um::IGroup, Um::LineEnd, "", Um::ILineStyle);
-		for (uint a = 0; a < selectedItemCount; ++a)
-		{
-			m_Selection->itemAt(a)->setLineEnd(w);
-			m_Selection->itemAt(a)->update();
-		}
-		if (activeTransaction)
-			activeTransaction.commit();
-		m_updateManager.setUpdatesEnabled();
+		m_Selection->itemAt(a)->setLineEnd(w);
+		m_Selection->itemAt(a)->update();
 	}
+	if (activeTransaction)
+		activeTransaction.commit();
+	m_updateManager.setUpdatesEnabled();
 	changed();
 }
 
@@ -14136,7 +14123,7 @@ bool ScribusDoc::ApplyGuides(double *x, double *y, bool elementSnap)
 	return ret;
 }
 
-bool ScribusDoc::ApplyGuides(FPoint* point,bool elementSnap)
+bool ScribusDoc::ApplyGuides(FPoint* point, bool elementSnap)
 {
 	double newX = point->x();
 	double newY = point->y();
@@ -14544,7 +14531,8 @@ void ScribusDoc::rotateGroup(double angle, Selection* customSelection)
 {
 	Selection* itemSelection = (customSelection!=0) ? customSelection : m_Selection;
 	Q_ASSERT(itemSelection!=0);
-
+	if (itemSelection->count()==0)
+		return;
 	double gx, gy, gh, gw;
 	FPoint rotationPoint(0, 0);
 	itemSelection->getGroupRect(&gx, &gy, &gw, &gh);
@@ -14568,7 +14556,8 @@ void ScribusDoc::rotateGroup(double angle, FPoint RCenter, Selection* customSele
 	PageItem* currItem;
 	Selection* itemSelection = (customSelection!=0) ? customSelection : m_Selection;
 	Q_ASSERT(itemSelection!=0);
-	
+	if (itemSelection->count()==0)
+		return;
 	itemSelection->getGroupRect(&gxS, &gyS, &gwS, &ghS);
 	QTransform ma;
 	ma.translate(RCenter.x(), RCenter.y());
@@ -15423,17 +15412,16 @@ void ScribusDoc::resizeGroupToContents(PageItem* group)
 void ScribusDoc::itemSelection_resizeGroupToContents(Selection* customSelection)
 {
 	Selection* itemSelection = (customSelection!=0) ? customSelection : m_Selection;
-	if (itemSelection->count() != 0)
+	if (itemSelection->count() == 0)
+		return;
+	int docSelectionCount = itemSelection->count();
+	for (int a = 0; a < docSelectionCount; ++a)
 	{
-		int docSelectionCount = itemSelection->count();
-		for (int a = 0; a < docSelectionCount; ++a)
-		{
-			PageItem *group = itemSelection->itemAt(a);
-			if (group->isGroup())
-				resizeGroupToContents(group);
-		}
-		regionsChanged()->update(QRectF());
+		PageItem *group = itemSelection->itemAt(a);
+		if (group->isGroup())
+			resizeGroupToContents(group);
 	}
+	regionsChanged()->update(QRectF());
 }
 
 void ScribusDoc::itemSelection_UniteItems(Selection* /*customSelection*/)
@@ -15443,7 +15431,7 @@ void ScribusDoc::itemSelection_UniteItems(Selection* /*customSelection*/)
 	QList<QTransform> transform;
 	QList<PageItem *> toDel;
 	toDel.clear();
-	uint docSelectionCount = m_Selection->count();
+	int docSelectionCount = m_Selection->count();
 	if (docSelectionCount > 1)
 	{
 		UndoTransaction transaction;
@@ -15461,7 +15449,7 @@ void ScribusDoc::itemSelection_UniteItems(Selection* /*customSelection*/)
 		int currFrameType = currItem->FrameType;
 		currItem->ClipEdited = true;
 		currItem->FrameType = 3;
-		for (uint a = 1; a < docSelectionCount; ++a)
+		for (int a = 1; a < docSelectionCount; ++a)
 		{
 			bb = m_Selection->itemAt(a);
 			toDel.append(bb);
@@ -15567,16 +15555,14 @@ void ScribusDoc::itemSelection_SplitItems(Selection* /*customSelection*/)
 	view()->Deselect(true);
 	regionsChanged()->update(QRectF());
 	if (transaction)
-	{
 		transaction.commit();
-	}
 }
 
 void ScribusDoc::itemSelection_convertItemsTo(const PageItem::ItemType newType, Selection* restoredSelection, Selection* customSelection)
 {
 	Selection* itemSelection = (customSelection!=0) ? customSelection : m_Selection;
 	assert(itemSelection!=0);
-	uint selectedItemCount=itemSelection->count();
+	int selectedItemCount=itemSelection->count();
 	if (selectedItemCount == 0)
 		return;
 	//Create our copy selection as our item *s will be invalidated as we go through the loop and the selection index won't work
@@ -15589,7 +15575,7 @@ void ScribusDoc::itemSelection_convertItemsTo(const PageItem::ItemType newType, 
 	if (UndoManager::undoEnabled() && selectedItemCount > 1)
 		convertTransaction = m_undoManager->beginTransaction(Um::SelectionGroup, Um::IGroup, Um::ConvertTo, "", Um::IGroup);
 
-	for (uint i = 0; i < selectedItemCount; ++i)
+	for (int i = 0; i < selectedItemCount; ++i)
 	{
 		PageItem *currItem = itemSelection->itemAt(i);
 		if (currItem)
@@ -15617,7 +15603,7 @@ void ScribusDoc::itemSelection_convertItemsTo(const PageItem::ItemType newType, 
 
 void ScribusDoc::itemSelection_convertItemsToSymbol(QString& patternName)
 {
-	uint docSelectionCount = m_Selection->count();
+	int docSelectionCount = m_Selection->count();
 	/* #11365 will be fixed once undo here is fixed
 	UndoTransaction activeTransaction;
 	if (UndoManager::undoEnabled()) // && !m_itemCreationTransaction)
@@ -15751,7 +15737,7 @@ void ScribusDoc::itemSelection_AdjustFrametoImageSize( Selection *customSelectio
 {
 	Selection* itemSelection = (customSelection!=0) ? customSelection : m_Selection;
 	assert(itemSelection!=0);
-	uint selectedItemCount=itemSelection->count();
+	int selectedItemCount=itemSelection->count();
 	if (selectedItemCount == 0)
 		return;
 	
@@ -15762,7 +15748,7 @@ void ScribusDoc::itemSelection_AdjustFrametoImageSize( Selection *customSelectio
 			activeTransaction = m_undoManager->beginTransaction(Um::SelectionGroup,
 															  Um::IGroup,
 															  Um::AdjustFrameToImage, "", Um::IResize);
-		for (uint i = 0; i < selectedItemCount; ++i)
+		for (int i = 0; i < selectedItemCount; ++i)
 		{
 			PageItem *currItem = itemSelection->itemAt(i);
 			if (currItem!=NULL)
@@ -15796,13 +15782,13 @@ void ScribusDoc::itemSelection_AdjustImagetoFrameSize( Selection *customSelectio
 {
 	Selection* itemSelection = (customSelection!=0) ? customSelection : m_Selection;
 	assert(itemSelection!=0);
-	uint selectedItemCount=itemSelection->count();
+	int selectedItemCount=itemSelection->count();
 	if (selectedItemCount == 0)
 		return;
 	
 	if (selectedItemCount > 0)
 	{
-		for (uint i = 0; i < selectedItemCount; ++i)
+		for (int i = 0; i < selectedItemCount; ++i)
 		{
 			PageItem *currItem = itemSelection->itemAt(i);
 			if (currItem!=NULL)
@@ -15821,16 +15807,16 @@ void ScribusDoc::itemSelection_AdjustFrameHeightToText( Selection *customSelecti
 {
 	Selection* itemSelection = (customSelection!=0) ? customSelection : m_Selection;
 	assert(itemSelection!=0);
-	uint selectedItemCount=itemSelection->count();
+	int selectedItemCount=itemSelection->count();
 	if (selectedItemCount == 0)
 		return;
-	
+
 	if (selectedItemCount > 0)
 	{
 		UndoTransaction trans;
 		if (UndoManager::undoEnabled())
 			trans = m_undoManager->beginTransaction(Um::Selection, Um::ITextFrame, Um::Resize,"", Um::IResize);
-		for (uint i = 0; i < selectedItemCount; ++i)
+		for (int i = 0; i < selectedItemCount; ++i)
 		{
 			PageItem *currItem = itemSelection->itemAt(i);
 			if (currItem!=NULL)
@@ -15851,10 +15837,8 @@ void ScribusDoc::itemSelection_AdjustFrameToTable()
 {
 	// TODO: Do this in an undo transaction?
 	int selectedItemCount = m_Selection->count();
-
 	if (selectedItemCount < 1)
 		return;
-
 	for (int i = 0; i < selectedItemCount; ++i)
 	{
 		PageItem *item = m_Selection->itemAt(i);
@@ -15875,7 +15859,6 @@ void ScribusDoc::itemSelection_AdjustTableToFrame()
 {
 	// TODO: Do this in an undo transaction?
 	int selectedItemCount = m_Selection->count();
-
 	if (selectedItemCount < 1)
 		return;
 	for (int i = 0; i < selectedItemCount; ++i)
@@ -15900,12 +15883,12 @@ void ScribusDoc::itemSelection_SetColorProfile(const QString & profileName, Sele
 {
 	Selection* itemSelection = (customSelection!=0) ? customSelection : m_Selection;
 	assert(itemSelection!=0);
-	uint selectedItemCount=itemSelection->count();
+	int selectedItemCount=itemSelection->count();
 	if (selectedItemCount == 0)
 		return;
 	//TODO Add Undo
 	m_updateManager.setUpdatesDisabled();
-	for (uint i = 0; i < selectedItemCount; ++i)
+	for (int i = 0; i < selectedItemCount; ++i)
 	{
 		PageItem *currItem = itemSelection->itemAt(i);
 		if (currItem && currItem->itemType() == PageItem::ImageFrame)
@@ -15924,12 +15907,12 @@ void ScribusDoc::itemSelection_SetRenderIntent(int intentIndex, Selection * cust
 {
 	Selection* itemSelection = (customSelection!=0) ? customSelection : m_Selection;
 	assert(itemSelection!=0);
-	uint selectedItemCount=itemSelection->count();
+	int selectedItemCount=itemSelection->count();
 	if (selectedItemCount == 0)
 		return;
 	//TODO Add Undo
 	m_updateManager.setUpdatesDisabled();
-	for (uint i = 0; i < selectedItemCount; ++i)
+	for (int i = 0; i < selectedItemCount; ++i)
 	{
 		PageItem *currItem = itemSelection->itemAt(i);
 		if (currItem && currItem->itemType() == PageItem::ImageFrame)
@@ -15947,19 +15930,17 @@ void ScribusDoc::itemSelection_SetCompressionMethod(int cmIndex, Selection * cus
 {
 	Selection* itemSelection = (customSelection!=0) ? customSelection : m_Selection;
 	assert(itemSelection!=0);
-	uint selectedItemCount=itemSelection->count();
+	int selectedItemCount=itemSelection->count();
 	if (selectedItemCount == 0)
 		return;
 	//TODO Add Undo
-	for (uint i = 0; i < selectedItemCount; ++i)
+	for (int i = 0; i < selectedItemCount; ++i)
 	{
 		PageItem *currItem = itemSelection->itemAt(i);
 		if (currItem && currItem->itemType() == PageItem::ImageFrame)
 		{
 			if ((currItem->OverrideCompressionMethod = cmIndex >= 0))
-			{
 				currItem->CompressionMethodIndex = cmIndex;
-			}
 		}
 	}
 }
@@ -15968,19 +15949,17 @@ void ScribusDoc::itemSelection_SetCompressionQuality(int cqIndex, Selection * cu
 {
 	Selection* itemSelection = (customSelection!=0) ? customSelection : m_Selection;
 	assert(itemSelection!=0);
-	uint selectedItemCount=itemSelection->count();
+	int selectedItemCount=itemSelection->count();
 	if (selectedItemCount == 0)
 		return;
 	//TODO Add Undo
-	for (uint i = 0; i < selectedItemCount; ++i)
+	for (int i = 0; i < selectedItemCount; ++i)
 	{
 		PageItem *currItem = itemSelection->itemAt(i);
 		if (currItem && currItem->itemType() == PageItem::ImageFrame)
 		{
 			if ((currItem->OverrideCompressionQuality = cqIndex >= 0))
-			{
 				currItem->CompressionQualityIndex = cqIndex;
-			}
 		}
 	}
 }
@@ -17743,16 +17722,16 @@ bool ScribusDoc::updateNotesNums(NotesStyle *nStyle)
 
 bool ScribusDoc::updateEndNotesNums()
 {
-	bool docWasChange = false;
+	bool docWasChanged = false;
 	foreach (NotesStyle* ns, m_docNotesStylesList)
 	{
 		if (ns->isEndNotes())
 		{
 			if (updateNotesNums(ns))
-				docWasChange = true;
+				docWasChanged = true;
 		}
 	}
-	return docWasChange;
+	return docWasChanged;
 }
 
 void ScribusDoc::updateNotesFramesStyles(NotesStyle *nStyle)
