@@ -105,7 +105,7 @@ void PropertiesPalette_Table::setItem(PageItem* item)
 {
 	m_item = item;
 	if (item->isTable())
-		connect(m_item->asTable(), SIGNAL(selectionChanged()), this, SLOT(handleCellSelectionChanged()));
+		connect(m_item->asTable(), SIGNAL(selectionChanged()), this, SLOT(handleCellSelectionChanged()), Qt::UniqueConnection);
 }
 
 void PropertiesPalette_Table::unsetItem()
@@ -147,6 +147,7 @@ void PropertiesPalette_Table::handleCellSelectionChanged()
 		return;
 	updateFillControls();
 	updateStyleControls();
+	on_sideSelector_selectionChanged();
 }
 
 void PropertiesPalette_Table::showTableStyle(const QString& name)
@@ -230,48 +231,53 @@ void PropertiesPalette_Table::on_sideSelector_selectionChanged()
 	m_currentBorder = TableBorder();
 	TableSideSelector::Sides selectedSides = sideSelector->selection();
 	PageItem_Table* table = m_item->asTable();
+	bool tableEditMode = (m_doc->appMode == modeEditTable);
 
 	if (selectedSides & TableSideSelector::Left)
 	{
-		if (borderState == Unset && !table->leftBorder().isNull())
+		TableBorder leftBorder = tableEditMode ? table->activeCell().leftBorder() : table->leftBorder();
+		if (borderState == Unset && !leftBorder.isNull())
 		{
-			m_currentBorder = table->leftBorder();
+			m_currentBorder = leftBorder;
 			borderState = Set;
 		}
-		else if (m_currentBorder != table->leftBorder())
+		else if (m_currentBorder != leftBorder)
 			borderState = TriState;
 	}
 
 	if (selectedSides & TableSideSelector::Right)
 	{
-		if (borderState == Unset && !table->rightBorder().isNull())
+		TableBorder rightBorder = tableEditMode ? table->activeCell().rightBorder() : table->rightBorder();
+		if (borderState == Unset && !rightBorder.isNull())
 		{
-			m_currentBorder = table->rightBorder();
+			m_currentBorder = rightBorder;
 			borderState = Set;
 		}
-		else if (m_currentBorder != table->rightBorder())
+		else if (m_currentBorder != rightBorder)
 			borderState = TriState;
 	}
 
 	if (selectedSides & TableSideSelector::Top)
 	{
+		TableBorder topBorder = tableEditMode ? table->activeCell().topBorder() : table->topBorder();
 		if (borderState == Unset && !table->topBorder().isNull())
 		{
-			m_currentBorder = table->topBorder();
+			m_currentBorder = topBorder;
 			borderState = Set;
 		}
-		else if (m_currentBorder != table->topBorder())
+		else if (m_currentBorder != topBorder)
 			borderState = TriState;
 	}
 
 	if (selectedSides & TableSideSelector::Bottom)
 	{
-		if (borderState == Unset && !table->bottomBorder().isNull())
+		TableBorder bottomBorder = tableEditMode ? table->activeCell().bottomBorder() : table->bottomBorder();
+		if (borderState == Unset && !bottomBorder.isNull())
 		{
-			m_currentBorder = table->bottomBorder();
+			m_currentBorder = bottomBorder;
 			borderState = Set;
 		}
-		else if (m_currentBorder != table->bottomBorder())
+		else if (m_currentBorder != bottomBorder)
 			borderState = TriState;
 	}
 
@@ -465,7 +471,10 @@ void PropertiesPalette_Table::on_borderLineColor_activated(const QString& colorN
 {
 	int index = borderLineList->currentRow();
 	TableBorderLine borderLine = m_currentBorder.borderLines().at(index);
-	borderLine.setColor(colorName);
+	QString color = colorName;
+	if (colorName == CommonStrings::tr_NoneColor)
+		color = CommonStrings::None;
+	borderLine.setColor(color);
 	m_currentBorder.replaceBorderLine(index, borderLine);
 
 	updateBorders();
