@@ -616,16 +616,16 @@ ScribusDoc::~ScribusDoc()
 	ScCore->fileWatcher->stop();
 	ScCore->fileWatcher->removeFile(DocName);
 	QList<PageItem*> allItems;
-	for (int a = 0; a < DocItems.count(); ++a)
+	for (int i = 0; i < DocItems.count(); ++i)
 	{
-		PageItem *currItem = DocItems.at(a);
+		PageItem *currItem = DocItems.at(i);
 		if (currItem->isGroup())
 			allItems = currItem->asGroupFrame()->getItemList();
 		else
 			allItems.append(currItem);
-		for (int ii = 0; ii < allItems.count(); ii++)
+		for (int j = 0; j < allItems.count(); j++)
 		{
-			currItem = allItems.at(ii);
+			currItem = allItems.at(j);
 			if (currItem->imageIsAvailable)
 				ScCore->fileWatcher->removeFile(currItem->Pfile);
 			if ((currItem->asImageFrame()) && (!currItem->Pfile.isEmpty()))
@@ -636,16 +636,16 @@ ScribusDoc::~ScribusDoc()
 		}
 		allItems.clear();
 	}
-	for (int a = 0; a < MasterItems.count(); ++a)
+	for (int i = 0; i < MasterItems.count(); ++i)
 	{
-		PageItem *currItem = MasterItems.at(a);
+		PageItem *currItem = MasterItems.at(i);
 		if (currItem->isGroup())
 			allItems = currItem->asGroupFrame()->getItemList();
 		else
 			allItems.append(currItem);
-		for (int ii = 0; ii < allItems.count(); ii++)
+		for (int j = 0; j < allItems.count(); j++)
 		{
-			currItem = allItems.at(ii);
+			currItem = allItems.at(j);
 			if (currItem->imageIsAvailable)
 				ScCore->fileWatcher->removeFile(currItem->Pfile);
 			if ((currItem->asImageFrame()) && (!currItem->Pfile.isEmpty()))
@@ -677,19 +677,19 @@ ScribusDoc::~ScribusDoc()
 		allItems.clear();
 	}
 	QStringList patterns = docPatterns.keys();
-	for (int c = 0; c < patterns.count(); ++c)
+	for (int i = 0; i < patterns.count(); ++i)
 	{
-		ScPattern pa = docPatterns[patterns[c]];
-		for (int o = 0; o < pa.items.count(); o++)
+		ScPattern pa = docPatterns[patterns[i]];
+		for (int j = 0; j < pa.items.count(); j++)
 		{
-			PageItem *currItem = pa.items.at(o);
+			PageItem *currItem = pa.items.at(j);
 			if (currItem->isGroup())
 				allItems = currItem->asGroupFrame()->getItemList();
 			else
 				allItems.append(currItem);
-			for (int ii = 0; ii < allItems.count(); ii++)
+			for (int k = 0; k < allItems.count(); k++)
 			{
-				currItem = allItems.at(ii);
+				currItem = allItems.at(k);
 				if (currItem->itemType() == PageItem::ImageFrame)
 				{
 					if ((currItem->imageIsAvailable) && (!currItem->Pfile.isEmpty()))
@@ -760,9 +760,9 @@ ScribusDoc::~ScribusDoc()
 	{
 		if (autoSaveFiles.count() != 0)
 		{
-			for (int a = 0; a < autoSaveFiles.count(); a++)
+			for (int i = 0; i < autoSaveFiles.count(); i++)
 			{
-				QFile f(autoSaveFiles[a]);
+				QFile f(autoSaveFiles[i]);
 				f.remove();
 			}
 			autoSaveFiles.clear();
@@ -824,9 +824,9 @@ QList<PageItem*> *ScribusDoc::parentGroup(PageItem* item, QList<PageItem*> *list
 		retList = list;
 	else
 	{
-		for (int a = 0; a < list->count(); ++a)
+		for (int i = 0; i < list->count(); ++i)
 		{
-			PageItem* embedded = list->at(a);
+			PageItem* embedded = list->at(i);
 			if (embedded->isGroup())
 			{
 				retList = parentGroup(item, &embedded->asGroupFrame()->groupItemList);
@@ -1048,14 +1048,14 @@ bool ScribusDoc::OpenCMSProfiles(ProfilesL InPo, ProfilesL InPoCMYK, ProfilesL M
 		inputProfCMYK = DocInputCMYKProf;
 	}
 	stdProof = colorEngine.createProofingTransform(inputProfRGB, Format_RGB_16,
-	                    DocDisplayProf, Format_RGB_16,
-	                    DocPrinterProf,
-	                    IntentColors,
-	                    Intent_Relative_Colorimetric, dcmsFlags);
+						DocDisplayProf, Format_RGB_16,
+						DocPrinterProf,
+						IntentColors,
+						Intent_Relative_Colorimetric, dcmsFlags);
 	stdProofGC = colorEngine.createProofingTransform(inputProfRGB, Format_RGB_16,
-	                    DocDisplayProf, Format_RGB_16,
-	                    DocPrinterProf, IntentColors,
-	                    Intent_Relative_Colorimetric, dcmsFlags| Ctf_GamutCheck);
+						DocDisplayProf, Format_RGB_16,
+						DocPrinterProf, IntentColors,
+						Intent_Relative_Colorimetric, dcmsFlags| Ctf_GamutCheck);
 	stdProofCMYK = colorEngine.createProofingTransform(inputProfCMYK, Format_CMYK_16,
 						DocDisplayProf, Format_RGB_16,
 						DocPrinterProf, IntentColors,
@@ -1084,10 +1084,10 @@ bool ScribusDoc::OpenCMSProfiles(ProfilesL InPo, ProfilesL InPoCMYK, ProfilesL M
 	stdLabToRGBTrans   = colorEngine.createTransform(ScCore->defaultLabProfile, Format_Lab_Dbl, DocDisplayProf, Format_RGB_16, Intent_Absolute_Colorimetric, dcmsFlags);
 	stdLabToCMYKTrans = colorEngine.createTransform(ScCore->defaultLabProfile, Format_Lab_Dbl, DocPrinterProf, Format_CMYK_16, Intent_Absolute_Colorimetric, dcmsFlags);
 
-	bool success  = (stdTransRGBMon && stdTransCMYKMon && stdProofImg  && stdProofImgCMYK &&
-		             stdTransImg    && stdTransRGB     && stdTransCMYK && stdProof       &&
-					 stdProofGC     && stdProofCMYK    && stdProofCMYKGC &&
-					 stdLabToRGBTrans && stdLabToCMYKTrans && stdProofLab && stdProofLabGC);
+	bool success = (stdTransRGBMon   && stdTransCMYKMon   && stdProofImg    && stdProofImgCMYK &&
+					stdTransImg      && stdTransRGB       && stdTransCMYK   && stdProof        &&
+					stdProofGC       && stdProofCMYK      && stdProofCMYKGC &&
+					stdLabToRGBTrans && stdLabToCMYKTrans && stdProofLab    && stdProofLabGC);
 	if (!success)
 	{
 		CloseCMSProfiles();
@@ -1103,8 +1103,8 @@ void ScribusDoc::enableCMS(bool enable)
 {
 	m_ScMW->setStatusBarInfoText( tr("Adjusting Colors"));
 	m_ScMW->mainWindowProgressBar->reset();
-	int cc = PageColors.count() + MasterItems.count() + DocItems.count() + FrameItems.count();
-	m_ScMW->mainWindowProgressBar->setMaximum(cc);
+	int progressBarCount = PageColors.count() + MasterItems.count() + DocItems.count() + FrameItems.count();
+	m_ScMW->mainWindowProgressBar->setMaximum(progressBarCount);
 	qApp->setOverrideCursor(QCursor(Qt::WaitCursor));
 	bool oldCM = m_docPrefsData.colorPrefs.DCMSset.CMSinUse;
 	bool newCM = enable;
@@ -1119,7 +1119,7 @@ void ScribusDoc::enableCMS(bool enable)
 	if (!m_docPrefsData.colorPrefs.DCMSset.CMSinUse)
 	{
 		HasCMS = false;
-		if	(oldCM)
+		if (oldCM)
 		{
 			m_ScMW->recalcColors(m_ScMW->mainWindowProgressBar);
 			RecalcPictures(&ScCore->InputProfiles, &ScCore->InputProfilesCMYK, m_ScMW->mainWindowProgressBar);
@@ -1142,7 +1142,7 @@ void ScribusDoc::enableCMS(bool enable)
 		SetDefaultCMSParams();
 		HasCMS = false;
 	}
-	m_ScMW->mainWindowProgressBar->setValue(cc);
+	m_ScMW->mainWindowProgressBar->setValue(progressBarCount);
 	qApp->restoreOverrideCursor();
 	m_ScMW->setStatusBarInfoText("");
 	m_ScMW->mainWindowProgressBar->reset();
@@ -2668,8 +2668,8 @@ bool ScribusDoc::renameMasterPage(const QString& oldPageName, const QString& new
 			docPage->MPageNam = newPageName;
 	}
 	//Update any items that were linking to our old name
-	uint masterItemsCount=MasterItems.count();
-	for (uint i = 0; i < masterItemsCount; ++i)
+	int masterItemsCount=MasterItems.count();
+	for (int i = 0; i < masterItemsCount; ++i)
 	{
 		if (MasterItems.at(i)->OnMasterPage == oldPageName)
 			MasterItems.at(i)->OnMasterPage = newPageName;
@@ -3563,8 +3563,8 @@ bool ScribusDoc::changeLayerName(const int layerID, const QString& newName)
 bool ScribusDoc::layerContainsItems(const int layerID)
 {
 	QList<PageItem*> allItems;
-	uint masterItemsCount=MasterItems.count();
-	for (uint i = 0; i < masterItemsCount; ++i)
+	int masterItemsCount=MasterItems.count();
+	for (int i = 0; i < masterItemsCount; ++i)
 	{
 		PageItem* currItem = MasterItems.at(i);
 		if (currItem->isGroup())
@@ -3579,8 +3579,8 @@ bool ScribusDoc::layerContainsItems(const int layerID)
 		}
 		allItems.clear();
 	}
-	uint docItemsCount=DocItems.count();
-	for (uint i = 0; i < docItemsCount; ++i)
+	int docItemsCount=DocItems.count();
+	for (int i = 0; i < docItemsCount; ++i)
 	{
 		PageItem* currItem = DocItems.at(i);
 		if (currItem->isGroup())
@@ -3816,9 +3816,9 @@ void ScribusDoc::removePattern(QString name)
 {
 	docPatterns.remove(name);
 	QList<PageItem*> allItems;
-	for (int a = 0; a < DocItems.count(); ++a)
+	for (int i = 0; i < DocItems.count(); ++i)
 	{
-		PageItem *currItem = DocItems.at(a);
+		PageItem *currItem = DocItems.at(i);
 		if (currItem->isGroup())
 			allItems = currItem->asGroupFrame()->getItemList();
 		else
@@ -3831,16 +3831,16 @@ void ScribusDoc::removePattern(QString name)
 		}
 		allItems.clear();
 	}
-	for (int a = 0; a < MasterItems.count(); ++a)
+	for (int i = 0; i < MasterItems.count(); ++i)
 	{
-		PageItem *currItem = MasterItems.at(a);
+		PageItem *currItem = MasterItems.at(i);
 		if (currItem->isGroup())
 			allItems = currItem->asGroupFrame()->getItemList();
 		else
 			allItems.append(currItem);
-		for (int ii = 0; ii < allItems.count(); ii++)
+		for (int j = 0; j < allItems.count(); j++)
 		{
-			currItem = allItems.at(ii);
+			currItem = allItems.at(j);
 			if (currItem->pattern() == name)
 				currItem->setPattern("");
 		}
@@ -3905,16 +3905,16 @@ QStringList ScribusDoc::getUsedPatterns()
 {
 	QList<PageItem*> allItems;
 	QStringList results;
-	for (int c = 0; c < MasterItems.count(); ++c)
+	for (int i = 0; i < MasterItems.count(); ++i)
 	{
-		PageItem* currItem = MasterItems.at(c);
+		PageItem* currItem = MasterItems.at(i);
 		if (currItem->isGroup())
 			allItems = currItem->asGroupFrame()->getItemList();
 		else
 			allItems.append(currItem);
-		for (int ii = 0; ii < allItems.count(); ii++)
+		for (int j = 0; j < allItems.count(); j++)
 		{
-			currItem = allItems.at(ii);
+			currItem = allItems.at(j);
 			if ((!results.contains(currItem->pattern())) && ((currItem->GrType == 8) || (currItem->itemType() == PageItem::Symbol)))
 				results.append(currItem->pattern());
 			if (!currItem->strokePattern().isEmpty())
@@ -3930,16 +3930,16 @@ QStringList ScribusDoc::getUsedPatterns()
 		}
 		allItems.clear();
 	}
-	for (int c = 0; c < DocItems.count(); ++c)
+	for (int i = 0; i < DocItems.count(); ++i)
 	{
-		PageItem* currItem = DocItems.at(c);
+		PageItem* currItem = DocItems.at(i);
 		if (currItem->isGroup())
 			allItems = currItem->asGroupFrame()->getItemList();
 		else
 			allItems.append(currItem);
-		for (int ii = 0; ii < allItems.count(); ii++)
+		for (int j = 0; j < allItems.count(); j++)
 		{
-			currItem = allItems.at(ii);
+			currItem = allItems.at(j);
 			if ((!results.contains(currItem->pattern())) && ((currItem->GrType == 8) || (currItem->itemType() == PageItem::Symbol)))
 				results.append(currItem->pattern());
 			if (!currItem->strokePattern().isEmpty())
@@ -3962,9 +3962,9 @@ QStringList ScribusDoc::getUsedPatterns()
 			allItems = currItem->asGroupFrame()->getItemList();
 		else
 			allItems.append(currItem);
-		for (int ii = 0; ii < allItems.count(); ii++)
+		for (int i = 0; i < allItems.count(); i++)
 		{
-			currItem = allItems.at(ii);
+			currItem = allItems.at(i);
 			if ((!results.contains(currItem->pattern())) && ((currItem->GrType == 8) || (currItem->itemType() == PageItem::Symbol)))
 				results.append(currItem->pattern());
 			if (!currItem->strokePattern().isEmpty())
@@ -3982,16 +3982,16 @@ QStringList ScribusDoc::getUsedPatterns()
 	}
 	for (QHash<QString, ScPattern>::Iterator it = docPatterns.begin(); it != docPatterns.end(); ++it)
 	{
-		for (int c = 0; c < it.value().items.count(); ++c)
+		for (int i = 0; i < it.value().items.count(); ++i)
 		{
-			PageItem* currItem = it.value().items.at(c);
+			PageItem* currItem = it.value().items.at(i);
 			if (currItem->isGroup())
 				allItems = currItem->asGroupFrame()->getItemList();
 			else
 				allItems.append(currItem);
-			for (int ii = 0; ii < allItems.count(); ii++)
+			for (int j = 0; j < allItems.count(); j++)
 			{
-				currItem = allItems.at(ii);
+				currItem = allItems.at(j);
 				if ((currItem->GrType == 8) || (currItem->itemType() == PageItem::Symbol))
 				{
 					const QString& patName = currItem->pattern();
@@ -4015,20 +4015,20 @@ QStringList ScribusDoc::getUsedPatterns()
 QStringList ScribusDoc::getUsedPatternsSelection(Selection* customSelection)
 {
 	QStringList results;
-	uint selectedItemCount = customSelection->count();
+	int selectedItemCount = customSelection->count();
 	if (selectedItemCount != 0)
 	{
-		for (uint a = 0; a < selectedItemCount; ++a)
+		for (int i = 0; i < selectedItemCount; ++i)
 		{
-			PageItem *currItem = customSelection->itemAt(a);
+			PageItem *currItem = customSelection->itemAt(i);
 			QList<PageItem*> allItems;
 			if (currItem->isGroup())
 				allItems = currItem->asGroupFrame()->getItemList();
 			else
 				allItems.append(currItem);
-			for (int ii = 0; ii < allItems.count(); ii++)
+			for (int j = 0; j < allItems.count(); j++)
 			{
-				currItem = allItems.at(ii);
+				currItem = allItems.at(j);
 				if ((currItem->GrType == 8) || (currItem->itemType() == PageItem::Symbol))
 				{
 					const QString& pat = currItem->pattern();
@@ -4045,15 +4045,15 @@ QStringList ScribusDoc::getUsedPatternsSelection(Selection* customSelection)
 			allItems.clear();
 		}
 		QStringList results2 = results;
-		for (int c = 0; c < results.count(); ++c)
+		for (int i = 0; i < results.count(); ++i)
 		{
-			QStringList pats = getUsedPatternsHelper(results[c], results2);
+			QStringList pats = getUsedPatternsHelper(results[i], results2);
 			if (pats.isEmpty())
 				continue;
-			for (int cc = 0; cc < pats.count(); cc++)
+			for (int j = 0; j < pats.count(); j++)
 			{
-				if (!results2.contains(pats[cc]))
-					results2.append(pats[cc]);
+				if (!results2.contains(pats[j]))
+					results2.append(pats[j]);
 			}
 		}
 		return results2;
@@ -4068,16 +4068,16 @@ QStringList ScribusDoc::getUsedPatternsHelper(QString pattern, QStringList &resu
 		return QStringList();
 	ScPattern *pat = &docPatterns[pattern];
 	QStringList pats;
-	for (int c = 0; c < pat->items.count(); ++c)
+	for (int i = 0; i < pat->items.count(); ++i)
 	{
 		QList<PageItem*> allItems;
-		if (pat->items.at(c)->isGroup())
-			allItems = pat->items.at(c)->asGroupFrame()->getItemList();
+		if (pat->items.at(i)->isGroup())
+			allItems = pat->items.at(i)->asGroupFrame()->getItemList();
 		else
-			allItems.append(pat->items.at(c));
-		for (int ii = 0; ii < allItems.count(); ii++)
+			allItems.append(pat->items.at(i));
+		for (int j = 0; j < allItems.count(); j++)
 		{
-			PageItem *currItem = allItems.at(ii);
+			PageItem *currItem = allItems.at(j);
 			if ((currItem->GrType == 8) || (currItem->itemType() == PageItem::Symbol))
 			{
 				const QString& patName = currItem->pattern();
@@ -4096,9 +4096,9 @@ QStringList ScribusDoc::getUsedPatternsHelper(QString pattern, QStringList &resu
 	if (!pats.isEmpty())
 	{
 		results += pats;
-		for (int c = 0; c < pats.count(); ++c)
+		for (int i = 0; i < pats.count(); ++i)
 		{
-			QStringList pp = getUsedPatternsHelper(pats[c], results);
+			QStringList pp = getUsedPatternsHelper(pats[i], results);
 			if (pp.isEmpty())
 				continue;
 			for (int cc = 0; cc < pp.count(); cc++)
@@ -4120,9 +4120,9 @@ QStringList ScribusDoc::getPatternDependencyList(QStringList used)
 	patternStack.push(pats);
 	while (!pats.isEmpty())
 	{
-		for (int c = 0; c < pats.count(); ++c)
+		for (int i = 0; i < pats.count(); ++i)
 		{
-			pp = getUsedPatternsHelper(pats[c], results);
+			pp = getUsedPatternsHelper(pats[i], results);
 		}
 		pats = results;
 		results.clear();
@@ -4133,10 +4133,10 @@ QStringList ScribusDoc::getPatternDependencyList(QStringList used)
 	while (patternStack.count() != 0)
 	{
 		pp = patternStack.pop();
-		for (int c = 0; c < pp.count(); c++)
+		for (int i = 0; i < pp.count(); i++)
 		{
-			if (!results.contains(pp[c]))
-				results.append(pp[c]);
+			if (!results.contains(pp[i]))
+				results.append(pp[i]);
 		}
 		if (patternStack.count() == 0)
 			break;
@@ -4148,16 +4148,16 @@ QStringList ScribusDoc::getUsedSymbols()
 {
 	QList<PageItem*> allItems;
 	QStringList results;
-	for (int c = 0; c < MasterItems.count(); ++c)
+	for (int i = 0; i < MasterItems.count(); ++i)
 	{
-		PageItem* currItem = MasterItems.at(c);
+		PageItem* currItem = MasterItems.at(i);
 		if (currItem->isGroup())
 			allItems = currItem->asGroupFrame()->getItemList();
 		else
 			allItems.append(currItem);
-		for (int ii = 0; ii < allItems.count(); ii++)
+		for (int j = 0; j < allItems.count(); j++)
 		{
-			currItem = allItems.at(ii);
+			currItem = allItems.at(j);
 			if ((!results.contains(currItem->pattern())) && (currItem->itemType() == PageItem::Symbol) && (!currItem->pattern().isEmpty()))
 				results.append(currItem->pattern());
 			if ((!currItem->strokePattern().isEmpty()) && (currItem->patternStrokePath))
@@ -4170,16 +4170,16 @@ QStringList ScribusDoc::getUsedSymbols()
 		}
 		allItems.clear();
 	}
-	for (int c = 0; c < DocItems.count(); ++c)
+	for (int i = 0; i < DocItems.count(); ++i)
 	{
-		PageItem* currItem = DocItems.at(c);
+		PageItem* currItem = DocItems.at(i);
 		if (currItem->isGroup())
 			allItems = currItem->asGroupFrame()->getItemList();
 		else
 			allItems.append(currItem);
-		for (int ii = 0; ii < allItems.count(); ii++)
+		for (int j = 0; j < allItems.count(); j++)
 		{
-			currItem = allItems.at(ii);
+			currItem = allItems.at(j);
 			if ((!results.contains(currItem->pattern())) && (currItem->itemType() == PageItem::Symbol) && (!currItem->pattern().isEmpty()))
 				results.append(currItem->pattern());
 			if ((!currItem->strokePattern().isEmpty()) && (currItem->patternStrokePath))
@@ -4197,9 +4197,9 @@ QStringList ScribusDoc::getUsedSymbols()
 			allItems = currItem->asGroupFrame()->getItemList();
 		else
 			allItems.append(currItem);
-		for (int ii = 0; ii < allItems.count(); ii++)
+		for (int i = 0; i < allItems.count(); i++)
 		{
-			currItem = allItems.at(ii);
+			currItem = allItems.at(i);
 			if ((!results.contains(currItem->pattern())) && (currItem->itemType() == PageItem::Symbol) && (!currItem->pattern().isEmpty()))
 				results.append(currItem->pattern());
 			if ((!currItem->strokePattern().isEmpty()) && (currItem->patternStrokePath))
@@ -4212,16 +4212,16 @@ QStringList ScribusDoc::getUsedSymbols()
 	}
 	for (QHash<QString, ScPattern>::Iterator it = docPatterns.begin(); it != docPatterns.end(); ++it)
 	{
-		for (int c = 0; c < it.value().items.count(); ++c)
+		for (int i = 0; i < it.value().items.count(); ++i)
 		{
-			PageItem* currItem = it.value().items.at(c);
+			PageItem* currItem = it.value().items.at(i);
 			if (currItem->isGroup())
 				allItems = currItem->asGroupFrame()->getItemList();
 			else
 				allItems.append(currItem);
-			for (int ii = 0; ii < allItems.count(); ii++)
+			for (int j = 0; j < allItems.count(); j++)
 			{
-				currItem = allItems.at(ii);
+				currItem = allItems.at(j);
 				if ((!results.contains(currItem->pattern())) && (currItem->itemType() == PageItem::Symbol) && (!currItem->pattern().isEmpty()))
 					results.append(currItem->pattern());
 				if ((!currItem->strokePattern().isEmpty()) && (currItem->patternStrokePath))
@@ -4240,22 +4240,19 @@ QStringList ScribusDoc::getUsedSymbolsHelper(QString pattern, QStringList &resul
 {
 	ScPattern *pat = &docPatterns[pattern];
 	QStringList pats;
-	pats.clear();
-	for (int c = 0; c < pat->items.count(); ++c)
+	for (int i = 0; i < pat->items.count(); ++i)
 	{
-		if (pat->items.at(c)->itemType() == PageItem::Symbol)
+		if (pat->items.at(i)->itemType() == PageItem::Symbol)
 		{
-			const QString& patName = pat->items.at(c)->pattern();
+			const QString& patName = pat->items.at(i)->pattern();
 			if (!patName.isEmpty() && !results.contains(patName))
 				pats.append(patName);
 		}
 	}
 	if (!pats.isEmpty())
 	{
-		for (int c = 0; c < pats.count(); ++c)
-		{
-			getUsedSymbolsHelper(pats[c], results);
-		}
+		for (int i = 0; i < pats.count(); ++i)
+			getUsedSymbolsHelper(pats[i], results);
 	}
 	return pats;
 }
@@ -4647,7 +4644,7 @@ void ScribusDoc::getUsedProfiles(ProfilesL& usedProfiles)
 	PageItem* it = NULL;
 	QString profileName;
 	QStringList profileNames;
-	uint counter = 0;
+	int counter = 0;
 	usedProfiles.clear();
 
 	QList<PageItem*> allItems;
@@ -4662,13 +4659,13 @@ void ScribusDoc::getUsedProfiles(ProfilesL& usedProfiles)
 	if ( profileNames.indexOf(m_docPrefsData.colorPrefs.DCMSset.DefaultPrinterProfile) < 0 )
 		profileNames.append(m_docPrefsData.colorPrefs.DCMSset.DefaultPrinterProfile);
 	
-	for (uint lc = 0; lc < 2; ++lc)
+	for (int lc = 0; lc < 2; ++lc)
 	{
 		if (lc == 0)
 			counter = MasterItems.count();
 		else if (lc == 1)
 			counter = DocItems.count();
-		for (uint d = 0; d < counter; ++d)
+		for (int d = 0; d < counter; ++d)
 		{
 			if (lc == 0)
 				it = MasterItems.at(d);
@@ -5240,8 +5237,8 @@ bool ScribusDoc::copyPageToMasterPage(const int pageNumber, const int leftPage, 
 		targetPage->LeftPg = lp;
 	}
 	sourcePage->guides.copy(&targetPage->guides);
-	uint end = DocItems.count();
-	uint end2 = MasterItems.count();
+	int end = DocItems.count();
+	int end2 = MasterItems.count();
 	Selection tempSelection(this, false);
 	m_Selection->clear();
 	//Copy the items from our current document page's applied *master* page
@@ -5262,7 +5259,7 @@ bool ScribusDoc::copyPageToMasterPage(const int pageNumber, const int leftPage, 
 				for (ScLayers::iterator it = Layers.begin(); it != Layers.end(); ++it)
 				{
 					setActiveLayer(it->ID);
-					for (uint ite = 0; ite < end2; ++ite)
+					for (int ite = 0; ite < end2; ++ite)
 					{
 						PageItem *itemToCopy = MasterItems.at(ite);
 						if ((itemToCopy->OnMasterPage == pageMaster->pageName()) && (it->ID == itemToCopy->LayerID))
@@ -5310,8 +5307,8 @@ bool ScribusDoc::copyPageToMasterPage(const int pageNumber, const int leftPage, 
 		setActiveLayer(currActiveLayer);
 	}
 	//Make sure our copied items have the master page name and own page set.
-	uint end3 = MasterItems.count();
-	for (uint a = end2; a < end3; ++a)
+	int end3 = MasterItems.count();
+	for (int a = end2; a < end3; ++a)
 	{
 		PageItem *newItem = MasterItems.at(a);
 		newItem->OnMasterPage = masterPageName;
@@ -15992,8 +15989,8 @@ QMap<PageItem*, QString> ScribusDoc::getDocItemNames(PageItem::ItemType itemType
 {
 	QMap<PageItem*, QString> namesMap;
 	QList<PageItem*> allItems;
-	uint docItemsCount = DocItems.count();
-	for (uint i = 0; i < docItemsCount; ++i)
+	int docItemsCount = DocItems.count();
+	for (int i = 0; i < docItemsCount; ++i)
 	{
 		PageItem* ite = DocItems.at(i);
 		if (ite->isGroup())
@@ -16049,8 +16046,8 @@ void ScribusDoc::setNewPrefs(const ApplicationPrefs& prefsData, const Applicatio
 	double leftDisplacement = prefsData.displayPrefs.scratch.left() - oldPrefsData.displayPrefs.scratch.left();
 	applyPrefsPageSizingAndMargins(resizePages, resizeMasterPages, resizePageMargins, resizeMasterPageMargins);
 
-	uint docItemsCount = MasterItems.count();
-	for (uint ite = 0; ite < docItemsCount; ++ite)
+	int docItemsCount = MasterItems.count();
+	for (int ite = 0; ite < docItemsCount; ++ite)
 	{
 		PageItem *item = MasterItems.at(ite);
 		item->moveBy(leftDisplacement, topDisplacement);
@@ -16296,8 +16293,8 @@ void ScribusDoc::removeInlineFrame(int fIndex)
 {
 	QList<PageItem*> allItems;
 	PageItem* it = NULL;
-	uint counter = 0;
-	for (uint lc = 0; lc < 2; ++lc)
+	int counter = 0;
+	for (int lc = 0; lc < 2; ++lc)
 	{
 		switch (lc)
 		{
@@ -16308,7 +16305,7 @@ void ScribusDoc::removeInlineFrame(int fIndex)
 				counter = DocItems.count();
 				break;
 		}
-		for (uint d = 0; d < counter; ++d)
+		for (int d = 0; d < counter; ++d)
 		{
 			switch (lc)
 			{
