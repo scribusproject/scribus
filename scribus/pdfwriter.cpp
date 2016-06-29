@@ -816,7 +816,7 @@ namespace Pdf
 		{
 			write("/Properties << \n");
 			QMap<QByteArray,PdfId>::ConstIterator it4p;
-			for (it4p = dict.ExtGState.begin(); it4p != dict.ExtGState.end(); ++it4p)
+			for (it4p = dict.Properties.begin(); it4p != dict.Properties.end(); ++it4p)
 				write(Pdf::toName(it4p.key()) + " " + Pdf::toObjRef(it4p.value()) + "\n");
 			write(">>\n");
 		}
