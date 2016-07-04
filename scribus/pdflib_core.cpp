@@ -8336,7 +8336,11 @@ bool PDFLibCore::PDF_GradientFillStroke(QByteArray& output, PageItem *currItem, 
 		dict.Pattern = Patterns;
 		writer.write(dict);
 
-		QByteArray stre = "q\n"+SetClipPath(currItem)+"h\n";
+		QByteArray stre = "q\n";
+		if (currItem->isLine())
+			stre += "0 0 m\n" + FToStr(currItem->width()) +" 0 l\n";
+		else
+			stre += SetClipPath(currItem) + "h\n";
 		stre += FToStr(fabs(currItem->lineWidth()))+" w\n";
 		if ((forArrow) || (!stroke))
 		{
