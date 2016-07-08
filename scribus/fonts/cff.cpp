@@ -871,15 +871,16 @@ namespace cff {
 			case 0x1:
 			case 0x81:
 				gid = 1;
-				for (int r = 0; r < N; ++r)
+				for (int i = 0; i < N; ++i)
 				{
 					uchar first = m_bytes[pos++];
 					uchar nLeft = m_bytes[pos++];
-					for (code = first; code <= first + nLeft; ++code)
+					int lastCode = (int) first + (int) nLeft;
+					for (int j = first; j <= lastCode; ++j)
 					{
-						if (result[code] == 0)
+						if (result[j] == 0)
 						{
-							result[code] = gid;
+							result[j] = gid;
 						}
 						++gid;
 					}
