@@ -165,6 +165,7 @@ void MasterPagesPalette::deleteMasterPage()
 	QMap<QString,int>::Iterator it = currentDoc->MasterNames.begin();
 	sMuster = it.key();
 	updateMasterPageList(sMuster);
+	selectMasterPage(sMuster);
 }
 
 void MasterPagesPalette::duplicateMasterPage()
