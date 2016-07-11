@@ -195,6 +195,7 @@ void PagePalette_MasterPages::deleteMasterPage()
 	QMap<QString,int>::Iterator it = m_doc->MasterNames.begin();
 	m_currentPage = it.key();
 	updateMasterPageList(m_currentPage);
+	selectMasterPage(m_currentPage);
 }
 
 void PagePalette_MasterPages::duplicateMasterPage()
