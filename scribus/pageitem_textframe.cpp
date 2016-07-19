@@ -2594,7 +2594,7 @@ void PageItem_TextFrame::layout()
 					// hanging out of frame, especially when using right alignment. So recompute regionMinY and 
 					// regionMaxY based on line ascent and descent.
 					current.breakLine(style, firstLineOffset(), i);
-					regionMinY = current.line.y - current.line.ascent;
+					regionMinY = qMax(0.0, current.line.y - current.line.ascent);
 					regionMaxY = current.line.y + current.line.descent;
 					EndX = current.endOfLine(m_availableRegion, style.rightMargin(), regionMinY, regionMaxY);
 					current.finishLine(EndX);
