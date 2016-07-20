@@ -334,11 +334,21 @@ void CanvasMode_EditTable::handleMouseDrag(QMouseEvent* event)
 		activeFrame->HasSel = false;
 		m_view->slotSetCurs(event->globalPos().x(), event->globalPos().y());
 
-		const int selectionStart = qMin(activeFrame->itemText.cursorPosition(), m_lastCursorPos);
-		const int selectionLength = qAbs(activeFrame->itemText.cursorPosition() - m_lastCursorPos);
+		PageItem_TextFrame* newActiveFrame = m_table->activeCell().textFrame();
+		if (activeFrame == newActiveFrame)
+		{
+			const int selectionStart = qMin(activeFrame->itemText.cursorPosition(), m_lastCursorPos);
+			const int selectionLength = qAbs(activeFrame->itemText.cursorPosition() - m_lastCursorPos);
 
-		activeFrame->itemText.select(selectionStart, selectionLength);
-		activeFrame->HasSel = (selectionLength > 0);
+			activeFrame->itemText.select(selectionStart, selectionLength);
+			activeFrame->HasSel = (selectionLength > 0);
+		}
+		else
+		{
+			m_lastCursorPos = -1;
+			m_cellSelectGesture->setup(m_table, activeCell);
+			m_view->startGesture(m_cellSelectGesture);
+		}
 	}
 	else
 	{
