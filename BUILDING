@@ -27,14 +27,12 @@ exact package names for the distro, are provided below.
 Install the below packages BEFORE running CMake or compiling Scribus:
 
 Requirements:
-	Qt >= 4.6.0 (Scribus has specific code requiring Qt 4.6, not Qt 4.5.x or before)
+	Qt >= 5.3.0 (Scribus has specific code requiring Qt 5.3.0, not Qt 5.2.x or before)
 	Freetype >= 2.1.7 (2.3.x strongly recommended)
-	cairo >= 1.4.x 
+	cairo >= 1.14.x 
 	libtiff >= 3.6.0
-	LittleCMS (liblcms) = 1.12 (1.18+ recommended)
+	LittleCMS (liblcms) >= 2.0 (2.1+ recommended)
 	libjpeg (depending on how Qt is packaged)
-	libpng
-	Qtwebkit
 
 Recommended:
 	CUPS
@@ -46,7 +44,7 @@ Recommended:
 	python-imaging for the font sampler preview
 	pkgconfig (to assist finding other libraries)
 	apspell for the spell checker
-	podofo - 0.5.0+ for enhanced Illustrator AI/EPS import, svn versions
+	podofo - 0.7.0+ for enhanced Illustrator AI/EPS import, svn versions
 	boost and boost-devel
 	GraphicksMagick++
 
@@ -97,11 +95,10 @@ search path is the PATH environment variable.
 REQUIREMENTS - DETAILS
 ======================
 
-Qt 4.6 is now the *minimum*. Older versions of Qt are *not* supported. 
+Qt 5.3 is now the *minimum*. Older versions of Qt are *not* supported. 
 If you build Qt from sources, the recommended ./configure/cmake switches are the
  same as used by KDE. Use of other switches aside from those used by distro
-packages can make trouble shooting
-issues very difficult at times.
+packages can make trouble shooting issues very difficult at times.
 See: http://developer.kde.orgb/uild/compile_kde3_3.html
 
 Scribus requires Freetype. If you are compiling from source, you will need to
@@ -158,7 +155,7 @@ In any problem report, MAKE SURE YOU INCLUDE THE FOLLOWING INFORMATION:
     - Operating system or distro, eg "Mac OS X" or "Debian Linux"
     - OS or distro version, eg "Panther" or "Fedora Core 3". This is NOT the
       Linux kernel version, though you can provide that too.
-    - Scribus version you're trying to compile, eg "1.2.1" or "1.3 cvs". If
+    - Scribus version you're trying to compile, eg "1.4.6" or "1.5.3.svn". If
       you're building an SVN version, please make sure you've run
       "svn revert -R ." (this WILL erase any patches / custom changes you've
       made), deleted the CMake cache with `rm -f CMakeCache.txt' and re-built
@@ -169,7 +166,7 @@ In any problem report, MAKE SURE YOU INCLUDE THE FOLLOWING INFORMATION:
     - If you're having problems with a particular library, what version
       of the library you have installed and where you got it from. eg:
       "freetype 2.0.1 from sunfreeware",
-      "LittleCMS 1.1.4, compiled myself and installed in /usr/local",
+      "LittleCMS 2.1, compiled myself and installed in /usr/local",
       "freetype 2.1.3 from backports.org",
       "fontconfig 2.2.0 (stock Fedora Core 3 devel package)"
       "I installed the qt-3.0.1.rpm and qt-devel-3.0.1.rpm from the CD."
@@ -195,42 +192,52 @@ information can be found in the README.
 Debian
 ======
 
-Recommended packages for compiling from source on Etch (Debian 4.0):
-	libqt4-dev (Required)
-	libfreetype6-dev (Required)
+Recommended packages for compiling from source on Jessie (Debian 8.0):
+	qtbase5-dev (Required)
+	qtdeclarative5-dev (Required)
+	qttools5-dev (Required)
+	qttools5-dev-tools (Required)
 	libcairo2-dev (Required)
+	libcupsys2-dev (Required)
 	libfontconfig1-dev (Required)
-	libcupsys2-dev
-	liblcms1-dev
-	libtiff4-dev
-	libxml2-dev
-	python2.3-dev  or  python2.4-dev
+	libfreetype6-dev (Required)
+	liblcms2-dev (Required)
+	libtiff5-dev (Required)
+	libxml2-dev (Required)
+	libboost-dev
+	libhunspell-dev
+	libpodofo-dev
+	libpoppler-dev
+	libpoppler-private-dev
+	python2.7-dev
 	gs-gpl or gs-afpl (usually gs-gpl is newer now)
 
-You are unlikely to be able to compile Scribus 1.3.x on Debian 3.0 (Woody)
-or Debian 3.1 (Sarge) without significant upgrades; it is not at all
-recommended. Scribus 1.3.x should be considered not to support Debian Woody,
-with versions above 1.3.5 unsupported on Sarge as well.
+You are unlikely to be able to compile Scribus 1.5.x on Debian 7.0 (Wheezy)
+Scribus 1.5.x should be considered not to support Debian Wheezy.
 
 More info can be found in the README.
 
 Red Hat / Fedora / CentOS
-========================
+=========================
 
 Recommended packages for compiling from source on Fedora/CentOS/RHEL
 	libstdc++-devel (Required)
 	gcc-c++ (Required)
-	qt4-devel (Required)
-	freetype-devel (Required)
+	qt5-qtbase-devel (Required)
+	qt5-qtdeclarative-devel (Required)
+	qt5-qttools-devel (Required)
 	cairo-devel (Required)
-	fontconfig-devel
-	cups-devel
-	libtiff-devel
-	libxml2-devel
+	cups-devel (Required)
+	fontconfig-devel (Required)
+	freetype-devel (Required)
+	lcms2-devel (Required)
+	libjpeg-devel (Required)
+	libtiff-devel (Required)
+	libxml2-devel (Required)
+	hunspell-devel
+	podofo-devel
+	poppler-devel
 	python-devel
-	lcms-devel (Required)
-	libpng-devel
-	libjpeg-devel
 
 You can install these packages with 'yum install packagename' as root.
 
@@ -238,31 +245,34 @@ You can install these packages with 'yum install packagename' as root.
 More info can be found in the README.
 
 Suse/Opensuse
-====
+=============
 
-Recommended packages for compiling from source on SuSE 11.x:
-	qt4-devel (required)
+Recommended packages for compiling from source on SuSE 13.x:
+	libqt5-qtbase-devel (required)
+	libqt5-qtdeclarative-devel (required)
+	libqt5-qttools-devel (required)
 	cairo-devel (required)
-	freetype2-devel (required)
+	cups-devel (required)
 	fontconfig-devel (required)
+	freetype2-devel (required)
+	libjpeg-devel (required)
 	liblcms-devel (required)
 	libtiff-devel (required)
-	libxml2-devel
-	libpng-devel
-	libjpeg-devel
-	cups-devel
+	libxml2-devel (required)
 	openssl-devel (required if CUPS support is needed)
-	update-desktop-files
-	python-devel
-	tk
-	python-imaging
-	aspell-devel
 	boost-devel
+	hunspell-devel
+	libpodofo-devel
+	libpoppler-devel
+	python-devel
+	python-imaging
+	tk
 	libGraphicsMagick++-devel
 	libOpenSceneGraph-devel  *Optional- but available from the Packman repo
+	update-desktop-files
 
 You can install these packages using YaST. You may find it difficult to compile
-Scribus 1.3.5+ on anything older than Suse 11.1.
+Scribus 1.5.0+ on anything older than Suse 13.1.
 
 Please note we do provide frequently updated packages including debuginfo rpms
 on the Suse Build Server at http//software.opensuse.org .
