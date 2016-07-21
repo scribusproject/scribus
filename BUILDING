@@ -193,13 +193,15 @@ Debian
 
 Recommended packages for compiling from source on Etch (Debian 4.0):
 	libqt4-dev (Required)
-	libfreetype6-dev (Required)
 	libcairo2-dev (Required)
+	libcupsys2-dev (Required)
 	libfontconfig1-dev (Required)
-	libcupsys2-dev
-	liblcms1-dev
-	libtiff4-dev
-	libxml2-dev
+	libfreetype6-dev (Required)
+	liblcms1-dev (Required, use liblcms2-dev if possible)
+	libtiff4-dev (Required)
+	libxml2-dev (Required) 
+	libboost-dev
+	libpodofo-dev
 	python2.3-dev  or  python2.4-dev
 	gs-gpl or gs-afpl (usually gs-gpl is newer now)
 
@@ -211,22 +213,23 @@ with versions above 1.3.5 unsupported on Sarge as well.
 More info can be found in the README.
 
 Red Hat / Fedora / CentOS
-========================
+=========================
 
 Recommended packages for compiling from source on Fedora/CentOS/RHEL
 	libstdc++-devel (Required)
 	gcc-c++ (Required)
 	qt4-devel (Required)
-	freetype-devel (Required)
 	cairo-devel (Required)
-	fontconfig-devel (Required)
 	cups-devel (Required)
-	libtiff-devel
+	fontconfig-devel (Required)
+	freetype-devel (Required)
+	lcms-devel (Required, use lcms2-devel if possible)
+	libjpeg-devel (Required)
+	libtiff-devel (Required)
 	libxml2-devel (Required)
+	hunspell-devel
+	podofo-devel
 	python-devel
-	lcms-devel (Required)
-	libpng-devel
-	libjpeg-devel
 
 You can install these packages with 'yum install packagename' as root. 
 
@@ -234,26 +237,26 @@ You can install these packages with 'yum install packagename' as root.
 More info can be found in the README.
 
 Suse/Opensuse
-====
+=============
 
 Recommended packages for compiling from source on SuSE 11.x:
 	qt4-devel (required)
 	cairo-devel (required)
-	freetype2-devel (required)
+	cups-devel (required)
 	fontconfig-devel (required)
+	freetype2-devel (required)
+	libjpeg-devel (required)
 	liblcms-devel (required)
 	libtiff-devel (required)
 	libxml2-devel (required)
-	libpng-devel (required)
-	libjpeg-devel (required)
-	cups-devel (required)
-	openssl-devel (required if CUPS support is needed) 
-	update-desktop-files
+	openssl-devel (required if CUPS support is needed)
+	boost-devel
+	hunspell-devel
+	libpodofo-devel
 	python-devel
-	tk
 	python-imaging
-	aspell-devel
-        boost-devel
+	tk
+	update-desktop-files
 
 You can install these packages using YaST. You may find it difficult to compile
 Scribus 1.3.9+ on anything older than Suse 11.3. 
