@@ -1878,11 +1878,10 @@ void PaintManagerDialog::saveDefaults()
 
 void PaintManagerDialog::doSaveDefaults(QString name, bool changed)
 {
-	QString Cpfad = QDir::toNativeSeparators(ScPaths::getApplicationDataDir());
-	QString Fname = name;
-	Fname.replace(" ", "_");
-	Fname  = Cpfad + "swatches/"+ Fname;
-	Fname += ".xml";	
+	QString filename = name;
+	filename.replace(" ", "_");
+	filename  = QDir::toNativeSeparators(ScPaths::getUserPaletteFilesDir(true)) + filename;
+	filename += ".xml";
 	const FileFormat *fmt = LoadSavePlugin::getFormatById(FORMATID_SLA150EXPORT);
 	if (fmt)
 	{
@@ -1895,7 +1894,7 @@ void PaintManagerDialog::doSaveDefaults(QString name, bool changed)
 		s_doc->setGradients(dialogGradients);
 		s_doc->setPatterns(dialogPatterns);
 		fmt->setupTargets(s_doc, 0, mainWin, 0, &(PrefsManager::instance()->appPrefs.fontPrefs.AvailFonts));
-		fmt->savePalette(Fname);
+		fmt->savePalette(filename);
 		delete s_doc;
 	}
 	if (changed)
@@ -1903,7 +1902,7 @@ void PaintManagerDialog::doSaveDefaults(QString name, bool changed)
 		QString nameC = name;
 		nameC.replace(" ", "_");
 		nameC += ".xml";
-		QFileInfo fi(Fname);
+		QFileInfo fi(filename);
 		customColSet.append(fi.absolutePath() + "/" + nameC);
 		QTreeWidgetItem *item = LoadColSet->addSubItem(name, userSwatches);
 		item->setData(0, Qt::UserRole, fi.absolutePath());
