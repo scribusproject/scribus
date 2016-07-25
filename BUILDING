@@ -234,6 +234,7 @@ Recommended packages for compiling from source on Fedora/CentOS/RHEL
 	libjpeg-devel (Required)
 	libtiff-devel (Required)
 	libxml2-devel (Required)
+	boost-devel
 	hunspell-devel
 	podofo-devel
 	poppler-devel
