@@ -1888,9 +1888,6 @@ void PageItem_TextFrame::layout()
 					if (current.startOfCol)
 					{
 						lastLineY = qMax(lastLineY, m_textDistanceMargins.top() + lineCorr);
-						//fix for proper rendering first empty line (only with PARSEP)
-						if (itemText.text(a) == SpecialChars::PARSEP)
-							current.yPos += style.lineSpacing();
 						if (style.lineSpacingMode() == ParagraphStyle::BaselineGridLineSpacing || FlopBaseline)
 						{
 							if (current.yPos <= lastLineY)
@@ -1906,7 +1903,7 @@ void PageItem_TextFrame::layout()
 						{
 							if (firstLineOffset() == FLOPRealGlyphHeight)
 							{
-								if (DropCmode)
+								if (DropCmode || (itemText.text(a) == SpecialChars::PARSEP))
 									current.yPos += asce;
 								else
 									current.yPos += realAsce;
