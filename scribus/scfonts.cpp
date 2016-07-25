@@ -620,7 +620,7 @@ bool SCFonts::AddScalableFont(QString filename, FT_Library &library, QString Doc
 					t = ScFace(new ScFace_ttf(fam, sty, "", ts, qpsName, filename, faceIndex));
 					t.m_m->formatCode = ScFace::TTCF;
 					t.m_m->typeCode = ScFace::TTF;
-					//getSFontType(face, t.m->typeCode);
+					getSFontType(face, t.m_m->typeCode);
 					if (t.type() == ScFace::OTF) 
 					{
 						t.subset(true);
