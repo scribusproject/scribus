@@ -4534,6 +4534,9 @@ void ScribusDoc::checkItemForFonts(PageItem *it, QMap<QString, QMap<uint, FPoint
 	if (!it->isTextFrame() && !it->isPathText())
 		return;
 
+	if (it->invalid)
+		it->layout();
+
 	// This works pretty well except for the case of page numbers and al. placed on masterpages
 	// where layout may depend on the page where the masterpage item is placed
 	UsedGlyphsPainter p(Really);
@@ -5287,7 +5290,7 @@ bool ScribusDoc::copyPageToMasterPage(const int pageNumber, const int leftPage, 
 		for (ScLayers::iterator it = Layers.begin(); it != Layers.end(); ++it)
 		{
 			setActiveLayer(it->ID);
-			for (uint ite = 0; ite < end; ++ite)
+			for (int ite = 0; ite < end; ++ite)
 			{
 				PageItem *itemToCopy = DocItems.at(ite);
 				if ((itemToCopy->OwnPage == static_cast<int>(sourcePage->pageNr())) && (it->ID == itemToCopy->LayerID))
@@ -6556,7 +6559,7 @@ bool ScribusDoc::itemNameExists(const QString checkItemName)
 {
 	bool found = false;
 	QList<PageItem*> allItems;
-	uint docItemCount = Items->count();
+	int docItemCount = Items->count();
 	for (int i = 0; i < docItemCount; ++i)
 	{
 		PageItem *currItem = Items->at(i);
@@ -13715,7 +13718,7 @@ void ScribusDoc::itemSelection_ApplyArrowHead(int startArrowID, int endArrowID, 
 {
 	Selection* itemSelection = (customSelection!=0) ? customSelection : m_Selection;
 	assert(itemSelection!=0);
-	uint selectedItemCount=itemSelection->count();
+	int selectedItemCount=itemSelection->count();
 	if (selectedItemCount == 0)
 		return;
 

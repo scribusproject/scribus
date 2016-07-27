@@ -82,6 +82,15 @@ QList<PageItem*> PageItem_Group::getItemList()
 	return ret;
 }
 
+void PageItem_Group::layout()
+{
+	for (int i = 0; i < groupItemList.count(); ++i)
+	{
+		PageItem* embedded = groupItemList.at(i);
+		embedded->layout();
+	}
+}
+
 void PageItem_Group::setLayer(int newLayerID)
 {
 	for (int em = 0; em < groupItemList.count(); ++em)

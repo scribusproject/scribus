@@ -50,6 +50,8 @@ public:
 	virtual void replaceNamedResources(ResourceCollection& newNames);
 	virtual void applicableActions(QStringList& actionList);
 	virtual QString infoDescription();
+
+	virtual void layout();
 	
 protected:
 	virtual void DrawObj_Item(ScPainter *p, QRectF e);

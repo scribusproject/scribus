@@ -174,6 +174,25 @@ void PageItem_Table::getNamedResources(ResourceCollection& lists) const
 	PageItem::getNamedResources(lists);
 }
 
+void PageItem_Table::layout()
+{
+	int rowCount = rows();
+	int columnCount = columns();
+
+	for (int row = 0; row < rowCount; ++row)
+	{
+		for (int col = 0; col < columnCount; col ++)
+		{
+			TableCell cell = cellAt(row, col);
+			if (cell.row() == row && cell.column() == col)
+			{
+				PageItem* textFrame = cell.textFrame();
+				textFrame->layout();
+			}
+		}
+	}
+}
+
 void PageItem_Table::resize(double width, double height)
 {
 	ASSERT_VALID();
