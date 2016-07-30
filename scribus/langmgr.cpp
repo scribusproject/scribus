@@ -259,7 +259,7 @@ void LanguageManager::generateLangList()
 	m_langTable.append(LangDef("guk",      "",         "Gumuz",                   QObject::tr("Gumuz")));
 	m_langTable.append(LangDef("guz",      "",         "Gusii",                   QObject::tr("Gusii")));
 	m_langTable.append(LangDef("ht",       "",         "Haitian Creole",          QObject::tr("Haitian Creole")));
-	m_langTable.append(LangDef("amf",      "",         "Hammer-Banna",            QObject::tr("Hammer-Banna")));
+	m_langTable.append(LangDef("amf",      "",         "Hamer-Banna",             QObject::tr("Hamer-Banna")));
 	m_langTable.append(LangDef("har",      "",         "Harari",                  QObject::tr("Harari")));
 	m_langTable.append(LangDef("hoj",      "",         "Harauti",                 QObject::tr("Harauti")));
 	m_langTable.append(LangDef("bgc",      "",         "Haryanvi",                QObject::tr("Haryanvi")));
