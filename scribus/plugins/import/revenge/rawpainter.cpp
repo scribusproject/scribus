@@ -2644,7 +2644,7 @@ void RawPainter::drawPolygon(const ::WPXPropertyListVector &vertices)
 								  FPoint tp2(getMinClipF(&Coords));
 								  Coords.translate(-tp2.x(), -tp2.y());
 								  ite->PoLine = Coords.copy();
-								  int rm = m_Doc->setRotationMode();
+								  int rm = m_Doc->rotationMode();
 								  m_Doc->setRotationMode(2);
 								  m_Doc->rotateItem(-rot, ite);
 								  m_Doc->setRotationMode(rm);
@@ -2792,7 +2792,7 @@ void RawPainter::drawPath(const ::WPXPropertyListVector &path)
 									  FPoint tp2(getMinClipF(&Coords));
 									  Coords.translate(-tp2.x(), -tp2.y());
 									  ite->PoLine = Coords.copy();
-									  int rm = m_Doc->setRotationMode();
+									  int rm = m_Doc->rotationMode();
 									  m_Doc->setRotationMode(2);
 									  m_Doc->rotateItem(-rot, ite);
 									  m_Doc->setRotationMode(rm);
@@ -2927,7 +2927,7 @@ void RawPainter::drawGraphicObject(const ::WPXPropertyList &propList, const ::WP
 									FPoint tp2(getMinClipF(&Coords));
 									Coords.translate(-tp2.x(), -tp2.y());
 									ite->PoLine = Coords.copy();
-									int rm = m_Doc->setRotationMode();
+									int rm = m_Doc->rotationMode();
 									m_Doc->setRotationMode(2);
 									m_Doc->rotateItem(-rot, ite);
 									m_Doc->setRotationMode(rm);
@@ -2990,7 +2990,7 @@ void RawPainter::startTextObject(const ::WPXPropertyList &propList, const ::WPXP
 		applyShadow(ite);
 		if (rot != 0)
 		{
-			int rm = m_Doc->setRotationMode();
+			int rm = m_Doc->rotationMode();
 			m_Doc->setRotationMode(2);
 			m_Doc->rotateItem(rot, ite);
 			m_Doc->setRotationMode(rm);
