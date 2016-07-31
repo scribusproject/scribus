@@ -214,6 +214,21 @@ void AppModeHelper::setApplicationMode(ScribusMainWindow* scmw, ScribusDoc* doc,
 	{
 		case modeNormal:
 			{
+				bool editSearchReplace = false;
+				if (currItem != 0)
+				{
+					editSearchReplace |= currItem->isTextFrame();
+					editSearchReplace |= (currItem->itemText.length() > 0);
+					editSearchReplace |= (doc->m_Selection->count() == 1);
+				}
+				(*a_scrActions)["editSearchReplace"]->setEnabled(editSearchReplace);
+
+				(*a_scrActions)["editCut"]->setEnabled(currItem != 0);
+				(*a_scrActions)["editCopy"]->setEnabled(currItem != 0);
+				(*a_scrActions)["editClearContents"]->setEnabled(currItem != 0);
+				(*a_scrActions)["editPaste"]->setEnabled(ScMimeData::clipboardHasScribusData());
+				(*a_scrActions)["editTruncateContents"]->setEnabled(currItem != 0);
+
 				scmw->propertiesPalette->setGradientEditMode(false);
 				scmw->outlinePalette->setEnabled(true);
 			}
