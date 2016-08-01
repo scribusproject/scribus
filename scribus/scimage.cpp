@@ -17,6 +17,7 @@ for which a new license (GPL+exception) is in place.
 #endif
 #include "imagedataloaders/scimgdataloader_jpeg.h"
 #include "imagedataloaders/scimgdataloader_ora.h"
+#include "imagedataloaders/scimgdataloader_kra.h"
 #include "imagedataloaders/scimgdataloader_pict.h"
 #include "imagedataloaders/scimgdataloader_ps.h"
 #include "imagedataloaders/scimgdataloader_psd.h"
@@ -2010,6 +2011,12 @@ bool ScImage::getAlpha(QString fn, int page, QByteArray& alpha, bool PDF, bool p
 		if	(pDataLoader.get())
 			pDataLoader->setRequest(imgInfo.isRequest, imgInfo.RequestProps);
 	}
+    else if (ext == "kra")
+    {
+        pDataLoader.reset( new ScImgDataLoader_KRA() );
+        if	(pDataLoader.get())
+            pDataLoader->setRequest(imgInfo.isRequest, imgInfo.RequestProps);
+    }
 	else if (ext == "pat")
 		pDataLoader.reset( new ScImgDataLoader_GIMP() );
 	else if (ext == "pgf")
@@ -2284,6 +2291,11 @@ bool ScImage::loadPicture(const QString & fn, int page, const CMSettings& cmSett
 		pDataLoader.reset( new ScImgDataLoader_ORA() );
 		pDataLoader->setRequest(imgInfo.isRequest, imgInfo.RequestProps);
 	}
+    else if (ext == "kra")
+    {
+        pDataLoader.reset( new ScImgDataLoader_KRA() );
+        pDataLoader->setRequest(imgInfo.isRequest, imgInfo.RequestProps);
+    }
 #ifdef GMAGICK_FOUND
 	else if (fmtImg.contains(ext))
 		pDataLoader.reset( new ScImgDataLoader_QT() );
