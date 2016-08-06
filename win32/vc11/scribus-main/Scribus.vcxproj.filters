@@ -1034,6 +1034,9 @@
     <ClInclude Include="..\..\..\scribus\text\textshaper.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\scribus\imagedataloaders\scimgdataloader_kra.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\scribus\desaxe\digester.cpp">
@@ -2582,6 +2585,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\scribus\text\textshaper.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\imagedataloaders\scimgdataloader_kra.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

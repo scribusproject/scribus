@@ -256,6 +256,7 @@
     <ClInclude Include="..\..\..\scribus\fonts\sfnt.h" />
     <ClInclude Include="..\..\..\scribus\fonts\sfnt_format.h" />
     <moc Include="..\..\..\scribus\iconmanager.h" />
+    <ClInclude Include="..\..\..\scribus\imagedataloaders\scimgdataloader_kra.h" />
     <ClInclude Include="..\..\..\scribus\KarbonCurveFit.h" />
     <moc Include="..\..\..\scribus\ui\about.h" />
     <moc Include="..\..\..\scribus\ui\aboutplugins.h" />
@@ -910,6 +911,7 @@
     <ClCompile Include="..\..\..\scribus\fonts\cff.cpp" />
     <ClCompile Include="..\..\..\scribus\fonts\sfnt.cpp" />
     <ClCompile Include="..\..\..\scribus\iconmanager.cpp" />
+    <ClCompile Include="..\..\..\scribus\imagedataloaders\scimgdataloader_kra.cpp" />
     <ClCompile Include="..\..\..\scribus\marks.cpp" />
     <ClCompile Include="..\..\..\scribus\nodeeditcontext.cpp" />
     <ClCompile Include="..\..\..\scribus\pdfwriter.cpp" />
