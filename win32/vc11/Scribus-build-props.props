@@ -7,9 +7,9 @@
 	<SCRIBUS_COMMON_LIB_ROOT>F:\Scribus Libs\scribus-common-libs</SCRIBUS_COMMON_LIB_ROOT>
 	<SCRIBUS_LIB_ROOT>F:\Scribus Libs\scribus-1.5.x-libs-msvc2012</SCRIBUS_LIB_ROOT>
 	<!-- Qt5 -->
-	<QT5_DIR Condition="'$(Platform)' == 'Win32'">F:\Libraries-vcall\Qt\5.5\msvc2012</QT5_DIR>
-	<QT5_DIR Condition="'$(Platform)' == 'Win32' and '$(PlatformToolset)' == 'v110_xp'">F:\Libraries-vcall\Qt-5.5.1\msvc2012_xp</QT5_DIR>
-	<QT5_DIR Condition="'$(Platform)' == 'x64'">F:\Libraries-vcall\Qt-5.5.1\msvc2012_64</QT5_DIR>
+	<QT5_DIR Condition="'$(Platform)' == 'Win32' and '$(PlatformToolset)' == 'v110'"   >F:\Libraries-vcall\Qt-5.6.1\msvc2012</QT5_DIR>
+	<QT5_DIR Condition="'$(Platform)' == 'Win32' and '$(PlatformToolset)' == 'v110_xp'">F:\Libraries-vcall\Qt-5.6.1\msvc2012_xp</QT5_DIR>
+	<QT5_DIR Condition="'$(Platform)' == 'x64'   and '$(PlatformToolset)' == 'v110'"   >F:\Libraries-vcall\Qt-5.6.1\msvc2012_64</QT5_DIR>
 	<QT5CORE_LIB Condition="'$(Configuration)' == 'Debug'">Qt5Cored.lib</QT5CORE_LIB>
 	<QT5CORE_LIB Condition="'$(Configuration)' == 'Release'">Qt5Core.lib</QT5CORE_LIB>
 	<QT5GUI_LIB Condition="'$(Configuration)' == 'Debug'">Qt5Guid.lib</QT5GUI_LIB>
@@ -35,13 +35,13 @@
 	<CAIRO_LIB Condition="'$(Configuration)' == 'Debug'">cairo2d.lib</CAIRO_LIB>
 	<CAIRO_LIB Condition="'$(Configuration)' == 'Release'">cairo2.lib</CAIRO_LIB>
 	<!-- Freetype -->
-	<FREETYPE_DIR>$(SCRIBUS_LIB_ROOT)\freetype-2.6.3</FREETYPE_DIR>
+	<FREETYPE_DIR>$(SCRIBUS_LIB_ROOT)\freetype-2.6.5</FREETYPE_DIR>
 	<FREETYPE_INCLUDE_DIR>$(FREETYPE_DIR)\include</FREETYPE_INCLUDE_DIR>
 	<FREETYPE_LIB_DIR>$(FREETYPE_DIR)\lib\$(Platform)-$(PlatformToolset)</FREETYPE_LIB_DIR>
 	<FREETYPE_LIB Condition="'$(Configuration)' == 'Debug'">freetype_d.lib</FREETYPE_LIB>
 	<FREETYPE_LIB Condition="'$(Configuration)' == 'Release'">freetype.lib</FREETYPE_LIB>
 	<!-- Hunspell -->
-	<HUNSPELL_DIR>$(SCRIBUS_LIB_ROOT)\hunspell-1.3.3</HUNSPELL_DIR>
+	<HUNSPELL_DIR>$(SCRIBUS_LIB_ROOT)\hunspell-1.4.1</HUNSPELL_DIR>
 	<HUNSPELL_INCLUDE_DIR>$(HUNSPELL_DIR)\include</HUNSPELL_INCLUDE_DIR>
 	<HUNSPELL_LIB_DIR>$(HUNSPELL_DIR)\lib\$(Platform)-$(PlatformToolset)</HUNSPELL_LIB_DIR>
 	<HUNSPELL_LIB Condition="'$(Configuration)' == 'Debug'">libhunspell_staticD.lib</HUNSPELL_LIB>
@@ -57,7 +57,7 @@
 	<ICU_LIB_DIR>$(SCRIBUS_LIB_ROOT)\icu-54.1\lib\$(Platform)-$(PlatformToolset)</ICU_LIB_DIR>
 	<ICU_LIB>icudt.lib;icuin.lib;icuuc.lib</ICU_LIB>
 	<!-- Littlecms -->
-	<LCMS_DIR>$(SCRIBUS_LIB_ROOT)\lcms2-2.7</LCMS_DIR>
+	<LCMS_DIR>$(SCRIBUS_LIB_ROOT)\lcms2-2.8</LCMS_DIR>
 	<LCMS_INCLUDE_DIR>$(LCMS_DIR)\include</LCMS_INCLUDE_DIR>
 	<LCMS_LIB_DIR>$(LCMS_DIR)\lib\$(Platform)-$(PlatformToolset)</LCMS_LIB_DIR>
 	<LCMS_LIB Condition="'$(Configuration)' == 'Debug'">lcms2_staticd.lib</LCMS_LIB>
@@ -115,7 +115,7 @@
 	<LIBVISIO_LIB Condition="'$(Configuration)' == 'Debug'">libvisio_d.lib</LIBVISIO_LIB>
 	<LIBVISIO_LIB Condition="'$(Configuration)' == 'Release'">libvisio.lib</LIBVISIO_LIB>
 	<!-- Libxml2 -->
-	<LIBXML2_DIR>$(SCRIBUS_LIB_ROOT)\libxml2-2.9.3</LIBXML2_DIR>
+	<LIBXML2_DIR>$(SCRIBUS_LIB_ROOT)\libxml2-2.9.4</LIBXML2_DIR>
 	<LIBXML2_INCLUDE_DIR>$(LIBXML2_DIR)\include</LIBXML2_INCLUDE_DIR>
 	<LIBXML2_LIB_DIR>$(LIBXML2_DIR)\lib\$(Platform)-$(PlatformToolset)</LIBXML2_LIB_DIR>
 	<LIBXML2_LIB Condition="'$(Configuration)' == 'Debug'">libxml2_d.lib</LIBXML2_LIB>
@@ -127,7 +127,7 @@
 	<PODOFO_LIB Condition="'$(Configuration)' == 'Debug'">PoDoFoLibD.lib</PODOFO_LIB>
 	<PODOFO_LIB Condition="'$(Configuration)' == 'Release'">PoDoFoLib.lib</PODOFO_LIB>
 	<!-- Poppler -->
-	<POPPLER_DIR>$(SCRIBUS_LIB_ROOT)\poppler-0.42.0</POPPLER_DIR>
+	<POPPLER_DIR>$(SCRIBUS_LIB_ROOT)\poppler-0.45.0</POPPLER_DIR>
 	<POPPLER_INCLUDE_DIR>$(POPPLER_DIR)\include</POPPLER_INCLUDE_DIR>
 	<POPPLER_LIB_DIR>$(POPPLER_DIR)\lib\$(Platform)-$(PlatformToolset)</POPPLER_LIB_DIR>
 	<POPPLER_LIB Condition="'$(Configuration)' == 'Debug'">poppler_staticD.lib</POPPLER_LIB>
