@@ -83,7 +83,7 @@ public:
 
 void ColorSmallItemDelegate::redraw(const QVariant& data) const
 {
-	QPixmap* pPixmap = ScListBoxPixmap<15,15>::pmap.get();
+	QPixmap* pPixmap = ScListBoxPixmap<15,15>::pmap.data();
 	pPixmap->fill(Qt::transparent);
 	if (data.canConvert<ColorPixmapValue>())
 	{
@@ -101,7 +101,7 @@ void ColorSmallItemDelegate::redraw(const QVariant& data) const
 
 void ColorWideItemDelegate::redraw(const QVariant& data) const
 {
-	QPixmap* pPixmap = ScListBoxPixmap<30,15>::pmap.get();
+	QPixmap* pPixmap = ScListBoxPixmap<30,15>::pmap.data();
 	pPixmap->fill(Qt::transparent);
 	if (data.canConvert<ColorPixmapValue>())
 	{
@@ -134,7 +134,7 @@ void ColorFancyItemDelegate::redraw(const QVariant& data) const
 		iconsInitialized = true;
 	}
 
-	QPixmap* pPixmap = ScListBoxPixmap<60,15>::pmap.get();
+	QPixmap* pPixmap = ScListBoxPixmap<60,15>::pmap.data();
 	pPixmap->fill(Qt::transparent);
 
 	if (data.canConvert<ColorPixmapValue>())

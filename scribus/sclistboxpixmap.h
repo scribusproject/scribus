@@ -13,6 +13,7 @@ for which a new license (GPL+exception) is in place.
 #include <QDebug>
 #include <QPainter>
 #include <QPixmap>
+#include <QScopedPointer>
 #include <QVariant>
 
 #include "scguardedptr.h"
@@ -30,19 +31,19 @@ public:
 	virtual QSize sizeHint (const QStyleOptionViewItem & option, const QModelIndex & index ) const;
 	virtual void paint(QPainter * painter, const QStyleOptionViewItem & option, const QModelIndex & index ) const;
 protected:
-	static std::auto_ptr<QPixmap> pmap;
+	static QScopedPointer<QPixmap> pmap;
 	// The drawPixmap function must not modify pixmap size
 	virtual void redraw(const QVariant&) const = 0;
 };
 
 template<unsigned int pixWidth, unsigned int pixHeight> 
-std::auto_ptr<QPixmap> ScListBoxPixmap<pixWidth, pixHeight>::pmap;
+QScopedPointer<QPixmap> ScListBoxPixmap<pixWidth, pixHeight>::pmap;
 
 
 template<unsigned int pixWidth, unsigned int pixHeight>
 ScListBoxPixmap<pixWidth, pixHeight>::ScListBoxPixmap(void) : QAbstractItemDelegate()
 {
-	if (!pmap.get())
+	if (pmap.isNull())
 	{
 		pmap.reset( new QPixmap(pixWidth, pixHeight) );
 	}

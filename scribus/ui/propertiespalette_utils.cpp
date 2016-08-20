@@ -66,7 +66,7 @@ void LineFormatItemDelegate::redraw(const QVariant& data) const
 	QColor tmpf;
 	pmap->fill(Qt::white);
 	QPainter p;
-	p.begin(pmap.get());
+	p.begin(pmap.data());
 	for (int its = item.m_Line.size()-1; its > -1; its--)
 	{
 		const ScColor& col = item.m_doc->PageColors[item.m_Line[its].Color];
