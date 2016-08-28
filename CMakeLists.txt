@@ -414,9 +414,6 @@ ELSE (WANT_NORPATH OR WANT_DISTROBUILD)
   set(CMAKE_INSTALL_RPATH ${PLUGINDIR})
 ENDIF (WANT_NORPATH OR WANT_DISTROBUILD)
 
-# Set the XDG mime stuff
-SET(MIMEDIR "${CMAKE_INSTALL_DATAROOTDIR}/mime/packages/")
-SET(MIMELNKDIR "${CMAKE_INSTALL_DATAROOTDIR}/mimelnk/application/")
 
 ##############################################################################################################
 ########## Build Setup                                                                              ##########
@@ -947,11 +944,6 @@ ENDIF (APPLE)
 INSTALL(FILES
   scribus.xml
   DESTINATION ${MIMEDIR}
-)
-#KDE workaround until it starts supporting freedesktop spec
-INSTALL(FILES
-  vnd.scribus.desktop
-  DESTINATION ${MIMELNKDIR}
 )
 
 #Install the desktop file
