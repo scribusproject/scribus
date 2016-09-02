@@ -10222,6 +10222,8 @@ void PageItem::updateClip(bool updateWelded)
 					for (int i = 0 ; i < weldList.count(); i++)
 					{
 						WeldingInfo wInf = weldList.at(i);
+						if (!wInf.weldItem)
+							continue;
 						if (wInf.weldItem->isNoteFrame())
 						{
 							PageItem_NoteFrame* noteFrame = wInf.weldItem->asNoteFrame();
