@@ -142,7 +142,7 @@ protected:
 	double CurrFontSize;
 	double CurrTextFillSh;
 	double CurrTextStrokeSh;
-	double CurrTextScale;
+	double CurrTextScaleH;
 	double CurrTextScaleV;
 	double CurrTextBase;
 	double CurrTextShadowX;
@@ -349,31 +349,30 @@ public:
 	virtual void changeEvent(QEvent *e);
 	
 	FontCombo* Fonts;
-	ScrSpinBox* ChScale;
-	ScrSpinBox* ChScaleV;
+	ScrSpinBox* charScaleH;
+	ScrSpinBox* charScaleV;
 	QAction* fontsAction;
-	QAction* chScaleAction;
+	QAction* chScaleHAction;
 	QAction* chScaleVAction;
 
 public slots:
 	void SetFont(QString f);
 	void SetSize(double s);
-	void SetScale(double s);
+	void SetScaleH(double s);
 	void SetScaleV(double s);
-	void newSizeHandler();
 
 signals:
-	void NewFont(const QString &);
-	void NewSize(double);
-	void newScale(double);
+	void newFont(const QString &);
+	void newSize(double);
+	void newScaleH(double);
 	void newScaleV(double);
 
 private:
 	ScrSpinBox* Size;
-	QLabel* ScaleTxt;
-	QLabel* ScaleTxtV;
+	QLabel*  lblScaleTxtH;
+	QLabel*  lblScaleTxtV;
 	QAction* sizeAction;
-	QAction* scaleTxtAction;
+	QAction* scaleTxtHAction;
 	QAction* scaleTxtVAction;
 
 private slots:

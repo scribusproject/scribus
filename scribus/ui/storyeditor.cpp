@@ -45,6 +45,7 @@ for which a new license (GPL+exception) is in place.
 #include <QPixmap>
 #include <QRegExp>
 #include <QShowEvent>
+#include <QSignalBlocker>
 #include <QScrollBar>
 #include <QTextBlock>
 #include <QTextCodec>
@@ -101,7 +102,8 @@ public:
 	void  setStyledText(const StoryText& text, ScribusDoc* doc)
 	{
 		QByteArray styledTextData (sizeof(void*), 0);
-		m_styledText.clear();
+		m_styledText = StoryText(doc);
+		m_styledText.setDefaultStyle(text.defaultStyle());
 		m_styledText.insert(0, text, true);
 		m_styledTextDoc = doc->guardedPtr();
 		styledTextData.setNum((quintptr)((quintptr*) &m_styledText));
@@ -664,8 +666,8 @@ void SEditor::setAlign(QTextCursor& tCursor, int align)
 void SEditor::loadItemText(PageItem *currItem)
 {
 	setTextColor(Qt::black);
-	StyledText.clear();
 	FrameItems.clear();
+	StyledText = StoryText(currItem->doc());
 	StyledText.setDefaultStyle(currItem->itemText.defaultStyle());
 	StyledText.append(currItem->itemText);
 	updateAll();
@@ -1149,16 +1151,14 @@ void SToolBColorF::setCurrentDocument(ScribusDoc *doc)
 
 void SToolBColorF::SetColor(int c)
 {
-	disconnect(TxFill, SIGNAL(activated(int)), this, SLOT(newShadeHandler()));
+	QSignalBlocker sigBlocker(TxFill);
 	TxFill->setCurrentIndex(c);
-	connect(TxFill, SIGNAL(activated(int)), this, SLOT(newShadeHandler()));
 }
 
 void SToolBColorF::SetShade(double s)
 {
-	disconnect(PM2, SIGNAL(clicked()), this, SLOT(newShadeHandler()));
+	QSignalBlocker sigBlocker(PM2);
 	PM2->setValue(qRound(s));
-	connect(PM2, SIGNAL(clicked()), this, SLOT(newShadeHandler()));
 }
 
 void SToolBColorF::newShadeHandler()
@@ -1217,16 +1217,14 @@ void SToolBColorS::setCurrentDocument(ScribusDoc *doc)
 
 void SToolBColorS::SetColor(int c)
 {
-	disconnect(TxStroke, SIGNAL(activated(int)), this, SLOT(newShadeHandler()));
+	QSignalBlocker sigBlocker(TxStroke);
 	TxStroke->setCurrentIndex(c);
-	connect(TxStroke, SIGNAL(activated(int)), this, SLOT(newShadeHandler()));
 }
 
 void SToolBColorS::SetShade(double s)
 {
-	disconnect(PM1, SIGNAL(clicked()), this, SLOT(newShadeHandler()));
+	QSignalBlocker sigBlocker(PM1);
 	PM1->setValue(qRound(s));
-	connect(PM1, SIGNAL(clicked()), this, SLOT(newShadeHandler()));
 }
 
 void SToolBColorS::newShadeHandler()
@@ -1315,53 +1313,44 @@ void SToolBStyle::newKernHandler()
 
 void SToolBStyle::setOutline(double x)
 {
-	disconnect(SeStyle->OutlineVal->LWidth, SIGNAL(valueChanged(double)), this, SLOT(newOutlineHandler()));
+	QSignalBlocker sigBlocker(SeStyle->OutlineVal->LWidth);
 	SeStyle->OutlineVal->LWidth->setValue(x / 10.0);
-	connect(SeStyle->OutlineVal->LWidth, SIGNAL(valueChanged(double)), this, SLOT(newOutlineHandler()));
 }
 
 void SToolBStyle::setStrike(double p, double w)
 {
-	disconnect(SeStyle->StrikeVal->LWidth, SIGNAL(valueChanged(double)), this, SLOT(newStrikeHandler()));
-	disconnect(SeStyle->StrikeVal->LPos, SIGNAL(valueChanged(double)), this, SLOT(newStrikeHandler()));
+	QSignalBlocker sigBlocker1(SeStyle->StrikeVal->LWidth);
+	QSignalBlocker sigBlocker2(SeStyle->StrikeVal->LPos);
 	SeStyle->StrikeVal->LWidth->setValue(w / 10.0);
 	SeStyle->StrikeVal->LPos->setValue(p / 10.0);
-	connect(SeStyle->StrikeVal->LWidth, SIGNAL(valueChanged(double)), this, SLOT(newStrikeHandler()));
-	connect(SeStyle->StrikeVal->LPos, SIGNAL(valueChanged(double)), this, SLOT(newStrikeHandler()));
 }
 
 void SToolBStyle::setUnderline(double p, double w)
 {
-	disconnect(SeStyle->UnderlineVal->LWidth, SIGNAL(valueChanged(double)), this, SLOT(newUnderlineHandler()));
-	disconnect(SeStyle->UnderlineVal->LPos, SIGNAL(valueChanged(double)), this, SLOT(newUnderlineHandler()));
+	QSignalBlocker sigBlocker1(SeStyle->UnderlineVal->LWidth);
+	QSignalBlocker sigBlocker2(SeStyle->UnderlineVal->LPos);
 	SeStyle->UnderlineVal->LWidth->setValue(w / 10.0);
 	SeStyle->UnderlineVal->LPos->setValue(p / 10.0);
-	connect(SeStyle->UnderlineVal->LWidth, SIGNAL(valueChanged(double)), this, SLOT(newUnderlineHandler()));
-	connect(SeStyle->UnderlineVal->LPos, SIGNAL(valueChanged(double)), this, SLOT(newUnderlineHandler()));
 }
 
 void SToolBStyle::SetShadow(double x, double y)
 {
-	disconnect(SeStyle->ShadowVal->Xoffset, SIGNAL(valueChanged(double)), this, SLOT(newShadowHandler()));
-	disconnect(SeStyle->ShadowVal->Yoffset, SIGNAL(valueChanged(double)), this, SLOT(newShadowHandler()));
+	QSignalBlocker sigBlocker1(SeStyle->ShadowVal->Xoffset);
+	QSignalBlocker sigBlocker2(SeStyle->ShadowVal->Yoffset);
 	SeStyle->ShadowVal->Xoffset->setValue(x / 10.0);
 	SeStyle->ShadowVal->Yoffset->setValue(y / 10.0);
-	connect(SeStyle->ShadowVal->Xoffset, SIGNAL(valueChanged(double)), this, SLOT(newShadowHandler()));
-	connect(SeStyle->ShadowVal->Yoffset, SIGNAL(valueChanged(double)), this, SLOT(newShadowHandler()));
 }
 
 void SToolBStyle::SetStyle(int s)
 {
-	disconnect(SeStyle, SIGNAL(State(int)), this, SIGNAL(newStyle(int)));
+	QSignalBlocker sigBlocker(SeStyle);
 	SeStyle->setStyle(s);
-	connect(SeStyle, SIGNAL(State(int)), this, SIGNAL(newStyle(int)));
 }
 
 void SToolBStyle::SetKern(double k)
 {
-	disconnect(Extra, SIGNAL(valueChanged(double)), this, SLOT(newKernHandler()));
+	QSignalBlocker sigBlocker(Extra);
 	Extra->setValue(k / 10.0);
-	connect(Extra, SIGNAL(valueChanged(double)), this, SLOT(newKernHandler()));
 }
 
 /* Toolbar for alignment of Paragraphs */
@@ -1399,16 +1388,14 @@ void SToolBAlign::languageChange()
 
 void SToolBAlign::SetAlign(int s)
 {
-	disconnect(GroupAlign, SIGNAL(State(int)), this, SIGNAL(newAlign(int )));
+	QSignalBlocker sigBlocker(GroupAlign);
 	GroupAlign->setStyle(s);
-	connect(GroupAlign, SIGNAL(State(int)), this, SIGNAL(newAlign(int )));
 }
 
 void SToolBAlign::SetParaStyle(QString s)
 {
-	disconnect(paraStyleCombo, SIGNAL(newStyle(const QString&)), this, SIGNAL(newParaStyle(const QString& )));
+	QSignalBlocker sigBlocker(paraStyleCombo);
 	paraStyleCombo->setFormat(s);
-	connect(paraStyleCombo, SIGNAL(newStyle(const QString&)), this, SIGNAL(newParaStyle(const QString& )));
 }
 
 
@@ -1425,29 +1412,29 @@ SToolBFont::SToolBFont(QMainWindow* parent) : QToolBar( tr("Font Settings"), par
 	Size->setValue(prefsManager->appPrefs.itemToolPrefs.textSize / 10.0);
 	sizeAction=addWidget(Size);
 	sizeAction->setVisible(true);
-	ScaleTxt = new QLabel("", this);
-	ScaleTxt->setPixmap(IconManager::instance()->loadPixmap("textscaleh.png"));
-	scaleTxtAction=addWidget(ScaleTxt);
-	scaleTxtAction->setVisible(true);
-	ChScale = new ScrSpinBox( 10, 400,  this, SC_PERCENT );
-	ChScale->setValue( 100 );
-	ChScale->setSuffix( unitGetSuffixFromIndex(SC_PERCENT) );
-	chScaleAction=addWidget(ChScale);
-	chScaleAction->setVisible(true);
-	ScaleTxtV = new QLabel("", this);
-	ScaleTxtV->setPixmap(IconManager::instance()->loadPixmap("textscalev.png"));
-	scaleTxtVAction=addWidget(ScaleTxtV);
+	lblScaleTxtH = new QLabel("", this);
+	lblScaleTxtH->setPixmap(IconManager::instance()->loadPixmap("textscaleh.png"));
+	scaleTxtHAction=addWidget(lblScaleTxtH);
+	scaleTxtHAction->setVisible(true);
+	charScaleH = new ScrSpinBox( 10, 400,  this, SC_PERCENT );
+	charScaleH->setValue( 100 );
+	charScaleH->setSuffix( unitGetSuffixFromIndex(SC_PERCENT) );
+	chScaleHAction=addWidget(charScaleH);
+	chScaleHAction->setVisible(true);
+	lblScaleTxtV = new QLabel("", this);
+	lblScaleTxtV->setPixmap(IconManager::instance()->loadPixmap("textscalev.png"));
+	scaleTxtVAction=addWidget(lblScaleTxtV);
 	scaleTxtVAction->setVisible(true);
-	ChScaleV = new ScrSpinBox( 10, 400, this, SC_PERCENT );
-	ChScaleV->setValue( 100 );
-	ChScaleV->setSuffix( unitGetSuffixFromIndex(SC_PERCENT) );
-	chScaleVAction=addWidget(ChScaleV);
+	charScaleV = new ScrSpinBox( 10, 400, this, SC_PERCENT );
+	charScaleV->setValue( 100 );
+	charScaleV->setSuffix( unitGetSuffixFromIndex(SC_PERCENT) );
+	chScaleVAction=addWidget(charScaleV);
 	chScaleVAction->setVisible(true);
 
-	connect(ChScale, SIGNAL(valueChanged(double)), this, SIGNAL(newScale(double)));
-	connect(ChScaleV, SIGNAL(valueChanged(double)), this, SIGNAL(newScaleV(double)));
-	connect(Fonts, SIGNAL(activated(const QString &)), this, SIGNAL(NewFont(const QString &)));
-	connect(Size, SIGNAL(valueChanged(double)), this, SIGNAL(NewSize(double)));
+	connect(charScaleH, SIGNAL(valueChanged(double)), this, SIGNAL(newScaleH(double)));
+	connect(charScaleV, SIGNAL(valueChanged(double)), this, SIGNAL(newScaleV(double)));
+	connect(Fonts, SIGNAL(activated(const QString &)), this, SIGNAL(newFont(const QString &)));
+	connect(Size, SIGNAL(valueChanged(double)), this, SIGNAL(newSize(double)));
 
 	languageChange();
 }
@@ -1466,41 +1453,32 @@ void SToolBFont::languageChange()
 {
 	Fonts->setToolTip( tr("Font of selected text"));
 	Size->setToolTip( tr("Font Size"));
-	ChScale->setToolTip( tr("Scaling width of characters"));
-	ChScaleV->setToolTip( tr("Scaling height of characters"));
+	charScaleH->setToolTip( tr("Scaling width of characters"));
+	charScaleV->setToolTip( tr("Scaling height of characters"));
 }
 
 void SToolBFont::SetFont(QString f)
 {
-	disconnect(Fonts, SIGNAL(activated(const QString &)), this, SIGNAL(NewFont(const QString &)));
+	QSignalBlocker sigBlocker(Fonts);
 	setCurrentComboItem(Fonts, f);
-	connect(Fonts, SIGNAL(activated(const QString &)), this, SIGNAL(NewFont(const QString &)));
 }
 
 void SToolBFont::SetSize(double s)
 {
-	disconnect(Size, SIGNAL(valueChanged(double)), this, SLOT(newSizeHandler()));
+	QSignalBlocker sigBlocker(Size);
 	Size->setValue(s / 10.0);
-	connect(Size, SIGNAL(valueChanged(double)), this, SLOT(newSizeHandler()));
 }
 
-void SToolBFont::SetScale(double s)
+void SToolBFont::SetScaleH(double s)
 {
-	disconnect(ChScale, SIGNAL(valueChanged(double)), this, SIGNAL(newScale(double)));
-	ChScale->setValue(s / 10.0);
-	connect(ChScale, SIGNAL(valueChanged(double)), this, SIGNAL(newScale(double)));
+	QSignalBlocker sigBlocker(charScaleH);
+	charScaleH->setValue(s / 10.0);
 }
 
 void SToolBFont::SetScaleV(double s)
 {
-	disconnect(ChScaleV, SIGNAL(valueChanged(double)), this, SIGNAL(newScaleV(double)));
-	ChScaleV->setValue(s / 10.0);
-	connect(ChScaleV, SIGNAL(valueChanged(double)), this, SIGNAL(newScaleV(double)));
-}
-
-void SToolBFont::newSizeHandler()
-{
-	emit NewSize(Size->value());
+	QSignalBlocker sigBlocker(charScaleV);
+	charScaleV->setValue(s / 10.0);
 }
 
 /* Main Story Editor Class */
@@ -2085,9 +2063,9 @@ void StoryEditor::connectSignals()
 	connect(AlignTools, SIGNAL(newAlign(int)), this, SLOT(newAlign(int)));
 	connect(FillTools, SIGNAL(NewColor(int, int)), this, SLOT(newTxFill(int, int)));
 	connect(StrokeTools, SIGNAL(NewColor(int, int)), this, SLOT(newTxStroke(int, int)));
-	connect(FontTools, SIGNAL(NewSize(double )), this, SLOT(newTxSize(double)));
-	connect(FontTools, SIGNAL(NewFont(const QString& )), this, SLOT(newTxFont(const QString& )));
-	connect(FontTools, SIGNAL(newScale(double )), this, SLOT(newTxScale()));
+	connect(FontTools, SIGNAL(newSize(double )), this, SLOT(newTxSize(double)));
+	connect(FontTools, SIGNAL(newFont(const QString& )), this, SLOT(newTxFont(const QString& )));
+	connect(FontTools, SIGNAL(newScaleH(double )), this, SLOT(newTxScale()));
 	connect(FontTools, SIGNAL(newScaleV(double )), this, SLOT(newTxScaleV()));
 	connect(StyleTools, SIGNAL(NewKern(double )), this, SLOT(newTxKern(double )));
 	connect(StyleTools, SIGNAL(newStyle(int )), this, SLOT(newTxStyle(int )));
@@ -2361,10 +2339,10 @@ void StoryEditor::newTxStyle(int s)
 
 void StoryEditor::newTxScale()
 {
-	int ss = qRound(FontTools->ChScale->value() * 10);
-	Editor->CurrTextScale = ss;
+	int ss = qRound(FontTools->charScaleH->value() * 10);
+	Editor->CurrTextScaleH = ss;
 	CharStyle charStyle;
-	charStyle.setScaleH(Editor->CurrTextScale);
+	charStyle.setScaleH(Editor->CurrTextScaleH);
 	Editor->updateSel(charStyle);
 	modifiedText();
 	Editor->setFocus();
@@ -2372,7 +2350,7 @@ void StoryEditor::newTxScale()
 
 void StoryEditor::newTxScaleV()
 {
-	int ss = qRound(FontTools->ChScaleV->value() * 10);
+	int ss = qRound(FontTools->charScaleV->value() * 10);
 	Editor->CurrTextScaleV = ss;
 	CharStyle charStyle;
 	charStyle.setScaleV(Editor->CurrTextScaleV);
@@ -2476,7 +2454,7 @@ void StoryEditor::updateProps(int p, int ch)
 			Editor->CurrFontSize = curstyle.fontSize();
 			Editor->CurrentEffects = curstyle.effects();
 			Editor->CurrTextKern = curstyle.tracking();
-			Editor->CurrTextScale = curstyle.scaleH();
+			Editor->CurrTextScaleH = curstyle.scaleH();
 			Editor->CurrTextScaleV = curstyle.scaleV();
 			Editor->CurrTextBase = curstyle.baselineOffset();
 			Editor->CurrTextShadowX = curstyle.shadowXOffset();
@@ -2524,7 +2502,7 @@ void StoryEditor::updateProps(int p, int ch)
 			StyleTools->setStrike(Editor->CurrTextStrikePos, Editor->CurrTextStrikeWidth);
 			FontTools->SetSize(Editor->CurrFontSize);
 			FontTools->SetFont(Editor->CurrFont);
-			FontTools->SetScale(Editor->CurrTextScale);
+			FontTools->SetScaleH(Editor->CurrTextScaleH);
 			FontTools->SetScaleV(Editor->CurrTextScaleV);
 		}
 		if ((Editor->CurrentEffects & ScStyle_Outline) || (Editor->CurrentEffects & ScStyle_Shadowed))
@@ -2597,7 +2575,7 @@ void StoryEditor::updateProps(int p, int ch)
 		Editor->CurrFontSize = charStyle.fontSize();
 		Editor->CurrentEffects = charStyle.effects() & static_cast<StyleFlag>(ScStyle_UserStyles);
 		Editor->CurrTextKern   = charStyle.tracking();
-		Editor->CurrTextScale  = charStyle.scaleH();
+		Editor->CurrTextScaleH = charStyle.scaleH();
 		Editor->CurrTextScaleV = charStyle.scaleV();
 		Editor->CurrTextBase   = charStyle.baselineOffset();
 		Editor->CurrTextShadowX = charStyle.shadowXOffset();
@@ -2653,7 +2631,7 @@ void StoryEditor::updateProps(int p, int ch)
 	StyleTools->setStrike(Editor->CurrTextStrikePos, Editor->CurrTextStrikeWidth);
 	FontTools->SetSize(Editor->CurrFontSize);
 	FontTools->SetFont(Editor->CurrFont);
-	FontTools->SetScale(Editor->CurrTextScale);
+	FontTools->SetScaleH(Editor->CurrTextScaleH);
 	FontTools->SetScaleV(Editor->CurrTextScaleV);
 	AlignTools->SetAlign(Editor->CurrAlign);
 	AlignTools->SetParaStyle(Editor->currentParaStyle);
