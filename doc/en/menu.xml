@@ -29,6 +29,7 @@
 			<submenuitem text="Working with Render Frames" file="WwRenderframes.html" />
 			<submenuitem text="Working with Shapes" file="WwShapes.html" />
 			<submenuitem text="Multiple Duplicate and Transform" file="multiple_transform.html" />
+			<submenuitem text="Drop Shadows" file="DropShadows.html" />
 			<submenuitem text="Editing Shapes" file="EditingShapes.html" />
 			<submenuitem text="Working with Lines and Line Styles" file="WwLines.html" />
 			<submenuitem text="Working with Fill: Colors, Gradients and Patterns" file="WwFill.html" />
