@@ -813,7 +813,7 @@ public:
 	 */
 	void itemAddDetails(const PageItem::ItemType itemType, const PageItem::ItemFrameType frameType, PageItem* newItem);
 
-	uint getItemNrfromUniqueID(uint unique);
+	int getItemNrfromUniqueID(uint unique);
 	//return pointer to item
 	PageItem* getItemFromName(QString name);
 	//itemDelete

@@ -463,7 +463,7 @@ QStringList ScPaths::getDirsFromEnvVar(const QString envVar, const QString dirTo
 }
 
 
-QStringList ScPaths::getSystemCreateSwatchesDirs(void)
+QStringList ScPaths::getSystemCreatePalettesDirs(void)
 {
 	QStringList createDirs;
 #ifdef Q_OS_MAC

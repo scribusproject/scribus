@@ -803,7 +803,7 @@ void XPSExPlug::processImageItem(double xOffset, double yOffset, PageItem *Item,
 
 class XPSPainter: public TextLayoutPainter
 {
-	PageItem *m_item;
+	//PageItem *m_item;
 	QDomElement m_group;
 	XPSExPlug *m_xps;
 	QMap<QString, QString> &m_fontMap;
@@ -811,7 +811,7 @@ class XPSPainter: public TextLayoutPainter
 
 public:
 	XPSPainter(PageItem *item, QDomElement &group, XPSExPlug *xps, QMap<QString, QString> &XPSfontMap, QDomElement &rel_root):
-		m_item(item),
+//		m_item(item),
 		m_group(group),
 		m_xps(xps),
 		m_fontMap(XPSfontMap),

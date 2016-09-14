@@ -3382,8 +3382,8 @@ QColor ScribusDoc::layerMarker(const int layerID)
 
 int ScribusDoc::layerLevelFromID(const int layerID)
 {
-	uint layerCount=Layers.count();
-	for (uint i=0; i < layerCount; ++i)
+	int layerCount=Layers.count();
+	for (int i=0; i < layerCount; ++i)
 	{
 		if (Layers[i].ID == layerID)
 			return Layers[i].Level;
@@ -3400,8 +3400,8 @@ int ScribusDoc::layerCount() const
 
 int ScribusDoc::layerIDFromLevel(const int layerLevel)
 {
-	uint layerCount=Layers.count();
-	for (uint i=0; i < layerCount; ++i)
+	int layerCount=Layers.count();
+	for (int i=0; i < layerCount; ++i)
 	{
 		if (Layers[i].Level == layerLevel)
 			return Layers[i].ID;
@@ -3517,8 +3517,8 @@ bool ScribusDoc::raiseLayerByLevel(const int layerLevel)
 
 QString ScribusDoc::layerName(const int layerID) const
 {
-	uint layerCount=Layers.count();
-	for (uint i=0; i < layerCount; ++i)
+	int layerCount=Layers.count();
+	for (int i=0; i < layerCount; ++i)
 	{
 		if (Layers[i].ID == layerID)
 			return Layers[i].Name;
@@ -3529,9 +3529,9 @@ QString ScribusDoc::layerName(const int layerID) const
 
 bool ScribusDoc::changeLayerName(const int layerID, const QString& newName)
 {
-	uint layerCount=Layers.count();
+	int layerCount=Layers.count();
 	bool found=false;
-	for (uint i=0; i < layerCount; ++i)
+	for (int i=0; i < layerCount; ++i)
 	{
 		if (Layers[i].ID == layerID)
 		{
@@ -3602,10 +3602,10 @@ bool ScribusDoc::layerContainsItems(const int layerID)
 void ScribusDoc::orderedLayerList(QStringList* list)
 {
 	Q_ASSERT(list!=NULL);
-	uint layerCount=Layers.count();
+	int layerCount=Layers.count();
 	if (layerCount != 0)
 	{
-		for (uint i=0; i < layerCount; ++i)
+		for (int i=0; i < layerCount; ++i)
 		{
 			ScLayers::iterator itend=Layers.end();
 			for (ScLayers::iterator it = Layers.begin(); it != itend; ++it)
@@ -3626,11 +3626,11 @@ int ScribusDoc::firstLayerID()
 
 bool ScribusDoc::renumberLayer(const int layerID, const int newLayerID)
 {
-	uint layerCount=Layers.count();
-	uint foundIndex = 0;
+	int layerCount=Layers.count();
+	int foundIndex = 0;
 	bool found=false;
 	//Find layer to renumber, if found the new number, return as it exists already.
-	for (uint i=0; i < layerCount; ++i)
+	for (int i=0; i < layerCount; ++i)
 	{
 		if (Layers[i].ID == layerID)
 		{
@@ -3653,16 +3653,16 @@ bool ScribusDoc::deleteTaggedItems()
 {
 	QString tooltip = Um::ItemsInvolved + "\n";
 	//Master Items
-	for (int b = 0; b < MasterItems.count(); ++b)
+	for (int i = 0; i < MasterItems.count(); ++i)
 	{
-		if (MasterItems.at(b)->isTagged())
+		if (MasterItems.at(i)->isTagged())
 		{
 		}
 	}
 	//Doc Items
-	for (int b = 0; b < DocItems.count(); ++b)
+	for (int i = 0; i < DocItems.count(); ++i)
 	{
-		if (DocItems.at(b)->isTagged())
+		if (DocItems.at(i)->isTagged())
 		{
 		}
 	}
@@ -4261,10 +4261,10 @@ QMap<QString,int> ScribusDoc::reorganiseFonts()
 {
 	QMap<QString,int> Really;
 	QList<PageItem*> allItems;
-	uint counter = 0;
-	for (uint lc = 0; lc < 2; ++lc)
+	int counter = 0;
+	for (int i = 0; i < 2; ++i)
 	{
-		switch (lc)
+		switch (i)
 		{
 			case 0:
 				counter = MasterItems.count();
@@ -4274,9 +4274,9 @@ QMap<QString,int> ScribusDoc::reorganiseFonts()
 				break;
 		}
 		PageItem* it = NULL;
-		for (uint d = 0; d < counter; ++d)
+		for (int d = 0; d < counter; ++d)
 		{
-			switch (lc)
+			switch (i)
 			{
 				case 0:
 					it = MasterItems.at(d);
@@ -4409,12 +4409,12 @@ void ScribusDoc::getUsedFonts(QMap<QString, QMap<uint, FPointArray> > & Really)
 	QList<PageItem*>  allItems;
 	QList<PageItem*>* itemLists[] = { &MasterItems, &DocItems };
 	PageItem* it = NULL;
-	uint counter = 0;
-	for (uint lc = 0; lc < 2; ++lc)
+	int counter = 0;
+	for (int i = 0; i < 2; ++i)
 	{
-		QList<PageItem*>* itemList = itemLists[lc];
+		QList<PageItem*>* itemList = itemLists[i];
 		counter = itemList->count();
-		for (uint d = 0; d < counter; ++d)
+		for (int d = 0; d < counter; ++d)
 		{
 			it = itemList->at(d);
 			if (it->isGroup())
@@ -4434,13 +4434,13 @@ void ScribusDoc::getUsedFonts(QMap<QString, QMap<uint, FPointArray> > & Really)
 							if (cell.row() == row && cell.column() == col)
 							{
 								PageItem* textFrame = cell.textFrame();
-								checkItemForFonts(textFrame, Really, lc);
+								checkItemForFonts(textFrame, Really, i);
 							}
 						}
 					}
 				}
 				else
-					checkItemForFonts(it, Really, lc);
+					checkItemForFonts(it, Really, i);
 			}
 			allItems.clear();
 		}
@@ -4607,8 +4607,8 @@ void ScribusDoc::checkItemForFonts(PageItem *it, QMap<QString, QMap<uint, FPoint
 				else
 				{
 					QString newText;
-					uint docPageCount = DocPages.count();
-					for (uint a = 0; a < docPageCount; ++a)
+					int docPageCount = DocPages.count();
+					for (int a = 0; a < docPageCount; ++a)
 					{
 						if (DocPages.at(a)->MPageNam == it->OnMasterPage)
 						{
@@ -5720,9 +5720,9 @@ bool ScribusDoc::itemAddCommit(PageItem* item)
 }
 
 
-uint ScribusDoc::getItemNrfromUniqueID(uint unique)
+int ScribusDoc::getItemNrfromUniqueID(uint unique)
 {
-	uint ret = 0;
+	int ret = 0;
 	for (int i = 0; i < Items->count(); ++i)
 	{
 		if (Items->at(i)->uniqueNr == unique)
@@ -5750,8 +5750,8 @@ void ScribusDoc::rebuildItemLists()
 	// #5826 Rebuild items list in case layer order as been changed
 	QList<PageItem*> newDocItems, newMasterItems;
 	Layers.sort();
-	uint layerCount = this->layerCount();
-	for (uint la = 0; la < layerCount; ++la)
+	int layerCount = this->layerCount();
+	for (int la = 0; la < layerCount; ++la)
 	{
 		PageItem* currItem;
 		int layerID = Layers.at(la).ID;
@@ -5837,13 +5837,13 @@ void ScribusDoc::canvasMinMax(FPoint& minPoint, FPoint& maxPoint)
 	double miny =  std::numeric_limits<double>::max();
 	double maxx = -std::numeric_limits<double>::max();
 	double maxy = -std::numeric_limits<double>::max();
-	uint docItemsCount=Items->count();
+	int docItemsCount=Items->count();
 	if (docItemsCount != 0)
 	{
-		for (uint ic = 0; ic < docItemsCount; ++ic)
+		for (int ic = 0; ic < docItemsCount; ++ic)
 		{
 			currItem = Items->at(ic);
-			if (currItem->rotation() != 0)
+			if (currItem->rotation() != 0.0)
 			{
 				FPointArray pb;
 				pb.resize(0);
@@ -5874,9 +5874,9 @@ void ScribusDoc::canvasMinMax(FPoint& minPoint, FPoint& maxPoint)
 	else
 	{
 		ScPage* Seite;
-		uint docPageCount=Pages->count();
+		int docPageCount=Pages->count();
 		MarginStruct pageBleeds;
-		for (uint a = 0; a < docPageCount; ++a)
+		for (int a = 0; a < docPageCount; ++a)
 		{
 			Seite = Pages->at(a);
 			getBleeds(Seite, pageBleeds);
@@ -5907,9 +5907,9 @@ int ScribusDoc::OnPage(double x2, double  y2)
 	}
 	else
 	{
-		uint docPageCount = Pages->count();
+		int docPageCount = Pages->count();
 		MarginStruct pageBleeds;
-		for (uint a = 0; a < docPageCount; ++a)
+		for (int a = 0; a < docPageCount; ++a)
 		{
 			getBleeds(a, pageBleeds);
 			int x = static_cast<int>(Pages->at(a)->xOffset() - pageBleeds.left());
@@ -5951,8 +5951,8 @@ int ScribusDoc::OnPage(PageItem *currItem)
 	else
 	{
 		MarginStruct pageBleeds;
-		uint docPageCount = Pages->count();
-		for (uint a = 0; a < docPageCount; ++a)
+		int docPageCount = Pages->count();
+		for (int a = 0; a < docPageCount; ++a)
 		{
 			getBleeds(a, pageBleeds);
 			double x1 = Pages->at(a)->xOffset() - pageBleeds.left();
@@ -7575,51 +7575,49 @@ void ScribusDoc::itemSelection_LowerItem()
 		itemList = &(m_Selection->itemAt(0)->parentGroup()->groupItemList);
 	else
 		itemList = Items;
+	if (itemList->count() <= 1)
+		return;
 	int low = itemList->count();
 	int high = 0;
 	int d;
 	QMap<int, int> ObjOrder;
-	PageItem *currItem;
-	PageItem *b2;
-	if (itemList->count() > 1)
+	PageItem *currItem=NULL;
+	for (int c = 0; c < docSelectionCount; ++c)
 	{
-		for (int c = 0; c < docSelectionCount; ++c)
-		{
-			currItem = m_Selection->itemAt(c);
-			int id = itemList->indexOf(currItem);
-			low = qMin(id, low);
-			high = qMax(id, high);
-		}
-		if (low == 0)
-			return;
-		b2 = itemList->at(high);
-		bool wasSignalDelayed = !m_Selection->signalsDelayed();
-		m_Selection->delaySignalsOn();
-		if (!wasSignalDelayed)
-			m_Selection->disconnectAllItemsFromGUI();
-		Selection tempSelection(*m_Selection);
-		m_Selection->clear();
-		m_Selection->addItem(itemList->at(low - 1));
-		for (int c = 0; c < m_Selection->count(); ++c)
-		{
-			currItem = m_Selection->itemAt(c);
-			d = itemList->indexOf(currItem);
-			ObjOrder.insert(d, c);
-			itemList->takeAt(d);
-		}
-		d = itemList->indexOf(b2);
-		QList<int> Oindex = ObjOrder.values();
-		for (int c = static_cast<int>(Oindex.count()-1); c > -1; c--)
-		{
-			itemList->insert(d+1, m_Selection->itemAt(Oindex[c]));
-		}
-		m_Selection->clear();
-		*m_Selection = tempSelection;
-		m_Selection->delaySignalsOff();
-		changed();
-		invalidateRegion(selRect);
-		regionsChanged()->update(QRectF());
+		currItem = m_Selection->itemAt(c);
+		int id = itemList->indexOf(currItem);
+		low = qMin(id, low);
+		high = qMax(id, high);
 	}
+	if (low == 0)
+		return;
+	PageItem *b2 = itemList->at(high);
+	bool wasSignalDelayed = !m_Selection->signalsDelayed();
+	m_Selection->delaySignalsOn();
+	if (!wasSignalDelayed)
+		m_Selection->disconnectAllItemsFromGUI();
+	Selection tempSelection(*m_Selection);
+	m_Selection->clear();
+	m_Selection->addItem(itemList->at(low - 1));
+	for (int c = 0; c < m_Selection->count(); ++c)
+	{
+		currItem = m_Selection->itemAt(c);
+		d = itemList->indexOf(currItem);
+		ObjOrder.insert(d, c);
+		itemList->takeAt(d);
+	}
+	d = itemList->indexOf(b2);
+	QList<int> Oindex = ObjOrder.values();
+	for (int c = static_cast<int>(Oindex.count()-1); c > -1; c--)
+	{
+		itemList->insert(d+1, m_Selection->itemAt(Oindex[c]));
+	}
+	m_Selection->clear();
+	*m_Selection = tempSelection;
+	m_Selection->delaySignalsOff();
+	changed();
+	invalidateRegion(selRect);
+	regionsChanged()->update(QRectF());
 }
 
 void ScribusDoc::itemSelection_RaiseItem()
@@ -7649,60 +7647,58 @@ void ScribusDoc::itemSelection_RaiseItem()
 		itemList = &(m_Selection->itemAt(0)->parentGroup()->groupItemList);
 	else
 		itemList = Items;
+
+	if (itemList->count() <= 1)
+		return;
 	int low = itemList->count();
 	int high = 0;
-	int d;
 	QMap<int, int> ObjOrder;
-	PageItem *currItem;
-	PageItem *b2;
-	if (itemList->count() > 1)
+	PageItem *currItem=NULL;
+	for (int i = 0; i < docSelectionCount; ++i)
 	{
-		for (int c = 0; c < docSelectionCount; ++c)
-		{
-			currItem = m_Selection->itemAt(c);
-			int id = itemList->indexOf(currItem);
-			low = qMin(id, low);
-			high = qMax(id, high);
-		}
-		if (high == itemList->count()-1)
-			return;
-		b2 = itemList->at(low);
-		bool wasSignalDelayed = !m_Selection->signalsDelayed();
-		m_Selection->delaySignalsOn();
-		if (!wasSignalDelayed)
-			m_Selection->disconnectAllItemsFromGUI();
-		Selection tempSelection(*m_Selection);
-		m_Selection->clear();
-		m_Selection->addItem(itemList->at(high + 1));
-		for (int c = 0; c < m_Selection->count(); ++c)
-		{
-			currItem = m_Selection->itemAt(c);
-			d = itemList->indexOf(currItem);
-			ObjOrder.insert(d, c);
-			itemList->takeAt(d);
-		}
-		QList<int> Oindex = ObjOrder.values();
-		for (int c = 0; c <static_cast<int>(Oindex.count()); ++c)
-		{
-			d = itemList->indexOf(b2);
-			if (d == -1)
-				d = 0;
-			itemList->insert(d, m_Selection->itemAt(Oindex[c]));
-		}
-		m_Selection->clear();
-		*m_Selection = tempSelection;
-		m_Selection->delaySignalsOff();
-		changed();
-		invalidateRegion(selRect);
-		regionsChanged()->update(QRectF());
+		currItem = m_Selection->itemAt(i);
+		int id = itemList->indexOf(currItem);
+		low = qMin(id, low);
+		high = qMax(id, high);
 	}
+	if (high == itemList->count()-1)
+		return;
+	PageItem *b2 = itemList->at(low);
+	bool wasSignalDelayed = !m_Selection->signalsDelayed();
+	m_Selection->delaySignalsOn();
+	if (!wasSignalDelayed)
+		m_Selection->disconnectAllItemsFromGUI();
+	Selection tempSelection(*m_Selection);
+	m_Selection->clear();
+	m_Selection->addItem(itemList->at(high + 1));
+	for (int i = 0; i < m_Selection->count(); ++i)
+	{
+		currItem = m_Selection->itemAt(i);
+		int d = itemList->indexOf(currItem);
+		ObjOrder.insert(d, i);
+		itemList->takeAt(d);
+	}
+	QList<int> Oindex = ObjOrder.values();
+	for (int i = 0; i <static_cast<int>(Oindex.count()); ++i)
+	{
+		int d = itemList->indexOf(b2);
+		if (d == -1)
+			d = 0;
+		itemList->insert(d, m_Selection->itemAt(Oindex[i]));
+	}
+	m_Selection->clear();
+	*m_Selection = tempSelection;
+	m_Selection->delaySignalsOff();
+	changed();
+	invalidateRegion(selRect);
+	regionsChanged()->update(QRectF());
 }
 
 void ScribusDoc::itemSelection_SetSoftShadow(bool has, QString color, double dx, double dy, double radius, int shade, double opac, int blend, bool erase, bool objopa)
 {
 	if (color == CommonStrings::tr_NoneColor)
 		color = CommonStrings::None;
-	uint selectedItemCount = m_Selection->count();
+	int selectedItemCount = m_Selection->count();
 	if (selectedItemCount == 0)
 		return;
 	UndoTransaction activeTransaction;
@@ -7711,9 +7707,9 @@ void ScribusDoc::itemSelection_SetSoftShadow(bool has, QString color, double dx,
 		activeTransaction = m_undoManager->beginTransaction(Um::SelectionGroup,
 														  Um::IGroup, Um::LineWidth, "", Um::ILineStyle);
 
-	for (uint a = 0; a < selectedItemCount; ++a)
+	for (int i = 0; i < selectedItemCount; ++i)
 	{
-		PageItem *currItem = m_Selection->itemAt(a);
+		PageItem *currItem = m_Selection->itemAt(i);
 		currItem->setHasSoftShadow(has);
 		currItem->setSoftShadowColor(color);
 		currItem->setSoftShadowXOffset(dx);
@@ -7737,7 +7733,7 @@ void ScribusDoc::itemSelection_SetSoftShadow(bool has, QString color, double dx,
 
 void ScribusDoc::itemSelection_SetLineWidth(double w)
 {
-	uint selectedItemCount=m_Selection->count();
+	int selectedItemCount=m_Selection->count();
 	if (selectedItemCount == 0)
 		return;
 	UndoTransaction activeTransaction;
@@ -7745,9 +7741,9 @@ void ScribusDoc::itemSelection_SetLineWidth(double w)
 	if (UndoManager::undoEnabled() && selectedItemCount > 1)
 		activeTransaction = m_undoManager->beginTransaction(Um::SelectionGroup,
 														  Um::IGroup, Um::LineWidth, "", Um::ILineStyle);
-	for (uint a = 0; a < selectedItemCount; ++a)
+	for (int i = 0; i < selectedItemCount; ++i)
 	{
-		PageItem *currItem = m_Selection->itemAt(a);
+		PageItem *currItem = m_Selection->itemAt(i);
 		QRectF oldRect = currItem->getVisualBoundingRect();
 		//cb moved to setlinewidth
 		//currItem->Oldm_lineWidth = currItem->lineWidth();
@@ -7776,7 +7772,7 @@ void ScribusDoc::itemSelection_SetLineWidth(double w)
 
 void ScribusDoc::itemSelection_SetLineArt(Qt::PenStyle w)
 {
-	uint selectedItemCount=m_Selection->count();
+	int selectedItemCount=m_Selection->count();
 	if (selectedItemCount == 0)
 		return;
 	UndoTransaction activeTransaction;
@@ -7784,10 +7780,10 @@ void ScribusDoc::itemSelection_SetLineArt(Qt::PenStyle w)
 	if (UndoManager::undoEnabled() && selectedItemCount > 1)
 		activeTransaction = m_undoManager->beginTransaction(Um::SelectionGroup,
 														  Um::IGroup, Um::LineStyle, "", Um::ILineStyle);
-	for (uint a = 0; a < selectedItemCount; ++a)
+	for (int i = 0; i < selectedItemCount; ++i)
 	{
-		m_Selection->itemAt(a)->setLineStyle(w);
-		m_Selection->itemAt(a)->update();
+		m_Selection->itemAt(i)->setLineStyle(w);
+		m_Selection->itemAt(i)->update();
 	}
 	if (activeTransaction)
 		activeTransaction.commit();
@@ -7799,7 +7795,7 @@ void ScribusDoc::itemSelection_SetLineArt(Qt::PenStyle w)
 
 void ScribusDoc::itemSelection_SetLineJoin(Qt::PenJoinStyle w)
 {
-	uint selectedItemCount=m_Selection->count();
+	int selectedItemCount=m_Selection->count();
 	if (selectedItemCount == 0)
 		return;
 	UndoTransaction activeTransaction;
@@ -7807,10 +7803,10 @@ void ScribusDoc::itemSelection_SetLineJoin(Qt::PenJoinStyle w)
 	if (UndoManager::undoEnabled() && selectedItemCount > 1)
 		activeTransaction = m_undoManager->beginTransaction(Um::SelectionGroup,
 														  Um::IGroup, Um::LineJoin, "", Um::ILineStyle);
-	for (uint a = 0; a < selectedItemCount; ++a)
+	for (int i = 0; i < selectedItemCount; ++i)
 	{
-		m_Selection->itemAt(a)->setLineJoin(w);
-		m_Selection->itemAt(a)->update();
+		m_Selection->itemAt(i)->setLineJoin(w);
+		m_Selection->itemAt(i)->update();
 	}
 	if (activeTransaction)
 		activeTransaction.commit();
@@ -7822,7 +7818,7 @@ void ScribusDoc::itemSelection_SetLineJoin(Qt::PenJoinStyle w)
 
 void ScribusDoc::itemSelection_SetLineEnd(Qt::PenCapStyle w)
 {
-	uint selectedItemCount=m_Selection->count();
+	int selectedItemCount=m_Selection->count();
 	if (selectedItemCount == 0)
 		return;
 	UndoTransaction activeTransaction;
@@ -7830,10 +7826,10 @@ void ScribusDoc::itemSelection_SetLineEnd(Qt::PenCapStyle w)
 	if (UndoManager::undoEnabled() && selectedItemCount > 1)
 		activeTransaction = m_undoManager->beginTransaction(Um::SelectionGroup,
 														  Um::IGroup, Um::LineEnd, "", Um::ILineStyle);
-	for (uint a = 0; a < selectedItemCount; ++a)
+	for (int i = 0; i < selectedItemCount; ++i)
 	{
-		m_Selection->itemAt(a)->setLineEnd(w);
-		m_Selection->itemAt(a)->update();
+		m_Selection->itemAt(i)->setLineEnd(w);
+		m_Selection->itemAt(i)->update();
 	}
 	if (activeTransaction)
 		activeTransaction.commit();

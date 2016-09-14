@@ -37,8 +37,7 @@ public:
 	const QString& iconDir() const;
 	/** @brief Return path to the Scribus font directory */
 	const QString& fontDir() const;
-	/** @brief Return path to lib directory containing translations,
-	 *         keysets, etc. */
+	/** @brief Return path to lib directory containing translations, keysets, etc. */
 	const QString& libDir() const;
 	/** @brief Return path to dir containing plugins. */
 	const QString& pluginDir() const;
@@ -67,7 +66,7 @@ public:
 	/** @brief Return paths to system icc profiles directories*/
 	static QStringList getSystemProfilesDirs(void);
 	/** @brief Return paths to system create project directories*/
-	static QStringList getSystemCreateSwatchesDirs(void);
+	static QStringList getSystemCreatePalettesDirs(void);
 	/** @brief Return paths to directories held in an environment variable*/
 	static QStringList getDirsFromEnvVar(const QString envVar, const QString dirToFind);
 	/** @brief Return path to application data dir*/
@@ -78,7 +77,7 @@ public:
 	static QString getUserFontDir(bool createIfNotExists);
 	/** @brief Return path to application data dir for downloaded docs*/
 	static QString getUserHelpFilesDir(bool createIfNotExists);
-	/** @brief Return path to application data dir for downloaded swatches*/
+	/** @brief Return path to application data dir for downloaded palettes */
 	static QString getUserPaletteFilesDir(bool createIfNotExists);
 	/** @brief Return path to image cache dir*/
 	static QString getImageCacheDir(void);

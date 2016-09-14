@@ -126,7 +126,7 @@ void ColorSetManager::initialiseDefaultPrefs(struct ApplicationPrefs& appPrefs)
 void ColorSetManager::findPaletteLocations()
 {
 	paletteLocations.clear();
-	QStringList locations=ScPaths::instance().getSystemCreateSwatchesDirs();
+	QStringList locations=ScPaths::instance().getSystemCreatePalettesDirs();
 	locations << ScPaths::instance().shareDir()+"swatches/";
 	locations << ScPaths::instance().getDirsFromEnvVar("XDG_DATA_HOME", "scribus/swatches/");
 	for ( QStringList::Iterator it = locations.begin(); it != locations.end(); ++it )
