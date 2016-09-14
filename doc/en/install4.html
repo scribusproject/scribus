@@ -75,9 +75,6 @@ make &amp;&amp; make install
 
 	<li><strong>WANT_DEBUG=1</strong>: Sets the build to be a debug release and use -O0 -g3, instead of -O2 (This is the default for now, and cannot be turned off unless you edit the CMakeFiles.txt file).</li>
 
-	<li><strong>WANT_CAIRO=1</strong> (default): Makes CMake search for the Cairo graphics library and build Scribus with Cairo instead of Qt&rsquo;s Arthur.</li>
-
-	<li><strong>WANT_QTARTHUR=1</strong>: Makes CMake search for and build with Qt&rsquo;s Arthur instead of Cairo.</li>
 
 	<li><strong>WANT_NOHEADERINSTALL=1</strong>: Do not install header files used for developers. Distributions should not use this if they split up Scribus into multiple packages.
 
@@ -86,13 +83,11 @@ make &amp;&amp; make install
 	<li><strong>WANT_LIB64</strong>: Force 64 bit builds.</li>
 	<li><strong>WANT_RELEASEWITHDEBUG</strong>: Set Release style build flags, but also include debug information.</li>
 	<li><strong>WANT_UNIVERSAL_BUNDLE</strong>: Mac OS X only, enables building of a .app bundle.</li>
-	<li><strong>WANT_QT4MAC_COCOA</strong>: Mac OS X only, enables the buuilding the Cocoa version with Qt 4.5+.</li>
-	<li><strong>WANT_QT3SUPPORT</strong>: Enables Qt 3 support in case you have a custom plug-in that you have not converted fully to Qt 4. Not needed for the official Scribus code.</li>
 	<li><strong>APPLICATION_DATA_DIR</strong>: Set the name of the preferences location for Scribus (instead of default of ~/.scribus on *nix and /Users/username/Library/Preferences/Scribus on Mac OS X.)</li>
   </ul>
   <p>Example: To make a Cairo debug build, then something like this should be used (all in one line):</p>
   <pre>
-/usr/bin/cmake . -DCMAKE_INSTALL_PREFIX:PATH=/home/username/scribusinstall -DWANT_CAIRO=1 -DWANT_DEBUG=1 -DWANT_VERSIONING=1
+/usr/bin/cmake . -DCMAKE_INSTALL_PREFIX:PATH=/home/username/scribusinstall -DWANT_DEBUG=1 -DWANT_VERSIONING=1
 </pre>
 
   <h3>Specifying Library Locations</h3>
