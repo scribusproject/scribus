@@ -1,0 +1,48 @@
+Rendering complex text can be subdivided in several phases:
+
+0) Storage. Scribus uses Unicode and defines it's own style classes.
+
+1) Itemizing. This involves breaking the text into charater runs which have single language/script, the same font and style. 
+
+2) Shaping. This phase uses font information to associate glyphs to characters. 
+The relationship between characters and glyphs is 1:1 only in the simplest cases. The result is a list of grapheme clusters, where each cluster consists of one and more glyphs which represent one or more characters. 
+
+3) Layout. The list of grapheme clusters is broken into lines and the lines are stacked to fill a given area on the page. In order to achieve a pleasing result, spaces are adjusted, glyphs may be stretched and sometimes reshaping of a line may be needed. The result is a tree of boxes, where the leaves represent glyph runs and higher nodes represent lines, paragraphs and frames.
+
+4) Rendering. Finally, the boxes are used to determine the location on a page, the font and style to be used and what glyphs to render. For highlevel formats like PDF that's all, for low level formats, the glyph outlines are retrieved from the font and rasterized on a bitmap.
+
+The Scribus text subdirectory holds classes which support these tasks. Styles and Fonts have their own subdirectories. For rendering only an interface is defined, the implementations are found at other places.
+
+level 1: text storage
+
+class StoryText is responsible for storing Unicode text and text styles.
+Char styles provide language information and control how characters are rendered. StoryText also keeps track of block boundaries (paragraphs, table cells, etc.) It provides methods for selecting ranges of text and for searching.
+
+Currently, text is stored as UTF-16, which means characters outside the Unicode BMP require two storage units.
+
+level 2: itemizing
+
+StoryText also handles runs of styles and block/paragraph breaks. The class TextBreaker handles all other cases: grapheme(character) breaks, word breaks, sentence breaks, possible line breaks, script/language changes and BiDi run changes. 
+We use ICU for these tasks.
+
+level 3: shaping
+The input for the shaping process is a text source, represented by the ITextSource interface, and a context, represented by the ITextContext interface.
+
+The output of the shaping process is represented by the class ShapedText, which holds the glyph clusters for a part of a text source. Normally, the ShapedText is context independent, since information from the text context is only needed for dynamic text like page numbers and references or for inline objects.
+ShapedText stores a flag which tells if this is the case. Later stages can decide if reshaping with the current context is needed or not.
+ShapedText also holds a reference to the original text source and an array of laoyut flags which might be used at later stages.
+Currently the class TextShaper is the only class which actually shapes text. It uses the HarfBuzz library for this.
+
+
+level 4: layout
+The input is a sequence of ShapedText objects and a text context. The text context determines the page area where the text shall be placed and other state information like current page number, current chapter, counters, and override styles for teh current frame (nyi)
+The output is a tree of boxes, which is encapsulated in the class TextLayout. TextLayout provides methods for mapping screen coordinates to text positions and vice versa, line navigation and other tasks which require the visual layout.
+A textlayout is usually linked to a page item and caches all information needed for rendering text.
+Box classes are GroupBoxes for lines and blocks, GlyphBoxes for runs of glyphs and ObjetBoxes for inline frames.
+
+
+Advanced caching
+
+For speed, StoryText caches ShapedText objects for its blocks and TextLayout caches Box trees for each frame. Editing text only invalidates the ShapedText associated with the current block and the text layout of all page items from the previous frame (for orphans/widows) to the end of the chain. For long text chains it's important to regenerate text layout only when needed, i.e. when the page is displayed or printed/exported.
+
+
