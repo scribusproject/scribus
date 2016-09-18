@@ -22,6 +22,7 @@ for which a new license (GPL+exception) is in place.
 #include <QString>
 #include <QStringList>
 #include <QVector>
+#include <QTransform>
 
 #include "pagestructs.h"
 #include "scribusapi.h"
@@ -124,14 +125,15 @@ QString SCRIBUS_API getFileNameByPage(ScribusDoc* currDoc, uint pageNo, QString 
 //asterix is QString used in numeration when number is presented as few chars, like *, **, *** etc
 //default is '*' but can be used any string
 const QString SCRIBUS_API getStringFromSequence(NumFormat type, uint position, QString asterix="*");
-const QString SCRIBUS_API arabicToRoman(uint i);
-const QString SCRIBUS_API arabicToCJK(uint i);
+const QString SCRIBUS_API numberToRoman(uint i);
+const QString SCRIBUS_API numberToCJK(uint i);
 QChar SCRIBUS_API cjkDigit(uint i);
-const QString SCRIBUS_API numberToLetterSequence(uint i);
+const QString SCRIBUS_API numberToLetterSequence(const QString& letters, uint num);
 void SCRIBUS_API parsePagesString(QString pages, std::vector<int>* pageNs, int sourcePageCount);
 
 QString SCRIBUS_API readLinefromDataStream(QDataStream &s);
 void SCRIBUS_API setCurrentComboItem(QComboBox *box, QString text);
+void SCRIBUS_API removeComboItem(QComboBox *box, QString text);
 
 QString SCRIBUS_API readAdobeUniCodeString(QDataStream &s);
 QString SCRIBUS_API readAdobeUniCodeString16(QDataStream &s);
@@ -153,4 +155,5 @@ void SCRIBUS_API setWidgetBoldFont(QWidget* w, bool wantBold);
  * if exist then seprator and numbers are pre/append to name while it will be unique
 */
 void SCRIBUS_API getUniqueName(QString &name, QStringList list, QString separator = "", bool prepend = false);
+
 #endif

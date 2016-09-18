@@ -316,7 +316,7 @@ public:
 	: SimpleState(name, description, pixmap) {}
 	~ScItemsState() {}
 	void insertItem(QString itemname, void * item) { pointerMap.insert(itemname, item); }
-	void* getItem(QString itemname) const { if (pointerMap.contains(itemname)) return pointerMap.value(itemname); else return NULL;}
+	void* getItem(QString itemname) const { if (pointerMap.contains(itemname)) return pointerMap.value(itemname, NULL); else return NULL;}
 	QList< QPair<void*, int> > insertItemPos;
 private:
 	QMap<QString,void*> pointerMap;

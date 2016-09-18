@@ -8,10 +8,13 @@
 typedef enum 
 {
 	Type_1_2_3,
+	Type_1_2_3_ar,
 	Type_i_ii_iii,
 	Type_I_II_III,
 	Type_a_b_c,
 	Type_A_B_C,
+	Type_Alphabet_ar,
+	Type_Abjad_ar,
 	Type_asterix,
 	Type_CJK,
 	Type_None=99

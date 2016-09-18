@@ -390,6 +390,8 @@ void WordAndPara(PageItem* currItem, int *w, int *p, int *c, int *wN, int *pN, i
 			{
 				ww++;
 			}
+			if (b.isSurrogate())
+				++a;
 			cc++;
 			Dat = b;
 			first = false;
@@ -410,6 +412,8 @@ void WordAndPara(PageItem* currItem, int *w, int *p, int *c, int *wN, int *pN, i
 			{
 				wwN++;
 			}
+			if (b.isSurrogate())
+				++a;
 			ccN++;
 			Dat = b;
 			first = false;
@@ -529,31 +533,45 @@ QString getFileNameByPage(ScribusDoc* currDoc, uint pageNo, QString extension, Q
 const QString getStringFromSequence(NumFormat type, uint position, QString asterix)
 {
 	QString retVal("");
+
+	const QString english("abcdefghijklmnopqrstuvwxyz");
+	const QString arabic("أبتثجحخدذرزسشصضطظعغفقكلمنهوي");
+	const QString abjad("أبجدهوزحطيكلمنسعفصقرشتثخذضظغ");
+
 	switch( type )
 	{
 		case Type_1_2_3:
 			retVal=QString::number(position);
 			break;
+		case Type_1_2_3_ar:
+			retVal=QLocale("ar").toString(position);
+			break;
 		case Type_A_B_C:
-			retVal=numberToLetterSequence(position).toUpper();
+			retVal = numberToLetterSequence(english, position).toUpper();
 			break;
 		case Type_a_b_c:
-			retVal=numberToLetterSequence(position);
+			retVal = numberToLetterSequence(english, position);
+			break;
+		case Type_Alphabet_ar:
+			retVal = numberToLetterSequence(arabic, position);
+			break;
+		case Type_Abjad_ar:
+			retVal = numberToLetterSequence(abjad, position);
 			break;
 		case Type_I_II_III:
-			retVal=arabicToRoman(position);
+			retVal = numberToRoman(position);
 			break;
 		case Type_i_ii_iii:
 			//well, for lower case people will want that, even if its "wrong"
 			//ie, X=10, x=10000
-			retVal=arabicToRoman(position).toLower();
+			retVal = numberToRoman(position).toLower();
 			break;
 		case Type_asterix:
 			for (uint a=1; a <= position; ++a)
 				retVal.append(asterix);
 			break;
 		case Type_CJK:
-			retVal=arabicToCJK(position);
+			retVal = numberToCJK(position);
 		case Type_None:
 			break;
 		default:
@@ -562,24 +580,32 @@ const QString getStringFromSequence(NumFormat type, uint position, QString aster
 	return retVal;
 }
 
-const QString numberToLetterSequence(uint i)
+const QString numberToLetterSequence(const QString& letters, uint num)
 {
 	QString retVal("");
 	unsigned digits = 1;
 	unsigned offset = 0;
-	uint column=i-1;
+	uint column = num - 1;
 
-	if( column > 4058115285U ) return  QString("@");
+	// FIXME: what is the heck is this?
+	if (column > 4058115285U)
+		return  QString("@");
 
-	for( unsigned limit = 26; column >= limit+offset; limit *= 26, digits++ )
+	for (unsigned limit = 28; column >= limit+offset; limit *= letters.length(), digits++)
 		offset += limit;
 
-	for( unsigned c = column - offset; digits; --digits, c/=26 )
-		retVal.prepend( QChar( 'a' + (c%26) ) );
+	for (unsigned c = column - offset; digits; --digits, c /= letters.length())
+	{
+		uint i = c % letters.length();
+		if (i < static_cast<uint>(letters.length()))
+			retVal.prepend(letters.at(i));
+		else
+			retVal.prepend(QChar::Null);
+	}
 	return retVal;
 }
 
-const QString arabicToRoman(uint i)
+const QString numberToRoman(uint i)
 {
 	QString roman("");
 	int arabic = i;
@@ -772,6 +798,15 @@ void setCurrentComboItem(QComboBox *box, QString text)
 	int ind = box->findText(text);
 	if (ind > -1)
 		box->setCurrentIndex(ind);
+	box->blockSignals(sigBlocked);
+}
+
+void removeComboItem(QComboBox *box, QString text)
+{
+	bool sigBlocked = box->blockSignals(true);
+	int ind = box->findText(text);
+	if (ind > -1)
+		box->removeItem(ind);
 	box->blockSignals(sigBlocked);
 }
 
@@ -1133,7 +1168,7 @@ void getUniqueName(QString &name, QStringList list, QString separator, bool prep
 }
 
 
-const QString arabicToCJK(uint i)
+const QString numberToCJK(uint i)
 {
 	QString result;
 	if (i<10)
