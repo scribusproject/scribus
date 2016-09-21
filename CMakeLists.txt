@@ -155,6 +155,10 @@ ENDIF (ARCH_X86_64 EQUAL 1 OR ARCH_HPPA EQUAL 1 OR ARCH_MIPS EQUAL 1 OR ARCH_MIP
 ## Do our Apple OSX version setup
 IF (APPLE AND CMAKE_SIZEOF_VOID_P EQUAL 8 AND (ARCH_X86 EQUAL 1 OR ARCH_X86_64 EQUAL 1))
 	STRING(REGEX REPLACE ".*-darwin([0-9]+).*" "\\1" _apple_ver "${MACHINE}")
+	IF (_apple_ver EQUAL "16")
+	    MESSAGE(STATUS "Found macOS Sierra Target: Apple, 64 bit, X86")
+		SET(APPLE_10_12_X 1 CACHE TYPE BOOL)
+	ENDIF (_apple_ver EQUAL "16")
 	IF (_apple_ver EQUAL "15")
 		MESSAGE(STATUS "Found OSX El Capitan Target: Apple, 64 bit, X86")
 		SET(APPLE_10_11_X 1 CACHE TYPE BOOL)
@@ -433,6 +437,16 @@ ENDIF(NOT WANT_DEBUG AND NOT WANT_RELEASEWITHDEBUG)
 
 #Based on our build type, setup our build options
 IF(APPLE)
+    IF(APPLE_10_12_X)
+	    SET(OSXMINVER "10.12" CACHE TYPE STRING)
+		IF (WANT_OSX_SDK)
+		    IF(EXISTS("/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.12.sdk"))
+			    SET(CMAKE_OSX_SYSROOT "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.12.sdk")
+			ELSEIF(EXISTS("/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.11.sdk"))
+			    SET(CMAKE_OSX_SYSROOT "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.11.sdk")
+			ENDIF()
+		ENDIF (WANT_OSX_SDK)
+	ENDIF(APPLE_10_12_X)
 	IF(APPLE_10_11_X)
 		SET(OSXMINVER "10.11" CACHE TYPE STRING)
 		IF (WANT_OSX_SDK)
@@ -873,6 +887,10 @@ IF (LIBREVENGE_FOUND)
 		ENDIF (LIBREVENGE_GENERATORS_FOUND)
 	ENDIF (LIBREVENGE_STREAM_FOUND)
 ENDIF (LIBREVENGE_FOUND)
+
+# CTL support
+#pkg_check_modules(HARFBUZZ REQUIRED harfbuzz>=0.9.42 harfbuzz-icu)
+#pkg_check_modules(ICU REQUIRED icu-uc)
 
 ##############################################################################################################
 ########## Include Setup                                                                            ##########
