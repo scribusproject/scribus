@@ -202,7 +202,7 @@ public:
 
 	ScFace();
 	ScFace(const ScFace& other);
-	~ScFace();
+	virtual ~ScFace();
 
 	/// used as a null object
 	static const ScFace& none();
