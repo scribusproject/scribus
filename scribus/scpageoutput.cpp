@@ -1477,9 +1477,30 @@ void ScPageOutput::drawItem_Table( PageItem_Table* item, ScPainterExBase* painte
 
 void ScPageOutput::drawItem_TextFrame( PageItem_TextFrame* item, ScPainterExBase* painter, QRect cullingArea )
 {
+	painter->save();
+
+	if ((item->fillColor() != CommonStrings::None) || (item->GrType != 0))
+	{
+		painter->setupPolygon(&item->PoLine);
+		fillPath(item, painter, cullingArea);
+	}
+	if ((item->isAnnotation()) && (item->annotation().Type() == Annotation::Button) && (!item->Pfile.isEmpty()) && (item->imageIsAvailable) && (item->imageVisible()) && (item->annotation().UseIcons()))
+	{
+		painter->save();
+		painter->setupPolygon(&item->PoLine);
+		painter->setClipPath();
+		painter->scale(item->imageXScale(), item->imageYScale());
+		painter->translate(static_cast<int>(item->imageXOffset() * item->imageXScale()), static_cast<int>(item->imageYOffset()  * item->imageYScale()));
+		if (!item->pixm.qImage().isNull())
+			painter->drawImage(&item->pixm, ScPainterExBase::rgbImages);
+		painter->restore();
+	}
+
 	ScPageOutputPainter p(item, painter, this);
 	item->textLayout.renderBackground(&p);
 	item->textLayout.render(&p);
+
+	painter->restore();
 }
 
 void ScPageOutput::drawArrow(ScPainterExBase* painter, PageItem* item, QTransform &arrowTrans, int arrowIndex)
