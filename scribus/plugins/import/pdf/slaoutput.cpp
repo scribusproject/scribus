@@ -509,13 +509,13 @@ bool SlaOutputDev::handleLinkAnnot(Annot* annota, double xCoor, double yCoor, do
 		ite->AutoName = false;
 		if (act->getKind() == actionGoTo)
 		{
-			ite->annotation().setZiel(pagNum - 1);
+			ite->annotation().setZiel((pagNum > 0) ? (pagNum - 1) : (m_actPage - 1));
 			ite->annotation().setAction(QString("%1 %2").arg(xco).arg(yco));
 			ite->annotation().setActionType(2);
 		}
 		else if (act->getKind() == actionGoToR)
 		{
-			ite->annotation().setZiel(pagNum - 1);
+			ite->annotation().setZiel((pagNum > 0) ? (pagNum - 1) : (m_actPage - 1));
 			ite->annotation().setExtern(fileName);
 			ite->annotation().setAction(QString("%1 %2").arg(xco).arg(yco));
 			ite->annotation().setActionType(9);
@@ -935,7 +935,7 @@ void SlaOutputDev::handleActions(PageItem* ite, AnnotWidget *ano)
 						pagNum = dst->getPageNum();
 					xco = dst->getLeft();
 					yco = dst->getTop();
-					ite->annotation().setZiel(pagNum - 1);
+					ite->annotation().setZiel((pagNum > 0) ? (pagNum - 1) : (m_actPage - 1));
 					ite->annotation().setAction(QString("%1 %2").arg(xco).arg(yco));
 					ite->annotation().setActionType(2);
 				}
@@ -959,7 +959,7 @@ void SlaOutputDev::handleActions(PageItem* ite, AnnotWidget *ano)
 								pagNum = dstn->getPageNum();
 							xco = dstn->getLeft();
 							yco = dstn->getTop();
-							ite->annotation().setZiel(pagNum - 1);
+							ite->annotation().setZiel((pagNum > 0) ? (pagNum - 1) : (m_actPage - 1));
 							ite->annotation().setAction(QString("%1 %2").arg(xco).arg(yco));
 							ite->annotation().setActionType(2);
 						}
@@ -982,7 +982,7 @@ void SlaOutputDev::handleActions(PageItem* ite, AnnotWidget *ano)
 					pagNum = dst->getPageNum();
 					xco = dst->getLeft();
 					yco = dst->getTop();
-					ite->annotation().setZiel(pagNum - 1);
+					ite->annotation().setZiel((pagNum > 0) ? (pagNum - 1) : (m_actPage - 1));
 					ite->annotation().setExtern(fileName);
 					ite->annotation().setAction(QString("%1 %2").arg(xco).arg(yco));
 					ite->annotation().setActionType(9);
@@ -1001,7 +1001,7 @@ void SlaOutputDev::handleActions(PageItem* ite, AnnotWidget *ano)
 							pagNum = dstn->getPageNum();
 							xco = dstn->getLeft();
 							yco = dstn->getTop();
-							ite->annotation().setZiel(pagNum - 1);
+							ite->annotation().setZiel((pagNum > 0) ? (pagNum - 1) : (m_actPage - 1));
 							ite->annotation().setExtern(fileName);
 							ite->annotation().setAction(QString("%1 %2").arg(xco).arg(yco));
 							ite->annotation().setActionType(9);
