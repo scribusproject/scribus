@@ -2576,6 +2576,8 @@ void SlaOutputDev::drawSoftMaskedImage(GfxState *state, Object *ref, Stream *str
 			tempFile->close();
 			ite->isInlineImage = true;
 			ite->isTempFile = true;
+			ite->AspectRatio = false;
+			ite->ScaleType   = false;
 			res.save(fileName, "PNG");
 			m_doc->loadPict(fileName, ite);
 		//	ite->setImageScalingMode(false, false);
@@ -2723,6 +2725,8 @@ void SlaOutputDev::drawMaskedImage(GfxState *state, Object *ref, Stream *str,  i
 			tempFile->close();
 			ite->isInlineImage = true;
 			ite->isTempFile = true;
+			ite->AspectRatio = false;
+			ite->ScaleType   = false;
 			res.save(fileName, "PNG");
 			m_doc->loadPict(fileName, ite);
 		//	ite->setImageScalingMode(false, false);
