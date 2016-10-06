@@ -8,7 +8,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>421</width>
+    <width>432</width>
     <height>389</height>
    </rect>
   </property>
@@ -16,7 +16,16 @@
    <string>Guide Manager</string>
   </property>
   <layout class="QGridLayout">
-   <property name="margin">
+   <property name="leftMargin">
+    <number>11</number>
+   </property>
+   <property name="topMargin">
+    <number>11</number>
+   </property>
+   <property name="rightMargin">
+    <number>11</number>
+   </property>
+   <property name="bottomMargin">
     <number>11</number>
    </property>
    <property name="spacing">
@@ -52,6 +61,9 @@
             </item>
             <item row="1" column="0">
              <widget class="QPushButton" name="addHorButton">
+              <property name="toolTip">
+               <string>Add a new horizontal guide</string>
+              </property>
               <property name="text">
                <string>&amp;Add</string>
               </property>
@@ -62,6 +74,9 @@
             </item>
             <item row="1" column="1">
              <widget class="QPushButton" name="delHorButton">
+              <property name="toolTip">
+               <string>Delete the selected horizontal guide</string>
+              </property>
               <property name="text">
                <string>D&amp;elete</string>
               </property>
@@ -91,6 +106,9 @@
             </item>
             <item row="1" column="0">
              <widget class="QPushButton" name="addVerButton">
+              <property name="toolTip">
+               <string>Add a new vertical guide</string>
+              </property>
               <property name="text">
                <string>A&amp;dd</string>
               </property>
@@ -101,6 +119,9 @@
             </item>
             <item row="1" column="1">
              <widget class="QPushButton" name="delVerButton">
+              <property name="toolTip">
+               <string>Delete the selected vertical guide</string>
+              </property>
               <property name="text">
                <string>De&amp;lete</string>
               </property>
@@ -116,6 +137,9 @@
        </item>
        <item row="1" column="0">
         <widget class="QCheckBox" name="lockCheck">
+         <property name="toolTip">
+          <string>Lock the guides</string>
+         </property>
          <property name="text">
           <string>&amp;Lock Guides</string>
          </property>
@@ -126,6 +150,9 @@
        </item>
        <item row="1" column="1">
         <widget class="QPushButton" name="applyToAllStdButton">
+         <property name="toolTip">
+          <string>Apply to all pages</string>
+         </property>
          <property name="text">
           <string>Appl&amp;y to All Pages</string>
          </property>
@@ -162,6 +189,9 @@
           </item>
           <item row="0" column="1">
            <widget class="ScrSpinBox" name="horizontalAutoCountSpin">
+            <property name="toolTip">
+             <string>Number of horizontal guides to create</string>
+            </property>
             <property name="suffix">
              <string/>
             </property>
@@ -175,6 +205,9 @@
           </item>
           <item row="1" column="0" colspan="2">
            <widget class="QCheckBox" name="horizontalAutoGapCheck">
+            <property name="toolTip">
+             <string>Create rows with guides, with an additional gap between the rows</string>
+            </property>
             <property name="text">
              <string>U&amp;se Gap:</string>
             </property>
@@ -194,6 +227,9 @@
             <layout class="QGridLayout">
              <item row="0" column="0">
               <widget class="QRadioButton" name="horizontalPageAutoButton">
+               <property name="toolTip">
+                <string>Create the selected number of horizontal guides relative to the current page</string>
+               </property>
                <property name="text">
                 <string>&amp;Page</string>
                </property>
@@ -207,6 +243,9 @@
              </item>
              <item row="1" column="0">
               <widget class="QRadioButton" name="horizontalMarginsAutoButton">
+               <property name="toolTip">
+                <string>Create the selected number of horizontal guides relative to the current page's margins</string>
+               </property>
                <property name="text">
                 <string>M&amp;argins</string>
                </property>
@@ -217,6 +256,9 @@
              </item>
              <item row="2" column="0">
               <widget class="QRadioButton" name="horizontalSelectionAutoButton">
+               <property name="toolTip">
+                <string>Create the selected number of horizontal guides relative to the current selection of items</string>
+               </property>
                <property name="text">
                 <string>S&amp;election</string>
                </property>
@@ -252,6 +294,9 @@
           </item>
           <item row="0" column="1">
            <widget class="ScrSpinBox" name="verticalAutoCountSpin">
+            <property name="toolTip">
+             <string>Number of vertical guides to create</string>
+            </property>
             <property name="suffix">
              <string/>
             </property>
@@ -265,6 +310,9 @@
           </item>
           <item row="1" column="0" colspan="2">
            <widget class="QCheckBox" name="verticalAutoGapCheck">
+            <property name="toolTip">
+             <string>Create columns with guides, with an additional gap between the columns</string>
+            </property>
             <property name="text">
              <string>Use &amp;Gap:</string>
             </property>
@@ -284,6 +332,9 @@
             <layout class="QGridLayout">
              <item row="0" column="0">
               <widget class="QRadioButton" name="verticalPageAutoButton">
+               <property name="toolTip">
+                <string>Create the selected number of vertical guides relative to the current page</string>
+               </property>
                <property name="text">
                 <string>&amp;Page</string>
                </property>
@@ -297,6 +348,9 @@
              </item>
              <item row="1" column="0">
               <widget class="QRadioButton" name="verticalMarginsAutoButton">
+               <property name="toolTip">
+                <string>Create the selected number of vertical guides relative to the current page's margins</string>
+               </property>
                <property name="text">
                 <string>M&amp;argins</string>
                </property>
@@ -307,6 +361,9 @@
              </item>
              <item row="2" column="0">
               <widget class="QRadioButton" name="verticalSelectionAutoButton">
+               <property name="toolTip">
+                <string>Create the selected number of vertical guides relative to the current selection of items</string>
+               </property>
                <property name="text">
                 <string>S&amp;election</string>
                </property>
@@ -323,6 +380,9 @@
        </item>
        <item row="1" column="0" colspan="2">
         <widget class="QPushButton" name="applyToAllAutoButton">
+         <property name="toolTip">
+          <string>Apply the shown guides to all pages in the document</string>
+         </property>
          <property name="text">
           <string>Appl&amp;y to All Pages</string>
          </property>

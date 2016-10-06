@@ -224,55 +224,7 @@ void GuideManager::changeEvent(QEvent *e)
 
 void GuideManager::languageChange()
 {
-	setWindowTitle( tr("Guide Manager") );
-	tabWidget->setTabText(0, tr( "&Single") );
-	tabWidget->setTabText(1, tr( "&Column/Row") );
-	tabWidget->setTabText(2, tr( "&Misc") );
-	horizontalGroupBox->setTitle( tr("Horizontals") );
-	verticalGroupBox->setTitle( tr("Verticals") );
-	addHorButton->setText( tr("&Add") );
-	delHorButton->setText( tr("D&elete") );
-	addVerButton->setText( tr("A&dd") );
-	delVerButton->setText( tr("De&lete") );
-	lockCheck->setText( tr("&Lock Guides") );
-	applyToAllStdButton->setText( tr("Appl&y to All Pages") );
-	horizontalAutoGroup->setTitle( tr("Horizontals") );
-	verticalAutoGroup->setTitle( tr("Verticals") );
-	textLabel1->setText( tr("&Number:") );
-	textLabel1_2->setText( tr("Nu&mber:") );
-	horizontalAutoGapCheck->setText( tr("U&se Gap:") );
-	verticalAutoGapCheck->setText( tr("Use &Gap:") );
-	groupBox->setTitle( tr("Refer to") );
-	groupBox_2->setTitle( tr("Refer to") );
-	horizontalPageAutoButton->setText( tr("&Page") );
-	horizontalMarginsAutoButton->setText( tr("M&argins") );
-	horizontalSelectionAutoButton->setText( tr("S&election") );
-	verticalPageAutoButton->setText( tr("&Page") );
-	verticalMarginsAutoButton->setText( tr("M&argins") );
-	verticalSelectionAutoButton->setText( tr("S&election") );
-	applyToAllAutoButton->setText( tr("Appl&y to All Pages") );
-	deletePageButton->setText( tr("Delete Guides from Current &Page") );
-	deleteAllGuides->setText( tr("Delete Guides from &All Pages") );
-	//tooltips
-	addHorButton->setToolTip( tr("Add a new horizontal guide") );
-	delHorButton->setToolTip( tr("Delete the selected horizontal guide") );
-	addVerButton->setToolTip( tr("Add a new vertical guide") );
-	delVerButton->setToolTip( tr("Delete the selected vertical guide") );
-	lockCheck->setToolTip( tr("Lock the guides") );
-	applyToAllStdButton->setToolTip( tr("Apply to all pages") );
-	horizontalAutoCountSpin->setToolTip( tr("Number of horizontal guides to create") );
-	verticalAutoCountSpin->setToolTip( tr("Number of vertical guides to create") );
-	horizontalAutoGapCheck->setToolTip( tr("Create rows with guides, with an additional gap between the rows") );
-	verticalAutoGapCheck->setToolTip( tr("Create columns with guides, with an additional gap between the columns") );
-	horizontalPageAutoButton->setToolTip( tr("Create the selected number of horizontal guides relative to the current page") );
-	horizontalMarginsAutoButton->setToolTip( tr("Create the selected number of horizontal guides relative to the current page's margins") );
-	horizontalSelectionAutoButton->setToolTip( tr("Create the selected number of horizontal guides relative to the current selection of items") );
-	verticalPageAutoButton->setToolTip( tr("Create the selected number of vertical guides relative to the current page") );
-	verticalMarginsAutoButton->setToolTip( tr("Create the selected number of vertical guides relative to the current page's margins") );
-	verticalSelectionAutoButton->setToolTip( tr("Create the selected number of vertical guides relative to the current selection of items") );
-	applyToAllAutoButton->setToolTip( tr("Apply the shown guides to all pages in the document") );
-	deletePageButton->setToolTip( tr("Delete all guides shown on the current page") );
-	deleteAllGuides->setToolTip( tr("Delete all guides from all pages") );
+	retranslateUi(this);
 }
 
 void GuideManager::unitChange()
