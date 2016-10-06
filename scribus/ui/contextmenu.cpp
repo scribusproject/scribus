@@ -221,16 +221,18 @@ void ContextMenu::createMenuItems_Selection()
 			addSeparator();
 			QAction *act2 = addMenu(menuMark);
 			act2->setText( tr("Insert Mark"));
-			menuMark->addAction(m_ScMW->scrActions["insertMarkVariableText"]);
 			if (m_actionList.contains("insertMarkAnchor"))
 			{
 				menuMark->addAction(m_ScMW->scrActions["insertMarkAnchor"]);
-				menuMark->addAction(m_ScMW->scrActions["insertMarkItem"]);
-				menuMark->addAction(m_ScMW->scrActions["insertMark2Mark"]);
 				if (!currItem->isNoteFrame())
+				{
 					menuMark->addAction(m_ScMW->scrActions["insertMarkNote"]);
 				//	menuMark->addAction(m_AP->scrActions["insertMarkIndex"]);
+				}
+				menuMark->addAction(m_ScMW->scrActions["insertMarkItem"]);
+				menuMark->addAction(m_ScMW->scrActions["insertMark2Mark"]);
 			}
+			menuMark->addAction(m_ScMW->scrActions["insertMarkVariableText"]);
 			if (currItem->itemText.cursorPosition() < currItem->itemText.length())
 			{
 				if (currItem->itemText.hasMark(currItem->itemText.cursorPosition()))

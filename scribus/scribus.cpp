@@ -1028,10 +1028,10 @@ void ScribusMainWindow::initMenuBar()
 	scrMenuMgr->createMenu("InsertMark", tr("Marks"), "Insert");
 	scrMenuMgr->addMenuItemString("InsertMark", "Insert");
 	scrMenuMgr->addMenuItemString("insertMarkAnchor", "InsertMark");
-	scrMenuMgr->addMenuItemString("insertMark2Mark", "InsertMark");
-	scrMenuMgr->addMenuItemString("insertMarkItem", "InsertMark");
-	scrMenuMgr->addMenuItemString("insertMarkVariableText", "InsertMark");
 	scrMenuMgr->addMenuItemString("insertMarkNote", "InsertMark");
+	scrMenuMgr->addMenuItemString("insertMarkItem", "InsertMark");
+	scrMenuMgr->addMenuItemString("insertMark2Mark", "InsertMark");
+	scrMenuMgr->addMenuItemString("insertMarkVariableText", "InsertMark");
 
 	//Page menu
 	scrMenuMgr->createMenu("Page", ActionManager::defaultMenuNameEntryTranslated("Page"));
