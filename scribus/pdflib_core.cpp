@@ -3246,9 +3246,9 @@ bool PDFLibCore::PDF_ItemIsOnPage(PageItem* item, const Page* page, const QList<
 
 	int groupID = -1;
 	if (item->isGroupControl && item->Groups.count() > 1)
-		groupID = topItem->Groups.first();
+		groupID = topItem->Groups.last();
 	if (!item->isGroupControl && item->Groups.count() > 0)
-		groupID = topItem->Groups.first();
+		groupID = topItem->Groups.last();
 
 	if (groupID >= 0)
 	{
@@ -3278,7 +3278,9 @@ bool PDFLibCore::PDF_ItemIsOnPage(PageItem* item, const Page* page, const QList<
 	double w2 = qMax(topItem->BoundingW + ilw, 1.0);
 	double h2 = qMax(topItem->BoundingH + ilw, 1.0);
 
-	if (!( qMax( x, x2 ) <= qMin( x+w, x2+w2 ) && qMax( y, y2 ) <= qMin( y+h1, y2+h2 )))
+	QRectF pageRect(x, y, w, h1);
+	QRectF itemRect(x2, y2, w2, h2);
+	if (!itemRect.intersects(pageRect))
 		return false;
 	return true;
 }
