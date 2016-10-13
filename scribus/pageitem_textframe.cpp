@@ -65,6 +65,7 @@ for which a new license (GPL+exception) is in place.
 #include "units.h"
 #include "util.h"
 #include "util_math.h"
+#include "util_text.h"
 
 using namespace std;
 
@@ -875,60 +876,6 @@ static void fillInTabLeaders(LineControl & current)
 	}
 }
 
-
-static bool checkCJK(QChar ch) {
-	unsigned int code = ch.unicode();
-	if (	(0x2E80 < code && code < 0x2EFF)   ||  // CJK Radicals Supplement
-		(0x3000 < code && code < 0x303F)   ||  // CJK Symbols and Punctuation
-		(0x3040 < code && code <= 0x30FF)  ||  // Hiragana, Katakana
-		(0x31C0 < code && code < 0x31EF)   ||  // CJK Strokes
-		(0x3200 < code && code < 0x32FF)   ||  // Enclosed CJK Letters and Months
-		(0x3300 < code && code < 0x33FF)   ||  // CJK Compatibility
-		(0x3400 < code && code < 0x4DBF)   ||  // CJK Unified Ideographs Extension A
-		(0x4E00 < code && code < 0x9FFF)   ||  // CJK Unified Ideographs
-		(0xF900 < code && code < 0xFAFF)   ||  // CJK Compatibility Ideographs
-		(0xFE30 < code && code < 0xFE4F)   ||  // CJK Compatibility Forms
-		(0x20000 < code && code < 0x2A6DF) ||  // CJK Unified Ideographs Extension B
-		(0x2A700 < code && code < 0x2B73F) ||  // CJK Unified Ideographs Extension C
-		(0x2B740 < code && code < 0x2B81F) ||  // CJK Unified Ideographs Extension D
-		(0x2F800 < code && code < 0x2FA1F) ||  // CJK Compatibility Ideographs Supplement
-		(0xFF01 < code && code < 0xFF0F)   ||
-		(0xFF1A < code && code < 0xFF20)   ||
-		(0xFF58 < code && code < 0xFFDC)   ||
-		(code == 0x3000) ||
-		(code == 0x3002) ||
-		(code == 0x201C) ||
-		(code == 0x201D))
-		return true;
-	else
-		return false;
-}
-
-static bool allowedCJKBreakAfter(QChar ch) {
-	unsigned int code[] = {0x201C, 0x300C, 0xFF08, 0xFF3B, 0xFF5B, 0xFF5F, 0xFF62, 0xFF0D, 0};
-	for (int i = 0; code[i]; ++i)
-		if (code[i] == ch.unicode())
-			return false;
-	return true;
-}
-
-static int allowedCJKBreakBefore(QChar ch) {
-	unsigned int code[] =
-	 {0x201D, 0x3001, 0x3002, 0x300D, 0xFF01, 0xFF09, 0xFF0C, 0xFF0E, 0xFF1A,
-	  0xFF1B, 0xFF1F, 0xFF3D, 0xFF5D, 0xFF60, 0xFF63, 0xFF64, 0};
-	for (int i = 0; code[i]; ++i)
-		if (code[i] == ch.unicode())
-			return false;
-	return true;
-}
-
-static bool implicitBreak(QChar f, QChar s) {
-	if (checkCJK(f) && checkCJK(s)) {
-		return allowedCJKBreakAfter(f) && allowedCJKBreakBefore(s);
-	} else
-		return false;
-}
-
 /// called when line length is known and line is to be justified
 static void justifyLine(const ParagraphStyle& style, LineControl& curr)
 {
@@ -1729,7 +1676,7 @@ void PageItem_TextFrame::layout()
 						case SpecialChars::CJK_KANJI:
 						case SpecialChars::CJK_KANA:
 						case SpecialChars::CJK_NOTOP:
-							lastGlyph.xadvance += charStyle.fontSize() / 10 / 4;
+							lastGlyph.xadvance += charStyle.fontSize() / 10 / 4 / lastGlyph.scaleH;
 						}
 					} else {	// next char is CJK, too
 						switch(curStat & SpecialChars::CJK_CHAR_MASK){
@@ -1740,7 +1687,7 @@ void PageItem_TextFrame::layout()
 							case SpecialChars::CJK_COMMA:
 							case SpecialChars::CJK_PERIOD:
 							case SpecialChars::CJK_MIDPOINT:
-								lastGlyph.xadvance -= charStyle.fontSize() / 10 / 2;
+								lastGlyph.xadvance -= charStyle.fontSize() / 10 / 2 / lastGlyph.scaleH;
 							}
 							break;
 						case SpecialChars::CJK_COMMA:
@@ -1748,13 +1695,13 @@ void PageItem_TextFrame::layout()
 							switch(nextStat & SpecialChars::CJK_CHAR_MASK){
 							case SpecialChars::CJK_FENCE_BEGIN:
 							case SpecialChars::CJK_FENCE_END:
-								lastGlyph.xadvance -= charStyle.fontSize() / 10 / 2;;
+								lastGlyph.xadvance -= charStyle.fontSize() / 10 / 2 / lastGlyph.scaleH;
 							}
 							break;
 						case SpecialChars::CJK_MIDPOINT:
 							switch(nextStat & SpecialChars::CJK_CHAR_MASK){
 							case SpecialChars::CJK_FENCE_BEGIN:
-								lastGlyph.xadvance -= charStyle.fontSize() / 10 / 2;
+								lastGlyph.xadvance -= charStyle.fontSize() / 10 / 2 / lastGlyph.scaleH;
 							}
 							break;
 						case SpecialChars::CJK_FENCE_BEGIN:
@@ -1765,7 +1712,7 @@ void PageItem_TextFrame::layout()
 								prevStat = SpecialChars::getCJKAttr(itemText.text(glyphRuns[i - 1].lastChar())) & SpecialChars::CJK_CHAR_MASK;
 							}
 							if (prevStat == SpecialChars::CJK_FENCE_BEGIN){
-								lastGlyph.xadvance -= charStyle.fontSize() / 10 / 2;
+								lastGlyph.xadvance -= charStyle.fontSize() / 10 / 2 / lastGlyph.scaleH;
 								lastGlyph.xoffset -= charStyle.fontSize() / 10 / 2;
 							}
 							break;
@@ -1778,7 +1725,7 @@ void PageItem_TextFrame::layout()
 						case SpecialChars::CJK_KANA:
 						case SpecialChars::CJK_NOTOP:
 							// use the size of the current char instead of the next one
-							lastGlyph.xadvance += charStyle.fontSize() / 10 / 4;
+							lastGlyph.xadvance += charStyle.fontSize() / 10 / 4 / lastGlyph.scaleH;
 						}
 					}
 				}
