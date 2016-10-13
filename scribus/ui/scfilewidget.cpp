@@ -66,8 +66,11 @@ QString ScFileWidget::selectedFile()
 	return l.at(0);
 }
 
-/* Hack to make the previews in our file dialogs useable again
-   needed e.g on OpenSuse patched Qt versions */
+/* Hack to make the previews in our file dialogs useable again,
+   needed e.g on OpenSuse KDE. Otherwise file would open on first
+   click, leaving user no time to see preview. Drawback: in other 
+   Linux desktop environment, this may force user to click OK for
+   opening/saving file. */
 void ScFileWidget::accept()
 {
 #ifndef Q_OS_LINUX
