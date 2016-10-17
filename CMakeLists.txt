@@ -414,6 +414,8 @@ ELSE (WANT_NORPATH OR WANT_DISTROBUILD)
   set(CMAKE_INSTALL_RPATH ${PLUGINDIR})
 ENDIF (WANT_NORPATH OR WANT_DISTROBUILD)
 
+# Set the XDG mime stuff
+SET(MIMEDIR "${CMAKE_INSTALL_DATAROOTDIR}/mime/packages/")
 
 ##############################################################################################################
 ########## Build Setup                                                                              ##########
