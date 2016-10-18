@@ -1295,6 +1295,7 @@ void CanvasMode::commonkeyPressEvent_NormalNodeEdit(QKeyEvent *e)
 			bool resizing=((buttonModifiers & Qt::AltModifier) && !(buttonModifiers & Qt::ControlModifier));
 			bool resizingsmaller=(resizing && (buttonModifiers & Qt::ShiftModifier));
 			double resizeBy=1.0;
+
 			//CB with control locked out due to the requirement of moveby of 0.01, we cannot support
 			//resizeby 10 units unless we move to supporting modifier keys that most people don't have.
 			//if (buttonModifiers & Qt::ControlModifier)
@@ -1304,6 +1305,17 @@ void CanvasMode::commonkeyPressEvent_NormalNodeEdit(QKeyEvent *e)
 				resizeBy*=-1.0;
 
 			PageItem *currItem = m_doc->m_Selection->itemAt(0);
+
+			//#8860
+			//rotationFC is a temporary variable to manage items rotation:
+			//currently an item with e.g. 40° rotation is as 360° - 40° = 320°
+			double rotationFC = fabs(360.0 - currItem->rotation());
+			double radRotation = rotationFC * M_PI / 180.0;
+
+			bool moveImage = false;
+			if ((currItem->asImageFrame() || currItem->asLatexFrame() || currItem->asOSGFrame()) && currItem->imageIsAvailable && !currItem->fitImageToFrame())
+				moveImage = true;
+
 			switch (kk)
 			{
 			case Qt::Key_Backspace:
@@ -1379,13 +1391,29 @@ void CanvasMode::commonkeyPressEvent_NormalNodeEdit(QKeyEvent *e)
 							m_view->TransformPoly(10, 0, resizeBy/unitGetRatioFromIndex(m_doc->unitIndex()));
 						else if (!currItem->sizeLocked())
 						{
-							if (!resizingsmaller)
+							if ((rotationFC > 0.0 && rotationFC < 45.0) || (rotationFC >= 315.0 && rotationFC <= 360.0))
 							{
-								m_doc->moveItem(-resizeBy, 0, currItem);
-								currItem->moveImageXYOffsetBy(resizeBy / currItem->imageXScale(), 0);
+								m_doc->sizeItem(currItem->width() + resizeBy, currItem->height(), currItem);
+								m_doc->moveItem(-resizeBy * cos(radRotation), resizeBy * sin(radRotation), currItem);
+								if (moveImage)
+									currItem->moveImageXYOffsetBy(resizeBy / currItem->imageXScale(), 0);
+							}
+							else if (rotationFC >= 45.0 && rotationFC < 135.0)
+							{
+								m_doc->sizeItem(currItem->width(), currItem->height() + resizeBy, currItem);
+								m_doc->moveItem(-resizeBy * sin(radRotation), -resizeBy * cos(radRotation), currItem);
+								if (moveImage)
+									currItem->moveImageXYOffsetBy(0, resizeBy / currItem->imageYScale());
+							}
+							else if (rotationFC >= 135.0 && rotationFC < 225.0)
+							{
+								m_doc->sizeItem(currItem->width() + resizeBy, currItem->height(), currItem);
+							}
+							else if (rotationFC >= 225.0 && rotationFC < 315.0)
+							{
+								m_doc->sizeItem(currItem->width(), currItem->height() + resizeBy, currItem);
 							}
 							currItem->Sizing = false;
-							m_doc->sizeItem(currItem->width()+resizeBy, currItem->height(), currItem);
 						}
 					}
 					currItem->update();
@@ -1453,13 +1481,29 @@ void CanvasMode::commonkeyPressEvent_NormalNodeEdit(QKeyEvent *e)
 							m_view->TransformPoly(11, 0, resizeBy/unitGetRatioFromIndex(m_doc->unitIndex()));
 						else if (!currItem->sizeLocked())
 						{
-							if (resizingsmaller)
+							if ((rotationFC > 0.0 && rotationFC < 45.0) || (rotationFC >= 315.0 && rotationFC <= 360.0))
 							{
-								m_doc->moveItem(-resizeBy, 0, currItem);
-								currItem->moveImageXYOffsetBy(resizeBy / currItem->imageXScale(), 0);
+								m_doc->sizeItem(currItem->width() + resizeBy, currItem->height(), currItem);
+							}
+							else if (rotationFC >= 45.0 && rotationFC < 135.0)
+							{
+								m_doc->sizeItem(currItem->width(), currItem->height() + resizeBy, currItem);
+							}
+							else if (rotationFC >= 135.0 && rotationFC < 225.0)
+							{
+								m_doc->sizeItem(currItem->width() + resizeBy, currItem->height(), currItem);
+								m_doc->moveItem(-resizeBy * cos(radRotation), resizeBy * sin(radRotation), currItem);
+								if (moveImage)
+									currItem->moveImageXYOffsetBy(resizeBy / currItem->imageXScale(), 0);
+							}
+							else if (rotationFC >= 225.0 && rotationFC < 315.0)
+							{
+								m_doc->sizeItem(currItem->width(), currItem->height() + resizeBy, currItem);
+								m_doc->moveItem(-resizeBy * sin(radRotation), -resizeBy * cos(radRotation), currItem);
+								if (moveImage)
+									currItem->moveImageXYOffsetBy(0, resizeBy / currItem->imageYScale());
 							}
 							currItem->Sizing = false;
-							m_doc->sizeItem(currItem->width() + resizeBy, currItem->height(), currItem);
 						}
 					}
 					currItem->update();
@@ -1527,13 +1571,29 @@ void CanvasMode::commonkeyPressEvent_NormalNodeEdit(QKeyEvent *e)
 							m_view->TransformPoly(12, 0, resizeBy/unitGetRatioFromIndex(m_doc->unitIndex()));
 						else
 						{
-							if (!resizingsmaller)
+							if ((rotationFC > 0.0 && rotationFC < 45.0) || (rotationFC >= 315.0 && rotationFC <= 360.0))
 							{
-								m_doc->moveItem(0, -resizeBy, currItem);
-								currItem->moveImageXYOffsetBy(0, resizeBy / currItem->imageYScale());
+								m_doc->sizeItem(currItem->width(), currItem->height() + resizeBy, currItem);
+								m_doc->moveItem(-resizeBy * sin(radRotation), -resizeBy * cos(radRotation), currItem);
+								if (moveImage)
+									currItem->moveImageXYOffsetBy(0, resizeBy / currItem->imageYScale());
+							}
+							else if (rotationFC >= 45.0 && rotationFC < 135.0)
+							{
+								m_doc->sizeItem(currItem->width() + resizeBy, currItem->height(), currItem);
+							}
+							else if (rotationFC >= 135.0 && rotationFC < 225.0)
+							{
+								m_doc->sizeItem(currItem->width(), currItem->height() + resizeBy, currItem);
+							}
+							else if (rotationFC >= 225.0 && rotationFC < 315.0)
+							{
+								m_doc->sizeItem(currItem->width() + resizeBy, currItem->height(), currItem);
+								m_doc->moveItem(-resizeBy * cos(radRotation), resizeBy * sin(radRotation), currItem);
+								if (moveImage)
+									currItem->moveImageXYOffsetBy(resizeBy / currItem->imageXScale(), 0);
 							}
 							currItem->Sizing = false;
-							m_doc->sizeItem(currItem->width(), currItem->height() + resizeBy, currItem);
 						}
 					}
 					currItem->update();
@@ -1601,13 +1661,29 @@ void CanvasMode::commonkeyPressEvent_NormalNodeEdit(QKeyEvent *e)
 							m_view->TransformPoly(13, 0, resizeBy/unitGetRatioFromIndex(m_doc->unitIndex()));
 						else if (!currItem->sizeLocked())
 						{
-							if (resizingsmaller)
+							if ((rotationFC > 0.0 && rotationFC < 45.0) || (rotationFC >= 315.0 && rotationFC <= 360.0))
 							{
-								m_doc->moveItem(0, -resizeBy, currItem);
-								currItem->moveImageXYOffsetBy(0, resizeBy / currItem->imageYScale());
+								m_doc->sizeItem(currItem->width(), currItem->height() + resizeBy, currItem);
+							}
+							else if (rotationFC >= 45.0 && rotationFC < 135.0)
+							{
+								m_doc->sizeItem(currItem->width() + resizeBy, currItem->height(), currItem);
+								m_doc->moveItem(-resizeBy * cos(radRotation), resizeBy * sin(radRotation), currItem);
+								if (moveImage)
+									currItem->moveImageXYOffsetBy(resizeBy / currItem->imageXScale(), 0);
+							}
+							else if (rotationFC >= 135.0 && rotationFC < 225.0)
+							{
+								m_doc->sizeItem(currItem->width(), currItem->height() + resizeBy, currItem);
+								m_doc->moveItem(-resizeBy * sin(radRotation), -resizeBy * cos(radRotation), currItem);
+								if (moveImage)
+									currItem->moveImageXYOffsetBy(0, resizeBy / currItem->imageYScale());
+							}
+							else if (rotationFC >= 225.0 && rotationFC < 315.0)
+							{
+								m_doc->sizeItem(currItem->width() + resizeBy, currItem->height(), currItem);
 							}
 							currItem->Sizing = false;
-							m_doc->sizeItem(currItem->width(), currItem->height() + resizeBy, currItem);
 						}
 					}
 					currItem->update();
