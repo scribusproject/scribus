@@ -669,7 +669,7 @@ void ObjectBox::render(TextLayoutPainter *p) const
 	double oldX = m_item->xPos();
 	double oldY = m_item->yPos();
 	bool oldEM = m_item->isEmbedded;
-	m_item->isEmbedded = false;
+	//m_item->isEmbedded = false; // #14311: fix discrepancy of display between 1.5.1 and 1.5.2+
 	const CharStyle& charStyle = style();
 
 	p->translate(x(), y() - ascent());
