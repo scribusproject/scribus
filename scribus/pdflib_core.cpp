@@ -4464,11 +4464,8 @@ bool PDFLibCore::setTextCh(PageItem *ite, uint PNr, double x,  double y, uint d,
 				else
 					mm.translate(x + hl->glyph.xoffset + embedded->gXpos * (style.scaleH() / 1000.0), (y + hl->glyph.yoffset - (embedded->gHeight * (style.scaleV() / 1000.0)) + embedded->gYpos * (style.scaleV() / 1000.0)));
 				if (style.baselineOffset() != 0)
-					mm.translate(0, embedded->gHeight * (style.baselineOffset() / 1000.0));
-				if (style.scaleH() != 1000)
-					mm.scale(style.scaleH() / 1000.0, 1);
-				if (style.scaleV() != 1000)
-					mm.scale(1, style.scaleV() / 1000.0);
+					mm.translate(0, -embedded->gHeight * (style.baselineOffset() / 1000.0));
+				mm.scale(style.scaleH() / 1000.0, style.scaleV() / 1000.0);
 				mm.rotate(embedded->rotation());
 				cl.map( mm );
 				embedded->PoLine = cl;
