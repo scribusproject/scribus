@@ -384,12 +384,6 @@ ELSE (APPLEBUNDLE)
 ENDIF (APPLEBUNDLE)
 ADD_DEFINITIONS("-DLIBDIR=\\\"${CMAKE_INSTALL_PREFIX}/${LIBDIR}\\\"")
 
-#C++11 Support
-IF(WANT_CPP11)
-	MESSAGE(STATUS "Enabling C++11 compiler features")
-	set(CMAKE_CXX_STANDARD 11)
-ENDIF(WANT_CPP11)
-
 #PLUGINS
 IF(WIN32)
 	SET(PLUGINDIR "plugins")
@@ -661,9 +655,17 @@ ADD_DEFINITIONS(${Qt5PrintSupport_DEFINITIONS})
 
 MESSAGE(STATUS "Qt VERSION: ${Qt5Widgets_VERSION}")
 IF (NOT WANT_CPP11 AND Qt5Widgets_VERSION_MAJOR EQUAL 5 AND Qt5Widgets_VERSION_MINOR GREATER 6)
-    MESSAGE(FATAL_ERROR "Your Qt version is at least 5.7.0, please set CMake command line option -DWANT_CPP11=1 for C++ 11 and Qt 5.7.0 support")
+    MESSAGE(STATUS "Your Qt version is 5.7.0 or superior, enabling C++11 compiler features")
+	SET(WANT_CPP11 1)
 ENDIF (NOT WANT_CPP11 AND Qt5Widgets_VERSION_MAJOR EQUAL 5 AND Qt5Widgets_VERSION_MINOR GREATER 6)
 #>> Qt
+
+
+#C++11 Support
+IF(WANT_CPP11)
+    MESSAGE(STATUS "Enabling C++11 compiler features")
+	set(CMAKE_CXX_STANDARD 11)
+ENDIF(WANT_CPP11)
 
 #<< ZLIB, PNG
 IF (WIN32)
