@@ -16198,7 +16198,7 @@ void ScribusDoc::applyPrefsPageSizingAndMargins(bool resizePages, bool resizeMas
 	}
 }
 
-void ScribusDoc::itemSelection_UnlinkTextFrameWithText( Selection *customSelection, bool cutText)
+void ScribusDoc::itemSelection_UnlinkTextFrameAndKeepText( Selection *customSelection, bool cutText)
 {
 	Selection* itemSelection = (customSelection!=0) ? customSelection : m_Selection;
 	assert(itemSelection!=0);
@@ -16217,9 +16217,9 @@ void ScribusDoc::itemSelection_UnlinkTextFrameWithText( Selection *customSelecti
 	itemSelection->itemAt(0)->emitAllToGUI();
 }
 
-void ScribusDoc::itemSelection_UnlinkTextFrameWithTextCut( Selection *customSelection)
+void ScribusDoc::itemSelection_UnlinkTextFrameAndCutText( Selection *customSelection)
 {
-	itemSelection_UnlinkTextFrameWithText(customSelection, true);
+	itemSelection_UnlinkTextFrameAndKeepText(customSelection, true);
 }
 
 void ScribusDoc::itemSelection_UnWeld()

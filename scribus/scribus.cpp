@@ -912,8 +912,7 @@ void ScribusMainWindow::initMenuBar()
 	scrMenuMgr->addMenuItemString("TextLinking", "Item");
 	scrMenuMgr->addMenuItemString("toolsLinkTextFrame", "TextLinking");
 	scrMenuMgr->addMenuItemString("toolsUnlinkTextFrame", "TextLinking");
-	scrMenuMgr->addMenuItemString("toolsUnlinkTextFrameWithTextCopy", "TextLinking");
-	scrMenuMgr->addMenuItemString("toolsUnlinkTextFrameWithTextCut", "TextLinking");
+	scrMenuMgr->addMenuItemString("toolsUnlinkTextFrameAndCutText", "TextLinking");
 	scrMenuMgr->createMenu("ItemPathOps", tr("Path Tools"), "Item");
 	scrMenuMgr->addMenuItemString("ItemPathOps", "Item");
 	scrMenuMgr->addMenuItemString("itemCombinePolygons", "ItemPathOps");

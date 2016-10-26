@@ -869,9 +869,7 @@ void ActionManager::initToolsMenuActions()
 	scrActions->insert(name, new ScrAction(ScrAction::DataInt, im->loadPixmap("16/color-picker.png"), im->loadPixmap("22/color-picker.png"), "", defaultKey(name), mainWindow, modeEyeDropper));
 	name="toolsCopyProperties";
 	scrActions->insert(name, new ScrAction(ScrAction::DataInt, im->loadPixmap("wizard16.png"), im->loadPixmap("wizard.png"), "", defaultKey(name), mainWindow, modeCopyProperties));
-	name="toolsUnlinkTextFrameWithTextCopy";
-	scrActions->insert(name, new ScrAction(ScrAction::DataInt, QPixmap(), QPixmap(), "", defaultKey(name), mainWindow, modeUnlinkFrames));
-	name="toolsUnlinkTextFrameWithTextCut";
+	name="toolsUnlinkTextFrameAndCutText";
 	scrActions->insert(name, new ScrAction(ScrAction::DataInt, QPixmap(), QPixmap(), "", defaultKey(name), mainWindow, modeUnlinkFrames));
 
 	//PDF toolbar
@@ -929,7 +927,7 @@ void ActionManager::initToolsMenuActions()
 	*modeActionNames << "toolsSelect" << "toolsInsertTextFrame" << "toolsInsertImageFrame" << "toolsInsertTable";
 	*modeActionNames << "toolsInsertShape" << "toolsInsertPolygon" << "toolsInsertArc" << "toolsInsertSpiral" << "toolsInsertLine" << "toolsInsertBezier";
 	*modeActionNames << "toolsInsertFreehandLine" << "toolsInsertCalligraphicLine" << "toolsInsertRenderFrame" << "toolsRotate" << "toolsZoom" << "toolsEditContents";
-	*modeActionNames << "toolsEditWithStoryEditor" << "toolsLinkTextFrame" << "toolsUnlinkTextFrame"; //<< "toolsUnlinkTextFrameWithTextCopy" << "toolsUnlinkTextFrameWithTextCut";
+	*modeActionNames << "toolsEditWithStoryEditor" << "toolsLinkTextFrame" << "toolsUnlinkTextFrame"; //<< "toolsUnlinkTextFrameAndCutText";
 	*modeActionNames << "toolsEyeDropper" << "toolsCopyProperties";
 	*modeActionNames << "toolsPDFPushButton" << "toolsPDFRadioButton" << "toolsPDFTextField" << "toolsPDFCheckBox" << "toolsPDFComboBox" << "toolsPDFListBox" << "toolsPDFAnnotText" << "toolsPDFAnnotLink";
 #ifdef HAVE_OSG
@@ -1242,8 +1240,7 @@ void ActionManager::disconnectNewDocActions()
 	disconnect( (*scrActions)["itemRaiseToTop"], 0, 0, 0);
 	disconnect( (*scrActions)["itemLower"], 0, 0, 0);
 	disconnect( (*scrActions)["itemRaise"], 0, 0, 0);
-	disconnect( (*scrActions)["toolsUnlinkTextFrameWithTextCopy"], 0, 0, 0 );
-	disconnect( (*scrActions)["toolsUnlinkTextFrameWithTextCut"], 0, 0, 0 );
+	disconnect( (*scrActions)["toolsUnlinkTextFrameAndCutText"], 0, 0, 0 );
 }
 
 void ActionManager::connectNewDocActions(ScribusDoc *currDoc)
@@ -1283,8 +1280,7 @@ void ActionManager::connectNewDocActions(ScribusDoc *currDoc)
 	connect( (*scrActions)["itemRaiseToTop"], SIGNAL(triggered()), currDoc, SLOT(bringItemSelectionToFront()) );
 	connect( (*scrActions)["itemLower"], SIGNAL(triggered()), currDoc, SLOT(itemSelection_LowerItem()) );
 	connect( (*scrActions)["itemRaise"], SIGNAL(triggered()), currDoc, SLOT(itemSelection_RaiseItem()) );
-	connect( (*scrActions)["toolsUnlinkTextFrameWithTextCopy"], SIGNAL(triggered()), currDoc, SLOT(itemSelection_UnlinkTextFrameWithText()) );
-	connect( (*scrActions)["toolsUnlinkTextFrameWithTextCut"], SIGNAL(triggered()), currDoc, SLOT(itemSelection_UnlinkTextFrameWithTextCut()) );
+	connect( (*scrActions)["toolsUnlinkTextFrameAndCutText"], SIGNAL(triggered()), currDoc, SLOT(itemSelection_UnlinkTextFrameAndCutText()) );
 }
 
 void ActionManager::disconnectNewViewActions()
@@ -1701,8 +1697,7 @@ void ActionManager::languageChange()
 	(*scrActions)["toolsEditWithStoryEditor"]->setText( tr("Edit Text..."));
 	(*scrActions)["toolsLinkTextFrame"]->setTexts( tr("Link Text Frames"));
 	(*scrActions)["toolsUnlinkTextFrame"]->setTexts( tr("Unlink Text Frames"));
-	(*scrActions)["toolsUnlinkTextFrameWithTextCopy"]->setTexts( tr("Unlink Text Frame with Text Copy"));
-	(*scrActions)["toolsUnlinkTextFrameWithTextCut"]->setTexts( tr("Unlink Text Frame with Text Cut"));
+	(*scrActions)["toolsUnlinkTextFrameAndCutText"]->setTexts( tr("Unlink Text Frames and Cut Text"));
 	(*scrActions)["toolsEyeDropper"]->setTexts( tr("&Eye Dropper"));
 	(*scrActions)["toolsCopyProperties"]->setTexts( tr("Copy Item Properties"));
 
@@ -2173,8 +2168,7 @@ void ActionManager::createDefaultMenus()
 		<< "itemsUnWeld"
 		<< "itemWeld"
 		<< "itemEditWeld"
-		<< "toolsUnlinkTextFrameWithTextCopy"
-		<< "toolsUnlinkTextFrameWithTextCut";
+		<< "toolsUnlinkTextFrameAndCutText";
 	
 	//Insert
 	++itmenu;
@@ -2429,8 +2423,7 @@ void ActionManager::createDefaultNonMenuActions()
 	itnmenua->second << "toolsEditContents";
 	itnmenua->second << "toolsLinkTextFrame";
 	itnmenua->second << "toolsUnlinkTextFrame";
-//	itnmenua->second << "toolsUnlinkTextFrameWithTextCopy";
-//	itnmenua->second << "toolsUnlinkTextFrameWithTextCut";
+//	itnmenua->second << "toolsUnlinkTextFrameAndCutText";
 	itnmenua->second << "toolsEyeDropper";
 	itnmenua->second << "toolsCopyProperties";
 	itnmenua->second << "toolsPDFPushButton";
