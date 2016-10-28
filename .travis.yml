@@ -23,13 +23,13 @@ matrix:
 before_install:
 # Linux
 - if [ $TRAVIS_OS_NAME == linux ]; then 
-      sudo apt-add-repository ppa:beineri/opt-qt56-trusty -y;
+      sudo apt-add-repository ppa:beineri/opt-qt57-trusty -y;
       sudo apt-add-repository ppa:ricotz/testing -y;
       sudo apt-get update -qq; 
       sudo apt-get install -y cmake libboost-python-dev libcups2-dev libhunspell-dev
       libhyphen-dev liblcms2-dev libpodofo-dev libtiff-dev libxml2-dev
-      python-all-dev zlib1g-dev qt56base qt56declarative
-      qt56tools libgraphicsmagick++1-dev
+      python-all-dev zlib1g-dev qt57base qt57declarative
+      qt57tools libgraphicsmagick++1-dev
       libopenscenegraph-dev libpoppler-dev libcairo2-dev libwpg-dev libmspub-dev
       libcdr-dev libvisio-dev;
     fi
@@ -53,7 +53,7 @@ before_install:
 
 script:
   - if [ $TRAVIS_OS_NAME == linux ]; then
-      source /opt/qt56/bin/qt56-env.sh;
+      source /opt/qt57/bin/qt57-env.sh;
       if [[ $CC == gcc ]]; then
         export NPROC=8;
       else
