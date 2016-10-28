@@ -655,7 +655,7 @@ ADD_DEFINITIONS(${Qt5PrintSupport_DEFINITIONS})
 
 MESSAGE(STATUS "Qt VERSION: ${Qt5Widgets_VERSION}")
 IF (NOT WANT_CPP11 AND Qt5Widgets_VERSION_MAJOR EQUAL 5 AND Qt5Widgets_VERSION_MINOR GREATER 6)
-    MESSAGE(STATUS "Your Qt version is 5.7.0 or superior, enabling C++11 compiler features")
+	MESSAGE(STATUS "Your Qt version is 5.7.0 or superior, enabling C++11 compiler features")
 	SET(WANT_CPP11 1)
 ENDIF (NOT WANT_CPP11 AND Qt5Widgets_VERSION_MAJOR EQUAL 5 AND Qt5Widgets_VERSION_MINOR GREATER 6)
 #>> Qt
@@ -663,7 +663,7 @@ ENDIF (NOT WANT_CPP11 AND Qt5Widgets_VERSION_MAJOR EQUAL 5 AND Qt5Widgets_VERSIO
 
 #C++11 Support
 IF(WANT_CPP11)
-    MESSAGE(STATUS "Enabling C++11 compiler features")
+	MESSAGE(STATUS "Enabling C++11 compiler features")
 	set(CMAKE_CXX_STANDARD 11)
 ENDIF(WANT_CPP11)
 
