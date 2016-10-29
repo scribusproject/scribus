@@ -9945,9 +9945,9 @@ bool PageItem::connectToGUI()
 	if (!m_Doc->m_Selection->primarySelectionIs(this))
 		return false;
 
-	connect(this, SIGNAL(frameType(int)), m_Doc->scMW(), SLOT(HaveNewSel()));
-	connect(this, SIGNAL(frameType(int)), m_Doc, SLOT(selectionChanged()));
-	connect(this, SIGNAL(textStyle(int)), m_Doc->scMW(), SLOT(setStyleEffects(int)));
+	connect(this, SIGNAL(frameType(int)), m_Doc->scMW(), SLOT(HaveNewSel()), Qt::UniqueConnection);
+	connect(this, SIGNAL(frameType(int)), m_Doc, SLOT(selectionChanged()), Qt::UniqueConnection);
+	connect(this, SIGNAL(textStyle(int)), m_Doc->scMW(), SLOT(setStyleEffects(int)), Qt::UniqueConnection);
 
 	return true;
 }
