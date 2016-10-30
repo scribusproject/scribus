@@ -1912,25 +1912,10 @@ void ScribusView::PasteToPage()
 	int ac = Doc->Items->count();
 	if (UndoManager::undoEnabled())
 		activeTransaction = undoManager->beginTransaction(Doc->currentPage()->getUName(), 0, Um::Paste, "", Um::IPaste);
-/*	if (ScMimeData::clipboardHasScribusFragment())
-	{
-		bool savedAlignGrid = Doc->SnapGrid;
-		bool savedAlignGuides = Doc->SnapGuides;
-		QByteArray fragment   = ScMimeData::clipboardScribusFragment();
-		Selection pastedObjects = Doc->serializer()->deserializeObjects(fragment);
-		Doc->SnapGrid = savedAlignGrid;
-		Doc->SnapGuides = savedAlignGuides;
-		pastedObjects.setGroupRect();
-		double gx, gy, gh, gw;
-		pastedObjects.getGroupRect(&gx, &gy, &gw, &gh);
-		Doc->moveGroup(dragX - gx, dragY - gy, &pastedObjects);
-		Doc->m_Selection->clear();
-	}
-	else
-	{ */
-		QString buffer = ScMimeData::clipboardScribusElem();
-		emit LoadElem(buffer, dragX, dragY, false, false, Doc, this);
-//	}
+
+	QString buffer = ScMimeData::clipboardScribusElem();
+	emit LoadElem(buffer, dragX, dragY, false, false, Doc, this);
+
 	Doc->DraggedElem = 0;
 	Doc->DragElements.clear();
 	updateContents();
@@ -1945,8 +1930,11 @@ void ScribusView::PasteToPage()
 	}
 	if (newObjects.count() > 1)
 	{
-		newObjects.setGroupRect();
 		double gx, gy, gh, gw;
+		newObjects.setGroupRect();
+		newObjects.getGroupRect(&gx, &gy, &gw, &gh);
+		Doc->moveGroup(dragX - gx, dragY - gy, &newObjects);
+		newObjects.setGroupRect();
 		newObjects.getGroupRect(&gx, &gy, &gw, &gh);
 		double nx = gx;
 		double ny = gy;
