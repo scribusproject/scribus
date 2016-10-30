@@ -1019,22 +1019,33 @@ IF (APPLE)
 ENDIF (APPLE)
 
 #Install the .desktop file
+CONFIGURE_FILE(
+	${CMAKE_CURRENT_SOURCE_DIR}/scribus.desktop.in
+	${CMAKE_CURRENT_SOURCE_DIR}/scribus.desktop
+)
 INSTALL(FILES
 	scribus.desktop
+	RENAME scribus${TAG_VERSION}.desktop
 	DESTINATION ${DESKTOPDIR}
 )
 
 #Install our MIME data
 INSTALL(FILES
 	scribus.xml
+	RENAME scribus${TAG_VERSION}.xml
 	DESTINATION ${MIMEDIR}
 )
 
 
 #Install the appdata file
+CONFIGURE_FILE(
+	${CMAKE_CURRENT_SOURCE_DIR}/scribus.appdata.xml.in
+	${CMAKE_CURRENT_SOURCE_DIR}/scribus.appdata.xml
+)
 INSTALL(FILES
-scribus.appdata.xml
-DESTINATION ${APPDATADIR}
+	scribus.appdata.xml
+	RENAME scribus${TAG_VERSION}.appdata.xml
+	DESTINATION ${APPDATADIR}
 )
 
 
