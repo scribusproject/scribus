@@ -1,0 +1,7 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<scribus>
+	<brokenfont type="ttf" filetype="zip" URL="https://dl.dropboxusercontent.com/u/15505940/latofonts.com" description="Lato 2.0" files="Lato2OFL.zip" license="OFL.txt" version="1.0" />
+	<brokenfont type="ttf" filetype="zip" URL="http://downloads.sourceforge.net/project/dejavu/dejavu/2.34" description="Deja Vu" files="dejavu-fonts-ttf-2.34.zip" license="anotffontlicense.txt" version="1.0" />
+	<font type="ttf" filetype="zip" URL="http://blokkfont.com/files" description="Blokk Font" files="BLOKK_BLOKKNeue_release.zip" license="CCBYSA4.0" version="1.0" />
+	<brokenfont type="otf" filetype="zip" URL="http://services.scribus.net/fonts" description="Linux Libertine 5.30" files="LinLibertineOTF_5.3.0_2012_07_02.tgz" license="GPL/OFL" version="5.3" />
+</scribus>
