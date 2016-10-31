@@ -40,6 +40,7 @@ for which a new license (GPL+exception) is in place.
 #include <QFileInfo>
 #include <QList>
 #include <QDataStream>
+#include <QScopedPointer>
 
 #include "scxmlstreamwriter.h"
 
@@ -135,13 +136,13 @@ QString Scribus150Format::saveElements(double xp, double yp, double wp, double h
 bool Scribus150Format::savePalette(const QString & fileName)
 {
 	QString fileDir = QFileInfo(fileName).absolutePath();
-	std::auto_ptr<QIODevice> outputFile;
+	QScopedPointer<QIODevice> outputFile;
 	outputFile.reset( new QFile(fileName) );
 	if (!outputFile->open(QIODevice::WriteOnly))
 		return false;
 	ScXmlStreamWriter docu;
 	docu.setAutoFormatting(true);
-	docu.setDevice(outputFile.get());
+	docu.setDevice(outputFile.data());
 	docu.writeStartDocument();
 	docu.writeStartElement("SCRIBUSCOLORS");
 	writeColors(docu);
@@ -150,7 +151,7 @@ bool Scribus150Format::savePalette(const QString & fileName)
 	docu.writeEndElement();
 	docu.writeEndDocument();
 	bool  writeSucceed = false;
-	const QFile* qFile = dynamic_cast<QFile*>(outputFile.get());
+	const QFile* qFile = dynamic_cast<QFile*>(outputFile.data());
 	writeSucceed = (qFile->error() == QFile::NoError);
 	outputFile->close();
 	return writeSucceed;
@@ -181,7 +182,7 @@ bool Scribus150Format::saveFile(const QString & fileName, const FileFormat & /* 
 	if (QFile::exists(tmpFileName))
 		return false;
 
-	std::auto_ptr<QIODevice> outputFile;
+	QScopedPointer<QIODevice> outputFile;
 	if (fileName.toLower().right(2) == "gz")
 	{
 		aFile.setFileName(tmpFileName);
@@ -197,7 +198,7 @@ bool Scribus150Format::saveFile(const QString & fileName, const FileFormat & /* 
 
 	ScXmlStreamWriter docu;
 	docu.setAutoFormatting(true);
-	docu.setDevice(outputFile.get());
+	docu.setDevice(outputFile.data());
 	docu.writeStartDocument();
 	docu.writeStartElement("SCRIBUSUTF8NEW");
 	docu.writeAttribute("Version", QString(VERSION));
@@ -423,7 +424,7 @@ bool Scribus150Format::saveFile(const QString & fileName, const FileFormat & /* 
 	docu.writeEndDocument();
 
 	bool  writeSucceed = false;
-	const QFile* qFile = dynamic_cast<QFile*>(outputFile.get());
+	const QFile* qFile = dynamic_cast<QFile*>(outputFile.data());
 	if (qFile)
 		writeSucceed = (qFile->error() == QFile::NoError);
 	else

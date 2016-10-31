@@ -16,6 +16,7 @@ for which a new license (GPL+exception) is in place.
 #include <valarray>
 #include <windows.h>
 #include <QByteArray>
+#include <QScopedPointer>
 using namespace ::std;
 
 #include "scconfig.h"
@@ -204,7 +205,7 @@ bool ScPrintEngine_GDI::gdiPrintPreview(ScribusDoc* doc, ScPage* page, QImage* i
 bool ScPrintEngine_GDI::printPages(ScribusDoc* doc, PrintOptions& options, HDC printerDC, DEVMODEW* devMode, QString& fileName)
 {
 	int  jobId;
-	auto_ptr<MultiProgressDialog> progress;
+	QScopedPointer<MultiProgressDialog> progress;
 	PrintPageFunc printPageFunc = NULL;
 	bool  success = true;
 	WCHAR docName[512];
@@ -256,7 +257,7 @@ bool ScPrintEngine_GDI::printPages(ScribusDoc* doc, PrintOptions& options, HDC p
 		progress.reset(new MultiProgressDialog(QObject::tr("Printing..."), CommonStrings::tr_Cancel, doc->scMW()));
 		progress->setOverallTotalSteps(options.pageNumbers.size());
 		progress->setOverallProgress(0);
-		connect(progress.get(), SIGNAL(canceled()), this, SLOT(cancelRequested()));
+		connect(progress.data(), SIGNAL(canceled()), this, SLOT(cancelRequested()));
 		progress->show();
 	}
 
