@@ -373,7 +373,7 @@ p, li { white-space: pre-wrap; }
                  <item>
                   <widget class="QCheckBox" name="foldIsBackSide" >
                    <property name="text" >
-                    <string>Double sided</string>
+                    <string>Facing Pages</string>
                    </property>
                   </widget>
                  </item>

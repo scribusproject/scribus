@@ -1599,16 +1599,16 @@
         </widget>
        </item>
        <item>
-        <widget class="QRadioButton" name="doublePageLeftRadioButton">
+        <widget class="QRadioButton" name="facingPagesLeftRadioButton">
          <property name="text">
-          <string>Double Page Left</string>
+          <string>Facing Pages Left</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QRadioButton" name="doublePageRightRadioButton">
+        <widget class="QRadioButton" name="facingPagesRightRadioButton">
          <property name="text">
-          <string>Double Page Right</string>
+          <string>Facing Pages Right</string>
          </property>
         </widget>
        </item>
@@ -1880,8 +1880,8 @@
   <tabstop>showPagePreviewsCheckBox</tabstop>
   <tabstop>singlePageRadioButton</tabstop>
   <tabstop>continuousPagesRadioButton</tabstop>
-  <tabstop>doublePageLeftRadioButton</tabstop>
-  <tabstop>doublePageRightRadioButton</tabstop>
+  <tabstop>facingPagesLeftRadioButton</tabstop>
+  <tabstop>facingPagesRightRadioButton</tabstop>
   <tabstop>useViewerDefaultsRadioButton</tabstop>
   <tabstop>useFullScreenRadioButton</tabstop>
   <tabstop>useBookmarksRadioButton</tabstop>

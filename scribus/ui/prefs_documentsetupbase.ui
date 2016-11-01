@@ -242,9 +242,9 @@
           </widget>
          </item>
          <item row="1" column="1">
-          <widget class="QRadioButton" name="doublePageRadioButton">
+          <widget class="QRadioButton" name="facingPagesRadioButton">
            <property name="text">
-            <string>Double Page</string>
+            <string>Facing Pages</string>
            </property>
            <attribute name="buttonGroup">
             <string notr="true">pageLayoutButtonGroup</string>
@@ -750,7 +750,7 @@
   <tabstop>applySizesToAllPagesCheckBox</tabstop>
   <tabstop>applySizesToAllMasterPagesCheckBox</tabstop>
   <tabstop>singlePageRadioButton</tabstop>
-  <tabstop>doublePageRadioButton</tabstop>
+  <tabstop>facingPagesPageRadioButton</tabstop>
   <tabstop>threeFoldRadioButton</tabstop>
   <tabstop>fourFoldRadioButton</tabstop>
   <tabstop>layoutFirstPageIsComboBox</tabstop>

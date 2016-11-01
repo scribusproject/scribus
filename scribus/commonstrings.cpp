@@ -331,11 +331,11 @@ void CommonStrings::languageChange()
 	CommonStrings::trCustomPageSize = tr( "Custom", "CommonStrings, custom page size" );
 
 	CommonStrings::pageSet1    = "Single Page";
-	CommonStrings::pageSet2    = "Double Sided";
+	CommonStrings::pageSet2    = "Facing Pages";
 	CommonStrings::pageSet3    = "3-Fold";
 	CommonStrings::pageSet4    = "4-Fold";
 	CommonStrings::trPageSet1  = tr( "Single Page" );
-	CommonStrings::trPageSet2  = tr( "Double Sided" );
+	CommonStrings::trPageSet2  = tr( "Facing Pages" );
 	CommonStrings::trPageSet3  = tr( "3-Fold" );
 	CommonStrings::trPageSet4  = tr( "4-Fold" );
 

@@ -314,9 +314,9 @@ void PDFExportDialog::updateDocOptions()
 		pgl = PDFOptions::SinglePage;
 	else if (Options->continuousPages->isChecked())
 		pgl = PDFOptions::OneColumn;
-	else if (Options->doublePageLeft->isChecked())
+	else if (Options->facingPagesLeft->isChecked())
 		pgl = PDFOptions::TwoColumnLeft;
-	else if (Options->doublePageRight->isChecked())
+	else if (Options->facingPagesRight->isChecked())
 		pgl = PDFOptions::TwoColumnRight;
 	m_opts.PageLayout = pgl;
 	if (Options->actionCombo->currentIndex() != 0)

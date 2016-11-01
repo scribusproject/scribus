@@ -36,7 +36,7 @@ predefined constant for this, one of: UNIT_INCHES, UNIT_MILLIMETERS,\n\
 UNIT_PICAS, UNIT_POINTS.\n\
 \n\
 pagesType = One of the predefined constants PAGE_n. PAGE_1 is single page,\n\
-PAGE_2 is for double sided documents, PAGE_3 is for 3 pages fold and\n\
+PAGE_2 is for facing pages documents, PAGE_3 is for 3 pages fold and\n\
 PAGE_4 is 4-fold.\n\
 \n\
 firstPageOrder = What is position of first page in the document.\n\

@@ -244,8 +244,8 @@ TabPDFOptions::TabPDFOptions(QWidget* parent, PDFOptions & Optionen,
 	// Tooltips : Viewer tab
 	singlePage->setToolTip( "<qt>" + tr( "Show the document in single page mode" ) + "</qt>" );
 	continuousPages->setToolTip( "<qt>" + tr( "Show the document in single page mode with the pages displayed continuously end to end like a scroll" ) + "</qt>" );
-	doublePageLeft->setToolTip( "<qt>" + tr( "Show the document with facing pages, starting with the first page displayed on the left" ) + "</qt>" );
-	doublePageRight->setToolTip( "<qt>" + tr( "Show the document with facing pages, starting with the first page displayed on the right" ) + "</qt>" );
+	facingPagesLeft->setToolTip( "<qt>" + tr( "Show the document with facing pages, starting with the first page displayed on the left" ) + "</qt>" );
+	facingPagesRight->setToolTip( "<qt>" + tr( "Show the document with facing pages, starting with the first page displayed on the right" ) + "</qt>" );
 	useViewDefault->setToolTip( "<qt>" + tr( "Use the viewer's defaults or the user's preferences if set differently from the viewer defaults" ) + "</qt>" );
 	useFullScreen->setToolTip( "<qt>" + tr( "Enables viewing the document in full screen" ) + "</qt>" );
 	useBookmarks->setToolTip( "<qt>" + tr( "Display the bookmarks upon opening" ) + "</qt>" );
@@ -546,9 +546,9 @@ void TabPDFOptions::restoreDefaults(PDFOptions & Optionen,
 	else if (Opts.PageLayout == PDFOptions::OneColumn)
 		continuousPages->setChecked(true);
 	else if (Opts.PageLayout == PDFOptions::TwoColumnLeft)
-		doublePageLeft->setChecked(true);
+		facingPagesLeft->setChecked(true);
 	else if (Opts.PageLayout == PDFOptions::TwoColumnRight)
-		doublePageRight->setChecked(true);
+		facingPagesRight->setChecked(true);
 	if ((Opts.Version == PDFOptions::PDFVersion_15) || (Opts.Version == PDFOptions::PDFVersion_X4))
 		useLayers2->setEnabled(true);
 	else

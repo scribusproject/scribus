@@ -43,7 +43,7 @@ Prefs_DocumentSetup::Prefs_DocumentSetup(QWidget* parent, ScribusDoc* doc)
 	}
 
 	pageLayoutButtonGroup->setId(singlePageRadioButton,0);
-	pageLayoutButtonGroup->setId(doublePageRadioButton,1);
+	pageLayoutButtonGroup->setId(facingPagesRadioButton,1);
 	pageLayoutButtonGroup->setId(threeFoldRadioButton,2);
 	pageLayoutButtonGroup->setId(fourFoldRadioButton,3);
 	singlePageRadioButton->setChecked(true);
@@ -153,7 +153,7 @@ void Prefs_DocumentSetup::restoreDefaults(struct ApplicationPrefs *prefsData)
 			singlePageRadioButton->setChecked(true);
 			break;
 		case 1:
-			doublePageRadioButton->setChecked(true);
+			facingPagesRadioButton->setChecked(true);
 			break;
 		case 2:
 			threeFoldRadioButton->setChecked(true);

@@ -427,9 +427,9 @@ void Prefs_PDFExport::restoreDefaults(struct ApplicationPrefs *prefsData, const 
 		else if (Opts.PageLayout == PDFOptions::OneColumn)
 			continuousPagesRadioButton->setChecked(true);
 		else if (Opts.PageLayout == PDFOptions::TwoColumnLeft)
-			doublePageLeftRadioButton->setChecked(true);
+			facingPagesLeftRadioButton->setChecked(true);
 		else if (Opts.PageLayout == PDFOptions::TwoColumnRight)
-			doublePageRightRadioButton->setChecked(true);
+			facingPagesRightRadioButton->setChecked(true);
 		if ((Opts.Version == PDFOptions::PDFVersion_15) || (Opts.Version == PDFOptions::PDFVersion_X4))
 			useLayersRadioButton->setEnabled(true);
 		else
@@ -661,8 +661,8 @@ void Prefs_PDFExport::restoreDefaults(struct ApplicationPrefs *prefsData, const 
 		subsetAllButton->setToolTip( "<qt>" + tr("Embed only subset fonts with glyphs used in the document into the PDF") + "</qt>");
 		singlePageRadioButton->setToolTip( "<qt>" + tr( "Show the document in single page mode" ) + "</qt>" );
 		continuousPagesRadioButton->setToolTip( "<qt>" + tr( "Show the document in single page mode with the pages displayed continuously end to end like a scroll" ) + "</qt>" );
-		doublePageLeftRadioButton->setToolTip( "<qt>" + tr( "Show the document with facing pages, starting with the first page displayed on the left" ) + "</qt>" );
-		doublePageRightRadioButton->setToolTip( "<qt>" + tr( "Show the document with facing pages, starting with the first page displayed on the right" ) + "</qt>" );
+		facingPagesLeftRadioButton->setToolTip( "<qt>" + tr( "Show the document with facing pages, starting with the first page displayed on the left" ) + "</qt>" );
+		facingPagesRightRadioButton->setToolTip( "<qt>" + tr( "Show the document with facing pages, starting with the first page displayed on the right" ) + "</qt>" );
 		useViewerDefaultsRadioButton->setToolTip( "<qt>" + tr( "Use the viewer's defaults or the user's preferences if set differently from the viewer defaults" ) + "</qt>" );
 		useFullScreenRadioButton->setToolTip( "<qt>" + tr( "Enables viewing the document in full screen" ) + "</qt>" );
 		useBookmarksRadioButton->setToolTip( "<qt>" + tr( "Display the bookmarks upon opening" ) + "</qt>" );

@@ -986,16 +986,16 @@
              </widget>
             </item>
             <item>
-             <widget class="QRadioButton" name="doublePageLeft">
+             <widget class="QRadioButton" name="facingPagesLeft">
               <property name="text">
-               <string>Double Page Left</string>
+               <string>Facing Page Left</string>
               </property>
              </widget>
             </item>
             <item>
-             <widget class="QRadioButton" name="doublePageRight">
+             <widget class="QRadioButton" name="facingPagesRight">
               <property name="text">
-               <string>Double Page Right</string>
+               <string>Facing Page Right</string>
               </property>
              </widget>
             </item>
@@ -1971,8 +1971,8 @@ when PDF document is opened:</string>
   <tabstop>PagePrev</tabstop>
   <tabstop>singlePage</tabstop>
   <tabstop>continuousPages</tabstop>
-  <tabstop>doublePageLeft</tabstop>
-  <tabstop>doublePageRight</tabstop>
+  <tabstop>facingPagesLeft</tabstop>
+  <tabstop>facingPagesRight</tabstop>
   <tabstop>useViewDefault</tabstop>
   <tabstop>useFullScreen</tabstop>
   <tabstop>useBookmarks</tabstop>
