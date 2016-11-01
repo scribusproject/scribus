@@ -101,56 +101,11 @@ void SMPStyleWidget::changeEvent(QEvent *e)
 
 void SMPStyleWidget::languageChange()
 {
-/***********************************/
-/*      Begin Tooltips             */
-/***********************************/
-// These are for the paragraph style
-
-	parentCombo->setToolTip(     tr("Parent Style"));
-	lineSpacingMode->setToolTip( tr("Line Spacing Mode"));
-	lineSpacing->setToolTip(     tr("Line Spacing"));
-	spaceAbove->setToolTip(      tr("Space Above"));
-	spaceBelow->setToolTip(      tr("Space Below"));
-	lineSpacingLabel->setToolTip(lineSpacing->toolTip());
-	spaceAboveLabel->setToolTip(spaceAbove->toolTip());
-	spaceBelowLabel->setToolTip(spaceBelow->toolTip());
-//	optMarginCombo->setToolTip(tr("Activate an optical margins layout"));
-//	optMarginLabel->setToolTip(optMarginCombo->toolTip());
-	//CB Unneeded, gets in the way of single widget tooltips
-	//dropCapsBox->setToolTip(      tr("Enable or disable drop cap"));
-	dropCapLines->setToolTip(    tr("Drop Cap Lines"));
-	bulletCharTableButton->setToolTip(tr("Enhanced Char Table for inserting customs chars as bullets"));
-	parEffectOffset->setToolTip(         tr("Paragraph Effects Chars Offset"));
-	parEffectIndentBox->setToolTip(      tr("Hang Paragraph Effect before paragraph indent"));
-	parEffectCharStyleCombo->setToolTip( tr("Choose character style or leave blank for use default paragraph style"));
+	retranslateUi(this);
 	alignment->languageChange();
 	tabList->first_->setToolTip( tr("First Line Indent"));
 	tabList->left_->setToolTip(  tr("Left Indent"));
 	tabList->right_->setToolTip( tr("Right Indent"));
-	//CB Unneeded, gets in the way of single widget tooltips
-	//tabList->setToolTip(         tr("Tabulators"));
-	
-	minSpaceSpin->setToolTip(   tr("Maximum white space compression allowed.\nExpressed as a percentage of the current white space value."));
-	minSpaceLabel->setToolTip(minSpaceSpin->toolTip());
-	minGlyphExtSpin->setToolTip(tr("Maximum compression of glyphs"));
-	minGlyphExtLabel->setToolTip(minGlyphExtSpin->toolTip());
-	maxGlyphExtSpin->setToolTip(tr("Maximum extension of glyphs"));
-	maxGlyphExtLabel->setToolTip(maxGlyphExtSpin->toolTip());
-
-	keepLinesStart->setToolTip("<qt>" + tr("Ensure that first lines of a paragraph won't end up separated from the rest (known as widow/orphan control)") + "</qt>");
-	keepLinesEnd->setToolTip("<qt>" + tr("Ensure that last lines of a paragraph won't end up separated from the rest (known as widow/orphan control)") + "</qt>");
-	keepLabelStart->setToolTip(keepLinesStart->toolTip());
-	keepLabelEnd->setToolTip(keepLinesEnd->toolTip());
-	keepTogether->setToolTip("<qt>" + tr("If checked, ensures that the paragraph won't be split across multiple pages or columns") + "</qt>");
-	keepWithNext->setToolTip("<qt>" + tr("If checked, automatically moves the paragraph to the next column or page if the next paragraph isn't on the same page or column") + "</qt>");
-	backColor_->setToolTip(      tr("Background Color"));
-	backShade_->setToolTip(      tr("Background Shade"));
-	backIcon->setToolTip(backColor_->toolTip());
-	backShadeLabel->setToolTip(backShade_->toolTip());
-
-/***********************************/
-/*      End Tooltips               */
-/***********************************/
 
 	int  oldLineSpacingModeIndex = lineSpacingMode->currentIndex();
 	bool lineSpacingModeBlocked = lineSpacingMode->blockSignals(true);
@@ -161,59 +116,18 @@ void SMPStyleWidget::languageChange()
 	lineSpacingMode->setCurrentIndex(oldLineSpacingModeIndex);
 	lineSpacingMode->blockSignals(lineSpacingModeBlocked);
 
-//	optMarginCombo->clear();
-//	optMarginCombo->addItem(tr("None"), ParagraphStyle::OM_None);
-//	optMarginCombo->addItem(tr("Left Protruding"), ParagraphStyle::OM_LeftProtruding);
-//	optMarginCombo->addItem(tr("Right Protruding"), ParagraphStyle::OM_RightProtruding);
-//	optMarginCombo->addItem(tr("Left Hanging Punctuation"), ParagraphStyle::OM_LeftHangingPunct);
-//	optMarginCombo->addItem(tr("Right Hanging Punctuation"), ParagraphStyle::OM_RightHangingPunct);
-//	optMarginCombo->addItem(tr("Default"), ParagraphStyle::OM_Default);
-//
-//	optMarginLabel->setText(tr("Optical Margins:"));
-
 	lineSpacing->setSuffix(unitGetSuffixFromIndex(0));
 	spaceAbove->setSuffix(unitGetSuffixFromIndex(0));
 	spaceBelow->setSuffix(unitGetSuffixFromIndex(0));
-	parentLabel->setText( tr("Based On:"));
-	distancesBox->setTitle( tr("Alignment and Distances"));
 
-	textFlowBox->setTitle( tr("Orphans and Widows"));
-	keepLabelStart->setText( tr("Don't separate first"));
 	keepLinesStart->setSuffix( tr(" lines"));
-	keepLabelEnd->setText( tr("Don't separate last"));
 	keepLinesEnd->setSuffix( tr(" lines"));
-	keepTogether->setText( tr("Do not split paragraph"));
-	keepWithNext->setText( tr("Keep with next paragraph"));
-
-	//parEffectsBox->setTitle(tr("Paragraph Effects"));
-	bulletBox->setTitle(           tr("Bullets"));
-	bulletCharLabel->setText(      tr("Bullet Character(s):"));
-	bulletCharTableButton->setText(tr("Character Table"));
-
-	numBox->setTitle(       tr("Numbering"));
-	numLevelLabel->setText( tr("Level:"));
-	numNewLabel->setText( tr("Create New Set:"));
-	numFormatLabel->setText(tr("Numbering Style:"));
-	numStartLabel->setText( tr("Start with:"));
-	numPrefixLabel->setText(tr("Prefix:"));
-	numSuffixLabel->setText(tr("Suffix:"));
-	numRestartLabel->setText( tr("Restart:"));
-	numRestartOtherBox->setText( tr("Restart after other format"));
-	numRestartHigherBox->setText(tr("Restart after higher level"));
 
 	int  oldNumRestartIndex = numRestartCombo->currentIndex();
 	bool numRestartComboBlocked = numRestartCombo->blockSignals(true);
 	fillNumRestartCombo();
 	numRestartCombo->setCurrentIndex(oldNumRestartIndex);
 	numRestartCombo->blockSignals(numRestartComboBlocked);
-
-	dropCapsBox->setTitle( tr("Drop Caps"));
-	dropCapsLineLabel->setText( tr("Lines:"));
-
-	parEffectCharStyleComboLabel->setText(tr("Character Style for Effect:"));
-	distFromTextLabel->setText(tr("Distance from Text:"));
-	parEffectIndentBox->setText(tr("AutoIndent"));
-	parentParEffectsButton->setText(tr("Use Parent`s Values"));
 
 /* #13455 stop making the font 2ce as big
 	QFont font1;
@@ -224,25 +138,6 @@ void SMPStyleWidget::languageChange()
 	((QComboBox*) bulletStrEdit)->setFont(font1);
 	(bulletStrEdit->lineEdit())->setFont(font1);
 */
-	tabsBox->setTitle(tr("Tabulators and Indentation"));
-	tabWidget->setTabText(0, tr("Properties"));
-	tabWidget->setTabText(1, tr("Paragraph Effects"));
-	tabWidget->setTabText(2, tr("Character Style"));
-	
-	advSettingsGroupBox->setTitle( tr("Advanced Settings"));
-	minSpaceLabel->setText(        tr("Min. Space Width:"));
-	glyphExtensionLabel->setText(  tr("Glyph Extension "));
-	minGlyphExtLabel->setText(     tr("Min:", "Glyph Extension"));
-	maxGlyphExtLabel->setText(     tr("Max:", "Glyph Extension"));
-
-	opticalMarginsGroupBox->setTitle( tr("Optical Margins"));
-	optMarginRadioNone->setText(      tr("None", "Optical Margins"));
-	optMarginRadioBoth->setText(      tr("Both Sides", "Optical Margins"));
-	optMarginRadioLeft->setText(      tr("Left Only", "Optical Margins"));
-	optMarginRadioRight->setText(     tr("Right Only", "Optical Margins"));
-
-	optMarginDefaultButton->setText(  tr("Reset to Default"));
-	optMarginParentButton->setText(   tr("Use Parent Value"));
 
 	if (backColor_->count() > 0)
 	{

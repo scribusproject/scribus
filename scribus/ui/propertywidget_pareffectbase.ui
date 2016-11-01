@@ -29,7 +29,7 @@
          <string>Number of lines used by the drop cap</string>
         </property>
         <property name="text">
-         <string>Lines</string>
+         <string>Lines:</string>
         </property>
        </widget>
       </item>
@@ -84,7 +84,7 @@
       <item row="0" column="0">
        <widget class="QLabel" name="bulletCharLabel">
         <property name="text">
-         <string>Bullet Char(s)</string>
+         <string>Bullet Char(s):</string>
         </property>
         <property name="buddy">
          <cstring>bulletStrEdit</cstring>
@@ -98,6 +98,9 @@
           <horstretch>0</horstretch>
           <verstretch>0</verstretch>
          </sizepolicy>
+        </property>
+        <property name="toolTip">
+         <string>Enhanced Character Table to choose bullet characters</string>
         </property>
         <property name="text">
          <string>Char Table</string>
@@ -121,7 +124,7 @@
         <item>
          <widget class="QLabel" name="numLevelLabel">
           <property name="text">
-           <string>Level</string>
+           <string>Level:</string>
           </property>
           <property name="buddy">
            <cstring>numLevelSpin</cstring>
@@ -151,7 +154,7 @@
         <item>
          <widget class="QLabel" name="numStartLabel">
           <property name="text">
-           <string>Start</string>
+           <string>Start:</string>
           </property>
          </widget>
         </item>
@@ -172,7 +175,7 @@
         <item>
          <widget class="QLabel" name="numComboLabel">
           <property name="text">
-           <string>Set</string>
+           <string>Set:</string>
           </property>
          </widget>
         </item>
@@ -199,7 +202,7 @@
         <item>
          <widget class="QLabel" name="numFormatLabel">
           <property name="text">
-           <string>Format</string>
+           <string>Format:</string>
           </property>
           <property name="buddy">
            <cstring>numFormatCombo</cstring>
@@ -223,7 +226,7 @@
         <item>
          <widget class="QLabel" name="numPrefixLabel">
           <property name="text">
-           <string>Prefix</string>
+           <string>Prefix:</string>
           </property>
           <property name="buddy">
            <cstring>numPrefix</cstring>
@@ -249,7 +252,7 @@
         <item>
          <widget class="QLabel" name="numSuffixLabel">
           <property name="text">
-           <string>Suffix</string>
+           <string>Suffix:</string>
           </property>
           <property name="buddy">
            <cstring>numSuffix</cstring>
@@ -273,7 +276,7 @@
       <item row="6" column="0">
        <widget class="QLabel" name="peCharStyleLabel">
         <property name="text">
-         <string>Char Style</string>
+         <string>Char Style:</string>
         </property>
         <property name="buddy">
          <cstring>peCharStyleCombo</cstring>
@@ -281,14 +284,18 @@
        </widget>
       </item>
       <item row="6" column="1">
-       <widget class="CharStyleComboBox" name="peCharStyleCombo"/>
+       <widget class="CharStyleComboBox" name="peCharStyleCombo">
+        <property name="toolTip">
+         <string>Choose Character Style or leave blank to use default Paragraph Style</string>
+        </property>
+       </widget>
       </item>
       <item row="1" column="0" colspan="2">
        <layout class="QHBoxLayout" name="horizontalLayout_5">
         <item>
          <widget class="QCheckBox" name="peIndent">
           <property name="text">
-           <string>AutoIndent</string>
+           <string>Auto-Indent</string>
           </property>
          </widget>
         </item>
@@ -308,7 +315,7 @@
         <item>
          <widget class="QLabel" name="peOffsetLabel">
           <property name="text">
-           <string>Offset</string>
+           <string>Offset:</string>
           </property>
           <property name="buddy">
            <cstring>peOffset</cstring>
