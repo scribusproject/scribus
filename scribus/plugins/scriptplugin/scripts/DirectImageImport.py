@@ -59,7 +59,7 @@ except ImportError:
 try:
     from PIL import Image
 except ImportError:
-    print "Unable to import the Python Imaging Library module."
+    messageBox("PIL","Unable to import the Python Imaging Library module.",ICON_WARNING,BUTTON_OK)
     sys.exit(1)
     
 def main():
