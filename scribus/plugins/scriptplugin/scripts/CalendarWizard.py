@@ -135,6 +135,12 @@ localization = {
       'Mai', 'Juni', 'Juli', 'August', 'September',
       'Oktober', 'November', 'Dezember'],
      ['Montag','Dienstag','Mittwoch','Donnerstag','Freitag','Samstag','Sonntag']],
+# Greek added by vserghi
+'Greek' :
+    [['Ιανουάριος', 'Φεβρουάριος', 'Μάρτιος', 'Απρίλιος',
+      'Μάιος', 'Ιούνιος', 'Ιούλιος', 'Αύγουστος', 'Σεπτέμβριος',
+      'Οκτώβριος', 'Νοέμβριος', 'Δεκέμβριος'],
+     ['Δευτέρα','Τρίτη','Τετάρτη','Πέμπτη','Παρασκευή','Σάββατο','Κυριακή']],
 # Hungarian by Gergely Szalay szalayg@gmail.com	      
 'Hungarian' :
     [['Január', 'Február', 'Március', 'Április',
@@ -384,7 +390,7 @@ class ScVerticalCalendar(ScCalendar):
         """ Compute base metrics here. Page layout is bordered by margins and
         virtually divided by golden mean 'cut' in the bottom. The calendar is
         in the bottom part - top is occupied with empty image frame. """
-        # gloden mean
+        # golden mean
         ScCalendar.setupDocVariables(self)
         self.gmean = self.height - self.goldenMean(self.height) + self.margint
         # calendar size
