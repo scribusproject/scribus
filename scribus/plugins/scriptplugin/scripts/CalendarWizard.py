@@ -135,6 +135,12 @@ localization = {
       'Mai', 'Juni', 'Juli', 'August', 'September',
       'Oktober', 'November', 'Dezember'],
      ['Montag','Dienstag','Mittwoch','Donnerstag','Freitag','Samstag','Sonntag']],
+# Greek added by vserghi
+'Greek' :
+    [['Ιανουάριος', 'Φεβρουάριος', 'Μάρτιος', 'Απρίλιος',
+      'Μάιος', 'Ιούνιος', 'Ιούλιος', 'Αύγουστος', 'Σεπτέμβριος',
+      'Οκτώβριος', 'Νοέμβριος', 'Δεκέμβριος'],
+     ['Δευτέρα','Τρίτη','Τετάρτη','Πέμπτη','Παρασκευή','Σάββατο','Κυριακή']],
 # Hungarian by Gergely Szalay szalayg@gmail.com	      
 'Hungarian' :
     [['Január', 'Február', 'Március', 'Április',
