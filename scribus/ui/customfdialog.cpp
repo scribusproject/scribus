@@ -519,7 +519,7 @@ void CustomFDialog::okClicked()
 	if (selFile.isEmpty())
 		return;
 	QFileInfo fi(selFile);
-	if (fi.isDir())
+	if (fi.isDir() && (fileDialog->fileMode() != QFileDialog::DirectoryOnly))
 		fileDialog->gotoSelectedDirectory();
 	else
 		accept();
