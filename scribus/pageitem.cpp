@@ -1339,6 +1339,12 @@ void PageItem::link(PageItem* nxt, bool addPARSEP)
 		}
 	}
 	invalid = true;
+	PageItem* prev = this;
+	while (prev->BackBox && !prev->BackBox->frameOverflows())
+	{
+		prev->BackBox->invalid = true;
+		prev = prev->BackBox;
+	}
 	while (nxt)
 	{
 		nxt->itemText = itemText;

@@ -1306,11 +1306,14 @@ void PageItem_TextFrame::layout()
 	//fast validate empty frames
 	if (itLen == 0 || firstInFrame() == itLen)
 	{
-		PageItem* next = this;
+		PageItem_TextFrame * next = this;
 		while (next != NULL)
 		{
 			next->invalid = false;
-			next = next->nextInChain();
+			next->firstChar = itLen;
+			next->MaxChars = itLen;
+			next->textLayout.clear();
+			next = dynamic_cast<PageItem_TextFrame*>(next->nextInChain());
 		}
 		// TODO layout() shouldn't delete any frame here, as it breaks any loop
 		// over the doc->Items or doc->MasterItems lists when done with indexes
