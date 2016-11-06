@@ -28,7 +28,7 @@ DocInfos::DocInfos( QWidget* parent, DocumentInformation& docInfo ) : QTabWidget
 	infos = docInfo;
 	setMaximumSize( QSize( 32767, 32767 ) );
 	setWindowTitle( tr( "Document Information" ) );
-	setWindowIcon(QIcon(IconManager::instance()->loadIcon ( "AppIcon.png" )));
+	setWindowIcon(QIcon(IconManager::instance()->loadIcon("AppIcon.png")));
 
 	page1 = new QWidget( this );
 	layout1 = new QGridLayout(page1);

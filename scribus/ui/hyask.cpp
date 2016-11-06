@@ -48,7 +48,7 @@ HyAsk::HyAsk ( QWidget* parent, QString HWort ) : QDialog ( parent )
 
 	setModal(true);
 	setWindowTitle( tr( "Possible Hyphenation" ));
-	setWindowIcon(IconManager::instance()->loadIcon ( "AppIcon.png" ));
+	setWindowIcon(IconManager::instance()->loadIcon("AppIcon.png"));
 	HyAskLayout = new QVBoxLayout(this);
 	HyAskLayout->setMargin(10);
 	HyAskLayout->setSpacing(5);

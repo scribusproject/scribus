@@ -20,7 +20,7 @@ for which a new license (GPL+exception) is in place.
 SxwDialog::SxwDialog(bool update, bool prefix, bool pack) : QDialog(0)
 {
 	setModal(true);
-	setWindowIcon(QIcon(IconManager::instance()->loadIcon ( "AppIcon.png" )));
+	setWindowIcon(QIcon(IconManager::instance()->loadIcon("AppIcon.png")));
 	setWindowTitle( tr("OpenOffice.org Writer Importer Options"));
 
 	QBoxLayout* layout = new QVBoxLayout(this);

@@ -38,7 +38,7 @@ ExtImageProps::ExtImageProps( QWidget* parent, ImageInfoRecord *info, PageItem *
 {
 	setModal(true);
 	setWindowTitle( tr( "Extended Image Properties" ) );
-	setWindowIcon(IconManager::instance()->loadIcon ( "AppIcon.png" ));
+	setWindowIcon(IconManager::instance()->loadIcon("AppIcon.png"));
 	ExtImagePropsLayout = new QVBoxLayout( this );
 	ExtImagePropsLayout->setMargin(6);
 	ExtImagePropsLayout->setSpacing(6);

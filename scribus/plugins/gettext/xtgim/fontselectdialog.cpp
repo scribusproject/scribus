@@ -31,7 +31,7 @@ for which a new license (GPL+exception) is in place.
 FontSelect::FontSelect(QStringList list):QDialog(0)
 {
 	setModal(true);
-	setWindowIcon(QIcon(IconManager::instance()->loadIcon ( "AppIcon.png" )));
+	setWindowIcon(QIcon(IconManager::instance()->loadIcon("AppIcon.png")));
 	setWindowTitle( tr("Select Alternate Font"));
 
 	resize(370, 83);

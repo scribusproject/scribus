@@ -25,7 +25,7 @@ CsvDialog::CsvDialog() : QDialog(0)
 {
 	setModal(true);
 	setWindowTitle( tr("CSV Importer Options"));
-	setWindowIcon(QIcon(IconManager::instance()->loadIcon ( "AppIcon.png" )));
+	setWindowIcon(QIcon(IconManager::instance()->loadIcon("AppIcon.png")));
 
 	QBoxLayout* layout = new QVBoxLayout(this);
 	layout->setMargin(0);
