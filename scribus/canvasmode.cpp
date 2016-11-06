@@ -1569,7 +1569,7 @@ void CanvasMode::commonkeyPressEvent_NormalNodeEdit(QKeyEvent *e)
 						//CB If in EditContour mode, allow contour line to be scaled with arrow keys too
 						if(m_doc->nodeEdit.isContourLine())
 							m_view->TransformPoly(12, 0, resizeBy/unitGetRatioFromIndex(m_doc->unitIndex()));
-						else
+						else if (!currItem->sizeLocked())
 						{
 							if ((rotationFC > 0.0 && rotationFC < 45.0) || (rotationFC >= 315.0 && rotationFC <= 360.0))
 							{
