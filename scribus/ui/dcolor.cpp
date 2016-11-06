@@ -26,7 +26,7 @@ DelColor::DelColor( QWidget* parent, ColorList colorList, QString colorName, boo
 	setModal(true);
 	cList = colorList;
 	setWindowTitle( tr( "Delete Color" ) );
-	setWindowIcon(IconManager::instance()->loadIcon( "AppIcon.png" ));
+	setWindowIcon(IconManager::instance()->loadIcon("AppIcon.png"));
 	dialogLayout = new QVBoxLayout( this );
 	dialogLayout->setMargin(10);
 	dialogLayout->setSpacing(5);

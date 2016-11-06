@@ -50,7 +50,7 @@ ApplyMasterPageDialog::ApplyMasterPageDialog( QWidget* parent ) : QDialog( paren
 {
 	setModal(true);
 	setWindowTitle( tr( "Possible Hyphenation" ));
-	setWindowIcon(IconManager::instance()->loadIcon( "AppIcon.png" ));
+	setWindowIcon(IconManager::instance()->loadIcon("AppIcon.png"));
 	ApplyMasterPageDialogLayout = new QVBoxLayout(this);
 	ApplyMasterPageDialogLayout->setMargin(10);
 	ApplyMasterPageDialogLayout->setSpacing(5);
