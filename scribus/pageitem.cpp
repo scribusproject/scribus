@@ -1579,7 +1579,10 @@ const CharStyle& PageItem::currentCharStyle() const
 
 void PageItem::currentTextProps(ParagraphStyle& parStyle) const
 {
-	parStyle = this->currentStyle();
+	const ParagraphStyle& curStyle = this->currentStyle();
+	parStyle.setContext(curStyle.context());
+	parStyle = curStyle;
+
 	int position = itemText.cursorPosition();
 	if (itemText.lengthOfSelection() > 0)
 		position = qMin(qMax(itemText.endOfSelection() - 1, 0), qMax(position, itemText.startOfSelection()));
