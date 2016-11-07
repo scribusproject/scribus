@@ -889,18 +889,20 @@ void Hruler::setItem(PageItem * item)
 	Cols = item->Cols;
 	Extra = item->textToFrameDistLeft();
 	RExtra = item->textToFrameDistRight();
-	First = item->currentStyle().firstIndent();
-	Indent = item->currentStyle().leftMargin();
+
+	const ParagraphStyle& currentStyle = item->currentStyle();
+	First = currentStyle.firstIndent();
+	Indent = currentStyle.leftMargin();
 	double columnWidth = (item->width() - (item->columnGap() * (item->columns() - 1))
 				- item->textToFrameDistLeft() - item->textToFrameDistLeft()
 				- 2*lineCorr) / item->columns();
-	RMargin = columnWidth - item->currentStyle().rightMargin();
+	RMargin = columnWidth - currentStyle.rightMargin();
 	if (item->imageFlippedH() || (item->reversed()))
 		Revers = true;
 	else
 		Revers = false;
 	textEditMode = true;
-	TabValues = item->currentStyle().tabValues();	
+	TabValues = currentStyle.tabValues();	
 }
 
 void Hruler::UpdateTabList()
