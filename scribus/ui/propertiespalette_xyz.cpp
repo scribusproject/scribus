@@ -325,10 +325,10 @@ void PropertiesPalette_XYZ::setCurrentItem(PageItem *i)
 	noPrint->setChecked(!i->printEnabled());
 	showFlippedH(i->imageFlippedH());
 	showFlippedV(i->imageFlippedV());
-	m_oldRotation = i->rotation();
 	double rr = i->rotation();
 	if (i->rotation() > 0)
 		rr = 360 - rr;
+	m_oldRotation = fabs(rr);
 	rotationSpin->setValue(fabs(rr));
 
 //CB TODO reconnect PP signals from here
