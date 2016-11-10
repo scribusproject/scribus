@@ -2204,10 +2204,10 @@ void PropertiesPalette::SetCurItem(PageItem *i)
 	NoPrint->setChecked(!i->printEnabled());
 	setFlippedH(i->imageFlippedH());
 	setFlippedV(i->imageFlippedV());
-	RoVal = i->rotation();
 	double rr = i->rotation();
 	if (i->rotation() > 0)
 		rr = 360 - rr;
+	RoVal = fabs(rr);
 	Rotation->setValue(fabs(rr));
 //	setScaleAndOffset(i->imageXScale(), i->imageYScale(), i->imageXOffset(), i->imageYOffset());
 	setTextToFrameDistances(i->textToFrameDistLeft(),i->textToFrameDistTop(),i->textToFrameDistBottom(),i->textToFrameDistRight());
