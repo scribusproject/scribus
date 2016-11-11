@@ -733,8 +733,19 @@ void PSLib::PS_begin_page(ScPage* pg, MarginStruct* Ma, bool Clipping)
 	if (pg->orientation() == 1 && psExport)
 		PutStream("90 rotate 0 "+IToStr(qRound(maxBoxY))+" neg translate\n");
   	PutStream("/DeviceCMYK setcolorspace\n");
+	// Clip to bleeds
+	QString clipStr;
+	double bbWidth  = pg->width()  + bleedLeft + bleedRight;
+	double bbHeight = pg->height() + Options.bleeds.bottom() + Options.bleeds.top();
+	clipStr += ToStr(markOffs) + " " + ToStr(markOffs) + " m\n";
+	clipStr += ToStr(markOffs + bbWidth) + " " + ToStr(markOffs) + " li\n";
+	clipStr += ToStr(markOffs + bbWidth) + " " + ToStr(markOffs + bbHeight) + " li\n";
+	clipStr += ToStr(markOffs) + " " + ToStr(markOffs + bbHeight) + " li cl clip newpath\n";
+	PutStream(clipStr);
+	// Move to page origin
 	PutStream(ToStr(bleedLeft+markOffs)+" "+ToStr(Options.bleeds.bottom()+markOffs)+" tr\n");
 	ActPage = pg;
+	// Clip to margins if requested
 	if (Clipping)
 	{
 		PDev = ToStr(Ma->left()) + " " + ToStr(Ma->bottom()) + " m\n";
