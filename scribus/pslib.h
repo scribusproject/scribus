@@ -139,6 +139,8 @@ class SCRIBUS_API PSLib : public QObject
 
 	private:
 
+		bool PS_ItemIsOnPage(PageItem* item, Page* page, const QList<PageItem*>& itemList);
+
 		void PutStream (const QString& c);
 		void PutStream (const QByteArray& array, bool hexEnc);
 		void PutStream (const char* in, int length, bool hexEnc);
