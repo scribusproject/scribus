@@ -7,6 +7,17 @@
 #Require 3.2.0 for add_custom_target with byproducts
 CMAKE_MINIMUM_REQUIRED(VERSION 3.2.0 FATAL_ERROR)
 
+
+# Configure CCache if available and wanted
+IF (WANT_CCACHE)
+    FIND_PROGRAM(CCACHE_FOUND ccache)
+	if(CCACHE_FOUND)
+		MESSAGE(STATUS "Enabling ccache")
+		SET_PROPERTY(GLOBAL PROPERTY RULE_LAUNCH_COMPILE ccache)
+		SET_PROPERTY(GLOBAL PROPERTY RULE_LAUNCH_LINK ccache)
+	ENDIF(CCACHE_FOUND)
+ENDIF (WANT_CCACHE)
+
 #Pretty colors
 SET(CMAKE_COLOR_MAKEFILE ON)
 #Don't force verbose
