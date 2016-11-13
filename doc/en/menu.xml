@@ -122,6 +122,7 @@
 			<submenuitem text="Getting Object Properties" file="scripterapi-getobjprop.html"/>
 			<submenuitem text="Manipulating Objects" file="scripterapi-manobj.html"/>
 			<submenuitem text="Handling Text Frames" file="scripterapi-textframes.html"/>
+			<submenuitem text="Commands for Images &amp; Vectors" file="scripterapi-images.html"/>
 			<submenuitem text="Commands for Lines" file="scripterapi-lines.html"/>
 			<submenuitem text="Color Commands" file="scripterapi-color.html"/>
 			<submenuitem text="Font Commands" file="scripterapi-font.html"/>
