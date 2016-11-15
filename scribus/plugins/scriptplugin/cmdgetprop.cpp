@@ -228,7 +228,7 @@ PyObject *scribus_getimgscale(PyObject* /* self */, PyObject* args)
 	return i != NULL ? Py_BuildValue("(ff)", i->imageXScale() / 72.0 * i->pixm.imgInfo.xres, i->imageYScale() / 72.0 * i->pixm.imgInfo.yres) : NULL;
 }
 
-PyObject *scribus_getimgname(PyObject* /* self */, PyObject* args)
+PyObject *scribus_getimagefile(PyObject* /* self */, PyObject* args)
 {
 	char *Name = const_cast<char*>("");
 	if (!PyArg_ParseTuple(args, "|es", "utf-8", &Name))
@@ -340,7 +340,7 @@ void cmdgetpropdocwarnings()
 	  << scribus_getlineshade__doc__ << scribus_getlinejoin__doc__ 
 	  << scribus_getlinecap__doc__ << scribus_getlinestyle__doc__ 
 	  << scribus_getfillshade__doc__ << scribus_getcornerrad__doc__ 
-	  << scribus_getimgscale__doc__ << scribus_getimgname__doc__ 
+	  << scribus_getimgscale__doc__ << scribus_getimagefile__doc__ 
 	  << scribus_getposi__doc__ << scribus_getsize__doc__ 
 	  << scribus_getrotation__doc__ <<  scribus_getallobj__doc__;
 }

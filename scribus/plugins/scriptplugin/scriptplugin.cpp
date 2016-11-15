@@ -363,7 +363,7 @@ PyMethodDef scribus_methods[] = {
 	{const_cast<char*>("getFontSize"), scribus_getfontsize, METH_VARARGS, tr(scribus_getfontsize__doc__)},
 	{const_cast<char*>("getGuiLanguage"), (PyCFunction)scribus_getlanguage, METH_NOARGS, tr(scribus_getlanguage__doc__)},
 	{const_cast<char*>("getHGuides"), (PyCFunction)scribus_getHguides, METH_NOARGS, tr(scribus_getHguides__doc__)},
-	{const_cast<char*>("getImageFile"), scribus_getimgname, METH_VARARGS, tr(scribus_getimgname__doc__)},
+	{const_cast<char*>("getImageFile"), scribus_getimagefile, METH_VARARGS, tr(scribus_getimagefile__doc__)},
 	{const_cast<char*>("getImageScale"), scribus_getimgscale, METH_VARARGS, tr(scribus_getimgscale__doc__)},
 	{const_cast<char*>("getLayers"), (PyCFunction)scribus_getlayers, METH_NOARGS, tr(scribus_getlayers__doc__)},
 	{const_cast<char*>("getLayerBlendmode"), scribus_glayerblend, METH_VARARGS, tr(scribus_glayerblend__doc__)},
