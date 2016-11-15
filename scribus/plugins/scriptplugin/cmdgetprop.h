@@ -173,7 +173,7 @@ Returns the filename for the image in the image frame. If \"name\" is not\n\
 given the currently selected item is used.\n\
 "));
 /*! Returns image name of the object */
-PyObject *scribus_getimgname(PyObject * /*self*/, PyObject* args);
+PyObject *scribus_getimagefile(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_getposi__doc__,
