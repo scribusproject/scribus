@@ -122,7 +122,7 @@ private:
 	QRectF m_origAnnotPos;
 	
 private slots:
-	void slotInvalidateLayout();
+	void slotInvalidateLayout(int firstItem, int endItem);
 
 public:
 	//for footnotes/endnotes

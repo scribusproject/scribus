@@ -1700,8 +1700,7 @@ void StoryText::invalidate(int firstItem, int endItem)
 			par->charStyleContext()->invalidate();
 	}
 	if (!signalsBlocked())
-		emit changed();
-	emit changed();
+		emit changed(firstItem, endItem);
 }
 
 

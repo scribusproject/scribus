@@ -80,7 +80,7 @@ PageItem_TextFrame::PageItem_TextFrame(ScribusDoc *pa, double x, double y, doubl
 	unicodeInputString = "";
 	m_origAnnotPos = QRectF(xPos(), yPos(), width(), height());
 	verticalAlign = 0;
-	connect(&itemText,SIGNAL(changed()), this, SLOT(slotInvalidateLayout()));
+	connect(&itemText,SIGNAL(changed(int, int)), this, SLOT(slotInvalidateLayout(int, int)));
 }
 
 PageItem_TextFrame::PageItem_TextFrame(const PageItem & p) : PageItem(p)
@@ -93,7 +93,7 @@ PageItem_TextFrame::PageItem_TextFrame(const PageItem & p) : PageItem(p)
 	m_notesFramesMap.clear();
 	m_origAnnotPos = QRectF(xPos(), yPos(), width(), height());
 	verticalAlign = 0;
-	connect(&itemText,SIGNAL(changed()), this, SLOT(slotInvalidateLayout()));
+	connect(&itemText,SIGNAL(changed(int, int)), this, SLOT(slotInvalidateLayout(int, int)));
 }
 
 static QRegion itemShape(PageItem* docItem, double xOffset, double yOffset)
@@ -3058,9 +3058,27 @@ void PageItem_TextFrame::invalidateLayout(bool wholeChain)
 	}
 }
 
-void PageItem_TextFrame::slotInvalidateLayout()
+void PageItem_TextFrame::slotInvalidateLayout(int firstItem, int endItem)
 {
-	invalidateLayout(true);
+	PageItem* firstFrame = firstInChain();
+	firstItem = itemText.prevParagraph(firstItem);
+
+	PageItem_TextFrame* firstInvalid = dynamic_cast<PageItem_TextFrame*>(firstFrame);
+	while (firstInvalid)
+	{
+		if (firstInvalid->invalid)
+			break;
+		if (firstInvalid->firstChar <= firstItem && firstItem <= firstInvalid->MaxChars)
+			break;
+		firstInvalid = dynamic_cast<PageItem_TextFrame*>(firstInvalid->NextBox);
+	}
+
+	PageItem_TextFrame* invalidFrame = firstInvalid;
+	while (invalidFrame)
+	{
+		invalidFrame->invalid = true;
+		invalidFrame = dynamic_cast<PageItem_TextFrame*>(invalidFrame->NextBox);
+	}
 }
 
 bool PageItem_TextFrame::isValidChainFromBegin()
