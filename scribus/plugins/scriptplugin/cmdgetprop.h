@@ -166,8 +166,8 @@ Returns a (x, y) tuple containing the scaling values of the image frame\n\
 PyObject *scribus_getimgscale(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
-PyDoc_STRVAR(scribus_getimgname__doc__,
-QT_TR_NOOP("getImageName([\"name\"]) -> string\n\
+PyDoc_STRVAR(scribus_getimagefile__doc__,
+QT_TR_NOOP("getImageFile([\"name\"]) -> string\n\
 \n\
 Returns the filename for the image in the image frame. If \"name\" is not\n\
 given the currently selected item is used.\n\
