@@ -79,6 +79,7 @@ ScribusCore::~ScribusCore()
 		ScribusMainWindow *mainWindow = m_ScMWList.takeAt(0);
 		delete mainWindow;
 	}
+	delete pluginManager;
 }
 
 #ifndef NDEBUG
