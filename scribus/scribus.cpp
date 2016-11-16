@@ -468,6 +468,7 @@ ScribusMainWindow::~ScribusMainWindow()
 	if (appModeHelper)
 		delete appModeHelper;
 	delete m_doc;
+	delete m_tocGenerator;
 }
 
 void ScribusMainWindow::addScToolBar(ScToolBar *tb, QString name)
