@@ -9,6 +9,7 @@ for which a new license (GPL+exception) is in place.
 #include <QDebug>
 #include <QDir>
 #include <QProcess>
+#include <QStandardPaths>
 
 #include "scconfig.h"
 
@@ -573,12 +574,10 @@ QString ScPaths::getUserPaletteFilesDir(bool createIfNotExists)
 
 QString ScPaths::getUserDocumentDir(void)
 {
-#if defined(_WIN32)
-	QString userDocs = getSpecialDir(CSIDL_PERSONAL);
-	if	(QDir(userDocs).exists())
+	QString userDocs = QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation);
+	if (QDir(userDocs).exists())
 		return userDocs;
-#endif
-	return (QDir::homePath() + "/");
+	return QStandardPaths::writableLocation(QStandardPaths::HomeLocation);
 }
 
 QString ScPaths::getTempFileDir(void)
