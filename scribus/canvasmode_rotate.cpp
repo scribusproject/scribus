@@ -387,7 +387,6 @@ void CanvasMode_Rotate::mouseMoveEvent(QMouseEvent *m)
 	m_angleConstrained = false;
 	
 	PageItem *currItem;
-	QRect tx;
 	m->accept();
 
 	if (GetItem(&currItem))
@@ -407,7 +406,7 @@ void CanvasMode_Rotate::mouseMoveEvent(QMouseEvent *m)
 			{
 				double gx, gy, gh, gw;
 				m_doc->m_Selection->getVisualGroupRect(&gx, &gy, &gw, &gh);
-				int how = m_canvas->frameHitTest(QPointF(mousePointDoc.x(),mousePointDoc.y()), QRectF(gx, gy, gw, gh));
+				int how = m_canvas->frameHitTest(QPointF(mousePointDoc.x(), mousePointDoc.y()), QRectF(gx, gy, gw, gh));
 				if (how >= 0)
 				{
 					if (how > 0)
@@ -429,20 +428,12 @@ void CanvasMode_Rotate::mouseMoveEvent(QMouseEvent *m)
 					break;
 				QTransform p;
 				m_canvas->Transform(currItem, p);
-				QRect mpo = QRect(m->x()-m_doc->guidesPrefs().grabRadius, m->y()-m_doc->guidesPrefs().grabRadius, m_doc->guidesPrefs().grabRadius*2, m_doc->guidesPrefs().grabRadius*2);
-				if ((QRegion(p.map(QPolygon(QRect(-3, -3, static_cast<int>(currItem->width()+6), static_cast<int>(currItem->height()+6))))).contains(mpo)))
+				QRect mpo = QRect(m->x() - m_doc->guidesPrefs().grabRadius, m->y() - m_doc->guidesPrefs().grabRadius, m_doc->guidesPrefs().grabRadius * 2, m_doc->guidesPrefs().grabRadius * 2);
+				if ((QRegion(p.map(QPolygon(QRect(-3, -3, static_cast<int>(currItem->width() + 6), static_cast<int>(currItem->height() + 6))))).contains(mpo)))
 				{
-					tx = p.mapRect(QRect(0, 0, static_cast<int>(currItem->width()), static_cast<int>(currItem->height())));
+					QRect tx = p.mapRect(QRect(0, 0, static_cast<int>(currItem->width()), static_cast<int>(currItem->height())));
 					if ((tx.intersects(mpo)) && (!currItem->locked()))
-					{
 						m_view->setCursor(IconManager::instance()->loadCursor("Rotieren2.png"));
-						if (!currItem->sizeLocked())
-							m_view->HandleCurs(currItem, mpo);
-					}
-				}
-				else
-				{
-//					setModeCursor();
 				}
 			}
 		}
@@ -474,28 +465,3 @@ void CanvasMode_Rotate::createContextMenu(PageItem* currItem, double mx, double 
 	delete cmen;
 }
 
-// void CanvasMode_Rotate::setResizeCursor(int how)
-// {
-// 	switch (how)
-// 	{
-// 		case 1:
-// 		case 2:
-// 			qApp->changeOverrideCursor(QCursor(Qt::SizeFDiagCursor));
-// 			break;
-// 		case 3:
-// 		case 4:
-// 			qApp->changeOverrideCursor(QCursor(Qt::SizeBDiagCursor));
-// 			break;
-// 		case 5:
-// 		case 8:
-// 			qApp->changeOverrideCursor(QCursor(Qt::SizeVerCursor));
-// 			break;
-// 		case 6:
-// 		case 7:
-// 			qApp->changeOverrideCursor(QCursor(Qt::SizeHorCursor));
-// 			break;
-// 		default:
-// 			qApp->changeOverrideCursor(QCursor(Qt::SizeAllCursor));
-// 			break;
-// 	}
-// }

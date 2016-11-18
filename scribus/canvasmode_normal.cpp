@@ -774,10 +774,6 @@ void CanvasMode_Normal::mouseMoveEvent(QMouseEvent *m)
 							m_view->HandleCurs(currItem, mpo);
 					}
 				}
-				else
-				{
-//					setModeCursor();
-				}
 			}
 			if (GetItem(&currItem) && (m_doc->appMode == modeNormal))
 			{

@@ -1767,16 +1767,11 @@ void ScribusView::HandleCurs(PageItem *currItem, QRect mpo)
 	tx2 = ma.map(QPoint(0, static_cast<int>(currItem->height())));
 	if (mpo.contains(tx) || mpo.contains(tx2))
 	{
-		if (Doc->appMode == modeRotation)
-			setCursor(IconManager::instance()->loadCursor("Rotieren2.png"));
-		else
-		{
-			double rr = fabs(currItem->rotation());
-			if (((rr >= 0.0) && (rr < 45.0)) || ((rr >= 135.0) && (rr < 225.0)) || ((rr >=315.0) && (rr <= 360.0)))
-				setCursor(QCursor(Qt::SizeBDiagCursor));
-			if (((rr >= 45.0) && (rr < 135.0)) || ((rr >= 225.0) && (rr < 315.0)))
-				setCursor(QCursor(Qt::SizeFDiagCursor));
-		}
+		double rr = fabs(currItem->rotation());
+		if (((rr >= 0.0) && (rr < 45.0)) || ((rr >= 135.0) && (rr < 225.0)) || ((rr >=315.0) && (rr <= 360.0)))
+			setCursor(QCursor(Qt::SizeBDiagCursor));
+		if (((rr >= 45.0) && (rr < 135.0)) || ((rr >= 225.0) && (rr < 315.0)))
+			setCursor(QCursor(Qt::SizeFDiagCursor));
 	}
 	tx = ma.map(QPoint(static_cast<int>(currItem->width()), static_cast<int>(currItem->height())/2));
 	tx2 = ma.map(QPoint(0, static_cast<int>(currItem->height())/2));
@@ -1802,9 +1797,7 @@ void ScribusView::HandleCurs(PageItem *currItem, QRect mpo)
 	tx2 = ma.map(QPoint(0, 0));
 	if (mpo.contains(tx) || mpo.contains(tx2))
 	{
-		if (Doc->appMode == modeRotation)
-			setCursor(IconManager::instance()->loadCursor("Rotieren2.png"));
-		else if (!currItem->sizeHLocked() && ! currItem->sizeVLocked())
+		if (!currItem->sizeHLocked() && ! currItem->sizeVLocked())
 		{
 			double rr = fabs(currItem->rotation());
 			if (((rr >= 0.0) && (rr < 45.0)) || ((rr >= 135.0) && (rr < 225.0)) ||
@@ -1814,8 +1807,6 @@ void ScribusView::HandleCurs(PageItem *currItem, QRect mpo)
 				setCursor(QCursor(Qt::SizeBDiagCursor));
 		}
 	}
-	if (Doc->appMode == modeEditClip)
-		setCursor(QCursor(Qt::CrossCursor));
 }
 
 void ScribusView::SelectItemNr(uint nr, bool draw, bool single)
