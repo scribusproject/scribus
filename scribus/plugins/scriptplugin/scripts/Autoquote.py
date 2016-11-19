@@ -90,7 +90,7 @@ if scribus.haveDoc() > 0:
         sys.exit(2)
         
 else:
-    scribus.messageBox('Usage Error', 'You need a Document open', icon=0, button1=1)
+    scribus.messageBox('Usage Error', 'You need a Document open', scribus.ICON_WARNING, scribus.BUTTON_OK)
     sys.exit(2)
 
 if scribus.selectionCount() == 0:
