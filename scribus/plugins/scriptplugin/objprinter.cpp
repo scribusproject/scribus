@@ -454,7 +454,7 @@ static PyObject *Printer_print(Printer *self)
 	if (dd != NULL)
 	{
 		if (!fil)
-			fna = QDir::toNativeSeparators(ScPaths::getTempFileDir()+"/tmp.ps");
+			fna = QDir::toNativeSeparators(ScPaths::tempFileDir()+"/tmp.ps");
 		PSfile = dd->PS_set_file(fna);
 		fna = QDir::toNativeSeparators(fna);
 		if (PSfile)

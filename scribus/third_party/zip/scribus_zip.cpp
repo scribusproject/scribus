@@ -118,13 +118,13 @@ bool ScZipHandler::extract(QString name, QString path, ExtractionOption eo)
 		QString pwd = QDir::currentPath();
 		QString outDir;
 		if (path.isNull())
-			outDir = ScPaths::getTempFileDir();
+			outDir = ScPaths::tempFileDir();
 		else
 			outDir=path;
 		QFile f(outDir);
 		QFileInfo fi(f);
 		if (!fi.isWritable())
-			outDir = ScPaths::getApplicationDataDir();
+			outDir = ScPaths::applicationDataDir();
 		QDir::setCurrent(outDir);
 		UnZip::ErrorCode ec = m_uz->extractFile(name, outDir, static_cast<UnZip::ExtractionOption>(eo));
 		retVal = (ec == UnZip::Ok);

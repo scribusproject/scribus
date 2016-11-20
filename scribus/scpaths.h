@@ -62,31 +62,35 @@ public:
 	QStringList hyphDirs() const;
 
 	/** @brief Return paths to system font directories*/
-	static QStringList getSystemFontDirs(void);
+	static QStringList systemFontDirs(void);
 	/** @brief Return paths to system icc profiles directories*/
-	static QStringList getSystemProfilesDirs(void);
+	static QStringList systemProfilesDirs(void);
 	/** @brief Return paths to system create project directories*/
-	static QStringList getSystemCreatePalettesDirs(void);
+	static QStringList systemCreatePalettesDirs(void);
 	/** @brief Return paths to directories held in an environment variable*/
-	static QStringList getDirsFromEnvVar(const QString envVar, const QString dirToFind);
+	static QStringList dirsFromEnvVar(const QString envVar, const QString dirToFind);
+	/** @brief Return path to application prefs dir*/
+	static QString preferencesDir(bool createIfNotExists = false);
 	/** @brief Return path to application data dir*/
-	static QString getApplicationDataDir(void);
+	static QString applicationDataDir(bool createIfNotExists = false);
 	/** @brief Return path to application data dir for downloaded hyph dictionaries*/
-	static QString getUserDictDir(ScPaths::DictType dictType, bool createIfNotExists);
+	static QString userDictDir(ScPaths::DictType dictType, bool createIfNotExists);
 	/** @brief Return path to application data dir for downloaded fonts*/
-	static QString getUserFontDir(bool createIfNotExists);
+	static QString userFontDir(bool createIfNotExists);
 	/** @brief Return path to application data dir for downloaded docs*/
-	static QString getUserHelpFilesDir(bool createIfNotExists);
+	static QString userHelpFilesDir(bool createIfNotExists);
 	/** @brief Return path to application data dir for downloaded palettes */
-	static QString getUserPaletteFilesDir(bool createIfNotExists);
+	static QString userPaletteFilesDir(bool createIfNotExists);
 	/** @brief Return path to image cache dir*/
-	static QString getImageCacheDir(void);
+	static QString imageCacheDir(void);
 	/** @brief Return path to plugin data dir*/
-	static QString getPluginDataDir(void);
+	static QString pluginDataDir(bool createIfNotExists);
 	/** @brief Return path to user documents*/
-	static QString getUserDocumentDir(void);
+	static QString userDocumentDir(void);
+	/** @brief Return path to scrapbook dir*/
+	static QString scrapbookDir(bool createIfNotExists);
 	/** @brief Return path to directory used for temporary files*/
-	static QString getTempFileDir(void);
+	static QString tempFileDir(void);
 	/** @brief Return path to directory used for downloaded (permanent) files*/
 	static QString downloadDir(void);
 	/** @brief Return path to Contents OSX subdirectory*/
@@ -103,7 +107,7 @@ protected:
 	~ScPaths();
 
 	/** @brief Return path to a special directory, should be used only on Windows*/
-	static QString getSpecialDir(int folder);
+	static QString windowsSpecialDir(int folder);
 
 	/** @brief Pointer to existing instance of ScPaths, if any. */
 	static ScPaths* m_instance;

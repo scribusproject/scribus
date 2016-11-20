@@ -388,7 +388,7 @@ QStringList ScribusQApp::getLang(QString lang)
 		langs.append(lang);
 
 	//add in user preferences lang, only overridden by lang command line option
-	QString Pff = QDir::toNativeSeparators(ScPaths::getApplicationDataDir());
+	QString Pff = QDir::toNativeSeparators(ScPaths::preferencesDir());
 	QFileInfo Pffi = QFileInfo(Pff);
 	if (Pffi.exists())
 	{
@@ -396,7 +396,7 @@ QStringList ScribusQApp::getLang(QString lang)
 		if (Pffi.isDir())
 			PrefsPfad = Pff;
 		else
-			PrefsPfad = QDir::homePath();
+			PrefsPfad = ScPaths::preferencesDir();
 		QString prefsXMLFile=QDir::toNativeSeparators(PrefsPfad + "/prefs150.xml");
 		QFileInfo infoPrefsFile(prefsXMLFile);
 		if (infoPrefsFile.exists())
@@ -650,29 +650,23 @@ void ScribusQApp::showHeader()
 
 void ScribusQApp::neverSplash(bool splashOff)
 {
-	QString prefsDir = ScPaths::getApplicationDataDir();
-	QFile ns(prefsDir + ".neversplash");
+	QString prefsDir = ScPaths::preferencesDir(true);
+	QFile nsFile(prefsDir + ".neversplash");
 	if (splashOff)
 	{
-		if (QFileInfo(QDir::homePath()).exists())
-		{
-			QDir prefsDirectory(prefsDir);
-			if (!QFileInfo(prefsDir).exists())
-				prefsDirectory.mkdir(prefsDir);
-			if (!ns.exists() && ns.open(QIODevice::WriteOnly))
-				ns.close();
-		}
+		if (!nsFile.exists() && nsFile.open(QIODevice::WriteOnly))
+			nsFile.close();
 	}
 	else
 	{
 		if (neverSplashExists())
-			ns.remove();
+			nsFile.remove();
 	}
 }
 
 bool ScribusQApp::neverSplashExists()
 {
-	return QFileInfo(ScPaths::getApplicationDataDir() + ".neversplash").exists();
+	return QFileInfo(ScPaths::preferencesDir() + ".neversplash").exists();
 }
 
 void ScribusQApp::downloadComplete(const QString &t)

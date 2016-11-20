@@ -38,6 +38,7 @@ for which a new license (GPL+exception) is in place.
 #include "scclocale.h"
 #include "scmimedata.h"
 #include "scpage.h"
+#include "scpaths.h"
 #include "scribusdoc.h"
 #include "selection.h"
 #include "units.h"
@@ -119,7 +120,7 @@ bool ScriXmlDoc::ReadElem(QString fileNameOrData, SCFonts &avail, ScribusDoc *do
 bool ScriXmlDoc::ReadElemToLayer(QString fileNameOrData, SCFonts &avail, ScribusDoc *doc, double xPos, double yPos, bool isDataFromFile, bool loc, QMap<QString,QString> &FontSub, int toLayer)
 {
 	QString elementData;
-	QString fileDir = QDir::homePath();
+	QString fileDir = ScPaths::applicationDataDir();
 	if (isDataFromFile)
 	{
 		QByteArray f;

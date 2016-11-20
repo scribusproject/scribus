@@ -583,7 +583,7 @@ int PPreview::RenderPreview(int Seite, int Res)
 		PSLib *dd = new PSLib(options, true, prefsManager->appPrefs.fontPrefs.AvailFonts, ReallyUsed, doc->PageColors, false, !spotColors->isChecked());
 		if (dd != NULL)
 		{
-			dd->PS_set_file( ScPaths::getTempFileDir() + "/tmp.ps");
+			dd->PS_set_file( ScPaths::tempFileDir() + "/tmp.ps");
 			ret = dd->CreatePS(doc, options);
 			delete dd;
 			if (ret != 0) return 1;
@@ -652,10 +652,10 @@ int PPreview::RenderPreview(int Seite, int Res)
 		args.append( cmd1 );
 	// then add any final args and call gs
 	if ((EnableCMYK->isChecked()) && HaveTiffSep)
-		args.append( QString("-sOutputFile=%1").arg(QDir::toNativeSeparators(ScPaths::getTempFileDir()+"/sc.tif")) );
+		args.append( QString("-sOutputFile=%1").arg(QDir::toNativeSeparators(ScPaths::tempFileDir()+"/sc.tif")) );
 	else
-		args.append( QString("-sOutputFile=%1").arg(QDir::toNativeSeparators(ScPaths::getTempFileDir()+"/sc.png")) );
-	args.append( QDir::toNativeSeparators(ScPaths::getTempFileDir()+"/tmp.ps") );
+		args.append( QString("-sOutputFile=%1").arg(QDir::toNativeSeparators(ScPaths::tempFileDir()+"/sc.png")) );
+	args.append( QDir::toNativeSeparators(ScPaths::tempFileDir()+"/tmp.ps") );
 	args.append( "-c" );
 	args.append( "showpage" );
 	args.append( "-c" );
@@ -698,7 +698,7 @@ int PPreview::RenderPreviewSep(int Seite, int Res)
 		PSLib *dd = new PSLib(options, true, prefsManager->appPrefs.fontPrefs.AvailFonts, ReallyUsed, doc->PageColors, false, !spotColors->isChecked());
 		if (dd != NULL)
 		{
-			dd->PS_set_file(ScPaths::getTempFileDir()+"/tmp.ps");
+			dd->PS_set_file(ScPaths::tempFileDir()+"/tmp.ps");
 			ret = dd->CreatePS(doc, options);
 			delete dd;
 			if (ret != 0) return 1;
@@ -742,9 +742,9 @@ int PPreview::RenderPreviewSep(int Seite, int Res)
 		cmd += QString("%1%2").arg(sep).arg(QDir::toNativeSeparators(extraFonts->get(i,0)));
 	if (!cmd.isEmpty())
 		args1.append(cmd);
-	args1.append( QString("-sOutputFile=%1").arg(QDir::toNativeSeparators(ScPaths::getTempFileDir()+"/sc.tif")) );
+	args1.append( QString("-sOutputFile=%1").arg(QDir::toNativeSeparators(ScPaths::tempFileDir()+"/sc.tif")) );
 
-	args2.append( QDir::toNativeSeparators(ScPaths::getTempFileDir()+"/tmp.ps") );
+	args2.append( QDir::toNativeSeparators(ScPaths::tempFileDir()+"/tmp.ps") );
 	args2.append("-c");
 	args2.append("quit");
 
@@ -762,7 +762,7 @@ int PPreview::RenderPreviewSep(int Seite, int Res)
 	}
 	allSeps += "]";
 	cmd += allSeps + " /SeparationOrder [ /Cyan /Magenta /Yellow /Black] >> setpagedevice";
-	QFile fx(QDir::toNativeSeparators(ScPaths::getTempFileDir()+"/sep.ps"));
+	QFile fx(QDir::toNativeSeparators(ScPaths::tempFileDir()+"/sep.ps"));
 	if (fx.open(QIODevice::WriteOnly))
 	{
 		QTextStream tsx(&fx);
@@ -775,9 +775,9 @@ int PPreview::RenderPreviewSep(int Seite, int Res)
 
 //	args3.append("-f");
 	QString gsExe(getShortPathName(prefsManager->ghostscriptExecutable()));
-	ret = System(gsExe, args1 + args3 + args2, ScPaths::getTempFileDir()+"/sc.tif.txt" );
+	ret = System(gsExe, args1 + args3 + args2, ScPaths::tempFileDir()+"/sc.tif.txt" );
 
-	QFile sepInfo(QDir::toNativeSeparators(ScPaths::getTempFileDir()+"/sc.tif.txt"));
+	QFile sepInfo(QDir::toNativeSeparators(ScPaths::tempFileDir()+"/sc.tif.txt"));
 	sepsToFileNum.clear();
 	if (sepInfo.open(QIODevice::ReadOnly))
 	{
@@ -806,7 +806,7 @@ int PPreview::RenderPreviewSep(int Seite, int Res)
 		{
 			args3.clear();
 			args3.append("-sDEVICE=tiffsep");
-			QFile fx(QDir::toNativeSeparators(ScPaths::getTempFileDir()+"/sep.ps"));
+			QFile fx(QDir::toNativeSeparators(ScPaths::tempFileDir()+"/sep.ps"));
 			if (fx.open(QIODevice::WriteOnly))
 			{
 				QTextStream tsx(&fx);
@@ -814,7 +814,7 @@ int PPreview::RenderPreviewSep(int Seite, int Res)
 				fx.close();
 			}
 			args3.append("-f");
-			args3.append(QDir::toNativeSeparators(ScPaths::getTempFileDir()+"/sep.ps"));
+			args3.append(QDir::toNativeSeparators(ScPaths::tempFileDir()+"/sep.ps"));
 	//		args3.append("-c");
 	//		args3.append("<< /SeparationColorNames "+allSeps+" /SeparationOrder [ "+currSeps+" ] >> setpagedevice");
 	//		args3.append("-f");
@@ -827,7 +827,7 @@ int PPreview::RenderPreviewSep(int Seite, int Res)
 	{
 		args3.clear();
 		args3.append("-sDEVICE=tiffsep");
-		QFile fx(QDir::toNativeSeparators(ScPaths::getTempFileDir()+"/sep.ps"));
+		QFile fx(QDir::toNativeSeparators(ScPaths::tempFileDir()+"/sep.ps"));
 		if (fx.open(QIODevice::WriteOnly))
 		{
 			QTextStream tsx(&fx);
@@ -835,7 +835,7 @@ int PPreview::RenderPreviewSep(int Seite, int Res)
 			fx.close();
 		}
 		args3.append("-f");
-		args3.append(QDir::toNativeSeparators(ScPaths::getTempFileDir()+"/sep.ps"));
+		args3.append(QDir::toNativeSeparators(ScPaths::tempFileDir()+"/sep.ps"));
 	//	args3.append("-c");
 	//	args3.append("<< /SeparationColorNames "+allSeps+" /SeparationOrder [ "+currSeps+" ] >> setpagedevice");
 	//	args3.append("-f");
@@ -968,11 +968,11 @@ QPixmap PPreview::CreatePreview(int Seite, int Res)
 			if (flagsVisible["Cyan"]->isChecked())
 			{
 				if ((GsMinor < 54) && (GsMajor < 9))
-					loaderror = im.loadPicture(ScPaths::getTempFileDir()+"/sc.tif.Cyan.tif", 1, cms, ScImage::RGBData, 72, &mode);
+					loaderror = im.loadPicture(ScPaths::tempFileDir()+"/sc.tif.Cyan.tif", 1, cms, ScImage::RGBData, 72, &mode);
 				else if ((GsMajor < 9) || ((GsMajor == 9) && (GsMinor <= 5)))
-					loaderror = im.loadPicture(ScPaths::getTempFileDir()+"/sc.Cyan.tif", 1, cms, ScImage::RGBData, 72, &mode);
+					loaderror = im.loadPicture(ScPaths::tempFileDir()+"/sc.Cyan.tif", 1, cms, ScImage::RGBData, 72, &mode);
 				else
-					loaderror = im.loadPicture(ScPaths::getTempFileDir()+"/sc(Cyan).tif", 1, cms, ScImage::RGBData, 72, &mode);
+					loaderror = im.loadPicture(ScPaths::tempFileDir()+"/sc(Cyan).tif", 1, cms, ScImage::RGBData, 72, &mode);
 				if (!loaderror)
 				{
 					imageLoadError(Bild, Seite);
@@ -986,11 +986,11 @@ QPixmap PPreview::CreatePreview(int Seite, int Res)
 			if (flagsVisible["Magenta"]->isChecked())
 			{
 				if ((GsMinor < 54) && (GsMajor < 9))
-					loaderror = im.loadPicture(ScPaths::getTempFileDir()+"/sc.tif.Magenta.tif", 1, cms, ScImage::RGBData, 72, &mode);
+					loaderror = im.loadPicture(ScPaths::tempFileDir()+"/sc.tif.Magenta.tif", 1, cms, ScImage::RGBData, 72, &mode);
 				else if ((GsMajor < 9) || ((GsMajor == 9) && (GsMinor <= 5)))
-					loaderror = im.loadPicture(ScPaths::getTempFileDir()+"/sc.Magenta.tif", 1, cms, ScImage::RGBData, 72, &mode);
+					loaderror = im.loadPicture(ScPaths::tempFileDir()+"/sc.Magenta.tif", 1, cms, ScImage::RGBData, 72, &mode);
 				else
-					loaderror = im.loadPicture(ScPaths::getTempFileDir()+"/sc(Magenta).tif", 1, cms, ScImage::RGBData, 72, &mode);
+					loaderror = im.loadPicture(ScPaths::tempFileDir()+"/sc(Magenta).tif", 1, cms, ScImage::RGBData, 72, &mode);
 				if (!loaderror)
 				{
 					imageLoadError(Bild, Seite);
@@ -1004,11 +1004,11 @@ QPixmap PPreview::CreatePreview(int Seite, int Res)
 			if (flagsVisible["Yellow"]->isChecked())
 			{
 				if ((GsMinor < 54) && (GsMajor < 9))
-					loaderror = im.loadPicture(ScPaths::getTempFileDir()+"/sc.tif.Yellow.tif", 1, cms, ScImage::RGBData, 72, &mode);
+					loaderror = im.loadPicture(ScPaths::tempFileDir()+"/sc.tif.Yellow.tif", 1, cms, ScImage::RGBData, 72, &mode);
 				else if ((GsMajor < 9) || ((GsMajor == 9) && (GsMinor <= 5)))
-					loaderror = im.loadPicture(ScPaths::getTempFileDir()+"/sc.Yellow.tif", 1, cms, ScImage::RGBData, 72, &mode);
+					loaderror = im.loadPicture(ScPaths::tempFileDir()+"/sc.Yellow.tif", 1, cms, ScImage::RGBData, 72, &mode);
 				else
-					loaderror = im.loadPicture(ScPaths::getTempFileDir()+"/sc(Yellow).tif", 1, cms, ScImage::RGBData, 72, &mode);
+					loaderror = im.loadPicture(ScPaths::tempFileDir()+"/sc(Yellow).tif", 1, cms, ScImage::RGBData, 72, &mode);
 				if (!loaderror)
 				{
 					imageLoadError(Bild, Seite);
@@ -1029,11 +1029,11 @@ QPixmap PPreview::CreatePreview(int Seite, int Res)
 					{
 						QString fnam;
 						if ((GsMinor < 54) && (GsMajor < 9))
-							fnam = QString(ScPaths::getTempFileDir()+"/sc.tif.s%1.tif").arg(sepit.value());
+							fnam = QString(ScPaths::tempFileDir()+"/sc.tif.s%1.tif").arg(sepit.value());
 						else if ((GsMajor < 9) || ((GsMajor == 9) && (GsMinor <= 5)))
-							fnam = QString(ScPaths::getTempFileDir()+"/sc.s%1.tif").arg(sepit.value());
+							fnam = QString(ScPaths::tempFileDir()+"/sc.s%1.tif").arg(sepit.value());
 						else
-							fnam = QString(ScPaths::getTempFileDir()+"/sc(%1).tif").arg(sepit.key());
+							fnam = QString(ScPaths::tempFileDir()+"/sc(%1).tif").arg(sepit.key());
 						if (!im.loadPicture(fnam, 1, cms, ScImage::RGBData, 72, &mode))
 						{
 							imageLoadError(Bild, Seite);
@@ -1051,11 +1051,11 @@ QPixmap PPreview::CreatePreview(int Seite, int Res)
 				CMSettings cms(doc, "", Intent_Perceptual);
 				cms.allowColorManagement(false);
 				if ((GsMinor < 54) && (GsMajor < 9))
-					loaderror = im.loadPicture(ScPaths::getTempFileDir()+"/sc.tif.Black.tif", 1, cms, ScImage::RGBData, 72, &mode);
+					loaderror = im.loadPicture(ScPaths::tempFileDir()+"/sc.tif.Black.tif", 1, cms, ScImage::RGBData, 72, &mode);
 				else if ((GsMajor < 9) || ((GsMajor == 9) && (GsMinor <= 5)))
-					loaderror = im.loadPicture(ScPaths::getTempFileDir()+"/sc.Black.tif", 1, cms, ScImage::RGBData, 72, &mode);
+					loaderror = im.loadPicture(ScPaths::tempFileDir()+"/sc.Black.tif", 1, cms, ScImage::RGBData, 72, &mode);
 				else
-					loaderror = im.loadPicture(ScPaths::getTempFileDir()+"/sc(Black).tif", 1, cms, ScImage::RGBData, 72, &mode);
+					loaderror = im.loadPicture(ScPaths::tempFileDir()+"/sc(Black).tif", 1, cms, ScImage::RGBData, 72, &mode);
 				if (!loaderror)
 				{
 					imageLoadError(Bild, Seite);
@@ -1164,7 +1164,7 @@ QPixmap PPreview::CreatePreview(int Seite, int Res)
 			int h2 = qRound(h);
 			image = QImage(w, h2, QImage::Format_ARGB32);
 			QByteArray imgc(w2, ' ');
-			QFile f(ScPaths::getTempFileDir()+"/sc.png");
+			QFile f(ScPaths::tempFileDir()+"/sc.png");
 			if (f.open(QIODevice::ReadOnly))
 			{
 				if (doc->HasCMS || ScCore->haveCMS())
@@ -1256,7 +1256,7 @@ QPixmap PPreview::CreatePreview(int Seite, int Res)
 	}
 	else
 	{
-		if (!image.load(ScPaths::getTempFileDir()+"/sc.png"))
+		if (!image.load(ScPaths::tempFileDir()+"/sc.png"))
 		{
 			imageLoadError(Bild, Seite);
 			return Bild;

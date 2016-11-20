@@ -71,7 +71,7 @@ void UpgradeChecker::init()
 void UpgradeChecker::fetch()
 {
 	QString filename("scribusversions.xml");
-	m_tempFile=ScPaths::getTempFileDir()+filename;
+	m_tempFile=ScPaths::tempFileDir()+filename;
 
 	m_fin=false;
 

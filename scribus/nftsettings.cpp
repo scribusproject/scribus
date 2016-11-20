@@ -16,7 +16,7 @@ nftsettings::nftsettings(QString guilang)
 {
 	lang = guilang;
 	scribusShare = ScPaths::instance().templateDir();
-	scribusUserHome = QDir::toNativeSeparators(ScPaths::getApplicationDataDir());
+	scribusUserHome = QDir::toNativeSeparators(ScPaths::applicationDataDir());
 
 	read();
 }

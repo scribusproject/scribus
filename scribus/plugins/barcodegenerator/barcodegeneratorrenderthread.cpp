@@ -48,10 +48,10 @@ void BarcodeGeneratorRenderThread::render(QString psCommand)
 void BarcodeGeneratorRenderThread::run()
 {
 
-	QString pngFile = QDir::toNativeSeparators(ScPaths::getTempFileDir() + "bcode.png");
-	QString psFile = QDir::toNativeSeparators(ScPaths::getTempFileDir() + "bcode.ps");
-	QString fileStdErr = QDir::toNativeSeparators(ScPaths::getTempFileDir() + "bcode.err");
-	QString fileStdOut = QDir::toNativeSeparators(ScPaths::getTempFileDir() + "bcode.out");
+	QString pngFile = QDir::toNativeSeparators(ScPaths::tempFileDir() + "bcode.png");
+	QString psFile = QDir::toNativeSeparators(ScPaths::tempFileDir() + "bcode.ps");
+	QString fileStdErr = QDir::toNativeSeparators(ScPaths::tempFileDir() + "bcode.err");
+	QString fileStdOut = QDir::toNativeSeparators(ScPaths::tempFileDir() + "bcode.out");
 	int dpi=72;
 
 	forever {

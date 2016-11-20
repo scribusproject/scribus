@@ -17,6 +17,7 @@ for which a new license (GPL+exception) is in place.
 #include "qtiocompressor.h"
 #include "resourcecollection.h"
 #include "scconfig.h"
+#include "scpaths.h"
 #include "scpattern.h"
 #include "scribusdoc.h"
 #include "scribusview.h"
@@ -46,7 +47,7 @@ for which a new license (GPL+exception) is in place.
 
 QString Scribus150Format::saveElements(double xp, double yp, double wp, double hp, Selection* selection, QByteArray &prevData)
 {
-	QString fileDir = QDir::homePath();
+	QString fileDir = ScPaths::applicationDataDir();
 	QString documentStr;
 	documentStr.reserve(524288);
 	ScXmlStreamWriter writer(&documentStr);

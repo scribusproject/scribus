@@ -328,7 +328,7 @@ const QString & ScImageCacheProxy::metaName() const
 
 bool ScImageCacheProxy::createCacheDir()
 {
-	QString cachedir = ScPaths::getImageCacheDir();
+	QString cachedir = ScPaths::imageCacheDir();
 	QDir cdir(cachedir);
 
 	if (!cdir.exists())

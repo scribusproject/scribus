@@ -76,14 +76,14 @@ public:
 	\brief Set the user's preference file location. Rename any existing old preferences files
 	\retval QString Location of the user's preferences
 	*/
-	QString setupPreferencesLocation();
+	void setupPreferencesLocation();
 	/*!
 	\author Craig Bradney
 	\date Sun 09 Jan 2005
 	\brief Copy 1.2 prefs XML before loading, and copy rc files we don't yet convert
 	\retval bool true if prefs were imported
 	*/
-	bool copyOldPreferences();
+	bool copyOldAppConfigAndData();
 	/*!
 	\author Craig Ringer
 	\date Sun 26 June 2005

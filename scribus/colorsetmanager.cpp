@@ -126,9 +126,9 @@ void ColorSetManager::initialiseDefaultPrefs(struct ApplicationPrefs& appPrefs)
 void ColorSetManager::findPaletteLocations()
 {
 	paletteLocations.clear();
-	QStringList locations=ScPaths::instance().getSystemCreatePalettesDirs();
+	QStringList locations=ScPaths::instance().systemCreatePalettesDirs();
 	locations << ScPaths::instance().shareDir()+"swatches/";
-	locations << ScPaths::instance().getDirsFromEnvVar("XDG_DATA_HOME", "scribus/swatches/");
+	locations << ScPaths::instance().dirsFromEnvVar("XDG_DATA_HOME", "scribus/swatches/");
 	for ( QStringList::Iterator it = locations.begin(); it != locations.end(); ++it )
 	{
 		QFileInfo paletteDir(*it);
@@ -138,7 +138,7 @@ void ColorSetManager::findPaletteLocations()
 			paletteLocationLocks.insert((*it), !paletteDir.isWritable());
 		}
 	}
-	QStringList xdgSysLocations=ScPaths::instance().getDirsFromEnvVar("XDG_DATA_DIRS", "scribus/swatches/");
+	QStringList xdgSysLocations=ScPaths::instance().dirsFromEnvVar("XDG_DATA_DIRS", "scribus/swatches/");
 	for ( QStringList::Iterator it = xdgSysLocations.begin(); it != xdgSysLocations.end(); ++it )
 	{
 		QFile paletteDir(*it);
@@ -171,7 +171,7 @@ void ColorSetManager::searchDir(QString path, QMap<QString, QString> &pList, QTr
 					if (parent != NULL)
 					{
 						QTreeWidgetItem* item;
-						if (path + dirs[dc] == ScPaths::getApplicationDataDir()+"swatches/locked")
+						if (path + dirs[dc] == ScPaths::applicationDataDir()+"swatches/locked")
 							item = parent;
 						else
 						{
@@ -199,7 +199,7 @@ void ColorSetManager::searchDir(QString path, QMap<QString, QString> &pList, QTr
 						item->setFlags(Qt::ItemIsEditable | Qt::ItemIsSelectable | Qt::ItemIsUserCheckable | Qt::ItemIsEnabled);
 						item->setText(0, setName);
 						item->setData(0, Qt::UserRole, fi.absolutePath());
-						if ((!fi.isWritable()) || (fi.absolutePath().contains(ScPaths::getApplicationDataDir()+"swatches/locked")))
+						if ((!fi.isWritable()) || (fi.absolutePath().contains(ScPaths::applicationDataDir()+"swatches/locked")))
 							item->setIcon(0, QIcon(IconManager::instance()->loadIcon("16/lock.png")));
 					}
 				}
@@ -222,7 +222,7 @@ void ColorSetManager::findPalettes(QTreeWidgetItem* parent)
 void ColorSetManager::findUserPalettes(QTreeWidgetItem* parent)
 {
 	userPalettes.clear();
-	searchDir(ScPaths::getUserPaletteFilesDir(true), userPalettes, parent);
+	searchDir(ScPaths::userPaletteFilesDir(true), userPalettes, parent);
 }
 
 QStringList ColorSetManager::paletteNames()

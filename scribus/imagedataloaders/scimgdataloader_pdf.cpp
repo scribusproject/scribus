@@ -41,7 +41,7 @@ bool ScImgDataLoader_PDF::loadPicture(const QString& fn, int page, int gsRes, bo
 	QStringList args;
 	if (!QFile::exists(fn))
 		return false;
-	QString tmpFile = QDir::toNativeSeparators(ScPaths::getTempFileDir() + "sc.png");
+	QString tmpFile = QDir::toNativeSeparators(ScPaths::tempFileDir() + "sc.png");
 	QString picFile = QDir::toNativeSeparators(fn);
 	float xres = gsRes;
 	float yres = gsRes;
@@ -121,7 +121,7 @@ bool ScImgDataLoader_PDF::preloadAlphaChannel(const QString& fn, int page, int g
 	if (!fi.exists())
 		return false;
 	QString tmp, BBox;
-	QString tmpFile = QDir::toNativeSeparators(ScPaths::getTempFileDir() + "sc.png");
+	QString tmpFile = QDir::toNativeSeparators(ScPaths::tempFileDir() + "sc.png");
 	QString picFile = QDir::toNativeSeparators(fn);
 	QStringList args;
 	args.append("-r"+QString::number(gsRes));

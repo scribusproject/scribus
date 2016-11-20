@@ -125,7 +125,7 @@ PaintManagerDialog::PaintManagerDialog(QWidget* parent, QHash<QString, VGradient
 			else
 				pfad = csm.paletteFileFromName(docColSet);
 			QFileInfo fi(pfad);
-			if (fi.absolutePath().contains(ScPaths::getApplicationDataDir()+"swatches/locked"))
+			if (fi.absolutePath().contains(ScPaths::applicationDataDir()+"swatches/locked"))
 				paletteLocked = true;
 			else
 				paletteLocked = !fi.isWritable();
@@ -1833,7 +1833,7 @@ void PaintManagerDialog::loadDefaults(QTreeWidgetItem* item)
 		if (!mainWin->HaveDoc)
 		{
 			QFileInfo fi(pfadC2);
-			if (fi.absolutePath().contains(ScPaths::getApplicationDataDir()+"swatches/locked"))
+			if (fi.absolutePath().contains(ScPaths::applicationDataDir()+"swatches/locked"))
 				paletteLocked = true;
 			else
 				paletteLocked = !fi.isWritable();
@@ -1880,7 +1880,7 @@ void PaintManagerDialog::doSaveDefaults(QString name, bool changed)
 {
 	QString filename = name;
 	filename.replace(" ", "_");
-	filename  = QDir::toNativeSeparators(ScPaths::getUserPaletteFilesDir(true)) + filename;
+	filename  = QDir::toNativeSeparators(ScPaths::userPaletteFilesDir(true)) + filename;
 	filename += ".xml";
 	const FileFormat *fmt = LoadSavePlugin::getFormatById(FORMATID_SLA150EXPORT);
 	if (fmt)

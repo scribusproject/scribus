@@ -316,7 +316,7 @@ int ScribusMainWindow::initScMW(bool primaryMainWindow)
 	int retVal=0;
 	qsrand(1234);
 	QByteArray stylesheet;
-	if (loadRawText(ScPaths::getApplicationDataDir() + "/stylesheet.css", stylesheet))
+	if (loadRawText(ScPaths::preferencesDir() + "/stylesheet.css", stylesheet))
 	{
 		qApp->setStyleSheet(QString(stylesheet));
 	}
@@ -436,7 +436,7 @@ int ScribusMainWindow::initScMW(bool primaryMainWindow)
 	csm.findPaletteLocations();
 	csm.findPalettes();
 	csm.findUserPalettes();
-	QString Cpfad = QDir::toNativeSeparators(ScPaths::getApplicationDataDir())+"DefaultColors.xml";
+	QString Cpfad = QDir::toNativeSeparators(ScPaths::applicationDataDir())+"DefaultColors.xml";
 	QFile fc(Cpfad);
 	if (fc.exists())
 		csm.loadPalette(Cpfad, m_doc, m_prefsManager->appPrefs.colorPrefs.DColors, m_prefsManager->appPrefs.defaultGradients, m_prefsManager->appPrefs.defaultPatterns, false);
@@ -2241,7 +2241,7 @@ ScribusDoc *ScribusMainWindow::doFileNew(double width, double height, double top
 	ColorList colorList;
 	QHash<QString, VGradient> gradientsList;
 	QHash<QString, ScPattern> patternsList;
-	QString Cpfad = QDir::toNativeSeparators(ScPaths::getApplicationDataDir())+"DefaultColors.xml";
+	QString Cpfad = QDir::toNativeSeparators(ScPaths::applicationDataDir())+"DefaultColors.xml";
 	QFile fc(Cpfad);
 	if (fc.exists())
 	{
@@ -7387,7 +7387,7 @@ void ScribusMainWindow::slotChangeUnit(int unitIndex, bool draw)
 {
 	// Hack
 	QByteArray stylesheet;
-	if (loadRawText(ScPaths::getApplicationDataDir() + "/stylesheet.css", stylesheet))
+	if (loadRawText(ScPaths::preferencesDir() + "/stylesheet.css", stylesheet))
 	{
 		qApp->setStyleSheet(QString(stylesheet));
 	}
@@ -9248,7 +9248,7 @@ void ScribusMainWindow::managePaints()
 			propertiesPalette->Cpal->setColors(m_prefsManager->colorSet());
 			m_prefsManager->appPrefs.defaultGradients = dia->dialogGradients;
 			m_prefsManager->appPrefs.defaultPatterns = dia->dialogPatterns;
-			QString Cpfad = QDir::toNativeSeparators(ScPaths::getApplicationDataDir())+"DefaultColors.xml";
+			QString Cpfad = QDir::toNativeSeparators(ScPaths::applicationDataDir())+"DefaultColors.xml";
 			const FileFormat *fmt = LoadSavePlugin::getFormatById(FORMATID_SLA150EXPORT);
 			if (fmt)
 			{

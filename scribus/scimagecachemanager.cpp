@@ -358,7 +358,7 @@ ScImageCacheManager::~ScImageCacheManager()
 
 QString ScImageCacheManager::absolutePath(const QString & fn)
 {
-	QString rv(ScPaths::getImageCacheDir() + fn);
+	QString rv(ScPaths::imageCacheDir() + fn);
 	while (rv.endsWith('/'))
 		rv.chop(1);
 	return rv;
@@ -472,8 +472,8 @@ void ScImageCacheManager::sanitizeCache()
 	scDebug() << "sanitizing image cache";
 
 	QFileInfo masterInfo(masterLockFile());
-	QDirIterator di(ScPaths::getImageCacheDir(), QDirIterator::Subdirectories);
-	QDir dir(ScPaths::getImageCacheDir());
+	QDirIterator di(ScPaths::imageCacheDir(), QDirIterator::Subdirectories);
+	QDir dir(ScPaths::imageCacheDir());
 
 	QHash<QString, QString> metafile;       // meta-filename => base 
 	QHash<QString, int> reffile;            // ref-filename  => refcount
@@ -681,7 +681,7 @@ void ScImageCacheManager::updateCache()
 		QStringList suffixes;
 		suffixes << ScImageCacheProxy::metaSuffix << ScImageCacheProxy::referenceSuffix << ScImageCacheProxy::imageSuffix;
 
-		m_root = new ScImageCacheDir(ScPaths::getImageCacheDir());
+		m_root = new ScImageCacheDir(ScPaths::imageCacheDir());
 		Q_CHECK_PTR(m_root);
 
 		if (!m_root)
@@ -855,7 +855,7 @@ int ScImageCacheManager::compressionLevel() const
 
 QString ScImageCacheManager::lockDir()
 {
-	return ScPaths::getImageCacheDir() + "locks/";
+	return ScPaths::imageCacheDir() + "locks/";
 }
 
 QString ScImageCacheManager::masterLockFile()

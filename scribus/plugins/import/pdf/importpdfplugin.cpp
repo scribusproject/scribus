@@ -192,8 +192,8 @@ bool ImportPdfPlugin::import(QString fileName, int flags)
 		{
 			// Destill the eps/ps with ghostscript to get a clean pdf file
 			bool cancel = false;
-			QString errFile = getShortPathName(ScPaths::getTempFileDir())+ "/ps.err";
-			cleanFile = getShortPathName(ScPaths::getTempFileDir()) + "/" + fi.baseName() + ".pdf";
+			QString errFile = getShortPathName(ScPaths::tempFileDir())+ "/ps.err";
+			cleanFile = getShortPathName(ScPaths::tempFileDir()) + "/" + fi.baseName() + ".pdf";
 			QStringList args;
 			args.append( "-q" );
 			args.append( "-dNOPAUSE" );

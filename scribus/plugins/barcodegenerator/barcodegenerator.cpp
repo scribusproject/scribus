@@ -603,7 +603,7 @@ void BarcodeGenerator::updateUIFromOptionsText()
 
 void BarcodeGenerator::updatePreview(QString errorMsg)
 {
-	QString pngFile = QDir::toNativeSeparators(ScPaths::getTempFileDir() + "bcode.png");
+	QString pngFile = QDir::toNativeSeparators(ScPaths::tempFileDir() + "bcode.png");
 	if (errorMsg=="")
 	{
 		ui.sampleLabel->setPixmap(QPixmap(pngFile));
@@ -707,7 +707,7 @@ void BarcodeGenerator::txtColorButton_pressed()
 void BarcodeGenerator::okButton_pressed()
 {
 
-	QString psFile = QDir::toNativeSeparators(ScPaths::getTempFileDir() + "bcode.ps");
+	QString psFile = QDir::toNativeSeparators(ScPaths::tempFileDir() + "bcode.ps");
 
 	// no need to call paintBarcode(pngFile, 300); because
 	// it's created by previous run...

@@ -1044,7 +1044,7 @@ void LanguageManager::findHyphDictionarySets(QStringList& dictionaryPaths, QMap<
 		// Find the dic and aff files in the location
 		QDir dictLocation(dictionaryPaths.at(i));
 		QStringList dictFilters("hyph*.dic");
-		if (dictionaryPaths.at(i)==ScPaths::getUserDictDir(ScPaths::Hyph, false))
+		if (dictionaryPaths.at(i)==ScPaths::userDictDir(ScPaths::Hyph, false))
 				dictFilters.append("*.dic");
 		QStringList dictList(dictLocation.entryList(dictFilters, QDir::Files, QDir::Name));
 		dictList.replaceInStrings(".dic","");

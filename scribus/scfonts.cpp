@@ -949,14 +949,14 @@ void SCFonts::GetFonts(QString pf, bool showFontInfo)
 	ScCore->setSplashStatus( QObject::tr("Searching for Fonts") );
 	AddUserPath(pf);
 	// Search the system paths
-	QStringList ftDirs = ScPaths::getSystemFontDirs();
+	QStringList ftDirs = ScPaths::systemFontDirs();
 	for (int i = 0; i < ftDirs.count(); i++)
 		AddScalableFonts( ftDirs[i] );
 	// Search Scribus font path
 	if (!ScPaths::instance().fontDir().isEmpty() && QDir(ScPaths::instance().fontDir()).exists())
 		AddScalableFonts( ScPaths::instance().fontDir() );
 	//Add downloaded user fonts
-	QString userFontDir(ScPaths::instance().getUserFontDir(false));
+	QString userFontDir(ScPaths::instance().userFontDir(false));
 	if (QDir(userFontDir).exists())
 		AddScalableFonts( userFontDir );
 // if fontconfig is there, it does all the work

@@ -548,7 +548,7 @@ void HelpBrowser::loadMenu()
 {
 //	QString baseHelpDir = ScPaths::instance().docDir();
 //	QString altHelpDir  = ScPaths::instance().getApplicationDataDir();
-	QString baseHelpDir = ScPaths::instance().getUserHelpFilesDir(false);
+	QString baseHelpDir = ScPaths::instance().userHelpFilesDir(false);
 	QString installHelpDir  = ScPaths::instance().docDir();
 
 	QString baseHelpMenuFile = QDir::toNativeSeparators(baseHelpDir + language + "/menu.xml");
@@ -708,7 +708,7 @@ A helper function.
 */
 QString HelpBrowser::bookmarkFile()
 {
-	QString appDataDir(ScPaths::getApplicationDataDir());
+	QString appDataDir(ScPaths::applicationDataDir());
 	QString fname(appDataDir + "doc/bookmarks.xml");
 	if (!QFile::exists(fname))
 	{
@@ -725,7 +725,7 @@ A helper function.
 */
 QString HelpBrowser::historyFile()
 {
-	QString appDataDir(ScPaths::getApplicationDataDir());
+	QString appDataDir(ScPaths::applicationDataDir());
 	QString fname(appDataDir + "doc/history.xml");
 	if (!QFile::exists(fname))
 	{

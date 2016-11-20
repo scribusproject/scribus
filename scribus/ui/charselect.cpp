@@ -37,7 +37,7 @@ CharSelect::CharSelect(QWidget* parent) : ScrPaletteBase(parent, "CharSelect"), 
 	uniClearButton->setIcon(IconManager::instance()->loadIcon("16/document-new.png"));
 
 	m_userTableModel = new CharTableModel(this, 6, m_doc, PrefsManager::instance()->appPrefs.itemToolPrefs.textFont);
-	loadUserContent(ScPaths::getApplicationDataDir() + "charpalette.ucp");
+	loadUserContent(ScPaths::applicationDataDir() + "charpalette.ucp");
 
 	m_unicodeSearchModel = new UnicodeSearchModel(this);
 
@@ -71,7 +71,7 @@ void CharSelect::setDoc(ScribusDoc* doc)
 
 	if (!m_doc)
 	{
-		saveUserContent(ScPaths::getApplicationDataDir() + "charpalette.ucp");
+		saveUserContent(ScPaths::applicationDataDir() + "charpalette.ucp");
 		return;
 	}
 

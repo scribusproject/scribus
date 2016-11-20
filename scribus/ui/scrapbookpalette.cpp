@@ -46,6 +46,7 @@ for which a new license (GPL+exception) is in place.
 #include "prefsmanager.h"
 #include "query.h"
 #include "scimage.h"
+#include "scpaths.h"
 #include "scpreview.h"
 #include "scribuscore.h"
 #include "util.h"
@@ -261,7 +262,7 @@ void BibView::checkAndChange(QString &text, QString nam, QString dir)
 		dd.mkdir(QDir::cleanPath(QDir::toNativeSeparators(dir + "/" + fid.baseName())));
 	}
 	QString source = "";
-	QString fileDir = QDir::homePath();
+	QString fileDir = ScPaths::scrapbookDir(true);
 	bool first = true;
 	DOC = elem.firstChild();
 	while(!DOC.isNull())

@@ -174,12 +174,9 @@ void SATDialog::setupCategories()
 	cats.insert(QString("Programs")   , QObject::tr("Programs"));
 	cats.insert(QString("Signs")      , QObject::tr("Signs"));
 	cats.insert(QString("Text Documents"), QObject::tr("Text Documents"));
-
-	QString scribusHome  = ScPaths::getApplicationDataDir();
-	QString scribusShare = ScPaths::instance().templateDir();
 	
-	addCategories(scribusHome + "/templates");
-	addCategories(scribusShare); 
+	addCategories(ScPaths::applicationDataDir() + "/templates");
+	addCategories(ScPaths::instance().templateDir());
 	QString userTemplateDir(PrefsManager::instance()->appPrefs.pathPrefs.documentTemplates);
 	if (!userTemplateDir.isEmpty())
 		addCategories(userTemplateDir);

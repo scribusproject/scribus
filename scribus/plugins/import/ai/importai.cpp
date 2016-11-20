@@ -91,7 +91,7 @@ QImage AIPlug::readThumbnail(QString fNameIn)
 		{
 			QString tmp, cmd1, cmd2;
 			QString pdfFile = QDir::toNativeSeparators(fName);
-			QString tmpFile = QDir::toNativeSeparators(ScPaths::getTempFileDir() + "sc.png");
+			QString tmpFile = QDir::toNativeSeparators(ScPaths::tempFileDir() + "sc.png");
 			int ret = -1;
 			tmp.setNum(1);
 			QStringList args;
@@ -218,7 +218,7 @@ bool AIPlug::readColors(const QString& fNameIn, ColorList & colors)
 		if (tempBuf.startsWith("%PDF"))
 		{
 			QFileInfo bF2(fName);
-			QString tmpFile = ScPaths::getTempFileDir()+ "/"+bF2.baseName()+"_tmp.ai";
+			QString tmpFile = ScPaths::tempFileDir()+ "/"+bF2.baseName()+"_tmp.ai";
 			if (!extractFromPDF(fName, tmpFile))
 				return false;
 			convertedPDF = true;
@@ -317,7 +317,7 @@ bool AIPlug::import(QString fNameIn, const TransactionSettings& trSettings, int 
 		if (tempBuf.startsWith("%PDF"))
 		{
 			QFileInfo bF2(fName);
-			QString tmpFile = ScPaths::getTempFileDir()+ "/"+bF2.baseName()+"_tmp.ai";
+			QString tmpFile = ScPaths::tempFileDir()+ "/"+bF2.baseName()+"_tmp.ai";
 			if (!extractFromPDF(fName, tmpFile))
 				return false;
 			convertedPDF = true;
@@ -747,7 +747,7 @@ bool AIPlug::decompressAIData(QString &fName)
 	if (!convertedPDF)
 	{
 		QFileInfo bF2(fName);
-		QString tmpFile = ScPaths::getTempFileDir()+ "/"+bF2.baseName()+"_tmp.ai";
+		QString tmpFile = ScPaths::tempFileDir()+ "/"+bF2.baseName()+"_tmp.ai";
 		moveFile(f2, tmpFile);
 		fName = tmpFile;
 		convertedPDF = true;

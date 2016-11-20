@@ -113,7 +113,7 @@ bool SaveAsTemplatePlugin::run(ScribusDoc* doc, QString target)
 }
 void MenuSAT::RunSATPlug(ScribusDoc* doc)
 {
-	QDir templates(ScPaths::getApplicationDataDir());
+	QDir templates(ScPaths::applicationDataDir());
 	if (!templates.exists("templates"))
 	{
 		templates.mkdir("templates");
@@ -127,7 +127,7 @@ void MenuSAT::RunSATPlug(ScribusDoc* doc)
 	QString oldCollect = dirs->get("collect", ".");
 	QString templatesDir = ".";
 	if (userTemplatesDir.isEmpty())
-		templatesDir = ScPaths::getApplicationDataDir() + "templates";
+		templatesDir = ScPaths::applicationDataDir() + "templates";
 	else
 	{
 		if (userTemplatesDir.right(1) == "/")

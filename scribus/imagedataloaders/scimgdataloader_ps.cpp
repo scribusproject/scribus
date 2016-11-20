@@ -183,7 +183,7 @@ bool ScImgDataLoader_PS::parseData(QString fn)
 					QByteArray imgc(thumbLen, ' ');
 					f.seek(thumbStart);
 					f.read(imgc.data(), thumbLen);
-					QString tmpFile = QDir::toNativeSeparators(ScPaths::getTempFileDir() + "preview.tiff");
+					QString tmpFile = QDir::toNativeSeparators(ScPaths::tempFileDir() + "preview.tiff");
 					QFile f2(tmpFile);
 					if (f2.open(QIODevice::WriteOnly))
 						f2.write(imgc.data(), thumbLen);
@@ -479,8 +479,8 @@ bool ScImgDataLoader_PS::loadPicture(const QString& fn, int page, int gsRes, boo
 	QString ext = fi.suffix().toLower();
 	if (ext.isEmpty())
 		ext = getImageType(fn);
-	QString tmpFile = QDir::toNativeSeparators(ScPaths::getTempFileDir() + QString("sc%1.png").arg(qMax(1, page)));
-	QString tmpFiles = QDir::toNativeSeparators(ScPaths::getTempFileDir() + "sc%d.png");
+	QString tmpFile = QDir::toNativeSeparators(ScPaths::tempFileDir() + QString("sc%1.png").arg(qMax(1, page)));
+	QString tmpFiles = QDir::toNativeSeparators(ScPaths::tempFileDir() + "sc%d.png");
 	QString picFile = QDir::toNativeSeparators(fn);
 	float xres = gsRes;
 	float yres = gsRes;
@@ -617,9 +617,9 @@ bool ScImgDataLoader_PS::loadPicture(const QString& fn, int page, int gsRes, boo
 				}
 
 				QStringList files = QStringList("sc*.png");
-				files = QDir(ScPaths::getTempFileDir()).entryList(files);
+				files = QDir(ScPaths::tempFileDir()).entryList(files);
 				for (int i=0; i < files.count(); ++i)
-					QFile::remove(QDir::toNativeSeparators(ScPaths::getTempFileDir() + files[i]));
+					QFile::remove(QDir::toNativeSeparators(ScPaths::tempFileDir() + files[i]));
 				
 				if (extensionIndicatesEPS(ext))
 				{
@@ -697,9 +697,9 @@ bool ScImgDataLoader_PS::loadPicture(const QString& fn, int page, int gsRes, boo
 				}
 				
 				QStringList files = QStringList("sc*.png");
-				files = QDir(ScPaths::getTempFileDir()).entryList(files);
+				files = QDir(ScPaths::tempFileDir()).entryList(files);
 				for (int i=0; i < files.count(); ++i)
-					QFile::remove(QDir::toNativeSeparators(ScPaths::getTempFileDir() + files[i]));
+					QFile::remove(QDir::toNativeSeparators(ScPaths::tempFileDir() + files[i]));
 				
 				if (extensionIndicatesEPS(ext))
 				{
@@ -741,7 +741,7 @@ void ScImgDataLoader_PS::loadPhotoshop(QString fn, int gsRes)
 	double x, y, b, h;
 	QFileInfo fi = QFileInfo(fn);
 	QString ext = fi.suffix().toLower();
-	QString tmpFile = QDir::toNativeSeparators(ScPaths::getTempFileDir() + "sc1.png");
+	QString tmpFile = QDir::toNativeSeparators(ScPaths::tempFileDir() + "sc1.png");
 	int retg;
 	int GsMajor;
 	int GsMinor;
@@ -1172,7 +1172,7 @@ void ScImgDataLoader_PS::loadPhotoshopBinary(QString fn)
 	ts2 >> x >> y >> b >> h;
 	QFileInfo fi = QFileInfo(fn);
 	QString ext = fi.suffix().toLower();
-	QString tmpFile = QDir::toNativeSeparators(ScPaths::getTempFileDir() + "sc1.jpg");
+	QString tmpFile = QDir::toNativeSeparators(ScPaths::tempFileDir() + "sc1.jpg");
 	QFile f2(tmpFile);
 	QString tmp;
 	m_image = QImage(m_psXSize, m_psYSize, QImage::Format_ARGB32);
@@ -1308,7 +1308,7 @@ void ScImgDataLoader_PS::loadPhotoshopBinary(QString fn, QImage &tmpImg)
 	ts2 >> x >> y >> b >> h;
 	QFileInfo fi = QFileInfo(fn);
 	QString ext = fi.suffix().toLower();
-	QString tmpFile = QDir::toNativeSeparators(ScPaths::getTempFileDir() + "sc1.jpg");
+	QString tmpFile = QDir::toNativeSeparators(ScPaths::tempFileDir() + "sc1.jpg");
 	QFile f2(tmpFile);
 	QString tmp;
 	tmpImg = QImage(m_psXSize, m_psYSize, QImage::Format_ARGB32);
@@ -1428,8 +1428,8 @@ void ScImgDataLoader_PS::loadDCS2(QString fn, int gsRes)
 	double x, y, b, h;
 	QFileInfo fi = QFileInfo(fn);
 	QString ext = fi.suffix().toLower();
-	QString tmpFile = QDir::toNativeSeparators(ScPaths::getTempFileDir() + "sc1.png");
-	QString tmpFile2 = QDir::toNativeSeparators(ScPaths::getTempFileDir() + "tmp.eps");
+	QString tmpFile = QDir::toNativeSeparators(ScPaths::tempFileDir() + "sc1.png");
+	QString tmpFile2 = QDir::toNativeSeparators(ScPaths::tempFileDir() + "tmp.eps");
 	QString baseFile = fi.absolutePath();
 	QString picFile = QDir::toNativeSeparators(fn);
 	float xres = gsRes;
@@ -1542,7 +1542,7 @@ void ScImgDataLoader_PS::loadDCS1(QString fn, int gsRes)
 	double x, y, b, h;
 	QFileInfo fi = QFileInfo(fn);
 	QString ext = fi.suffix().toLower();
-	QString tmpFile = QDir::toNativeSeparators(ScPaths::getTempFileDir() + "sc1.png");
+	QString tmpFile = QDir::toNativeSeparators(ScPaths::tempFileDir() + "sc1.png");
 	QString baseFile = fi.absolutePath();
 	QString picFile;
 	float xres = gsRes;
@@ -1677,8 +1677,8 @@ bool ScImgDataLoader_PS::preloadAlphaChannel(const QString& fn, int page, int gs
 	if (!fi.exists())
 		return false;
 	QString ext = fi.suffix().toLower();
-	QString tmpFile = QDir::toNativeSeparators(ScPaths::getTempFileDir() + QString("sc%1.png").arg(qMax(1, page)));
-	QString tmpFiles = QDir::toNativeSeparators(ScPaths::getTempFileDir() + "sc%d.png");
+	QString tmpFile = QDir::toNativeSeparators(ScPaths::tempFileDir() + QString("sc%1.png").arg(qMax(1, page)));
+	QString tmpFiles = QDir::toNativeSeparators(ScPaths::tempFileDir() + "sc%d.png");
 	QString picFile = QDir::toNativeSeparators(fn);
 	double x, y, b, h;
 	bool found = false;
@@ -1732,9 +1732,9 @@ bool ScImgDataLoader_PS::preloadAlphaChannel(const QString& fn, int page, int gs
 			}
 			
 			QStringList files = QStringList("sc*.png");
-			files = QDir(ScPaths::getTempFileDir()).entryList(files);
+			files = QDir(ScPaths::tempFileDir()).entryList(files);
 			for (int i=0; i < files.count(); ++i)
-				QFile::remove(QDir::toNativeSeparators(ScPaths::getTempFileDir() + files[i]));
+				QFile::remove(QDir::toNativeSeparators(ScPaths::tempFileDir() + files[i]));
 
 			hasAlpha = true;
 			m_imageInfoRecord.actualPageNumber = page;

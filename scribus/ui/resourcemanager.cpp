@@ -842,24 +842,24 @@ QString ResourceManager::findDestinationFolder()
 	switch (category)
 	{
 		case RM_FONTS:
-			destinationFolder=ScPaths::getUserFontDir(true);
+			destinationFolder=ScPaths::userFontDir(true);
 			break;
 		case RM_HYPH:
-			destinationFolder=ScPaths::getUserDictDir(ScPaths::Hyph, true);
+			destinationFolder=ScPaths::userDictDir(ScPaths::Hyph, true);
 			break;
 		case RM_SPELL:
-			destinationFolder=ScPaths::getUserDictDir(ScPaths::Spell, true);
+			destinationFolder=ScPaths::userDictDir(ScPaths::Spell, true);
 			break;
 		case RM_TEMPLATES:
 			//temporary
-			destinationFolder=ScPaths::getTempFileDir();
+			destinationFolder=ScPaths::tempFileDir();
 			//TODO!!!! destinationFolder=ScPaths::getUserDictDir(true);
 			break;
 		case RM_HELP:
-			destinationFolder=ScPaths::getUserHelpFilesDir(true);
+			destinationFolder=ScPaths::userHelpFilesDir(true);
 			break;
 		case RM_PALETTES:
-			destinationFolder=ScPaths::getUserPaletteFilesDir(true);
+			destinationFolder=ScPaths::userPaletteFilesDir(true);
 			break;
 		case RM_TEST:
 			destinationFolder=ScPaths::downloadDir();
@@ -1000,7 +1000,7 @@ void ResourceManager::downloadFilesFinished()
 			{
 				if (d.filetype=="zip")
 				{
-					QString fn(ScPaths::getUserFontDir(true)+d.files);
+					QString fn(ScPaths::userFontDir(true)+d.files);
 					QFile dledFile(fn);
 					QFileInfo fi(dledFile);
 					if (!dledFile.exists())
@@ -1014,8 +1014,8 @@ void ResourceManager::downloadFilesFinished()
 						{
 							QStringList zipFileContents(fun->files());
 							QStringList extractFiles(d.extractfiles.split(";", QString::SkipEmptyParts));
-							QString toDir(ScPaths::getUserFontDir(false)+fi.baseName()+"/");
-							QDir dir(ScPaths::getUserFontDir(false));
+							QString toDir(ScPaths::userFontDir(false)+fi.baseName()+"/");
+							QDir dir(ScPaths::userFontDir(false));
 							if (!dir.exists(fi.baseName()))
 								dir.mkdir(fi.baseName());
 							foreach (QString f2e, zipFileContents)
@@ -1040,7 +1040,7 @@ void ResourceManager::downloadFilesFinished()
 				{
 					if (d.filetype=="zip")
 					{
-						QString fn(ScPaths::getUserDictDir(static_cast<ScPaths::DictType>(fileType), true)+d.files);
+						QString fn(ScPaths::userDictDir(static_cast<ScPaths::DictType>(fileType), true)+d.files);
 						QFile dledFile(fn);
 						QFileInfo fi(dledFile);
 						if (!dledFile.exists())
@@ -1054,7 +1054,7 @@ void ResourceManager::downloadFilesFinished()
 							{
 								QStringList zipContents(fun->files());
 								QStringList extractFiles(d.extractfiles.split(";", QString::SkipEmptyParts));
-								QString toDir(ScPaths::getUserDictDir(static_cast<ScPaths::DictType>(fileType), false));
+								QString toDir(ScPaths::userDictDir(static_cast<ScPaths::DictType>(fileType), false));
 								QDir dir(toDir);
 								if (dir.exists())
 								{
@@ -1083,7 +1083,7 @@ void ResourceManager::downloadFilesFinished()
 				//qDebug()<<d.desc<<d.download<<d.files<<d.type;
 				if (d.filetype=="zip")
 				{
-					QString fn(ScPaths::getUserHelpFilesDir(true)+d.files);
+					QString fn(ScPaths::userHelpFilesDir(true)+d.files);
 					//qDebug()<<fn;
 					QFile dledFile(fn);
 					QFileInfo fi(dledFile);
@@ -1093,7 +1093,7 @@ void ResourceManager::downloadFilesFinished()
 						qDebug()<<"File doesn\'t exist"<<fn<<fn+".sha256";
 					else
 					{
-						if (checkFileHash(ScPaths::getUserHelpFilesDir(false), fi.fileName(), fiSHA256.fileName(), QCryptographicHash::Sha256))
+						if (checkFileHash(ScPaths::userHelpFilesDir(false), fi.fileName(), fiSHA256.fileName(), QCryptographicHash::Sha256))
 						{
 							ScZipHandler* fun = new ScZipHandler();
 							if (!fun->open(fn))
@@ -1102,8 +1102,8 @@ void ResourceManager::downloadFilesFinished()
 							{
 								QStringList zipFileContents(fun->files());
 								QStringList extractFiles(d.extractfiles.split(";", QString::SkipEmptyParts));
-								QString toDir(ScPaths::getUserHelpFilesDir(false)+d.lang+"/");
-								QDir dir(ScPaths::getUserHelpFilesDir(false));
+								QString toDir(ScPaths::userHelpFilesDir(false)+d.lang+"/");
+								QDir dir(ScPaths::userHelpFilesDir(false));
 								if (!dir.exists(d.lang))
 									dir.mkdir(d.lang);
 								foreach (QString f2e, zipFileContents)
@@ -1387,7 +1387,7 @@ void ResourceManager::showLicense()
 			{
 				if (filesToDownload.contains(d.desc))
 				{
-					ScQApp->dlManager()->addURL(d.url+"/"+licenceFileName, true, ScPaths::downloadDir(), ScPaths::getTempFileDir());
+					ScQApp->dlManager()->addURL(d.url+"/"+licenceFileName, true, ScPaths::downloadDir(), ScPaths::tempFileDir());
 					connect(ScQApp->dlManager(), SIGNAL(finished()), this, SLOT(downloadLicenseFinished()));
 					connect(ScQApp->dlManager(), SIGNAL(fileReceived(const QString&)), this, SLOT(downloadLicenseFileFinished(const QString&)));
 					connect(ScQApp->dlManager(), SIGNAL(fileFailed(const QString&)), this, SLOT(downloadLicenseFileFailed(const QString&)));
