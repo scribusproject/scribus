@@ -747,6 +747,24 @@ bool PrefsManager::copyOldAppConfigAndData()
 	QFileInfo oldPi3 = QFileInfo(oldPR3);
 	if (oldPi3.exists())
 		moveFile(oldPR3, m_prefsLocation+"scrap.scs");
+	QString oldPrefsLocation(QDir::homePath()+"/.scribus/");
+	QString oldPR4 = QDir::toNativeSeparators(oldPrefsLocation + "scribus150.rc");
+	QFileInfo oldPi4 = QFileInfo(oldPR4);
+	if (oldPi4.exists())
+		moveFile(oldPR4, m_prefsLocation+"scribus150.rc");
+	QString oldPR5 = QDir::toNativeSeparators(oldPrefsLocation + "scrap150.scs");
+	QFileInfo oldPi5 = QFileInfo(oldPR5);
+	if (oldPi5.exists())
+		moveFile(oldPR5, m_prefsLocation+"scrap150.scs");
+	QString oldPR6 = QDir::toNativeSeparators(oldPrefsLocation + "prefs150.xml");
+	QFileInfo oldPi6 = QFileInfo(oldPR6);
+	if (oldPi6.exists())
+		moveFile(oldPR6, m_prefsLocation+"prefs150.xml");
+	QString oldPR7 = QDir::toNativeSeparators(oldPrefsLocation + "scripter150.rc");
+	QFileInfo oldPi7 = QFileInfo(oldPR7);
+	if (oldPi7.exists())
+		moveFile(oldPR7, m_prefsLocation+"scripter150.rc");
+
 
 	//Move plugin data files to new plugin data file directory
 	QDir oldPluginData(ScPaths::preferencesDir() + "/plugins");
