@@ -290,7 +290,7 @@ QStringList ScPaths::spellDirs() const
 	}
 
 #elif defined(_WIN32)
-	QString progFiles = getSpecialDir(CSIDL_PROGRAM_FILES);
+	QString progFiles = windowsSpecialDir(CSIDL_PROGRAM_FILES);
 	d.setPath(progFiles+windowsLOPath);
 	if (d.exists())
 	{
@@ -357,7 +357,7 @@ QStringList ScPaths::hyphDirs() const
 	}
 
 #elif defined(_WIN32)
-	QString progFiles = getSpecialDir(CSIDL_PROGRAM_FILES);
+	QString progFiles = windowsSpecialDir(CSIDL_PROGRAM_FILES);
 	d.setPath(progFiles+windowsLOPath);
 	if (d.exists())
 	{
@@ -393,7 +393,7 @@ QStringList ScPaths::systemFontDirs(void)
 	fontDirs.append("/Network/Library/Fonts/");
 	fontDirs.append("/System/Library/Fonts/");
 #elif defined(_WIN32)
-	fontDirs.append( getSpecialDir(CSIDL_FONTS) );
+	fontDirs.append( windowsSpecialDir(CSIDL_FONTS) );
 #endif
 	return fontDirs;
 }
@@ -420,7 +420,7 @@ QStringList ScPaths::systemProfilesDirs(void)
 	ZeroMemory( &osVersion, sizeof(OSVERSIONINFO));
 	osVersion.dwOSVersionInfoSize = sizeof(OSVERSIONINFO); // Necessary for GetVersionEx to succeed
 	GetVersionEx(&osVersion);  // Get Windows version infos
-	GetSystemDirectoryW( sysDir, MAX_PATH ); // getSpecialDir(CSIDL_SYSTEM) fails on Win9x
+	GetSystemDirectoryW( sysDir, MAX_PATH ); // windowsSpecialDir(CSIDL_SYSTEM) fails on Win9x
 	QString winSysDir = QString::fromUtf16((const ushort*) sysDir);
 	winSysDir = winSysDir.replace('\\','/');
 	if( osVersion.dwPlatformId == VER_PLATFORM_WIN32_NT	) // Windows NT/2k/XP
@@ -477,10 +477,10 @@ QStringList ScPaths::systemCreatePalettesDirs(void)
 	createDirs.append("/usr/share/create/swatches/");
 	createDirs.append("/usr/local/share/create/swatches/");
 #elif defined(_WIN32)
-	QString localAppData = getSpecialDir(CSIDL_LOCAL_APPDATA);
-	QString commonAppData = getSpecialDir(CSIDL_COMMON_APPDATA);
-	QString programFilesCommon = getSpecialDir(CSIDL_PROGRAM_FILES_COMMON);
-	createDirs.append(getSpecialDir(CSIDL_APPDATA) + "create/swatches/");
+	QString localAppData = windowsSpecialDir(CSIDL_LOCAL_APPDATA);
+	QString commonAppData = windowsSpecialDir(CSIDL_COMMON_APPDATA);
+	QString programFilesCommon = windowsSpecialDir(CSIDL_PROGRAM_FILES_COMMON);
+	createDirs.append(windowsSpecialDir(CSIDL_APPDATA) + "create/swatches/");
 	if ( !localAppData.isEmpty() )
 		createDirs.append(localAppData + "create/swatches/");
 	if ( !commonAppData.isEmpty() )
@@ -511,7 +511,7 @@ QString ScPaths::preferencesDir(bool createIfNotExists)
 #ifdef APPLICATION_CONFIG_DIR
 	prefsDir =  QDir::homePath() + "/" + APPLICATION_CONFIG_DIR + "/";
 #else
-	//Jean wants to make all prefs for Scribus be in the roaming directory on Windows
+	//Jean wants to make all prefs for Scribus be in the roaming directory on Windows so return the same as applicationDataDir
 	#ifdef Q_OS_WIN32
 		prefsDir =  QStandardPaths::writableLocation(QStandardPaths::AppDataLocation) + "/";
 	#else
@@ -610,7 +610,7 @@ QString ScPaths::tempFileDir(void)
 		tempPath += "/";
 		// GetTempPath may return Windows directory, better not use this one
 		// for temporary files
-		if (QDir(tempPath).exists() && tempPath != getSpecialDir(CSIDL_WINDOWS))
+		if (QDir(tempPath).exists() && tempPath != windowsSpecialDir(CSIDL_WINDOWS))
 			return tempPath;
 	}
 #endif

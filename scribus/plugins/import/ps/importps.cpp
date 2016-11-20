@@ -337,8 +337,8 @@ bool EPSPlug::convert(QString fn, double x, double y, double b, double h)
 	QString cmd, cmd1, cmd2, cmd3, tmp, tmp2, tmp3, tmp4;
 	// import.prolog do not cope with filenames containing blank spaces
 	// so take care that output filename does not (win32 compatibility)
-	QString tmpFile = getShortPathName(ScPaths::getTempFileDir())+ "/ps.out";
-	QString errFile = getShortPathName(ScPaths::getTempFileDir())+ "/ps.err";
+	QString tmpFile = getShortPathName(ScPaths::tempFileDir())+ "/ps.out";
+	QString errFile = getShortPathName(ScPaths::tempFileDir())+ "/ps.err";
 	QString pfad = ScPaths::instance().libDir();
 	QString pfad2 = QDir::toNativeSeparators(pfad + "import.prolog");
 	QFileInfo fi = QFileInfo(fn);
@@ -350,7 +350,7 @@ bool EPSPlug::convert(QString fn, double x, double y, double b, double h)
 	}
 /*
 // Destill the eps with ghostscript to get a clean eps file
-	QString cleanFile = getShortPathName(ScPaths::getTempFileDir())+ "/clean.eps";
+	QString cleanFile = getShortPathName(ScPaths::tempFileDir())+ "/clean.eps";
 	args.append( "-q" );
 	args.append( "-dNOPAUSE" );
 	args.append( "-sDEVICE=epswrite" );

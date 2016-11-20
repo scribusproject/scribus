@@ -145,7 +145,7 @@ QImage PdfPlug::readThumbnail(QString fName)
 /*	Old Code to be backed up
 	QString tmp, cmd1, cmd2;
 	QString pdfFile = QDir::toNativeSeparators(fName);
-	QString tmpFile = QDir::toNativeSeparators(ScPaths::getTempFileDir() + "sc.png");
+	QString tmpFile = QDir::toNativeSeparators(ScPaths::tempFileDir() + "sc.png");
 	int ret = -1;
 	tmp.setNum(1);
 	QStringList args;

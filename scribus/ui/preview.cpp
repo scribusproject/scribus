@@ -551,7 +551,7 @@ int PPreview::RenderPreview(int Seite, int Res)
 		options.useSpotColors = false;
 		bool done = winPrint.gdiPrintPreview(doc, page, &image, options, Res / 72.0);
 		if (done)
-			image.save( ScPaths::getTempFileDir() + "/sc.png", "PNG" );
+			image.save( ScPaths::tempFileDir() + "/sc.png", "PNG" );
 		return (done ? 0 : 1);
 	}
 #endif
