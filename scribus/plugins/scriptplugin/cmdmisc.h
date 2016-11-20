@@ -341,7 +341,7 @@ PyObject *scribus_moveselectiontofront(PyObject*);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_moveselectiontoback__doc__,
-QT_TR_NOOP("moveSelectionToFront()\n\
+QT_TR_NOOP("moveSelectionToBack()\n\
 \n\
 Moves current selection to back.\n\
 "));
