@@ -576,8 +576,8 @@ QString ScPaths::getUserDocumentDir(void)
 {
 	QString userDocs = QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation);
 	if (QDir(userDocs).exists())
-		return userDocs;
-	return QStandardPaths::writableLocation(QStandardPaths::HomeLocation);
+		return userDocs + "/";
+	return QStandardPaths::writableLocation(QStandardPaths::HomeLocation) + "/";
 }
 
 QString ScPaths::getTempFileDir(void)
