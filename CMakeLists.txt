@@ -373,11 +373,18 @@ ENDIF()
 # Example: I want to use special ~/.scribus135svn config directory for my trunk
 #          cmake -DAPPLICATION_DATA_DIR=.scribus135svn ...
 IF (APPLICATION_DATA_DIR)
-	MESSAGE(STATUS "Using ApplicationDataDir ${APPLICATION_DATA_DIR} instead of the platform default.")
+    MESSAGE(STATUS "Using ApplicationDataDir ${APPLICATION_DATA_DIR} instead of the platform default.")
 	ADD_DEFINITIONS("-DAPPLICATION_DATA_DIR=\\\"${APPLICATION_DATA_DIR}\\\"")
 ELSE (APPLICATION_DATA_DIR)
-	MESSAGE(STATUS "Using standard ApplicationDataDir. You can change it with -DAPPLICATION_DATA_DIR")
+    MESSAGE(STATUS "Using standard ApplicationDataDir. You can change it with -DAPPLICATION_DATA_DIR")
 ENDIF (APPLICATION_DATA_DIR)
+
+IF (APPLICATION_CONFIG_DIR)
+    MESSAGE(STATUS "Using ApplicationConfigDir ${APPLICATION_CONFIG_DIR} instead of the platform default.")
+	ADD_DEFINITIONS("-DAPPLICATION_CONFIG_DIR=\\\"${APPLICATION_CONFIG_DIR}\\\"")
+ELSE (APPLICATION_CONFIG_DIR)
+    MESSAGE(STATUS "Using standard ApplicationConfigDir. You can change it with -DAPPLICATION_CONFIG_DIR")
+ENDIF (APPLICATION_CONFIG_DIR)
 
 #LIB LOCATION - lib or lib64 normally
 #LIB
@@ -590,7 +597,7 @@ ENDIF(WIN32)
 ########## Find Dependencies                                                                        ##########
 
 #<< Qt
-SET (QT_MIN_VERSION "5.3.0")
+SET (QT_MIN_VERSION "5.5.0")
 SET(CMAKE_PREFIX_PATH "${QT_PREFIX}/lib/cmake")
 SET(CMAKE_INCLUDE_CURRENT_DIR ON)
 FIND_PACKAGE(Qt5Core REQUIRED)
@@ -874,7 +881,7 @@ ENDIF (WANT_GRAPHICSMAGICK)
 #>>GraphicksMagick for image import
 
 #<<Poppler for PDF import
-FIND_PACKAGE(POPPLER)
+FIND_PACKAGE(POPPLER REQUIRED)
 IF (POPPLER_FOUND)
 	IF (FREETYPE_FOUND)
 		SET( HAVE_POPPLER 1 )
