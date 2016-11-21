@@ -19,7 +19,7 @@ HunspellDict::HunspellDict(const QString& affPath, const QString& dictPath)
 	m_hunspell = new Hunspell(affPath.toLocal8Bit().constData(), dictPath.toLocal8Bit().constData());
 	if (m_hunspell)
 	{
-		char* dictEncoding = m_hunspell->get_dic_encoding();
+		const char* dictEncoding = m_hunspell->get_dic_encoding();
 		if (dictEncoding)
 			encoding = QString::fromLatin1(dictEncoding);
 	}
