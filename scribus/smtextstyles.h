@@ -16,12 +16,13 @@ class CharStyle;
 class ScribusDoc;
 class SMCStyleWidget;
 class SMPStyleWidget;
+class SMCharacterStyle;
 
 class SMParagraphStyle : public StyleItem
 {
 	Q_OBJECT
 public:
-	SMParagraphStyle(StyleSet<CharStyle> *cstyles);
+	SMParagraphStyle(SMCharacterStyle* cstyleItem);
 	~SMParagraphStyle();
 
 	QTabWidget* widget();
@@ -53,6 +54,7 @@ signals:
 
 private:
 	SMPStyleWidget *pwidget_;
+	SMCharacterStyle *cstyleItem_;
 	ScribusDoc *doc_;
 	bool selectionIsDirty_;
 	double unitRatio_;
@@ -105,6 +107,7 @@ private slots:
 	void slotFont(QString s);
 	void slotParentChanged(const QString &parent);
 	void slotCharParentChanged(const QString &parent);
+	void slotCharStylesDeleted(const QList<RemoveItem> &removeList);
 };
 
 class SMCharacterStyle : public StyleItem
@@ -140,6 +143,7 @@ public:
 
 signals:
 	void selectionDirty();
+	void charStylesDeleted(const QList<RemoveItem> &removeList);
 
 private:
 	QTabWidget   *widget_;

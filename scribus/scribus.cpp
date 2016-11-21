@@ -519,7 +519,7 @@ void ScribusMainWindow::initPalettes()
 	// initializing style manager here too even it's not strictly a palette
 	styleManager = new StyleManager(this, "styleManager");
 	SMCharacterStyle *tmpCS = new SMCharacterStyle();
-	styleManager->addStyle(new SMParagraphStyle(tmpCS->tmpStyles()));
+	styleManager->addStyle(new SMParagraphStyle(tmpCS));
 	styleManager->addStyle(tmpCS);
 	styleManager->addStyle(new SMLineStyle());
 	connect( scrActions["editStyles"], SIGNAL(toggled(bool)), styleManager, SLOT(setPaletteShown(bool)) );
