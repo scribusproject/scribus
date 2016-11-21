@@ -734,6 +734,9 @@ void PrefsManager::setupPreferencesLocation()
 
 bool PrefsManager::copyOldAppConfigAndData()
 {
+	if (QFile::exists(m_prefsLocation+"scribus150.rc") && QFile::exists(m_prefsLocation+"prefs150.xml"))
+		return false;
+
 	//Move to using the ScPaths default prefs location/scribus.* from ~/.scribus.*
 	QString oldPR = QDir::toNativeSeparators(QDir::homePath()+"/.scribus.rc");
 	QFileInfo oldPi = QFileInfo(oldPR);
