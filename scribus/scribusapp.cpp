@@ -268,10 +268,10 @@ void ScribusQApp::parseCommandLine()
 				std::cout << tr("Option %1 requires an argument.").arg(arg).toLocal8Bit().data() << std::endl;
 				std::exit(EXIT_FAILURE);
 			}
-			m_prefsUserFile = QFile::decodeName(args[argi + 1].toLocal8Bit());
-			if (!QFileInfo(m_prefsUserFile).exists())
+			m_prefsUserDir = QFile::decodeName(args[argi + 1].toLocal8Bit());
+			if (!QDir(m_prefsUserDir).exists())
 			{
-				std::cout << tr("Preferences file %1 does not exist, aborting.").arg(m_prefsUserFile).toLocal8Bit().data() << std::endl;
+				std::cout << tr("Preferences directory %1 does not exist, aborting.").arg(m_prefsUserDir).toLocal8Bit().data() << std::endl;
 				std::exit(EXIT_FAILURE);
 			} else {
 				++argi;
@@ -369,7 +369,7 @@ int ScribusQApp::init()
 	 */
 	// if (useGUI)
 	if (true)
-		retVal=ScCore->startGUI(m_showSplash, m_showFontInfo, m_showProfileInfo, m_lang, m_prefsUserFile);
+		retVal=ScCore->startGUI(m_showSplash, m_showFontInfo, m_showProfileInfo, m_lang);
 
 	// A hook for plugins and scripts to trigger on. Some plugins and scripts
 	// require the app to be fully set up (in particular, the main window to be
@@ -397,7 +397,7 @@ QStringList ScribusQApp::getLang(QString lang)
 			PrefsPfad = Pff;
 		else
 			PrefsPfad = ScPaths::preferencesDir();
-		QString prefsXMLFile=QDir::toNativeSeparators(PrefsPfad + "/prefs150.xml");
+		QString prefsXMLFile=QDir::toNativeSeparators(PrefsPfad + "prefs150.xml");
 		QFileInfo infoPrefsFile(prefsXMLFile);
 		if (infoPrefsFile.exists())
 		{

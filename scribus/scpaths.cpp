@@ -12,6 +12,9 @@ for which a new license (GPL+exception) is in place.
 #include <QStandardPaths>
 
 #include "scconfig.h"
+#include "scribusapp.h"
+
+extern ScribusQApp* ScQApp;
 
 // On Qt/Mac we need CoreFoundation to discover the location
 // of the app bundle.
@@ -530,6 +533,9 @@ QString ScPaths::applicationDataDir(bool createIfNotExists)
 
 QString ScPaths::preferencesDir(bool createIfNotExists)
 {
+	//If we have been passed a dir on cmd line, use this. Start up errors if it does not exist.
+	if (!ScQApp->userPrefsDir().isEmpty())
+		return ScQApp->userPrefsDir();
 	QString prefsDir;
 #ifdef APPLICATION_CONFIG_DIR
 	prefsDir =  QDir::homePath() + "/" + APPLICATION_CONFIG_DIR + "/";

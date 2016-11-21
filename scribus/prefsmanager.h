@@ -100,13 +100,13 @@ public:
 	/*! \brief Read the preferences.
 	\param fname optional filename with preferences. If is not given,
 	the defualt is used. */
-	void ReadPrefs(const QString & fname=QString::null);
+	void ReadPrefs();
 	void ReadPrefsXML();
 
 	/*! \brief Save the preferences.
 	\param fname optional filename with preferences. If is not given,
 	the defualt is used. */
-	void SavePrefs(const QString & fname=QString::null);
+	void SavePrefs();
 	void SavePrefsXML();
 
 	/*! \brief Writes the preferences physically to the file.

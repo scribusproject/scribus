@@ -24,6 +24,7 @@ for which a new license (GPL+exception) is in place.
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.             *
  ***************************************************************************/
 
+#include <QDebug>
 #include <QFile>
 #include <QFileInfo>
 #include <QString>

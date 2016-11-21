@@ -65,7 +65,7 @@ public:
 	int runScript() {return 0;}
 	*/	
 	int init(bool useGUI, const QList<QString>& filesToUse);
-	int initScribusCore(bool showSplash, bool showFontInfo, bool showProfileInfo, const QString newGuiLanguage, const QString prefsUserFile);
+	int initScribusCore(bool showSplash, bool showFontInfo, bool showProfileInfo, const QString newGuiLanguage);
 	bool initialized() const {return m_ScribusInitialized;}
 	const QString& getGuiLanguage() const;
 
@@ -76,7 +76,7 @@ public:
 	void closeSplash();
 	void setSplashStatus(const QString&);
 	bool usingGUI() const;
-	int startGUI(bool showSplash, bool showFontInfo, bool showProfileInfo, const QString newGuiLanguage, const QString prefsUserFile);
+	int startGUI(bool showSplash, bool showFontInfo, bool showProfileInfo, const QString newGuiLanguage);
 	/**
 	* @brief Are we trying to adhere to Apple Mac HIG ?
 	* @retval bool true if we are on Qt/Mac
@@ -123,8 +123,6 @@ public:
 	ScColorTransform defaultCMYKToRGBTrans;
 	ScColorTransform defaultLabToRGBTrans;
 	ScColorTransform defaultLabToCMYKTrans;
-	//CB FIXME protect
-// 	QWidget *m_PaletteParent;
 	
 protected:
 	void initCMS();
