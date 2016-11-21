@@ -269,6 +269,8 @@ void ScribusQApp::parseCommandLine()
 				std::exit(EXIT_FAILURE);
 			}
 			m_prefsUserDir = QFile::decodeName(args[argi + 1].toLocal8Bit());
+			if (!m_prefsUserDir.endsWith("/"))
+				m_prefsUserDir.append('/');
 			if (!QDir(m_prefsUserDir).exists())
 			{
 				std::cout << tr("Preferences directory %1 does not exist, aborting.").arg(m_prefsUserDir).toLocal8Bit().data() << std::endl;
