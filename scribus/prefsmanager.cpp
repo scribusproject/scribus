@@ -750,7 +750,7 @@ bool PrefsManager::copyOldAppConfigAndData()
 	QFileInfo oldPi3 = QFileInfo(oldPR3);
 	if (oldPi3.exists())
 		moveFile(oldPR3, m_prefsLocation+"scrap.scs");
-	QString oldPrefsLocation(QDir::homePath()+"/.scribus/");
+	QString oldPrefsLocation(ScPaths::oldApplicationDataDir());
 	QString oldPR4 = QDir::toNativeSeparators(oldPrefsLocation + "scribus150.rc");
 	QFileInfo oldPi4 = QFileInfo(oldPR4);
 	if (oldPi4.exists())

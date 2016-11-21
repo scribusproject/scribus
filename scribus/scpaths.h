@@ -73,6 +73,8 @@ public:
 	static QString preferencesDir(bool createIfNotExists = false);
 	/** @brief Return path to application data dir*/
 	static QString applicationDataDir(bool createIfNotExists = false);
+	/** @brief Return path to pre XDG/QStandardPaths application data dir*/
+	static QString oldApplicationDataDir(void);
 	/** @brief Return path to application data dir for downloaded hyph dictionaries*/
 	static QString userDictDir(ScPaths::DictType dictType, bool createIfNotExists);
 	/** @brief Return path to application data dir for downloaded fonts*/

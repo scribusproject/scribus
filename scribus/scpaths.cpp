@@ -491,6 +491,29 @@ QStringList ScPaths::systemCreatePalettesDirs(void)
 	return createDirs;
 }
 
+QString ScPaths::oldApplicationDataDir(void)
+{
+#ifdef Q_OS_WIN32
+	QString appData = windowsSpecialDir(CSIDL_APPDATA);
+	if (QDir(appData).exists())
+#ifdef APPLICATION_DATA_DIR
+	return (appData + "/" + APPLICATION_DATA_DIR + "/");
+#else
+	return (appData + "/Scribus/");
+#endif
+#endif
+
+#ifdef APPLICATION_DATA_DIR
+	return QDir::homePath() + "/" + APPLICATION_DATA_DIR + "/";
+#else
+	#ifdef Q_OS_MAC
+		return (QDir::homePath() + "/Library/Preferences/Scribus/");
+	#else
+		return (QDir::homePath() + "/.scribus/");
+	#endif
+#endif
+}
+
 QString ScPaths::applicationDataDir(bool createIfNotExists)
 {
 	QString dataDir;
