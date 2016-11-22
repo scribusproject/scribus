@@ -381,7 +381,6 @@ void CanvasMode_Rotate::mouseMoveEvent(QMouseEvent *m)
 	m_angleConstrained = false;
 	
 	PageItem *currItem;
-	QRect tx;
 	m->accept();
 
 	if (GetItem(&currItem))
@@ -426,17 +425,9 @@ void CanvasMode_Rotate::mouseMoveEvent(QMouseEvent *m)
 				QRect mpo = QRect(m->x()-m_doc->guidesSettings.grabRad, m->y()-m_doc->guidesSettings.grabRad, m_doc->guidesSettings.grabRad*2, m_doc->guidesSettings.grabRad*2);
 				if ((QRegion(p.map(QPolygon(QRect(-3, -3, static_cast<int>(currItem->width()+6), static_cast<int>(currItem->height()+6))))).contains(mpo)))
 				{
-					tx = p.mapRect(QRect(0, 0, static_cast<int>(currItem->width()), static_cast<int>(currItem->height())));
+					QRect tx = p.mapRect(QRect(0, 0, static_cast<int>(currItem->width()), static_cast<int>(currItem->height())));
 					if ((tx.intersects(mpo)) && (!currItem->locked()))
-					{
 						m_view->setCursor(QCursor(loadIcon("Rotieren2.png")));
-						if (!currItem->sizeLocked())
-							m_view->HandleCurs(currItem, mpo);
-					}
-				}
-				else
-				{
-//					setModeCursor();
 				}
 			}
 		}
