@@ -933,7 +933,7 @@ void PrefsManager::ReadPrefsXML()
 		if (userprefsContext)
 		{
 			appPrefs.uiPrefs.language = userprefsContext->get("gui_language","");
-			appPrefs.uiPrefs.mainWinState = QByteArray::fromHex(userprefsContext->get("mainwinstate","").toLatin1());
+			appPrefs.uiPrefs.mainWinState = QByteArray::fromBase64(userprefsContext->get("mainwinstate","").toLatin1());
 			appPrefs.uiPrefs.tabbedPalettes.clear();
 			PrefsTable *tabsTable = userprefsContext->getTable("tabbedPalettes");
 			PrefsTable *actTabsTable = userprefsContext->getTable("activeTabs");
@@ -1003,7 +1003,7 @@ void PrefsManager::SavePrefsXML()
 		if (userprefsContext)
 		{
 			userprefsContext->set("gui_language", appPrefs.uiPrefs.language);
-			userprefsContext->set("mainwinstate", QString::fromLatin1(appPrefs.uiPrefs.mainWinState.toHex()));
+			userprefsContext->set("mainwinstate", QString::fromLatin1(appPrefs.uiPrefs.mainWinState.toBase64()));
 			if (!appPrefs.uiPrefs.tabbedPalettes.isEmpty())
 			{
 				int maxCols = 0;

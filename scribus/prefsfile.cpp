@@ -88,7 +88,6 @@ void PrefsFile::write()
 {
 	if ((!m_ioEnabled) || ((m_contexts.size() == 0) && (m_pluginContexts.size() == 0)))
 		return; // No prefs file path set -> can't write or no prefs to write
-	qDebug()<<"write"<<m_prefsFilePath;
 	QFile* prefsXML = new QFile(m_prefsFilePath);
 	if (prefsXML->open(QIODevice::WriteOnly))
 	{
