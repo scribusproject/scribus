@@ -299,7 +299,6 @@ ScribusMainWindow::ScribusMainWindow()
 	resourceManager=0;
 	UrlLauncher::instance();
 	m_mainWindowStatusLabel=0;
-	ExternalApp=0;
 	m_ScriptRunning = 0;
 #ifdef Q_OS_MAC
 	//commenting this out until this is resolved :https://bugreports.qt.io/browse/QTBUG-44565
@@ -8383,15 +8382,6 @@ void ScribusMainWindow::SearchText()
 	slotSelect();
 }
 
-void ScribusMainWindow::imageEditorExited(int /*exitCode*/, QProcess::ExitStatus /*exitStatus*/)
-{
-	if ( ExternalApp != 0 )
-	{
-		delete ExternalApp;
-		ExternalApp = 0;
-	}
-}
-
 /* call gimp and wait upon completion */
 void ScribusMainWindow::callImageEditor()
 {
@@ -8419,52 +8409,27 @@ void ScribusMainWindow::callImageEditor()
 	}
 #endif
 	QString imageEditorExecutable=m_prefsManager->imageEditorExecutable();
-	if (ExternalApp != 0)
-	{
-		QString ieExe = QDir::toNativeSeparators(imageEditorExecutable);
-		ScMessageBox::information(this, tr("Information"), "<qt>" + tr("The program %1 is already running!").arg(ieExe) + "</qt>");
-		return;
-	}
 	if (currItem->imageIsAvailable)
 	{
-		int index;
-		QString imEditor;
-		ExternalApp = new QProcess(NULL);
-		QStringList cmd;
-	#if defined(_WIN32)
-		index = imageEditorExecutable.indexOf( ".exe" );
-		if ( index >= 0 )
-			imEditor = imageEditorExecutable.left( index + 4 );
-		imEditor.replace( "\\", "/" );
-		if ( imEditor.length() < imageEditorExecutable.length() )
-		{
-			int diffLength = imageEditorExecutable.length() - imEditor.length();
-			QString cmdStr = imageEditorExecutable.right( diffLength );
-			QStringList cmd1 = cmdStr.split( " ", QString::SkipEmptyParts);
-			cmd += cmd1;
-		}
+		bool startFailed=false;
+	#ifdef Q_OS_OSX
+		QString osxcmd(imageEditorExecutable);
+		if (osxcmd.endsWith(".app"))
+			osxcmd.prepend("open -a \"");
+		else
+			osxcmd.prepend("\"");
+		osxcmd.append("\" \"");
+		osxcmd.append(QDir::toNativeSeparators(currItem->Pfile));
+		osxcmd.append("\"");
+		if (!QProcess::startDetached(osxcmd))
+			startFailed=true;
 	#else
-		cmd = imageEditorExecutable.split(" ", QString::SkipEmptyParts);
-		if ( cmd.count() > 0 )
-			imEditor = cmd[0];
-		cmd.clear();
+		QStringList cmd(QDir::toNativeSeparators(currItem->Pfile));
+		if (!QProcess::startDetached(QDir::fromNativeSeparators(imageEditorExecutable), cmd))
+			startFailed=true;
 	#endif
-		index = imEditor.lastIndexOf( "/" );
-		if (index > -1 )
-		{
-			QString imEditorDir = imEditor.left( index + 1 );
-			ExternalApp->setWorkingDirectory( imEditorDir );
-		}
-		cmd.append(QDir::toNativeSeparators(currItem->Pfile));
-		ExternalApp->start(imEditor, cmd);
-		if (!ExternalApp->waitForStarted())
-		{
-			delete ExternalApp;
-			ExternalApp = 0;
-			ScMessageBox::critical(this, CommonStrings::trWarning, "<qt>" + tr("The program %1 is missing!").arg(imageEditorExecutable) + "</qt>");
-			return;
-		}
-		connect(ExternalApp, SIGNAL(finished(int, QProcess::ExitStatus)), this, SLOT(imageEditorExited(int, QProcess::ExitStatus)));
+		if (startFailed)
+			ScMessageBox::critical(this, CommonStrings::trWarning, "<qt>" + tr("The program %1 is missing or failed to open").arg(imageEditorExecutable) + "</qt>");
 	}
 }
 
