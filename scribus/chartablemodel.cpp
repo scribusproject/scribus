@@ -40,7 +40,7 @@ QVariant CharTableModel::data(const QModelIndex &index, int role) const
 		return QVariant();
 
 	int ix = index.row() * m_cols + index.column();
-	int currentChar;
+	uint currentChar;
 	QString currentFont = m_fontInUse;
 	if (ix < m_characters.count())
 	{
