@@ -909,8 +909,12 @@ IF (LIBREVENGE_FOUND)
 ENDIF (LIBREVENGE_FOUND)
 
 # CTL support
-#pkg_check_modules(HARFBUZZ REQUIRED harfbuzz>=0.9.42 harfbuzz-icu)
-#pkg_check_modules(ICU REQUIRED icu-uc)
+pkg_check_modules(HARFBUZZ REQUIRED harfbuzz>=0.9.42 harfbuzz-icu)
+pkg_check_modules(ICU REQUIRED icu-uc)
+
+#MESSAGE(STATUS "${HARFBUZZ_INCLUDE_DIRS}")
+#MESSAGE(STATUS "${ICU_INCLUDE_DIRS}")
+
 
 ##############################################################################################################
 ########## Include Setup                                                                            ##########
@@ -967,6 +971,8 @@ INCLUDE_DIRECTORIES(
 	${OPENGL_INCLUDE_DIR}
 	${OSG_INCLUDE_DIR}
 	${GSL_INCLUDE_DIR}
+	${HARFBUZZ_INCLUDE_DIRS}
+	${ICU_INCLUDE_DIRS}
 )
 
 IF (NOT WIN32 AND NOT HAIKU)
