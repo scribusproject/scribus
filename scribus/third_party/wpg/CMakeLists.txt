@@ -1,13 +1,13 @@
-INCLUDE_DIRECTORIES(
+include_directories(
 ${CMAKE_SOURCE_DIR}
 ${CMAKE_SOURCE_DIR}/scribus
 )
 
-SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${CMAKE_CXX_FLAGS_FPIC}")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${CMAKE_CXX_FLAGS_FPIC}")
 
-SET(LIB_TYPE STATIC)
+set(LIB_TYPE STATIC)
 
-SET(WPG_SOURCES
+set(WPG_SOURCES
     WPG1Parser.cpp
     WPG2Parser.cpp
     WPGBinaryData.cpp
@@ -28,12 +28,12 @@ SET(WPG_SOURCES
     WPGXParser.cpp
   )
 
-SET(SCRIBUS_WPG_LIB "scribus_wpg_lib")
-ADD_LIBRARY(${SCRIBUS_WPG_LIB} STATIC ${WPG_SOURCES})
+set(SCRIBUS_WPG_LIB "scribus_wpg_lib")
+add_library(${SCRIBUS_WPG_LIB} STATIC ${WPG_SOURCES})
 
 # This is a convenience library that for linkage purposes is part of Scribus's
 # main API.
-SET_TARGET_PROPERTIES(${SCRIBUS_WPG_LIB}
+set_target_properties(${SCRIBUS_WPG_LIB}
   PROPERTIES
   COMPILE_FLAGS -DCOMPILE_SCRIBUS_MAIN_APP
   )

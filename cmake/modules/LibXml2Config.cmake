@@ -7,37 +7,37 @@
 #  LIBXML2_DEFINITIONS - Compiler switches required for using LibXml2
 #
 # use pkg-config to get the directories and then use these values
-# in the FIND_PATH() and FIND_LIBRARY() calls
+# in the find_path() and find_library() calls
 
 
-INCLUDE(UsePkgConfig)
+include(UsePkgConfig)
 
 PKGCONFIG(libxml-2.0 _LibXml2IncDir _LibXml2LinkDir _LibXml2LinkFlags _LibXml2Cflags)
 
-SET(LIBXML2_DEFINITIONS ${_LibXml2Cflags})
+set(LIBXML2_DEFINITIONS ${_LibXml2Cflags})
 
-FIND_PATH(LIBXML2_INCLUDE_DIR libxml/xpath.h
+find_path(LIBXML2_INCLUDE_DIR libxml/xpath.h
   PATHS ${_LibXml2IncDir} PATH_SUFFIXES libxml2
 )
 
-FIND_LIBRARY(LIBXML2_LIBRARIES NAMES xml2 libxml2
+find_library(LIBXML2_LIBRARIES NAMES xml2 libxml2
   PATHS ${_LibXml2LinkDir}
 )
 
-IF (LIBXML2_INCLUDE_DIR AND LIBXML2_LIBRARIES)
-   SET(LIBXML2_FOUND TRUE)
-ENDIF (LIBXML2_INCLUDE_DIR AND LIBXML2_LIBRARIES)
+if (LIBXML2_INCLUDE_DIR AND LIBXML2_LIBRARIES)
+   set(LIBXML2_FOUND TRUE)
+endif (LIBXML2_INCLUDE_DIR AND LIBXML2_LIBRARIES)
 
-SET(LibXml2_FIND_QUIETLY 1)
+set(LibXml2_FIND_QUIETLY 1)
 
-IF (LIBXML2_FOUND)
-  IF (NOT LibXml2_FIND_QUIETLY)
-    MESSAGE(STATUS "Found LibXml2: ${LIBXML2_LIBRARIES}")
-  ENDIF (NOT LibXml2_FIND_QUIETLY)
-ELSE (LIBXML2_FOUND)
-  IF (LibXml2_FIND_REQUIRED)
-    MESSAGE(SEND_ERROR "Could NOT find LibXml2")
-  ENDIF (LibXml2_FIND_REQUIRED)
-ENDIF (LIBXML2_FOUND)
+if (LIBXML2_FOUND)
+  if (NOT LibXml2_FIND_QUIETLY)
+    message(STATUS "Found LibXml2: ${LIBXML2_LIBRARIES}")
+  endif (NOT LibXml2_FIND_QUIETLY)
+else (LIBXML2_FOUND)
+  if (LibXml2_FIND_REQUIRED)
+    message(SEND_ERROR "Could NOT find LibXml2")
+  endif (LibXml2_FIND_REQUIRED)
+endif (LIBXML2_FOUND)
 
-MARK_AS_ADVANCED(LIBXML2_INCLUDE_DIR LIBXML2_LIBRARIES)
+mark_as_advanced(LIBXML2_INCLUDE_DIR LIBXML2_LIBRARIES)

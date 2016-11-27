@@ -1,8 +1,8 @@
-INCLUDE_DIRECTORIES(
+include_directories(
 "${CMAKE_SOURCE_DIR}/scribus"
 )
 
-INSTALL(FILES
+install(FILES
 3columnUSLTR.py
 3columnA4.py
 boilerplate.py

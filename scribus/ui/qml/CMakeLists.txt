@@ -1,6 +1,6 @@
-FILE(GLOB QML_FILES *.qml)
+file(GLOB QML_FILES *.qml)
 
-INSTALL(FILES ${QML_FILES}
+install(FILES ${QML_FILES}
     DESTINATION ${QMLDIR}
     )
 

@@ -1,4 +1,4 @@
-INCLUDE_DIRECTORIES(
+include_directories(
 ${CMAKE_SOURCE_DIR}
 ${CMAKE_SOURCE_DIR}/scribus
 ${FREETYPE_INCLUDE_DIRS}
@@ -6,12 +6,12 @@ ${FREETYPE_INCLUDE_DIRS}
 )
 
 
-SET(SCRIBUS_TEST_MOC_CLASSES
+set(SCRIBUS_TEST_MOC_CLASSES
 #testIndex.h
 testStoryText.h
 )
 
-SET(SCRIBUS_TEST_SOURCES
+set(SCRIBUS_TEST_SOURCES
 runtests.cpp
 #testIndex.cpp
 testStoryText.cpp
@@ -19,13 +19,13 @@ testStoryText.cpp
 
   QT5_WRAP_CPP(SCRIBUS_TEST_MOC_SOURCES ${SCRIBUS_TEST_MOC_CLASSES})
 
-SET(SCRIBUS_TESTS_LIB "scribus_tests_lib")
-ADD_LIBRARY(${SCRIBUS_TESTS_LIB} STATIC ${SCRIBUS_TEST_SOURCES} ${SCRIBUS_TEST_MOC_SOURCES})
+set(SCRIBUS_TESTS_LIB "scribus_tests_lib")
+add_library(${SCRIBUS_TESTS_LIB} STATIC ${SCRIBUS_TEST_SOURCES} ${SCRIBUS_TEST_MOC_SOURCES})
 
 
 # This is a convenience library that for linkage purposes is part of Scribus's
 # main API.
-SET_TARGET_PROPERTIES(${SCRIBUS_TESTS_LIB}
+set_target_properties(${SCRIBUS_TESTS_LIB}
   PROPERTIES
   COMPILE_FLAGS -DCOMPILE_SCRIBUS_MAIN_APP
   )
@@ -36,13 +36,13 @@ SET_TARGET_PROPERTIES(${SCRIBUS_TESTS_LIB}
 # These tests are built as standalone executables and runned using "make test"
 #
 
-SET(TESTS_LIBRARIES ${QT_QTTEST_LIBRARY} ${QT_LIBRARIES})
+set(TESTS_LIBRARIES ${QT_QTTEST_LIBRARY} ${QT_LIBRARIES})
 
 # Unit tests for CellArea
-SET(CELLAREATESTS_CLASSES cellareatests.h)
-SET(CELLAREATESTS_SOURCES cellareatests.cpp ../cellarea.cpp)
+set(CELLAREATESTS_CLASSES cellareatests.h)
+set(CELLAREATESTS_SOURCES cellareatests.cpp ../cellarea.cpp)
 QT5_WRAP_CPP(CELLAREATESTS_SOURCES ${CELLAREATESTS_CLASSES})
-ADD_EXECUTABLE(cellareatests ${CELLAREATESTS_SOURCES})
-TARGET_LINK_LIBRARIES(cellareatests ${TESTS_LIBRARIES})
-ADD_TEST(NAME cellareatests COMMAND cellareatests)
+add_executable(cellareatests ${CELLAREATESTS_SOURCES})
+target_link_libraries(cellareatests ${TESTS_LIBRARIES})
+add_test(NAME cellareatests COMMAND cellareatests)
 

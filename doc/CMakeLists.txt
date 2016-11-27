@@ -1,3 +1,3 @@
-ADD_SUBDIRECTORY(en)
-ADD_SUBDIRECTORY(de)
-ADD_SUBDIRECTORY(it)
+add_subdirectory(en)
+add_subdirectory(de)
+add_subdirectory(it)

@@ -1,9 +1,9 @@
-INCLUDE_DIRECTORIES(
+include_directories(
 "${CMAKE_SOURCE_DIR}/scribus"
 )
 
 #Install our image files
-FILE( GLOB SCRIBUS_DOC_IT_IMAGES_FILES *.jpg *.png )
+file( GLOB SCRIBUS_DOC_IT_IMAGES_FILES *.jpg *.png )
 
-INSTALL(FILES ${SCRIBUS_DOC_IT_IMAGES_FILES} DESTINATION ${DOCDIR}it/images)
+install(FILES ${SCRIBUS_DOC_IT_IMAGES_FILES} DESTINATION ${DOCDIR}it/images)
 

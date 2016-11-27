@@ -1,13 +1,13 @@
 #For those that want it, show the SVN version in the About dialog
-IF (WANT_SVNVERSION)
-	ADD_DEFINITIONS(-DHAVE_SVNVERSION)
-	MESSAGE(STATUS "SVN Version requested in About dialog")
+if (WANT_SVNVERSION)
+	add_definitions(-DHAVE_SVNVERSION)
+	message(STATUS "SVN Version requested in About dialog")
 	# a custom target that is always built
 
-	IF (NOT CMAKE_VERSION VERSION_LESS "3.2.0")
+	if (NOT CMAKE_VERSION VERSION_LESS "3.2.0")
 	add_custom_target(svnheader ALL COMMAND ${CMAKE_COMMAND} -DSOURCE_DIR=${CMAKE_CURRENT_SOURCE_DIR} -P ${CMAKE_MODULE_PATH}/getsvn.cmake BYPRODUCTS ${CMAKE_CURRENT_BINARY_DIR}/svnversion.h)
 
-	ELSE ()
+	else ()
 	add_custom_target(svnheader ALL DEPENDS svn_header ) # svn_header is nothing more than a unique string
 
 	# creates svnheader.h using cmake script
@@ -17,59 +17,59 @@ IF (WANT_SVNVERSION)
 	set_source_files_properties(${CMAKE_CURRENT_BINARY_DIR}/svnversion.h
 		PROPERTIES GENERATED TRUE
 		HEADER_FILE_ONLY TRUE)
-	ENDIF ()
-ENDIF ()
+	endif ()
+endif ()
 
-IF(WIN32)
-	ADD_DEFINITIONS(-DQT_DLL)
-ENDIF()
+if(WIN32)
+	add_definitions(-DQT_DLL)
+endif()
 
-ADD_SUBDIRECTORY(dtd)
-ADD_SUBDIRECTORY(colormgmt)
-ADD_SUBDIRECTORY(desaxe)
-ADD_SUBDIRECTORY(fonts)
-ADD_SUBDIRECTORY(styles)
-ADD_SUBDIRECTORY(text)
-ADD_SUBDIRECTORY(ui/qml)
-IF(WITH_TESTS)
-	ADD_SUBDIRECTORY(tests)
-ENDIF()
-ADD_SUBDIRECTORY(unicodemap)
-IF (WANT_DESIGNER)
-	ADD_SUBDIRECTORY(designer)
-ENDIF ()
-ADD_SUBDIRECTORY(third_party)
+add_subdirectory(dtd)
+add_subdirectory(colormgmt)
+add_subdirectory(desaxe)
+add_subdirectory(fonts)
+add_subdirectory(styles)
+add_subdirectory(text)
+add_subdirectory(ui/qml)
+if(WITH_TESTS)
+	add_subdirectory(tests)
+endif()
+add_subdirectory(unicodemap)
+if (WANT_DESIGNER)
+	add_subdirectory(designer)
+endif ()
+add_subdirectory(third_party)
 
-IF(HAVE_OSG)
-	SET(SCRIBUS_OSG_UI_SRC
+if(HAVE_OSG)
+	set(SCRIBUS_OSG_UI_SRC
 		ui/osgeditor.ui
 	)
-	SET(SCRIBUS_OSG_CLASS
+	set(SCRIBUS_OSG_CLASS
 		ui/AdapterWidget.h
 		ui/osgeditor.h
 		pageitem_osgframe.h
 	)
-	SET(SCRIBUS_OSG_SRC
+	set(SCRIBUS_OSG_SRC
 		ui/AdapterWidget.cpp
 		ui/osgeditor.cpp
 		pageitem_osgframe.cpp
 	)
-ENDIF ()
+endif ()
 
-IF (GMAGICK_FOUND)
-	SET(SCRIBUS_GMAGICK_SRC imagedataloaders/scimgdataloader_gmagick.cpp)
-ELSE()
-	SET(SCRIBUS_GMAGICK_SRC)
-ENDIF()
+if (GMAGICK_FOUND)
+	set(SCRIBUS_GMAGICK_SRC imagedataloaders/scimgdataloader_gmagick.cpp)
+else()
+	set(SCRIBUS_GMAGICK_SRC)
+endif()
 
 # We setup something like a group to gather setter related stuff
 # because it could expand into a huge amount of files at some point.
-SET(SCRIBUS_ITEMSETTERS_UI_SRC
+set(SCRIBUS_ITEMSETTERS_UI_SRC
 	ui/positionsetter.ui
 	ui/rotationsetter.ui
 )
 
-SET(SCRIBUS_ITEMSETTERS_CLASS
+set(SCRIBUS_ITEMSETTERS_CLASS
 	openpalettemanager.h
 	openpalettemodel.h
 	pageitemsettersmanager.h
@@ -79,7 +79,7 @@ SET(SCRIBUS_ITEMSETTERS_CLASS
 	ui/pageitemrotationsetter.h
 )
 
-SET(SCRIBUS_ITEMSETTERS_SRC
+set(SCRIBUS_ITEMSETTERS_SRC
 	openpalettemanager.cpp
 	openpalettemodel.cpp
 	pageitemsettersmanager.cpp
@@ -90,7 +90,7 @@ SET(SCRIBUS_ITEMSETTERS_SRC
 	ui/pageitemrotationsetter.cpp
 )
 
-SET(SCRIBUS_UI_SRC
+set(SCRIBUS_UI_SRC
 	ui/aboutplugins.ui
 	ui/aligndistribute.ui
 	ui/annot.ui
@@ -209,7 +209,7 @@ SET(SCRIBUS_UI_SRC
 	${SCRIBUS_OSG_UI_SRC}
 )
 
-SET(SCRIBUS_MOC_CLASSES
+set(SCRIBUS_MOC_CLASSES
 	actionmanager.h
 	appmodehelper.h
 	canvas.h
@@ -539,7 +539,7 @@ SET(SCRIBUS_MOC_CLASSES
 	${SCRIBUS_OSG_CLASS}
 )
 
-SET(SCRIBUS_SOURCES
+set(SCRIBUS_SOURCES
 	actionmanager.cpp
 	appmodehelper.cpp
 	canvas.cpp
@@ -1011,29 +1011,29 @@ SET(SCRIBUS_SOURCES
 	${SCRIBUS_GMAGICK_SRC}
 )
 
-IF(NOT HAVE_HYPHEN)
-	INCLUDE_DIRECTORIES(third_party/hyphen)
-	SET(SCRIBUS_SOURCES
+if(NOT HAVE_HYPHEN)
+	include_directories(third_party/hyphen)
+	set(SCRIBUS_SOURCES
 	${SCRIBUS_SOURCES}
 	third_party/hyphen/hnjalloc.c
 	third_party/hyphen/hyphen.c
 	)
-ENDIF()
+endif()
 
 
 
-IF(WIN32)
-	SET(SCRIBUS_MOC_WIN32_ONLY_CLASSES scprintengine_gdi.h)
-	SET(SCRIBUS_WIN32_ONLY_SOURCES
+if(WIN32)
+	set(SCRIBUS_MOC_WIN32_ONLY_CLASSES scprintengine_gdi.h)
+	set(SCRIBUS_WIN32_ONLY_SOURCES
 		scpainterex_cairo.cpp
 		scprintengine_gdi.cpp
 		)
-	SET(SCRIBUS_MAIN_CPP main_win32.cpp)
-ELSE()
-	SET(SCRIBUS_MOC_WIN32_ONLY_CLASSES)
-	SET(SCRIBUS_WIN32_ONLY_SOURCES)
-	SET(SCRIBUS_MAIN_CPP main.cpp)
-ENDIF()
+	set(SCRIBUS_MAIN_CPP main_win32.cpp)
+else()
+	set(SCRIBUS_MOC_WIN32_ONLY_CLASSES)
+	set(SCRIBUS_WIN32_ONLY_SOURCES)
+	set(SCRIBUS_MAIN_CPP main.cpp)
+endif()
 
 QT5_WRAP_UI(SCRIBUS_UI_SOURCES ${SCRIBUS_UI_SRC} )
 
@@ -1042,7 +1042,7 @@ QT5_WRAP_CPP(SCRIBUS_MOC_SOURCES
 	${SCRIBUS_MOC_WIN32_ONLY_CLASSES}
 	)
 
-LINK_DIRECTORIES(
+link_directories(
 	${CMAKE_CURRENT_BINARY_DIR}/colormgmt
 	${CMAKE_CURRENT_BINARY_DIR}/desaxe
 	${CMAKE_CURRENT_BINARY_DIR}/fonts
@@ -1054,87 +1054,87 @@ LINK_DIRECTORIES(
 	${CMAKE_CURRENT_BINARY_DIR}/third_party/zip
 )
 
-IF(WITH_TESTS)
-	LINK_DIRECTORIES( ${CMAKE_CURRENT_BINARY_DIR}/tests )
-ENDIF()
+if(WITH_TESTS)
+	link_directories( ${CMAKE_CURRENT_BINARY_DIR}/tests )
+endif()
 
-IF(HAVE_OSG)
-	LINK_DIRECTORIES( ${CMAKE_CURRENT_BINARY_DIR}/third_party/prc )
-ENDIF ()
+if(HAVE_OSG)
+	link_directories( ${CMAKE_CURRENT_BINARY_DIR}/third_party/prc )
+endif ()
 
-IF(HAVE_BOOST)
-	LINK_DIRECTORIES( ${CMAKE_CURRENT_BINARY_DIR}/third_party/lib2geom )
-ENDIF ()
+if(HAVE_BOOST)
+	link_directories( ${CMAKE_CURRENT_BINARY_DIR}/third_party/lib2geom )
+endif ()
 
-SET(SCRIBUS_COLORMGMT_LIB "scribus_colormgmt_lib")
-SET(SCRIBUS_TEXT_LIB "scribus_text_lib")
-IF(WITH_TESTS)
-	SET(SCRIBUS_TESTS_LIB "scribus_tests_lib")
-ELSE()
-	SET(SCRIBUS_TESTS_LIB "")
-ENDIF()
-SET(SCRIBUS_STYLES_LIB "scribus_styles_lib")
-SET(SCRIBUS_FONTS_LIB "scribus_fonts_lib")
-SET(SCRIBUS_DESAXE_LIB "scribus_desaxe_lib")
-IF(HAVE_OSG)
-	SET(SCRIBUS_PRC_LIB "scribus_prc_lib")
-ENDIF ()
-IF(HAVE_BOOST)
-	SET(SCRIBUS_2GEOM_LIB "scribus_2geom_lib")
-ENDIF ()
-SET(SCRIBUS_WPG_LIB "scribus_wpg_lib")
-SET(SCRIBUS_PGF_LIB "scribus_pgf_lib")
-SET(SCRIBUS_ZIP_LIB "scribus_zip_lib")
-SET(SCRIBUS_RTF_LIB "scribus_rtf_lib")
+set(SCRIBUS_COLORMGMT_LIB "scribus_colormgmt_lib")
+set(SCRIBUS_TEXT_LIB "scribus_text_lib")
+if(WITH_TESTS)
+	set(SCRIBUS_TESTS_LIB "scribus_tests_lib")
+else()
+	set(SCRIBUS_TESTS_LIB "")
+endif()
+set(SCRIBUS_STYLES_LIB "scribus_styles_lib")
+set(SCRIBUS_FONTS_LIB "scribus_fonts_lib")
+set(SCRIBUS_DESAXE_LIB "scribus_desaxe_lib")
+if(HAVE_OSG)
+	set(SCRIBUS_PRC_LIB "scribus_prc_lib")
+endif ()
+if(HAVE_BOOST)
+	set(SCRIBUS_2GEOM_LIB "scribus_2geom_lib")
+endif ()
+set(SCRIBUS_WPG_LIB "scribus_wpg_lib")
+set(SCRIBUS_PGF_LIB "scribus_pgf_lib")
+set(SCRIBUS_ZIP_LIB "scribus_zip_lib")
+set(SCRIBUS_RTF_LIB "scribus_rtf_lib")
 
-INCLUDE_DIRECTORIES(
+include_directories(
 	${CMAKE_SOURCE_DIR}
 	${CMAKE_CURRENT_BINARY_DIR}
 	${CMAKE_CURRENT_SOURCE_DIR}
 	${FREETYPE_INCLUDE_DIRS}
 )
 
-IF (GMAGICK_FOUND)
-	MESSAGE(STATUS "GMAGICK: Libs: ${GMAGICK_LDFLAGS}, Inc: ${GMAGICK_INCLUDE_DIRS}, Ldflags: ${GMAGICK_LDFLAGS}")
-	INCLUDE_DIRECTORIES(
+if (GMAGICK_FOUND)
+	message(STATUS "GMAGICK: Libs: ${GMAGICK_LDFLAGS}, Inc: ${GMAGICK_INCLUDE_DIRS}, Ldflags: ${GMAGICK_LDFLAGS}")
+	include_directories(
 		BEFORE ${GMAGICK_INCLUDE_DIRS}
 	)
-	LINK_DIRECTORIES(
+	link_directories(
 		${GMAGICK_LIBRARY}
 	)
-ENDIF()
+endif()
 
-IF(HAVE_PODOFO)
-	INCLUDE_DIRECTORIES(
+if(HAVE_PODOFO)
+	include_directories(
 	${LIBPODOFO_INCLUDE_DIR}
 	)
-ENDIF()
+endif()
 
-IF(HAVE_HYPHEN)
-	TARGET_LINK_LIBRARIES(${EXE_NAME}
+if(HAVE_HYPHEN)
+	target_link_libraries(${EXE_NAME}
 	${HYPHEN_LIBRARY}
 	)
-ENDIF()
+endif()
 
 
-IF(GESTURE_FRAME_PREVIEW)
-	 MESSAGE(STATUS "Enable gesture frame preview [experimental]")
-	 SET(GESTURE_FRAME_PREVIEW_SOURCES	pageitempreview.cpp)
-	 ADD_DEFINITIONS(-DGESTURE_FRAME_PREVIEW)
-ENDIF()
+if(GESTURE_FRAME_PREVIEW)
+	 message(STATUS "Enable gesture frame preview [experimental]")
+	 set(GESTURE_FRAME_PREVIEW_SOURCES	pageitempreview.cpp)
+	 add_definitions(-DGESTURE_FRAME_PREVIEW)
+endif()
 
-IF(APPLEBUNDLE)
-	SET(EXE_NAME "Scribus${TAG_VERSION}" CACHE TYPE STRING)
-ELSE()
-	SET(EXE_NAME "scribus${TAG_VERSION}" CACHE TYPE STRING)
-ENDIF()
+if(APPLEBUNDLE)
+	set(EXE_NAME "Scribus${TAG_VERSION}" CACHE TYPE STRING)
+else()
+	set(EXE_NAME "scribus${TAG_VERSION}" CACHE TYPE STRING)
+endif()
 
-IF(COMMAND cmake_policy)
+if(COMMAND cmake_policy)
 	cmake_policy(SET CMP0003 OLD)
-ENDIF()
+endif()
 
-IF(HAVE_OSG)
-	ADD_EXECUTABLE(${EXE_NAME}
+if(HAVE_OSG)
+	add_executable(${EXE_NAME}
 		${SCRIBUS_MOC_SOURCES}
 		${SCRIBUS_SOURCES}
 		${SCRIBUS_MAIN_CPP}
@@ -1148,8 +1148,8 @@ IF(HAVE_OSG)
 		${GESTURE_FRAME_PREVIEW_SOURCES}
 		${SCRIBUS_PRC_SOURCES}
 	)
-ELSE()
-	ADD_EXECUTABLE(${EXE_NAME}
+else()
+	add_executable(${EXE_NAME}
 		${SCRIBUS_MOC_SOURCES}
 		${SCRIBUS_SOURCES}
 		${SCRIBUS_MAIN_CPP}
@@ -1162,46 +1162,46 @@ ELSE()
 		${SCRIBUS_WIN32_ONLY_SOURCES}
 		${GESTURE_FRAME_PREVIEW_SOURCES}
 	)
-ENDIF ()
+endif ()
 
-IF(WIN32)
-	SET_TARGET_PROPERTIES(${EXE_NAME}
+if(WIN32)
+	set_target_properties(${EXE_NAME}
 		PROPERTIES
 		COMPILE_FLAGS -DCOMPILE_SCRIBUS_MAIN_APP
 		ENABLE_EXPORTS TRUE
 	)
-	SET(WIN32_ONLY_LIBS mscms.lib)
-ELSE()
-	SET(WIN32_ONLY_LIBS)
-ENDIF()
+	set(WIN32_ONLY_LIBS mscms.lib)
+else()
+	set(WIN32_ONLY_LIBS)
+endif()
 
 ##TEST FIX FOR 6897
-IF (CMAKE_SYSTEM_NAME STREQUAL "FreeBSD" OR CMAKE_SYSTEM_NAME STREQUAL "OpenBSD")
+if (CMAKE_SYSTEM_NAME STREQUAL "FreeBSD" OR CMAKE_SYSTEM_NAME STREQUAL "OpenBSD")
 # Use the -E / --export-dynamic flag to ensure that symbols in the Scribus
 # binary are in the public symbol table for plugins. The symbols must also
 # be set as SCRIBUS_API if we're building with -fvisibility=hidden .
 # Should fix bug 6897 .
-	SET_TARGET_PROPERTIES(${EXE_NAME} PROPERTIES LINK_FLAGS -Wl,-E)
-ENDIF ()
-IF (GCC AND NOT WIN32)
+	set_target_properties(${EXE_NAME} PROPERTIES LINK_FLAGS -Wl,-E)
+endif ()
+if (GCC AND NOT WIN32)
 # Use the -E / --export-dynamic flag to ensure that symbols in the Scribus
 # binary are in the public symbol table for plugins. The symbols must also
 # be set as SCRIBUS_API if we're building with -fvisibility=hidden .
 # Should fix bug 6897 .
-	SET_TARGET_PROPERTIES(${EXE_NAME} PROPERTIES LINK_FLAGS -Wl,-E)
-ENDIF ()
+	set_target_properties(${EXE_NAME} PROPERTIES LINK_FLAGS -Wl,-E)
+endif ()
 ##
 
 
 #Set up libraries to link with all found packages
-INCLUDE_DIRECTORIES(${CAIRO_INCLUDE_DIR})
-TARGET_LINK_LIBRARIES(${EXE_NAME} ${CAIRO_LIBRARIES})
-LINK_DIRECTORIES(${PREFIX_CAIRO_LIB})
-SET(CMAKE_INSTALL_RPATH "${CMAKE_INSTALL_RPATH};${PREFIX_CAIRO_LIB}")
+include_directories(${CAIRO_INCLUDE_DIR})
+target_link_libraries(${EXE_NAME} ${CAIRO_LIBRARIES})
+link_directories(${PREFIX_CAIRO_LIB})
+set(CMAKE_INSTALL_RPATH "${CMAKE_INSTALL_RPATH};${PREFIX_CAIRO_LIB}")
 
-MESSAGE("RPATH: ${CMAKE_INSTALL_RPATH}")
+message("RPATH: ${CMAKE_INSTALL_RPATH}")
 
-TARGET_LINK_LIBRARIES(${EXE_NAME}
+target_link_libraries(${EXE_NAME}
 	${Qt5Core_LIBRARIES}
 	${Qt5Widgets_LIBRARIES}
 	${Qt5Gui_LIBRARIES}
@@ -1226,38 +1226,38 @@ TARGET_LINK_LIBRARIES(${EXE_NAME}
 	${ICU_LIBRARIES}
 )
 
-IF (NOT WIN32 AND NOT HAIKU)
-	TARGET_LINK_LIBRARIES(${EXE_NAME}
+if (NOT WIN32 AND NOT HAIKU)
+	target_link_libraries(${EXE_NAME}
 		${CUPS_LIBRARIES}
 	)
-ENDIF ()
+endif ()
 
 # required to resolve symbols from libdl when ld is called with --no-add-needed
 # #9310 for the OpenBSD addition
-IF(UNIX AND NOT CMAKE_SYSTEM_NAME STREQUAL "OpenBSD" AND NOT CMAKE_SYSTEM_NAME STREQUAL "FreeBSD" AND NOT HAIKU)
-	TARGET_LINK_LIBRARIES(${EXE_NAME} dl)
-ENDIF()
+if(UNIX AND NOT CMAKE_SYSTEM_NAME STREQUAL "OpenBSD" AND NOT CMAKE_SYSTEM_NAME STREQUAL "FreeBSD" AND NOT HAIKU)
+	target_link_libraries(${EXE_NAME} dl)
+endif()
 
 # #9311 for the OpenBSD addition
-IF(CMAKE_SYSTEM_NAME STREQUAL "OpenBSD" OR CMAKE_SYSTEM_NAME STREQUAL "FreeBSD")
-	TARGET_LINK_LIBRARIES(${EXE_NAME} util execinfo)
-ENDIF()
+if(CMAKE_SYSTEM_NAME STREQUAL "OpenBSD" OR CMAKE_SYSTEM_NAME STREQUAL "FreeBSD")
+	target_link_libraries(${EXE_NAME} util execinfo)
+endif()
 
-IF(WIN32)
-	TARGET_LINK_LIBRARIES(${EXE_NAME} ${QT_QTMAIN_LIBRARY})
-ENDIF()
+if(WIN32)
+	target_link_libraries(${EXE_NAME} ${QT_QTMAIN_LIBRARY})
+endif()
 
-IF(APPLE)
-	TARGET_LINK_LIBRARIES(${EXE_NAME}
+if(APPLE)
+	target_link_libraries(${EXE_NAME}
 	"-undefined dynamic_lookup"
 	"-framework CoreFoundation" )
-ENDIF()
+endif()
 
-IF (WANT_SVNVERSION)
+if (WANT_SVNVERSION)
 	add_dependencies(${EXE_NAME} svnheader)
-ENDIF ()
+endif ()
 
-TARGET_LINK_LIBRARIES(${EXE_NAME}
+target_link_libraries(${EXE_NAME}
 	${SCRIBUS_COLORMGMT_LIB}
 	${SCRIBUS_DESAXE_LIB}
 	${SCRIBUS_TEXT_LIB}
@@ -1270,21 +1270,21 @@ TARGET_LINK_LIBRARIES(${EXE_NAME}
 	${LCMS2_LIBRARIES}
 )
 
-IF(WITH_TESTS)
-	TARGET_LINK_LIBRARIES(${EXE_NAME}
+if(WITH_TESTS)
+	target_link_libraries(${EXE_NAME}
 		${QT_QTTEST_LIBRARY}
 		${SCRIBUS_TESTS_LIB}
 	)
-ENDIF()
+endif()
 
-IF(HAVE_PODOFO)
-	TARGET_LINK_LIBRARIES(${EXE_NAME}
+if(HAVE_PODOFO)
+	target_link_libraries(${EXE_NAME}
 		${LIBPODOFO_LIBRARY}
 	)
-ENDIF()
+endif()
 
-IF(HAVE_OSG)
-	TARGET_LINK_LIBRARIES(${EXE_NAME}
+if(HAVE_OSG)
+	target_link_libraries(${EXE_NAME}
 		${OPENTHREADS_LIBRARY}
 		${OSG_LIBRARY}
 		${OSGGA_LIBRARY}
@@ -1294,17 +1294,17 @@ IF(HAVE_OSG)
 		${OSGTEXT_LIBRARY}
 		${SCRIBUS_PRC_LIB}
 	)
-ENDIF()
+endif()
 
-IF (HAVE_BOOST)
-	TARGET_LINK_LIBRARIES(${EXE_NAME}
+if (HAVE_BOOST)
+	target_link_libraries(${EXE_NAME}
 		${SCRIBUS_2GEOM_LIB}
 	)
-ENDIF()
+endif()
 
 # Now build plugins
 
-SET(PLUGIN_LIBRARIES
+set(PLUGIN_LIBRARIES
 	${Qt5Core_LIBRARIES}
 	${Qt5Widgets_LIBRARIES}
 	${Qt5Gui_LIBRARIES}
@@ -1317,40 +1317,40 @@ SET(PLUGIN_LIBRARIES
 	${ZLIB_LIBRARIES}
 )
 
-IF(WIN32)
+if(WIN32)
 	# IF your plugin needs more than this, please link them privately
 	# in the CMakeLists.txt for your plugin.
-	SET(PLUGIN_LIBRARIES
+	set(PLUGIN_LIBRARIES
 #		${QT_LIBRARIES} part of #7210
 		${PLUGIN_LIBRARIES}
 		${EXE_NAME}
 	)
-ENDIF()
-IF(APPLE)
-	SET(PLUGIN_LIBRARIES
+endif()
+if(APPLE)
+	set(PLUGIN_LIBRARIES
 		${PLUGIN_LIBRARIES}
 		"-undefined dynamic_lookup"
 	)
-ENDIF()
-MESSAGE(STATUS ${PLUGIN_LIBRARIES})
+endif()
+message(STATUS ${PLUGIN_LIBRARIES})
 
-ADD_SUBDIRECTORY(plugins)
+add_subdirectory(plugins)
 
 #do we want a lib suffix on osx? doubt it
-IF(APPLEBUNDLE)
-	INSTALL(DIRECTORY DESTINATION MacOS)
-	INSTALL(TARGETS ${EXE_NAME}
+if(APPLEBUNDLE)
+	install(DIRECTORY DESTINATION MacOS)
+	install(TARGETS ${EXE_NAME}
 	RUNTIME DESTINATION MacOS
 	LIBRARY DESTINATION lib
 	)
-#	ADD_CUSTOM_COMMAND(TARGET ${EXE_NAME} POST_BUILD
+#	add_custom_command(TARGET ${EXE_NAME} POST_BUILD
 #	COMMAND ${CMAKE_COMMAND} ARGS -Dinput_file=${CMAKE_CURRENT_BINARY_DIR}/${EXE_NAME}.app/Contents/MacOS/${EXE_NAME} -P ${CMAKE_MODULE_PATH}/ScribusIngestOSXBundleLibraries.cmake
 #	)
-#MESSAGE(STATUS "Installing apple bundle")
+#message(STATUS "Installing apple bundle")
 
-#	SET(APPS "${APPLE_APP_DIR}")
-#	SET(DIRS ${QT_LIBRARY_DIRS})
-#	INSTALL(CODE "
+#	set(APPS "${APPLE_APP_DIR}")
+#	set(DIRS ${QT_LIBRARY_DIRS})
+#	install(CODE "
 #		file(GLOB_RECURSE QTPLUGINS
 #		  \"\${CMAKE_INSTALL_PREFIX}/${LIBDIR}/plugins/*${CMAKE_SHARED_LIBRARY_SUFFIX}\")
 #		include(BundleUtilities)
@@ -1358,24 +1358,24 @@ IF(APPLEBUNDLE)
 #		" COMPONENT Runtime)
 
 
-ELSE()
-	IF(WIN32)
-		INSTALL(TARGETS ${EXE_NAME}
+else()
+	if(WIN32)
+		install(TARGETS ${EXE_NAME}
 			RUNTIME DESTINATION .
 			LIBRARY DESTINATION ${LIB_DIR_NAME}
 		)
-	ELSE()
-		INSTALL(TARGETS ${EXE_NAME}
+	else()
+		install(TARGETS ${EXE_NAME}
 			RUNTIME DESTINATION bin
 			LIBRARY DESTINATION ${LIB_DIR_NAME}
 		)
-	ENDIF()
-ENDIF()
+	endif()
+endif()
 
 #Install our header files, selected from all existing dirs, excluding unwanted directories and svn files
-IF(WANT_HEADERINSTALL)
-	MESSAGE(STATUS "Source header files will be installed")
-	INSTALL(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/ DESTINATION ${INCLUDEDIR}
+if(WANT_HEADERINSTALL)
+	message(STATUS "Source header files will be installed")
+	install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/ DESTINATION ${INCLUDEDIR}
 		FILES_MATCHING
 		PATTERN "*.h"
 		PATTERN "dicts" EXCLUDE
@@ -1387,12 +1387,12 @@ IF(WANT_HEADERINSTALL)
 		PATTERN "old" EXCLUDE
 		PATTERN ".svn" EXCLUDE
 	)
-ELSE()
-	MESSAGE(STATUS "No source header files will be installed")
-ENDIF()
+else()
+	message(STATUS "No source header files will be installed")
+endif()
 
 #Install our stylesheet
-INSTALL(FILES
+install(FILES
 	scribus.css
 	DESTINATION ${LIBDIR}
 )

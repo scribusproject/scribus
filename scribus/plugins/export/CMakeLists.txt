@@ -1,3 +1,3 @@
-ADD_SUBDIRECTORY(pixmapexport)
-ADD_SUBDIRECTORY(svgexplugin)
-ADD_SUBDIRECTORY(xpsexport)
+add_subdirectory(pixmapexport)
+add_subdirectory(svgexplugin)
+add_subdirectory(xpsexport)

@@ -1,9 +1,9 @@
-INCLUDE_DIRECTORIES(
+include_directories(
 ${CMAKE_SOURCE_DIR}
 ${CMAKE_SOURCE_DIR}/scribus
 )
 
-INSTALL(FILES
+install(FILES
 unicodenameslist.txt
   DESTINATION ${SHAREDIR}
 )

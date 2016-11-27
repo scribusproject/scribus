@@ -1,8 +1,8 @@
-INCLUDE_DIRECTORIES(
+include_directories(
 "${CMAKE_SOURCE_DIR}/scribus"
 )
 
-INSTALL(FILES
+install(FILES
 icalamus.xml
 pageplusx3.xml
 pagestream.xml

@@ -1,5 +1,5 @@
-ADD_SUBDIRECTORY(tutorials/short-words)
+add_subdirectory(tutorials/short-words)
 
 #Install our html files
-FILE( GLOB SCRIBUS_DOC_FR_FILES *.html *.xml )
-INSTALL(FILES ${SCRIBUS_DOC_FR_FILES} DESTINATION ${DOCDIR}fr)
+file( GLOB SCRIBUS_DOC_FR_FILES *.html *.xml )
+install(FILES ${SCRIBUS_DOC_FR_FILES} DESTINATION ${DOCDIR}fr)

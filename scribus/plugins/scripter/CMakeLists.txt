@@ -1,10 +1,10 @@
-INCLUDE_DIRECTORIES(
+include_directories(
 ${CMAKE_SOURCE_DIR}
 ${CMAKE_SOURCE_DIR}/scribus
 ${PYTHON_INCLUDE_PATH}
 )
 
-SET(SCRIPTER_PLUGIN_MOC_CLASSES
+set(SCRIPTER_PLUGIN_MOC_CLASSES
 scripter.h
 scripterimpl.h
 api_prefs.h
@@ -21,7 +21,7 @@ api_document.h
 api_color.h
 )
 
-SET(SCRIPTER_PLUGIN_SOURCES
+set(SCRIPTER_PLUGIN_SOURCES
 scripter.cpp
 scripterimpl.cpp
 pythonize.cpp
@@ -41,53 +41,53 @@ utils.cpp
 )
 
 
-#SET(PYTHONIZE "pythonize")
-#SET(PYTHONIZE_SOURCES "pythonize.cpp")
-#ADD_LIBRARY(${PYTHONIZE} SHARED ${PYTHONIZE_SOURCES})
-#TARGET_LINK_LIBRARIES(${PYTHONIZE} ${PYTHON_LIBRARIES})
-#INSTALL(TARGETS ${PYTHONIZE}
+#set(PYTHONIZE "pythonize")
+#set(PYTHONIZE_SOURCES "pythonize.cpp")
+#add_library(${PYTHONIZE} SHARED ${PYTHONIZE_SOURCES})
+#target_link_libraries(${PYTHONIZE} ${PYTHON_LIBRARIES})
+#install(TARGETS ${PYTHONIZE}
 #  LIBRARY
 #  DESTINATION ${PLUGINDIR}
 #  PERMISSIONS ${PLUGIN_PERMISSIONS}
 #)
 
 
-SET(SCRIBUS_SCRIPTER_PLUGIN "scripter")
+set(SCRIBUS_SCRIPTER_PLUGIN "scripter")
 
 QT5_WRAP_CPP(SCRIPTER_PLUGIN_MOC_SOURCES ${SCRIPTER_PLUGIN_MOC_CLASSES})
 
-ADD_LIBRARY(${SCRIBUS_SCRIPTER_PLUGIN} MODULE ${SCRIPTER_PLUGIN_SOURCES} ${SCRIPTER_PLUGIN_MOC_SOURCES})
+add_library(${SCRIBUS_SCRIPTER_PLUGIN} MODULE ${SCRIPTER_PLUGIN_SOURCES} ${SCRIPTER_PLUGIN_MOC_SOURCES})
 
-TARGET_LINK_LIBRARIES(${SCRIBUS_SCRIPTER_PLUGIN}
+target_link_libraries(${SCRIBUS_SCRIPTER_PLUGIN}
   ${PYTHON_LIBRARIES}
 )
 
-TARGET_LINK_LIBRARIES(${SCRIBUS_SCRIPTER_PLUGIN} ${PLUGIN_LIBRARIES})
+target_link_libraries(${SCRIBUS_SCRIPTER_PLUGIN} ${PLUGIN_LIBRARIES})
 
-INSTALL(TARGETS ${SCRIBUS_SCRIPTER_PLUGIN}
+install(TARGETS ${SCRIBUS_SCRIPTER_PLUGIN}
   LIBRARY
   DESTINATION ${PLUGINDIR}
   PERMISSIONS ${PLUGIN_PERMISSIONS}
 )
 
-FILE(GLOB pyfiles "python/*.py")
-INSTALL(FILES ${pyfiles}
+file(GLOB pyfiles "python/*.py")
+install(FILES ${pyfiles}
   DESTINATION ${PLUGINDIR}/scripter
 )
 
-FILE(GLOB autoload "python/autoload/*.py" "python/autoload/*.spy" "python/autoload/*.js" "python/autoload/*.sqts" "python/autoload/*.sjs")
-INSTALL(FILES ${autoload}
+file(GLOB autoload "python/autoload/*.py" "python/autoload/*.spy" "python/autoload/*.js" "python/autoload/*.sqts" "python/autoload/*.sjs")
+install(FILES ${autoload}
   DESTINATION ${PLUGINDIR}/scripter/autoload
 )
 
-FILE(GLOB examples "python/examples/*.py" "python/examples/*.spy" "python/examples/*.js" "python/examples/*.sqts" "python/examples/*.sjs")
-INSTALL(FILES ${examples}
+file(GLOB examples "python/examples/*.py" "python/examples/*.spy" "python/examples/*.js" "python/examples/*.sqts" "python/examples/*.sjs")
+install(FILES ${examples}
   DESTINATION ${PLUGINDIR}/scripter/examples
 )
 
-FILE(GLOB sceditor "python/sceditor/*.zip" "python/sceditor/*.png" "python/sceditor/*.py")
-INSTALL(FILES ${sceditor}
+file(GLOB sceditor "python/sceditor/*.zip" "python/sceditor/*.png" "python/sceditor/*.py")
+install(FILES ${sceditor}
   DESTINATION ${PLUGINDIR}/scripter/sceditor
 )
 
-ADD_DEPENDENCIES(${SCRIBUS_SCRIPTER_PLUGIN} ${EXE_NAME})
+add_dependencies(${SCRIBUS_SCRIPTER_PLUGIN} ${EXE_NAME})

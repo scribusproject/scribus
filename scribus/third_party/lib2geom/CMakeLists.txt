@@ -1,18 +1,18 @@
-INCLUDE_DIRECTORIES(
+include_directories(
 ${CMAKE_SOURCE_DIR}
 ${CMAKE_SOURCE_DIR}/scribus
 )
 
-SET(2GEOM_VERSION 0.1.0)
+set(2GEOM_VERSION 0.1.0)
 
-SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${CMAKE_CXX_FLAGS_FPIC}")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${CMAKE_CXX_FLAGS_FPIC}")
 
-OPTION(2GEOM_BUILD_SHARED
+option(2GEOM_BUILD_SHARED
   "Build lib2geom and libtoy as shared libraries."
   OFF)
-SET(LIB_TYPE STATIC)
+set(LIB_TYPE STATIC)
 
-SET(2GEOM_SRC
+set(2GEOM_SRC
 svg-path.h
 svg-path.cpp
 ord.h
@@ -88,12 +88,12 @@ scribushelper.h
 scribushelper.cpp
 )
 
-SET(SCRIBUS_2GEOM_LIB "scribus_2geom_lib")
-ADD_LIBRARY(${SCRIBUS_2GEOM_LIB} STATIC ${2GEOM_SRC})
+set(SCRIBUS_2GEOM_LIB "scribus_2geom_lib")
+add_library(${SCRIBUS_2GEOM_LIB} STATIC ${2GEOM_SRC})
 
 # This is a convenience library that for linkage purposes is part of Scribus's
 # main API.
-SET_TARGET_PROPERTIES(${SCRIBUS_2GEOM_LIB}
+set_target_properties(${SCRIBUS_2GEOM_LIB}
   PROPERTIES
   COMPILE_FLAGS -DCOMPILE_SCRIBUS_MAIN_APP
   )

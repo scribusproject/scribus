@@ -1,8 +1,8 @@
-INCLUDE_DIRECTORIES(
+include_directories(
   ${CMAKE_SOURCE_DIR}
   ${CMAKE_SOURCE_DIR}/scribus
 )
 
-INCLUDE_DIRECTORIES( ${Boost_INCLUDE_DIR} )
-ADD_SUBDIRECTORY (meshdistortion)
-ADD_SUBDIRECTORY (pathalongpath)
+include_directories( ${Boost_INCLUDE_DIR} )
+add_subdirectory (meshdistortion)
+add_subdirectory (pathalongpath)

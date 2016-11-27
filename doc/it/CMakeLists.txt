@@ -1,9 +1,9 @@
-INCLUDE_DIRECTORIES(
+include_directories(
 "${CMAKE_SOURCE_DIR}/scribus"
 )
 
-ADD_SUBDIRECTORY(images)
+add_subdirectory(images)
 
 #Install our html files
-FILE( GLOB SCRIBUS_DOC_IT_FILES *.html *.xml )
-INSTALL(FILES ${SCRIBUS_DOC_IT_FILES} DESTINATION ${DOCDIR}it)
+file( GLOB SCRIBUS_DOC_IT_FILES *.html *.xml )
+install(FILES ${SCRIBUS_DOC_IT_FILES} DESTINATION ${DOCDIR}it)
