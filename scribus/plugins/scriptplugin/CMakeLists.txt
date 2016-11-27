@@ -7,7 +7,7 @@ INCLUDE_DIRECTORIES(
 # Gentoo has an option for no examples. Let's make the ebuild simpler and open up the option to others, but leave as a default for us
 IF (NOT WANT_NOEXAMPLES)
 	ADD_SUBDIRECTORY(samples)
-ENDIF (NOT WANT_NOEXAMPLES)
+ENDIF ()
 ADD_SUBDIRECTORY(scripts)
 
 SET(SCRIPTER_PLUGIN_UI_SRC
