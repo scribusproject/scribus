@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.0" language="en_GB">
+<TS version="2.1" language="en_GB">
 <context>
     <name></name>
     <message>
@@ -6401,7 +6401,7 @@ May throw ValueError if any of the distances are out of bounds (must be positive
     <message>
         <location filename="../../../scribus/about.cpp" line="307"/>
         <source>Haiku Port:</source>
-        <translation type="unfinished"></translation>
+        <translation>Haiku Port:</translation>
     </message>
     <message>
         <location filename="../../../scribus/about.cpp" line="311"/>
@@ -17534,7 +17534,7 @@ p, li { white-space: pre-wrap; }
         <source>Length:</source>
         <translation type="obsolete">Length:</translation>
     </message>
-    <message utf8="true">
+    <message>
         <location filename="../../../scribus/measurements.cpp" line="73"/>
         <source> °</source>
         <translation> °</translation>
@@ -18683,7 +18683,8 @@ If no handle is selected all handles will be reset.</source>
         <location filename="../../../scribus/pdfopts.cpp" line="169"/>
         <source>The range of pages to export is invalid.
 Please check it and try again.</source>
-        <translation type="unfinished"></translation>
+        <translation>The range of pages to export is invalid.
+Please check it and try again.</translation>
     </message>
     <message>
         <location filename="../../../scribus/pdfopts.cpp" line="181"/>
@@ -19874,22 +19875,22 @@ both end points must lie outside of the polygon</source>
         <source>Rotate Objects by:</source>
         <translation>Rotate Objects by:</translation>
     </message>
-    <message utf8="true">
+    <message>
         <location filename="../../../scribus/plugins/tools/2geomtools/pathalongpath/pathdialogbase.ui" line="80"/>
         <source>0°</source>
         <translation>0°</translation>
     </message>
-    <message utf8="true">
+    <message>
         <location filename="../../../scribus/plugins/tools/2geomtools/pathalongpath/pathdialogbase.ui" line="85"/>
         <source>90°</source>
         <translation>90°</translation>
     </message>
-    <message utf8="true">
+    <message>
         <location filename="../../../scribus/plugins/tools/2geomtools/pathalongpath/pathdialogbase.ui" line="90"/>
         <source>180°</source>
         <translation>180°</translation>
     </message>
-    <message utf8="true">
+    <message>
         <location filename="../../../scribus/plugins/tools/2geomtools/pathalongpath/pathdialogbase.ui" line="95"/>
         <source>270°</source>
         <translation>270°</translation>
@@ -22723,12 +22724,12 @@ Corners:</translation>
     <message>
         <location filename="../../../scribus/propertiespalette.cpp" line="5559"/>
         <source>Any path self-intersections or subpaths create holes in the fill.</source>
-        <translation type="unfinished"></translation>
+        <translation>Any path self-intersections or subpaths create holes in the fill.</translation>
     </message>
     <message>
         <location filename="../../../scribus/propertiespalette.cpp" line="5560"/>
         <source>Fill is solid unless a subpath is counterdirectional.</source>
-        <translation type="unfinished"></translation>
+        <translation>Fill is solid unless a subpath is counterdirectional.</translation>
     </message>
     <message>
         <location filename="../../../scribus/propertiespalette.cpp" line="5578"/>
@@ -26387,7 +26388,7 @@ Therefore the image may be not correct</translation>
         <source>Xfig File</source>
         <translation>Xfig File</translation>
     </message>
-    <message utf8="true">
+    <message>
         <location filename="../../../scribus/langmgr.cpp" line="120"/>
         <location filename="../../../scribus/langmgr.cpp" line="121"/>
         <source>Norwegian (Bokmål)</source>
@@ -31025,7 +31026,7 @@ You can choose between normal and several colour blindness forms</translation>
     <message>
         <location filename="../../../scribus/tabdisplay.ui" line="67"/>
         <source>Show Rulers</source>
-        <translation type="unfinished">Show Rulers</translation>
+        <translation>Show Rulers</translation>
     </message>
     <message>
         <location filename="../../../scribus/tabdisplay.ui" line="153"/>
