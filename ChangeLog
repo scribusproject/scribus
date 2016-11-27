@@ -1,4 +1,38 @@
-Scribus - 1.4.6.svn (Released 2016-01-03) 
+Scribus - 1.4.7 (Released 2016-xx-xx)
+=========================================
+- 0014377: [General] Rotate Item show wrong icon when mouse over frame middle point (jghali) - closed.
+- 0014380: [Styles] Crash caused by incorrect handling of reference to deleted styles by style manager (jghali) - closed.
+- 0012708: [Releases] GNOME/KDE: Please install the supplied AppData file (plinnell) - closed.
+- 0014270: [Documentation] Incorrect link to Mac OSX Ghostscript package (jghali) - closed.
+- 0014360: [Properties Palette] PP Rotation on multiple selections (jghali) - closed.
+- 0014307: [PDF] Incorrect export of nested groups to PDF (jghali) - closed.
+- 0014313: [General] Print preview has cropped shape on second page (also in print) (jghali) - closed.
+- 0014328: [PDF] incorrect export of inline groups to PDF when offset to baseline applied (jghali) - closed.
+- 0014257: [OS-Linux] Please stop installing mimelnk/vnd.scribus.desktop (plinnell) - closed.
+- 0014256: [OS-Linux] Please install the .desktop file (plinnell) - closed.
+- 0014196: [Scripter] Missing Greek option in calendar script (jghali) - closed.
+- 0014205: [OS-Linux] cmake can't find hunspell anymore since version >= 1.4 (cbradney) - closed.
+- 0014339: [Translation] Slovak translator spelling (jghali) - closed.
+- 0014207: [Usability] After deleting Master Page, wrong master page is shown (jghali) - closed.
+- 0014206: [Typography] Hyphens align incorrectly when using right alignment (jghali) - closed.
+- 0014067: [General] "Print Layer" is not in sync with Preview Mode (Backport from 0014059) (FirasH) - closed.
+- 0013988: [Shape Drawing] Node Editor Horizontal Shear icons are the wrong way round (jghali) - closed.
+- 0014002: [Story Editor / Text Frames] Shortcut CTRL-D delete two characters instead of one in Story Editor (jghali) - closed.
+- 0014006: [General] "Lock Guides" checkbox status is not correctly set when switching documents (jghali) - closed.
+- 0012681: [Graphics / Image Frames] Image editing doesn´t remain after saving - closed.
+- 0013775: [Story Editor / Text Frames] Alternatively clicking between 2 text blocks crashes w/ Signal 6 (jghali) - closed.
+- 0013124: [User Interface] Outline Window is limited in height (in 1.4.x) (jghali) - closed.
+- 0013757: [Graphics / Image Frames] CMYK jpeg file not imported properly (jghali) - closed.
+- 0013762: [PDF] Font not embedded by default if first used after the first PDF export (jghali) - closed.
+- 0013794: [General] Scribus crashes while loading document (jghali) - closed.
+- 0013688: [Story Editor / Text Frames] Text highliting in Story Editor disappears after changing font (jghali) - closed.
+- 0013710: [General] Duplicating a color, no difference in edit color dialog between OK and cancel (jghali) - closed.
+- 0013684: [OS-Win32] Import failure with jpeg files whose path contains chars not supported by current codepage on Windows (jghali) - closed.
+- 0013626: [Translation] Italian documentation update (jghali) - closed.
+- 0013631: [Translation] Updated Danish Translation (jghali) - closed.
+
+
+Scribus - 1.4.6 (Released 2016-01-03) 
 =========================================
 - 0013605: [General] Scribus crashes immediately on opening a particular file (jghali) - closed.
 - 0013609: [Translation] Italian translation update for 1.4.6.svn (FirasH) - closed.
