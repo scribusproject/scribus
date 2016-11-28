@@ -28,11 +28,12 @@ before_install:
       sudo apt-get update -qq; 
       sudo apt-get install --force-yes cmake libboost-python-dev libcups2-dev libhunspell-dev
       libhyphen-dev liblcms2-dev libpodofo-dev libtiff-dev libxml2-dev
-      libharfbuzz-dev libicu-dev
+      libharfbuzz-dev libharfbuzz-icu0
       python-all-dev zlib1g-dev qt57base qt57declarative
       qt57tools libgraphicsmagick++1-dev
       libopenscenegraph-dev libpoppler-dev libcairo2-dev libwpg-dev libmspub-dev
-      libcdr-dev libvisio-dev;
+      libcdr-dev libvisio-dev
+      coreutils binutils pythong-tk;
     fi
 # OSX
 # - if [ $TRAVIS_OS_NAME == osx ]; then brew --env && brew config && brew list; fi
@@ -47,6 +48,7 @@ before_install:
       brew outdated pkg-config --verbose || brew upgrade pkg-config; 
       brew outdated boost || brew upgrade boost; 
       brew outdated freetype || brew upgrade freetype; 
+      brew install icu4c && brew link --force icu4c;
       brew install librevenge libwpg libvisio libmspub libcdr libpagemaker libfreehand open-scene-graph harfbuzz; 
     fi
   # - export LDFLAGS+=-L/usr/local/opt/zlib/lib:-L/usr/local/opt/gettext/lib:-L/usr/local/opt/libffi/lib:-L/usr/local/opt/qt5/lib:-L/usr/local/opt/sqlite/lib:-L/usr/local/opt/openssl/lib:-L/usr/local/opt/icu4c/lib
