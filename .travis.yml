@@ -25,6 +25,7 @@ before_install:
 - if [ $TRAVIS_OS_NAME == linux ]; then 
       sudo apt-add-repository ppa:beineri/opt-qt57-trusty -y;
       sudo apt-add-repository ppa:ricotz/testing -y;
+      sudo apt-add-repository ppa:as-bahanta/raqm -y;
       sudo apt-get update -qq; 
       sudo apt-get install --force-yes cmake libboost-python-dev libcups2-dev libhunspell-dev
       libhyphen-dev liblcms2-dev libpodofo-dev libtiff-dev libxml2-dev
