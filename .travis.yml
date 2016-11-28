@@ -33,7 +33,7 @@ before_install:
       qt57tools libgraphicsmagick++1-dev
       libopenscenegraph-dev libpoppler-dev libcairo2-dev libwpg-dev libmspub-dev
       libcdr-dev libvisio-dev
-      coreutils binutils pythong-tk;
+      coreutils binutils python-tk;
     fi
 # OSX
 # - if [ $TRAVIS_OS_NAME == osx ]; then brew --env && brew config && brew list; fi
