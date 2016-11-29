@@ -263,6 +263,9 @@ for which a new license (GPL+exception) is in place.
 #include "util_ghostscript.h"
 #include "util_math.h"
 
+#ifdef HAVE_SVNVERSION
+	#include "svnversion.h"
+#endif
 
 #ifdef HAVE_OSG
 	#include "ui/osgeditor.h"
@@ -331,7 +334,12 @@ int ScribusMainWindow::initScMW(bool primaryMainWindow)
 	m_doc->addPage(0);
 	m_doc->setGUI(false, this, 0);
 	CurrStED = NULL;
-	setWindowTitle( tr("Scribus " VERSION));
+	QString scribusTitle(tr("Scribus") + " " + QString(VERSION));
+#if defined(HAVE_SVNVERSION) && defined(SVNVERSION)
+	if (QString(VERSION).contains("svn", Qt::CaseInsensitive));
+		scribusTitle.append(" " + tr("(r%1)").arg(SVNVERSION));
+#endif
+	setWindowTitle(scribusTitle);
 	setAttribute(Qt::WA_KeyCompression, false);
 	setAttribute(Qt::WA_InputMethodEnabled, true);
 	setWindowIcon(IconManager::instance()->loadIcon("AppIcon.png"));
