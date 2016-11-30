@@ -448,7 +448,7 @@ void RGBTOHLS ( uchar& red, uchar& green, uchar& blue )
 		del_B = ( ( ( var_Max - var_B ) / 6.0 ) + ( del_Max / 2.0 ) ) / del_Max;
 		if ( var_R == var_Max )
 			H = del_B - del_G;
-	   else if ( var_G == var_Max )
+		else if ( var_G == var_Max )
 			H = ( 1.0 / 3.0 ) + del_R - del_B;
 		else if ( var_B == var_Max )
 			H = ( 2.0 / 3.0 ) + del_G - del_R;
@@ -502,41 +502,41 @@ void HLSTORGB ( uchar& hue, uchar& lightness, uchar& saturation )
 
 double getCurveYValue(FPointArray &curve, double x, bool linear)
 {
-    double t;
-    FPoint p;
-    FPoint p0,p1,p2,p3;
-    double c0,c1,c2,c3;
-    double val = 0.5;
-    if(curve.size() == 0)
-        return 0.5;
-    // First find curve segment
-    p = curve.point(0);
-    if(x < p.x())
-        return p.y();
-    p = curve.point(curve.size()-1);
-    if(x >= p.x())
-        return p.y();
+	double t;
+	FPoint p;
+	FPoint p0,p1,p2,p3;
+	double c0,c1,c2,c3;
+	double val = 0.5;
+	if(curve.size() == 0)
+		return 0.5;
+	// First find curve segment
+	p = curve.point(0);
+	if(x < p.x())
+		return p.y();
+	p = curve.point(curve.size()-1);
+	if(x >= p.x())
+		return p.y();
 	int cc = 0;
-    // Find the four control points (two on each side of x)    
-    p = curve.point(0);
-    while(x >= p.x())
-    {
+	// Find the four control points (two on each side of x)
+	p = curve.point(0);
+	while(x >= p.x())
+	{
 		cc++;
-        p = curve.point(cc);
-    }
-    if (cc > 1)
-    {
-    	p0 = curve.point(cc-2);
-    	p1 = curve.point(cc-1);
-    }
-    else
-        p1 = p0 = curve.point(0);
-    p2 = p;
-    if (cc < curve.size()-1)
-    	p3 = curve.point(cc+1);
-    else
-    	p3 = p;
-    // Calculate the value
+		p = curve.point(cc);
+	}
+	if (cc > 1)
+	{
+		p0 = curve.point(cc-2);
+		p1 = curve.point(cc-1);
+	}
+	else
+		p1 = p0 = curve.point(0);
+	p2 = p;
+	if (cc < curve.size()-1)
+		p3 = curve.point(cc+1);
+	else
+		p3 = p;
+	// Calculate the value
 	if (linear)
 	{
 		double mc;
