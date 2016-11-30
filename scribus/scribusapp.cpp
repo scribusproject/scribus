@@ -582,7 +582,7 @@ void ScribusQApp::showUsage()
 	printArgLine(ts, ARG_LANG_SHORT, ARG_LANG, tr("Uses xx as shortcut for a language, eg `en' or `de'") );
 	printArgLine(ts, ARG_AVAILLANG_SHORT, ARG_AVAILLANG, tr("List the currently installed interface languages") );
 	printArgLine(ts, ARG_NOSPLASH_SHORT, ARG_NOSPLASH, tr("Do not show the splashscreen on startup") );
-	printArgLine(ts, ARG_NEVERSPLASH_SHORT, ARG_NEVERSPLASH, tr("Stop showing the splashscreen on startup. Writes an empty file called .neversplash in ~/.scribus") );
+	printArgLine(ts, ARG_NEVERSPLASH_SHORT, ARG_NEVERSPLASH, tr("Stop showing the splashscreen on startup. Writes an empty file called .neversplash in ~/.config/scribus") );
 	printArgLine(ts, ARG_PREFS_SHORT, qPrintable(QString("%1 <%2>").arg(ARG_PREFS).arg(tr("path"))), tr("Use path for user given preferences location") );
 	printArgLine(ts, ARG_PROFILEINFO_SHORT, ARG_PROFILEINFO, tr("Show location of ICC profile information on console while starting") );
 	printArgLine(ts, ARG_UPGRADECHECK_SHORT, ARG_UPGRADECHECK, tr("Download a file from the Scribus website and show the latest available version") );
