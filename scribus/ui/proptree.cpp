@@ -475,7 +475,7 @@ PropTreeItem* PropTreeWidget::indexToItem(const QModelIndex &index)
 
 void PropTreeWidget::drawRow(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const
 {
-	QStyleOptionViewItemV3 opt = option;
+	QStyleOptionViewItem opt = option;
 	QTreeWidget::drawRow(painter, opt, index);
 	QColor color = static_cast<QRgb>(QApplication::style()->styleHint(QStyle::SH_Table_GridLineColor, &opt));
 	painter->save();
