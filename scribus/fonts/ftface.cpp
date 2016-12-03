@@ -42,7 +42,7 @@ FT_Library FtFace::m_library = NULL;
 
 FtFace::FtFace(QString fam, QString sty, QString vari, QString scname, 
 			   QString psname, QString path, int face, QStringList features)
-: ScFaceData(), m_face(NULL), m_isItalic(false), m_isBold(false)
+: ScFaceData(), m_face(NULL), m_isBold(false), m_isItalic(false)
 {
 	family = fam;
 	style = sty;

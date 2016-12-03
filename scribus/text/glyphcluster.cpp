@@ -1,7 +1,10 @@
 #include "glyphcluster.h"
 
 GlyphCluster::GlyphCluster(const CharStyle* style, LayoutFlags flags, int first, int last, const InlineFrame& o, int i, QString str)
-	: m_style(style)
+	: extraWidth(0.0)
+	, xoffset(0.0)
+	, yoffset(0.0)
+	, m_style(style)
 	, m_flags(flags)
 	, m_object(o)
 	, m_firstChar(first)
@@ -9,9 +12,6 @@ GlyphCluster::GlyphCluster(const CharStyle* style, LayoutFlags flags, int first,
 	, m_visualIndex(i)
 	, m_scaleH(1.0)
 	, m_scaleV(1.0)
-	, extraWidth(0.0)
-	, xoffset(0.0)
-	, yoffset(0.0)
 	, m_str(str)
 {}
 
