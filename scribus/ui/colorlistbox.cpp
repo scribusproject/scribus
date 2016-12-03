@@ -207,6 +207,16 @@ ColorListBox::ColorListBox(QWidget * parent)
 	connect(this, SIGNAL(showContextMenue()), this, SLOT(slotRightClick()));
 }
 
+ColorListBox::~ColorListBox()
+{
+	int count = this->count();
+	for(int index = 0; index < count; index++)
+		delete this->item(index);
+	if (itemDelegate())
+		delete itemDelegate();
+	clear();
+}
+
 void ColorListBox::changeEvent(QEvent *e)
 {
 	if (e->type() == QEvent::LanguageChange)

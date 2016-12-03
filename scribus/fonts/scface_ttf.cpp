@@ -21,17 +21,14 @@ for which a new license (GPL+exception) is in place.
 #include FT_TRUETYPE_IDS_H
 
 
-ScFace_ttf::ScFace_ttf ( QString fam, QString sty, QString alt, QString scname, QString psname, QString path, int face )
-		: FtFace ( fam, sty, alt, scname, psname, path, face )
+ScFace_ttf::ScFace_ttf (QString fam, QString sty, QString alt, QString scname, QString psname, QString path, int face, QStringList features )
+		: FtFace (fam, sty, alt, scname, psname, path, face, features)
 {
 	formatCode = ScFace::SFNT;
-	m_kernFeature = 0;
 }
 
 ScFace_ttf::~ ScFace_ttf()
 {
-	if ( m_kernFeature )
-		delete m_kernFeature;
 }
 
 bool ScFace_ttf::isSymbolic() const
@@ -45,8 +42,6 @@ bool ScFace_ttf::isSymbolic() const
 void ScFace_ttf::load() const
 {
 	FtFace::load();
-	if (!m_kernFeature)
-		m_kernFeature = new KernFeature ( ftFace() );
 	sfnt::PostTable checkPost;
 	FT_Face face = ftFace();
 	checkPost.readFrom(face);
@@ -59,17 +54,7 @@ void ScFace_ttf::load() const
 
 void ScFace_ttf::unload() const
 {
-	if ( m_kernFeature )
-		delete m_kernFeature;
-	m_kernFeature = 0;
 	FtFace::unload();
-}
-
-qreal ScFace_ttf::glyphKerning ( ScFace::gid_type gl1, ScFace::gid_type gl2, qreal sz ) const
-{
-	if ( m_kernFeature->isValid() )
-		return m_kernFeature->getPairValue ( gl1,gl2 ) / m_uniEM * sz;
-	return FtFace::glyphKerning ( gl1, gl2, sz );
 }
 
 bool ScFace_ttf::hasNames() const

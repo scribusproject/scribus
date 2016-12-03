@@ -638,6 +638,7 @@ void AppModeHelper::enableActionsForSelection(ScribusMainWindow* scmw, ScribusDo
 				(*a_scrActions)["itemConvertToPolygon"]->setEnabled(false);
 				(*a_scrActions)["itemConvertToTextFrame"]->setEnabled(false);
 				(*a_scrActions)["itemConvertToSymbolFrame"]->setEnabled(false);
+				(*a_scrActions)["toolsLinkTextFrame"]->setEnabled(true);
 				(*a_scrActions)["toolsUnlinkTextFrame"]->setEnabled(true);
 				(*a_scrActions)["toolsUnlinkTextFrameAndCutText"]->setEnabled(true);
 				// FIXME: once there's one itemtext per story, always enable editcontents
@@ -652,7 +653,9 @@ void AppModeHelper::enableActionsForSelection(ScribusMainWindow* scmw, ScribusDo
 				(*a_scrActions)["toolsUnlinkTextFrame"]->setEnabled(false);
 				(*a_scrActions)["toolsUnlinkTextFrameAndCutText"]->setEnabled(false);
 			}
-			(*a_scrActions)["toolsLinkTextFrame"]->setEnabled(!currItem->nextInChain());
+//			(*a_scrActions)["toolsLinkTextFrame"]->setEnabled(!currItem->nextInChain());
+			(*a_scrActions)["toolsLinkTextFrame"]->setEnabled(true);
+
 			//		if (doc->masterPageMode())
 			//			(*a_scrActions)["toolsLinkTextFrame"]->setEnabled(false);
 			if (doc->appMode == modeEdit)

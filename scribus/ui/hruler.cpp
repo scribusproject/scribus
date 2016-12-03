@@ -897,7 +897,7 @@ void Hruler::setItem(PageItem * item)
 				- item->textToFrameDistLeft() - item->textToFrameDistLeft()
 				- 2*lineCorr) / item->columns();
 	RMargin = columnWidth - currentStyle.rightMargin();
-	if (item->imageFlippedH() || (item->reversed()))
+	if (item->imageFlippedH())
 		Revers = true;
 	else
 		Revers = false;

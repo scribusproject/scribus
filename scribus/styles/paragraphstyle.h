@@ -39,6 +39,10 @@ public:
 		Justified    = 3,
 		Extended     = 4
 	};
+	enum DirectionType {
+		LTR  = 0,
+		RTL  = 1
+	};
 	enum OpticalMarginType {
 		OM_None  = 0,
 		OM_LeftProtruding    = 1,

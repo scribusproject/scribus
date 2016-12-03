@@ -22,12 +22,16 @@ for which a new license (GPL+exception) is in place.
 #include <QFileInfo>
 #include <QFont>
 #include <QGlobalStatic>
+#include <QHash>
 #include <QMap>
 #include <QRegExp>
+#include <QRawFont>
 #include <QString>
-
+#include <QTextCodec>
 
 #include <cstdlib>
+#include <vector>
+
 #include "scfonts.h"
 #include "fonts/ftface.h"
 #include "fonts/scface_ps.h"
@@ -54,10 +58,14 @@ for which a new license (GPL+exception) is in place.
 #include FT_FREETYPE_H
 #include FT_OUTLINE_H
 #include FT_GLYPH_H
-
+#include FT_SFNT_NAMES_H
+#include FT_TRUETYPE_IDS_H
 #include FT_TRUETYPE_TAGS_H
 #include FT_TRUETYPE_TABLES_H
 
+#include <harfbuzz/hb.h>
+#include <harfbuzz/hb-ot.h>
+#include <harfbuzz/hb-ft.h>
 
 #include "scpaths.h"
 #include "util_debug.h"
@@ -304,6 +312,180 @@ void getSFontType(FT_Face face, ScFace::FontType & type)
 	}
 } 
 
+// sort name records so the preferred ones come first
+static bool nameComp(const FT_SfntName a, const FT_SfntName b)
+{
+	// sort preferred family first
+	if (a.name_id != b.name_id)
+	{
+		if (a.name_id == TT_NAME_ID_PREFERRED_FAMILY)
+			return true;
+		else if (b.name_id == TT_NAME_ID_PREFERRED_FAMILY)
+			return false;
+	}
+
+	// sort Unicode platforms first
+	// preferring MS platform as it is more likely to
+	// not have bogus entries, being the more tested one.
+	if (a.platform_id != b.platform_id)
+	{
+		if (a.platform_id == TT_PLATFORM_MICROSOFT)
+			return true;
+		else if (b.platform_id == TT_PLATFORM_MICROSOFT)
+			return false;
+		else if (a.platform_id == TT_PLATFORM_APPLE_UNICODE)
+			return true;
+		else if (b.platform_id == TT_PLATFORM_APPLE_UNICODE)
+			return false;
+	}
+
+	// sort Unicode encodings first
+	if (a.encoding_id != b.encoding_id)
+	{
+		if (a.platform_id == TT_PLATFORM_MICROSOFT)
+		{
+			if (a.encoding_id == TT_MS_ID_UCS_4)
+				return true;
+			else if (b.encoding_id == TT_MS_ID_UCS_4)
+				return false;
+			else if (a.encoding_id == TT_MS_ID_UNICODE_CS)
+				return true;
+			else if (b.encoding_id == TT_MS_ID_UNICODE_CS)
+				return false;
+		}
+	}
+
+	// sort English names first
+	if (a.language_id != b.language_id)
+	{
+		if (a.platform_id == TT_PLATFORM_MICROSOFT)
+		{
+			if (a.language_id == TT_MS_LANGID_ENGLISH_UNITED_STATES)
+				return true;
+			else if (b.language_id == TT_MS_LANGID_ENGLISH_UNITED_STATES)
+				return false;
+		}
+	}
+
+	// the rest is all the same for us
+	return false;
+}
+
+static QString decodeNameRecord(FT_SfntName name)
+{
+	QString string;
+	QByteArray encoding;
+	if (name.platform_id == TT_PLATFORM_APPLE_UNICODE)
+	{
+		encoding = "UTF-16BE";
+	}
+	else if (name.platform_id == TT_PLATFORM_MICROSOFT)
+	{
+		switch (name.encoding_id) {
+		case TT_MS_ID_SYMBOL_CS:
+		case TT_MS_ID_UNICODE_CS:
+		case TT_MS_ID_UCS_4:
+			encoding = "UTF-16BE";
+			break;
+		case TT_MS_ID_SJIS:
+			encoding = "Shift-JIS";
+		case TT_MS_ID_GB2312:
+			encoding = "GB18030-0";
+		case TT_MS_ID_BIG_5:
+			encoding = "Big5";
+		default:
+			break;
+		}
+	}
+
+	if (!encoding.isEmpty())
+	{
+		QTextCodec* codec = QTextCodec::codecForName(encoding);
+		QByteArray bytes((const char*) name.string, name.string_len);
+		string = codec->toUnicode(bytes);
+	}
+
+	return string;
+}
+
+static QString getFamilyName(const FT_Face face)
+{
+	QString familyName(face->family_name);
+
+	QVector<FT_SfntName> names;
+
+	for (FT_UInt i = 0; i < FT_Get_Sfnt_Name_Count(face); i++)
+	{
+		FT_SfntName name;
+		if (!FT_Get_Sfnt_Name(face, i, &name))
+		{
+			switch (name.name_id) {
+			case TT_NAME_ID_FONT_FAMILY:
+			case TT_NAME_ID_PREFERRED_FAMILY:
+				if (name.platform_id != TT_PLATFORM_MACINTOSH)
+					names.append(name);
+				break;
+			default:
+				break;
+			}
+		}
+	}
+
+	if (!names.isEmpty())
+	{
+		std::sort(names.begin(), names.end(), nameComp);
+		foreach (const FT_SfntName name, names)
+		{
+			QString string = decodeNameRecord(name);
+			if (!string.isEmpty())
+			{
+				familyName = string;
+				break;
+			}
+		}
+	}
+
+	return familyName;
+}
+
+static QStringList getfontFeaturesFromTable(hb_tag_t table, hb_face_t *hb_face)
+{
+	QStringList fontFeaturesList;
+	//get all supported Opentype Features
+	unsigned count = hb_ot_layout_table_get_feature_tags(hb_face, table, 0, NULL, NULL);
+	std::vector<hb_tag_t> features(count);
+	hb_ot_layout_table_get_feature_tags(hb_face, table, 0,  &count, features.data());
+	for (unsigned i = 0; i < count; ++i)
+	{
+		char feature[4] = {0};
+		hb_tag_to_string(features[i], feature);
+		std::string strFeature(feature, 4);
+		fontFeaturesList.append(QString::fromStdString(strFeature));
+	}
+	fontFeaturesList.removeDuplicates();
+	fontFeaturesList.sort();
+	return fontFeaturesList;
+}
+
+static QStringList getFontFeatures(const FT_Face face)
+{
+	// Create hb-ft font and get hb_face from it
+	hb_font_t *hb_font;
+	hb_font = hb_ft_font_create(face, NULL);
+	hb_face_t *hb_face = hb_font_get_face(hb_font);
+	//find Opentype Font Features in GSUB table
+	QStringList featuresGSUB = getfontFeaturesFromTable(HB_OT_TAG_GSUB, hb_face);
+	// find Opentype Font Features in GPOS table
+	QStringList featuresGPOS = getfontFeaturesFromTable(HB_OT_TAG_GPOS, hb_face);
+
+	hb_font_destroy(hb_font);
+
+	QStringList fontFeatures = featuresGSUB + featuresGPOS;
+	fontFeatures.removeDuplicates();
+	fontFeatures.sort();
+	return fontFeatures;
+}
+
 ScFace SCFonts::LoadScalableFont(const QString &filename)
 {
 	ScFace t;
@@ -361,7 +543,8 @@ ScFace SCFonts::LoadScalableFont(const QString &filename)
 	}
 
 	int faceIndex=0;
-	QString fam(face->family_name);
+	QString fam(getFamilyName(face));;
+	QStringList features(getFontFeatures(face));
 	QString sty(face->style_name);
 	if (sty == "Regular")
 	{
@@ -394,17 +577,17 @@ ScFace SCFonts::LoadScalableFont(const QString &filename)
 		switch (format)
 		{
 			case ScFace::PFA:
-				t = ScFace(new ScFace_pfa(fam, sty, "", ts, qpsName, filename, faceIndex));
+				t = ScFace(new ScFace_pfa(fam, sty, "", ts, qpsName, filename, faceIndex, features));
 				t.subset(Subset);
 				break;
 			case ScFace::PFB:
-				t = ScFace(new ScFace_pfb(fam, sty, "", ts, qpsName, filename, faceIndex));
+				t = ScFace(new ScFace_pfb(fam, sty, "", ts, qpsName, filename, faceIndex, features));
 				t.subset(Subset);
 				break;
 			case ScFace::SFNT:
 			case ScFace::TTCF:
 			case ScFace::TYPE42:
-				t = ScFace(new ScFace_ttf(fam, sty, "", ts, qpsName, filename, faceIndex));
+				t = ScFace(new ScFace_ttf(fam, sty, "", ts, qpsName, filename, faceIndex, features));
 				getSFontType(face, t.m_m->typeCode);
 				if (t.type() == ScFace::OTF)
 					t.subset(true);
@@ -426,6 +609,19 @@ ScFace SCFonts::LoadScalableFont(const QString &filename)
 	FT_Done_Face(face);
 	FT_Done_FreeType(library);
 	return t;
+}
+
+static QString getFtError(int code)
+{
+#undef FTERRORS_H_
+#define FT_ERRORDEF(e, v, s) ftErrors[e] = s;
+	static QHash<int, QString> ftErrors;
+#include FT_ERRORS_H
+#undef FT_ERRORDEF
+
+	if (ftErrors.contains(code))
+		return ftErrors.value(code);
+	return QString::null;
 }
 
 // Load a single font into the library from the passed filename. Returns true on error.
@@ -455,14 +651,16 @@ bool SCFonts::AddScalableFont(QString filename, FT_Library &library, QString Doc
 		firstRun = true;
 		ScCore->setSplashStatus( QObject::tr("Creating Font Cache") );
 	}
-	bool error = FT_New_Face( library, QFile::encodeName(filename), 0, &face );
+	FT_Error error = FT_New_Face( library, QFile::encodeName(filename), 0, &face );
 	if (error || (face == NULL)) 
 	{
 		if (face != NULL)
 			FT_Done_Face(face);
 		checkedFonts.insert(filename, foCache);
 		if (showFontInformation)
-			sDebug(QObject::tr("Font %1 is broken, discarding it").arg(filename));
+			sDebug(QObject::tr("Font %1 is broken, discarding it. Error message: \"%2\"")
+					   .arg(filename)
+					   .arg(getFtError(error)));
 		return true;
 	}
 	getFontFormat(face, format, type);
@@ -488,7 +686,11 @@ bool SCFonts::AddScalableFont(QString filename, FT_Library &library, QString Doc
 			if (error)
 			{
 				if (showFontInformation)
-					sDebug(QObject::tr("Font %1 has broken glyph %2 (charcode %3)").arg(filename).arg(gindex).arg(charcode));
+					sDebug(QObject::tr("Font %1 has broken glyph %2 (charcode U+%3). Error message: \"%4\"")
+							   .arg(filename)
+							   .arg(gindex)
+							   .arg(charcode, 4, 16, QChar('0'))
+							   .arg(getFtError(error)));
 				FT_Done_Face(face);
 				checkedFonts.insert(filename, foCache);
 				return true;
@@ -525,7 +727,11 @@ bool SCFonts::AddScalableFont(QString filename, FT_Library &library, QString Doc
 				if (error)
 				{
 					if (showFontInformation)
-						sDebug(QObject::tr("Font %1 has broken glyph %2 (charcode %3)").arg(filename).arg(gindex).arg(charcode));
+						sDebug(QObject::tr("Font %1 has broken glyph %2 (charcode U+%3). Error message: \"%4\"")
+								   .arg(filename)
+								   .arg(gindex)
+								   .arg(charcode, 4, 16, QChar('0'))
+								   .arg(getFtError(error)));
 					FT_Done_Face(face);
 					checkedFonts.insert(filename, foCache);
 					return true;
@@ -553,7 +759,8 @@ bool SCFonts::AddScalableFont(QString filename, FT_Library &library, QString Doc
 	int faceIndex = 0;
 	while (!error)
 	{
-		QString fam(face->family_name);
+		QString fam(getFamilyName(face));
+		QStringList features(getFontFeatures(face));
 		QString sty(face->style_name);
 		if (sty == "Regular")
 		{
@@ -599,15 +806,15 @@ bool SCFonts::AddScalableFont(QString filename, FT_Library &library, QString Doc
 			switch (format) 
 			{
 				case ScFace::PFA:
-					t = ScFace(new ScFace_pfa(fam, sty, "", ts, qpsName, filename, faceIndex));
+					t = ScFace(new ScFace_pfa(fam, sty, "", ts, qpsName, filename, faceIndex, features));
 					t.subset(Subset);
 					break;
 				case ScFace::PFB:
-					t = ScFace(new ScFace_pfb(fam, sty, "", ts, qpsName, filename, faceIndex));
+					t = ScFace(new ScFace_pfb(fam, sty, "", ts, qpsName, filename, faceIndex, features));
 					t.subset(Subset);
 					break;
 				case ScFace::SFNT:
-					t = ScFace(new ScFace_ttf(fam, sty, "", ts, qpsName, filename, faceIndex));
+					t = ScFace(new ScFace_ttf(fam, sty, "", ts, qpsName, filename, faceIndex, features));
 					getSFontType(face, t.m_m->typeCode);
 					if (t.type() == ScFace::OTF) 
 					{
@@ -617,7 +824,7 @@ bool SCFonts::AddScalableFont(QString filename, FT_Library &library, QString Doc
 						t.subset(Subset);
 					break;
 				case ScFace::TTCF:
-					t = ScFace(new ScFace_ttf(fam, sty, "", ts, qpsName, filename, faceIndex));
+					t = ScFace(new ScFace_ttf(fam, sty, "", ts, qpsName, filename, faceIndex, features));
 					t.m_m->formatCode = ScFace::TTCF;
 					t.m_m->typeCode = ScFace::TTF;
 					getSFontType(face, t.m_m->typeCode);
@@ -629,7 +836,7 @@ bool SCFonts::AddScalableFont(QString filename, FT_Library &library, QString Doc
 						t.subset(Subset);
 					break;
 				case ScFace::TYPE42:
-					t = ScFace(new ScFace_ttf(fam, sty, "", ts, qpsName, filename, faceIndex));
+					t = ScFace(new ScFace_ttf(fam, sty, "", ts, qpsName, filename, faceIndex, features));
 					getSFontType(face, t.m_m->typeCode);
 					if (t.type() == ScFace::OTF) 
 					{
@@ -719,6 +926,13 @@ const ScFace& SCFonts::findFont(const QString& fontname, ScribusDoc *doc)
 }
 
 
+const ScFace& SCFonts::findFont(const QString& fontFamily, const QString& fontStyle, ScribusDoc* doc)
+{
+	if (fontStyle.isEmpty())
+		return findFont(fontFamily + " Regular", doc);
+	return findFont(fontFamily + " " + fontStyle, doc);
+}
+
 QMap<QString,QString> SCFonts::getSubstitutions(const QList<QString> skip) const
 {
 	QMap<QString,QString> result;
@@ -767,6 +981,7 @@ void SCFonts::AddFontconfigFonts()
 	// Now ask fontconfig to retrieve info as specified in 'os' about fonts
 	// matching pattern 'pat'.
 	FcFontSet* fs = FcFontList(config, pat, os);
+	FcConfigDestroy(config);
 	FcObjectSetDestroy(os);
 	FcPatternDestroy(pat);
 	// Create the Freetype library
@@ -789,6 +1004,8 @@ void SCFonts::AddFontconfigFonts()
 				sDebug(QObject::tr("Failed to load a font - freetype2 couldn't find the font file"));
 	}
 	FT_Done_FreeType(library);
+	if (fs)
+		FcFontSetDestroy(fs);
 }
 
 #elif defined(Q_OS_LINUX)

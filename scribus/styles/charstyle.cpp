@@ -76,6 +76,12 @@ StyleFlag StyleFlag::operator~ ()
 	return result;
 }
 
+bool StyleFlag::equivForShaping(const StyleFlag& right) const
+{
+	int result = static_cast<int>( (value ^ right.value) & ScStyle_RunBreakingStyles);
+	return (result == 0);
+}
+
 bool StyleFlag::operator== (const StyleFlag& right) const
 {        
 	int result = static_cast<int>( (value ^ right.value) & ScStyle_UserStyles);
@@ -114,7 +120,7 @@ void CharStyle::applyCharStyle(const CharStyle & other)
 		return;
 	}
 	Style::applyStyle(other);
-#define ATTRDEF(attr_TYPE, attr_GETTER, attr_NAME, attr_DEFAULT) \
+#define ATTRDEF(attr_TYPE, attr_GETTER, attr_NAME, attr_DEFAULT, attr_BREAKSHAPING) \
 	if (! other.inh_##attr_NAME) \
 		set##attr_NAME(other.m_##attr_NAME);
 #include "charstyle.attrdefs.cxx"
@@ -127,7 +133,7 @@ void CharStyle::eraseCharStyle(const CharStyle & other)
 {
 	other.validate();
 	Style::eraseStyle(other);
-#define ATTRDEF(attr_TYPE, attr_GETTER, attr_NAME, attr_DEFAULT) \
+#define ATTRDEF(attr_TYPE, attr_GETTER, attr_NAME, attr_DEFAULT, attr_BREAKSHAPING) \
 	if (!inh_##attr_NAME && m_##attr_NAME == other.m_##attr_NAME) \
 		reset##attr_NAME();
 #include "charstyle.attrdefs.cxx"
@@ -137,7 +143,7 @@ void CharStyle::eraseCharStyle(const CharStyle & other)
 
 void CharStyle::eraseDirectFormatting()
 {
-#define ATTRDEF(attr_TYPE, attr_GETTER, attr_NAME, attr_DEFAULT) \
+#define ATTRDEF(attr_TYPE, attr_GETTER, attr_NAME, attr_DEFAULT, attr_BREAKSHAPING) \
 	if (!inh_##attr_NAME) \
 		reset##attr_NAME();
 #include "charstyle.attrdefs.cxx"
@@ -151,7 +157,7 @@ bool CharStyle::equiv(const Style & other) const
 	const CharStyle * oth = reinterpret_cast<const CharStyle*> ( & other );
 	return  oth &&
 		parent() == oth->parent() 
-#define ATTRDEF(attr_TYPE, attr_GETTER, attr_NAME, attr_DEFAULT) \
+#define ATTRDEF(attr_TYPE, attr_GETTER, attr_NAME, attr_DEFAULT, attr_BREAKSHAPING) \
 		&& (inh_##attr_NAME == oth->inh_##attr_NAME) \
 		&& (inh_##attr_NAME || isequiv(m_##attr_NAME, oth->m_##attr_NAME))
 #include "charstyle.attrdefs.cxx"
@@ -159,6 +165,19 @@ bool CharStyle::equiv(const Style & other) const
 		;	
 }
 
+bool CharStyle::equivForShaping(const CharStyle& other) const
+{
+	other.validate();
+
+#define ATTRDEF(attr_TYPE, attr_GETTER, attr_NAME, attr_DEFAULT, attr_BREAKSHAPING) \
+	if (attr_BREAKSHAPING && !isequiv(m_##attr_NAME, other.m_##attr_NAME)) \
+		return false;
+#include "charstyle.attrdefs.cxx"
+#undef ATTRDEF
+	if (!m_Effects.equivForShaping(other.m_Effects))
+		return false;
+	return true;
+}
 
 QString CharStyle::displayName() const
 {
@@ -181,6 +200,8 @@ QString CharStyle::asString() const
 		result += QObject::tr("font %1 ").arg(font().scName());
 	if ( !inh_FontSize )
 		result += QObject::tr("size %1 ").arg(fontSize());
+	if ( !inh_FontFeatures )
+		result += QObject::tr("+fontfeatures %1 ").arg(fontFeatures());
 	if ( !inh_Features )
 		result += QObject::tr("+style ");
 	if ( !inh_StrokeColor  ||  !inh_StrokeShade  ||  !inh_FillColor || !inh_FillShade )
@@ -210,7 +231,7 @@ void CharStyle::update(const StyleContext* context)
 	Style::update(context);
 	const CharStyle * oth = dynamic_cast<const CharStyle*> ( parentStyle() );
 	if (oth) {
-#define ATTRDEF(attr_TYPE, attr_GETTER, attr_NAME, attr_DEFAULT) \
+#define ATTRDEF(attr_TYPE, attr_GETTER, attr_NAME, attr_DEFAULT, attr_BREAKSHAPING) \
 		if (inh_##attr_NAME) \
 			m_##attr_NAME = oth->attr_GETTER();
 #include "charstyle.attrdefs.cxx"
@@ -368,7 +389,7 @@ void CharStyle::setStyle(const CharStyle& other)
 	other.validate();
 	setParent(other.parent());
 	m_contextversion = -1; 
-#define ATTRDEF(attr_TYPE, attr_GETTER, attr_NAME, attr_DEFAULT) \
+#define ATTRDEF(attr_TYPE, attr_GETTER, attr_NAME, attr_DEFAULT, attr_BREAKSHAPING) \
 	inh_##attr_NAME = other.inh_##attr_NAME; \
 	m_##attr_NAME = other.m_##attr_NAME;
 #include "charstyle.attrdefs.cxx"
@@ -381,6 +402,7 @@ void CharStyle::getNamedResources(ResourceCollection& lists) const
 	for (const Style* sty = parentStyle(); sty != NULL; sty = sty->parentStyle())
 		lists.collectCharStyle(sty->name());
 	lists.collectColor(fillColor());
+	lists.collectFontfeatures(fontFeatures());
 	lists.collectColor(strokeColor());
 	lists.collectColor(backColor());
 	lists.collectFont(font().scName());
@@ -393,7 +415,10 @@ void CharStyle::replaceNamedResources(ResourceCollection& newNames)
 	
 	if (!inh_FillColor && (it = newNames.colors().find(fillColor())) != newNames.colors().end())
 		setFillColor(it.value());
-								  
+
+	if (!inh_FontFeatures && (it = newNames.fontfeatures().find(fontFeatures())) != newNames.fontfeatures().end())
+		setFontFeatures(it.value());
+
 	if (!inh_StrokeColor && (it = newNames.colors().find(strokeColor())) != newNames.colors().end())
 		setStrokeColor(it.value());
 
@@ -457,7 +482,7 @@ void CharStyle::saxx(SaxHandler& handler, const Xml_string& elemtag) const
 {
 	Xml_attr att;
 	Style::saxxAttributes(att);
-#define ATTRDEF(attr_TYPE, attr_GETTER, attr_NAME, attr_DEFAULT) \
+#define ATTRDEF(attr_TYPE, attr_GETTER, attr_NAME, attr_DEFAULT, attr_BREAKSHAPING) \
 	if (!inh_##attr_NAME) \
 		att.insert(# attr_NAME, toXMLString(m_##attr_NAME));
 #include "charstyle.attrdefs.cxx"
@@ -497,7 +522,7 @@ void CharStyle::desaxeRules(const Xml_string& prefixPattern, Digester& ruleset, 
 	ruleset.addRule(stylePrefix, Factory<CharStyle>());
 	ruleset.addRule(stylePrefix, IdRef<CharStyle>());
 	Style::desaxeRules<CharStyle>(prefixPattern, ruleset, elemtag);
-#define ATTRDEF(attr_TYPE, attr_GETTER, attr_NAME, attr_DEFAULT) \
+#define ATTRDEF(attr_TYPE, attr_GETTER, attr_NAME, attr_DEFAULT, attr_BREAKSHAPING) \
 	ruleset.addRule(stylePrefix, SetAttributeWithConversion<CharStyle, attr_TYPE> ( & CharStyle::set##attr_NAME,  # attr_NAME, &parse<attr_TYPE> ));
 #include "charstyle.attrdefs.cxx"
 #undef ATTRDEF		

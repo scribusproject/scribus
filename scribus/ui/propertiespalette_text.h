@@ -16,6 +16,7 @@ for which a new license (GPL+exception) is in place.
 #include "linecombo.h"
 #include "spalette.h"
 #include "alignselect.h"
+#include "directionselect.h"
 #include "shadebutton.h"
 #include "sclistboxpixmap.h"
 #include "scguardedptr.h"
@@ -27,6 +28,8 @@ class PropertyWidget_Advanced;
 class PropertyWidget_Distance;
 class PropertyWidget_ParEffect;
 class PropertyWidget_Flop;
+class PropertyWidget_FontFeatures;
+class PropertyWidget_Hyphenation;
 class PropertyWidget_OptMargins;
 class PropertyWidget_Orphans;
 class PropertyWidget_PathText;
@@ -53,7 +56,6 @@ public:
                          // When user releases the mouse button or arrow key, changes must be checked
                          // and if in ScribusView a groupTransaction has been started it must be also
                          // commmited
-
 protected:
 
 	bool   m_haveDoc;
@@ -81,11 +83,14 @@ public slots:
 
 	void languageChange();
 	void unitChange();
+	void changeLang(int id);
 
 	void showAlignment(int e);
+	void showDirection(int e);
 	void showCharStyle(const QString& name);
 	void showFontFace(const QString&);
 	void showFontSize(double s);
+	void showLanguage(QString w);
 	void showFirstLinePolicy(FirstLineOffsetPolicy);
 	void showLineSpacing(double r);
 	void showParStyle(const QString& name);
@@ -105,6 +110,7 @@ public slots:
 
 private slots:
 	void handleAlignment(int a);
+	void handleDirection(int d);
 	void handleFirstLinePolicy(int);
 	void handleFontSize();
 	void handleLineSpacing();
@@ -113,6 +119,9 @@ private slots:
 	void doClearPStyle();
 
 protected:
+	PropertyWidget_Hyphenation* hyphenationWidget;
+	QTreeWidgetItem* hyphenationWidgetItem;
+
 	PropertyWidget_TextColor* colorWidgets;
 	QTreeWidgetItem* colorWidgetsItem;
 
@@ -121,6 +130,9 @@ protected:
 
 	PropertyWidget_Advanced* advancedWidgets;
 	QTreeWidgetItem* advancedWidgetsItem;
+
+	PropertyWidget_FontFeatures* fontfeaturesWidget;
+	QTreeWidgetItem* fontfeaturesWidgetItem;
 
 	PropertyWidget_OptMargins* optMargins;
 	QTreeWidgetItem* optMarginsItem;

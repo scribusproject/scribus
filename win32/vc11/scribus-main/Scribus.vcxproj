@@ -97,11 +97,10 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
-      <AdditionalOptions>/MP2 %(AdditionalOptions)</AdditionalOptions>
       <Optimization>Disabled</Optimization>
       <InlineFunctionExpansion>Default</InlineFunctionExpansion>
       <IntrinsicFunctions>false</IntrinsicFunctions>
-      <AdditionalIncludeDirectories>..\..\vc11;..\..\..\scribus;..\..\..\scribus\colormgmt;..\..\..\scribus\fonts;..\..\..\scribus\text;..\..\..\scribus\styles;..\..\..\scribus\simpletreemodel;..\..\..\scribus\ui;$(QT5_DIR)\include\QtANGLE;$(QT5_DIR)\include\QtCore;$(QT5_DIR)\include\QtGui;$(QT5_DIR)\include\QtNetwork;$(QT5_DIR)\include\QtPrintSupport;$(QT5_DIR)\include\QtQml;$(QT5_DIR)\include\QtQuick;$(QT5_DIR)\include\QtWebKit;$(QT5_DIR)\include\QtWebKitWidgets;$(QT5_DIR)\include\QtWidgets;$(QT5_DIR)\include\QtXml;$(QT5_DIR)\include;$(CAIRO_INCLUDE_DIR);$(LCMS_INCLUDE_DIR);$(FREETYPE_INCLUDE_DIR);$(LIBJPEG_INCLUDE_DIR);$(LIBTIFF_INCLUDE_DIR);$(PODOFO_INCLUDE_DIR);$(ZLIB_INCLUDE_DIR);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\vc11;..\..\..\scribus;..\..\..\scribus\colormgmt;..\..\..\scribus\fonts;..\..\..\scribus\text;..\..\..\scribus\styles;..\..\..\scribus\simpletreemodel;..\..\..\scribus\ui;$(QT5_DIR)\include\QtANGLE;$(QT5_DIR)\include\QtCore;$(QT5_DIR)\include\QtGui;$(QT5_DIR)\include\QtNetwork;$(QT5_DIR)\include\QtPrintSupport;$(QT5_DIR)\include\QtQml;$(QT5_DIR)\include\QtQuick;$(QT5_DIR)\include\QtWebKit;$(QT5_DIR)\include\QtWebKitWidgets;$(QT5_DIR)\include\QtWidgets;$(QT5_DIR)\include\QtXml;$(QT5_DIR)\include;$(CAIRO_INCLUDE_DIR);$(FREETYPE_INCLUDE_DIR);$(HARFBUZZ_INCLUDE_DIR);$(ICU_INCLUDE_DIR);$(LCMS_INCLUDE_DIR);$(LIBJPEG_INCLUDE_DIR);$(LIBTIFF_INCLUDE_DIR);$(PODOFO_INCLUDE_DIR);$(ZLIB_INCLUDE_DIR);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_USE_MATH_DEFINES;QT_DLL;QT_GUI_LIB;QT_CORE_LIB;QT_THREAD_SUPPORT;HAVE_CONFIG_H;AVOID_WIN32_FILEIO;COMPILE_SCRIBUS_MAIN_APP;DOCDIR="doc/";ICONDIR="icons/";SAMPLESDIR="samples/";SCRIPTSDIR="scripts/";SHAREDIR="share/";TEMPLATEDIR="templates/";LIBDIR="libs/";PLUGINDIR="plugins";QMLDIR="qml/";%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <IgnoreStandardIncludePath>false</IgnoreStandardIncludePath>
       <MinimalRebuild>false</MinimalRebuild>
@@ -116,10 +115,11 @@
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <DisableSpecificWarnings>4005;4244;4251;4258;4267;4996;%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <ForcedIncludeFiles>.\scribuspch.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
+      <AdditionalOptions>/MP4 %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>$(QT5CORE_LIB);$(QT5GUI_LIB);$(QT5NETWORK_LIB);$(QT5PRINTSUPPORT_LIB);$(QT5QML_LIB);$(QT5QUICK_LIB);$(QT5WIDGETS_LIB);$(QT5XML_LIB);$(CAIRO_LIB);$(FREETYPE_LIB);$(LCMS_LIB);$(LIBJPEG_LIB);$(LIBTIFF_LIB);$(PODOFO_LIB);$(ZLIB_LIB);mscms.lib;WSock32.Lib;scribus-pgf.lib;scribus-wpg.lib;scribus-zip.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(QT5_DIR)\lib;$(CAIRO_LIB_DIR);$(FREETYPE_LIB_DIR);$(LCMS_LIB_DIR);$(LIBJPEG_LIB_DIR);$(LIBTIFF_LIB_DIR);$(PODOFO_LIB_DIR);$(ZLIB_LIB_DIR);$(OutDir).;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>$(QT5CORE_LIB);$(QT5GUI_LIB);$(QT5NETWORK_LIB);$(QT5PRINTSUPPORT_LIB);$(QT5QML_LIB);$(QT5QUICK_LIB);$(QT5WIDGETS_LIB);$(QT5XML_LIB);$(CAIRO_LIB);$(FREETYPE_LIB);$(HARFBUZZ_LIB);$(ICU_LIB);$(LCMS_LIB);$(LIBJPEG_LIB);$(LIBTIFF_LIB);$(PODOFO_LIB);$(ZLIB_LIB);mscms.lib;WSock32.Lib;scribus-pgf.lib;scribus-wpg.lib;scribus-zip.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(QT5_DIR)\lib;$(CAIRO_LIB_DIR);$(FREETYPE_LIB_DIR);$(HARFBUZZ_LIB_DIR);$(ICU_LIB_DIR);$(LCMS_LIB_DIR);$(LIBJPEG_LIB_DIR);$(LIBTIFF_LIB_DIR);$(PODOFO_LIB_DIR);$(ZLIB_LIB_DIR);$(OutDir).;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AssemblyDebug />
       <SubSystem>Console</SubSystem>
@@ -131,11 +131,10 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <AdditionalOptions>/MP2 %(AdditionalOptions)</AdditionalOptions>
       <Optimization>Disabled</Optimization>
       <InlineFunctionExpansion>Default</InlineFunctionExpansion>
       <IntrinsicFunctions>false</IntrinsicFunctions>
-      <AdditionalIncludeDirectories>..\..\vc11;..\..\..\scribus;..\..\..\scribus\colormgmt;..\..\..\scribus\fonts;..\..\..\scribus\text;..\..\..\scribus\styles;..\..\..\scribus\simpletreemodel;..\..\..\scribus\ui;$(QT5_DIR)\include\QtANGLE;$(QT5_DIR)\include\QtCore;$(QT5_DIR)\include\QtGui;$(QT5_DIR)\include\QtNetwork;$(QT5_DIR)\include\QtPrintSupport;$(QT5_DIR)\include\QtQml;$(QT5_DIR)\include\QtQuick;$(QT5_DIR)\include\QtWebKit;$(QT5_DIR)\include\QtWebKitWidgets;$(QT5_DIR)\include\QtWidgets;$(QT5_DIR)\include\QtXml;$(QT5_DIR)\include;$(CAIRO_INCLUDE_DIR);$(LCMS_INCLUDE_DIR);$(FREETYPE_INCLUDE_DIR);$(LIBJPEG_INCLUDE_DIR);$(LIBTIFF_INCLUDE_DIR);$(PODOFO_INCLUDE_DIR);$(ZLIB_INCLUDE_DIR);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\vc11;..\..\..\scribus;..\..\..\scribus\colormgmt;..\..\..\scribus\fonts;..\..\..\scribus\text;..\..\..\scribus\styles;..\..\..\scribus\simpletreemodel;..\..\..\scribus\ui;$(QT5_DIR)\include\QtANGLE;$(QT5_DIR)\include\QtCore;$(QT5_DIR)\include\QtGui;$(QT5_DIR)\include\QtNetwork;$(QT5_DIR)\include\QtPrintSupport;$(QT5_DIR)\include\QtQml;$(QT5_DIR)\include\QtQuick;$(QT5_DIR)\include\QtWebKit;$(QT5_DIR)\include\QtWebKitWidgets;$(QT5_DIR)\include\QtWidgets;$(QT5_DIR)\include\QtXml;$(QT5_DIR)\include;$(CAIRO_INCLUDE_DIR);$(FREETYPE_INCLUDE_DIR);$(HARFBUZZ_INCLUDE_DIR);$(ICU_INCLUDE_DIR);$(LCMS_INCLUDE_DIR);$(LIBJPEG_INCLUDE_DIR);$(LIBTIFF_INCLUDE_DIR);$(PODOFO_INCLUDE_DIR);$(ZLIB_INCLUDE_DIR);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_USE_MATH_DEFINES;QT_DLL;QT_GUI_LIB;QT_CORE_LIB;QT_THREAD_SUPPORT;HAVE_CONFIG_H;AVOID_WIN32_FILEIO;COMPILE_SCRIBUS_MAIN_APP;DOCDIR="doc/";ICONDIR="icons/";SAMPLESDIR="samples/";SCRIPTSDIR="scripts/";SHAREDIR="share/";TEMPLATEDIR="templates/";LIBDIR="libs/";PLUGINDIR="plugins";QMLDIR="qml/";%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <IgnoreStandardIncludePath>false</IgnoreStandardIncludePath>
       <MinimalRebuild>false</MinimalRebuild>
@@ -150,10 +149,11 @@
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <DisableSpecificWarnings>4005;4244;4251;4258;4267;4996;%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <ForcedIncludeFiles>.\scribuspch.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
+      <AdditionalOptions>/MP4 %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>$(QT5CORE_LIB);$(QT5GUI_LIB);$(QT5NETWORK_LIB);$(QT5PRINTSUPPORT_LIB);$(QT5QML_LIB);$(QT5QUICK_LIB);$(QT5WIDGETS_LIB);$(QT5XML_LIB);$(CAIRO_LIB);$(FREETYPE_LIB);$(LCMS_LIB);$(LIBJPEG_LIB);$(LIBTIFF_LIB);$(PODOFO_LIB);$(ZLIB_LIB);mscms.lib;WSock32.Lib;scribus-pgf.lib;scribus-wpg.lib;scribus-zip.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(QT5_DIR)\lib;$(CAIRO_LIB_DIR);$(FREETYPE_LIB_DIR);$(LCMS_LIB_DIR);$(LIBJPEG_LIB_DIR);$(LIBTIFF_LIB_DIR);$(PODOFO_LIB_DIR);$(ZLIB_LIB_DIR);$(OutDir).;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>$(QT5CORE_LIB);$(QT5GUI_LIB);$(QT5NETWORK_LIB);$(QT5PRINTSUPPORT_LIB);$(QT5QML_LIB);$(QT5QUICK_LIB);$(QT5WIDGETS_LIB);$(QT5XML_LIB);$(CAIRO_LIB);$(FREETYPE_LIB);$(HARFBUZZ_LIB);$(ICU_LIB);$(LCMS_LIB);$(LIBJPEG_LIB);$(LIBTIFF_LIB);$(PODOFO_LIB);$(ZLIB_LIB);mscms.lib;WSock32.Lib;scribus-pgf.lib;scribus-wpg.lib;scribus-zip.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(QT5_DIR)\lib;$(CAIRO_LIB_DIR);$(FREETYPE_LIB_DIR);$(HARFBUZZ_LIB_DIR);$(ICU_LIB_DIR);$(LCMS_LIB_DIR);$(LIBJPEG_LIB_DIR);$(LIBTIFF_LIB_DIR);$(PODOFO_LIB_DIR);$(ZLIB_LIB_DIR);$(OutDir).;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AssemblyDebug>
       </AssemblyDebug>
@@ -166,11 +166,10 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
-      <AdditionalOptions>/MP2 %(AdditionalOptions)</AdditionalOptions>
       <Optimization>MaxSpeed</Optimization>
       <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
       <OmitFramePointers>true</OmitFramePointers>
-      <AdditionalIncludeDirectories>..\..\vc11;..\..\..\scribus;..\..\..\scribus\colormgmt;..\..\..\scribus\fonts;..\..\..\scribus\text;..\..\..\scribus\styles;..\..\..\scribus\simpletreemodel;..\..\..\scribus\ui;$(QT5_DIR)\include\QtANGLE;$(QT5_DIR)\include\QtCore;$(QT5_DIR)\include\QtGui;$(QT5_DIR)\include\QtNetwork;$(QT5_DIR)\include\QtPrintSupport;$(QT5_DIR)\include\QtQml;$(QT5_DIR)\include\QtQuick;$(QT5_DIR)\include\QtWebKit;$(QT5_DIR)\include\QtWebKitWidgets;$(QT5_DIR)\include\QtWidgets;$(QT5_DIR)\include\QtXml;$(QT5_DIR)\include;$(CAIRO_INCLUDE_DIR);$(LCMS_INCLUDE_DIR);$(FREETYPE_INCLUDE_DIR);$(LIBJPEG_INCLUDE_DIR);$(LIBTIFF_INCLUDE_DIR);$(PODOFO_INCLUDE_DIR);$(ZLIB_INCLUDE_DIR);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\vc11;..\..\..\scribus;..\..\..\scribus\colormgmt;..\..\..\scribus\fonts;..\..\..\scribus\text;..\..\..\scribus\styles;..\..\..\scribus\simpletreemodel;..\..\..\scribus\ui;$(QT5_DIR)\include\QtANGLE;$(QT5_DIR)\include\QtCore;$(QT5_DIR)\include\QtGui;$(QT5_DIR)\include\QtNetwork;$(QT5_DIR)\include\QtPrintSupport;$(QT5_DIR)\include\QtQml;$(QT5_DIR)\include\QtQuick;$(QT5_DIR)\include\QtWebKit;$(QT5_DIR)\include\QtWebKitWidgets;$(QT5_DIR)\include\QtWidgets;$(QT5_DIR)\include\QtXml;$(QT5_DIR)\include;$(CAIRO_INCLUDE_DIR);$(FREETYPE_INCLUDE_DIR);$(HARFBUZZ_INCLUDE_DIR);$(ICU_INCLUDE_DIR);$(LCMS_INCLUDE_DIR);$(LIBJPEG_INCLUDE_DIR);$(LIBTIFF_INCLUDE_DIR);$(PODOFO_INCLUDE_DIR);$(ZLIB_INCLUDE_DIR);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;NDEBUG;_USE_MATH_DEFINES;_WINDOWS;QT_DLL;QT_GUI_LIB;QT_CORE_LIB;QT_THREAD_SUPPORT;HAVE_CONFIG_H;AVOID_WIN32_FILEIO;COMPILE_SCRIBUS_MAIN_APP;DOCDIR="doc/";ICONDIR="icons/";SAMPLESDIR="samples/";SCRIPTSDIR="scripts/";SHAREDIR="share/";TEMPLATEDIR="templates/";LIBDIR="libs/";PLUGINDIR="plugins";QMLDIR="qml/";%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <StringPooling>true</StringPooling>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
@@ -184,10 +183,11 @@
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <DisableSpecificWarnings>4005;4244;4251;4258;4267;4996;%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <ForcedIncludeFiles>.\scribuspch.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
+      <AdditionalOptions>/MP4 %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>$(QT5CORE_LIB);$(QT5GUI_LIB);$(QT5NETWORK_LIB);$(QT5PRINTSUPPORT_LIB);$(QT5QML_LIB);$(QT5QUICK_LIB);$(QT5WIDGETS_LIB);$(QT5XML_LIB);$(CAIRO_LIB);$(FREETYPE_LIB);$(LCMS_LIB);$(LIBJPEG_LIB);$(LIBTIFF_LIB);$(PODOFO_LIB);$(ZLIB_LIB);mscms.lib;WSock32.Lib;scribus-pgf.lib;scribus-wpg.lib;scribus-zip.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(QT5_DIR)\lib;$(CAIRO_LIB_DIR);$(FREETYPE_LIB_DIR);$(LCMS_LIB_DIR);$(LIBJPEG_LIB_DIR);$(LIBTIFF_LIB_DIR);$(PODOFO_LIB_DIR);$(ZLIB_LIB_DIR);$(OutDir).;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>$(QT5CORE_LIB);$(QT5GUI_LIB);$(QT5NETWORK_LIB);$(QT5PRINTSUPPORT_LIB);$(QT5QML_LIB);$(QT5QUICK_LIB);$(QT5WIDGETS_LIB);$(QT5XML_LIB);$(CAIRO_LIB);$(FREETYPE_LIB);$(HARFBUZZ_LIB);$(ICU_LIB);$(LCMS_LIB);$(LIBJPEG_LIB);$(LIBTIFF_LIB);$(PODOFO_LIB);$(ZLIB_LIB);mscms.lib;WSock32.Lib;scribus-pgf.lib;scribus-wpg.lib;scribus-zip.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(QT5_DIR)\lib;$(CAIRO_LIB_DIR);$(FREETYPE_LIB_DIR);$(HARFBUZZ_LIB_DIR);$(ICU_LIB_DIR);$(LCMS_LIB_DIR);$(LIBJPEG_LIB_DIR);$(LIBTIFF_LIB_DIR);$(PODOFO_LIB_DIR);$(ZLIB_LIB_DIR);$(OutDir).;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
       <OptimizeReferences>true</OptimizeReferences>
@@ -201,11 +201,10 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
-      <AdditionalOptions>/MP2 %(AdditionalOptions)</AdditionalOptions>
       <Optimization>MaxSpeed</Optimization>
       <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
       <OmitFramePointers>true</OmitFramePointers>
-      <AdditionalIncludeDirectories>..\..\vc11;..\..\..\scribus;..\..\..\scribus\colormgmt;..\..\..\scribus\fonts;..\..\..\scribus\text;..\..\..\scribus\styles;..\..\..\scribus\simpletreemodel;..\..\..\scribus\ui;$(QT5_DIR)\include\QtANGLE;$(QT5_DIR)\include\QtCore;$(QT5_DIR)\include\QtGui;$(QT5_DIR)\include\QtNetwork;$(QT5_DIR)\include\QtPrintSupport;$(QT5_DIR)\include\QtQml;$(QT5_DIR)\include\QtQuick;$(QT5_DIR)\include\QtWebKit;$(QT5_DIR)\include\QtWebKitWidgets;$(QT5_DIR)\include\QtWidgets;$(QT5_DIR)\include\QtXml;$(QT5_DIR)\include;$(CAIRO_INCLUDE_DIR);$(LCMS_INCLUDE_DIR);$(FREETYPE_INCLUDE_DIR);$(LIBJPEG_INCLUDE_DIR);$(LIBTIFF_INCLUDE_DIR);$(PODOFO_INCLUDE_DIR);$(ZLIB_INCLUDE_DIR);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\vc11;..\..\..\scribus;..\..\..\scribus\colormgmt;..\..\..\scribus\fonts;..\..\..\scribus\text;..\..\..\scribus\styles;..\..\..\scribus\simpletreemodel;..\..\..\scribus\ui;$(QT5_DIR)\include\QtANGLE;$(QT5_DIR)\include\QtCore;$(QT5_DIR)\include\QtGui;$(QT5_DIR)\include\QtNetwork;$(QT5_DIR)\include\QtPrintSupport;$(QT5_DIR)\include\QtQml;$(QT5_DIR)\include\QtQuick;$(QT5_DIR)\include\QtWebKit;$(QT5_DIR)\include\QtWebKitWidgets;$(QT5_DIR)\include\QtWidgets;$(QT5_DIR)\include\QtXml;$(QT5_DIR)\include;$(CAIRO_INCLUDE_DIR);$(FREETYPE_INCLUDE_DIR);$(HARFBUZZ_INCLUDE_DIR);$(ICU_INCLUDE_DIR);$(LCMS_INCLUDE_DIR);$(LIBJPEG_INCLUDE_DIR);$(LIBTIFF_INCLUDE_DIR);$(PODOFO_INCLUDE_DIR);$(ZLIB_INCLUDE_DIR);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;NDEBUG;_USE_MATH_DEFINES;_WINDOWS;QT_DLL;QT_GUI_LIB;QT_CORE_LIB;QT_THREAD_SUPPORT;HAVE_CONFIG_H;AVOID_WIN32_FILEIO;COMPILE_SCRIBUS_MAIN_APP;DOCDIR="doc/";ICONDIR="icons/";SAMPLESDIR="samples/";SCRIPTSDIR="scripts/";SHAREDIR="share/";TEMPLATEDIR="templates/";LIBDIR="libs/";PLUGINDIR="plugins";QMLDIR="qml/";%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <StringPooling>true</StringPooling>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
@@ -219,10 +218,11 @@
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <DisableSpecificWarnings>4005;4244;4251;4258;4267;4996;%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <ForcedIncludeFiles>.\scribuspch.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
+      <AdditionalOptions>/MP4 %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>$(QT5CORE_LIB);$(QT5GUI_LIB);$(QT5NETWORK_LIB);$(QT5PRINTSUPPORT_LIB);$(QT5QML_LIB);$(QT5QUICK_LIB);$(QT5WIDGETS_LIB);$(QT5XML_LIB);$(CAIRO_LIB);$(FREETYPE_LIB);$(LCMS_LIB);$(LIBJPEG_LIB);$(LIBTIFF_LIB);$(PODOFO_LIB);$(ZLIB_LIB);mscms.lib;WSock32.Lib;scribus-pgf.lib;scribus-wpg.lib;scribus-zip.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(QT5_DIR)\lib;$(CAIRO_LIB_DIR);$(FREETYPE_LIB_DIR);$(LCMS_LIB_DIR);$(LIBJPEG_LIB_DIR);$(LIBTIFF_LIB_DIR);$(PODOFO_LIB_DIR);$(ZLIB_LIB_DIR);$(OutDir).;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>$(QT5CORE_LIB);$(QT5GUI_LIB);$(QT5NETWORK_LIB);$(QT5PRINTSUPPORT_LIB);$(QT5QML_LIB);$(QT5QUICK_LIB);$(QT5WIDGETS_LIB);$(QT5XML_LIB);$(CAIRO_LIB);$(FREETYPE_LIB);$(HARFBUZZ_LIB);$(ICU_LIB);$(LCMS_LIB);$(LIBJPEG_LIB);$(LIBTIFF_LIB);$(PODOFO_LIB);$(ZLIB_LIB);mscms.lib;WSock32.Lib;scribus-pgf.lib;scribus-wpg.lib;scribus-zip.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(QT5_DIR)\lib;$(CAIRO_LIB_DIR);$(FREETYPE_LIB_DIR);$(HARFBUZZ_LIB_DIR);$(ICU_LIB_DIR);$(LCMS_LIB_DIR);$(LIBJPEG_LIB_DIR);$(LIBTIFF_LIB_DIR);$(PODOFO_LIB_DIR);$(ZLIB_LIB_DIR);$(OutDir).;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
       <OptimizeReferences>true</OptimizeReferences>
@@ -398,12 +398,23 @@
     <moc Include="..\..\..\scribus\guidesmodel.h" />
     <moc Include="..\..\..\scribus\guidesview.h" />
     <moc Include="..\..\..\scribus\ui\helpbrowser.h" />
+    <ClInclude Include="..\..\..\scribus\text\glyphcluster.h" />
+    <ClInclude Include="..\..\..\scribus\text\index.h" />
+    <ClInclude Include="..\..\..\scribus\text\itextcontext.h" />
+    <ClInclude Include="..\..\..\scribus\text\itextsource.h" />
     <ClInclude Include="..\..\..\scribus\text\screenpainter.h" />
+    <ClInclude Include="..\..\..\scribus\text\scrptrun.h" />
+    <ClInclude Include="..\..\..\scribus\text\shapedtext.h" />
+    <ClInclude Include="..\..\..\scribus\text\shapedtextcache.h" />
+    <ClInclude Include="..\..\..\scribus\text\shapedtextfeed.h" />
+    <ClInclude Include="..\..\..\scribus\text\textcontext.h" />
     <ClInclude Include="..\..\..\scribus\text\textlayout.h" />
     <moc Include="..\..\..\scribus\ui\filedialogeventcatcher.h" />
     <moc Include="..\..\..\scribus\ui\downloadspalette.h" />
     <ClInclude Include="..\..\..\scribus\text\textlayoutpainter.h" />
     <ClInclude Include="..\..\..\scribus\text\textshaper.h" />
+    <ClInclude Include="..\..\..\scribus\text\textsource.h" />
+    <moc Include="..\..\..\scribus\ui\directionselect.h" />
     <ClInclude Include="..\..\..\scribus\ui\helpnavigation.h" />
     <ClInclude Include="..\..\..\scribus\third_party\hyphen\hnjalloc.h" />
     <moc Include="..\..\..\scribus\ui\hruler.h" />
@@ -577,7 +588,12 @@
     <moc Include="..\..\..\scribus\ui\resourcemanager.h" />
     <moc Include="..\..\..\scribus\ui\resourcemanagerlicense.h" />
     <moc Include="..\..\..\scribus\ui\recoverdialog.h" />
+    <moc Include="..\..\..\scribus\ui\propertywidget_fontfeatures.h" />
+    <moc Include="..\..\..\scribus\ui\propertywidget_hyphenation.h" />
     <ClInclude Include="..\..\..\scribus\ui\sccolorslider.h" />
+    <moc Include="..\..\..\scribus\ui\smfontfeatures.h" />
+    <moc Include="..\..\..\scribus\ui\smlineedit.h" />
+    <moc Include="..\..\..\scribus\ui\smdirectionselect.h" />
     <ClInclude Include="..\..\..\scribus\ui\ui_downloadspalettebase.h" />
     <ClInclude Include="..\..\..\scribus\ui\ui_resourcemanagerbase.h" />
     <ClInclude Include="..\..\..\scribus\ui\ui_resourcemanagerlicensebase.h" />
@@ -919,7 +935,14 @@
     <ClCompile Include="..\..\..\scribus\imagedataloaders\scimgdataloader_ora.cpp" />
     <ClCompile Include="..\..\..\scribus\selectionrubberband.cpp" />
     <ClCompile Include="..\..\..\scribus\text\boxes.cpp" />
+    <ClCompile Include="..\..\..\scribus\text\glyphcluster.cpp" />
+    <ClCompile Include="..\..\..\scribus\text\index.cpp" />
     <ClCompile Include="..\..\..\scribus\text\screenpainter.cpp" />
+    <ClCompile Include="..\..\..\scribus\text\scrptrun.cpp" />
+    <ClCompile Include="..\..\..\scribus\text\shapedtext.cpp" />
+    <ClCompile Include="..\..\..\scribus\text\shapedtextcache.cpp" />
+    <ClCompile Include="..\..\..\scribus\text\shapedtextfeed.cpp" />
+    <ClCompile Include="..\..\..\scribus\text\textcontext.cpp" />
     <ClCompile Include="..\..\..\scribus\text\textlayout.cpp" />
     <ClCompile Include="..\..\..\scribus\text\textlayoutpainter.cpp" />
     <ClCompile Include="..\..\..\scribus\text\textshaper.cpp" />
@@ -1016,6 +1039,7 @@
     <ClCompile Include="..\..\..\scribus\docinfo.cpp" />
     <ClCompile Include="..\..\..\scribus\documentchecker.cpp" />
     <ClCompile Include="..\..\..\scribus\documentinformation.cpp" />
+    <ClCompile Include="..\..\..\scribus\ui\directionselect.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\downloadspalette.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\editor.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\edittoolbar.cpp" />
@@ -1282,6 +1306,8 @@
     <ClCompile Include="..\..\..\scribus\ui\propertywidget_advanced.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\propertywidget_distance.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\propertywidget_flop.cpp" />
+    <ClCompile Include="..\..\..\scribus\ui\propertywidget_fontfeatures.cpp" />
+    <ClCompile Include="..\..\..\scribus\ui\propertywidget_hyphenation.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\propertywidget_optmargins.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\propertywidget_orphans.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\propertywidget_pareffect.cpp" />
@@ -1392,6 +1418,9 @@
     <ClCompile Include="..\..\..\scribus\scribusapp.cpp" />
     <ClCompile Include="..\..\..\scribus\scribuscore.cpp" />
     <ClCompile Include="..\..\..\scribus\scribusdoc.cpp" />
+    <ClCompile Include="..\..\..\scribus\ui\smdirectionselect.cpp" />
+    <ClCompile Include="..\..\..\scribus\ui\smfontfeatures.cpp" />
+    <ClCompile Include="..\..\..\scribus\ui\smlineedit.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\viewtoolbar.cpp" />
     <ClCompile Include="..\..\..\scribus\undotransaction.cpp" />
     <ClCompile Include="..\..\..\scribus\upgradechecker.cpp" />
@@ -1627,6 +1656,8 @@
     <uic Include="..\..\..\scribus\ui\propertywidget_advancedbase.ui" />
     <uic Include="..\..\..\scribus\ui\propertywidget_distancebase.ui" />
     <uic Include="..\..\..\scribus\ui\propertywidget_flopbase.ui" />
+    <uic Include="..\..\..\scribus\ui\propertywidget_fontfeaturesbase.ui" />
+    <uic Include="..\..\..\scribus\ui\propertywidget_hyphenationbase.ui" />
     <uic Include="..\..\..\scribus\ui\propertywidget_optmarginsbase.ui" />
     <uic Include="..\..\..\scribus\ui\propertywidget_orphansbase.ui" />
     <uic Include="..\..\..\scribus\ui\propertywidget_pareffectbase.ui" />
@@ -1642,6 +1673,7 @@
     <uic Include="..\..\..\scribus\ui\shortcutwidget.ui" />
     <uic Include="..\..\..\scribus\ui\smcellstylewidget.ui" />
     <uic Include="..\..\..\scribus\ui\smcstylewidget.ui" />
+    <uic Include="..\..\..\scribus\ui\smfontfeaturesbase.ui" />
     <uic Include="..\..\..\scribus\ui\smlinestylewidget.ui" />
     <uic Include="..\..\..\scribus\ui\smpstylewidget.ui" />
     <uic Include="..\..\..\scribus\ui\smreplacedia.ui" />

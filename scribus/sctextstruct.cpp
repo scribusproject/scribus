@@ -5,24 +5,19 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 
-#include <QObject>
 #include <QList>
-#include <QPointer>
 #include "sctextstruct.h"
-#include "scfonts.h"
 #include "pageitem.h"
 #include "scribusdoc.h"
 
 
-qreal GlyphRun::width() const
+PageItem* InlineFrame::getPageItem(ScribusDoc* doc) const
 {
-	qreal width = 0;
-	foreach (const GlyphLayout gl, m_glyphs)
-	{
-		width += gl.xadvance * gl.scaleH;
-	}
-	return width;
+	if (doc->FrameItems.contains(m_object_id))
+		return doc->FrameItems[m_object_id];
+	return NULL;
 }
+
 
 ScText::~ScText() 
 {

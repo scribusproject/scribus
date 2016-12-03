@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>214</width>
-    <height>357</height>
+    <width>308</width>
+    <height>390</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -114,11 +114,14 @@
    </item>
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout_5">
+     <item alignment="Qt::AlignLeft">
+      <widget class="DirectionSelect" name="textDirection" native="true"/>
+     </item>
      <item>
       <widget class="AlignSelect" name="textAlignment" native="true"/>
      </item>
      <item>
-      <spacer name="horizontalSpacer">
+      <spacer name="horizontalSpacer_2">
        <property name="orientation">
         <enum>Qt::Horizontal</enum>
        </property>
@@ -130,7 +133,17 @@
        </property>
       </spacer>
      </item>
+     <item>
+      <widget class="QComboBox" name="langCombo">
+       <property name="editable">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
     </layout>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout_6"/>
    </item>
    <item>
     <widget class="Line" name="line">
@@ -282,6 +295,12 @@
    <class>AlignSelect</class>
    <extends>QWidget</extends>
    <header>ui/alignselect.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>DirectionSelect</class>
+   <extends>QWidget</extends>
+   <header>ui/directionselect.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

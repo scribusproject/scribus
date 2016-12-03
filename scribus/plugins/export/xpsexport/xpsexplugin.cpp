@@ -39,7 +39,6 @@ for which a new license (GPL+exception) is in place.
 #include "canvas.h"
 #include "cmsettings.h"
 #include "commonstrings.h"
-#include "pageitem_pathtext.h"
 #include "pageitem_table.h"
 #include "prefsmanager.h"
 #include "prefsfile.h"
@@ -818,17 +817,16 @@ public:
 		m_relRoot(rel_root)
 	{ }
 
-	void drawGlyph(const GlyphLayout gl)
+	void drawGlyph(const GlyphCluster& gc)
 	{
-		if (gl.glyph >= ScFace::CONTROL_GLYPHS)
+		if (gc.isControlGlyphs())
 			return;
 
 		if (!m_fontMap.contains(font().replacementName()))
 			m_fontMap.insert(font().replacementName(), m_xps->embedFont(font(), m_relRoot));
-
 		QTransform transform = matrix();
 		QDomElement glyph = m_xps->p_docu.createElement("Glyphs");
-		double size = fontSize() * qMax(gl.scaleV, gl.scaleH) * m_xps->conversionFactor;
+		double size = fontSize() * qMax(gc.scaleV(), gc.scaleH()) * m_xps->conversionFactor;
 		glyph.setAttribute("RenderTransform", m_xps->MatrixToStr(transform, m_xps->conversionFactor));
 		glyph.setAttribute("BidiLevel", "0");
 		glyph.setAttribute("StyleSimulations", "None");
@@ -837,44 +835,50 @@ public:
 		glyph.setAttribute("Fill", m_xps->SetColor(fillColor().color,fillColor().shade, 0));
 		glyph.setAttribute("OriginX", m_xps->FToStr(x() * m_xps->conversionFactor));
 		glyph.setAttribute("OriginY", m_xps->FToStr(y() * m_xps->conversionFactor));
-		glyph.setAttribute("Indices", QString("%1,%2").arg(gl.glyph).arg((gl.xadvance * m_xps->conversionFactor) / size * 100));
-		for (int a = 32; a < 65536; a++)
-		{
-			if (gl.glyph == font().char2CMap(QChar(a)))
-			{
-				glyph.setAttribute("UnicodeString", QChar(a));
-				break;
-			}
+		glyph.setAttribute("UnicodeString", gc.getText());
+		QString gcMap = QString("(%1:%2)").arg(gc.getText().size()).arg(gc.glyphs().size());
+		QString indices;
+		double current_x = 0.0;
+		foreach (const GlyphLayout& gl, gc.glyphs()) {
+			indices += QString("%1,%2,%3,%4;").arg(gl.glyph)
+					.arg(((gl.xadvance + current_x) * m_xps->conversionFactor) / size * 100)
+					.arg((-gl.xoffset * m_xps->conversionFactor) / size * 100)
+					.arg((-gl.yoffset * m_xps->conversionFactor) / size * 100);
+			current_x += gl.xadvance;
 		}
-
+		indices.chop(1);
+		glyph.setAttribute("Indices", QString("%1%2").arg(gcMap).arg(indices));
 		m_group.appendChild(glyph);
 	}
 
-	void drawGlyphOutline(const GlyphLayout gl, bool fill)
+	void drawGlyphOutline(const GlyphCluster& gc, bool fill)
 	{
-		if (gl.glyph >= ScFace::CONTROL_GLYPHS)
+		if (gc.isControlGlyphs())
 			return;
-
-		FPointArray outline = font().glyphOutline(gl.glyph);
-		if (outline.size() >= 4)
-		{
-			QTransform transform = matrix();
-			transform.scale((fontSize() * gl.scaleH) / 10.0, (fontSize() * gl.scaleV) / 10.0);
-			outline.map(transform);
-			outline.translate(0, -fontSize() * gl.scaleV);
-			outline.translate(x(), y());
-			outline.scale(m_xps->conversionFactor, m_xps->conversionFactor);
-			QString pathData = m_xps->SetClipPath(&outline, true);
-			QDomElement glyph = m_xps->p_docu.createElement("Path");
-			glyph.setAttribute("Data", pathData);
-			if (!fill)
-				glyph.setAttribute("Fill", m_xps->SetColor("None", fillColor().shade, 0));
-			else
-				glyph.setAttribute("Fill", m_xps->SetColor(fillColor().color, fillColor().shade, 0));
-			glyph.setAttribute("StrokeThickness", m_xps->FToStr(strokeWidth() * m_xps->conversionFactor));
-			glyph.setAttribute("Stroke", m_xps->SetColor(strokeColor().color, strokeColor().shade, 0));
-			m_group.appendChild(glyph);
-			qDebug() << "StrokeWidth XPS" << strokeWidth();
+		double current_x = 0.0;
+		foreach (const GlyphLayout& gl, gc.glyphs()) {
+			FPointArray outline = font().glyphOutline(gl.glyph);
+			if (outline.size() >= 4)
+			{
+				QTransform transform = matrix();
+				transform.scale((fontSize() * gc.scaleH()) / 10.0, (fontSize() * gc.scaleV()) / 10.0);
+				outline.map(transform);
+				outline.translate(gl.xoffset + current_x, -(fontSize() * gl.scaleV) + gl.yoffset);
+				outline.translate(x(), y());
+				outline.scale(m_xps->conversionFactor, m_xps->conversionFactor);
+				QString pathData = m_xps->SetClipPath(&outline, true);
+				QDomElement glyph = m_xps->p_docu.createElement("Path");
+				glyph.setAttribute("Data", pathData);
+				if (!fill)
+					glyph.setAttribute("Fill", m_xps->SetColor("None", fillColor().shade, 0));
+				else
+					glyph.setAttribute("Fill", m_xps->SetColor(fillColor().color, fillColor().shade, 0));
+				glyph.setAttribute("StrokeThickness", m_xps->FToStr(strokeWidth() * m_xps->conversionFactor));
+				glyph.setAttribute("Stroke", m_xps->SetColor(strokeColor().color, strokeColor().shade, 0));
+				m_group.appendChild(glyph);
+				qDebug() << "StrokeWidth XPS" << strokeWidth();
+			}
+			current_x += gl.xadvance;
 		}
 	}
 

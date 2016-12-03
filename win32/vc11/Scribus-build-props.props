@@ -40,6 +40,12 @@
 	<FREETYPE_LIB_DIR>$(FREETYPE_DIR)\lib\$(Platform)-$(PlatformToolset)</FREETYPE_LIB_DIR>
 	<FREETYPE_LIB Condition="'$(Configuration)' == 'Debug'">freetype_d.lib</FREETYPE_LIB>
 	<FREETYPE_LIB Condition="'$(Configuration)' == 'Release'">freetype.lib</FREETYPE_LIB>
+	<!-- Harfbuzz -->
+	<HARFBUZZ_DIR>$(SCRIBUS_LIB_ROOT)\harfbuzz-1.3.1</HARFBUZZ_DIR>
+	<HARFBUZZ_INCLUDE_DIR>$(HARFBUZZ_DIR)\include</HARFBUZZ_INCLUDE_DIR>
+	<HARFBUZZ_LIB_DIR>$(HARFBUZZ_DIR)\lib\$(Platform)-$(PlatformToolset)</HARFBUZZ_LIB_DIR>
+	<HARFBUZZ_LIB Condition="'$(Configuration)' == 'Debug'">harfbuzz_d.lib</HARFBUZZ_LIB>
+	<HARFBUZZ_LIB Condition="'$(Configuration)' == 'Release'">harfbuzz.lib</HARFBUZZ_LIB>
 	<!-- Hunspell -->
 	<HUNSPELL_DIR>$(SCRIBUS_LIB_ROOT)\hunspell-1.4.1</HUNSPELL_DIR>
 	<HUNSPELL_INCLUDE_DIR>$(HUNSPELL_DIR)\include</HUNSPELL_INCLUDE_DIR>
@@ -63,7 +69,7 @@
 	<LCMS_LIB Condition="'$(Configuration)' == 'Debug'">lcms2_staticd.lib</LCMS_LIB>
 	<LCMS_LIB Condition="'$(Configuration)' == 'Release'">lcms2_static.lib</LCMS_LIB>
 	<!-- Libcdr -->
-	<LIBCDR_DIR>$(SCRIBUS_LIB_ROOT)\libcdr-0.1.2</LIBCDR_DIR>
+	<LIBCDR_DIR>$(SCRIBUS_LIB_ROOT)\libcdr-0.1.3</LIBCDR_DIR>
 	<LIBCDR_INCLUDE_DIR>$(LIBCDR_DIR)\inc</LIBCDR_INCLUDE_DIR>
 	<LIBCDR_LIB_DIR>$(LIBCDR_DIR)\lib\$(Platform)-$(PlatformToolset)</LIBCDR_LIB_DIR>
 	<LIBCDR_LIB Condition="'$(Configuration)' == 'Debug'">libcdr_d.lib</LIBCDR_LIB>
@@ -103,7 +109,7 @@
 	<LIBREVENGE_STREAM_LIB Condition="'$(Configuration)' == 'Debug'">librevenge-stream-0.0d.lib</LIBREVENGE_STREAM_LIB>
 	<LIBREVENGE_STREAM_LIB Condition="'$(Configuration)' == 'Release'">librevenge-stream-0.0.lib</LIBREVENGE_STREAM_LIB>
 	<!-- Libtiff -->
-	<LIBTIFF_DIR>$(SCRIBUS_LIB_ROOT)\libtiff-4.0.6</LIBTIFF_DIR>
+	<LIBTIFF_DIR>$(SCRIBUS_LIB_ROOT)\libtiff-4.0.7</LIBTIFF_DIR>
 	<LIBTIFF_INCLUDE_DIR>$(LIBTIFF_DIR)\include</LIBTIFF_INCLUDE_DIR>
 	<LIBTIFF_LIB_DIR>$(LIBTIFF_DIR)\lib\$(Platform)-$(PlatformToolset)</LIBTIFF_LIB_DIR>
 	<LIBTIFF_LIB Condition="'$(Configuration)' == 'Debug'">libtiff5_d.lib</LIBTIFF_LIB>
@@ -127,7 +133,7 @@
 	<PODOFO_LIB Condition="'$(Configuration)' == 'Debug'">PoDoFoLibD.lib</PODOFO_LIB>
 	<PODOFO_LIB Condition="'$(Configuration)' == 'Release'">PoDoFoLib.lib</PODOFO_LIB>
 	<!-- Poppler -->
-	<POPPLER_DIR>$(SCRIBUS_LIB_ROOT)\poppler-0.45.0</POPPLER_DIR>
+	<POPPLER_DIR>$(SCRIBUS_LIB_ROOT)\poppler-0.49.0</POPPLER_DIR>
 	<POPPLER_INCLUDE_DIR>$(POPPLER_DIR)\include</POPPLER_INCLUDE_DIR>
 	<POPPLER_LIB_DIR>$(POPPLER_DIR)\lib\$(Platform)-$(PlatformToolset)</POPPLER_LIB_DIR>
 	<POPPLER_LIB Condition="'$(Configuration)' == 'Debug'">poppler_staticD.lib</POPPLER_LIB>

@@ -12,6 +12,12 @@ for which a new license (GPL+exception) is in place.
 #include "util_math.h"
 
 #include <cairo.h>
+#if CAIRO_HAS_FC_FONT
+#include <cairo-ft.h>
+#endif
+#include "text/storytext.h"
+#include "text/textshaper.h"
+#include "text/glyphcluster.h"
 
 #include <math.h>
 #include <QDebug>
@@ -483,14 +489,10 @@ void ScPainter::setOpacity( double op )
 	m_stroke_trans = op;
 }
 
-void ScPainter::setFont( const QFont &f)
+void ScPainter::setFont(const ScFace &f, double s)
 {
 	m_font = f;
-}
-
-QFont ScPainter::font()
-{
-	return m_font;
+	m_fontSize = s;
 }
 
 void ScPainter::save()
@@ -1958,7 +1960,6 @@ void ScPainter::drawSharpRect(double x, double y, double w, double h)
 
 void ScPainter::drawText(QRectF area, QString text, bool filled, int align)
 {
-	// FIXME HOST: This uses Cairo "Toy text API" which does not support complex text layout.
 	cairo_text_extents_t extents;
 	cairo_font_extents_t extentsF;
 	double x;
@@ -1970,8 +1971,83 @@ void ScPainter::drawText(QRectF area, QString text, bool filled, int align)
 	double ww = 0;
 	double hh = 0;
 	double r, g, b;
-	cairo_select_font_face(m_cr, m_font.family().toLatin1(), m_font.italic() ? CAIRO_FONT_SLANT_ITALIC : CAIRO_FONT_SLANT_NORMAL, m_font.bold() ? CAIRO_FONT_WEIGHT_BOLD : CAIRO_FONT_WEIGHT_NORMAL);
-	cairo_set_font_size(m_cr, m_font.pointSizeF());
+
+	assert(!m_font.isNone());
+
+#if CAIRO_HAS_FC_FONT
+	FcPattern *pattern = FcPatternBuild(NULL,
+										FC_FILE, FcTypeString, QFile::encodeName(m_font.fontFilePath()).data(),
+										FC_INDEX, FcTypeInteger, m_font.faceIndex(),
+										NULL);
+	cairo_font_face_t *cairo_face = cairo_ft_font_face_create_for_pattern(pattern);
+	FcPatternDestroy(pattern);
+
+	cairo_set_font_face (m_cr, cairo_face);
+	cairo_set_font_size(m_cr, m_fontSize);
+
+	cairo_font_options_t* options = cairo_font_options_create();
+	cairo_font_options_set_hint_style(options, CAIRO_HINT_STYLE_SLIGHT);
+	cairo_set_font_options(m_cr, options);
+	cairo_font_options_destroy(options);
+
+	cairo_font_extents (m_cr, &extentsF);
+	QStringList textList = text.split("\n");
+	for (int a = 0; a < textList.count(); ++a)
+	{
+		cairo_text_extents (m_cr, textList[a].toUtf8(), &extents);
+		if (align == 0)
+			x = qMin(area.center().x() - (extents.width / 2.0 + extents.x_bearing), x);
+		ww = qMax(ww, extents.width);
+	}
+	hh = extentsF.height * textList.count();
+	if ((align == 0) || (align == 1))
+		y = area.center().y() - ((extentsF.height * textList.count()) / 2.0);
+	if (filled)
+	{
+		m_fill.getRgbF(&r, &g, &b);
+		cairo_set_source_rgba( m_cr, r, g, b, m_fill_trans );
+		cairo_new_path( m_cr );
+		cairo_rectangle(m_cr, x, y, ww, hh);
+		cairo_fill( m_cr );
+	}
+	cairo_new_path( m_cr );
+	y += extentsF.ascent;
+	cairo_move_to (m_cr, x, y);
+	m_stroke.getRgbF(&r, &g, &b);
+	cairo_set_source_rgba( m_cr, r, g, b, m_stroke_trans );
+
+	QVector<cairo_glyph_t> cairoGlyphs;
+
+	for (int a = 0; a < textList.count(); ++a)
+	{
+		CharStyle style(m_font, m_fontSize * 10);
+		StoryText story;
+		story.insertChars(textList[a]);
+		story.setCharStyle(0, textList[a].count(), style);
+
+		TextShaper textShaper(story, 0);
+		QList<GlyphCluster> glyphRuns = textShaper.shape(0, story.length()).glyphs();
+
+		double tmpx = x;
+		foreach (const GlyphCluster &run, glyphRuns)
+		{
+			foreach (const GlyphLayout &gl, run.glyphs())
+			{
+				cairo_glyph_t glyph;
+				glyph.index = gl.glyph;
+				glyph.x = tmpx + gl.xoffset;
+				glyph.y = y - gl.yoffset;
+				tmpx += gl.xadvance;
+				cairoGlyphs.append(glyph);
+			}
+		}
+		y += extentsF.height;
+	}
+
+	cairo_show_glyphs(m_cr, cairoGlyphs.data(), cairoGlyphs.count());
+#else
+	cairo_select_font_face(m_cr, m_font.family().toLatin1(), m_font.isItalic() ? CAIRO_FONT_SLANT_ITALIC : CAIRO_FONT_SLANT_NORMAL, m_font.isBold() ? CAIRO_FONT_WEIGHT_BOLD : CAIRO_FONT_WEIGHT_NORMAL);
+	cairo_set_font_size(m_cr, m_fontSize);
 	cairo_font_extents (m_cr, &extentsF);
 	QStringList textList = text.split("\n");
 	for (int a = 0; a < textList.count(); ++a)
@@ -2003,6 +2079,7 @@ void ScPainter::drawText(QRectF area, QString text, bool filled, int align)
 		y += extentsF.height;
 		cairo_move_to (m_cr, x, y);
 	}
+#endif
 }
 
 void ScPainter::drawShadeCircle(const QRectF &re, const QColor color, bool sunken, int lineWidth)

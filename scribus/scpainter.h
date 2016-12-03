@@ -121,8 +121,7 @@ public:
 	virtual void setBrush( const QColor & );
 	virtual void setBrushOpacity( double op );
 	virtual void setOpacity( double op );
-	virtual void setFont( const QFont &f );
-	virtual QFont font();
+	virtual void setFont(const ScFace &f , double s);
 
 	// stack management
 	virtual void save();
@@ -182,7 +181,8 @@ private:
 	unsigned int m_width;
 	unsigned int m_height;
 	QTransform m_matrix;
-	QFont m_font;
+	ScFace m_font;
+	double m_fontSize;
 	bool mf_underline;
 	bool mf_strikeout;
 	bool mf_shadow;

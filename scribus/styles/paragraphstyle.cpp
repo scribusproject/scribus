@@ -268,6 +268,10 @@ static QString toXMLString(ParagraphStyle::AlignmentType val)
 	return QString::number(static_cast<int>(val));
 }
 
+static QString toXMLString(ParagraphStyle::DirectionType val)
+{
+	return QString::number(static_cast<int>(val));
+}
 
 static QString toXMLString(const QList<ParagraphStyle::TabRecord> & )
 {
@@ -349,6 +353,11 @@ ParagraphStyle::AlignmentType parse<ParagraphStyle::AlignmentType>(const Xml_str
 	return parseEnum<ParagraphStyle::AlignmentType>(str);
 }
 
+template<>
+ParagraphStyle::DirectionType parse<ParagraphStyle::DirectionType>(const Xml_string& str)
+{
+	return parseEnum<ParagraphStyle::DirectionType>(str);
+}
 
 template<>
 ParagraphStyle::LineSpacingMode parse<ParagraphStyle::LineSpacingMode>(const Xml_string& str)

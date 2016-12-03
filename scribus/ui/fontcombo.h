@@ -26,6 +26,7 @@ for which a new license (GPL+exception) is in place.
 
 #include <QWidget>
 #include <QComboBox>
+#include <QFontDatabase>
 #include "scribusapi.h"
 
 class QEvent;
@@ -98,4 +99,23 @@ protected:
 	bool showLabels;
 };
 
+// based on Qfontcombobox class from Qt project
+class fontFamilyDelegate : public QAbstractItemDelegate
+{
+	Q_OBJECT
+public:
+	explicit fontFamilyDelegate(QObject *parent);
+
+	// painting
+	void paint(QPainter *painter,
+			   const QStyleOptionViewItem &option,
+			   const QModelIndex &index) const Q_DECL_OVERRIDE;
+
+	QSize sizeHint(const QStyleOptionViewItem &option,
+				   const QModelIndex &index) const Q_DECL_OVERRIDE;
+
+	QFontDatabase::WritingSystem writingSystem;
+protected:
+	 QFont m_font;
+};
 #endif

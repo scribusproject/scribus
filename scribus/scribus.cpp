@@ -417,10 +417,10 @@ int ScribusMainWindow::initScMW(bool primaryMainWindow)
 		ScCore->setSplashStatus( tr("Initializing Languages") );
 	LanguageManager::instance();
 
-	QString preLang(m_prefsManager->appPrefs.hyphPrefs.Language);
 	initHyphenator();
-	if (!LanguageManager::instance()->getHyphFilename( preLang ).isEmpty() )
-		m_prefsManager->appPrefs.hyphPrefs.Language = preLang;
+//	QString preLang(m_prefsManager->appPrefs.hyphPrefs.Language);
+//	if (!LanguageManager::instance()->getHyphFilename( preLang ).isEmpty() )
+//		m_prefsManager->appPrefs.hyphPrefs.Language = preLang;
 	if (primaryMainWindow)
 		ScCore->setSplashStatus( tr("Reading Scrapbook") );
 	initScrapbook();
@@ -965,6 +965,8 @@ void ScribusMainWindow::initMenuBar()
 	scrMenuMgr->addMenuItemString("unicodePageCount", "InsertChar");
 	scrMenuMgr->addMenuItemString("unicodeSoftHyphen", "InsertChar");
 	scrMenuMgr->addMenuItemString("unicodeNonBreakingHyphen", "InsertChar");
+	scrMenuMgr->addMenuItemString("unicodeZWJ", "InsertChar");
+	scrMenuMgr->addMenuItemString("unicodeZWNJ", "InsertChar");
 	scrMenuMgr->addMenuItemString("SEPARATOR", "InsertChar");
 	scrMenuMgr->addMenuItemString("unicodeCopyRight", "InsertChar");
 	scrMenuMgr->addMenuItemString("unicodeRegdTM", "InsertChar");
@@ -6278,6 +6280,17 @@ void ScribusMainWindow::setItemFontSize(int fontSize)
 	propertiesPalette->textPal->showFontSize(fs*10);
 }
 
+void ScribusMainWindow::setItemLanguage(QString language)
+{
+	Query dia(this, "New", 1, tr("&Language:"), tr("Language"));
+	if (dia.exec())
+	{
+		doc->itemSelection_SetLanguage(language);
+	}
+
+	propertiesPalette->textPal->showLanguage(language);
+}
+
 //CB-->Doc
 void ScribusMainWindow::setNewAlignment(int a)
 {
@@ -6285,6 +6298,16 @@ void ScribusMainWindow::setNewAlignment(int a)
 		return;
 	doc->itemSelection_SetAlignment(a);
 	propertiesPalette->textPal->showAlignment(a);
+	PageItem *currItem = doc->m_Selection->itemAt(0);
+	setTBvals(currItem);
+}
+
+void ScribusMainWindow::setNewDirection(int a)
+{
+	if (!HaveDoc)
+		return;
+	doc->itemSelection_SetDirection(a);
+	propertiesPalette->textPal->showDirection(a);
 	PageItem *currItem = doc->m_Selection->itemAt(0);
 	setTBvals(currItem);
 }
@@ -6314,6 +6337,18 @@ void ScribusMainWindow::setAlignmentValue(int a)
 	for (int b=0; b<5; ++b)
 	{
 		QString actionName="align"+alignment[b];
+		if (scrActions[actionName])
+			scrActions[actionName]->setChecked(a==b);
+	}
+}
+
+void ScribusMainWindow::setDirectionValue(int a)
+{
+	propertiesPalette->textPal->showDirection(a);
+	QString direction[] = {"Left", "Right"};
+	for (int b=0; b<2; ++b)
+	{
+		QString actionName="direction"+direction[b];
 		if (scrActions[actionName])
 			scrActions[actionName]->setChecked(a==b);
 	}
@@ -8204,10 +8239,10 @@ void ScribusMainWindow::initHyphenator()
 		}
 	}
 	//For each hyphenation file, grab the strings and the hyphenation data.
-	QString lang = QString(QLocale::system().name()).left(2);
-	m_prefsManager->appPrefs.hyphPrefs.Language = "en_GB";
-	if (!LanguageManager::instance()->getHyphFilename(lang).isEmpty() )
-		m_prefsManager->appPrefs.hyphPrefs.Language = lang;
+//	QString lang = QString(QLocale::system().name()).left(2);
+//	m_prefsManager->appPrefs.hyphPrefs.Language = "en_GB";
+//	if (!LanguageManager::instance()->getHyphFilename(lang).isEmpty() )
+//		m_prefsManager->appPrefs.hyphPrefs.Language = lang;
 
 /*
 	if ((hyphDir.exists()) && (hyphDir.count() != 0))

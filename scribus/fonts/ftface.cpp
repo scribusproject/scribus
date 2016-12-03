@@ -29,7 +29,7 @@ FT_Library FtFace::m_library = NULL;
    usable() == ! broken
    embeddable() == glyphs_checked
    
-   canRender(unicode) -> CharMap cache? -> loadChar/Glyph -> !broken
+   loadChar/Glyph -> !broken
    Glyphs:  width    status
             -1000    unknown
             -2000    broken
@@ -41,8 +41,8 @@ FT_Library FtFace::m_library = NULL;
  *****/
 
 FtFace::FtFace(QString fam, QString sty, QString vari, QString scname, 
-			   QString psname, QString path, int face) 
-: ScFaceData(), m_face(NULL)
+			   QString psname, QString path, int face, QStringList features)
+: ScFaceData(), m_face(NULL), m_isItalic(false), m_isBold(false)
 {
 	family = fam;
 	style = sty;
@@ -51,6 +51,7 @@ FtFace::FtFace(QString fam, QString sty, QString vari, QString scname,
 	psName = psname;
 	fontFile = path;
 	faceIndex = face;
+	fontFeatures = features;
 	if (!m_library) {
 		if (FT_Init_FreeType( &m_library ))
 			sDebug(QObject::tr("Freetype2 library not available"));
@@ -127,6 +128,9 @@ void FtFace::load() const
 	            QString::number(m_face->bbox.yMax / m_uniEM * 1000);
 	m_italicAngle  = "0";
 
+	m_isItalic = (m_face->style_flags == 1 || m_face->style_flags == 3);
+	m_isBold   = (m_face->style_flags == 2 || m_face->style_flags == 3);
+
 //FIXME:	FT_Set_Charmap(m_face, m_face->charmaps[m_encoding]);
 	setBestEncoding(m_face);
 	
@@ -172,11 +176,11 @@ void FtFace::unload() const
 }
 
 
-ScFace::gid_type FtFace::char2CMap(QChar ch) const
+ScFace::gid_type FtFace::char2CMap(uint ch) const
 {
 	// FIXME use cMap cache
 	FT_Face face = ftFace();
-	ScFace::gid_type gl = FT_Get_Char_Index(face, ch.unicode());
+	ScFace::gid_type gl = FT_Get_Char_Index(face, ch);
 	return gl;
 }
 
@@ -228,31 +232,6 @@ void FtFace::loadGlyph(ScFace::gid_type gl) const
 		status = ScFace::BROKENGLYPHS;
 }
 
-
-qreal FtFace::glyphKerning(ScFace::gid_type gl, ScFace::gid_type gl2, qreal size) const
-{
-	FT_Vector  delta;
-	FT_Face    face = ftFace();
-	qreal result = 0;
-	/****
-		Ok, this looks like a regression between Freetype 2.1.9 -> 2.1.10.
-		Ignoring the value of FT_HAS_KERNING for now -- AV
-		****/
-	if (true || FT_HAS_KERNING(face) )
-	{
-		FT_Error error = FT_Get_Kerning(face, gl, gl2, FT_KERNING_UNSCALED, &delta);
-		if (error) {
-			sDebug(QString("Error %2 when accessing kerning pair for font %1").arg(scName).arg(error));
-		}
-		else {
-			result = delta.x / m_uniEM * size;
-		}
-	}
-	else {
-		sDebug(QString("Font %1 has no kerning pairs (according to Freetype)").arg(scName));
-	}
-	return result;
-}
 
 /*
 GlyphMetrics FtFace::glyphBBox (gid_type gl, qreal sz) const

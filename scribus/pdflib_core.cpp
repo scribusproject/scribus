@@ -63,7 +63,6 @@ for which a new license (GPL+exception) is in place.
 #include "pageitem.h"
 #include "pageitem_textframe.h"
 #include "pageitem_group.h"
-#include "pageitem_pathtext.h"
 #include "pageitem_table.h"
 #include "pdfoptions.h"
 #include "prefscontext.h"
@@ -140,218 +139,140 @@ public:
 
 	~PdfPainter() {}
 
-	void drawGlyph(const GlyphLayout gl)
+	void drawGlyph(const GlyphCluster& gc)
 	{
-		if (gl.glyph >= ScFace::CONTROL_GLYPHS)
+		if (gc.isControlGlyphs() || gc.isEmpty())
 			return;
+			
+		double current_x = 0.0;
+		foreach (const GlyphLayout& gl, gc.glyphs()) {
+			PdfFont pdfFont = m_pdf->UsedFontsP[font().replacementName()];
+			QByteArray StrokeColor;
+			QByteArray FillColor;
 
-		PdfFont pdfFont = m_pdf->UsedFontsP[font().replacementName()];
-		QByteArray StrokeColor;
-		QByteArray FillColor;
-		QTransform transform = matrix();
+			if (strokeColor().color != CommonStrings::None)
+				StrokeColor = m_pdf->putColor(strokeColor().color, strokeColor().shade, false);
+			if (fillColor().color != CommonStrings::None)
+				FillColor = m_pdf->putColor(fillColor().color, fillColor().shade, true);
 
-		if (strokeColor().color != CommonStrings::None)
-			StrokeColor = m_pdf->putColor(strokeColor().color, strokeColor().shade, false);
-		if (fillColor().color != CommonStrings::None)
-			FillColor = m_pdf->putColor(fillColor().color, fillColor().shade, true);
-
-		if (pdfFont.method == Use_XForm)
-		{
-			if (!FillColor.isEmpty())
-				m_pathBuffer += FillColor;
-
-			m_pathBuffer += "q\n";
-			m_pathBuffer += transformToStr(transform) + " cm\n";
-			m_pathBuffer += FToStr(fontSize()) + " 0 0 " + FToStr(fontSize()) + " " + FToStr(x()) + " " + FToStr((y() - fontSize()) * -1) + " cm\n";
-
-			if (gl.scaleV != 1.0)
-				m_pathBuffer += "1 0 0 1 0 " + FToStr(((fontSize() - fontSize() * gl.scaleV) / fontSize()) * -1) + " cm\n";
-			m_pathBuffer += FToStr(qMax(gl.scaleH, 0.1)) + " 0 0 " + FToStr(qMax(gl.scaleV, 0.1)) + " 0 0 cm\n";
-
-			if (!FillColor.isEmpty())
-				m_pathBuffer += pdfFont.name + Pdf::toPdf(gl.glyph) + " Do\n";
-			m_pathBuffer += "Q\n";
-		}
-		else
-		{
-			uint gid = gl.glyph;
-			uint fontNr = 65535;
-
-			switch (pdfFont.encoding)
+			QTransform transform = matrix();
+			if (pdfFont.method == Use_XForm)
 			{
-			case  Encode_256:
-				gid = pdfFont.glyphmap[gid];
-				fontNr = gid / 256;
-				gid = gid % 256;
-				break;
-			case Encode_224:
-				fontNr = gid / 224;
-				gid = gid % 224 + 32;
-				break;
-			case Encode_Subset:
-				gid = pdfFont.glyphmap[gid];
-				break;
-			case Encode_IdentityH:
-				break;
+				if (!FillColor.isEmpty())
+					m_pathBuffer += FillColor;
+
+				m_pathBuffer += "q\n";
+				m_pathBuffer += transformToStr(transform) + " cm\n";
+				m_pathBuffer += FToStr(fontSize()) + " 0 0 " + FToStr(fontSize()) + " " + FToStr(x() + gl.xoffset + current_x) + " " + FToStr((y() - fontSize() + gl.yoffset) * -1) + " cm\n";
+
+				if (gl.scaleV != 1.0)
+					m_pathBuffer += "1 0 0 1 0 " + FToStr(((fontSize() - fontSize() * gl.scaleV) / fontSize()) * -1) + " cm\n";
+				m_pathBuffer += FToStr(qMax(gl.scaleH, 0.1)) + " 0 0 " + FToStr(qMax(gl.scaleV, 0.1)) + " 0 0 cm\n";
+
+				if (!FillColor.isEmpty())
+					m_pathBuffer += pdfFont.name + Pdf::toPdf(gl.glyph) + " Do\n";
+				m_pathBuffer += "Q\n";
 			}
-
-			if (fontNr == 65535)
-				m_glyphBuffer += pdfFont.name + " " + FToStr(fontSize()) + " Tf\n";
 			else
-				m_glyphBuffer += pdfFont.name + "S" + Pdf::toPdf(fontNr) + " " + FToStr(fontSize()) + " Tf\n";
-
-			if (!StrokeColor.isEmpty())
-				m_glyphBuffer += StrokeColor;
-
-			if (!FillColor.isEmpty())
-				m_glyphBuffer += FillColor;
-
-			m_glyphBuffer += "0 Tr\n";
-
-			transform.translate(x(), y());
-			transform.scale(qMax(gl.scaleH, 0.1), qMax(gl.scaleV, 0.1));
-			m_glyphBuffer += transformToStr(transform) + " Tm\n";
-
-
-			if (pdfFont.method != Use_Type3 || !FillColor.isEmpty())
 			{
+				uint gid = gl.glyph;
+				uint fontNr = 65535;
+
 				switch (pdfFont.encoding)
 				{
+				case  Encode_256:
+					gid = pdfFont.glyphmap[gid];
+					fontNr = gid / 256;
+					gid = gid % 256;
+					break;
 				case Encode_224:
-				case Encode_256:
-					m_glyphBuffer += Pdf::toHexString8(gid) + " Tj\n";
+					fontNr = gid / 224;
+					gid = gid % 224 + 32;
+					break;
+				case Encode_Subset:
+					gid = pdfFont.glyphmap[gid];
 					break;
 				case Encode_IdentityH:
-				default:
-					m_glyphBuffer += Pdf::toHexString16(gid) + " Tj\n";
 					break;
 				}
+
+				if (fontNr == 65535)
+					m_glyphBuffer += pdfFont.name + " " + FToStr(fontSize()) + " Tf\n";
+				else
+					m_glyphBuffer += pdfFont.name + "S" + Pdf::toPdf(fontNr) + " " + FToStr(fontSize()) + " Tf\n";
+
+				if (!StrokeColor.isEmpty())
+					m_glyphBuffer += StrokeColor;
+
+				if (!FillColor.isEmpty())
+					m_glyphBuffer += FillColor;
+
+				m_glyphBuffer += "0 Tr\n";
+
+				transform.translate(x() + gl.xoffset + current_x , y() + gl.yoffset);
+				transform.scale(qMax(gl.scaleH, 0.1), qMax(gl.scaleV, 0.1));
+				m_glyphBuffer += transformToStr(transform) + " Tm\n";
+
+
+				if (pdfFont.method != Use_Type3 || !FillColor.isEmpty())
+				{
+					switch (pdfFont.encoding)
+					{
+					case Encode_224:
+					case Encode_256:
+						m_glyphBuffer += Pdf::toHexString8(gid) + " Tj\n";
+						break;
+					case Encode_IdentityH:
+					default:
+						m_glyphBuffer += Pdf::toHexString16(gid) + " Tj\n";
+						break;
+					}
+				}
 			}
+			current_x += gl.xadvance;
 		}
 	}
 
-	void drawGlyphOutline(const GlyphLayout gl, bool fill)
+	void drawGlyphOutline(const GlyphCluster& gc, bool fill)
 	{
-		if (gl.glyph >= ScFace::CONTROL_GLYPHS)
+		if (gc.isControlGlyphs() || gc.isEmpty())
 			return;
 
-		PdfFont pdfFont = m_pdf->UsedFontsP[font().replacementName()];
-		QByteArray StrokeColor;
-		QByteArray FillColor;
-		QTransform transform = matrix();
+		double current_x = 0.0;
+		foreach (const GlyphLayout& gl, gc.glyphs()) {
+			PdfFont pdfFont = m_pdf->UsedFontsP[font().replacementName()];
+			QByteArray StrokeColor;
+			QByteArray FillColor;
+			QTransform transform = matrix();
 
-		if (strokeColor().color != CommonStrings::None)
-			StrokeColor = m_pdf->putColor(strokeColor().color, strokeColor().shade, false);
-		if (fill && fillColor().color != CommonStrings::None)
-			FillColor = m_pdf->putColor(fillColor().color, fillColor().shade, true);
+			if (strokeColor().color != CommonStrings::None)
+				StrokeColor = m_pdf->putColor(strokeColor().color, strokeColor().shade, false);
+			if (fill && fillColor().color != CommonStrings::None)
+				FillColor = m_pdf->putColor(fillColor().color, fillColor().shade, true);
 
-		if (pdfFont.method == Use_XForm)
-		{
-			if (!StrokeColor.isEmpty())
+			if (pdfFont.method == Use_XForm)
 			{
-				m_pathBuffer += FToStr(strokeWidth() / fontSize()) + " w\n[] 0 d\n0 J\n0 j\n";
-				m_pathBuffer += StrokeColor;
-			}
-
-			if (!FillColor.isEmpty())
-				m_pathBuffer += FillColor;
-
-			m_pathBuffer += "q\n";
-			m_pathBuffer += transformToStr(transform) + " cm\n";
-			m_pathBuffer += FToStr(fontSize()) + " 0 0 " + FToStr(fontSize()) + " " + FToStr(x()) + " " + FToStr((y() - fontSize()) * -1) + " cm\n";
-
-			if (gl.scaleV != 1.0)
-				m_pathBuffer += "1 0 0 1 0 " + FToStr(((fontSize() - fontSize() * (gl.scaleV)) / fontSize()) * -1) + " cm\n";
-
-			m_pathBuffer += FToStr(qMax(gl.scaleH, 0.1)) + " 0 0 " + FToStr(qMax(gl.scaleV, 0.1)) + " 0 0 cm\n";
-
-			if (!FillColor.isEmpty())
-				m_pathBuffer += pdfFont.name + Pdf::toPdf(gl.glyph) + " Do\n";
-
-			FPointArray outline = font().glyphOutline(gl.glyph);
-			QTransform mat;
-			mat.scale(0.1, 0.1);
-			outline.map(mat);
-			bool nPath = true;
-			FPoint np;
-			if (outline.size() > 3)
-			{
-				for (int poi = 0; poi < outline.size() - 3; poi += 4)
+				if (!StrokeColor.isEmpty())
 				{
-					if (outline.isMarker(poi))
-					{
-						m_pathBuffer += "h\n";
-						nPath = true;
-						continue;
-					}
-
-					if (nPath)
-					{
-						np = outline.point(poi);
-						m_pathBuffer += FToStr(np.x()) + " " + FToStr(-np.y()) + " m\n";
-						nPath = false;
-					}
-
-					np = outline.point(poi + 1);
-					m_pathBuffer += FToStr(np.x()) + " " + FToStr(-np.y()) + " ";
-					np = outline.point(poi + 3);
-					m_pathBuffer += FToStr(np.x()) + " " + FToStr(-np.y()) + " ";
-					np = outline.point(poi + 2);
-					m_pathBuffer += FToStr(np.x()) + " " + FToStr(-np.y()) + " c\n";
+					m_pathBuffer += FToStr(strokeWidth() / fontSize()) + " w\n[] 0 d\n0 J\n0 j\n";
+					m_pathBuffer += StrokeColor;
 				}
-			}
-			m_pathBuffer += "h s\n";
-			m_pathBuffer += "Q\n";
-		}
-		else
-		{
-			if (!StrokeColor.isEmpty())
-				m_pathBuffer += StrokeColor;
 
-			uint gid = gl.glyph;
-			uint fontNr = 65535;
-			switch (pdfFont.encoding)
-			{
-			case  Encode_256:
-				gid = pdfFont.glyphmap[gid];
-				fontNr = gid / 256;
-				gid = gid % 256;
-				break;
-			case Encode_224:
-				fontNr = gid / 224;
-				gid = gid % 224 + 32;
-				break;
-			case Encode_Subset:
-				gid = pdfFont.glyphmap[gid];
-				break;
-			case Encode_IdentityH:
-				break;
-			}
+				if (!FillColor.isEmpty())
+					m_pathBuffer += FillColor;
 
-			if (fontNr == 65535)
-				m_glyphBuffer += pdfFont.name + " " + FToStr(fontSize()) + " Tf\n";
-			else
-				m_glyphBuffer += pdfFont.name + "S" + Pdf::toPdf(fontNr) + " " + FToStr(fontSize()) + " Tf\n";
-
-			if (!StrokeColor.isEmpty())
-				m_glyphBuffer += StrokeColor;
-
-			if (!FillColor.isEmpty())
-				m_glyphBuffer += FillColor;
-
-			if (pdfFont.method == Use_Type3 && !StrokeColor.isEmpty())
-			{
 				m_pathBuffer += "q\n";
-				m_pathBuffer += FToStr(strokeWidth()) + " w\n[] 0 d\n0 J\n0 j\n";
-
-				transform.scale(fontSize(), fontSize());
-				transform.translate(x(), y());
-				if (gl.scaleV != 1.0)
-					transform.translate(0, ((fontSize() - fontSize() * gl.scaleV) / fontSize()) * -1);
-				transform.scale(qMax(gl.scaleH, 0.1), qMax(gl.scaleV, 0.1));
 				m_pathBuffer += transformToStr(transform) + " cm\n";
+				m_pathBuffer += FToStr(fontSize()) + " 0 0 " + FToStr(fontSize()) + " " + FToStr(x() + gl.xoffset) + " " + FToStr((y() - fontSize() + gl.yoffset) * -1) + " cm\n";
 
-				/* paint outline */
+				if (gc.scaleV() != 1.0)
+					m_pathBuffer += "1 0 0 1 0 " + FToStr(((fontSize() - fontSize() * (gc.scaleV())) / fontSize()) * -1) + " cm\n";
+
+				m_pathBuffer += FToStr(qMax(gc.scaleH(), 0.1)) + " 0 0 " + FToStr(qMax(gc.scaleV(), 0.1)) + " 0 0 cm\n";
+
+				if (!FillColor.isEmpty())
+					m_pathBuffer += pdfFont.name + Pdf::toPdf(gl.glyph) + " Do\n";
+
 				FPointArray outline = font().glyphOutline(gl.glyph);
 				QTransform mat;
 				mat.scale(0.1, 0.1);
@@ -389,31 +310,117 @@ public:
 			}
 			else
 			{
-				m_glyphBuffer += FToStr(strokeWidth()) + " w ";
-				if (fill)
-					m_glyphBuffer += "2 Tr\n";
-				else
-					m_glyphBuffer += "1 Tr\n";
-			}
+				if (!StrokeColor.isEmpty())
+					m_pathBuffer += StrokeColor;
 
-			transform.translate(x(), y());
-			transform.scale(qMax(gl.scaleH, 0.1), qMax(gl.scaleV, 0.1));
-			m_glyphBuffer += transformToStr(transform) + " Tm\n";
-
-			if (pdfFont.method != Use_Type3 || !FillColor.isEmpty())
-			{
+				uint gid = gl.glyph;
+				uint fontNr = 65535;
 				switch (pdfFont.encoding)
 				{
+				case  Encode_256:
+					gid = pdfFont.glyphmap[gid];
+					fontNr = gid / 256;
+					gid = gid % 256;
+					break;
 				case Encode_224:
-				case Encode_256:
-					m_glyphBuffer += Pdf::toHexString8(gid) + " Tj\n";
+					fontNr = gid / 224;
+					gid = gid % 224 + 32;
+					break;
+				case Encode_Subset:
+					gid = pdfFont.glyphmap[gid];
 					break;
 				case Encode_IdentityH:
-				default:
-					m_glyphBuffer += Pdf::toHexString16(gid) + " Tj\n";
 					break;
 				}
+
+				if (fontNr == 65535)
+					m_glyphBuffer += pdfFont.name + " " + FToStr(fontSize()) + " Tf\n";
+				else
+					m_glyphBuffer += pdfFont.name + "S" + Pdf::toPdf(fontNr) + " " + FToStr(fontSize()) + " Tf\n";
+
+				if (!StrokeColor.isEmpty())
+					m_glyphBuffer += StrokeColor;
+
+				if (!FillColor.isEmpty())
+					m_glyphBuffer += FillColor;
+
+				if (pdfFont.method == Use_Type3 && !StrokeColor.isEmpty())
+				{
+					m_pathBuffer += "q\n";
+					m_pathBuffer += FToStr(strokeWidth()) + " w\n[] 0 d\n0 J\n0 j\n";
+
+					transform.scale(fontSize(), fontSize());
+					transform.translate(x() + gl.xoffset + current_x, y() + gl.yoffset);
+					if (gc.scaleV() != 1.0)
+						transform.translate(0, ((fontSize() - fontSize() * gc.scaleV()) / fontSize()) * -1);
+					transform.scale(qMax(gc.scaleH(), 0.1), qMax(gc.scaleV(), 0.1));
+					m_pathBuffer += transformToStr(transform) + " cm\n";
+
+					/* paint outline */
+					FPointArray outline = font().glyphOutline(gl.glyph);
+					QTransform mat;
+					mat.scale(0.1, 0.1);
+					outline.map(mat);
+					bool nPath = true;
+					FPoint np;
+					if (outline.size() > 3)
+					{
+						for (int poi = 0; poi < outline.size() - 3; poi += 4)
+						{
+							if (outline.isMarker(poi))
+							{
+								m_pathBuffer += "h\n";
+								nPath = true;
+								continue;
+							}
+
+							if (nPath)
+							{
+								np = outline.point(poi);
+								m_pathBuffer += FToStr(np.x()) + " " + FToStr(-np.y()) + " m\n";
+								nPath = false;
+							}
+
+							np = outline.point(poi + 1);
+							m_pathBuffer += FToStr(np.x()) + " " + FToStr(-np.y()) + " ";
+							np = outline.point(poi + 3);
+							m_pathBuffer += FToStr(np.x()) + " " + FToStr(-np.y()) + " ";
+							np = outline.point(poi + 2);
+							m_pathBuffer += FToStr(np.x()) + " " + FToStr(-np.y()) + " c\n";
+						}
+					}
+					m_pathBuffer += "h s\n";
+					m_pathBuffer += "Q\n";
+				}
+				else
+				{
+					m_glyphBuffer += FToStr(strokeWidth()) + " w ";
+					if (fill)
+						m_glyphBuffer += "2 Tr\n";
+					else
+						m_glyphBuffer += "1 Tr\n";
+				}
+
+				transform.translate(x() + gl.xoffset + current_x, y() + gl.yoffset);
+				transform.scale(qMax(gc.scaleH(), 0.1), qMax(gc.scaleV(), 0.1));
+				m_glyphBuffer += transformToStr(transform) + " Tm\n";
+
+				if (pdfFont.method != Use_Type3 || !FillColor.isEmpty())
+				{
+					switch (pdfFont.encoding)
+					{
+					case Encode_224:
+					case Encode_256:
+						m_glyphBuffer += Pdf::toHexString8(gid) + " Tj\n";
+						break;
+					case Encode_IdentityH:
+					default:
+						m_glyphBuffer += Pdf::toHexString16(gid) + " Tj\n";
+						break;
+					}
+				}
 			}
+			current_x += gl.xadvance;
 		}
 	}
 
@@ -2017,9 +2024,9 @@ PdfFont PDFLibCore::PDF_EncodeSimpleFont(const QByteArray& fontName, ScFace& fac
 	PdfId fontWidthsForm = writer.newObject();
 	writer.startObj(fontWidthsForm);
 	PutDoc("[ 0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 ");
-	for (int ww = 32; ww < 256; ++ww)
+	for (uint ww = 32; ww < 256; ++ww)
 	{
-		uint glyph = face.char2CMap(QChar(ww));
+		uint glyph = face.char2CMap(ww);
 		if (gl.contains(glyph))
 			PutDoc(Pdf::toPdf(static_cast<int>(face.glyphWidth(glyph)* 1000))+" ");
 		else
@@ -2308,33 +2315,6 @@ void PDFLibCore::PDF_Begin_WriteUsedFonts(SCFonts &AllFonts, const QMap<QString,
 		QByteArray fontName = QByteArray("Fo") + Pdf::toPdf(a);
 		
 		QMap<uint, FPointArray> usedGlyphs = it.value();
-		
-		// Check for control glyphs
-		QList<uint> glyphIDs = usedGlyphs.keys();
-		for (int i = 0; i < glyphIDs.count(); ++i)
-		{
-			uint glyph = glyphIDs.at(i);
-			if (glyph < ScFace::CONTROL_GLYPHS)
-				continue;
-			FPointArray glyphPath = usedGlyphs[glyph];
-
-			uint realGlyph = 0;
-			if (glyph == (ScFace::CONTROL_GLYPHS + SpecialChars::NBSPACE.unicode()) ||
-				glyph == (ScFace::CONTROL_GLYPHS + 32))
-			{
-				realGlyph = face.char2CMap(QChar(' '));
-			}
-			else if (glyph == (ScFace::CONTROL_GLYPHS + SpecialChars::NBHYPHEN.unicode()))
-			{
-				realGlyph = face.char2CMap(QChar('-'));
-			}
-
-			usedGlyphs.remove(glyph);
-			if (realGlyph <= 0 || realGlyph >= ScFace::CONTROL_GLYPHS)
-				continue;
-			usedGlyphs.insert(glyph, glyphPath);
-		}
-
 		if (usedGlyphs.count() <= 0)
 			continue;
 		

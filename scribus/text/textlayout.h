@@ -30,16 +30,8 @@ class Box;
 class GroupBox;
 class LineBox;
 class TextLayoutPainter;
-
-struct PathData
-{
-	float PtransX;
-	float PtransY;
-	float PRot;
-	float PDx;
-};
-
-
+class ScreenPainter;
+class ITextContext;
 /**
 	This class manages the physical layout of a textframe, ie. its line 
 	structure and the lines' glyph layouts. It will use some of the layouters above to create a Box.
@@ -48,15 +40,16 @@ struct PathData
 class SCRIBUS_API TextLayout
 {
 public:
-	TextLayout(StoryText* text, PageItem* frame);
+	TextLayout(StoryText* text, ITextContext* frame);
 	~TextLayout();
 
 	bool overflows() const;
 	
 	StoryText* story() { return m_story; }
+	ITextContext*  frame() { return m_frame; }
 	const StoryText* story() const { return m_story; }
 	void setStory(StoryText* story);
-	void render(TextLayoutPainter *p, PageItem *item);
+	void render(ScreenPainter *p, ITextContext *item);
 	void render(TextLayoutPainter *p);
 	void renderBackground(TextLayoutPainter *p);
 	int startOfLine(int pos) const;
@@ -74,8 +67,6 @@ public:
 	const LineBox*  line(uint i) const;
 	const Box* box() const;
 	Box* box();
-	const PathData& point(int pos) const;
-	PathData& point(int pos);
 
 	void appendLine(LineBox* ls);
 	void removeLastLine ();
@@ -87,10 +78,9 @@ protected:
 	friend class FrameControl;
 	
 	StoryText* m_story;
-    PageItem* m_frame;
+    ITextContext* m_frame;
 	GroupBox* m_box;
 	
-	QVector<PathData> m_path;
 	bool m_validLayout;
 	mutable qreal m_magicX;
 	mutable int m_lastMagicPos;

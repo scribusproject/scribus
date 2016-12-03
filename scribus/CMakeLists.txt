@@ -172,6 +172,8 @@ set(SCRIBUS_UI_SRC
 	ui/propertywidget_distancebase.ui
 	ui/propertywidget_pareffectbase.ui
 	ui/propertywidget_flopbase.ui
+	ui/propertywidget_fontfeaturesbase.ui
+	ui/propertywidget_hyphenationbase.ui
 	ui/propertywidget_optmarginsbase.ui
 	ui/propertywidget_orphansbase.ui
 	ui/propertywidget_pathtextbase.ui
@@ -185,6 +187,7 @@ set(SCRIBUS_UI_SRC
 	ui/shortcutwidget.ui
 	ui/smcellstylewidget.ui
 	ui/smcstylewidget.ui
+	ui/smfontfeaturesbase.ui
 	ui/smlinestylewidget.ui
 	ui/smtablestylewidget.ui
 	ui/smpstylewidget.ui
@@ -307,6 +310,7 @@ set(SCRIBUS_MOC_CLASSES
 	ui/adjustcmsdialog.h
 	ui/aligndistribute.h
 	ui/alignselect.h
+	ui/directionselect.h
 	ui/annot.h
 	ui/annota.h
 	ui/applytemplatedialog.h
@@ -453,10 +457,12 @@ set(SCRIBUS_MOC_CLASSES
 	ui/propertywidget_distance.h
 	ui/propertywidget_pareffect.h
 	ui/propertywidget_flop.h
+	ui/propertywidget_hyphenation.h
 	ui/propertywidget_optmargins.h
 	ui/propertywidget_orphans.h
 	ui/propertywidget_pathtext.h
 	ui/propertywidget_textcolor.h
+	ui/propertywidget_fontfeatures.h
 	ui/proptree.h
 	ui/query.h
 	ui/recoverdialog.h
@@ -491,6 +497,8 @@ set(SCRIBUS_MOC_CLASSES
 	ui/smcheckbox.h
 	ui/smcolorcombo.h
 	ui/smcstylewidget.h
+	ui/smdirectionselect.h
+	ui/smfontfeatures.h
 	ui/smtablestylewidget.h
 	ui/smfontcomboh.h
 	ui/smlinestyle.h
@@ -501,6 +509,7 @@ set(SCRIBUS_MOC_CLASSES
 	ui/smscrspinbox.h
 	ui/smshadebutton.h
 	ui/smspinbox.h
+	ui/smlineedit.h
 	ui/smstyleimport.h
 	ui/smstyleselect.h
 	ui/smtablestyle.h
@@ -770,6 +779,7 @@ set(SCRIBUS_SOURCES
 	ui/adjustcmsdialog.cpp
 	ui/aligndistribute.cpp
 	ui/alignselect.cpp
+	ui/directionselect.cpp
 	ui/annot.cpp
 	ui/annota.cpp
 	ui/applytemplatedialog.cpp
@@ -916,10 +926,12 @@ set(SCRIBUS_SOURCES
 	ui/propertywidget_distance.cpp
 	ui/propertywidget_pareffect.cpp
 	ui/propertywidget_flop.cpp
+	ui/propertywidget_hyphenation.cpp
 	ui/propertywidget_optmargins.cpp
 	ui/propertywidget_orphans.cpp
 	ui/propertywidget_pathtext.cpp
 	ui/propertywidget_textcolor.cpp
+	ui/propertywidget_fontfeatures.cpp
 	ui/propertywidgetbase.cpp
 	ui/proptree.cpp
 	ui/query.cpp
@@ -958,6 +970,8 @@ set(SCRIBUS_SOURCES
 	ui/smcheckbox.cpp
 	ui/smcolorcombo.cpp
 	ui/smcstylewidget.cpp
+	ui/smdirectionselect.cpp
+	ui/smfontfeatures.cpp
 	ui/smfontcomboh.cpp
 	ui/smlinestyle.cpp
 	ui/smlinestylewidget.cpp
@@ -968,6 +982,7 @@ set(SCRIBUS_SOURCES
 	ui/smscrspinbox.cpp
 	ui/smshadebutton.cpp
 	ui/smspinbox.cpp
+	ui/smlineedit.cpp
 	ui/smstyleimport.cpp
 	ui/smstyleselect.cpp
 	ui/smtablestylewidget.cpp
@@ -1052,6 +1067,8 @@ link_directories(
 	${CMAKE_CURRENT_BINARY_DIR}/third_party/pgf
 	${CMAKE_CURRENT_BINARY_DIR}/third_party/rtf-qt
 	${CMAKE_CURRENT_BINARY_DIR}/third_party/zip
+	${HARFBUZZ_LIBRARY_DIRS}
+	${ICU_LIBRARY_DIRS}
 )
 
 if(WITH_TESTS)
@@ -1092,6 +1109,7 @@ include_directories(
 	${CMAKE_CURRENT_BINARY_DIR}
 	${CMAKE_CURRENT_SOURCE_DIR}
 	${FREETYPE_INCLUDE_DIRS}
+	${HARFBUZZ_INCLUDE_DIRS}
 )
 
 if (GMAGICK_FOUND)
@@ -1214,6 +1232,8 @@ target_link_libraries(${EXE_NAME}
 	${Qt5Quick_LIBRARIES}
 	${CUPS_LIBRARIES}
 	${FREETYPE_LIBRARIES}
+	${HARFBUZZ_LIBRARIES}
+	${ICU_LIBRARIES}
 	${FONTCONFIG_LIBRARIES}
 	${LIBXML2_LIBRARIES}
 	${PYTHON_LIBRARIES}
@@ -1222,8 +1242,6 @@ target_link_libraries(${EXE_NAME}
 	${ZLIB_LIBRARIES}
 	${WIN32_ONLY_LIBS}
 	${GMAGICK_LIBRARIES}
-	${HARFBUZZ_LIBRARIES}
-	${ICU_LIBRARIES}
 )
 
 if (NOT WIN32 AND NOT HAIKU)

@@ -53,58 +53,5 @@ private:
 };
 
 } //namespace
-
-
-/**
-	An object holding a table of kerning pairs extracted from
-	a kern feature such as found in a GPOS table
- */
-class SCRIBUS_API KernFeature
-{
-	typedef QMap<quint16, QList<quint16> > ClassDefTable; // <Class index (0 to N) , list of glyphs >
-	
-public:
-	/**
-	 * Build a ready-to-use kerning pairs table
-	 * @param face a valid FT_Face, It won’t be store by KernFeature
-	 */
-	KernFeature ( FT_Face face );
-	KernFeature ( const KernFeature& kf );
-	~KernFeature();
-	
-	/**
-	 * Get the kerning value for a pair of glyph indexes.
-	 * @param glyph1 Index of the left glyph in logical order
-	 * @param glyph2 Index of the right glyph in logical order
-	 * @return the unscaled delta to apply to xadvance of the first glyph
-	 */
-	double getPairValue ( unsigned int glyph1, unsigned int glyph2 ) const;
-	
-	/**
-	 * The table can have been invalidated if something went wrong at any moment.
-	 * @return True if valid, False otherwise.
-	 */
-	bool isValid() const {return m_valid;}
-	
-private:
-	bool m_valid;
-	QByteArray m_GPOSTableRaw;
-	QMap<quint16,QList<quint16> > m_coverages;
-	mutable QMap<quint16, QMap<quint16, double> > m_pairs;
-	QMap< quint16, QMap<quint16, ClassDefTable> > m_classGlyphFirst; // < subtable offset, map<offset, class definition table> > for first glyph
-	QMap< quint16, QMap<quint16, ClassDefTable> > m_classGlyphSecond; // < subtable offset, map<offset, class definition table> > for second glyph
-	QMap< quint16, QMap<int, QMap<int, double> > > m_classValue; // < subtable offset, map<class1, map<class2, value> > >
-	
-	void makeCoverage();
-	void makePairs ( quint16 subtableOffset );
-	
-	ClassDefTable getClass (bool leftGlyph, quint16 classDefOffset, quint16 coverageId );
-	inline quint16 toUint16 ( quint16 index );
-	inline qint16 toInt16 ( quint16 index );
-	
-	QString m_FontName;// for debugging purpose
-};
-
-
 #endif
 

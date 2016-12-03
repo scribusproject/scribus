@@ -157,7 +157,7 @@ void HunspellDialog::replaceWord(int i)
 void HunspellDialog::languageComboChanged(const QString &newLanguage)
 {
 	m_returnToDefaultLang=true;
-	QString wordLang=LanguageManager::instance()->getAbbrevFromLang(newLanguage, true, false);
+	QString wordLang=LanguageManager::instance()->getAbbrevFromLang(newLanguage, false);
 	if (!m_hspellerMap->contains(wordLang) )
 	{
 		//qDebug()<<"hspeller"<<wordLang<<"does not exist";

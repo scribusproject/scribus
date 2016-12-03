@@ -15,7 +15,6 @@ for which a new license (GPL+exception) is in place.
 
 #include "downloadmanager/scdlmgr.h"
 #include "iconmanager.h"
-#include "langmgr.h"
 #include "prefs_hyphenator.h"
 #include "prefsstructs.h"
 #include "scpaths.h"
@@ -31,11 +30,6 @@ Prefs_Hyphenator::Prefs_Hyphenator(QWidget* parent, ScribusDoc* doc)
 	: Prefs_Pane(parent)
 {
 	setupUi(this);
-
-	QStringList languageList;
-	LanguageManager::instance()->fillInstalledHyphStringList(&languageList);
-	languageList.sort();
-	hyphLanguageComboBox->addItems( languageList );
 
 	exceptionAddButton->setIcon(IconManager::instance()->loadIcon("16/list-add.png"));
 	exceptionEditButton->setEnabled(false);
@@ -67,9 +61,6 @@ void Prefs_Hyphenator::restoreDefaults(struct ApplicationPrefs *prefsData)
 {
 	hyphSuggestionsCheckBox->setChecked(!prefsData->hyphPrefs.Automatic);
 	hyphAutoCheckBox->setChecked(prefsData->hyphPrefs.AutoCheck);
-	setCurrentComboItem(hyphLanguageComboBox, LanguageManager::instance()->getLangFromAbbrev(prefsData->hyphPrefs.Language, true));
-	smallestWordSpinBox->setValue(prefsData->hyphPrefs.MinWordLen);
-	maxConsecutiveCountSpinBox->setValue(prefsData->hyphPrefs.HyCount);
 	ignoreListWidget->addItems(prefsData->hyphPrefs.ignoredWords.toList());
 	ignoreListWidget->sortItems();
 	exceptionListWidget->addItems(prefsData->hyphPrefs.specialWords.values());
@@ -78,11 +69,8 @@ void Prefs_Hyphenator::restoreDefaults(struct ApplicationPrefs *prefsData)
 
 void Prefs_Hyphenator::saveGuiToPrefs(struct ApplicationPrefs *prefsData) const
 {
-	prefsData->hyphPrefs.MinWordLen = smallestWordSpinBox->value();
-	prefsData->hyphPrefs.Language = LanguageManager::instance()->getAbbrevFromLang(hyphLanguageComboBox->currentText(), true, false);
 	prefsData->hyphPrefs.Automatic = !hyphSuggestionsCheckBox->isChecked();
 	prefsData->hyphPrefs.AutoCheck = hyphAutoCheckBox->isChecked();
-	prefsData->hyphPrefs.HyCount = maxConsecutiveCountSpinBox->value();
 	QSet<QString> ignoreList;
 	for (int row = 0; row < ignoreListWidget->count(); row++)
 	{

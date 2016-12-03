@@ -18,10 +18,10 @@ public:
 	SMAlignSelect(QWidget *parent);
 	~SMAlignSelect() {}
 
-	void setStyle(int i);
-	void setStyle(int i, bool isParentValue);
+	void setStyle(int a, int d);
+	void setStyle(int a, int d, bool isParentValue);
 
-	void setParentItem(int i);
+	void setParentItem(int a, int d);
 
 	bool useParentValue();
 
@@ -31,6 +31,7 @@ private:
 	bool   m_hasParent;
 	bool   m_useParentStyle;
 	int    m_pStyle;
+	int    m_pDirection;
 	void setFont(bool wantBold);
 
 private slots:

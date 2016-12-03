@@ -1,66 +1,73 @@
-/*
- For general Scribus (>=1.3.2) copyright and licensing information please refer
- to the COPYING file provided with the program. Following this notice may exist
- a copyright and/or license notice that predates the release of Scribus 1.3.2
- for which a new license (GPL+exception) is in place.
- */
- 
 #ifndef TEXTSHAPER_H
 #define TEXTSHAPER_H
 
 #include <QList>
+#include <QMap>
+#include <QString>
+#include <QStringList>
 
-#include "scribusapi.h"
-#include "sctextstruct.h"
-#include "text/storytext.h"
+#include <unicode/uscript.h>
+#include "itextsource.h"
+#include "itextcontext.h"
+#include "shapedtext.h"
 
-class PageItem_TextFrame;
 
-class SCRIBUS_API TextShaper
+class GlyphCluster;
+class StoryText;
+class PageItem;
+
+
+
+class TextShaper
 {
 public:
-	TextShaper(PageItem_TextFrame* textItem, int startIndex = 0);
+	TextShaper(ITextContext* context, ITextSource& story, int firstChar, bool singlePar=false);
+	TextShaper(ITextSource &story, int firstChar);
 
-	/**
-	 * Test if run at specifid index can be retrieved
-	 */
-	bool hasRun(int i);
+	ShapedText shape(int fromPos, int toPos);
 
-	/**
-	 * Retrieve glyph run at specified index
-	 */
-	GlyphRun runAt(int i);
+private:
+	struct TextRun {
+		TextRun(int s, int l, int d)
+			: start(s), len(l), dir(d), script(USCRIPT_INVALID_CODE)
+		{ }
 
-	/**
-	 * Indicates that a new line is being started
-	 */
-	void startLine(int i);
-	
-protected:
+		TextRun(int s, int l, int d, UScriptCode sc)
+			: start(s), len(l), dir(d), script(sc)
+		{ }
 
-	// Character index from where shaping start
-	int m_startIndex;
+		int start;
+		int len;
+		int dir;
+		UScriptCode script;
+	};
 
-	// Next character index to be shaped
-	int m_index;
+	struct FeaturesRun {
+		FeaturesRun(int s, int l, QStringList f)
+			: start(s), len(l), features(f)
+		{
+		}
 
-	// Last run which has been kerned
-	int m_lastKernedIndex;
+		int start;
+		int len;
+		QStringList features;
+	};
 
-	// Additional flags used for glyph layout
-	LayoutFlags m_layoutFlags;
-	
-	// The item whose text is being shaped
-	PageItem_TextFrame* m_item;
+//	QString ExpandToken(int base);
+	void buildText(int fromPos, int toPos, QVector<int>& smallCaps);
+	QList<TextRun> itemizeBiDi();
+	QList<TextRun> itemizeScripts(const QList<TextRun> &runs);
+	QList<TextRun> itemizeStyles(const QList<TextRun> &runs);
 
-	// Glyph runs waiting to be retrieved
-	QList<GlyphRun> m_runs;
+	QList<FeaturesRun> itemizeFeatures(const TextRun &run);
 
-	// Get next chars and put them in char queue
-	void needChars(int runIndex);
-
-	// Initialize layout data and glyph list of a text run
-	void initGlyphLayout(GlyphRun& run, const QString& chars, int runIndex);
+	ITextContext* m_context;
+	bool m_contextNeeded;
+	ITextSource& m_story;
+	int m_firstChar;
+	bool m_singlePar;
+	QString m_text;
+	QMap<int, int> m_textMap;
 };
 
-#endif
+#endif // TEXTSHAPER_H

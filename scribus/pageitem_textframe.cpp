@@ -58,6 +58,8 @@ for which a new license (GPL+exception) is in place.
 #include "text/boxes.h"
 #include "text/screenpainter.h"
 #include "text/textshaper.h"
+#include "text/shapedtext.h"
+#include "text/shapedtextfeed.h"
 #include "ui/guidemanager.h"
 #include "ui/marksmanager.h"
 #include "undomanager.h"
@@ -65,7 +67,8 @@ for which a new license (GPL+exception) is in place.
 #include "units.h"
 #include "util.h"
 #include "util_math.h"
-#include "util_text.h"
+
+
 
 using namespace std;
 
@@ -392,6 +395,7 @@ static void layoutDropCap(GlyphLayout layout, double curX, double curY, double o
 }
 */
 
+
 enum TabStatus {
 	TabNONE    = 0,
 	TabLEFT    = TabNONE,
@@ -422,8 +426,8 @@ struct LineSpec
 	qreal descent;
 	qreal colLeft;
 
-	int firstRun;
-	int lastRun;
+	int firstCluster;
+	int lastCluster;
 	qreal naturalWidth;
 	bool isFirstLine;
 	qreal height;
@@ -434,7 +438,7 @@ fields which describe how the current line is placed into the frame
 */
 struct LineControl {
 	LineSpec line;
-	QList<GlyphRun>& glyphRuns;
+	QList<GlyphCluster> glyphs;
 	bool     isEmpty;
 	int      hyphenCount;
 	double   colWidth;
@@ -466,12 +470,12 @@ struct LineControl {
 	double   maxShrink;
 	double   maxStretch;
 	ScribusDoc *doc;
+	ITextContext* context;
 
 	/// remember frame dimensions and offsets
-	LineControl(double w, double h, const MarginStruct& extra, double lCorr, ScribusDoc* d, QList<GlyphRun>& runs, double colwidth, double colgap)
-		: glyphRuns(runs)
-		, hasDropCap(false)
-		, doc(d)
+	LineControl(double w, double h, const MarginStruct& extra, double lCorr, ScribusDoc* d, ITextContext* ctx, double colwidth, double colgap)
+		: hasDropCap(false)
+		, doc(d), context(ctx)
 	{
 		insets = extra;
 		lineCorr = lCorr;
@@ -510,7 +514,10 @@ struct LineControl {
 	void nextColumn(TextLayout &textLayout)
 	{
 		startOfCol = true;
-		colLeft = (colWidth + colGap) * column + insets.left() + lineCorr;
+		if (textLayout.story()->defaultStyle().direction() == ParagraphStyle::RTL)
+			colLeft = textLayout.frame()->width() - insets.right() - ((colWidth * (column + 1)) + (colGap * column));
+		else
+			colLeft = (colWidth + colGap) * column + insets.left() + lineCorr;
 		textLayout.addColumn(colLeft, colWidth);
 		//now colRight is REAL column right edge
 		colRight = colLeft + colWidth;
@@ -529,13 +536,14 @@ struct LineControl {
 	/**
 		init fields for a new line at current position
 	 */
-	void startLine(int firstRun)
+	void startLine(int firstCluster)
 	{
+		glyphs.clear();
 		isEmpty = true;
 		line.x = xPos;
 		line.y = yPos;
-		line.firstRun = firstRun;
-		line.lastRun = 0;
+		line.firstCluster = firstCluster;
+		line.lastCluster = 0;
 		line.ascent = 0.0;
 		line.descent = 0.0;
 		line.width  = 0.0;
@@ -587,12 +595,13 @@ struct LineControl {
 	}
 
 	/// called when a mandatory break is found
-	void breakLine(const ParagraphStyle& style, FirstLineOffsetPolicy offsetPolicy, int last)
+	void breakLine(int last)
 	{
 		breakIndex = last;
 		breakXPos  = line.x;
-		for (int i = line.firstRun; i <= breakIndex; i++)
-			breakXPos += glyphRuns.at(i).width();
+
+		for (int i = 0; i <= breakIndex - line.firstCluster; i++)
+			breakXPos += glyphs.at(i).width();
 		// #8194, #8717 : update line ascent and descent with sensible values
 		// so that endOfLine() returns correct result
 		updateHeightMetrics();
@@ -603,7 +612,7 @@ struct LineControl {
 	/// use the last remembered break to set line width and itemrange
 	void finishLine(double endX)
 	{
-		line.lastRun = breakIndex;
+		line.lastCluster = breakIndex;
 		line.naturalWidth = breakXPos - line.x;
 		line.width = endX - line.x;
 		maxShrink = maxStretch = 0;
@@ -733,34 +742,13 @@ struct LineControl {
 	void updateHeightMetrics()
 	{
 		line.ascent = line.descent = 0;
-		// Can happen when inserting a new line at end of text, WTF!
-		if (line.firstRun >= glyphRuns.length())
+		if (glyphs.isEmpty())
 			return;
-
-		for (int i = line.firstRun; i <= breakIndex; ++i)
-		{
-			const GlyphRun &glyphRun = glyphRuns.at(i);
-			const CharStyle& cStyle(glyphRuns.at(line.firstRun).style());
-			double scaleV = cStyle.scaleV() / 1000.0;
-			double offset = (cStyle.fontSize() / 10) * (cStyle.baselineOffset() / 1000.0);
-
-			if (glyphRun.object())
-			{
-				QRectF bbox = glyphRun.object()->getVisualBoundingRect();
-				line.ascent  = qMax(line.ascent, bbox.height() * scaleV + offset);
-				line.descent = qMax(line.descent, 0.0);
-				continue;
-			}
-
-			const QList<GlyphLayout>& glyphs = glyphRun.glyphs();
-			for (int j = 0; j < glyphs.count(); ++j)
-			{
-				const GlyphLayout& layout = glyphs.at(j);
-				GlyphMetrics metrics = cStyle.font().glyphBBox(layout.glyph, cStyle.fontSize()/10.00);
-				line.ascent  = qMax(line.ascent, metrics.ascent  * scaleV + offset);
-				line.descent = qMax(line.descent, metrics.descent * scaleV - offset);
-			}
-		}
+		const CharStyle& cStyle(glyphs.at(0).style());
+		double scaleV = cStyle.scaleV() / 1000.0;
+		double offset = (cStyle.fontSize() / 10) * (cStyle.baselineOffset() / 1000.0);
+		line.ascent = cStyle.font().ascent(cStyle.fontSize()/10.00) * scaleV + offset;
+		line.descent = cStyle.font().descent(cStyle.fontSize()/10.00) * scaleV - offset;
 	}
 
 // yPos should not be changed when all line is already calculated - at new y position there can be overflow!!!
@@ -804,31 +792,309 @@ struct LineControl {
 //	}
 //}
 
+	/// called when line length is known and line is to be justified
+	void justifyLine(const ParagraphStyle& style)
+	{
+
+		double glyphNatural = 0;
+		double spaceNatural = 0;
+		double glyphExtension;
+		double spaceExtension;
+		int spaceInsertion = 0;
+		double imSpace = -1;
+		int trackingInsertion = 0;
+		double trackingAmount = 0;
+
+		int glyphsCount = line.lastCluster - line.firstCluster + 1;
+
+		for (int i = 0; i < glyphsCount; ++i)
+		{
+			GlyphCluster glyphCluster = glyphs[i];
+			if (!glyphCluster.hasFlag(ScLayout_ExpandingSpace))
+			{
+				glyphNatural += glyphCluster.width();
+			}
+			else if (!glyphCluster.hasFlag(ScLayout_SuppressSpace))
+			{
+				spaceNatural += glyphCluster.width();
+				if (imSpace < 0.0 || imSpace > glyphCluster.width())
+					imSpace = glyphCluster.width();
+			}
+			if (i != 0 && glyphCluster.hasFlag(ScLayout_ImplicitSpace))
+			{
+				spaceInsertion += 1;
+			}
+			if (i != glyphsCount && glyphCluster.hasFlag(ScLayout_JustificationTracking))
+			{
+				trackingInsertion += 1;
+			}
+		}
+
+		imSpace /= 2;
+
+		// decision: prio 1: stretch glyph;  prio 2: insert spaces;  prio 3: stretch spaces
+
+		if (line.width < spaceNatural + glyphNatural * style.minGlyphExtension() && spaceNatural > 0)
+		{
+			glyphExtension = style.minGlyphExtension() - 1;
+			spaceExtension = (line.width - glyphNatural * (1+glyphExtension) ) / spaceNatural  - 1;
+			imSpace = 0;
+		}
+		else if (line.width < spaceNatural + glyphNatural * style.maxGlyphExtension() && glyphNatural > 0)
+		{
+			spaceExtension = 0;
+			glyphExtension = (line.width - spaceNatural) / glyphNatural  - 1;
+			imSpace = 0;
+		}
+		else
+		{
+			glyphExtension = style.maxGlyphExtension() - 1;
+			if (spaceInsertion) {
+				double remaining = line.width - glyphNatural * (1 + glyphExtension) - spaceNatural;
+				if (imSpace > 0) {
+					if (remaining / spaceInsertion < imSpace) {
+						imSpace = remaining / spaceInsertion;
+						spaceExtension = 0;
+					} else {
+						spaceExtension = (remaining + spaceNatural) / (spaceNatural + spaceInsertion * imSpace) - 1;
+						imSpace *= spaceExtension + 1;
+					}
+				} else {
+					imSpace = remaining / spaceInsertion;
+					spaceExtension = 0;
+				}
+			} else {
+				if (spaceNatural > 0)
+					spaceExtension = (line.width - glyphNatural * (1 + glyphExtension)) / spaceNatural - 1;
+				else
+					spaceExtension = 0;
+
+				if (trackingInsertion && (spaceExtension == 0.0 || spaceExtension >= 20.0))
+				{
+					if (spaceExtension == 0.0)
+					{
+						double remaining = line.width - glyphNatural * (1 + glyphExtension) - spaceNatural;
+						trackingAmount = remaining / trackingInsertion;
+					}
+					else
+					{
+						spaceExtension = qMin(20.0, spaceExtension);
+						double remaining = line.width - glyphNatural * (1 + glyphExtension) - spaceNatural;
+						remaining -= spaceExtension * spaceNatural;
+						trackingAmount = remaining / trackingInsertion;
+						if (trackingAmount > imSpace)
+						{
+							trackingAmount = imSpace;
+							spaceExtension = (line.width - glyphNatural * (1 + glyphExtension) - trackingInsertion * trackingAmount) / spaceNatural - 1;
+						}
+					}
+				}
+			}
+		}
+
+		double glyphScale = 1 + glyphExtension;
+
+	/*
+		qDebug() << QString("justify: line = %7 natural = %1 + %2 = %3 (%4); spaces + %5%%; min=%8; glyphs + %6%%; min=%9")
+			   .arg(spaceNatural).arg(glyphNatural).arg(spaceNatural+glyphNatural).arg(line.naturalWidth)
+			   .arg(spaceExtension).arg(glyphExtension).arg(line.width)
+			   .arg(style.minWordTracking()).arg(style.minGlyphExtension());
+		*/
+
+		int startItem = 0;
+		if (glyphs[startItem].hasFlag(ScLayout_DropCap))
+			startItem++;
+		// distribute whitespace on spaces and glyphs
+		for (int i = startItem; i < glyphsCount; ++i)
+		{
+			GlyphCluster& glyphCluster = glyphs[i];
+			double wide = glyphCluster.width();
+			if (!glyphCluster.hasFlag(ScLayout_ExpandingSpace))
+			{
+				glyphCluster.setScaleH(glyphCluster.scaleH() * glyphScale);
+				glyphCluster.xoffset *= glyphScale;
+			}
+			else if (!glyphCluster.hasFlag(ScLayout_SuppressSpace))
+			{
+				glyphCluster.extraWidth += (wide * spaceExtension);
+			}
+			if (i != 0 && glyphCluster.hasFlag(ScLayout_ImplicitSpace))
+			{
+				GlyphCluster& lastRun = glyphs[i - 1];
+				lastRun.extraWidth += imSpace;
+			}
+			if (i != glyphsCount && trackingAmount != 0 && glyphCluster.hasFlag(ScLayout_JustificationTracking))
+			{
+				glyphCluster.extraWidth += trackingAmount;
+			}
+
+		}
+	}
+
+	/// called when linelength is known and line is not justified
+	void indentLine(const ParagraphStyle& style, double leftIndent)
+	{
+		if (line.naturalWidth > line.width)
+		{
+			justifyLine(style);
+		}
+		if (leftIndent > 0)
+		{
+			line.x += leftIndent;
+			line.width -= leftIndent;
+		}
+	}
+
+	/**
+	 Clones the tab fill char as often as necssary after all distances are known
+	 */
+	void fillInTabLeaders()
+	{
+		// fill in tab leaders
+		for (int i = 0; i < glyphs.count(); ++i)
+		{
+			GlyphCluster& glyphCluster = glyphs[i];
+			CharStyle charStyle(glyphCluster.style());
+			if (glyphCluster.hasFlag(ScLayout_TabLeaders))
+			{
+				GlyphLayout tglyph = glyphCluster.glyphs().last();
+				double width = glyphCluster.width();
+				double wt = charStyle.font().glyphWidth(tglyph.glyph, charStyle.fontSize() * tglyph.scaleV / 10.0);
+				int count = static_cast<int>(width / wt);
+				glyphCluster.glyphs().clear();
+				for(int cx = 0; cx < count; ++cx)
+				{
+					GlyphLayout more = tglyph;
+					more.xadvance = 0;
+					if (cx != 0)
+						more.xoffset = (width / count) * cx;
+					glyphCluster.append(more);
+				}
+			}
+		}
+	}
+
+
+	//defined but not used
+	///// calculate how much the first char should stick out to the left
+	//double opticalLeftMargin(const StoryText& itemText)
+	//{
+	//	int b = line.firstChar;
+	//	while (b < line.lastChar && (itemText.flags(b) & ScLayout_SuppressSpace))
+	//		   ++b;
+	//
+	//	double chs = itemText.charStyle(b).fontSize() * (itemText.charStyle(b).scaleH() / 1000.0);
+	//	QChar chr = itemText.text(b);
+	//	double leftCorr = itemText.charStyle(b).font().realCharWidth(chr, chs / 10.0);
+	//	if (QString("'´`").indexOf(chr) >= 0
+	//		|| chr == QChar(0x2018) // quote 6
+	//		|| chr == QChar(0x2019) // quote 9
+	//		|| chr == QChar(0x201a) // lower quote 9
+	//		|| chr == QChar(0x201b) // upper reversed 9 6
+	//		|| chr == QChar(0x2039) // single guillemet <
+	//		|| chr == QChar(0x203a) // single guillemet >
+	//		)
+	//		leftCorr *= -0.7;
+	//	else if (QString("\"").indexOf(chr) >= 0
+	//			 || chr == QChar(0x00ab) // guillemet <<
+	//			 || chr == QChar(0x00bb) // guillemet >>
+	//			 || chr == QChar(0x201c) // quote 66
+	//			 || chr == QChar(0x201d) // quote 99
+	//			 || chr == QChar(0x201e) // lower quote 99
+	//			 || chr == QChar(0x201f) // upper reversed 99
+	//			 )
+	//		leftCorr *= -0.5;
+	//	else {
+	//		leftCorr = itemText.charStyle(b).font().charWidth(QChar(' '), chs / 10.0, chr);
+	//		leftCorr -= itemText.charStyle(b).font().charWidth(QChar(' '), chs / 10.0);
+	////				double leftCorr2 = itemText.charStyle(a).font().charWidth(QChar('K'), chs / 10.0, chr);
+	////				leftCorr2 -= itemText.charStyle(a).font().charWidth(QChar('K'), chs / 10.0);
+	////				leftCorr = qMin(leftCorr, leftCorr2);
+	//	}
+	//	return leftCorr;
+	//}
+
+	/// calculate how much the last char should stick out to the right
+	double opticalRightMargin(const StoryText& itemText)
+	{
+		int b = line.lastCluster - line.firstCluster;
+		while (b > 0 &&
+			   (SpecialChars::isBreakingSpace(itemText.text(glyphs[b].lastChar())) ||
+				SpecialChars::isBreak(itemText.text(glyphs[b].lastChar())))
+			   )
+			--b;
+		if (b >= 0)
+		{
+			const CharStyle& style = glyphs[b].style();
+			const ScFace& font = style.font();
+			double chs = style.fontSize() * (style.scaleH() / 1000.0);
+			QChar chr = itemText.text(glyphs[b].lastChar());
+			double rightCorr;
+			if (glyphs[b].hasFlag(ScLayout_SoftHyphenVisible))
+				rightCorr = font.hyphenWidth(style, chs / 10.0);
+			else
+				rightCorr = font.glyphBBox(font.char2CMap(chr.unicode()), chs / 10.0).width;
+			if (glyphs[b].hasFlag(ScLayout_SoftHyphenVisible)
+				|| QString("-,.`´'~").indexOf(chr) >= 0
+				|| chr == QChar(0x2010)
+				|| chr == QChar(0x2018)
+				|| chr == QChar(0x2019)
+				|| chr == QChar(0x201a)
+				|| chr == QChar(0x201b)
+				|| chr == QChar(0x2039)
+				|| chr == QChar(0x203a)
+				|| chr == QChar(0x2032) // PRIME
+				)
+				rightCorr *= 0.7;
+			else if (QString(";:\"").indexOf(chr) >= 0
+					 || chr == QChar(0x00ab)
+					 || chr == QChar(0x00bb)
+					 || chr == QChar(0x201c)
+					 || chr == QChar(0x201d)
+					 || chr == QChar(0x201e)
+					 || chr == QChar(0x201f)
+					 || chr == QChar(0x2013) // EN DASH
+					 || chr == QChar(0x2033) // double prime
+					 )
+				rightCorr *= 0.5;
+			else {
+#if 0
+				// FIXME HOST: is the kerning with "." a realy reliable way to check this?
+				rightCorr = chStyle.font().realCharWidth(chr, chs / 10.0);
+				rightCorr -= chStyle.font().charWidth(chr, chs / 10.0, QChar('.'));
+#else
+				rightCorr = 0;
+#endif
+			}
+			return rightCorr;
+		}
+		return 0.0;
+	}
+
 	LineBox* createLineBox()
 	{
 		LineBox* result = new LineBox();
-		result->moveTo(line.x - colLeft, line.y);
+		result->moveTo(line.x - colLeft, line.y - line.ascent);
 		result->setWidth(line.width);
 		result->setAscent(line.ascent);
-		result->setDescent(-line.descent);
-
-		for (int i = line.firstRun; i <= line.lastRun; ++i)
+		result->setDescent(line.descent);
+		foreach (const GlyphCluster& run, ShapedTextFeed::putInVisualOrder(glyphs,   0, line.lastCluster - line.firstCluster + 1))
 		{
-			addBox(result, glyphRuns.at(i));
+			addBox(result, run);
+//			qDebug() << "cluster" << run.firstChar() << ".." << run.lastChar() << "@" << run.visualIndex();
 		}
-
 		return result;
 	}
 
-	void addBox(LineBox *lineBox, const GlyphRun& run)
+	void addBox(LineBox *lineBox, const GlyphCluster& run)
 	{
 		Box* result;
-		if (run.object())
+		if (run.object().getPageItem(doc))
 		{
-			result = new ObjectBox(run);
-			QRectF bBox = run.object()->getVisualBoundingRect();
+			result = new ObjectBox(run, context);
+			QRectF bBox = context->getVisualBoundingBox(run.object());
 			if (run.hasFlag(ScLayout_DropCap))
-				result->setAscent(bBox.height() * run.glyphs().first().scaleV - run.glyphs().first().yoffset);
+				result->setAscent(bBox.height() * run.scaleV() - run.yoffset);
 			else
 				result->setAscent(bBox.height());
 			result->setDescent(0);
@@ -849,241 +1115,29 @@ private:
 	double lineCorr;
 };
 
-/**
- Clones the tab fill char as often as necssary after all distances are known
- */
-static void fillInTabLeaders(LineControl & current)
-{
-	// fill in tab leaders
-	for(int i = current.line.firstRun; i <= current.line.lastRun; i++)
-	{
-		GlyphRun& glyphRun = current.glyphRuns[i];
-		CharStyle charStyle(glyphRun.style());
-		if (glyphRun.hasFlag(ScLayout_TabLeaders))
-		{
-			GlyphLayout tglyph = glyphRun.glyphs().last();
-			double width = glyphRun.width();
-			double wt = charStyle.font().glyphWidth(tglyph.glyph, charStyle.fontSize() * tglyph.scaleV / 10.0);
-			int count = static_cast<int>(width / wt);
-			glyphRun.glyphs().clear();
-			for(int cx = 0; cx < count; ++cx)
-			{
-				GlyphLayout more = tglyph;
-				more.xadvance = width / count;
-				glyphRun.glyphs().append(more);
-			}
-		}
-	}
+static bool allowedCJKBreakAfter(QChar ch) {
+	unsigned int code[] = {0x201C, 0x300C, 0xFF08, 0xFF3B, 0xFF5B, 0xFF5F, 0xFF62, 0xFF0D, 0};
+	for (int i = 0; code[i]; ++i)
+		if (code[i] == ch.unicode())
+			return false;
+	return true;
 }
 
-/// called when line length is known and line is to be justified
-static void justifyLine(const ParagraphStyle& style, LineControl& curr)
-{
-
-	double glyphNatural = 0;
-	double spaceNatural = 0;
-	double glyphExtension;
-	double spaceExtension;
-	int spaceInsertion = 0;
-	double imSpace = -1;
-
-	for (int i = curr.line.firstRun; i <= curr.line.lastRun; ++i)
-	{
-		GlyphRun glyphrun = curr.glyphRuns[i];
-		if (!glyphrun.hasFlag(ScLayout_ExpandingSpace))
-		{
-			glyphNatural += glyphrun.width();
-		}
-		else if ( !glyphrun.hasFlag(ScLayout_SuppressSpace) )
-		{
-			spaceNatural += glyphrun.width();
-			if (imSpace < 0.0 || imSpace > glyphrun.width())
-				imSpace = glyphrun.width();
-		}
-		if (i != curr.line.firstRun && glyphrun.hasFlag(ScLayout_ImplicitSpace))
-		{
-			spaceInsertion += 1;
-		}
-	}
-
-	imSpace /= 2;
-
-	// decision: prio 1: stretch glyph;  prio 2: insert spaces;  prio 3: stretch spaces
-
-	if (curr.line.width < spaceNatural + glyphNatural * style.minGlyphExtension() && spaceNatural > 0)
-	{
-		glyphExtension = style.minGlyphExtension() - 1;
-		spaceExtension = (curr.line.width - glyphNatural * (1+glyphExtension) ) / spaceNatural  - 1;
-		imSpace = 0;
-	}
-	else if (curr.line.width < spaceNatural + glyphNatural * style.maxGlyphExtension() && glyphNatural > 0)
-	{
-		spaceExtension = 0;
-		glyphExtension = (curr.line.width - spaceNatural) / glyphNatural  - 1;
-		imSpace = 0;
-	}
-	else
-	{
-		glyphExtension = style.maxGlyphExtension() - 1;
-		if (spaceInsertion) {
-			double remaining = curr.line.width - glyphNatural * (1 + glyphExtension) - spaceNatural;
-			if (imSpace > 0) {
-				if (remaining / spaceInsertion < imSpace) {
-					imSpace = remaining / spaceInsertion;
-					spaceExtension = 0;
-				} else {
-					spaceExtension = (remaining + spaceNatural) / (spaceNatural + spaceInsertion * imSpace) - 1;
-					imSpace *= spaceExtension + 1;
-				}
-			} else {
-				imSpace = remaining / spaceInsertion;
-				spaceExtension = 0;
-			}
-		} else {
-			if (spaceNatural > 0)
-				spaceExtension = (curr.line.width - glyphNatural * (1+glyphExtension) ) / spaceNatural  - 1;
-			else
-				spaceExtension = 0;
-		}
-	}
-
-	double glyphScale = 1 + glyphExtension;
-
-/*
-	qDebug() << QString("justify: line = %7 natural = %1 + %2 = %3 (%4); spaces + %5%%; min=%8; glyphs + %6%%; min=%9")
-		   .arg(spaceNatural).arg(glyphNatural).arg(spaceNatural+glyphNatural).arg(line.naturalWidth)
-		   .arg(spaceExtension).arg(glyphExtension).arg(line.width)
-		   .arg(style.minWordTracking()).arg(style.minGlyphExtension());
-	*/
-
-	int startItem = curr.line.firstRun;
-	if (curr.glyphRuns[startItem].hasFlag(ScLayout_DropCap))
-		startItem++;
-	// distribute whitespace on spaces and glyphs
-	for (int i = startItem; i <= curr.line.lastRun; ++i)
-	{
-		GlyphRun& glyphrun = curr.glyphRuns[i];
-		double wide = glyphrun.width();
-		if (!glyphrun.hasFlag(ScLayout_ExpandingSpace))
-		{
-			for (int j = 0; j < glyphrun.glyphs().count(); ++j)
-			{
-				GlyphLayout& glyph = glyphrun.glyphs()[j];
-				glyph.xoffset *= glyphScale;
-				glyph.scaleH *= glyphScale;
-			}
-		}
-		else if (!glyphrun.hasFlag(ScLayout_SuppressSpace))
-		{
-			GlyphLayout& glyph = glyphrun.glyphs().last();
-			glyph.xadvance += (wide * spaceExtension) / glyph.scaleH;
-		}
-		if (i != curr.line.firstRun && glyphrun.hasFlag(ScLayout_ImplicitSpace))
-		{
-			GlyphRun& lastRun = curr.glyphRuns[i - 1];
-			lastRun.glyphs().last().xadvance += imSpace;
-		}
-	}
+static int allowedCJKBreakBefore(QChar ch) {
+	unsigned int code[] =
+	 {0x201D, 0x3001, 0x3002, 0x300D, 0xFF01, 0xFF09, 0xFF0C, 0xFF0E, 0xFF1A,
+	  0xFF1B, 0xFF1F, 0xFF3D, 0xFF5D, 0xFF60, 0xFF63, 0xFF64, 0};
+	for (int i = 0; code[i]; ++i)
+		if (code[i] == ch.unicode())
+			return false;
+	return true;
 }
 
-
-/// called when linelength is known and line is not justified
-static void indentLine(const ParagraphStyle& style, LineControl& curr, double leftIndent)
-{
-	if (curr.line.naturalWidth > curr.line.width)
-	{
-		justifyLine(style, curr);
-	}
-	if (leftIndent > 0)
-	{
-		curr.line.x += leftIndent;
-		curr.line.width -= leftIndent;
-	}
-}
-
-//defined but not used
-///// calculate how much the first char should stick out to the left
-//static double opticalLeftMargin(const StoryText& itemText, const LineSpec& line)
-//{
-//	int b = line.firstChar;
-//	while (b < line.lastChar && (itemText.flags(b) & ScLayout_SuppressSpace))
-//		   ++b;
-//
-//	double chs = itemText.charStyle(b).fontSize() * (itemText.charStyle(b).scaleH() / 1000.0);
-//	QChar chr = itemText.text(b);
-//	double leftCorr = itemText.charStyle(b).font().realCharWidth(chr, chs / 10.0);
-//	if (QString("'´`").indexOf(chr) >= 0
-//		|| chr == QChar(0x2018) // quote 6
-//		|| chr == QChar(0x2019) // quote 9
-//		|| chr == QChar(0x201a) // lower quote 9
-//		|| chr == QChar(0x201b) // upper reversed 9 6
-//		|| chr == QChar(0x2039) // single guillemet <
-//		|| chr == QChar(0x203a) // single guillemet >
-//		)
-//		leftCorr *= -0.7;
-//	else if (QString("\"").indexOf(chr) >= 0
-//			 || chr == QChar(0x00ab) // guillemet <<
-//			 || chr == QChar(0x00bb) // guillemet >>
-//			 || chr == QChar(0x201c) // quote 66
-//			 || chr == QChar(0x201d) // quote 99
-//			 || chr == QChar(0x201e) // lower quote 99
-//			 || chr == QChar(0x201f) // upper reversed 99
-//			 )
-//		leftCorr *= -0.5;
-//	else {
-//		leftCorr = itemText.charStyle(b).font().charWidth(QChar(' '), chs / 10.0, chr);
-//		leftCorr -= itemText.charStyle(b).font().charWidth(QChar(' '), chs / 10.0);
-////				double leftCorr2 = itemText.charStyle(a).font().charWidth(QChar('K'), chs / 10.0, chr);
-////				leftCorr2 -= itemText.charStyle(a).font().charWidth(QChar('K'), chs / 10.0);
-////				leftCorr = qMin(leftCorr, leftCorr2);
-//	}
-//	return leftCorr;
-//}
-
-/// calculate how much the last char should stick out to the right
-static double opticalRightMargin(const StoryText& itemText, const QList<GlyphRun> runs, const LineSpec& line)
-{
-	int b = line.lastRun;
-	while (b > line.firstRun &&
-		   (SpecialChars::isBreakingSpace(itemText.text(runs[b].firstChar())) ||
-			SpecialChars::isBreak(itemText.text(runs[b].firstChar())))
-		   )
-		--b;
-	if (b >= line.firstRun)
-	{
-		const CharStyle& chStyle(runs[b].style());
-		double chs = chStyle.fontSize() * (chStyle.scaleH() / 1000.0);
-		QChar chr = runs[b].hasFlag(ScLayout_SoftHyphenVisible) ?
-			QChar('-') : itemText.text(runs[b].firstChar());
-		double rightCorr = chStyle.font().realCharWidth(chr, chs / 10.0);
-		if (QString("-,.`´'~").indexOf(chr) >= 0
-			|| chr == QChar(0x2018)
-			|| chr == QChar(0x2019)
-			|| chr == QChar(0x201a)
-			|| chr == QChar(0x201b)
-			|| chr == QChar(0x2039)
-			|| chr == QChar(0x203a)
-			|| chr == QChar(0x2032) // PRIME
-			)
-			rightCorr *= 0.7;
-		else if (QString(";:\"").indexOf(chr) >= 0
-				 || chr == QChar(0x00ab)
-				 || chr == QChar(0x00bb)
-				 || chr == QChar(0x201c)
-				 || chr == QChar(0x201d)
-				 || chr == QChar(0x201e)
-				 || chr == QChar(0x201f)
-				 || chr == QChar(0x2013) // EN DASH
-				 || chr == QChar(0x2033) // double prime
-				 )
-			rightCorr *= 0.5;
-		else {
-			rightCorr = chStyle.font().charWidth(chr, chs / 10.0);
-			rightCorr -= chStyle.font().charWidth(chr, chs / 10.0, QChar('.'));
-		}
-		return rightCorr;
-	}
-	return 0.0;
+static bool implicitBreak(QChar f, QChar s) {
+	if (SpecialChars::isCJK(f.unicode()) && SpecialChars::isCJK(s.unicode())) {
+		return allowedCJKBreakAfter(f) && allowedCJKBreakBefore(s);
+	} else
+		return false;
 }
 
 static double findRealOverflowEnd(const QRegion& shape, QRect pt, double maxX)
@@ -1206,6 +1260,7 @@ void PageItem_TextFrame::adjustParagraphEndings ()
 		if (keepWithNext && (!pull)) pull = 1;
 
 		if (pull) {
+            qDebug() << "pulling" << pull << "lines";
 			// push this paragraph to the next frame
 			for (int i = 0; i < pull; ++i)
 				textLayout.removeLastLine();
@@ -1215,10 +1270,9 @@ void PageItem_TextFrame::adjustParagraphEndings ()
 		}
 	}
 }
-
 void PageItem_TextFrame::layout()
 {
-// 	qDebug()<<"==Layout==" << itemName() ;
+//	qDebug()<<"==Layout==" << itemName() ;
 // 	printBacktrace(24);
 	if (BackBox != NULL) {
 //		qDebug("textframe: len=%d, going back", itemText.length());
@@ -1247,7 +1301,7 @@ void PageItem_TextFrame::layout()
 	if (invalid && BackBox == NULL)
 		firstChar = 0;
 
-//	qDebug() << QString("textframe(%1,%2): len=%3, start relayout at %4").arg(Xpos).arg(Ypos).arg(itemText.length()).arg(firstInFrame());
+//    qDebug() << QString("textframe(%1,%2): len=%3, start relayout at %4").arg(m_xPos).arg(m_yPos).arg(itemText.length()).arg(firstInFrame());
 	QPoint pt1, pt2;
 	QRect pt;
 	double chs, chsd = 0;
@@ -1360,21 +1414,25 @@ void PageItem_TextFrame::layout()
 			m_availableRegion = matrix.map(m_availableRegion);
 		}
 
-		QList<GlyphRun> glyphRuns;
-		TextShaper shaper(this, firstInFrame());
+		ITextContext* context = this;
+		//TextShaper textShaper(this, itemText, firstInFrame());
+		ShapedTextFeed shapedText(&itemText, firstInFrame(), context);
+		
+		QList<GlyphCluster> glyphClusters; // = textShaper.shape();
+		// std::sort(glyphClusters.begin(), glyphClusters.end(), logicalGlyphRunComp);
 
-		LineControl current(m_width, m_height, m_textDistanceMargins, lineCorr, m_Doc, glyphRuns, columnWidth(), ColGap);
+		LineControl current(m_width, m_height, m_textDistanceMargins, lineCorr, m_Doc, context,columnWidth(), ColGap);
 		current.nextColumn(textLayout);
 
 		lastLineY = m_textDistanceMargins.top();
 
 		//automatic line spacing factor (calculated once)
-		double autoLS = static_cast<double>(m_Doc->typographicPrefs().autoLineSpacing) / 100.0;
+		double autoLS = static_cast<double>(context->typographicPrefs().autoLineSpacing) / 100.0;
 
 		// find start of first line
 		if (firstInFrame() < itLen)
 		{
-			CharStyle cstyle = itemText.charStyle(firstInFrame());
+			const CharStyle& cstyle = itemText.charStyle(firstInFrame());
 			style = itemText.paragraphStyle(firstInFrame());
 			style.setLineSpacing (calculateLineSpacing (style, this));
 
@@ -1389,12 +1447,16 @@ void PageItem_TextFrame::layout()
 			desc = -cstyle.font().descent(chs / 10.0);
 			current.yPos = m_textDistanceMargins.top() + lineCorr;
 //			qDebug() << QString("first line at y=%1").arg(current.yPos);
+
 		}
 		else // empty itemText:
 		{
 			desc = -itemText.defaultStyle().charStyle().font().descent(itemText.defaultStyle().charStyle().fontSize() / 10.0);
 			current.yPos = itemText.defaultStyle().lineSpacing() + m_textDistanceMargins.top() + lineCorr - desc;
 		}
+		// update Bullet & number list if any.
+		updateBulletsNum();
+
 		current.startLine(0);
 
 		outs = false;
@@ -1412,7 +1474,6 @@ void PageItem_TextFrame::layout()
 		current.rightMargin = 0.0;
 		current.mustLineEnd = current.colRight;
 		current.restartX = 0;
-		int lastStat = 0, curStat = 0;
 
 		//why emit invalidating signals each time text is changed by appling styles?
 		//this speed up layouting in case of using notes marks and drop caps
@@ -1420,52 +1481,28 @@ void PageItem_TextFrame::layout()
 		setMaxY(-1);
 		double maxYAsc = 0.0, maxYDesc = 0.0;
 		int regionMinY = 0, regionMaxY= 0;
+
 		double autoLeftIndent = 0.0;
-
-		for (int i = 0; true; ++i)
+		for (int i = 0; shapedText.haveMoreText(i, glyphClusters); ++i)
 		{
-			if (current.isEmpty)
-				shaper.startLine(i);
-
-			if (!shaper.hasRun(i))
-				break;
-			GlyphRun newRun = shaper.runAt(i);
-
-			if (i >= glyphRuns.count())
-				glyphRuns.append(newRun);
+			int currentIndex = i - current.line.firstCluster;
+			GlyphCluster newRun = glyphClusters[i];
+			if (currentIndex >= current.glyphs.count())
+				current.glyphs.append(newRun);
 			else
-				glyphRuns[i] = newRun;
+				current.glyphs[currentIndex] = newRun;
 
-			GlyphRun& currentRun = glyphRuns[i];
-			if (currentRun.glyphs().isEmpty())
+			if (current.glyphs[currentIndex].glyphs().isEmpty())
 				continue;
 
-			int a = glyphRuns[i].firstChar();
+			int a = current.glyphs[currentIndex].firstChar();
 			bool HasObject = itemText.hasObject(a);
-			PageItem* currentObject = itemText.object(a);
+			PageItem* currentObject = itemText.object(a).getPageItem(m_Doc);
 			QRectF currentObjectBox = QRectF();
 			if (HasObject)
 				currentObjectBox = currentObject->getVisualBoundingRect();
+
 			bool HasMark = itemText.hasMark(a);
-
-			// set StartOfLine
-			if (current.isEmpty)
-			{
-				glyphRuns[i].setFlag(ScLayout_StartOfLine);
-			}
-			else
-			{
-				glyphRuns[i].clearFlag(ScLayout_StartOfLine);
-			}
-
-			const StyleFlag& effects = itemText.charStyle(a).effects();
-			if (effects & ScStyle_UnderlineWords)
-			{
-				if (itemText.text(a).isSpace())
-					glyphRuns[i].clearFlag(ScLayout_Underlined);
-				else
-					glyphRuns[i].setFlag(ScLayout_Underlined);
-			}
 
 			if (HasMark)
 			{
@@ -1476,7 +1513,7 @@ void PageItem_TextFrame::layout()
 			}
 
 			BulNumMode = false;
-			if (a==0 || itemText.text(a-1) == SpecialChars::PARSEP)
+			if (itemText.isBlockStart(a))
 			{
 				autoLeftIndent = 0.0;
 				style = itemText.paragraphStyle(a);
@@ -1500,9 +1537,8 @@ void PageItem_TextFrame::layout()
 			//--<#13490
 			CharStyle charStyle = ((itemText.text(a) != SpecialChars::PARSEP) ? itemText.charStyle(a) : style.charStyle());
 
-			curStat = SpecialChars::getCJKAttr(itemText.text(a));
 			//set style for paragraph effects
-			if (a == 0 || itemText.text(a-1) == SpecialChars::PARSEP)
+			if (itemText.isBlockStart(a))
 			{
 				if (style.hasDropCap() || style.hasBullet() || style.hasNum())
 				{
@@ -1536,9 +1572,9 @@ void PageItem_TextFrame::layout()
 			// find out about par gap and dropcap
 			if (a == firstInFrame())
 			{
-				if (a == 0 || itemText.text(a-1) == SpecialChars::PARSEP)
+				if (itemText.isBlockStart(a))
 				{
-					if (itemText.text(a) != SpecialChars::PARSEP)
+					if (!itemText.isBlockStart(a+1))
 					{
 						DropCmode = style.hasDropCap();
 						if (DropCmode)
@@ -1550,10 +1586,10 @@ void PageItem_TextFrame::layout()
 				}
 			}
 
-			const ScFace font = charStyle.font();
+			const ScFace& font = charStyle.font();
 
-			glyphRuns[i].clearFlag(ScLayout_DropCap);
-			glyphRuns[i].clearFlag(ScLayout_SoftHyphenVisible);
+			current.glyphs[currentIndex].clearFlag(ScLayout_DropCap);
+			current.glyphs[currentIndex].clearFlag(ScLayout_SoftHyphenVisible);
 
 			// No space at begin of line,
 			if (legacy)
@@ -1562,25 +1598,23 @@ void PageItem_TextFrame::layout()
 				if ( (current.isEmpty) && (SpecialChars::isBreakingSpace(itemText.text(a)))
 					 && (a > 0 && ! SpecialChars::isBreak(itemText.text(a-1)))
 					 && ! (a > 0 && SpecialChars::isBreakingSpace(itemText.text(a-1))
-						   && (!glyphRuns[i - 1].hasFlag(ScLayout_SuppressSpace))))
+						   && (!glyphClusters[i - 1].hasFlag(ScLayout_SuppressSpace))))
 				{
-					glyphRuns[i].setFlag(ScLayout_SuppressSpace);
-					glyphRuns[i].glyphs().first().xadvance = 0;
+					current.glyphs[currentIndex].setFlag(ScLayout_SuppressSpace);
 					continue;
 				}
 				else
-					glyphRuns[i].clearFlag(ScLayout_SuppressSpace);
+					current.glyphs[currentIndex].clearFlag(ScLayout_SuppressSpace);
 			}
 			else // from 134 on use NBSPACE for this effect
 			{
 				if ( current.isEmpty && (SpecialChars::isBreakingSpace(itemText.text(a)) || itemText.text(a).isSpace()))
 				{
-					glyphRuns[i].setFlag(ScLayout_SuppressSpace);
-					glyphRuns[i].glyphs()[0].xadvance = 0;
+					current.glyphs[currentIndex].setFlag(ScLayout_SuppressSpace);
 					continue;
 				}
 				else
-					glyphRuns[i].clearFlag(ScLayout_SuppressSpace);
+					current.glyphs[currentIndex].clearFlag(ScLayout_SuppressSpace);
 			}
 			if (current.isEmpty)
 			{
@@ -1600,12 +1634,12 @@ void PageItem_TextFrame::layout()
 				if (current.startOfCol && !current.afterOverflow && current.recalculateY)
 					current.yPos = qMax(current.yPos, m_textDistanceMargins.top());
 				// more about par gap and dropcaps
-				if ((a > firstInFrame() && itemText.text(a-1) == SpecialChars::PARSEP) || (a == 0 && BackBox == 0 && current.startOfCol))
+				if ((a > firstInFrame() && itemText.isBlockStart(a)) || (a == 0 && BackBox == 0 && current.startOfCol))
 				{
 					if (!current.afterOverflow && current.recalculateY && !current.startOfCol)
 						current.yPos += style.gapBefore();
 					DropCapDrop = 0;
-					if (itemText.text(a) != SpecialChars::PARSEP)
+					if (!itemText.isBlockStart(a+1))
 						DropCmode = style.hasDropCap();
 					else
 						DropCmode = false;
@@ -1623,14 +1657,10 @@ void PageItem_TextFrame::layout()
 			{
 				DropCapDrop = calculateLineSpacing (style, this) * (DropLines - 1);
 
-				// FIXME : we should ensure that fonts are loaded before calls to layout()
-				// ScFace::realCharHeight()/Ascent() ensure font is loaded thanks to an indirect call to char2CMap()
-				// ScFace::ascent() can be called safely afterwards
-
 				//text height, width, ascent and descent should be calculated for whole text provided by ScText in current position
 				//and that may be more than one char (variable text for example)
 				double realCharHeight = 0.0, realCharAscent = 0.0;
-				foreach (GlyphLayout gl, glyphRuns[i].glyphs()) {
+				foreach (const GlyphLayout& gl, current.glyphs[currentIndex].glyphs()) {
 					GlyphMetrics gm = font.glyphBBox(gl.glyph);
 					realCharHeight = qMax(realCharHeight, gm.ascent + gm.descent);
 					realCharAscent = qMax(realCharAscent, gm.ascent);
@@ -1642,8 +1672,7 @@ void PageItem_TextFrame::layout()
 					realCharAscent = fontAscent;
 				chsd = (10 * ((DropCapDrop + fontAscent) / realCharHeight));
 				chs  = (10 * ((DropCapDrop + fontAscent) / realCharAscent));
-				glyphRuns[i].setFlag(ScLayout_DropCap);
-//				glyphRuns[i].glyphs().first().yoffset += DropCapDrop;
+				current.glyphs[currentIndex].setFlag(ScLayout_DropCap);
 				if (HasObject)
 				{
 				//	chs = qRound((currentObject->height() + currentObject->lineWidth()) * 10);
@@ -1660,82 +1689,29 @@ void PageItem_TextFrame::layout()
 				else
 					chs = charStyle.fontSize();
 			}
-//			glyphs->yadvance = 0;
+			// set StartOfLine
+			if (current.isEmpty)
+				current.glyphs[currentIndex].setFlag(ScLayout_StartOfLine);
+			else
+				current.glyphs[currentIndex].clearFlag(ScLayout_StartOfLine);
 
-			GlyphLayout& firstGlyph = glyphRuns[i].glyphs().first();
-			GlyphLayout& lastGlyph = glyphRuns[i].glyphs().last();
-
-			// Apply cjk kerning
-			// TODO: cjk spacing and kerning should be done in layoutGlyphs!
-			if (shaper.hasRun(i + 1))
+			if (!current.glyphs[currentIndex].hasFlag(ScLayout_StartOfLine))
 			{
-				GlyphRun nextRun = shaper.runAt(i + 1);
-				// change xadvance, xoffset according to JIS X4051
-				int nextStat = SpecialChars::getCJKAttr(itemText.text(nextRun.firstChar()));
-				if (curStat != 0)
-				{	// current char is CJK
-					if (nextStat == 0 && !SpecialChars::isBreakingSpace(itemText.text(nextRun.firstChar()))){
-						switch(curStat & SpecialChars::CJK_CHAR_MASK){
-						case SpecialChars::CJK_KANJI:
-						case SpecialChars::CJK_KANA:
-						case SpecialChars::CJK_NOTOP:
-							lastGlyph.xadvance += charStyle.fontSize() / 10 / 4 / lastGlyph.scaleH;
-						}
-					} else {	// next char is CJK, too
-						switch(curStat & SpecialChars::CJK_CHAR_MASK){
-						case SpecialChars::CJK_FENCE_END:
-							switch(nextStat & SpecialChars::CJK_CHAR_MASK){
-							case SpecialChars::CJK_FENCE_BEGIN:
-							case SpecialChars::CJK_FENCE_END:
-							case SpecialChars::CJK_COMMA:
-							case SpecialChars::CJK_PERIOD:
-							case SpecialChars::CJK_MIDPOINT:
-								lastGlyph.xadvance -= charStyle.fontSize() / 10 / 2 / lastGlyph.scaleH;
-							}
-							break;
-						case SpecialChars::CJK_COMMA:
-						case SpecialChars::CJK_PERIOD:
-							switch(nextStat & SpecialChars::CJK_CHAR_MASK){
-							case SpecialChars::CJK_FENCE_BEGIN:
-							case SpecialChars::CJK_FENCE_END:
-								lastGlyph.xadvance -= charStyle.fontSize() / 10 / 2 / lastGlyph.scaleH;
-							}
-							break;
-						case SpecialChars::CJK_MIDPOINT:
-							switch(nextStat & SpecialChars::CJK_CHAR_MASK){
-							case SpecialChars::CJK_FENCE_BEGIN:
-								lastGlyph.xadvance -= charStyle.fontSize() / 10 / 2 / lastGlyph.scaleH;
-							}
-							break;
-						case SpecialChars::CJK_FENCE_BEGIN:
-							int prevStat = 0;
-							if (i == current.line.firstRun){ // first char of the line
-								prevStat = SpecialChars::CJK_FENCE_BEGIN;
-							} else if (i != 0) {
-								prevStat = SpecialChars::getCJKAttr(itemText.text(glyphRuns[i - 1].lastChar())) & SpecialChars::CJK_CHAR_MASK;
-							}
-							if (prevStat == SpecialChars::CJK_FENCE_BEGIN){
-								lastGlyph.xadvance -= charStyle.fontSize() / 10 / 2 / lastGlyph.scaleH;
-								lastGlyph.xoffset -= charStyle.fontSize() / 10 / 2;
-							}
-							break;
-						}
-					}
-				} else {	// current char is not CJK
-					if (nextStat != 0 && !SpecialChars::isBreakingSpace(itemText.text(glyphRuns[i].lastChar()))){
-						switch(nextStat & SpecialChars::CJK_CHAR_MASK){
-						case SpecialChars::CJK_KANJI:
-						case SpecialChars::CJK_KANA:
-						case SpecialChars::CJK_NOTOP:
-							// use the size of the current char instead of the next one
-							lastGlyph.xadvance += charStyle.fontSize() / 10 / 4 / lastGlyph.scaleH;
-						}
-					}
-				}
+				double tracking = charStyle.fontSize() * charStyle.tracking() / 10000.0;
+				current.glyphs[currentIndex].xoffset += tracking;
+				if (current.glyphs[currentIndex].width() != 0)
+					current.glyphs[currentIndex].extraWidth += tracking;
 			}
 
+//			glyphs->yadvance = 0;
+
+			if (i == current.line.firstCluster && current.glyphs[currentIndex].hasFlag(ScLayout_CJKFence))
+			{
+				current.glyphs[currentIndex].extraWidth -= (charStyle.fontSize() / 10 / 2);
+				current.glyphs[currentIndex].xoffset -= (charStyle.fontSize() / 10 / 2);
+			}
 			// find out width, ascent and descent of char
-			double wide = glyphRuns[i].width();
+			double wide = current.glyphs[currentIndex].width();
 
 			if (DropCmode)
 			{
@@ -1753,16 +1729,16 @@ void PageItem_TextFrame::layout()
 					asce = currentObjectBox.height();
 					wide = currentObjectBox.width();
 					realAsce = calculateLineSpacing (style, this) * DropLines;
-					firstGlyph.scaleH /= firstGlyph.scaleV;
-					firstGlyph.scaleV = (realAsce / itemHeight);
-					firstGlyph.scaleH *= firstGlyph.scaleV;
-					wide *= firstGlyph.scaleH;
+					current.glyphs[currentIndex].setScaleH(current.glyphs[currentIndex].scaleH() / current.glyphs[currentIndex].scaleV());
+					current.glyphs[currentIndex].setScaleV(realAsce / itemHeight);
+					current.glyphs[currentIndex].setScaleH(current.glyphs[currentIndex].scaleH() * current.glyphs[currentIndex].scaleV());
+					wide *= current.glyphs[currentIndex].scaleH();
 				}
 				else
 				{
 					double realCharHeight = 0.0;
 					wide = 0.0; realAsce = 0.0;
-					foreach (GlyphLayout gl, glyphRuns[i].glyphs()) {
+					foreach (const GlyphLayout& gl, current.glyphs[currentIndex].glyphs()) {
 						GlyphMetrics gm;
 						gm = font.glyphBBox(gl.glyph, charStyle.fontSize() / 10.0);
 						realCharHeight = qMax(realCharHeight, gm.ascent + gm.descent);
@@ -1770,25 +1746,24 @@ void PageItem_TextFrame::layout()
 						realAsce = qMax(realAsce, gm.ascent + gm.descent);
 						wide += gm.width;
 					}
-					wide = (wide * scaleH) + (1 - scaleH);
+					wide = (wide* scaleH) + (1 - scaleH);
 					realAsce = realAsce  * scaleV + offset;
 					if (realCharHeight == 0)
 						realCharHeight = font.height(style.charStyle().fontSize() / 10.0);
 					asce = font.ascent(hlcsize10);
-					// qDebug() QString("dropcaps pre: chsd=%1 realCharHeight = %2 chstr=%3").arg(chsd).arg(asce).arg(chstr2[0]);
-					firstGlyph.scaleH /= firstGlyph.scaleV;
-					firstGlyph.scaleV = (realAsce / realCharHeight);
-					firstGlyph.scaleH *= firstGlyph.scaleV;
-					firstGlyph.xoffset -= 0.5; //drop caps are always to far from column left edge
+					current.glyphs[currentIndex].setScaleH(current.glyphs[currentIndex].scaleH() / current.glyphs[currentIndex].scaleV());
+					current.glyphs[currentIndex].setScaleV(realAsce / realCharHeight);
+					current.glyphs[currentIndex].setScaleH(current.glyphs[currentIndex].scaleH() * current.glyphs[currentIndex].scaleV());
+					current.glyphs[currentIndex].xoffset -= 0.5; //drop caps are always to far from column left edge
 				}
 				// This is to mimic pre-boxes branches in case first character of paragraph is a space
 				// If we don't do this, paragraph offset will not apply correctly to first line
-				if ((firstGlyph.scaleH == 0.0) || (firstGlyph.scaleV == 0.0))
+				if ((current.glyphs[currentIndex].scaleH() == 0.0) || (current.glyphs[currentIndex].scaleV() == 0.0))
 				{
-					firstGlyph.scaleH = firstGlyph.scaleV = 1.0;
+					current.glyphs[currentIndex].setScaleH(1.0);
+					current.glyphs[currentIndex].setScaleV(1.0);
 					wide = 0.0;
 				}
-				firstGlyph.xadvance = wide / firstGlyph.scaleH;
 				desc = realDesc = 0;
 			}
 			else // !DropCMode
@@ -1800,7 +1775,7 @@ void PageItem_TextFrame::layout()
 				{
 					if (itemText.text(a) != SpecialChars::OBJECT)
 					{
-						foreach (GlyphLayout gl, glyphRuns[i].glyphs())
+						foreach (const GlyphLayout& gl, current.glyphs[currentIndex].glyphs())
 						{
 							GlyphMetrics gm = font.glyphBBox(gl.glyph, hlcsize10);
 							realDesc = qMax(realDesc, gm.descent * scaleV - offset);
@@ -1824,7 +1799,7 @@ void PageItem_TextFrame::layout()
 						realAsce = asce * scaleV + offset;
 					else
 					{
-						foreach (GlyphLayout gl, glyphRuns[i].glyphs())
+						foreach (const GlyphLayout& gl, current.glyphs[currentIndex].glyphs())
 							realAsce = qMax(realAsce, font.glyphBBox(gl.glyph, hlcsize10).ascent * scaleV + offset);
 					}
 				}
@@ -1889,7 +1864,7 @@ void PageItem_TextFrame::layout()
 				if (current.addLeftIndent && (maxDX == 0 || DropCmode || BulNumMode))
 				{
 					current.leftIndent = style.leftMargin() + autoLeftIndent;
-					if (a==0 || (a > 0 && (itemText.text(a-1) == SpecialChars::PARSEP)))
+					if (itemText.isBlockStart(a))
 					{
 						current.leftIndent += style.firstIndent();
 						if (BulNumMode || DropCmode)
@@ -1983,7 +1958,7 @@ void PageItem_TextFrame::layout()
 							Xpos = current.xPos = realEnd = findRealOverflowEnd(m_availableRegion, pt, current.colRight);
 							Xend = current.xPos + (addIndent2overflow ? current.leftIndent : 0);
 							//for first paragraph`s line - if first line offset should be added
-							if ( addFirstIndent2overflow && (a==0 || (a > 0 && (itemText.text(a-1) == SpecialChars::PARSEP))))
+							if ( addFirstIndent2overflow && itemText.isBlockStart(a))
 								Xend += style.firstIndent();
 						}
 						else
@@ -2073,7 +2048,7 @@ void PageItem_TextFrame::layout()
 				}
 				current.line.x = current.restartX = current.xPos;
 				current.line.y = current.yPos;
-//				if (glyphRuns[current.line.firstRun].hasFlag(ScLayout_DropCap))
+//				if (glyphClusters[current.line.firstCluster].hasFlag(ScLayout_DropCap))
 //					current.line.y -= DropCapDrop;
 			}
 
@@ -2198,16 +2173,16 @@ void PageItem_TextFrame::layout()
 						// remember fill char
 						if (!tabs.fillChar.isNull())
 						{
-							glyphRuns[i].setFlag(ScLayout_TabLeaders);
+							current.glyphs[currentIndex].setFlag(ScLayout_TabLeaders);
 							GlyphLayout tglyph;
-							tglyph.glyph	= font.char2CMap(tabs.fillChar);
-							tglyph.yoffset  = firstGlyph.yoffset;
+							tglyph.glyph	= font.char2CMap(tabs.fillChar.unicode());
 							tglyph.scaleV   = tglyph.scaleH = chs / charStyle.fontSize();
 							tglyph.xadvance = 0;
-							glyphRuns[i].glyphs().append(tglyph);
+							current.glyphs[currentIndex].append(tglyph);
 						}
 					}
 					current.xPos -= (legacy ? 1.0 : 0.0);
+					GlyphLayout& firstGlyph = current.glyphs[currentIndex].glyphs().first();
 					firstGlyph.xadvance = (current.xPos + wide - tabs.xPos) / firstGlyph.scaleH;
 					tabs.tabGlyph = &firstGlyph;
 				}
@@ -2217,9 +2192,9 @@ void PageItem_TextFrame::layout()
 			if (DropCmode)
 			{
 				double yoffset = 0.0;
-				foreach (GlyphLayout gl, glyphRuns[i].glyphs())
+				foreach (const GlyphLayout& gl, current.glyphs[currentIndex].glyphs())
 					yoffset = qMax(yoffset, font.glyphBBox(gl.glyph, chsd / 10.0).descent);
-				firstGlyph.yoffset -= yoffset;
+				current.glyphs[currentIndex].yoffset -= yoffset;
 			}
 			// remember x pos
 			double breakPos = current.xPos;
@@ -2238,31 +2213,27 @@ void PageItem_TextFrame::layout()
 				current.xPos = qMax(current.xPos, current.colLeft);
 			}
 			// remember possible break
-			if ( (SpecialChars::isBreakingSpace(itemText.text(a)) || itemText.text(a) == SpecialChars::TAB))
+			if (shapedText.haveMoreText(i + 1, glyphClusters) && glyphClusters[i + 1].hasFlag(ScLayout_LineBoundary))
 			{
-				if ( a == firstInFrame() || !SpecialChars::isBreakingSpace(itemText.text(a-1)) )
-				{
-					current.rememberBreak(i, breakPos, style.rightMargin());
-				}
+				if (current.glyphs.length() > 1
+					&& (current.glyphs[currentIndex - 1].lastChar() != SpecialChars::CJK_NOBREAK_AFTER)
+					&& (current.glyphs[currentIndex].firstChar() != SpecialChars::CJK_NOBREAK_BEFORE))
+                {
+//                    qDebug() << "rememberBreak LineBoundry @" << i-1;
+                    current.rememberBreak(i - 1, breakPos, style.rightMargin());
+                }
+				if (!current.glyphs[currentIndex].hasFlag(ScLayout_LineBoundary))
+                {
+//                    qDebug() << "rememberBreak 2nd LineBoundry @" << i;
+                    current.rememberBreak(i, breakPos, style.rightMargin());
+                }
 			}
-			if  (HasObject)
-				current.rememberBreak(i, breakPos, style.rightMargin());
-			// CJK break
-			if (i > current.line.firstRun)
-			{ // not the first char
-				if ((lastStat == 0) && (curStat == 0))
-				{	// both non-CJK
-					// do nothing
-				} else {
-					// non-CJK char does not have CJK_NOBREAK_AFTER/CJK_NOBREAK_BEFORE
-					if ((lastStat & SpecialChars::CJK_NOBREAK_AFTER) == 0 &&
-							(curStat & SpecialChars::CJK_NOBREAK_BEFORE) == 0){
-						current.rememberBreak(i-1, breakPos, style.rightMargin());
-					}
-				}
+			if (HasObject)
+            {
+//                qDebug() << "rememberBreak object @" << i;
+                current.rememberBreak(i, breakPos, style.rightMargin());
+            }
 
-			}
-			lastStat = curStat;
 			//check against space before PARSEP
 			/*if (SpecialChars::isBreakingSpace(hl->ch) && (a + 1 < itemText.length()) && (itemText.item(a+1)->ch == SpecialChars::PARSEP))
 			{
@@ -2274,8 +2245,8 @@ void PageItem_TextFrame::layout()
 			double overflowWidth = 0.0;
 			double hyphWidth = 0.0;
 			bool inOverflow = false;
-			if (glyphRuns[i].hasFlag(ScLayout_HyphenationPossible) || itemText.text(a) == SpecialChars::SHYPHEN)
-				hyphWidth = font.charWidth('-', hlcsize10) * (charStyle.scaleH() / 1000.0);
+			if (current.glyphs[currentIndex].hasFlag(ScLayout_HyphenationPossible) || itemText.text(a) == SpecialChars::SHYPHEN)
+				hyphWidth = font.hyphenWidth(charStyle, hlcsize10) * (charStyle.scaleH() / 1000.0);
 			if ((current.isEndOfLine(style.rightMargin() + hyphWidth)) || current.isEndOfCol(realDesc) || SpecialChars::isBreak(itemText.text(a), Cols > 1) || (current.xPos - current.maxShrink + hyphWidth) >= current.mustLineEnd)
 			{
 				//end of row reached - right column, end of column, break char or line must end
@@ -2297,10 +2268,12 @@ void PageItem_TextFrame::layout()
 					{
 						//force line end at previouse glyph
 						i--;
-						a = glyphRuns[i].firstChar();
+						currentIndex = i - current.line.firstCluster;
+						a = current.glyphs[currentIndex].firstChar();
 						current.mustLineEnd = current.line.x;
 					}
-					current.breakLine(style, firstLineOffset(), i);
+//                    qDebug() << "breakline forced @" << i;
+					current.breakLine(i);
 				}
 				if (!current.addLine && !current.lastInRowLine && current.afterOverflow)
 				{
@@ -2309,7 +2282,7 @@ void PageItem_TextFrame::layout()
 					//if we have some text here - insert text WITHOUT right margin
 					//if there is no place for text - insert text WITH right margin and end line
 					current.lastInRowLine = false;
-					if (current.line.firstRun == current.restartIndex)
+					if (current.line.firstCluster == current.restartIndex)
 						current.lastInRowLine = true;
 					if (current.hasDropCap && DropLinesCount == 0 && current.restartIndex == current.restartRowIndex)
 					{
@@ -2344,10 +2317,10 @@ void PageItem_TextFrame::layout()
 					charEnd = static_cast<int>(ceil(current.xPos - current.maxShrink));
 				}
 				if (legacy &&
-						(((itemText.text(a) == '-' || glyphRuns[i].hasFlag(ScLayout_HyphenationPossible)) && (current.hyphenCount < m_Doc->hyphConsecutiveLines() || m_Doc->hyphConsecutiveLines() == 0))
+						(((itemText.text(a) == '-' || current.glyphs[currentIndex].hasFlag(ScLayout_HyphenationPossible)) && (current.hyphenCount < style.hyphenConsecutiveLines() || style.hyphenConsecutiveLines() == 0))
 						 || itemText.text(a) == SpecialChars::SHYPHEN))
 				{
-					if (glyphRuns[i].hasFlag(ScLayout_HyphenationPossible) || itemText.text(a) == SpecialChars::SHYPHEN)
+					if (current.glyphs[currentIndex].hasFlag(ScLayout_HyphenationPossible) || itemText.text(a) == SpecialChars::SHYPHEN)
 					{
 						pt1 = QPoint(charStart,  regionMinY);
 						pt2 = QPoint(static_cast<int>(charEnd + hyphWidth), regionMaxY -1);
@@ -2408,8 +2381,10 @@ void PageItem_TextFrame::layout()
 					if (current.breakIndex < 0)
 					{
 						i--;
-						a = glyphRuns[i].firstChar();
-						current.breakLine(style, firstLineOffset(), i);
+//                        qDebug() << "forced break at glyph" << i;
+						currentIndex = i - current.line.firstCluster;
+						a = current.glyphs[currentIndex].firstChar();
+						current.breakLine(i);
 					}
 					//check if after overflow text can be placed
 					overflowWidth = realEnd - (current.xPos - current.maxShrink);
@@ -2431,7 +2406,7 @@ void PageItem_TextFrame::layout()
 									current.lastInRowLine = true;
 									current.mustLineEnd = current.line.x;
 								}
-								else if (current.line.firstRun == current.restartIndex)
+								else if (current.line.firstCluster == current.restartIndex)
 									current.lastInRowLine = true;
 							}
 							else
@@ -2458,10 +2433,10 @@ void PageItem_TextFrame::layout()
 			}
 
 			// hyphenation
-			if ((glyphRuns[i].hasFlag(ScLayout_HyphenationPossible)
+			if ((current.glyphs[currentIndex].hasFlag(ScLayout_HyphenationPossible)
 				  || itemText.text(a) == '-'
 				  || itemText.text(a) == SpecialChars::SHYPHEN)
-				 && (!outs) && ((i == 0) || !itemText.text(glyphRuns[i - 1].lastChar()).isSpace()) )
+				 && (!outs) && ((i == 0) || !itemText.text(glyphClusters[i - 1].lastChar()).isSpace()) )
 			{
 				breakPos = current.xPos;
 				if (itemText.text(a) != '-')
@@ -2476,9 +2451,10 @@ void PageItem_TextFrame::layout()
 
 				if (legacy || (breakPos - rightHang < current.colRight - style.rightMargin()))
 				{
-					if ((current.hyphenCount < m_Doc->hyphConsecutiveLines()) || (m_Doc->hyphConsecutiveLines() == 0) || itemText.text(a) == SpecialChars::SHYPHEN)
+					if ((current.hyphenCount < style.hyphenConsecutiveLines()) || (style.hyphenConsecutiveLines() == 0) || itemText.text(a) == SpecialChars::SHYPHEN)
 					{
-						current.rememberBreak(i, breakPos, style.rightMargin() + hyphWidth);
+//                        qDebug() << "rememberBreak hyphen @" << i;
+                        current.rememberBreak(i, breakPos, style.rightMargin() + hyphWidth);
 					}
 				}
 			}
@@ -2488,10 +2464,12 @@ void PageItem_TextFrame::layout()
 			if ((itemText.text(a) == SpecialChars::COLBREAK) && (Cols > 1))
 				goNextColumn = true;
 
-			if (a != firstInFrame() && implicitBreak(itemText.text(a - 1), itemText.text(a)))
-				current.rememberBreak(i -1, breakPos);
-
-			current.isEmpty = (i - current.line.firstRun + 1) == 0;
+            if (i != 0 && implicitBreak(itemText.text(glyphClusters[i - 1].lastChar()), itemText.text(current.glyphs[currentIndex].firstChar())))
+            {
+//                qDebug() << "rememberBreak implicitbreak @" << i-1;
+                current.rememberBreak(i - 1, breakPos);
+            }
+			current.isEmpty = (i - current.line.firstCluster + 1) == 0;
 
 			if (tabs.active)
 			{
@@ -2513,7 +2491,21 @@ void PageItem_TextFrame::layout()
 			if ((DropCmode || BulNumMode) && !outs)
 			{
 				current.xPos += style.parEffectOffset();
-				lastGlyph.xadvance += style.parEffectOffset() / lastGlyph.scaleH;
+
+
+				if (style.hasNum())
+				{
+					// make sure that Offset inserted only after the suffix
+					// loop over previous current.glyphs and set their extraWidth to 0.0
+					for (int i = 0; i < current.glyphs.size(); i++)
+					{
+						if (i != currentIndex)
+							current.glyphs[i].extraWidth = 0.0;
+					}
+				}
+				// set the offset for Drop Cap, Bullet & Number List
+				current.glyphs[currentIndex].extraWidth += style.parEffectOffset();
+
 				if (DropCmode)
 				{
 					DropCmode = false;
@@ -2536,13 +2528,9 @@ void PageItem_TextFrame::layout()
 				tabs.xPos   = 0.0;
 				if (SpecialChars::isBreak(itemText.text(a), Cols > 1))
 				{
-					// Find end of line
-					// For break characters regionMinY and regionMaxY are usually equal due
-					// to ascent and descent of those characters being 0. So for non rectangular frames, 
-					// this may result in current.endOfLine() finding an excessive value and some characters
-					// hanging out of frame, especially when using right alignment. So recompute regionMinY and 
-					// regionMaxY based on line ascent and descent.
-					current.breakLine(style, firstLineOffset(), i);
+					// find end of line
+//                    qDebug() << "breakline isBreak @" << i;
+                    current.breakLine(i);
 					regionMinY = qMax(0.0, current.line.y - current.line.ascent);
 					regionMaxY = current.line.y + current.line.descent;
 					EndX = current.endOfLine(m_availableRegion, style.rightMargin(), regionMinY, regionMaxY);
@@ -2551,7 +2539,7 @@ void PageItem_TextFrame::layout()
 					assert(current.addLine);
 					//current.startOfCol = false;
 					//addLeftIndent = true;
-					if (itemText.text(a) == SpecialChars::PARSEP)
+					if (itemText.isBlockStart(a+1))
 					{
 						maxDX = 0;
 						if (current.hasDropCap)
@@ -2565,7 +2553,7 @@ void PageItem_TextFrame::layout()
 //					if (style.alignment() != 0)
 					{
 						if (opticalMargins & ParagraphStyle::OM_RightHangingPunct)
-							current.line.width += opticalRightMargin(itemText, glyphRuns, current.line);
+							current.line.width += current.opticalRightMargin(itemText);
 
 						OFs = 0;
 						if (style.alignment() == ParagraphStyle::Rightaligned)
@@ -2573,27 +2561,32 @@ void PageItem_TextFrame::layout()
 						if (style.alignment() == ParagraphStyle::Centered)
 							OFs = (current.line.width - current.line.naturalWidth) / 2;
 						if (style.alignment() == ParagraphStyle::Justified)
-							OFs = 0;
+						{
+							if (style.direction() == ParagraphStyle::RTL)
+								OFs = current.line.width - current.line.naturalWidth;
+							else
+								OFs = 0;
+						}
 
 						if (style.alignment() == ParagraphStyle::Extended
 							|| (style.alignment() == ParagraphStyle::Justified
 								&&  (itemText.text(a) == SpecialChars::LINEBREAK ||
 									 itemText.text(a) == SpecialChars::FRAMEBREAK ||
 									 itemText.text(a) == SpecialChars::COLBREAK)
-								&&  (current.line.lastRun - 1 >= 0)
-								&&  !itemText.text(glyphRuns[current.line.lastRun - 1].lastChar()).isSpace()))
+								&&  (current.line.lastCluster - 1 >= 0)
+								&&  !itemText.text(glyphClusters[current.line.lastCluster - 1].lastChar()).isSpace()))
 						{
-							justifyLine(style, current);
+							current.justifyLine(style);
 						}
 						else
 						{
 							if (opticalMargins & ParagraphStyle::OM_RightHangingPunct)
-								current.line.naturalWidth += opticalRightMargin(itemText, glyphRuns, current.line);
+								current.line.naturalWidth += current.opticalRightMargin(itemText);
 							double optiWidth = current.colRight - style.rightMargin() - style.lineSpacing()/2.0 - current.line.x;
 							if (current.line.naturalWidth > optiWidth)
 								current.line.width = qMax(current.line.width - current.maxShrink, optiWidth);
 							// simple offset
-							indentLine(style, current, OFs);
+							current.indentLine(style, OFs);
 						}
 						current.xPos = current.colRight;
 					}
@@ -2604,7 +2597,8 @@ void PageItem_TextFrame::layout()
 					{
 						// go back to last break position
 						i = current.breakIndex;
-						a = glyphRuns[i].firstChar();
+						currentIndex = i - current.line.firstCluster;
+						a = current.glyphs[currentIndex].firstChar();
 						style = itemText.paragraphStyle(a);
 						const_cast<ScFace&>(font) = itemText.charStyle(a).font();
 						if (style.lineSpacingMode() == ParagraphStyle::AutomaticLineSpacing)
@@ -2614,14 +2608,13 @@ void PageItem_TextFrame::layout()
 						charStyle = itemText.charStyle(a);
 					}
 					assert( i >= 0 );
-					assert( i < glyphRuns.length() );
+					assert( i < glyphClusters.length() );
 					//glyphs = itemText.getGlyphs(a);
-					current.isEmpty = (i - current.line.firstRun + 1) == 0;
+					current.isEmpty = (i - current.line.firstCluster + 1) == 0;
 					if (current.addLine)
 					{
 						if (itemText.text(a) == ' ') {
-							glyphRuns[i].setFlag(ScLayout_SuppressSpace);
-							glyphRuns[i].glyphs()[0].xadvance = 0;
+							current.glyphs[currentIndex].setFlag(ScLayout_SuppressSpace);
 						}
 
 						current.updateHeightMetrics();
@@ -2631,33 +2624,33 @@ void PageItem_TextFrame::layout()
 						current.finishLine(EndX);
 
 						hyphWidth = 0.0;
-						if (glyphRuns[i].hasFlag(ScLayout_HyphenationPossible) || itemText.text(a) == SpecialChars::SHYPHEN)
+						if (current.glyphs[currentIndex].hasFlag(ScLayout_HyphenationPossible) || itemText.text(a) == SpecialChars::SHYPHEN)
 						{
 							// insert hyphen
 							if (current.lastInRowLine)
 								//increase hyphen count only for hyphens a the end of text row, omit hyphens before overflow
 								current.hyphenCount++;
-							glyphRuns[i].setFlag(ScLayout_SoftHyphenVisible);
+							current.glyphs[currentIndex].setFlag(ScLayout_SoftHyphenVisible);
 							GlyphLayout hyphen;
-							hyphen.glyph = font.char2CMap(QChar('-'));
-							hyphen.xadvance = font.glyphBBox(hyphen.glyph, charStyle.fontSize() / 10.0).width;
+							hyphen.glyph = font.hyphenGlyph(charStyle);
+							hyphen.xadvance = font.hyphenWidth(charStyle, charStyle.fontSize() / 10.0);
 							hyphWidth = hyphen.xadvance * scaleH;
-							glyphRuns[i].glyphs().append(hyphen);
+							current.glyphs[currentIndex].append(hyphen);
 						}
 						else
 						{
 							if (itemText.text(a) != '-')
 								current.hyphenCount = 0;
-							if (glyphRuns[i].hasFlag(ScLayout_SoftHyphenVisible))
+							if (current.glyphs[currentIndex].hasFlag(ScLayout_SoftHyphenVisible))
 							{
-								glyphRuns[i].clearFlag(ScLayout_SoftHyphenVisible);
-								glyphRuns[i].glyphs().removeLast();
+								current.glyphs[currentIndex].clearFlag(ScLayout_SoftHyphenVisible);
+								current.glyphs[currentIndex].glyphs().removeLast();
 							}
 						}
 
 						// Justification
 						if (opticalMargins & ParagraphStyle::OM_RightHangingPunct)
-							current.line.width += opticalRightMargin(itemText, glyphRuns, current.line);
+							current.line.width += current.opticalRightMargin(itemText);
 						// #12565: Right alignment of hyphens
 						// The additional character width has already been taken into account
 						// above via the line break position, so it's not necessary to increase
@@ -2675,14 +2668,16 @@ void PageItem_TextFrame::layout()
 							OFs = current.line.width - current.line.naturalWidth;
 						if (style.alignment() == ParagraphStyle::Centered)
 							OFs = (current.line.width - current.line.naturalWidth) / 2;
+						if (style.alignment() == ParagraphStyle::Justified && style.direction() == ParagraphStyle::RTL)
+							OFs = current.line.width - current.line.naturalWidth;
 
 						if ((style.alignment() == ParagraphStyle::Justified) || (style.alignment() == ParagraphStyle::Extended))
-							justifyLine(style, current);
+							current.justifyLine(style);
 						else
 						{
 							if (opticalMargins & ParagraphStyle::OM_RightHangingPunct)
-								current.line.naturalWidth += opticalRightMargin(itemText, glyphRuns, current.line);
-							indentLine(style, current, OFs);
+								current.line.naturalWidth += current.opticalRightMargin(itemText);
+							current.indentLine(style, OFs);
 						}
 						current.xPos = current.line.x + current.line.width;
 					}
@@ -2694,7 +2689,7 @@ void PageItem_TextFrame::layout()
 				// #11250: in case of a forced line break, we must not stop
 				// the drop cap layout process. This break case such as
 				// layout of poetry.
-				if (itemText.text(a) == SpecialChars::PARSEP && current.hasDropCap)
+				if (itemText.isBlockStart(a+1) && current.hasDropCap)
 				{
 					current.hasDropCap = false;
 					if (current.yPos < maxDY)
@@ -2721,25 +2716,29 @@ void PageItem_TextFrame::layout()
 				}
 				else
 					setMaxY(maxYDesc);
-				if (current.line.firstRun <= current.line.lastRun && !current.isEmpty)
+				if (current.line.firstCluster <= current.line.lastCluster && !current.isEmpty)
 				{
 					if (current.addLine && current.breakIndex >= 0)
 					{
-//						if (glyphRuns[current.line.firstRun].style().effects() & ScLayout_DropCap)
-						if (glyphRuns[current.line.firstRun].hasFlag(ScLayout_DropCap))
+						if (current.glyphs[0].hasFlag(ScLayout_DropCap))
 						{
 							// put line back to top
 							current.line.y -= DropCapDrop;
-							glyphRuns[current.line.firstRun].glyphs().first().yoffset += DropCapDrop;
+							current.glyphs[0].yoffset += DropCapDrop;
 						}
-						fillInTabLeaders(current);
+						current.fillInTabLeaders();
 						//if right margin is set we temporally save line, not append it
 						textLayout.appendLine(current.createLineBox());
 						setMaxY(maxYDesc);
-						current.restartIndex = current.line.lastRun + 1;
-						i = current.line.lastRun;
-						a = glyphRuns[i].firstChar();
-						current.rowDesc = qMax(current.rowDesc, current.yPos + current.line.descent);
+						current.restartIndex = current.line.lastCluster + 1;
+						i = current.line.lastCluster;
+						currentIndex = i - current.line.firstCluster;
+						a = current.glyphs[currentIndex].firstChar();
+						current.rowDesc = qMax(current.rowDesc,current.yPos + current.line.descent);
+					//	if (glyphClusters[current.line.firstCluster].hasFlag(ScLayout_DropCap))
+					//		current.rowDesc = qMax(current.rowDesc,current.yPos + current.line.descent);
+					//	else
+							current.rowDesc = qMax(current.rowDesc,current.yPos - current.line.descent);
 						if (!current.lastInRowLine)
 						{
 							current.restartX = current.xPos;
@@ -2786,7 +2785,7 @@ void PageItem_TextFrame::layout()
 				}
 				if ( SpecialChars::isBreak(itemText.text(a)) )
 				{
-					if (itemText.text(a) == SpecialChars::PARSEP)
+					if (itemText.isBlockStart(a+1))
 						current.yPos += style.gapAfter();
 					current.hyphenCount = 0;
 				}
@@ -2836,23 +2835,27 @@ void PageItem_TextFrame::layout()
 					}
 				}
 			}
-			if (glyphRuns[i].lastChar() == itemText.length() - 1)
+			if (!shapedText.haveMoreText(i + 1, glyphClusters))
 			{
 				if (!current.afterOverflow || current.addLine)
 				{
 					current.addLine = true;
 					current.lastInRowLine = true;
-					current.breakLine(style, firstLineOffset(), i);
+//                    qDebug() << "breakline A no more text @" << i;
+                    current.breakLine(i);
 				}
 				if (current.afterOverflow && !current.addLine)
 				{
-					if (current.restartIndex < current.line.firstRun)
+					if (current.restartIndex < current.line.firstCluster)
 					{
 						i = current.restartLine(false,true);
 						continue;
 					}
 					else
-						current.breakLine(style, firstLineOffset(), i);
+                    {
+//                        qDebug() << "breakline B no more text @" << i;
+						current.breakLine(i);
+                    }
 				}
 			}
 		}
@@ -2866,8 +2869,9 @@ void PageItem_TextFrame::layout()
 		if (!current.isEmpty)
 		{
 			int a = itemText.length()-1;
-			int i = glyphRuns.length() - 1;
-			current.breakLine(style, firstLineOffset(), i);
+			int i = glyphClusters.length() - 1;
+//            qDebug() << "breakline end of text @" << i;
+            current.breakLine(i);
 
 			if (current.startOfCol)
 			{
@@ -2898,15 +2902,15 @@ void PageItem_TextFrame::layout()
 			}
 			else // #11727, #11628, etc.
 			{
-				regionMinY = static_cast<int>(qMax(0.0, floor(current.yPos - (asce + offset))));
-				regionMaxY = static_cast<int>(floor(current.yPos + desc));
+				regionMinY = static_cast<int>(qMax(0.0, floor(current.yPos - (realAsce + offset))));
+				regionMaxY = static_cast<int>(floor(current.yPos + realDesc));
 			}
 
 			EndX = current.endOfLine(m_availableRegion, style.rightMargin(), regionMinY, regionMaxY);
 			current.finishLine(EndX);
 
 			if (opticalMargins & ParagraphStyle::OM_RightHangingPunct)
-				current.line.width += opticalRightMargin(itemText, glyphRuns, current.line);
+				current.line.width += current.opticalRightMargin(itemText);
 
 			OFs = 0;
 			if (style.alignment() == ParagraphStyle::Rightaligned)
@@ -2914,7 +2918,13 @@ void PageItem_TextFrame::layout()
 			if (style.alignment() == ParagraphStyle::Centered)
 				OFs = (current.line.width - current.line.naturalWidth) / 2;
 			if (style.alignment() == ParagraphStyle::Justified)
-				OFs = 0;
+			{
+				if (style.direction() == ParagraphStyle::RTL)
+					OFs = current.line.width - current.line.naturalWidth;
+				else
+					OFs = 0;
+			}
+
 			if (style.alignment() == ParagraphStyle::Extended
 				|| (style.alignment() == ParagraphStyle::Justified
 					&&  (itemText.text(a) == SpecialChars::LINEBREAK ||
@@ -2922,22 +2932,21 @@ void PageItem_TextFrame::layout()
 						 itemText.text(a) == SpecialChars::COLBREAK)
 					&&  !itemText.text(a).isSpace()))
 			{
-				justifyLine(style, current);
+				current.justifyLine(style);
 			}
 			else
 			{
 				if (opticalMargins & ParagraphStyle::OM_RightHangingPunct)
-					current.line.naturalWidth += opticalRightMargin(itemText, glyphRuns, current.line);
-				indentLine(style, current, OFs);
+					current.line.naturalWidth += current.opticalRightMargin(itemText);
+				current.indentLine(style, OFs);
 			}
-//			if (glyphRuns[current.line.firstRun].style().effects() & ScLayout_DropCap)
-			if (glyphRuns[current.line.firstRun].hasFlag(ScLayout_DropCap))
+			if (current.glyphs[0].hasFlag(ScLayout_DropCap))
 			{
 				// put line back to top
 				current.line.y -= DropCapDrop;
-				glyphRuns[current.line.firstRun].glyphs().first().yoffset += DropCapDrop;
+				current.glyphs[0].yoffset += DropCapDrop;
 			}
-			fillInTabLeaders(current);
+			current.fillInTabLeaders();
 			current.startOfCol = false;
 			goNextColumn = false;
 
@@ -3002,7 +3011,7 @@ void PageItem_TextFrame::layout()
 
 NoRoom:
 	invalid = false;
-
+	
 	adjustParagraphEndings ();
 
 	if (!isNoteFrame() && (!m_Doc->notesList().isEmpty() || m_Doc->notesChanged()))
@@ -3144,7 +3153,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRectF cullingArea)
 		QColor fontColor;
 		SetQColor(&fontColor, itemText.defaultStyle().charStyle().fillColor(), itemText.defaultStyle().charStyle().fillShade());
 		double fontSize = itemText.defaultStyle().charStyle().fontSize() / 10.0;
-		QString fontName = itemText.defaultStyle().charStyle().font().family();
+		ScFace font = itemText.defaultStyle().charStyle().font();
 		QString bmUtf16("");
 		QString cc;
 		if (!((itemText.length() == 1) && (itemText.text(0, 1) == QChar(13))))
@@ -3156,7 +3165,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRectF cullingArea)
 					const CharStyle& charStyle(itemText.charStyle(d));
 					SetQColor(&fontColor, charStyle.fillColor(), charStyle.fillShade());
 					fontSize = charStyle.fontSize() / 10.0;
-					fontName = charStyle.font().family();
+					font = charStyle.font();
 				}
 				cc = itemText.text(d, 1);
 				bmUtf16 += (cc == QChar(13) ? QChar(10) : cc);
@@ -3238,7 +3247,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRectF cullingArea)
 					p->setPen(QColor(255 - fontColor.red(), 255 - fontColor.green(), 255 - fontColor.blue(), fontColor.alpha()));
 				else
 					p->setPen(fontColor);
-				p->setFont(QFont(fontName, fontSize));
+				p->setFont(font, fontSize);
 				p->drawText(QRectF(wdt, wdt, m_width - (2 * wdt), m_height - (2 * wdt)), bmUtf16, false);
 			}
 			if ((!Pfile.isEmpty()) && (imageIsAvailable) && (m_imageVisible) && (annotation().UseIcons()))
@@ -3417,7 +3426,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRectF cullingArea)
 					p->setupPolygon(&clpArr);
 					p->setClipPath();
 					p->setPen(fontColor);
-					p->setFont(QFont(fontName, fontSize));
+					p->setFont(font, fontSize);
 					QStringList textList = bmUtf16.split("\n");
 					p->drawText(QRectF(wdt + 1, wdt + 1, m_width - (2 * wdt) - 17, m_height - (2 * wdt) - 2), textList[0], false, 1);
 					p->restore();
@@ -3461,7 +3470,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRectF cullingArea)
 					p->setupPolygon(&clpArr);
 					p->setClipPath();
 					p->setPen(fontColor);
-					p->setFont(QFont(fontName, fontSize));
+					p->setFont(font, fontSize);
 					p->drawText(QRectF(wdt + 1, wdt + 1, m_width - (2 * wdt) - 17, m_height - (2 * wdt) - 2), bmUtf16, false, 2);
 					p->restore();
 				}
@@ -3511,7 +3520,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRectF cullingArea)
 					p->setupPolygon(&clpArr);
 					p->setClipPath();
 					p->setPen(fontColor);
-					p->setFont(QFont(fontName, fontSize));
+					p->setFont(font, fontSize);
 					p->drawText(QRectF(basX + 11, basY + 21, 228, 218), bmUtf16, false, 2);
 					p->restore();
 				}
@@ -3860,7 +3869,7 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 		uc = "\r";
 #endif
 	int as = uc[0].unicode();
-	QString cr, Tcha, Twort;
+	QString Tcha, Twort;
 	uint Tcoun;
 	int len, pos;
 	int keyModifiers=0;
@@ -3981,15 +3990,6 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 		}
 	}
 
-	// #7430 hack : inverted selection with RTL writing enabled
-	if (reversed())
-	{  //inverting left and rigt keys
-		if (kk == Qt::Key_Left)
-			kk = Qt::Key_Right;
-		else if (kk == Qt::Key_Right)
-			kk = Qt::Key_Left;
-	}
-
 	int oldLast = lastInFrame();
 	switch (kk)
 	{
@@ -4011,7 +4011,7 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 		}
 		itemText.setCursorPosition(pos);
 		if ( buttonModifiers & Qt::ShiftModifier )
-			ExpandSel(-1, oldPos);
+			ExpandSel(oldPos);
 //		if ( this->itemText.lengthOfSelection() > 0 )
 //			view->RefreshItem(this);
 		m_Doc->scMW()->setTBvals(this);
@@ -4031,7 +4031,7 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 			itemText.setCursorPosition( textLayout.endOfFrame() );
 		}
 		if ( buttonModifiers & Qt::ShiftModifier )
-			ExpandSel(1, oldPos);
+			ExpandSel(oldPos);
 //		if ( this->itemText.lengthOfSelection() > 0 )
 //			view->RefreshItem(this);
 		m_Doc->scMW()->setTBvals(this);
@@ -4043,7 +4043,7 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 			len = itemText.length();
 			itemText.setCursorPosition(itemText.nextParagraph(itemText.cursorPosition()));
 			if ( buttonModifiers & Qt::ShiftModifier )
-				ExpandSel(1, oldPos);
+				ExpandSel(oldPos);
 		}
 		else
 		{
@@ -4054,7 +4054,7 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 				{
 					if ( buttonModifiers & Qt::AltModifier )
 						itemText.setCursorPosition (lastInFrame()+1);
-					ExpandSel(1, oldPos);
+					ExpandSel(oldPos);
 				}
 				else
 					if ((textLayout.lines() > 0) && (oldPos >= textLayout.line(textLayout.lines()-1)->firstChar()) && (itemText.cursorPosition() >= lastInFrame()) && (NextBox != 0))
@@ -4092,7 +4092,7 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 			len = itemText.length();
 			itemText.setCursorPosition( itemText.prevParagraph(itemText.cursorPosition()) );
 			if ( buttonModifiers & Qt::ShiftModifier )
-				ExpandSel(-1, oldPos);
+				ExpandSel(oldPos);
 		}
 		else
 		{
@@ -4105,7 +4105,7 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 				{
 					if ( buttonModifiers & Qt::AltModifier )
 						itemText.setCursorPosition( firstInFrame() );
-					ExpandSel(-1, oldPos);
+					ExpandSel(oldPos);
 				}
 				else
 					if ((textLayout.lines() > 0) && (oldPos <= textLayout.line(0)->lastChar()) && (itemText.cursorPosition()  == firstInFrame()) && (BackBox != 0))
@@ -4142,7 +4142,7 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 		else
 			itemText.setCursorPosition( textLayout.startOfFrame() );
 		if ( buttonModifiers & Qt::ShiftModifier )
-			ExpandSel(-1, oldPos);
+			ExpandSel(oldPos);
 		m_Doc->scMW()->setTBvals(this);
 		break;
 	case Qt::Key_PageDown:
@@ -4156,26 +4156,24 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 		else
 			itemText.setCursorPosition( textLayout.endOfFrame() );
 		if ( buttonModifiers & Qt::ShiftModifier )
-			ExpandSel(1, oldPos);
+			ExpandSel(oldPos);
 		m_Doc->scMW()->setTBvals(this);
 		break;
 	case Qt::Key_Left:
 		if ( buttonModifiers & Qt::ControlModifier )
 		{
-			setNewPos(oldPos, itemText.length(), -1);
+			itemText.moveCursorWordLeft();
 			if ( buttonModifiers & Qt::ShiftModifier )
-				ExpandSel(-1, oldPos);
+				ExpandSel(oldPos);
 		}
 		else if ( buttonModifiers & Qt::ShiftModifier )
 		{
-			int pos = itemText.cursorPosition();
-			itemText.setCursorPosition(-1, true);
-			if ( pos > 0 )
-				ExpandSel(-1, oldPos);
+			itemText.moveCursorLeft();
+			ExpandSel(oldPos);
 		}
 		else
 		{
-			itemText.setCursorPosition(-1, true);
+			itemText.moveCursorLeft();
 			if (itemText.cursorPosition() < firstInFrame())
 			{
 				itemText.setCursorPosition( firstInFrame() );
@@ -4188,29 +4186,14 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 				}
 			}
 		}
-		if ((itemText.cursorPosition() > 0) && (itemText.cursorPosition() >= lastInFrame())) // I do not see how its possible, may be dead code - pm
+
+		while ((itemText.cursorPosition() > 1) && (itemText.flags(itemText.cursorPosition() - 1) & ScLayout_SuppressSpace))
 		{
-			itemText.setCursorPosition( lastInFrame() );
-//			if (itemText.flags(CPos-1) & ScLayout_SuppressSpace)
-//			{
-//				--CPos;
-				while ((itemText.cursorPosition() > 1) && (itemText.flags(itemText.cursorPosition() - 1) & ScLayout_SuppressSpace))
-				{
-					itemText.setCursorPosition(-1, true);
-					if (itemText.cursorPosition() == 0)
-						break;
-				}
-//			}
+			itemText.moveCursorLeft();
+			if (itemText.cursorPosition() == 0)
+				break;
 		}
-		else
-		{
-			while ((itemText.cursorPosition() > 1) && (itemText.flags(itemText.cursorPosition() - 1) & ScLayout_SuppressSpace))
-			{
-				itemText.setCursorPosition(-1, true);
-				if (itemText.cursorPosition() == 0)
-					break;
-			}
-		}
+
 //		if ( itemText.lengthOfSelection() > 0 )
 //			view->RefreshItem(this);
 		m_Doc->scMW()->setTBvals(this);
@@ -4218,20 +4201,18 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 	case Qt::Key_Right:
 		if ( buttonModifiers & Qt::ControlModifier )
 		{
-			setNewPos(oldPos, itemText.length(), 1);
+			itemText.moveCursorWordRight();
 			if ( buttonModifiers & Qt::ShiftModifier )
-				ExpandSel(1, oldPos);
+				ExpandSel(oldPos);
 		}
 		else if ( buttonModifiers & Qt::ShiftModifier )
 		{
-			int pos = itemText.cursorPosition();
-			itemText.setCursorPosition(1, true);
-			if ( pos < itemText.length() )
-				ExpandSel(1, oldPos);
+			itemText.moveCursorRight();
+			ExpandSel(oldPos);
 		}
 		else
 		{
-			itemText.setCursorPosition(1, true); // new position within text ?
+			itemText.moveCursorRight(); // new position within text ?
 			if (itemText.cursorPosition() > lastInFrame())
 			{
 //				--CPos;
@@ -4278,9 +4259,13 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 			keyRepeat = false;
 			return;
 		}
-		cr = itemText.text();
 		if (itemText.lengthOfSelection() == 0)
-			itemText.select(itemText.cursorPosition(), 1, true);
+		{
+			int pos1 = itemText.cursorPosition();
+			itemText.moveCursorForward();
+			int pos2 = itemText.cursorPosition();
+			itemText.select(pos1, pos2 - pos1, true);
+		}
 		deleteSelectedTextFromFrame();
 		if (isAutoNoteFrame() && asNoteFrame()->notesList().isEmpty())
 		{
@@ -4327,7 +4312,6 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 		}
 		if (itemText.length() == 0)
 			break;
-		cr = itemText.text(qMax((int) itemText.cursorPosition() - 1, 0), 1);
 		if (itemText.lengthOfSelection() == 0)
 		{
 			itemText.setCursorPosition(-1, true);
@@ -4436,7 +4420,7 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 //			view->RefreshItem(this);
 			doUpdate = true;
 		}
-		else if ((uc[0] > QChar(31) && m_Doc->currentStyle.charStyle().font().canRender(uc[0])) || (as == 13) || (as == 30))
+		else if (uc[0] > QChar(31) || (as == 13) || (as == 30))
 		{
 			if (UndoManager::undoEnabled())
 			{
@@ -4684,68 +4668,6 @@ void PageItem_TextFrame::deleteSelectedTextFromFrame(/*bool findNotes*/)
 	m_Doc->scMW()->DisableTxEdit();
 }
 
-
-//CB Rewrote JJSA code, March 06
-// jjsa added on 15-mar-2004
-// calculate the end position while ctrl + arrow pressed
-
-void PageItem_TextFrame::setNewPos(int oldPos, int len, int dir)
-{
-
-	bool isSpace, wasSpace;
-	if ( dir > 0 && oldPos < len )
-	{
-		wasSpace = itemText.text(oldPos).isSpace();
-		itemText.setCursorPosition(oldPos + 1);
-		while (itemText.cursorPosition() < len)
-		{
-			isSpace = itemText.text().isSpace();
-			if (wasSpace && !isSpace)
-				break;
-			itemText.setCursorPosition(1, true);
-			wasSpace=isSpace;
-
-		}
-		/*
-		isSpace = itemText.at(oldPos)->ch.at(0).isSpace();
-		CPos = oldPos +1;
-		for (int i=oldPos+1; i < len; i++)
-		{
-			if ( itemText.at(i)->ch.at(0).isSpace() != isSpace )
-				break;
-			CPos++;
-		}
-		*/
-	}
-	else if ( dir < 0 && oldPos > 0 )
-	{
-		itemText.setCursorPosition(oldPos - 1);
-		wasSpace = itemText.text().isSpace();
-		while (itemText.cursorPosition() > 0)
-		{
-			isSpace = itemText.text().isSpace();
-			if (!wasSpace && isSpace)
-			{
-				itemText.setCursorPosition(1, true);
-				break;
-			}
-			itemText.setCursorPosition(-1, true);
-			wasSpace=isSpace;
-		}
-		/*
-		oldPos--;
-		isSpace = itemText.at(oldPos)->ch.at(0).isSpace();
-		for (int i=oldPos; i >= 0; i--)
-		{
-			if (  itemText.at(i)->ch.at(0).isSpace() != isSpace )
-				break;
-			CPos--;
-		}
-		*/
-	}
-	cursorBiasBackward = (dir < 0);
-}
-
 bool PageItem_TextFrame::checkKeyIsShortcut(QKeyEvent *k)
 {
 	QMap<QString, Keys> keyMap=PrefsManager::instance()->appPrefs.keyShortcutPrefs.KeyActions;
@@ -4773,6 +4695,104 @@ bool PageItem_TextFrame::checkKeyIsShortcut(QKeyEvent *k)
 
 }
 
+void PageItem_TextFrame::updateBulletsNum()
+{
+	for (int index = 0; index < itemText.length(); ++index)
+	{
+		Mark* mark = itemText.mark(index);
+		if ((mark != NULL) && (itemText.hasMark(index)))
+		{
+			mark->OwnPage = this->OwnPage;
+			//itemPtr and itemName set to this frame only if mark type is different than MARK2ItemType
+			if (!mark->isType(MARK2ItemType))
+			{
+				mark->setItemPtr(this);
+				mark->setItemName(itemName());
+			}
+
+			//anchors and indexes has no visible inserts in text
+			if (mark->isType(MARKAnchorType) || mark->isType(MARKIndexType))
+				continue;
+
+			//set note marker charstyle
+			if (mark->isNoteType())
+			{
+				TextNote* note = mark->getNotePtr();
+				if (note == NULL)
+					continue;
+				mark->setItemPtr(this);
+				NotesStyle* nStyle = note->notesStyle();
+				Q_ASSERT(nStyle != NULL);
+				QString chsName = nStyle->marksChStyle();
+				CharStyle currStyle(itemText.charStyle(index));
+				if (!chsName.isEmpty())
+				{
+					CharStyle marksStyle(m_Doc->charStyle(chsName));
+					if (!currStyle.equiv(marksStyle))
+					{
+						currStyle.setParent(chsName);
+						itemText.applyCharStyle(index, 1, currStyle);
+					}
+				}
+
+				StyleFlag s(itemText.charStyle(index).effects());
+				if (mark->isType(MARKNoteMasterType))
+				{
+					if (nStyle->isSuperscriptInMaster())
+						s |= ScStyle_Superscript;
+					else
+						s &= ~ScStyle_Superscript;
+				}
+				else
+				{
+					if (nStyle->isSuperscriptInNote())
+						s |= ScStyle_Superscript;
+					else
+						s &= ~ScStyle_Superscript;
+				}
+				if (s != itemText.charStyle(index).effects())
+				{
+					CharStyle haveSuperscript;
+					haveSuperscript.setFeatures(s.featureList());
+					itemText.applyCharStyle(index, 1, haveSuperscript);
+				}
+			}
+		}
+
+		bool bullet = false;
+		if (index == 0 || itemText.text(index - 1) == SpecialChars::PARSEP)
+		{
+			const ParagraphStyle& style = itemText.paragraphStyle(index);
+			if (style.hasBullet() || style.hasNum())
+			{
+				bullet = true;
+				if (mark == NULL || !mark->isType(MARKBullNumType))
+				{
+					itemText.insertMark(new BulNumMark(), index);
+					index--;
+					continue;
+				}
+				if (style.hasBullet())
+					mark->setString(style.bulletStr());
+				else if (style.hasNum() && mark->getString().isEmpty())
+				{
+					mark->setString("?");
+				}
+			}
+		}
+
+		if (!bullet && mark && mark->isType(MARKBullNumType))
+		{
+			itemText.removeChars(index, 1);
+			index--;
+			continue;
+		}
+
+	}
+	m_Doc->updateNumbers();
+
+}
+
 
 // jjsa added on 15-mar-2004 expand / decrease selection
 
@@ -4784,7 +4804,7 @@ bool PageItem_TextFrame::checkKeyIsShortcut(QKeyEvent *k)
 //  if value is +/-1 work on slection
 //  if value is +/-2 refresh if text under cursor is selected -- not used
 
-void PageItem_TextFrame::ExpandSel(int dir, int oldPos)
+void PageItem_TextFrame::ExpandSel(int oldPos)
 {
 	int start = itemText.startOfSelection();
 	// itemText.endOfSelection can return -1 in some case, which results in a crash

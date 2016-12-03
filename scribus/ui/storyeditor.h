@@ -69,6 +69,7 @@ class ScrSpinBox;
 class ParaStyleComboBox;
 class StyleSelect;
 class AlignSelect;
+class DirectionSelect;
 class FontCombo;
 class ScrAction;
 class ShadeButton;
@@ -90,6 +91,7 @@ public:
 	~SEditor() {};
 	void setCurrentDocument(ScribusDoc *docc);
 	void setAlign(int align);
+	void setDirection(int align);
 	void saveItemText(PageItem *currItem);
 	void loadItemText(PageItem *currItem);
 	void loadText(QString tx, PageItem *currItem);
@@ -117,6 +119,7 @@ protected:
 	void insertUpdate(int position, int len);
 
 	void setAlign(QTextCursor& tCursor, int style);
+	void setDirection(QTextCursor& tCursor, int style);
 	void setEffects(QTextCursor& tCursor, int effects);
 
 	int  blockContentsChangeHook;
@@ -139,6 +142,7 @@ protected:
 	StyleFlag CurrentEffects;
 	QString currentParaStyle;
 	int CurrAlign;
+	int CurrDirection;
 	double CurrFontSize;
 	double CurrTextFillSh;
 	double CurrTextStrokeSh;
@@ -324,17 +328,21 @@ public:
 	virtual void changeEvent(QEvent *e);
 	
 	AlignSelect* GroupAlign;
+	DirectionSelect* GroupDirection;
 	ParaStyleComboBox *paraStyleCombo;
 	QAction* groupAlignAction;
+	QAction* groupDirectionAction;
 	QAction* paraStyleComboAction;
 
 public slots:
 	void SetAlign(int s);
+	void SetDirection(int s);
 	void SetParaStyle(QString s);
 	void languageChange();
 
 signals:
 	void newAlign(int);
+	void newDirection(int);
 	void newParaStyle(const QString&);
 };
 
@@ -404,6 +412,7 @@ public:
 public slots:
 	void newStyle(const QString&);
 	void newAlign(int st);
+	void newDirection(int dir);
 	void newTxFill(int c, int s);
 	void newTxStroke(int c, int s);
 	void newTxFont(const QString &f);
@@ -417,6 +426,7 @@ signals:
 private:
 	//int exec();
 	void changeAlign(int align);
+	void changeDirection(int align);
 	bool textDataChanged() const;
 
 	/*! \brief Enables/disables the "smart" selection (#1203) - 10/16/2004 pv */

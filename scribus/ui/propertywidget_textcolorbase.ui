@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>127</width>
-    <height>116</height>
+    <width>147</width>
+    <height>131</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -199,22 +199,6 @@
      </item>
      <item>
       <widget class="StyleSelect" name="textEffects" native="true"/>
-     </item>
-     <item>
-      <widget class="QToolButton" name="revertButton">
-       <property name="maximumSize">
-        <size>
-         <width>22</width>
-         <height>22</height>
-        </size>
-       </property>
-       <property name="text">
-        <string/>
-       </property>
-       <property name="checkable">
-        <bool>true</bool>
-       </property>
-      </widget>
      </item>
     </layout>
    </item>

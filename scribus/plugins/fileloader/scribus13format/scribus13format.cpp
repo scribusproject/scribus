@@ -333,17 +333,17 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 		static const QString LANGUAGE("LANGUAGE");
 		QString l(dc.attribute(LANGUAGE, "en"));
 		if (LanguageManager::instance()->langTableIndex(l)!=-1)
-			m_Doc->setHyphLanguage(l); //new style storage
+			m_Doc->setLanguage(l); //new style storage
 		else
 		{ //old style storage
-			QString lnew=LanguageManager::instance()->getAbbrevFromLang(l, true, false);
+			QString lnew=LanguageManager::instance()->getAbbrevFromLang(l, false);
 			if (lnew.isEmpty())
-				lnew=LanguageManager::instance()->getAbbrevFromLang(l, false, false);
-			m_Doc->setHyphLanguage(lnew);
+				lnew=LanguageManager::instance()->getAbbrevFromLang(l, false);
+			m_Doc->setLanguage(lnew);
 		}
 
-		m_Doc->setHyphMinimumWordLength(dc.attribute("MINWORDLEN", "3").toInt());
-		m_Doc->setHyphConsecutiveLines(dc.attribute("HYCOUNT", "2").toInt());
+//		m_Doc->setHyphMinimumWordLength(dc.attribute("MINWORDLEN", "3").toInt());
+//		m_Doc->setHyphConsecutiveLines(dc.attribute("HYCOUNT", "2").toInt());
 		if (dc.hasAttribute("PAGEWIDTH"))
 			m_Doc->setPageWidth(ScCLocale::toDoubleC(dc.attribute("PAGEWIDTH")));
 		else
@@ -1680,6 +1680,8 @@ PageItem* Scribus13Format::PasteItem(QDomElement *obj, ScribusDoc *doc, const QS
 		pstyle.setParent(DoVorl[align-5]);
 	else if (align >= 0)
 		pstyle.setAlignment(static_cast<ParagraphStyle::AlignmentType>(align));
+	if (static_cast<bool>(obj->attribute("REVERS", "0").toInt()))
+		pstyle.setDirection(ParagraphStyle::RTL);
 	pstyle.charStyle().setFont(m_AvailableFonts->findFont(obj->attribute("IFONT", m_Doc->itemToolPrefs().textFont), m_Doc));
 	pstyle.charStyle().setFontSize(qRound(ScCLocale::toDoubleC(obj->attribute("ISIZE"), 12.0) * 10));
 	pstyle.charStyle().setStrokeColor(obj->attribute("TXTSTROKE", CommonStrings::None));
@@ -1862,7 +1864,6 @@ PageItem* Scribus13Format::PasteItem(QDomElement *obj, ScribusDoc *doc, const QS
 	else
 		currItem->setTextFlowMode(PageItem::TextFlowDisabled);
 	currItem->DashOffset = ScCLocale::toDoubleC(obj->attribute("DASHOFF"), 0.0);
-	currItem->setReversed(static_cast<bool>(obj->attribute("REVERS", "0").toInt()));
 	currItem->setLocked(static_cast<bool>(obj->attribute("LOCK", "0").toInt()));
 	currItem->setSizeLocked(static_cast<bool>(obj->attribute("LOCKR", "0").toInt()));
 	currItem->setFillTransparency(ScCLocale::toDoubleC(obj->attribute("TransValue"), 0.0));

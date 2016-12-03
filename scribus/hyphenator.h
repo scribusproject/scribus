@@ -50,30 +50,23 @@ private:
 	ScribusDoc *m_doc;
 	/*! Reference to the hyphen dictionary structure. */
 	HyphenDict *m_hdict;
-	/*! Flag - if is the dictionary without errors etc. If is it 'false'
-		hyphen aborted. */
-	bool m_usable;
 	/*! Qt text codec which handles local characters. */
 	QTextCodec *m_codec;
+	/*! Language in use */
+	QString m_language;
+
+	/*! Flag - if user set auto hyphen processing.*/
+	bool m_automatic;
 
 	/*!
-		\brief Loads dictionary and fills parameters like \a useAble, \a codec, \a hdict.
+		\brief Loads dictionary and fills parameters like \a m_codec, \a m_hdict.
 	 \date
 	 \author Franz Schmid
-	 \param name is the name of specified language - filename.
+	 \param name is the name of specified language.
 	 */
-	void NewDict(const QString& name);
+	bool loadDict(const QString& name);
 	
 public:
-	/*! There are languages having rule not to hyphen word shorter than
-		MinWordLen */
-	int MinWordLen;
-	/*! Maximum number of hyphenations allowed following each other */
-	int HyCount;
-	/*! Language in use */
-	QString Language;
-	/*! Flag - if user set auto hyphen processing.*/
-	bool Automatic;
 	/*! Flag - obsolete? */
 	bool AutoCheck;
 	QHash<QString, QString> rememberedWords;
@@ -90,7 +83,7 @@ public slots:
 	\param ACheck AutoCheck flag.
 	\param Num HyCount
 	*/
-	void slotNewSettings(int Wordlen, bool Autom, bool ACheck, int Num);
+	void slotNewSettings(bool Autom, bool ACheck);
 	/*! 
 	\brief Make hyphenation when user edits text in text frame manually.
 	If is everything set correctly and textframe selected language fits the

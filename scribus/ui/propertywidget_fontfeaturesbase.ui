@@ -1,0 +1,614 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>PropertyWidget_FontFeatures</class>
+ <widget class="QFrame" name="PropertyWidget_FontFeatures">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>509</width>
+    <height>1151</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Frame</string>
+  </property>
+  <property name="frameShape">
+   <enum>QFrame::StyledPanel</enum>
+  </property>
+  <property name="frameShadow">
+   <enum>QFrame::Raised</enum>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <widget class="QCheckBox" name="CommonCheck">
+     <property name="toolTip">
+      <string>Common Ligtures (liga)</string>
+     </property>
+     <property name="text">
+      <string>Common Ligatures</string>
+     </property>
+     <property name="checked">
+      <bool>true</bool>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QCheckBox" name="ContextualCheck">
+     <property name="toolTip">
+      <string>Contextual Ligatures (clig)</string>
+     </property>
+     <property name="text">
+      <string>Contextual Ligatures</string>
+     </property>
+     <property name="checked">
+      <bool>true</bool>
+     </property>
+     <property name="autoRepeat">
+      <bool>false</bool>
+     </property>
+     <property name="autoExclusive">
+      <bool>false</bool>
+     </property>
+     <property name="tristate">
+      <bool>false</bool>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QCheckBox" name="DiscretinoryCheck">
+     <property name="toolTip">
+      <string>Discretionary Ligatures (dlig)</string>
+     </property>
+     <property name="text">
+      <string>Discretionary Ligatures</string>
+     </property>
+     <property name="autoExclusive">
+      <bool>false</bool>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QCheckBox" name="HistoricalCheck">
+     <property name="toolTip">
+      <string>Historical Ligatures (hlig)</string>
+     </property>
+     <property name="text">
+      <string>Historical Ligatures</string>
+     </property>
+     <property name="checked">
+      <bool>false</bool>
+     </property>
+     <property name="autoExclusive">
+      <bool>true</bool>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="Line" name="line">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QRadioButton" name="NormalCaRadio">
+     <property name="toolTip">
+      <string>Normal capitals</string>
+     </property>
+     <property name="text">
+      <string>Default Capitals</string>
+     </property>
+     <property name="checked">
+      <bool>true</bool>
+     </property>
+     <attribute name="buttonGroup">
+      <string notr="true">CapitalsGroup</string>
+     </attribute>
+    </widget>
+   </item>
+   <item>
+    <widget class="QRadioButton" name="SmallRadio">
+     <property name="toolTip">
+      <string>Small capitals (smcp)</string>
+     </property>
+     <property name="text">
+      <string>Small Capitals</string>
+     </property>
+     <attribute name="buttonGroup">
+      <string notr="true">CapitalsGroup</string>
+     </attribute>
+    </widget>
+   </item>
+   <item>
+    <widget class="QRadioButton" name="SmallFromCRadio">
+     <property name="toolTip">
+      <string>Small capitals from capitals (c2sc)</string>
+     </property>
+     <property name="text">
+      <string>Small Capitals from Capitals</string>
+     </property>
+     <attribute name="buttonGroup">
+      <string notr="true">CapitalsGroup</string>
+     </attribute>
+    </widget>
+   </item>
+   <item>
+    <widget class="QRadioButton" name="PetiteRadio">
+     <property name="toolTip">
+      <string>Petite capitals (pcap)</string>
+     </property>
+     <property name="text">
+      <string>Petite Capitals</string>
+     </property>
+     <attribute name="buttonGroup">
+      <string notr="true">CapitalsGroup</string>
+     </attribute>
+    </widget>
+   </item>
+   <item>
+    <widget class="QRadioButton" name="PetiteCapRadio">
+     <property name="toolTip">
+      <string>Petite capitals from capitals (c2pc)</string>
+     </property>
+     <property name="text">
+      <string>Petite Capitals from Capitals</string>
+     </property>
+     <attribute name="buttonGroup">
+      <string notr="true">CapitalsGroup</string>
+     </attribute>
+    </widget>
+   </item>
+   <item>
+    <widget class="QRadioButton" name="UnicaseRadio">
+     <property name="toolTip">
+      <string>Unicase (unic)</string>
+     </property>
+     <property name="text">
+      <string>Unicase</string>
+     </property>
+     <attribute name="buttonGroup">
+      <string notr="true">CapitalsGroup</string>
+     </attribute>
+    </widget>
+   </item>
+   <item>
+    <widget class="QRadioButton" name="TiltingRadio">
+     <property name="toolTip">
+      <string>Titling (titl)</string>
+     </property>
+     <property name="text">
+      <string>Titling</string>
+     </property>
+     <attribute name="buttonGroup">
+      <string notr="true">CapitalsGroup</string>
+     </attribute>
+    </widget>
+   </item>
+   <item>
+    <widget class="Line" name="line_3">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QRadioButton" name="DefaultStyleRadio">
+     <property name="enabled">
+      <bool>true</bool>
+     </property>
+     <property name="toolTip">
+      <string>Default numbers style</string>
+     </property>
+     <property name="text">
+      <string>Default Numerals</string>
+     </property>
+     <property name="checked">
+      <bool>true</bool>
+     </property>
+     <attribute name="buttonGroup">
+      <string notr="true">NumeralStyleGroup</string>
+     </attribute>
+    </widget>
+   </item>
+   <item>
+    <widget class="QRadioButton" name="LininRadio">
+     <property name="enabled">
+      <bool>true</bool>
+     </property>
+     <property name="toolTip">
+      <string>Lining Figures (lnum)</string>
+     </property>
+     <property name="text">
+      <string>Lining</string>
+     </property>
+     <attribute name="buttonGroup">
+      <string notr="true">NumeralStyleGroup</string>
+     </attribute>
+    </widget>
+   </item>
+   <item>
+    <widget class="QRadioButton" name="OldStyleRadio">
+     <property name="enabled">
+      <bool>true</bool>
+     </property>
+     <property name="toolTip">
+      <string>Oldstyle Figures (onum)</string>
+     </property>
+     <property name="text">
+      <string>Old Style</string>
+     </property>
+     <attribute name="buttonGroup">
+      <string notr="true">NumeralStyleGroup</string>
+     </attribute>
+    </widget>
+   </item>
+   <item>
+    <widget class="Line" name="line_5">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QRadioButton" name="DefaultWidthRadio">
+     <property name="enabled">
+      <bool>true</bool>
+     </property>
+     <property name="toolTip">
+      <string>Default numbers width</string>
+     </property>
+     <property name="text">
+      <string>Default Numeral Width</string>
+     </property>
+     <property name="checked">
+      <bool>true</bool>
+     </property>
+     <attribute name="buttonGroup">
+      <string notr="true">NumeralWidthGroup</string>
+     </attribute>
+    </widget>
+   </item>
+   <item>
+    <widget class="QRadioButton" name="ProportionalRadio">
+     <property name="enabled">
+      <bool>true</bool>
+     </property>
+     <property name="toolTip">
+      <string>Proportional Figures (pnum)</string>
+     </property>
+     <property name="text">
+      <string>Proportional</string>
+     </property>
+     <attribute name="buttonGroup">
+      <string notr="true">NumeralWidthGroup</string>
+     </attribute>
+    </widget>
+   </item>
+   <item>
+    <widget class="QRadioButton" name="TabularRadio">
+     <property name="enabled">
+      <bool>true</bool>
+     </property>
+     <property name="toolTip">
+      <string>Tabular Figures (tnum)</string>
+     </property>
+     <property name="text">
+      <string>Tabular</string>
+     </property>
+     <attribute name="buttonGroup">
+      <string notr="true">NumeralWidthGroup</string>
+     </attribute>
+    </widget>
+   </item>
+   <item>
+    <widget class="Line" name="line_2">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QRadioButton" name="DefaultFractionsRadio">
+     <property name="enabled">
+      <bool>true</bool>
+     </property>
+     <property name="toolTip">
+      <string>No fractions</string>
+     </property>
+     <property name="text">
+      <string>No Fractions</string>
+     </property>
+     <property name="checked">
+      <bool>true</bool>
+     </property>
+     <attribute name="buttonGroup">
+      <string notr="true">FractionsGroup</string>
+     </attribute>
+    </widget>
+   </item>
+   <item>
+    <widget class="QRadioButton" name="DiagonalRadio">
+     <property name="enabled">
+      <bool>true</bool>
+     </property>
+     <property name="toolTip">
+      <string>Fractions (frac)</string>
+     </property>
+     <property name="text">
+      <string>Diagonal Fractions</string>
+     </property>
+     <attribute name="buttonGroup">
+      <string notr="true">FractionsGroup</string>
+     </attribute>
+    </widget>
+   </item>
+   <item>
+    <widget class="QRadioButton" name="StackedRadio">
+     <property name="enabled">
+      <bool>true</bool>
+     </property>
+     <property name="toolTip">
+      <string>Alternative Fractions (afrc)</string>
+     </property>
+     <property name="text">
+      <string>Stacked Fractions</string>
+     </property>
+     <attribute name="buttonGroup">
+      <string notr="true">FractionsGroup</string>
+     </attribute>
+    </widget>
+   </item>
+   <item>
+    <widget class="Line" name="line_4">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QRadioButton" name="NormalRadio">
+     <property name="toolTip">
+      <string>Normal position</string>
+     </property>
+     <property name="text">
+      <string>Default Position</string>
+     </property>
+     <property name="checked">
+      <bool>true</bool>
+     </property>
+     <attribute name="buttonGroup">
+      <string notr="true">PositionGroup</string>
+     </attribute>
+    </widget>
+   </item>
+   <item>
+    <widget class="QRadioButton" name="SubscriptRadio">
+     <property name="toolTip">
+      <string>Subscript (subs)</string>
+     </property>
+     <property name="text">
+      <string>Subscript</string>
+     </property>
+     <attribute name="buttonGroup">
+      <string notr="true">PositionGroup</string>
+     </attribute>
+    </widget>
+   </item>
+   <item>
+    <widget class="QRadioButton" name="SuperscriptRaido">
+     <property name="toolTip">
+      <string>Superscript (sups)</string>
+     </property>
+     <property name="text">
+      <string>Superscript</string>
+     </property>
+     <attribute name="buttonGroup">
+      <string notr="true">PositionGroup</string>
+     </attribute>
+    </widget>
+   </item>
+   <item>
+    <widget class="QRadioButton" name="OrdinalCheck">
+     <property name="enabled">
+      <bool>true</bool>
+     </property>
+     <property name="toolTip">
+      <string>Ordinals (ordn)</string>
+     </property>
+     <property name="text">
+      <string>Ordinals</string>
+     </property>
+     <attribute name="buttonGroup">
+      <string notr="true">PositionGroup</string>
+     </attribute>
+    </widget>
+   </item>
+   <item>
+    <widget class="Line" name="line_6">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QCheckBox" name="SlashedZeroCheck">
+     <property name="enabled">
+      <bool>true</bool>
+     </property>
+     <property name="toolTip">
+      <string>Slashed Zero (zero)</string>
+     </property>
+     <property name="text">
+      <string>Slashed Zero</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="Line" name="line_7">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QGroupBox" name="groupBox_7">
+     <property name="title">
+      <string>Stylistic sets</string>
+     </property>
+     <layout class="QGridLayout" name="gridLayout">
+      <item row="0" column="0">
+       <widget class="QCheckBox" name="StyleSet01">
+        <property name="text">
+         <string>1</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="QCheckBox" name="StyleSet05">
+        <property name="text">
+         <string>5</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="2">
+       <widget class="QCheckBox" name="StyleSet09">
+        <property name="text">
+         <string>9</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="3">
+       <widget class="QCheckBox" name="StyleSet13">
+        <property name="text">
+         <string>13</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="4">
+       <widget class="QCheckBox" name="StyleSet17">
+        <property name="text">
+         <string>17</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0">
+       <widget class="QCheckBox" name="StyleSet02">
+        <property name="text">
+         <string>2</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1">
+       <widget class="QCheckBox" name="StyleSet06">
+        <property name="text">
+         <string>6</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="2">
+       <widget class="QCheckBox" name="StyleSet10">
+        <property name="text">
+         <string>10</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="3">
+       <widget class="QCheckBox" name="StyleSet14">
+        <property name="text">
+         <string>14</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="4">
+       <widget class="QCheckBox" name="StyleSet18">
+        <property name="text">
+         <string>18</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="0">
+       <widget class="QCheckBox" name="StyleSet03">
+        <property name="text">
+         <string>3</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="1">
+       <widget class="QCheckBox" name="StyleSet07">
+        <property name="text">
+         <string>7</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="2">
+       <widget class="QCheckBox" name="StyleSet11">
+        <property name="text">
+         <string>11</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="3">
+       <widget class="QCheckBox" name="StyleSet15">
+        <property name="text">
+         <string>15</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="4">
+       <widget class="QCheckBox" name="StyleSet19">
+        <property name="text">
+         <string>19</string>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="0">
+       <widget class="QCheckBox" name="StyleSet04">
+        <property name="text">
+         <string>4</string>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="1">
+       <widget class="QCheckBox" name="StyleSet08">
+        <property name="text">
+         <string>8</string>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="2">
+       <widget class="QCheckBox" name="StyleSet12">
+        <property name="text">
+         <string>12</string>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="3">
+       <widget class="QCheckBox" name="StyleSet16">
+        <property name="text">
+         <string>16</string>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="4">
+       <widget class="QCheckBox" name="StyleSet20">
+        <property name="text">
+         <string>20</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+ <buttongroups>
+  <buttongroup name="PositionGroup"/>
+  <buttongroup name="CapitalsGroup"/>
+  <buttongroup name="FractionsGroup"/>
+  <buttongroup name="NumeralStyleGroup"/>
+  <buttongroup name="NumeralWidthGroup"/>
+ </buttongroups>
+</ui>

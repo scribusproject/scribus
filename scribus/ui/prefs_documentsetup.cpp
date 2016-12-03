@@ -10,6 +10,7 @@ for which a new license (GPL+exception) is in place.
 #include "ui/prefs_documentsetup.h"
 #include "commonstrings.h"
 #include "ui/newmarginwidget.h"
+#include "langmgr.h"
 #include "pagesize.h"
 #include "prefsfile.h"
 #include "prefsmanager.h"
@@ -41,6 +42,11 @@ Prefs_DocumentSetup::Prefs_DocumentSetup(QWidget* parent, ScribusDoc* doc)
 		pageSizeLinkToolButton->hide();
 		emergencyCheckBox->hide();
 	}
+
+	QStringList languageList;
+	LanguageManager::instance()->fillInstalledHyphStringList(&languageList);
+	languageList.sort();
+	languageComboBox->addItems( languageList );
 
 	pageLayoutButtonGroup->setId(singlePageRadioButton,0);
 	pageLayoutButtonGroup->setId(facingPagesRadioButton,1);
@@ -132,6 +138,8 @@ void Prefs_DocumentSetup::restoreDefaults(struct ApplicationPrefs *prefsData)
 	pageOrientationComboBox->blockSignals(true);
 	pageSizeComboBox->blockSignals(true);
 
+	setCurrentComboItem(languageComboBox, LanguageManager::instance()->getLangFromAbbrev(prefsData->docSetupPrefs.language, true));
+
 	unitRatio = unitGetRatioFromIndex(prefsData->docSetupPrefs.docUnitIndex);
 	setupPageSizes(prefsData);
 
@@ -204,6 +212,7 @@ void Prefs_DocumentSetup::restoreDefaults(struct ApplicationPrefs *prefsData)
 
 void Prefs_DocumentSetup::saveGuiToPrefs(struct ApplicationPrefs *prefsData) const
 {
+	prefsData->docSetupPrefs.language = LanguageManager::instance()->getAbbrevFromLang(languageComboBox->currentText(), false);
 	prefsData->docSetupPrefs.pageSize = prefsPageSizeName;
 	prefsData->docSetupPrefs.pageOrientation=pageOrientationComboBox->currentIndex();
 	prefsData->docSetupPrefs.docUnitIndex=pageUnitsComboBox->currentIndex();

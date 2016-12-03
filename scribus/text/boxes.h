@@ -10,11 +10,14 @@
 
 #include <QObject>
 
+#include "glyphcluster.h"
 #include "sctextstruct.h"
+#include "itextcontext.h"
+
 
 class StoryText;
 class TextLayoutPainter;
-
+class ScreenPainter;
 
 /**
  Class Box has a similar role as TeX's boxes.
@@ -47,6 +50,8 @@ public:
 		m_x = m_y = m_width = m_ascent = m_descent = 0;
 		m_firstChar = 0;
 		m_lastChar = 0;
+		m_naturalAscent = 0;
+		m_naturalDecent = 0;
 	}
 
 	virtual ~Box()
@@ -94,9 +99,9 @@ public:
 	bool containsPos(int pos) const { return firstChar() <= pos && pos <= lastChar(); }
 
 	/// Returns the character index at coorddinate.
-	virtual int pointToPosition(QPointF coord) const = 0;
+	virtual int pointToPosition(QPointF coord, const StoryText &story) const = 0;
 	/// Returns the position of cursor before the character at index pos.
-	virtual QLineF positionToPoint(int pos) const { return QLineF(); }
+	virtual QLineF positionToPoint(int, const StoryText&) const { return QLineF(); }
 
 	/// The first character within the box.
 	int firstChar() const { return m_firstChar == INT_MAX ? 0 : m_firstChar; }
@@ -105,6 +110,7 @@ public:
 
 	/// Sets the transformation matrix to applied to the box.
 	void setMatrix(QTransform x) { m_matrix = x; }
+
 	/// The transformation matrix applied to the box.
 	const QTransform& matrix() const { return m_matrix; }
 
@@ -120,15 +126,19 @@ public:
 	virtual void render(TextLayoutPainter *p) const = 0;
 
 	/// Same as render() but handles text selection, for rendering on screen.
-	virtual void render(TextLayoutPainter *p, PageItem *item) const = 0;
+	virtual void render(ScreenPainter *p, ITextContext *ctx) const = 0;
 
-	/// Return the box type
-	BoxType type() const { return m_type; }
+	/// Draw selection if the the box selected
+	virtual void drawSelection(ScreenPainter *p, ITextContext *ctx) const {}
 
-public slots:
-	virtual void childChanged() { }
-signals:
-	void boxChanged();
+	/// Get natural ascent and decent.
+	virtual double naturalAsc() const { return m_naturalAscent; }
+	virtual double naturalDecent() const { return m_naturalDecent; }
+
+//public slots:
+//	virtual void childChanged() { }
+//signals:
+//	void boxChanged();
 
 protected:
 	BoxType m_type;
@@ -142,6 +152,8 @@ protected:
 	int m_firstChar;
 	int m_lastChar;
 	QTransform m_matrix;
+	double m_naturalAscent;
+	double m_naturalDecent;
 };
 
 
@@ -157,14 +169,16 @@ public:
 		m_naturalWidth = m_naturalHeight = 0;
 	}
 
-	int pointToPosition(QPointF coord) const;
-	QLineF positionToPoint(int pos) const;
+	int pointToPosition(QPointF coord, const StoryText &story) const;
+	QLineF positionToPoint(int pos, const StoryText& story) const;
 
 	void render(TextLayoutPainter *p) const;
-	void render(TextLayoutPainter *p, PageItem *item) const;
+	void render(ScreenPainter *p, ITextContext *ctx) const;
+	void drawSelection(ScreenPainter *p, ITextContext *ctx) const;
+
 
 	double naturalWidth() const { return m_naturalWidth; }
-	double naturalHeight() const { return m_naturalHeight; }
+	double naturalHeight() const;
 
 //	void justify(const ParagraphStyle& style);
 
@@ -172,11 +186,6 @@ public:
 	virtual void addBox(const Box* box);
 	/// Remove the child at i.
 	virtual void removeBox(int i);
-
-	void childChanged()
-	{
-		update();
-	}
 
 protected:
 	double m_naturalWidth;
@@ -196,11 +205,14 @@ public:
 		m_type = T_Line;
 	}
 
-	int pointToPosition(QPointF coord) const;
-	QLineF positionToPoint(int pos) const;
+	int pointToPosition(QPointF coord, const StoryText &story) const;
+	QLineF positionToPoint(int pos, const StoryText& story) const;
+
+	bool containsPoint(QPointF coord) const;
 
 	void render(TextLayoutPainter *p) const;
-	void render(TextLayoutPainter *p, PageItem *item) const;
+	void render(ScreenPainter *p, ITextContext *ctx) const;
+	void drawSelection(ScreenPainter *p, ITextContext *ctx) const;
 
 	double naturalWidth() const { return m_naturalWidth; }
 	double naturalHeight() const { return height(); }
@@ -231,7 +243,7 @@ protected:
 class GlyphBox: public Box
 {
 public:
-	GlyphBox(const GlyphRun& run)
+	GlyphBox(const GlyphCluster& run)
 		: m_glyphRun(run)
 		, m_effects(run.style().effects())
 	{
@@ -239,35 +251,41 @@ public:
 		m_firstChar = run.firstChar();
 		m_lastChar = run.lastChar();
 		m_width = run.width();
+		m_naturalAscent = run.ascent();
+		m_naturalDecent = run.desent();
 	}
 
-	int pointToPosition(QPointF coord) const;
+	int pointToPosition(QPointF coord, const StoryText &story) const;
+	QLineF positionToPoint(int pos, const StoryText& story) const;
 
 	void render(TextLayoutPainter *p) const;
-	void render(TextLayoutPainter *p, PageItem *item) const;
+	void render(ScreenPainter *p, ITextContext *ctx) const;
+	void drawSelection(ScreenPainter *p, ITextContext *ctx) const;
+
+	GlyphCluster glyphRun() const { return m_glyphRun; }
 
 	const CharStyle& style() const { return m_glyphRun.style(); }
 
 protected:
-	GlyphRun m_glyphRun;
+	GlyphCluster m_glyphRun;
 	const StyleFlag m_effects;
 };
 
 class ObjectBox: public GlyphBox
 {
 public:
-	ObjectBox(const GlyphRun& run)
+	ObjectBox(const GlyphCluster& run, ITextContext* ctx)
 		: GlyphBox(run)
-		, m_item(run.object())
+		, m_object(ctx->object(run.object()))
 	{
 		m_type = T_Object;
 	}
 
 	void render(TextLayoutPainter *p) const;
-	void render(TextLayoutPainter*, PageItem *item) const;
+	void render(ScreenPainter*, ITextContext *ctx) const;
 
 private:
-	PageItem* m_item;
+	/* const */ PageItem* m_object;
 };
 
 #endif // BOXES_H

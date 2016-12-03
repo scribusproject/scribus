@@ -10,6 +10,7 @@ ColorChart.py
 DirectImageImport.py
 FontSample.py
 InfoBox.py
+Ligatursatz.py
 ChangeLog
 NEWS
 ReadMe

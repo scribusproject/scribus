@@ -83,8 +83,14 @@ QString Scribus150Format::saveElements(double xp, double yp, double wp, double h
 				uint chr = currItem->itemText.text(e).unicode();
 				if (chr == 25)
 				{
-                    if ((currItem->itemText.hasObject(e)) && (!emF.contains(currItem->itemText.object(e))))
-                        emF.append(currItem->itemText.object(e));
+					if ((currItem->itemText.hasObject(e)))
+					{
+						PageItem* pi = currItem->itemText.object(e).getPageItem(currItem->doc());
+						if (!emF.contains(pi))
+						{
+							emF.append(pi);
+						}
+					}
 				}
 			}
 		}
@@ -277,9 +283,9 @@ bool Scribus150Format::saveFile(const QString & fileName, const FileFormat & /* 
 	docu.writeAttribute("DISc",m_Doc->cmsSettings().DefaultIntentColors);
 	docu.writeAttribute("DIIm",m_Doc->cmsSettings().DefaultIntentImages);
 	docu.writeAttribute("ALAYER", m_Doc->activeLayer());
-	docu.writeAttribute("LANGUAGE", m_Doc->hyphLanguage());
-	docu.writeAttribute("MINWORDLEN", m_Doc->hyphMinimumWordLength());
-	docu.writeAttribute("HYCOUNT", m_Doc->hyphConsecutiveLines());
+	docu.writeAttribute("LANGUAGE", m_Doc->language());
+//	docu.writeAttribute("MINWORDLEN", m_Doc->hyphMinimumWordLength());
+//	docu.writeAttribute("HYCOUNT", m_Doc->hyphConsecutiveLines());
 	docu.writeAttribute("AUTOMATIC", static_cast<int>(m_Doc->hyphAutomatic()));
 	docu.writeAttribute("AUTOCHECK", static_cast<int>(m_Doc->hyphAutoCheck()));
 	docu.writeAttribute("GUIDELOCK", static_cast<int>(m_Doc->GuideLock));
@@ -663,6 +669,8 @@ void Scribus150Format::putPStyle(ScXmlStreamWriter & docu, const ParagraphStyle 
 
 	if ( ! style.isInhAlignment())
 		docu.writeAttribute("ALIGN", style.alignment());
+	if ( ! style.isInhDirection())
+		docu.writeAttribute("DIRECTION", style.direction());
 	if ( ! style.isInhLineSpacingMode())
 		docu.writeAttribute("LINESPMode", style.lineSpacingMode());
 	if ( ! style.isInhLineSpacing())
@@ -713,6 +721,8 @@ void Scribus150Format::putPStyle(ScXmlStreamWriter & docu, const ParagraphStyle 
 		docu.writeAttribute("NumerationHigher", static_cast<int>(style.numHigher()));
 	if ( ! style.isInhOpticalMargins())
 		docu.writeAttribute("OpticalMargins", style.opticalMargins());
+	if ( ! style.isInhHyphenConsecutiveLines())
+		docu.writeAttribute("HyphenConsecutiveLines", style.hyphenConsecutiveLines());
 	if ( ! style.isInhHyphenationMode())
 		docu.writeAttribute("HyphenationMode", style.hyphenationMode());
 	if ( ! style.isInhMinWordTracking())
@@ -783,12 +793,18 @@ void Scribus150Format::putCStyle(ScXmlStreamWriter & docu, const CharStyle & sty
 		docu.writeAttribute("FONT", style.font().scName());
 	if ( ! style.isInhFontSize())
 		docu.writeAttribute("FONTSIZE", style.fontSize() / 10.0);
+	if ( ! style.isInhFontFeatures())
+		docu.writeAttribute("FONTFEATURES", style.fontFeatures());
 	if ( ! style.isInhFeatures())
 		docu.writeAttribute("FEATURES", style.features().join(" "));
 	if ( ! style.isInhFillColor())
 		docu.writeAttribute("FCOLOR", style.fillColor());
 	if ( ! style.isInhFillShade())
 		docu.writeAttribute("FSHADE", style.fillShade());
+	if ( ! style.isInhHyphenChar())
+		docu.writeAttribute("HyphenChar", style.hyphenChar());
+	if ( ! style.isInhHyphenWordMin())
+		docu.writeAttribute("HyphenWordMin", style.hyphenWordMin());
 	if ( ! style.isInhStrokeColor())
 		docu.writeAttribute("SCOLOR", style.strokeColor());
 	if ( ! style.isInhBackColor())
@@ -1229,6 +1245,9 @@ void Scribus150Format::writeSections(ScXmlStreamWriter & docu)
 			case Type_1_2_3:
 				docu.writeAttribute("Type", "Type_1_2_3");
 				break;
+			case Type_1_2_3_ar:
+				docu.writeAttribute("Type", "Type_1_2_3_ar");
+				break;
 			case Type_i_ii_iii:
 				docu.writeAttribute("Type", "Type_i_ii_iii");
 				break;
@@ -1240,6 +1259,12 @@ void Scribus150Format::writeSections(ScXmlStreamWriter & docu)
 				break;
 			case Type_A_B_C:
 				docu.writeAttribute("Type", "Type_A_B_C");
+				break;
+			case Type_Alphabet_ar:
+				docu.writeAttribute("Type", "Type_Alphabet_ar");
+				break;
+			case Type_Abjad_ar:
+				docu.writeAttribute("Type", "Type_Abjad_ar");
 				break;
 			case Type_asterix:
 				docu.writeAttribute("Type", "Type_asterix");
@@ -1312,6 +1337,9 @@ void Scribus150Format::writeNotesStyles(ScXmlStreamWriter & docu)
 			case Type_1_2_3:
 				docu.writeAttribute("Type", "Type_1_2_3");
 				break;
+			case Type_1_2_3_ar:
+				docu.writeAttribute("Type", "Type_1_2_3_ar");
+				break;
 			case Type_i_ii_iii:
 				docu.writeAttribute("Type", "Type_i_ii_iii");
 				break;
@@ -1323,6 +1351,12 @@ void Scribus150Format::writeNotesStyles(ScXmlStreamWriter & docu)
 				break;
 			case Type_A_B_C:
 				docu.writeAttribute("Type", "Type_A_B_C");
+				break;
+			case Type_Alphabet_ar:
+				docu.writeAttribute("Type", "Type_Alphabet_ar");
+				break;
+			case Type_Abjad_ar:
+				docu.writeAttribute("Type", "Type_Abjad_ar");
 				break;
 			case Type_asterix:
 				docu.writeAttribute("Type", "Type_asterix");
@@ -1613,14 +1647,14 @@ void Scribus150Format::writeITEXTs(ScribusDoc *doc, ScXmlStreamWriter &docu, Pag
 			lastPos = k;
 		}
 
-		if (ch == SpecialChars::OBJECT && item->itemText.object(k) != NULL) 
+		if (ch == SpecialChars::OBJECT && item->itemText.object(k).getPageItem(doc) != NULL) 
 		{
 			// each obj in its own ITEXT for now
 			docu.writeEmptyElement("ITEXT");
 			putCStyle(docu, lastStyle);
 			tmpnum.setNum(ch.unicode());
 			docu.writeAttribute("Unicode", tmpnum);
-			docu.writeAttribute("COBJ", item->itemText.object(k)->inlineCharID);
+			docu.writeAttribute("COBJ", item->itemText.object(k).getInlineCharID());
 		}
 		else if (ch == SpecialChars::OBJECT && item->itemText.hasMark(k))
 		{
@@ -2655,8 +2689,6 @@ void Scribus150Format::SetItemProps(ScXmlStreamWriter& docu, PageItem* item, con
 		docu.writeAttribute("LOCK", 1);
 	if (item->sizeLocked())
 		docu.writeAttribute("LOCKR", 1);
-	if (item->reversed())
-		docu.writeAttribute("REVERS", 1);
 	if (item->fillTransparency() != 0)
 		docu.writeAttribute("TransValue", item->fillTransparency());
 	if (item->lineTransparency() != 0)

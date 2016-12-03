@@ -861,24 +861,20 @@ void Scribus134Format::readDocAttributes(ScribusDoc* doc, ScXmlStreamAttributes&
 	m_Doc->PageSpa = attrs.valueAsDouble("ABSTSPALTEN");
 	m_Doc->setUnitIndex( attrs.valueAsInt("UNITS", 0) );
 
-	//m_Doc->setHyphLanguage(attrs.valueAsString("LANGUAGE", ""));
 	static const QString LANGUAGE("LANGUAGE");
 	if (attrs.hasAttribute(LANGUAGE))
 	{
 		QString l(attrs.valueAsString(LANGUAGE));
 		if (LanguageManager::instance()->langTableIndex(l) != -1)
-			m_Doc->setHyphLanguage(l); //new style storage
+			m_Doc->setLanguage(l); //new style storage
 		else
 		{ //old style storage
-			QString lnew = LanguageManager::instance()->getAbbrevFromLang(l, true, false);
+			QString lnew = LanguageManager::instance()->getAbbrevFromLang(l, false);
 			if (lnew.isEmpty())
-				lnew = LanguageManager::instance()->getAbbrevFromLang(l, false, false);
-			m_Doc->setHyphLanguage(lnew);
+				lnew = LanguageManager::instance()->getAbbrevFromLang(l, false);
+			m_Doc->setLanguage(lnew);
 		}
 	}
-
-	m_Doc->setHyphMinimumWordLength(attrs.valueAsInt("MINWORDLEN", 3));
-	m_Doc->setHyphConsecutiveLines(attrs.valueAsInt("HYCOUNT", 2));
 
 	if (attrs.hasAttribute("PAGEWIDTH"))
 		m_Doc->setPageWidth(attrs.valueAsDouble("PAGEWIDTH"));
@@ -1272,9 +1268,9 @@ void Scribus134Format::readCharacterStyleAttrs(ScribusDoc *doc, ScXmlStreamAttri
 			newStyle.setLanguage(l); //new style storage
 		else
 		{ //old style storage
-			QString lnew = LanguageManager::instance()->getAbbrevFromLang(l, true, false);
+			QString lnew = LanguageManager::instance()->getAbbrevFromLang(l, true);
 			if (lnew.isEmpty())
-				lnew = LanguageManager::instance()->getAbbrevFromLang(l, false, false);
+				lnew = LanguageManager::instance()->getAbbrevFromLang(l, false);
 			newStyle.setLanguage(lnew);
 		}
 	}
@@ -2715,6 +2711,8 @@ PageItem* Scribus134Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 		pstyle.setLineSpacingMode(static_cast<ParagraphStyle::LineSpacingMode>(attrs.valueAsInt("LINESPMode", 0)));
 	if (attrs.hasAttribute("ALIGN"))
 		pstyle.setAlignment(static_cast<ParagraphStyle::AlignmentType>(attrs.valueAsInt("ALIGN", 0)));
+	if (attrs.valueAsBool("REVERS"))
+		pstyle.setDirection(ParagraphStyle::RTL);
 	if (attrs.hasAttribute("IFONT"))
 		pstyle.charStyle().setFont(m_AvailableFonts->findFont(attrs.valueAsString("IFONT"), doc));
 	if (attrs.hasAttribute("ISIZE"))
@@ -2894,7 +2892,6 @@ PageItem* Scribus134Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 	else
 		currItem->setTextFlowMode(PageItem::TextFlowDisabled);
 	currItem->DashOffset = attrs.valueAsDouble("DASHOFF", 0.0);
-	currItem->setReversed(attrs.valueAsBool("REVERS", false));
 	currItem->setLocked (attrs.valueAsBool("LOCK", false));
 	currItem->setSizeLocked(attrs.valueAsBool("LOCKR", false));
 	currItem->setFillTransparency(attrs.valueAsDouble("TransValue", 0.0));

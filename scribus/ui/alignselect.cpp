@@ -61,10 +61,16 @@ AlignSelect::AlignSelect(QWidget* parent) : QWidget(parent)
 	connect(buttonGroup, SIGNAL(buttonClicked(int)), this, SLOT(setTypeStyle(int)));
 }
 
-void AlignSelect::setStyle(int s)
+void AlignSelect::setStyle(int s, int d)
 {
 	if ((s >= 0) && (s < 5))
 		buttonGroup->button(s)->setChecked(true);
+
+	IconManager* im=IconManager::instance();
+	if (d == ParagraphStyle::RTL)
+		TextB->setIcon(im->loadIcon("16/format-justify-fill-block-right.png"));
+	else
+		TextB->setIcon(im->loadIcon("16/format-justify-fill-block.png"));
 }
 
 int AlignSelect::getStyle()

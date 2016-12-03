@@ -89,7 +89,7 @@ using namespace std;
 
 PageItem::PageItem(const PageItem & other)
 	: QObject(other.parent()),
-	 UndoObject(other), SingleObservable<PageItem>(other.m_Doc->itemsChanged()),
+	 UndoObject(other), SingleObservable<PageItem>(other.m_Doc->itemsChanged()), TextContext(this),
 
 // 200 attributes! That is madness, or to quote some famous people from Kriquet:
 // "THAT ALL HAS TO GO!"
@@ -350,7 +350,6 @@ PageItem::PageItem(const PageItem & other)
 	m_imageXOffset(other.m_imageXOffset),
 	m_imageYOffset(other.m_imageYOffset),
 	m_imageRotation(other.m_imageRotation),
-	m_isReversed(other.m_isReversed),
 	firstLineOffsetP(other.firstLineOffsetP),
 	m_groupClips(other.m_groupClips),
 	hatchBackgroundQ(other.hatchBackgroundQ),
@@ -389,7 +388,7 @@ PageItem::PageItem(const PageItem & other)
 
 PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double w, double h, double w2, QString fill, QString outline)
 	// Initialize superclass(es)
-	: QObject(pa), SingleObservable<PageItem>(pa->itemsChanged()),
+	: QObject(pa), SingleObservable<PageItem>(pa->itemsChanged()), TextContext(this),
 	// Initialize member variables
 	OverrideCompressionMethod(false),
 	CompressionMethodIndex(0),
@@ -630,7 +629,6 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 	LayerID = m_Doc->activeLayer();
 	ScaleType = true;
 	AspectRatio = true;
-	m_isReversed = false;
 	NamedLStyle = "";
 	DashValues.clear();
 	DashOffset = 0;
@@ -1157,19 +1155,6 @@ void PageItem::setImageRotation(const double newRotation)
 	if (m_Doc->isLoading())
 		return;
 	checkChanges();
-}
-
-void PageItem::setReversed(bool newReversed)
-{
-	if (m_isReversed == newReversed)
-		return;
-	if (UndoManager::undoEnabled())
-	{
-		SimpleState *ss = new SimpleState(Um::FlipH, 0, Um::IFlipH);
-		ss->set("REVERSE_TEXT", newReversed);
-		undoManager->action(this, ss);
-	}
-	m_isReversed = newReversed;
 }
 
 //return frame where is text end
@@ -2531,49 +2516,6 @@ QImage PageItem::DrawObj_toImage(QList<PageItem*> &emG, double scaling)
 	return retImg;
 }
 
-QString PageItem::ExpandToken(uint base)
-{
-	//uint zae = 0;
-	QChar ch = itemText.text(base);
-	QString chstr = ch;
-	if (ch == SpecialChars::PAGENUMBER)
-	{
-		// compatibility mode: ignore subsequent pagenumber chars
-		if (base > 0 && itemText.text(base-1) == SpecialChars::PAGENUMBER)
-			return "";
-		if ((!m_Doc->masterPageMode()) && (OwnPage != -1))
-		{
-			//CB Section numbering
-			//chstr = out.arg(m_Doc->getSectionPageNumberForPageIndex(OwnPage), -(int)zae);
-			chstr = QString("%1").arg(m_Doc->getSectionPageNumberForPageIndex(OwnPage),
-							m_Doc->getSectionPageNumberWidthForPageIndex(OwnPage),
-							m_Doc->getSectionPageNumberFillCharForPageIndex(OwnPage));
-		}
-		else
-			return "#";
-	}
-	else if (ch == SpecialChars::PAGECOUNT)
-	{
-		if (!m_Doc->masterPageMode())
-		{
-			int key = m_Doc->getSectionKeyForPageIndex(OwnPage);
-			if (key == -1)
-				return "%";
-			chstr = QString("%1").arg(getStringFromSequence(m_Doc->sections()[key].type, m_Doc->sections()[key].toindex - m_Doc->sections()[key].fromindex + 1));
-		}
-		else
-			return "%";
-	}
-	//check for marks
-	else if (ch == SpecialChars::OBJECT)
-	{
-		Mark* mark = itemText.mark(base);
-		if ((mark != NULL) && !mark->isType(MARKAnchorType) && !mark->isType(MARKIndexType))
-			chstr = mark->getString();
-	}
-	return chstr;
-}
-
 void PageItem::SetQColor(QColor *tmp, QString colorName, double shad)
 {
 	if (colorName == CommonStrings::None)
@@ -2586,113 +2528,6 @@ void PageItem::SetQColor(QColor *tmp, QString colorName, double shad)
 		VisionDefectColor defect;
 		*tmp = defect.convertDefect(*tmp, m_Doc->previewVisual);
 	}
-}
-
-/**
-    layout glyphs translates the chars into a number of glyphs, applying the Charstyle
-    'style'. The following fields are set in layout: glyph, scaleH, scaleV, xoffset, yoffset, xadvance.
-    If the DropCap-bit in style.effects is set and yadvance is > 0, scaleH/V, x/yoffset and xadvance
-    are modified to scale the glyphs to this height.
-    Otherwise yadvance is set to the max ascender of all generated glyphs.
-    It scales according to smallcaps and
-    sets xadvance to the advance width without kerning. If more than one glyph
-    is generated, kerning is included in all but the last xadvance.
-*/
-GlyphLayout PageItem::layoutGlyphs(const CharStyle& style, const QString& chars, LayoutFlags flags)
-{
-	GlyphLayout gl;
-	const ScFace font = style.font();
-	double asce = font.ascent(style.fontSize() / 10.0);
-	int chst = style.effects() & ScStyle_UserStyles;
-/*	if (chars[0] == SpecialChars::ZWSPACE ||
-		chars[0] == SpecialChars::ZWNBSPACE ||
-		chars[0] == SpecialChars::NBSPACE ||
-		chars[0] == SpecialChars::NBHYPHEN ||
-		chars[0] == SpecialChars::SHYPHEN ||
-		chars[0] == SpecialChars::PARSEP ||
-		chars[0] == SpecialChars::COLBREAK ||
-		chars[0] == SpecialChars::LINEBREAK ||
-		chars[0] == SpecialChars::FRAMEBREAK ||
-		chars[0] == SpecialChars::TAB)
-	{
-		layout.glyph = ScFace::CONTROL_GLYPHS + chars[0].unicode();
-	}
-	else */
-	{
-		gl.glyph = font.char2CMap(chars[0].unicode());
-	}
-	double tracking = 0.0;
-	if ( (flags & ScLayout_StartOfLine) == 0)
-		tracking = style.fontSize() * style.tracking() / 10000.0;
-
-	gl.xoffset = tracking;
-	gl.yoffset = 0;
-	if (chst != ScStyle_Default)
-	{
-		if (chst & ScStyle_Superscript)
-		{
-			gl.yoffset -= asce * m_Doc->typographicPrefs().valueSuperScript / 100.0;
-			gl.scaleV = gl.scaleH = qMax(m_Doc->typographicPrefs().scalingSuperScript / 100.0, 10.0 / style.fontSize());
-		}
-		else if (chst & ScStyle_Subscript)
-		{
-			gl.yoffset += asce * m_Doc->typographicPrefs().valueSubScript / 100.0;
-			gl.scaleV = gl.scaleH = qMax(m_Doc->typographicPrefs().scalingSubScript / 100.0, 10.0 / style.fontSize());
-		}
-		else {
-			gl.scaleV = gl.scaleH = 1.0;
-		}
-		gl.scaleH *= style.scaleH() / 1000.0;
-		gl.scaleV *= style.scaleV() / 1000.0;
-		if (chst & ScStyle_AllCaps)
-		{
-			gl.glyph = font.char2CMap(chars[0].toUpper().unicode());
-		}
-		if (chst & ScStyle_SmallCaps)
-		{
-			double smallcapsScale = m_Doc->typographicPrefs().valueSmallCaps / 100.0;
-			QChar uc = chars[0].toUpper();
-			if (uc != chars[0])
-			{
-				gl.glyph = font.char2CMap(chars[0].toUpper().unicode());
-				gl.scaleV *= smallcapsScale;
-				gl.scaleH *= smallcapsScale;
-			}
-		}
-	}
-	else {
-		gl.scaleH = style.scaleH() / 1000.0;
-		gl.scaleV = style.scaleV() / 1000.0;
-	}	
-	
-/*	if (layout.glyph == (ScFace::CONTROL_GLYPHS + SpecialChars::NBSPACE.unicode())) {
-		uint replGlyph = font.char2CMap(QChar(' '));
-		layout.xadvance = font.glyphWidth(replGlyph, style.fontSize() / 10);
-		layout.yadvance = font.glyphBBox(replGlyph, style.fontSize() / 10).ascent;
-	}
-	else if (layout.glyph == (ScFace::CONTROL_GLYPHS + SpecialChars::NBHYPHEN.unicode())) {
-		uint replGlyph = font.char2CMap(QChar('-'));
-		layout.xadvance = font.glyphWidth(replGlyph, style.fontSize() / 10);
-		layout.yadvance = font.glyphBBox(replGlyph, style.fontSize() / 10).ascent;
-	}
-	else if (layout.glyph >= ScFace::CONTROL_GLYPHS) {
-		layout.xadvance = 0;
-		layout.yadvance = 0;
-	}
-	else */
-	{
-		gl.xadvance = font.glyphWidth(gl.glyph, style.fontSize() / 10);
-		gl.yadvance = font.glyphBBox(gl.glyph, style.fontSize() / 10).ascent;
-	}
-	if (gl.scaleH == 0.0)
-	{
-		gl.xadvance = 0.0;
-		gl.scaleH = 1.0;
-	}
-	if (gl.xadvance > 0)
-		gl.xadvance += tracking / gl.scaleH;
-
-	return gl;
 }
 
 void PageItem::DrawPolyL(QPainter *p, QPolygon pts)
@@ -5217,8 +5052,6 @@ void PageItem::restore(UndoState *state, bool isUndo)
 				restoreLinkTextFrame(ss,isUndo);
 			else if (ss->contains("UNLINK_TEXT_FRAME"))
 				restoreUnlinkTextFrame(ss,isUndo);
-			else if (ss->contains("REVERSE_TEXT"))
-				restoreReverseText(ss, isUndo);
 			else if (ss->contains("CLEAR_IMAGE"))
 				restoreClearImage(ss,isUndo);
 			else if (ss->contains("PASTE_INLINE"))
@@ -7354,13 +7187,6 @@ void PageItem::restoreVerticalAlign(SimpleState *ss, bool isUndo)
 	else
 		verticalAlign = ss->getInt("NEW_VERTALIGN");
 	update();
-}
-
-void PageItem::restoreReverseText(UndoState *state, bool /*isUndo*/)
-{
-	if (!isTextFrame())
-		return;
-	m_isReversed = !m_isReversed;
 }
 
 void PageItem::restorePathOperation(UndoState *state, bool isUndo)

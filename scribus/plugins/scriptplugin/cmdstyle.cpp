@@ -98,6 +98,7 @@ PyObject *scribus_createcharstyle(PyObject* /* self */, PyObject* args, PyObject
 					  							const_cast<char*>("name"),
 					  							const_cast<char*>("font"),
 					  							const_cast<char*>("fontsize"),
+												const_cast<char*>("fontfeatures"),
 					  							const_cast<char*>("features"),
 					  							const_cast<char*>("fillcolor"),
 					  							const_cast<char*>("fillshade"),
@@ -116,7 +117,7 @@ PyObject *scribus_createcharstyle(PyObject* /* self */, PyObject* args, PyObject
 					  							const_cast<char*>("tracking"),
 					  							const_cast<char*>("language"),
 					  						NULL};
-	char *Name = const_cast<char*>(""), *Font = const_cast<char*>("Times"), *Features = const_cast<char*>("inherit"), *FillColor = const_cast<char*>("Black"), *StrokeColor = const_cast<char*>("Black"), *Language = const_cast<char*>("");
+	char *Name = const_cast<char*>(""), *Font = const_cast<char*>("Times"), *Features = const_cast<char*>("inherit"), *FillColor = const_cast<char*>("Black"), *FontFeatures = const_cast<char*>(""), *StrokeColor = const_cast<char*>("Black"), *Language = const_cast<char*>("");
 	double FontSize = 200, FillShade = 1, StrokeShade = 1, ScaleH = 1, ScaleV = 1, BaselineOffset = 0, ShadowXOffset = 0, ShadowYOffset = 0, OutlineWidth = 0, UnderlineOffset = 0, UnderlineWidth = 0, StrikethruOffset = 0, StrikethruWidth = 0, Tracking = 0;
 	if (!PyArg_ParseTupleAndKeywords(args, keywords, "es|esdesesdesddddddddddddes", keywordargs,
 																									"utf-8", &Name, "utf-8", &Font, &FontSize, "utf-8", &Features,
@@ -138,6 +139,7 @@ PyObject *scribus_createcharstyle(PyObject* /* self */, PyObject* args, PyObject
 	TmpCharStyle.setName(Name);
 	TmpCharStyle.setFont((*ScCore->primaryMainWindow()->doc->AllFonts)[QString(Font)]);
 	TmpCharStyle.setFontSize(FontSize * 10);
+	TmpCharStyle.setFontFeatures(FontFeatures);
 	TmpCharStyle.setFeatures(FeaturesList);
 	TmpCharStyle.setFillColor(QString(FillColor));
 	TmpCharStyle.setFillShade(FillShade * 100);

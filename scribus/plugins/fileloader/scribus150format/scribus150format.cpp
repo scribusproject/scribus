@@ -2039,24 +2039,20 @@ void Scribus150Format::readDocAttributes(ScribusDoc* doc, ScXmlStreamAttributes&
 	m_Doc->PageSpa = attrs.valueAsDouble("ABSTSPALTEN");
 	m_Doc->setUnitIndex( attrs.valueAsInt("UNITS", 0) );
 
-	//m_Doc->setHyphLanguage(attrs.valueAsString("LANGUAGE", "en_US"));
 	static const QString LANGUAGE("LANGUAGE");
 	if (attrs.hasAttribute(LANGUAGE))
 	{
 		QString l(attrs.valueAsString(LANGUAGE));
 		if (LanguageManager::instance()->langTableIndex(l) != -1)
-			m_Doc->setHyphLanguage(l); //new style storage
+			m_Doc->setLanguage(l); //new style storage
 		else
 		{ //old style storage
-			QString lnew = LanguageManager::instance()->getAbbrevFromLang(l, true, false);
+			QString lnew = LanguageManager::instance()->getAbbrevFromLang(l, false);
 			if (lnew.isEmpty())
-				lnew = LanguageManager::instance()->getAbbrevFromLang(l, false, false);
-			m_Doc->setHyphLanguage(lnew);
+				lnew = LanguageManager::instance()->getAbbrevFromLang(l, false);
+			m_Doc->setLanguage(lnew);
 		}
 	}
-
-	m_Doc->setHyphMinimumWordLength(attrs.valueAsInt("MINWORDLEN", 3));
-	m_Doc->setHyphConsecutiveLines(attrs.valueAsInt("HYCOUNT", 2));
 
 	if (attrs.hasAttribute("PAGEWIDTH"))
 		m_Doc->setPageWidth(attrs.valueAsDouble("PAGEWIDTH"));
@@ -2444,9 +2440,21 @@ void Scribus150Format::readCharacterStyleAttrs(ScribusDoc *doc, ScXmlStreamAttri
 	if (attrs.hasAttribute(FONTSIZE))
 		newStyle.setFontSize(qRound(attrs.valueAsDouble(FONTSIZE) * 10));
 
+	static const QString FONTFEATURES("FONTFEATURES");
+	if (attrs.hasAttribute(FONTFEATURES))
+		newStyle.setFontFeatures(attrs.valueAsString(FONTFEATURES));
+
 	static const QString FCOLOR("FCOLOR");
 	if (attrs.hasAttribute(FCOLOR))
 		newStyle.setFillColor(attrs.valueAsString(FCOLOR));
+
+	static const QString HyphenChar("HyphenChar");
+	if (attrs.hasAttribute(HyphenChar))
+		newStyle.setHyphenChar(attrs.valueAsInt(HyphenChar));
+
+	static const QString HyphenWordMin("HyphenWordMin");
+	if (attrs.hasAttribute(HyphenWordMin))
+		newStyle.setHyphenWordMin(attrs.valueAsInt(HyphenWordMin));
 
 	static const QString KERN("KERN");
 	if (attrs.hasAttribute(KERN))
@@ -2531,11 +2539,12 @@ void Scribus150Format::readCharacterStyleAttrs(ScribusDoc *doc, ScXmlStreamAttri
 			newStyle.setLanguage(l); //new style storage
 		else
 		{ //old style storage
-			QString lnew=LanguageManager::instance()->getAbbrevFromLang(l, true, false);
+			QString lnew=LanguageManager::instance()->getAbbrevFromLang(l, false);
 			if (lnew.isEmpty())
-				lnew=LanguageManager::instance()->getAbbrevFromLang(l, false, false);
+				lnew=LanguageManager::instance()->getAbbrevFromLang(l, false);
 			newStyle.setLanguage(lnew);
 		}
+
 	}
 
 	static const QString SHORTCUT("SHORTCUT");
@@ -2619,6 +2628,10 @@ void Scribus150Format::readParagraphStyle(ScribusDoc *doc, ScXmlStreamReader& re
 	static const QString ALIGN("ALIGN");
 	if (attrs.hasAttribute(ALIGN))
 		newStyle.setAlignment(static_cast<ParagraphStyle::AlignmentType>(attrs.valueAsInt(ALIGN)));
+
+	static const QString DIRECTION("DIRECTION");
+	if (attrs.hasAttribute(DIRECTION))
+		newStyle.setDirection(static_cast<ParagraphStyle::DirectionType>(attrs.valueAsInt(DIRECTION)));
 
 	static const QString VOR("VOR");
 	if (attrs.hasAttribute(VOR))
@@ -2711,6 +2724,10 @@ void Scribus150Format::readParagraphStyle(ScribusDoc *doc, ScXmlStreamReader& re
 	static const QString OpticalMargins("OpticalMargins");
 	if (attrs.hasAttribute(OpticalMargins))
 		newStyle.setOpticalMargins(attrs.valueAsInt(OpticalMargins));
+
+	static const QString HyphenConsecutiveLines("HyphenConsecutiveLines");
+	if (attrs.hasAttribute(HyphenConsecutiveLines))
+		newStyle.setHyphenConsecutiveLines(attrs.valueAsInt(HyphenConsecutiveLines));
 
 	static const QString HyphenationMode("HyphenationMode");
 	if (attrs.hasAttribute(HyphenationMode))
@@ -3333,6 +3350,8 @@ bool Scribus150Format::readNotesStyles(ScribusDoc* doc, ScXmlStreamReader& reade
 			QString type = attrs.valueAsString("Type");
 			if (type == "Type_1_2_3")
 				NS.setType(Type_1_2_3);
+			else if (type == "Type_1_2_3_ar")
+				NS.setType(Type_1_2_3_ar);
 			else if (type == "Type_i_ii_iii")
 				NS.setType(Type_i_ii_iii);
 			else if (type == "Type_I_II_III")
@@ -3341,6 +3360,10 @@ bool Scribus150Format::readNotesStyles(ScribusDoc* doc, ScXmlStreamReader& reade
 				NS.setType(Type_a_b_c);
 			else if (type == "Type_A_B_C")
 				NS.setType(Type_A_B_C);
+			else if (type == "Type_Alphabet_ar")
+				NS.setType(Type_Alphabet_ar);
+			else if (type == "Type_Abjad_ar")
+				NS.setType(Type_Abjad_ar);
 			else if (type == "Type_asterix")
 				NS.setType(Type_asterix);
 			else if (type == "Type_CJK")
@@ -3495,6 +3518,8 @@ bool Scribus150Format::readSections(ScribusDoc* doc, ScXmlStreamReader& reader)
 			QString type = attrs.valueAsString("Type");
 			if (type == "Type_1_2_3")
 				newSection.type=Type_1_2_3;
+			if (type == "Type_1_2_3_ar")
+				newSection.type=Type_1_2_3_ar;
 			if (type == "Type_i_ii_iii")
 				newSection.type=Type_i_ii_iii;
 			if (type == "Type_I_II_III")
@@ -3503,6 +3528,10 @@ bool Scribus150Format::readSections(ScribusDoc* doc, ScXmlStreamReader& reader)
 				newSection.type=Type_a_b_c;
 			if (type == "Type_A_B_C")
 				newSection.type=Type_A_B_C;
+			if (type == "Type_Alphabet_ar")
+				newSection.type=Type_Alphabet_ar;
+			if (type == "Type_Abjad_ar")
+				newSection.type=Type_Abjad_ar;
 			if (type == "Type_CJK")
 				newSection.type=Type_CJK;
 			if (type == "Type_None")
@@ -4943,6 +4972,10 @@ PageItem* Scribus150Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 		pstyle.setLineSpacingMode(static_cast<ParagraphStyle::LineSpacingMode>(attrs.valueAsInt("LINESPMode", 0)));
 	if (attrs.hasAttribute("ALIGN"))
 		pstyle.setAlignment(static_cast<ParagraphStyle::AlignmentType>(attrs.valueAsInt("ALIGN", 0)));
+	if (attrs.valueAsBool("REVERS"))
+		pstyle.setDirection(ParagraphStyle::RTL);
+	if (attrs.hasAttribute("DIRECTION"))
+		pstyle.setDirection(static_cast<ParagraphStyle::DirectionType>(attrs.valueAsInt("DIRECTION", 0)));
 	if (attrs.hasAttribute("IFONT"))
 		pstyle.charStyle().setFont(m_AvailableFonts->findFont(attrs.valueAsString("IFONT"), doc));
 	if (attrs.hasAttribute("ISIZE"))
@@ -5223,7 +5256,6 @@ PageItem* Scribus150Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 	}
 	else
 		currItem->setTextFlowMode(PageItem::TextFlowDisabled);
-	currItem->setReversed(attrs.valueAsBool("REVERS", false));
 	currItem->setLocked (attrs.valueAsBool("LOCK", false));
 	currItem->setSizeLocked(attrs.valueAsBool("LOCKR", false));
 	currItem->fillRule    = attrs.valueAsBool("fillRule", true);

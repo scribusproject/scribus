@@ -12,7 +12,8 @@ SMAlignSelect::SMAlignSelect(QWidget *parent)
 : AlignSelect(parent),
   m_hasParent(false),
   m_useParentStyle(false),
-  m_pStyle(0)
+  m_pStyle(0),
+  m_pDirection(0)
 {
 	parentButton = new QToolButton(this);
 	parentButton->setMaximumSize( QSize( 22, 22 ) );
@@ -24,38 +25,41 @@ SMAlignSelect::SMAlignSelect(QWidget *parent)
 	parentButton->hide();
 }
 
-void SMAlignSelect::setStyle(int i)
+void SMAlignSelect::setStyle(int a, int d)
 {
 	disconnect(this, SIGNAL(State(int)), this, SLOT(styleChanged()));
 	disconnect(parentButton, SIGNAL(pressed()), this, SLOT(pbPressed()));
 	setFont(false);
 	m_hasParent = false;
 	m_pStyle = 0;
+	m_pDirection = 0;
 	parentButton->hide();
-	AlignSelect::setStyle(i);
+	AlignSelect::setStyle(a, d);
 }
 
-void SMAlignSelect::setStyle(int i, bool isParentValue)
+void SMAlignSelect::setStyle(int a, int d, bool isParentValue)
 {
 	disconnect(this, SIGNAL(State(int)), this, SLOT(styleChanged()));
 	disconnect(parentButton, SIGNAL(pressed()), this, SLOT(pbPressed()));
 	m_hasParent = true;
-	m_pStyle = i;
+	m_pStyle = a;
+	m_pDirection = d;
 	setFont(!isParentValue);
 	if (isParentValue)
 		parentButton->hide();
 	else
 		parentButton->show();
 
-	AlignSelect::setStyle(i);
+	AlignSelect::setStyle(a, d);
 	connect(this, SIGNAL(State(int)), this, SLOT(styleChanged()));
 	connect(parentButton, SIGNAL(pressed()), this, SLOT(pbPressed()));
 }
 
-void SMAlignSelect::setParentItem(int i)
+void SMAlignSelect::setParentItem(int a, int d)
 {
 	m_hasParent = true;
-	m_pStyle = i;
+	m_pStyle = a;
+	m_pDirection = d;
 }
 
 bool SMAlignSelect::useParentValue()
@@ -63,7 +67,7 @@ bool SMAlignSelect::useParentValue()
 	bool ret = m_useParentStyle;
 	m_useParentStyle = false;
 	if (ret)
-		setStyle(m_pStyle, true);
+		setStyle(m_pStyle, m_pDirection, true);
 
 	return ret;
 }

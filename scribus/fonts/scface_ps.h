@@ -31,8 +31,8 @@
 class ScFace_postscript : public FtFace
 {
 	public:
-		ScFace_postscript(QString fam, QString sty, QString alt, QString scname, QString psname, QString path, int face) :
-		FtFace(fam,sty,alt,scname,psname,path,face)
+		ScFace_postscript(QString fam, QString sty, QString alt, QString scname, QString psname, QString path, int face, QStringList features) :
+		FtFace(fam,sty,alt,scname,psname,path,face,features)
 		{
 			isFixedPitch = false;
 			typeCode = ScFace::TYPE1;
@@ -110,8 +110,8 @@ class ScFace_postscript : public FtFace
 class ScFace_pfb : public ScFace_postscript
 {
 	public:
-		ScFace_pfb(QString fam, QString sty, QString alt, QString scname, QString psname, QString path, int face) :
-		ScFace_postscript(fam,sty,alt,scname,psname,path,face)
+		ScFace_pfb(QString fam, QString sty, QString alt, QString scname, QString psname, QString path, int face, QStringList features) :
+		ScFace_postscript(fam,sty,alt,scname,psname,path,face,features)
 		{
 			formatCode = ScFace::PFB;
 		}
@@ -197,8 +197,8 @@ class ScFace_pfb : public ScFace_postscript
 class ScFace_pfa : public ScFace_postscript
 {
 	public:
-		ScFace_pfa(QString fam, QString sty, QString alt, QString scname, QString psname, QString path, int face) :
-		ScFace_postscript(fam,sty,alt,scname,psname,path,face)
+		ScFace_pfa(QString fam, QString sty, QString alt, QString scname, QString psname, QString path, int face, QStringList features) :
+		ScFace_postscript(fam,sty,alt,scname,psname,path,face,features)
 		{
 			formatCode = ScFace::PFA;
 		}

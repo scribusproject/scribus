@@ -44,6 +44,8 @@ public:
 	static QChar NBSPACE;
 	static QChar ZWNBSPACE;
 	static QChar ZWSPACE;
+	static QChar ZWNJ;			// break ligatures
+	static QChar ZWJ;
 	static QChar PAGENUMBER;
 	static QChar PAGECOUNT;
 	static QChar BLANK;
@@ -74,6 +76,9 @@ public:
 			CJK_NOBREAK_AFTER = 0x0200,
 		};
 		static int getCJKAttr(QChar c);
+
+	static bool isCJK(uint ch);
+	static bool isIgnorableCodePoint(uint ch);
 };
 
 #endif

@@ -38,6 +38,7 @@ pageitem.cpp  -  description
 #include "desaxe/saxiohelper.h"
 #include "desaxe/digester.h"
 #include "desaxe/simple_actions.h"
+#include "shapedtextcache.h"
 
 
 StoryText::StoryText(ScribusDoc * doc_) : m_doc(doc_)
@@ -52,6 +53,8 @@ StoryText::StoryText(ScribusDoc * doc_) : m_doc(doc_)
 	}
 	m_selFirst = 0;
 	m_selLast = -1;
+	
+	m_shapedTextCache = new ShapedTextCache();
 	
 //	m_firstFrameItem = 0;
 //	m_lastFrameItem = -1;
@@ -79,6 +82,7 @@ StoryText::StoryText(const StoryText & other) : QObject(), SaxIO(), m_doc(other.
 {
 	d = other.d;
 	d->refs++;
+	m_text = other.m_text;
 	
 	if (m_doc) {
 		m_doc->paragraphStyles().connect(this, SLOT(invalidateAll()));
@@ -143,6 +147,7 @@ StoryText& StoryText::operator= (const StoryText & other)
 	
 	m_doc = other.m_doc; 
 	d = other.d;
+	m_text = other.m_text;
 	
 	if (m_doc) {
 		m_doc->paragraphStyles().connect(this, SLOT(invalidateAll()));
@@ -167,7 +172,17 @@ int StoryText::cursorPosition() const
 void StoryText::setCursorPosition(int pos, bool relative)
 {
 	if (relative)
+	{
+		bool forward = (pos >= 0);
 		pos += d->cursorPosition;
+		if (isLowSurrogate(pos) && isHighSurrogate(pos - 1))
+		{
+			if (forward)
+				pos += 1;
+			else
+				pos -= 1;
+		}
+	}
 	d->cursorPosition = qMin((uint) qMax(pos, 0), d->len);
 }
 
@@ -179,6 +194,97 @@ void StoryText::normalizeCursorPosition()
 int StoryText::normalizedCursorPosition()
 {
 	return (int) qMax((uint) 0, qMin(d->cursorPosition, d->len));
+}
+
+void StoryText::moveCursorForward()
+{
+	BreakIterator* it = getGraphemeIterator();
+	if (!it)
+		return;
+
+	it->setText((const UChar*) plainText().utf16());
+	int pos = it->following(cursorPosition());
+	if (pos != BreakIterator::DONE)
+		setCursorPosition(pos);
+}
+
+void StoryText::moveCursorBackward()
+{
+	BreakIterator* it = getGraphemeIterator();
+	if (!it)
+		return;
+
+	it->setText((const UChar*) plainText().utf16());
+	int pos = it->preceding(cursorPosition());
+	if (pos != BreakIterator::DONE)
+		setCursorPosition(pos);
+}
+
+void StoryText::moveCursorLeft()
+{
+	if (paragraphStyle().direction() == ParagraphStyle::RTL)
+		moveCursorForward();
+	else
+		moveCursorBackward();
+}
+
+void StoryText::moveCursorRight()
+{
+	if (paragraphStyle().direction() == ParagraphStyle::RTL)
+		moveCursorBackward();
+	else
+		moveCursorForward();
+}
+
+void StoryText::moveCursorWordLeft()
+{
+	BreakIterator* it = getWordIterator();
+	if (!it)
+		return;
+	it->setText((const UChar*) plainText().utf16());
+	int pos = cursorPosition();
+	if (paragraphStyle().direction() == ParagraphStyle::RTL)
+	{
+		pos = it->following(pos);
+		if (pos < length() && text(pos).isSpace())
+			pos += 1;
+	}
+	else
+	{
+		pos = cursorPosition();
+		if (pos > 0 && text(pos - 1).isSpace())
+			pos -= 1;
+		pos = it->preceding(pos);
+	}
+
+	if (pos != BreakIterator::DONE)
+		setCursorPosition(pos);
+}
+
+void StoryText::moveCursorWordRight()
+{
+	BreakIterator* it = getWordIterator();
+	if (!it)
+		return;
+
+	it->setText((const UChar*) plainText().utf16());
+	int pos = cursorPosition();
+	if (paragraphStyle().direction() == ParagraphStyle::RTL)
+	{
+		pos = cursorPosition();
+		if (pos > 0 && text(pos - 1).isSpace())
+			pos -= 1;
+		pos = it->preceding(pos);
+	}
+	else
+	{
+		pos = it->following(pos);
+		if (pos < length() && text(pos).isSpace())
+			pos += 1;
+	}
+
+	if (pos != BreakIterator::DONE)
+		setCursorPosition(pos);
 }
 
 void StoryText::clear()
@@ -194,6 +300,7 @@ void StoryText::clear()
 
 	d->clear();
 	d->len = 0;
+	m_text.clear();
 	invalidateAll();
 }
 
@@ -306,7 +413,7 @@ void StoryText::insert(int pos, const StoryText& other, bool onlySelection)
 	int otherStart  = onlySelection? other.startOfSelection() : 0;
 	int otherEnd    = onlySelection? other.endOfSelection() : other.length();
 	int cstyleStart = otherStart;
-	for (int i=otherStart; i < otherEnd; ++i) {
+	for (int i = otherStart; i < otherEnd; ++i) {
 		if (other.charStyle(i) == cstyle 
 			&& other.text(i) != SpecialChars::OBJECT
 			&& other.text(i) != SpecialChars::PARSEP)
@@ -410,7 +517,7 @@ void StoryText::removeChars(int pos, uint len)
 	if (pos + static_cast<int>(len) > length())
 		len = length() - pos;
 
-	for ( int i=pos + static_cast<int>(len) - 1; i >= pos; --i )
+	for ( int i = pos + static_cast<int>(len) - 1; i >= pos; --i )
 	{
 		ScText *it = d->at(i);
 		if ((it->ch == SpecialChars::PARSEP))
@@ -436,6 +543,7 @@ void StoryText::removeChars(int pos, uint len)
 		m_selLast  = -1;
 	}
 	invalidate(pos, length());
+	m_text.remove(pos, len);
 }
 
 void StoryText::trim()
@@ -492,17 +600,20 @@ void StoryText::insertChars(int pos, QString txt, bool applyNeighbourStyle) //, 
 
 	for (int i = 0; i < txt.length(); ++i) {
 		ScText * item = new ScText(clone);
-		item->ch= txt.at(i);
+		QChar tmpch = txt.at(i);
+		item->ch = tmpch;
 		item->setContext(cStyleContext);
 		d->insert(pos + i, item);
 		d->len++;
 		if (item->ch == SpecialChars::PARSEP) {
 //			qDebug() << QString("new PARSEP %2 at %1").arg(pos).arg(paragraphStyle(pos).name());
 			insertParSep(pos + i);
+			tmpch = QLatin1Char('\n');
 		}
 		if (d->cursorPosition >= static_cast<uint>(pos + i)) {
 			d->cursorPosition += 1;
 		}
+		m_text += tmpch;
 	}
 
 	d->len = d->count();
@@ -555,10 +666,14 @@ void StoryText::insertCharsWithSoftHyphens(int pos, QString txt, bool applyNeigh
 			d->insert(index, item);
 			d->len++;
 			if (item->ch == SpecialChars::PARSEP)
+			{
 				insertParSep(index);
+				ch = QLatin1Char('\n');
+			}
 			if (d->cursorPosition >= static_cast<uint>(index))
 				d->cursorPosition += 1;
 			++inserted;
+			m_text += ch;
 		}
 	}
 
@@ -587,6 +702,9 @@ void StoryText::replaceChar(int pos, QChar ch)
 	}
 	
 	invalidate(pos, pos + 1);
+	if (ch == SpecialChars::PARSEP)
+		ch = QLatin1Char('\n');
+	m_text[pos] = ch;
 }
 
 int StoryText::replaceWord(int pos, QString newWord)
@@ -594,14 +712,14 @@ int StoryText::replaceWord(int pos, QString newWord)
 	int eoWord=pos;
 	while(eoWord < length())
 	{
-		if (text(eoWord).isLetterOrNumber())
+		if (text(eoWord).isLetterOrNumber() || SpecialChars::isIgnorableCodePoint(text(eoWord).unicode()))
 			++eoWord;
 		else
 			break;
 	}
-	QString word=text(pos,eoWord-pos);
-	int lengthDiff=newWord.length()-word.length();
-	if (lengthDiff==0)
+	QString word = text(pos, eoWord - pos);
+	int lengthDiff = newWord.length() - word.length();
+	if (lengthDiff == 0)
 	{
 		for (int j = 0; j < word.length(); ++j)
 			replaceChar(pos+j, newWord[j]);
@@ -692,30 +810,14 @@ int StoryText::length() const
 
 QString StoryText::plainText() const
 {
-	if (length() <= 0)
-		return QString();
-
-	QChar   ch;
-	QString result;
-
-	int len = length();
-	result.reserve(len);
-
-	StoryText* that(const_cast<StoryText*>(this));
-	for (int i = 0; i < len; ++i) {
-		ch = that->d->at(i)->ch;
-		if (ch == SpecialChars::PARSEP)
-			ch = QLatin1Char('\n');
-		result += ch;
-	}
-
-	return result;
+	return m_text;
 }
-
+#if 0
 QChar StoryText::text() const
 {
 	return text(d->cursorPosition);
 }
+#endif
 
 QChar StoryText::text(int pos) const
 {
@@ -744,6 +846,59 @@ QString StoryText::text(int pos, uint len) const
 
 	return result;
 }
+
+
+bool StoryText::isBlockStart(int pos) const 
+{
+	return pos  == 0 || text(pos-1) == SpecialChars::PARSEP;
+}
+
+
+int StoryText::nextBlockStart(int pos) const
+{
+	int result = pos + 1;
+	while (result < length() && !isBlockStart(result))
+		++result;
+	
+	// lump empty (or small) paragraphs together
+	while (result+1 < length() && isBlockStart(result+1))
+		++result;
+	
+	return result;
+}
+
+
+InlineFrame StoryText::object(int pos) const
+{
+	  if (pos < 0)
+                pos += length();
+
+        assert(pos >= 0);
+        assert(pos < length());
+
+        StoryText* that = const_cast<StoryText *>(this);
+        return InlineFrame(that->d->at(pos)->embedded);
+}
+
+
+bool StoryText::hasExpansionPoint(int pos) const
+{
+	return text(pos) == SpecialChars::PAGENUMBER || text(pos) == SpecialChars::PAGECOUNT || hasMark(pos);
+}
+
+
+ExpansionPoint StoryText::expansionPoint(int pos) const
+{
+	if (text(pos) == SpecialChars::PAGENUMBER)
+		return ExpansionPoint(ExpansionPoint::PageNumber);
+	else if( text(pos) == SpecialChars::PAGECOUNT)
+		return ExpansionPoint(ExpansionPoint::PageCount);
+	else if (hasMark(pos))
+		return ExpansionPoint(mark(pos));
+	else
+		return ExpansionPoint(ExpansionPoint::Invalid);
+}
+
 
 QString StoryText::sentence(int pos, int &posn)
 {
@@ -789,7 +944,8 @@ bool StoryText::hasObject(int pos) const
 	return false;
 }
 
-PageItem* StoryText::object(int pos) const
+
+PageItem* StoryText::getItem(int pos) const
 {
 	if (pos < 0)
 		pos += length();
@@ -800,6 +956,7 @@ PageItem* StoryText::object(int pos) const
 	StoryText* that = const_cast<StoryText *>(this);
 	return that->d->at(pos)->getItem(m_doc);
 }
+
 
 bool StoryText::hasMark(int pos, Mark* mrk) const
 {
@@ -828,6 +985,47 @@ Mark* StoryText::mark(int pos) const
 }
 
 
+void StoryText::applyMarkCharstyle(Mark* mrk, CharStyle& currStyle) const
+{
+	TextNote* note = mrk->getNotePtr();
+	if (note == NULL)
+		return;
+	
+	NotesStyle* nStyle = note->notesStyle();
+	Q_ASSERT(nStyle != NULL);
+	
+	QString chsName = nStyle->marksChStyle();
+	if (!chsName.isEmpty())
+	{
+		CharStyle marksStyle(m_doc->charStyle(chsName));
+		if (!currStyle.equiv(marksStyle))
+		{
+			currStyle.setParent(chsName);
+		}
+	}
+	
+	StyleFlag s(currStyle.effects());
+	if (mrk->isType(MARKNoteMasterType))
+	{
+		if (nStyle->isSuperscriptInMaster())
+			s |= ScStyle_Superscript;
+		else
+			s &= ~ScStyle_Superscript;
+	}
+	else
+	{
+		if (nStyle->isSuperscriptInNote())
+			s |= ScStyle_Superscript;
+		else
+			s &= ~ScStyle_Superscript;
+	}
+	if (s != currStyle.effects())
+	{
+		currStyle.setFeatures(s.featureList());
+	}
+}
+
+
 void StoryText::replaceMark(int pos, Mark* mrk)
 {
     if (pos < 0)
@@ -837,6 +1035,17 @@ void StoryText::replaceMark(int pos, Mark* mrk)
     assert(pos < length());
 
     this->d->at(pos)->mark = mrk;
+}
+
+
+bool StoryText::isHighSurrogate(int pos) const
+{
+	return pos >= 0 && pos < length() && text(pos).isHighSurrogate();
+}
+
+bool StoryText::isLowSurrogate(int pos) const
+{
+	return pos >= 0 && pos < length() && text(pos).isLowSurrogate();
 }
 
 
@@ -909,9 +1118,18 @@ const CharStyle & StoryText::charStyle(int pos) const
 		qDebug() << "storytext::charstyle: access at end of text %i" << pos;
 		--pos;
 	}
+	
 	if (text(pos) == SpecialChars::PARSEP)
 		return paragraphStyle(pos).charStyle();
+	
 	StoryText* that = const_cast<StoryText *>(this);
+
+	if (hasMark(pos))
+	{
+		Mark* mrk = mark(pos);
+		applyMarkCharstyle(mrk, *that->d->at(pos)); // hack to keep note charstyles current
+	}
+	
 	return dynamic_cast<const CharStyle &> (*that->d->at(pos));
 }
 
@@ -1172,7 +1390,7 @@ void StoryText::getNamedResources(ResourceCollection& lists) const
 		if (text(i) == SpecialChars::PARSEP)
 			paragraphStyle(i).getNamedResources(lists);
 		else if (hasObject(i))
-			object(i)->getNamedResources(lists);
+			getItem(i)->getNamedResources(lists);
 		else
 			charStyle(i).getNamedResources(lists);
 	}
@@ -1347,10 +1565,6 @@ int StoryText::endOfRun(uint index) const
 }
 
 // positioning. all positioning methods return char positions
-// FIXME: make that methods use correct semantic boundaries
-
-static QString wordBoundaries(" .,:;\"'!?\r\n\t");
-static QString sentenceBoundaries(".!?\r\n\t");
 
 int StoryText::nextChar(int pos)
 {
@@ -1384,61 +1598,58 @@ int StoryText::firstWord()
 
 int StoryText::nextWord(int pos)
 {
-	int len = length();
-	//move to text
-	pos = qMin(len, pos+1);
-	//while not at the end, and while we don't find a word boundary, move to the next character
-	while (pos < len  && wordBoundaries.indexOf(text(pos)) < 0)
-		++pos;
-	//while not at the end, and while we find a word boundary, move to the next character
-	while (pos < len  && wordBoundaries.indexOf(text(pos)) >= 0)
-		++pos;
-	//if we didn't get to the end, return current position, otherwise return the end.
-	if (pos < len)
+	BreakIterator* it = getWordIterator();
+	if (!it)
 		return pos;
-	else
-		return len;
+
+	it->setText((const UChar*) plainText().utf16());
+	pos = it->following(pos);
+	pos = it->next();
+	return pos;
 }
 
 int StoryText::prevWord(int pos)
 {
-	pos = qMax(0, pos-1);
-	while (pos > 0 && wordBoundaries.indexOf(text(pos)) < 0)
-		--pos;
-	return wordBoundaries.indexOf(text(pos)) < 0 ? pos + 1 : pos;
+	BreakIterator* it = getWordIterator();
+	if (!it)
+		return pos;
+
+	it->setText((const UChar*) plainText().utf16());
+	pos = it->preceding(pos);
+	return pos;
 }
 
 int StoryText::endOfWord(int pos) const
 {
-	int len = length();
-	while (pos < len)
-	{
-		if (text(pos).isLetter())
-			++pos;
-		else
-			break;
-	}
+	BreakIterator* it = getWordIterator();
+	if (!it)
+		return pos;
+
+	it->setText((const UChar*) plainText().utf16());
+	pos = it->following(pos);
 	return pos;
 }
 
 int StoryText::endOfSentence(int pos) const
 {
-	int len = length();
-	pos = qMin(len, pos+1);
-	//while not on a sentence boundary, keep moving forward
-	while (pos < len && sentenceBoundaries.indexOf(text(pos)) < 0)
-		++pos;
-	//return the sentence boundary too
-	return pos < len ? pos + 1 : pos;
+	BreakIterator* it = getSentenceIterator();
+	if (!it)
+		return pos;
+
+	it->setText((const UChar*) plainText().utf16());
+	int end = it->following(pos);
+	return end;
 }
 
 int StoryText::nextSentence(int pos)
 {
-	int len = length();
-	pos = endOfSentence(pos);
-	//while on a sentence boundary, keep moving forward
-	while (pos < len && sentenceBoundaries.indexOf(text(pos)) >= 0)
-		++pos;
+	BreakIterator* it = getSentenceIterator();
+	if (!it)
+		return pos;
+
+	it->setText((const UChar*) plainText().utf16());
+	pos = it->following(pos);
+	pos = it->next();
 	return pos;
 }
 
@@ -1447,9 +1658,12 @@ int StoryText::prevSentence(int pos)
 	//we cannot go before the first position so just return it.
 	if (pos == 0)
 		return 0;
-	//while not on a sentence boundary, keep moving backward
-	while (pos > 0 && sentenceBoundaries.indexOf(text(pos-1)) < 0)
-		--pos;
+	BreakIterator* it = getSentenceIterator();
+	if (!it)
+		return pos;
+
+	it->setText((const UChar*) plainText().utf16());
+	pos = it->preceding(pos);
 	return pos;
 }
 int StoryText::nextParagraph(int pos)
@@ -1466,45 +1680,6 @@ int StoryText::prevParagraph(int pos)
 	while (pos > 0 && text(pos) != SpecialChars::PARSEP)
 		--pos;
 	return pos;
-}
-
-QString StoryText::wordAt(int pos) const
-{
-	if (pos < 0)
-		pos += length();
-	assert(pos >= 0);
-	assert(pos <= length());
-
-	int len = length();
-	//Find the previous word position
-	int tmpPosStart = qMax(0, pos-1);
-	int startWordPos=0;
-	if (tmpPosStart!=0)
-	{
-		while (tmpPosStart > 0 && wordBoundaries.indexOf(text(tmpPosStart)) < 0)
-			--tmpPosStart;
-		startWordPos= wordBoundaries.indexOf(text(tmpPosStart)) < 0 ? tmpPosStart + 1 : tmpPosStart;
-		++startWordPos;
-	}
-	qDebug ()<<"Start Word Pos:"<<startWordPos;
-	//Find the next word position
-	int tmpPosEnd = qMin(len, pos+1);
-	while (tmpPosEnd < len  && wordBoundaries.indexOf(text(tmpPosEnd)) < 0)
-	{
-		qDebug()<<tmpPosEnd<<text(tmpPosEnd)<<wordBoundaries.indexOf(text(tmpPosEnd));
-		++tmpPosEnd;
-	}
-	int endWordPos=tmpPosEnd < len ? tmpPosEnd + 1 : tmpPosEnd;
-	if (endWordPos>0)
-		--endWordPos;
-	qDebug ()<<"End Word Pos:"<<endWordPos;
-	QString result;
-	StoryText* that(const_cast<StoryText*>(this));
-	for (int i = startWordPos; i < endWordPos; ++i)
-	{
-		result += that->d->at(i)->ch;
-	}
-	return result;
 }
 
 
@@ -1544,25 +1719,15 @@ bool StoryText::selected(int pos) const
 int StoryText::selectWord(int pos)
 {
 	//Double click in a frame to select a word
-
-	int a = pos;
-	while(a > 0)
-	{
-		if (text(a-1).isLetterOrNumber())
-			--a;
-		else
-			break;
-	}
-	int b = pos;
-	while(b < length())
-	{
-		if (text(b).isLetterOrNumber())
-			++b;
-		else
-			break;
-	}
-	select(a, b - a);
-	return a;
+	BreakIterator* it = getWordIterator();
+	if (!it)
+		return pos;
+	it->setText((const UChar*) plainText().utf16());
+	int start = it->preceding(pos + 1);
+	int end = it->next();
+	int wordLentgh = end - start;
+	select(start, wordLentgh);
+	return start;
 }
 
 
@@ -1603,6 +1768,8 @@ void StoryText::select(int pos, uint len, bool on)
 			// Grr, deselection splits selection
 			m_selLast = pos - 1;
 	}
+
+	fixSurrogateSelection();
 	
 //	qDebug("new selection: %d - %d", m_selFirst, m_selLast);
 }
@@ -1635,6 +1802,84 @@ void StoryText::extendSelection(int oldPos, int newPos)
 		m_selFirst = newPos;
 		m_selLast = oldPos - 1;
 	}
+
+	fixSurrogateSelection();
+}
+
+
+void StoryText::fixSurrogateSelection()
+{
+	if (isLowSurrogate(m_selFirst) && isHighSurrogate(m_selFirst - 1))
+		m_selFirst -= 1;
+	if (isHighSurrogate(m_selLast) && isLowSurrogate(m_selLast + 1))
+		m_selLast += 1;
+}
+
+BreakIterator* StoryText::m_graphemeIterator = NULL;
+
+BreakIterator* StoryText::getGraphemeIterator()
+{
+	UErrorCode status = U_ZERO_ERROR;
+	if (m_graphemeIterator == NULL)
+		m_graphemeIterator = BreakIterator::createCharacterInstance(Locale(), status);
+
+	if (U_FAILURE(status))
+	{
+		delete m_graphemeIterator;
+		m_graphemeIterator = NULL;
+	}
+
+	return m_graphemeIterator;
+}
+
+BreakIterator* StoryText::m_wordIterator = NULL;
+
+BreakIterator* StoryText::getWordIterator()
+{
+	UErrorCode status = U_ZERO_ERROR;
+	if (m_wordIterator == NULL)
+		m_wordIterator = BreakIterator::createWordInstance(Locale(), status);
+
+	if (U_FAILURE(status))
+	{
+		delete m_wordIterator;
+		m_wordIterator = NULL;
+	}
+	return m_wordIterator;
+}
+
+BreakIterator* StoryText::m_sentenceIterator = NULL;
+
+BreakIterator* StoryText::getSentenceIterator()
+{
+	UErrorCode status = U_ZERO_ERROR;
+	if (m_sentenceIterator == NULL)
+		m_sentenceIterator = BreakIterator::createSentenceInstance(Locale(), status);
+
+	if (U_FAILURE(status))
+	{
+		delete m_sentenceIterator;
+		m_sentenceIterator = NULL;
+	}
+
+	return m_sentenceIterator;
+}
+
+BreakIterator* StoryText::m_lineIterator = NULL;
+
+BreakIterator* StoryText::getLineIterator()
+{
+	UErrorCode status = U_ZERO_ERROR;
+	if (m_lineIterator == NULL)
+		m_lineIterator = BreakIterator::createLineInstance(Locale(), status);
+
+	if (U_FAILURE(status))
+	{
+		delete m_lineIterator;
+		m_lineIterator = NULL;
+	}
+
+	return m_lineIterator;
 }
 
 void StoryText::selectAll()
@@ -1824,7 +2069,7 @@ void StoryText::saxx(SaxHandler& handler, const Xml_string& elemtag) const
 		}
 		else if (this->hasObject(i))
 		{
-			object(i)->saxx(handler);
+			getItem(i)->saxx(handler);
 		}
 		else if (hasMark(i))
 		{

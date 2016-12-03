@@ -92,13 +92,12 @@ protected:
 	virtual void drawItem_Group( PageItem_Group* item, ScPainterExBase* painter, QRect clip );
 	virtual void drawItem_ImageFrame( PageItem_ImageFrame* item, ScPainterExBase* painter, QRect clip );
 	virtual void drawItem_Line( PageItem_Line* item, ScPainterExBase* painter, QRect clip);
-	virtual void drawItem_PathText( PageItem_PathText* item, ScPainterExBase* painter, QRect clip );
 	virtual void drawItem_Polygon ( PageItem_Polygon* item , ScPainterExBase* painter, QRect clip );
 	virtual void drawItem_PolyLine( PageItem_PolyLine* item, ScPainterExBase* painte, QRect clip );
 	virtual void drawItem_RegularPolygon( PageItem_RegularPolygon* item, ScPainterExBase* painte, QRect clip );
 	virtual void drawItem_Spiral( PageItem_Spiral* item, ScPainterExBase* painter, QRect clip );
 	virtual void drawItem_Table( PageItem_Table* item, ScPainterExBase* painter, QRect clip );
-	virtual void drawItem_TextFrame( PageItem_TextFrame* item, ScPainterExBase* painter, QRect clip );
+	virtual void drawItem_Text( PageItem* item, ScPainterExBase* painter, QRect clip );
 
 	virtual void drawArrow(ScPainterExBase* painter, PageItem* item, QTransform &arrowTrans, int arrowIndex);
 	virtual void drawMarks( ScPage* page, ScPainterExBase* painter, const MarksOptions& options );

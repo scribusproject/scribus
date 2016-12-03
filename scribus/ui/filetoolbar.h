@@ -38,7 +38,7 @@ class SCRIBUS_API FileToolBar : public ScToolBar
 
 	public:
 		FileToolBar(ScribusMainWindow* p);
-		~FileToolBar() {};
+		~FileToolBar() { delete fileOpenButtonMenu; };
 		void rebuildRecentFileMenu();
 
 	protected:

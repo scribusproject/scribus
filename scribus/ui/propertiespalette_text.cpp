@@ -27,6 +27,8 @@ for which a new license (GPL+exception) is in place.
 #include "propertywidget_advanced.h"
 #include "propertywidget_distance.h"
 #include "propertywidget_flop.h"
+#include "propertywidget_fontfeatures.h"
+#include "propertywidget_hyphenation.h"
 #include "propertywidget_optmargins.h"
 #include "propertywidget_orphans.h"
 #include "propertywidget_pareffect.h"
@@ -44,6 +46,7 @@ for which a new license (GPL+exception) is in place.
 #include "units.h"
 #include "util.h"
 #include "util_math.h"
+#include "langmgr.h"
 
 //using namespace std;
 
@@ -88,27 +91,35 @@ PropertiesPalette_Text::PropertiesPalette_Text( QWidget* parent) : QWidget(paren
 	optMargins = new PropertyWidget_OptMargins(textTree);
 	optMarginsItem = textTree->addWidget( tr("Optical Margins"), optMargins);
 	//>> Optical Margins
+	
+	hyphenationWidget = new PropertyWidget_Hyphenation(textTree);
+	hyphenationWidgetItem = textTree->addWidget(tr("Hyphenation"), hyphenationWidget);
 
 	//<<Advanced Settings
 	advancedWidgets = new PropertyWidget_Advanced(textTree);
 	advancedWidgetsItem = textTree->addWidget( tr("Advanced Settings"), advancedWidgets);
+	
 	//>>Advanced Settings
+	fontfeaturesWidget = new PropertyWidget_FontFeatures(textTree);
+	fontfeaturesWidgetItem = textTree->addWidget( tr("Open Type Font Features"), fontfeaturesWidget);
 
 	pathTextWidgets = new PropertyWidget_PathText(textTree);
 	pathTextItem = textTree->addWidget( tr("Path Text Properties"), pathTextWidgets);
-	
+
 	languageChange();
 
 	connect(lineSpacing   , SIGNAL(valueChanged(double)), this, SLOT(handleLineSpacing()));
 	connect(fonts         , SIGNAL(fontSelected(QString )), this, SLOT(handleTextFont(QString)));
 	connect(fontSize      , SIGNAL(valueChanged(double)), this, SLOT(handleFontSize()));
 	connect(textAlignment , SIGNAL(State(int))   , this, SLOT(handleAlignment(int)));
+	connect(textDirection , SIGNAL(State(int))   , this, SLOT(handleDirection(int)));
 	connect(charStyleClear, SIGNAL(clicked()), this, SLOT(doClearCStyle()));
 	connect(paraStyleClear, SIGNAL(clicked()), this, SLOT(doClearPStyle()));
 
 	connect(flopBox->flopGroup, SIGNAL(buttonClicked( int )), this, SLOT(handleFirstLinePolicy(int)));
 
 	connect(lineSpacingModeCombo, SIGNAL(currentIndexChanged(int)), this, SLOT(handleLineSpacingMode(int)));
+	connect(langCombo, SIGNAL(currentIndexChanged(int)), this, SLOT(changeLang(int)));
 
 	m_haveItem = false;
 	setEnabled(false);
@@ -119,8 +130,10 @@ void PropertiesPalette_Text::setMainWindow(ScribusMainWindow* mw)
 	m_ScMW = mw;
 
 	advancedWidgets->setMainWindow(mw);
+	fontfeaturesWidget->setMainWindow(mw);
 	colorWidgets->setMainWindow(mw);
 	distanceWidgets->setMainWindow(mw);
+	hyphenationWidget->setMainWindow(mw);
 	parEffectWidgets->setMainWindow(mw);
 	optMargins->setMainWindow(mw);
 	pathTextWidgets->setMainWindow(mw);
@@ -155,10 +168,12 @@ void PropertiesPalette_Text::setDoc(ScribusDoc *d)
 	lineSpacing->setValues( 1, 2048, 2, 1);
 
 	advancedWidgets->setDoc(m_doc);
+	fontfeaturesWidget->setDoc(m_doc);
 	colorWidgets->setDoc(m_doc);
 	distanceWidgets->setDoc(m_doc);
 	parEffectWidgets->setDoc(m_doc);
 	flopBox->setDoc(m_doc);
+	hyphenationWidget->setDoc(m_doc);
 	optMargins->setDoc(m_doc);
 	orphanBox->setDoc(m_doc);
 	pathTextWidgets->setDoc(m_doc);
@@ -188,9 +203,11 @@ void PropertiesPalette_Text::unsetDoc()
 	charStyleCombo->setDoc(0);
 
 	advancedWidgets->setDoc(0);
+	fontfeaturesWidget->setDoc(0);
 	colorWidgets->setDoc(0);
 	distanceWidgets->setDoc(0);
 	flopBox->setDoc(0);
+	hyphenationWidget->setDoc(NULL);
 	optMargins->setDoc(0);
 	orphanBox->setDoc(0);
 	parEffectWidgets->setDoc(0);
@@ -374,6 +391,7 @@ void PropertiesPalette_Text::unitChange()
 	m_haveItem = false;
 
 	advancedWidgets->unitChange();
+	fontfeaturesWidget->unitChange();
 	colorWidgets->unitChange();
 	distanceWidgets->unitChange();
 	flopBox->unitChange();
@@ -394,6 +412,18 @@ void PropertiesPalette_Text::handleLineSpacingMode(int id)
 	//	updateStyle(((m_doc->appMode == modeEdit) || (m_doc->appMode == modeEditTable)) ? m_item->currentStyle() : m_item->itemText.defaultStyle());
 		m_doc->regionsChanged()->update(QRect());
 	}
+}
+
+void PropertiesPalette_Text::changeLang(int id)
+{
+	if (!m_haveDoc || !m_haveItem || !m_ScMW || m_ScMW->scriptIsRunning())
+		return;
+	QStringList languageList;
+	LanguageManager::instance()->fillInstalledStringList(&languageList, true);
+	QString abrv = LanguageManager::instance()->getAbbrevFromLang(languageList.value(id),false);
+	Selection tempSelection(this, false);
+	tempSelection.addItem(m_item, true);
+	m_doc->itemSelection_SetLanguage(abrv, &tempSelection);
 }
 
 void PropertiesPalette_Text::showLineSpacing(double r)
@@ -430,6 +460,23 @@ void PropertiesPalette_Text::showFontSize(double s)
 	if (!m_ScMW || m_ScMW->scriptIsRunning())
 		return;
 	fontSize->showValue(s / 10.0);
+}
+
+void PropertiesPalette_Text::showLanguage(QString w)
+{
+	if (!m_ScMW || m_ScMW->scriptIsRunning())
+		return;
+	bool tmp = m_haveItem;
+	m_haveItem = false;
+	if (tmp)
+	{
+		QStringList lang;
+		LanguageManager::instance()->fillInstalledStringList(&lang, true);
+		QString langName = LanguageManager::instance()->getLangFromAbbrev(w, false);
+		langCombo->setCurrentIndex(lang.indexOf(langName));
+	}
+	m_haveItem = tmp;
+
 }
 
 void PropertiesPalette_Text::showFirstLinePolicy( FirstLineOffsetPolicy f )
@@ -473,10 +520,13 @@ void PropertiesPalette_Text::updateCharStyle(const CharStyle& charStyle)
 		return;
 
 	advancedWidgets->updateCharStyle(charStyle);
+	fontfeaturesWidget->updateCharStyle(charStyle);
 	colorWidgets->updateCharStyle(charStyle);
+	hyphenationWidget->updateCharStyle(charStyle);
 
 	showFontFace(charStyle.font().scName());
 	showFontSize(charStyle.fontSize());
+	showLanguage(charStyle.language());
 }
 
 void PropertiesPalette_Text::updateStyle(const ParagraphStyle& newCurrent)
@@ -487,21 +537,25 @@ void PropertiesPalette_Text::updateStyle(const ParagraphStyle& newCurrent)
 	const CharStyle& charStyle = newCurrent.charStyle();
 
 	advancedWidgets->updateStyle(newCurrent);
+	fontfeaturesWidget->updateStyle(newCurrent);
 	colorWidgets->updateStyle(newCurrent);
 	optMargins->updateStyle(newCurrent);
 	orphanBox->updateStyle (newCurrent);
 	parEffectWidgets->updateStyle(newCurrent);
+	hyphenationWidget->updateStyle(newCurrent);
 
 	showFontFace(charStyle.font().scName());
 	showFontSize(charStyle.fontSize());
+	showLanguage(charStyle.language());
 
 	bool tmp = m_haveItem;
 	m_haveItem = false;
 
 	setupLineSpacingSpinbox(newCurrent.lineSpacingMode(), newCurrent.lineSpacing());
 	lineSpacingModeCombo->setCurrentIndex(newCurrent.lineSpacingMode());
-	textAlignment->setStyle(newCurrent.alignment());
-	
+	textAlignment->setStyle(newCurrent.alignment(), newCurrent.direction());
+	textDirection->setStyle(newCurrent.direction());
+
 	m_haveItem = tmp;
 }
 
@@ -531,7 +585,18 @@ void PropertiesPalette_Text::showAlignment(int e)
 	bool tmp = m_haveItem;
 	m_haveItem = false;
 	textAlignment->setEnabled(true);
-	textAlignment->setStyle(e);
+	textAlignment->setStyle(e, textDirection->getStyle());
+	m_haveItem = tmp;
+}
+
+void PropertiesPalette_Text::showDirection(int e)
+{
+	if (!m_ScMW || m_ScMW->scriptIsRunning())
+		return;
+	bool tmp = m_haveItem;
+	m_haveItem = false;
+	textDirection->setEnabled(true);
+	textDirection->setStyle(e);
 	m_haveItem = tmp;
 }
 
@@ -580,6 +645,26 @@ void PropertiesPalette_Text::handleAlignment(int a)
 	m_doc->itemSelection_SetAlignment(a, &tempSelection);
 	if (m_item->isPathText())
 		pathTextWidgets->handleSelectionChanged();
+}
+
+void PropertiesPalette_Text::handleDirection(int d)
+{
+	if (!m_haveDoc || !m_haveItem || !m_ScMW || m_ScMW->scriptIsRunning())
+		return;
+	Selection tempSelection(this, false);
+	tempSelection.addItem(m_item, true);
+	m_doc->itemSelection_SetDirection(d, &tempSelection);
+	// If current text alignment is left or right, change it to match direction
+	if (d == ParagraphStyle::RTL && textAlignment->selectedId() == ParagraphStyle::Leftaligned)
+	{
+		m_doc->itemSelection_SetAlignment(ParagraphStyle::Rightaligned, &tempSelection);
+		textAlignment->setTypeStyle(ParagraphStyle::Rightaligned);
+	}
+	else if (d == ParagraphStyle::LTR && textAlignment->selectedId() == ParagraphStyle::Rightaligned)
+	{
+		m_doc->itemSelection_SetAlignment(ParagraphStyle::Leftaligned, &tempSelection);
+		textAlignment->setTypeStyle(ParagraphStyle::Leftaligned);
+	}
 }
 
 void PropertiesPalette_Text::handleTextFont(QString c)
@@ -636,21 +721,29 @@ void PropertiesPalette_Text::languageChange()
 
 	colorWidgetsItem->setText(0, tr("Color && Effects"));
 	flopItem->setText(0, tr("First Line Offset"));
+	hyphenationWidgetItem->setText(0, tr("Hyphenation"));
 	orphanItem->setText(0, tr("Orphans and Widows"));
 	parEffectItem->setText(0, tr("Paragraph Effects"));
 	distanceItem->setText(0, tr("Columns && Text Distances"));
 	optMarginsItem->setText(0, tr("Optical Margins"));
 	advancedWidgetsItem->setText(0, tr("Advanced Settings"));
+	fontfeaturesWidgetItem->setText(0, tr("Font Features"));
 	pathTextItem->setText(0, tr("Path Text Properties"));
-
 	QSignalBlocker lineSpacingModeBlocker(lineSpacingModeCombo);
-	int  oldLineSpacingMode = lineSpacingModeCombo->currentIndex();
+	int oldLineSpacingMode = lineSpacingModeCombo->currentIndex();
 	lineSpacingModeCombo->clear();
 	lineSpacingModeCombo->addItem( tr("Fixed Linespacing"));
 	lineSpacingModeCombo->addItem( tr("Automatic Linespacing"));
 	lineSpacingModeCombo->addItem( tr("Align to Baseline Grid"));
 	lineSpacingModeCombo->setCurrentIndex(oldLineSpacingMode);
-	
+
+	QStringList languageList;
+	LanguageManager::instance()->fillInstalledStringList(&languageList, true);
+	int oldLang = langCombo->currentIndex();
+	langCombo->clear();
+	langCombo->addItems(languageList);
+	langCombo->setCurrentIndex(oldLang);
+
 	QString ptSuffix = tr(" pt");
 	fontSize->setSuffix(ptSuffix);
 	lineSpacing->setSuffix(ptSuffix);
@@ -662,11 +755,14 @@ void PropertiesPalette_Text::languageChange()
 	optMargins->languageChange();
 	advancedWidgets->languageChange();
 	pathTextWidgets->languageChange();
+	fontfeaturesWidget->languageChange();
+	hyphenationWidget->languageChange();
 
 	textAlignment->languageChange();
+	textDirection->languageChange();
 
 	fontSize->setToolTip( tr("Font Size"));
-	
+	langCombo->setToolTip( tr("Text language"));
 	lineSpacing->setToolTip( tr("Line Spacing"));
 	lineSpacingModeCombo->setToolTip( tr("Select the line spacing mode") );
 	paraStyleCombo->setToolTip( tr("Paragraph style of currently selected text or paragraph"));

@@ -37,6 +37,19 @@ selected item is used.\n\
 PyObject *scribus_getfont(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
+PyDoc_STRVAR(scribus_getfontfeatures__doc__,
+QT_TR_NOOP("getFontFeatures([\"name\"]) -> string\n\
+\n\
+Returns the font features for the text frame \"name\". If this text frame\n\
+has some text selected the value assigned to the first character\n\
+of the selection is returned. If \"name\" is not given the currently\n\
+selected item is used.\n\
+"));
+/*! Get fontfeatures */
+PyObject *scribus_getfontfeatures(PyObject * /*self*/, PyObject* args);
+
+
+/*! docstring */
 PyDoc_STRVAR(scribus_gettextsize__doc__,
 QT_TR_NOOP("getTextLength([\"name\"]) -> integer\n\
 \n\
@@ -172,6 +185,19 @@ May throw ValueError if the font cannot be found.\n\
 PyObject *scribus_setfont(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
+PyDoc_STRVAR(scribus_setfontfeatures__doc__,
+QT_TR_NOOP("setFontFeatures(\"fontfeature\", [\"name\"])\n\
+\n\
+Sets the font features of the text frame \"name\" to \"fontfeature\". If there is some text\n\
+selected only the selected text is changed.  If \"name\" is not given the\n\
+currently selected item is used.\n\
+\n\
+May throw ValueError if the font cannot be found.\n\
+"));
+/*! Set font features */
+PyObject *scribus_setfontfeatures(PyObject * /*self*/, PyObject* args);
+
+/*! docstring */
 PyDoc_STRVAR(scribus_setfontsize__doc__,
 QT_TR_NOOP("setFontSize(size, [\"name\"])\n\
 \n\
@@ -261,6 +287,19 @@ May throw ValueError for an invalid alignment constant.\n\
 "));
 /*! Set alignt */
 PyObject *scribus_setalign(PyObject * /*self*/, PyObject* args);
+
+/*! docstring */
+PyDoc_STRVAR(scribus_setdirection__doc__,
+QT_TR_NOOP("setTextDirection(direction, [\"name\"])\n\
+\n\
+Sets the text direction of the text frame \"name\" to the specified direction.\n\
+If \"name\" is not given the currently selected item is used. \"direction\" should\n\
+be one of the DIRECTION_ constants defined in this module - see dir(scribus).\n\
+\n\
+May throw ValueError for an invalid direction constant.\n\
+"));
+/*! Set direction */
+PyObject *scribus_setdirection(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_selecttext__doc__,

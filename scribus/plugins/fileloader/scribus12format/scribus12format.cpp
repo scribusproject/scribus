@@ -337,6 +337,8 @@ void Scribus12Format::PasteItem(struct CopyPasteBuffer *Buffer, bool drag, bool 
 		{
 			ParagraphStyle pstyle;
 			pstyle.setAlignment(static_cast<ParagraphStyle::AlignmentType>(Buffer->textAlignment));
+			if (Buffer->Reverse)
+				pstyle.setDirection(ParagraphStyle::RTL);
 			pstyle.setLineSpacing(Buffer->LineSp);
 			pstyle.setLineSpacingMode(static_cast<ParagraphStyle::LineSpacingMode>(Buffer->LineSpMode));
 			if (m_Doc->AllFonts->contains(Buffer->IFont))
@@ -517,7 +519,6 @@ void Scribus12Format::PasteItem(struct CopyPasteBuffer *Buffer, bool drag, bool 
 	currItem->setEndArrowIndex(Buffer->endArrowIndex);
 	currItem->setStartArrowScale(Buffer->startArrowScale);
 	currItem->setEndArrowScale(Buffer->endArrowScale);
-	currItem->setReversed(Buffer->Reverse);
 	currItem->NamedLStyle = Buffer->NamedLStyle;
 	currItem->Cols = Buffer->Cols;
 	currItem->ColGap = Buffer->ColGap;
@@ -870,16 +871,16 @@ bool Scribus12Format::loadFile(const QString & fileName, const FileFormat & /* f
 		static const QString LANGUAGE("LANGUAGE");
 		QString l(dc.attribute(LANGUAGE, "en"));
 		if (LanguageManager::instance()->langTableIndex(l)!=-1)
-			m_Doc->setHyphLanguage(l); //new style storage
+			m_Doc->setLanguage(l); //new style storage
 		else
 		{ //old style storage
-			QString lnew=LanguageManager::instance()->getAbbrevFromLang(l, true, false);
+			QString lnew=LanguageManager::instance()->getAbbrevFromLang(l, false);
 			if (lnew.isEmpty())
-				lnew=LanguageManager::instance()->getAbbrevFromLang(l, false, false);
-			m_Doc->setHyphLanguage(lnew);
+				lnew=LanguageManager::instance()->getAbbrevFromLang(l, false);
+			m_Doc->setLanguage(lnew);
 		}
-		m_Doc->setHyphMinimumWordLength(dc.attribute("MINWORDLEN", "3").toInt());
-		m_Doc->setHyphConsecutiveLines(dc.attribute("HYCOUNT", "2").toInt());
+//		m_Doc->setHyphMinimumWordLength(dc.attribute("MINWORDLEN", "3").toInt());
+//		m_Doc->setHyphConsecutiveLines(dc.attribute("HYCOUNT", "2").toInt());
 		m_Doc->setHyphAutomatic(static_cast<bool>(dc.attribute("AUTOMATIC", "1").toInt()));
 		m_Doc->setHyphAutoCheck(static_cast<bool>(dc.attribute("AUTOCHECK", "0").toInt()));
 		m_Doc->GuideLock = static_cast<bool>(dc.attribute("GUIDELOCK", "0").toInt());
@@ -1032,7 +1033,7 @@ bool Scribus12Format::loadFile(const QString & fileName, const FileFormat & /* f
 					m_AvailableFonts->findFont(tmpf, m_Doc);
 					OB.IFont = tmpf;
 					OB.LayerID = obj.attribute("LAYER", "0").toInt();
-					OB.Language = obj.attribute("LANGUAGE", m_Doc->hyphLanguage());
+					OB.Language = obj.attribute("LANGUAGE", m_Doc->language());
 					tmp = "";
 					if ((obj.hasAttribute("GROUPS")) && (obj.attribute("NUMGROUP", "0").toInt() != 0))
 					{
@@ -2036,7 +2037,7 @@ bool Scribus12Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 					m_AvailableFonts->findFont(tmpf, m_Doc);
 					OB.IFont = tmpf;
 					OB.LayerID = layerTrans[obj.attribute("LAYER", "0").toInt()];
-					OB.Language = obj.attribute("LANGUAGE", m_Doc->hyphLanguage());
+					OB.Language = obj.attribute("LANGUAGE", m_Doc->language());
 					tmp = "";
 					if ((obj.hasAttribute("GROUPS")) && (obj.attribute("NUMGROUP", "0").toInt() != 0))
 					{

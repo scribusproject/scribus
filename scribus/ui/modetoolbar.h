@@ -53,7 +53,7 @@ class SCRIBUS_API ModeToolBar : public ScToolBar
 
 public: 
 	ModeToolBar(ScribusMainWindow* parent);
-	~ModeToolBar() {};
+	~ModeToolBar();
 
 	virtual void changeEvent(QEvent *e);
 	void setDoc(ScribusDoc* doc);

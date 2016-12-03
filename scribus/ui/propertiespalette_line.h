@@ -26,7 +26,7 @@ class SCRIBUS_API PropertiesPalette_Line : public QWidget, Ui::PropertiesPalette
 
 public:
 	PropertiesPalette_Line(QWidget* parent);
-	~PropertiesPalette_Line() {};
+	~PropertiesPalette_Line() {delete lineStyles->itemDelegate();};
 
 	virtual void changeEvent(QEvent *e);
 

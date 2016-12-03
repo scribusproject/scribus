@@ -5,6 +5,16 @@ Scribus - Open Source Desktop Publishing
 ## Status
 This README.md file is geared toward the Scribus github repository which serves as a mirror for the Scribus Subversion repository `svn://scribus.net/trunk/Scribus`. The Scribus development team prefer svn over git. This mirror is updated manually.
 
+Complex text layout features available right now:
+- support RTL languages (Arabic, Persian, Urdu, Hebrew).
+- support Bi-directional text.
+- support Indic Scripts and Languages.
+- support more than 500 languages.
+- support OpenType Font Features.
+- allow customization of hyphenation character
+- add ability to link selected text frames directly 
+- Loading and render long docs are faster. 
+
 ## Contributing
 For Bugs and patches: please send them to the [Scribus Bugtracker](http://bugs.scribus.net) to be evaluated. If you do send a PR here, someone will either ask you to do the same or submit the PR as a patch to the bugtracker for you.
 

@@ -50,14 +50,10 @@ for which a new license (GPL+exception) is in place.
 #include "fileloader.h"
 #include "filewatcher.h"
 #include "fpoint.h"
-#include "ui/guidemanager.h"
-#include "ui/outlinepalette.h"
 #include "hyphenator.h"
-#include "ui/inserttablecolumnsdialog.h"
-#include "ui/inserttablerowsdialog.h"
+#include "langmgr.h"
 #include "notesstyles.h"
 #include "numeration.h"
-#include "ui/notesstyleseditor.h"
 #include "pageitem.h"
 #include "pageitem_imageframe.h"
 #include "pageitem_latexframe.h"
@@ -97,7 +93,11 @@ for which a new license (GPL+exception) is in place.
 #include "serializer.h"
 #include "tableborder.h"
 #include "text/textlayoutpainter.h"
+#include "text/textshaper.h"
+#include "ui/guidemanager.h"
 #include "ui/hruler.h"
+#include "ui/inserttablecolumnsdialog.h"
+#include "ui/inserttablerowsdialog.h"
 #include "ui/layers.h"
 #include "ui/mark2item.h"
 #include "ui/mark2mark.h"
@@ -105,6 +105,8 @@ for which a new license (GPL+exception) is in place.
 #include "ui/markinsert.h"
 #include "ui/marksmanager.h"
 #include "ui/markvariabletext.h"
+#include "ui/notesstyleseditor.h"
+#include "ui/outlinepalette.h"
 #include "ui/pagepalette.h"
 #include "ui/storyeditor.h"
 #include "ui/tablecolumnwidthsdialog.h"
@@ -505,6 +507,7 @@ void ScribusDoc::init()
 	pstyle.setLineSpacingMode(ParagraphStyle::FixedLineSpacing);
 	pstyle.setLineSpacing(15);
 	pstyle.setAlignment(ParagraphStyle::Leftaligned);
+	pstyle.setDirection(ParagraphStyle::LTR);
 	pstyle.setLeftMargin(0);
 	pstyle.setFirstIndent(0);
 	pstyle.setRightMargin(0);
@@ -513,6 +516,7 @@ void ScribusDoc::init()
 	pstyle.setHasDropCap(false);
 	pstyle.setHasBullet(false);
 	pstyle.setHasNum(false);
+	pstyle.setHyphenConsecutiveLines(2);
 	pstyle.setDropCapLines(2);
 	pstyle.setParEffectOffset(0);
 	pstyle.setBackgroundColor(CommonStrings::None);
@@ -524,7 +528,9 @@ void ScribusDoc::init()
 	cstyle.setName(CommonStrings::DefaultCharacterStyle);
 	cstyle.setFont(m_appPrefsData.fontPrefs.AvailFonts[m_docPrefsData.itemToolPrefs.textFont]);
 	cstyle.setFontSize(m_docPrefsData.itemToolPrefs.textSize);
+	cstyle.setFontFeatures("");
 	cstyle.setFeatures(QStringList(CharStyle::INHERIT));
+	cstyle.setHyphenWordMin(3);
 	cstyle.setFillColor(m_docPrefsData.itemToolPrefs.textColor);
 	cstyle.setFillShade(m_docPrefsData.itemToolPrefs.textShade);
 	cstyle.setStrokeColor(m_docPrefsData.itemToolPrefs.textStrokeColor);
@@ -542,7 +548,7 @@ void ScribusDoc::init()
 	cstyle.setScaleH(1000);
 	cstyle.setScaleV(1000);
 	cstyle.setTracking(0);
-	cstyle.setLanguage(PrefsManager::instance()->appPrefs.hyphPrefs.Language);
+	cstyle.setLanguage(PrefsManager::instance()->appPrefs.docSetupPrefs.language);
 	
 	m_docParagraphStyles.create(pstyle);
 	m_docParagraphStyles.makeDefault( &(m_docParagraphStyles[0]) );
@@ -756,6 +762,8 @@ ScribusDoc::~ScribusDoc()
 		delete m_serializer;
 	if (m_tserializer)
 		delete m_tserializer;
+	if (m_docUpdater)
+		delete m_docUpdater;
 	if (!m_docPrefsData.docSetupPrefs.AutoSaveKeep)
 	{
 		if (autoSaveFiles.count() != 0)
@@ -4505,20 +4513,24 @@ public:
 		: m_really(Really)
 	{}
 
-	void drawGlyph(const GlyphLayout gl)
+	void drawGlyph(const GlyphCluster& gc)
 	{
-		if (gl.glyph >= ScFace::CONTROL_GLYPHS)
+		if (gc.isControlGlyphs())
 			return;
-
-		QString replacementName = font().replacementName();
-		if (!replacementName.isEmpty())
-		{
-			FPointArray outline(font().glyphOutline(gl.glyph));
-			m_really[replacementName].insert(gl.glyph, outline);
+		foreach (const GlyphLayout& gl, gc.glyphs()) {
+			QString replacementName = font().replacementName();
+			if (!replacementName.isEmpty())
+			{
+				FPointArray outline = font().glyphOutline(gl.glyph);
+				m_really[replacementName].insert(gl.glyph, outline);
+			}
 		}
 	}
 
-	void drawGlyphOutline(const GlyphLayout gl, bool) { drawGlyph(gl); }
+	void drawGlyphOutline(const GlyphCluster& gc, bool)
+	{
+		drawGlyph(gc);
+	}
 
 	// we don't need this one
 	void drawLine(QPointF, QPointF) {}
@@ -4543,21 +4555,20 @@ void ScribusDoc::checkItemForFonts(PageItem *it, QMap<QString, QMap<uint, FPoint
 	it->textLayout.render(&p);
 
 	// Process page numbers and page count special characters
-	FPointArray gly;
-	QChar chstr;
-
 	int start = it->isTextFrame() ? it->firstInFrame() : 0;
 	int stop  = it->isTextFrame() ? it->lastInFrame() + 1 : it->itemText.length();
 	for (int e = start; e < stop; ++e)
 	{
-		const ScFace* font = &it->itemText.charStyle(e).font();
-		QString fontName = font->replacementName();
+		const ScFace& font = it->itemText.charStyle(e).font();
+		double fontSize = it->itemText.charStyle(e).fontSize();
+		QString fontName = font.replacementName();
 		if (!Really.contains(fontName) )
 		{
 			if (!fontName.isEmpty())
 				Really.insert(fontName, QMap<uint, FPointArray>());
 		}
 		uint chr = it->itemText.text(e).unicode();
+		QStringList txtList;
 		if ((chr == 30) || (chr == 23))
 		{
 			//Our page number collection string
@@ -4571,6 +4582,7 @@ void ScribusDoc::checkItemForFonts(PageItem *it, QMap<QString, QMap<uint, FPoint
 					pageNumberText = QString("%1").arg(getSectionPageNumberForPageIndex(it->OwnPage),
 									getSectionPageNumberWidthForPageIndex(it->OwnPage),
 									getSectionPageNumberFillCharForPageIndex(it->OwnPage));
+					txtList.append(pageNumberText);
 				}
 				else
 				{
@@ -4587,9 +4599,7 @@ void ScribusDoc::checkItemForFonts(PageItem *it, QMap<QString, QMap<uint, FPoint
 							newText = QString("%1").arg(getSectionPageNumberForPageIndex(a),
 											getSectionPageNumberWidthForPageIndex(a),
 											getSectionPageNumberFillCharForPageIndex(a));
-							for (int nti = 0; nti < newText.length(); ++nti)
-								if (pageNumberText.indexOf(newText[nti]) == -1)
-									pageNumberText += newText[nti];
+							txtList.append(newText);
 						}
 					}
 				}
@@ -4603,6 +4613,7 @@ void ScribusDoc::checkItemForFonts(PageItem *it, QMap<QString, QMap<uint, FPoint
 						pageNumberText = "";
 					else
 						pageNumberText = QString("%1").arg(getStringFromSequence(m_docPrefsData.docSectionMap[key].type, m_docPrefsData.docSectionMap[key].toindex - m_docPrefsData.docSectionMap[key].fromindex + 1));
+					txtList.append(pageNumberText);
 				}
 				else
 				{
@@ -4617,23 +4628,31 @@ void ScribusDoc::checkItemForFonts(PageItem *it, QMap<QString, QMap<uint, FPoint
 								newText = "";
 							else
 								newText = QString("%1").arg(getStringFromSequence(m_docPrefsData.docSectionMap[key].type, m_docPrefsData.docSectionMap[key].toindex - m_docPrefsData.docSectionMap[key].fromindex + 1));
-							for (int nti = 0; nti < newText.length(); ++nti)
-								if (pageNumberText.indexOf(newText[nti]) == -1)
-									pageNumberText += newText[nti];
+							txtList.append(newText);
 						}
 					}
 				}
 			}
+
 			//Now scan and add any glyphs used in page numbers
-			for (int pnti = 0; pnti < pageNumberText.length(); ++pnti)
+			for (int a = 0; a < txtList.count(); ++a)
 			{
-				uint chr = pageNumberText[pnti].unicode();
-				if (font->canRender(chr))
+				CharStyle style(font, fontSize);
+				StoryText story;
+				story.insertChars(txtList[a]);
+				story.setCharStyle(0, txtList[a].count(), style);
+
+				TextShaper textShaper(story, 0);
+				QList<GlyphCluster> glyphRuns = textShaper.shape(0, story.length()).glyphs();
+
+				foreach (const GlyphCluster &run, glyphRuns)
 				{
-					uint gl = font->char2CMap(pageNumberText[pnti]);
-					FPointArray gly(font->glyphOutline(gl));
-					if (!fontName.isEmpty())
-						Really[fontName].insert(gl, gly);
+					foreach (const GlyphLayout &gl, run.glyphs())
+					{
+						FPointArray outline(font.glyphOutline(gl.glyph));
+						if (!fontName.isEmpty())
+							Really[fontName].insert(gl.glyph, outline);
+					}
 				}
 			}
 			continue;
@@ -7853,7 +7872,33 @@ void ScribusDoc::itemSelection_SetFont(QString fon, Selection* customSelection)
 	itemSelection_ApplyCharStyle(newStyle, customSelection, "FONT");
 }
 
+void ScribusDoc::itemSelection_SetFontFeatures(QString fontfeature, Selection* customSelection)
+{
+	CharStyle newStyle;
+	newStyle.setFontFeatures(fontfeature);
+	itemSelection_ApplyCharStyle(newStyle, customSelection, "FONTFEATURES");
+}
 
+void ScribusDoc::itemSelection_SetHyphenWordMin(int wordMin, Selection* customSelection)
+{
+	CharStyle newStyle;
+	newStyle.setHyphenWordMin(wordMin);
+	itemSelection_ApplyCharStyle(newStyle, customSelection, "HYPHENWORDMIN");
+}
+
+void ScribusDoc::itemSelection_SetHyphenConsecutiveLines(int consecutiveLines, Selection* customSelection)
+{
+	ParagraphStyle newStyle;
+	newStyle.setHyphenConsecutiveLines(consecutiveLines);
+	itemSelection_ApplyParagraphStyle(newStyle, customSelection);
+}
+
+void ScribusDoc::itemSelection_SetHyphenChar(uint hyphenChar, Selection *customSelection)
+{
+	CharStyle newStyle;
+	newStyle.setHyphenChar(hyphenChar);
+	itemSelection_ApplyCharStyle(newStyle, customSelection);
+}
 
 void ScribusDoc::itemSelection_SetNamedCharStyle(const QString& name, Selection* customSelection)
 {
@@ -8862,6 +8907,13 @@ void ScribusDoc::itemSelection_SetLineSpacingMode(int m, Selection* customSelect
 	ParagraphStyle newStyle;
 	newStyle.setLineSpacingMode(static_cast<ParagraphStyle::LineSpacingMode>(m));
 	itemSelection_ApplyParagraphStyle(newStyle, customSelection);
+}
+
+void ScribusDoc::itemSelection_SetLanguage(QString m, Selection* customSelection)
+{
+	CharStyle newStyle;
+	newStyle.setLanguage(m);
+	itemSelection_ApplyCharStyle(newStyle, customSelection, "LANGUAGE");
 }
 
 void ScribusDoc::itemSetFont(const QString &newFont)
@@ -11521,34 +11573,6 @@ void ScribusDoc::itemSelection_DeleteItem(Selection* customSelection, bool force
 	changed();
 }
 
-void ScribusDoc::itemSelection_SetItemTextReversed(bool reversed, Selection *customSelection)
-{
-	Selection* itemSelection = (customSelection!=0) ? customSelection : m_Selection;
-	uint selectedItemCount = itemSelection->count();
-	if (selectedItemCount != 0)
-	{
-		UndoTransaction activeTransaction;
-		if (UndoManager::undoEnabled())
-			activeTransaction = m_undoManager->beginTransaction();
-		for (uint i = 0; i < selectedItemCount; ++i)
-		{
-			PageItem *currItem = itemSelection->itemAt(i);
-			currItem->setImageFlippedH(reversed);
-			currItem->setReversed(reversed);
-		}
-		if (activeTransaction)
-		{
-			activeTransaction.commit(Um::Selection,
-									 Um::IGroup,
-									 Um::FlipH,
-									 0,
-									 Um::IFlipH);
-		}
-		regionsChanged()->update(QRectF());
-		changed();
-	}
-}
-
 
 void ScribusDoc::itemSelection_SetItemFillTransparency(double t)
 {
@@ -11797,6 +11821,13 @@ void ScribusDoc::itemSelection_SetAlignment(int s, Selection* customSelection)
 {
 	ParagraphStyle newStyle;
 	newStyle.setAlignment(static_cast<ParagraphStyle::AlignmentType>(s));
+	itemSelection_ApplyParagraphStyle(newStyle, customSelection);
+}
+
+void ScribusDoc::itemSelection_SetDirection(int s, Selection* customSelection)
+{
+	ParagraphStyle newStyle;
+	newStyle.setDirection(static_cast<ParagraphStyle::DirectionType>(s));
 	itemSelection_ApplyParagraphStyle(newStyle, customSelection);
 }
 
@@ -16040,10 +16071,7 @@ void ScribusDoc::setNewPrefs(const ApplicationPrefs& prefsData, const Applicatio
 		currDoc->docHyphenator->slotNewDict(ScMW->GetLang(tabHyphenator->language->currentText()));
 */
 
-	docHyphenator->slotNewSettings(m_docPrefsData.hyphPrefs.MinWordLen,
-											m_docPrefsData.hyphPrefs.Automatic,
-											m_docPrefsData.hyphPrefs.AutoCheck,
-											m_docPrefsData.hyphPrefs.HyCount);
+	docHyphenator->slotNewSettings(m_docPrefsData.hyphPrefs.Automatic, m_docPrefsData.hyphPrefs.AutoCheck);
 	docHyphenator->ignoredWords = m_docPrefsData.hyphPrefs.ignoredWords;
 	docHyphenator->specialWords = m_docPrefsData.hyphPrefs.specialWords;
 	if (ScCore->haveCMS())
@@ -16390,7 +16418,7 @@ void ScribusDoc::checkItemForFrames(PageItem *it, int fIndex)
 	{
 		if (it->itemText.hasObject(e))
 		{
-			if (it->itemText.object(e)->inlineCharID == fIndex)
+			if (it->itemText.object(e).getInlineCharID() == fIndex)
 				deleteList.prepend(e);
 		}
 	}

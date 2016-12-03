@@ -41,8 +41,6 @@ PropertyWidget_TextColor::PropertyWidget_TextColor(QWidget* parent) : QFrame(par
 	backShadeLabel->setPixmap(IconManager::instance()->loadPixmap("shade.png"));
 
 	effectsLayout->setAlignment( Qt::AlignLeft );
-	revertButton->setIcon(IconManager::instance()->loadIcon("Revers.png"));
-	revertButton->setCheckable( true );
 
 	languageChange();
 
@@ -108,13 +106,6 @@ void PropertyWidget_TextColor::setCurrentItem(PageItem *item)
 	if (!m_item->isTable() && !m_item->isTextFrame() && !m_item->asPathText())
 		return;
 
-	PageItem_TextFrame *textItem;
-	if (m_doc->appMode == modeEditTable)
-		textItem = m_item->asTable()->activeCell().textFrame();
-	else
-		textItem = m_item->asTextFrame();
-	if (textItem != 0)
-		revertButton->setChecked(textItem->reversed());
 	if (m_item->asTextFrame() || m_item->asPathText() || m_item->asTable())
 	{
 		ParagraphStyle parStyle =  m_item->itemText.defaultStyle();
@@ -127,7 +118,6 @@ void PropertyWidget_TextColor::setCurrentItem(PageItem *item)
 
 void PropertyWidget_TextColor::connectSignals()
 {
-	connect(revertButton, SIGNAL(clicked())     , this, SLOT(handleTextDirection()), Qt::UniqueConnection);
 	connect(fillColor   , SIGNAL(activated(int)), this, SLOT(handleTextFill())     , Qt::UniqueConnection);
 	connect(strokeColor , SIGNAL(activated(int)), this, SLOT(handleTextStroke())   , Qt::UniqueConnection);
 	connect(fillShade   , SIGNAL(clicked())     , this, SLOT(handleTextShade())    , Qt::UniqueConnection);
@@ -147,7 +137,6 @@ void PropertyWidget_TextColor::connectSignals()
 
 void PropertyWidget_TextColor::disconnectSignals()
 {
-	disconnect(revertButton, SIGNAL(clicked())     , this, SLOT(handleTextDirection()));
 	disconnect(fillColor   , SIGNAL(activated(int)), this, SLOT(handleTextFill()));
 	disconnect(strokeColor , SIGNAL(activated(int)), this, SLOT(handleTextStroke()));
 	disconnect(fillShade   , SIGNAL(clicked())     , this, SLOT(handleTextShade()));
@@ -382,21 +371,6 @@ void PropertyWidget_TextColor::handleStrikeThru()
 	}
 }
 
-void PropertyWidget_TextColor::handleTextDirection()
-{
-	if (!m_doc || !m_item || !m_ScMW || m_ScMW->scriptIsRunning())
-		return;
-	PageItem *i2 = m_item;
-	if (m_doc->appMode == modeEditTable)
-		i2 = m_item->asTable()->activeCell().textFrame();
-	if (i2 != NULL)
-	{
-		Selection tempSelection(this, false);
-		tempSelection.addItem(i2, true);
-		m_doc->itemSelection_SetItemTextReversed(revertButton->isChecked(), &tempSelection);
-	}
-}
-
 void PropertyWidget_TextColor::handleTextFill()
 {
 	if (!m_doc || !m_item || !m_ScMW || m_ScMW->scriptIsRunning())
@@ -551,6 +525,4 @@ void PropertyWidget_TextColor::languageChange()
 	fillShade->setToolTip( tr("Saturation of color of text fill"));
 	strokeShade->setToolTip( tr("Saturation of color of text stroke"));
 	backShade->setToolTip( tr("Saturation of color of text background"));
-
-	revertButton->setToolTip( tr("Right to Left Writing"));
 }

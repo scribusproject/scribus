@@ -65,7 +65,6 @@ private slots:
 	void handleTextShade();
 	void handleTextStroke();
 	void handleTextBackground();
-	void handleTextDirection();
 	void handleTypeStyle(int s);
 	void handleUnderline();
 };

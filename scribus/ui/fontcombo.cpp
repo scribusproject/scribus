@@ -28,6 +28,7 @@ for which a new license (GPL+exception) is in place.
 #include <QLabel>
 #include <QPixmap>
 #include <QStringList>
+#include <QFontInfo>
 
 #include "fontcombo.h"
 #include "iconmanager.h"
@@ -44,10 +45,8 @@ FontCombo::FontCombo(QWidget* pa) : QComboBox(pa)
 	otfFont = IconManager::instance()->loadPixmap("font_otf16.png");
 	psFont = IconManager::instance()->loadPixmap("font_type1_16.png");
 	substFont = IconManager::instance()->loadPixmap("font_subst16.png");
-	setEditable(false);
-	QFont f(font());
-	f.setPointSize(f.pointSize()-1);
-	setFont(f);
+	setEditable(true);
+	setItemDelegate(new fontFamilyDelegate(this));
 	RebuildList(0);
 }
 
@@ -121,6 +120,8 @@ FontComboH::FontComboH(QWidget* parent, bool labels) :
 		col=1;
 	}
 	fontFamily = new ScComboBox(this);
+	fontFamily->setEditable(true);
+	fontFamily->setItemDelegate(new fontFamilyDelegate(this));
 	fontComboLayout->addWidget(fontFamily,0,col);
 	fontStyle = new ScComboBox(this);
 	fontComboLayout->addWidget(fontStyle,1,col);
@@ -320,3 +321,273 @@ void FontComboH::RebuildList(ScribusDoc *currentDoc, bool forAnnotation, bool fo
 	fontFamily->blockSignals(familySigBlocked);
 	fontStyle->blockSignals(styleSigBlocked);
 }
+
+// This code borrowed from Qt project qfontcombobox.cpp
+
+static QFontDatabase::WritingSystem writingSystemFromScript(QLocale::Script script)
+{
+	switch (script) {
+	case QLocale::ArabicScript:
+		return QFontDatabase::Arabic;
+	case QLocale::CyrillicScript:
+		return QFontDatabase::Cyrillic;
+	case QLocale::GurmukhiScript:
+		return QFontDatabase::Gurmukhi;
+	case QLocale::SimplifiedHanScript:
+		return QFontDatabase::SimplifiedChinese;
+	case QLocale::TraditionalHanScript:
+		return QFontDatabase::TraditionalChinese;
+	case QLocale::LatinScript:
+		return QFontDatabase::Latin;
+	case QLocale::ArmenianScript:
+		return QFontDatabase::Armenian;
+	case QLocale::BengaliScript:
+		return QFontDatabase::Bengali;
+	case QLocale::DevanagariScript:
+		return QFontDatabase::Devanagari;
+	case QLocale::GeorgianScript:
+		return QFontDatabase::Georgian;
+	case QLocale::GreekScript:
+		return QFontDatabase::Greek;
+	case QLocale::GujaratiScript:
+		return QFontDatabase::Gujarati;
+	case QLocale::HebrewScript:
+		return QFontDatabase::Hebrew;
+	case QLocale::JapaneseScript:
+		return QFontDatabase::Japanese;
+	case QLocale::KhmerScript:
+		return QFontDatabase::Khmer;
+	case QLocale::KannadaScript:
+		return QFontDatabase::Kannada;
+	case QLocale::KoreanScript:
+		return QFontDatabase::Korean;
+	case QLocale::LaoScript:
+		return QFontDatabase::Lao;
+	case QLocale::MalayalamScript:
+		return QFontDatabase::Malayalam;
+	case QLocale::MyanmarScript:
+		return QFontDatabase::Myanmar;
+	case QLocale::TamilScript:
+		return QFontDatabase::Tamil;
+	case QLocale::TeluguScript:
+		return QFontDatabase::Telugu;
+	case QLocale::ThaanaScript:
+		return QFontDatabase::Thaana;
+	case QLocale::ThaiScript:
+		return QFontDatabase::Thai;
+	case QLocale::TibetanScript:
+		return QFontDatabase::Tibetan;
+	case QLocale::SinhalaScript:
+		return QFontDatabase::Sinhala;
+	case QLocale::SyriacScript:
+		return QFontDatabase::Syriac;
+	case QLocale::OriyaScript:
+		return QFontDatabase::Oriya;
+	case QLocale::OghamScript:
+		return QFontDatabase::Ogham;
+	case QLocale::RunicScript:
+		return QFontDatabase::Runic;
+	case QLocale::NkoScript:
+		return QFontDatabase::Nko;
+	default:
+		return QFontDatabase::Any;
+	}
+}
+
+static QFontDatabase::WritingSystem writingSystemFromLocale()
+{
+	QStringList uiLanguages = QLocale::system().uiLanguages();
+	QLocale::Script script;
+	if (!uiLanguages.isEmpty())
+		script = QLocale(uiLanguages.at(0)).script();
+	else
+		script = QLocale::system().script();
+
+	return writingSystemFromScript(script);
+}
+
+static QFontDatabase::WritingSystem writingSystemForFont(const QFont &font, bool *hasLatin)
+{
+	QList<QFontDatabase::WritingSystem> writingSystems = QFontDatabase().writingSystems(font.family());
+
+	// this just confuses the algorithm below. Vietnamese is Latin with lots of special chars
+	writingSystems.removeOne(QFontDatabase::Vietnamese);
+	*hasLatin = writingSystems.removeOne(QFontDatabase::Latin);
+
+	if (writingSystems.isEmpty())
+		return QFontDatabase::Any;
+
+	QFontDatabase::WritingSystem system = writingSystemFromLocale();
+
+	if (writingSystems.contains(system))
+		return system;
+
+	if (system == QFontDatabase::TraditionalChinese
+			&& writingSystems.contains(QFontDatabase::SimplifiedChinese)) {
+		return QFontDatabase::SimplifiedChinese;
+	}
+
+	if (system == QFontDatabase::SimplifiedChinese
+			&& writingSystems.contains(QFontDatabase::TraditionalChinese)) {
+		return QFontDatabase::TraditionalChinese;
+	}
+
+	system = writingSystems.last();
+
+	if (!*hasLatin) {
+		// we need to show something
+		return system;
+	}
+
+	if (writingSystems.count() == 1 && system > QFontDatabase::Cyrillic)
+		return system;
+
+	if (writingSystems.count() <= 2 && system > QFontDatabase::Armenian && system < QFontDatabase::Vietnamese)
+		return system;
+
+	if (writingSystems.count() <= 5 && system >= QFontDatabase::SimplifiedChinese && system <= QFontDatabase::Korean)
+		return system;
+
+	return QFontDatabase::Any;
+}
+
+static const ScFace& getscFace(QString classname, QString text)
+{
+	PrefsManager* prefsManager = PrefsManager::instance();
+
+	// Handle FontComboH class witch has only Famliy names in the combo class.
+	if (classname == "FontComboH" || classname == "SMFontComboH")
+	{
+		QStringList styles = prefsManager->appPrefs.fontPrefs.AvailFonts.fontMap[text];
+		const ScFace& fon = prefsManager->appPrefs.fontPrefs.AvailFonts.findFont(text, styles[0]);
+
+		if (!QFontDatabase().families().contains(text))
+			QFontDatabase().addApplicationFont(fon.fontFilePath());
+
+		return fon;
+	}
+	else
+	{
+		const ScFace& scFace = prefsManager->appPrefs.fontPrefs.AvailFonts.findFont(text);
+
+		if (!QFontDatabase().families().contains(scFace.family()))
+			QFontDatabase().addApplicationFont(scFace.fontFilePath());
+
+		return scFace;
+	}
+
+}
+
+fontFamilyDelegate::fontFamilyDelegate(QObject *parent)
+	: QAbstractItemDelegate(parent)
+	, writingSystem(QFontDatabase::Any)
+{
+}
+
+void fontFamilyDelegate::paint(QPainter *painter,
+							   const QStyleOptionViewItem &option,
+							   const QModelIndex &index) const
+{
+	QString text = index.data(Qt::DisplayRole).toString();
+	const ScFace& scFace = getscFace(this->parent()->metaObject()->className(), text);
+
+	QFont font = option.font;
+	font.setPointSize(QFontInfo(font).pointSize() * 3 / 2);
+
+	QFont font2 = QFontDatabase().font(scFace.family(), scFace.style(), QFontInfo(option.font).pointSize());
+	font2.setPointSize(QFontInfo(font2).pointSize() * 3 / 2);
+
+	bool hasLatin;
+	QFontDatabase::WritingSystem system = writingSystemForFont(font2, &hasLatin);
+
+	if (hasLatin)
+		font = font2;
+
+	QRect r = option.rect;
+	if (option.state & QStyle::State_Selected) {
+		painter->save();
+		painter->setBrush(option.palette.highlight());
+		painter->setPen(Qt::NoPen);
+		painter->drawRect(option.rect);
+		painter->setPen(QPen(option.palette.highlightedText(), 0));
+	}
+
+	QIcon icon = qvariant_cast<QIcon>(index.data(Qt::DecorationRole));
+	QSize actualSize = icon.actualSize(r.size());
+	icon.paint(painter, r, Qt::AlignLeft|Qt::AlignVCenter);
+	if (option.direction == Qt::RightToLeft)
+		r.setRight(r.right() - actualSize.width() - 4);
+	else
+		r.setLeft(r.left() + actualSize.width() + 4);
+
+	QFont old = painter->font();
+	painter->setFont(font);
+
+	// If the ascent of the font is larger than the height of the rect,
+	// we will clip the text, so it's better to align the tight bounding rect in this case
+	// This is specifically for fonts where the ascent is very large compared to
+	// the descent, like certain of the Stix family.
+	QFontMetricsF fontMetrics(font);
+	if (fontMetrics.ascent() > r.height()) {
+		QRectF tbr = fontMetrics.tightBoundingRect(text);
+		QRectF rr (r.x(), r.y() - (tbr.bottom() + r.height()/2), r.width(),(r.height() + tbr.height()));
+		painter->drawText(rr,Qt::AlignVCenter|Qt::AlignLeading|Qt::TextSingleLine, text);
+
+	} else {
+		painter->drawText(r, Qt::AlignVCenter|Qt::AlignLeading|Qt::TextSingleLine, text);
+	}
+
+	if (writingSystem != QFontDatabase::Any)
+		system = writingSystem;
+
+	if (system != QFontDatabase::Any) {
+		int w = painter->fontMetrics().width(text + QLatin1String("  "));
+		painter->setFont(font2);
+		QString sample = QFontDatabase().writingSystemSample(system);
+		if (system == QFontDatabase::Arabic)
+			sample = "أبجدية عربية";
+
+		if (fontMetrics.ascent() > r.height()) {
+
+			QRectF tbr = fontMetrics.tightBoundingRect(sample);
+			QRectF rr (r.x(), r.y() - (tbr.bottom() + r.height()/2), r.width(),(r.height() + tbr.height()));
+			if (option.direction == Qt::RightToLeft)
+				rr.setRight(rr.right() - w);
+			else
+			{
+				rr.setRight(rr.right() - 4);
+				rr.setLeft(rr.left() + w);
+			}
+			painter->drawText(rr,Qt::AlignVCenter|Qt::AlignRight|Qt::TextSingleLine, sample);
+		}
+
+		else
+		{
+			if (option.direction == Qt::RightToLeft)
+				r.setRight(r.right() - w);
+			else
+			{
+				r.setRight(r.right() - 4);
+				r.setLeft(r.left() + w);
+			}
+			painter->drawText(r, Qt::AlignVCenter|Qt::AlignRight|Qt::TextSingleLine, sample);
+		}
+	}
+
+	painter->setFont(old);
+
+	if (option.state & QStyle::State_Selected)
+		painter->restore();
+
+}
+
+QSize fontFamilyDelegate::sizeHint(const QStyleOptionViewItem &option,
+								   const QModelIndex &index) const
+{
+	QString text = index.data(Qt::DisplayRole).toString();
+	QFont font(option.font);
+	font.setPointSize(QFontInfo(font).pointSize() * 3/2);
+	QFontMetrics fontMetrics(font);
+	return QSize(fontMetrics.width(text), fontMetrics.height() + 5);
+}
+

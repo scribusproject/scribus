@@ -188,11 +188,7 @@ FPointArray traceGlyph(FT_Face face, ScFace::gid_type glyphIndex, int chs, qreal
 		*err = error;
 		return pts2;
 	}
-	if (glyphIndex == 0)
-	{
-		*err = true;
-		return pts2;
-	}
+
 	error = FT_Load_Glyph( face, glyphIndex, FT_LOAD_NO_HINTING | FT_LOAD_NO_BITMAP );
 	if (error)
 	{
@@ -232,7 +228,7 @@ FPointArray traceChar(FT_Face face, ScFace::ucs4_type chr, int chs, qreal *x, qr
 }
 
 
-QPixmap FontSample(const ScFace& fnt, int s, QString ts, QColor back, bool force)
+QPixmap FontSample(const ScFace& fnt, int s, QVector<uint> ts, QColor back, bool force)
 {
 	FT_Face face;
 	FT_Library library;
@@ -270,7 +266,7 @@ QPixmap FontSample(const ScFace& fnt, int s, QString ts, QColor back, bool force
 	p->setBrush(Qt::black);
 	FPointArray gly;
 	ScFace::ucs4_type dv;
-	dv = ts[0].unicode();
+	dv = ts[0];
 	error = false;
 	gly = traceChar(face, dv, s, &x, &y, &error);
 	if (((encode != 0) || (error)) && (!force))
@@ -303,7 +299,7 @@ QPixmap FontSample(const ScFace& fnt, int s, QString ts, QColor back, bool force
 	{
 		for (int n = 0; n < ts.length(); ++n)
 		{
-			dv = ts[n].unicode();
+			dv = ts[n];
 			error = false;
 			gly = traceChar(face, dv, s, &x, &y, &error);
 			if (gly.size() > 3)
@@ -493,122 +489,3 @@ QString adobeGlyphName(FT_ULong charcode)
 	}
 	return result;
 }
-
-/*
-qreal Cwidth(ScribusDoc *, ScFace* scFace, QString ch, int Size, QString ch2)
-{
-	qreal width;
-	FT_Vector  delta;
-	FT_Face      face;
-	ucs4_type c1 = ch.at(0).unicode();
-	ucs4_type c2 = ch2.at(0).unicode();
-	qreal size10=Size/10.0;
-	if (scFace->canRender(ch[0]))
-	{
-		width = scFace->charWidth(ch[0])*size10;
-		face = scFace->ftFace();
-		/\****
-			Ok, this looks like a regression between Freetype 2.1.9 -> 2.1.10.
-			Ignoring the value of FT_HAS_KERNING for now -- AV
-		 ****\/
-		if (true || FT_HAS_KERNING(face) )
-		{
-			gid_type cl = FT_Get_Char_Index(face, c1);
-			gid_type cr = FT_Get_Char_Index(face, c2);
-			FT_Error error = FT_Get_Kerning(face, cl, cr, FT_KERNING_UNSCALED, &delta);
-			if (error) {
-				qDebug() << QString("Error %2 when accessing kerning pair for font %1").arg(scFace->scName()).arg(error);
-			}
-			else {
-				qreal uniEM = static_cast<qreal>(face->units_per_EM);
-				width += delta.x / uniEM * size10;
-			}
-		}
-		else {
-			qDebug() << QString("Font %1 has no kerning pairs (according to Freetype)").arg(scFace->scName());
-		}
-		return width;
-	}
-	else
-		return size10;
-}
-
-qreal RealCWidth(ScribusDoc *, ScFace* scFace, QString ch, int Size)
-{
-	qreal w, ww;
-	ucs4_type c1 = ch.at(0).unicode();
-	FT_Face      face;
-	if (scFace->canRender(ch.at(0)))
-	{
-		face = scFace->ftFace();
-		gid_type cl = FT_Get_Char_Index(face, c1);
-		int error = FT_Load_Glyph(face, cl, FT_LOAD_NO_SCALE | FT_LOAD_NO_BITMAP );
-		if (!error) {
-			qreal uniEM = static_cast<qreal>(face->units_per_EM);
-			w = (face->glyph->metrics.width + fabs((qreal)face->glyph->metrics.horiBearingX)) / uniEM * (Size / 10.0);
-			ww = face->glyph->metrics.horiAdvance / uniEM * (Size / 10.0);
-			return qMax(ww, w);
-		}
-		else
-			sDebug(QString("internal error: missing glyph: %1 (char %2) error=%3").arg(c1).arg(ch).arg(error));
-
-	}
-	return static_cast<qreal>(Size / 10.0);
-}
-
-qreal RealCHeight(ScribusDoc *, ScFace* scFace, QString ch, int Size)
-{
-	qreal w;
-	ucs4_type c1 = ch.at(0).unicode();
-	FT_Face      face;
-	if (scFace->canRender(ch.at(0)))
-	{
-		face = scFace->ftFace();
-		gid_type cl = FT_Get_Char_Index(face, c1);
-		int error = FT_Load_Glyph(face, cl, FT_LOAD_NO_SCALE | FT_LOAD_NO_BITMAP );
-		if (!error) {
-			qreal uniEM = static_cast<qreal>(face->units_per_EM);
-			w = face->glyph->metrics.height / uniEM * (Size / 10.0);
-		}
-		else {
-			sDebug(QString("internal error: missing glyph: %1 (char %2) error=%3").arg(c1).arg(ch).arg(error));
-			w = Size / 10.0;
-		}
-		return w;
-	}
-	else
-		return static_cast<qreal>(Size / 10.0);
-}
-
-qreal RealCAscent(ScribusDoc *, ScFace* scFace, QString ch, int Size)
-{
-	qreal w;
-	ucs4_type c1 = ch.at(0).unicode();
-	FT_Face      face;
-	if (scFace->canRender(ch.at(0)))
-	{
-		face = scFace->ftFace();
-		gid_type cl = FT_Get_Char_Index(face, c1);
-		int error = FT_Load_Glyph(face, cl, FT_LOAD_NO_SCALE | FT_LOAD_NO_BITMAP );
-		if (! error) {
-			qreal uniEM = static_cast<qreal>(face->units_per_EM);
-			w = face->glyph->metrics.horiBearingY / uniEM * (Size / 10.0);
-		}
-		else {
-			sDebug(QString("internal error: missing glyph: %1 (char %2) error=%3").arg(c1).arg(ch).arg(error));
-			w = Size / 10.0;
-		}
-		return w;
-	}
-	else
-		return static_cast<qreal>(Size / 10.0);
-}
-
-qreal RealFHeight(ScribusDoc *, ScFace* scFace, int Size)
-{
-	FT_Face face = scFace->ftFace();
-	qreal uniEM = static_cast<qreal>(face->units_per_EM);
-	return face->height / uniEM * (Size / 10.0);
-}
-*/
-

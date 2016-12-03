@@ -1,229 +1,576 @@
-/*
- For general Scribus (>=1.3.2) copyright and licensing information please refer
- to the COPYING file provided with the program. Following this notice may exist
- a copyright and/or license notice that predates the release of Scribus 1.3.2
- for which a new license (GPL+exception) is in place.
- */
-
-#include "pageitem.h"
-#include "pageitem_textframe.h"
-#include "scribusdoc.h"
-#include "sctextstruct.h"
-#include "style.h"
-#include "styles/charstyle.h"
-#include "styles/paragraphstyle.h"
 #include "textshaper.h"
-#include "text/specialchars.h"
-#include "util_text.h"
 
-TextShaper::TextShaper(PageItem_TextFrame* textItem, int startIndex)
-	      : m_startIndex(startIndex),
-			m_index(startIndex),
-			m_lastKernedIndex(-1),
-			m_layoutFlags(ScLayout_None),
-			m_item(textItem)
+#include <harfbuzz/hb.h>
+#include <harfbuzz/hb-ft.h>
+#include <harfbuzz/hb-icu.h>
+#include <unicode/ubidi.h>
+
+#include "scrptrun.h"
+
+#include "glyphcluster.h"
+#include "pageitem.h"
+#include "scribusdoc.h"
+#include "storytext.h"
+#include "styles/paragraphstyle.h"
+#include "util.h"
+
+
+TextShaper::TextShaper(ITextContext* context, ITextSource &story, int firstChar, bool singlePar)
+	: m_context(context)
+	, m_story(story)
+	, m_firstChar(firstChar)
+	, m_singlePar(singlePar)
+{ }
+
+TextShaper::TextShaper(ITextSource &story, int firstChar)
+	: m_context(NULL)
+	, m_story(story)
+	, m_firstChar(firstChar)
 {
-	if (m_item->lastInFrame() >= m_item->firstInFrame())
+	for (int i = m_firstChar; i < m_story.length(); ++i)
 	{
-		int charsCount = m_item->lastInFrame() - m_item->firstInFrame() + 1;
-		m_runs.reserve(charsCount);
+		QChar ch = m_story.text(i);
+		if (ch == SpecialChars::PARSEP || ch == SpecialChars::LINEBREAK)
+			continue;
+		QString str(ch);
+		m_textMap.insert(i, i);
+		m_text.append(str);
 	}
 }
 
-bool TextShaper::hasRun(int i)
+QList<TextShaper::TextRun> TextShaper::itemizeBiDi()
 {
-	if (i <= m_lastKernedIndex)
-		return true;
+	QList<TextRun> textRuns;
+	UBiDi *obj = ubidi_open();
+	UErrorCode err = U_ZERO_ERROR;
 
-	needChars(i);
-	return (i <= m_lastKernedIndex);
-}
+	UBiDiLevel parLevel = UBIDI_LTR;
+	ParagraphStyle style = m_story.paragraphStyle(m_firstChar);
+	if (style.direction() == ParagraphStyle::RTL)
+		parLevel = UBIDI_RTL;
 
-GlyphRun TextShaper::runAt(int i)
-{
-	// Ensure we get a kerned run 
-	if (i <= m_lastKernedIndex)
-		return m_runs.at(i);
-	
-	needChars(i);
-	return m_runs.at(i);
-}
-
-void TextShaper::needChars(int runIndex)
-{
-	StoryText& itemText = m_item->itemText;
-
-	for ( ; m_index < itemText.length(); ++m_index)
+	ubidi_setPara(obj, (const UChar*) m_text.utf16(), m_text.length(), parLevel, NULL, &err);
+	if (U_SUCCESS(err))
 	{
-		Mark* mark = itemText.mark(m_index);
-		if ((mark != NULL) && (itemText.hasMark(m_index)))
+		int32_t count = ubidi_countRuns(obj, &err);
+		if (U_SUCCESS(err))
 		{
-			mark->OwnPage = m_item->OwnPage;
-			//itemPtr and itemName set to this frame only if mark type is different than MARK2ItemType
-			if (!mark->isType(MARK2ItemType))
+			textRuns.reserve(count);
+			for (int32_t i = 0; i < count; i++)
 			{
-				mark->setItemPtr(m_item);
-				mark->setItemName(m_item->itemName());
+				int32_t start, length;
+				UBiDiDirection dir = ubidi_getVisualRun(obj, i, &start, &length);
+				textRuns.append(TextRun(start, length, dir));
 			}
+		}
+	}
 
-			//anchors and indexes has no visible inserts in text
-			if (mark->isType(MARKAnchorType) || mark->isType(MARKIndexType))
+	ubidi_close(obj);
+	return textRuns;
+}
+
+QList<TextShaper::TextRun> TextShaper::itemizeScripts(const QList<TextRun> &runs)
+{
+	QList<TextRun> newRuns;
+	ScriptRun scriptrun((const UChar*) m_text.utf16(), m_text.length());
+
+	foreach (TextRun run, runs)
+	{
+		int start = run.start;
+		QList<TextRun> subRuns;
+
+		while (scriptrun.next())
+		{
+			if (scriptrun.getScriptStart() <= start && scriptrun.getScriptEnd() > start)
+				break;
+		}
+
+		while (start < run.start + run.len)
+		{
+			int end = qMin(scriptrun.getScriptEnd(), run.start + run.len);
+			UScriptCode script = scriptrun.getScriptCode();
+			if (run.dir == UBIDI_RTL)
+				subRuns.prepend(TextRun(start, end - start, run.dir, script));
+			else
+				subRuns.append(TextRun(start, end - start, run.dir, script));
+
+			start = end;
+			scriptrun.next();
+		}
+
+		scriptrun.reset();
+		newRuns.append(subRuns);
+	}
+
+	return newRuns;
+}
+
+QList<TextShaper::FeaturesRun> TextShaper::itemizeFeatures(const TextRun &run)
+{
+	QList<FeaturesRun> newRuns;
+	QList<FeaturesRun> subfeature;
+	int start = run.start;
+
+	while (start < run.start + run.len)
+	{
+		int end = start;
+		QStringList startFeatures = m_story.charStyle(m_textMap.value(start)).fontFeatures().split(",");
+		while (end < run.start + run.len)
+		{
+			QStringList endFeatures = m_story.charStyle(m_textMap.value(end)).fontFeatures().split(",");
+			if (startFeatures != endFeatures)
+				break;
+			end++;
+		}
+		subfeature.append(FeaturesRun(start, end - start, startFeatures));
+		start = end;
+		startFeatures.clear();
+	}
+	newRuns.append(subfeature);
+	return newRuns;
+}
+
+QList<TextShaper::TextRun> TextShaper::itemizeStyles(const QList<TextRun> &runs)
+{
+	QList<TextRun> newRuns;
+
+	foreach (TextRun run, runs) {
+		int start = run.start;
+		QList<TextRun> subRuns;
+
+		while (start < run.start + run.len)
+		{
+			int end = start;
+			const CharStyle &startStyle = m_story.charStyle(m_textMap.value(start));
+			while (end < run.start + run.len)
+			{
+				const CharStyle &endStyle = m_story.charStyle(m_textMap.value(end));
+				if (!startStyle.equivForShaping(endStyle))
+					break;
+				end++;
+			}
+			if (run.dir == UBIDI_RTL)
+				subRuns.prepend(TextRun(start, end - start, run.dir, run.script));
+			else
+				subRuns.append(TextRun(start, end - start, run.dir, run.script));
+			start = end;
+		}
+
+		newRuns.append(subRuns);
+	}
+
+	return newRuns;
+}
+
+void TextShaper::buildText(int fromPos, int toPos, QVector<int>& smallCaps)
+{
+	m_text = "";
+	
+	if (toPos > m_story.length() || toPos < 0)
+		toPos = m_story.length();
+	
+	for (int i = fromPos; i < toPos; ++i)
+	{
+		QString str = m_story.text(i,1);
+		
+		if (m_singlePar)
+		{
+			QChar ch = str[0];
+			if (ch == SpecialChars::PARSEP || ch == SpecialChars::LINEBREAK)
 				continue;
+		}
 
-			//set note marker charstyle
-			if (mark->isNoteType())
+		if (m_story.hasExpansionPoint(i))
+		{
+			m_contextNeeded = true;
+			if (m_context != NULL)
 			{
-				TextNote* note = mark->getNotePtr();
-				if (note == NULL)
-					continue;
-				mark->setItemPtr(m_item);
-				NotesStyle* nStyle = note->notesStyle();
-				Q_ASSERT(nStyle != NULL);
-				QString chsName = nStyle->marksChStyle();
-				CharStyle currStyle(itemText.charStyle(m_index));
-				if (!chsName.isEmpty())
-				{
-					CharStyle marksStyle(m_item->doc()->charStyle(chsName));
-					if (!currStyle.equiv(marksStyle))
-					{
-						currStyle.setParent(chsName);
-						itemText.applyCharStyle(m_index, 1, currStyle);
-					}
-				}
-
-				StyleFlag s(itemText.charStyle(m_index).effects());
-				if (mark->isType(MARKNoteMasterType))
-				{
-					if (nStyle->isSuperscriptInMaster())
-						s |= ScStyle_Superscript;
-					else
-						s &= ~ScStyle_Superscript;
-				}
-				else
-				{
-					if (nStyle->isSuperscriptInNote())
-						s |= ScStyle_Superscript;
-					else
-						s &= ~ScStyle_Superscript;
-				}
-				if (s != itemText.charStyle(m_index).effects())
-				{
-					CharStyle haveSuperscript;
-					haveSuperscript.setFeatures(s.featureList());
-					itemText.applyCharStyle(m_index, 1, haveSuperscript);
-				}
+				str = m_context->expand(m_story.expansionPoint(i));
+				if (str.isEmpty())
+					str = SpecialChars::ZWNBSPACE;
+			}
+			else
+			{
+				str = SpecialChars::OBJECT;
 			}
 		}
+		
+		str.replace(SpecialChars::SHYPHEN, SpecialChars::ZWNJ);
 
-		bool bullet = false;
-		if (m_index == 0 || itemText.text(m_index - 1) == SpecialChars::PARSEP)
+		const CharStyle &style = m_story.charStyle(i);
+		int effects = style.effects() & ScStyle_UserStyles;
+		bool hasSmallCap = false;
+		if ((effects & ScStyle_AllCaps) || (effects & ScStyle_SmallCaps))
 		{
-			ParagraphStyle style = itemText.paragraphStyle(m_index);
-			if (style.hasBullet() || style.hasNum())
+			QLocale locale(style.language());
+			QString upper = locale.toUpper(str);
+			if (upper != str)
 			{
-				bullet = true;
-				if (mark == NULL || !mark->isType(MARKBullNumType))
-				{
-					itemText.insertMark(new BulNumMark(), m_index);
-					m_index--;
-					continue;
-				}
-				if (style.hasBullet())
-					mark->setString(style.bulletStr());
-				else if (style.hasNum() && mark->getString().isEmpty())
-				{
-					mark->setString("?");
-					m_item->doc()->flag_Renumber = true;
-				}
+				if (effects & ScStyle_SmallCaps)
+					hasSmallCap = true;
+				str = upper;
 			}
 		}
-
-		if (!bullet && mark && mark->isType(MARKBullNumType))
-		{
-			itemText.removeChars(m_index, 1);
-			m_index--;
-			continue;
-		}
-
-		QString str = m_item->ExpandToken(m_index);
-		if (str.isEmpty())
-			str = SpecialChars::ZWNBSPACE;
 
 		for (int j = 0; j < str.length(); j++)
 		{
-			const QChar ch(str.at(j));
-			GlyphRun run(&itemText.charStyle(m_index), itemText.flags(m_index), m_index, m_index, itemText.object(m_index));
-			initGlyphLayout(run, QString(ch), m_runs.count());
-			m_runs.append(run);
+			m_textMap.insert(m_text.length() + j, i);
+			if (hasSmallCap)
+				smallCaps.append(m_text.length() + j);
 		}
 
-		// This ensure we have a sufficient number of runs
-		// to kern the request run
-		if (m_runs.count() >= runIndex + 2)
+		m_text.append(str);
+	}
+}
+
+
+ShapedText TextShaper::shape(int fromPos, int toPos)
+{
+	m_contextNeeded = false;
+	
+	ShapedText result(ShapedText(&m_story, fromPos, toPos, m_context));
+	
+
+	QVector<int> smallCaps;
+
+	buildText(fromPos, toPos, smallCaps);
+
+	QList<TextRun> bidiRuns = itemizeBiDi();
+	QList<TextRun> scriptRuns = itemizeScripts(bidiRuns);
+	QList<TextRun> textRuns = itemizeStyles(scriptRuns);
+
+	QVector<int32_t> lineBreaks;
+	BreakIterator* lineIt = StoryText::getLineIterator();
+	// FIXME-HOST: add some fallback code if the iterator failed
+	if (lineIt)
+	{
+		lineIt->setText((const UChar*) m_text.utf16());
+		for (int32_t pos = lineIt->first(); pos != BreakIterator::DONE; pos = lineIt->next())
+			lineBreaks.append(pos);
+	}
+
+	QVector<int32_t> justificationTracking;
+
+	// Insert implicit spaces in justification between characters
+	// in scripts that do not use spaces to seperate words
+	foreach (const TextRun& run, scriptRuns) {
+		switch (run.script) {
+		// clustered scripts from https://drafts.csswg.org/css-text-3/#script-groups
+		case USCRIPT_KHMER:
+		case USCRIPT_LAO:
+		case USCRIPT_MYANMAR:
+		case USCRIPT_NEW_TAI_LUE:
+		case USCRIPT_TAI_LE:
+		case USCRIPT_TAI_VIET:
+		case USCRIPT_THAI:
 		{
-			++m_index;
+			BreakIterator* charIt = StoryText::getGraphemeIterator();
+			if (charIt)
+			{
+				const QString text = m_text.mid(run.start, run.len);
+				charIt->setText((const UChar*) text.utf16());
+				int32_t pos = charIt->first();
+				while (pos != BreakIterator::DONE && pos < text.length())
+				{
+					UErrorCode status = U_ZERO_ERROR;
+					UScriptCode sc = uscript_getScript(text.at(pos).unicode(), &status);
+					// do not insert implicit space before punctuation
+					// or other non-script specific characters
+					if (sc != USCRIPT_COMMON)
+						justificationTracking.append(run.start + pos - 1);
+					pos = charIt->next();
+				}
+			}
+			break;
+		}
+		default:
 			break;
 		}
 	}
 
-	// Last run cannot be kerned, increment m_lastKernedIndex to its max value
-	if (m_index >= itemText.length())
-		m_lastKernedIndex = m_runs.count() - 1;
-}
+	foreach (const TextRun& textRun, textRuns) {
+		const CharStyle &style = m_story.charStyle(m_textMap.value(textRun.start));
 
-void TextShaper::startLine(int i)
-{
-	m_layoutFlags = ScLayout_StartOfLine;
+		const ScFace &scFace = style.font();
+		hb_font_t *hbFont = reinterpret_cast<hb_font_t*>(scFace.hbFont());
+		if (hbFont == NULL)
+			continue;
 
-	while (m_runs.count() > i)
-	{
-		m_index = m_runs.last().firstChar();
-		m_runs.removeLast();
+		hb_font_set_scale(hbFont, style.fontSize(), style.fontSize());
+		FT_Face ftFace = hb_ft_font_get_face(hbFont);
+		if (ftFace)
+			FT_Set_Char_Size(ftFace, style.fontSize(), 0, 72, 0);
+
+		hb_direction_t hbDirection = (textRun.dir == UBIDI_LTR) ? HB_DIRECTION_LTR : HB_DIRECTION_RTL;
+		hb_script_t hbScript = hb_icu_script_to_script(textRun.script);
+		std::string language = style.language().toStdString();
+		hb_language_t hbLanguage = hb_language_from_string(language.c_str(), language.length());
+
+		hb_buffer_t *hbBuffer = hb_buffer_create();
+		hb_buffer_add_utf16(hbBuffer, m_text.utf16(), m_text.length(), textRun.start, textRun.len);
+		hb_buffer_set_direction(hbBuffer, hbDirection);
+		hb_buffer_set_script(hbBuffer, hbScript);
+		hb_buffer_set_language(hbBuffer, hbLanguage);
+		hb_buffer_set_cluster_level(hbBuffer, HB_BUFFER_CLUSTER_LEVEL_MONOTONE_CHARACTERS);
+
+		QVector<hb_feature_t> hbFeatures;
+		QList<FeaturesRun> featuresRuns = itemizeFeatures(textRun);
+		foreach (const FeaturesRun& featuresRun, featuresRuns)
+		{
+			const QStringList& features = featuresRun.features;
+			hbFeatures.reserve(features.length());
+			foreach (const QString& feature, features) {
+				hb_feature_t hbFeature;
+				hb_bool_t ok = hb_feature_from_string(feature.toStdString().c_str(), feature.toStdString().length(), &hbFeature);
+				if (ok)
+				{
+					hbFeature.start = featuresRun.start;
+					hbFeature.end = featuresRun.len + featuresRun.start;
+					hbFeatures.append(hbFeature);
+				}
+			}
+		}
+
+		hb_shape(hbFont, hbBuffer, hbFeatures.data(), hbFeatures.length());
+
+		unsigned int count = hb_buffer_get_length(hbBuffer);
+		hb_glyph_info_t *glyphs = hb_buffer_get_glyph_infos(hbBuffer, NULL);
+		hb_glyph_position_t *positions = hb_buffer_get_glyph_positions(hbBuffer, NULL);
+
+		result.glyphs().reserve(result.glyphs().size() + count);
+		for (size_t i = 0; i < count; )
+		{
+			uint32_t firstCluster = glyphs[i].cluster;
+			uint32_t nextCluster = firstCluster;
+			if (hbDirection == HB_DIRECTION_LTR)
+			{
+				size_t j = i + 1;
+				while (j < count && nextCluster == firstCluster)
+				{
+					nextCluster = glyphs[j].cluster;
+					j++;
+				}
+				if (j == count && nextCluster == firstCluster)
+					nextCluster = textRun.start + textRun.len;
+			}
+			else
+			{
+				int j = i - 1;
+				while (j >= 0 && nextCluster == firstCluster)
+				{
+					nextCluster = glyphs[j].cluster;
+					j--;
+				}
+				if (j <= 0 && nextCluster == firstCluster)
+					nextCluster = textRun.start + textRun.len;
+			}
+
+			assert(m_textMap.contains(firstCluster));
+			assert(m_textMap.contains(nextCluster - 1));
+			int firstChar = m_textMap.value(firstCluster);
+			int lastChar = m_textMap.value(nextCluster - 1);
+			
+			QChar ch = m_story.text(firstChar);
+			LayoutFlags flags = m_story.flags(firstChar);
+			const CharStyle& charStyle(m_story.charStyle(firstChar));
+			const StyleFlag& effects = charStyle.effects();
+
+			QString str = m_text.mid(firstChar, lastChar-firstChar+1);
+			GlyphCluster run(&charStyle, flags, firstChar, lastChar, m_story.object(firstChar), result.glyphs().length(), str);
+
+			run.clearFlag(ScLayout_HyphenationPossible);
+			if (m_story.hasFlag(lastChar, ScLayout_HyphenationPossible))
+				run.setFlag(ScLayout_HyphenationPossible);
+			
+			if (textRun.dir == UBIDI_RTL)
+				run.setFlag(ScLayout_RightToLeft);
+
+			if (lineBreaks.contains(firstCluster))
+				run.setFlag(ScLayout_LineBoundary);
+
+			if (SpecialChars::isExpandingSpace(ch))
+				run.setFlag(ScLayout_ExpandingSpace);
+			else if (justificationTracking.contains(firstCluster))
+				run.setFlag(ScLayout_JustificationTracking);
+
+			if (effects & ScStyle_Underline)
+				run.setFlag(ScLayout_Underlined);
+			if (effects & ScStyle_UnderlineWords && !ch.isSpace())
+				run.setFlag(ScLayout_Underlined);
+
+			if (firstChar != 0 &&
+			    SpecialChars::isCJK(m_story.text(firstChar).unicode()) &&
+			    SpecialChars::isCJK(m_story.text(firstChar - 1).unicode()))
+				run.setFlag(ScLayout_ImplicitSpace);
+
+			run.setScaleH(charStyle.scaleH() / 1000.0);
+			run.setScaleV(charStyle.scaleV() / 1000.0);
+
+			while (i < count && glyphs[i].cluster == firstCluster)
+			{
+				GlyphLayout gl;
+				gl.glyph = glyphs[i].codepoint;
+				if (gl.glyph == 0 ||
+				    (ch == SpecialChars::LINEBREAK || ch == SpecialChars::PARSEP ||
+				     ch == SpecialChars::FRAMEBREAK || ch == SpecialChars::COLBREAK))
+				{
+					gl.glyph = scFace.emulateGlyph(ch.unicode());
+				}
+
+				if (gl.glyph < ScFace::CONTROL_GLYPHS)
+				{
+					gl.xoffset = positions[i].x_offset / 10.0;
+					gl.yoffset = -positions[i].y_offset / 10.0;
+					gl.xadvance = positions[i].x_advance / 10.0;
+					gl.yadvance = positions[i].y_advance / 10.0;
+				}
+
+#if 0
+				if (m_story.hasMark(firstChar))
+				{
+					GlyphLayout control;
+					control.glyph = SpecialChars::OBJECT.unicode() + ScFace::CONTROL_GLYPHS;
+					run.append(control);
+				}
+#endif
+				
+				if (SpecialChars::isExpandingSpace(ch))
+					gl.xadvance *= run.style().wordTracking();
+
+				if (m_story.hasObject(firstChar))
+				{
+					m_contextNeeded = true;
+					if (m_context != NULL)
+						gl.xadvance = m_context->getVisualBoundingBox(m_story.object(firstChar)).width();
+				}
+
+				if ((effects & ScStyle_Superscript) || (effects & ScStyle_Subscript))
+				{
+					m_contextNeeded = true;
+					if (m_context != NULL)
+					{
+						double scale;
+						double asce = style.font().ascent(style.fontSize() / 10.0);
+						if (effects & ScStyle_Superscript)
+						{
+							gl.yoffset -= asce * m_context->typographicPrefs().valueSuperScript / 100.0;
+							scale = qMax(m_context->typographicPrefs().scalingSuperScript / 100.0, 10.0 / style.fontSize());
+						}
+						else // effects & ScStyle_Subscript
+						{
+							gl.yoffset += asce * m_context->typographicPrefs().valueSubScript / 100.0;
+							scale = qMax(m_context->typographicPrefs().scalingSubScript / 100.0, 10.0 / style.fontSize());
+						}
+						
+						run.setScaleH(run.scaleH() * scale);
+						run.setScaleV(run.scaleV() * scale);
+					}
+				}
+
+				if (smallCaps.contains(firstCluster))
+				{
+					m_contextNeeded = true;
+					if (m_context != NULL)
+					{
+						
+						double smallcapsScale = m_context->typographicPrefs().valueSmallCaps / 100.0;
+						run.setScaleH(run.scaleH() * smallcapsScale);
+						run.setScaleV(run.scaleV() * smallcapsScale);
+					}
+				}
+
+				if (run.scaleH() == 0.0)
+				{
+					gl.xadvance = 0.0;
+					run.setScaleH(1.0);
+				}
+
+				run.append(gl);
+				i++;
+			}
+
+			// Apply CJK spacing according to JIS X4051
+			if (lastChar + 1 < m_story.length())
+			{
+				double halfEM = run.style().fontSize() / 10 / 2;
+				double quarterEM = run.style().fontSize() / 10 / 4;
+
+				int currStat = SpecialChars::getCJKAttr(m_story.text(lastChar));
+				int nextStat = SpecialChars::getCJKAttr(m_story.text(lastChar + 1));
+				if (currStat != 0)
+				{	// current char is CJK
+					if (nextStat == 0
+							&& !SpecialChars::isBreakingSpace(m_story.text(lastChar + 1))
+							&& SpecialChars::isCJK(m_story.text(lastChar + 1).unicode())) {
+						switch(currStat & SpecialChars::CJK_CHAR_MASK) {
+						case SpecialChars::CJK_KANJI:
+						case SpecialChars::CJK_KANA:
+						case SpecialChars::CJK_NOTOP:
+							run.extraWidth += quarterEM;
+						}
+					} else {	// next char is CJK, too
+						switch(currStat & SpecialChars::CJK_CHAR_MASK) {
+						case SpecialChars::CJK_FENCE_END:
+							switch(nextStat & SpecialChars::CJK_CHAR_MASK) {
+							case SpecialChars::CJK_FENCE_BEGIN:
+							case SpecialChars::CJK_FENCE_END:
+							case SpecialChars::CJK_COMMA:
+							case SpecialChars::CJK_PERIOD:
+							case SpecialChars::CJK_MIDPOINT:
+								run.extraWidth -= halfEM;
+							}
+							break;
+						case SpecialChars::CJK_COMMA:
+						case SpecialChars::CJK_PERIOD:
+							switch(nextStat & SpecialChars::CJK_CHAR_MASK) {
+							case SpecialChars::CJK_FENCE_BEGIN:
+							case SpecialChars::CJK_FENCE_END:
+								run.extraWidth -= halfEM;;
+							}
+							break;
+						case SpecialChars::CJK_MIDPOINT:
+							switch(nextStat & SpecialChars::CJK_CHAR_MASK) {
+							case SpecialChars::CJK_FENCE_BEGIN:
+								run.extraWidth -= halfEM;
+							}
+							break;
+						case SpecialChars::CJK_FENCE_BEGIN:
+							int prevStat = SpecialChars::getCJKAttr(m_story.text(lastChar - 1));
+							if ((prevStat & SpecialChars::CJK_CHAR_MASK) == SpecialChars::CJK_FENCE_BEGIN)
+							{
+								run.extraWidth -= halfEM;
+								run.xoffset -= halfEM;
+							}
+							else
+							{
+								run.setFlag(ScLayout_CJKFence);
+							}
+							break;
+						}
+					}
+				} else {	// current char is not CJK
+					if (nextStat != 0
+							&& !SpecialChars::isBreakingSpace(m_story.text(lastChar))
+							&& !SpecialChars::isCJK(m_story.text(lastChar + 1).unicode())) {
+						switch(nextStat & SpecialChars::CJK_CHAR_MASK) {
+						case SpecialChars::CJK_KANJI:
+						case SpecialChars::CJK_KANA:
+						case SpecialChars::CJK_NOTOP:
+							// use the size of the current char instead of the next one
+							run.extraWidth += quarterEM;
+						}
+					}
+				}
+			}
+
+			result.glyphs().append(run);
+		}
+		hb_buffer_destroy(hbBuffer);
+
 	}
 
-	m_lastKernedIndex = m_runs.count() - 1;
-}
-
-void TextShaper::initGlyphLayout(GlyphRun& run, const QString& chars, int runIndex)
-{
-	int a = run.firstChar();
-	const QChar ch = chars.at(0);
-	const CharStyle& runStyle = run.style();
-	StoryText& itemText = m_item->itemText;
-
-	if (SpecialChars::isExpandingSpace(ch))
-		run.setFlag(ScLayout_ExpandingSpace);
-
-	LayoutFlags layoutFlags = static_cast<LayoutFlags>(itemText.flags(a) | m_layoutFlags);
-	GlyphLayout gl = m_item->layoutGlyphs(runStyle, chars, layoutFlags);
-	m_layoutFlags  = static_cast<LayoutFlags>(m_layoutFlags & (~ScLayout_StartOfLine));
-
-	if (runIndex > 0)
-	{
-		GlyphRun& lastRun = m_runs[runIndex - 1];
-		GlyphLayout& lastLayout = lastRun.glyphs().last();
-
-		lastLayout.xadvance += runStyle.font().glyphKerning(lastLayout.glyph, gl.glyph, runStyle.fontSize() / 10);
-		m_lastKernedIndex = qMax(m_lastKernedIndex, runIndex - 1);
-
-		QChar lastChar = itemText.text(lastRun.lastChar());
-		if (implicitSpace(lastChar, ch))
-			run.setFlag(ScLayout_ImplicitSpace);
-	}
-
-	//show control characters for marks
-	if (itemText.hasMark(a))
-	{
-		GlyphLayout control;
-		control.glyph = SpecialChars::OBJECT.unicode() + ScFace::CONTROL_GLYPHS;
-		run.glyphs().append(control);
-	}
-
-	if (SpecialChars::isExpandingSpace(ch))
-		gl.xadvance *= runStyle.wordTracking();
-
-	if (itemText.hasObject(a))
-		gl.xadvance = itemText.object(a)->getVisualBoundingRect().width();
-
-	run.glyphs().append(gl);
+	m_textMap.clear();
+	m_text = "";
+	result.needsContext(m_contextNeeded);
+	return result;
 }

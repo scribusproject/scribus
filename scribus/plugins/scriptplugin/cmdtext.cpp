@@ -152,6 +152,32 @@ PyObject *scribus_getcolumns(PyObject* /* self */, PyObject* args)
 	return PyInt_FromLong(static_cast<long>(i->Cols));
 }
 
+PyObject *scribus_getfontfeatures(PyObject* /* self */, PyObject* args)
+{
+	char *Name = const_cast<char*>("");
+	if (!PyArg_ParseTuple(args, "|es", "utf-8", &Name))
+		return NULL;
+	if(!checkHaveDocument())
+		return NULL;
+	PageItem *it = GetUniqueItem(QString::fromUtf8(Name));
+	if (it == NULL)
+		return NULL;
+	if (!(it->isTextFrame()) && !(it->isPathText()))
+	{
+	 PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot get fontfeatures of non-text frame.","python error").toLocal8Bit().constData());
+		return NULL;
+	}
+	if (it->HasSel)
+	{
+		for (int b = 0; b < it->itemText.length(); b++)
+			if (it->itemText.selected(b))
+				return PyString_FromString(it->itemText.charStyle(b).fontFeatures().toUtf8());
+		return NULL;
+	}
+	else
+		return PyString_FromString(it->currentCharStyle().fontFeatures().toUtf8());
+}
+
 PyObject *scribus_getlinespace(PyObject* /* self */, PyObject* args)
 {
 	char *Name = const_cast<char*>("");
@@ -410,6 +436,39 @@ PyObject *scribus_setalign(PyObject* /* self */, PyObject* args)
 	Py_RETURN_NONE;
 }
 
+PyObject *scribus_setdirection(PyObject* /* self */, PyObject* args)
+{
+	char *Name = const_cast<char*>("");
+	int direction;
+	if (!PyArg_ParseTuple(args, "i|es", &direction, "utf-8", &Name))
+		return NULL;
+	if(!checkHaveDocument())
+		return NULL;
+	if ((direction > 1) || (direction < 0))
+	{
+		PyErr_SetString(PyExc_ValueError, QObject::tr("direction out of range. Use one of the scribus.DIRECTION* constants.","python error").toLocal8Bit().constData());
+		return NULL;
+	}
+	PageItem *i = GetUniqueItem(QString::fromUtf8(Name));
+	if (i == NULL)
+		return NULL;
+	if (!i->asTextFrame())
+	{
+		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot set text direction on a non-text frame.","python error").toLocal8Bit().constData());
+		return NULL;
+	}
+	int Apm = ScCore->primaryMainWindow()->doc->appMode;
+	ScCore->primaryMainWindow()->doc->m_Selection->clear();
+	ScCore->primaryMainWindow()->doc->m_Selection->addItem(i);
+	if (i->HasSel)
+		ScCore->primaryMainWindow()->doc->appMode = modeEdit;
+	ScCore->primaryMainWindow()->setNewDirection(direction);
+	ScCore->primaryMainWindow()->doc->appMode = Apm;
+	ScCore->primaryMainWindow()->view->Deselect();
+
+	Py_RETURN_NONE;
+}
+
 PyObject *scribus_setfontsize(PyObject* /* self */, PyObject* args)
 {
 	char *Name = const_cast<char*>("");
@@ -438,6 +497,37 @@ PyObject *scribus_setfontsize(PyObject* /* self */, PyObject* args)
 	if (i->HasSel)
 		ScCore->primaryMainWindow()->doc->appMode = modeEdit;
 	ScCore->primaryMainWindow()->doc->itemSelection_SetFontSize(qRound(size * 10.0));
+	ScCore->primaryMainWindow()->doc->appMode = Apm;
+	ScCore->primaryMainWindow()->view->Deselect();
+//	Py_INCREF(Py_None);
+//	return Py_None;
+	Py_RETURN_NONE;
+}
+
+PyObject *scribus_setfontfeatures(PyObject* /* self */, PyObject* args)
+{
+	char *Name = const_cast<char*>("");
+	char *fontfeature = const_cast<char*>("");
+	if (!PyArg_ParseTuple(args, "es|es", "utf-8", &fontfeature, "utf-8", &Name))
+		return NULL;
+	if(!checkHaveDocument())
+		return NULL;
+
+	PageItem *i = GetUniqueItem(QString::fromUtf8(Name));
+	if (i == NULL)
+		return NULL;
+
+	if (!i->isTextFrame())
+	{
+		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot set font feature on a non-text frame.","python error").toLocal8Bit().constData());
+		return NULL;
+	}
+	int Apm = ScCore->primaryMainWindow()->doc->appMode;
+	ScCore->primaryMainWindow()->doc->m_Selection->clear();
+	ScCore->primaryMainWindow()->doc->m_Selection->addItem(i);
+	if (i->HasSel)
+		ScCore->primaryMainWindow()->doc->appMode = modeEdit;
+	ScCore->primaryMainWindow()->doc->itemSelection_SetFontFeatures(QString::fromUtf8(fontfeature));
 	ScCore->primaryMainWindow()->doc->appMode = Apm;
 	ScCore->primaryMainWindow()->view->Deselect();
 //	Py_INCREF(Py_None);
@@ -1206,5 +1296,6 @@ void cmdtextdocwarnings()
 	  << scribus_hyphenatetext__doc__ << scribus_dehyphenatetext__doc__
 	  << scribus_gettextdistances__doc__ << scribus_settextdistances__doc__
 	  << scribus_settextscalingh__doc__ << scribus_settextscalingv__doc__
-	  << scribus_setlinespacemode__doc__;
+	  << scribus_setlinespacemode__doc__ << scribus_setdirection__doc__
+	  << scribus_setfontfeatures__doc__ << scribus_getfontfeatures__doc__;
 }

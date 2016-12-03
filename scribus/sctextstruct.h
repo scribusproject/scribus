@@ -24,7 +24,7 @@ class PageItem;
 class Mark;
 class ScribusDoc;
 
-/* Struktur fuer Pageitem Text */
+/* Strucure for Pageitem Text */
 
 
 /*
@@ -39,17 +39,70 @@ class ScribusDoc;
 // from charstlye.h ScStyleFlags
 enum LayoutFlags {
 	ScLayout_None          = 0,
-	ScLayout_BulletNum     = 1,       // new: marks list layout glyphs
-	ScLayout_FixedSpace    = 2,       // new: marks a fixed space
-	ScLayout_ExpandingSpace= 4,       // new: marks an expanding space
-	ScLayout_ImplicitSpace = 8,       // new: marks an implicit space
-	ScLayout_TabLeaders    = 16,      // new: marks a tab with fillchar
-	ScLayout_HyphenationPossible=128, // Hyphenation possible here (Soft Hyphen)
-	ScLayout_DropCap       = 2048,
-	ScLayout_SuppressSpace = 4096,    // internal use in PageItem (Suppresses spaces when in Block alignment)
-	ScLayout_SoftHyphenVisible=8192,  // Soft Hyphen visible at line end
-	ScLayout_StartOfLine   = 16384,   // set for start of line
-	ScLayout_Underlined    = 32768    // chararcter should be underlined
+	ScLayout_BulletNum     = 1 << 0, 	// marks list layout glyphs
+	ScLayout_FixedSpace    = 1 << 1, 	// marks a fixed space
+	ScLayout_ExpandingSpace= 1 << 2, 	// marks an expanding space
+	ScLayout_ImplicitSpace = 1 << 3, 	// marks an implicit space
+	ScLayout_TabLeaders    = 1 << 4, 	// marks a tab with fillchar
+	ScLayout_HyphenationPossible = 1 << 7, 	 // marks possible hyphenation point
+	ScLayout_DropCap       = 1 << 11,
+	ScLayout_SuppressSpace = 1 << 12,        // internal use in PageItem (Suppresses spaces when in Block alignment)
+	ScLayout_SoftHyphenVisible = 1 << 13,    // marks when a possible hyphenation point is used (st end of line)
+	ScLayout_StartOfLine      = 1 << 14,     // marks the start of line
+	ScLayout_Underlined       = 1 << 15,     // marks underlined glyphs
+	ScLayout_LineBoundary     = 1 << 16,     // marks possible line breaking point
+	ScLayout_RightToLeft      = 1 << 17,     // marks right-to-left glyph
+	ScLayout_SmallCap         = 1 << 18,     // marks small caps glyph
+	ScLayout_CJKFence         = 1 << 19,     // marks CJK fence glyph that needs spacing adjustment at start of line
+	ScLayout_JustificationTracking = 1 << 20 // marks place of tracking in justification (e.g. for Thai)
+};
+
+
+/**
+ * simple class to abstract from inline pageitems. You will need a ITextContext
+ * to get meaningfull data about the InlineFrame, for other purposes it is opaque
+ */
+class SCRIBUS_API InlineFrame
+{
+	int m_object_id;
+public:
+	InlineFrame(int id) : m_object_id(id) {}
+	int getInlineCharID() const { return m_object_id; }
+	PageItem* getPageItem(ScribusDoc* doc) const;
+};
+
+
+/**
+ * Holds information about expansion points in a text source: pagenumber, counters, list bulllet, ...
+ */
+class SCRIBUS_API ExpansionPoint 
+{
+public:
+	enum ExpansionType {
+		Invalid,
+		PageNumber,
+		PageCount,
+		ListBullet,
+		ListCounter,
+		Note,	// foot or endnote number
+		Anchor,  // usually invisible	
+		PageRef,
+		Lookup, // generic lookup
+		SectionRef,
+		MarkCE // deprecated
+	} ;
+
+	ExpansionPoint(ExpansionType t) : m_type(t), m_name() {}
+	ExpansionPoint(ExpansionType t, QString name) : m_type(t), m_name(name) {}
+	ExpansionPoint(Mark* mrk) : m_type(MarkCE), m_name(), m_mark(mrk) {}
+
+	ExpansionType getType() const { return m_type; }
+	QString getName() const { return m_name; }
+	Mark* getMark() const { return m_mark; }
+private:
+	ExpansionType m_type;
+	QString m_name;
+	Mark* m_mark;
 };
 
 
@@ -66,45 +119,9 @@ struct SCRIBUS_API GlyphLayout {
 	uint glyph;
 	
 	GlyphLayout() : xadvance(0.0f), yadvance(0.0f), xoffset(0.0f), yoffset(0.0f),
-		scaleV(1.0), scaleH(1.0), glyph(0) //, more(NULL)
+		scaleV(1.0), scaleH(1.0), glyph(0)
 	{ }
 };
-
-
-class GlyphRun
-{
-	const CharStyle* m_style;
-	LayoutFlags m_flags;
-	QList<GlyphLayout> m_glyphs;
-	
-	int m_firstChar;
-	int m_lastChar;
-	PageItem* m_object;
-
-public:
-	GlyphRun(const CharStyle* style, LayoutFlags flags, int first, int last, PageItem* o)
-		: m_style(style)
-		, m_flags(flags)
-		, m_firstChar(first)
-		, m_lastChar(last)
-		, m_object(o)
-	{}
-
-	const CharStyle&         style()  const { return *m_style; }
-	bool       hasFlag(LayoutFlags f) const { return (m_flags & f) == f; }
-	void       setFlag(LayoutFlags f)       { m_flags = static_cast<LayoutFlags>(m_flags | f); }
-	void     clearFlag(LayoutFlags f)       { m_flags = static_cast<LayoutFlags>(m_flags & ~f); }
-	void     clearGlyphs()                  { m_glyphs.clear(); }
-
-	QList<GlyphLayout>&       glyphs()       { return m_glyphs; }
-	const QList<GlyphLayout>& glyphs() const { return m_glyphs; }
-	int glyphCount()                const    { return m_glyphs.count(); }
-	int firstChar()					const	{ return m_firstChar; }
-	int lastChar()					const	{ return m_lastChar; }
-	qreal width() const;
-	PageItem* object()				const	{ return m_object; }
-};
-
 
 class SCRIBUS_API ScText : public CharStyle
 {

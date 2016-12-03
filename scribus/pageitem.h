@@ -48,6 +48,7 @@ for which a new license (GPL+exception) is in place.
 #include "sctextstruct.h"
 #include "text/storytext.h"
 #include "text/textlayout.h"
+#include "text/textcontext.h"
 #include "undoobject.h"
 #include "vgradient.h"
 #include "mesh.h"
@@ -89,7 +90,7 @@ class PageItem_TextFrame;
 #define _unlink unlink
 #endif
 
-class SCRIBUS_API PageItem : public QObject, public UndoObject, public SaxIO, public SingleObservable<PageItem>
+class SCRIBUS_API PageItem : public QObject, public UndoObject, public SaxIO, public SingleObservable<PageItem>, public TextContext
 {
 	Q_OBJECT
 
@@ -124,7 +125,6 @@ class SCRIBUS_API PageItem : public QObject, public UndoObject, public SaxIO, pu
 	Q_PROPERTY(double m_imageYScale READ imageYScale WRITE setImageYScale DESIGNABLE false)
 	Q_PROPERTY(double imageXOffset READ imageXOffset WRITE setImageXOffset DESIGNABLE false)
 	Q_PROPERTY(double imageYOffset READ imageYOffset WRITE setImageYOffset DESIGNABLE false)
-	Q_PROPERTY(bool m_isReversed READ reversed WRITE setReversed DESIGNABLE false)
 	Q_PROPERTY(double m_roundedCorderRadius READ cornerRadius WRITE setCornerRadius DESIGNABLE false)
 	Q_PROPERTY(double textToFrameDistLeft READ textToFrameDistLeft WRITE setTextToFrameDistLeft DESIGNABLE false)
 	Q_PROPERTY(double textToFrameDistRight READ textToFrameDistRight WRITE setTextToFrameDistRight DESIGNABLE false)
@@ -414,11 +414,8 @@ public: // Start public functions
 	const CharStyle& currentCharStyle() const;
 	/// Return current text properties (current char + paragraph properties)
 	virtual void currentTextProps(ParagraphStyle& parStyle) const;
-	// deprecated:
-	GlyphLayout layoutGlyphs(const CharStyle& style, const QString& chars, LayoutFlags flags);
 	void SetQColor(QColor *tmp, QString farbe, double shad);
 	void DrawPolyL(QPainter *p, QPolygon pts);
-	QString ExpandToken(uint base);
 	const FPointArray shape() const { return PoLine; }
 	void setShape(FPointArray val) { PoLine = val; }
 	const FPointArray contour() const { return ContourLine; }
@@ -459,6 +456,10 @@ public: // Start public functions
 	PageItem* nextInChain() { return NextBox; }
 	const PageItem* prevInChain() const { return BackBox; }
 	const PageItem* nextInChain() const { return NextBox; }
+	//simplify conditions checking if frame is in chain
+	//FIX: use it in other places
+	bool isInChain() { return ((prevInChain() != NULL) || (nextInChain() != NULL)); }
+
 	//you can change all code for search first or last item in chain
 	PageItem* firstInChain();
 	PageItem* lastInChain();
@@ -520,9 +521,6 @@ public: // Start public functions
 	void setImageXYOffset(const double, const double);
 	double imageRotation() const { return m_imageRotation; }
 	void setImageRotation(const double newRotation);
-	//Reverse
-	bool reversed() const { return m_isReversed; }
-	void setReversed(bool);
 	//Rounded Corners
 	double cornerRadius() const { return m_roundedCorderRadius; }
 	void setCornerRadius(double);
@@ -1607,7 +1605,6 @@ protected: // Start protected functions
 	void restoreResTyp(SimpleState *state, bool isUndo);
 	void restoreResetMeshGrad(SimpleState *state, bool isUndo);
 	void restoreResize(SimpleState *state, bool isUndo);
-	void restoreReverseText(UndoState *state, bool isUndo);
 	void restoreRightTextFrameDist(SimpleState *state, bool isUndo);
 	void restoreRotate(SimpleState *state, bool isUndo);
 	void restoreSetCharStyle(SimpleState *state, bool isUndo);
@@ -1829,7 +1826,6 @@ protected: // Start protected variables
 	double m_imageXOffset; ///< Image X Offset to frame
 	double m_imageYOffset; ///< Image Y Offset to frame
 	double m_imageRotation; ///< Image rotation in frame
-	bool m_isReversed; ///< Is the frame is reversed?
 	FirstLineOffsetPolicy firstLineOffsetP;
 	bool m_groupClips;
 	QColor hatchBackgroundQ;

@@ -80,7 +80,7 @@ class SCRIBUS_API ColorListBox : public QListWidget
 		/*! \brief Standard QListBox like constructor.
 		Just there are initialized pixmaps for icon drawing. */
 		ColorListBox(QWidget * parent = 0);
-		
+		~ColorListBox();
 		virtual void changeEvent(QEvent *e);
 
 		QString currentColor() const;

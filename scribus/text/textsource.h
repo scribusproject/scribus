@@ -11,8 +11,8 @@
 #include <QString>
 
 #include "scribusapi.h"
-#include "itextsource"
-#include "style/paragraphstyle"
+#include "itextsource.h"
+#include "styles/paragraphstyle.h"
 
 
 class CharStyle;
@@ -34,7 +34,7 @@ class SCRIBUS_API TextSourceSegment : public ITextSource
 	
 public:
 	
-	TextSourceSegment(ITextSpource* original, int offset, int segmentLength);
+	TextSourceSegment(ITextSource* original, int offset, int segmentLength);
 	
 	bool canCombine(const TextSourceSegment& other) const;
 	void combine(const TextSourceSegment& other);
@@ -73,11 +73,11 @@ class SCRIBUS_API SimpleTextSource : public ITextSource
 	ParagraphStyle m_style;
 	
 	ITextSource* m_parent;
-	int m_parentStartPos;
+	int m_parentPos;
 	
 public:
 	
-	SimpleTextSourceSegment(QString text, const ParagraphStyle& style, ITextSource* par=NULL, int parentStart = 0) : m_text(text), m_style(style), m_parent(par), m_parentPos(parentStart) {}
+	SimpleTextSource(QString text, const ParagraphStyle& style, ITextSource* par=NULL, int parentStart = 0) : m_text(text), m_style(style), m_parent(par), m_parentPos(parentStart) {}
 	
 	virtual int length() const;
 	virtual QChar text(int pos) const;
@@ -100,8 +100,7 @@ public:
 	
 	virtual const ITextSource* parent() const;
 	virtual int parentPos() const;
-
-
+};
 
 #endif // ITEXTSOURCE_H
 

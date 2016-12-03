@@ -5,6 +5,8 @@
  for which a new license (GPL+exception) is in place.
  */
 
+#include <math.h>
+
 #include "pageitem.h"
 #include "boxes.h"
 #include "appmodes.h"
@@ -15,15 +17,18 @@
 #include "sccolorengine.h"
 #include "colorblind.h"
 #include "textlayoutpainter.h"
+#include "screenpainter.h"
+#include "itextcontext.h"
+#include "itextsource.h"
 
-int GroupBox::pointToPosition(QPointF coord) const
+int GroupBox::pointToPosition(QPointF coord, const StoryText &story) const
 {
 	QPointF rel = coord - QPointF(m_x, m_y);
 	foreach (const Box *box, boxes())
 	{
 		if (box->containsPoint(rel))
 		{
-			int result = box->pointToPosition(rel);
+			int result = box->pointToPosition(rel, story);
 			if (result >= 0)
 				return result;
 		}
@@ -31,14 +36,14 @@ int GroupBox::pointToPosition(QPointF coord) const
 	return -1;
 }
 
-QLineF GroupBox::positionToPoint(int pos) const
+QLineF GroupBox::positionToPoint(int pos, const StoryText& story) const
 {
 	QLineF result;
 	foreach (const Box *box, boxes())
 	{
 		if (box->containsPos(pos))
 		{
-			result = box->positionToPoint(pos);
+			result = box->positionToPoint(pos, story);
 		}
 	}
 	if (!result.isNull())
@@ -57,21 +62,43 @@ void GroupBox::render(TextLayoutPainter *p) const
 	p->restore();
 }
 
-void GroupBox::render(TextLayoutPainter *p, PageItem *item) const
+void GroupBox::render(ScreenPainter *p, ITextContext *ctx) const
 {
 	p->save();
 	p->translate(x(), y());
 	foreach (const Box *box, boxes())
 	{
-		box->render(p, item);
+		box->render(p, ctx);
 	}
 	p->restore();
+}
+
+void GroupBox::drawSelection(ScreenPainter *p, ITextContext *ctx) const
+{
+	p->save();
+	p->translate(x(), y());
+	foreach (const Box *box, boxes())
+	{
+		box->drawSelection(p, ctx);
+	}
+	p->restore();
+}
+
+double GroupBox::naturalHeight() const
+{
+	double nH = 0;
+	foreach (const Box* box, boxes()) {
+		if (m_direction == D_Horizontal)
+			nH = qMax(m_naturalHeight, box->naturalHeight());
+		else
+			nH = ceil(box->y() + box->ascent() - box->naturalDecent());
+	}
+	return nH;
 }
 
 void GroupBox::addBox(const Box* box)
 {
 	boxes().append(const_cast<Box*>(box));
-	QObject::connect(box, SIGNAL(boxChanged()), this, SLOT(childChanged()));
 	update();
 }
 
@@ -87,7 +114,7 @@ void GroupBox::removeBox(int i)
 void GroupBox::update()
 {
 	m_naturalHeight = m_naturalWidth = 0;
-	foreach (Box* box, boxes()) {
+	foreach (const Box* box, boxes()) {
 		m_firstChar = qMin(m_firstChar, box->firstChar());
 		m_lastChar = qMax(m_lastChar, box->lastChar());
 		if (m_direction == D_Horizontal)
@@ -97,13 +124,12 @@ void GroupBox::update()
 		}
 		else
 		{
-			box->moveTo(box->x(), naturalHeight());
 			m_naturalWidth = qMax(m_naturalWidth, box->naturalWidth());
-			m_naturalHeight += box->height();
+			m_naturalHeight = ceil(box->y() + box->ascent() - box->naturalDecent());
 		}
 	}
 
-	emit boxChanged();
+//	emit boxChanged();
 }
 
 #if 0
@@ -118,64 +144,52 @@ void GroupBox::justify(const ParagraphStyle& style)
 }
 #endif
 
-int LineBox::pointToPosition(QPointF coord) const
+int LineBox::pointToPosition(QPointF coord, const StoryText &story) const
 {
-	int position = -1;
-
-	QPointF rel = coord - QPointF(m_x, m_y);
-	foreach (const Box *box, boxes())
-	{
-		int result = box->pointToPosition(rel);
-		if (result >= 0)
-		{
-			position = result;
-			break;
-		}
-	}
-
+	int position = GroupBox::pointToPosition(coord, story);
 	if (position < 0)
 	{
 		if (containsPoint(coord))
 		{
-			if (coord.x() < x())
-				position = firstChar();
+			const ParagraphStyle& style = story.paragraphStyle(firstChar());
+			if (style.direction() == ParagraphStyle::RTL)
+			{
+				if (coord.x() < x())
+					position = lastChar();
+				else
+					position = firstChar();
+			}
 			else
-				position = lastChar();
+			{
+				if (coord.x() < x())
+					position = firstChar();
+				else
+					position = lastChar();
+			}
 		}
 	}
 
 	return position;
 }
 
-QLineF LineBox::positionToPoint(int pos) const
+QLineF LineBox::positionToPoint(int pos, const StoryText& story) const
 {
 	QLineF result;
 	foreach (const Box *box, boxes())
 	{
 		if (box->containsPos(pos))
 		{
-			const GlyphBox* glypBox = dynamic_cast<const GlyphBox*>(box);
-			if (!glypBox)
-			{
-				double xPos = x() + box->x();
-				result = QLineF(xPos, y(), xPos, y() + height());
-				break;
-			}
-
-			const CharStyle& cStyle(glypBox->style());
-			double fontSize = cStyle.fontSize() / 10.0;
-			double scaleV = cStyle.scaleV() / 1000.0;
-			double offset = fontSize * (cStyle.baselineOffset() / 1000.0);
-			double asce = cStyle.font().ascent(fontSize) * scaleV + offset;
-			double desc = cStyle.font().descent(fontSize) * scaleV - offset;
-
-			double xPos = x() + box->x();
-			double yPos = y() + box->y() + ascent();
-			result = QLineF(xPos, yPos - asce, xPos, yPos - desc);
+			double xPos = x() + box->positionToPoint(pos, story).x1();
+			result = QLineF(xPos, y(), xPos, y() + height());
 			break;
 		}
 	}
 	return result;
+}
+
+bool LineBox::containsPoint(QPointF coord) const
+{
+	return QRectF(0, m_y, m_width, height()).contains(coord);
 }
 
 void LineBox::render(TextLayoutPainter *p) const
@@ -193,39 +207,24 @@ void LineBox::render(TextLayoutPainter *p) const
 	p->translate(-x(), -y() - ascent());
 }
 
-void LineBox::render(TextLayoutPainter *p, PageItem *item) const
+void LineBox::render(ScreenPainter *p, ITextContext *ctx) const
 {
 	p->translate(x(), y());
 
 	drawBackGround(p);
-
-	QRectF selection;
-	foreach (const Box *box, boxes())
-	{
-		if (item->itemText.selected(box->firstChar()) || item->itemText.selected(box->lastChar()))
-			selection |= QRectF(box->x(), 0, box->width(), height());
-	}
-
-	if (!selection.isEmpty())
-	{
-		bool s = p->selected();
-		bool sw = p->strokeWidth();
-
-		p->setSelected(true);
-		p->setStrokeWidth(0);
-		p->drawRect(selection);
-
-		p->setSelected(s);
-		p->setStrokeWidth(sw);
-	}
+	drawSelection(p, ctx);
 
 	p->translate(0, ascent());
 	foreach (const Box *box, boxes())
-	{
-		box->render(p, item);
-	}
+		box->render(p, ctx);
 
 	p->translate(-x(), -y() - ascent());
+}
+
+void LineBox::drawSelection(ScreenPainter *p, ITextContext *ctx) const
+{
+	foreach (const Box *box, boxes())
+		box->drawSelection(p, ctx);
 }
 
 void LineBox::drawBackGround(TextLayoutPainter *p) const
@@ -292,7 +291,15 @@ void LineBox::drawBackGround(TextLayoutPainter *p) const
 void LineBox::addBox(const Box* box)
 {
 	m_boxes.append(const_cast<Box*>(box));
-	update();
+	m_firstChar = qMin(m_firstChar, box->firstChar());
+	m_lastChar = qMax(m_lastChar, box->lastChar());
+
+	const_cast<Box*>(box)->moveTo(m_naturalWidth, box->y());
+	m_naturalWidth += box->width();
+
+	m_naturalAscent = qMax(m_naturalAscent, box->naturalAsc());
+	m_naturalDecent = qMin(m_naturalDecent, box->naturalDecent());
+
 }
 
 void LineBox::removeBox(int i)
@@ -302,20 +309,24 @@ void LineBox::removeBox(int i)
 
 	boxes().removeAt(i);
 	update();
+
 }
 
 void LineBox::update()
 {
-	m_naturalWidth = 0;
-	foreach (Box* box, boxes()) {
+	m_naturalWidth = m_naturalAscent = m_naturalDecent = 0;
+	for (const auto &box : boxes()) {
 		m_firstChar = qMin(m_firstChar, box->firstChar());
 		m_lastChar = qMax(m_lastChar, box->lastChar());
 
 		box->moveTo(m_naturalWidth, box->y());
 		m_naturalWidth += box->width();
+
+		m_naturalAscent = qMax(m_naturalAscent, box->naturalAsc());
+		m_naturalDecent = qMin(m_naturalDecent, box->naturalDecent());
 	}
 
-	emit boxChanged();
+//	emit boxChanged();
 }
 
 #if 0
@@ -444,7 +455,7 @@ void PathLineBox::update()
 		m_lastChar = qMax(m_lastChar, box->lastChar());
 	}
 
-	emit boxChanged();
+//	emit boxChanged();
 }
 
 void PathLineBox::drawBackGround(TextLayoutPainter *p) const
@@ -471,22 +482,98 @@ void PathLineBox::drawBackGround(TextLayoutPainter *p) const
 }
 
 
-void GlyphBox::render(TextLayoutPainter *p, PageItem *item) const
+void GlyphBox::render(ScreenPainter *p, ITextContext *ctx) const
 {
-
+	const PageItem* item = ctx->getFrame();
 	bool s = p->selected();
 
-	bool selected = item->itemText.selected(firstChar()) || item->itemText.selected(lastChar());
-
-	if (((selected && item->isSelected()) || ((item->nextInChain() != 0 || item->prevInChain() != 0) && selected)) &&
-		(item->doc()->appMode == modeEdit || item->doc()->appMode == modeEditTable))
+	int selectionFirst = -1;
+	int selectionLast = -1;
+	for (int i = firstChar(); i <= lastChar(); i++)
 	{
-		p->setSelected(true);
+		if (item->itemText.selected(i))
+		{
+			if (selectionFirst < 0)
+				selectionFirst = i;
+			selectionLast = i;
+		}
 	}
 
-	render(p);
+	if (((selectionFirst >= 0 && item->isSelected()) ||
+	     ((item->nextInChain() != 0 || item->prevInChain() != 0) && selectionFirst >= 0)) &&
+		(item->doc()->appMode == modeEdit || item->doc()->appMode == modeEditTable))
+	{
+		if (selectionFirst == firstChar() && selectionLast == lastChar())
+		{
+			p->setSelected(true);
+			render(p);
+		}
+		else
+		{
+			render(p);
+			p->saveState();
+			p->setSelected(true);
+			qreal firstX = positionToPoint(selectionFirst, item->itemText).x1();
+			qreal lastX = positionToPoint(selectionLast + 1, item->itemText).x1();
+			if (m_glyphRun.hasFlag(ScLayout_RightToLeft))
+				p->clip(QRectF(lastX, y(), firstX - lastX, height()));
+			else
+				p->clip(QRectF(firstX, y(), lastX - firstX, height()));
+			render(p);
+			p->restoreState();
+		}
+	}
+	else
+	{
+		render(p);
+	}
+	p->setSelected(s);
+}
+
+void GlyphBox::drawSelection(ScreenPainter *p, ITextContext *ctx) const
+{
+	const PageItem* item = ctx->getFrame();
+	bool s = p->selected();
+	double sw = p->strokeWidth();
+
+	//let's deal with ligature such as ffi
+	int selectionFirst = -1;
+	int selectionLast = -1;
+	for (int i = firstChar(); i <= lastChar(); i++)
+	{
+		if (item->itemText.selected(i))
+		{
+			if (selectionFirst < 0)
+				selectionFirst = i;
+			selectionLast = i;
+		}
+	}
+
+	QRectF rect(x(), 0, width(), height());
+	p->setSelected(true);
+	p->setStrokeWidth(0);
+
+	if (((selectionFirst >= 0 && item->isSelected()) ||
+		 ((item->nextInChain() != 0 || item->prevInChain() != 0) && selectionFirst >= 0)) &&
+			(item->doc()->appMode == modeEdit || item->doc()->appMode == modeEditTable))
+	{
+		if (selectionFirst == firstChar() && selectionLast == lastChar())
+			p->drawRect(rect);
+		else
+		{
+			//now in a ligature just draw the selected part only
+			qreal firstX = positionToPoint(selectionFirst, item->itemText).x1();
+			qreal lastX = positionToPoint(selectionLast + 1, item->itemText).x1();
+			if (m_glyphRun.hasFlag(ScLayout_RightToLeft))
+				rect = QRectF(lastX, y(), firstX - lastX, height());
+			else
+				rect = QRectF(firstX, y(), lastX - firstX, height());
+			p->drawRect(rect);
+		}
+	}
 
 	p->setSelected(s);
+	p->setStrokeWidth(sw);
 }
 
 void GlyphBox::render(TextLayoutPainter *p) const
@@ -504,7 +591,7 @@ void GlyphBox::render(TextLayoutPainter *p) const
 	p->setFont(font);
 	p->setFontSize(fontSize);
 
-	p->translate(x(), y());
+	p->translate(x() + m_glyphRun.xoffset, y() + m_glyphRun.yoffset);
 
 	p->setMatrix(m_matrix);
 
@@ -513,191 +600,233 @@ void GlyphBox::render(TextLayoutPainter *p) const
 	if (hasStrokeColor)
 		p->setStrokeColor(TextLayoutColor(charStyle.strokeColor(), charStyle.strokeShade()));
 
-	foreach (const GlyphLayout gl, m_glyphRun.glyphs())
+	p->save();
+
+	// Do underlining first so you can get typographically correct
+	// underlines when drawing a white outline
+	if (m_glyphRun.hasFlag(ScLayout_Underlined) && hasStrokeColor)
 	{
-		p->save();
-
-		// Do underlining first so you can get typographically correct
-		// underlines when drawing a white outline
-		bool isUnderlined = ((m_effects & ScStyle_Underline) || m_glyphRun.hasFlag(ScLayout_Underlined));
-		if (isUnderlined && hasStrokeColor)
+		double st, lw;
+		if ((charStyle.underlineOffset() != -1) || (charStyle.underlineWidth() != -1))
 		{
-			double st, lw;
-			if ((charStyle.underlineOffset() != -1) || (charStyle.underlineWidth() != -1))
-			{
-				if (charStyle.underlineOffset() != -1)
-					st = (charStyle.underlineOffset() / 1000.0) * font.descent(fontSize);
-				else
-					st = font.underlinePos(fontSize);
-				if (charStyle.underlineWidth() != -1)
-					lw = (charStyle.underlineWidth() / 1000.0) * fontSize;
-				else
-					lw = qMax(font.strokeWidth(fontSize), 1.0);
-			}
+			if (charStyle.underlineOffset() != -1)
+				st = (charStyle.underlineOffset() / 1000.0) * font.descent(fontSize);
 			else
-			{
 				st = font.underlinePos(fontSize);
-				lw = qMax(font.strokeWidth(fontSize), 1.0);
-			}
-			if (charStyle.baselineOffset() != 0)
-				st += fontSize * gl.scaleV * (charStyle.baselineOffset() / 1000.0);
-
-			double sw = p->strokeWidth();
-			const TextLayoutColor& sc = p->strokeColor();
-
-			p->setStrokeColor(p->fillColor());
-			p->setStrokeWidth(lw);
-			if (charStyle.effects() & ScStyle_Subscript)
-				p->drawLine(QPointF(gl.xoffset, gl.yoffset - st), QPointF(gl.xoffset + gl.xadvance, gl.yoffset - st));
+			if (charStyle.underlineWidth() != -1)
+				lw = (charStyle.underlineWidth() / 1000.0) * fontSize;
 			else
-				p->drawLine(QPointF(gl.xoffset, -st), QPointF(gl.xoffset + gl.xadvance, -st));
-
-			p->setStrokeWidth(sw);
-			p->setStrokeColor(sc);
-		}
-
-		p->translate(gl.xoffset, gl.yoffset);
-
-		if (charStyle.baselineOffset() != 0)
-			p->translate(0, -fontSize * (charStyle.baselineOffset() / 1000.0));
-
-		if (gl.glyph == 0)
-		{
-			p->setStrokeColor(TextLayoutColor(PrefsManager::instance()->appPrefs.displayPrefs.controlCharColor.name()));
-			p->setStrokeWidth(charStyle.fontSize() * gl.scaleV * charStyle.outlineWidth() * 2 / 10000.0);
-			p->drawGlyphOutline(gl, false);
-		}
-		else if ((font.isStroked()) && hasStrokeColor && ((charStyle.fontSize() * gl.scaleV * charStyle.outlineWidth() / 10000.0) != 0))
-		{
-			p->setStrokeColor(p->fillColor());
-			p->setStrokeWidth(charStyle.fontSize() * gl.scaleV * charStyle.outlineWidth() / 10000.0);
-			p->drawGlyphOutline(gl, false);
+				lw = qMax(font.strokeWidth(fontSize), 1.0);
 		}
 		else
 		{
-			if ((m_effects & ScStyle_Shadowed) && hasStrokeColor)
-			{
-				double xoff = (charStyle.fontSize() * gl.scaleH * charStyle.shadowXOffset() / 10000.0);
-				double yoff = (charStyle.fontSize() * gl.scaleV * charStyle.shadowYOffset() / 10000.0);
-
-				bool s = p->selected();
-				const TextLayoutColor& fc = p->fillColor();
-
-				p->translate(xoff, -yoff);
-
-				p->setFillColor(p->strokeColor());
-				p->setSelected(false);
-				p->drawGlyph(gl);
-
-				p->translate(-xoff, yoff);
-				p->setSelected(s);
-				p->setFillColor(fc);
-			}
-
-			if ((charStyle.effects() & ScStyle_Outline) && hasStrokeColor && ((charStyle.fontSize() * gl.scaleV * charStyle.outlineWidth() / 10000.0) != 0))
-			{
-				p->setStrokeWidth((charStyle.fontSize() * gl.scaleV * charStyle.outlineWidth() / 10000.0));
-				p->drawGlyphOutline(gl, hasFillColor);
-			}
-			else if (hasFillColor)
-				p->drawGlyph(gl);
+			st = font.underlinePos(fontSize);
+			lw = qMax(font.strokeWidth(fontSize), 1.0);
 		}
+		if (charStyle.baselineOffset() != 0)
+			st += fontSize * m_glyphRun.scaleV() * (charStyle.baselineOffset() / 1000.0);
 
-		if (m_effects & ScStyle_Strikethrough && hasStrokeColor)
+		double sw = p->strokeWidth();
+		const TextLayoutColor& sc = p->strokeColor();
+
+		p->setStrokeColor(p->fillColor());
+		p->setStrokeWidth(lw);
+		if (charStyle.effects() & ScStyle_Subscript)
+			p->drawLine(QPointF(m_glyphRun.xoffset, m_glyphRun.yoffset - st), QPointF(m_glyphRun.xoffset + m_glyphRun.width(), m_glyphRun.yoffset - st));
+		else
+			p->drawLine(QPointF(m_glyphRun.xoffset, -st), QPointF(m_glyphRun.xoffset + m_glyphRun.width(), -st));
+
+		p->setStrokeWidth(sw);
+		p->setStrokeColor(sc);
+	}
+
+	if (charStyle.baselineOffset() != 0)
+		p->translate(0, -fontSize * (charStyle.baselineOffset() / 1000.0));
+
+	if ((font.isStroked()) && hasStrokeColor && ((charStyle.fontSize() * m_glyphRun.scaleV() * charStyle.outlineWidth() / 10000.0) != 0))
+	{
+		p->setStrokeColor(p->fillColor());
+		p->setStrokeWidth(charStyle.fontSize() * m_glyphRun.scaleV() * charStyle.outlineWidth() / 10000.0);
+		p->drawGlyphOutline(m_glyphRun, false);
+	}
+	else
+	{
+		if ((m_effects & ScStyle_Shadowed) && hasStrokeColor)
 		{
-			double st, lw;
-			if ((charStyle.strikethruOffset() != -1) || (charStyle.strikethruWidth() != -1))
-			{
-				if (charStyle.strikethruOffset() != -1)
-					st = (charStyle.strikethruOffset() / 1000.0) * font.ascent(fontSize);
-				else
-					st = font.strikeoutPos(fontSize);
-				if (charStyle.strikethruWidth() != -1)
-					lw = (charStyle.strikethruWidth() / 1000.0) * fontSize;
-				else
-					lw = qMax(font.strokeWidth(fontSize), 1.0);
-			}
-			else
-			{
-				st = font.strikeoutPos(fontSize);
-				lw = qMax(font.strokeWidth(fontSize), 1.0);
-			}
-			if (charStyle.baselineOffset() != 0)
-				st += fontSize * gl.scaleV * (charStyle.baselineOffset() / 1000.0);
+			double xoff = (charStyle.fontSize() * m_glyphRun.scaleH() * charStyle.shadowXOffset() / 10000.0);
+			double yoff = (charStyle.fontSize() * m_glyphRun.scaleV() * charStyle.shadowYOffset() / 10000.0);
 
-			double sw = p->strokeWidth();
-			const TextLayoutColor& sc = p->strokeColor();
+			bool s = p->selected();
+			const TextLayoutColor& fc = p->fillColor();
 
-			p->setStrokeColor(p->fillColor());
-			p->setStrokeWidth(lw);
-			p->drawLine(QPointF(gl.xoffset, gl.yoffset - st), QPointF(gl.xoffset + gl.xadvance, gl.yoffset - st));
+			p->translate(xoff, -yoff);
 
-			p->setStrokeWidth(sw);
-			p->setStrokeColor(sc);
+			p->setFillColor(p->strokeColor());
+			p->setSelected(false);
+			p->drawGlyph(m_glyphRun);
+
+			p->translate(-xoff, yoff);
+			p->setSelected(s);
+			p->setFillColor(fc);
 		}
 
-		p->restore();
-		p->translate(gl.xadvance, 0);
+		if ((charStyle.effects() & ScStyle_Outline) && hasStrokeColor && ((charStyle.fontSize() * m_glyphRun.scaleV() * charStyle.outlineWidth() / 10000.0) != 0))
+		{
+			p->setStrokeWidth((charStyle.fontSize() * m_glyphRun.scaleV() * charStyle.outlineWidth() / 10000.0));
+			p->drawGlyphOutline(m_glyphRun, hasFillColor);
+		}
+		else if (hasFillColor)
+			p->drawGlyph(m_glyphRun);
+	}
+
+	if (m_effects & ScStyle_Strikethrough && hasStrokeColor)
+	{
+		double st, lw;
+		if ((charStyle.strikethruOffset() != -1) || (charStyle.strikethruWidth() != -1))
+		{
+			if (charStyle.strikethruOffset() != -1)
+				st = (charStyle.strikethruOffset() / 1000.0) * font.ascent(fontSize);
+			else
+				st = font.strikeoutPos(fontSize);
+			if (charStyle.strikethruWidth() != -1)
+				lw = (charStyle.strikethruWidth() / 1000.0) * fontSize;
+			else
+				lw = qMax(font.strokeWidth(fontSize), 1.0);
+		}
+		else
+		{
+			st = font.strikeoutPos(fontSize);
+			lw = qMax(font.strokeWidth(fontSize), 1.0);
+		}
+		if (charStyle.baselineOffset() != 0)
+			st += fontSize * m_glyphRun.scaleV() * (charStyle.baselineOffset() / 1000.0);
+
+		double sw = p->strokeWidth();
+		const TextLayoutColor& sc = p->strokeColor();
+
+		p->setStrokeColor(p->fillColor());
+		p->setStrokeWidth(lw);
+		p->drawLine(QPointF(m_glyphRun.xoffset, m_glyphRun.yoffset - st), QPointF(m_glyphRun.xoffset + m_glyphRun.width(), m_glyphRun.yoffset - st));
+
+		p->setStrokeWidth(sw);
+		p->setStrokeColor(sc);
 	}
 
 	p->restore();
+	p->translate(m_glyphRun.width(), 0);
+	p->restore();
 }
 
-int GlyphBox::pointToPosition(QPointF coord) const
+int GlyphBox::pointToPosition(QPointF coord,  const StoryText& story) const
 {
-	double relX = coord.x() - m_x;
-	double xPos = 0.0;
-
-	const QList<GlyphLayout>& glyphs = m_glyphRun.glyphs();
-	for (int i = 0; i < glyphs.length(); ++i)
+	if (firstChar() != lastChar())
 	{
-		const GlyphLayout& glyph = glyphs.at(i);
-		double width = glyph.xadvance * glyph.scaleH;
-		xPos += width;
-		if (xPos >= relX)
+		int count = 0;
+		BreakIterator *it = StoryText::getGraphemeIterator();
+		QString text = story.text(firstChar(), lastChar() - firstChar() + 1);
+		it->setText((const UChar*) text.utf16());
+		while (it->next() != BreakIterator::DONE)
+			count++;
+		bool rtlLayout = m_glyphRun.hasFlag(ScLayout_RightToLeft);
+
+		double componentWidth = width() / count;
+		for (int i = 0; i < count; i++)
 		{
-			int index = (xPos - width / 2.0 > relX) ? i : i + 1; // FIXME: use clusters
-			return m_firstChar + index;
+			double componentX;
+			componentX = x() + (componentWidth * i);
+			if (rtlLayout)
+				componentX = x() + width() - (componentWidth * (i + 1));
+
+			if ((coord.x() >= componentX && coord.x() <= componentX + componentWidth))
+			{
+				if (coord.x() <= componentX + componentWidth / 2.0)
+					return rtlLayout ? (firstChar() + i + 1) : (firstChar() + i);
+				return rtlLayout ? (firstChar() + i) : (firstChar() + i + 1);
+			}
 		}
 	}
+	else
+	{
+		if (coord.x() >= x() && coord.x() <= x() + width())
+		{
+			bool rtlLayout = m_glyphRun.hasFlag(ScLayout_RightToLeft);
+			if (coord.x() <= x() + width() / 2.0)
+				return rtlLayout ? (firstChar() + 1) : firstChar();
+			return rtlLayout ? firstChar() : (firstChar() + 1);
+		}
+	}
+
 	return -1;
+}
+
+QLineF GlyphBox::positionToPoint(int pos, const StoryText& story) const
+{
+	double xPos;
+
+	if (firstChar() != lastChar())
+	{
+		int count = 0;
+		int index = 0;
+		BreakIterator *it = StoryText::getGraphemeIterator();
+		QString text = story.text(firstChar(), lastChar() - firstChar() + 1);
+		it->setText((const UChar*) text.utf16());
+		while (it->next() != BreakIterator::DONE)
+		{
+			count++;
+			if (pos - firstChar() == it->current())
+				index = count;
+		}
+
+		double componentWidth = width() / count;
+
+		xPos = x() + (componentWidth * index);
+		if (m_glyphRun.hasFlag(ScLayout_RightToLeft))
+			xPos = x() + width() - (componentWidth * index);
+	}
+	else
+	{
+		xPos = x();
+		if (m_glyphRun.hasFlag(ScLayout_RightToLeft))
+			xPos = x() + width();
+	}
+
+	return QLineF(xPos, y(), xPos, y() + height());
 }
 
 void ObjectBox::render(TextLayoutPainter *p) const
 {
 	p->save();
-	double oldX = m_item->xPos();
-	double oldY = m_item->yPos();
-	bool oldEM = m_item->isEmbedded;
+	double oldX = m_object->xPos();
+	double oldY = m_object->yPos();
+	bool oldEM = m_object->isEmbedded;
 	//m_item->isEmbedded = false; // #14311: fix discrepancy of display between 1.5.1 and 1.5.2+
 	const CharStyle& charStyle = style();
-
 	p->translate(x(), y() - ascent());
 	if (m_glyphRun.hasFlag(ScLayout_DropCap))
-		p->setScale(m_glyphRun.glyphs().first().scaleH, m_glyphRun.glyphs().first().scaleV);
+		p->setScale(m_glyphRun.scaleH(), m_glyphRun.scaleV());
 	else
 		p->setScale(charStyle.scaleH() / 1000.0, charStyle.scaleV() / 1000.0);
 	p->setMatrix(m_matrix);
 
-	m_item->setXPos(m_item->gXpos, true);
-	m_item->setYPos(m_item->gYpos, true);
-//	m_item->setYPos((m_item->gHeight * (charStyle.scaleV() / 1000.0)) + m_item->gYpos, true);
+	m_object->setXPos(m_object->gXpos, true);
+	m_object->setYPos(m_object->gYpos, true);
+//	m_item->setYPos((m_object->gHeight * (charStyle.scaleV() / 1000.0)) + m_object->gYpos, true);
 
 	if (charStyle.baselineOffset() != 0)
 	{
-		p->translate(0, -m_item->gHeight * (charStyle.baselineOffset() / 1000.0));
-		m_item->setYPos(m_item->yPos() - m_item->gHeight * (charStyle.baselineOffset() / 1000.0));
+		p->translate(0, -m_object->gHeight * (charStyle.baselineOffset() / 1000.0));
+		m_object->setYPos(m_object->yPos() - m_object->gHeight * (charStyle.baselineOffset() / 1000.0));
 	}
 
-	p->drawObject(m_item);
+	p->drawObject(m_object);
 
-	m_item->setXPos(oldX, true);
-	m_item->setYPos(oldY, true);
-	m_item->isEmbedded = oldEM;
+	m_object->setXPos(oldX, true);
+	m_object->setYPos(oldY, true);
+	m_object->isEmbedded = oldEM;
 	p->restore();
 }
 
-void ObjectBox::render(TextLayoutPainter *p, PageItem *item) const
+void ObjectBox::render(ScreenPainter *p, ITextContext *ctx) const
 {
 	render(p);
 }

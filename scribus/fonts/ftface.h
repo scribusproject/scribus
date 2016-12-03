@@ -53,8 +53,8 @@ so there are no extra cleaning-up chores to take care of.
 struct SCRIBUS_API FtFace : public ScFace::ScFaceData
 {
 
-	FtFace(QString fam, QString sty, QString variant, QString scname, 
-		   QString psname, QString path, int face);
+	FtFace(QString fam, QString sty, QString variant, QString scname,
+		   QString psname, QString path, int face, QStringList features);
 
 	FT_Face ftFace() const;
 
@@ -76,12 +76,13 @@ struct SCRIBUS_API FtFace : public ScFace::ScFaceData
 	QString pdfFontBBoxAsString()    const { return m_pdfFontBBox; }
 	QString italicAngleAsString()    const { return m_italicAngle; }
 
+	bool isItalic() const { return m_isItalic; }
+	bool isBold()   const { return m_isBold; }
 
 //FIXME	QMap<QString,QString> fontDictionary(qreal sz=1.0)      const;
 
-	ScFace::gid_type    char2CMap(QChar ch)                         const;
+	ScFace::gid_type    char2CMap(uint ch)                         const;
 
-	qreal       glyphKerning (ScFace::gid_type gl1, ScFace::gid_type gl2, qreal sz) const;
 //	GlyphMetrics glyphBBox (gid_type gl,               qreal sz) const;
 
 	void RawData   (QByteArray & bb)            const;
@@ -98,6 +99,9 @@ protected:
 	mutable FT_Face m_face;
 
 	static FT_Library m_library;
+
+	mutable bool m_isBold;
+	mutable bool m_isItalic;
 
 	mutable QString m_pdfAscent;
 	mutable QString m_pdfCapHeight;

@@ -17,19 +17,19 @@
 
 #include <cassert>
 #include "../styles/charstyle.h"
-#include "pageitem.h"
 #include "prefsstructs.h"
 #include "../styles/paragraphstyle.h"
 #include "specialchars.h"
 #include "storytext.h"
 #include "textlayout.h"
 #include "textlayoutpainter.h"
+#include "screenpainter.h"
 #include "boxes.h"
+#include "itextcontext.h"
 
 
 
-
-TextLayout::TextLayout(StoryText* text, PageItem* frame)
+TextLayout::TextLayout(StoryText* text, ITextContext* frame)
 {
 	m_story = text;
 	m_frame = frame;
@@ -79,19 +79,6 @@ Box* TextLayout::box()
 	return m_box;
 }
 
-const PathData& TextLayout::point(int pos) const
-{
-	return m_path[pos];
-}
-
-PathData& TextLayout::point(int pos)
-{
-	if (pos >= story()->length())
-		m_path.resize(story()->length());
-	return m_path[pos];
-}
-
-
 void TextLayout::appendLine(LineBox* ls)
 {
 	assert(ls);
@@ -103,9 +90,7 @@ void TextLayout::appendLine(LineBox* ls)
 	GroupBox* column = dynamic_cast<GroupBox*>(m_box->boxes().last());
 	assert(column);
 
-	// HACK: the ascent set by PageItem_TextFrame::layout()
-	// is useless, we reset it again based on the y position
-	ls->setAscent(ls->y() - column->naturalHeight());
+	ls->setWidth(column->width());
 	column->addBox(ls);
 }
 
@@ -124,10 +109,10 @@ void TextLayout::removeLastLine ()
 		column->removeBox(lineCount - 1);
 }
 
-void TextLayout::render(TextLayoutPainter *p, PageItem *item)
+void TextLayout::render(ScreenPainter *p, ITextContext *ctx)
 {
 	p->save();
-	m_box->render(p, item);
+	m_box->render(p, ctx);
 	p->restore();
 }
 
@@ -172,9 +157,6 @@ void TextLayout::clear()
 {
 	delete m_box;
 	m_box = new GroupBox(Box::D_Horizontal);
-	m_path.clear();
-	if (m_frame->asPathText() != NULL)
-		m_path.resize(story()->length());
 }
 
 void TextLayout::setStory(StoryText *story)
@@ -206,6 +188,7 @@ int TextLayout::endOfLine(int pos) const
 
 int TextLayout::prevLine(int pos) const
 {
+	bool isRTL = (m_story->paragraphStyle().direction() == ParagraphStyle::RTL);
 	for (uint i=0; i < lines(); ++i)
 	{
 		// find line for pos
@@ -215,7 +198,7 @@ int TextLayout::prevLine(int pos) const
 			if (i == 0)
 				return startOfLine(pos);
 			// find current xpos
-			qreal xpos = ls->positionToPoint(pos).x1();
+			qreal xpos = ls->positionToPoint(pos, *m_story).x1();
 			if (pos != m_lastMagicPos || xpos > m_magicX)
 				m_magicX = xpos;
 
@@ -223,8 +206,9 @@ int TextLayout::prevLine(int pos) const
 			// find new cpos
 			for (int j = ls2->firstChar(); j <= ls2->lastChar(); ++j)
 			{
-				xpos = ls2->positionToPoint(j).x1();
-				if (xpos > m_magicX) {
+				xpos = ls2->positionToPoint(j, *m_story).x1();
+				if ((isRTL && xpos <= m_magicX) || (!isRTL && xpos >= m_magicX))
+				{
 					m_lastMagicPos = j;
 					return j;
 				}
@@ -238,6 +222,7 @@ int TextLayout::prevLine(int pos) const
 
 int TextLayout::nextLine(int pos) const
 {
+	bool isRTL = (m_story->paragraphStyle().direction() == ParagraphStyle::RTL);
 	for (uint i=0; i < lines(); ++i)
 	{
 		// find line for pos
@@ -247,7 +232,7 @@ int TextLayout::nextLine(int pos) const
 			if (i+1 == lines())
 				return endOfLine(pos);
 			// find current xpos
-			qreal xpos = ls->positionToPoint(pos).x1();
+			qreal xpos = ls->positionToPoint(pos, *m_story).x1();
 
 			if (pos != m_lastMagicPos || xpos > m_magicX)
 				m_magicX = xpos;
@@ -256,8 +241,9 @@ int TextLayout::nextLine(int pos) const
 			// find new cpos
 			for (int j = ls2->firstChar(); j <= ls2->lastChar(); ++j)
 			{
-				xpos = ls2->positionToPoint(j).x1();
-				if (xpos > m_magicX) {
+				xpos = ls2->positionToPoint(j, *m_story).x1();
+				if ((isRTL && xpos <= m_magicX) || (!isRTL && xpos >= m_magicX))
+				{
 					m_lastMagicPos = j;
 					return j;
 				}
@@ -282,9 +268,7 @@ int TextLayout::endOfFrame() const
 
 int TextLayout::pointToPosition(QPointF coord) const
 {
-	int position = m_box->pointToPosition(coord);
-	if (position == m_box->lastChar())
-		position += 1;
+	int position = m_box->pointToPosition(coord, *m_story);
 	return position;
 }
 
@@ -292,8 +276,9 @@ int TextLayout::pointToPosition(QPointF coord) const
 QLineF TextLayout::positionToPoint(int pos) const
 {
 	QLineF result;
+	bool isRTL = (m_story->paragraphStyle().direction() == ParagraphStyle::RTL);
 
-	result = m_box->positionToPoint(pos);
+	result = m_box->positionToPoint(pos, *m_story);
 	if (result.isNull())
 	{
 		qreal x, y1, y2;
@@ -303,33 +288,25 @@ QLineF TextLayout::positionToPoint(int pos) const
 			// last glyph box in last line
 			Box* column = m_box->boxes().last();
 			Box* line = column->boxes().last();
-			Box* glyph = line->boxes().last();
-			QChar ch = story()->text(glyph->lastChar());
+			Box* glyph = line->boxes().empty()? NULL : line->boxes().last();
+			QChar ch = story()->text(line->lastChar());
 			if (ch == SpecialChars::PARSEP || ch == SpecialChars::LINEBREAK)
 			{
 				// last character is a newline, draw the cursor on the next line.
-				x = 1;
+				if (isRTL)
+					x = line->width();
+				else
+					x = 1;
 				y1 = line->y() + line->height();
 				y2 = y1 + line->height();
-			}
-			else if (glyph->type() == Box::T_Glyph)
-			{
-				// draw the cursor at the end of last line.
-				const CharStyle& cStyle(story()->charStyle(glyph->lastChar()));
-				double fontSize = cStyle.fontSize() / 10.0;
-				double scaleV = cStyle.scaleV() / 1000.0;
-				double offset = fontSize * (cStyle.baselineOffset() / 1000.0);
-				double asce = cStyle.font().ascent(fontSize) * scaleV + offset;
-				double desc = cStyle.font().descent(fontSize) * scaleV - offset;
-
-				x = line->x() + glyph->x() + glyph->width();
-				y1 = line->y() + line->ascent() - asce;
-				y2 = line->y() + line->ascent() - desc;
 			}
 			else
 			{
 				// draw the cursor at the end of last line.
-				x = line->x() + glyph->x() + glyph->width();
+				if (isRTL || glyph == NULL)
+					x = line->x();
+				else
+					x = line->x() + glyph->x() + glyph->width();
 				y1 = line->y();
 				y2 = y1 + line->height();
 			}
@@ -340,7 +317,10 @@ QLineF TextLayout::positionToPoint(int pos) const
 		{
 			// rather the trailing style than a segfault.
 			const ParagraphStyle& pstyle(story()->paragraphStyle(qMin(pos, story()->length())));
-			x = 1;
+			if (isRTL)
+				x = m_box->width();
+			else
+				x = 1;
 			y1 = 0;
 			y2 = pstyle.lineSpacing();
 			result.setLine(x, y1, x, y2);

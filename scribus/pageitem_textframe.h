@@ -64,8 +64,7 @@ public:
 	*/
 	virtual void handleModeEditKey(QKeyEvent *k, bool& keyRepeat);
 	void deleteSelectedTextFromFrame();
-	void setNewPos(int oldPos, int len, int dir);
-	void ExpandSel(int dir, int oldPos);
+	void ExpandSel(int oldPos);
 	void deselectAll();
 	
 	//for speed up updates when changed was only one frame from chain
@@ -74,9 +73,6 @@ public:
 	virtual void layout();
 	//return true if all previouse frames from chain are valid (including that one)
 	bool isValidChainFromBegin();
-	//simplify conditions checking if frame is in chain
-	//FIX: use it in other places
-	bool isInChain() { return ((prevInChain() != NULL) || (nextInChain() != NULL)); }
 	void setTextAnnotationOpen(bool open);
 
 	double columnWidth();
@@ -120,6 +116,7 @@ private:
 	QMap<QString,StoryText> m_shadows;
 	bool checkKeyIsShortcut(QKeyEvent *k);
 	QRectF m_origAnnotPos;
+	void updateBulletsNum();
 	
 private slots:
 	void slotInvalidateLayout(int firstItem, int endItem);

@@ -35,7 +35,7 @@ class SCRIBUS_API GuideManager : public ScrPaletteBase, Ui::GuideManager
 
 public:
 	GuideManager(QWidget* parent);
-	~GuideManager(){};
+	~GuideManager();
 
 	/*! \brief Set the doc fo the guidemanager to work on. */
 	void setDoc(ScribusDoc* doc);

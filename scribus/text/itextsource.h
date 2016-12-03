@@ -14,6 +14,8 @@
 class CharStyle;
 class ParagraphStyle;
 class InlineFrame;
+class GlyphCluster;
+
 
 class SCRIBUS_API ITextSource {
 

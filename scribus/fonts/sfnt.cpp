@@ -810,6 +810,7 @@ QByteArray extractFace(const QByteArray& coll, int faceIndex)
 		QList<uint> chars;
 		QMap<uint, uint>::ConstIterator cit;
 		qDebug() << "writing cmap";
+		bool cmapHasData = false;
 		for(cit = cmap.cbegin(); cit != cmap.cend(); ++cit)
 		{
 			uint ch = cit.key();
@@ -817,6 +818,7 @@ QByteArray extractFace(const QByteArray& coll, int faceIndex)
 			{
 				qDebug() << "(" << QChar(cit.key()) << "," << cit.value() << ")";
 				chars.append(ch);
+				cmapHasData = true;
 			}
 //			qDebug() << QChar(ch) << QChar::requiresSurrogates(ch) << cit.value();
 		}
@@ -826,30 +828,32 @@ QByteArray extractFace(const QByteArray& coll, int faceIndex)
 		QList<quint16> endCodes;
 		QList<quint16> idDeltas;
 		QList<quint16> rangeOffsets;
-		
-		uint pos = 0;
-		do {
-			quint16 start = chars[pos];
-			quint16 delta = cmap[start] - start;
-			quint16 rangeOffset = 0;
-			quint16 end = start;
-			quint16 next;
-			++pos;
-			while (pos < (uint) chars.length() && (next = chars[pos]) == end+1)
-			{
-				end = next;
-				if (delta != (quint16)(cmap[chars[pos]] - next))
-				{
-					rangeOffset = 1; // will be changed later
-				}
+		if (cmapHasData)
+		{
+			uint pos = 0;
+			do {
+				quint16 start = chars[pos];
+				quint16 delta = cmap[start] - start;
+				quint16 rangeOffset = 0;
+				quint16 end = start;
+				quint16 next;
 				++pos;
+				while (pos < (uint) chars.length() && (next = chars[pos]) == end+1)
+				{
+					end = next;
+					if (delta != (quint16)(cmap[chars[pos]] - next))
+					{
+						rangeOffset = 1; // will be changed later
+					}
+					++pos;
+				}
+				startCodes.append(start);
+				endCodes.append(end);
+				idDeltas.append(delta);
+				rangeOffsets.append(rangeOffset);
 			}
-			startCodes.append(start);
-			endCodes.append(end);
-			idDeltas.append(delta);
-			rangeOffsets.append(rangeOffset);
+			while (pos < (uint) chars.length());
 		}
-		while (pos < (uint) chars.length());
 		
 		startCodes.append(0xFFFF);
 		endCodes.append(0xFFFF);
@@ -1213,451 +1217,3 @@ QByteArray extractFace(const QByteArray& coll, int faceIndex)
 	}
 	
 } // namespace sfnt
-
-
-/// For GPOS lookups
-enum TTF_GPOS_ValueFormat
-{
-	XPlacement = 0x0001,
-	YPlacement = 0x0002,
-	XAdvance = 0x0004,
-	YAdvance = 0x0008,
-	XPlaDevice =0x0010,
-	YPlaDevice =0x0020,
-	XAdvDevice =0x0040,
-	YAdvDevice =0x0080
-};
-
-
-
-KernFeature::KernFeature ( FT_Face face ) : m_valid ( true )
-{
-	m_FontName = QString (face->family_name) + " " + QString (face->style_name);
-	// 	qDebug() <<"KF"<<FontName;
-	// 	QTime t;
-	// 	t.start();
-	FT_ULong length = 0;
-	if ( !FT_Load_Sfnt_Table ( face, TTAG_GPOS , 0, NULL, &length ) )
-	{
-		// 		qDebug() <<"\t"<<"GPOS table len"<<length;
-		if ( length > 32 )
-		{
-			m_GPOSTableRaw.resize ( length );
-			FT_Load_Sfnt_Table ( face, TTAG_GPOS, 0, reinterpret_cast<FT_Byte*> ( m_GPOSTableRaw.data() ), &length );
-			
-			makeCoverage();
-		}
-		else
-			m_valid = false;
-		
-		m_GPOSTableRaw.clear();
-		//		coverages.clear();
-	}
-	else
-		m_valid = false;
-	
-	if (!m_valid)
-		m_pairs.clear();
-	// 	qDebug() <<"\t"<<m_valid;
-	// 	qDebug() <<"\t"<<t.elapsed();
-}
-
-KernFeature::KernFeature ( const KernFeature & kf )
-{
-	m_valid = kf.m_valid;
-	if ( m_valid )
-		m_pairs = kf.m_pairs;
-}
-
-
-KernFeature::~ KernFeature()
-{
-}
-
-double KernFeature::getPairValue ( unsigned int glyph1, unsigned int glyph2 ) const
-{
-	if (!m_valid)
-		return 0.0;
-	
-	if (m_pairs.contains(glyph1) &&
-		m_pairs[glyph1].contains(glyph2))
-	{
-		return m_pairs[glyph1][glyph2];
-	}
-	
-	//qDebug()<<"Search in classes";
-	foreach (const quint16& coverageId, m_coverages.keys())
-	{
-		// for each pairpos table, coverage lists covered _first_ (left) glyph
-		if (!m_coverages[coverageId].contains(glyph1))
-			continue;
-		
-		foreach(const quint16& classDefOffset, m_classGlyphFirst[coverageId].keys())
-		{
-			const ClassDefTable& cdt(m_classGlyphFirst[coverageId][classDefOffset]);
-			foreach(const quint16& classIndex, cdt.keys())
-			{
-				const QList<quint16>& gl(cdt[classIndex]);
-				if (!gl.contains(glyph1))
-					continue;
-				//qDebug()<<"Found G1"<<glyph1<<"in Class"<<classIndex<<"at pos"<<gl.indexOf(glyph1);
-				// Now we got the index of the first glyph class, see if glyph2 is in one of the left glyphs classes attached to this subtable.
-				foreach(const quint16& classDefOffset2, m_classGlyphSecond[coverageId].keys())
-				{
-					const ClassDefTable& cdt2(m_classGlyphSecond[coverageId][classDefOffset2]);
-					foreach(const quint16& classIndex2, cdt2.keys())
-					{
-						const QList<quint16>& gl2(cdt2[classIndex2]);
-						if (gl2.contains(glyph2))
-						{
-							//qDebug()<<"Found G2"<<glyph2<<"in Class"<<classIndex2<<"at pos"<<gl2.indexOf(glyph2);
-							
-							double v(m_classValue[coverageId][classIndex][classIndex2]);
-							// Cache this pair into "pairs" map.
-							m_pairs[glyph1][glyph2] = v;
-							return v;
-						}
-					}
-				}
-			}
-		}
-	}
-	return 0.0;
-}
-
-void KernFeature::makeCoverage()
-{
-	if ( m_GPOSTableRaw.isEmpty() )
-		return;
-	
-	quint16 FeatureList_Offset= toUint16 ( 6 );
-	quint16 LookupList_Offset = toUint16 ( 8 );
-	
-	// Find the offsets of the kern feature tables
-	quint16 FeatureCount = toUint16 ( FeatureList_Offset );
-	QList<quint16> FeatureKern_Offset;
-	for ( quint16 FeatureRecord ( 0 ); FeatureRecord < FeatureCount; ++ FeatureRecord )
-	{
-		int rawIdx ( FeatureList_Offset + 2 + ( 6 * FeatureRecord ) );
-		quint32 tag ( FT_MAKE_TAG ( m_GPOSTableRaw.at ( rawIdx ),
-		                           m_GPOSTableRaw.at ( rawIdx + 1 ),
-		                           m_GPOSTableRaw.at ( rawIdx + 2 ),
-		                           m_GPOSTableRaw.at ( rawIdx + 3 ) ) );
-		if ( tag == TTAG_kern )
-		{
-			FeatureKern_Offset << ( toUint16 ( rawIdx + 4 ) + FeatureList_Offset );
-		}
-	}
-    
-	// Extract indices of lookups for feature kern
-	QList<quint16> LookupListIndex;
-	foreach ( quint16 kern, FeatureKern_Offset )
-	{
-		quint16 LookupCount ( toUint16 ( kern + 2 ) );
-		for ( int llio ( 0 ) ; llio < LookupCount; ++llio )
-		{
-			quint16 Idx ( toUint16 ( kern + 4 + ( llio * 2 ) ) );
-			if ( !LookupListIndex.contains ( Idx ) )
-			{
-				LookupListIndex <<Idx ;
-			}
-		}
-	}
-	
-	
-	// Extract offsets of lookup tables for feature kern
-	QList<quint16> LookupTables;
-	QList<quint16> PairAdjustmentSubTables;
-	for ( int i ( 0 ); i < LookupListIndex.count(); ++i )
-	{
-		int rawIdx ( LookupList_Offset + 2 + ( LookupListIndex[i] * 2 ) );
-		quint16 Lookup ( toUint16 ( rawIdx )  + LookupList_Offset );
-		quint16 SubTableCount ( toUint16 ( Lookup + 4 ) );
-		for ( int stIdx ( 0 ); stIdx < SubTableCount; ++ stIdx )
-		{
-			quint16 SubTable ( toUint16 ( Lookup + 6 + ( 2 * stIdx ) ) + Lookup );
-			
-			// 			quint16 PosFormat ( toUint16 ( SubTable ) );
-			quint16 Coverage_Offset ( toUint16 ( SubTable + 2 ) + SubTable );
-			quint16 CoverageFormat ( toUint16 ( Coverage_Offset ) );
-			
-			if ( 1 == CoverageFormat ) // glyph indices based
-			{
-				quint16 GlyphCount ( toUint16 ( Coverage_Offset + 2 ) );
-				quint16 GlyphID ( Coverage_Offset + 4 );
-				if (GlyphCount == 0) continue;
-				
-				for ( unsigned int gl ( 0 ); gl < GlyphCount; ++gl )
-				{
-					m_coverages[SubTable] << toUint16 ( GlyphID + ( gl * 2 ) );
-				}
-			}
-			else if ( 2 == CoverageFormat ) // Coverage Format2 => ranges based
-			{
-				quint16 RangeCount ( toUint16 ( Coverage_Offset + 2 ) );
-				if (RangeCount == 0) continue;
-				
-				// 				int gl_base ( 0 );
-				for ( int r ( 0 ); r < RangeCount; ++r )
-				{
-					quint16 rBase ( Coverage_Offset + 4 + ( r * 6 ) );
-					quint16 Start ( toUint16 ( rBase ) );
-					quint16 End ( toUint16 ( rBase + 2 ) );
-					// 					quint16 StartCoverageIndex ( toUint16 ( rBase + 4 ) );
-					// #9842 : for some font such as Gabriola Regular
-					// the range maybe be specified in reverse order
-					if (Start <= End)
-					{
-						for ( unsigned int gl ( Start ); gl <= End; ++gl )
-							m_coverages[SubTable]  << gl;
-					}
-					else
-					{
-						for ( int gl ( Start ); gl >= (int) End; --gl )
-							m_coverages[SubTable]  << gl;
-					}
-				}
-			}
-			else
-			{
-				//				qDebug() <<"Unknow Coverage Format:"<<CoverageFormat;
-				continue;
-			}
-			
-			makePairs ( SubTable );
-		}
-		
-	}
-	
-	
-}
-
-
-void KernFeature::makePairs ( quint16 subtableOffset )
-{
-	/*
-	 Lookup Type 2:
-	 Pair Adjustment Positioning Subtable
-	 */
-	
-	quint16 PosFormat ( toUint16 ( subtableOffset ) );
-	
-	if ( PosFormat == 1 )
-	{
-		quint16 ValueFormat1 ( toUint16 ( subtableOffset +4 ) );
-		quint16 ValueFormat2 ( toUint16 ( subtableOffset +6 ) );
-		quint16 PairSetCount ( toUint16 ( subtableOffset +8 ) );
-		if ( ValueFormat1 && ValueFormat2 )
-		{
-			for ( int psIdx ( 0 ); psIdx < PairSetCount; ++ psIdx )
-			{
-				int oldSecondGlyph = -1;
-				unsigned int FirstGlyph ( m_coverages[subtableOffset][psIdx] );
-				quint16 PairSetOffset ( toUint16 ( subtableOffset +10 + ( 2 * psIdx ) ) +  subtableOffset );
-				quint16 PairValueCount ( toUint16 ( PairSetOffset ) );
-				quint16 PairValueRecord ( PairSetOffset + 2 );
-				for ( int pvIdx ( 0 ); pvIdx < PairValueCount; ++pvIdx )
-				{
-					quint16 recordBase ( PairValueRecord + ( ( 2 + 2 + 2 ) * pvIdx ) );
-					quint16 SecondGlyph ( toUint16 ( recordBase ) );
-					qint16 Value1 ( toInt16 ( recordBase + 2 ) );
-					// #12475 : Per OpenType spec PairValueRecords must be sorted by SecondGlyph.
-					// If a kerning pair is duplicated, take only the first one into account
-					// for now. In the future we may have to ignore the GPOS table in such case.
-					// (http://partners.adobe.com/public/developer/opentype/index_table_formats2.html)
-					if (oldSecondGlyph >= SecondGlyph)
-						continue;
-					m_pairs[FirstGlyph][SecondGlyph] = double ( Value1 );
-					oldSecondGlyph = SecondGlyph;
-				}
-			}
-		}
-		else if ( ValueFormat1 && ( !ValueFormat2 ) )
-		{
-			for ( int psIdx ( 0 ); psIdx < PairSetCount; ++ psIdx )
-			{
-				int oldSecondGlyph = -1;
-				unsigned int FirstGlyph ( m_coverages[subtableOffset][psIdx] );
-				quint16 PairSetOffset ( toUint16 ( subtableOffset +10 + ( 2 * psIdx ) ) +  subtableOffset );
-				quint16 PairValueCount ( toUint16 ( PairSetOffset ) );
-				quint16 PairValueRecord ( PairSetOffset + 2 );
-				for ( int pvIdx ( 0 ); pvIdx < PairValueCount; ++pvIdx )
-				{
-					quint16 recordBase ( PairValueRecord + ( ( 2 + 2 ) * pvIdx ) );
-					quint16 SecondGlyph ( toUint16 ( recordBase ) );
-					qint16 Value1 ( toInt16 ( recordBase + 2 ) );
-					// #12475 : Per OpenType spec PairValueRecords must be sorted by SecondGlyph.
-					// If a kerning pair is duplicated, take only the first one into account
-					// for now. In the future we may have to ignore the GPOS table in such case.
-					// (http://partners.adobe.com/public/developer/opentype/index_table_formats2.html)
-					if (oldSecondGlyph >= SecondGlyph)
-						continue;
-					m_pairs[FirstGlyph][SecondGlyph] = double ( Value1 );
-					oldSecondGlyph = SecondGlyph;
-				}
-			}
-		}
-		else
-		{
-			//			qDebug() <<"ValueFormat1 is null or both ValueFormat1 and ValueFormat2 are null";
-		}
-	}
-	else if ( PosFormat == 2 ) // class kerning
-	{
-		quint16 ValueFormat1 ( toUint16 ( subtableOffset +4 ) );
-		quint16 ValueFormat2 ( toUint16 ( subtableOffset +6 ) );
-		quint16 ClassDef1 ( toUint16 ( subtableOffset +8 )  + subtableOffset );
-		quint16 ClassDef2 ( toUint16 ( subtableOffset +10 ) + subtableOffset );
-		quint16 Class1Count ( toUint16 ( subtableOffset +12 ) );
-		quint16 Class2Count ( toUint16 ( subtableOffset +14 ) );
-		quint16 Class1Record ( subtableOffset +16 );
-		
-		// first extract classses
-		getClass(true, ClassDef1 , subtableOffset );
-		getClass(false, ClassDef2 , subtableOffset );
-		
-		if ( ValueFormat1 && ValueFormat2 )
-		{
-			for ( quint16 C1 ( 0 );C1 < Class1Count; ++C1 )
-			{
-				quint16 Class2Record ( Class1Record + ( C1 * ( 2 * 2 * Class2Count ) ) );
-				for ( quint16 C2 ( 0 );C2 < Class2Count; ++C2 )
-				{
-					qint16 Value1 ( toInt16 ( Class2Record + ( C2 * ( 2 * 2 ) ) ) );
-					if (Value1 != 0)
-					{
-						m_classValue[subtableOffset][C1][C2] = double ( Value1 );
-					}
-				}
-			}
-		}
-		else if ( ValueFormat1 && ( !ValueFormat2 ) )
-		{
-			for ( quint16 C1 ( 1 );C1 < Class1Count; ++C1 )
-			{
-				quint16 Class2Record ( Class1Record + ( C1 * ( 2 * Class2Count ) ) );
-				for ( quint16 C2 ( 1 );C2 < Class2Count; ++C2 )
-				{
-					qint16 Value1 ( toInt16 ( Class2Record + ( C2 * 2 ) ) );
-					if (Value1 != 0)
-					{
-						m_classValue[subtableOffset][C1][C2] = double ( Value1 );
-					}
-				}
-			}
-		}
-		else
-		{
-			//			qDebug() <<"ValueFormat1 is null or both ValueFormat1 and ValueFormat2 are null";
-		}
-		
-	}
-	else
-		qDebug() <<"unknown PosFormat"<<PosFormat;
-}
-
-KernFeature::ClassDefTable KernFeature::getClass ( bool leftGlyph, quint16 classDefOffset, quint16 coverageId )
-{
-	if (leftGlyph)
-	{
-		if (m_classGlyphFirst.contains(coverageId) && m_classGlyphFirst[coverageId].contains(classDefOffset))
-			return m_classGlyphFirst[coverageId][classDefOffset];
-	}
-	else
-	{
-		if (m_classGlyphSecond.contains(coverageId) && m_classGlyphSecond[coverageId].contains(classDefOffset))
-			return m_classGlyphSecond[coverageId][classDefOffset];
-	}
-	
-	ClassDefTable ret;
-	
-	QList<quint16> excludeList;
-	quint16 ClassFormat ( toUint16 ( classDefOffset ) );
-	if ( ClassFormat == 1 )
-	{
-		quint16 StartGlyph ( toUint16 ( classDefOffset +2 ) );
-		quint16 GlyphCount ( toUint16 ( classDefOffset +4 ) );
-		quint16 ClassValueArray ( classDefOffset + 6 );
-		
-		for ( quint16 CV ( 0 );CV < GlyphCount; ++CV )
-		{
-			excludeList<<StartGlyph + CV;
-			ret[ toUint16 ( ClassValueArray + ( CV * 2 ) ) ] << StartGlyph + CV;
-		}
-	}
-	else if ( ClassFormat == 2 )
-	{
-		quint16 ClassRangeCount ( toUint16 ( classDefOffset + 2 ) );
-		quint16 ClassRangeRecord ( classDefOffset + 4 );
-		for ( int CRR ( 0 ); CRR < ClassRangeCount; ++CRR )
-		{
-			quint16 Start ( toUint16 ( ClassRangeRecord + ( CRR * 6 ) ) );
-			quint16 End ( toUint16 ( ClassRangeRecord + ( CRR * 6 ) + 2 ) );
-			quint16 Class ( toUint16 ( ClassRangeRecord + ( CRR * 6 ) + 4 ) );
-			
-			if (Start <= End)
-			{
-				for ( int gl ( Start ); gl <= (int) End; ++gl )
-				{
-					excludeList<< (quint16) gl;
-					ret[Class] << gl;
-				}
-			}
-			else
-			{
-				for ( int gl ( Start ); gl >= (int) End; --gl )
-				{
-					excludeList<< (quint16) gl;
-					ret[Class] << gl;
-				}
-			}
-		}
-	}
-	else
-		qDebug() <<"Unknown Class Table type";
-	
-	// if possible (all glyphs are "classed"), avoid to pass through this slow piece of code.
-	if (excludeList.count() != m_coverages[coverageId].count())
-	{
-		foreach(const quint16& gidx, m_coverages[coverageId])
-		{
-			if (!excludeList.contains(gidx))
-				ret[0] << gidx;
-		}
-	}
-	if (leftGlyph)
-		m_classGlyphFirst[coverageId][classDefOffset] = ret;
-	else
-		m_classGlyphSecond[coverageId][classDefOffset] = ret;
-	
-	return ret;
-}
-
-quint16 KernFeature::toUint16 ( quint16 index )
-{
-	if ( ( index + 2 ) > m_GPOSTableRaw.count() )
-	{
-		//	qDebug() << "HORROR!" << index << GPOSTableRaw.count() << FontName ;
-		// Rather no kerning at all than random kerning
-		// 		m_valid = false;
-		return 0;
-	}
-	// FIXME I just do not know how it has to be done *properly*
-	quint8 c1 ( m_GPOSTableRaw.at ( index ) );
-	quint8 c2 ( m_GPOSTableRaw.at ( index + 1 ) );
-	quint16 ret ( ( c1 << 8 ) | c2 );
-	return ret;
-}
-
-qint16 KernFeature::toInt16 ( quint16 index )
-{
-	if ( ( index + 2 ) > m_GPOSTableRaw.count() )
-	{
-		return 0;
-	}
-	// FIXME I just do not know how it has to be done *properly*
-	quint8 c1 ( m_GPOSTableRaw.at ( index ) );
-	quint8 c2 ( m_GPOSTableRaw.at ( index + 1 ) );
-	qint16 ret ( ( c1 << 8 ) | c2 );
-	return ret;
-}

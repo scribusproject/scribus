@@ -236,7 +236,7 @@ LoremManager::LoremManager(ScribusDoc* doc, QWidget* parent) : QDialog( parent )
 	resize( QSize(320, 340).expandedTo(minimumSizeHint()) );
 	QList<QTreeWidgetItem *> defItem;
 	defItem.clear();
-	defItem = loremList->findItems(langmgr->getLangFromAbbrev(m_Doc->hyphLanguage(), true), Qt::MatchExactly);
+	defItem = loremList->findItems(langmgr->getLangFromAbbrev(m_Doc->language(), true), Qt::MatchExactly);
 	if (defItem.count() == 0)
 		defItem = loremList->findItems(standardloremtext, Qt::MatchExactly);
 	if (defItem.count() != 0)
@@ -374,7 +374,7 @@ QString LoremManager::getName()
 	if (li->text(0)==standardloremtext)
 		name="la";
 	else
-		name=LanguageManager::instance()->getAbbrevFromLang(li->text(0), true, false);
+		name=LanguageManager::instance()->getAbbrevFromLang(li->text(0), false);
 
 	return availableLorems[name];
 }

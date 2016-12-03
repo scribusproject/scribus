@@ -5,6 +5,14 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 
+#include <harfbuzz/hb.h>
+#include <harfbuzz/hb-ft.h>
+#include <harfbuzz/hb-ot.h>
+
+
+#include <ft2build.h>
+#include FT_TRUETYPE_TABLES_H
+
 #include "scribusapi.h"
 #include "fonts/scface.h"
 #include "text/storytext.h"
@@ -28,15 +36,72 @@ ScFace::ScFaceData::ScFaceData() :
 	isFixedPitch(false),
 	hasGlyphNames(false),
 	maxGlyph(0),
-	m_cachedStatus(ScFace::UNKNOWN)
+	m_cachedStatus(ScFace::UNKNOWN),
+	m_hbFont(NULL)
 {
 }
 
-qreal ScFace::ScFaceData::glyphKerning(gid_type /*gl1*/, gid_type /*gl2*/, qreal /*sz*/) const
-{ 
-	return 0.0; 
+ScFace::ScFaceData::~ScFaceData()
+{
+	if (m_hbFont)
+	{
+		hb_font_destroy(reinterpret_cast<hb_font_t*>(m_hbFont));
+		m_hbFont = NULL;
+	}
 }
 
+
+static hb_blob_t* referenceTable(hb_face_t*, hb_tag_t tag, void *userData)
+{
+	FT_Face ftFace = reinterpret_cast<FT_Face>(userData);
+	FT_Byte *buffer;
+	FT_ULong length = 0;
+
+	if (FT_Load_Sfnt_Table(ftFace, tag, 0, NULL, &length))
+		return NULL;
+
+	buffer = reinterpret_cast<FT_Byte*>(malloc(length));
+	if (buffer == NULL)
+		return NULL;
+
+	if (FT_Load_Sfnt_Table(ftFace, tag, 0, buffer, &length))
+	{
+		free(buffer);
+		return NULL;
+	}
+
+	return hb_blob_create((const char *) buffer, length, HB_MEMORY_MODE_WRITABLE, buffer, free);
+}
+
+void* ScFace::ScFaceData::hbFont()
+{
+	if (!m_hbFont)
+	{
+		if (!ftFace())
+			return NULL;
+
+		if (formatCode == ScFace::SFNT || formatCode == ScFace::TTCF || formatCode == ScFace::TYPE42)
+		{
+			// use HarfBuzz internal font functions for formats it supports,
+			// gives us more consistent glyph metrics.
+			FT_Reference_Face(ftFace());
+			hb_face_t *hbFace = hb_face_create_for_tables(referenceTable, ftFace(), (hb_destroy_func_t) FT_Done_Face);
+			hb_face_set_index(hbFace, ftFace()->face_index);
+			hb_face_set_upem(hbFace, ftFace()->units_per_EM);
+
+			m_hbFont = hb_font_create(hbFace);
+			hb_ot_font_set_funcs(reinterpret_cast<hb_font_t*>(m_hbFont));
+
+			hb_face_destroy(hbFace);
+		}
+		else
+		{
+			m_hbFont = hb_ft_font_create_referenced(ftFace());
+		}
+	}
+
+	return m_hbFont;
+}
 
 bool ScFace::ScFaceData::glyphNames(FaceEncoding& /*gList*/) const
 { 
@@ -53,7 +118,7 @@ QMap<QString,QString> ScFace::ScFaceData::fontDictionary(qreal /*sz*/) const
 GlyphMetrics ScFace::ScFaceData::glyphBBox(gid_type gl, qreal sz) const
 {
 	GlyphMetrics res;
-	if (gl == 0 || gl >= CONTROL_GLYPHS)
+	if (gl >= CONTROL_GLYPHS)
 	{	res.width   = glyphWidth(gl, sz);
 		res.ascent  = (gl == 0? ascent(sz) : 0);
 		res.descent = 0;
@@ -74,8 +139,6 @@ qreal ScFace::ScFaceData::glyphWidth(gid_type gl, qreal size) const
 {
 	if (gl >= CONTROL_GLYPHS)
 		return 0.0;
-	else if (gl == 0)
-		return size;
 	else if (! m_glyphWidth.contains(gl)) {
 		loadGlyph(gl);
 	}
@@ -87,15 +150,6 @@ FPointArray ScFace::ScFaceData::glyphOutline(gid_type gl, qreal sz) const
 { 
 	if (gl >= CONTROL_GLYPHS)
 		return FPointArray();
-	else if (gl == 0) {
-		sz *= 10;
-		FPointArray sq;
-		sq.addQuadPoint(0,0,0,0,sz,0,sz,0);
-		sq.addQuadPoint(sz,0,sz,0,sz,sz,sz,sz);
-		sq.addQuadPoint(sz,sz,sz,sz,0,sz,0,sz);
-		sq.addQuadPoint(0,sz,0,sz,0,0,0,0);
-		return sq;
-	}
 	else if (! m_glyphWidth.contains(gl)) {
 		loadGlyph(gl);
 	}
@@ -108,7 +162,7 @@ FPointArray ScFace::ScFaceData::glyphOutline(gid_type gl, qreal sz) const
 
 FPoint ScFace::ScFaceData::glyphOrigin(gid_type gl, qreal sz) const
 {
-	if (gl == 0 || gl >= CONTROL_GLYPHS)
+	if (gl >= CONTROL_GLYPHS)
 		return FPoint(0,0);
 	else if (! m_glyphWidth.contains(gl)) {
 		loadGlyph(gl);
@@ -125,7 +179,7 @@ FPoint ScFace::ScFaceData::glyphOrigin(gid_type gl, qreal sz) const
    usable() == ! broken
    embeddable() == glyphs_checked
    
-   canRender(unicode) -> CharMap cache? -> loadChar/Glyph -> !broken
+   loadChar/Glyph -> !broken
    Glyphs:  width    status
             -1000    unknown
             -2000    broken
@@ -201,6 +255,22 @@ const ScFace& ScFace::none()
 { 
 	static ScFace NONE;
 	return NONE; 
+}
+
+bool ScFace::isItalic() const
+{
+	if (m_m->status == ScFace::UNKNOWN) {
+		m_m->load();
+	}
+	return m_m->isItalic();
+}
+
+bool ScFace::isBold() const
+{
+	if (m_m->status == ScFace::UNKNOWN) {
+		m_m->load();
+	}
+	return m_m->isBold();
 }
 
 bool ScFace::isSymbolic() const
@@ -348,23 +418,51 @@ void ScFace::unload() const
 }
 
 
-ScFace::gid_type ScFace::emulateGlyph(QChar ch) const
+ScFace::gid_type ScFace::emulateGlyph(uint ch) const
 {
 	if (ch == SpecialChars::LINEBREAK || ch == SpecialChars::PARSEP 
 		|| ch == SpecialChars::FRAMEBREAK || ch == SpecialChars::COLBREAK 
 		|| ch == SpecialChars::TAB || ch == SpecialChars::SHYPHEN
 		 || ch == SpecialChars::ZWSPACE || ch == SpecialChars::ZWNBSPACE || ch==SpecialChars::OBJECT)
-		return CONTROL_GLYPHS + ch.unicode();
+		return CONTROL_GLYPHS + ch;
 	else if (ch == SpecialChars::NBSPACE)
-		return  m_m->char2CMap(QChar(' '));
+		return  m_m->char2CMap(' ');
 	else if(ch == SpecialChars::NBHYPHEN)
-		return  m_m->char2CMap(QChar('-'));
+		return hyphenGlyph();
 	else
 		return 0;
 }
+ScFace::gid_type ScFace::hyphenGlyph() const
+{
+	// Try the typographic hyphen first, then the hyphen-minus
+	gid_type hyphen = m_m->char2CMap(0x2010);
+	if (hyphen == 0)
+		hyphen = m_m->char2CMap('-');
+	return hyphen;
+}
 
+ScFace::gid_type ScFace::hyphenGlyph(const CharStyle& style) const
+{
+	if (style.hyphenChar() == 0)
+		return  SpecialChars::ZWNBSPACE.unicode() + ScFace::CONTROL_GLYPHS;
+	if (style.hyphenChar() == 0x2010)
+		return  hyphenGlyph();
+	return  m_m->char2CMap(style.hyphenChar());
+}
 
-ScFace::gid_type ScFace::char2CMap(QChar ch) const
+double ScFace::hyphenWidth(const CharStyle& style, qreal size) const
+{
+	if (style.hyphenChar() == 0)
+		return 0;
+	return glyphBBox(hyphenGlyph(style), size).width;
+}
+
+QStringList ScFace::fontFeatures() const
+{
+	return m_m->fontFeatures;
+}
+
+ScFace::gid_type ScFace::char2CMap(uint ch) const
 {
 	if (m_m->status == ScFace::UNKNOWN) {
 		m_m->load();
@@ -387,7 +485,7 @@ bool ScFace::canRender(QChar ch) const
 	if (!usable())
 		return false;
 	else {
-		gid_type gl = char2CMap(ch);    //  calls load()
+		gid_type gl = char2CMap(ch.unicode());    //  calls load()
 		if (gl >= CONTROL_GLYPHS)   //  those are always empty
 			return true;
 		else if (gl != 0) {
@@ -399,25 +497,6 @@ bool ScFace::canRender(QChar ch) const
 		}
 	}
 }
-
-
-qreal ScFace::charWidth(QChar ch, qreal size, QChar ch2) const
-{
-	if (!canRender(ch)) // calls loadGlyph()
-		return size;
-	else if (ch.unicode() == 28 || ch.unicode() == 13 || ch.unicode() == 9)
-		return ch.unicode() == 9 ? 1.0 : 0.0;
-	else {
-		gid_type gl1 = char2CMap(ch);
-		gid_type gl2 = char2CMap(ch2);
-		qreal width = glyphWidth(gl1, size);
-		if (gl2 != 0)
-			width += glyphKerning(gl1, gl2, size);
-//		qDebug() << QString("scface::glyphkerning: %1_%2 = %3 (%4, %5)").arg(ch).arg(ch2).arg(glyphKerning(gl1, gl2,size)).arg(gl1).arg(gl2);
-		return width;
-	}
-}
-
 
 bool ScFace::EmbedFont(QByteArray &str)
 {

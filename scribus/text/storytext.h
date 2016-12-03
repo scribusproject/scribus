@@ -29,6 +29,8 @@ pageitem.cpp  -  description
 #include <QString>
 #include <QList>
 #include <cassert>
+#include "unicode/brkiter.h"
+#include "itextsource.h"
 
 #include "marks.h"
 //#include "text/paragraphlayout.h"
@@ -49,7 +51,7 @@ class PageItem;
 class ScribusDoc;
 class ScText_Shared;
 class ResourceCollection;
- 
+class ShapedTextCache;
 
 
 /**
@@ -68,7 +70,7 @@ class ResourceCollection;
  * offsets to its basepoint. Other information in the ScriptItem is only
  * used by the layouter.
  */
-class SCRIBUS_API StoryText : public QObject, public SaxIO
+class SCRIBUS_API StoryText : public QObject, public SaxIO, public ITextSource
 {
 	Q_OBJECT
 	
@@ -90,6 +92,14 @@ class SCRIBUS_API StoryText : public QObject, public SaxIO
 	void setCursorPosition(int pos, bool relative = false);
 	void normalizeCursorPosition();
 	int  normalizedCursorPosition();
+
+	void moveCursorForward();
+	void moveCursorBackward();
+	void moveCursorLeft();
+	void moveCursorRight();
+
+	void moveCursorWordLeft();
+	void moveCursorWordRight();
 
  	void clear();
 	StoryText copy() const;
@@ -135,22 +145,32 @@ class SCRIBUS_API StoryText : public QObject, public SaxIO
 	// text editors
 	QString plainText() const;
 
+	// TextSource methods 
+
+	virtual bool isBlockStart(int pos) const; 
+	virtual int nextBlockStart(int pos) const;
+	virtual InlineFrame object(int pos) const;
+	virtual bool hasExpansionPoint(int pos) const;
+	virtual ExpansionPoint expansionPoint(int pos) const;
+
 	// Get char at current cursor position
-	QChar   text() const;
+//	QChar   text() const;
 	// Get char at specific position
  	QChar   text(int pos) const;
 	// Get text with len chars at specific position
  	QString text(int pos, uint len) const;
  	//Get sentence at any position within it
 	QString sentence(int pos, int &posn);
-	// Get word at specific position
-	QString wordAt(int pos) const;
 
 	bool hasObject(int pos) const;
- 	PageItem* object(int pos) const;
+ 	PageItem* getItem(int pos) const; // deprecated
     bool hasMark(int pos, Mark* mrk = NULL) const;
 	Mark *mark(int pos) const;
     void replaceMark(int pos, Mark* mrk);
+	void applyMarkCharstyle(Mark* mrk, CharStyle& currStyle) const;
+
+	bool isHighSurrogate(int pos) const;
+	bool isLowSurrogate(int pos) const;
 
 	// Get charstyle at current cursor position
 	const CharStyle& charStyle() const;
@@ -228,8 +248,15 @@ class SCRIBUS_API StoryText : public QObject, public SaxIO
 	int endOfSelection() const;
 	int lengthOfSelection() const;
 
+	// break iterators
+	static BreakIterator* getGraphemeIterator();
+	static BreakIterator* getWordIterator();
+	static BreakIterator* getSentenceIterator();
+	static BreakIterator* getLineIterator();
 
 // layout helpers
+
+	ShapedTextCache* shapedTextCache() { return m_shapedTextCache; }
 
 	LayoutFlags flags(int pos) const;
 	bool hasFlag(int pos, LayoutFlags flag) const;
@@ -253,6 +280,9 @@ signals:
 private:
  	ScText * item(uint index);
  	const ScText * item(uint index) const;
+	void fixSurrogateSelection();
+	// storage for plain text
+	QString m_text;
 
 //public:
 //	ScText * item_p(uint index) { return item(index); }
@@ -264,10 +294,14 @@ private:
 	
 //	LineSpec line(uint i) const { return m_lines[i]; }
 	
-
 private:
 	ScribusDoc * m_doc; 
 	int m_selFirst, m_selLast;
+	ShapedTextCache* m_shapedTextCache;
+	static BreakIterator* m_graphemeIterator;
+	static BreakIterator* m_wordIterator;
+	static BreakIterator* m_sentenceIterator;
+	static BreakIterator* m_lineIterator;
 //	int m_firstFrameItem, m_lastFrameItem;
 //	QList<LineSpec> m_lines;
 //	bool m_validLayout;

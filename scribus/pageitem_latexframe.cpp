@@ -24,6 +24,7 @@ for which a new license (GPL+exception) is in place.
 #include "pageitem_latexframe.h"
 
 #include <QDebug>
+#include <QFontInfo>
 #include <QMessageBox>
 #include <QTemporaryFile>
 
@@ -127,6 +128,8 @@ void PageItem_LatexFrame::DrawObj_Item(ScPainter *p, QRectF e)
 		p->setBrush(Qt::white);
 		p->setPen(Qt::green, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 		p->drawLine(FPoint(0, 0), FPoint(m_width, m_height));
+		const QFont &font = QApplication::font();
+		p->setFont(PrefsManager::instance()->appPrefs.fontPrefs.AvailFonts.findFont(font.family(), QFontInfo(font).styleName()), font.pointSizeF());
 		p->drawText(QRectF(0.0, 0.0, m_width, m_height), tr("Rendering..."));
 	}
 	else if (m_err)
@@ -136,6 +139,8 @@ void PageItem_LatexFrame::DrawObj_Item(ScPainter *p, QRectF e)
 		p->setPen(Qt::blue, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 		p->drawLine(FPoint(0, 0), FPoint(m_width, m_height));
 		p->drawLine(FPoint(0, m_height), FPoint(m_width, 0));
+		const QFont &font = QApplication::font();
+		p->setFont(PrefsManager::instance()->appPrefs.fontPrefs.AvailFonts.findFont(font.family(), QFontInfo(font).styleName()), font.pointSizeF());
 		p->drawText(QRectF(0.0, 0.0, m_width, m_height), tr("Render Error"));
 	}
 	else

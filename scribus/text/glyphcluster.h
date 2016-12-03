@@ -3,9 +3,10 @@
 
 #include <QList>
 
+#include "scribusapi.h"
 #include "sctextstruct.h"
 
-class GlyphCluster
+class SCRIBUS_API GlyphCluster
 {
 public:
 	GlyphCluster(const CharStyle* style, LayoutFlags flags, int first, int last, const InlineFrame& o, int visualIdx, QString str);

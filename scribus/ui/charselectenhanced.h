@@ -32,7 +32,7 @@ signals:
 	/*! \brief A signall emitted when press the "Insert" button.
 	Glyphs are handled in CharSelect parent.
 	*/
-	void insertSpecialChars(const QString & chars);
+	void insertSpecialChars(const QVector<uint> & chars);
 
 public slots:
 	void newChar(uint i, QString);
@@ -83,7 +83,7 @@ private:
 	CharClassDef charactersArabicPresentationFormsB;
 	CharClassDef charactersHebrew;
 	QMap<int,int> usedCharClasses;
-	QString chToIns;
+	QVector<uint> chToIns;
 
 	void scanFont();
 	void setupRangeCombo();

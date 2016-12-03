@@ -19,13 +19,11 @@ for which a new license (GPL+exception) is in place.
 #include "pageitem_group.h"
 #include "pageitem_imageframe.h"
 #include "pageitem_line.h"
-#include "pageitem_pathtext.h"
 #include "pageitem_polygon.h"
 #include "pageitem_polyline.h"
 #include "pageitem_regularpolygon.h"
 #include "pageitem_spiral.h"
 #include "pageitem_table.h"
-#include "pageitem_textframe.h"
 #include "prefsmanager.h"
 #include "scfonts.h"
 #include "scimage.h"
@@ -209,8 +207,6 @@ void ScPageOutput::drawItem( PageItem* item, ScPainterExBase* painter, QRect cli
 		drawItem_ImageFrame( (PageItem_ImageFrame*) item, painter, clip);
 	else if (itemType == PageItem::Line)
 		drawItem_Line( (PageItem_Line*) item, painter, clip);
-	else if (itemType == PageItem::PathText)
-		drawItem_PathText(  (PageItem_PathText*) item, painter, clip);
 	else if (itemType == PageItem::Polygon)
 		drawItem_Polygon( (PageItem_Polygon*) item, painter, clip);
 	else if (itemType == PageItem::PolyLine)
@@ -221,8 +217,8 @@ void ScPageOutput::drawItem( PageItem* item, ScPainterExBase* painter, QRect cli
 		drawItem_Spiral( (PageItem_Spiral*) item, painter, clip);
 	else if (itemType == PageItem::Table)
 		drawItem_Table( (PageItem_Table*) item, painter, clip);
-	else if (itemType == PageItem::TextFrame)
-		drawItem_TextFrame( (PageItem_TextFrame*) item, painter, clip);
+	else if (itemType == PageItem::TextFrame || itemType == PageItem::PathText)
+		drawItem_Text(item, painter, clip);
 	drawItem_Post(item, painter);
 }
 
@@ -972,9 +968,9 @@ public:
 		m_painter->scale(h, v);
 	}
 
-	void drawGlyph(const GlyphLayout gl)
+	void drawGlyph(const GlyphCluster& gc)
 	{
-		if (gl.glyph >= ScFace::CONTROL_GLYPHS)
+		if (gc.isControlGlyphs())
 			return;
 
 		m_painter->save();
@@ -985,44 +981,56 @@ public:
 		m_painter->setFillMode(1);
 
 		setupState();
-		m_painter->translate(0, -(fontSize() * gl.scaleV));
-		FPointArray outline = font().glyphOutline(gl.glyph);
-		double scaleH = gl.scaleH * fontSize() / 10.0;
-		double scaleV = gl.scaleV * fontSize() / 10.0;
-		m_painter->scale(scaleH, scaleV);
-		m_painter->setupPolygon(&outline, true);
-		if (outline.size() > 3)
-			m_painter->fillPath();
+		double current_x = 0.0;
+		foreach (const GlyphLayout& gl, gc.glyphs()) {
+			m_painter->save();
+			m_painter->translate(gl.xoffset + current_x, -(fontSize() * gl.scaleV) + gl.yoffset);
+			FPointArray outline = font().glyphOutline(gl.glyph);
+			double scaleH = gc.scaleH() * fontSize() / 10.0;
+			double scaleV = gc.scaleV() * fontSize() / 10.0;
+			m_painter->scale(scaleH, scaleV);
+			m_painter->setupPolygon(&outline, true);
+			if (outline.size() > 3)
+				m_painter->fillPath();
+			m_painter->restore();
+			current_x += gl.xadvance;
+		}
 
 		m_painter->setFillMode(fm);
 		m_painter->setFillRule(fr);
 		m_painter->restore();
 	}
 
-	void drawGlyphOutline(const GlyphLayout gl, bool fill)
+	void drawGlyphOutline(const GlyphCluster& gc, bool fill)
 	{
-		if (gl.glyph >= ScFace::CONTROL_GLYPHS)
+		if (gc.isControlGlyphs())
 			return;
 
 		if (fill)
-			drawGlyph(gl);
+			drawGlyph(gc);
 
 		m_painter->save();
 		bool fr = m_painter->fillRule();
 		m_painter->setFillRule(false);
 
 		setupState();
-		m_painter->translate(0, -(fontSize() * gl.scaleV));
+		double current_x = 0.0;
+		foreach (const GlyphLayout& gl, gc.glyphs()) {
+			m_painter->save();
+			m_painter->translate(gl.xoffset + current_x, -(fontSize() * gc.scaleV()) + gl.yoffset);
 
-		FPointArray outline = font().glyphOutline(gl.glyph);
-		double scaleH = gl.scaleH * fontSize() / 10.0;
-		double scaleV = gl.scaleV * fontSize() / 10.0;
-		m_painter->scale(scaleH, scaleV);
-		m_painter->setupPolygon(&outline, true);
-		if (outline.size() > 3)
-		{
-			m_painter->setLineWidth(strokeWidth());
-			m_painter->strokePath();
+			FPointArray outline = font().glyphOutline(gl.glyph);
+			double scaleH = gc.scaleH() * fontSize() / 10.0;
+			double scaleV = gc.scaleV() * fontSize() / 10.0;
+			m_painter->scale(scaleH, scaleV);
+			m_painter->setupPolygon(&outline, true);
+			if (outline.size() > 3)
+			{
+				m_painter->setLineWidth(strokeWidth());
+				m_painter->strokePath();
+			}
+			m_painter->restore();
+			current_x += gl.xadvance;
 		}
 
 		m_painter->setFillRule(fr);
@@ -1093,40 +1101,6 @@ public:
 		m_painter->restore();
 	}
 };
-
-
-void ScPageOutput::drawItem_PathText( PageItem_PathText* item, ScPainterExBase* painter, QRect clip )
-{
-	if (item->pathTextShowFrame())
-	{
-		painter->setupPolygon(&item->PoLine, false);
-		if (item->NamedLStyle.isEmpty())
-		{
-			if (item->lineColor() != CommonStrings::None)
-				painter->strokePath();
-		}
-		else
-		{
-			multiLine ml = m_doc->MLineStyles[item->NamedLStyle];
-			for (int it = ml.size() - 1; it > -1; it--)
-			{
-				const SingleLine& sl = ml[it];
-				if ((sl.Color != CommonStrings::None) && (sl.Width != 0))
-				{
-					ScColorShade tmp(m_doc->PageColors[sl.Color], sl.Shade);
-					painter->setPen(tmp, sl.Width,  static_cast<Qt::PenStyle>(sl.Dash), 
-							 static_cast<Qt::PenCapStyle>(sl.LineEnd), 
-							 static_cast<Qt::PenJoinStyle>(sl.LineJoin));
-					painter->drawLine(FPoint(0, 0), FPoint(item->width(), 0));
-				}
-			}
-		}
-	}
-
-	ScPageOutputPainter p(item, painter, this);
-	item->textLayout.renderBackground(&p);
-	item->textLayout.render(&p);
-}
 
 void ScPageOutput::drawItem_Polygon ( PageItem_Polygon* item , ScPainterExBase* painter, QRect clip )
 {
@@ -1475,8 +1449,33 @@ void ScPageOutput::drawItem_Table( PageItem_Table* item, ScPainterExBase* painte
 	painter->restore();
 }
 
-void ScPageOutput::drawItem_TextFrame( PageItem_TextFrame* item, ScPainterExBase* painter, QRect cullingArea )
+void ScPageOutput::drawItem_Text( PageItem* item, ScPainterExBase* painter, QRect cullingArea )
 {
+	if (item->pathTextShowFrame())
+	{
+		painter->setupPolygon(&item->PoLine, false);
+		if (item->NamedLStyle.isEmpty())
+		{
+			if (item->lineColor() != CommonStrings::None)
+				painter->strokePath();
+		}
+		else
+		{
+			multiLine ml = m_doc->MLineStyles[item->NamedLStyle];
+			for (int it = ml.size() - 1; it > -1; it--)
+			{
+				const SingleLine& sl = ml[it];
+				if ((sl.Color != CommonStrings::None) && (sl.Width != 0))
+				{
+					ScColorShade tmp(m_doc->PageColors[sl.Color], sl.Shade);
+					painter->setPen(tmp, sl.Width,  static_cast<Qt::PenStyle>(sl.Dash), 
+							 static_cast<Qt::PenCapStyle>(sl.LineEnd), 
+							 static_cast<Qt::PenJoinStyle>(sl.LineJoin));
+					painter->drawLine(FPoint(0, 0), FPoint(item->width(), 0));
+				}
+			}
+		}
+	}
 	painter->save();
 
 	if ((item->fillColor() != CommonStrings::None) || (item->GrType != 0))

@@ -360,6 +360,7 @@ else()
 endif()
 
 #APPDATA
+
 set(APPDATADIR "${CMAKE_INSTALL_DATAROOTDIR}/metainfo/")
 if(NOT IS_ABSOLUTE ${APPDATADIRR})
     add_definitions("-DAPPDATADIR=\\\"${CMAKE_INSTALL_PREFIX}/${APPDATADIR}\\\"")
@@ -912,11 +913,6 @@ endif()
 pkg_check_modules(HARFBUZZ REQUIRED harfbuzz>=0.9.42 harfbuzz-icu)
 pkg_check_modules(ICU REQUIRED icu-uc)
 
-#message(STATUS "${HARFBUZZ_INCLUDE_DIRS}")
-#message(STATUS "${ICU_INCLUDE_DIRS}")
-
-#test cmake 3.7 only find_package(ICU REQUIRED icu_uc)
-
 
 ##############################################################################################################
 ########## Include Setup                                                                            ##########
@@ -973,8 +969,6 @@ include_directories(
 	${OPENGL_INCLUDE_DIR}
 	${OSG_INCLUDE_DIR}
 	${GSL_INCLUDE_DIR}
-	${HARFBUZZ_INCLUDE_DIRS}
-	${ICU_INCLUDE_DIRS}
 )
 
 if (NOT WIN32 AND NOT HAIKU)

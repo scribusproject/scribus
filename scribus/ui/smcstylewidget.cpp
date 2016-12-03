@@ -9,6 +9,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "iconmanager.h"
 #include "langmgr.h"
+#include "prefsmanager.h"
 #include "scribus.h"
 #include "smcstylewidget.h"
 #include "util.h"
@@ -45,8 +46,10 @@ SMCStyleWidget::SMCStyleWidget(QWidget *parent) : QWidget(),
 	StrokeIcon->setEnabled(false);
 	strokeShade_->setEnabled(false);
 	strokeColor_->setEnabled(false);
+	fontfeaturesSetting->resetFontFeatures();
 
 	connect(effects_, SIGNAL(State(int)), this, SLOT(slotColorChange()));
+	connect(fontFace_, SIGNAL(fontSelected(QString)), this, SLOT(slotEnableFontFeatures(QString)));
 }
 
 void SMCStyleWidget::changeEvent(QEvent *e)
@@ -62,7 +65,7 @@ void SMCStyleWidget::changeEvent(QEvent *e)
 void SMCStyleWidget::languageChange()
 {
 	QStringList languageList;
-	LanguageManager::instance()->fillInstalledHyphStringList(&languageList);
+	LanguageManager::instance()->fillInstalledStringList(&languageList, false);
 	fillLangComboFromList(languageList);
 
 	if (fillColor_->count() > 0)
@@ -199,6 +202,12 @@ void SMCStyleWidget::handleUpdateRequest(int updateFlags)
 		fillColorCombo(m_Doc->PageColors);
 }
 
+void SMCStyleWidget::slotEnableFontFeatures(QString s)
+{
+	const ScFace& font = PrefsManager::instance()->appPrefs.fontPrefs.AvailFonts[s];
+	fontfeaturesSetting->enableFontFeatures(font.fontFeatures());
+}
+
 void SMCStyleWidget::setDoc(ScribusDoc *doc)
 {
 	if (m_Doc)
@@ -209,7 +218,7 @@ void SMCStyleWidget::setDoc(ScribusDoc *doc)
 		return;
 
 	QStringList languageList;
-	LanguageManager::instance()->fillInstalledHyphStringList(&languageList);
+	LanguageManager::instance()->fillInstalledStringList(&languageList, false);
 	fillLangComboFromList(languageList);
 	fillColorCombo(m_Doc->PageColors);
 	fontFace_->RebuildList(m_Doc);
@@ -266,6 +275,15 @@ void SMCStyleWidget::show(CharStyle *cstyle, QList<CharStyle> &cstyles, const QS
 
 		fontFace_->setCurrentFont(cstyle->font().scName(), cstyle->isInhFont());
 		fontFace_->setParentFont(parent->font().scName());
+
+		fontfeaturesSetting->setFontFeatures(cstyle->fontFeatures(), cstyle->font().fontFeatures());
+		fontfeaturesSetting->setParentValue(parent->fontFeatures());
+
+		smallestWordSpinBox->setValue(cstyle->hyphenWordMin(), cstyle->isInhHyphenWordMin());
+		smallestWordSpinBox->setParentValue(parent->hyphenWordMin());
+
+		hyphenCharLineEdit->setValue(QString::fromUcs4(&cstyle->hyphenChar(), 1), cstyle->isInhHyphenChar());
+		hyphenCharLineEdit->setParentValue(QString::fromUcs4(&parent->hyphenChar(), 1));
 	}
 	else
 	{
@@ -283,6 +301,9 @@ void SMCStyleWidget::show(CharStyle *cstyle, QList<CharStyle> &cstyles, const QS
 		backColor_->setCurrentText(cstyle->backColor());
 		backShade_->setValue(qRound(cstyle->backShade()));
 		fontFace_->setCurrentFont(cstyle->font().scName());
+		fontfeaturesSetting->setFontFeatures(cstyle->fontFeatures(), cstyle->font().fontFeatures());
+		smallestWordSpinBox->setValue(cstyle->hyphenWordMin());
+		hyphenCharLineEdit->setValue(QString::fromUcs4(&cstyle->hyphenChar(), 1));
 	}
 
 	effects_->ShadowVal->Xoffset->setValue(cstyle->shadowXOffset() / 10.0);
@@ -332,17 +353,16 @@ void SMCStyleWidget::show(CharStyle *cstyle, QList<CharStyle> &cstyles, const QS
 	int ci = -1, pi = -1, di = -1;
 // 	LanguageManager langmgr;
 // 	langmgr.init(true);
-	QString tl;
+	QString tl = LanguageManager::instance()->getAbbrevFromLang(defLang, false);
 	for (int i = 0; i < language_->count(); ++i)
 	{
-		QString ltAbbrev=LanguageManager::instance()->getAbbrevFromLang(language_->itemText(i), true, false);
+		QString ltAbbrev=LanguageManager::instance()->getAbbrevFromLang(language_->itemText(i), false);
 //		qDebug()<<"ltabbrev"<<ltAbbrev<<language_->itemText(i);
 		if (ltAbbrev == clang)
 			ci = i;
 		
 		if (hasParent && ltAbbrev == plang)
 			pi = i;
-		tl=defLang;
 //		qDebug() << i << language_->itemText(i) << defLang << langMap_[defLang] << tl;
 		if (ltAbbrev == defLang || ltAbbrev == tl)
 //		{
@@ -387,7 +407,10 @@ void SMCStyleWidget::show(QList<CharStyle*> &cstyles, QList<CharStyle> &cstylesA
 		showEffects(cstyles);
 		showColors(cstyles);
 		showLanguage(cstyles, defLang);
+		showSmallestWord(cstyles);
+		showHyphenChar(cstyles);
 		showParent(cstyles);
+		showFontFeatures(cstyles);
 	}
 }
 
@@ -663,9 +686,66 @@ void SMCStyleWidget::showLanguage(const QList<CharStyle*> &cstyles, const QStrin
 		setCurrentComboItem(language_, LanguageManager::instance()->getLangFromAbbrev(s));
 }
 
+void SMCStyleWidget::showSmallestWord(const QList<CharStyle *> &cstyles)
+{
+	int tmp = 0;
+	int s(cstyles[0]->hyphenWordMin());
+	for (int i = 0; i < cstyles.count(); ++i)
+	{
+		if (s != cstyles[i]->hyphenWordMin())
+		{
+			s = tmp;
+			break;
+		}
+		else
+			s = cstyles[i]->hyphenWordMin();
+	}
+	smallestWordSpinBox->setValue(s);
+}
+
+void SMCStyleWidget::showHyphenChar(const QList<CharStyle *> &cstyles)
+{
+	uint empty = 0;
+	uint ch(cstyles[0]->hyphenChar());
+	for (int i = 0; i < cstyles.count(); ++i)
+	{
+		if (ch != cstyles[i]->hyphenChar())
+		{
+			ch = empty;
+			break;
+		}
+		else
+			ch = cstyles[i]->hyphenChar();
+	}
+	hyphenCharLineEdit->setValue(QString::fromUcs4(&ch, 1));
+}
+
 void SMCStyleWidget::showParent(const QList<CharStyle*> &cstyles)
 {
 	parentCombo->setEnabled(false);
+}
+
+void SMCStyleWidget::showFontFeatures(const QList<CharStyle *> &cstyles)
+{
+	QString tmp;
+	QStringList tmp2;
+	QString fontfeatures(cstyles[0]->fontFeatures());
+	QStringList featuresList(cstyles[0]->font().fontFeatures());
+	for (int i = 0; i < cstyles.count(); ++i)
+	{
+		if (fontfeatures != cstyles[i]->fontFeatures())
+		{
+			fontfeatures = tmp;
+			featuresList = tmp2;
+			break;
+		}
+		else
+		{
+			fontfeatures = cstyles[i]->fontFeatures();
+			featuresList = cstyles[i]->font().fontFeatures();
+		}
+	}
+	fontfeaturesSetting->setFontFeatures(fontfeatures, featuresList);
 }
 
 void SMCStyleWidget::clearAll()

@@ -416,7 +416,7 @@ void CharSelectEnhanced::newFont(int font)
 
 void CharSelectEnhanced::newChar(uint i, QString)
 {
-	chToIns += QChar(i);
+	chToIns.append(i);
 	sample->setPixmap(FontSample((*m_doc->AllFonts)[m_fontInUse], 28, chToIns, palette().color(QPalette::Window), true));
 	insertButton->setEnabled(true);
 }
@@ -430,14 +430,14 @@ void CharSelectEnhanced::delChar()
 		delEdit();
 		return;
 	}
-	chToIns.truncate(chToIns.length() - 1);
+	chToIns.takeLast();
 	sample->setPixmap(FontSample((*m_doc->AllFonts)[m_fontInUse], 28, chToIns, palette().color(QPalette::Window), true));
 	insertButton->setEnabled(chToIns.length() > 0);
 }
 
 void CharSelectEnhanced::delEdit()
 {
-	chToIns = "";
+	chToIns.clear();
 	QPixmap pm(1,28);
 	pm.fill(palette().color(QPalette::Window));
 	sample->setPixmap(pm);

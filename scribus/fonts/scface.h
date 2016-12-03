@@ -23,11 +23,15 @@ virtual:      dispatch to constituents, handle embedding (-)
 #include <QHash>
 #include <QMap>
 #include <QString>
+#include <QStringList>
 #include <utility>
+
+#include <ft2build.h>
+#include FT_FREETYPE_H
 
 #include "fpointarray.h"
 
-
+class CharStyle;
 
 struct GlyphMetrics {
 	qreal width;
@@ -112,6 +116,7 @@ public:
 		QString family;
 		QString style;
 		QString variant;
+		QStringList fontFeatures;
 
 		QString forDocument;
 
@@ -131,7 +136,7 @@ public:
 		gid_type maxGlyph;
 
 		ScFaceData();
-		virtual ~ScFaceData() { }
+		virtual ~ScFaceData();
 	protected:
 
 		friend class ScFace;
@@ -141,6 +146,7 @@ public:
 		mutable QHash<gid_type, qreal>     m_glyphWidth;
 		mutable QHash<gid_type, GlyphData> m_glyphOutline;
 		//mutable QHash<gid_type, uint>      m_cMap;
+		void* m_hbFont;
 
 		// fill caches & members
 
@@ -179,12 +185,16 @@ public:
 		virtual qreal underlinePos(qreal /*sz*/)     const { return -1.0; }
 		virtual qreal strokeWidth(qreal /*sz*/)      const { return 0.1; }
 		virtual qreal maxAdvanceWidth(qreal sz)  const { return sz; }
-		virtual gid_type char2CMap(QChar /*ch*/)         const { return 0; }
-		virtual qreal glyphKerning(gid_type gl1, gid_type gl2, qreal sz) const;
+		virtual gid_type char2CMap(uint /*ch*/)         const { return 0; }
 		virtual QMap<QString,QString> fontDictionary(qreal sz=1.0) const;
 		virtual GlyphMetrics glyphBBox(gid_type gl, qreal sz) const;
 		virtual bool EmbedFont(QByteArray &/*str*/)       const { return false; }
 		virtual void RawData(QByteArray & /*bb*/)      const {}
+		virtual FT_Face ftFace() const { return 0; }
+		virtual void* hbFont();
+
+		virtual bool isItalic() const { return false; }
+		virtual bool isBold()   const { return false; }
 
 		virtual bool isCIDKeyed() const { return isCIDFont; }
 		virtual bool hasNames() const { return hasGlyphNames; }
@@ -273,6 +283,9 @@ public:
 	/// if the fontfile contains more than one face, the index, else -1
 	int faceIndex()    const { return m_m->faceIndex; }
 
+	/// a HarfBuzz font for this font
+	void* hbFont() const { return m_m->hbFont(); }
+
 	/// path name of the document this face is local to
 	QString localForDocument()  const { return m_m->forDocument; }
 
@@ -342,6 +355,9 @@ public:
 	qreal strokeWidth(qreal sz=1.0)     const;
 	qreal maxAdvanceWidth(qreal sz=1.0) const;
 
+	bool isItalic() const;
+	bool isBold()   const;
+
 	/// deprecated
 	QString stemV(qreal sz=1.0)    const { return fontDictionary(sz)["/StemV"]; }
 
@@ -358,9 +374,6 @@ public:
 	/// returns the glyphs normal advance width at size 'sz'
 	qreal glyphWidth(gid_type gl, qreal sz=1.0) const { return m_m->glyphWidth(gl, sz); }
 
-	/// returns the glyph kerning between 'gl1' and 'gl2' at size 'sz'
-	qreal glyphKerning(gid_type gl1, gid_type gl2, qreal sz=1.0) const { return qMax(gl1,gl2) < CONTROL_GLYPHS ? m_m->glyphKerning(gl1, gl2, sz) : 0; }
-
 	/// returns the glyphs bounding box at size 'sz', ie. the area where this glyph will produce marks
 	GlyphMetrics glyphBBox(gid_type gl, qreal sz=1.0) const { return m_m->glyphBBox(gl, sz); }
 
@@ -376,22 +389,14 @@ public:
 	bool canRender(QChar ch)   const;
 
 	/// translate unicode to glyph index
-	gid_type char2CMap(QChar ch)   const;
+	gid_type char2CMap(uint ch)   const;
 
-	/// returns the combined glyph width and kerning for 'ch' if followed by 'ch2'
-	qreal charWidth(QChar ch, qreal sz=1.0, QChar ch2 = QChar(0)) const;
+	gid_type emulateGlyph(uint u) const;
 
-	/// deprecated, see glyphBBox()
-	qreal realCharWidth(QChar ch, qreal sz=1.0) const { return glyphBBox(char2CMap(ch),sz).width; }
-
-	/// deprecated, see glyphBBox()
-	qreal realCharHeight(QChar ch, qreal sz=1.0) const { GlyphMetrics gm=glyphBBox(char2CMap(ch),sz); return gm.ascent + gm.descent; }
-
-	/// deprecated, see glyphBBox()
-	qreal realCharAscent(QChar ch, qreal sz=1.0) const { return glyphBBox(char2CMap(ch),sz).ascent; }
-
-	/// deprecated, see glyphBBox()
-	qreal realCharDescent(QChar ch, qreal sz=1.0) const { return glyphBBox(char2CMap(ch),sz).descent; }
+	gid_type hyphenGlyph() const;
+	gid_type hyphenGlyph(const CharStyle& style) const;
+	double hyphenWidth(const CharStyle& style, qreal size=1.0) const;
+	QStringList fontFeatures() const;
 
 private:
 
@@ -404,7 +409,6 @@ private:
 
 	void initFaceData();
 	void checkAllGlyphs();
-	gid_type emulateGlyph(QChar c) const;
 };
 
 #endif

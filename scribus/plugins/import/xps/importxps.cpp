@@ -877,20 +877,22 @@ PageItem* XpsPlug::parseObjectXML(QDomElement &dpg, QString path)
 				int glInd = 0;
 				if (!utfString.isEmpty())
 				{
-					for (int sti = 0; sti < utfString.length(); sti++)
+					QVector<uint> ucs4 = utfString.toUcs4();
+					// FIXME HOST: this code does not do any text layout!
+					for (int sti = 0; sti < ucs4.length(); sti++)
 					{
-						QChar utfChar = utfString[sti];
-						if (iteFont.canRender(utfChar))
+						uint chr = ucs4[sti];
+						QString utfChar = QString::fromUcs4(&chr, 1);
+						uint gl = iteFont.char2CMap(chr);
+						if (gl != 0)
 						{
-							uint chr = utfChar.unicode();
-							uint gl = iteFont.char2CMap(chr);
 							double adv = iteFont.glyphWidth(gl, fontSize);
 							double offX = 0;
 							double offY = 0;
 							FPointArray pts;
 							if (Indices.isEmpty())
 							{
-								if (!utfChar.isSpace())
+								if (!QChar::isSpace(chr))
 									pts = iteFont.glyphOutline(gl, fontSize);
 							}
 							else
@@ -925,7 +927,7 @@ PageItem* XpsPlug::parseObjectXML(QDomElement &dpg, QString path)
 											if (((glyInd.count() > 1) && (glyInd[1].isEmpty())) || (glyInd.count() == 1))
 												adv = iteFont.glyphWidth(gli, fontSize);
 										}
-										else if (!utfChar.isSpace())
+										else if (!QChar::isSpace(chr))
 											pts = iteFont.glyphOutline(gl, fontSize);
 									}
 								}

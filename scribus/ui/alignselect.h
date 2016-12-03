@@ -23,7 +23,7 @@ Q_OBJECT
 public:
 	AlignSelect(QWidget* parent);
 	~AlignSelect() {};
-	void setStyle(int s);
+	void setStyle(int s, int d);
 	int getStyle();
 	int selectedId();
 	
@@ -39,8 +39,6 @@ public:
 
 public slots:
 	void languageChange();
-		
-private slots:
 	void setTypeStyle(int a);
 
 signals:

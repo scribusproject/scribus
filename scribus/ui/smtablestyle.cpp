@@ -123,7 +123,7 @@ void SMTableStyle::selected(const QStringList &styleNames)
 		if (index > -1)
 			m_selection.append(&m_cachedStyles[index]);
 	}
-	m_page->show(m_selection, tableStyles, PrefsManager::instance()->appPrefs.hyphPrefs.Language, m_doc->unitIndex());
+	m_page->show(m_selection, tableStyles, PrefsManager::instance()->appPrefs.docSetupPrefs.language, m_doc->unitIndex());
 	setupConnections();
 }
 

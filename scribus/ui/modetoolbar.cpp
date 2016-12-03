@@ -111,6 +111,12 @@ ModeToolBar::ModeToolBar(ScribusMainWindow* parent) : ScToolBar( tr("Tools"), "T
 	connect(PWidth, SIGNAL(valueChanged(double)), this, SLOT(newCalValues()));
 }
 
+ModeToolBar::~ModeToolBar()
+{
+	delete calValAct;
+	delete calPop;
+}
+
 void ModeToolBar::newCalValues()
 {
 	m_ScMW->doc->itemToolPrefs().calligraphicPenAngle = Angle->value();

@@ -102,7 +102,7 @@ PyObject *scribus_renderfont(PyObject* /*self*/, PyObject* args, PyObject* kw)
 		PyErr_SetString(NotFoundError, QObject::tr("Font not found.","python error").toLocal8Bit().constData());
 		return NULL;
 	}
-	QString ts = QString::fromUtf8(Sample);
+	QVector<uint> ts = QString::fromUtf8(Sample).toUcs4();
 	if (ts.isEmpty())
 	{
 		PyErr_SetString(PyExc_ValueError, QObject::tr("Cannot render an empty sample.","python error").toLocal8Bit().constData());

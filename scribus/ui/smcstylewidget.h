@@ -41,7 +41,10 @@ private:
 	void showEffects(const QList<CharStyle*> &cstyles);
 	void showColors(const QList<CharStyle*> &cstyles);
 	void showLanguage(const QList<CharStyle*> &cstyles, const QString &defLang);
+	void showSmallestWord(const QList<CharStyle*> &cstyles);
+	void showHyphenChar(const QList<CharStyle*> &cstyles);
 	void showParent(const QList<CharStyle*> &cstyles);
+	void showFontFeatures(const QList<CharStyle*> &cstyles);
 
 	friend class SMParagraphStyle;
 	friend class SMCharacterStyle;
@@ -49,6 +52,7 @@ private:
 private slots:
 	void slotColorChange();
 	void handleUpdateRequest(int);
+	void slotEnableFontFeatures(QString s);
 };
 
 #endif

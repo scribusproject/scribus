@@ -256,6 +256,8 @@ void SMPStyleWidget::show(ParagraphStyle *pstyle, QList<ParagraphStyle> &pstyles
 	minSpaceSpin->setRange(1.0,100.0);
 	minGlyphExtSpin->setRange(90.0,100.0);
 	maxGlyphExtSpin->setRange(100.0,110.0);
+
+	maxConsecutiveCountSpinBox->clear();
 	
 	//fillBulletStrEditCombo();
 	//fillNumFormatCombo();
@@ -279,6 +281,9 @@ void SMPStyleWidget::show(ParagraphStyle *pstyle, QList<ParagraphStyle> &pstyles
 		maxGlyphExtSpin->setValue(pstyle->maxGlyphExtension() * 100.0,  pstyle->isInhMaxGlyphExtension());
 		maxGlyphExtSpin->setParentValue(parent->maxGlyphExtension());
 
+		maxConsecutiveCountSpinBox->setValue(pstyle->hyphenConsecutiveLines(), pstyle->isInhHyphenConsecutiveLines());
+		maxConsecutiveCountSpinBox->setParentValue(parent->hyphenConsecutiveLines());
+
 		lineSpacing->setValue(pstyle->lineSpacing(), pstyle->isInhLineSpacing());
 		lineSpacing->setParentValue(parent->lineSpacing());
 
@@ -289,8 +294,8 @@ void SMPStyleWidget::show(ParagraphStyle *pstyle, QList<ParagraphStyle> &pstyles
 		spaceBelow->setParentValue(parent->gapAfter());
 
 
-		alignment->setStyle(pstyle->alignment(), pstyle->isInhAlignment());
-		alignment->setParentItem(parent->alignment());
+		alignment->setStyle(pstyle->alignment(), direction->getStyle(), pstyle->isInhAlignment());
+		alignment->setParentItem(parent->alignment(), direction->getStyle());
 
 		bool hasParentTabs = pstyle->isInhTabValues();
 		QList<ParagraphStyle::TabRecord> tabs;
@@ -402,7 +407,7 @@ void SMPStyleWidget::show(ParagraphStyle *pstyle, QList<ParagraphStyle> &pstyles
 		minSpaceSpin->setValue(pstyle->minWordTracking() * 100.0);
 		minGlyphExtSpin->setValue(pstyle->minGlyphExtension() * 100.0);
 		maxGlyphExtSpin->setValue(pstyle->maxGlyphExtension() * 100.0);
-
+		maxConsecutiveCountSpinBox->setValue(pstyle->hyphenConsecutiveLines());
 		parEffectOffset->setValue(pstyle->parEffectOffset() * unitRatio);
 		parEffectIndentBox->setChecked(pstyle->parEffectIndent());
 		parentParEffectsButton->hide();
@@ -437,11 +442,13 @@ void SMPStyleWidget::show(ParagraphStyle *pstyle, QList<ParagraphStyle> &pstyles
 		numRestartOtherBox->setChecked(pstyle->numOther());
 		numRestartHigherBox->setChecked(pstyle->numHigher());
 
-		alignment->setStyle(pstyle->alignment());
+		alignment->setStyle(pstyle->alignment(), direction->getStyle());
 		tabList->setTabs(pstyle->tabValues(), unitIndex);
 		tabList->setLeftIndentValue(pstyle->leftMargin() * unitRatio);
 		tabList->setFirstLineValue(pstyle->firstIndent() * unitRatio);
 		tabList->setRightIndentValue(pstyle->rightMargin() * unitRatio);
+
+		direction->setStyle(pstyle->direction());
 
 		keepLinesStart->setValue (pstyle->keepLinesStart());
 		keepLinesEnd->setValue (pstyle->keepLinesEnd());
@@ -508,10 +515,12 @@ void SMPStyleWidget::show(QList<ParagraphStyle*> &pstyles, QList<ParagraphStyle>
 		showBullet(pstyles, cstyles, unitIndex);
 		showNumeration(pstyles, cstyles, unitIndex);
 		showAlignment(pstyles);
+		showDirection(pstyles);
 		showOpticalMargin(pstyles);
 		showMinSpace(pstyles);
 		showMinGlyphExt(pstyles);
 		showMaxGlyphExt(pstyles);
+		showConsecutiveLines(pstyles);
 		showTabs(pstyles, unitIndex);
 		showCStyle(pstyles, cstyles, defLang, unitIndex);
 		showParent(pstyles);
@@ -768,7 +777,31 @@ void SMPStyleWidget::showAlignment(QList<ParagraphStyle*> &pstyles)
 			return;
 		}
 	}
-	alignment->setStyle(a);
+	alignment->setStyle(a, direction->getStyle());
+}
+
+void SMPStyleWidget::showDirection(QList<ParagraphStyle*> &pstyles)
+{
+	if(pstyles.isEmpty())
+	{
+		qDebug()<<"Warning showDirection called with an empty list of styles";
+		return;
+	}
+	ParagraphStyle::DirectionType a = pstyles[0]->direction();
+	for (int i = 0; i < pstyles.count(); ++i)
+	{
+		if (a != pstyles[i]->direction())
+		{
+			if (direction->selectedId() > -1 && direction->selectedId() < 2)
+			{
+				direction->buttonGroup->setExclusive(false);
+				direction->buttonGroup->button(direction->selectedId())->toggle();
+				direction->buttonGroup->setExclusive(true);
+			}
+			return;
+		}
+	}
+	direction->setStyle(a);
 }
 
 void SMPStyleWidget::showOpticalMargin(QList< ParagraphStyle * > & pstyles)
@@ -859,6 +892,28 @@ void SMPStyleWidget::showMaxGlyphExt(QList< ParagraphStyle * > & pstyles)
 		}
 	}
 	maxGlyphExtSpin->setValue(mge * 100.0);
+}
+
+void SMPStyleWidget::showConsecutiveLines(QList<ParagraphStyle *> &pstyles)
+{
+
+	if(pstyles.isEmpty())
+	{
+		qDebug()<<"Warning showConsecutiveLines called with an empty list of styles";
+		return;
+	}
+
+	double hyphenConsecutiveLines(pstyles[0]->hyphenConsecutiveLines());
+	for (int i = 0; i < pstyles.count(); ++i)
+	{
+		if (hyphenConsecutiveLines != pstyles[i]->hyphenConsecutiveLines())
+		{
+			maxConsecutiveCountSpinBox->setValue(0);
+			break;
+		}
+	}
+	maxConsecutiveCountSpinBox->setValue(hyphenConsecutiveLines);
+
 }
 
 

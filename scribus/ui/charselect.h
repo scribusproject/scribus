@@ -86,7 +86,7 @@ private slots:
 	void userNewChar(uint i, QString font);
 	void hideButton_toggled(bool);
 	void slot_insertSpecialChar();
-	void slot_insertSpecialChars(const QString & chars);
+	void slot_insertSpecialChars(const QVector<uint> & chars);
 	void slot_insertUserSpecialChar(QChar, QString font);
 	void slot_selectionChanged( const QItemSelection&, const QItemSelection& );
 	void uniLoadButton_clicked();

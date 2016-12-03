@@ -17,12 +17,6 @@ for which a new license (GPL+exception) is in place.
 
 class  ScribusDoc;
 
-bool checkCJK(QChar ch);
-bool allowedCJKBreakAfter(QChar ch);
-int  allowedCJKBreakBefore(QChar ch);
-bool implicitSpace(QChar f, QChar s);
-bool implicitBreak(QChar f, QChar s);
-
 #ifndef NLS_CONFORMANCE
 int SCRIBUS_API findParagraphStyle(ScribusDoc* doc, const ParagraphStyle& parStyle);
 int SCRIBUS_API findParagraphStyle(ScribusDoc* doc, const QString &name);
