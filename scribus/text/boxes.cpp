@@ -315,7 +315,9 @@ void LineBox::removeBox(int i)
 void LineBox::update()
 {
 	m_naturalWidth = m_naturalAscent = m_naturalDecent = 0;
-	for (const auto &box : boxes()) {
+	for (int i = 0; i < m_boxes.count(); ++i)
+	{
+		Box* box = m_boxes[i];
 		m_firstChar = qMin(m_firstChar, box->firstChar());
 		m_lastChar = qMax(m_lastChar, box->lastChar());
 
