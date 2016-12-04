@@ -29,7 +29,7 @@ Suppresses display of the splash screen during Scribus start-up.</li>
 <li><code>-pi, --profile-info</code><br />
 Shows the color profiles listing which Scribus can use. This can be used for diagnosing missing or broken color profiles.</li>
 <li><code>-pr, --prefs &lt;filename&gt;</code><br />
-Use filename as path for user given preferences.</li>
+Use filename as path for user given preferences. <i>See the notes below for further information.</i></li>
 <li><code>-py, --python-script &lt;script&gt: [arguments ...]</code><br />
 Run script in Python [with optional arguments]. <strong>This must be the last option used.</strong></li>
 <li><code>-sb, --swap-buttons</code><br />
@@ -39,5 +39,10 @@ Downloads a file from our scribus server indicating the latest available version
 <li><code>-v, --version</code><br />
 Prints the Scribus version number and exits.</li>
 </ul>
+<strong>Notes:</strong>
+<p>As of version 1.5.3, there has been a change in the location of various preferences and user data.</p>
+<p>Previously, these were all stored in a directory <strong>.scribus</strong>, where you would find <i>charpalette.ucp, checkfonts.xml, prefs140.xml, scribus140.rc, scribusshapes.xml,</i> and <i>scribus-short-words.rc</i>, plus the directories <i>downloads, palettes, plugins, scrapbook, swatches,</i> and <i>temp.</i></p>
+<p>With 1.5.3, <i>checkfonts.xml, prefs150.xml, scribus150.rc,</i> and <i>scribusshapes.xml</i> are now found in the <strong>.config/scribus</strong> directory.<br />
+In the directory <strong>.local/share/scribus</strong>, you will now find <i>charpalette.ucp, scribus-short-words.rc,</i> and the directories <i>cache, doc, palettes, plugins, scrapbook,</i> and <i>temp</i></p>
 </body>
 </html>
