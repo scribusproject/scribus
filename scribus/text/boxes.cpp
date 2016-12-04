@@ -291,15 +291,7 @@ void LineBox::drawBackGround(TextLayoutPainter *p) const
 void LineBox::addBox(const Box* box)
 {
 	m_boxes.append(const_cast<Box*>(box));
-	m_firstChar = qMin(m_firstChar, box->firstChar());
-	m_lastChar = qMax(m_lastChar, box->lastChar());
-
-	const_cast<Box*>(box)->moveTo(m_naturalWidth, box->y());
-	m_naturalWidth += box->width();
-
-	m_naturalAscent = qMax(m_naturalAscent, box->naturalAsc());
-	m_naturalDecent = qMin(m_naturalDecent, box->naturalDecent());
-
+	update();
 }
 
 void LineBox::removeBox(int i)
