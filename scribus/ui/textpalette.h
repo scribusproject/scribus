@@ -70,8 +70,6 @@ public slots:
 
 private slots:
 	void NewLineMode(int mode);
-	void handleGradientChanged();
-	void handleNewShape(int frameType);
 
 
 protected:
