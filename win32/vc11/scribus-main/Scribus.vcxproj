@@ -594,6 +594,7 @@
     <moc Include="..\..\..\scribus\ui\smfontfeatures.h" />
     <moc Include="..\..\..\scribus\ui\smlineedit.h" />
     <moc Include="..\..\..\scribus\ui\smdirectionselect.h" />
+    <moc Include="..\..\..\scribus\ui\textpalette.h" />
     <ClInclude Include="..\..\..\scribus\ui\ui_downloadspalettebase.h" />
     <ClInclude Include="..\..\..\scribus\ui\ui_resourcemanagerbase.h" />
     <ClInclude Include="..\..\..\scribus\ui\ui_resourcemanagerlicensebase.h" />
@@ -1421,6 +1422,7 @@
     <ClCompile Include="..\..\..\scribus\ui\smdirectionselect.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\smfontfeatures.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\smlineedit.cpp" />
+    <ClCompile Include="..\..\..\scribus\ui\textpalette.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\viewtoolbar.cpp" />
     <ClCompile Include="..\..\..\scribus\undotransaction.cpp" />
     <ClCompile Include="..\..\..\scribus\upgradechecker.cpp" />
