@@ -429,6 +429,7 @@ enum
 	PS_UNDO,
 	PS_VERIFIER,
 	PS_DOWNLOADS,
+	PS_TEXT,
 	PS_MAX
 };
 

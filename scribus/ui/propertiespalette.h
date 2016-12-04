@@ -39,7 +39,6 @@ class PropertiesPalette_Line;
 class PropertiesPalette_Shadow;
 class PropertiesPalette_Shape;
 class PropertiesPalette_Table;
-class PropertiesPalette_Text;
 class PropertiesPalette_XYZ;
 class ScComboBox;
 class ScribusDoc;
@@ -78,7 +77,6 @@ public:
 	PropertiesPalette_Shadow* shadowPal;
 	PropertiesPalette_Shape* shapePal;
 	PropertiesPalette_Table* tablePal;
-	PropertiesPalette_Text*  textPal;
 	PropertiesPalette_XYZ*   xyzPal;
 	Cpalette *Cpal;
 	Tpalette *Tpal;
@@ -132,7 +130,6 @@ protected:
 	int idXYZItem;
 	int idShapeItem;
 	int idTableItem;
-	int idTextItem;
 	int idImageItem;
 	int idLineItem;
 	int idColorsItem;

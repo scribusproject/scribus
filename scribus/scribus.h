@@ -106,6 +106,7 @@ class SimpleState;
 class StoryEditor;
 class StyleManager;
 class SymbolPalette;
+class TextPalette;
 class TOCGenerator;
 class UndoManager;
 class UndoPalette;
@@ -230,6 +231,7 @@ public:
 	GuideManager *guidePalette;
 	CharSelect *charPalette;
 	PropertiesPalette *propertiesPalette;
+	TextPalette *textPalette;
 	MarksManager *marksManager;
 	NotesStylesEditor *nsEditor;
 	NodePalette *nodePalette;
@@ -617,6 +619,7 @@ private:
 	int m_toolbarMenuPDFTools;
 	int m_viewToolbars;
 	int m_viewPropertiesPalette;
+	int m_viewPropertiesPaletteText;
 	int m_viewOutlinePalette;
 	int m_viewNodePalette;
 	int m_viewBpal;
@@ -625,7 +628,7 @@ private:
 	int m_viewBopal;
 	int m_viewUndoPalette;
 
-	bool m_palettesStatus[11];
+	bool m_palettesStatus[12];
 	bool m_guidesStatus[13];
 
 	bool m_keyrep;

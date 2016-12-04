@@ -50,7 +50,7 @@ class SCRIBUS_API ScTreeWidget : public QTreeWidget
 	Q_OBJECT
 public:
 	ScTreeWidget(QWidget* pa);
-	~ScTreeWidget() {};
+	~ScTreeWidget() {}
 	QTreeWidgetItem* addWidget(QString title, QWidget* widget);
 	void setToolBoxMode(bool enable);
 	int addItem(QWidget* widget, QString title);

@@ -132,12 +132,12 @@ QTreeWidgetItem* ScTreeWidget::addWidget(QString title, QWidget* widget)
 	QTreeWidgetItem *item2 = new QTreeWidgetItem(item1);
 	item2->setFlags(Qt::ItemIsEnabled);
 // hack to work around a bug in Qt-4.3.4
-	if (widget->layout())
-	{
-		widget->layout()->activate();
-		widget->setMinimumSize(widget->layout()->minimumSize());
-		item2->setSizeHint(0, widget->layout()->minimumSize());
-	}
+//	if (widget->layout())
+//	{
+//		widget->layout()->activate();
+//		widget->setMinimumSize(widget->layout()->minimumSize());
+//		item2->setSizeHint(0, widget->layout()->minimumSize());
+//	}
 // end hack
 	setItemWidget(item2, 0, widget);
 	QKeySequence newMnemonic = QKeySequence::mnemonic(title);

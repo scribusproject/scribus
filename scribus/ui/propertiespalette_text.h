@@ -119,35 +119,37 @@ private slots:
 	void doClearPStyle();
 
 protected:
-	PropertyWidget_Hyphenation* hyphenationWidget;
-	QTreeWidgetItem* hyphenationWidgetItem;
-
-	PropertyWidget_TextColor* colorWidgets;
-	QTreeWidgetItem* colorWidgetsItem;
-
-	PropertyWidget_Distance* distanceWidgets;
-	QTreeWidgetItem* distanceItem;
-
 	PropertyWidget_Advanced* advancedWidgets;
-	QTreeWidgetItem* advancedWidgetsItem;
-
-	PropertyWidget_FontFeatures* fontfeaturesWidget;
-	QTreeWidgetItem* fontfeaturesWidgetItem;
-
-	PropertyWidget_OptMargins* optMargins;
-	QTreeWidgetItem* optMarginsItem;
-
+	PropertyWidget_Distance* distanceWidgets;
 	PropertyWidget_Flop* flopBox;
-	QTreeWidgetItem* flopItem;
-
+	PropertyWidget_FontFeatures* fontfeaturesWidget;
+	PropertyWidget_Hyphenation* hyphenationWidget;
+	PropertyWidget_OptMargins* optMargins;
 	PropertyWidget_Orphans* orphanBox;
-	QTreeWidgetItem* orphanItem;
-
 	PropertyWidget_ParEffect* parEffectWidgets;
-	QTreeWidgetItem* parEffectItem;
-
 	PropertyWidget_PathText* pathTextWidgets;
-	QTreeWidgetItem* pathTextItem;
+	PropertyWidget_TextColor* colorWidgets;
+//	QTreeWidgetItem* advancedWidgetsItem;
+//	QTreeWidgetItem* colorWidgetsItem;
+//	QTreeWidgetItem* distanceItem;
+//	QTreeWidgetItem* flopItem;
+//	QTreeWidgetItem* fontfeaturesWidgetItem;
+//	QTreeWidgetItem* hyphenationWidgetItem;
+//	QTreeWidgetItem* optMarginsItem;
+//	QTreeWidgetItem* orphanItem;
+//	QTreeWidgetItem* parEffectItem;
+//	QTreeWidgetItem* pathTextItem;
+	int advancedWidgetsItem;
+	int colorWidgetsItem;
+	int distanceItem;
+	int flopItem;
+	int fontfeaturesWidgetItem;
+	int hyphenationWidgetItem;
+	int optMarginsItem;
+	int orphanItem;
+	int parEffectItem;
+	int pathTextItem;
+
 };
 
 #endif
