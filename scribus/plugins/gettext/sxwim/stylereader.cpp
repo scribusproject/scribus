@@ -608,7 +608,7 @@ StyleReader::StyleReader(QString documentName, gtWriter *w,
  			psize = static_cast<double>(parent2Style->getFont()->getSize());
  		else if (styles.contains("default-style"))
  			psize = static_cast<double>(styles["default-style"]->getFont()->getSize());
- 			psize = psize / 10;
+ 		psize = psize / 10;
  		size = getSize(value, psize);
  		int nsize = static_cast<int>(size * 10);
  		style->getFont()->setSize(nsize);
