@@ -14,7 +14,7 @@
 // find run with runStart <= pos < runEnd
 uint RunIndex::search(int pos) const
 {
-	std::vector<uint>::const_iterator it = std::upper_bound(runEnds.cbegin(), runEnds.cend(), pos);
+	std::vector<uint>::const_iterator it = std::upper_bound(runEnds.begin(), runEnds.end(), pos);
 	return it - runEnds.begin();
 }
 
