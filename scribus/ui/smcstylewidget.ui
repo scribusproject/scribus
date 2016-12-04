@@ -787,7 +787,7 @@
       </attribute>
       <layout class="QVBoxLayout" name="verticalLayout_5">
        <item>
-        <layout class="QVBoxLayout" name="verticalLayout_4">
+        <layout class="QVBoxLayout" name="verticalLayout_7">
          <item>
           <widget class="SMFontFeatures" name="fontfeaturesSetting" native="true">
            <property name="sizePolicy">
