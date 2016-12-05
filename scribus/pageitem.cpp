@@ -23,21 +23,23 @@ for which a new license (GPL+exception) is in place.
 
 #include "pageitem.h"
 
+#include <QDebug>
+#include <QFileInfo>
+#include <QFont>
+#include <QMessageBox>
 #include <QPainter>
 #include <QPen>
-#include <QFont>
-#include <QRegion>
 #include <QPoint>
 #include <QPointF>
-#include <QFileInfo>
-#include <qdrawutil.h>
-#include <QRegExp>
-#include <QRegularExpression>
-#include <QMessageBox>
 #include <QPolygon>
+#include <QRegExp>
+#include <QRegion>
+#include <QRegularExpression>
+#include <cairo.h>
 #include <cassert>
+#include <qdrawutil.h>
 #include <sstream>
-#include <QDebug>
+
 
 #include "appmodes.h"
 #include "canvas.h"
@@ -74,6 +76,7 @@ for which a new license (GPL+exception) is in place.
 #include "text/storytext.h"
 #include "ui/guidemanager.h"
 #include "ui/propertiespalette.h"
+#include "ui/textpalette.h"
 #include "undomanager.h"
 #include "undostate.h"
 #include "units.h"
@@ -83,7 +86,8 @@ for which a new license (GPL+exception) is in place.
 #include "util_math.h"
 #include "util_text.h"
 
-#include <cairo.h>
+
+
 
 using namespace std;
 
@@ -9200,6 +9204,7 @@ bool PageItem::loadImage(const QString& filename, const bool reload, const int g
 				efVal += pixm.imgInfo.duotoneColors[cc].Name+"\n";
 			}
 			m_Doc->scMW()->propertiesPalette->updateColorList();
+			m_Doc->scMW()->textPalette->updateColorList();
 			struct ImageEffect ef;
 			if (pixm.imgInfo.duotoneColors.count() == 1)
 			{

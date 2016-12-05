@@ -13,7 +13,6 @@ for which a new license (GPL+exception) is in place.
 #include <QEvent>
 #include <QFocusEvent>
 #include <QKeyEvent>
-#include <QTransform>
 #include <QObject>
 #include <QPoint>
 #include <QSpacerItem>
@@ -21,6 +20,7 @@ for which a new license (GPL+exception) is in place.
 #include <QTimer>
 #include <QToolBox>
 #include <QToolTip>
+#include <QTransform>
 #include <QVBoxLayout>
 #include <QValidator>
 #include <QWidget>
@@ -35,12 +35,14 @@ for which a new license (GPL+exception) is in place.
 #include "arrowchooser.h"
 #include "autoform.h"
 #include "basepointwidget.h"
-#include "commonstrings.h"
+#include "colorcombo.h"
 #include "colorlistbox.h"
-#include "sccolorengine.h"
+#include "commonstrings.h"
 #include "cpalette.h"
+#include "dasheditor.h"
+//#include "fontcombo.h"
 #include "pageitem_table.h"
-#include "pageitem_textframe.h"
+//#include "pageitem_textframe.h"
 #include "propertiespalette_group.h"
 #include "propertiespalette_image.h"
 #include "propertiespalette_line.h"
@@ -49,24 +51,22 @@ for which a new license (GPL+exception) is in place.
 #include "propertiespalette_table.h"
 #include "propertiespalette_utils.h"
 #include "propertiespalette_xyz.h"
-#include "sccombobox.h"
-#include "scfonts.h"
-
-#include "scribuscore.h"
-#include "scraction.h"
+//#include "sccolorengine.h"
+//#include "sccombobox.h"
+//#include "scfonts.h"
+//#include "scraction.h"
+#include "scribus.h"
+//#include "scribuscore.h"
 #include "scribusview.h"
 #include "selection.h"
-#include "spalette.h"
-#include "styleselect.h"
-#include "tabmanager.h"
-#include "transparencypalette.h"
-#include "units.h"
+//#include "spalette.h"
+//#include "styleselect.h"
+//#include "tabmanager.h"
+//#include "transparencypalette.h"
 #include "undomanager.h"
-#include "util.h"
+#include "units.h"
+//#include "util.h"
 #include "util_math.h"
-#include "dasheditor.h"
-#include "fontcombo.h"
-#include "colorcombo.h"
 
 //using namespace std;
 

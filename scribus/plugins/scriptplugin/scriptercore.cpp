@@ -27,6 +27,7 @@ for which a new license (GPL+exception) is in place.
 #include "ui/outlinepalette.h" //TODO Move the calls to this to a signal
 #include "ui/scmessagebox.h"
 #include "ui/scmwmenumanager.h"
+#include "ui/textpalette.h"
 #include "pconsole.h"
 #include "scraction.h"
 #include "scribuscore.h"
@@ -161,6 +162,7 @@ void ScripterCore::FinishScriptRun()
 	if (ScMW->HaveDoc)
 	{
 		ScMW->propertiesPalette->setDoc(ScMW->doc);
+		ScMW->textPalette->setDoc(ScMW->doc);
 		ScMW->marksManager->setDoc(ScMW->doc);
 		ScMW->nsEditor->setDoc(ScMW->doc);
 		ScMW->layerPalette->setDoc(ScMW->doc);
@@ -247,6 +249,7 @@ void ScripterCore::slotRunScriptFile(QString fileName, QStringList arguments, bo
 	if (!inMainInterpreter)
 	{
 		ScCore->primaryMainWindow()->propertiesPalette->unsetDoc();
+		ScCore->primaryMainWindow()->textPalette->unsetDoc();
 		ScCore->primaryMainWindow()->pagePalette->setView(NULL);
 		ScCore->primaryMainWindow()->setScriptRunning(true);
 		qApp->setOverrideCursor(QCursor(Qt::WaitCursor));
@@ -391,6 +394,7 @@ void ScripterCore::slotRunScript(const QString Script)
 	disableMainWindowMenu();
 
 	ScCore->primaryMainWindow()->propertiesPalette->unsetDoc();
+	ScCore->primaryMainWindow()->textPalette->unsetDoc();
 	ScCore->primaryMainWindow()->pagePalette->setView(NULL);
 	ScCore->primaryMainWindow()->setScriptRunning(true);
 	inValue = Script;

@@ -19,6 +19,7 @@ for which a new license (GPL+exception) is in place.
 #include "ui/cmykfw.h"
 #include "ui/colorlistbox.h"
 #include "ui/propertiespalette.h"
+#include "ui/textpalette.h"
 #include "util_color.h"
 
 
@@ -342,6 +343,7 @@ void CWDialog::addButton_clicked()
 		return;
 	}
 	m_Doc->scMW()->propertiesPalette->updateColorList();
+	m_Doc->scMW()->textPalette->updateColorList();
 	accept();
 }
 
@@ -352,6 +354,7 @@ void CWDialog::replaceButton_clicked()
 		m_Doc->PageColors[it.key()] = it.value();
 	}
 	m_Doc->scMW()->propertiesPalette->updateColorList();
+	m_Doc->scMW()->textPalette->updateColorList();
 	accept();
 }
 

@@ -432,6 +432,7 @@ int ScribusMainWindow::initScMW(bool primaryMainWindow)
 	ToggleTips();
 	ToggleMouseTips();
 	propertiesPalette->setFontSize();
+	textPalette->setFontSize();
 	if (scrActions["SaveAsDocumentTemplate"])
 		scrActions["SaveAsDocumentTemplate"]->setEnabled(false);
 

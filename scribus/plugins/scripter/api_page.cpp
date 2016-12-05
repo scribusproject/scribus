@@ -14,6 +14,7 @@ for which a new license (GPL+exception) is in place.
 #include "ui/propertiespalette.h"
 #include "ui/propertiespalette_text.h"
 #include "ui/propertiespalette_line.h"
+#include "ui/textpalette.h"
 #include "scribuscore.h"
 #include "scribusview.h"
 #include "api_textitem.h"
@@ -296,8 +297,9 @@ void PageAPI::placeImage(const QString formatExt, const QString & filename, cons
 			    pageXtoDocX(x) - x2, pageYtoDocY(y) - y2);
 			ScCore->primaryMainWindow()->view->endGroupTransaction();
 			ScCore->primaryMainWindow()->propertiesPalette->updateColorList();
-			ScCore->primaryMainWindow()->propertiesPalette->textPal->paraStyleCombo->updateFormatList();
-			ScCore->primaryMainWindow()->propertiesPalette->textPal->charStyleCombo->updateFormatList();
+			ScCore->primaryMainWindow()->textPalette->updateColorList();
+			ScCore->primaryMainWindow()->textPalette->textPal->paraStyleCombo->updateFormatList();
+			ScCore->primaryMainWindow()->textPalette->textPal->charStyleCombo->updateFormatList();
 			ScCore->primaryMainWindow()->propertiesPalette->linePal->updateLineStyles();
 		}
 	}
