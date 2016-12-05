@@ -1772,7 +1772,7 @@ void ScPainter::drawImage( QImage *image)
 	cairo_set_antialias(m_cr, CAIRO_ANTIALIAS_DEFAULT);
 }
 
-void ScPainter::setupPolygon(FPointArray *points, bool closed)
+void ScPainter::setupPolygon(const FPointArray *points, bool closed)
 {
 	bool nPath = true;
 	bool first = true;
@@ -1814,7 +1814,7 @@ void ScPainter::setupPolygon(FPointArray *points, bool closed)
 		cairo_close_path( m_cr );
 }
 
-void ScPainter::setupSharpPolygon(FPointArray *points, bool closed)
+void ScPainter::setupSharpPolygon(const FPointArray *points, bool closed)
 {
 	bool nPath = true;
 	bool first = true;

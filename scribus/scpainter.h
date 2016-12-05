@@ -89,8 +89,8 @@ public:
 	virtual void setClipPath();
 
 	virtual void drawImage( QImage *image);
-	virtual void setupPolygon(FPointArray *points, bool closed = true);
-	virtual void setupSharpPolygon(FPointArray *points, bool closed = true);
+	virtual void setupPolygon(const FPointArray *points, bool closed = true);
+	virtual void setupSharpPolygon(const FPointArray *points, bool closed = true);
 	virtual void sharpLineHelper(FPoint &pp);
 	virtual void sharpLineHelper(QPointF &pp);
 	virtual void drawPolygon();

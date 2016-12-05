@@ -217,11 +217,17 @@ void ScreenPainter::drawGlyph(const GlyphCluster& gc)
 		double scaleH = gc.scaleH() * fontSize() / 10.0;
 		double scaleV = gc.scaleV() * fontSize() / 10.0;
 		m_painter->scale(scaleH, scaleV);
+
 		QVector<FPointArray> outlines = gc.glyphClusterOutline();
-		foreach (FPointArray outline, outlines) {
+		const QList<GlyphLayout>& glyphs = gc.glyphs();
+		for (int i = 0; i < glyphs.count(); ++i)
+		{
+			const FPointArray& outline = outlines.at(i);
+			const GlyphLayout& gl = glyphs.at(i);
 			m_painter->setupPolygon(&outline, true);
 			if (outline.size() > 3)
 				m_painter->fillPath();
+			m_painter->translate(gl.xadvance, 0);
 		}
 	}
 	m_painter->setFillRule(fr);
