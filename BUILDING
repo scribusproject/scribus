@@ -27,23 +27,24 @@ exact package names for the distro, are provided below.
 Install the below packages BEFORE running CMake or compiling Scribus:
 
 Requirements:
-	Qt >= 5.3.0 (Scribus has specific code requiring Qt 5.3.0, not Qt 5.2.x or before)
+	Qt >= 5.6.0 (Scribus has specific code requiring Qt 5.6.0, not Qt 5.5.x or before)
 	Freetype >= 2.1.7 (2.3.x strongly recommended)
 	cairo >= 1.14.x 
 	libtiff >= 3.6.0
 	LittleCMS (liblcms) >= 2.0 (2.1+ recommended)
 	libjpeg (depending on how Qt is packaged)
+	harfbuzz = > 0.9.42
 
 Recommended:
 	CUPS
 	Fontconfig >= 2.0
 	LibXML2 >= 2.6.0
-	GhostScript >= 8.0 (8.6+ or greater preferred)
+	GhostScript >= 8.0 (9.0+ or greater preferred)
 	Python >= 2.3
 	tkinter for the font sampler script
 	python-imaging for the font sampler preview
 	pkgconfig (to assist finding other libraries)
-	apspell for the spell checker
+	hunspell for the spell checker
 	podofo - 0.7.0+ for enhanced Illustrator AI/EPS import, svn versions
 	boost and boost-devel
 	GraphicksMagick++
@@ -95,7 +96,7 @@ search path is the PATH environment variable.
 REQUIREMENTS - DETAILS
 ======================
 
-Qt 5.3 is now the *minimum*. Older versions of Qt are *not* supported. 
+Qt 5.6 is now the *minimum*. Older versions of Qt are *not* supported. 
 If you build Qt from sources, the recommended ./configure/cmake switches are the
  same as used by KDE. Use of other switches aside from those used by distro
 packages can make trouble shooting issues very difficult at times.
@@ -260,20 +261,21 @@ Recommended packages for compiling from source on SuSE 13.x:
 	liblcms-devel (required)
 	libtiff-devel (required)
 	libxml2-devel (required)
+	harfbuzz-devel (required) > 0.9.42
 	openssl-devel (required if CUPS support is needed)
 	boost-devel
 	hunspell-devel
 	libpodofo-devel
 	libpoppler-devel
 	python-devel
-	python-imaging
+	python-imaging or python-pillow depending on distro version
 	tk
 	libGraphicsMagick++-devel
-	libOpenSceneGraph-devel  *Optional- but available from the Packman repo
+	libOpenSceneGraph-devel  *Optional- but available from the games repo
 	update-desktop-files
 
 You can install these packages using YaST. You may find it difficult to compile
-Scribus 1.5.0+ on anything older than Suse 13.1.
+Scribus 1.5.3+ on anything older than Suse 13.2.
 
 Please note we do provide frequently updated packages including debuginfo rpms
 on the Suse Build Server at http//software.opensuse.org .
