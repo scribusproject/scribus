@@ -2477,15 +2477,16 @@ QImage PageItem::DrawObj_toImage(double maxSize, int options)
 	painter->translate(igXpos, igYpos);
 	if (options & NoRotation)
 		painter->rotate(-m_rotation);
+	if (invalid)
+		layout();
 	isEmbedded = true;
-	invalid = true;
 	DrawObj(painter, QRectF());
 	painter->restore();
 	painter->end();
 	delete painter;
 	m_Doc->guidesPrefs().framesShown = savedFlag;
 	isEmbedded = isEmbedded_Old;
-	if (!isEmbedded && (asTextFrame() || asPathText()))
+	if ((isEmbedded_Old != isEmbedded) && (asTextFrame() || asPathText()))
 	{
 		invalid = true;
 		layout();
