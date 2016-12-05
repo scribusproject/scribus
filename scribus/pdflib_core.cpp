@@ -2730,8 +2730,17 @@ bool PDFLibCore::PDF_TemplatePage(const ScPage* pag, bool )
 									if (!PDF_GradientFillStroke(tmpOut, ite))
 										return false;
 								}
-								if (ite->GrType != 14)
-									PutPage(tmpOut);
+								if (!tmpOut.isEmpty())
+								{
+									if (ite->GrType == 14)
+										PutPage(tmpOut);
+									else
+									{
+										PutPage(tmpOut);
+										PutPage(SetClipPath(ite));
+										PutPage(ite->fillRule ? "h\nf*\n" : "h\nf\n");
+									}
+								}
 							}
 							else
 							{
