@@ -748,7 +748,7 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1682"/>
         <source>Text Properties</source>
-        <translation type="unfinished"></translation>
+        <translation>Text Properties</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1684"/>
@@ -839,7 +839,7 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1710"/>
         <source>Unlink Text Frames and Cut Text</source>
-        <translation type="unfinished"></translation>
+        <translation>Unlink Text Frames and Cut Text</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1711"/>
@@ -889,12 +889,12 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1835"/>
         <source>Zero Width Non-Joiner</source>
-        <translation type="unfinished"></translation>
+        <translation>Zero Width Non-Joiner</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1836"/>
         <source>Zero Width Joiner</source>
-        <translation type="unfinished"></translation>
+        <translation>Zero Width Joiner</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1839"/>
@@ -5205,7 +5205,7 @@ currently %2 x %3 DPI</translation>
     <message>
         <location filename="../../scribus/commonstrings.cpp" line="338"/>
         <source>Facing Pages</source>
-        <translation type="unfinished"></translation>
+        <translation>Facing Pages</translation>
     </message>
     <message>
         <location filename="../../scribus/commonstrings.cpp" line="347"/>
@@ -6313,12 +6313,12 @@ currently %2 x %3 DPI</translation>
     <message>
         <location filename="../../scribus/ui/directionselect.cpp" line="86"/>
         <source>Left to right paragraph</source>
-        <translation type="unfinished"></translation>
+        <translation>Left to right paragraph</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/directionselect.cpp" line="87"/>
         <source>Right to left paragraph</source>
-        <translation type="unfinished"></translation>
+        <translation>Right to left paragraph</translation>
     </message>
 </context>
 <context>
@@ -9759,7 +9759,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../scribus/plugins/imposition/impositionbase.ui" line="376"/>
         <source>Facing Pages</source>
-        <translation type="unfinished"></translation>
+        <translation>Facing Pages</translation>
     </message>
     <message>
         <source>Double sided</source>
@@ -17862,12 +17862,12 @@ Do you want to migrate them to the new Scribus version?</translation>
     <message>
         <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="45"/>
         <source>General</source>
-        <translation type="unfinished">General</translation>
+        <translation>General</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="53"/>
         <source>Language</source>
-        <translation type="unfinished">Language</translation>
+        <translation>Language</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="84"/>
@@ -17929,7 +17929,7 @@ Do you want to migrate them to the new Scribus version?</translation>
     <message>
         <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="274"/>
         <source>Facing Pages</source>
-        <translation type="unfinished"></translation>
+        <translation>Facing Pages</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="507"/>
@@ -19744,12 +19744,12 @@ A value of 0 means unlimited hyphenations.</translation>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1604"/>
         <source>Facing Pages Left</source>
-        <translation type="unfinished"></translation>
+        <translation>Facing Pages Left</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1611"/>
         <source>Facing Pages Right</source>
-        <translation type="unfinished"></translation>
+        <translation>Facing Pages Right</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1079"/>
@@ -23181,12 +23181,12 @@ Transparency</translation>
     <message>
         <location filename="../../scribus/ui/propertiespalette_tablebase.ui" line="75"/>
         <source>Cell style of currently selected cell</source>
-        <translation type="unfinished">Cell style of currently selected cell</translation>
+        <translation>Cell style of currently selected cell</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_tablebase.ui" line="82"/>
         <source>Remove Direct Cell Formatting</source>
-        <translation type="unfinished">Remove Direct Cell Formatting</translation>
+        <translation>Remove Direct Cell Formatting</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_tablebase.ui" line="101"/>
@@ -23239,12 +23239,12 @@ Transparency</translation>
     <message>
         <location filename="../../scribus/ui/propertiespalette_tablebase.ui" line="39"/>
         <source>Table style of currently selected table</source>
-        <translation type="unfinished">Table style of currently selected table</translation>
+        <translation>Table style of currently selected table</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_tablebase.ui" line="46"/>
         <source>Remove Direct Table Formatting</source>
-        <translation type="unfinished">Remove Direct Table Formatting</translation>
+        <translation>Remove Direct Table Formatting</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_tablebase.ui" line="62"/>
@@ -23267,7 +23267,7 @@ Transparency</translation>
     <message>
         <location filename="../../scribus/ui/propertiespalette_text.cpp" line="102"/>
         <source>Hyphenation</source>
-        <translation type="unfinished">Hyphenation</translation>
+        <translation>Hyphenation</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_text.cpp" line="107"/>
@@ -23277,7 +23277,7 @@ Transparency</translation>
     <message>
         <location filename="../../scribus/ui/propertiespalette_text.cpp" line="112"/>
         <source>Open Type Font Features</source>
-        <translation type="unfinished"></translation>
+        <translation>Open Type Font Features</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_text.cpp" line="117"/>
@@ -23332,7 +23332,7 @@ Transparency</translation>
     <message>
         <location filename="../../scribus/ui/propertiespalette_text.cpp" line="776"/>
         <source>Text language</source>
-        <translation type="unfinished"></translation>
+        <translation>Text language</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_text.cpp" line="777"/>
@@ -24052,362 +24052,362 @@ Transparency</translation>
     <message>
         <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="14"/>
         <source>Frame</source>
-        <translation type="unfinished">Frame</translation>
+        <translation>Frame</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="26"/>
         <source>Common Ligtures (liga)</source>
-        <translation type="unfinished"></translation>
+        <translation>Common Ligtures (liga)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="29"/>
         <source>Common Ligatures</source>
-        <translation type="unfinished"></translation>
+        <translation>Common Ligatures</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="39"/>
         <source>Contextual Ligatures (clig)</source>
-        <translation type="unfinished"></translation>
+        <translation>Contextual Ligatures (clig)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="42"/>
         <source>Contextual Ligatures</source>
-        <translation type="unfinished"></translation>
+        <translation>Contextual Ligatures</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="61"/>
         <source>Discretionary Ligatures (dlig)</source>
-        <translation type="unfinished"></translation>
+        <translation>Discretionary Ligatures (dlig)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="64"/>
         <source>Discretionary Ligatures</source>
-        <translation type="unfinished"></translation>
+        <translation>Discretionary Ligatures</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="74"/>
         <source>Historical Ligatures (hlig)</source>
-        <translation type="unfinished"></translation>
+        <translation>Historical Ligatures (hlig)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="77"/>
         <source>Historical Ligatures</source>
-        <translation type="unfinished"></translation>
+        <translation>Historical Ligatures</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="97"/>
         <source>Normal capitals</source>
-        <translation type="unfinished"></translation>
+        <translation>Normal capitals</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="100"/>
         <source>Default Capitals</source>
-        <translation type="unfinished"></translation>
+        <translation>Default Capitals</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="113"/>
         <source>Small capitals (smcp)</source>
-        <translation type="unfinished"></translation>
+        <translation>Small capitals (smcp)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="116"/>
         <source>Small Capitals</source>
-        <translation type="unfinished"></translation>
+        <translation>Small Capitals</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="126"/>
         <source>Small capitals from capitals (c2sc)</source>
-        <translation type="unfinished"></translation>
+        <translation>Small capitals from capitals (c2sc)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="129"/>
         <source>Small Capitals from Capitals</source>
-        <translation type="unfinished"></translation>
+        <translation>Small Capitals from Capitals</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="139"/>
         <source>Petite capitals (pcap)</source>
-        <translation type="unfinished"></translation>
+        <translation>Petite capitals (pcap)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="142"/>
         <source>Petite Capitals</source>
-        <translation type="unfinished"></translation>
+        <translation>Petite Capitals</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="152"/>
         <source>Petite capitals from capitals (c2pc)</source>
-        <translation type="unfinished"></translation>
+        <translation>Petite capitals from capitals (c2pc)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="155"/>
         <source>Petite Capitals from Capitals</source>
-        <translation type="unfinished"></translation>
+        <translation>Petite Capitals from Capitals</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="165"/>
         <source>Unicase (unic)</source>
-        <translation type="unfinished"></translation>
+        <translation>Unicase (unic)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="168"/>
         <source>Unicase</source>
-        <translation type="unfinished"></translation>
+        <translation>Unicase</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="178"/>
         <source>Titling (titl)</source>
-        <translation type="unfinished"></translation>
+        <translation>Titling (titl)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="181"/>
         <source>Titling</source>
-        <translation type="unfinished"></translation>
+        <translation>Titling</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="201"/>
         <source>Default numbers style</source>
-        <translation type="unfinished"></translation>
+        <translation>Default numbers style</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="204"/>
         <source>Default Numerals</source>
-        <translation type="unfinished"></translation>
+        <translation>Default Numerals</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="220"/>
         <source>Lining Figures (lnum)</source>
-        <translation type="unfinished"></translation>
+        <translation>Lining Figures (lnum)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="223"/>
         <source>Lining</source>
-        <translation type="unfinished"></translation>
+        <translation>Lining</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="236"/>
         <source>Oldstyle Figures (onum)</source>
-        <translation type="unfinished"></translation>
+        <translation>Oldstyle Figures (onum)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="239"/>
         <source>Old Style</source>
-        <translation type="unfinished"></translation>
+        <translation>Old Style</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="259"/>
         <source>Default numbers width</source>
-        <translation type="unfinished"></translation>
+        <translation>Default numbers width</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="262"/>
         <source>Default Numeral Width</source>
-        <translation type="unfinished"></translation>
+        <translation>Default Numeral Width</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="278"/>
         <source>Proportional Figures (pnum)</source>
-        <translation type="unfinished"></translation>
+        <translation>Proportional Figures (pnum)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="281"/>
         <source>Proportional</source>
-        <translation type="unfinished">Proportional</translation>
+        <translation>Proportional</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="294"/>
         <source>Tabular Figures (tnum)</source>
-        <translation type="unfinished"></translation>
+        <translation>Tabular Figures (tnum)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="297"/>
         <source>Tabular</source>
-        <translation type="unfinished"></translation>
+        <translation>Tabular</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="317"/>
         <source>No fractions</source>
-        <translation type="unfinished"></translation>
+        <translation>No fractions</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="320"/>
         <source>No Fractions</source>
-        <translation type="unfinished"></translation>
+        <translation>No Fractions</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="336"/>
         <source>Fractions (frac)</source>
-        <translation type="unfinished"></translation>
+        <translation>Fractions (frac)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="339"/>
         <source>Diagonal Fractions</source>
-        <translation type="unfinished"></translation>
+        <translation>Diagonal Fractions</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="352"/>
         <source>Alternative Fractions (afrc)</source>
-        <translation type="unfinished"></translation>
+        <translation>Alternative Fractions (afrc)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="355"/>
         <source>Stacked Fractions</source>
-        <translation type="unfinished"></translation>
+        <translation>Stacked Fractions</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="372"/>
         <source>Normal position</source>
-        <translation type="unfinished"></translation>
+        <translation>Normal position</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="375"/>
         <source>Default Position</source>
-        <translation type="unfinished"></translation>
+        <translation>Default Position</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="388"/>
         <source>Subscript (subs)</source>
-        <translation type="unfinished"></translation>
+        <translation>Subscript (subs)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="391"/>
         <source>Subscript</source>
-        <translation type="unfinished">Subscript</translation>
+        <translation>Subscript</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="401"/>
         <source>Superscript (sups)</source>
-        <translation type="unfinished"></translation>
+        <translation>Superscript (sups)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="404"/>
         <source>Superscript</source>
-        <translation type="unfinished">Superscript</translation>
+        <translation>Superscript</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="417"/>
         <source>Ordinals (ordn)</source>
-        <translation type="unfinished"></translation>
+        <translation>Ordinals (ordn)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="420"/>
         <source>Ordinals</source>
-        <translation type="unfinished"></translation>
+        <translation>Ordinals</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="440"/>
         <source>Slashed Zero (zero)</source>
-        <translation type="unfinished"></translation>
+        <translation>Slashed Zero (zero)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="443"/>
         <source>Slashed Zero</source>
-        <translation type="unfinished"></translation>
+        <translation>Slashed Zero</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="457"/>
         <source>Stylistic sets</source>
-        <translation type="unfinished"></translation>
+        <translation>Stylistic sets</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="463"/>
         <source>1</source>
-        <translation type="unfinished">1</translation>
+        <translation>1</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="470"/>
         <source>5</source>
-        <translation type="unfinished">5</translation>
+        <translation>5</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="477"/>
         <source>9</source>
-        <translation type="unfinished">9</translation>
+        <translation>9</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="484"/>
         <source>13</source>
-        <translation type="unfinished">13</translation>
+        <translation>13</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="491"/>
         <source>17</source>
-        <translation type="unfinished">17</translation>
+        <translation>17</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="498"/>
         <source>2</source>
-        <translation type="unfinished">2</translation>
+        <translation>2</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="505"/>
         <source>6</source>
-        <translation type="unfinished">6</translation>
+        <translation>6</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="512"/>
         <source>10</source>
-        <translation type="unfinished">10</translation>
+        <translation>10</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="519"/>
         <source>14</source>
-        <translation type="unfinished">14</translation>
+        <translation>14</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="526"/>
         <source>18</source>
-        <translation type="unfinished">18</translation>
+        <translation>18</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="533"/>
         <source>3</source>
-        <translation type="unfinished">3</translation>
+        <translation>3</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="540"/>
         <source>7</source>
-        <translation type="unfinished">7</translation>
+        <translation>7</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="547"/>
         <source>11</source>
-        <translation type="unfinished">11</translation>
+        <translation>11</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="554"/>
         <source>15</source>
-        <translation type="unfinished">15</translation>
+        <translation>15</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="561"/>
         <source>19</source>
-        <translation type="unfinished">19</translation>
+        <translation>19</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="568"/>
         <source>4</source>
-        <translation type="unfinished">4</translation>
+        <translation>4</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="575"/>
         <source>8</source>
-        <translation type="unfinished">8</translation>
+        <translation>8</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="582"/>
         <source>12</source>
-        <translation type="unfinished">12</translation>
+        <translation>12</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="589"/>
         <source>16</source>
-        <translation type="unfinished">16</translation>
+        <translation>16</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="596"/>
         <source>20</source>
-        <translation type="unfinished">20</translation>
+        <translation>20</translation>
     </message>
 </context>
 <context>
@@ -24415,44 +24415,44 @@ Transparency</translation>
     <message>
         <location filename="../../scribus/ui/propertywidget_hyphenationbase.ui" line="14"/>
         <source>Frame</source>
-        <translation type="unfinished">Frame</translation>
+        <translation>Frame</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_hyphenationbase.ui" line="43"/>
         <source>Smallest Word:</source>
-        <translation type="unfinished">Smallest Word:</translation>
+        <translation>Smallest Word:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_hyphenationbase.ui" line="50"/>
         <source>Length of the smallest word to be hyphenated</source>
-        <translation type="unfinished">Length of the smallest word to be hyphenated</translation>
+        <translation>Length of the smallest word to be hyphenated</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_hyphenationbase.ui" line="60"/>
         <source>Charcters</source>
-        <translation type="unfinished"></translation>
+        <translation>Charcters</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_hyphenationbase.ui" line="84"/>
         <source>Consecutive Hyphenations Allowed:</source>
-        <translation type="unfinished">Consecutive Hyphenations Allowed:</translation>
+        <translation>Consecutive Hyphenations Allowed:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_hyphenationbase.ui" line="91"/>
         <source>Maximum number of Hyphenations following each other.
 A value of 0 means unlimited hyphenations.</source>
-        <translation type="unfinished">Maximum number of Hyphenations following each other.
+        <translation>Maximum number of Hyphenations following each other.
 A value of 0 means unlimited hyphenations.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_hyphenationbase.ui" line="103"/>
         <source>Hyphenation Character</source>
-        <translation type="unfinished"></translation>
+        <translation>Hyphenation Character</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_hyphenationbase.ui" line="110"/>
         <source>The character used for automatic hyphen. Can be empty.</source>
-        <translation type="unfinished"></translation>
+        <translation>The character used for automatic hyphen. Can be empty.</translation>
     </message>
 </context>
 <context>
@@ -24722,67 +24722,67 @@ A value of 0 means unlimited hyphenations.</translation>
     <message>
         <location filename="../../scribus/ui/propertywidget_pareffectbase.ui" line="32"/>
         <source>Lines:</source>
-        <translation type="unfinished">Lines:</translation>
+        <translation>Lines:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_pareffectbase.ui" line="87"/>
         <source>Bullet Char(s):</source>
-        <translation type="unfinished">Bullet Char(s):</translation>
+        <translation>Bullet Char(s):</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_pareffectbase.ui" line="103"/>
         <source>Enhanced Character Table to choose bullet characters</source>
-        <translation type="unfinished"></translation>
+        <translation>Enhanced Character Table to choose bullet characters</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_pareffectbase.ui" line="127"/>
         <source>Level:</source>
-        <translation type="unfinished">Level:</translation>
+        <translation>Level:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_pareffectbase.ui" line="157"/>
         <source>Start:</source>
-        <translation type="unfinished">Start:</translation>
+        <translation>Start:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_pareffectbase.ui" line="178"/>
         <source>Set:</source>
-        <translation type="unfinished">Set:</translation>
+        <translation>Set:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_pareffectbase.ui" line="205"/>
         <source>Format:</source>
-        <translation type="unfinished">Format:</translation>
+        <translation>Format:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_pareffectbase.ui" line="229"/>
         <source>Prefix:</source>
-        <translation type="unfinished">Prefix:</translation>
+        <translation>Prefix:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_pareffectbase.ui" line="255"/>
         <source>Suffix:</source>
-        <translation type="unfinished">Suffix:</translation>
+        <translation>Suffix:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_pareffectbase.ui" line="279"/>
         <source>Char Style:</source>
-        <translation type="unfinished">Char Style:</translation>
+        <translation>Char Style:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_pareffectbase.ui" line="289"/>
         <source>Choose Character Style or leave blank to use default Paragraph Style</source>
-        <translation type="unfinished"></translation>
+        <translation>Choose Character Style or leave blank to use default Paragraph Style</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_pareffectbase.ui" line="298"/>
         <source>Auto-Indent</source>
-        <translation type="unfinished">Auto-Indent</translation>
+        <translation>Auto-Indent</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_pareffectbase.ui" line="318"/>
         <source>Offset:</source>
-        <translation type="unfinished">Offset:</translation>
+        <translation>Offset:</translation>
     </message>
     <message>
         <source>Lines</source>
@@ -26055,12 +26055,12 @@ External Links</translation>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="211"/>
         <source>Efik</source>
-        <translation type="unfinished"></translation>
+        <translation>Efik</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="262"/>
         <source>Hamer-Banna</source>
-        <translation type="unfinished"></translation>
+        <translation>Hamer-Banna</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="343"/>
@@ -27214,7 +27214,7 @@ External Links</translation>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="485"/>
         <source>Piedmontese</source>
-        <translation type="unfinished"></translation>
+        <translation>Piedmontese</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="601"/>
@@ -28534,7 +28534,7 @@ External Links</translation>
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="167"/>
         <source>Cannot get fontfeatures of non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Cannot get fontfeatures of non-text frame.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="193"/>
@@ -28841,13 +28841,13 @@ External Links</translation>
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="449"/>
         <source>direction out of range. Use one of the scribus.DIRECTION* constants.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>direction out of range. Use one of the scribus.DIRECTION* constants.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="457"/>
         <source>Cannot set text direction on a non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Cannot set text direction on a non-text frame.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="482"/>
@@ -28865,7 +28865,7 @@ External Links</translation>
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="522"/>
         <source>Cannot set font feature on a non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Cannot set font feature on a non-text frame.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="551"/>
@@ -29687,7 +29687,7 @@ is not exhaustive due to exceptions from called functions.
     <message>
         <location filename="../../scribus/scfonts.cpp" line="661"/>
         <source>Font %1 is broken, discarding it. Error message: &quot;%2&quot;</source>
-        <translation type="unfinished"></translation>
+        <translation>Font %1 is broken, discarding it. Error message: &quot;%2&quot;</translation>
     </message>
     <message>
         <location filename="../../scribus/scfonts.cpp" line="680"/>
@@ -29698,7 +29698,7 @@ is not exhaustive due to exceptions from called functions.
         <location filename="../../scribus/scfonts.cpp" line="689"/>
         <location filename="../../scribus/scfonts.cpp" line="730"/>
         <source>Font %1 has broken glyph %2 (charcode U+%3). Error message: &quot;%4&quot;</source>
-        <translation type="unfinished"></translation>
+        <translation>Font %1 has broken glyph %2 (charcode U+%3). Error message: &quot;%4&quot;</translation>
     </message>
     <message>
         <location filename="../../scribus/scfonts.cpp" line="721"/>
@@ -29840,7 +29840,7 @@ is not exhaustive due to exceptions from called functions.
     <message>
         <location filename="../../scribus/styles/charstyle.cpp" line="204"/>
         <source>+fontfeatures %1 </source>
-        <translation type="unfinished"></translation>
+        <translation>+fontfeatures %1 </translation>
     </message>
     <message>
         <location filename="../../scribus/styles/charstyle.cpp" line="206"/>
@@ -30253,7 +30253,7 @@ is not exhaustive due to exceptions from called functions.
     <message>
         <location filename="../../scribus/util_formats.cpp" line="88"/>
         <source>Krita</source>
-        <translation type="unfinished"></translation>
+        <translation>Krita</translation>
     </message>
     <message>
         <location filename="../../scribus/util_formats.cpp" line="89"/>
@@ -31312,7 +31312,7 @@ Therefore the image may be not correct</source>
     <message>
         <location filename="../../scribus/numeration.cpp" line="25"/>
         <source>u202d١, ٢, ٣, ...u202c</source>
-        <translation type="unfinished"></translation>
+        <translation>u202d١, ٢, ٣, ...u202c</translation>
     </message>
     <message>
         <location filename="../../scribus/numeration.cpp" line="26"/>
@@ -31337,12 +31337,12 @@ Therefore the image may be not correct</source>
     <message>
         <location filename="../../scribus/numeration.cpp" line="30"/>
         <source>u202dأ, ب, ت, ...u202c</source>
-        <translation type="unfinished"></translation>
+        <translation>u202dأ, ب, ت, ...u202c</translation>
     </message>
     <message>
         <location filename="../../scribus/numeration.cpp" line="31"/>
         <source>u202dأ, ب, ج, ...u202c</source>
-        <translation type="unfinished"></translation>
+        <translation>u202dأ, ب, ج, ...u202c</translation>
     </message>
     <message>
         <location filename="../../scribus/numeration.cpp" line="32"/>
@@ -32002,7 +32002,7 @@ Please choose another.</translation>
     <message>
         <location filename="../../scribus/ui/smcstylewidget.ui" line="39"/>
         <source>Properties</source>
-        <translation type="unfinished">Properties</translation>
+        <translation>Properties</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smcstylewidget.ui" line="74"/>
@@ -32028,22 +32028,22 @@ Please choose another.</translation>
     <message>
         <location filename="../../scribus/ui/smcstylewidget.ui" line="466"/>
         <source>Hyphenation</source>
-        <translation type="unfinished">Hyphenation</translation>
+        <translation>Hyphenation</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smcstylewidget.ui" line="474"/>
         <source>Hyphenation Character</source>
-        <translation type="unfinished"></translation>
+        <translation>Hyphenation Character</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smcstylewidget.ui" line="501"/>
         <source>Smallest Word</source>
-        <translation type="unfinished"></translation>
+        <translation>Smallest Word</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smcstylewidget.ui" line="515"/>
         <source>Charcters</source>
-        <translation type="unfinished"></translation>
+        <translation>Charcters</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smcstylewidget.ui" line="540"/>
@@ -32054,7 +32054,7 @@ Please choose another.</translation>
     <message>
         <location filename="../../scribus/ui/smcstylewidget.ui" line="786"/>
         <source>Font Features</source>
-        <translation type="unfinished"></translation>
+        <translation>Font Features</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smcstylewidget.cpp" line="98"/>
@@ -32252,12 +32252,12 @@ Please choose another.</translation>
         <location filename="../../scribus/ui/smdirectionselect.cpp" line="12"/>
         <source>P</source>
         <comment>P as in Parent</comment>
-        <translation type="unfinished">P</translation>
+        <translation>P</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smdirectionselect.cpp" line="13"/>
         <source>Use parent style&apos;s direction instead of overriding it</source>
-        <translation type="unfinished"></translation>
+        <translation>Use parent style&apos;s direction instead of overriding it</translation>
     </message>
 </context>
 <context>
@@ -32390,22 +32390,22 @@ Please choose another.</translation>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.ui" line="1150"/>
         <source>Choose Character Style or leave blank to use default Paragraph Style</source>
-        <translation type="unfinished"></translation>
+        <translation>Choose Character Style or leave blank to use default Paragraph Style</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.ui" line="1186"/>
         <source>Paragraph Effects characters offset</source>
-        <translation type="unfinished"></translation>
+        <translation>Paragraph Effects characters offset</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.ui" line="1215"/>
         <source>Auto-Indent</source>
-        <translation type="unfinished">Auto-Indent</translation>
+        <translation>Auto-Indent</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.ui" line="1242"/>
         <source>Use Parent Values</source>
-        <translation type="unfinished"></translation>
+        <translation>Use Parent Values</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.ui" line="1268"/>
@@ -32449,47 +32449,47 @@ Please choose another.</translation>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.ui" line="486"/>
         <source>Maximum white space compression allowed. Expressed as a percentage of the current white space value.</source>
-        <translation type="unfinished"></translation>
+        <translation>Maximum white space compression allowed. Expressed as a percentage of the current white space value.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.ui" line="504"/>
         <source>Min:</source>
-        <translation type="unfinished">Min:</translation>
+        <translation>Min:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.ui" line="527"/>
         <source>Max:</source>
-        <translation type="unfinished">Max:</translation>
+        <translation>Max:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.ui" line="560"/>
         <source>Consecutive Hyphenations Allowed:</source>
-        <translation type="unfinished">Consecutive Hyphenations Allowed:</translation>
+        <translation>Consecutive Hyphenations Allowed:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.ui" line="758"/>
         <source>Bulleted List</source>
-        <translation type="unfinished">Bulleted List</translation>
+        <translation>Bulleted List</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.ui" line="772"/>
         <source>Bullet Char(s):</source>
-        <translation type="unfinished">Bullet Char(s):</translation>
+        <translation>Bullet Char(s):</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.ui" line="817"/>
         <source>Enhanced Character Table for inserting custom characters as bullets</source>
-        <translation type="unfinished"></translation>
+        <translation>Enhanced Character Table for inserting custom characters as bullets</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.ui" line="820"/>
         <source>Char Table</source>
-        <translation type="unfinished">Char Table</translation>
+        <translation>Char Table</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.ui" line="854"/>
         <source>Numbered List</source>
-        <translation type="unfinished">Numbered List</translation>
+        <translation>Numbered List</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.ui" line="1104"/>
@@ -35649,12 +35649,12 @@ Consider using the Preflight Verifier to correct them</translation>
     <message>
         <location filename="../../scribus/scribus.cpp" line="338"/>
         <source>Scribus</source>
-        <translation type="unfinished"></translation>
+        <translation>Scribus</translation>
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="341"/>
         <source>(r%1)</source>
-        <translation type="unfinished"></translation>
+        <translation>(r%1)</translation>
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="873"/>
@@ -35756,12 +35756,12 @@ Consider using the Preflight Verifier to correct them</translation>
     <message>
         <location filename="../../scribus/scribus.cpp" line="6312"/>
         <source>&amp;Language:</source>
-        <translation type="unfinished">&amp;Language:</translation>
+        <translation>&amp;Language:</translation>
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="6312"/>
         <source>Language</source>
-        <translation type="unfinished">Language</translation>
+        <translation>Language</translation>
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="7598"/>
@@ -35771,7 +35771,7 @@ Consider using the Preflight Verifier to correct them</translation>
     <message>
         <location filename="../../scribus/scribus.cpp" line="8508"/>
         <source>The program %1 is missing or failed to open</source>
-        <translation type="unfinished"></translation>
+        <translation>The program %1 is missing or failed to open</translation>
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="8632"/>
@@ -35865,17 +35865,17 @@ Consider using the Preflight Verifier to correct them</translation>
     <message>
         <location filename="../../scribus/scribusapp.cpp" line="585"/>
         <source>Stop showing the splashscreen on startup. Writes an empty file called .neversplash in ~/.config/scribus</source>
-        <translation type="unfinished"></translation>
+        <translation>Stop showing the splashscreen on startup. Writes an empty file called .neversplash in ~/.config/scribus</translation>
     </message>
     <message>
         <location filename="../../scribus/scribusapp.cpp" line="586"/>
         <source>path</source>
-        <translation type="unfinished"></translation>
+        <translation>path</translation>
     </message>
     <message>
         <location filename="../../scribus/scribusapp.cpp" line="586"/>
         <source>Use path for user given preferences location</source>
-        <translation type="unfinished"></translation>
+        <translation>Use path for user given preferences location</translation>
     </message>
     <message>
         <location filename="../../scribus/scribusapp.cpp" line="589"/>
@@ -35889,7 +35889,7 @@ Consider using the Preflight Verifier to correct them</translation>
     <message>
         <location filename="../../scribus/scribusapp.cpp" line="276"/>
         <source>Preferences directory %1 does not exist, aborting.</source>
-        <translation type="unfinished"></translation>
+        <translation>Preferences directory %1 does not exist, aborting.</translation>
     </message>
     <message>
         <source>Use filename as path for user given preferences</source>
@@ -36272,12 +36272,12 @@ Consider using the Preflight Verifier to correct them</translation>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="581"/>
         <source>Startup Script error</source>
-        <translation type="unfinished"></translation>
+        <translation>Startup Script error</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="582"/>
         <source>Could not find script: %1.</source>
-        <translation type="unfinished"></translation>
+        <translation>Could not find script: %1.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="616"/>
@@ -37979,12 +37979,12 @@ Consider using the Preflight Verifier to correct them</translation>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.ui" line="991"/>
         <source>Facing Page Left</source>
-        <translation type="unfinished"></translation>
+        <translation>Facing Page Left</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.ui" line="998"/>
         <source>Facing Page Right</source>
-        <translation type="unfinished"></translation>
+        <translation>Facing Page Right</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.ui" line="1323"/>
@@ -39001,7 +39001,7 @@ when PDF document is opened:</translation>
     <message>
         <location filename="../../scribus/ui/textpalette.cpp" line="353"/>
         <source>Text Properties</source>
-        <translation type="unfinished"></translation>
+        <translation>Text Properties</translation>
     </message>
 </context>
 <context>
@@ -41900,212 +41900,212 @@ please choose another one.</translation>
     <message>
         <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="14"/>
         <source>Form</source>
-        <translation type="unfinished">Form</translation>
+        <translation>Form</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="23"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600; color:#008000;&quot;&gt;The current selected font does not have any font features.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600; color:#008000;&quot;&gt;The current selected font does not have any font features.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="36"/>
         <source> Ligatures</source>
-        <translation type="unfinished"></translation>
+        <translation> Ligatures</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="48"/>
         <source>Common Ligtures (liga)</source>
-        <translation type="unfinished"></translation>
+        <translation>Common Ligtures (liga)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="51"/>
         <source>Common Ligatures</source>
-        <translation type="unfinished"></translation>
+        <translation>Common Ligatures</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="67"/>
         <source>Discretionary Ligatures (dlig)</source>
-        <translation type="unfinished"></translation>
+        <translation>Discretionary Ligatures (dlig)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="70"/>
         <source>Discretionary Ligatures</source>
-        <translation type="unfinished"></translation>
+        <translation>Discretionary Ligatures</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="86"/>
         <source>Contextual Ligatures (clig)</source>
-        <translation type="unfinished"></translation>
+        <translation>Contextual Ligatures (clig)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="89"/>
         <source>Contextual Ligatures</source>
-        <translation type="unfinished"></translation>
+        <translation>Contextual Ligatures</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="114"/>
         <source>Historical Ligatures (hlig)</source>
-        <translation type="unfinished"></translation>
+        <translation>Historical Ligatures (hlig)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="117"/>
         <source>Historical Ligatures</source>
-        <translation type="unfinished"></translation>
+        <translation>Historical Ligatures</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="139"/>
         <source>Capitals &amp;&amp; Position</source>
-        <translation type="unfinished"></translation>
+        <translation>Capitals &amp;&amp; Position</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="147"/>
         <source>Capitals:</source>
-        <translation type="unfinished"></translation>
+        <translation>Capitals:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="155"/>
         <source>Default Capitals</source>
-        <translation type="unfinished"></translation>
+        <translation>Default Capitals</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="160"/>
         <source>Small Capitals</source>
-        <translation type="unfinished"></translation>
+        <translation>Small Capitals</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="165"/>
         <source>Petite Capitals</source>
-        <translation type="unfinished"></translation>
+        <translation>Petite Capitals</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="170"/>
         <source>Unicase</source>
-        <translation type="unfinished"></translation>
+        <translation>Unicase</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="175"/>
         <source>Titling</source>
-        <translation type="unfinished"></translation>
+        <translation>Titling</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="180"/>
         <source>Petite Capitals from Captials</source>
-        <translation type="unfinished"></translation>
+        <translation>Petite Capitals from Captials</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="185"/>
         <source>Small Capitals from Captials</source>
-        <translation type="unfinished"></translation>
+        <translation>Small Capitals from Captials</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="210"/>
         <source>Position:</source>
-        <translation type="unfinished">Position:</translation>
+        <translation>Position:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="218"/>
         <source>Default Position</source>
-        <translation type="unfinished"></translation>
+        <translation>Default Position</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="223"/>
         <source>Subscript</source>
-        <translation type="unfinished">Subscript</translation>
+        <translation>Subscript</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="228"/>
         <source>Superscript</source>
-        <translation type="unfinished">Superscript</translation>
+        <translation>Superscript</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="233"/>
         <source>Ordinals</source>
-        <translation type="unfinished"></translation>
+        <translation>Ordinals</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="265"/>
         <source>Numerals</source>
-        <translation type="unfinished"></translation>
+        <translation>Numerals</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="273"/>
         <source>Style:</source>
-        <translation type="unfinished">Style:</translation>
+        <translation>Style:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="281"/>
         <source>Default Numerals</source>
-        <translation type="unfinished"></translation>
+        <translation>Default Numerals</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="286"/>
         <source>Lining</source>
-        <translation type="unfinished"></translation>
+        <translation>Lining</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="291"/>
         <source>Old Style</source>
-        <translation type="unfinished"></translation>
+        <translation>Old Style</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="316"/>
         <source>Width:</source>
-        <translation type="unfinished">Width:</translation>
+        <translation>Width:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="324"/>
         <source>Default Numeral Width</source>
-        <translation type="unfinished"></translation>
+        <translation>Default Numeral Width</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="329"/>
         <source>Proportional</source>
-        <translation type="unfinished">Proportional</translation>
+        <translation>Proportional</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="334"/>
         <source>Tabular</source>
-        <translation type="unfinished"></translation>
+        <translation>Tabular</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="359"/>
         <source>Fraction:</source>
-        <translation type="unfinished"></translation>
+        <translation>Fraction:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="367"/>
         <source>No Fractions</source>
-        <translation type="unfinished"></translation>
+        <translation>No Fractions</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="372"/>
         <source>Diagonal Fractions</source>
-        <translation type="unfinished"></translation>
+        <translation>Diagonal Fractions</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="377"/>
         <source>Stacked Fractions</source>
-        <translation type="unfinished"></translation>
+        <translation>Stacked Fractions</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="403"/>
         <source>Slashed Zero (zero)</source>
-        <translation type="unfinished"></translation>
+        <translation>Slashed Zero (zero)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="406"/>
         <source>Slashed Zero</source>
-        <translation type="unfinished"></translation>
+        <translation>Slashed Zero</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="418"/>
         <source>Stylistic Sets:</source>
-        <translation type="unfinished"></translation>
+        <translation>Stylistic Sets:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="437"/>
         <source>click to select</source>
-        <translation type="unfinished"></translation>
+        <translation>click to select</translation>
     </message>
 </context>
 <context>
