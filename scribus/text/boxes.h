@@ -135,6 +135,9 @@ public:
 	virtual double naturalAsc() const { return m_naturalAscent; }
 	virtual double naturalDecent() const { return m_naturalDecent; }
 
+	/// return box type
+	BoxType type() const { return m_type; }
+
 //public slots:
 //	virtual void childChanged() { }
 //signals:

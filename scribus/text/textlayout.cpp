@@ -89,6 +89,8 @@ void TextLayout::appendLine(LineBox* ls)
 
 	GroupBox* column = dynamic_cast<GroupBox*>(m_box->boxes().last());
 	assert(column);
+	if (ls->type() == Box::T_PathLine)
+		ls->setAscent(ls->y() - column->naturalHeight());
 
 	ls->setWidth(column->width());
 	column->addBox(ls);
