@@ -750,15 +750,15 @@ void ScribusMainWindow::initScrapbook()
 	QFileInfo scrapbookFileInfoO = QFileInfo(scrapbookFileO);
 	if (scrapbookFileInfoO.exists())
 	{
-		scrapbookPalette->readOldContents(scrapbookFileO, QDir::toNativeSeparators(m_prefsManager->preferencesLocation()+"/scrapbook/main"));
+		scrapbookPalette->readOldContents(scrapbookFileO, ScPaths::scrapbookDir(true) + "main");
 		QDir d = QDir();
 		d.rename(scrapbookFileO, QDir::toNativeSeparators(m_prefsManager->preferencesLocation()+"/scrap13.backup"));
 	}
-	QString scrapbookTemp = QDir::toNativeSeparators(m_prefsManager->preferencesLocation()+"/scrapbook/tmp");
+	QString scrapbookTemp = QDir::toNativeSeparators(ScPaths::scrapbookDir(true) + "tmp");
 	QFileInfo scrapbookTempInfo = QFileInfo(scrapbookTemp);
 	if (scrapbookTempInfo.exists())
 		scrapbookPalette->readTempContents(scrapbookTemp);
-	QString scrapbookFile = QDir::toNativeSeparators(m_prefsManager->preferencesLocation()+"/scrapbook/main");
+	QString scrapbookFile = QDir::toNativeSeparators(ScPaths::scrapbookDir(true) + "main");
 	QFileInfo scrapbookFileInfo = QFileInfo(scrapbookFile);
 	if (scrapbookFileInfo.exists())
 		scrapbookPalette->readContents(scrapbookFile);
