@@ -5,7 +5,7 @@ You can verify them with:
 
 gpg --verify ./tarball.sig ./tarball.tar.bz2
 
-While we also note md5sums and shasums, gpg --verify are more secure and reliable.
+While we also note md5sums and sha256sums, gpg --verify are more secure and reliable.
 
 * The font sampler script, requires tkinter to run properly and optionally 
 python-imaging to enable print previews. Please consider adding these as 
@@ -21,7 +21,7 @@ part of the main package. Please consider adding:
 
 to ensure these old packages are removed on upgrade.
 
-* Currently, the full en documentation is included in the tarball, Please
+* Currently, the full multi-linugual documentation is included in the tarball, Please
 note it is licensed differently from the application source. We may decide to 
 distribute them separately. In any case, a monolithic scribus application
 plus docs package should also obsolete all prior docs packages.
@@ -86,4 +86,4 @@ http://nashi.altmuehlnet.de/mailman/listinfo/scribus
 
 For the Scribus Team,
 Peter Linnell
-in April 2009
+in November 2016
