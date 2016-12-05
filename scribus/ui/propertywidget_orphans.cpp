@@ -93,18 +93,6 @@ void PropertyWidget_Orphans::changeEvent(QEvent *e)
 
 void PropertyWidget_Orphans::languageChange()
 {
-	keepLabelStart->setText (tr ("Don't separate first"));
-	keepLabelEnd->setText (tr ("Don't separate last"));
-	keepLinesStart->setSuffix (tr (" lines"));
-	keepLinesEnd->setSuffix (tr (" lines"));
-	keepTogether->setText (tr ("Do not split paragraph"));
-	keepWithNext->setText (tr ("Keep with next paragraph"));
-
-	keepLinesStart->setToolTip ("<qt>" + tr ("Ensure that first lines of a paragraph won't end up separated from the rest (known as widow/orphan control)") + "</qt>");
-	keepLinesEnd->setToolTip ("<qt>" + tr ("Ensure that last lines of a paragraph won't end up separated from the rest (known as widow/orphan control)") + "</qt>");
-	keepLabelStart->setToolTip (keepLinesStart->toolTip());
-	keepLabelEnd->setToolTip (keepLinesEnd->toolTip());
-	keepTogether->setToolTip ("<qt>" + tr ("If checked, ensures that the paragraph won't be split across multiple pages or columns") + "</qt>");
-	keepWithNext->setToolTip ("<qt>" + tr ("If checked, automatically moves the paragraph to the next column or page if the next paragraph isn't on the same page or column") + "</qt>");
+	retranslateUi(this);
 }
 

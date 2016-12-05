@@ -471,7 +471,7 @@
               <item>
                <widget class="QLabel" name="label_4">
                 <property name="text">
-                 <string>Hyphenation Character</string>
+                 <string>Hyphenation Character:</string>
                 </property>
                </widget>
               </item>
@@ -498,7 +498,7 @@
               <item>
                <widget class="QLabel" name="label">
                 <property name="text">
-                 <string>Smallest Word</string>
+                 <string>Smallest Word:</string>
                 </property>
                </widget>
               </item>
@@ -512,7 +512,7 @@
               <item>
                <widget class="QLabel" name="label_2">
                 <property name="text">
-                 <string>Charcters</string>
+                 <string>Characters</string>
                 </property>
                </widget>
               </item>

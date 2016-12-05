@@ -50,7 +50,7 @@
          <item>
           <widget class="QLabel" name="label_3">
            <property name="text">
-            <string>Language</string>
+            <string>Language:</string>
            </property>
           </widget>
          </item>
@@ -768,6 +768,7 @@
  </customwidgets>
  <tabstops>
   <tabstop>tabWidget</tabstop>
+  <tabstop>languageComboBox</tabstop>
   <tabstop>pageSizeComboBox</tabstop>
   <tabstop>pageSizeLinkToolButton</tabstop>
   <tabstop>pageOrientationComboBox</tabstop>
@@ -777,7 +778,7 @@
   <tabstop>applySizesToAllPagesCheckBox</tabstop>
   <tabstop>applySizesToAllMasterPagesCheckBox</tabstop>
   <tabstop>singlePageRadioButton</tabstop>
-  <tabstop>facingPagesPageRadioButton</tabstop>
+  <tabstop>facingPagesRadioButton</tabstop>
   <tabstop>threeFoldRadioButton</tabstop>
   <tabstop>fourFoldRadioButton</tabstop>
   <tabstop>layoutFirstPageIsComboBox</tabstop>
@@ -785,8 +786,16 @@
   <tabstop>applyMarginsToAllPagesCheckBox</tabstop>
   <tabstop>applyMarginsToAllMasterPagesCheckBox</tabstop>
   <tabstop>saveCompressedCheckBox</tabstop>
+  <tabstop>emergencyCheckBox</tabstop>
   <tabstop>autosaveCheckBox</tabstop>
   <tabstop>autosaveIntervalSpinBox</tabstop>
+  <tabstop>autosaveCountSpinBox</tabstop>
+  <tabstop>autosaveDocRadio</tabstop>
+  <tabstop>autosaveDirRadio</tabstop>
+  <tabstop>autosaveDirEdit</tabstop>
+  <tabstop>changeAutoDir</tabstop>
+  <tabstop>autosaveKeepCheckBox</tabstop>
+  <tabstop>showAutosaveClockOnCanvasCheckBox</tabstop>
   <tabstop>undoCheckBox</tabstop>
   <tabstop>undoLengthSpinBox</tabstop>
  </tabstops>
