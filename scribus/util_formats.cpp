@@ -30,8 +30,8 @@ FormatsManager::FormatsManager()
 	m_fmts.insert(FormatsManager::EPS,  QStringList() << "eps" << "epsf" << "epsi" << "eps2" << "eps3" << "epi" << "ept");
 	m_fmts.insert(FormatsManager::GIF,  QStringList() << "gif");
 	m_fmts.insert(FormatsManager::JPEG, QStringList() << "jpg" << "jpeg");
+	m_fmts.insert(FormatsManager::KRA,  QStringList() << "kra");
 	m_fmts.insert(FormatsManager::ORA,  QStringList() << "ora");
-    m_fmts.insert(FormatsManager::KRA,  QStringList() << "kra");
 	m_fmts.insert(FormatsManager::PAT,  QStringList() << "pat");
 	m_fmts.insert(FormatsManager::PCT,  QStringList() << "pct" << "pic" << "pict");
 	m_fmts.insert(FormatsManager::PDF,  QStringList() << "pdf");
@@ -84,8 +84,8 @@ FormatsManager::FormatsManager()
 	m_fmtNames[FormatsManager::EPS]  = QObject::tr("Encapsulated PostScript");
 	m_fmtNames[FormatsManager::GIF]  = QObject::tr("GIF");
 	m_fmtNames[FormatsManager::JPEG] = QObject::tr("JPEG");
+	m_fmtNames[FormatsManager::KRA]  = QObject::tr("Krita");
 	m_fmtNames[FormatsManager::ORA]  = QObject::tr("Open Raster");
-    m_fmtNames[FormatsManager::KRA]  = QObject::tr("Krita");
 	m_fmtNames[FormatsManager::PAT]  = QObject::tr("Pattern Files");
 	m_fmtNames[FormatsManager::PDF]  = QObject::tr("PDF Document");
 	m_fmtNames[FormatsManager::PGF]  = QObject::tr("PGF");
@@ -112,8 +112,8 @@ FormatsManager::FormatsManager()
 	m_fmtMimeTypes.insert(FormatsManager::EPS,  QStringList() << "application/postscript");
 	m_fmtMimeTypes.insert(FormatsManager::GIF,  QStringList() << "image/gif");
 	m_fmtMimeTypes.insert(FormatsManager::JPEG, QStringList() << "image/jpeg");
+	m_fmtMimeTypes.insert(FormatsManager::KRA,  QStringList() << "application/x-krita");
 	m_fmtMimeTypes.insert(FormatsManager::ORA,  QStringList() << "");
-    m_fmtMimeTypes.insert(FormatsManager::KRA,  QStringList() << "application/x-krita");
 	m_fmtMimeTypes.insert(FormatsManager::PAT,  QStringList() << "");
 	m_fmtMimeTypes.insert(FormatsManager::PCT,  QStringList() << "");
 	m_fmtMimeTypes.insert(FormatsManager::PDF,  QStringList() << "application/pdf");
