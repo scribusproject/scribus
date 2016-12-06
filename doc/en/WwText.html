@@ -51,116 +51,122 @@
 </table>
 <h3>Context Menu</h3>
 <table cellpadding=3><tr>
-<td><p>Right-click on a frame to show its Context Menu, seen to the right. We will not cover all the features of the text frame Context Menu, but here is the particular list of choices available for text frames.</p>
+<td><p>Right-click on a frame to show its Context Menu, seen to the right. The layout has changed considerably with 1.5 versions of Scribus. If your frame has no content, some of these choices may not be present.</p>
 <ul>
-<li>At the top, <b>Info</b> gives information about the content of the frame, statistics on number of paragraphs, lines, and so forth, and also whether this frame is set to print, which also applies to whether it will be included in PDF export.</li>
-<li><b>Undo</b> will undo the last operation on the frame. <b>Redo</b> is available when some operation has been undone.</li>
-<li><b>Get Text</b> and <b>Append Text</b> allow for importation of text data from a file.</li>
+  <li><b>Info</b> gives information about the content of the frame, statistics on number of paragraphs, lines, and so forth, and also whether print is enabled, which also applies to whether it will be included in PDF export.</li>
+  <li><b>Content</b> has submenu items, as shown.</li>
+  <ul><li><b>Get Text</b> allows for import of text from a file, and will replace any existing text in the frame.</li>
+    <li><b>Append Text</b> will also import text from a file, but will add it to the end of the current text.</li>
 <li><b>Edit Text</b> brings up the Story Editor</b></li>
 <li><b>Sample Text</b> allows for importing so-called <a href="lipsum.html">Lorem ipsum</a> text, not only in the original (pseudo-)Latin, but also many other languages. A dialog comes up for choice of the language and amount of sample text to create.</li>
-<li><b>Attributes</b> and <b>PDF Options</b> are advanced features not covered here.</li>
-<li><b>Is Locked</b> will lock all characteristics of a frame, such as position, size, and contents. It cannot be deleted, but can be copied and pasted, and the copy will also be locked. If you Duplicate a locked frame, the duplication will not be locked.</li>
-<li><b>Size is Locked</b>, as the name suggests, only locks the size of the frame.</li>
-<li><b>Send to Scrapbook</b> and <b>Send to Patterns</b> will not be covered here, except to say that this allows for saving content to be shared among documents.</li>
-<li><b>Level</b> allows you to move the frame up or down levels on the current layer. If your document has more than one layer, there will also be an item <b>Send to Layer</b> to allow moving the frame to a different layer.</li>
+<li><b>Clear</b> is only present when your frame has content, and you will get a dialog to Ok the operation.</li>
+</ul>
+<li><b>Adjust Frame Height to Text</b> is a new feature, and will shrink the height of the frame to fit the amount of text. <i>It will not expand the height when there is text overflow.</i></li>
+<li><b>Locking</b> has submenu items.</li>
+<ul><li><b>Is Locked</b> will lock all characteristics of a frame, such as position, size, and contents. It cannot be deleted, but can be copied and pasted, and the copy will also be locked. If you Duplicate a locked frame, the duplication will not be locked.</li>
+  <li><b>Size is Locked</b>, as the name suggests, only locks the size of the frame.</li></ul>
+<li><b>Send to</b> has submenu items.</li>
+<ul><li><b>Scrapbook</b> and <b>Patterns</b> will not be covered here, except to say that this allows for saving content to be shared among documents.</li>
+  <li><b>Inline Items</b> will allow for the frame to be inserted into a line of text like a glyph.</li></ul>
+<li><b>Send to Layer</b> (not shown) will appear if your document has more than one layer, to allow moving the frame to a different layer.</li>
+<li><b>Level</b> has submenu items. Just as in the X,Y,Z tab of Properties, you can <b>Raise</b> or <b>Lower</b> a level, or <b>Raise to Top</b> or <b>Lower to Bottom</b>.</li>
 <li><b>Convert to</b> gives you the following sub-choices:</li>
 <ul><li><b>Image Frame</b> converts to that kind of frame, in which case your text becomes invisible, but will be restored if you convert back to a text frame. You cannot show text and an image together, except where text is incorporated in an image. Use a superimposed text frame to apply text over an image.</li>
 <li><b>Outlines</b> transforms the glyphs (characters) into vector graphics, which are then grouped. <i>Some caution is advised here, since even though there seems to be an option to convert back to a text frame, this will not allow editing of the text. Best to Undo back to before the text to outlines conversion, but you must do this with the toolbar Undo or Ctrl+Z.</i></li>
 <li><b>Polygon</b>, like Image Frame, converts to a polygon, with apparent loss of text, recoverable with Convert to Text Frame.</li>
+<li><b>Symbol</b>, which is new to 1.5.3 versions, allows its reuse as is, or as a <b>Pattern</b>. From the menu, <i>Windows > Symbols</i> brings up the Symbols palette.
 </ul>
-<li><b>Cut</b>, <b>Copy</b>, and <b>Delete</b> are covered in Working with Frames.</li>
-<li><b>Contents&nbsp;&gt; Clear</b> is only present when your frame has content, and you will get a dialog to Ok the operation.</li>
+<li><b>Attributes</b> and <b>PDF Options</b> are advanced features not covered here.</li>
+<li><b>Edit</b> has submenu items.</li>
+<ul><li><b>Cut</b>, <b>Copy</b>, and <b>Delete</b> are covered in Working with Frames. These apply to the entire frame and contents.</li>
+<li><b>Undo</b> will undo the last operation on the frame. <b>Redo</b> is available when some operation has been undone.</li></ul>
 <li><b>Properties</b> brings up or hides the Properties palette</li>
 </ul>
 </td>
-<td><img src="images/context_text135.png" ALT="Text frame Context menu"></td>
+<td><img src="images/context_text15.png" ALT="Text frame Context menu"></td>
 </tr>
 </table>
 <h3>Linking Text Frames</h3>
 <table cellpadding=3><tr>
-<td><p>Any multipage document is likely to need to link text from one page to the next. An automatic way of setting this up is when a new document is created. This graphic is from the lower right corner of the <b>New Document</b> dialog. We have set the <b>Options</b> for 4 pages initially, with 2-column frames (which will fill to the margins), and an 11-point gap between columns. <i>Show Document Settings After Creation</i> will bring up the <i>Document Settings</i> dialog after <b>OK</b> is clicked.</p>
+<td valign="top"><p>Any multipage document is likely to need to link text from one page to the next. An automatic way of setting this up is when a new document is created. This graphic is from the lower right corner of the <b>New Document</b> dialog. We have set the <b>Options</b> for 4 pages initially, with 2-column frames (which will fill to the margins), and an 11-point gap between columns. <i>Show Document Settings After Creation</i> will bring up the <i>Document Settings</i> dialog after <b>OK</b> is clicked.</p>
 <p>You may freely edit the individual frames on pages afterward without losing your text linkage. Furthermore, if you add more pages to your document, they will also have these same linked frames. If you unlink somewhere in the middle, you will need to re-establish your linking pattern.</p></td>
 <td><img src="images/text_linking.png" ALT="Options in New Document Dialog"></td>
 </table>
 <h3>Linking Existing Text Frames</h3>
 <p><img src="images/text-frame-link.png" ALIGN-left>
-A selected but unlinked text frame will show the toolbar icon to the left (green arrow) active. Click the link icon, then click the next frame that your selected frame is to link to. If you have more frames you wish to link to, continue clicking on them in order. <i>When your linking is finished, remember to click the link icon to deactivate it.</i></p>
+Begin with a text frame selected. Click the link icon, then click the next frame that your selected frame is to link to. If you have more frames you wish to link to, you need to click the icon again, then click the next frame in the series.</p>
 <p><img src="images/text-frame-unlink.png" ALIGN-left>
-Unlinking is a similar process. The icon will only be active if you have selected a linked frame. Select the frame where you want the linking to stop, click the unlink icon, then click the next frame in the linkage. <i>You will need to re-establish a linking pattern if you simply want to skip over a particular frame.</i></p>
+If your frame is one of a linked series of frames, clicking the unlink icon will show you the link(s) with arrows from one frame to the next. To unlink, click the frame <i>after</i> the arrow denoting the link to be broken. <i>Note that all the subsequent links will be broken as well.</i></p>
 <br clear=all>
-<h3>Properties: Text</h3>
+<h3>Text Properties Palette</h3>
 <table cellpadding=3><tr>
-<td><img src="images/text_tab1.png" ALT="Properties: Text tab" ALIGN="right"></td>
-<td><p>Due to the addition of new capabilities in Scribus 1.4.x, and redesign of the Properties palette, the Text tab has become quite complex. The basic view seems simpler, but now we have a series of sub-tabs to choose from. At the top of the tab, there is a button for the font family, and then just below it the fontface in that family. Next we come to the spinbox for text size, and just below that a drop-down selector for linespacing, with 3 choices: <b>Fixed</b>, <b>Automatic</b>, and <b>Align to Baseline Grid</b>. Fixed linespacing allows you to set the space between lines of text using the spinbox to the right. Automatic spacing causes Scribus to adjust for you, according to the font size. The default setting for this is 120% of the font size, but this can be adjusted in <i>File&nbsp;&gt; Preferences&nbsp;&gt; Typography</i>. Finally, the row of buttons at the bottom sets justification &ndash; left, center, right, full, and forced full.</p>
+<td><img src="images/text_tab1.png" ALT="Text Properties Palette" ALIGN="right"></td>
+<td valign="top"><p>Thanks to the addition of docking features for palettes, it has become feasible and worthwhile to separate the former Text tab of Properties into its own palette, which has already made it much more usable. There are a series of sub-tabs to choose from. In the top section, there is a button for the font family, and then just below it the fontface in that family. Next we come to the spinbox for text size, and just below that a drop-down selector for linespacing, with 3 choices: <b>Fixed</b>, <b>Automatic</b>, and <b>Align to Baseline Grid</b>. Fixed linespacing allows you to set the space between lines of text using the spinbox to the right. Automatic spacing causes Scribus to adjust for you, according to the font size. The default setting for this is 120% of the font size, but this can be adjusted in <i>File&nbsp;&gt; Preferences&nbsp;&gt; Typography</i>. The row of buttons at the bottom sets justification &ndash; left, center, right, full, and forced full.</p>
+  <p><b>Right-to-Left Capability</b></p>
+  <p>A fantastic and long-awaited capability is found in the two buttons to the left of the justification set. On the left is <b>Left to Right</b> direction of character placement, as in most Latin languages, and adjacent to it, <b>Right to Left</b> direction for languages using that arrangement, such as Arabic or Hebrew, among others. What you will see is that what happens is language-specific. For languages that use them, ligatures will also be applied.</p>
 <p>At this point it should be mentioned that when you are in Select Item mode, any changes will apply to the entire frame contents. In Edit Contents mode, things are a bit more complex.</p>
 <ul>
 <li>If your cursor is at some particular position, changes in font, fontface, and size apply to the single glyph to the right of the cursor.</li>
 <li>If your cursor is highlighting a block of text, changes in font, fontface, and size apply to the highlighted glyphs.</li>
 <li>Changes in linespacing and justification apply to the paragraph in which the cursor is located or in the paragraph(s) where words are highlighted. <i>Note that with automatic linespacing, this is adjusted line-by-line in situations where font size varies from word-to-word or letter-by-letter in the same paragraph. In most cases, you will find that fixed linespacing produces a more attractive result when font size is variable within a paragraph.</i></li>
 </ul>
-</td></tr>
-</table>
+<p><b>Style Settings</b></p>
+  <p>Here in the Properties palette, we can only set an already created style. An explanation on creating and editing styles is found in <a href="WwStyles.html">Working with Styles</a>.</p>
+</td></tr></table>
 <h3><a name="10">What About the Baseline Grid?</a></h3>
 <table cellpadding=3 width="80%"><tr>
-<td><p>The baseline grid is always present but hidden by default, and is never seen in printed output or in your PDF. Click <i>View&nbsp;&gt; Show Baseline Grid</i> to see it. Its default setting is 14.40 points, and the default is adjustable in <i>File&nbsp;&gt; Preferences&nbsp;&gt; Guides</i>, where you will see that the <b>Offset</b> is also adjustable &ndash; this is the displacement of glyphs from the baseline, and can have a positive or negative value.</p>
+<td valign="top"><p>The baseline grid is always present but hidden by default, and is never seen in printed output or in your PDF. Click <i>View&nbsp;&gt; Show Baseline Grid</i> to see it. Its default setting is 14.40 points, and the default is adjustable in <i>File&nbsp;&gt; Preferences&nbsp;&gt; Guides</i>, where you will see that the <b>Offset</b> is also adjustable &ndash; this is the displacement of glyphs from the baseline, and can have a positive or negative value.</p>
 <p>To the right we see text aligned to the baseline grid for the entire frame, along with an illustration of localized adjustments in Edit Contents mode. The Offset here is 0. As you can see, this is also a method for keeping linespacing constant when font size varies in a paragraph, since aligning to the baseline grid is just another kind of fixed linespacing. The other common use for aligning to baseline grid is to make sure that lines of text match their spacing in adjacent frames or columns.</p></td>
 <td><img src="images/text_tab2.png" ALT="Baseline Grid" ALIGN="right"></td></tr>
 </table>
 
 <h3>Color & Effects</h3>
 <table cellpadding=3><tr>
-<td><p>Here we choose the colors for text. The fill color for a font is the main color. The line color only is active when outline or shadow effects are activated, and there is only one color applied to both effects.</p>
-<p>From left to right, the effects buttons are as follows:</p>
+<td><p>Here we choose the colors for text. The top button is the fill or main color for the font is. The middle button applies when you are using the Outline or Shadow feature for text. Since there is now a true Drop Shadow capability in Properties, this may be of less value, except that Drop Shadow can only be applied to an entire frame of text. The lowest button is new, and sets the color of a background for the glyphs.</p>
+<p>The effects buttons have become a bit more cryptic, but always remember if you hover over them you have the tool tip. From left to right:</p>
 <ol>
 <li>Underline sections of text, including intervening spaces. Hold down the button to make adjustments of <b>Displacement</b> and <b>Linewidth</b>. Defaults are in <i>File&nbsp;&gt; Preferences&nbsp;&gt; Typography</i>.</li>
 <li>Underline words only, not intervening spaces. Hold down the button to make adjustments of <b>Displacement</b> and <b>Linewidth</b>. Defaults are in <i>File&nbsp;&gt; Preferences&nbsp;&gt; Typography</i>.</li>
 <li>Subscript. Relative size (<b>Scaling</b>) and <b>Displacement</b> are set in <i>File&nbsp;&gt; Preferences&nbsp;&gt; Typography</i>.</li>
 <li>Superscript.  Defaults are in <i>File&nbsp;&gt; Preferences&nbsp;&gt; Typography</i>.</li>
-<li>All caps.</li>
-<li>Small caps. There are a few fonts that have a real small caps subset, but this is a workaround for those that do not.</li>
-<li>Strikethrough. Hold down the button to make adjustments of <b>Displacement</b> and <b>Linewidth</b>. Defaults are in <i>File > Preferences > Typography</i>.</li>
+<li>All caps. All letters will be capitalized.</li>
+<li>Small caps. Lowercase letters will be capitalized with a size slightly smaller than uppercase letters. There are a few fonts that have a real small caps subset, but this is a workaround for those that do not.</li>
+<li>Strike Out, or strikethrough. Hold down the button to make adjustments of <b>Displacement</b> and <b>Linewidth</b>. Defaults are in <i>File > Preferences > Typography</i>.</li>
 <li>Outline. Hold down the button to adjust <b>Stroke width</b>.</li>
 <li>Shadow. Hold down the button to adjust the <b>X- and Y-Offsets</b>.</li>
-<li>Right to Left Writing. Glyphs are flipped horizontally and run from right to left. Only available on a frame-wide basis, i.e., not by glyph/word/paragraph.</li>
 </ol>
+<p><i>Note that the Right to Left Writing button is gone. This is thankfully due to the more proper capabilities for LTR and RTL languages now present.</i></p>
 </td>
 <td valign=middle><img src="images/text_tab3.png" ALT="Color & Effects"></td>
 </tr>
 </table>
-<table cellpadding=3><tr>
-<td align=center><img src="images/text_tab4.png" ALT="Reverse a word workaround" ALIGN="left"></td>
-<td><p>To the left is a workaround for the apparent inability to reverse only an individual word using inline graphics. A small text frame was made with our word to be reversed, then converted to outlines. The group of outlines was then flipped, copied, then inserted inline (as in inline graphics) into our sample text.</p>
-</td>
-</tr>
-</table>
-<h3>Style Settings</h3>
-<p>Here in the Properties palette, we can only set an already created style. An explanation on creating and editing styles is found in <a href="WwStyles.html">Working with Styles</a>.</p>
 <h3>First Line Offset</h3>
 <table cellpadding=3>
-<tr><td><p>First line offset refers to how closely the first line of text approaches the top of the frame or the space it is allowed. In this example, where we have set a top distance, we see from left to right, <b>Maximum Ascent</b>, <b>Font Ascent</b>, and <b>Line Spacing</b> offsets.</p>
+  <tr><td><p>First line offset refers to how closely the first line of text approaches the top of the frame or the space it is allowed.</p>
+      <p>In this example, where we have set a top distance, we see from left to right, <b>Maximum Ascent</b>, <b>Font Ascent</b>, and <b>Line Spacing</b> offsets.</p>
 </td></tr>
 <tr>
 <td><img src="images/text_tab7a.png" ALT="First Line Offset"></td></tr>
+</table>
+<h3>Orphans and Widows</h3>
+<table cellpadding=3 width="80%">
+  <tr><td valign="top"><p>Orphans and Widows is the situation where, in a linked series of frames, either a single line (or more) from a following paragraph is left at the bottom of the frame, or a paragraph is complete except for the last line or so, which is carried to the next frame or page.</p>
+      <p>The settings are pretty straightforward, but keep in mind that sometimes other adjustments must be made for a pleasing appearance.</p>
+</td>
+<td><img src="images/text_tab14.png" ALT="Orphans and Widows"></td></tr>
+</table>
+<h3>Paragraph Effects</h3>
+<table cellpadding=3 width="80%">
+  <tr><td valign="top"><p><b>Drop Caps</b> was formerly available only as part of a Paragraph Style, but now can be set here. You can either apply to an entire selected frame or an individually selected paragraph.</p>
+      <p><b>Bulleted List</b> and <b>Numbered List</b> are also each available here, again either applied frame-wide or by selected paragraph.</p>
+      <p>Once selected, each of these choices will show various parameters which can be adjusted, such as Offset, Size, Character Style, and others as applicable to each.</p>
+</td>
+<td><img src="images/text_tab15.png" ALT="Paragraph Effects"></td></tr>
 </table>
 <h3>Columns and Text Distances</h3>
 <table cellpadding=3 width="60%"><tr>
 <td><img src="images/text_tab6.png" width=200 height=200 ALT="Columns and Text Distances" ALIGN="left"></td>
 <td><p>Formerly, this was in the Shape tab, but now has sensibly moved to Text, since it does apply to text frames. Another enhancement is that now we can see in this example that two <b>Columns</b>, a <b>Gap</b>, and <b>Top</b> and <b>Left</b> distances have been set, even in an empty frame. This feature can be turned off/on with <i>View&nbsp;&gt; Show Text Frame Columns</i>.</p></td></tr>
-</table>
-<h3>Tabulators</h3>
-<table cellpadding=3><tr>
-<td><p>Tabulators will also be covered in Working with Styles, but here we can create and apply frame-wide tab stops. Operationally this is quite easy. Simply click somewhere along the ruler, and a <b>Left</b> tab is created. Adjust <b>Position</b> manually or with the spinbox. If desired you can change the tab type to <b>Right</b>, <b>Period</b>, <b>Comma</b>, or <b>Center</b>. To delete an individual tab, click-drag it off the ruler. </p>
-<p>The space between stops (<b>Fill Char</b>) will by default be white space (<b>None</b>), or can be <b>Dot</b>, <b>Hyphen</b>, <b>Underscore</b> or a <b>Custom</b> character of your choice.</p>
-<p>Tab Types</p>
-<ul>
-<li>Left &ndash; entered text goes to the right of the stop.</li>
-<li>Right &ndash; entered text goes to the left until Tab is pressed again.</li>
-<li>Period &ndash; entered text or numbers center on a period/decimal point, ending when Tab is pressed again.</li>
-<li>Comma &ndash; entered text or numbers center on a comma/decimal separator, ending when Tab is pressed again.</li>
-<li>Center &ndash; entered text centers on the middle of a string, ending when Tab is pressed again.</li>
-</ul>
-</td>
-<td valign="middle"><img src="images/text_tab10.png" ALT="Tabulators" ALIGN="right"></td></tr>
 </table>
 <h3>Optical Margins</h3>
 <table cellpadding=3 width="75%"><tr>
@@ -168,16 +174,25 @@ Unlinking is a similar process. The icon will only be active if you have selecte
 <p>In the image to the right, on the left side we see the edge with no optical margins applied, and the right side shows what we see with optical margins.</td>
 <td><img src="images/text_tab11b.png" ALT="Optical Margins" ALIGN="right"></td></tr>
 </table>
+<h3>Hyphenation</h3>
+<p>This is covered in the page on <a href="hyphenator.html">Hyphenation</a>.</p>
 <h3>Advanced Settings</h3>
 <table cellpadding=3 width="80%">
-<tr><td><p>The upper part of this sub-tab contains some features long present in Scribus, but have simply moved here. Starting from the upper left spinbox and going clockwise, we have an adjustment to baseline, and not just for align to baseline grid, so that selected words can be shifted above or below the baseline for the desired effect.</p>
-<p>Next we have kerning, in which the spaces between glyphs can be adjusted, again in a smaller than normal (negative percent) or larger fashion.</p>
-<p>In the lower right corner we can stretch or shrink glyphs vertically, and in the lower left shrink or stretch horizontally.</p></td>
+<tr><td><p>The upper part of this sub-tab contains some features long present in Scribus, but have simply moved here. Starting from the upper left spinbox and going clockwise, we have <b>Offset to baseline of characters</b>, and not just for align to baseline grid, so that selected words can be shifted above or below the baseline for the desired effect.</p>
+<p>Next we have <b>Manual Tracking</b> or kerning (kerning would apply to adjusting the space only between two particular glyphs), in which the spaces between glyphs can be adjusted, again in a smaller than normal (negative percent) or larger fashion.</p>
+    <p>In the lower right corner <b>Scaling height of characters</b>, and in the lower left <b>Scaling width of characters</b>, each self-explanatory.</p>
+  <p><b>Word Tracking and Glyph Extension</b></p>
+<p>You might consider these a more advanced or intelligent kerning and character width adjustment, where we can, by setting the Minimum and Normal, or Minimum and Maximum parameters, allow for adjustments in spacing in a selective fashion, yet frame-wide. As you adjust these, you will see only some words, some lines adjusting. The idea is to adjust for a more pleasing appearance and even layout of the words in the frame, trying to avoid or eliminate problems like white space rivers.</p>
+</td>
 <td><img src="images/text_tab13.png" ALT="Advanced Settings" ALIGN="right"></td>
 </tr>
 </table>
-<h3>Word Tracking and Glyph Extension</h3>
-<p>You might consider these a more advanced or intelligent kerning and character width adjustment, where we can, by setting the Minimum and Normal, or Minimum and Maximum parameters, allow for adjustments in spacing in a selective fashion, yet frame-wide. As you adjust these, you will see only some words, some lines adjusting. The idea is to adjust for more pleasing, even layout of the words in the frame, trying to avoid or eliminate problems like white space rivers.</p>
+<h3>Open Type Font Features</h3>
+<table cellpadding=3 width="80%">
+  <tr><td valign="top"><p>Thanks to the extremely dedicated work of some developers new to Scribus, we can now offer some advanced features capable with Open Type Fonts, and also true Right-to-Left capability, a feature of languages such as Arabic and Hebrew.</p>
+      <p> This particular section of Text Properties can make use of alternate character sets which are present in OTF. There has been an intensive effort in bringing this about, and we want to encourage users to file reports of any remaining issues they may find with a particular language.</p>
+      <p><i>Note that if you are not using an Open Type Font, you will not have most of these settings available.</i></p></td>
+    <td><img src="images/text_tab16.png" ALT="Open Type Font Features" ALIGN="right"></td></tr></table>
 <hr>
 <p>See also:
 <ul>
