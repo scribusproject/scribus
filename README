@@ -1,4 +1,4 @@
-=What’s New in Scribus 1.5.2?=
+=What’s New in Scribus 1.5.3 ?=
 
 
 This is a cursory overview over the most important changes in Scribus compared to the latest stable version 1.4.x.
@@ -11,7 +11,7 @@ Also note that the 1.5.x series is not an officially stable version. Instead, al
 ￼
 ==General==
 
-Qt 5: As of version 1.5.x, Scribus is being built using version 5 of the Qt toolkit.
+Qt 5: As of version 1.5.3, Scribus is being built using version 5.6 of the Qt toolkit.
 
 More dependencies: Scribus 1.5.x makes extensive use of many more external libraries than earlier versions, especially for import filters. In most cases Scribus needs to be explicitly compiled against these libraries, so they become dependencies. In other cases (e.g. UniConvertor), Scribus will detect an installed version automatically. Note that full support for some libraries may not be available on Mac OS X and Windows until the final 1.6.0 release.
 

@@ -27,14 +27,15 @@ exact package names for the distro, are provided below.
 Install the below packages BEFORE running CMake or compiling Scribus:
 
 Requirements:
-	Qt >= 5.6.0 (Scribus has specific code requiring Qt 5.6.0, not Qt 5.5.x or before)
+	Qt >= 5.5.0 (Scribus has specific code requiring Qt 5.5.0, not Qt 5.4.x or before)
 	Freetype >= 2.1.7 (2.3.x strongly recommended)
 	cairo >= 1.14.x 
 	libtiff >= 3.6.0
 	LittleCMS (liblcms) >= 2.0 (2.1+ recommended)
 	libjpeg (depending on how Qt is packaged)
 	harfbuzz = > 0.9.42
-
+	libicu
+	
 Recommended:
 	CUPS
 	Fontconfig >= 2.0
@@ -249,7 +250,7 @@ More info can be found in the README.
 Suse/Opensuse
 =============
 
-Recommended packages for compiling from source on SuSE 13.x:
+Recommended packages for compiling from source on SuSE 13.2 => :
 	libqt5-qtbase-devel (required)
 	libqt5-qtdeclarative-devel (required)
 	libqt5-qttools-devel (required)
@@ -273,6 +274,8 @@ Recommended packages for compiling from source on SuSE 13.x:
 	libGraphicsMagick++-devel
 	libOpenSceneGraph-devel  *Optional- but available from the games repo
 	update-desktop-files
+	libicu
+	harfbuzz-devel
 
 You can install these packages using YaST. You may find it difficult to compile
 Scribus 1.5.3+ on anything older than Suse 13.2.
