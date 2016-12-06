@@ -13700,8 +13700,8 @@ Please disable experimental PDF and PS embedding and try again.</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem.cpp" line="7501"/>
         <location filename="../../scribus/pageitem.cpp" line="7502"/>
+        <location filename="../../scribus/pageitem.cpp" line="7503"/>
         <source>Copy of</source>
         <translation>Copy of</translation>
     </message>
@@ -17863,9 +17863,8 @@ Do you want to migrate them to the new Scribus version?</translation>
         <translation type="unfinished">General</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="53"/>
         <source>Language</source>
-        <translation type="unfinished">Language</translation>
+        <translation type="obsolete">Language</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="84"/>
@@ -18027,6 +18026,11 @@ Do you want to migrate them to the new Scribus version?</translation>
         <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="254"/>
         <source>4-Fold</source>
         <translation>4-Fold</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="53"/>
+        <source>Language:</source>
+        <translation type="unfinished">Language:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="237"/>
@@ -23177,6 +23181,16 @@ Transparency</translation>
 <context>
     <name>PropertiesPalette_TableBase</name>
     <message>
+        <location filename="../../scribus/ui/propertiespalette_tablebase.ui" line="26"/>
+        <source>Table:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertiespalette_tablebase.ui" line="62"/>
+        <source>Cells:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../../scribus/ui/propertiespalette_tablebase.ui" line="75"/>
         <source>Cell style of currently selected cell</source>
         <translation type="unfinished">Cell style of currently selected cell</translation>
@@ -23230,9 +23244,8 @@ Transparency</translation>
         <translation>Styles</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_tablebase.ui" line="26"/>
         <source>Table</source>
-        <translation>Table</translation>
+        <translation type="vanished">Table</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_tablebase.ui" line="39"/>
@@ -23245,9 +23258,8 @@ Transparency</translation>
         <translation type="unfinished">Remove Direct Table Formatting</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_tablebase.ui" line="62"/>
         <source>Cells</source>
-        <translation>Cells</translation>
+        <translation type="vanished">Cells</translation>
     </message>
 </context>
 <context>
@@ -24444,7 +24456,7 @@ A value of 0 means unlimited hyphenations.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_hyphenationbase.ui" line="103"/>
-        <source>Hyphenation Character</source>
+        <source>Hyphenation Character:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -24521,82 +24533,96 @@ A value of 0 means unlimited hyphenations.</translation>
 <context>
     <name>PropertyWidget_Orphans</name>
     <message>
-        <location filename="../../scribus/ui/propertywidget_orphans.cpp" line="96"/>
         <source>Don&apos;t separate first</source>
-        <translation>Don&apos;t separate first</translation>
+        <translation type="vanished">Don&apos;t separate first</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_orphans.cpp" line="97"/>
         <source>Don&apos;t separate last</source>
-        <translation>Don&apos;t separate last</translation>
+        <translation type="vanished">Don&apos;t separate last</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_orphans.cpp" line="98"/>
-        <location filename="../../scribus/ui/propertywidget_orphans.cpp" line="99"/>
         <source> lines</source>
-        <translation> lines</translation>
+        <translation type="vanished"> lines</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_orphans.cpp" line="100"/>
         <source>Do not split paragraph</source>
-        <translation>Do not split paragraph</translation>
+        <translation type="vanished">Do not split paragraph</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_orphans.cpp" line="101"/>
         <source>Keep with next paragraph</source>
-        <translation>Keep with next paragraph</translation>
+        <translation type="vanished">Keep with next paragraph</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_orphans.cpp" line="103"/>
         <source>Ensure that first lines of a paragraph won&apos;t end up separated from the rest (known as widow/orphan control)</source>
-        <translation>Ensure that first lines of a paragraph won&apos;t end up separated from the rest (known as widow/orphan control)</translation>
+        <translation type="vanished">Ensure that first lines of a paragraph won&apos;t end up separated from the rest (known as widow/orphan control)</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_orphans.cpp" line="104"/>
         <source>Ensure that last lines of a paragraph won&apos;t end up separated from the rest (known as widow/orphan control)</source>
-        <translation>Ensure that last lines of a paragraph won&apos;t end up separated from the rest (known as widow/orphan control)</translation>
+        <translation type="vanished">Ensure that last lines of a paragraph won&apos;t end up separated from the rest (known as widow/orphan control)</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_orphans.cpp" line="107"/>
         <source>If checked, ensures that the paragraph won&apos;t be split across multiple pages or columns</source>
-        <translation>If checked, ensures that the paragraph won&apos;t be split across multiple pages or columns</translation>
+        <translation type="vanished">If checked, ensures that the paragraph won&apos;t be split across multiple pages or columns</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_orphans.cpp" line="108"/>
         <source>If checked, automatically moves the paragraph to the next column or page if the next paragraph isn&apos;t on the same page or column</source>
-        <translation>If checked, automatically moves the paragraph to the next column or page if the next paragraph isn&apos;t on the same page or column</translation>
+        <translation type="vanished">If checked, automatically moves the paragraph to the next column or page if the next paragraph isn&apos;t on the same page or column</translation>
     </message>
 </context>
 <context>
     <name>PropertyWidget_OrphansBase</name>
     <message>
         <location filename="../../scribus/ui/propertywidget_orphansbase.ui" line="20"/>
+        <location filename="../../scribus/ui/propertywidget_orphansbase.ui" line="30"/>
         <source>Ensure that first lines of a paragraph won&apos;t end up separated from the rest (known as widow/orphan control)</source>
         <translation>Ensure that first lines of a paragraph won&apos;t end up separated from the rest (known as widow/orphan control)</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_orphansbase.ui" line="23"/>
         <source>Don&apos;t separate first</source>
-        <translation>Don&apos;t separate first</translation>
+        <translation type="vanished">Don&apos;t separate first</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_orphansbase.ui" line="30"/>
-        <location filename="../../scribus/ui/propertywidget_orphansbase.ui" line="47"/>
+        <location filename="../../scribus/ui/propertywidget_orphansbase.ui" line="33"/>
+        <location filename="../../scribus/ui/propertywidget_orphansbase.ui" line="53"/>
         <source> lines</source>
         <translation> lines</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_orphansbase.ui" line="40"/>
         <source>Don&apos;t separate last</source>
-        <translation>Don&apos;t separate last</translation>
+        <translation type="vanished">Don&apos;t separate last</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_orphansbase.ui" line="57"/>
+        <location filename="../../scribus/ui/propertywidget_orphansbase.ui" line="23"/>
+        <source>Don&apos;t separate first:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertywidget_orphansbase.ui" line="43"/>
+        <source>Don&apos;t separate last:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertywidget_orphansbase.ui" line="50"/>
+        <source>Ensure that last lines of a paragraph won&apos;t end up separated from the rest (known as widow/orphan control)</source>
+        <translation type="unfinished">Ensure that last lines of a paragraph won&apos;t end up separated from the rest (known as widow/orphan control)</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertywidget_orphansbase.ui" line="63"/>
+        <source>If checked, ensures that the paragraph won&apos;t be split across multiple pages or columns</source>
+        <translation type="unfinished">If checked, ensures that the paragraph won&apos;t be split across multiple pages or columns</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertywidget_orphansbase.ui" line="66"/>
         <source>Do not split paragraph</source>
         <translation>Do not split paragraph</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_orphansbase.ui" line="64"/>
+        <location filename="../../scribus/ui/propertywidget_orphansbase.ui" line="73"/>
+        <source>If checked, automatically moves the paragraph to the next column or page if the next paragraph isn&apos;t on the same page or column</source>
+        <translation type="unfinished">If checked, automatically moves the paragraph to the next column or page if the next paragraph isn&apos;t on the same page or column</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertywidget_orphansbase.ui" line="76"/>
         <source>Keep with next paragraph</source>
         <translation>Keep with next paragraph</translation>
     </message>
@@ -30229,7 +30255,7 @@ is not exhaustive due to exceptions from called functions.
         <translation>JPEG</translation>
     </message>
     <message>
-        <location filename="../../scribus/util_formats.cpp" line="88"/>
+        <location filename="../../scribus/util_formats.cpp" line="87"/>
         <source>Krita</source>
         <translation type="unfinished"></translation>
     </message>
@@ -31232,7 +31258,7 @@ Therefore the image may be not correct</source>
         <translation>Adobe Illustrator</translation>
     </message>
     <message>
-        <location filename="../../scribus/util_formats.cpp" line="87"/>
+        <location filename="../../scribus/util_formats.cpp" line="88"/>
         <source>Open Raster</source>
         <translation>Open Raster</translation>
     </message>
@@ -32010,13 +32036,13 @@ Please choose another.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smcstylewidget.ui" line="474"/>
-        <source>Hyphenation Character</source>
+        <source>Hyphenation Character:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smcstylewidget.ui" line="501"/>
-        <source>Smallest Word</source>
-        <translation type="unfinished"></translation>
+        <source>Smallest Word:</source>
+        <translation type="unfinished">Smallest Word:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smcstylewidget.ui" line="515"/>
@@ -36017,17 +36043,17 @@ Consider using the Preflight Verifier to correct them</translation>
         <translation>Cancel</translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem.cpp" line="10240"/>
+        <location filename="../../scribus/pageitem.cpp" line="10241"/>
         <source>Print: </source>
         <translation>Print: </translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem.cpp" line="10242"/>
+        <location filename="../../scribus/pageitem.cpp" line="10243"/>
         <source>Enabled</source>
         <translation>Enabled</translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem.cpp" line="10244"/>
+        <location filename="../../scribus/pageitem.cpp" line="10245"/>
         <source>Disabled</source>
         <translation>Disabled</translation>
     </message>

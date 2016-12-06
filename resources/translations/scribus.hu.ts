@@ -13663,8 +13663,8 @@ A kísérleti PDF és PS beágyazás kikapcsolásával érdemes újrapróbálni.
         <translation>Szimbólum</translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem.cpp" line="7501"/>
         <location filename="../../scribus/pageitem.cpp" line="7502"/>
+        <location filename="../../scribus/pageitem.cpp" line="7503"/>
         <source>Copy of</source>
         <translation>Másolata</translation>
     </message>
@@ -17825,9 +17825,8 @@ Do you want to migrate them to the new Scribus version?</source>
         <translation type="unfinished">Általános</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="53"/>
         <source>Language</source>
-        <translation type="unfinished">Nyelv</translation>
+        <translation type="obsolete">Nyelv</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="84"/>
@@ -17989,6 +17988,11 @@ Do you want to migrate them to the new Scribus version?</source>
         <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="254"/>
         <source>4-Fold</source>
         <translation>Négyrét hajtott</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="53"/>
+        <source>Language:</source>
+        <translation type="unfinished">Nyelv:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="237"/>
@@ -23137,6 +23141,16 @@ Transparency</source>
 <context>
     <name>PropertiesPalette_TableBase</name>
     <message>
+        <location filename="../../scribus/ui/propertiespalette_tablebase.ui" line="26"/>
+        <source>Table:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertiespalette_tablebase.ui" line="62"/>
+        <source>Cells:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../../scribus/ui/propertiespalette_tablebase.ui" line="75"/>
         <source>Cell style of currently selected cell</source>
         <translation type="unfinished">Az éppen kijelölt cella cellastílusa</translation>
@@ -23190,9 +23204,8 @@ Transparency</source>
         <translation>Stílusok</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_tablebase.ui" line="26"/>
         <source>Table</source>
-        <translation>Táblázat</translation>
+        <translation type="vanished">Táblázat</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_tablebase.ui" line="39"/>
@@ -23205,9 +23218,8 @@ Transparency</source>
         <translation type="unfinished">Közvetlen táblázatformázás eltávolítása</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_tablebase.ui" line="62"/>
         <source>Cells</source>
-        <translation>Cellák</translation>
+        <translation type="vanished">Cellák</translation>
     </message>
 </context>
 <context>
@@ -24403,7 +24415,7 @@ A value of 0 means unlimited hyphenations.</source>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_hyphenationbase.ui" line="103"/>
-        <source>Hyphenation Character</source>
+        <source>Hyphenation Character:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -24480,82 +24492,96 @@ A value of 0 means unlimited hyphenations.</source>
 <context>
     <name>PropertyWidget_Orphans</name>
     <message>
-        <location filename="../../scribus/ui/propertywidget_orphans.cpp" line="96"/>
         <source>Don&apos;t separate first</source>
-        <translation>Egyben tartott első</translation>
+        <translation type="vanished">Egyben tartott első</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_orphans.cpp" line="97"/>
         <source>Don&apos;t separate last</source>
-        <translation>Egyben tartott utolsó</translation>
+        <translation type="vanished">Egyben tartott utolsó</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_orphans.cpp" line="98"/>
-        <location filename="../../scribus/ui/propertywidget_orphans.cpp" line="99"/>
         <source> lines</source>
-        <translation> sor</translation>
+        <translation type="vanished"> sor</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_orphans.cpp" line="100"/>
         <source>Do not split paragraph</source>
-        <translation>Bekezdés egyben tartása</translation>
+        <translation type="vanished">Bekezdés egyben tartása</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_orphans.cpp" line="101"/>
         <source>Keep with next paragraph</source>
-        <translation>Együtt a következővel</translation>
+        <translation type="vanished">Együtt a következővel</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_orphans.cpp" line="103"/>
         <source>Ensure that first lines of a paragraph won&apos;t end up separated from the rest (known as widow/orphan control)</source>
-        <translation>Biztosítja, hogy a bekezdés első sorai ne különüljenek el a többitől (l.: árva- és fattyúsorok beállítása)</translation>
+        <translation type="vanished">Biztosítja, hogy a bekezdés első sorai ne különüljenek el a többitől (l.: árva- és fattyúsorok beállítása)</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_orphans.cpp" line="104"/>
         <source>Ensure that last lines of a paragraph won&apos;t end up separated from the rest (known as widow/orphan control)</source>
-        <translation>Biztosítja, hogy a bekezdés utolsó sorai ne különüljenek el a többitől (l.: árva- és fattyúsorok beállítása)</translation>
+        <translation type="vanished">Biztosítja, hogy a bekezdés utolsó sorai ne különüljenek el a többitől (l.: árva- és fattyúsorok beállítása)</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_orphans.cpp" line="107"/>
         <source>If checked, ensures that the paragraph won&apos;t be split across multiple pages or columns</source>
-        <translation>Bejelölve biztosítja, hogy a bekezdés ne törjön meg egy oldal vagy hasáb határán</translation>
+        <translation type="vanished">Bejelölve biztosítja, hogy a bekezdés ne törjön meg egy oldal vagy hasáb határán</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_orphans.cpp" line="108"/>
         <source>If checked, automatically moves the paragraph to the next column or page if the next paragraph isn&apos;t on the same page or column</source>
-        <translation>Bejelölve a bekezdés automatikusan a következő oldalra vagy hasábba kerül, ha a következő bekezdés nincs vele egy oldalon vagy hasábon</translation>
+        <translation type="vanished">Bejelölve a bekezdés automatikusan a következő oldalra vagy hasábba kerül, ha a következő bekezdés nincs vele egy oldalon vagy hasábon</translation>
     </message>
 </context>
 <context>
     <name>PropertyWidget_OrphansBase</name>
     <message>
         <location filename="../../scribus/ui/propertywidget_orphansbase.ui" line="20"/>
+        <location filename="../../scribus/ui/propertywidget_orphansbase.ui" line="30"/>
         <source>Ensure that first lines of a paragraph won&apos;t end up separated from the rest (known as widow/orphan control)</source>
         <translation>Biztosítja, hogy a bekezdés első sorai ne különüljenek el a többitől (l.: árva- és fattyúsorok beállítása)</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_orphansbase.ui" line="23"/>
         <source>Don&apos;t separate first</source>
-        <translation>Egyben tartott első</translation>
+        <translation type="vanished">Egyben tartott első</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_orphansbase.ui" line="30"/>
-        <location filename="../../scribus/ui/propertywidget_orphansbase.ui" line="47"/>
+        <location filename="../../scribus/ui/propertywidget_orphansbase.ui" line="33"/>
+        <location filename="../../scribus/ui/propertywidget_orphansbase.ui" line="53"/>
         <source> lines</source>
         <translation> sor</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_orphansbase.ui" line="40"/>
         <source>Don&apos;t separate last</source>
-        <translation>Egyben tartott utolsó</translation>
+        <translation type="vanished">Egyben tartott utolsó</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_orphansbase.ui" line="57"/>
+        <location filename="../../scribus/ui/propertywidget_orphansbase.ui" line="23"/>
+        <source>Don&apos;t separate first:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertywidget_orphansbase.ui" line="43"/>
+        <source>Don&apos;t separate last:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertywidget_orphansbase.ui" line="50"/>
+        <source>Ensure that last lines of a paragraph won&apos;t end up separated from the rest (known as widow/orphan control)</source>
+        <translation type="unfinished">Biztosítja, hogy a bekezdés utolsó sorai ne különüljenek el a többitől (l.: árva- és fattyúsorok beállítása)</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertywidget_orphansbase.ui" line="63"/>
+        <source>If checked, ensures that the paragraph won&apos;t be split across multiple pages or columns</source>
+        <translation type="unfinished">Bejelölve biztosítja, hogy a bekezdés ne törjön meg egy oldal vagy hasáb határán</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertywidget_orphansbase.ui" line="66"/>
         <source>Do not split paragraph</source>
         <translation>Bekezdés egyben tartása</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_orphansbase.ui" line="64"/>
+        <location filename="../../scribus/ui/propertywidget_orphansbase.ui" line="73"/>
+        <source>If checked, automatically moves the paragraph to the next column or page if the next paragraph isn&apos;t on the same page or column</source>
+        <translation type="unfinished">Bejelölve a bekezdés automatikusan a következő oldalra vagy hasábba kerül, ha a következő bekezdés nincs vele egy oldalon vagy hasábon</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertywidget_orphansbase.ui" line="76"/>
         <source>Keep with next paragraph</source>
         <translation>Együtt a következővel</translation>
     </message>
@@ -30191,7 +30217,7 @@ lista hiányos a meghívott funkciók miatt.</translation>
         <translation>JPEG</translation>
     </message>
     <message>
-        <location filename="../../scribus/util_formats.cpp" line="88"/>
+        <location filename="../../scribus/util_formats.cpp" line="87"/>
         <source>Krita</source>
         <translation type="unfinished"></translation>
     </message>
@@ -31197,7 +31223,7 @@ A kép valószínű nem lesz így helyes</translation>
         <translation>Adobe Illustrator</translation>
     </message>
     <message>
-        <location filename="../../scribus/util_formats.cpp" line="87"/>
+        <location filename="../../scribus/util_formats.cpp" line="88"/>
         <source>Open Raster</source>
         <translation>Open Raster</translation>
     </message>
@@ -31975,13 +32001,13 @@ Kérem, válasszon másikat.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smcstylewidget.ui" line="474"/>
-        <source>Hyphenation Character</source>
+        <source>Hyphenation Character:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smcstylewidget.ui" line="501"/>
-        <source>Smallest Word</source>
-        <translation type="unfinished"></translation>
+        <source>Smallest Word:</source>
+        <translation type="unfinished">Legrövidebb szó:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smcstylewidget.ui" line="515"/>
@@ -35980,17 +36006,17 @@ Tekintse meg őket az Elővizsgálóval, hogy javítani tudja</translation>
         <translation>Mégse</translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem.cpp" line="10240"/>
+        <location filename="../../scribus/pageitem.cpp" line="10241"/>
         <source>Print: </source>
         <translation>Nyomtatás:</translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem.cpp" line="10242"/>
+        <location filename="../../scribus/pageitem.cpp" line="10243"/>
         <source>Enabled</source>
         <translation>Engedélyezve</translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem.cpp" line="10244"/>
+        <location filename="../../scribus/pageitem.cpp" line="10245"/>
         <source>Disabled</source>
         <translation>Tiltva</translation>
     </message>

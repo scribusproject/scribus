@@ -13702,8 +13702,8 @@ Please disable experimental PDF and PS embedding and try again.</source>
         <translation>Simbolo</translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem.cpp" line="7501"/>
         <location filename="../../scribus/pageitem.cpp" line="7502"/>
+        <location filename="../../scribus/pageitem.cpp" line="7503"/>
         <source>Copy of</source>
         <translation>Kopio de</translation>
     </message>
@@ -17866,9 +17866,8 @@ Do you want to migrate them to the new Scribus version?</source>
         <translation type="unfinished">Ĝenerala</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="53"/>
         <source>Language</source>
-        <translation type="unfinished">Lingvo</translation>
+        <translation type="obsolete">Lingvo</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="84"/>
@@ -18030,6 +18029,11 @@ Do you want to migrate them to the new Scribus version?</source>
         <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="254"/>
         <source>4-Fold</source>
         <translation>Kvarfaldfolio</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="53"/>
+        <source>Language:</source>
+        <translation type="unfinished">Lingvo:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="237"/>
@@ -23183,6 +23187,16 @@ de la objekto</translation>
 <context>
     <name>PropertiesPalette_TableBase</name>
     <message>
+        <location filename="../../scribus/ui/propertiespalette_tablebase.ui" line="26"/>
+        <source>Table:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertiespalette_tablebase.ui" line="62"/>
+        <source>Cells:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../../scribus/ui/propertiespalette_tablebase.ui" line="75"/>
         <source>Cell style of currently selected cell</source>
         <translation type="unfinished">Ĉelstilo de la elektita ĉelo</translation>
@@ -23236,9 +23250,8 @@ de la objekto</translation>
         <translation>Stiloj</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_tablebase.ui" line="26"/>
         <source>Table</source>
-        <translation>Tabelo</translation>
+        <translation type="vanished">Tabelo</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_tablebase.ui" line="39"/>
@@ -23251,9 +23264,8 @@ de la objekto</translation>
         <translation type="unfinished">Forigu la senperan tabefolrmatadon</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_tablebase.ui" line="62"/>
         <source>Cells</source>
-        <translation>Ĉeloj</translation>
+        <translation type="vanished">Ĉeloj</translation>
     </message>
 </context>
 <context>
@@ -24450,7 +24462,7 @@ Valoro egala al 0 signifas senlimajn dividojn.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_hyphenationbase.ui" line="103"/>
-        <source>Hyphenation Character</source>
+        <source>Hyphenation Character:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -24527,82 +24539,96 @@ Valoro egala al 0 signifas senlimajn dividojn.</translation>
 <context>
     <name>PropertyWidget_Orphans</name>
     <message>
-        <location filename="../../scribus/ui/propertywidget_orphans.cpp" line="96"/>
         <source>Don&apos;t separate first</source>
-        <translation>Ne disigu la unuajn</translation>
+        <translation type="vanished">Ne disigu la unuajn</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_orphans.cpp" line="97"/>
         <source>Don&apos;t separate last</source>
-        <translation>Ne disigu la lastajn</translation>
+        <translation type="vanished">Ne disigu la lastajn</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_orphans.cpp" line="98"/>
-        <location filename="../../scribus/ui/propertywidget_orphans.cpp" line="99"/>
         <source> lines</source>
-        <translation>linioj</translation>
+        <translation type="vanished">linioj</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_orphans.cpp" line="100"/>
         <source>Do not split paragraph</source>
-        <translation>Ne disigu alineojn</translation>
+        <translation type="vanished">Ne disigu alineojn</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_orphans.cpp" line="101"/>
         <source>Keep with next paragraph</source>
-        <translation>Ne disigu disde la posta alineo</translation>
+        <translation type="vanished">Ne disigu disde la posta alineo</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_orphans.cpp" line="103"/>
         <source>Ensure that first lines of a paragraph won&apos;t end up separated from the rest (known as widow/orphan control)</source>
-        <translation>Klopodu, ke la unuaj linioj de alineo ne estu disigitaj de la cetero (&quot;konata kiel kontrolo de vidvinoj/orfoj&quot;)</translation>
+        <translation type="vanished">Klopodu, ke la unuaj linioj de alineo ne estu disigitaj de la cetero (&quot;konata kiel kontrolo de vidvinoj/orfoj&quot;)</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_orphans.cpp" line="104"/>
         <source>Ensure that last lines of a paragraph won&apos;t end up separated from the rest (known as widow/orphan control)</source>
-        <translation>Klopodu, ke la lastaj linioj de alineo ne estu disigitaj de la cetero (&quot;konata kiel kontrolo de vidvinoj/orfoj&quot;)</translation>
+        <translation type="vanished">Klopodu, ke la lastaj linioj de alineo ne estu disigitaj de la cetero (&quot;konata kiel kontrolo de vidvinoj/orfoj&quot;)</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_orphans.cpp" line="107"/>
         <source>If checked, ensures that the paragraph won&apos;t be split across multiple pages or columns</source>
-        <translation>Se markita, klopodas ke la alineo ne estu disigita inter pluraj paĝoj aŭ kolumnoj</translation>
+        <translation type="vanished">Se markita, klopodas ke la alineo ne estu disigita inter pluraj paĝoj aŭ kolumnoj</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_orphans.cpp" line="108"/>
         <source>If checked, automatically moves the paragraph to the next column or page if the next paragraph isn&apos;t on the same page or column</source>
-        <translation>Se markita, ŝovas aŭtomate la alineon al la proksima kolumno aŭ paĝo, se la venonta alineo ne estas sur la sama paĝo aŭ kolumno</translation>
+        <translation type="vanished">Se markita, ŝovas aŭtomate la alineon al la proksima kolumno aŭ paĝo, se la venonta alineo ne estas sur la sama paĝo aŭ kolumno</translation>
     </message>
 </context>
 <context>
     <name>PropertyWidget_OrphansBase</name>
     <message>
         <location filename="../../scribus/ui/propertywidget_orphansbase.ui" line="20"/>
+        <location filename="../../scribus/ui/propertywidget_orphansbase.ui" line="30"/>
         <source>Ensure that first lines of a paragraph won&apos;t end up separated from the rest (known as widow/orphan control)</source>
         <translation>Klopodu, ke la unuaj linioj de alineo ne estu disigitaj de la cetero (&quot;konata kiel kontrolo de vidvinoj/orfoj&quot;)</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_orphansbase.ui" line="23"/>
         <source>Don&apos;t separate first</source>
-        <translation>Ne disigu la unuajn</translation>
+        <translation type="vanished">Ne disigu la unuajn</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_orphansbase.ui" line="30"/>
-        <location filename="../../scribus/ui/propertywidget_orphansbase.ui" line="47"/>
+        <location filename="../../scribus/ui/propertywidget_orphansbase.ui" line="33"/>
+        <location filename="../../scribus/ui/propertywidget_orphansbase.ui" line="53"/>
         <source> lines</source>
         <translation>linioj</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_orphansbase.ui" line="40"/>
         <source>Don&apos;t separate last</source>
-        <translation>Ne disigu la lastajn</translation>
+        <translation type="vanished">Ne disigu la lastajn</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_orphansbase.ui" line="57"/>
+        <location filename="../../scribus/ui/propertywidget_orphansbase.ui" line="23"/>
+        <source>Don&apos;t separate first:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertywidget_orphansbase.ui" line="43"/>
+        <source>Don&apos;t separate last:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertywidget_orphansbase.ui" line="50"/>
+        <source>Ensure that last lines of a paragraph won&apos;t end up separated from the rest (known as widow/orphan control)</source>
+        <translation type="unfinished">Klopodu, ke la lastaj linioj de alineo ne estu disigitaj de la cetero (&quot;konata kiel kontrolo de vidvinoj/orfoj&quot;)</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertywidget_orphansbase.ui" line="63"/>
+        <source>If checked, ensures that the paragraph won&apos;t be split across multiple pages or columns</source>
+        <translation type="unfinished">Se markita, klopodas ke la alineo ne estu disigita inter pluraj paĝoj aŭ kolumnoj</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertywidget_orphansbase.ui" line="66"/>
         <source>Do not split paragraph</source>
         <translation>Ne disigu alineojn</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_orphansbase.ui" line="64"/>
+        <location filename="../../scribus/ui/propertywidget_orphansbase.ui" line="73"/>
+        <source>If checked, automatically moves the paragraph to the next column or page if the next paragraph isn&apos;t on the same page or column</source>
+        <translation type="unfinished">Se markita, ŝovas aŭtomate la alineon al la proksima kolumno aŭ paĝo, se la venonta alineo ne estas sur la sama paĝo aŭ kolumno</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertywidget_orphansbase.ui" line="76"/>
         <source>Keep with next paragraph</source>
         <translation>Ne disigu disde la posta alineo</translation>
     </message>
@@ -30244,7 +30270,7 @@ de la funkcioj, kvankam, kiel plejparto de la Pitona kodo, ĉi tiu listo estas n
         <translation>JPEG</translation>
     </message>
     <message>
-        <location filename="../../scribus/util_formats.cpp" line="88"/>
+        <location filename="../../scribus/util_formats.cpp" line="87"/>
         <source>Krita</source>
         <translation type="unfinished"></translation>
     </message>
@@ -31251,7 +31277,7 @@ Do, la bildo povas esti ne ĝusta</translation>
         <translation>Adobe Illustrator</translation>
     </message>
     <message>
-        <location filename="../../scribus/util_formats.cpp" line="87"/>
+        <location filename="../../scribus/util_formats.cpp" line="88"/>
         <source>Open Raster</source>
         <translation>Open Raster</translation>
     </message>
@@ -32029,13 +32055,13 @@ Bonvolu elekti alian.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smcstylewidget.ui" line="474"/>
-        <source>Hyphenation Character</source>
+        <source>Hyphenation Character:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smcstylewidget.ui" line="501"/>
-        <source>Smallest Word</source>
-        <translation type="unfinished"></translation>
+        <source>Smallest Word:</source>
+        <translation type="unfinished">Plej mallonga vorto:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smcstylewidget.ui" line="515"/>
@@ -36037,17 +36063,17 @@ Pripensu ĉu uzi la antaŭkontrolon por korekti ilin</translation>
         <translation>Rezignu</translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem.cpp" line="10240"/>
+        <location filename="../../scribus/pageitem.cpp" line="10241"/>
         <source>Print: </source>
         <translation>Printo:</translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem.cpp" line="10242"/>
+        <location filename="../../scribus/pageitem.cpp" line="10243"/>
         <source>Enabled</source>
         <translation>Ebligita</translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem.cpp" line="10244"/>
+        <location filename="../../scribus/pageitem.cpp" line="10245"/>
         <source>Disabled</source>
         <translation>Neebligita</translation>
     </message>

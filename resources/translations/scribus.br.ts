@@ -13712,8 +13712,8 @@ Please disable experimental PDF and PS embedding and try again.</source>
         <translation>Arouez</translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem.cpp" line="7501"/>
         <location filename="../../scribus/pageitem.cpp" line="7502"/>
+        <location filename="../../scribus/pageitem.cpp" line="7503"/>
         <source>Copy of</source>
         <translation>Eilad eus</translation>
     </message>
@@ -17877,9 +17877,8 @@ Ha fellout a ra deoc&apos;h o zreuztiriañ betek handelv nevez Scribus ?</transl
         <translation type="unfinished">Hollek</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="53"/>
         <source>Language</source>
-        <translation type="unfinished">Yezh</translation>
+        <translation type="obsolete">Yezh</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="84"/>
@@ -18041,6 +18040,11 @@ Ha fellout a ra deoc&apos;h o zreuztiriañ betek handelv nevez Scribus ?</transl
         <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="254"/>
         <source>4-Fold</source>
         <translation>4 stalaf</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="53"/>
+        <source>Language:</source>
+        <translation type="unfinished">Yezh :</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="237"/>
@@ -23198,6 +23202,16 @@ Boullder</translation>
 <context>
     <name>PropertiesPalette_TableBase</name>
     <message>
+        <location filename="../../scribus/ui/propertiespalette_tablebase.ui" line="26"/>
+        <source>Table:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertiespalette_tablebase.ui" line="62"/>
+        <source>Cells:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../../scribus/ui/propertiespalette_tablebase.ui" line="75"/>
         <source>Cell style of currently selected cell</source>
         <translation type="unfinished">Stil an arouezenn er gellig diuzet</translation>
@@ -23251,9 +23265,8 @@ Boullder</translation>
         <translation>Stiloù</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_tablebase.ui" line="26"/>
         <source>Table</source>
-        <translation>Taolenn</translation>
+        <translation type="vanished">Taolenn</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_tablebase.ui" line="39"/>
@@ -23266,9 +23279,8 @@ Boullder</translation>
         <translation type="unfinished">Dilemel mentrezhadur end-eeun an daolenn</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_tablebase.ui" line="62"/>
         <source>Cells</source>
-        <translation>Kelligoù</translation>
+        <translation type="vanished">Kelligoù</translation>
     </message>
 </context>
 <context>
@@ -24465,7 +24477,7 @@ Ar werzh 0 a dalv troc&apos;hadurioù gerioù anbevenn.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_hyphenationbase.ui" line="103"/>
-        <source>Hyphenation Character</source>
+        <source>Hyphenation Character:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -24542,82 +24554,96 @@ Ar werzh 0 a dalv troc&apos;hadurioù gerioù anbevenn.</translation>
 <context>
     <name>PropertyWidget_Orphans</name>
     <message>
-        <location filename="../../scribus/ui/propertywidget_orphans.cpp" line="96"/>
         <source>Don&apos;t separate first</source>
-        <translation>Arabat disrannañ ar re gentañ</translation>
+        <translation type="vanished">Arabat disrannañ ar re gentañ</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_orphans.cpp" line="97"/>
         <source>Don&apos;t separate last</source>
-        <translation>Arabat disrannañ ar re ziwezhañ</translation>
+        <translation type="vanished">Arabat disrannañ ar re ziwezhañ</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_orphans.cpp" line="98"/>
-        <location filename="../../scribus/ui/propertywidget_orphans.cpp" line="99"/>
         <source> lines</source>
-        <translation>linenn</translation>
+        <translation type="vanished">linenn</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_orphans.cpp" line="100"/>
         <source>Do not split paragraph</source>
-        <translation>Na droc&apos;hañ ar rannbennad</translation>
+        <translation type="vanished">Na droc&apos;hañ ar rannbennad</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_orphans.cpp" line="101"/>
         <source>Keep with next paragraph</source>
-        <translation>Mirout gant ar rannbennad da zont</translation>
+        <translation type="vanished">Mirout gant ar rannbennad da zont</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_orphans.cpp" line="103"/>
         <source>Ensure that first lines of a paragraph won&apos;t end up separated from the rest (known as widow/orphan control)</source>
-        <translation>Bezit sur ne vo ket disrannet linnennoù kentañ ar rannbennad diouzh ar peurrest (anvet reolerezh an intañvezed/emzivaded)</translation>
+        <translation type="vanished">Bezit sur ne vo ket disrannet linnennoù kentañ ar rannbennad diouzh ar peurrest (anvet reolerezh an intañvezed/emzivaded)</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_orphans.cpp" line="104"/>
         <source>Ensure that last lines of a paragraph won&apos;t end up separated from the rest (known as widow/orphan control)</source>
-        <translation>Bezit sur ne vo ket disrannet linnennoù diwezhañ ar rannbennad diouzh ar peurrest (anvet reolerezh an intañvezed/emzivaded)</translation>
+        <translation type="vanished">Bezit sur ne vo ket disrannet linnennoù diwezhañ ar rannbennad diouzh ar peurrest (anvet reolerezh an intañvezed/emzivaded)</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_orphans.cpp" line="107"/>
         <source>If checked, ensures that the paragraph won&apos;t be split across multiple pages or columns</source>
-        <translation>Mar kevasket e lakaa ar rannbennadoù da chom didroc&apos;h hep bezañ troc&apos;het war meur a bajenn pe vann.</translation>
+        <translation type="vanished">Mar kevasket e lakaa ar rannbennadoù da chom didroc&apos;h hep bezañ troc&apos;het war meur a bajenn pe vann.</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_orphans.cpp" line="108"/>
         <source>If checked, automatically moves the paragraph to the next column or page if the next paragraph isn&apos;t on the same page or column</source>
-        <translation>Mar kevasket e tilec&apos;h ent emgefreek ar rannbennad er bannad testenn pe er bajennad war-lec&apos;h ma n&apos;emañ ket ar rannbennad war-lec&apos;h war an hevelep bann pe bajennad.</translation>
+        <translation type="vanished">Mar kevasket e tilec&apos;h ent emgefreek ar rannbennad er bannad testenn pe er bajennad war-lec&apos;h ma n&apos;emañ ket ar rannbennad war-lec&apos;h war an hevelep bann pe bajennad.</translation>
     </message>
 </context>
 <context>
     <name>PropertyWidget_OrphansBase</name>
     <message>
         <location filename="../../scribus/ui/propertywidget_orphansbase.ui" line="20"/>
+        <location filename="../../scribus/ui/propertywidget_orphansbase.ui" line="30"/>
         <source>Ensure that first lines of a paragraph won&apos;t end up separated from the rest (known as widow/orphan control)</source>
         <translation>Bezit sur ne vo ket disrannet linnennoù kentañ ar rannbennad diouzh ar peurrest (anvet reolerezh an intañvezed/emzivaded)</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_orphansbase.ui" line="23"/>
         <source>Don&apos;t separate first</source>
-        <translation>Arabat disrannañ ar re gentañ</translation>
+        <translation type="vanished">Arabat disrannañ ar re gentañ</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_orphansbase.ui" line="30"/>
-        <location filename="../../scribus/ui/propertywidget_orphansbase.ui" line="47"/>
+        <location filename="../../scribus/ui/propertywidget_orphansbase.ui" line="33"/>
+        <location filename="../../scribus/ui/propertywidget_orphansbase.ui" line="53"/>
         <source> lines</source>
         <translation>linenn</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_orphansbase.ui" line="40"/>
         <source>Don&apos;t separate last</source>
-        <translation>Arabat disrannañ ar re ziwezhañ</translation>
+        <translation type="vanished">Arabat disrannañ ar re ziwezhañ</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_orphansbase.ui" line="57"/>
+        <location filename="../../scribus/ui/propertywidget_orphansbase.ui" line="23"/>
+        <source>Don&apos;t separate first:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertywidget_orphansbase.ui" line="43"/>
+        <source>Don&apos;t separate last:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertywidget_orphansbase.ui" line="50"/>
+        <source>Ensure that last lines of a paragraph won&apos;t end up separated from the rest (known as widow/orphan control)</source>
+        <translation type="unfinished">Bezit sur ne vo ket disrannet linnennoù diwezhañ ar rannbennad diouzh ar peurrest (anvet reolerezh an intañvezed/emzivaded)</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertywidget_orphansbase.ui" line="63"/>
+        <source>If checked, ensures that the paragraph won&apos;t be split across multiple pages or columns</source>
+        <translation type="unfinished">Mar kevasket e lakaa ar rannbennadoù da chom didroc&apos;h hep bezañ troc&apos;het war meur a bajenn pe vann.</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertywidget_orphansbase.ui" line="66"/>
         <source>Do not split paragraph</source>
         <translation>Na droc&apos;hañ ar rannbennad</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_orphansbase.ui" line="64"/>
+        <location filename="../../scribus/ui/propertywidget_orphansbase.ui" line="73"/>
+        <source>If checked, automatically moves the paragraph to the next column or page if the next paragraph isn&apos;t on the same page or column</source>
+        <translation type="unfinished">Mar kevasket e tilec&apos;h ent emgefreek ar rannbennad er bannad testenn pe er bajennad war-lec&apos;h ma n&apos;emañ ket ar rannbennad war-lec&apos;h war an hevelep bann pe bajennad.</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertywidget_orphansbase.ui" line="76"/>
         <source>Keep with next paragraph</source>
         <translation>Mirout gant ar rannbennad da zont</translation>
     </message>
@@ -30251,7 +30277,7 @@ dre nemedennoù digant an arc&apos;hwelioù galvet.</translation>
         <translation>JPEG</translation>
     </message>
     <message>
-        <location filename="../../scribus/util_formats.cpp" line="88"/>
+        <location filename="../../scribus/util_formats.cpp" line="87"/>
         <source>Krita</source>
         <translation type="unfinished"></translation>
     </message>
@@ -31259,7 +31285,7 @@ Neuze ne vo ket dereat ar skeudenn marteze</translation>
         <translation>Adobe Illustrator</translation>
     </message>
     <message>
-        <location filename="../../scribus/util_formats.cpp" line="87"/>
+        <location filename="../../scribus/util_formats.cpp" line="88"/>
         <source>Open Raster</source>
         <translation>Digeriñ an hini dre bikaat</translation>
     </message>
@@ -32037,13 +32063,13 @@ Dibabit unan all mar plij.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smcstylewidget.ui" line="474"/>
-        <source>Hyphenation Character</source>
+        <source>Hyphenation Character:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smcstylewidget.ui" line="501"/>
-        <source>Smallest Word</source>
-        <translation type="unfinished"></translation>
+        <source>Smallest Word:</source>
+        <translation type="unfinished">Ger bihanañ :</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smcstylewidget.ui" line="515"/>
@@ -36045,17 +36071,17 @@ Gwell e vefe ober gant Gwirierez Preflight d&apos;o reizhañ</translation>
         <translation>Nullañ</translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem.cpp" line="10240"/>
+        <location filename="../../scribus/pageitem.cpp" line="10241"/>
         <source>Print: </source>
         <translation>Moullañ : </translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem.cpp" line="10242"/>
+        <location filename="../../scribus/pageitem.cpp" line="10243"/>
         <source>Enabled</source>
         <translation>Gweredekaet</translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem.cpp" line="10244"/>
+        <location filename="../../scribus/pageitem.cpp" line="10245"/>
         <source>Disabled</source>
         <translation>Diweredekaet</translation>
     </message>
