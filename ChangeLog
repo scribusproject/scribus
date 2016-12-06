@@ -1,3 +1,137 @@
+Scribus - 1.5.3.svn (Released 2016-xx-xx)
+=========================================
+- 0014108: [Story Editor / Text Frames] 'text-to-path' frame doesnt encapsulate text correctly (Fahad) - resolved.
+- 0014154: [General] Support for right to left languages, in this case Hebrew, is broken - resolved.
+- 0014422: [Internal] Patch to fix utilformat.cpp formatting (jghali) - resolved.
+- 0014394: [PDF] text shadow effect incorrectly exported to PDF (jghali) - resolved.
+- 0014408: [Scrapbook] After you send to Scrapbook, objects are not found there (jghali) - resolved.
+- 0014420: [General] Fix inconsistent strings (FirasH) - closed.
+- 0014330: [Canvas] link selected text frames directly (Fahad) - closed.
+- 0005979: [Usability] F2 displays and uses default values for text - closed.
+- 0014399: [User Interface] Check RTL languages in Font Preview are shown RTL (Fahad) - closed.
+- 0010718: [Fonts] Insert > Ligatures doesn't take the current font in account (Fahad) - closed.
+- 0009627: [Typography] 'allcaps' and 'smallcaps' mapping issue in Turkish language (Fahad) - closed.
+- 0002762: [NLS] Unable to set text justification for RTL text (Fahad) - closed.
+- 0014040: [Language Tools] Add action to insert ZWNJ char (Fahad) - closed.
+- 0001413: [Story Editor / Text Frames] Support for OpenType alternate glyphs (Fahad) - closed.
+- 0014032: [Story Editor / Text Frames] Severe performance problem on documents with 8 linked frames (jghali) - closed.
+- 0009808: [General] follow the XDG standard for the config files (cbradney) - closed.
+- 0013248: [General] choose preferences directory from the command line (cbradney) - closed.
+- 0013524: [Graphics / Image Frames] Editing Embedded Image gives a File Locked Error - closed.
+- 0001079: [NLS] Arabic is not supported in Scribus yet. (Fahad) - closed.
+- 0002920: [NLS] Khmer script is rendered wrong (Fahad) - closed.
+- 0001547: [NLS] Support for Indic Scripts (Fahad) - closed.
+- 0006689: [NLS] Parentheses inversion when I'm import hebrew text (Fahad) - closed.
+- 0001364: [NLS] Hebrew script direction is different in the document and in the story editor (Fahad) - closed.
+- 0003680: [NLS] Devanagari (Unicode U+09xx) glyph formation (vowels and conjunct consonants) not proper (Fahad) - closed.
+- 0006014: [Story Editor / Text Frames] unable to select hebrew text in text area (Fahad) - closed.
+- 0013982: [NLS] sample documents for sinhala (sri lankan script) to use as official test documents for CTL (Fahad) - closed.
+- 0012289: [Fonts] Diacritics are not positioned correctly in Lao OpenType fonts (Fahad) - closed.
+- 0004452: [NLS] No support for Tibetan Script (Fahad) - closed.
+- 0013863: [Story Editor / Text Frames] combining diacritics not all working (Fahad) - closed.
+- 0003928: [NLS] Support line breaking for Thai text (Fahad) - closed.
+- 0002834: [NLS] Urdu is displayed Left to Right with Nafees Nastaleeq font (Fahad) - closed.
+- 0014379: [Typography] Setting text to all caps via styles does not switch to upper case geometries (FirasH) - closed.
+- 0014386: [Documentation] Scribus manpage needs to be updated with new CLI flags (cbradney) - closed.
+- 0006005: [User Interface] preview of Hebrew text in Font Preview dialog is displayed backwards (reverse) (Fahad) - closed.
+- 0009363: [Fonts] Support 'smcp' small caps character substitution table (Fahad) - closed.
+- 0014368: [Fonts] Tamil Font is not displayed properly (cbradney) - closed.
+- 0014410: [PDF] The pattern on the master page is not exported to PDF (jghali) - closed.
+- 0006013: [NLS] hebrew numbers are displaied backwards when text is displaied (Fahad) - closed.
+- 0001726: [NLS] hebrew vowels (and cantillation marks) not placed properly (Fahad) - closed.
+- 0009911: [Fonts] RL text direction no work (Fahad) - closed.
+- 0011513: [User Interface] Gujarati Language does not render properly on page. (Fahad) - closed.
+- 0014400: [Story Editor / Text Frames] Attach Text to Path does not correctly place Text on Path (Fahad) - closed.
+- 0012602: [Story Editor / Text Frames] Some advanced text settings do not work correctly by unpredictably "hiding" text (Fahad) - closed.
+- 0014406: [General] Another build issue with 1.5.3svn (jghali) - closed.
+- 0014401: [General] Build issue with 1.5.3 after CTL merge (jghali) - closed.
+- 0014247: [Import / Export] Add Import functionality for Krita files (KRA) (cbradney) - closed.
+- 0014378: [Scripter] Typo in doc string for moveSelectionToBack (cbradney) - closed.
+- 0014129: [Import / Export] Crash caused by incorrect handling of reference to deleted styles by style manager (jghali) - closed.
+- 0014179: [Canvas] Rotate Item show wrong icon when mouse over frame middle point (FirasH) - closed.
+- 0014376: [Plug-ins] autoquote script freeze application (jghali) - closed.
+- 0013606: [Scripter] script 'align_image_in_frame.py' doesn't work. (gpittman) - closed.
+- 0012798: [Qt5 Port] Mouse pointer keeps the wrong symbol (arrow pointer). Similar to 0012740. (Kunda) - closed.
+- 0014086: [Plug-ins] Spell check fails to check selected frame on file created in earlier version (cbradney) - closed.
+- 0013255: [Usability] Menus broken on high resolution screen - closed.
+- 0013091: [Usability] measure tool should accept modifier key (pygmee) - closed.
+- 0014117: [Import / Export] When printing pages with page numbers at bottom some of the page numbers don't print correctly (jghali) - closed.
+- 0014136: [Tables] Table cell border lines are not displayed correctly in PP when in table edit mode (jghali) - closed.
+- 0014150: [Documentation] doxygen links are blue on blue (cbradney) - closed.
+- 0014151: [Documentation] create the doxygen files in an html/ directory (cbradney) - closed.
+- 0014159: [PDF] PDF export of bookmarks fails (jghali) - closed.
+- 0014182: [Story Editor / Text Frames] Tabs alignment behaves unpredictably (jghali) - closed.
+- 0014188: [Import / Export] white spaces in spot color name after PDF export are written as 0002320 instead of 0000020 (jghali) - closed.
+- 0014200: [PDF] PDF layers cannot be switched on/off in Acrobat Reader (jghali) - closed.
+- 0014203: [Shape Drawing] lines with gradients and opacity are exported incorrectly (jghali) - closed.
+- 0014235: [Import / Export] Out of range exception when subsetting CJK fonts (jghali) - closed.
+- 0014236: [Story Editor / Text Frames] empty first line has funky offsets (jghali) - closed.
+- 0014239: [Fonts] undefined glyph symbol appearing unpredictably in exported PDF (jghali) - closed.
+- 0014283: [General] Crash: EXCEPTION_STACK_OVERFLOW (jghali) - closed.
+- 0014292: [Printing] Background colors in text areas are not printing in version 1.5.2 (but are in 1.4.6). (jghali) - closed.
+- 0014303: [Import / Export] wrong size of some bitmap images when importing a PDF (jghali) - closed.
+- 0014351: [Scripter] Scripter command fileDialog() fails to enter directory name when used to select a directory (jghali) - closed.
+- 0014354: [Story Editor / Text Frames] Crash when linking empty text chain to non empty text chain (jghali) - closed.
+- 0013670: [Shape Drawing] 'Vertical Flip' changes Xpos Ypos orientation (Kunda) - closed.
+- 0013516: [Build System] Adding CCache to CMAKE (cbradney) - closed.
+- 0014308: [General] Incorrect justification of Chinese text (jghali) - closed.
+- 0014311: [Story Editor / Text Frames] incorrect display of inline items when offset to baseline applied (jghali) - closed.
+- 0014319: [User Interface] Copied selection may be pasted on wrong location (jghali) - closed.
+- 0014327: [Story Editor / Text Frames] remove "unlink text frame with text copy" and rename "unlink text frame with text cut" to "unlink and cut text" (jghali) - closed.
+- 0014273: [Build System] Tweak .desktop and .appdata.xml according to -DCUSTOM_VERSIONTAG (cbradney) - closed.
+- 0014340: [Build System] name the manpages after -DCUSTOM_VERSIONTAG (cbradney) - closed.
+- 0014355: [General] "Size is Locked" does not prevent resizing with Alt+Arrow Up (FirasH) - closed.
+- 0014234: [OS-Linux] appdata format outdated (cbradney) - closed.
+- 0012573: [User Interface] Double Sided corresponds to Double Page? (FirasH) - closed.
+- 0014338: [General] Replace auto_ptr by QScopedPointer (jghali) - closed.
+- 0014299: [User Interface] Numbered or Numerated List? (FirasH) - closed.
+- 0014333: [Build System] Travis: please change PPA repo to use ppa:beineri/opt-qt57-trusty (cbradney) - closed.
+- 0014334: [Usability] "Unlink Text Frame and Cut Text" function inactive in certain cases. (jghali) - closed.
+- 0014204: [Build System] add a simple .gitignore file (cbradney) - closed.
+- 0014329: [Build System] Travis build fails allegedly due to CMake missing command line option (cbradney) - closed.
+- 0008860: [General] Resizing with Alt or Alt+Shift and arrows is wrong when rotation is applied to an Item (FirasH) - closed.
+- 0014288: [User Interface] Fix order of "Marks" in context and toolbar menu (FirasH) - closed.
+- 0014109: [General] Simplify Guide Manager strings translation (FirasH) - closed.
+- 0014128: [Typography] Text centering doesn't work as expected in round text frame shapes (jghali) - closed.
+- 0014169: [Import / Export] SVG import of the Document Foundation's logo is incorrect (fschmid) - closed.
+- 0014168: [Import / Export] Hang / freeze importing a particular SVG image file (fschmid) - closed.
+- 0011575: [Usability] Grey out "OK" button in the Templates dialog if no template has been selected (cbradney) - closed.
+- 0011294: [Usability] Confusing order of entries in drop down dialogs (cbradney) - closed.
+- 0014112: [Story Editor / Text Frames] Crash when trying to add Foot/Endnote (jghali) - closed.
+- 0014178: [Usability] Incorrect rotation value displayed in PP when using Rotate Item tool (jghali) - closed.
+- 0014171: [User Interface] Can't active attach text to path function (fschmid) - closed.
+- 0014281: [Story Editor / Text Frames] When doing a copy-paste in story editor, the wrong font size is used (jghali) - closed.
+- 0014282: [General] Scribus crashes while opening file (jghali) - closed.
+- 0014244: [Translation] Hamer-Banna language (cbradney) - closed.
+- 0014237: [Story Editor / Text Frames] Exiting text edit mode does not activate copy of frame (jghali) - closed.
+- 0014228: [Tables] Text columns inside tables are not loaded correctly (jghali) - closed.
+- 0014231: [Usability] Incorrect selection when exiting table edit mode by clicking outside of table cell (jghali) - closed.
+- 0014230: [Tables] scribus crashes when marking a table with selected text (jghali) - closed.
+- 0014227: [Tables] Using "Del" in table deletes whole table instead of one character (jghali) - closed.
+- 0014209: [Usability] Scribus freeze when exporting PDF (jghali) - closed.
+- 0014138: [Usability] Foot/Endnote crash when changing text property (jghali) - closed.
+- 0013560: [Story Editor / Text Frames] "Edit" in Marks Manager crashes Scribus with Variable Text marks (jghali) - closed.
+- 0013890: [User Interface] Status Bar doesn't update when Document closes (cbradney) - closed.
+- 0012754: [Story Editor / Text Frames] No "text align right" for last line of bottom aligned text (PeterBenedek) - closed.
+- 0013595: [General] Moving guide lines not recognized (Kunda) - closed.
+- 0010430: [Story Editor / Text Frames] text frames lost preferences (Kunda) - closed.
+- 0014110: [Story Editor / Text Frames] PP may display incorrect text properties if text is selected left to right (jghali) - closed.
+- 0014093: [User Interface] Paragraph Style and Character Style combo boxes keep going back to "No Style" after modifying styles (jghali) - closed.
+- 0014111: [Story Editor / Text Frames] Crash when trying to edit 'Variable Text' Mark (jghali) - closed.
+- 0014103: [Properties Palette] PP - Table isn't translated when changing language in Preferences (FirasH) - closed.
+- 0013352: [Graphics / Image Frames] Adapt frame to image should not delete previous rotation - closed.
+- 0014094: [Typography] Underline and Underline Words function: changing line width has no effect (jghali) - closed.
+- 0014092: [Canvas] Ctrl+D (Duplicate) clones object but doesn't enable PP (jghali) - closed.
+- 0014084: [Fonts] PDF Form file does not work with Pdfbox (jghali) - closed.
+- 0011642: [Styles] Crash when opening document after editing enum style (fschmid) - closed.
+- 0014072: [General] Compiling error after the addition of the Hi-DPI patch (cbradney) - closed.
+- 0009330: [Scripter] Active Startup Script not visible in Preferences and fails silently in GUI & CLI (cbradney) - closed.
+- 0014083: [Translation] Updated Danish Translation (jghali) - closed.
+- 0014074: [Import / Export] import odt file brings in red squares (jghali) - closed.
+- 0014081: [Build System] Cmake Error: INSTALL cannot find ... ChangeLogSVN (cbradney) - closed.
+
+[129 issues]
+
 Scribus - 1.5.2 (Released 2016-05-17)
 =========================================
 - 0014004: [Canvas] Improve Canvas rendering on Hi-DPI screens (cbradney) - closed.
