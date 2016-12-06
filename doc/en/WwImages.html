@@ -26,42 +26,51 @@ in <i>Properties: Image</i> how to adjust scaling and positioning of the image i
 <p><i>Descriptions, advantages and disadvantages of various file formats will be discussed elsewhere.</i></p>
 <h3>The Context Menu</h3>
 <table cellpadding="3"><tbody><tr>
-<td><p>Right-click on the empty frame to show its Context Menu as seen to the right. An empty frame will not show all these choices.</p>
+<td><p>Right-click on the empty frame to show its Context Menu as seen to the right. An empty frame will not show all these choices. There have been a number of changes, mostly rearrangements, as of version 1.5.3.</p>
 <ul>
 <li><b>Info</b> gives a short list of information about the image, its
 name, the PPI (pixels per inch) of the original and as shown in
 Scribus, its colorspace, and whether it is set to print (and export to
-PDF).</li>
-<li><b>Undo</b> will undo the last operation, which should be indicated. If applicable, there will also be a <b>Redo</b> item.</li>
-<li><b>Get Image</b> allows for importing an image, as indicated above.</li>
-<li><b>Adjust Frame to Image</b> enlarges or shrinks the width and height of your frame to fit the image at its current resolution.</li>
-<li><b>Adjust Image to Frame</b> adjusts the image to the frame. Image will remain proportional if this is checked in Image tab of Properties.</li>
-<li><b>Update Image</b> reloads the image. Would be used if you have edited the source file. See Edit Image below.</li>
+  PDF).</li>
+<li><b>Content</b> has submenu items.</li>
+<ul><li><b>Get Image</b> allows for importing an image, as indicated above. This will be the only choice if the frame is empty.</li>
+  <li><b>Copy</b> means to copy the contents, not the entire frame.</li>
+  <li><b>Clear</b> clears the contents of the frame.</li></ul>
 <li><b>Preview Settings</b> This allows to image to be visible or not,
 and if visible, the resolution can be selected. Lower resolution or not
 showing images will speed up screen refreshes if this is sluggish. <b>Full Resolution</b> can only be as high as your monitor supports. These settings do not affect printing your image or exporting to PDF.</li>
-<li><b>Image Effects</b> (also Ctrl + E) provide for a number of
+<li><b>Image</b> has submenu items, as shown here.</li>
+<ul><li><b>Image Effects</b> (also Ctrl + E) provide for a number of
 editing types, like blurring or changing contrast and brightness. These
 edits happen in a nondestructive way, i.e., the source file is not
 altered.</li>
-<li><b>Edit Image</b> starts your image editor as set in the File-&gt;Preferences-&gt;External Tools and loads the image.</li>
-<li><b>Attributes</b> will not be discussed here.</li>
-<li><b>Is Locked</b> locks the frame&rsquo;s position, size, and content.</li>
-<li><b>Size is Locked</b> locks only the size. Frame and image can otherwise be moved and edited.</li>
-<li><b>Send to Scrapbook</b> and <b>Send to Patterns</b> will not be covered here, except to say that these allow for saving content to be shared among documents.</li>
-<li><b>Level</b> allows you to move the frame up or down levels on the
-current layer. If your document has more than one layer, there will
-also be an item <b>Send to Layer</b> to allow moving the frame to a different layer.</li>
+  <li><b>Edit Image</b> starts your image editor as set in the File-&gt;Preferences-&gt;External Tools and loads the image.</li>
+  <li><b>Embed Image</b> is now an option, which will put the image data in your Scribus file.</li>
+  <li><b>More Info...</b> shows additional information from the file such as the camera and camera settings.</li>
+<li><b>Update Image</b> reloads the image. Would be used if you have edited the source file. See Edit Image below.</li>
+  <li><b>Adjust Frame to Image</b> enlarges or shrinks the width and height of your frame to fit the image at its current resolution.</li>
+<li><b>Adjust Image to Frame</b> adjusts the image to the frame. Image will remain proportional if this is checked in Image tab of Properties.</li></ul>
+<li><b>Locking</b> has submenu items.</li>
+<ul><li><b>Is Locked</b> locks the frame&rsquo;s position, size, and content.</li>
+<li><b>Size is Locked</b> locks only the size. Frame and image can otherwise be moved and edited.</li></ul>
+<li><b>Send to</b> has submenu items.</li>
+<ul><li>Choices here are <b>Scrapbook</b>, <b>Patterns</b>, and <b>Inline Items</b> but will not be covered here, except to say that these allow for saving content to be shared among documents.</li></ul>
+<li><b>Send to Layer</b> (not shown) will appear if your document has more than one layer, to allow moving the frame to a different layer.</li>
+<li><b>Level</b> has submenu items. Just as in the X,Y,Z tab of Properties, you can <b>Raise</b> or <b>Lower</b> a level, or <b>Raise to Top</b> or <b>Lower to Bottom</b>.</li>
 <li><b>Convert to</b> gives you the following sub-choices:</li>
 <ul><li><b>Polygon</b>, converts to a polygon, with apparent loss of your image, recoverable with Convert to Image Frame.</li>
 <li><b>Text Frame</b> converts to that kind of frame, in which case
 your image becomes invisible, but will be restored if you convert back
 to an image frame. You cannot show text and an image together, except
 where text is incorporated in an image. Use a superimposed text frame
-to apply text over an image.</li>
+  to apply text over an image.</li>
+<li><b>Symbol</b>, which is new to 1.5.3 versions, allows its reuse as is, or as a <b>Pattern</b>. From the menu, <i>Windows > Symbols</i> brings up the Symbols palette.
 </ul>
-</li><li><b>Cut</b>, <b>Copy</b>, and <b>Delete</b> are covered in Working with Frames.</li>
-<li><b>Contents&nbsp;&gt; Clear</b> is only present when your frame has content, and you will get a dialog to Ok the operation. There is also a choice <b>Contents&nbsp;&gt; Copy</b> to copy only the content of the frame, as opposed to copying the frame <i>and</i> its contents.</li>
+<li><b>Attributes</b> will not be discussed here.</li>
+<li><b>Edit</b> has submenu items.</li>
+<ul><li><b>Cut</b>, <b>Copy</b>, and <b>Delete</b> are covered in Working with Frames. Note that these apply to the entire frame.</li>
+  <li><b>Undo</b> will be available for any recent undoable change.</li>
+<li><b>Redo</b> will also be available, if applicable.</li></ul>
 <li><b>Properties</b> brings up or hides the Properties Palette</li>
 </ul>
 </td>
