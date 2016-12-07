@@ -9778,7 +9778,7 @@ bool ScribusMainWindow::editMarkDlg(Mark *mrk, PageItem_TextFrame* currItem)
 
 	bool docWasChanged = false;
 
-	editMDialog->setWindowTitle(tr("Edit ") + editMDialog->windowTitle());
+	editMDialog->setWindowTitle(tr("Edit %1").arg(editMDialog->windowTitle()));
 	if (editMDialog->exec())
 	{
 		Mark oldMark = *mrk;
