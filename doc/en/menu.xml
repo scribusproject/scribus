@@ -61,7 +61,6 @@
 			<submenuitem text="Importing Vector Drawings" file="importhints2.html"/>
 			<submenuitem text="Importing SVG" file="scribus-svg.html" />
 			<submenuitem text="Importing Clipart Files" file="importclipart.html" />
-			<submenuitem text="Importing Text" file="importhints4.html" />
 			<submenuitem text="Importing OpenOffice.org and ODF Files" file="importhints3.html" />
 			<submenuitem text="Importing HTML Files" file="importhints4.html" />
 		</submenuitem>
