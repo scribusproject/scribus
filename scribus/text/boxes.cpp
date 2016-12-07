@@ -621,7 +621,7 @@ void GlyphBox::render(TextLayoutPainter *p) const
 			st += fontSize * m_glyphRun.scaleV() * (charStyle.baselineOffset() / 1000.0);
 
 		double sw = p->strokeWidth();
-		const TextLayoutColor& sc = p->strokeColor();
+		TextLayoutColor sc = p->strokeColor();
 
 		p->setStrokeColor(p->fillColor());
 		p->setStrokeWidth(lw);
@@ -651,7 +651,7 @@ void GlyphBox::render(TextLayoutPainter *p) const
 			double yoff = (charStyle.fontSize() * m_glyphRun.scaleV() * charStyle.shadowYOffset() / 10000.0);
 
 			bool s = p->selected();
-			const TextLayoutColor& fc = p->fillColor();
+			TextLayoutColor fc = p->fillColor();
 
 			p->translate(xoff, -yoff);
 
@@ -696,7 +696,7 @@ void GlyphBox::render(TextLayoutPainter *p) const
 			st += fontSize * m_glyphRun.scaleV() * (charStyle.baselineOffset() / 1000.0);
 
 		double sw = p->strokeWidth();
-		const TextLayoutColor& sc = p->strokeColor();
+		TextLayoutColor sc = p->strokeColor();
 
 		p->setStrokeColor(p->fillColor());
 		p->setStrokeWidth(lw);
