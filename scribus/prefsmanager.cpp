@@ -419,7 +419,7 @@ void PrefsManager::initDefaults()
 	appPrefs.miscPrefs.useStandardLI = false;
 	appPrefs.miscPrefs.paragraphsLI = 10;
 	initDefaultCheckerPrefs(&appPrefs.verifierPrefs.checkerPrefsList);
-	appPrefs.verifierPrefs.curCheckProfile = CommonStrings::PostScript;
+	appPrefs.verifierPrefs.curCheckProfile = CommonStrings::PDF_1_4;
 	appPrefs.verifierPrefs.showPagesWithoutErrors=false;
 	appPrefs.verifierPrefs.showNonPrintingLayerErrors=false;
 	appPrefs.pdfPrefs.Thumbnails = false;
@@ -917,7 +917,7 @@ void PrefsManager::setupMainWindow(ScribusMainWindow* mw)
 	if (appPrefs.verifierPrefs.checkerPrefsList.count() == 0)
 	{
 		initDefaultCheckerPrefs(&appPrefs.verifierPrefs.checkerPrefsList);
-		appPrefs.verifierPrefs.curCheckProfile = CommonStrings::PostScript;
+		appPrefs.verifierPrefs.curCheckProfile = CommonStrings::PDF_1_4;
 	}
 	if (!appPrefs.uiPrefs.mainWinState.isEmpty())
 		mw->restoreState(appPrefs.uiPrefs.mainWinState);
@@ -2343,7 +2343,7 @@ bool PrefsManager::ReadPref(QString ho)
 			appPrefs.uiPrefs.RecentDocs.append(dc.attribute("Name"));
 		if (dc.tagName()=="PreflightVerifier")
 		{
-			appPrefs.verifierPrefs.curCheckProfile = dc.attribute("CurrentProfile", CommonStrings::PostScript);
+			appPrefs.verifierPrefs.curCheckProfile = dc.attribute("CurrentProfile", CommonStrings::PDF_1_4);
 			appPrefs.verifierPrefs.showPagesWithoutErrors = static_cast<bool>(dc.attribute("ShowPagesWithoutErrors", "0").toInt());
 			appPrefs.verifierPrefs.showNonPrintingLayerErrors = static_cast<bool>(dc.attribute("ShowNonPrintingLayerErrors", "0").toInt());
 			//#2516 work around old values until people won't have them anymore, not that these
