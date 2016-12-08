@@ -23226,21 +23226,25 @@ Transparency</source>
     <name>PropertiesPalette_Text</name>
     <message>
         <location filename="../../scribus/ui/propertiespalette_text.cpp" line="80"/>
+        <location filename="../../scribus/ui/propertiespalette_text.cpp" line="733"/>
         <source>First Line Offset</source>
         <translation>Első alapvonal-eltolás</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_text.cpp" line="97"/>
+        <location filename="../../scribus/ui/propertiespalette_text.cpp" line="738"/>
         <source>Optical Margins</source>
         <translation>Optikai margók</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_text.cpp" line="102"/>
+        <location filename="../../scribus/ui/propertiespalette_text.cpp" line="734"/>
         <source>Hyphenation</source>
         <translation type="unfinished">Elválasztás</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_text.cpp" line="107"/>
+        <location filename="../../scribus/ui/propertiespalette_text.cpp" line="739"/>
         <source>Advanced Settings</source>
         <translation>Haladó beállítások</translation>
     </message>
@@ -23251,6 +23255,7 @@ Transparency</source>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_text.cpp" line="117"/>
+        <location filename="../../scribus/ui/propertiespalette_text.cpp" line="741"/>
         <source>Path Text Properties</source>
         <translation>Szöveg útvonalon tulajdonságok</translation>
     </message>
@@ -23265,94 +23270,147 @@ Transparency</source>
         <translation>Alapvonal</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_text.cpp" line="730"/>
         <source>Paragraph St&amp;yle:</source>
-        <translation>&amp;Bekezdésstílus:</translation>
+        <translation type="vanished">&amp;Bekezdésstílus:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_text.cpp" line="731"/>
         <source>Character St&amp;yle:</source>
-        <translation>&amp;Karakterstílus:</translation>
+        <translation type="vanished">&amp;Karakterstílus:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_text.cpp" line="746"/>
+        <location filename="../../scribus/ui/propertiespalette_text.cpp" line="740"/>
+        <source>Font Features</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertiespalette_text.cpp" line="745"/>
         <source>Fixed Linespacing</source>
         <translation>Rögzített sortávolság</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_text.cpp" line="747"/>
+        <location filename="../../scribus/ui/propertiespalette_text.cpp" line="746"/>
         <source>Automatic Linespacing</source>
         <translation>Automatikus sortávolság</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_text.cpp" line="748"/>
+        <location filename="../../scribus/ui/propertiespalette_text.cpp" line="747"/>
         <source>Align to Baseline Grid</source>
         <translation>Igazítás alaprácshoz</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_text.cpp" line="758"/>
         <source> pt</source>
-        <translation>pt</translation>
+        <translation type="vanished">pt</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_text.cpp" line="775"/>
         <source>Font Size</source>
-        <translation>Betűméret</translation>
+        <translation type="vanished">Betűméret</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_text.cpp" line="776"/>
-        <source>Text language</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/propertiespalette_text.cpp" line="777"/>
         <source>Line Spacing</source>
-        <translation>Sortávolság</translation>
+        <translation type="vanished">Sortávolság</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_text.cpp" line="779"/>
         <source>Paragraph style of currently selected text or paragraph</source>
-        <translation>A kijelölt szöveg vagy bekezdés bekezdésstílusa</translation>
+        <translation type="vanished">A kijelölt szöveg vagy bekezdés bekezdésstílusa</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_text.cpp" line="780"/>
         <source>Character style of currently selected text or paragraph</source>
-        <translation>A kijelölt szöveg vagy bekezdés karakterstílusa</translation>
+        <translation type="vanished">A kijelölt szöveg vagy bekezdés karakterstílusa</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_text.cpp" line="781"/>
         <source>Remove Direct Paragraph Formatting</source>
-        <translation>Közvetlen bekezdésformázások törlése</translation>
+        <translation type="vanished">Közvetlen bekezdésformázások törlése</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_text.cpp" line="782"/>
         <source>Remove Direct Character Formatting</source>
-        <translation>Közvetlen karakterformázások törlése</translation>
+        <translation type="vanished">Közvetlen karakterformázások törlése</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_text.cpp" line="84"/>
+        <location filename="../../scribus/ui/propertiespalette_text.cpp" line="735"/>
         <source>Orphans and Widows</source>
         <translation>Árva- és fattyúsorok</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_text.cpp" line="76"/>
+        <location filename="../../scribus/ui/propertiespalette_text.cpp" line="732"/>
         <source>Color &amp;&amp; Effects</source>
         <translation>Színek és effektusok</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_text.cpp" line="92"/>
+        <location filename="../../scribus/ui/propertiespalette_text.cpp" line="737"/>
         <source>Columns &amp;&amp; Text Distances</source>
         <translation>Hasábok és távolságok</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_text.cpp" line="88"/>
+        <location filename="../../scribus/ui/propertiespalette_text.cpp" line="736"/>
         <source>Paragraph Effects</source>
         <translation>Bekezdéseffektusok</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_text.cpp" line="778"/>
         <source>Select the line spacing mode</source>
-        <translation>Sortávolság módjának meghatározása</translation>
+        <translation type="vanished">Sortávolság módjának meghatározása</translation>
+    </message>
+</context>
+<context>
+    <name>PropertiesPalette_TextBase</name>
+    <message>
+        <location filename="../../scribus/ui/propertiespalette_textbase.ui" line="65"/>
+        <source>Font Size</source>
+        <translation type="unfinished">Betűméret</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertiespalette_textbase.ui" line="68"/>
+        <location filename="../../scribus/ui/propertiespalette_textbase.ui" line="124"/>
+        <source> pt</source>
+        <translation type="unfinished">pt</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertiespalette_textbase.ui" line="108"/>
+        <source>Select the line spacing mode</source>
+        <translation type="unfinished">Sortávolság módjának meghatározása</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertiespalette_textbase.ui" line="121"/>
+        <source>Line Spacing</source>
+        <translation type="unfinished">Sortávolság</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertiespalette_textbase.ui" line="154"/>
+        <source>Text Language</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertiespalette_textbase.ui" line="184"/>
+        <source>Paragraph St&amp;yle:</source>
+        <translation type="unfinished">&amp;Bekezdésstílus:</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertiespalette_textbase.ui" line="200"/>
+        <source>Paragraph style of currently selected text or paragraph</source>
+        <translation type="unfinished">A kijelölt szöveg vagy bekezdés bekezdésstílusa</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertiespalette_textbase.ui" line="213"/>
+        <source>Remove Direct Paragraph Formatting</source>
+        <translation type="unfinished">Közvetlen bekezdésformázások törlése</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertiespalette_textbase.ui" line="237"/>
+        <source>Character St&amp;yle:</source>
+        <translation type="unfinished">&amp;Karakterstílus:</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertiespalette_textbase.ui" line="253"/>
+        <source>Character style of currently selected text or paragraph</source>
+        <translation type="unfinished">A kijelölt szöveg vagy bekezdés karakterstílusa</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertiespalette_textbase.ui" line="266"/>
+        <source>Remove Direct Character Formatting</source>
+        <translation type="unfinished">Közvetlen karakterformázások törlése</translation>
     </message>
 </context>
 <context>
@@ -23594,75 +23652,60 @@ Transparency</source>
 <context>
     <name>PropertyWidget_Advanced</name>
     <message>
-        <location filename="../../scribus/ui/propertywidget_advanced.cpp" line="371"/>
         <source>Word Tracking</source>
-        <translation>Szavak közti térköz</translation>
+        <translation type="vanished">Szavak közti térköz</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_advanced.cpp" line="372"/>
-        <location filename="../../scribus/ui/propertywidget_advanced.cpp" line="375"/>
         <source>Min:</source>
-        <translation>Min:</translation>
+        <translation type="vanished">Min:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_advanced.cpp" line="373"/>
         <source>Norm:</source>
-        <translation>Norm:</translation>
+        <translation type="vanished">Norm:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_advanced.cpp" line="374"/>
         <source>Glyph Extension</source>
-        <translation>Betűkészletjel-ritkítás és -sűrítés</translation>
+        <translation type="vanished">Betűkészletjel-ritkítás és -sűrítés</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_advanced.cpp" line="376"/>
         <source>Max:</source>
-        <translation>Max:</translation>
+        <translation type="vanished">Max:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_advanced.cpp" line="378"/>
         <source> %</source>
-        <translation>%</translation>
+        <translation type="vanished">%</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_advanced.cpp" line="388"/>
         <source>Offset to baseline of characters</source>
-        <translation>Karakterek alapvonalának eltolása</translation>
+        <translation type="vanished">Karakterek alapvonalának eltolása</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_advanced.cpp" line="389"/>
         <source>Manual Tracking</source>
-        <translation>Kézi betűköz</translation>
+        <translation type="vanished">Kézi betűköz</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_advanced.cpp" line="390"/>
         <source>Scaling width of characters</source>
-        <translation>Karakterek szélességének méretezése</translation>
+        <translation type="vanished">Karakterek szélességének méretezése</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_advanced.cpp" line="391"/>
         <source>Scaling height of characters</source>
-        <translation>Karakterek magasságának méretezése</translation>
+        <translation type="vanished">Karakterek magasságának méretezése</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_advanced.cpp" line="393"/>
         <source>Minimal width of spaces between words</source>
-        <translation>Minimális szélességű térköz a szavak között</translation>
+        <translation type="vanished">Minimális szélességű térköz a szavak között</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_advanced.cpp" line="394"/>
         <source>Normal width of spaces between words</source>
-        <translation>Normál szélességű térköz a szavak között</translation>
+        <translation type="vanished">Normál szélességű térköz a szavak között</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_advanced.cpp" line="395"/>
         <source>Minimal shrinkage of glyphs for justification</source>
-        <translation>A betűkészletjelek minimális sűrítése sorkizáráskor</translation>
+        <translation type="vanished">A betűkészletjelek minimális sűrítése sorkizáráskor</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_advanced.cpp" line="396"/>
         <source>Maximal extension of glyphs for justification</source>
-        <translation>Betűkészletjelek maximális ritkítása sorkizáráskor</translation>
+        <translation type="vanished">Betűkészletjelek maximális ritkítása sorkizáráskor</translation>
     </message>
 </context>
 <context>
@@ -23673,24 +23716,84 @@ Transparency</source>
         <translation>Keret</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="79"/>
         <source>Word Spacing</source>
-        <translation>Szavak közti térköz</translation>
+        <translation type="vanished">Szavak közti térköz</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="86"/>
-        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="133"/>
+        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="48"/>
+        <source>Offset to baseline of characters</source>
+        <translation type="unfinished">Karakterek alapvonalának eltolása</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="51"/>
+        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="74"/>
+        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="91"/>
+        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="108"/>
+        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="132"/>
+        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="151"/>
+        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="191"/>
+        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="210"/>
+        <source> %</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="71"/>
+        <source>Manual Tracking</source>
+        <translation type="unfinished">Kézi betűköz</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="88"/>
+        <source>Scaling width of characters</source>
+        <translation type="unfinished">Karakterek szélességének méretezése</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="105"/>
+        <source>Scaling height of characters</source>
+        <translation type="unfinished">Karakterek magasságának méretezése</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="115"/>
+        <source>Word Tracking</source>
+        <translation type="unfinished">Szavak közti térköz</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="122"/>
+        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="181"/>
         <source>Min:</source>
         <translation>Min:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="119"/>
-        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="166"/>
+        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="129"/>
+        <source>Minimal width of spaces between words</source>
+        <translation type="unfinished">Minimális szélességű térköz a szavak között</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="148"/>
+        <source>Normal width of spaces between words</source>
+        <translation type="unfinished">Normál szélességű térköz a szavak között</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="167"/>
+        <source>Norm:</source>
+        <translation type="unfinished">Norm:</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="188"/>
+        <source>Minimal shrinkage of glyphs for justification</source>
+        <translation type="unfinished">A betűkészletjelek minimális sűrítése sorkizáráskor</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="207"/>
+        <source>Maximal extension of glyphs for justification</source>
+        <translation type="unfinished">Betűkészletjelek maximális ritkítása sorkizáráskor</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="226"/>
         <source>Max:</source>
         <translation>Max:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="126"/>
+        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="174"/>
         <source>Glyph Extension</source>
         <translation>Betűkészletjel-ritkítás és -sűrítés</translation>
     </message>
@@ -23698,95 +23801,80 @@ Transparency</source>
 <context>
     <name>PropertyWidget_Distance</name>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="439"/>
         <source>Colu&amp;mns:</source>
-        <translation>&amp;Hasábok:</translation>
+        <translation type="vanished">&amp;Hasábok:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="441"/>
         <source>Vertical Alignment:</source>
-        <translation>Függőleges igazítás:</translation>
+        <translation type="vanished">Függőleges igazítás:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="454"/>
+        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="452"/>
         <source>Gap:</source>
         <translation>Hasábköz:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="455"/>
+        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="453"/>
         <source>Width:</source>
         <translation>Szélesség:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="458"/>
         <source>To&amp;p:</source>
-        <translation>&amp;Felső:</translation>
+        <translation type="vanished">&amp;Felső:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="459"/>
         <source>&amp;Bottom:</source>
-        <translation>&amp;Alsó:</translation>
+        <translation type="vanished">&amp;Alsó:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="460"/>
         <source>&amp;Left:</source>
-        <translation>&amp;Bal:</translation>
+        <translation type="vanished">&amp;Bal:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="461"/>
         <source>&amp;Right:</source>
-        <translation>&amp;Jobb:</translation>
+        <translation type="vanished">&amp;Jobb:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="463"/>
         <source>T&amp;abulators...</source>
-        <translation>&amp;Tabulátorok...</translation>
+        <translation type="vanished">&amp;Tabulátorok...</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="465"/>
+        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="456"/>
         <source> pt</source>
         <translation>pt</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="475"/>
         <source>Number of columns in text frame</source>
-        <translation>Hasábok száma egy szövegkeretben</translation>
+        <translation type="vanished">Hasábok száma egy szövegkeretben</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="476"/>
         <source>Switches between Gap or Column width</source>
-        <translation>Váltás a hasábköz és a hasábszélesség meghatározása között</translation>
+        <translation type="vanished">Váltás a hasábköz és a hasábszélesség meghatározása között</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_distance.cpp" line="353"/>
-        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="477"/>
         <source>Distance between columns</source>
         <translation>Hasábok közötti távolság</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="478"/>
         <source>Distance of text from top of frame</source>
-        <translation>Szöveg távolsága a keret tetejétől</translation>
+        <translation type="vanished">Szöveg távolsága a keret tetejétől</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="479"/>
         <source>Distance of text from bottom of frame</source>
-        <translation>Szöveg távolsága a keret aljától</translation>
+        <translation type="vanished">Szöveg távolsága a keret aljától</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="480"/>
         <source>Distance of text from left of frame</source>
-        <translation>Szöveg távolsága a keret bal szélétől</translation>
+        <translation type="vanished">Szöveg távolsága a keret bal szélétől</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="481"/>
         <source>Distance of text from right of frame</source>
-        <translation>Szöveg távolsága a keret jobb szélétől</translation>
+        <translation type="vanished">Szöveg távolsága a keret jobb szélétől</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="482"/>
         <source>Edit tab settings of text frame...</source>
-        <translation>Szövegkeret tabulátor beállítások szerkesztése...</translation>
+        <translation type="vanished">Szövegkeret tabulátor beállítások szerkesztése...</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_distance.cpp" line="353"/>
@@ -23794,17 +23882,17 @@ Transparency</source>
         <translation>Hasáb szélessége</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="446"/>
+        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="444"/>
         <source>Top</source>
         <translation>Felülre</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="447"/>
+        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="445"/>
         <source>Middle</source>
         <translation>Középre</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="448"/>
+        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="446"/>
         <source>Bottom</source>
         <translation>Alulra</translation>
     </message>
@@ -23817,49 +23905,93 @@ Transparency</source>
         <translation>Keret</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="41"/>
+        <source>Vertical Alignment:</source>
+        <translation type="unfinished">Függőleges igazítás:</translation>
+    </message>
+    <message>
         <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="67"/>
         <source>Colu&amp;mns:</source>
         <translation>&amp;Hasábok:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="85"/>
+        <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="74"/>
+        <source>Number of columns in text frame</source>
+        <translation type="unfinished">Hasábok száma egy szövegkeretben</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="87"/>
+        <source>Switches between Gap or Column width</source>
+        <translation type="unfinished">Váltás a hasábköz és a hasábszélesség meghatározása között</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="91"/>
         <source>Gap:</source>
         <translation>Hasábköz:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="90"/>
+        <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="96"/>
         <source>Width:</source>
         <translation>Szélesség:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="101"/>
+        <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="104"/>
+        <source>Distance between columns</source>
+        <translation type="unfinished">Hasábok közötti távolság</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="111"/>
         <source>To&amp;p:</source>
         <translation>&amp;Felső:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="111"/>
+        <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="118"/>
+        <source>Distance of text from top of frame</source>
+        <translation type="unfinished">Szöveg távolsága a keret tetejétől</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="125"/>
         <source>&amp;Bottom:</source>
         <translation>&amp;Alsó:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="121"/>
+        <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="132"/>
+        <source>Distance of text from bottom of frame</source>
+        <translation type="unfinished">Szöveg távolsága a keret aljától</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="139"/>
         <source>&amp;Left:</source>
         <translation>&amp;Bal:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="131"/>
+        <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="146"/>
+        <source>Distance of text from left of frame</source>
+        <translation type="unfinished">Szöveg távolsága a keret bal szélétől</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="153"/>
         <source>&amp;Right:</source>
         <translation>&amp;Jobb:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="147"/>
+        <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="160"/>
+        <source>Distance of text from right of frame</source>
+        <translation type="unfinished">Szöveg távolsága a keret jobb szélétől</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="173"/>
+        <source>Edit tab settings of text frame...</source>
+        <translation type="unfinished">Szövegkeret tabulátor beállítások szerkesztése...</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="176"/>
         <source>T&amp;abulators...</source>
         <translation>&amp;Tabulátorok...</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="41"/>
         <source>Vertical Alignment</source>
-        <translation>Függőleges igazítás</translation>
+        <translation type="vanished">Függőleges igazítás</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="49"/>
@@ -23941,44 +24073,36 @@ Transparency</source>
 <context>
     <name>PropertyWidget_Flop</name>
     <message>
-        <location filename="../../scribus/ui/propertywidget_flop.cpp" line="54"/>
         <source>Maximum Ascent</source>
-        <translation>Legmagasabb felnyúló szár</translation>
+        <translation type="vanished">Legmagasabb felnyúló szár</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_flop.cpp" line="55"/>
         <source>Font Ascent</source>
-        <translation>Betűkészlet magassága</translation>
+        <translation type="vanished">Betűkészlet magassága</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_flop.cpp" line="56"/>
         <source>Line Spacing</source>
-        <translation>Sortávolság</translation>
+        <translation type="vanished">Sortávolság</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_flop.cpp" line="59"/>
         <source>Set the height of the first line of the text frame to use the tallest height of the included characters</source>
-        <translation>A szövegkeret első sorának magassága a legmagasabb karakter magassága</translation>
+        <translation type="vanished">A szövegkeret első sorának magassága a legmagasabb karakter magassága</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_flop.cpp" line="60"/>
         <source>Set the height of the first line of text frame to use the full ascent of the font(s) in use</source>
-        <translation>A szövegkeret első sorának magassága az alkalmazott betűk teljes felnyúló magassága</translation>
+        <translation type="vanished">A szövegkeret első sorának magassága az alkalmazott betűk teljes felnyúló magassága</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_flop.cpp" line="61"/>
         <source>Set the height of the first line of the text frame to the specified line height</source>
-        <translation>A szövegkeret első sorának magassága az alkalmazott betűkészlet sortávolsága</translation>
+        <translation type="vanished">A szövegkeret első sorának magassága az alkalmazott betűkészlet sortávolsága</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_flop.cpp" line="57"/>
         <source>Baseline Grid</source>
-        <translation>Alaprács</translation>
+        <translation type="vanished">Alaprács</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_flop.cpp" line="62"/>
         <source>Set the base line of the first line of the text frame to the base line grid</source>
-        <translation>A szövegkeretben lévő első sor alapvonalának illesztése az alaprácsra</translation>
+        <translation type="vanished">A szövegkeretben lévő első sor alapvonalának illesztése az alaprácsra</translation>
     </message>
 </context>
 <context>
@@ -23990,29 +24114,45 @@ Transparency</source>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_flopbase.ui" line="26"/>
+        <source>Set the height of the first line of the text frame to use the tallest height of the included characters</source>
+        <translation type="unfinished">A szövegkeret első sorának magassága a legmagasabb karakter magassága</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertywidget_flopbase.ui" line="29"/>
         <source>Maximum Ascent</source>
         <translation>Legmagasabb felnyúló szár</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_flopbase.ui" line="29"/>
         <location filename="../../scribus/ui/propertywidget_flopbase.ui" line="39"/>
-        <location filename="../../scribus/ui/propertywidget_flopbase.ui" line="49"/>
-        <location filename="../../scribus/ui/propertywidget_flopbase.ui" line="59"/>
-        <source>flopGroup</source>
-        <translation>flopGroup</translation>
+        <source>Set the height of the first line of text frame to use the full ascent of the font(s) in use</source>
+        <translation type="unfinished">A szövegkeret első sorának magassága az alkalmazott betűk teljes felnyúló magassága</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_flopbase.ui" line="36"/>
+        <source>flopGroup</source>
+        <translation type="vanished">flopGroup</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertywidget_flopbase.ui" line="42"/>
         <source>Font Ascent</source>
         <translation>Betűkészlet magassága</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_flopbase.ui" line="46"/>
+        <location filename="../../scribus/ui/propertywidget_flopbase.ui" line="52"/>
+        <source>Set the height of the first line of the text frame to the specified line height</source>
+        <translation type="unfinished">A szövegkeret első sorának magassága az alkalmazott betűkészlet sortávolsága</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertywidget_flopbase.ui" line="55"/>
         <source>Line Spacing</source>
         <translation>Sortávolság</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_flopbase.ui" line="56"/>
+        <location filename="../../scribus/ui/propertywidget_flopbase.ui" line="65"/>
+        <source>Set the base line of the first line of the text frame to the base line grid</source>
+        <translation type="unfinished">A szövegkeretben lévő első sor alapvonalának illesztése az alaprácsra</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertywidget_flopbase.ui" line="68"/>
         <source>Baseline Grid</source>
         <translation>Alaprács</translation>
     </message>
@@ -24427,33 +24567,28 @@ A value of 0 means unlimited hyphenations.</source>
 <context>
     <name>PropertyWidget_OptMargins</name>
     <message>
-        <location filename="../../scribus/ui/propertywidget_optmargins.cpp" line="218"/>
         <source>None</source>
         <comment>optical margins</comment>
-        <translation>Nincs</translation>
+        <translation type="vanished">Nincs</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_optmargins.cpp" line="219"/>
         <source>Both Sides</source>
         <comment>optical margins</comment>
-        <translation>Mindkét oldalon</translation>
+        <translation type="vanished">Mindkét oldalon</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_optmargins.cpp" line="220"/>
         <source>Left Only</source>
         <comment>optical margins</comment>
-        <translation>Csak bal oldalon</translation>
+        <translation type="vanished">Csak bal oldalon</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_optmargins.cpp" line="221"/>
         <source>Right Only</source>
         <comment>optical margins</comment>
-        <translation>Csak jobb oldalon</translation>
+        <translation type="vanished">Csak jobb oldalon</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_optmargins.cpp" line="222"/>
         <source>Reset</source>
-        <translation>Alapállapot</translation>
+        <translation type="vanished">Alapállapot</translation>
     </message>
 </context>
 <context>
@@ -24899,38 +25034,32 @@ A value of 0 means unlimited hyphenations.</source>
 <context>
     <name>PropertyWidget_TextColor</name>
     <message>
-        <location filename="../../scribus/ui/propertywidget_textcolor.cpp" line="522"/>
         <source>Color of selected text. If Outline text decoration is enabled, this color will be the fill color. If Drop Shadow Text is enabled, then this will be the top most color.</source>
-        <translation>A kijelölt szöveg színe. Ha a körvonal szövegdíszítő engedélyezve van, akkor ez a kitöltőszín lesz. Ha a vetett árnyék engedélyezve van, akkor ez lesz a legfelső szín.</translation>
+        <translation type="vanished">A kijelölt szöveg színe. Ha a körvonal szövegdíszítő engedélyezve van, akkor ez a kitöltőszín lesz. Ha a vetett árnyék engedélyezve van, akkor ez lesz a legfelső szín.</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_textcolor.cpp" line="524"/>
         <source>Background color of selected text</source>
-        <translation>A kijelölt szöveg háttérszíne</translation>
+        <translation type="vanished">A kijelölt szöveg háttérszíne</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_textcolor.cpp" line="525"/>
         <source>Saturation of color of text fill</source>
-        <translation>Szöveg kitöltő színének telítettsége</translation>
+        <translation type="vanished">Szöveg kitöltő színének telítettsége</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_textcolor.cpp" line="526"/>
         <source>Saturation of color of text stroke</source>
-        <translation>Szövegkörvonal színének telítettsége</translation>
+        <translation type="vanished">Szövegkörvonal színének telítettsége</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_textcolor.cpp" line="527"/>
         <source>Saturation of color of text background</source>
-        <translation>A szöveg háttérszínének telítettsége</translation>
+        <translation type="vanished">A szöveg háttérszínének telítettsége</translation>
     </message>
     <message>
         <source>Right to Left Writing</source>
         <translation type="vanished">Jobbról balra írás</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_textcolor.cpp" line="523"/>
         <source>Color of text stroke and/or drop shadow, depending which is chosen. If both are chosen, then they share the same color.</source>
-        <translation>Attól függően melyik van bekapcsolva, a szöveg körvonalának és/vagy a vetett árnyéknak a színe. Ha mindkettő be van kapcsolva, akkor ugyanazt a színt alkalmazzák.</translation>
+        <translation type="vanished">Attól függően melyik van bekapcsolva, a szöveg körvonalának és/vagy a vetett árnyéknak a színe. Ha mindkettő be van kapcsolva, akkor ugyanazt a színt alkalmazzák.</translation>
     </message>
 </context>
 <context>
@@ -24939,6 +25068,36 @@ A value of 0 means unlimited hyphenations.</source>
         <location filename="../../scribus/ui/propertywidget_textcolorbase.ui" line="14"/>
         <source>Frame</source>
         <translation>Keret</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertywidget_textcolorbase.ui" line="62"/>
+        <source>Color of selected text. If Outline text decoration is enabled, this color will be the fill color. If Drop Shadow Text is enabled, then this will be the top most color.</source>
+        <translation type="unfinished">A kijelölt szöveg színe. Ha a körvonal szövegdíszítő engedélyezve van, akkor ez a kitöltőszín lesz. Ha a vetett árnyék engedélyezve van, akkor ez lesz a legfelső szín.</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertywidget_textcolorbase.ui" line="79"/>
+        <source>Saturation of color of text fill</source>
+        <translation type="unfinished">Szöveg kitöltő színének telítettsége</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertywidget_textcolorbase.ui" line="124"/>
+        <source>Color of text stroke and/or drop shadow, depending which is chosen. If both are chosen, then they share the same color.</source>
+        <translation type="unfinished">Attól függően melyik van bekapcsolva, a szöveg körvonalának és/vagy a vetett árnyéknak a színe. Ha mindkettő be van kapcsolva, akkor ugyanazt a színt alkalmazzák.</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertywidget_textcolorbase.ui" line="141"/>
+        <source>Saturation of color of text stroke</source>
+        <translation type="unfinished">Szövegkörvonal színének telítettsége</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertywidget_textcolorbase.ui" line="174"/>
+        <source>Background color of selected text</source>
+        <translation type="unfinished">A kijelölt szöveg háttérszíne</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertywidget_textcolorbase.ui" line="191"/>
+        <source>Saturation of color of text background</source>
+        <translation type="unfinished">A szöveg háttérszínének telítettsége</translation>
     </message>
 </context>
 <context>

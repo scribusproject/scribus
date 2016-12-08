@@ -729,16 +729,16 @@ void PropertiesPalette_Text::languageChange()
 {
 	retranslateUi(this);
 
-//	colorWidgetsItem->setText(0, tr("Color && Effects"));
-//	flopItem->setText(0, tr("First Line Offset"));
-//	hyphenationWidgetItem->setText(0, tr("Hyphenation"));
-//	orphanItem->setText(0, tr("Orphans and Widows"));
-//	parEffectItem->setText(0, tr("Paragraph Effects"));
-//	distanceItem->setText(0, tr("Columns && Text Distances"));
-//	optMarginsItem->setText(0, tr("Optical Margins"));
-//	advancedWidgetsItem->setText(0, tr("Advanced Settings"));
-//	fontfeaturesWidgetItem->setText(0, tr("Font Features"));
-//	pathTextItem->setText(0, tr("Path Text Properties"));
+	textTree->setItemText(colorWidgetsItem, tr("Color && Effects"));
+	textTree->setItemText(flopItem, tr("First Line Offset"));
+	textTree->setItemText(hyphenationWidgetItem, tr("Hyphenation"));
+	textTree->setItemText(orphanItem, tr("Orphans and Widows"));
+	textTree->setItemText(parEffectItem, tr("Paragraph Effects"));
+	textTree->setItemText(distanceItem, tr("Columns && Text Distances"));
+	textTree->setItemText(optMarginsItem, tr("Optical Margins"));
+	textTree->setItemText(advancedWidgetsItem, tr("Advanced Settings"));
+	textTree->setItemText(fontfeaturesWidgetItem, tr("Font Features"));
+	textTree->setItemText(pathTextItem, tr("Path Text Properties"));
 	QSignalBlocker lineSpacingModeBlocker(lineSpacingModeCombo);
 	int oldLineSpacingMode = lineSpacingModeCombo->currentIndex();
 	lineSpacingModeCombo->clear();

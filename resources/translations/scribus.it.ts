@@ -23280,26 +23280,31 @@ dell&apos;oggetto</translation>
     <name>PropertiesPalette_Text</name>
     <message>
         <location filename="../../scribus/ui/propertiespalette_text.cpp" line="80"/>
+        <location filename="../../scribus/ui/propertiespalette_text.cpp" line="733"/>
         <source>First Line Offset</source>
         <translation>Spostamento prima riga</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_text.cpp" line="84"/>
+        <location filename="../../scribus/ui/propertiespalette_text.cpp" line="735"/>
         <source>Orphans and Widows</source>
         <translation>Orfani e vedove</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_text.cpp" line="97"/>
+        <location filename="../../scribus/ui/propertiespalette_text.cpp" line="738"/>
         <source>Optical Margins</source>
         <translation>Allineamento ottico al margine</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_text.cpp" line="107"/>
+        <location filename="../../scribus/ui/propertiespalette_text.cpp" line="739"/>
         <source>Advanced Settings</source>
         <translation>Impostazioni avanzate</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_text.cpp" line="117"/>
+        <location filename="../../scribus/ui/propertiespalette_text.cpp" line="741"/>
         <source>Path Text Properties</source>
         <translation>Proprietà del testo sul tracciato</translation>
     </message>
@@ -23315,21 +23320,25 @@ dell&apos;oggetto</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_text.cpp" line="76"/>
+        <location filename="../../scribus/ui/propertiespalette_text.cpp" line="732"/>
         <source>Color &amp;&amp; Effects</source>
         <translation>Colore &amp;&amp; Effetti</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_text.cpp" line="88"/>
+        <location filename="../../scribus/ui/propertiespalette_text.cpp" line="736"/>
         <source>Paragraph Effects</source>
         <translation>Effetti paragrafo</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_text.cpp" line="92"/>
+        <location filename="../../scribus/ui/propertiespalette_text.cpp" line="737"/>
         <source>Columns &amp;&amp; Text Distances</source>
         <translation>Colonne &amp;&amp; Distanze del testo</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_text.cpp" line="102"/>
+        <location filename="../../scribus/ui/propertiespalette_text.cpp" line="734"/>
         <source>Hyphenation</source>
         <translation type="unfinished">Sillabazione</translation>
     </message>
@@ -23339,74 +23348,123 @@ dell&apos;oggetto</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_text.cpp" line="730"/>
         <source>Paragraph St&amp;yle:</source>
-        <translation>S&amp;tile paragrafo:</translation>
+        <translation type="vanished">S&amp;tile paragrafo:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_text.cpp" line="731"/>
         <source>Character St&amp;yle:</source>
-        <translation>Stile carat&amp;tere:</translation>
+        <translation type="vanished">Stile carat&amp;tere:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_text.cpp" line="746"/>
+        <location filename="../../scribus/ui/propertiespalette_text.cpp" line="740"/>
+        <source>Font Features</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertiespalette_text.cpp" line="745"/>
         <source>Fixed Linespacing</source>
         <translation>Interlinea fissa</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_text.cpp" line="747"/>
+        <location filename="../../scribus/ui/propertiespalette_text.cpp" line="746"/>
         <source>Automatic Linespacing</source>
         <translation>Interlinea automatica</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_text.cpp" line="748"/>
+        <location filename="../../scribus/ui/propertiespalette_text.cpp" line="747"/>
         <source>Align to Baseline Grid</source>
         <translation>Allinea alla griglia tipografica</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_text.cpp" line="758"/>
         <source> pt</source>
-        <translation> pt</translation>
+        <translation type="vanished"> pt</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_text.cpp" line="775"/>
         <source>Font Size</source>
-        <translation>Dimensione carattere</translation>
+        <translation type="vanished">Dimensione carattere</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_text.cpp" line="776"/>
-        <source>Text language</source>
+        <source>Line Spacing</source>
+        <translation type="vanished">Spaziatura tra le righe</translation>
+    </message>
+    <message>
+        <source>Select the line spacing mode</source>
+        <translation type="vanished">Seleziona modalità interlinea</translation>
+    </message>
+    <message>
+        <source>Paragraph style of currently selected text or paragraph</source>
+        <translation type="vanished">Stile paragrafo del testo o paragrafo attualmente selezionato</translation>
+    </message>
+    <message>
+        <source>Character style of currently selected text or paragraph</source>
+        <translation type="vanished">Stile carattere del testo o paragrafo attualmente selezionato</translation>
+    </message>
+    <message>
+        <source>Remove Direct Paragraph Formatting</source>
+        <translation type="vanished">Elimina la formattazione diretta del paragrafo</translation>
+    </message>
+    <message>
+        <source>Remove Direct Character Formatting</source>
+        <translation type="vanished">Elimina la formattazione diretta del carattere</translation>
+    </message>
+</context>
+<context>
+    <name>PropertiesPalette_TextBase</name>
+    <message>
+        <location filename="../../scribus/ui/propertiespalette_textbase.ui" line="65"/>
+        <source>Font Size</source>
+        <translation type="unfinished">Dimensione carattere</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertiespalette_textbase.ui" line="68"/>
+        <location filename="../../scribus/ui/propertiespalette_textbase.ui" line="124"/>
+        <source> pt</source>
+        <translation type="unfinished"> pt</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertiespalette_textbase.ui" line="108"/>
+        <source>Select the line spacing mode</source>
+        <translation type="unfinished">Seleziona modalità interlinea</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertiespalette_textbase.ui" line="121"/>
+        <source>Line Spacing</source>
+        <translation type="unfinished">Spaziatura tra le righe</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertiespalette_textbase.ui" line="154"/>
+        <source>Text Language</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_text.cpp" line="777"/>
-        <source>Line Spacing</source>
-        <translation>Spaziatura tra le righe</translation>
+        <location filename="../../scribus/ui/propertiespalette_textbase.ui" line="184"/>
+        <source>Paragraph St&amp;yle:</source>
+        <translation type="unfinished">S&amp;tile paragrafo:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_text.cpp" line="778"/>
-        <source>Select the line spacing mode</source>
-        <translation>Seleziona modalità interlinea</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/propertiespalette_text.cpp" line="779"/>
+        <location filename="../../scribus/ui/propertiespalette_textbase.ui" line="200"/>
         <source>Paragraph style of currently selected text or paragraph</source>
-        <translation>Stile paragrafo del testo o paragrafo attualmente selezionato</translation>
+        <translation type="unfinished">Stile paragrafo del testo o paragrafo attualmente selezionato</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_text.cpp" line="780"/>
-        <source>Character style of currently selected text or paragraph</source>
-        <translation>Stile carattere del testo o paragrafo attualmente selezionato</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/propertiespalette_text.cpp" line="781"/>
+        <location filename="../../scribus/ui/propertiespalette_textbase.ui" line="213"/>
         <source>Remove Direct Paragraph Formatting</source>
-        <translation>Elimina la formattazione diretta del paragrafo</translation>
+        <translation type="unfinished">Elimina la formattazione diretta del paragrafo</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_text.cpp" line="782"/>
+        <location filename="../../scribus/ui/propertiespalette_textbase.ui" line="237"/>
+        <source>Character St&amp;yle:</source>
+        <translation type="unfinished">Stile carat&amp;tere:</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertiespalette_textbase.ui" line="253"/>
+        <source>Character style of currently selected text or paragraph</source>
+        <translation type="unfinished">Stile carattere del testo o paragrafo attualmente selezionato</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertiespalette_textbase.ui" line="266"/>
         <source>Remove Direct Character Formatting</source>
-        <translation>Elimina la formattazione diretta del carattere</translation>
+        <translation type="unfinished">Elimina la formattazione diretta del carattere</translation>
     </message>
 </context>
 <context>
@@ -23649,75 +23707,60 @@ dell&apos;oggetto</translation>
 <context>
     <name>PropertyWidget_Advanced</name>
     <message>
-        <location filename="../../scribus/ui/propertywidget_advanced.cpp" line="371"/>
         <source>Word Tracking</source>
-        <translation>Spaziatura tra parole</translation>
+        <translation type="vanished">Spaziatura tra parole</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_advanced.cpp" line="372"/>
-        <location filename="../../scribus/ui/propertywidget_advanced.cpp" line="375"/>
         <source>Min:</source>
-        <translation>Min:</translation>
+        <translation type="vanished">Min:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_advanced.cpp" line="373"/>
         <source>Norm:</source>
-        <translation>Norm:</translation>
+        <translation type="vanished">Norm:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_advanced.cpp" line="374"/>
         <source>Glyph Extension</source>
-        <translation>Estensione glifi</translation>
+        <translation type="vanished">Estensione glifi</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_advanced.cpp" line="376"/>
         <source>Max:</source>
-        <translation>Max:</translation>
+        <translation type="vanished">Max:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_advanced.cpp" line="378"/>
         <source> %</source>
-        <translation> %</translation>
+        <translation type="vanished"> %</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_advanced.cpp" line="388"/>
         <source>Offset to baseline of characters</source>
-        <translation>Spostamento dei caratteri in rapporto alla linea di base</translation>
+        <translation type="vanished">Spostamento dei caratteri in rapporto alla linea di base</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_advanced.cpp" line="389"/>
         <source>Manual Tracking</source>
-        <translation>Crenatura manuale</translation>
+        <translation type="vanished">Crenatura manuale</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_advanced.cpp" line="390"/>
         <source>Scaling width of characters</source>
-        <translation>Scala della larghezza dei caratteri</translation>
+        <translation type="vanished">Scala della larghezza dei caratteri</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_advanced.cpp" line="391"/>
         <source>Scaling height of characters</source>
-        <translation>Scala dell&apos;altezza dei caratteri</translation>
+        <translation type="vanished">Scala dell&apos;altezza dei caratteri</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_advanced.cpp" line="393"/>
         <source>Minimal width of spaces between words</source>
-        <translation>Larghezza minima degli spazi tra parole</translation>
+        <translation type="vanished">Larghezza minima degli spazi tra parole</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_advanced.cpp" line="394"/>
         <source>Normal width of spaces between words</source>
-        <translation>Larghezza normale degli spazi tra parole</translation>
+        <translation type="vanished">Larghezza normale degli spazi tra parole</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_advanced.cpp" line="395"/>
         <source>Minimal shrinkage of glyphs for justification</source>
-        <translation>Minima contrazione dei glifi per la giustificazione</translation>
+        <translation type="vanished">Minima contrazione dei glifi per la giustificazione</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_advanced.cpp" line="396"/>
         <source>Maximal extension of glyphs for justification</source>
-        <translation>Massima estensione dei glifi per la giustificazione</translation>
+        <translation type="vanished">Massima estensione dei glifi per la giustificazione</translation>
     </message>
 </context>
 <context>
@@ -23728,24 +23771,84 @@ dell&apos;oggetto</translation>
         <translation>Cornice</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="79"/>
         <source>Word Spacing</source>
-        <translation>Spaziatura tra parole</translation>
+        <translation type="vanished">Spaziatura tra parole</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="86"/>
-        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="133"/>
+        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="48"/>
+        <source>Offset to baseline of characters</source>
+        <translation type="unfinished">Spostamento dei caratteri in rapporto alla linea di base</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="51"/>
+        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="74"/>
+        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="91"/>
+        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="108"/>
+        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="132"/>
+        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="151"/>
+        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="191"/>
+        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="210"/>
+        <source> %</source>
+        <translation type="unfinished"> %</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="71"/>
+        <source>Manual Tracking</source>
+        <translation type="unfinished">Crenatura manuale</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="88"/>
+        <source>Scaling width of characters</source>
+        <translation type="unfinished">Scala della larghezza dei caratteri</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="105"/>
+        <source>Scaling height of characters</source>
+        <translation type="unfinished">Scala dell&apos;altezza dei caratteri</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="115"/>
+        <source>Word Tracking</source>
+        <translation type="unfinished">Spaziatura tra parole</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="122"/>
+        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="181"/>
         <source>Min:</source>
         <translation>Min:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="119"/>
-        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="166"/>
+        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="129"/>
+        <source>Minimal width of spaces between words</source>
+        <translation type="unfinished">Larghezza minima degli spazi tra parole</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="148"/>
+        <source>Normal width of spaces between words</source>
+        <translation type="unfinished">Larghezza normale degli spazi tra parole</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="167"/>
+        <source>Norm:</source>
+        <translation type="unfinished">Norm:</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="188"/>
+        <source>Minimal shrinkage of glyphs for justification</source>
+        <translation type="unfinished">Minima contrazione dei glifi per la giustificazione</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="207"/>
+        <source>Maximal extension of glyphs for justification</source>
+        <translation type="unfinished">Massima estensione dei glifi per la giustificazione</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="226"/>
         <source>Max:</source>
         <translation>Max:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="126"/>
+        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="174"/>
         <source>Glyph Extension</source>
         <translation>Estensione glifi</translation>
     </message>
@@ -23753,78 +23856,69 @@ dell&apos;oggetto</translation>
 <context>
     <name>PropertyWidget_Distance</name>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="439"/>
         <source>Colu&amp;mns:</source>
-        <translation>Colo&amp;nne:</translation>
+        <translation type="vanished">Colo&amp;nne:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="446"/>
+        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="444"/>
         <source>Top</source>
         <translation>Alto</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="447"/>
+        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="445"/>
         <source>Middle</source>
         <translation>Centro</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="448"/>
+        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="446"/>
         <source>Bottom</source>
         <translation>Basso</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="454"/>
+        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="452"/>
         <source>Gap:</source>
         <translation>Distanza:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="455"/>
+        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="453"/>
         <source>Width:</source>
         <translation>Larghezza:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="458"/>
         <source>To&amp;p:</source>
-        <translation>Su&amp;periore:</translation>
+        <translation type="vanished">Su&amp;periore:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="459"/>
         <source>&amp;Bottom:</source>
-        <translation>In&amp;feriore:</translation>
+        <translation type="vanished">In&amp;feriore:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="460"/>
         <source>&amp;Left:</source>
-        <translation>Sinist&amp;ra:</translation>
+        <translation type="vanished">Sinist&amp;ra:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="461"/>
         <source>&amp;Right:</source>
-        <translation>&amp;Destra:</translation>
+        <translation type="vanished">&amp;Destra:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="463"/>
         <source>T&amp;abulators...</source>
-        <translation>&amp;Tabulatori...</translation>
+        <translation type="vanished">&amp;Tabulatori...</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="465"/>
+        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="456"/>
         <source> pt</source>
         <translation> pt</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="475"/>
         <source>Number of columns in text frame</source>
-        <translation>Numero di colonne nella cornice di testo</translation>
+        <translation type="vanished">Numero di colonne nella cornice di testo</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="476"/>
         <source>Switches between Gap or Column width</source>
-        <translation>Passa alternativamente dalla distanza alla larghezza delle colonne</translation>
+        <translation type="vanished">Passa alternativamente dalla distanza alla larghezza delle colonne</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_distance.cpp" line="353"/>
-        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="477"/>
         <source>Distance between columns</source>
         <translation>Distanza tra le colonne</translation>
     </message>
@@ -23834,34 +23928,28 @@ dell&apos;oggetto</translation>
         <translation>Larghezza colonna</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="441"/>
         <source>Vertical Alignment:</source>
-        <translation>Allineamento verticale:</translation>
+        <translation type="vanished">Allineamento verticale:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="478"/>
         <source>Distance of text from top of frame</source>
-        <translation>Distanza del testo dal margine superiore della cornice</translation>
+        <translation type="vanished">Distanza del testo dal margine superiore della cornice</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="479"/>
         <source>Distance of text from bottom of frame</source>
-        <translation>Distanza del testo dal margine inferiore della cornice</translation>
+        <translation type="vanished">Distanza del testo dal margine inferiore della cornice</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="480"/>
         <source>Distance of text from left of frame</source>
-        <translation>Distanza del testo dal margine sinistro della cornice</translation>
+        <translation type="vanished">Distanza del testo dal margine sinistro della cornice</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="481"/>
         <source>Distance of text from right of frame</source>
-        <translation>Distanza del testo dal margine destro della cornice</translation>
+        <translation type="vanished">Distanza del testo dal margine destro della cornice</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="482"/>
         <source>Edit tab settings of text frame...</source>
-        <translation>Modifica le impostazioni delle tabulazioni della cornice di testo...</translation>
+        <translation type="vanished">Modifica le impostazioni delle tabulazioni della cornice di testo...</translation>
     </message>
 </context>
 <context>
@@ -23872,9 +23960,13 @@ dell&apos;oggetto</translation>
         <translation>Cornice</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="41"/>
         <source>Vertical Alignment</source>
-        <translation>Allineamento verticale</translation>
+        <translation type="vanished">Allineamento verticale</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="41"/>
+        <source>Vertical Alignment:</source>
+        <translation type="unfinished">Allineamento verticale:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="49"/>
@@ -23897,37 +23989,77 @@ dell&apos;oggetto</translation>
         <translation>Colo&amp;nne:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="85"/>
+        <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="74"/>
+        <source>Number of columns in text frame</source>
+        <translation type="unfinished">Numero di colonne nella cornice di testo</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="87"/>
+        <source>Switches between Gap or Column width</source>
+        <translation type="unfinished">Passa alternativamente dalla distanza alla larghezza delle colonne</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="91"/>
         <source>Gap:</source>
         <translation>Distanza:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="90"/>
+        <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="96"/>
         <source>Width:</source>
         <translation>Larghezza:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="101"/>
+        <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="104"/>
+        <source>Distance between columns</source>
+        <translation type="unfinished">Distanza tra le colonne</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="111"/>
         <source>To&amp;p:</source>
         <translation>Su&amp;periore:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="111"/>
+        <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="118"/>
+        <source>Distance of text from top of frame</source>
+        <translation type="unfinished">Distanza del testo dal margine superiore della cornice</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="125"/>
         <source>&amp;Bottom:</source>
         <translation>In&amp;feriore:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="121"/>
+        <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="132"/>
+        <source>Distance of text from bottom of frame</source>
+        <translation type="unfinished">Distanza del testo dal margine inferiore della cornice</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="139"/>
         <source>&amp;Left:</source>
         <translation>Sinist&amp;ra:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="131"/>
+        <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="146"/>
+        <source>Distance of text from left of frame</source>
+        <translation type="unfinished">Distanza del testo dal margine sinistro della cornice</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="153"/>
         <source>&amp;Right:</source>
         <translation>&amp;Destra:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="147"/>
+        <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="160"/>
+        <source>Distance of text from right of frame</source>
+        <translation type="unfinished">Distanza del testo dal margine destro della cornice</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="173"/>
+        <source>Edit tab settings of text frame...</source>
+        <translation type="unfinished">Modifica le impostazioni delle tabulazioni della cornice di testo...</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="176"/>
         <source>T&amp;abulators...</source>
         <translation>&amp;Tabulatori...</translation>
     </message>
@@ -23996,44 +24128,36 @@ dell&apos;oggetto</translation>
 <context>
     <name>PropertyWidget_Flop</name>
     <message>
-        <location filename="../../scribus/ui/propertywidget_flop.cpp" line="54"/>
         <source>Maximum Ascent</source>
-        <translation>Massimo ascendente</translation>
+        <translation type="vanished">Massimo ascendente</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_flop.cpp" line="55"/>
         <source>Font Ascent</source>
-        <translation>Ascendente del carattere</translation>
+        <translation type="vanished">Ascendente del carattere</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_flop.cpp" line="56"/>
         <source>Line Spacing</source>
-        <translation>Spaziatura tra le righe</translation>
+        <translation type="vanished">Spaziatura tra le righe</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_flop.cpp" line="57"/>
         <source>Baseline Grid</source>
-        <translation>Griglia tipografica</translation>
+        <translation type="vanished">Griglia tipografica</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_flop.cpp" line="59"/>
         <source>Set the height of the first line of the text frame to use the tallest height of the included characters</source>
-        <translation>Imposta l&apos;altezza della prima linea della cornice di testo, in modo che utilizzi l&apos;altezza massima dei caratteri inclusi</translation>
+        <translation type="vanished">Imposta l&apos;altezza della prima linea della cornice di testo, in modo che utilizzi l&apos;altezza massima dei caratteri inclusi</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_flop.cpp" line="60"/>
         <source>Set the height of the first line of text frame to use the full ascent of the font(s) in use</source>
-        <translation>Imposta l&apos;altezza della prima linea della cornice di testo, in modo che utilizzi l&apos;altezza massima delle parti ascendenti del font in uso</translation>
+        <translation type="vanished">Imposta l&apos;altezza della prima linea della cornice di testo, in modo che utilizzi l&apos;altezza massima delle parti ascendenti del font in uso</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_flop.cpp" line="61"/>
         <source>Set the height of the first line of the text frame to the specified line height</source>
-        <translation>Imposta l&apos;altezza della prima linea della cornice di testo alla misura specificata per l&apos;altezza delle righe</translation>
+        <translation type="vanished">Imposta l&apos;altezza della prima linea della cornice di testo alla misura specificata per l&apos;altezza delle righe</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_flop.cpp" line="62"/>
         <source>Set the base line of the first line of the text frame to the base line grid</source>
-        <translation>Imposta l&apos;altezza della prima linea della cornice di testo alla griglia tipografica</translation>
+        <translation type="vanished">Imposta l&apos;altezza della prima linea della cornice di testo alla griglia tipografica</translation>
     </message>
 </context>
 <context>
@@ -24045,29 +24169,41 @@ dell&apos;oggetto</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_flopbase.ui" line="26"/>
+        <source>Set the height of the first line of the text frame to use the tallest height of the included characters</source>
+        <translation type="unfinished">Imposta l&apos;altezza della prima linea della cornice di testo, in modo che utilizzi l&apos;altezza massima dei caratteri inclusi</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertywidget_flopbase.ui" line="29"/>
         <source>Maximum Ascent</source>
         <translation>Massimo ascendente</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_flopbase.ui" line="29"/>
         <location filename="../../scribus/ui/propertywidget_flopbase.ui" line="39"/>
-        <location filename="../../scribus/ui/propertywidget_flopbase.ui" line="49"/>
-        <location filename="../../scribus/ui/propertywidget_flopbase.ui" line="59"/>
-        <source>flopGroup</source>
-        <translation></translation>
+        <source>Set the height of the first line of text frame to use the full ascent of the font(s) in use</source>
+        <translation type="unfinished">Imposta l&apos;altezza della prima linea della cornice di testo, in modo che utilizzi l&apos;altezza massima delle parti ascendenti del font in uso</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_flopbase.ui" line="36"/>
+        <location filename="../../scribus/ui/propertywidget_flopbase.ui" line="42"/>
         <source>Font Ascent</source>
         <translation>Ascendente del carattere</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_flopbase.ui" line="46"/>
+        <location filename="../../scribus/ui/propertywidget_flopbase.ui" line="52"/>
+        <source>Set the height of the first line of the text frame to the specified line height</source>
+        <translation type="unfinished">Imposta l&apos;altezza della prima linea della cornice di testo alla misura specificata per l&apos;altezza delle righe</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertywidget_flopbase.ui" line="55"/>
         <source>Line Spacing</source>
         <translation>Spaziatura tra le righe</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_flopbase.ui" line="56"/>
+        <location filename="../../scribus/ui/propertywidget_flopbase.ui" line="65"/>
+        <source>Set the base line of the first line of the text frame to the base line grid</source>
+        <translation type="unfinished">Imposta l&apos;altezza della prima linea della cornice di testo alla griglia tipografica</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertywidget_flopbase.ui" line="68"/>
         <source>Baseline Grid</source>
         <translation>Griglia tipografica</translation>
     </message>
@@ -24483,33 +24619,28 @@ Un valore uguale a 0 significa sillabazioni illimitate.</translation>
 <context>
     <name>PropertyWidget_OptMargins</name>
     <message>
-        <location filename="../../scribus/ui/propertywidget_optmargins.cpp" line="218"/>
         <source>None</source>
         <comment>optical margins</comment>
-        <translation>Nessuno</translation>
+        <translation type="vanished">Nessuno</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_optmargins.cpp" line="219"/>
         <source>Both Sides</source>
         <comment>optical margins</comment>
-        <translation>Ambedue i lati</translation>
+        <translation type="vanished">Ambedue i lati</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_optmargins.cpp" line="220"/>
         <source>Left Only</source>
         <comment>optical margins</comment>
-        <translation>Solo sinistro</translation>
+        <translation type="vanished">Solo sinistro</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_optmargins.cpp" line="221"/>
         <source>Right Only</source>
         <comment>optical margins</comment>
-        <translation>Solo destro</translation>
+        <translation type="vanished">Solo destro</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_optmargins.cpp" line="222"/>
         <source>Reset</source>
-        <translation>Azzera</translation>
+        <translation type="vanished">Azzera</translation>
     </message>
 </context>
 <context>
@@ -24955,34 +25086,28 @@ Un valore uguale a 0 significa sillabazioni illimitate.</translation>
 <context>
     <name>PropertyWidget_TextColor</name>
     <message>
-        <location filename="../../scribus/ui/propertywidget_textcolor.cpp" line="522"/>
         <source>Color of selected text. If Outline text decoration is enabled, this color will be the fill color. If Drop Shadow Text is enabled, then this will be the top most color.</source>
-        <translation>Colore del testo selezionato. Se è abilitato Contornato, questo colore sarà il colore di riempimento. Se è abilitato Ombreggiato, sarà il colore superiore.</translation>
+        <translation type="vanished">Colore del testo selezionato. Se è abilitato Contornato, questo colore sarà il colore di riempimento. Se è abilitato Ombreggiato, sarà il colore superiore.</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_textcolor.cpp" line="523"/>
         <source>Color of text stroke and/or drop shadow, depending which is chosen. If both are chosen, then they share the same color.</source>
-        <translation>Colore del contorno del testo e/o dell&apos;ombreggiatura, a seconda di quale dei due è stato scelto. Se sono stati scelti entrambi, avranno lo stesso colore.</translation>
+        <translation type="vanished">Colore del contorno del testo e/o dell&apos;ombreggiatura, a seconda di quale dei due è stato scelto. Se sono stati scelti entrambi, avranno lo stesso colore.</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_textcolor.cpp" line="524"/>
         <source>Background color of selected text</source>
-        <translation>Colore di sfondo del testo selezionato</translation>
+        <translation type="vanished">Colore di sfondo del testo selezionato</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_textcolor.cpp" line="525"/>
         <source>Saturation of color of text fill</source>
-        <translation>Intensità colore dello riempimento del testo</translation>
+        <translation type="vanished">Intensità colore dello riempimento del testo</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_textcolor.cpp" line="526"/>
         <source>Saturation of color of text stroke</source>
-        <translation>Intensità colore del contorno del testo</translation>
+        <translation type="vanished">Intensità colore del contorno del testo</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_textcolor.cpp" line="527"/>
         <source>Saturation of color of text background</source>
-        <translation>Intensità colore dello sfondo del testo</translation>
+        <translation type="vanished">Intensità colore dello sfondo del testo</translation>
     </message>
     <message>
         <source>Right to Left Writing</source>
@@ -24995,6 +25120,36 @@ Un valore uguale a 0 significa sillabazioni illimitate.</translation>
         <location filename="../../scribus/ui/propertywidget_textcolorbase.ui" line="14"/>
         <source>Frame</source>
         <translation>Cornice</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertywidget_textcolorbase.ui" line="62"/>
+        <source>Color of selected text. If Outline text decoration is enabled, this color will be the fill color. If Drop Shadow Text is enabled, then this will be the top most color.</source>
+        <translation type="unfinished">Colore del testo selezionato. Se è abilitato Contornato, questo colore sarà il colore di riempimento. Se è abilitato Ombreggiato, sarà il colore superiore.</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertywidget_textcolorbase.ui" line="79"/>
+        <source>Saturation of color of text fill</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertywidget_textcolorbase.ui" line="124"/>
+        <source>Color of text stroke and/or drop shadow, depending which is chosen. If both are chosen, then they share the same color.</source>
+        <translation type="unfinished">Colore del contorno del testo e/o dell&apos;ombreggiatura, a seconda di quale dei due è stato scelto. Se sono stati scelti entrambi, avranno lo stesso colore.</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertywidget_textcolorbase.ui" line="141"/>
+        <source>Saturation of color of text stroke</source>
+        <translation type="unfinished">Intensità colore del contorno del testo</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertywidget_textcolorbase.ui" line="174"/>
+        <source>Background color of selected text</source>
+        <translation type="unfinished">Colore di sfondo del testo selezionato</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertywidget_textcolorbase.ui" line="191"/>
+        <source>Saturation of color of text background</source>
+        <translation type="unfinished">Intensità colore dello sfondo del testo</translation>
     </message>
 </context>
 <context>

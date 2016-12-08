@@ -23145,21 +23145,25 @@ Transparency</source>
     <name>PropertiesPalette_Text</name>
     <message>
         <location filename="../../scribus/ui/propertiespalette_text.cpp" line="80"/>
+        <location filename="../../scribus/ui/propertiespalette_text.cpp" line="733"/>
         <source>First Line Offset</source>
         <translation>Posun prvého riadku</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_text.cpp" line="97"/>
+        <location filename="../../scribus/ui/propertiespalette_text.cpp" line="738"/>
         <source>Optical Margins</source>
         <translation>Optické okraje</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_text.cpp" line="102"/>
+        <location filename="../../scribus/ui/propertiespalette_text.cpp" line="734"/>
         <source>Hyphenation</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_text.cpp" line="107"/>
+        <location filename="../../scribus/ui/propertiespalette_text.cpp" line="739"/>
         <source>Advanced Settings</source>
         <translation>Pokročilé nastavenia</translation>
     </message>
@@ -23170,6 +23174,7 @@ Transparency</source>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_text.cpp" line="117"/>
+        <location filename="../../scribus/ui/propertiespalette_text.cpp" line="741"/>
         <source>Path Text Properties</source>
         <translation>Vlastnosti cesty textu</translation>
     </message>
@@ -23184,94 +23189,143 @@ Transparency</source>
         <translation>Základná čiara</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_text.cpp" line="730"/>
         <source>Paragraph St&amp;yle:</source>
-        <translation>Št&amp;ýl odstavca:</translation>
+        <translation type="vanished">Št&amp;ýl odstavca:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_text.cpp" line="731"/>
         <source>Character St&amp;yle:</source>
-        <translation>Št&amp;ýly znaku:</translation>
+        <translation type="vanished">Št&amp;ýly znaku:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_text.cpp" line="746"/>
+        <location filename="../../scribus/ui/propertiespalette_text.cpp" line="740"/>
+        <source>Font Features</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertiespalette_text.cpp" line="745"/>
         <source>Fixed Linespacing</source>
         <translation>Fixné riadkovanie</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_text.cpp" line="747"/>
+        <location filename="../../scribus/ui/propertiespalette_text.cpp" line="746"/>
         <source>Automatic Linespacing</source>
         <translation>Automatické riadkovanie</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_text.cpp" line="748"/>
+        <location filename="../../scribus/ui/propertiespalette_text.cpp" line="747"/>
         <source>Align to Baseline Grid</source>
         <translation>Zarovnať k pomocnej mriežke</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_text.cpp" line="758"/>
         <source> pt</source>
-        <translation> pt</translation>
+        <translation type="vanished"> pt</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_text.cpp" line="775"/>
         <source>Font Size</source>
-        <translation>Veľkosť písma</translation>
+        <translation type="vanished">Veľkosť písma</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_text.cpp" line="776"/>
-        <source>Text language</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/propertiespalette_text.cpp" line="777"/>
         <source>Line Spacing</source>
-        <translation>Riadkovanie</translation>
+        <translation type="vanished">Riadkovanie</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_text.cpp" line="779"/>
         <source>Paragraph style of currently selected text or paragraph</source>
-        <translation>Štýl odstavca aktuálneho vybraného textu alebo odstavca</translation>
+        <translation type="vanished">Štýl odstavca aktuálneho vybraného textu alebo odstavca</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_text.cpp" line="780"/>
         <source>Character style of currently selected text or paragraph</source>
-        <translation>Štýl znaku aktuálneho vybraného textu alebo odstavca</translation>
+        <translation type="vanished">Štýl znaku aktuálneho vybraného textu alebo odstavca</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_text.cpp" line="781"/>
         <source>Remove Direct Paragraph Formatting</source>
-        <translation>Odstrániť priame formátovanie odstavca</translation>
+        <translation type="vanished">Odstrániť priame formátovanie odstavca</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_text.cpp" line="782"/>
         <source>Remove Direct Character Formatting</source>
-        <translation>Odstrániť priame formátovanie znaku</translation>
+        <translation type="vanished">Odstrániť priame formátovanie znaku</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_text.cpp" line="84"/>
+        <location filename="../../scribus/ui/propertiespalette_text.cpp" line="735"/>
         <source>Orphans and Widows</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_text.cpp" line="76"/>
+        <location filename="../../scribus/ui/propertiespalette_text.cpp" line="732"/>
         <source>Color &amp;&amp; Effects</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_text.cpp" line="92"/>
+        <location filename="../../scribus/ui/propertiespalette_text.cpp" line="737"/>
         <source>Columns &amp;&amp; Text Distances</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_text.cpp" line="88"/>
+        <location filename="../../scribus/ui/propertiespalette_text.cpp" line="736"/>
         <source>Paragraph Effects</source>
         <translation type="unfinished"></translation>
     </message>
+</context>
+<context>
+    <name>PropertiesPalette_TextBase</name>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_text.cpp" line="778"/>
+        <location filename="../../scribus/ui/propertiespalette_textbase.ui" line="65"/>
+        <source>Font Size</source>
+        <translation type="unfinished">Veľkosť písma</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertiespalette_textbase.ui" line="68"/>
+        <location filename="../../scribus/ui/propertiespalette_textbase.ui" line="124"/>
+        <source> pt</source>
+        <translation type="unfinished"> pt</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertiespalette_textbase.ui" line="108"/>
         <source>Select the line spacing mode</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertiespalette_textbase.ui" line="121"/>
+        <source>Line Spacing</source>
+        <translation type="unfinished">Riadkovanie</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertiespalette_textbase.ui" line="154"/>
+        <source>Text Language</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertiespalette_textbase.ui" line="184"/>
+        <source>Paragraph St&amp;yle:</source>
+        <translation type="unfinished">Št&amp;ýl odstavca:</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertiespalette_textbase.ui" line="200"/>
+        <source>Paragraph style of currently selected text or paragraph</source>
+        <translation type="unfinished">Štýl odstavca aktuálneho vybraného textu alebo odstavca</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertiespalette_textbase.ui" line="213"/>
+        <source>Remove Direct Paragraph Formatting</source>
+        <translation type="unfinished">Odstrániť priame formátovanie odstavca</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertiespalette_textbase.ui" line="237"/>
+        <source>Character St&amp;yle:</source>
+        <translation type="unfinished">Št&amp;ýly znaku:</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertiespalette_textbase.ui" line="253"/>
+        <source>Character style of currently selected text or paragraph</source>
+        <translation type="unfinished">Štýl znaku aktuálneho vybraného textu alebo odstavca</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertiespalette_textbase.ui" line="266"/>
+        <source>Remove Direct Character Formatting</source>
+        <translation type="unfinished">Odstrániť priame formátovanie znaku</translation>
     </message>
 </context>
 <context>
@@ -23513,75 +23567,60 @@ Transparency</source>
 <context>
     <name>PropertyWidget_Advanced</name>
     <message>
-        <location filename="../../scribus/ui/propertywidget_advanced.cpp" line="371"/>
         <source>Word Tracking</source>
-        <translation>Odstup medzi slovami</translation>
+        <translation type="vanished">Odstup medzi slovami</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_advanced.cpp" line="372"/>
-        <location filename="../../scribus/ui/propertywidget_advanced.cpp" line="375"/>
         <source>Min:</source>
-        <translation>Min:</translation>
+        <translation type="vanished">Min:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_advanced.cpp" line="373"/>
         <source>Norm:</source>
-        <translation>Norm:</translation>
+        <translation type="vanished">Norm:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_advanced.cpp" line="374"/>
         <source>Glyph Extension</source>
-        <translation>Rozšírenie znaku</translation>
+        <translation type="vanished">Rozšírenie znaku</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_advanced.cpp" line="376"/>
         <source>Max:</source>
-        <translation>Max:</translation>
+        <translation type="vanished">Max:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_advanced.cpp" line="378"/>
         <source> %</source>
-        <translation> %</translation>
+        <translation type="vanished"> %</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_advanced.cpp" line="388"/>
         <source>Offset to baseline of characters</source>
-        <translation>Posun základnej čiary znakov</translation>
+        <translation type="vanished">Posun základnej čiary znakov</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_advanced.cpp" line="389"/>
         <source>Manual Tracking</source>
-        <translation>Manuálne sledovanie</translation>
+        <translation type="vanished">Manuálne sledovanie</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_advanced.cpp" line="390"/>
         <source>Scaling width of characters</source>
-        <translation>Zmena šírky znakov</translation>
+        <translation type="vanished">Zmena šírky znakov</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_advanced.cpp" line="391"/>
         <source>Scaling height of characters</source>
-        <translation>Zmena šírky znakov</translation>
+        <translation type="vanished">Zmena šírky znakov</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_advanced.cpp" line="393"/>
         <source>Minimal width of spaces between words</source>
-        <translation>Minimálna šírka medzery medzi slovami</translation>
+        <translation type="vanished">Minimálna šírka medzery medzi slovami</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_advanced.cpp" line="394"/>
         <source>Normal width of spaces between words</source>
-        <translation>Normálna šírka medzi slovami</translation>
+        <translation type="vanished">Normálna šírka medzi slovami</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_advanced.cpp" line="395"/>
         <source>Minimal shrinkage of glyphs for justification</source>
-        <translation>Minimálna šírka znakov pre vyrovnanie</translation>
+        <translation type="vanished">Minimálna šírka znakov pre vyrovnanie</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_advanced.cpp" line="396"/>
         <source>Maximal extension of glyphs for justification</source>
-        <translation>Maximálna šírka znakov pre vyrovnávanie</translation>
+        <translation type="vanished">Maximálna šírka znakov pre vyrovnávanie</translation>
     </message>
 </context>
 <context>
@@ -23592,24 +23631,80 @@ Transparency</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="79"/>
-        <source>Word Spacing</source>
+        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="48"/>
+        <source>Offset to baseline of characters</source>
+        <translation type="unfinished">Posun základnej čiary znakov</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="51"/>
+        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="74"/>
+        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="91"/>
+        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="108"/>
+        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="132"/>
+        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="151"/>
+        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="191"/>
+        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="210"/>
+        <source> %</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="86"/>
-        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="133"/>
+        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="71"/>
+        <source>Manual Tracking</source>
+        <translation type="unfinished">Manuálne sledovanie</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="88"/>
+        <source>Scaling width of characters</source>
+        <translation type="unfinished">Zmena šírky znakov</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="105"/>
+        <source>Scaling height of characters</source>
+        <translation type="unfinished">Zmena šírky znakov</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="115"/>
+        <source>Word Tracking</source>
+        <translation type="unfinished">Odstup medzi slovami</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="122"/>
+        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="181"/>
         <source>Min:</source>
         <translation>Min:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="119"/>
-        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="166"/>
+        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="129"/>
+        <source>Minimal width of spaces between words</source>
+        <translation type="unfinished">Minimálna šírka medzery medzi slovami</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="148"/>
+        <source>Normal width of spaces between words</source>
+        <translation type="unfinished">Normálna šírka medzi slovami</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="167"/>
+        <source>Norm:</source>
+        <translation type="unfinished">Norm:</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="188"/>
+        <source>Minimal shrinkage of glyphs for justification</source>
+        <translation type="unfinished">Minimálna šírka znakov pre vyrovnanie</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="207"/>
+        <source>Maximal extension of glyphs for justification</source>
+        <translation type="unfinished">Maximálna šírka znakov pre vyrovnávanie</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="226"/>
         <source>Max:</source>
         <translation>Max:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="126"/>
+        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="174"/>
         <source>Glyph Extension</source>
         <translation>Rozšírenie znaku</translation>
     </message>
@@ -23617,95 +23712,76 @@ Transparency</source>
 <context>
     <name>PropertyWidget_Distance</name>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="439"/>
         <source>Colu&amp;mns:</source>
-        <translation>&amp;Stĺpce:</translation>
+        <translation type="vanished">&amp;Stĺpce:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="441"/>
-        <source>Vertical Alignment:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="454"/>
+        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="452"/>
         <source>Gap:</source>
         <translation>Odstup:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="455"/>
+        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="453"/>
         <source>Width:</source>
         <translation>Šírka:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="458"/>
         <source>To&amp;p:</source>
-        <translation>&amp;Horný:</translation>
+        <translation type="vanished">&amp;Horný:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="459"/>
         <source>&amp;Bottom:</source>
-        <translation>&amp;Dole:</translation>
+        <translation type="vanished">&amp;Dole:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="460"/>
         <source>&amp;Left:</source>
-        <translation>V&amp;ľavo:</translation>
+        <translation type="vanished">V&amp;ľavo:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="461"/>
         <source>&amp;Right:</source>
-        <translation>Vp&amp;ravo:</translation>
+        <translation type="vanished">Vp&amp;ravo:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="463"/>
         <source>T&amp;abulators...</source>
-        <translation>T&amp;abulátory...</translation>
+        <translation type="vanished">T&amp;abulátory...</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="465"/>
+        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="456"/>
         <source> pt</source>
         <translation> pt</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="475"/>
         <source>Number of columns in text frame</source>
-        <translation>Počet stĺpcov v textovom rámci</translation>
+        <translation type="vanished">Počet stĺpcov v textovom rámci</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="476"/>
         <source>Switches between Gap or Column width</source>
-        <translation>Prepína medzi medzerou alebo šírkou stĺpca</translation>
+        <translation type="vanished">Prepína medzi medzerou alebo šírkou stĺpca</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_distance.cpp" line="353"/>
-        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="477"/>
         <source>Distance between columns</source>
         <translation>Vzdialenosť medzi stĺpcami</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="478"/>
         <source>Distance of text from top of frame</source>
-        <translation>Vzdialenosť textu od horného okraja rámca</translation>
+        <translation type="vanished">Vzdialenosť textu od horného okraja rámca</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="479"/>
         <source>Distance of text from bottom of frame</source>
-        <translation>Vzdialenosť textu od dolného okraja rámca</translation>
+        <translation type="vanished">Vzdialenosť textu od dolného okraja rámca</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="480"/>
         <source>Distance of text from left of frame</source>
-        <translation>Vzdialenosť textu od ľavého okraja rámca</translation>
+        <translation type="vanished">Vzdialenosť textu od ľavého okraja rámca</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="481"/>
         <source>Distance of text from right of frame</source>
-        <translation>Vzdialenosť textu od pravého okraja rámca</translation>
+        <translation type="vanished">Vzdialenosť textu od pravého okraja rámca</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="482"/>
         <source>Edit tab settings of text frame...</source>
-        <translation>Úprava nastavení tabulátorov textového rámca...</translation>
+        <translation type="vanished">Úprava nastavení tabulátorov textového rámca...</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_distance.cpp" line="353"/>
@@ -23713,17 +23789,17 @@ Transparency</source>
         <translation>Šírka stĺpca</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="446"/>
+        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="444"/>
         <source>Top</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="447"/>
+        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="445"/>
         <source>Middle</source>
         <translation>V strede</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="448"/>
+        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="446"/>
         <source>Bottom</source>
         <translation type="unfinished"></translation>
     </message>
@@ -23736,49 +23812,89 @@ Transparency</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="41"/>
+        <source>Vertical Alignment:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="67"/>
         <source>Colu&amp;mns:</source>
         <translation>&amp;Stĺpce:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="85"/>
+        <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="74"/>
+        <source>Number of columns in text frame</source>
+        <translation type="unfinished">Počet stĺpcov v textovom rámci</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="87"/>
+        <source>Switches between Gap or Column width</source>
+        <translation type="unfinished">Prepína medzi medzerou alebo šírkou stĺpca</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="91"/>
         <source>Gap:</source>
         <translation>Odstup:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="90"/>
+        <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="96"/>
         <source>Width:</source>
         <translation>Šírka:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="101"/>
+        <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="104"/>
+        <source>Distance between columns</source>
+        <translation type="unfinished">Vzdialenosť medzi stĺpcami</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="111"/>
         <source>To&amp;p:</source>
         <translation>&amp;Horný:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="111"/>
+        <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="118"/>
+        <source>Distance of text from top of frame</source>
+        <translation type="unfinished">Vzdialenosť textu od horného okraja rámca</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="125"/>
         <source>&amp;Bottom:</source>
         <translation>&amp;Dole:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="121"/>
+        <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="132"/>
+        <source>Distance of text from bottom of frame</source>
+        <translation type="unfinished">Vzdialenosť textu od dolného okraja rámca</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="139"/>
         <source>&amp;Left:</source>
         <translation>V&amp;ľavo:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="131"/>
+        <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="146"/>
+        <source>Distance of text from left of frame</source>
+        <translation type="unfinished">Vzdialenosť textu od ľavého okraja rámca</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="153"/>
         <source>&amp;Right:</source>
         <translation>Vp&amp;ravo:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="147"/>
-        <source>T&amp;abulators...</source>
-        <translation>T&amp;abulátory...</translation>
+        <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="160"/>
+        <source>Distance of text from right of frame</source>
+        <translation type="unfinished">Vzdialenosť textu od pravého okraja rámca</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="41"/>
-        <source>Vertical Alignment</source>
-        <translation type="unfinished"></translation>
+        <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="173"/>
+        <source>Edit tab settings of text frame...</source>
+        <translation type="unfinished">Úprava nastavení tabulátorov textového rámca...</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="176"/>
+        <source>T&amp;abulators...</source>
+        <translation>T&amp;abulátory...</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="49"/>
@@ -23860,44 +23976,28 @@ Transparency</source>
 <context>
     <name>PropertyWidget_Flop</name>
     <message>
-        <location filename="../../scribus/ui/propertywidget_flop.cpp" line="54"/>
         <source>Maximum Ascent</source>
-        <translation>Maximálny vzostup</translation>
+        <translation type="vanished">Maximálny vzostup</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_flop.cpp" line="55"/>
         <source>Font Ascent</source>
-        <translation>Výška písma</translation>
+        <translation type="vanished">Výška písma</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_flop.cpp" line="56"/>
         <source>Line Spacing</source>
-        <translation>Riadkovanie</translation>
+        <translation type="vanished">Riadkovanie</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_flop.cpp" line="59"/>
         <source>Set the height of the first line of the text frame to use the tallest height of the included characters</source>
-        <translation>Nastaví výšku prvého riadku textového rámca podľa najvyššieho použitého znaku</translation>
+        <translation type="vanished">Nastaví výšku prvého riadku textového rámca podľa najvyššieho použitého znaku</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_flop.cpp" line="60"/>
         <source>Set the height of the first line of text frame to use the full ascent of the font(s) in use</source>
-        <translation>Nastaví výšku prvého riadku textového rámca podľa výšky všetkých znakov použitého písma</translation>
+        <translation type="vanished">Nastaví výšku prvého riadku textového rámca podľa výšky všetkých znakov použitého písma</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_flop.cpp" line="61"/>
         <source>Set the height of the first line of the text frame to the specified line height</source>
-        <translation>Nastaví výšku prvého riadku textového rámca podľa určenej výšky riadku</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/propertywidget_flop.cpp" line="57"/>
-        <source>Baseline Grid</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/propertywidget_flop.cpp" line="62"/>
-        <source>Set the base line of the first line of the text frame to the base line grid</source>
-        <translation type="unfinished"></translation>
+        <translation type="vanished">Nastaví výšku prvého riadku textového rámca podľa určenej výšky riadku</translation>
     </message>
 </context>
 <context>
@@ -23909,29 +24009,41 @@ Transparency</source>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_flopbase.ui" line="26"/>
+        <source>Set the height of the first line of the text frame to use the tallest height of the included characters</source>
+        <translation type="unfinished">Nastaví výšku prvého riadku textového rámca podľa najvyššieho použitého znaku</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertywidget_flopbase.ui" line="29"/>
         <source>Maximum Ascent</source>
         <translation>Maximálny vzostup</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_flopbase.ui" line="29"/>
         <location filename="../../scribus/ui/propertywidget_flopbase.ui" line="39"/>
-        <location filename="../../scribus/ui/propertywidget_flopbase.ui" line="49"/>
-        <location filename="../../scribus/ui/propertywidget_flopbase.ui" line="59"/>
-        <source>flopGroup</source>
-        <translation type="unfinished"></translation>
+        <source>Set the height of the first line of text frame to use the full ascent of the font(s) in use</source>
+        <translation type="unfinished">Nastaví výšku prvého riadku textového rámca podľa výšky všetkých znakov použitého písma</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_flopbase.ui" line="36"/>
+        <location filename="../../scribus/ui/propertywidget_flopbase.ui" line="42"/>
         <source>Font Ascent</source>
         <translation>Výška písma</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_flopbase.ui" line="46"/>
+        <location filename="../../scribus/ui/propertywidget_flopbase.ui" line="52"/>
+        <source>Set the height of the first line of the text frame to the specified line height</source>
+        <translation type="unfinished">Nastaví výšku prvého riadku textového rámca podľa určenej výšky riadku</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertywidget_flopbase.ui" line="55"/>
         <source>Line Spacing</source>
         <translation>Riadkovanie</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_flopbase.ui" line="56"/>
+        <location filename="../../scribus/ui/propertywidget_flopbase.ui" line="65"/>
+        <source>Set the base line of the first line of the text frame to the base line grid</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertywidget_flopbase.ui" line="68"/>
         <source>Baseline Grid</source>
         <translation type="unfinished"></translation>
     </message>
@@ -24347,33 +24459,28 @@ Hodnota 0 znamená neobmedzené delenie slov.</translation>
 <context>
     <name>PropertyWidget_OptMargins</name>
     <message>
-        <location filename="../../scribus/ui/propertywidget_optmargins.cpp" line="218"/>
         <source>None</source>
         <comment>optical margins</comment>
-        <translation>Bez akcie</translation>
+        <translation type="vanished">Bez akcie</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_optmargins.cpp" line="219"/>
         <source>Both Sides</source>
         <comment>optical margins</comment>
-        <translation>Obe strany</translation>
+        <translation type="vanished">Obe strany</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_optmargins.cpp" line="220"/>
         <source>Left Only</source>
         <comment>optical margins</comment>
-        <translation>Iba ľavé</translation>
+        <translation type="vanished">Iba ľavé</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_optmargins.cpp" line="221"/>
         <source>Right Only</source>
         <comment>optical margins</comment>
-        <translation>Iba pravé</translation>
+        <translation type="vanished">Iba pravé</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_optmargins.cpp" line="222"/>
         <source>Reset</source>
-        <translation>Vynulovať</translation>
+        <translation type="vanished">Vynulovať</translation>
     </message>
 </context>
 <context>
@@ -24692,38 +24799,20 @@ Hodnota 0 znamená neobmedzené delenie slov.</translation>
 <context>
     <name>PropertyWidget_TextColor</name>
     <message>
-        <location filename="../../scribus/ui/propertywidget_textcolor.cpp" line="522"/>
         <source>Color of selected text. If Outline text decoration is enabled, this color will be the fill color. If Drop Shadow Text is enabled, then this will be the top most color.</source>
-        <translation>Farba označeného textu. Pokiaľ je povolený obry textu, toto bude farba výplne. Aj je povolený tieň textu, tak toto bude najvrchnejšia farba.</translation>
+        <translation type="vanished">Farba označeného textu. Pokiaľ je povolený obry textu, toto bude farba výplne. Aj je povolený tieň textu, tak toto bude najvrchnejšia farba.</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_textcolor.cpp" line="524"/>
-        <source>Background color of selected text</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/propertywidget_textcolor.cpp" line="525"/>
         <source>Saturation of color of text fill</source>
-        <translation>Sýtosť farby výplne textu</translation>
+        <translation type="vanished">Sýtosť farby výplne textu</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_textcolor.cpp" line="526"/>
         <source>Saturation of color of text stroke</source>
-        <translation>Sýtosť farby obrysu písma</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/propertywidget_textcolor.cpp" line="527"/>
-        <source>Saturation of color of text background</source>
-        <translation type="unfinished"></translation>
+        <translation type="vanished">Sýtosť farby obrysu písma</translation>
     </message>
     <message>
         <source>Right to Left Writing</source>
         <translation type="vanished">Písanie sprava doľava</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/propertywidget_textcolor.cpp" line="523"/>
-        <source>Color of text stroke and/or drop shadow, depending which is chosen. If both are chosen, then they share the same color.</source>
-        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -24731,6 +24820,36 @@ Hodnota 0 znamená neobmedzené delenie slov.</translation>
     <message>
         <location filename="../../scribus/ui/propertywidget_textcolorbase.ui" line="14"/>
         <source>Frame</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertywidget_textcolorbase.ui" line="62"/>
+        <source>Color of selected text. If Outline text decoration is enabled, this color will be the fill color. If Drop Shadow Text is enabled, then this will be the top most color.</source>
+        <translation type="unfinished">Farba označeného textu. Pokiaľ je povolený obry textu, toto bude farba výplne. Aj je povolený tieň textu, tak toto bude najvrchnejšia farba.</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertywidget_textcolorbase.ui" line="79"/>
+        <source>Saturation of color of text fill</source>
+        <translation type="unfinished">Sýtosť farby výplne textu</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertywidget_textcolorbase.ui" line="124"/>
+        <source>Color of text stroke and/or drop shadow, depending which is chosen. If both are chosen, then they share the same color.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertywidget_textcolorbase.ui" line="141"/>
+        <source>Saturation of color of text stroke</source>
+        <translation type="unfinished">Sýtosť farby obrysu písma</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertywidget_textcolorbase.ui" line="174"/>
+        <source>Background color of selected text</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertywidget_textcolorbase.ui" line="191"/>
+        <source>Saturation of color of text background</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

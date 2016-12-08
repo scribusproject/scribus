@@ -23169,21 +23169,25 @@ Transparency</source>
     <name>PropertiesPalette_Text</name>
     <message>
         <location filename="../../scribus/ui/propertiespalette_text.cpp" line="80"/>
+        <location filename="../../scribus/ui/propertiespalette_text.cpp" line="733"/>
         <source>First Line Offset</source>
         <translation>Esimese rea kõrgus</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_text.cpp" line="97"/>
+        <location filename="../../scribus/ui/propertiespalette_text.cpp" line="738"/>
         <source>Optical Margins</source>
         <translation>Optilised veerised</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_text.cpp" line="102"/>
+        <location filename="../../scribus/ui/propertiespalette_text.cpp" line="734"/>
         <source>Hyphenation</source>
         <translation type="unfinished">Poolitamine</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_text.cpp" line="107"/>
+        <location filename="../../scribus/ui/propertiespalette_text.cpp" line="739"/>
         <source>Advanced Settings</source>
         <translation>Muud seadistused</translation>
     </message>
@@ -23194,6 +23198,7 @@ Transparency</source>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_text.cpp" line="117"/>
+        <location filename="../../scribus/ui/propertiespalette_text.cpp" line="741"/>
         <source>Path Text Properties</source>
         <translation>Vektorjoone teksti omadused</translation>
     </message>
@@ -23208,94 +23213,143 @@ Transparency</source>
         <translation>Alusjoon</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_text.cpp" line="730"/>
         <source>Paragraph St&amp;yle:</source>
-        <translation>Lõigust&amp;iil:</translation>
+        <translation type="vanished">Lõigust&amp;iil:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_text.cpp" line="731"/>
         <source>Character St&amp;yle:</source>
-        <translation>Märgist&amp;iil:</translation>
+        <translation type="vanished">Märgist&amp;iil:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_text.cpp" line="746"/>
+        <location filename="../../scribus/ui/propertiespalette_text.cpp" line="740"/>
+        <source>Font Features</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertiespalette_text.cpp" line="745"/>
         <source>Fixed Linespacing</source>
         <translation>Fikseeritud reavahe</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_text.cpp" line="747"/>
+        <location filename="../../scribus/ui/propertiespalette_text.cpp" line="746"/>
         <source>Automatic Linespacing</source>
         <translation>Automaatne reavahe</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_text.cpp" line="748"/>
+        <location filename="../../scribus/ui/propertiespalette_text.cpp" line="747"/>
         <source>Align to Baseline Grid</source>
         <translation>Joondamine alusjoontele</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_text.cpp" line="758"/>
         <source> pt</source>
-        <translation> pt</translation>
+        <translation type="vanished"> pt</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_text.cpp" line="775"/>
         <source>Font Size</source>
-        <translation>Fondi suurus</translation>
+        <translation type="vanished">Fondi suurus</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_text.cpp" line="776"/>
-        <source>Text language</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/propertiespalette_text.cpp" line="777"/>
         <source>Line Spacing</source>
-        <translation>Reavahe</translation>
+        <translation type="vanished">Reavahe</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_text.cpp" line="779"/>
         <source>Paragraph style of currently selected text or paragraph</source>
-        <translation>Valitud teksti või lõigu lõigustiil</translation>
+        <translation type="vanished">Valitud teksti või lõigu lõigustiil</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_text.cpp" line="780"/>
         <source>Character style of currently selected text or paragraph</source>
-        <translation>Valitud teksti või lõigu märgistiil</translation>
+        <translation type="vanished">Valitud teksti või lõigu märgistiil</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_text.cpp" line="781"/>
         <source>Remove Direct Paragraph Formatting</source>
-        <translation>Lõigu otsevorminduse eemaldamine</translation>
+        <translation type="vanished">Lõigu otsevorminduse eemaldamine</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_text.cpp" line="782"/>
         <source>Remove Direct Character Formatting</source>
-        <translation>Märgi otsevorminduse eemaldamine</translation>
+        <translation type="vanished">Märgi otsevorminduse eemaldamine</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_text.cpp" line="84"/>
+        <location filename="../../scribus/ui/propertiespalette_text.cpp" line="735"/>
         <source>Orphans and Widows</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_text.cpp" line="76"/>
+        <location filename="../../scribus/ui/propertiespalette_text.cpp" line="732"/>
         <source>Color &amp;&amp; Effects</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_text.cpp" line="92"/>
+        <location filename="../../scribus/ui/propertiespalette_text.cpp" line="737"/>
         <source>Columns &amp;&amp; Text Distances</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_text.cpp" line="88"/>
+        <location filename="../../scribus/ui/propertiespalette_text.cpp" line="736"/>
         <source>Paragraph Effects</source>
         <translation type="unfinished"></translation>
     </message>
+</context>
+<context>
+    <name>PropertiesPalette_TextBase</name>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_text.cpp" line="778"/>
+        <location filename="../../scribus/ui/propertiespalette_textbase.ui" line="65"/>
+        <source>Font Size</source>
+        <translation type="unfinished">Fondi suurus</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertiespalette_textbase.ui" line="68"/>
+        <location filename="../../scribus/ui/propertiespalette_textbase.ui" line="124"/>
+        <source> pt</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertiespalette_textbase.ui" line="108"/>
         <source>Select the line spacing mode</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertiespalette_textbase.ui" line="121"/>
+        <source>Line Spacing</source>
+        <translation type="unfinished">Reavahe</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertiespalette_textbase.ui" line="154"/>
+        <source>Text Language</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertiespalette_textbase.ui" line="184"/>
+        <source>Paragraph St&amp;yle:</source>
+        <translation type="unfinished">Lõigust&amp;iil:</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertiespalette_textbase.ui" line="200"/>
+        <source>Paragraph style of currently selected text or paragraph</source>
+        <translation type="unfinished">Valitud teksti või lõigu lõigustiil</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertiespalette_textbase.ui" line="213"/>
+        <source>Remove Direct Paragraph Formatting</source>
+        <translation type="unfinished">Lõigu otsevorminduse eemaldamine</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertiespalette_textbase.ui" line="237"/>
+        <source>Character St&amp;yle:</source>
+        <translation type="unfinished">Märgist&amp;iil:</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertiespalette_textbase.ui" line="253"/>
+        <source>Character style of currently selected text or paragraph</source>
+        <translation type="unfinished">Valitud teksti või lõigu märgistiil</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertiespalette_textbase.ui" line="266"/>
+        <source>Remove Direct Character Formatting</source>
+        <translation type="unfinished">Märgi otsevorminduse eemaldamine</translation>
     </message>
 </context>
 <context>
@@ -23537,75 +23591,60 @@ Transparency</source>
 <context>
     <name>PropertyWidget_Advanced</name>
     <message>
-        <location filename="../../scribus/ui/propertywidget_advanced.cpp" line="371"/>
         <source>Word Tracking</source>
-        <translation>Sõnade koondamine</translation>
+        <translation type="vanished">Sõnade koondamine</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_advanced.cpp" line="372"/>
-        <location filename="../../scribus/ui/propertywidget_advanced.cpp" line="375"/>
         <source>Min:</source>
-        <translation>Min:</translation>
+        <translation type="vanished">Min:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_advanced.cpp" line="373"/>
         <source>Norm:</source>
-        <translation>Norm:</translation>
+        <translation type="vanished">Norm:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_advanced.cpp" line="374"/>
         <source>Glyph Extension</source>
-        <translation>Glüüfi laiendamine</translation>
+        <translation type="vanished">Glüüfi laiendamine</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_advanced.cpp" line="376"/>
         <source>Max:</source>
-        <translation>Maks:</translation>
+        <translation type="vanished">Maks:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_advanced.cpp" line="378"/>
         <source> %</source>
-        <translation> %</translation>
+        <translation type="vanished"> %</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_advanced.cpp" line="388"/>
         <source>Offset to baseline of characters</source>
-        <translation>Nihe märkide alusjoone suhtes</translation>
+        <translation type="vanished">Nihe märkide alusjoone suhtes</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_advanced.cpp" line="389"/>
         <source>Manual Tracking</source>
-        <translation>Märkide koondamine</translation>
+        <translation type="vanished">Märkide koondamine</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_advanced.cpp" line="390"/>
         <source>Scaling width of characters</source>
-        <translation>Märkide skaleerimislaius</translation>
+        <translation type="vanished">Märkide skaleerimislaius</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_advanced.cpp" line="391"/>
         <source>Scaling height of characters</source>
-        <translation>Märkide skaleerimiskõrgus</translation>
+        <translation type="vanished">Märkide skaleerimiskõrgus</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_advanced.cpp" line="393"/>
         <source>Minimal width of spaces between words</source>
-        <translation>Sõnadevahelise ruumi miinimumsuurus</translation>
+        <translation type="vanished">Sõnadevahelise ruumi miinimumsuurus</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_advanced.cpp" line="394"/>
         <source>Normal width of spaces between words</source>
-        <translation>Sõnadevahelise ruumi normaalne suurus</translation>
+        <translation type="vanished">Sõnadevahelise ruumi normaalne suurus</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_advanced.cpp" line="395"/>
         <source>Minimal shrinkage of glyphs for justification</source>
-        <translation>Glüüfi minimaalne kokkusurumine joonduseks</translation>
+        <translation type="vanished">Glüüfi minimaalne kokkusurumine joonduseks</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_advanced.cpp" line="396"/>
         <source>Maximal extension of glyphs for justification</source>
-        <translation>Glüüfi maksimaalne laiendamine joonduseks</translation>
+        <translation type="vanished">Glüüfi maksimaalne laiendamine joonduseks</translation>
     </message>
 </context>
 <context>
@@ -23616,24 +23655,80 @@ Transparency</source>
         <translation>Kast</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="79"/>
-        <source>Word Spacing</source>
+        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="48"/>
+        <source>Offset to baseline of characters</source>
+        <translation type="unfinished">Nihe märkide alusjoone suhtes</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="51"/>
+        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="74"/>
+        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="91"/>
+        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="108"/>
+        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="132"/>
+        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="151"/>
+        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="191"/>
+        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="210"/>
+        <source> %</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="86"/>
-        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="133"/>
+        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="71"/>
+        <source>Manual Tracking</source>
+        <translation type="unfinished">Märkide koondamine</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="88"/>
+        <source>Scaling width of characters</source>
+        <translation type="unfinished">Märkide skaleerimislaius</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="105"/>
+        <source>Scaling height of characters</source>
+        <translation type="unfinished">Märkide skaleerimiskõrgus</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="115"/>
+        <source>Word Tracking</source>
+        <translation type="unfinished">Sõnade koondamine</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="122"/>
+        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="181"/>
         <source>Min:</source>
         <translation>Min:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="119"/>
-        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="166"/>
+        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="129"/>
+        <source>Minimal width of spaces between words</source>
+        <translation type="unfinished">Sõnadevahelise ruumi miinimumsuurus</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="148"/>
+        <source>Normal width of spaces between words</source>
+        <translation type="unfinished">Sõnadevahelise ruumi normaalne suurus</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="167"/>
+        <source>Norm:</source>
+        <translation type="unfinished">Norm:</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="188"/>
+        <source>Minimal shrinkage of glyphs for justification</source>
+        <translation type="unfinished">Glüüfi minimaalne kokkusurumine joonduseks</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="207"/>
+        <source>Maximal extension of glyphs for justification</source>
+        <translation type="unfinished">Glüüfi maksimaalne laiendamine joonduseks</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="226"/>
         <source>Max:</source>
         <translation>Maks:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="126"/>
+        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="174"/>
         <source>Glyph Extension</source>
         <translation>Glüüfi laiendamine</translation>
     </message>
@@ -23641,95 +23736,76 @@ Transparency</source>
 <context>
     <name>PropertyWidget_Distance</name>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="439"/>
         <source>Colu&amp;mns:</source>
-        <translation>V&amp;eergude arv:</translation>
+        <translation type="vanished">V&amp;eergude arv:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="441"/>
-        <source>Vertical Alignment:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="454"/>
+        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="452"/>
         <source>Gap:</source>
         <translation>Vahe:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="455"/>
+        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="453"/>
         <source>Width:</source>
         <translation>Laius:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="458"/>
         <source>To&amp;p:</source>
-        <translation>Ü&amp;lal:</translation>
+        <translation type="vanished">Ü&amp;lal:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="459"/>
         <source>&amp;Bottom:</source>
-        <translation>&amp;All:</translation>
+        <translation type="vanished">&amp;All:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="460"/>
         <source>&amp;Left:</source>
-        <translation>&amp;Vasakul:</translation>
+        <translation type="vanished">&amp;Vasakul:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="461"/>
         <source>&amp;Right:</source>
-        <translation>&amp;Paremal:</translation>
+        <translation type="vanished">&amp;Paremal:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="463"/>
         <source>T&amp;abulators...</source>
-        <translation>&amp;Tabeldusmärgid...</translation>
+        <translation type="vanished">&amp;Tabeldusmärgid...</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="465"/>
+        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="456"/>
         <source> pt</source>
         <translation> pt</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="475"/>
         <source>Number of columns in text frame</source>
-        <translation>Veergude arv tekstikastis</translation>
+        <translation type="vanished">Veergude arv tekstikastis</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="476"/>
         <source>Switches between Gap or Column width</source>
-        <translation>Vahe või veerulaiuse lülitamine</translation>
+        <translation type="vanished">Vahe või veerulaiuse lülitamine</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_distance.cpp" line="353"/>
-        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="477"/>
         <source>Distance between columns</source>
         <translation>Veergude vahe</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="478"/>
         <source>Distance of text from top of frame</source>
-        <translation>Teksti kaugus kasti ülaservast</translation>
+        <translation type="vanished">Teksti kaugus kasti ülaservast</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="479"/>
         <source>Distance of text from bottom of frame</source>
-        <translation>Teksti kaugus kasti alaservast</translation>
+        <translation type="vanished">Teksti kaugus kasti alaservast</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="480"/>
         <source>Distance of text from left of frame</source>
-        <translation>Teksti kaugus kasti vasakust servast</translation>
+        <translation type="vanished">Teksti kaugus kasti vasakust servast</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="481"/>
         <source>Distance of text from right of frame</source>
-        <translation>Teksti kaugus kasti paremast servast</translation>
+        <translation type="vanished">Teksti kaugus kasti paremast servast</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="482"/>
         <source>Edit tab settings of text frame...</source>
-        <translation>Muuda tekstikasti tabeldusmärke...</translation>
+        <translation type="vanished">Muuda tekstikasti tabeldusmärke...</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_distance.cpp" line="353"/>
@@ -23737,17 +23813,17 @@ Transparency</source>
         <translation>Veeru laius</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="446"/>
+        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="444"/>
         <source>Top</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="447"/>
+        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="445"/>
         <source>Middle</source>
         <translation>Keskmine</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="448"/>
+        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="446"/>
         <source>Bottom</source>
         <translation type="unfinished"></translation>
     </message>
@@ -23760,49 +23836,89 @@ Transparency</source>
         <translation>Kast</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="41"/>
+        <source>Vertical Alignment:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="67"/>
         <source>Colu&amp;mns:</source>
         <translation>V&amp;eergude arv:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="85"/>
+        <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="74"/>
+        <source>Number of columns in text frame</source>
+        <translation type="unfinished">Veergude arv tekstikastis</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="87"/>
+        <source>Switches between Gap or Column width</source>
+        <translation type="unfinished">Vahe või veerulaiuse lülitamine</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="91"/>
         <source>Gap:</source>
         <translation>Vahe:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="90"/>
+        <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="96"/>
         <source>Width:</source>
         <translation>Laius:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="101"/>
+        <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="104"/>
+        <source>Distance between columns</source>
+        <translation type="unfinished">Veergude vahe</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="111"/>
         <source>To&amp;p:</source>
         <translation>Ü&amp;lal:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="111"/>
+        <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="118"/>
+        <source>Distance of text from top of frame</source>
+        <translation type="unfinished">Teksti kaugus kasti ülaservast</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="125"/>
         <source>&amp;Bottom:</source>
         <translation>&amp;All:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="121"/>
+        <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="132"/>
+        <source>Distance of text from bottom of frame</source>
+        <translation type="unfinished">Teksti kaugus kasti alaservast</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="139"/>
         <source>&amp;Left:</source>
         <translation>&amp;Vasakul:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="131"/>
+        <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="146"/>
+        <source>Distance of text from left of frame</source>
+        <translation type="unfinished">Teksti kaugus kasti vasakust servast</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="153"/>
         <source>&amp;Right:</source>
         <translation>&amp;Paremal:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="147"/>
-        <source>T&amp;abulators...</source>
-        <translation>&amp;Tabeldusmärgid...</translation>
+        <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="160"/>
+        <source>Distance of text from right of frame</source>
+        <translation type="unfinished">Teksti kaugus kasti paremast servast</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="41"/>
-        <source>Vertical Alignment</source>
-        <translation type="unfinished"></translation>
+        <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="173"/>
+        <source>Edit tab settings of text frame...</source>
+        <translation type="unfinished">Muuda tekstikasti tabeldusmärke...</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="176"/>
+        <source>T&amp;abulators...</source>
+        <translation>&amp;Tabeldusmärgid...</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="49"/>
@@ -23884,44 +24000,32 @@ Transparency</source>
 <context>
     <name>PropertyWidget_Flop</name>
     <message>
-        <location filename="../../scribus/ui/propertywidget_flop.cpp" line="54"/>
         <source>Maximum Ascent</source>
-        <translation>Kõrgeima märgi järgi</translation>
+        <translation type="vanished">Kõrgeima märgi järgi</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_flop.cpp" line="55"/>
         <source>Font Ascent</source>
-        <translation>Fondi kõrgeima märgi järgi</translation>
+        <translation type="vanished">Fondi kõrgeima märgi järgi</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_flop.cpp" line="56"/>
         <source>Line Spacing</source>
-        <translation>Reavahe</translation>
+        <translation type="vanished">Reavahe</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_flop.cpp" line="59"/>
         <source>Set the height of the first line of the text frame to use the tallest height of the included characters</source>
-        <translation>Tekstikasti esimese rea kõrguse määramine kaasatud märkide suurima kõrguse kasutamiseks</translation>
+        <translation type="vanished">Tekstikasti esimese rea kõrguse määramine kaasatud märkide suurima kõrguse kasutamiseks</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_flop.cpp" line="60"/>
         <source>Set the height of the first line of text frame to use the full ascent of the font(s) in use</source>
-        <translation>Tekstikasti esimese rea kõrguse määramine fondi täieliku ülapikenduse kasutamiseks</translation>
+        <translation type="vanished">Tekstikasti esimese rea kõrguse määramine fondi täieliku ülapikenduse kasutamiseks</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_flop.cpp" line="61"/>
         <source>Set the height of the first line of the text frame to the specified line height</source>
-        <translation>Tekstikasti esimese rea kõrguse määramine kindlale väärtusele</translation>
+        <translation type="vanished">Tekstikasti esimese rea kõrguse määramine kindlale väärtusele</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_flop.cpp" line="57"/>
         <source>Baseline Grid</source>
-        <translation>Alusjoonte võrgustik</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/propertywidget_flop.cpp" line="62"/>
-        <source>Set the base line of the first line of the text frame to the base line grid</source>
-        <translation type="unfinished"></translation>
+        <translation type="vanished">Alusjoonte võrgustik</translation>
     </message>
 </context>
 <context>
@@ -23933,29 +24037,41 @@ Transparency</source>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_flopbase.ui" line="26"/>
+        <source>Set the height of the first line of the text frame to use the tallest height of the included characters</source>
+        <translation type="unfinished">Tekstikasti esimese rea kõrguse määramine kaasatud märkide suurima kõrguse kasutamiseks</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertywidget_flopbase.ui" line="29"/>
         <source>Maximum Ascent</source>
         <translation>Kõrgeima märgi järgi</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_flopbase.ui" line="29"/>
         <location filename="../../scribus/ui/propertywidget_flopbase.ui" line="39"/>
-        <location filename="../../scribus/ui/propertywidget_flopbase.ui" line="49"/>
-        <location filename="../../scribus/ui/propertywidget_flopbase.ui" line="59"/>
-        <source>flopGroup</source>
-        <translation type="unfinished"></translation>
+        <source>Set the height of the first line of text frame to use the full ascent of the font(s) in use</source>
+        <translation type="unfinished">Tekstikasti esimese rea kõrguse määramine fondi täieliku ülapikenduse kasutamiseks</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_flopbase.ui" line="36"/>
+        <location filename="../../scribus/ui/propertywidget_flopbase.ui" line="42"/>
         <source>Font Ascent</source>
         <translation>Fondi kõrgeima märgi järgi</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_flopbase.ui" line="46"/>
+        <location filename="../../scribus/ui/propertywidget_flopbase.ui" line="52"/>
+        <source>Set the height of the first line of the text frame to the specified line height</source>
+        <translation type="unfinished">Tekstikasti esimese rea kõrguse määramine kindlale väärtusele</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertywidget_flopbase.ui" line="55"/>
         <source>Line Spacing</source>
         <translation>Reavahe</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_flopbase.ui" line="56"/>
+        <location filename="../../scribus/ui/propertywidget_flopbase.ui" line="65"/>
+        <source>Set the base line of the first line of the text frame to the base line grid</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertywidget_flopbase.ui" line="68"/>
         <source>Baseline Grid</source>
         <translation>Alusjoonte võrgustik</translation>
     </message>
@@ -24371,33 +24487,28 @@ A value of 0 means unlimited hyphenations.</source>
 <context>
     <name>PropertyWidget_OptMargins</name>
     <message>
-        <location filename="../../scribus/ui/propertywidget_optmargins.cpp" line="218"/>
         <source>None</source>
         <comment>optical margins</comment>
-        <translation>Puudub</translation>
+        <translation type="vanished">Puudub</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_optmargins.cpp" line="219"/>
         <source>Both Sides</source>
         <comment>optical margins</comment>
-        <translation>Mõlemal küljel</translation>
+        <translation type="vanished">Mõlemal küljel</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_optmargins.cpp" line="220"/>
         <source>Left Only</source>
         <comment>optical margins</comment>
-        <translation>Ainult vasakul</translation>
+        <translation type="vanished">Ainult vasakul</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_optmargins.cpp" line="221"/>
         <source>Right Only</source>
         <comment>optical margins</comment>
-        <translation>Ainult paremal</translation>
+        <translation type="vanished">Ainult paremal</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_optmargins.cpp" line="222"/>
         <source>Reset</source>
-        <translation>Lähtesta</translation>
+        <translation type="vanished">Lähtesta</translation>
     </message>
 </context>
 <context>
@@ -24716,38 +24827,20 @@ A value of 0 means unlimited hyphenations.</source>
 <context>
     <name>PropertyWidget_TextColor</name>
     <message>
-        <location filename="../../scribus/ui/propertywidget_textcolor.cpp" line="522"/>
         <source>Color of selected text. If Outline text decoration is enabled, this color will be the fill color. If Drop Shadow Text is enabled, then this will be the top most color.</source>
-        <translation>Valitud teksti värv. Kui sisse on lülitatud kontuuriefekt, on see täidise värv. Kui sisse on lülitatud varjuefekt, on see kõige ülemine värv.</translation>
+        <translation type="vanished">Valitud teksti värv. Kui sisse on lülitatud kontuuriefekt, on see täidise värv. Kui sisse on lülitatud varjuefekt, on see kõige ülemine värv.</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_textcolor.cpp" line="524"/>
-        <source>Background color of selected text</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/propertywidget_textcolor.cpp" line="525"/>
         <source>Saturation of color of text fill</source>
-        <translation>Teksti täidise värvi küllastus</translation>
+        <translation type="vanished">Teksti täidise värvi küllastus</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_textcolor.cpp" line="526"/>
         <source>Saturation of color of text stroke</source>
-        <translation>Teksti äärejoone värvi küllastus</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/propertywidget_textcolor.cpp" line="527"/>
-        <source>Saturation of color of text background</source>
-        <translation type="unfinished"></translation>
+        <translation type="vanished">Teksti äärejoone värvi küllastus</translation>
     </message>
     <message>
         <source>Right to Left Writing</source>
         <translation type="vanished">Kirjutamine paremalt vasakule</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/propertywidget_textcolor.cpp" line="523"/>
-        <source>Color of text stroke and/or drop shadow, depending which is chosen. If both are chosen, then they share the same color.</source>
-        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -24756,6 +24849,36 @@ A value of 0 means unlimited hyphenations.</source>
         <location filename="../../scribus/ui/propertywidget_textcolorbase.ui" line="14"/>
         <source>Frame</source>
         <translation>Kast</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertywidget_textcolorbase.ui" line="62"/>
+        <source>Color of selected text. If Outline text decoration is enabled, this color will be the fill color. If Drop Shadow Text is enabled, then this will be the top most color.</source>
+        <translation type="unfinished">Valitud teksti värv. Kui sisse on lülitatud kontuuriefekt, on see täidise värv. Kui sisse on lülitatud varjuefekt, on see kõige ülemine värv.</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertywidget_textcolorbase.ui" line="79"/>
+        <source>Saturation of color of text fill</source>
+        <translation type="unfinished">Teksti täidise värvi küllastus</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertywidget_textcolorbase.ui" line="124"/>
+        <source>Color of text stroke and/or drop shadow, depending which is chosen. If both are chosen, then they share the same color.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertywidget_textcolorbase.ui" line="141"/>
+        <source>Saturation of color of text stroke</source>
+        <translation type="unfinished">Teksti äärejoone värvi küllastus</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertywidget_textcolorbase.ui" line="174"/>
+        <source>Background color of selected text</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertywidget_textcolorbase.ui" line="191"/>
+        <source>Saturation of color of text background</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

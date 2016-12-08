@@ -23142,21 +23142,25 @@ Transparency</source>
     <name>PropertiesPalette_Text</name>
     <message>
         <location filename="../../scribus/ui/propertiespalette_text.cpp" line="80"/>
+        <location filename="../../scribus/ui/propertiespalette_text.cpp" line="733"/>
         <source>First Line Offset</source>
         <translation>첫 줄 옵셋</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_text.cpp" line="97"/>
+        <location filename="../../scribus/ui/propertiespalette_text.cpp" line="738"/>
         <source>Optical Margins</source>
         <translation>시각적 여백</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_text.cpp" line="102"/>
+        <location filename="../../scribus/ui/propertiespalette_text.cpp" line="734"/>
         <source>Hyphenation</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_text.cpp" line="107"/>
+        <location filename="../../scribus/ui/propertiespalette_text.cpp" line="739"/>
         <source>Advanced Settings</source>
         <translation>고급 설정</translation>
     </message>
@@ -23167,6 +23171,7 @@ Transparency</source>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_text.cpp" line="117"/>
+        <location filename="../../scribus/ui/propertiespalette_text.cpp" line="741"/>
         <source>Path Text Properties</source>
         <translation>경로 문자열 속성</translation>
     </message>
@@ -23181,94 +23186,143 @@ Transparency</source>
         <translation>기준선</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_text.cpp" line="730"/>
         <source>Paragraph St&amp;yle:</source>
-        <translation>문단 스타일(&amp;Y):</translation>
+        <translation type="vanished">문단 스타일(&amp;Y):</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_text.cpp" line="731"/>
         <source>Character St&amp;yle:</source>
-        <translation>문자 스타일(&amp;Y):</translation>
+        <translation type="vanished">문자 스타일(&amp;Y):</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_text.cpp" line="746"/>
+        <location filename="../../scribus/ui/propertiespalette_text.cpp" line="740"/>
+        <source>Font Features</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertiespalette_text.cpp" line="745"/>
         <source>Fixed Linespacing</source>
         <translation>고정 줄 간격</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_text.cpp" line="747"/>
+        <location filename="../../scribus/ui/propertiespalette_text.cpp" line="746"/>
         <source>Automatic Linespacing</source>
         <translation>자동 줄 간격</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_text.cpp" line="748"/>
+        <location filename="../../scribus/ui/propertiespalette_text.cpp" line="747"/>
         <source>Align to Baseline Grid</source>
         <translation>기준선 격자에 정렬</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_text.cpp" line="758"/>
         <source> pt</source>
-        <translation> 포인트</translation>
+        <translation type="vanished"> 포인트</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_text.cpp" line="775"/>
         <source>Font Size</source>
-        <translation>글꼴 크기</translation>
+        <translation type="vanished">글꼴 크기</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_text.cpp" line="776"/>
-        <source>Text language</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/propertiespalette_text.cpp" line="777"/>
         <source>Line Spacing</source>
-        <translation>줄 간격</translation>
+        <translation type="vanished">줄 간격</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_text.cpp" line="779"/>
         <source>Paragraph style of currently selected text or paragraph</source>
-        <translation>현재 선택된 문자열 또는 문단의 문단 스타일</translation>
+        <translation type="vanished">현재 선택된 문자열 또는 문단의 문단 스타일</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_text.cpp" line="780"/>
         <source>Character style of currently selected text or paragraph</source>
-        <translation>현재 선택된 문자열 또는 문단의 글자 스타일</translation>
+        <translation type="vanished">현재 선택된 문자열 또는 문단의 글자 스타일</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_text.cpp" line="781"/>
         <source>Remove Direct Paragraph Formatting</source>
-        <translation>직접 문단 형식 제거</translation>
+        <translation type="vanished">직접 문단 형식 제거</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_text.cpp" line="782"/>
         <source>Remove Direct Character Formatting</source>
-        <translation>직접 문자 형식 제거</translation>
+        <translation type="vanished">직접 문자 형식 제거</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_text.cpp" line="84"/>
+        <location filename="../../scribus/ui/propertiespalette_text.cpp" line="735"/>
         <source>Orphans and Widows</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_text.cpp" line="76"/>
+        <location filename="../../scribus/ui/propertiespalette_text.cpp" line="732"/>
         <source>Color &amp;&amp; Effects</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_text.cpp" line="92"/>
+        <location filename="../../scribus/ui/propertiespalette_text.cpp" line="737"/>
         <source>Columns &amp;&amp; Text Distances</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_text.cpp" line="88"/>
+        <location filename="../../scribus/ui/propertiespalette_text.cpp" line="736"/>
         <source>Paragraph Effects</source>
         <translation type="unfinished"></translation>
     </message>
+</context>
+<context>
+    <name>PropertiesPalette_TextBase</name>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_text.cpp" line="778"/>
+        <location filename="../../scribus/ui/propertiespalette_textbase.ui" line="65"/>
+        <source>Font Size</source>
+        <translation type="unfinished">글꼴 크기</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertiespalette_textbase.ui" line="68"/>
+        <location filename="../../scribus/ui/propertiespalette_textbase.ui" line="124"/>
+        <source> pt</source>
+        <translation type="unfinished"> 포인트</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertiespalette_textbase.ui" line="108"/>
         <source>Select the line spacing mode</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertiespalette_textbase.ui" line="121"/>
+        <source>Line Spacing</source>
+        <translation type="unfinished">줄 간격</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertiespalette_textbase.ui" line="154"/>
+        <source>Text Language</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertiespalette_textbase.ui" line="184"/>
+        <source>Paragraph St&amp;yle:</source>
+        <translation type="unfinished">문단 스타일(&amp;Y):</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertiespalette_textbase.ui" line="200"/>
+        <source>Paragraph style of currently selected text or paragraph</source>
+        <translation type="unfinished">현재 선택된 문자열 또는 문단의 문단 스타일</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertiespalette_textbase.ui" line="213"/>
+        <source>Remove Direct Paragraph Formatting</source>
+        <translation type="unfinished">직접 문단 형식 제거</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertiespalette_textbase.ui" line="237"/>
+        <source>Character St&amp;yle:</source>
+        <translation type="unfinished">문자 스타일(&amp;Y):</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertiespalette_textbase.ui" line="253"/>
+        <source>Character style of currently selected text or paragraph</source>
+        <translation type="unfinished">현재 선택된 문자열 또는 문단의 글자 스타일</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertiespalette_textbase.ui" line="266"/>
+        <source>Remove Direct Character Formatting</source>
+        <translation type="unfinished">직접 문자 형식 제거</translation>
     </message>
 </context>
 <context>
@@ -23510,75 +23564,56 @@ Transparency</source>
 <context>
     <name>PropertyWidget_Advanced</name>
     <message>
-        <location filename="../../scribus/ui/propertywidget_advanced.cpp" line="371"/>
         <source>Word Tracking</source>
-        <translation>단어 탐색</translation>
+        <translation type="vanished">단어 탐색</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_advanced.cpp" line="372"/>
-        <location filename="../../scribus/ui/propertywidget_advanced.cpp" line="375"/>
         <source>Min:</source>
-        <translation>최소:</translation>
+        <translation type="vanished">최소:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_advanced.cpp" line="373"/>
         <source>Norm:</source>
-        <translation>일반:</translation>
+        <translation type="vanished">일반:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_advanced.cpp" line="374"/>
         <source>Glyph Extension</source>
-        <translation>사용자 문자표 확장</translation>
+        <translation type="vanished">사용자 문자표 확장</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_advanced.cpp" line="376"/>
         <source>Max:</source>
-        <translation>최대:</translation>
+        <translation type="vanished">최대:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_advanced.cpp" line="378"/>
-        <source> %</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/propertywidget_advanced.cpp" line="388"/>
         <source>Offset to baseline of characters</source>
-        <translation>문자 기준선까지 옵셋</translation>
+        <translation type="vanished">문자 기준선까지 옵셋</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_advanced.cpp" line="389"/>
         <source>Manual Tracking</source>
-        <translation>글자 사이 간격</translation>
+        <translation type="vanished">글자 사이 간격</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_advanced.cpp" line="390"/>
         <source>Scaling width of characters</source>
-        <translation>문자 너비 배율</translation>
+        <translation type="vanished">문자 너비 배율</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_advanced.cpp" line="391"/>
         <source>Scaling height of characters</source>
-        <translation>문자 높이 배율</translation>
+        <translation type="vanished">문자 높이 배율</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_advanced.cpp" line="393"/>
         <source>Minimal width of spaces between words</source>
-        <translation>단어사이 공백의 최소 너비</translation>
+        <translation type="vanished">단어사이 공백의 최소 너비</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_advanced.cpp" line="394"/>
         <source>Normal width of spaces between words</source>
-        <translation>단어사이 공백의 보통 너비</translation>
+        <translation type="vanished">단어사이 공백의 보통 너비</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_advanced.cpp" line="395"/>
         <source>Minimal shrinkage of glyphs for justification</source>
-        <translation>자리맞춤을 위한 사용자 문자표의 최소 축소</translation>
+        <translation type="vanished">자리맞춤을 위한 사용자 문자표의 최소 축소</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_advanced.cpp" line="396"/>
         <source>Maximal extension of glyphs for justification</source>
-        <translation>자리맞춤을 위한 사용자 문자표의 최대 확장</translation>
+        <translation type="vanished">자리맞춤을 위한 사용자 문자표의 최대 확장</translation>
     </message>
 </context>
 <context>
@@ -23589,24 +23624,80 @@ Transparency</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="79"/>
-        <source>Word Spacing</source>
+        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="48"/>
+        <source>Offset to baseline of characters</source>
+        <translation type="unfinished">문자 기준선까지 옵셋</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="51"/>
+        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="74"/>
+        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="91"/>
+        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="108"/>
+        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="132"/>
+        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="151"/>
+        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="191"/>
+        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="210"/>
+        <source> %</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="86"/>
-        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="133"/>
+        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="71"/>
+        <source>Manual Tracking</source>
+        <translation type="unfinished">글자 사이 간격</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="88"/>
+        <source>Scaling width of characters</source>
+        <translation type="unfinished">문자 너비 배율</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="105"/>
+        <source>Scaling height of characters</source>
+        <translation type="unfinished">문자 높이 배율</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="115"/>
+        <source>Word Tracking</source>
+        <translation type="unfinished">단어 탐색</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="122"/>
+        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="181"/>
         <source>Min:</source>
         <translation>최소:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="119"/>
-        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="166"/>
+        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="129"/>
+        <source>Minimal width of spaces between words</source>
+        <translation type="unfinished">단어사이 공백의 최소 너비</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="148"/>
+        <source>Normal width of spaces between words</source>
+        <translation type="unfinished">단어사이 공백의 보통 너비</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="167"/>
+        <source>Norm:</source>
+        <translation type="unfinished">일반:</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="188"/>
+        <source>Minimal shrinkage of glyphs for justification</source>
+        <translation type="unfinished">자리맞춤을 위한 사용자 문자표의 최소 축소</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="207"/>
+        <source>Maximal extension of glyphs for justification</source>
+        <translation type="unfinished">자리맞춤을 위한 사용자 문자표의 최대 확장</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="226"/>
         <source>Max:</source>
         <translation>최대:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="126"/>
+        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="174"/>
         <source>Glyph Extension</source>
         <translation>사용자 문자표 확장</translation>
     </message>
@@ -23614,95 +23705,76 @@ Transparency</source>
 <context>
     <name>PropertyWidget_Distance</name>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="439"/>
         <source>Colu&amp;mns:</source>
-        <translation>문자열 프레임 열 갯수(&amp;M):</translation>
+        <translation type="vanished">문자열 프레임 열 갯수(&amp;M):</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="441"/>
-        <source>Vertical Alignment:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="454"/>
+        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="452"/>
         <source>Gap:</source>
         <translation>열 사이 공백:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="455"/>
+        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="453"/>
         <source>Width:</source>
         <translation>너비:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="458"/>
         <source>To&amp;p:</source>
-        <translation>상단(&amp;P):</translation>
+        <translation type="vanished">상단(&amp;P):</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="459"/>
         <source>&amp;Bottom:</source>
-        <translation>하단(&amp;B):</translation>
+        <translation type="vanished">하단(&amp;B):</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="460"/>
         <source>&amp;Left:</source>
-        <translation>왼쪽(&amp;L):</translation>
+        <translation type="vanished">왼쪽(&amp;L):</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="461"/>
         <source>&amp;Right:</source>
-        <translation>오른쪽(&amp;R):</translation>
+        <translation type="vanished">오른쪽(&amp;R):</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="463"/>
         <source>T&amp;abulators...</source>
-        <translation>탭 설정(&amp;A)...</translation>
+        <translation type="vanished">탭 설정(&amp;A)...</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="465"/>
+        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="456"/>
         <source> pt</source>
         <translation> 포인트</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="475"/>
         <source>Number of columns in text frame</source>
-        <translation>문자열 프레임의 열 갯수</translation>
+        <translation type="vanished">문자열 프레임의 열 갯수</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="476"/>
         <source>Switches between Gap or Column width</source>
-        <translation>열 사이 공백과 열 너비 사이 전환</translation>
+        <translation type="vanished">열 사이 공백과 열 너비 사이 전환</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_distance.cpp" line="353"/>
-        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="477"/>
         <source>Distance between columns</source>
         <translation>열 사이 거리</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="478"/>
         <source>Distance of text from top of frame</source>
-        <translation>프레임 상단에서 문자열 거리</translation>
+        <translation type="vanished">프레임 상단에서 문자열 거리</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="479"/>
         <source>Distance of text from bottom of frame</source>
-        <translation>프레임 하단에서 문자열 거리</translation>
+        <translation type="vanished">프레임 하단에서 문자열 거리</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="480"/>
         <source>Distance of text from left of frame</source>
-        <translation>프레임 왼쪽에서 문자열 거리</translation>
+        <translation type="vanished">프레임 왼쪽에서 문자열 거리</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="481"/>
         <source>Distance of text from right of frame</source>
-        <translation>프레임 오른쪽에서 문자열 거리</translation>
+        <translation type="vanished">프레임 오른쪽에서 문자열 거리</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="482"/>
         <source>Edit tab settings of text frame...</source>
-        <translation>문자열 프레임의 탭 설정 편집...</translation>
+        <translation type="vanished">문자열 프레임의 탭 설정 편집...</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_distance.cpp" line="353"/>
@@ -23710,17 +23782,17 @@ Transparency</source>
         <translation>열 너비</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="446"/>
+        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="444"/>
         <source>Top</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="447"/>
+        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="445"/>
         <source>Middle</source>
         <translation>중간</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="448"/>
+        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="446"/>
         <source>Bottom</source>
         <translation type="unfinished"></translation>
     </message>
@@ -23733,49 +23805,89 @@ Transparency</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="41"/>
+        <source>Vertical Alignment:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="67"/>
         <source>Colu&amp;mns:</source>
         <translation>문자열 프레임 열 갯수(&amp;M):</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="85"/>
+        <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="74"/>
+        <source>Number of columns in text frame</source>
+        <translation type="unfinished">문자열 프레임의 열 갯수</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="87"/>
+        <source>Switches between Gap or Column width</source>
+        <translation type="unfinished">열 사이 공백과 열 너비 사이 전환</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="91"/>
         <source>Gap:</source>
         <translation>열 사이 공백:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="90"/>
+        <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="96"/>
         <source>Width:</source>
         <translation>너비:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="101"/>
+        <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="104"/>
+        <source>Distance between columns</source>
+        <translation type="unfinished">열 사이 거리</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="111"/>
         <source>To&amp;p:</source>
         <translation>상단(&amp;P):</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="111"/>
+        <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="118"/>
+        <source>Distance of text from top of frame</source>
+        <translation type="unfinished">프레임 상단에서 문자열 거리</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="125"/>
         <source>&amp;Bottom:</source>
         <translation>하단(&amp;B):</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="121"/>
+        <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="132"/>
+        <source>Distance of text from bottom of frame</source>
+        <translation type="unfinished">프레임 하단에서 문자열 거리</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="139"/>
         <source>&amp;Left:</source>
         <translation>왼쪽(&amp;L):</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="131"/>
+        <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="146"/>
+        <source>Distance of text from left of frame</source>
+        <translation type="unfinished">프레임 왼쪽에서 문자열 거리</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="153"/>
         <source>&amp;Right:</source>
         <translation>오른쪽(&amp;R):</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="147"/>
-        <source>T&amp;abulators...</source>
-        <translation>탭 설정(&amp;A)...</translation>
+        <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="160"/>
+        <source>Distance of text from right of frame</source>
+        <translation type="unfinished">프레임 오른쪽에서 문자열 거리</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="41"/>
-        <source>Vertical Alignment</source>
-        <translation type="unfinished"></translation>
+        <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="173"/>
+        <source>Edit tab settings of text frame...</source>
+        <translation type="unfinished">문자열 프레임의 탭 설정 편집...</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="176"/>
+        <source>T&amp;abulators...</source>
+        <translation>탭 설정(&amp;A)...</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="49"/>
@@ -23857,44 +23969,28 @@ Transparency</source>
 <context>
     <name>PropertyWidget_Flop</name>
     <message>
-        <location filename="../../scribus/ui/propertywidget_flop.cpp" line="54"/>
         <source>Maximum Ascent</source>
-        <translation>최대 크게</translation>
+        <translation type="vanished">최대 크게</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_flop.cpp" line="55"/>
         <source>Font Ascent</source>
-        <translation>글꼴 크게</translation>
+        <translation type="vanished">글꼴 크게</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_flop.cpp" line="56"/>
         <source>Line Spacing</source>
-        <translation>줄 간격</translation>
+        <translation type="vanished">줄 간격</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_flop.cpp" line="59"/>
         <source>Set the height of the first line of the text frame to use the tallest height of the included characters</source>
-        <translation>포함된 문자의 가장 큰 높이를 사용하기 위하여 문자열 프레임의 첫째 줄의 높이 설정</translation>
+        <translation type="vanished">포함된 문자의 가장 큰 높이를 사용하기 위하여 문자열 프레임의 첫째 줄의 높이 설정</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_flop.cpp" line="60"/>
         <source>Set the height of the first line of text frame to use the full ascent of the font(s) in use</source>
-        <translation>사용 중인 글꼴의 전체 상승을 사용하기 위하여  문자열 프레임의 첫 째 줄의 높이 설정</translation>
+        <translation type="vanished">사용 중인 글꼴의 전체 상승을 사용하기 위하여  문자열 프레임의 첫 째 줄의 높이 설정</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_flop.cpp" line="61"/>
         <source>Set the height of the first line of the text frame to the specified line height</source>
-        <translation>문자열 프레임의 첫 줄 높이를 지정된 줄 높이로 설정</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/propertywidget_flop.cpp" line="57"/>
-        <source>Baseline Grid</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/propertywidget_flop.cpp" line="62"/>
-        <source>Set the base line of the first line of the text frame to the base line grid</source>
-        <translation type="unfinished"></translation>
+        <translation type="vanished">문자열 프레임의 첫 줄 높이를 지정된 줄 높이로 설정</translation>
     </message>
 </context>
 <context>
@@ -23906,29 +24002,41 @@ Transparency</source>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_flopbase.ui" line="26"/>
+        <source>Set the height of the first line of the text frame to use the tallest height of the included characters</source>
+        <translation type="unfinished">포함된 문자의 가장 큰 높이를 사용하기 위하여 문자열 프레임의 첫째 줄의 높이 설정</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertywidget_flopbase.ui" line="29"/>
         <source>Maximum Ascent</source>
         <translation>최대 크게</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_flopbase.ui" line="29"/>
         <location filename="../../scribus/ui/propertywidget_flopbase.ui" line="39"/>
-        <location filename="../../scribus/ui/propertywidget_flopbase.ui" line="49"/>
-        <location filename="../../scribus/ui/propertywidget_flopbase.ui" line="59"/>
-        <source>flopGroup</source>
-        <translation type="unfinished"></translation>
+        <source>Set the height of the first line of text frame to use the full ascent of the font(s) in use</source>
+        <translation type="unfinished">사용 중인 글꼴의 전체 상승을 사용하기 위하여  문자열 프레임의 첫 째 줄의 높이 설정</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_flopbase.ui" line="36"/>
+        <location filename="../../scribus/ui/propertywidget_flopbase.ui" line="42"/>
         <source>Font Ascent</source>
         <translation>글꼴 크게</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_flopbase.ui" line="46"/>
+        <location filename="../../scribus/ui/propertywidget_flopbase.ui" line="52"/>
+        <source>Set the height of the first line of the text frame to the specified line height</source>
+        <translation type="unfinished">문자열 프레임의 첫 줄 높이를 지정된 줄 높이로 설정</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertywidget_flopbase.ui" line="55"/>
         <source>Line Spacing</source>
         <translation>줄 간격</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_flopbase.ui" line="56"/>
+        <location filename="../../scribus/ui/propertywidget_flopbase.ui" line="65"/>
+        <source>Set the base line of the first line of the text frame to the base line grid</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertywidget_flopbase.ui" line="68"/>
         <source>Baseline Grid</source>
         <translation type="unfinished"></translation>
     </message>
@@ -24344,33 +24452,28 @@ A value of 0 means unlimited hyphenations.</source>
 <context>
     <name>PropertyWidget_OptMargins</name>
     <message>
-        <location filename="../../scribus/ui/propertywidget_optmargins.cpp" line="218"/>
         <source>None</source>
         <comment>optical margins</comment>
-        <translation>없음</translation>
+        <translation type="vanished">없음</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_optmargins.cpp" line="219"/>
         <source>Both Sides</source>
         <comment>optical margins</comment>
-        <translation>양 면</translation>
+        <translation type="vanished">양 면</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_optmargins.cpp" line="220"/>
         <source>Left Only</source>
         <comment>optical margins</comment>
-        <translation>왼쪽만</translation>
+        <translation type="vanished">왼쪽만</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_optmargins.cpp" line="221"/>
         <source>Right Only</source>
         <comment>optical margins</comment>
-        <translation>오른쪽만</translation>
+        <translation type="vanished">오른쪽만</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_optmargins.cpp" line="222"/>
         <source>Reset</source>
-        <translation>초기화</translation>
+        <translation type="vanished">초기화</translation>
     </message>
 </context>
 <context>
@@ -24689,38 +24792,20 @@ A value of 0 means unlimited hyphenations.</source>
 <context>
     <name>PropertyWidget_TextColor</name>
     <message>
-        <location filename="../../scribus/ui/propertywidget_textcolor.cpp" line="522"/>
         <source>Color of selected text. If Outline text decoration is enabled, this color will be the fill color. If Drop Shadow Text is enabled, then this will be the top most color.</source>
-        <translation>선택된 문자열 색상.  윤곽선 문자열 효과가 가능하다면, 이 색상은 채움 색상이 됩니다. 물방울 음영 문자열이 가능하다면 이것은 상위의 대부분 색상이 될 것입니다.</translation>
+        <translation type="vanished">선택된 문자열 색상.  윤곽선 문자열 효과가 가능하다면, 이 색상은 채움 색상이 됩니다. 물방울 음영 문자열이 가능하다면 이것은 상위의 대부분 색상이 될 것입니다.</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_textcolor.cpp" line="524"/>
-        <source>Background color of selected text</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/propertywidget_textcolor.cpp" line="525"/>
         <source>Saturation of color of text fill</source>
-        <translation>문자열 채움 색상 채도</translation>
+        <translation type="vanished">문자열 채움 색상 채도</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_textcolor.cpp" line="526"/>
         <source>Saturation of color of text stroke</source>
-        <translation>문자열 윤곽선 색상의 채도</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/propertywidget_textcolor.cpp" line="527"/>
-        <source>Saturation of color of text background</source>
-        <translation type="unfinished"></translation>
+        <translation type="vanished">문자열 윤곽선 색상의 채도</translation>
     </message>
     <message>
         <source>Right to Left Writing</source>
         <translation type="vanished">오른쪽에서 왼쪽으로 쓰기</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/propertywidget_textcolor.cpp" line="523"/>
-        <source>Color of text stroke and/or drop shadow, depending which is chosen. If both are chosen, then they share the same color.</source>
-        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -24728,6 +24813,36 @@ A value of 0 means unlimited hyphenations.</source>
     <message>
         <location filename="../../scribus/ui/propertywidget_textcolorbase.ui" line="14"/>
         <source>Frame</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertywidget_textcolorbase.ui" line="62"/>
+        <source>Color of selected text. If Outline text decoration is enabled, this color will be the fill color. If Drop Shadow Text is enabled, then this will be the top most color.</source>
+        <translation type="unfinished">선택된 문자열 색상.  윤곽선 문자열 효과가 가능하다면, 이 색상은 채움 색상이 됩니다. 물방울 음영 문자열이 가능하다면 이것은 상위의 대부분 색상이 될 것입니다.</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertywidget_textcolorbase.ui" line="79"/>
+        <source>Saturation of color of text fill</source>
+        <translation type="unfinished">문자열 채움 색상 채도</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertywidget_textcolorbase.ui" line="124"/>
+        <source>Color of text stroke and/or drop shadow, depending which is chosen. If both are chosen, then they share the same color.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertywidget_textcolorbase.ui" line="141"/>
+        <source>Saturation of color of text stroke</source>
+        <translation type="unfinished">문자열 윤곽선 색상의 채도</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertywidget_textcolorbase.ui" line="174"/>
+        <source>Background color of selected text</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertywidget_textcolorbase.ui" line="191"/>
+        <source>Saturation of color of text background</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
