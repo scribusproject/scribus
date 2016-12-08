@@ -35593,9 +35593,8 @@ Considere utilizar el revisor de diseño para corregirlos</translation>
         <translation>Marca a marca %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9781"/>
         <source>Edit </source>
-        <translation>Editar </translation>
+        <translation type="vanished">Editar </translation>
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="868"/>
@@ -35758,6 +35757,11 @@ Considere utilizar el revisor de diseño para corregirlos</translation>
         <location filename="../../scribus/scribus.cpp" line="8637"/>
         <source>Select the current unit</source>
         <translation>Selecciona la unidad actual</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/scribus.cpp" line="9781"/>
+        <source>Edit %1</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="920"/>

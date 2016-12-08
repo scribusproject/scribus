@@ -35329,6 +35329,11 @@ Former monitor profile will be used.</source>
         <translation>&amp;Odbezpiecz wszystko</translation>
     </message>
     <message>
+        <location filename="../../scribus/scribus.cpp" line="9781"/>
+        <source>Edit %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Information</source>
         <translation type="vanished">Informacja</translation>
     </message>
@@ -35397,11 +35402,6 @@ Former monitor profile will be used.</source>
         <location filename="../../scribus/scribus.cpp" line="9593"/>
         <location filename="../../scribus/scribus.cpp" line="9871"/>
         <source>Mark to %1 mark</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/scribus.cpp" line="9781"/>
-        <source>Edit </source>
         <translation type="unfinished"></translation>
     </message>
     <message>

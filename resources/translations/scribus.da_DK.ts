@@ -35662,6 +35662,11 @@ Overvej at bruge Preflight Efterprøvning for at rette dem</translation>
         <translation>&amp;Frigør alt</translation>
     </message>
     <message>
+        <location filename="../../scribus/scribus.cpp" line="9781"/>
+        <source>Edit %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Information</source>
         <translation type="vanished">Information</translation>
     </message>
@@ -35733,9 +35738,8 @@ Overvej at bruge Preflight Efterprøvning for at rette dem</translation>
         <translation>mærke til %1mærke</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9781"/>
         <source>Edit </source>
-        <translation>Rediger </translation>
+        <translation type="vanished">Rediger </translation>
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="4010"/>

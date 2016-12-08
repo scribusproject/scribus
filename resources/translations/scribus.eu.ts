@@ -35674,9 +35674,8 @@ Inprimatze aurreko egiaztatzailea erabil dezakezu haiek zuzentzeko.</translation
         <translation>Marka %1 markara</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9781"/>
         <source>Edit </source>
-        <translation>Editatu</translation>
+        <translation type="vanished">Editatu</translation>
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="868"/>
@@ -35839,6 +35838,11 @@ Inprimatze aurreko egiaztatzailea erabil dezakezu haiek zuzentzeko.</translation
         <location filename="../../scribus/scribus.cpp" line="8637"/>
         <source>Select the current unit</source>
         <translation>Hautatu uneko unitatea</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/scribus.cpp" line="9781"/>
+        <source>Edit %1</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="920"/>

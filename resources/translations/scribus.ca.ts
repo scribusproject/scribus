@@ -35429,9 +35429,8 @@ Considera fer servir el Verificador per corregir-los</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9781"/>
         <source>Edit </source>
-        <translation>Edita</translation>
+        <translation type="vanished">Edita</translation>
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="868"/>
@@ -35594,6 +35593,11 @@ Considera fer servir el Verificador per corregir-los</translation>
         <location filename="../../scribus/scribus.cpp" line="8637"/>
         <source>Select the current unit</source>
         <translation>Selecciona les unitats actuals</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/scribus.cpp" line="9781"/>
+        <source>Edit %1</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="920"/>

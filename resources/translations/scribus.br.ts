@@ -35669,9 +35669,8 @@ Gwell e vefe ober gant Gwirierez Preflight d&apos;o reizhañ</translation>
         <translation>Merkañ ouzh merk %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9781"/>
         <source>Edit </source>
-        <translation>Embann</translation>
+        <translation type="vanished">Embann</translation>
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="868"/>
@@ -35834,6 +35833,11 @@ Gwell e vefe ober gant Gwirierez Preflight d&apos;o reizhañ</translation>
         <location filename="../../scribus/scribus.cpp" line="8637"/>
         <source>Select the current unit</source>
         <translation>Diuzañ an unanenn vremanel</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/scribus.cpp" line="9781"/>
+        <source>Edit %1</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="920"/>

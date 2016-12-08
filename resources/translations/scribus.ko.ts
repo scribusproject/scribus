@@ -35312,11 +35312,6 @@ Consider using the Preflight Verifier to correct them</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9781"/>
-        <source>Edit </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../../scribus/scribus.cpp" line="868"/>
         <source>Duplicate/Transform</source>
         <translation type="unfinished"></translation>
@@ -35477,6 +35472,11 @@ Consider using the Preflight Verifier to correct them</source>
         <location filename="../../scribus/scribus.cpp" line="8637"/>
         <source>Select the current unit</source>
         <translation>현재 단위 선택</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/scribus.cpp" line="9781"/>
+        <source>Edit %1</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="920"/>

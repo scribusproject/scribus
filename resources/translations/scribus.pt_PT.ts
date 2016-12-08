@@ -35260,11 +35260,6 @@ Recomend-se o uso do verificador pré-publicação para corrigi-los</translation
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9781"/>
-        <source>Edit </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../../scribus/scribus.cpp" line="868"/>
         <source>Duplicate/Transform</source>
         <translation type="unfinished"></translation>
@@ -35424,6 +35419,11 @@ Recomend-se o uso do verificador pré-publicação para corrigi-los</translation
     <message>
         <location filename="../../scribus/scribus.cpp" line="8637"/>
         <source>Select the current unit</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/scribus.cpp" line="9781"/>
+        <source>Edit %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

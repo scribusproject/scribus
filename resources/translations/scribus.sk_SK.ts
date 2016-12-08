@@ -35322,11 +35322,6 @@ Skúste použiť Predtlačovú kontrolu na ich opravu</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9781"/>
-        <source>Edit </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../../scribus/scribus.cpp" line="868"/>
         <source>Duplicate/Transform</source>
         <translation type="unfinished"></translation>
@@ -35487,6 +35482,11 @@ Skúste použiť Predtlačovú kontrolu na ich opravu</translation>
         <location filename="../../scribus/scribus.cpp" line="8637"/>
         <source>Select the current unit</source>
         <translation>Vybrať aktuálnu jednotku</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/scribus.cpp" line="9781"/>
+        <source>Edit %1</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="920"/>

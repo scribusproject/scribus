@@ -35654,6 +35654,11 @@ Utilizzare la Verifica Preliminare per correggerli</translation>
         <translation>S&amp;blocca tutti</translation>
     </message>
     <message>
+        <location filename="../../scribus/scribus.cpp" line="9781"/>
+        <source>Edit %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Information</source>
         <translation type="vanished">Informazioni</translation>
     </message>
@@ -35725,9 +35730,8 @@ Utilizzare la Verifica Preliminare per correggerli</translation>
         <translation type="unfinished">Nota a %1 nota</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9781"/>
         <source>Edit </source>
-        <translation>Modifica </translation>
+        <translation type="vanished">Modifica </translation>
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="4010"/>

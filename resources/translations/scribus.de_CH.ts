@@ -35454,8 +35454,12 @@ Drehung: %4</translation>
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="9781"/>
+        <source>Edit %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Edit </source>
-        <translation>Bearbeiten</translation>
+        <translation type="vanished">Bearbeiten</translation>
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="3706"/>

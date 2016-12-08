@@ -35533,7 +35533,7 @@ Rotation : %4</translation>
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="9781"/>
-        <source>Edit </source>
+        <source>Edit %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

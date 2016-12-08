@@ -35654,6 +35654,11 @@ diese zu finden und zu korrigieren</translation>
         <translation>Alle &amp;entsperren</translation>
     </message>
     <message>
+        <location filename="../../scribus/scribus.cpp" line="9781"/>
+        <source>Edit %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Information</source>
         <translation type="vanished">Information</translation>
     </message>
@@ -35725,9 +35730,8 @@ diese zu finden und zu korrigieren</translation>
         <translation>Marke zu Marke %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9781"/>
         <source>Edit </source>
-        <translation>Bearbeiten</translation>
+        <translation type="vanished">Bearbeiten</translation>
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="6907"/>

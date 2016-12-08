@@ -35156,6 +35156,11 @@ Deslocamento vertical: %3</translation>
         <translation>&amp;Tamanho:</translation>
     </message>
     <message>
+        <location filename="../../scribus/scribus.cpp" line="9781"/>
+        <source>Edit %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../../scribus/scribus.cpp" line="1427"/>
         <location filename="../../scribus/scribus.cpp" line="6299"/>
         <source>Size</source>
@@ -35310,11 +35315,6 @@ Recomend-se o uso do verificador pré-publicação para corrigi-los</translation
         <location filename="../../scribus/scribus.cpp" line="9593"/>
         <location filename="../../scribus/scribus.cpp" line="9871"/>
         <source>Mark to %1 mark</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/scribus.cpp" line="9781"/>
-        <source>Edit </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
