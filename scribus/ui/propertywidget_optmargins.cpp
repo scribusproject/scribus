@@ -215,9 +215,5 @@ void PropertyWidget_OptMargins::changeEvent(QEvent *e)
 
 void PropertyWidget_OptMargins::languageChange()
 {
-	optMarginRadioNone->setText( tr("None","optical margins") );
-	optMarginRadioBoth->setText( tr("Both Sides","optical margins") );
-	optMarginRadioLeft->setText( tr("Left Only","optical margins") );
-	optMarginRadioRight->setText( tr("Right Only","optical margins") );
-	optMarginResetButton->setText( tr("Reset") );
+	retranslateUi(this);
 }

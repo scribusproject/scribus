@@ -43,6 +43,7 @@ void PropertyWidget_Hyphenation::changeEvent(QEvent *e)
 
 void PropertyWidget_Hyphenation::languageChange()
 {
+	retranslateUi(this);
 }
 
 void PropertyWidget_Hyphenation::handleWordMin(int minWord)

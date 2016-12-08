@@ -436,9 +436,7 @@ void PropertyWidget_Distance::changeEvent(QEvent *e)
 
 void PropertyWidget_Distance::languageChange()
 {
-	columnsLabel->setText( tr("Colu&mns:"));
-
-	verticalAlignLabel->setText( tr("Vertical Alignment:"));
+	retranslateUi(this);
 
 	QSignalBlocker verticalAlignBlocker(verticalAlign);
 	int oldAlignIndex = verticalAlign->currentIndex();
@@ -455,13 +453,6 @@ void PropertyWidget_Distance::languageChange()
 	columnGapLabel->addItem( tr("Width:"));
 	columnGapLabel->setCurrentIndex(oldColGapLabel);
 
-	topLabel->setText( tr("To&p:"));
-	bottomLabel->setText( tr("&Bottom:"));
-	leftLabel->setText( tr("&Left:"));
-	rightLabel->setText( tr("&Right:"));
-
-	tabsButton->setText( tr("T&abulators..."));
-
 	QString ptSuffix = tr(" pt");
 
 	QString suffix = (m_doc) ? unitGetSuffixFromIndex(m_doc->unitIndex()) : ptSuffix;
@@ -471,15 +462,6 @@ void PropertyWidget_Distance::languageChange()
 	topDistance->setSuffix(suffix);
 	bottomDistance->setSuffix(suffix);
 	rightDistance->setSuffix(suffix);
-
-	columns->setToolTip( tr("Number of columns in text frame"));
-	columnGapLabel->setToolTip( tr("Switches between Gap or Column width"));
-	columnGap->setToolTip( tr("Distance between columns"));
-	topDistance->setToolTip( tr("Distance of text from top of frame"));
-	bottomDistance->setToolTip( tr("Distance of text from bottom of frame"));
-	leftDistance->setToolTip( tr("Distance of text from left of frame"));
-	rightDistance->setToolTip( tr("Distance of text from right of frame"));
-	tabsButton->setToolTip( tr("Edit tab settings of text frame..."));
 }
 
 void PropertyWidget_Distance::unitChange()

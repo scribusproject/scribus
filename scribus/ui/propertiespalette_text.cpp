@@ -727,8 +727,7 @@ void PropertiesPalette_Text::changeEvent(QEvent *e)
 
 void PropertiesPalette_Text::languageChange()
 {
-	paraStyleLabel->setText( tr("Paragraph St&yle:"));
-	charStyleLabel->setText( tr("Character St&yle:"));
+	retranslateUi(this);
 
 //	colorWidgetsItem->setText(0, tr("Color && Effects"));
 //	flopItem->setText(0, tr("First Line Offset"));
@@ -755,10 +754,6 @@ void PropertiesPalette_Text::languageChange()
 	langCombo->addItems(languageList);
 	langCombo->setCurrentIndex(oldLang);
 
-	QString ptSuffix = tr(" pt");
-	fontSize->setSuffix(ptSuffix);
-	lineSpacing->setSuffix(ptSuffix);
-
 	colorWidgets->languageChange();
 	flopBox->languageChange();
 	orphanBox->languageChange();
@@ -771,15 +766,6 @@ void PropertiesPalette_Text::languageChange()
 
 	textAlignment->languageChange();
 	textDirection->languageChange();
-
-	fontSize->setToolTip( tr("Font Size"));
-	langCombo->setToolTip( tr("Text language"));
-	lineSpacing->setToolTip( tr("Line Spacing"));
-	lineSpacingModeCombo->setToolTip( tr("Select the line spacing mode") );
-	paraStyleCombo->setToolTip( tr("Paragraph style of currently selected text or paragraph"));
-	charStyleCombo->setToolTip( tr("Character style of currently selected text or paragraph"));
-	paraStyleClear->setToolTip( tr("Remove Direct Paragraph Formatting"));
-	charStyleClear->setToolTip( tr("Remove Direct Character Formatting"));
 }
 
 void PropertiesPalette_Text::handleFirstLinePolicy(int radioFlop)

@@ -368,30 +368,5 @@ void PropertyWidget_Advanced::changeEvent(QEvent *e)
 
 void PropertyWidget_Advanced::languageChange()
 {
-	wordTrackingLabel->setText( tr("Word Tracking"));
-	minWordTrackingLabel->setText( tr("Min:"));
-	normWordTrackingLabel->setText( tr("Norm:"));
-	glyphExtensionLabel->setText( tr("Glyph Extension"));
-	minGlyphExtensionLabel->setText( tr("Min:"));
-	maxGlyphExtensionLabel->setText( tr("Max:"));
-
-	QString pctSuffix=tr(" %");
-	textBase->setSuffix(pctSuffix);
-	scaleH->setSuffix(pctSuffix);
-	scaleV->setSuffix(pctSuffix);
-	tracking->setSuffix(pctSuffix);
-	minWordTrackingSpinBox->setSuffix(pctSuffix);
-	normWordTrackingSpinBox->setSuffix(pctSuffix);
-	minGlyphExtSpinBox->setSuffix(pctSuffix);
-	maxGlyphExtSpinBox->setSuffix(pctSuffix);
-
-	textBase->setToolTip( tr("Offset to baseline of characters"));
-	tracking->setToolTip( tr("Manual Tracking"));
-	scaleH->setToolTip( tr("Scaling width of characters"));
-	scaleV->setToolTip( tr("Scaling height of characters"));
-
-	minWordTrackingSpinBox->setToolTip( tr("Minimal width of spaces between words"));
-	normWordTrackingSpinBox->setToolTip( tr("Normal width of spaces between words"));
-	minGlyphExtSpinBox->setToolTip( tr("Minimal shrinkage of glyphs for justification"));
-	maxGlyphExtSpinBox->setToolTip( tr("Maximal extension of glyphs for justification"));
+	retranslateUi(this);
 }

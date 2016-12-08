@@ -51,13 +51,5 @@ void PropertyWidget_Flop::changeEvent(QEvent *e)
 
 void PropertyWidget_Flop::languageChange()
 {
-	flopRealHeight->setText( tr("Maximum Ascent") );
-	flopFontAscent->setText( tr("Font Ascent") );
-	flopLineSpacing->setText( tr("Line Spacing") );
-	flopBaselineGrid->setText( tr("Baseline Grid") );
-	
-	flopRealHeight->setToolTip( "<qt>" + tr("Set the height of the first line of the text frame to use the tallest height of the included characters") + "</qt>" );
-	flopFontAscent->setToolTip( "<qt>" + tr("Set the height of the first line of text frame to use the full ascent of the font(s) in use") + "</qt>" );
-	flopLineSpacing->setToolTip( "<qt>" + tr("Set the height of the first line of the text frame to the specified line height") + "</qt>" );
-	flopBaselineGrid->setToolTip( "<qt>" + tr("Set the base line of the first line of the text frame to the base line grid") + "</qt>" );
+	retranslateUi(this);
 }

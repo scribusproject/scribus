@@ -61,6 +61,12 @@
          <verstretch>0</verstretch>
         </sizepolicy>
        </property>
+       <property name="toolTip">
+        <string>Font Size</string>
+       </property>
+       <property name="suffix">
+        <string> pt</string>
+       </property>
       </widget>
      </item>
     </layout>
@@ -98,6 +104,9 @@
          <verstretch>0</verstretch>
         </sizepolicy>
        </property>
+       <property name="toolTip">
+        <string>Select the line spacing mode</string>
+       </property>
       </widget>
      </item>
      <item>
@@ -107,6 +116,12 @@
          <horstretch>0</horstretch>
          <verstretch>0</verstretch>
         </sizepolicy>
+       </property>
+       <property name="toolTip">
+        <string>Line Spacing</string>
+       </property>
+       <property name="suffix">
+        <string> pt</string>
        </property>
       </widget>
      </item>
@@ -135,6 +150,9 @@
      </item>
      <item>
       <widget class="QComboBox" name="langCombo">
+       <property name="toolTip">
+        <string>Text Language</string>
+       </property>
        <property name="editable">
         <bool>true</bool>
        </property>
@@ -163,7 +181,7 @@
         </sizepolicy>
        </property>
        <property name="text">
-        <string/>
+        <string>Paragraph St&amp;yle:</string>
        </property>
        <property name="pixmap">
         <pixmap>../../resources/icons/Zeichen.xpm</pixmap>
@@ -178,6 +196,9 @@
          <verstretch>0</verstretch>
         </sizepolicy>
        </property>
+       <property name="toolTip">
+        <string>Paragraph style of currently selected text or paragraph</string>
+       </property>
       </widget>
      </item>
      <item>
@@ -187,6 +208,9 @@
          <width>22</width>
          <height>22</height>
         </size>
+       </property>
+       <property name="toolTip">
+        <string>Remove Direct Paragraph Formatting</string>
        </property>
        <property name="text">
         <string/>
@@ -210,7 +234,7 @@
         </sizepolicy>
        </property>
        <property name="text">
-        <string/>
+        <string>Character St&amp;yle:</string>
        </property>
        <property name="pixmap">
         <pixmap>../../resources/icons/Zeichen.xpm</pixmap>
@@ -225,6 +249,9 @@
          <verstretch>0</verstretch>
         </sizepolicy>
        </property>
+       <property name="toolTip">
+        <string>Character style of currently selected text or paragraph</string>
+       </property>
       </widget>
      </item>
      <item>
@@ -234,6 +261,9 @@
          <width>22</width>
          <height>22</height>
         </size>
+       </property>
+       <property name="toolTip">
+        <string>Remove Direct Character Formatting</string>
        </property>
        <property name="text">
         <string/>

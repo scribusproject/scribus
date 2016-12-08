@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>186</width>
+    <width>187</width>
     <height>223</height>
    </rect>
   </property>
@@ -38,7 +38,7 @@
    <item row="0" column="0">
     <widget class="QLabel" name="verticalAlignLabel">
      <property name="text">
-      <string>Vertical Alignment</string>
+      <string>Vertical Alignment:</string>
      </property>
     </widget>
    </item>
@@ -70,6 +70,9 @@
    </item>
    <item row="1" column="1">
     <widget class="ScrSpinBox" name="columns">
+     <property name="toolTip">
+      <string>Number of columns in text frame</string>
+     </property>
      <property name="minimum">
       <double>1.000000000000000</double>
      </property>
@@ -80,6 +83,9 @@
    </item>
    <item row="2" column="0">
     <widget class="ScComboBox" name="columnGapLabel">
+     <property name="toolTip">
+      <string>Switches between Gap or Column width</string>
+     </property>
      <item>
       <property name="text">
        <string>Gap:</string>
@@ -93,7 +99,11 @@
     </widget>
    </item>
    <item row="2" column="1">
-    <widget class="ScrSpinBox" name="columnGap"/>
+    <widget class="ScrSpinBox" name="columnGap">
+     <property name="toolTip">
+      <string>Distance between columns</string>
+     </property>
+    </widget>
    </item>
    <item row="3" column="0">
     <widget class="QLabel" name="topLabel">
@@ -103,7 +113,11 @@
     </widget>
    </item>
    <item row="3" column="1">
-    <widget class="ScrSpinBox" name="topDistance"/>
+    <widget class="ScrSpinBox" name="topDistance">
+     <property name="toolTip">
+      <string>Distance of text from top of frame</string>
+     </property>
+    </widget>
    </item>
    <item row="4" column="0">
     <widget class="QLabel" name="bottomLabel">
@@ -113,7 +127,11 @@
     </widget>
    </item>
    <item row="4" column="1">
-    <widget class="ScrSpinBox" name="bottomDistance"/>
+    <widget class="ScrSpinBox" name="bottomDistance">
+     <property name="toolTip">
+      <string>Distance of text from bottom of frame</string>
+     </property>
+    </widget>
    </item>
    <item row="5" column="0">
     <widget class="QLabel" name="leftLabel">
@@ -123,7 +141,11 @@
     </widget>
    </item>
    <item row="5" column="1">
-    <widget class="ScrSpinBox" name="leftDistance"/>
+    <widget class="ScrSpinBox" name="leftDistance">
+     <property name="toolTip">
+      <string>Distance of text from left of frame</string>
+     </property>
+    </widget>
    </item>
    <item row="6" column="0">
     <widget class="QLabel" name="rightLabel">
@@ -133,7 +155,11 @@
     </widget>
    </item>
    <item row="6" column="1">
-    <widget class="ScrSpinBox" name="rightDistance"/>
+    <widget class="ScrSpinBox" name="rightDistance">
+     <property name="toolTip">
+      <string>Distance of text from right of frame</string>
+     </property>
+    </widget>
    </item>
    <item row="7" column="0" colspan="2">
     <widget class="QToolButton" name="tabsButton">
@@ -142,6 +168,9 @@
        <horstretch>0</horstretch>
        <verstretch>0</verstretch>
       </sizepolicy>
+     </property>
+     <property name="toolTip">
+      <string>Edit tab settings of text frame...</string>
      </property>
      <property name="text">
       <string>T&amp;abulators...</string>
