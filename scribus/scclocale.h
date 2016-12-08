@@ -48,6 +48,8 @@ class SCRIBUS_API ScCLocale
 	static ScCLocale * that();
 	
 	public:
+		static inline bool isDigit(ushort ch);
+		static double toDoubleC(const QChar *&str);
 		static double toDoubleC(const QString& str, bool * ok = 0);
 		static double toDoubleC(const QString& str, double defValue);
 		static float toFloatC(const QString& str, bool * ok = 0);
@@ -56,6 +58,13 @@ class SCRIBUS_API ScCLocale
 		static double strtod ( const char * str, char ** endptr );
 		
 };
+
+// The code of this function has been borrowed from Qt SVG module
+inline bool ScCLocale::isDigit(ushort ch)
+{
+	static quint16 magic = 0x3ff;
+	return ((ch >> 4) == 3) && (magic >> (ch & 15));
+}
 
 #endif // SCCLOCALE_H
 

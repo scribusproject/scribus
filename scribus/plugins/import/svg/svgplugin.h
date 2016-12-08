@@ -279,6 +279,9 @@ public:
 		int blendMode;
 	};
 	QMap<QString, filterSpec> filters;
+
+protected:
+	QVector<double> parseNumbersList(const QString& numbersStr);
 };
 
 #endif
