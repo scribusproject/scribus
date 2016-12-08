@@ -334,6 +334,9 @@ public:
 	QMap<QString, filterSpec> filters;
 	QMap<QString, markerDesc> markers;
 	QList<PageItem*> Elements;
+
+protected:
+	QVector<double> parseNumbersList(const QString& numbersStr);
 };
 
 #endif

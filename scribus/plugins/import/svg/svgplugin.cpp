@@ -1647,6 +1647,37 @@ QList<PageItem*> SVGPlug::parseLine(const QDomElement &e)
 	return LElements;
 }
 
+QVector<double> SVGPlug::parseNumbersList(const QString& numbersStr)
+{
+	QVector<double> numbers;
+	if (numbersStr.isEmpty())
+		return numbers;
+	numbers.reserve(8);
+
+	const QChar* str = numbersStr.data();
+
+	while (str->isSpace())
+		++str;
+	while (ScCLocale::isDigit(str->unicode()) ||
+	       *str == QLatin1Char('-') || *str == QLatin1Char('+') ||
+	       *str == QLatin1Char('.'))
+	{
+
+		numbers.append(ScCLocale::toDoubleC(str));
+
+		while (str->isSpace())
+			++str;
+		if (*str == QLatin1Char(','))
+			++str;
+
+		//eat the rest of space
+		while (str->isSpace())
+			++str;
+	}
+
+	return numbers;
+}
+
 QList<PageItem*> SVGPlug::parsePath(const QDomElement &e)
 {
 	FPointArray pArray;
@@ -2160,57 +2191,56 @@ QTransform SVGPlug::parseTransform( const QString &transform )
 	QStringList subtransforms = trans.split(')', QString::SkipEmptyParts);
 	QStringList::ConstIterator it = subtransforms.begin();
 	QStringList::ConstIterator end = subtransforms.end();
-	for(; it != end; ++it)
+	for (; it != end; ++it)
 	{
 		QTransform result;
 		QStringList subtransform = it->split('(', QString::SkipEmptyParts);
 		subtransform[0] = subtransform[0].trimmed().toLower();
 		subtransform[1] = subtransform[1].simplified();
-		QRegExp reg("[,( ]");
-		QStringList params = subtransform[1].split(reg, QString::SkipEmptyParts);
-		if(subtransform[0].startsWith(";") || subtransform[0].startsWith(","))
+		QVector<double> params = parseNumbersList(subtransform[1]);
+		if (subtransform[0].startsWith(";") || subtransform[0].startsWith(","))
 			subtransform[0] = subtransform[0].right(subtransform[0].length() - 1);
-		if(subtransform[0] == "rotate")
+		if (subtransform[0] == "rotate")
 		{
-			if(params.count() == 3)
+			if (params.count() == 3)
 			{
-				double x = ScCLocale::toDoubleC(params[1]);
-				double y = ScCLocale::toDoubleC(params[2]);
+				double x = params[1];
+				double y = params[2];
 				result.translate(x, y);
-				result.rotate(ScCLocale::toDoubleC(params[0]));
+				result.rotate(params[0]);
 				result.translate(-x, -y);
 			}
 			else
-				result.rotate(ScCLocale::toDoubleC(params[0]));
+				result.rotate(params[0]);
 		}
-		else if(subtransform[0] == "translate")
+		else if (subtransform[0] == "translate")
 		{
-			if(params.count() == 2)
-				result.translate(ScCLocale::toDoubleC(params[0]), ScCLocale::toDoubleC(params[1]));
+			if (params.count() == 2)
+				result.translate(params[0], params[1]);
 			else    // Spec : if only one param given, assume 2nd param to be 0
-				result.translate(ScCLocale::toDoubleC(params[0]), 0);
+				result.translate(params[0], 0);
 		}
-		else if(subtransform[0] == "scale")
+		else if (subtransform[0] == "scale")
 		{
 			if(params.count() == 2)
-				result.scale(ScCLocale::toDoubleC(params[0]), ScCLocale::toDoubleC(params[1]));
+				result.scale(params[0], params[1]);
 			else    // Spec : if only one param given, assume uniform scaling
-				result.scale(ScCLocale::toDoubleC(params[0]), ScCLocale::toDoubleC(params[0]));
+				result.scale(params[0], params[0]);
 		}
-		else if(subtransform[0] == "skewx")
-			result.shear(tan(ScCLocale::toDoubleC(params[0]) * 0.01745329251994329576), 0.0F);
-		else if(subtransform[0] == "skewy")
-			result.shear(0.0F, tan(ScCLocale::toDoubleC(params[0]) * 0.01745329251994329576));
-		else if(subtransform[0] == "matrix")
+		else if (subtransform[0] == "skewx")
+			result.shear(tan(params[0] * 0.01745329251994329576), 0.0F);
+		else if (subtransform[0] == "skewy")
+			result.shear(0.0F, tan(params[0] * 0.01745329251994329576));
+		else if (subtransform[0] == "matrix")
 		{
-			if(params.count() >= 6)
+			if (params.count() >= 6)
 			{
-				double sx = ScCLocale::toDoubleC(params[0]);
-				double sy = ScCLocale::toDoubleC(params[3]);
-				double p1 = ScCLocale::toDoubleC(params[1]);
-				double p2 = ScCLocale::toDoubleC(params[2]);
-				double p4 = ScCLocale::toDoubleC(params[4]);
-				double p5 = ScCLocale::toDoubleC(params[5]);
+				double sx = params[0];
+				double sy = params[3];
+				double p1 = params[1];
+				double p2 = params[2];
+				double p4 = params[4];
+				double p5 = params[5];
 				result = QTransform(sx, p1, p2, sy, p4, p5);
 			}
 		}
