@@ -896,7 +896,7 @@ bool FPointArray::parseSVG(const QString& svgPath)
 	QString d = svgPath;
 	d = d.replace( QRegExp( "," ), " ");
 	bool ret = false;
-	if( !d.isEmpty() )
+	if (!d.isEmpty())
 	{
 		d = d.simplified();
 		QByteArray pathData = d.toLatin1();
@@ -909,12 +909,12 @@ bool FPointArray::parseSVG(const QString& svgPath)
 		svgInit();
 		char command = *(ptr++), lastCommand = ' ';
 		subpathx = subpathy = curx = cury = contrlx = contrly = 0.0;
-		while( ptr < end )
+		while (ptr < end)
 		{
-			if( *ptr == ' ' )
+			if (*ptr == ' ')
 				ptr++;
 			relative = false;
-			switch( command )
+			switch (command)
 			{
 			case 'f':
 			case 'F':
@@ -1087,18 +1087,18 @@ bool FPointArray::parseSVG(const QString& svgPath)
 				}
 			}
 			lastCommand = command;
-			if(*ptr == '+' || *ptr == '-' || *ptr == '.' || (*ptr >= '0' && *ptr <= '9'))
+			if (*ptr == '+' || *ptr == '-' || *ptr == '.' || (*ptr >= '0' && *ptr <= '9'))
 			{
 				// there are still coords in this command
-				if(command == 'M')
+				if (command == 'M')
 					command = 'L';
-				else if(command == 'm')
+				else if (command == 'm')
 					command = 'l';
 			}
 			else
 				command = *(ptr++);
 
-			if( lastCommand != 'C' && lastCommand != 'c' &&
+			if (lastCommand != 'C' && lastCommand != 'c' &&
 			        lastCommand != 'S' && lastCommand != 's' &&
 			        lastCommand != 'Q' && lastCommand != 'q' &&
 			        lastCommand != 'T' && lastCommand != 't')
