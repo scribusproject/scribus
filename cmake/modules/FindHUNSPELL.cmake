@@ -9,7 +9,7 @@
 #Based on examples at http://www.vtk.org/Wiki/CMake:How_To_Find_Libraries
 
 find_path(HUNSPELL_INCLUDE_DIR hunspell/hunspell.hxx )
-find_library(HUNSPELL_LIBRARIES NAMES hunspell-1.4 hunspell-1.3 hunspell-1.2 PATHS /opt/local/lib /usr/local/lib /usr/lib )
+find_library(HUNSPELL_LIBRARIES NAMES hunspell-1.5 hunspell-1.4 hunspell-1.3 hunspell-1.2 PATHS /opt/local/lib /usr/local/lib /usr/lib )
 
 include(FindPackageHandleStandardArgs)
 # handle the QUIETLY and REQUIRED arguments and set HUNSPELL_FOUND to TRUE
