@@ -24,6 +24,7 @@
 			<submenuitem text="Document Information" file="docinfo.html" />
 			<submenuitem text="Working with Frames" file="WwFrames.html" />
 			<submenuitem text="Working with Text" file="WwText.html" />
+			<submenuitem text="Text Properties" file="TextProp.html" />
 			<submenuitem text="Search and Replace" file="SearchReplace.html" />
 			<submenuitem text="Working with Styles" file="WwStyles.html" />
 			<submenuitem text="Working with Images" file="WwImages.html" />
