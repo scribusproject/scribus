@@ -477,17 +477,13 @@ void PropertiesPalette_Text::showLanguage(QString w)
 {
 	if (!m_ScMW || m_ScMW->scriptIsRunning())
 		return;
-	bool tmp = m_haveItem;
-	m_haveItem = false;
-	if (tmp)
-	{
-		QStringList lang;
-		LanguageManager::instance()->fillInstalledStringList(&lang, true);
-		QString langName = LanguageManager::instance()->getLangFromAbbrev(w, false);
-		langCombo->setCurrentIndex(lang.indexOf(langName));
-	}
-	m_haveItem = tmp;
+	QStringList lang;
+	LanguageManager::instance()->fillInstalledStringList(&lang, true);
+	QString langName = LanguageManager::instance()->getLangFromAbbrev(w, true);
 
+	bool sigBlocked  = langCombo->blockSignals(true);
+	langCombo->setCurrentIndex(lang.indexOf(langName));
+	langCombo->blockSignals(sigBlocked);
 }
 
 void PropertiesPalette_Text::showFirstLinePolicy( FirstLineOffsetPolicy f )
