@@ -501,7 +501,7 @@ void Cpalette::toggleColorDisplay()
 		colorListStroke->cList = &currentDoc->PageColors;
 		colorListFill->cList = &currentDoc->PageColors;
 		colorList = currentDoc->PageColors;
-		updateFromItem();
+		updateColorList();
 	}
 }
 
