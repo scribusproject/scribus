@@ -9,6 +9,7 @@ CalendarWizard.py
 ColorChart.py
 DirectImageImport.py
 FontSample.py
+Gallery.py
 InfoBox.py
 ChangeLog
 NEWS
