@@ -47,7 +47,6 @@ public:
                          // and if in ScribusView a groupTransaction has been started it must be also
                          // commmited
 
-
 	PropertiesPalette_Text*  textPal;
 
 private:

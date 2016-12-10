@@ -50,7 +50,7 @@ TextPalette::TextPalette( QWidget* parent) : ScDockPalette( parent, "TextPalette
 	m_haveItem = false;
 	m_unitRatio = 1.0;
 
-	setObjectName(QString::fromLocal8Bit("PropertiesPalette"));
+	setObjectName(QString::fromLocal8Bit("TextPalette"));
 ///	setSizePolicy( QSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum));
 
 	QFont f(font());
