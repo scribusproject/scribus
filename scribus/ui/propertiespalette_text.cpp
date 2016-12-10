@@ -61,7 +61,6 @@ PropertiesPalette_Text::PropertiesPalette_Text( QWidget* parent) : QWidget(paren
 	m_unitRatio = 1.0;
 
 	setupUi(this);
-//	setSizePolicy( QSizePolicy(QSizePolicy::Maximum, QSizePolicy::Maximum));
 
 	fontSize->setPrefix( "" );
 	fontSizeLabel->setPixmap(IconManager::instance()->loadPixmap("Zeichen.xpm"));
@@ -74,48 +73,38 @@ PropertiesPalette_Text::PropertiesPalette_Text( QWidget* parent) : QWidget(paren
 
 	colorWidgets = new PropertyWidget_TextColor(textTree);
 	colorWidgetsItem = textTree->addItem( colorWidgets, tr("Color && Effects") );
-	//colorWidgetsItem = textTree->addWidget( tr("Color && Effects"), colorWidgets);
 
 	flopBox = new PropertyWidget_Flop(textTree);
 	flopItem = textTree->addItem( flopBox, tr("First Line Offset"));
-	//flopItem = textTree->addWidget( tr("First Line Offset"), flopBox);
 
 	orphanBox = new PropertyWidget_Orphans(textTree);
 	orphanItem = textTree->addItem(orphanBox, tr("Orphans and Widows"));
-//	orphanItem = textTree->addWidget( tr("Orphans and Widows"), orphanBox);
 
 	parEffectWidgets = new PropertyWidget_ParEffect(textTree);
 	parEffectItem = textTree->addItem(parEffectWidgets, tr("Paragraph Effects"));
-//	parEffectItem = textTree->addWidget( tr("Paragraph Effects"), parEffectWidgets);
 
 	distanceWidgets = new PropertyWidget_Distance(textTree);
 	distanceItem = textTree->addItem(distanceWidgets, tr("Columns && Text Distances"));
-//	distanceItem = textTree->addWidget( tr("Columns && Text Distances"), distanceWidgets);
 
 	//<< Optical Margins
 	optMargins = new PropertyWidget_OptMargins(textTree);
 	optMarginsItem = textTree->addItem(optMargins, tr("Optical Margins"));
-//	optMarginsItem = textTree->addWidget( tr("Optical Margins"), optMargins);
 	//>> Optical Margins
-	
+
 	hyphenationWidget = new PropertyWidget_Hyphenation(textTree);
 	hyphenationWidgetItem = textTree->addItem(hyphenationWidget, tr("Hyphenation"));
-//	hyphenationWidgetItem = textTree->addWidget(tr("Hyphenation"), hyphenationWidget);
 
 	//<<Advanced Settings
 	advancedWidgets = new PropertyWidget_Advanced(textTree);
 	advancedWidgetsItem = textTree->addItem(advancedWidgets, tr("Advanced Settings"));
-//	advancedWidgetsItem = textTree->addWidget( tr("Advanced Settings"), advancedWidgets);
 
 	//>>Advanced Settings
 	fontfeaturesWidget = new PropertyWidget_FontFeatures(textTree);
 	fontfeaturesWidgetItem = textTree->addItem(fontfeaturesWidget, tr("Open Type Font Features"));
-//	fontfeaturesWidgetItem = textTree->addWidget( tr("Open Type Font Features"), fontfeaturesWidget);
 
 
 	pathTextWidgets = new PropertyWidget_PathText(textTree);
 	pathTextItem = textTree->addItem(pathTextWidgets, tr("Path Text Properties"));
-//	pathTextItem = textTree->addWidget( tr("Path Text Properties"), pathTextWidgets);
 
 	languageChange();
 
@@ -343,30 +332,6 @@ void PropertiesPalette_Text::setCurrentItem(PageItem *i)
 	{
 		setEnabled(false);
 	}
-//	if (m_item->asPathText())
-//	{
-//		flopItem->setHidden(true);
-//		distanceItem->setHidden(true);
-//		orphanItem->setHidden(true);
-//		parEffectItem->setHidden(true);
-//		pathTextItem->setHidden(false);
-//	}
-//	else if (m_item->asTextFrame() || m_item->asTable())
-//	{
-//		flopItem->setHidden(false);
-//		distanceItem->setHidden(false);
-//		orphanItem->setHidden(false);
-//		parEffectItem->setHidden(false);
-//		pathTextItem->setHidden(true);
-//	}
-//	else
-//	{
-//		flopItem->setHidden(false);
-//		distanceItem->setHidden(false);
-//		orphanItem->setHidden(false);
-//		parEffectItem->setHidden(false);
-//		pathTextItem->setHidden(true);
-//	}
 
 	m_haveItem = true;
 

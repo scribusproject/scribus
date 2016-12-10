@@ -13,15 +13,8 @@ for which a new license (GPL+exception) is in place.
 #include "scrpalettebase.h"
 #include "scrspinbox.h"
 
-#include "linecombo.h"
-#include "spalette.h"
-#include "alignselect.h"
-#include "directionselect.h"
-#include "shadebutton.h"
-#include "sclistboxpixmap.h"
 #include "scguardedptr.h"
 #include "sctextstruct.h"
-#include "sctreewidget.h"
 
 class PageItem;
 class PropertyWidget_Advanced;
@@ -45,7 +38,7 @@ class SCRIBUS_API PropertiesPalette_Text : public QWidget, public Ui::Properties
 
 public:
 	PropertiesPalette_Text(QWidget* parent);
-	~PropertiesPalette_Text() {};
+	~PropertiesPalette_Text() {}
 
 	virtual void changeEvent(QEvent *e);
 	
@@ -129,16 +122,7 @@ protected:
 	PropertyWidget_ParEffect* parEffectWidgets;
 	PropertyWidget_PathText* pathTextWidgets;
 	PropertyWidget_TextColor* colorWidgets;
-//	QTreeWidgetItem* advancedWidgetsItem;
-//	QTreeWidgetItem* colorWidgetsItem;
-//	QTreeWidgetItem* distanceItem;
-//	QTreeWidgetItem* flopItem;
-//	QTreeWidgetItem* fontfeaturesWidgetItem;
-//	QTreeWidgetItem* hyphenationWidgetItem;
-//	QTreeWidgetItem* optMarginsItem;
-//	QTreeWidgetItem* orphanItem;
-//	QTreeWidgetItem* parEffectItem;
-//	QTreeWidgetItem* pathTextItem;
+
 	int advancedWidgetsItem;
 	int colorWidgetsItem;
 	int distanceItem;

@@ -16,8 +16,6 @@ for which a new license (GPL+exception) is in place.
 #include "langmgr.h"
 #include "ui/scmwmenumanager.h"
 #include "prefsmanager.h"
-#include "propertiespalette.h"
-#include "propertiespalette_text.h"
 #include "sccombobox.h"
 #include "scribus.h"
 #include "scribusdoc.h"

@@ -53,7 +53,7 @@ class SCRIBUS_API PropertiesPalette : public ScDockPalette
 
 public:
 	PropertiesPalette(QWidget* parent);
-	~PropertiesPalette() {};
+	~PropertiesPalette() {}
 
 	virtual void changeEvent(QEvent *e);
 	virtual void closeEvent(QCloseEvent *closeEvent);
@@ -69,7 +69,6 @@ public:
                          // When user releases the mouse button or arrow key, changes must be checked
                          // and if in ScribusView a groupTransaction has been started it must be also
                          // commmited
-
 
 	PropertiesPalette_Group* groupPal;
 	PropertiesPalette_Image* imagePal;
