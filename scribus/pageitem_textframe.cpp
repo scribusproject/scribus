@@ -1716,6 +1716,7 @@ void PageItem_TextFrame::layout()
 			if (DropCmode)
 			{
 				// drop caps are wider...
+				GlyphCluster& glyphCluster = current.glyphs[currentIndex];
 				if (HasObject)
 				{
 				//	double itemHeight = currentObject->height() + currentObject->lineWidth();
@@ -1729,16 +1730,16 @@ void PageItem_TextFrame::layout()
 					asce = currentObjectBox.height();
 					wide = currentObjectBox.width();
 					realAsce = calculateLineSpacing (style, this) * DropLines;
-					current.glyphs[currentIndex].setScaleH(current.glyphs[currentIndex].scaleH() / current.glyphs[currentIndex].scaleV());
-					current.glyphs[currentIndex].setScaleV(realAsce / itemHeight);
-					current.glyphs[currentIndex].setScaleH(current.glyphs[currentIndex].scaleH() * current.glyphs[currentIndex].scaleV());
-					wide *= current.glyphs[currentIndex].scaleH();
+					glyphCluster.setScaleH(glyphCluster.scaleH() / glyphCluster.scaleV());
+					glyphCluster.setScaleV(realAsce / itemHeight);
+					glyphCluster.setScaleH(glyphCluster.scaleH() * glyphCluster.scaleV());
+					wide *= glyphCluster.scaleH();
 				}
 				else
 				{
 					double realCharHeight = 0.0;
 					wide = 0.0; realAsce = 0.0;
-					foreach (const GlyphLayout& gl, current.glyphs[currentIndex].glyphs()) {
+					foreach (const GlyphLayout& gl, glyphCluster.glyphs()) {
 						GlyphMetrics gm;
 						gm = font.glyphBBox(gl.glyph, charStyle.fontSize() / 10.0);
 						realCharHeight = qMax(realCharHeight, gm.ascent + gm.descent);
@@ -1751,17 +1752,17 @@ void PageItem_TextFrame::layout()
 					if (realCharHeight == 0)
 						realCharHeight = font.height(style.charStyle().fontSize() / 10.0);
 					asce = font.ascent(hlcsize10);
-					current.glyphs[currentIndex].setScaleH(current.glyphs[currentIndex].scaleH() / current.glyphs[currentIndex].scaleV());
-					current.glyphs[currentIndex].setScaleV(realAsce / realCharHeight);
-					current.glyphs[currentIndex].setScaleH(current.glyphs[currentIndex].scaleH() * current.glyphs[currentIndex].scaleV());
-					current.glyphs[currentIndex].xoffset -= 0.5; //drop caps are always to far from column left edge
+					glyphCluster.setScaleH(glyphCluster.scaleH() / glyphCluster.scaleV());
+					glyphCluster.setScaleV(realAsce / realCharHeight);
+					glyphCluster.setScaleH(glyphCluster.scaleH() * glyphCluster.scaleV());
+					glyphCluster.xoffset -= 0.5; //drop caps are always to far from column left edge
 				}
 				// This is to mimic pre-boxes branches in case first character of paragraph is a space
 				// If we don't do this, paragraph offset will not apply correctly to first line
-				if ((current.glyphs[currentIndex].scaleH() == 0.0) || (current.glyphs[currentIndex].scaleV() == 0.0))
+				if ((glyphCluster.scaleH() == 0.0) || (glyphCluster.scaleV() == 0.0))
 				{
-					current.glyphs[currentIndex].setScaleH(1.0);
-					current.glyphs[currentIndex].setScaleV(1.0);
+					glyphCluster.setScaleH(1.0);
+					glyphCluster.setScaleV(1.0);
 					wide = 0.0;
 				}
 				desc = realDesc = 0;
