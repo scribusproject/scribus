@@ -19,8 +19,8 @@ to break out of the loop.
 
 You next are asked what width you wish frames to be resized to (default 250 points), but if you enter
 0 (zero), no resizing will be done.
-The script will quit either when you run out of selected frames or run out of images in the
-selected directory.
+The script will quit either when you run out of selected frames or run out of images in the sequence
+you have selected.
 
 See the wiki for further information: https://wiki.scribus.net/canvas/Gallery.py
 
