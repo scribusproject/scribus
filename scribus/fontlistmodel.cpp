@@ -13,41 +13,40 @@ for which a new license (GPL+exception) is in place.
 #include "prefsmanager.h"
 #include "scribusdoc.h"
 
-FontListModel::FontListModel(QObject * parent, ScribusDoc * doc)
+FontListModel::FontListModel(QObject * parent, ScribusDoc * doc, bool includeDisabled)
 	: QAbstractTableModel(parent),
 	m_doc(doc),
-	m_fonts(PrefsManager::instance()->appPrefs.fontPrefs.AvailFonts)
+	m_fonts(PrefsManager::instance()->appPrefs.fontPrefs.AvailFonts),
+	m_includeDisabled(includeDisabled)
 {
 	ttfFont = IconManager::instance()->loadPixmap("font_truetype16.png");
 	otfFont = IconManager::instance()->loadPixmap("font_otf16.png");
 	psFont = IconManager::instance()->loadPixmap("font_type1_16.png");
 	substFont = IconManager::instance()->loadPixmap("font_subst16.png");
 
-	m_font_values = m_fonts.values();
-	m_font_names = m_fonts.keys();
-	for (int i = 0; i < m_font_names.length(); ++i)
-	{
-		ScFace font = m_fonts[m_font_names[i]];
-		m_enabledFonts.append(font.usable());
-	}
+	setFonts(m_fonts.keys());
 }
 
 void FontListModel::setFonts(QList<QString> f)
 {
 	beginResetModel();
-	m_font_names = f;
+	m_font_names.clear();
 	m_font_values.clear();
 	m_enabledFonts.clear();
 	m_embedFlags.clear();
-	for (int i = 0; i < m_font_names.length(); ++i)
+	for (int i = 0; i < f.length(); ++i)
 	{
-		ScFace font = m_fonts[m_font_names[i]];
-		m_font_values.append(font);
-		m_enabledFonts.append(font.usable());
-		int embedFlags = 0;
-		embedFlags |= font.embedPs() ? EmbedPS : 0;
-		embedFlags |= font.subset()  ? SubsetPDF : 0;
-		m_embedFlags.append(embedFlags);
+		ScFace &font = m_fonts[f[i]];
+		if (font.usable() || m_includeDisabled)
+		{
+			m_font_names.append(f[i]);
+			m_font_values.append(font);
+			m_enabledFonts.append(font.usable());
+			int embedFlags = 0;
+			embedFlags |= font.embedPs() ? EmbedPS : 0;
+			embedFlags |= font.subset()  ? SubsetPDF : 0;
+			m_embedFlags.append(embedFlags);
+		}
 	}
 	endResetModel();
 }

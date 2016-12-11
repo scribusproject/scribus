@@ -32,7 +32,7 @@ class SCRIBUS_API FontListModel : public QAbstractTableModel
 	Q_OBJECT
 
 	public:
-		FontListModel(QObject * parent = 0, ScribusDoc * doc = 0);
+		FontListModel(QObject * parent = 0, ScribusDoc * doc = 0, bool includeDisabled = false);
 
 		enum ColumnTypes {
             FontUsable = 0,
@@ -57,7 +57,7 @@ class SCRIBUS_API FontListModel : public QAbstractTableModel
 		int columnCount(const QModelIndex&) const;
 		/*! Required inherited method. See Qt4 docs.
 		It handles displaying for user itself.
-		\Note the Qt::CheckStateRole stuff is handling
+		\note the Qt::CheckStateRole stuff is handling
 		user input. And should not be removed. */
 		QVariant data(const QModelIndex & index,
 					  int role = Qt::DisplayRole) const;
@@ -70,7 +70,7 @@ class SCRIBUS_API FontListModel : public QAbstractTableModel
 		Qt::ItemFlags flags(const QModelIndex &index) const;
 
 		//! Returns the font list
-		QList<QString> fonts() { return m_font_names; };
+		QList<QString> fonts() { return m_font_names; }
 		//! Sets font list and refresh the model. This will detach the model from the main Scribus font list!
 		void setFonts(QList<QString> f);
 
@@ -112,6 +112,8 @@ class SCRIBUS_API FontListModel : public QAbstractTableModel
 		QVariant headerData(int section,
 							Qt::Orientation orientation,
 							int role = Qt::DisplayRole) const;
+
+		bool m_includeDisabled;
 };
 
 #endif

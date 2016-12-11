@@ -30,7 +30,7 @@ FontPreview::FontPreview(QString fontName, QWidget* parent, ScribusDoc* doc)
 
 	languageChange();
 
-	fontModel = new FontListModel(this, m_Doc);
+	fontModel = new FontListModel(this, m_Doc, false);
 
 	proxyModel = new QSortFilterProxyModel();
 	proxyModel->setDynamicSortFilter(true);
