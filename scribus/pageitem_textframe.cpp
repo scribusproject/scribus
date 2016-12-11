@@ -2492,8 +2492,6 @@ void PageItem_TextFrame::layout()
 			if ((DropCmode || BulNumMode) && !outs)
 			{
 				current.xPos += style.parEffectOffset();
-
-
 				if (style.hasNum())
 				{
 					// make sure that Offset inserted only after the suffix
