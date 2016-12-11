@@ -1871,6 +1871,9 @@ void Canvas::DrawPageMargins(ScPainter *p, QRectF clip, bool master)
  */
 void Canvas::DrawPageBaselineGridSub(ScPainter *p, ScPage *page)
 {
+	if (!m_doc->guidesPrefs().baselineGridShown)
+		return;
+
 	p->save();
 	p->setAntialiasing(false);
 	p->translate(page->xOffset(), page->yOffset());
@@ -1879,19 +1882,18 @@ void Canvas::DrawPageBaselineGridSub(ScPainter *p, ScPage *page)
 	double pageWidth = page->width();
 	p->setFillMode(ScPainter::None);
 	p->setStrokeMode(ScPainter::Solid);
-	p->setPen(Qt::black, lineWidth, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
-	if (m_doc->guidesPrefs().baselineGridShown)
-	{
-		p->setPen(m_doc->guidesPrefs().baselineGridColor, lineWidth, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
-		for (double yg = m_doc->guidesPrefs().offsetBaselineGrid; yg < pageHeight; yg += m_doc->guidesPrefs().valueBaselineGrid)
-			p->drawLine(FPoint(0, yg), FPoint(pageWidth, yg));
-	}
+	p->setPen(m_doc->guidesPrefs().baselineGridColor, lineWidth, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
+	for (double yg = m_doc->guidesPrefs().offsetBaselineGrid; yg < pageHeight; yg += m_doc->guidesPrefs().valueBaselineGrid)
+		p->drawLine(FPoint(0, yg), FPoint(pageWidth, yg));
 	p->setAntialiasing(true);
 	p->restore();
 }
 
 void Canvas::DrawPageBaselineGrid(ScPainter *p, QRectF clip, bool master)
 {
+	if (!m_doc->guidesPrefs().baselineGridShown)
+		return;
+
 	if (master)
 	{
 		ScPage *page = m_doc->currentPage();
