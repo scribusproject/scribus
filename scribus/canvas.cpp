@@ -1725,15 +1725,23 @@ void Canvas::getLinkedFrames(PageItem* currItem)
 void Canvas::getClipPathForPages(FPointArray* PoLine)
 {
 	PoLine->resize(0);
-	uint docPagesCount=m_doc->Pages->count();
 	bool first = true;
 	ScPage *actPg;
-	for (int a = 0; a < static_cast<int>(docPagesCount); ++a)
+	
+	int firstPage = 0;
+	int lastPage  = m_doc->Pages->count();
+	if (m_doc->Pages == &m_doc->MasterPages)
+	{
+		firstPage = m_doc->currentPage()->pageNr();
+		lastPage  = firstPage + 1;
+	}
+
+	for (int i = firstPage; i < lastPage; ++i)
 	{
 		if (!first)
 			PoLine->setMarker();
 		first = false;
-		actPg = m_doc->Pages->at(a);
+		actPg = m_doc->Pages->at(i);
 		double x = actPg->xOffset();
 		double y = actPg->yOffset();
 		double w = actPg->width();
@@ -1741,10 +1749,10 @@ void Canvas::getClipPathForPages(FPointArray* PoLine)
 		static double rect[] = {0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 1.0, 0.0, 1.0, 0.0, 1.0, 0.0,
 			1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.0, 1.0, 0.0, 1.0,
 			0.0, 1.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0};
-		for (int a = 0; a < 29; a += 4)
+		for (int j = 0; j < 29; j += 4)
 		{
-			PoLine->addPoint(x + w * rect[a], y + h * rect[a+1]);
-			PoLine->addPoint(x + w * rect[a+2], y + h * rect[a+3]);
+			PoLine->addPoint(x + w * rect[j], y + h * rect[j+1]);
+			PoLine->addPoint(x + w * rect[j+2], y + h * rect[j+3]);
 		}
 	}
 }
