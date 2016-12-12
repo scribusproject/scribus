@@ -109,8 +109,8 @@ PropertiesPalette_Text::PropertiesPalette_Text( QWidget* parent) : QWidget(paren
 
 	//>>Advanced Settings
 	fontfeaturesWidget = new PropertyWidget_FontFeatures(textTree);
-	fontfeaturesWidgetItem = textTree->addItem(fontfeaturesWidget, tr("Open Type Font Features"));
-//	fontfeaturesWidgetItem = textTree->addWidget( tr("Open Type Font Features"), fontfeaturesWidget);
+	fontfeaturesWidgetItem = textTree->addItem(fontfeaturesWidget, tr("Font Features"));
+//	fontfeaturesWidgetItem = textTree->addWidget( tr("Font Features"), fontfeaturesWidget);
 
 
 	pathTextWidgets = new PropertyWidget_PathText(textTree);
