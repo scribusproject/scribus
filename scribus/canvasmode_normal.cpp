@@ -821,6 +821,7 @@ void CanvasMode_Normal::mouseMoveEvent(QMouseEvent *m)
 
 void CanvasMode_Normal::mousePressEvent(QMouseEvent *m)
 {
+//	qDebug("CanvasMode_Normal::mousePressEvent");
 	const FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPos());
 	PageItem *currItem;
 
@@ -994,7 +995,7 @@ void CanvasMode_Normal::mousePressEvent(QMouseEvent *m)
 
 void CanvasMode_Normal::mouseReleaseEvent(QMouseEvent *m)
 {
-// 	qDebug("CanvasMode_Normal::mouseReleaseEvent");
+//	qDebug("CanvasMode_Normal::mouseReleaseEvent");
 #ifdef GESTURE_FRAME_PREVIEW
         clearPixmapCache();
 #endif // GESTURE_FRAME_PREVIEW
@@ -1006,15 +1007,18 @@ void CanvasMode_Normal::mouseReleaseEvent(QMouseEvent *m)
 	m_view->setRedrawMarkerShown(false);
 //	m_view->stopDragTimer();
 	//m_canvas->update(); //ugly in a mouseReleaseEvent!!!!!!!
-	if ((!GetItem(&currItem)) && (m->button() == Qt::RightButton) && (!m_doc->DragP) && (!m_doc->drawAsPreview))
+	if (m->button() == Qt::RightButton && (!m_doc->DragP) )
 	{
-		createContextMenu(NULL, mousePointDoc.x(), mousePointDoc.y());
-		return;
-	}
-	if ((GetItem(&currItem)) && (m->button() == Qt::RightButton) && (!m_doc->DragP) && (!(m_doc->drawAsPreview && !m_doc->editOnPreview)))
-	{
-		createContextMenu(currItem, mousePointDoc.x(), mousePointDoc.y());
-		return;
+		if ((!GetItem(&currItem)) && (!m_doc->drawAsPreview))
+		{
+			createContextMenu(NULL, mousePointDoc.x(), mousePointDoc.y());
+			return;
+		}
+		if ((GetItem(&currItem)) && (!(m_doc->drawAsPreview && !m_doc->editOnPreview)))
+		{
+			createContextMenu(currItem, mousePointDoc.x(), mousePointDoc.y());
+			return;
+		}
 	}
 	//<<#10116: Click on overflow icon to get into link frame mode
 	PageItem* clickedItem=NULL;

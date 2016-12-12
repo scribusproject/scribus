@@ -37,8 +37,7 @@ CharSelectEnhanced::CharSelectEnhanced(QWidget* parent)
 	connect(m_charTable, SIGNAL(selectChar(uint, QString)), this, SLOT(newChar(uint, QString)));
 	connect(fontSelector, SIGNAL(activated(int)), this, SLOT(newFont(int)));
 	connect(rangeSelector, SIGNAL(activated(int)), this, SLOT(newCharClass(int)));
-	connect(hexLineEdit, SIGNAL(returnPressed()),
-			this, SLOT(hexLineEdit_returnPressed()));
+	connect(hexLineEdit, SIGNAL(returnPressed()), this, SLOT(hexLineEdit_returnPressed()));
 }
 
 CharSelectEnhanced::~CharSelectEnhanced()

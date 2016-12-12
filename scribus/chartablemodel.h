@@ -50,7 +50,7 @@ public:
 	void addCharacter(QString ch);
 	CharClassDef characters() {
 		return m_characters;
-	};
+	}
 
 	QStringList fonts() { return m_fonts; }
 

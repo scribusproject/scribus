@@ -30,7 +30,7 @@ CharSelect::CharSelect(QWidget* parent) : ScrPaletteBase(parent, "CharSelect"), 
 
 	paletteFileMask = tr("Scribus Char Palette (*.ucp);;All Files (*)");
 
-	hideButton->setIcon(IconManager::instance()->loadIcon("16/insert-table.png"));
+	enhancedDialogButton->setIcon(IconManager::instance()->loadIcon("16/insert-table.png"));
 	unicodeButton->setIcon(IconManager::instance()->loadIcon("find.png"));
 	uniLoadButton->setIcon(IconManager::instance()->loadIcon("16/document-open.png"));
 	uniSaveButton->setIcon(IconManager::instance()->loadIcon("16/document-save.png"));
@@ -49,7 +49,7 @@ CharSelect::CharSelect(QWidget* parent) : ScrPaletteBase(parent, "CharSelect"), 
 	connect(m_userTable->selectionModel(), SIGNAL(selectionChanged(const QItemSelection& ,const QItemSelection&)), this, SLOT(slot_selectionChanged(const QItemSelection&, const QItemSelection&)) );
 	connect(m_userTableModel, SIGNAL(rowAppended()), m_userTable, SLOT(resizeLastRow()));
 	connect(unicodeButton, SIGNAL(chosenUnicode(const QString &)), m_userTableModel, SLOT(appendUnicode(const QString &)));
-	connect(hideButton, SIGNAL(toggled(bool)), this, SLOT(hideButton_toggled(bool)));
+	connect(enhancedDialogButton, SIGNAL(toggled(bool)), this, SLOT(enhancedDialogButton_toggled(bool)));
 	connect(this, SIGNAL(insertUserSpecialChar(QChar, QString)), this, SLOT(slot_insertUserSpecialChar(QChar, QString)));
 	connect(uniLoadButton, SIGNAL(clicked()), this, SLOT(uniLoadButton_clicked()));
 	connect(uniSaveButton, SIGNAL(clicked()), this, SLOT(uniSaveButton_clicked()));
@@ -193,7 +193,7 @@ void CharSelect::openEnhanced()
 	QApplication::changeOverrideCursor(QCursor(Qt::WaitCursor));
 	m_enhanced = new CharSelectEnhanced(this);
 	connect(m_enhanced, SIGNAL(insertSpecialChars(const QVector<uint> &)), this, SLOT(slot_insertSpecialChars(const QVector<uint> &)));
-	connect(m_enhanced, SIGNAL(paletteShown(bool)), hideButton, SLOT(setChecked(bool)));
+	connect(m_enhanced, SIGNAL(paletteShown(bool)), enhancedDialogButton, SLOT(setChecked(bool)));
 	m_enhanced->setDoc(m_doc);
 	m_enhanced->setEnabled(this->isEnabled());
 	m_enhanced->show();
@@ -205,20 +205,20 @@ void CharSelect::closeEnhanced()
 	if (!m_enhanced)
 		return;
 
-	hideButton->blockSignals(true);
-	hideButton->setChecked(false);
-	hideButton->blockSignals(false);
+	enhancedDialogButton->blockSignals(true);
+	enhancedDialogButton->setChecked(false);
+	enhancedDialogButton->blockSignals(false);
 
 	disconnect(m_enhanced, SIGNAL(insertSpecialChars(const QVector<uint> &)), this, SLOT(slot_insertSpecialChars(const QVector<uint> &)));
-	disconnect(m_enhanced, SIGNAL(paletteShown(bool)), hideButton, SLOT(setChecked(bool)));
+	disconnect(m_enhanced, SIGNAL(paletteShown(bool)), enhancedDialogButton, SLOT(setChecked(bool)));
 	m_enhanced->close();
 	delete m_enhanced;
 	m_enhanced = 0;
 }
 
-void CharSelect::hideButton_toggled(bool state)
+void CharSelect::enhancedDialogButton_toggled(bool state)
 {
-//     tDebug("hideButton_toggled start");
+//     tDebug("enhancedDialogButton_toggled start");
 	if (!m_doc)
 		return;
 
@@ -227,7 +227,7 @@ void CharSelect::hideButton_toggled(bool state)
 	else
 		openEnhanced();
 
-//     tDebug("hideButton_toggled end");
+//     tDebug("enhancedDialogButton_toggled end");
 }
 
 void CharSelect::hide()

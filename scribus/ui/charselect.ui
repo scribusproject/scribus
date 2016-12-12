@@ -20,7 +20,7 @@
       <number>1</number>
      </property>
      <item>
-      <widget class="QPushButton" name="hideButton">
+      <widget class="QPushButton" name="enhancedDialogButton">
        <property name="toolTip">
         <string>Show/Hide Enhanced Palette</string>
        </property>
@@ -103,7 +103,7 @@
   </customwidget>
  </customwidgets>
  <tabstops>
-  <tabstop>hideButton</tabstop>
+  <tabstop>enhancedDialogButton</tabstop>
   <tabstop>unicodeButton</tabstop>
   <tabstop>uniLoadButton</tabstop>
   <tabstop>uniSaveButton</tabstop>

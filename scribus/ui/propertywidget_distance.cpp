@@ -132,7 +132,7 @@ void PropertyWidget_Distance::setCurrentItem(PageItem *item)
 	if (columnGapLabel->currentIndex() == 0)
 	{
 		columnGap->setMaximum(qMax((textItem->width() / textItem->Cols - textItem->textToFrameDistLeft() - textItem->textToFrameDistRight()) * m_unitRatio, 0.0));
-		columnGap->setValue(textItem->ColGap*m_unitRatio);
+		columnGap->setValue(textItem->ColGap * m_unitRatio);
 	}
 	else
 	{
@@ -318,17 +318,16 @@ void PropertyWidget_Distance::handleColumnGap()
 	PageItem *textItem = m_item;
 	if (m_doc->appMode == modeEditTable)
 		textItem = m_item->asTable()->activeCell().textFrame();
-	if (!textItem) return;
+	if (!textItem)
+		return;
 
 	if (columnGapLabel->currentIndex() == 0)
 		textItem->setColumnGap(columnGap->value() / m_unitRatio);
 	else
 	{
-		double lineCorr;
+		double lineCorr=0.0;
 		if ((textItem->lineColor() != CommonStrings::None) || (!textItem->strokePattern().isEmpty()))
 			lineCorr = textItem->lineWidth();
-		else
-			lineCorr = 0;
 		double newWidth = columnGap->value() / m_unitRatio;
 		double newGap = qMax(((textItem->width() - textItem->textToFrameDistLeft() - textItem->textToFrameDistRight() - lineCorr) - (newWidth * textItem->Cols)) / (textItem->Cols - 1), 0.0);
 		textItem->setColumnGap(newGap);
