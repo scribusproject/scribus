@@ -292,9 +292,9 @@ void ScColorEngine::getShadeColorCMYK(const ScColor& color, const ScribusDoc* do
 	{
 		ScColorTransform trans = doc ? doc->stdLabToCMYKTrans : ScCore->defaultLabToCMYKTrans;
 		double inC[3];
-		inC[0] = color.m_L_val * (level / 100.0);
-		inC[1] = color.m_a_val;
-		inC[2] = color.m_b_val;
+		inC[0] = 100 - (100 - color.m_L_val) * (level / 100.0);
+		inC[1] = color.m_a_val * (level / 100.0);
+		inC[2] = color.m_b_val * (level / 100.0);
 		quint16 outC[4];
 		trans.apply(inC, outC, 1);
 		cmyk.c = outC[0] / 257;
@@ -331,9 +331,9 @@ void ScColorEngine::getShadeColorRGB(const ScColor& color, const ScribusDoc* doc
 	{
 		ScColorTransform trans = doc ? doc->stdLabToRGBTrans : ScCore->defaultLabToRGBTrans;
 		double inC[3];
-		inC[0] = color.m_L_val * (level / 100.0);
-		inC[1] = color.m_a_val;
-		inC[2] = color.m_b_val;
+		inC[0] = 100 - (100 - color.m_L_val) * (level / 100.0);
+		inC[1] = color.m_a_val * (level / 100.0);
+		inC[2] = color.m_b_val * (level / 100.0);
 		quint16 outC[3];
 		trans.apply(inC, outC, 1);
 		rgb.r = outC[0] / 257;
@@ -450,9 +450,9 @@ QColor ScColorEngine::getDisplayColor(const ScColor& color, const ScribusDoc* do
 	{
 		ScColorTransform trans  = doc ? doc->stdLabToRGBTrans : ScCore->defaultLabToRGBTrans;
 		double inC[3];
-		inC[0] = color.m_L_val * (level / 100.0);
-		inC[1] = color.m_a_val;
-		inC[2] = color.m_b_val;
+		inC[0] = 100 - (100 - color.m_L_val) * (level / 100.0);
+		inC[1] = color.m_a_val * (level / 100.0);
+		inC[2] = color.m_b_val * (level / 100.0);
 		quint16 outC[3];
 		trans.apply(inC, outC, 1);
 		tmp = QColor(outC[0] / 257, outC[1] / 257, outC[2] / 257);
@@ -555,9 +555,9 @@ QColor ScColorEngine::getShadeColorProof(const ScColor& color, const ScribusDoc*
 	else if (color.getColorModel() == colorModelLab)
 	{
 		double inC[3];
-		inC[0] = color.m_L_val * (level / 100.0);
-		inC[1] = color.m_a_val;
-		inC[2] = color.m_b_val;
+		inC[0] = 100 - (100 - color.m_L_val) * (level / 100.0);
+		inC[1] = color.m_a_val * (level / 100.0);
+		inC[2] = color.m_b_val * (level / 100.0);
 		quint16 outC[3];
 		ScColorTransform trans  = doc ? doc->stdLabToRGBTrans : ScCore->defaultLabToRGBTrans;
 		ScColorTransform transProof   = doc ? doc->stdProofLab   : ScCore->defaultLabToRGBTrans;
