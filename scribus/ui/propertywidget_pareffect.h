@@ -75,31 +75,11 @@ private:
 	void enableBullet(bool);
 	void enableNum(bool);
 	void enableParEffect(bool);
-	void fillBulletStrEditCombo()
-	{
-		bulletStrEdit->clear();
-		bulletStrEdit->addItem(QChar(0x2022));
-		bulletStrEdit->addItem("*");
-		bulletStrEdit->addItem(QChar(0x2013));
-		bulletStrEdit->setMinimumWidth(50);
-		if (bulletStrEdit->currentText().isEmpty())
-			bulletStrEdit->setEditText(QChar(0x2022));
-	}
+	void fillBulletStrEditCombo();
 
-	void fillNumFormatCombo()
-	{
-		numFormatCombo->clear();
-		numFormatCombo->addItems(getFormatListTr());
-	}
+	void fillNumFormatCombo();
 
-	void fillPECombo()
-	{
-		peCombo->clear();
-		peCombo->addItem(tr("No Paragraph Effects"));
-		peCombo->addItem(tr("Drop Caps"));
-		peCombo->addItem(tr("Bulleted List"));
-		peCombo->addItem(tr("Numbered List"));
-	}
+	void fillPECombo();
 
 //	void SMPStyleWidget::fillNumRestartCombo()
 //	{

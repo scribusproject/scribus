@@ -199,6 +199,35 @@ void PropertyWidget_ParEffect::enableParEffect(bool enable)
 	}
 }
 
+void PropertyWidget_ParEffect::fillBulletStrEditCombo()
+{
+	bulletStrEdit->clear();
+	bulletStrEdit->addItem(QChar(0x2022));
+	bulletStrEdit->addItem("*");
+	bulletStrEdit->addItem(QChar(0x2013));
+	bulletStrEdit->setMinimumWidth(50);
+	if (bulletStrEdit->currentText().isEmpty())
+		bulletStrEdit->setEditText(QChar(0x2022));
+}
+
+void PropertyWidget_ParEffect::fillNumFormatCombo()
+{
+	numFormatCombo->clear();
+	numFormatCombo->addItems(getFormatListTr());
+}
+
+void PropertyWidget_ParEffect::fillPECombo()
+{
+	QSignalBlocker sb(peCombo);
+	int currIndex = peCombo->currentIndex();
+	peCombo->clear();
+	peCombo->addItem(tr("No Paragraph Effects"));
+	peCombo->addItem(tr("Drop Caps"));
+	peCombo->addItem(tr("Bulleted List"));
+	peCombo->addItem(tr("Numbered List"));
+	peCombo->setCurrentIndex(currIndex);
+}
+
 void PropertyWidget_ParEffect::updateStyle(const ParagraphStyle& newPStyle)
 {
 	if (peCombo->currentIndex() && !newPStyle.hasBullet() && !newPStyle.hasDropCap() && !newPStyle.hasNum())
