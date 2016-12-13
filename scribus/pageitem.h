@@ -677,31 +677,31 @@ public: // Start public functions
 
 	// soft shadow
 	void setHasSoftShadow(bool val);
-	bool hasSoftShadow() { return m_hasSoftShadow; }
+	bool hasSoftShadow() const { return m_hasSoftShadow; }
 
 	void setSoftShadowColor(const QString &val);
-	QString softShadowColor() { return m_softShadowColor; }
+	QString softShadowColor() const { return m_softShadowColor; }
 
 	void setSoftShadowShade(int val);
-	int softShadowShade() { return m_softShadowShade; }
+	int softShadowShade() const { return m_softShadowShade; }
 
 	void setSoftShadowBlurRadius(double val);
-	double softShadowBlurRadius() { return m_softShadowBlurRadius; }
+	double softShadowBlurRadius() const { return m_softShadowBlurRadius; }
 
 	void setSoftShadowXOffset(double val);
-	double softShadowXOffset() { return m_softShadowXOffset; }
+	double softShadowXOffset() const { return m_softShadowXOffset; }
 
 	void setSoftShadowYOffset(double val);
-	double softShadowYOffset() { return m_softShadowYOffset; }
+	double softShadowYOffset() const { return m_softShadowYOffset; }
 
 	void setSoftShadowOpacity(double val);
-	double softShadowOpacity() { return m_softShadowOpacity; }
+	double softShadowOpacity() const { return m_softShadowOpacity; }
 
 	void setSoftShadowBlendMode(int val);
-	double softShadowBlendMode() { return m_softShadowBlendMode; }
+	double softShadowBlendMode() const { return m_softShadowBlendMode; }
 
 	void setSoftShadowErasedByObject(bool val);
-	bool softShadowErasedByObject() { return m_softShadowErasedByObject; }
+	bool softShadowErasedByObject() const { return m_softShadowErasedByObject; }
 
 	void setSoftShadowHasObjectTransparency(bool val);
 	bool softShadowHasObjectTransparency() { return m_softShadowHasObjectTransparency; }

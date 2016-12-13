@@ -8497,6 +8497,9 @@ void PageItem::setGradientStrokeEndY(double val){
 
 void PageItem::getNamedResources(ResourceCollection& lists) const
 {
+	if (hasSoftShadow())
+		lists.collectColor(softShadowColor());
+
 	if (GrType == 0)
 		lists.collectColor(fillColor());
 	else if ((GrType < 8) || (GrType == 10))
