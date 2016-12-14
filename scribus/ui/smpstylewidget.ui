@@ -106,7 +106,7 @@
                  </size>
                 </property>
                 <property name="text">
-                 <string>TextLabel</string>
+                 <string notr="true">TextLabel</string>
                 </property>
                 <property name="buddy">
                  <cstring>lineSpacingMode</cstring>
@@ -165,7 +165,7 @@
                  </size>
                 </property>
                 <property name="text">
-                 <string>TextLabel</string>
+                 <string notr="true">TextLabel</string>
                 </property>
                 <property name="buddy">
                  <cstring>spaceAbove</cstring>
@@ -204,7 +204,7 @@
                  </size>
                 </property>
                 <property name="text">
-                 <string>TextLabel</string>
+                 <string notr="true">TextLabel</string>
                 </property>
                 <property name="buddy">
                  <cstring>spaceBelow</cstring>
@@ -461,7 +461,7 @@
                   <item>
                    <widget class="QLabel" name="minSpaceLabel">
                     <property name="text">
-		     <string>Min. Space Width:</string>
+                     <string>Min. Space Width:</string>
                     </property>
                     <property name="buddy">
                      <cstring>minSpaceSpin</cstring>
@@ -482,9 +482,9 @@
                       <height>0</height>
                      </size>
                     </property>
-		    <property name="toolTip">
-		     <string>Maximum white space compression allowed. Expressed as a percentage of the current white space value.</string>
-		    </property>
+                    <property name="toolTip">
+                     <string>Maximum white space compression allowed. Expressed as a percentage of the current white space value.</string>
+                    </property>
                    </widget>
                   </item>
                  </layout>
