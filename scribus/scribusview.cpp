@@ -3077,6 +3077,16 @@ public:
 			QTransform transform;
 			if (m_item->isPathText())
 				transform = matrix();
+			if (m_item->imageFlippedH())
+			{
+				transform.translate(m_item->width(), 0);
+				transform.scale(-1, 1);
+			}
+			if (m_item->imageFlippedV())
+			{
+				transform.translate(0, m_item->height());
+				transform.scale(1, -1);
+			}
 			transform.translate(x(), y());
 			transform.translate(0, -(fontSize() * gl.scaleV));
 			transform.scale(gl.scaleH * fontSize() / 10.0, gl.scaleV * fontSize() / 10.0);
@@ -3114,6 +3124,16 @@ public:
 			QTransform transform;
 			if (m_item->isPathText())
 				transform = matrix();
+			if (m_item->imageFlippedH())
+			{
+				transform.translate(m_item->width(), 0);
+				transform.scale(-1, 1);
+			}
+			if (m_item->imageFlippedV())
+			{
+				transform.translate(0, m_item->height());
+				transform.scale(1, -1);
+			}
 			transform.translate(x(), y());
 			transform.translate(0, -(fontSize() * gl.scaleV));
 			transform.scale(gl.scaleH * fontSize() / 10.0, gl.scaleV * fontSize() / 10.0);
