@@ -104,6 +104,12 @@ void PageItem_Group::setLayer(int newLayerID)
 
 void PageItem_Group::replaceNamedResources(ResourceCollection& newNames)
 {
+	QMap<QString,QString>::ConstIterator it;
+	
+	it = newNames.colors().find(softShadowColor());
+	if (it != newNames.colors().end())
+		setSoftShadowColor(*it);
+	
 	for (int em = 0; em < groupItemList.count(); ++em)
 	{
 		PageItem* embedded = groupItemList.at(em);
@@ -113,6 +119,9 @@ void PageItem_Group::replaceNamedResources(ResourceCollection& newNames)
 
 void PageItem_Group::getNamedResources(ResourceCollection& lists) const
 {
+	if (hasSoftShadow())
+		lists.collectColor(softShadowColor());
+	
 	for (int em = 0; em < groupItemList.count(); ++em)
 	{
 		PageItem* embedded = groupItemList.at(em);

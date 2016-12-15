@@ -7544,15 +7544,19 @@ void PageItem::setTagged(bool tag)
 void PageItem::replaceNamedResources(ResourceCollection& newNames)
 {
 	QMap<QString,QString>::ConstIterator it;
-
+	
+	it = newNames.colors().find(softShadowColor());
+	if (it != newNames.colors().end())
+		setSoftShadowColor(*it);
+	
 	it = newNames.colors().find(fillColor());
 	if (it != newNames.colors().end())
 		setFillColor(*it);
-
+	
 	it = newNames.colors().find(lineColor());
 	if (it != newNames.colors().end())
 		setLineColor(*it);
-		
+	
 	it = newNames.colors().find(GrColorP1);
 	if (it != newNames.colors().end())
 		GrColorP1 = *it;
