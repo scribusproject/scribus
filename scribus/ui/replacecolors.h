@@ -57,6 +57,7 @@ private:
 	QPixmap alertIcon;
 	QPixmap cmykIcon;
 	QPixmap rgbIcon;
+	QPixmap labIcon;
 	QPixmap spotIcon;
 	QPixmap regIcon;
 };

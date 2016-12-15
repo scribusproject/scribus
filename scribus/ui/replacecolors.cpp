@@ -44,6 +44,7 @@ replaceColorsDialog::replaceColorsDialog(QWidget* parent, ColorList &colorList, 
 	alertIcon = IconManager::instance()->loadPixmap("alert.png", true);
 	cmykIcon = IconManager::instance()->loadPixmap("cmyk.png", true);
 	rgbIcon = IconManager::instance()->loadPixmap("rgb.png", true);
+	labIcon = IconManager::instance()->loadPixmap("lab.png", true);
 	spotIcon = IconManager::instance()->loadPixmap("spot.png", true);
 	regIcon = IconManager::instance()->loadPixmap("register.png", true);
 	replacementTable->horizontalHeader()->setSectionsClickable(false );
@@ -175,8 +176,10 @@ QPixmap replaceColorsDialog::getColorIcon(QString color)
 		paintAlert(alertIcon, pPixmap, 15, 0);
 	if (m_color.getColorModel() == colorModelCMYK)
 		paintAlert(cmykIcon, pPixmap, 30, 0);
-	else
+	else if (m_color.getColorModel() == colorModelRGB)
 		paintAlert(rgbIcon, pPixmap, 30, 0);
+	else if (m_color.getColorModel() == colorModelLab)
+		paintAlert(labIcon, pPixmap, 30, 0);
 	if (m_color.isSpotColor())
 		paintAlert(spotIcon, pPixmap, 45, 0);
 	if (m_color.isRegistrationColor())
