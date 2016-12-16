@@ -2,9 +2,9 @@
 <templates>
 	<template category="Books">
 		<name>Lulu and Createspace 6x9 paper book</name>
-		<file>Lulu and Createspace 6x9 paper book.sla.gz</file>
-		<tnail>Lulu and Createspace 6x9 paper booktn.png</tnail>
-		<img>Lulu and Createspace 6x9 paper book.png</img>
+		<file>Lulu_and_Createspace_6x9_paper_book/Lulu_and_Createspace_6x9_paper_book.sla.gz</file>
+		<tnail>Lulu_and_Createspace_6x9_paper_book/Lulu_and_Createspace_6x9_paper_booktn.png</tnail>
+		<img>Lulu_and_Createspace_6x9_paper_book/Lulu_and_Createspace_6x9_paper_book.png</img>
 		<psize>custom, 432x648</psize>
 		<color></color>
 		<descr>Basic 6x9 paperback book template for use with services such as Lulu and Createspace. This is just a template, provided as-is without guarantee of any kind. </descr>

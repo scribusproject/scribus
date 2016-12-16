@@ -412,10 +412,10 @@ ELSE (WANT_NOTEMPLATES)
 	)
 
 	INSTALL(FILES
-	Lulu_and_Createspace_6x9_paper_book/Lulu and Createspace 6x9 paper book.png
-	Lulu_and_Createspace_6x9_paper_book/Lulu and Createspace 6x9 paper book.sla.gz
-	Lulu_and_Createspace_6x9_paper_book/Lulu and Createspace 6x9 paper booktn.png
-	Lulu_and_Createspace_6x9_paper_book/Tomato Clipart.png
+	Lulu_and_Createspace_6x9_paper_book/Lulu_and_Createspace_6x9_paper_book.png
+	Lulu_and_Createspace_6x9_paper_book/Lulu_and_Createspace_6x9_paper_book.sla.gz
+	Lulu_and_Createspace_6x9_paper_book/Lulu_and_Createspace_6x9_paper_booktn.png
+	Lulu_and_Createspace_6x9_paper_book/Tomato_Clipart.png
 	  DESTINATION ${TEMPLATEDIR}Lulu_and_Createspace_6x9_paper_book
 	)
 	  
