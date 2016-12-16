@@ -410,5 +410,16 @@ ELSE (WANT_NOTEMPLATES)
 	Newsletter_Layout/path9902.png
 	  DESTINATION ${TEMPLATEDIR}Newsletter_Layout
 	)
+
+	INSTALL(FILES
+	Lulu_and_Createspace_6x9_paper_book/Lulu and Createspace 6x9 paper book.png
+	Lulu_and_Createspace_6x9_paper_book/Lulu and Createspace 6x9 paper book.sla.gz
+	Lulu_and_Createspace_6x9_paper_book/Lulu and Createspace 6x9 paper booktn.png
+	Lulu_and_Createspace_6x9_paper_book/Tomato Clipart.png
+	  DESTINATION ${TEMPLATEDIR}Lulu_and_Createspace_6x9_paper_book
+	)
+	  
+
+
 	  
 ENDIF (WANT_NOTEMPLATES)
