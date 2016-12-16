@@ -352,4 +352,12 @@ buscard_coll/Business_Card_Collection.png
   DESTINATION ${TEMPLATEDIR}buscard_coll
 )
 
+INSTALL(FILES
+Lulu_and_Createspace_6x9_paper_book/Lulu_and_Createspace_6x9_paper_book.png
+Lulu_and_Createspace_6x9_paper_book/Lulu_and_Createspace_6x9_paper_book.sla.gz
+Lulu_and_Createspace_6x9_paper_book/Lulu_and_Createspace_6x9_paper_booktn.png
+Lulu_and_Createspace_6x9_paper_book/Tomato_Clipart.png
+  DESTINATION ${TEMPLATEDIR}Lulu_and_Createspace_6x9_paper_book
+)
+
 endif (WANT_NOTEMPLATES)
