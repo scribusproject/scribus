@@ -809,7 +809,7 @@ struct LineControl {
 
 		for (int i = 0; i < glyphsCount; ++i)
 		{
-			GlyphCluster glyphCluster = glyphs[i];
+			const GlyphCluster& glyphCluster = glyphs.at(i);
 			if (!glyphCluster.hasFlag(ScLayout_ExpandingSpace))
 			{
 				glyphNatural += glyphCluster.width();
@@ -928,6 +928,25 @@ struct LineControl {
 				glyphCluster.extraWidth += trackingAmount;
 			}
 
+		}
+
+		if ((style.alignment() == ParagraphStyle::Extended) &&
+			(style.direction() == ParagraphStyle::RTL) &&
+			(!trackingInsertion && (spaceExtension == 0)))
+		{
+			double naturalWidth = line.naturalWidth;
+			if (glyphScale != 1.0)
+			{
+				naturalWidth = 0;
+				for (int i = 0; i < glyphsCount; ++i)
+				{
+					const GlyphCluster& glyphCluster = glyphs.at(i);
+					naturalWidth += glyphCluster.width();
+				}
+			}
+			double offset = line.width - naturalWidth;
+			if (offset > 0)
+				indentLine(style, offset);
 		}
 	}
 
@@ -2528,8 +2547,8 @@ void PageItem_TextFrame::layout()
 				if (SpecialChars::isBreak(itemText.text(a), Cols > 1))
 				{
 					// find end of line
-//                    qDebug() << "breakline isBreak @" << i;
-                    current.breakLine(i);
+//					qDebug() << "breakline isBreak @" << i;
+					current.breakLine(i);
 					regionMinY = qMax(0.0, current.line.y - current.line.ascent);
 					regionMaxY = current.line.y + current.line.descent;
 					EndX = current.endOfLine(m_availableRegion, style.rightMargin(), regionMinY, regionMaxY);
