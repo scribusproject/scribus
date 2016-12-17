@@ -1803,7 +1803,7 @@ public:
 	QMap<QString, NumStruct*> numerations;
 	QStringList orgNumNames; //orgNumerations keeps original settings read from paragraph styles for reset settings overrided localy
 	void setupNumerations(); //read styles for used auto-numerations, initialize numCounters
-	QString getNumberStr(QString numName, int level, bool reset, ParagraphStyle &style);
+	QString getNumberStr(QString numName, int level, bool reset, const ParagraphStyle &style);
 	void setNumerationCounter(QString numName, int level, int number);
 	bool flag_Renumber;
 	bool flag_NumUpdateRequest;

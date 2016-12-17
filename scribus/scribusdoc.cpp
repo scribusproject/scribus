@@ -16589,7 +16589,7 @@ void ScribusDoc::setupNumerations()
 	flag_Renumber = true;
 }
 
-QString ScribusDoc::getNumberStr(QString numName, int level, bool reset, ParagraphStyle &style)
+QString ScribusDoc::getNumberStr(QString numName, int level, bool reset, const ParagraphStyle &style)
 {
 	Q_ASSERT(numerations.contains(numName));
 	if (!numerations.contains(numName))
@@ -16762,7 +16762,7 @@ void ScribusDoc::updateNumbers(bool updateNumerations)
 				{
 					if ((pos == 0) || (item->itemText.text(pos - 1) == SpecialChars::PARSEP))
 					{
-						ParagraphStyle style = item->itemText.paragraphStyle(pos);
+						const ParagraphStyle& style = item->itemText.paragraphStyle(pos);
 						if (style.hasNum() && style.numName() != "<local block>")
 						{
 							if (!numerations.contains(style.numName()))
