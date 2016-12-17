@@ -207,7 +207,7 @@ QRegion PageItem_TextFrame::calcAvailableRegion()
 		if (!invertible) return QRegion();
 
 		int LayerLev = m_Doc->layerLevelFromID(LayerID);
-		uint docItemsCount=m_Doc->Items->count();
+		int docItemsCount = m_Doc->Items->count();
 		ScPage* Mp=0;
 		ScPage* Dp=0;
 		PageItem* docItem=0;
@@ -230,9 +230,8 @@ QRegion PageItem_TextFrame::calcAvailableRegion()
 				// #10642 : masterpage items interact only with items placed on same masterpage
 				if (docItem->OnMasterPage != OnMasterPage)
 					continue;
-				int did = m_Doc->MasterItems.indexOf(docItem);
 				LayerLevItem = m_Doc->layerLevelFromID(docItem->LayerID);
-				if (((did > thisid) && (docItem->LayerID == LayerID)) || (LayerLevItem > LayerLev && m_Doc->layerFlow(docItem->LayerID)))
+				if (((a > thisid) && (docItem->LayerID == LayerID)) || (LayerLevItem > LayerLev && m_Doc->layerFlow(docItem->LayerID)))
 				{
 					if (docItem->textFlowAroundObject())
 					{
@@ -264,29 +263,24 @@ QRegion PageItem_TextFrame::calcAvailableRegion()
 			{
 				thisid = Parent->asGroupFrame()->groupItemList.indexOf(this);
 				docItemsCount = Parent->asGroupFrame()->groupItemList.count();
-				for (uint a = 0; a < docItemsCount; ++a)
+				for (int a = thisid + 1; a < docItemsCount; ++a)
 				{
 					docItem = Parent->asGroupFrame()->groupItemList.at(a);
-					int did = Parent->asGroupFrame()->groupItemList.indexOf(docItem);
-					if (did > thisid)
+					if (docItem->textFlowAroundObject())
 					{
-						if (docItem->textFlowAroundObject())
-						{
-							QRegion itemRgn = itemShape(docItem, 0, 0);
-							result = result.subtracted( canvasToLocalMat.map(itemRgn) );
-						}
+						QRegion itemRgn = itemShape(docItem, 0, 0);
+						result = result.subtracted( canvasToLocalMat.map(itemRgn) );
 					}
 				}
 			}
 			else
 			{
 				thisid = m_Doc->Items->indexOf(this);
-				for (uint a = 0; a < docItemsCount; ++a)
+				for (int a = 0; a < docItemsCount; ++a)
 				{
 					docItem = m_Doc->Items->at(a);
-					int did = m_Doc->Items->indexOf(docItem);
 					LayerLevItem = m_Doc->layerLevelFromID(docItem->LayerID);
-					if (((did > thisid) && (docItem->LayerID == LayerID)) || (LayerLevItem > LayerLev && m_Doc->layerFlow(docItem->LayerID)))
+					if (((a > thisid) && (docItem->LayerID == LayerID)) || (LayerLevItem > LayerLev && m_Doc->layerFlow(docItem->LayerID)))
 					{
 						if (docItem->textFlowAroundObject())
 						{
