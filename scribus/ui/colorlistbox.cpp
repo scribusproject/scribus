@@ -265,36 +265,39 @@ void ColorListBox::setPixmapType(ColorListBox::PixmapType type)
 {
 	if (type == ColorListBox::fancyPixmap)
 	{
-		ColorFancyItemDelegate* colorDelegate = dynamic_cast<ColorFancyItemDelegate*>(itemDelegate());
+		QAbstractItemDelegate* oldDelegate = itemDelegate();
+		ColorFancyItemDelegate* colorDelegate = dynamic_cast<ColorFancyItemDelegate*>(oldDelegate);
 		if (!colorDelegate)
 		{
-			if (itemDelegate())
-				delete itemDelegate();
 			setItemDelegate(new ColorFancyItemDelegate());
+			if (oldDelegate)
+				delete oldDelegate;
+			m_type = type;
 		}
-		m_type = type;
 	}
 	else if (type == ColorListBox::widePixmap)
 	{
-		ColorWideItemDelegate* colorDelegate = dynamic_cast<ColorWideItemDelegate*>(itemDelegate());
+		QAbstractItemDelegate* oldDelegate = itemDelegate();
+		ColorWideItemDelegate* colorDelegate = dynamic_cast<ColorWideItemDelegate*>(oldDelegate);
 		if (!colorDelegate)
 		{
-			if (itemDelegate())
-				delete itemDelegate();
 			setItemDelegate(new ColorWideItemDelegate());
+			if (oldDelegate)
+				delete oldDelegate;
+			m_type = type;
 		}
-		m_type = type;
 	}
 	else if (type == ColorListBox::smallPixmap)
 	{
-		ColorSmallItemDelegate* colorDelegate = dynamic_cast<ColorSmallItemDelegate*>(itemDelegate());
+		QAbstractItemDelegate* oldDelegate = itemDelegate();
+		ColorSmallItemDelegate* colorDelegate = dynamic_cast<ColorSmallItemDelegate*>(oldDelegate);
 		if (!colorDelegate)
 		{
-			if (itemDelegate())
-				delete itemDelegate();
 			setItemDelegate(new ColorSmallItemDelegate());
+			if (oldDelegate)
+				delete oldDelegate;
+			m_type = type;
 		}
-		m_type = type;
 	}
 }
 
