@@ -94,6 +94,16 @@ Cpalette::Cpalette(QWidget* parent) : QWidget(parent)
 	strokeModeCombo->addItem( tr("Solid") );
 	strokeModeCombo->addItem( tr("Gradient") );
 
+	colorPoint1->setPixmapType(ColorCombo::fancyPixmaps);
+	colorPoint2->setPixmapType(ColorCombo::fancyPixmaps);
+	colorPoint3->setPixmapType(ColorCombo::fancyPixmaps);
+	colorPoint4->setPixmapType(ColorCombo::fancyPixmaps);
+	colorMeshPoint->setPixmapType(ColorCombo::fancyPixmaps);
+	colorListFill->setPixmapType(ColorListBox::fancyPixmap);
+	colorListStroke->setPixmapType(ColorListBox::fancyPixmap);
+	hatchLineColor->setPixmapType(ColorCombo::fancyPixmaps);
+	hatchBackground->setPixmapType(ColorCombo::fancyPixmaps);
+
 /*  Setting a delegate to dispaly only icons for the patterns */
 /*	ScListWidgetDelegate* delegateF = new ScListWidgetDelegate(patternBox, patternBox);
 	delegateF->setIconOnly(true);
@@ -476,19 +486,19 @@ void Cpalette::updateCList()
 	}
 	gradEditStroke->setColors(colorList);
 	gradEdit->setColors(colorList);
-	colorPoint1->updateBox(colorList, ColorCombo::fancyPixmaps, true);
-	colorPoint2->updateBox(colorList, ColorCombo::fancyPixmaps, true);
-	colorPoint3->updateBox(colorList, ColorCombo::fancyPixmaps, true);
-	colorPoint4->updateBox(colorList, ColorCombo::fancyPixmaps, true);
-	colorMeshPoint->updateBox(colorList, ColorCombo::fancyPixmaps, true);
-	colorListFill->insertItems(colorList, ColorListBox::fancyPixmap);
-	colorListStroke->insertItems(colorList, ColorListBox::fancyPixmap);
+	colorPoint1->updateBox(colorList, true);
+	colorPoint2->updateBox(colorList, true);
+	colorPoint3->updateBox(colorList, true);
+	colorPoint4->updateBox(colorList, true);
+	colorMeshPoint->updateBox(colorList, true);
+	colorListFill->insertItems(colorList);
+	colorListStroke->insertItems(colorList);
 	if (colorListFill->currentItem())
 		colorListFill->currentItem()->setSelected(false);
 	if (colorListStroke->currentItem())
 		colorListStroke->currentItem()->setSelected(false);
-	hatchLineColor->updateBox(colorList, ColorCombo::fancyPixmaps, false);
-	hatchBackground->updateBox(colorList, ColorCombo::fancyPixmaps, true);
+	hatchLineColor->updateBox(colorList, false);
+	hatchBackground->updateBox(colorList, true);
 
 	colorListStroke->blockSignals(sigBlocked1);
 	colorListFill->blockSignals(sigBlocked2);

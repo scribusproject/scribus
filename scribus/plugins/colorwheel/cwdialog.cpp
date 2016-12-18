@@ -49,11 +49,13 @@ CWDialog::CWDialog(QWidget* parent, ScribusDoc* doc, const char* name, bool moda
 	defectCombo->addItem(CommonStrings::trVisionTritanopia);
 	defectCombo->addItem(CommonStrings::trVisionFullColorBlind);
 	// document colors
-	documentColorList->updateBox(m_Doc->PageColors, ColorListBox::fancyPixmap);
+	documentColorList->setPixmapType(ColorListBox::fancyPixmap);
+	documentColorList->updateBox(m_Doc->PageColors);
 	// preferences
 	prefs = PrefsManager::instance()->prefsFile->getPluginContext("colorwheel");
 	typeCombo->setCurrentIndex(prefs->getInt("cw_type", 0));
 	angleSpin->setValue(prefs->getInt("cw_angle", 15));
+	colorList->setPixmapType(ColorListBox::fancyPixmap);
 	colorWheel->currentDoc = m_Doc;
 	colorWheel->angle = angleSpin->value();
 	colorWheel->baseAngle = prefs->getInt("cw_baseangle", 0);
@@ -298,7 +300,7 @@ QColor CWDialog::computeDefect(QColor c)
 void CWDialog::fillColorList()
 {
 	int ix = colorList->currentRow();
-	colorList->updateBox(colorWheel->colorList, ColorListBox::fancyPixmap);
+	colorList->updateBox(colorWheel->colorList);
 	QList<QListWidgetItem*> results = colorList->findItems(colorWheel->trBaseColor, Qt::MatchFixedString|Qt::MatchCaseSensitive);
 	if (results.count() > 0)
 	{

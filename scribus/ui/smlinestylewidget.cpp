@@ -21,6 +21,9 @@ for which a new license (GPL+exception) is in place.
 SMLineStyleWidget::SMLineStyleWidget() : QWidget()
 {
 	setupUi(this);
+
+	colorCombo->setPixmapType(ColorCombo::fancyPixmaps);
+
 	IconManager* im  = IconManager::instance();
 	addButton->setIcon(im->loadIcon("penciladd.png"));
 	removeButton->setIcon(im->loadIcon("pencilsub.png"));
@@ -101,7 +104,7 @@ void SMLineStyleWidget::showStyle(const multiLine &lineStyle, ColorList &colorLi
 	disconnect(lineStyles, SIGNAL(currentRowChanged(int)), this, SLOT(slotEditNewLine(int)));
 	m_currentStyle = lineStyle;
 	colorCombo->clear();
-	colorCombo->updateBox(colorList, ColorCombo::fancyPixmaps, false);
+	colorCombo->updateBox(colorList, false);
 	m_colors = colorList;
 	updateLineList();
 	slotEditNewLine(subLine);

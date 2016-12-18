@@ -29,6 +29,23 @@ ColorCombo::ColorCombo(QWidget* parent) : QComboBox(parent)
 	setView( lb );
 }
 
+ColorCombo::ColorCombo(ColorCombo::PixmapType type, QWidget* parent)
+{
+#ifdef Q_OS_MAC
+//	setStyle( new ColorCombo::ScMacStyle() );
+#endif
+	setEditable(false);
+	ColorListBox::PixmapType clbType = ColorListBox::smallPixmap;
+	if (type == ColorCombo::widePixmaps)
+		clbType = ColorListBox::widePixmap;
+	else if (type == ColorCombo::fancyPixmaps)
+		clbType = ColorListBox::fancyPixmap;
+	ColorListBox* lb = new ColorListBox(clbType, this);
+	setModel( lb->model() );
+	setItemDelegate( lb->itemDelegate() );
+	setView( lb );
+}
+
 ColorCombo::ColorCombo(bool rw, QWidget* parent) : QComboBox(parent)
 {
 #ifdef Q_OS_MAC
@@ -50,7 +67,21 @@ QString ColorCombo::currentColor() const
 	return colorName;
 }
 
-void ColorCombo::updateBox(ColorList& list, ColorCombo::PixmapType pixType , bool insertNone)
+void ColorCombo::setPixmapType(ColorCombo::PixmapType type)
+{
+	ColorListBox* clb = dynamic_cast<ColorListBox*>(view());
+	if (!clb)
+		return;
+
+	if (type == ColorCombo::smallPixmaps)
+		clb->setPixmapType(ColorListBox::smallPixmap);
+	else if (type == ColorCombo::widePixmaps)
+		clb->setPixmapType(ColorListBox::widePixmap);
+	else if (type == ColorCombo::fancyPixmaps)
+		clb->setPixmapType(ColorListBox::fancyPixmap);
+}
+
+void ColorCombo::updateBox(ColorList& list, bool insertNone)
 {
 	ColorListBox* clb = dynamic_cast<ColorListBox*>(view());
 	if (!clb)
@@ -62,59 +93,36 @@ void ColorCombo::updateBox(ColorList& list, ColorCombo::PixmapType pixType , boo
 		clb->addItem(CommonStrings::tr_NoneColor);
 		clb->item(0)->setData(Qt::UserRole, CommonStrings::None);
 	}
-	if (pixType == ColorCombo::fancyPixmaps)
-		clb->insertItems(list, ColorListBox::fancyPixmap);
-	else if (pixType == ColorCombo::widePixmaps)
-		clb->insertItems(list, ColorListBox::widePixmap);
-	else if (pixType == ColorCombo::smallPixmaps)
-		clb->insertItems(list, ColorListBox::smallPixmap);
+	clb->insertItems(list);
 }
 
-void ColorCombo::insertItems(ColorList& list, ColorCombo::PixmapType pixType)
+void ColorCombo::insertItems(ColorList& list)
 {
 	ColorListBox* clb = dynamic_cast<ColorListBox*>(view());
 	if (!clb)
 		return;
 
-	if (pixType == ColorCombo::fancyPixmaps)
-		clb->insertItems(list, ColorListBox::fancyPixmap);
-	else if (pixType == ColorCombo::widePixmaps)
-		clb->insertItems(list, ColorListBox::widePixmap);
-	else if (pixType == ColorCombo::smallPixmaps)
-		clb->insertItems(list, ColorListBox::smallPixmap);
+	clb->insertItems(list);
 }
 
-void ColorCombo::insertSmallItem(const ScColor& col, ScribusDoc* doc, const QString& colName)
+void ColorCombo::insertItem(const ScColor& col, ScribusDoc* doc, const QString& colName)
 {
 	ColorListBox* clb = dynamic_cast<ColorListBox*>(view());
 	if (clb)
-		clb->addItem( new ColorPixmapItem(ColorPixmapValue(col, doc, colName)), ColorListBox::smallPixmap );
-}
-
-void ColorCombo::insertWideItem (const ScColor& col, ScribusDoc* doc, const QString& colName)
-{
-	ColorListBox* clb = dynamic_cast<ColorListBox*>(view());
-	if (clb)
-		clb->addItem( new ColorPixmapItem(ColorPixmapValue(col, doc, colName)), ColorListBox::widePixmap );
-}
-
-void ColorCombo::insertFancyItem(const ScColor& col, ScribusDoc* doc, const QString& colName)
-{
-	ColorListBox* clb = dynamic_cast<ColorListBox*>(view());
-	if (clb)
-		clb->addItem( new ColorPixmapItem(ColorPixmapValue(col, doc, colName)), ColorListBox::fancyPixmap );
+		clb->addItem( new ColorPixmapItem(ColorPixmapValue(col, doc, colName)));
 }
 
 void ColorCombo::initColorList(ColorList *colorList, ScribusDoc *doc, QString colorValue)
 {
 	clear();
+	setPixmapType(ColorCombo::fancyPixmaps);
 	addItem(CommonStrings::tr_NoneColor, CommonStrings::None);
 	if (colorValue == CommonStrings::None)
 		setCurrentIndex(count()-1);
 	ColorList::Iterator endOfColorList(colorList->end());
 	for (ColorList::Iterator itc = colorList->begin(); itc != endOfColorList; ++itc)
 	{
-		insertFancyItem( itc.value(), doc, itc.key() );
+		insertItem( itc.value(), doc, itc.key() );
 		if (itc.key() == colorValue)
 			setCurrentIndex(count()-1);
 	}

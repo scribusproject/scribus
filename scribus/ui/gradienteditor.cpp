@@ -34,6 +34,7 @@ for which a new license (GPL+exception) is in place.
 GradientEditor::GradientEditor(QWidget *pa) : QFrame(pa)
 {
 	setupUi(this);
+	stopColor->setPixmapType(ColorCombo::fancyPixmaps);
 	stopPos->setDecimals(0);
 	stopOpacity->setDecimals(0);
 	stopShade->setDecimals(0);
@@ -61,7 +62,7 @@ const VGradient GradientEditor::gradient()
 void GradientEditor::setColors(ColorList &colorList)
 {
 	m_colorList = colorList;
-	stopColor->updateBox(colorList, ColorCombo::fancyPixmaps, true);
+	stopColor->updateBox(colorList, true);
 }
 
 void GradientEditor::setPos(double p)

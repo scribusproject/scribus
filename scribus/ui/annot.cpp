@@ -102,12 +102,13 @@ ScAnnot::ScAnnot(QWidget* parent, PageItem *it, int Seite, int b, int h, ColorLi
 	BorderGroup->layout()->setAlignment(Qt::AlignTop);
 
 	ColorList::Iterator cit;
+	BorderC->setPixmapType(ColorCombo::fancyPixmaps);
 	BorderC->addItem(CommonStrings::tr_NoneColor);
 	if (annotation.borderColor() == CommonStrings::None)
 		BorderC->setCurrentIndex(BorderC->count()-1);
 	for (cit = Farben.begin(); cit != Farben.end(); ++cit)
 	{
-		BorderC->insertFancyItem(cit.value(), doc, cit.key());
+		BorderC->insertItem(cit.value(), doc, cit.key());
 		if (cit.key() == annotation.borderColor())
 			BorderC->setCurrentIndex(BorderC->count()-1);
 	}

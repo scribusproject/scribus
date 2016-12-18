@@ -35,14 +35,18 @@ SMCStyleWidget::SMCStyleWidget(QWidget *parent) : QWidget(),
 	backIcon->setPixmap(im->loadPixmap("16/color-fill.png"));
 	backShadeLabel->setPixmap(im->loadPixmap("shade.png"));
 
+	fillColor_->setPixmapType(ColorCombo::fancyPixmaps);
 	fillColor_->clear();
-	strokeColor_->clear();
-	backColor_->clear();
-	ColorList::Iterator it;
-	QPixmap pm = QPixmap(15, 15);
 	fillColor_->addItem(CommonStrings::tr_NoneColor);
+
+	strokeColor_->setPixmapType(ColorCombo::fancyPixmaps);
+	strokeColor_->clear();
 	strokeColor_->addItem(CommonStrings::tr_NoneColor);
+
+	backColor_->setPixmapType(ColorCombo::fancyPixmaps);
+	backColor_->clear();
 	backColor_->addItem(CommonStrings::tr_NoneColor);
+
 	StrokeIcon->setEnabled(false);
 	strokeShade_->setEnabled(false);
 	strokeColor_->setEnabled(false);
@@ -185,9 +189,9 @@ void SMCStyleWidget::fillColorCombo(ColorList &colors)
 	ScribusDoc* doc = colors.document();
 	for (ColorList::Iterator it = colors.begin(); it != itend; ++it)
 	{
-		fillColor_->insertFancyItem(it.value(), doc, it.key());
-		strokeColor_->insertFancyItem(it.value(), doc, it.key());
-		backColor_->insertFancyItem(it.value(), doc, it.key());
+		fillColor_->insertItem(it.value(), doc, it.key());
+		strokeColor_->insertItem(it.value(), doc, it.key());
+		backColor_->insertItem(it.value(), doc, it.key());
 	}
 	fillColor_->view()->setMinimumWidth(fillColor_->view()->maximumViewportSize().width()+24);
 	strokeColor_->view()->setMinimumWidth(strokeColor_->view()->maximumViewportSize().width()+24);

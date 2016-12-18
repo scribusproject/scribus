@@ -49,10 +49,12 @@ PathFinderDialog::PathFinderDialog(QWidget* parent, ScribusDoc* doc, PageItem *s
 	opParts->setIcon(QIcon(IconManager::instance()->loadIcon("pathparts.png")));
 	opSubtraction->setIcon(QIcon(IconManager::instance()->loadIcon("pathsubtraction.png")));
 	opCombine->setIcon(QIcon(IconManager::instance()->loadIcon("pathunite.png")));
+	otherColorComboLine->setPixmapType(ColorCombo::fancyPixmaps);
 	otherColorComboLine->addItem(CommonStrings::tr_NoneColor);
-	otherColorComboLine->insertItems(m_doc->PageColors, ColorCombo::fancyPixmaps);
+	otherColorComboLine->insertItems(m_doc->PageColors);
+	otherColorComboFill->setPixmapType(ColorCombo::fancyPixmaps);
 	otherColorComboFill->addItem(CommonStrings::tr_NoneColor);
-	otherColorComboFill->insertItems(m_doc->PageColors, ColorCombo::fancyPixmaps);
+	otherColorComboFill->insertItems(m_doc->PageColors);
 	setCurrentComboItem(otherColorComboLine, shape1->lineColor());
 	setCurrentComboItem(otherColorComboFill, shape1->fillColor());
 	opMode = 0;

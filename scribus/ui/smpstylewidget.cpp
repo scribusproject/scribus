@@ -42,6 +42,8 @@ SMPStyleWidget::SMPStyleWidget(ScribusDoc* doc, StyleSet<CharStyle> *cstyles) : 
 	spaceBelowLabel->setPixmap(IconManager::instance()->loadPixmap("below.png") );
 	backIcon->setPixmap(IconManager::instance()->loadPixmap("16/color-fill.png"));
 	backShadeLabel->setPixmap(IconManager::instance()->loadPixmap("shade.png"));
+	
+	backColor_->setPixmapType(ColorCombo::fancyPixmaps);
 	backColor_->clear();
 	backColor_->addItem(CommonStrings::tr_NoneColor);
 
@@ -177,7 +179,7 @@ void SMPStyleWidget::fillColorCombo(ColorList &colors)
 	ScribusDoc* doc = colors.document();
 	for (ColorList::Iterator it = colors.begin(); it != itend; ++it)
 	{
-		backColor_->insertFancyItem(it.value(), doc, it.key());
+		backColor_->insertItem(it.value(), doc, it.key());
 	}
 	backColor_->view()->setMinimumWidth(backColor_->view()->maximumViewportSize().width()+24);
 }

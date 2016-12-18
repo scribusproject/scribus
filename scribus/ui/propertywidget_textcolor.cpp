@@ -26,16 +26,19 @@ PropertyWidget_TextColor::PropertyWidget_TextColor(QWidget* parent) : QFrame(par
 	layout()->setAlignment( Qt::AlignLeft );
 
 	fillLayout->setAlignment( Qt::AlignLeft );
+	fillColor->setPixmapType(ColorCombo::fancyPixmaps);
 	fillIcon->setPixmap(IconManager::instance()->loadPixmap("16/color-fill.png"));
 	fillIcon->setScaledContents( false );
 	fillShadeLabel->setPixmap(IconManager::instance()->loadPixmap("shade.png"));
 
 	strokeLayout->setAlignment( Qt::AlignLeft );
+	strokeColor->setPixmapType(ColorCombo::fancyPixmaps);
 	strokeIcon->setPixmap(IconManager::instance()->loadPixmap("16/color-stroke.png"));
 	strokeIcon->setScaledContents( false );
 	strokeShadeLabel->setPixmap(IconManager::instance()->loadPixmap("shade.png"));
 
 	backLayout->setAlignment( Qt::AlignLeft );
+	backColor->setPixmapType(ColorCombo::fancyPixmaps);
 	backIcon->setPixmap(IconManager::instance()->loadPixmap("16/color-fill.png"));
 	backIcon->setScaledContents( false );
 	backShadeLabel->setPixmap(IconManager::instance()->loadPixmap("shade.png"));
@@ -195,9 +198,9 @@ void PropertyWidget_TextColor::updateColorList()
 	if (m_item)
 		disconnectSignals();
 
-	fillColor->updateBox(m_doc->PageColors, ColorCombo::fancyPixmaps, true);
-	strokeColor->updateBox(m_doc->PageColors, ColorCombo::fancyPixmaps, false);
-	backColor->updateBox(m_doc->PageColors, ColorCombo::fancyPixmaps, true);
+	fillColor->updateBox(m_doc->PageColors, true);
+	strokeColor->updateBox(m_doc->PageColors, false);
+	backColor->updateBox(m_doc->PageColors, true);
 	fillColor->view()->setMinimumWidth(fillColor->view()->maximumViewportSize().width() + 24);
 	strokeColor->view()->setMinimumWidth(strokeColor->view()->maximumViewportSize().width() + 24);
 	backColor->view()->setMinimumWidth(backColor->view()->maximumViewportSize().width() + 24);

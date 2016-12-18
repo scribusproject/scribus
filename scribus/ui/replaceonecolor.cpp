@@ -33,10 +33,12 @@ replaceColorDialog::replaceColorDialog(QWidget* parent, ColorList &availableColo
 	setupUi(this);
 	setModal(true);
 	setWindowIcon(IconManager::instance()->loadIcon("AppIcon.png" ));
+	originalColor->setPixmapType(ColorCombo::fancyPixmaps);
 	originalColor->addItem(CommonStrings::tr_NoneColor);
-	originalColor->insertItems(usedColors, ColorCombo::fancyPixmaps);
+	originalColor->insertItems(usedColors);
+	replacementColor->setPixmapType(ColorCombo::fancyPixmaps);
 	replacementColor->addItem(CommonStrings::tr_NoneColor);
-	replacementColor->insertItems(availableColors, ColorCombo::fancyPixmaps);
+	replacementColor->insertItems(availableColors);
 }
 
 const QString replaceColorDialog::getOriginalColor()

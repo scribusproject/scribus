@@ -17,6 +17,7 @@ SMCellStyleWidget::SMCellStyleWidget(QWidget *parent) : QWidget(),
 	setupUi(this);
 
 	fillColorIcon->setPixmap(IconManager::instance()->loadPixmap("16/color-fill.png"));
+	fillColor->setPixmapType(ColorCombo::fancyPixmaps);
 	fillColor->addItem(CommonStrings::tr_NoneColor);
 	fillShadeLabel->setPixmap(IconManager::instance()->loadPixmap("shade.png") );
 }
@@ -173,7 +174,7 @@ void SMCellStyleWidget::fillFillColorCombo(ColorList &colors)
 	ScribusDoc* doc = colors.document();
 	for (ColorList::Iterator it = colors.begin(); it != itEnd; ++it)
 	{
-		fillColor->insertFancyItem(it.value(), doc, it.key());
+		fillColor->insertItem(it.value(), doc, it.key());
 	}
 	fillColor->view()->setMinimumWidth(fillColor->view()->maximumViewportSize().width()+24);
 }

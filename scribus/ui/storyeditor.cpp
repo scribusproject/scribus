@@ -1119,6 +1119,7 @@ SToolBColorF::SToolBColorF(QMainWindow* parent, ScribusDoc *doc) : QToolBar( tr(
 	fillIconAction=addWidget(FillIcon);
 	fillIconAction->setVisible(true);
 	TxFill = new ColorCombo(false, this);
+	TxFill->setPixmapType(ColorCombo::smallPixmaps);
 	txFillAction=addWidget(TxFill);
 	txFillAction->setVisible(true);
 	PM2 = new ShadeButton(this);
@@ -1155,7 +1156,7 @@ void SToolBColorF::languageChange()
 void SToolBColorF::setCurrentDocument(ScribusDoc *doc)
 {
 	if (doc!=NULL)
-		TxFill->updateBox(doc->PageColors, ColorCombo::smallPixmaps, true);
+		TxFill->updateBox(doc->PageColors, true);
 	else
 	{
 		TxFill->clear();
@@ -1192,6 +1193,7 @@ SToolBColorS::SToolBColorS(QMainWindow* parent, ScribusDoc *doc) : QToolBar( tr(
 	strokeIconAction=addWidget(StrokeIcon);
 	strokeIconAction->setVisible(true);
 	TxStroke = new ColorCombo(false, this);
+	TxStroke->setPixmapType(ColorCombo::smallPixmaps);
 	txStrokeAction=addWidget(TxStroke);
 	txStrokeAction->setVisible(true);
 	PM1 = new ShadeButton(this);
@@ -1228,7 +1230,7 @@ void SToolBColorS::setCurrentDocument(ScribusDoc *doc)
 	TxStroke->clear();
 	TxStroke->addItem(CommonStrings::tr_NoneColor);
 	if (doc!=NULL)
-		TxStroke->insertItems(doc->PageColors, ColorCombo::smallPixmaps);
+		TxStroke->insertItems(doc->PageColors);
 	resize(minimumSizeHint());
 }
 

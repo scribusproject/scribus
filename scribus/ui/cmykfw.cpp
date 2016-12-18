@@ -78,8 +78,9 @@ CMYKChoose::CMYKChoose( QWidget* parent, ScribusDoc* doc, ScColor orig, QString 
 
 	setupUi(this);
 	ColorMap->setDoc(doc);
-
-	ColorName->setText( name );
+	ColorName->setText(name);
+	ColorSwatch->setPixmapType(ColorListBox::fancyPixmap);
+	
 	ComboBox1->addItem( tr( "CMYK" ) );
 	ComboBox1->addItem( tr( "RGB" ) );
 	ComboBox1->addItem( tr( "Web Safe RGB" ) );
@@ -552,7 +553,7 @@ void CMYKChoose::selSwatch()
 			CurrSwatch.insert("Magenta", ScColor(0, 255, 0, 0));
 		}
 		ColorSwatch->clear();
-		ColorSwatch->insertFancyPixmapItems(CurrSwatch);
+		ColorSwatch->insertItems(CurrSwatch);
 		ColorSwatch->setCurrentRow( 0 );
 		TabStack->setCurrentIndex(1);
 	}

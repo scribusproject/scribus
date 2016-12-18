@@ -80,7 +80,9 @@ class SCRIBUS_API ColorListBox : public QListWidget
 		/*! \brief Standard QListBox like constructor.
 		Just there are initialized pixmaps for icon drawing. */
 		ColorListBox(QWidget * parent = 0);
+		ColorListBox(ColorListBox::PixmapType type, QWidget * parent = 0);
 		~ColorListBox();
+
 		virtual void changeEvent(QEvent *e);
 
 		QString currentColor() const;
@@ -88,31 +90,22 @@ class SCRIBUS_API ColorListBox : public QListWidget
 		/*! \brief Fill the list box with values taken from list.
 		The list is cleared itself. Then is rendered an icon with
 		color attributes (RGB/CMYK/Spot etc.).
-		\param list a ColorList to present.
-		\param the pixmap type to use */
-		void updateBox(ColorList& list, ColorListBox::PixmapType type);
+		\param list a ColorList to present. */
+		void updateBox(ColorList& list);
 
 		/*! \brief Fill the list box with values taken from list.
 		The list is not cleared before items insertion.
-		\param list a ColorList to present. 
-		\param the pixmap type to use */
-		void insertItems(ColorList& list, ColorListBox::PixmapType type);
+		\param list a ColorList to present. */
+		void insertItems(ColorList& list);
 
-		void addItem(ColorPixmapItem* item, ColorListBox::PixmapType type);
 		void addItem(ColorPixmapItem* item);
 		void addItem(QString text);
 
-		/*! \brief Insert ColorSmallPixmapItems into the list
-		\param list a ColorList to present. */
-		void insertSmallPixmapItems(ColorList& list);
+		/*! \brief Retrieve the pixmap type used by this listbox */
+		ColorListBox::PixmapType pixmapType() const { return m_type; }
 
-		/*! \brief Insert ColorWidePixmapItems into the list
-		\param list a ColorList to present. */
-		void insertWidePixmapItems(ColorList& list);
-
-		/*! \brief Insert ColorFancyPixmapItems into the list
-		\param list a ColorList to present. */
-		void insertFancyPixmapItems(ColorList& list);
+		/*! \brief Set the pixmap type used by this listbox */
+		void setPixmapType(ColorListBox::PixmapType type);
 				
 		/*! \brief Pointer to the color list displayed by this box */
 		ColorList *cList;

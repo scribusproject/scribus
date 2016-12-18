@@ -34,24 +34,6 @@ class SCRIBUS_API ColorCombo : public QComboBox
 {
 	Q_OBJECT
 
-private:
-
-		/*
-#ifdef Q_OS_MAC
-	/// use listbox instead of popupmenu for combo boxes
-	class ScMacStyle : public QMacStyle 
-	{
-		virtual int styleHint(StyleHint sh, 
-	                                  const QStyleOption * so, 
-					  const QWidget * w, 
-	                                  QStyleHintReturn * r) const
-		{
-        	return sh != QStyle::SH_ComboBox_Popup && QMacStyle::styleHint(sh, so, w, r); 
-		}
-	};
-#endif
-*/
-
 public:
 
 	enum PixmapType
@@ -62,16 +44,16 @@ public:
 	};
 
 	ColorCombo( QWidget* parent=0 );
+	ColorCombo( ColorCombo::PixmapType type, QWidget* parent=0 );
 	ColorCombo( bool rw, QWidget* parent=0 );
 
-	QString currentColor() const; 
-	
-	void updateBox(ColorList& list, ColorCombo::PixmapType pixType, bool insertNone = true);
+	QString currentColor() const;
 
-	void insertItems(ColorList& list, ColorCombo::PixmapType type);
-	void insertSmallItem(const ScColor& col, ScribusDoc* doc, const QString& colName);
-	void insertWideItem (const ScColor& col, ScribusDoc* doc, const QString& colName);
-	void insertFancyItem(const ScColor& col, ScribusDoc* doc, const QString& colName);
+	void setPixmapType(ColorCombo::PixmapType type);
+	void updateBox(ColorList& list, bool insertNone = true);
+
+	void insertItem(const ScColor& col, ScribusDoc* doc, const QString& colName);
+	void insertItems(ColorList& list);
 	void initColorList(ColorList* colorList, ScribusDoc* doc, QString colorValue);
 };
 
