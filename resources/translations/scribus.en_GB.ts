@@ -9598,7 +9598,8 @@ converting their vector data into Scribus objects.</translation>
         <location filename="../../scribus/plugins/import/xfig/importxfigplugin.cpp" line="75"/>
         <source>Imports most Xfig files into the current document,
 converting their vector data into Scribus objects.</source>
-        <translation>Imports most Xfig files into the current document,converting their vector data into Scribus objects.</translation>
+        <translation>Imports most Xfig files into the current document,
+converting their vector data into Scribus objects.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/xfig/importxfigplugin.cpp" line="122"/>
