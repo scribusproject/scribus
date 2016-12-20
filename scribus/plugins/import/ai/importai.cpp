@@ -2425,7 +2425,7 @@ void AIPlug::processData(QString data)
 					int pot = textData.length();
 					textData.insertChars(pot, ch);
 					textData.applyCharStyle(pot, 1, nstyle);
-					// FIXME HOST: This code does not hansle CTL!
+					// FIXME HOST: This code does not handle CTL!
 					ScFace::gid_type gid = nstyle.font().char2CMap(ch.toUcs4()[0]);
 					tempW += nstyle.font().glyphBBox(gid, nstyle.fontSize() / 10.0).width + 1;
 					tempH  = qMax(tempH, nstyle.font().height(nstyle.fontSize() / 10.0) + 2.0);
@@ -3437,24 +3437,24 @@ bool AIPlug::convert(QString fn)
 	QList<PageItem*> gElements;
 	groupStack.push(gElements);
 	clipStack.push(clipCoords);
-	commandList << "m" << "l" << "L" << "c" << "C" << "v" << "V" << "y" << "Y";		// Path construction
-	commandList << "b" << "B" << "f" << "F" << "s" << "S" << "*u" << "*U";			// Object creation
-	commandList << "u" << "U" << "W" << "q" << "Q";									// Object creation
-	commandList << "A" << "w" << "j" << "J" << "Xy" << "XR";						// Graphic state
-	commandList << "k" << "K" << "Xa" << "XA" << "x" << "X" << "XX" << "Xx";		// Color commands
-	commandList << "Xk" << "g" << "G" << "p" << "P";								// Color commands
-	commandList << "Ln" << "Lb" << "LB";											// Layer commands
+	commandList << "m" << "l" << "L" << "c" << "C" << "v" << "V" << "y" << "Y";	// Path construction
+	commandList << "b" << "B" << "f" << "F" << "s" << "S" << "*u" << "*U";		// Object creation
+	commandList << "u" << "U" << "W" << "q" << "Q";					// Object creation
+	commandList << "A" << "w" << "j" << "J" << "Xy" << "XR";			// Graphic state
+	commandList << "k" << "K" << "Xa" << "XA" << "x" << "X" << "XX" << "Xx";	// Color commands
+	commandList << "Xk" << "g" << "G" << "p" << "P";				// Color commands
+	commandList << "Ln" << "Lb" << "LB";						// Layer commands
 	commandList << "Bd" << "BD" << "%_Bs" << "Bg" << "Bb" << "BB" << "Bm" << "Xm";	// Gradient commands
 	commandList << "To" << "TO" << "Tf" << "Tp" << "Tx" << "TX" << "T*" << "Tk";	// Text commands
-	commandList << "Tc" << "Tz";													// Text commands
-	commandList << "XI" << "XG" << "Xh";											// Image commands
-	commandList << "n" << "N" << "*" << "[";										// Special commands
-	commandList << "X!" << "X#";													// Mesh commands
-	commandList << "M" << "d" << "D" << "E";										// unimplemented
-	commandList << "h" << "H" << "i" << "I" << "Np" << "O";							// unimplemented
-	commandList << "P" << "R";														// unimplemented
+	commandList << "Tc" << "Tz";							// Text commands
+	commandList << "XI" << "XG" << "Xh";						// Image commands
+	commandList << "n" << "N" << "*" << "[";					// Special commands
+	commandList << "X!" << "X#";							// Mesh commands
+	commandList << "M" << "d" << "D" << "E";					// unimplemented
+	commandList << "h" << "H" << "i" << "I" << "Np" << "O";				// unimplemented
+	commandList << "P" << "R";							// unimplemented
 	commandList << "XI" << "XF" << "XG" << "XT" << "Z" << "`" << "~" << "_" << "@";	// unimplemented
-	commandList << "&" << "*w" << "*W" << "Ap" << "Ar";								// unimplemented
+	commandList << "&" << "*w" << "*W" << "Ap" << "Ar";				// unimplemented
 	if(progressDialog)
 	{
 		progressDialog->setOverallProgress(2);
