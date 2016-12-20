@@ -288,8 +288,8 @@ void StyleSelect::languageChange()
 	subscriptButton->setToolTip( tr("Subscript"));
 	superscriptButton->setToolTip( tr("Superscript"));
 	strikeoutButton->setToolTip( "<qt>" + tr("Strike Out. Hold down the button momentarily to set line width and displacement options.") + "</qt>" );
-	outlineButton->setToolTip( "<qt>" + tr("Outline. Hold down the button momentarily to change the outline stroke width.", "Text Style Selector") + "</qt>" );
-	shadowButton->setToolTip(  "<qt>" + tr("Shadowed Text. Hold down the button momentarily to enable the offset spacing.") + "</qt>" );
+	outlineButton->setToolTip( "<qt>" + tr("Outline. Hold down the button momentarily to change the outline stroke width.") + "</qt>" );
+	shadowButton->setToolTip(  "<qt>" + tr("Shadowed Text. Hold down the button momentarily to change the shadow offset values.") + "</qt>" );
 }
 
 void StyleSelect::setStyle(int s)
