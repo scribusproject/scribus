@@ -24128,72 +24128,72 @@ Transparency</source>
     <message>
         <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="470"/>
         <source>5</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">100% {5?}</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="477"/>
         <source>9</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">100% {9?}</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="484"/>
         <source>13</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">100% {13?}</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="491"/>
         <source>17</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">100% {17?}</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="498"/>
         <source>2</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">100% {2?}</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="505"/>
         <source>6</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">100% {6?}</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="512"/>
         <source>10</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">100% {10?}</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="519"/>
         <source>14</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">100% {14?}</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="526"/>
         <source>18</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">100% {18?}</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="533"/>
         <source>3</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">100% {3?}</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="540"/>
         <source>7</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">100% {7?}</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="547"/>
         <source>11</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">100% {11?}</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="554"/>
         <source>15</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">100% {15?}</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="561"/>
         <source>19</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">100% {19?}</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="568"/>
@@ -24208,7 +24208,7 @@ Transparency</source>
     <message>
         <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="582"/>
         <source>12</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">100% {12?}</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="589"/>
@@ -24218,7 +24218,7 @@ Transparency</source>
     <message>
         <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="596"/>
         <source>20</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">100% {20?}</translation>
     </message>
 </context>
 <context>
@@ -33438,10 +33438,10 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <location filename="../../scribus/ui/annot.ui" line="1067"/>
-        <location filename="../../scribus/ui/annot.ui" line="1934"/>
-        <location filename="../../scribus/ui/annot.ui" line="1968"/>
-        <location filename="../../scribus/ui/annot.ui" line="2069"/>
-        <location filename="../../scribus/ui/annot.ui" line="2196"/>
+        <location filename="../../scribus/ui/annot.ui" line="1937"/>
+        <location filename="../../scribus/ui/annot.ui" line="1971"/>
+        <location filename="../../scribus/ui/annot.ui" line="2072"/>
+        <location filename="../../scribus/ui/annot.ui" line="2199"/>
         <source>Edit...</source>
         <translation type="unfinished">Edit...</translation>
     </message>
@@ -33851,28 +33851,20 @@ converting their vector data into Scribus objects.</source>
         <translation type="unfinished">Formatting</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/annot.ui" line="1529"/>
-        <location filename="../../scribus/ui/annot.ui" line="1628"/>
         <source>9,999.99</source>
-        <translation type="unfinished">100% {9,999.99?}</translation>
+        <translation type="obsolete">100% {9,999.99?}</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/annot.ui" line="1539"/>
-        <location filename="../../scribus/ui/annot.ui" line="1638"/>
         <source>9.999,99</source>
-        <translation type="unfinished">100% {9.999,99?}</translation>
+        <translation type="obsolete">100% {9.999,99?}</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/annot.ui" line="1546"/>
-        <location filename="../../scribus/ui/annot.ui" line="1645"/>
         <source>9999.99</source>
-        <translation type="unfinished">100% {9999.99?}</translation>
+        <translation type="obsolete">100% {9999.99?}</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/annot.ui" line="1553"/>
-        <location filename="../../scribus/ui/annot.ui" line="1652"/>
         <source>9999,99</source>
-        <translation type="unfinished">100% {9999,99?}</translation>
+        <translation type="obsolete">100% {9999,99?}</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/annot.ui" line="1582"/>
@@ -33885,132 +33877,22 @@ converting their vector data into Scribus objects.</source>
         <translation type="unfinished">Date Format</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/annot.ui" line="1703"/>
-        <source>m/d</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/annot.ui" line="1708"/>
-        <source>m/d/yy</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/annot.ui" line="1713"/>
-        <source>mm/dd/yy</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/annot.ui" line="1718"/>
-        <source>mm/yy</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/annot.ui" line="1723"/>
-        <source>d-mmm</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/annot.ui" line="1728"/>
-        <source>d-mmm-yy</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/annot.ui" line="1733"/>
-        <source>dd-mmm-yy</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/annot.ui" line="1738"/>
-        <source>dd/mm/yy</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/annot.ui" line="1743"/>
-        <source>dd/mm/yyyy</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/annot.ui" line="1748"/>
-        <source>dd.mm.yyyy</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/annot.ui" line="1753"/>
-        <source>yy-mm-dd</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/annot.ui" line="1758"/>
-        <source>mmm-yy</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/annot.ui" line="1763"/>
-        <source>mmmm-yy</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/annot.ui" line="1768"/>
-        <source>mmm d, yyyy</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/annot.ui" line="1773"/>
-        <source>mmmm d, yyyy</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/annot.ui" line="1778"/>
-        <source>m/d/yy h:MM tt</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/annot.ui" line="1783"/>
-        <source>m/d/yy HH:MM</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/annot.ui" line="1788"/>
-        <source>yyyy-mm-dd</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/annot.ui" line="1850"/>
+        <location filename="../../scribus/ui/annot.ui" line="1853"/>
         <source>Time Format</source>
         <translation type="unfinished">Time Format</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/annot.ui" line="1856"/>
-        <source>HH:MM</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/annot.ui" line="1866"/>
-        <source>h:MM tt</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/annot.ui" line="1873"/>
-        <source>HH:MM:ss</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/annot.ui" line="1880"/>
-        <source>h:MM:ss tt</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/annot.ui" line="1919"/>
+        <location filename="../../scribus/ui/annot.ui" line="1922"/>
         <source>Custom Scripts</source>
         <translation type="unfinished">Custom Scripts</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/annot.ui" line="1927"/>
+        <location filename="../../scribus/ui/annot.ui" line="1930"/>
         <source>Format:</source>
         <translation type="unfinished">Format:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/annot.ui" line="1961"/>
+        <location filename="../../scribus/ui/annot.ui" line="1964"/>
         <source>Keystroke:</source>
         <translation type="unfinished">Keystroke:</translation>
     </message>
@@ -34020,27 +33902,27 @@ converting their vector data into Scribus objects.</source>
         <translation type="unfinished">Format</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/annot.ui" line="2013"/>
+        <location filename="../../scribus/ui/annot.ui" line="2016"/>
         <source>Value is not validated</source>
         <translation type="unfinished">Value is not validated</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/annot.ui" line="2025"/>
+        <location filename="../../scribus/ui/annot.ui" line="2028"/>
         <source>Value must be greater than or equal to:</source>
         <translation type="unfinished">Value must be greater than or equal to:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/annot.ui" line="2032"/>
+        <location filename="../../scribus/ui/annot.ui" line="2035"/>
         <source>and less or equal to:</source>
         <translation type="unfinished">and less or equal to:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/annot.ui" line="2050"/>
+        <location filename="../../scribus/ui/annot.ui" line="2053"/>
         <source>Custom validate script:</source>
         <translation type="unfinished">Custom validate script:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/annot.ui" line="2001"/>
+        <location filename="../../scribus/ui/annot.ui" line="2004"/>
         <source>Validate</source>
         <translation type="unfinished">Validate</translation>
     </message>
@@ -34050,67 +33932,67 @@ converting their vector data into Scribus objects.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/annot.ui" line="2097"/>
+        <location filename="../../scribus/ui/annot.ui" line="2100"/>
         <source>Value is not calculated</source>
         <translation type="unfinished">Value is not calculated</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/annot.ui" line="2109"/>
+        <location filename="../../scribus/ui/annot.ui" line="2112"/>
         <source>Value is the</source>
         <translation type="unfinished">Value is the</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/annot.ui" line="2117"/>
+        <location filename="../../scribus/ui/annot.ui" line="2120"/>
         <source>sum</source>
         <translation type="unfinished">sum</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/annot.ui" line="2122"/>
+        <location filename="../../scribus/ui/annot.ui" line="2125"/>
         <source>product</source>
         <translation type="unfinished">product</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/annot.ui" line="2127"/>
+        <location filename="../../scribus/ui/annot.ui" line="2130"/>
         <source>average</source>
         <translation type="unfinished">average</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/annot.ui" line="2132"/>
+        <location filename="../../scribus/ui/annot.ui" line="2135"/>
         <source>minimum</source>
         <translation type="unfinished">minimum</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/annot.ui" line="2137"/>
+        <location filename="../../scribus/ui/annot.ui" line="2140"/>
         <source>maximum</source>
         <translation type="unfinished">maximum</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/annot.ui" line="2145"/>
+        <location filename="../../scribus/ui/annot.ui" line="2148"/>
         <source>of the following fields:</source>
         <translation type="unfinished">of the following fields:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/annot.ui" line="2159"/>
+        <location filename="../../scribus/ui/annot.ui" line="2162"/>
         <source>Pick...</source>
         <translation type="unfinished">Pick...</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/annot.ui" line="2168"/>
+        <location filename="../../scribus/ui/annot.ui" line="2171"/>
         <source>Custom calculation script:</source>
         <translation type="unfinished">Custom calculation script:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/annot.ui" line="2085"/>
+        <location filename="../../scribus/ui/annot.ui" line="2088"/>
         <source>Calculate</source>
         <translation type="unfinished">Calculate</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/annot.ui" line="2235"/>
+        <location filename="../../scribus/ui/annot.ui" line="2238"/>
         <source>OK</source>
         <translation type="unfinished">OK</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/annot.ui" line="2242"/>
+        <location filename="../../scribus/ui/annot.ui" line="2245"/>
         <source>Cancel</source>
         <translation type="unfinished">Cancel</translation>
     </message>

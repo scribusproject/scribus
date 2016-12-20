@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>638</width>
-    <height>555</height>
+    <height>613</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -1526,7 +1526,7 @@
                         <item row="0" column="0">
                          <widget class="QRadioButton" name="Format0">
                           <property name="text">
-                           <string>9,999.99</string>
+                           <string notr="true">9,999.99</string>
                           </property>
                           <property name="checked">
                            <bool>true</bool>
@@ -1536,21 +1536,21 @@
                         <item row="0" column="1">
                          <widget class="QRadioButton" name="Format2">
                           <property name="text">
-                           <string>9.999,99</string>
+                           <string notr="true">9.999,99</string>
                           </property>
                          </widget>
                         </item>
                         <item row="1" column="0">
                          <widget class="QRadioButton" name="Format1">
                           <property name="text">
-                           <string>9999.99</string>
+                           <string notr="true">9999.99</string>
                           </property>
                          </widget>
                         </item>
                         <item row="1" column="1">
                          <widget class="QRadioButton" name="Format3">
                           <property name="text">
-                           <string>9999,99</string>
+                           <string notr="true">9999,99</string>
                           </property>
                          </widget>
                         </item>
@@ -1625,7 +1625,7 @@
                         <item row="0" column="0">
                          <widget class="QRadioButton" name="Format0a">
                           <property name="text">
-                           <string>9,999.99</string>
+                           <string notr="true">9,999.99</string>
                           </property>
                           <property name="checked">
                            <bool>true</bool>
@@ -1635,21 +1635,21 @@
                         <item row="0" column="1">
                          <widget class="QRadioButton" name="Format2a">
                           <property name="text">
-                           <string>9.999,99</string>
+                           <string notr="true">9.999,99</string>
                           </property>
                          </widget>
                         </item>
                         <item row="1" column="0">
                          <widget class="QRadioButton" name="Format1a">
                           <property name="text">
-                           <string>9999.99</string>
+                           <string notr="true">9999.99</string>
                           </property>
                          </widget>
                         </item>
                         <item row="1" column="1">
                          <widget class="QRadioButton" name="Format3a">
                           <property name="text">
-                           <string>9999,99</string>
+                           <string notr="true">9999,99</string>
                           </property>
                          </widget>
                         </item>
@@ -1698,94 +1698,97 @@
                       <layout class="QHBoxLayout" name="horizontalLayout_16">
                        <item>
                         <widget class="QComboBox" name="Format0c">
+                         <property name="currentText">
+                          <string notr="true">m/d</string>
+                         </property>
                          <item>
                           <property name="text">
-                           <string>m/d</string>
+                           <string notr="true">m/d</string>
                           </property>
                          </item>
                          <item>
                           <property name="text">
-                           <string>m/d/yy</string>
+                           <string notr="true">m/d/yy</string>
                           </property>
                          </item>
                          <item>
                           <property name="text">
-                           <string>mm/dd/yy</string>
+                           <string notr="true">mm/dd/yy</string>
                           </property>
                          </item>
                          <item>
                           <property name="text">
-                           <string>mm/yy</string>
+                           <string notr="true">mm/yy</string>
                           </property>
                          </item>
                          <item>
                           <property name="text">
-                           <string>d-mmm</string>
+                           <string notr="true">d-mmm</string>
                           </property>
                          </item>
                          <item>
                           <property name="text">
-                           <string>d-mmm-yy</string>
+                           <string notr="true">d-mmm-yy</string>
                           </property>
                          </item>
                          <item>
                           <property name="text">
-                           <string>dd-mmm-yy</string>
+                           <string notr="true">dd-mmm-yy</string>
                           </property>
                          </item>
                          <item>
                           <property name="text">
-                           <string>dd/mm/yy</string>
+                           <string notr="true">dd/mm/yy</string>
                           </property>
                          </item>
                          <item>
                           <property name="text">
-                           <string>dd/mm/yyyy</string>
+                           <string notr="true">dd/mm/yyyy</string>
                           </property>
                          </item>
                          <item>
                           <property name="text">
-                           <string>dd.mm.yyyy</string>
+                           <string notr="true">dd.mm.yyyy</string>
                           </property>
                          </item>
                          <item>
                           <property name="text">
-                           <string>yy-mm-dd</string>
+                           <string notr="true">yy-mm-dd</string>
                           </property>
                          </item>
                          <item>
                           <property name="text">
-                           <string>mmm-yy</string>
+                           <string notr="true">mmm-yy</string>
                           </property>
                          </item>
                          <item>
                           <property name="text">
-                           <string>mmmm-yy</string>
+                           <string notr="true">mmmm-yy</string>
                           </property>
                          </item>
                          <item>
                           <property name="text">
-                           <string>mmm d, yyyy</string>
+                           <string notr="true">mmm d, yyyy</string>
                           </property>
                          </item>
                          <item>
                           <property name="text">
-                           <string>mmmm d, yyyy</string>
+                           <string notr="true">mmmm d, yyyy</string>
                           </property>
                          </item>
                          <item>
                           <property name="text">
-                           <string>m/d/yy h:MM tt</string>
+                           <string notr="true">m/d/yy h:MM tt</string>
                           </property>
                          </item>
                          <item>
                           <property name="text">
-                           <string>m/d/yy HH:MM</string>
+                           <string notr="true">m/d/yy HH:MM</string>
                           </property>
                          </item>
                          <item>
                           <property name="text">
-                           <string>yyyy-mm-dd</string>
+                           <string notr="true">yyyy-mm-dd</string>
                           </property>
                          </item>
                         </widget>
@@ -1853,7 +1856,7 @@
                      <item>
                       <widget class="QRadioButton" name="Format0b">
                        <property name="text">
-                        <string>HH:MM</string>
+                        <string notr="true">HH:MM</string>
                        </property>
                        <property name="checked">
                         <bool>true</bool>
@@ -1863,21 +1866,21 @@
                      <item>
                       <widget class="QRadioButton" name="Format1b">
                        <property name="text">
-                        <string>h:MM tt</string>
+                        <string notr="true">h:MM tt</string>
                        </property>
                       </widget>
                      </item>
                      <item>
                       <widget class="QRadioButton" name="Format2b">
                        <property name="text">
-                        <string>HH:MM:ss</string>
+                        <string notr="true">HH:MM:ss</string>
                        </property>
                       </widget>
                      </item>
                      <item>
                       <widget class="QRadioButton" name="Format3b">
                        <property name="text">
-                        <string>h:MM:ss tt</string>
+                        <string notr="true">h:MM:ss tt</string>
                        </property>
                       </widget>
                      </item>

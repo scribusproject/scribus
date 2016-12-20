@@ -33575,10 +33575,10 @@ pretvori vektorske podatke v Scribusove predmete.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/annot.ui" line="1067"/>
-        <location filename="../../scribus/ui/annot.ui" line="1934"/>
-        <location filename="../../scribus/ui/annot.ui" line="1968"/>
-        <location filename="../../scribus/ui/annot.ui" line="2069"/>
-        <location filename="../../scribus/ui/annot.ui" line="2196"/>
+        <location filename="../../scribus/ui/annot.ui" line="1937"/>
+        <location filename="../../scribus/ui/annot.ui" line="1971"/>
+        <location filename="../../scribus/ui/annot.ui" line="2072"/>
+        <location filename="../../scribus/ui/annot.ui" line="2199"/>
         <source>Edit...</source>
         <translation>Uredi ...</translation>
     </message>
@@ -33733,22 +33733,22 @@ pretvori vektorske podatke v Scribusove predmete.</translation>
         <translation>Oblika datuma</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/annot.ui" line="1850"/>
+        <location filename="../../scribus/ui/annot.ui" line="1853"/>
         <source>Time Format</source>
         <translation>Oblika časa</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/annot.ui" line="1919"/>
+        <location filename="../../scribus/ui/annot.ui" line="1922"/>
         <source>Custom Scripts</source>
         <translation>Posebne skripte</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/annot.ui" line="1927"/>
+        <location filename="../../scribus/ui/annot.ui" line="1930"/>
         <source>Format:</source>
         <translation>Vrsta:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/annot.ui" line="1961"/>
+        <location filename="../../scribus/ui/annot.ui" line="1964"/>
         <source>Keystroke:</source>
         <translation>Natipk:</translation>
     </message>
@@ -33758,92 +33758,92 @@ pretvori vektorske podatke v Scribusove predmete.</translation>
         <translation>Oblika</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/annot.ui" line="2013"/>
+        <location filename="../../scribus/ui/annot.ui" line="2016"/>
         <source>Value is not validated</source>
         <translation>Vrednost ni preverjena</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/annot.ui" line="2025"/>
+        <location filename="../../scribus/ui/annot.ui" line="2028"/>
         <source>Value must be greater than or equal to:</source>
         <translation>Vrednost mora biti večja ali enaka kot :</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/annot.ui" line="2032"/>
+        <location filename="../../scribus/ui/annot.ui" line="2035"/>
         <source>and less or equal to:</source>
         <translation>in manjša ali enaka kot:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/annot.ui" line="2050"/>
+        <location filename="../../scribus/ui/annot.ui" line="2053"/>
         <source>Custom validate script:</source>
         <translation>Posebna skripta za preverbe:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/annot.ui" line="2001"/>
+        <location filename="../../scribus/ui/annot.ui" line="2004"/>
         <source>Validate</source>
         <translation>Potrdi</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/annot.ui" line="2097"/>
+        <location filename="../../scribus/ui/annot.ui" line="2100"/>
         <source>Value is not calculated</source>
         <translation>Vrednost ni izračunana</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/annot.ui" line="2109"/>
+        <location filename="../../scribus/ui/annot.ui" line="2112"/>
         <source>Value is the</source>
         <translation>Vrednost je</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/annot.ui" line="2117"/>
+        <location filename="../../scribus/ui/annot.ui" line="2120"/>
         <source>sum</source>
         <translation>vsota</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/annot.ui" line="2122"/>
+        <location filename="../../scribus/ui/annot.ui" line="2125"/>
         <source>product</source>
         <translation>zmnožek</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/annot.ui" line="2127"/>
+        <location filename="../../scribus/ui/annot.ui" line="2130"/>
         <source>average</source>
         <translation>povprečje</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/annot.ui" line="2132"/>
+        <location filename="../../scribus/ui/annot.ui" line="2135"/>
         <source>minimum</source>
         <translation>najmanj</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/annot.ui" line="2137"/>
+        <location filename="../../scribus/ui/annot.ui" line="2140"/>
         <source>maximum</source>
         <translation>največ</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/annot.ui" line="2145"/>
+        <location filename="../../scribus/ui/annot.ui" line="2148"/>
         <source>of the following fields:</source>
         <translation>iz naslednjih polj:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/annot.ui" line="2159"/>
+        <location filename="../../scribus/ui/annot.ui" line="2162"/>
         <source>Pick...</source>
         <translation>Izberi ...</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/annot.ui" line="2168"/>
+        <location filename="../../scribus/ui/annot.ui" line="2171"/>
         <source>Custom calculation script:</source>
         <translation>Posebna skripta za izračunavanje:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/annot.ui" line="2085"/>
+        <location filename="../../scribus/ui/annot.ui" line="2088"/>
         <source>Calculate</source>
         <translation>Izračunaj</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/annot.ui" line="2235"/>
+        <location filename="../../scribus/ui/annot.ui" line="2238"/>
         <source>OK</source>
         <translation>V redu</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/annot.ui" line="2242"/>
+        <location filename="../../scribus/ui/annot.ui" line="2245"/>
         <source>Cancel</source>
         <translation>Prekliči</translation>
     </message>
@@ -34256,138 +34256,20 @@ pretvori vektorske podatke v Scribusove predmete.</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/annot.ui" line="1529"/>
-        <location filename="../../scribus/ui/annot.ui" line="1628"/>
         <source>9,999.99</source>
-        <translation type="unfinished">9,999.99</translation>
+        <translation type="obsolete">9,999.99</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/annot.ui" line="1539"/>
-        <location filename="../../scribus/ui/annot.ui" line="1638"/>
         <source>9.999,99</source>
-        <translation type="unfinished">9.999,99</translation>
+        <translation type="obsolete">9.999,99</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/annot.ui" line="1546"/>
-        <location filename="../../scribus/ui/annot.ui" line="1645"/>
         <source>9999.99</source>
-        <translation type="unfinished">9999.99</translation>
+        <translation type="obsolete">9999.99</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/annot.ui" line="1553"/>
-        <location filename="../../scribus/ui/annot.ui" line="1652"/>
         <source>9999,99</source>
-        <translation type="unfinished">9999,99</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/annot.ui" line="1703"/>
-        <source>m/d</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/annot.ui" line="1708"/>
-        <source>m/d/yy</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/annot.ui" line="1713"/>
-        <source>mm/dd/yy</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/annot.ui" line="1718"/>
-        <source>mm/yy</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/annot.ui" line="1723"/>
-        <source>d-mmm</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/annot.ui" line="1728"/>
-        <source>d-mmm-yy</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/annot.ui" line="1733"/>
-        <source>dd-mmm-yy</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/annot.ui" line="1738"/>
-        <source>dd/mm/yy</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/annot.ui" line="1743"/>
-        <source>dd/mm/yyyy</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/annot.ui" line="1748"/>
-        <source>dd.mm.yyyy</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/annot.ui" line="1753"/>
-        <source>yy-mm-dd</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/annot.ui" line="1758"/>
-        <source>mmm-yy</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/annot.ui" line="1763"/>
-        <source>mmmm-yy</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/annot.ui" line="1768"/>
-        <source>mmm d, yyyy</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/annot.ui" line="1773"/>
-        <source>mmmm d, yyyy</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/annot.ui" line="1778"/>
-        <source>m/d/yy h:MM tt</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/annot.ui" line="1783"/>
-        <source>m/d/yy HH:MM</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/annot.ui" line="1788"/>
-        <source>yyyy-mm-dd</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/annot.ui" line="1856"/>
-        <source>HH:MM</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/annot.ui" line="1866"/>
-        <source>h:MM tt</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/annot.ui" line="1873"/>
-        <source>HH:MM:ss</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/annot.ui" line="1880"/>
-        <source>h:MM:ss tt</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">9999,99</translation>
     </message>
 </context>
 <context>
