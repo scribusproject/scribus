@@ -23758,7 +23758,7 @@ Transparency</source>
     <name>PropertyWidget_FontFeatures</name>
     <message>
         <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="26"/>
-        <source>Common Ligtures (liga)</source>
+        <source>Common Ligatures (liga)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -29274,82 +29274,148 @@ is not exhaustive due to exceptions from called functions.
         <translation>एस्टोनियन्</translation>
     </message>
     <message>
-        <location filename="../../scribus/styles/charstyle.cpp" line="200"/>
         <source>font %1 </source>
-        <translation>फोण्ट् %1 </translation>
+        <translation type="vanished">फोण्ट् %1 </translation>
+    </message>
+    <message>
+        <source>size %1 </source>
+        <translation type="vanished">परिमाणम् %1 </translation>
+    </message>
+    <message>
+        <source>+style </source>
+        <translation type="vanished">+शैली </translation>
+    </message>
+    <message>
+        <source>+color </source>
+        <translation type="vanished">+वर्णः </translation>
+    </message>
+    <message>
+        <source>+underline </source>
+        <translation type="vanished">+रेखाङ्कितम् </translation>
+    </message>
+    <message>
+        <source>-underline </source>
+        <translation type="vanished">-रेखाङ्कितम् </translation>
+    </message>
+    <message>
+        <source>+strikeout </source>
+        <translation type="vanished">+छेदः </translation>
+    </message>
+    <message>
+        <source>-strikeout </source>
+        <translation type="vanished">-छेदः </translation>
+    </message>
+    <message>
+        <source>+shadow </source>
+        <translation type="vanished">+छाया </translation>
+    </message>
+    <message>
+        <source>-shadow </source>
+        <translation type="vanished">-छाया </translation>
+    </message>
+    <message>
+        <source>+outline </source>
+        <translation type="vanished">+परिलेखः </translation>
+    </message>
+    <message>
+        <source>-outline </source>
+        <translation type="vanished">-परिलेखः </translation>
+    </message>
+    <message>
+        <source>-tracking </source>
+        <translation type="vanished">-अन्वेषणम्</translation>
+    </message>
+    <message>
+        <source>+stretch </source>
+        <translation type="vanished">+विस्तारय</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/styles/charstyle.cpp" line="198"/>
+        <source>font %1</source>
+        <translation type="unfinished">फोण्ट् %1  {1?}</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/styles/charstyle.cpp" line="200"/>
+        <source>size %1</source>
+        <translation type="unfinished">परिमाणम् %1  {1?}</translation>
     </message>
     <message>
         <location filename="../../scribus/styles/charstyle.cpp" line="202"/>
-        <source>size %1 </source>
-        <translation>परिमाणम् %1 </translation>
+        <source>+fontfeatures %1</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/styles/charstyle.cpp" line="204"/>
-        <source>+fontfeatures %1 </source>
+        <source>+style</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/styles/charstyle.cpp" line="206"/>
-        <source>+style </source>
-        <translation>+शैली </translation>
+        <source>+color</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/styles/charstyle.cpp" line="208"/>
-        <source>+color </source>
-        <translation>+वर्णः </translation>
+        <source>+underline</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/styles/charstyle.cpp" line="208"/>
+        <source>-underline</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/styles/charstyle.cpp" line="210"/>
-        <source>+underline </source>
-        <translation>+रेखाङ्कितम् </translation>
+        <source>+strikeout</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/styles/charstyle.cpp" line="210"/>
-        <source>-underline </source>
-        <translation>-रेखाङ्कितम् </translation>
+        <source>-strikeout</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/styles/charstyle.cpp" line="212"/>
-        <source>+strikeout </source>
-        <translation>+छेदः </translation>
+        <source>+shadow</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/styles/charstyle.cpp" line="212"/>
-        <source>-strikeout </source>
-        <translation>-छेदः </translation>
+        <source>-shadow</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/styles/charstyle.cpp" line="214"/>
-        <source>+shadow </source>
-        <translation>+छाया </translation>
+        <source>+outline</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/styles/charstyle.cpp" line="214"/>
-        <source>-shadow </source>
-        <translation>-छाया </translation>
+        <source>-outline</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/styles/charstyle.cpp" line="216"/>
-        <source>+outline </source>
-        <translation>+परिलेखः </translation>
+        <source>+tracking %1</source>
+        <translation type="unfinished">+अन्वेषणम् %1  {1?}</translation>
     </message>
     <message>
         <location filename="../../scribus/styles/charstyle.cpp" line="216"/>
-        <source>-outline </source>
-        <translation>-परिलेखः </translation>
+        <source>-tracking</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/styles/charstyle.cpp" line="218"/>
-        <source>-tracking </source>
-        <translation>-अन्वेषणम्</translation>
+        <source>+baseline %1</source>
+        <translation type="unfinished">+आधाररेखा %1  {1?}</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/styles/charstyle.cpp" line="220"/>
+        <source>+stretch</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/styles/charstyle.cpp" line="222"/>
-        <source>+stretch </source>
-        <translation>+विस्तारय</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/styles/charstyle.cpp" line="224"/>
         <source>parent= %1</source>
         <translation>प्रभवः= %1</translation>
     </message>
@@ -29565,14 +29631,12 @@ is not exhaustive due to exceptions from called functions.
         <translation>अविषयाबन्धस्य रेखानां सङ्ख्यां लब्धुं न शक्यते।</translation>
     </message>
     <message>
-        <location filename="../../scribus/styles/charstyle.cpp" line="218"/>
         <source>+tracking %1 </source>
-        <translation>+अन्वेषणम् %1 </translation>
+        <translation type="vanished">+अन्वेषणम् %1 </translation>
     </message>
     <message>
-        <location filename="../../scribus/styles/charstyle.cpp" line="220"/>
         <source>+baseline %1 </source>
-        <translation>+आधाररेखा %1 </translation>
+        <translation type="vanished">+आधाररेखा %1 </translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="160"/>

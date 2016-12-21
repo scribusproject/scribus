@@ -23795,7 +23795,7 @@ Transparency</source>
     <name>PropertyWidget_FontFeatures</name>
     <message>
         <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="26"/>
-        <source>Common Ligtures (liga)</source>
+        <source>Common Ligatures (liga)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -29345,82 +29345,148 @@ ni povsem izčrpen zaradi izjem klicanih funkcij.</translation>
         <translation>estonski</translation>
     </message>
     <message>
-        <location filename="../../scribus/styles/charstyle.cpp" line="200"/>
         <source>font %1 </source>
-        <translation>pisava %1 </translation>
+        <translation type="vanished">pisava %1 </translation>
+    </message>
+    <message>
+        <source>size %1 </source>
+        <translation type="vanished">velikost %1 </translation>
+    </message>
+    <message>
+        <source>+style </source>
+        <translation type="vanished">+slog </translation>
+    </message>
+    <message>
+        <source>+color </source>
+        <translation type="vanished">+barva </translation>
+    </message>
+    <message>
+        <source>+underline </source>
+        <translation type="vanished">+podčrtano </translation>
+    </message>
+    <message>
+        <source>-underline </source>
+        <translation type="vanished">-podčrtano </translation>
+    </message>
+    <message>
+        <source>+strikeout </source>
+        <translation type="vanished">+prečrtano </translation>
+    </message>
+    <message>
+        <source>-strikeout </source>
+        <translation type="vanished">-prečrtano </translation>
+    </message>
+    <message>
+        <source>+shadow </source>
+        <translation type="vanished">+senčeno </translation>
+    </message>
+    <message>
+        <source>-shadow </source>
+        <translation type="vanished">-senčeno </translation>
+    </message>
+    <message>
+        <source>+outline </source>
+        <translation type="vanished">+orisano </translation>
+    </message>
+    <message>
+        <source>-outline </source>
+        <translation type="vanished">-orisano </translation>
+    </message>
+    <message>
+        <source>-tracking </source>
+        <translation type="vanished">-sledenje</translation>
+    </message>
+    <message>
+        <source>+stretch </source>
+        <translation type="vanished">+raztegnjeno </translation>
+    </message>
+    <message>
+        <location filename="../../scribus/styles/charstyle.cpp" line="198"/>
+        <source>font %1</source>
+        <translation type="unfinished">pisava %1  {1?}</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/styles/charstyle.cpp" line="200"/>
+        <source>size %1</source>
+        <translation type="unfinished">velikost %1  {1?}</translation>
     </message>
     <message>
         <location filename="../../scribus/styles/charstyle.cpp" line="202"/>
-        <source>size %1 </source>
-        <translation>velikost %1 </translation>
+        <source>+fontfeatures %1</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/styles/charstyle.cpp" line="204"/>
-        <source>+fontfeatures %1 </source>
+        <source>+style</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/styles/charstyle.cpp" line="206"/>
-        <source>+style </source>
-        <translation>+slog </translation>
+        <source>+color</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/styles/charstyle.cpp" line="208"/>
-        <source>+color </source>
-        <translation>+barva </translation>
+        <source>+underline</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/styles/charstyle.cpp" line="208"/>
+        <source>-underline</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/styles/charstyle.cpp" line="210"/>
-        <source>+underline </source>
-        <translation>+podčrtano </translation>
+        <source>+strikeout</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/styles/charstyle.cpp" line="210"/>
-        <source>-underline </source>
-        <translation>-podčrtano </translation>
+        <source>-strikeout</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/styles/charstyle.cpp" line="212"/>
-        <source>+strikeout </source>
-        <translation>+prečrtano </translation>
+        <source>+shadow</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/styles/charstyle.cpp" line="212"/>
-        <source>-strikeout </source>
-        <translation>-prečrtano </translation>
+        <source>-shadow</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/styles/charstyle.cpp" line="214"/>
-        <source>+shadow </source>
-        <translation>+senčeno </translation>
+        <source>+outline</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/styles/charstyle.cpp" line="214"/>
-        <source>-shadow </source>
-        <translation>-senčeno </translation>
+        <source>-outline</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/styles/charstyle.cpp" line="216"/>
-        <source>+outline </source>
-        <translation>+orisano </translation>
+        <source>+tracking %1</source>
+        <translation type="unfinished">+sledenje %1  {1?}</translation>
     </message>
     <message>
         <location filename="../../scribus/styles/charstyle.cpp" line="216"/>
-        <source>-outline </source>
-        <translation>-orisano </translation>
+        <source>-tracking</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/styles/charstyle.cpp" line="218"/>
-        <source>-tracking </source>
-        <translation>-sledenje</translation>
+        <source>+baseline %1</source>
+        <translation type="unfinished">+osnovnica %1  {1?}</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/styles/charstyle.cpp" line="220"/>
+        <source>+stretch</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/styles/charstyle.cpp" line="222"/>
-        <source>+stretch </source>
-        <translation>+raztegnjeno </translation>
-    </message>
-    <message>
-        <location filename="../../scribus/styles/charstyle.cpp" line="224"/>
         <source>parent= %1</source>
         <translation>starš= %1</translation>
     </message>
@@ -29636,14 +29702,12 @@ ni povsem izčrpen zaradi izjem klicanih funkcij.</translation>
         <translation>Nebesedilnemu okviru ni mogoče nastaviti števila vrstic.</translation>
     </message>
     <message>
-        <location filename="../../scribus/styles/charstyle.cpp" line="218"/>
         <source>+tracking %1 </source>
-        <translation>+sledenje %1 </translation>
+        <translation type="vanished">+sledenje %1 </translation>
     </message>
     <message>
-        <location filename="../../scribus/styles/charstyle.cpp" line="220"/>
         <source>+baseline %1 </source>
-        <translation>+osnovnica %1 </translation>
+        <translation type="vanished">+osnovnica %1 </translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="160"/>

@@ -23890,7 +23890,7 @@ gardentasuna</translation>
     <name>PropertyWidget_FontFeatures</name>
     <message>
         <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="26"/>
-        <source>Common Ligtures (liga)</source>
+        <source>Common Ligatures (liga)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -29449,82 +29449,148 @@ Jarraitzea nahi duzu?</translation>
         <translation>Estoniera</translation>
     </message>
     <message>
-        <location filename="../../scribus/styles/charstyle.cpp" line="200"/>
         <source>font %1 </source>
-        <translation>%1 letra-tipoa</translation>
+        <translation type="vanished">%1 letra-tipoa</translation>
+    </message>
+    <message>
+        <source>size %1 </source>
+        <translation type="vanished">%1 tamaina</translation>
+    </message>
+    <message>
+        <source>+style </source>
+        <translation type="vanished">+estiloa</translation>
+    </message>
+    <message>
+        <source>+color </source>
+        <translation type="vanished">+kolorea</translation>
+    </message>
+    <message>
+        <source>+underline </source>
+        <translation type="vanished">+azpimarra</translation>
+    </message>
+    <message>
+        <source>-underline </source>
+        <translation type="vanished">-azpimarra</translation>
+    </message>
+    <message>
+        <source>+strikeout </source>
+        <translation type="vanished">+marratua</translation>
+    </message>
+    <message>
+        <source>-strikeout </source>
+        <translation type="vanished">-marratua</translation>
+    </message>
+    <message>
+        <source>+shadow </source>
+        <translation type="vanished">+itzala</translation>
+    </message>
+    <message>
+        <source>-shadow </source>
+        <translation type="vanished">-itzala</translation>
+    </message>
+    <message>
+        <source>+outline </source>
+        <translation type="vanished">+eskema</translation>
+    </message>
+    <message>
+        <source>-outline </source>
+        <translation type="vanished">-eskema</translation>
+    </message>
+    <message>
+        <source>-tracking </source>
+        <translation type="vanished">-jarraipena</translation>
+    </message>
+    <message>
+        <source>+stretch </source>
+        <translation type="vanished">+luzatua</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/styles/charstyle.cpp" line="198"/>
+        <source>font %1</source>
+        <translation type="unfinished">%1 letra-tipoa {1?}</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/styles/charstyle.cpp" line="200"/>
+        <source>size %1</source>
+        <translation type="unfinished">%1 tamaina {1?}</translation>
     </message>
     <message>
         <location filename="../../scribus/styles/charstyle.cpp" line="202"/>
-        <source>size %1 </source>
-        <translation>%1 tamaina</translation>
+        <source>+fontfeatures %1</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/styles/charstyle.cpp" line="204"/>
-        <source>+fontfeatures %1 </source>
+        <source>+style</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/styles/charstyle.cpp" line="206"/>
-        <source>+style </source>
-        <translation>+estiloa</translation>
+        <source>+color</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/styles/charstyle.cpp" line="208"/>
-        <source>+color </source>
-        <translation>+kolorea</translation>
+        <source>+underline</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/styles/charstyle.cpp" line="208"/>
+        <source>-underline</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/styles/charstyle.cpp" line="210"/>
-        <source>+underline </source>
-        <translation>+azpimarra</translation>
+        <source>+strikeout</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/styles/charstyle.cpp" line="210"/>
-        <source>-underline </source>
-        <translation>-azpimarra</translation>
+        <source>-strikeout</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/styles/charstyle.cpp" line="212"/>
-        <source>+strikeout </source>
-        <translation>+marratua</translation>
+        <source>+shadow</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/styles/charstyle.cpp" line="212"/>
-        <source>-strikeout </source>
-        <translation>-marratua</translation>
+        <source>-shadow</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/styles/charstyle.cpp" line="214"/>
-        <source>+shadow </source>
-        <translation>+itzala</translation>
+        <source>+outline</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/styles/charstyle.cpp" line="214"/>
-        <source>-shadow </source>
-        <translation>-itzala</translation>
+        <source>-outline</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/styles/charstyle.cpp" line="216"/>
-        <source>+outline </source>
-        <translation>+eskema</translation>
+        <source>+tracking %1</source>
+        <translation type="unfinished">+jarraipena %1 {1?}</translation>
     </message>
     <message>
         <location filename="../../scribus/styles/charstyle.cpp" line="216"/>
-        <source>-outline </source>
-        <translation>-eskema</translation>
+        <source>-tracking</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/styles/charstyle.cpp" line="218"/>
-        <source>-tracking </source>
-        <translation>-jarraipena</translation>
+        <source>+baseline %1</source>
+        <translation type="unfinished">+oinarri-lerroa %1  {1?}</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/styles/charstyle.cpp" line="220"/>
+        <source>+stretch</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/styles/charstyle.cpp" line="222"/>
-        <source>+stretch </source>
-        <translation>+luzatua</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/styles/charstyle.cpp" line="224"/>
         <source>parent= %1</source>
         <translation>nagusia= %1</translation>
     </message>
@@ -29740,14 +29806,12 @@ Jarraitzea nahi duzu?</translation>
         <translation>Ezin da lerro kopurua atzitu testu-markoa ez den batean.</translation>
     </message>
     <message>
-        <location filename="../../scribus/styles/charstyle.cpp" line="218"/>
         <source>+tracking %1 </source>
-        <translation>+jarraipena %1</translation>
+        <translation type="vanished">+jarraipena %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/styles/charstyle.cpp" line="220"/>
         <source>+baseline %1 </source>
-        <translation>+oinarri-lerroa %1 </translation>
+        <translation type="vanished">+oinarri-lerroa %1 </translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="160"/>

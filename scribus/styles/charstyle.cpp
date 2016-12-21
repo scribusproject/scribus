@@ -21,8 +21,9 @@
 #include "prefsmanager.h"
 #include "util_math.h"
 
-StyleFlag& StyleFlag::operator&= (const StyleFlag& right){        
-	int result = static_cast<int>(value) & static_cast<int>(right.value);        
+StyleFlag& StyleFlag::operator&= (const StyleFlag& right)
+{
+	int result = static_cast<int>(value) & static_cast<int>(right.value);
 	value = static_cast<StyleFlagValue>(result);
 	return *this;
 }
@@ -49,7 +50,7 @@ StyleFlag StyleFlag::operator& (int right)
 }
 
 StyleFlag StyleFlag::operator| (const StyleFlag& right)
-{        
+{
 	int val = static_cast<int>(value) | static_cast<int>(right.value);
 	StyleFlag result(static_cast<StyleFlagValue>(val)); 
 	return result;
@@ -62,7 +63,7 @@ StyleFlag StyleFlag::operator^ (const StyleFlag& right)
 	return result;
 }
 
-StyleFlag StyleFlag::operator^  (int right)
+StyleFlag StyleFlag::operator^ (int right)
 {
 	int val = static_cast<int>(value) ^ right;
 	StyleFlag result(static_cast<StyleFlagValue>(val)); 
@@ -83,7 +84,7 @@ bool StyleFlag::equivForShaping(const StyleFlag& right) const
 }
 
 bool StyleFlag::operator== (const StyleFlag& right) const
-{        
+{
 	int result = static_cast<int>( (value ^ right.value) & ScStyle_UserStyles);
 	return (result == 0);
 }
@@ -102,14 +103,13 @@ bool StyleFlag::operator== (int right) const
 
 bool StyleFlag::operator!= (const StyleFlag& right) const
 {
-	return !(*this==right);
+	return !(*this == right);
 }
 
 bool StyleFlag::operator!= (const StyleFlagValue right) const
 {
-	return !(*this==right);
+	return !(*this == right);
 }
-
 
 
 void CharStyle::applyCharStyle(const CharStyle & other)
@@ -127,7 +127,6 @@ void CharStyle::applyCharStyle(const CharStyle & other)
 #undef ATTRDEF
 	updateFeatures();
 }
-
 
 void CharStyle::eraseCharStyle(const CharStyle & other)
 {
@@ -162,7 +161,7 @@ bool CharStyle::equiv(const Style & other) const
 		&& (inh_##attr_NAME || isequiv(m_##attr_NAME, oth->m_##attr_NAME))
 #include "charstyle.attrdefs.cxx"
 #undef ATTRDEF
-		;	
+	    ;
 }
 
 bool CharStyle::equivForShaping(const CharStyle& other) const
@@ -181,9 +180,9 @@ bool CharStyle::equivForShaping(const CharStyle& other) const
 
 QString CharStyle::displayName() const
 {
-	if ( isDefaultStyle() )
+	if (isDefaultStyle())
 		return CommonStrings::trDefaultCharacterStyle;
-	if ( hasName() || !hasParent() || ! m_context)
+	if (hasName() || !hasParent() || ! m_context)
 		return name();
 //	else if ( inheritsAll() )
 //		return parent()->displayName();
@@ -191,36 +190,35 @@ QString CharStyle::displayName() const
 		return parentStyle()->displayName() + "+";
 }
 
-
-
 QString CharStyle::asString() const
 {
+	//This function creates the string used for text properties changes in Action History
 	QString result;
-	if ( !inh_Font )
-		result += QObject::tr("font %1 ").arg(font().scName());
-	if ( !inh_FontSize )
-		result += QObject::tr("size %1 ").arg(fontSize());
-	if ( !inh_FontFeatures )
-		result += QObject::tr("+fontfeatures %1 ").arg(fontFeatures());
-	if ( !inh_Features )
-		result += QObject::tr("+style ");
-	if ( !inh_StrokeColor  ||  !inh_StrokeShade  ||  !inh_FillColor || !inh_FillShade )
-		result += QObject::tr("+color ");
-	if ( !inh_UnderlineWidth  ||  !inh_UnderlineOffset )
-		result += underlineWidth() > 0 ? QObject::tr("+underline ") : QObject::tr("-underline ");
-	if ( !inh_StrikethruWidth || !inh_StrikethruOffset )
-		result += strikethruWidth() > 0 ? QObject::tr("+strikeout ") : QObject::tr("-strikeout ");
-	if ( !inh_ShadowXOffset || !inh_ShadowYOffset )
-		result += shadowXOffset() != 0 || shadowYOffset() != 0 ? QObject::tr("+shadow ") : QObject::tr("-shadow ");
-	if ( !inh_OutlineWidth )
-		result += outlineWidth() > 0 ? QObject::tr("+outline ") : QObject::tr("-outline ");
-	if ( !inh_Tracking )
-		result += tracking() > 0 ? QObject::tr("+tracking %1 ").arg(tracking()) : QObject::tr("-tracking ");
-	if ( !inh_BaselineOffset )
-		result += QObject::tr("+baseline %1 ").arg(baselineOffset());
-	if ( !inh_ScaleH || !inh_ScaleV )
-		result += QObject::tr("+stretch ");
-	if ( hasParent() )
+	if (!inh_Font)
+		result += (QObject::tr("font %1").arg(font().scName()) + " ");
+	if (!inh_FontSize)
+		result += (QObject::tr("size %1").arg(fontSize()) + " ");
+	if (!inh_FontFeatures)
+		result += (QObject::tr("+fontfeatures %1").arg(fontFeatures()) + " ");
+	if (!inh_Features)
+		result += (QObject::tr("+style") + " ");
+	if (!inh_StrokeColor || !inh_StrokeShade || !inh_FillColor || !inh_FillShade)
+		result += (QObject::tr("+color") + " ");
+	if (!inh_UnderlineWidth || !inh_UnderlineOffset)
+		result += ((underlineWidth() > 0 ? QObject::tr("+underline") : QObject::tr("-underline")) + " ");
+	if (!inh_StrikethruWidth || !inh_StrikethruOffset )
+		result += ((strikethruWidth() > 0 ? QObject::tr("+strikeout") : QObject::tr("-strikeout")) + " ");
+	if (!inh_ShadowXOffset || !inh_ShadowYOffset )
+		result += ((shadowXOffset() != 0 || shadowYOffset() != 0 ? QObject::tr("+shadow") : QObject::tr("-shadow")) + " ");
+	if (!inh_OutlineWidth)
+		result += ((outlineWidth() > 0 ? QObject::tr("+outline") : QObject::tr("-outline")) + " ");
+	if (!inh_Tracking)
+		result += ((tracking() > 0 ? QObject::tr("+tracking %1").arg(tracking()) : QObject::tr("-tracking")) + " ");
+	if (!inh_BaselineOffset)
+		result += (QObject::tr("+baseline %1").arg(baselineOffset()) + " ");
+	if (!inh_ScaleH || !inh_ScaleV)
+		result += (QObject::tr("+stretch") + " ");
+	if (hasParent())
 		result += QObject::tr("parent= %1").arg(parent());
 	return result.trimmed();
 }
@@ -239,7 +237,6 @@ void CharStyle::update(const StyleContext* context)
 	}
 	updateFeatures();
 }
-
 
 
 const QString CharStyle::INHERIT = "inherit";
@@ -383,7 +380,6 @@ void CharStyle::runFeatures(const QStringList& featureList, const CharStyle* par
 }
 
 
-
 void CharStyle::setStyle(const CharStyle& other) 
 {
 	other.validate();
@@ -408,11 +404,10 @@ void CharStyle::getNamedResources(ResourceCollection& lists) const
 	lists.collectFont(font().scName());
 }
 
-
 void CharStyle::replaceNamedResources(ResourceCollection& newNames)
 {
 	QMap<QString,QString>::ConstIterator it;
-	
+
 	if (!inh_FillColor && (it = newNames.colors().find(fillColor())) != newNames.colors().end())
 		setFillColor(it.value());
 
@@ -427,13 +422,13 @@ void CharStyle::replaceNamedResources(ResourceCollection& newNames)
 
 	if (hasParent() && (it = newNames.charStyles().find(parent())) != newNames.charStyles().end())
 		setParent(it.value());
-	
+
 	if (!inh_Font && (it = newNames.fonts().find(font().scName())) != newNames.fonts().end())
 		setFont(newNames.availableFonts->findFont(it.value(), NULL));
 	updateFeatures();
 }
-								
-								  /*
+
+/*
 bool CharStyle::definesAll() const
 {
 	return definesLineSpacing() && 
@@ -496,7 +491,6 @@ void CharStyle::saxx(SaxHandler& handler, const Xml_string& elemtag) const
 }
 
 
-
 template<>
 StyleFlag parse<StyleFlag>(const Xml_string& str)
 {
@@ -525,7 +519,7 @@ void CharStyle::desaxeRules(const Xml_string& prefixPattern, Digester& ruleset, 
 #define ATTRDEF(attr_TYPE, attr_GETTER, attr_NAME, attr_DEFAULT, attr_BREAKSHAPING) \
 	ruleset.addRule(stylePrefix, SetAttributeWithConversion<CharStyle, attr_TYPE> ( & CharStyle::set##attr_NAME,  # attr_NAME, &parse<attr_TYPE> ));
 #include "charstyle.attrdefs.cxx"
-#undef ATTRDEF		
+#undef ATTRDEF
 }
 
 //kate: replace-tabs 0;

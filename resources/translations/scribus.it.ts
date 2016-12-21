@@ -23887,7 +23887,7 @@ dell&apos;oggetto</translation>
     <name>PropertyWidget_FontFeatures</name>
     <message>
         <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="26"/>
-        <source>Common Ligtures (liga)</source>
+        <source>Common Ligatures (liga)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -29613,82 +29613,148 @@ forniti nella documentazione delle funzioni.
         <translation>Estone</translation>
     </message>
     <message>
-        <location filename="../../scribus/styles/charstyle.cpp" line="200"/>
         <source>font %1 </source>
-        <translation>font %1 </translation>
+        <translation type="vanished">font %1 </translation>
+    </message>
+    <message>
+        <source>size %1 </source>
+        <translation type="vanished">dimensione %1 </translation>
+    </message>
+    <message>
+        <source>+style </source>
+        <translation type="vanished">+stile </translation>
+    </message>
+    <message>
+        <source>+color </source>
+        <translation type="vanished">+colore </translation>
+    </message>
+    <message>
+        <source>+underline </source>
+        <translation type="vanished">+sottolinea </translation>
+    </message>
+    <message>
+        <source>-underline </source>
+        <translation type="vanished">-sottolinea </translation>
+    </message>
+    <message>
+        <source>+strikeout </source>
+        <translation type="vanished">+barrato </translation>
+    </message>
+    <message>
+        <source>-strikeout </source>
+        <translation type="vanished">-barrato </translation>
+    </message>
+    <message>
+        <source>+shadow </source>
+        <translation type="vanished">+ombreggiato </translation>
+    </message>
+    <message>
+        <source>-shadow </source>
+        <translation type="vanished">-ombreggiato </translation>
+    </message>
+    <message>
+        <source>+outline </source>
+        <translation type="vanished">+contorno </translation>
+    </message>
+    <message>
+        <source>-outline </source>
+        <translation type="vanished">-contorno </translation>
+    </message>
+    <message>
+        <source>-tracking </source>
+        <translation type="vanished">-spaziatura </translation>
+    </message>
+    <message>
+        <source>+stretch </source>
+        <translation type="vanished">+stretch </translation>
+    </message>
+    <message>
+        <location filename="../../scribus/styles/charstyle.cpp" line="198"/>
+        <source>font %1</source>
+        <translation type="unfinished">font %1  {1?}</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/styles/charstyle.cpp" line="200"/>
+        <source>size %1</source>
+        <translation type="unfinished">dimensione %1  {1?}</translation>
     </message>
     <message>
         <location filename="../../scribus/styles/charstyle.cpp" line="202"/>
-        <source>size %1 </source>
-        <translation>dimensione %1 </translation>
+        <source>+fontfeatures %1</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/styles/charstyle.cpp" line="204"/>
-        <source>+fontfeatures %1 </source>
+        <source>+style</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/styles/charstyle.cpp" line="206"/>
-        <source>+style </source>
-        <translation>+stile </translation>
+        <source>+color</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/styles/charstyle.cpp" line="208"/>
-        <source>+color </source>
-        <translation>+colore </translation>
+        <source>+underline</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/styles/charstyle.cpp" line="208"/>
+        <source>-underline</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/styles/charstyle.cpp" line="210"/>
-        <source>+underline </source>
-        <translation>+sottolinea </translation>
+        <source>+strikeout</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/styles/charstyle.cpp" line="210"/>
-        <source>-underline </source>
-        <translation>-sottolinea </translation>
+        <source>-strikeout</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/styles/charstyle.cpp" line="212"/>
-        <source>+strikeout </source>
-        <translation>+barrato </translation>
+        <source>+shadow</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/styles/charstyle.cpp" line="212"/>
-        <source>-strikeout </source>
-        <translation>-barrato </translation>
+        <source>-shadow</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/styles/charstyle.cpp" line="214"/>
-        <source>+shadow </source>
-        <translation>+ombreggiato </translation>
+        <source>+outline</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/styles/charstyle.cpp" line="214"/>
-        <source>-shadow </source>
-        <translation>-ombreggiato </translation>
+        <source>-outline</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/styles/charstyle.cpp" line="216"/>
-        <source>+outline </source>
-        <translation>+contorno </translation>
+        <source>+tracking %1</source>
+        <translation type="unfinished">+spaziatura %1  {1?}</translation>
     </message>
     <message>
         <location filename="../../scribus/styles/charstyle.cpp" line="216"/>
-        <source>-outline </source>
-        <translation>-contorno </translation>
+        <source>-tracking</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/styles/charstyle.cpp" line="218"/>
-        <source>-tracking </source>
-        <translation>-spaziatura </translation>
+        <source>+baseline %1</source>
+        <translation type="unfinished">+linea di base %1  {1?}</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/styles/charstyle.cpp" line="220"/>
+        <source>+stretch</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/styles/charstyle.cpp" line="222"/>
-        <source>+stretch </source>
-        <translation>+stretch </translation>
-    </message>
-    <message>
-        <location filename="../../scribus/styles/charstyle.cpp" line="224"/>
         <source>parent= %1</source>
         <translation>genitore= %1</translation>
     </message>
@@ -29929,14 +29995,12 @@ forniti nella documentazione delle funzioni.
         <translation>Non è possibile ottenere il numero di righe in una cornice non di testo.</translation>
     </message>
     <message>
-        <location filename="../../scribus/styles/charstyle.cpp" line="218"/>
         <source>+tracking %1 </source>
-        <translation>+spaziatura %1 </translation>
+        <translation type="vanished">+spaziatura %1 </translation>
     </message>
     <message>
-        <location filename="../../scribus/styles/charstyle.cpp" line="220"/>
         <source>+baseline %1 </source>
-        <translation>+linea di base %1 </translation>
+        <translation type="vanished">+linea di base %1 </translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="160"/>

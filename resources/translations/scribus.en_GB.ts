@@ -23871,9 +23871,13 @@ Transparency</translation>
 <context>
     <name>PropertyWidget_FontFeatures</name>
     <message>
-        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="26"/>
         <source>Common Ligtures (liga)</source>
-        <translation>Common Ligtures (liga)</translation>
+        <translation type="vanished">Common Ligtures (liga)</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="26"/>
+        <source>Common Ligatures (liga)</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="29"/>
@@ -29428,82 +29432,152 @@ is not exhaustive due to exceptions from called functions.
         <translation>Estonian</translation>
     </message>
     <message>
-        <location filename="../../scribus/styles/charstyle.cpp" line="200"/>
         <source>font %1 </source>
-        <translation>font %1 </translation>
+        <translation type="vanished">font %1 </translation>
+    </message>
+    <message>
+        <source>size %1 </source>
+        <translation type="vanished">size %1 </translation>
+    </message>
+    <message>
+        <source>+fontfeatures %1 </source>
+        <translation type="vanished">+fontfeatures %1 </translation>
+    </message>
+    <message>
+        <source>+style </source>
+        <translation type="vanished">+style </translation>
+    </message>
+    <message>
+        <source>+color </source>
+        <translation type="vanished">+colour </translation>
+    </message>
+    <message>
+        <source>+underline </source>
+        <translation type="vanished">+underline </translation>
+    </message>
+    <message>
+        <source>-underline </source>
+        <translation type="vanished">-underline </translation>
+    </message>
+    <message>
+        <source>+strikeout </source>
+        <translation type="vanished">+strikeout </translation>
+    </message>
+    <message>
+        <source>-strikeout </source>
+        <translation type="vanished">-strikeout </translation>
+    </message>
+    <message>
+        <source>+shadow </source>
+        <translation type="vanished">+shadow </translation>
+    </message>
+    <message>
+        <source>-shadow </source>
+        <translation type="vanished">-shadow </translation>
+    </message>
+    <message>
+        <source>+outline </source>
+        <translation type="vanished">+outline </translation>
+    </message>
+    <message>
+        <source>-outline </source>
+        <translation type="vanished">-outline </translation>
+    </message>
+    <message>
+        <source>-tracking </source>
+        <translation type="vanished">-tracking </translation>
+    </message>
+    <message>
+        <source>+stretch </source>
+        <translation type="vanished">+stretch </translation>
+    </message>
+    <message>
+        <location filename="../../scribus/styles/charstyle.cpp" line="198"/>
+        <source>font %1</source>
+        <translation type="unfinished">font %1  {1?}</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/styles/charstyle.cpp" line="200"/>
+        <source>size %1</source>
+        <translation type="unfinished">size %1  {1?}</translation>
     </message>
     <message>
         <location filename="../../scribus/styles/charstyle.cpp" line="202"/>
-        <source>size %1 </source>
-        <translation>size %1 </translation>
+        <source>+fontfeatures %1</source>
+        <translation type="unfinished">+fontfeatures %1  {1?}</translation>
     </message>
     <message>
         <location filename="../../scribus/styles/charstyle.cpp" line="204"/>
-        <source>+fontfeatures %1 </source>
-        <translation>+fontfeatures %1 </translation>
+        <source>+style</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/styles/charstyle.cpp" line="206"/>
-        <source>+style </source>
-        <translation>+style </translation>
+        <source>+color</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/styles/charstyle.cpp" line="208"/>
-        <source>+color </source>
-        <translation>+colour </translation>
+        <source>+underline</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/styles/charstyle.cpp" line="208"/>
+        <source>-underline</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/styles/charstyle.cpp" line="210"/>
-        <source>+underline </source>
-        <translation>+underline </translation>
+        <source>+strikeout</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/styles/charstyle.cpp" line="210"/>
-        <source>-underline </source>
-        <translation>-underline </translation>
+        <source>-strikeout</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/styles/charstyle.cpp" line="212"/>
-        <source>+strikeout </source>
-        <translation>+strikeout </translation>
+        <source>+shadow</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/styles/charstyle.cpp" line="212"/>
-        <source>-strikeout </source>
-        <translation>-strikeout </translation>
+        <source>-shadow</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/styles/charstyle.cpp" line="214"/>
-        <source>+shadow </source>
-        <translation>+shadow </translation>
+        <source>+outline</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/styles/charstyle.cpp" line="214"/>
-        <source>-shadow </source>
-        <translation>-shadow </translation>
+        <source>-outline</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/styles/charstyle.cpp" line="216"/>
-        <source>+outline </source>
-        <translation>+outline </translation>
+        <source>+tracking %1</source>
+        <translation type="unfinished">+tracking %1  {1?}</translation>
     </message>
     <message>
         <location filename="../../scribus/styles/charstyle.cpp" line="216"/>
-        <source>-outline </source>
-        <translation>-outline </translation>
+        <source>-tracking</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/styles/charstyle.cpp" line="218"/>
-        <source>-tracking </source>
-        <translation>-tracking </translation>
+        <source>+baseline %1</source>
+        <translation type="unfinished">+baseline %1  {1?}</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/styles/charstyle.cpp" line="220"/>
+        <source>+stretch</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/styles/charstyle.cpp" line="222"/>
-        <source>+stretch </source>
-        <translation>+stretch </translation>
-    </message>
-    <message>
-        <location filename="../../scribus/styles/charstyle.cpp" line="224"/>
         <source>parent= %1</source>
         <translation>parent= %1</translation>
     </message>
@@ -29719,14 +29793,12 @@ is not exhaustive due to exceptions from called functions.
         <translation>Cannot get number of lines of non-text frame.</translation>
     </message>
     <message>
-        <location filename="../../scribus/styles/charstyle.cpp" line="218"/>
         <source>+tracking %1 </source>
-        <translation>+tracking %1 </translation>
+        <translation type="vanished">+tracking %1 </translation>
     </message>
     <message>
-        <location filename="../../scribus/styles/charstyle.cpp" line="220"/>
         <source>+baseline %1 </source>
-        <translation>+baseline %1 </translation>
+        <translation type="vanished">+baseline %1 </translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="160"/>
@@ -41225,10 +41297,6 @@ please choose another one.</translation>
         <translation> Ligatures</translation>
     </message>
     <message>
-        <source>Common Ligtures (liga)</source>
-        <translation type="vanished">Common Ligtures (liga)</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="51"/>
         <source>Common Ligatures</source>
         <translation>Common Ligatures</translation>
@@ -41297,14 +41365,6 @@ please choose another one.</translation>
         <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="175"/>
         <source>Titling</source>
         <translation>Titling</translation>
-    </message>
-    <message>
-        <source>Petite Capitals from Captials</source>
-        <translation type="vanished">Petite Capitals from Captials</translation>
-    </message>
-    <message>
-        <source>Small Capitals from Captials</source>
-        <translation type="vanished">Small Capitals from Captials</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="48"/>

@@ -23,7 +23,7 @@
    <item>
     <widget class="QCheckBox" name="CommonCheck">
      <property name="toolTip">
-      <string>Common Ligtures (liga)</string>
+      <string>Common Ligatures (liga)</string>
      </property>
      <property name="text">
       <string>Common Ligatures</string>

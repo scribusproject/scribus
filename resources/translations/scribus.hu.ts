@@ -23830,7 +23830,7 @@ Transparency</source>
     <name>PropertyWidget_FontFeatures</name>
     <message>
         <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="26"/>
-        <source>Common Ligtures (liga)</source>
+        <source>Common Ligatures (liga)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -29380,82 +29380,148 @@ lista hiányos a meghívott funkciók miatt.</translation>
         <translation>észt</translation>
     </message>
     <message>
-        <location filename="../../scribus/styles/charstyle.cpp" line="200"/>
         <source>font %1 </source>
-        <translation>%1 betűkészlet </translation>
+        <translation type="vanished">%1 betűkészlet </translation>
+    </message>
+    <message>
+        <source>size %1 </source>
+        <translation type="vanished">%1 méret </translation>
+    </message>
+    <message>
+        <source>+style </source>
+        <translation type="vanished">+stílus </translation>
+    </message>
+    <message>
+        <source>+color </source>
+        <translation type="vanished">+szín </translation>
+    </message>
+    <message>
+        <source>+underline </source>
+        <translation type="vanished">+aláhúzás </translation>
+    </message>
+    <message>
+        <source>-underline </source>
+        <translation type="vanished">-aláhúzás </translation>
+    </message>
+    <message>
+        <source>+strikeout </source>
+        <translation type="vanished">+áthúzás </translation>
+    </message>
+    <message>
+        <source>-strikeout </source>
+        <translation type="vanished">-áthúzás </translation>
+    </message>
+    <message>
+        <source>+shadow </source>
+        <translation type="vanished">+árnyék </translation>
+    </message>
+    <message>
+        <source>-shadow </source>
+        <translation type="vanished">-árnyék </translation>
+    </message>
+    <message>
+        <source>+outline </source>
+        <translation type="vanished">+körvonal </translation>
+    </message>
+    <message>
+        <source>-outline </source>
+        <translation type="vanished">-körvonal </translation>
+    </message>
+    <message>
+        <source>-tracking </source>
+        <translation type="vanished">-betűköz </translation>
+    </message>
+    <message>
+        <source>+stretch </source>
+        <translation type="vanished">+széthúzás</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/styles/charstyle.cpp" line="198"/>
+        <source>font %1</source>
+        <translation type="unfinished">%1 betűkészlet  {1?}</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/styles/charstyle.cpp" line="200"/>
+        <source>size %1</source>
+        <translation type="unfinished">%1 méret  {1?}</translation>
     </message>
     <message>
         <location filename="../../scribus/styles/charstyle.cpp" line="202"/>
-        <source>size %1 </source>
-        <translation>%1 méret </translation>
+        <source>+fontfeatures %1</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/styles/charstyle.cpp" line="204"/>
-        <source>+fontfeatures %1 </source>
+        <source>+style</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/styles/charstyle.cpp" line="206"/>
-        <source>+style </source>
-        <translation>+stílus </translation>
+        <source>+color</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/styles/charstyle.cpp" line="208"/>
-        <source>+color </source>
-        <translation>+szín </translation>
+        <source>+underline</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/styles/charstyle.cpp" line="208"/>
+        <source>-underline</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/styles/charstyle.cpp" line="210"/>
-        <source>+underline </source>
-        <translation>+aláhúzás </translation>
+        <source>+strikeout</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/styles/charstyle.cpp" line="210"/>
-        <source>-underline </source>
-        <translation>-aláhúzás </translation>
+        <source>-strikeout</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/styles/charstyle.cpp" line="212"/>
-        <source>+strikeout </source>
-        <translation>+áthúzás </translation>
+        <source>+shadow</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/styles/charstyle.cpp" line="212"/>
-        <source>-strikeout </source>
-        <translation>-áthúzás </translation>
+        <source>-shadow</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/styles/charstyle.cpp" line="214"/>
-        <source>+shadow </source>
-        <translation>+árnyék </translation>
+        <source>+outline</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/styles/charstyle.cpp" line="214"/>
-        <source>-shadow </source>
-        <translation>-árnyék </translation>
+        <source>-outline</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/styles/charstyle.cpp" line="216"/>
-        <source>+outline </source>
-        <translation>+körvonal </translation>
+        <source>+tracking %1</source>
+        <translation type="unfinished">+betűköz %1  {1?}</translation>
     </message>
     <message>
         <location filename="../../scribus/styles/charstyle.cpp" line="216"/>
-        <source>-outline </source>
-        <translation>-körvonal </translation>
+        <source>-tracking</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/styles/charstyle.cpp" line="218"/>
-        <source>-tracking </source>
-        <translation>-betűköz </translation>
+        <source>+baseline %1</source>
+        <translation type="unfinished">+alapvonal %1  {1?}</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/styles/charstyle.cpp" line="220"/>
+        <source>+stretch</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/styles/charstyle.cpp" line="222"/>
-        <source>+stretch </source>
-        <translation>+széthúzás</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/styles/charstyle.cpp" line="224"/>
         <source>parent= %1</source>
         <translation>szülő=%1</translation>
     </message>
@@ -29671,14 +29737,12 @@ lista hiányos a meghívott funkciók miatt.</translation>
         <translation>Nem szövegkeret sorszáma nem határozható meg.</translation>
     </message>
     <message>
-        <location filename="../../scribus/styles/charstyle.cpp" line="218"/>
         <source>+tracking %1 </source>
-        <translation>+betűköz %1 </translation>
+        <translation type="vanished">+betűköz %1 </translation>
     </message>
     <message>
-        <location filename="../../scribus/styles/charstyle.cpp" line="220"/>
         <source>+baseline %1 </source>
-        <translation>+alapvonal %1 </translation>
+        <translation type="vanished">+alapvonal %1 </translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="160"/>

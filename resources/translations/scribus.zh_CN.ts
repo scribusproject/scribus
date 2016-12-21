@@ -23794,7 +23794,7 @@ Transparency</source>
     <name>PropertyWidget_FontFeatures</name>
     <message>
         <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="26"/>
-        <source>Common Ligtures (liga)</source>
+        <source>Common Ligatures (liga)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -29316,82 +29316,148 @@ is not exhaustive due to exceptions from called functions.
         <translation>爱沙尼亚语</translation>
     </message>
     <message>
-        <location filename="../../scribus/styles/charstyle.cpp" line="200"/>
         <source>font %1 </source>
-        <translation>字体 %1 </translation>
+        <translation type="vanished">字体 %1 </translation>
+    </message>
+    <message>
+        <source>size %1 </source>
+        <translation type="vanished">尺寸 %1 </translation>
+    </message>
+    <message>
+        <source>+style </source>
+        <translation type="vanished">+样式</translation>
+    </message>
+    <message>
+        <source>+color </source>
+        <translation type="vanished">+颜色</translation>
+    </message>
+    <message>
+        <source>+underline </source>
+        <translation type="vanished">+下划线</translation>
+    </message>
+    <message>
+        <source>-underline </source>
+        <translation type="vanished">-下划线</translation>
+    </message>
+    <message>
+        <source>+strikeout </source>
+        <translation type="vanished">+删除线</translation>
+    </message>
+    <message>
+        <source>-strikeout </source>
+        <translation type="vanished">-删除线</translation>
+    </message>
+    <message>
+        <source>+shadow </source>
+        <translation type="vanished">+阴影   </translation>
+    </message>
+    <message>
+        <source>-shadow </source>
+        <translation type="vanished">-阴影   </translation>
+    </message>
+    <message>
+        <source>+outline </source>
+        <translation type="vanished">+轮廓线</translation>
+    </message>
+    <message>
+        <source>-outline </source>
+        <translation type="vanished">-轮廓线</translation>
+    </message>
+    <message>
+        <source>-tracking </source>
+        <translation type="vanished">-追踪    </translation>
+    </message>
+    <message>
+        <source>+stretch </source>
+        <translation type="vanished">+拉伸</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/styles/charstyle.cpp" line="198"/>
+        <source>font %1</source>
+        <translation type="unfinished">字体 %1  {1?}</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/styles/charstyle.cpp" line="200"/>
+        <source>size %1</source>
+        <translation type="unfinished">尺寸 %1  {1?}</translation>
     </message>
     <message>
         <location filename="../../scribus/styles/charstyle.cpp" line="202"/>
-        <source>size %1 </source>
-        <translation>尺寸 %1 </translation>
+        <source>+fontfeatures %1</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/styles/charstyle.cpp" line="204"/>
-        <source>+fontfeatures %1 </source>
+        <source>+style</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/styles/charstyle.cpp" line="206"/>
-        <source>+style </source>
-        <translation>+样式</translation>
+        <source>+color</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/styles/charstyle.cpp" line="208"/>
-        <source>+color </source>
-        <translation>+颜色</translation>
+        <source>+underline</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/styles/charstyle.cpp" line="208"/>
+        <source>-underline</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/styles/charstyle.cpp" line="210"/>
-        <source>+underline </source>
-        <translation>+下划线</translation>
+        <source>+strikeout</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/styles/charstyle.cpp" line="210"/>
-        <source>-underline </source>
-        <translation>-下划线</translation>
+        <source>-strikeout</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/styles/charstyle.cpp" line="212"/>
-        <source>+strikeout </source>
-        <translation>+删除线</translation>
+        <source>+shadow</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/styles/charstyle.cpp" line="212"/>
-        <source>-strikeout </source>
-        <translation>-删除线</translation>
+        <source>-shadow</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/styles/charstyle.cpp" line="214"/>
-        <source>+shadow </source>
-        <translation>+阴影   </translation>
+        <source>+outline</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/styles/charstyle.cpp" line="214"/>
-        <source>-shadow </source>
-        <translation>-阴影   </translation>
+        <source>-outline</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/styles/charstyle.cpp" line="216"/>
-        <source>+outline </source>
-        <translation>+轮廓线</translation>
+        <source>+tracking %1</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/styles/charstyle.cpp" line="216"/>
-        <source>-outline </source>
-        <translation>-轮廓线</translation>
+        <source>-tracking</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/styles/charstyle.cpp" line="218"/>
-        <source>-tracking </source>
-        <translation>-追踪    </translation>
+        <source>+baseline %1</source>
+        <translation type="unfinished">+基线 %1 {1?}</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/styles/charstyle.cpp" line="220"/>
+        <source>+stretch</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/styles/charstyle.cpp" line="222"/>
-        <source>+stretch </source>
-        <translation>+拉伸</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/styles/charstyle.cpp" line="224"/>
         <source>parent= %1</source>
         <translation type="unfinished"></translation>
     </message>
@@ -29607,14 +29673,8 @@ is not exhaustive due to exceptions from called functions.
         <translation>Python 错误：不能从非文本框中取得行数。</translation>
     </message>
     <message>
-        <location filename="../../scribus/styles/charstyle.cpp" line="218"/>
-        <source>+tracking %1 </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/styles/charstyle.cpp" line="220"/>
         <source>+baseline %1 </source>
-        <translation>+基线 %1</translation>
+        <translation type="vanished">+基线 %1</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="160"/>

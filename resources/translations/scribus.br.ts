@@ -23890,7 +23890,7 @@ Boullder</translation>
     <name>PropertyWidget_FontFeatures</name>
     <message>
         <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="26"/>
-        <source>Common Ligtures (liga)</source>
+        <source>Common Ligatures (liga)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -29439,82 +29439,148 @@ dre nemedennoù digant an arc&apos;hwelioù galvet.</translation>
         <translation>Estoneg</translation>
     </message>
     <message>
-        <location filename="../../scribus/styles/charstyle.cpp" line="200"/>
         <source>font %1 </source>
-        <translation>nodrezh %1</translation>
+        <translation type="vanished">nodrezh %1</translation>
+    </message>
+    <message>
+        <source>size %1 </source>
+        <translation type="vanished">ment %1</translation>
+    </message>
+    <message>
+        <source>+style </source>
+        <translation type="vanished">+Stil </translation>
+    </message>
+    <message>
+        <source>+color </source>
+        <translation type="vanished">+Liv </translation>
+    </message>
+    <message>
+        <source>+underline </source>
+        <translation type="vanished">+Islinenn </translation>
+    </message>
+    <message>
+        <source>-underline </source>
+        <translation type="vanished">-Islinenn </translation>
+    </message>
+    <message>
+        <source>+strikeout </source>
+        <translation type="vanished">+Barrennet </translation>
+    </message>
+    <message>
+        <source>-strikeout </source>
+        <translation type="vanished">-Barrennet </translation>
+    </message>
+    <message>
+        <source>+shadow </source>
+        <translation type="vanished">+Skeud </translation>
+    </message>
+    <message>
+        <source>-shadow </source>
+        <translation type="vanished">-Skeud </translation>
+    </message>
+    <message>
+        <source>+outline </source>
+        <translation type="vanished">+Trolinenn </translation>
+    </message>
+    <message>
+        <source>-outline </source>
+        <translation type="vanished">-Trolinenn </translation>
+    </message>
+    <message>
+        <source>-tracking </source>
+        <translation type="vanished">-Esaouiñ </translation>
+    </message>
+    <message>
+        <source>+stretch </source>
+        <translation type="vanished">+astenn </translation>
+    </message>
+    <message>
+        <location filename="../../scribus/styles/charstyle.cpp" line="198"/>
+        <source>font %1</source>
+        <translation type="unfinished">nodrezh %1 {1?}</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/styles/charstyle.cpp" line="200"/>
+        <source>size %1</source>
+        <translation type="unfinished">ment %1 {1?}</translation>
     </message>
     <message>
         <location filename="../../scribus/styles/charstyle.cpp" line="202"/>
-        <source>size %1 </source>
-        <translation>ment %1</translation>
+        <source>+fontfeatures %1</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/styles/charstyle.cpp" line="204"/>
-        <source>+fontfeatures %1 </source>
+        <source>+style</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/styles/charstyle.cpp" line="206"/>
-        <source>+style </source>
-        <translation>+Stil </translation>
+        <source>+color</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/styles/charstyle.cpp" line="208"/>
-        <source>+color </source>
-        <translation>+Liv </translation>
+        <source>+underline</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/styles/charstyle.cpp" line="208"/>
+        <source>-underline</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/styles/charstyle.cpp" line="210"/>
-        <source>+underline </source>
-        <translation>+Islinenn </translation>
+        <source>+strikeout</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/styles/charstyle.cpp" line="210"/>
-        <source>-underline </source>
-        <translation>-Islinenn </translation>
+        <source>-strikeout</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/styles/charstyle.cpp" line="212"/>
-        <source>+strikeout </source>
-        <translation>+Barrennet </translation>
+        <source>+shadow</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/styles/charstyle.cpp" line="212"/>
-        <source>-strikeout </source>
-        <translation>-Barrennet </translation>
+        <source>-shadow</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/styles/charstyle.cpp" line="214"/>
-        <source>+shadow </source>
-        <translation>+Skeud </translation>
+        <source>+outline</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/styles/charstyle.cpp" line="214"/>
-        <source>-shadow </source>
-        <translation>-Skeud </translation>
+        <source>-outline</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/styles/charstyle.cpp" line="216"/>
-        <source>+outline </source>
-        <translation>+Trolinenn </translation>
+        <source>+tracking %1</source>
+        <translation type="unfinished">+Esaouiñ %1  {1?}</translation>
     </message>
     <message>
         <location filename="../../scribus/styles/charstyle.cpp" line="216"/>
-        <source>-outline </source>
-        <translation>-Trolinenn </translation>
+        <source>-tracking</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/styles/charstyle.cpp" line="218"/>
-        <source>-tracking </source>
-        <translation>-Esaouiñ </translation>
+        <source>+baseline %1</source>
+        <translation type="unfinished">+Linenn diazez %1  {1?}</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/styles/charstyle.cpp" line="220"/>
+        <source>+stretch</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/styles/charstyle.cpp" line="222"/>
-        <source>+stretch </source>
-        <translation>+astenn </translation>
-    </message>
-    <message>
-        <location filename="../../scribus/styles/charstyle.cpp" line="224"/>
         <source>parent= %1</source>
         <translation>kar= %1</translation>
     </message>
@@ -29730,14 +29796,12 @@ dre nemedennoù digant an arc&apos;hwelioù galvet.</translation>
         <translation>N&apos;haller ket kaout an niver a renkoù diouzh ur sterniad antestenn.</translation>
     </message>
     <message>
-        <location filename="../../scribus/styles/charstyle.cpp" line="218"/>
         <source>+tracking %1 </source>
-        <translation>+Esaouiñ %1 </translation>
+        <translation type="vanished">+Esaouiñ %1 </translation>
     </message>
     <message>
-        <location filename="../../scribus/styles/charstyle.cpp" line="220"/>
         <source>+baseline %1 </source>
-        <translation>+Linenn diazez %1 </translation>
+        <translation type="vanished">+Linenn diazez %1 </translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="160"/>
