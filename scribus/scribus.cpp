@@ -338,7 +338,7 @@ int ScribusMainWindow::initScMW(bool primaryMainWindow)
 	QString scribusTitle(tr("Scribus") + " " + QString(VERSION));
 #if defined(HAVE_SVNVERSION) && defined(SVNVERSION)
 	if (QString(VERSION).contains("svn", Qt::CaseInsensitive))
-		scribusTitle.append(" " + tr("(r%1)").arg(SVNVERSION));
+		scribusTitle.append(QString(" (r%1)").arg(SVNVERSION));
 #endif
 	setWindowTitle(scribusTitle);
 	setAttribute(Qt::WA_KeyCompression, false);
