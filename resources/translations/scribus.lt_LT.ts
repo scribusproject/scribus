@@ -3322,10 +3322,6 @@
 <context>
     <name>CMSPrefsBase</name>
     <message>
-        <source>Form</source>
-        <translation type="vanished">Anketa</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/cmsprefsbase.ui" line="32"/>
         <source>&amp;Activate Color Management</source>
         <translation>Su&amp;aktyvinti spalvų valdymą</translation>
@@ -5055,10 +5051,6 @@ currently %2 x %3 DPI</source>
         <location filename="../../scribus/commonstrings.cpp" line="337"/>
         <source>Single Page</source>
         <translation>Puslapinis</translation>
-    </message>
-    <message>
-        <source>Double Sided</source>
-        <translation type="vanished">Dviejų dalių (atvartai)</translation>
     </message>
     <message>
         <location filename="../../scribus/commonstrings.cpp" line="339"/>
@@ -7811,10 +7803,6 @@ Document Liberation Project http://www.documentliberation.org</source>
 <context>
     <name>GradientEditorBase</name>
     <message>
-        <source>Frame</source>
-        <translation type="vanished">Rėmelis</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/gradienteditor.ui" line="63"/>
         <source>Position:</source>
         <translation>Vieta:</translation>
@@ -8248,14 +8236,6 @@ Document Liberation Project http://www.documentliberation.org</source>
         <location filename="../../scribus/ui/guidemanager.ui" line="384"/>
         <source>Apply the shown guides to all pages in the document</source>
         <translation>Rodomas kreiptines pritaikyti visiems dokumento puslapiams</translation>
-    </message>
-    <message>
-        <source>Delete all guides shown on the current page</source>
-        <translation type="vanished">Pašalinti visas dabartinio puslapio kreiptines</translation>
-    </message>
-    <message>
-        <source>Delete all guides from all pages</source>
-        <translation type="vanished">Pašalinti visas visų puslapių kreiptines</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/guidemanager.ui" line="225"/>
@@ -9720,10 +9700,6 @@ p, li { white-space: pre-wrap; }
         <location filename="../../scribus/plugins/imposition/impositionbase.ui" line="376"/>
         <source>Facing Pages</source>
         <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Double sided</source>
-        <translation type="vanished">Dvipusis</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/imposition/impositionbase.ui" line="387"/>
@@ -17808,10 +17784,6 @@ Ar perkelti šias nuostatas į naują „Scribus“ versiją?</translation>
         <translation type="unfinished">Pagrindinis</translation>
     </message>
     <message>
-        <source>Language</source>
-        <translation type="obsolete">Kalba</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="100"/>
         <source>Page Size</source>
         <translation>Lapo dydis</translation>
@@ -17959,10 +17931,6 @@ Ar perkelti šias nuostatas į naują „Scribus“ versiją?</translation>
         <translation>Atskiras puslapis</translation>
     </message>
     <message>
-        <source>Double Page</source>
-        <translation type="vanished">Dvigubas puslapis (atvartas)</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="280"/>
         <source>3-Fold</source>
         <translation>Trijų dalių</translation>
@@ -17981,10 +17949,6 @@ Ar perkelti šias nuostatas į naują „Scribus“ versiją?</translation>
         <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="253"/>
         <source>First Page is:</source>
         <translation>Pirmasis puslapis yra:</translation>
-    </message>
-    <message>
-        <source>Size</source>
-        <translation type="vanished">Dydis</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="329"/>
@@ -18679,28 +18643,6 @@ Ar naudosite ją?</translation>
         <location filename="../../scribus/ui/prefs_hyphenatorbase.ui" line="45"/>
         <source>Behaviour</source>
         <translation>Papildomos parinktys</translation>
-    </message>
-    <message>
-        <source>Language:</source>
-        <translation type="vanished">Kalba:</translation>
-    </message>
-    <message>
-        <source>Smallest Word:</source>
-        <translation type="vanished">Trumpiausias žodis:</translation>
-    </message>
-    <message>
-        <source>Characters</source>
-        <translation type="vanished">Rašmenys</translation>
-    </message>
-    <message>
-        <source>Consecutive Hyphenations Allowed:</source>
-        <translation type="vanished">Leidžiama paeiliui einančių kėlimų:</translation>
-    </message>
-    <message>
-        <source>Maximum number of Hyphenations following each other.
-A value of 0 means unlimited hyphenations.</source>
-        <translation type="vanished">Maksimalus paeiliui einančių kėlimų skaičius.
-Nulis reiškia, kad neribojama.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_hyphenatorbase.ui" line="88"/>
@@ -19824,14 +19766,6 @@ Nulis reiškia, kad neribojama.</translation>
         <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1597"/>
         <source>Continuous Pages</source>
         <translation>Nepertraukiami puslapiai</translation>
-    </message>
-    <message>
-        <source>Double Page Left</source>
-        <translation type="vanished">Dvigubas puslapis kairėje</translation>
-    </message>
-    <message>
-        <source>Double Page Right</source>
-        <translation type="vanished">Dvigubas puslapis dešinėje</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1640"/>
@@ -22080,10 +22014,6 @@ a range of pages or a single page number</source>
         <translation>&amp;Figūra</translation>
     </message>
     <message>
-        <source>&amp;Text</source>
-        <translation type="vanished">&amp;Tekstas</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/propertiespalette.cpp" line="877"/>
         <source>&amp;Image</source>
         <translation>&amp;Paveikslas</translation>
@@ -23219,14 +23149,6 @@ Transparency</source>
         <translation>Bazinė linija</translation>
     </message>
     <message>
-        <source>Paragraph St&amp;yle:</source>
-        <translation type="vanished">Pastraipos st&amp;ilius:</translation>
-    </message>
-    <message>
-        <source>Character St&amp;yle:</source>
-        <translation type="vanished">Rašmens st&amp;ilius:</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/propertiespalette_text.cpp" line="701"/>
         <source>Font Features</source>
         <translation type="unfinished"></translation>
@@ -23245,34 +23167,6 @@ Transparency</source>
         <location filename="../../scribus/ui/propertiespalette_text.cpp" line="708"/>
         <source>Align to Baseline Grid</source>
         <translation>Lygiuoti pagal bazinį tinklelį</translation>
-    </message>
-    <message>
-        <source> pt</source>
-        <translation type="vanished"> pt</translation>
-    </message>
-    <message>
-        <source>Font Size</source>
-        <translation type="vanished">Šrifto dydis</translation>
-    </message>
-    <message>
-        <source>Line Spacing</source>
-        <translation type="vanished">Intervalas tarp eilučių</translation>
-    </message>
-    <message>
-        <source>Paragraph style of currently selected text or paragraph</source>
-        <translation type="vanished">Pastraipos stilius, pritaikytas šiuo metu pažymėtam tekstui ar pastraipai</translation>
-    </message>
-    <message>
-        <source>Character style of currently selected text or paragraph</source>
-        <translation type="vanished">Rašmens stilius, pritaikytas šiuo metu pažymėtam tekstui ar pastraipai</translation>
-    </message>
-    <message>
-        <source>Remove Direct Paragraph Formatting</source>
-        <translation type="vanished">Pašalinti tiesioginį pastraipų formatavimą</translation>
-    </message>
-    <message>
-        <source>Remove Direct Character Formatting</source>
-        <translation type="vanished">Pašalinti tiesioginį rašmenų formatavimą</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_text.cpp" line="81"/>
@@ -23595,74 +23489,7 @@ Transparency</source>
     </message>
 </context>
 <context>
-    <name>PropertyWidget_Advanced</name>
-    <message>
-        <source>Word Tracking</source>
-        <translation type="vanished">Žodžių retinimas</translation>
-    </message>
-    <message>
-        <source>Min:</source>
-        <translation type="vanished">Min:</translation>
-    </message>
-    <message>
-        <source>Norm:</source>
-        <translation type="vanished">Įpr.:</translation>
-    </message>
-    <message>
-        <source>Glyph Extension</source>
-        <translation type="vanished">Rašmenų išplėtimas</translation>
-    </message>
-    <message>
-        <source>Max:</source>
-        <translation type="vanished">Maks:</translation>
-    </message>
-    <message>
-        <source> %</source>
-        <translation type="vanished"> %</translation>
-    </message>
-    <message>
-        <source>Offset to baseline of characters</source>
-        <translation type="vanished">Paslinkti iki rašmenų bazinės linijos</translation>
-    </message>
-    <message>
-        <source>Manual Tracking</source>
-        <translation type="vanished">Pasirinktinis retinimas</translation>
-    </message>
-    <message>
-        <source>Scaling width of characters</source>
-        <translation type="vanished">Rašmenų pločio mastelis</translation>
-    </message>
-    <message>
-        <source>Scaling height of characters</source>
-        <translation type="vanished">Rašmenų aukščio mastelis</translation>
-    </message>
-    <message>
-        <source>Minimal width of spaces between words</source>
-        <translation type="vanished">Mažiausias atstumas tarp žodžių</translation>
-    </message>
-    <message>
-        <source>Normal width of spaces between words</source>
-        <translation type="vanished">Normalus tarpų tarp žodžių dydis</translation>
-    </message>
-    <message>
-        <source>Minimal shrinkage of glyphs for justification</source>
-        <translation type="vanished">Mažiausias rašmenų sutraukimas abipusio lygiavimo atveju</translation>
-    </message>
-    <message>
-        <source>Maximal extension of glyphs for justification</source>
-        <translation type="vanished">Maksimalus rašmenų išplėtimas abipusio lygiavimo atveju</translation>
-    </message>
-</context>
-<context>
     <name>PropertyWidget_AdvancedBase</name>
-    <message>
-        <source>Frame</source>
-        <translation type="vanished">Rėmelis</translation>
-    </message>
-    <message>
-        <source>Word Spacing</source>
-        <translation type="vanished">Atstumai tarp žodžių</translation>
-    </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="48"/>
         <source>Offset to baseline of characters</source>
@@ -23745,10 +23572,6 @@ Transparency</source>
 <context>
     <name>PropertyWidget_Distance</name>
     <message>
-        <source>Colu&amp;mns:</source>
-        <translation type="vanished">Stu&amp;lpeliai:</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/propertywidget_distance.cpp" line="451"/>
         <source>Gap:</source>
         <translation>Tarpelis:</translation>
@@ -23759,62 +23582,14 @@ Transparency</source>
         <translation>Plotis:</translation>
     </message>
     <message>
-        <source>To&amp;p:</source>
-        <translation type="vanished">Nuo &amp;viršaus:</translation>
-    </message>
-    <message>
-        <source>&amp;Bottom:</source>
-        <translation type="vanished">Nuo &amp;apačios:</translation>
-    </message>
-    <message>
-        <source>&amp;Left:</source>
-        <translation type="vanished">Iš &amp;kairės:</translation>
-    </message>
-    <message>
-        <source>&amp;Right:</source>
-        <translation type="vanished">Iš &amp;dešinės:</translation>
-    </message>
-    <message>
-        <source>T&amp;abulators...</source>
-        <translation type="vanished">Ta&amp;buliatoriai...</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/propertywidget_distance.cpp" line="455"/>
         <source> pt</source>
         <translation> pt</translation>
     </message>
     <message>
-        <source>Number of columns in text frame</source>
-        <translation type="vanished">Tekstinio rėmelio stulpelių skaičius</translation>
-    </message>
-    <message>
-        <source>Switches between Gap or Column width</source>
-        <translation type="vanished">Pereiti nuo tarpelio prie stulpelio pločio (arba atvirkščiai)</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/propertywidget_distance.cpp" line="352"/>
         <source>Distance between columns</source>
         <translation>Atstumas tarp stulpelių</translation>
-    </message>
-    <message>
-        <source>Distance of text from top of frame</source>
-        <translation type="vanished">Atstumas iki teksto nuo rėmelio viršaus</translation>
-    </message>
-    <message>
-        <source>Distance of text from bottom of frame</source>
-        <translation type="vanished">Atstumas iki teksto nuo rėmelio apačios</translation>
-    </message>
-    <message>
-        <source>Distance of text from left of frame</source>
-        <translation type="vanished">Atstumas iki teksto nuo rėmelio kairės</translation>
-    </message>
-    <message>
-        <source>Distance of text from right of frame</source>
-        <translation type="vanished">Atstumas iki teksto nuo rėmelio dešinės</translation>
-    </message>
-    <message>
-        <source>Edit tab settings of text frame...</source>
-        <translation type="vanished">Taisyti teksto rėmelio tabuliatorių nuostatas...</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_distance.cpp" line="352"/>
@@ -23839,10 +23614,6 @@ Transparency</source>
 </context>
 <context>
     <name>PropertyWidget_DistanceBase</name>
-    <message>
-        <source>Frame</source>
-        <translation type="vanished">Rėmelis</translation>
-    </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="41"/>
         <source>Vertical Alignment:</source>
@@ -24006,42 +23777,7 @@ Transparency</source>
     </message>
 </context>
 <context>
-    <name>PropertyWidget_Flop</name>
-    <message>
-        <source>Maximum Ascent</source>
-        <translation type="vanished">Pagal aukščiausią eilutės rašmenį</translation>
-    </message>
-    <message>
-        <source>Font Ascent</source>
-        <translation type="vanished">Pagal aukščiausią šrifto rašmenį</translation>
-    </message>
-    <message>
-        <source>Line Spacing</source>
-        <translation type="vanished">Intervalas tarp eilučių</translation>
-    </message>
-    <message>
-        <source>Set the height of the first line of the text frame to use the tallest height of the included characters</source>
-        <translation type="vanished">Nustatyti pirmosios teksto rėmelio eilutės aukštį pagal aukščiausią tos eilutės rašmenį</translation>
-    </message>
-    <message>
-        <source>Set the height of the first line of text frame to use the full ascent of the font(s) in use</source>
-        <translation type="vanished">Nustatyti pirmosios teksto rėmelio eilutės aukštį pagal aukščiausią jame panaudotų šriftų rašmenį</translation>
-    </message>
-    <message>
-        <source>Set the height of the first line of the text frame to the specified line height</source>
-        <translation type="vanished">Nustatyti nurodytą pirmosios teksto rėmelio eilutės aukštį</translation>
-    </message>
-    <message>
-        <source>Baseline Grid</source>
-        <translation type="vanished">Bazinių linijų tinklelis</translation>
-    </message>
-</context>
-<context>
     <name>PropertyWidget_FlopBase</name>
-    <message>
-        <source>Frame</source>
-        <translation type="vanished">Rėmelis</translation>
-    </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_flopbase.ui" line="26"/>
         <source>Set the height of the first line of the text frame to use the tallest height of the included characters</source>
@@ -24056,10 +23792,6 @@ Transparency</source>
         <location filename="../../scribus/ui/propertywidget_flopbase.ui" line="39"/>
         <source>Set the height of the first line of text frame to use the full ascent of the font(s) in use</source>
         <translation type="unfinished">Nustatyti pirmosios teksto rėmelio eilutės aukštį pagal aukščiausią jame panaudotų šriftų rašmenį</translation>
-    </message>
-    <message>
-        <source>flopGroup</source>
-        <translation type="vanished">flopGroup</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_flopbase.ui" line="42"/>
@@ -24089,10 +23821,6 @@ Transparency</source>
 </context>
 <context>
     <name>PropertyWidget_FontFeatures</name>
-    <message>
-        <source>Frame</source>
-        <translation type="obsolete">Rėmelis</translation>
-    </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="26"/>
         <source>Common Ligtures (liga)</source>
@@ -24452,10 +24180,6 @@ Transparency</source>
 <context>
     <name>PropertyWidget_HyphenationBase</name>
     <message>
-        <source>Frame</source>
-        <translation type="obsolete">Rėmelis</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/propertywidget_hyphenationbase.ui" line="43"/>
         <source>Smallest Word:</source>
         <translation type="unfinished">Trumpiausias žodis:</translation>
@@ -24494,38 +24218,7 @@ Nulis reiškia, kad neribojama.</translation>
     </message>
 </context>
 <context>
-    <name>PropertyWidget_OptMargins</name>
-    <message>
-        <source>None</source>
-        <comment>optical margins</comment>
-        <translation type="vanished">Nėra</translation>
-    </message>
-    <message>
-        <source>Both Sides</source>
-        <comment>optical margins</comment>
-        <translation type="vanished">Iš abiejų pusių</translation>
-    </message>
-    <message>
-        <source>Left Only</source>
-        <comment>optical margins</comment>
-        <translation type="vanished">Tik iš kairės</translation>
-    </message>
-    <message>
-        <source>Right Only</source>
-        <comment>optical margins</comment>
-        <translation type="vanished">Tik iš dešinės</translation>
-    </message>
-    <message>
-        <source>Reset</source>
-        <translation type="vanished">Atstatyti</translation>
-    </message>
-</context>
-<context>
     <name>PropertyWidget_OptMarginsBase</name>
-    <message>
-        <source>Frame</source>
-        <translation type="vanished">Rėmelis</translation>
-    </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_optmarginsbase.ui" line="32"/>
         <source>None</source>
@@ -24620,21 +24313,9 @@ Nulis reiškia, kad neribojama.</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Format:</source>
-        <translation type="vanished">Formatas:</translation>
-    </message>
-    <message>
-        <source>Start:</source>
-        <translation type="vanished">Pradžios:</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/propertywidget_pareffect.cpp" line="224"/>
         <source>No Paragraph Effects</source>
         <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Offset:</source>
-        <translation type="vanished">Poslinkis:</translation>
     </message>
 </context>
 <context>
@@ -24720,25 +24401,9 @@ Nulis reiškia, kad neribojama.</translation>
         <translation type="unfinished">Poslinkis:</translation>
     </message>
     <message>
-        <source>Lines</source>
-        <translation type="vanished">Linijos</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/propertywidget_pareffectbase.ui" line="119"/>
         <source>Numbered List</source>
         <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Level</source>
-        <translation type="vanished">Lygmuo</translation>
-    </message>
-    <message>
-        <source>Start</source>
-        <translation type="vanished">Pradėti</translation>
-    </message>
-    <message>
-        <source>Format</source>
-        <translation type="vanished">Formatas</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_pareffectbase.ui" line="62"/>
@@ -24802,10 +24467,6 @@ Nulis reiškia, kad neribojama.</translation>
 <context>
     <name>PropertyWidget_PathTextBase</name>
     <message>
-        <source>Frame</source>
-        <translation type="vanished">Rėmelis</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/propertywidget_pathtextbase.ui" line="32"/>
         <source>Type:</source>
         <translation>Tipas:</translation>
@@ -24832,30 +24493,7 @@ Nulis reiškia, kad neribojama.</translation>
     </message>
 </context>
 <context>
-    <name>PropertyWidget_TextColor</name>
-    <message>
-        <source>Color of selected text. If Outline text decoration is enabled, this color will be the fill color. If Drop Shadow Text is enabled, then this will be the top most color.</source>
-        <translation type="vanished">Pažymėto teksto spalva. Jei teksto kontūro puošyba leidžiama, ši spalva bus užpildo spalva. Jei leidžiami teksto šešėliai, tai ši spalva bus viršutinė.</translation>
-    </message>
-    <message>
-        <source>Saturation of color of text fill</source>
-        <translation type="vanished">Teksto užpildo spalvos grynis</translation>
-    </message>
-    <message>
-        <source>Saturation of color of text stroke</source>
-        <translation type="vanished">Teksto apvado spalvos grynis</translation>
-    </message>
-    <message>
-        <source>Right to Left Writing</source>
-        <translation type="vanished">Rašymas iš dešinės į kairę</translation>
-    </message>
-</context>
-<context>
     <name>PropertyWidget_TextColorBase</name>
-    <message>
-        <source>Frame</source>
-        <translation type="vanished">Rėmelis</translation>
-    </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_textcolorbase.ui" line="62"/>
         <source>Color of selected text. If Outline text decoration is enabled, this color will be the fill color. If Drop Shadow Text is enabled, then this will be the top most color.</source>
@@ -25932,10 +25570,6 @@ Patikrinkite, ar teisingai nurodyta jo laikymo vieta ir pavadinimas.</translatio
         <location filename="../../scribus/plugins/gettext/csvim/csvim.cpp" line="66"/>
         <source>CSV_header</source>
         <translation>CSV antraštė</translation>
-    </message>
-    <message>
-        <source>Font %1 is broken, discarding it</source>
-        <translation type="vanished">„%1“ šriftas yra sugadintas; jis pašalintas</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/gettext/htmlim/htmlreader.cpp" line="667"/>
@@ -32118,10 +31752,6 @@ Please choose another.</source>
 <context>
     <name>SMCharacterStyle</name>
     <message>
-        <source>Properties</source>
-        <translation type="vanished">Ypatybės</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/smtextstyles.cpp" line="2106"/>
         <source>Character Styles</source>
         <translation>Rašmenų stiliai</translation>
@@ -32328,10 +31958,6 @@ Please choose another.</source>
         <translation>Rašmenų stilius</translation>
     </message>
     <message>
-        <source>&amp;Lines:</source>
-        <translation type="vanished">Ei&amp;lutės:</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/smpstylewidget.ui" line="1176"/>
         <source>Distance from Text:</source>
         <translation>Atstumas iki teksto:</translation>
@@ -32434,28 +32060,14 @@ Please choose another.</source>
         <translation>Pagrindu imtas:</translation>
     </message>
     <message>
-        <source>TextLabel</source>
-        <translation type="vanished">Teksto žyma</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/smpstylewidget.ui" line="636"/>
         <source>Colors</source>
         <translation>Spalvos</translation>
     </message>
     <message>
-        <source>Ch&amp;aracter Style</source>
-        <translation type="vanished">&amp;Rašmens stilius</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/smpstylewidget.ui" line="402"/>
         <source>None</source>
         <translation>Nėra</translation>
-    </message>
-    <message>
-        <source>Maximum white space compression allowed.
-Expressed as a percentage of the current white space value.</source>
-        <translation type="vanished">Maksimalus leidžiamas tarpo suspaudimas.
-Nurodomas procentais nuo dabartinės reikšmės.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.ui" line="520"/>
@@ -32657,36 +32269,6 @@ Nurodomas procentais nuo dabartinės reikšmės.</translation>
         <location filename="../../scribus/ui/smpstylewidget.ui" line="464"/>
         <source>Min. Space Width:</source>
         <translation>Mažiausias tarpo plotis:</translation>
-    </message>
-    <message>
-        <source>Min:</source>
-        <comment>Glyph Extension</comment>
-        <translation type="vanished">Min:</translation>
-    </message>
-    <message>
-        <source>Max:</source>
-        <comment>Glyph Extension</comment>
-        <translation type="vanished">Maks:</translation>
-    </message>
-    <message>
-        <source>None</source>
-        <comment>Optical Margins</comment>
-        <translation type="vanished">Nėra</translation>
-    </message>
-    <message>
-        <source>Both Sides</source>
-        <comment>Optical Margins</comment>
-        <translation type="vanished">Abi pusės</translation>
-    </message>
-    <message>
-        <source>Left Only</source>
-        <comment>Optical Margins</comment>
-        <translation type="vanished">Tik kairė</translation>
-    </message>
-    <message>
-        <source>Right Only</source>
-        <comment>Optical Margins</comment>
-        <translation type="vanished">Tik dešinė</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.cpp" line="550"/>
@@ -34395,22 +33977,6 @@ konvertuoja jų vektorinius objektus į „Scribus“ objektus.</translation>
         <source>Plain Text</source>
         <translation type="unfinished"></translation>
     </message>
-    <message>
-        <source>9,999.99</source>
-        <translation type="obsolete">9,999.99</translation>
-    </message>
-    <message>
-        <source>9.999,99</source>
-        <translation type="obsolete">9.999,99</translation>
-    </message>
-    <message>
-        <source>9999.99</source>
-        <translation type="obsolete">9999.99</translation>
-    </message>
-    <message>
-        <source>9999,99</source>
-        <translation type="obsolete">9999,99</translation>
-    </message>
 </context>
 <context>
     <name>ScGTFileDialog</name>
@@ -35198,18 +34764,6 @@ Priešspauspaustuvinis tikrintuvas padės jas ištaisyti</translation>
         <translation>At&amp;rakinti viską</translation>
     </message>
     <message>
-        <source>Information</source>
-        <translation type="vanished">Informacija</translation>
-    </message>
-    <message>
-        <source>The program %1 is already running!</source>
-        <translation type="vanished">Programa „%1“ jau paleista!</translation>
-    </message>
-    <message>
-        <source>The program %1 is missing!</source>
-        <translation type="vanished">Programos „%1“ nėra!</translation>
-    </message>
-    <message>
         <location filename="../../scribus/scribus.cpp" line="4010"/>
         <location filename="../../scribus/scribus.cpp" line="8844"/>
         <source>Do you really want to replace your existing image?</source>
@@ -35249,10 +34803,6 @@ Priešspauspaustuvinis tikrintuvas padės jas ištaisyti</translation>
         <location filename="../../scribus/scribus.cpp" line="3925"/>
         <source>Do you really want to clear all your text?</source>
         <translation>Ar tikrai norite pašalinti visą tekstą?</translation>
-    </message>
-    <message>
-        <source>Scribus </source>
-        <translation type="vanished">„Scribus“ </translation>
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="3703"/>
@@ -35615,17 +35165,9 @@ Priešspauspaustuvinis tikrintuvas padės jas ištaisyti</translation>
         <translation>Išvesti informaciją apie versiją ir išeiti</translation>
     </message>
     <message>
-        <source>filename</source>
-        <translation type="vanished">Failo vardas</translation>
-    </message>
-    <message>
         <location filename="../../scribus/scribusapp.cpp" line="276"/>
         <source>Preferences directory %1 does not exist, aborting.</source>
         <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Use filename as path for user given preferences</source>
-        <translation type="vanished">Panaudoti failo vardą kaip būdą pasiekti naudotojo nurodytas nuostatas</translation>
     </message>
     <message>
         <location filename="../../scribus/scribusapp.cpp" line="617"/>
@@ -37221,15 +36763,6 @@ Priešspauspaustuvinis tikrintuvas padės jas ištaisyti</translation>
         <source>Shadowed Text. Hold down the button momentarily to change the shadow offset values.</source>
         <translation type="unfinished"></translation>
     </message>
-    <message>
-        <source>Outline. Hold down the button momentarily to change the outline stroke width.</source>
-        <comment>Text Style Selector</comment>
-        <translation type="vanished">Apvadas. Norėdami pakeisti apvado storį nuspauskite keletui akimirkų mygtuką.</translation>
-    </message>
-    <message>
-        <source>Shadowed Text. Hold down the button momentarily to enable the offset spacing.</source>
-        <translation type="vanished">Tekstas su šešėliais. Norėdami pakeisti atstumą iki šešėlio nuspauskite keletui akimirkų mygtuką.</translation>
-    </message>
 </context>
 <context>
     <name>SubdividePlugin</name>
@@ -38057,14 +37590,6 @@ Priešspauspaustuvinis tikrintuvas padės jas ištaisyti</translation>
         <location filename="../../scribus/ui/tabpdfoptions.ui" line="981"/>
         <source>Continuous</source>
         <translation>Ištisai</translation>
-    </message>
-    <message>
-        <source>Double Page Left</source>
-        <translation type="vanished">Dvigubas puslapis kairėje</translation>
-    </message>
-    <message>
-        <source>Double Page Right</source>
-        <translation type="vanished">Dvigubas puslapis dešinėje</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.ui" line="1005"/>
@@ -41639,10 +41164,6 @@ Prašom parinkti kitą.</translation>
 <context>
     <name>smFontFeaturesBase</name>
     <message>
-        <source>Form</source>
-        <translation type="obsolete">Anketa</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="23"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600; color:#008000;&quot;&gt;The current selected font does not have any font features.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation type="unfinished"></translation>
@@ -41650,11 +41171,6 @@ Prašom parinkti kitą.</translation>
     <message>
         <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="36"/>
         <source> Ligatures</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="48"/>
-        <source>Common Ligtures (liga)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -41728,13 +41244,18 @@ Prašom parinkti kitą.</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="48"/>
+        <source>Common Ligatures (liga)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="180"/>
-        <source>Petite Capitals from Captials</source>
+        <source>Petite Capitals from Capitals</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="185"/>
-        <source>Small Capitals from Captials</source>
+        <source>Small Capitals from Capitals</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

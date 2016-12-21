@@ -7775,10 +7775,6 @@ Document Liberation Project http://www.documentliberation.org</source>
 <context>
     <name>GradientEditorBase</name>
     <message>
-        <source>Frame</source>
-        <translation type="vanished">قالب</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/gradienteditor.ui" line="63"/>
         <source>Position:</source>
         <translation type="unfinished"></translation>
@@ -23428,18 +23424,7 @@ Transparency</source>
     </message>
 </context>
 <context>
-    <name>PropertyWidget_Advanced</name>
-    <message>
-        <source> %</source>
-        <translation type="vanished">%</translation>
-    </message>
-</context>
-<context>
     <name>PropertyWidget_AdvancedBase</name>
-    <message>
-        <source>Frame</source>
-        <translation type="vanished">قالب</translation>
-    </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="48"/>
         <source>Offset to baseline of characters</source>
@@ -23564,10 +23549,6 @@ Transparency</source>
 </context>
 <context>
     <name>PropertyWidget_DistanceBase</name>
-    <message>
-        <source>Frame</source>
-        <translation type="vanished">قالب</translation>
-    </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="41"/>
         <source>Vertical Alignment:</source>
@@ -23733,10 +23714,6 @@ Transparency</source>
 <context>
     <name>PropertyWidget_FlopBase</name>
     <message>
-        <source>Frame</source>
-        <translation type="vanished">قالب</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/propertywidget_flopbase.ui" line="26"/>
         <source>Set the height of the first line of the text frame to use the tallest height of the included characters</source>
         <translation type="unfinished"></translation>
@@ -23779,10 +23756,6 @@ Transparency</source>
 </context>
 <context>
     <name>PropertyWidget_FontFeatures</name>
-    <message>
-        <source>Frame</source>
-        <translation type="obsolete">قالب</translation>
-    </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="26"/>
         <source>Common Ligtures (liga)</source>
@@ -24142,10 +24115,6 @@ Transparency</source>
 <context>
     <name>PropertyWidget_HyphenationBase</name>
     <message>
-        <source>Frame</source>
-        <translation type="obsolete">قالب</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/propertywidget_hyphenationbase.ui" line="43"/>
         <source>Smallest Word:</source>
         <translation type="unfinished"></translation>
@@ -24184,10 +24153,6 @@ A value of 0 means unlimited hyphenations.</source>
 </context>
 <context>
     <name>PropertyWidget_OptMarginsBase</name>
-    <message>
-        <source>Frame</source>
-        <translation type="vanished">قالب</translation>
-    </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_optmarginsbase.ui" line="32"/>
         <source>None</source>
@@ -24280,10 +24245,6 @@ A value of 0 means unlimited hyphenations.</source>
         <location filename="../../scribus/ui/propertywidget_pareffect.cpp" line="227"/>
         <source>Numbered List</source>
         <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Start:</source>
-        <translation type="vanished">شروع:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_pareffect.cpp" line="224"/>
@@ -24379,10 +24340,6 @@ A value of 0 means unlimited hyphenations.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Level</source>
-        <translation type="vanished">سطح</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/propertywidget_pareffectbase.ui" line="62"/>
         <source>Bulleted List</source>
         <translation type="unfinished"></translation>
@@ -24444,10 +24401,6 @@ A value of 0 means unlimited hyphenations.</source>
 <context>
     <name>PropertyWidget_PathTextBase</name>
     <message>
-        <source>Frame</source>
-        <translation type="vanished">قالب</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/propertywidget_pathtextbase.ui" line="32"/>
         <source>Type:</source>
         <translation>نوع:</translation>
@@ -24475,10 +24428,6 @@ A value of 0 means unlimited hyphenations.</source>
 </context>
 <context>
     <name>PropertyWidget_TextColorBase</name>
-    <message>
-        <source>Frame</source>
-        <translation type="vanished">قالب</translation>
-    </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_textcolorbase.ui" line="62"/>
         <source>Color of selected text. If Outline text decoration is enabled, this color will be the fill color. If Drop Shadow Text is enabled, then this will be the top most color.</source>
@@ -41089,11 +41038,6 @@ please choose another one.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="48"/>
-        <source>Common Ligtures (liga)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="51"/>
         <source>Common Ligatures</source>
         <translation type="unfinished"></translation>
@@ -41164,13 +41108,18 @@ please choose another one.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="48"/>
+        <source>Common Ligatures (liga)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="180"/>
-        <source>Petite Capitals from Captials</source>
+        <source>Petite Capitals from Capitals</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="185"/>
-        <source>Small Capitals from Captials</source>
+        <source>Small Capitals from Capitals</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

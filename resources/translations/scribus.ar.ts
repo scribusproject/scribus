@@ -5032,10 +5032,6 @@ currently %2 x %3 DPI</source>
         <translation>صفحة واحدة</translation>
     </message>
     <message>
-        <source>Double Sided</source>
-        <translation type="vanished">صفحتان متقابلتان</translation>
-    </message>
-    <message>
         <location filename="../../scribus/commonstrings.cpp" line="339"/>
         <source>3-Fold</source>
         <translation>3 طيات</translation>
@@ -17892,10 +17888,6 @@ Do you want to migrate them to the new Scribus version?</source>
         <translation>أول صفحة هي:</translation>
     </message>
     <message>
-        <source>Size</source>
-        <translation type="vanished">الحجم</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="329"/>
         <source>Margins &amp;&amp; Bleeds</source>
         <translation type="unfinished"></translation>
@@ -23034,10 +23026,6 @@ Transparency</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Table</source>
-        <translation type="vanished">جدول</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/propertiespalette_tablebase.ui" line="39"/>
         <source>Table style of currently selected table</source>
         <translation type="unfinished"></translation>
@@ -23114,14 +23102,6 @@ Transparency</source>
         <location filename="../../scribus/ui/propertiespalette_text.cpp" line="708"/>
         <source>Align to Baseline Grid</source>
         <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source> pt</source>
-        <translation type="vanished">نقطة</translation>
-    </message>
-    <message>
-        <source>Font Size</source>
-        <translation type="vanished">حجم الخط</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_text.cpp" line="81"/>
@@ -23527,10 +23507,6 @@ Transparency</source>
 <context>
     <name>PropertyWidget_Distance</name>
     <message>
-        <source>Colu&amp;mns:</source>
-        <translation type="vanished">الأ&amp;عمدة:</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/propertywidget_distance.cpp" line="451"/>
         <source>Gap:</source>
         <translation type="unfinished"></translation>
@@ -23539,18 +23515,6 @@ Transparency</source>
         <location filename="../../scribus/ui/propertywidget_distance.cpp" line="452"/>
         <source>Width:</source>
         <translation>العرض:</translation>
-    </message>
-    <message>
-        <source>&amp;Bottom:</source>
-        <translation type="vanished">&amp;اسفل:</translation>
-    </message>
-    <message>
-        <source>&amp;Left:</source>
-        <translation type="vanished">&amp;يسار:</translation>
-    </message>
-    <message>
-        <source>&amp;Right:</source>
-        <translation type="vanished">&amp;يمين:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_distance.cpp" line="455"/>
@@ -24185,14 +24149,6 @@ A value of 0 means unlimited hyphenations.</source>
         <location filename="../../scribus/ui/propertywidget_hyphenationbase.ui" line="110"/>
         <source>The character used for automatic hyphen. Can be empty.</source>
         <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>PropertyWidget_OptMargins</name>
-    <message>
-        <source>None</source>
-        <comment>optical margins</comment>
-        <translation type="vanished">لا شيء</translation>
     </message>
 </context>
 <context>
@@ -32206,11 +32162,6 @@ Please choose another.</source>
         <location filename="../../scribus/ui/smpstylewidget.ui" line="464"/>
         <source>Min. Space Width:</source>
         <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>None</source>
-        <comment>Optical Margins</comment>
-        <translation type="vanished">لا شيء</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.cpp" line="550"/>
@@ -41086,11 +41037,6 @@ please choose another one.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="48"/>
-        <source>Common Ligtures (liga)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="51"/>
         <source>Common Ligatures</source>
         <translation type="unfinished"></translation>
@@ -41161,13 +41107,18 @@ please choose another one.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="48"/>
+        <source>Common Ligatures (liga)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="180"/>
-        <source>Petite Capitals from Captials</source>
+        <source>Petite Capitals from Capitals</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="185"/>
-        <source>Small Capitals from Captials</source>
+        <source>Small Capitals from Capitals</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

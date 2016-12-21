@@ -3322,10 +3322,6 @@
 <context>
     <name>CMSPrefsBase</name>
     <message>
-        <source>Form</source>
-        <translation type="vanished">从</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/cmsprefsbase.ui" line="32"/>
         <source>&amp;Activate Color Management</source>
         <translation>激活颜色(&amp;A)</translation>
@@ -5053,10 +5049,6 @@ currently %2 x %3 DPI</source>
         <location filename="../../scribus/commonstrings.cpp" line="337"/>
         <source>Single Page</source>
         <translation>单页</translation>
-    </message>
-    <message>
-        <source>Double Sided</source>
-        <translation type="vanished">对折</translation>
     </message>
     <message>
         <location filename="../../scribus/commonstrings.cpp" line="339"/>
@@ -7808,10 +7800,6 @@ Document Liberation Project http://www.documentliberation.org</source>
 <context>
     <name>GradientEditorBase</name>
     <message>
-        <source>Frame</source>
-        <translation type="vanished">边框</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/gradienteditor.ui" line="63"/>
         <source>Position:</source>
         <translation>位置:</translation>
@@ -8245,14 +8233,6 @@ Document Liberation Project http://www.documentliberation.org</source>
         <location filename="../../scribus/ui/guidemanager.ui" line="384"/>
         <source>Apply the shown guides to all pages in the document</source>
         <translation>应用已显示的参考线到文档中所有页面</translation>
-    </message>
-    <message>
-        <source>Delete all guides shown on the current page</source>
-        <translation type="vanished">删除在当前页面显示的所有参考线</translation>
-    </message>
-    <message>
-        <source>Delete all guides from all pages</source>
-        <translation type="vanished">从所有页面所有参考线</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/guidemanager.ui" line="225"/>
@@ -9707,10 +9687,6 @@ p, li { white-space: pre-wrap; }
         <location filename="../../scribus/plugins/imposition/impositionbase.ui" line="376"/>
         <source>Facing Pages</source>
         <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Double sided</source>
-        <translation type="vanished">双面</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/imposition/impositionbase.ui" line="387"/>
@@ -17781,10 +17757,6 @@ Do you want to migrate them to the new Scribus version?</source>
         <translation type="unfinished">常规</translation>
     </message>
     <message>
-        <source>Language</source>
-        <translation type="obsolete">语言</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="100"/>
         <source>Page Size</source>
         <translation>页面尺寸</translation>
@@ -17950,10 +17922,6 @@ Do you want to migrate them to the new Scribus version?</source>
         <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="253"/>
         <source>First Page is:</source>
         <translation>首页是 :</translation>
-    </message>
-    <message>
-        <source>Size</source>
-        <translation type="vanished">尺寸</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="329"/>
@@ -18646,20 +18614,6 @@ Do you want to use this?</source>
         <location filename="../../scribus/ui/prefs_hyphenatorbase.ui" line="45"/>
         <source>Behaviour</source>
         <translation>习惯</translation>
-    </message>
-    <message>
-        <source>Language:</source>
-        <translation type="vanished">语言 :</translation>
-    </message>
-    <message>
-        <source>Characters</source>
-        <translation type="vanished">字符</translation>
-    </message>
-    <message>
-        <source>Maximum number of Hyphenations following each other.
-A value of 0 means unlimited hyphenations.</source>
-        <translation type="vanished">最大连续连字符数量。
-0 表示不限制。</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_hyphenatorbase.ui" line="88"/>
@@ -22031,10 +21985,6 @@ a range of pages or a single page number</source>
         <translation>形状(&amp;S)</translation>
     </message>
     <message>
-        <source>&amp;Text</source>
-        <translation type="vanished">文本(&amp;T)</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/propertiespalette.cpp" line="877"/>
         <source>&amp;Image</source>
         <translation>图像(&amp;I)</translation>
@@ -23112,10 +23062,6 @@ Transparency</source>
         <translation>样式</translation>
     </message>
     <message>
-        <source>Table</source>
-        <translation type="vanished">表</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/propertiespalette_tablebase.ui" line="39"/>
         <source>Table style of currently selected table</source>
         <translation type="unfinished"></translation>
@@ -23174,14 +23120,6 @@ Transparency</source>
         <translation>基线</translation>
     </message>
     <message>
-        <source>Paragraph St&amp;yle:</source>
-        <translation type="vanished">段落样式(&amp;y):</translation>
-    </message>
-    <message>
-        <source>Character St&amp;yle:</source>
-        <translation type="vanished">字符样式(&amp;y):</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/propertiespalette_text.cpp" line="701"/>
         <source>Font Features</source>
         <translation type="unfinished"></translation>
@@ -23200,30 +23138,6 @@ Transparency</source>
         <location filename="../../scribus/ui/propertiespalette_text.cpp" line="708"/>
         <source>Align to Baseline Grid</source>
         <translation>和底线网格对齐</translation>
-    </message>
-    <message>
-        <source> pt</source>
-        <translation type="vanished"> 磅</translation>
-    </message>
-    <message>
-        <source>Font Size</source>
-        <translation type="vanished">字号</translation>
-    </message>
-    <message>
-        <source>Line Spacing</source>
-        <translation type="vanished">行距</translation>
-    </message>
-    <message>
-        <source>Paragraph style of currently selected text or paragraph</source>
-        <translation type="vanished">现在选中的文本或段落的段落样式</translation>
-    </message>
-    <message>
-        <source>Character style of currently selected text or paragraph</source>
-        <translation type="vanished">现在选定的文本或符号的字符样式</translation>
-    </message>
-    <message>
-        <source>Remove Direct Paragraph Formatting</source>
-        <translation type="vanished">移除直接段落格式</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_text.cpp" line="81"/>
@@ -23546,66 +23460,7 @@ Transparency</source>
     </message>
 </context>
 <context>
-    <name>PropertyWidget_Advanced</name>
-    <message>
-        <source>Word Tracking</source>
-        <translation type="vanished">单词追踪</translation>
-    </message>
-    <message>
-        <source>Min:</source>
-        <translation type="vanished">最小:</translation>
-    </message>
-    <message>
-        <source>Norm:</source>
-        <translation type="vanished">正常:</translation>
-    </message>
-    <message>
-        <source>Glyph Extension</source>
-        <translation type="vanished">符号扩展</translation>
-    </message>
-    <message>
-        <source>Max:</source>
-        <translation type="vanished">最大:</translation>
-    </message>
-    <message>
-        <source> %</source>
-        <translation type="vanished"> %</translation>
-    </message>
-    <message>
-        <source>Offset to baseline of characters</source>
-        <translation type="vanished">字符底线偏移</translation>
-    </message>
-    <message>
-        <source>Manual Tracking</source>
-        <translation type="vanished">手工追踪</translation>
-    </message>
-    <message>
-        <source>Scaling width of characters</source>
-        <translation type="vanished">字符宽度缩放</translation>
-    </message>
-    <message>
-        <source>Scaling height of characters</source>
-        <translation type="vanished">字符高度缩放</translation>
-    </message>
-    <message>
-        <source>Minimal width of spaces between words</source>
-        <translation type="vanished">文字间空格宽度 (最小)</translation>
-    </message>
-    <message>
-        <source>Normal width of spaces between words</source>
-        <translation type="vanished">文字间空格宽度(普通)</translation>
-    </message>
-</context>
-<context>
     <name>PropertyWidget_AdvancedBase</name>
-    <message>
-        <source>Frame</source>
-        <translation type="vanished">边框</translation>
-    </message>
-    <message>
-        <source>Word Spacing</source>
-        <translation type="vanished">字间距</translation>
-    </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="48"/>
         <source>Offset to baseline of characters</source>
@@ -23688,10 +23543,6 @@ Transparency</source>
 <context>
     <name>PropertyWidget_Distance</name>
     <message>
-        <source>Colu&amp;mns:</source>
-        <translation type="vanished">列(&amp;m):</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/propertywidget_distance.cpp" line="451"/>
         <source>Gap:</source>
         <translation>间隙:</translation>
@@ -23702,62 +23553,14 @@ Transparency</source>
         <translation>宽度:</translation>
     </message>
     <message>
-        <source>To&amp;p:</source>
-        <translation type="vanished">顶部(&amp;p):</translation>
-    </message>
-    <message>
-        <source>&amp;Bottom:</source>
-        <translation type="vanished">底部(&amp;B):</translation>
-    </message>
-    <message>
-        <source>&amp;Left:</source>
-        <translation type="vanished">左边(&amp;L):</translation>
-    </message>
-    <message>
-        <source>&amp;Right:</source>
-        <translation type="vanished">右(&amp;R):</translation>
-    </message>
-    <message>
-        <source>T&amp;abulators...</source>
-        <translation type="vanished">制表符(&amp;a)...</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/propertywidget_distance.cpp" line="455"/>
         <source> pt</source>
         <translation> 磅</translation>
     </message>
     <message>
-        <source>Number of columns in text frame</source>
-        <translation type="vanished">文本框中的列数</translation>
-    </message>
-    <message>
-        <source>Switches between Gap or Column width</source>
-        <translation type="vanished">切换间隔或列宽</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/propertywidget_distance.cpp" line="352"/>
         <source>Distance between columns</source>
         <translation>列间距</translation>
-    </message>
-    <message>
-        <source>Distance of text from top of frame</source>
-        <translation type="vanished">文本和框体顶部距离</translation>
-    </message>
-    <message>
-        <source>Distance of text from bottom of frame</source>
-        <translation type="vanished">文本和框体底部距离</translation>
-    </message>
-    <message>
-        <source>Distance of text from left of frame</source>
-        <translation type="vanished">文本和框体左边的距离</translation>
-    </message>
-    <message>
-        <source>Distance of text from right of frame</source>
-        <translation type="vanished">文本和框体右边的距离</translation>
-    </message>
-    <message>
-        <source>Edit tab settings of text frame...</source>
-        <translation type="vanished">编辑文本框的标签设置...</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_distance.cpp" line="352"/>
@@ -23782,10 +23585,6 @@ Transparency</source>
 </context>
 <context>
     <name>PropertyWidget_DistanceBase</name>
-    <message>
-        <source>Frame</source>
-        <translation type="vanished">边框</translation>
-    </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="41"/>
         <source>Vertical Alignment:</source>
@@ -23872,10 +23671,6 @@ Transparency</source>
         <translation>制表符(&amp;a)...</translation>
     </message>
     <message>
-        <source>Vertical Alignment</source>
-        <translation type="vanished">垂直对齐</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="49"/>
         <source>Top</source>
         <translation>顶</translation>
@@ -23953,26 +23748,7 @@ Transparency</source>
     </message>
 </context>
 <context>
-    <name>PropertyWidget_Flop</name>
-    <message>
-        <source>Line Spacing</source>
-        <translation type="vanished">行距</translation>
-    </message>
-    <message>
-        <source>Set the height of the first line of the text frame to use the tallest height of the included characters</source>
-        <translation type="vanished">设置文本框的首行高度，使用包括字符的最高高度</translation>
-    </message>
-    <message>
-        <source>Set the height of the first line of the text frame to the specified line height</source>
-        <translation type="vanished">设置文本框首行高度指定行高度</translation>
-    </message>
-</context>
-<context>
     <name>PropertyWidget_FlopBase</name>
-    <message>
-        <source>Frame</source>
-        <translation type="vanished">边框</translation>
-    </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_flopbase.ui" line="26"/>
         <source>Set the height of the first line of the text frame to use the tallest height of the included characters</source>
@@ -24016,10 +23792,6 @@ Transparency</source>
 </context>
 <context>
     <name>PropertyWidget_FontFeatures</name>
-    <message>
-        <source>Frame</source>
-        <translation type="obsolete">边框</translation>
-    </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="26"/>
         <source>Common Ligtures (liga)</source>
@@ -24379,10 +24151,6 @@ Transparency</source>
 <context>
     <name>PropertyWidget_HyphenationBase</name>
     <message>
-        <source>Frame</source>
-        <translation type="obsolete">边框</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/propertywidget_hyphenationbase.ui" line="43"/>
         <source>Smallest Word:</source>
         <translation type="unfinished"></translation>
@@ -24421,38 +24189,7 @@ A value of 0 means unlimited hyphenations.</source>
     </message>
 </context>
 <context>
-    <name>PropertyWidget_OptMargins</name>
-    <message>
-        <source>None</source>
-        <comment>optical margins</comment>
-        <translation type="vanished">无</translation>
-    </message>
-    <message>
-        <source>Both Sides</source>
-        <comment>optical margins</comment>
-        <translation type="vanished">两边</translation>
-    </message>
-    <message>
-        <source>Left Only</source>
-        <comment>optical margins</comment>
-        <translation type="vanished">仅左边</translation>
-    </message>
-    <message>
-        <source>Right Only</source>
-        <comment>optical margins</comment>
-        <translation type="vanished">仅右边</translation>
-    </message>
-    <message>
-        <source>Reset</source>
-        <translation type="vanished">重置</translation>
-    </message>
-</context>
-<context>
     <name>PropertyWidget_OptMarginsBase</name>
-    <message>
-        <source>Frame</source>
-        <translation type="vanished">边框</translation>
-    </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_optmarginsbase.ui" line="32"/>
         <source>None</source>
@@ -24477,13 +24214,6 @@ A value of 0 means unlimited hyphenations.</source>
         <location filename="../../scribus/ui/propertywidget_optmarginsbase.ui" line="60"/>
         <source>Reset</source>
         <translation>重置</translation>
-    </message>
-</context>
-<context>
-    <name>PropertyWidget_Orphans</name>
-    <message>
-        <source> lines</source>
-        <translation type="vanished"> 行数</translation>
     </message>
 </context>
 <context>
@@ -24549,30 +24279,14 @@ A value of 0 means unlimited hyphenations.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Lines:</source>
-        <translation type="vanished">线条：</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/propertywidget_pareffect.cpp" line="227"/>
         <source>Numbered List</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Format:</source>
-        <translation type="vanished">格式:</translation>
-    </message>
-    <message>
-        <source>Start:</source>
-        <translation type="vanished">头部:</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/propertywidget_pareffect.cpp" line="224"/>
         <source>No Paragraph Effects</source>
         <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Offset:</source>
-        <translation type="vanished">偏移值:</translation>
     </message>
 </context>
 <context>
@@ -24581,10 +24295,6 @@ A value of 0 means unlimited hyphenations.</source>
         <location filename="../../scribus/ui/propertywidget_pareffectbase.ui" line="273"/>
         <source>Effect Parameters</source>
         <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Offset</source>
-        <translation type="vanished">偏移</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_pareffectbase.ui" line="23"/>
@@ -24662,37 +24372,9 @@ A value of 0 means unlimited hyphenations.</source>
         <translation type="unfinished">偏移值:</translation>
     </message>
     <message>
-        <source>Lines</source>
-        <translation type="vanished">线条</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/propertywidget_pareffectbase.ui" line="119"/>
         <source>Numbered List</source>
         <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Level</source>
-        <translation type="vanished">层</translation>
-    </message>
-    <message>
-        <source>Start</source>
-        <translation type="vanished">开始</translation>
-    </message>
-    <message>
-        <source>Set</source>
-        <translation type="vanished">设置</translation>
-    </message>
-    <message>
-        <source>Format</source>
-        <translation type="vanished">格式</translation>
-    </message>
-    <message>
-        <source>Prefix</source>
-        <translation type="vanished">前缀</translation>
-    </message>
-    <message>
-        <source>Suffix</source>
-        <translation type="vanished">后缀</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_pareffectbase.ui" line="62"/>
@@ -24756,10 +24438,6 @@ A value of 0 means unlimited hyphenations.</source>
 <context>
     <name>PropertyWidget_PathTextBase</name>
     <message>
-        <source>Frame</source>
-        <translation type="vanished">边框</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/propertywidget_pathtextbase.ui" line="32"/>
         <source>Type:</source>
         <translation>类型:</translation>
@@ -24786,22 +24464,7 @@ A value of 0 means unlimited hyphenations.</source>
     </message>
 </context>
 <context>
-    <name>PropertyWidget_TextColor</name>
-    <message>
-        <source>Saturation of color of text fill</source>
-        <translation type="vanished">文本填充色的饱和度</translation>
-    </message>
-    <message>
-        <source>Saturation of color of text stroke</source>
-        <translation type="vanished">文本描边颜色的饱和度</translation>
-    </message>
-</context>
-<context>
     <name>PropertyWidget_TextColorBase</name>
-    <message>
-        <source>Frame</source>
-        <translation type="vanished">边框</translation>
-    </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_textcolorbase.ui" line="62"/>
         <source>Color of selected text. If Outline text decoration is enabled, this color will be the fill color. If Drop Shadow Text is enabled, then this will be the top most color.</source>
@@ -25877,10 +25540,6 @@ Check path and filename.</source>
         <location filename="../../scribus/plugins/gettext/csvim/csvim.cpp" line="66"/>
         <source>CSV_header</source>
         <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Font %1 is broken, discarding it</source>
-        <translation type="vanished">字体 %1 已损坏，忽略它</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/gettext/htmlim/htmlreader.cpp" line="667"/>
@@ -32029,10 +31688,6 @@ Please choose another.</source>
 <context>
     <name>SMCharacterStyle</name>
     <message>
-        <source>Properties</source>
-        <translation type="vanished">属性</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/smtextstyles.cpp" line="2106"/>
         <source>Character Styles</source>
         <translation>字符样式</translation>
@@ -32239,10 +31894,6 @@ Please choose another.</source>
         <translation>字符样式</translation>
     </message>
     <message>
-        <source>&amp;Lines:</source>
-        <translation type="vanished">行(&amp;L):</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/smpstylewidget.ui" line="1176"/>
         <source>Distance from Text:</source>
         <translation>与文本距离 :</translation>
@@ -32345,17 +31996,9 @@ Please choose another.</source>
         <translation>基于 :</translation>
     </message>
     <message>
-        <source>TextLabel</source>
-        <translation type="vanished">文本标签</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/smpstylewidget.ui" line="636"/>
         <source>Colors</source>
         <translation>颜色</translation>
-    </message>
-    <message>
-        <source>Ch&amp;aracter Style</source>
-        <translation type="vanished">字符样式(&amp;a)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.ui" line="402"/>
@@ -32499,10 +32142,6 @@ Please choose another.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Restart</source>
-        <translation type="vanished">重启</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/smpstylewidget.ui" line="1042"/>
         <source>Restart after other format</source>
         <translation type="unfinished"></translation>
@@ -32566,36 +32205,6 @@ Please choose another.</source>
         <location filename="../../scribus/ui/smpstylewidget.ui" line="464"/>
         <source>Min. Space Width:</source>
         <translation>最小空白宽度 :</translation>
-    </message>
-    <message>
-        <source>Min:</source>
-        <comment>Glyph Extension</comment>
-        <translation type="vanished">最小:</translation>
-    </message>
-    <message>
-        <source>Max:</source>
-        <comment>Glyph Extension</comment>
-        <translation type="vanished">最大:</translation>
-    </message>
-    <message>
-        <source>None</source>
-        <comment>Optical Margins</comment>
-        <translation type="vanished">无</translation>
-    </message>
-    <message>
-        <source>Both Sides</source>
-        <comment>Optical Margins</comment>
-        <translation type="vanished">两边</translation>
-    </message>
-    <message>
-        <source>Left Only</source>
-        <comment>Optical Margins</comment>
-        <translation type="vanished">仅左边</translation>
-    </message>
-    <message>
-        <source>Right Only</source>
-        <comment>Optical Margins</comment>
-        <translation type="vanished">仅右边</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.cpp" line="550"/>
@@ -34303,90 +33912,6 @@ converting their vector data into Scribus objects.</source>
         <source>Plain Text</source>
         <translation>纯文本</translation>
     </message>
-    <message>
-        <source>9,999.99</source>
-        <translation type="obsolete">9,999.99</translation>
-    </message>
-    <message>
-        <source>9.999,99</source>
-        <translation type="obsolete">9.999,99</translation>
-    </message>
-    <message>
-        <source>9999.99</source>
-        <translation type="obsolete">9999.99</translation>
-    </message>
-    <message>
-        <source>9999,99</source>
-        <translation type="obsolete">9999,99</translation>
-    </message>
-    <message>
-        <source>m/d</source>
-        <translation type="vanished">m/d</translation>
-    </message>
-    <message>
-        <source>m/d/yy</source>
-        <translation type="vanished">m/d/yy</translation>
-    </message>
-    <message>
-        <source>mm/dd/yy</source>
-        <translation type="vanished">mm/dd/yy</translation>
-    </message>
-    <message>
-        <source>mm/yy</source>
-        <translation type="vanished">mm/yy</translation>
-    </message>
-    <message>
-        <source>d-mmm</source>
-        <translation type="vanished">d-mmm</translation>
-    </message>
-    <message>
-        <source>d-mmm-yy</source>
-        <translation type="vanished">d-mmm-yy</translation>
-    </message>
-    <message>
-        <source>dd/mm/yy</source>
-        <translation type="vanished">dd/mm/yy</translation>
-    </message>
-    <message>
-        <source>dd/mm/yyyy</source>
-        <translation type="vanished">dd/mm/yyyy</translation>
-    </message>
-    <message>
-        <source>dd.mm.yyyy</source>
-        <translation type="vanished">dd.mm.yyyy</translation>
-    </message>
-    <message>
-        <source>yy-mm-dd</source>
-        <translation type="vanished">yy-mm-dd</translation>
-    </message>
-    <message>
-        <source>mmmm-yy</source>
-        <translation type="vanished">mmmm-yy</translation>
-    </message>
-    <message>
-        <source>mmm d, yyyy</source>
-        <translation type="vanished">mmm d, yyyy</translation>
-    </message>
-    <message>
-        <source>mmmm d, yyyy</source>
-        <translation type="vanished">mmmm d, yyyy</translation>
-    </message>
-    <message>
-        <source>yyyy-mm-dd</source>
-        <translation type="vanished">yyyy-mm-dd</translation>
-    </message>
-    <message>
-        <source>HH:MM</source>
-        <translation type="vanished">HH:MM</translation>
-    </message>
-    <message>
-        <source>h:MM tt</source>
-        <translation type="vanished">h:MM tt</translation>
-    </message>
-    <message>
-        <source>HH:MM:ss</source>
-        <translation type="vanished">HH:MM:ss</translation>
-    </message>
 </context>
 <context>
     <name>ScGTFileDialog</name>
@@ -35171,18 +34696,6 @@ Consider using the Preflight Verifier to correct them</source>
         <translation>全部解锁(&amp;U)</translation>
     </message>
     <message>
-        <source>Information</source>
-        <translation type="vanished">信息</translation>
-    </message>
-    <message>
-        <source>The program %1 is already running!</source>
-        <translation type="vanished">程序 %1 已经在运行中!</translation>
-    </message>
-    <message>
-        <source>The program %1 is missing!</source>
-        <translation type="vanished">程序 %1 不存在!</translation>
-    </message>
-    <message>
         <location filename="../../scribus/scribus.cpp" line="4010"/>
         <location filename="../../scribus/scribus.cpp" line="8844"/>
         <source>Do you really want to replace your existing image?</source>
@@ -35222,10 +34735,6 @@ Consider using the Preflight Verifier to correct them</source>
         <location filename="../../scribus/scribus.cpp" line="3925"/>
         <source>Do you really want to clear all your text?</source>
         <translation>你真的想清除所有的文字吗?</translation>
-    </message>
-    <message>
-        <source>Scribus </source>
-        <translation type="vanished">Scribus</translation>
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="3703"/>
@@ -35586,10 +35095,6 @@ Consider using the Preflight Verifier to correct them</source>
         <location filename="../../scribus/scribusapp.cpp" line="589"/>
         <source>Output version information and exit</source>
         <translation>输出版本信息并退出</translation>
-    </message>
-    <message>
-        <source>filename</source>
-        <translation type="vanished">文件名</translation>
     </message>
     <message>
         <location filename="../../scribus/scribusapp.cpp" line="276"/>
@@ -41587,10 +41092,6 @@ please choose another one.</source>
 <context>
     <name>smFontFeaturesBase</name>
     <message>
-        <source>Form</source>
-        <translation type="obsolete">从</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="23"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600; color:#008000;&quot;&gt;The current selected font does not have any font features.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation type="unfinished"></translation>
@@ -41598,11 +41099,6 @@ please choose another one.</source>
     <message>
         <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="36"/>
         <source> Ligatures</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="48"/>
-        <source>Common Ligtures (liga)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -41676,13 +41172,18 @@ please choose another one.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="48"/>
+        <source>Common Ligatures (liga)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="180"/>
-        <source>Petite Capitals from Captials</source>
+        <source>Petite Capitals from Capitals</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="185"/>
-        <source>Small Capitals from Captials</source>
+        <source>Small Capitals from Capitals</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

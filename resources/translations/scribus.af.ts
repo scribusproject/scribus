@@ -17892,10 +17892,6 @@ Do you want to migrate them to the new Scribus version?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Size</source>
-        <translation type="vanished">Grootte</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="329"/>
         <source>Margins &amp;&amp; Bleeds</source>
         <translation type="unfinished"></translation>
@@ -18586,10 +18582,6 @@ Do you want to use this?</source>
         <location filename="../../scribus/ui/prefs_hyphenatorbase.ui" line="45"/>
         <source>Behaviour</source>
         <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Characters</source>
-        <translation type="vanished">Karakters</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_hyphenatorbase.ui" line="88"/>
@@ -21961,10 +21953,6 @@ a range of pages or a single page number</source>
         <translation>&amp;Vorm</translation>
     </message>
     <message>
-        <source>&amp;Text</source>
-        <translation type="vanished">&amp;Teks</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/propertiespalette.cpp" line="877"/>
         <source>&amp;Image</source>
         <translation>&amp;Prent</translation>
@@ -23120,18 +23108,6 @@ Transparency</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source> pt</source>
-        <translation type="vanished">pt</translation>
-    </message>
-    <message>
-        <source>Font Size</source>
-        <translation type="vanished">Lettergrootte</translation>
-    </message>
-    <message>
-        <source>Line Spacing</source>
-        <translation type="vanished">Lynspasiëring</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/propertiespalette_text.cpp" line="81"/>
         <location filename="../../scribus/ui/propertiespalette_text.cpp" line="696"/>
         <source>Orphans and Widows</source>
@@ -23452,17 +23428,6 @@ Transparency</source>
     </message>
 </context>
 <context>
-    <name>PropertyWidget_Advanced</name>
-    <message>
-        <source> %</source>
-        <translation type="vanished">%</translation>
-    </message>
-    <message>
-        <source>Scaling width of characters</source>
-        <translation type="vanished">Skaalbreedte van letters</translation>
-    </message>
-</context>
-<context>
     <name>PropertyWidget_AdvancedBase</name>
     <message>
         <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="48"/>
@@ -23546,10 +23511,6 @@ Transparency</source>
 <context>
     <name>PropertyWidget_Distance</name>
     <message>
-        <source>Colu&amp;mns:</source>
-        <translation type="vanished">Kolo&amp;mme:</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/propertywidget_distance.cpp" line="451"/>
         <source>Gap:</source>
         <translation type="unfinished"></translation>
@@ -23560,62 +23521,14 @@ Transparency</source>
         <translation>Breedte:</translation>
     </message>
     <message>
-        <source>To&amp;p:</source>
-        <translation type="vanished">&amp;Bo:</translation>
-    </message>
-    <message>
-        <source>&amp;Bottom:</source>
-        <translation type="vanished">On&amp;der:</translation>
-    </message>
-    <message>
-        <source>&amp;Left:</source>
-        <translation type="vanished">&amp;Links:</translation>
-    </message>
-    <message>
-        <source>&amp;Right:</source>
-        <translation type="vanished">&amp;Regs:</translation>
-    </message>
-    <message>
-        <source>T&amp;abulators...</source>
-        <translation type="vanished">T&amp;abuleerders...</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/propertywidget_distance.cpp" line="455"/>
         <source> pt</source>
         <translation>pt</translation>
     </message>
     <message>
-        <source>Number of columns in text frame</source>
-        <translation type="vanished">Aantal kolomme in teksraam</translation>
-    </message>
-    <message>
-        <source>Switches between Gap or Column width</source>
-        <translation type="vanished">Skakel tussen Tussenruimte of Kolombreedte</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/propertywidget_distance.cpp" line="352"/>
         <source>Distance between columns</source>
         <translation>Afstand tussen kolomme</translation>
-    </message>
-    <message>
-        <source>Distance of text from top of frame</source>
-        <translation type="vanished">Afstand van teks tot raambokant</translation>
-    </message>
-    <message>
-        <source>Distance of text from bottom of frame</source>
-        <translation type="vanished">Afstand van teks tot raamonderkant</translation>
-    </message>
-    <message>
-        <source>Distance of text from left of frame</source>
-        <translation type="vanished">Afstand van teks tot raamlinkerkant</translation>
-    </message>
-    <message>
-        <source>Distance of text from right of frame</source>
-        <translation type="vanished">Afstand van teks tot raamregterkant</translation>
-    </message>
-    <message>
-        <source>Edit tab settings of text frame...</source>
-        <translation type="vanished">Verander Tabinstelling van teksraam...</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_distance.cpp" line="352"/>
@@ -23800,13 +23713,6 @@ Transparency</source>
         <location filename="../../scribus/ui/propertywidget_dropcapbase.ui" line="20"/>
         <source>Number of lines used by the drop cap</source>
         <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>PropertyWidget_Flop</name>
-    <message>
-        <source>Line Spacing</source>
-        <translation type="vanished">Lynspasiëring</translation>
     </message>
 </context>
 <context>
@@ -24250,18 +24156,6 @@ A value of 0 means unlimited hyphenations.</source>
     </message>
 </context>
 <context>
-    <name>PropertyWidget_OptMargins</name>
-    <message>
-        <source>None</source>
-        <comment>optical margins</comment>
-        <translation type="vanished">Geen</translation>
-    </message>
-    <message>
-        <source>Reset</source>
-        <translation type="vanished">Begin oor</translation>
-    </message>
-</context>
-<context>
     <name>PropertyWidget_OptMarginsBase</name>
     <message>
         <location filename="../../scribus/ui/propertywidget_optmarginsbase.ui" line="32"/>
@@ -24357,10 +24251,6 @@ A value of 0 means unlimited hyphenations.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Format:</source>
-        <translation type="vanished">Formaat:</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/propertywidget_pareffect.cpp" line="224"/>
         <source>No Paragraph Effects</source>
         <translation type="unfinished"></translation>
@@ -24454,14 +24344,6 @@ A value of 0 means unlimited hyphenations.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Level</source>
-        <translation type="vanished">Vlak</translation>
-    </message>
-    <message>
-        <source>Format</source>
-        <translation type="vanished">Formaat</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/propertywidget_pareffectbase.ui" line="62"/>
         <source>Bulleted List</source>
         <translation type="unfinished"></translation>
@@ -24546,21 +24428,6 @@ A value of 0 means unlimited hyphenations.</source>
         <location filename="../../scribus/ui/propertywidget_pathtextbase.ui" line="69"/>
         <source>Show Curve</source>
         <translation>Wys kurwe</translation>
-    </message>
-</context>
-<context>
-    <name>PropertyWidget_TextColor</name>
-    <message>
-        <source>Saturation of color of text fill</source>
-        <translation type="vanished">Versadiging van kleur van teks agtergrond</translation>
-    </message>
-    <message>
-        <source>Saturation of color of text stroke</source>
-        <translation type="vanished">Versadiging van kleur van tekslyne</translation>
-    </message>
-    <message>
-        <source>Right to Left Writing</source>
-        <translation type="vanished">Regs na Links Skryf</translation>
     </message>
 </context>
 <context>
@@ -25639,10 +25506,6 @@ Kontroleer pad en lêernaam.</translation>
         <location filename="../../scribus/plugins/gettext/csvim/csvim.cpp" line="66"/>
         <source>CSV_header</source>
         <translation>CSV_kopreel</translation>
-    </message>
-    <message>
-        <source>Font %1 is broken, discarding it</source>
-        <translation type="vanished">Lettertype %1 is beskadig en word weggelaat</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/gettext/htmlim/htmlreader.cpp" line="667"/>
@@ -31790,10 +31653,6 @@ Please choose another.</source>
 <context>
     <name>SMCharacterStyle</name>
     <message>
-        <source>Properties</source>
-        <translation type="vanished">Eienskappe</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/smtextstyles.cpp" line="2106"/>
         <source>Character Styles</source>
         <translation type="unfinished"></translation>
@@ -32311,11 +32170,6 @@ Please choose another.</source>
         <location filename="../../scribus/ui/smpstylewidget.ui" line="464"/>
         <source>Min. Space Width:</source>
         <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>None</source>
-        <comment>Optical Margins</comment>
-        <translation type="vanished">Geen</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.cpp" line="550"/>
@@ -41191,11 +41045,6 @@ please choose another one.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="48"/>
-        <source>Common Ligtures (liga)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="51"/>
         <source>Common Ligatures</source>
         <translation type="unfinished"></translation>
@@ -41266,13 +41115,18 @@ please choose another one.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="48"/>
+        <source>Common Ligatures (liga)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="180"/>
-        <source>Petite Capitals from Captials</source>
+        <source>Petite Capitals from Capitals</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="185"/>
-        <source>Small Capitals from Captials</source>
+        <source>Small Capitals from Capitals</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

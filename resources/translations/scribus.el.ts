@@ -5032,10 +5032,6 @@ currently %2 x %3 DPI</source>
         <translation>Μονή σελίδα</translation>
     </message>
     <message>
-        <source>Double Sided</source>
-        <translation type="vanished">Διπλής όψης</translation>
-    </message>
-    <message>
         <location filename="../../scribus/commonstrings.cpp" line="339"/>
         <source>3-Fold</source>
         <translation>3-πλο</translation>
@@ -9662,10 +9658,6 @@ p, li { white-space: pre-wrap; }
         <location filename="../../scribus/plugins/imposition/impositionbase.ui" line="376"/>
         <source>Facing Pages</source>
         <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Double sided</source>
-        <translation type="vanished">Διπλής όψης</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/imposition/impositionbase.ui" line="387"/>
@@ -17729,10 +17721,6 @@ Do you want to migrate them to the new Scribus version?</source>
         <translation type="unfinished">Γενικά</translation>
     </message>
     <message>
-        <source>Language</source>
-        <translation type="obsolete">&amp;Γλώσσα:</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="100"/>
         <source>Page Size</source>
         <translation>Μέγεθος σελίδας</translation>
@@ -17898,10 +17886,6 @@ Do you want to migrate them to the new Scribus version?</source>
         <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="253"/>
         <source>First Page is:</source>
         <translation>Η πρώτη σελίδα είναι:</translation>
-    </message>
-    <message>
-        <source>Size</source>
-        <translation type="vanished">Μέγεθος</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="329"/>
@@ -18594,10 +18578,6 @@ Do you want to use this?</source>
         <location filename="../../scribus/ui/prefs_hyphenatorbase.ui" line="45"/>
         <source>Behaviour</source>
         <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Characters</source>
-        <translation type="vanished">Χαρακτήρων</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_hyphenatorbase.ui" line="88"/>
@@ -19721,14 +19701,6 @@ Do you want to use this?</source>
         <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1597"/>
         <source>Continuous Pages</source>
         <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Double Page Left</source>
-        <translation type="vanished">Διπλή σελίδα αριστερά</translation>
-    </message>
-    <message>
-        <source>Double Page Right</source>
-        <translation type="vanished">Διπλή σελίδα δεξιά</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1640"/>
@@ -21977,10 +21949,6 @@ a range of pages or a single page number</source>
         <translation>&amp;Σχήμα</translation>
     </message>
     <message>
-        <source>&amp;Text</source>
-        <translation type="vanished">&amp;Κείμενο</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/propertiespalette.cpp" line="877"/>
         <source>&amp;Image</source>
         <translation>&amp;Εικόνα</translation>
@@ -23136,18 +23104,6 @@ Transparency</source>
         <translation>Στοίχιση στο πλέγμα βάσης</translation>
     </message>
     <message>
-        <source> pt</source>
-        <translation type="vanished"> σημ</translation>
-    </message>
-    <message>
-        <source>Font Size</source>
-        <translation type="vanished">Μέγεθος γραμματοσειράς</translation>
-    </message>
-    <message>
-        <source>Line Spacing</source>
-        <translation type="vanished">Απόσταση γραμμών</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/propertiespalette_text.cpp" line="81"/>
         <location filename="../../scribus/ui/propertiespalette_text.cpp" line="696"/>
         <source>Orphans and Widows</source>
@@ -23468,29 +23424,6 @@ Transparency</source>
     </message>
 </context>
 <context>
-    <name>PropertyWidget_Advanced</name>
-    <message>
-        <source> %</source>
-        <translation type="vanished"> %</translation>
-    </message>
-    <message>
-        <source>Offset to baseline of characters</source>
-        <translation type="vanished">Μετατόπιση σε σχέση με τη βάση των χαρακτήρων</translation>
-    </message>
-    <message>
-        <source>Manual Tracking</source>
-        <translation type="vanished">Χειροκίνητη ανίχνευση</translation>
-    </message>
-    <message>
-        <source>Scaling width of characters</source>
-        <translation type="vanished">Πλάτος κλιμάκωσης των χαρακτήρων</translation>
-    </message>
-    <message>
-        <source>Scaling height of characters</source>
-        <translation type="vanished">Ύψος κλιμάκωσης των χαρακτήρων</translation>
-    </message>
-</context>
-<context>
     <name>PropertyWidget_AdvancedBase</name>
     <message>
         <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="48"/>
@@ -23574,10 +23507,6 @@ Transparency</source>
 <context>
     <name>PropertyWidget_Distance</name>
     <message>
-        <source>Colu&amp;mns:</source>
-        <translation type="vanished">Σ&amp;τήλες:</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/propertywidget_distance.cpp" line="451"/>
         <source>Gap:</source>
         <translation>&amp;Κενό:</translation>
@@ -23588,62 +23517,14 @@ Transparency</source>
         <translation>Πλάτος:</translation>
     </message>
     <message>
-        <source>To&amp;p:</source>
-        <translation type="vanished">&amp;Πάνω:</translation>
-    </message>
-    <message>
-        <source>&amp;Bottom:</source>
-        <translation type="vanished">&amp;Κάτω:</translation>
-    </message>
-    <message>
-        <source>&amp;Left:</source>
-        <translation type="vanished">&amp;Αριστερά:</translation>
-    </message>
-    <message>
-        <source>&amp;Right:</source>
-        <translation type="vanished">&amp;Δεξιά:</translation>
-    </message>
-    <message>
-        <source>T&amp;abulators...</source>
-        <translation type="vanished">&amp;Στηλοθέτες...</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/propertywidget_distance.cpp" line="455"/>
         <source> pt</source>
         <translation> σημ</translation>
     </message>
     <message>
-        <source>Number of columns in text frame</source>
-        <translation type="vanished">Αριθμός στηλών στο πλαίσιο κειμένου</translation>
-    </message>
-    <message>
-        <source>Switches between Gap or Column width</source>
-        <translation type="vanished">Εναλλαγή μεταξύ πλάτους κενού ή στήλης</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/propertywidget_distance.cpp" line="352"/>
         <source>Distance between columns</source>
         <translation>Απόσταση μεταξύ στηλών</translation>
-    </message>
-    <message>
-        <source>Distance of text from top of frame</source>
-        <translation type="vanished">Απόσταση κειμένου από το πάνω άκρο του πλαισίου</translation>
-    </message>
-    <message>
-        <source>Distance of text from bottom of frame</source>
-        <translation type="vanished">Απόσταση κειμένου από το κάτω άκρο του πλαισίου</translation>
-    </message>
-    <message>
-        <source>Distance of text from left of frame</source>
-        <translation type="vanished">Απόσταση κειμένου από το αριστερό άκρο του πλαισίου</translation>
-    </message>
-    <message>
-        <source>Distance of text from right of frame</source>
-        <translation type="vanished">Απόσταση κειμένου από το δεξί μέρος του πλαισίου</translation>
-    </message>
-    <message>
-        <source>Edit tab settings of text frame...</source>
-        <translation type="vanished">Επεξεργασία ρυθμίσεων στηλοθέτη του πλαισίου κειμένου...</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_distance.cpp" line="352"/>
@@ -23828,13 +23709,6 @@ Transparency</source>
         <location filename="../../scribus/ui/propertywidget_dropcapbase.ui" line="20"/>
         <source>Number of lines used by the drop cap</source>
         <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>PropertyWidget_Flop</name>
-    <message>
-        <source>Line Spacing</source>
-        <translation type="vanished">Απόσταση γραμμών</translation>
     </message>
 </context>
 <context>
@@ -24278,18 +24152,6 @@ A value of 0 means unlimited hyphenations.</source>
     </message>
 </context>
 <context>
-    <name>PropertyWidget_OptMargins</name>
-    <message>
-        <source>None</source>
-        <comment>optical margins</comment>
-        <translation type="vanished">Κανένα</translation>
-    </message>
-    <message>
-        <source>Reset</source>
-        <translation type="vanished">Επαναφορά</translation>
-    </message>
-</context>
-<context>
     <name>PropertyWidget_OptMarginsBase</name>
     <message>
         <location filename="../../scribus/ui/propertywidget_optmarginsbase.ui" line="32"/>
@@ -24385,21 +24247,9 @@ A value of 0 means unlimited hyphenations.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Format:</source>
-        <translation type="vanished">Μορφή:</translation>
-    </message>
-    <message>
-        <source>Start:</source>
-        <translation type="vanished">Αρχή:</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/propertywidget_pareffect.cpp" line="224"/>
         <source>No Paragraph Effects</source>
         <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Offset:</source>
-        <translation type="vanished">X-Μετατοπ</translation>
     </message>
 </context>
 <context>
@@ -24485,25 +24335,9 @@ A value of 0 means unlimited hyphenations.</source>
         <translation type="unfinished">X-Μετατοπ</translation>
     </message>
     <message>
-        <source>Lines</source>
-        <translation type="vanished">Γραμμές</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/propertywidget_pareffectbase.ui" line="119"/>
         <source>Numbered List</source>
         <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Level</source>
-        <translation type="vanished">Επίπεδο</translation>
-    </message>
-    <message>
-        <source>Start</source>
-        <translation type="vanished">Έναρξη</translation>
-    </message>
-    <message>
-        <source>Format</source>
-        <translation type="vanished">Μορφή</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_pareffectbase.ui" line="62"/>
@@ -24590,25 +24424,6 @@ A value of 0 means unlimited hyphenations.</source>
         <location filename="../../scribus/ui/propertywidget_pathtextbase.ui" line="69"/>
         <source>Show Curve</source>
         <translation>Εμφάνιση καμπύλης</translation>
-    </message>
-</context>
-<context>
-    <name>PropertyWidget_TextColor</name>
-    <message>
-        <source>Color of selected text. If Outline text decoration is enabled, this color will be the fill color. If Drop Shadow Text is enabled, then this will be the top most color.</source>
-        <translation type="vanished">Χρώμα του επιλεγμένου κειμένου. Αν είναι ενεργοποιημένη η διακόσμηση περιγράμματος, αυτό το χρώμα θα είναι το χρώμα γεμίσματος. Αν είναι ενεργοποιημένη η σκιά κειμένου, τότε αυτό το χρώμα θα είναι το ανώτερο χρώμα.</translation>
-    </message>
-    <message>
-        <source>Saturation of color of text fill</source>
-        <translation type="vanished">Κορεσμός του χρώματος του γεμίσματος κειμένου</translation>
-    </message>
-    <message>
-        <source>Saturation of color of text stroke</source>
-        <translation type="vanished">Κορεσμός του χρώματος της γραφής κειμένου</translation>
-    </message>
-    <message>
-        <source>Right to Left Writing</source>
-        <translation type="vanished">Γραφή από δεξιά στα αριστερά</translation>
     </message>
 </context>
 <context>
@@ -25685,10 +25500,6 @@ Check path and filename.</source>
         <location filename="../../scribus/plugins/gettext/csvim/csvim.cpp" line="66"/>
         <source>CSV_header</source>
         <translation>CSV_κεφαλίδα</translation>
-    </message>
-    <message>
-        <source>Font %1 is broken, discarding it</source>
-        <translation type="vanished">Η γραμματοσειρά %1 είναι κατεστραμμένη, γίνεται απόρριψη</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/gettext/htmlim/htmlreader.cpp" line="667"/>
@@ -31834,10 +31645,6 @@ Please choose another.</source>
 <context>
     <name>SMCharacterStyle</name>
     <message>
-        <source>Properties</source>
-        <translation type="vanished">Ιδιότητες</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/smtextstyles.cpp" line="2106"/>
         <source>Character Styles</source>
         <translation>Χαρακτήρων</translation>
@@ -32044,10 +31851,6 @@ Please choose another.</source>
         <translation>Χαρακτήρας</translation>
     </message>
     <message>
-        <source>&amp;Lines:</source>
-        <translation type="vanished">&amp;Γραμμές:</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/smpstylewidget.ui" line="1176"/>
         <source>Distance from Text:</source>
         <translation>Απόσταση από κείμενο:</translation>
@@ -32153,10 +31956,6 @@ Please choose another.</source>
         <location filename="../../scribus/ui/smpstylewidget.ui" line="636"/>
         <source>Colors</source>
         <translation>Χρώματα</translation>
-    </message>
-    <message>
-        <source>Ch&amp;aracter Style</source>
-        <translation type="vanished">Χαρακτήρας</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.ui" line="402"/>
@@ -32363,11 +32162,6 @@ Please choose another.</source>
         <location filename="../../scribus/ui/smpstylewidget.ui" line="464"/>
         <source>Min. Space Width:</source>
         <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>None</source>
-        <comment>Optical Margins</comment>
-        <translation type="vanished">Κανένα</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.cpp" line="550"/>
@@ -34849,18 +34643,6 @@ Consider using the Preflight Verifier to correct them</source>
         <translation>&amp;Ξεκλείδωμα όλων</translation>
     </message>
     <message>
-        <source>Information</source>
-        <translation type="vanished">Πληροφορίες</translation>
-    </message>
-    <message>
-        <source>The program %1 is already running!</source>
-        <translation type="vanished">Το πρόγραμμα %1 εκτελείται ήδη!</translation>
-    </message>
-    <message>
-        <source>The program %1 is missing!</source>
-        <translation type="vanished">Το πρόγραμμα %1 δεν υπάρχει!</translation>
-    </message>
-    <message>
         <location filename="../../scribus/scribus.cpp" line="4010"/>
         <location filename="../../scribus/scribus.cpp" line="8844"/>
         <source>Do you really want to replace your existing image?</source>
@@ -34900,10 +34682,6 @@ Consider using the Preflight Verifier to correct them</source>
         <location filename="../../scribus/scribus.cpp" line="3925"/>
         <source>Do you really want to clear all your text?</source>
         <translation>Επιθυμείτε πραγματικά τον καθαρισμό όλου του κειμένου σας;</translation>
-    </message>
-    <message>
-        <source>Scribus </source>
-        <translation type="vanished">Scribus </translation>
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="3703"/>
@@ -35265,17 +35043,9 @@ Consider using the Preflight Verifier to correct them</source>
         <translation>Έξοδος πληροφοριών έκδοσης και έξοδος</translation>
     </message>
     <message>
-        <source>filename</source>
-        <translation type="vanished">όνομα αρχείου</translation>
-    </message>
-    <message>
         <location filename="../../scribus/scribusapp.cpp" line="276"/>
         <source>Preferences directory %1 does not exist, aborting.</source>
         <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Use filename as path for user given preferences</source>
-        <translation type="vanished">Χρήση ονόματος αρχείου σαν διαδρομή για τις προτιμήσεις του χρήστη</translation>
     </message>
     <message>
         <location filename="../../scribus/scribusapp.cpp" line="617"/>
@@ -36871,15 +36641,6 @@ Consider using the Preflight Verifier to correct them</source>
         <source>Shadowed Text. Hold down the button momentarily to change the shadow offset values.</source>
         <translation type="unfinished"></translation>
     </message>
-    <message>
-        <source>Outline. Hold down the button momentarily to change the outline stroke width.</source>
-        <comment>Text Style Selector</comment>
-        <translation type="vanished">Περίγραμμα. Κρατήστε πατημένο το κουμπί στιγμιαία για τον ορισμό του πλάτους γραφής του περιγράμματος.</translation>
-    </message>
-    <message>
-        <source>Shadowed Text. Hold down the button momentarily to enable the offset spacing.</source>
-        <translation type="vanished">Σκιασμένο κείμενο. Κρατήστε πατημένο το κουμπί στιγμιαία για την ενεργοποίηση απόστασης.</translation>
-    </message>
 </context>
 <context>
     <name>SubdividePlugin</name>
@@ -37707,14 +37468,6 @@ Consider using the Preflight Verifier to correct them</source>
         <location filename="../../scribus/ui/tabpdfoptions.ui" line="981"/>
         <source>Continuous</source>
         <translation>Συνεχής</translation>
-    </message>
-    <message>
-        <source>Double Page Left</source>
-        <translation type="vanished">Διπλή σελίδα αριστερά</translation>
-    </message>
-    <message>
-        <source>Double Page Right</source>
-        <translation type="vanished">Διπλή σελίδα δεξιά</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.ui" line="1005"/>
@@ -41284,11 +41037,6 @@ please choose another one.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="48"/>
-        <source>Common Ligtures (liga)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="51"/>
         <source>Common Ligatures</source>
         <translation type="unfinished"></translation>
@@ -41359,13 +41107,18 @@ please choose another one.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="48"/>
+        <source>Common Ligatures (liga)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="180"/>
-        <source>Petite Capitals from Captials</source>
+        <source>Petite Capitals from Capitals</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="185"/>
-        <source>Small Capitals from Captials</source>
+        <source>Small Capitals from Capitals</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

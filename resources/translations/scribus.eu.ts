@@ -1678,14 +1678,6 @@
         <translation>&amp;Markoak...</translation>
     </message>
     <message>
-        <source>Unlink Text Frame with Text Copy</source>
-        <translation type="vanished">Desestekatu testu-markoa testua kopiatuta</translation>
-    </message>
-    <message>
-        <source>Unlink Text Frame with Text Cut</source>
-        <translation type="vanished">Desestekatu testu-markoa testua moztuta</translation>
-    </message>
-    <message>
         <location filename="../../scribus/actionmanager.cpp" line="1598"/>
         <source>Adjust Frame Height to Text</source>
         <translation>Doitu markoaren altuera testura</translation>
@@ -3329,10 +3321,6 @@
 </context>
 <context>
     <name>CMSPrefsBase</name>
-    <message>
-        <source>Form</source>
-        <translation type="vanished">Inprimakia</translation>
-    </message>
     <message>
         <location filename="../../scribus/ui/cmsprefsbase.ui" line="32"/>
         <source>&amp;Activate Color Management</source>
@@ -5072,10 +5060,6 @@ unekoa %2 x %3 DPI</translation>
         <location filename="../../scribus/commonstrings.cpp" line="337"/>
         <source>Single Page</source>
         <translation>Alde batetik</translation>
-    </message>
-    <message>
-        <source>Double Sided</source>
-        <translation type="vanished">Bi aldetatik</translation>
     </message>
     <message>
         <location filename="../../scribus/commonstrings.cpp" line="339"/>
@@ -7836,10 +7820,6 @@ Document Liberation Project-era http://www.documentliberation.org</translation>
 <context>
     <name>GradientEditorBase</name>
     <message>
-        <source>Frame</source>
-        <translation type="vanished">Markoa</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/gradienteditor.ui" line="63"/>
         <source>Position:</source>
         <translation>Kokalekua:</translation>
@@ -8273,14 +8253,6 @@ Document Liberation Project-era http://www.documentliberation.org</translation>
         <location filename="../../scribus/ui/guidemanager.ui" line="384"/>
         <source>Apply the shown guides to all pages in the document</source>
         <translation>Aplikatu erakutsitako gidak dokumentuko orrialde guztiei</translation>
-    </message>
-    <message>
-        <source>Delete all guides shown on the current page</source>
-        <translation type="vanished">Ezabatu uneko orrialdean erakutsitako gida guztiak</translation>
-    </message>
-    <message>
-        <source>Delete all guides from all pages</source>
-        <translation type="vanished">Ezabatu orrialde guztietako gida guztiak</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/guidemanager.ui" line="225"/>
@@ -9764,10 +9736,6 @@ p, li { white-space: pre-wrap; }
         <location filename="../../scribus/plugins/imposition/impositionbase.ui" line="376"/>
         <source>Facing Pages</source>
         <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Double sided</source>
-        <translation type="vanished">Bi aldetatik</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/imposition/impositionbase.ui" line="387"/>
@@ -11411,10 +11379,6 @@ p, li { white-space: pre-wrap; }
         <location filename="../../scribus/ui/markvariabletext.cpp" line="31"/>
         <source>Edit selected Mark&apos;s label</source>
         <translation>Editatu hautatutako markaren etiketa</translation>
-    </message>
-    <message>
-        <source>Edit selected Mark&apos;s label.</source>
-        <translation type="vanished">Editatu hautatutako markaren etiketa.</translation>
     </message>
 </context>
 <context>
@@ -17876,10 +17840,6 @@ egoerako %2 kodea</translation>
         <translation type="unfinished">Orokorra</translation>
     </message>
     <message>
-        <source>Language</source>
-        <translation type="obsolete">Hizkuntza</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="100"/>
         <source>Page Size</source>
         <translation>Orrialde-tamaina</translation>
@@ -18027,10 +17987,6 @@ egoerako %2 kodea</translation>
         <translation>Alde batetik</translation>
     </message>
     <message>
-        <source>Double Page</source>
-        <translation type="vanished">Orrialde bikoitza</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="280"/>
         <source>3-Fold</source>
         <translation>3ko tolestura</translation>
@@ -18049,10 +18005,6 @@ egoerako %2 kodea</translation>
         <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="253"/>
         <source>First Page is:</source>
         <translation>Lehen orrialdea:</translation>
-    </message>
-    <message>
-        <source>Size</source>
-        <translation type="vanished">Tamaina</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="329"/>
@@ -18749,28 +18701,6 @@ Hori erabili nahi duzu?</translation>
         <translation>Portaera</translation>
     </message>
     <message>
-        <source>Language:</source>
-        <translation type="vanished">Hizkuntza:</translation>
-    </message>
-    <message>
-        <source>Smallest Word:</source>
-        <translation type="vanished">Hitzik laburrena:</translation>
-    </message>
-    <message>
-        <source>Characters</source>
-        <translation type="vanished">Karaktere</translation>
-    </message>
-    <message>
-        <source>Consecutive Hyphenations Allowed:</source>
-        <translation type="vanished">Elkarren ondoko hitz-zatiketak onartzen dira:</translation>
-    </message>
-    <message>
-        <source>Maximum number of Hyphenations following each other.
-A value of 0 means unlimited hyphenations.</source>
-        <translation type="vanished">Jarraian egin daitekeen hitz-zatiketen gehienezko kopurua. 
-0 balioak mugarik gabeko hitz-zatiketa adierazten du.</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/prefs_hyphenatorbase.ui" line="88"/>
         <source>Word Lists</source>
         <translation>Hitz-zerrendak</translation>
@@ -18820,10 +18750,6 @@ A value of 0 means unlimited hyphenations.</source>
         <location filename="../../scribus/ui/prefs_hyphenatorbase.ui" line="61"/>
         <source>Enables automatic hyphenation of your text while typing</source>
         <translation>Idatzi ahala zure testuko hitzak automatikoki zatitzea gaitzen du</translation>
-    </message>
-    <message>
-        <source>Length of the smallest word to be hyphenated</source>
-        <translation type="vanished">Zatituko den hitzik laburrenaren luzera</translation>
     </message>
 </context>
 <context>
@@ -19896,14 +19822,6 @@ A value of 0 means unlimited hyphenations.</source>
         <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1597"/>
         <source>Continuous Pages</source>
         <translation>Orrialde jarraia</translation>
-    </message>
-    <message>
-        <source>Double Page Left</source>
-        <translation type="vanished">Orrialde bikoitza ezkerra</translation>
-    </message>
-    <message>
-        <source>Double Page Right</source>
-        <translation type="vanished">Orrialde bikoitza eskuina</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1640"/>
@@ -22161,10 +22079,6 @@ batentzako, edo orrialde bakar baten zenbakia</translation>
         <translation>&amp;Forma</translation>
     </message>
     <message>
-        <source>&amp;Text</source>
-        <translation type="vanished">&amp;Testua</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/propertiespalette.cpp" line="877"/>
         <source>&amp;Image</source>
         <translation>&amp;Irudia</translation>
@@ -23179,25 +23093,6 @@ gardentasuna</translation>
     </message>
 </context>
 <context>
-    <name>PropertiesPalette_Table</name>
-    <message>
-        <source>Cell style of currently selected cell</source>
-        <translation type="vanished">Hautatutako gelaxkaren estiloa</translation>
-    </message>
-    <message>
-        <source>Table style of currently selected table</source>
-        <translation type="vanished">Hautatutako taularen estiloa</translation>
-    </message>
-    <message>
-        <source>Remove Direct Cell Formatting</source>
-        <translation type="vanished">Kendu gelaxka-formatu zuzena</translation>
-    </message>
-    <message>
-        <source>Remove Direct Table Formatting</source>
-        <translation type="vanished">Kendu taula-formatu zuzena</translation>
-    </message>
-</context>
-<context>
     <name>PropertiesPalette_TableBase</name>
     <message>
         <location filename="../../scribus/ui/propertiespalette_tablebase.ui" line="26"/>
@@ -23263,10 +23158,6 @@ gardentasuna</translation>
         <translation>Estiloak</translation>
     </message>
     <message>
-        <source>Table</source>
-        <translation type="vanished">Taula</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/propertiespalette_tablebase.ui" line="39"/>
         <source>Table style of currently selected table</source>
         <translation type="unfinished">Hautatutako taularen estiloa</translation>
@@ -23275,10 +23166,6 @@ gardentasuna</translation>
         <location filename="../../scribus/ui/propertiespalette_tablebase.ui" line="46"/>
         <source>Remove Direct Table Formatting</source>
         <translation type="unfinished">Kendu taula-formatu zuzena</translation>
-    </message>
-    <message>
-        <source>Cells</source>
-        <translation type="vanished">Gelaxkak</translation>
     </message>
 </context>
 <context>
@@ -23329,14 +23216,6 @@ gardentasuna</translation>
         <translation>Oinarri-lerroa</translation>
     </message>
     <message>
-        <source>Paragraph St&amp;yle:</source>
-        <translation type="vanished">Pa&amp;ragrafo-estiloa:</translation>
-    </message>
-    <message>
-        <source>Character St&amp;yle:</source>
-        <translation type="vanished">K&amp;araktere-estiloa:</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/propertiespalette_text.cpp" line="701"/>
         <source>Font Features</source>
         <translation type="unfinished"></translation>
@@ -23355,34 +23234,6 @@ gardentasuna</translation>
         <location filename="../../scribus/ui/propertiespalette_text.cpp" line="708"/>
         <source>Align to Baseline Grid</source>
         <translation>Lerrokatu oinarri-lerroen saretarekin</translation>
-    </message>
-    <message>
-        <source> pt</source>
-        <translation type="vanished"> pt</translation>
-    </message>
-    <message>
-        <source>Font Size</source>
-        <translation type="vanished">Letra-tamaina</translation>
-    </message>
-    <message>
-        <source>Line Spacing</source>
-        <translation type="vanished">Lerroen arteko tartea</translation>
-    </message>
-    <message>
-        <source>Paragraph style of currently selected text or paragraph</source>
-        <translation type="vanished">Hautatutako testuaren edo paragrafoaren paragrafo-estiloa</translation>
-    </message>
-    <message>
-        <source>Character style of currently selected text or paragraph</source>
-        <translation type="vanished">Hautatutako testuaren edo paragrafoaren karaktere-estiloa</translation>
-    </message>
-    <message>
-        <source>Remove Direct Paragraph Formatting</source>
-        <translation type="vanished">Kendu paragrafo-formatu zuzena</translation>
-    </message>
-    <message>
-        <source>Remove Direct Character Formatting</source>
-        <translation type="vanished">Kendu karaktere-formatu zuzena</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_text.cpp" line="81"/>
@@ -23408,10 +23259,6 @@ gardentasuna</translation>
         <source>Paragraph Effects</source>
         <translation>Paragrafo-efektuak</translation>
     </message>
-    <message>
-        <source>Select the line spacing mode</source>
-        <translation type="vanished">Hautatu lerroarte modua</translation>
-    </message>
 </context>
 <context>
     <name>PropertiesPalette_TextBase</name>
@@ -23434,7 +23281,7 @@ gardentasuna</translation>
     <message>
         <location filename="../../scribus/ui/propertiespalette_textbase.ui" line="121"/>
         <source>Line Spacing</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Lerroartea</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_textbase.ui" line="154"/>
@@ -23709,74 +23556,7 @@ gardentasuna</translation>
     </message>
 </context>
 <context>
-    <name>PropertyWidget_Advanced</name>
-    <message>
-        <source>Word Tracking</source>
-        <translation type="vanished">Hitzen jarraipena</translation>
-    </message>
-    <message>
-        <source>Min:</source>
-        <translation type="vanished">Min:</translation>
-    </message>
-    <message>
-        <source>Norm:</source>
-        <translation type="vanished">Norm:</translation>
-    </message>
-    <message>
-        <source>Glyph Extension</source>
-        <translation type="vanished">Glifo-luzera</translation>
-    </message>
-    <message>
-        <source>Max:</source>
-        <translation type="vanished">Max:</translation>
-    </message>
-    <message>
-        <source> %</source>
-        <translation type="vanished"> %</translation>
-    </message>
-    <message>
-        <source>Offset to baseline of characters</source>
-        <translation type="vanished">Desplazatu karaktereen oinarri-lerroa</translation>
-    </message>
-    <message>
-        <source>Manual Tracking</source>
-        <translation type="vanished">Eskuzko jarraipena</translation>
-    </message>
-    <message>
-        <source>Scaling width of characters</source>
-        <translation type="vanished">Karaktereen zabalera eskalatzea</translation>
-    </message>
-    <message>
-        <source>Scaling height of characters</source>
-        <translation type="vanished">Karaktereen altuera eskalatzea</translation>
-    </message>
-    <message>
-        <source>Minimal width of spaces between words</source>
-        <translation type="vanished">Hitzen arteko zuriuneen zabalera minimoa</translation>
-    </message>
-    <message>
-        <source>Normal width of spaces between words</source>
-        <translation type="vanished">Hitzen arteko zuriuneen zabalera normala</translation>
-    </message>
-    <message>
-        <source>Minimal shrinkage of glyphs for justification</source>
-        <translation type="vanished">Glifoen uzkurdura minimoa justifikaziorako</translation>
-    </message>
-    <message>
-        <source>Maximal extension of glyphs for justification</source>
-        <translation type="vanished">Glifoen luzera maximoa justifikaziorako</translation>
-    </message>
-</context>
-<context>
     <name>PropertyWidget_AdvancedBase</name>
-    <message>
-        <source>Frame</source>
-        <translation type="vanished">Markoa</translation>
-    </message>
-    <message>
-        <source>Word Spacing</source>
-        <translation type="vanished">Hitzen arteko tartea</translation>
-    </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="48"/>
         <source>Offset to baseline of characters</source>
@@ -23859,14 +23639,6 @@ gardentasuna</translation>
 <context>
     <name>PropertyWidget_Distance</name>
     <message>
-        <source>Colu&amp;mns:</source>
-        <translation type="vanished">&amp;Zutabeak:</translation>
-    </message>
-    <message>
-        <source>Vertical Alignment:</source>
-        <translation type="vanished">Lerrokatze bertikala</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/propertywidget_distance.cpp" line="451"/>
         <source>Gap:</source>
         <translation>Tartea:</translation>
@@ -23877,62 +23649,14 @@ gardentasuna</translation>
         <translation>Zabalera:</translation>
     </message>
     <message>
-        <source>To&amp;p:</source>
-        <translation type="vanished">&amp;Goian:</translation>
-    </message>
-    <message>
-        <source>&amp;Bottom:</source>
-        <translation type="vanished">&amp;Behean:</translation>
-    </message>
-    <message>
-        <source>&amp;Left:</source>
-        <translation type="vanished">&amp;Ezkerrean:</translation>
-    </message>
-    <message>
-        <source>&amp;Right:</source>
-        <translation type="vanished">&amp;Eskuinean:</translation>
-    </message>
-    <message>
-        <source>T&amp;abulators...</source>
-        <translation type="vanished">Ta&amp;bulatzaileak...</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/propertywidget_distance.cpp" line="455"/>
         <source> pt</source>
         <translation> pt</translation>
     </message>
     <message>
-        <source>Number of columns in text frame</source>
-        <translation type="vanished">Testu-markoko zutabe-kopurua</translation>
-    </message>
-    <message>
-        <source>Switches between Gap or Column width</source>
-        <translation type="vanished">Tarte eta zubatearen zabalera artean aldatzen du</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/propertywidget_distance.cpp" line="352"/>
         <source>Distance between columns</source>
         <translation>Zutabe arteko distantzia</translation>
-    </message>
-    <message>
-        <source>Distance of text from top of frame</source>
-        <translation type="vanished">Testuaren distantzia markoaren goitik</translation>
-    </message>
-    <message>
-        <source>Distance of text from bottom of frame</source>
-        <translation type="vanished">Testuaren distantzia markoaren behetik</translation>
-    </message>
-    <message>
-        <source>Distance of text from left of frame</source>
-        <translation type="vanished">Testuaren distantzia markoaren ezkerretik</translation>
-    </message>
-    <message>
-        <source>Distance of text from right of frame</source>
-        <translation type="vanished">Testuaren distantzia markoaren eskuinetik</translation>
-    </message>
-    <message>
-        <source>Edit tab settings of text frame...</source>
-        <translation type="vanished">Editatu testu-markoaren tabulatzailea...</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_distance.cpp" line="352"/>
@@ -23957,10 +23681,6 @@ gardentasuna</translation>
 </context>
 <context>
     <name>PropertyWidget_DistanceBase</name>
-    <message>
-        <source>Frame</source>
-        <translation type="vanished">Markoa</translation>
-    </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="41"/>
         <source>Vertical Alignment:</source>
@@ -24047,10 +23767,6 @@ gardentasuna</translation>
         <translation>Ta&amp;bulatzaileak...</translation>
     </message>
     <message>
-        <source>Vertical Alignment</source>
-        <translation type="vanished">Lerrokatze bertikala</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="49"/>
         <source>Top</source>
         <translation>Goian</translation>
@@ -24128,46 +23844,7 @@ gardentasuna</translation>
     </message>
 </context>
 <context>
-    <name>PropertyWidget_Flop</name>
-    <message>
-        <source>Maximum Ascent</source>
-        <translation type="vanished">Igoera maximoa</translation>
-    </message>
-    <message>
-        <source>Font Ascent</source>
-        <translation type="vanished">Letra-tipoaren igoera</translation>
-    </message>
-    <message>
-        <source>Line Spacing</source>
-        <translation type="vanished">Lerroartea</translation>
-    </message>
-    <message>
-        <source>Set the height of the first line of the text frame to use the tallest height of the included characters</source>
-        <translation type="vanished">Ezarri testu-markoaren lehen lerroaren altuerak karaktereen altuerarik handiena erabil dezan</translation>
-    </message>
-    <message>
-        <source>Set the height of the first line of text frame to use the full ascent of the font(s) in use</source>
-        <translation type="vanished">Ezarri testu-markoaren lehen lerroaren altuerak letra-tipo(ar)en igoera osoa erabil dezan</translation>
-    </message>
-    <message>
-        <source>Set the height of the first line of the text frame to the specified line height</source>
-        <translation type="vanished">Ezarri testu-markoaren lehen lerroaren altuerak adierazitako lerro-altuera erabil dezan</translation>
-    </message>
-    <message>
-        <source>Baseline Grid</source>
-        <translation type="vanished">Oinarri-lerroen sareta</translation>
-    </message>
-    <message>
-        <source>Set the base line of the first line of the text frame to the base line grid</source>
-        <translation type="vanished">Ezarri testu-markoaren lehen lerroaren oinarri-lerroa saretarena izan dadin</translation>
-    </message>
-</context>
-<context>
     <name>PropertyWidget_FlopBase</name>
-    <message>
-        <source>Frame</source>
-        <translation type="vanished">Markoa</translation>
-    </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_flopbase.ui" line="26"/>
         <source>Set the height of the first line of the text frame to use the tallest height of the included characters</source>
@@ -24182,10 +23859,6 @@ gardentasuna</translation>
         <location filename="../../scribus/ui/propertywidget_flopbase.ui" line="39"/>
         <source>Set the height of the first line of text frame to use the full ascent of the font(s) in use</source>
         <translation type="unfinished">Ezarri testu-markoaren lehen lerroaren altuerak letra-tipo(ar)en igoera osoa erabil dezan</translation>
-    </message>
-    <message>
-        <source>flopGroup</source>
-        <translation type="vanished">flopGroup</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_flopbase.ui" line="42"/>
@@ -24215,10 +23888,6 @@ gardentasuna</translation>
 </context>
 <context>
     <name>PropertyWidget_FontFeatures</name>
-    <message>
-        <source>Frame</source>
-        <translation type="obsolete">Markoa</translation>
-    </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="26"/>
         <source>Common Ligtures (liga)</source>
@@ -24578,10 +24247,6 @@ gardentasuna</translation>
 <context>
     <name>PropertyWidget_HyphenationBase</name>
     <message>
-        <source>Frame</source>
-        <translation type="obsolete">Markoa</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/propertywidget_hyphenationbase.ui" line="43"/>
         <source>Smallest Word:</source>
         <translation type="unfinished">Hitzik laburrena:</translation>
@@ -24620,38 +24285,7 @@ A value of 0 means unlimited hyphenations.</source>
     </message>
 </context>
 <context>
-    <name>PropertyWidget_OptMargins</name>
-    <message>
-        <source>None</source>
-        <comment>optical margins</comment>
-        <translation type="vanished">Bat ere ez</translation>
-    </message>
-    <message>
-        <source>Both Sides</source>
-        <comment>optical margins</comment>
-        <translation type="vanished">Bi aldeak</translation>
-    </message>
-    <message>
-        <source>Left Only</source>
-        <comment>optical margins</comment>
-        <translation type="vanished">Ezkerra soilik</translation>
-    </message>
-    <message>
-        <source>Right Only</source>
-        <comment>optical margins</comment>
-        <translation type="vanished">Eskuina soilik</translation>
-    </message>
-    <message>
-        <source>Reset</source>
-        <translation type="vanished">Berrezarri</translation>
-    </message>
-</context>
-<context>
     <name>PropertyWidget_OptMarginsBase</name>
-    <message>
-        <source>Frame</source>
-        <translation type="vanished">Markoa</translation>
-    </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_optmarginsbase.ui" line="32"/>
         <source>None</source>
@@ -24679,45 +24313,6 @@ A value of 0 means unlimited hyphenations.</source>
     </message>
 </context>
 <context>
-    <name>PropertyWidget_Orphans</name>
-    <message>
-        <source>Don&apos;t separate first</source>
-        <translation type="vanished">Ez bereizi lehena</translation>
-    </message>
-    <message>
-        <source>Don&apos;t separate last</source>
-        <translation type="vanished">Ez bereizi azkena</translation>
-    </message>
-    <message>
-        <source> lines</source>
-        <translation type="vanished">lerroak</translation>
-    </message>
-    <message>
-        <source>Do not split paragraph</source>
-        <translation type="vanished">Ez zatitu paragrafoa</translation>
-    </message>
-    <message>
-        <source>Keep with next paragraph</source>
-        <translation type="vanished">Mantendu hurrengo paragrafoarekin</translation>
-    </message>
-    <message>
-        <source>Ensure that first lines of a paragraph won&apos;t end up separated from the rest (known as widow/orphan control)</source>
-        <translation type="vanished">Ziurtatu paragrafo baten lehen lerroak ez direla paragrafotik bereiziko (alargunen/umezurtzen kontrola)</translation>
-    </message>
-    <message>
-        <source>Ensure that last lines of a paragraph won&apos;t end up separated from the rest (known as widow/orphan control)</source>
-        <translation type="vanished">Ziurtatu paragrafo baten azken lerroak ez direla paragrafotik bereiziko (alargunen/umezurtzen kontrola)</translation>
-    </message>
-    <message>
-        <source>If checked, ensures that the paragraph won&apos;t be split across multiple pages or columns</source>
-        <translation type="vanished">Markatuta badago, paragrafoa ez da zatituko orrialde edo zutabe anitzetan</translation>
-    </message>
-    <message>
-        <source>If checked, automatically moves the paragraph to the next column or page if the next paragraph isn&apos;t on the same page or column</source>
-        <translation type="vanished">Markatuta badago, paragrafoa hurrengo zutabera edo orrialdera mugituko du hurrengo paragrafoa orrialde edo zutabe berean ez badago</translation>
-    </message>
-</context>
-<context>
     <name>PropertyWidget_OrphansBase</name>
     <message>
         <location filename="../../scribus/ui/propertywidget_orphansbase.ui" line="20"/>
@@ -24726,18 +24321,10 @@ A value of 0 means unlimited hyphenations.</source>
         <translation>Ziurtatu paragrafo baten lehen lerroek ez direla paragrafotik bereiziko (alargunen/umezurtzen kontrola)</translation>
     </message>
     <message>
-        <source>Don&apos;t separate first</source>
-        <translation type="vanished">Ez bereizi lehena</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/propertywidget_orphansbase.ui" line="33"/>
         <location filename="../../scribus/ui/propertywidget_orphansbase.ui" line="53"/>
         <source> lines</source>
         <translation>lerroak</translation>
-    </message>
-    <message>
-        <source>Don&apos;t separate last</source>
-        <translation type="vanished">Ez bereizi azkena</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_orphansbase.ui" line="23"/>
@@ -24788,78 +24375,14 @@ A value of 0 means unlimited hyphenations.</source>
         <translation>Buletdun zerrenda</translation>
     </message>
     <message>
-        <source>Lines:</source>
-        <translation type="vanished">Lerroak:</translation>
-    </message>
-    <message>
-        <source>Bullet Char(s):</source>
-        <translation type="vanished">Bulet-karakterea(k):</translation>
-    </message>
-    <message>
-        <source>Enhanced char table to choose bullet chars</source>
-        <translation type="vanished">Karaktere-taula hobetua bulet-karaktereak hautatzeko</translation>
-    </message>
-    <message>
-        <source>Char Table</source>
-        <translation type="vanished">Karaktere-taula</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/propertywidget_pareffect.cpp" line="227"/>
         <source>Numbered List</source>
         <translation>Zenbakidun zerrenda</translation>
     </message>
     <message>
-        <source>Level:</source>
-        <translation type="vanished">Maila:</translation>
-    </message>
-    <message>
-        <source>Set:</source>
-        <translation type="vanished">Multzoa:</translation>
-    </message>
-    <message>
-        <source>Format:</source>
-        <translation type="vanished">Formatua:</translation>
-    </message>
-    <message>
-        <source>Start:</source>
-        <translation type="vanished">Hasiera:</translation>
-    </message>
-    <message>
-        <source>Prefix:</source>
-        <translation type="vanished">Aurrizkia:</translation>
-    </message>
-    <message>
-        <source>Suffix:</source>
-        <translation type="vanished">Atzizkia:</translation>
-    </message>
-    <message>
-        <source>Auto-Indent</source>
-        <translation type="vanished">Koska automatikoa</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/propertywidget_pareffect.cpp" line="224"/>
         <source>No Paragraph Effects</source>
         <translation>Paragrafo-efekturik ez</translation>
-    </message>
-    <message>
-        <source>Numerated List</source>
-        <translation type="vanished">Zenbakidun zerrenda</translation>
-    </message>
-    <message>
-        <source>Effect Parameters</source>
-        <translation type="vanished">Efektu-parametroak</translation>
-    </message>
-    <message>
-        <source>Offset:</source>
-        <translation type="vanished">Desplazamendua:</translation>
-    </message>
-    <message>
-        <source>Char Style:</source>
-        <translation type="vanished">Karaktere-estiloa:</translation>
-    </message>
-    <message>
-        <source>Choose character style or leave blank for use default paragraph style</source>
-        <translation type="vanished">Hautatu karaktere-estiloa edo utzi hutsik paragrafo-estilo lehenetsia erabiltzeko</translation>
     </message>
 </context>
 <context>
@@ -24868,18 +24391,6 @@ A value of 0 means unlimited hyphenations.</source>
         <location filename="../../scribus/ui/propertywidget_pareffectbase.ui" line="273"/>
         <source>Effect Parameters</source>
         <translation>Efektu-parametroak</translation>
-    </message>
-    <message>
-        <source>Char Style</source>
-        <translation type="vanished">Karaktere-estiloa</translation>
-    </message>
-    <message>
-        <source>AutoIndent</source>
-        <translation type="vanished">KoskaAutomatikoa</translation>
-    </message>
-    <message>
-        <source>Offset</source>
-        <translation type="vanished">Desplazamendua</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_pareffectbase.ui" line="23"/>
@@ -24957,46 +24468,14 @@ A value of 0 means unlimited hyphenations.</source>
         <translation type="unfinished">Desplazamendua:</translation>
     </message>
     <message>
-        <source>Lines</source>
-        <translation type="vanished">Lerroak</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/propertywidget_pareffectbase.ui" line="119"/>
         <source>Numbered List</source>
         <translation>Zenbakidun zerrenda</translation>
     </message>
     <message>
-        <source>Level</source>
-        <translation type="vanished">Maila</translation>
-    </message>
-    <message>
-        <source>Start</source>
-        <translation type="vanished">Hasiera</translation>
-    </message>
-    <message>
-        <source>Set</source>
-        <translation type="vanished">Ezarri</translation>
-    </message>
-    <message>
-        <source>Format</source>
-        <translation type="vanished">Formatua</translation>
-    </message>
-    <message>
-        <source>Prefix</source>
-        <translation type="vanished">Aurrizkia</translation>
-    </message>
-    <message>
-        <source>Suffix</source>
-        <translation type="vanished">Atzizkia</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/propertywidget_pareffectbase.ui" line="62"/>
         <source>Bulleted List</source>
         <translation>Buletdun zerrenda</translation>
-    </message>
-    <message>
-        <source>Bullet Char(s)</source>
-        <translation type="vanished">Bulet-karakterea(k)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_pareffectbase.ui" line="106"/>
@@ -25055,10 +24534,6 @@ A value of 0 means unlimited hyphenations.</source>
 <context>
     <name>PropertyWidget_PathTextBase</name>
     <message>
-        <source>Frame</source>
-        <translation type="vanished">Markoa</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/propertywidget_pathtextbase.ui" line="32"/>
         <source>Type:</source>
         <translation>Mota:</translation>
@@ -25085,42 +24560,7 @@ A value of 0 means unlimited hyphenations.</source>
     </message>
 </context>
 <context>
-    <name>PropertyWidget_TextColor</name>
-    <message>
-        <source>Color of selected text. If Outline text decoration is enabled, this color will be the fill color. If Drop Shadow Text is enabled, then this will be the top most color.</source>
-        <translation type="vanished">Hautatutako testuaren kolorea. Testuaren eskemaren dekorazioa gaituta badago, kolore hau betegarri-kolorea izango da. Testuaren itzal paraleloa gaituta badago, hau gaineragoko kolorea izango da.</translation>
-    </message>
-    <message>
-        <source>Background color of selected text</source>
-        <translation type="vanished">Hautatutako testuaren atzeko planoaren kolorea</translation>
-    </message>
-    <message>
-        <source>Saturation of color of text fill</source>
-        <translation type="vanished">Testu-kolorearen saturazioa</translation>
-    </message>
-    <message>
-        <source>Saturation of color of text stroke</source>
-        <translation type="vanished">Testu-trazuaren kolorearen saturazioa</translation>
-    </message>
-    <message>
-        <source>Saturation of color of text background</source>
-        <translation type="vanished">Testuaren atzeko planoaren kolore-saturazioa</translation>
-    </message>
-    <message>
-        <source>Right to Left Writing</source>
-        <translation type="vanished">Eskuinetik ezkerrerako idazkera</translation>
-    </message>
-    <message>
-        <source>Color of text stroke and/or drop shadow, depending which is chosen. If both are chosen, then they share the same color.</source>
-        <translation type="vanished">Testuaren trazua edota itzalaren kolorea, aukeratzen denaren arabera. Biak aukeratzen badira, kolore berdina partekatuko dute.</translation>
-    </message>
-</context>
-<context>
     <name>PropertyWidget_TextColorBase</name>
-    <message>
-        <source>Frame</source>
-        <translation type="vanished">Markoa</translation>
-    </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_textcolorbase.ui" line="62"/>
         <source>Color of selected text. If Outline text decoration is enabled, this color will be the fill color. If Drop Shadow Text is enabled, then this will be the top most color.</source>
@@ -26206,10 +25646,6 @@ garatzeko.&lt;/p&gt;
         <location filename="../../scribus/plugins/gettext/csvim/csvim.cpp" line="66"/>
         <source>CSV_header</source>
         <translation>CSV goiburukoa</translation>
-    </message>
-    <message>
-        <source>Font %1 is broken, discarding it</source>
-        <translation type="vanished">%1 letra-tipoa hondatuta dago, baztertu egingo da</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/gettext/htmlim/htmlreader.cpp" line="667"/>
@@ -32388,10 +31824,6 @@ Hautatu beste bat.</translation>
 <context>
     <name>SMCharacterStyle</name>
     <message>
-        <source>Properties</source>
-        <translation type="vanished">Propietateak</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/smtextstyles.cpp" line="2106"/>
         <source>Character Styles</source>
         <translation>Karaktere-estiloak</translation>
@@ -32598,10 +32030,6 @@ Hautatu beste bat.</translation>
         <translation>Karaktere-estiloa</translation>
     </message>
     <message>
-        <source>&amp;Lines:</source>
-        <translation type="vanished">&amp;Lerroak:</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/smpstylewidget.ui" line="1176"/>
         <source>Distance from Text:</source>
         <translation>Distantzia testutik:</translation>
@@ -32704,28 +32132,14 @@ Hautatu beste bat.</translation>
         <translation>Honetan oinarrituta:</translation>
     </message>
     <message>
-        <source>TextLabel</source>
-        <translation type="vanished">TextLabel</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/smpstylewidget.ui" line="636"/>
         <source>Colors</source>
         <translation>Koloreak</translation>
     </message>
     <message>
-        <source>Ch&amp;aracter Style</source>
-        <translation type="vanished">K&amp;araktere-estiloa</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/smpstylewidget.ui" line="402"/>
         <source>None</source>
         <translation>Bat ere ez</translation>
-    </message>
-    <message>
-        <source>Maximum white space compression allowed.
-Expressed as a percentage of the current white space value.</source>
-        <translation type="vanished">Zuriuneen konpresio maximoa onartuta.
-Uneko zuriune-balioaren ehuneko gisa adierazita.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.ui" line="520"/>
@@ -32854,18 +32268,6 @@ Uneko zuriune-balioaren ehuneko gisa adierazita.</translation>
         <translation>Karaktere-estiloa efekturako:</translation>
     </message>
     <message>
-        <source>AutoIndent</source>
-        <translation type="vanished">KoskaAutomatikoa</translation>
-    </message>
-    <message>
-        <source>Use Parent`s Values</source>
-        <translation type="vanished">Erabili balio gurasoak</translation>
-    </message>
-    <message>
-        <source>Bullets</source>
-        <translation type="vanished">Buletak</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/smpstylewidget.ui" line="868"/>
         <source>Set:</source>
         <translation>Multzoa:</translation>
@@ -32876,10 +32278,6 @@ Uneko zuriune-balioaren ehuneko gisa adierazita.</translation>
         <translation>Sortu multzo berria:</translation>
     </message>
     <message>
-        <source>Restart</source>
-        <translation type="vanished">Berrabiarazi</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/smpstylewidget.ui" line="1042"/>
         <source>Restart after other format</source>
         <translation>Berrabiarazi beste formateatze baten ondoren</translation>
@@ -32888,14 +32286,6 @@ Uneko zuriune-balioaren ehuneko gisa adierazita.</translation>
         <location filename="../../scribus/ui/smpstylewidget.ui" line="1062"/>
         <source>Restart after higher level</source>
         <translation>Berrabiarazi maila altuagoaren ondoren</translation>
-    </message>
-    <message>
-        <source>Enhanced Char Table for inserting customs chars as bullets</source>
-        <translation type="vanished">Karaktere-taula hobetua buletak bezalako karaktere pertsonalizatuak txertatzeko</translation>
-    </message>
-    <message>
-        <source>Paragraph Effects Chars Offset</source>
-        <translation type="vanished">Paragrafo-efektuen karaktereen desplazamendua</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.ui" line="1212"/>
@@ -32933,17 +32323,9 @@ Uneko zuriune-balioaren ehuneko gisa adierazita.</translation>
         <translation>Lerrokatzea eta distantziak</translation>
     </message>
     <message>
-        <source>Use Parent&apos;s Values</source>
-        <translation type="vanished">Erabili balio gurasoak</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/smpstylewidget.ui" line="495"/>
         <source>Glyph Extension </source>
         <translation>Glifoen luzera</translation>
-    </message>
-    <message>
-        <source>Choose character style or leave blank for use default paragraph style</source>
-        <translation type="vanished">Hautatu karaktere-estiloa edo utzi hutsik paragrafo-estilo lehenetsia erabiltzeko</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.ui" line="678"/>
@@ -32961,51 +32343,9 @@ Uneko zuriune-balioaren ehuneko gisa adierazita.</translation>
         <translation>Ezpazio-zabalera min.:</translation>
     </message>
     <message>
-        <source>Min:</source>
-        <comment>Glyph Extension</comment>
-        <translation type="vanished">Min:</translation>
-    </message>
-    <message>
-        <source>Max:</source>
-        <comment>Glyph Extension</comment>
-        <translation type="vanished">Max:</translation>
-    </message>
-    <message>
-        <source>None</source>
-        <comment>Optical Margins</comment>
-        <translation type="vanished">Bat ere ez</translation>
-    </message>
-    <message>
-        <source>Both Sides</source>
-        <comment>Optical Margins</comment>
-        <translation type="vanished">Bi aldeak</translation>
-    </message>
-    <message>
-        <source>Left Only</source>
-        <comment>Optical Margins</comment>
-        <translation type="vanished">Ezkerra soilik</translation>
-    </message>
-    <message>
-        <source>Right Only</source>
-        <comment>Optical Margins</comment>
-        <translation type="vanished">Eskuina soilik</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/smpstylewidget.cpp" line="550"/>
         <source>Shade</source>
         <translation>Itzaldura</translation>
-    </message>
-    <message>
-        <source>Bullet Character(s)</source>
-        <translation type="vanished">Bulet-karakterea(k)</translation>
-    </message>
-    <message>
-        <source>Character Table</source>
-        <translation type="vanished">Karaktere-taula</translation>
-    </message>
-    <message>
-        <source>Numbering</source>
-        <translation type="vanished">Zenbakitzea</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.ui" line="885"/>
@@ -33031,10 +32371,6 @@ Uneko zuriune-balioaren ehuneko gisa adierazita.</translation>
         <location filename="../../scribus/ui/smpstylewidget.ui" line="986"/>
         <source>Suffix:</source>
         <translation>Atzizkia:</translation>
-    </message>
-    <message>
-        <source>Bullet Character(s):</source>
-        <translation type="vanished">Bulet-karakterea(k):</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.ui" line="1019"/>
@@ -34714,110 +34050,6 @@ gainean erabiliko da.</translation>
         <source>Plain Text</source>
         <translation>Testu laua</translation>
     </message>
-    <message>
-        <source>9,999.99</source>
-        <translation type="vanished">9,999.99</translation>
-    </message>
-    <message>
-        <source>9.999,99</source>
-        <translation type="vanished">9.999,99</translation>
-    </message>
-    <message>
-        <source>9999.99</source>
-        <translation type="vanished">9999.99</translation>
-    </message>
-    <message>
-        <source>9999,99</source>
-        <translation type="vanished">9999,99</translation>
-    </message>
-    <message>
-        <source>m/d</source>
-        <translation type="vanished">h/e</translation>
-    </message>
-    <message>
-        <source>m/d/yy</source>
-        <translation type="vanished">h/e/uu</translation>
-    </message>
-    <message>
-        <source>mm/dd/yy</source>
-        <translation type="vanished">hh/ee/uu</translation>
-    </message>
-    <message>
-        <source>mm/yy</source>
-        <translation type="vanished">hh/u</translation>
-    </message>
-    <message>
-        <source>d-mmm</source>
-        <translation type="vanished">e-uuuu</translation>
-    </message>
-    <message>
-        <source>d-mmm-yy</source>
-        <translation type="vanished">e-hhhh-uu</translation>
-    </message>
-    <message>
-        <source>dd-mmm-yy</source>
-        <translation type="vanished">ee-hhhh-uu</translation>
-    </message>
-    <message>
-        <source>dd/mm/yy</source>
-        <translation type="vanished">ee/hh/uu</translation>
-    </message>
-    <message>
-        <source>dd/mm/yyyy</source>
-        <translation type="vanished">ee/hh/uuuu</translation>
-    </message>
-    <message>
-        <source>dd.mm.yyyy</source>
-        <translation type="vanished">ee.hh.uuuu</translation>
-    </message>
-    <message>
-        <source>yy-mm-dd</source>
-        <translation type="vanished">uu-hh-ee</translation>
-    </message>
-    <message>
-        <source>mmm-yy</source>
-        <translation type="vanished">hhh-uu</translation>
-    </message>
-    <message>
-        <source>mmmm-yy</source>
-        <translation type="vanished">hhhh-uu</translation>
-    </message>
-    <message>
-        <source>mmm d, yyyy</source>
-        <translation type="vanished">hhh e, uuuu</translation>
-    </message>
-    <message>
-        <source>mmmm d, yyyy</source>
-        <translation type="vanished">hhhh e, uuuu</translation>
-    </message>
-    <message>
-        <source>m/d/yy h:MM tt</source>
-        <translation type="vanished">h/e/uu o:MM tt</translation>
-    </message>
-    <message>
-        <source>m/d/yy HH:MM</source>
-        <translation type="vanished">h/e/uu OO:MM</translation>
-    </message>
-    <message>
-        <source>yyyy-mm-dd</source>
-        <translation type="vanished">uuuu-hh-ee</translation>
-    </message>
-    <message>
-        <source>HH:MM</source>
-        <translation type="vanished">OO:MM</translation>
-    </message>
-    <message>
-        <source>h:MM tt</source>
-        <translation type="vanished">o:MM tt</translation>
-    </message>
-    <message>
-        <source>HH:MM:ss</source>
-        <translation type="vanished">OO:MM:ss</translation>
-    </message>
-    <message>
-        <source>h:MM:ss tt</source>
-        <translation type="vanished">o:MM:ss tt</translation>
-    </message>
 </context>
 <context>
     <name>ScGTFileDialog</name>
@@ -35605,18 +34837,6 @@ Inprimatze aurreko egiaztatzailea erabil dezakezu haiek zuzentzeko.</translation
         <translation>&amp;Desblokeatu denak</translation>
     </message>
     <message>
-        <source>Information</source>
-        <translation type="vanished">Informazioa</translation>
-    </message>
-    <message>
-        <source>The program %1 is already running!</source>
-        <translation type="vanished">%1 programa jadanik exekutatzen ari da.</translation>
-    </message>
-    <message>
-        <source>The program %1 is missing!</source>
-        <translation type="vanished">%1 programa falta da.</translation>
-    </message>
-    <message>
         <location filename="../../scribus/scribus.cpp" line="4010"/>
         <location filename="../../scribus/scribus.cpp" line="8844"/>
         <source>Do you really want to replace your existing image?</source>
@@ -35656,10 +34876,6 @@ Inprimatze aurreko egiaztatzailea erabil dezakezu haiek zuzentzeko.</translation
         <location filename="../../scribus/scribus.cpp" line="3925"/>
         <source>Do you really want to clear all your text?</source>
         <translation>Ziur zaude testu guztia garbitzea nahi duzula?</translation>
-    </message>
-    <message>
-        <source>Scribus </source>
-        <translation type="vanished">Scribus</translation>
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="3703"/>
@@ -35788,10 +35004,6 @@ Inprimatze aurreko egiaztatzailea erabil dezakezu haiek zuzentzeko.</translation
         <location filename="../../scribus/scribus.cpp" line="9871"/>
         <source>Mark to %1 mark</source>
         <translation>Marka %1 markara</translation>
-    </message>
-    <message>
-        <source>Edit </source>
-        <translation type="vanished">Editatu</translation>
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="868"/>
@@ -36040,17 +35252,9 @@ Inprimatze aurreko egiaztatzailea erabil dezakezu haiek zuzentzeko.</translation
         <translation>Bistaratu bertsioaren informazioa eta irten</translation>
     </message>
     <message>
-        <source>filename</source>
-        <translation type="vanished">fitxategi-izena</translation>
-    </message>
-    <message>
         <location filename="../../scribus/scribusapp.cpp" line="276"/>
         <source>Preferences directory %1 does not exist, aborting.</source>
         <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Use filename as path for user given preferences</source>
-        <translation type="vanished">Erabili fitxategi-izena bide-izen gisa erabiltzaileak emandako hobespenetan</translation>
     </message>
     <message>
         <location filename="../../scribus/scribusapp.cpp" line="617"/>
@@ -36118,10 +35322,6 @@ Inprimatze aurreko egiaztatzailea erabil dezakezu haiek zuzentzeko.</translation
         <translation>Ez abiarazi erabiltzaile-interfazea</translation>
     </message>
     <message>
-        <source>Stop showing the splashscreen on startup. Writes an empty file called .neversplash in ~/.scribus</source>
-        <translation type="vanished">Ez erakutsi harrera-pantaila abioan. .neversplash izeneko fitxategi huts bat idazten du ~/.scribus direktorioan</translation>
-    </message>
-    <message>
         <location filename="../../scribus/scribusapp.cpp" line="587"/>
         <source>Show location of ICC profile information on console while starting</source>
         <translation>Erakutsi ICC profilen kokapen-informazioa kontsolan abioan</translation>
@@ -36152,10 +35352,6 @@ Inprimatze aurreko egiaztatzailea erabil dezakezu haiek zuzentzeko.</translation
         <location filename="../../scribus/scribusapp.cpp" line="180"/>
         <source>Python script %1 does not exist, aborting.</source>
         <translation>%1 Python script-a ez da existitzen, abortatzen.</translation>
-    </message>
-    <message>
-        <source>Preferences file %1 does not exist, aborting.</source>
-        <translation type="vanished">%1 hobespen-fitxategia ez da existitzen, abortatzen.</translation>
     </message>
     <message>
         <location filename="../../scribus/scribusapp.cpp" line="590"/>
@@ -37642,15 +36838,6 @@ helbidera bidaliko bazenu.</translation>
         <source>Shadowed Text. Hold down the button momentarily to change the shadow offset values.</source>
         <translation type="unfinished"></translation>
     </message>
-    <message>
-        <source>Outline. Hold down the button momentarily to change the outline stroke width.</source>
-        <comment>Text Style Selector</comment>
-        <translation type="vanished">Eskema. Mantendu botoia sakatuta eskema-trazuaren zabalera aldatzeko.</translation>
-    </message>
-    <message>
-        <source>Shadowed Text. Hold down the button momentarily to enable the offset spacing.</source>
-        <translation type="vanished">Itzaldura. Eduki botoia sakatuta une batez marraren zabalera eta desplazamenduaren aukerak ezartzeko.</translation>
-    </message>
 </context>
 <context>
     <name>SubdividePlugin</name>
@@ -38480,14 +37667,6 @@ helbidera bidaliko bazenu.</translation>
         <translation>Etengabea</translation>
     </message>
     <message>
-        <source>Double Page Left</source>
-        <translation type="vanished">Orrialde bikoitza ezkerra</translation>
-    </message>
-    <message>
-        <source>Double Page Right</source>
-        <translation type="vanished">Orrialde bikoitza eskuina</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/tabpdfoptions.ui" line="1005"/>
         <source>Visual Appearance</source>
         <translation>Itxura bisuala</translation>
@@ -38876,10 +38055,6 @@ Adobe&amp;#174; Reader&amp;#174; eta beste PDF ikustaileak erabiltzean</translat
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="211"/>
         <source>Create a range of pages</source>
         <translation>Sortu orrialdeen barruti bat</translation>
-    </message>
-    <message>
-        <source>TabWidget</source>
-        <translation type="vanished">TabWidget</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.ui" line="118"/>
@@ -42075,10 +41250,6 @@ Scribus-ek kopiako fitxategia kargatzeko.</translation>
 <context>
     <name>smFontFeaturesBase</name>
     <message>
-        <source>Form</source>
-        <translation type="obsolete">Inprimakia</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="23"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600; color:#008000;&quot;&gt;The current selected font does not have any font features.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation type="unfinished"></translation>
@@ -42086,11 +41257,6 @@ Scribus-ek kopiako fitxategia kargatzeko.</translation>
     <message>
         <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="36"/>
         <source> Ligatures</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="48"/>
-        <source>Common Ligtures (liga)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -42164,13 +41330,18 @@ Scribus-ek kopiako fitxategia kargatzeko.</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="48"/>
+        <source>Common Ligatures (liga)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="180"/>
-        <source>Petite Capitals from Captials</source>
+        <source>Petite Capitals from Capitals</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="185"/>
-        <source>Small Capitals from Captials</source>
+        <source>Small Capitals from Capitals</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

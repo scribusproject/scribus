@@ -17897,10 +17897,6 @@ Do you want to migrate them to the new Scribus version?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Size</source>
-        <translation type="obsolete">Size</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="329"/>
         <source>Margins &amp;&amp; Bleeds</source>
         <translation type="unfinished"></translation>
@@ -18601,16 +18597,6 @@ Do you want to use this?</source>
         <location filename="../../scribus/ui/prefs_hyphenatorbase.ui" line="61"/>
         <source>Enables automatic hyphenation of your text while typing</source>
         <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Characters</source>
-        <translation type="obsolete">Characters</translation>
-    </message>
-    <message>
-        <source>Maximum number of Hyphenations following each other.
-A value of 0 means unlimited hyphenations.</source>
-        <translation type="obsolete">Maximum number of Hyphenations following each other.
-A value of 0 means unlimited hyphenations.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_hyphenatorbase.ui" line="88"/>
@@ -21968,10 +21954,6 @@ a range of pages or a single page number</source>
         <translation type="unfinished">&amp;Shape</translation>
     </message>
     <message>
-        <source>&amp;Text</source>
-        <translation type="obsolete">&amp;Text</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/propertiespalette.cpp" line="877"/>
         <source>&amp;Image</source>
         <translation type="unfinished">&amp;Image</translation>
@@ -23150,18 +23132,6 @@ Transparency</source>
         <source>Align to Baseline Grid</source>
         <translation type="unfinished"></translation>
     </message>
-    <message>
-        <source> pt</source>
-        <translation type="obsolete"> pt</translation>
-    </message>
-    <message>
-        <source>Font Size</source>
-        <translation type="obsolete">Font Size</translation>
-    </message>
-    <message>
-        <source>Line Spacing</source>
-        <translation type="obsolete">Line Spacing</translation>
-    </message>
 </context>
 <context>
     <name>PropertiesPalette_TextBase</name>
@@ -23459,17 +23429,6 @@ Transparency</source>
     </message>
 </context>
 <context>
-    <name>PropertyWidget_Advanced</name>
-    <message>
-        <source> %</source>
-        <translation type="obsolete"> %</translation>
-    </message>
-    <message>
-        <source>Scaling width of characters</source>
-        <translation type="obsolete">Scaling width of characters</translation>
-    </message>
-</context>
-<context>
     <name>PropertyWidget_AdvancedBase</name>
     <message>
         <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="48"/>
@@ -23553,10 +23512,6 @@ Transparency</source>
 <context>
     <name>PropertyWidget_Distance</name>
     <message>
-        <source>Colu&amp;mns:</source>
-        <translation type="obsolete">Colu&amp;mns:</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/propertywidget_distance.cpp" line="443"/>
         <source>Top</source>
         <translation type="unfinished"></translation>
@@ -23582,37 +23537,9 @@ Transparency</source>
         <translation type="unfinished">Width:</translation>
     </message>
     <message>
-        <source>To&amp;p:</source>
-        <translation type="obsolete">To&amp;p:</translation>
-    </message>
-    <message>
-        <source>&amp;Bottom:</source>
-        <translation type="obsolete">&amp;Bottom:</translation>
-    </message>
-    <message>
-        <source>&amp;Left:</source>
-        <translation type="obsolete">&amp;Left:</translation>
-    </message>
-    <message>
-        <source>&amp;Right:</source>
-        <translation type="obsolete">&amp;Right:</translation>
-    </message>
-    <message>
-        <source>T&amp;abulators...</source>
-        <translation type="obsolete">T&amp;abulators...</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/propertywidget_distance.cpp" line="455"/>
         <source> pt</source>
         <translation type="unfinished"> pt</translation>
-    </message>
-    <message>
-        <source>Number of columns in text frame</source>
-        <translation type="obsolete">Number of columns in text frame</translation>
-    </message>
-    <message>
-        <source>Switches between Gap or Column width</source>
-        <translation type="obsolete">Switches between Gap or Column width</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_distance.cpp" line="352"/>
@@ -23623,26 +23550,6 @@ Transparency</source>
         <location filename="../../scribus/ui/propertywidget_distance.cpp" line="352"/>
         <source>Column width</source>
         <translation type="unfinished">Column width</translation>
-    </message>
-    <message>
-        <source>Distance of text from top of frame</source>
-        <translation type="obsolete">Distance of text from top of frame</translation>
-    </message>
-    <message>
-        <source>Distance of text from bottom of frame</source>
-        <translation type="obsolete">Distance of text from bottom of frame</translation>
-    </message>
-    <message>
-        <source>Distance of text from left of frame</source>
-        <translation type="obsolete">Distance of text from left of frame</translation>
-    </message>
-    <message>
-        <source>Distance of text from right of frame</source>
-        <translation type="obsolete">Distance of text from right of frame</translation>
-    </message>
-    <message>
-        <source>Edit tab settings of text frame...</source>
-        <translation type="obsolete">Edit tab settings of text frame...</translation>
     </message>
 </context>
 <context>
@@ -23807,17 +23714,6 @@ Transparency</source>
         <location filename="../../scribus/ui/propertywidget_dropcapbase.ui" line="47"/>
         <source>Use Character Style</source>
         <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>PropertyWidget_Flop</name>
-    <message>
-        <source>Line Spacing</source>
-        <translation type="obsolete">Line Spacing</translation>
-    </message>
-    <message>
-        <source>Baseline Grid</source>
-        <translation type="obsolete">Baseline Grid</translation>
     </message>
 </context>
 <context>
@@ -24262,18 +24158,6 @@ A value of 0 means unlimited hyphenations.</translation>
     </message>
 </context>
 <context>
-    <name>PropertyWidget_OptMargins</name>
-    <message>
-        <source>None</source>
-        <comment>optical margins</comment>
-        <translation type="obsolete">None</translation>
-    </message>
-    <message>
-        <source>Reset</source>
-        <translation type="obsolete">Reset</translation>
-    </message>
-</context>
-<context>
     <name>PropertyWidget_OptMarginsBase</name>
     <message>
         <location filename="../../scribus/ui/propertywidget_optmarginsbase.ui" line="32"/>
@@ -24369,10 +24253,6 @@ A value of 0 means unlimited hyphenations.</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Format:</source>
-        <translation type="obsolete">Format:</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/propertywidget_pareffect.cpp" line="224"/>
         <source>No Paragraph Effects</source>
         <translation type="unfinished"></translation>
@@ -24466,14 +24346,6 @@ A value of 0 means unlimited hyphenations.</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Level</source>
-        <translation type="obsolete">Level</translation>
-    </message>
-    <message>
-        <source>Format</source>
-        <translation type="obsolete">Format</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/propertywidget_pareffectbase.ui" line="62"/>
         <source>Bulleted List</source>
         <translation type="unfinished"></translation>
@@ -24558,21 +24430,6 @@ A value of 0 means unlimited hyphenations.</translation>
         <location filename="../../scribus/ui/propertywidget_pathtextbase.ui" line="69"/>
         <source>Show Curve</source>
         <translation type="unfinished">Show Curve</translation>
-    </message>
-</context>
-<context>
-    <name>PropertyWidget_TextColor</name>
-    <message>
-        <source>Saturation of color of text fill</source>
-        <translation type="obsolete">Saturation of colour of text fill</translation>
-    </message>
-    <message>
-        <source>Saturation of color of text stroke</source>
-        <translation type="obsolete">Saturation of colour of text stroke</translation>
-    </message>
-    <message>
-        <source>Right to Left Writing</source>
-        <translation type="obsolete">Right to Left Writing</translation>
     </message>
 </context>
 <context>
@@ -25681,10 +25538,6 @@ Check path and filename.</translation>
         <location filename="../../scribus/plugins/gettext/csvim/csvim.cpp" line="66"/>
         <source>CSV_header</source>
         <translation type="unfinished">CSV_header</translation>
-    </message>
-    <message>
-        <source>Font %1 is broken, discarding it</source>
-        <translation type="obsolete">Font %1 is broken, discarding it</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/gettext/htmlim/htmlreader.cpp" line="667"/>
@@ -31801,10 +31654,6 @@ Please choose another.</source>
 <context>
     <name>SMCharacterStyle</name>
     <message>
-        <source>Properties</source>
-        <translation type="obsolete">Properties</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/smtextstyles.cpp" line="2106"/>
         <source>Character Styles</source>
         <translation type="unfinished"></translation>
@@ -32135,10 +31984,6 @@ Please choose another.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>&amp;Lines:</source>
-        <translation type="obsolete">&amp;Lines:</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/smpstylewidget.ui" line="1176"/>
         <source>Distance from Text:</source>
         <translation type="unfinished"></translation>
@@ -32222,11 +32067,6 @@ Please choose another.</source>
         <location filename="../../scribus/ui/smpstylewidget.ui" line="464"/>
         <source>Min. Space Width:</source>
         <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>None</source>
-        <comment>Optical Margins</comment>
-        <translation type="obsolete">None</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.cpp" line="550"/>
@@ -33851,22 +33691,6 @@ converting their vector data into Scribus objects.</source>
         <translation type="unfinished">Formatting</translation>
     </message>
     <message>
-        <source>9,999.99</source>
-        <translation type="obsolete">100% {9,999.99?}</translation>
-    </message>
-    <message>
-        <source>9.999,99</source>
-        <translation type="obsolete">100% {9.999,99?}</translation>
-    </message>
-    <message>
-        <source>9999.99</source>
-        <translation type="obsolete">100% {9999.99?}</translation>
-    </message>
-    <message>
-        <source>9999,99</source>
-        <translation type="obsolete">100% {9999,99?}</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/annot.ui" line="1582"/>
         <source>Percent Format</source>
         <translation type="unfinished">Percent Format</translation>
@@ -35008,10 +34832,6 @@ Consider using the Preflight Verifier to correct them</source>
         <location filename="../../scribus/scribus.cpp" line="9781"/>
         <source>Edit %1</source>
         <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Information</source>
-        <translation type="obsolete">Information</translation>
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="8632"/>
@@ -41226,11 +41046,6 @@ please choose another one.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="48"/>
-        <source>Common Ligtures (liga)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="51"/>
         <source>Common Ligatures</source>
         <translation type="unfinished"></translation>
@@ -41301,13 +41116,18 @@ please choose another one.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="48"/>
+        <source>Common Ligatures (liga)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="180"/>
-        <source>Petite Capitals from Captials</source>
+        <source>Petite Capitals from Capitals</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="185"/>
-        <source>Small Capitals from Captials</source>
+        <source>Small Capitals from Capitals</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

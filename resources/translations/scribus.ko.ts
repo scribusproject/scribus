@@ -3322,10 +3322,6 @@
 <context>
     <name>CMSPrefsBase</name>
     <message>
-        <source>Form</source>
-        <translation type="vanished">폼</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/cmsprefsbase.ui" line="32"/>
         <source>&amp;Activate Color Management</source>
         <translation>색상 관리 활성화(&amp;A)</translation>
@@ -5053,10 +5049,6 @@ currently %2 x %3 DPI</source>
         <location filename="../../scribus/commonstrings.cpp" line="337"/>
         <source>Single Page</source>
         <translation>한 면</translation>
-    </message>
-    <message>
-        <source>Double Sided</source>
-        <translation type="vanished">두 면</translation>
     </message>
     <message>
         <location filename="../../scribus/commonstrings.cpp" line="339"/>
@@ -8244,14 +8236,6 @@ Document Liberation Project http://www.documentliberation.org</source>
         <translation>문서에서 보이는 안내선을 전체 페이지에 적용</translation>
     </message>
     <message>
-        <source>Delete all guides shown on the current page</source>
-        <translation type="vanished">현재 페이지상에 나타나는 전체 안내선 삭제</translation>
-    </message>
-    <message>
-        <source>Delete all guides from all pages</source>
-        <translation type="vanished">전체 페이지에서 전체 안내선 삭제</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/guidemanager.ui" line="225"/>
         <location filename="../../scribus/ui/guidemanager.ui" line="330"/>
         <source>Refer to</source>
@@ -9708,10 +9692,6 @@ p, li { white-space: pre-wrap; }
         <location filename="../../scribus/plugins/imposition/impositionbase.ui" line="376"/>
         <source>Facing Pages</source>
         <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Double sided</source>
-        <translation type="vanished">양면</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/imposition/impositionbase.ui" line="387"/>
@@ -17783,10 +17763,6 @@ Do you want to migrate them to the new Scribus version?</source>
         <translation type="unfinished">일반</translation>
     </message>
     <message>
-        <source>Language</source>
-        <translation type="obsolete">언어</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="100"/>
         <source>Page Size</source>
         <translation>페이지 크기</translation>
@@ -17952,10 +17928,6 @@ Do you want to migrate them to the new Scribus version?</source>
         <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="253"/>
         <source>First Page is:</source>
         <translation>첫 페이지:</translation>
-    </message>
-    <message>
-        <source>Size</source>
-        <translation type="vanished">크기</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="329"/>
@@ -18648,20 +18620,6 @@ Do you want to use this?</source>
         <location filename="../../scribus/ui/prefs_hyphenatorbase.ui" line="45"/>
         <source>Behaviour</source>
         <translation>작동 방법</translation>
-    </message>
-    <message>
-        <source>Language:</source>
-        <translation type="vanished">언어:</translation>
-    </message>
-    <message>
-        <source>Characters</source>
-        <translation type="vanished">문자</translation>
-    </message>
-    <message>
-        <source>Maximum number of Hyphenations following each other.
-A value of 0 means unlimited hyphenations.</source>
-        <translation type="vanished">하이픈의 최대 숫자는 다음과 같고,
-0은 무제한 하이픈을 의미함.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_hyphenatorbase.ui" line="88"/>
@@ -19785,14 +19743,6 @@ A value of 0 means unlimited hyphenations.</source>
         <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1597"/>
         <source>Continuous Pages</source>
         <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Double Page Left</source>
-        <translation type="vanished">양 페이지 왼쪽</translation>
-    </message>
-    <message>
-        <source>Double Page Right</source>
-        <translation type="vanished">양 페이지 오른쪽</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1640"/>
@@ -22041,10 +21991,6 @@ a range of pages or a single page number</source>
         <translation>모양(&amp;S)</translation>
     </message>
     <message>
-        <source>&amp;Text</source>
-        <translation type="vanished">문자열(&amp;T)</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/propertiespalette.cpp" line="877"/>
         <source>&amp;Image</source>
         <translation>이미지(&amp;I)</translation>
@@ -23180,14 +23126,6 @@ Transparency</source>
         <translation>기준선</translation>
     </message>
     <message>
-        <source>Paragraph St&amp;yle:</source>
-        <translation type="vanished">문단 스타일(&amp;Y):</translation>
-    </message>
-    <message>
-        <source>Character St&amp;yle:</source>
-        <translation type="vanished">문자 스타일(&amp;Y):</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/propertiespalette_text.cpp" line="701"/>
         <source>Font Features</source>
         <translation type="unfinished"></translation>
@@ -23206,34 +23144,6 @@ Transparency</source>
         <location filename="../../scribus/ui/propertiespalette_text.cpp" line="708"/>
         <source>Align to Baseline Grid</source>
         <translation>기준선 격자에 정렬</translation>
-    </message>
-    <message>
-        <source> pt</source>
-        <translation type="vanished"> 포인트</translation>
-    </message>
-    <message>
-        <source>Font Size</source>
-        <translation type="vanished">글꼴 크기</translation>
-    </message>
-    <message>
-        <source>Line Spacing</source>
-        <translation type="vanished">줄 간격</translation>
-    </message>
-    <message>
-        <source>Paragraph style of currently selected text or paragraph</source>
-        <translation type="vanished">현재 선택된 문자열 또는 문단의 문단 스타일</translation>
-    </message>
-    <message>
-        <source>Character style of currently selected text or paragraph</source>
-        <translation type="vanished">현재 선택된 문자열 또는 문단의 글자 스타일</translation>
-    </message>
-    <message>
-        <source>Remove Direct Paragraph Formatting</source>
-        <translation type="vanished">직접 문단 형식 제거</translation>
-    </message>
-    <message>
-        <source>Remove Direct Character Formatting</source>
-        <translation type="vanished">직접 문자 형식 제거</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_text.cpp" line="81"/>
@@ -23556,61 +23466,6 @@ Transparency</source>
     </message>
 </context>
 <context>
-    <name>PropertyWidget_Advanced</name>
-    <message>
-        <source>Word Tracking</source>
-        <translation type="vanished">단어 탐색</translation>
-    </message>
-    <message>
-        <source>Min:</source>
-        <translation type="vanished">최소:</translation>
-    </message>
-    <message>
-        <source>Norm:</source>
-        <translation type="vanished">일반:</translation>
-    </message>
-    <message>
-        <source>Glyph Extension</source>
-        <translation type="vanished">사용자 문자표 확장</translation>
-    </message>
-    <message>
-        <source>Max:</source>
-        <translation type="vanished">최대:</translation>
-    </message>
-    <message>
-        <source>Offset to baseline of characters</source>
-        <translation type="vanished">문자 기준선까지 옵셋</translation>
-    </message>
-    <message>
-        <source>Manual Tracking</source>
-        <translation type="vanished">글자 사이 간격</translation>
-    </message>
-    <message>
-        <source>Scaling width of characters</source>
-        <translation type="vanished">문자 너비 배율</translation>
-    </message>
-    <message>
-        <source>Scaling height of characters</source>
-        <translation type="vanished">문자 높이 배율</translation>
-    </message>
-    <message>
-        <source>Minimal width of spaces between words</source>
-        <translation type="vanished">단어사이 공백의 최소 너비</translation>
-    </message>
-    <message>
-        <source>Normal width of spaces between words</source>
-        <translation type="vanished">단어사이 공백의 보통 너비</translation>
-    </message>
-    <message>
-        <source>Minimal shrinkage of glyphs for justification</source>
-        <translation type="vanished">자리맞춤을 위한 사용자 문자표의 최소 축소</translation>
-    </message>
-    <message>
-        <source>Maximal extension of glyphs for justification</source>
-        <translation type="vanished">자리맞춤을 위한 사용자 문자표의 최대 확장</translation>
-    </message>
-</context>
-<context>
     <name>PropertyWidget_AdvancedBase</name>
     <message>
         <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="48"/>
@@ -23694,10 +23549,6 @@ Transparency</source>
 <context>
     <name>PropertyWidget_Distance</name>
     <message>
-        <source>Colu&amp;mns:</source>
-        <translation type="vanished">문자열 프레임 열 갯수(&amp;M):</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/propertywidget_distance.cpp" line="451"/>
         <source>Gap:</source>
         <translation>열 사이 공백:</translation>
@@ -23708,62 +23559,14 @@ Transparency</source>
         <translation>너비:</translation>
     </message>
     <message>
-        <source>To&amp;p:</source>
-        <translation type="vanished">상단(&amp;P):</translation>
-    </message>
-    <message>
-        <source>&amp;Bottom:</source>
-        <translation type="vanished">하단(&amp;B):</translation>
-    </message>
-    <message>
-        <source>&amp;Left:</source>
-        <translation type="vanished">왼쪽(&amp;L):</translation>
-    </message>
-    <message>
-        <source>&amp;Right:</source>
-        <translation type="vanished">오른쪽(&amp;R):</translation>
-    </message>
-    <message>
-        <source>T&amp;abulators...</source>
-        <translation type="vanished">탭 설정(&amp;A)...</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/propertywidget_distance.cpp" line="455"/>
         <source> pt</source>
         <translation> 포인트</translation>
     </message>
     <message>
-        <source>Number of columns in text frame</source>
-        <translation type="vanished">문자열 프레임의 열 갯수</translation>
-    </message>
-    <message>
-        <source>Switches between Gap or Column width</source>
-        <translation type="vanished">열 사이 공백과 열 너비 사이 전환</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/propertywidget_distance.cpp" line="352"/>
         <source>Distance between columns</source>
         <translation>열 사이 거리</translation>
-    </message>
-    <message>
-        <source>Distance of text from top of frame</source>
-        <translation type="vanished">프레임 상단에서 문자열 거리</translation>
-    </message>
-    <message>
-        <source>Distance of text from bottom of frame</source>
-        <translation type="vanished">프레임 하단에서 문자열 거리</translation>
-    </message>
-    <message>
-        <source>Distance of text from left of frame</source>
-        <translation type="vanished">프레임 왼쪽에서 문자열 거리</translation>
-    </message>
-    <message>
-        <source>Distance of text from right of frame</source>
-        <translation type="vanished">프레임 오른쪽에서 문자열 거리</translation>
-    </message>
-    <message>
-        <source>Edit tab settings of text frame...</source>
-        <translation type="vanished">문자열 프레임의 탭 설정 편집...</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_distance.cpp" line="352"/>
@@ -23948,33 +23751,6 @@ Transparency</source>
         <location filename="../../scribus/ui/propertywidget_dropcapbase.ui" line="20"/>
         <source>Number of lines used by the drop cap</source>
         <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>PropertyWidget_Flop</name>
-    <message>
-        <source>Maximum Ascent</source>
-        <translation type="vanished">최대 크게</translation>
-    </message>
-    <message>
-        <source>Font Ascent</source>
-        <translation type="vanished">글꼴 크게</translation>
-    </message>
-    <message>
-        <source>Line Spacing</source>
-        <translation type="vanished">줄 간격</translation>
-    </message>
-    <message>
-        <source>Set the height of the first line of the text frame to use the tallest height of the included characters</source>
-        <translation type="vanished">포함된 문자의 가장 큰 높이를 사용하기 위하여 문자열 프레임의 첫째 줄의 높이 설정</translation>
-    </message>
-    <message>
-        <source>Set the height of the first line of text frame to use the full ascent of the font(s) in use</source>
-        <translation type="vanished">사용 중인 글꼴의 전체 상승을 사용하기 위하여  문자열 프레임의 첫 째 줄의 높이 설정</translation>
-    </message>
-    <message>
-        <source>Set the height of the first line of the text frame to the specified line height</source>
-        <translation type="vanished">문자열 프레임의 첫 줄 높이를 지정된 줄 높이로 설정</translation>
     </message>
 </context>
 <context>
@@ -24419,33 +24195,6 @@ A value of 0 means unlimited hyphenations.</source>
     </message>
 </context>
 <context>
-    <name>PropertyWidget_OptMargins</name>
-    <message>
-        <source>None</source>
-        <comment>optical margins</comment>
-        <translation type="vanished">없음</translation>
-    </message>
-    <message>
-        <source>Both Sides</source>
-        <comment>optical margins</comment>
-        <translation type="vanished">양 면</translation>
-    </message>
-    <message>
-        <source>Left Only</source>
-        <comment>optical margins</comment>
-        <translation type="vanished">왼쪽만</translation>
-    </message>
-    <message>
-        <source>Right Only</source>
-        <comment>optical margins</comment>
-        <translation type="vanished">오른쪽만</translation>
-    </message>
-    <message>
-        <source>Reset</source>
-        <translation type="vanished">초기화</translation>
-    </message>
-</context>
-<context>
     <name>PropertyWidget_OptMarginsBase</name>
     <message>
         <location filename="../../scribus/ui/propertywidget_optmarginsbase.ui" line="32"/>
@@ -24541,21 +24290,9 @@ A value of 0 means unlimited hyphenations.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Format:</source>
-        <translation type="vanished">형식:</translation>
-    </message>
-    <message>
-        <source>Start:</source>
-        <translation type="vanished">시작:</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/propertywidget_pareffect.cpp" line="224"/>
         <source>No Paragraph Effects</source>
         <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Offset:</source>
-        <translation type="vanished">옵셋:</translation>
     </message>
 </context>
 <context>
@@ -24641,25 +24378,9 @@ A value of 0 means unlimited hyphenations.</source>
         <translation type="unfinished">옵셋:</translation>
     </message>
     <message>
-        <source>Lines</source>
-        <translation type="vanished">선</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/propertywidget_pareffectbase.ui" line="119"/>
         <source>Numbered List</source>
         <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Level</source>
-        <translation type="vanished">레벨</translation>
-    </message>
-    <message>
-        <source>Start</source>
-        <translation type="vanished">시작</translation>
-    </message>
-    <message>
-        <source>Format</source>
-        <translation type="vanished">형식</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_pareffectbase.ui" line="62"/>
@@ -24746,25 +24467,6 @@ A value of 0 means unlimited hyphenations.</source>
         <location filename="../../scribus/ui/propertywidget_pathtextbase.ui" line="69"/>
         <source>Show Curve</source>
         <translation>곡선 보이기</translation>
-    </message>
-</context>
-<context>
-    <name>PropertyWidget_TextColor</name>
-    <message>
-        <source>Color of selected text. If Outline text decoration is enabled, this color will be the fill color. If Drop Shadow Text is enabled, then this will be the top most color.</source>
-        <translation type="vanished">선택된 문자열 색상.  윤곽선 문자열 효과가 가능하다면, 이 색상은 채움 색상이 됩니다. 물방울 음영 문자열이 가능하다면 이것은 상위의 대부분 색상이 될 것입니다.</translation>
-    </message>
-    <message>
-        <source>Saturation of color of text fill</source>
-        <translation type="vanished">문자열 채움 색상 채도</translation>
-    </message>
-    <message>
-        <source>Saturation of color of text stroke</source>
-        <translation type="vanished">문자열 윤곽선 색상의 채도</translation>
-    </message>
-    <message>
-        <source>Right to Left Writing</source>
-        <translation type="vanished">오른쪽에서 왼쪽으로 쓰기</translation>
     </message>
 </context>
 <context>
@@ -25845,10 +25547,6 @@ Check path and filename.</source>
         <location filename="../../scribus/plugins/gettext/csvim/csvim.cpp" line="66"/>
         <source>CSV_header</source>
         <translation>CSV_헤더</translation>
-    </message>
-    <message>
-        <source>Font %1 is broken, discarding it</source>
-        <translation type="vanished">글꼴 %1이 깨졌습니다. 이것을 무시하는 중</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/gettext/htmlim/htmlreader.cpp" line="667"/>
@@ -32000,10 +31698,6 @@ Please choose another.</source>
 <context>
     <name>SMCharacterStyle</name>
     <message>
-        <source>Properties</source>
-        <translation type="vanished">속성</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/smtextstyles.cpp" line="2106"/>
         <source>Character Styles</source>
         <translation>문자 스타일</translation>
@@ -32210,10 +31904,6 @@ Please choose another.</source>
         <translation>문자 스타일</translation>
     </message>
     <message>
-        <source>&amp;Lines:</source>
-        <translation type="vanished">줄 수(&amp;L):</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/smpstylewidget.ui" line="1176"/>
         <source>Distance from Text:</source>
         <translation>문자열로부터 거리:</translation>
@@ -32316,28 +32006,14 @@ Please choose another.</source>
         <translation>기준:</translation>
     </message>
     <message>
-        <source>TextLabel</source>
-        <translation type="vanished">문자열 라벨</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/smpstylewidget.ui" line="636"/>
         <source>Colors</source>
         <translation>색상</translation>
     </message>
     <message>
-        <source>Ch&amp;aracter Style</source>
-        <translation type="vanished">문자 스타일(&amp;A)</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/smpstylewidget.ui" line="402"/>
         <source>None</source>
         <translation>없음</translation>
-    </message>
-    <message>
-        <source>Maximum white space compression allowed.
-Expressed as a percentage of the current white space value.</source>
-        <translation type="vanished">허용된 최대 공백 압축.
-현재 공백 값의 백분율로서 표시. </translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.ui" line="520"/>
@@ -32539,36 +32215,6 @@ Expressed as a percentage of the current white space value.</source>
         <location filename="../../scribus/ui/smpstylewidget.ui" line="464"/>
         <source>Min. Space Width:</source>
         <translation>최소 공백 너비:</translation>
-    </message>
-    <message>
-        <source>Min:</source>
-        <comment>Glyph Extension</comment>
-        <translation type="vanished">최소:</translation>
-    </message>
-    <message>
-        <source>Max:</source>
-        <comment>Glyph Extension</comment>
-        <translation type="vanished">최대:</translation>
-    </message>
-    <message>
-        <source>None</source>
-        <comment>Optical Margins</comment>
-        <translation type="vanished">없음</translation>
-    </message>
-    <message>
-        <source>Both Sides</source>
-        <comment>Optical Margins</comment>
-        <translation type="vanished">양 면</translation>
-    </message>
-    <message>
-        <source>Left Only</source>
-        <comment>Optical Margins</comment>
-        <translation type="vanished">왼쪽만</translation>
-    </message>
-    <message>
-        <source>Right Only</source>
-        <comment>Optical Margins</comment>
-        <translation type="vanished">오른쪽만</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.cpp" line="550"/>
@@ -35062,18 +34708,6 @@ Consider using the Preflight Verifier to correct them</source>
         <translation>전체 잠김 해제(&amp;U)</translation>
     </message>
     <message>
-        <source>Information</source>
-        <translation type="vanished">정보</translation>
-    </message>
-    <message>
-        <source>The program %1 is already running!</source>
-        <translation type="vanished">프로그램 %1이 이미 실행 중입니다!</translation>
-    </message>
-    <message>
-        <source>The program %1 is missing!</source>
-        <translation type="vanished">프로그램 %1이 빠졌습니다!</translation>
-    </message>
-    <message>
         <location filename="../../scribus/scribus.cpp" line="4010"/>
         <location filename="../../scribus/scribus.cpp" line="8844"/>
         <source>Do you really want to replace your existing image?</source>
@@ -35475,17 +35109,9 @@ Consider using the Preflight Verifier to correct them</source>
         <translation>버전 정보를 출력하고 종료</translation>
     </message>
     <message>
-        <source>filename</source>
-        <translation type="vanished">파일명</translation>
-    </message>
-    <message>
         <location filename="../../scribus/scribusapp.cpp" line="276"/>
         <source>Preferences directory %1 does not exist, aborting.</source>
         <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Use filename as path for user given preferences</source>
-        <translation type="vanished">사용자 기본 설정 경로로서 파일명 사용</translation>
     </message>
     <message>
         <location filename="../../scribus/scribusapp.cpp" line="617"/>
@@ -37083,15 +36709,6 @@ Consider using the Preflight Verifier to correct them</source>
         <source>Shadowed Text. Hold down the button momentarily to change the shadow offset values.</source>
         <translation type="unfinished"></translation>
     </message>
-    <message>
-        <source>Outline. Hold down the button momentarily to change the outline stroke width.</source>
-        <comment>Text Style Selector</comment>
-        <translation type="vanished">윤곽선. 윤곽선 너비를 변경하기 위하여 단추를 누름.</translation>
-    </message>
-    <message>
-        <source>Shadowed Text. Hold down the button momentarily to enable the offset spacing.</source>
-        <translation type="vanished">음영 문자열. 옵셋 공백을 가능하게 하기 위하여 단추를 누름.</translation>
-    </message>
 </context>
 <context>
     <name>SubdividePlugin</name>
@@ -37919,14 +37536,6 @@ Consider using the Preflight Verifier to correct them</source>
         <location filename="../../scribus/ui/tabpdfoptions.ui" line="981"/>
         <source>Continuous</source>
         <translation>연속</translation>
-    </message>
-    <message>
-        <source>Double Page Left</source>
-        <translation type="vanished">양 페이지 왼쪽</translation>
-    </message>
-    <message>
-        <source>Double Page Right</source>
-        <translation type="vanished">양 페이지 오른쪽</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.ui" line="1005"/>
@@ -41493,10 +41102,6 @@ please choose another one.</source>
 <context>
     <name>smFontFeaturesBase</name>
     <message>
-        <source>Form</source>
-        <translation type="obsolete">폼</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="23"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600; color:#008000;&quot;&gt;The current selected font does not have any font features.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation type="unfinished"></translation>
@@ -41504,11 +41109,6 @@ please choose another one.</source>
     <message>
         <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="36"/>
         <source> Ligatures</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="48"/>
-        <source>Common Ligtures (liga)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -41582,13 +41182,18 @@ please choose another one.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="48"/>
+        <source>Common Ligatures (liga)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="180"/>
-        <source>Petite Capitals from Captials</source>
+        <source>Petite Capitals from Capitals</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="185"/>
-        <source>Small Capitals from Captials</source>
+        <source>Small Capitals from Capitals</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

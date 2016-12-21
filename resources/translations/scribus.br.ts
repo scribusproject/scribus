@@ -1678,14 +1678,6 @@
         <translation>&amp;Sternioù...</translation>
     </message>
     <message>
-        <source>Unlink Text Frame with Text Copy</source>
-        <translation type="vanished">Dizeren ar sterniad testenn diouzh eilad an destenn</translation>
-    </message>
-    <message>
-        <source>Unlink Text Frame with Text Cut</source>
-        <translation type="vanished">Dizeren ar sterniad testenn diouzh troc&apos;h an destenn</translation>
-    </message>
-    <message>
         <location filename="../../scribus/actionmanager.cpp" line="1598"/>
         <source>Adjust Frame Height to Text</source>
         <translation>Kengeidañ sav ar stern e-keñver an destenn</translation>
@@ -3329,10 +3321,6 @@
 </context>
 <context>
     <name>CMSPrefsBase</name>
-    <message>
-        <source>Form</source>
-        <translation type="vanished">Furmskrid</translation>
-    </message>
     <message>
         <location filename="../../scribus/ui/cmsprefsbase.ui" line="32"/>
         <source>&amp;Activate Color Management</source>
@@ -5072,10 +5060,6 @@ bremañ %2 x %3 PDM</translation>
         <location filename="../../scribus/commonstrings.cpp" line="337"/>
         <source>Single Page</source>
         <translation>Pajenn eeun</translation>
-    </message>
-    <message>
-        <source>Double Sided</source>
-        <translation type="vanished">Pajennoù tal-ouzh-tal</translation>
     </message>
     <message>
         <location filename="../../scribus/commonstrings.cpp" line="339"/>
@@ -7834,10 +7818,6 @@ HE GWRIZIOÙ D&apos;UR VLEUNIENN WENN;</translation>
 <context>
     <name>GradientEditorBase</name>
     <message>
-        <source>Frame</source>
-        <translation type="vanished">Stern</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/gradienteditor.ui" line="63"/>
         <source>Position:</source>
         <translation>Savlec&apos;h :</translation>
@@ -8271,14 +8251,6 @@ HE GWRIZIOÙ D&apos;UR VLEUNIENN WENN;</translation>
         <location filename="../../scribus/ui/guidemanager.ui" line="384"/>
         <source>Apply the shown guides to all pages in the document</source>
         <translation>Arloañ an dealfoù diskouezet d&apos;an holl bajennoù en teul</translation>
-    </message>
-    <message>
-        <source>Delete all guides shown on the current page</source>
-        <translation type="vanished">Dilemel an dealfoù diskouezet diwar ar bajenn vremanel</translation>
-    </message>
-    <message>
-        <source>Delete all guides from all pages</source>
-        <translation type="vanished">Dilemel an holl zealfoù diwaran holl bajennoù</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/guidemanager.ui" line="225"/>
@@ -9768,10 +9740,6 @@ p, li { white-space: pre-wrap; }
         <location filename="../../scribus/plugins/imposition/impositionbase.ui" line="376"/>
         <source>Facing Pages</source>
         <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Double sided</source>
-        <translation type="vanished">Pajennoù tal-ouzh-tal</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/imposition/impositionbase.ui" line="387"/>
@@ -11415,10 +11383,6 @@ p, li { white-space: pre-wrap; }
         <location filename="../../scribus/ui/markvariabletext.cpp" line="31"/>
         <source>Edit selected Mark&apos;s label</source>
         <translation>Embann skritell ar merk bet diuzet.</translation>
-    </message>
-    <message>
-        <source>Edit selected Mark&apos;s label.</source>
-        <translation type="vanished">Embann skritell ar merk bet diuzet.</translation>
     </message>
 </context>
 <context>
@@ -17875,10 +17839,6 @@ Ha fellout a ra deoc&apos;h o zreuztiriañ betek handelv nevez Scribus ?</transl
         <translation type="unfinished">Hollek</translation>
     </message>
     <message>
-        <source>Language</source>
-        <translation type="obsolete">Yezh</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="100"/>
         <source>Page Size</source>
         <translation>Ment ar bajenn</translation>
@@ -18026,10 +17986,6 @@ Ha fellout a ra deoc&apos;h o zreuztiriañ betek handelv nevez Scribus ?</transl
         <translation>Pajenn eeun</translation>
     </message>
     <message>
-        <source>Double Page</source>
-        <translation type="vanished">Pajenn doubl</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="280"/>
         <source>3-Fold</source>
         <translation>3 stalaf</translation>
@@ -18048,10 +18004,6 @@ Ha fellout a ra deoc&apos;h o zreuztiriañ betek handelv nevez Scribus ?</transl
         <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="253"/>
         <source>First Page is:</source>
         <translation>Ar bajenn gentañ zo :</translation>
-    </message>
-    <message>
-        <source>Size</source>
-        <translation type="vanished">Ment</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="329"/>
@@ -18750,28 +18702,6 @@ Fellout a ra deoc&apos;h e arverañ ?</translation>
         <translation>Emzalc&apos;h</translation>
     </message>
     <message>
-        <source>Language:</source>
-        <translation type="vanished">Yezh :</translation>
-    </message>
-    <message>
-        <source>Smallest Word:</source>
-        <translation type="vanished">Ger bihanañ :</translation>
-    </message>
-    <message>
-        <source>Characters</source>
-        <translation type="vanished">Arouezennoù</translation>
-    </message>
-    <message>
-        <source>Consecutive Hyphenations Allowed:</source>
-        <translation type="vanished">Hoskoù kenheuilh aotreet :</translation>
-    </message>
-    <message>
-        <source>Maximum number of Hyphenations following each other.
-A value of 0 means unlimited hyphenations.</source>
-        <translation type="vanished">Niver uc&apos;hek a hoskoù an eil war-lerc&apos;h egile.
-Ar werzh 0 a dalv troc&apos;hadurioù gerioù anbevenn.</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/prefs_hyphenatorbase.ui" line="88"/>
         <source>Word Lists</source>
         <translation>Rolloù gerioù</translation>
@@ -18821,10 +18751,6 @@ Ar werzh 0 a dalv troc&apos;hadurioù gerioù anbevenn.</translation>
         <location filename="../../scribus/ui/prefs_hyphenatorbase.ui" line="61"/>
         <source>Enables automatic hyphenation of your text while typing</source>
         <translation>Gweredekaat a ra an hoskoù emgefreek e-pad ar biziata.</translation>
-    </message>
-    <message>
-        <source>Length of the smallest word to be hyphenated</source>
-        <translation type="vanished">Brasder ar gerioù bihanañ a vez troc&apos;het.</translation>
     </message>
 </context>
 <context>
@@ -19900,14 +19826,6 @@ HE GWRIZIOÃ D&apos;UR VLEUNIENN WENN;</translation>
         <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1597"/>
         <source>Continuous Pages</source>
         <translation>Pajennadoù dizehan</translation>
-    </message>
-    <message>
-        <source>Double Page Left</source>
-        <translation type="vanished">Divbajenn gleiz</translation>
-    </message>
-    <message>
-        <source>Double Page Right</source>
-        <translation type="vanished">Divbajenn dehou</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1640"/>
@@ -22161,10 +22079,6 @@ Lakaat war al live 1 pe 2 a c&apos;hall krouiñ restroù ramzel</translation>
         <translation>&amp;Lun</translation>
     </message>
     <message>
-        <source>&amp;Text</source>
-        <translation type="vanished">&amp;Testenn</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/propertiespalette.cpp" line="877"/>
         <source>&amp;Image</source>
         <translation>&amp;Skeudenn</translation>
@@ -23179,25 +23093,6 @@ Boullder</translation>
     </message>
 </context>
 <context>
-    <name>PropertiesPalette_Table</name>
-    <message>
-        <source>Cell style of currently selected cell</source>
-        <translation type="vanished">Stil an arouezenn er gellig diuzet</translation>
-    </message>
-    <message>
-        <source>Table style of currently selected table</source>
-        <translation type="vanished">Stil an daolenn eus an daolenn diuzet bremañ</translation>
-    </message>
-    <message>
-        <source>Remove Direct Cell Formatting</source>
-        <translation type="vanished">Dilemel mentrezhadur end-eeun ar gellig </translation>
-    </message>
-    <message>
-        <source>Remove Direct Table Formatting</source>
-        <translation type="vanished">Dilemel mentrezhadur end-eeun an daolenn</translation>
-    </message>
-</context>
-<context>
     <name>PropertiesPalette_TableBase</name>
     <message>
         <location filename="../../scribus/ui/propertiespalette_tablebase.ui" line="26"/>
@@ -23263,10 +23158,6 @@ Boullder</translation>
         <translation>Stiloù</translation>
     </message>
     <message>
-        <source>Table</source>
-        <translation type="vanished">Taolenn</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/propertiespalette_tablebase.ui" line="39"/>
         <source>Table style of currently selected table</source>
         <translation type="unfinished">Stil an daolenn eus an daolenn diuzet bremañ</translation>
@@ -23275,10 +23166,6 @@ Boullder</translation>
         <location filename="../../scribus/ui/propertiespalette_tablebase.ui" line="46"/>
         <source>Remove Direct Table Formatting</source>
         <translation type="unfinished">Dilemel mentrezhadur end-eeun an daolenn</translation>
-    </message>
-    <message>
-        <source>Cells</source>
-        <translation type="vanished">Kelligoù</translation>
     </message>
 </context>
 <context>
@@ -23329,14 +23216,6 @@ Boullder</translation>
         <translation>Linenn diazez</translation>
     </message>
     <message>
-        <source>Paragraph St&amp;yle:</source>
-        <translation type="vanished">S&amp;til ar rannbennad :</translation>
-    </message>
-    <message>
-        <source>Character St&amp;yle:</source>
-        <translation type="vanished">St&amp;il an arouezennoù :</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/propertiespalette_text.cpp" line="701"/>
         <source>Font Features</source>
         <translation type="unfinished"></translation>
@@ -23355,34 +23234,6 @@ Boullder</translation>
         <location filename="../../scribus/ui/propertiespalette_text.cpp" line="708"/>
         <source>Align to Baseline Grid</source>
         <translation>Desteudañ an destenn ouzh al linenn diazez</translation>
-    </message>
-    <message>
-        <source> pt</source>
-        <translation type="vanished"> pt</translation>
-    </message>
-    <message>
-        <source>Font Size</source>
-        <translation type="vanished">Ment an nodrezh</translation>
-    </message>
-    <message>
-        <source>Line Spacing</source>
-        <translation type="vanished">Etrelinennañ</translation>
-    </message>
-    <message>
-        <source>Paragraph style of currently selected text or paragraph</source>
-        <translation type="vanished">Stil ar rannbennad en destenn pe er rannbennad bremanel diuzet</translation>
-    </message>
-    <message>
-        <source>Character style of currently selected text or paragraph</source>
-        <translation type="vanished">Stil an arouezenn en destenn pe er rannbennad bremanel</translation>
-    </message>
-    <message>
-        <source>Remove Direct Paragraph Formatting</source>
-        <translation type="vanished">Dilemel mentrezhadur end-eeun ar rannbennad</translation>
-    </message>
-    <message>
-        <source>Remove Direct Character Formatting</source>
-        <translation type="vanished">Dilemel mentrezhadur end-eeun an arouezenn</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_text.cpp" line="81"/>
@@ -23407,10 +23258,6 @@ Boullder</translation>
         <location filename="../../scribus/ui/propertiespalette_text.cpp" line="697"/>
         <source>Paragraph Effects</source>
         <translation>Efedoù war ar rannbennadoù</translation>
-    </message>
-    <message>
-        <source>Select the line spacing mode</source>
-        <translation type="vanished">Diuzañ ar mod etrelinennañ</translation>
     </message>
 </context>
 <context>
@@ -23709,74 +23556,7 @@ Boullder</translation>
     </message>
 </context>
 <context>
-    <name>PropertyWidget_Advanced</name>
-    <message>
-        <source>Word Tracking</source>
-        <translation type="vanished">Esaouadur gerioù</translation>
-    </message>
-    <message>
-        <source>Min:</source>
-        <translation type="vanished">Izek :</translation>
-    </message>
-    <message>
-        <source>Norm:</source>
-        <translation type="vanished">Skoueriek :</translation>
-    </message>
-    <message>
-        <source>Glyph Extension</source>
-        <translation type="vanished">Askouezhadenn an arouezenn</translation>
-    </message>
-    <message>
-        <source>Max:</source>
-        <translation type="vanished">Uc&apos;hek :</translation>
-    </message>
-    <message>
-        <source> %</source>
-        <translation type="vanished"> %</translation>
-    </message>
-    <message>
-        <source>Offset to baseline of characters</source>
-        <translation type="vanished">Linkadur an arouezennoù e-keñver al linenn diazez</translation>
-    </message>
-    <message>
-        <source>Manual Tracking</source>
-        <translation type="vanished">Esaouiñ dre zorn</translation>
-    </message>
-    <message>
-        <source>Scaling width of characters</source>
-        <translation type="vanished">Skeulaat led an arouezennoù</translation>
-    </message>
-    <message>
-        <source>Scaling height of characters</source>
-        <translation type="vanished">Skeulaat sav an arouezennoù</translation>
-    </message>
-    <message>
-        <source>Minimal width of spaces between words</source>
-        <translation type="vanished">Led esaouiñ izek etre ar gerioù</translation>
-    </message>
-    <message>
-        <source>Normal width of spaces between words</source>
-        <translation type="vanished">Led esaouiñ reizh etre ar gerioù</translation>
-    </message>
-    <message>
-        <source>Minimal shrinkage of glyphs for justification</source>
-        <translation type="vanished">Strizhañ izek an arouezennoù evit ar marzekaat</translation>
-    </message>
-    <message>
-        <source>Maximal extension of glyphs for justification</source>
-        <translation type="vanished">Esaouiñ uc&apos;hek an arouezennoù evit ar marzekaat</translation>
-    </message>
-</context>
-<context>
     <name>PropertyWidget_AdvancedBase</name>
-    <message>
-        <source>Frame</source>
-        <translation type="vanished">Stern</translation>
-    </message>
-    <message>
-        <source>Word Spacing</source>
-        <translation type="vanished">Esaouiñ ar gerioù</translation>
-    </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="48"/>
         <source>Offset to baseline of characters</source>
@@ -23859,14 +23639,6 @@ Boullder</translation>
 <context>
     <name>PropertyWidget_Distance</name>
     <message>
-        <source>Colu&amp;mns:</source>
-        <translation type="vanished">Ba&amp;nnoù :</translation>
-    </message>
-    <message>
-        <source>Vertical Alignment:</source>
-        <translation type="vanished">Desteudañ a-serzh :</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/propertywidget_distance.cpp" line="451"/>
         <source>Gap:</source>
         <translation>Esaou  :</translation>
@@ -23877,62 +23649,14 @@ Boullder</translation>
         <translation>Led :</translation>
     </message>
     <message>
-        <source>To&amp;p:</source>
-        <translation type="vanished">&amp;Lein :</translation>
-    </message>
-    <message>
-        <source>&amp;Bottom:</source>
-        <translation type="vanished">&amp;Traoñ :</translation>
-    </message>
-    <message>
-        <source>&amp;Left:</source>
-        <translation type="vanished">&amp;Kleiz :</translation>
-    </message>
-    <message>
-        <source>&amp;Right:</source>
-        <translation type="vanished">&amp;Dehou :</translation>
-    </message>
-    <message>
-        <source>T&amp;abulators...</source>
-        <translation type="vanished">T&amp;aolennata...</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/propertywidget_distance.cpp" line="455"/>
         <source> pt</source>
         <translation> pt</translation>
     </message>
     <message>
-        <source>Number of columns in text frame</source>
-        <translation type="vanished">Niver a vannoù er sterniad testenn</translation>
-    </message>
-    <message>
-        <source>Switches between Gap or Column width</source>
-        <translation type="vanished">Dazeilañ a ra etre Esaou ha Led ar bann</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/propertywidget_distance.cpp" line="352"/>
         <source>Distance between columns</source>
         <translation>Esaou etre ar bannoù</translation>
-    </message>
-    <message>
-        <source>Distance of text from top of frame</source>
-        <translation type="vanished">Pellder an destenn diouzh lein ar sterniad</translation>
-    </message>
-    <message>
-        <source>Distance of text from bottom of frame</source>
-        <translation type="vanished">Pellder an destenn diouzh traoñ ar sterniad</translation>
-    </message>
-    <message>
-        <source>Distance of text from left of frame</source>
-        <translation type="vanished">Pellder an destenn diouzh tu kleiz ar sterniad</translation>
-    </message>
-    <message>
-        <source>Distance of text from right of frame</source>
-        <translation type="vanished">Pellder an destenn diouzh tu dehou ar sterniad</translation>
-    </message>
-    <message>
-        <source>Edit tab settings of text frame...</source>
-        <translation type="vanished">Embann arventennoù an taolata eus ar sterniad testenn...</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_distance.cpp" line="352"/>
@@ -23957,10 +23681,6 @@ Boullder</translation>
 </context>
 <context>
     <name>PropertyWidget_DistanceBase</name>
-    <message>
-        <source>Frame</source>
-        <translation type="vanished">Stern</translation>
-    </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="41"/>
         <source>Vertical Alignment:</source>
@@ -24047,10 +23767,6 @@ Boullder</translation>
         <translation>T&amp;aolennata...</translation>
     </message>
     <message>
-        <source>Vertical Alignment</source>
-        <translation type="vanished">Desteudadur a-serzh</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="49"/>
         <source>Top</source>
         <translation>Krec&apos;h</translation>
@@ -24128,46 +23844,7 @@ Boullder</translation>
     </message>
 </context>
 <context>
-    <name>PropertyWidget_Flop</name>
-    <message>
-        <source>Maximum Ascent</source>
-        <translation type="vanished">Sevel uc&apos;hel</translation>
-    </message>
-    <message>
-        <source>Font Ascent</source>
-        <translation type="vanished">Sevel an noderezh</translation>
-    </message>
-    <message>
-        <source>Line Spacing</source>
-        <translation type="vanished">Etrelinennañ</translation>
-    </message>
-    <message>
-        <source>Set the height of the first line of the text frame to use the tallest height of the included characters</source>
-        <translation type="vanished">Arventennañ  sav  linenn gentañ ar sterniad testenn da arverañ sav brasañ an arouezennoù enkorfet</translation>
-    </message>
-    <message>
-        <source>Set the height of the first line of text frame to use the full ascent of the font(s) in use</source>
-        <translation type="vanished">Arventennañ  sav  linenn gentañ ar sterniad testenn da arverañ garenn-sav a-bezh an nodrezh(où) arveret</translation>
-    </message>
-    <message>
-        <source>Set the height of the first line of the text frame to the specified line height</source>
-        <translation type="vanished">Arventennañ  sav  linenn gentañ ar sterniad testenn e-keñver sav al linenn erspizet</translation>
-    </message>
-    <message>
-        <source>Baseline Grid</source>
-        <translation type="vanished">Kael al linenn diazez</translation>
-    </message>
-    <message>
-        <source>Set the base line of the first line of the text frame to the base line grid</source>
-        <translation type="vanished">Despizañ al linenn diazez eus al linenn gentañ eus ar sterniad testenn e-keñver kael al linenn diazez</translation>
-    </message>
-</context>
-<context>
     <name>PropertyWidget_FlopBase</name>
-    <message>
-        <source>Frame</source>
-        <translation type="vanished">Stern</translation>
-    </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_flopbase.ui" line="26"/>
         <source>Set the height of the first line of the text frame to use the tallest height of the included characters</source>
@@ -24182,10 +23859,6 @@ Boullder</translation>
         <location filename="../../scribus/ui/propertywidget_flopbase.ui" line="39"/>
         <source>Set the height of the first line of text frame to use the full ascent of the font(s) in use</source>
         <translation type="unfinished">Arventennañ  sav  linenn gentañ ar sterniad testenn da arverañ garenn-sav a-bezh an nodrezh(où) arveret</translation>
-    </message>
-    <message>
-        <source>flopGroup</source>
-        <translation type="vanished">flopGroup</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_flopbase.ui" line="42"/>
@@ -24215,10 +23888,6 @@ Boullder</translation>
 </context>
 <context>
     <name>PropertyWidget_FontFeatures</name>
-    <message>
-        <source>Frame</source>
-        <translation type="obsolete">Stern</translation>
-    </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="26"/>
         <source>Common Ligtures (liga)</source>
@@ -24578,10 +24247,6 @@ Boullder</translation>
 <context>
     <name>PropertyWidget_HyphenationBase</name>
     <message>
-        <source>Frame</source>
-        <translation type="obsolete">Stern</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/propertywidget_hyphenationbase.ui" line="43"/>
         <source>Smallest Word:</source>
         <translation type="unfinished">Ger bihanañ :</translation>
@@ -24620,38 +24285,7 @@ Ar werzh 0 a dalv troc&apos;hadurioù gerioù anbevenn.</translation>
     </message>
 </context>
 <context>
-    <name>PropertyWidget_OptMargins</name>
-    <message>
-        <source>None</source>
-        <comment>optical margins</comment>
-        <translation type="vanished">Hini ebet</translation>
-    </message>
-    <message>
-        <source>Both Sides</source>
-        <comment>optical margins</comment>
-        <translation type="vanished">An tu hag egile</translation>
-    </message>
-    <message>
-        <source>Left Only</source>
-        <comment>optical margins</comment>
-        <translation type="vanished">Tu kleiz hepken</translation>
-    </message>
-    <message>
-        <source>Right Only</source>
-        <comment>optical margins</comment>
-        <translation type="vanished">Tu dehou hepken</translation>
-    </message>
-    <message>
-        <source>Reset</source>
-        <translation type="vanished">Adderaouekaat</translation>
-    </message>
-</context>
-<context>
     <name>PropertyWidget_OptMarginsBase</name>
-    <message>
-        <source>Frame</source>
-        <translation type="vanished">Stern</translation>
-    </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_optmarginsbase.ui" line="32"/>
         <source>None</source>
@@ -24679,45 +24313,6 @@ Ar werzh 0 a dalv troc&apos;hadurioù gerioù anbevenn.</translation>
     </message>
 </context>
 <context>
-    <name>PropertyWidget_Orphans</name>
-    <message>
-        <source>Don&apos;t separate first</source>
-        <translation type="vanished">Arabat disrannañ ar re gentañ</translation>
-    </message>
-    <message>
-        <source>Don&apos;t separate last</source>
-        <translation type="vanished">Arabat disrannañ ar re ziwezhañ</translation>
-    </message>
-    <message>
-        <source> lines</source>
-        <translation type="vanished">linenn</translation>
-    </message>
-    <message>
-        <source>Do not split paragraph</source>
-        <translation type="vanished">Na droc&apos;hañ ar rannbennad</translation>
-    </message>
-    <message>
-        <source>Keep with next paragraph</source>
-        <translation type="vanished">Mirout gant ar rannbennad da zont</translation>
-    </message>
-    <message>
-        <source>Ensure that first lines of a paragraph won&apos;t end up separated from the rest (known as widow/orphan control)</source>
-        <translation type="vanished">Bezit sur ne vo ket disrannet linnennoù kentañ ar rannbennad diouzh ar peurrest (anvet reolerezh an intañvezed/emzivaded)</translation>
-    </message>
-    <message>
-        <source>Ensure that last lines of a paragraph won&apos;t end up separated from the rest (known as widow/orphan control)</source>
-        <translation type="vanished">Bezit sur ne vo ket disrannet linnennoù diwezhañ ar rannbennad diouzh ar peurrest (anvet reolerezh an intañvezed/emzivaded)</translation>
-    </message>
-    <message>
-        <source>If checked, ensures that the paragraph won&apos;t be split across multiple pages or columns</source>
-        <translation type="vanished">Mar kevasket e lakaa ar rannbennadoù da chom didroc&apos;h hep bezañ troc&apos;het war meur a bajenn pe vann.</translation>
-    </message>
-    <message>
-        <source>If checked, automatically moves the paragraph to the next column or page if the next paragraph isn&apos;t on the same page or column</source>
-        <translation type="vanished">Mar kevasket e tilec&apos;h ent emgefreek ar rannbennad er bannad testenn pe er bajennad war-lec&apos;h ma n&apos;emañ ket ar rannbennad war-lec&apos;h war an hevelep bann pe bajennad.</translation>
-    </message>
-</context>
-<context>
     <name>PropertyWidget_OrphansBase</name>
     <message>
         <location filename="../../scribus/ui/propertywidget_orphansbase.ui" line="20"/>
@@ -24726,18 +24321,10 @@ Ar werzh 0 a dalv troc&apos;hadurioù gerioù anbevenn.</translation>
         <translation>Bezit sur ne vo ket disrannet linnennoù kentañ ar rannbennad diouzh ar peurrest (anvet reolerezh an intañvezed/emzivaded)</translation>
     </message>
     <message>
-        <source>Don&apos;t separate first</source>
-        <translation type="vanished">Arabat disrannañ ar re gentañ</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/propertywidget_orphansbase.ui" line="33"/>
         <location filename="../../scribus/ui/propertywidget_orphansbase.ui" line="53"/>
         <source> lines</source>
         <translation>linenn</translation>
-    </message>
-    <message>
-        <source>Don&apos;t separate last</source>
-        <translation type="vanished">Arabat disrannañ ar re ziwezhañ</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_orphansbase.ui" line="23"/>
@@ -24788,78 +24375,14 @@ Ar werzh 0 a dalv troc&apos;hadurioù gerioù anbevenn.</translation>
         <translation>Roll dre badelligoù</translation>
     </message>
     <message>
-        <source>Lines:</source>
-        <translation type="vanished">Linennoù :</translation>
-    </message>
-    <message>
-        <source>Bullet Char(s):</source>
-        <translation type="vanished">Arouez(ioù) evit ar padelligoù</translation>
-    </message>
-    <message>
-        <source>Enhanced char table to choose bullet chars</source>
-        <translation type="vanished">Taolennad arouezioù gwellaet evit dibab arouezioù evit ar padelligoù</translation>
-    </message>
-    <message>
-        <source>Char Table</source>
-        <translation type="vanished">Taolennad arouezennoù</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/propertywidget_pareffect.cpp" line="227"/>
         <source>Numbered List</source>
         <translation>Roll dre niverennoù</translation>
     </message>
     <message>
-        <source>Level:</source>
-        <translation type="vanished">Live :</translation>
-    </message>
-    <message>
-        <source>Set:</source>
-        <translation type="vanished">Spletad :</translation>
-    </message>
-    <message>
-        <source>Format:</source>
-        <translation type="vanished">Mentrezh :</translation>
-    </message>
-    <message>
-        <source>Start:</source>
-        <translation type="vanished">Loc&apos;hañ :</translation>
-    </message>
-    <message>
-        <source>Prefix:</source>
-        <translation type="vanished">Rakger :</translation>
-    </message>
-    <message>
-        <source>Suffix:</source>
-        <translation type="vanished">Rakger :</translation>
-    </message>
-    <message>
-        <source>Auto-Indent</source>
-        <translation type="vanished">Pukañ emgefreek</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/propertywidget_pareffect.cpp" line="224"/>
         <source>No Paragraph Effects</source>
         <translation>Efed ebet war ar rannbennad</translation>
-    </message>
-    <message>
-        <source>Numerated List</source>
-        <translation type="vanished">Roll niverennet</translation>
-    </message>
-    <message>
-        <source>Effect Parameters</source>
-        <translation type="vanished">Arventennoù an efedoù</translation>
-    </message>
-    <message>
-        <source>Offset:</source>
-        <translation type="vanished">Linkañ :</translation>
-    </message>
-    <message>
-        <source>Char Style:</source>
-        <translation type="vanished">Stil an arouezennoù :</translation>
-    </message>
-    <message>
-        <source>Choose character style or leave blank for use default paragraph style</source>
-        <translation type="vanished">Dibabit stil an arouezennoù pe laoskit goullo da arverañ ar stil rannbennad dre ziouer.</translation>
     </message>
 </context>
 <context>
@@ -24868,18 +24391,6 @@ Ar werzh 0 a dalv troc&apos;hadurioù gerioù anbevenn.</translation>
         <location filename="../../scribus/ui/propertywidget_pareffectbase.ui" line="273"/>
         <source>Effect Parameters</source>
         <translation>Arventennoù an efedoù</translation>
-    </message>
-    <message>
-        <source>Char Style</source>
-        <translation type="vanished">Stil an arouezioù</translation>
-    </message>
-    <message>
-        <source>AutoIndent</source>
-        <translation type="vanished">Pukañ emgefreek</translation>
-    </message>
-    <message>
-        <source>Offset</source>
-        <translation type="vanished">Linkañ</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_pareffectbase.ui" line="23"/>
@@ -24957,46 +24468,14 @@ Ar werzh 0 a dalv troc&apos;hadurioù gerioù anbevenn.</translation>
         <translation type="unfinished">Linkañ :</translation>
     </message>
     <message>
-        <source>Lines</source>
-        <translation type="vanished">Lilennoù</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/propertywidget_pareffectbase.ui" line="119"/>
         <source>Numbered List</source>
         <translation>Roll niverennet</translation>
     </message>
     <message>
-        <source>Level</source>
-        <translation type="vanished">Live</translation>
-    </message>
-    <message>
-        <source>Start</source>
-        <translation type="vanished">Loc&apos;hañ</translation>
-    </message>
-    <message>
-        <source>Set</source>
-        <translation type="vanished">Spletad</translation>
-    </message>
-    <message>
-        <source>Format</source>
-        <translation type="vanished">Mentrezh</translation>
-    </message>
-    <message>
-        <source>Prefix</source>
-        <translation type="vanished">Rakger</translation>
-    </message>
-    <message>
-        <source>Suffix</source>
-        <translation type="vanished">Lostger</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/propertywidget_pareffectbase.ui" line="62"/>
         <source>Bulleted List</source>
         <translation>Roll dre badelligoù</translation>
-    </message>
-    <message>
-        <source>Bullet Char(s)</source>
-        <translation type="vanished">Arouez(ioù) evit ar padelligoù</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_pareffectbase.ui" line="106"/>
@@ -25055,10 +24534,6 @@ Ar werzh 0 a dalv troc&apos;hadurioù gerioù anbevenn.</translation>
 <context>
     <name>PropertyWidget_PathTextBase</name>
     <message>
-        <source>Frame</source>
-        <translation type="vanished">Stern</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/propertywidget_pathtextbase.ui" line="32"/>
         <source>Type:</source>
         <translation>Rizh :</translation>
@@ -25085,42 +24560,7 @@ Ar werzh 0 a dalv troc&apos;hadurioù gerioù anbevenn.</translation>
     </message>
 </context>
 <context>
-    <name>PropertyWidget_TextColor</name>
-    <message>
-        <source>Color of selected text. If Outline text decoration is enabled, this color will be the fill color. If Drop Shadow Text is enabled, then this will be the top most color.</source>
-        <translation type="vanished">Liv an destenn bet diuzet. Mar bez gweredekaet kinkladur trolinenn an destenn e vo al liv-mañ ul liv leuniañ. Mar bez gweredekaet an destenn gant disheol bannet e vo al liv-mañ an hini uhelañ.</translation>
-    </message>
-    <message>
-        <source>Background color of selected text</source>
-        <translation type="vanished">Liv drekleur an destenn diuzet</translation>
-    </message>
-    <message>
-        <source>Saturation of color of text fill</source>
-        <translation type="vanished">Peurvec&apos;hiadur liv leuniañ an destenn</translation>
-    </message>
-    <message>
-        <source>Saturation of color of text stroke</source>
-        <translation type="vanished">Peurvec&apos;hiadur liv trolinenn an destenn</translation>
-    </message>
-    <message>
-        <source>Saturation of color of text background</source>
-        <translation type="vanished">Peurvec&apos;hiañ liv drekleur an destenn</translation>
-    </message>
-    <message>
-        <source>Right to Left Writing</source>
-        <translation type="vanished">Skritur a zehou da gleiz</translation>
-    </message>
-    <message>
-        <source>Color of text stroke and/or drop shadow, depending which is chosen. If both are chosen, then they share the same color.</source>
-        <translation type="vanished">Liv tolinenn an destenn ha/pe an disheol bannet hervez an hini bet dibabet. Mar bez diuzet an eil hag egile e vo rannet an hevelep liv etre an daou anezho.</translation>
-    </message>
-</context>
-<context>
     <name>PropertyWidget_TextColorBase</name>
-    <message>
-        <source>Frame</source>
-        <translation type="vanished">Stern</translation>
-    </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_textcolorbase.ui" line="62"/>
         <source>Color of selected text. If Outline text decoration is enabled, this color will be the fill color. If Drop Shadow Text is enabled, then this will be the top most color.</source>
@@ -26200,10 +25640,6 @@ Gwiriit an treug ha anv ar restr.</translation>
         <location filename="../../scribus/plugins/gettext/csvim/csvim.cpp" line="66"/>
         <source>CSV_header</source>
         <translation>Talbenn CSV</translation>
-    </message>
-    <message>
-        <source>Font %1 is broken, discarding it</source>
-        <translation type="vanished">Siek eo an nodrezh %1, laosket e vo a-gostez</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/gettext/htmlim/htmlreader.cpp" line="667"/>
@@ -32383,10 +31819,6 @@ Dibabit unan all mar plij.</translation>
 <context>
     <name>SMCharacterStyle</name>
     <message>
-        <source>Properties</source>
-        <translation type="vanished">Perzhioù</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/smtextstyles.cpp" line="2106"/>
         <source>Character Styles</source>
         <translation>Stiloù an arouezennoù</translation>
@@ -32593,10 +32025,6 @@ Dibabit unan all mar plij.</translation>
         <translation>Stil an arouezenn</translation>
     </message>
     <message>
-        <source>&amp;Lines:</source>
-        <translation type="vanished">&amp;Linennoù :</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/smpstylewidget.ui" line="1176"/>
         <source>Distance from Text:</source>
         <translation>Pellder diouzh an destenn :</translation>
@@ -32699,28 +32127,14 @@ Dibabit unan all mar plij.</translation>
         <translation>Diazezet war :</translation>
     </message>
     <message>
-        <source>TextLabel</source>
-        <translation type="vanished">TestennSkritellig</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/smpstylewidget.ui" line="636"/>
         <source>Colors</source>
         <translation>Livioù</translation>
     </message>
     <message>
-        <source>Ch&amp;aracter Style</source>
-        <translation type="vanished">Stil an &amp;arouezenn</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/smpstylewidget.ui" line="402"/>
         <source>None</source>
         <translation>Hini ebet</translation>
-    </message>
-    <message>
-        <source>Maximum white space compression allowed.
-Expressed as a percentage of the current white space value.</source>
-        <translation type="vanished">Koazhadur uc&apos;hek aotreet evit an esouioù gwenn.
-Eztaolet evel un dregantad eus gwerzh vremanel an esaou gwenn.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.ui" line="520"/>
@@ -32849,18 +32263,6 @@ Eztaolet evel un dregantad eus gwerzh vremanel an esaou gwenn.</translation>
         <translation>Stil an arouezenn evit an efed :</translation>
     </message>
     <message>
-        <source>AutoIndent</source>
-        <translation type="vanished">Pukañ emgefreek</translation>
-    </message>
-    <message>
-        <source>Use Parent`s Values</source>
-        <translation type="vanished">Arverañ ar gwerzhioù kar</translation>
-    </message>
-    <message>
-        <source>Bullets</source>
-        <translation type="vanished">Padelligoù</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/smpstylewidget.ui" line="868"/>
         <source>Set:</source>
         <translation>Spletad :</translation>
@@ -32871,10 +32273,6 @@ Eztaolet evel un dregantad eus gwerzh vremanel an esaou gwenn.</translation>
         <translation>Krouiñ ur spletad nevez :</translation>
     </message>
     <message>
-        <source>Restart</source>
-        <translation type="vanished">Adloc&apos;hañ</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/smpstylewidget.ui" line="1042"/>
         <source>Restart after other format</source>
         <translation>Adloc&apos;hañ goude ur mentrezh all</translation>
@@ -32883,14 +32281,6 @@ Eztaolet evel un dregantad eus gwerzh vremanel an esaou gwenn.</translation>
         <location filename="../../scribus/ui/smpstylewidget.ui" line="1062"/>
         <source>Restart after higher level</source>
         <translation>Adloc&apos;hañ goude ul live uheloc&apos;h</translation>
-    </message>
-    <message>
-        <source>Enhanced Char Table for inserting customs chars as bullets</source>
-        <translation type="vanished">Taolennad arouezioù gwellaet evit enlakaat arouezioù personelaet evel padelligoù</translation>
-    </message>
-    <message>
-        <source>Paragraph Effects Chars Offset</source>
-        <translation type="vanished">Linkad an arouezennoù evit an efedoù war ar rannbennadoù</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.ui" line="1212"/>
@@ -32928,17 +32318,9 @@ Eztaolet evel un dregantad eus gwerzh vremanel an esaou gwenn.</translation>
         <translation>Desteudadur ha pellderioù</translation>
     </message>
     <message>
-        <source>Use Parent&apos;s Values</source>
-        <translation type="vanished">Arverañ gwerzhioù ar gerent</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/smpstylewidget.ui" line="495"/>
         <source>Glyph Extension </source>
         <translation>Askouezhadenn an arouezenn</translation>
-    </message>
-    <message>
-        <source>Choose character style or leave blank for use default paragraph style</source>
-        <translation type="vanished">Dibabit stil an arouezennoù pe laoskit goullo da arverañ ar stil rannbennad dre ziouer.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.ui" line="678"/>
@@ -32956,51 +32338,9 @@ Eztaolet evel un dregantad eus gwerzh vremanel an esaou gwenn.</translation>
         <translation>Led esaouiñ izek :</translation>
     </message>
     <message>
-        <source>Min:</source>
-        <comment>Glyph Extension</comment>
-        <translation type="vanished">Izek :</translation>
-    </message>
-    <message>
-        <source>Max:</source>
-        <comment>Glyph Extension</comment>
-        <translation type="vanished">Uc&apos;hek :</translation>
-    </message>
-    <message>
-        <source>None</source>
-        <comment>Optical Margins</comment>
-        <translation type="vanished">Hini ebet</translation>
-    </message>
-    <message>
-        <source>Both Sides</source>
-        <comment>Optical Margins</comment>
-        <translation type="vanished">An tu hag egile</translation>
-    </message>
-    <message>
-        <source>Left Only</source>
-        <comment>Optical Margins</comment>
-        <translation type="vanished">Tu kleiz hepken</translation>
-    </message>
-    <message>
-        <source>Right Only</source>
-        <comment>Optical Margins</comment>
-        <translation type="vanished">Tu dehou hepken</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/smpstylewidget.cpp" line="550"/>
         <source>Shade</source>
         <translation>Arliv</translation>
-    </message>
-    <message>
-        <source>Bullet Character(s)</source>
-        <translation type="vanished">Arouezenn(où) evit ar padelligoù</translation>
-    </message>
-    <message>
-        <source>Character Table</source>
-        <translation type="vanished">Taolennad arouezennoù</translation>
-    </message>
-    <message>
-        <source>Numbering</source>
-        <translation type="vanished">Niverenniñ</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.ui" line="885"/>
@@ -33026,10 +32366,6 @@ Eztaolet evel un dregantad eus gwerzh vremanel an esaou gwenn.</translation>
         <location filename="../../scribus/ui/smpstylewidget.ui" line="986"/>
         <source>Suffix:</source>
         <translation>Rakger :</translation>
-    </message>
-    <message>
-        <source>Bullet Character(s):</source>
-        <translation type="vanished">Arouezenn(où) evit ar padelligoù</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.ui" line="1019"/>
@@ -34708,110 +34044,6 @@ oc&apos;h amdreiñ o roadennoù sturiadel da ergorennoù mod Scribus.</translati
         <source>Plain Text</source>
         <translation>Testenn unvan</translation>
     </message>
-    <message>
-        <source>9,999.99</source>
-        <translation type="vanished">9,999.99</translation>
-    </message>
-    <message>
-        <source>9.999,99</source>
-        <translation type="vanished">9.999,99</translation>
-    </message>
-    <message>
-        <source>9999.99</source>
-        <translation type="vanished">9999.99</translation>
-    </message>
-    <message>
-        <source>9999,99</source>
-        <translation type="vanished">9999,99</translation>
-    </message>
-    <message>
-        <source>m/d</source>
-        <translation type="vanished">m/d</translation>
-    </message>
-    <message>
-        <source>m/d/yy</source>
-        <translation type="vanished">m/d/bb</translation>
-    </message>
-    <message>
-        <source>mm/dd/yy</source>
-        <translation type="vanished">mm/dd/bb</translation>
-    </message>
-    <message>
-        <source>mm/yy</source>
-        <translation type="vanished">mm/bb</translation>
-    </message>
-    <message>
-        <source>d-mmm</source>
-        <translation type="vanished">d-mmm</translation>
-    </message>
-    <message>
-        <source>d-mmm-yy</source>
-        <translation type="vanished">d-mmm-bb</translation>
-    </message>
-    <message>
-        <source>dd-mmm-yy</source>
-        <translation type="vanished">dd-mmm-bb</translation>
-    </message>
-    <message>
-        <source>dd/mm/yy</source>
-        <translation type="vanished">dd/mm/bb</translation>
-    </message>
-    <message>
-        <source>dd/mm/yyyy</source>
-        <translation type="vanished">dd/mm/bbbn</translation>
-    </message>
-    <message>
-        <source>dd.mm.yyyy</source>
-        <translation type="vanished">dd.mm.bbbb</translation>
-    </message>
-    <message>
-        <source>yy-mm-dd</source>
-        <translation type="vanished">bb-mm-dd</translation>
-    </message>
-    <message>
-        <source>mmm-yy</source>
-        <translation type="vanished">mmm-bb</translation>
-    </message>
-    <message>
-        <source>mmmm-yy</source>
-        <translation type="vanished">mmmm-bb</translation>
-    </message>
-    <message>
-        <source>mmm d, yyyy</source>
-        <translation type="vanished">mmm d, bbbb</translation>
-    </message>
-    <message>
-        <source>mmmm d, yyyy</source>
-        <translation type="vanished">mmmm d, yyyy</translation>
-    </message>
-    <message>
-        <source>m/d/yy h:MM tt</source>
-        <translation type="vanished">m/d/yy e:MM tt</translation>
-    </message>
-    <message>
-        <source>m/d/yy HH:MM</source>
-        <translation type="vanished">m/d/bb EE:MM</translation>
-    </message>
-    <message>
-        <source>yyyy-mm-dd</source>
-        <translation type="vanished">bbbb-mm-dd</translation>
-    </message>
-    <message>
-        <source>HH:MM</source>
-        <translation type="vanished">EE:MM</translation>
-    </message>
-    <message>
-        <source>h:MM tt</source>
-        <translation type="vanished">e:MM tt</translation>
-    </message>
-    <message>
-        <source>HH:MM:ss</source>
-        <translation type="vanished">EE:MM:ss</translation>
-    </message>
-    <message>
-        <source>h:MM:ss tt</source>
-        <translation type="vanished">e:MM:ss tt</translation>
-    </message>
 </context>
 <context>
     <name>ScGTFileDialog</name>
@@ -35599,18 +34831,6 @@ Gwell e vefe ober gant Gwirierez Preflight d&apos;o reizhañ</translation>
         <translation>&amp;Dibrennañ pep tra</translation>
     </message>
     <message>
-        <source>Information</source>
-        <translation type="vanished">Stlennoù</translation>
-    </message>
-    <message>
-        <source>The program %1 is already running!</source>
-        <translation type="vanished">Emañ ar goulev %1 o vont en-dro endeo !</translation>
-    </message>
-    <message>
-        <source>The program %1 is missing!</source>
-        <translation type="vanished">Mankout a ra ar goulev %1 !</translation>
-    </message>
-    <message>
         <location filename="../../scribus/scribus.cpp" line="4010"/>
         <location filename="../../scribus/scribus.cpp" line="8844"/>
         <source>Do you really want to replace your existing image?</source>
@@ -35650,10 +34870,6 @@ Gwell e vefe ober gant Gwirierez Preflight d&apos;o reizhañ</translation>
         <location filename="../../scribus/scribus.cpp" line="3925"/>
         <source>Do you really want to clear all your text?</source>
         <translation>Fellout a ra deoc&apos;h dilemel ho testenn a-bezh ?</translation>
-    </message>
-    <message>
-        <source>Scribus </source>
-        <translation type="vanished">Scribus </translation>
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="3703"/>
@@ -35783,10 +34999,6 @@ Gwell e vefe ober gant Gwirierez Preflight d&apos;o reizhañ</translation>
         <location filename="../../scribus/scribus.cpp" line="9871"/>
         <source>Mark to %1 mark</source>
         <translation>Merkañ ouzh merk %1</translation>
-    </message>
-    <message>
-        <source>Edit </source>
-        <translation type="vanished">Embann</translation>
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="868"/>
@@ -36035,17 +35247,9 @@ Gwell e vefe ober gant Gwirierez Preflight d&apos;o reizhañ</translation>
         <translation>Diskouez stlennoù a-fet an handelv ha kuitaat</translation>
     </message>
     <message>
-        <source>filename</source>
-        <translation type="vanished">Anv ar restr</translation>
-    </message>
-    <message>
         <location filename="../../scribus/scribusapp.cpp" line="276"/>
         <source>Preferences directory %1 does not exist, aborting.</source>
         <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Use filename as path for user given preferences</source>
-        <translation type="vanished">Arverañ anv ar restr evel un treug evit gwellvezioù un arveriad roet</translation>
     </message>
     <message>
         <location filename="../../scribus/scribusapp.cpp" line="617"/>
@@ -36113,10 +35317,6 @@ Gwell e vefe ober gant Gwirierez Preflight d&apos;o reizhañ</translation>
         <translation>Na lañsañ Ketal an arveriaded</translation>
     </message>
     <message>
-        <source>Stop showing the splashscreen on startup. Writes an empty file called .neversplash in ~/.scribus</source>
-        <translation type="vanished">Arsaviñ diskouez ar skeudenn ginnig gant al loc&apos;hañ. Skrivañ a ra ur restr goullo anvet .neversplash in ~/.scribus.</translation>
-    </message>
-    <message>
         <location filename="../../scribus/scribusapp.cpp" line="587"/>
         <source>Show location of ICC profile information on console while starting</source>
         <translation>Diskouez lec&apos;hiadur stlennoù an aelad mod ICC war ar penel e-pad al loc&apos;hañ</translation>
@@ -36147,10 +35347,6 @@ Gwell e vefe ober gant Gwirierez Preflight d&apos;o reizhañ</translation>
         <location filename="../../scribus/scribusapp.cpp" line="180"/>
         <source>Python script %1 does not exist, aborting.</source>
         <translation>N&apos;eus ket eus ar skript mod Python %1, o tilezel.</translation>
-    </message>
-    <message>
-        <source>Preferences file %1 does not exist, aborting.</source>
-        <translation type="vanished">N&apos;eus ket eus ar restr gwellvezioù %1, o tilezel.</translation>
     </message>
     <message>
         <location filename="../../scribus/scribusapp.cpp" line="590"/>
@@ -37634,15 +36830,6 @@ Gwell e vefe ober gant Gwirierez Preflight d&apos;o reizhañ</translation>
         <source>Shadowed Text. Hold down the button momentarily to change the shadow offset values.</source>
         <translation type="unfinished"></translation>
     </message>
-    <message>
-        <source>Outline. Hold down the button momentarily to change the outline stroke width.</source>
-        <comment>Text Style Selector</comment>
-        <translation type="vanished">Trolinenn. Dalc&apos;hit an afell pouezet e-pad ur predig a-benn kefluniañ led al linenn ha dibarzhioù an dilec&apos;hiañ.</translation>
-    </message>
-    <message>
-        <source>Shadowed Text. Hold down the button momentarily to enable the offset spacing.</source>
-        <translation type="vanished">Testenn gant disheol bannet.  Dalc&apos;hit an afell pouezet e-pad ur predig a-benn gweredekaat esaouadur al linkañ.</translation>
-    </message>
 </context>
 <context>
     <name>SubdividePlugin</name>
@@ -38472,14 +37659,6 @@ Gwell e vefe ober gant Gwirierez Preflight d&apos;o reizhañ</translation>
         <translation>Dizehan</translation>
     </message>
     <message>
-        <source>Double Page Left</source>
-        <translation type="vanished">Divbajenn gleiz</translation>
-    </message>
-    <message>
-        <source>Double Page Right</source>
-        <translation type="vanished">Divbajenn dehou</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/tabpdfoptions.ui" line="1005"/>
         <source>Visual Appearance</source>
         <translation>Neuz</translation>
@@ -38867,10 +38046,6 @@ pa vez digoret un teul mod PDF :</translation>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="211"/>
         <source>Create a range of pages</source>
         <translation>Krouiñ ul lijorenn bajennoù</translation>
-    </message>
-    <message>
-        <source>TabWidget</source>
-        <translation type="vanished">TabWidget</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.ui" line="118"/>
@@ -42058,10 +41233,6 @@ dibabit unan all, mar plij.</translation>
 <context>
     <name>smFontFeaturesBase</name>
     <message>
-        <source>Form</source>
-        <translation type="obsolete">Furmskrid</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="23"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600; color:#008000;&quot;&gt;The current selected font does not have any font features.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation type="unfinished"></translation>
@@ -42069,11 +41240,6 @@ dibabit unan all, mar plij.</translation>
     <message>
         <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="36"/>
         <source> Ligatures</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="48"/>
-        <source>Common Ligtures (liga)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -42147,13 +41313,18 @@ dibabit unan all, mar plij.</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="48"/>
+        <source>Common Ligatures (liga)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="180"/>
-        <source>Petite Capitals from Captials</source>
+        <source>Petite Capitals from Capitals</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="185"/>
-        <source>Small Capitals from Captials</source>
+        <source>Small Capitals from Capitals</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

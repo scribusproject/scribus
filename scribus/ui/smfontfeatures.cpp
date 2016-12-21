@@ -307,9 +307,9 @@ void SMFontFeatures::hideAllFontFeatures()
 
 	capitalsLabel->hide();
 	removeComboItem(capitalsComboBox, "Small Capitals");
-	removeComboItem(capitalsComboBox, "Small Capitals from Captials");
+	removeComboItem(capitalsComboBox, "Small Capitals from Capitals");
 	removeComboItem(capitalsComboBox, "Petite Capitals");
-	removeComboItem(capitalsComboBox, "Petite Capitals from Captials");
+	removeComboItem(capitalsComboBox, "Petite Capitals from Capitals");
 	removeComboItem(capitalsComboBox, "Unicase");
 	removeComboItem(capitalsComboBox, "Titling");
 	capitalsComboBox->hide();
@@ -395,7 +395,7 @@ void SMFontFeatures::enableFontFeatures(QStringList fontFeatures)
 		else if (fontFeatures[i] == "smcp")
 			capitalsComboBox->addItem("Small Capitals");
 		else if (fontFeatures[i] == "c2sc")
-			capitalsComboBox->addItem("Small Capitals from Captials");
+			capitalsComboBox->addItem("Small Capitals from Capitals");
 		else if (fontFeatures[i] == "pcap")
 			capitalsComboBox->addItem("Petite Capitals");
 		else if (fontFeatures[i] == "c2pc")

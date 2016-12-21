@@ -5045,10 +5045,6 @@ nyní %2 x %3 DPI</translation>
         <translation>Jedna strana</translation>
     </message>
     <message>
-        <source>Double Sided</source>
-        <translation type="vanished">Dvojstrany</translation>
-    </message>
-    <message>
         <location filename="../../scribus/commonstrings.cpp" line="339"/>
         <source>3-Fold</source>
         <translation>3 složení</translation>
@@ -8233,14 +8229,6 @@ Document Liberation Project http://www.documentliberation.org</source>
         <translation>Použít zobrazená vodítka na všechny stránky dokumentu</translation>
     </message>
     <message>
-        <source>Delete all guides shown on the current page</source>
-        <translation type="vanished">Smazat všechna vodítka zobrazené na aktuální stránce</translation>
-    </message>
-    <message>
-        <source>Delete all guides from all pages</source>
-        <translation type="vanished">Smazat všechny vodítka na všech stránkách</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/guidemanager.ui" line="225"/>
         <location filename="../../scribus/ui/guidemanager.ui" line="330"/>
         <source>Refer to</source>
@@ -9693,10 +9681,6 @@ p, li { white-space: pre-wrap; }
         <location filename="../../scribus/plugins/imposition/impositionbase.ui" line="376"/>
         <source>Facing Pages</source>
         <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Double sided</source>
-        <translation type="vanished">Dvojstrany</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/imposition/impositionbase.ui" line="387"/>
@@ -17762,10 +17746,6 @@ Do you want to migrate them to the new Scribus version?</source>
         <translation type="unfinished">Všeobecné</translation>
     </message>
     <message>
-        <source>Language</source>
-        <translation type="obsolete">Jazyk</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="100"/>
         <source>Page Size</source>
         <translation>Velikost stránky</translation>
@@ -17931,10 +17911,6 @@ Do you want to migrate them to the new Scribus version?</source>
         <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="253"/>
         <source>First Page is:</source>
         <translation>První stránka je:</translation>
-    </message>
-    <message>
-        <source>Size</source>
-        <translation type="vanished">Velikost</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="329"/>
@@ -18627,20 +18603,6 @@ Do you want to use this?</source>
         <location filename="../../scribus/ui/prefs_hyphenatorbase.ui" line="45"/>
         <source>Behaviour</source>
         <translation>Chování</translation>
-    </message>
-    <message>
-        <source>Language:</source>
-        <translation type="vanished">Jazyk:</translation>
-    </message>
-    <message>
-        <source>Characters</source>
-        <translation type="vanished">Znaky</translation>
-    </message>
-    <message>
-        <source>Maximum number of Hyphenations following each other.
-A value of 0 means unlimited hyphenations.</source>
-        <translation type="vanished">Maximální počet po sobě následujících dělení slov.
-Nula (0) funkci vypíná. Pozn. překl.: V české typografii max. 3.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_hyphenatorbase.ui" line="88"/>
@@ -19764,14 +19726,6 @@ Nula (0) funkci vypíná. Pozn. překl.: V české typografii max. 3.</translati
         <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1597"/>
         <source>Continuous Pages</source>
         <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Double Page Left</source>
-        <translation type="vanished">Dvojitá stránka vlevo</translation>
-    </message>
-    <message>
-        <source>Double Page Right</source>
-        <translation type="vanished">Dvojitá stránka vpravo</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1640"/>
@@ -22020,10 +21974,6 @@ a range of pages or a single page number</source>
         <translation>&amp;Tvar</translation>
     </message>
     <message>
-        <source>&amp;Text</source>
-        <translation type="vanished">&amp;Text</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/propertiespalette.cpp" line="877"/>
         <source>&amp;Image</source>
         <translation>&amp;Obrázek</translation>
@@ -23159,14 +23109,6 @@ Transparency</source>
         <translation>Účaří</translation>
     </message>
     <message>
-        <source>Paragraph St&amp;yle:</source>
-        <translation type="vanished">St&amp;yl odstavce:</translation>
-    </message>
-    <message>
-        <source>Character St&amp;yle:</source>
-        <translation type="vanished">St&amp;yl znaku:</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/propertiespalette_text.cpp" line="701"/>
         <source>Font Features</source>
         <translation type="unfinished"></translation>
@@ -23185,34 +23127,6 @@ Transparency</source>
         <location filename="../../scribus/ui/propertiespalette_text.cpp" line="708"/>
         <source>Align to Baseline Grid</source>
         <translation>Zarovnat k pomocné mřížce</translation>
-    </message>
-    <message>
-        <source> pt</source>
-        <translation type="vanished"> pt</translation>
-    </message>
-    <message>
-        <source>Font Size</source>
-        <translation type="vanished">Velikost písma</translation>
-    </message>
-    <message>
-        <source>Line Spacing</source>
-        <translation type="vanished">Řádkování</translation>
-    </message>
-    <message>
-        <source>Paragraph style of currently selected text or paragraph</source>
-        <translation type="vanished">Styl odstavce aktuálně vybraného textu nebo odstavce</translation>
-    </message>
-    <message>
-        <source>Character style of currently selected text or paragraph</source>
-        <translation type="vanished">Styl znaku aktuálně vybraného textu nebo odstavce</translation>
-    </message>
-    <message>
-        <source>Remove Direct Paragraph Formatting</source>
-        <translation type="vanished">Odstranit přímé formátování odstavců</translation>
-    </message>
-    <message>
-        <source>Remove Direct Character Formatting</source>
-        <translation type="vanished">Odstranit přímé formátování znaků</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_text.cpp" line="81"/>
@@ -23535,65 +23449,6 @@ Transparency</source>
     </message>
 </context>
 <context>
-    <name>PropertyWidget_Advanced</name>
-    <message>
-        <source>Word Tracking</source>
-        <translation type="vanished">Prokládání textu</translation>
-    </message>
-    <message>
-        <source>Min:</source>
-        <translation type="vanished">Min:</translation>
-    </message>
-    <message>
-        <source>Norm:</source>
-        <translation type="vanished">Norm:</translation>
-    </message>
-    <message>
-        <source>Glyph Extension</source>
-        <translation type="vanished">Šířka znaků</translation>
-    </message>
-    <message>
-        <source>Max:</source>
-        <translation type="vanished">Max:</translation>
-    </message>
-    <message>
-        <source> %</source>
-        <translation type="vanished"> %</translation>
-    </message>
-    <message>
-        <source>Offset to baseline of characters</source>
-        <translation type="vanished">Posunout vzhledem k účaří znaků</translation>
-    </message>
-    <message>
-        <source>Manual Tracking</source>
-        <translation type="vanished">Manuální prokládání textu</translation>
-    </message>
-    <message>
-        <source>Scaling width of characters</source>
-        <translation type="vanished">Upravit šířku znaků</translation>
-    </message>
-    <message>
-        <source>Scaling height of characters</source>
-        <translation type="vanished">Upravit výšku znaků</translation>
-    </message>
-    <message>
-        <source>Minimal width of spaces between words</source>
-        <translation type="vanished">Minimální šířka mezislovních mezer</translation>
-    </message>
-    <message>
-        <source>Normal width of spaces between words</source>
-        <translation type="vanished">Normální šířka mezislovních mezer</translation>
-    </message>
-    <message>
-        <source>Minimal shrinkage of glyphs for justification</source>
-        <translation type="vanished">Minimální šířka znaků pro vyrovnávání</translation>
-    </message>
-    <message>
-        <source>Maximal extension of glyphs for justification</source>
-        <translation type="vanished">Maximální šířka znaků pro vyrovnávání</translation>
-    </message>
-</context>
-<context>
     <name>PropertyWidget_AdvancedBase</name>
     <message>
         <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="48"/>
@@ -23615,7 +23470,7 @@ Transparency</source>
     <message>
         <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="71"/>
         <source>Manual Tracking</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Manuální nastavení prokládání textu</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="88"/>
@@ -23677,10 +23532,6 @@ Transparency</source>
 <context>
     <name>PropertyWidget_Distance</name>
     <message>
-        <source>Colu&amp;mns:</source>
-        <translation type="vanished">S&amp;loupce:</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/propertywidget_distance.cpp" line="451"/>
         <source>Gap:</source>
         <translation>Mezera:</translation>
@@ -23691,62 +23542,14 @@ Transparency</source>
         <translation>Šířka:</translation>
     </message>
     <message>
-        <source>To&amp;p:</source>
-        <translation type="vanished">&amp;Horní:</translation>
-    </message>
-    <message>
-        <source>&amp;Bottom:</source>
-        <translation type="vanished">&amp;Dole:</translation>
-    </message>
-    <message>
-        <source>&amp;Left:</source>
-        <translation type="vanished">V&amp;levo:</translation>
-    </message>
-    <message>
-        <source>&amp;Right:</source>
-        <translation type="vanished">&amp;Pravý:</translation>
-    </message>
-    <message>
-        <source>T&amp;abulators...</source>
-        <translation type="vanished">&amp;Tabelátory...</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/propertywidget_distance.cpp" line="455"/>
         <source> pt</source>
         <translation> pt</translation>
     </message>
     <message>
-        <source>Number of columns in text frame</source>
-        <translation type="vanished">Počet sloupců v textovém rámci</translation>
-    </message>
-    <message>
-        <source>Switches between Gap or Column width</source>
-        <translation type="vanished">Přepíná mezi mezisloupcovou mezerou a šířkou sloupce</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/propertywidget_distance.cpp" line="352"/>
         <source>Distance between columns</source>
         <translation>Vzdálenost mezi sloupci</translation>
-    </message>
-    <message>
-        <source>Distance of text from top of frame</source>
-        <translation type="vanished">Vzdálenost textu od horního okraje rámce</translation>
-    </message>
-    <message>
-        <source>Distance of text from bottom of frame</source>
-        <translation type="vanished">Vzdálenost textu od dolního okraje rámce</translation>
-    </message>
-    <message>
-        <source>Distance of text from left of frame</source>
-        <translation type="vanished">Vzdálenost textu od levého okraje rámce</translation>
-    </message>
-    <message>
-        <source>Distance of text from right of frame</source>
-        <translation type="vanished">Vzdálenost textu od pravého okraje rámce</translation>
-    </message>
-    <message>
-        <source>Edit tab settings of text frame...</source>
-        <translation type="vanished">Zmnit nastavení tabelátorů v textovém rámci...</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_distance.cpp" line="352"/>
@@ -23931,33 +23734,6 @@ Transparency</source>
         <location filename="../../scribus/ui/propertywidget_dropcapbase.ui" line="20"/>
         <source>Number of lines used by the drop cap</source>
         <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>PropertyWidget_Flop</name>
-    <message>
-        <source>Maximum Ascent</source>
-        <translation type="vanished">maximální</translation>
-    </message>
-    <message>
-        <source>Font Ascent</source>
-        <translation type="vanished">podle písma</translation>
-    </message>
-    <message>
-        <source>Line Spacing</source>
-        <translation type="vanished">Řádkování</translation>
-    </message>
-    <message>
-        <source>Set the height of the first line of the text frame to use the tallest height of the included characters</source>
-        <translation type="vanished">Nastaví vzdálenost prvního řádku podle nejvyššího použitého písmene</translation>
-    </message>
-    <message>
-        <source>Set the height of the first line of text frame to use the full ascent of the font(s) in use</source>
-        <translation type="vanished">Nastaví vzdálenost prvního řádku podle nejvyššího písmene použitého písma</translation>
-    </message>
-    <message>
-        <source>Set the height of the first line of the text frame to the specified line height</source>
-        <translation type="vanished">Nastaví vzdálenost prvního řádku podle řádkování</translation>
     </message>
 </context>
 <context>
@@ -24402,33 +24178,6 @@ Nula (0) funkci vypíná. Pozn. překl.: V české typografii max. 3.</translati
     </message>
 </context>
 <context>
-    <name>PropertyWidget_OptMargins</name>
-    <message>
-        <source>None</source>
-        <comment>optical margins</comment>
-        <translation type="vanished">Žádná</translation>
-    </message>
-    <message>
-        <source>Both Sides</source>
-        <comment>optical margins</comment>
-        <translation type="vanished">Na obou stranách</translation>
-    </message>
-    <message>
-        <source>Left Only</source>
-        <comment>optical margins</comment>
-        <translation type="vanished">Pouze vlevo</translation>
-    </message>
-    <message>
-        <source>Right Only</source>
-        <comment>optical margins</comment>
-        <translation type="vanished">Pouze vpravo</translation>
-    </message>
-    <message>
-        <source>Reset</source>
-        <translation type="vanished">Vynulovat</translation>
-    </message>
-</context>
-<context>
     <name>PropertyWidget_OptMarginsBase</name>
     <message>
         <location filename="../../scribus/ui/propertywidget_optmarginsbase.ui" line="32"/>
@@ -24524,21 +24273,9 @@ Nula (0) funkci vypíná. Pozn. překl.: V české typografii max. 3.</translati
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Format:</source>
-        <translation type="vanished">Formát:</translation>
-    </message>
-    <message>
-        <source>Start:</source>
-        <translation type="vanished">Začátek:</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/propertywidget_pareffect.cpp" line="224"/>
         <source>No Paragraph Effects</source>
         <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Offset:</source>
-        <translation type="vanished">Posun:</translation>
     </message>
 </context>
 <context>
@@ -24624,25 +24361,9 @@ Nula (0) funkci vypíná. Pozn. překl.: V české typografii max. 3.</translati
         <translation type="unfinished">Posun:</translation>
     </message>
     <message>
-        <source>Lines</source>
-        <translation type="vanished">Čáry</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/propertywidget_pareffectbase.ui" line="119"/>
         <source>Numbered List</source>
         <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Level</source>
-        <translation type="vanished">Hladina</translation>
-    </message>
-    <message>
-        <source>Start</source>
-        <translation type="vanished">Začátek</translation>
-    </message>
-    <message>
-        <source>Format</source>
-        <translation type="vanished">Formát</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_pareffectbase.ui" line="62"/>
@@ -24732,21 +24453,6 @@ Nula (0) funkci vypíná. Pozn. překl.: V české typografii max. 3.</translati
     </message>
 </context>
 <context>
-    <name>PropertyWidget_TextColor</name>
-    <message>
-        <source>Saturation of color of text fill</source>
-        <translation type="vanished">Sytost barvy výplně textu</translation>
-    </message>
-    <message>
-        <source>Saturation of color of text stroke</source>
-        <translation type="vanished">Sytost barvy tahu textu</translation>
-    </message>
-    <message>
-        <source>Right to Left Writing</source>
-        <translation type="vanished">Psaní zprava doleva</translation>
-    </message>
-</context>
-<context>
     <name>PropertyWidget_TextColorBase</name>
     <message>
         <location filename="../../scribus/ui/propertywidget_textcolorbase.ui" line="62"/>
@@ -24766,7 +24472,7 @@ Nula (0) funkci vypíná. Pozn. překl.: V české typografii max. 3.</translati
     <message>
         <location filename="../../scribus/ui/propertywidget_textcolorbase.ui" line="141"/>
         <source>Saturation of color of text stroke</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Barevná sytost tahu textu</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_textcolorbase.ui" line="174"/>
@@ -25822,10 +25528,6 @@ Zkontrolujte cestu a název souboru.</translation>
         <location filename="../../scribus/plugins/gettext/csvim/csvim.cpp" line="66"/>
         <source>CSV_header</source>
         <translation>CSV_hlavička</translation>
-    </message>
-    <message>
-        <source>Font %1 is broken, discarding it</source>
-        <translation type="vanished">Písmo %1 je poškozené. Bude vyřazeno</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/gettext/htmlim/htmlreader.cpp" line="667"/>
@@ -31978,10 +31680,6 @@ Please choose another.</source>
 <context>
     <name>SMCharacterStyle</name>
     <message>
-        <source>Properties</source>
-        <translation type="vanished">Vlastnosti</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/smtextstyles.cpp" line="2106"/>
         <source>Character Styles</source>
         <translation>Styly znaků</translation>
@@ -32188,10 +31886,6 @@ Please choose another.</source>
         <translation>Styl znaku</translation>
     </message>
     <message>
-        <source>&amp;Lines:</source>
-        <translation type="vanished">&amp;Řádky:</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/smpstylewidget.ui" line="1176"/>
         <source>Distance from Text:</source>
         <translation>Vzdálenost od textu:</translation>
@@ -32299,19 +31993,9 @@ Please choose another.</source>
         <translation>Barvy</translation>
     </message>
     <message>
-        <source>Ch&amp;aracter Style</source>
-        <translation type="vanished">St&amp;yl znaku</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/smpstylewidget.ui" line="402"/>
         <source>None</source>
         <translation>Žádná</translation>
-    </message>
-    <message>
-        <source>Maximum white space compression allowed.
-Expressed as a percentage of the current white space value.</source>
-        <translation type="vanished">Maximální povolené zúžení bílého prostoru.
-Vyjádřeno v procentech současnéhé hodnoty bílého prostoru.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.ui" line="520"/>
@@ -32513,36 +32197,6 @@ Vyjádřeno v procentech současnéhé hodnoty bílého prostoru.</translation>
         <location filename="../../scribus/ui/smpstylewidget.ui" line="464"/>
         <source>Min. Space Width:</source>
         <translation>Min. šířka mezery:</translation>
-    </message>
-    <message>
-        <source>Min:</source>
-        <comment>Glyph Extension</comment>
-        <translation type="vanished">Min:</translation>
-    </message>
-    <message>
-        <source>Max:</source>
-        <comment>Glyph Extension</comment>
-        <translation type="vanished">Max:</translation>
-    </message>
-    <message>
-        <source>None</source>
-        <comment>Optical Margins</comment>
-        <translation type="vanished">Žádná</translation>
-    </message>
-    <message>
-        <source>Both Sides</source>
-        <comment>Optical Margins</comment>
-        <translation type="vanished">Na obou stranách</translation>
-    </message>
-    <message>
-        <source>Left Only</source>
-        <comment>Optical Margins</comment>
-        <translation type="vanished">Pouze vlevo</translation>
-    </message>
-    <message>
-        <source>Right Only</source>
-        <comment>Optical Margins</comment>
-        <translation type="vanished">Pouze vpravo</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.cpp" line="550"/>
@@ -34250,22 +33904,6 @@ přičemž konvertuje vektorová data na objekty Scribusu.</translation>
         <source>Plain Text</source>
         <translation type="unfinished"></translation>
     </message>
-    <message>
-        <source>9,999.99</source>
-        <translation type="obsolete">270° {9,999.99?}</translation>
-    </message>
-    <message>
-        <source>9.999,99</source>
-        <translation type="obsolete">270° {9.999,99?}</translation>
-    </message>
-    <message>
-        <source>9999.99</source>
-        <translation type="obsolete">270° {9999.99?}</translation>
-    </message>
-    <message>
-        <source>9999,99</source>
-        <translation type="obsolete">270° {9999,99?}</translation>
-    </message>
 </context>
 <context>
     <name>ScGTFileDialog</name>
@@ -35051,18 +34689,6 @@ Zvažte použití předtiskové kontroly pro jejich odstranění</translation>
         <translation>&amp;Odemknout vše</translation>
     </message>
     <message>
-        <source>Information</source>
-        <translation type="vanished">Informace</translation>
-    </message>
-    <message>
-        <source>The program %1 is already running!</source>
-        <translation type="vanished">Program %1 už běží!</translation>
-    </message>
-    <message>
-        <source>The program %1 is missing!</source>
-        <translation type="vanished">Program %1 nenalezen!</translation>
-    </message>
-    <message>
         <location filename="../../scribus/scribus.cpp" line="4010"/>
         <location filename="../../scribus/scribus.cpp" line="8844"/>
         <source>Do you really want to replace your existing image?</source>
@@ -35102,10 +34728,6 @@ Zvažte použití předtiskové kontroly pro jejich odstranění</translation>
         <location filename="../../scribus/scribus.cpp" line="3925"/>
         <source>Do you really want to clear all your text?</source>
         <translation>Opravdu chcete smazat celý text?</translation>
-    </message>
-    <message>
-        <source>Scribus </source>
-        <translation type="vanished">Scribus </translation>
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="3703"/>
@@ -35468,17 +35090,9 @@ Zvažte použití předtiskové kontroly pro jejich odstranění</translation>
         <translation>Zobrazit informace o verzi a skončit</translation>
     </message>
     <message>
-        <source>filename</source>
-        <translation type="vanished">název souboru</translation>
-    </message>
-    <message>
         <location filename="../../scribus/scribusapp.cpp" line="276"/>
         <source>Preferences directory %1 does not exist, aborting.</source>
         <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Use filename as path for user given preferences</source>
-        <translation type="vanished">Použít název souboru jako cestu pro uživatelské nastavení</translation>
     </message>
     <message>
         <location filename="../../scribus/scribusapp.cpp" line="617"/>
@@ -37075,15 +36689,6 @@ můžete zkopírovat do chybového hlášení.</translation>
         <source>Shadowed Text. Hold down the button momentarily to change the shadow offset values.</source>
         <translation type="unfinished"></translation>
     </message>
-    <message>
-        <source>Outline. Hold down the button momentarily to change the outline stroke width.</source>
-        <comment>Text Style Selector</comment>
-        <translation type="vanished">Obrys. Stiskněte na chvíli tlačítko, abyste změnili šířku obrysového tahu.</translation>
-    </message>
-    <message>
-        <source>Shadowed Text. Hold down the button momentarily to enable the offset spacing.</source>
-        <translation type="vanished">Stínovaný text. Stiskněte na chvíli tlačítko, abyste nastavili odstup stínu od písma.</translation>
-    </message>
 </context>
 <context>
     <name>SubdividePlugin</name>
@@ -37911,14 +37516,6 @@ můžete zkopírovat do chybového hlášení.</translation>
         <location filename="../../scribus/ui/tabpdfoptions.ui" line="981"/>
         <source>Continuous</source>
         <translation>Pruběžně</translation>
-    </message>
-    <message>
-        <source>Double Page Left</source>
-        <translation type="vanished">Dvojitá stránka vlevo</translation>
-    </message>
-    <message>
-        <source>Double Page Right</source>
-        <translation type="vanished">Dvojitá stránka vpravo</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.ui" line="1005"/>
@@ -41499,11 +41096,6 @@ please choose another one.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="48"/>
-        <source>Common Ligtures (liga)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="51"/>
         <source>Common Ligatures</source>
         <translation type="unfinished"></translation>
@@ -41574,13 +41166,18 @@ please choose another one.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="48"/>
+        <source>Common Ligatures (liga)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="180"/>
-        <source>Petite Capitals from Captials</source>
+        <source>Petite Capitals from Capitals</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="185"/>
-        <source>Small Capitals from Captials</source>
+        <source>Small Capitals from Capitals</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

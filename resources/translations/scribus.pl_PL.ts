@@ -3324,10 +3324,6 @@
 <context>
     <name>CMSPrefsBase</name>
     <message>
-        <source>Form</source>
-        <translation type="vanished">Formularz</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/cmsprefsbase.ui" line="32"/>
         <source>&amp;Activate Color Management</source>
         <translation>&amp;Włącz zarządzanie kolorami</translation>
@@ -5047,10 +5043,6 @@ currently %2 x %3 DPI</source>
         <location filename="../../scribus/commonstrings.cpp" line="337"/>
         <source>Single Page</source>
         <translation>Pojedyncza strona</translation>
-    </message>
-    <message>
-        <source>Double Sided</source>
-        <translation type="vanished">Podwójna strona</translation>
     </message>
     <message>
         <location filename="../../scribus/commonstrings.cpp" line="339"/>
@@ -7805,10 +7797,6 @@ Document Liberation Project http://www.documentliberation.org</source>
 <context>
     <name>GradientEditorBase</name>
     <message>
-        <source>Frame</source>
-        <translation type="vanished">Ramka</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/gradienteditor.ui" line="63"/>
         <source>Position:</source>
         <translation>Pozycja:</translation>
@@ -8242,10 +8230,6 @@ Document Liberation Project http://www.documentliberation.org</source>
         <location filename="../../scribus/ui/guidemanager.ui" line="384"/>
         <source>Apply the shown guides to all pages in the document</source>
         <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Delete all guides from all pages</source>
-        <translation type="vanished">Usuń wszystkie linie pomocnicze ze wszytkich stron</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/guidemanager.ui" line="225"/>
@@ -9691,10 +9675,6 @@ converting their vector data into Scribus objects.</source>
         <location filename="../../scribus/plugins/imposition/impositionbase.ui" line="376"/>
         <source>Facing Pages</source>
         <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Double sided</source>
-        <translation type="vanished">Dwustronna</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/imposition/impositionbase.ui" line="387"/>
@@ -17854,10 +17834,6 @@ Czy chcesz przejąć te pliki dla nowej wersji Scribusa?</translation>
         <translation type="unfinished">Ogólne</translation>
     </message>
     <message>
-        <source>Language</source>
-        <translation type="obsolete">Język</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="100"/>
         <source>Page Size</source>
         <translation>Format strony</translation>
@@ -17933,10 +17909,6 @@ Czy chcesz przejąć te pliki dla nowej wersji Scribusa?</translation>
         <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="253"/>
         <source>First Page is:</source>
         <translation>Położenie pierwszej strony:</translation>
-    </message>
-    <message>
-        <source>Size</source>
-        <translation type="vanished">Rozmiar</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="131"/>
@@ -18679,24 +18651,6 @@ Do you want to use this?</source>
         <location filename="../../scribus/ui/prefs_hyphenatorbase.ui" line="61"/>
         <source>Enables automatic hyphenation of your text while typing</source>
         <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Language:</source>
-        <translation type="vanished">Język:</translation>
-    </message>
-    <message>
-        <source>Smallest Word:</source>
-        <translation type="vanished">Najkrótsze słowo:</translation>
-    </message>
-    <message>
-        <source>Characters</source>
-        <translation type="vanished">znaków</translation>
-    </message>
-    <message>
-        <source>Maximum number of Hyphenations following each other.
-A value of 0 means unlimited hyphenations.</source>
-        <translation type="vanished">Maksymalna ilość następujących po sobie podziałów na sylaby.
-Wartość 0 oznacza brak ograniczeń.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_hyphenatorbase.ui" line="88"/>
@@ -20381,14 +20335,6 @@ JPEG nadaje się lepiej do tworzenia mniejszych plików PDF zawierających dużo
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Double Page Left</source>
-        <translation type="vanished">Podwójna strona po lewej</translation>
-    </message>
-    <message>
-        <source>Double Page Right</source>
-        <translation type="vanished">Podwójna strona po prawej</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1640"/>
         <source>Visual Appearance</source>
         <translation>Tryb widoku</translation>
@@ -22052,10 +21998,6 @@ a range of pages or a single page number</source>
         <translation>Ksz&amp;tałt ramki</translation>
     </message>
     <message>
-        <source>&amp;Text</source>
-        <translation type="vanished">Tek&amp;st</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/propertiespalette.cpp" line="877"/>
         <source>&amp;Image</source>
         <translation>&amp;Obrazek</translation>
@@ -23070,10 +23012,6 @@ Transparency</source>
         <translation>Style</translation>
     </message>
     <message>
-        <source>Table</source>
-        <translation type="vanished">Tabela</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/propertiespalette_tablebase.ui" line="39"/>
         <source>Table style of currently selected table</source>
         <translation type="unfinished"></translation>
@@ -23082,10 +23020,6 @@ Transparency</source>
         <location filename="../../scribus/ui/propertiespalette_tablebase.ui" line="46"/>
         <source>Remove Direct Table Formatting</source>
         <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Cells</source>
-        <translation type="vanished">Komórki</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_tablebase.ui" line="26"/>
@@ -23218,14 +23152,6 @@ Transparency</source>
         <translation type="unfinished">Dzielenie wyrazów</translation>
     </message>
     <message>
-        <source>Paragraph St&amp;yle:</source>
-        <translation type="vanished">Styl &amp;akapitu:</translation>
-    </message>
-    <message>
-        <source>Character St&amp;yle:</source>
-        <translation type="vanished">Styl z&amp;naków:</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/propertiespalette_text.cpp" line="701"/>
         <source>Font Features</source>
         <translation type="unfinished"></translation>
@@ -23244,30 +23170,6 @@ Transparency</source>
         <location filename="../../scribus/ui/propertiespalette_text.cpp" line="708"/>
         <source>Align to Baseline Grid</source>
         <translation>Wyrównaj do linii pisma</translation>
-    </message>
-    <message>
-        <source> pt</source>
-        <translation type="vanished">pt</translation>
-    </message>
-    <message>
-        <source>Font Size</source>
-        <translation type="vanished">Stopień pisma</translation>
-    </message>
-    <message>
-        <source>Line Spacing</source>
-        <translation type="vanished">Interlinia</translation>
-    </message>
-    <message>
-        <source>Select the line spacing mode</source>
-        <translation type="vanished">Wybierz tryb interlinii</translation>
-    </message>
-    <message>
-        <source>Remove Direct Paragraph Formatting</source>
-        <translation type="vanished">Usuń bezpośrednie formatowanie akapitu</translation>
-    </message>
-    <message>
-        <source>Remove Direct Character Formatting</source>
-        <translation type="vanished">Usuń bezpośrednie formatowanie znaków</translation>
     </message>
 </context>
 <context>
@@ -23566,66 +23468,7 @@ Transparency</source>
     </message>
 </context>
 <context>
-    <name>PropertyWidget_Advanced</name>
-    <message>
-        <source>Word Tracking</source>
-        <translation type="vanished">Odstęp między słowami</translation>
-    </message>
-    <message>
-        <source>Min:</source>
-        <translation type="vanished">Min:</translation>
-    </message>
-    <message>
-        <source>Norm:</source>
-        <translation type="vanished">Norm:</translation>
-    </message>
-    <message>
-        <source>Glyph Extension</source>
-        <translation type="vanished">Rozciągnięcie glifów</translation>
-    </message>
-    <message>
-        <source>Max:</source>
-        <translation type="vanished">Maks:</translation>
-    </message>
-    <message>
-        <source> %</source>
-        <translation type="vanished">%</translation>
-    </message>
-    <message>
-        <source>Offset to baseline of characters</source>
-        <translation type="vanished">Przesunięcie znaków względem linii pisma</translation>
-    </message>
-    <message>
-        <source>Manual Tracking</source>
-        <translation type="vanished">Manualne podcinanie</translation>
-    </message>
-    <message>
-        <source>Scaling width of characters</source>
-        <translation type="vanished">Skalowanie szerokości znaków</translation>
-    </message>
-    <message>
-        <source>Scaling height of characters</source>
-        <translation type="vanished">Wysokość skalowania znaków</translation>
-    </message>
-    <message>
-        <source>Minimal width of spaces between words</source>
-        <translation type="vanished">Minimalna szerokość odstępów pomiędzy słowami</translation>
-    </message>
-    <message>
-        <source>Normal width of spaces between words</source>
-        <translation type="vanished">Normalna szerokość odstępów pomiędzy słowami</translation>
-    </message>
-</context>
-<context>
     <name>PropertyWidget_AdvancedBase</name>
-    <message>
-        <source>Frame</source>
-        <translation type="obsolete">Ramka</translation>
-    </message>
-    <message>
-        <source>Word Spacing</source>
-        <translation type="vanished">Odstęp między słowami</translation>
-    </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="48"/>
         <source>Offset to baseline of characters</source>
@@ -23708,10 +23551,6 @@ Transparency</source>
 <context>
     <name>PropertyWidget_Distance</name>
     <message>
-        <source>Colu&amp;mns:</source>
-        <translation type="vanished">Łam&amp;y:</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/propertywidget_distance.cpp" line="443"/>
         <source>Top</source>
         <translation>Na górze</translation>
@@ -23737,37 +23576,9 @@ Transparency</source>
         <translation>Szerokość:</translation>
     </message>
     <message>
-        <source>To&amp;p:</source>
-        <translation type="vanished">Na &amp;górze:</translation>
-    </message>
-    <message>
-        <source>&amp;Bottom:</source>
-        <translation type="vanished">Na &amp;dole:</translation>
-    </message>
-    <message>
-        <source>&amp;Left:</source>
-        <translation type="vanished">P&amp;o lewej:</translation>
-    </message>
-    <message>
-        <source>&amp;Right:</source>
-        <translation type="vanished">Po &amp;prawej:</translation>
-    </message>
-    <message>
-        <source>T&amp;abulators...</source>
-        <translation type="vanished">Ta&amp;bulatory...</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/propertywidget_distance.cpp" line="455"/>
         <source> pt</source>
         <translation>pt</translation>
-    </message>
-    <message>
-        <source>Number of columns in text frame</source>
-        <translation type="vanished">Ilość łamów w ramce tekstowej</translation>
-    </message>
-    <message>
-        <source>Switches between Gap or Column width</source>
-        <translation type="vanished">Przełącza pomiędzy szerokością odstępu a szerokością łamu</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_distance.cpp" line="352"/>
@@ -23779,37 +23590,9 @@ Transparency</source>
         <source>Column width</source>
         <translation>Szerokość łamu</translation>
     </message>
-    <message>
-        <source>Distance of text from top of frame</source>
-        <translation type="vanished">Odstęp tekstu od górnego brzegu ramki</translation>
-    </message>
-    <message>
-        <source>Distance of text from bottom of frame</source>
-        <translation type="vanished">Odstęp tekstu od dolnego brzegu ramki</translation>
-    </message>
-    <message>
-        <source>Distance of text from left of frame</source>
-        <translation type="vanished">Odstęp tekstu od lewego brzegu ramki</translation>
-    </message>
-    <message>
-        <source>Distance of text from right of frame</source>
-        <translation type="vanished">Odstęp tekstu od prawego brzegu ramki</translation>
-    </message>
-    <message>
-        <source>Edit tab settings of text frame...</source>
-        <translation type="vanished">Edytuj ustawienia tabulatorów ramki tekstowej...</translation>
-    </message>
 </context>
 <context>
     <name>PropertyWidget_DistanceBase</name>
-    <message>
-        <source>Frame</source>
-        <translation type="obsolete">Ramka</translation>
-    </message>
-    <message>
-        <source>Vertical Alignment</source>
-        <translation type="vanished">Wyrównanie w pionie</translation>
-    </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="41"/>
         <source>Vertical Alignment:</source>
@@ -23973,30 +23756,7 @@ Transparency</source>
     </message>
 </context>
 <context>
-    <name>PropertyWidget_Flop</name>
-    <message>
-        <source>Maximum Ascent</source>
-        <translation type="vanished">Maksymalne wydłużenie górne</translation>
-    </message>
-    <message>
-        <source>Font Ascent</source>
-        <translation type="vanished">Wydłużenie górne fontu</translation>
-    </message>
-    <message>
-        <source>Line Spacing</source>
-        <translation type="vanished">Interlinia</translation>
-    </message>
-    <message>
-        <source>Baseline Grid</source>
-        <translation type="vanished">Siatka linii pisma</translation>
-    </message>
-</context>
-<context>
     <name>PropertyWidget_FlopBase</name>
-    <message>
-        <source>Frame</source>
-        <translation type="obsolete">Ramka</translation>
-    </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_flopbase.ui" line="26"/>
         <source>Set the height of the first line of the text frame to use the tallest height of the included characters</source>
@@ -24040,10 +23800,6 @@ Transparency</source>
 </context>
 <context>
     <name>PropertyWidget_FontFeatures</name>
-    <message>
-        <source>Frame</source>
-        <translation type="obsolete">Ramka</translation>
-    </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="26"/>
         <source>Common Ligtures (liga)</source>
@@ -24403,10 +24159,6 @@ Transparency</source>
 <context>
     <name>PropertyWidget_HyphenationBase</name>
     <message>
-        <source>Frame</source>
-        <translation type="obsolete">Ramka</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/propertywidget_hyphenationbase.ui" line="43"/>
         <source>Smallest Word:</source>
         <translation type="unfinished">Najkrótsze słowo:</translation>
@@ -24445,38 +24197,7 @@ Wartość 0 oznacza brak ograniczeń.</translation>
     </message>
 </context>
 <context>
-    <name>PropertyWidget_OptMargins</name>
-    <message>
-        <source>None</source>
-        <comment>optical margins</comment>
-        <translation type="vanished">Brak</translation>
-    </message>
-    <message>
-        <source>Both Sides</source>
-        <comment>optical margins</comment>
-        <translation type="vanished">Obie strony</translation>
-    </message>
-    <message>
-        <source>Left Only</source>
-        <comment>optical margins</comment>
-        <translation type="vanished">Tylko lewa strona</translation>
-    </message>
-    <message>
-        <source>Right Only</source>
-        <comment>optical margins</comment>
-        <translation type="vanished">Tylko prawa strona</translation>
-    </message>
-    <message>
-        <source>Reset</source>
-        <translation type="vanished">Wyzeruj</translation>
-    </message>
-</context>
-<context>
     <name>PropertyWidget_OptMarginsBase</name>
-    <message>
-        <source>Frame</source>
-        <translation type="obsolete">Ramka</translation>
-    </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_optmarginsbase.ui" line="32"/>
         <source>None</source>
@@ -24571,22 +24292,6 @@ Wartość 0 oznacza brak ograniczeń.</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Format:</source>
-        <translation type="obsolete">Format:</translation>
-    </message>
-    <message>
-        <source>Start:</source>
-        <translation type="obsolete">Początek:</translation>
-    </message>
-    <message>
-        <source>Prefix:</source>
-        <translation type="obsolete">Przedrostek:</translation>
-    </message>
-    <message>
-        <source>Offset:</source>
-        <translation type="obsolete">Przesunięcie:</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/propertywidget_pareffect.cpp" line="224"/>
         <source>No Paragraph Effects</source>
         <translation type="unfinished"></translation>
@@ -24598,14 +24303,6 @@ Wartość 0 oznacza brak ograniczeń.</translation>
         <location filename="../../scribus/ui/propertywidget_pareffectbase.ui" line="273"/>
         <source>Effect Parameters</source>
         <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Char Style</source>
-        <translation type="vanished">Styl znaków</translation>
-    </message>
-    <message>
-        <source>Offset</source>
-        <translation type="vanished">Przesunięcie</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_pareffectbase.ui" line="23"/>
@@ -24683,33 +24380,9 @@ Wartość 0 oznacza brak ograniczeń.</translation>
         <translation type="unfinished">Przesunięcie:</translation>
     </message>
     <message>
-        <source>Lines</source>
-        <translation type="vanished">Linie</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/propertywidget_pareffectbase.ui" line="119"/>
         <source>Numbered List</source>
         <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Level</source>
-        <translation type="vanished">Poziom</translation>
-    </message>
-    <message>
-        <source>Start</source>
-        <translation type="vanished">Początek</translation>
-    </message>
-    <message>
-        <source>Format</source>
-        <translation type="vanished">Format</translation>
-    </message>
-    <message>
-        <source>Prefix</source>
-        <translation type="vanished">Przedrostek</translation>
-    </message>
-    <message>
-        <source>Suffix</source>
-        <translation type="vanished">Przyrostek</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_pareffectbase.ui" line="62"/>
@@ -24773,10 +24446,6 @@ Wartość 0 oznacza brak ograniczeń.</translation>
 <context>
     <name>PropertyWidget_PathTextBase</name>
     <message>
-        <source>Frame</source>
-        <translation type="obsolete">Ramka</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/propertywidget_pathtextbase.ui" line="32"/>
         <source>Type:</source>
         <translation>Typ:</translation>
@@ -24803,26 +24472,7 @@ Wartość 0 oznacza brak ograniczeń.</translation>
     </message>
 </context>
 <context>
-    <name>PropertyWidget_TextColor</name>
-    <message>
-        <source>Saturation of color of text fill</source>
-        <translation type="vanished">Nasycenie koloru wypełnienia tekstu</translation>
-    </message>
-    <message>
-        <source>Saturation of color of text stroke</source>
-        <translation type="vanished">Nasycenie koloru obrysu tekstu</translation>
-    </message>
-    <message>
-        <source>Right to Left Writing</source>
-        <translation type="vanished">Pisanie od prawej do lewej</translation>
-    </message>
-</context>
-<context>
     <name>PropertyWidget_TextColorBase</name>
-    <message>
-        <source>Frame</source>
-        <translation type="obsolete">Ramka</translation>
-    </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_textcolorbase.ui" line="62"/>
         <source>Color of selected text. If Outline text decoration is enabled, this color will be the fill color. If Drop Shadow Text is enabled, then this will be the top most color.</source>
@@ -25912,10 +25562,6 @@ External Links
         <translation>
 Zewnętrzne dowiązania
 </translation>
-    </message>
-    <message>
-        <source>Font %1 is broken, discarding it</source>
-        <translation type="vanished">Font %1 jest wadliwy i zostaje wyłączony</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/gettext/textfilter/textfilter.cpp" line="26"/>
@@ -32056,10 +31702,6 @@ Proszę wybrać inną.</translation>
         <translation>Style znaków</translation>
     </message>
     <message>
-        <source>Properties</source>
-        <translation type="vanished">Właściwości</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/smtextstyles.cpp" line="2111"/>
         <source>Character Style</source>
         <translation>Styl znaków</translation>
@@ -32221,10 +31863,6 @@ Proszę wybrać inną.</translation>
         <translation>Wyrównaj do linii pisma</translation>
     </message>
     <message>
-        <source>&amp;Lines:</source>
-        <translation type="vanished">Wi&amp;erszy:</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/smpstylewidget.ui" line="1176"/>
         <source>Distance from Text:</source>
         <translation>Odstęp od tekstu:</translation>
@@ -32327,10 +31965,6 @@ Proszę wybrać inną.</translation>
         <location filename="../../scribus/ui/smpstylewidget.ui" line="1143"/>
         <source>Character Style for Effect:</source>
         <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Bullets</source>
-        <translation type="vanished">Punktory</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.ui" line="868"/>
@@ -32478,36 +32112,6 @@ Proszę wybrać inną.</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Min:</source>
-        <comment>Glyph Extension</comment>
-        <translation type="vanished">Min:</translation>
-    </message>
-    <message>
-        <source>Max:</source>
-        <comment>Glyph Extension</comment>
-        <translation type="vanished">Maks:</translation>
-    </message>
-    <message>
-        <source>None</source>
-        <comment>Optical Margins</comment>
-        <translation type="vanished">Brak</translation>
-    </message>
-    <message>
-        <source>Both Sides</source>
-        <comment>Optical Margins</comment>
-        <translation type="vanished">Obie strony</translation>
-    </message>
-    <message>
-        <source>Left Only</source>
-        <comment>Optical Margins</comment>
-        <translation type="vanished">Tylko lewa strona</translation>
-    </message>
-    <message>
-        <source>Right Only</source>
-        <comment>Optical Margins</comment>
-        <translation type="vanished">Tylko prawa strona</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/smpstylewidget.cpp" line="550"/>
         <source>Shade</source>
         <translation type="unfinished">Cieniowanie</translation>
@@ -32590,14 +32194,6 @@ Proszę wybrać inną.</translation>
         <location filename="../../scribus/ui/smpstylewidget.cpp" line="997"/>
         <source>Based On:</source>
         <translation>Bazuje na:</translation>
-    </message>
-    <message>
-        <source>TextLabel</source>
-        <translation type="vanished">Etykieta Tekstowa</translation>
-    </message>
-    <message>
-        <source>Ch&amp;aracter Style</source>
-        <translation type="vanished">Styl &amp;znaków</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.ui" line="402"/>
@@ -34139,22 +33735,6 @@ converting their vector data into Scribus objects.</source>
         <translation>Format</translation>
     </message>
     <message>
-        <source>9,999.99</source>
-        <translation type="vanished">9,999.99</translation>
-    </message>
-    <message>
-        <source>9.999,99</source>
-        <translation type="vanished">9.999,99</translation>
-    </message>
-    <message>
-        <source>9999.99</source>
-        <translation type="vanished">9999.99</translation>
-    </message>
-    <message>
-        <source>9999,99</source>
-        <translation type="vanished">9999,99</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/annot.ui" line="1582"/>
         <source>Percent Format</source>
         <translation>Format procentu</translation>
@@ -35306,18 +34886,6 @@ Former monitor profile will be used.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Information</source>
-        <translation type="vanished">Informacja</translation>
-    </message>
-    <message>
-        <source>The program %1 is already running!</source>
-        <translation type="vanished">Program %1 jest już uruchomiony!</translation>
-    </message>
-    <message>
-        <source>The program %1 is missing!</source>
-        <translation type="vanished">Brak programu %1!</translation>
-    </message>
-    <message>
         <location filename="../../scribus/scribus.cpp" line="8632"/>
         <source>Current zoom level</source>
         <translation>Aktualne powiększenie</translation>
@@ -35416,10 +34984,6 @@ Former monitor profile will be used.</source>
         <location filename="../../scribus/scribus.cpp" line="3925"/>
         <source>Do you really want to clear all your text?</source>
         <translation>Naprawdę usunąć cały tekst?</translation>
-    </message>
-    <message>
-        <source>Scribus </source>
-        <translation type="vanished">Scribus</translation>
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="3703"/>
@@ -35548,14 +35112,6 @@ Former monitor profile will be used.</source>
         <location filename="../../scribus/scribusapp.cpp" line="589"/>
         <source>Output version information and exit</source>
         <translation>Wyświetl informację o wersji i zakończ</translation>
-    </message>
-    <message>
-        <source>filename</source>
-        <translation type="vanished">plik</translation>
-    </message>
-    <message>
-        <source>Use filename as path for user given preferences</source>
-        <translation type="vanished">Użyj nazwy pliku jako jako ścieżki dla konfiguracji użytkownika</translation>
     </message>
     <message>
         <location filename="../../scribus/scribusapp.cpp" line="587"/>
@@ -37146,15 +36702,6 @@ Former monitor profile will be used.</source>
         <source>Shadowed Text. Hold down the button momentarily to change the shadow offset values.</source>
         <translation type="unfinished"></translation>
     </message>
-    <message>
-        <source>Outline. Hold down the button momentarily to change the outline stroke width.</source>
-        <comment>Text Style Selector</comment>
-        <translation type="vanished">Obrys. Przytrzymaj klawisz myszy, aby zmienić grubość linii obrysu.</translation>
-    </message>
-    <message>
-        <source>Shadowed Text. Hold down the button momentarily to enable the offset spacing.</source>
-        <translation type="vanished">Cieniowanie. Przytrzymaj klawisz myszy, aby zmienić wielkość przesunięcia.</translation>
-    </message>
 </context>
 <context>
     <name>SubdividePlugin</name>
@@ -38062,14 +37609,6 @@ Former monitor profile will be used.</source>
         <location filename="../../scribus/ui/tabpdfoptions.ui" line="981"/>
         <source>Continuous</source>
         <translation>Ciągły</translation>
-    </message>
-    <message>
-        <source>Double Page Left</source>
-        <translation type="vanished">Podwójna strona po lewej</translation>
-    </message>
-    <message>
-        <source>Double Page Right</source>
-        <translation type="vanished">Podwójna strona po prawej</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.ui" line="1005"/>
@@ -41561,10 +41100,6 @@ Menu podręczne z opcją usunięcia jest dostępne jedynie, gdy posiadasz prawa 
 <context>
     <name>smFontFeaturesBase</name>
     <message>
-        <source>Form</source>
-        <translation type="obsolete">Formularz</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="23"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600; color:#008000;&quot;&gt;The current selected font does not have any font features.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation type="unfinished"></translation>
@@ -41572,11 +41107,6 @@ Menu podręczne z opcją usunięcia jest dostępne jedynie, gdy posiadasz prawa 
     <message>
         <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="36"/>
         <source> Ligatures</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="48"/>
-        <source>Common Ligtures (liga)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -41650,13 +41180,18 @@ Menu podręczne z opcją usunięcia jest dostępne jedynie, gdy posiadasz prawa 
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="48"/>
+        <source>Common Ligatures (liga)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="180"/>
-        <source>Petite Capitals from Captials</source>
+        <source>Petite Capitals from Capitals</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="185"/>
-        <source>Small Capitals from Captials</source>
+        <source>Small Capitals from Capitals</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

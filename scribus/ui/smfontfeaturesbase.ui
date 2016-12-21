@@ -45,7 +45,7 @@
          </sizepolicy>
         </property>
         <property name="toolTip">
-         <string>Common Ligtures (liga)</string>
+         <string>Common Ligatures (liga)</string>
         </property>
         <property name="text">
          <string>Common Ligatures</string>
@@ -177,12 +177,12 @@
           </item>
           <item>
            <property name="text">
-            <string>Petite Capitals from Captials</string>
+            <string>Petite Capitals from Capitals</string>
            </property>
           </item>
           <item>
            <property name="text">
-            <string>Small Capitals from Captials</string>
+            <string>Small Capitals from Capitals</string>
            </property>
           </item>
          </widget>

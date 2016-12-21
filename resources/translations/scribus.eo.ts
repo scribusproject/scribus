@@ -1678,14 +1678,6 @@
         <translation>&amp;Kadroj...</translation>
     </message>
     <message>
-        <source>Unlink Text Frame with Text Copy</source>
-        <translation type="vanished">Malligu tekstokadron per tekstokopiado</translation>
-    </message>
-    <message>
-        <source>Unlink Text Frame with Text Cut</source>
-        <translation type="vanished">Malligu tekstokadron per tekstoeltondo</translation>
-    </message>
-    <message>
         <location filename="../../scribus/actionmanager.cpp" line="1598"/>
         <source>Adjust Frame Height to Text</source>
         <translation>Alĝustigu la kadroalton al la teksto</translation>
@@ -3329,10 +3321,6 @@
 </context>
 <context>
     <name>CMSPrefsBase</name>
-    <message>
-        <source>Form</source>
-        <translation type="vanished">Formularo</translation>
-    </message>
     <message>
         <location filename="../../scribus/ui/cmsprefsbase.ui" line="32"/>
         <source>&amp;Activate Color Management</source>
@@ -5071,10 +5059,6 @@ aktuale %2 x %3 DPI  </translation>
         <location filename="../../scribus/commonstrings.cpp" line="337"/>
         <source>Single Page</source>
         <translation>Unuopa paĝo</translation>
-    </message>
-    <message>
-        <source>Double Sided</source>
-        <translation type="vanished">Vidalvidaj paĝoj</translation>
     </message>
     <message>
         <location filename="../../scribus/commonstrings.cpp" line="339"/>
@@ -7831,10 +7815,6 @@ Document Liberation Project http://www.documentliberation.org</translation>
 <context>
     <name>GradientEditorBase</name>
     <message>
-        <source>Frame</source>
-        <translation type="vanished">Kadro</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/gradienteditor.ui" line="63"/>
         <source>Position:</source>
         <translation>Pozicio:</translation>
@@ -8268,14 +8248,6 @@ Document Liberation Project http://www.documentliberation.org</translation>
         <location filename="../../scribus/ui/guidemanager.ui" line="384"/>
         <source>Apply the shown guides to all pages in the document</source>
         <translation>Apliku la montritajn helpliniojn al ĉiuj paĝoj en la dokumento</translation>
-    </message>
-    <message>
-        <source>Delete all guides shown on the current page</source>
-        <translation type="vanished">Forigu ĉiujn helpliniojn montratajn sur la aktuala paĝo</translation>
-    </message>
-    <message>
-        <source>Delete all guides from all pages</source>
-        <translation type="vanished">Forigu ĉiujn helpliniojn el ĉiuj paĝoj</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/guidemanager.ui" line="225"/>
@@ -9758,10 +9730,6 @@ p, li { white-space: pre-wrap; }
         <location filename="../../scribus/plugins/imposition/impositionbase.ui" line="376"/>
         <source>Facing Pages</source>
         <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Double sided</source>
-        <translation type="vanished">Vidalvidaj</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/imposition/impositionbase.ui" line="387"/>
@@ -11405,10 +11373,6 @@ p, li { white-space: pre-wrap; }
         <location filename="../../scribus/ui/markvariabletext.cpp" line="31"/>
         <source>Edit selected Mark&apos;s label</source>
         <translation>Redaktu la elektitan etikedon de la indikilo</translation>
-    </message>
-    <message>
-        <source>Edit selected Mark&apos;s label.</source>
-        <translation type="vanished">Redaktu la elektitan etikedon de la indikilo.</translation>
     </message>
 </context>
 <context>
@@ -17864,10 +17828,6 @@ Do you want to migrate them to the new Scribus version?</source>
         <translation type="unfinished">Ĝenerala</translation>
     </message>
     <message>
-        <source>Language</source>
-        <translation type="obsolete">Lingvo</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="100"/>
         <source>Page Size</source>
         <translation>Paĝogrando</translation>
@@ -18015,10 +17975,6 @@ Do you want to migrate them to the new Scribus version?</source>
         <translation>Unuopa paĝo</translation>
     </message>
     <message>
-        <source>Double Page</source>
-        <translation type="vanished">Duobla paĝo</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="280"/>
         <source>3-Fold</source>
         <translation>Trifaldfolio</translation>
@@ -18037,10 +17993,6 @@ Do you want to migrate them to the new Scribus version?</source>
         <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="253"/>
         <source>First Page is:</source>
         <translation>La unua paĝo estas:</translation>
-    </message>
-    <message>
-        <source>Size</source>
-        <translation type="vanished">Grando</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="329"/>
@@ -18737,28 +18689,6 @@ Do you want to use this?</source>
         <translation>Konduto</translation>
     </message>
     <message>
-        <source>Language:</source>
-        <translation type="vanished">Lingvo:</translation>
-    </message>
-    <message>
-        <source>Smallest Word:</source>
-        <translation type="vanished">Plej mallonga vorto:</translation>
-    </message>
-    <message>
-        <source>Characters</source>
-        <translation type="vanished">Signoj</translation>
-    </message>
-    <message>
-        <source>Consecutive Hyphenations Allowed:</source>
-        <translation type="vanished">Nombro de sinsekvaj vortdividoj permesataj:</translation>
-    </message>
-    <message>
-        <source>Maximum number of Hyphenations following each other.
-A value of 0 means unlimited hyphenations.</source>
-        <translation type="vanished">Maksimuma nombro de dividoj sinsekvaj.
-Valoro egala al 0 signifas senlimajn dividojn.</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/prefs_hyphenatorbase.ui" line="88"/>
         <source>Word Lists</source>
         <translation>Vortolistoj</translation>
@@ -18808,10 +18738,6 @@ Valoro egala al 0 signifas senlimajn dividojn.</translation>
         <location filename="../../scribus/ui/prefs_hyphenatorbase.ui" line="61"/>
         <source>Enables automatic hyphenation of your text while typing</source>
         <translation>Ebligas aŭtomatan vortdividon de la teksto dum tajpado</translation>
-    </message>
-    <message>
-        <source>Length of the smallest word to be hyphenated</source>
-        <translation type="vanished">Ĉi tio estas la longo de la plej eta vorto dividota</translation>
     </message>
 </context>
 <context>
@@ -19884,14 +19810,6 @@ Valoro egala al 0 signifas senlimajn dividojn.</translation>
         <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1597"/>
         <source>Continuous Pages</source>
         <translation>Kontinuaj paĝoj</translation>
-    </message>
-    <message>
-        <source>Double Page Left</source>
-        <translation type="vanished">Duobla paĝo maldekstra</translation>
-    </message>
-    <message>
-        <source>Double Page Right</source>
-        <translation type="vanished">Duobla paĝo dekstra</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1640"/>
@@ -22146,10 +22064,6 @@ Agordado al Nivelo 1 aŭ 2 povus krei grandegajn dosierojn.</translation>
         <translation>&amp;Formo</translation>
     </message>
     <message>
-        <source>&amp;Text</source>
-        <translation type="vanished">&amp;Teksto</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/propertiespalette.cpp" line="877"/>
         <source>&amp;Image</source>
         <translation>B&amp;ildo</translation>
@@ -23164,25 +23078,6 @@ de la objekto</translation>
     </message>
 </context>
 <context>
-    <name>PropertiesPalette_Table</name>
-    <message>
-        <source>Cell style of currently selected cell</source>
-        <translation type="vanished">Ĉelstilo de la elektita ĉelo</translation>
-    </message>
-    <message>
-        <source>Table style of currently selected table</source>
-        <translation type="vanished">Tabelstilo de la elektita tabelo</translation>
-    </message>
-    <message>
-        <source>Remove Direct Cell Formatting</source>
-        <translation type="vanished">Forigu la senperan ĉelformatadon</translation>
-    </message>
-    <message>
-        <source>Remove Direct Table Formatting</source>
-        <translation type="vanished">Forigu la senperan tabefolrmatadon</translation>
-    </message>
-</context>
-<context>
     <name>PropertiesPalette_TableBase</name>
     <message>
         <location filename="../../scribus/ui/propertiespalette_tablebase.ui" line="26"/>
@@ -23248,10 +23143,6 @@ de la objekto</translation>
         <translation>Stiloj</translation>
     </message>
     <message>
-        <source>Table</source>
-        <translation type="vanished">Tabelo</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/propertiespalette_tablebase.ui" line="39"/>
         <source>Table style of currently selected table</source>
         <translation type="unfinished">Tabelstilo de la elektita tabelo</translation>
@@ -23260,10 +23151,6 @@ de la objekto</translation>
         <location filename="../../scribus/ui/propertiespalette_tablebase.ui" line="46"/>
         <source>Remove Direct Table Formatting</source>
         <translation type="unfinished">Forigu la senperan tabefolrmatadon</translation>
-    </message>
-    <message>
-        <source>Cells</source>
-        <translation type="vanished">Ĉeloj</translation>
     </message>
 </context>
 <context>
@@ -23314,14 +23201,6 @@ de la objekto</translation>
         <translation>Bazlinio</translation>
     </message>
     <message>
-        <source>Paragraph St&amp;yle:</source>
-        <translation type="vanished">Aline-st&amp;ilo:</translation>
-    </message>
-    <message>
-        <source>Character St&amp;yle:</source>
-        <translation type="vanished">Signo-st&amp;ilo:</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/propertiespalette_text.cpp" line="701"/>
         <source>Font Features</source>
         <translation type="unfinished"></translation>
@@ -23340,34 +23219,6 @@ de la objekto</translation>
         <location filename="../../scribus/ui/propertiespalette_text.cpp" line="708"/>
         <source>Align to Baseline Grid</source>
         <translation>Alliniigu al la bazlinia krado</translation>
-    </message>
-    <message>
-        <source> pt</source>
-        <translation type="vanished"> pt</translation>
-    </message>
-    <message>
-        <source>Font Size</source>
-        <translation type="vanished">Tipargrando</translation>
-    </message>
-    <message>
-        <source>Line Spacing</source>
-        <translation type="vanished">Lini-distanco</translation>
-    </message>
-    <message>
-        <source>Paragraph style of currently selected text or paragraph</source>
-        <translation type="vanished">Alinea stilo de la aktuala elektita teksto aŭ alineo</translation>
-    </message>
-    <message>
-        <source>Character style of currently selected text or paragraph</source>
-        <translation type="vanished">Signa stilo de la aktuala elektita teksto aŭ alineo</translation>
-    </message>
-    <message>
-        <source>Remove Direct Paragraph Formatting</source>
-        <translation type="vanished">Forigu la senperan alineformatadon</translation>
-    </message>
-    <message>
-        <source>Remove Direct Character Formatting</source>
-        <translation type="vanished">Forigu la senperan signoformatadon</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_text.cpp" line="81"/>
@@ -23392,10 +23243,6 @@ de la objekto</translation>
         <location filename="../../scribus/ui/propertiespalette_text.cpp" line="697"/>
         <source>Paragraph Effects</source>
         <translation>Alineaj efektoj</translation>
-    </message>
-    <message>
-        <source>Select the line spacing mode</source>
-        <translation type="vanished">Elektu la interlinian reĝimon</translation>
     </message>
 </context>
 <context>
@@ -23694,74 +23541,7 @@ de la objekto</translation>
     </message>
 </context>
 <context>
-    <name>PropertyWidget_Advanced</name>
-    <message>
-        <source>Word Tracking</source>
-        <translation type="vanished">Vortdistanco</translation>
-    </message>
-    <message>
-        <source>Min:</source>
-        <translation type="vanished">Min:</translation>
-    </message>
-    <message>
-        <source>Norm:</source>
-        <translation type="vanished">Norm:</translation>
-    </message>
-    <message>
-        <source>Glyph Extension</source>
-        <translation type="vanished">Signobilda grando</translation>
-    </message>
-    <message>
-        <source>Max:</source>
-        <translation type="vanished">Maks:</translation>
-    </message>
-    <message>
-        <source> %</source>
-        <translation type="vanished"> %</translation>
-    </message>
-    <message>
-        <source>Offset to baseline of characters</source>
-        <translation type="vanished">Ŝovo de la signoj kompare kun la bazlinio</translation>
-    </message>
-    <message>
-        <source>Manual Tracking</source>
-        <translation type="vanished">Neaŭtomata literdistanco</translation>
-    </message>
-    <message>
-        <source>Scaling width of characters</source>
-        <translation type="vanished">Larĝoskalo de la signoj</translation>
-    </message>
-    <message>
-        <source>Scaling height of characters</source>
-        <translation type="vanished">Altoskalo de la signoj</translation>
-    </message>
-    <message>
-        <source>Minimal width of spaces between words</source>
-        <translation type="vanished">Minimuma larĝo de la spacoj inter vortoj</translation>
-    </message>
-    <message>
-        <source>Normal width of spaces between words</source>
-        <translation type="vanished">Normala larĝo de la spacoj inter vortoj</translation>
-    </message>
-    <message>
-        <source>Minimal shrinkage of glyphs for justification</source>
-        <translation type="vanished">Minimuma maletendo de signobildoj por alkadrigo</translation>
-    </message>
-    <message>
-        <source>Maximal extension of glyphs for justification</source>
-        <translation type="vanished">Maksimuma etendo de signobildoj por alkadrigo</translation>
-    </message>
-</context>
-<context>
     <name>PropertyWidget_AdvancedBase</name>
-    <message>
-        <source>Frame</source>
-        <translation type="vanished">Kadro</translation>
-    </message>
-    <message>
-        <source>Word Spacing</source>
-        <translation type="vanished">Vortdistanco</translation>
-    </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="48"/>
         <source>Offset to baseline of characters</source>
@@ -23844,14 +23624,6 @@ de la objekto</translation>
 <context>
     <name>PropertyWidget_Distance</name>
     <message>
-        <source>Colu&amp;mns:</source>
-        <translation type="vanished">Kolum&amp;noj:</translation>
-    </message>
-    <message>
-        <source>Vertical Alignment:</source>
-        <translation type="vanished">Vertikala ĝisrandigo:</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/propertywidget_distance.cpp" line="451"/>
         <source>Gap:</source>
         <translation>Interkolumna distanco:</translation>
@@ -23862,62 +23634,14 @@ de la objekto</translation>
         <translation>Larĝo:</translation>
     </message>
     <message>
-        <source>To&amp;p:</source>
-        <translation type="vanished">&amp;Supra:</translation>
-    </message>
-    <message>
-        <source>&amp;Bottom:</source>
-        <translation type="vanished">Malsu&amp;pra:</translation>
-    </message>
-    <message>
-        <source>&amp;Left:</source>
-        <translation type="vanished">&amp;Maldekstra:</translation>
-    </message>
-    <message>
-        <source>&amp;Right:</source>
-        <translation type="vanished">D&amp;ekstra:</translation>
-    </message>
-    <message>
-        <source>T&amp;abulators...</source>
-        <translation type="vanished">Ta&amp;boj...</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/propertywidget_distance.cpp" line="455"/>
         <source> pt</source>
         <translation> pt</translation>
     </message>
     <message>
-        <source>Number of columns in text frame</source>
-        <translation type="vanished">Kolumnonombro en la tekstokadro</translation>
-    </message>
-    <message>
-        <source>Switches between Gap or Column width</source>
-        <translation type="vanished">Alternigas inter interkolumna distanco kaj kolumnolarĝo</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/propertywidget_distance.cpp" line="352"/>
         <source>Distance between columns</source>
         <translation>Distanco inter la kolumnoj</translation>
-    </message>
-    <message>
-        <source>Distance of text from top of frame</source>
-        <translation type="vanished">Tekstodistanco ĝis la supera rando de la kadro</translation>
-    </message>
-    <message>
-        <source>Distance of text from bottom of frame</source>
-        <translation type="vanished">Tekstodistanco ĝis la malsupra rando de la kadro</translation>
-    </message>
-    <message>
-        <source>Distance of text from left of frame</source>
-        <translation type="vanished">Tekstodistanco ĝis la maldekstra rando de la kadro</translation>
-    </message>
-    <message>
-        <source>Distance of text from right of frame</source>
-        <translation type="vanished">Tekstodistanco ĝis la dekstra rando de la kadro</translation>
-    </message>
-    <message>
-        <source>Edit tab settings of text frame...</source>
-        <translation type="vanished">Redaktu la tab-agordojn de la tekstokadro...</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_distance.cpp" line="352"/>
@@ -23942,10 +23666,6 @@ de la objekto</translation>
 </context>
 <context>
     <name>PropertyWidget_DistanceBase</name>
-    <message>
-        <source>Frame</source>
-        <translation type="vanished">Kadro</translation>
-    </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="41"/>
         <source>Vertical Alignment:</source>
@@ -24032,10 +23752,6 @@ de la objekto</translation>
         <translation>Ta&amp;boj...</translation>
     </message>
     <message>
-        <source>Vertical Alignment</source>
-        <translation type="vanished">Vertikala ĝisrandigo</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="49"/>
         <source>Top</source>
         <translation>Supra</translation>
@@ -24113,46 +23829,7 @@ de la objekto</translation>
     </message>
 </context>
 <context>
-    <name>PropertyWidget_Flop</name>
-    <message>
-        <source>Maximum Ascent</source>
-        <translation type="vanished">Maksimuma supreno</translation>
-    </message>
-    <message>
-        <source>Font Ascent</source>
-        <translation type="vanished">Tiparsupreno</translation>
-    </message>
-    <message>
-        <source>Line Spacing</source>
-        <translation type="vanished">Lini-distanco</translation>
-    </message>
-    <message>
-        <source>Set the height of the first line of the text frame to use the tallest height of the included characters</source>
-        <translation type="vanished">Agordu la alton de la unua linio de la tekstokadro por uzi la maksumuman alton de la inkluzivitaj signoj</translation>
-    </message>
-    <message>
-        <source>Set the height of the first line of text frame to use the full ascent of the font(s) in use</source>
-        <translation type="vanished">Agordu la alton de la unua linio de la tekstokadro por uzi la tutan suprenon de la tiparo(j) uzata(j)</translation>
-    </message>
-    <message>
-        <source>Set the height of the first line of the text frame to the specified line height</source>
-        <translation type="vanished">Agordu la alton de la unua linio de la tekstokadro kiel la specifita linialto</translation>
-    </message>
-    <message>
-        <source>Baseline Grid</source>
-        <translation type="vanished">Bazlinia krado</translation>
-    </message>
-    <message>
-        <source>Set the base line of the first line of the text frame to the base line grid</source>
-        <translation type="vanished">Agordu la alton de la unua linio de la tekstokadro kiel la specifita linialto</translation>
-    </message>
-</context>
-<context>
     <name>PropertyWidget_FlopBase</name>
-    <message>
-        <source>Frame</source>
-        <translation type="vanished">Kadro</translation>
-    </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_flopbase.ui" line="26"/>
         <source>Set the height of the first line of the text frame to use the tallest height of the included characters</source>
@@ -24167,10 +23844,6 @@ de la objekto</translation>
         <location filename="../../scribus/ui/propertywidget_flopbase.ui" line="39"/>
         <source>Set the height of the first line of text frame to use the full ascent of the font(s) in use</source>
         <translation type="unfinished">Agordu la alton de la unua linio de la tekstokadro por uzi la tutan suprenon de la tiparo(j) uzata(j)</translation>
-    </message>
-    <message>
-        <source>flopGroup</source>
-        <translation type="vanished">flopGroup</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_flopbase.ui" line="42"/>
@@ -24200,10 +23873,6 @@ de la objekto</translation>
 </context>
 <context>
     <name>PropertyWidget_FontFeatures</name>
-    <message>
-        <source>Frame</source>
-        <translation type="obsolete">Kadro</translation>
-    </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="26"/>
         <source>Common Ligtures (liga)</source>
@@ -24563,10 +24232,6 @@ de la objekto</translation>
 <context>
     <name>PropertyWidget_HyphenationBase</name>
     <message>
-        <source>Frame</source>
-        <translation type="obsolete">Kadro</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/propertywidget_hyphenationbase.ui" line="43"/>
         <source>Smallest Word:</source>
         <translation type="unfinished">Plej mallonga vorto:</translation>
@@ -24605,38 +24270,7 @@ Valoro egala al 0 signifas senlimajn dividojn.</translation>
     </message>
 </context>
 <context>
-    <name>PropertyWidget_OptMargins</name>
-    <message>
-        <source>None</source>
-        <comment>optical margins</comment>
-        <translation type="vanished">Neniu</translation>
-    </message>
-    <message>
-        <source>Both Sides</source>
-        <comment>optical margins</comment>
-        <translation type="vanished">Ambaŭ flankoj</translation>
-    </message>
-    <message>
-        <source>Left Only</source>
-        <comment>optical margins</comment>
-        <translation type="vanished">Nur maldekstra</translation>
-    </message>
-    <message>
-        <source>Right Only</source>
-        <comment>optical margins</comment>
-        <translation type="vanished">Nur dekstra</translation>
-    </message>
-    <message>
-        <source>Reset</source>
-        <translation type="vanished">Nuligu</translation>
-    </message>
-</context>
-<context>
     <name>PropertyWidget_OptMarginsBase</name>
-    <message>
-        <source>Frame</source>
-        <translation type="vanished">Kadro</translation>
-    </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_optmarginsbase.ui" line="32"/>
         <source>None</source>
@@ -24664,45 +24298,6 @@ Valoro egala al 0 signifas senlimajn dividojn.</translation>
     </message>
 </context>
 <context>
-    <name>PropertyWidget_Orphans</name>
-    <message>
-        <source>Don&apos;t separate first</source>
-        <translation type="vanished">Ne disigu la unuajn</translation>
-    </message>
-    <message>
-        <source>Don&apos;t separate last</source>
-        <translation type="vanished">Ne disigu la lastajn</translation>
-    </message>
-    <message>
-        <source> lines</source>
-        <translation type="vanished">linioj</translation>
-    </message>
-    <message>
-        <source>Do not split paragraph</source>
-        <translation type="vanished">Ne disigu alineojn</translation>
-    </message>
-    <message>
-        <source>Keep with next paragraph</source>
-        <translation type="vanished">Ne disigu disde la posta alineo</translation>
-    </message>
-    <message>
-        <source>Ensure that first lines of a paragraph won&apos;t end up separated from the rest (known as widow/orphan control)</source>
-        <translation type="vanished">Klopodu, ke la unuaj linioj de alineo ne estu disigitaj de la cetero (&quot;konata kiel kontrolo de vidvinoj/orfoj&quot;)</translation>
-    </message>
-    <message>
-        <source>Ensure that last lines of a paragraph won&apos;t end up separated from the rest (known as widow/orphan control)</source>
-        <translation type="vanished">Klopodu, ke la lastaj linioj de alineo ne estu disigitaj de la cetero (&quot;konata kiel kontrolo de vidvinoj/orfoj&quot;)</translation>
-    </message>
-    <message>
-        <source>If checked, ensures that the paragraph won&apos;t be split across multiple pages or columns</source>
-        <translation type="vanished">Se markita, klopodas ke la alineo ne estu disigita inter pluraj paĝoj aŭ kolumnoj</translation>
-    </message>
-    <message>
-        <source>If checked, automatically moves the paragraph to the next column or page if the next paragraph isn&apos;t on the same page or column</source>
-        <translation type="vanished">Se markita, ŝovas aŭtomate la alineon al la proksima kolumno aŭ paĝo, se la venonta alineo ne estas sur la sama paĝo aŭ kolumno</translation>
-    </message>
-</context>
-<context>
     <name>PropertyWidget_OrphansBase</name>
     <message>
         <location filename="../../scribus/ui/propertywidget_orphansbase.ui" line="20"/>
@@ -24711,18 +24306,10 @@ Valoro egala al 0 signifas senlimajn dividojn.</translation>
         <translation>Klopodu, ke la unuaj linioj de alineo ne estu disigitaj de la cetero (&quot;konata kiel kontrolo de vidvinoj/orfoj&quot;)</translation>
     </message>
     <message>
-        <source>Don&apos;t separate first</source>
-        <translation type="vanished">Ne disigu la unuajn</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/propertywidget_orphansbase.ui" line="33"/>
         <location filename="../../scribus/ui/propertywidget_orphansbase.ui" line="53"/>
         <source> lines</source>
         <translation>linioj</translation>
-    </message>
-    <message>
-        <source>Don&apos;t separate last</source>
-        <translation type="vanished">Ne disigu la lastajn</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_orphansbase.ui" line="23"/>
@@ -24773,78 +24360,14 @@ Valoro egala al 0 signifas senlimajn dividojn.</translation>
         <translation>Buletlisto</translation>
     </message>
     <message>
-        <source>Lines:</source>
-        <translation type="vanished">Lines:</translation>
-    </message>
-    <message>
-        <source>Bullet Char(s):</source>
-        <translation type="vanished">Buletsigno(j):</translation>
-    </message>
-    <message>
-        <source>Enhanced char table to choose bullet chars</source>
-        <translation type="vanished">Etendita signotabelo por elekto de buletoj</translation>
-    </message>
-    <message>
-        <source>Char Table</source>
-        <translation type="vanished">Signotabelo</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/propertywidget_pareffect.cpp" line="227"/>
         <source>Numbered List</source>
         <translation>Numerlisto</translation>
     </message>
     <message>
-        <source>Level:</source>
-        <translation type="vanished">Nivelo:</translation>
-    </message>
-    <message>
-        <source>Set:</source>
-        <translation type="vanished">Aro:</translation>
-    </message>
-    <message>
-        <source>Format:</source>
-        <translation type="vanished">Formato:</translation>
-    </message>
-    <message>
-        <source>Start:</source>
-        <translation type="vanished">Komenco:</translation>
-    </message>
-    <message>
-        <source>Prefix:</source>
-        <translation type="vanished">Prefikso:</translation>
-    </message>
-    <message>
-        <source>Suffix:</source>
-        <translation type="vanished">Sufikso:</translation>
-    </message>
-    <message>
-        <source>Auto-Indent</source>
-        <translation type="vanished">Aŭtomata deŝovo</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/propertywidget_pareffect.cpp" line="224"/>
         <source>No Paragraph Effects</source>
         <translation>Neniu alineefekto</translation>
-    </message>
-    <message>
-        <source>Numerated List</source>
-        <translation type="vanished">Numera listo</translation>
-    </message>
-    <message>
-        <source>Effect Parameters</source>
-        <translation type="vanished">Efektoparametroj</translation>
-    </message>
-    <message>
-        <source>Offset:</source>
-        <translation type="vanished">Ŝovo:</translation>
-    </message>
-    <message>
-        <source>Char Style:</source>
-        <translation type="vanished">Signostilo:</translation>
-    </message>
-    <message>
-        <source>Choose character style or leave blank for use default paragraph style</source>
-        <translation type="vanished">Elektu signostilon, aŭ lasu malplena por uzi la alinestilon defaŭltan</translation>
     </message>
 </context>
 <context>
@@ -24853,18 +24376,6 @@ Valoro egala al 0 signifas senlimajn dividojn.</translation>
         <location filename="../../scribus/ui/propertywidget_pareffectbase.ui" line="273"/>
         <source>Effect Parameters</source>
         <translation>Efektoparametroj</translation>
-    </message>
-    <message>
-        <source>Char Style</source>
-        <translation type="vanished">Signostilo</translation>
-    </message>
-    <message>
-        <source>AutoIndent</source>
-        <translation type="vanished">Aŭtomata deŝovo</translation>
-    </message>
-    <message>
-        <source>Offset</source>
-        <translation type="vanished">Ŝovo</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_pareffectbase.ui" line="23"/>
@@ -24942,46 +24453,14 @@ Valoro egala al 0 signifas senlimajn dividojn.</translation>
         <translation type="unfinished">Ŝovo:</translation>
     </message>
     <message>
-        <source>Lines</source>
-        <translation type="vanished">Linioj</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/propertywidget_pareffectbase.ui" line="119"/>
         <source>Numbered List</source>
         <translation>Numerlisto</translation>
     </message>
     <message>
-        <source>Level</source>
-        <translation type="vanished">Nivelo</translation>
-    </message>
-    <message>
-        <source>Start</source>
-        <translation type="vanished">Komenco</translation>
-    </message>
-    <message>
-        <source>Set</source>
-        <translation type="vanished">Aro</translation>
-    </message>
-    <message>
-        <source>Format</source>
-        <translation type="vanished">Formato</translation>
-    </message>
-    <message>
-        <source>Prefix</source>
-        <translation type="vanished">Prefikso</translation>
-    </message>
-    <message>
-        <source>Suffix</source>
-        <translation type="vanished">Sufikso</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/propertywidget_pareffectbase.ui" line="62"/>
         <source>Bulleted List</source>
         <translation>Buletlisto</translation>
-    </message>
-    <message>
-        <source>Bullet Char(s)</source>
-        <translation type="vanished">Buletsigno(j)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_pareffectbase.ui" line="106"/>
@@ -25040,10 +24519,6 @@ Valoro egala al 0 signifas senlimajn dividojn.</translation>
 <context>
     <name>PropertyWidget_PathTextBase</name>
     <message>
-        <source>Frame</source>
-        <translation type="vanished">Kadro</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/propertywidget_pathtextbase.ui" line="32"/>
         <source>Type:</source>
         <translation>Tipo:</translation>
@@ -25070,42 +24545,7 @@ Valoro egala al 0 signifas senlimajn dividojn.</translation>
     </message>
 </context>
 <context>
-    <name>PropertyWidget_TextColor</name>
-    <message>
-        <source>Color of selected text. If Outline text decoration is enabled, this color will be the fill color. If Drop Shadow Text is enabled, then this will be the top most color.</source>
-        <translation type="vanished">Koloro de la elektita teksto. Se oni ebligis Konturitan Tekston, ĝi estos la pleniga koloro. Se oni ebligis Ombrumitan Tekston, ĝi estos la ĉefa plej supra koloro.</translation>
-    </message>
-    <message>
-        <source>Background color of selected text</source>
-        <translation type="vanished">Fonkoloro de la elektita teksto</translation>
-    </message>
-    <message>
-        <source>Saturation of color of text fill</source>
-        <translation type="vanished">Pureco de la koloro de la tekstoplenigo</translation>
-    </message>
-    <message>
-        <source>Saturation of color of text stroke</source>
-        <translation type="vanished">Pureco de la koloro de la tekstokonturo</translation>
-    </message>
-    <message>
-        <source>Saturation of color of text background</source>
-        <translation type="vanished">Pureco de la koloro de la teksta fono</translation>
-    </message>
-    <message>
-        <source>Right to Left Writing</source>
-        <translation type="vanished">De dekstre maldekstren</translation>
-    </message>
-    <message>
-        <source>Color of text stroke and/or drop shadow, depending which is chosen. If both are chosen, then they share the same color.</source>
-        <translation type="vanished">Koloro de la tekstokonturo kaj/aŭ de la ombro, depende de kiu estas elektita. Se ambaŭ estas elektitaj, por ambaŭ estas la sama koloro.</translation>
-    </message>
-</context>
-<context>
     <name>PropertyWidget_TextColorBase</name>
-    <message>
-        <source>Frame</source>
-        <translation type="vanished">Kadro</translation>
-    </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_textcolorbase.ui" line="62"/>
         <source>Color of selected text. If Outline text decoration is enabled, this color will be the fill color. If Drop Shadow Text is enabled, then this will be the top most color.</source>
@@ -26187,10 +25627,6 @@ qt/&lt;/tt&gt; por kromaj informoj.&lt;/p&gt;</translation>
         <location filename="../../scribus/plugins/gettext/csvim/csvim.cpp" line="66"/>
         <source>CSV_header</source>
         <translation>CSV_kaplinio</translation>
-    </message>
-    <message>
-        <source>Font %1 is broken, discarding it</source>
-        <translation type="vanished">La tiparo %1 estas difektita, rifuzas ĝin</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/gettext/htmlim/htmlreader.cpp" line="667"/>
@@ -32375,10 +31811,6 @@ Bonvolu elekti alian.</translation>
 <context>
     <name>SMCharacterStyle</name>
     <message>
-        <source>Properties</source>
-        <translation type="vanished">Ecoj</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/smtextstyles.cpp" line="2106"/>
         <source>Character Styles</source>
         <translation>Signostiloj</translation>
@@ -32585,10 +32017,6 @@ Bonvolu elekti alian.</translation>
         <translation>Signostilo</translation>
     </message>
     <message>
-        <source>&amp;Lines:</source>
-        <translation type="vanished">&amp;Linioj:</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/smpstylewidget.ui" line="1176"/>
         <source>Distance from Text:</source>
         <translation>Distanco de la teksto:</translation>
@@ -32691,28 +32119,14 @@ Bonvolu elekti alian.</translation>
         <translation>Bazita sur:</translation>
     </message>
     <message>
-        <source>TextLabel</source>
-        <translation type="vanished">TextLabel</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/smpstylewidget.ui" line="636"/>
         <source>Colors</source>
         <translation>Koloroj</translation>
     </message>
     <message>
-        <source>Ch&amp;aracter Style</source>
-        <translation type="vanished">Si&amp;gnostilo</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/smpstylewidget.ui" line="402"/>
         <source>None</source>
         <translation>Neniu</translation>
-    </message>
-    <message>
-        <source>Maximum white space compression allowed.
-Expressed as a percentage of the current white space value.</source>
-        <translation type="vanished">Maksimuma densigo permesita de blanka spaco.
-Esprimita kiel procento de la aktuala blankspaca valoro.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.ui" line="520"/>
@@ -32841,18 +32255,6 @@ Esprimita kiel procento de la aktuala blankspaca valoro.</translation>
         <translation>Signostilo por efekto:</translation>
     </message>
     <message>
-        <source>AutoIndent</source>
-        <translation type="vanished">Aŭtomata deŝovo</translation>
-    </message>
-    <message>
-        <source>Use Parent`s Values</source>
-        <translation type="vanished">Uzu superan valoron</translation>
-    </message>
-    <message>
-        <source>Bullets</source>
-        <translation type="vanished">Buletoj</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/smpstylewidget.ui" line="868"/>
         <source>Set:</source>
         <translation>Aro:</translation>
@@ -32863,10 +32265,6 @@ Esprimita kiel procento de la aktuala blankspaca valoro.</translation>
         <translation>Kreu novan aron:</translation>
     </message>
     <message>
-        <source>Restart</source>
-        <translation type="vanished">Rekomencu</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/smpstylewidget.ui" line="1042"/>
         <source>Restart after other format</source>
         <translation>Rekomencu post alia formato</translation>
@@ -32875,14 +32273,6 @@ Esprimita kiel procento de la aktuala blankspaca valoro.</translation>
         <location filename="../../scribus/ui/smpstylewidget.ui" line="1062"/>
         <source>Restart after higher level</source>
         <translation>Rekomencu post pli alta nivelo</translation>
-    </message>
-    <message>
-        <source>Enhanced Char Table for inserting customs chars as bullets</source>
-        <translation type="vanished">Etendita signopaletro por enmeti proprajn signojn kiel buletoj</translation>
-    </message>
-    <message>
-        <source>Paragraph Effects Chars Offset</source>
-        <translation type="vanished">Signoŝovo de la alinea efekto</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.ui" line="1212"/>
@@ -32920,17 +32310,9 @@ Esprimita kiel procento de la aktuala blankspaca valoro.</translation>
         <translation>Alliniigo kaj distancoj</translation>
     </message>
     <message>
-        <source>Use Parent&apos;s Values</source>
-        <translation type="vanished">Uzu superajn valorojn</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/smpstylewidget.ui" line="495"/>
         <source>Glyph Extension </source>
         <translation>Signobilda grando</translation>
-    </message>
-    <message>
-        <source>Choose character style or leave blank for use default paragraph style</source>
-        <translation type="vanished">Elektu signostilon, aŭ lasu malplena por uzi la alinestilon defaŭltan</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.ui" line="678"/>
@@ -32948,51 +32330,9 @@ Esprimita kiel procento de la aktuala blankspaca valoro.</translation>
         <translation>Min. spacolarĝo:</translation>
     </message>
     <message>
-        <source>Min:</source>
-        <comment>Glyph Extension</comment>
-        <translation type="vanished">Min:</translation>
-    </message>
-    <message>
-        <source>Max:</source>
-        <comment>Glyph Extension</comment>
-        <translation type="vanished">Maks:</translation>
-    </message>
-    <message>
-        <source>None</source>
-        <comment>Optical Margins</comment>
-        <translation type="vanished">Neniu</translation>
-    </message>
-    <message>
-        <source>Both Sides</source>
-        <comment>Optical Margins</comment>
-        <translation type="vanished">Ambaŭ flankoj</translation>
-    </message>
-    <message>
-        <source>Left Only</source>
-        <comment>Optical Margins</comment>
-        <translation type="vanished">Nur maldekstra</translation>
-    </message>
-    <message>
-        <source>Right Only</source>
-        <comment>Optical Margins</comment>
-        <translation type="vanished">Nur dekstra</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/smpstylewidget.cpp" line="550"/>
         <source>Shade</source>
         <translation>Volvu</translation>
-    </message>
-    <message>
-        <source>Bullet Character(s)</source>
-        <translation type="vanished">Buletsigno(j)</translation>
-    </message>
-    <message>
-        <source>Character Table</source>
-        <translation type="vanished">Signopaletro</translation>
-    </message>
-    <message>
-        <source>Numbering</source>
-        <translation type="vanished">Numerado</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.ui" line="885"/>
@@ -33018,10 +32358,6 @@ Esprimita kiel procento de la aktuala blankspaca valoro.</translation>
         <location filename="../../scribus/ui/smpstylewidget.ui" line="986"/>
         <source>Suffix:</source>
         <translation>Sufikso:</translation>
-    </message>
-    <message>
-        <source>Bullet Character(s):</source>
-        <translation type="vanished">Buletsigno(j):</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.ui" line="1019"/>
@@ -34700,110 +34036,6 @@ konvertante iliajn vektorajn datumojn en Scribus-objektoj.</translation>
         <source>Plain Text</source>
         <translation>Plata teksto</translation>
     </message>
-    <message>
-        <source>9,999.99</source>
-        <translation type="vanished">9,999.99</translation>
-    </message>
-    <message>
-        <source>9.999,99</source>
-        <translation type="vanished">9.999,99</translation>
-    </message>
-    <message>
-        <source>9999.99</source>
-        <translation type="vanished">9999.99</translation>
-    </message>
-    <message>
-        <source>9999,99</source>
-        <translation type="vanished">9999,99</translation>
-    </message>
-    <message>
-        <source>m/d</source>
-        <translation type="vanished">m/t</translation>
-    </message>
-    <message>
-        <source>m/d/yy</source>
-        <translation type="vanished">m/t/jj</translation>
-    </message>
-    <message>
-        <source>mm/dd/yy</source>
-        <translation type="vanished">mm/tt/jj</translation>
-    </message>
-    <message>
-        <source>mm/yy</source>
-        <translation type="vanished">mm/jj</translation>
-    </message>
-    <message>
-        <source>d-mmm</source>
-        <translation type="vanished">t-mmm</translation>
-    </message>
-    <message>
-        <source>d-mmm-yy</source>
-        <translation type="vanished">t-mmm-jj</translation>
-    </message>
-    <message>
-        <source>dd-mmm-yy</source>
-        <translation type="vanished">tt-mmm-jj</translation>
-    </message>
-    <message>
-        <source>dd/mm/yy</source>
-        <translation type="vanished">tt/mm/jj</translation>
-    </message>
-    <message>
-        <source>dd/mm/yyyy</source>
-        <translation type="vanished">tt/mm/jjjj</translation>
-    </message>
-    <message>
-        <source>dd.mm.yyyy</source>
-        <translation type="vanished">tt.mm.jjjj</translation>
-    </message>
-    <message>
-        <source>yy-mm-dd</source>
-        <translation type="vanished">jj-mm-tt</translation>
-    </message>
-    <message>
-        <source>mmm-yy</source>
-        <translation type="vanished">mmm-jj</translation>
-    </message>
-    <message>
-        <source>mmmm-yy</source>
-        <translation type="vanished">mmmm-jj</translation>
-    </message>
-    <message>
-        <source>mmm d, yyyy</source>
-        <translation type="vanished">mmm t, jjjj</translation>
-    </message>
-    <message>
-        <source>mmmm d, yyyy</source>
-        <translation type="vanished">mmmm t, jjjj</translation>
-    </message>
-    <message>
-        <source>m/d/yy h:MM tt</source>
-        <translation type="vanished">m/t/jj h:MM tt</translation>
-    </message>
-    <message>
-        <source>m/d/yy HH:MM</source>
-        <translation type="vanished">m/t/jj HH:MM</translation>
-    </message>
-    <message>
-        <source>yyyy-mm-dd</source>
-        <translation type="vanished">jjj-mm-tt</translation>
-    </message>
-    <message>
-        <source>HH:MM</source>
-        <translation type="vanished">HH:MM</translation>
-    </message>
-    <message>
-        <source>h:MM tt</source>
-        <translation type="vanished">h:MM tt</translation>
-    </message>
-    <message>
-        <source>HH:MM:ss</source>
-        <translation type="vanished">HH:MM:ss</translation>
-    </message>
-    <message>
-        <source>h:MM:ss tt</source>
-        <translation type="vanished">h:MM:ss tt</translation>
-    </message>
 </context>
 <context>
     <name>ScGTFileDialog</name>
@@ -35591,18 +34823,6 @@ Pripensu ĉu uzi la antaŭkontrolon por korekti ilin</translation>
         <translation>&amp;Malŝlosu ĉiujn</translation>
     </message>
     <message>
-        <source>Information</source>
-        <translation type="vanished">Informoj</translation>
-    </message>
-    <message>
-        <source>The program %1 is already running!</source>
-        <translation type="vanished">La programo %1 jam ruliĝas!</translation>
-    </message>
-    <message>
-        <source>The program %1 is missing!</source>
-        <translation type="vanished">La programo %1 mankas!</translation>
-    </message>
-    <message>
         <location filename="../../scribus/scribus.cpp" line="4010"/>
         <location filename="../../scribus/scribus.cpp" line="8844"/>
         <source>Do you really want to replace your existing image?</source>
@@ -35642,10 +34862,6 @@ Pripensu ĉu uzi la antaŭkontrolon por korekti ilin</translation>
         <location filename="../../scribus/scribus.cpp" line="3925"/>
         <source>Do you really want to clear all your text?</source>
         <translation>Ĉu vi vere intencas forigi la tutan tekston?</translation>
-    </message>
-    <message>
-        <source>Scribus </source>
-        <translation type="vanished">Scribus </translation>
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="3703"/>
@@ -35775,10 +34991,6 @@ Pripensu ĉu uzi la antaŭkontrolon por korekti ilin</translation>
         <location filename="../../scribus/scribus.cpp" line="9871"/>
         <source>Mark to %1 mark</source>
         <translation>Indikilo al %1 ankro</translation>
-    </message>
-    <message>
-        <source>Edit </source>
-        <translation type="vanished">Redaktu</translation>
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="868"/>
@@ -36027,17 +35239,9 @@ Pripensu ĉu uzi la antaŭkontrolon por korekti ilin</translation>
         <translation>Montru la informojn pri la versio kaj eliru</translation>
     </message>
     <message>
-        <source>filename</source>
-        <translation type="vanished">dosiernomo</translation>
-    </message>
-    <message>
         <location filename="../../scribus/scribusapp.cpp" line="276"/>
         <source>Preferences directory %1 does not exist, aborting.</source>
         <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Use filename as path for user given preferences</source>
-        <translation type="vanished">Uzu la dosiernomon kiel vojon por la ecoj de la uzanto</translation>
     </message>
     <message>
         <location filename="../../scribus/scribusapp.cpp" line="617"/>
@@ -36105,10 +35309,6 @@ Pripensu ĉu uzi la antaŭkontrolon por korekti ilin</translation>
         <translation>Ne rulu la grafikan interfacon</translation>
     </message>
     <message>
-        <source>Stop showing the splashscreen on startup. Writes an empty file called .neversplash in ~/.scribus</source>
-        <translation type="vanished">Ĉesas montri la salutŝildon ĉe la starto. Skribas malplenan dosieron nomatan .neversplash in ~/.scribus</translation>
-    </message>
-    <message>
         <location filename="../../scribus/scribusapp.cpp" line="587"/>
         <source>Show location of ICC profile information on console while starting</source>
         <translation>Montru la lokon de la informoj pri la ICC-profilo en la konzolo dum la starto</translation>
@@ -36139,10 +35339,6 @@ Pripensu ĉu uzi la antaŭkontrolon por korekti ilin</translation>
         <location filename="../../scribus/scribusapp.cpp" line="180"/>
         <source>Python script %1 does not exist, aborting.</source>
         <translation>Pitonskripto %1 ne ekzistas, ĉesigas.</translation>
-    </message>
-    <message>
-        <source>Preferences file %1 does not exist, aborting.</source>
-        <translation type="vanished">Agorddosiero %1 ne ekzistas, ĉesigas.</translation>
     </message>
     <message>
         <location filename="../../scribus/scribusapp.cpp" line="590"/>
@@ -37626,15 +36822,6 @@ Pripensu ĉu uzi la antaŭkontrolon por korekti ilin</translation>
         <source>Shadowed Text. Hold down the button momentarily to change the shadow offset values.</source>
         <translation type="unfinished"></translation>
     </message>
-    <message>
-        <source>Outline. Hold down the button momentarily to change the outline stroke width.</source>
-        <comment>Text Style Selector</comment>
-        <translation type="vanished">Konturo. Tenu premita momente la butonon por ŝanĝi la konturan linilarĝon.</translation>
-    </message>
-    <message>
-        <source>Shadowed Text. Hold down the button momentarily to enable the offset spacing.</source>
-        <translation type="vanished">Ombrigita teksto. Tenu premita momente la butonon por ebigi la ŝovspacon.</translation>
-    </message>
 </context>
 <context>
     <name>SubdividePlugin</name>
@@ -38464,14 +37651,6 @@ Pripensu ĉu uzi la antaŭkontrolon por korekti ilin</translation>
         <translation>Kontinua</translation>
     </message>
     <message>
-        <source>Double Page Left</source>
-        <translation type="vanished">Duobla paĝo maldekstra</translation>
-    </message>
-    <message>
-        <source>Double Page Right</source>
-        <translation type="vanished">Duobla paĝo dekstra</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/tabpdfoptions.ui" line="1005"/>
         <source>Visual Appearance</source>
         <translation>Vidaspekto</translation>
@@ -38859,10 +38038,6 @@ kiam PDF-dokumento estas malfermita:</translation>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="211"/>
         <source>Create a range of pages</source>
         <translation>Kreu paĝintervalon</translation>
-    </message>
-    <message>
-        <source>TabWidget</source>
-        <translation type="vanished">TabWidget</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.ui" line="118"/>
@@ -42049,10 +41224,6 @@ bonvolu elekti alian.</translation>
 <context>
     <name>smFontFeaturesBase</name>
     <message>
-        <source>Form</source>
-        <translation type="obsolete">Formularo</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="23"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600; color:#008000;&quot;&gt;The current selected font does not have any font features.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation type="unfinished"></translation>
@@ -42060,11 +41231,6 @@ bonvolu elekti alian.</translation>
     <message>
         <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="36"/>
         <source> Ligatures</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="48"/>
-        <source>Common Ligtures (liga)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -42138,13 +41304,18 @@ bonvolu elekti alian.</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="48"/>
+        <source>Common Ligatures (liga)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="180"/>
-        <source>Petite Capitals from Captials</source>
+        <source>Petite Capitals from Capitals</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="185"/>
-        <source>Small Capitals from Captials</source>
+        <source>Small Capitals from Capitals</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
