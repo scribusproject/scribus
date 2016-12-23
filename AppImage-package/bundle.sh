@@ -30,8 +30,8 @@ get_apprun
 
 find . -name *desktop -exec cp {} $LOWERAPP.desktop \;
 
-cp ./usr/share/scribus/icons/1_5_1/scribus.png .
-rm -rf usr/share/icons/hicolor/48x48/
+cp ./.local/share/scribus/icons/1_5_1/scribus.png .
+rm -rf .local/share/icons/hicolor/48x48/
 
 ########################################################################
 # Copy in the dependencies that cannot be assumed to be available
@@ -39,15 +39,15 @@ rm -rf usr/share/icons/hicolor/48x48/
 ########################################################################
 
 # FIXME: How to find out which subset of plugins is really needed?
-mkdir -p ./usr/lib/qt5/plugins/
+mkdir -p ./.local/lib/qt5/plugins/
 PLUGINS=/opt/qt57/plugins/
-cp -r $PLUGINS/* ./usr/lib/qt5/plugins/
+cp -r $PLUGINS/* ./local/lib/qt5/plugins/
 
 # Tcl/Tk, Tkinter (for Calendar script)
-cp /usr/li*/python2.7/lib-dynload/_tkinter.so usr/ # It is indeed picked up here because we cd there at runtime
-ldd usr/_tkinter.so | grep "=>" | awk '{print $3}' | xargs -I '{}' cp -v '{}' ./usr/lib || true
-cp -r /usr/lib/tcltk usr/lib/
-cp -r /usr/share/tcltk usr/share/
+cp /.local/li*/python2.7/lib-dynload/_tkinter.so usr/ # It is indeed picked up here because we cd there at runtime
+ldd .local/_tkinter.so | grep "=>" | awk '{print $3}' | xargs -I '{}' cp -v '{}' ./.local/lib || true
+cp -r /.local/lib/tcltk usr/lib/
+cp -r /.local/share/tcltk usr/share/
 
 export LD_LIBRARY_PATH=/opt/qt57/lib/:LD_LIBRARY_PATH
 copy_deps
@@ -55,7 +55,7 @@ copy_deps
 # Move the libraries to usr/bin
 move_lib
 mv ./opt/qt57/lib/* usr/lib ; rm -rf ./opt
-( cd usr/lib/qt5/plugins/platforms/../../ ; ln -s ../../lib/ . )
+( cd .local/lib/qt5/plugins/platforms/../../ ; ln -s ../../lib/ . )
 mv usr/lib/x86_64-linux-gnu/* usr/lib/
 
 ########################################################################
@@ -67,11 +67,11 @@ mv usr/lib/x86_64-linux-gnu/* usr/lib/
 delete_blacklisted
 
 # We don't bundle the developer stuff
-rm -rf usr/include || true
-rm -rf usr/lib/cmake || true
-rm -rf usr/lib/pkgconfig || true
+rm -rf .local/include || true
+rm -rf .local/lib/cmake || true
+rm -rf .local/lib/pkgconfig || true
 find . -name '*.la' | xargs -i rm {}
-strip usr/bin/* usr/lib/* || true
+strip .local/bin/* .local/lib/* || true
 
 ########################################################################
 # desktopintegration asks the user on first run to install a menu item
@@ -90,11 +90,11 @@ VERSION=git$GIT_REV-glibc$GLIBC_NEEDED
 # Patch away absolute paths; it would be nice if they were relative
 ########################################################################
 
-sed -i -e 's|/usr/share/scribus|././/share/scribus|g' usr/bin/scribus
-sed -i -e 's|/usr/lib/scribus|././/lib/scribus|g' usr/bin/scribus
-sed -i -e 's|/usr/share/doc/scribus/|././/share/doc/scribus/|g' usr/bin/scribus
+sed -i -e 's|/.local/share/scribus|././/share/scribus|g' usr/bin/scribus
+sed -i -e 's|/.local/lib/scribus|././/lib/scribus|g' usr/bin/scribus
+sed -i -e 's|/.local/share/doc/scribus/|././/share/doc/scribus/|g' usr/bin/scribus
 # Possibly need to patch additional hardcoded paths away, replace
-# "/usr" with "././" which means "usr/ in the AppDir"
+# "/.local" with "././" which means ".local/ in the AppDir"
 
 ########################################################################
 # AppDir complete
