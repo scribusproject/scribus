@@ -81,9 +81,20 @@ void ScImgDataLoader_JPEG::loadEmbeddedProfile(const QString& fn, int /*page*/)
 	unsigned char* EmbedBuffer = 0;
 	if (read_jpeg_marker(ICC_MARKER, &cinfo, &EmbedBuffer, &EmbedLen))
 	{
+		bool profileIsValid = false;
 		QByteArray profArray = QByteArray((const char*) EmbedBuffer, EmbedLen);
 		ScColorProfile prof = ScCore->defaultEngine.openProfileFromMem(profArray);
 		if (prof)
+		{
+			eColorSpaceType colorSpace = prof.colorSpace();
+			if (colorSpace == ColorSpace_Rgb)
+				profileIsValid = (cinfo.output_components == 3);
+			if (colorSpace == ColorSpace_Cmyk)
+				profileIsValid = (cinfo.output_components == 4);
+			if (colorSpace == ColorSpace_Gray)
+				profileIsValid = (cinfo.output_components == 1);
+		}
+		if (profileIsValid)
 		{
 			if (prof.colorSpace() == ColorSpace_Rgb)
 				m_profileComponents = 3;
@@ -227,22 +238,6 @@ bool ScImgDataLoader_JPEG::loadPicture(const QString& fn, int /*page*/, int res,
 	else
 		m_imageInfoRecord.exifDataValid = false;
 	m_imageInfoRecord.exifInfo.thumbnail = QImage();
-	unsigned int EmbedLen = 0;
-	unsigned char* EmbedBuffer;
-	if (read_jpeg_marker(ICC_MARKER, &cinfo, &EmbedBuffer, &EmbedLen))
-	{
-		QByteArray profArray((const char*) EmbedBuffer, EmbedLen);
-		ScColorProfile prof = ScCore->defaultEngine.openProfileFromMem(profArray);
-		m_embeddedProfile = profArray;
-		m_imageInfoRecord.profileName = prof.productDescription();
-		m_imageInfoRecord.isEmbedded  = true;
-		free(EmbedBuffer);
-	}
-	else
-	{
-		m_imageInfoRecord.isEmbedded = false;
-		m_imageInfoRecord.profileName = "";
-	}
 
 	if (cinfo.density_unit == 0)
 	{
@@ -286,6 +281,40 @@ bool ScImgDataLoader_JPEG::loadPicture(const QString& fn, int /*page*/, int res,
 	else if (cinfo.output_components == 1)
 		m_imageInfoRecord.colorspace = ColorSpaceGray;
 	m_imageInfoRecord.progressive = jpeg_has_multiple_scans(&cinfo);
+
+	unsigned int EmbedLen = 0;
+	unsigned char* EmbedBuffer;
+	if (read_jpeg_marker(ICC_MARKER, &cinfo, &EmbedBuffer, &EmbedLen))
+	{
+		bool profileIsValid = false;
+		QByteArray profArray((const char*) EmbedBuffer, EmbedLen);
+		ScColorProfile prof = ScCore->defaultEngine.openProfileFromMem(profArray);
+		if (prof)
+		{
+			// #14494: some tools out there produce broken JPEGs with inconsistent
+			// profile and image colorspaces. Check consistency, and if profile  
+			// and image data are not consistent, discard embedded profile.
+			eColorSpaceType colorSpace = prof.colorSpace();
+			if (colorSpace == ColorSpace_Rgb)
+				profileIsValid = (cinfo.output_components == 3);
+			if (colorSpace == ColorSpace_Cmyk)
+				profileIsValid = (cinfo.output_components == 4);
+			if (colorSpace == ColorSpace_Gray)
+				profileIsValid = (cinfo.output_components == 1);
+		}
+		if (profileIsValid)
+		{
+			m_embeddedProfile = profArray;
+			m_imageInfoRecord.profileName = prof.productDescription();
+		}
+		m_imageInfoRecord.isEmbedded = profileIsValid;
+		free(EmbedBuffer);
+	}
+	else
+	{
+		m_imageInfoRecord.isEmbedded = false;
+		m_imageInfoRecord.profileName = "";
+	}
 
 	unsigned int PhotoshopLen = 0;
 	unsigned char * PhotoshopBuffer = 0;
