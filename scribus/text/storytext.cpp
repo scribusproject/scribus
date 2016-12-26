@@ -120,7 +120,17 @@ StoryText::~StoryText()
 
 void StoryText::setDoc(ScribusDoc *docin)
 {
+	if (m_doc) {
+		m_doc->paragraphStyles().disconnect(this, SLOT(invalidateAll()));
+		m_doc->charStyles().disconnect(this, SLOT(invalidateAll()));
+	}
+
 	m_doc = docin;
+
+	if (m_doc) {
+		m_doc->paragraphStyles().connect(this, SLOT(invalidateAll()));
+		m_doc->charStyles().connect(this, SLOT(invalidateAll()));
+	}
 }
 
 StoryText StoryText::copy() const
