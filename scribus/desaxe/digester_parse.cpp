@@ -91,5 +91,16 @@ void Digester::parseMemory(const char* data, unsigned int length)
 	reader.parse( source );
 }
 
+void Digester::parseMemory(const Xml_string& data)
+{
+	DigesterParser handler(this);
+	QXmlInputSource source;
+	source.setData(data);
+	QXmlSimpleReader reader;
+	reader.setContentHandler( &handler );
+	reader.setErrorHandler( &handler );
+	reader.parse( source );
+}
+
 } // namespace
 

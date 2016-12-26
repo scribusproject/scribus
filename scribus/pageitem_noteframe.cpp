@@ -262,7 +262,7 @@ void PageItem_NoteFrame::insertNote(TextNote *note)
 	mrk->setItemPtr(this);
 	mrk->setString(notesStyle()->prefix() + note->numString() + note->notesStyle()->suffix());
 
-	StoryText story;
+	StoryText story(m_Doc);
 	if (!note->saxedText().isEmpty())
 		story = desaxeString(m_Doc, note->saxedText());
 	story.insertMark(mrk, 0);

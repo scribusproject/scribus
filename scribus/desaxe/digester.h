@@ -107,6 +107,7 @@ public:
 
 	void parseFile(const Xml_string& filename);
 	void parseMemory(const char* data, unsigned int length);
+	void parseMemory(const Xml_string& data);
 
 	template<class ObjType>
 		ObjType*  result();	

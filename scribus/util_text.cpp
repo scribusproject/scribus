@@ -59,14 +59,14 @@ StoryText desaxeString(ScribusDoc* doc, QString saxedString)
 	assert(!saxedString.isEmpty());
 
 	Serializer* dig = doc->textSerializer();
-
-	QByteArray utf8Data = saxedString.toUtf8();
-	dig->parseMemory(utf8Data.constData(), utf8Data.length());
+	dig->parseMemory(saxedString);
 
 	StoryText* story = dig->result<StoryText>();
 	assert (story != NULL);
 
 	StoryText res = *story;
+	res.setDoc(doc);
+
 	delete story;
 	return res;
 }
