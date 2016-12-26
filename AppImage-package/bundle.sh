@@ -41,7 +41,7 @@ rm -rf usr/share/icons/hicolor/48x48/
 # FIXME: How to find out which subset of plugins is really needed?
 mkdir -p ./usr/lib/qt5/plugins/
 PLUGINS=/opt/qt57/plugins/
-cp -r $PLUGINS/* ./local/lib/qt5/plugins/
+cp -r $PLUGINS/* ./usr/lib/qt5/plugins/
 
 # Tcl/Tk, Tkinter (for Calendar script)
 cp /usr/li*/python2.7/lib-dynload/_tkinter.so usr/ # It is indeed picked up here because we cd there at runtime
