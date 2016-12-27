@@ -18,6 +18,7 @@
     <comment xml:lang="da">Scribus Dokument</comment>
     <comment xml:lang="ru">Документ Scribus</comment>
     <comment xml:lang="tr">Scribus Belgesi</comment>
+    <comment xml:lang="hu">Scribus-dokumentum</comment>
     <magic priority="100">
         <match type="string" value="SCRIBUSUTF8" offset="1"/>
     </magic>
