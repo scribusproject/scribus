@@ -130,6 +130,22 @@
 		C -> "Dot"
 		C -> "POV-Ray"
     </it>
+    <hu>
+		ratio="fill";
+		edge [color ="blue"];
+		S [label="Scribus", color="#f94949", style=filled];
+		node [shape="box", color="#6767ed", style=filled];
+		S -> "Szövegkeretek";
+		S -> "Képkeretek";
+		C [label="Utasításkeretek"];
+		S -> C
+		node [shape="box", color="#82ec80", style=filled]
+		C -> "LaTeX"
+		C -> "Gnuplot"
+		C -> "LilyPond"
+		C -> "Dot"
+		C -> "POV-Ray"
+    </hu>
     </i18n>
 	</empty-frame-text>
 	<preamble>
