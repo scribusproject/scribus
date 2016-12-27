@@ -39,7 +39,7 @@ void Prefs_DocumentSections::restoreDefaults(struct ApplicationPrefs *prefsData)
 	m_localSections=prefsData->docSectionMap;
 	m_maxPageIndex=m_doc->DocPages.count()-1;
 	m_styles.clear();
-	m_styles=getFormatListTr();
+	m_styles = getFormatList();
 	m_styles << CommonStrings::tr_None;
 //	styles << tr("1, 2, 3, ...") << tr("i, ii, iii, ...") << tr("I, II, III, ...") << tr("a, b, c, ...") << tr("A, B, C, ...") << tr("*") << tr("CJK") << CommonStrings::tr_None;
 

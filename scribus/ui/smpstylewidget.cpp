@@ -198,7 +198,7 @@ void SMPStyleWidget::fillBulletStrEditCombo()
 void SMPStyleWidget::fillNumFormatCombo()
 {
 	numFormatCombo->clear();
-	numFormatCombo->addItems(getFormatListTr());
+	numFormatCombo->addItems(getFormatList());
 }
 
 void SMPStyleWidget::fillNumerationsCombo()

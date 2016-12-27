@@ -17,20 +17,20 @@ QString getAsterixStringFromNum(int num, QString asterix, QChar leadingChar, int
 	return str;
 }
 
-QStringList getFormatListTr()
+QStringList getFormatList()
 {
 	QStringList list;
-	list << QObject::tr("1, 2, 3, ...")
+	list << QString::fromLatin1("1, 2, 3, ...")
 	     // U+202D...U+202C to force the string to be displayed LTR
-	     << QObject::trUtf8("\u202d١, ٢, ٣, ...\u202c")
-	     << QObject::tr("i, ii, iii, ...")
-	     << QObject::tr("I, II, III, ...")
-	     << QObject::tr("a, b, c, ...")
-	     << QObject::tr("A, B, C, ...")
-	     << QObject::trUtf8("\u202dأ, ب, ت, ...\u202c")
-	     << QObject::trUtf8("\u202dأ, ب, ج, ...\u202c")
-	     << QObject::tr("*")
-	     << QObject::tr("CJK");
+	     << QString::fromUtf8("\xE2\x80\xAD١, ٢, ٣, ...\xE2\x80\xAC")
+	     << QString::fromLatin1("i, ii, iii, ...")
+	     << QString::fromLatin1("I, II, III, ...")
+	     << QString::fromLatin1("a, b, c, ...")
+	     << QString::fromLatin1("A, B, C, ...")
+	     << QString::fromUtf8("\xE2\x80\xADأ, ب, ت, ...\xE2\x80\xAC")
+	     << QString::fromUtf8("\xE2\x80\xADأ, ب, ج, ...\xE2\x80\xAC")
+	     << QString::fromLatin1("*")
+	     << QString::fromLatin1("CJK");
 	return list;
 }
 

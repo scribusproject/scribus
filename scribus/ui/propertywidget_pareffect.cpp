@@ -213,7 +213,7 @@ void PropertyWidget_ParEffect::fillBulletStrEditCombo()
 void PropertyWidget_ParEffect::fillNumFormatCombo()
 {
 	numFormatCombo->clear();
-	numFormatCombo->addItems(getFormatListTr());
+	numFormatCombo->addItems(getFormatList());
 }
 
 void PropertyWidget_ParEffect::fillPECombo()

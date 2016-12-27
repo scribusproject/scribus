@@ -61,6 +61,6 @@ QString getStringFromNum(NumFormat format, int num, QChar leadingChar='0', int c
 //convert passed num to string with custom chars
 QString getAsterixStringFromNum(int num, QString asterix, QChar leadingChar='_', int charsLen=0);
 //return numeration name from type
-QStringList getFormatListTr();
+QStringList getFormatList();
 
 #endif // NUMERATION_H
