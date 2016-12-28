@@ -1976,7 +1976,7 @@ bool ScImage::getAlpha(QString fn, int page, QByteArray& alpha, bool PDF, bool p
 	alpha.resize(0);
 	QString ext = fi.suffix().toLower();
 	QString ext2 = getImageType(fn);
-	if (ext.isEmpty() || (ext2 != ext))
+	if (ext.isEmpty() || (!ext2.isEmpty() && (ext2 != ext)))
 		ext = ext2;
 	QList<QByteArray> fmtList = QImageReader::supportedImageFormats();
 	QStringList fmtImg;
@@ -2127,7 +2127,7 @@ void ScImage::getEmbeddedProfile(const QString & fn, QByteArray *profile, int *c
 		return;
 	QString ext = fi.suffix().toLower();
 	QString ext2 = getImageType(fn);
-	if (ext.isEmpty() || (ext2 != ext))
+	if (ext.isEmpty() || (!ext2.isEmpty() && (ext2 != ext)))
 		ext = ext2;
 
 	if (extensionIndicatesPSD(ext))
