@@ -967,14 +967,15 @@ struct LineControl {
 		for (int i = 0; i < glyphs.count(); ++i)
 		{
 			GlyphCluster& glyphCluster = glyphs[i];
-			CharStyle charStyle(glyphCluster.style());
 			if (glyphCluster.hasFlag(ScLayout_TabLeaders))
 			{
+				const CharStyle& charStyle(glyphCluster.style());
 				GlyphLayout tglyph = glyphCluster.glyphs().last();
 				double width = glyphCluster.width();
 				double wt = charStyle.font().glyphWidth(tglyph.glyph, charStyle.fontSize() * tglyph.scaleV / 10.0);
 				int count = static_cast<int>(width / wt);
-				glyphCluster.glyphs().clear();
+				if (count > 0)
+					glyphCluster.glyphs().clear();
 				for(int cx = 0; cx < count; ++cx)
 				{
 					GlyphLayout more = tglyph;
@@ -983,6 +984,7 @@ struct LineControl {
 						more.xoffset = (width / count) * cx;
 					glyphCluster.append(more);
 				}
+				glyphCluster.glyphs().last().xadvance = width / glyphCluster.scaleH();
 			}
 		}
 	}
