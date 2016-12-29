@@ -62,9 +62,10 @@ script:
       else
         export NPROC=1;
       fi;
-    cmake . -DWANT_HUNSPELL=1 -DWITH_PODOFO=1 -DWANT_GRAPHICSMAGICK=1 -DWANT_DEBUG=0 -DWANT_SVNVERSION=0 -DWANT_GUI_LANG=en_US -DCMAKE_INSTALL_PREFIX=~/.local;
+    cmake . -DCMAKE_INSTALL_PREFIX=/usr -DWANT_HUNSPELL=1 -DWITH_PODOFO=1 -DWANT_GRAPHICSMAGICK=1 -DWANT_DEBUG=0 -DWANT_SVNVERSION=0 -DWANT_GUI_LANG=en_US;
     make -j"$NPROC";
     make install;
+    bash -ex ./AppImage-package/bundle.sh;
     fi
 
   - if [ $TRAVIS_OS_NAME = osx -a $CC = clang ]; then
