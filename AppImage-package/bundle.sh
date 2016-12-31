@@ -90,7 +90,7 @@ VERSION=git$GIT_REV-glibc$GLIBC_NEEDED
 # Patch away absolute paths; it would be nice if they were relative
 ########################################################################
 
-sed -i -e 's|/usr/share/scribus|././/share/scribus|g' usr/bin/scribus
+cd usr/ ; find . -type f -exec sed -i -e 's|/usr|././|g' {} \; ; cd ..
 sed -i -e 's|/usr/lib/scribus|././/lib/scribus|g' usr/bin/scribus
 sed -i -e 's|/usr/share/doc/scribus/|././/share/doc/scribus/|g' usr/bin/scribus
 # Possibly need to patch additional hardcoded paths away, replace
