@@ -24,24 +24,24 @@ for which a new license (GPL+exception) is in place.
 #include "commonstrings.h"
 #include "units.h"
 
-QString CommonStrings::_Apply					= "";
-QString CommonStrings::tr_Apply    				= "";
-QString CommonStrings::_Cancel     				= "";
-QString CommonStrings::tr_Cancel   				= "";
-QString CommonStrings::None        				= "";
-QString CommonStrings::tr_None     				= "";
-QString CommonStrings::tr_NoneColor				= "";
-QString CommonStrings::_OK         				= "";
-QString CommonStrings::tr_OK       				= "";
-QString CommonStrings::_Save       				= "";
-QString CommonStrings::tr_Save     				= "";
-QString CommonStrings::Warning     				= "";
-QString CommonStrings::trWarning   				= "";
+QString CommonStrings::_Apply						= "";
+QString CommonStrings::tr_Apply						= "";
+QString CommonStrings::_Cancel     					= "";
+QString CommonStrings::tr_Cancel	   				= "";
+QString CommonStrings::None        					= "";
+QString CommonStrings::tr_None     					= "";
+QString CommonStrings::tr_NoneColor					= "";
+QString CommonStrings::_OK         					= "";
+QString CommonStrings::tr_OK       					= "";
+QString CommonStrings::_Save       					= "";
+QString CommonStrings::tr_Save     					= "";
+QString CommonStrings::Warning     					= "";
+QString CommonStrings::trWarning   					= "";
 
-QString CommonStrings::trYes       				= "";
-QString CommonStrings::trNo        				= "";
-QString CommonStrings::trYesKey    				= "";
-QString CommonStrings::trNoKey     				= "";
+QString CommonStrings::trYes       					= "";
+QString CommonStrings::trNo        					= "";
+QString CommonStrings::trYesKey    					= "";
+QString CommonStrings::trNoKey     					= "";
 
 QString CommonStrings::customPageSize 				= "";
 QString CommonStrings::trCustomPageSize 			= "";
@@ -56,8 +56,8 @@ QString CommonStrings::itemType_LatexFrame			= "";
 QString CommonStrings::itemType_OSGFrame			= "";
 QString CommonStrings::itemType_Symbol				= "";
 QString CommonStrings::itemType_Group				= "";
-QString CommonStrings::itemType_RegularPolygon			= "";
-QString CommonStrings::itemType_Arc				= "";
+QString CommonStrings::itemType_RegularPolygon		= "";
+QString CommonStrings::itemType_Arc					= "";
 QString CommonStrings::itemType_Spiral				= "";
 QString CommonStrings::itemType_Table				= "";
 QString CommonStrings::itemType_Multiple			= "";
@@ -68,14 +68,14 @@ QString CommonStrings::itemSubType_PDF_TextField		= "";
 QString CommonStrings::itemSubType_PDF_CheckBox			= "";
 QString CommonStrings::itemSubType_PDF_ComboBox			= "";
 QString CommonStrings::itemSubType_PDF_ListBox			= "";
-QString CommonStrings::itemSubType_PDF_TextAnnotation		= "";
-QString CommonStrings::itemSubType_PDF_LinkAnnotation		= "";
-QString CommonStrings::itemName_PushButton			= "";
-QString CommonStrings::itemName_RadioButton			= "";
-QString CommonStrings::itemName_TextField			= "";
-QString CommonStrings::itemName_CheckBox			= "";
-QString CommonStrings::itemName_ComboBox			= "";
-QString CommonStrings::itemName_ListBox				= "";
+QString CommonStrings::itemSubType_PDF_TextAnnotation	= "";
+QString CommonStrings::itemSubType_PDF_LinkAnnotation	= "";
+QString CommonStrings::itemName_PushButton				= "";
+QString CommonStrings::itemName_RadioButton				= "";
+QString CommonStrings::itemName_TextField				= "";
+QString CommonStrings::itemName_CheckBox				= "";
+QString CommonStrings::itemName_ComboBox				= "";
+QString CommonStrings::itemName_ListBox					= "";
 QString CommonStrings::itemName_TextAnnotation			= "";
 QString CommonStrings::itemName_LinkAnnotation			= "";
 
@@ -89,42 +89,42 @@ QString CommonStrings::trPageSet2				= "";
 QString CommonStrings::trPageSet3				= "";
 QString CommonStrings::trPageSet4				= "";
 QString CommonStrings::pageLocLeft				= "";
-QString CommonStrings::pageLocMiddle				= "";
-QString CommonStrings::pageLocMiddleLeft			= "";
-QString CommonStrings::pageLocMiddleRight			= "";
+QString CommonStrings::pageLocMiddle			= "";
+QString CommonStrings::pageLocMiddleLeft		= "";
+QString CommonStrings::pageLocMiddleRight		= "";
 QString CommonStrings::pageLocRight				= "";
-QString CommonStrings::trPageLocLeft				= "";
-QString CommonStrings::trPageLocMiddle				= "";
-QString CommonStrings::trPageLocMiddleLeft			= "";
-QString CommonStrings::trPageLocMiddleRight 			= "";
-QString CommonStrings::trPageLocRight       			= "";
+QString CommonStrings::trPageLocLeft			= "";
+QString CommonStrings::trPageLocMiddle			= "";
+QString CommonStrings::trPageLocMiddleLeft		= "";
+QString CommonStrings::trPageLocMiddleRight 	= "";
+QString CommonStrings::trPageLocRight       	= "";
 
-QString CommonStrings:: masterPageNormal         		= "";
-QString CommonStrings:: trMasterPageNormal       		= "";
-QString CommonStrings:: masterPageNormalLeft     		= "";
-QString CommonStrings:: trMasterPageNormalLeft   		= "";
-QString CommonStrings:: masterPageNormalMiddle   		= "";
-QString CommonStrings:: trMasterPageNormalMiddle 		= "";
-QString CommonStrings:: masterPageNormalRight    		= "";
-QString CommonStrings:: trMasterPageNormalRight  		= "";
+QString CommonStrings:: masterPageNormal        	= "";
+QString CommonStrings:: trMasterPageNormal       	= "";
+QString CommonStrings:: masterPageNormalLeft     	= "";
+QString CommonStrings:: trMasterPageNormalLeft   	= "";
+QString CommonStrings:: masterPageNormalMiddle   	= "";
+QString CommonStrings:: trMasterPageNormalMiddle 	= "";
+QString CommonStrings:: masterPageNormalRight    	= "";
+QString CommonStrings:: trMasterPageNormalRight  	= "";
 
-QString CommonStrings::trPenStyle_SolidLine      		= "";
-QString CommonStrings::trPenStyle_DashedLine     		= "";
-QString CommonStrings::trPenStyle_DottedLine     		= "";
-QString CommonStrings::trPenStyle_DashDotLine    		= "";
-QString CommonStrings::trPenStyle_DashDotDotLine 		= "";
+QString CommonStrings::trPenStyle_SolidLine      	= "";
+QString CommonStrings::trPenStyle_DashedLine     	= "";
+QString CommonStrings::trPenStyle_DottedLine     	= "";
+QString CommonStrings::trPenStyle_DashDotLine    	= "";
+QString CommonStrings::trPenStyle_DashDotDotLine 	= "";
 
 
-QString CommonStrings::DefaultParagraphStyle     		= "";
-QString CommonStrings::DefaultCharacterStyle     		= "";
-QString CommonStrings::DefaultLineStyle          		= "";
-QString CommonStrings::DefaultTableStyle         		= "";
-QString CommonStrings::DefaultCellStyle          		= "";
-QString CommonStrings::trDefaultParagraphStyle   		= "";
-QString CommonStrings::trDefaultCharacterStyle   		= "";
-QString CommonStrings::trDefaultLineStyle        		= "";
-QString CommonStrings::trDefaultTableStyle       		= "";
-QString CommonStrings::trDefaultCellStyle        		= "";
+QString CommonStrings::DefaultParagraphStyle     	= "";
+QString CommonStrings::DefaultCharacterStyle     	= "";
+QString CommonStrings::DefaultLineStyle          	= "";
+QString CommonStrings::DefaultTableStyle         	= "";
+QString CommonStrings::DefaultCellStyle          	= "";
+QString CommonStrings::trDefaultParagraphStyle   	= "";
+QString CommonStrings::trDefaultCharacterStyle   	= "";
+QString CommonStrings::trDefaultLineStyle        	= "";
+QString CommonStrings::trDefaultTableStyle       	= "";
+QString CommonStrings::trDefaultCellStyle        	= "";
 
 
 QString CommonStrings::monday="", CommonStrings::tuesday="", CommonStrings::wednesday="";
@@ -141,43 +141,43 @@ QString CommonStrings::trDuotone   				= "";
 QString CommonStrings::trMonochrome				= "";
 QString CommonStrings::trUnknownCS 				= "";
 
-QString CommonStrings::trVisionNormal         			= "";
-QString CommonStrings::trVisionProtanopia     			= "";
-QString CommonStrings::trVisionDeuteranopia   			= "";
-QString CommonStrings::trVisionTritanopia     			= "";
-QString CommonStrings::trVisionFullColorBlind 			= "";
+QString CommonStrings::trVisionNormal         	= "";
+QString CommonStrings::trVisionProtanopia     	= "";
+QString CommonStrings::trVisionDeuteranopia   	= "";
+QString CommonStrings::trVisionTritanopia     	= "";
+QString CommonStrings::trVisionFullColorBlind 	= "";
 
-QString CommonStrings::trCustomTabFill        			= "";
+QString CommonStrings::trCustomTabFill        	= "";
 
-QString CommonStrings::trOpticalMarginsNone			= "";
-QString CommonStrings::trOpticalMarginsLeftProtruding		= "";
-QString CommonStrings::trOpticalMarginsRightProtruding		= "";
-QString CommonStrings::trOpticalMarginsLeftHangPunct		= "";
-QString CommonStrings::trOpticalMarginsRightHangPunct		= "";
+QString CommonStrings::trOpticalMarginsNone				= "";
+QString CommonStrings::trOpticalMarginsLeftProtruding	= "";
+QString CommonStrings::trOpticalMarginsRightProtruding	= "";
+QString CommonStrings::trOpticalMarginsLeftHangPunct	= "";
+QString CommonStrings::trOpticalMarginsRightHangPunct	= "";
 QString CommonStrings::trOpticalMarginsDefault			= "";
 
-QString CommonStrings::trMinWordTracking   			= "";
-QString CommonStrings::trMaxWordTracking   			= "";
-QString CommonStrings::trMinGlyphExtension 			= "";
-QString CommonStrings::trMaxGlyphExtension 			= "";
+QString CommonStrings::trMinWordTracking   		= "";
+QString CommonStrings::trMaxWordTracking   		= "";
+QString CommonStrings::trMinGlyphExtension 		= "";
+QString CommonStrings::trMaxGlyphExtension 		= "";
 
-QString CommonStrings::PostScript   				= "";
-QString CommonStrings::trPostScript 				= "";
-QString CommonStrings::PDF_1_3      				= "";
-QString CommonStrings::PDF_1_4      				= "";
-QString CommonStrings::PDF_1_5      				= "";
+QString CommonStrings::PostScript				= "";
+QString CommonStrings::trPostScript				= "";
+QString CommonStrings::PDF_1_3					= "";
+QString CommonStrings::PDF_1_4					= "";
+QString CommonStrings::PDF_1_5					= "";
 QString CommonStrings::PDF_X1a					= "";
-QString CommonStrings::PDF_X3       				= "";
+QString CommonStrings::PDF_X3					= "";
 QString CommonStrings::PDF_X4					= "";
 
-QString CommonStrings::PostScript1   				= "";
-QString CommonStrings::trPostScript1 				= "";
-QString CommonStrings::PostScript2   				= "";
-QString CommonStrings::trPostScript2 				= "";
-QString CommonStrings::PostScript3 				= "";
-QString CommonStrings::trPostScript3 				= "";
-QString CommonStrings::WindowsGDI    				= "";
-QString CommonStrings::trWindowsGDI  				= "";
+QString CommonStrings::PostScript1				= "";
+QString CommonStrings::trPostScript1			= "";
+QString CommonStrings::PostScript2				= "";
+QString CommonStrings::trPostScript2			= "";
+QString CommonStrings::PostScript3				= "";
+QString CommonStrings::trPostScript3			= "";
+QString CommonStrings::WindowsGDI				= "";
+QString CommonStrings::trWindowsGDI				= "";
 
 QString CommonStrings::trStrPT 					= "";
 QString CommonStrings::trStrMM 					= "";
@@ -194,10 +194,10 @@ QString CommonStrings::strCM   					= "";
 QString CommonStrings::strC    					= "";
 QString CommonStrings::strPX   					= "";
 
-QString CommonStrings::controlModifier 				= "";
-QString CommonStrings::altModifier     				= "";
-QString CommonStrings::shiftModifier   				= "";
-QString CommonStrings::metaModifier    				= "";
+QString CommonStrings::controlModifier 			= "";
+QString CommonStrings::altModifier     			= "";
+QString CommonStrings::shiftModifier   			= "";
+QString CommonStrings::metaModifier    			= "";
 
 CommonStrings::CommonStrings()
 {
@@ -280,7 +280,7 @@ void CommonStrings::languageChange()
 	CommonStrings::tr_None 				= tr( "None" );
 	CommonStrings::tr_NoneColor			= tr("None", "color name");
 
-	CommonStrings::_OK 				= "&OK";
+	CommonStrings::_OK 					= "&OK";
 	CommonStrings::tr_OK				= tr( "&OK" );
 
 	CommonStrings::_Save 				= "&Save";
@@ -290,7 +290,7 @@ void CommonStrings::languageChange()
 	CommonStrings::trWarning			= tr( "Warning" );
 
 	CommonStrings::trYes 				= tr("Yes");
-	CommonStrings::trNo				= tr("No");
+	CommonStrings::trNo					= tr("No");
 	CommonStrings::trYesKey   			= tr("&Yes");
 	CommonStrings::trNoKey    			= tr("&No");
 
@@ -304,8 +304,8 @@ void CommonStrings::languageChange()
 	CommonStrings::itemType_OSGFrame		= tr("PDF 3D Annotation");
 	CommonStrings::itemType_Symbol			= tr("Symbol");
 	CommonStrings::itemType_Group			= tr("Group");
-	CommonStrings::itemType_RegularPolygon		= tr("Regular Polygon");
-	CommonStrings::itemType_Arc			= tr("Arc");
+	CommonStrings::itemType_RegularPolygon	= tr("Regular Polygon");
+	CommonStrings::itemType_Arc				= tr("Arc");
 	CommonStrings::itemType_Spiral			= tr("Spiral");
 	CommonStrings::itemType_Table			= tr("Table");
 	CommonStrings::itemType_Multiple		= tr("Multiple", "Multiple frame types");
@@ -323,36 +323,36 @@ void CommonStrings::languageChange()
 	CommonStrings::itemName_CheckBox		= tr("Checkbox");
 	CommonStrings::itemName_ComboBox		= tr("Combobox");
 	CommonStrings::itemName_ListBox			= tr("Listbox");
-	CommonStrings::itemName_TextAnnotation		= tr("TextAnnot");
-	CommonStrings::itemName_LinkAnnotation		= tr("Link");
+	CommonStrings::itemName_TextAnnotation	= tr("TextAnnot");
+	CommonStrings::itemName_LinkAnnotation	= tr("Link");
 
 
 	CommonStrings::customPageSize 		= "Custom";
-	CommonStrings::trCustomPageSize 	= tr( "Custom", "CommonStrings, custom page size" );
+	CommonStrings::trCustomPageSize		= tr( "Custom", "CommonStrings, custom page size" );
 
-	CommonStrings::pageSet1 		= "Single Page";
-	CommonStrings::pageSet2 		= "Facing Pages";
-	CommonStrings::pageSet3 		= "3-Fold";
-	CommonStrings::pageSet4 		= "4-Fold";
-	CommonStrings::trPageSet1 		= tr( "Single Page" );
-	CommonStrings::trPageSet2 		= tr( "Facing Pages" );
-	CommonStrings::trPageSet3 		= tr( "3-Fold" );
-	CommonStrings::trPageSet4 		= tr( "4-Fold" );
+	CommonStrings::pageSet1 			= "Single Page";
+	CommonStrings::pageSet2 			= "Facing Pages";
+	CommonStrings::pageSet3 			= "3-Fold";
+	CommonStrings::pageSet4 			= "4-Fold";
+	CommonStrings::trPageSet1 			= tr( "Single Page" );
+	CommonStrings::trPageSet2 			= tr( "Facing Pages" );
+	CommonStrings::trPageSet3 			= tr( "3-Fold" );
+	CommonStrings::trPageSet4 			= tr( "4-Fold" );
 
-	CommonStrings::pageLocLeft		= "Left Page";
+	CommonStrings::pageLocLeft			= "Left Page";
 	CommonStrings::pageLocMiddle		= "Middle";
 	CommonStrings::pageLocMiddleLeft	= "Middle Left";
 	CommonStrings::pageLocMiddleRight	= "Middle Right";
-	CommonStrings::pageLocRight		= "Right Page";
+	CommonStrings::pageLocRight			= "Right Page";
 	CommonStrings::trPageLocLeft		= tr( "Left Page", "Left page location" );
 	CommonStrings::trPageLocMiddle		= tr( "Middle", "Middle page location" );
 	CommonStrings::trPageLocMiddleLeft	= tr( "Middle Left", "Middle Left page location" );
 	CommonStrings::trPageLocMiddleRight	= tr( "Middle Right", "Middle Right page location" );
 	CommonStrings::trPageLocRight		= tr( "Right Page", "Right page location" );
 
-	CommonStrings::masterPageNormal		= "Normal";
-	CommonStrings::trMasterPageNormal	= tr( "Normal", "Default single master page" );
-	CommonStrings::masterPageNormalLeft	= "Normal Left";
+	CommonStrings::masterPageNormal			= "Normal";
+	CommonStrings::trMasterPageNormal		= tr( "Normal", "Default single master page" );
+	CommonStrings::masterPageNormalLeft		= "Normal Left";
 	CommonStrings::trMasterPageNormalLeft	= tr( "Normal Left", "Default left master page" );
 	CommonStrings::masterPageNormalMiddle	= "Normal Middle";
 	CommonStrings::trMasterPageNormalMiddle	= tr( "Normal Middle", "Default middle master page" );
@@ -367,14 +367,14 @@ void CommonStrings::languageChange()
 
 	CommonStrings::DefaultParagraphStyle	= "Default Paragraph Style";
 	CommonStrings::DefaultCharacterStyle	= "Default Character Style";
-	CommonStrings::DefaultLineStyle		= "Default Line Style";
-	CommonStrings::DefaultTableStyle	= "Default Table Style";
-	CommonStrings::DefaultCellStyle		= "Default Cell Style";
+	CommonStrings::DefaultLineStyle			= "Default Line Style";
+	CommonStrings::DefaultTableStyle		= "Default Table Style";
+	CommonStrings::DefaultCellStyle			= "Default Cell Style";
 	CommonStrings::trDefaultParagraphStyle	= tr("Default Paragraph Style");
 	CommonStrings::trDefaultCharacterStyle	= tr("Default Character Style");
-	CommonStrings::trDefaultLineStyle	= tr("Default Line Style");
-	CommonStrings::trDefaultTableStyle	= tr("Default Table Style");
-	CommonStrings::trDefaultCellStyle	= tr("Default Cell Style");
+	CommonStrings::trDefaultLineStyle		= tr("Default Line Style");
+	CommonStrings::trDefaultTableStyle		= tr("Default Table Style");
+	CommonStrings::trDefaultCellStyle		= tr("Default Cell Style");
 
 
 	CommonStrings::monday			= tr("Monday");
@@ -388,9 +388,9 @@ void CommonStrings::languageChange()
 	CommonStrings::february			= tr("February");
 	CommonStrings::march			= tr("March");
 	CommonStrings::april			= tr("April");
-	CommonStrings::may			= tr("May");
-	CommonStrings::june			= tr("June");
-	CommonStrings::july			= tr("July");
+	CommonStrings::may				= tr("May");
+	CommonStrings::june				= tr("June");
+	CommonStrings::july				= tr("July");
 	CommonStrings::august			= tr("August");
 	CommonStrings::september		= tr("September");
 	CommonStrings::october			= tr("October");
@@ -404,7 +404,7 @@ void CommonStrings::languageChange()
 	CommonStrings::trMonochrome		= tr("Monochrome", "Colorspace");
 	CommonStrings::trUnknownCS		= tr("Unknown", "Colorspace (Unknown)");
 
-	CommonStrings::trCustomTabFill		= tr("Custom: ","Custom Tab Fill Option");
+	CommonStrings::trCustomTabFill	= tr("Custom: ","Custom Tab Fill Option");
 
 	CommonStrings::trVisionNormal         = tr("Normal Vision", "Color Blindness - Normal Vision");
 	CommonStrings::trVisionProtanopia     = tr("Protanopia (Red)", "Color Blindness - Red Color Blind");
@@ -437,14 +437,14 @@ void CommonStrings::languageChange()
 	CommonStrings::PDF_X3				= "PDF/X-3";
 	CommonStrings::PDF_X4				= "PDF/X-4";
 
-	CommonStrings::PostScript1   			= "PostScript Level 1";
-	CommonStrings::trPostScript1 			= tr( "PostScript Level 1" );
-	CommonStrings::PostScript2   			= "PostScript Level 2";
-	CommonStrings::trPostScript2 			= tr( "PostScript Level 2" );
-	CommonStrings::PostScript3   			= "PostScript Level 3";
-	CommonStrings::trPostScript3 			= tr( "PostScript Level 3" );
-	CommonStrings::WindowsGDI    			= "Windows GDI";
-	CommonStrings::trWindowsGDI  			= tr( "Windows GDI" );
+	CommonStrings::PostScript1			= "PostScript Level 1";
+	CommonStrings::trPostScript1		= tr( "PostScript Level 1" );
+	CommonStrings::PostScript2			= "PostScript Level 2";
+	CommonStrings::trPostScript2		= tr( "PostScript Level 2" );
+	CommonStrings::PostScript3			= "PostScript Level 3";
+	CommonStrings::trPostScript3		= tr( "PostScript Level 3" );
+	CommonStrings::WindowsGDI			= "Windows GDI";
+	CommonStrings::trWindowsGDI			= tr( "Windows GDI" );
 
 	//Units
 	CommonStrings::trStrPT				= unitGetStrFromIndex(SC_PT);
@@ -457,26 +457,26 @@ void CommonStrings::languageChange()
 	CommonStrings::strPT				= unitGetUntranslatedStrFromIndex(SC_PT);
 	CommonStrings::strMM				= unitGetUntranslatedStrFromIndex(SC_MM);
 	CommonStrings::strIN				= unitGetUntranslatedStrFromIndex(SC_IN);
-	CommonStrings::strP				= unitGetUntranslatedStrFromIndex(SC_P);
+	CommonStrings::strP					= unitGetUntranslatedStrFromIndex(SC_P);
 	CommonStrings::strCM				= unitGetUntranslatedStrFromIndex(SC_CM);
-	CommonStrings::strC				= unitGetUntranslatedStrFromIndex(SC_C);
-	CommonStrings::strPX 				= "px";
+	CommonStrings::strC					= unitGetUntranslatedStrFromIndex(SC_C);
+	CommonStrings::strPX				= "px";
 
 	//Keyboard Modifiers
 	CommonStrings::altModifier			= tr("Alt");
-	CommonStrings::shiftModifier			= tr("Shift");
+	CommonStrings::shiftModifier		= tr("Shift");
 
 #ifdef Q_OS_MAC
-	CommonStrings::controlModifier			= tr("Cmd");
+	CommonStrings::controlModifier		= tr("Cmd");
 	CommonStrings::metaModifier			= tr("Ctrl");
 #endif
 #ifdef Q_OS_WIN32
-	CommonStrings::controlModifier 			= tr("Ctrl");
-	CommonStrings::metaModifier 			= tr("Windows");
+	CommonStrings::controlModifier 		= tr("Ctrl");
+	CommonStrings::metaModifier 		= tr("Windows");
 #endif
 #if !defined(Q_OS_WIN32) && !defined(Q_OS_MAC)
-	CommonStrings::controlModifier 			= tr("Ctrl");
-	CommonStrings::metaModifier 			= tr("Meta");
+	CommonStrings::controlModifier 		= tr("Ctrl");
+	CommonStrings::metaModifier 		= tr("Meta");
 #endif
 
 }
