@@ -1,5 +1,19 @@
 <?xml version="1.0" encoding="utf8"?>
 <templates>
+	<template category="Könyvek">
+		<name>Lulu és Createspace 6x9 papírkönyv</name>
+		<file>Lulu_and_Createspace_6x9_paper_book/Lulu_and_Createspace_6x9_paper_book.sla.gz</file>
+		<tnail>Lulu_and_Createspace_6x9_paper_book/Lulu_and_Createspace_6x9_paper_booktn.png</tnail>
+		<img>Lulu_and_Createspace_6x9_paper_book/Lulu_and_Createspace_6x9_paper_book.png</img>
+		<psize>egyedi, 432x648</psize>
+		<color></color>
+		<descr>Egyszerű 6x9-es papírkötésű könyvsablon olyan szolgáltatók számára, mint a Lulu és a Createspace. Egy csak egy sablon, minden további garancia nélkül.</descr>
+		<usage>Ez a Mű a Creative Commons Nevezd meg! 4.0 Nemzetközi Licenc feltételeinek megfelelően felhasználható. A licenc másolata megtekinthető a http://creativecommons.org/licenses/by/4.0/ címen, vagy elkérhető a Creative Commons-tól is a következő címre küldött levéllel: PO Box 1866, Mountain View, CA 94042, USA.</usage>
+		<scribus_version>1.4.5</scribus_version>
+		<date>2016-02-06</date>
+		<author>IndieImprint</author>
+		<email>mikeb@indieimprint.com</email>
+	</template>
 	<template category="Hírlevelek">
 		<name>1. hírlevél</name>
     	<file>nl1/nl1.sla.gz</file>
@@ -20,7 +34,7 @@
     	<tnail>nl2/nl2tn.png</tnail>
     	<img>nl2/nl2.png</img>
     	<psize>A4</psize>
-    	<color>b/w</color>
+    	<color>fekete fehér</color>
     	<descr>Egyszerű hírlevél sablon</descr>
     	<usage>Jobb klikk a szöveg- és képkereteken a tartalom cseréjéhez. A képek szabadon felhasználhatók.</usage>
 		<scribus_version>1.2RC1cvs</scribus_version>
@@ -61,7 +75,7 @@
 		<file>pres_backgr_1/blue_orange_vector.sla.gz</file>
 		<tnail>pres_backgr_1/blue_orange_vectortn.png</tnail>
 		<img>pres_backgr_1/blue_orange_vector.png</img>
-		<psize>custom, 842x632</psize>
+		<psize>egyedi, 842x632</psize>
 		<color>RGB</color>
 		<descr></descr>
 		<usage></usage>
@@ -75,7 +89,7 @@
 		<file>pres_backgr_2/flood_light.sla.gz</file>
 		<tnail>pres_backgr_2/flood_lighttn.png</tnail>
 		<img>pres_backgr_2/flood_light.png</img>
-		<psize>custom, 842x632</psize>
+		<psize>egyedi, 842x632</psize>
 		<color>RGB</color>
 		<descr>Bemutató háttér</descr>
 		<usage></usage>
@@ -89,7 +103,7 @@
 		<file>pres_backgr_3/glass_ripples.sla.gz</file>
 		<tnail>pres_backgr_3/glass_ripplestn.png</tnail>
 		<img>pres_backgr_3/glass_ripples.png</img>
-		<psize>custom, 842x632</psize>
+		<psize>egyedi, 842x632</psize>
 		<color>RGB</color>
 		<descr></descr>
 		<usage></usage>
@@ -103,7 +117,7 @@
 		<file>pres_backgr_4/bokeh.sla.gz</file>
 		<tnail>pres_backgr_4/Bokehtn.png</tnail>
 		<img>pres_backgr_4/Bokeh.png</img>
-		<psize>custom, 842x632</psize>
+		<psize>egyedi, 842x632</psize>
 		<color>RGB</color>
 		<descr></descr>
 		<usage></usage>
@@ -117,7 +131,7 @@
 		<file>cc/Cheat_Cube.sla.gz</file>
 		<tnail>cc/Cheat_Cubetn.png</tnail>
 		<img>cc/Cheat_Cube.png</img>
-		<psize>custom, 1052x744</psize>
+		<psize>egyedi, 1052x744</psize>
 		<color>színes</color>
 		<descr></descr>
 		<usage></usage>
@@ -131,7 +145,7 @@
 		<file>mc/menu_template1.sla.gz</file>
 		<tnail>mc/menu_template1tn.png</tnail>
 		<img>mc/menu_template1.png</img>
-		<psize>custom, 1224x792</psize>
+		<psize>egyedi, 1224x792</psize>
 		<color>színes</color>
 		<descr>Egyszerű étlap sablon</descr>
 		<usage></usage>
@@ -215,7 +229,7 @@
 		<file>grid_br_a4_l/Brochure_Grid_A4_L.sla.gz</file>
 		<tnail>grid_br_a4_l/Brochure_Grid_A4_Ltn.png</tnail>
 		<img>grid_br_a4_l/Brochure_Grid_A4_L.png</img>
-		<psize>custom, 1684x596</psize>
+		<psize>egyedi, 1684x596</psize>
 		<color>RGB</color>
 		<descr>Tervezőrács egy A4-es fekvő brosúrához.</descr>
 		<usage>A saját tartalmat a „Content” nevű rétegen hozzuk létre. A „Background” réteget tiltsuk le nyomtatás vagy PDF-be exportálás előtt.</usage>
@@ -229,7 +243,7 @@
 		<file>grid_br_a4_p/Brochure_Grid_A4_P.sla.gz</file>
 		<tnail>grid_br_a4_p/Brochure_Grid_A4_Ptn.png</tnail>
 		<img>grid_br_a4_p/Brochure_Grid_A4_P.png</img>
-		<psize>custom, 1191x842</psize>
+		<psize>egyedi, 1191x842</psize>
 		<color>RGB</color>
 		<descr>Tervezőrács egy A4-es álló brosúrához.</descr>
 		<usage>A saját tartalmat a „Content” nevű rétegen hozzuk létre. A „Background” réteget tiltsuk le nyomtatás vagy PDF-be exportálás előtt.</usage>
@@ -243,7 +257,7 @@
 		<file>grid_br_975x85in_l/Brochure_Grid_975x85in_L.sla.gz</file>
 		<tnail>grid_br_975x85in_l/Brochure_Grid_975x85_in_Ltn.png</tnail>
 		<img>grid_br_975x85in_l/Brochure_Grid_975x85_in_L.png</img>
-		<psize>custom, 1404x612</psize>
+		<psize>egyedi, 1404x612</psize>
 		<color>RGB</color>
 		<descr>Tervezőrács egy 9.75×8.5 hüvelykes fekvő brosúrához.</descr>
 		<usage>A saját tartalmat a „Content” nevű rétegen hozzuk létre. A „Background” réteget tiltsuk le nyomtatás vagy PDF-be exportálás előtt.</usage>
@@ -257,7 +271,7 @@
 		<file>grid_br_975x85_p/Brochure_Grid_975x85in_P.sla.gz</file>
 		<tnail>grid_br_975x85_p/Brochure_Grid_975x85_in_Ptn.png</tnail>
 		<img>grid_br_975x85_p/Brochure_Grid_975x85_in_P.png</img>
-		<psize>custom, 1224x702</psize>
+		<psize>egyedi, 1224x702</psize>
 		<color>RGB</color>
 		<descr>Tervezőrács egy 9.75×8.5 hüvelykes álló brosúrához.</descr>
 		<usage>A saját tartalmat a „Content” nevű rétegen hozzuk létre. A „Background” réteget tiltsuk le nyomtatás vagy PDF-be exportálás előtt.</usage>
@@ -271,7 +285,7 @@
 		<file>grid_br_375x85_p/Brochure_Grid_375x85in_P.sla.gz</file>
 		<tnail>grid_br_375x85_p/Brochure_Grid_375x85_in_Ptn.png</tnail>
 		<img>grid_br_375x85_p/Brochure_Grid_375x85_in_P.png</img>
-		<psize>custom, 540x613</psize>
+		<psize>egyedi, 540x613</psize>
 		<color>RGB</color>
 		<descr>Tervezőrács egy 3.75×8.5 hüvelykes álló brosúrához.</descr>
 		<usage>A saját tartalmat a „Content” nevű rétegen hozzuk létre. A „Background” réteget tiltsuk le nyomtatás vagy PDF-be exportálás előtt.</usage>
@@ -285,7 +299,7 @@
 		<file>grid_br_375x85_l/Brochure_Grid_375x85in_L.sla.gz</file>
 		<tnail>grid_br_375x85_l/Brochure_Grid_375x85_in_Landscapetn.png</tnail>
 		<img>grid_br_375x85_l/Brochure_Grid_375x85_in_Landscape.png</img>
-		<psize>custom, 1224x270</psize>
+		<psize>egyedi, 1224x270</psize>
 		<color>RGB</color>
 		<descr>Tervezőrács egy 3.75×8.5 hüvelykes fekvő brosúrához.</descr>
 		<usage>A saját tartalmat a „Content” nevű rétegen hozzuk létre. A „Background” réteget tiltsuk le nyomtatás vagy PDF-be exportálás előtt.</usage>
@@ -299,7 +313,7 @@
 		<file>grid_br_100x210_p/Brochure_Grid_100x210_P.sla.gz</file>
 		<tnail>grid_br_100x210_p/Brochure_Grid_100x210_Ptn.png</tnail>
 		<img>grid_br_100x210_p/Brochure_Grid_100x210_P.png</img>
-		<psize>custom, 567x596</psize>
+		<psize>egyedi, 567x596</psize>
 		<color>RGB</color>
 		<descr>Tervezőrács egy 100x210 mm-es álló brosúrához.</descr>
 		<usage>A saját tartalmat a „Content” nevű rétegen hozzuk létre. A „Background” réteget tiltsuk le nyomtatás vagy PDF-be exportálás előtt.</usage>
@@ -313,7 +327,7 @@
 		<file>grid_br_100x210_l/Brochure_Grid_100x210_L.sla.gz</file>
 		<tnail>grid_br_100x210_l/Brochure_Grid_100x210_mm_Landscapetn.png</tnail>
 		<img>grid_br_100x210_l/Brochure_Grid_100x210_mm_Landscape.png</img>
-		<psize>custom, 1191x284</psize>
+		<psize>egyedi, 1191x284</psize>
 		<color>RGB</color>
 		<descr>Tervezőrács egy 100x210 mm-es fekvő brosúrához.</descr>
 		<usage>A saját tartalmat a „Content” nevű rétegen hozzuk létre. A „Background” réteget tiltsuk le nyomtatás vagy PDF-be exportálás előtt.</usage>
@@ -327,7 +341,7 @@
 		<file>grid_br_55x86in_p/Brochure_Grid_55x85in_P.sla.gz</file>
 		<tnail>grid_br_55x86in_p/Brochure_Grid_55x85in_Portraoittn.png</tnail>
 		<img>grid_br_55x86in_p/Brochure_Grid_55x85in_Portraoit.png</img>
-		<psize>custom, 792x613</psize>
+		<psize>egyedi, 792x613</psize>
 		<color>RGB</color>
 		<descr>Tervezőrács egy 5.5×8.5 hüvelykes álló brosúrához.</descr>
 		<usage>A saját tartalmat a „Content” nevű rétegen hozzuk létre. A „Background” réteget tiltsuk le nyomtatás vagy PDF-be exportálás előtt.</usage>
@@ -341,7 +355,7 @@
 		<file>grid_br_55x85in_l/Brochure_Grid_55x85in_L.sla.gz</file>
 		<tnail>grid_br_55x85in_l/Brochure_Grid_55x85_in_Ltn.png</tnail>
 		<img>grid_br_55x85in_l/Brochure_Grid_55x85_in_L.png</img>
-		<psize>custom, 1224x396</psize>
+		<psize>egyedi, 1224x396</psize>
 		<color>RGB</color>
 		<descr>Tervezőrács egy 5.5×8.5 hüvelykes fekvő brosúrához.</descr>
 		<usage>A saját tartalmat a „Content” nevű rétegen hozzuk létre. A „Background” réteget tiltsuk le nyomtatás vagy PDF-be exportálás előtt.</usage>
@@ -355,7 +369,7 @@
 		<file>grid_poster_a3/Poster_Grid_A3.sla.gz</file>
 		<tnail>grid_poster_a3/Poster_Grid_A3tn.png</tnail>
 		<img>grid_poster_a3/Poster_Grid_A3.png</img>
-		<psize>custom, 842x1191</psize>
+		<psize>egyedi, 842x1191</psize>
 		<color>RGB</color>
 		<descr>Tervezőrács egy A3-as plakát számára.</descr>
 		<usage>A saját tartalmat a „Content” nevű rétegen hozzuk létre. A „Background” réteget tiltsuk le nyomtatás vagy PDF-be exportálás előtt.</usage>
@@ -369,7 +383,7 @@
 		<file>grid_poster_a2/Poster_Grid_A2.sla.gz</file>
 		<tnail>grid_poster_a2/Poster_Grid_A2tn.png</tnail>
 		<img>grid_poster_a2/Poster_Grid_A2.png</img>
-		<psize>custom, 1191x1684</psize>
+		<psize>egyedi, 1191x1684</psize>
 		<color>RGB</color>
 		<descr>Tervezőrács egy A2-es plakát számára.</descr>
 		<usage>A saját tartalmat a „Content” nevű rétegen hozzuk létre. A „Background” réteget tiltsuk le nyomtatás vagy PDF-be exportálás előtt.</usage>
@@ -383,7 +397,7 @@
 		<file>grid_poster_a1/Poster_Grid_A1.sla.gz</file>
 		<tnail>grid_poster_a1/Poster_Grid_A1tn.png</tnail>
 		<img>grid_poster_a1/Poster_Grid_A1.png</img>
-		<psize>custom, 1684x2384</psize>
+		<psize>egyedi, 1684x2384</psize>
 		<color>RGB</color>
 		<descr>Tervezőrács egy A1-es plakát számára.</descr>
 		<usage>A saját tartalmat a „Content” nevű rétegen hozzuk létre. A „Background” réteget tiltsuk le nyomtatás vagy PDF-be exportálás előtt.</usage>
@@ -397,7 +411,7 @@
 		<file>grid_poster_a0/Poster_Grid_A0.sla.gz</file>
 		<tnail>grid_poster_a0/Poster_Grid_A0tn.png</tnail>
 		<img>grid_poster_a0/Poster_Grid_A0.png</img>
-		<psize>custom, 2384x3371</psize>
+		<psize>egyedi, 2384x3371</psize>
 		<color>RGB</color>
 		<descr>Tervezőrács egy A0-ás plakát számára.</descr>
 		<usage>A saját tartalmat a „Content” nevű rétegen hozzuk létre. A „Background” réteget tiltsuk le nyomtatás vagy PDF-be exportálás előtt.</usage>
@@ -411,7 +425,7 @@
 		<file>grid_br_usl_p/Brochure_Grid_USL_P.sla.gz</file>
 		<tnail>grid_br_usl_p/Brochure_Grid_USL_Ptn.png</tnail>
 		<img>grid_br_usl_p/Brochure_Grid_USL_P.png</img>
-		<psize>custom, 1224x792</psize>
+		<psize>egyedi, 1224x792</psize>
 		<color>RGB</color>
 		<descr>Tervezőrács egy amerikai levélpapír brosúrához.</descr>
 		<usage>A saját tartalmat a „Content” nevű rétegen hozzuk létre. A „Background” réteget tiltsuk le nyomtatás vagy PDF-be exportálás előtt.</usage>
@@ -425,7 +439,7 @@
 		<file>grid_br_usl_l/Brochure_Grid_USL_L.sla.gz</file>
 		<tnail>grid_br_usl_l/Brochure_Grid_USL_Ltn.png</tnail>
 		<img>grid_br_usl_l/Brochure Grid_USL_L.png</img>
-		<psize>custom, 1584x612</psize>
+		<psize>egyedi, 1584x612</psize>
 		<color>RGB</color>
 		<descr>Tervezőrács egy amerikai levélpapír brosúrához.</descr>
 		<usage>A saját tartalmat a „Content” nevű rétegen hozzuk létre. A „Background” réteget tiltsuk le nyomtatás vagy PDF-be exportálás előtt.</usage>
@@ -439,7 +453,7 @@
 		<file>grid_br_dinl_p/Brochure_Grid_DIN_LANG_P.sla.gz</file>
 		<tnail>grid_br_dinl_p/Brochure_Grid_DIN_LANG_Ptn.png</tnail>
 		<img>grid_br_dinl_p/Brochure_Grid_DIN_LANG_P.png</img>
-		<psize>custom, 596x596</psize>
+		<psize>egyedi, 596x596</psize>
 		<color>RGB</color>
 		<descr>Tervezőrács egy DIN LANG brosúrához.</descr>
 		<usage>A saját tartalmat a „Content” nevű rétegen hozzuk létre. A „Background” réteget tiltsuk le nyomtatás vagy PDF-be exportálás előtt.</usage>
@@ -453,7 +467,7 @@
 		<file>grid_br_dinl_l/Brochure_Grid_DIN_LANG_L.sla.gz</file>
 		<tnail>grid_br_dinl_l/Brochure_Grid_DIN_LANG_Ltn.png</tnail>
 		<img>grid_br_dinl_l/Brochure_Grid_DIN_LANG_L.png</img>
-		<psize>custom, 1191x298</psize>
+		<psize>egyedi, 1191x298</psize>
 		<color>RGB</color>
 		<descr>Tervezőrács egy DIN LANG brosúrához.</descr>
 		<usage>A saját tartalmat a „Content” nevű rétegen hozzuk létre. A „Background” réteget tiltsuk le nyomtatás vagy PDF-be exportálás előtt.</usage>
@@ -467,7 +481,7 @@
 		<file>grid_br_a5_p/Brochure_Grid_A5_P.sla.gz</file>
 		<tnail>grid_br_a5_p/Brochure_Grid_A5_Portraittn.png</tnail>
 		<img>grid_br_a5_p/Brochure_Grid_A5_Portrait.png</img>
-		<psize>custom, 840x596</psize>
+		<psize>egyedi, 840x596</psize>
 		<color>RGB</color>
 		<descr>Tervezőrács egy A5-ös brosúrához.</descr>
 		<usage>A saját tartalmat a „Content” nevű rétegen hozzuk létre. A „Background” réteget tiltsuk le nyomtatás vagy PDF-be exportálás előtt.</usage>
@@ -481,7 +495,7 @@
 		<file>grid_br_a5_l/Brochure_Grid_A5_L.sla.gz</file>
 		<tnail>grid_br_a5_l/Brochure_Grid_A5_Ltn.png</tnail>
 		<img>grid_br_a5_l/Brochure_Grid_A5_L.png</img>
-		<psize>custom, 1191x420</psize>
+		<psize>egyedi, 1191x420</psize>
 		<color>RGB</color>
 		<descr>Tervezőrács egy A5-ös brosúrához.</descr>
 		<usage>A saját tartalmat a „Content” nevű rétegen hozzuk létre. A „Background” réteget tiltsuk le nyomtatás vagy PDF-be exportálás előtt.</usage>
@@ -495,7 +509,7 @@
 		<file>buscard_coll/business_card_collection.sla.gz</file>
 		<tnail>buscard_coll/Business_Card_Collectiontn.png</tnail>
 		<img>buscard_coll/Business_Card_Collection.png</img>
-		<psize>custom, 1436x1709</psize>
+		<psize>egyedi, 1436x1709</psize>
 		<color>RGB</color>
 		<descr>Egy névjegykártya gyűjtemény.</descr>
 		<usage>A kívánt névjegykártyát másoljuk egy másik dokumentumba vagy a gyűjtőalbumba a felhasználásához, ill. a módosításához.</usage>
@@ -509,7 +523,7 @@
 		<file>buscard1/buscard1.sla.gz</file>
 		<tnail>buscard1/Business_Card_1tn.png</tnail>
 		<img>buscard1/Business_Card_1.png</img>
-		<psize>custom, 252x144</psize>
+		<psize>egyedi, 252x144</psize>
 		<color>RGB</color>
 		<descr></descr>
 		<usage></usage>
@@ -523,7 +537,7 @@
 		<file>buscard2/buscard2.sla.gz</file>
 		<tnail>buscard2/Business_Card_2tn.png</tnail>
 		<img>buscard2/Business_Card_2.png</img>
-		<psize>custom, 252x144</psize>
+		<psize>egyedi, 252x144</psize>
 		<color>RGB</color>
 		<descr></descr>
 		<usage></usage>
@@ -537,7 +551,7 @@
 		<file>buscard3/buscard3.sla.gz</file>
 		<tnail>buscard3/Business_Card_3tn.png</tnail>
 		<img>buscard3/Business_Card_3.png</img>
-		<psize>custom, 252x144</psize>
+		<psize>egyedi, 252x144</psize>
 		<color>RGB</color>
 		<descr></descr>
 		<usage></usage>
@@ -551,7 +565,7 @@
 		<file>buscard4/buscard4.sla.gz</file>
 		<tnail>buscard4/Business_Card_4tn.png</tnail>
 		<img>buscard4/Business_Card_4.png</img>
-		<psize>custom, 252x144</psize>
+		<psize>egyedi, 252x144</psize>
 		<color>RGB</color>
 		<descr></descr>
 		<usage></usage>
@@ -565,7 +579,7 @@
 		<file>buscard5/buscard5.sla.gz</file>
 		<tnail>buscard5/Business_Card_5tn.png</tnail>
 		<img>buscard5/Business_Card_5.png</img>
-		<psize>custom, 252x144</psize>
+		<psize>egyedi, 252x144</psize>
 		<color>RGB</color>
 		<descr></descr>
 		<usage></usage>
@@ -579,7 +593,7 @@
 		<file>buscard6/buscard6.sla.gz</file>
 		<tnail>buscard6/Business_Card_6tn.png</tnail>
 		<img>buscard6/Business_Card_6.png</img>
-		<psize>custom, 252x144</psize>
+		<psize>egyedi, 252x144</psize>
 		<color>RGB</color>
 		<descr></descr>
 		<usage></usage>
@@ -593,7 +607,7 @@
 		<file>buscard7/buscard7.sla.gz</file>
 		<tnail>buscard7/Business_Card_7tn.png</tnail>
 		<img>buscard7/Business_Card_7.png</img>
-		<psize>custom, 252x144</psize>
+		<psize>egyedi, 252x144</psize>
 		<color>RGB</color>
 		<descr></descr>
 		<usage></usage>
@@ -607,7 +621,7 @@
 		<file>buscard8/buscard8.sla.gz</file>
 		<tnail>buscard8/Business_Card_8tn.png</tnail>
 		<img>buscard8/Business_Card_8.png</img>
-		<psize>custom, 252x144</psize>
+		<psize>egyedi, 252x144</psize>
 		<color>RGB</color>
 		<descr></descr>
 		<usage></usage>
@@ -621,7 +635,7 @@
 		<file>buscard9/buscard9.sla.gz</file>
 		<tnail>buscard9/Business_Card_9tn.png</tnail>
 		<img>buscard9/Business_Card_9.png</img>
-		<psize>custom, 252x144</psize>
+		<psize>egyedi, 252x144</psize>
 		<color>RGB</color>
 		<descr></descr>
 		<usage></usage>
@@ -635,7 +649,7 @@
 		<file>buscard10/buscard10.sla.gz</file>
 		<tnail>buscard10/Business_Card_10tn.png</tnail>
 		<img>buscard10/Business_Card_10.png</img>
-		<psize>custom, 252x144</psize>
+		<psize>egyedi, 252x144</psize>
 		<color>RGB</color>
 		<descr></descr>
 		<usage></usage>
@@ -649,7 +663,7 @@
 		<file>buscard11/buscard11.sla.gz</file>
 		<tnail>buscard11/Business_Card_11tn.png</tnail>
 		<img>buscard11/Business_Card_11.png</img>
-		<psize>custom, 252x144</psize>
+		<psize>egyedi, 252x144</psize>
 		<color>RGB</color>
 		<descr></descr>
 		<usage></usage>
