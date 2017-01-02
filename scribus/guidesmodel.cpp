@@ -41,8 +41,8 @@ QVariant GuidesModel::data(const QModelIndex & index, int role) const
 {
 	if (!index.isValid())
 		return QVariant();
-	// DisplayRole and EditRole *must* be splitted. There is rounding
-	// in pts2value(), toString() sequence. It disallows to compare
+	// DisplayRole and EditRole *must* be split. There is rounding
+	// in pts2value(), toString() sequence. It disallows to compaing
 	// these values with m_data list.
 	// Call it with EditRole when you need exact value.
 	if (role == Qt::DisplayRole)
