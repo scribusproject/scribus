@@ -259,12 +259,26 @@ int TextLayout::nextLine(int pos) const
 
 int TextLayout::startOfFrame() const
 {
-	return m_box->firstChar();
+	QList<Box*>& boxes = m_box->boxes();
+	if (boxes.isEmpty())
+		return 0;
+
+	const GroupBox* column = dynamic_cast<const GroupBox*>(boxes.first());
+	assert(column);
+
+	return column->firstChar();
 }
 
 int TextLayout::endOfFrame() const
 {
-	return m_box->lastChar() + 1;
+	QList<Box*>& boxes = m_box->boxes();
+	if (boxes.isEmpty())
+		return 0;
+
+	const GroupBox* column = dynamic_cast<const GroupBox*>(boxes.last());
+	assert(column);
+
+	return column->lastChar() + 1;
 }
 
 
