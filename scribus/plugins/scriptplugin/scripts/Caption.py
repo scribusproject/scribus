@@ -23,17 +23,23 @@
 
 © 2017 Gregory Pittman
 
-Caption.py
+caption.py
 
 Creates a text frame (caption) in selected location relative to 
 one or more selected frames.
 
 USAGE
 
-Select one or more frames (can be any kind of frame), run script. Dialog appears
-for choosing placement of all caption frames B/T/R/L (Bottom/Top/Right/Left).
-Bottom and Top caption frames are sized to width of parent frame and height 
+Select one or more object (can be any kind of frame, or even imported vector graphics), 
+
+run script. Dialog appears for choosing placement of all caption frames 
+
+B/T/R/L (Bottom/Top/Right/Left).
+
+Bottom and Top caption frames are sized to width of parent object and height 
+
 of 24 points. Right and Left caption frames sized to 150 points width and 
+
 40 points height.
 
 """
@@ -50,7 +56,7 @@ count = 0
 frames = []
 
 if numselect == 0:
-    scribus.messageBox('Selection Count', "You must have at least one image frame selected",
+    scribus.messageBox('Selection Count', "You must have at least one object selected",
                        scribus.ICON_WARNING, scribus.BUTTON_OK)
     sys.exit(2)
 
