@@ -6,6 +6,7 @@ install(FILES
 Autoquote.py
 Autoquote2.py
 CalendarWizard.py
+Caption.py
 ColorChart.py
 DirectImageImport.py
 FontSample.py
