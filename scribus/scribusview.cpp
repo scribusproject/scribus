@@ -3528,6 +3528,7 @@ bool ScribusView::eventFilter(QObject *obj, QEvent *event)
 		m_canvasMode->mousePressEvent(m);
 		//if user don't click any frame he want to draw new frame and link it
 		bool requestDrawMode = (Doc->ElemToLink == NULL);
+		requestDrawMode &= (firstFrame && !firstFrame->nextInChain());
 		if (linkmode && requestDrawMode)
 		{
 			//switch to drawing new text frame
