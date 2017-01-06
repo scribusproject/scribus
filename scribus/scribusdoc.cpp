@@ -16598,12 +16598,12 @@ QString ScribusDoc::getNumberStr(QString numName, int level, bool reset, const P
 	numS->m_lastlevel = level;
 	if (level >= numS->m_nums.count())
 		return QString();
-	Numeration num = numS->m_nums[level];
+
+	Numeration& num = numS->m_nums[level];
 	num.numFormat = (NumFormat) style.numFormat();
 	num.start = style.numStart();
 	num.prefix = style.numPrefix();
 	num.suffix = style.numSuffix();
-	numS->m_nums.replace(level, num);
 
 	int currNum = numS->m_counters.at(level);
 	if (reset)
@@ -16614,7 +16614,7 @@ QString ScribusDoc::getNumberStr(QString numName, int level, bool reset, const P
 	QString result;
 	for (int i=0; i <= level; ++i)
 	{
-		Numeration num = numS->m_nums[i];
+		const Numeration& num = numS->m_nums.at(i);
 		result.append(num.prefix);
 		result.append(num.numString(numS->m_counters.at(i)));
 		result.append(num.suffix);
