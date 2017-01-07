@@ -273,7 +273,7 @@ void PropertyWidget_ParEffect::updateStyle(const ParagraphStyle& newPStyle)
 	dropCapLines->setValue(newPStyle.dropCapLines());
 	bulletStrEdit->setEditText(newPStyle.bulletStr());
 	numName = newPStyle.numName();
-	if (numName == "")
+	if (numName.isEmpty())
 		numName = "<local block>";
 	numComboBox->setCurrentIndex(numComboBox->findText(numName));
 	NumStruct * numS = m_doc->numerations.value(numName);
