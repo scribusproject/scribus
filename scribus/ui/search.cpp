@@ -1110,6 +1110,7 @@ void SearchReplace::readPrefs()
 	RSizeVal->setValue(m_prefs->getDouble("RSizeVal", m_doc->currentStyle.charStyle().fontSize() / 10.0));
 	Word->setChecked(m_prefs->getBool("Word", false));
 	CaseIgnore->setChecked(m_prefs->getBool("CaseIgnore", false));
+
 	enableTxSearch();
 	enableStyleSearch();
 	enableAlignSearch();
@@ -1130,6 +1131,9 @@ void SearchReplace::readPrefs()
 	enableFillSReplace();
 	enableStrokeReplace();
 	enableStrokeSReplace();
+
+	if (SText->isChecked() && RText->isChecked())
+		STextVal->setFocus();
 }
 
 void SearchReplace::writePrefs()
