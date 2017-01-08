@@ -115,7 +115,7 @@
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <DisableSpecificWarnings>4005;4244;4251;4258;4267;4996;%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <ForcedIncludeFiles>.\scribuspch.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
-      <AdditionalOptions>/MP4 %(AdditionalOptions)</AdditionalOptions>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <AdditionalDependencies>$(QT5CORE_LIB);$(QT5GUI_LIB);$(QT5NETWORK_LIB);$(QT5PRINTSUPPORT_LIB);$(QT5QML_LIB);$(QT5QUICK_LIB);$(QT5WIDGETS_LIB);$(QT5XML_LIB);$(CAIRO_LIB);$(FREETYPE_LIB);$(HARFBUZZ_LIB);$(ICU_LIB);$(LCMS_LIB);$(LIBJPEG_LIB);$(LIBTIFF_LIB);$(PODOFO_LIB);$(ZLIB_LIB);mscms.lib;WSock32.Lib;scribus-pgf.lib;scribus-wpg.lib;scribus-zip.lib;%(AdditionalDependencies)</AdditionalDependencies>
@@ -149,7 +149,7 @@
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <DisableSpecificWarnings>4005;4244;4251;4258;4267;4996;%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <ForcedIncludeFiles>.\scribuspch.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
-      <AdditionalOptions>/MP4 %(AdditionalOptions)</AdditionalOptions>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <AdditionalDependencies>$(QT5CORE_LIB);$(QT5GUI_LIB);$(QT5NETWORK_LIB);$(QT5PRINTSUPPORT_LIB);$(QT5QML_LIB);$(QT5QUICK_LIB);$(QT5WIDGETS_LIB);$(QT5XML_LIB);$(CAIRO_LIB);$(FREETYPE_LIB);$(HARFBUZZ_LIB);$(ICU_LIB);$(LCMS_LIB);$(LIBJPEG_LIB);$(LIBTIFF_LIB);$(PODOFO_LIB);$(ZLIB_LIB);mscms.lib;WSock32.Lib;scribus-pgf.lib;scribus-wpg.lib;scribus-zip.lib;%(AdditionalDependencies)</AdditionalDependencies>
@@ -183,7 +183,7 @@
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <DisableSpecificWarnings>4005;4244;4251;4258;4267;4996;%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <ForcedIncludeFiles>.\scribuspch.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
-      <AdditionalOptions>/MP4 %(AdditionalOptions)</AdditionalOptions>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <AdditionalDependencies>$(QT5CORE_LIB);$(QT5GUI_LIB);$(QT5NETWORK_LIB);$(QT5PRINTSUPPORT_LIB);$(QT5QML_LIB);$(QT5QUICK_LIB);$(QT5WIDGETS_LIB);$(QT5XML_LIB);$(CAIRO_LIB);$(FREETYPE_LIB);$(HARFBUZZ_LIB);$(ICU_LIB);$(LCMS_LIB);$(LIBJPEG_LIB);$(LIBTIFF_LIB);$(PODOFO_LIB);$(ZLIB_LIB);mscms.lib;WSock32.Lib;scribus-pgf.lib;scribus-wpg.lib;scribus-zip.lib;%(AdditionalDependencies)</AdditionalDependencies>
@@ -218,7 +218,7 @@
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <DisableSpecificWarnings>4005;4244;4251;4258;4267;4996;%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <ForcedIncludeFiles>.\scribuspch.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
-      <AdditionalOptions>/MP4 %(AdditionalOptions)</AdditionalOptions>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <AdditionalDependencies>$(QT5CORE_LIB);$(QT5GUI_LIB);$(QT5NETWORK_LIB);$(QT5PRINTSUPPORT_LIB);$(QT5QML_LIB);$(QT5QUICK_LIB);$(QT5WIDGETS_LIB);$(QT5XML_LIB);$(CAIRO_LIB);$(FREETYPE_LIB);$(HARFBUZZ_LIB);$(ICU_LIB);$(LCMS_LIB);$(LIBJPEG_LIB);$(LIBTIFF_LIB);$(PODOFO_LIB);$(ZLIB_LIB);mscms.lib;WSock32.Lib;scribus-pgf.lib;scribus-wpg.lib;scribus-zip.lib;%(AdditionalDependencies)</AdditionalDependencies>

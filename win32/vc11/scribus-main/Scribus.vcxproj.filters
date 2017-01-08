@@ -1067,9 +1067,6 @@
     <ClInclude Include="..\..\..\scribus\text\textsource.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\scribus\ui\textpalette.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\scribus\desaxe\digester.cpp">
@@ -4206,6 +4203,9 @@
       <Filter>Header Files</Filter>
     </moc>
     <moc Include="..\..\..\scribus\ui\smdirectionselect.h">
+      <Filter>Header Files</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\textpalette.h">
       <Filter>Header Files</Filter>
     </moc>
   </ItemGroup>
