@@ -110,7 +110,6 @@ class SCRIBUS_API PSLib : public QObject
 		virtual void PS_newpath();
 		virtual void PS_show(double x, double y);
 		virtual void PS_showSub(uint chr, QString font, double size, bool stroke);
-		virtual void PS_show_xyG(QString font, uint gl, double x, double y, QString colorName, double shade);
 		virtual bool PS_image(PageItem *c, double x, double y, QString fn, double scalex, double scaley, QString Prof, bool UseEmbedded, QString Name = "");
 		virtual bool PS_ImageData(PageItem *c, QString fn, QString Name, QString Prof, bool UseEmbedded);
 		virtual void PS_plate(int nr, QString name = "");
@@ -190,7 +189,6 @@ class SCRIBUS_API PSLib : public QObject
 		QString FontDesc;
 		QMap<QString, QString> UsedFonts;
 		QMap<QString, QString> FontSubsetMap;
-    QMap<QString, ScFace::FaceEncoding> GlyphsOfFont;
 		bool isPDF;
 		QFile Spool;
 		QDataStream spoolStream;

@@ -300,75 +300,54 @@ PSLib::PSLib(PrintOptions &options, bool psart, SCFonts &AllFonts, QMap<QString,
 		// Subset also font whose postscript name conflicts with an already used font
 		// Subset always now with new boxes code.
 		ScFace &face (AllFonts[it.key()]);
-//		ScFace::FontType type = face.type();
+		QMap<uint, FPointArray>& RealGlyphs(it.value());
 		QString encodedName = face.psName().simplified().replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "_" );
 
-//		if ((type == ScFace::TTF) || (face.isOTF()) || (face.subset()) || psNameMap.contains(encodedName))
-//		{
-			QMap<uint, FPointArray>& RealGlyphs(it.value());
-			// Handle possible PostScript name conflict in oft/ttf fonts
-			int psNameIndex = 1;
-			QString initialName = encodedName;
-			while (psNameMap.contains(encodedName))
-			{
-				encodedName = QString("%1-%2").arg(initialName).arg(psNameIndex);
-				++psNameIndex;
-			}
-			FontDesc += "/" + encodedName + " " + IToStr(RealGlyphs.count()+1) + " dict def\n";
-			FontDesc += encodedName + " begin\n";
-			QMap<uint,FPointArray>::Iterator ig;
-			for (ig = RealGlyphs.begin(); ig != RealGlyphs.end(); ++ig)
-			{
-				FontDesc += "/G"+IToStr(ig.key())+" { newpath\n";
-				FPoint np, np1, np2;
-				bool nPath = true;
-				if (ig.value().size() > 3)
-				{
-					for (int poi = 0; poi < ig.value().size()-3; poi += 4)
-					{
-						if (ig.value().isMarker(poi))
-						{
-							FontDesc += "cl\n";
-							nPath = true;
-							continue;
-						}
-						if (nPath)
-						{
-							np = ig.value().point(poi);
-							FontDesc += ToStr(np.x()) + " " + ToStr(-np.y()) + " m\n";
-							nPath = false;
-						}
-						np = ig.value().point(poi+1);
-						np1 = ig.value().point(poi+3);
-						np2 = ig.value().point(poi+2);
-						FontDesc += ToStr(np.x()) + " " + ToStr(-np.y()) + " " +
-								ToStr(np1.x()) + " " + ToStr(-np1.y()) + " " +
-								ToStr(np2.x()) + " " + ToStr(-np2.y()) + " cu\n";
-					}
-				}
-				FontDesc += "cl\n} bind def\n";
-			}
-			FontDesc += "end\n";
-			FontSubsetMap.insert(face.scName(), encodedName);
-/*		}
-		else
+		// Handle possible PostScript name conflict in oft/ttf fonts
+		int psNameIndex = 1;
+		QString initialName = encodedName;
+		while (psNameMap.contains(encodedName))
 		{
-			UsedFonts.insert(it.key(), "/Fo"+IToStr(a));
-			Fonts += "/Fo" + IToStr(a) + " /" + encodedName + " findfont definefont pop\n";
-			if (AllFonts[it.key()].embedPs())
+			encodedName = QString("%1-%2").arg(initialName).arg(psNameIndex);
+			++psNameIndex;
+		}
+		FontDesc += "/" + encodedName + " " + IToStr(RealGlyphs.count()+1) + " dict def\n";
+		FontDesc += encodedName + " begin\n";
+		QMap<uint,FPointArray>::Iterator ig;
+		for (ig = RealGlyphs.begin(); ig != RealGlyphs.end(); ++ig)
+		{
+			FontDesc += "/G"+IToStr(ig.key())+" { newpath\n";
+			FPoint np, np1, np2;
+			bool nPath = true;
+			if (ig.value().size() > 3)
 			{
-				QByteArray tmp;
-				if(face.EmbedFont(tmp))
+				for (int poi = 0; poi < ig.value().size()-3; poi += 4)
 				{
-					FontDesc += "%%BeginFont: " + encodedName + "\n";
-					FontDesc += tmp + "\n%%EndFont\n";
+					if (ig.value().isMarker(poi))
+					{
+						FontDesc += "cl\n";
+						nPath = true;
+						continue;
+					}
+					if (nPath)
+					{
+						np = ig.value().point(poi);
+						FontDesc += ToStr(np.x()) + " " + ToStr(-np.y()) + " m\n";
+						nPath = false;
+					}
+					np = ig.value().point(poi+1);
+					np1 = ig.value().point(poi+3);
+					np2 = ig.value().point(poi+2);
+					FontDesc += ToStr(np.x()) + " " + ToStr(-np.y()) + " " +
+							ToStr(np1.x()) + " " + ToStr(-np1.y()) + " " +
+							ToStr(np2.x()) + " " + ToStr(-np2.y()) + " cu\n";
 				}
 			}
-            ScFace::FaceEncoding gl;
-			face.glyphNames(gl);
-			GlyphsOfFont.insert(it.key(), gl);
-			a++;
-		} */
+			FontDesc += "cl\n} bind def\n";
+		}
+		FontDesc += "end\n";
+		FontSubsetMap.insert(face.scName(), encodedName);
+
 		psNameMap.insert(encodedName, face.scName());
 	}
 	Prolog = "%%BeginProlog\n";
@@ -1118,44 +1097,6 @@ void PSLib::PS_fill_stroke()
 void PSLib::PS_newpath()
 {
 	PutStream("newpath\n");
-}
-
-void PSLib::PS_show_xyG(QString font, uint glyph, double x, double y, QString colorName, double shade)
-{
-	QString glyphName;
-	glyphName = GlyphsOfFont[font].contains(glyph) ? GlyphsOfFont[font][glyph].second : QString(".notdef");
-
-	QString colorString;
-	ScColor& color(colorsToUse[colorName]);
-	bool spot = false;
-	if (((color.isSpotColor()) || (color.isRegistrationColor())) && (useSpotColors))
-	{
-		if (!DoSep)
-		{
-			colorString = ToStr(shade / 100.0)+" "+spotMap[colorName];
-			spot = true;
-		}
-		else if ((colorName == currentSpot) || (color.isRegistrationColor()))
-			colorString = "0 0 0 "+ToStr(shade / 100.0);
-		else
-			colorString = "0 0 0 0";
-	}
-	else
-	{
-		int c, m, y, k;
-		SetColor(color, shade, &c, &m, &y, &k);
-		if (!DoSep || (Plate == 0 || Plate == 1 || Plate == 2 || Plate == 3))
-			colorString = ToStr(c / 255.0) + " " + ToStr(m / 255.0) + " " + ToStr(y / 255.0) + " " + ToStr(k / 255.0);
-		else
-			colorString = "0 0 0 0";
-	}
-	if (spot)
-	{
-		PutStream(colorString + "\n");
-		PutStream("/"+glyphName+" "+ToStr(x)+" "+ToStr(y)+" shgsp\n");
-	}
-	else
-		PutStream("/"+glyphName+" "+ToStr(x)+" "+ToStr(y)+" "+colorString+" shg\n");
 }
 
 void PSLib::PS_show(double x, double y)
