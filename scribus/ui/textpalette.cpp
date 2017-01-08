@@ -255,14 +255,7 @@ void  TextPalette::handleSelectionChanged()
 		case PageItem::ImageFrame:
 		case PageItem::LatexFrame:
 		case PageItem::OSGFrame:
-			if (currItem->asOSGFrame())
-			{
-				textPal->setEnabled(false);
-			}
-			else
-			{
-				textPal->setEnabled(false);
-			}
+			textPal->setEnabled(false);
 			break;
 		case PageItem::TextFrame:
 			textPal->setEnabled(true);
