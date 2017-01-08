@@ -30,7 +30,6 @@ class SCRIBUS_API FontListView : public QTableView
 		QString fontName(int i);
 		bool    isFontUsable(int i);
 		bool    isFontSubsetted(int i);
-		bool    isFontEmbeddedInPS(int i);
 };
 
 #endif

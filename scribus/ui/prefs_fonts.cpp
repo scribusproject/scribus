@@ -219,7 +219,6 @@ void Prefs_Fonts::saveGuiToPrefs(struct ApplicationPrefs *prefsData) const
 
 		face.usable(fontListTableView->isFontUsable(i));
 		face.subset(fontListTableView->isFontSubsetted(i));
-		face.embedPs(fontListTableView->isFontEmbeddedInPS(i));
 	}
 
 	if (m_doc==0)

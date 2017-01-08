@@ -35,11 +35,10 @@ class SCRIBUS_API FontListModel : public QAbstractTableModel
 		FontListModel(QObject * parent = 0, ScribusDoc * doc = 0, bool includeDisabled = false);
 
 		enum ColumnTypes {
-            FontUsable = 0,
+			FontUsable = 0,
 			FontName,
 			FontType,
 			FontFormat,
-			FontEmbed,
 			FontSubset,
 			FontAccess,
 			FontInDoc,

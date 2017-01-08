@@ -89,8 +89,6 @@ QVariant FontListModel::headerData(int section,
 				return tr("Type");
 			case FontListModel::FontFormat:
 				return tr("Format");
-			case FontListModel::FontEmbed:
-				return tr("Embed in PostScript");
 			case FontListModel::FontSubset:
 				return tr("Subset");
 			case FontListModel::FontAccess:
@@ -199,7 +197,6 @@ QVariant FontListModel::data(const QModelIndex & index,
 				if (role == Qt::ToolTipRole
 					&&
 					(index.column() == FontListModel::FontUsable
-					 || index.column() == FontListModel::FontEmbed
 					 || index.column() == FontListModel::FontSubset
 					 )
 					)
@@ -216,13 +213,6 @@ QVariant FontListModel::data(const QModelIndex & index,
 			return (font.usable() ? Qt::Checked : Qt::Unchecked);
 		else
 			return (m_enabledFonts[index.row()] ? Qt::Checked : Qt::Unchecked);
-	}
-	if (role == Qt::CheckStateRole && index.column() == FontListModel::FontEmbed)
-	{
-		if (isLive())
-			return (font.embedPs() ? Qt::Checked : Qt::Unchecked);
-		else
-			return ((m_embedFlags[index.row()] & EmbedPS) ? Qt::Checked : Qt::Unchecked);
 	}
 	if (role == Qt::CheckStateRole && index.column() == FontListModel::FontSubset)
 	{
@@ -242,7 +232,6 @@ Qt::ItemFlags FontListModel::flags(const QModelIndex &index) const
 	if (!index.isValid())
 		return QAbstractTableModel::flags(index);
 	if (index.column() == FontListModel::FontUsable
-		   || index.column() == FontListModel::FontEmbed
 		   || index.column() == FontListModel::FontSubset)
 		return Qt::ItemIsUserCheckable | /*Qt::ItemIsEditable |*/ defaultFlags;
 	else
@@ -276,8 +265,6 @@ bool FontListModel::setData(const QModelIndex & idx,
 	{
 		if (idx.column() == FontListModel::FontUsable)
 			f.usable(!f.usable());
-		else if (idx.column() == FontListModel::FontEmbed)
-			f.embedPs(!f.embedPs());
 		else if (idx.column() == FontListModel::FontSubset)
 			f.subset(!f.subset());
 		else
@@ -289,12 +276,6 @@ bool FontListModel::setData(const QModelIndex & idx,
 		{
 			Qt::CheckState checkState = static_cast<Qt::CheckState>(value.toInt());
 			m_enabledFonts[idx.row()] = (checkState == Qt::Checked);
-		}
-		if (idx.column() == FontListModel::FontEmbed)
-		{
-			Qt::CheckState checkState = static_cast<Qt::CheckState>(value.toInt());
-			m_embedFlags[idx.row()] &= ~EmbedPS;
-			m_embedFlags[idx.row()] |= (checkState == Qt::Checked) ? EmbedPS : 0;
 		}
 		else if (idx.column() == FontListModel::FontSubset)
 		{
@@ -309,7 +290,7 @@ bool FontListModel::setData(const QModelIndex & idx,
 	if (idx.column() == FontListModel::FontUsable)
 		emit dataChanged(index(idx.row(), FontListModel::FontUsable), index(idx.row(), FontListModel::FontUsable));
 	else
-		emit dataChanged(index(idx.row(), FontListModel::FontEmbed), index(idx.row(), FontListModel::FontSubset));
+		emit dataChanged(index(idx.row(), FontListModel::FontSubset), index(idx.row(), FontListModel::FontSubset));
 
 	return true;
 }
