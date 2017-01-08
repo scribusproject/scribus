@@ -389,10 +389,13 @@ static QString decodeNameRecord(FT_SfntName name)
 			break;
 		case TT_MS_ID_SJIS:
 			encoding = "Shift-JIS";
+			break;
 		case TT_MS_ID_GB2312:
 			encoding = "GB18030-0";
+			break;
 		case TT_MS_ID_BIG_5:
 			encoding = "Big5";
+			break;
 		default:
 			break;
 		}
