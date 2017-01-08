@@ -29,8 +29,6 @@ protected:
 	void disconnectSignals();
 	PageItem* m_item;
 	ScribusMainWindow* m_ScMW;
-	double m_unitRatio;
-	int m_unitIndex;
 
 	void configureWidgets(void);
 	void setCurrentItem(PageItem *item);

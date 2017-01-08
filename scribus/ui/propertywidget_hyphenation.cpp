@@ -18,6 +18,7 @@ PropertyWidget_Hyphenation::PropertyWidget_Hyphenation(QWidget* parent)
 {
 	m_item = NULL;
 	m_ScMW = NULL;
+
 	setupUi(this);
 
 	setFrameStyle(QFrame::Box | QFrame::Plain);
