@@ -153,7 +153,7 @@ protected:
 	ScribusDoc * const m_doc;
 	PanGesture * m_panGesture;
 	UndoManager* undoManager;
-	double xSnap,ySnap;
+	double xSnap, ySnap;
 	
 	void setResizeCursor(int how, double rot = 0.0);
 	bool commonMouseMove(QMouseEvent *m);
