@@ -70,7 +70,7 @@ void PageItem_Group::adjustXYPosition()
 	}
 }
 
-QList<PageItem*> PageItem_Group::getItemList()
+QList<PageItem*> PageItem_Group::getItemList() const
 {
 	QList<PageItem*> ret;
 	for (int em = 0; em < groupItemList.count(); ++em)

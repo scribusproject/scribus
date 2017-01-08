@@ -44,7 +44,7 @@ public:
 	virtual bool isGroup() const { return true; }
 	virtual ItemType realItemType() const { return PageItem::Group; }
 	void adjustXYPosition();
-	virtual QList<PageItem*> getItemList();
+	virtual QList<PageItem*> getItemList() const;
 	virtual void setLayer(int layerId);
 	virtual void getNamedResources(ResourceCollection& lists) const;
 	virtual void replaceNamedResources(ResourceCollection& newNames);

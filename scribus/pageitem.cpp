@@ -4404,10 +4404,9 @@ void PageItem::setLocked(bool isLocked)
 		toggleLock();
 }
 
-QList<PageItem*> PageItem::getItemList()
+QList<PageItem*> PageItem::getItemList() const
 {
 	QList<PageItem*> ret;
-	ret.clear();
 	return ret;
 }
 

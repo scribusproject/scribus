@@ -94,6 +94,9 @@ public:
 	/// Return current text properties (current char + paragraph properties)
 	virtual void currentTextProps(ParagraphStyle& parStyle) const;
 
+	/// Return the list of cell items
+	virtual QList<PageItem*> getItemList() const;
+
 	/// Returns the number of rows in the table.
 	int rows() const { return m_rows; }
 

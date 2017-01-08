@@ -80,6 +80,28 @@ void PageItem_Table::currentTextProps(ParagraphStyle& parStyle) const
 		parStyle = this->itemText.defaultStyle();
 }
 
+QList<PageItem*> PageItem_Table::getItemList() const
+{
+	QList<PageItem*> ret;
+
+	int numRows = this->rows();
+	int numColums = this->columns();
+	for (int row = 0; row < numRows; ++row)
+	{
+		for (int col = 0; col < numColums; ++col)
+		{
+			TableCell cell = cellAt(row, col);
+			if (cell.row() == row && cell.column() == col)
+			{
+				PageItem* textFrame = cell.textFrame();
+				ret.append(textFrame);
+			}
+		}
+	}
+
+	return ret;
+}
+
 void PageItem_Table::getNamedResources(ResourceCollection& lists) const
 {
 	TableBorder lborder = leftBorder();
