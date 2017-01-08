@@ -111,7 +111,8 @@ void ResourceManager::readAvailableFonts()
 	QFile dataFile(ScPaths::downloadDir() + dataFiles[RM_FONTS]);
 	if (!dataFile.exists())
 		return;
-	dataFile.open(QIODevice::ReadOnly);
+	if (!dataFile.open(QIODevice::ReadOnly))
+		return;
 	QTextStream ts(&dataFile);
 	ts.setCodec(QTextCodec::codecForName("UTF-8"));
 	QString errorMsg;
@@ -170,7 +171,8 @@ void ResourceManager::readAvailableHelp()
 	QFile dataFile(ScPaths::downloadDir() + dataFiles[RM_HELP]);
 	if (!dataFile.exists())
 		return;
-	dataFile.open(QIODevice::ReadOnly);
+	if (!dataFile.open(QIODevice::ReadOnly))
+		return;
 	QTextStream ts(&dataFile);
 	ts.setCodec(QTextCodec::codecForName("UTF-8"));
 	QString errorMsg;
@@ -228,7 +230,8 @@ void ResourceManager::readAvailablePalettes()
 	QFile dataFile(ScPaths::downloadDir() + dataFiles[RM_PALETTES]);
 	if (!dataFile.exists())
 		return;
-	dataFile.open(QIODevice::ReadOnly);
+	if (!dataFile.open(QIODevice::ReadOnly))
+		return;
 	QTextStream ts(&dataFile);
 	ts.setCodec(QTextCodec::codecForName("UTF-8"));
 	QString errorMsg;
@@ -544,7 +547,8 @@ void ResourceManager::updateAvailableHyph()
 	QFile dataFile(ScPaths::downloadDir() + dataFiles[RM_HYPH]);
 	if (!dataFile.exists())
 		return;
-	dataFile.open(QIODevice::ReadOnly);
+	if (!dataFile.open(QIODevice::ReadOnly))
+		return;
 	QTextStream ts(&dataFile);
 	ts.setCodec(QTextCodec::codecForName("UTF-8"));
 	QString errorMsg;
@@ -644,7 +648,8 @@ void ResourceManager::updateAvailableSpell()
 	QFile dataFile(ScPaths::downloadDir() + dataFiles[RM_SPELL]);
 	if (!dataFile.exists())
 		return;
-	dataFile.open(QIODevice::ReadOnly);
+	if (!dataFile.open(QIODevice::ReadOnly))
+		return;
 	QTextStream ts(&dataFile);
 	ts.setCodec(QTextCodec::codecForName("UTF-8"));
 	QString errorMsg;
@@ -1143,7 +1148,8 @@ void ResourceManager::downloadLicenseFileFinished(const QString &licenceFileName
 	QString data;
 	if (dataFile.exists())
 	{
-		dataFile.open(QIODevice::ReadOnly);
+		if (!dataFile.open(QIODevice::ReadOnly))
+			return;
 		data = ts.readAll();
 		dataFile.close();
 	}
