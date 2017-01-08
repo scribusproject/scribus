@@ -411,8 +411,23 @@ struct TabControl {
 	GlyphLayout* tabGlyph;
 };
 
-struct LineSpec
+class LineSpec
 {
+	public:
+	LineSpec()
+	{
+		x = 0.0;
+		y = 0.0;
+		firstCluster = 0;
+		lastCluster = 0;
+		ascent = 0.0;
+		descent = 0.0;
+		width  = 0.0;
+		height = 0.0;
+		naturalWidth = 0.0;
+		colLeft = 0.0;
+	}
+
 	qreal x;
 	qreal y;
 	qreal width;
@@ -431,7 +446,7 @@ struct LineSpec
 fields which describe how the current line is placed into the frame
 */
 struct LineControl {
-	LineSpec line;
+	LineSpec lineData;
 	QList<GlyphCluster> glyphs;
 	bool     isEmpty;
 	int      hyphenCount;
@@ -519,7 +534,7 @@ struct LineControl {
 			colRight += lineCorr;
 		xPos = colLeft;
 		yPos = insets.top() + lineCorr;
-		line.colLeft = colLeft;
+		lineData.colLeft = colLeft;
 	}
 
 	bool isEndOfCol(double morespace = 0)
@@ -534,16 +549,16 @@ struct LineControl {
 	{
 		glyphs.clear();
 		isEmpty = true;
-		line.x = xPos;
-		line.y = yPos;
-		line.firstCluster = firstCluster;
-		line.lastCluster = 0;
-		line.ascent = 0.0;
-		line.descent = 0.0;
-		line.width  = 0.0;
-		line.height = 0.0;
-		line.naturalWidth = 0.0;
-		line.colLeft = colLeft;
+		lineData.x = xPos;
+		lineData.y = yPos;
+		lineData.firstCluster = firstCluster;
+		lineData.lastCluster = 0;
+		lineData.ascent = 0.0;
+		lineData.descent = 0.0;
+		lineData.width  = 0.0;
+		lineData.height = 0.0;
+		lineData.naturalWidth = 0.0;
+		lineData.colLeft = colLeft;
 		breakIndex = -1;
 		breakXPos = 0.0;
 		maxShrink = 0.0;
@@ -592,9 +607,9 @@ struct LineControl {
 	void breakLine(int last)
 	{
 		breakIndex = last;
-		breakXPos  = line.x;
+		breakXPos  = lineData.x;
 
-		for (int i = 0; i <= breakIndex - line.firstCluster; i++)
+		for (int i = 0; i <= breakIndex - lineData.firstCluster; i++)
 			breakXPos += glyphs.at(i).width();
 		// #8194, #8717 : update line ascent and descent with sensible values
 		// so that endOfLine() returns correct result
@@ -606,9 +621,9 @@ struct LineControl {
 	/// use the last remembered break to set line width and itemrange
 	void finishLine(double endX)
 	{
-		line.lastCluster = breakIndex;
-		line.naturalWidth = breakXPos - line.x;
-		line.width = endX - line.x;
+		lineData.lastCluster = breakIndex;
+		lineData.naturalWidth = breakXPos - lineData.x;
+		lineData.width = endX - lineData.x;
 		maxShrink = maxStretch = 0;
 	}
 
@@ -680,7 +695,7 @@ struct LineControl {
 		double maxX = colRight - morespace;
 		if (legacy) maxX -= lineCorr;
 
-		double StartX = floor(qMax(line.x, qMin(maxX, breakXPos-maxShrink-1))-1);
+		double StartX = floor(qMax(lineData.x, qMin(maxX, breakXPos-maxShrink-1))-1);
 		StartX = qMax(0.0, StartX);
 
 		int xPos  = static_cast<int>(ceil(maxX));
@@ -735,14 +750,14 @@ struct LineControl {
 
 	void updateHeightMetrics()
 	{
-		line.ascent = line.descent = 0;
+		lineData.ascent = lineData.descent = 0;
 		if (glyphs.isEmpty())
 			return;
 		const CharStyle& cStyle(glyphs.at(0).style());
 		double scaleV = cStyle.scaleV() / 1000.0;
 		double offset = (cStyle.fontSize() / 10) * (cStyle.baselineOffset() / 1000.0);
-		line.ascent = cStyle.font().ascent(cStyle.fontSize()/10.00) * scaleV + offset;
-		line.descent = cStyle.font().descent(cStyle.fontSize()/10.00) * scaleV - offset;
+		lineData.ascent = cStyle.font().ascent(cStyle.fontSize()/10.00) * scaleV + offset;
+		lineData.descent = cStyle.font().descent(cStyle.fontSize()/10.00) * scaleV - offset;
 	}
 
 // yPos should not be changed when all line is already calculated - at new y position there can be overflow!!!
@@ -799,7 +814,7 @@ struct LineControl {
 		int trackingInsertion = 0;
 		double trackingAmount = 0;
 
-		int glyphsCount = line.lastCluster - line.firstCluster + 1;
+		int glyphsCount = lineData.lastCluster - lineData.firstCluster + 1;
 
 		for (int i = 0; i < glyphsCount; ++i)
 		{
@@ -828,23 +843,23 @@ struct LineControl {
 
 		// decision: prio 1: stretch glyph;  prio 2: insert spaces;  prio 3: stretch spaces
 
-		if (line.width < spaceNatural + glyphNatural * style.minGlyphExtension() && spaceNatural > 0)
+		if (lineData.width < spaceNatural + glyphNatural * style.minGlyphExtension() && spaceNatural > 0)
 		{
 			glyphExtension = style.minGlyphExtension() - 1;
-			spaceExtension = (line.width - glyphNatural * (1+glyphExtension) ) / spaceNatural  - 1;
+			spaceExtension = (lineData.width - glyphNatural * (1+glyphExtension) ) / spaceNatural  - 1;
 			imSpace = 0;
 		}
-		else if (line.width < spaceNatural + glyphNatural * style.maxGlyphExtension() && glyphNatural > 0)
+		else if (lineData.width < spaceNatural + glyphNatural * style.maxGlyphExtension() && glyphNatural > 0)
 		{
 			spaceExtension = 0;
-			glyphExtension = (line.width - spaceNatural) / glyphNatural  - 1;
+			glyphExtension = (lineData.width - spaceNatural) / glyphNatural  - 1;
 			imSpace = 0;
 		}
 		else
 		{
 			glyphExtension = style.maxGlyphExtension() - 1;
 			if (spaceInsertion) {
-				double remaining = line.width - glyphNatural * (1 + glyphExtension) - spaceNatural;
+				double remaining = lineData.width - glyphNatural * (1 + glyphExtension) - spaceNatural;
 				if (imSpace > 0) {
 					if (remaining / spaceInsertion < imSpace) {
 						imSpace = remaining / spaceInsertion;
@@ -859,7 +874,7 @@ struct LineControl {
 				}
 			} else {
 				if (spaceNatural > 0)
-					spaceExtension = (line.width - glyphNatural * (1 + glyphExtension)) / spaceNatural - 1;
+					spaceExtension = (lineData.width - glyphNatural * (1 + glyphExtension)) / spaceNatural - 1;
 				else
 					spaceExtension = 0;
 
@@ -867,19 +882,19 @@ struct LineControl {
 				{
 					if (spaceExtension == 0.0)
 					{
-						double remaining = line.width - glyphNatural * (1 + glyphExtension) - spaceNatural;
+						double remaining = lineData.width - glyphNatural * (1 + glyphExtension) - spaceNatural;
 						trackingAmount = remaining / trackingInsertion;
 					}
 					else
 					{
 						spaceExtension = qMin(20.0, spaceExtension);
-						double remaining = line.width - glyphNatural * (1 + glyphExtension) - spaceNatural;
+						double remaining = lineData.width - glyphNatural * (1 + glyphExtension) - spaceNatural;
 						remaining -= spaceExtension * spaceNatural;
 						trackingAmount = remaining / trackingInsertion;
 						if (trackingAmount > imSpace)
 						{
 							trackingAmount = imSpace;
-							spaceExtension = (line.width - glyphNatural * (1 + glyphExtension) - trackingInsertion * trackingAmount) / spaceNatural - 1;
+							spaceExtension = (lineData.width - glyphNatural * (1 + glyphExtension) - trackingInsertion * trackingAmount) / spaceNatural - 1;
 						}
 					}
 				}
@@ -928,7 +943,7 @@ struct LineControl {
 			(style.direction() == ParagraphStyle::RTL) &&
 			(!trackingInsertion && (spaceExtension == 0)))
 		{
-			double naturalWidth = line.naturalWidth;
+			double naturalWidth = lineData.naturalWidth;
 			if (glyphScale != 1.0)
 			{
 				naturalWidth = 0;
@@ -938,7 +953,7 @@ struct LineControl {
 					naturalWidth += glyphCluster.width();
 				}
 			}
-			double offset = line.width - naturalWidth;
+			double offset = lineData.width - naturalWidth;
 			if (offset > 0)
 				indentLine(style, offset);
 		}
@@ -947,14 +962,14 @@ struct LineControl {
 	/// called when linelength is known and line is not justified
 	void indentLine(const ParagraphStyle& style, double leftIndent)
 	{
-		if (line.naturalWidth > line.width)
+		if (lineData.naturalWidth > lineData.width)
 		{
 			justifyLine(style);
 		}
 		if (leftIndent > 0)
 		{
-			line.x += leftIndent;
-			line.width -= leftIndent;
+			lineData.x += leftIndent;
+			lineData.width -= leftIndent;
 		}
 	}
 
@@ -1032,7 +1047,7 @@ struct LineControl {
 	/// calculate how much the last char should stick out to the right
 	double opticalRightMargin(const StoryText& itemText)
 	{
-		int b = line.lastCluster - line.firstCluster;
+		int b = lineData.lastCluster - lineData.firstCluster;
 		while (b > 0 &&
 			   (SpecialChars::isBreakingSpace(itemText.text(glyphs[b].lastChar())) ||
 				SpecialChars::isBreak(itemText.text(glyphs[b].lastChar())))
@@ -1089,11 +1104,11 @@ struct LineControl {
 	LineBox* createLineBox()
 	{
 		LineBox* result = new LineBox();
-		result->moveTo(line.x - colLeft, line.y - line.ascent);
-		result->setWidth(line.width);
-		result->setAscent(line.ascent);
-		result->setDescent(line.descent);
-		foreach (const GlyphCluster& run, ShapedTextFeed::putInVisualOrder(glyphs,   0, line.lastCluster - line.firstCluster + 1))
+		result->moveTo(lineData.x - colLeft, lineData.y - lineData.ascent);
+		result->setWidth(lineData.width);
+		result->setAscent(lineData.ascent);
+		result->setDescent(lineData.descent);
+		foreach (const GlyphCluster& run, ShapedTextFeed::putInVisualOrder(glyphs,   0, lineData.lastCluster - lineData.firstCluster + 1))
 		{
 			addBox(result, run);
 //			qDebug() << "cluster" << run.firstChar() << ".." << run.lastChar() << "@" << run.visualIndex();
@@ -1500,7 +1515,7 @@ void PageItem_TextFrame::layout()
 		double autoLeftIndent = 0.0;
 		for (int i = 0; shapedText.haveMoreText(i, glyphClusters); ++i)
 		{
-			int currentIndex = i - current.line.firstCluster;
+			int currentIndex = i - current.lineData.firstCluster;
 			GlyphCluster newRun = glyphClusters[i];
 			if (currentIndex >= current.glyphs.count())
 				current.glyphs.append(newRun);
@@ -1597,7 +1612,7 @@ void PageItem_TextFrame::layout()
 					}
 					else
 						DropCmode = false;
-					current.line.isFirstLine = true;
+					current.lineData.isFirstLine = true;
 				}
 			}
 
@@ -1664,7 +1679,7 @@ void PageItem_TextFrame::layout()
 //						DropCapDrop = calculateLineSpacing (style, this) * (DropLines - 1);
 //						qDebug() << QString("dropcapdrop: y=%1+%2").arg(current.yPos).arg(DropCapDrop);
 					}
-					current.line.isFirstLine = true;
+					current.lineData.isFirstLine = true;
 				}
 			}
 			// find charsize factors
@@ -1720,7 +1735,7 @@ void PageItem_TextFrame::layout()
 
 //			glyphs->yadvance = 0;
 
-			if (i == current.line.firstCluster && current.glyphs[currentIndex].hasFlag(ScLayout_CJKFence))
+			if (i == current.lineData.firstCluster && current.glyphs[currentIndex].hasFlag(ScLayout_CJKFence))
 			{
 				current.glyphs[currentIndex].extraWidth -= (charStyle.fontSize() / 10 / 2);
 				current.glyphs[currentIndex].xoffset -= (charStyle.fontSize() / 10 / 2);
@@ -2062,8 +2077,8 @@ void PageItem_TextFrame::layout()
 					current.addLeftIndent = true;
 					continue;
 				}
-				current.line.x = current.restartX = current.xPos;
-				current.line.y = current.yPos;
+				current.lineData.x = current.restartX = current.xPos;
+				current.lineData.y = current.yPos;
 //				if (glyphClusters[current.line.firstCluster].hasFlag(ScLayout_DropCap))
 //					current.line.y -= DropCapDrop;
 			}
@@ -2284,9 +2299,9 @@ void PageItem_TextFrame::layout()
 					{
 						//force line end at previouse glyph
 						i--;
-						currentIndex = i - current.line.firstCluster;
+						currentIndex = i - current.lineData.firstCluster;
 						a = current.glyphs[currentIndex].firstChar();
-						current.mustLineEnd = current.line.x;
+						current.mustLineEnd = current.lineData.x;
 					}
 //                    qDebug() << "breakline forced @" << i;
 					current.breakLine(i);
@@ -2298,7 +2313,7 @@ void PageItem_TextFrame::layout()
 					//if we have some text here - insert text WITHOUT right margin
 					//if there is no place for text - insert text WITH right margin and end line
 					current.lastInRowLine = false;
-					if (current.line.firstCluster == current.restartIndex)
+					if (current.lineData.firstCluster == current.restartIndex)
 						current.lastInRowLine = true;
 					if (current.hasDropCap && DropLinesCount == 0 && current.restartIndex == current.restartRowIndex)
 					{
@@ -2324,7 +2339,7 @@ void PageItem_TextFrame::layout()
 				int charStart, charEnd;
 				if (current.isEmpty)
 				{
-					charStart = static_cast<int>(floor(current.line.x));
+					charStart = static_cast<int>(floor(current.lineData.x));
 					charEnd = static_cast<int>(ceil(current.xPos));
 				}
 				else
@@ -2380,7 +2395,7 @@ void PageItem_TextFrame::layout()
 				{
 					if (current.isEmpty)
 					{
-						current.line.x = current.xPos = realEnd;
+						current.lineData.x = current.xPos = realEnd;
 						i--;
 						current.startLine(i+1);
 						if (!current.wasFirstInRow)
@@ -2398,7 +2413,7 @@ void PageItem_TextFrame::layout()
 					{
 						i--;
 //                        qDebug() << "forced break at glyph" << i;
-						currentIndex = i - current.line.firstCluster;
+						currentIndex = i - current.lineData.firstCluster;
 						a = current.glyphs[currentIndex].firstChar();
 						current.breakLine(i);
 					}
@@ -2420,9 +2435,9 @@ void PageItem_TextFrame::layout()
 								if (current.breakIndex < 0)
 								{
 									current.lastInRowLine = true;
-									current.mustLineEnd = current.line.x;
+									current.mustLineEnd = current.lineData.x;
 								}
-								else if (current.line.firstCluster == current.restartIndex)
+								else if (current.lineData.firstCluster == current.restartIndex)
 									current.lastInRowLine = true;
 							}
 							else
@@ -2485,7 +2500,7 @@ void PageItem_TextFrame::layout()
 //                qDebug() << "rememberBreak implicitbreak @" << i-1;
                 current.rememberBreak(i - 1, breakPos);
             }
-			current.isEmpty = (i - current.line.firstCluster + 1) == 0;
+			current.isEmpty = (i - current.lineData.firstCluster + 1) == 0;
 
 			if (tabs.active)
 			{
@@ -2545,8 +2560,8 @@ void PageItem_TextFrame::layout()
 					// find end of line
 //					qDebug() << "breakline isBreak @" << i;
 					current.breakLine(i);
-					regionMinY = qMax(0.0, current.line.y - current.line.ascent);
-					regionMaxY = current.line.y + current.line.descent;
+					regionMinY = qMax(0.0, current.lineData.y - current.lineData.ascent);
+					regionMaxY = current.lineData.y + current.lineData.descent;
 					EndX = current.endOfLine(m_availableRegion, style.rightMargin(), regionMinY, regionMaxY);
 					current.finishLine(EndX);
 					//addLine = true;
@@ -2567,18 +2582,18 @@ void PageItem_TextFrame::layout()
 //					if (style.alignment() != 0)
 					{
 						if (opticalMargins & ParagraphStyle::OM_RightHangingPunct)
-							current.line.width += current.opticalRightMargin(itemText);
+							current.lineData.width += current.opticalRightMargin(itemText);
 
 						OFs = 0;
 						if (style.alignment() == ParagraphStyle::Rightaligned)
-							OFs = current.line.width - current.line.naturalWidth;
+							OFs = current.lineData.width - current.lineData.naturalWidth;
 						if (style.alignment() == ParagraphStyle::Centered)
-							OFs = (current.line.width - current.line.naturalWidth) / 2;
+							OFs = (current.lineData.width - current.lineData.naturalWidth) / 2;
 						if (style.alignment() == ParagraphStyle::Justified ||
 							style.alignment() == ParagraphStyle::Extended)
 						{
 							if (style.direction() == ParagraphStyle::RTL)
-								OFs = current.line.width - current.line.naturalWidth;
+								OFs = current.lineData.width - current.lineData.naturalWidth;
 							else
 								OFs = 0;
 						}
@@ -2588,18 +2603,18 @@ void PageItem_TextFrame::layout()
 								&&  (itemText.text(a) == SpecialChars::LINEBREAK ||
 									 itemText.text(a) == SpecialChars::FRAMEBREAK ||
 									 itemText.text(a) == SpecialChars::COLBREAK)
-								&&  (current.line.lastCluster - 1 >= 0)
-								&&  !itemText.text(glyphClusters[current.line.lastCluster - 1].lastChar()).isSpace()))
+								&&  (current.lineData.lastCluster - 1 >= 0)
+								&&  !itemText.text(glyphClusters[current.lineData.lastCluster - 1].lastChar()).isSpace()))
 						{
 							current.justifyLine(style);
 						}
 						else
 						{
 							if (opticalMargins & ParagraphStyle::OM_RightHangingPunct)
-								current.line.naturalWidth += current.opticalRightMargin(itemText);
-							double optiWidth = current.colRight - style.rightMargin() - style.lineSpacing()/2.0 - current.line.x;
-							if (current.line.naturalWidth > optiWidth)
-								current.line.width = qMax(current.line.width - current.maxShrink, optiWidth);
+								current.lineData.naturalWidth += current.opticalRightMargin(itemText);
+							double optiWidth = current.colRight - style.rightMargin() - style.lineSpacing()/2.0 - current.lineData.x;
+							if (current.lineData.naturalWidth > optiWidth)
+								current.lineData.width = qMax(current.lineData.width - current.maxShrink, optiWidth);
 							// simple offset
 							current.indentLine(style, OFs);
 						}
@@ -2612,7 +2627,7 @@ void PageItem_TextFrame::layout()
 					{
 						// go back to last break position
 						i = current.breakIndex;
-						currentIndex = i - current.line.firstCluster;
+						currentIndex = i - current.lineData.firstCluster;
 						a = current.glyphs[currentIndex].firstChar();
 						style = itemText.paragraphStyle(a);
 						const_cast<ScFace&>(font) = itemText.charStyle(a).font();
@@ -2625,7 +2640,7 @@ void PageItem_TextFrame::layout()
 					assert( i >= 0 );
 					assert( i < glyphClusters.length() );
 					//glyphs = itemText.getGlyphs(a);
-					current.isEmpty = (i - current.line.firstCluster + 1) == 0;
+					current.isEmpty = (i - current.lineData.firstCluster + 1) == 0;
 					if (current.addLine)
 					{
 						if (itemText.text(a) == ' ') {
@@ -2665,7 +2680,7 @@ void PageItem_TextFrame::layout()
 
 						// Justification
 						if (opticalMargins & ParagraphStyle::OM_RightHangingPunct)
-							current.line.width += current.opticalRightMargin(itemText);
+							current.lineData.width += current.opticalRightMargin(itemText);
 						// #12565: Right alignment of hyphens
 						// The additional character width has already been taken into account
 						// above via the line break position, so it's not necessary to increase
@@ -2680,21 +2695,21 @@ void PageItem_TextFrame::layout()
 
 						OFs = 0;
 						if (style.alignment() == ParagraphStyle::Rightaligned)
-							OFs = current.line.width - current.line.naturalWidth;
+							OFs = current.lineData.width - current.lineData.naturalWidth;
 						if (style.alignment() == ParagraphStyle::Centered)
-							OFs = (current.line.width - current.line.naturalWidth) / 2;
+							OFs = (current.lineData.width - current.lineData.naturalWidth) / 2;
 						if (style.alignment() == ParagraphStyle::Justified && style.direction() == ParagraphStyle::RTL)
-							OFs = current.line.width - current.line.naturalWidth;
+							OFs = current.lineData.width - current.lineData.naturalWidth;
 
 						if ((style.alignment() == ParagraphStyle::Justified) || (style.alignment() == ParagraphStyle::Extended))
 							current.justifyLine(style);
 						else
 						{
 							if (opticalMargins & ParagraphStyle::OM_RightHangingPunct)
-								current.line.naturalWidth += current.opticalRightMargin(itemText);
+								current.lineData.naturalWidth += current.opticalRightMargin(itemText);
 							current.indentLine(style, OFs);
 						}
-						current.xPos = current.line.x + current.line.width;
+						current.xPos = current.lineData.x + current.lineData.width;
 					}
 				}
 				if (inOverflow)
@@ -2716,7 +2731,7 @@ void PageItem_TextFrame::layout()
 				{
 					//check if really line extends bottom margin
 					current.updateHeightMetrics();
-					if (current.isEndOfCol(current.line.descent))
+					if (current.isEndOfCol(current.lineData.descent))
 					{
 						if (current.isEmpty || current.column+1 == Cols)
 						{
@@ -2731,29 +2746,29 @@ void PageItem_TextFrame::layout()
 				}
 				else
 					setMaxY(maxYDesc);
-				if (current.line.firstCluster <= current.line.lastCluster && !current.isEmpty)
+				if (current.lineData.firstCluster <= current.lineData.lastCluster && !current.isEmpty)
 				{
 					if (current.addLine && current.breakIndex >= 0)
 					{
 						if (current.glyphs[0].hasFlag(ScLayout_DropCap))
 						{
 							// put line back to top
-							current.line.y -= DropCapDrop;
+							current.lineData.y -= DropCapDrop;
 							current.glyphs[0].yoffset += DropCapDrop;
 						}
 						current.fillInTabLeaders();
 						//if right margin is set we temporally save line, not append it
 						textLayout.appendLine(current.createLineBox());
 						setMaxY(maxYDesc);
-						current.restartIndex = current.line.lastCluster + 1;
-						i = current.line.lastCluster;
-						currentIndex = i - current.line.firstCluster;
+						current.restartIndex = current.lineData.lastCluster + 1;
+						i = current.lineData.lastCluster;
+						currentIndex = i - current.lineData.firstCluster;
 						a = current.glyphs[currentIndex].firstChar();
-						current.rowDesc = qMax(current.rowDesc,current.yPos + current.line.descent);
+						current.rowDesc = qMax(current.rowDesc,current.yPos + current.lineData.descent);
 					//	if (glyphClusters[current.line.firstCluster].hasFlag(ScLayout_DropCap))
 					//		current.rowDesc = qMax(current.rowDesc,current.yPos + current.line.descent);
 					//	else
-							current.rowDesc = qMax(current.rowDesc,current.yPos - current.line.descent);
+							current.rowDesc = qMax(current.rowDesc,current.yPos - current.lineData.descent);
 						if (!current.lastInRowLine)
 						{
 							current.restartX = current.xPos;
@@ -2861,7 +2876,7 @@ void PageItem_TextFrame::layout()
 				}
 				if (current.afterOverflow && !current.addLine)
 				{
-					if (current.restartIndex < current.line.firstCluster)
+					if (current.restartIndex < current.lineData.firstCluster)
 					{
 						i = current.restartLine(false,true);
 						continue;
@@ -2925,18 +2940,18 @@ void PageItem_TextFrame::layout()
 			current.finishLine(EndX);
 
 			if (opticalMargins & ParagraphStyle::OM_RightHangingPunct)
-				current.line.width += current.opticalRightMargin(itemText);
+				current.lineData.width += current.opticalRightMargin(itemText);
 
 			OFs = 0;
 			if (style.alignment() == ParagraphStyle::Rightaligned)
-				OFs = current.line.width - current.line.naturalWidth;
+				OFs = current.lineData.width - current.lineData.naturalWidth;
 			if (style.alignment() == ParagraphStyle::Centered)
-				OFs = (current.line.width - current.line.naturalWidth) / 2;
+				OFs = (current.lineData.width - current.lineData.naturalWidth) / 2;
 			if (style.alignment() == ParagraphStyle::Justified ||
 				style.alignment() == ParagraphStyle::Extended)
 			{
 				if (style.direction() == ParagraphStyle::RTL)
-					OFs = current.line.width - current.line.naturalWidth;
+					OFs = current.lineData.width - current.lineData.naturalWidth;
 				else
 					OFs = 0;
 			}
@@ -2953,13 +2968,13 @@ void PageItem_TextFrame::layout()
 			else
 			{
 				if (opticalMargins & ParagraphStyle::OM_RightHangingPunct)
-					current.line.naturalWidth += current.opticalRightMargin(itemText);
+					current.lineData.naturalWidth += current.opticalRightMargin(itemText);
 				current.indentLine(style, OFs);
 			}
 			if (current.glyphs[0].hasFlag(ScLayout_DropCap))
 			{
 				// put line back to top
-				current.line.y -= DropCapDrop;
+				current.lineData.y -= DropCapDrop;
 				current.glyphs[0].yoffset += DropCapDrop;
 			}
 			current.fillInTabLeaders();
