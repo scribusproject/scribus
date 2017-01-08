@@ -92,8 +92,8 @@ public:
 		MarkCE // deprecated
 	} ;
 
-	ExpansionPoint(ExpansionType t) : m_type(t), m_name() {}
-	ExpansionPoint(ExpansionType t, QString name) : m_type(t), m_name(name) {}
+	ExpansionPoint(ExpansionType t) : m_type(t), m_name(), m_mark(0) {}
+	ExpansionPoint(ExpansionType t, QString name) : m_type(t), m_name(name), m_mark(0) {}
 	ExpansionPoint(Mark* mrk) : m_type(MarkCE), m_name(), m_mark(mrk) {}
 
 	ExpansionType getType() const { return m_type; }
