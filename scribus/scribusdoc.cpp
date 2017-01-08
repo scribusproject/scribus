@@ -4269,114 +4269,26 @@ QMap<QString,int> ScribusDoc::reorganiseFonts()
 {
 	QMap<QString,int> Really;
 	QList<PageItem*> allItems;
-	int counter = 0;
+
 	for (int i = 0; i < 2; ++i)
 	{
 		switch (i)
 		{
 			case 0:
-				counter = MasterItems.count();
+				allItems = MasterItems;
 				break;
 			case 1:
-				counter = DocItems.count();
+				allItems = DocItems;
 				break;
 		}
 		PageItem* it = NULL;
-		for (int d = 0; d < counter; ++d)
+		while (allItems.count() > 0)
 		{
-			switch (i)
+			it = allItems.takeFirst();
+			if (it->isGroup() || it->isTable())
 			{
-				case 0:
-					it = MasterItems.at(d);
-					break;
-				case 1:
-					it = DocItems.at(d);
-					break;
-			}
-			if (it->isGroup())
-				allItems = it->asGroupFrame()->getItemList();
-			else
-				allItems.append(it);
-			for (int ii = 0; ii < allItems.count(); ii++)
-			{
-				it = allItems.at(ii);
-				if (it->isTable())
-				{
-					for (int row = 0; row < it->asTable()->rows(); ++row)
-					{
-						for (int col = 0; col < it->asTable()->columns(); col ++)
-						{
-							TableCell cell = it->asTable()->cellAt(row, col);
-							if (cell.row() == row && cell.column() == col)
-							{
-								PageItem* textFrame = cell.textFrame();
-								QString fontName(textFrame->itemText.defaultStyle().charStyle().font().replacementName());
-								Really.insert(fontName, UsedFonts[fontName]);
-								int start = textFrame->firstInFrame();
-								int stop = textFrame->lastInFrame();
-								for (int e = start; e <= stop; ++e)
-								{
-									QString rep = textFrame->itemText.charStyle(e).font().replacementName();
-									if (Really.contains(rep))
-										continue;
-									Really.insert(rep, UsedFonts[rep]);
-								}
-							}
-						}
-					}
-				}
-				if ((it->itemType() == PageItem::TextFrame) || (it->itemType() == PageItem::PathText))
-				{
-					QString fontName(it->itemText.defaultStyle().charStyle().font().replacementName());
-					Really.insert(fontName, UsedFonts[fontName]);
-					int start = it->firstInFrame();
-					int stop = it->lastInFrame();
-					for (int e = start; e <= stop; ++e)
-					{
-						QString rep = it->itemText.charStyle(e).font().replacementName();
-						if (Really.contains(rep))
-							continue;
-						Really.insert(rep, UsedFonts[rep]);
-					}
-				}
-			}
-			allItems.clear();
-		}
-	}
-	for (QHash<int, PageItem*>::iterator itf = FrameItems.begin(); itf != FrameItems.end(); ++itf)
-	{
-		PageItem *it = itf.value();
-		if (it->isGroup())
-			allItems = it->asGroupFrame()->getItemList();
-		else
-			allItems.append(it);
-		for (int ii = 0; ii < allItems.count(); ii++)
-		{
-			it = allItems.at(ii);
-			if (it->isTable())
-			{
-				for (int row = 0; row < it->asTable()->rows(); ++row)
-				{
-					for (int col = 0; col < it->asTable()->columns(); col ++)
-					{
-						TableCell cell = it->asTable()->cellAt(row, col);
-						if (cell.row() == row && cell.column() == col)
-						{
-							PageItem* textFrame = cell.textFrame();
-							QString fontName(textFrame->itemText.defaultStyle().charStyle().font().replacementName());
-							Really.insert(fontName, UsedFonts[fontName]);
-							int start = textFrame->firstInFrame();
-							int stop = textFrame->lastInFrame();
-							for (int e = start; e <= stop; ++e)
-							{
-								QString rep = textFrame->itemText.charStyle(e).font().replacementName();
-								if (Really.contains(rep))
-									continue;
-								Really.insert(rep, UsedFonts[rep]);
-							}
-						}
-					}
-				}
+				allItems = it->getItemList() + allItems;
+				continue;
 			}
 			if ((it->itemType() == PageItem::TextFrame) || (it->itemType() == PageItem::PathText))
 			{
@@ -4393,8 +4305,33 @@ QMap<QString,int> ScribusDoc::reorganiseFonts()
 				}
 			}
 		}
-		allItems.clear();
 	}
+
+	allItems = FrameItems.values();
+	while (allItems.count() > 0)
+	{
+		PageItem *it = allItems.takeFirst();
+		if (it->isGroup() || it->isTable())
+		{
+			allItems = it->getItemList() + allItems;
+			continue;
+		}
+		if ((it->itemType() == PageItem::TextFrame) || (it->itemType() == PageItem::PathText))
+		{
+			QString fontName(it->itemText.defaultStyle().charStyle().font().replacementName());
+			Really.insert(fontName, UsedFonts[fontName]);
+			int start = it->firstInFrame();
+			int stop = it->lastInFrame();
+			for (int e = start; e <= stop; ++e)
+			{
+				QString rep = it->itemText.charStyle(e).font().replacementName();
+				if (Really.contains(rep))
+					continue;
+				Really.insert(rep, UsedFonts[rep]);
+			}
+		}
+	}
+
 	QMap<QString,int>::Iterator itfo, itnext;
 	for (itfo = UsedFonts.begin(); itfo != UsedFonts.end(); itfo = itnext)
 	{
@@ -4417,89 +4354,48 @@ void ScribusDoc::getUsedFonts(QMap<QString, QMap<uint, FPointArray> > & Really)
 	QList<PageItem*>  allItems;
 	QList<PageItem*>* itemLists[] = { &MasterItems, &DocItems };
 	PageItem* it = NULL;
-	int counter = 0;
+
 	for (int i = 0; i < 2; ++i)
 	{
-		QList<PageItem*>* itemList = itemLists[i];
-		counter = itemList->count();
-		for (int d = 0; d < counter; ++d)
+		allItems = *(itemLists[i]);
+		while (allItems.count() > 0)
 		{
-			it = itemList->at(d);
-			if (it->isGroup())
-				allItems = it->asGroupFrame()->getItemList();
-			else
-				allItems.append(it);
-			for (int ii = 0; ii < allItems.count(); ii++)
+			it = allItems.takeFirst();
+			if (it->isGroup() || it->isTable())
 			{
-				it = allItems.at(ii);
-				if (it->isTable())
-				{
-					for (int row = 0; row < it->asTable()->rows(); ++row)
-					{
-						for (int col = 0; col < it->asTable()->columns(); col ++)
-						{
-							TableCell cell = it->asTable()->cellAt(row, col);
-							if (cell.row() == row && cell.column() == col)
-							{
-								PageItem* textFrame = cell.textFrame();
-								checkItemForFonts(textFrame, Really, i);
-							}
-						}
-					}
-				}
-				else
-					checkItemForFonts(it, Really, i);
+				allItems = it->getItemList() + allItems;
+				continue;
 			}
-			allItems.clear();
+			checkItemForFonts(it, Really, i);
 		}
 	}
-	for (QHash<int, PageItem*>::iterator itf = FrameItems.begin(); itf != FrameItems.end(); ++itf)
+
+	allItems = FrameItems.values();
+	while (allItems.count() > 0)
 	{
-		PageItem *ite = itf.value();
-		if (ite->isGroup())
-			allItems = ite->asGroupFrame()->getItemList();
-		else
-			allItems.append(ite);
-		for (int ii = 0; ii < allItems.count(); ii++)
+		PageItem *ite = allItems.takeFirst();
+		if (it->isGroup() || it->isTable())
 		{
-			ite = allItems.at(ii);
-			if (ite->isTable())
-			{
-				for (int row = 0; row < ite->asTable()->rows(); ++row)
-				{
-					for (int col = 0; col < ite->asTable()->columns(); col ++)
-					{
-						TableCell cell = ite->asTable()->cellAt(row, col);
-						if (cell.row() == row && cell.column() == col)
-						{
-							PageItem* textFrame = cell.textFrame();
-							checkItemForFonts(textFrame, Really, 3);
-						}
-					}
-				}
-			}
-			else
-				checkItemForFonts(ite, Really, 3);
+			allItems = it->getItemList() + allItems;
+			continue;
 		}
-		allItems.clear();
+		checkItemForFonts(ite, Really, 3);
 	}
+
 	QStringList patterns = getUsedPatterns();
 	for (int c = 0; c < patterns.count(); ++c)
 	{
 		ScPattern pa = docPatterns[patterns[c]];
-		for (int o = 0; o < pa.items.count(); o++)
+		allItems = pa.items;
+		while (allItems.count() > 0)
 		{
-			it = pa.items.at(o);
-			if (it->isGroup())
-				allItems = it->asGroupFrame()->getItemList();
-			else
-				allItems.append(it);
-			for (int ii = 0; ii < allItems.count(); ii++)
+			it = allItems.takeFirst();
+			if (it->isGroup() || it->isTable())
 			{
-				it = allItems.at(ii);
-				checkItemForFonts(it, Really, 3);
+				allItems = it->getItemList() + allItems;
+				continue;
 			}
-			allItems.clear();
+			checkItemForFonts(it, Really, 3);
 		}
 	}
 }
@@ -4547,7 +4443,12 @@ void ScribusDoc::checkItemForFonts(PageItem *it, QMap<QString, QMap<uint, FPoint
 		return;
 
 	if (it->invalid)
+	{
+		bool wasMasterPageMode = m_masterPageMode;
+		setMasterPageMode(it->OnMasterPage.length() > 0);
 		it->layout();
+		setMasterPageMode(wasMasterPageMode);
+	}
 
 	// This works pretty well except for the case of page numbers and al. placed on masterpages
 	// where layout may depend on the page where the masterpage item is placed
