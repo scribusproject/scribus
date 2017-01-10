@@ -9103,11 +9103,11 @@ bool PDFLibCore::PDF_Annotation(PageItem *ite, uint PNr)
 					  break;
 					case 2:
 					  // XFDF
-					  PutDoc("/Flags 64"); // bit 6 on
+					  PutDoc("/Flags 32"); // bit 6 on
 					  break;
 					case 3:
 					  // PDF
-					  PutDoc("/Flags 512"); // bit 9 on
+					  PutDoc("/Flags 256"); // bit 9 on
 					  break;
 					case 0:
 					default:
