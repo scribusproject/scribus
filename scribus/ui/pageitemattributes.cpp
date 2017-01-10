@@ -252,7 +252,6 @@ void PageItemAttributes::updateTable()
 		QTableWidgetItem *t=attributesTable->verticalHeaderItem(row);
  		if (t != NULL)
 			t->setText(QString("%1").arg(row));
-		row++;
 	}
 	deleteButton->setEnabled(localAttributes.count()!=0);
 	copyButton->setEnabled(localAttributes.count()!=0);
