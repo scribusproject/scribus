@@ -17,8 +17,11 @@ PageItemAttributes::PageItemAttributes( QWidget* parent, const char* name, bool 
 {
 	setupUi(this);
 	setModal(modal);
+
 	relationships << tr("None", "relationship") << tr("Relates To") << tr("Is Parent Of") << tr("Is Child Of");
 	relationshipsData << "none" << "relation" << "parent" << "child";
+	types << tr("None", "types") << tr("Boolean") << tr("Integer") << tr("Real Number") << tr("String");
+	typesData << "none" << "boolean" << "integer" << "double" << "string";
 
 	connect(cancelButton, SIGNAL(clicked()), this, SLOT(reject()));
 	connect(okButton, SIGNAL(clicked()), this, SLOT(okClicked()));
@@ -64,7 +67,15 @@ void PageItemAttributes::tableItemChanged( int row, int col )
 			}
 			break;
 		case 1:
-			localAttributes[row].type=attributesTable->item(row, col)->text();
+			{
+				QComboBox* qcti=dynamic_cast<QComboBox*>(attributesTable->cellWidget(row,col));
+				if (qcti != NULL)
+				{
+					int index = qcti->currentIndex();
+					if (index < typesData.count())
+						localAttributes[row].type = typesData[index];
+				}
+			}
 			break;
 		case 2:
 			localAttributes[row].value=attributesTable->item(row, col)->text();
@@ -173,61 +184,73 @@ void PageItemAttributes::copyEntry()
 void PageItemAttributes::updateTable()
 {
 	attributesTable->setRowCount(localAttributes.count());
-	int row=0;
-	for(ObjAttrVector::Iterator it = localAttributes.begin(); it!= localAttributes.end(); ++it)
+	for(int row = 0; row < localAttributes.count(); ++row)
 	{
-		uint i=0;
+		uint col = 0;
+		ObjectAttribute& objAttr = localAttributes[row];
+
 		//Name
 		QComboBox *item1 = new QComboBox();
 		item1->addItems(nameList);
-		int listIndex=nameList.indexOf((*it).name);
-		if (listIndex!=-1)
+		int listIndex = nameList.indexOf(objAttr.name);
+		if (listIndex != -1)
 			item1->setCurrentIndex(listIndex);
 		else
 		{
 			item1->setCurrentIndex(0);
-			item1->setItemText(0,(*it).name);
+			item1->setItemText(0, objAttr.name);
 		}
 		item1->setEditable(true);
-		attributesTable->setCellWidget(row, i++, item1);
+		attributesTable->setCellWidget(row, col++, item1);
 		//Type
-		QTableWidgetItem *item2 = new QTableWidgetItem((*it).type);
-		attributesTable->setItem(row, i++, item2);
+		QComboBox *item2 = new QComboBox();
+		item2->addItems(types);
+
+		listIndex = typesData.indexOf(objAttr.type);
+		if (listIndex==-1)
+		{
+			objAttr.type="none";
+			listIndex = 0;
+		}
+		item2->setCurrentIndex(listIndex);
+
+		item2->setEditable(true);
+		attributesTable->setCellWidget(row, col++, item2);
 		//Default Value
-		QTableWidgetItem *item3 = new QTableWidgetItem((*it).value);
-		attributesTable->setItem(row, i++, item3);
+		QTableWidgetItem *item3 = new QTableWidgetItem(objAttr.value);
+		attributesTable->setItem(row, col++, item3);
 		//Default Parameter
-		QTableWidgetItem *item4 = new QTableWidgetItem((*it).parameter);
-		attributesTable->setItem(row, i++, item4);
+		QTableWidgetItem *item4 = new QTableWidgetItem(objAttr.parameter);
+		attributesTable->setItem(row, col++, item4);
 		//Relationship
 		QComboBox *item5 = new QComboBox();
 		item5->addItems(relationships);
-		attributesTable->setCellWidget(row, i++, item5);
-		int index=relationshipsData.indexOf((*it).relationship);
+		attributesTable->setCellWidget(row, col++, item5);
+		int index=relationshipsData.indexOf(objAttr.relationship);
 		if (index==-1)
 		{
-			(*it).relationship="none";
+			objAttr.relationship="none";
 			index=0;
 		}
 		item5->setCurrentIndex(index);
 		//Relationship to
-		QTableWidgetItem *item6 = new QTableWidgetItem((*it).relationshipto);
-		attributesTable->setItem(row, i++, item6);
+		QTableWidgetItem *item6 = new QTableWidgetItem(objAttr.relationshipto);
+		attributesTable->setItem(row, col++, item6);
 		//Auto Add to not used here
 		/*
 		QComboBox *item7 = new QComboBox();
 		item7->addItems(autoAddTo);
-		attributesTable->setCellWidget(row, i++, item7);
-		int index2=autoAddToData.indexOf((*it).autoaddto);
+		attributesTable->setCellWidget(row, col++, item7);
+		int index2=autoAddToData.indexOf(objAttr.autoaddto);
 		if (index2==-1)
 		{
-			(*it).relationship="none";
+			objAttr.relationship="none";
 			index2=0;
 		}
 		item7->setCurrentItem(index2);
 		*/
 		QTableWidgetItem *t=attributesTable->verticalHeaderItem(row);
- 		if (t!=NULL)
+ 		if (t != NULL)
 			t->setText(QString("%1").arg(row));
 		row++;
 	}

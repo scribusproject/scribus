@@ -39,6 +39,8 @@ class PageItemAttributes : public QDialog, Ui::PageItemAttributes
 		QStringList relationships;
 		QStringList relationshipsData;
 		QStringList nameList;
+		QStringList types;
+		QStringList typesData;
 };
 
 #endif
