@@ -120,64 +120,57 @@ void Prefs_DocumentItemAttributes::addEntry()
 void Prefs_DocumentItemAttributes::updateTable()
 {
 	attributesTable->setRowCount(localAttributes.count());
-	int row=0;
-	for(ObjAttrVector::Iterator it = localAttributes.begin(); it!= localAttributes.end(); ++it)
+
+	for(int row = 0; row < localAttributes.count(); ++row)
 	{
-		uint i=0;
+		uint col = 0;
+		ObjectAttribute& objAttr = localAttributes[row];
+
 		//Name
-		QTableWidgetItem *item1 = new QTableWidgetItem((*it).name);
-		attributesTable->setItem(row, i++, item1);
+		QTableWidgetItem *item1 = new QTableWidgetItem(objAttr.name);
+		attributesTable->setItem(row, col++, item1);
 		//Type
 		QComboBox *item2 = new QComboBox();
 		item2->addItems(types);
-/* <<7636
-		int listIndex=types.indexOf((*it).type);
-		if (listIndex!=-1)
-			item2->setCurrentIndex(listIndex);
-		else
-		{
-			item2->setCurrentIndex(0);
-			item2->setItemText(0,(*it).type);
-		}
- >>7636 */
-		int listIndex=typesData.indexOf((*it).type);
+
+		int listIndex=typesData.indexOf(objAttr.type);
 		if (listIndex==-1)
 		{
-			(*it).type="none";
+			objAttr.type="none";
 			listIndex=0;
 		}
 		item2->setCurrentIndex(listIndex);
 
 		item2->setEditable(true);
-		attributesTable->setCellWidget(row, i++, item2);
+		attributesTable->setCellWidget(row, col++, item2);
 		//Default Value
-		QTableWidgetItem *item3 = new QTableWidgetItem((*it).value);
-		attributesTable->setItem(row, i++, item3);
+		QTableWidgetItem *item3 = new QTableWidgetItem(objAttr.value);
+		attributesTable->setItem(row, col++, item3);
 		//Default Parameter
-		QTableWidgetItem *item4 = new QTableWidgetItem((*it).parameter);
-		attributesTable->setItem(row, i++, item4);
+		QTableWidgetItem *item4 = new QTableWidgetItem(objAttr.parameter);
+		attributesTable->setItem(row, col++, item4);
 		//Relationship
 		QComboBox *item5 = new QComboBox();
 		item5->addItems(relationships);
-		attributesTable->setCellWidget(row, i++, item5);
-		int index=relationshipsData.indexOf((*it).relationship);
+		attributesTable->setCellWidget(row, col++, item5);
+		int index=relationshipsData.indexOf(objAttr.relationship);
 		if (index==-1)
 		{
-			(*it).relationship="none";
+			objAttr.relationship="none";
 			index=0;
 		}
 		item5->setCurrentIndex(index);
 		//Relationship to
-		QTableWidgetItem *item6 = new QTableWidgetItem((*it).relationshipto);
-		attributesTable->setItem(row, i++, item6);
+		QTableWidgetItem *item6 = new QTableWidgetItem(objAttr.relationshipto);
+		attributesTable->setItem(row, col++, item6);
 		//Auto Add to
 		QComboBox *item7 = new QComboBox();
 		item7->addItems(autoAddTo);
-		attributesTable->setCellWidget(row, i++, item7);
-		int index2=autoAddToData.indexOf((*it).autoaddto);
+		attributesTable->setCellWidget(row, col++, item7);
+		int index2=autoAddToData.indexOf(objAttr.autoaddto);
 		if (index2==-1)
 		{
-			(*it).relationship="none";
+			objAttr.relationship="none";
 			index2=0;
 		}
 		item7->setCurrentIndex(index2);
