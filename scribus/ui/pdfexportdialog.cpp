@@ -239,7 +239,7 @@ void PDFExportDialog::ChangeFile()
 	{
 		QString fn(QDir::fromNativeSeparators(d));
 		dirs->set("pdf", fn.left(fn.lastIndexOf("/")));
-		fileNameLineEdit->setText( d );
+		fileNameLineEdit->setText(QDir::toNativeSeparators(d));
 	}	
 }
 
