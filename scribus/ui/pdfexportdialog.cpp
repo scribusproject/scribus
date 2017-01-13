@@ -233,9 +233,19 @@ void PDFExportDialog::DoExport()
 void PDFExportDialog::ChangeFile()
 {
 	PrefsContext* dirs = PrefsManager::instance()->prefsFile->getContext("dirs");
-	QString wdir = dirs->get("pdf", ".");
+	QString wdir  = dirs->get("pdf", ScPaths::userDocumentDir());
+
+	QString wfile = QDir::fromNativeSeparators(fileNameLineEdit->text()); 
+	if (!wfile.isEmpty())
+	{
+		QFileInfo fInfo(wfile);
+		QString absPath = fInfo.absolutePath(); // Yes, we mean the file directory here
+		if (QDir(absPath).exists())
+			wdir = wfile;
+	}
+
 	QString d = QFileDialog::getSaveFileName(this, tr("Save As"), wdir, tr("PDF Files (*.pdf);;All Files (*)"), 0, QFileDialog::DontConfirmOverwrite);
-	if (d.length()>0)
+	if (d.length() > 0)
 	{
 		QString fn(QDir::fromNativeSeparators(d));
 		dirs->set("pdf", fn.left(fn.lastIndexOf("/")));
