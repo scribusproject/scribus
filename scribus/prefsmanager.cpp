@@ -764,6 +764,10 @@ bool PrefsManager::copyOldAppConfigAndData()
 	QFileInfo oldPi7 = QFileInfo(oldPR7);
 	if (oldPi7.exists())
 		moveFile(oldPR7, m_prefsLocation+"scripter150.rc");
+	QString oldPR8 = QDir::toNativeSeparators(oldPrefsLocation + "checkfonts.xml");
+	QFileInfo oldPi8 = QFileInfo(oldPR8);
+	if (oldPi8.exists())
+		moveFile(oldPR8, m_prefsLocation+"checkfonts150.xml");
 
 
 	//Move plugin data files to new plugin data file directory
@@ -789,23 +793,26 @@ bool PrefsManager::copyOldAppConfigAndData()
 		moveFile(fiPal.absoluteFilePath(), ScPaths::userPaletteFilesDir(true) + fiPal.fileName());
 
 	//Now make copies for 1.3 use and leave the old ones alone for <1.3.0 usage
-	QString prefs135[4], prefs140[4], prefs150[4];
+	QString prefs135[5], prefs140[5], prefs150[5];
 
 	prefs135[0]=QDir::toNativeSeparators(m_prefsLocation+"scribus135.rc");
 	prefs135[1]=QDir::toNativeSeparators(m_prefsLocation+"scrap135.scs");
 	prefs135[2]=QDir::toNativeSeparators(m_prefsLocation+"prefs135.xml");
 	prefs135[3]=QDir::toNativeSeparators(m_prefsLocation+"scripter135.rc");
+	prefs135[4]=QDir::toNativeSeparators(m_prefsLocation+"checkfonts.xml");
 	prefs140[0]=QDir::toNativeSeparators(m_prefsLocation+"scribus140.rc");
 	prefs140[1]=QDir::toNativeSeparators(m_prefsLocation+"scrap140.scs");
 	prefs140[2]=QDir::toNativeSeparators(m_prefsLocation+"prefs140.xml");
 	prefs140[3]=QDir::toNativeSeparators(m_prefsLocation+"scripter140.rc");
+	prefs140[4]=QDir::toNativeSeparators(m_prefsLocation+"checkfonts.xml");
 	prefs150[0]=QDir::toNativeSeparators(m_prefsLocation+"scribus150.rc");
 	prefs150[1]=QDir::toNativeSeparators(m_prefsLocation+"scrap150.scs");
 	prefs150[2]=QDir::toNativeSeparators(m_prefsLocation+"prefs150.xml");
 	prefs150[3]=QDir::toNativeSeparators(m_prefsLocation+"scripter150.rc");
+	prefs150[4]=QDir::toNativeSeparators(m_prefsLocation+"checkfonts150.xml");
 
-	bool existsPrefs135[4], existsPrefs140[4], existsPrefs150[4];
-	for (uint i=0;i<4;++i)
+	bool existsPrefs135[5], existsPrefs140[5], existsPrefs150[5];
+	for (uint i=0;i<5;++i)
 	{
 		existsPrefs135[i]=QFile::exists(prefs135[i]);
 		existsPrefs140[i]=QFile::exists(prefs140[i]);
@@ -833,7 +840,7 @@ bool PrefsManager::copyOldAppConfigAndData()
 					QMessageBox::Yes	// batch default
 				)==QMessageBox::Yes )
 			{
-				for (uint i=0;i<4;++i)
+				for (uint i=0;i<5;++i)
 				{
 					if (existsPrefs135[i] && !existsPrefs150[i])
 						copyFile(prefs135[i], prefs150[i]);
@@ -845,7 +852,7 @@ bool PrefsManager::copyOldAppConfigAndData()
 	}
 	else if(existsPrefs140[0])
 	{
-		for (uint i=0;i<4;++i)
+		for (uint i=0;i<5;++i)
 		{
 			if (existsPrefs140[i] && !existsPrefs150[i])
 				copyFile(prefs140[i], prefs150[i]);
@@ -853,7 +860,7 @@ bool PrefsManager::copyOldAppConfigAndData()
 	}
 	else if(existsPrefs135[0])
 	{
-		for (uint i=0;i<4;++i)
+		for (uint i=0;i<5;++i)
 		{
 			if (existsPrefs135[i] && !existsPrefs150[i])
 				copyFile(prefs135[i], prefs150[i]);
