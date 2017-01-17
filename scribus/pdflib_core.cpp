@@ -2284,10 +2284,28 @@ void PDFLibCore::PDF_Begin_WriteUsedFonts(SCFonts &AllFonts, const QMap<QString,
 				
 				ScFace::FaceEncoding gl;
 				face.glyphNames(gl);
+
+				// #14550 : for TTF fonts, we already avoid using the Postscript glyph name table
+				// as it is notoriously unreliable. We hence retrieve glyph names using unicode cmap
+				// and adobe glyph names uniXXXX convention. Unfortunately we may still not get all
+				// required glyph names and some glyphs may not have a name anyway. So check we have
+				// ps names for all glyphs we need and if not, then use CID encoding
+				bool hasNeededGlyphNames = face.hasNames() && (gl.count() >= usedGlyphs.count());
+				if ((fformat == ScFace::SFNT || fformat == ScFace::TTCF))
+				{
+					QMap<uint, FPointArray>::const_iterator it;
+					for (it = usedGlyphs.begin(); it != usedGlyphs.end(); ++it)
+					{
+						int glyphIndex = it.key();
+						hasNeededGlyphNames &= gl.contains(glyphIndex);
+						if (!hasNeededGlyphNames)
+							break;
+					}
+				}
 				
 				QByteArray baseFont = Pdf::toName(sanitizeFontName(face.psName()));
 				
-				if ((face.isSymbolic() || !face.hasNames() || Options.Version == PDFOptions::PDFVersion_X4 || face.type() == ScFace::OTF) &&
+				if ((face.isSymbolic() || !hasNeededGlyphNames || Options.Version == PDFOptions::PDFVersion_X4 || face.type() == ScFace::OTF) &&
 					(fformat == ScFace::SFNT || fformat == ScFace::TTCF))
 				{
 					pdfFont = PDF_EncodeCidFont(fontName, face, baseFont, fontDescriptor, gl, QMap<uint,uint>());
