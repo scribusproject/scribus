@@ -1919,7 +1919,7 @@ void ActionManager::createDefaultShortcuts()
 	defKeys.insert("editSelectAllOnLayer", Qt::CTRL+Qt::ALT+Qt::Key_A);
 	defKeys.insert("editDeselectAll", Qt::CTRL+Qt::SHIFT+Qt::Key_A);
 	defKeys.insert("editSearchReplace", Qt::CTRL+Qt::Key_F);
-	defKeys.insert("editStyles", QKeySequence(Qt::Key_F3));
+	defKeys.insert("editStyles", QKeySequence(Qt::Key_F4));
 	defKeys.insert("styleImageEffects", Qt::CTRL+Qt::Key_E);
 
 	//Item Menu
@@ -1946,7 +1946,7 @@ void ActionManager::createDefaultShortcuts()
 
 	//Tool menu
 	defKeys.insert("toolsProperties", Qt::Key_F2);
-	//defKeys.insert("toolsText", Qt::Key_F2);
+	defKeys.insert("toolsText", Qt::Key_F3);
 	defKeys.insert("toolsLayers", Qt::Key_F6);
 
 	//toolbar only items
