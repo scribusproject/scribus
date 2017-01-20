@@ -230,36 +230,73 @@ void LayerPalette::rebuildList()
 		pb->setIcon(pm);
 		Table->setCellWidget(row, 0, pb);
 		connect(pb, SIGNAL(clicked()), this, SLOT(markLayer()));
-		QCheckBox *cp2 = new QCheckBox(this);
+
+		QWidget *cw1 = new QWidget(Table);
+		QCheckBox *cp1 = new QCheckBox(cw1);
+		cp1->setObjectName(tmp);
+		QHBoxLayout *cl1 = new QHBoxLayout(cw1);
+		cl1->addWidget(cp1);
+		cl1->setAlignment(Qt::AlignCenter);
+		cl1->setContentsMargins(0,0,0,0);
+		Table->setCellWidget(row, 1, cw1);
+		cp1->setChecked(m_Doc->layerVisible(layerID));
+		connect(cp1, SIGNAL(clicked()), this, SLOT(visibleLayer()));
+
+		QWidget *cw2 = new QWidget(Table);
+		QCheckBox *cp2 = new QCheckBox(cw2);
 		cp2->setObjectName(tmp);
-		connect(cp2, SIGNAL(clicked()), this, SLOT(visibleLayer()));
-		Table->setCellWidget(row, 1, cp2);
-		cp2->setChecked(m_Doc->layerVisible(layerID));
-		QCheckBox *cp = new QCheckBox(this);
-		cp->setObjectName(tmp);
-		Table->setCellWidget(row, 2, cp);
-		cp->setChecked(m_Doc->layerPrintable(layerID));
-		connect(cp, SIGNAL(clicked()), this, SLOT(printLayer()));
-		QCheckBox *cp3 = new QCheckBox(this);
+		cp2->setChecked(m_Doc->layerPrintable(layerID));
+		QHBoxLayout *cl2 = new QHBoxLayout(cw2);
+		cl2->addWidget(cp2);
+		cl2->setAlignment(Qt::AlignCenter);
+		cl2->setContentsMargins(0,0,0,0);
+		Table->setCellWidget(row, 2, cw2);
+		connect(cp2, SIGNAL(clicked()), this, SLOT(printLayer()));
+
+		QWidget *cw3 = new QWidget(Table);
+		QCheckBox *cp3 = new QCheckBox(cw3);
 		cp3->setObjectName(tmp);
-		connect(cp3, SIGNAL(clicked()), this, SLOT(lockLayer()));
-		Table->setCellWidget(row, 3, cp3);
 		cp3->setChecked(m_Doc->layerLocked(layerID));
-		QCheckBox *cp4 = new QCheckBox(this);
+		QHBoxLayout *cl3 = new QHBoxLayout(cw3);
+		cl3->addWidget(cp3);
+		cl3->setAlignment(Qt::AlignCenter);
+		cl3->setContentsMargins(0,0,0,0);
+		Table->setCellWidget(row, 3, cw3);
+		connect(cp3, SIGNAL(clicked()), this, SLOT(lockLayer()));
+
+		QWidget *cw4 = new QWidget(Table);
+		QCheckBox *cp4 = new QCheckBox(cw4);
 		cp4->setObjectName(tmp);
-		connect(cp4, SIGNAL(clicked()), this, SLOT(flowToggleLayer()));
-		Table->setCellWidget(row, 4, cp4);
 		cp4->setChecked(m_Doc->layerFlow(layerID));
-		QCheckBox *cp5 = new QCheckBox(this);
+		QHBoxLayout *cl4 = new QHBoxLayout(cw4);
+		cl4->addWidget(cp4);
+		cl4->setAlignment(Qt::AlignCenter);
+		cl4->setContentsMargins(0,0,0,0);
+		Table->setCellWidget(row, 4, cw4);
+		connect(cp4, SIGNAL(clicked()), this, SLOT(flowToggleLayer()));
+
+		QWidget *cw5 = new QWidget(Table);
+		QCheckBox *cp5 = new QCheckBox(cw5);
 		cp5->setObjectName(tmp);
-		connect(cp5, SIGNAL(clicked()), this, SLOT(outlineToggleLayer()));
-		Table->setCellWidget(row, 5, cp5);
 		cp5->setChecked(m_Doc->layerOutline(layerID));
-		QCheckBox *cp6 = new QCheckBox(this);
+		QHBoxLayout *cl5 = new QHBoxLayout(cw5);
+		cl5->addWidget(cp5);
+		cl5->setAlignment(Qt::AlignCenter);
+		cl5->setContentsMargins(0,0,0,0);
+		Table->setCellWidget(row, 5, cw5);
+		connect(cp5, SIGNAL(clicked()), this, SLOT(outlineToggleLayer()));
+
+		QWidget *cw6 = new QWidget(Table);
+		QCheckBox *cp6 = new QCheckBox(cw6);
 		cp6->setObjectName(tmp);
-		connect(cp6, SIGNAL(clicked()), this, SLOT(selectToggleLayer()));
-		Table->setCellWidget(row, 6, cp6);
 		cp6->setChecked(m_Doc->layerSelectable(layerID));
+		QHBoxLayout *cl6 = new QHBoxLayout(cw6);
+		cl6->addWidget(cp6);
+		cl6->setAlignment(Qt::AlignCenter);
+		cl6->setContentsMargins(0,0,0,0);
+		Table->setCellWidget(row, 6, cw6);
+		connect(cp6, SIGNAL(clicked()), this, SLOT(selectToggleLayer()));
+
 		Table->setItem(row, 7, new QTableWidgetItem(m_Doc->layerName(layerID)));
 	}
 	connect(Table, SIGNAL(cellChanged(int, int)), this, SLOT(changeName(int, int)));
