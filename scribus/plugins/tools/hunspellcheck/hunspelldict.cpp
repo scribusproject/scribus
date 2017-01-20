@@ -8,7 +8,10 @@ for which a new license (GPL+exception) is in place.
 #include "hunspelldict.h"
 
 #include <hunspell/hunspell.hxx>
+#include <QDebug>
 #include <QTextCodec>
+
+#include "scconfig.h"
 
 HunspellDict::HunspellDict(const QString& affPath, const QString& dictPath)
 {
@@ -38,6 +41,7 @@ HunspellDict::~HunspellDict()
 	}
 }
 
+#ifndef HUNSPELL_NEWAPI
 int HunspellDict::spell(QString word)
 {
 	if (m_hunspell)
@@ -57,3 +61,24 @@ QStringList HunspellDict::suggest(QString word)
 
 	return replacements;
 }
+#else
+int HunspellDict::spell(QString word)
+{
+	if (!m_hunspell)
+		return -1;
+	std::string s = word.toStdString();
+	return m_hunspell->spell(s);
+}
+
+QStringList HunspellDict::suggest(QString word)
+{
+	QStringList replacements;
+	if (!m_hunspell)
+		return replacements;
+	std::string s = word.toStdString();
+	std::vector<std::string> sugglist = m_hunspell->suggest(s);
+	for (uint i = 0; i < sugglist.size(); ++i)
+		replacements << QString::fromStdString(sugglist[i]);
+	return replacements;
+}
+#endif

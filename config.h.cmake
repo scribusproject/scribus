@@ -38,3 +38,4 @@
 #cmakedefine GMAGICK_FOUND 1
 #cmakedefine WITH_TESTS 1
 #cmakedefine HAVE_REVENGE 1
+#cmakedefine HUNSPELL_NEWAPI "@HUNSPELL_NEWAPI@"
