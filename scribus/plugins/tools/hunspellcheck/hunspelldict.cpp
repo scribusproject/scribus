@@ -66,7 +66,7 @@ int HunspellDict::spell(QString word)
 {
 	if (!m_hunspell)
 		return -1;
-	std::string s = word.toStdString();
+	std::string s = m_codec->fromUnicode(word).toStdString();
 	return m_hunspell->spell(s);
 }
 
@@ -78,7 +78,7 @@ QStringList HunspellDict::suggest(QString word)
 	std::string s = word.toStdString();
 	std::vector<std::string> sugglist = m_hunspell->suggest(s);
 	for (uint i = 0; i < sugglist.size(); ++i)
-		replacements << QString::fromStdString(sugglist[i]);
+		replacements << m_codec->toUnicode(QByteArray::fromStdString(sugglist[i]));
 	return replacements;
 }
 #endif
