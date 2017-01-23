@@ -75,7 +75,7 @@ void ResizeGesture::prepare(Canvas::FrameHandle framehandle)
 		PageItem* currItem = m_doc->m_Selection->itemAt(0);
 		m_bounds = QRectF(-currItem->visualLineWidth() / 2.0, -currItem->visualLineWidth() / 2.0, currItem->visualWidth(), currItem->visualHeight());
 		QTransform mm = currItem->getTransform();
-		QPointF itPos = mm.map(QPointF(0, 0));
+		QPointF itPos = mm.map(QPointF(-currItem->visualLineWidth() / 2.0, -currItem->visualLineWidth() / 2.0));
 		double m_scaleX, m_scaleY;
 		getScaleFromMatrix(mm, m_scaleX, m_scaleY);
 		QTransform m;
@@ -131,38 +131,11 @@ void ResizeGesture::deactivate(bool forgesture)
 void ResizeGesture::drawControls(QPainter* p) 
 {
 	QColor drawColor = qApp->palette().color(QPalette::Active, QPalette::Highlight);
-	QRectF localRect;
-	switch (m_handle)
-	{
-		case Canvas::NORTHWEST:
-			localRect = m_canvas->canvasToLocal(m_bounds.normalized().adjusted(0, 0, -m_extraX, -m_extraY));
-			break;
-		case Canvas::WEST:
-			localRect = m_canvas->canvasToLocal(m_bounds.normalized().adjusted(0, -m_extraY, -m_extraX, -m_extraY));
-			break;
-		case Canvas::NORTH:
-			localRect = m_canvas->canvasToLocal(m_bounds.normalized().adjusted(-m_extraX, 0, -m_extraX, -m_extraY));
-			break;
-		case Canvas::NORTHEAST:
-			localRect = m_canvas->canvasToLocal(m_bounds.normalized().adjusted(-m_extraX, 0, 0, -m_extraY));
-			break;
-		case Canvas::EAST:
-			localRect = m_canvas->canvasToLocal(m_bounds.normalized().adjusted(-m_extraX, -m_extraY, 0, -m_extraY));
-			break;
-		case Canvas::SOUTHEAST:
-			localRect = m_canvas->canvasToLocal(m_bounds.normalized().adjusted(-m_extraX, -m_extraY, 0, 0));
-			break;
-		case Canvas::SOUTH:
-			localRect = m_canvas->canvasToLocal(m_bounds.normalized().adjusted(-m_extraX, -m_extraY, -m_extraX, 0));
-			break;
-		case Canvas::SOUTHWEST:
-			localRect = m_canvas->canvasToLocal(m_bounds.normalized().adjusted(0, -m_extraY, -m_extraX, 0));
-			break;
-		default:
-			break;
-	}
+
+	QRectF localRect = m_canvas->canvasToLocal(m_bounds.normalized());
 	if (m_doc->m_Selection->isMultipleSelection())
 		localRect = m_canvas->canvasToLocalF(m_bounds.normalized());
+
 	p->save();
 	if (m_rotation != 0)
 	{
@@ -352,9 +325,9 @@ void ResizeGesture::doResize(bool scaleContent)
 		else if (currItem->itemType() == PageItem::ImageFrame && currItem->imageIsAvailable && !currItem->fitImageToFrame())
 		{
 			QTransform mm = currItem->getTransform();
-			QPointF itPos = mm.map(QPointF(0, 0));
-			double dx = ((newBounds.x() + m_extraX) - itPos.x());
-			double dy = ((newBounds.y() + m_extraY) - itPos.y());
+			QPointF itPos = mm.map(QPointF(-m_extraX, -m_extraY));
+			double dx = newBounds.x() - itPos.x();
+			double dy = newBounds.y() - itPos.y();
 			if (currItem->isGroupChild())
 			{
 				double sx, sy;
@@ -414,7 +387,7 @@ void ResizeGesture::doResize(bool scaleContent)
 			}
 		}
 		QTransform mm = currItem->getTransform();
-		QPointF itPos = mm.map(QPointF(0, 0));
+		QPointF itPos = mm.map(QPointF(-m_extraX, -m_extraY));
 		double m_scaleX, m_scaleY;
 		getScaleFromMatrix(mm, m_scaleX, m_scaleY);
 		double dx = (itPos.x() - newBounds.x()) / m_scaleX;
@@ -429,7 +402,7 @@ void ResizeGesture::doResize(bool scaleContent)
 
 		/*QTransform mm1 = currItem->getTransform();
 		QTransform mm2 = mm1.inverted();
-		QPointF itPos = mm1.map(QPointF(0, 0));
+		QPointF itPos = mm1.map(QPointF(-m_extraX, -m_extraY));
 		double m_scaleX, m_scaleY;
 		getScaleFromMatrix(mm1, m_scaleX, m_scaleY);
 		QPointF newPos = mm2.map(itPos) - mm2.map(newBounds.topLeft());*/
@@ -440,45 +413,6 @@ void ResizeGesture::doResize(bool scaleContent)
 		/*currItem->moveBy(-newPos.x(), -newPos.y(), true);
 		currItem->setWidth(newBounds.width() / m_scaleX - m_extraWidth);
 		currItem->setHeight(newBounds.height() / m_scaleY - m_extraHeight);*/
-
-		switch (m_handle)
-		{
-			case Canvas::NORTH:
-				currItem->moveBy(0, m_extraY, true);
-				currItem->setHeight(currItem->height() - m_extraY);
-				break;
-			case Canvas::NORTHEAST:
-				currItem->moveBy(0, m_extraY, true);
-				currItem->setHeight(currItem->height() - m_extraY);
-				currItem->setWidth(currItem->width() + m_extraX);
-				break;
-			case Canvas::EAST:
-				currItem->setWidth(currItem->width() + m_extraX);
-				break;
-			case Canvas::SOUTHEAST:
-				currItem->setWidth(currItem->width() + m_extraX);
-				currItem->setHeight(currItem->height() + m_extraY);
-				break;
-			case Canvas::SOUTH:
-				currItem->setHeight(currItem->height() + m_extraY);
-				break;
-			case Canvas::SOUTHWEST:
-				currItem->moveBy(m_extraX, 0, true);
-				currItem->setWidth(currItem->width() - m_extraX);
-				currItem->setHeight(currItem->height() + m_extraY);
-				break;
-			case Canvas::WEST:
-				currItem->moveBy(m_extraX, 0, true);
-				currItem->setWidth(currItem->width() - m_extraX);
-				break;
-			case Canvas::NORTHWEST:
-				currItem->moveBy(m_extraX, m_extraY, true);
-				currItem->setWidth(currItem->width() - m_extraX);
-				currItem->setHeight(currItem->height() - m_extraY);
-				break;
-			default:
-				break;
-		}
 
 		/*if (currItem->imageFlippedH())
 			currItem->moveBy(-currItem->width(), 0);
