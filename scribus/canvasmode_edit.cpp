@@ -427,7 +427,7 @@ void CanvasMode_Edit::mouseMoveEvent(QMouseEvent *m)
 				}
 				else
 				{
-					m_view->setCursor(IconManager::instance()->loadCursor("HandC.xpm"));
+					m_view->setCursor(IconManager::instance()->loadCursor("handc.png"));
 					QTransform mm1 = currItem->getTransform();
 					QTransform mm2 = mm1.inverted();
 					QPointF rota = mm2.map(QPointF(newX, newY)) - mm2.map(QPointF(Mxp, Myp));
@@ -498,7 +498,7 @@ void CanvasMode_Edit::mouseMoveEvent(QMouseEvent *m)
 							if (m->modifiers() & Qt::ShiftModifier)
 								m_view->setCursor(IconManager::instance()->loadCursor("Rotieren2.png"));
 							else
-								m_view->setCursor(IconManager::instance()->loadCursor("HandC.xpm"));
+								m_view->setCursor(IconManager::instance()->loadCursor("handc.png"));
 						}
 					}
 				}

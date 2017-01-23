@@ -1050,7 +1050,7 @@ bool CanvasMode_NodeEdit::handleNodeEditMove(QMouseEvent* m, QRect, PageItem* cu
 					if (m_canvas->hitsCanvasPoint(m->globalPos(), FPoint(pl.x(), pl.y())))
 					{
 						if (m_doc->nodeEdit.submode() == NodeEditContext::MOVE_POINT)
-							m_view->setCursor(IconManager::instance()->loadCursor("HandC.xpm"));
+							m_view->setCursor(IconManager::instance()->loadCursor("handc.png"));
 						else if (m_doc->nodeEdit.submode() == NodeEditContext::ADD_POINT)
 							m_view->setCursor(IconManager::instance()->loadCursor("AddPoint.png", 1, 1));
 						else if (m_doc->nodeEdit.submode() == NodeEditContext::SPLIT_PATH)

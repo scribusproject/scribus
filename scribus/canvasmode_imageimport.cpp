@@ -170,12 +170,12 @@ void CanvasMode_ImageImport::mouseMoveEvent(QMouseEvent *m)
 	{
 		PageItem_ImageFrame *currItem;
 		if((currItem = item->asImageFrame()) != NULL)
-			m_view->setCursor(IconManager::instance()->loadCursor("DrawImageFrame.xpm"));
+			m_view->setCursor(IconManager::instance()->loadCursor("drawimageframe.png"));
 		else
 			m_view->setCursor(QCursor(Qt::ArrowCursor));
 	}
 	else
-		m_view->setCursor(IconManager::instance()->loadCursor("DrawImageFrame.xpm"));
+		m_view->setCursor(IconManager::instance()->loadCursor("drawimageframe.png"));
 	if (commonMouseMove(m))
 		return;
 }

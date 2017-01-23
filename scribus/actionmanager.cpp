@@ -76,7 +76,7 @@ void ActionManager::init(ScribusMainWindow *mw)
 	im = IconManager::instance();
 
 #ifdef Q_OS_MAC
-	noIcon = im->loadPixmap("noicon.xpm");
+	noIcon = im->loadPixmap("noicon.png");
 #endif
 
 	createActions();
@@ -844,7 +844,7 @@ void ActionManager::initToolsMenuActions()
 	name="toolsInsertSpiral";
 	scrActions->insert(name, new ScrAction(ScrAction::DataInt, im->loadPixmap("16/draw-spiral.png"), im->loadPixmap("22/draw-spiral.png"), "", defaultKey(name), mainWindow, modeDrawSpiral));
 	name="toolsInsertLine";
-	scrActions->insert(name, new ScrAction(ScrAction::DataInt, im->loadPixmap("Stift16.xpm"), im->loadPixmap("Stift.xpm"), "", defaultKey(name), mainWindow, modeDrawLine));
+	scrActions->insert(name, new ScrAction(ScrAction::DataInt, im->loadPixmap("Stift16.png"), im->loadPixmap("stift.png"), "", defaultKey(name), mainWindow, modeDrawLine));
 	name="toolsInsertBezier";
 	scrActions->insert(name, new ScrAction(ScrAction::DataInt, im->loadPixmap("16/draw-path.png"), im->loadPixmap("22/draw-path.png"), "", defaultKey(name), mainWindow, modeDrawBezierLine));
 	name="toolsInsertFreehandLine";
@@ -860,7 +860,7 @@ void ActionManager::initToolsMenuActions()
 	name="toolsZoomOut";
 	scrActions->insert(name, new ScrAction(im->loadPixmap("16/zoom-out.png"), im->loadPixmap("22/zoom-out.png"), "", defaultKey(name), mainWindow));
 	name="toolsEditContents";
-	scrActions->insert(name, new ScrAction(ScrAction::DataInt, im->loadPixmap("Editm16.png"), im->loadPixmap("Editm.xpm"), "", defaultKey(name), mainWindow, modeEdit));
+	scrActions->insert(name, new ScrAction(ScrAction::DataInt, im->loadPixmap("Editm16.png"), im->loadPixmap("editm.png"), "", defaultKey(name), mainWindow, modeEdit));
 	name="toolsEditWithStoryEditor";
 	scrActions->insert(name, new ScrAction(ScrAction::DataInt, im->loadPixmap("16/story-editor.png"), im->loadPixmap("22/story-editor.png"), "", defaultKey(name), mainWindow, modeStoryEditor));
 	name="toolsLinkTextFrame";

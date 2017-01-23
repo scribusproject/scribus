@@ -22,7 +22,7 @@ SMCStyleWidget::SMCStyleWidget(QWidget *parent) : QWidget(),
 	setupUi(this);
 
 	IconManager* im = IconManager::instance();
-	fontSizeLabel_->setPixmap(im->loadPixmap("Zeichen.xpm"));
+	fontSizeLabel_->setPixmap(im->loadPixmap("zeichen.png"));
 	trackingLabel_->setPixmap(im->loadPixmap("textkern.png"));
 	widthSpaceLabel->setPixmap(im->loadPixmap("spacewidth.png"));
 	baselineOffsetLabel_->setPixmap(im->loadPixmap("textbase.png"));

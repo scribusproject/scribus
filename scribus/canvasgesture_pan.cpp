@@ -30,7 +30,7 @@ PanGesture::PanGesture (CanvasMode* parent) : CanvasGesture(parent)
 void PanGesture::activate(bool fromGesture)
 {
 	m_cursor = m_view->cursor();
-	m_view->setCursor(IconManager::instance()->loadCursor("HandC.xpm"));
+	m_view->setCursor(IconManager::instance()->loadCursor("handc.png"));
 }
 
 void PanGesture::deactivate(bool forgesture)

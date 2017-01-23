@@ -516,41 +516,41 @@ void ScribusView::setCursorBasedOnAppMode(int appMode)
 		case modeDrawSpiral:
 			if (docSelectionCount!=0)
 				Deselect(true);
-			setCursor(im->loadCursor("DrawFrame.xpm"));
+			setCursor(im->loadCursor("drawframe.png"));
 			break;
 		case modeDrawImage:
 			if (docSelectionCount!=0)
 				Deselect(true);
-			setCursor(im->loadCursor("DrawImageFrame.xpm"));
+			setCursor(im->loadCursor("drawimageframe.png"));
 			break;
 		case modeDrawLatex:
 			if (docSelectionCount!=0)
 				Deselect(true);
-			setCursor(im->loadCursor("DrawLatexFrame.xpm"));
+			setCursor(im->loadCursor("drawlatexframe.png"));
 			break;
 		case modeDrawText:
 			if (docSelectionCount!=0)
 				Deselect(true);
-			setCursor(im->loadCursor("DrawTextFrame.xpm"));
+			setCursor(im->loadCursor("drawtextframe.png"));
 			break;
 		case modeDrawTable2:
 			if (docSelectionCount!=0)
 				Deselect(true);
-			setCursor(im->loadCursor("DrawTable.xpm"));
+			setCursor(im->loadCursor("drawtable.png"));
 			break;
 		case modeDrawRegularPolygon:
 			if (docSelectionCount!=0)
 				Deselect(true);
-			setCursor(im->loadCursor("DrawPolylineFrame.xpm"));
+			setCursor(im->loadCursor("drawpolylineframe.png"));
 			break;
 		case modeMagnifier:
 			if (docSelectionCount!=0)
 				Deselect(true);
 			Magnify = true;
-			setCursor(im->loadCursor("LupeZ.xpm"));
+			setCursor(im->loadCursor("lupez.png"));
 			break;
 		case modePanning:
-			setCursor(im->loadCursor("HandC.xpm"));
+			setCursor(im->loadCursor("handc.png"));
 			break;
 		case modeDrawLine:
 		case modeDrawBezierLine:
@@ -1754,7 +1754,7 @@ void ScribusView::dragTimerTimeOut()
 {
 	m_dragTimerFired = true;
 	// #0007865
-// 	qApp->changeOverrideCursor(QCursor(loadIcon("DragPix.xpm")));
+// 	qApp->changeOverrideCursor(QCursor(loadIcon("dragpix.png")));
 }
 
 void ScribusView::HandleCurs(PageItem *currItem, QRect mpo)

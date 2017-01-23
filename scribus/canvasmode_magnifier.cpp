@@ -166,12 +166,12 @@ void CanvasMode_Magnifier::mousePressEvent(QMouseEvent *m)
 	if ((m->modifiers() == Qt::ShiftModifier) || (m->button() == Qt::RightButton))
 	{
 		m_view->Magnify = false;
-		m_view->setCursor(IconManager::instance()->loadCursor("LupeZm.xpm"));
+		m_view->setCursor(IconManager::instance()->loadCursor("lupezm.png"));
 	}
 	else
 	{
 		m_view->Magnify = true;
-		m_view->setCursor(IconManager::instance()->loadCursor("LupeZ.xpm"));
+		m_view->setCursor(IconManager::instance()->loadCursor("lupez.png"));
 	}
 	m_Mxp = mousePointDoc.x(); //m->globalPos().x();
 	m_Myp = mousePointDoc.y(); //m->globalPos().y();
@@ -226,9 +226,9 @@ void CanvasMode_Magnifier::mouseReleaseEvent(QMouseEvent *m)
 			else
 			{
 				if (m->modifiers() & Qt::ShiftModifier)
-					m_view->setCursor(IconManager::instance()->loadCursor("LupeZm.xpm"));
+					m_view->setCursor(IconManager::instance()->loadCursor("lupezm.png"));
 				else
-					m_view->setCursor(IconManager::instance()->loadCursor("LupeZ.xpm"));
+					m_view->setCursor(IconManager::instance()->loadCursor("lupez.png"));
 			}
 		}
 	}

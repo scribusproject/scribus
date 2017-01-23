@@ -780,22 +780,22 @@ QCursor CanvasMode::modeCursor()
 		case modeDrawShapes:
 		case modeDrawArc:
 		case modeDrawSpiral:
-			cursor = im->loadCursor("DrawFrame.xpm");
+			cursor = im->loadCursor("drawframe.png");
 			break;
 		case modeDrawImage:
-			cursor = im->loadCursor("DrawImageFrame.xpm");
+			cursor = im->loadCursor("drawimageframe.png");
 			break;
 		case modeDrawLatex:
-			cursor = im->loadCursor("DrawLatexFrame.xpm");
+			cursor = im->loadCursor("drawlatexframe.png");
 			break;
 		case modeDrawText:
-			cursor = im->loadCursor("DrawTextFrame.xpm");
+			cursor = im->loadCursor("drawtextframe.png");
 			break;
 		case modeDrawTable2:
-			cursor = im->loadCursor("DrawTable.xpm");
+			cursor = im->loadCursor("drawtable.png");
 			break;
 		case modeDrawRegularPolygon:
-			cursor = im->loadCursor("DrawPolylineFrame.xpm");
+			cursor = im->loadCursor("drawpolylineframe.png");
 			break;
 		case modeDrawLine:
 		case modeDrawBezierLine:
@@ -805,19 +805,19 @@ QCursor CanvasMode::modeCursor()
 			cursor = im->loadCursor("DrawFreeLine.png", 0, 31);
 			break;
 		case modeDrawCalligraphicLine:
-			cursor = im->loadCursor("DrawCalligraphy.xpm", 4, 4);
+			cursor = im->loadCursor("drawcalligraphy.png", 4, 4);
 			break;
 		case modeImportObject:
-			cursor = im->loadCursor("DragPix.xpm");
+			cursor = im->loadCursor("dragpix.png");
 			break;
 		case modeMagnifier:
 			if (m_view->Magnify)
-				cursor = im->loadCursor("LupeZ.xpm");
+				cursor = im->loadCursor("lupez.png");
 			else
-				cursor = im->loadCursor("LupeZm.xpm");
+				cursor = im->loadCursor("lupezm.png");
 			break;
 		case modePanning:
-			cursor = im->loadCursor("HandC.xpm");
+			cursor = im->loadCursor("handc.png");
 			break;
 		case modeEyeDropper:
 			cursor = im->loadCursor("colorpickercursor.png", 0, 31);
@@ -860,22 +860,22 @@ void CanvasMode::setModeCursor()
 		case modeDrawShapes:
 		case modeDrawArc:
 		case modeDrawSpiral:
-			m_view->setCursor(im->loadCursor("DrawFrame.xpm"));
+			m_view->setCursor(im->loadCursor("drawframe.png"));
 			break;
 		case modeDrawImage:
-			m_view->setCursor(im->loadCursor("DrawImageFrame.xpm"));
+			m_view->setCursor(im->loadCursor("drawimageframe.png"));
 			break;
 		case modeDrawLatex:
-			m_view->setCursor(im->loadCursor("DrawLatexFrame.xpm"));
+			m_view->setCursor(im->loadCursor("drawlatexframe.png"));
 			break;
 		case modeDrawText:
-			m_view->setCursor(im->loadCursor("DrawTextFrame.xpm"));
+			m_view->setCursor(im->loadCursor("drawtextframe.png"));
 			break;
 		case modeDrawTable2:
-			m_view->setCursor(im->loadCursor("DrawTable.xpm"));
+			m_view->setCursor(im->loadCursor("drawtable.png"));
 			break;
 		case modeDrawRegularPolygon:
-			m_view->setCursor(im->loadCursor("DrawPolylineFrame.xpm"));
+			m_view->setCursor(im->loadCursor("drawpolylineframe.png"));
 			break;
 		case modeDrawLine:
 		case modeDrawBezierLine:
@@ -885,19 +885,19 @@ void CanvasMode::setModeCursor()
 			m_view->setCursor(im->loadCursor("DrawFreeLine.png", 0, 31));
 			break;
 		case modeDrawCalligraphicLine:
-			m_view->setCursor(im->loadCursor("DrawCalligraphy.xpm", 4, 4));
+			m_view->setCursor(im->loadCursor("drawcalligraphy.png", 4, 4));
 			break;
 		case modeImportObject:
-			m_view->setCursor(im->loadCursor("DragPix.xpm"));
+			m_view->setCursor(im->loadCursor("dragpix.png"));
 			break;
 		case modeMagnifier:
 			if (m_view->Magnify)
-				m_view->setCursor(im->loadCursor("LupeZ.xpm"));
+				m_view->setCursor(im->loadCursor("lupez.png"));
 			else
-				m_view->setCursor(im->loadCursor("LupeZm.xpm"));
+				m_view->setCursor(im->loadCursor("lupezm.png"));
 			break;
 		case modePanning:
-			m_view->setCursor(im->loadCursor("HandC.xpm"));
+			m_view->setCursor(im->loadCursor("handc.png"));
 			break;
 		case modeEyeDropper:
 			m_view->setCursor(im->loadCursor("colorpickercursor.png", 0, 31));
@@ -1714,7 +1714,7 @@ void CanvasMode::commonkeyReleaseEvent(QKeyEvent *e)
 	if ((m_doc->appMode == modePanning) && (e->key() == Qt::Key_Control) && (QApplication::mouseButtons() & Qt::RightButton))
 		m_view->requestMode(modeNormal);
 	if (m_doc->appMode == modeMagnifier)
-		m_view->setCursor(IconManager::instance()->loadCursor("LupeZ.xpm"));
+		m_view->setCursor(IconManager::instance()->loadCursor("lupez.png"));
 	if (e->isAutoRepeat() || !m_arrowKeyDown)
 		return;
 	switch(e->key())

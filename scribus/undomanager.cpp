@@ -803,7 +803,7 @@ void UndoManager::initIcons()
 	UndoManager::IImageFrame      = new QPixmap(iconDir + "16/insert-image.png");
 	UndoManager::ITextFrame       = new QPixmap(iconDir + "16/insert-text-frame.png");
 	UndoManager::ILatexFrame      = new QPixmap(iconDir + "16/insert-latex.png");
-	UndoManager::ILine            = new QPixmap(iconDir + "Stift.xpm");
+	UndoManager::ILine            = new QPixmap(iconDir + "stift.png");
 	UndoManager::IPolygon         = new QPixmap(iconDir + "16/draw-polygon.png");
 	UndoManager::IPolyline        = new QPixmap(iconDir + "16/draw-bezier-curves.png");
 // 	UndoManager::IPathText        = new QPixmap(iconDir + "?";

@@ -141,7 +141,7 @@ StyleSelect::StyleSelect(QWidget* parent) : QWidget(parent)
 	UnderlinePop->addAction(UnderlineValAct);
 	underlineButton = new QToolButton( this );
 	underlineButton->setText( "" );
-	underlineButton->setIcon(im->loadIcon("Unter.xpm"));
+	underlineButton->setIcon(im->loadIcon("unter.png"));
 	underlineButton->setCheckable( true );
 	underlineButton->setMenu(UnderlinePop);
 	underlineButton->setPopupMode(QToolButton::DelayedPopup);
@@ -156,12 +156,12 @@ StyleSelect::StyleSelect(QWidget* parent) : QWidget(parent)
 
 	subscriptButton = new QToolButton( this );
 	subscriptButton->setText( "" );
-	subscriptButton->setIcon(im->loadIcon("Tief.xpm"));
+	subscriptButton->setIcon(im->loadIcon("tief.png"));
 	subscriptButton->setCheckable( true );
 	ssLayout->addWidget( subscriptButton );
 	superscriptButton = new QToolButton( this );
 	superscriptButton->setText( "" );
-	superscriptButton->setIcon(im->loadIcon("Hoch.xpm"));
+	superscriptButton->setIcon(im->loadIcon("hoch.png"));
 	superscriptButton->setCheckable( true );
 	ssLayout->addWidget( superscriptButton );
 
@@ -173,7 +173,7 @@ StyleSelect::StyleSelect(QWidget* parent) : QWidget(parent)
 	ssLayout->addWidget( allcapsButton );
 	smallcapsButton = new QToolButton( this );
 	smallcapsButton->setText("");
-	smallcapsButton->setIcon(im->loadIcon("Kapital.xpm"));
+	smallcapsButton->setIcon(im->loadIcon("kapital.png"));
 	smallcapsButton->setCheckable( true );
 	ssLayout->addWidget( smallcapsButton );
 
@@ -184,7 +184,7 @@ StyleSelect::StyleSelect(QWidget* parent) : QWidget(parent)
 	StrikePop->addAction(StrikeValAct);
 	strikeoutButton = new QToolButton( this );
 	strikeoutButton->setText( "" );
-	strikeoutButton->setIcon(im->loadIcon("Strike.xpm"));
+	strikeoutButton->setIcon(im->loadIcon("strike.png"));
 	strikeoutButton->setCheckable( true );
 	strikeoutButton->setMenu(StrikePop);
 	strikeoutButton->setPopupMode(QToolButton::DelayedPopup);

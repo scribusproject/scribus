@@ -46,7 +46,7 @@
         <string/>
        </property>
        <property name="pixmap">
-        <pixmap>../../resources/icons/Zeichen.xpm</pixmap>
+        <pixmap>../../resources/icons/zeichen.png</pixmap>
        </property>
        <property name="alignment">
         <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -184,7 +184,7 @@
         <string>Paragraph St&amp;yle:</string>
        </property>
        <property name="pixmap">
-        <pixmap>../../resources/icons/Zeichen.xpm</pixmap>
+        <pixmap>../../resources/icons/zeichen.png</pixmap>
        </property>
       </widget>
      </item>
@@ -237,7 +237,7 @@
         <string>Character St&amp;yle:</string>
        </property>
        <property name="pixmap">
-        <pixmap>../../resources/icons/Zeichen.xpm</pixmap>
+        <pixmap>../../resources/icons/zeichen.png</pixmap>
        </property>
       </widget>
      </item>

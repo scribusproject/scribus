@@ -452,7 +452,7 @@ OutlinePalette::OutlinePalette( QWidget* parent) : ScDockPalette( parent, "Tree"
 	IconManager* im = IconManager::instance();
 	imageIcon = im->loadPixmap("22/insert-image.png");
 	latexIcon = im->loadPixmap("22/insert-latex.png");
-	lineIcon = im->loadPixmap("Stift.xpm");
+	lineIcon = im->loadPixmap("stift.png");
 	textIcon = im->loadPixmap("22/insert-text-frame.png");
 	polylineIcon = im->loadPixmap("22/draw-path.png");
 	polygonIcon = im->loadPixmap("22/draw-polygon.png");
